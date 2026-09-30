@@ -9,16 +9,19 @@ SECTION "Bank24", ROMX[$4000], BANK[$24]
 
 ; ---- words $4000-$4018 (24 bytes) [PROBABLE] 12 words = SRAM addresses: $A084,$A184..$A584 (stride $100) and $A000,$A016,$A02C,$A042,$A058,$A06E (stride $16); entries 4000/4002/4004/4006/4008/400A are loaded by ld hl,$400x at 24:44C9,44E5,4501,451D,4539,4555 (analysis of ld imm16 operands); meaning of the slots not decoded
 
-Table_24_4000:: ; 24:4000
-	dw $A084, $A184, $A284, $A384, $A484, $A584, $A000, $A016
-	dw $A02C, $A042, $A058, $A06E
+PageList_UrlSlotTable:: ; 24:4000
+Table_24_4000::
+	dw $A084, $A184, $A284, $A384, $A484, $A584
+
+PageList_TitleSlotTable:: ; 24:400C
+	dw $A000, $A016, $A02C, $A042, $A058, $A06E
 
 ; ---- code $4018-$42AF (663 bytes) [PROBABLE] 306 insn(s) reached by static flow only; seeds: exec x306; min discovery hops 2; entered by far from 4E:4DB1 (PROBABLE code)
 
-Function_24_4018:: ; 24:4018
+PageList_Main:: ; 24:4018
 	ld b, $15
 	ld c, $03
-	farcall Function_7D_7C00
+	farcall Joypad_SetRepeatTiming
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -33,7 +36,7 @@ Function_24_4018:: ; 24:4018
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
+	farcall Stat_EnableScrollSplit
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -55,7 +58,7 @@ Label_24_4053:: ; 24:4053
 	ld a, b
 	ld [wRam_D524], a
 	ld bc, $0000
-	call Function_24_42F0
+	call PageList_InitScreen
 	push bc
 	di
 	ldh a, [hWRAMBank]
@@ -70,7 +73,7 @@ Label_24_4053:: ; 24:4053
 	pop bc
 	ld c, $00
 
-Label_24_4083:: ; 24:4083
+PageList_Main_Loop:: ; 24:4083
 	push bc
 	farcall Function_00_0956
 	ld a, [wRam_C2CC]
@@ -80,7 +83,7 @@ Label_24_4083:: ; 24:4083
 	bit 1, a
 	jr z, Label_24_40AC
 	pop bc
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
 	ld a, $FF
 	ld de, $0000
@@ -156,9 +159,9 @@ Label_24_4103:: ; 24:4103
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_72_402A
-	farcall Function_72_461A
-	farcall Function_72_444F
+	farcall Dialog_Open
+	farcall Dialog_WaitInputMonitored
+	farcall Dialog_Close
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -171,14 +174,14 @@ Label_24_4103:: ; 24:4103
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	farcall Function_00_09B6
 	ld a, $00
 	ld [wRam_C2C0], a
 	ld [wRam_C2C3], a
-	farcall Function_51_4000
+	farcall CommTime_ShowSummary
 	xor a, a
 	ld [wRam_C1DC], a
 	ld a, [wTimerEnable]
@@ -199,7 +202,7 @@ Label_24_4103:: ; 24:4103
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
+	farcall Stat_EnableScrollSplit
 	push bc
 	di
 	ldh a, [hWRAMBank]
@@ -212,16 +215,16 @@ Label_24_4103:: ; 24:4103
 	ldh [rSVBK], a
 	ei
 	pop bc
-	call Function_24_42F0
-	farcall Function_7F_627C
+	call PageList_InitScreen
+	farcall Sprites_RestoreSlotsFromBank3
 	farcall Function_00_0956
 	call Function_00_0464
 	pop bc
-	jp Label_24_4083
+	jp PageList_Main_Loop
 
 Label_24_41C4:: ; 24:41C4
 	pop bc
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
 	ld a, $FF
 	ld de, $0000
@@ -230,7 +233,7 @@ Label_24_41C4:: ; 24:41C4
 
 Label_24_41D7:: ; 24:41D7
 	call Function_00_0464
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $01
@@ -248,16 +251,16 @@ Label_24_41D7:: ; 24:41D7
 	pop de
 	pop bc
 	push bc
-	call Function_24_4794
-	call Function_24_47FB
+	call PageList_GetActionAvailability
+	call PageList_SetActionIcons
 	pop bc
-	call Function_24_4BCD
+	call PageList_ActionMenu
 	inc a
 	jr nz, Label_24_4219
 	push bc
 	push de
 	push hl
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
 	pop hl
 	pop de
@@ -269,10 +272,10 @@ Label_24_4219:: ; 24:4219
 	xor a, a
 	ld d, $00
 	ld e, $00
-	call Function_24_47FB
+	call PageList_SetActionIcons
 	ld a, $03
 	ld b, $00
-	call Function_24_4A79
+	call PageList_ShowMessage
 	pop bc
 
 Label_24_422A:: ; 24:422A
@@ -291,7 +294,7 @@ Label_24_422A:: ; 24:422A
 	ldh [rSVBK], a
 	pop de
 	pop bc
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
 	ld a, $FF
 	ld de, $0000
@@ -323,8 +326,8 @@ Label_24_4256:: ; 24:4256
 
 Label_24_427A:: ; 24:427A
 	ld a, d
-	call Function_24_483E
-	call Function_24_4453
+	call PageList_RedrawSelection
+	call PageList_UpdateRowSprites
 
 Label_24_4281:: ; 24:4281
 	ldh a, [hJoyPressedRepeat]
@@ -351,20 +354,21 @@ Label_24_4281:: ; 24:4281
 
 Label_24_42A5:: ; 24:42A5
 	ld a, d
-	call Function_24_483E
-	call Function_24_4453
+	call PageList_RedrawSelection
+	call PageList_UpdateRowSprites
 
 Label_24_42AC:: ; 24:42AC
-	jp Label_24_4083
+	jp PageList_Main_Loop
 
 ; ---- code $42AF-$42D1 (34 bytes) [HYPOTHESIS] ret + routine 42B0: copies the NUL-terminated string at $42D1 to $D500 and the one at $42E7 to $D3C0 (WRAM bank 6); the two ld hl immediates point exactly at the strings below, which is why code and text are classified together; entry not proven (no caller found) [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
 	ret
 
+Function_24_42B0:: ; 24:42B0
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, $D500
-	ld hl, $42D1
+	ld hl, Url_GooNeJp
 
 Label_24_42BC:: ; 24:42BC
 	ld a, [hli]
@@ -373,7 +377,7 @@ Label_24_42BC:: ; 24:42BC
 	cp a, $00
 	jr nz, Label_24_42BC
 	ld de, $D3C0
-	ld hl, $42E7
+	ld hl, String_24_42E7
 
 Label_24_42C9:: ; 24:42C9
 	ld a, [hli]
@@ -385,18 +389,18 @@ Label_24_42C9:: ; 24:42C9
 
 ; ---- text $42D1-$42E7 (22 bytes) [PROBABLE] ASCII "http://www.goo.ne.jp/" NUL-terminated, addressed by ld hl,$42D1 at 24:42B9
 
-String_24_42D1:: ; 24:42D1
-	db $68, $74, $74, $70, $3A, $2F, $2F, $77, $77, $77, $2E, $67, $6F, $6F, $2E, $6E
-	db $65, $2E, $6A, $70, $2F, $00
+Url_GooNeJp:: ; 24:42D1
+String_24_42D1::
+	db $68, $74, $74, $70, $3A, $2F, $2F, $77, $77, $77, $2E, $67, $6F, $6F, $2E, $6E, $65, $2E, $6A, $70, $2F, $00 ; "http://www.goo.ne.jp/"
 
 ; ---- text $42E7-$42F0 (9 bytes) [PROBABLE] Shift-JIS NUL-terminated string (ぐーぐー), addressed by ld hl,$42E7 at 24:42C6
 
 String_24_42E7:: ; 24:42E7
-	db $82, $AD, $81, $5B, $82, $AD, $81, $5B, $00
+	db $82, $AD, $81, $5B, $82, $AD, $81, $5B, $00 ; "くーくー"
 
 ; ---- code $42F0-$4B10 (2080 bytes) [PROBABLE] 989 insn(s) reached by static flow only; seeds: exec x989; min discovery hops 3; entered by call from 24:406A (PROBABLE code)
 
-Function_24_42F0:: ; 24:42F0
+PageList_InitScreen:: ; 24:42F0
 	push bc
 	ld a, $02
 	ldh [hWRAMBank], a
@@ -427,7 +431,7 @@ Label_24_4310:: ; 24:4310
 	farcall Function_00_09B6
 	call Function_00_0464
 	ld de, $9301
-	ld hl, $5400
+	ld hl, PageList_Tiles_5400
 	ld a, $24
 	ld b, $92
 	ld c, $40
@@ -441,7 +445,7 @@ Label_24_4310:: ; 24:4310
 	farcall Function_00_0749
 	call Function_00_0464
 	ld de, $8000
-	ld hl, $5EE0
+	ld hl, PageList_Tiles_5EE0
 	ld a, $24
 	ld b, $92
 	ld c, $40
@@ -456,19 +460,19 @@ Label_24_4310:: ; 24:4310
 	call Function_00_0464
 	ld bc, $0040
 	ld de, $D840
-	ld hl, $64E0
+	ld hl, PageList_ObjPalette
 	ld a, $24
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	call Function_00_0464
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $5EA0
+	ld hl, PageList_BgPalette
 	ld a, $24
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	call Function_00_0464
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $5900
+	ld hl, PageList_Tilemap_5900
 	ld a, $24
 	farcall Function_00_08EA
 	call Function_00_0464
@@ -481,7 +485,7 @@ Label_24_4310:: ; 24:4310
 	jr z, Label_24_43D2
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $5BD0
+	ld hl, PageList_Tilemap_5BD0
 	ld a, $24
 	farcall Function_00_08EA
 	call Function_00_0464
@@ -490,23 +494,23 @@ Label_24_43D2:: ; 24:43D2
 	ldh a, [rLCDC]
 	call Function_00_082C
 	call Function_00_0464
-	call Function_24_48C7
+	call PageList_DrawAllTitles
 	call Function_00_0464
 	pop bc
 	push bc
 	ld a, $00
-	call Function_24_483E
+	call PageList_RedrawSelection
 	call Function_00_0464
 	ld c, $00
-	call Function_24_4453
+	call PageList_UpdateRowSprites
 	call Function_00_0464
 	ld a, $03
 	ld b, $00
-	call Function_24_4A79
+	call PageList_ShowMessage
 	call Function_00_0464
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_044B
-	farcall Function_4F_42B4
+	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -521,7 +525,7 @@ Label_24_43D2:: ; 24:43D2
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
+	farcall Stat_EnableScrollSplit
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -531,7 +535,7 @@ Label_24_43D2:: ; 24:43D2
 	ldh [rSVBK], a
 	call Function_00_047A
 	ld hl, $D800
-	farcall Function_4F_404B
+	farcall Palette_UploadBuffer
 	ei
 	call Function_00_0392
 	ldh [hScratchA], a
@@ -542,14 +546,14 @@ Label_24_43D2:: ; 24:43D2
 	pop bc
 	ret
 
-Function_24_4453:: ; 24:4453
+PageList_UpdateRowSprites:: ; 24:4453
 	push bc
-	call Function_24_445C
-	call Function_24_45B7
+	call PageList_InitRowSprites
+	call PageList_HighlightRowSprite
 	pop bc
 	ret
 
-Function_24_445C:: ; 24:445C
+PageList_InitRowSprites:: ; 24:445C
 	push bc
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -592,7 +596,7 @@ Function_24_445C:: ; 24:445C
 	ld a, $24
 	ld b, $01
 	farcall Function_00_0A82
-	ld hl, $4000
+	ld hl, PageList_UrlSlotTable
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
@@ -709,7 +713,7 @@ Label_24_457B:: ; 24:457B
 	pop bc
 	ret
 
-Function_24_45B7:: ; 24:45B7
+PageList_HighlightRowSprite:: ; 24:45B7
 	push bc
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -725,7 +729,7 @@ Function_24_45B7:: ; 24:45B7
 	xor a, a
 	cp a, c
 	jr nz, Label_24_4618
-	ld hl, $4000
+	ld hl, PageList_UrlSlotTable
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
@@ -734,7 +738,7 @@ Function_24_45B7:: ; 24:45B7
 	cp a, $00
 	jr z, Label_24_45FB
 	ld hl, $DA60
-	ld de, $6530
+	ld de, PageList_ObjTable
 	ld a, $24
 	ld b, $01
 	farcall Function_00_0A82
@@ -769,7 +773,7 @@ Label_24_4618:: ; 24:4618
 	cp a, $00
 	jr z, Label_24_4645
 	ld hl, $DA50
-	ld de, $6530
+	ld de, PageList_ObjTable
 	ld a, $24
 	ld b, $01
 	farcall Function_00_0A82
@@ -804,7 +808,7 @@ Label_24_4662:: ; 24:4662
 	cp a, $00
 	jr z, Label_24_468F
 	ld hl, $DA40
-	ld de, $6530
+	ld de, PageList_ObjTable
 	ld a, $24
 	ld b, $01
 	farcall Function_00_0A82
@@ -839,7 +843,7 @@ Label_24_46AC:: ; 24:46AC
 	cp a, $00
 	jr z, Label_24_46D9
 	ld hl, $DA30
-	ld de, $6530
+	ld de, PageList_ObjTable
 	ld a, $24
 	ld b, $01
 	farcall Function_00_0A82
@@ -874,7 +878,7 @@ Label_24_46F6:: ; 24:46F6
 	cp a, $00
 	jr z, Label_24_4723
 	ld hl, $DA20
-	ld de, $6530
+	ld de, PageList_ObjTable
 	ld a, $24
 	ld b, $01
 	farcall Function_00_0A82
@@ -909,7 +913,7 @@ Label_24_4740:: ; 24:4740
 	cp a, $00
 	jr z, Label_24_476D
 	ld hl, $DA10
-	ld de, $6530
+	ld de, PageList_ObjTable
 	ld a, $24
 	ld b, $01
 	farcall Function_00_0A82
@@ -940,7 +944,7 @@ Label_24_478A:: ; 24:478A
 	pop bc
 	ret
 
-Function_24_4794:: ; 24:4794
+PageList_GetActionAvailability:: ; 24:4794
 	push bc
 	push af
 	ld a, $01
@@ -953,7 +957,7 @@ Function_24_4794:: ; 24:4794
 	ld e, c
 	sla e
 	ld d, $00
-	ld hl, $4000
+	ld hl, PageList_UrlSlotTable
 	add hl, de
 	ld a, [hli]
 	ld e, a
@@ -1010,7 +1014,7 @@ Label_24_47F6:: ; 24:47F6
 	pop bc
 	ret
 
-Function_24_47FB:: ; 24:47FB
+PageList_SetActionIcons:: ; 24:47FB
 	push bc
 	di
 	ld b, a
@@ -1061,7 +1065,7 @@ Label_24_4831:: ; 24:4831
 	pop bc
 	ret
 
-Function_24_483E:: ; 24:483E
+PageList_RedrawSelection:: ; 24:483E
 	push af
 	ld a, $01
 	ldh [hSRAMBank], a
@@ -1100,7 +1104,7 @@ Label_24_486D:: ; 24:486D
 	ld d, a
 	ld b, $03
 	ld c, $00
-	call Function_24_494C
+	call PageList_DrawTextLine
 	pop bc
 	push bc
 	ld e, c
@@ -1131,7 +1135,7 @@ Label_24_4896:: ; 24:4896
 	ld d, a
 	ld b, $00
 	ld c, $01
-	call Function_24_494C
+	call PageList_DrawTextLine
 	pop hl
 	pop bc
 	push bc
@@ -1139,8 +1143,8 @@ Label_24_4896:: ; 24:4896
 	ld c, $00
 	ld de, $0220
 	ld hl, $D3C0
-	call Function_24_494C
-	call Function_24_4A00
+	call PageList_DrawTextLine
+	call PageList_UploadTextTiles
 	pop bc
 	push af
 	xor a, a
@@ -1151,11 +1155,11 @@ Label_24_4896:: ; 24:4896
 	xor a, a
 	ld d, $00
 	ld e, $00
-	call Function_24_47FB
+	call PageList_SetActionIcons
 	pop bc
 	ret
 
-Function_24_48C7:: ; 24:48C7
+PageList_DrawAllTitles:: ; 24:48C7
 	push bc
 	push af
 	ld a, $01
@@ -1200,7 +1204,7 @@ Label_24_48FB:: ; 24:48FB
 	ld d, a
 	ld b, $03
 	ld c, $00
-	call Function_24_494C
+	call PageList_DrawTextLine
 	pop bc
 	pop de
 	pop af
@@ -1217,7 +1221,7 @@ Label_24_48FB:: ; 24:48FB
 	ld de, $1020
 	ld b, $00
 	ld c, $01
-	call Function_24_494C
+	call PageList_DrawTextLine
 	pop hl
 	pop bc
 	push bc
@@ -1228,8 +1232,8 @@ Label_24_48FB:: ; 24:48FB
 	ld c, $00
 	ld de, $0220
 	ld hl, $D3C0
-	call Function_24_494C
-	call Function_24_4A00
+	call PageList_DrawTextLine
+	call PageList_UploadTextTiles
 	pop bc
 	push af
 	xor a, a
@@ -1240,11 +1244,11 @@ Label_24_48FB:: ; 24:48FB
 	xor a, a
 	ld d, $00
 	ld e, $00
-	call Function_24_47FB
+	call PageList_SetActionIcons
 	pop bc
 	ret
 
-Function_24_494C:: ; 24:494C
+PageList_DrawTextLine:: ; 24:494C
 	ld a, $14
 	ld [wRam_C2EE], a
 
@@ -1256,7 +1260,7 @@ Label_24_4951:: ; 24:4951
 	cp a, $00
 	jr z, Label_24_49CC
 	push af
-	farcall Function_7F_41A7
+	farcall Glyph_IsSjisLeadByte
 	dec a
 	jr nz, Label_24_49A7
 	pop af
@@ -1270,17 +1274,17 @@ Label_24_4951:: ; 24:4951
 	ld h, a
 	ld bc, $C0A0
 	ld de, $C0B8
-	farcall Function_7F_405F
+	farcall Glyph_LoadWide
 	pop hl
 	pop de
 	pop bc
 	inc hl
-	call Function_24_49EC
+	call PageList_BlitGlyphAdvance
 	push bc
 	push de
 	push hl
 	ld hl, $C0B8
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -1304,11 +1308,11 @@ Label_24_49A7:: ; 24:49A7
 	push hl
 	ld b, a
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
-	call Function_24_49EC
+	call PageList_BlitGlyphAdvance
 	ld a, [wRam_C2EE]
 	dec a
 	ld [wRam_C2EE], a
@@ -1324,7 +1328,7 @@ Label_24_49CC:: ; 24:49CC
 	push hl
 	ld b, $20
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
@@ -1335,15 +1339,15 @@ Label_24_49DD:: ; 24:49DD
 	ret z
 	dec a
 	ld [wRam_C2EE], a
-	call Function_24_49EC
+	call PageList_BlitGlyphAdvance
 	jr Label_24_49DD
 
-Function_24_49EC:: ; 24:49EC
+PageList_BlitGlyphAdvance:: ; 24:49EC
 	push bc
 	push de
 	push hl
 	ld hl, $C0A0
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -1352,7 +1356,7 @@ Function_24_49EC:: ; 24:49EC
 	ld e, a
 	ret
 
-Function_24_4A00:: ; 24:4A00
+PageList_UploadTextTiles:: ; 24:4A00
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1361,7 +1365,7 @@ Function_24_4A00:: ; 24:4A00
 	ld hl, $D000
 	ld de, $9000
 	ld c, $3F
-	call Function_24_4A54
+	call PageList_StartHDMAAtVBlank
 	call Function_00_0392
 	ld a, $02
 	ldh [hWRAMBank], a
@@ -1369,7 +1373,7 @@ Function_24_4A00:: ; 24:4A00
 	ld hl, $D400
 	ld de, $9400
 	ld c, $3F
-	call Function_24_4A54
+	call PageList_StartHDMAAtVBlank
 	call Function_00_0392
 	ld a, $02
 	ldh [hWRAMBank], a
@@ -1377,7 +1381,7 @@ Function_24_4A00:: ; 24:4A00
 	ld hl, $D800
 	ld de, $8800
 	ld c, $3F
-	call Function_24_4A54
+	call PageList_StartHDMAAtVBlank
 	call Function_00_0392
 	ld a, $02
 	ldh [hWRAMBank], a
@@ -1385,11 +1389,11 @@ Function_24_4A00:: ; 24:4A00
 	ld hl, $DC00
 	ld de, $8C00
 	ld c, $2F
-	call Function_24_4A54
+	call PageList_StartHDMAAtVBlank
 	call Function_00_0392
 	ret
 
-Function_24_4A54:: ; 24:4A54
+PageList_StartHDMAAtVBlank:: ; 24:4A54
 	ld a, h
 	ldh [rHDMA1], a
 	ld a, l
@@ -1419,7 +1423,7 @@ Label_24_4A6B:: ; 24:4A6B
 	ei
 	ret
 
-Function_24_4A79:: ; 24:4A79
+PageList_ShowMessage:: ; 24:4A79
 	push af
 	push bc
 	push de
@@ -1428,7 +1432,7 @@ Function_24_4A79:: ; 24:4A79
 	ld e, d
 	ld d, $00
 	sla e
-	ld hl, $4B10
+	ld hl, PageList_MessageTable
 	add hl, de
 	ld a, [hli]
 	ld h, [hl]
@@ -1440,7 +1444,7 @@ Function_24_4A79:: ; 24:4A79
 	ld a, $24
 	ld bc, $D000
 	ld de, $D140
-	farcall Function_48_403E
+	farcall TextTiles_RenderLine
 	pop hl
 	push hl
 	ld de, $0009
@@ -1451,7 +1455,7 @@ Function_24_4A79:: ; 24:4A79
 	ld a, $24
 	ld bc, $D280
 	ld de, $D3C0
-	farcall Function_48_403E
+	farcall TextTiles_RenderLine
 	pop hl
 	push hl
 	ld de, $0012
@@ -1462,7 +1466,7 @@ Function_24_4A79:: ; 24:4A79
 	ld a, $24
 	ld bc, $D500
 	ld de, $D640
-	farcall Function_48_403E
+	farcall TextTiles_RenderLine
 	pop hl
 	push hl
 	ld de, $001B
@@ -1473,7 +1477,7 @@ Function_24_4A79:: ; 24:4A79
 	ld a, $24
 	ld bc, $D780
 	ld de, $D8C0
-	farcall Function_48_403E
+	farcall TextTiles_RenderLine
 	pop hl
 	push hl
 	ld de, $0024
@@ -1484,9 +1488,9 @@ Function_24_4A79:: ; 24:4A79
 	ld a, $24
 	ld bc, $DA00
 	ld de, $DB40
-	farcall Function_48_403E
+	farcall TextTiles_RenderLine
 	pop hl
-	call Function_24_4A00
+	call PageList_UploadTextTiles
 	pop hl
 	pop de
 	pop bc
@@ -1495,63 +1499,75 @@ Function_24_4A79:: ; 24:4A79
 
 ; ---- ptrtable $4B10-$4B18 (8 bytes) [PROBABLE] 4 words $4B18,$4B45,$4B72,$4B9F = starts of four 45-byte (multi-line, NUL separated) Shift-JIS messages at 4B18-4BCC; the table is loaded by ld hl,$4B10 at 24:4A83 (a=$24 nearby)
 
-Table_24_4B10:: ; 24:4B10
-	dw String_24_4B18
-	dw $4B45
-	dw $4B72
-	dw $4B9F
+PageList_MessageTable:: ; 24:4B10
+Table_24_4B10::
+	dw PageList_Msg_GoToPage
+	dw PageList_Msg_SavePage
+	dw PageList_Msg_DeletePage
+	dw PageList_Msg_SelectPage
 
 ; ---- text $4B18-$4B21 (9 bytes) [PROBABLE] Shift-JIS NUL-terminated line(s) of the message table at 24:4B10 (decodes cleanly with cp932; continues the neighbouring text regions of the same 45-byte messages)
 
-String_24_4B18:: ; 24:4B18
-	db $81, $40, $81, $40, $81, $40, $82, $B1, $00
+PageList_Msg_GoToPage:: ; 24:4B18
+String_24_4B18::
+	db $81, $40, $81, $40, $81, $40, $82, $B1, $00 ; "　　　こ"
 
 ; ---- text $4B21-$4B3C (27 bytes) [PROBABLE] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_24_4B21:: ; 24:4B21
-	db $82, $CC, $83, $79, $81, $5B, $83, $57, $00, $82, $C9, $81, $40, $82, $A2, $82
-	db $C7, $00, $82, $A4, $82, $B5, $82, $DC, $82, $B7, $00
+	db $82, $CC, $83, $79, $81, $5B, $83, $57, $00 ; "のページ"
+	db $82, $C9, $81, $40, $82, $A2, $82, $C7, $00 ; "に　いど"
+	db $82, $A4, $82, $B5, $82, $DC, $82, $B7, $00 ; "うします"
 
 ; ---- text $4B3C-$4B4E (18 bytes) [PROBABLE] Shift-JIS NUL-terminated line(s) of the message table at 24:4B10 (decodes cleanly with cp932; continues the neighbouring text regions of the same 45-byte messages)
 
 String_24_4B3C:: ; 24:4B3C
-	db $81, $40, $81, $40, $81, $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $82
-	db $A2, $00
+	db $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　"
+
+PageList_Msg_SavePage:: ; 24:4B45
+	db $81, $40, $81, $40, $81, $40, $82, $A2, $00 ; "　　　い"
 
 ; ---- text $4B4E-$4B69 (27 bytes) [PROBABLE] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_24_4B4E:: ; 24:4B4E
-	db $82, $DC, $82, $CC, $83, $79, $81, $5B, $00, $83, $57, $82, $F0, $81, $40, $83
-	db $5A, $00, $81, $5B, $83, $75, $82, $B5, $82, $DC, $00
+	db $82, $DC, $82, $CC, $83, $79, $81, $5B, $00 ; "まのペー"
+	db $83, $57, $82, $F0, $81, $40, $83, $5A, $00 ; "ジを　セ"
+	db $81, $5B, $83, $75, $82, $B5, $82, $DC, $00 ; "ーブしま"
 
 ; ---- text $4B69-$4B7B (18 bytes) [PROBABLE] Shift-JIS NUL-terminated line(s) of the message table at 24:4B10 (decodes cleanly with cp932; continues the neighbouring text regions of the same 45-byte messages)
 
 String_24_4B69:: ; 24:4B69
-	db $82, $B7, $81, $40, $81, $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81
-	db $40, $00
+	db $82, $B7, $81, $40, $81, $40, $81, $40, $00 ; "す　　　"
+
+PageList_Msg_DeletePage:: ; 24:4B72
+	db $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　"
 
 ; ---- text $4B7B-$4B96 (27 bytes) [PROBABLE] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_24_4B7B:: ; 24:4B7B
-	db $82, $B1, $82, $CC, $83, $79, $81, $5B, $00, $83, $57, $82, $F0, $81, $40, $82
-	db $AF, $00, $82, $B5, $82, $DC, $82, $B7, $81, $40, $00
+	db $82, $B1, $82, $CC, $83, $79, $81, $5B, $00 ; "このペー"
+	db $83, $57, $82, $F0, $81, $40, $82, $AF, $00 ; "ジを　け"
+	db $82, $B5, $82, $DC, $82, $B7, $81, $40, $00 ; "します　"
 
 ; ---- text $4B96-$4BA8 (18 bytes) [PROBABLE] Shift-JIS NUL-terminated line(s) of the message table at 24:4B10 (decodes cleanly with cp932; continues the neighbouring text regions of the same 45-byte messages)
 
 String_24_4B96:: ; 24:4B96
-	db $81, $40, $81, $40, $81, $40, $81, $40, $00, $81, $40, $81, $40, $83, $79, $81
-	db $5B, $00
+	db $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　"
+
+PageList_Msg_SelectPage:: ; 24:4B9F
+	db $81, $40, $81, $40, $83, $79, $81, $5B, $00 ; "　　ペー"
 
 ; ---- text $4BA8-$4BC3 (27 bytes) [PROBABLE] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_24_4BA8:: ; 24:4BA8
-	db $83, $57, $82, $F0, $81, $40, $82, $B9, $00, $82, $F1, $82, $BD, $82, $AD, $82
-	db $B5, $00, $82, $C4, $82, $AD, $82, $BE, $82, $B3, $00
+	db $83, $57, $82, $F0, $81, $40, $82, $B9, $00 ; "ジを　せ"
+	db $82, $F1, $82, $BD, $82, $AD, $82, $B5, $00 ; "んたくし"
+	db $82, $C4, $82, $AD, $82, $BE, $82, $B3, $00 ; "てくださ"
 
 ; ---- text $4BC3-$4BCC (9 bytes) [PROBABLE] Shift-JIS NUL-terminated line(s) of the message table at 24:4B10 (decodes cleanly with cp932; continues the neighbouring text regions of the same 45-byte messages)
 
 String_24_4BC3:: ; 24:4BC3
-	db $82, $A2, $81, $40, $81, $40, $81, $40, $00
+	db $82, $A2, $81, $40, $81, $40, $81, $40, $00 ; "い　　　"
 
 ; ---- data $4BCC-$4BCD (1 bytes) [HYPOTHESIS] UNCLASSIFIED 10 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) [range trimmed from 4BC3-4BCD by classify_g2]
 
@@ -1560,12 +1576,12 @@ Data_24_4BCC:: ; 24:4BCC
 
 ; ---- code $4BCD-$53FE (2097 bytes) [PROBABLE] 1021 insn(s) reached by static flow only; seeds: exec x1021; min discovery hops 4; entered by call from 24:4203 (PROBABLE code)
 
-Function_24_4BCD:: ; 24:4BCD
-	call Function_24_4E46
+PageList_ActionMenu:: ; 24:4BCD
+	call PageList_ActionMenuInit
 	call Function_24_53FD
 	ld b, $00
 
-Label_24_4BD5:: ; 24:4BD5
+PageList_ActionMenu_Loop:: ; 24:4BD5
 	push bc
 	farcall Function_00_0956
 	ld a, [wRam_C2CC]
@@ -1575,7 +1591,7 @@ Label_24_4BD5:: ; 24:4BD5
 	bit 1, a
 	jr z, Label_24_4BFE
 	pop bc
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
 	ld a, $FF
 	ld de, $0000
@@ -1636,7 +1652,7 @@ Label_24_4C4D:: ; 24:4C4D
 Label_24_4C55:: ; 24:4C55
 	xor a, a
 	ld [wRam_C2CA], a
-	farcall Function_7F_624F
+	farcall Sprites_SaveSlotsToBank3
 	ld hl, $DAB0
 	call Function_00_09E6
 	ld de, $0110
@@ -1652,9 +1668,9 @@ Label_24_4C55:: ; 24:4C55
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_72_402A
-	farcall Function_72_461A
-	farcall Function_72_444F
+	farcall Dialog_Open
+	farcall Dialog_WaitInputMonitored
+	farcall Dialog_Close
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -1667,14 +1683,14 @@ Label_24_4C55:: ; 24:4C55
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	farcall Function_00_09B6
 	ld a, $00
 	ld [wRam_C2C0], a
 	ld [wRam_C2C3], a
-	farcall Function_51_4000
+	farcall CommTime_ShowSummary
 	xor a, a
 	ld [wRam_C1DC], a
 	ld a, [wTimerEnable]
@@ -1696,7 +1712,7 @@ Label_24_4C55:: ; 24:4C55
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
+	farcall Stat_EnableScrollSplit
 	push bc
 	di
 	ldh a, [hWRAMBank]
@@ -1709,21 +1725,21 @@ Label_24_4C55:: ; 24:4C55
 	ldh [rSVBK], a
 	ei
 	pop bc
-	call Function_24_42F0
+	call PageList_InitScreen
 	call Function_00_0464
 	pop bc
 	push bc
-	call Function_24_4794
-	call Function_24_47FB
-	farcall Function_7F_627C
+	call PageList_GetActionAvailability
+	call PageList_SetActionIcons
+	farcall Sprites_RestoreSlotsFromBank3
 	farcall Function_00_0956
 	pop bc
-	jp Label_24_4BD5
+	jp PageList_ActionMenu_Loop
 
 Label_24_4D25:: ; 24:4D25
 	pop bc
 	pop af
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
 	ld a, $FF
 	ld de, $0000
@@ -1732,7 +1748,7 @@ Label_24_4D25:: ; 24:4D25
 
 Label_24_4D39:: ; 24:4D39
 	call Function_00_0464
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
 	call nz, Function_24_53FC
@@ -1742,21 +1758,21 @@ Label_24_4D39:: ; 24:4D39
 	ld a, b
 	cp a, $01
 	jr nz, Label_24_4D5E
-	call Function_24_4F14
-	farcall Function_22_50FC
+	call PageList_SaveCurrentPage
+	farcall SramCheck_Bank1Commit
 	jr Label_24_4D6B
 
 Label_24_4D5E:: ; 24:4D5E
 	cp a, $02
 	jr nz, Label_24_4D97
-	call Function_24_51CB
-	farcall Function_22_50FC
+	call PageList_DeleteSlot
+	farcall SramCheck_Bank1Commit
 
 Label_24_4D6B:: ; 24:4D6B
 	inc a
 	jp z, Label_24_4D8A
 	inc a
-	jp z, Label_24_4BD5
+	jp z, PageList_ActionMenu_Loop
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -1769,18 +1785,18 @@ Label_24_4D6B:: ; 24:4D6B
 	ldh [rSVBK], a
 	pop de
 	pop bc
-	jp Label_24_4BD5
+	jp PageList_ActionMenu_Loop
 
 Label_24_4D8A:: ; 24:4D8A
-	call Function_24_4E71
+	call PageList_HideActionCursor
 	push bc
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	pop bc
 	xor a, a
 	ret
 
 Label_24_4D97:: ; 24:4D97
-	call Function_24_5164
+	call PageList_GoToSlot
 	inc a
 	jp z, Label_24_4DB7
 	push bc
@@ -1796,7 +1812,7 @@ Label_24_4D97:: ; 24:4D97
 	pop de
 	pop bc
 	ld a, $FF
-	jp Label_24_4BD5
+	jp PageList_ActionMenu_Loop
 
 Label_24_4DB7:: ; 24:4DB7
 	ld a, $FF
@@ -1818,9 +1834,9 @@ Label_24_4DBA:: ; 24:4DBA
 	ldh [rSVBK], a
 	pop de
 	pop bc
-	call Function_24_4E71
+	call PageList_HideActionCursor
 	push bc
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	pop bc
 	xor a, a
 	ret
@@ -1852,11 +1868,11 @@ Label_24_4DE1:: ; 24:4DE1
 
 Label_24_4E06:: ; 24:4E06
 	ld a, d
-	call Function_24_4EF1
+	call PageList_MoveActionCursor
 	ld a, b
 	ld d, b
 	ld b, $00
-	call Function_24_4A79
+	call PageList_ShowMessage
 	ld b, d
 
 Label_24_4E12:: ; 24:4E12
@@ -1886,17 +1902,17 @@ Label_24_4E12:: ; 24:4E12
 
 Label_24_4E37:: ; 24:4E37
 	ld a, d
-	call Function_24_4EF1
+	call PageList_MoveActionCursor
 	ld a, b
 	ld d, b
 	ld b, $00
-	call Function_24_4A79
+	call PageList_ShowMessage
 	ld b, d
 
 Label_24_4E43:: ; 24:4E43
-	jp Label_24_4BD5
+	jp PageList_ActionMenu_Loop
 
-Function_24_4E46:: ; 24:4E46
+PageList_ActionMenuInit:: ; 24:4E46
 	push bc
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -1914,11 +1930,11 @@ Function_24_4E46:: ; 24:4E46
 	xor a, a
 	ld d, b
 	ld b, $00
-	call Function_24_4A79
+	call PageList_ShowMessage
 	ld b, d
 	ret
 
-Function_24_4E71:: ; 24:4E71
+PageList_HideActionCursor:: ; 24:4E71
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1929,7 +1945,7 @@ Function_24_4E71:: ; 24:4E71
 	pop bc
 	ret
 
-Function_24_4E85:: ; 24:4E85
+PageList_SetActionCursor:: ; 24:4E85
 	push bc
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -1985,11 +2001,11 @@ Label_24_4EEF:: ; 24:4EEF
 	pop bc
 	ret
 
-Function_24_4EF1:: ; 24:4EF1
+PageList_MoveActionCursor:: ; 24:4EF1
 	push bc
 	jr c, Label_24_4F04
 	pop bc
-	call Function_24_4E85
+	call PageList_SetActionCursor
 	push bc
 	farcall Function_00_0956
 	call Function_00_0464
@@ -1998,14 +2014,14 @@ Function_24_4EF1:: ; 24:4EF1
 
 Label_24_4F04:: ; 24:4F04
 	pop bc
-	call Function_24_4E85
+	call PageList_SetActionCursor
 	push bc
 	farcall Function_00_0956
 	call Function_00_0464
 	pop bc
 	ret
 
-Function_24_4F14:: ; 24:4F14
+PageList_SaveCurrentPage:: ; 24:4F14
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2016,7 +2032,7 @@ Function_24_4F14:: ; 24:4F14
 	ld a, b
 	ld d, b
 	ld b, $00
-	call Function_24_4A79
+	call PageList_ShowMessage
 	ld b, d
 	push af
 	ld a, $01
@@ -2029,7 +2045,7 @@ Function_24_4F14:: ; 24:4F14
 	ld e, c
 	ld d, $00
 	sla e
-	ld hl, $4000
+	ld hl, PageList_UrlSlotTable
 	add hl, de
 	ld a, [hli]
 	ld e, a
@@ -2071,7 +2087,7 @@ Function_24_4F14:: ; 24:4F14
 	pop af
 	push de
 	pop de
-	farcall Function_72_4015
+	farcall Dialog_Show
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -2096,8 +2112,8 @@ Function_24_4F14:: ; 24:4F14
 	pop de
 	pop bc
 	push af
-	call Function_24_4794
-	call Function_24_47FB
+	call PageList_GetActionAvailability
+	call PageList_SetActionIcons
 	pop af
 	dec a
 	jr z, Label_24_4FF6
@@ -2119,7 +2135,7 @@ Function_24_4F14:: ; 24:4F14
 	ld [wSpriteSlots + 1], a
 	pop bc
 	push bc
-	call Function_24_4453
+	call PageList_UpdateRowSprites
 	pop bc
 	pop de
 	pop bc
@@ -2131,7 +2147,7 @@ Function_24_4F14:: ; 24:4F14
 Label_24_4FF6:: ; 24:4FF6
 	push bc
 	push de
-	call Function_24_4453
+	call PageList_UpdateRowSprites
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -2316,11 +2332,11 @@ Label_24_514E:: ; 24:514E
 	ld [rRAMG], a
 	pop af
 	ld a, c
-	call Function_24_483E
+	call PageList_RedrawSelection
 	ld a, $FF
 	ret
 
-Function_24_5164:: ; 24:5164
+PageList_GoToSlot:: ; 24:5164
 	push bc
 	ld a, $06
 	ldh [hWRAMBank], a
@@ -2349,7 +2365,7 @@ Label_24_5173:: ; 24:5173
 	ld e, a
 	ld a, [hl]
 	ld d, a
-	ld hl, $4000
+	ld hl, PageList_UrlSlotTable
 	add hl, bc
 	ld a, [hli]
 	ld c, a
@@ -2369,7 +2385,7 @@ Label_24_5173:: ; 24:5173
 	ld a, b
 	ld d, b
 	ld b, $00
-	call Function_24_4A79
+	call PageList_ShowMessage
 	ld b, d
 	pop de
 	push bc
@@ -2389,7 +2405,7 @@ Label_24_5173:: ; 24:5173
 	ld a, $FF
 	ret
 
-Function_24_51CB:: ; 24:51CB
+PageList_DeleteSlot:: ; 24:51CB
 	push af
 	ld a, $01
 	ldh [hSRAMBank], a
@@ -2401,7 +2417,7 @@ Function_24_51CB:: ; 24:51CB
 	push bc
 	sla c
 	ld b, $00
-	ld hl, $4000
+	ld hl, PageList_UrlSlotTable
 	add hl, bc
 	ld a, [hli]
 	ld c, a
@@ -2419,7 +2435,7 @@ Function_24_51CB:: ; 24:51CB
 	ld a, b
 	ld d, b
 	ld b, $00
-	call Function_24_4A79
+	call PageList_ShowMessage
 	ld b, d
 	push bc
 	push de
@@ -2452,7 +2468,7 @@ Function_24_51CB:: ; 24:51CB
 	pop af
 	push de
 	pop de
-	farcall Function_72_4015
+	farcall Dialog_Show
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -2477,8 +2493,8 @@ Function_24_51CB:: ; 24:51CB
 	pop de
 	pop bc
 	push af
-	call Function_24_4794
-	call Function_24_47FB
+	call PageList_GetActionAvailability
+	call PageList_SetActionIcons
 	pop af
 	dec a
 	jr z, Label_24_52A3
@@ -2500,7 +2516,7 @@ Function_24_51CB:: ; 24:51CB
 	ld [wSpriteSlots + 1], a
 	pop bc
 	push bc
-	call Function_24_4453
+	call PageList_UpdateRowSprites
 	pop bc
 	xor a, a
 	ldh [hJoyPressed], a
@@ -2518,7 +2534,7 @@ Label_24_52A3:: ; 24:52A3
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	call Function_24_4453
+	call PageList_UpdateRowSprites
 	pop de
 	pop bc
 	push bc
@@ -2662,7 +2678,7 @@ Label_24_53A9:: ; 24:53A9
 	push bc
 	sla c
 	ld b, $00
-	ld hl, $4000
+	ld hl, PageList_UrlSlotTable
 	add hl, bc
 	ld a, [hli]
 	ld c, a
@@ -2679,7 +2695,7 @@ Label_24_53A9:: ; 24:53A9
 	ld [rRAMG], a
 	pop af
 	ld a, c
-	call Function_24_483E
+	call PageList_RedrawSelection
 	ld a, $FF
 	ret
 
@@ -2694,7 +2710,8 @@ Function_24_53FD:: ; 24:53FD
 
 ; ---- gfx $5400-$55D0 (464 bytes) [PROBABLE] 2bpp tiles by coherence: 29 non-blank tiles, mean adjacent-pixel similarity h=0.67 v=0.50 (random data ~0.25-0.35); part of the 1024-byte block 5400-5800 uploaded by Function_00_0749 (general HDMA start: hl=$5400 a=$24 c=$40 de=$9301) at 24:432C; call site never executed in a trace
 
-Tiles_24_5400:: ; 24:5400
+PageList_Tiles_5400:: ; 24:5400
+Tiles_24_5400::
 	db $F0, $00, $EF, $07, $EF, $0F, $EF, $0F, $EF, $0F, $EF, $0F, $EF, $0F, $EF, $0F
 	db $00, $00, $FD, $FC, $C1, $81, $BD, $B8, $BC, $28, $6C, $44, $66, $44, $66, $42
 	db $00, $00, $DF, $9F, $DF, $5F, $DF, $9F, $3F, $1F, $33, $E1, $ED, $EC, $EE, $62
@@ -2763,6 +2780,8 @@ Data_24_55D0:: ; 24:55D0
 	db $D0, $30, $A0, $60, $C1, $41, $C1, $41, $C0, $40, $C0, $60, $A0, $70, $D0, $38
 	db $FF, $FF, $FF, $FF, $92, $92, $FF, $92, $FF, $FF, $FF, $FF, $00, $FF, $FF, $FF
 	db $FF, $FF, $FF, $FF, $49, $49, $FF, $49, $FF, $FF, $FF, $FF, $00, $FF, $FF, $FF
+
+PageList_Tiles_5800:: ; 24:5800
 	db $FE, $01, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FE, $01, $FD, $03
 
 ; ---- gfx $5810-$58B0 (160 bytes) [PROBABLE] 2bpp tiles by coherence: 9 non-blank tiles, mean adjacent-pixel similarity h=0.72 v=0.79 (random data ~0.25-0.35); part of the 256-byte block 5800-5900 uploaded by Function_00_0749 (hl=$5800 a=$24 c=$10 de=$9701) at 24:4341; call site never executed
@@ -2784,7 +2803,8 @@ Tiles_24_5810:: ; 24:5810
 
 ; ---- data $5900-$5BD0 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 24:43A7: hl=$5900 a=$24 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_24_5900:: ; 24:5900
+PageList_Tilemap_5900:: ; 24:5900
+Data_24_5900::
 	db $63, $53, $55, $55, $55, $30, $31, $32, $33, $34, $35, $36, $37, $38, $39, $55
 	db $55, $55, $53, $63, $64, $54, $55, $55, $55, $40, $41, $42, $43, $44, $45, $46
 	db $47, $48, $49, $55, $55, $55, $54, $64, $70, $73, $72, $72, $72, $72, $72, $72
@@ -2833,7 +2853,8 @@ Data_24_5900:: ; 24:5900
 
 ; ---- data $5BD0-$5EA0 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 24:43C9: hl=$5BD0 a=$24 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_24_5BD0:: ; 24:5BD0
+PageList_Tilemap_5BD0:: ; 24:5BD0
+Data_24_5BD0::
 	db $63, $79, $04, $05, $06, $07, $08, $09, $0A, $0B, $0C, $0D, $0E, $0F, $10, $11
 	db $12, $7D, $79, $63, $64, $7A, $18, $19, $1A, $1B, $1C, $1D, $1E, $1F, $20, $21
 	db $22, $23, $24, $25, $26, $7D, $7A, $64, $70, $71, $72, $72, $72, $72, $72, $72
@@ -2882,7 +2903,8 @@ Data_24_5BD0:: ; 24:5BD0
 
 ; ---- data $5EA0-$5EE0 (64 bytes) [PROBABLE] 64-byte RGB555 palette block copied by Function_4F_4000 (-> 00:050C copy; hl=$5EA0 a=$24 bc=$0040 de=$D800, WRAM7 BG palette buffer) at 24:4393; call site never executed; replaces the mapper palette guess 5EC6-5EDE
 
-Palette_24_5EA0:: ; 24:5EA0
+PageList_BgPalette:: ; 24:5EA0
+Palette_24_5EA0::
 	db $FF, $7F, $FF, $01, $FF, $7F, $00, $00, $20, $7D, $6D, $7A, $00, $00, $FF, $7F
 	db $FF, $01, $FF, $7F, $00, $00, $FF, $7F, $80, $40, $41, $7D, $20, $7D, $6F, $7F
 	db $00, $00, $BD, $01, $20, $7D, $FF, $7F, $FF, $7F, $F4, $57, $E0, $02, $00, $00
@@ -2890,7 +2912,8 @@ Palette_24_5EA0:: ; 24:5EA0
 
 ; ---- gfx $5EE0-$5EF1 (17 bytes) [PROBABLE] 2bpp tiles (too few non-blank tiles to score); first bytes of the 1024-byte block 5EE0-62E0 uploaded by Function_00_0749 (hl=$5EE0 a=$24 c=$40 de=$8000) at 24:4356; call site never executed
 
-Tiles_24_5EE0:: ; 24:5EE0
+PageList_Tiles_5EE0:: ; 24:5EE0
+Tiles_24_5EE0::
 	db $FF, $FF, $FF, $8A, $FF, $FF, $FF, $8B, $FF, $FA, $FB, $F7, $F5, $8D, $F8, $F8
 	db $BE
 
@@ -2959,9 +2982,12 @@ Data_24_5EF1:: ; 24:5EF1
 	db $00, $00, $00, $00, $01, $01, $03, $1F, $02, $3B, $07, $6C, $1F, $52, $3D, $00
 	db $00, $7F, $FF, $80, $FF, $BF, $7F, $7F, $80, $F7, $F9, $2D, $DF, $F7, $0B, $00
 	db $00, $80, $C0, $F8, $7C, $BC, $C6, $8E, $F2, $06, $FA, $06, $FA, $06, $FA, $00
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $5A
-	db $7F, $52, $77, $52, $77, $52, $77, $5A, $7F, $26, $3F, $1A, $1B, $02, $03, $80
-	db $FF, $80, $FF, $80, $FF, $80, $FF, $80, $FF, $B0, $FF, $B0, $DF, $80, $FF, $50
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+
+PageList_Tiles_62E0:: ; 24:62E0
+	db $5A, $7F, $52, $77, $52, $77, $52, $77, $5A, $7F, $26, $3F, $1A, $1B, $02, $03
+	db $80, $FF, $80, $FF, $80, $FF, $80, $FF, $80, $FF, $B0, $FF, $B0, $DF, $80, $FF
+	db $50
 
 ; ---- gfx $6301-$63D0 (207 bytes) [PROBABLE] 2bpp tiles by coherence: 12 non-blank tiles, mean adjacent-pixel similarity h=0.49 v=0.75 (random data ~0.25-0.35); inside block 62E0-64E0 uploaded by Function_00_0749 (hl=$62E0 a=$24 c=$20 de=$8400) at 24:436B; call site never executed
 
@@ -3005,7 +3031,8 @@ Tiles_24_63E0:: ; 24:63E0
 
 ; ---- data $64E0-$6520 (64 bytes) [PROBABLE] 64-byte RGB555 palette block copied by Function_4F_4000 (hl=$64E0 a=$24 bc=$0040 de=$D840, WRAM7 OBJ palette buffer) at 24:437F; call site never executed; replaces the mapper guess 64DC-65EC (136 words) which swallowed the sprite tables below
 
-Palette_24_64E0:: ; 24:64E0
+PageList_ObjPalette:: ; 24:64E0
+Palette_24_64E0::
 	db $BF, $18, $FF, $7F, $6D, $7A, $00, $00, $E0, $7F, $FF, $7F, $20, $03, $00, $00
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $E0, $7F, $FF, $7F, $CE, $39, $00, $00, $00, $00, $4A, $29, $B5, $56, $FF, $7F
@@ -3018,7 +3045,8 @@ Data_24_6520:: ; 24:6520
 
 ; ---- words $6530-$65C0 (144 bytes) [PROBABLE] sprite object table: 4-byte entries (frame-table ptr, animation-script ptr) indexed by B&7F, the layout read by init_object_from_table 00:0A82/00:0AB8; rows of 16 bytes = the same entry repeated 4 times; base $6530 is passed as de with a=$24 at call sites listed in analysis/gfx_candidates.tsv (object-table); entries 65C0/667A 65C0/667A 65C0/667A 65C0/667A
 
-Table_24_6530:: ; 24:6530
+PageList_ObjTable:: ; 24:6530
+Table_24_6530::
 	dw Table_24_65C0, Data_24_667A, Table_24_65C0, Data_24_667A, Table_24_65C0, Data_24_667A, Table_24_65C0, Data_24_667A
 	dw Table_24_6698, Data_24_6752, Table_24_6698, Data_24_6752, Table_24_6698, Data_24_6752, Table_24_6698, Data_24_6752
 	dw Table_24_6686, Data_24_6695, Table_24_6686, Data_24_6695, Table_24_6686, Data_24_6695, Table_24_6686, Data_24_6695
@@ -3461,7 +3489,8 @@ Data_24_6BDD:: ; 24:6BDD
 
 ; ---- gfx $6BF0-$6FF0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 29:40D3: hl=$6BF0 a=$24 c=$40 de=$8801 (dest VRAM $8800, vbank=1)
 
-Data_24_6BF0:: ; 24:6BF0
+MailResult_Tiles_6BF0:: ; 24:6BF0
+Data_24_6BF0::
 	db $03, $FD, $03, $FD, $03, $FD, $03, $FD, $03, $FD, $03, $FD, $03, $FD, $03, $FD
 	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
 	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $3F, $00, $3F, $80
@@ -3529,7 +3558,8 @@ Data_24_6BF0:: ; 24:6BF0
 
 ; ---- gfx $6FF0-$73F0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 29:40E5: hl=$6FF0 a=$24 c=$40 de=$8C01 (dest VRAM $8C00, vbank=1)
 
-Data_24_6FF0:: ; 24:6FF0
+MailResult_Tiles_6FF0:: ; 24:6FF0
+Data_24_6FF0::
 	db $FE, $03, $FE, $03, $FE, $03, $FE, $03, $FE, $73, $CE, $43, $FE, $03, $FE, $03
 	db $FE, $04, $FC, $06, $F8, $1C, $F0, $E8, $00, $E0, $00, $00, $00, $00, $00, $00
 	db $00, $FF, $FF, $00, $00, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
@@ -3597,7 +3627,8 @@ Data_24_6FF0:: ; 24:6FF0
 
 ; ---- gfx $73F0-$7490 (160 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 29:40F7: hl=$73F0 a=$24 c=$0A de=$9001 (dest VRAM $9000, vbank=1)
 
-Data_24_73F0:: ; 24:73F0
+MailResult_Tiles_73F0:: ; 24:73F0
+Data_24_73F0::
 	db $1F, $BF, $B8, $3C, $33, $30, $B7, $30, $B0, $30, $BF, $3F, $9F, $3F, $C0, $00
 	db $9F, $BF, $38, $3C, $B0, $30, $B7, $30, $30, $30, $BF, $BF, $9F, $BF, $00, $00
 	db $0C, $6D, $6D, $0C, $0C, $0C, $EC, $0C, $2D, $0D, $AF, $8F, $A6, $87, $30, $00
@@ -3611,7 +3642,8 @@ Data_24_73F0:: ; 24:73F0
 
 ; ---- gfx $7490-$7790 (768 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 29:4109: hl=$7490 a=$24 c=$30 de=$8000 (dest VRAM $8000, vbank=0)
 
-Data_24_7490:: ; 24:7490
+MailResult_Tiles_7490:: ; 24:7490
+Data_24_7490::
 	db $00, $00, $00, $00, $10, $38, $38, $7C, $6C, $6C, $6C, $6C, $6C, $6C, $6C, $6C
 	db $00, $00, $00, $00, $38, $38, $38, $38, $18, $18, $18, $18, $18, $18, $18, $18
 	db $00, $00, $00, $00, $10, $38, $38, $7C, $6C, $6C, $6C, $6C, $0C, $0C, $0C, $1C
@@ -3663,7 +3695,8 @@ Data_24_7490:: ; 24:7490
 
 ; ---- data $7790-$7A60 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 29:411A: hl=$7790 a=$24 b=18 rows c=20 cols (tiles then attrs) de=$D000
 
-Data_24_7790:: ; 24:7790
+MailResult_Tilemap:: ; 24:7790
+Data_24_7790::
 	db $80, $92, $82, $83, $84, $85, $86, $87, $88, $89, $8A, $8B, $8C, $8D, $8E, $8F
 	db $B0, $82, $92, $80, $90, $91, $92, $93, $94, $95, $96, $97, $98, $99, $9A, $9B
 	db $9C, $9D, $9E, $9F, $B1, $92, $91, $90, $A0, $A1, $A2, $A3, $A4, $A5, $A6, $A7
@@ -3712,7 +3745,8 @@ Data_24_7790:: ; 24:7790
 
 ; ---- data $7A60-$7AA0 (64 bytes) [PROBABLE] 64-byte RGB555 palette block copied by Function_4F_4000 (hl=$7A60 a=$24 bc=$0040) from 29:40B0 / 29:40C1 / 29:463E; the call sites 29:40B0/29:40C1/29:463E ARE in analysis/coverage_union.tsv (executed; earlier 'never executed' used the old 18-scenario union) - status kept PROBABLE; the mapper palette guess 7A60-7C38 wrongly extended over the object tables
 
-Palette_24_7A60:: ; 24:7A60
+MailResult_BgPalette:: ; 24:7A60
+Palette_24_7A60::
 	db $FF, $7F, $9F, $02, $F7, $00, $00, $00, $FF, $7F, $F2, $2F, $44, $42, $00, $00
 	db $FF, $7F, $44, $42, $EF, $7F, $17, $00, $FF, $7F, $44, $42, $EF, $7F, $00, $00
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
@@ -3720,7 +3754,8 @@ Palette_24_7A60:: ; 24:7A60
 
 ; ---- data $7AA0-$7AE0 (64 bytes) [PROBABLE] 64-byte RGB555 palette block copied by Function_4F_4000 (hl=$7AA0 a=$24 bc=$0040) from 29:40B0 / 29:40C1 / 29:463E; the call sites 29:40B0/29:40C1/29:463E ARE in analysis/coverage_union.tsv (executed; earlier 'never executed' used the old 18-scenario union) - status kept PROBABLE; the mapper palette guess 7A60-7C38 wrongly extended over the object tables
 
-Palette_24_7AA0:: ; 24:7AA0
+MailResult_ObjPalette:: ; 24:7AA0
+Palette_24_7AA0::
 	db $E0, $7F, $FF, $7F, $52, $74, $2B, $44, $E0, $7F, $FF, $7F, $F7, $00, $00, $00
 	db $E0, $7F, $0E, $5E, $FF, $06, $57, $01, $E0, $7F, $0E, $5E, $5F, $0D, $B1, $00
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
@@ -3728,7 +3763,8 @@ Palette_24_7AA0:: ; 24:7AA0
 
 ; ---- data $7AE0-$7B20 (64 bytes) [PROBABLE] 64-byte RGB555 palette block copied by Function_4F_4000 (hl=$7AE0 a=$24 bc=$0040) from 29:40B0 / 29:40C1 / 29:463E; the call sites 29:40B0/29:40C1/29:463E ARE in analysis/coverage_union.tsv (executed) and traces/detail dataaccess records rom_read 24:7AE0-7B20 (this block read as data by executed code); earlier 'never executed' was stale - status kept PROBABLE; the mapper palette guess 7A60-7C38 wrongly extended over the object tables
 
-Palette_24_7AE0:: ; 24:7AE0
+MailServerStatus_BgPalette:: ; 24:7AE0
+Palette_24_7AE0::
 	db $FF, $7F, $9F, $02, $F7, $00, $00, $00, $FF, $7F, $90, $7E, $8B, $7D, $00, $00
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
@@ -3736,7 +3772,8 @@ Palette_24_7AE0:: ; 24:7AE0
 
 ; ---- words $7B20-$7C00 (224 bytes) [PROBABLE] sprite object table: 4-byte entries (frame-table ptr, animation-script ptr) indexed by B&7F, the layout read by init_object_from_table 00:0A82/00:0AB8; rows of 16 bytes = the same entry repeated 4 times; base $7B20 is passed as de with a=$24 at call sites listed in analysis/gfx_candidates.tsv (object-table); entries 7C00/7C33 7C00/7C33 7C00/7C33 7C00/7C33
 
-Table_24_7B20:: ; 24:7B20
+MailResult_ObjTable:: ; 24:7B20
+Table_24_7B20::
 	dw Table_24_7C00, Data_24_7C33, Table_24_7C00, Data_24_7C33, Table_24_7C00, Data_24_7C33, Table_24_7C00, Data_24_7C33
 	dw Table_24_7C36, Data_24_7C85, Table_24_7C36, Data_24_7C85, Table_24_7C36, Data_24_7C85, Table_24_7C36, Data_24_7C85
 	dw Table_24_7C88, Data_24_7C93, Table_24_7C88, Data_24_7C93, Table_24_7C88, Data_24_7C93, Table_24_7C88, Data_24_7C93

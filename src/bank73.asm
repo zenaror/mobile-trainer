@@ -14,28 +14,29 @@ Data_73_4000:: ; 73:4000
 
 ; ---- ptrtable $4001-$4009 (8 bytes) [PROBABLE] 4 pointers, every target is the first byte of one of the 4 NUL-terminated Shift-JIS strings of String_73_4009; byte 4000 = $73 (own bank number) precedes the table; caller 73:62C6 ld hl,$4000 ; ld a,$73
 
-Table_73_4001:: ; 73:4001
-	dw String_73_4009
+BrowserStart_StringTable:: ; 73:4001
+Table_73_4001::
+	dw BrowserStart_Strings
 	dw $4016
 	dw $4065
 	dw $4072
 
 ; ---- text $4009-$4097 (142 bytes) [PROBABLE] text: 4 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_73_4009:: ; 73:4009
-	db $83, $7A, $81, $5B, $83, $80, $83, $79, $81, $5B, $83, $57, $00, $83, $43, $83
-	db $93, $83, $5E, $81, $5B, $83, $6C, $83, $62, $83, $67, $82, $F0, $82, $C2, $82
-	db $A9, $82, $C1, $82, $C4, $81, $40, $82, $C9, $82, $F1, $82, $C4, $82, $F1, $82
-	db $C7, $82, $A4, $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $7A, $81, $5B, $83
-	db $80, $83, $79, $81, $5B, $83, $57, $82, $F0, $82, $DD, $82, $E9, $82, $B1, $82
-	db $C6, $82, $AA, $82, $C5, $82, $AB, $82, $DC, $82, $B7, $00, $83, $79, $81, $5B
-	db $83, $57, $83, $8A, $83, $58, $83, $67, $00, $83, $79, $81, $5B, $83, $57, $83
-	db $8A, $83, $58, $83, $67, $82, $F0, $81, $40, $82, $C2, $82, $A9, $82, $A4, $82
-	db $B1, $82, $C6, $82, $AA, $82, $C5, $82, $AB, $82, $DC, $82, $B7, $00
+BrowserStart_Strings:: ; 73:4009
+String_73_4009::
+	db $83, $7A, $81, $5B, $83, $80, $83, $79, $81, $5B, $83, $57, $00 ; "ホームページ"
+	db $83, $43, $83, $93, $83, $5E, $81, $5B, $83, $6C, $83, $62, $83, $67, $82, $F0, $82, $C2, $82, $A9, $82, $C1, $82, $C4, $81, $40, $82, $C9, $82, $F1, $82, $C4, $82, $F1 ; "インターネットをつかって　にんてん"
+	db $82, $C7, $82, $A4, $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $7A, $81, $5B, $83, $80, $83, $79, $81, $5B, $83, $57, $82, $F0, $82, $DD, $82, $E9, $82, $B1, $82, $C6 ; "どうモバイルホームページをみること"
+	db $82, $AA, $82, $C5, $82, $AB, $82, $DC, $82, $B7, $00 ; "ができます"
+	db $83, $79, $81, $5B, $83, $57, $83, $8A, $83, $58, $83, $67, $00 ; "ページリスト"
+	db $83, $79, $81, $5B, $83, $57, $83, $8A, $83, $58, $83, $67, $82, $F0, $81, $40, $82, $C2, $82, $A9, $82, $A4, $82, $B1, $82, $C6, $82, $AA, $82, $C5, $82, $AB, $82, $DC ; "ページリストを　つかうことができま"
+	db $82, $B7, $00 ; "す"
 
 ; ---- data $4097-$4367 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 73:5FC8: hl=$4097 a=$73 b=18 rows c=20 cols (tiles then attrs) de=$D000
 
-Data_73_4097:: ; 73:4097
+BrowserStart_Map:: ; 73:4097
+Data_73_4097::
 	db $08, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $09, $09, $09, $18, $19, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
 	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $00, $01, $02, $03, $04, $05, $06, $07
@@ -84,55 +85,65 @@ Data_73_4097:: ; 73:4097
 
 ; ---- data $4367-$438F (40 bytes) [PROBABLE] tile-index rectangle 4 rows x 10 columns (40 bytes): 73:6230 ld bc,$040A ; ld de,$D089 ; ld hl,$4367 ; ld a,$73 ; FarCall 00:16A2 (rect copy from ROM bank a to WRAM)
 
-Tilemap_73_4367:: ; 73:4367
+BrowserStart_TopMapNormal:: ; 73:4367
+Tilemap_73_4367::
 	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $3C, $3D, $3E, $3F, $40
 	db $41, $42, $43, $0A, $0A, $44, $45, $46, $47, $48, $49, $4A, $4B, $0A, $0A, $0A
 	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
 
 ; ---- data $438F-$43AD (30 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
-Data_73_438F:: ; 73:438F
+BrowserStart_BottomMapNormal:: ; 73:438F
+Data_73_438F::
 	db $0A, $30, $31, $31, $31, $31, $31, $31, $30, $0A, $0A, $2F, $35, $36, $37, $38
 	db $39, $3A, $34, $0A, $0A, $33, $32, $32, $32, $32, $32, $32, $33, $0A
 
 ; ---- data $43AD-$43D5 (40 bytes) [PROBABLE] 40 bytes of BG attribute values (all $09): same 4 x 10 geometry as the tilemap at 4367; attribute source pointer: 73:6220 (ld a,$AD ; ld [$C10E],a ; ld a,$43 ; ld [$C10F],a) sets $C10E/$C10F = $43AD right before the FarCall 00:16A2 rect copy of the tilemap at 4367 (00:16A2 reads [$C10E/$C10F] as the source of its second copy, dest +$0400); the site is static-reached, not executed (verifier: earlier note said "no direct reference")
 
-Data_73_43AD:: ; 73:43AD
+BrowserStart_TopAttrNormal:: ; 73:43AD
+Data_73_43AD::
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $09, $09, $09, $09, $09, $09, $09
 
 ; ---- data $43D5-$441B (70 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
-Data_73_43D5:: ; 73:43D5
+BrowserStart_BottomAttrNormal:: ; 73:43D5
+Data_73_43D5::
 	db $09, $09, $09, $09, $09, $09, $09, $09, $29, $09, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $09, $09, $29, $09, $09, $09, $09, $09, $09, $09, $09, $0D, $0E
-	db $0E, $0E, $0E, $0E, $0E, $0E, $0E, $0D, $1D, $5B, $5C, $5D, $5E, $5F, $60, $61
-	db $62, $1D, $2D, $63, $64, $65, $66, $67, $68, $69, $6A, $2D, $0F, $1E, $1E, $1E
-	db $1E, $1E, $1E, $1E, $1E, $0F
+	db $09, $09, $09, $09, $09, $29, $09, $09, $09, $09, $09, $09, $09, $09
+
+BrowserStart_TopMapSelected:: ; 73:43F3
+	db $0D, $0E, $0E, $0E, $0E, $0E, $0E, $0E, $0E, $0D, $1D, $5B, $5C, $5D, $5E, $5F
+	db $60, $61, $62, $1D, $2D, $63, $64, $65, $66, $67, $68, $69, $6A, $2D, $0F, $1E
+	db $1E, $1E, $1E, $1E, $1E, $1E, $1E, $0F
 
 ; ---- data $441B-$4439 (30 bytes) [PROBABLE] tile-index rectangle 3 rows x 10 columns (30 bytes): 73:624B ld bc,$030A ; ld de,$D129 ; ld hl,$441B ; ld a,$73 ; FarCall 00:16A2
 
-Tilemap_73_441B:: ; 73:441B
+BrowserStart_BottomMapSelected:: ; 73:441B
+Tilemap_73_441B::
 	db $0B, $0C, $4D, $4E, $4F, $50, $51, $52, $53, $0B, $1B, $4C, $54, $55, $56, $57
 	db $58, $59, $5A, $1B, $2B, $2C, $2C, $2C, $2C, $2C, $2C, $2C, $2C, $2B
 
 ; ---- data $4439-$4461 (40 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
-Data_73_4439:: ; 73:4439
+BrowserStart_TopAttrSelected:: ; 73:4439
+Data_73_4439::
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $29, $09, $0A, $0A, $0A, $0A, $0A
 	db $0A, $0A, $0A, $29, $09, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $29, $09, $09
 	db $09, $09, $09, $09, $09, $09, $09, $29
 
 ; ---- data $4461-$447F (30 bytes) [PROBABLE] 30 bytes of BG attribute values ($09/$0A/$29): same 3 x 10 geometry as the tilemap at 441B; attribute source pointer: 73:623B (ld a,$61 ; ld [$C10E],a ; ld a,$44 ; ld [$C10F],a) sets $C10E/$C10F = $4461 before the rect copy of 441B at 73:6250 (static-reached, not executed; verifier: earlier note said "no direct reference")
 
-Data_73_4461:: ; 73:4461
+BrowserStart_BottomAttrSelected:: ; 73:4461
+Data_73_4461::
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $29, $09, $0A, $0A, $0A, $0A, $0A
 	db $0A, $0A, $0A, $29, $09, $09, $09, $09, $09, $09, $09, $09, $09, $29
 
 ; ---- data $447F-$4530 (177 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 447F-45DD by higher-priority evidence]
 
-Data_73_447F:: ; 73:447F
+BrowserStart_AnimFrames:: ; 73:447F
+Data_73_447F::
 	db $80, $81, $82, $83, $84, $E1, $E2, $85, $86, $87, $88, $89, $E3, $E4, $8A, $8B
 	db $8C, $8D, $8E, $0A, $0A, $8F, $90, $91, $92, $93, $0A, $0A, $94, $95, $96, $97
 	db $98, $0A, $0A, $99, $9A, $9B, $9C, $84, $E5, $E2, $85, $9D, $9E, $9F, $A0, $E6
@@ -163,7 +174,8 @@ Data_73_4530:: ; 73:4530
 
 ; ---- gfx $45E0-$49E0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 73:5F5E: hl=$45E0 a=$73 c=$40 de=$8000 (dest VRAM $8000, vbank=0)
 
-Data_73_45E0:: ; 73:45E0
+BrowserStart_Tiles0:: ; 73:45E0
+Data_73_45E0::
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $01, $01, $03, $02, $07, $05, $0F
 	db $00, $18, $18, $3E, $36, $6F, $5D, $FB, $B7, $FE, $61, $F7, $C0, $E1, $80, $C0
 	db $00, $00, $00, $00, $00, $80, $80, $E0, $60, $F8, $D8, $BE, $76, $EF, $33, $7D
@@ -299,7 +311,8 @@ Data_73_49E0:: ; 73:49E0
 
 ; ---- gfx $4DE0-$51E0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 73:5F70: hl=$4DE0 a=$73 c=$40 de=$8800 (dest VRAM $8800, vbank=0)
 
-Data_73_4DE0:: ; 73:4DE0
+BrowserStart_Tiles1:: ; 73:4DE0
+Data_73_4DE0::
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FD, $FF, $FA, $FD, $FD, $FF, $FF, $FF, $FF, $FF
 	db $FE, $FF, $FD, $FE, $FE, $FF, $FF, $FF, $FF, $FF, $FD, $FE, $F4, $F8, $EB, $F0
 	db $FF, $FF, $7F, $FF, $FF, $FF, $FF, $FF, $20, $C0, $30, $0F, $83, $7C, $FF, $00
@@ -367,7 +380,8 @@ Data_73_4DE0:: ; 73:4DE0
 
 ; ---- gfx $51E0-$55E0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 73:5F82: hl=$51E0 a=$73 c=$40 de=$8C00 (dest VRAM $8C00, vbank=0)
 
-Data_73_51E0:: ; 73:51E0
+BrowserStart_Tiles2:: ; 73:51E0
+Data_73_51E0::
 	db $7F, $80, $3F, $C0, $9F, $60, $3F, $00, $20, $C0, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FF, $FF, $7F, $FF, $FF, $FF, $FF, $FF, $20, $C0, $3E, $01, $FF, $00, $CF, $30
 	db $EF, $FF, $D7, $EF, $EF, $FF, $FF, $FF, $4F, $3F, $4B, $87, $62, $99, $85, $78
@@ -435,7 +449,8 @@ Data_73_51E0:: ; 73:51E0
 
 ; ---- gfx $55E0-$59E0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 73:5F94: hl=$55E0 a=$73 c=$40 de=$9001 (dest VRAM $9000, vbank=1)
 
-Data_73_55E0:: ; 73:55E0
+BrowserStart_Tiles3:: ; 73:55E0
+Data_73_55E0::
 	db $FF, $FF, $00, $00, $00, $00, $FF, $00, $FF, $FF, $01, $FE, $02, $FC, $01, $FD
 	db $FF, $FF, $00, $00, $00, $00, $FF, $00, $FF, $FF, $20, $1F, $D0, $CF, $68, $A7
 	db $FF, $FF, $00, $00, $00, $00, $FF, $00, $FF, $FF, $02, $FC, $05, $F9, $0A, $F3
@@ -503,7 +518,8 @@ Data_73_55E0:: ; 73:55E0
 
 ; ---- gfx $59E0-$5DE0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 73:5FA6: hl=$59E0 a=$73 c=$40 de=$9401 (dest VRAM $9400, vbank=1)
 
-Data_73_59E0:: ; 73:59E0
+BrowserStart_Tiles4:: ; 73:59E0
+Data_73_59E0::
 	db $00, $00, $FF, $FF, $FF, $00, $00, $00, $67, $FA, $EB, $83, $97, $06, $96, $06
 	db $00, $00, $FF, $FF, $FF, $00, $00, $00, $F7, $0F, $BE, $C8, $F8, $68, $7E, $38
 	db $00, $00, $FF, $FF, $FF, $00, $00, $00, $3F, $D0, $DF, $10, $1F, $10, $BF, $30
@@ -571,7 +587,8 @@ Data_73_59E0:: ; 73:59E0
 
 ; ---- data $5DE0-$5DE8 (8 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 4DE0-5F17 by higher-priority evidence]
 
-Data_73_5DE0:: ; 73:5DE0
+BrowserStart_Palettes:: ; 73:5DE0
+Data_73_5DE0::
 	db $00, $00, $00, $00, $00, $00, $6D, $7A
 
 ; ---- data $5DE8-$5E00 (24 bytes) [PROBABLE] palette-rgb555: heuristic: 12 RGB555 words as 3 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
@@ -589,8 +606,10 @@ Data_73_5E00:: ; 73:5E00
 
 Data_73_5E08:: ; 73:5E08
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
-	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $8D, $7D, $E8, $5B, $00, $00
-	db $00, $00, $7F, $01, $FF, $03, $FF, $7F
+	db $00, $00, $4A, $29, $B5, $56, $FF, $7F
+
+BrowserStart_ObjPalettes:: ; 73:5E20
+	db $00, $00, $8D, $7D, $E8, $5B, $00, $00, $00, $00, $7F, $01, $FF, $03, $FF, $7F
 
 ; ---- data $5E30-$5E38 (8 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 4DE0-5F17 by higher-priority evidence]
 
@@ -617,12 +636,15 @@ Data_73_5EC0:: ; 73:5EC0
 	db $5E, $02, $00, $00, $0B, $01, $00, $08, $0C, $01, $02, $00, $F8, $0D, $01, $00
 	db $00, $0E, $01, $01, $00, $F8, $0F, $01, $03, $F8, $F0, $10, $01, $F8, $F8, $11
 	db $01, $00, $F0, $12, $01, $01, $F8, $E9, $13, $01, $01, $F3, $E9, $14, $01, $00
-	db $07, $00, $06, $01, $06, $02, $06, $03, $06, $04, $06, $05, $06, $06, $1E, $60
-	db $5E, $BE, $5E, $C3, $5E, $00, $5F
+	db $07, $00, $06, $01, $06, $02, $06, $03, $06, $04, $06, $05, $06, $06, $1E
+
+BrowserStart_ObjTable:: ; 73:5F0F
+	db $60, $5E, $BE, $5E, $C3, $5E, $00, $5F
 
 ; ---- code $5F17-$6096 (383 bytes) [CONFIRMED] 133 insn(s); 133 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_73_5F17:: ; 73:5F17
+Browser_StartChoiceScreen:: ; 73:5F17
+Function_73_5F17::
 	ldh a, [rLCDC]
 	and a, $9F
 	ldh [rLCDC], a
@@ -651,46 +673,46 @@ Label_73_5F4A:: ; 73:5F4A
 	ld a, $01
 	ld [wRam_C0E7], a
 	ld de, $8000
-	ld hl, $45E0
+	ld hl, BrowserStart_Tiles0
 	ld a, $73
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8800
-	ld hl, $4DE0
+	ld hl, BrowserStart_Tiles1
 	ld a, $73
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8C00
-	ld hl, $51E0
+	ld hl, BrowserStart_Tiles2
 	ld a, $73
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9001
-	ld hl, $55E0
+	ld hl, BrowserStart_Tiles3
 	ld a, $73
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9401
-	ld hl, $59E0
+	ld hl, BrowserStart_Tiles4
 	ld a, $73
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $5DE0
+	ld hl, BrowserStart_Palettes
 	ld a, $73
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $4097
+	ld hl, BrowserStart_Map
 	ld a, $73
 	farcall Function_00_08EA
-	call Function_73_61D5
+	call BrowserStart_DrawButtons
 	ld hl, $DA10
 	ld de, $5F0F
 	ld a, $73
@@ -711,12 +733,12 @@ Label_73_5F4A:: ; 73:5F4A
 	ld de, $D840
 	ld hl, $5E20
 	ld a, $73
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld a, $40
 	ld bc, $0220
 	ld de, $8000
 	ld hl, $D200
-	farcall Function_48_4679
+	farcall Tilemap_FillRectSequential
 	call Function_00_044B
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -743,8 +765,8 @@ Label_73_5F4A:: ; 73:5F4A
 	ldh a, [rLCDC]
 	call Function_00_082C
 	farcall Function_00_0956
-	farcall Function_4F_42B4
-	call Function_73_62AA
+	farcall Palette_FadeInFromWhite
+	call BrowserStart_ShowDescription
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -757,13 +779,14 @@ Label_73_5F4A:: ; 73:5F4A
 Label_73_607E:: ; 73:607E
 	farcall Function_00_0956
 	call Function_00_044B
-	farcall Function_7D_7BA4
-	farcall Function_7D_7BC1
+	farcall Joypad_UpdateIdleFrames
+	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
 
 ; ---- ptrtable $6096-$60A0 (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 73:6093: 5 entries; fixed length (5 words) by the routine
 
-Table_73_6096:: ; 73:6096
+BrowserStart_InputTable:: ; 73:6096
+Table_73_6096::
 	dw Label_73_6114
 	dw Label_73_614F
 	dw Label_73_617A
@@ -791,8 +814,8 @@ Label_73_60A0:: ; 73:60A0
 	ld a, [wRam_C0E5]
 	cp a, $01
 	jr z, Label_73_60EA
-	farcall Function_48_46C6
-	farcall Function_48_4460
+	farcall Palette_FadeOutWithTicker
+	farcall Ticker_Stop
 	ld a, [wRam_C0E5]
 	ld b, $00
 	or a, a
@@ -808,27 +831,27 @@ Label_73_60D0:: ; 73:60D0
 ; ---- code $60D7-$60EA (19 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
 
 Label_73_60D7:: ; 73:60D7
-	farcall Function_48_4223
+	farcall Ticker_Update
 	ldh a, [hJoyPressedRepeat]
 	and a, $F0
-	call nz, Function_73_6180
-	call Function_73_6265
+	call nz, BrowserStart_HandleDpad
+	call BrowserStart_AnimateFrame
 	jp Label_73_607E
 
 ; ---- code $60EA-$6114 (42 bytes) [PROBABLE] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 1; entered by jrcc from 73:60BB (PROBABLE code)
 
 Label_73_60EA:: ; 73:60EA
-	farcall Function_48_46C6
-	farcall Function_48_4460
+	farcall Palette_FadeOutWithTicker
+	farcall Ticker_Stop
 	ld b, $01
 	ld a, $01
 	ld hl, $A8C1
-	farcall Function_48_4616
+	farcall WriteByteFar
 	ld a, $01
 	ld b, a
 	ld a, $01
 	ld hl, $A8B7
-	farcall Function_48_4616
+	farcall WriteByteFar
 	ld a, $01
 	ret
 
@@ -843,17 +866,19 @@ Label_73_6114:: ; 73:6114
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	farcall Function_48_46C6
-	farcall Function_48_4460
+	farcall Palette_FadeOutWithTicker
+	farcall Ticker_Stop
 	ld a, [wRam_C0E5]
 	ld b, a
 	ld a, $01
 	ld hl, $A8B7
-	farcall Function_48_4616
+	farcall WriteByteFar
 	ld a, [wRam_C0E5]
 	ret
 
 ; ---- code $6143-$614F (12 bytes) [HYPOTHESIS] 6 insn(s): two consecutive tiny functions (ld a,[$C0F8] ; xor $01 ; ret) and (ld a,[$C0F9] ; xor $01 ; ret) falling into the code at 614F; well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS | verifier: downgraded to HYPOTHESIS, no direct/far/table reference to this address exists anywhere in the ROM (all-bank search for the address word) and it is not a fall-through of proven code, so it is only bytes that decode cleanly
+
+Function_73_6143:: ; 73:6143
 	ld a, [wRam_C0F8]
 	xor a, $01
 	ret
@@ -873,12 +898,12 @@ Label_73_614F:: ; 73:614F
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	farcall Function_48_46C6
-	farcall Function_48_4460
+	farcall Palette_FadeOutWithTicker
+	farcall Ticker_Stop
 	ld b, $00
 	ld a, $01
 	ld hl, $A8B7
-	farcall Function_48_4616
+	farcall WriteByteFar
 	xor a, a
 	ret
 
@@ -888,7 +913,7 @@ Label_73_617A:: ; 73:617A
 Label_73_617D:: ; 73:617D
 	jp Label_73_607E
 
-Function_73_6180:: ; 73:6180
+BrowserStart_HandleDpad:: ; 73:6180
 	ld b, a
 	ld a, [wRam_C0E2]
 	or a, a
@@ -909,8 +934,8 @@ Label_73_6193:: ; 73:6193
 	xor a, $01
 	inc a
 	ld [wRam_C0E5], a
-	call Function_73_61D5
-	call Function_73_62AA
+	call BrowserStart_DrawButtons
+	call BrowserStart_ShowDescription
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -927,8 +952,8 @@ Label_73_61B4:: ; 73:61B4
 	xor a, $01
 	inc a
 	ld [wRam_C0E5], a
-	call Function_73_61D5
-	call Function_73_62AA
+	call BrowserStart_DrawButtons
+	call BrowserStart_ShowDescription
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -941,7 +966,8 @@ Label_73_61B4:: ; 73:61B4
 
 ; ---- code $61D5-$6220 (75 bytes) [CONFIRMED] 26 insn(s); 26 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_73_61D5:: ; 73:61D5
+BrowserStart_DrawButtons:: ; 73:61D5
+Function_73_61D5::
 	ld a, [wRam_C0E5]
 	dec a
 	jr nz, Label_73_6220
@@ -951,7 +977,7 @@ Function_73_61D5:: ; 73:61D5
 	ld [wRam_C10F], a
 	ld bc, $030A
 	ld de, $D129
-	ld hl, $438F
+	ld hl, BrowserStart_BottomMapNormal
 	ld a, $73
 	farcall Function_00_16A2
 	ld a, $39
@@ -964,7 +990,7 @@ Function_73_61D5:: ; 73:61D5
 	ld a, $73
 	farcall Function_00_16A2
 	farcall Function_00_0956
-	call Function_73_6265
+	call BrowserStart_AnimateFrame
 	ldh a, [rLCDC]
 	call Function_00_082C
 	ret
@@ -978,7 +1004,7 @@ Label_73_6220:: ; 73:6220
 	ld [wRam_C10F], a
 	ld bc, $040A
 	ld de, $D089
-	ld hl, $4367
+	ld hl, BrowserStart_TopMapNormal
 	ld a, $73
 	farcall Function_00_16A2
 	ld a, $61
@@ -987,18 +1013,19 @@ Label_73_6220:: ; 73:6220
 	ld [wRam_C10F], a
 	ld bc, $030A
 	ld de, $D129
-	ld hl, $441B
+	ld hl, BrowserStart_BottomMapSelected
 	ld a, $73
 	farcall Function_00_16A2
 	farcall Function_00_0956
-	call Function_73_6265
+	call BrowserStart_AnimateFrame
 	ldh a, [rLCDC]
 	call Function_00_082C
 	ret
 
 ; ---- code $6265-$62D2 (109 bytes) [CONFIRMED] 50 insn(s); 50 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_73_6265:: ; 73:6265
+BrowserStart_AnimateFrame:: ; 73:6265
+Function_73_6265::
 	ld hl, $C0E7
 	dec [hl]
 	ret nz
@@ -1036,7 +1063,7 @@ Label_73_627C:: ; 73:627C
 	ld [wRam_C0E8], a
 	ret
 
-Function_73_62AA:: ; 73:62AA
+BrowserStart_ShowDescription:: ; 73:62AA
 	ld a, [wRam_C0E5]
 	ld b, $FF
 
@@ -1053,9 +1080,9 @@ Label_73_62AF:: ; 73:62AF
 	ld a, b
 	cp a, $03
 	call z, Function_73_62E2
-	ld hl, $4000
+	ld hl, Data_73_4000
 	ld a, $73
-	farcall Function_48_42D4
+	farcall Ticker_Start
 	ret
 
 ; ---- code $62D2-$62EF (29 bytes) [PROBABLE] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 1; entered by callcc from 73:62B7 (executed)

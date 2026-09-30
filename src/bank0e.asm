@@ -9,11 +9,12 @@ SECTION "Bank0E", ROMX[$4000], BANK[$0E]
 
 ; ---- code $4000-$4094 (148 bytes) [CONFIRMED] 70 insn(s); 70 executed (in up to 14/18 scenarios); entry proven: target of an executed call/far call
 
-Function_0E_4000:: ; 0E:4000
+Title_Run:: ; 0E:4000
+Function_0E_4000::
 	ld [wRam_C280], a
 	ld b, $15
 	ld c, $03
-	farcall Function_7D_7C00
+	farcall Joypad_SetRepeatTiming
 	ld a, [wRam_C280]
 	or a, a
 	jr nz, Label_0E_4019
@@ -26,7 +27,7 @@ Label_0E_4019:: ; 0E:4019
 	ld [wRam_C27C], a
 
 Label_0E_401E:: ; 0E:401E
-	call Function_0E_405F
+	call Title_StateLoop
 	ld a, [wRam_C27D]
 	ld hl, $BF00
 	ld b, a
@@ -60,14 +61,14 @@ Label_0E_401E:: ; 0E:401E
 	inc a
 	ret
 
-Function_0E_405F:: ; 0E:405F
-	farcall Function_7D_7BB7
-	call Function_0E_4083
+Title_StateLoop:: ; 0E:405F
+	farcall Joypad_Update
+	call Title_DispatchState
 	farcall Function_00_0956
 	call Function_00_044B
 	ld a, [wRam_C27C]
 	cp a, $FF
-	jr nz, Function_0E_405F
+	jr nz, Title_StateLoop
 	call Function_00_044B
 	ld hl, $FF40
 	ld a, [hl]
@@ -75,9 +76,9 @@ Function_0E_405F:: ; 0E:405F
 	ld [hl], a
 	ret
 
-Function_0E_4083:: ; 0E:4083
+Title_DispatchState:: ; 0E:4083
 	ld a, [wRam_C27C]
-	ld hl, $4094
+	ld hl, Table_Title_States
 	add a, a
 	add a, l
 	ld l, a
@@ -91,20 +92,21 @@ Function_0E_4083:: ; 0E:4083
 
 ; ---- ptrtable $4094-$40A2 (14 bytes) [PROBABLE] code-pointer table, 7 entries: 7/7 words hit own-bank code starts (survey pointer-table extent); 6/7 targets executed
 
-Table_0E_4094:: ; 0E:4094
-	dw Label_0E_40A2
-	dw Label_0E_40CA
-	dw Label_0E_410C
-	dw Label_0E_411A
-	dw Label_0E_417B
-	dw Label_0E_41FE
-	dw Label_0E_420A
+Table_Title_States:: ; 0E:4094
+Table_0E_4094::
+	dw Title_StateLoadLogo
+	dw Title_StateLogoWait
+	dw Title_StateLogoFadeOut
+	dw Title_StateLoadTitle
+	dw Title_StateMenu
+	dw Title_StateExit
+	dw Title_StateTimeoutRestart
 
 ; ---- code $40A2-$4192 (240 bytes) [CONFIRMED] 114 insn(s); 114 executed (in up to 14/18 scenarios)
 
-Label_0E_40A2:: ; 0E:40A2
-	call Function_0E_434F
-	farcall Function_4F_42FF
+Title_StateLoadLogo:: ; 0E:40A2
+	call Title_LoadLogoScreen
+	farcall Palette_FadeInFromWhiteSlow
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -121,7 +123,7 @@ Label_0E_40A2:: ; 0E:40A2
 	ld [wRam_C27C], a
 	ret
 
-Label_0E_40CA:: ; 0E:40CA
+Title_StateLogoWait:: ; 0E:40CA
 	ld a, [wRam_C27E]
 	ld b, a
 	ld a, [wRam_C27F]
@@ -150,7 +152,7 @@ Label_0E_40DD:: ; 0E:40DD
 	jr Label_0E_410B
 
 Label_0E_40F4:: ; 0E:40F4
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ld a, [wRam_C27C]
 	add a, $02
 	ld [wRam_C27C], a
@@ -164,14 +166,14 @@ Label_0E_4104:: ; 0E:4104
 Label_0E_410B:: ; 0E:410B
 	ret
 
-Label_0E_410C:: ; 0E:410C
-	farcall Function_4F_43B8
+Title_StateLogoFadeOut:: ; 0E:410C
+	farcall Palette_FadeOutToWhiteSlow
 	ld a, [wRam_C27C]
 	inc a
 	ld [wRam_C27C], a
 	ret
 
-Label_0E_411A:: ; 0E:411A
+Title_StateLoadTitle:: ; 0E:411A
 	ld hl, $BF00
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
@@ -201,8 +203,8 @@ Label_0E_411A:: ; 0E:411A
 	ldh a, [hScratchA]
 	ld a, b
 	ld [wRam_C27D], a
-	call Function_0E_4215
-	farcall Function_4F_42B4
+	call Title_LoadTitleScreen
+	farcall Palette_FadeInFromWhite
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -219,10 +221,10 @@ Label_0E_411A:: ; 0E:411A
 	ld [wRam_C27C], a
 	ret
 
-Label_0E_417B:: ; 0E:417B
+Title_StateMenu:: ; 0E:417B
 	ld a, [wRam_C280]
 	or a, a
-	jr nz, Label_0E_419F
+	jr nz, Title_MenuHandleButtons
 	ld a, [wRam_C27E]
 	ld b, a
 	ld a, [wRam_C27F]
@@ -241,35 +243,35 @@ Label_0E_417B:: ; 0E:417B
 ; ---- code $4194-$41B3 (31 bytes) [CONFIRMED] 16 insn(s); 16 executed (in up to 14/18 scenarios)
 
 Label_0E_4194:: ; 0E:4194
-	jr z, Label_0E_41B3
+	jr z, Title_MenuTimeout
 	inc hl
 	ld a, h
 	ld [wRam_C27E], a
 	ld a, l
 	ld [wRam_C27F], a
 
-Label_0E_419F:: ; 0E:419F
+Title_MenuHandleButtons:: ; 0E:419F
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
-	jr nz, Label_0E_41E6
+	jr nz, Title_MenuConfirm
 	bit 3, a
-	jr nz, Label_0E_41E6
+	jr nz, Title_MenuConfirm
 	bit 6, a
-	jr nz, Label_0E_41BA
+	jr nz, Title_MenuToggleSelection
 	bit 7, a
-	jr nz, Label_0E_41BA
+	jr nz, Title_MenuToggleSelection
 	jr Label_0E_41FD
 
 ; ---- code $41B3-$41BA (7 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 0E:4194 (executed)
 
-Label_0E_41B3:: ; 0E:41B3
+Title_MenuTimeout:: ; 0E:41B3
 	ld a, $06
 	ld [wRam_C27C], a
 	jr Label_0E_41FD
 
 ; ---- code $41BA-$420A (80 bytes) [CONFIRMED] 35 insn(s); 35 executed (in up to 14/18 scenarios)
 
-Label_0E_41BA:: ; 0E:41BA
+Title_MenuToggleSelection:: ; 0E:41BA
 	xor a, a
 	ld [wRam_C27E], a
 	ld [wRam_C27F], a
@@ -284,13 +286,13 @@ Label_0E_41BA:: ; 0E:41BA
 	ld a, [wRam_C27D]
 	xor a, $01
 	ld [wRam_C27D], a
-	call Function_0E_4334
-	call Function_0E_4311
+	call Title_PlaceCursor
+	call Title_DrawMenuHighlight
 	ldh a, [rLCDC]
 	call Function_00_07CB
 	jr Label_0E_41FD
 
-Label_0E_41E6:: ; 0E:41E6
+Title_MenuConfirm:: ; 0E:41E6
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -306,23 +308,24 @@ Label_0E_41E6:: ; 0E:41E6
 Label_0E_41FD:: ; 0E:41FD
 	ret
 
-Label_0E_41FE:: ; 0E:41FE
-	farcall Function_4F_4370
+Title_StateExit:: ; 0E:41FE
+	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ld [wRam_C27C], a
 	ret
 
 ; ---- code $420A-$4215 (11 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: site x4; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 
-Label_0E_420A:: ; 0E:420A
-	farcall Function_4F_4370
+Title_StateTimeoutRestart:: ; 0E:420A
+	farcall Palette_FadeOutToWhite
 	xor a, a
 	ld [wRam_C27C], a
 	ret
 
 ; ---- code $4215-$4330 (283 bytes) [CONFIRMED] 98 insn(s); 98 executed (in up to 14/18 scenarios); entry proven: target of an executed call/far call
 
-Function_0E_4215:: ; 0E:4215
+Title_LoadTitleScreen:: ; 0E:4215
+Function_0E_4215::
 	call Function_00_044B
 	ld hl, $FF40
 	ld a, [hl]
@@ -330,13 +333,13 @@ Function_0E_4215:: ; 0E:4215
 	ld [hl], a
 	farcall Function_00_09B6
 	ld de, $8000
-	ld hl, $43C0
+	ld hl, Gfx_Title_Tiles0
 	ld a, $0E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8800
-	ld hl, $47C0
+	ld hl, Gfx_Title_Tiles1
 	ld a, $0E
 	ld b, $92
 	ld c, $40
@@ -348,45 +351,45 @@ Function_0E_4215:: ; 0E:4215
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8801
-	ld hl, $4BC0
+	ld hl, Gfx_Title_Tiles2
 	ld a, $0E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8C01
-	ld hl, $4FC0
+	ld hl, Gfx_Title_Tiles4
 	ld a, $0E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9001
-	ld hl, $53C0
+	ld hl, Gfx_Title_Tiles5
 	ld a, $0E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9401
-	ld hl, $57C0
+	ld hl, Gfx_Title_Tiles6
 	ld a, $0E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $5F30
+	ld hl, Palette_Title_Bg
 	ld a, $0E
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $5F70
 	ld a, $0E
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $5BC0
+	ld hl, Tilemap_Title_Screen
 	ld a, $0E
 	farcall Function_00_08EA
-	call Function_0E_4311
+	call Title_DrawMenuHighlight
 	ldh a, [rLCDC]
 	call Function_00_07CB
 	ld hl, $DA10
@@ -394,7 +397,7 @@ Function_0E_4215:: ; 0E:4215
 	ld a, $0E
 	ld b, $81
 	farcall Function_00_0A82
-	call Function_0E_4334
+	call Title_PlaceCursor
 	ld hl, $DA20
 	ld de, $5FB0
 	ld a, $0E
@@ -406,11 +409,11 @@ Function_0E_4215:: ; 0E:4215
 	farcall Function_00_0956
 	ret
 
-Function_0E_4311:: ; 0E:4311
+Title_DrawMenuHighlight:: ; 0E:4311
 	ld a, [wRam_C27D]
 	ld de, $D185
 	ld bc, $040A
-	ld hl, $4330
+	ld hl, Table_Title_HighlightTilemaps
 	add a, a
 	add a, l
 	ld l, a
@@ -426,14 +429,16 @@ Function_0E_4311:: ; 0E:4311
 
 ; ---- data $4330-$4334 (4 bytes) [CONFIRMED] read as data by executed code (in up to 14/18 scenarios); content class unknown
 
-Data_0E_4330:: ; 0E:4330
+Table_Title_HighlightTilemaps:: ; 0E:4330
+Data_0E_4330::
 	db $90, $5E, $E0, $5E
 
 ; ---- code $4334-$434B (23 bytes) [CONFIRMED] 14 insn(s); 14 executed (in up to 14/18 scenarios); entry proven: target of an executed call/far call
 
-Function_0E_4334:: ; 0E:4334
+Title_PlaceCursor:: ; 0E:4334
+Function_0E_4334::
 	ld a, [wRam_C27D]
-	ld hl, $434B
+	ld hl, Table_Title_CursorPositions
 	add a, a
 	add a, l
 	ld l, a
@@ -449,12 +454,14 @@ Function_0E_4334:: ; 0E:4334
 
 ; ---- data $434B-$434F (4 bytes) [CONFIRMED] read as data by executed code (in up to 14/18 scenarios); content class unknown
 
-Data_0E_434B:: ; 0E:434B
+Table_Title_CursorPositions:: ; 0E:434B
+Data_0E_434B::
 	db $18, $60, $18, $70
 
 ; ---- code $434F-$43B1 (98 bytes) [CONFIRMED] 32 insn(s); 32 executed (in up to 14/18 scenarios); entry proven: target of an executed call/far call
 
-Function_0E_434F:: ; 0E:434F
+Title_LoadLogoScreen:: ; 0E:434F
+Function_0E_434F::
 	call Function_00_044B
 	ld hl, $FF40
 	ld a, [hl]
@@ -462,25 +469,25 @@ Function_0E_434F:: ; 0E:434F
 	ld [hl], a
 	farcall Function_00_09B6
 	ld de, $9001
-	ld hl, $60A0
+	ld hl, Gfx_TitleLogo_Tiles0
 	ld a, $0E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9401
-	ld hl, $64A0
+	ld hl, Gfx_TitleLogo_Tiles1
 	ld a, $0E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $6B70
+	ld hl, Palette_TitleLogo
 	ld a, $0E
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $68A0
+	ld hl, Tilemap_TitleLogo_Screen
 	ld a, $0E
 	farcall Function_00_08EA
 	ldh a, [rLCDC]
@@ -493,7 +500,8 @@ Function_0E_434F:: ; 0E:434F
 
 ; ---- gfx $43C0-$47C0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 0E:4231: hl=$43C0 a=$0E c=$40 de=$8000 (dest VRAM $8000, vbank=0)
 
-Data_0E_43C0:: ; 0E:43C0
+Gfx_Title_Tiles0:: ; 0E:43C0
+Data_0E_43C0::
 	db $00, $00, $00, $00, $00, $00, $03, $03, $07, $07, $0F, $0F, $0F, $0F, $3F, $1F
 	db $3F, $1F, $1F, $1F, $7D, $3D, $7E, $3E, $75, $35, $7A, $3A, $55, $15, $6A, $2A
 	db $00, $00, $60, $00, $E8, $E0, $F4, $F0, $FC, $F8, $FA, $F8, $D6, $D4, $EA, $E8
@@ -561,7 +569,8 @@ Data_0E_43C0:: ; 0E:43C0
 
 ; ---- gfx $47C0-$4BC0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 0E:4243: hl=$47C0 a=$0E c=$40 de=$8800 (dest VRAM $8800, vbank=0)
 
-Data_0E_47C0:: ; 0E:47C0
+Gfx_Title_Tiles1:: ; 0E:47C0
+Data_0E_47C0::
 	db $00, $FF, $00, $FF, $01, $FE, $03, $FD, $07, $FA, $07, $FA, $02, $FD, $07, $FA
 	db $17, $FA, $3A, $FD, $7B, $FD, $7B, $FD, $7B, $FD, $7D, $BE, $2E, $DF, $1F, $E0
 	db $00, $FF, $00, $FF, $F9, $06, $FF, $F9, $FB, $06, $FB, $06, $C7, $3A, $FB, $06
@@ -629,7 +638,8 @@ Data_0E_47C0:: ; 0E:47C0
 
 ; ---- gfx $4BC0-$4DC0 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 0E:4255: hl=$49C0 a=$0E c=$40 de=$8001 (dest VRAM $8000, vbank=1) [clipped from 49C0-4DC0 by higher-priority evidence]
 
-Data_0E_4BC0:: ; 0E:4BC0
+Gfx_Title_Tiles2:: ; 0E:4BC0
+Data_0E_4BC0::
 	db $00, $FF, $00, $FF, $00, $FF, $00, $C0, $1F, $BF, $3F, $A0, $3F, $A0, $3F, $A0
 	db $3F, $A0, $1F, $BC, $27, $9C, $1F, $C4, $1F, $BC, $3F, $A0, $3F, $A0, $3F, $A0
 	db $00, $FF, $00, $FF, $00, $FF, $00, $00, $FF, $FF, $FF, $00, $FF, $00, $FF, $00
@@ -665,7 +675,8 @@ Data_0E_4BC0:: ; 0E:4BC0
 
 ; ---- gfx $4DC0-$4FC0 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 0E:4267: hl=$4BC0 a=$0E c=$40 de=$8801 (dest VRAM $8800, vbank=1) [clipped from 4BC0-4FC0 by higher-priority evidence]
 
-Data_0E_4DC0:: ; 0E:4DC0
+Gfx_Title_Tiles3:: ; 0E:4DC0
+Data_0E_4DC0::
 	db $3F, $A0, $1F, $BC, $37, $8C, $07, $CC, $07, $EC, $07, $EC, $07, $EC, $07, $EC
 	db $15, $E6, $06, $F3, $03, $F9, $00, $FC, $01, $FE, $00, $FF, $00, $FF, $00, $FF
 	db $FF, $00, $FF, $7F, $C0, $7F, $C0, $40, $FF, $7F, $80, $7F, $FF, $00, $FF, $00
@@ -701,7 +712,8 @@ Data_0E_4DC0:: ; 0E:4DC0
 
 ; ---- gfx $4FC0-$53C0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 0E:4279: hl=$4FC0 a=$0E c=$40 de=$8C01 (dest VRAM $8C00, vbank=1)
 
-Data_0E_4FC0:: ; 0E:4FC0
+Gfx_Title_Tiles4:: ; 0E:4FC0
+Data_0E_4FC0::
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $3F, $80, $DF
 	db $C0, $5F, $C0, $5F, $C0, $5F, $C0, $40, $FF, $7F, $FF, $C0, $FF, $C0, $7F, $40
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
@@ -769,7 +781,8 @@ Data_0E_4FC0:: ; 0E:4FC0
 
 ; ---- gfx $53C0-$57C0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 0E:428B: hl=$53C0 a=$0E c=$40 de=$9001 (dest VRAM $9000, vbank=1)
 
-Data_0E_53C0:: ; 0E:53C0
+Gfx_Title_Tiles5:: ; 0E:53C0
+Data_0E_53C0::
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
 	db $01, $FE, $04, $F8, $0B, $F0, $17, $E3, $0F, $E7, $1F, $CF, $5F, $8F, $3F, $9F
 	db $10, $0F, $E0, $07, $F8, $E3, $FC, $F1, $FD, $F8, $FE, $F8, $FE, $FC, $FE, $FC
@@ -837,7 +850,8 @@ Data_0E_53C0:: ; 0E:53C0
 
 ; ---- gfx $57C0-$5BC0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 0E:429D: hl=$57C0 a=$0E c=$40 de=$9401 (dest VRAM $9400, vbank=1)
 
-Data_0E_57C0:: ; 0E:57C0
+Gfx_Title_Tiles6:: ; 0E:57C0
+Data_0E_57C0::
 	db $15, $E2, $00, $F3, $0A, $F1, $00, $F9, $05, $F8, $00, $FC, $00, $FE, $00, $FF
 	db $70, $07, $70, $07, $E8, $07, $E0, $0F, $E0, $0F, $E0, $07, $70, $03, $28, $11
 	db $17, $F7, $07, $F3, $03, $F1, $09, $F8, $02, $FA, $01, $F9, $0D, $F9, $06, $F0
@@ -905,7 +919,8 @@ Data_0E_57C0:: ; 0E:57C0
 
 ; ---- data $5BC0-$5E90 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 0E:42D0: hl=$5BC0 a=$0E b=18 rows c=20 cols (tiles then attrs) de=$D000
 
-Data_0E_5BC0:: ; 0E:5BC0
+Tilemap_Title_Screen:: ; 0E:5BC0
+Data_0E_5BC0::
 	db $C2, $C2, $C2, $C2, $C2, $E4, $E6, $E8, $EA, $EC, $EE, $F0, $F2, $F4, $C2, $C2
 	db $3F, $3E, $FE, $C2, $C2, $FA, $F8, $F6, $C2, $E5, $E7, $E9, $EB, $ED, $EF, $F1
 	db $F3, $F5, $C2, $4F, $4E, $4D, $FF, $FD, $C2, $FB, $F9, $F7, $01, $02, $03, $04
@@ -954,12 +969,15 @@ Data_0E_5BC0:: ; 0E:5BC0
 
 ; ---- gfx $5E90-$5F30 (160 bytes) [PROBABLE] tiles-2bpp: heuristic: 33 coherent tiles (hsim2=0.616 vsim2=0.870, 0 blank) parity 0; 368/528 bytes also covered by call-site blocks [clipped from 5D20-5F30 by higher-priority evidence]
 
-Data_0E_5E90:: ; 0E:5E90
+Tilemap_Title_HighlightStart:: ; 0E:5E90
+Data_0E_5E90::
 	db $00, $00, $6A, $6B, $6C, $6D, $6E, $6F, $00, $00, $00, $00, $7A, $7B, $7C, $7D
 	db $7E, $7F, $00, $00, $80, $82, $84, $86, $88, $8A, $8C, $8E, $90, $92, $81, $83
 	db $85, $87, $89, $8B, $8D, $8F, $91, $93, $0D, $0D, $09, $09, $09, $09, $09, $09
 	db $0D, $0D, $0D, $0D, $0D, $0D, $0D, $0D, $0D, $0D, $0D, $0D, $03, $03, $03, $03
 	db $03, $03, $03, $03, $03, $03, $03, $03, $03, $03, $03, $03, $03, $03, $03, $03
+
+Tilemap_Title_HighlightSettings:: ; 0E:5EE0
 	db $00, $00, $94, $96, $98, $9A, $9C, $9E, $00, $00, $00, $00, $95, $97, $99, $9B
 	db $9D, $9F, $00, $00, $60, $61, $62, $63, $64, $65, $66, $67, $68, $69, $70, $71
 	db $72, $73, $74, $75, $76, $77, $78, $79, $08, $08, $03, $03, $03, $03, $03, $03
@@ -968,15 +986,20 @@ Data_0E_5E90:: ; 0E:5E90
 
 ; ---- data $5F30-$60A0 (368 bytes) [PROBABLE] palette-rgb555: heuristic: 184 RGB555 words as 46 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
 
-Data_0E_5F30:: ; 0E:5F30
+Palette_Title_Bg:: ; 0E:5F30
+Data_0E_5F30::
 	db $00, $00, $45, $78, $52, $7E, $FF, $7F, $00, $00, $71, $15, $52, $7E, $7F, $4F
 	db $2C, $41, $05, $00, $52, $7E, $9F, $02, $00, $00, $2C, $41, $52, $7E, $FF, $7F
 	db $00, $00, $03, $2C, $52, $7E, $0B, $7C, $00, $00, $60, $40, $52, $7E, $FF, $7F
 	db $F9, $36, $05, $00, $91, $15, $9F, $02, $F9, $36, $05, $00, $91, $15, $AB, $00
+
+Palette_Title_Obj:: ; 0E:5F70
 	db $52, $7E, $00, $00, $1F, $00, $0F, $00, $E0, $7F, $05, $00, $41, $03, $9F, $02
 	db $E0, $7F, $80, $7D, $41, $03, $9F, $02, $E0, $7F, $60, $40, $21, $02, $7A, $01
 	db $C0, $7D, $6A, $08, $1F, $00, $67, $57, $E0, $7F, $0B, $7C, $21, $02, $D1, $7C
 	db $E0, $7F, $05, $00, $21, $02, $7A, $01, $E0, $7F, $41, $03, $21, $02, $80, $7D
+
+Objects_Title:: ; 0E:5FB0
 	db $00, $00, $00, $00, $BC, $5F, $08, $60, $19, $60, $98, $60, $C4, $5F, $D5, $5F
 	db $E6, $5F, $F7, $5F, $04, $00, $00, $00, $08, $00, $08, $02, $08, $00, $68, $00
 	db $28, $00, $60, $02, $28, $04, $00, $00, $04, $08, $00, $08, $06, $08, $00, $68
@@ -995,7 +1018,8 @@ Data_0E_5F30:: ; 0E:5F30
 
 ; ---- gfx $60A0-$64A0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 0E:436B: hl=$60A0 a=$0E c=$40 de=$9001 (dest VRAM $9000, vbank=1)
 
-Data_0E_60A0:: ; 0E:60A0
+Gfx_TitleLogo_Tiles0:: ; 0E:60A0
+Data_0E_60A0::
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $01, $00, $10, $0F, $94, $78
@@ -1063,7 +1087,8 @@ Data_0E_60A0:: ; 0E:60A0
 
 ; ---- gfx $64A0-$68A0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 0E:437D: hl=$64A0 a=$0E c=$40 de=$9401 (dest VRAM $9400, vbank=1)
 
-Data_0E_64A0:: ; 0E:64A0
+Gfx_TitleLogo_Tiles1:: ; 0E:64A0
+Data_0E_64A0::
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
@@ -1131,7 +1156,8 @@ Data_0E_64A0:: ; 0E:64A0
 
 ; ---- data $68A0-$6B70 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 0E:439F: hl=$68A0 a=$0E b=18 rows c=20 cols (tiles then attrs) de=$D000
 
-Data_0E_68A0:: ; 0E:68A0
+Tilemap_TitleLogo_Screen:: ; 0E:68A0
+Data_0E_68A0::
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
@@ -1180,7 +1206,8 @@ Data_0E_68A0:: ; 0E:68A0
 
 ; ---- data $6B70-$6BB0 (64 bytes) [PROBABLE] palette-rgb555: heuristic: 32 RGB555 words as 8 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
 
-Data_0E_6B70:: ; 0E:6B70
+Palette_TitleLogo:: ; 0E:6B70
+Data_0E_6B70::
 	db $FF, $7F, $75, $7E, $CA, $7C, $45, $78, $FF, $7F, $75, $7E, $CA, $7C, $45, $78
 	db $FF, $7F, $75, $7E, $CA, $7C, $45, $78, $FF, $7F, $4A, $29, $B5, $56, $FF, $7F
 	db $FF, $7F, $4A, $29, $B5, $56, $FF, $7F, $FF, $7F, $4A, $29, $B5, $56, $FF, $7F

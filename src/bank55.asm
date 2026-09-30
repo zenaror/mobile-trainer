@@ -9,13 +9,17 @@ SECTION "Bank55", ROMX[$4000], BANK[$55]
 
 ; ---- data $4000-$4014 (20 bytes) [PROBABLE] 20-byte header ($0014, $0003, zeros, $4634?, $58 run) of the on-screen keyboard tables; bytes 4000-4001, 4004, 4006-400B, 400E, 4010-4013 were read by executed code (traces); fields not decoded [verifier: restored from HYPOTHESIS; the traces prove the read ranges as data (they were CONFIRMED before the merge) and the block is one 20-byte header]
 
-Data_55_4000:: ; 55:4000
-	db $14, $00, $03, $00, $00, $00, $00, $00, $00, $00, $34, $46, $46, $58, $58, $58
-	db $58, $58, $58, $58
+Table_Kbd_StartCell:: ; 55:4000
+Data_55_4000::
+	db $14, $00, $03, $00, $00, $00, $00, $00, $00, $00
+
+Table_Kbd_OkCell:: ; 55:400A
+	db $34, $46, $46, $58, $58, $58, $58, $58, $58, $58
 
 ; ---- ptrtable $4014-$4046 (50 bytes) [PROBABLE] 25 words $4028...$498E (all inside the bank, ascending, the last three $4826/$48DA/$498E are $B4 apart); read by executed code; they point at the keyboard character pages below (page starts 4046, 40B2, 4142, 41D2 then every $B4 up to 498E)
 
-Table_55_4014:: ; 55:4014
+Table_Kbd_PagePointers:: ; 55:4014
+Table_55_4014::
 	dw $4028
 	dw $402A
 	dw $402C
@@ -26,25 +30,26 @@ Table_55_4014:: ; 55:4014
 	dw $403C
 	dw $403C
 	dw $4044
-	dw Data_55_4046
-	dw Data_55_40B2
-	dw Data_55_4142
-	dw Data_55_41D2
-	dw Data_55_4286
-	dw Data_55_433A
-	dw String_55_43EE
-	dw $44A2
-	dw $4556
-	dw String_55_460A
-	dw String_55_46BE
-	dw $4772
-	dw $4826
-	dw String_55_48DA
-	dw Data_55_498E
+	dw Data_Kbd_Page_Digits
+	dw Data_Kbd_Page_IdChars
+	dw Data_Kbd_Page_PhoneKeypad
+	dw Data_Kbd_Page_Ascii3
+	dw Data_Kbd_Page_Ascii4
+	dw Data_Kbd_Page_Ascii5
+	dw Data_Kbd_Page_T6_Hiragana
+	dw Data_Kbd_Page_T6_Katakana
+	dw Data_Kbd_Page_T6_FullWidthAlnum
+	dw Data_Kbd_Page_T6_Symbols
+	dw Data_Kbd_Page_T78_Hiragana
+	dw Data_Kbd_Page_T78_Katakana
+	dw Data_Kbd_Page_T78_FullWidthAlnum
+	dw Data_Kbd_Page_T78_Symbols
+	dw Data_Kbd_Page_T9_Ascii
 
 ; ---- data $4046-$40B2 (108 bytes) [PROBABLE] keyboard character page block (108 bytes): cells of 4 bytes (00 00 00 xx) or 2 bytes (00 xx) holding ASCII codes 0-9/a-z/A-Z with zero padding and, at the end of the page, the markers ff 83 / ff 82; page boundaries are the word-table entries at 4014 (block starts 4046/40B2/4142/41D2/4286/433A are entries, sizes $6C,$90,$90,$B4,$B4,$B4); the mapper labelled 4040-43E0 "tiles-2bpp" but the content is character codes (digits, letters, zeros), not tile data
 
-Data_55_4046:: ; 55:4046
+Data_Kbd_Page_Digits:: ; 55:4046
+Data_55_4046::
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $31, $00, $00, $00, $32, $00, $00
@@ -55,7 +60,8 @@ Data_55_4046:: ; 55:4046
 
 ; ---- data $40B2-$4142 (144 bytes) [PROBABLE] keyboard character page block (144 bytes): cells of 4 bytes (00 00 00 xx) or 2 bytes (00 xx) holding ASCII codes 0-9/a-z/A-Z with zero padding and, at the end of the page, the markers ff 83 / ff 82; page boundaries are the word-table entries at 4014 (block starts 4046/40B2/4142/41D2/4286/433A are entries, sizes $6C,$90,$90,$B4,$B4,$B4); the mapper labelled 4040-43E0 "tiles-2bpp" but the content is character codes (digits, letters, zeros), not tile data
 
-Data_55_40B2:: ; 55:40B2
+Data_Kbd_Page_IdChars:: ; 55:40B2
+Data_55_40B2::
 	db $00, $31, $00, $32, $00, $33, $00, $34, $00, $35, $00, $00, $00, $36, $00, $37
 	db $00, $38, $00, $39, $00, $30, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $61, $00, $62, $00, $63, $00, $64, $00, $65, $00, $00
@@ -68,7 +74,8 @@ Data_55_40B2:: ; 55:40B2
 
 ; ---- data $4142-$41D2 (144 bytes) [PROBABLE] keyboard character page block (144 bytes): cells of 4 bytes (00 00 00 xx) or 2 bytes (00 xx) holding ASCII codes 0-9/a-z/A-Z with zero padding and, at the end of the page, the markers ff 83 / ff 82; page boundaries are the word-table entries at 4014 (block starts 4046/40B2/4142/41D2/4286/433A are entries, sizes $6C,$90,$90,$B4,$B4,$B4); the mapper labelled 4040-43E0 "tiles-2bpp" but the content is character codes (digits, letters, zeros), not tile data
 
-Data_55_4142:: ; 55:4142
+Data_Kbd_Page_PhoneKeypad:: ; 55:4142
+Data_55_4142::
 	db $00, $00, $00, $00, $00, $00, $00, $31, $00, $00, $00, $00, $00, $32, $00, $00
 	db $00, $00, $00, $33, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $34, $00, $00, $00, $00
@@ -81,7 +88,8 @@ Data_55_4142:: ; 55:4142
 
 ; ---- data $41D2-$4286 (180 bytes) [PROBABLE] keyboard character page block (180 bytes): cells of 4 bytes (00 00 00 xx) or 2 bytes (00 xx) holding ASCII codes 0-9/a-z/A-Z with zero padding and, at the end of the page, the markers ff 83 / ff 82; page boundaries are the word-table entries at 4014 (block starts 4046/40B2/4142/41D2/4286/433A are entries, sizes $6C,$90,$90,$B4,$B4,$B4); the mapper labelled 4040-43E0 "tiles-2bpp" but the content is character codes (digits, letters, zeros), not tile data
 
-Data_55_41D2:: ; 55:41D2
+Data_Kbd_Page_Ascii3:: ; 55:41D2
+Data_55_41D2::
 	db $00, $41, $00, $42, $00, $43, $00, $44, $00, $45, $00, $00, $00, $61, $00, $62
 	db $00, $63, $00, $64, $00, $65, $00, $00, $00, $5A, $00, $30, $00, $31, $00, $32
 	db $00, $33, $00, $34, $00, $46, $00, $47, $00, $48, $00, $49, $00, $4A, $00, $00
@@ -97,7 +105,8 @@ Data_55_41D2:: ; 55:41D2
 
 ; ---- data $4286-$433A (180 bytes) [PROBABLE] keyboard character page block (180 bytes): cells of 4 bytes (00 00 00 xx) or 2 bytes (00 xx) holding ASCII codes 0-9/a-z/A-Z with zero padding and, at the end of the page, the markers ff 83 / ff 82; page boundaries are the word-table entries at 4014 (block starts 4046/40B2/4142/41D2/4286/433A are entries, sizes $6C,$90,$90,$B4,$B4,$B4); the mapper labelled 4040-43E0 "tiles-2bpp" but the content is character codes (digits, letters, zeros), not tile data
 
-Data_55_4286:: ; 55:4286
+Data_Kbd_Page_Ascii4:: ; 55:4286
+Data_55_4286::
 	db $00, $41, $00, $42, $00, $43, $00, $44, $00, $45, $00, $00, $00, $61, $00, $62
 	db $00, $63, $00, $64, $00, $65, $00, $00, $00, $5A, $00, $30, $00, $31, $00, $32
 	db $00, $33, $00, $34, $00, $46, $00, $47, $00, $48, $00, $49, $00, $4A, $00, $00
@@ -113,7 +122,8 @@ Data_55_4286:: ; 55:4286
 
 ; ---- data $433A-$43EE (180 bytes) [PROBABLE] keyboard character page block (180 bytes): cells of 4 bytes (00 00 00 xx) or 2 bytes (00 xx) holding ASCII codes 0-9/a-z/A-Z with zero padding and, at the end of the page, the markers ff 83 / ff 82; page boundaries are the word-table entries at 4014 (block starts 4046/40B2/4142/41D2/4286/433A are entries, sizes $6C,$90,$90,$B4,$B4,$B4); the mapper labelled 4040-43E0 "tiles-2bpp" but the content is character codes (digits, letters, zeros), not tile data
 
-Data_55_433A:: ; 55:433A
+Data_Kbd_Page_Ascii5:: ; 55:433A
+Data_55_433A::
 	db $00, $41, $00, $42, $00, $43, $00, $44, $00, $45, $00, $00, $00, $61, $00, $62
 	db $00, $63, $00, $64, $00, $65, $00, $00, $00, $5A, $00, $30, $00, $31, $00, $32
 	db $00, $33, $00, $34, $00, $46, $00, $47, $00, $48, $00, $49, $00, $4A, $00, $00
@@ -129,99 +139,116 @@ Data_55_433A:: ; 55:433A
 
 ; ---- text $43EE-$43F9 (11 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_55_43EE:: ; 55:43EE
-	db $82, $A0, $82, $A2, $82, $A4, $82, $A6, $82, $A8, $00
+Data_Kbd_Page_T6_Hiragana:: ; 55:43EE
+String_55_43EE::
+	db $82, $A0, $82, $A2, $82, $A4, $82, $A6, $82, $A8, $00 ; "あいうえお"
 
 ; ---- text $43F9-$4406 (13 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 43EE-4495 by higher-priority evidence]
 
 String_55_43F9:: ; 55:43F9
-	db $00, $82, $CD, $82, $D0, $82, $D3, $82, $D6, $82, $D9, $00, $00
+	db $00 ; ""
+	db $82, $CD, $82, $D0, $82, $D3, $82, $D6, $82, $D9, $00 ; "はひふへほ"
+	db $00 ; ""
 
 ; ---- text $4406-$441D (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_55_4406:: ; 55:4406
-	db $82, $C1, $82, $E1, $82, $E3, $82, $E5, $81, $41, $81, $42, $82, $A9, $82, $AB
-	db $82, $AD, $82, $AF, $82, $B1, $00
+	db $82, $C1, $82, $E1, $82, $E3, $82, $E5, $81, $41, $81, $42, $82, $A9, $82, $AB, $82, $AD, $82, $AF, $82, $B1, $00 ; "っゃゅょ、。かきくけこ"
 
 ; ---- text $441D-$442A (13 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 43EE-4495 by higher-priority evidence]
 
 String_55_441D:: ; 55:441D
-	db $00, $82, $DC, $82, $DD, $82, $DE, $82, $DF, $82, $E0, $00, $00
+	db $00 ; ""
+	db $82, $DC, $82, $DD, $82, $DE, $82, $DF, $82, $E0, $00 ; "まみむめも"
+	db $00 ; ""
 
 ; ---- text $442A-$4441 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_55_442A:: ; 55:442A
-	db $81, $5B, $82, $9F, $82, $A1, $82, $A3, $82, $A5, $82, $A7, $82, $B3, $82, $B5
-	db $82, $B7, $82, $B9, $82, $BB, $00
+	db $81, $5B, $82, $9F, $82, $A1, $82, $A3, $82, $A5, $82, $A7, $82, $B3, $82, $B5, $82, $B7, $82, $B9, $82, $BB, $00 ; "ーぁぃぅぇぉさしすせそ"
 
 ; ---- text $4441-$444E (13 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 43EE-4495 by higher-priority evidence]
 
 String_55_4441:: ; 55:4441
-	db $00, $82, $E2, $81, $40, $82, $E4, $81, $40, $82, $E6, $00, $00
+	db $00 ; ""
+	db $82, $E2, $81, $40, $82, $E4, $81, $40, $82, $E6, $00 ; "や　ゆ　よ"
+	db $00 ; ""
 
 ; ---- text $444E-$4465 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_55_444E:: ; 55:444E
-	db $81, $45, $81, $63, $81, $49, $81, $48, $81, $60, $81, $F4, $82, $BD, $82, $BF
-	db $82, $C2, $82, $C4, $82, $C6, $00
+	db $81, $45, $81, $63, $81, $49, $81, $48, $81, $60, $81, $F4, $82, $BD, $82, $BF, $82, $C2, $82, $C4, $82, $C6, $00 ; "・…！？～♪たちつてと"
 
 ; ---- text $4465-$4495 (48 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 43EE-4495 by higher-priority evidence]
 
 String_55_4465:: ; 55:4465
-	db $00, $82, $E7, $82, $E8, $82, $E9, $82, $EA, $82, $EB, $00, $00, $81, $75, $81
-	db $76, $81, $69, $81, $6A, $01, $20, $01, $0D, $82, $C8, $82, $C9, $82, $CA, $82
-	db $CB, $82, $CC, $00, $00, $82, $ED, $82, $F0, $82, $F1, $81, $4B, $81, $4A, $00
+	db $00 ; ""
+	db $82, $E7, $82, $E8, $82, $E9, $82, $EA, $82, $EB, $00 ; "らりるれろ"
+	db $00 ; ""
+	db $81, $75, $81, $76, $81, $69, $81, $6A, $01, $20, $01, $0D, $82, $C8, $82, $C9, $82, $CA, $82, $CB, $82, $CC, $00 ; "「」（）<$01> <$01><$0D>なにぬねの"
+	db $00 ; ""
+	db $82, $ED, $82, $F0, $82, $F1, $81, $4B, $81, $4A, $00 ; "わをん゜゛"
 
 ; ---- data $4495-$44A4 (15 bytes) [PROBABLE] keyboard page trailer/separator bytes (00 00 ff 83 00 00 00 00 ff 82 00 00 pattern, identical to the trailers at 43E0/45FD; the ff 83 / ff 82 words are read by executed code); part of the run 4495-44A4 that executed code reads piecewise [split by classify_g2]
 
 Data_55_4495:: ; 55:4495
-	db $00, $00, $00, $FF, $83, $00, $00, $00, $00, $FF, $82, $00, $00, $83, $41
+	db $00, $00, $00, $FF, $83, $00, $00, $00, $00, $FF, $82, $00, $00
+
+Data_Kbd_Page_T6_Katakana:: ; 55:44A2
+	db $83, $41
 
 ; ---- text $44A4-$44BA (22 bytes) [PROBABLE] Shift-JIS keyboard row(s) NUL separated (9 double-byte chars, decodes cleanly with cp932: イウエオ||ハヒフヘホ||), between confirmed/probable text rows of the same on-screen keyboard character pages
 
 String_55_44A4:: ; 55:44A4
-	db $83, $43, $83, $45, $83, $47, $83, $49, $00, $00, $83, $6E, $83, $71, $83, $74
-	db $83, $77, $83, $7A, $00, $00
+	db $83, $43, $83, $45, $83, $47, $83, $49, $00 ; "イウエオ"
+	db $00 ; ""
+	db $83, $6E, $83, $71, $83, $74, $83, $77, $83, $7A, $00 ; "ハヒフヘホ"
+	db $00 ; ""
 
 ; ---- text $44BA-$44D1 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_55_44BA:: ; 55:44BA
-	db $83, $62, $83, $83, $83, $85, $83, $87, $81, $41, $81, $42, $83, $4A, $83, $4C
-	db $83, $4E, $83, $50, $83, $52, $00
+	db $83, $62, $83, $83, $83, $85, $83, $87, $81, $41, $81, $42, $83, $4A, $83, $4C, $83, $4E, $83, $50, $83, $52, $00 ; "ッャュョ、。カキクケコ"
 
 ; ---- text $44D1-$44DE (13 bytes) [PROBABLE] Shift-JIS keyboard row(s) NUL separated (5 double-byte chars, decodes cleanly with cp932: |マミムメモ||), between confirmed/probable text rows of the same on-screen keyboard character pages
 
 String_55_44D1:: ; 55:44D1
-	db $00, $83, $7D, $83, $7E, $83, $80, $83, $81, $83, $82, $00, $00
+	db $00 ; ""
+	db $83, $7D, $83, $7E, $83, $80, $83, $81, $83, $82, $00 ; "マミムメモ"
+	db $00 ; ""
 
 ; ---- text $44DE-$44F5 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_55_44DE:: ; 55:44DE
-	db $81, $5B, $83, $40, $83, $42, $83, $44, $83, $46, $83, $48, $83, $54, $83, $56
-	db $83, $58, $83, $5A, $83, $5C, $00
+	db $81, $5B, $83, $40, $83, $42, $83, $44, $83, $46, $83, $48, $83, $54, $83, $56, $83, $58, $83, $5A, $83, $5C, $00 ; "ーァィゥェォサシスセソ"
 
 ; ---- text $44F5-$4502 (13 bytes) [PROBABLE] Shift-JIS keyboard row(s) NUL separated (5 double-byte chars, decodes cleanly with cp932: |ヤ ユ ヨ||), between confirmed/probable text rows of the same on-screen keyboard character pages
 
 String_55_44F5:: ; 55:44F5
-	db $00, $83, $84, $81, $40, $83, $86, $81, $40, $83, $88, $00, $00
+	db $00 ; ""
+	db $83, $84, $81, $40, $83, $86, $81, $40, $83, $88, $00 ; "ヤ　ユ　ヨ"
+	db $00 ; ""
 
 ; ---- text $4502-$4519 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_55_4502:: ; 55:4502
-	db $81, $45, $81, $63, $81, $49, $81, $48, $81, $60, $81, $F4, $83, $5E, $83, $60
-	db $83, $63, $83, $65, $83, $67, $00
+	db $81, $45, $81, $63, $81, $49, $81, $48, $81, $60, $81, $F4, $83, $5E, $83, $60, $83, $63, $83, $65, $83, $67, $00 ; "・…！？～♪タチツテト"
 
 ; ---- text $4519-$4532 (25 bytes) [PROBABLE] Shift-JIS keyboard row(s) NUL separated (9 double-byte chars, decodes cleanly with cp932: |ラリルレロ||「」（） ), between confirmed/probable text rows of the same on-screen keyboard character pages
 
 String_55_4519:: ; 55:4519
-	db $00, $83, $89, $83, $8A, $83, $8B, $83, $8C, $83, $8D, $00, $00, $81, $75, $81
-	db $76, $81, $69, $81, $6A, $01, $20, $01, $0D
+	db $00 ; ""
+	db $83, $89, $83, $8A, $83, $8B, $83, $8C, $83, $8D, $00 ; "ラリルレロ"
+	db $00 ; ""
+	db $81, $75, $81, $76, $81, $69, $81, $6A, $01, $20, $01, $0D ; "「」（）<$01> <$01><$0D>"
 
 ; ---- text $4532-$454A (24 bytes) [PROBABLE] Shift-JIS keyboard row(s) inside the run 4532-4554: clean cp932 pairs with NUL row terminators (ナニヌネノ||ワヲン゜゛||); 1 executed-read range(s) of the run touch it; sits between the CONFIRMED/PROBABLE text rows of the same on-screen keyboard page [split from a merged data run by classify_g2]
 
 String_55_4532:: ; 55:4532
-	db $83, $69, $83, $6A, $83, $6B, $83, $6C, $83, $6D, $00, $00, $83, $8F, $83, $92
-	db $83, $93, $81, $4B, $81, $4A, $00, $00
+	db $83, $69, $83, $6A, $83, $6B, $83, $6C, $83, $6D, $00 ; "ナニヌネノ"
+	db $00 ; ""
+	db $83, $8F, $83, $92, $83, $93, $81, $4B, $81, $4A, $00 ; "ワヲン゜゛"
+	db $00 ; ""
 
 ; ---- data $454A-$4554 (10 bytes) [PROBABLE] keyboard page trailer/separator bytes (00 00 ff 83 00 00 00 00 ff 82 00 00 pattern, identical to the trailers at 43E0/45FD; the ff 83 / ff 82 words are read by executed code); part of the run 4532-4554 that executed code reads piecewise [split by classify_g2]
 
@@ -231,26 +258,37 @@ Data_55_454A:: ; 55:454A
 ; ---- text $4554-$456E (26 bytes) [PROBABLE] Shift-JIS keyboard row(s) NUL separated (10 double-byte chars, decodes cleanly with cp932: ||ＡＢＣＤＥ||ａｂｃｄｅ||), between confirmed/probable text rows of the same on-screen keyboard character pages
 
 String_55_4554:: ; 55:4554
-	db $00, $00, $82, $60, $82, $61, $82, $62, $82, $63, $82, $64, $00, $00, $82, $81
-	db $82, $82, $82, $83, $82, $84, $82, $85, $00, $00
+	db $00 ; ""
+	db $00 ; ""
+
+Data_Kbd_Page_T6_FullWidthAlnum:: ; 55:4556
+	db $82, $60, $82, $61, $82, $62, $82, $63, $82, $64, $00 ; "ＡＢＣＤＥ"
+	db $00 ; ""
+	db $82, $81, $82, $82, $82, $83, $82, $84, $82, $85, $00 ; "ａｂｃｄｅ"
+	db $00 ; ""
 
 ; ---- text $456E-$4585 (23 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_55_456E:: ; 55:456E
-	db $82, $79, $82, $4F, $82, $50, $82, $51, $82, $52, $82, $53, $82, $65, $82, $66
-	db $82, $67, $82, $68, $82, $69, $00
+	db $82, $79, $82, $4F, $82, $50, $82, $51, $82, $52, $82, $53, $82, $65, $82, $66, $82, $67, $82, $68, $82, $69, $00 ; "Ｚ０１２３４ＦＧＨＩＪ"
 
 ; ---- text $4585-$45FD (120 bytes) [PROBABLE] text block: 9 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 456E-45FD by higher-priority evidence]
 
 String_55_4585:: ; 55:4585
-	db $00, $82, $86, $82, $87, $82, $88, $82, $89, $82, $8A, $00, $00, $82, $9A, $82
-	db $54, $82, $55, $82, $56, $82, $57, $82, $58, $82, $6A, $82, $6B, $82, $6C, $82
-	db $6D, $82, $6E, $00, $00, $82, $8B, $82, $8C, $82, $8D, $82, $8E, $82, $8F, $00
-	db $00, $81, $44, $81, $43, $81, $49, $81, $48, $81, $46, $81, $5E, $82, $6F, $82
-	db $70, $82, $71, $82, $72, $82, $73, $00, $00, $82, $90, $82, $91, $82, $92, $82
-	db $93, $82, $94, $00, $00, $81, $97, $81, $7C, $81, $51, $81, $7B, $01, $20, $01
-	db $0D, $82, $74, $82, $75, $82, $76, $82, $77, $82, $78, $00, $00, $82, $95, $82
-	db $96, $82, $97, $82, $98, $82, $99, $00
+	db $00 ; ""
+	db $82, $86, $82, $87, $82, $88, $82, $89, $82, $8A, $00 ; "ｆｇｈｉｊ"
+	db $00 ; ""
+	db $82, $9A, $82, $54, $82, $55, $82, $56, $82, $57, $82, $58, $82, $6A, $82, $6B, $82, $6C, $82, $6D, $82, $6E, $00 ; "ｚ５６７８９ＫＬＭＮＯ"
+	db $00 ; ""
+	db $82, $8B, $82, $8C, $82, $8D, $82, $8E, $82, $8F, $00 ; "ｋｌｍｎｏ"
+	db $00 ; ""
+	db $81, $44, $81, $43, $81, $49, $81, $48, $81, $46, $81, $5E, $82, $6F, $82, $70, $82, $71, $82, $72, $82, $73, $00 ; "．，！？：／ＰＱＲＳＴ"
+	db $00 ; ""
+	db $82, $90, $82, $91, $82, $92, $82, $93, $82, $94, $00 ; "ｐｑｒｓｔ"
+	db $00 ; ""
+	db $81, $97, $81, $7C, $81, $51, $81, $7B, $01, $20, $01, $0D, $82, $74, $82, $75, $82, $76, $82, $77, $82, $78, $00 ; "＠－＿＋<$01> <$01><$0D>ＵＶＷＸＹ"
+	db $00 ; ""
+	db $82, $95, $82, $96, $82, $97, $82, $98, $82, $99, $00 ; "ｕｖｗｘｙ"
 
 ; ---- data $45FD-$460A (13 bytes) [PROBABLE] keyboard page trailer/separator bytes (00 00 ff 83 00 00 00 00 ff 82 00 00 pattern, identical to the trailers at 43E0/45FD; the ff 83 / ff 82 words are read by executed code); part of the run 45FD-460A that executed code reads piecewise [split by classify_g2]
 
@@ -259,23 +297,29 @@ Data_55_45FD:: ; 55:45FD
 
 ; ---- text $460A-$468D (131 bytes) [PROBABLE] text block: 8 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII
 
-String_55_460A:: ; 55:460A
-	db $81, $7B, $81, $7C, $81, $81, $81, $94, $81, $90, $00, $00, $81, $93, $81, $95
-	db $81, $8F, $81, $49, $81, $48, $00, $00, $81, $97, $82, $4F, $82, $50, $82, $51
-	db $82, $52, $82, $53, $81, $96, $81, $65, $81, $66, $81, $68, $81, $46, $00, $00
-	db $81, $47, $81, $44, $81, $43, $81, $69, $81, $6A, $00, $00, $81, $5E, $82, $54
-	db $82, $55, $82, $56, $82, $57, $82, $58, $81, $6F, $81, $70, $81, $6D, $81, $6E
-	db $81, $83, $00, $00, $81, $84, $81, $60, $81, $51, $81, $4F, $81, $62, $00, $00
-	db $81, $45, $81, $63, $81, $41, $81, $42, $81, $5B, $81, $F4, $81, $75, $81, $76
-	db $81, $77, $81, $78, $81, $79, $00, $00, $81, $7A, $81, $7E, $81, $80, $81, $A7
-	db $81, $A6, $00
+Data_Kbd_Page_T6_Symbols:: ; 55:460A
+String_55_460A::
+	db $81, $7B, $81, $7C, $81, $81, $81, $94, $81, $90, $00 ; "＋－＝＃＄"
+	db $00 ; ""
+	db $81, $93, $81, $95, $81, $8F, $81, $49, $81, $48, $00 ; "％＆￥！？"
+	db $00 ; ""
+	db $81, $97, $82, $4F, $82, $50, $82, $51, $82, $52, $82, $53, $81, $96, $81, $65, $81, $66, $81, $68, $81, $46, $00 ; "＠０１２３４＊‘’”："
+	db $00 ; ""
+	db $81, $47, $81, $44, $81, $43, $81, $69, $81, $6A, $00 ; "；．，（）"
+	db $00 ; ""
+	db $81, $5E, $82, $54, $82, $55, $82, $56, $82, $57, $82, $58, $81, $6F, $81, $70, $81, $6D, $81, $6E, $81, $83, $00 ; "／５６７８９｛｝［］＜"
+	db $00 ; ""
+	db $81, $84, $81, $60, $81, $51, $81, $4F, $81, $62, $00 ; "＞～＿＾｜"
+	db $00 ; ""
+	db $81, $45, $81, $63, $81, $41, $81, $42, $81, $5B, $81, $F4, $81, $75, $81, $76, $81, $77, $81, $78, $81, $79, $00 ; "・…、。ー♪「」『』【"
+	db $00 ; ""
+	db $81, $7A, $81, $7E, $81, $80, $81, $A7, $81, $A6, $00 ; "】×÷〒※"
 
 ; ---- text $468D-$46B0 (35 bytes) [PROBABLE] Shift-JIS keyboard rows (symbols: arrows, stars, squares; codes 01 20 / 01 0D are inline controls) NUL separated; decodes cleanly with cp932; between the text rows 460A-468D and 46BE of the same page
 
 String_55_468D:: ; 55:468D
-	db $00, $81, $A8, $81, $A9, $81, $AA, $81, $AB, $01, $20, $01, $0D, $81, $9A, $81
-	db $9F, $81, $A1, $81, $A3, $81, $9C, $81, $40, $81, $99, $81, $9E, $81, $A0, $81
-	db $A2, $81, $9B
+	db $00 ; ""
+	db $81, $A8, $81, $A9, $81, $AA, $81, $AB, $01, $20, $01, $0D, $81, $9A, $81, $9F, $81, $A1, $81, $A3, $81, $9C, $81, $40, $81, $99, $81, $9E, $81, $A0, $81, $A2, $81, $9B ; "→←↑↓<$01> <$01><$0D>★◆■▲●　☆◇□△○"
 
 ; ---- data $46B0-$46BE (14 bytes) [PROBABLE] 14-byte page trailer 00 00 00 00 ff 83 00 00 00 00 ff 82 00 00, byte-identical to the trailers at 43E0/45FD/4765 (the ff 83 / ff 82 words are read by executed code at 4498/449E/4552/4606/476E)
 
@@ -284,48 +328,55 @@ Data_55_46B0:: ; 55:46B0
 
 ; ---- text $46BE-$46C9 (11 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_55_46BE:: ; 55:46BE
-	db $82, $A0, $82, $A2, $82, $A4, $82, $A6, $82, $A8, $00
+Data_Kbd_Page_T78_Hiragana:: ; 55:46BE
+String_55_46BE::
+	db $82, $A0, $82, $A2, $82, $A4, $82, $A6, $82, $A8, $00 ; "あいうえお"
 
 ; ---- text $46C9-$46D6 (13 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 46BE-4765 by higher-priority evidence]
 
 String_55_46C9:: ; 55:46C9
-	db $00, $82, $CD, $82, $D0, $82, $D3, $82, $D6, $82, $D9, $00, $00
+	db $00 ; ""
+	db $82, $CD, $82, $D0, $82, $D3, $82, $D6, $82, $D9, $00 ; "はひふへほ"
+	db $00 ; ""
 
 ; ---- text $46D6-$46ED (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_55_46D6:: ; 55:46D6
-	db $82, $C1, $82, $E1, $82, $E3, $82, $E5, $81, $41, $81, $42, $82, $A9, $82, $AB
-	db $82, $AD, $82, $AF, $82, $B1, $00
+	db $82, $C1, $82, $E1, $82, $E3, $82, $E5, $81, $41, $81, $42, $82, $A9, $82, $AB, $82, $AD, $82, $AF, $82, $B1, $00 ; "っゃゅょ、。かきくけこ"
 
 ; ---- text $46ED-$46FA (13 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 46BE-4765 by higher-priority evidence]
 
 String_55_46ED:: ; 55:46ED
-	db $00, $82, $DC, $82, $DD, $82, $DE, $82, $DF, $82, $E0, $00, $00
+	db $00 ; ""
+	db $82, $DC, $82, $DD, $82, $DE, $82, $DF, $82, $E0, $00 ; "まみむめも"
+	db $00 ; ""
 
 ; ---- text $46FA-$4711 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_55_46FA:: ; 55:46FA
-	db $81, $5B, $82, $9F, $82, $A1, $82, $A3, $82, $A5, $82, $A7, $82, $B3, $82, $B5
-	db $82, $B7, $82, $B9, $82, $BB, $00
+	db $81, $5B, $82, $9F, $82, $A1, $82, $A3, $82, $A5, $82, $A7, $82, $B3, $82, $B5, $82, $B7, $82, $B9, $82, $BB, $00 ; "ーぁぃぅぇぉさしすせそ"
 
 ; ---- text $4711-$471E (13 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 46BE-4765 by higher-priority evidence]
 
 String_55_4711:: ; 55:4711
-	db $00, $82, $E2, $81, $40, $82, $E4, $81, $40, $82, $E6, $00, $00
+	db $00 ; ""
+	db $82, $E2, $81, $40, $82, $E4, $81, $40, $82, $E6, $00 ; "や　ゆ　よ"
+	db $00 ; ""
 
 ; ---- text $471E-$4735 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_55_471E:: ; 55:471E
-	db $81, $45, $81, $63, $81, $49, $81, $48, $81, $60, $81, $F4, $82, $BD, $82, $BF
-	db $82, $C2, $82, $C4, $82, $C6, $00
+	db $81, $45, $81, $63, $81, $49, $81, $48, $81, $60, $81, $F4, $82, $BD, $82, $BF, $82, $C2, $82, $C4, $82, $C6, $00 ; "・…！？～♪たちつてと"
 
 ; ---- text $4735-$4765 (48 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 46BE-4765 by higher-priority evidence]
 
 String_55_4735:: ; 55:4735
-	db $00, $82, $E7, $82, $E8, $82, $E9, $82, $EA, $82, $EB, $00, $00, $81, $75, $81
-	db $76, $81, $69, $81, $6A, $81, $40, $01, $20, $82, $C8, $82, $C9, $82, $CA, $82
-	db $CB, $82, $CC, $00, $00, $82, $ED, $82, $F0, $82, $F1, $81, $4B, $81, $4A, $00
+	db $00 ; ""
+	db $82, $E7, $82, $E8, $82, $E9, $82, $EA, $82, $EB, $00 ; "らりるれろ"
+	db $00 ; ""
+	db $81, $75, $81, $76, $81, $69, $81, $6A, $81, $40, $01, $20, $82, $C8, $82, $C9, $82, $CA, $82, $CB, $82, $CC, $00 ; "「」（）　<$01> なにぬねの"
+	db $00 ; ""
+	db $82, $ED, $82, $F0, $82, $F1, $81, $4B, $81, $4A, $00 ; "わをん゜゛"
 
 ; ---- data $4765-$4771 (12 bytes) [PROBABLE] keyboard page trailer/separator bytes (00 00 ff 83 00 00 00 00 ff 82 00 00 pattern, identical to the trailers at 43E0/45FD; the ff 83 / ff 82 words are read by executed code); part of the run 4765-477A that executed code reads piecewise [split by classify_g2]
 
@@ -335,48 +386,58 @@ Data_55_4765:: ; 55:4765
 ; ---- text $4771-$477A (9 bytes) [PROBABLE] Shift-JIS keyboard row(s) inside the run 4765-477A: clean cp932 pairs with NUL row terminators (|アイウエ); 1 executed-read range(s) of the run touch it; sits between the CONFIRMED/PROBABLE text rows of the same on-screen keyboard page [split from a merged data run by classify_g2]
 
 String_55_4771:: ; 55:4771
-	db $00, $83, $41, $83, $43, $83, $45, $83, $47
+	db $00 ; ""
+
+Data_Kbd_Page_T78_Katakana:: ; 55:4772
+	db $83, $41, $83, $43, $83, $45, $83, $47 ; "アイウエ"
 
 ; ---- text $477A-$478A (16 bytes) [PROBABLE] Shift-JIS keyboard row(s) NUL separated (6 double-byte chars, decodes cleanly with cp932: オ||ハヒフヘホ||), between confirmed/probable text rows of the same on-screen keyboard character pages
 
 String_55_477A:: ; 55:477A
-	db $83, $49, $00, $00, $83, $6E, $83, $71, $83, $74, $83, $77, $83, $7A, $00, $00
+	db $83, $49, $00 ; "オ"
+	db $00 ; ""
+	db $83, $6E, $83, $71, $83, $74, $83, $77, $83, $7A, $00 ; "ハヒフヘホ"
+	db $00 ; ""
 
 ; ---- text $478A-$47A1 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_55_478A:: ; 55:478A
-	db $83, $62, $83, $83, $83, $85, $83, $87, $81, $41, $81, $42, $83, $4A, $83, $4C
-	db $83, $4E, $83, $50, $83, $52, $00
+	db $83, $62, $83, $83, $83, $85, $83, $87, $81, $41, $81, $42, $83, $4A, $83, $4C, $83, $4E, $83, $50, $83, $52, $00 ; "ッャュョ、。カキクケコ"
 
 ; ---- text $47A1-$47AE (13 bytes) [PROBABLE] Shift-JIS keyboard row(s) NUL separated (5 double-byte chars, decodes cleanly with cp932: |マミムメモ||), between confirmed/probable text rows of the same on-screen keyboard character pages
 
 String_55_47A1:: ; 55:47A1
-	db $00, $83, $7D, $83, $7E, $83, $80, $83, $81, $83, $82, $00, $00
+	db $00 ; ""
+	db $83, $7D, $83, $7E, $83, $80, $83, $81, $83, $82, $00 ; "マミムメモ"
+	db $00 ; ""
 
 ; ---- text $47AE-$47C5 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_55_47AE:: ; 55:47AE
-	db $81, $5B, $83, $40, $83, $42, $83, $44, $83, $46, $83, $48, $83, $54, $83, $56
-	db $83, $58, $83, $5A, $83, $5C, $00
+	db $81, $5B, $83, $40, $83, $42, $83, $44, $83, $46, $83, $48, $83, $54, $83, $56, $83, $58, $83, $5A, $83, $5C, $00 ; "ーァィゥェォサシスセソ"
 
 ; ---- text $47C5-$47D2 (13 bytes) [PROBABLE] Shift-JIS keyboard row(s) NUL separated (5 double-byte chars, decodes cleanly with cp932: |ヤ ユ ヨ||), between confirmed/probable text rows of the same on-screen keyboard character pages
 
 String_55_47C5:: ; 55:47C5
-	db $00, $83, $84, $81, $40, $83, $86, $81, $40, $83, $88, $00, $00
+	db $00 ; ""
+	db $83, $84, $81, $40, $83, $86, $81, $40, $83, $88, $00 ; "ヤ　ユ　ヨ"
+	db $00 ; ""
 
 ; ---- text $47D2-$47E9 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_55_47D2:: ; 55:47D2
-	db $81, $45, $81, $63, $81, $49, $81, $48, $81, $60, $81, $F4, $83, $5E, $83, $60
-	db $83, $63, $83, $65, $83, $67, $00
+	db $81, $45, $81, $63, $81, $49, $81, $48, $81, $60, $81, $F4, $83, $5E, $83, $60, $83, $63, $83, $65, $83, $67, $00 ; "・…！？～♪タチツテト"
 
 ; ---- text $47E9-$481A (49 bytes) [PROBABLE] Shift-JIS keyboard row(s) inside the run 47E9-482E: clean cp932 pairs with NUL row terminators (|ラリルレロ||「」（） ^ ナニヌネノ); 0 executed-read range(s) of the run touch it; sits between the CONFIRMED/PROBABLE text rows of the same on-screen keyboard page [split from a merged data run by classify_g2]
 
 String_55_47E9:: ; 55:47E9
-	db $00, $83, $89, $83, $8A, $83, $8B, $83, $8C, $83, $8D, $00, $00, $81, $75, $81
-	db $76, $81, $69, $81, $6A, $81, $40, $01, $20, $83, $69, $83, $6A, $83, $6B, $83
-	db $6C, $83, $6D, $00, $00, $83, $8F, $83, $92, $83, $93, $81, $4B, $81, $4A, $00
-	db $00
+	db $00 ; ""
+	db $83, $89, $83, $8A, $83, $8B, $83, $8C, $83, $8D, $00 ; "ラリルレロ"
+	db $00 ; ""
+	db $81, $75, $81, $76, $81, $69, $81, $6A, $81, $40, $01, $20, $83, $69, $83, $6A, $83, $6B, $83, $6C, $83, $6D, $00 ; "「」（）　<$01> ナニヌネノ"
+	db $00 ; ""
+	db $83, $8F, $83, $92, $83, $93, $81, $4B, $81, $4A, $00 ; "ワヲン゜゛"
+	db $00 ; ""
 
 ; ---- data $481A-$4825 (11 bytes) [PROBABLE] keyboard page trailer/separator bytes (00 00 ff 83 00 00 00 00 ff 82 00 00 pattern, identical to the trailers at 43E0/45FD; the ff 83 / ff 82 words are read by executed code); part of the run 47E9-482E that executed code reads piecewise [split by classify_g2]
 
@@ -386,30 +447,41 @@ Data_55_481A:: ; 55:481A
 ; ---- text $4825-$482E (9 bytes) [PROBABLE] Shift-JIS keyboard row(s) inside the run 47E9-482E: clean cp932 pairs with NUL row terminators (|ＡＢＣＤ); 1 executed-read range(s) of the run touch it; sits between the CONFIRMED/PROBABLE text rows of the same on-screen keyboard page [split from a merged data run by classify_g2]
 
 String_55_4825:: ; 55:4825
-	db $00, $82, $60, $82, $61, $82, $62, $82, $63
+	db $00 ; ""
+
+Data_Kbd_Page_T78_FullWidthAlnum:: ; 55:4826
+	db $82, $60, $82, $61, $82, $62, $82, $63 ; "ＡＢＣＤ"
 
 ; ---- text $482E-$483E (16 bytes) [PROBABLE] Shift-JIS keyboard row(s) NUL separated (6 double-byte chars, decodes cleanly with cp932: Ｅ||ａｂｃｄｅ||), between confirmed/probable text rows of the same on-screen keyboard character pages
 
 String_55_482E:: ; 55:482E
-	db $82, $64, $00, $00, $82, $81, $82, $82, $82, $83, $82, $84, $82, $85, $00, $00
+	db $82, $64, $00 ; "Ｅ"
+	db $00 ; ""
+	db $82, $81, $82, $82, $82, $83, $82, $84, $82, $85, $00 ; "ａｂｃｄｅ"
+	db $00 ; ""
 
 ; ---- text $483E-$4855 (23 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_55_483E:: ; 55:483E
-	db $82, $79, $82, $4F, $82, $50, $82, $51, $82, $52, $82, $53, $82, $65, $82, $66
-	db $82, $67, $82, $68, $82, $69, $00
+	db $82, $79, $82, $4F, $82, $50, $82, $51, $82, $52, $82, $53, $82, $65, $82, $66, $82, $67, $82, $68, $82, $69, $00 ; "Ｚ０１２３４ＦＧＨＩＪ"
 
 ; ---- text $4855-$48CD (120 bytes) [PROBABLE] text block: 9 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 483E-48CD by higher-priority evidence]
 
 String_55_4855:: ; 55:4855
-	db $00, $82, $86, $82, $87, $82, $88, $82, $89, $82, $8A, $00, $00, $82, $9A, $82
-	db $54, $82, $55, $82, $56, $82, $57, $82, $58, $82, $6A, $82, $6B, $82, $6C, $82
-	db $6D, $82, $6E, $00, $00, $82, $8B, $82, $8C, $82, $8D, $82, $8E, $82, $8F, $00
-	db $00, $81, $44, $81, $43, $81, $49, $81, $48, $81, $46, $81, $5E, $82, $6F, $82
-	db $70, $82, $71, $82, $72, $82, $73, $00, $00, $82, $90, $82, $91, $82, $92, $82
-	db $93, $82, $94, $00, $00, $81, $97, $81, $7C, $81, $51, $81, $7B, $81, $40, $01
-	db $20, $82, $74, $82, $75, $82, $76, $82, $77, $82, $78, $00, $00, $82, $95, $82
-	db $96, $82, $97, $82, $98, $82, $99, $00
+	db $00 ; ""
+	db $82, $86, $82, $87, $82, $88, $82, $89, $82, $8A, $00 ; "ｆｇｈｉｊ"
+	db $00 ; ""
+	db $82, $9A, $82, $54, $82, $55, $82, $56, $82, $57, $82, $58, $82, $6A, $82, $6B, $82, $6C, $82, $6D, $82, $6E, $00 ; "ｚ５６７８９ＫＬＭＮＯ"
+	db $00 ; ""
+	db $82, $8B, $82, $8C, $82, $8D, $82, $8E, $82, $8F, $00 ; "ｋｌｍｎｏ"
+	db $00 ; ""
+	db $81, $44, $81, $43, $81, $49, $81, $48, $81, $46, $81, $5E, $82, $6F, $82, $70, $82, $71, $82, $72, $82, $73, $00 ; "．，！？：／ＰＱＲＳＴ"
+	db $00 ; ""
+	db $82, $90, $82, $91, $82, $92, $82, $93, $82, $94, $00 ; "ｐｑｒｓｔ"
+	db $00 ; ""
+	db $81, $97, $81, $7C, $81, $51, $81, $7B, $81, $40, $01, $20, $82, $74, $82, $75, $82, $76, $82, $77, $82, $78, $00 ; "＠－＿＋　<$01> ＵＶＷＸＹ"
+	db $00 ; ""
+	db $82, $95, $82, $96, $82, $97, $82, $98, $82, $99, $00 ; "ｕｖｗｘｙ"
 
 ; ---- data $48CD-$48DA (13 bytes) [PROBABLE] keyboard page trailer/separator bytes (00 00 ff 83 00 00 00 00 ff 82 00 00 pattern, identical to the trailers at 43E0/45FD; the ff 83 / ff 82 words are read by executed code); part of the run 48CD-48DA that executed code reads piecewise [split by classify_g2]
 
@@ -418,23 +490,31 @@ Data_55_48CD:: ; 55:48CD
 
 ; ---- text $48DA-$495D (131 bytes) [PROBABLE] text block: 8 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII
 
-String_55_48DA:: ; 55:48DA
-	db $81, $7B, $81, $7C, $81, $81, $81, $94, $81, $90, $00, $00, $81, $93, $81, $95
-	db $81, $8F, $81, $49, $81, $48, $00, $00, $81, $97, $82, $4F, $82, $50, $82, $51
-	db $82, $52, $82, $53, $81, $96, $81, $65, $81, $66, $81, $68, $81, $46, $00, $00
-	db $81, $47, $81, $44, $81, $43, $81, $69, $81, $6A, $00, $00, $81, $5E, $82, $54
-	db $82, $55, $82, $56, $82, $57, $82, $58, $81, $6F, $81, $70, $81, $6D, $81, $6E
-	db $81, $83, $00, $00, $81, $84, $81, $60, $81, $51, $81, $4F, $81, $62, $00, $00
-	db $81, $45, $81, $63, $81, $41, $81, $42, $81, $5B, $81, $F4, $81, $75, $81, $76
-	db $81, $77, $81, $78, $81, $79, $00, $00, $81, $7A, $81, $7E, $81, $80, $81, $A7
-	db $81, $A6, $00
+Data_Kbd_Page_T78_Symbols:: ; 55:48DA
+String_55_48DA::
+	db $81, $7B, $81, $7C, $81, $81, $81, $94, $81, $90, $00 ; "＋－＝＃＄"
+	db $00 ; ""
+	db $81, $93, $81, $95, $81, $8F, $81, $49, $81, $48, $00 ; "％＆￥！？"
+	db $00 ; ""
+	db $81, $97, $82, $4F, $82, $50, $82, $51, $82, $52, $82, $53, $81, $96, $81, $65, $81, $66, $81, $68, $81, $46, $00 ; "＠０１２３４＊‘’”："
+	db $00 ; ""
+	db $81, $47, $81, $44, $81, $43, $81, $69, $81, $6A, $00 ; "；．，（）"
+	db $00 ; ""
+	db $81, $5E, $82, $54, $82, $55, $82, $56, $82, $57, $82, $58, $81, $6F, $81, $70, $81, $6D, $81, $6E, $81, $83, $00 ; "／５６７８９｛｝［］＜"
+	db $00 ; ""
+	db $81, $84, $81, $60, $81, $51, $81, $4F, $81, $62, $00 ; "＞～＿＾｜"
+	db $00 ; ""
+	db $81, $45, $81, $63, $81, $41, $81, $42, $81, $5B, $81, $F4, $81, $75, $81, $76, $81, $77, $81, $78, $81, $79, $00 ; "・…、。ー♪「」『』【"
+	db $00 ; ""
+	db $81, $7A, $81, $7E, $81, $80, $81, $A7, $81, $A6, $00 ; "】×÷〒※"
 
 ; ---- text $495D-$4982 (37 bytes) [PROBABLE] Shift-JIS keyboard row(s) (arrows, spaces; 01 20 inline control) NUL separated, clean cp932; between the text rows 48DA-495D and the page trailer at 4982
 
 String_55_495D:: ; 55:495D
-	db $00, $81, $A8, $81, $A9, $81, $AA, $81, $AB, $81, $40, $01, $20, $81, $9A, $81
-	db $9F, $81, $A1, $81, $A3, $81, $9C, $81, $40, $81, $99, $81, $9E, $81, $A0, $81
-	db $A2, $81, $9B, $00, $00
+	db $00 ; ""
+	db $81, $A8, $81, $A9, $81, $AA, $81, $AB, $81, $40, $01, $20, $81, $9A, $81, $9F, $81, $A1, $81, $A3, $81, $9C, $81, $40, $81, $99, $81, $9E, $81, $A0, $81, $A2, $81, $9B ; "→←↑↓　<$01> ★◆■▲●　☆◇□△○"
+	db $00 ; ""
+	db $00 ; ""
 
 ; ---- data $4982-$498E (12 bytes) [PROBABLE] 12-byte page trailer 00 00 ff 83 00 00 00 00 ff 82 00 00 (same marker pattern as 43E0/45FD; the ff 83 / ff 82 words are read by executed code)
 
@@ -443,7 +523,8 @@ Data_55_4982:: ; 55:4982
 
 ; ---- data $498E-$4A42 (180 bytes) [PROBABLE] last keyboard character page (block $B4 from the table at 4014, entry 498E): 16-bit cells 00 41 00 42 ... 00 5A / 00 61 ... 00 7A / 00 30 ... (Latin letters and digits as 00 xx words); parts read by executed code
 
-Data_55_498E:: ; 55:498E
+Data_Kbd_Page_T9_Ascii:: ; 55:498E
+Data_55_498E::
 	db $00, $41, $00, $42, $00, $43, $00, $44, $00, $45, $00, $00, $00, $61, $00, $62
 	db $00, $63, $00, $64, $00, $65, $00, $00, $00, $5A, $00, $30, $00, $31, $00, $32
 	db $00, $33, $00, $34, $00, $46, $00, $47, $00, $48, $00, $49, $00, $4A, $00, $00
@@ -459,7 +540,8 @@ Data_55_498E:: ; 55:498E
 
 ; ---- words $4A42-$4A56 (20 bytes) [PROBABLE] 10 words $4A56,$4B9A,$4D4A,$4EFA,$5116,$5332,$554E,$576A,$576A,$5986 read by executed code; the first target equals the table end and the targets tile the bytes up to the code at $5BA2 exactly (block sizes $144,$1B0,$1B0,$21C x5 = 54/72/90 six-byte records)
 
-Table_55_4A42:: ; 55:4A42
+Table_Kbd_NeighbourRecords:: ; 55:4A42
+Table_55_4A42::
 	dw Data_55_4A56, Data_55_4B9A, Data_55_4D4A, Data_55_4EFA, Data_55_5116, Data_55_5332, Data_55_554E, Data_55_576A
 	dw Data_55_576A, Data_55_5986
 
@@ -780,19 +862,20 @@ Data_55_5986:: ; 55:5986
 
 ; ---- code $5BA2-$5C9F (253 bytes) [CONFIRMED] 106 insn(s); 106 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
 
-Function_55_5BA2:: ; 55:5BA2
+Kbd_Open:: ; 55:5BA2
+Function_55_5BA2::
 	ld [wRam_C2AB], a
 	ld a, b
 	ld [wRam_C2AF], a
 	ld a, c
-	call Function_55_7007
+	call Kbd_LoadInputMode
 	ld b, $15
 	ld c, $03
-	farcall Function_7D_7C00
+	farcall Joypad_SetRepeatTiming
 	xor a, a
 	ld [wRam_C2AC], a
 	ld a, [wRam_C2AB]
-	ld hl, $4000
+	ld hl, Table_Kbd_StartCell
 	add a, l
 	ld l, a
 	ld a, $00
@@ -824,7 +907,7 @@ Label_55_5BDD:: ; 55:5BDD
 	ld a, $90
 	ldh [rWY], a
 	ld de, $8001
-	ld hl, $49D0
+	ld hl, Data_5F_49D0
 	ld a, $5F
 	ld b, $94
 	ld c, $30
@@ -833,16 +916,16 @@ Label_55_5BDD:: ; 55:5BDD
 	ld de, $D868
 	ld hl, $4CE0
 	ld a, $5F
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld a, [wRam_C2AB]
 	call Function_55_6ED6
 	or a, a
 	jp z, Label_55_5C5A
 	ld bc, $0010
 	ld de, $D830
-	ld hl, $4CD0
+	ld hl, Palette_5F_4CD0
 	ld a, $5F
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -852,7 +935,7 @@ Label_55_5BDD:: ; 55:5BDD
 	ldh [rSVBK], a
 	call Function_00_047A
 	ld hl, $D800
-	farcall Function_4F_404B
+	farcall Palette_UploadBuffer
 	ei
 	call Function_00_0392
 	ldh [hScratchA], a
@@ -866,7 +949,7 @@ Label_55_5C5A:: ; 55:5C5A
 	ld a, [wRam_C2AF]
 	cp a, $02
 	jr nz, Label_55_5C71
-	call Function_55_63E7
+	call Kbd_ShowInstant
 	call Function_00_047A
 	ldh a, [rLCDC]
 	or a, $20
@@ -876,9 +959,9 @@ Label_55_5C5A:: ; 55:5C5A
 
 Label_55_5C71:: ; 55:5C71
 	ld a, $01
-	call Function_55_66C6
+	call Kbd_LoadPageGraphics
 	ld hl, $DAB0
-	ld de, $4CF8
+	ld de, Table_5F_4CF8
 	ld a, $5F
 	ld b, $81
 	farcall Function_00_0A82
@@ -887,7 +970,7 @@ Label_55_5C71:: ; 55:5C71
 	call Function_55_617B
 	ret
 
-Function_55_5C8F:: ; 55:5C8F
+Kbd_Run:: ; 55:5C8F
 	ld a, c
 	ld [wRam_C2B4], a
 	ld a, $01
@@ -929,12 +1012,12 @@ Label_55_5CBC:: ; 55:5CBC
 	ld h, a
 	ld a, [hl]
 	ld [wRam_C2B5], a
-	call Function_55_5F35
-	call Function_55_6190
+	call Kbd_FetchCell
+	call Kbd_UpdateCursorSprite
 	jr Label_55_5CE0
 
 Label_55_5CDD:: ; 55:5CDD
-	call Function_55_6318
+	call Kbd_SlideIn
 
 Label_55_5CE0:: ; 55:5CE0
 	ld a, [wRam_C2AB]
@@ -953,14 +1036,14 @@ Label_55_5CE0:: ; 55:5CE0
 	ld h, a
 	ld a, [hl]
 	ld [wRam_C2B5], a
-	call Function_55_5F35
-	call Function_55_6190
+	call Kbd_FetchCell
+	call Kbd_UpdateCursorSprite
 
 Label_55_5D05:: ; 55:5D05
 	ld a, $01
 	ld [wRam_C2AF], a
-	call Function_55_5F35
-	call Function_55_6190
+	call Kbd_FetchCell
+	call Kbd_UpdateCursorSprite
 	ld a, [wRam_C2AB]
 	cp a, $07
 	jr nz, Label_55_5D36
@@ -979,23 +1062,23 @@ Label_55_5D05:: ; 55:5D05
 Label_55_5D36:: ; 55:5D36
 	ld a, [wRam_C2AB]
 	cp a, $05
-	jr nz, Label_55_5D49
+	jr nz, Kbd_Run_Loop
 
 ; ---- code $5D3D-$5D49 (12 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 55:5D3B (executed) [executed in 4 scenarios]
-	call Function_55_7000
+	call Kbd_HideMarkerSprite
 	ld a, [wRam_C2B3]
 	or a, a
-	jr nz, Label_55_5D49
-	call Function_55_6FCD
+	jr nz, Kbd_Run_Loop
+	call Kbd_ShowMarkerSprite
 
 ; ---- code $5D49-$5D70 (39 bytes) [CONFIRMED] 13 insn(s); 13 executed (in up to 11/18 scenarios)
 
-Label_55_5D49:: ; 55:5D49
-	call Function_55_6C16
-	farcall Function_7D_7BB7
+Kbd_Run_Loop:: ; 55:5D49
+	call Kbd_DrawGlyphPreview
+	farcall Joypad_Update
 	farcall Function_00_0956
 	ld a, [wRam_C2AB]
-	call Function_55_6F2E
+	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, Label_55_5D66
 	call Function_00_044B
@@ -1010,7 +1093,7 @@ Label_55_5D69:: ; 55:5D69
 	jr nz, Label_55_5D76
 
 ; ---- code $5D70-$5D76 (6 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 55:5D6E (executed) [executed in 4 scenarios]
-	farcall Function_57_53B9
+	farcall ConnectDialog_RefreshFieldIfDirty
 
 ; ---- code $5D76-$5DF5 (127 bytes) [CONFIRMED] 56 insn(s); 56 executed (in up to 11/18 scenarios)
 
@@ -1032,36 +1115,36 @@ Label_55_5D76:: ; 55:5D76
 	jr nz, Label_55_5DCC
 	bit 2, a
 	jr nz, Label_55_5E02
-	jr Label_55_5D49
+	jr Kbd_Run_Loop
 
 Label_55_5D9A:: ; 55:5D9A
-	jp Label_55_5E5D
+	jp Kbd_Run_ButtonA
 
 Label_55_5D9D:: ; 55:5D9D
 	jp Label_55_5F1A
 
 Label_55_5DA0:: ; 55:5DA0
 	ld a, $00
-	call Function_55_5F66
-	call Function_55_6190
+	call Kbd_MoveCursor
+	call Kbd_UpdateCursorSprite
 	jp Label_55_5E5A
 
 Label_55_5DAB:: ; 55:5DAB
 	ld a, $01
-	call Function_55_5F66
-	call Function_55_6190
+	call Kbd_MoveCursor
+	call Kbd_UpdateCursorSprite
 	jp Label_55_5E5A
 
 Label_55_5DB6:: ; 55:5DB6
 	ld a, $02
-	call Function_55_5F66
-	call Function_55_6190
+	call Kbd_MoveCursor
+	call Kbd_UpdateCursorSprite
 	jp Label_55_5E5A
 
 Label_55_5DC1:: ; 55:5DC1
 	ld a, $03
-	call Function_55_5F66
-	call Function_55_6190
+	call Kbd_MoveCursor
+	call Kbd_UpdateCursorSprite
 	jp Label_55_5E5A
 
 Label_55_5DCC:: ; 55:5DCC
@@ -1074,8 +1157,8 @@ Label_55_5DCC:: ; 55:5DCC
 	ld h, a
 	ld a, [hl]
 	ld [wRam_C2B5], a
-	call Function_55_5F35
-	call Function_55_6190
+	call Kbd_FetchCell
+	call Kbd_UpdateCursorSprite
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -1102,9 +1185,9 @@ Label_55_5E02:: ; 55:5E02
 	cp a, $01
 	jr z, Label_55_5E57
 	ld a, [wRam_C2AB]
-	call Function_55_6E94
+	call Kbd_TypeHasPages
 	or a, a
-	jp z, Label_55_5D49
+	jp z, Kbd_Run_Loop
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -1126,12 +1209,12 @@ Label_55_5E02:: ; 55:5E02
 
 Label_55_5E31:: ; 55:5E31
 	ld [hl], a
-	call Function_55_5F35
-	call Function_55_6C10
+	call Kbd_FetchCell
+	call Kbd_RequestGlyphRedraw
 	xor a, a
-	call Function_55_66C6
-	call Function_55_6BB2
-	jp Label_55_5D49
+	call Kbd_LoadPageGraphics
+	call Kbd_ShowPageIndicator
+	jp Kbd_Run_Loop
 
 ; ---- code $5E42-$5E57 (21 bytes) [CONFIRMED] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1; entered by jrcc from 55:5E07 (executed) [executed in 4 scenarios]
 
@@ -1139,11 +1222,11 @@ Label_55_5E42:: ; 55:5E42
 	ld a, [wRam_C2B3]
 	or a, a
 	jr nz, Label_55_5E4B
-	jp Label_55_5D49
+	jp Kbd_Run_Loop
 
 Label_55_5E4B:: ; 55:5E4B
 	xor a, a
-	call Function_55_6427
+	call Kbd_SlideOut
 	ld a, $00
 	ld [wRam_C2AF], a
 	jp Label_55_5F26
@@ -1154,9 +1237,9 @@ Label_55_5E57:: ; 55:5E57
 	jp Label_55_5F26
 
 Label_55_5E5A:: ; 55:5E5A
-	jp Label_55_5D49
+	jp Kbd_Run_Loop
 
-Label_55_5E5D:: ; 55:5E5D
+Kbd_Run_ButtonA:: ; 55:5E5D
 	ld hl, $C2AE
 	ld a, [hld]
 	cp a, $01
@@ -1244,7 +1327,7 @@ Label_55_5EB9:: ; 55:5EB9
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	jp Label_55_5D49
+	jp Kbd_Run_Loop
 
 ; ---- code $5ED3-$5EEE (27 bytes) [CONFIRMED] 12 insn(s); 12 executed (in up to 9/18 scenarios)
 
@@ -1254,7 +1337,7 @@ Label_55_5ED3:: ; 55:5ED3
 	or a, a
 	jr z, Label_55_5F23
 	xor a, a
-	call Function_55_6427
+	call Kbd_SlideOut
 	ld a, $00
 	ld [wRam_C2AF], a
 	jr Label_55_5F23
@@ -1267,7 +1350,7 @@ Label_55_5EE7:: ; 55:5EE7
 ; ---- code $5EEE-$5EF5 (7 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 55:5EEC (executed) [executed in 1 scenarios]
 	ld a, [wRam_C2B4]
 	or a, a
-	jp nz, Label_55_5D49
+	jp nz, Kbd_Run_Loop
 
 ; ---- code $5EF5-$5EFE (9 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 4/18 scenarios)
 
@@ -1279,7 +1362,7 @@ Label_55_5EF5:: ; 55:5EF5
 
 ; ---- code $5EFE-$5F09 (11 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 55:5EFC (executed) [executed in 4 scenarios]
 	xor a, a
-	call Function_55_6427
+	call Kbd_SlideOut
 	ld a, $00
 	ld [wRam_C2AF], a
 	jr Label_55_5F20
@@ -1290,7 +1373,7 @@ Label_55_5F09:: ; 55:5F09
 	ld a, [wRam_C2AB]
 	cp a, $01
 	jr nz, Label_55_5F17
-	call Function_55_6FA1
+	call Kbd_RejectSymbol
 	or a, a
 	jp nz, Label_55_5E5A
 
@@ -1326,7 +1409,7 @@ Label_55_5F26:: ; 55:5F26
 
 Label_55_5F29:: ; 55:5F29
 	xor a, a
-	call Function_55_6427
+	call Kbd_SlideOut
 	ld a, $00
 	ld [wRam_C2AF], a
 	ld a, $09
@@ -1334,9 +1417,10 @@ Label_55_5F29:: ; 55:5F29
 
 ; ---- code $5F35-$5FC8 (147 bytes) [CONFIRMED] 98 insn(s); 98 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
 
-Function_55_5F35:: ; 55:5F35
+Kbd_FetchCell:: ; 55:5F35
+Function_55_5F35::
 	ld a, [wRam_C2AB]
-	ld hl, $4014
+	ld hl, Table_Kbd_PagePointers
 	add a, a
 	add a, l
 	ld l, a
@@ -1367,10 +1451,10 @@ Function_55_5F35:: ; 55:5F35
 	dec de
 	ld a, [hl]
 	ld [de], a
-	call Function_55_6C10
+	call Kbd_RequestGlyphRedraw
 	ret
 
-Function_55_5F66:: ; 55:5F66
+Kbd_MoveCursor:: ; 55:5F66
 	push af
 	ldh a, [hWRAMBank]
 	push af
@@ -1392,7 +1476,7 @@ Function_55_5F66:: ; 55:5F66
 	ld d, h
 	ld e, l
 	ld a, [wRam_C2AB]
-	ld hl, $4A42
+	ld hl, Table_Kbd_NeighbourRecords
 	add a, a
 	add a, l
 	ld l, a
@@ -1451,11 +1535,11 @@ Label_55_5FD8:: ; 55:5FD8
 	cp a, $FF
 	jr z, Label_55_602E
 	ld a, [wRam_C2B6]
-	call Function_55_615F
+	call Kbd_IndexToColRow
 	call Function_55_6041
 	ld a, [wRam_C2BE]
 	ld c, a
-	call Function_55_616D
+	call Kbd_ColRowToIndex
 	ld [wRam_C2B5], a
 	jr Label_55_6029
 
@@ -1473,11 +1557,11 @@ Label_55_6004:: ; 55:6004
 	cp a, $FF
 	jr z, Label_55_602E
 	ld a, [wRam_C2B6]
-	call Function_55_615F
+	call Kbd_IndexToColRow
 	call Function_55_6041
 	ld a, [wRam_C2BD]
 	ld b, a
-	call Function_55_616D
+	call Kbd_ColRowToIndex
 	ld [wRam_C2B5], a
 	jr Label_55_6029
 
@@ -1492,13 +1576,13 @@ Label_55_6029:: ; 55:6029
 
 Label_55_602E:: ; 55:602E
 	ld a, [wRam_C2B5]
-	call Function_55_6149
+	call Kbd_SplitCursorIndex
 	call Function_55_6068
 	ld a, [wRam_C2B6]
 	ld [wRam_C2B5], a
 
 Label_55_603D:: ; 55:603D
-	call Function_55_5F35
+	call Kbd_FetchCell
 	ret
 
 Function_55_6041:: ; 55:6041
@@ -1661,7 +1745,7 @@ Function_55_6143:: ; 55:6143
 	ld [wRam_C2BE], a
 	ret
 
-Function_55_6149:: ; 55:6149
+Kbd_SplitCursorIndex:: ; 55:6149
 	ld a, [wRam_C2B5]
 	ld b, $00
 
@@ -1678,7 +1762,7 @@ Label_55_6155:: ; 55:6155
 	ld [wRam_C2BB], a
 	ret
 
-Function_55_615F:: ; 55:615F
+Kbd_IndexToColRow:: ; 55:615F
 	ld b, $00
 
 Label_55_6161:: ; 55:6161
@@ -1693,7 +1777,7 @@ Label_55_6168:: ; 55:6168
 	ld b, a
 	ret
 
-Function_55_616D:: ; 55:616D
+Kbd_ColRowToIndex:: ; 55:616D
 	push bc
 	ld d, $00
 	ld e, c
@@ -1721,10 +1805,11 @@ Function_55_617B:: ; 55:617B
 
 ; ---- code $6190-$624D (189 bytes) [CONFIRMED] 103 insn(s); 103 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
 
-Function_55_6190:: ; 55:6190
-	call Function_55_6149
+Kbd_UpdateCursorSprite:: ; 55:6190
+Function_55_6190::
+	call Kbd_SplitCursorIndex
 	ld a, [wRam_C2AB]
-	ld hl, $62A0
+	ld hl, Data_55_62A0
 	add a, a
 	add a, l
 	ld l, a
@@ -1740,7 +1825,7 @@ Function_55_6190:: ; 55:6190
 	jr z, Label_55_61BF
 	push bc
 	ld hl, $DAB0
-	ld de, $4CF8
+	ld de, Table_5F_4CF8
 	ld a, $5F
 	ld b, $81
 	farcall Function_00_0A82
@@ -1750,13 +1835,13 @@ Function_55_6190:: ; 55:6190
 Label_55_61BF:: ; 55:61BF
 	push bc
 	ld hl, $DAB0
-	ld de, $4CF8
+	ld de, Table_5F_4CF8
 	ld a, $5F
 	ld b, $82
 	farcall Function_00_0A82
 	pop bc
 	ld a, [wRam_C2AB]
-	ld hl, $62B4
+	ld hl, Table_55_62B4
 	add a, a
 	add a, l
 	ld l, a
@@ -1911,7 +1996,8 @@ Data_55_62C8:: ; 55:62C8
 
 ; ---- code $6318-$636D (85 bytes) [CONFIRMED] 32 insn(s); 32 executed (in up to 5/18 scenarios); entry proven: target of an executed call/far call
 
-Function_55_6318:: ; 55:6318
+Kbd_SlideIn:: ; 55:6318
+Function_55_6318::
 	call Function_00_047A
 	ldh a, [rLCDC]
 	or a, $20
@@ -1926,27 +2012,27 @@ Function_55_6318:: ; 55:6318
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	call Function_55_640E
+	call Kbd_GetSlideTargetY
 	ld [wRam_C2A2], a
 	ld a, [wRam_C2AB]
 	cp a, $06
 	jr nz, Label_55_6348
-	farcall Function_7F_70FD
+	farcall KbdSlide_InPrepMode6
 
 Label_55_6348:: ; 55:6348
 	cp a, $08
 	jr nz, Label_55_6352
-	farcall Function_7F_7149
+	farcall KbdSlide_InPrepMode8
 
 Label_55_6352:: ; 55:6352
 	cp a, $09
 	jr nz, Label_55_635C
-	farcall Function_7F_71A7
+	farcall KbdSlide_InPrepMode9
 
 Label_55_635C:: ; 55:635C
 	cp a, $07
 	jr nz, Label_55_6366
-	farcall Function_7F_7205
+	farcall KbdSlide_InPrepMode7
 
 Label_55_6366:: ; 55:6366
 	ld a, [wRam_C2AB]
@@ -1956,7 +2042,7 @@ Label_55_6366:: ; 55:6366
 ; ---- code $636D-$6386 (25 bytes) [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 55:636B (executed)
 	farcall Function_00_0956
 	ld a, [wRam_C2AB]
-	call Function_55_6F2E
+	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, Label_55_6381
 	call Function_00_044B
@@ -1977,7 +2063,7 @@ Label_55_6386:: ; 55:6386
 	push de
 	call Function_00_0464
 	pop de
-	farcall Function_7F_7116
+	farcall KbdSlide_InStepMode6
 	jr Label_55_63D2
 
 Label_55_639A:: ; 55:639A
@@ -1986,7 +2072,7 @@ Label_55_639A:: ; 55:639A
 	push de
 	call Function_00_0464
 	pop de
-	farcall Function_7F_7165
+	farcall KbdSlide_InStepMode8
 	jr Label_55_63D2
 
 Label_55_63AB:: ; 55:63AB
@@ -1995,7 +2081,7 @@ Label_55_63AB:: ; 55:63AB
 	push de
 	call Function_00_0464
 	pop de
-	farcall Function_7F_71C3
+	farcall KbdSlide_InStepMode9
 	jr Label_55_63D2
 
 Label_55_63BC:: ; 55:63BC
@@ -2004,7 +2090,7 @@ Label_55_63BC:: ; 55:63BC
 	push de
 	call Function_00_0464
 	pop de
-	farcall Function_7F_720C
+	farcall KbdSlide_InStepMode7
 	jr Label_55_63D2
 
 ; ---- code $63CD-$63D2 (5 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 55:63BE (executed)
@@ -2027,12 +2113,12 @@ Label_55_63D2:: ; 55:63D2
 	pop af
 	cp a, b
 	jp nz, Label_55_6366
-	call Function_55_6BB2
+	call Kbd_ShowPageIndicator
 	ret
 
-Function_55_63E7:: ; 55:63E7
+Kbd_ShowInstant:: ; 55:63E7
 	ld a, [wRam_C2AB]
-	call Function_55_6F2E
+	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, Label_55_63F5
 	call Function_00_044B
@@ -2042,7 +2128,7 @@ Label_55_63F5:: ; 55:63F5
 	call Function_00_0464
 
 Label_55_63F8:: ; 55:63F8
-	call Function_55_640E
+	call Kbd_GetSlideTargetY
 	ldh [rWY], a
 	call Function_00_047A
 	ldh a, [rLCDC]
@@ -2050,12 +2136,12 @@ Label_55_63F8:: ; 55:63F8
 	ldh [rLCDC], a
 	ei
 	call Function_00_0392
-	call Function_55_6BB2
+	call Kbd_ShowPageIndicator
 	ret
 
-Function_55_640E:: ; 55:640E
+Kbd_GetSlideTargetY:: ; 55:640E
 	ld a, [wRam_C2AB]
-	ld hl, $641C
+	ld hl, Data_55_641C
 	add a, l
 	ld l, a
 	ld a, $00
@@ -2071,7 +2157,8 @@ Data_55_641C:: ; 55:641C
 
 ; ---- code $6427-$644E (39 bytes) [CONFIRMED] 13 insn(s); 13 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 
-Function_55_6427:: ; 55:6427
+Kbd_SlideOut:: ; 55:6427
+Function_55_6427::
 	ld hl, $DAA0
 	call Function_00_09E6
 	ld hl, $DAB0
@@ -2082,7 +2169,7 @@ Function_55_6427:: ; 55:6427
 	call Function_00_09E6
 	farcall Function_00_0956
 	ld a, [wRam_C2AB]
-	call Function_55_6F2E
+	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, Label_55_6453
 
@@ -2110,22 +2197,22 @@ Label_55_6456:: ; 55:6456
 	ld a, [wRam_C2AB]
 	cp a, $06
 	jr nz, Label_55_6478
-	farcall Function_7F_7125
+	farcall KbdSlide_OutPrepMode6
 
 Label_55_6478:: ; 55:6478
 	cp a, $08
 	jr nz, Label_55_6482
-	farcall Function_7F_7178
+	farcall KbdSlide_OutPrepMode8
 
 Label_55_6482:: ; 55:6482
 	cp a, $09
 	jr nz, Label_55_648C
-	farcall Function_7F_71D6
+	farcall KbdSlide_OutPrepMode9
 
 Label_55_648C:: ; 55:648C
 	cp a, $07
 	jr nz, Label_55_6496
-	farcall Function_7F_721D
+	farcall KbdSlide_OutPrepMode7
 
 Label_55_6496:: ; 55:6496
 	ld a, [wRam_C2AB]
@@ -2135,7 +2222,7 @@ Label_55_6496:: ; 55:6496
 ; ---- code $649D-$64B6 (25 bytes) [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 55:649B (executed)
 	farcall Function_00_0956
 	ld a, [wRam_C2AB]
-	call Function_55_6F2E
+	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, Label_55_64B1
 	call Function_00_044B
@@ -2156,7 +2243,7 @@ Label_55_64B6:: ; 55:64B6
 	push de
 	call Function_00_0464
 	pop de
-	farcall Function_7F_713A
+	farcall KbdSlide_OutStepMode6
 	jr Label_55_6502
 
 Label_55_64CA:: ; 55:64CA
@@ -2165,7 +2252,7 @@ Label_55_64CA:: ; 55:64CA
 	push de
 	call Function_00_0464
 	pop de
-	farcall Function_7F_7194
+	farcall KbdSlide_OutStepMode8
 	jr Label_55_6502
 
 Label_55_64DB:: ; 55:64DB
@@ -2174,7 +2261,7 @@ Label_55_64DB:: ; 55:64DB
 	push de
 	call Function_00_0464
 	pop de
-	farcall Function_7F_71F2
+	farcall KbdSlide_OutStepMode9
 	jr Label_55_6502
 
 Label_55_64EC:: ; 55:64EC
@@ -2183,7 +2270,7 @@ Label_55_64EC:: ; 55:64EC
 	push de
 	call Function_00_0464
 	pop de
-	farcall Function_7F_7224
+	farcall KbdSlide_OutStepMode7
 	jr Label_55_6502
 
 Label_55_64FD:: ; 55:64FD
@@ -2206,7 +2293,7 @@ Label_55_6502:: ; 55:6502
 	call Function_00_0392
 	ret
 
-Function_55_651C:: ; 55:651C
+Kbd_HideInstant:: ; 55:651C
 	ld hl, $DAA0
 	call Function_00_09E6
 	ld hl, $DAB0
@@ -2217,7 +2304,7 @@ Function_55_651C:: ; 55:651C
 	call Function_00_09E6
 	farcall Function_00_0956
 	ld a, [wRam_C2AB]
-	call Function_55_6F2E
+	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, Label_55_6548
 	call Function_00_044B
@@ -2239,9 +2326,9 @@ Label_55_654B:: ; 55:654B
 	call Function_00_0392
 	ret
 
-Function_55_6559:: ; 55:6559
+Kbd_Hide:: ; 55:6559
 	xor a, a
-	call Function_55_6427
+	call Kbd_SlideOut
 	ld a, $00
 	ld [wRam_C2AF], a
 	ret
@@ -2265,7 +2352,7 @@ Label_55_6563:: ; 55:6563
 Label_55_6580:: ; 55:6580
 	farcall Function_00_0956
 	ld a, [wRam_C2AB]
-	call Function_55_6F2E
+	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, Label_55_6594
 
@@ -2284,23 +2371,23 @@ Label_55_6597:: ; 55:6597
 	cp a, $80
 	jr nz, Label_55_65A4
 	push af
-	call Function_55_6BD7
+	call Kbd_LoadPickerTabTiles
 	pop af
 
 Label_55_65A4:: ; 55:65A4
 	ldh [rWY], a
 	cp a, $60
 	jp nz, Label_55_6580
-	call Function_55_65DA
+	call Kbd_TypePickerLoop
 	push af
-	call Function_55_6427
+	call Kbd_SlideOut
 	call Function_00_047A
 	ldh a, [rLCDC]
 	and a, $DF
 	ldh [rLCDC], a
 	ei
 	call Function_00_0392
-	call Function_55_7048
+	call Kbd_SaveInputMode
 	pop af
 	or a, a
 	jr nz, Label_55_65C9
@@ -2309,7 +2396,7 @@ Label_55_65A4:: ; 55:65A4
 
 Label_55_65C9:: ; 55:65C9
 	ld a, [wRam_C2BC]
-	ld hl, $65D7
+	ld hl, Data_55_65D7
 	add a, l
 	ld l, a
 	ld a, $00
@@ -2325,21 +2412,22 @@ Data_55_65D7:: ; 55:65D7
 
 ; ---- code $65DA-$6602 (40 bytes) [CONFIRMED] 12 insn(s); 12 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_55_65DA:: ; 55:65DA
+Kbd_TypePickerLoop:: ; 55:65DA
+Function_55_65DA::
 	ld hl, $DAB0
-	ld de, $4CF8
+	ld de, Table_5F_4CF8
 	ld a, $5F
 	ld b, $82
 	farcall Function_00_0A82
 
 Label_55_65EA:: ; 55:65EA
-	call Function_55_667B
+	call Kbd_UpdatePickerSprites
 
 Label_55_65ED:: ; 55:65ED
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	farcall Function_00_0956
 	ld a, [wRam_C2AB]
-	call Function_55_6F2E
+	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, Label_55_6607
 
@@ -2430,8 +2518,8 @@ Label_55_6666:: ; 55:6666
 	pop af
 	ret
 
-Function_55_667B:: ; 55:667B
-	ld hl, $66C0
+Kbd_UpdatePickerSprites:: ; 55:667B
+	ld hl, Data_55_66C0
 	ld a, [wRam_C2BC]
 	add a, l
 	ld l, a
@@ -2463,7 +2551,7 @@ Function_55_667B:: ; 55:667B
 	ld e, a
 	ld hl, $DAA0
 	call Function_00_0A65
-	call Function_55_6BD7
+	call Kbd_LoadPickerTabTiles
 	ret
 
 ; ---- data $66C0-$66C6 (6 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
@@ -2473,10 +2561,11 @@ Data_55_66C0:: ; 55:66C0
 
 ; ---- code $66C6-$66D9 (19 bytes) [CONFIRMED] 13 insn(s); 13 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
 
-Function_55_66C6:: ; 55:66C6
+Kbd_LoadPageGraphics:: ; 55:66C6
+Function_55_66C6::
 	ldh [hRam_FFB0], a
 	ld a, [wRam_C2AB]
-	ld hl, $66D9
+	ld hl, Table_55_66D9
 	add a, a
 	add a, l
 	ld l, a
@@ -2508,25 +2597,25 @@ Table_55_66D9:: ; 55:66D9
 Label_55_66EF:: ; 55:66EF
 	ld bc, $0D14
 	ld de, $D240
-	ld hl, $4ECB
+	ld hl, Data_5F_4ECB
 	ld a, $5F
 	farcall Function_00_08EA
-	call Function_55_6B51
+	call Kbd_UploadPanelMap13Rows
 	ret
 
 Label_55_6704:: ; 55:6704
 	ld de, $8800
-	ld hl, $57E0
+	ld hl, Data_5E_57E0
 	ld a, $5E
 	ld b, $98
 	ld c, $02
 	farcall Function_00_0787
 	ld bc, $0D14
 	ld de, $D240
-	ld hl, $50D3
+	ld hl, Data_5F_50D3
 	ld a, $5F
 	farcall Function_00_08EA
-	call Function_55_6B51
+	call Kbd_UploadPanelMap13Rows
 	ret
 
 ; ---- code $672B-$6755 (42 bytes) [CONFIRMED] 14 insn(s) reached by static flow only; seeds: site x6, table x8; min discovery hops 0; run starts at an entry of the code-pointer table at 55:66D9 [executed in 1 scenarios]
@@ -2534,32 +2623,32 @@ Label_55_6704:: ; 55:6704
 Label_55_672B:: ; 55:672B
 	ld bc, $0D14
 	ld de, $D240
-	ld hl, $54E3
+	ld hl, Data_5F_54E3
 	ld a, $5F
 	farcall Function_00_08EA
-	call Function_55_6B51
+	call Kbd_UploadPanelMap13Rows
 	ret
 
 Label_55_6740:: ; 55:6740
 	ld bc, $0D14
 	ld de, $D240
-	ld hl, $56EB
+	ld hl, Data_5F_56EB
 	ld a, $5F
 	farcall Function_00_08EA
-	call Function_55_6B51
+	call Kbd_UploadPanelMap13Rows
 	ret
 
 ; ---- code $6755-$679F (74 bytes) [CONFIRMED] 24 insn(s); 24 executed (in up to 7/18 scenarios)
 
 Label_55_6755:: ; 55:6755
 	ld de, $8801
-	ld hl, $4000
+	ld hl, Data_5D_4000
 	ld a, $5D
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8C01
-	ld hl, $4400
+	ld hl, Data_5D_4400
 	ld a, $5D
 	ld b, $92
 	ld c, $40
@@ -2568,46 +2657,46 @@ Label_55_6755:: ; 55:6755
 	ld de, $D828
 	ld hl, $4D28
 	ld a, $5E
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $0D14
 	ld de, $D240
-	ld hl, $52DB
+	ld hl, Data_5F_52DB
 	ld a, $5F
 	farcall Function_00_08EA
-	call Function_55_6B51
+	call Kbd_UploadPanelMap13Rows
 	ret
 
 ; ---- code $679F-$6858 (185 bytes) [CONFIRMED] 69 insn(s) reached by static flow only; seeds: site x64, table x5; min discovery hops 0; run starts at an entry of the code-pointer table at 55:66D9 [executed in 4 scenarios]
 
 Label_55_679F:: ; 55:679F
 	ld de, $8801
-	ld hl, $5900
+	ld hl, Data_5F_5900
 	ld a, $5F
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8C01
-	ld hl, $5D00
+	ld hl, Data_5F_5D00
 	ld a, $5F
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9001
-	ld hl, $6100
+	ld hl, Data_5F_6100
 	ld a, $5F
 	ld b, $97
 	ld c, $10
 	farcall Function_00_0787
 	ld bc, $0008
 	ld de, $D808
-	ld hl, $6BB8
+	ld hl, Data_5F_6BB8
 	ld a, $5F
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $0010
 	ld de, $D830
 	ld hl, $6BC0
 	ld a, $5F
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -2617,7 +2706,7 @@ Label_55_679F:: ; 55:679F
 	ldh [rSVBK], a
 	call Function_00_047A
 	ld hl, $D800
-	farcall Function_4F_404B
+	farcall Palette_UploadBuffer
 	ei
 	call Function_00_0392
 	ldh [hScratchA], a
@@ -2634,7 +2723,7 @@ Label_55_679F:: ; 55:679F
 	ldh [rSVBK], a
 	call Function_00_047A
 	ld hl, $D800
-	farcall Function_4F_404B
+	farcall Palette_UploadBuffer
 	ei
 	call Function_00_0392
 	ldh [hScratchA], a
@@ -2644,17 +2733,17 @@ Label_55_679F:: ; 55:679F
 	ldh a, [hScratchA]
 	ld bc, $0D14
 	ld de, $D240
-	ld hl, $69B0
+	ld hl, Data_5F_69B0
 	ld a, $5F
 	farcall Function_00_08EA
-	call Function_55_6B51
+	call Kbd_UploadPanelMap13Rows
 	ret
 
 ; ---- code $6858-$6869 (17 bytes) [CONFIRMED] 12 insn(s); 12 executed (in up to 2/18 scenarios)
 
 Label_55_6858:: ; 55:6858
 	ld a, [wRam_C2AC]
-	ld hl, $6869
+	ld hl, Table_55_6869
 	add a, a
 	add a, l
 	ld l, a
@@ -2682,19 +2771,19 @@ Table_55_686F:: ; 55:686F
 
 Label_55_6871:: ; 55:6871
 	ld de, $8801
-	ld hl, $4000
+	ld hl, Data_66_4000
 	ld a, $66
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8C01
-	ld hl, $4400
+	ld hl, Data_66_4400
 	ld a, $66
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9001
-	ld hl, $4800
+	ld hl, Data_66_4800
 	ld a, $66
 	ld b, $95
 	ld c, $24
@@ -2703,19 +2792,19 @@ Label_55_6871:: ; 55:6871
 
 Label_55_68AA:: ; 55:68AA
 	ld de, $8801
-	ld hl, $4A40
+	ld hl, Data_66_4A40
 	ld a, $66
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8C01
-	ld hl, $4E40
+	ld hl, Data_66_4E40
 	ld a, $66
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9001
-	ld hl, $5240
+	ld hl, Data_66_5240
 	ld a, $66
 	ld b, $95
 	ld c, $24
@@ -2724,19 +2813,19 @@ Label_55_68AA:: ; 55:68AA
 
 Label_55_68E3:: ; 55:68E3
 	ld de, $8801
-	ld hl, $5480
+	ld hl, Data_66_5480
 	ld a, $66
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8C01
-	ld hl, $5880
+	ld hl, Data_66_5880
 	ld a, $66
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9001
-	ld hl, $5C80
+	ld hl, Data_66_5C80
 	ld a, $66
 	ld b, $95
 	ld c, $24
@@ -2755,13 +2844,13 @@ Label_55_691C:: ; 55:691C
 ; ---- code $6928-$6952 (42 bytes) [CONFIRMED] 13 insn(s) reached by static flow only; seeds: site x13; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code [executed in 2 scenarios]
 	farcall Function_00_0787
 	ld de, $8C01
-	ld hl, $62C0
+	ld hl, Data_66_62C0
 	ld a, $66
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9001
-	ld hl, $66C0
+	ld hl, Data_66_66C0
 	ld a, $66
 	ld b, $95
 	ld c, $24
@@ -2775,15 +2864,15 @@ Label_55_6952:: ; 55:6952
 	ret z
 	ld bc, $0B14
 	ld de, $D240
-	ld hl, $7210
+	ld hl, Data_66_7210
 	ld a, $66
 	farcall Function_00_08EA
-	call Function_55_6AF0
+	call Kbd_UploadPanelMap11Rows
 	ret
 
 Label_55_696B:: ; 55:696B
 	ld a, [wRam_C2AC]
-	ld hl, $697C
+	ld hl, Table_55_697C
 	add a, a
 	add a, l
 	ld l, a
@@ -2811,19 +2900,19 @@ Table_55_6982:: ; 55:6982
 
 Label_55_6984:: ; 55:6984
 	ld de, $8801
-	ld hl, $4000
+	ld hl, Data_62_4000
 	ld a, $62
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8C01
-	ld hl, $4400
+	ld hl, Data_62_4400
 	ld a, $62
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9001
-	ld hl, $4800
+	ld hl, Data_62_4800
 	ld a, $62
 	ld b, $95
 	ld c, $24
@@ -2832,19 +2921,19 @@ Label_55_6984:: ; 55:6984
 
 Label_55_69BD:: ; 55:69BD
 	ld de, $8801
-	ld hl, $4B00
+	ld hl, Data_62_4B00
 	ld a, $62
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8C01
-	ld hl, $4F00
+	ld hl, Data_62_4F00
 	ld a, $62
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9001
-	ld hl, $5300
+	ld hl, Data_62_5300
 	ld a, $62
 	ld b, $95
 	ld c, $24
@@ -2853,19 +2942,19 @@ Label_55_69BD:: ; 55:69BD
 
 Label_55_69F6:: ; 55:69F6
 	ld de, $8801
-	ld hl, $5600
+	ld hl, Data_62_5600
 	ld a, $62
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8C01
-	ld hl, $5A00
+	ld hl, Data_62_5A00
 	ld a, $62
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9001
-	ld hl, $5E00
+	ld hl, Data_62_5E00
 	ld a, $62
 	ld b, $95
 	ld c, $24
@@ -2884,13 +2973,13 @@ Label_55_6A2F:: ; 55:6A2F
 ; ---- code $6A3B-$6A65 (42 bytes) [CONFIRMED] 13 insn(s) reached by static flow only; seeds: site x13; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code [executed in 4 scenarios]
 	farcall Function_00_0787
 	ld de, $8C01
-	ld hl, $6500
+	ld hl, Data_62_6500
 	ld a, $62
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9001
-	ld hl, $6900
+	ld hl, Data_62_6900
 	ld a, $62
 	ld b, $95
 	ld c, $24
@@ -2904,55 +2993,55 @@ Label_55_6A65:: ; 55:6A65
 	ret z
 	ld bc, $0B14
 	ld de, $D240
-	ld hl, $7210
+	ld hl, Data_66_7210
 	ld a, $66
 	farcall Function_00_08EA
-	call Function_55_6AF0
+	call Kbd_UploadPanelMap11Rows
 	ret
 
 Label_55_6A7E:: ; 55:6A7E
 	ld de, $8801
-	ld hl, $4000
+	ld hl, Data_5F_4000
 	ld a, $5F
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8C01
-	ld hl, $4400
+	ld hl, Data_5F_4400
 	ld a, $5F
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9001
-	ld hl, $4800
+	ld hl, Data_5F_4800
 	ld a, $5F
 	ld b, $98
 	ld c, $01
 	farcall Function_00_0787
 	ld bc, $0B14
 	ld de, $D240
-	ld hl, $4810
+	ld hl, Data_5F_4810
 	ld a, $5F
 	farcall Function_00_08EA
-	call Function_55_6AF0
+	call Kbd_UploadPanelMap11Rows
 	ret
 
 Label_55_6AC9:: ; 55:6AC9
 	ld de, $8A81
-	ld hl, $6900
+	ld hl, Data_66_6900
 	ld a, $66
 	ld b, $96
 	ld c, $19
 	farcall Function_00_0787
 	ld bc, $0614
 	ld de, $D240
-	ld hl, $73C8
+	ld hl, Data_66_73C8
 	ld a, $66
 	farcall Function_00_08EA
-	call Function_55_6AF0
+	call Kbd_UploadPanelMap11Rows
 	ret
 
-Function_55_6AF0:: ; 55:6AF0
+Kbd_UploadPanelMap11Rows:: ; 55:6AF0
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -2970,7 +3059,7 @@ Function_55_6AF0:: ; 55:6AF0
 	ld c, $16
 	ld hl, $D240
 	ld a, [wRam_C2AB]
-	call Function_55_6F2E
+	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, Label_55_6B21
 
@@ -2990,7 +3079,7 @@ Label_55_6B27:: ; 55:6B27
 	ld c, $16
 	ld hl, $D640
 	ld a, [wRam_C2AB]
-	call Function_55_6F2E
+	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, Label_55_6B41
 
@@ -3012,7 +3101,7 @@ Label_55_6B47:: ; 55:6B47
 	ldh a, [hScratchA]
 	ret
 
-Function_55_6B51:: ; 55:6B51
+Kbd_UploadPanelMap13Rows:: ; 55:6B51
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -3030,7 +3119,7 @@ Function_55_6B51:: ; 55:6B51
 	ld c, $1A
 	ld hl, $D240
 	ld a, [wRam_C2AB]
-	call Function_55_6F2E
+	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, Label_55_6B82
 	xor a, a
@@ -3050,7 +3139,7 @@ Label_55_6B88:: ; 55:6B88
 	ld c, $1A
 	ld hl, $D640
 	ld a, [wRam_C2AB]
-	call Function_55_6F2E
+	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, Label_55_6BA2
 	xor a, a
@@ -3072,9 +3161,9 @@ Label_55_6BA8:: ; 55:6BA8
 	ldh a, [hScratchA]
 	ret
 
-Function_55_6BB2:: ; 55:6BB2
+Kbd_ShowPageIndicator:: ; 55:6BB2
 	ld a, [wRam_C2AB]
-	call Function_55_6E94
+	call Kbd_TypeHasPages
 	or a, a
 	ret z
 	ld a, [wRam_C2AC]
@@ -3089,9 +3178,9 @@ Function_55_6BB2:: ; 55:6BB2
 	call Function_00_0A65
 	ret
 
-Function_55_6BD7:: ; 55:6BD7
+Kbd_LoadPickerTabTiles:: ; 55:6BD7
 	ld a, [wRam_C2BC]
-	ld hl, $6C0A
+	ld hl, Data_55_6C0A
 	add a, a
 	add a, l
 	ld l, a
@@ -3105,7 +3194,7 @@ Function_55_6BD7:: ; 55:6BD7
 	ld b, $95
 	ld c, $28
 	ld a, [wRam_C2AB]
-	call Function_55_6F2E
+	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, Label_55_6C01
 
@@ -3130,12 +3219,13 @@ Data_55_6C0A:: ; 55:6C0A
 
 ; ---- code $6C10-$6C39 (41 bytes) [CONFIRMED] 23 insn(s); 23 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
 
-Function_55_6C10:: ; 55:6C10
+Kbd_RequestGlyphRedraw:: ; 55:6C10
+Function_55_6C10::
 	ld a, $01
 	ld [wRam_C2B2], a
 	ret
 
-Function_55_6C16:: ; 55:6C16
+Kbd_DrawGlyphPreview:: ; 55:6C16
 	ld a, [wRam_C2B2]
 	or a, a
 	ret z
@@ -3150,7 +3240,7 @@ Function_55_6C16:: ; 55:6C16
 Label_55_6C28:: ; 55:6C28
 	dec hl
 	ld a, [hl]
-	call Function_55_6CC6
+	call Text_HalfToFullWidth
 	jr Label_55_6C48
 
 Label_55_6C2F:: ; 55:6C2F
@@ -3189,7 +3279,7 @@ Label_55_6C48:: ; 55:6C48
 	ld hl, $DE00
 	push hl
 	push bc
-	farcall Function_48_4748
+	farcall Font_BlitGlyph8x16
 	add sp, 10
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -3220,7 +3310,7 @@ Label_55_6C48:: ; 55:6C48
 	ld b, $98
 	ld c, $02
 	ld a, [wRam_C2AB]
-	call Function_55_6F2E
+	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, Label_55_6CB2
 	xor a, a
@@ -3240,7 +3330,7 @@ Label_55_6CB8:: ; 55:6CB8
 	ld [wRam_C2B2], a
 	ret
 
-Function_55_6CC6:: ; 55:6CC6
+Text_HalfToFullWidth:: ; 55:6CC6
 	sub a, $20
 	ld h, $00
 	ld l, a
@@ -3254,40 +3344,28 @@ Function_55_6CC6:: ; 55:6CC6
 
 ; ---- text $6CD4-$6E94 (448 bytes) [PROBABLE] Shift-JIS keyboard row(s) inside the run 6CD4-6E94: clean cp932 pairs with NUL row terminators ( ！”＃＄％＆’（）＊＋，－．／０１２３); 6 executed-read range(s) of the run touch it; sits between the CONFIRMED/PROBABLE text rows of the same on-screen keyboard page [split from a merged data run by classify_g2]
 
-String_55_6CD4:: ; 55:6CD4
-	db $81, $40, $81, $49, $81, $68, $81, $94, $81, $90, $81, $93, $81, $95, $81, $66
-	db $81, $69, $81, $6A, $81, $96, $81, $7B, $81, $43, $81, $7C, $81, $44, $81, $5E
-	db $82, $4F, $82, $50, $82, $51, $82, $52, $82, $53, $82, $54, $82, $55, $82, $56
-	db $82, $57, $82, $58, $81, $46, $81, $47, $81, $83, $81, $81, $81, $84, $81, $48
-	db $81, $97, $82, $60, $82, $61, $82, $62, $82, $63, $82, $64, $82, $65, $82, $66
-	db $82, $67, $82, $68, $82, $69, $82, $6A, $82, $6B, $82, $6C, $82, $6D, $82, $6E
-	db $82, $6F, $82, $70, $82, $71, $82, $72, $82, $73, $82, $74, $82, $75, $82, $76
-	db $82, $77, $82, $78, $82, $79, $81, $6D, $81, $8F, $81, $6E, $81, $4F, $81, $51
-	db $81, $4D, $82, $81, $82, $82, $82, $83, $82, $84, $82, $85, $82, $86, $82, $87
-	db $82, $88, $82, $89, $82, $8A, $82, $8B, $82, $8C, $82, $8D, $82, $8E, $82, $8F
-	db $82, $90, $82, $91, $82, $92, $82, $93, $82, $94, $82, $95, $82, $96, $82, $97
-	db $82, $98, $82, $99, $82, $9A, $81, $6F, $81, $62, $81, $70, $81, $50, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $42, $81, $75, $81, $76, $81, $41, $81, $45, $83, $92, $83, $40
-	db $83, $42, $83, $44, $83, $46, $83, $48, $83, $83, $83, $85, $83, $87, $83, $62
-	db $81, $5B, $83, $41, $83, $43, $83, $45, $83, $47, $83, $49, $83, $4A, $83, $4C
-	db $83, $4E, $83, $50, $83, $52, $83, $54, $83, $56, $83, $58, $83, $5A, $83, $5C
-	db $83, $5E, $83, $60, $83, $63, $83, $65, $83, $67, $83, $69, $83, $6A, $83, $6B
-	db $83, $6C, $83, $6D, $83, $6E, $83, $71, $83, $74, $83, $77, $83, $7A, $83, $7D
-	db $83, $7E, $83, $80, $83, $81, $83, $82, $83, $84, $83, $86, $83, $88, $83, $89
-	db $83, $8A, $83, $8B, $83, $8C, $83, $8D, $83, $8F, $83, $93, $81, $4A, $81, $4B
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
+Table_Text_HalfToFullWidth:: ; 55:6CD4
+String_55_6CD4::
+	db $81, $40, $81, $49, $81, $68, $81, $94, $81, $90, $81, $93, $81, $95, $81, $66, $81, $69, $81, $6A, $81, $96, $81, $7B, $81, $43, $81, $7C, $81, $44, $81, $5E, $82, $4F ; "　！”＃＄％＆’（）＊＋，－．／０"
+	db $82, $50, $82, $51, $82, $52, $82, $53, $82, $54, $82, $55, $82, $56, $82, $57, $82, $58, $81, $46, $81, $47, $81, $83, $81, $81, $81, $84, $81, $48, $81, $97, $82, $60 ; "１２３４５６７８９：；＜＝＞？＠Ａ"
+	db $82, $61, $82, $62, $82, $63, $82, $64, $82, $65, $82, $66, $82, $67, $82, $68, $82, $69, $82, $6A, $82, $6B, $82, $6C, $82, $6D, $82, $6E, $82, $6F, $82, $70, $82, $71 ; "ＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲ"
+	db $82, $72, $82, $73, $82, $74, $82, $75, $82, $76, $82, $77, $82, $78, $82, $79, $81, $6D, $81, $8F, $81, $6E, $81, $4F, $81, $51, $81, $4D, $82, $81, $82, $82, $82, $83 ; "ＳＴＵＶＷＸＹＺ［￥］＾＿｀ａｂｃ"
+	db $82, $84, $82, $85, $82, $86, $82, $87, $82, $88, $82, $89, $82, $8A, $82, $8B, $82, $8C, $82, $8D, $82, $8E, $82, $8F, $82, $90, $82, $91, $82, $92, $82, $93, $82, $94 ; "ｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔ"
+	db $82, $95, $82, $96, $82, $97, $82, $98, $82, $99, $82, $9A, $81, $6F, $81, $62, $81, $70, $81, $50, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40 ; "ｕｖｗｘｙｚ｛｜｝￣　　　　　　　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40 ; "　　　　　　　　　　　　　　　　　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $42, $81, $75, $81, $76, $81, $41, $81, $45, $83, $92, $83, $40 ; "　　　　　　　　　　。「」、・ヲァ"
+	db $83, $42, $83, $44, $83, $46, $83, $48, $83, $83, $83, $85, $83, $87, $83, $62, $81, $5B, $83, $41, $83, $43, $83, $45, $83, $47, $83, $49, $83, $4A, $83, $4C, $83, $4E ; "ィゥェォャュョッーアイウエオカキク"
+	db $83, $50, $83, $52, $83, $54, $83, $56, $83, $58, $83, $5A, $83, $5C, $83, $5E, $83, $60, $83, $63, $83, $65, $83, $67, $83, $69, $83, $6A, $83, $6B, $83, $6C, $83, $6D ; "ケコサシスセソタチツテトナニヌネノ"
+	db $83, $6E, $83, $71, $83, $74, $83, $77, $83, $7A, $83, $7D, $83, $7E, $83, $80, $83, $81, $83, $82, $83, $84, $83, $86, $83, $88, $83, $89, $83, $8A, $83, $8B, $83, $8C ; "ハヒフヘホマミムメモヤユヨラリルレ"
+	db $83, $8D, $83, $8F, $83, $93, $81, $4A, $81, $4B, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40 ; "ロワン゛゜　　　　　　　　　　　　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40 ; "　　　　　　　　　　　　　　　　　"
+	db $81, $40, $81, $40, $81, $40 ; "　　　"
 
 ; ---- code $6E94-$6E9F (11 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
 
-Function_55_6E94:: ; 55:6E94
-	ld hl, $6E9F
+Kbd_TypeHasPages:: ; 55:6E94
+Function_55_6E94::
+	ld hl, Data_55_6E9F
 	add a, l
 	ld l, a
 	ld a, $00
@@ -3304,7 +3382,7 @@ Data_55_6E9F:: ; 55:6E9F
 ; ---- code $6EAA-$6EB5 (11 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 7/18 scenarios); entry proven: target of an executed call/far call
 
 Function_55_6EAA:: ; 55:6EAA
-	ld hl, $6EB5
+	ld hl, Data_55_6EB5
 	add a, l
 	ld l, a
 	ld a, $00
@@ -3321,7 +3399,7 @@ Data_55_6EB5:: ; 55:6EB5
 ; ---- code $6EC0-$6ECB (11 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
 
 Function_55_6EC0:: ; 55:6EC0
-	ld hl, $6ECB
+	ld hl, Data_55_6ECB
 	add a, l
 	ld l, a
 	ld a, $00
@@ -3338,7 +3416,7 @@ Data_55_6ECB:: ; 55:6ECB
 ; ---- code $6ED6-$6EE1 (11 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
 
 Function_55_6ED6:: ; 55:6ED6
-	ld hl, $6EE1
+	ld hl, Data_55_6EE1
 	add a, l
 	ld l, a
 	ld a, $00
@@ -3355,7 +3433,7 @@ Data_55_6EE1:: ; 55:6EE1
 ; ---- code $6EEC-$6EF7 (11 bytes) [PROBABLE] lookup routine ld hl,$6EF7 ; add a,l ; ld l,a ; ld a,0 ; adc a,h ; ld h,a ; ld a,[hl] ; ret: byte-exact sibling of the executed routines at 6E94/6EAA/6EC0/6ED6/6F02/6F18 (each followed by its 11-byte table); called by call $6EEC at 55:5DF8 [verifier: entry evidence = fixed-stride periodicity: the executed siblings 6ED6 and 6F02 sit exactly $16 bytes (8-insn routine + 11-byte table) either side of 6EEC, all with identical code bytes except the base operand; the caller 55:5DF8 is itself HYPOTHESIS]
 
 Function_55_6EEC:: ; 55:6EEC
-	ld hl, $6EF7
+	ld hl, Data_55_6EF7
 	add a, l
 	ld l, a
 	ld a, $00
@@ -3372,7 +3450,7 @@ Data_55_6EF7:: ; 55:6EF7
 ; ---- code $6F02-$6F0D (11 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 9/18 scenarios); entry proven: target of an executed call/far call
 
 Function_55_6F02:: ; 55:6F02
-	ld hl, $6F0D
+	ld hl, Data_55_6F0D
 	add a, l
 	ld l, a
 	ld a, $00
@@ -3389,7 +3467,7 @@ Data_55_6F0D:: ; 55:6F0D
 ; ---- code $6F18-$6F23 (11 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 
 Function_55_6F18:: ; 55:6F18
-	ld hl, $6F23
+	ld hl, Data_55_6F23
 	add a, l
 	ld l, a
 	ld a, $00
@@ -3405,9 +3483,10 @@ Data_55_6F23:: ; 55:6F23
 
 ; ---- code $6F2E-$6F3B (13 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 12/18 scenarios); entry proven: target of an executed call/far call
 
-Function_55_6F2E:: ; 55:6F2E
+Kbd_TypeWaitsWithService:: ; 55:6F2E
+Function_55_6F2E::
 	push hl
-	ld hl, $6F3B
+	ld hl, Data_55_6F3B
 	add a, l
 	ld l, a
 	ld a, $00
@@ -3446,7 +3525,7 @@ Label_55_6F51:: ; 55:6F51
 	ld [wRam_C2B1], a
 	ld a, [wRam_C2B0]
 	add a, a
-	ld hl, $6F95
+	ld hl, Data_55_6F95
 	add a, l
 	ld l, a
 	ld a, h
@@ -3480,11 +3559,12 @@ Data_55_6F95:: ; 55:6F95
 
 ; ---- code $6FA1-$6FC7 (38 bytes) [CONFIRMED] 21 insn(s); 21 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
 
-Function_55_6FA1:: ; 55:6FA1
+Kbd_RejectSymbol:: ; 55:6FA1
+Function_55_6FA1::
 	ld a, [wRam_C2AD]
 	ld b, a
 	ld c, $00
-	ld hl, $6FC7
+	ld hl, Data_55_6FC7
 
 Label_55_6FAA:: ; 55:6FAA
 	ld a, [hli]
@@ -3516,14 +3596,15 @@ Data_55_6FC7:: ; 55:6FC7
 
 ; ---- code $6FCD-$6FF4 (39 bytes) [CONFIRMED] 19 insn(s); 19 executed (in up to 7/18 scenarios); entry proven: target of an executed call/far call
 
-Function_55_6FCD:: ; 55:6FCD
+Kbd_ShowMarkerSprite:: ; 55:6FCD
+Function_55_6FCD::
 	ld hl, $DAD0
 	ld de, $4D38
 	ld a, $5F
 	ld b, $81
 	farcall Function_00_0A82
 	ld a, [wRam_C2AB]
-	ld hl, $6FF4
+	ld hl, Data_55_6FF4
 	add a, a
 	add a, l
 	ld l, a
@@ -3544,12 +3625,13 @@ Data_55_6FF4:: ; 55:6FF4
 
 ; ---- code $7000-$7082 (130 bytes) [CONFIRMED] 67 insn(s); 67 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
 
-Function_55_7000:: ; 55:7000
+Kbd_HideMarkerSprite:: ; 55:7000
+Function_55_7000::
 	ld hl, $DAD0
 	call Function_00_09E6
 	ret
 
-Function_55_7007:: ; 55:7007
+Kbd_LoadInputMode:: ; 55:7007
 	or a, a
 	jr nz, Label_55_700E
 	ld [wRam_C2BC], a
@@ -3587,7 +3669,7 @@ Label_55_700E:: ; 55:700E
 	ld [wRam_C2BC], a
 	ret
 
-Function_55_7048:: ; 55:7048
+Kbd_SaveInputMode:: ; 55:7048
 	ld a, [wRam_C2BC]
 	ld hl, $BF05
 	ld b, a

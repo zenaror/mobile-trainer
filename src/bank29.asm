@@ -9,7 +9,8 @@ SECTION "Bank29", ROMX[$4000], BANK[$29]
 
 ; ---- code $4000-$41B6 (438 bytes) [CONFIRMED] 167 insn(s); 167 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_29_4000:: ; 29:4000
+MailResult_Screen:: ; 29:4000
+Function_29_4000::
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -24,10 +25,10 @@ Function_29_4000:: ; 29:4000
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
-	call Function_29_407A
+	farcall Stat_EnableScrollSplit
+	call MailResult_InitScreen
 	ld hl, $DA20
-	ld de, $7B20
+	ld de, MailResult_ObjTable
 	ld a, $24
 	ld b, $81
 	farcall Function_00_0A82
@@ -40,7 +41,7 @@ Label_29_403C:: ; 29:403C
 	push hl
 	farcall Function_00_0956
 	call Function_00_0464
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	pop hl
 	pop bc
 	ldh a, [hJoyPressed]
@@ -58,17 +59,17 @@ Label_29_403C:: ; 29:403C
 	ldh [rSVBK], a
 	pop de
 	pop bc
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	xor a, a
 	ret
 
-Function_29_407A:: ; 29:407A
+MailResult_InitScreen:: ; 29:407A
 	farcall Function_00_09B6
 	farcall Function_00_0956
-	farcall Function_2D_4E06
-	farcall Function_2D_5016
+	farcall TextTiles_ClearBuffers
+	farcall TextTiles_UploadBuffers
 	farcall LCDOff
 	xor a, a
 	ldh [rSCX], a
@@ -79,41 +80,41 @@ Function_29_407A:: ; 29:407A
 	ldh [rLCDC], a
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $7A60
+	ld hl, MailResult_BgPalette
 	ld a, $24
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, $D840
-	ld hl, $7AA0
+	ld hl, MailResult_ObjPalette
 	ld a, $24
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld de, $8801
-	ld hl, $6BF0
+	ld hl, MailResult_Tiles_6BF0
 	ld a, $24
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8C01
-	ld hl, $6FF0
+	ld hl, MailResult_Tiles_6FF0
 	ld a, $24
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9001
-	ld hl, $73F0
+	ld hl, MailResult_Tiles_73F0
 	ld a, $24
 	ld b, $98
 	ld c, $0A
 	farcall Function_00_0787
 	ld de, $8000
-	ld hl, $7490
+	ld hl, MailResult_Tiles_7490
 	ld a, $24
 	ld b, $94
 	ld c, $30
 	farcall Function_00_0787
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $7790
+	ld hl, MailResult_Tilemap
 	ld a, $24
 	farcall Function_00_08EA
 	ldh a, [rLCDC]
@@ -140,9 +141,9 @@ Function_29_407A:: ; 29:407A
 	ldh [rSVBK], a
 	ei
 	pop bc
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
-	farcall Function_4F_42B4
+	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -157,7 +158,7 @@ Function_29_407A:: ; 29:407A
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
+	farcall Stat_EnableScrollSplit
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -165,7 +166,7 @@ Function_29_407A:: ; 29:407A
 	ld a, [hli]
 	ld d, a
 	ld e, a
-	call Function_29_41AD
+	call MailResult_ShowSentMessage
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -174,10 +175,10 @@ Function_29_407A:: ; 29:407A
 	ld e, a
 	ld a, [hli]
 	ld d, a
-	call Function_29_4286
+	call MailResult_ShowReceivedMessage
 	ret
 
-Function_29_41AD:: ; 29:41AD
+MailResult_ShowSentMessage:: ; 29:41AD
 	ld a, d
 	or a, e
 	jr nz, Label_29_41B6
@@ -191,7 +192,7 @@ Label_29_41B6:: ; 29:41B6
 	ld a, d
 	or a, e
 	jr nz, Label_29_41C0
-	ld hl, $421E
+	ld hl, MailResult_Txt_SendFailed
 	jr Label_29_41CD
 
 Label_29_41C0:: ; 29:41C0
@@ -238,8 +239,8 @@ Label_29_41E0:: ; 29:41E0
 	ld hl, $D524
 	ld bc, $D000
 	ld de, $D100
-	farcall Function_48_403E
-	farcall Function_29_5017
+	farcall TextTiles_RenderLine
+	farcall MailResult_UploadTextTiles
 	call Function_00_0464
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -254,24 +255,29 @@ Label_29_41E0:: ; 29:41E0
 
 ; ---- text $421E-$4286 (104 bytes) [PROBABLE] text: 4 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_29_421E:: ; 29:421E
-	db $82, $A8, $82, $AD, $82, $E9, $82, $CC, $82, $C9, $82, $B5, $82, $C1, $82, $CF
-	db $82, $A2, $82, $B5, $82, $DC, $82, $B5, $82, $BD, $81, $49, $00, $83, $81, $81
-	db $5B, $83, $8B, $82, $CD, $82, $A8, $82, $AD, $82, $C1, $82, $C4, $82, $A2, $82
-	db $DC, $82, $B9, $82, $F1, $00, $82, $BF, $82, $E1, $82, $F1, $82, $C6, $82, $A8
-	db $82, $AD, $82, $EA, $82, $DC, $82, $B5, $82, $BD, $81, $49, $00, $82, $A8, $82
-	db $AD, $82, $EA, $82, $C4, $82, $A2, $82, $E9, $82, $A9, $82, $ED, $82, $A9, $82
-	db $E8, $82, $DC, $82, $B9, $82, $F1, $00
+MailResult_Txt_SendFailed:: ; 29:421E
+String_29_421E::
+	db $82, $A8, $82, $AD, $82, $E9, $82, $CC, $82, $C9, $82, $B5, $82, $C1, $82, $CF, $82, $A2, $82, $B5, $82, $DC, $82, $B5, $82, $BD, $81, $49, $00 ; "おくるのにしっぱいしました！"
+
+MailResult_Txt_NothingSent:: ; 29:423B
+	db $83, $81, $81, $5B, $83, $8B, $82, $CD, $82, $A8, $82, $AD, $82, $C1, $82, $C4, $82, $A2, $82, $DC, $82, $B9, $82, $F1, $00 ; "メールはおくっていません"
+
+MailResult_Txt_SentOk:: ; 29:4254
+	db $82, $BF, $82, $E1, $82, $F1, $82, $C6, $82, $A8, $82, $AD, $82, $EA, $82, $DC, $82, $B5, $82, $BD, $81, $49, $00 ; "ちゃんとおくれました！"
+
+MailResult_Txt_SentUnsure:: ; 29:426B
+	db $82, $A8, $82, $AD, $82, $EA, $82, $C4, $82, $A2, $82, $E9, $82, $A9, $82, $ED, $82, $A9, $82, $E8, $82, $DC, $82, $B9, $82, $F1, $00 ; "おくれているかわかりません"
 
 ; ---- code $4286-$429A (20 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_29_4286:: ; 29:4286
+MailResult_ShowReceivedMessage:: ; 29:4286
+Function_29_4286::
 	ld a, d
 	or a, e
 	jr nz, Label_29_429F
 	ld hl, $4323
 	push de
-	farcall Function_25_4A90
+	farcall Mailbox_CountRecords
 	ld a, d
 	pop de
 	cp a, $0C
@@ -286,12 +292,12 @@ Label_29_429F:: ; 29:429F
 	ld a, d
 	or a, e
 	jr nz, Label_29_42A9
-	ld hl, $4306
+	ld hl, MailResult_Txt_ReceiveFailed
 	jr Label_29_42AF
 
 Label_29_42A9:: ; 29:42A9
 	ld hl, $433C
-	call Function_29_4374
+	call MailResult_SetReceivedSprite
 
 ; ---- code $42AF-$4306 (87 bytes) [CONFIRMED] 41 insn(s); 41 executed (in up to 1/18 scenarios)
 
@@ -327,8 +333,8 @@ Label_29_42C2:: ; 29:42C2
 	ld hl, $D524
 	ld bc, $D200
 	ld de, $D300
-	farcall Function_48_403E
-	farcall Function_29_5017
+	farcall TextTiles_RenderLine
+	farcall MailResult_UploadTextTiles
 	farcall Function_00_0956
 	call Function_00_0464
 	ld a, $01
@@ -344,18 +350,22 @@ Label_29_42C2:: ; 29:42C2
 
 ; ---- text $4306-$4374 (110 bytes) [PROBABLE] text: 4 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_29_4306:: ; 29:4306
-	db $82, $A4, $82, $AF, $82, $C6, $82, $E8, $82, $C9, $82, $B5, $82, $C1, $82, $CF
-	db $82, $A2, $82, $B5, $82, $DC, $82, $B5, $82, $BD, $81, $49, $00, $83, $81, $81
-	db $5B, $83, $8B, $82, $CD, $82, $C6, $82, $C7, $82, $A2, $82, $C4, $82, $A2, $82
-	db $DC, $82, $B9, $82, $F1, $00, $81, $40, $81, $40, $82, $C2, $82, $A4, $82, $C6
-	db $82, $C7, $82, $A2, $82, $C4, $82, $A2, $82, $DC, $82, $B7, $81, $49, $81, $49
-	db $00, $83, $81, $81, $5B, $83, $8B, $82, $CD, $82, $A4, $82, $AF, $82, $C6, $82
-	db $EA, $82, $DC, $82, $B9, $82, $F1, $82, $C5, $82, $B5, $82, $BD, $00
+MailResult_Txt_ReceiveFailed:: ; 29:4306
+String_29_4306::
+	db $82, $A4, $82, $AF, $82, $C6, $82, $E8, $82, $C9, $82, $B5, $82, $C1, $82, $CF, $82, $A2, $82, $B5, $82, $DC, $82, $B5, $82, $BD, $81, $49, $00 ; "うけとりにしっぱいしました！"
+
+MailResult_Txt_NothingArrived:: ; 29:4323
+	db $83, $81, $81, $5B, $83, $8B, $82, $CD, $82, $C6, $82, $C7, $82, $A2, $82, $C4, $82, $A2, $82, $DC, $82, $B9, $82, $F1, $00 ; "メールはとどいていません"
+
+MailResult_Txt_ArrivedCount:: ; 29:433C
+	db $81, $40, $81, $40, $82, $C2, $82, $A4, $82, $C6, $82, $C7, $82, $A2, $82, $C4, $82, $A2, $82, $DC, $82, $B7, $81, $49, $81, $49, $00 ; "　　つうとどいています！！"
+
+MailResult_Txt_CannotReceive:: ; 29:4357
+	db $83, $81, $81, $5B, $83, $8B, $82, $CD, $82, $A4, $82, $AF, $82, $C6, $82, $EA, $82, $DC, $82, $B9, $82, $F1, $82, $C5, $82, $B5, $82, $BD, $00 ; "メールはうけとれませんでした"
 
 ; ---- code $4374-$44F6 (386 bytes) [PROBABLE] 138 insn(s) reached by static flow only; seeds: exec x138; min discovery hops 3; entered by call from 29:42AC (PROBABLE code)
 
-Function_29_4374:: ; 29:4374
+MailResult_SetReceivedSprite:: ; 29:4374
 	push bc
 	push de
 	push hl
@@ -521,7 +531,8 @@ Label_29_44F2:: ; 29:44F2
 
 ; ---- code $44F6-$454E (88 bytes) [CONFIRMED] 41 insn(s); 41 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_29_44F6:: ; 29:44F6
+MailServerStatus_Screen:: ; 29:44F6
+Function_29_44F6::
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -536,15 +547,15 @@ Function_29_44F6:: ; 29:44F6
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
-	call Function_29_4608
+	farcall Stat_EnableScrollSplit
+	call MailServerStatus_InitScreen
 
 Label_29_4519:: ; 29:4519
 	push bc
 	push hl
 	farcall Function_00_0956
 	call Function_00_0464
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	pop hl
 	pop bc
 	ldh a, [hJoyPressed]
@@ -648,7 +659,7 @@ Label_29_45B1:: ; 29:45B1
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_72_4015
+	farcall Dialog_Show
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -665,9 +676,9 @@ Label_29_45B1:: ; 29:45B1
 ; ---- code $45E2-$45FF (29 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios)
 
 Label_29_45E2:: ; 29:45E2
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -688,11 +699,11 @@ Label_29_4605:: ; 29:4605
 	ld a, $FF
 	ret
 
-Function_29_4608:: ; 29:4608
+MailServerStatus_InitScreen:: ; 29:4608
 	farcall Function_00_09B6
 	farcall Function_00_0956
-	farcall Function_2D_4E06
-	farcall Function_2D_5016
+	farcall TextTiles_ClearBuffers
+	farcall TextTiles_UploadBuffers
 	farcall LCDOff
 	xor a, a
 	ldh [rSCX], a
@@ -703,29 +714,29 @@ Function_29_4608:: ; 29:4608
 	ldh [rLCDC], a
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $7AE0
+	ld hl, MailServerStatus_BgPalette
 	ld a, $24
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld de, $9400
-	ld hl, $7420
+	ld hl, MailServerStatus_Tiles_7420
 	ld a, $26
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8800
-	ld hl, $6F30
+	ld hl, MailServerStatus_Tiles_6F30
 	ld a, $25
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8C00
-	ld hl, $7330
+	ld hl, MailServerStatus_Tiles_7330
 	ld a, $25
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9301
-	ld hl, $5060
+	ld hl, MailServerStatus_Tiles_5060
 	ld a, $29
 	ld b, $98
 	ld c, $03
@@ -746,7 +757,7 @@ Function_29_4608:: ; 29:4608
 	jr z, Label_29_46B9
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $7730
+	ld hl, MailServerStatus_Tilemap_Received
 	ld a, $25
 	farcall Function_00_08EA
 	jp Label_29_46DE
@@ -756,7 +767,7 @@ Function_29_4608:: ; 29:4608
 Label_29_46B9:: ; 29:46B9
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $7A00
+	ld hl, MailServerStatus_Tilemap_NoneReceived
 	ld a, $25
 	farcall Function_00_08EA
 	jp Label_29_46DE
@@ -764,7 +775,7 @@ Label_29_46B9:: ; 29:46B9
 Label_29_46CD:: ; 29:46CD
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $7CD0
+	ld hl, MailServerStatus_Tilemap_ServerMgmt
 	ld a, $25
 	farcall Function_00_08EA
 
@@ -775,7 +786,7 @@ Label_29_46DE:: ; 29:46DE
 	ld a, [wRam_C264]
 	cp a, $00
 	jr nz, Label_29_46F5
-	call Function_29_4745
+	call MailServerStatus_DrawCounts_Mode0
 	jr Label_29_4701
 
 Label_29_46F5:: ; 29:46F5
@@ -783,13 +794,13 @@ Label_29_46F5:: ; 29:46F5
 	jr nz, Label_29_46FE
 
 ; ---- code $46F9-$46FE (5 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 29:46F7 (executed) [executed in 3 scenarios]
-	call Function_29_4A65
+	call MailServerStatus_DrawCounts_Mode1
 	jr Label_29_4701
 
 ; ---- code $46FE-$476B (109 bytes) [CONFIRMED] 56 insn(s); 56 executed (in up to 2/18 scenarios)
 
 Label_29_46FE:: ; 29:46FE
-	call Function_29_4D21
+	call MailServerStatus_DrawCounts_Mode2
 
 Label_29_4701:: ; 29:4701
 	push bc
@@ -804,9 +815,9 @@ Label_29_4701:: ; 29:4701
 	ldh [rSVBK], a
 	ei
 	pop bc
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
-	farcall Function_4F_42B4
+	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -821,10 +832,10 @@ Label_29_4701:: ; 29:4701
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
+	farcall Stat_EnableScrollSplit
 	ret
 
-Function_29_4745:: ; 29:4745
+MailServerStatus_DrawCounts_Mode0:: ; 29:4745
 	push af
 	push bc
 	push de
@@ -858,23 +869,23 @@ Label_29_476B:: ; 29:476B
 	ld a, $29
 	ld bc, $D000
 	ld de, $D050
-	ld hl, $47B2
-	farcall Function_48_403E
+	ld hl, MailServerStatus_Txt_Unknown
+	farcall TextTiles_RenderLine
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $29
 	ld bc, $D0A0
 	ld de, $D0F0
-	ld hl, $47B2
-	farcall Function_48_403E
+	ld hl, MailServerStatus_Txt_Unknown
+	farcall TextTiles_RenderLine
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $29
 	ld bc, $D140
 	ld de, $D190
-	ld hl, $47B2
-	farcall Function_48_403E
-	call Function_29_4FF7
+	ld hl, MailServerStatus_Txt_Unknown
+	farcall TextTiles_RenderLine
+	call MailServerStatus_UploadNumberTiles_Blank
 	pop hl
 	pop de
 	pop bc
@@ -883,8 +894,9 @@ Label_29_476B:: ; 29:476B
 
 ; ---- text $47B2-$47BD (11 bytes) [PROBABLE] Shift-JIS NUL-terminated string: 5 x full-width '？' (81 48) + NUL; address loaded by 'ld hl,$47B2 at 29:47A1' as a text argument (hl=string, ld a,$29, then a far call to 48:403E follows) - placeholder/mask string
 
-String_29_47B2:: ; 29:47B2
-	db $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $00
+MailServerStatus_Txt_Unknown:: ; 29:47B2
+String_29_47B2::
+	db $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $00 ; "？？？？？"
 
 ; ---- code $47BD-$4873 (182 bytes) [CONFIRMED] 116 insn(s); 116 executed (in up to 1/18 scenarios)
 
@@ -908,10 +920,10 @@ Label_29_47BD:: ; 29:47BD
 	pop bc
 	dec hl
 	push hl
-	call Function_29_48C3
+	call MailServerStatus_FormatNumber_M0
 	pop hl
 	push hl
-	call Function_29_49E5
+	call MailServerStatus_NumberOffset_M0
 	ld hl, $D000
 	add hl, bc
 	ld b, h
@@ -924,7 +936,7 @@ Label_29_47BD:: ; 29:47BD
 	ld d, h
 	ld e, l
 	ld hl, $D524
-	farcall Function_48_403E
+	farcall TextTiles_RenderLine
 	pop hl
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -963,10 +975,10 @@ Label_29_47BD:: ; 29:47BD
 	pop de
 	pop bc
 	push hl
-	call Function_29_48C3
+	call MailServerStatus_FormatNumber_M0
 	pop hl
 	push hl
-	call Function_29_49E5
+	call MailServerStatus_NumberOffset_M0
 	ld hl, $D0A0
 	add hl, bc
 	ld b, h
@@ -979,7 +991,7 @@ Label_29_47BD:: ; 29:47BD
 	ld d, h
 	ld e, l
 	ld hl, $D524
-	farcall Function_48_403E
+	farcall TextTiles_RenderLine
 	pop hl
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -1036,10 +1048,10 @@ Label_29_487C:: ; 29:487C
 	pop de
 	pop bc
 	push hl
-	call Function_29_48C3
+	call MailServerStatus_FormatNumber_M0
 	pop hl
 	push hl
-	call Function_29_49E5
+	call MailServerStatus_NumberOffset_M0
 	ld hl, $D140
 	add hl, bc
 	ld b, h
@@ -1052,22 +1064,22 @@ Label_29_487C:: ; 29:487C
 	ld d, h
 	ld e, l
 	ld hl, $D524
-	farcall Function_48_403E
+	farcall TextTiles_RenderLine
 	pop hl
-	call Function_29_4A45
+	call MailServerStatus_UploadNumberTiles_M0
 	pop hl
 	pop de
 	pop bc
 	pop af
 	ret
 
-Function_29_48C3:: ; 29:48C3
+MailServerStatus_FormatNumber_M0:: ; 29:48C3
 	push hl
 	push bc
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $49DA
+	ld hl, Data_29_49DA
 	ld de, $D524
 
 Label_29_48D1:: ; 29:48D1
@@ -1275,7 +1287,8 @@ Data_29_49DA:: ; 29:49DA
 
 ; ---- code $49E5-$49F5 (16 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_29_49E5:: ; 29:49E5
+MailServerStatus_NumberOffset_M0:: ; 29:49E5
+Function_29_49E5::
 	push de
 	push hl
 	ld de, $2710
@@ -1344,7 +1357,7 @@ Label_29_4A42:: ; 29:4A42
 	pop de
 	ret
 
-Function_29_4A45:: ; 29:4A45
+MailServerStatus_UploadNumberTiles_M0:: ; 29:4A45
 	ldh a, [rSVBK]
 	push af
 	ld a, $02
@@ -1355,7 +1368,7 @@ Function_29_4A45:: ; 29:4A45
 	ld hl, $D000
 	ld de, $9000
 	ld c, $1F
-	farcall Function_7F_72C2
+	farcall Gfx_GdmaAtVBlankNoDi
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1363,7 +1376,7 @@ Function_29_4A45:: ; 29:4A45
 
 ; ---- code $4A65-$4AC4 (95 bytes) [PROBABLE] 44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 1; entered by call from 29:46F9 (PROBABLE code)
 
-Function_29_4A65:: ; 29:4A65
+MailServerStatus_DrawCounts_Mode1:: ; 29:4A65
 	push af
 	push bc
 	push de
@@ -1388,23 +1401,23 @@ Label_29_4A7D:: ; 29:4A7D
 	ld a, $29
 	ld bc, $D000
 	ld de, $D050
-	ld hl, $4AC4
-	farcall Function_48_403E
+	ld hl, String_29_4AC4
+	farcall TextTiles_RenderLine
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $29
 	ld bc, $D0A0
 	ld de, $D0F0
-	ld hl, $4AC4
-	farcall Function_48_403E
+	ld hl, String_29_4AC4
+	farcall TextTiles_RenderLine
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $29
 	ld bc, $D140
 	ld de, $D190
-	ld hl, $4AC4
-	farcall Function_48_403E
-	call Function_29_4FF7
+	ld hl, String_29_4AC4
+	farcall TextTiles_RenderLine
+	call MailServerStatus_UploadNumberTiles_Blank
 	pop hl
 	pop de
 	pop bc
@@ -1414,17 +1427,17 @@ Label_29_4A7D:: ; 29:4A7D
 ; ---- text $4AC4-$4ACF (11 bytes) [PROBABLE] Shift-JIS NUL-terminated string: 5 x full-width '？' (81 48) + NUL; address loaded by 'ld hl,$4AC4' as a text argument (hl=string, ld a,$29, then a far call to 48:403E follows) - placeholder/mask string
 
 String_29_4AC4:: ; 29:4AC4
-	db $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $00
+	db $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $00 ; "？？？？？"
 
 ; ---- code $4ACF-$4C96 (455 bytes) [PROBABLE] 279 insn(s) reached by static flow only; seeds: exec x279; min discovery hops 2; entered by jpcc from 29:4A7A (PROBABLE code)
 
 Label_29_4ACF:: ; 29:4ACF
 	dec hl
 	push hl
-	call Function_29_4B7F
+	call MailServerStatus_FormatNumber_M1
 	pop hl
 	push hl
-	call Function_29_4CA1
+	call MailServerStatus_NumberOffset_M1
 	ld hl, $D000
 	add hl, bc
 	ld b, h
@@ -1437,7 +1450,7 @@ Label_29_4ACF:: ; 29:4ACF
 	ld d, h
 	ld e, l
 	ld hl, $D524
-	farcall Function_48_403E
+	farcall TextTiles_RenderLine
 	pop hl
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -1459,10 +1472,10 @@ Label_29_4ACF:: ; 29:4ACF
 	ld h, a
 	add hl, bc
 	push hl
-	call Function_29_4B7F
+	call MailServerStatus_FormatNumber_M1
 	pop hl
 	push hl
-	call Function_29_4CA1
+	call MailServerStatus_NumberOffset_M1
 	ld hl, $D0A0
 	add hl, bc
 	ld b, h
@@ -1475,7 +1488,7 @@ Label_29_4ACF:: ; 29:4ACF
 	ld d, h
 	ld e, l
 	ld hl, $D524
-	farcall Function_48_403E
+	farcall TextTiles_RenderLine
 	pop hl
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -1499,10 +1512,10 @@ Label_29_4ACF:: ; 29:4ACF
 Label_29_4B51:: ; 29:4B51
 	pop hl
 	push hl
-	call Function_29_4B7F
+	call MailServerStatus_FormatNumber_M1
 	pop hl
 	push hl
-	call Function_29_4CA1
+	call MailServerStatus_NumberOffset_M1
 	ld hl, $D140
 	add hl, bc
 	ld b, h
@@ -1515,22 +1528,22 @@ Label_29_4B51:: ; 29:4B51
 	ld d, h
 	ld e, l
 	ld hl, $D524
-	farcall Function_48_403E
+	farcall TextTiles_RenderLine
 	pop hl
-	call Function_29_4D01
+	call MailServerStatus_UploadNumberTiles_M1
 	pop hl
 	pop de
 	pop bc
 	pop af
 	ret
 
-Function_29_4B7F:: ; 29:4B7F
+MailServerStatus_FormatNumber_M1:: ; 29:4B7F
 	push hl
 	push bc
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $4C96
+	ld hl, String_29_4C96
 	ld de, $D524
 
 Label_29_4B8D:: ; 29:4B8D
@@ -1718,11 +1731,11 @@ Label_29_4C94:: ; 29:4C94
 ; ---- text $4C96-$4CA1 (11 bytes) [PROBABLE] Shift-JIS NUL-terminated string: 5 x full-width '０' (82 4f) + NUL; address loaded by 'ld hl,$4C96' as a text argument (hl=string, ld a,$29, then a far call to 48:403E follows) - placeholder/mask string
 
 String_29_4C96:: ; 29:4C96
-	db $82, $4F, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $00
+	db $82, $4F, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $00 ; "０００００"
 
 ; ---- code $4CA1-$4D21 (128 bytes) [PROBABLE] 56 insn(s) reached by static flow only; seeds: exec x56; min discovery hops 3; entered by call from 29:4AD6 (PROBABLE code)
 
-Function_29_4CA1:: ; 29:4CA1
+MailServerStatus_NumberOffset_M1:: ; 29:4CA1
 	push de
 	push hl
 	ld de, $2710
@@ -1775,7 +1788,7 @@ Label_29_4CFE:: ; 29:4CFE
 	pop de
 	ret
 
-Function_29_4D01:: ; 29:4D01
+MailServerStatus_UploadNumberTiles_M1:: ; 29:4D01
 	ldh a, [rSVBK]
 	push af
 	ld a, $02
@@ -1786,7 +1799,7 @@ Function_29_4D01:: ; 29:4D01
 	ld hl, $D000
 	ld de, $9000
 	ld c, $1F
-	farcall Function_7F_72C2
+	farcall Gfx_GdmaAtVBlankNoDi
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1794,7 +1807,8 @@ Function_29_4D01:: ; 29:4D01
 
 ; ---- code $4D21-$4D39 (24 bytes) [CONFIRMED] 17 insn(s); 17 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_29_4D21:: ; 29:4D21
+MailServerStatus_DrawCounts_Mode2:: ; 29:4D21
+Function_29_4D21::
 	push af
 	push bc
 	push de
@@ -1821,23 +1835,23 @@ Label_29_4D39:: ; 29:4D39
 	ld a, $29
 	ld bc, $D000
 	ld de, $D050
-	ld hl, $4D80
-	farcall Function_48_403E
+	ld hl, String_29_4D80
+	farcall TextTiles_RenderLine
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $29
 	ld bc, $D0A0
 	ld de, $D0F0
-	ld hl, $4D80
-	farcall Function_48_403E
+	ld hl, String_29_4D80
+	farcall TextTiles_RenderLine
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $29
 	ld bc, $D140
 	ld de, $D190
-	ld hl, $4D80
-	farcall Function_48_403E
-	call Function_29_4FF7
+	ld hl, String_29_4D80
+	farcall TextTiles_RenderLine
+	call MailServerStatus_UploadNumberTiles_Blank
 	pop hl
 	pop de
 	pop bc
@@ -1847,7 +1861,7 @@ Label_29_4D39:: ; 29:4D39
 ; ---- text $4D80-$4D8B (11 bytes) [PROBABLE] Shift-JIS NUL-terminated string: 5 x full-width '？' (81 48) + NUL; address loaded by 'ld hl,$4D80' as a text argument (hl=string, ld a,$29, then a far call to 48:403E follows) - placeholder/mask string
 
 String_29_4D80:: ; 29:4D80
-	db $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $00
+	db $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $00 ; "？？？？？"
 
 ; ---- code $4D8B-$4E1E (147 bytes) [CONFIRMED] 88 insn(s); 88 executed (in up to 1/18 scenarios)
 
@@ -1871,10 +1885,10 @@ Label_29_4D8B:: ; 29:4D8B
 	pop de
 	pop bc
 	push hl
-	call Function_29_4E55
+	call MailServerStatus_FormatNumber_M2
 	pop hl
 	push hl
-	call Function_29_4F77
+	call MailServerStatus_NumberOffset_M2
 	ld hl, $D000
 	add hl, bc
 	ld b, h
@@ -1887,7 +1901,7 @@ Label_29_4D8B:: ; 29:4D8B
 	ld d, h
 	ld e, l
 	ld hl, $D524
-	farcall Function_48_403E
+	farcall TextTiles_RenderLine
 	pop hl
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -1899,10 +1913,10 @@ Label_29_4D8B:: ; 29:4D8B
 	ld a, [de]
 	ld h, a
 	push hl
-	call Function_29_4E55
+	call MailServerStatus_FormatNumber_M2
 	pop hl
 	push hl
-	call Function_29_4F77
+	call MailServerStatus_NumberOffset_M2
 	ld hl, $D0A0
 	add hl, bc
 	ld b, h
@@ -1915,7 +1929,7 @@ Label_29_4D8B:: ; 29:4D8B
 	ld d, h
 	ld e, l
 	ld hl, $D524
-	farcall Function_48_403E
+	farcall TextTiles_RenderLine
 	pop hl
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -1953,10 +1967,10 @@ Label_29_4D8B:: ; 29:4D8B
 Label_29_4E27:: ; 29:4E27
 	pop hl
 	push hl
-	call Function_29_4E55
+	call MailServerStatus_FormatNumber_M2
 	pop hl
 	push hl
-	call Function_29_4F77
+	call MailServerStatus_NumberOffset_M2
 	ld hl, $D140
 	add hl, bc
 	ld b, h
@@ -1969,22 +1983,22 @@ Label_29_4E27:: ; 29:4E27
 	ld d, h
 	ld e, l
 	ld hl, $D524
-	farcall Function_48_403E
+	farcall TextTiles_RenderLine
 	pop hl
-	call Function_29_4FD7
+	call MailServerStatus_UploadNumberTiles_M2
 	pop hl
 	pop de
 	pop bc
 	pop af
 	ret
 
-Function_29_4E55:: ; 29:4E55
+MailServerStatus_FormatNumber_M2:: ; 29:4E55
 	push hl
 	push bc
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $4F6C
+	ld hl, Data_29_4F6C
 	ld de, $D524
 
 Label_29_4E63:: ; 29:4E63
@@ -2192,7 +2206,8 @@ Data_29_4F6C:: ; 29:4F6C
 
 ; ---- code $4F77-$4F87 (16 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_29_4F77:: ; 29:4F77
+MailServerStatus_NumberOffset_M2:: ; 29:4F77
+Function_29_4F77::
 	push de
 	push hl
 	ld de, $2710
@@ -2261,7 +2276,7 @@ Label_29_4FD4:: ; 29:4FD4
 	pop de
 	ret
 
-Function_29_4FD7:: ; 29:4FD7
+MailServerStatus_UploadNumberTiles_M2:: ; 29:4FD7
 	ldh a, [rSVBK]
 	push af
 	ld a, $02
@@ -2272,7 +2287,7 @@ Function_29_4FD7:: ; 29:4FD7
 	ld hl, $D000
 	ld de, $9000
 	ld c, $1F
-	farcall Function_7F_72C2
+	farcall Gfx_GdmaAtVBlankNoDi
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2280,7 +2295,7 @@ Function_29_4FD7:: ; 29:4FD7
 
 ; ---- code $4FF7-$5017 (32 bytes) [CONFIRMED] 15 insn(s) reached by static flow only; seeds: exec x15; min discovery hops 1; entered by call from 29:47AA (PROBABLE code) [executed in 5 scenarios]
 
-Function_29_4FF7:: ; 29:4FF7
+MailServerStatus_UploadNumberTiles_Blank:: ; 29:4FF7
 	ldh a, [rSVBK]
 	push af
 	ld a, $02
@@ -2291,7 +2306,7 @@ Function_29_4FF7:: ; 29:4FF7
 	ld hl, $D000
 	ld de, $9000
 	ld c, $1F
-	farcall Function_7F_72C2
+	farcall Gfx_GdmaAtVBlankNoDi
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2299,7 +2314,8 @@ Function_29_4FF7:: ; 29:4FF7
 
 ; ---- code $5017-$505F (72 bytes) [CONFIRMED] 39 insn(s); 39 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_29_5017:: ; 29:5017
+MailResult_UploadTextTiles:: ; 29:5017
+Function_29_5017::
 	ldh a, [rSVBK]
 	push af
 	ld a, $02
@@ -2310,17 +2326,17 @@ Function_29_5017:: ; 29:5017
 	ld hl, $D000
 	ld de, $9000
 	ld c, $3F
-	call Function_29_503F
+	call MailResult_StartHDMAAtVBlank
 	ld hl, $D400
 	ld de, $9400
 	ld c, $3F
-	call Function_29_503F
+	call MailResult_StartHDMAAtVBlank
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ret
 
-Function_29_503F:: ; 29:503F
+MailResult_StartHDMAAtVBlank:: ; 29:503F
 	ld a, h
 	ldh [rHDMA1], a
 	ld a, l
@@ -2351,7 +2367,8 @@ Label_29_5055:: ; 29:5055
 
 ; ---- gfx $5060-$5090 (48 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 29:4686: hl=$5060 a=$29 c=$03 de=$9301 (dest VRAM $9300, vbank=1)
 
-Data_29_5060:: ; 29:5060
+MailServerStatus_Tiles_5060:: ; 29:5060
+Data_29_5060::
 	db $04, $88, $00, $28, $00, $28, $10, $C7, $38, $10, $EF, $FF, $00, $FF, $FF, $00
 	db $00, $08, $05, $02, $00, $05, $14, $93, $38, $10, $EF, $FF, $00, $FF, $FF, $00
 	db $17, $58, $17, $58, $17, $58, $37, $98, $67, $38, $CF, $F0, $1F, $E0, $FF, $00

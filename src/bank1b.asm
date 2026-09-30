@@ -9,13 +9,16 @@ SECTION "Bank1B", ROMX[$4000], BANK[$1B]
 
 ; ---- data $4000-$4040 (64 bytes) [PROBABLE] palette-rgb555: heuristic: 32 RGB555 words as 8 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
 
-Data_1B_4000:: ; 1B:4000
+Palette_DebugScreens1B:: ; 1B:4000
+Data_1B_4000::
 	db $00, $00, $1B, $25, $9F, $51, $FF, $7F, $FF, $7F, $4A, $29, $B5, $56, $00, $00
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 
 ; ---- code $4040-$404A (10 bytes) [HYPOTHESIS] function head xor a ; ld bc,$00FC ; ld hl,$C0D4 ; call $04D8 (fill) that falls exactly into the raw far-call site at 404A (PROBABLE code); right after the data block 4000-4040; entry not located, no caller/table word anywhere (downgraded PROBABLE -> HYPOTHESIS by the adversarial verifier, same class as 04:415A and 7C:7D8B: bytes that merely lead into code are not proven code)
+
+SoundTest_Run:: ; 1B:4040
 	xor a, a
 	ld bc, $00FC
 	ld hl, $C0D4
@@ -119,9 +122,9 @@ Data_1B_4000:: ; 1B:4000
 	ldh [rSVBK], a
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $4000
+	ld hl, Palette_DebugScreens1B
 	ld a, $1B
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld a, $80
 	ld bc, $0400
 	ld hl, $D000
@@ -135,39 +138,40 @@ Data_1B_4000:: ; 1B:4000
 	ld bc, $0810
 	ld de, $F001
 	ld hl, $D142
-	farcall Function_48_4679
-	call Function_1B_42C4
-	call Function_1B_4371
+	farcall Tilemap_FillRectSequential
+	call SoundTest_LoadHelpText
+	call SoundTest_DrawNumber
 	ldh a, [rLCDC]
 	call Function_00_082C
 	farcall Function_00_0956
 	call LCDOn
-	farcall Function_4F_42B4
+	farcall Palette_FadeInFromWhite
 
-Label_1B_41B1:: ; 1B:41B1
+SoundTest_Loop:: ; 1B:41B1
 	call Function_00_044B
-	farcall Function_7D_7BA4
-	farcall Function_7D_7BC1
+	farcall Joypad_UpdateIdleFrames
+	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
 
 ; ---- ptrtable $41C3-$41CD (10 bytes) [PROBABLE] inline table of `call $056A` (JoypadDispatch) at 1B:41C0: 5 entries; fixed length (5 words) by the routine
 
-Table_1B_41C3:: ; 1B:41C3
-	dw Label_1B_41D8
-	dw Label_1B_41F0
-	dw Label_1B_4208
-	dw Label_1B_423E
-	dw Label_1B_41CD
+Table_SoundTest_Buttons:: ; 1B:41C3
+Table_1B_41C3::
+	dw SoundTest_OnA
+	dw SoundTest_OnB
+	dw SoundTest_OnSelect
+	dw SoundTest_OnStart
+	dw SoundTest_Idle
 
 ; ---- code $41CD-$4314 (327 bytes) [PROBABLE] 148 insn(s) reached by static flow only; seeds: site x148; min discovery hops 0; entered by table from 1B:41C0 (PROBABLE code)
 
-Label_1B_41CD:: ; 1B:41CD
-	call Function_1B_4450
+SoundTest_Idle:: ; 1B:41CD
+	call SoundTest_UpdateHoldTimer
 	ldh a, [hJoyPressedRepeat]
-	call Function_1B_4261
-	jp Label_1B_41B1
+	call SoundTest_HandleDpad
+	jp SoundTest_Loop
 
-Label_1B_41D8:: ; 1B:41D8
+SoundTest_OnA:: ; 1B:41D8
 	ld a, [wRam_C0E5]
 	ld c, a
 	ld a, [wRam_C0D6]
@@ -179,9 +183,9 @@ Label_1B_41D8:: ; 1B:41D8
 	call Function_00_20B2
 	pop af
 	ldh [rSVBK], a
-	jp Label_1B_41B1
+	jp SoundTest_Loop
 
-Label_1B_41F0:: ; 1B:41F0
+SoundTest_OnB:: ; 1B:41F0
 	ld a, [wRam_C0E5]
 	ld c, a
 	ld a, [wRam_C0D6]
@@ -193,9 +197,9 @@ Label_1B_41F0:: ; 1B:41F0
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	jp Label_1B_41B1
+	jp SoundTest_Loop
 
-Label_1B_4208:: ; 1B:4208
+SoundTest_OnSelect:: ; 1B:4208
 	ld bc, $0000
 	ldh a, [hWRAMBank]
 	push af
@@ -219,11 +223,11 @@ Label_1B_4208:: ; 1B:4208
 	call Function_00_20A6
 	pop af
 	ldh [rSVBK], a
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ld a, $01
 	ret
 
-Label_1B_423E:: ; 1B:423E
+SoundTest_OnStart:: ; 1B:423E
 	ld bc, $0000
 	ldh a, [hWRAMBank]
 	push af
@@ -240,9 +244,9 @@ Label_1B_423E:: ; 1B:423E
 	call Function_00_20BE
 	pop af
 	ldh [rSVBK], a
-	jp Label_1B_41B1
+	jp SoundTest_Loop
 
-Function_1B_4261:: ; 1B:4261
+SoundTest_HandleDpad:: ; 1B:4261
 	bit 6, a
 	jr nz, Label_1B_4272
 	bit 7, a
@@ -257,14 +261,14 @@ Label_1B_4272:: ; 1B:4272
 	ld a, [wRam_C0D6]
 	inc a
 	ld [wRam_C0D6], a
-	call Function_1B_4371
+	call SoundTest_DrawNumber
 	ret
 
 Label_1B_427D:: ; 1B:427D
 	ld a, [wRam_C0D6]
 	dec a
 	ld [wRam_C0D6], a
-	call Function_1B_4371
+	call SoundTest_DrawNumber
 	ret
 
 Label_1B_4288:: ; 1B:4288
@@ -274,14 +278,14 @@ Label_1B_4288:: ; 1B:4288
 	ld a, [wRam_C0E5]
 	dec a
 	ld [wRam_C0E5], a
-	call Function_1B_4371
+	call SoundTest_DrawNumber
 	ret
 
 Label_1B_429A:: ; 1B:429A
 	ld a, [wRam_C0E5]
 	sub a, $04
 	ld [wRam_C0E5], a
-	call Function_1B_4371
+	call SoundTest_DrawNumber
 	ret
 
 Label_1B_42A6:: ; 1B:42A6
@@ -291,24 +295,24 @@ Label_1B_42A6:: ; 1B:42A6
 	ld a, [wRam_C0E5]
 	inc a
 	ld [wRam_C0E5], a
-	call Function_1B_4371
+	call SoundTest_DrawNumber
 	ret
 
 Label_1B_42B8:: ; 1B:42B8
 	ld a, [wRam_C0E5]
 	add a, $04
 	ld [wRam_C0E5], a
-	call Function_1B_4371
+	call SoundTest_DrawNumber
 	ret
 
-Function_1B_42C4:: ; 1B:42C4
+SoundTest_LoadHelpText:: ; 1B:42C4
 	ld hl, $4314
 	ld de, $D000
 	ld bc, $0010
 	ld a, $03
 	ldh [hRam_FFB0], a
 	ld a, $1B
-	farcall Function_48_40A9
+	farcall TextTiles_RenderGrid
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -337,17 +341,15 @@ Function_1B_42C4:: ; 1B:42C4
 
 ; ---- text $4314-$4371 (93 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_1B_4314:: ; 1B:4314
-	db $81, $40, $82, $60, $81, $46, $82, $6C, $82, $74, $82, $72, $82, $68, $82, $62
-	db $81, $40, $82, $61, $81, $46, $82, $72, $82, $6E, $82, $74, $82, $6D, $82, $63
-	db $82, $72, $82, $94, $82, $81, $81, $46, $82, $72, $82, $73, $82, $6E, $82, $6F
-	db $81, $40, $82, $72, $82, $85, $82, $8C, $81, $46, $82, $64, $82, $6D, $82, $63
-	db $81, $40, $81, $AA, $81, $AB, $81, $69, $81, $A9, $81, $A8, $81, $6A, $81, $46
-	db $82, $6D, $82, $95, $82, $8D, $82, $82, $82, $85, $82, $92, $00
+String_SoundTest_Help:: ; 1B:4314
+String_1B_4314::
+	db $81, $40, $82, $60, $81, $46, $82, $6C, $82, $74, $82, $72, $82, $68, $82, $62, $81, $40, $82, $61, $81, $46, $82, $72, $82, $6E, $82, $74, $82, $6D, $82, $63, $82, $72 ; "　Ａ：ＭＵＳＩＣ　Ｂ：ＳＯＵＮＤＳ"
+	db $82, $94, $82, $81, $81, $46, $82, $72, $82, $73, $82, $6E, $82, $6F, $81, $40, $82, $72, $82, $85, $82, $8C, $81, $46, $82, $64, $82, $6D, $82, $63, $81, $40, $81, $AA ; "ｔａ：ＳＴＯＰ　Ｓｅｌ：ＥＮＤ　↑"
+	db $81, $AB, $81, $69, $81, $A9, $81, $A8, $81, $6A, $81, $46, $82, $6D, $82, $95, $82, $8D, $82, $82, $82, $85, $82, $92, $00 ; "↓（←→）：Ｎｕｍｂｅｒ"
 
 ; ---- code $4371-$4430 (191 bytes) [PROBABLE] 115 insn(s) reached by static flow only; seeds: site x115; min discovery hops 4; entered by call from 1B:419A (PROBABLE code)
 
-Function_1B_4371:: ; 1B:4371
+SoundTest_DrawNumber:: ; 1B:4371
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -374,7 +376,7 @@ Function_1B_4371:: ; 1B:4371
 	swap a
 	and a, $0F
 	add a, a
-	ld hl, $4430
+	ld hl, String_SoundTest_HexChars
 	add a, l
 	ld l, a
 	ld a, h
@@ -389,7 +391,7 @@ Function_1B_4371:: ; 1B:4371
 	ld a, b
 	and a, $0F
 	add a, a
-	ld hl, $4430
+	ld hl, String_SoundTest_HexChars
 	add a, l
 	ld l, a
 	ld a, h
@@ -406,7 +408,7 @@ Function_1B_4371:: ; 1B:4371
 	swap a
 	and a, $0F
 	add a, a
-	ld hl, $4430
+	ld hl, String_SoundTest_HexChars
 	add a, l
 	ld l, a
 	ld a, h
@@ -421,7 +423,7 @@ Function_1B_4371:: ; 1B:4371
 	ld a, b
 	and a, $0F
 	add a, a
-	ld hl, $4430
+	ld hl, String_SoundTest_HexChars
 	add a, l
 	ld l, a
 	ld a, h
@@ -447,7 +449,7 @@ Function_1B_4371:: ; 1B:4371
 	ld a, $03
 	ldh [hRam_FFB0], a
 	ld a, $02
-	farcall Function_48_40A9
+	farcall TextTiles_RenderGrid
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -466,13 +468,13 @@ Function_1B_4371:: ; 1B:4371
 
 ; ---- text $4430-$4450 (32 bytes) [PROBABLE] 16 fullwidth Shift-JIS characters "０１２３４５６７８９ＡＢＣＤＥＦ" (82 4F..82 58, 82 60..82 65), 2 bytes each, no NUL: hex-digit glyph table loaded by many `ld hl,$4430` (1B:43A2, 43B5, 43CD, 43E0 ...) in the preceding routine
 
-String_1B_4430:: ; 1B:4430
-	db $82, $4F, $82, $50, $82, $51, $82, $52, $82, $53, $82, $54, $82, $55, $82, $56
-	db $82, $57, $82, $58, $82, $60, $82, $61, $82, $62, $82, $63, $82, $64, $82, $65
+String_SoundTest_HexChars:: ; 1B:4430
+String_1B_4430::
+	db $82, $4F, $82, $50, $82, $51, $82, $52, $82, $53, $82, $54, $82, $55, $82, $56, $82, $57, $82, $58, $82, $60, $82, $61, $82, $62, $82, $63, $82, $64, $82, $65 ; "０１２３４５６７８９ＡＢＣＤＥＦ"
 
 ; ---- code $4450-$446B (27 bytes) [PROBABLE] 14 insn(s) reached by static flow only; seeds: site x14; min discovery hops 2; entered by call from 1B:41CD (PROBABLE code)
 
-Function_1B_4450:: ; 1B:4450
+SoundTest_UpdateHoldTimer:: ; 1B:4450
 	ld a, [wRam_C0E8]
 	ld b, a
 	ldh a, [hJoyHeld]

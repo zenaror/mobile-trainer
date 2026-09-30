@@ -9,7 +9,8 @@ SECTION "Bank57", ROMX[$4000], BANK[$57]
 
 ; ---- code $4000-$4126 (294 bytes) [CONFIRMED] 124 insn(s); 124 executed (in up to 6/18 scenarios); entry proven: target of an executed call/far call
 
-Function_57_4000:: ; 57:4000
+ConnectDialog_Run:: ; 57:4000
+Function_57_4000::
 	push bc
 	push de
 	xor a, a
@@ -31,7 +32,7 @@ Function_57_4000:: ; 57:4000
 	call ReadByteFar
 	ld [wRam_C0D8], a
 
-Label_57_4029:: ; 57:4029
+ConnectDialog_Run_LoadMode:: ; 57:4029
 	ldh a, [rLCDC]
 	and a, $FF
 	or a, $60
@@ -45,11 +46,11 @@ Label_57_4029:: ; 57:4029
 	ldh [rWY], a
 	farcall Function_00_09B6
 
-Label_57_4044:: ; 57:4044
+ConnectDialog_Run_EnterMode:: ; 57:4044
 	ld a, $01
 	ld [wRam_C0E5], a
-	call Function_57_47A6
-	call Function_57_44E4
+	call ConnectDialog_DrawScreen
+	call ConnectDialog_EnterMode
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -59,37 +60,37 @@ Label_57_4044:: ; 57:4044
 	pop af
 	ldh [rSVBK], a
 
-Label_57_405F:: ; 57:405F
-	call Function_57_40E0
+ConnectDialog_Run_FrameLoop:: ; 57:405F
+	call ConnectDialog_HandleFrame
 	or a, a
-	jr nz, Label_57_4068
-	jp Label_57_405F
+	jr nz, ConnectDialog_Run_ModeChanged
+	jp ConnectDialog_Run_FrameLoop
 
-Label_57_4068:: ; 57:4068
-	call Function_57_45E6
+ConnectDialog_Run_ModeChanged:: ; 57:4068
+	call ConnectDialog_LeaveMode
 	farcall Function_00_0956
 	ld a, [wRam_C0D8]
 	or a, a
-	jr z, Label_57_408D
+	jr z, ConnectDialog_Run_Cancel
 	cp a, $10
-	jr z, Label_57_4096
+	jr z, ConnectDialog_Run_Accept
 	cp a, $05
 	jr nc, Label_57_4082
-	jp Label_57_4029
+	jp ConnectDialog_Run_LoadMode
 
 Label_57_4082:: ; 57:4082
 	ld a, [wRam_C0E6]
 	cp a, $05
-	jp nc, Label_57_4044
-	jp Label_57_4029
+	jp nc, ConnectDialog_Run_EnterMode
+	jp ConnectDialog_Run_LoadMode
 
-Label_57_408D:: ; 57:408D
-	farcall Function_4F_4370
+ConnectDialog_Run_Cancel:: ; 57:408D
+	farcall Palette_FadeOutToWhite
 	ld b, $FF
 	ret
 
-Label_57_4096:: ; 57:4096
-	farcall Function_4F_4370
+ConnectDialog_Run_Accept:: ; 57:4096
+	farcall Palette_FadeOutToWhite
 	ld a, [wRam_C18B]
 	ld l, a
 	ld a, [wRam_C18C]
@@ -117,23 +118,23 @@ Label_57_40C3:: ; 57:40C3
 	inc de
 	ld b, a
 	ld a, [wRam_C10E]
-	farcall Function_48_4616
+	farcall WriteByteFar
 	dec c
 	jr nz, Label_57_40C3
 	ld b, $00
 	ld a, [wRam_C10E]
-	farcall Function_48_4616
+	farcall WriteByteFar
 	ld b, $00
 	ret
 
-Function_57_40E0:: ; 57:40E0
+ConnectDialog_HandleFrame:: ; 57:40E0
 	ld a, [wRam_C0D8]
 	cp a, $06
-	jp z, Label_57_426B
+	jp z, ConnectDialog_Input_Keyboard
 	farcall Function_00_0956
 	call Function_00_044B
-	farcall Function_7D_7BA4
-	farcall Function_7D_7BC1
+	farcall Joypad_UpdateIdleFrames
+	farcall Joypad_UpdateUnsaved
 	ldh a, [hJoyPressedRepeat]
 	or a, a
 	ret z
@@ -143,18 +144,18 @@ Function_57_40E0:: ; 57:40E0
 	jr c, Label_57_412A
 	jp z, Label_57_4189
 	cp a, $04
-	jp c, Label_57_41CA
-	jp z, Label_57_41CA
+	jp c, ConnectDialog_Input_ConnectConfirm
+	jp z, ConnectDialog_Input_ConnectConfirm
 	cp a, $06
-	jp c, Label_57_4237
+	jp c, ConnectDialog_Input_PasswordPrompt
 	cp a, $08
-	jp c, Label_57_43BC
-	jp z, Label_57_4421
+	jp c, ConnectDialog_Input_SaveConfirm
+	jp z, ConnectDialog_Input_PasswordSaved
 	cp a, $0A
-	jp c, Label_57_4443
+	jp c, ConnectDialog_Input_StoredPassword
 
 ; ---- code $4126-$41CA (164 bytes) [PROBABLE] 78 insn(s) reached by static flow only; seeds: exec x78; min discovery hops 0; fall-through of the jpcc at 57:4123 (executed)
-	jp z, Label_57_4481
+	jp z, ConnectDialog_Input_ForgetConfirm
 	ret
 
 Label_57_412A:: ; 57:412A
@@ -172,7 +173,7 @@ Label_57_412A:: ; 57:412A
 
 Label_57_413E:: ; 57:413E
 	ld a, $00
-	call Function_57_546C
+	call ConnectDialog_PlayButtonSfx
 	ld a, [wRam_C0E5]
 	cp a, $01
 	jr nz, Label_57_4150
@@ -182,7 +183,7 @@ Label_57_413E:: ; 57:413E
 
 Label_57_4150:: ; 57:4150
 	ld a, $01
-	call Function_57_546C
+	call ConnectDialog_PlayButtonSfx
 	xor a, a
 	ld [wRam_C0D6], a
 	ld a, $01
@@ -226,7 +227,7 @@ Label_57_4189:: ; 57:4189
 
 Label_57_419D:: ; 57:419D
 	ld a, $00
-	call Function_57_546C
+	call ConnectDialog_PlayButtonSfx
 	ld a, [wRam_C0E5]
 	cp a, $01
 	jr nz, Label_57_41BF
@@ -246,14 +247,14 @@ Label_57_41B8:: ; 57:41B8
 
 Label_57_41BF:: ; 57:41BF
 	ld a, $01
-	call Function_57_546C
+	call ConnectDialog_PlayButtonSfx
 	ld a, $01
 	ld [wRam_C0D6], a
 	ret
 
 ; ---- code $41CA-$4237 (109 bytes) [CONFIRMED] 51 insn(s); 51 executed (in up to 6/18 scenarios)
 
-Label_57_41CA:: ; 57:41CA
+ConnectDialog_Input_ConnectConfirm:: ; 57:41CA
 	bit 5, b
 	jr nz, Label_57_420A
 	bit 4, b
@@ -268,7 +269,7 @@ Label_57_41CA:: ; 57:41CA
 
 Label_57_41DE:: ; 57:41DE
 	ld a, $00
-	call Function_57_546C
+	call ConnectDialog_PlayButtonSfx
 	ld a, [wRam_C0E5]
 	cp a, $01
 	jr nz, Label_57_4203
@@ -287,7 +288,7 @@ Label_57_41F9:: ; 57:41F9
 
 Label_57_41FE:: ; 57:41FE
 	ld a, $01
-	call Function_57_546C
+	call ConnectDialog_PlayButtonSfx
 
 Label_57_4203:: ; 57:4203
 	xor a, a
@@ -320,7 +321,7 @@ Label_57_421C:: ; 57:421C
 
 ; ---- code $4237-$4443 (524 bytes) [PROBABLE] 238 insn(s) reached by static flow only; seeds: exec x238; min discovery hops 1; entered by jpcc from 57:4116 (executed)
 
-Label_57_4237:: ; 57:4237
+ConnectDialog_Input_PasswordPrompt:: ; 57:4237
 	ldh a, [hJoyPressed]
 	bit 0, a
 	jr nz, Label_57_4243
@@ -331,14 +332,14 @@ Label_57_4237:: ; 57:4237
 
 Label_57_4243:: ; 57:4243
 	ld a, $00
-	call Function_57_546C
+	call ConnectDialog_PlayButtonSfx
 	ld a, $06
 	ld [wRam_C0D6], a
 	ret
 
 Label_57_424E:: ; 57:424E
 	ld a, $01
-	call Function_57_546C
+	call ConnectDialog_PlayButtonSfx
 	ld a, [wRam_C18B]
 	ld l, a
 	ld a, [wRam_C18C]
@@ -353,12 +354,12 @@ Label_57_4267:: ; 57:4267
 	ld [wRam_C0D6], a
 	ret
 
-Label_57_426B:: ; 57:426B
+ConnectDialog_Input_Keyboard:: ; 57:426B
 	farcall Function_00_0956
-	call Function_57_5369
-	farcall Function_55_5C8F
+	call ConnectDialog_ValidatePassword
+	farcall Kbd_Run
 	cp a, $01
-	jr z, Label_57_4299
+	jr z, ConnectDialog_Keyboard_AppendChar
 	cp a, $0A
 	jp z, Label_57_4325
 	cp a, $07
@@ -366,13 +367,13 @@ Label_57_426B:: ; 57:426B
 	cp a, $09
 	jp z, Label_57_4339
 	cp a, $02
-	jp z, Label_57_433F
+	jp z, ConnectDialog_Keyboard_EraseChar
 	cp a, $08
 	jp z, Label_57_4339
 	xor a, a
 	ret
 
-Label_57_4299:: ; 57:4299
+ConnectDialog_Keyboard_AppendChar:: ; 57:4299
 	ld a, [wRam_C1CB]
 	cp a, $08
 	jr z, Label_57_430D
@@ -385,7 +386,7 @@ Label_57_4299:: ; 57:4299
 	pop af
 	ldh [rSVBK], a
 	ld hl, $DA20
-	ld de, $79B8
+	ld de, Table_56_79B8
 	ld a, $56
 	ld b, $03
 	farcall Function_00_0A82
@@ -393,8 +394,8 @@ Label_57_4299:: ; 57:4299
 	ld de, $52D8
 	ld a, $57
 	call Function_00_0A45
-	call Function_57_527D
-	call Function_57_510F
+	call ConnectDialog_PlaceCaretSprites
+	call ConnectDialog_DrawPasswordField
 	ld a, $F0
 	ld hl, $C2AD
 	call ReadByteFar
@@ -408,7 +409,7 @@ Label_57_4299:: ; 57:4299
 	ld h, a
 	ld [hl], b
 	ld a, b
-	farcall Function_55_6CC6
+	farcall Text_HalfToFullWidth
 	ld hl, $C1BA
 	ld a, [wRam_C1CB]
 	add a, a
@@ -425,7 +426,7 @@ Label_57_4299:: ; 57:4299
 	ld a, [wRam_C1CB]
 	inc a
 	ld [wRam_C1CB], a
-	call Function_57_5444
+	call ConnectDialog_RenderTypedChars
 	xor a, a
 	ret
 
@@ -447,7 +448,7 @@ Label_57_431F:: ; 57:431F
 	ret
 
 Label_57_4325:: ; 57:4325
-	call Function_57_5369
+	call ConnectDialog_ValidatePassword
 	xor a, a
 	or a, b
 	ld a, $00
@@ -466,7 +467,7 @@ Label_57_4339:: ; 57:4339
 	ld [wRam_C0D6], a
 	ret
 
-Label_57_433F:: ; 57:433F
+ConnectDialog_Keyboard_EraseChar:: ; 57:433F
 	ld a, [wRam_C1CB]
 	or a, a
 	jr z, Label_57_438E
@@ -478,12 +479,12 @@ Label_57_433F:: ; 57:433F
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	call Function_57_510F
+	call ConnectDialog_DrawPasswordField
 	ld a, [wRam_C1CB]
 	dec a
 	ld [wRam_C1CB], a
 	ld hl, $DA20
-	ld de, $79B8
+	ld de, Table_56_79B8
 	ld a, $56
 	ld b, $02
 	farcall Function_00_0A82
@@ -491,7 +492,7 @@ Label_57_433F:: ; 57:433F
 	ld de, $52D8
 	ld a, $57
 	call Function_00_0A45
-	call Function_57_527D
+	call ConnectDialog_PlaceCaretSprites
 	ld hl, $C1BA
 	ld a, [wRam_C1CB]
 	add a, a
@@ -505,11 +506,11 @@ Label_57_433F:: ; 57:433F
 	ret
 
 Label_57_438E:: ; 57:438E
-	call Function_57_510F
+	call ConnectDialog_DrawPasswordField
 	xor a, a
 	ld [wRam_C0E8], a
 	ld hl, $DA20
-	ld de, $79B8
+	ld de, Table_56_79B8
 	ld a, $56
 	ld b, $81
 	farcall Function_00_0A82
@@ -517,11 +518,11 @@ Label_57_438E:: ; 57:438E
 	ld de, $531E
 	ld a, $57
 	call Function_00_0A45
-	call Function_57_527D
-	farcall Function_55_6559
+	call ConnectDialog_PlaceCaretSprites
+	farcall Kbd_Hide
 	jp Label_57_431F
 
-Label_57_43BC:: ; 57:43BC
+ConnectDialog_Input_SaveConfirm:: ; 57:43BC
 	bit 5, b
 	jr nz, Label_57_43F4
 	bit 4, b
@@ -536,7 +537,7 @@ Label_57_43BC:: ; 57:43BC
 
 Label_57_43D0:: ; 57:43D0
 	ld a, $00
-	call Function_57_546C
+	call ConnectDialog_PlayButtonSfx
 	ld a, [wRam_C0E5]
 	cp a, $01
 	jr nz, Label_57_43E2
@@ -546,7 +547,7 @@ Label_57_43D0:: ; 57:43D0
 
 Label_57_43E2:: ; 57:43E2
 	ld a, $01
-	call Function_57_546C
+	call ConnectDialog_PlayButtonSfx
 	ld a, $02
 	ld [wRam_C0E5], a
 	ld a, $06
@@ -577,7 +578,7 @@ Label_57_4406:: ; 57:4406
 	xor a, a
 	ret
 
-Label_57_4421:: ; 57:4421
+ConnectDialog_Input_PasswordSaved:: ; 57:4421
 	ldh a, [hJoyPressed]
 	bit 0, a
 	jr nz, Label_57_442D
@@ -588,21 +589,21 @@ Label_57_4421:: ; 57:4421
 
 Label_57_442D:: ; 57:442D
 	ld a, $00
-	call Function_57_546C
+	call ConnectDialog_PlayButtonSfx
 	ld a, $10
 	ld [wRam_C0D6], a
 	ret
 
 Label_57_4438:: ; 57:4438
 	ld a, $01
-	call Function_57_546C
+	call ConnectDialog_PlayButtonSfx
 	ld a, $07
 	ld [wRam_C0D6], a
 	ret
 
 ; ---- code $4443-$4475 (50 bytes) [CONFIRMED] 24 insn(s); 24 executed (in up to 5/18 scenarios)
 
-Label_57_4443:: ; 57:4443
+ConnectDialog_Input_StoredPassword:: ; 57:4443
 	ldh a, [hJoyPressed]
 	bit 0, a
 	jr nz, Label_57_4453
@@ -615,14 +616,14 @@ Label_57_4443:: ; 57:4443
 
 Label_57_4453:: ; 57:4453
 	ld a, $00
-	call Function_57_546C
+	call ConnectDialog_PlayButtonSfx
 	ld a, $10
 	ld [wRam_C0D6], a
 	ret
 
 Label_57_445E:: ; 57:445E
 	ld a, $01
-	call Function_57_546C
+	call ConnectDialog_PlayButtonSfx
 	ld a, [wRam_C18B]
 	ld l, a
 	ld a, [wRam_C18C]
@@ -648,7 +649,7 @@ Label_57_447B:: ; 57:447B
 	ld [wRam_C0D6], a
 	ret
 
-Label_57_4481:: ; 57:4481
+ConnectDialog_Input_ForgetConfirm:: ; 57:4481
 	bit 5, b
 	jr nz, Label_57_44B7
 	bit 4, b
@@ -663,7 +664,7 @@ Label_57_4481:: ; 57:4481
 
 Label_57_4495:: ; 57:4495
 	ld a, $00
-	call Function_57_546C
+	call ConnectDialog_PlayButtonSfx
 	ld a, [wRam_C0E5]
 	cp a, $01
 	jr nz, Label_57_44A7
@@ -673,7 +674,7 @@ Label_57_4495:: ; 57:4495
 
 Label_57_44A7:: ; 57:44A7
 	ld a, $01
-	call Function_57_546C
+	call ConnectDialog_PlayButtonSfx
 	ld a, $02
 	ld [wRam_C0E5], a
 	ld a, $09
@@ -705,7 +706,8 @@ Label_57_44C9:: ; 57:44C9
 
 ; ---- code $44E4-$450B (39 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 6/18 scenarios); entry proven: target of an executed call/far call
 
-Function_57_44E4:: ; 57:44E4
+ConnectDialog_EnterMode:: ; 57:44E4
+Function_57_44E4::
 	ld a, [wRam_C0D8]
 	cp a, $02
 	jr c, Label_57_450F
@@ -715,12 +717,12 @@ Function_57_44E4:: ; 57:44E4
 	jp z, Label_57_4512
 	cp a, $06
 	jp c, Label_57_4513
-	jp z, Label_57_4517
+	jp z, ConnectDialog_Enter_Keyboard
 	cp a, $08
 	jp c, Label_57_4566
-	jp z, Label_57_4590
+	jp z, ConnectDialog_Enter_PasswordSaved
 	cp a, $0A
-	jp c, Label_57_459A
+	jp c, ConnectDialog_Enter_StoredPassword
 
 ; ---- code $450B-$4511 (6 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jpcc at 57:4508 (executed)
 	jp z, Label_57_45BC
@@ -743,10 +745,10 @@ Label_57_4512:: ; 57:4512
 ; ---- code $4513-$459A (135 bytes) [CONFIRMED] 56 insn(s) reached by static flow only; seeds: exec x56; min discovery hops 1; entered by jpcc from 57:44F8 (executed) [executed in 3 scenarios]
 
 Label_57_4513:: ; 57:4513
-	call Function_57_510F
+	call ConnectDialog_DrawPasswordField
 	ret
 
-Label_57_4517:: ; 57:4517
+ConnectDialog_Enter_Keyboard:: ; 57:4517
 	ld a, $09
 	ld [wRam_C0F6], a
 	di
@@ -778,12 +780,12 @@ Label_57_4517:: ; 57:4517
 	call Function_00_0A45
 	ld a, $05
 	ld b, $00
-	farcall Function_55_5BA2
+	farcall Kbd_Open
 	ret
 
 Label_57_4566:: ; 57:4566
 	ld hl, $DA40
-	ld de, $79B8
+	ld de, Table_56_79B8
 	ld a, $56
 	ld b, $85
 	farcall Function_00_0A82
@@ -800,15 +802,15 @@ Label_57_4566:: ; 57:4566
 	ldh [rSVBK], a
 	ret
 
-Label_57_4590:: ; 57:4590
+ConnectDialog_Enter_PasswordSaved:: ; 57:4590
 	ld de, $C1B2
 	ld a, [wRam_C1CB]
-	call Function_57_541C
+	call SavedPassword_Store
 	ret
 
 ; ---- code $459A-$45BC (34 bytes) [CONFIRMED] 16 insn(s); 16 executed (in up to 5/18 scenarios)
 
-Label_57_459A:: ; 57:459A
+ConnectDialog_Enter_StoredPassword:: ; 57:459A
 	ld a, $01
 	ld hl, $A880
 	call ReadByteFar
@@ -825,14 +827,14 @@ Label_57_45AC:: ; 57:45AC
 	inc de
 	dec c
 	jr nz, Label_57_45AC
-	call Function_57_510F
+	call ConnectDialog_DrawPasswordField
 	ret
 
 ; ---- code $45BC-$45E6 (42 bytes) [CONFIRMED] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 1; entered by jpcc from 57:450B (PROBABLE code) [executed in 4 scenarios]
 
 Label_57_45BC:: ; 57:45BC
 	ld hl, $DA40
-	ld de, $79B8
+	ld de, Table_56_79B8
 	ld a, $56
 	ld b, $85
 	farcall Function_00_0A82
@@ -851,7 +853,8 @@ Label_57_45BC:: ; 57:45BC
 
 ; ---- code $45E6-$4618 (50 bytes) [CONFIRMED] 20 insn(s); 20 executed (in up to 6/18 scenarios); entry proven: target of an executed call/far call
 
-Function_57_45E6:: ; 57:45E6
+ConnectDialog_LeaveMode:: ; 57:45E6
+Function_57_45E6::
 	ld a, [wRam_C0D8]
 	ld [wRam_C0E6], a
 	ld b, a
@@ -866,29 +869,29 @@ Function_57_45E6:: ; 57:45E6
 	jp z, Label_57_468E
 	cp a, $06
 	jp c, Label_57_46B4
-	jp z, Label_57_46E0
+	jp z, ConnectDialog_Leave_Keyboard
 	cp a, $08
 	jp c, Label_57_4738
-	jp z, Label_57_474F
+	jp z, ConnectDialog_Leave_PasswordSaved
 	cp a, $0A
 	jp c, Label_57_4771
 
 ; ---- code $4618-$4668 (80 bytes) [PROBABLE] 28 insn(s) reached by static flow only; seeds: exec x28; min discovery hops 0; fall-through of the jpcc at 57:4615 (executed)
-	jp z, Label_57_477E
+	jp z, ConnectDialog_Leave_ForgetConfirm
 	ret
 
 Label_57_461C:: ; 57:461C
 	ld a, [wRam_C0E5]
 	dec a
 	jr nz, Label_57_4632
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ld de, $00B4
 	ld hl, $DA40
 	call Function_00_0A65
 	ret
 
 Label_57_4632:: ; 57:4632
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ld de, $00B4
 	ld hl, $DA40
 	call Function_00_0A65
@@ -898,14 +901,14 @@ Label_57_4642:: ; 57:4642
 	ld a, [wRam_C0E5]
 	dec a
 	jr nz, Label_57_4658
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ld de, $00B4
 	ld hl, $DA40
 	call Function_00_0A65
 	ret
 
 Label_57_4658:: ; 57:4658
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ld de, $00B4
 	ld hl, $DA40
 	call Function_00_0A65
@@ -917,7 +920,7 @@ Label_57_4668:: ; 57:4668
 	ld a, [wRam_C0E5]
 	dec a
 	jr nz, Label_57_467E
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ld de, $00B4
 	ld hl, $DA40
 	call Function_00_0A65
@@ -926,7 +929,7 @@ Label_57_4668:: ; 57:4668
 ; ---- code $467E-$468E (16 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1; entered by jrcc from 57:466C (executed) [executed in 5 scenarios]
 
 Label_57_467E:: ; 57:467E
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ld de, $00B4
 	ld hl, $DA40
 	call Function_00_0A65
@@ -938,14 +941,14 @@ Label_57_468E:: ; 57:468E
 	ld a, [wRam_C0E5]
 	dec a
 	jr nz, Label_57_46A4
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ld de, $00B4
 	ld hl, $DA40
 	call Function_00_0A65
 	ret
 
 Label_57_46A4:: ; 57:46A4
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ld de, $00B4
 	ld hl, $DA40
 	call Function_00_0A65
@@ -967,14 +970,14 @@ Label_57_46B4:: ; 57:46B4
 	ld de, $00A0
 	ld hl, $DA30
 	call Function_00_0A65
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ret
 
 Label_57_46DF:: ; 57:46DF
 	ret
 
-Label_57_46E0:: ; 57:46E0
-	farcall Function_55_651C
+ConnectDialog_Leave_Keyboard:: ; 57:46E0
+	farcall Kbd_HideInstant
 	di
 	ldh a, [rSTAT]
 	and a, $87
@@ -1009,7 +1012,7 @@ Label_57_46E0:: ; 57:46E0
 	ld a, [wRam_C0D8]
 	cp a, $10
 	ret nz
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ret
 
 Label_57_4738:: ; 57:4738
@@ -1019,25 +1022,25 @@ Label_57_4738:: ; 57:4738
 	ld a, [wRam_C0E5]
 	dec a
 	jr nz, Label_57_474E
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ret
 
 Label_57_474E:: ; 57:474E
 	ret
 
-Label_57_474F:: ; 57:474F
+ConnectDialog_Leave_PasswordSaved:: ; 57:474F
 	ld a, [wRam_C0D8]
 	cp a, $07
 	jr z, Label_57_475D
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ret
 
 Label_57_475D:: ; 57:475D
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ld b, $00
 	ld a, $01
 	ld hl, $A880
-	farcall Function_48_4616
+	farcall WriteByteFar
 	ret
 
 ; ---- code $4771-$477E (13 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 5/18 scenarios)
@@ -1046,12 +1049,12 @@ Label_57_4771:: ; 57:4771
 	ld a, [wRam_C0D8]
 	cp a, $0A
 	ret z
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ret
 
 ; ---- code $477E-$47A6 (40 bytes) [CONFIRMED] 15 insn(s) reached by static flow only; seeds: exec x15; min discovery hops 1; entered by jpcc from 57:4618 (PROBABLE code) [executed in 2 scenarios]
 
-Label_57_477E:: ; 57:477E
+ConnectDialog_Leave_ForgetConfirm:: ; 57:477E
 	ld de, $00B4
 	ld hl, $DA40
 	call Function_00_0A65
@@ -1063,8 +1066,8 @@ Label_57_477E:: ; 57:477E
 	ld b, a
 	ld a, $01
 	ld hl, $A880
-	farcall Function_48_4616
-	farcall Function_4F_4370
+	farcall WriteByteFar
+	farcall Palette_FadeOutToWhite
 	ret
 
 Label_57_47A5:: ; 57:47A5
@@ -1072,54 +1075,55 @@ Label_57_47A5:: ; 57:47A5
 
 ; ---- code $47A6-$47CD (39 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 6/18 scenarios); entry proven: target of an executed call/far call
 
-Function_57_47A6:: ; 57:47A6
+ConnectDialog_DrawScreen:: ; 57:47A6
+Function_57_47A6::
 	ld a, [wRam_C0D8]
 	cp a, $02
-	jr c, Label_57_47D1
-	jp z, Label_57_47D1
+	jr c, ConnectDialog_Draw_ConnectConfirm
+	jp z, ConnectDialog_Draw_ConnectConfirm
 	cp a, $04
-	jp c, Label_57_47D1
-	jp z, Label_57_47D1
+	jp c, ConnectDialog_Draw_ConnectConfirm
+	jp z, ConnectDialog_Draw_ConnectConfirm
 	cp a, $06
-	jp c, Label_57_4951
-	jp z, Label_57_4951
+	jp c, ConnectDialog_Draw_PasswordEntry
+	jp z, ConnectDialog_Draw_PasswordEntry
 	cp a, $08
-	jp c, Label_57_4AC7
-	jp z, Label_57_4D40
+	jp c, ConnectDialog_Draw_SavePasswordConfirm
+	jp z, ConnectDialog_Draw_PasswordSaved
 	cp a, $0A
-	jp c, Label_57_4E4C
+	jp c, ConnectDialog_Draw_StoredPassword
 
 ; ---- code $47CD-$47D1 (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jpcc at 57:47CA (executed)
-	jp z, Label_57_4F59
+	jp z, ConnectDialog_Draw_ForgetConfirm
 	ret
 
 ; ---- code $47D1-$4951 (384 bytes) [CONFIRMED] 144 insn(s); 144 executed (in up to 6/18 scenarios)
 
-Label_57_47D1:: ; 57:47D1
+ConnectDialog_Draw_ConnectConfirm:: ; 57:47D1
 	ld de, $9001
-	ld hl, $52C0
+	ld hl, Data_56_52C0
 	ld a, $56
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9401
-	ld hl, $56C0
+	ld hl, Data_56_56C0
 	ld a, $56
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $4F9A
+	ld hl, Data_56_4F9A
 	ld a, $56
 	farcall Function_00_08EA
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $77C0
+	ld hl, Palette_56_77C0
 	ld a, $56
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld hl, $DA40
-	ld de, $79B8
+	ld de, Table_56_79B8
 	ld a, $56
 	ld b, $85
 	farcall Function_00_0A82
@@ -1130,12 +1134,12 @@ Label_57_47D1:: ; 57:47D1
 	ld bc, $0410
 	ld de, $0000
 	ld hl, $D0A2
-	farcall Function_48_4679
+	farcall Tilemap_FillRectSequential
 	ld a, $40
 	ld bc, $0210
 	ld de, $0000
 	ld hl, $D142
-	farcall Function_48_4679
+	farcall Tilemap_FillRectSequential
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -1181,7 +1185,7 @@ Label_57_47D1:: ; 57:47D1
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $56
-	farcall Function_48_40A9
+	farcall TextTiles_RenderGrid
 	ld de, $9000
 	ld hl, $D000
 	ld a, $00
@@ -1208,10 +1212,10 @@ Label_57_47D1:: ; 57:47D1
 	ld [wRam_C10F], a
 	ld bc, $0214
 	ld de, $D200
-	ld hl, $526A
+	ld hl, Data_56_526A
 	ld a, $56
 	farcall Function_00_16A2
-	jp Label_57_5077
+	jp ConnectDialog_Draw_Finish
 
 Label_57_4914:: ; 57:4914
 	ld a, $07
@@ -1225,7 +1229,7 @@ Label_57_4914:: ; 57:4914
 	ld de, $0006
 	add hl, de
 	call ReadByteFar
-	farcall Function_48_4728
+	farcall Bcd_FromBinary8
 	ld d, a
 	and a, $0F
 	add a, a
@@ -1241,52 +1245,52 @@ Label_57_4914:: ; 57:4914
 	ld [wRam_D20C], a
 	inc a
 	ld [wRam_D22C], a
-	jp Label_57_5077
+	jp ConnectDialog_Draw_Finish
 
 ; ---- code $4951-$4D28 (983 bytes) [CONFIRMED] 360 insn(s) reached by static flow only; seeds: exec x360; min discovery hops 1; entered by jpcc from 57:47BA (executed) [executed in 1 scenarios]
 
-Label_57_4951:: ; 57:4951
+ConnectDialog_Draw_PasswordEntry:: ; 57:4951
 	ld a, [wRam_C0E6]
 	cp a, $05
 	jp z, Label_57_4AA3
 	cp a, $06
 	jp z, Label_57_4AA3
 	ld de, $8800
-	ld hl, $5AC0
+	ld hl, Data_56_5AC0
 	ld a, $56
 	ld b, $94
 	ld c, $30
 	farcall Function_00_0787
 	ld de, $8C10
-	ld hl, $4D30
+	ld hl, ConnectDialog_BlankTile
 	ld a, $57
 	ld b, $98
 	ld c, $01
 	farcall Function_00_0787
 	ld de, $9101
-	ld hl, $5DC0
+	ld hl, Data_56_5DC0
 	ld a, $56
 	ld b, $94
 	ld c, $30
 	farcall Function_00_0787
 	ld de, $9401
-	ld hl, $60C0
+	ld hl, Data_56_60C0
 	ld a, $56
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
-	call Function_57_5444
+	call ConnectDialog_RenderTypedChars
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $418A
+	ld hl, Data_56_418A
 	ld a, $56
 	farcall Function_00_08EA
-	call Function_57_510F
+	call ConnectDialog_DrawPasswordField
 	ld bc, $0040
 	ld de, $D800
 	ld hl, $7800
 	ld a, $56
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -1332,7 +1336,7 @@ Label_57_4951:: ; 57:4951
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $56
-	farcall Function_48_40A9
+	farcall TextTiles_RenderGrid
 	ld de, $9000
 	ld hl, $D000
 	ld a, $00
@@ -1358,71 +1362,71 @@ Label_57_4951:: ; 57:4951
 	ld [wRam_D522], a
 	ld [wRam_D542], a
 	ld hl, $DA30
-	ld de, $79B8
+	ld de, Table_56_79B8
 	ld a, $56
 	ld b, $80
 	farcall Function_00_0A82
 	ld hl, $DA20
-	ld de, $79B8
+	ld de, Table_56_79B8
 	ld a, $56
 	ld b, $81
 	farcall Function_00_0A82
-	call Function_57_527D
-	jp Label_57_5077
+	call ConnectDialog_PlaceCaretSprites
+	jp ConnectDialog_Draw_Finish
 
 Label_57_4AA3:: ; 57:4AA3
 	ld hl, $DA30
-	ld de, $79B8
+	ld de, Table_56_79B8
 	ld a, $56
 	ld b, $80
 	farcall Function_00_0A82
 	ld hl, $DA20
-	ld de, $79B8
+	ld de, Table_56_79B8
 	ld a, $56
 	ld b, $81
 	farcall Function_00_0A82
-	call Function_57_527D
+	call ConnectDialog_PlaceCaretSprites
 	ret
 
-Label_57_4AC7:: ; 57:4AC7
+ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	ld a, [wRam_C0E6]
 	cp a, $08
 	jp nz, Label_57_4BF3
 	ld de, $8800
-	ld hl, $5AC0
+	ld hl, Data_56_5AC0
 	ld a, $56
 	ld b, $94
 	ld c, $30
 	farcall Function_00_0787
 	ld de, $8C10
-	ld hl, $4D30
+	ld hl, ConnectDialog_BlankTile
 	ld a, $57
 	ld b, $98
 	ld c, $01
 	farcall Function_00_0787
 	ld de, $9101
-	ld hl, $5DC0
+	ld hl, Data_56_5DC0
 	ld a, $56
 	ld b, $94
 	ld c, $30
 	farcall Function_00_0787
 	ld de, $9401
-	ld hl, $60C0
+	ld hl, Data_56_60C0
 	ld a, $56
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
-	call Function_57_5444
+	call ConnectDialog_RenderTypedChars
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $418A
+	ld hl, Data_56_418A
 	ld a, $56
 	farcall Function_00_08EA
 	ld a, $00
 	ld bc, $0610
 	ld de, $0000
 	ld hl, $D122
-	farcall Function_48_4679
+	farcall Tilemap_FillRectSequential
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -1468,7 +1472,7 @@ Label_57_4AC7:: ; 57:4AC7
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $56
-	farcall Function_48_40A9
+	farcall TextTiles_RenderGrid
 	ld de, $9000
 	ld hl, $D000
 	ld a, $00
@@ -1495,25 +1499,25 @@ Label_57_4AC7:: ; 57:4AC7
 	ld [wRam_D542], a
 	ldh a, [rLCDC]
 	call Function_00_082C
-	call Function_57_510F
+	call ConnectDialog_DrawPasswordField
 
 Label_57_4BF3:: ; 57:4BF3
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $49FA
+	ld hl, Data_56_49FA
 	ld a, $56
 	farcall Function_00_08EA
 	ld bc, $0040
 	ld de, $D800
 	ld hl, $7800
 	ld a, $56
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld a, [wRam_C0E6]
 	cp a, $06
 	jr nz, Label_57_4C2C
 	call Function_00_047A
 	ld hl, $D800
-	farcall Function_4F_404B
+	farcall Palette_UploadBuffer
 	ei
 	call Function_00_0392
 
@@ -1522,7 +1526,7 @@ Label_57_4C2C:: ; 57:4C2C
 	ld bc, $0610
 	ld de, $F00E
 	ld hl, $D102
-	farcall Function_48_4679
+	farcall Tilemap_FillRectSequential
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -1568,7 +1572,7 @@ Label_57_4C2C:: ; 57:4C2C
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $56
-	farcall Function_48_40A9
+	farcall TextTiles_RenderGrid
 	ld de, $8801
 	ld hl, $D000
 	ld a, $00
@@ -1590,17 +1594,17 @@ Label_57_4C2C:: ; 57:4C2C
 	ld de, $9800
 	ld b, $98
 	ld c, $02
-	call Function_57_53C6
+	call ConnectDialog_UploadMapRow
 	ld hl, $D020
 	ld de, $9820
 	ld b, $98
 	ld c, $02
-	call Function_57_53C6
+	call ConnectDialog_UploadMapRow
 	ld hl, $D040
 	ld de, $9840
 	ld b, $98
 	ld c, $02
-	call Function_57_53C6
+	call ConnectDialog_UploadMapRow
 	ld de, $9C00
 	ld hl, $D0E0
 	ld a, $00
@@ -1620,40 +1624,41 @@ Label_57_4C2C:: ; 57:4C2C
 
 ; ---- gfx $4D30-$4D40 (16 bytes) [PROBABLE] tiles-vram: 2 call site(s) (57:497C 57:4AED); first: hdma_rom_to_vram at 57:497C: hl=$4D30 a=$57 c=$01 de=$8C10 (dest VRAM $8C10, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_57_4D30:: ; 57:4D30
+ConnectDialog_BlankTile:: ; 57:4D30
+Data_57_4D30::
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
 ; ---- code $4D40-$4E4C (268 bytes) [CONFIRMED] 99 insn(s) reached by static flow only; seeds: exec x99; min discovery hops 1; entered by jpcc from 57:47C5 (executed) [executed in 3 scenarios]
 
-Label_57_4D40:: ; 57:4D40
+ConnectDialog_Draw_PasswordSaved:: ; 57:4D40
 	ld de, $9101
-	ld hl, $6EC0
+	ld hl, Data_56_6EC0
 	ld a, $56
 	ld b, $94
 	ld c, $30
 	farcall Function_00_0787
 	ld de, $9401
-	ld hl, $71C0
+	ld hl, Data_56_71C0
 	ld a, $56
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $4CCA
+	ld hl, Data_56_4CCA
 	ld a, $56
 	farcall Function_00_08EA
-	call Function_57_510F
+	call ConnectDialog_DrawPasswordField
 	ld bc, $0040
 	ld de, $D800
 	ld hl, $7800
 	ld a, $56
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld a, $00
 	ld bc, $0610
 	ld de, $0000
 	ld hl, $D122
-	farcall Function_48_4679
+	farcall Tilemap_FillRectSequential
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -1699,7 +1704,7 @@ Label_57_4D40:: ; 57:4D40
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $56
-	farcall Function_48_40A9
+	farcall TextTiles_RenderGrid
 	ld de, $9000
 	ld hl, $D000
 	ld a, $00
@@ -1724,13 +1729,13 @@ Label_57_4D40:: ; 57:4D40
 	ld a, $08
 	ld [wRam_D5A2], a
 	ld [wRam_D5C2], a
-	jp Label_57_5077
+	jp ConnectDialog_Draw_Finish
 
 ; ---- code $4E4C-$4F59 (269 bytes) [CONFIRMED] 100 insn(s); 100 executed (in up to 5/18 scenarios)
 
-Label_57_4E4C:: ; 57:4E4C
+ConnectDialog_Draw_StoredPassword:: ; 57:4E4C
 	ld de, $8800
-	ld hl, $64C0
+	ld hl, Data_56_64C0
 	ld a, $56
 	ld b, $92
 	ld c, $40
@@ -1742,22 +1747,22 @@ Label_57_4E4C:: ; 57:4E4C
 	ld c, $30
 	farcall Function_00_0787
 	ld de, $9401
-	ld hl, $6AC0
+	ld hl, Data_56_6AC0
 	ld a, $56
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $445A
+	ld hl, Data_56_445A
 	ld a, $56
 	farcall Function_00_08EA
-	call Function_57_510F
+	call ConnectDialog_DrawPasswordField
 	ld bc, $0040
 	ld de, $D800
 	ld hl, $7800
 	ld a, $56
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -1803,7 +1808,7 @@ Label_57_4E4C:: ; 57:4E4C
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $56
-	farcall Function_48_40A9
+	farcall TextTiles_RenderGrid
 	ld de, $9000
 	ld hl, $D000
 	ld a, $00
@@ -1828,26 +1833,26 @@ Label_57_4E4C:: ; 57:4E4C
 	ld a, $08
 	ld [wRam_D5A2], a
 	ld [wRam_D5C2], a
-	jp Label_57_5077
+	jp ConnectDialog_Draw_Finish
 
 ; ---- code $4F59-$5077 (286 bytes) [CONFIRMED] 106 insn(s) reached by static flow only; seeds: exec x106; min discovery hops 1; entered by jpcc from 57:47CD (PROBABLE code) [executed in 4 scenarios]
 
-Label_57_4F59:: ; 57:4F59
+ConnectDialog_Draw_ForgetConfirm:: ; 57:4F59
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $472A
+	ld hl, Data_56_472A
 	ld a, $56
 	farcall Function_00_08EA
 	ld bc, $0040
 	ld de, $D800
 	ld hl, $7800
 	ld a, $56
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld a, $80
 	ld bc, $0610
 	ld de, $F00E
 	ld hl, $D102
-	farcall Function_48_4679
+	farcall Tilemap_FillRectSequential
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -1893,7 +1898,7 @@ Label_57_4F59:: ; 57:4F59
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $56
-	farcall Function_48_40A9
+	farcall TextTiles_RenderGrid
 	ld de, $8801
 	ld hl, $D000
 	ld a, $00
@@ -1915,17 +1920,17 @@ Label_57_4F59:: ; 57:4F59
 	ld de, $9800
 	ld b, $98
 	ld c, $02
-	call Function_57_53C6
+	call ConnectDialog_UploadMapRow
 	ld hl, $D020
 	ld de, $9820
 	ld b, $98
 	ld c, $02
-	call Function_57_53C6
+	call ConnectDialog_UploadMapRow
 	ld hl, $D040
 	ld de, $9840
 	ld b, $98
 	ld c, $02
-	call Function_57_53C6
+	call ConnectDialog_UploadMapRow
 	ld de, $9C00
 	ld hl, $D0E0
 	ld a, $00
@@ -1942,9 +1947,9 @@ Label_57_4F59:: ; 57:4F59
 
 ; ---- code $5077-$50BA (67 bytes) [CONFIRMED] 22 insn(s); 22 executed (in up to 6/18 scenarios)
 
-Label_57_5077:: ; 57:5077
+ConnectDialog_Draw_Finish:: ; 57:5077
 	ld de, $8000
-	ld hl, $75C0
+	ld hl, Data_56_75C0
 	ld a, $56
 	ld b, $95
 	ld c, $20
@@ -1953,7 +1958,7 @@ Label_57_5077:: ; 57:5077
 	ld de, $D840
 	ld hl, $7840
 	ld a, $56
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ldh a, [rLCDC]
 	call Function_00_082C
 	ld a, [wRam_C0E6]
@@ -1962,7 +1967,7 @@ Label_57_5077:: ; 57:5077
 
 Label_57_50A6:: ; 57:50A6
 	farcall Function_00_0956
-	farcall Function_4F_42B4
+	farcall Palette_FadeInFromWhite
 	ret
 
 Label_57_50B3:: ; 57:50B3
@@ -1974,7 +1979,7 @@ Label_57_50B3:: ; 57:50B3
 	ld a, [wRam_C0F7]
 	or a, a
 	jr z, Label_57_50CA
-	call Function_57_5355
+	call ConnectDialog_HideLowerWindow
 	ld a, [wRam_C0D8]
 	cp a, $08
 	jr z, Label_57_50A6
@@ -1990,7 +1995,7 @@ Label_57_50CA:: ; 57:50CA
 
 Label_57_50D8:: ; 57:50D8
 	ld de, $8000
-	ld hl, $75C0
+	ld hl, Data_56_75C0
 	ld a, $56
 	ld b, $95
 	ld c, $20
@@ -1999,20 +2004,21 @@ Label_57_50D8:: ; 57:50D8
 	ld de, $D840
 	ld hl, $7840
 	ld a, $56
-	farcall Function_4F_4000
-	call Function_57_510F
+	farcall Palette_LoadToBuffer
+	call ConnectDialog_DrawPasswordField
 	ld a, [wRam_C0E6]
 	cp a, $08
 	jr nz, Label_57_510B
-	farcall Function_4F_42B4
+	farcall Palette_FadeInFromWhite
 
 Label_57_510B:: ; 57:510B
-	call Function_57_5340
+	call ConnectDialog_ShowLowerWindow
 	ret
 
 ; ---- code $510F-$5136 (39 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 5/18 scenarios); entry proven: target of an executed call/far call
 
-Function_57_510F:: ; 57:510F
+ConnectDialog_DrawPasswordField:: ; 57:510F
+Function_57_510F::
 	ld a, [wRam_C0D8]
 	cp a, $02
 	jr c, Label_57_513A
@@ -2039,20 +2045,20 @@ Label_57_513A:: ; 57:513A
 Label_57_513B:: ; 57:513B
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $418A
+	ld hl, Data_56_418A
 	ld a, $56
 	farcall Function_00_08EA
 	ld a, $00
 	ld bc, $0610
 	ld de, $0000
 	ld hl, $D122
-	farcall Function_48_4679
+	farcall Tilemap_FillRectSequential
 	jp Label_57_520D
 
 Label_57_5160:: ; 57:5160
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $49FA
+	ld hl, Data_56_49FA
 	ld a, $56
 	farcall Function_00_08EA
 	jp Label_57_520D
@@ -2060,7 +2066,7 @@ Label_57_5160:: ; 57:5160
 Label_57_5174:: ; 57:5174
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $4CCA
+	ld hl, Data_56_4CCA
 	ld a, $56
 	farcall Function_00_08EA
 	jr Label_57_51BC
@@ -2070,14 +2076,14 @@ Label_57_5174:: ; 57:5174
 Label_57_5187:: ; 57:5187
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $445A
+	ld hl, Data_56_445A
 	ld a, $56
 	farcall Function_00_08EA
 	ld a, $00
 	ld bc, $0610
 	ld de, $0000
 	ld hl, $D122
-	farcall Function_48_4679
+	farcall Tilemap_FillRectSequential
 	jr Label_57_51BC
 
 ; ---- code $51AB-$51BC (17 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1; entered by jpcc from 57:5136 (PROBABLE code) [executed in 4 scenarios]
@@ -2085,7 +2091,7 @@ Label_57_5187:: ; 57:5187
 Label_57_51AB:: ; 57:51AB
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $472A
+	ld hl, Data_56_472A
 	ld a, $56
 	farcall Function_00_08EA
 
@@ -2224,7 +2230,7 @@ Label_57_5258:: ; 57:5258
 	farcall Function_00_0787
 	ret
 
-Function_57_527D:: ; 57:527D
+ConnectDialog_PlaceCaretSprites:: ; 57:527D
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -2278,6 +2284,8 @@ Label_57_52BF:: ; 57:52BF
 	ret
 
 ; ---- code $52D8-$52FB (35 bytes) [CONFIRMED] 18 insn(s): function (ldh [$FFF2],a ; ldh a,[$FF8D] ; push af ; ... ld hl,$DA20 ; ld de,$79B8 ; ld a,$56 ; ld b,$81) falling into the FarCall site at 57:52FB (00:0A82 init_object_from_table); well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); entry evidence (verifier): a far pointer to this address is registered with `ld de,$52D8 ; ld a,$57 ; call $0A45` (00:0A45 stores de/a as a 3-byte far pointer at [hl]) at 57:42C3 and 57:4372, all static-reached (not executed); PROBABLE [executed in 4 scenarios]
+
+ConnectDialog_ObjHook_Caret:: ; 57:52D8
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -2305,7 +2313,7 @@ Label_57_52F1:: ; 57:52F1
 	ld de, $531E
 	ld a, $57
 	call Function_00_0A45
-	call Function_57_527D
+	call ConnectDialog_PlaceCaretSprites
 	ld a, $01
 	ld [wRam_C0E8], a
 
@@ -2318,6 +2326,8 @@ Label_57_5314:: ; 57:5314
 	ret
 
 ; ---- code $531E-$5340 (34 bytes) [CONFIRMED] 17 insn(s): complete function ending in ret (same WRAM7 bank save/restore prologue/epilogue as 57:52D8); well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); entry evidence (verifier): a far pointer to this address is registered with `ld de,$531E ; ld a,$57 ; call $0A45` (00:0A45 stores de/a as a 3-byte far pointer at [hl]) at 57:5304, 57:43A8 and 57:4553, all static-reached (not executed); PROBABLE [executed in 4 scenarios]
+
+ConnectDialog_ObjHook_FollowRaster:: ; 57:531E
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -2338,7 +2348,7 @@ Label_57_5314:: ; 57:5314
 
 ; ---- code $5340-$541C (220 bytes) [PROBABLE] 122 insn(s) reached by static flow only; seeds: exec x122; min discovery hops 1; entered by call from 57:510B (PROBABLE code)
 
-Function_57_5340:: ; 57:5340
+ConnectDialog_ShowLowerWindow:: ; 57:5340
 	ld a, [wRam_C0F7]
 	or a, a
 	ret nz
@@ -2351,7 +2361,7 @@ Function_57_5340:: ; 57:5340
 	ld [wRam_C0F7], a
 	ret
 
-Function_57_5355:: ; 57:5355
+ConnectDialog_HideLowerWindow:: ; 57:5355
 	ld a, [wRam_C0F7]
 	or a, a
 	ret z
@@ -2364,7 +2374,7 @@ Function_57_5355:: ; 57:5355
 	ld [wRam_C0F7], a
 	ret
 
-Function_57_5369:: ; 57:5369
+ConnectDialog_ValidatePassword:: ; 57:5369
 	ld b, $00
 	ld c, $00
 	ld a, [wRam_C1CB]
@@ -2427,16 +2437,16 @@ Label_57_53B6:: ; 57:53B6
 	ld b, $01
 	ret
 
-Function_57_53B9:: ; 57:53B9
+ConnectDialog_RefreshFieldIfDirty:: ; 57:53B9
 	ld a, [wRam_C0E8]
 	or a, a
 	ret z
-	call Function_57_510F
+	call ConnectDialog_DrawPasswordField
 	xor a, a
 	ld [wRam_C0E8], a
 	ret
 
-Function_57_53C6:: ; 57:53C6
+ConnectDialog_UploadMapRow:: ; 57:53C6
 	ld a, h
 	ldh [rHDMA1], a
 	ld a, l
@@ -2496,7 +2506,8 @@ Label_57_5411:: ; 57:5411
 
 ; ---- code $541C-$5444 (40 bytes) [CONFIRMED] 20 insn(s); 20 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
 
-Function_57_541C:: ; 57:541C
+SavedPassword_Store:: ; 57:541C
+Function_57_541C::
 	or a, a
 	jr z, Label_57_5437
 	cp a, $09
@@ -2511,7 +2522,7 @@ Label_57_5427:: ; 57:5427
 	ld b, a
 	inc de
 	ld a, $01
-	farcall Function_48_4616
+	farcall WriteByteFar
 	dec c
 	jr nz, Label_57_5427
 
@@ -2519,19 +2530,19 @@ Label_57_5437:: ; 57:5437
 	pop bc
 	ld a, $01
 	ld hl, $A880
-	farcall Function_48_4616
+	farcall WriteByteFar
 	ret
 
 ; ---- code $5444-$546C (40 bytes) [CONFIRMED] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 3; entered by call from 57:4308 (PROBABLE code) [executed in 4 scenarios]
 
-Function_57_5444:: ; 57:5444
+ConnectDialog_RenderTypedChars:: ; 57:5444
 	ld hl, $C1BA
 	ld bc, $0008
 	ld de, $D000
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $00
-	farcall Function_48_40A9
+	farcall TextTiles_RenderGrid
 	ld de, $9701
 	ld hl, $D000
 	ld a, $02
@@ -2542,7 +2553,8 @@ Function_57_5444:: ; 57:5444
 
 ; ---- code $546C-$5494 (40 bytes) [CONFIRMED] 16 insn(s); 16 executed (in up to 6/18 scenarios); entry proven: target of an executed call/far call
 
-Function_57_546C:: ; 57:546C
+ConnectDialog_PlayButtonSfx:: ; 57:546C
+Function_57_546C::
 	ld b, a
 	ld a, [wRam_C0D8]
 	cp a, $02

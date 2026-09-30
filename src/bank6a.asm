@@ -716,19 +716,16 @@ Table_6A_64B1:: ; 6A:64B1
 ; ---- text $64D3-$65A1 (206 bytes) [PROBABLE] text: 8 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_6A_64D3:: ; 6A:64D3
-	db $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $67, $83, $8C, $81, $5B, $83, $69
-	db $81, $5B, $00, $82, $B1, $82, $CC, $83, $4A, $81, $5B, $83, $67, $83, $8A, $83
-	db $62, $83, $57, $82, $CC, $81, $40, $82, $B9, $82, $C2, $82, $DF, $82, $A2, $82
-	db $F0, $82, $B5, $82, $DC, $82, $B7, $00, $83, $81, $81, $5B, $83, $8B, $82, $C1
-	db $82, $C4, $81, $48, $00, $83, $81, $81, $5B, $83, $8B, $82, $CC, $81, $40, $82
-	db $B9, $82, $C2, $82, $DF, $82, $A2, $82, $F0, $82, $B5, $82, $DC, $82, $B7, $00
-	db $83, $7A, $81, $5B, $83, $80, $83, $79, $81, $5B, $83, $57, $82, $C1, $82, $C4
-	db $81, $48, $00, $83, $7A, $81, $5B, $83, $80, $83, $79, $81, $5B, $83, $57, $82
-	db $CC, $81, $40, $82, $B9, $82, $C2, $82, $DF, $82, $A2, $82, $F0, $82, $B5, $82
-	db $DC, $82, $B7, $00, $83, $82, $83, $6F, $83, $43, $83, $8B, $82, $B6, $82, $C4
-	db $82, $F1, $00, $82, $ED, $82, $A9, $82, $E7, $82, $C8, $82, $A2, $82, $B1, $82
-	db $C6, $82, $CE, $82, $F0, $81, $40, $82, $B5, $82, $E7, $82, $D7, $82, $E9, $82
-	db $B1, $82, $C6, $82, $AA, $82, $C5, $82, $AB, $82, $DC, $82, $B7, $00
+	db $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $67, $83, $8C, $81, $5B, $83, $69, $81, $5B, $00 ; "モバイルトレーナー"
+	db $82, $B1, $82, $CC, $83, $4A, $81, $5B, $83, $67, $83, $8A, $83, $62, $83, $57, $82, $CC, $81, $40, $82, $B9, $82, $C2, $82, $DF, $82, $A2, $82, $F0, $82, $B5, $82, $DC ; "このカートリッジの　せつめいをしま"
+	db $82, $B7, $00 ; "す"
+	db $83, $81, $81, $5B, $83, $8B, $82, $C1, $82, $C4, $81, $48, $00 ; "メールって？"
+	db $83, $81, $81, $5B, $83, $8B, $82, $CC, $81, $40, $82, $B9, $82, $C2, $82, $DF, $82, $A2, $82, $F0, $82, $B5, $82, $DC, $82, $B7, $00 ; "メールの　せつめいをします"
+	db $83, $7A, $81, $5B, $83, $80, $83, $79, $81, $5B, $83, $57, $82, $C1, $82, $C4, $81, $48, $00 ; "ホームページって？"
+	db $83, $7A, $81, $5B, $83, $80, $83, $79, $81, $5B, $83, $57, $82, $CC, $81, $40, $82, $B9, $82, $C2, $82, $DF, $82, $A2, $82, $F0, $82, $B5, $82, $DC, $82, $B7, $00 ; "ホームページの　せつめいをします"
+	db $83, $82, $83, $6F, $83, $43, $83, $8B, $82, $B6, $82, $C4, $82, $F1, $00 ; "モバイルじてん"
+	db $82, $ED, $82, $A9, $82, $E7, $82, $C8, $82, $A2, $82, $B1, $82, $C6, $82, $CE, $82, $F0, $81, $40, $82, $B5, $82, $E7, $82, $D7, $82, $E9, $82, $B1, $82, $C6, $82, $AA ; "わからないことばを　しらべることが"
+	db $82, $C5, $82, $AB, $82, $DC, $82, $B7, $00 ; "できます"
 
 ; ---- data $65A1-$65A8 (7 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 6567-65F5 by higher-priority evidence]
 
@@ -738,17 +735,14 @@ Data_6A_65A1:: ; 6A:65A1
 ; ---- text $65A8-$6651 (169 bytes) [PROBABLE] text: 7 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_6A_65A8:: ; 6A:65A8
-	db $83, $81, $81, $5B, $83, $8B, $82, $CC, $81, $40, $82, $B9, $82, $C2, $82, $DF
-	db $82, $A2, $82, $F0, $82, $B5, $82, $DC, $82, $B7, $00, $83, $41, $83, $68, $83
-	db $8C, $83, $58, $82, $BF, $82, $E5, $82, $A4, $00, $83, $41, $83, $68, $83, $8C
-	db $83, $58, $82, $BF, $82, $E5, $82, $A4, $82, $CC, $81, $40, $82, $B9, $82, $C2
-	db $82, $DF, $82, $A2, $82, $F0, $82, $B5, $82, $DC, $82, $B7, $00, $83, $7A, $81
-	db $5B, $83, $80, $83, $79, $81, $5B, $83, $57, $00, $83, $7A, $81, $5B, $83, $80
-	db $83, $79, $81, $5B, $83, $57, $82, $CC, $81, $40, $82, $B9, $82, $C2, $82, $DF
-	db $82, $A2, $82, $F0, $82, $B5, $82, $DC, $82, $B7, $00, $83, $79, $81, $5B, $83
-	db $57, $83, $8A, $83, $58, $83, $67, $00, $83, $79, $81, $5B, $83, $57, $83, $8A
-	db $83, $58, $83, $67, $82, $CC, $81, $40, $82, $B9, $82, $C2, $82, $DF, $82, $A2
-	db $82, $F0, $82, $B5, $82, $DC, $82, $B7, $00
+	db $83, $81, $81, $5B, $83, $8B, $82, $CC, $81, $40, $82, $B9, $82, $C2, $82, $DF, $82, $A2, $82, $F0, $82, $B5, $82, $DC, $82, $B7, $00 ; "メールの　せつめいをします"
+	db $83, $41, $83, $68, $83, $8C, $83, $58, $82, $BF, $82, $E5, $82, $A4, $00 ; "アドレスちょう"
+	db $83, $41, $83, $68, $83, $8C, $83, $58, $82, $BF, $82, $E5, $82, $A4, $82, $CC, $81, $40, $82, $B9, $82, $C2, $82, $DF, $82, $A2, $82, $F0, $82, $B5, $82, $DC, $82, $B7 ; "アドレスちょうの　せつめいをします"
+	db $00 ; ""
+	db $83, $7A, $81, $5B, $83, $80, $83, $79, $81, $5B, $83, $57, $00 ; "ホームページ"
+	db $83, $7A, $81, $5B, $83, $80, $83, $79, $81, $5B, $83, $57, $82, $CC, $81, $40, $82, $B9, $82, $C2, $82, $DF, $82, $A2, $82, $F0, $82, $B5, $82, $DC, $82, $B7, $00 ; "ホームページの　せつめいをします"
+	db $83, $79, $81, $5B, $83, $57, $83, $8A, $83, $58, $83, $67, $00 ; "ページリスト"
+	db $83, $79, $81, $5B, $83, $57, $83, $8A, $83, $58, $83, $67, $82, $CC, $81, $40, $82, $B9, $82, $C2, $82, $DF, $82, $A2, $82, $F0, $82, $B5, $82, $DC, $82, $B7, $00 ; "ページリストの　せつめいをします"
 
 ; ---- data $6651-$6652 (1 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
 
@@ -773,49 +767,43 @@ Table_6A_666A:: ; 6A:666A
 ; ---- text $6672-$667B (9 bytes) [PROBABLE] NUL-terminated Shift-JIS string pointed to by a word of the 6A:6652-6672 tables; 4 x 81 48 (full-width ?) placeholder
 
 String_6A_6672:: ; 6A:6672
-	db $81, $48, $81, $48, $81, $48, $81, $48, $00
+	db $81, $48, $81, $48, $81, $48, $81, $48, $00 ; "？？？？"
 
 ; ---- text $667B-$6696 (27 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_6A_667B:: ; 6A:667B
-	db $81, $48, $81, $48, $81, $48, $82, $CC, $81, $40, $82, $B9, $82, $C2, $82, $DF
-	db $82, $A2, $82, $F0, $82, $B5, $82, $DC, $82, $B7, $00
+	db $81, $48, $81, $48, $81, $48, $82, $CC, $81, $40, $82, $B9, $82, $C2, $82, $DF, $82, $A2, $82, $F0, $82, $B5, $82, $DC, $82, $B7, $00 ; "？？？の　せつめいをします"
 
 ; ---- text $6696-$669F (9 bytes) [PROBABLE] NUL-terminated Shift-JIS string pointed to by a word of the 6A:6652-6672 tables; 4 x 81 48 (full-width ?) placeholder [v4: bytes 6696-669F were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 String_6A_6696:: ; 6A:6696
-	db $81, $48, $81, $48, $81, $48, $81, $48, $00
+	db $81, $48, $81, $48, $81, $48, $81, $48, $00 ; "？？？？"
 
 ; ---- text $669F-$66C0 (33 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_6A_669F:: ; 6A:669F
-	db $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $82, $CC, $81, $40
-	db $82, $B9, $82, $C2, $82, $DF, $82, $A2, $82, $F0, $82, $B5, $82, $DC, $82, $B7
-	db $00
+	db $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $82, $CC, $81, $40, $82, $B9, $82, $C2, $82, $DF, $82, $A2, $82, $F0, $82, $B5, $82, $DC, $82, $B7, $00 ; "？？？？？？の　せつめいをします"
 
 ; ---- text $66C0-$66C9 (9 bytes) [PROBABLE] NUL-terminated Shift-JIS string pointed to by a word of the 6A:6652-6672 tables; 4 x 81 48 (full-width ?) placeholder [v4: bytes 66C0-66C9 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 String_6A_66C0:: ; 6A:66C0
-	db $81, $48, $81, $48, $81, $48, $81, $48, $00
+	db $81, $48, $81, $48, $81, $48, $81, $48, $00 ; "？？？？"
 
 ; ---- text $66C9-$66EC (35 bytes) [PROBABLE] NUL-terminated Shift-JIS string pointed to by a word of the 6A:6652-6672 tables; text after the placeholder [v4: bytes 66C9-66EC were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 String_6A_66C9:: ; 6A:66C9
-	db $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $82, $CC
-	db $81, $40, $82, $B9, $82, $C2, $82, $DF, $82, $A2, $82, $F0, $82, $B5, $82, $DC
-	db $82, $B7, $00
+	db $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $82, $CC, $81, $40, $82, $B9, $82, $C2, $82, $DF, $82, $A2, $82, $F0, $82, $B5, $82, $DC, $82, $B7 ; "？？？？？？？の　せつめいをします"
+	db $00 ; ""
 
 ; ---- text $66EC-$66F5 (9 bytes) [PROBABLE] NUL-terminated Shift-JIS string pointed to by a word of the 6A:6652-6672 tables; 4 x 81 48 (full-width ?) placeholder
 
 String_6A_66EC:: ; 6A:66EC
-	db $81, $48, $81, $48, $81, $48, $81, $48, $00
+	db $81, $48, $81, $48, $81, $48, $81, $48, $00 ; "？？？？"
 
 ; ---- text $66F5-$6716 (33 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_6A_66F5:: ; 6A:66F5
-	db $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $82, $CC, $81, $40
-	db $82, $B9, $82, $C2, $82, $DF, $82, $A2, $82, $F0, $82, $B5, $82, $DC, $82, $B7
-	db $00
+	db $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $82, $CC, $81, $40, $82, $B9, $82, $C2, $82, $DF, $82, $A2, $82, $F0, $82, $B5, $82, $DC, $82, $B7, $00 ; "？？？？？？の　せつめいをします"
 
 ; ---- data $6716-$69E6 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 6C:5A45: hl=$6716 a=$6A b=18 rows c=20 cols (tiles then attrs) de=$D000
 

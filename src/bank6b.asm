@@ -8,6 +8,8 @@ INCLUDE "constants/macros.inc"
 SECTION "Bank6B", ROMX[$4000], BANK[$6B]
 
 ; ---- zero $4000-$4060 (96 bytes) [HYPOTHESIS] 0x00 run of 100 bytes [clipped from 4000-4064 by higher-priority proposals]
+
+NonCgb_Tilemap:: ; 6B:4000
 	ds $60, $00
 
 ; ---- gfx $4060-$4C30 (3024 bytes) [PROBABLE] tiles-2bpp: heuristic: 154 coherent tiles (hsim2=0.792 vsim2=0.865, 33 blank) parity 0
@@ -79,6 +81,8 @@ Data_6B_4060:: ; 6B:4060
 	db $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10
 	db $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10
 	db $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10
+
+NonCgb_Tiles:: ; 6B:4480
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $07, $07, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $C3, $C3, $25, $25
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $02, $02, $82, $82, $4F, $4F
@@ -208,7 +212,7 @@ Data_6B_4060:: ; 6B:4060
 
 ; ---- code $4C80-$4D1B (155 bytes) [PROBABLE] 75 insn(s) reached by static flow only; seeds: exec x75; min discovery hops 1; entered by call from 00:02A9 (PROBABLE code)
 
-Function_6B_4C80:: ; 6B:4C80
+NonCgb_ErrorScreen:: ; 6B:4C80
 	xor a, a
 	ld bc, $00FC
 	ld hl, $C0D4
@@ -262,7 +266,7 @@ Label_6B_4CE7:: ; 6B:4CE7
 	ldh a, [rLY]
 	cp a, $91
 	jr nz, Label_6B_4CE7
-	call Function_6B_4CF6
+	call NonCgb_FadeStep
 	or a, a
 	jr nz, Label_6B_4CE6
 
@@ -270,13 +274,13 @@ Label_6B_4CF3:: ; 6B:4CF3
 	halt
 	jr Label_6B_4CF3
 
-Function_6B_4CF6:: ; 6B:4CF6
+NonCgb_FadeStep:: ; 6B:4CF6
 	ld hl, $C0E7
 	dec [hl]
 	ret nz
 	ld [hl], $14
 	ld a, [wRam_C0E8]
-	ld hl, $4D1B
+	ld hl, NonCgb_BgpFadeTable
 	add a, l
 	ld l, a
 	ld a, h
@@ -295,7 +299,8 @@ Function_6B_4CF6:: ; 6B:4CF6
 
 ; ---- data $4D1B-$4D20 (5 bytes) [PROBABLE] 5-byte BGP fade table 00 40 90 E4 D9 read by the non-CGB screen routine 4CF6 (ld hl,$4D1B at 6B:4D00 ; add a,l ; ld a,[hl] ; ldh [rBGP],a ; index [C0E8] incremented and compared with 4, so entries 0-3 are used); previous code ends with ret, zero padding follows
 
-Data_6B_4D1B:: ; 6B:4D1B
+NonCgb_BgpFadeTable:: ; 6B:4D1B
+Data_6B_4D1B::
 	db $00, $40, $90, $E4, $D9
 
 ; ---- zero $4D20-$8000 (13024 bytes) [PROBABLE] trailing 0x00 padding to end of bank

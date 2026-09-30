@@ -8,6 +8,8 @@ INCLUDE "constants/macros.inc"
 SECTION "Bank19", ROMX[$4000], BANK[$19]
 
 ; ---- code $4000-$400A (10 bytes) [PROBABLE] start of bank: xor a / ld bc,$00FC / ld hl,$C0D4 / call $04D8 (same prologue as 19:4980), decode chain ends exactly at the site-validated inline far call `call $06D1` at 400A; entry unproven (no caller found)
+
+DebugFlags_Run:: ; 19:4000
 	xor a, a
 	ld bc, $00FC
 	ld hl, $C0D4
@@ -120,7 +122,7 @@ SECTION "Bank19", ROMX[$4000], BANK[$19]
 	ld a, $7F
 	ld [wRam_D807], a
 	ld hl, $DA10
-	ld de, $481D
+	ld de, Table_DebugFlags_Objects
 	ld a, $19
 	ld b, $00
 	farcall Function_00_0A82
@@ -142,43 +144,44 @@ SECTION "Bank19", ROMX[$4000], BANK[$19]
 	ld bc, $1010
 	ld de, $1000
 	ld hl, $D002
-	farcall Function_48_4679
-	call Function_19_43E9
-	call Function_19_4532
+	farcall Tilemap_FillRectSequential
+	call DebugFlags_LoadHelpText
+	call DebugFlags_DrawEntryName
 	ldh a, [rLCDC]
 	call Function_00_0887
 	farcall Function_00_0956
 	call LCDOn
-	farcall Function_4F_42B4
-	call Function_19_482B
+	farcall Palette_FadeInFromWhite
+	call DebugFlags_SlideIn
 
-Label_19_4199:: ; 19:4199
+DebugFlags_Loop:: ; 19:4199
 	farcall Function_00_0956
 	call Function_00_044B
-	farcall Function_7D_7BA4
-	farcall Function_7D_7BC1
+	farcall Joypad_UpdateIdleFrames
+	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
 
 ; ---- ptrtable $41B1-$41BB (10 bytes) [PROBABLE] inline table of `call $056A` (JoypadDispatch) at 19:41AE: 5 entries; fixed length (5 words) by the routine
 
-Table_19_41B1:: ; 19:41B1
-	dw Label_19_41CB
-	dw Label_19_42A1
-	dw Label_19_42A1
-	dw Label_19_42B7
-	dw Label_19_41BB
+Table_DebugFlags_Buttons:: ; 19:41B1
+Table_19_41B1::
+	dw DebugFlags_OnA
+	dw DebugFlags_Exit
+	dw DebugFlags_Exit
+	dw DebugFlags_OnStart
+	dw DebugFlags_Idle
 
 ; ---- code $41BB-$447C (705 bytes) [PROBABLE] 330 insn(s) reached by static flow only; seeds: site x330; min discovery hops 0; entered by table from 19:41AE (PROBABLE code)
 
-Label_19_41BB:: ; 19:41BB
-	call Function_19_47ED
-	call Function_19_4885
+DebugFlags_Idle:: ; 19:41BB
+	call DebugFlags_PlaceCursor
+	call DebugFlags_UpdateHoldTimer
 	ldh a, [hJoyPressedRepeat]
 	and a, $F0
-	call nz, Function_19_4333
-	jp Label_19_4199
+	call nz, DebugFlags_HandleDpad
+	jp DebugFlags_Loop
 
-Label_19_41CB:: ; 19:41CB
+DebugFlags_OnA:: ; 19:41CB
 	ld a, [wRam_C0D8]
 	cp a, $01
 	jp z, Label_19_41D8
@@ -199,7 +202,7 @@ Label_19_41E1:: ; 19:41E1
 
 Label_19_41E8:: ; 19:41E8
 	ld a, [wRam_C0E5]
-	ld hl, $490E
+	ld hl, Table_DebugFlags_Entries
 	add a, a
 	inc a
 	add a, a
@@ -219,11 +222,11 @@ Label_19_41E8:: ; 19:41E8
 	xor a, b
 	ld b, a
 	ld a, $01
-	farcall Function_48_4616
+	farcall WriteByteFar
 
 Label_19_420D:: ; 19:420D
 	ld a, [wRam_C0E5]
-	ld hl, $490E
+	ld hl, Table_DebugFlags_Entries
 	add a, a
 	add a, a
 	add a, l
@@ -240,9 +243,9 @@ Label_19_420D:: ; 19:420D
 	xor a, c
 	ld b, a
 	ld a, $01
-	farcall Function_48_4616
-	call Function_19_4532
-	jp Label_19_4199
+	farcall WriteByteFar
+	call DebugFlags_DrawEntryName
+	jp DebugFlags_Loop
 
 Label_19_4234:: ; 19:4234
 	ld a, [wRam_C0D4]
@@ -262,7 +265,7 @@ Label_19_4248:: ; 19:4248
 	push hl
 	ld d, h
 	ld e, l
-	call Function_19_48A0
+	call DebugFlags_ReadValue
 	ld h, b
 	ld l, c
 	call Divide16
@@ -276,7 +279,7 @@ Label_19_4248:: ; 19:4248
 Label_19_4260:: ; 19:4260
 	cp a, $09
 	jr nz, Label_19_4281
-	call Function_19_48A0
+	call DebugFlags_ReadValue
 	ld d, b
 	ld e, c
 	pop hl
@@ -294,12 +297,12 @@ Label_19_4260:: ; 19:4260
 	ld d, a
 	ld h, d
 	ld l, e
-	call Function_19_48D5
-	call Function_19_4532
-	jp Label_19_4199
+	call DebugFlags_WriteValue
+	call DebugFlags_DrawEntryName
+	jp DebugFlags_Loop
 
 Label_19_4281:: ; 19:4281
-	call Function_19_48A0
+	call DebugFlags_ReadValue
 	ld h, b
 	ld l, c
 	pop de
@@ -307,7 +310,7 @@ Label_19_4281:: ; 19:4281
 	ld d, h
 	ld e, l
 	jr c, Label_19_4295
-	call Function_19_4321
+	call DebugFlags_EntryHasHighByte
 	jr nz, Label_19_4298
 	ld a, d
 	or a, a
@@ -317,18 +320,18 @@ Label_19_4295:: ; 19:4295
 	ld de, $0000
 
 Label_19_4298:: ; 19:4298
-	call Function_19_48D5
-	call Function_19_4532
-	jp Label_19_4199
+	call DebugFlags_WriteValue
+	call DebugFlags_DrawEntryName
+	jp DebugFlags_Loop
 
-Label_19_42A1:: ; 19:42A1
-	call Function_19_4858
-	farcall Function_4F_4370
-	farcall Function_4E_4795
-	farcall Function_68_49B6
+DebugFlags_Exit:: ; 19:42A1
+	call DebugFlags_SlideOut
+	farcall Palette_FadeOutToWhite
+	farcall SaveCheck_Update
+	farcall Settings_UpdateChecksumAndBackup
 	ret
 
-Label_19_42B7:: ; 19:42B7
+DebugFlags_OnStart:: ; 19:42B7
 	ld a, [wRam_C0D8]
 	inc a
 	ld [wRam_C0D8], a
@@ -342,15 +345,15 @@ Label_19_42C7:: ; 19:42C7
 	jp z, Label_19_42FE
 	cp a, $02
 	jp z, Label_19_430D
-	call Function_19_4321
+	call DebugFlags_EntryHasHighByte
 	jr z, Label_19_42EA
 	ld de, $8010
 	ld hl, $DA10
 	call Function_00_0A65
 	ld a, $00
 	ld [wRam_C0D4], a
-	call Function_19_4532
-	jp Label_19_4199
+	call DebugFlags_DrawEntryName
+	jp DebugFlags_Loop
 
 Label_19_42EA:: ; 19:42EA
 	ld de, $8050
@@ -358,15 +361,15 @@ Label_19_42EA:: ; 19:42EA
 	call Function_00_0A65
 	ld a, $08
 	ld [wRam_C0D4], a
-	call Function_19_4532
-	jp Label_19_4199
+	call DebugFlags_DrawEntryName
+	jp DebugFlags_Loop
 
 Label_19_42FE:: ; 19:42FE
 	ld de, $80A0
 	ld hl, $DA10
 	call Function_00_0A65
-	call Function_19_4532
-	jp Label_19_4199
+	call DebugFlags_DrawEntryName
+	jp DebugFlags_Loop
 
 Label_19_430D:: ; 19:430D
 	ld de, $80A0
@@ -374,12 +377,12 @@ Label_19_430D:: ; 19:430D
 	call Function_00_0A65
 	ld a, $00
 	ld [wRam_C0D4], a
-	call Function_19_4532
-	jp Label_19_4199
+	call DebugFlags_DrawEntryName
+	jp DebugFlags_Loop
 
-Function_19_4321:: ; 19:4321
+DebugFlags_EntryHasHighByte:: ; 19:4321
 	ld a, [wRam_C0E5]
-	ld hl, $490E
+	ld hl, Table_DebugFlags_Entries
 	add a, a
 	inc a
 	add a, a
@@ -392,7 +395,7 @@ Function_19_4321:: ; 19:4321
 	or a, [hl]
 	ret
 
-Function_19_4333:: ; 19:4333
+DebugFlags_HandleDpad:: ; 19:4333
 	ld b, a
 	ld a, [wRam_C0D8]
 	cp a, $01
@@ -417,7 +420,7 @@ Label_19_4354:: ; 19:4354
 	cp a, $01
 	ret z
 	ld [wRam_C0E5], a
-	call Function_19_4532
+	call DebugFlags_DrawEntryName
 	jr Label_19_436F
 
 Label_19_4363:: ; 19:4363
@@ -426,10 +429,10 @@ Label_19_4363:: ; 19:4363
 	ret z
 	dec a
 	ld [wRam_C0E5], a
-	call Function_19_4532
+	call DebugFlags_DrawEntryName
 
 Label_19_436F:: ; 19:436F
-	call Function_19_43D7
+	call DebugFlags_EntryHasHighByte2
 	ret nz
 	ld a, [wRam_C0D8]
 	cp a, $01
@@ -447,7 +450,7 @@ Label_19_4385:: ; 19:4385
 	ret z
 	dec a
 	ld [wRam_C0D4], a
-	call Function_19_47ED
+	call DebugFlags_PlaceCursor
 	ret
 
 Label_19_4392:: ; 19:4392
@@ -456,7 +459,7 @@ Label_19_4392:: ; 19:4392
 	cp a, $05
 	ret z
 	ld [wRam_C0D4], a
-	call Function_19_47ED
+	call DebugFlags_PlaceCursor
 	ret
 
 Label_19_43A0:: ; 19:43A0
@@ -471,7 +474,7 @@ Label_19_43A0:: ; 19:43A0
 	ret
 
 Label_19_43B3:: ; 19:43B3
-	call Function_19_43D7
+	call DebugFlags_EntryHasHighByte2
 	ld b, $00
 	jr nz, Label_19_43BC
 	ld b, $08
@@ -482,7 +485,7 @@ Label_19_43BC:: ; 19:43BC
 	ret z
 	dec a
 	ld [wRam_C0D4], a
-	call Function_19_47ED
+	call DebugFlags_PlaceCursor
 	ret
 
 Label_19_43C9:: ; 19:43C9
@@ -491,12 +494,12 @@ Label_19_43C9:: ; 19:43C9
 	cp a, $10
 	ret z
 	ld [wRam_C0D4], a
-	call Function_19_47ED
+	call DebugFlags_PlaceCursor
 	ret
 
-Function_19_43D7:: ; 19:43D7
+DebugFlags_EntryHasHighByte2:: ; 19:43D7
 	ld a, [wRam_C0E5]
-	ld hl, $490E
+	ld hl, Table_DebugFlags_Entries
 	add a, a
 	inc a
 	add a, a
@@ -509,7 +512,7 @@ Function_19_43D7:: ; 19:43D7
 	or a, [hl]
 	ret
 
-Function_19_43E9:: ; 19:43E9
+DebugFlags_LoadHelpText:: ; 19:43E9
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -527,7 +530,7 @@ Function_19_43E9:: ; 19:43E9
 	ld a, $03
 	ldh [hRam_FFB0], a
 	ld a, $19
-	farcall Function_48_40A9
+	farcall TextTiles_RenderGrid
 	ld de, $8800
 	ld hl, $D000
 	ld a, $00
@@ -552,7 +555,7 @@ Function_19_43E9:: ; 19:43E9
 	ld a, $03
 	ldh [hRam_FFB0], a
 	ld a, $19
-	farcall Function_48_40A9
+	farcall TextTiles_RenderGrid
 	ld de, $8000
 	ld hl, $D000
 	ld a, $00
@@ -568,28 +571,23 @@ Function_19_43E9:: ; 19:43E9
 
 ; ---- text $447C-$452F (179 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_19_447C:: ; 19:447C
-	db $81, $81, $81, $81, $81, $40, $82, $63, $82, $64, $82, $61, $82, $74, $82, $66
-	db $81, $40, $82, $6C, $82, $6E, $82, $63, $82, $64, $81, $40, $81, $81, $81, $81
-	db $81, $40, $81, $AA, $81, $AB, $81, $46, $82, $A6, $82, $E7, $82, $D4, $81, $40
-	db $81, $40, $81, $A9, $81, $A8, $81, $46, $83, $4A, $81, $5B, $83, $5C, $83, $8B
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $60, $81, $46, $82, $D6
-	db $82, $F1, $82, $B1, $82, $A4, $0D, $0A, $81, $40, $82, $72, $82, $94, $82, $81
-	db $81, $46, $81, $40, $82, $61, $82, $68, $82, $73, $81, $A9, $81, $A8, $82, $63
-	db $82, $64, $82, $62, $81, $40, $81, $40, $82, $72, $82, $85, $82, $8C, $81, $5E
-	db $82, $61, $81, $46, $82, $B5, $82, $E3, $82, $A4, $82, $E8, $82, $E5, $82, $A4
-	db $0D, $0A, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C
-	db $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C
-	db $81, $7C, $00
+String_DebugFlags_Help:: ; 19:447C
+String_19_447C::
+	db $81, $81, $81, $81, $81, $40, $82, $63, $82, $64, $82, $61, $82, $74, $82, $66, $81, $40, $82, $6C, $82, $6E, $82, $63, $82, $64, $81, $40, $81, $81, $81, $81, $81, $40 ; "＝＝　ＤＥＢＵＧ　ＭＯＤＥ　＝＝　"
+	db $81, $AA, $81, $AB, $81, $46, $82, $A6, $82, $E7, $82, $D4, $81, $40, $81, $40, $81, $A9, $81, $A8, $81, $46, $83, $4A, $81, $5B, $83, $5C, $83, $8B, $81, $40, $81, $40 ; "↑↓：えらぶ　　←→：カーソル　　"
+	db $81, $40, $81, $40, $81, $40, $82, $60, $81, $46, $82, $D6, $82, $F1, $82, $B1, $82, $A4, $0D, $0A, $81, $40, $82, $72, $82, $94, $82, $81, $81, $46, $81, $40, $82, $61 ; "　　　Ａ：へんこう<$0D><$0A>　Ｓｔａ：　Ｂ"
+	db $82, $68, $82, $73, $81, $A9, $81, $A8, $82, $63, $82, $64, $82, $62, $81, $40, $81, $40, $82, $72, $82, $85, $82, $8C, $81, $5E, $82, $61, $81, $46, $82, $B5, $82, $E3 ; "ＩＴ←→ＤＥＣ　　Ｓｅｌ／Ｂ：しゅ"
+	db $82, $A4, $82, $E8, $82, $E5, $82, $A4, $0D, $0A, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C ; "うりょう<$0D><$0A>－－－－－－－－－－－－"
+	db $81, $7C, $81, $7C, $81, $7C, $81, $7C, $00 ; "－－－－"
 
 ; ---- text $452F-$4532 (3 bytes) [PROBABLE] 2-byte Shift-JIS char 81 A3 + NUL, right after the NUL of String_19_447C and before code at 4532
 
 String_19_452F:: ; 19:452F
-	db $81, $A3, $00
+	db $81, $A3, $00 ; "▲"
 
 ; ---- code $4532-$47AE (636 bytes) [PROBABLE] 365 insn(s) reached by static flow only; seeds: site x365; min discovery hops 4; entered by call from 19:417F (PROBABLE code)
 
-Function_19_4532:: ; 19:4532
+DebugFlags_DrawEntryName:: ; 19:4532
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -617,7 +615,7 @@ Function_19_4532:: ; 19:4532
 	ld a, $03
 	ldh [hRam_FFB0], a
 	ld a, $19
-	farcall Function_48_40A9
+	farcall TextTiles_RenderGrid
 	ld de, $9400
 	ld hl, $D000
 	ld a, $00
@@ -629,10 +627,10 @@ Function_19_4532:: ; 19:4532
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
-	call Function_19_458A
+	call DebugFlags_DrawValue
 	ret
 
-Function_19_458A:: ; 19:458A
+DebugFlags_DrawValue:: ; 19:458A
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -666,7 +664,7 @@ Function_19_458A:: ; 19:458A
 	ld [de], a
 	inc de
 	ld a, [wRam_C0E5]
-	ld hl, $490E
+	ld hl, Table_DebugFlags_Entries
 	add a, a
 	inc a
 	add a, a
@@ -689,7 +687,7 @@ Label_19_45E3:: ; 19:45E3
 	swap a
 	and a, $0F
 	add a, a
-	ld hl, $47AE
+	ld hl, String_DebugFlags_Chars
 	add a, l
 	ld l, a
 	ld a, h
@@ -704,7 +702,7 @@ Label_19_45E3:: ; 19:45E3
 	ld a, b
 	and a, $0F
 	add a, a
-	ld hl, $47AE
+	ld hl, String_DebugFlags_Chars
 	add a, l
 	ld l, a
 	ld a, h
@@ -717,7 +715,7 @@ Label_19_45E3:: ; 19:45E3
 	ld [de], a
 	inc de
 	ld a, [wRam_C0E5]
-	ld hl, $490E
+	ld hl, Table_DebugFlags_Entries
 	add a, a
 	add a, a
 	add a, l
@@ -739,7 +737,7 @@ Label_19_4626:: ; 19:4626
 	swap a
 	and a, $0F
 	add a, a
-	ld hl, $47AE
+	ld hl, String_DebugFlags_Chars
 	add a, l
 	ld l, a
 	ld a, h
@@ -754,7 +752,7 @@ Label_19_4626:: ; 19:4626
 	ld a, b
 	and a, $0F
 	add a, a
-	ld hl, $47AE
+	ld hl, String_DebugFlags_Chars
 	add a, l
 	ld l, a
 	ld a, h
@@ -780,7 +778,7 @@ Label_19_4626:: ; 19:4626
 	ld a, $03
 	ldh [hRam_FFB0], a
 	ld a, $02
-	farcall Function_48_40A9
+	farcall TextTiles_RenderGrid
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -800,7 +798,7 @@ Label_19_4626:: ; 19:4626
 Label_19_468F:: ; 19:468F
 	ld de, $D000
 	ld a, [wRam_C0E5]
-	ld hl, $490E
+	ld hl, Table_DebugFlags_Entries
 	add a, a
 	inc a
 	add a, a
@@ -824,7 +822,7 @@ Label_19_46AF:: ; 19:46AF
 	ld a, b
 	and a, $01
 	add a, a
-	ld hl, $47AE
+	ld hl, String_DebugFlags_Chars
 	add a, l
 	ld l, a
 	ld a, h
@@ -853,7 +851,7 @@ Label_19_46CE:: ; 19:46CE
 
 Label_19_46D4:: ; 19:46D4
 	ld a, [wRam_C0E5]
-	ld hl, $490E
+	ld hl, Table_DebugFlags_Entries
 	add a, a
 	add a, a
 	add a, l
@@ -874,7 +872,7 @@ Label_19_46ED:: ; 19:46ED
 	ld a, b
 	and a, $01
 	add a, a
-	ld hl, $47AE
+	ld hl, String_DebugFlags_Chars
 	add a, l
 	ld l, a
 	ld a, h
@@ -896,7 +894,7 @@ Label_19_46ED:: ; 19:46ED
 	ld a, $03
 	ldh [hRam_FFB0], a
 	ld a, $02
-	farcall Function_48_40A9
+	farcall TextTiles_RenderGrid
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -925,7 +923,7 @@ Label_19_4746:: ; 19:4746
 	dec c
 	jr nz, Label_19_4746
 	ld de, $D00A
-	call Function_19_48A0
+	call DebugFlags_ReadValue
 	ld h, b
 	ld l, c
 	ld b, d
@@ -939,7 +937,7 @@ Label_19_4756:: ; 19:4756
 	push hl
 	ld a, e
 	add a, a
-	ld hl, $47AE
+	ld hl, String_DebugFlags_Chars
 	add a, l
 	ld l, a
 	ld a, h
@@ -963,7 +961,7 @@ Label_19_4756:: ; 19:4756
 	ld a, $03
 	ldh [hRam_FFB0], a
 	ld a, $02
-	farcall Function_48_40A9
+	farcall TextTiles_RenderGrid
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -982,15 +980,14 @@ Label_19_4756:: ; 19:4756
 
 ; ---- text $47AE-$47ED (63 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_19_47AE:: ; 19:47AE
-	db $82, $4F, $82, $50, $82, $51, $82, $52, $82, $53, $82, $54, $82, $55, $82, $56
-	db $82, $57, $82, $58, $82, $60, $82, $61, $82, $62, $82, $63, $82, $64, $82, $65
-	db $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C
-	db $81, $79, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $81, $7A, $00
+String_DebugFlags_Chars:: ; 19:47AE
+String_19_47AE::
+	db $82, $4F, $82, $50, $82, $51, $82, $52, $82, $53, $82, $54, $82, $55, $82, $56, $82, $57, $82, $58, $82, $60, $82, $61, $82, $62, $82, $63, $82, $64, $82, $65, $81, $7C ; "０１２３４５６７８９ＡＢＣＤＥＦ－"
+	db $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $79, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $81, $7A, $00 ; "－－－－－－－【０００００】"
 
 ; ---- code $47ED-$481D (48 bytes) [PROBABLE] 26 insn(s) reached by static flow only; seeds: site x26; min discovery hops 2; entered by call from 19:41BB (PROBABLE code)
 
-Function_19_47ED:: ; 19:47ED
+DebugFlags_PlaceCursor:: ; 19:47ED
 	ld a, [wRam_C0D8]
 	cp a, $01
 	jr z, Label_19_47F9
@@ -1024,7 +1021,8 @@ Label_19_480B:: ; 19:480B
 
 ; ---- words $481D-$4821 (4 bytes) [PROBABLE] 1 object-table entries of 4 bytes (ptr to frame table, ptr to script; 0000 = unused); de=$481D a=$19 at 19:4136 (1 entry); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs
 
-Table_19_481D:: ; 19:481D
+Table_DebugFlags_Objects:: ; 19:481D
+Table_19_481D::
 	dw Data_19_4821, $4828
 
 ; ---- data $4821-$482B (10 bytes) [PROBABLE] 1 object record: frame table 4821 (word 4823), frame 4823 = 01 [00 00 00 01] (count 1, one OAM entry), script 4828 = 01 [00 04] (one pair); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs
@@ -1034,7 +1032,7 @@ Data_19_4821:: ; 19:4821
 
 ; ---- code $482B-$490E (227 bytes) [PROBABLE] 121 insn(s) reached by static flow only; seeds: site x121; min discovery hops 0; entered by call from 19:4196 (PROBABLE code)
 
-Function_19_482B:: ; 19:482B
+DebugFlags_SlideIn:: ; 19:482B
 	ld a, $99
 	ld [wRam_C0E5], a
 	ld a, $11
@@ -1059,7 +1057,7 @@ Label_19_484A:: ; 19:484A
 	jr nz, Label_19_4835
 	ret
 
-Function_19_4858:: ; 19:4858
+DebugFlags_SlideOut:: ; 19:4858
 	ld a, $00
 	ld [wRam_C0E5], a
 	ld a, $11
@@ -1084,7 +1082,7 @@ Label_19_4877:: ; 19:4877
 	jr nz, Label_19_4862
 	ret
 
-Function_19_4885:: ; 19:4885
+DebugFlags_UpdateHoldTimer:: ; 19:4885
 	ld a, [wRam_C0E8]
 	ld b, a
 	ldh a, [hJoyHeld]
@@ -1102,9 +1100,9 @@ Label_19_4896:: ; 19:4896
 	ld [wRam_C0E7], a
 	ret
 
-Function_19_48A0:: ; 19:48A0
+DebugFlags_ReadValue:: ; 19:48A0
 	ld a, [wRam_C0E5]
-	ld hl, $490E
+	ld hl, Table_DebugFlags_Entries
 	add a, a
 	inc a
 	add a, a
@@ -1125,7 +1123,7 @@ Function_19_48A0:: ; 19:48A0
 
 Label_19_48BD:: ; 19:48BD
 	ld a, [wRam_C0E5]
-	ld hl, $490E
+	ld hl, Table_DebugFlags_Entries
 	add a, a
 	add a, a
 	add a, l
@@ -1141,9 +1139,9 @@ Label_19_48BD:: ; 19:48BD
 	ld c, a
 	ret
 
-Function_19_48D5:: ; 19:48D5
+DebugFlags_WriteValue:: ; 19:48D5
 	ld a, [wRam_C0E5]
-	ld hl, $490E
+	ld hl, Table_DebugFlags_Entries
 	add a, a
 	inc a
 	add a, a
@@ -1159,11 +1157,11 @@ Function_19_48D5:: ; 19:48D5
 	jr z, Label_19_48F3
 	ld a, $01
 	ld b, d
-	farcall Function_48_4616
+	farcall WriteByteFar
 
 Label_19_48F3:: ; 19:48F3
 	ld a, [wRam_C0E5]
-	ld hl, $490E
+	ld hl, Table_DebugFlags_Entries
 	add a, a
 	add a, a
 	add a, l
@@ -1176,32 +1174,36 @@ Label_19_48F3:: ; 19:48F3
 	ld l, a
 	ld a, $01
 	ld b, e
-	farcall Function_48_4616
+	farcall WriteByteFar
 	ret
 
 ; ---- data $490E-$4914 (6 bytes) [PROBABLE] 6-byte table (bf b0 00 00 14 49) addressed by `ld hl,$490E ; add a,a ; ... add a,l` at 12 sites in code of this bank (19:41EC, 4211, 4325, 43DB, 45CB, 460F, 4696, 46D8, 48A4, 48C1, 48D9, 48F7); the last word 4914 points at the string that follows; field meaning unknown [v4: entries are 4 bytes (word at +4a, or at +4a+2 in the `add a,a ; inc a ; add a,a` variant); with a=1 the accessed words 4912/4914/4916 would overlap String_19_4914, so the 6-byte extent is only the neighbour boundary and the field layout is HYPOTHESIS; entry 0 = (B0BF, 0000) where B0BF is an SRAM address passed to `ld a,1 ; call $1620`]
 
-Data_19_490E:: ; 19:490E
+Table_DebugFlags_Entries:: ; 19:490E
+Data_19_490E::
 	db $BF, $B0, $00, $00, $14, $49
 
 ; ---- text $4914-$4933 (31 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_19_4914:: ; 19:4914
-	db $81, $79, $83, $54, $83, $43, $83, $93, $83, $41, $83, $62, $83, $76, $83, $66
-	db $83, $6F, $83, $62, $83, $4F, $83, $74, $83, $89, $83, $4F, $81, $7A, $00
+String_DebugFlags_Title:: ; 19:4914
+String_19_4914::
+	db $81, $79, $83, $54, $83, $43, $83, $93, $83, $41, $83, $62, $83, $76, $83, $66, $83, $6F, $83, $62, $83, $4F, $83, $74, $83, $89, $83, $4F, $81, $7A, $00 ; "【サインアップデバッグフラグ】"
 
 ; ---- zero $4933-$4940 (13 bytes) [PROBABLE] zero padding between String_19_4914 and the palette block at 4940
 	ds $D, $00
 
 ; ---- data $4940-$4980 (64 bytes) [PROBABLE] palette-rgb555: heuristic: 32 RGB555 words as 8 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
 
-Data_19_4940:: ; 19:4940
+Palette_DebugScreens:: ; 19:4940
+Data_19_4940::
 	db $00, $00, $1B, $25, $9F, $51, $FF, $7F, $FF, $7F, $4A, $29, $B5, $56, $00, $00
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 
 ; ---- code $4980-$498A (10 bytes) [PROBABLE] function start after a palette block: xor a / ld bc,$00FC / ld hl,$C0D4 / call $04D8 (same as 19:4000), chain ends exactly at the site-validated far call at 498A; entry unproven
+
+Debug_ErrorScreenTest:: ; 19:4980
 	xor a, a
 	ld bc, $00FC
 	ld hl, $C0D4
@@ -1306,9 +1308,9 @@ Label_19_4990:: ; 19:4990
 	ldh [rSVBK], a
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $4940
+	ld hl, Palette_DebugScreens
 	ld a, $19
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld a, $80
 	ld bc, $0400
 	ld hl, $D000
@@ -1322,39 +1324,40 @@ Label_19_4990:: ; 19:4990
 	ld bc, $0810
 	ld de, $F001
 	ld hl, $D142
-	farcall Function_48_4679
-	call Function_19_4BCF
-	call Function_19_4C74
+	farcall Tilemap_FillRectSequential
+	call DebugErrorTest_LoadHelpText
+	call DebugErrorTest_DrawValues
 	ldh a, [rLCDC]
 	call Function_00_082C
 	farcall Function_00_0956
-	farcall Function_4F_42B4
+	farcall Palette_FadeInFromWhite
 
-Label_19_4AEB:: ; 19:4AEB
+DebugErrorTest_Loop:: ; 19:4AEB
 	call Function_00_044B
-	farcall Function_7D_7BA4
-	farcall Function_7D_7BC1
+	farcall Joypad_UpdateIdleFrames
+	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
 
 ; ---- ptrtable $4AFD-$4B07 (10 bytes) [PROBABLE] inline table of `call $056A` (JoypadDispatch) at 19:4AFA: 5 entries; fixed length (5 words) by the routine
 
-Table_19_4AFD:: ; 19:4AFD
-	dw Label_19_4B12
+Table_DebugErrorTest_Buttons:: ; 19:4AFD
+Table_19_4AFD::
+	dw DebugErrorTest_OnA
 	dw Label_19_4B3B
-	dw Label_19_4B3E
+	dw DebugErrorTest_Exit
 	dw Label_19_4B47
-	dw Label_19_4B07
+	dw DebugErrorTest_Idle
 
 ; ---- code $4B07-$4C1F (280 bytes) [PROBABLE] 119 insn(s) reached by static flow only; seeds: site x119; min discovery hops 0; entered by table from 19:4AFA (PROBABLE code)
 
-Label_19_4B07:: ; 19:4B07
-	call Function_19_4D7E
+DebugErrorTest_Idle:: ; 19:4B07
+	call DebugErrorTest_UpdateHoldTimer
 	ldh a, [hJoyPressedRepeat]
-	call Function_19_4B4A
-	jp Label_19_4AEB
+	call DebugErrorTest_HandleDpad
+	jp DebugErrorTest_Loop
 
-Label_19_4B12:: ; 19:4B12
-	farcall Function_4F_4370
+DebugErrorTest_OnA:: ; 19:4B12
+	farcall Palette_FadeOutToWhite
 	ld a, [wRam_C0E5]
 	ld l, a
 	ld a, [wRam_C0D6]
@@ -1362,7 +1365,7 @@ Label_19_4B12:: ; 19:4B12
 	ld a, [wRam_C0D4]
 	push af
 	push hl
-	farcall Function_5C_5150
+	farcall CommErr_ShowScreen
 	pop hl
 	pop af
 	ld [wRam_C0D4], a
@@ -1373,17 +1376,17 @@ Label_19_4B12:: ; 19:4B12
 	jp Label_19_4990
 
 Label_19_4B3B:: ; 19:4B3B
-	jp Label_19_4AEB
+	jp DebugErrorTest_Loop
 
-Label_19_4B3E:: ; 19:4B3E
-	farcall Function_4F_4370
+DebugErrorTest_Exit:: ; 19:4B3E
+	farcall Palette_FadeOutToWhite
 	ld a, $01
 	ret
 
 Label_19_4B47:: ; 19:4B47
-	jp Label_19_4AEB
+	jp DebugErrorTest_Loop
 
-Function_19_4B4A:: ; 19:4B4A
+DebugErrorTest_HandleDpad:: ; 19:4B4A
 	bit 6, a
 	jr nz, Label_19_4B5B
 	bit 7, a
@@ -1401,14 +1404,14 @@ Label_19_4B5B:: ; 19:4B5B
 	ld a, [wRam_C0D6]
 	inc a
 	ld [wRam_C0D6], a
-	call Function_19_4C74
+	call DebugErrorTest_DrawValues
 	ret
 
 Label_19_4B6C:: ; 19:4B6C
 	ld a, [wRam_C0D4]
 	inc a
 	ld [wRam_C0D4], a
-	call Function_19_4C74
+	call DebugErrorTest_DrawValues
 	ret
 
 Label_19_4B77:: ; 19:4B77
@@ -1418,14 +1421,14 @@ Label_19_4B77:: ; 19:4B77
 	ld a, [wRam_C0D6]
 	dec a
 	ld [wRam_C0D6], a
-	call Function_19_4C74
+	call DebugErrorTest_DrawValues
 	ret
 
 Label_19_4B88:: ; 19:4B88
 	ld a, [wRam_C0D4]
 	dec a
 	ld [wRam_C0D4], a
-	call Function_19_4C74
+	call DebugErrorTest_DrawValues
 	ret
 
 Label_19_4B93:: ; 19:4B93
@@ -1435,14 +1438,14 @@ Label_19_4B93:: ; 19:4B93
 	ld a, [wRam_C0E5]
 	dec a
 	ld [wRam_C0E5], a
-	call Function_19_4C74
+	call DebugErrorTest_DrawValues
 	ret
 
 Label_19_4BA5:: ; 19:4BA5
 	ld a, [wRam_C0E5]
 	sub a, $04
 	ld [wRam_C0E5], a
-	call Function_19_4C74
+	call DebugErrorTest_DrawValues
 	ret
 
 Label_19_4BB1:: ; 19:4BB1
@@ -1452,24 +1455,24 @@ Label_19_4BB1:: ; 19:4BB1
 	ld a, [wRam_C0E5]
 	inc a
 	ld [wRam_C0E5], a
-	call Function_19_4C74
+	call DebugErrorTest_DrawValues
 	ret
 
 Label_19_4BC3:: ; 19:4BC3
 	ld a, [wRam_C0E5]
 	add a, $04
 	ld [wRam_C0E5], a
-	call Function_19_4C74
+	call DebugErrorTest_DrawValues
 	ret
 
-Function_19_4BCF:: ; 19:4BCF
+DebugErrorTest_LoadHelpText:: ; 19:4BCF
 	ld hl, $4C1F
 	ld de, $D000
 	ld bc, $0010
 	ld a, $03
 	ldh [hRam_FFB0], a
 	ld a, $19
-	farcall Function_48_40A9
+	farcall TextTiles_RenderGrid
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -1498,17 +1501,15 @@ Function_19_4BCF:: ; 19:4BCF
 
 ; ---- text $4C1F-$4C74 (85 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_19_4C1F:: ; 19:4C1F
-	db $82, $60, $81, $46, $83, $47, $83, $89, $81, $5B, $81, $40, $82, $61, $81, $7B
-	db $81, $AA, $81, $AB, $81, $46, $82, $B5, $82, $E3, $82, $E9, $82, $A2, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $82, $72, $82, $85, $82, $8C, $81, $46
-	db $82, $64, $82, $6D, $82, $63, $0D, $0A, $81, $40, $81, $AA, $81, $AB, $81, $69
-	db $81, $A9, $81, $A8, $81, $6A, $81, $46, $82, $6D, $82, $95, $82, $8D, $82, $82
-	db $82, $85, $82, $92, $00
+String_DebugErrorTest_Help:: ; 19:4C1F
+String_19_4C1F::
+	db $82, $60, $81, $46, $83, $47, $83, $89, $81, $5B, $81, $40, $82, $61, $81, $7B, $81, $AA, $81, $AB, $81, $46, $82, $B5, $82, $E3, $82, $E9, $82, $A2, $81, $40, $81, $40 ; "Ａ：エラー　Ｂ＋↑↓：しゅるい　　"
+	db $81, $40, $81, $40, $81, $40, $82, $72, $82, $85, $82, $8C, $81, $46, $82, $64, $82, $6D, $82, $63, $0D, $0A, $81, $40, $81, $AA, $81, $AB, $81, $69, $81, $A9, $81, $A8 ; "　　　Ｓｅｌ：ＥＮＤ<$0D><$0A>　↑↓（←→"
+	db $81, $6A, $81, $46, $82, $6D, $82, $95, $82, $8D, $82, $82, $82, $85, $82, $92, $00 ; "）：Ｎｕｍｂｅｒ"
 
 ; ---- code $4C74-$4D5E (234 bytes) [PROBABLE] 147 insn(s) reached by static flow only; seeds: site x147; min discovery hops 4; entered by call from 19:4AD7 (PROBABLE code)
 
-Function_19_4C74:: ; 19:4C74
+DebugErrorTest_DrawValues:: ; 19:4C74
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -1535,7 +1536,7 @@ Function_19_4C74:: ; 19:4C74
 	swap a
 	and a, $0F
 	add a, a
-	ld hl, $4D5E
+	ld hl, Data_DebugErrorTest_HexChars
 	add a, l
 	ld l, a
 	ld a, h
@@ -1550,7 +1551,7 @@ Function_19_4C74:: ; 19:4C74
 	ld a, b
 	and a, $0F
 	add a, a
-	ld hl, $4D5E
+	ld hl, Data_DebugErrorTest_HexChars
 	add a, l
 	ld l, a
 	ld a, h
@@ -1567,7 +1568,7 @@ Function_19_4C74:: ; 19:4C74
 	swap a
 	and a, $0F
 	add a, a
-	ld hl, $4D5E
+	ld hl, Data_DebugErrorTest_HexChars
 	add a, l
 	ld l, a
 	ld a, h
@@ -1582,7 +1583,7 @@ Function_19_4C74:: ; 19:4C74
 	ld a, b
 	and a, $0F
 	add a, a
-	ld hl, $4D5E
+	ld hl, Data_DebugErrorTest_HexChars
 	add a, l
 	ld l, a
 	ld a, h
@@ -1599,7 +1600,7 @@ Function_19_4C74:: ; 19:4C74
 	swap a
 	and a, $0F
 	add a, a
-	ld hl, $4D5E
+	ld hl, Data_DebugErrorTest_HexChars
 	add a, l
 	ld l, a
 	ld a, h
@@ -1614,7 +1615,7 @@ Function_19_4C74:: ; 19:4C74
 	ld a, b
 	and a, $0F
 	add a, a
-	ld hl, $4D5E
+	ld hl, Data_DebugErrorTest_HexChars
 	add a, l
 	ld l, a
 	ld a, h
@@ -1640,7 +1641,7 @@ Function_19_4C74:: ; 19:4C74
 	ld a, $03
 	ldh [hRam_FFB0], a
 	ld a, $02
-	farcall Function_48_40A9
+	farcall TextTiles_RenderGrid
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1659,13 +1660,14 @@ Function_19_4C74:: ; 19:4C74
 
 ; ---- data $4D5E-$4D7E (32 bytes) [PROBABLE] 16 Shift-JIS full-width characters 0-9 A-F (82 4F..82 58, 82 60..82 65), no NUL: hex-digit lookup table indexed by `ld hl,$4D5E ; add a,a ; add a,l` at 6 sites (19:4CA6, 4CB9, 4CD1, 4CE4, 4CFC, 4D0F)
 
-Data_19_4D5E:: ; 19:4D5E
+Data_DebugErrorTest_HexChars:: ; 19:4D5E
+Data_19_4D5E::
 	db $82, $4F, $82, $50, $82, $51, $82, $52, $82, $53, $82, $54, $82, $55, $82, $56
 	db $82, $57, $82, $58, $82, $60, $82, $61, $82, $62, $82, $63, $82, $64, $82, $65
 
 ; ---- code $4D7E-$4D99 (27 bytes) [PROBABLE] 14 insn(s) reached by static flow only; seeds: site x14; min discovery hops 2; entered by call from 19:4B07 (PROBABLE code)
 
-Function_19_4D7E:: ; 19:4D7E
+DebugErrorTest_UpdateHoldTimer:: ; 19:4D7E
 	ld a, [wRam_C0E8]
 	ld b, a
 	ldh a, [hJoyHeld]

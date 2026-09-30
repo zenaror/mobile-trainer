@@ -8,6 +8,8 @@ INCLUDE "constants/macros.inc"
 SECTION "Bank4E", ROMX[$4000], BANK[$4E]
 
 ; ---- code $4000-$4002 (2 bytes) [HYPOTHESIS] 1 instruction (ldh [$FFD2],a) that falls straight into the proven far-call site at 4E:4002 (same function: the code from 4002 uses hFFD2); first instruction of the bank; no caller/pointer to 4E:4000 found (whole-ROM search), so the entry is unproven
+
+Function_4E_4000:: ; 4E:4000
 	ldh [hRam_FFD2], a
 
 ; ---- code $4002-$4172 (368 bytes) [PROBABLE] 160 insn(s) reached by static flow only; seeds: site x160; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
@@ -24,7 +26,7 @@ SECTION "Bank4E", ROMX[$4000], BANK[$4E]
 	and a, $7F
 	ld c, a
 	ld b, $00
-	ld hl, $654B
+	ld hl, Table_Browser_FrameDescriptors
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
@@ -56,24 +58,24 @@ SECTION "Bank4E", ROMX[$4000], BANK[$4E]
 	push af
 	ld bc, $0028
 	ld de, $D840
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $0010
 	add hl, bc
 	pop af
 	ld bc, $0008
 	ld de, $D878
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld a, $0C
 	ld [wRam_C2CE], a
 	xor a, a
 	ld [wRam_C2CF], a
-	farcall Function_69_401A
+	farcall ConnIcon_Refresh
 	call Function_00_0A09
 	ld a, $04
 	ld [wRam_C2F3], a
-	farcall Function_4E_5FB9
+	farcall Browser_DrawCommTimer
 	call Function_00_044B
-	farcall Function_4F_42B4
+	farcall Palette_FadeInFromWhite
 	ld a, $E0
 	ldh [hRam_FFD0], a
 	ld a, $41
@@ -94,7 +96,7 @@ Label_4E_409C:: ; 4E:409C
 	ldh a, [rLCDC]
 	call Function_00_07CB
 	farcall Function_00_0956
-	farcall Function_69_40D1
+	farcall ConnIcon_LoadGraphicsIfRequested
 	call Function_00_044B
 	jp Label_4E_409C
 
@@ -104,7 +106,7 @@ Label_4E_40C8:: ; 4E:40C8
 	and a, $7F
 	ld c, a
 	ld b, $00
-	ld hl, $654B
+	ld hl, Table_Browser_FrameDescriptors
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
@@ -136,13 +138,13 @@ Label_4E_40C8:: ; 4E:40C8
 	push af
 	ld bc, $0028
 	ld de, $D840
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $0010
 	add hl, bc
 	pop af
 	ld bc, $0008
 	ld de, $D878
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	xor a, a
 	ld [wRam_C2D3], a
 	dec a
@@ -158,7 +160,7 @@ Label_4E_40C8:: ; 4E:40C8
 	ldh [rSVBK], a
 	call Function_00_047A
 	ld hl, $D800
-	farcall Function_4F_404B
+	farcall Palette_UploadBuffer
 	ei
 	call Function_00_0392
 	ldh [hScratchA], a
@@ -172,10 +174,10 @@ Label_4E_40C8:: ; 4E:40C8
 
 Label_4E_4154:: ; 4E:4154
 	farcall Function_00_0956
-	farcall Function_4E_5FB9
+	farcall Browser_DrawCommTimer
 	call Function_00_044B
-	farcall Function_7D_7BA4
-	farcall Function_7D_7BC1
+	farcall Joypad_UpdateIdleFrames
+	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
 
 ; ---- ptrtable $4172-$417C (10 bytes) [PROBABLE] inline table of `call $056A` (JoypadDispatch) at 4E:416F: 5 entries; fixed length (5 words) by the routine
@@ -230,8 +232,8 @@ Label_4E_41C5:: ; 4E:41C5
 	jp Label_4E_4154
 
 Label_4E_41C8:: ; 4E:41C8
-	farcall Function_4E_4795
-	farcall Function_4F_4370
+	farcall SaveCheck_Update
+	farcall Palette_FadeOutToWhite
 	farcall Function_00_09B6
 	xor a, a
 	ldh [hRam_FFA7], a
@@ -409,9 +411,9 @@ Label_4E_4687:: ; 4E:4687
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	jp Function_4E_4795
+	jp SaveCheck_Update
 
-Function_4E_46A3:: ; 4E:46A3
+Browser_BeginSession:: ; 4E:46A3
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -433,10 +435,10 @@ Label_4E_46BA:: ; 4E:46BA
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	farcall Function_51_4245
-	jp Function_4E_4795
+	farcall CommTime_Reset
+	jp SaveCheck_Update
 
-Function_4E_46CF:: ; 4E:46CF
+SaveCheck_Verify:: ; 4E:46CF
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -446,7 +448,7 @@ Function_4E_46CF:: ; 4E:46CF
 	ld de, $0000
 	ld hl, $A9E8
 	ld bc, $0010
-	call Function_4E_4739
+	call SaveCheck_Sum16
 	ld a, [sSram_A9EA]
 	cp a, e
 	jr nz, Label_4E_4730
@@ -456,10 +458,10 @@ Function_4E_46CF:: ; 4E:46CF
 	ld de, $0000
 	ld hl, $A000
 	ld bc, $0684
-	call Function_4E_4739
+	call SaveCheck_Sum16
 	ld hl, $A9E4
 	ld bc, $0004
-	call Function_4E_4739
+	call SaveCheck_Sum16
 	ld a, [sSram_A9E6]
 	cp a, e
 	jr nz, Label_4E_4730
@@ -492,7 +494,8 @@ Label_4E_4730:: ; 4E:4730
 
 ; ---- code $4739-$47EB (178 bytes) [CONFIRMED] 81 insn(s); 81 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
 
-Function_4E_4739:: ; 4E:4739
+SaveCheck_Sum16:: ; 4E:4739
+Function_4E_4739::
 	call Function_00_0392
 
 Label_4E_473C:: ; 4E:473C
@@ -508,7 +511,7 @@ Label_4E_473C:: ; 4E:473C
 	jr nz, Label_4E_473C
 	ret
 
-Function_4E_4749:: ; 4E:4749
+SaveCheck_ResetBlock:: ; 4E:4749
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -542,7 +545,7 @@ Function_4E_4749:: ; 4E:4749
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 
-Function_4E_4795:: ; 4E:4795
+SaveCheck_Update:: ; 4E:4795
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -552,7 +555,7 @@ Function_4E_4795:: ; 4E:4795
 	ld de, $0000
 	ld hl, $A9E8
 	ld bc, $0010
-	call Function_4E_4739
+	call SaveCheck_Sum16
 	ld a, e
 	ld [sSram_A9EA], a
 	cpl
@@ -564,10 +567,10 @@ Function_4E_4795:: ; 4E:4795
 	ld de, $0000
 	ld hl, $A000
 	ld bc, $0684
-	call Function_4E_4739
+	call SaveCheck_Sum16
 	ld hl, $A9E4
 	ld bc, $0004
-	call Function_4E_4739
+	call SaveCheck_Sum16
 	ld a, e
 	ld [sSram_A9E6], a
 	cpl
@@ -582,6 +585,8 @@ Function_4E_4795:: ; 4E:4795
 	ret
 
 ; ---- code $47EB-$4866 (123 bytes) [HYPOTHESIS] complete function: SRAM enable ($0A -> [$0000] via hFFF5), copies a record from SRAM $A9F0-$A9FB/$A9E3/$A9EC/C69F/C2C2 into [hl], SRAM disable, ret; 68 insn, the only direct target (jr) lands on an instruction start, ends exactly at the executed function 4E:4866 right after the CONFIRMED function 4E:4739; same SRAM-record style as 4E:417C; no caller/pointer found in the ROM (search for far calls, ld r16 and words), entry unproven
+
+Function_4E_47EB:: ; 4E:47EB
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -681,7 +686,7 @@ Label_4E_4886:: ; 4E:4886
 	ld [rRAMG], a
 	ret
 
-Function_4E_488D:: ; 4E:488D
+Browser_LoadUrlFromSramBank3:: ; 4E:488D
 	ld a, c
 	ld [wRam_C2C5], a
 	ld a, b
@@ -706,13 +711,13 @@ Function_4E_488D:: ; 4E:488D
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	jp Label_4E_4962
+	jp Browser_LoadAndDispatch
 
-Function_4E_48CB:: ; 4E:48CB
+Browser_LoadHomePage:: ; 4E:48CB
 	ld a, $00
 	ld [wRam_C2C0], a
 	ld [wRam_C2C3], a
-	farcall Function_68_44D0
+	farcall Settings_GetSelectedDialEntry
 	ld a, b
 	inc a
 	ld [wRam_C2C4], a
@@ -723,15 +728,16 @@ Function_4E_48CB:: ; 4E:48CB
 	ld [wRam_C2C2], a
 	ld a, $FF
 	ld [wRam_C2C0], a
-	farcall Function_7D_7BC1
-	ld hl, $4904
+	farcall Joypad_UpdateUnsaved
+	ld hl, String_Browser_HomeUrl
 	ld de, $C380
 	farcall CopyString
-	jp Label_4E_4962
+	jp Browser_LoadAndDispatch
 
 ; ---- data $4904-$493B (55 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
-Data_4E_4904:: ; 4E:4904
+String_Browser_HomeUrl:: ; 4E:4904
+Data_4E_4904::
 	db $68, $74, $74, $70, $3A, $2F, $2F, $67, $61, $6D, $65, $62, $6F, $79, $2E, $64
 	db $61, $74, $61, $63, $65, $6E, $74, $65, $72, $2E, $6E, $65, $2E, $6A, $70, $2F
 	db $30, $31, $2F, $43, $47, $42, $2D, $42, $39, $41, $4A, $2F, $69, $6E, $64, $65
@@ -739,11 +745,11 @@ Data_4E_4904:: ; 4E:4904
 
 ; ---- code $493B-$4962 (39 bytes) [CONFIRMED] 15 insn(s) reached by static flow only; seeds: exec x15; min discovery hops 2; entered by far from 4F:470E (PROBABLE code) [executed in 1 scenarios]
 
-Function_4E_493B:: ; 4E:493B
+Browser_LoadStagedUrl:: ; 4E:493B
 	ld a, $00
 	ld [wRam_C2C0], a
 	ld [wRam_C2C3], a
-	farcall Function_68_44D0
+	farcall Settings_GetSelectedDialEntry
 	ld a, b
 	inc a
 	ld [wRam_C2C4], a
@@ -754,13 +760,13 @@ Function_4E_493B:: ; 4E:493B
 	ld [wRam_C2C2], a
 	ld a, $FF
 	ld [wRam_C2C0], a
-	jp Label_4E_4962
+	jp Browser_LoadAndDispatch
 
 ; ---- code $4962-$4993 (49 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 4/18 scenarios)
 
-Label_4E_4962:: ; 4E:4962
-	farcall Function_4C_4C4E
-	farcall Function_4C_4B54
+Browser_LoadAndDispatch:: ; 4E:4962
+	farcall Browser_ClearCaches
+	farcall Browser_HistoryReset
 	xor a, a
 	ld [wRam_C2CA], a
 	ld [wRam_C334], a
@@ -769,7 +775,7 @@ Label_4E_4962:: ; 4E:4962
 	ld [wRam_C2CB], a
 	ld a, [wTimerEnable]
 	ld [wRam_C2CC], a
-	farcall Function_4C_4000
+	farcall Browser_LoadPage
 	xor a, a
 	ld [wRam_C2CB], a
 	ld a, [wRam_C2CA]
@@ -778,31 +784,31 @@ Label_4E_4962:: ; 4E:4962
 ; ---- ptrtable $4993-$49A1 (14 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4E:4990: 7 entries; end pinned by the executed instruction at 49A1
 
 Table_4E_4993:: ; 4E:4993
-	dw Label_4E_49A1
-	dw Label_4E_5009
-	dw Label_4E_5009
-	dw Label_4E_5018
-	dw Label_4E_5018
-	dw Label_4E_5018
-	dw Label_4E_5018
+	dw Browser_PageView_Enter
+	dw Browser_Leave_Return
+	dw Browser_Leave_Return
+	dw Browser_Leave_OnError
+	dw Browser_Leave_OnError
+	dw Browser_Leave_OnError
+	dw Browser_Leave_OnError
 
 ; ---- code $49A1-$49F5 (84 bytes) [CONFIRMED] 26 insn(s); 26 executed (in up to 1/18 scenarios)
 
-Label_4E_49A1:: ; 4E:49A1
+Browser_PageView_Enter:: ; 4E:49A1
 	farcall Function_00_09B6
-	farcall Function_4E_6196
+	farcall Browser_LoadFrameGraphics
 	ld a, $00
 	ldh [hRam_FFDE], a
 	ld bc, $0000
 	ld de, $0000
-	call Function_4E_5423
-	farcall Function_4E_52E7
+	call Browser_SetScroll
+	farcall Browser_RenderPage
 	ld b, $14
 	ld c, $01
-	farcall Function_7D_7C00
-	farcall Function_69_4000
+	farcall Joypad_SetRepeatTiming
+	farcall ConnIcon_Init
 	farcall Function_00_0956
-	farcall Function_4F_42B4
+	farcall Palette_FadeInFromWhite
 	ld a, [wRam_C2CC]
 	bit 4, a
 	jr z, Label_4E_49F5
@@ -846,8 +852,8 @@ Label_4E_4A05:: ; 4E:4A05
 	ld a, [wRam_C1DC]
 	ld d, $01
 	ld e, a
-	farcall Function_72_4000
-	farcall Function_4E_5EC0
+	farcall Dialog_ShowMonitored
+	farcall Browser_DrawScrollIndicators
 	ldh a, [hRam_FFF6]
 	call JumpTableInline
 
@@ -857,31 +863,31 @@ Table_4E_4A37:: ; 4E:4A37
 	dw Label_4E_4A43
 	dw Label_4E_4A43
 	dw Label_4E_4A43
-	dw Label_4E_5162
-	dw Label_4E_50BE
-	dw Label_4E_51A6
+	dw Browser_Menu_LinkLost
+	dw Browser_ConnectionNotice
+	dw Browser_Menu_AdapterError
 
 ; ---- code $4A43-$4A85 (66 bytes) [CONFIRMED] 28 insn(s); 28 executed (in up to 1/18 scenarios)
 
 Label_4E_4A43:: ; 4E:4A43
 	ld b, $14
 	ld c, $01
-	farcall Function_7D_7C00
+	farcall Joypad_SetRepeatTiming
 	xor a, a
 	ld [wRam_C1DC], a
 	ldh [hRam_FFF6], a
 	ld a, $01
 	ld [wRam_C2C1], a
 
-Label_4E_4A58:: ; 4E:4A58
+Browser_PageView_Loop:: ; 4E:4A58
 	ld a, [wRam_C2CC]
 	bit 4, a
 	jr z, Label_4E_4AB8
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp nz, Label_4E_51A6
+	jp nz, Browser_Menu_AdapterError
 	bit 4, a
-	jp z, Label_4E_5162
+	jp z, Browser_Menu_LinkLost
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
@@ -930,26 +936,26 @@ Label_4E_4AB2:: ; 4E:4AB2
 Label_4E_4AB3:: ; 4E:4AB3
 	pop hl
 	or a, a
-	jp nz, Label_4E_50BE
+	jp nz, Browser_ConnectionNotice
 
 Label_4E_4AB8:: ; 4E:4AB8
 	ld a, [wTimerEnable]
 	ld [wRam_C2CC], a
 	farcall Function_00_0956
-	farcall Function_4E_5FB9
-	farcall Function_69_40D1
+	farcall Browser_DrawCommTimer
+	farcall ConnIcon_LoadGraphicsIfRequested
 	call Function_00_044B
-	farcall Function_7D_7BA4
-	farcall Function_7D_7BC1
+	farcall Joypad_UpdateIdleFrames
+	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
 
 ; ---- ptrtable $4AE2-$4AEC (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 4E:4ADF: 5 entries; fixed length (5 words) by the routine; every byte read as data in a trace
 
 Table_4E_4AE2:: ; 4E:4AE2
-	dw Label_4E_4B0E
-	dw Label_4E_4BAD
+	dw Browser_PageView_FollowLink
+	dw Browser_PageView_GoBack
 	dw Label_4E_4B0B
-	dw Label_4E_4CEB
+	dw Browser_PageView_OpenMenu
 	dw Label_4E_4AEC
 
 ; ---- code $4AEC-$4AF9 (13 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
@@ -960,32 +966,32 @@ Label_4E_4AEC:: ; 4E:4AEC
 	jr nz, Label_4E_4AF9
 	bit 7, a
 	jr nz, Label_4E_4B02
-	jp Label_4E_4A58
+	jp Browser_PageView_Loop
 
 ; ---- code $4AF9-$4B02 (9 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jrcc from 4E:4AF0 (executed) [executed in 1 scenarios]
 
 Label_4E_4AF9:: ; 4E:4AF9
-	farcall Function_4E_56DB
-	jp Label_4E_4A58
+	farcall Browser_SelectPrevLink
+	jp Browser_PageView_Loop
 
 ; ---- code $4B02-$4B7E (124 bytes) [CONFIRMED] 51 insn(s); 51 executed (in up to 1/18 scenarios)
 
 Label_4E_4B02:: ; 4E:4B02
-	farcall Function_4E_5716
-	jp Label_4E_4A58
+	farcall Browser_SelectNextLink
+	jp Browser_PageView_Loop
 
 Label_4E_4B0B:: ; 4E:4B0B
-	jp Label_4E_4A58
+	jp Browser_PageView_Loop
 
-Label_4E_4B0E:: ; 4E:4B0E
+Browser_PageView_FollowLink:: ; 4E:4B0E
 	ldh a, [hRam_FFDE]
 	or a, a
-	jp z, Label_4E_4A58
+	jp z, Browser_PageView_Loop
 	cp a, $FF
-	jp z, Label_4E_4A58
-	farcall Function_4E_5512
+	jp z, Browser_PageView_Loop
+	farcall Browser_FindLinkElement
 	or a, a
-	jp z, Label_4E_4A58
+	jp z, Browser_PageView_Loop
 	call Function_00_0392
 	ld bc, $000E
 	add hl, bc
@@ -1008,9 +1014,9 @@ Label_4E_4B0E:: ; 4E:4B0E
 	ld l, a
 	inc hl
 	ld de, $D500
-	farcall Function_74_5981
+	farcall HtmlUrl_Resolve
 	ld hl, $C380
-	farcall Function_74_5BA0
+	farcall HtmlUrl_NormalizePath
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -1023,7 +1029,7 @@ Label_4E_4B0E:: ; 4E:4B0E
 	ld [wRam_C2CC], a
 	ld a, $01
 	ld [wRam_C334], a
-	farcall Function_4C_4000
+	farcall Browser_LoadPage
 	ld a, [wRam_C2CA]
 	call JumpTableInline
 
@@ -1043,19 +1049,19 @@ Table_4E_4B7E:: ; 4E:4B7E
 Label_4E_4B8C:: ; 4E:4B8C
 	ld de, $C380
 	xor a, a
-	farcall Function_4C_4BC1
+	farcall Browser_HistoryPop
 	ld bc, $1000
 	ld de, $B000
 	ld a, $03
-	farcall Function_4C_4CF6
-	farcall Function_74_4207
+	farcall PageCache_Pop
+	farcall Html_ParsePage
 
 ; ---- code $4BAA-$4BF2 (72 bytes) [CONFIRMED] 28 insn(s); 28 executed (in up to 1/18 scenarios)
 
 Label_4E_4BAA:: ; 4E:4BAA
-	jp Label_4E_49A1
+	jp Browser_PageView_Enter
 
-Label_4E_4BAD:: ; 4E:4BAD
+Browser_PageView_GoBack:: ; 4E:4BAD
 	call Function_00_0392
 	ld a, $06
 	ldh [hWRAMBank], a
@@ -1066,7 +1072,7 @@ Label_4E_4BAD:: ; 4E:4BAD
 	call CopyBytes
 	ld de, $C380
 	xor a, a
-	farcall Function_4C_4BC1
+	farcall Browser_HistoryPop
 	or a, a
 	jp z, Label_4E_4CB2
 	ldh a, [hWRAMBank]
@@ -1080,7 +1086,7 @@ Label_4E_4BAD:: ; 4E:4BAD
 	ld bc, $1000
 	ld de, $B000
 	ld a, $03
-	farcall Function_4C_4CF6
+	farcall PageCache_Pop
 	or a, a
 	jp nz, Label_4E_4C8B
 
@@ -1098,7 +1104,7 @@ Label_4E_4BAD:: ; 4E:4BAD
 	ld hl, $D400
 	ld a, $06
 	farcall Function_4C_4B81
-	farcall Function_4C_4C95
+	farcall PageCache_Push
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1110,7 +1116,7 @@ Label_4E_4BAD:: ; 4E:4BAD
 	ld [wRam_C2CC], a
 	ld a, $00
 	ld [wRam_C334], a
-	farcall Function_4C_4000
+	farcall Browser_LoadPage
 	ld a, [wRam_C2CA]
 	call JumpTableInline
 
@@ -1130,25 +1136,25 @@ Table_4E_4C49:: ; 4E:4C49
 Label_4E_4C57:: ; 4E:4C57
 	ld de, $C380
 	xor a, a
-	farcall Function_4C_4BC1
+	farcall Browser_HistoryPop
 	ld bc, $1000
 	ld de, $B000
 	ld a, $03
-	farcall Function_4C_4CF6
-	farcall Function_74_4207
-	jp Label_4E_49A1
+	farcall PageCache_Pop
+	farcall Html_ParsePage
+	jp Browser_PageView_Enter
 
 Label_4E_4C78:: ; 4E:4C78
 	ld de, $C380
 	xor a, a
-	farcall Function_4C_4BC1
+	farcall Browser_HistoryPop
 	farcall Function_4C_4D6F
-	jp Label_4E_49A1
+	jp Browser_PageView_Enter
 
 ; ---- code $4C8B-$4CDF (84 bytes) [CONFIRMED] 24 insn(s); 24 executed (in up to 1/18 scenarios)
 
 Label_4E_4C8B:: ; 4E:4C8B
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	farcall Function_00_09B6
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -1157,8 +1163,8 @@ Label_4E_4C8B:: ; 4E:4C8B
 	ld de, $D800
 	ld hl, $D880
 	call CopyBytes
-	farcall Function_74_4207
-	jp Label_4E_49A1
+	farcall Html_ParsePage
+	jp Browser_PageView_Enter
 
 Label_4E_4CB2:: ; 4E:4CB2
 	ld de, $18A0
@@ -1167,27 +1173,27 @@ Label_4E_4CB2:: ; 4E:4CB2
 	ld hl, $DAB0
 	call Function_00_09E6
 	ld de, $0113
-	farcall Function_72_4000
+	farcall Dialog_ShowMonitored
 	ld b, $14
 	ld c, $01
-	farcall Function_7D_7C00
-	farcall Function_4E_5EC0
+	farcall Joypad_SetRepeatTiming
+	farcall Browser_DrawScrollIndicators
 	ldh a, [hRam_FFF6]
 	call JumpTableInline
 
 ; ---- ptrtable $4CDF-$4CEB (12 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4E:4CDC: 6 entries; end pinned by the executed instruction at 4CEB
 
 Table_4E_4CDF:: ; 4E:4CDF
-	dw Label_4E_4A58
-	dw Label_4E_4A58
-	dw Label_4E_4A58
-	dw Label_4E_5162
-	dw Label_4E_50BE
-	dw Label_4E_51A6
+	dw Browser_PageView_Loop
+	dw Browser_PageView_Loop
+	dw Browser_PageView_Loop
+	dw Browser_Menu_LinkLost
+	dw Browser_ConnectionNotice
+	dw Browser_Menu_AdapterError
 
 ; ---- code $4CEB-$4D04 (25 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios)
 
-Label_4E_4CEB:: ; 4E:4CEB
+Browser_PageView_OpenMenu:: ; 4E:4CEB
 	xor a, a
 	ldh [hRam_FFF6], a
 
@@ -1211,8 +1217,8 @@ Label_4E_4CEE:: ; 4E:4CEE
 	pop af
 	ldh [rSVBK], a
 	ldh a, [hRam_FFF6]
-	farcall Function_72_63D8
-	farcall Function_72_6563
+	farcall BrowserMenu_OpenTwoItem
+	farcall BrowserMenu_RunTwoItem
 	jr Label_4E_4D42
 
 ; ---- code $4D24-$4D6D (73 bytes) [CONFIRMED] 26 insn(s); 26 executed (in up to 1/18 scenarios)
@@ -1227,8 +1233,8 @@ Label_4E_4D24:: ; 4E:4D24
 	pop af
 	ldh [rSVBK], a
 	ldh a, [hRam_FFF6]
-	farcall Function_72_6712
-	farcall Function_72_689F
+	farcall BrowserMenu_OpenThreeItem
+	farcall BrowserMenu_RunThreeItem
 
 Label_4E_4D42:: ; 4E:4D42
 	ldh a, [hWRAMBank]
@@ -1239,29 +1245,29 @@ Label_4E_4D42:: ; 4E:4D42
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	farcall Function_72_6A6B
+	farcall BrowserMenu_Close
 	ld b, $14
 	ld c, $01
-	farcall Function_7D_7C00
-	farcall Function_4E_5EC0
+	farcall Joypad_SetRepeatTiming
+	farcall Browser_DrawScrollIndicators
 	ldh a, [hRam_FFF6]
 	call JumpTableInline
 
 ; ---- ptrtable $4D6D-$4D7B (14 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4E:4D6A: 7 entries; end = first entry target
 
 Table_4E_4D6D:: ; 4E:4D6D
-	dw Label_4E_4A58
-	dw Label_4E_4D7B
-	dw Label_4E_4EED
-	dw Label_4E_4F81
-	dw Label_4E_5162
-	dw Label_4E_50BE
-	dw Label_4E_51A6
+	dw Browser_PageView_Loop
+	dw Browser_Menu_PageList
+	dw Browser_Menu_DisconnectPrompt
+	dw Browser_Menu_EndPrompt
+	dw Browser_Menu_LinkLost
+	dw Browser_ConnectionNotice
+	dw Browser_Menu_AdapterError
 
 ; ---- code $4D7B-$4E60 (229 bytes) [PROBABLE] 92 insn(s) reached by static flow only; seeds: exec x92; min discovery hops 1; entered by table from 4E:4D6A (executed)
 
-Label_4E_4D7B:: ; 4E:4D7B
-	farcall Function_4F_4370
+Browser_Menu_PageList:: ; 4E:4D7B
+	farcall Palette_FadeOutToWhite
 	farcall Function_00_09B6
 	ld a, $04
 	ldh [hWRAMBank], a
@@ -1279,15 +1285,15 @@ Label_4E_4D7B:: ; 4E:4D7B
 	call CopyBytes
 	ld a, [wTimerEnable]
 	ld [wRam_C2CC], a
-	farcall Function_24_4018
+	farcall PageList_Main
 	ld a, [wRam_C2CC]
 	bit 4, a
 	jr z, Label_4E_4E17
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp nz, Label_4E_51A6
+	jp nz, Browser_Menu_AdapterError
 	bit 4, a
-	jp z, Label_4E_5162
+	jp z, Browser_Menu_LinkLost
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
@@ -1332,16 +1338,16 @@ Label_4E_4E11:: ; 4E:4E11
 Label_4E_4E12:: ; 4E:4E12
 	pop hl
 	or a, a
-	jp nz, Label_4E_50BE
+	jp nz, Browser_ConnectionNotice
 
 Label_4E_4E17:: ; 4E:4E17
 	ld a, [wTimerEnable]
 	ld [wRam_C2CC], a
 	push de
 	push hl
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	farcall Function_00_09B6
-	farcall Function_4E_4795
+	farcall SaveCheck_Update
 	pop hl
 	pop de
 	ld a, e
@@ -1360,7 +1366,7 @@ Label_4E_4E17:: ; 4E:4E17
 	ld [rRAMG], a
 	ld a, $01
 	ld [wRam_C334], a
-	farcall Function_4C_4000
+	farcall Browser_LoadPage
 	ld a, [wRam_C2CA]
 	call JumpTableInline
 
@@ -1380,26 +1386,26 @@ Table_4E_4E60:: ; 4E:4E60
 Label_4E_4E6E:: ; 4E:4E6E
 	ld de, $C380
 	xor a, a
-	farcall Function_4C_4BC1
+	farcall Browser_HistoryPop
 	ld bc, $1000
 	ld de, $B000
 	ld a, $03
-	farcall Function_4C_4CF6
-	farcall Function_74_4207
+	farcall PageCache_Pop
+	farcall Html_ParsePage
 
 Label_4E_4E8C:: ; 4E:4E8C
-	jp Label_4E_49A1
+	jp Browser_PageView_Enter
 
 Label_4E_4E8F:: ; 4E:4E8F
 	farcall Function_00_09B6
-	farcall Function_4E_6196
-	farcall Function_4E_52E7
-	farcall Function_69_4000
+	farcall Browser_LoadFrameGraphics
+	farcall Browser_RenderPage
+	farcall ConnIcon_Init
 	farcall Function_00_0956
-	farcall Function_4F_42B4
+	farcall Palette_FadeInFromWhite
 	ld b, $14
 	ld c, $01
-	farcall Function_7D_7C00
+	farcall Joypad_SetRepeatTiming
 	ld a, [wRam_C2CC]
 	bit 4, a
 	jr z, Label_4E_4ED6
@@ -1428,18 +1434,18 @@ Label_4E_4EE6:: ; 4E:4EE6
 	ldh [hRam_FFF6], a
 	jp Label_4E_4CEE
 
-Label_4E_4EED:: ; 4E:4EED
+Browser_Menu_DisconnectPrompt:: ; 4E:4EED
 	ld de, $18A0
 	ld hl, $DA90
 	call Function_00_0A65
 	ld hl, $DAB0
 	call Function_00_09E6
 	ld de, $0101
-	farcall Function_72_4000
+	farcall Dialog_ShowMonitored
 	ld b, $14
 	ld c, $01
-	farcall Function_7D_7C00
-	farcall Function_4E_5EC0
+	farcall Joypad_SetRepeatTiming
+	farcall Browser_DrawScrollIndicators
 	ldh a, [hRam_FFF6]
 	call JumpTableInline
 
@@ -1447,11 +1453,11 @@ Label_4E_4EED:: ; 4E:4EED
 
 Table_4E_4F1A:: ; 4E:4F1A
 	dw Label_4E_4F26
-	dw Label_4E_4F39
+	dw Browser_Menu_DisconnectDo
 	dw Label_4E_4F26
-	dw Label_4E_5162
-	dw Label_4E_50BE
-	dw Label_4E_51A6
+	dw Browser_Menu_LinkLost
+	dw Browser_ConnectionNotice
+	dw Browser_Menu_AdapterError
 
 ; ---- code $4F26-$4FB7 (145 bytes) [PROBABLE] 44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 1; entered by table from 4E:4F17 (PROBABLE code)
 
@@ -1465,7 +1471,7 @@ Label_4E_4F26:: ; 4E:4F26
 	ldh [hRam_FFF6], a
 	jp Label_4E_4CEE
 
-Label_4E_4F39:: ; 4E:4F39
+Browser_Menu_DisconnectDo:: ; 4E:4F39
 	xor a, a
 	ld [wRam_C2CA], a
 	ld de, $18A0
@@ -1474,19 +1480,19 @@ Label_4E_4F39:: ; 4E:4F39
 	ld hl, $DAB0
 	call Function_00_09E6
 	ld de, $010F
-	farcall Function_72_402A
-	farcall Function_4C_46F4
-	farcall Function_4F_4370
+	farcall Dialog_Open
+	farcall Comm_Disconnect
+	farcall Palette_FadeOutToWhite
 	farcall Function_00_09B6
-	farcall Function_72_444F
-	farcall Function_51_4000
+	farcall Dialog_Close
+	farcall CommTime_ShowSummary
 	ld a, $0B
 	ld [wRam_C1DC], a
 	ld a, [wTimerEnable]
 	ld [wRam_C2CC], a
-	jp Label_4E_49A1
+	jp Browser_PageView_Enter
 
-Label_4E_4F81:: ; 4E:4F81
+Browser_Menu_EndPrompt:: ; 4E:4F81
 	ld de, $18A0
 	ld hl, $DA90
 	call Function_00_0A65
@@ -1499,11 +1505,11 @@ Label_4E_4F81:: ; 4E:4F81
 	ld e, $14
 
 Label_4E_4F9C:: ; 4E:4F9C
-	farcall Function_72_4000
+	farcall Dialog_ShowMonitored
 	ld b, $14
 	ld c, $01
-	farcall Function_7D_7C00
-	farcall Function_4E_5EC0
+	farcall Joypad_SetRepeatTiming
+	farcall Browser_DrawScrollIndicators
 	ldh a, [hRam_FFF6]
 	call JumpTableInline
 
@@ -1511,11 +1517,11 @@ Label_4E_4F9C:: ; 4E:4F9C
 
 Table_4E_4FB7:: ; 4E:4FB7
 	dw Label_4E_4FC3
-	dw Label_4E_4FD6
+	dw Browser_Menu_EndDo
 	dw Label_4E_4FC3
-	dw Label_4E_5162
-	dw Label_4E_50BE
-	dw Label_4E_51A6
+	dw Browser_Menu_LinkLost
+	dw Browser_ConnectionNotice
+	dw Browser_Menu_AdapterError
 
 ; ---- code $4FC3-$4FF6 (51 bytes) [PROBABLE] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 2; entered by table from 4E:4FB4 (PROBABLE code)
 
@@ -1529,33 +1535,33 @@ Label_4E_4FC3:: ; 4E:4FC3
 	ldh [hRam_FFF6], a
 	jp Label_4E_4CEE
 
-Label_4E_4FD6:: ; 4E:4FD6
+Browser_Menu_EndDo:: ; 4E:4FD6
 	xor a, a
 	ld [wRam_C2CA], a
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	farcall Function_00_09B6
 	ld a, [wTimerEnable]
 	bit 4, a
 	jp nz, Label_4E_4FF6
-	farcall Function_4C_477E
-	jr Label_4E_4FFC
+	farcall Comm_EndOffline
+	jr Browser_Leave_Summary
 
 ; ---- code $4FF6-$5003 (13 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios)
 
 Label_4E_4FF6:: ; 4E:4FF6
-	farcall Function_4C_47C4
+	farcall Comm_DisconnectWithProgress
 
-Label_4E_4FFC:: ; 4E:4FFC
+Browser_Leave_Summary:: ; 4E:4FFC
 	ld a, [wRam_C2C3]
 	cp a, $01
-	jr z, Label_4E_5009
+	jr z, Browser_Leave_Return
 
 ; ---- code $5003-$5009 (6 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 4E:5001 (executed) [executed in 3 scenarios]
-	farcall Function_51_4000
+	farcall CommTime_ShowSummary
 
 ; ---- code $5009-$501F (22 bytes) [CONFIRMED] 9 insn(s); 9 executed (in up to 3/18 scenarios)
 
-Label_4E_5009:: ; 4E:5009
+Browser_Leave_Return:: ; 4E:5009
 	farcall Function_00_09B6
 	xor a, a
 	ld [wRam_C334], a
@@ -1563,7 +1569,7 @@ Label_4E_5009:: ; 4E:5009
 	ldh a, [hRam_FFF6]
 	ret
 
-Label_4E_5018:: ; 4E:5018
+Browser_Leave_OnError:: ; 4E:5018
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr nz, Label_4E_4FF6
@@ -1572,7 +1578,7 @@ Label_4E_5018:: ; 4E:5018
 	ld a, [wTimerEnable]
 	bit 1, a
 	jp z, Label_4E_502D
-	farcall Function_54_4011
+	farcall Mobile_FetchResult
 
 Label_4E_502D:: ; 4E:502D
 	ld a, $36
@@ -1581,7 +1587,7 @@ Label_4E_502D:: ; 4E:502D
 	ld [wRam_C26E], a
 	xor a, a
 	ld [wRam_C26F], a
-	jr Label_4E_4FFC
+	jr Browser_Leave_Summary
 
 Label_4E_5040:: ; 4E:5040
 	ld a, [wTimerEnable]
@@ -1590,7 +1596,7 @@ Label_4E_5040:: ; 4E:5040
 	ld a, [wTimerEnable]
 	bit 1, a
 	jp z, Label_4E_5055
-	farcall Function_54_4011
+	farcall Mobile_FetchResult
 
 Label_4E_5055:: ; 4E:5055
 	ld a, $36
@@ -1602,10 +1608,10 @@ Label_4E_5055:: ; 4E:5055
 	jr Label_4E_506E
 
 Label_4E_5068:: ; 4E:5068
-	farcall Function_4C_47C4
+	farcall Comm_DisconnectWithProgress
 
 Label_4E_506E:: ; 4E:506E
-	farcall Function_51_4000
+	farcall CommTime_ShowSummary
 	ld a, [wRam_C2CC]
 	bit 4, a
 	jr z, Label_4E_5082
@@ -1634,16 +1640,16 @@ Label_4E_5096:: ; 4E:5096
 Label_4E_509D:: ; 4E:509D
 	ld de, $C380
 	xor a, a
-	farcall Function_4C_4BC1
+	farcall Browser_HistoryPop
 	ld bc, $1000
 	ld de, $B000
 	ld a, $03
-	farcall Function_4C_4CF6
-	farcall Function_74_4207
-	jp Label_4E_49A1
+	farcall PageCache_Pop
+	farcall Html_ParsePage
+	jp Browser_PageView_Enter
 
-Label_4E_50BE:: ; 4E:50BE
-	farcall Function_4F_4370
+Browser_ConnectionNotice:: ; 4E:50BE
+	farcall Palette_FadeOutToWhite
 	farcall Function_00_09B6
 	ld a, [wRam_C2C3]
 	xor a, $01
@@ -1652,10 +1658,10 @@ Label_4E_50BE:: ; 4E:50BE
 	ld [wRam_C1D1], a
 	ld hl, $C26F
 	res 0, [hl]
-	farcall Function_50_4000
+	farcall CommNotice_ShowDialog
 	or a, a
 	jr z, Label_4E_50EC
-	farcall Function_51_4000
+	farcall CommTime_ShowSummary
 
 Label_4E_50EC:: ; 4E:50EC
 	xor a, a
@@ -1670,7 +1676,7 @@ Label_4E_50EC:: ; 4E:50EC
 	ld [wRam_C26F], a
 
 Label_4E_5104:: ; 4E:5104
-	jp Label_4E_49A1
+	jp Browser_PageView_Enter
 
 Label_4E_5107:: ; 4E:5107
 	xor a, a
@@ -1682,20 +1688,20 @@ Label_4E_5107:: ; 4E:5107
 	ld [wRam_C1D1], a
 	ld hl, $C26F
 	res 0, [hl]
-	farcall Function_50_4000
+	farcall CommNotice_ShowDialog
 	or a, a
 	jr z, Label_4E_512D
-	farcall Function_51_4000
+	farcall CommTime_ShowSummary
 
 Label_4E_512D:: ; 4E:512D
 	ld de, $C380
 	xor a, a
-	farcall Function_4C_4BC1
+	farcall Browser_HistoryPop
 	ld bc, $1000
 	ld de, $B000
 	ld a, $03
-	farcall Function_4C_4CF6
-	farcall Function_74_4207
+	farcall PageCache_Pop
+	farcall Html_ParsePage
 	ld a, [wTimerEnable]
 	ld [wRam_C2CC], a
 	bit 4, a
@@ -1706,9 +1712,9 @@ Label_4E_512D:: ; 4E:512D
 	ld [wRam_C26F], a
 
 Label_4E_515F:: ; 4E:515F
-	jp Label_4E_49A1
+	jp Browser_PageView_Enter
 
-Label_4E_5162:: ; 4E:5162
+Browser_Menu_LinkLost:: ; 4E:5162
 	ld a, $09
 	ld [wRam_C26E], a
 	xor a, a
@@ -1721,18 +1727,18 @@ Label_4E_5162:: ; 4E:5162
 	ld hl, $DAB0
 	call Function_00_09E6
 	ld de, $0110
-	farcall Function_72_4000
-	farcall Function_4F_4370
+	farcall Dialog_ShowMonitored
+	farcall Palette_FadeOutToWhite
 	farcall Function_00_09B6
-	farcall Function_51_4000
+	farcall CommTime_ShowSummary
 	xor a, a
 	ld [wRam_C1DC], a
 	ld a, [wTimerEnable]
 	ld [wRam_C2CC], a
-	jp Label_4E_49A1
+	jp Browser_PageView_Enter
 
-Label_4E_51A6:: ; 4E:51A6
-	farcall Function_54_4011
+Browser_Menu_AdapterError:: ; 4E:51A6
+	farcall Mobile_FetchResult
 	ld a, [wRam_C1DE]
 	ld [wRam_C273], a
 	ld a, [wRam_C1DF]
@@ -1746,24 +1752,25 @@ Label_4E_51A6:: ; 4E:51A6
 	ld [wRam_C1D0], a
 	ld a, [wRam_C2C3]
 	ld [wRam_C1D1], a
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	farcall Function_00_09B6
 	farcall Function_4E_4866
-	farcall Function_68_4F8C
+	farcall Mobile_ShowLastError
 	ld a, $09
 	ld [wRam_C26E], a
 	xor a, a
 	ld [wRam_C26F], a
-	farcall Function_51_4000
+	farcall CommTime_ShowSummary
 	xor a, a
 	ld [wRam_C1DC], a
 	ld a, [wTimerEnable]
 	ld [wRam_C2CC], a
-	jp Label_4E_49A1
+	jp Browser_PageView_Enter
 
 ; ---- code $5204-$5215 (17 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_4E_5204:: ; 4E:5204
+Browser_DrawTitleBar:: ; 4E:5204
+Function_4E_5204::
 	ldh a, [hRam_FFED]
 	ld l, a
 	ldh a, [hRam_FFEE]
@@ -1780,7 +1787,7 @@ Function_4E_5204:: ; 4E:5204
 	ld hl, $D500
 	ld a, $06
 	call BankSwitch_H
-	farcall Function_4E_5274
+	farcall Browser_MakeShortTitle
 	jr Label_4E_522E
 
 ; ---- code $5225-$5274 (79 bytes) [CONFIRMED] 32 insn(s); 32 executed (in up to 2/18 scenarios)
@@ -1791,7 +1798,7 @@ Label_4E_5225:: ; 4E:5225
 	call CopyBytes
 
 Label_4E_522E:: ; 4E:522E
-	farcall Function_4E_60E4
+	farcall Browser_ClearTitleArea
 	ld a, $03
 	ldh [hRam_FFBA], a
 	ld a, $00
@@ -1818,12 +1825,12 @@ Label_4E_522E:: ; 4E:522E
 	ld hl, $C340
 	xor a, a
 	farcall Function_00_0ED3
-	farcall Function_4E_60A6
+	farcall Browser_UploadTitleCanvas
 	ret
 
 ; ---- code $5274-$52E7 (115 bytes) [PROBABLE] 76 insn(s) reached by static flow only; seeds: exec x76; min discovery hops 1; entered by far from 4E:521D (PROBABLE code)
 
-Function_4E_5274:: ; 4E:5274
+Browser_MakeShortTitle:: ; 4E:5274
 	push hl
 	xor a, a
 	ld c, a
@@ -1919,9 +1926,10 @@ Label_4E_52E4:: ; 4E:52E4
 
 ; ---- code $52E7-$5306 (31 bytes) [CONFIRMED] 12 insn(s); 12 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_4E_52E7:: ; 4E:52E7
-	farcall Function_4E_5204
-	farcall Function_4E_612B
+Browser_RenderPage:: ; 4E:52E7
+Function_4E_52E7::
+	farcall Browser_DrawTitleBar
+	farcall Browser_ClearBodyArea
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1949,7 +1957,7 @@ Label_4E_530A:: ; 4E:530A
 	jr nz, Label_4E_530A
 	ld hl, $C380
 	ld bc, $D600
-	call Function_4E_534B
+	call Browser_FindAnchor
 	or a, a
 	jr z, Label_4E_532B
 	ld hl, $D602
@@ -1969,16 +1977,16 @@ Label_4E_530A:: ; 4E:530A
 Label_4E_532B:: ; 4E:532B
 	ld bc, $0090
 	ld de, $0060
-	farcall Function_4E_5435
-	farcall Function_4E_574D
-	farcall Function_4E_60C5
+	farcall Browser_SetViewport
+	farcall Browser_DrawVisibleElements
+	farcall Browser_UploadBodyCanvas
 	ldh a, [rLCDC]
 	call Function_00_07CB
-	jp Function_4E_5EC0
+	jp Browser_DrawScrollIndicators
 
 ; ---- code $534B-$5390 (69 bytes) [PROBABLE] 46 insn(s) reached by static flow only; seeds: exec x46; min discovery hops 2; entered by call from 4E:5316 (PROBABLE code)
 
-Function_4E_534B:: ; 4E:534B
+Browser_FindAnchor:: ; 4E:534B
 	ld a, l
 	ldh [hRam_FFB0], a
 	ld a, h
@@ -2064,7 +2072,8 @@ Label_4E_539D:: ; 4E:539D
 
 ; ---- code $53A1-$53A9 (8 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_4E_53A1:: ; 4E:53A1
+Browser_ScrollUpLine:: ; 4E:53A1
+Function_4E_53A1::
 	ldh a, [hRam_FFE3]
 	ld c, a
 	ldh a, [hRam_FFE4]
@@ -2081,15 +2090,15 @@ Function_4E_53A1:: ; 4E:53A1
 	ldh [hRam_FFE4], a
 	ld bc, $0090
 	ld de, $000C
-	farcall Function_4E_5435
+	farcall Browser_SetViewport
 	xor a, a
 	ldh [hRam_FFE9], a
 	ldh [hRam_FFEA], a
-	farcall Function_4E_5C10
-	farcall Function_4E_574D
+	farcall Browser_ShiftCanvasDown
+	farcall Browser_DrawVisibleElements
 	ret
 
-Function_4E_53D1:: ; 4E:53D1
+Browser_ScrollDownLine:: ; 4E:53D1
 	ldh a, [hRam_FFEB]
 	ld c, a
 	ldh a, [hRam_FFEC]
@@ -2114,13 +2123,13 @@ Function_4E_53D1:: ; 4E:53D1
 	ldh [hRam_FFE4], a
 	ld bc, $0090
 	ld de, $000C
-	farcall Function_4E_5435
+	farcall Browser_SetViewport
 	ld a, $54
 	ldh [hRam_FFE9], a
 	ld a, $00
 	ldh [hRam_FFEA], a
-	farcall Function_4E_5B69
-	farcall Function_4E_574D
+	farcall Browser_ShiftCanvasUp
+	farcall Browser_DrawVisibleElements
 	ldh a, [hRam_FFE3]
 	sub a, $54
 	ldh [hRam_FFE3], a
@@ -2134,7 +2143,8 @@ Function_4E_53D1:: ; 4E:53D1
 
 ; ---- code $5423-$55CC (425 bytes) [CONFIRMED] 266 insn(s); 266 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_4E_5423:: ; 4E:5423
+Browser_SetScroll:: ; 4E:5423
+Function_4E_5423::
 	ld a, c
 	ldh [hRam_FFE1], a
 	ld a, b
@@ -2148,7 +2158,7 @@ Function_4E_5423:: ; 4E:5423
 	ldh [hRam_FFEA], a
 	ret
 
-Function_4E_5435:: ; 4E:5435
+Browser_SetViewport:: ; 4E:5435
 	ldh a, [hRam_FFE1]
 	add a, c
 	ldh [hRam_FFE5], a
@@ -2163,11 +2173,11 @@ Function_4E_5435:: ; 4E:5435
 	ldh [hRam_FFE8], a
 	ret
 
-Function_4E_544A:: ; 4E:544A
+Browser_RedrawLinkById:: ; 4E:544A
 	ldh [hRam_FFB1], a
 	ld bc, $0090
 	ld de, $0060
-	farcall Function_4E_5435
+	farcall Browser_SetViewport
 	ldh a, [hRam_FFED]
 	ld l, a
 	ldh a, [hRam_FFEE]
@@ -2279,7 +2289,7 @@ Label_4E_547D:: ; 4E:547D
 	push hl
 	ldh a, [hRam_FFB1]
 	push af
-	call Function_4E_57DC
+	call Browser_DrawElement
 	pop af
 	ldh [hRam_FFB1], a
 
@@ -2294,11 +2304,11 @@ Label_4E_5505:: ; 4E:5505
 	jp nz, Label_4E_547D
 	ret
 
-Function_4E_5512:: ; 4E:5512
+Browser_FindLinkElement:: ; 4E:5512
 	ldh [hRam_FFB1], a
 	ld bc, $0090
 	ld de, $0060
-	farcall Function_4E_5435
+	farcall Browser_SetViewport
 	ldh a, [hRam_FFED]
 	ld l, a
 	ldh a, [hRam_FFEE]
@@ -2447,11 +2457,12 @@ Label_4E_55D5:: ; 4E:55D5
 
 ; ---- code $55E8-$56B6 (206 bytes) [CONFIRMED] 125 insn(s); 125 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_4E_55E8:: ; 4E:55E8
+Browser_FindVisibleLink:: ; 4E:55E8
+Function_4E_55E8::
 	ldh [hRam_FFB1], a
 	ld bc, $0090
 	ld de, $0060
-	farcall Function_4E_5435
+	farcall Browser_SetViewport
 	ldh a, [hRam_FFED]
 	ld l, a
 	ldh a, [hRam_FFEE]
@@ -2617,23 +2628,23 @@ Label_4E_56CC:: ; 4E:56CC
 	ldh a, [hRam_FFB0]
 	ret
 
-Function_4E_56DB:: ; 4E:56DB
+Browser_SelectPrevLink:: ; 4E:56DB
 	ldh a, [hRam_FFDE]
 	ldh [hRam_FFDF], a
 	dec a
 	jr z, Label_4E_56E8
-	call Function_4E_55E8
+	call Browser_FindVisibleLink
 	or a, a
 	jr nz, Label_4E_56F6
 
 Label_4E_56E8:: ; 4E:56E8
-	farcall Function_4E_53A1
+	farcall Browser_ScrollUpLine
 	ldh a, [hRam_FFDE]
 	dec a
 	jr z, Label_4E_570D
 
 ; ---- code $56F3-$56F6 (3 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 4E:56F1 (executed)
-	call Function_4E_55E8
+	call Browser_FindVisibleLink
 
 ; ---- code $56F6-$5704 (14 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
 
@@ -2641,7 +2652,7 @@ Label_4E_56F6:: ; 4E:56F6
 	or a, a
 	jp z, Label_4E_56FF
 	ldh [hRam_FFDE], a
-	call Function_4E_544A
+	call Browser_RedrawLinkById
 
 Label_4E_56FF:: ; 4E:56FF
 	ldh a, [hRam_FFDF]
@@ -2649,30 +2660,30 @@ Label_4E_56FF:: ; 4E:56FF
 	jr z, Label_4E_570D
 
 ; ---- code $5704-$570D (9 bytes) [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 4E:5702 (executed) [executed in 2 scenarios]
-	call Function_4E_55E8
+	call Browser_FindVisibleLink
 	or a, a
 	jr z, Label_4E_570D
-	call Function_4E_544A
+	call Browser_RedrawLinkById
 
 ; ---- code $570D-$5721 (20 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 2/18 scenarios)
 
 Label_4E_570D:: ; 4E:570D
-	farcall Function_4E_60C5
-	jp Function_4E_5EC0
+	farcall Browser_UploadBodyCanvas
+	jp Browser_DrawScrollIndicators
 
-Function_4E_5716:: ; 4E:5716
+Browser_SelectNextLink:: ; 4E:5716
 	ldh a, [hRam_FFDE]
 	ldh [hRam_FFDF], a
 	inc a
-	call Function_4E_55E8
+	call Browser_FindVisibleLink
 	or a, a
 	jr nz, Label_4E_572D
 
 ; ---- code $5721-$572D (12 bytes) [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 4E:571F (executed) [executed in 6 scenarios]
-	farcall Function_4E_53D1
+	farcall Browser_ScrollDownLine
 	ldh a, [hRam_FFDE]
 	inc a
-	call Function_4E_55E8
+	call Browser_FindVisibleLink
 
 ; ---- code $572D-$57FA (205 bytes) [CONFIRMED] 125 insn(s); 125 executed (in up to 2/18 scenarios)
 
@@ -2680,22 +2691,22 @@ Label_4E_572D:: ; 4E:572D
 	or a, a
 	jp z, Label_4E_5736
 	ldh [hRam_FFDE], a
-	call Function_4E_544A
+	call Browser_RedrawLinkById
 
 Label_4E_5736:: ; 4E:5736
 	ldh a, [hRam_FFDF]
 	or a, a
 	jr z, Label_4E_5744
-	call Function_4E_55E8
+	call Browser_FindVisibleLink
 	or a, a
 	jr z, Label_4E_5744
-	call Function_4E_544A
+	call Browser_RedrawLinkById
 
 Label_4E_5744:: ; 4E:5744
-	farcall Function_4E_60C5
-	jp Function_4E_5EC0
+	farcall Browser_UploadBodyCanvas
+	jp Browser_DrawScrollIndicators
 
-Function_4E_574D:: ; 4E:574D
+Browser_DrawVisibleElements:: ; 4E:574D
 	ldh a, [hRam_FFED]
 	ld l, a
 	ldh a, [hRam_FFEE]
@@ -2781,7 +2792,7 @@ Label_4E_576F:: ; 4E:576F
 	jp nc, Label_4E_57CF
 	pop hl
 	push hl
-	call Function_4E_57DC
+	call Browser_DrawElement
 
 Label_4E_57CF:: ; 4E:57CF
 	pop hl
@@ -2794,7 +2805,7 @@ Label_4E_57CF:: ; 4E:57CF
 	jp nz, Label_4E_576F
 	ret
 
-Function_4E_57DC:: ; 4E:57DC
+Browser_DrawElement:: ; 4E:57DC
 	call Function_00_0392
 	ld bc, $0006
 	push hl
@@ -2931,7 +2942,7 @@ Label_4E_5839:: ; 4E:5839
 	ld d, h
 	ld e, l
 	ld b, $00
-	ld hl, $589B
+	ld hl, Table_Browser_ElementDrawHandlers
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
@@ -2941,13 +2952,14 @@ Label_4E_5839:: ; 4E:5839
 
 ; ---- ptrtable $589B-$58AB (16 bytes) [PROBABLE] code-pointer table, 8 entries: 1/8 words hit known code starts (dispatch idiom `ld a,[hli] ; ld h,[hl] ; ld l,a ; jp hl` at 4E:589A, base from `ld hl,$589B`; end = cfg inline-table rule, HYPOTHESIS for the exact length); 1/8 targets executed
 
-Table_4E_589B:: ; 4E:589B
+Table_Browser_ElementDrawHandlers:: ; 4E:589B
+Table_4E_589B::
 	dw Label_4E_58AB
-	dw Label_4E_58AC
+	dw Browser_DrawElement_Text
 	dw Label_4E_58AB
 	dw Label_4E_58AB
-	dw Label_4E_5A6D
-	dw Label_4E_5A6D
+	dw Browser_DrawElement_Bitmap
+	dw Browser_DrawElement_Bitmap
 	dw Label_4E_58AB
 	dw Label_4E_58AB
 
@@ -2958,7 +2970,7 @@ Label_4E_58AB:: ; 4E:58AB
 
 ; ---- code $58AC-$590D (97 bytes) [CONFIRMED] 55 insn(s); 55 executed (in up to 2/18 scenarios)
 
-Label_4E_58AC:: ; 4E:58AC
+Browser_DrawElement_Text:: ; 4E:58AC
 	ld h, d
 	ld l, e
 	ld bc, $0009
@@ -3266,7 +3278,7 @@ Label_4E_5A6C:: ; 4E:5A6C
 
 ; ---- code $5A6D-$5CB6 (585 bytes) [PROBABLE] 416 insn(s) reached by static flow only; seeds: exec x265, site x5, table x146; min discovery hops 0; run starts at an entry of the code-pointer table at 4E:589B
 
-Label_4E_5A6D:: ; 4E:5A6D
+Browser_DrawElement_Bitmap:: ; 4E:5A6D
 	ld h, d
 	ld l, e
 	ld bc, $0009
@@ -3437,13 +3449,13 @@ Label_4E_5B57:: ; 4E:5B57
 Label_4E_5B59:: ; 4E:5B59
 	pop hl
 	ldh a, [hRam_FFC2]
-	farcall Function_51_740D
+	farcall Image_BlitToTileCanvas
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ret
 
-Function_4E_5B69:: ; 4E:5B69
+Browser_ShiftCanvasUp:: ; 4E:5B69
 	ld de, $D000
 	ld hl, $D148
 	ld b, $13
@@ -3584,7 +3596,7 @@ Label_4E_5BFD:: ; 4E:5BFD
 	call FillBytes
 	ret
 
-Function_4E_5C10:: ; 4E:5C10
+Browser_ShiftCanvasDown:: ; 4E:5C10
 	ld hl, $DC87
 	ld de, $DDCF
 	ld b, $13
@@ -3726,7 +3738,8 @@ Label_4E_5CA9:: ; 4E:5CA9
 
 ; ---- code $5CB6-$5D32 (124 bytes) [CONFIRMED] 42 insn(s); 42 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_4E_5CB6:: ; 4E:5CB6
+Browser_LoadScrollbarGfx:: ; 4E:5CB6
+Function_4E_5CB6::
 	ld a, [wRam_C2C3]
 	cp a, $01
 	jr z, Label_4E_5D32
@@ -3734,13 +3747,13 @@ Function_4E_5CB6:: ; 4E:5CB6
 	cp a, $02
 	jr z, Label_4E_5CFB
 	ld de, $8FF0
-	ld hl, $4080
+	ld hl, Data_47_4080
 	ld a, $47
 	ld b, $98
 	ld c, $01
 	farcall Function_00_0787
 	ld de, $97D0
-	ld hl, $4090
+	ld hl, Data_47_4090
 	ld a, $47
 	ld b, $98
 	ld c, $03
@@ -3754,13 +3767,13 @@ Function_4E_5CB6:: ; 4E:5CB6
 
 Label_4E_5CFB:: ; 4E:5CFB
 	ld de, $8FF0
-	ld hl, $40C0
+	ld hl, Data_47_40C0
 	ld a, $47
 	ld b, $98
 	ld c, $01
 	farcall Function_00_0787
 	ld de, $97D0
-	ld hl, $40D0
+	ld hl, Data_47_40D0
 	ld a, $47
 	ld b, $98
 	ld c, $03
@@ -3776,13 +3789,13 @@ Label_4E_5CFB:: ; 4E:5CFB
 
 Label_4E_5D32:: ; 4E:5D32
 	ld de, $8FF0
-	ld hl, $4000
+	ld hl, Data_47_4000
 	ld a, $47
 	ld b, $98
 	ld c, $01
 	farcall Function_00_0787
 	ld de, $97D0
-	ld hl, $4010
+	ld hl, Data_47_4010
 	ld a, $47
 	ld b, $98
 	ld c, $03
@@ -3802,12 +3815,14 @@ Label_4E_5D66:: ; 4E:5D66
 	ret
 
 ; ---- code $5D70-$5D93 (35 bytes) [PROBABLE] function head whose 23 insn decode cleanly and end with ld bc,$1214 ; ld de,$D000 right before the PROBABLE far-call site at 5D93 (call $06D1 -> 00:08EA copy_tilemap_rect_pair, b=18 rows c=20 cols); hl comes from the screen-descriptor table 4E:654B (+6), like the executed code 4E:5D93; contiguous with the code region at 5D93; no external caller found
+
+Function_4E_5D70:: ; 4E:5D70
 	ld a, [wRam_C2C2]
 	push bc
 	and a, $7F
 	ld c, a
 	ld b, $00
-	ld hl, $654B
+	ld hl, Table_Browser_FrameDescriptors
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
@@ -3833,7 +3848,7 @@ Label_4E_5D66:: ; 4E:5D66
 	and a, $7F
 	ld c, a
 	ld b, $00
-	ld hl, $654B
+	ld hl, Table_Browser_FrameDescriptors
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
@@ -3848,19 +3863,19 @@ Label_4E_5D66:: ; 4E:5D66
 	push hl
 	ld bc, $0512
 	ld de, $0020
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	pop hl
 	ld bc, $00A0
 	add hl, bc
 	ld bc, $0712
 	ld de, $0080
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ld a, [wRam_C2C2]
 	push bc
 	and a, $7F
 	ld c, a
 	ld b, $00
-	ld hl, $654B
+	ld hl, Table_Browser_FrameDescriptors
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
@@ -3875,13 +3890,13 @@ Label_4E_5D66:: ; 4E:5D66
 	push hl
 	ld bc, $010F
 	ld de, $0100
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	pop hl
 	ld bc, $0020
 	add hl, bc
 	ld bc, $010F
 	ld de, $010F
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ld de, $18A0
 	ld hl, $DA90
 	call Function_00_0A65
@@ -3889,7 +3904,8 @@ Label_4E_5D66:: ; 4E:5D66
 
 ; ---- code $5E11-$5F34 (291 bytes) [CONFIRMED] 175 insn(s); 175 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_4E_5E11:: ; 4E:5E11
+Browser_DrawScrollbarTrack:: ; 4E:5E11
+Function_4E_5E11::
 	ld a, [wRam_C2C0]
 	or a, a
 	ret z
@@ -3901,7 +3917,7 @@ Function_4E_5E11:: ; 4E:5E11
 	and a, $7F
 	ld c, a
 	ld b, $00
-	ld hl, $654B
+	ld hl, Table_Browser_FrameDescriptors
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
@@ -3944,7 +3960,7 @@ Label_4E_5E56:: ; 4E:5E56
 	dec c
 	jr nz, Label_4E_5E56
 
-Function_4E_5E5B:: ; 4E:5E5B
+Browser_UpdateScrollThumb:: ; 4E:5E5B
 	ld a, [wRam_C2C0]
 	or a, a
 	ret z
@@ -3953,7 +3969,7 @@ Function_4E_5E5B:: ; 4E:5E5B
 	and a, $7F
 	ld c, a
 	ld b, $00
-	ld hl, $654B
+	ld hl, Table_Browser_FrameDescriptors
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
@@ -4018,7 +4034,7 @@ Label_4E_5EBB:: ; 4E:5EBB
 	ld [hli], a
 	ret
 
-Function_4E_5EC0:: ; 4E:5EC0
+Browser_DrawScrollIndicators:: ; 4E:5EC0
 	ld de, $18A0
 	ld hl, $DA90
 	call Function_00_0A65
@@ -4026,7 +4042,7 @@ Function_4E_5EC0:: ; 4E:5EC0
 	call Function_00_09E6
 	ld hl, $DAB0
 	call Function_00_09E6
-	farcall Function_4E_5E5B
+	farcall Browser_UpdateScrollThumb
 	ldh a, [hRam_FFEB]
 	ld c, a
 	ldh a, [hRam_FFEC]
@@ -4038,7 +4054,7 @@ Function_4E_5EC0:: ; 4E:5EC0
 	ld b, a
 	or a, c
 	push bc
-	call nz, Function_4E_5F58
+	call nz, Browser_ShowUpArrow
 	pop bc
 	ldh a, [hRam_FFEB]
 	sub a, c
@@ -4054,7 +4070,7 @@ Function_4E_5EC0:: ; 4E:5EC0
 	cp a, $02
 	jr z, Label_4E_5F46
 	ld hl, $DAB0
-	ld de, $7828
+	ld de, BrowserMenu_CursorObjTable
 	ld a, $72
 	ld b, $86
 	farcall Function_00_0A82
@@ -4065,7 +4081,7 @@ Label_4E_5F15:: ; 4E:5F15
 	and a, $7F
 	ld c, a
 	ld b, $00
-	ld hl, $654B
+	ld hl, Table_Browser_FrameDescriptors
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
@@ -4084,7 +4100,7 @@ Label_4E_5F15:: ; 4E:5F15
 
 Label_4E_5F34:: ; 4E:5F34
 	ld hl, $DAB0
-	ld de, $7828
+	ld de, BrowserMenu_CursorObjTable
 	ld a, $72
 	ld b, $89
 	farcall Function_00_0A82
@@ -4094,7 +4110,7 @@ Label_4E_5F34:: ; 4E:5F34
 
 Label_4E_5F46:: ; 4E:5F46
 	ld hl, $DAB0
-	ld de, $7828
+	ld de, BrowserMenu_CursorObjTable
 	ld a, $72
 	ld b, $8B
 	farcall Function_00_0A82
@@ -4102,7 +4118,7 @@ Label_4E_5F46:: ; 4E:5F46
 
 ; ---- code $5F58-$5FB9 (97 bytes) [CONFIRMED] 42 insn(s) reached by static flow only; seeds: exec x42; min discovery hops 1; entered by callcc from 4E:5EEA (executed) [executed in 1 scenarios]
 
-Function_4E_5F58:: ; 4E:5F58
+Browser_ShowUpArrow:: ; 4E:5F58
 	ld a, [wRam_C2C3]
 	cp a, $01
 	jr z, Label_4E_5F95
@@ -4110,7 +4126,7 @@ Function_4E_5F58:: ; 4E:5F58
 	cp a, $02
 	jr z, Label_4E_5FA7
 	ld hl, $DAA0
-	ld de, $7828
+	ld de, BrowserMenu_CursorObjTable
 	ld a, $72
 	ld b, $85
 	farcall Function_00_0A82
@@ -4121,7 +4137,7 @@ Label_4E_5F76:: ; 4E:5F76
 	and a, $7F
 	ld c, a
 	ld b, $00
-	ld hl, $654B
+	ld hl, Table_Browser_FrameDescriptors
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
@@ -4138,7 +4154,7 @@ Label_4E_5F76:: ; 4E:5F76
 
 Label_4E_5F95:: ; 4E:5F95
 	ld hl, $DAA0
-	ld de, $7828
+	ld de, BrowserMenu_CursorObjTable
 	ld a, $72
 	ld b, $88
 	farcall Function_00_0A82
@@ -4146,7 +4162,7 @@ Label_4E_5F95:: ; 4E:5F95
 
 Label_4E_5FA7:: ; 4E:5FA7
 	ld hl, $DAA0
-	ld de, $7828
+	ld de, BrowserMenu_CursorObjTable
 	ld a, $72
 	ld b, $8A
 	farcall Function_00_0A82
@@ -4154,8 +4170,9 @@ Label_4E_5FA7:: ; 4E:5FA7
 
 ; ---- code $5FB9-$6087 (206 bytes) [CONFIRMED] 111 insn(s); 111 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_4E_5FB9:: ; 4E:5FB9
-	farcall Function_51_425F
+Browser_DrawCommTimer:: ; 4E:5FB9
+Function_4E_5FB9::
+	farcall CommTime_AddTimerA
 	ld a, [wRam_C2D2]
 	ld c, a
 	ldh a, [hRam_FFB1]
@@ -4173,7 +4190,7 @@ Label_4E_5FD5:: ; 4E:5FD5
 	and a, $7F
 	ld c, a
 	ld b, $00
-	ld hl, $654B
+	ld hl, Table_Browser_FrameDescriptors
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
@@ -4197,34 +4214,34 @@ Label_4E_5FD5:: ; 4E:5FD5
 	jr nz, Label_4E_6014
 	ldh a, [hRam_FFB2]
 	ld c, $00
-	call Function_4E_6024
+	call Browser_OamPutNumber
 	ld c, $0A
-	call Function_4E_6034
+	call Browser_OamPutDigit
 	ldh a, [hRam_FFB1]
 	ld c, $00
-	jp Function_4E_6024
+	jp Browser_OamPutNumber
 
 Label_4E_6014:: ; 4E:6014
 	ldh a, [hRam_FFB2]
 	ld c, $00
-	call Function_4E_6024
+	call Browser_OamPutNumber
 	ld c, $0A
-	call Function_4E_6034
+	call Browser_OamPutDigit
 	ldh a, [hRam_FFB1]
 	ld c, $00
 
-Function_4E_6024:: ; 4E:6024
+Browser_OamPutNumber:: ; 4E:6024
 	inc c
 	sub a, $0A
-	jr nc, Function_4E_6024
+	jr nc, Browser_OamPutNumber
 	add a, $0A
 	dec c
 	ldh [hRam_FFB0], a
-	call Function_4E_6034
+	call Browser_OamPutDigit
 	ldh a, [hRam_FFB0]
 	ld c, a
 
-Function_4E_6034:: ; 4E:6034
+Browser_OamPutDigit:: ; 4E:6034
 	ld a, d
 	ld [hli], a
 	ld a, e
@@ -4247,10 +4264,10 @@ Function_4E_6034:: ; 4E:6034
 	ld [hli], a
 	ret
 
-Function_4E_604C:: ; 4E:604C
+ConnIcon_StartSprite:: ; 4E:604C
 	ld [wRam_C2CE], a
 	ld hl, $DA80
-	ld de, $4778
+	ld de, ConnIcon_ObjTable
 	ld a, $69
 	farcall Function_00_0A82
 	ld hl, $DA8B
@@ -4262,7 +4279,7 @@ Function_4E_604C:: ; 4E:604C
 	and a, $7F
 	ld c, a
 	ld b, $00
-	ld hl, $654B
+	ld hl, Table_Browser_FrameDescriptors
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
@@ -4278,6 +4295,8 @@ Function_4E_604C:: ; 4E:604C
 	jp Function_00_0A65
 
 ; ---- code $6087-$60A6 (31 bytes) [HYPOTHESIS] complete small function (push bc/hl ... ret): a = [C2C2] & $7F -> word of the screen-descriptor table 4E:654B -> hl+$19 -> de = word there; ret; same idiom as the executed 4E:5E11 area and the getter before it (4E:6060-6087 ends with jp $0A65); no caller/pointer found, entry unproven
+
+Function_4E_6087:: ; 4E:6087
 	push bc
 	push hl
 	ld a, [wRam_C2C2]
@@ -4285,7 +4304,7 @@ Function_4E_604C:: ; 4E:604C
 	and a, $7F
 	ld c, a
 	ld b, $00
-	ld hl, $654B
+	ld hl, Table_Browser_FrameDescriptors
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
@@ -4304,35 +4323,36 @@ Function_4E_604C:: ; 4E:604C
 
 ; ---- code $60A6-$6172 (204 bytes) [CONFIRMED] 82 insn(s); 82 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_4E_60A6:: ; 4E:60A6
+Browser_UploadTitleCanvas:: ; 4E:60A6
+Function_4E_60A6::
 	ld de, $9000
 	ld hl, $1002
 	ld bc, $010F
-	farcall Function_4F_4572
+	farcall TileCanvas_UploadRect
 	ld de, $90F0
 	ld hl, $1102
 	ld bc, $010F
-	farcall Function_4F_4572
+	farcall TileCanvas_UploadRect
 	ret
 
-Function_4E_60C5:: ; 4E:60C5
+Browser_UploadBodyCanvas:: ; 4E:60C5
 	ld de, $9200
 	ld hl, $0001
 	ld bc, $0512
-	farcall Function_4F_4572
+	farcall TileCanvas_UploadRect
 	ld de, $8800
 	ld hl, $0501
 	ld bc, $0712
-	farcall Function_4F_4572
+	farcall TileCanvas_UploadRect
 	ret
 
-Function_4E_60E4:: ; 4E:60E4
+Browser_ClearTitleArea:: ; 4E:60E4
 	ld a, [wRam_C2C2]
 	push bc
 	and a, $7F
 	ld c, a
 	ld b, $00
-	ld hl, $654B
+	ld hl, Table_Browser_FrameDescriptors
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
@@ -4347,26 +4367,26 @@ Function_4E_60E4:: ; 4E:60E4
 	push hl
 	ld bc, $010F
 	ld de, $0100
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	pop hl
 	ld bc, $0020
 	add hl, bc
 	ld bc, $010F
 	ld de, $010F
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ld de, $0000
 	ld hl, $1000
 	ld bc, $0214
-	farcall Function_4F_4604
+	farcall TileCanvas_FillRect
 	ret
 
-Function_4E_612B:: ; 4E:612B
+Browser_ClearBodyArea:: ; 4E:612B
 	ld a, [wRam_C2C2]
 	push bc
 	and a, $7F
 	ld c, a
 	ld b, $00
-	ld hl, $654B
+	ld hl, Table_Browser_FrameDescriptors
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
@@ -4381,20 +4401,22 @@ Function_4E_612B:: ; 4E:612B
 	push hl
 	ld bc, $0512
 	ld de, $0020
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	pop hl
 	ld bc, $00A0
 	add hl, bc
 	ld bc, $0712
 	ld de, $0080
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ld de, $0000
 	ld hl, $0000
 	ld bc, $0C14
-	farcall Function_4F_4604
+	farcall TileCanvas_FillRect
 	ret
 
 ; ---- code $6172-$6196 (36 bytes) [HYPOTHESIS] function: cp a,1 ; ret nz ; SRAM enable, reads [A9ED] bit 7, returns b=$19/$1A in a, SRAM disable, ret; 18 insn, ends exactly where the executed function 4E:6196 starts; no caller/pointer found, entry unproven
+
+Function_4E_6172:: ; 4E:6172
 	cp a, $01
 	ret nz
 	ld a, $0A
@@ -4418,7 +4440,8 @@ Label_4E_618E:: ; 4E:618E
 
 ; ---- code $6196-$6291 (251 bytes) [CONFIRMED] 118 insn(s); 118 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_4E_6196:: ; 4E:6196
+Browser_LoadFrameGraphics:: ; 4E:6196
+Function_4E_6196::
 	call LCDOff
 	ldh a, [rLCDC]
 	and a, $9F
@@ -4433,7 +4456,7 @@ Function_4E_6196:: ; 4E:6196
 	farcall Function_00_09B6
 	call LCDOn
 	ld de, $8801
-	ld hl, $6C10
+	ld hl, BrowserMenu3_Tiles0
 	ld a, $72
 	ld b, $92
 	ld c, $40
@@ -4443,7 +4466,7 @@ Function_4E_6196:: ; 4E:6196
 	and a, $7F
 	ld c, a
 	ld b, $00
-	ld hl, $654B
+	ld hl, Table_Browser_FrameDescriptors
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
@@ -4485,7 +4508,7 @@ Function_4E_6196:: ; 4E:6196
 	ld l, c
 	ld bc, $0040
 	ld de, $D800
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	pop hl
 	ld a, [hli]
 	ld c, a
@@ -4522,14 +4545,14 @@ Function_4E_6196:: ; 4E:6196
 	ld l, c
 	ld bc, $0040
 	ld de, $D840
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	pop hl
-	farcall Function_4E_612B
-	farcall Function_4E_60E4
-	farcall Function_4E_5E11
-	farcall Function_4E_60C5
-	farcall Function_4E_60A6
-	farcall Function_4E_5CB6
+	farcall Browser_ClearBodyArea
+	farcall Browser_ClearTitleArea
+	farcall Browser_DrawScrollbarTrack
+	farcall Browser_UploadBodyCanvas
+	farcall Browser_UploadTitleCanvas
+	farcall Browser_LoadScrollbarGfx
 	ldh a, [rLCDC]
 	call Function_00_07CB
 	xor a, a
@@ -4555,7 +4578,7 @@ Function_4E_6291:: ; 4E:6291
 	farcall Function_00_09B6
 	call LCDOn
 	ld de, $8801
-	ld hl, $6C10
+	ld hl, BrowserMenu3_Tiles0
 	ld a, $72
 	ld b, $92
 	ld c, $40
@@ -4565,7 +4588,7 @@ Function_4E_6291:: ; 4E:6291
 	and a, $7F
 	ld c, a
 	ld b, $00
-	ld hl, $654B
+	ld hl, Table_Browser_FrameDescriptors
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
@@ -4609,7 +4632,7 @@ Function_4E_6291:: ; 4E:6291
 	add hl, bc
 	ld bc, $0020
 	ld de, $D808
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	pop hl
 	ld a, [hli]
 	ld c, a
@@ -4628,7 +4651,7 @@ Function_4E_6291:: ; 4E:6291
 	and a, $7F
 	ld c, a
 	ld b, $00
-	ld hl, $654B
+	ld hl, Table_Browser_FrameDescriptors
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
@@ -4643,19 +4666,19 @@ Function_4E_6291:: ; 4E:6291
 	push hl
 	ld bc, $0512
 	ld de, $0420
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	pop hl
 	ld bc, $00A0
 	add hl, bc
 	ld bc, $0712
 	ld de, $0480
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ldh a, [hRam_FFD2]
 	push bc
 	and a, $7F
 	ld c, a
 	ld b, $00
-	ld hl, $654B
+	ld hl, Table_Browser_FrameDescriptors
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
@@ -4670,13 +4693,13 @@ Function_4E_6291:: ; 4E:6291
 	push hl
 	ld bc, $010F
 	ld de, $0100
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	pop hl
 	ld bc, $0020
 	add hl, bc
 	ld bc, $010F
 	ld de, $010F
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -4698,7 +4721,7 @@ Function_4E_6291:: ; 4E:6291
 	and a, $7F
 	ld c, a
 	ld b, $00
-	ld hl, $654B
+	ld hl, Table_Browser_FrameDescriptors
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
@@ -4742,11 +4765,11 @@ Function_4E_6291:: ; 4E:6291
 	ld bc, $0008
 	add hl, bc
 	ld de, $D800
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	pop af
 	ld bc, $0018
 	ld de, $D828
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	pop hl
 	ld a, [hli]
 	ld c, a
@@ -4783,7 +4806,7 @@ Function_4E_6291:: ; 4E:6291
 	ld l, c
 	ld bc, $0040
 	ld de, $D840
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	pop hl
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -4825,7 +4848,7 @@ Label_4E_6486:: ; 4E:6486
 	and a, $7F
 	ld c, a
 	ld b, $00
-	ld hl, $654B
+	ld hl, Table_Browser_FrameDescriptors
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
@@ -4840,23 +4863,23 @@ Label_4E_6486:: ; 4E:6486
 	push hl
 	ld bc, $0512
 	ld de, $0720
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	pop hl
 	ld bc, $00A0
 	add hl, bc
 	ld bc, $0712
 	ld de, $0780
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ld de, $FFFF
 	ld hl, $0000
 	ld bc, $0C14
-	farcall Function_4F_4604
+	farcall TileCanvas_FillRect
 	ld a, [wRam_C2C2]
 	push bc
 	and a, $7F
 	ld c, a
 	ld b, $00
-	ld hl, $654B
+	ld hl, Table_Browser_FrameDescriptors
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
@@ -4871,19 +4894,19 @@ Label_4E_6486:: ; 4E:6486
 	push hl
 	ld bc, $010F
 	ld de, $0000
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	pop hl
 	ld bc, $0020
 	add hl, bc
 	ld bc, $010F
 	ld de, $000F
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ld de, $0000
 	ld hl, $1000
 	ld bc, $0214
-	farcall Function_4F_4604
-	farcall Function_4E_60C5
-	farcall Function_4E_60A6
+	farcall TileCanvas_FillRect
+	farcall Browser_UploadBodyCanvas
+	farcall Browser_UploadTitleCanvas
 	ldh a, [rLCDC]
 	call Function_00_07CB
 	xor a, a
@@ -4899,62 +4922,68 @@ Data_4E_6543:: ; 4E:6543
 
 ; ---- ptrtable $654B-$6581 (54 bytes) [PROBABLE] 27 x dw screen-descriptor pointers indexed by (wRam_C2C2 & $7F)*2 (ld hl,$654B ; add hl,bc twice ; ld a,[hli] ; ld h,[hl] ; ld l,a at 4E:4026/4E:40D0/4E:5DA2/...; entries 1-2 are CONFIRMED read data, 654D-6551); the targets are the five descriptors 6581/65A0/65BF/65DE/65FD (31 bytes apart), extent 27 entries = up to 4E:6581 where the first descriptor starts [verifier: some of the 21 sites read the index from hD2 instead of wRam_C2C2 (e.g. 4E:40D0: ldh a,[$FFD2]), the table walk (ld bc = 2*(a&$7F)) is the same]
 
-Table_4E_654B:: ; 4E:654B
-	dw Data_4E_6581
-	dw Data_4E_65A0
-	dw Data_4E_65BF
-	dw Data_4E_65DE
-	dw Data_4E_65DE
-	dw Data_4E_65DE
-	dw Data_4E_65DE
-	dw Data_4E_65DE
-	dw Data_4E_65DE
-	dw Data_4E_65DE
-	dw Data_4E_65DE
-	dw Data_4E_65DE
-	dw Data_4E_65DE
-	dw Data_4E_65DE
-	dw Data_4E_65DE
-	dw Data_4E_65DE
-	dw Data_4E_65DE
-	dw Data_4E_65DE
-	dw Data_4E_65DE
-	dw Data_4E_65DE
-	dw Data_4E_65DE
-	dw Data_4E_65DE
-	dw Data_4E_65DE
-	dw Data_4E_65FD
-	dw Data_4E_65FD
-	dw Data_4E_65FD
-	dw Data_4E_65FD
+Table_Browser_FrameDescriptors:: ; 4E:654B
+Table_4E_654B::
+	dw Data_Browser_FrameDesc0
+	dw Data_Browser_FrameDesc1
+	dw Data_Browser_FrameDesc2
+	dw Data_Browser_FrameDesc3
+	dw Data_Browser_FrameDesc3
+	dw Data_Browser_FrameDesc3
+	dw Data_Browser_FrameDesc3
+	dw Data_Browser_FrameDesc3
+	dw Data_Browser_FrameDesc3
+	dw Data_Browser_FrameDesc3
+	dw Data_Browser_FrameDesc3
+	dw Data_Browser_FrameDesc3
+	dw Data_Browser_FrameDesc3
+	dw Data_Browser_FrameDesc3
+	dw Data_Browser_FrameDesc3
+	dw Data_Browser_FrameDesc3
+	dw Data_Browser_FrameDesc3
+	dw Data_Browser_FrameDesc3
+	dw Data_Browser_FrameDesc3
+	dw Data_Browser_FrameDesc3
+	dw Data_Browser_FrameDesc3
+	dw Data_Browser_FrameDesc3
+	dw Data_Browser_FrameDesc3
+	dw Data_Browser_FrameDesc23
+	dw Data_Browser_FrameDesc23
+	dw Data_Browser_FrameDesc23
+	dw Data_Browser_FrameDesc23
 
 ; ---- data $6581-$65A0 (31 bytes) [PROBABLE] screen descriptor of the table 4E:654B (31 bytes = 5 far pointers `dw addr ; db bank` (15 bytes) + 16 bytes of parameters): the far pointers name tile block, palette, tilemap, tile piece and OBJ palette inside bank 47 blocks (e.g. 47:4100 tiles, 47:4DD0 palettes, 47:4B00 tilemap, 47:4E10 = 4DD0+$40) exactly as laid out in config/regions/bank47.tsv
 
-Data_4E_6581:: ; 4E:6581
+Data_Browser_FrameDesc0:: ; 4E:6581
+Data_4E_6581::
 	db $00, $41, $47, $D0, $4D, $47, $00, $4B, $47, $00, $49, $47, $10, $4E, $47, $61
 	db $D0, $04, $D0, $48, $10, $48, $78, $70, $80, $08, $00, $73, $D0, $98, $18
 
 ; ---- data $65A0-$65BF (31 bytes) [PROBABLE] screen descriptor of the table 4E:654B (31 bytes = 5 far pointers `dw addr ; db bank` (15 bytes) + 16 bytes of parameters): the far pointers name tile block, palette, tilemap, tile piece and OBJ palette inside bank 47 blocks (e.g. 47:4100 tiles, 47:4DD0 palettes, 47:4B00 tilemap, 47:4E10 = 4DD0+$40) exactly as laid out in config/regions/bank47.tsv
 
-Data_4E_65A0:: ; 4E:65A0
+Data_Browser_FrameDesc1:: ; 4E:65A0
+Data_4E_65A0::
 	db $50, $4E, $47, $20, $5B, $47, $50, $58, $47, $50, $56, $47, $60, $5B, $47, $61
 	db $D0, $04, $D0, $48, $10, $48, $78, $70, $80, $08, $00, $73, $D0, $98, $18
 
 ; ---- data $65BF-$65DE (31 bytes) [PROBABLE] screen descriptor of the table 4E:654B (31 bytes = 5 far pointers `dw addr ; db bank` (15 bytes) + 16 bytes of parameters): the far pointers name tile block, palette, tilemap, tile piece and OBJ palette inside bank 47 blocks (e.g. 47:4100 tiles, 47:4DD0 palettes, 47:4B00 tilemap, 47:4E10 = 4DD0+$40) exactly as laid out in config/regions/bank47.tsv
 
-Data_4E_65BF:: ; 4E:65BF
+Data_Browser_FrameDesc2:: ; 4E:65BF
+Data_4E_65BF::
 	db $A0, $5B, $47, $70, $68, $47, $A0, $65, $47, $A0, $63, $47, $B0, $68, $47, $61
 	db $D0, $02, $D0, $48, $10, $48, $78, $71, $7A, $84, $00, $73, $D0, $98, $18
 
 ; ---- data $65DE-$65FD (31 bytes) [PROBABLE] screen descriptor of the table 4E:654B (31 bytes = 5 far pointers `dw addr ; db bank` (15 bytes) + 16 bytes of parameters): the far pointers name tile block, palette, tilemap, tile piece and OBJ palette inside bank 47 blocks (e.g. 47:4100 tiles, 47:4DD0 palettes, 47:4B00 tilemap, 47:4E10 = 4DD0+$40) exactly as laid out in config/regions/bank47.tsv
 
-Data_4E_65DE:: ; 4E:65DE
+Data_Browser_FrameDesc3:: ; 4E:65DE
+Data_4E_65DE::
 	db $A0, $5B, $47, $70, $68, $47, $A0, $65, $47, $A0, $63, $47, $B0, $68, $47, $61
 	db $D0, $02, $D0, $48, $10, $48, $78, $71, $7A, $84, $00, $73, $D0, $98, $18
 
 ; ---- data $65FD-$661C (31 bytes) [PROBABLE] screen descriptor of the table 4E:654B (31 bytes = 5 far pointers `dw addr ; db bank` (15 bytes) + 16 bytes of parameters): the far pointers name tile block, palette, tilemap, tile piece and OBJ palette inside bank 47 blocks (e.g. 47:4100 tiles, 47:4DD0 palettes, 47:4B00 tilemap, 47:4E10 = 4DD0+$40) exactly as laid out in config/regions/bank47.tsv
 
-Data_4E_65FD:: ; 4E:65FD
+Data_Browser_FrameDesc23:: ; 4E:65FD
+Data_4E_65FD::
 	db $50, $4E, $47, $20, $5B, $47, $50, $58, $47, $50, $56, $47, $60, $5B, $47, $61
 	db $D0, $04, $D0, $48, $10, $48, $78, $70, $7E, $00, $00, $73, $D0, $98, $18
 

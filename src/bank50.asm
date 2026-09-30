@@ -9,7 +9,7 @@ SECTION "Bank50", ROMX[$4000], BANK[$50]
 
 ; ---- code $4000-$4244 (580 bytes) [PROBABLE] 217 insn(s) reached by static flow only; seeds: exec x217; min discovery hops 1; entered by far from 4E:50DD (PROBABLE code)
 
-Function_50_4000:: ; 50:4000
+CommNotice_ShowDialog:: ; 50:4000
 	ld a, [wRam_C1D0]
 	inc a
 	ld b, a
@@ -22,17 +22,17 @@ Function_50_4000:: ; 50:4000
 	ldh a, [rLCDC]
 	and a, $FB
 	ldh [rLCDC], a
-	call Function_50_4061
+	call CommNotice_RunDialog
 	or a, a
 	jr nz, Label_50_4050
 	farcall Function_00_09B6
 	ld de, $010F
-	farcall Function_72_402A
-	farcall Function_4C_46F4
-	farcall Function_72_444F
+	farcall Dialog_Open
+	farcall Comm_Disconnect
+	farcall Dialog_Close
 	ld de, $0110
-	farcall Function_72_4015
-	farcall Function_4F_4370
+	farcall Dialog_Show
+	farcall Palette_FadeOutToWhite
 	pop bc
 	ldh a, [rLCDC]
 	and a, $FB
@@ -42,7 +42,7 @@ Function_50_4000:: ; 50:4000
 	ret
 
 Label_50_4050:: ; 50:4050
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	pop bc
 	ldh a, [rLCDC]
 	and a, $FB
@@ -51,7 +51,7 @@ Label_50_4050:: ; 50:4050
 	ld a, $00
 	ret
 
-Function_50_4061:: ; 50:4061
+CommNotice_RunDialog:: ; 50:4061
 	push bc
 	xor a, a
 	ld bc, $00FC
@@ -82,34 +82,34 @@ Function_50_4061:: ; 50:4061
 	or a, a
 	jp nz, Label_50_4173
 	ld de, $9000
-	ld hl, $5A20
+	ld hl, Data_50_5A20
 	ld a, $50
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9400
-	ld hl, $5E20
+	ld hl, Data_50_5E20
 	ld a, $50
 	ld b, $96
 	ld c, $1A
 	farcall Function_00_0787
 	ld de, $8001
-	ld hl, $5FC0
+	ld hl, Data_50_5FC0
 	ld a, $50
 	ld b, $98
 	ld c, $01
 	farcall Function_00_0787
 	ld de, $9001
-	ld hl, $5FD0
+	ld hl, Data_50_5FD0
 	ld a, $50
 	ld b, $94
 	ld c, $32
 	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $6BC0
+	ld hl, Palette_50_6BC0
 	ld a, $50
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld a, [wRam_C0D8]
 	or a, a
 	jr nz, Label_50_4129
@@ -125,12 +125,12 @@ Function_50_4061:: ; 50:4061
 	jr c, Label_50_4121
 	ld a, $01
 	ld [wRam_C1CD], a
-	jp Label_50_4254
+	jp CommNotice_DrawScreenAndLoop
 
 Label_50_4121:: ; 50:4121
 	ld a, $03
 	ld [wRam_C1CD], a
-	jp Label_50_4254
+	jp CommNotice_DrawScreenAndLoop
 
 Label_50_4129:: ; 50:4129
 	ld a, $F0
@@ -154,7 +154,7 @@ Label_50_4148:: ; 50:4148
 
 Label_50_414F:: ; 50:414F
 	ld hl, $DA10
-	ld de, $6D16
+	ld de, Table_50_6D16
 	ld a, $50
 	ld b, $80
 	farcall Function_00_0A82
@@ -162,30 +162,30 @@ Label_50_414F:: ; 50:414F
 	ld de, $D840
 	ld hl, $6C40
 	ld a, $50
-	farcall Function_4F_4000
-	jp Label_50_4254
+	farcall Palette_LoadToBuffer
+	jp CommNotice_DrawScreenAndLoop
 
 Label_50_4173:: ; 50:4173
 	ld de, $9000
-	ld hl, $62F0
+	ld hl, Data_50_62F0
 	ld a, $50
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9400
-	ld hl, $66F0
+	ld hl, Data_50_66F0
 	ld a, $50
 	ld b, $96
 	ld c, $1A
 	farcall Function_00_0787
 	ld de, $8001
-	ld hl, $6890
+	ld hl, Data_50_6890
 	ld a, $50
 	ld b, $98
 	ld c, $01
 	farcall Function_00_0787
 	ld de, $9001
-	ld hl, $68A0
+	ld hl, Data_50_68A0
 	ld a, $50
 	ld b, $94
 	ld c, $32
@@ -194,7 +194,7 @@ Label_50_4173:: ; 50:4173
 	ld de, $D800
 	ld hl, $6C00
 	ld a, $50
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld a, [wRam_C0D8]
 	or a, a
 	jr nz, Label_50_41FA
@@ -210,12 +210,12 @@ Label_50_4173:: ; 50:4173
 	jr c, Label_50_41F2
 	ld a, $05
 	ld [wRam_C1CD], a
-	jp Label_50_4254
+	jp CommNotice_DrawScreenAndLoop
 
 Label_50_41F2:: ; 50:41F2
 	ld a, $07
 	ld [wRam_C1CD], a
-	jp Label_50_4254
+	jp CommNotice_DrawScreenAndLoop
 
 Label_50_41FA:: ; 50:41FA
 	ld a, $F0
@@ -247,28 +247,29 @@ Label_50_4220:: ; 50:4220
 	ld de, $D840
 	ld hl, $6C80
 	ld a, $50
-	farcall Function_4F_4000
-	jp Label_50_4254
+	farcall Palette_LoadToBuffer
+	jp CommNotice_DrawScreenAndLoop
 
 ; ---- ptrtable $4244-$4254 (16 bytes) [PROBABLE] little-endian word table, 8 entries, monotone=1.00, 0% of targets on string start/after NUL, targets $439A..$574A; referenced by ld r16,$4244 at 50:4259; verifier: dropped first entry (operand of the preceding jp/call at 4241)
 
-Table_50_4244:: ; 50:4244
-	dw Tilemap_50_439A
-	dw Tilemap_50_466A
-	dw Tilemap_50_493A
-	dw Tilemap_50_4C0A
-	dw Tilemap_50_4EDA
-	dw Tilemap_50_51AA
-	dw Tilemap_50_547A
-	dw Tilemap_50_574A
+Table_CommNotice_Screens:: ; 50:4244
+Table_50_4244::
+	dw Tilemap_CommNotice_A_CutOver60
+	dw Tilemap_CommNotice_A_AskOver60
+	dw Tilemap_CommNotice_A_CutSoon
+	dw Tilemap_CommNotice_A_AskSoon
+	dw Tilemap_CommNotice_B_CutOver60
+	dw Tilemap_CommNotice_B_AskOver60
+	dw Tilemap_CommNotice_B_CutSoon
+	dw Tilemap_CommNotice_B_AskSoon
 
 ; ---- code $4254-$42AC (88 bytes) [CONFIRMED] 34 insn(s) reached by static flow only; seeds: exec x34; min discovery hops 3; entered by jp from 50:411E (PROBABLE code) [executed in 1 scenarios]
 
-Label_50_4254:: ; 50:4254
+CommNotice_DrawScreenAndLoop:: ; 50:4254
 	ld a, [wRam_C1CD]
 	dec a
 	add a, a
-	ld hl, $4244
+	ld hl, Table_CommNotice_Screens
 	add a, l
 	ld l, a
 	ld a, h
@@ -281,12 +282,12 @@ Label_50_4254:: ; 50:4254
 	ld bc, $1214
 	ld a, $50
 	farcall Function_00_08EA
-	call Function_50_4338
-	call Function_50_4352
+	call CommNotice_DrawChoiceCursor
+	call CommNotice_DrawMinuteDigit
 	ldh a, [rLCDC]
 	call Function_00_082C
 	farcall Function_00_0956
-	farcall Function_4F_42B4
+	farcall Palette_FadeInFromWhite
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -299,7 +300,7 @@ Label_50_4254:: ; 50:4254
 Label_50_429A:: ; 50:429A
 	farcall Function_00_0956
 	call Function_00_044B
-	farcall Function_7D_7BC1
+	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
 
 ; ---- ptrtable $42AC-$42B6 (10 bytes) [PROBABLE] inline table of `call $056A` (JoypadDispatch) at 50:42A9: 5 entries; fixed length (5 words) by the routine
@@ -316,7 +317,7 @@ Table_50_42AC:: ; 50:42AC
 Label_50_42B6:: ; 50:42B6
 	ldh a, [hJoyPressedRepeat]
 	and a, $F0
-	call nz, Function_50_430C
+	call nz, CommNotice_HandleLeftRight
 	ld a, [wRam_C14E]
 	inc a
 	ld [wRam_C14E], a
@@ -366,7 +367,7 @@ Label_50_4304:: ; 50:4304
 Label_50_430A:: ; 50:430A
 	jr Label_50_429A
 
-Function_50_430C:: ; 50:430C
+CommNotice_HandleLeftRight:: ; 50:430C
 	ld a, [wRam_C0D8]
 	or a, a
 	ret z
@@ -381,7 +382,7 @@ Label_50_431C:: ; 50:431C
 	ld a, [wRam_C0D4]
 	xor a, $01
 	ld [wRam_C0D4], a
-	call Function_50_4338
+	call CommNotice_DrawChoiceCursor
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -392,7 +393,7 @@ Label_50_431C:: ; 50:431C
 	ldh [rSVBK], a
 	ret
 
-Function_50_4338:: ; 50:4338
+CommNotice_DrawChoiceCursor:: ; 50:4338
 	ld a, [wRam_C0D4]
 	or a, a
 	jr nz, Label_50_4348
@@ -407,11 +408,11 @@ Label_50_4348:: ; 50:4348
 	call Function_00_0A65
 	ret
 
-Function_50_4352:: ; 50:4352
+CommNotice_DrawMinuteDigit:: ; 50:4352
 	ld a, [wRam_C1CD]
 	dec a
 	add a, a
-	ld hl, $438A
+	ld hl, Table_CommNotice_DigitCells
 	add a, l
 	ld l, a
 	ld a, h
@@ -427,7 +428,7 @@ Function_50_4352:: ; 50:4352
 	inc a
 	ld b, a
 	ld c, $0A
-	farcall Function_48_4000
+	farcall Divide8
 	ld a, b
 	dec a
 	dec a
@@ -446,12 +447,14 @@ Function_50_4352:: ; 50:4352
 
 ; ---- words $438A-$439A (16 bytes) [PROBABLE] 8 WRAM tilemap-buffer addresses ($D0A3,$D083,$D0E4,$D0C4 twice) indexed by (wRam_C1CD-1)*2 at 50:4352 (ld hl,$438A; word read); the code writes a tile id ($26+n) through it and the row below (+$20). Values are WRAM addresses, not ROM pointers.
 
-Table_50_438A:: ; 50:438A
+Table_CommNotice_DigitCells:: ; 50:438A
+Table_50_438A::
 	dw $D0A3, $D083, $D0E4, $D0C4, $D0A3, $D083, $D0E4, $D0C4
 
 ; ---- data $439A-$4502 (360 bytes) [PROBABLE] screen 1 of 8: 20x18 tile-id map (360 bytes); block address is entry 0 of Table_50_4244 (50:4254 indexes it by wRam_C1CD-1) and is copied by Function_00_08EA (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7)
 
-Tilemap_50_439A:: ; 50:439A
+Tilemap_CommNotice_A_CutOver60:: ; 50:439A
+Tilemap_50_439A::
 	db $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12
 	db $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12
 	db $12, $12, $12, $12, $12, $12, $12, $12, $12, $00, $01, $02, $02, $02, $02, $02
@@ -505,7 +508,8 @@ Attrmap_50_4502:: ; 50:4502
 
 ; ---- data $466A-$47D2 (360 bytes) [PROBABLE] screen 2 of 8: 20x18 tile-id map (360 bytes); block address is entry 1 of Table_50_4244 (50:4254 indexes it by wRam_C1CD-1) and is copied by Function_00_08EA (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7)
 
-Tilemap_50_466A:: ; 50:466A
+Tilemap_CommNotice_A_AskOver60:: ; 50:466A
+Tilemap_50_466A::
 	db $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12
 	db $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12
 	db $12, $12, $12, $12, $12, $12, $12, $12, $12, $00, $01, $02, $02, $02, $02, $02
@@ -559,7 +563,8 @@ Attrmap_50_47D2:: ; 50:47D2
 
 ; ---- data $493A-$4AA2 (360 bytes) [PROBABLE] screen 3 of 8: 20x18 tile-id map (360 bytes); block address is entry 2 of Table_50_4244 (50:4254 indexes it by wRam_C1CD-1) and is copied by Function_00_08EA (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7)
 
-Tilemap_50_493A:: ; 50:493A
+Tilemap_CommNotice_A_CutSoon:: ; 50:493A
+Tilemap_50_493A::
 	db $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12
 	db $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12
 	db $12, $12, $12, $12, $12, $12, $12, $12, $12, $00, $01, $02, $02, $02, $02, $02
@@ -613,7 +618,8 @@ Attrmap_50_4AA2:: ; 50:4AA2
 
 ; ---- data $4C0A-$4D72 (360 bytes) [CONFIRMED] screen 4 of 8: 20x18 tile-id map (360 bytes); block address is entry 3 of Table_50_4244 (50:4254 indexes it by wRam_C1CD-1) and is copied by Function_00_08EA (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7) [verifier: CONFIRMED - executed data read: traces/detail/browser_pages/dataaccess.tsv 'rom_read 50 4C0A 4EDA' = exactly this tilemap + attrmap pair, and 'rom_read 50 4390 4392' = entry 3 of Table_50_438A, i.e. screen 4 was selected through Table_50_4244 entry 3 ($424A-424C read); the 360+360 split follows 00:08EA (b=$12 rows x c=$14, second copy at dest+$400)]
 
-Tilemap_50_4C0A:: ; 50:4C0A
+Tilemap_CommNotice_A_AskSoon:: ; 50:4C0A
+Tilemap_50_4C0A::
 	db $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12
 	db $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12
 	db $12, $12, $12, $12, $12, $12, $12, $12, $12, $00, $01, $02, $02, $02, $02, $02
@@ -667,7 +673,8 @@ Attrmap_50_4D72:: ; 50:4D72
 
 ; ---- data $4EDA-$5042 (360 bytes) [PROBABLE] screen 5 of 8: 20x18 tile-id map (360 bytes); block address is entry 4 of Table_50_4244 (50:4254 indexes it by wRam_C1CD-1) and is copied by Function_00_08EA (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7)
 
-Tilemap_50_4EDA:: ; 50:4EDA
+Tilemap_CommNotice_B_CutOver60:: ; 50:4EDA
+Tilemap_50_4EDA::
 	db $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12
 	db $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12
 	db $12, $12, $12, $12, $12, $12, $12, $12, $12, $00, $01, $02, $02, $02, $02, $02
@@ -721,7 +728,8 @@ Attrmap_50_5042:: ; 50:5042
 
 ; ---- data $51AA-$5312 (360 bytes) [PROBABLE] screen 6 of 8: 20x18 tile-id map (360 bytes); block address is entry 5 of Table_50_4244 (50:4254 indexes it by wRam_C1CD-1) and is copied by Function_00_08EA (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7)
 
-Tilemap_50_51AA:: ; 50:51AA
+Tilemap_CommNotice_B_AskOver60:: ; 50:51AA
+Tilemap_50_51AA::
 	db $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12
 	db $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12
 	db $12, $12, $12, $12, $12, $12, $12, $12, $12, $00, $01, $02, $02, $02, $02, $02
@@ -775,7 +783,8 @@ Attrmap_50_5312:: ; 50:5312
 
 ; ---- data $547A-$55E2 (360 bytes) [PROBABLE] screen 7 of 8: 20x18 tile-id map (360 bytes); block address is entry 6 of Table_50_4244 (50:4254 indexes it by wRam_C1CD-1) and is copied by Function_00_08EA (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7)
 
-Tilemap_50_547A:: ; 50:547A
+Tilemap_CommNotice_B_CutSoon:: ; 50:547A
+Tilemap_50_547A::
 	db $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12
 	db $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12
 	db $12, $12, $12, $12, $12, $12, $12, $12, $12, $00, $01, $02, $02, $02, $02, $02
@@ -829,7 +838,8 @@ Attrmap_50_55E2:: ; 50:55E2
 
 ; ---- data $574A-$58B2 (360 bytes) [PROBABLE] screen 8 of 8: 20x18 tile-id map (360 bytes); block address is entry 7 of Table_50_4244 (50:4254 indexes it by wRam_C1CD-1) and is copied by Function_00_08EA (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7)
 
-Tilemap_50_574A:: ; 50:574A
+Tilemap_CommNotice_B_AskSoon:: ; 50:574A
+Tilemap_50_574A::
 	db $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12
 	db $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12, $12
 	db $12, $12, $12, $12, $12, $12, $12, $12, $12, $00, $01, $02, $02, $02, $02, $02

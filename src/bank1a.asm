@@ -9,7 +9,8 @@ SECTION "Bank1A", ROMX[$4000], BANK[$1A]
 
 ; ---- code $4000-$4163 (355 bytes) [CONFIRMED] 121 insn(s); 121 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_1A_4000:: ; 1A:4000
+MobileDict_Run:: ; 1A:4000
+Function_1A_4000::
 	xor a, a
 	ld bc, $00FC
 	ld hl, $C0D4
@@ -19,7 +20,7 @@ Function_1A_4000:: ; 1A:4000
 	ld [wRam_C0D4], a
 	ld [wRam_C0D6], a
 
-Label_1A_4018:: ; 1A:4018
+MobileDict_Redraw:: ; 1A:4018
 	ldh a, [rLCDC]
 	and a, $9F
 	ldh [rLCDC], a
@@ -32,40 +33,40 @@ Label_1A_4018:: ; 1A:4018
 	ldh [rWY], a
 	farcall Function_00_09B6
 	ld de, $8000
-	ld hl, $4A90
+	ld hl, Gfx_MobileDict_Tiles0
 	ld a, $1A
 	ld b, $95
 	ld c, $20
 	farcall Function_00_0787
 	ld de, $8B01
-	ld hl, $4C90
+	ld hl, Gfx_MobileDict_Tiles1
 	ld a, $1A
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8F01
-	ld hl, $5090
+	ld hl, Gfx_MobileDict_Tiles2
 	ld a, $1A
 	ld b, $94
 	ld c, $30
 	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $5390
+	ld hl, Palette_MobileDict_Bg
 	ld a, $1A
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $47B5
+	ld hl, Tilemap_MobileDict_Screen
 	ld a, $1A
 	farcall Function_00_08EA
 	ld hl, $DA20
-	ld de, $55A0
+	ld de, Objects_MobileDict
 	ld a, $1A
 	ld b, $80
 	farcall Function_00_0A82
 	ld hl, $DA30
-	ld de, $55A0
+	ld de, Objects_MobileDict
 	ld a, $1A
 	ld b, $81
 	farcall Function_00_0A82
@@ -73,12 +74,12 @@ Label_1A_4018:: ; 1A:4018
 	ld de, $D840
 	ld hl, $53D0
 	ld a, $1A
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld a, $00
 	ld bc, $0A10
 	ld de, $F000
 	ld hl, $D0A1
-	farcall Function_48_4679
+	farcall Tilemap_FillRectSequential
 	ldh a, [rLCDC]
 	call Function_00_082C
 	ldh [hScratchA], a
@@ -115,11 +116,11 @@ Label_1A_4018:: ; 1A:4018
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
-	call Function_1A_4391
-	call Function_1A_42DE
-	call Function_1A_4317
+	call MobileDict_LoadPage
+	call MobileDict_DrawRowHighlight
+	call MobileDict_UpdateTabSprites
 	farcall Function_00_0956
-	farcall Function_4F_42B4
+	farcall Palette_FadeInFromWhite
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -129,31 +130,32 @@ Label_1A_4018:: ; 1A:4018
 	pop af
 	ldh [rSVBK], a
 
-Label_1A_414B:: ; 1A:414B
+MobileDict_Loop:: ; 1A:414B
 	farcall Function_00_0956
 	call Function_00_044B
-	farcall Function_7D_7BA4
-	farcall Function_7D_7BC1
+	farcall Joypad_UpdateIdleFrames
+	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
 
 ; ---- ptrtable $4163-$416D (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 1A:4160: 5 entries; fixed length (5 words) by the routine
 
-Table_1A_4163:: ; 1A:4163
-	dw Label_1A_4177
-	dw Label_1A_41CA
+Table_MobileDict_Buttons:: ; 1A:4163
+Table_1A_4163::
+	dw MobileDict_OnA
+	dw MobileDict_OnB
 	dw Label_1A_41E2
 	dw Label_1A_41E2
-	dw Label_1A_416D
+	dw MobileDict_Idle
 
 ; ---- code $416D-$41F2 (133 bytes) [CONFIRMED] 65 insn(s); 65 executed (in up to 1/18 scenarios)
 
-Label_1A_416D:: ; 1A:416D
+MobileDict_Idle:: ; 1A:416D
 	ldh a, [hJoyPressedRepeat]
 	and a, $F0
-	call nz, Function_1A_41E5
-	jp Label_1A_414B
+	call nz, MobileDict_HandleDpad
+	jp MobileDict_Loop
 
-Label_1A_4177:: ; 1A:4177
+MobileDict_OnA:: ; 1A:4177
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -162,7 +164,7 @@ Label_1A_4177:: ; 1A:4177
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ld a, [wRam_C0D4]
 	dec a
 	add a, a
@@ -195,10 +197,10 @@ Label_1A_4177:: ; 1A:4177
 	ld c, a
 	ld b, $00
 	ld a, $02
-	farcall Function_4C_4F56
-	jp Label_1A_4018
+	farcall MobileDictView_Show
+	jp MobileDict_Redraw
 
-Label_1A_41CA:: ; 1A:41CA
+MobileDict_OnB:: ; 1A:41CA
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -207,30 +209,30 @@ Label_1A_41CA:: ; 1A:41CA
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	xor a, a
 	ret
 
 Label_1A_41E2:: ; 1A:41E2
-	jp Label_1A_414B
+	jp MobileDict_Loop
 
-Function_1A_41E5:: ; 1A:41E5
+MobileDict_HandleDpad:: ; 1A:41E5
 	bit 6, a
-	jr nz, Label_1A_41F8
+	jr nz, MobileDict_CursorUp
 	bit 7, a
-	jr nz, Label_1A_4238
+	jr nz, MobileDict_CursorDown
 	bit 4, a
-	jp nz, Label_1A_4281
+	jp nz, MobileDict_NextCategory
 
 ; ---- code $41F2-$4238 (70 bytes) [PROBABLE] 34 insn(s) reached by static flow only; seeds: exec x34; min discovery hops 0; fall-through of the jpcc at 1A:41EF (executed)
 	bit 5, a
-	jp nz, Label_1A_42B0
+	jp nz, MobileDict_PrevCategory
 	ret
 
-Label_1A_41F8:: ; 1A:41F8
+MobileDict_CursorUp:: ; 1A:41F8
 	ld a, [wRam_C0D6]
 	dec a
-	jr z, Label_1A_4215
+	jr z, MobileDict_ScrollUp
 	ld [wRam_C0D6], a
 	ldh a, [hWRAMBank]
 	push af
@@ -240,10 +242,10 @@ Label_1A_41F8:: ; 1A:41F8
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	call Function_1A_42DE
+	call MobileDict_DrawRowHighlight
 	ret
 
-Label_1A_4215:: ; 1A:4215
+MobileDict_ScrollUp:: ; 1A:4215
 	ld a, [wRam_C0E5]
 	or a, a
 	ret z
@@ -257,14 +259,14 @@ Label_1A_4215:: ; 1A:4215
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	call Function_1A_4391
-	call Function_1A_42DE
-	call Function_1A_4317
+	call MobileDict_LoadPage
+	call MobileDict_DrawRowHighlight
+	call MobileDict_UpdateTabSprites
 	ret
 
 ; ---- code $4238-$4263 (43 bytes) [CONFIRMED] 23 insn(s); 23 executed (in up to 1/18 scenarios)
 
-Label_1A_4238:: ; 1A:4238
+MobileDict_CursorDown:: ; 1A:4238
 	ld a, [wRam_C0D8]
 	ld b, a
 	ld a, [wRam_C0D6]
@@ -275,7 +277,7 @@ Label_1A_4238:: ; 1A:4238
 	ret z
 	ld a, c
 	cp a, $05
-	jr z, Label_1A_4263
+	jr z, MobileDict_ScrollDown
 	inc a
 	ld [wRam_C0D6], a
 	ldh a, [hWRAMBank]
@@ -286,12 +288,12 @@ Label_1A_4238:: ; 1A:4238
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	call Function_1A_42DE
+	call MobileDict_DrawRowHighlight
 	ret
 
 ; ---- code $4263-$4281 (30 bytes) [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 1; entered by jrcc from 1A:4249 (executed)
 
-Label_1A_4263:: ; 1A:4263
+MobileDict_ScrollDown:: ; 1A:4263
 	ld hl, $C0E5
 	inc [hl]
 	ldh a, [hWRAMBank]
@@ -302,14 +304,14 @@ Label_1A_4263:: ; 1A:4263
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	call Function_1A_4391
-	call Function_1A_42DE
-	call Function_1A_4317
+	call MobileDict_LoadPage
+	call MobileDict_DrawRowHighlight
+	call MobileDict_UpdateTabSprites
 	ret
 
 ; ---- code $4281-$4288 (7 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 
-Label_1A_4281:: ; 1A:4281
+MobileDict_NextCategory:: ; 1A:4281
 	ld a, [wRam_C0D4]
 	cp a, $0B
 	jr nz, Label_1A_4289
@@ -326,9 +328,9 @@ Label_1A_4289:: ; 1A:4289
 	ld [wRam_C0D6], a
 	dec a
 	ld [wRam_C0E5], a
-	call Function_1A_4391
-	call Function_1A_42DE
-	call Function_1A_4317
+	call MobileDict_LoadPage
+	call MobileDict_DrawRowHighlight
+	call MobileDict_UpdateTabSprites
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -341,7 +343,7 @@ Label_1A_4289:: ; 1A:4289
 
 ; ---- code $42B0-$42DE (46 bytes) [CONFIRMED] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 1; entered by jpcc from 1A:41F4 (PROBABLE code) [executed in 3 scenarios]
 
-Label_1A_42B0:: ; 1A:42B0
+MobileDict_PrevCategory:: ; 1A:42B0
 	ld a, [wRam_C0D4]
 	dec a
 	jr nz, Label_1A_42B8
@@ -353,9 +355,9 @@ Label_1A_42B8:: ; 1A:42B8
 	ld [wRam_C0D6], a
 	dec a
 	ld [wRam_C0E5], a
-	call Function_1A_4391
-	call Function_1A_42DE
-	call Function_1A_4317
+	call MobileDict_LoadPage
+	call MobileDict_DrawRowHighlight
+	call MobileDict_UpdateTabSprites
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -368,7 +370,8 @@ Label_1A_42B8:: ; 1A:42B8
 
 ; ---- code $42DE-$4346 (104 bytes) [CONFIRMED] 49 insn(s); 49 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_1A_42DE:: ; 1A:42DE
+MobileDict_DrawRowHighlight:: ; 1A:42DE
+Function_1A_42DE::
 	ld hl, $D4A1
 	ld bc, $0A10
 	ld de, $F800
@@ -395,11 +398,11 @@ Function_1A_42DE:: ; 1A:42DE
 	call Function_00_082C
 	ret
 
-Function_1A_4317:: ; 1A:4317
+MobileDict_UpdateTabSprites:: ; 1A:4317
 	ld a, [wRam_C0D4]
 	dec a
 	add a, a
-	ld hl, $437B
+	ld hl, Table_MobileDict_TabPositions
 	add a, l
 	ld l, a
 	ld a, h
@@ -456,13 +459,15 @@ Label_1A_437A:: ; 1A:437A
 
 ; ---- data $437B-$4391 (22 bytes) [PROBABLE] 11 pairs (index,value): 00 08 / 01 14 / 02 20 / 03 2C ... 0A 80 (value = 8 + 12*index), right after the ret of the preceding routine and before Function_1A_4391; first 4 bytes read in a trace; the 18-byte mapper hole is the rest of this table
 
-Data_1A_437B:: ; 1A:437B
+Table_MobileDict_TabPositions:: ; 1A:437B
+Data_1A_437B::
 	db $00, $08, $01, $14, $02, $20, $03, $2C, $04, $38, $05, $44, $06, $50, $07, $5C
 	db $08, $68, $09, $74, $0A, $80
 
 ; ---- code $4391-$4439 (168 bytes) [CONFIRMED] 83 insn(s); 83 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_1A_4391:: ; 1A:4391
+MobileDict_LoadPage:: ; 1A:4391
+Function_1A_4391::
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -478,7 +483,7 @@ Function_1A_4391:: ; 1A:4391
 
 Label_1A_43AA:: ; 1A:43AA
 	ld a, [wRam_C0D4]
-	ld hl, $4439
+	ld hl, Table_MobileDict_Categories
 	dec a
 	add a, a
 	add a, l
@@ -513,7 +518,7 @@ Label_1A_43AA:: ; 1A:43AA
 	ldh [hRam_FFB0], a
 	ld bc, $0010
 	ld a, $1A
-	farcall Function_48_415A
+	farcall TextTiles_RenderGridRows
 	call Function_00_0392
 	pop de
 	inc d
@@ -553,27 +558,30 @@ Label_1A_43F9:: ; 1A:43F9
 
 ; ---- ptrtable $4439-$444F (22 bytes) [PROBABLE] 11 pointers to the string-group headers 444F 44C7 44E0 453F 456B 45A8 4608 46F9 4705 471E 4736; every target is a count byte followed by count word pointers whose first target equals the end of the header (all 11 validated); first 4 bytes read by executed code
 
-Table_1A_4439:: ; 1A:4439
-	dw Data_1A_444F
-	dw Data_1A_44C7
-	dw Data_1A_44E0
-	dw Data_1A_453F
-	dw Data_1A_456B
-	dw Data_1A_45A8
-	dw Data_1A_4608
-	dw Data_1A_46F9
-	dw Data_1A_4705
-	dw Data_1A_471E
-	dw Data_1A_4736
+Table_MobileDict_Categories:: ; 1A:4439
+Table_1A_4439::
+	dw Data_MobileDict_Cat01Count
+	dw Data_MobileDict_Cat02Count
+	dw Data_MobileDict_Cat03Count
+	dw Data_MobileDict_Cat04Count
+	dw Data_MobileDict_Cat05Count
+	dw Data_MobileDict_Cat06Count
+	dw Data_MobileDict_Cat07Count
+	dw Data_MobileDict_Cat08Count
+	dw Data_MobileDict_Cat09Count
+	dw Data_MobileDict_Cat10Count
+	dw Data_MobileDict_Cat11Count
 
 ; ---- data $444F-$4450 (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 444F-445A by higher-priority evidence]
 
-Data_1A_444F:: ; 1A:444F
+Data_MobileDict_Cat01Count:: ; 1A:444F
+Data_1A_444F::
 	db $09
 
 ; ---- ptrtable $4450-$4462 (18 bytes) [PROBABLE] little-endian word table, 12 entries, monotone=0.82, 75% of targets on string start/after NUL, targets $4462..$4583; regular record stride between targets [clipped from 4450-4468 by higher-priority proposals]
 
-Table_1A_4450:: ; 1A:4450
+Table_MobileDict_Cat01Strings:: ; 1A:4450
+Table_1A_4450::
 	dw String_1A_4462
 	dw $446D
 	dw $4476
@@ -587,42 +595,49 @@ Table_1A_4450:: ; 1A:4450
 ; ---- text $4462-$449D (59 bytes) [PROBABLE] text: 5 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_1A_4462:: ; 1A:4462
-	db $83, $41, $83, $4A, $83, $45, $83, $93, $83, $67, $00, $82, $A0, $82, $C4, $82
-	db $B3, $82, $AB, $00, $83, $41, $83, $68, $83, $8C, $83, $58, $00, $83, $41, $83
-	db $68, $83, $8C, $83, $58, $82, $BF, $82, $E5, $82, $A4, $00, $83, $43, $83, $93
-	db $83, $5E, $81, $5B, $83, $6C, $83, $62, $83, $67, $00
+	db $83, $41, $83, $4A, $83, $45, $83, $93, $83, $67, $00 ; "アカウント"
+	db $82, $A0, $82, $C4, $82, $B3, $82, $AB, $00 ; "あてさき"
+	db $83, $41, $83, $68, $83, $8C, $83, $58, $00 ; "アドレス"
+	db $83, $41, $83, $68, $83, $8C, $83, $58, $82, $BF, $82, $E5, $82, $A4, $00 ; "アドレスちょう"
+	db $83, $43, $83, $93, $83, $5E, $81, $5B, $83, $6C, $83, $62, $83, $67, $00 ; "インターネット"
 
 ; ---- text $449D-$44A4 (7 bytes) [PROBABLE] Shift-JIS "ウェブ" NUL-terminated; target of the pointer at 445A (group 444F entry 5)
 
 String_1A_449D:: ; 1A:449D
-	db $83, $45, $83, $46, $83, $75, $00
+	db $83, $45, $83, $46, $83, $75, $00 ; "ウェブ"
 
 ; ---- text $44A4-$44C7 (35 bytes) [PROBABLE] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_1A_44A4:: ; 1A:44A4
-	db $83, $45, $83, $46, $83, $75, $83, $54, $83, $43, $83, $67, $00, $83, $49, $83
-	db $74, $83, $89, $83, $43, $83, $93, $00, $83, $49, $83, $93, $83, $89, $83, $43
-	db $83, $93, $00
+	db $83, $45, $83, $46, $83, $75, $83, $54, $83, $43, $83, $67, $00 ; "ウェブサイト"
+	db $83, $49, $83, $74, $83, $89, $83, $43, $83, $93, $00 ; "オフライン"
+	db $83, $49, $83, $93, $83, $89, $83, $43, $83, $93, $00 ; "オンライン"
 
 ; ---- data $44C7-$44CC (5 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 44C7-44E0 by higher-priority evidence]
 
-Data_1A_44C7:: ; 1A:44C7
-	db $02, $CC, $44, $D5, $44
+Data_MobileDict_Cat02Count:: ; 1A:44C7
+Data_1A_44C7::
+	db $02
+
+Table_MobileDict_Cat02Strings:: ; 1A:44C8
+	db $CC, $44, $D5, $44
 
 ; ---- text $44CC-$44E0 (20 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_1A_44CC:: ; 1A:44CC
-	db $82, $A9, $82, $A8, $82, $E0, $82, $B6, $00, $83, $52, $83, $93, $83, $65, $83
-	db $93, $83, $63, $00
+	db $82, $A9, $82, $A8, $82, $E0, $82, $B6, $00 ; "かおもじ"
+	db $83, $52, $83, $93, $83, $65, $83, $93, $83, $63, $00 ; "コンテンツ"
 
 ; ---- data $44E0-$44E1 (1 bytes) [PROBABLE] group count byte = 08 (group header, see Table_1A_4439)
 
-Data_1A_44E0:: ; 1A:44E0
+Data_MobileDict_Cat03Count:: ; 1A:44E0
+Data_1A_44E0::
 	db $08
 
 ; ---- ptrtable $44E1-$44F1 (16 bytes) [PROBABLE] 8 string pointers 44F1 44F8 44FF 4508 4511 4520 452D 4536 (first = end of header)
 
-Table_1A_44E1:: ; 1A:44E1
+Table_MobileDict_Cat03Strings:: ; 1A:44E1
+Table_1A_44E1::
 	dw String_1A_44F1
 	dw $44F8
 	dw String_1A_44FF
@@ -635,24 +650,29 @@ Table_1A_44E1:: ; 1A:44E1
 ; ---- text $44F1-$44FF (14 bytes) [PROBABLE] 2 strings: "サーバ" (83 54 81 5B 83 6F 00) and "サイト" (83 54 83 43 83 67 00) - targets of the pointers 44F1/44F8
 
 String_1A_44F1:: ; 1A:44F1
-	db $83, $54, $81, $5B, $83, $6F, $00, $83, $54, $83, $43, $83, $67, $00
+	db $83, $54, $81, $5B, $83, $6F, $00 ; "サーバ"
+	db $83, $54, $83, $43, $83, $67, $00 ; "サイト"
 
 ; ---- text $44FF-$453F (64 bytes) [PROBABLE] text: 6 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_1A_44FF:: ; 1A:44FF
-	db $83, $57, $83, $83, $83, $93, $83, $76, $00, $82, $B6, $82, $E3, $82, $B5, $82
-	db $F1, $00, $82, $B5, $82, $E5, $82, $AB, $82, $C6, $82, $A4, $82, $EB, $82, $AD
-	db $00, $83, $5A, $83, $4C, $83, $85, $83, $8A, $83, $65, $83, $42, $00, $82, $B9
-	db $82, $C2, $82, $BC, $82, $AD, $00, $82, $BB, $82, $A4, $82, $B5, $82, $F1, $00
+	db $83, $57, $83, $83, $83, $93, $83, $76, $00 ; "ジャンプ"
+	db $82, $B6, $82, $E3, $82, $B5, $82, $F1, $00 ; "じゅしん"
+	db $82, $B5, $82, $E5, $82, $AB, $82, $C6, $82, $A4, $82, $EB, $82, $AD, $00 ; "しょきとうろく"
+	db $83, $5A, $83, $4C, $83, $85, $83, $8A, $83, $65, $83, $42, $00 ; "セキュリティ"
+	db $82, $B9, $82, $C2, $82, $BC, $82, $AD, $00 ; "せつぞく"
+	db $82, $BB, $82, $A4, $82, $B5, $82, $F1, $00 ; "そうしん"
 
 ; ---- data $453F-$4540 (1 bytes) [PROBABLE] group count byte = 03
 
-Data_1A_453F:: ; 1A:453F
+Data_MobileDict_Cat04Count:: ; 1A:453F
+Data_1A_453F::
 	db $03
 
 ; ---- ptrtable $4540-$4546 (6 bytes) [PROBABLE] 3 string pointers 4546 454F 455C (first = end of header)
 
-Table_1A_4540:: ; 1A:4540
+Table_MobileDict_Cat04Strings:: ; 1A:4540
+Table_1A_4540::
 	dw String_1A_4546
 	dw $454F
 	dw $455C
@@ -660,18 +680,20 @@ Table_1A_4540:: ; 1A:4540
 ; ---- text $4546-$456B (37 bytes) [PROBABLE] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_1A_4546:: ; 1A:4546
-	db $83, $5E, $83, $43, $83, $67, $83, $8B, $00, $83, $5F, $83, $45, $83, $93, $83
-	db $8D, $81, $5B, $83, $68, $00, $82, $C2, $82, $A4, $82, $B5, $82, $F1, $83, $47
-	db $83, $89, $81, $5B, $00
+	db $83, $5E, $83, $43, $83, $67, $83, $8B, $00 ; "タイトル"
+	db $83, $5F, $83, $45, $83, $93, $83, $8D, $81, $5B, $83, $68, $00 ; "ダウンロード"
+	db $82, $C2, $82, $A4, $82, $B5, $82, $F1, $83, $47, $83, $89, $81, $5B, $00 ; "つうしんエラー"
 
 ; ---- data $456B-$456C (1 bytes) [PROBABLE] group count byte = 04 (group header of Table_1A_4439)
 
-Data_1A_456B:: ; 1A:456B
+Data_MobileDict_Cat05Count:: ; 1A:456B
+Data_1A_456B::
 	db $04
 
 ; ---- ptrtable $456C-$4574 (8 bytes) [PROBABLE] 4 string pointers, first = end of the header (4574); mapper had these header bytes inside the following text run
 
-Table_1A_456C:: ; 1A:456C
+Table_MobileDict_Cat05Strings:: ; 1A:456C
+Table_1A_456C::
 	dw String_1A_4574
 	dw $4581
 	dw $458C
@@ -680,19 +702,21 @@ Table_1A_456C:: ; 1A:456C
 ; ---- text $4574-$45A8 (52 bytes) [PROBABLE] text block: 7 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 4546-45A8 by higher-priority evidence]
 
 String_1A_4574:: ; 1A:4574
-	db $83, $6A, $83, $62, $83, $4E, $83, $6C, $81, $5B, $83, $80, $00, $82, $C9, $82
-	db $F1, $82, $B5, $82, $E5, $82, $A4, $00, $83, $6C, $83, $60, $83, $50, $83, $62
-	db $83, $67, $00, $83, $6C, $83, $62, $83, $67, $83, $54, $81, $5B, $83, $74, $83
-	db $42, $83, $93, $00
+	db $83, $6A, $83, $62, $83, $4E, $83, $6C, $81, $5B, $83, $80, $00 ; "ニックネーム"
+	db $82, $C9, $82, $F1, $82, $B5, $82, $E5, $82, $A4, $00 ; "にんしょう"
+	db $83, $6C, $83, $60, $83, $50, $83, $62, $83, $67, $00 ; "ネチケット"
+	db $83, $6C, $83, $62, $83, $67, $83, $54, $81, $5B, $83, $74, $83, $42, $83, $93, $00 ; "ネットサーフィン"
 
 ; ---- data $45A8-$45A9 (1 bytes) [PROBABLE] group count byte = 07
 
-Data_1A_45A8:: ; 1A:45A8
+Data_MobileDict_Cat06Count:: ; 1A:45A8
+Data_1A_45A8::
 	db $07
 
 ; ---- ptrtable $45A9-$45B7 (14 bytes) [PROBABLE] 7 string pointers 45B7 45C2 45D1 45DA 45E5 45F2 45FB (first = end of header)
 
-Table_1A_45A9:: ; 1A:45A9
+Table_MobileDict_Cat06Strings:: ; 1A:45A9
+Table_1A_45A9::
 	dw String_1A_45B7
 	dw $45C2
 	dw $45D1
@@ -704,21 +728,24 @@ Table_1A_45A9:: ; 1A:45A9
 ; ---- text $45B7-$4608 (81 bytes) [PROBABLE] text: 7 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_1A_45B7:: ; 1A:45B7
-	db $83, $70, $83, $58, $83, $8F, $81, $5B, $83, $68, $00, $83, $74, $83, $46, $83
-	db $43, $83, $58, $83, $7D, $81, $5B, $83, $4E, $00, $83, $75, $83, $89, $83, $45
-	db $83, $55, $00, $83, $76, $83, $8D, $83, $6F, $83, $43, $83, $5F, $00, $83, $79
-	db $81, $5B, $83, $57, $83, $8A, $83, $58, $83, $67, $00, $82, $D6, $82, $F1, $82
-	db $B5, $82, $F1, $00, $83, $7A, $81, $5B, $83, $80, $83, $79, $81, $5B, $83, $57
-	db $00
+	db $83, $70, $83, $58, $83, $8F, $81, $5B, $83, $68, $00 ; "パスワード"
+	db $83, $74, $83, $46, $83, $43, $83, $58, $83, $7D, $81, $5B, $83, $4E, $00 ; "フェイスマーク"
+	db $83, $75, $83, $89, $83, $45, $83, $55, $00 ; "ブラウザ"
+	db $83, $76, $83, $8D, $83, $6F, $83, $43, $83, $5F, $00 ; "プロバイダ"
+	db $83, $79, $81, $5B, $83, $57, $83, $8A, $83, $58, $83, $67, $00 ; "ページリスト"
+	db $82, $D6, $82, $F1, $82, $B5, $82, $F1, $00 ; "へんしん"
+	db $83, $7A, $81, $5B, $83, $80, $83, $79, $81, $5B, $83, $57, $00 ; "ホームページ"
 
 ; ---- data $4608-$4609 (1 bytes) [PROBABLE] group count byte = 0E, followed by Table_1A_4609 (14 pointers)
 
-Data_1A_4608:: ; 1A:4608
+Data_MobileDict_Cat07Count:: ; 1A:4608
+Data_1A_4608::
 	db $0E
 
 ; ---- ptrtable $4609-$4625 (28 bytes) [PROBABLE] little-endian word table, 14 entries, monotone=1.00, 100% of targets on string start/after NUL, targets $4625..$46E4
 
-Table_1A_4609:: ; 1A:4609
+Table_MobileDict_Cat07Strings:: ; 1A:4609
+Table_1A_4609::
 	dw String_1A_4625
 	dw $462E
 	dw String_1A_4637
@@ -737,90 +764,96 @@ Table_1A_4609:: ; 1A:4609
 ; ---- text $4625-$4637 (18 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_1A_4625:: ; 1A:4625
-	db $83, $81, $81, $5B, $83, $89, $81, $5B, $00, $83, $81, $83, $8B, $82, $C6, $82
-	db $E0, $00
+	db $83, $81, $81, $5B, $83, $89, $81, $5B, $00 ; "メーラー"
+	db $83, $81, $83, $8B, $82, $C6, $82, $E0, $00 ; "メルとも"
 
 ; ---- text $4637-$463E (7 bytes) [PROBABLE] Shift-JIS "メール" NUL-terminated; target of a pointer of Table_1A_4609 (463E-.. list, 4637)
 
 String_1A_4637:: ; 1A:4637
-	db $83, $81, $81, $5B, $83, $8B, $00
+	db $83, $81, $81, $5B, $83, $8B, $00 ; "メール"
 
 ; ---- text $463E-$46F9 (187 bytes) [PROBABLE] text: 11 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_1A_463E:: ; 1A:463E
-	db $83, $81, $81, $5B, $83, $8B, $83, $41, $83, $68, $83, $8C, $83, $58, $00, $83
-	db $81, $81, $5B, $83, $8B, $83, $54, $81, $5B, $83, $6F, $00, $83, $81, $81, $5B
-	db $83, $8B, $83, $5C, $83, $74, $83, $67, $00, $83, $81, $83, $93, $83, $65, $83
-	db $69, $83, $93, $83, $58, $00, $83, $82, $83, $6F, $83, $43, $83, $8B, $00, $83
-	db $82, $83, $6F, $83, $43, $83, $8B, $83, $41, $83, $5F, $83, $76, $83, $5E, $82
-	db $66, $82, $61, $00, $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $54, $83, $7C
-	db $81, $5B, $83, $67, $83, $5A, $83, $93, $83, $5E, $81, $5B, $00, $83, $82, $83
-	db $6F, $83, $43, $83, $8B, $83, $56, $83, $58, $83, $65, $83, $80, $82, $66, $82
-	db $61, $00, $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $5A, $83, $93, $83, $5E
-	db $81, $5B, $00, $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $67, $83, $8C, $81
-	db $5B, $83, $69, $81, $5B, $00, $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $7A
-	db $81, $5B, $83, $80, $83, $79, $81, $5B, $83, $57, $00
+	db $83, $81, $81, $5B, $83, $8B, $83, $41, $83, $68, $83, $8C, $83, $58, $00 ; "メールアドレス"
+	db $83, $81, $81, $5B, $83, $8B, $83, $54, $81, $5B, $83, $6F, $00 ; "メールサーバ"
+	db $83, $81, $81, $5B, $83, $8B, $83, $5C, $83, $74, $83, $67, $00 ; "メールソフト"
+	db $83, $81, $83, $93, $83, $65, $83, $69, $83, $93, $83, $58, $00 ; "メンテナンス"
+	db $83, $82, $83, $6F, $83, $43, $83, $8B, $00 ; "モバイル"
+	db $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $41, $83, $5F, $83, $76, $83, $5E, $82, $66, $82, $61, $00 ; "モバイルアダプタＧＢ"
+	db $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $54, $83, $7C, $81, $5B, $83, $67, $83, $5A, $83, $93, $83, $5E, $81, $5B, $00 ; "モバイルサポートセンター"
+	db $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $56, $83, $58, $83, $65, $83, $80, $82, $66, $82, $61, $00 ; "モバイルシステムＧＢ"
+	db $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $5A, $83, $93, $83, $5E, $81, $5B, $00 ; "モバイルセンター"
+	db $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $67, $83, $8C, $81, $5B, $83, $69, $81, $5B, $00 ; "モバイルトレーナー"
+	db $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $7A, $81, $5B, $83, $80, $83, $79, $81, $5B, $83, $57, $00 ; "モバイルホームページ"
 
 ; ---- data $46F9-$46FA (1 bytes) [PROBABLE] group count byte = 01 (group header of Table_1A_4439)
 
-Data_1A_46F9:: ; 1A:46F9
+Data_MobileDict_Cat08Count:: ; 1A:46F9
+Data_1A_46F9::
 	db $01
 
 ; ---- ptrtable $46FA-$46FC (2 bytes) [PROBABLE] 1 string pointers, first = end of the header (46FC); mapper had these header bytes inside the following text run
 
-Table_1A_46FA:: ; 1A:46FA
+Table_MobileDict_Cat08Strings:: ; 1A:46FA
+Table_1A_46FA::
 	dw String_1A_46FC
 
 ; ---- text $46FC-$4705 (9 bytes) [PROBABLE] text block: 12 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 463E-4705 by higher-priority evidence]
 
 String_1A_46FC:: ; 1A:46FC
-	db $83, $86, $81, $5B, $83, $55, $81, $5B, $00
+	db $83, $86, $81, $5B, $83, $55, $81, $5B, $00 ; "ユーザー"
 
 ; ---- data $4705-$4706 (1 bytes) [PROBABLE] group count byte = 02
 
-Data_1A_4705:: ; 1A:4705
+Data_MobileDict_Cat09Count:: ; 1A:4705
+Data_1A_4705::
 	db $02
 
 ; ---- ptrtable $4706-$470A (4 bytes) [PROBABLE] 2 string pointers 470A 4711 (first = end of header)
 
-Table_1A_4706:: ; 1A:4706
+Table_MobileDict_Cat09Strings:: ; 1A:4706
+Table_1A_4706::
 	dw String_1A_470A
 	dw String_1A_4711
 
 ; ---- text $470A-$4711 (7 bytes) [PROBABLE] Shift-JIS "リンク" NUL-terminated (target of the pointer 470A)
 
 String_1A_470A:: ; 1A:470A
-	db $83, $8A, $83, $93, $83, $4E, $00
+	db $83, $8A, $83, $93, $83, $4E, $00 ; "リンク"
 
 ; ---- text $4711-$471E (13 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_1A_4711:: ; 1A:4711
-	db $83, $8D, $83, $4F, $83, $43, $83, $93, $82, $68, $82, $63, $00
+	db $83, $8D, $83, $4F, $83, $43, $83, $93, $82, $68, $82, $63, $00 ; "ログインＩＤ"
 
 ; ---- data $471E-$471F (1 bytes) [PROBABLE] group count byte = 01 (group header of Table_1A_4439)
 
-Data_1A_471E:: ; 1A:471E
+Data_MobileDict_Cat10Count:: ; 1A:471E
+Data_1A_471E::
 	db $01
 
 ; ---- ptrtable $471F-$4721 (2 bytes) [PROBABLE] 1 string pointers, first = end of the header (4721); mapper had these header bytes inside the following text run
 
-Table_1A_471F:: ; 1A:471F
+Table_MobileDict_Cat10Strings:: ; 1A:471F
+Table_1A_471F::
 	dw String_1A_4721
 
 ; ---- text $4721-$4736 (21 bytes) [PROBABLE] text block: 2 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 4711-4736 by higher-priority evidence]
 
 String_1A_4721:: ; 1A:4721
-	db $83, $8F, $81, $5B, $83, $8B, $83, $68, $83, $8F, $83, $43, $83, $68, $83, $45
-	db $83, $46, $83, $75, $00
+	db $83, $8F, $81, $5B, $83, $8B, $83, $68, $83, $8F, $83, $43, $83, $68, $83, $45, $83, $46, $83, $75, $00 ; "ワールドワイドウェブ"
 
 ; ---- data $4736-$4737 (1 bytes) [PROBABLE] group count byte = 0A, followed by Table_1A_4737 (10 pointers)
 
-Data_1A_4736:: ; 1A:4736
+Data_MobileDict_Cat11Count:: ; 1A:4736
+Data_1A_4736::
 	db $0A
 
 ; ---- ptrtable $4737-$474B (20 bytes) [PROBABLE] little-endian word table, 10 entries, monotone=1.00, 100% of targets on string start/after NUL, targets $474B..$47A4; regular record stride between targets
 
-Table_1A_4737:: ; 1A:4737
+Table_MobileDict_Cat11Strings:: ; 1A:4737
+Table_1A_4737::
 	dw String_1A_474B
 	dw String_1A_475A
 	dw String_1A_4763
@@ -835,35 +868,37 @@ Table_1A_4737:: ; 1A:4737
 ; ---- text $474B-$475A (15 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_1A_474B:: ; 1A:474B
-	db $82, $83, $82, $84, $82, $8D, $82, $81, $82, $6E, $82, $8E, $82, $85, $00
+	db $82, $83, $82, $84, $82, $8D, $82, $81, $82, $6E, $82, $8E, $82, $85, $00 ; "ｃｄｍａＯｎｅ"
 
 ; ---- text $475A-$4763 (9 bytes) [PROBABLE] text block: 3 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 474B-477E by higher-priority evidence]
 
 String_1A_475A:: ; 1A:475A
-	db $82, $63, $82, $68, $82, $6E, $82, $6D, $00
+	db $82, $63, $82, $68, $82, $6E, $82, $6D, $00 ; "ＤＩＯＮ"
 
 ; ---- text $4763-$477E (27 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_1A_4763:: ; 1A:4763
-	db $82, $63, $82, $68, $82, $6E, $82, $6D, $83, $82, $83, $6F, $83, $43, $83, $8B
-	db $82, $66, $82, $61, $83, $52, $81, $5B, $83, $58, $00
+	db $82, $63, $82, $68, $82, $6E, $82, $6D, $83, $82, $83, $6F, $83, $43, $83, $8B, $82, $66, $82, $61, $83, $52, $81, $5B, $83, $58, $00 ; "ＤＩＯＮモバイルＧＢコース"
 
 ; ---- text $477E-$47A4 (38 bytes) [PROBABLE] 7 NUL-terminated strings "ＩＤＳＰ" "ＰＤＣ" "ＰＨＳ" "Ｗｅｂ" "ＷＷＷ" "※" (targets of the pointers 477E 4785 478C 4793 479A .. of Table_1A_4737)
 
 String_1A_477E:: ; 1A:477E
-	db $82, $68, $82, $72, $82, $6F, $00, $82, $6F, $82, $63, $82, $62, $00, $82, $6F
-	db $82, $67, $82, $72, $00, $82, $76, $82, $85, $82, $82, $00, $82, $76, $82, $76
-	db $82, $76, $00, $81, $97, $00
+	db $82, $68, $82, $72, $82, $6F, $00 ; "ＩＳＰ"
+	db $82, $6F, $82, $63, $82, $62, $00 ; "ＰＤＣ"
+	db $82, $6F, $82, $67, $82, $72, $00 ; "ＰＨＳ"
+	db $82, $76, $82, $85, $82, $82, $00 ; "Ｗｅｂ"
+	db $82, $76, $82, $76, $82, $76, $00 ; "ＷＷＷ"
+	db $81, $97, $00 ; "＠"
 
 ; ---- text $47A4-$47B5 (17 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_1A_47A4:: ; 1A:47A4
-	db $82, $AB, $82, $B2, $82, $A4, $82, $CC, $82, $E6, $82, $DD, $82, $A9, $82, $BD
-	db $00
+	db $82, $AB, $82, $B2, $82, $A4, $82, $CC, $82, $E6, $82, $DD, $82, $A9, $82, $BD, $00 ; "きごうのよみかた"
 
 ; ---- data $47B5-$4A85 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 1A:4083: hl=$47B5 a=$1A b=18 rows c=20 cols (tiles then attrs) de=$D000
 
-Data_1A_47B5:: ; 1A:47B5
+Tilemap_MobileDict_Screen:: ; 1A:47B5
+Data_1A_47B5::
 	db $B0, $B1, $B2, $B3, $BD, $B4, $B5, $B6, $B7, $B8, $B9, $BA, $BB, $BC, $BD, $BD
 	db $B3, $B2, $BE, $BF, $C0, $C1, $C2, $C3, $BD, $C4, $C5, $C6, $C7, $C8, $C9, $CA
 	db $CB, $CC, $CD, $BD, $C3, $C2, $CE, $CF, $D0, $D1, $D2, $D3, $D4, $D5, $D6, $D4
@@ -917,7 +952,8 @@ Data_1A_4A85:: ; 1A:4A85
 
 ; ---- gfx $4A90-$4C90 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1A:403D: hl=$4A90 a=$1A c=$20 de=$8000 (dest VRAM $8000, vbank=0)
 
-Data_1A_4A90:: ; 1A:4A90
+Gfx_MobileDict_Tiles0:: ; 1A:4A90
+Data_1A_4A90::
 	db $00, $00, $1F, $1F, $20, $3F, $2F, $30, $2F, $30, $2F, $30, $2F, $30, $2F, $30
 	db $00, $00, $F0, $F0, $08, $F8, $E8, $18, $E8, $18, $E8, $18, $E8, $18, $E8, $18
 	db $00, $00, $FF, $FF, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
@@ -953,7 +989,8 @@ Data_1A_4A90:: ; 1A:4A90
 
 ; ---- gfx $4C90-$5090 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1A:404F: hl=$4C90 a=$1A c=$40 de=$8B01 (dest VRAM $8B00, vbank=1)
 
-Data_1A_4C90:: ; 1A:4C90
+Gfx_MobileDict_Tiles1:: ; 1A:4C90
+Data_1A_4C90::
 	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FE, $01, $FC, $03
 	db $F2, $07, $F2, $07, $F3, $07, $F3, $06, $F3, $06, $F3, $06, $33, $C6, $93, $C6
 	db $00, $FF, $00, $FF, $FF, $FF, $FF, $00, $00, $00, $00, $00, $00, $00, $00, $00
@@ -1021,7 +1058,8 @@ Data_1A_4C90:: ; 1A:4C90
 
 ; ---- gfx $5090-$5390 (768 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1A:4061: hl=$5090 a=$1A c=$30 de=$8F01 (dest VRAM $8F00, vbank=1)
 
-Data_1A_5090:: ; 1A:5090
+Gfx_MobileDict_Tiles2:: ; 1A:5090
+Data_1A_5090::
 	db $F0, $1C, $E0, $FF, $00, $FF, $FF, $FF, $FF, $00, $00, $00, $00, $00, $00, $00
 	db $1F, $F1, $0E, $FF, $00, $FF, $FF, $FF, $FF, $00, $00, $00, $00, $00, $00, $00
 	db $01, $EF, $00, $FF, $00, $FF, $FF, $FF, $FF, $00, $00, $00, $00, $00, $00, $00
@@ -1073,7 +1111,8 @@ Data_1A_5090:: ; 1A:5090
 
 ; ---- data $5390-$539A (10 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 4A90-5461 by higher-priority evidence]
 
-Data_1A_5390:: ; 1A:5390
+Palette_MobileDict_Bg:: ; 1A:5390
+Data_1A_5390::
 	db $FF, $7F, $4A, $29, $B5, $56, $00, $00, $9F, $01
 
 ; ---- data $539A-$55A0 (518 bytes) [PROBABLE] CGB palette data (RGB555 words): heuristic: 288 RGB555 words as 72 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance) [clipped from 539A-55DA by higher-priority proposals]
@@ -1082,40 +1121,43 @@ Data_1A_539A:: ; 1A:539A
 	db $4A, $29, $B5, $56, $FF, $7F, $FF, $7F, $2A, $03, $E0, $01, $00, $00, $00, $00
 	db $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00
 	db $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00
-	db $4A, $29, $B5, $56, $FF, $7F, $E0, $7F, $FF, $7F, $2A, $03, $00, $00, $E0, $7F
-	db $FE, $1F, $FF, $5E, $14, $00, $E0, $7F, $FF, $7F, $1F, $00, $00, $00, $00, $00
-	db $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00
-	db $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00
-	db $4A, $29, $B5, $56, $FF, $7F, $14, $54, $1D, $54, $02, $00, $00, $12, $02, $00
-	db $08, $13, $02, $02, $FF, $00, $12, $02, $FF, $08, $13, $02, $02, $00, $2E, $01
-	db $08, $2F, $54, $38, $54, $02, $00, $00, $12, $42, $00, $08, $13, $42, $02, $01
-	db $00, $12, $42, $01, $08, $13, $42, $02, $00, $2E, $01, $08, $48, $54, $06, $00
-	db $03, $04, $01, $08, $03, $14, $01, $00, $00, $00, $00, $00, $08, $01, $00, $08
-	db $00, $10, $00, $08, $08, $11, $00, $01, $00, $04, $66, $54, $06, $00, $03, $05
-	db $01, $08, $03, $15, $01, $00, $00, $00, $00, $00, $08, $01, $00, $08, $00, $10
-	db $00, $08, $08, $11, $00, $01, $00, $04, $84, $54, $06, $00, $03, $06, $01, $08
-	db $03, $16, $01, $00, $00, $00, $00, $00, $08, $01, $00, $08, $00, $10, $00, $08
-	db $08, $11, $00, $01, $00, $04, $A2, $54, $06, $00, $03, $07, $01, $08, $03, $17
+	db $4A, $29, $B5, $56, $FF, $7F
+
+Palette_MobileDict_Obj:: ; 1A:53D0
+	db $E0, $7F, $FF, $7F, $2A, $03, $00, $00, $E0, $7F, $FE, $1F, $FF, $5E, $14, $00
+	db $E0, $7F, $FF, $7F, $1F, $00, $00, $00, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+	db $14, $54, $1D, $54, $02, $00, $00, $12, $02, $00, $08, $13, $02, $02, $FF, $00
+	db $12, $02, $FF, $08, $13, $02, $02, $00, $2E, $01, $08, $2F, $54, $38, $54, $02
+	db $00, $00, $12, $42, $00, $08, $13, $42, $02, $01, $00, $12, $42, $01, $08, $13
+	db $42, $02, $00, $2E, $01, $08, $48, $54, $06, $00, $03, $04, $01, $08, $03, $14
 	db $01, $00, $00, $00, $00, $00, $08, $01, $00, $08, $00, $10, $00, $08, $08, $11
-	db $00, $01, $00, $04, $C0, $54, $06, $00, $03, $08, $01, $08, $03, $18, $01, $00
+	db $00, $01, $00, $04, $66, $54, $06, $00, $03, $05, $01, $08, $03, $15, $01, $00
 	db $00, $00, $00, $00, $08, $01, $00, $08, $00, $10, $00, $08, $08, $11, $00, $01
-	db $00, $04, $DE, $54, $06, $00, $03, $09, $01, $08, $03, $19, $01, $00, $00, $00
+	db $00, $04, $84, $54, $06, $00, $03, $06, $01, $08, $03, $16, $01, $00, $00, $00
 	db $00, $00, $08, $01, $00, $08, $00, $10, $00, $08, $08, $11, $00, $01, $00, $04
-	db $FC, $54, $06, $00, $03, $0A, $01, $08, $03, $1A, $01, $00, $00, $00, $00, $00
-	db $08, $01, $00, $08, $00, $10, $00, $08, $08, $11, $00, $01, $00, $04, $1A, $55
-	db $06, $00, $03, $0B, $01, $08, $03, $1B, $01, $00, $00, $00, $00, $00, $08, $01
-	db $00, $08, $00, $10, $00, $08, $08, $11, $00, $01, $00, $04, $38, $55, $06, $00
-	db $03, $0C, $01, $08, $03, $1C, $01, $00, $00, $00, $00, $00, $08, $01, $00, $08
-	db $00, $10, $00, $08, $08, $11, $00, $01, $00, $04, $56, $55, $06, $00, $03, $0D
-	db $01, $08, $03, $1D, $01, $00, $00, $00, $00, $00, $08, $01, $00, $08, $00, $10
-	db $00, $08, $08, $11, $00, $01, $00, $04, $74, $55, $0A, $00, $04, $0E, $01, $00
-	db $0C, $0F, $01, $08, $04, $1E, $01, $08, $0C, $1F, $01, $00, $00, $00, $00, $08
-	db $00, $10, $00, $00, $08, $02, $00, $08, $08, $03, $00, $00, $10, $00, $20, $08
-	db $10, $10, $20, $01, $00, $04
+	db $A2, $54, $06, $00, $03, $07, $01, $08, $03, $17, $01, $00, $00, $00, $00, $00
+	db $08, $01, $00, $08, $00, $10, $00, $08, $08, $11, $00, $01, $00, $04, $C0, $54
+	db $06, $00, $03, $08, $01, $08, $03, $18, $01, $00, $00, $00, $00, $00, $08, $01
+	db $00, $08, $00, $10, $00, $08, $08, $11, $00, $01, $00, $04, $DE, $54, $06, $00
+	db $03, $09, $01, $08, $03, $19, $01, $00, $00, $00, $00, $00, $08, $01, $00, $08
+	db $00, $10, $00, $08, $08, $11, $00, $01, $00, $04, $FC, $54, $06, $00, $03, $0A
+	db $01, $08, $03, $1A, $01, $00, $00, $00, $00, $00, $08, $01, $00, $08, $00, $10
+	db $00, $08, $08, $11, $00, $01, $00, $04, $1A, $55, $06, $00, $03, $0B, $01, $08
+	db $03, $1B, $01, $00, $00, $00, $00, $00, $08, $01, $00, $08, $00, $10, $00, $08
+	db $08, $11, $00, $01, $00, $04, $38, $55, $06, $00, $03, $0C, $01, $08, $03, $1C
+	db $01, $00, $00, $00, $00, $00, $08, $01, $00, $08, $00, $10, $00, $08, $08, $11
+	db $00, $01, $00, $04, $56, $55, $06, $00, $03, $0D, $01, $08, $03, $1D, $01, $00
+	db $00, $00, $00, $00, $08, $01, $00, $08, $00, $10, $00, $08, $08, $11, $00, $01
+	db $00, $04, $74, $55, $0A, $00, $04, $0E, $01, $00, $0C, $0F, $01, $08, $04, $1E
+	db $01, $08, $0C, $1F, $01, $00, $00, $00, $00, $08, $00, $10, $00, $00, $08, $02
+	db $00, $08, $08, $03, $00, $00, $10, $00, $20, $08, $10, $10, $20, $01, $00, $04
 
 ; ---- data $55A0-$55DA (58 bytes) [PROBABLE] palette-rgb555: heuristic: 288 RGB555 words as 72 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance) [clipped from 539A-55DA by higher-priority evidence]
 
-Data_1A_55A0:: ; 1A:55A0
+Objects_MobileDict:: ; 1A:55A0
+Data_1A_55A0::
 	db $10, $54, $26, $54, $2B, $54, $41, $54, $46, $54, $61, $54, $64, $54, $7F, $54
 	db $82, $54, $9D, $54, $A0, $54, $BB, $54, $BE, $54, $D9, $54, $DC, $54, $F7, $54
 	db $FA, $54, $15, $55, $18, $55, $33, $55, $36, $55, $51, $55, $54, $55, $6F, $55

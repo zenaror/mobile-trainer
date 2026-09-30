@@ -9,7 +9,8 @@ SECTION "Bank26", ROMX[$4000], BANK[$26]
 
 ; ---- code $4000-$403C (60 bytes) [CONFIRMED] 27 insn(s); 27 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_26_4000:: ; 26:4000
+MailSession_Run:: ; 26:4000
+Function_26_4000::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -32,22 +33,22 @@ Function_26_4000:: ; 26:4000
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
-	call Function_26_5168
-	farcall Function_27_41BC
+	farcall Stat_EnableScrollSplit
+	call MailSession_InitScreen
+	farcall Mail_OutboxIsEmpty
 	inc a
 	jp z, Label_26_4043
 
 ; ---- code $403C-$4043 (7 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jpcc at 26:4039 (executed) [executed in 5 scenarios]
 	ld a, $40
-	call Function_26_5697
+	call MailSession_ShowMsgSending
 	jr Label_26_4048
 
 ; ---- code $4043-$4095 (82 bytes) [CONFIRMED] 27 insn(s); 27 executed (in up to 1/18 scenarios)
 
 Label_26_4043:: ; 26:4043
 	ld a, $40
-	call Function_26_56DB
+	call MailSession_ShowMsgReceiving
 
 Label_26_4048:: ; 26:4048
 	ld hl, $DA80
@@ -66,7 +67,7 @@ Label_26_4048:: ; 26:4048
 	ld de, $28E0
 	ld hl, $DA30
 	call Function_00_0A65
-	farcall Function_27_41BC
+	farcall Mail_OutboxIsEmpty
 	inc a
 	jr nz, Label_26_4095
 	ld hl, $DA40
@@ -108,8 +109,8 @@ Label_26_40B0:: ; 26:40B0
 	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	call Function_26_58DC
-	farcall Function_7D_7BB7
+	call MailSession_UpdateTimerDisplay
+	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $02
@@ -118,7 +119,7 @@ Label_26_40B0:: ; 26:40B0
 ; ---- code $40E0-$40E8 (8 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 26:40DE (executed) [executed in 2 scenarios]
 	ld b, $01
 	ld a, [wRam_C264]
-	jp Label_26_503C
+	jp MailSession_Cancel
 
 ; ---- code $40E8-$412C (68 bytes) [CONFIRMED] 24 insn(s); 24 executed (in up to 1/18 scenarios)
 
@@ -132,7 +133,7 @@ Label_26_40E8:: ; 26:40E8
 Label_26_40F3:: ; 26:40F3
 	push bc
 	ld hl, $DA30
-	ld de, $6F20
+	ld de, MailSession_ObjTable_6F20
 	ld a, $28
 	ld b, $81
 	farcall Function_00_0A82
@@ -143,16 +144,18 @@ Label_26_40F3:: ; 26:40F3
 	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	call Function_26_58DC
-	farcall Function_7D_7BB7
+	call MailSession_UpdateTimerDisplay
+	farcall Joypad_Update
 	pop bc
-	farcall Function_27_41BC
+	farcall Mail_OutboxIsEmpty
 	inc a
-	jp z, Label_26_44F5
+	jp z, MailSession_ReceivePhase
 
 ; ---- code $412C-$443B (783 bytes) [PROBABLE] 289 insn(s) reached by static flow only; seeds: exec x289; min discovery hops 0; fall-through of the jpcc at 26:4129 (executed)
-	farcall Function_7F_61FF
-	farcall Function_54_44FE
+
+MailSession_SendPhase:: ; 26:412C
+	farcall Timer_ResetClockB
+	farcall Smtp_StartHelo
 
 Label_26_4138:: ; 26:4138
 	push bc
@@ -160,13 +163,13 @@ Label_26_4138:: ; 26:4138
 	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	call Function_26_58DC
-	farcall Function_7D_7BB7
+	call MailSession_UpdateTimerDisplay
+	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
 	and a, $02
-	jp nz, Label_26_503C
-	farcall Function_54_451B
+	jp nz, MailSession_Cancel
+	farcall Smtp_HeloPoll
 	cp a, $01
 	jr z, Label_26_4138
 	cp a, $FF
@@ -194,12 +197,12 @@ Label_26_417C:: ; 26:417C
 	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	call Function_26_58DC
-	farcall Function_7D_7BB7
+	call MailSession_UpdateTimerDisplay
+	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
 	and a, $02
-	jp nz, Label_26_503C
+	jp nz, MailSession_Cancel
 	ld a, [wSpriteSlots + 81]
 	cp a, $58
 	jr z, Label_26_41B1
@@ -223,12 +226,12 @@ Label_26_41CC:: ; 26:41CC
 	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	call Function_26_58DC
-	farcall Function_7D_7BB7
+	call MailSession_UpdateTimerDisplay
+	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
 	and a, $02
-	jp nz, Label_26_503C
+	jp nz, MailSession_Cancel
 	dec c
 	jr nz, Label_26_41CC
 	ld hl, $DA30
@@ -263,12 +266,12 @@ Label_26_4239:: ; 26:4239
 	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	call Function_26_58DC
-	farcall Function_7D_7BB7
+	call MailSession_UpdateTimerDisplay
+	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
 	and a, $02
-	jp nz, Label_26_503C
+	jp nz, MailSession_Cancel
 	dec c
 	jr nz, Label_26_4239
 	ld hl, $DA60
@@ -288,8 +291,8 @@ Label_26_4239:: ; 26:4239
 	ld hl, $D624
 	ld a, $02
 	ld [hli], a
-	farcall Function_7F_61FF
-	farcall Function_54_4575
+	farcall Timer_ResetClockB
+	farcall Smtp_StartMailFrom
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -308,9 +311,9 @@ Label_26_42A6:: ; 26:42A6
 	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	farcall Function_7D_7BB7
-	call Function_26_58DC
-	farcall Function_54_4772
+	farcall Joypad_Update
+	call MailSession_UpdateTimerDisplay
+	farcall Smtp_DataPoll
 	cp a, $FF
 	jr z, Label_26_42D6
 	push af
@@ -318,7 +321,7 @@ Label_26_42A6:: ; 26:42A6
 	and a, $02
 	jr z, Label_26_42CF
 	pop af
-	jp Label_26_503C
+	jp MailSession_Cancel
 
 Label_26_42CF:: ; 26:42CF
 	pop af
@@ -333,9 +336,9 @@ Label_26_42D6:: ; 26:42D6
 	ld hl, $D624
 	ld a, $FF
 	ld [hli], a
-	farcall Function_7F_61FF
-	farcall Function_54_4538
-	call Function_26_50C6
+	farcall Timer_ResetClockB
+	farcall Smtp_StartQuit
+	call MailSession_ShowCommErrorNoWindow
 	ld a, [wRam_C1DD]
 	cp a, $26
 	jr z, Label_26_42FC
@@ -343,17 +346,17 @@ Label_26_42D6:: ; 26:42D6
 	jr nz, Label_26_4305
 
 Label_26_42FC:: ; 26:42FC
-	call Function_26_5168
-	call Function_26_56DB
-	jp Label_26_44F5
+	call MailSession_InitScreen
+	call MailSession_ShowMsgReceiving
+	jp MailSession_ReceivePhase
 
 Label_26_4305:: ; 26:4305
 	ld a, $80
 	ret
 
 Label_26_4308:: ; 26:4308
-	farcall Function_7F_61FF
-	farcall Function_54_4538
+	farcall Timer_ResetClockB
+	farcall Smtp_StartQuit
 
 Label_26_4314:: ; 26:4314
 	push bc
@@ -361,16 +364,16 @@ Label_26_4314:: ; 26:4314
 	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	call Function_26_58DC
-	farcall Function_7D_7BB7
+	call MailSession_UpdateTimerDisplay
+	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
 	and a, $02
-	jp nz, Label_26_503C
-	farcall Function_54_4552
+	jp nz, MailSession_Cancel
+	farcall Smtp_QuitPoll
 	cp a, $01
 	jr z, Label_26_4314
-	farcall Function_2D_40DC
+	farcall MailDraft_Clear
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -385,16 +388,16 @@ Label_26_434F:: ; 26:434F
 	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	call Function_26_58DC
-	farcall Function_7D_7BB7
+	call MailSession_UpdateTimerDisplay
+	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
 	and a, $02
-	jp nz, Label_26_503C
+	jp nz, MailSession_Cancel
 	dec c
 	jr nz, Label_26_434F
 	ld hl, $DA30
-	ld de, $6F20
+	ld de, MailSession_ObjTable_6F20
 	ld a, $28
 	ld b, $81
 	farcall Function_00_0A82
@@ -425,12 +428,12 @@ Label_26_43BC:: ; 26:43BC
 	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	call Function_26_58DC
-	farcall Function_7D_7BB7
+	call MailSession_UpdateTimerDisplay
+	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
 	and a, $02
-	jp nz, Label_26_503C
+	jp nz, MailSession_Cancel
 	dec c
 	jr nz, Label_26_43BC
 	ld hl, $DA50
@@ -457,12 +460,12 @@ Label_26_43FE:: ; 26:43FE
 	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	call Function_26_58DC
-	farcall Function_7D_7BB7
+	call MailSession_UpdateTimerDisplay
+	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
 	and a, $02
-	jp nz, Label_26_503C
+	jp nz, MailSession_Cancel
 	ld a, [wSpriteSlots + 81]
 	cp a, $D1
 	jr z, Label_26_4433
@@ -470,9 +473,9 @@ Label_26_43FE:: ; 26:43FE
 	jr nz, Label_26_43FE
 
 Label_26_4433:: ; 26:4433
-	call Function_26_4EC3
+	call MailSession_CheckTimeWarning
 	inc a
-	jp nz, Label_26_44F5
+	jp nz, MailSession_ReceivePhase
 	ret
 
 ; ---- code $443B-$4445 (10 bytes) [PROBABLE] head of an object-init sequence: ld hl,$DA50 / ld de,$7A70 / ld a,$27 / ld b,$81, decode chain falls through exactly into the site-validated far call at 4445 (`call $06D1`, inline 0A82:00 = init_object_from_table); previous byte is a ret; entry unproven (no call/jp/far-pointer/word reference found)
@@ -494,7 +497,7 @@ Label_26_4456:: ; 26:4456
 	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	call Function_26_58DC
+	call MailSession_UpdateTimerDisplay
 	pop bc
 	dec b
 	jr nz, Label_26_4456
@@ -519,8 +522,8 @@ Label_26_448B:: ; 26:448B
 	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	call Function_26_58DC
-	farcall Function_7D_7BB7
+	call MailSession_UpdateTimerDisplay
+	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $01
@@ -541,15 +544,15 @@ Label_26_44AC:: ; 26:44AC
 	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	call Function_26_58DC
-	farcall Function_7D_7BB7
+	call MailSession_UpdateTimerDisplay
+	farcall Joypad_Update
 	pop bc
 	ld a, [wSpriteSlots + 49]
 	cp a, $C0
 	jr nz, Label_26_44AC
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ldh a, [rLCDC]
 	and a, $FB
 	ldh [rLCDC], a
@@ -558,8 +561,8 @@ Label_26_44AC:: ; 26:44AC
 
 ; ---- code $44F5-$451B (38 bytes) [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios)
 
-Label_26_44F5:: ; 26:44F5
-	call Function_26_5873
+MailSession_ReceivePhase:: ; 26:44F5
+	call MailSession_ClearMsg
 	ld hl, $DA30
 	ld de, $733B
 	ld a, $28
@@ -568,7 +571,7 @@ Label_26_44F5:: ; 26:44F5
 	ld de, $0000
 	ld hl, $DA30
 	call Function_00_0A65
-	farcall Function_27_41BC
+	farcall Mail_OutboxIsEmpty
 	inc a
 	jp z, Label_26_4536
 
@@ -604,28 +607,28 @@ Label_26_454F:: ; 26:454F
 	ld de, $0050
 	ld hl, $DA50
 	call Function_00_0A65
-	call Function_26_56DB
-	farcall Function_7F_61FF
-	farcall Function_54_485C
+	call MailSession_ShowMsgReceiving
+	farcall Timer_ResetClockB
+	farcall Pop3_StartLogin
 
 Label_26_4577:: ; 26:4577
 	di
 	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	call Function_26_58DC
-	farcall Function_7D_7BB7
+	call MailSession_UpdateTimerDisplay
+	farcall Joypad_Update
 	ldh a, [hJoyHeld]
 	and a, $02
-	jp nz, Label_26_503C
-	farcall Function_54_489B
+	jp nz, MailSession_Cancel
+	farcall Pop3_LoginStatPoll
 	cp a, $01
 	jr z, Label_26_4577
 	cp a, $FF
 	jr nz, Label_26_45AE
 
 ; ---- code $45A0-$45AE (14 bytes) [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; fall-through of the jrcc at 26:459E (executed) [executed in 1 scenarios]
-	call Function_26_5067
+	call MailSession_ShowCommError
 	ld a, b
 	cp a, $31
 	jr nz, Label_26_45AB
@@ -650,10 +653,10 @@ Label_26_45AE:: ; 26:45AE
 	ld bc, $0000
 	ld hl, $0001
 
-Label_26_45BC:: ; 26:45BC
+MailSession_ScanMailsLoop:: ; 26:45BC
 	push bc
 	push hl
-	call Function_26_4F7B
+	call MailSession_CheckTimeWarningRecv
 	pop hl
 	pop bc
 	inc a
@@ -666,9 +669,9 @@ Label_26_45C8:: ; 26:45C8
 	push de
 	push hl
 	ld c, $00
-	farcall Function_7F_61FF
+	farcall Timer_ResetClockB
 	ld a, $FF
-	farcall Function_54_4914
+	farcall Pop3_StartTop
 	pop hl
 	pop de
 	pop bc
@@ -681,8 +684,8 @@ Label_26_45DE:: ; 26:45DE
 	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	call Function_26_58DC
-	farcall Function_7D_7BB7
+	call MailSession_UpdateTimerDisplay
+	farcall Joypad_Update
 	pop hl
 	pop de
 	pop bc
@@ -690,14 +693,14 @@ Label_26_45DE:: ; 26:45DE
 	and a, $02
 	jr z, Label_26_4602
 	pop de
-	jp Label_26_503C
+	jp MailSession_Cancel
 
 Label_26_4602:: ; 26:4602
 	push bc
 	push de
 	push hl
 	ld a, $FF
-	farcall Function_54_4969
+	farcall Pop3_TopPoll
 	cp a, $01
 	jr nz, Label_26_4616
 	pop hl
@@ -711,7 +714,7 @@ Label_26_4616:: ; 26:4616
 	pop hl
 	pop de
 	pop bc
-	call Function_26_5067
+	call MailSession_ShowCommError
 	pop de
 	ld a, $80
 	ret
@@ -730,7 +733,7 @@ Label_26_462D:: ; 26:462D
 	dec de
 	ld a, d
 	or a, e
-	jp nz, Label_26_45BC
+	jp nz, MailSession_ScanMailsLoop
 	ld e, c
 	ld d, b
 
@@ -762,7 +765,7 @@ Label_26_4636:: ; 26:4636
 	ld [hli], a
 	ld a, d
 	ld [hli], a
-	call Function_26_4EC3
+	call MailSession_CheckTimeWarning
 	inc a
 	ret z
 
@@ -778,12 +781,12 @@ Label_26_465E:: ; 26:465E
 	di
 	farcall Function_00_0956
 	ei
-	call Function_26_58DC
-	farcall Function_7D_7BB7
+	call MailSession_UpdateTimerDisplay
+	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
 	and a, $02
-	jp nz, Label_26_503C
+	jp nz, MailSession_Cancel
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -805,22 +808,22 @@ Label_26_4699:: ; 26:4699
 	ld c, $1E
 
 Label_26_46B4:: ; 26:46B4
-	call Function_26_50AC
-	jp z, Function_26_5067
+	call MailSession_PollAdapterError
+	jp z, MailSession_ShowCommError
 	push bc
 	di
 	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	call Function_26_58DC
-	farcall Function_7D_7BB7
+	call MailSession_UpdateTimerDisplay
+	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
 	and a, $02
-	jp nz, Label_26_503C
+	jp nz, MailSession_Cancel
 	dec c
 	jr nz, Label_26_46B4
-	call Function_26_5873
+	call MailSession_ClearMsg
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -846,21 +849,21 @@ Label_26_46B4:: ; 26:46B4
 	ld d, h
 	ld a, d
 	or a, e
-	jp z, Label_26_4A8A
+	jp z, MailSession_NoMailOrFull
 
 ; ---- code $4705-$4A8A (901 bytes) [PROBABLE] 438 insn(s) reached by static flow only; seeds: exec x438; min discovery hops 4; fall-through of the jpcc at 26:4702 (executed)
 	push de
 	di
-	farcall Function_25_4A90
+	farcall Mailbox_CountRecords
 	ei
 	ld a, d
 	pop de
 	cp a, $0C
-	jp z, Label_26_4A8A
+	jp z, MailSession_NoMailOrFull
 	ld hl, $0000
 	ld bc, $0000
 
-Label_26_471B:: ; 26:471B
+MailSession_ReceiveMailsLoop:: ; 26:471B
 	push bc
 	push de
 	push hl
@@ -887,14 +890,14 @@ Label_26_471B:: ; 26:471B
 	call Function_26_5106
 	dec a
 	jp z, Label_26_49FF
-	call Function_26_4EC3
+	call MailSession_CheckTimeWarning
 	inc a
 	ret z
 	push bc
 	push de
 	push hl
 	ld hl, $DA30
-	ld de, $72FB
+	ld de, MailSession_ObjTable_72FB
 	ld a, $28
 	ld b, $81
 	farcall Function_00_0A82
@@ -928,7 +931,7 @@ Label_26_471B:: ; 26:471B
 	pop hl
 	push hl
 	inc hl
-	call Function_26_537C
+	call MailSession_DrawMailCounts
 	pop hl
 	inc hl
 	push de
@@ -938,9 +941,9 @@ Label_26_471B:: ; 26:471B
 	push de
 	push hl
 	ld c, $00
-	farcall Function_7F_61FF
+	farcall Timer_ResetClockB
 	ld a, $FF
-	farcall Function_54_4914
+	farcall Pop3_StartTop
 	pop hl
 	pop de
 	pop bc
@@ -953,8 +956,8 @@ Label_26_47B6:: ; 26:47B6
 	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	call Function_26_58DC
-	farcall Function_7D_7BB7
+	call MailSession_UpdateTimerDisplay
+	farcall Joypad_Update
 	pop hl
 	pop de
 	pop bc
@@ -964,11 +967,11 @@ Label_26_47B6:: ; 26:47B6
 	pop hl
 	pop de
 	pop bc
-	jp Label_26_503C
+	jp MailSession_Cancel
 
 Label_26_47DC:: ; 26:47DC
 	ld a, $FF
-	farcall Function_54_4969
+	farcall Pop3_TopPoll
 	cp a, $01
 	jr z, Label_26_47B6
 	cp a, $FF
@@ -976,7 +979,7 @@ Label_26_47DC:: ; 26:47DC
 	pop hl
 	pop de
 	pop bc
-	call Function_26_5067
+	call MailSession_ShowCommError
 	ld a, $80
 	ret
 
@@ -1044,8 +1047,8 @@ Label_26_4819:: ; 26:4819
 	ld c, $04
 
 Label_26_486F:: ; 26:486F
-	call Function_26_50AC
-	jp z, Function_26_5067
+	call MailSession_PollAdapterError
+	jp z, MailSession_ShowCommError
 	push bc
 	di
 	farcall Function_00_0956
@@ -1059,8 +1062,8 @@ Label_26_486F:: ; 26:486F
 	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	call Function_26_58DC
-	farcall Function_7D_7BB7
+	call MailSession_UpdateTimerDisplay
+	farcall Joypad_Update
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1075,7 +1078,7 @@ Label_26_486F:: ; 26:486F
 	pop de
 	pop bc
 	pop de
-	jp Label_26_503C
+	jp MailSession_Cancel
 
 Label_26_48BB:: ; 26:48BB
 	dec c
@@ -1085,9 +1088,9 @@ Label_26_48BB:: ; 26:48BB
 	pop bc
 	push bc
 	push hl
-	farcall Function_7F_61FF
+	farcall Timer_ResetClockB
 	ld a, $FF
-	farcall Function_54_4CB0
+	farcall Pop3_StartRetr
 
 Label_26_48D2:: ; 26:48D2
 	push bc
@@ -1097,8 +1100,8 @@ Label_26_48D2:: ; 26:48D2
 	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	call Function_26_58DC
-	farcall Function_7D_7BB7
+	call MailSession_UpdateTimerDisplay
+	farcall Joypad_Update
 	pop hl
 	pop de
 	pop bc
@@ -1108,11 +1111,11 @@ Label_26_48D2:: ; 26:48D2
 	pop hl
 	pop bc
 	pop de
-	jp Label_26_503C
+	jp MailSession_Cancel
 
 Label_26_48F8:: ; 26:48F8
 	ld a, $FF
-	farcall Function_54_4CF4
+	farcall Pop3_RetrPoll
 	cp a, $01
 	jr z, Label_26_48D2
 	cp a, $FF
@@ -1120,7 +1123,7 @@ Label_26_48F8:: ; 26:48F8
 	pop hl
 	pop bc
 	pop de
-	call Function_26_5067
+	call MailSession_ShowCommError
 	ld a, $80
 	ret
 
@@ -1201,15 +1204,15 @@ Label_26_4988:: ; 26:4988
 	pop hl
 	cp a, $00
 	jr z, Label_26_49F2
-	farcall Function_7F_624F
-	farcall Function_7F_72B0
+	farcall Sprites_SaveSlotsToBank3
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	farcall Function_7F_6218
 	inc a
 	jr z, Label_26_49C2
-	call Function_26_5168
-	farcall Function_7F_627C
+	call MailSession_InitScreen
+	farcall Sprites_RestoreSlotsFromBank3
 	di
 	farcall Function_00_0956
 	ei
@@ -1260,10 +1263,10 @@ Label_26_49F2:: ; 26:49F2
 	pop bc
 	ld a, h
 	cp a, d
-	jp nz, Label_26_471B
+	jp nz, MailSession_ReceiveMailsLoop
 	ld a, l
 	cp a, e
-	jp nz, Label_26_471B
+	jp nz, MailSession_ReceiveMailsLoop
 
 Label_26_49FF:: ; 26:49FF
 	ld a, $01
@@ -1288,10 +1291,10 @@ Label_26_49FF:: ; 26:49FF
 	ld a, b
 	or a, c
 	jr nz, Label_26_4A1E
-	jp Label_26_4A8A
+	jp MailSession_NoMailOrFull
 
 Label_26_4A1E:: ; 26:4A1E
-	call Function_26_582F
+	call MailSession_ShowMsgReceived
 	ld hl, $DA30
 	ld de, $735B
 	ld a, $28
@@ -1315,29 +1318,29 @@ Label_26_4A1E:: ; 26:4A1E
 	ld c, $3C
 
 Label_26_4A61:: ; 26:4A61
-	call Function_26_50AC
-	jp z, Function_26_5067
+	call MailSession_PollAdapterError
+	jp z, MailSession_ShowCommError
 	push bc
 	di
 	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	call Function_26_58DC
-	farcall Function_7D_7BB7
+	call MailSession_UpdateTimerDisplay
+	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
 	and a, $02
-	jp nz, Label_26_503C
+	jp nz, MailSession_Cancel
 	dec c
 	jr nz, Label_26_4A61
-	jp Label_26_4B54
+	jp MailSession_Finish
 
 ; ---- code $4A8A-$4A99 (15 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 1/18 scenarios)
 
-Label_26_4A8A:: ; 26:4A8A
+MailSession_NoMailOrFull:: ; 26:4A8A
 	push de
 	di
-	farcall Function_25_4A90
+	farcall Mailbox_CountRecords
 	ei
 	ld a, d
 	pop de
@@ -1345,13 +1348,13 @@ Label_26_4A8A:: ; 26:4A8A
 	jr nz, Label_26_4A9E
 
 ; ---- code $4A99-$4A9E (5 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 26:4A97 (executed)
-	call Function_26_57EB
+	call MailSession_ShowMsgCannotReceive
 	jr Label_26_4AA1
 
 ; ---- code $4A9E-$4BDF (321 bytes) [CONFIRMED] 125 insn(s); 125 executed (in up to 1/18 scenarios)
 
 Label_26_4A9E:: ; 26:4A9E
-	call Function_26_57A7
+	call MailSession_ShowMsgNoMail
 
 Label_26_4AA1:: ; 26:4AA1
 	push bc
@@ -1393,8 +1396,8 @@ Label_26_4AA1:: ; 26:4AA1
 	ld c, $09
 
 Label_26_4B02:: ; 26:4B02
-	call Function_26_50AC
-	jp z, Function_26_5067
+	call MailSession_PollAdapterError
+	jp z, MailSession_ShowCommError
 	push bc
 	di
 	farcall Function_00_0956
@@ -1408,8 +1411,8 @@ Label_26_4B02:: ; 26:4B02
 	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	call Function_26_58DC
-	farcall Function_7D_7BB7
+	call MailSession_UpdateTimerDisplay
+	farcall Joypad_Update
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1419,14 +1422,14 @@ Label_26_4B02:: ; 26:4B02
 	pop bc
 	ldh a, [hJoyHeld]
 	and a, $02
-	jp nz, Label_26_503C
+	jp nz, MailSession_Cancel
 	dec c
 	jr nz, Label_26_4B02
 	ld de, $0080
 	ld hl, $DA60
 	call Function_00_0A65
 
-Label_26_4B54:: ; 26:4B54
+MailSession_Finish:: ; 26:4B54
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -1457,8 +1460,8 @@ Label_26_4B54:: ; 26:4B54
 	call Function_00_0A65
 
 Label_26_4B9A:: ; 26:4B9A
-	call Function_26_50AC
-	jp z, Function_26_5067
+	call MailSession_PollAdapterError
+	jp z, MailSession_ShowCommError
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1470,12 +1473,12 @@ Label_26_4B9A:: ; 26:4B9A
 	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	call Function_26_58DC
-	farcall Function_7D_7BB7
+	call MailSession_UpdateTimerDisplay
+	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
 	and a, $02
-	jp nz, Label_26_503C
+	jp nz, MailSession_Cancel
 	ld a, [wSpriteSlots + 49]
 	cp a, $E1
 	jr z, Label_26_4BD5
@@ -1483,7 +1486,7 @@ Label_26_4B9A:: ; 26:4B9A
 	jr nz, Label_26_4B9A
 
 Label_26_4BD5:: ; 26:4BD5
-	farcall Function_27_41BC
+	farcall Mail_OutboxIsEmpty
 	inc a
 	jp z, Label_26_4BF1
 
@@ -1536,8 +1539,8 @@ Label_26_4C1F:: ; 26:4C1F
 	call Function_00_0A65
 
 Label_26_4C41:: ; 26:4C41
-	call Function_26_50AC
-	jp z, Function_26_5067
+	call MailSession_PollAdapterError
+	jp z, MailSession_ShowCommError
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1552,12 +1555,12 @@ Label_26_4C41:: ; 26:4C41
 	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	call Function_26_58DC
-	farcall Function_7D_7BB7
+	call MailSession_UpdateTimerDisplay
+	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
 	and a, $02
-	jp nz, Label_26_503C
+	jp nz, MailSession_Cancel
 	ld a, [wSpriteSlots + 65]
 	cp a, $91
 	jr z, Label_26_4C83
@@ -1565,9 +1568,9 @@ Label_26_4C41:: ; 26:4C41
 	jr nz, Label_26_4C41
 
 Label_26_4C83:: ; 26:4C83
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	xor a, a
 	ret
 
@@ -1842,7 +1845,8 @@ Label_26_4EB2:: ; 26:4EB2
 
 ; ---- code $4EC3-$4EE0 (29 bytes) [CONFIRMED] 16 insn(s); 16 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_26_4EC3:: ; 26:4EC3
+MailSession_CheckTimeWarning:: ; 26:4EC3
+Function_26_4EC3::
 	push af
 	push bc
 	push de
@@ -1898,10 +1902,10 @@ Label_26_4F0E:: ; 26:4F0E
 	jr z, Label_26_4F65
 
 ; ---- code $4F13-$4F65 (82 bytes) [PROBABLE] 28 insn(s) reached by static flow only; seeds: exec x28; min discovery hops 0; fall-through of the jrcc at 26:4F11 (executed)
-	farcall Function_7F_624F
-	farcall Function_7F_72B0
+	farcall Sprites_SaveSlotsToBank3
+	farcall Stat_DisableScrollSplit
 	call Function_00_044B
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	farcall Function_7F_6218
 	inc a
 	jr z, Label_26_4F6B
@@ -1919,9 +1923,9 @@ Label_26_4F0E:: ; 26:4F0E
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
-	call Function_26_5168
-	farcall Function_7F_627C
+	farcall Stat_EnableScrollSplit
+	call MailSession_InitScreen
+	farcall Sprites_RestoreSlotsFromBank3
 	di
 	farcall Function_00_0956
 	ei
@@ -1940,7 +1944,7 @@ Label_26_4F65:: ; 26:4F65
 ; ---- code $4F6B-$5062 (247 bytes) [PROBABLE] 110 insn(s) reached by static flow only; seeds: exec x110; min discovery hops 1; entered by jrcc from 26:4F2F (PROBABLE code)
 
 Label_26_4F6B:: ; 26:4F6B
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
 	pop hl
 	pop de
@@ -1949,7 +1953,7 @@ Label_26_4F6B:: ; 26:4F6B
 	ld a, $FF
 	ret
 
-Function_26_4F7B:: ; 26:4F7B
+MailSession_CheckTimeWarningRecv:: ; 26:4F7B
 	push af
 	push bc
 	push de
@@ -1999,10 +2003,10 @@ Label_26_4FC6:: ; 26:4FC6
 	pop hl
 	cp a, $00
 	jr z, Label_26_5026
-	farcall Function_7F_624F
-	farcall Function_7F_72B0
+	farcall Sprites_SaveSlotsToBank3
+	farcall Stat_DisableScrollSplit
 	call Function_00_044B
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ldh a, [rLCDC]
 	and a, $FB
 	ldh [rLCDC], a
@@ -2023,10 +2027,10 @@ Label_26_4FC6:: ; 26:4FC6
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
-	call Function_26_5168
-	call Function_26_56DB
-	farcall Function_7F_627C
+	farcall Stat_EnableScrollSplit
+	call MailSession_InitScreen
+	call MailSession_ShowMsgReceiving
+	farcall Sprites_RestoreSlotsFromBank3
 	di
 	farcall Function_00_0956
 	ei
@@ -2041,7 +2045,7 @@ Label_26_5026:: ; 26:5026
 	ret
 
 Label_26_502C:: ; 26:502C
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
 	pop hl
 	pop de
@@ -2050,10 +2054,10 @@ Label_26_502C:: ; 26:502C
 	ld a, $FF
 	ret
 
-Label_26_503C:: ; 26:503C
-	farcall Function_7F_72B0
+MailSession_Cancel:: ; 26:503C
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ldh a, [rLCDC]
 	and a, $FB
 	ldh [rLCDC], a
@@ -2074,7 +2078,7 @@ Data_26_5062:: ; 26:5062
 
 ; ---- code $5067-$50AC (69 bytes) [CONFIRMED] 28 insn(s) reached by static flow only; seeds: exec x28; min discovery hops 7; entered by jpcc from 26:46B7 (executed) [executed in 4 scenarios]
 
-Function_26_5067:: ; 26:5067
+MailSession_ShowCommError:: ; 26:5067
 	ld a, [wRam_C1DE]
 	ld [wRam_C273], a
 	ld a, [wRam_C1DF]
@@ -2093,20 +2097,21 @@ Function_26_5067:: ; 26:5067
 	xor a, a
 	ld a, $07
 	ldh [rWX], a
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ldh a, [rLCDC]
 	and a, $DB
 	ldh [rLCDC], a
-	farcall Function_68_4F8C
+	farcall Mobile_ShowLastError
 	ld a, $80
 	pop bc
 	ret
 
 ; ---- code $50AC-$50B6 (10 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_26_50AC:: ; 26:50AC
+MailSession_PollAdapterError:: ; 26:50AC
+Function_26_50AC::
 	ld a, [wTimerEnable]
 	bit 1, a
 	jr nz, Label_26_50B6
@@ -2120,7 +2125,7 @@ Label_26_50B6:: ; 26:50B6
 	push bc
 	push de
 	push hl
-	farcall Function_54_4011
+	farcall Mobile_FetchResult
 	pop hl
 	pop de
 	pop bc
@@ -2128,7 +2133,7 @@ Label_26_50B6:: ; 26:50B6
 	inc a
 	ret
 
-Function_26_50C6:: ; 26:50C6
+MailSession_ShowCommErrorNoWindow:: ; 26:50C6
 	ld a, [wRam_C1DE]
 	ld [wRam_C273], a
 	ld a, [wRam_C1DF]
@@ -2144,13 +2149,13 @@ Function_26_50C6:: ; 26:50C6
 	ld [hli], a
 	xor a, a
 	ldh [rWX], a
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ldh a, [rLCDC]
 	and a, $DB
 	ldh [rLCDC], a
-	farcall Function_68_4F8C
+	farcall Mobile_ShowLastError
 	ld a, $80
 	ret
 
@@ -2232,12 +2237,13 @@ Label_26_514D:: ; 26:514D
 
 ; ---- code $5168-$52AB (323 bytes) [CONFIRMED] 122 insn(s); 122 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_26_5168:: ; 26:5168
+MailSession_InitScreen:: ; 26:5168
+Function_26_5168::
 	push bc
 	push af
 	farcall Function_00_09B6
 	farcall Function_00_0956
-	farcall Function_2D_4E06
+	farcall TextTiles_ClearBuffers
 	farcall LCDOff
 	xor a, a
 	ldh [rSCX], a
@@ -2289,58 +2295,58 @@ Label_26_51C4:: ; 26:51C4
 	jr nz, Label_26_51C4
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $5C50
+	ld hl, Palette_CommProgress_Bg
 	ld a, $22
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $5C90
 	ld a, $22
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld de, $8001
-	ld hl, $59E0
+	ld hl, MailSession_Tiles_59E0
 	ld a, $26
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8401
-	ld hl, $5DE0
+	ld hl, MailSession_Tiles_5DE0
 	ld a, $26
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8801
-	ld hl, $61E0
+	ld hl, MailSession_Tiles_61E0
 	ld a, $26
 	ld b, $97
 	ld c, $10
 	farcall Function_00_0787
 	ld de, $9001
-	ld hl, $62E0
+	ld hl, MailSession_Tiles_62E0
 	ld a, $26
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9401
-	ld hl, $66E0
+	ld hl, MailSession_Tiles_66E0
 	ld a, $26
 	ld b, $97
 	ld c, $10
 	farcall Function_00_0787
 	ld de, $8000
-	ld hl, $67E0
+	ld hl, MailSession_Tiles_67E0
 	ld a, $26
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8400
-	ld hl, $6BE0
+	ld hl, MailSession_Tiles_6BE0
 	ld a, $26
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8800
-	ld hl, $6FE0
+	ld hl, MailSession_Tiles_6FE0
 	ld a, $26
 	ld b, $92
 	ld c, $40
@@ -2349,10 +2355,10 @@ Label_26_51C4:: ; 26:51C4
 	ld de, $D840
 	ld hl, $7520
 	ld a, $27
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $5980
+	ld hl, Tilemap_CommProgress_Screen
 	ld a, $22
 	farcall Function_00_08EA
 	di
@@ -2375,7 +2381,7 @@ Label_26_51C4:: ; 26:51C4
 	ld hl, $D800
 
 ; ---- code $52BF-$52D8 (25 bytes) [PROBABLE] 11 insn(s) reached by static flow only; seeds: site x11; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_4F_404B
+	farcall Palette_UploadBuffer
 	ei
 	call Function_00_0392
 	ldh [hScratchA], a
@@ -2402,7 +2408,7 @@ Label_26_52E1:: ; 26:52E1
 	dec b
 	jr nz, Label_26_52E1
 	farcall LCDOn
-	call Function_26_58DC
+	call MailSession_UpdateTimerDisplay
 	ldh a, [rLCDC]
 	or a, $04
 	ldh [rLCDC], a
@@ -2419,9 +2425,9 @@ Label_26_52E1:: ; 26:52E1
 	pop af
 	ldh [rSVBK], a
 	ei
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
-	farcall Function_4F_42B4
+	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -2436,7 +2442,7 @@ Label_26_52E1:: ; 26:52E1
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
+	farcall Stat_EnableScrollSplit
 	ld bc, $0000
 	ret
 
@@ -2453,7 +2459,7 @@ Data_26_5344:: ; 26:5344
 
 ; ---- code $537C-$5575 (505 bytes) [PROBABLE] 318 insn(s) reached by static flow only; seeds: exec x318; min discovery hops 5; entered by call from 26:4798 (PROBABLE code)
 
-Function_26_537C:: ; 26:537C
+MailSession_DrawMailCounts:: ; 26:537C
 	push af
 	push bc
 	push de
@@ -2485,7 +2491,7 @@ Function_26_537C:: ; 26:537C
 	push hl
 	ld h, d
 	ld l, e
-	call Function_26_5580
+	call MailSession_TotalNumberBuffer
 	push bc
 	ld a, $02
 	ldh [hRam_FFB0], a
@@ -2494,8 +2500,8 @@ Function_26_537C:: ; 26:537C
 	add hl, bc
 	ld d, h
 	ld e, l
-	ld hl, $566E
-	farcall Function_48_403E
+	ld hl, MailSession_Txt_Total
+	farcall TextTiles_RenderLine
 	pop bc
 	ld hl, $0040
 	add hl, bc
@@ -2521,7 +2527,7 @@ Function_26_537C:: ; 26:537C
 	ld l, e
 	add hl, bc
 	pop bc
-	call Function_26_5447
+	call MailSession_DrawNumber
 	ld e, a
 	ld d, $00
 	swap e
@@ -2537,11 +2543,11 @@ Function_26_537C:: ; 26:537C
 	add hl, bc
 	ld d, h
 	ld e, l
-	ld hl, $5677
-	farcall Function_48_403E
+	ld hl, MailSession_Txt_Counter
+	farcall TextTiles_RenderLine
 	pop hl
 	push hl
-	call Function_26_55E0
+	call MailSession_CurrentNumberBuffer
 	push bc
 	ld a, $02
 	ldh [hRam_FFB0], a
@@ -2555,7 +2561,7 @@ Function_26_537C:: ; 26:537C
 	pop hl
 	push hl
 	push bc
-	call Function_26_5447
+	call MailSession_DrawNumber
 	ld e, a
 	ld d, $00
 	swap e
@@ -2571,9 +2577,9 @@ Function_26_537C:: ; 26:537C
 	add hl, bc
 	ld d, h
 	ld e, l
-	ld hl, $567C
-	farcall Function_48_403E
-	call Function_26_5640
+	ld hl, MailSession_Txt_Checking
+	farcall TextTiles_RenderLine
+	call MailSession_UploadNumberTiles
 	pop hl
 	pop de
 	pop bc
@@ -2585,13 +2591,13 @@ Function_26_537C:: ; 26:537C
 	pop af
 	ret
 
-Function_26_5447:: ; 26:5447
+MailSession_DrawNumber:: ; 26:5447
 	push hl
 	push bc
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $5575
+	ld hl, MailSession_NumberTemplate
 	ld de, $D524
 
 Label_26_5455:: ; 26:5455
@@ -2783,18 +2789,19 @@ Label_26_555C:: ; 26:555C
 	ld d, h
 	ld e, l
 	ld hl, $D524
-	farcall Function_48_403E
+	farcall TextTiles_RenderLine
 	pop af
 	ret
 
 ; ---- text $5575-$5580 (11 bytes) [PROBABLE] Shift-JIS full-width "00000" (5 x 82 4F) + NUL
 
-String_26_5575:: ; 26:5575
-	db $82, $4F, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $00
+MailSession_NumberTemplate:: ; 26:5575
+String_26_5575::
+	db $82, $4F, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $00 ; "０００００"
 
 ; ---- code $5580-$566E (238 bytes) [PROBABLE] 101 insn(s) reached by static flow only; seeds: exec x101; min discovery hops 6; entered by call from 26:53A2 (PROBABLE code)
 
-Function_26_5580:: ; 26:5580
+MailSession_TotalNumberBuffer:: ; 26:5580
 	push de
 	push hl
 	ld de, $2710
@@ -2847,7 +2854,7 @@ Label_26_55DD:: ; 26:55DD
 	pop de
 	ret
 
-Function_26_55E0:: ; 26:55E0
+MailSession_CurrentNumberBuffer:: ; 26:55E0
 	push de
 	push hl
 	ld de, $2710
@@ -2900,7 +2907,7 @@ Label_26_563D:: ; 26:563D
 	pop de
 	ret
 
-Function_26_5640:: ; 26:5640
+MailSession_UploadNumberTiles:: ; 26:5640
 	ldh a, [rSVBK]
 	push af
 	ld a, $02
@@ -2911,11 +2918,11 @@ Function_26_5640:: ; 26:5640
 	ld hl, $D000
 	ld de, $9000
 	ld c, $3F
-	farcall Function_7F_72C2
+	farcall Gfx_GdmaAtVBlankNoDi
 	ld hl, $D400
 	ld de, $9400
 	ld c, $3F
-	farcall Function_7F_72C2
+	farcall Gfx_GdmaAtVBlankNoDi
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2923,65 +2930,70 @@ Function_26_5640:: ; 26:5640
 
 ; ---- text $566E-$5677 (9 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_26_566E:: ; 26:566E
-	db $82, $BA, $82, $F1, $82, $D4, $82, $C5, $00
+MailSession_Txt_Total:: ; 26:566E
+String_26_566E::
+	db $82, $BA, $82, $F1, $82, $D4, $82, $C5, $00 ; "ぜんぶで"
 
 ; ---- text $5677-$567C (5 bytes) [PROBABLE] Shift-JIS "つう" + NUL between String_26_566E chunks (566E holds ぜんぶで / つう / つうめをチェックしています as consecutive NUL-terminated strings)
 
-String_26_5677:: ; 26:5677
-	db $82, $C2, $82, $A4, $00
+MailSession_Txt_Counter:: ; 26:5677
+String_26_5677::
+	db $82, $C2, $82, $A4, $00 ; "つう"
 
 ; ---- text $567C-$5697 (27 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_26_567C:: ; 26:567C
-	db $82, $C2, $82, $A4, $82, $DF, $82, $F0, $83, $60, $83, $46, $83, $62, $83, $4E
-	db $82, $B5, $82, $C4, $82, $A2, $82, $DC, $82, $B7, $00
+MailSession_Txt_Checking:: ; 26:567C
+String_26_567C::
+	db $82, $C2, $82, $A4, $82, $DF, $82, $F0, $83, $60, $83, $46, $83, $62, $83, $4E, $82, $B5, $82, $C4, $82, $A2, $82, $DC, $82, $B7, $00 ; "つうめをチェックしています"
 
 ; ---- code $5697-$56B2 (27 bytes) [CONFIRMED] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 1; entered by call from 26:403E (PROBABLE code) [executed in 5 scenarios]
 
-Function_26_5697:: ; 26:5697
+MailSession_ShowMsgSending:: ; 26:5697
 	push bc
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $26
 	ld bc, $D400
 	ld de, $D600
-	ld hl, $56B2
-	farcall Function_48_403E
-	call Function_26_58B7
+	ld hl, MailSession_Msg_Sending
+	farcall TextTiles_RenderLine
+	call MailSession_UploadMsgTiles
 	pop bc
 	ret
 
 ; ---- text $56B2-$56DB (41 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_26_56B2:: ; 26:56B2
-	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $F0
-	db $82, $BB, $82, $A4, $82, $B5, $82, $F1, $82, $B5, $82, $C4, $82, $A2, $82, $DC
-	db $82, $B7, $81, $40, $81, $40, $81, $40, $00
+MailSession_Msg_Sending:: ; 26:56B2
+String_26_56B2::
+	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $BB, $82, $A4, $82, $B5, $82, $F1, $82, $B5, $82, $C4, $82, $A2, $82, $DC, $82, $B7 ; "　　　　メールをそうしんしています"
+	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
 
 ; ---- code $56DB-$56F6 (27 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_26_56DB:: ; 26:56DB
+MailSession_ShowMsgReceiving:: ; 26:56DB
+Function_26_56DB::
 	push bc
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $26
 	ld bc, $D400
 	ld de, $D600
-	ld hl, $56F6
-	farcall Function_48_403E
-	call Function_26_58B7
+	ld hl, MailSession_Msg_Receiving
+	farcall TextTiles_RenderLine
+	call MailSession_UploadMsgTiles
 	pop bc
 	ret
 
 ; ---- text $56F6-$571F (41 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_26_56F6:: ; 26:56F6
-	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $F0
-	db $82, $B6, $82, $E3, $82, $B5, $82, $F1, $82, $B5, $82, $C4, $82, $A2, $82, $DC
-	db $82, $B7, $81, $40, $81, $40, $81, $40, $00
+MailSession_Msg_Receiving:: ; 26:56F6
+String_26_56F6::
+	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $B6, $82, $E3, $82, $B5, $82, $F1, $82, $B5, $82, $C4, $82, $A2, $82, $DC, $82, $B7 ; "　　　　メールをじゅしんしています"
+	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
 
 ; ---- code $571F-$572F (16 bytes) [PROBABLE] push bc / ld a,$02 / ldh [$FFB0],a / ld a,$26 / ld bc,$D400 / ld de,$D600 / ld hl,$573A: loads the address of String_26_573A that follows the far call at 572F; chain falls through into that site-validated far call; entry unproven
+
+Function_26_571F:: ; 26:571F
 	push bc
 	ld a, $02
 	ldh [hRam_FFB0], a
@@ -2991,19 +3003,21 @@ String_26_56F6:: ; 26:56F6
 	ld hl, $573A
 
 ; ---- code $572F-$573A (11 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: site x4; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_48_403E
-	call Function_26_58B7
+	farcall TextTiles_RenderLine
+	call MailSession_UploadMsgTiles
 	pop bc
 	ret
 
 ; ---- text $573A-$5763 (41 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_26_573A:: ; 26:573A
-	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $F0
-	db $82, $BB, $82, $A4, $82, $B5, $82, $F1, $82, $B5, $82, $DC, $82, $B5, $82, $BD
-	db $81, $40, $81, $40, $81, $40, $81, $40, $00
+MailSession_Msg_Sent:: ; 26:573A
+String_26_573A::
+	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $BB, $82, $A4, $82, $B5, $82, $F1, $82, $B5, $82, $DC, $82, $B5, $82, $BD, $81, $40 ; "　　　　メールをそうしんしました　"
+	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
 
 ; ---- code $5763-$5773 (16 bytes) [PROBABLE] same as 26:571F but ld hl,$577E (String_26_577E); chain falls through into the far call at 5773; entry unproven
+
+Function_26_5763:: ; 26:5763
 	push bc
 	ld a, $02
 	ldh [hRam_FFB0], a
@@ -3013,109 +3027,113 @@ String_26_573A:: ; 26:573A
 	ld hl, $577E
 
 ; ---- code $5773-$577E (11 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: site x4; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_48_403E
-	call Function_26_58B7
+	farcall TextTiles_RenderLine
+	call MailSession_UploadMsgTiles
 	pop bc
 	ret
 
 ; ---- text $577E-$57A7 (41 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_26_577E:: ; 26:577E
-	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $B6
-	db $82, $E3, $82, $B5, $82, $F1, $82, $A9, $82, $F1, $82, $E8, $82, $E5, $82, $A4
-	db $81, $40, $81, $40, $81, $40, $81, $40, $00
+MailSession_Msg_ReceiveDone:: ; 26:577E
+String_26_577E::
+	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $B6, $82, $E3, $82, $B5, $82, $F1, $82, $A9, $82, $F1, $82, $E8, $82, $E5, $82, $A4, $81, $40 ; "　　　　メールじゅしんかんりょう　"
+	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
 
 ; ---- code $57A7-$57C2 (27 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_26_57A7:: ; 26:57A7
+MailSession_ShowMsgNoMail:: ; 26:57A7
+Function_26_57A7::
 	push bc
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $26
 	ld bc, $D400
 	ld de, $D600
-	ld hl, $57C2
-	farcall Function_48_403E
-	call Function_26_58B7
+	ld hl, MailSession_Msg_NoMail
+	farcall TextTiles_RenderLine
+	call MailSession_UploadMsgTiles
 	pop bc
 	ret
 
 ; ---- text $57C2-$57EB (41 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_26_57C2:: ; 26:57C2
-	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $CD
-	db $82, $A0, $82, $E8, $82, $DC, $82, $B9, $82, $F1, $82, $C5, $82, $B5, $82, $BD
-	db $81, $40, $81, $40, $81, $40, $81, $40, $00
+MailSession_Msg_NoMail:: ; 26:57C2
+String_26_57C2::
+	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $CD, $82, $A0, $82, $E8, $82, $DC, $82, $B9, $82, $F1, $82, $C5, $82, $B5, $82, $BD, $81, $40 ; "　　　　メールはありませんでした　"
+	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
 
 ; ---- code $57EB-$5806 (27 bytes) [PROBABLE] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 1; entered by call from 26:4A99 (PROBABLE code)
 
-Function_26_57EB:: ; 26:57EB
+MailSession_ShowMsgCannotReceive:: ; 26:57EB
 	push bc
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $26
 	ld bc, $D400
 	ld de, $D600
-	ld hl, $5806
-	farcall Function_48_403E
-	call Function_26_58B7
+	ld hl, MailSession_Msg_CannotReceive
+	farcall TextTiles_RenderLine
+	call MailSession_UploadMsgTiles
 	pop bc
 	ret
 
 ; ---- text $5806-$582F (41 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_26_5806:: ; 26:5806
-	db $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $CD, $82, $A4
-	db $82, $AF, $82, $C6, $82, $EA, $82, $DC, $82, $B9, $82, $F1, $82, $C5, $82, $B5
-	db $82, $BD, $81, $40, $81, $40, $81, $40, $00
+MailSession_Msg_CannotReceive:: ; 26:5806
+String_26_5806::
+	db $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $CD, $82, $A4, $82, $AF, $82, $C6, $82, $EA, $82, $DC, $82, $B9, $82, $F1, $82, $C5, $82, $B5, $82, $BD ; "　　　メールはうけとれませんでした"
+	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
 
 ; ---- code $582F-$584A (27 bytes) [CONFIRMED] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 11; entered by call from 26:4A1E (PROBABLE code) [executed in 2 scenarios]
 
-Function_26_582F:: ; 26:582F
+MailSession_ShowMsgReceived:: ; 26:582F
 	push bc
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $26
 	ld bc, $D400
 	ld de, $D600
-	ld hl, $584A
-	farcall Function_48_403E
-	call Function_26_58B7
+	ld hl, MailSession_Msg_Received
+	farcall TextTiles_RenderLine
+	call MailSession_UploadMsgTiles
 	pop bc
 	ret
 
 ; ---- text $584A-$5873 (41 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_26_584A:: ; 26:584A
-	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $F0
-	db $82, $A4, $82, $AF, $82, $C6, $82, $E8, $82, $DC, $82, $B5, $82, $BD, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $00
+MailSession_Msg_Received:: ; 26:584A
+String_26_584A::
+	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $A4, $82, $AF, $82, $C6, $82, $E8, $82, $DC, $82, $B5, $82, $BD, $81, $40, $81, $40 ; "　　　　メールをうけとりました　　"
+	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
 
 ; ---- code $5873-$588E (27 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_26_5873:: ; 26:5873
+MailSession_ClearMsg:: ; 26:5873
+Function_26_5873::
 	push bc
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $26
 	ld bc, $D400
 	ld de, $D600
-	ld hl, $588E
-	farcall Function_48_403E
-	call Function_26_58B7
+	ld hl, MailSession_Msg_Blank
+	farcall TextTiles_RenderLine
+	call MailSession_UploadMsgTiles
 	pop bc
 	ret
 
 ; ---- data $588E-$58B7 (41 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
-Data_26_588E:: ; 26:588E
+MailSession_Msg_Blank:: ; 26:588E
+Data_26_588E::
 	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
 	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
 	db $81, $40, $81, $40, $81, $40, $81, $40, $00
 
 ; ---- code $58B7-$5926 (111 bytes) [CONFIRMED] 57 insn(s); 57 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_26_58B7:: ; 26:58B7
+MailSession_UploadMsgTiles:: ; 26:58B7
+Function_26_58B7::
 	ldh a, [rSVBK]
 	push af
 	ld a, $02
@@ -3129,13 +3147,13 @@ Function_26_58B7:: ; 26:58B7
 	ld hl, $D400
 	ld de, $9400
 	ld c, $3F
-	call Function_26_59B6
+	call MailSession_StartHDMAAtVBlank
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ret
 
-Function_26_58DC:: ; 26:58DC
+MailSession_UpdateTimerDisplay:: ; 26:58DC
 	push af
 	push bc
 	push de
@@ -3169,7 +3187,7 @@ Label_26_5909:: ; 26:5909
 	ld a, b
 	ld [wRam_D62B], a
 	ld de, $9401
-	ld hl, $66E0
+	ld hl, MailSession_Tiles_66E0
 	ld a, $26
 	ld b, $98
 	ld c, $01
@@ -3263,7 +3281,7 @@ Label_26_59AA:: ; 26:59AA
 	pop af
 	ret
 
-Function_26_59B6:: ; 26:59B6
+MailSession_StartHDMAAtVBlank:: ; 26:59B6
 	di
 	ld a, h
 	ldh [rHDMA1], a
@@ -3298,7 +3316,8 @@ Data_26_59D8:: ; 26:59D8
 
 ; ---- gfx $59E0-$5DE0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 26:51FA: hl=$59E0 a=$26 c=$40 de=$8001 (dest VRAM $8000, vbank=1)
 
-Data_26_59E0:: ; 26:59E0
+MailSession_Tiles_59E0:: ; 26:59E0
+Data_26_59E0::
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
 	db $00, $FF, $00, $FF, $00, $FF, $00, $1F, $00, $0F, $00, $07, $00, $03, $00, $01
@@ -3366,7 +3385,8 @@ Data_26_59E0:: ; 26:59E0
 
 ; ---- gfx $5DE0-$61E0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 26:520C: hl=$5DE0 a=$26 c=$40 de=$8401 (dest VRAM $8400, vbank=1)
 
-Data_26_5DE0:: ; 26:5DE0
+MailSession_Tiles_5DE0:: ; 26:5DE0
+Data_26_5DE0::
 	db $0F, $0F, $7F, $7F, $BF, $E7, $BF, $E7, $BD, $E6, $5E, $73, $2F, $39, $17, $1C
 	db $0B, $0E, $05, $07, $05, $06, $07, $04, $07, $04, $07, $04, $05, $06, $03, $02
 	db $E0, $E0, $F0, $F0, $F0, $F0, $F0, $F0, $F0, $10, $F0, $10, $50, $B0, $A0, $E0
@@ -3434,7 +3454,8 @@ Data_26_5DE0:: ; 26:5DE0
 
 ; ---- gfx $61E0-$62E0 (256 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 26:521E: hl=$61E0 a=$26 c=$10 de=$8801 (dest VRAM $8800, vbank=1)
 
-Data_26_61E0:: ; 26:61E0
+MailSession_Tiles_61E0:: ; 26:61E0
+Data_26_61E0::
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
@@ -3454,7 +3475,8 @@ Data_26_61E0:: ; 26:61E0
 
 ; ---- gfx $62E0-$66E0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 26:5230: hl=$62E0 a=$26 c=$40 de=$9001 (dest VRAM $9000, vbank=1)
 
-Data_26_62E0:: ; 26:62E0
+MailSession_Tiles_62E0:: ; 26:62E0
+Data_26_62E0::
 	db $FF, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FF, $00, $FF, $FF, $1F, $C0, $3C, $9F, $6F, $20, $DF, $5F, $FF, $51, $FF, $51
@@ -3522,7 +3544,8 @@ Data_26_62E0:: ; 26:62E0
 
 ; ---- gfx $66E0-$66F0 (16 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 26:5919: hl=$66E0 a=$26 c=$01 de=$9401 (dest VRAM $9400, vbank=1)
 
-Data_26_66E0:: ; 26:66E0
+MailSession_Tiles_66E0:: ; 26:66E0
+Data_26_66E0::
 	db $3C, $3C, $7E, $66, $77, $66, $77, $66, $77, $66, $77, $66, $3F, $3C, $1E, $00
 
 ; ---- gfx $66F0-$67E0 (240 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 26:5242: hl=$66E0 a=$26 c=$10 de=$9401 (dest VRAM $9400, vbank=1) [clipped from 66E0-67E0 by higher-priority evidence]
@@ -3546,7 +3569,8 @@ Data_26_66F0:: ; 26:66F0
 
 ; ---- gfx $67E0-$6BE0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 26:5254: hl=$67E0 a=$26 c=$40 de=$8000 (dest VRAM $8000, vbank=0)
 
-Data_26_67E0:: ; 26:67E0
+MailSession_Tiles_67E0:: ; 26:67E0
+Data_26_67E0::
 	db $00, $00, $03, $03, $07, $04, $0F, $08, $0F, $08, $0F, $08, $0B, $0C, $04, $07
 	db $02, $03, $07, $04, $0F, $08, $1F, $12, $7D, $66, $FB, $8C, $FB, $8C, $7B, $7C
 	db $00, $00, $C0, $C0, $E0, $20, $F0, $10, $F0, $10, $F0, $10, $D0, $30, $20, $E0
@@ -3614,7 +3638,8 @@ Data_26_67E0:: ; 26:67E0
 
 ; ---- gfx $6BE0-$6FE0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 26:5266: hl=$6BE0 a=$26 c=$40 de=$8400 (dest VRAM $8400, vbank=0)
 
-Data_26_6BE0:: ; 26:6BE0
+MailSession_Tiles_6BE0:: ; 26:6BE0
+Data_26_6BE0::
 	db $00, $00, $03, $03, $07, $04, $0F, $08, $0F, $08, $0F, $08, $0B, $0C, $04, $07
 	db $02, $03, $05, $06, $0B, $0C, $0F, $0A, $0F, $09, $0F, $08, $0F, $0A, $0D, $0B
 	db $00, $00, $C0, $C0, $E0, $20, $F0, $10, $F0, $10, $F0, $10, $D0, $30, $20, $E0
@@ -3682,7 +3707,8 @@ Data_26_6BE0:: ; 26:6BE0
 
 ; ---- gfx $6FE0-$73E0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 26:5278: hl=$6FE0 a=$26 c=$40 de=$8800 (dest VRAM $8800, vbank=0)
 
-Data_26_6FE0:: ; 26:6FE0
+MailSession_Tiles_6FE0:: ; 26:6FE0
+Data_26_6FE0::
 	db $EF, $F0, $FF, $C0, $FF, $80, $7F, $80, $FF, $00, $FF, $00, $FF, $00, $FF, $00
 	db $FF, $00, $FF, $00, $FF, $1F, $F0, $20, $E8, $47, $D0, $8F, $A0, $81, $80, $A7
 	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
@@ -3758,7 +3784,8 @@ Data_26_73E0:: ; 26:73E0
 
 ; ---- gfx $7420-$7820 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 29:4650: hl=$7420 a=$26 c=$40 de=$9400 (dest VRAM $9400, vbank=0)
 
-Data_26_7420:: ; 26:7420
+MailServerStatus_Tiles_7420:: ; 26:7420
+Data_26_7420::
 	db $FF, $00, $00, $FF, $00, $00, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $FF, $FF
 	db $FF, $00, $00, $FF, $00, $00, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $01, $FF
 	db $FF, $00, $00, $FF, $00, $00, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $80, $FF
@@ -3891,7 +3918,8 @@ Palette_26_7AC0:: ; 26:7AC0
 
 ; ---- words $7B00-$7BE0 (224 bytes) [PROBABLE] 14 rows of 16 bytes = 4 identical 4-byte object-table entries (ptr to frame table, ptr to script); every pointer lands on a frame-table/script start found by the sequential sweep of 7B00-7D41 (26:7B00-7D41 (ends at the zero padding)); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs
 
-Table_26_7B00:: ; 26:7B00
+Mailbox_ObjTable:: ; 26:7B00
+Table_26_7B00::
 	dw Data_26_7BE0, $7C06, Data_26_7BE0, $7C06, Data_26_7BE0, $7C06, Data_26_7BE0, $7C06
 	dw $7C0B, $7C1A, $7C0B, $7C1A, $7C0B, $7C1A, $7C0B, $7C1A
 	dw $7C1D, $7C2C, $7C1D, $7C2C, $7C1D, $7C2C, $7C1D, $7C2C
