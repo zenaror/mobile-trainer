@@ -10,6 +10,7 @@ config/regions/bankNN.tsv ──┤
 config/symbols/bankNN.tsv ──┼─► tools/gen_asm.py ─► src/bankNN.asm, src/ram.inc ─► rgbasm/rgblink ─► ROM == baserom.gbc
 config/ram/*.tsv ───────────┤
 config/conventions.tsv ─────┤
+config/text_charsets.tsv ───┤ (optional)
 config/xrefs.tsv ───────────┘        constants/hardware.inc (hardware register names)
 ```
 
@@ -40,7 +41,7 @@ or `-`; otherwise it becomes an exported label at `start` (a *named* label; it b
 | `data` | `db` lines, 16 bytes per line | |
 | `words` | `dw` lines, 8 little-endian words per line (`dw $4A21`) | even size; a `dw` value becomes a label only if a *named* label (symbol/region label) exists at that address (same bank or ROM0); the value `$0000` is **never** substituted (null slot, not a pointer to 00:0000) unless an `xref word` row says so |
 | `ptrtable` | `dw`, one word per line | like `words`, documented as a pointer table: also generic labels of code targets (`dw Label_05_4A21`); `$0000` slots stay numeric; a `$4000-$7FFF` value is assumed to mean the table's own bank (heuristic, see Known limitations) |
-| `text` | `db` lines, 16 per line | raw bytes only; charmap comes later |
+| `text` | one string per `db` line with the decoded text as a trailing comment, see *Text regions* | bytes are asserted exactly as for `data`; `--no-text-comments` drops the comments |
 | `gfx` | `db` lines, 16 per line (= one 2bpp tile) | |
 | `zero` | `ds N, $00` | error if any byte is non-zero |
 | `raw` | `INCBIN "baserom.gbc", offset, size` | the not-yet-analysed default |
@@ -70,6 +71,48 @@ Regions whose runtime ranges overlap (overlays) must start at the same `runaddr`
 `LOAD UNION "RAMOVL_CC00", ...` (same union name, one per overlay), partial overlaps are an error.
 Generic names for RAM code are `<Prefix>_<storage bank>_<runtime address>` (e.g. `Function_00_CBF1`); two
 overlays of the same bank with the same runaddr would collide and must then be named with symbols.
+
+## Text regions and config/text_charsets.tsv
+
+A `text` region is cut into *items* and every item is one line; the decoded text is a comment only (it never changes
+bytes; every emitted line is still asserted against the ROM, so a decoding bug can only show up as a wrong comment):
+
+```
+	db $83, $81, $83, $62, $00 ; "メール"
+```
+
+* `nul` layout (default): a string ends after its `00`; a region that does not end at a NUL, or a label inside a string,
+  just ends the last line early.  A run of 4 or more `00` at a string start is `ds $N, $00 ; padding`.  Strings longer
+  than 34 bytes continue on further `db` lines, cut between characters (each line has its own comment).
+* Comment syntax (`tools/lib/textfmt.py`, unambiguous: the selftest parses every comment back to the exact bytes): printable
+  ASCII and canonical cp932 double-byte characters appear as themselves; every other byte (control codes, gaiji, lone lead
+  bytes, half-finished pairs, private-use/duplicate cp932 codes, single bytes the charset does not draw) is a token `<$XX>`;
+  a literal `<` before `$` is `<$3C>`; `"` and `\` are written `\"` and `\\`; the terminating NUL is not shown; a comment never
+  contains a newline.  The comments are UTF-8 (rgbasm 1.0.3 accepts them anywhere in a comment).
+* `charset=sjis` (default): the main engine's convention (`00:0F31`): lead bytes `81-9F E0-EF F8-F9` start a pair, single
+  bytes `20-7E` are ASCII, everything else is a token.  `0x5C` shows as `\\` (cp932 reads it as a backslash; the Latin font draws a yen sign).
+* `charset=halfwidth`: bank 6C's second convention (`docs/research/text_encoding.md` section 6, PROBABLE): lead bytes `81-9F`
+  start a pair, single bytes `A1-DF` render as half-width katakana (cp932), `E0-FF` and controls are tokens.
+* A `halfwidth` text region gets one extra line after its `; ---- text` header (`; text comments (halfwidth): display only ...`): the comment
+  glyphs are a display convention, katakana-vs-hiragana and the `E0-FF` gaiji are unproven (text_encoding.md section 6).
+* `layout=msgrec`: like `nul`, but a string starting with `86 xx yy` (`xx < $40`, never a legal Shift-JIS trail byte) has that
+  3-byte header on its own line (`db $86, $02, $01 ; record header`), the bank 72 message records.
+* `layout=html`: records `name NUL | u16 LE length | body`: the name is a string line, the length `dw $0123 ; body length`,
+  the body one line per LF (and the final `00`).  Whatever does not parse as a record (from the first bad one to the region
+  end) falls back to `nul`.  The layout is computed over the whole region, so a label inside a record does not lose it.
+
+`config/text_charsets.tsv` (optional, hex, `end` exclusive, header line starting with `bank` skipped):
+
+```
+bank	start	end	charset	[layout	[note]]
+6C	4000	8000	halfwidth	nul	second text convention ...
+```
+
+A text region uses the row that contains its start address; it must not extend past the row's end (error naming both
+lines); no row = `sjis`/`nul`.  Errors: unknown charset/layout, bad hex, range outside the bank window, overlapping rows,
+fewer than 4 columns.  The rows say how bytes are *shown*; they are not evidence about the text.  Labels inside text
+regions are never invented: a generic `String_BB_AAAA` exists only where an xref/word/convention already wants a label
+(see *Labels and names*), and it starts a new line.
 
 ## config/symbols/bankNN.tsv
 
@@ -319,7 +362,10 @@ Bank 00 uses `ROM0[$0000]`.  Sections are fixed-address, one per bank, so offset
 xrefs) and proves the rebuild is byte-identical; `sweep_kinds` does the same with every non-code kind and random cuts;
 `kinds`, `ramareas`, `hw_names`, `extra_xrefs` cover each kind, ramcode/LOAD (labels at runtime addresses), labels,
 name substitution and MBC/hardware names; `failures` (49 cases) checks every hard error; `safety` proves nothing is
-written when the structural or assembler check fails; plus `determinism`, `compare_rom`, `progress`.
+written when the structural or assembler check fails; plus `determinism`, `compare_rom`, `progress`.  `text` (unit tests of
+`lib/textfmt.py` on random and crafted input incl. malformed strings, a region not ending at NUL, a lone lead byte at the end;
+every comment is parsed back to the bytes; the generator on a synthetic ROM with all charsets/layouts and labels inside strings
+and html bodies, `--no-text-comments`, the 8 `text_charsets.tsv` errors, every real text region tiles).
 
 Inline-data conventions: `conv_kinds` (synthetic 4-bank ROM: `farptr`/`inline_dw`/`inline_db`, `call` and `jp`, ROM0 vs ROMX
 entries and bank resolution by `branch` xref, a caller in `ramcode`, labels found / missing / at another bank / numeric

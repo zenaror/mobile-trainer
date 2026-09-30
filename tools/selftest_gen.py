@@ -40,6 +40,7 @@ import traceback
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import gen_asm                      # noqa: E402
+from lib import textfmt             # noqa: E402
 import compare_rom                  # noqa: E402
 import sm83                         # noqa: E402
 from lib import mtcfg               # noqa: E402
@@ -1378,7 +1379,132 @@ def test_sweep_conv_cuts(tmp):
         len(picks), ncut, nnext, nadopt)
 
 
-TESTS = [('kinds', test_kinds), ('conv_kinds', test_conv_kinds), ('conv_macros', test_conv_macros), ('conv_boundaries', test_conv_boundaries), ('conv_config', test_conv_config), ('extra_xrefs', test_extra_xrefs), ('ramareas', test_ramareas), ('hw_names', test_hw_names), ('failures', test_failures), ('safety', test_safety),
+def _text_lines(files, bank):
+    """(line, bytes) pairs of the text region lines of a generated bank file: every `db`/`dw`/`ds` line in it."""
+    return [l for l in files['bank%02x.asm' % bank].split('\n') if l.startswith('\t')]
+
+
+def test_text(tmp):
+    # 1) textfmt: bytes are preserved and the comment parses back to the bytes (unambiguity), random + crafted input
+    rng = random.Random(0x7E57)
+    crafted = [b'', b'\x00', b'\x00' * 9, b'abc', b'abc\x00', b'\x81', b'\x81\x00', b'a\x81', b'\x83\x81\x83\x62\x00',
+               b'\x86\x02\x01\x81\x40\x00', b'\x86\x50\x00', b'a"b\\c<$41>\x00<$', b'<', b'<$', b'\\', b'"', b'\x82\xa0\x82',
+               b'\xf0\x40\xf8\x40\xfa\x40\xa1\xdf\xe0\xff\x80\x7f', b'\xe0\x9f\x81\x7f\x81\xfd', bytes(range(256)), b'\x0d\x0a\x00',
+               b'\x81\x40' * 40 + b'\x00', b'x' * 200, b'\x00\x00\x00\x00\x00abc\x00\x00']
+    randoms = [bytes(rng.choice((0, 0x0A, 0x20, 0x22, 0x24, 0x3C, 0x5C, 0x81, 0x83, 0x86, 0xA5, 0xE0, 0xF9, rng.randrange(256)))
+                     for _ in range(rng.randrange(0, 90))) for _ in range(1500)]
+    nl = 0
+    for data in crafted + randoms:
+        for layout in textfmt.LAYOUTS:
+            for cs in textfmt.CHARSETS:
+                lines = textfmt.render(data, layout, cs, 0, len(data))
+                check(b''.join(c for _, c in lines) == data, 'render does not tile %r (%s/%s)' % (data, layout, cs))
+                for txt, claim in lines:
+                    check('\n' not in txt and '\r' not in txt and all(ord(ch) >= 0x20 or ch == '\t' for ch in txt), 'control char in %r' % txt)
+                    check(not any(unicodedata_cat(ch) in ('Cc', 'Cf', 'Co', 'Cs', 'Cn', 'Zl', 'Zp') for ch in txt), 'unsafe char in %r' % txt)
+                    if txt.startswith('db ') and ' ; "' in txt and txt.endswith('"'):
+                        cm = txt.split(' ; "', 1)[1][:-1]
+                        want = claim[:-1] if claim.endswith(b'\x00') else claim
+                        check(textfmt.parse_comment(cm, cs) == want, 'comment %r does not parse back to %r (%s/%s)' % (cm, want, layout, cs))
+                        nl += 1
+                    elif txt.startswith('db '):
+                        check(' ;' not in txt or 'record header' in txt, 'unexpected comment %r' % txt)
+                # a cut anywhere gives the same bytes
+                if data:
+                    k = rng.randrange(len(data) + 1)
+                    l2 = textfmt.render(data, layout, cs, 0, k) + textfmt.render(data, layout, cs, k, len(data))
+                    check(b''.join(c for _, c in l2) == data, 'cut at %d loses bytes of %r' % (k, data))
+    # crafted expectations
+    def one(data, **kw):
+        return textfmt.render(data, kw.get('layout', 'nul'), kw.get('cs', 'sjis'), 0, len(data))
+    check(one(bytes.fromhex('83818362 00'.replace(' ', '')))[0][0] == 'db $83, $81, $83, $62, $00 ; "メッ"', 'basic katakana line %r' % one(bytes.fromhex('8381836200')))
+    check(one(b'\x81')[0][0] == 'db $81 ; "<$81>"', 'lone lead byte at the end of the data')
+    check(one(b'ab')[0][0] == 'db $61, $62 ; "ab"', 'region not ending at NUL')
+    check(len(one(b'a\x00b\x00')) == 2, 'one line per string')
+    check(one(b'\x00' * 9)[0][0].startswith('ds $9, $00'), 'zero run')
+    check(one(b'\xa1\xb6')[0][0].endswith('"<$A1><$B6>"') and 'ｶ' in one(b'\xa1\xb6', cs='halfwidth')[0][0], 'single A1-DF: token in sjis, katakana in halfwidth')
+    check('<$F8><$40>' in one(b'\xf8\x40')[0][0], 'private-use pair is escaped')
+    check(one(b'\x86\x02\x01\x81\x40\x00', layout='msgrec')[0][0] == 'db $86, $02, $01 ; record header', 'msgrec header')
+    check(one(b'\x86\x50\x00', layout='msgrec')[0][0].endswith('"<$86><$50>"') or 'record header' not in one(b'\x86\x50\x00', layout='msgrec')[0][0], 'msgrec: 86 50 is not a header')
+    html = b'a.htm\x00' + (5).to_bytes(2, 'little') + b'<a>\n\x00' + b'b.htm\x00'
+    hl = one(html, layout='html')
+    check([t for t, _ in hl][:3] == ['db $61, $2E, $68, $74, $6D, $00 ; "a.htm"', 'dw $0005 ; body length', 'db $3C, $61, $3E, $0A ; "<a><$0A>"'], 'html layout: %r' % hl)
+    check(b''.join(c for _, c in one(b'a.htm\x00\xff\xff<a>\x00', layout='html')) == b'a.htm\x00\xff\xff<a>\x00', 'malformed html length falls back')
+    check(all(len(c) <= textfmt.MAX_LINE for t, c in one(b'x' * 200) if t.startswith('db')), 'long strings wrap')
+
+    # 2) whole generator on a synthetic ROM: labels inside strings, charset/layout config, --no-text-comments, rgbasm accepts the comments
+    bank0 = bytearray(0x4000)
+    body = 'メール\x0d\x0a'.encode('cp932')
+    part_a = ('メール'.encode('cp932') + b'\x00' + b'a"b\\c<$41>\x00' + b'\x81\x00\x81' + b'\x00' * 6 + b'\xba\xc9\x83\x4a\x00\xa1')
+    part_h = b'html.htm\x00' + len(body).to_bytes(2, 'little') + body + b'\x00'
+    part_m = b'\x86\x02\x01\x81\x40\x00\x81'
+    bank0[0x100:0x100 + len(part_a + part_h + part_m)] = part_a + part_h + part_m
+    rom = rom_of(2, {0: bank0})
+    ha, hm = 0x100 + len(part_a), 0x100 + len(part_a + part_h)
+    end = hm + len(part_m)
+
+    def make(name, rows, spec=None, symbols=()):
+        env = Env(tmp, name, rom)
+        env.regions(0, rows)
+        if spec is not None:
+            env.write('text_charsets.tsv', spec)
+        if symbols:
+            env.symbols(0, symbols)
+        return env
+    base_rows = [('0100', '%04X' % ha, 'text', 'Text_A', 'HYPOTHESIS', 'test'), ('%04X' % ha, '%04X' % hm, 'text', 'Text_H', 'HYPOTHESIS', 'test'),
+                 ('%04X' % hm, '%04X' % end, 'text', 'Text_M', 'HYPOTHESIS', 'test')]
+    spec_hm = '0\t%04X\t%04X\tsjis\thtml\tnote\n0\t%04X\t%04X\tsjis\tmsgrec\n' % (ha, hm, hm, end)
+    for name, spec in (('t_default', None), ('t_half', '0\t0100\t%04X\thalfwidth\tnul\n' % ha), ('t_hm', spec_hm)):
+        env = make(name, base_rows, spec, [('0104', 'Str_Mid', 'string', 'HYPOTHESIS', 'label inside a string (cuts a character in two)'),
+                                           ('%04X' % (ha + 0x0D), 'Html_Mid', 'string', 'HYPOTHESIS', 'label inside an html body')])
+        files, built, _ = env.build_all()
+        check(built == rom, '%s: rebuild differs' % name)
+        check('Str_Mid::' in files['bank00.asm'] and 'Html_Mid::' in files['bank00.asm'], '%s: labels inside text missing' % name)
+    t = make('t_cmp', base_rows).build_all()[0]['bank00.asm']
+    check('; "メール"' in t, 'メール comment missing:\n' + t[-1500:])
+    check('; "a\\"b\\\\c<$3C>$41>"' in t, 'quote/backslash/< escapes missing')
+    check('"<$81>"' in t and 'ds $5, $00' in t, 'lone lead / zero run')
+    check('body length' not in t and 'record header' not in t, 'default layout must not use html/msgrec items')
+    hs = make('t_hs', base_rows, spec_hm).build_all()[0]['bank00.asm']
+    check('dw $%04X ; body length' % len(body) in hs and '"html.htm"' in hs, 'html layout in the generator:\n' + hs[-900:])
+    check('db $86, $02, $01 ; record header' in hs, 'msgrec layout in the generator')
+    hw = make('t_hw', base_rows, '0\t0100\t%04X\thalfwidth\n' % ha).build_all()[0]['bank00.asm']
+    check('ｺﾉ' in hw and 'ｺﾉ' not in t, 'halfwidth charset decodes single A1-DF')
+    check('; text comments (halfwidth): display only' in hw and 'text comments (halfwidth)' not in t, 'halfwidth regions carry the display-only note')
+    m = make('t_nc', base_rows).model(macros=True)
+    m.text_comments = False
+    m._text_items.clear()
+    nc = m.generate()['bank00.asm']
+    check('; "' not in nc.split('Text_A::')[1] and '\tdb $83, $81, $83, $62' in nc or '\tdb $83, $81' in nc, '--no-text-comments still comments text lines')
+    r = subprocess.run([sys.executable, os.path.join(HERE, 'gen_asm.py'), 'check', '--config', make('t_cli', base_rows).cfg, '--rom',
+                        os.path.join(tmp, 't_cli', 'rom', 'baserom.gbc'), '--no-text-comments'], capture_output=True, text=True)
+    check(r.returncode == 0, 'CLI --no-text-comments: ' + r.stderr)
+    # 3) config errors
+    for tag, spec, needle in (('bad_cs', '0\t0100\t0110\tebcdic\n', 'unknown charset'), ('bad_lay', '0\t0100\t0110\tsjis\tfoo\n', 'unknown layout'),
+                              ('bad_rng', '0\t0100\t9000\tsjis\n', 'not inside'), ('bad_hex', '0\tzz\t0110\tsjis\n', 'hex'),
+                              ('overlap', '0\t0100\t0110\tsjis\n0\t0108\t0120\tsjis\n', 'overlaps'), ('short', '0\t0100\n', 'need at least'),
+                              ('bad_bank', '9\t4000\t4010\tsjis\n', 'does not exist')):
+        expect_error(make('t_' + tag, base_rows, spec), needle, tag)
+    expect_error(make('t_cross', base_rows, '0\t0100\t0110\tsjis\n'), 'crosses the end', 'region crosses spec row')
+    # 4) the real config: every text region renders, a sample of decoded comments
+    real, _diag = gen_asm.load_model(BASEROM, os.path.join(ROOT, 'config'))
+    n = 0
+    for b, regs in real.regions.items():
+        for rg in regs:
+            if rg.kind == 'text':
+                cs, lay = real.text_spec(rg)
+                data = real.bytes_of(rg)
+                check(b''.join(c for _, c in textfmt.render(data, lay, cs, 0, len(data))) == data, 'real region %02X:%04X does not tile' % (b, rg.start))
+                n += 1
+    return '%d comment round-trips, %d real text regions tile, 4 layouts/charsets rebuilt identically, %d config errors' % (nl, n, 8)
+
+
+def unicodedata_cat(ch):
+    import unicodedata
+    return unicodedata.category(ch)
+
+
+TESTS = [('text', test_text), ('kinds', test_kinds), ('conv_kinds', test_conv_kinds), ('conv_macros', test_conv_macros), ('conv_boundaries', test_conv_boundaries), ('conv_config', test_conv_config), ('extra_xrefs', test_extra_xrefs), ('ramareas', test_ramareas), ('hw_names', test_hw_names), ('failures', test_failures), ('safety', test_safety),
          ('determinism', test_determinism), ('compare_rom', test_compare_rom), ('progress', test_progress),
          ('sweep_kinds', test_sweep_kinds), ('sweep_code', test_sweep_code), ('sweep_conv', test_sweep_conv),
          ('sweep_conv_cuts', test_sweep_conv_cuts)]

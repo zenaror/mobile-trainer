@@ -35,6 +35,7 @@ sys.path.insert(0, HERE)
 import sm83                                   # noqa: E402
 from lib import mtcfg                         # noqa: E402
 from lib import conv                          # noqa: E402
+from lib import textfmt                       # noqa: E402
 from lib.mtcfg import GenError, Diag, Region  # noqa: E402
 
 ROOT = mtcfg.ROOT
@@ -88,11 +89,12 @@ class Model:
     """Everything the emitter needs: decoded code, label tables, cross references."""
 
     def __init__(self, rom: bytes, cfg: mtcfg.Config, hw: mtcfg.Hardware, incbin: str = 'baserom.gbc', strict: bool = False,
-                 macros: bool = True):
+                 macros: bool = True, text_comments: bool = True):
         if len(rom) < BANK_SIZE or len(rom) % BANK_SIZE:
             raise GenError('ROM size %d is not a positive multiple of 16 KiB' % len(rom))
         self.rom = rom
         self.macros = macros            # emit `farcall` / `farcall_raw` (constants/macros.inc) instead of call + dw + db
+        self.text_comments = text_comments   # decoded text as a trailing comment on every text line (--no-text-comments)
         self._fc = False                # cached far-call convention (False = not looked up yet)
         self.cfg = cfg
         self.hw = hw
@@ -120,10 +122,15 @@ class Model:
         self.inline_adopt: Dict[Tuple[int, int], conv.InlineData] = {}      # (bank, addr) -> inline bytes held by a `data` region
         self.inline_cover: Dict[int, Dict[int, tuple]] = {b: {} for b in range(self.nbanks)}   # addr -> (site, label allowed)
         self.inline_slots: Dict[Tuple[int, int], str] = {}                  # (bank, slot addr) -> layout
+        self._text_items: Dict[Tuple[int, int], list] = {}
         self._build()
 
     # ------------------------------------------------------------------ build
     def _build(self):
+        for rs in self.regions.values():          # text_charsets.tsv rows must not be crossed by a text region
+            for r in rs:
+                if r.kind == 'text':
+                    self.text_spec(r)
         self._check_zero_regions()
         self._decode()
         self._check_conventions()
@@ -791,6 +798,27 @@ class Model:
             part = chunk[i:i + 16]
             out.emit('\tdb ' + ', '.join(hexb(x) for x in part), part)
 
+    def text_spec(self, r: Region) -> Tuple[str, str]:
+        """(charset, layout) of a text region: config/text_charsets.tsv row containing its start, else sjis/nul."""
+        for sp in self.cfg.textspecs:
+            if sp.bank == r.bank and sp.start <= r.start < sp.end:
+                if r.end > sp.end:
+                    raise GenError('%s: text region %02X:%04X-%04X crosses the end of the text_charsets row %s' % (
+                        r.loc, r.bank, r.start, r.end, sp.loc))
+                return sp.charset, sp.layout
+        return 'sjis', 'nul'
+
+    def _emit_text(self, out: BankOut, r: Region, a: int, z: int):
+        charset, layout = self.text_spec(r)
+        key = (r.bank, r.idx)
+        tab = self._text_items.get(key)
+        data = self.bytes_of(r)
+        if tab is None:
+            tab = self._text_items[key] = textfmt.items(data, layout)
+        for txt, claim in textfmt.render(data, layout, charset, a - r.start, z - r.start, self.text_comments, tab):
+            out.emit('\t' + txt, claim)
+            self.stats['text_lines'] += 1
+
     def _emit_words(self, out: BankOut, r: Region, a: int, z: int):
         per = 1 if r.kind == 'ptrtable' else 8
         vals = []
@@ -814,6 +842,8 @@ class Model:
                 hdr += ' %s' % r.note
         out.line('')
         out.line(hdr)
+        if r.kind == 'text' and self.text_comments and self.text_spec(r)[0] == 'halfwidth':
+            out.line('; text comments (halfwidth): display only, A1-DF shown as half-width katakana, glyphs unproven (text_encoding.md section 6)')
         if r.kind in ('code', 'ramcode'):
             self._emit_code(out, r)
             return
@@ -833,7 +863,9 @@ class Model:
             elif r.kind == 'raw':
                 absoff = out.bank * BANK_SIZE + out.pos
                 out.emit('\tINCBIN "%s", $%X, $%X' % (self.incbin, absoff, len(chunk)), chunk)
-            elif r.kind in ('data', 'text', 'gfx'):
+            elif r.kind == 'text':
+                self._emit_text(out, r, a, z)
+            elif r.kind in ('data', 'gfx'):
                 self._emit_db(out, chunk)
             elif r.kind in ('words', 'ptrtable'):
                 self._emit_words(out, r, a, z)
@@ -936,7 +968,8 @@ class Model:
 # ------------------------------------------------------------------ front-end
 
 def load_model(rom_path: Optional[str] = None, cfgdir: Optional[str] = None, hw_path: Optional[str] = None,
-               strict: bool = False, extra_xrefs=(), rom: Optional[bytes] = None, macros: bool = True):
+               strict: bool = False, extra_xrefs=(), rom: Optional[bytes] = None, macros: bool = True,
+               text_comments: bool = True):
     """Load ROM + config and build the Model.  Returns (model, diag)."""
     rom_path = rom_path or os.path.join(ROOT, 'baserom.gbc')
     cfgdir = cfgdir or os.path.join(ROOT, 'config')
@@ -951,7 +984,7 @@ def load_model(rom_path: Optional[str] = None, cfgdir: Optional[str] = None, hw_
     diag = Diag(strict)
     cfg = mtcfg.load_config(cfgdir, len(rom) // BANK_SIZE, hw, diag, extra_xrefs)
     diag.raise_if_errors()
-    model = Model(rom, cfg, hw, os.path.basename(rom_path), strict, macros)
+    model = Model(rom, cfg, hw, os.path.basename(rom_path), strict, macros, text_comments)
     return model, diag
 
 
@@ -1020,11 +1053,12 @@ def main(argv=None) -> int:
     ap.add_argument('--xrefs', action='append', default=[], help='additional xrefs file (same format as config/xrefs.tsv)')
     ap.add_argument('--keep', help='verify: keep the temp build in this directory')
     ap.add_argument('--no-macros', action='store_true', help='emit `call FarCall` + dw + db instead of the farcall macros')
+    ap.add_argument('--no-text-comments', action='store_true', help='omit the decoded-text comment after each line of a text region')
     ap.add_argument('-q', '--quiet', action='store_true')
     a = ap.parse_args(argv)
 
     try:
-        model, diag = load_model(a.rom, a.config, None, a.strict, a.xrefs, macros=not a.no_macros)
+        model, diag = load_model(a.rom, a.config, None, a.strict, a.xrefs, macros=not a.no_macros, text_comments=not a.no_text_comments)
         for w in (diag.warnings + model.diag.warnings)[:25]:
             print('warning: ' + w, file=sys.stderr)
         files = model.generate()

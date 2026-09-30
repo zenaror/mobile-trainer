@@ -1,0 +1,7 @@
+# bank	start	end	charset	layout	note
+# start/end: CPU addresses, hex, end exclusive; charset: sjis|halfwidth; layout: nul|msgrec|html (docs/FORMATS.md, tools/lib/textfmt.py)
+# A text region is decoded with the row containing its start (it must not cross the row end); no row = sjis/nul.
+3D	4000	8000	sjis	html	HTML store records: name NUL | u16 length | body (docs/research/text_encoding.md section 5)
+3E	4000	8000	sjis	html	HTML store records (same layout as bank 3D)
+6C	4000	8000	halfwidth	nul	second text convention: single bytes A1-DF = half-width katakana, E0-FF = gaiji (text_encoding.md section 6, PROBABLE)
+72	4000	8000	sjis	msgrec	message records start with 86 aa bb (text_encoding.md section 4.1, PROBABLE)
