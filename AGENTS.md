@@ -879,3 +879,9 @@ Never hide contradictions to preserve apparent progress.
 
 The goal is a progressively more accurate reconstruction of the original software.
 
+
+## Memória compartilhada OMM
+
+Este repositório usa o OMM para compartilhar descobertas, decisões, dúvidas e passagens de trabalho entre assistentes. Antes de repetir uma investigação, consulte [OMM.md](OMM.md) e procure na memória por assunto. Ao concluir trabalho útil para sessões futuras, registre um resumo com sua origem e evidência. Ao encerrar ou transferir uma tarefa, atualize o handoff do OMM.
+
+O OMM complementa estas instruções: `AGENTS.md`, os arquivos de evidência, o código e os resultados de build continuam sendo as fontes para regras e comprovação. Não registre como confirmado algo que a evidência do projeto classifica como provável ou hipótese.
