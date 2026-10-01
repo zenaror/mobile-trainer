@@ -23,3 +23,5 @@ Se o OMM ainda não estiver instalado, consulte o README do repositório OMM e i
 - Preserve a ROM original e as regras de reconstrução binária já descritas em `AGENTS.md`.
 - Não copie toda a documentação para a memória. Mantenha os documentos existentes e registre no OMM um resumo com links para eles.
 
+
+A skill opcional `mobile-trainer-reverse-engineering` contém orientação específica para este repositório. Ative-a apenas no Mobile Trainer; não aplique seus contratos a outros projetos.
