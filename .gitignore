@@ -16,3 +16,6 @@ __pycache__/
 scratch/
 traces/*.bin
 tools/ghidra/project/
+
+# Índice de busca derivado do OMM; os arquivos versionados ficam em memory/
+.omm/
