@@ -100,3 +100,8 @@ Naming passes (names with evidence, HYPOTHESES kept under neutral names, open qu
 * `EDITING_IMAGES.md` - how to edit the PNG sources and rebuild.
 * `research/image_text_inventory.md` - which graphics contain Japanese text, per asset and per screen.
 * `research/sprite_format.md` - sprite object tables, frames, scripts; previews in `gfx/previews/` (screens checked against emulator captures, sprite sheets).
+
+## Regras e memória
+
+* `REVERSE_ENGINEERING_RULES.md` - texto integral das regras de engenharia reversa (antes no `AGENTS.md`, que agora é um resumo curto).
+* A memória compartilhada do projeto (decisões, descobertas, handoff) fica na OMM, escopo `mobile-trainer`; veja a seção de memória do `AGENTS.md`.
