@@ -548,7 +548,7 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	ld b, $96
 	ld c, $16
 	farcall Gfx_StartHDMAWithService
-	jp Label_57_50D8
+	jp ConnectDialog_Draw_SaveForgetConfirm_Tail
 
 ; ---- zero $4D28-$4D30 (8 bytes) [PROBABLE] 8 zero bytes of padding before the tile block 4D30
 	ds $8, $00
@@ -873,7 +873,7 @@ ConnectDialog_Draw_ForgetConfirm:: ; 57:4F59
 	ld b, $96
 	ld c, $16
 	farcall Gfx_StartHDMAWithService
-	jp Label_57_50D8
+	jp ConnectDialog_Draw_SaveForgetConfirm_Tail
 
 ConnectDialog_Draw_Finish:: ; 57:5077
 	; [CONFIRMED] 22 insn(s); 22 executed (in up to 6/18 scenarios)
@@ -920,7 +920,8 @@ ConnectDialog_Draw_Finish:: ; 57:5077
 	jr z, .loop
 	ret
 
-Label_57_50D8:: ; 57:50D8
+ConnectDialog_Draw_SaveForgetConfirm_Tail:: ; 57:50D8
+Label_57_50D8::
 	ld de, $8000
 	ld hl, Gfx_ConnectDialog_Finish_Tiles8000
 	ld a, $56

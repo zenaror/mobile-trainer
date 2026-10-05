@@ -39,10 +39,11 @@ AbookName_Edit:: ; 2F:57F2
 	call AbookName_KeyboardLoop
 	jp AbookName_Edit_AfterKeyboard
 
-; ---- data $582D-$5832 (5 bytes) [HYPOTHESIS] UNCLASSIFIED 5 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_2F_582D:: ; 2F:582D
-	db $F1, $FE, $01, $28, $22
+	; [HYPOTHESIS] dead code: follows an unconditional jump, nothing references it and it never ran;
+	; decodes as `pop af ; cp $01 ; jr z, 2F:5854` (the call to AbookName_OpenKeyboard)
+	pop af
+	cp a, $01
+	jr z, AbookName_Edit_Loop + $22
 
 AbookName_Edit_Loop:: ; 2F:5832
 Label_2F_5832::
@@ -619,10 +620,12 @@ AbookName_GetCharPtr:: ; 2F:5C0E
 	jr z, AbookName_GetCharPtr_Newline
 	jr .loop
 
-; ---- data $5C30-$5C34 (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_2F_5C30:: ; 2F:5C30
-	db $0C, $0D, $20, $02
+	; [HYPOTHESIS] dead code: follows an unconditional jump, nothing references it and it never ran;
+	; decodes as `inc c ; dec c ; jr nz, NoChar` (the same bytes sit unlabeled in the body and
+	; profile copies)
+	inc c
+	dec c
+	jr nz, AbookName_GetCharPtr_NoChar
 
 AbookName_GetCharPtr_Found:: ; 2F:5C34
 Label_2F_5C34::
@@ -751,10 +754,16 @@ Label_2F_5CB8::
 	jr z, AbookName_InsertChar_Reject
 	jr AbookName_InsertChar_Insert
 
-; ---- data $5CC5-$5CD2 (13 bytes) [HYPOTHESIS] UNCLASSIFIED 13 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_2F_5CC5:: ; 2F:5CC5
-	db $3E, $01, $E0, $8D, $E0, $70, $7E, $FE, $0D, $FE, $00, $28, $22
+	; [HYPOTHESIS] dead code: follows an unconditional jump, nothing references it and it never ran;
+	; decodes as `ld a, 1 ; ldh [hWRAMBank], a ; ldh [rSVBK], a ; ld a, [hl] ; cp $0D ; cp $00 ; jr
+	; z, AbookName_InsertChar_Insert`
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, [hl]
+	cp a, $0D
+	cp a, $00
+	jr z, AbookName_InsertChar_Insert
 
 AbookName_InsertChar_NextRow:: ; 2F:5CD2
 Label_2F_5CD2::

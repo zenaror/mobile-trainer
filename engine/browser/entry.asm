@@ -40,14 +40,15 @@ Browser_StartMenuLoop:: ; 4F:4680
 
 Browser_StartMenuLoop_ResultTable:: ; 4F:4698
 Table_4F_4698::
-	dw Label_4F_46A4
+	dw Browser_StartMenuLoop_Exit
 	dw Browser_StartHomePage
 	dw Browser_StartPageListEntry
 	dw Boot_ClearAndInit
 	dw Boot_ClearAndInit
 	dw Boot_ClearAndInit
 
-Label_4F_46A4:: ; 4F:46A4
+Browser_StartMenuLoop_Exit:: ; 4F:46A4
+Label_4F_46A4::
 	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;
 	; entered by table from 4F:4695 (executed) [executed in 3 scenarios]
 	ret

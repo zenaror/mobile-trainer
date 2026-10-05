@@ -50,18 +50,19 @@ ConnIcon_UpdateState:: ; 69:4034
 	ld a, [wConnIconState]
 	call JumpTableInline
 
-; ---- ptrtable $4045-$4051 (12 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 69:4042: 6 entries; end pinned by the executed instruction at 4051
+; ---- ptrtable $4045-$4051 (12 bytes) [CONFIRMED] inline table of `call $0545` (JumpTableInline) at 69:4042: 6 entries; end pinned by the executed instruction at 4051; all 6 handlers ran (142 + 2,912 + 233 + 2 + 284 + 143 hits = the 3,716 dispatches, 11 scenarios)
 
 ConnIcon_StateTable:: ; 69:4045
 Table_69_4045::
-	dw Label_69_4051
-	dw Label_69_406D
-	dw Label_69_407F
-	dw Label_69_4091
-	dw Label_69_40AD
-	dw Label_69_40BF
+	dw ConnIcon_State0_RequestGfx1
+	dw ConnIcon_State1
+	dw ConnIcon_State2
+	dw ConnIcon_State3_RequestGfx2
+	dw ConnIcon_State4
+	dw ConnIcon_State5
 
-Label_69_4051:: ; 69:4051
+ConnIcon_State0_RequestGfx1:: ; 69:4051
+Label_69_4051::
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 1/18 scenarios)
 	ld a, [wConnIconGfxRequest]
 	inc a
@@ -70,18 +71,20 @@ Label_69_4051:: ; 69:4051
 	ld [wConnIconGfxRequest], a
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr z, Label_69_4086
+	jr z, ConnIcon_EnterState2_Anim6
 
-Label_69_4062:: ; 69:4062
+ConnIcon_EnterState1_Anim1:: ; 69:4062
+Label_69_4062::
 	ld a, $01
 	ld b, $01
 	farcall ConnIcon_StartSprite
 	ret
 
-Label_69_406D:: ; 69:406D
+ConnIcon_State1:: ; 69:406D
+Label_69_406D::
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr nz, Label_69_4062
+	jr nz, ConnIcon_EnterState1_Anim1
 
 	; [CONFIRMED] 37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 0;
 	; fall-through of the jrcc at 69:4072 (executed) [executed in 1 scenarios]
@@ -90,18 +93,21 @@ Label_69_406D:: ; 69:406D
 	farcall ConnIcon_StartSprite
 	ret
 
-Label_69_407F:: ; 69:407F
+ConnIcon_State2:: ; 69:407F
+Label_69_407F::
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr nz, Label_69_4062
+	jr nz, ConnIcon_EnterState1_Anim1
 
-Label_69_4086:: ; 69:4086
+ConnIcon_EnterState2_Anim6:: ; 69:4086
+Label_69_4086::
 	ld a, $02
 	ld b, $06
 	farcall ConnIcon_StartSprite
 	ret
 
-Label_69_4091:: ; 69:4091
+ConnIcon_State3_RequestGfx2:: ; 69:4091
+Label_69_4091::
 	ld a, [wConnIconGfxRequest]
 	inc a
 	ret z
@@ -109,29 +115,33 @@ Label_69_4091:: ; 69:4091
 	ld [wConnIconGfxRequest], a
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr z, Label_69_40C6
+	jr z, ConnIcon_EnterState5_Anim5
 
-Label_69_40A2:: ; 69:40A2
+ConnIcon_EnterState4_Anim4:: ; 69:40A2
+Label_69_40A2::
 	ld a, $04
 	ld b, $04
 	farcall ConnIcon_StartSprite
 	ret
 
-Label_69_40AD:: ; 69:40AD
+ConnIcon_State4:: ; 69:40AD
+Label_69_40AD::
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr nz, Label_69_40A2
+	jr nz, ConnIcon_EnterState4_Anim4
 	ld a, $05
 	ld b, $05
 	farcall ConnIcon_StartSprite
 	ret
 
-Label_69_40BF:: ; 69:40BF
+ConnIcon_State5:: ; 69:40BF
+Label_69_40BF::
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr nz, Label_69_40A2
+	jr nz, ConnIcon_EnterState4_Anim4
 
-Label_69_40C6:: ; 69:40C6
+ConnIcon_EnterState5_Anim5:: ; 69:40C6
+Label_69_40C6::
 	ld a, $05
 	ld b, $05
 	farcall ConnIcon_StartSprite
@@ -146,15 +156,16 @@ Function_69_40D1::
 	ret z
 	call JumpTableInline
 
-; ---- ptrtable $40DA-$40E0 (6 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 69:40D7: 3 entries; end = first entry target
+; ---- ptrtable $40DA-$40E0 (6 bytes) [CONFIRMED] inline table of `call $0545` (JumpTableInline) at 69:40D7: 3 entries; end = first entry target; all 3 handlers ran (184,262 + 142 + 2 = the 184,406 dispatches, 34 scenarios; the tail of the first handler is shared by the other two)
 
 ConnIcon_GfxTable:: ; 69:40DA
 Table_69_40DA::
-	dw Label_69_414D
-	dw Label_69_4118
-	dw Label_69_40E0
+	dw ConnIcon_LoadGraphics_ClearRequest
+	dw ConnIcon_LoadGraphics_Request1
+	dw ConnIcon_LoadGraphics_Request2
 
-Label_69_40E0:: ; 69:40E0
+ConnIcon_LoadGraphics_Request2:: ; 69:40E0
+Label_69_40E0::
 	; [CONFIRMED] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 1;
 	; entered by table from 69:40D7 (executed) [executed in 1 scenarios]
 	ld de, $8200
@@ -174,9 +185,10 @@ Label_69_40E0:: ; 69:40E0
 	ld hl, Palette_ConnIcon_Request2_Obj4
 	ld a, $51
 	farcall Palette_LoadToBuffer
-	jp Label_69_414D
+	jp ConnIcon_LoadGraphics_ClearRequest
 
-Label_69_4118:: ; 69:4118
+ConnIcon_LoadGraphics_Request1:: ; 69:4118
+Label_69_4118::
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 4/18 scenarios)
 	ld de, $8200
 	ld hl, ConnIcon_Tiles0
@@ -196,7 +208,8 @@ Label_69_4118:: ; 69:4118
 	ld a, $69
 	farcall Palette_LoadToBuffer
 
-Label_69_414D:: ; 69:414D
+ConnIcon_LoadGraphics_ClearRequest:: ; 69:414D
+Label_69_414D::
 	xor a, a
 	ld [wConnIconGfxRequest], a
 	ret

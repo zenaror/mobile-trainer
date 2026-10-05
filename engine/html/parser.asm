@@ -19,12 +19,12 @@ Function_74_4165::
 	ldh [hRam_FFB1], a
 	call Html_MatchKeyword
 	cp a, $00
-	jp z, Label_74_41EF
+	jp z, Html_MetaResultToError_NoError
 
 	; [PROBABLE] 63 insn(s) reached by static flow only; seeds: exec x63; min discovery hops 0;
 	; fall-through of the jpcc at 74:417C (executed)
 	cp a, $02
-	jp z, Label_74_41EF
+	jp z, Html_MetaResultToError_NoError
 	ld hl, $D380
 	xor a, a
 	ldh [hRam_FFB0], a
@@ -35,7 +35,7 @@ Function_74_4165::
 Html_MetaResultToError_HexLoop:: ; 74:4190
 	ld a, [hli]
 	or a, a
-	jp z, Label_74_41F2
+	jp z, Html_MetaResultToError_SetError
 	cp a, $30
 	jr c, Html_MetaResultToError_HexLoop
 	cp a, $3A
@@ -92,12 +92,14 @@ Html_MetaResultToError_HexLoop:: ; 74:4190
 	ldh [hRam_FFB3], a
 	jp Html_MetaResultToError_HexLoop
 
-Label_74_41EF:: ; 74:41EF
+Html_MetaResultToError_NoError:: ; 74:41EF
+Label_74_41EF::
 	; [CONFIRMED] 2 insn(s); 2 executed (in up to 2/18 scenarios)
 	ld a, $00
 	ret
 
-Label_74_41F2:: ; 74:41F2
+Html_MetaResultToError_SetError:: ; 74:41F2
+Label_74_41F2::
 	; [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1;
 	; entered by jpcc from 74:4192 (PROBABLE code)
 	ld a, $04
@@ -296,7 +298,7 @@ Html_ParseSource_Loop:: ; 74:4307
 	cp a, $0D
 	jp z, Html_ParseSource_PreCR
 	cp a, $0A
-	jp z, Label_74_4C71
+	jp z, Html_ParseSource_PreLineBreak
 	cp a, $09
 	jr z, .l4385
 	ld c, $20
@@ -436,19 +438,22 @@ Html_ParseSource_Tag:: ; 74:4406
 	or a, a
 	jr nz, Html_DispatchTag
 
-Label_74_4439:: ; 74:4439
+Html_ParseSource_Tag_Ignore:: ; 74:4439
+Label_74_4439::
 	ldh a, [hHtml_MatchRestart]
 	ld l, a
 	ldh a, [hHtml_MatchRestartHi]
 	ld h, a
 
-Label_74_443F:: ; 74:443F
+Html_ParseSource_Tag_Done:: ; 74:443F
+Label_74_443F::
 	ldh a, [hHtml_SourceBank]
 	call BankSwitch_H
 	ldh a, [hTextX]
 	call BankSwitch_D
 
-Label_74_4449:: ; 74:4449
+Html_ParseSource_Tag_SkipToEnd:: ; 74:4449
+Label_74_4449::
 	ld a, $20
 	ldh [hHtml_LastChar], a
 .loop ; 74:444D
@@ -499,7 +504,7 @@ Html_DispatchTag:: ; 74:4481
 	cp a, $3E
 	jr z, .l448F
 	cp a, $21
-	jr nc, Label_74_4449
+	jr nc, Html_ParseSource_Tag_SkipToEnd
 .l448F ; 74:448F
 	ld a, b
 .l4490 ; 74:4490

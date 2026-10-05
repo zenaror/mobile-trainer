@@ -644,10 +644,12 @@ MailTitle_CharPtr:: ; 2C:4441
 	jr z, MailTitle_CharPtr_Newline
 	jr .loop
 
-; ---- data $4463-$4467 (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_2C_4463:: ; 2C:4463
-	db $0C, $0D, $20, $02
+	; [HYPOTHESIS] dead code: follows an unconditional jump, nothing references it and it never ran;
+	; decodes as `inc c ; dec c ; jr nz, NoChar` (the same bytes sit unlabeled in the body and
+	; profile copies)
+	inc c
+	dec c
+	jr nz, MailTitle_CharPtr_NoChar
 
 MailTitle_CharPtr_Found:: ; 2C:4467
 Label_2C_4467::
@@ -753,10 +755,9 @@ MailTitle_InsertChar:: ; 2C:44B8
 	pop bc
 	ret
 
-; ---- data $44DB-$44DC (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_2C_44DB:: ; 2C:44DB
-	db $C0
+	; [HYPOTHESIS] dead code: a single `ret nz` in front of the Insert block; follows an
+	; unconditional jump, nothing references it and it never ran
+	ret nz
 
 MailTitle_InsertChar_Insert:: ; 2C:44DC
 Label_2C_44DC::
@@ -838,10 +839,16 @@ Label_2C_4560::
 	jr z, MailTitle_InsertChar_Reject
 	jr MailTitle_InsertChar_ShiftAndStore
 
-; ---- data $456D-$457A (13 bytes) [HYPOTHESIS] UNCLASSIFIED 13 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_2C_456D:: ; 2C:456D
-	db $3E, $01, $E0, $8D, $E0, $70, $7E, $FE, $0D, $FE, $00, $28, $22
+	; [HYPOTHESIS] dead code: follows an unconditional jump, nothing references it and it never ran;
+	; decodes as `ld a, 1 ; ldh [hWRAMBank], a ; ldh [rSVBK], a ; ld a, [hl] ; cp $0D ; cp $00 ; jr
+	; z, MailTitle_InsertChar_ShiftAndStore`
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, [hl]
+	cp a, $0D
+	cp a, $00
+	jr z, MailTitle_InsertChar_ShiftAndStore
 
 MailTitle_InsertChar_NextRow:: ; 2C:457A
 Label_2C_457A::

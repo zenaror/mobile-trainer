@@ -27,10 +27,12 @@ Label_4C_4016:: ; 4C:4016
 	; entered by table from 4C:400D (executed)
 	ret
 
-Label_4C_4017:: ; 4C:4017
+Browser_LoadPage_OnAdapterError:: ; 4C:4017
+Label_4C_4017::
 	farcall Mobile_FetchResult
 
-Label_4C_401D:: ; 4C:401D
+Browser_LoadPage_FailNoDisconnect:: ; 4C:401D
+Label_4C_401D::
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -46,7 +48,7 @@ Label_4C_401D:: ; 4C:401D
 	ld [wTimerAWarnFlags], a
 	farcall Palette_FadeOutToWhite
 	farcall Sprite_ResetAll
-	jp Label_4C_40E4
+	jp Browser_LoadPage_ShowError
 
 Browser_LoadPage_Fail:: ; 4C:404D
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios)
@@ -119,7 +121,7 @@ Browser_LoadPage_Fail:: ; 4C:404D
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ld a, [wTimerEnable]
 	bit 4, a
-	jp nz, Label_4C_40E4
+	jp nz, Browser_LoadPage_ShowError
 
 	; [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0;
 	; fall-through of the jpcc at 4C:40D8 (executed) [executed in 1 scenarios]
@@ -128,7 +130,8 @@ Browser_LoadPage_Fail:: ; 4C:404D
 	xor a, a
 	ld [wTimerAWarnFlags], a
 
-Label_4C_40E4:: ; 4C:40E4
+Browser_LoadPage_ShowError:: ; 4C:40E4
+Label_4C_40E4::
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios)
 	farcall Screen_FadeOutAndResetObjWindow
 	ld a, [wCommSessionKind]
@@ -170,7 +173,8 @@ Label_4C_40E4:: ; 4C:40E4
 	ld [wBrowserFetchResult], a
 	ret
 
-Label_4C_4138:: ; 4C:4138
+Browser_LoadPage_CancelConnect:: ; 4C:4138
+Label_4C_4138::
 	; [CONFIRMED] 55 insn(s) executed; cut out of the PROBABLE region 4132-4251 by apply_coverage
 	; --split [executed in 3 scenarios]
 	farcall Mobile_BeginCancel
@@ -179,7 +183,7 @@ Label_4C_4138:: ; 4C:4138
 	or a, a
 	jr z, .l4157
 	cp a, $FF
-	jp z, Label_4C_401D
+	jp z, Browser_LoadPage_FailNoDisconnect
 	ld a, $00
 	farcall CommProgress_Step
 	jp .loop
@@ -200,7 +204,8 @@ Label_4C_4138:: ; 4C:4138
 	ld [wBrowserFetchResult], a
 	ret
 
-Label_4C_417D:: ; 4C:417D
+Browser_LoadPage_StopRequest:: ; 4C:417D
+Label_4C_417D::
 	ld a, $05
 	ld [wCommTimeoutMinutes], a
 	ld hl, $C266
@@ -306,9 +311,10 @@ Label_4C_417D:: ; 4C:417D
 .l424D ; 4C:424D
 	pop hl
 	or a, a
-	jr nz, Label_4C_427F
+	jr nz, Browser_LoadPage_ExitConnectionNotice
 
-Label_4C_4251:: ; 4C:4251
+Browser_LoadPage_ExitCancelled:: ; 4C:4251
+Label_4C_4251::
 	; [CONFIRMED] 14 insn(s); 14 executed (in up to 2/18 scenarios)
 	ld a, [wTimerEnable]
 	bit 4, a
@@ -326,15 +332,17 @@ Label_4C_4251:: ; 4C:4251
 	ld [wBrowserFetchResult], a
 	ret
 
-Label_4C_4274:: ; 4C:4274
+Browser_LoadPage_ExitConnectionNotice_FinishProgress:: ; 4C:4274
+Label_4C_4274::
 	; [PROBABLE] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 4;
 	; entered by jrcc from 4C:427D (PROBABLE code)
 	ld a, $01
 	farcall CommProgress_Step
 	or a, a
-	jr nz, Label_4C_4274
+	jr nz, Browser_LoadPage_ExitConnectionNotice_FinishProgress
 
-Label_4C_427F:: ; 4C:427F
+Browser_LoadPage_ExitConnectionNotice:: ; 4C:427F
+Label_4C_427F::
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -362,7 +370,7 @@ Browser_LoadPage_Http:: ; 4C:4291
 	bit 4, a
 	jp z, .l42E1
 	bit 1, a
-	jp nz, Label_4C_4017
+	jp nz, Browser_LoadPage_OnAdapterError
 	farcall Palette_FadeOutToWhite
 	farcall Sprite_ResetAll
 	ld a, $01
@@ -380,17 +388,18 @@ Browser_LoadPage_Http:: ; 4C:4291
 
 Browser_LoadPage_SessionKindTable:: ; 4C:42F3
 Table_4C_42F3::
-	dw Label_4C_42F7
-	dw Label_4C_4312
+	dw Browser_LoadPage_AskConnect
+	dw Browser_LoadPage_AskPassword
 
-Label_4C_42F7:: ; 4C:42F7
+Browser_LoadPage_AskConnect:: ; 4C:42F7
+Label_4C_42F7::
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
 	ld d, $4C
 	ld bc, $430A
 	farcall ConnectDialog_Run
 	ld a, b
 	or a, a
-	jp nz, Label_4C_4251
+	jp nz, Browser_LoadPage_ExitCancelled
 	jp Browser_LoadPage_Connect
 
 ; ---- data $430A-$4312 (8 bytes) [PROBABLE] contiguous data block 430A-4312: 4 bytes were read as data by executed code in mGBA traces (2 separate read ranges, e.g. 430A-430B,430D-4310) and 4 bytes between/around those reads were never read; the whole run is one table/buffer read by index (gaps unread in the traces); content class not decoded [merged from 4 regions by classify_g2]
@@ -398,7 +407,8 @@ Label_4C_42F7:: ; 4C:42F7
 Data_4C_430A:: ; 4C:430A
 	db $03, $00, $00, $F0, $20, $C2, $00, $00
 
-Label_4C_4312:: ; 4C:4312
+Browser_LoadPage_AskPassword:: ; 4C:4312
+Label_4C_4312::
 	; [CONFIRMED] 181 insn(s); 181 executed (in up to 3/18 scenarios)
 	ld a, $0A
 	ldh [hSRAMEnable], a
@@ -408,7 +418,7 @@ Label_4C_4312:: ; 4C:4312
 	ld [rRAMB], a
 	farcall PasswordPrompt_Ask
 	or a, a
-	jp z, Label_4C_4251
+	jp z, Browser_LoadPage_ExitCancelled
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -442,7 +452,7 @@ Browser_LoadPage_Connect:: ; 4C:4330
 	ld a, $00
 	farcall CommProgress_Step
 	cp a, $02
-	jp z, Label_4C_4138
+	jp z, Browser_LoadPage_CancelConnect
 	jp .l435F
 .l437D ; 4C:437D
 	ld a, $0A
@@ -469,7 +479,7 @@ Browser_LoadPage_Connect:: ; 4C:4330
 	ld a, $00
 	farcall CommProgress_Step
 	cp a, $02
-	jp z, Label_4C_4138
+	jp z, Browser_LoadPage_CancelConnect
 	jp .l43A4
 .l43C2 ; 4C:43C2
 	ld a, $01
@@ -579,13 +589,13 @@ Browser_LoadPage_Request:: ; 4C:43CD
 Browser_LoadPage_WaitReply:: ; 4C:44BA
 	farcall Http_Poll
 	or a, a
-	jr z, Label_4C_4537
+	jr z, Browser_LoadPage_WaitReply_ReplyComplete
 	cp a, $FF
 	jp z, Browser_LoadPage_Fail
 	ld a, $00
 	farcall CommProgress_Step
 	cp a, $02
-	jp z, Label_4C_417D
+	jp z, Browser_LoadPage_StopRequest
 	ld a, [wCommTimeoutMinutes]
 	ld b, a
 	ld a, [wTimerBMinutes]
@@ -602,9 +612,10 @@ Browser_LoadPage_WaitReply:: ; 4C:44BA
 .l44E4 ; 4C:44E4
 	; [CONFIRMED] 14 insn(s); 14 executed (in up to 2/18 scenarios)
 	or a, a
-	jp nz, Label_4C_458B
+	jp nz, Browser_LoadPage_WaitReply_TimeoutError
 
-Label_4C_44E8:: ; 4C:44E8
+Browser_LoadPage_WaitReply_CheckWarning:: ; 4C:44E8
+Label_4C_44E8::
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
@@ -654,10 +665,11 @@ Label_4C_44E8:: ; 4C:44E8
 .l452F ; 4C:452F
 	pop hl
 	or a, a
-	jp nz, Label_4C_417D
+	jp nz, Browser_LoadPage_StopRequest
 	jp Browser_LoadPage_WaitReply
 
-Label_4C_4537:: ; 4C:4537
+Browser_LoadPage_WaitReply_ReplyComplete:: ; 4C:4537
+Label_4C_4537::
 	farcall Browser_WrapImageInHtml
 	or a, a
 	jr nz, .l4577
@@ -687,20 +699,21 @@ Label_4C_4537:: ; 4C:4537
 
 Browser_LoadPage_WaitReply_ResultTable:: ; 4C:457D
 Table_4C_457D::
-	dw Label_4C_460D
-	dw Label_4C_417D
-	dw Label_4C_417D
+	dw Browser_LoadPage_WaitReply_ResultOk
+	dw Browser_LoadPage_StopRequest
+	dw Browser_LoadPage_StopRequest
 	dw Browser_LoadPage_Fail
 	dw Browser_LoadPage_Fail
 	dw Browser_LoadPage_Fail
-	dw Label_4C_417D
+	dw Browser_LoadPage_StopRequest
 
-Label_4C_458B:: ; 4C:458B
+Browser_LoadPage_WaitReply_TimeoutError:: ; 4C:458B
+Label_4C_458B::
 	; [PROBABLE] 55 insn(s) reached by static flow only; seeds: exec x55; min discovery hops 1;
 	; entered by jpcc from 4C:44E5 (executed)
 	ld a, [wTimerEnable]
 	bit 0, a
-	jp z, Label_4C_44E8
+	jp z, Browser_LoadPage_WaitReply_CheckWarning
 	farcall Mobile_BeginStop
 .loop ; 4C:4599
 	farcall Mobile_StopPoll
@@ -752,7 +765,7 @@ Label_4C_458B:: ; 4C:458B
 .l45F9 ; 4C:45F9
 	pop hl
 	or a, a
-	jp nz, Label_4C_4274
+	jp nz, Browser_LoadPage_ExitConnectionNotice_FinishProgress
 	ld a, $26
 	ld [wMobileResultCode], a
 	xor a, a
@@ -760,7 +773,8 @@ Label_4C_458B:: ; 4C:458B
 	ld [wMobileResultDetail + 1], a
 	jp Browser_LoadPage_Fail
 
-Label_4C_460D:: ; 4C:460D
+Browser_LoadPage_WaitReply_ResultOk:: ; 4C:460D
+Label_4C_460D::
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ld a, [wCommSessionKind]
 	cp a, $01
@@ -835,7 +849,7 @@ Label_4C_460D:: ; 4C:460D
 .l4685 ; 4C:4685
 	pop hl
 	or a, a
-	jp nz, Label_4C_427F
+	jp nz, Browser_LoadPage_ExitConnectionNotice
 	ld a, [wTimerEnable]
 	bit 4, a
 	jp nz, .l469B

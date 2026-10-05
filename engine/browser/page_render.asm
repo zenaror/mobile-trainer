@@ -248,11 +248,12 @@ Browser_FindAnchor:: ; 4E:534B
 	ldh [hRam_FFB1], a
 	ld de, $FFFF
 
-Label_4E_5354:: ; 4E:5354
+Browser_FindAnchor_NextEntry:: ; 4E:5354
+Label_4E_5354::
 	inc de
 	ld a, d
 	or a, a
-	jr nz, Label_4E_539D
+	jr nz, Browser_FindAnchor_Overflow
 	push de
 	ld a, [bc]
 	inc bc
@@ -261,12 +262,12 @@ Label_4E_5354:: ; 4E:5354
 	inc bc
 	ld d, a
 	or a, e
-	jr z, Label_4E_539B
+	jr z, Browser_FindAnchor_Done
 	push bc
 	ld b, $00
 .loop ; 4E:5366
 	inc b
-	jr z, Label_4E_5391
+	jr z, Browser_FindAnchor_Mismatch
 	ld a, [de]
 	inc de
 	cp a, $41
@@ -300,22 +301,23 @@ Label_4E_5354:: ; 4E:5354
 	cp a, c
 	jr z, .loop
 	pop bc
-	jr Label_4E_5391
+	jr Browser_FindAnchor_Mismatch
 
 .l538A ; 4E:538A
 	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 534B-5390 by apply_coverage --split
 	sub a, c
 	pop bc
-	jr z, Label_4E_539A
-	jr Label_4E_5391
+	jr z, Browser_FindAnchor_Found
+	jr Browser_FindAnchor_Mismatch
 
 ; ---- data $5390-$5391 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) | observed: single $C1 (pop bc) that would fall into the PROBABLE code at 5391; the two preceding paths jr $5391 (5388, 538E) skip it and no branch to 5390 was found in the decoded code; left unclassified
 
 Data_4E_5390:: ; 4E:5390
 	db $C1
 
-Label_4E_5391:: ; 4E:5391
+Browser_FindAnchor_Mismatch:: ; 4E:5391
+Label_4E_5391::
 	; [CONFIRMED] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 3;
 	; entered by jrcc from 4E:5367 (PROBABLE code) | 6 insn(s) executed; cut out of the PROBABLE
 	; region 5391-53A1 by apply_coverage --split [executed in 1 scenarios]
@@ -324,20 +326,23 @@ Label_4E_5391:: ; 4E:5391
 	ld l, a
 	ldh a, [hRam_FFB1]
 	ld h, a
-	jr Label_4E_5354
+	jr Browser_FindAnchor_NextEntry
 
-Label_4E_539A:: ; 4E:539A
+Browser_FindAnchor_Found:: ; 4E:539A
+Label_4E_539A::
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5391-53A1 by apply_coverage --split
 	inc a
 
-Label_4E_539B:: ; 4E:539B
+Browser_FindAnchor_Done:: ; 4E:539B
+Label_4E_539B::
 	; [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 5391-53A1 by apply_coverage
 	; --split [executed in 1 scenarios]
 	pop de
 	ret
 
-Label_4E_539D:: ; 4E:539D
+Browser_FindAnchor_Overflow:: ; 4E:539D
+Label_4E_539D::
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5391-53A1 by apply_coverage --split
 	ld de, $FFFF

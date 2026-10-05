@@ -5058,7 +5058,7 @@ Function_0F_5BDD::
 	dec bc
 	ld a, b
 	or a, c
-	jr z, Label_0F_5C5B
+	jr z, Mail_CopyBase64StripLineBreaks_ErrorExit
 	ld a, [de]
 	ld [hli], a
 	inc e
@@ -5074,7 +5074,7 @@ Function_0F_5BDD::
 	dec bc
 	ld a, b
 	or a, c
-	jr z, Label_0F_5C5B
+	jr z, Mail_CopyBase64StripLineBreaks_ErrorExit
 	ld a, [de]
 	ld [hli], a
 	inc e
@@ -5090,13 +5090,13 @@ Function_0F_5BDD::
 	call z, Mail_CopyBase64StripLineBreaks_NextPage
 	ld a, [de]
 	cp a, $0A
-	jr nz, Label_0F_5C5B
+	jr nz, Mail_CopyBase64StripLineBreaks_ErrorExit
 	inc e
 	call z, Mail_CopyBase64StripLineBreaks_NextPage
 	dec bc
 	ld a, b
 	or a, c
-	jr z, Label_0F_5C5B
+	jr z, Mail_CopyBase64StripLineBreaks_ErrorExit
 	ld a, [wRam_D010]
 	inc a
 	ld [wRam_D010], a
@@ -5140,7 +5140,8 @@ Function_0F_5C52::
 	pop bc
 	ret
 
-Label_0F_5C5B:: ; 0F:5C5B
+Mail_CopyBase64StripLineBreaks_ErrorExit:: ; 0F:5C5B
+Label_0F_5C5B::
 	ld a, $02
 	ret
 

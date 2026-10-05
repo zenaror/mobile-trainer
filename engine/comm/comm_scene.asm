@@ -118,55 +118,50 @@ CommScene_RunState:: ; 70:408F
 	ld l, a
 	jp hl
 
-; ---- ptrtable $40AD-$40B3 (6 bytes) [PROBABLE] little-endian word table, 27 entries, monotone=1.00, 0% of targets on string start/after NUL, targets $40B3..$449D; referenced by ld r16,$40AD at 70:4092 [clipped from 40AD-40E3 by higher-priority evidence]
+; ---- ptrtable $40AD-$40E3 (54 bytes) [CONFIRMED] the dispatch tables of CommScene_RunState (70:408F): CommScene_KindTable (3 words, indexed by wCommScene_Kind) points at the state table of
+; each kind (indexed by wCommScene_State; kind 0 has 10 states, kind 1 has 9, kind 2 has 5).  All 24 handlers ran in the natural traces: 23,644 + 9,672 + 6,129 hits = the 39,445
+; dispatches of the `jp hl` at 70:40AC.  The frozen classification had cut the three state tables into five fragments, one of them without a label (`dw $40D9`)
 
 CommScene_KindTable:: ; 70:40AD
 Table_70_40AD::
-	dw Table_70_40B3
-	dw Table_70_40C7
-	dw $40D9
+	dw CommScene_Kind0_StateTable
+	dw CommScene_Kind1_StateTable
+	dw CommScene_Kind2_StateTable
 
-; ---- ptrtable $40B3-$40C1 (14 bytes) [CONFIRMED] code-pointer table, 7 entries: 7/7 words hit own-bank code starts (dense run of code pointers); 7/7 targets executed; every byte read as data in a trace
+CommScene_Kind0_StateTable:: ; 70:40B3
+Table_70_40B3::
+	dw CommScene_Kind0_StateSetup
+	dw CommScene_Kind0_StateWaitOneFrame
+	dw CommScene_Kind0_StateSlideSpritePairIn
+	dw CommScene_Kind0_StateWaitCloseOrCancel
+	dw CommScene_Kind0_StateCloseCountdown
+	dw CommScene_Kind0_StateCloseSlideSpritePairOut
+	dw CommScene_Kind0_StateFinish
+	dw CommScene_Kind0_StateCancelCountdown
+	dw CommScene_Kind0_StateCancelWaitClose
+	dw CommScene_Kind0_StateCancelSlideSpritePairOut
 
-Table_70_40B3:: ; 70:40B3
-	dw Label_70_40E3
-	dw Label_70_411B
-	dw Label_70_4121
-	dw Label_70_4135
-	dw Label_70_41BF
-	dw Label_70_41E8
-	dw Label_70_4202
+CommScene_Kind1_StateTable:: ; 70:40C7
+Table_70_40C7::
+	dw CommScene_Kind1_StateSetup
+	dw CommScene_Kind1_StateWaitOneFrame
+	dw CommScene_Kind1_StateWaitCloseOrCancel
+	dw CommScene_Kind1_StateCloseCountdown
+	dw CommScene_Kind1_StateCloseSlideSpritePairOut
+	dw CommScene_Kind1_StateFinish
+	dw CommScene_Kind1_StateCancelCountdown
+	dw CommScene_Kind1_StateCancelWaitClose
+	dw CommScene_Kind1_StateCancelSlideSpritePairOut
 
-; ---- ptrtable $40C1-$40C7 (6 bytes) [PROBABLE] little-endian word table, 27 entries, monotone=1.00, 0% of targets on string start/after NUL, targets $40B3..$449D; referenced by ld r16,$40AD at 70:4092 [clipped from 40AD-40E3 by higher-priority evidence]
+CommScene_Kind2_StateTable:: ; 70:40D9
+	dw CommScene_Kind2_StateSetup
+	dw CommScene_Kind2_StateWaitOneFrame
+	dw CommScene_Kind2_StateWaitClose
+	dw CommScene_Kind2_StateSlideSpritePairOut
+	dw CommScene_Kind2_StateFinish
 
-Table_70_40C1:: ; 70:40C1
-	dw Label_70_4215
-	dw Label_70_4235
-	dw Label_70_425C
-
-; ---- ptrtable $40C7-$40D3 (12 bytes) [CONFIRMED] code-pointer table, 6 entries: 6/6 words hit own-bank code starts (dense run of code pointers); 6/6 targets executed; every byte read as data in a trace
-
-Table_70_40C7:: ; 70:40C7
-	dw Label_70_428D
-	dw Label_70_42C7
-	dw Label_70_42CD
-	dw Label_70_4357
-	dw Label_70_4380
-	dw Label_70_439A
-
-; ---- ptrtable $40D3-$40E3 (16 bytes) [PROBABLE] little-endian word table, 27 entries, monotone=1.00, 0% of targets on string start/after NUL, targets $40B3..$449D; referenced by ld r16,$40AD at 70:4092 [clipped from 40AD-40E3 by higher-priority evidence]
-
-Table_70_40D3:: ; 70:40D3
-	dw Label_70_43AD
-	dw Label_70_43D0
-	dw Label_70_43FF
-	dw Label_70_4418
-	dw Label_70_4452
-	dw Label_70_4458
-	dw Label_70_4484
-	dw Label_70_449D
-
-Label_70_40E3:: ; 70:40E3
+CommScene_Kind0_StateSetup:: ; 70:40E3
+Label_70_40E3::
 	; [CONFIRMED] 64 insn(s); 64 executed (in up to 1/18 scenarios)
 	call CommScene_LoadGraphics
 	xor a, a
@@ -177,8 +172,8 @@ Label_70_40E3:: ; 70:40E3
 	xor a, a
 	ld [wCommScene_SpritePairX], a
 	ld a, $00
-	call CommScene_SetTextSprites
-	call CommScene_PlaceTextSprites
+	call CommScene_SetSpritePair
+	call CommScene_PlaceSpritePair
 	farcall Sprite_UpdateAll
 	farcall Palette_FadeInFromWhite
 	ldh a, [hWRAMBank]
@@ -191,12 +186,14 @@ Label_70_40E3:: ; 70:40E3
 	ldh [rSVBK], a
 	ret
 
-Label_70_411B:: ; 70:411B
+CommScene_Kind0_StateWaitOneFrame:: ; 70:411B
+Label_70_411B::
 	ld a, $02
 	ld [wCommScene_State], a
 	ret
 
-Label_70_4121:: ; 70:4121
+CommScene_Kind0_StateSlideSpritePairIn:: ; 70:4121
+Label_70_4121::
 	ld a, [wCommScene_SpritePairX]
 	inc a
 	ld [wCommScene_SpritePairX], a
@@ -205,10 +202,11 @@ Label_70_4121:: ; 70:4121
 	ld a, $03
 	ld [wCommScene_State], a
 .skip ; 70:4131
-	call CommScene_PlaceTextSprites
+	call CommScene_PlaceSpritePair
 	ret
 
-Label_70_4135:: ; 70:4135
+CommScene_Kind0_StateWaitCloseOrCancel:: ; 70:4135
+Label_70_4135::
 	ld a, [wCommScene_StepArg]
 	cp a, $01
 	jr z, .l4144
@@ -228,7 +226,7 @@ Label_70_4135:: ; 70:4135
 	ld a, $14
 	ld [wCommScene_Timer], a
 	ld hl, $DA60
-	ld de, CommScene_TextObjTable
+	ld de, CommScene_SpriteObjTable
 	ld a, $70
 	ld b, $85
 	farcall Sprite_InitSlot
@@ -255,7 +253,7 @@ Label_70_4135:: ; 70:4135
 	ld a, $02
 	ld [wCommScene_Result], a
 	ld hl, $DA60
-	ld de, CommScene_TextObjTable
+	ld de, CommScene_SpriteObjTable
 	ld a, $70
 	ld b, $85
 	farcall Sprite_InitSlot
@@ -274,7 +272,8 @@ Label_70_4135:: ; 70:4135
 	call CommScene_ScrollIncrement
 	ret
 
-Label_70_41BF:: ; 70:41BF
+CommScene_Kind0_StateCloseCountdown:: ; 70:41BF
+Label_70_41BF::
 	ld a, [wCommScene_Timer]
 	dec a
 	ld [wCommScene_Timer], a
@@ -296,7 +295,8 @@ Label_70_41BF:: ; 70:41BF
 	call CommScene_ScrollIncrement
 	ret
 
-Label_70_41E8:: ; 70:41E8
+CommScene_Kind0_StateCloseSlideSpritePairOut:: ; 70:41E8
+Label_70_41E8::
 	ld a, [wCommScene_SpritePairX]
 	add a, $02
 	ld [wCommScene_SpritePairX], a
@@ -306,11 +306,12 @@ Label_70_41E8:: ; 70:41E8
 	ld [wCommScene_State], a
 	jr .l41FB
 .l41FB ; 70:41FB
-	call CommScene_PlaceTextSprites
+	call CommScene_PlaceSpritePair
 	call CommScene_ScrollIncrement
 	ret
 
-Label_70_4202:: ; 70:4202
+CommScene_Kind0_StateFinish:: ; 70:4202
+Label_70_4202::
 	farcall Palette_FadeOutToWhite
 	call CommScene_Teardown
 	ld a, $FF
@@ -319,7 +320,8 @@ Label_70_4202:: ; 70:4202
 	ld [wCommScene_Result], a
 	ret
 
-Label_70_4215:: ; 70:4215
+CommScene_Kind0_StateCancelCountdown:: ; 70:4215
+Label_70_4215::
 	; [CONFIRMED] 44 insn(s) reached by static flow only; seeds: table x44; min discovery hops 0;
 	; run starts at an entry of the code-pointer table at 70:40B3 | 19 insn(s) executed; cut out of
 	; the PROBABLE region 4215-4275 by apply_coverage --split [executed in 5 scenarios]
@@ -331,15 +333,16 @@ Label_70_4215:: ; 70:4215
 	ld hl, $DA60
 	call Sprite_ClearSlot
 	ld a, $01
-	call CommScene_SetTextSprites
+	call CommScene_SetSpritePair
 	ld a, $08
 	ld [wCommScene_State], a
 	jr .l4231
 .l4231 ; 70:4231
-	call CommScene_PlaceTextSprites
+	call CommScene_PlaceSpritePair
 	ret
 
-Label_70_4235:: ; 70:4235
+CommScene_Kind0_StateCancelWaitClose:: ; 70:4235
+Label_70_4235::
 	ld a, [wCommScene_StepArg]
 	or a, a
 	jr z, .l4258
@@ -368,7 +371,8 @@ Label_70_4235:: ; 70:4235
 	call CommScene_ScrollDecrement
 	ret
 
-Label_70_425C:: ; 70:425C
+CommScene_Kind0_StateCancelSlideSpritePairOut:: ; 70:425C
+Label_70_425C::
 	ld a, [wCommScene_SpritePairX]
 	dec a
 	ld [wCommScene_SpritePairX], a
@@ -378,7 +382,7 @@ Label_70_425C:: ; 70:425C
 	ld [wCommScene_State], a
 	jr .l426E
 .l426E ; 70:426E
-	call CommScene_PlaceTextSprites
+	call CommScene_PlaceSpritePair
 	call CommScene_ScrollDecrement
 	ret
 
@@ -405,7 +409,8 @@ CommScene_ScrollDecrement:: ; 70:4285
 	ld [wCommSceneScrollX], a
 	ret
 
-Label_70_428D:: ; 70:428D
+CommScene_Kind1_StateSetup:: ; 70:428D
+Label_70_428D::
 	; [CONFIRMED] 55 insn(s); 55 executed (in up to 1/18 scenarios)
 	call CommScene_LoadGraphics
 	ld a, $02
@@ -416,8 +421,8 @@ Label_70_428D:: ; 70:428D
 	ld a, $48
 	ld [wCommScene_SpritePairX], a
 	ld a, $00
-	call CommScene_SetTextSprites
-	call CommScene_PlaceTextSprites
+	call CommScene_SetSpritePair
+	call CommScene_PlaceSpritePair
 	farcall Sprite_UpdateAll
 	farcall Palette_FadeInFromWhite
 	ldh a, [hWRAMBank]
@@ -430,12 +435,14 @@ Label_70_428D:: ; 70:428D
 	ldh [rSVBK], a
 	ret
 
-Label_70_42C7:: ; 70:42C7
+CommScene_Kind1_StateWaitOneFrame:: ; 70:42C7
+Label_70_42C7::
 	ld a, $02
 	ld [wCommScene_State], a
 	ret
 
-Label_70_42CD:: ; 70:42CD
+CommScene_Kind1_StateWaitCloseOrCancel:: ; 70:42CD
+Label_70_42CD::
 	ld a, [wCommScene_StepArg]
 	cp a, $01
 	jr z, .l42DC
@@ -455,7 +462,7 @@ Label_70_42CD:: ; 70:42CD
 	ld a, $14
 	ld [wCommScene_Timer], a
 	ld hl, $DA60
-	ld de, CommScene_TextObjTable
+	ld de, CommScene_SpriteObjTable
 	ld a, $70
 	ld b, $85
 	farcall Sprite_InitSlot
@@ -482,7 +489,7 @@ Label_70_42CD:: ; 70:42CD
 	ld a, $02
 	ld [wCommScene_Result], a
 	ld hl, $DA60
-	ld de, CommScene_TextObjTable
+	ld de, CommScene_SpriteObjTable
 	ld a, $70
 	ld b, $85
 	farcall Sprite_InitSlot
@@ -501,7 +508,8 @@ Label_70_42CD:: ; 70:42CD
 	call CommScene_ScrollIncrement
 	ret
 
-Label_70_4357:: ; 70:4357
+CommScene_Kind1_StateCloseCountdown:: ; 70:4357
+Label_70_4357::
 	ld a, [wCommScene_Timer]
 	dec a
 	ld [wCommScene_Timer], a
@@ -523,7 +531,8 @@ Label_70_4357:: ; 70:4357
 	call CommScene_ScrollIncrement
 	ret
 
-Label_70_4380:: ; 70:4380
+CommScene_Kind1_StateCloseSlideSpritePairOut:: ; 70:4380
+Label_70_4380::
 	ld a, [wCommScene_SpritePairX]
 	add a, $02
 	ld [wCommScene_SpritePairX], a
@@ -533,11 +542,12 @@ Label_70_4380:: ; 70:4380
 	ld [wCommScene_State], a
 	jr .l4393
 .l4393 ; 70:4393
-	call CommScene_PlaceTextSprites
+	call CommScene_PlaceSpritePair
 	call CommScene_ScrollIncrement
 	ret
 
-Label_70_439A:: ; 70:439A
+CommScene_Kind1_StateFinish:: ; 70:439A
+Label_70_439A::
 	farcall Palette_FadeOutToWhite
 	call CommScene_Teardown
 	ld a, $FF
@@ -546,7 +556,8 @@ Label_70_439A:: ; 70:439A
 	ld [wCommScene_Result], a
 	ret
 
-Label_70_43AD:: ; 70:43AD
+CommScene_Kind1_StateCancelCountdown:: ; 70:43AD
+Label_70_43AD::
 	; [CONFIRMED] 112 insn(s) reached by static flow only; seeds: site x18, table x94; min discovery
 	; hops 0; run starts at an entry of the code-pointer table at 70:40B3 | 20 insn(s) executed; cut
 	; out of the PROBABLE region 43AD-44B0 by apply_coverage --split [executed in 2 scenarios]
@@ -558,16 +569,17 @@ Label_70_43AD:: ; 70:43AD
 	ld hl, $DA60
 	call Sprite_ClearSlot
 	ld a, $01
-	call CommScene_SetTextSprites
+	call CommScene_SetSpritePair
 	ld a, $07
 	ld [wCommScene_State], a
 	jr .l43C9
 .l43C9 ; 70:43C9
-	call CommScene_PlaceTextSprites
+	call CommScene_PlaceSpritePair
 	call CommScene_ScrollIncrement
 	ret
 
-Label_70_43D0:: ; 70:43D0
+CommScene_Kind1_StateCancelWaitClose:: ; 70:43D0
+Label_70_43D0::
 	ld a, [wCommScene_StepArg]
 	or a, a
 	jr z, .l43F8
@@ -582,7 +594,7 @@ Label_70_43D0:: ; 70:43D0
 	; [CONFIRMED] 57 insn(s) executed; cut out of the PROBABLE region 43AD-44B0 by apply_coverage
 	; --split [executed in 2 scenarios]
 	ld a, $01
-	call CommScene_SetTextSprites
+	call CommScene_SetSpritePair
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -595,11 +607,12 @@ Label_70_43D0:: ; 70:43D0
 	ld [wCommScene_State], a
 	jr .l43F8
 .l43F8 ; 70:43F8
-	call CommScene_PlaceTextSprites
+	call CommScene_PlaceSpritePair
 	call CommScene_ScrollDecrement
 	ret
 
-Label_70_43FF:: ; 70:43FF
+CommScene_Kind1_StateCancelSlideSpritePairOut:: ; 70:43FF
+Label_70_43FF::
 	ld a, [wCommScene_SpritePairX]
 	dec a
 	ld [wCommScene_SpritePairX], a
@@ -609,11 +622,12 @@ Label_70_43FF:: ; 70:43FF
 	ld [wCommScene_State], a
 	jr .l4411
 .l4411 ; 70:4411
-	call CommScene_PlaceTextSprites
+	call CommScene_PlaceSpritePair
 	call CommScene_ScrollDecrement
 	ret
 
-Label_70_4418:: ; 70:4418
+CommScene_Kind2_StateSetup:: ; 70:4418
+Label_70_4418::
 	call CommScene_LoadGraphics
 	ld a, $04
 	call CommScene_ShowTextBox
@@ -623,8 +637,8 @@ Label_70_4418:: ; 70:4418
 	ld a, $48
 	ld [wCommScene_SpritePairX], a
 	ld a, $01
-	call CommScene_SetTextSprites
-	call CommScene_PlaceTextSprites
+	call CommScene_SetSpritePair
+	call CommScene_PlaceSpritePair
 	farcall Sprite_UpdateAll
 	farcall Palette_FadeInFromWhite
 	ldh a, [hWRAMBank]
@@ -637,12 +651,14 @@ Label_70_4418:: ; 70:4418
 	ldh [rSVBK], a
 	ret
 
-Label_70_4452:: ; 70:4452
+CommScene_Kind2_StateWaitOneFrame:: ; 70:4452
+Label_70_4452::
 	ld a, $02
 	ld [wCommScene_State], a
 	ret
 
-Label_70_4458:: ; 70:4458
+CommScene_Kind2_StateWaitClose:: ; 70:4458
+Label_70_4458::
 	ld a, [wCommScene_StepArg]
 	or a, a
 	jr z, .l4480
@@ -673,7 +689,8 @@ Label_70_4458:: ; 70:4458
 	call CommScene_ScrollDecrement
 	ret
 
-Label_70_4484:: ; 70:4484
+CommScene_Kind2_StateSlideSpritePairOut:: ; 70:4484
+Label_70_4484::
 	ld a, [wCommScene_SpritePairX]
 	dec a
 	ld [wCommScene_SpritePairX], a
@@ -683,11 +700,12 @@ Label_70_4484:: ; 70:4484
 	ld [wCommScene_State], a
 	jr .l4496
 .l4496 ; 70:4496
-	call CommScene_PlaceTextSprites
+	call CommScene_PlaceSpritePair
 	call CommScene_ScrollDecrement
 	ret
 
-Label_70_449D:: ; 70:449D
+CommScene_Kind2_StateFinish:: ; 70:449D
+Label_70_449D::
 	farcall Palette_FadeOutToWhite
 	call CommScene_Teardown
 	ld a, $FF
@@ -1054,7 +1072,7 @@ Function_70_46A6:: ; 70:46A6
 	ld a, b
 	ret
 
-CommScene_PlaceTextSprites:: ; 70:477F
+CommScene_PlaceSpritePair:: ; 70:477F
 Function_70_477F::
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
@@ -1090,7 +1108,7 @@ Function_70_477F::
 	call Sprite_SetPosition
 	ret
 
-CommScene_SetTextSprites:: ; 70:47BB
+CommScene_SetSpritePair:: ; 70:47BB
 Function_70_47BB::
 	; [CONFIRMED] 14 insn(s); 14 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
@@ -1098,12 +1116,12 @@ Function_70_47BB::
 	or a, a
 	jr nz, .l47E2
 	ld hl, $DA40
-	ld de, CommScene_TextObjTable
+	ld de, CommScene_SpriteObjTable
 	ld a, $70
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld hl, $DA50
-	ld de, CommScene_TextObjTable
+	ld de, CommScene_SpriteObjTable
 	ld a, $70
 	ld b, $83
 	farcall Sprite_InitSlot
@@ -1113,12 +1131,12 @@ Function_70_47BB::
 	; [CONFIRMED] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 1;
 	; entered by jrcc from 70:47BF (executed) [executed in 3 scenarios]
 	ld hl, $DA40
-	ld de, CommScene_TextObjTable
+	ld de, CommScene_SpriteObjTable
 	ld a, $70
 	ld b, $82
 	farcall Sprite_InitSlot
 	ld hl, $DA50
-	ld de, CommScene_TextObjTable
+	ld de, CommScene_SpriteObjTable
 	ld a, $70
 	ld b, $84
 	farcall Sprite_InitSlot

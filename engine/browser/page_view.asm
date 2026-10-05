@@ -49,7 +49,7 @@ Browser_PageView_Enter:: ; 4E:49A1
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ld a, [wBrowserPendingMessage]
 	or a, a
-	jr z, Label_4E_4A43
+	jr z, Browser_PageView_Enter_StartLoop
 
 	; [CONFIRMED] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0;
 	; fall-through of the jrcc at 4E:4A09 (executed) [executed in 3 scenarios]
@@ -72,14 +72,15 @@ Browser_PageView_Enter:: ; 4E:49A1
 
 Browser_PageView_Enter_DialogResultTable:: ; 4E:4A37
 Table_4E_4A37::
-	dw Label_4E_4A43
-	dw Label_4E_4A43
-	dw Label_4E_4A43
+	dw Browser_PageView_Enter_StartLoop
+	dw Browser_PageView_Enter_StartLoop
+	dw Browser_PageView_Enter_StartLoop
 	dw Browser_Menu_LinkLost
 	dw Browser_ConnectionNotice
 	dw Browser_Menu_AdapterError
 
-Label_4E_4A43:: ; 4E:4A43
+Browser_PageView_Enter_StartLoop:: ; 4E:4A43
+Label_4E_4A43::
 	; [CONFIRMED] 28 insn(s); 28 executed (in up to 1/18 scenarios)
 	ld b, $14
 	ld c, $01
@@ -169,11 +170,12 @@ Browser_PageView_InputTable:: ; 4E:4AE2
 Table_4E_4AE2::
 	dw Browser_PageView_FollowLink
 	dw Browser_PageView_GoBack
-	dw Label_4E_4B0B
+	dw Browser_PageView_IgnoreSelect
 	dw Browser_PageView_OpenMenu
-	dw Label_4E_4AEC
+	dw Browser_PageView_HandleDpad
 
-Label_4E_4AEC:: ; 4E:4AEC
+Browser_PageView_HandleDpad:: ; 4E:4AEC
+Label_4E_4AEC::
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressedRepeat]
 	bit 6, a
@@ -193,7 +195,8 @@ Label_4E_4AEC:: ; 4E:4AEC
 	farcall Browser_SelectNextLink
 	jp Browser_PageView_Loop
 
-Label_4E_4B0B:: ; 4E:4B0B
+Browser_PageView_IgnoreSelect:: ; 4E:4B0B
+Label_4E_4B0B::
 	jp Browser_PageView_Loop
 
 Browser_PageView_FollowLink:: ; 4E:4B0E
@@ -250,15 +253,16 @@ Browser_PageView_FollowLink:: ; 4E:4B0E
 
 Browser_PageView_FollowLink_ResultTable:: ; 4E:4B7E
 Table_4E_4B7E::
-	dw Label_4E_4BAA
-	dw Label_4E_4B8C
-	dw Label_4E_4B8C
-	dw Label_4E_5082
-	dw Label_4E_5040
-	dw Label_4E_5088
-	dw Label_4E_5107
+	dw Browser_PageView_FollowLink_Loaded
+	dw Browser_PageView_FollowLink_Restore
+	dw Browser_PageView_FollowLink_Restore
+	dw Browser_FetchResult3_ClearMessage
+	dw Browser_FetchResult4_Disconnect
+	dw Browser_FetchResult5_SetMessage
+	dw Browser_FetchResult6_ConnectionNotice
 
-Label_4E_4B8C:: ; 4E:4B8C
+Browser_PageView_FollowLink_Restore:: ; 4E:4B8C
+Label_4E_4B8C::
 	; [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1;
 	; entered by table from 4E:4B7B (executed) [executed in 2 scenarios]
 	ld de, $C380
@@ -270,7 +274,8 @@ Label_4E_4B8C:: ; 4E:4B8C
 	farcall PageCache_Pop
 	farcall Html_ParsePage
 
-Label_4E_4BAA:: ; 4E:4BAA
+Browser_PageView_FollowLink_Loaded:: ; 4E:4BAA
+Label_4E_4BAA::
 	; [CONFIRMED] 28 insn(s); 28 executed (in up to 1/18 scenarios)
 	jp Browser_PageView_Enter
 
@@ -287,7 +292,7 @@ Browser_PageView_GoBack:: ; 4E:4BAD
 	xor a, a
 	farcall Browser_HistoryPop
 	or a, a
-	jp z, Label_4E_4CB2
+	jp z, Browser_PageView_GoBack_NoHistory
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -301,7 +306,7 @@ Browser_PageView_GoBack:: ; 4E:4BAD
 	ld a, $03
 	farcall PageCache_Pop
 	or a, a
-	jp nz, Label_4E_4C8B
+	jp nz, Browser_PageView_GoBack_FromCache
 
 	; [PROBABLE] 28 insn(s) reached by static flow only; seeds: exec x28; min discovery hops 0;
 	; fall-through of the jpcc at 4E:4BEF (executed)
@@ -338,15 +343,16 @@ Browser_PageView_GoBack:: ; 4E:4BAD
 
 Browser_PageView_GoBack_ResultTable:: ; 4E:4C49
 Table_4E_4C49::
-	dw Label_4E_4C78
-	dw Label_4E_4C57
-	dw Label_4E_4C57
-	dw Label_4E_5082
-	dw Label_4E_5040
-	dw Label_4E_5088
-	dw Label_4E_5107
+	dw Browser_PageView_GoBack_Loaded
+	dw Browser_PageView_GoBack_Restore
+	dw Browser_PageView_GoBack_Restore
+	dw Browser_FetchResult3_ClearMessage
+	dw Browser_FetchResult4_Disconnect
+	dw Browser_FetchResult5_SetMessage
+	dw Browser_FetchResult6_ConnectionNotice
 
-Label_4E_4C57:: ; 4E:4C57
+Browser_PageView_GoBack_Restore:: ; 4E:4C57
+Label_4E_4C57::
 	; [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 1;
 	; entered by table from 4E:4C46 (PROBABLE code)
 	ld de, $C380
@@ -359,14 +365,16 @@ Label_4E_4C57:: ; 4E:4C57
 	farcall Html_ParsePage
 	jp Browser_PageView_Enter
 
-Label_4E_4C78:: ; 4E:4C78
+Browser_PageView_GoBack_Loaded:: ; 4E:4C78
+Label_4E_4C78::
 	ld de, $C380
 	xor a, a
 	farcall Browser_HistoryPop
 	farcall Browser_HistoryUndoPush
 	jp Browser_PageView_Enter
 
-Label_4E_4C8B:: ; 4E:4C8B
+Browser_PageView_GoBack_FromCache:: ; 4E:4C8B
+Label_4E_4C8B::
 	; [CONFIRMED] 24 insn(s); 24 executed (in up to 1/18 scenarios)
 	farcall Palette_FadeOutToWhite
 	farcall Sprite_ResetAll
@@ -380,7 +388,8 @@ Label_4E_4C8B:: ; 4E:4C8B
 	farcall Html_ParsePage
 	jp Browser_PageView_Enter
 
-Label_4E_4CB2:: ; 4E:4CB2
+Browser_PageView_GoBack_NoHistory:: ; 4E:4CB2
+Label_4E_4CB2::
 	ld de, $18A0
 	ld hl, $DA90
 	call Sprite_SetPosition
@@ -411,7 +420,8 @@ Browser_PageView_OpenMenu:: ; 4E:4CEB
 	xor a, a
 	ldh [hDialogResult], a
 
-Label_4E_4CEE:: ; 4E:4CEE
+Browser_PageView_OpenMenu_Show:: ; 4E:4CEE
+Label_4E_4CEE::
 	ld de, $18A0
 	ld hl, $DA90
 	call Sprite_SetPosition
@@ -570,7 +580,7 @@ Browser_Menu_PageList:: ; 4E:4D7B
 	or a, d
 	or a, l
 	or a, h
-	jr z, Label_4E_4E8F
+	jr z, Browser_Menu_PageList_BackToMenu
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -590,15 +600,16 @@ Browser_Menu_PageList:: ; 4E:4D7B
 
 Browser_Menu_PageList_ResultTable:: ; 4E:4E60
 Table_4E_4E60::
-	dw Label_4E_4E8C
-	dw Label_4E_4E6E
-	dw Label_4E_4E6E
-	dw Label_4E_5082
-	dw Label_4E_5040
-	dw Label_4E_5088
-	dw Label_4E_5107
+	dw Browser_Menu_PageList_Loaded
+	dw Browser_Menu_PageList_Restore
+	dw Browser_Menu_PageList_Restore
+	dw Browser_FetchResult3_ClearMessage
+	dw Browser_FetchResult4_Disconnect
+	dw Browser_FetchResult5_SetMessage
+	dw Browser_FetchResult6_ConnectionNotice
 
-Label_4E_4E6E:: ; 4E:4E6E
+Browser_Menu_PageList_Restore:: ; 4E:4E6E
+Label_4E_4E6E::
 	; [PROBABLE] 54 insn(s) reached by static flow only; seeds: exec x54; min discovery hops 1;
 	; entered by table from 4E:4E5D (PROBABLE code) | 8 insn(s) never executed in the traced runs;
 	; cut out of the PROBABLE region 4E6E-4F1A by apply_coverage --split
@@ -611,12 +622,14 @@ Label_4E_4E6E:: ; 4E:4E6E
 	farcall PageCache_Pop
 	farcall Html_ParsePage
 
-Label_4E_4E8C:: ; 4E:4E8C
+Browser_Menu_PageList_Loaded:: ; 4E:4E8C
+Label_4E_4E8C::
 	; [CONFIRMED] 22 insn(s) executed; cut out of the PROBABLE region 4E6E-4F1A by apply_coverage
 	; --split [executed in 1 scenarios]
 	jp Browser_PageView_Enter
 
-Label_4E_4E8F:: ; 4E:4E8F
+Browser_Menu_PageList_BackToMenu:: ; 4E:4E8F
+Label_4E_4E8F::
 	farcall Sprite_ResetAll
 	farcall Browser_LoadFrameGraphics
 	farcall Browser_RenderPage
@@ -656,7 +669,7 @@ Label_4E_4E8F:: ; 4E:4E8F
 	; --split [executed in 1 scenarios]
 	ld a, $00
 	ldh [hDialogResult], a
-	jp Label_4E_4CEE
+	jp Browser_PageView_OpenMenu_Show
 
 Browser_Menu_DisconnectPrompt:: ; 4E:4EED
 	ld de, $18A0
@@ -677,14 +690,15 @@ Browser_Menu_DisconnectPrompt:: ; 4E:4EED
 
 Browser_Menu_DisconnectPrompt_DialogResultTable:: ; 4E:4F1A
 Table_4E_4F1A::
-	dw Label_4E_4F26
+	dw Browser_Menu_DisconnectPrompt_BackToMenu
 	dw Browser_Menu_DisconnectDo
-	dw Label_4E_4F26
+	dw Browser_Menu_DisconnectPrompt_BackToMenu
 	dw Browser_Menu_LinkLost
 	dw Browser_ConnectionNotice
 	dw Browser_Menu_AdapterError
 
-Label_4E_4F26:: ; 4E:4F26
+Browser_Menu_DisconnectPrompt_BackToMenu:: ; 4E:4F26
+Label_4E_4F26::
 	; [CONFIRMED] 44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 1;
 	; entered by table from 4E:4F17 (PROBABLE code) | 5 insn(s) executed; cut out of the PROBABLE
 	; region 4F26-4FB7 by apply_coverage --split [executed in 1 scenarios]
@@ -692,13 +706,13 @@ Label_4E_4F26:: ; 4E:4F26
 	ldh [hDialogResult], a
 	ld a, [wCommSessionKind]
 	cp a, $01
-	jp nz, Label_4E_4CEE
+	jp nz, Browser_PageView_OpenMenu_Show
 
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4F26-4FB7 by apply_coverage --split
 	ld a, $00
 	ldh [hDialogResult], a
-	jp Label_4E_4CEE
+	jp Browser_PageView_OpenMenu_Show
 
 Browser_Menu_DisconnectDo:: ; 4E:4F39
 	; [CONFIRMED] 28 insn(s) executed; cut out of the PROBABLE region 4F26-4FB7 by apply_coverage
@@ -753,14 +767,15 @@ Browser_Menu_EndPrompt:: ; 4E:4F81
 
 Browser_Menu_EndPrompt_DialogResultTable:: ; 4E:4FB7
 Table_4E_4FB7::
-	dw Label_4E_4FC3
+	dw Browser_Menu_EndPrompt_BackToMenu
 	dw Browser_Menu_EndDo
-	dw Label_4E_4FC3
+	dw Browser_Menu_EndPrompt_BackToMenu
 	dw Browser_Menu_LinkLost
 	dw Browser_ConnectionNotice
 	dw Browser_Menu_AdapterError
 
-Label_4E_4FC3:: ; 4E:4FC3
+Browser_Menu_EndPrompt_BackToMenu:: ; 4E:4FC3
+Label_4E_4FC3::
 	; [PROBABLE] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 2;
 	; entered by table from 4E:4FB4 (PROBABLE code) | 8 insn(s) never executed in the traced runs;
 	; cut out of the PROBABLE region 4FC3-4FF6 by apply_coverage --split
@@ -768,10 +783,10 @@ Label_4E_4FC3:: ; 4E:4FC3
 	ldh [hDialogResult], a
 	ld a, [wCommSessionKind]
 	cp a, $01
-	jp nz, Label_4E_4CEE
+	jp nz, Browser_PageView_OpenMenu_Show
 	ld a, $01
 	ldh [hDialogResult], a
-	jp Label_4E_4CEE
+	jp Browser_PageView_OpenMenu_Show
 
 Browser_Menu_EndDo:: ; 4E:4FD6
 	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 4FC3-4FF6 by apply_coverage
@@ -782,14 +797,15 @@ Browser_Menu_EndDo:: ; 4E:4FD6
 	farcall Sprite_ResetAll
 	ld a, [wTimerEnable]
 	bit 4, a
-	jp nz, Label_4E_4FF6
+	jp nz, Browser_Leave_Disconnect
 
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4FC3-4FF6 by apply_coverage --split
 	farcall Comm_EndOffline
 	jr Browser_Leave_Summary
 
-Label_4E_4FF6:: ; 4E:4FF6
+Browser_Leave_Disconnect:: ; 4E:4FF6
+Label_4E_4FF6::
 	; [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios)
 	farcall Comm_DisconnectWithProgress
 
@@ -814,7 +830,7 @@ Browser_Leave_Return:: ; 4E:5009
 Browser_Leave_OnError:: ; 4E:5018
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr nz, Label_4E_4FF6
+	jr nz, Browser_Leave_Disconnect
 
 	; [PROBABLE] 157 insn(s) reached by static flow only; seeds: exec x157; min discovery hops 0;
 	; fall-through of the jrcc at 4E:501D (executed) | 11 insn(s) never executed in the traced runs;
@@ -832,7 +848,8 @@ Browser_Leave_OnError:: ; 4E:5018
 	ld [wTimerAWarnFlags], a
 	jr Browser_Leave_Summary
 
-Label_4E_5040:: ; 4E:5040
+Browser_FetchResult4_Disconnect:: ; 4E:5040
+Label_4E_5040::
 	; [CONFIRMED] 6 insn(s) executed; cut out of the PROBABLE region 501F-5204 by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld a, [wTimerEnable]
@@ -868,17 +885,19 @@ Label_4E_5040:: ; 4E:5040
 	farcall CommTime_ShowSummary
 	ld a, [wDialogOnlineSnapshot]
 	bit 4, a
-	jr z, Label_4E_5082
+	jr z, Browser_FetchResult3_ClearMessage
 	ld a, $10
 	ld [wBrowserPendingMessage], a
-	jr Label_4E_509D
+	jr Browser_FetchResult_RestorePage
 
-Label_4E_5082:: ; 4E:5082
+Browser_FetchResult3_ClearMessage:: ; 4E:5082
+Label_4E_5082::
 	xor a, a
 	ld [wBrowserPendingMessage], a
-	jr Label_4E_509D
+	jr Browser_FetchResult_RestorePage
 
-Label_4E_5088:: ; 4E:5088
+Browser_FetchResult5_SetMessage:: ; 4E:5088
+Label_4E_5088::
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 501F-5204 by apply_coverage --split
 	ld a, [wTimerEnable]
@@ -886,13 +905,14 @@ Label_4E_5088:: ; 4E:5088
 	jr z, .l5096
 	ld a, $11
 	ld [wBrowserPendingMessage], a
-	jr Label_4E_509D
+	jr Browser_FetchResult_RestorePage
 .l5096 ; 4E:5096
 	ld a, $10
 	ld [wBrowserPendingMessage], a
-	jr Label_4E_509D
+	jr Browser_FetchResult_RestorePage
 
-Label_4E_509D:: ; 4E:509D
+Browser_FetchResult_RestorePage:: ; 4E:509D
+Label_4E_509D::
 	; [CONFIRMED] 33 insn(s) executed; cut out of the PROBABLE region 501F-5204 by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld de, $C380
@@ -933,7 +953,8 @@ Browser_ConnectionNotice:: ; 4E:50BE
 .l5104 ; 4E:5104
 	jp Browser_PageView_Enter
 
-Label_4E_5107:: ; 4E:5107
+Browser_FetchResult6_ConnectionNotice:: ; 4E:5107
+Label_4E_5107::
 	; [PROBABLE] 79 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 501F-5204 by apply_coverage --split
 	xor a, a
