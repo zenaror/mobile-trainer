@@ -6,7 +6,7 @@ SECTION "gfx/mail/draft_menu", ROMX
 
 ; ---- gfx $4880-$4B50 (720 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2B:4265: hl=$4880 a=$2B c=$2D de=$9301 (dest VRAM $9300, vbank=1)
 
-Gfx_MailDraftMenu_Tiles9300:: ; 2B:4880
+Gfx_MailDraftMenu_Tiles9300Vb1:: ; 2B:4880
 Data_2B_4880::
 	INCBIN "gfx/mail/draft_menu/mail_draft_menu_tiles9300.2bpp"
 

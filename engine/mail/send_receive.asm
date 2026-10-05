@@ -1713,7 +1713,7 @@ CommTime_DrawHMSScreen:: ; 27:4D81
 	ld a, $27
 	farcall Palette_LoadToBuffer
 	ld de, $9001
-	ld hl, Gfx_CommTimeHMS_Tiles9000
+	ld hl, Gfx_CommTimeHMS_Tiles9000Vb1
 	ld a, $29
 	ld b, $92
 	ld c, $40

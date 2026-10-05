@@ -240,7 +240,7 @@ Function_2C_414C::
 	farcall TextTiles_UploadBuffers
 	farcall LCDOff
 	ld de, $9301
-	ld hl, Gfx_MailTitle_Tiles9300
+	ld hl, Gfx_MailTitle_Tiles9300Vb1
 	ld a, $2C
 	ld b, $92
 	ld c, $40

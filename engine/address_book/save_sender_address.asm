@@ -164,7 +164,7 @@ SaveSenderAddr_InitScreen:: ; 2A:4105
 	ld a, $2A
 	farcall Palette_LoadToBuffer
 	ld de, $9301
-	ld hl, Gfx_SaveSenderAddr_Tiles9300
+	ld hl, Gfx_SaveSenderAddr_Tiles9300Vb1
 	ld a, $2A
 	ld b, $95
 	ld c, $23

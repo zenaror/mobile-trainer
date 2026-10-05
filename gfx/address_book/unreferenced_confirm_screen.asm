@@ -6,7 +6,7 @@ SECTION "gfx/address_book/unreferenced_confirm_screen", ROMX
 
 ; ---- gfx $7740-$7860 (288 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2C:7499: hl=$7740 a=$2C c=$12 de=$9301 (dest VRAM $9300, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 
-Gfx_AddrScreenUnused_Tiles9300:: ; 2C:7740
+Gfx_AddrScreenUnused_Tiles9300Vb1:: ; 2C:7740
 Data_2C_7740::
 	INCBIN "gfx/address_book/unreferenced_confirm_screen/tiles_7740.2bpp"
 

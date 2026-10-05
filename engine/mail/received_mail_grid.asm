@@ -98,13 +98,13 @@ MailGrid_InitScreen:: ; 2B:5448
 	ld a, $2B
 	farcall Palette_LoadToBuffer
 	ld de, $9001
-	ld hl, Gfx_MailGrid_Tiles9000
+	ld hl, Gfx_MailGrid_Tiles9000Vb1
 	ld a, $2B
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, Gfx_MailGrid_Tiles9400
+	ld hl, Gfx_MailGrid_Tiles9400Vb1
 	ld a, $2B
 	ld b, $95
 	ld c, $23

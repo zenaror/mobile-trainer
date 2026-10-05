@@ -6,7 +6,7 @@ SECTION "gfx/mail/mail_title_entry", ROMX
 
 ; ---- data $4A30-$4E30 (1024 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 4A30-56B0 by higher-priority evidence]
 
-Gfx_MailTitle_Tiles9300:: ; 2C:4A30
+Gfx_MailTitle_Tiles9300Vb1:: ; 2C:4A30
 Data_2C_4A30::
 	; kind (tiles) from the label name / config/symbols note; the region header above describes the block differently
 	INCBIN "gfx/mail/mail_title_entry/mail_title_tiles9300.2bpp"

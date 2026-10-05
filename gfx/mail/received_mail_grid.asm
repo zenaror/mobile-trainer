@@ -6,13 +6,13 @@ SECTION "gfx/mail/received_mail_grid", ROMX
 
 ; ---- gfx $59C0-$5DC0 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2B:547D: hl=$59C0 a=$2B c=$40 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 
-Gfx_MailGrid_Tiles9000:: ; 2B:59C0
+Gfx_MailGrid_Tiles9000Vb1:: ; 2B:59C0
 Data_2B_59C0::
 	INCBIN "gfx/mail/received_mail_grid/mail_grid_tiles9000.2bpp"
 
 ; ---- gfx $5DC0-$5FF0 (560 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2B:548F: hl=$5DC0 a=$2B c=$23 de=$9401 (dest VRAM $9400, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 
-Gfx_MailGrid_Tiles9400:: ; 2B:5DC0
+Gfx_MailGrid_Tiles9400Vb1:: ; 2B:5DC0
 Data_2B_5DC0::
 	INCBIN "gfx/mail/received_mail_grid/mail_grid_tiles9400.2bpp"
 

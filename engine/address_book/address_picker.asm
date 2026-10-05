@@ -318,14 +318,14 @@ Function_2C_58AC::
 	farcall Gfx_StartHDMAWithService
 	call VBlank_Wait
 	ld de, $9301
-	ld hl, Gfx_AddrPick_Tiles9300
+	ld hl, Gfx_AddrPick_Tiles9300Vb1
 	ld a, $2C
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	call VBlank_Wait
 	ld de, $9701
-	ld hl, Gfx_AddrPick_Tiles9700
+	ld hl, Gfx_AddrPick_Tiles9700Vb1
 	ld a, $2C
 	ld b, $97
 	ld c, $10

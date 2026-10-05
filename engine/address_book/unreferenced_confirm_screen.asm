@@ -81,7 +81,7 @@ Function_2C_746F::
 	farcall AddrBook_UploadTextTiles
 	farcall LCDOff
 	ld de, $9301
-	ld hl, Gfx_AddrScreenUnused_Tiles9300
+	ld hl, Gfx_AddrScreenUnused_Tiles9300Vb1
 	ld a, $2C
 	ld b, $97
 	ld c, $12

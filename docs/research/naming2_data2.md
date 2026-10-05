@@ -152,6 +152,13 @@ dispatch semantics not decoded); `BrowserMenu_TwoItemRecords` / `ThreeItemRecord
 * `Table_Kbd_*_ByType` tables have one byte per keyboard type 0..10; the meaning of the flags is only what the helper's name says.
 * The banks 41-47 picture blocks and the bank-70 animation tables need a consumer search through the pointer tables that index them.
 
+## Follow-up (2026-10-05): the `Vb1` suffix of 18 older names
+
+The adversarial check of this pass (`naming2_verify_data2a.md`, "Older `Tiles<VRAM>` names without `Vb1`") listed 18 `Gfx_*_Tiles9xxx` names from the first naming pass whose only load site passes an odd `E` to
+`Gfx_StartHDMA[WithService]` (`rVBK = e & 1`, `home/gfx_upload.asm`), i.e. VRAM bank 1, so they now end in `Vb1` like the rest of the family (`analysis/naming2/vb1_renames.tsv`, applied with `tools/apply_renames.py`;
+SHA-256 unchanged).  Each row was re-read at its load site: the `de` immediate is `$9301`, `$9701`, `$9001` or `$9401` and the address in the name equals `de & $FFF0`.  `gfx/assets.tsv` (12 of the 18 are extracted
+assets) and `gfx/previews/screen_ops.tsv` (regenerated) carry the new names; `STYLE.md` section 4 states the convention.
+
 ## Reproduce
 
 ```

@@ -16,7 +16,7 @@ Data_29_53F6:: ; 29:53F6
 
 ; ---- gfx $5400-$5800 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 27:4DCC: hl=$5400 a=$29 c=$40 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 
-Gfx_CommTimeHMS_Tiles9000:: ; 29:5400
+Gfx_CommTimeHMS_Tiles9000Vb1:: ; 29:5400
 Data_29_5400::
 	INCBIN "gfx/mail/connect_screen_bank29/tiles_5400.2bpp"
 

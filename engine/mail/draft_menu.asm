@@ -294,7 +294,7 @@ MailDraft_Menu_InitScreen:: ; 2B:420C
 	ld a, $2B
 	farcall Palette_LoadToBuffer
 	ld de, $9301
-	ld hl, Gfx_MailDraftMenu_Tiles9300
+	ld hl, Gfx_MailDraftMenu_Tiles9300Vb1
 	ld a, $2B
 	ld b, $94
 	ld c, $2D

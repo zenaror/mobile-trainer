@@ -187,14 +187,14 @@ MailView_SenderPage_InitScreen:: ; 2B:65AB
 	farcall Palette_LoadToBuffer
 	call VBlank_Wait
 	ld de, $9001
-	ld hl, Gfx_MailView_Tiles9000
+	ld hl, Gfx_MailView_Tiles9000Vb1
 	ld a, $2B
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMA
 	call VBlank_Wait
 	ld de, $9401
-	ld hl, Gfx_MailView_Tiles9400
+	ld hl, Gfx_MailView_Tiles9400Vb1
 	ld a, $2B
 	ld b, $95
 	ld c, $20

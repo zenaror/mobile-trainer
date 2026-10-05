@@ -6,13 +6,13 @@ SECTION "gfx/mail/mail_viewer", ROMX
 
 ; ---- gfx $6DD0-$71D0 (1024 bytes) [CONFIRMED] 64 tiles: 'ld de,$9001 ; ld hl,$6DD0 ; ld a,$2B ; ld c,$40 ; call FarCall -> 00:0749 (HDMA rom->vram)' at 2B:6620-6631; merges the former zero-run / UNCLASSIFIED fragments (blank rows are tile content) [every byte read as data in 9 scenario(s)]
 
-Gfx_MailView_Tiles9000:: ; 2B:6DD0
+Gfx_MailView_Tiles9000Vb1:: ; 2B:6DD0
 Tiles_2B_6DD0::
 	INCBIN "gfx/mail/mail_viewer/mail_view_tiles9000.2bpp"
 
 ; ---- gfx $71D0-$73D0 (512 bytes) [PROBABLE] 32 tiles: 'ld de,$9401 ; ld hl,$71D0 ; ld a,$2B ; ld c,$20 ; HDMA' at 2B:6635-6646; ends where the tilemap+attr block at 73D0 begins
 
-Gfx_MailView_Tiles9400:: ; 2B:71D0
+Gfx_MailView_Tiles9400Vb1:: ; 2B:71D0
 Tiles_2B_71D0::
 	INCBIN "gfx/mail/mail_viewer/mail_view_tiles9400.2bpp"
 

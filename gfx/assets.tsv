@@ -123,8 +123,8 @@ gfx/address_book/address_editor/abook_addr.tilemap	tilemap	360	gfx/address_book/
 gfx/address_book/address_editor/abook_addr.attrmap	attrmap	360	gfx/address_book/address_editor.asm	2F	7C28	CONFIRMED	-	0	20x18	Tilemap_AbookAddr
 gfx/address_book/address_editor/abook_addr_bg.pal	palette	14	gfx/address_book/address_editor.asm	2F	7D90	CONFIRMED	-	0		Palette_AbookAddr_Bg
 gfx/address_book/address_editor/palette_7d9e.pal	palette	32	gfx/address_book/address_editor.asm	2F	7D9E	PROBABLE	-	0		Data_2F_7D9E
-gfx/address_book/address_picker/addr_pick_tiles9300.2bpp	tiles	1024	gfx/address_book/address_picker.asm	2C	6730	CONFIRMED	exact	0		Gfx_AddrPick_Tiles9300
-gfx/address_book/address_picker/addr_pick_tiles9700.2bpp	tiles	256	gfx/address_book/address_picker.asm	2C	6B30	CONFIRMED	exact	0		Gfx_AddrPick_Tiles9700
+gfx/address_book/address_picker/addr_pick_tiles9300.2bpp	tiles	1024	gfx/address_book/address_picker.asm	2C	6730	CONFIRMED	exact	0		Gfx_AddrPick_Tiles9300Vb1
+gfx/address_book/address_picker/addr_pick_tiles9700.2bpp	tiles	256	gfx/address_book/address_picker.asm	2C	6B30	CONFIRMED	exact	0		Gfx_AddrPick_Tiles9700Vb1
 gfx/address_book/address_picker/addr_book_tiles8f00.2bpp	tiles	144	gfx/address_book/address_picker.asm	2C	6C30	CONFIRMED	exact	0		Gfx_AddrBook_Tiles8F00
 gfx/address_book/address_picker/data_addr_pick_tilemap_attr.tilemap	tilemap	360	gfx/address_book/address_picker.asm	2C	6CC0	CONFIRMED	-	0	20x18	Data_AddrPick_TilemapAttr
 gfx/address_book/address_picker/data_addr_pick_tilemap_attr.attrmap	attrmap	360	gfx/address_book/address_picker.asm	2C	6E28	CONFIRMED	-	0	20x18	Data_AddrPick_TilemapAttr
@@ -147,11 +147,11 @@ gfx/address_book/name_editor/abook_name.tilemap	tilemap	360	gfx/address_book/nam
 gfx/address_book/name_editor/abook_name.attrmap	attrmap	360	gfx/address_book/name_editor.asm	2F	6B58	PROBABLE	-	0	20x18	Tilemap_AbookName
 gfx/address_book/name_editor/palette_6cc0.pal	palette	64	gfx/address_book/name_editor.asm	2F	6CC0	CONFIRMED	-	0		Palette_2F_6CC0
 gfx/address_book/save_confirm/addr_save_confirm_bg.pal	palette	64	gfx/address_book/save_confirm.asm	2A	75A0	PROBABLE	-	0		Palette_AddrSaveConfirm_Bg
-gfx/address_book/save_confirm/addr_save_confirm_tiles9300.2bpp	tiles	1024	gfx/address_book/save_confirm.asm	2A	75E0	PROBABLE	exact	0		Gfx_AddrSaveConfirm_Tiles9300
-gfx/address_book/save_confirm/addr_save_confirm_tiles9700.2bpp	tiles	64	gfx/address_book/save_confirm.asm	2A	79E0	PROBABLE	exact	0		Gfx_AddrSaveConfirm_Tiles9700
+gfx/address_book/save_confirm/addr_save_confirm_tiles9300.2bpp	tiles	1024	gfx/address_book/save_confirm.asm	2A	75E0	PROBABLE	exact	0		Gfx_AddrSaveConfirm_Tiles9300Vb1
+gfx/address_book/save_confirm/addr_save_confirm_tiles9700.2bpp	tiles	64	gfx/address_book/save_confirm.asm	2A	79E0	PROBABLE	exact	0		Gfx_AddrSaveConfirm_Tiles9700Vb1
 gfx/address_book/save_confirm/data_addr_save_confirm_tilemap_attr.tilemap	tilemap	360	gfx/address_book/save_confirm.asm	2A	7A20	PROBABLE	-	0	20x18	Data_AddrSaveConfirm_TilemapAttr
 gfx/address_book/save_confirm/data_addr_save_confirm_tilemap_attr.attrmap	attrmap	360	gfx/address_book/save_confirm.asm	2A	7B88	PROBABLE	-	0	20x18	Data_AddrSaveConfirm_TilemapAttr
-gfx/address_book/save_sender_address/save_sender_addr_tiles9300.2bpp	tiles	560	gfx/address_book/save_sender_address.asm	2A	4AA0	CONFIRMED	exact	13		Gfx_SaveSenderAddr_Tiles9300
+gfx/address_book/save_sender_address/save_sender_addr_tiles9300.2bpp	tiles	560	gfx/address_book/save_sender_address.asm	2A	4AA0	CONFIRMED	exact	13		Gfx_SaveSenderAddr_Tiles9300Vb1
 gfx/address_book/save_sender_address/data_save_sender_addr_tilemap_attr.tilemap	tilemap	360	gfx/address_book/save_sender_address.asm	2A	4CD0	PROBABLE	-	0	20x18	Data_SaveSenderAddr_TilemapAttr
 gfx/address_book/save_sender_address/data_save_sender_addr_tilemap_attr.attrmap	attrmap	360	gfx/address_book/save_sender_address.asm	2A	4E38	PROBABLE	-	0	20x18	Data_SaveSenderAddr_TilemapAttr
 gfx/address_book/save_sender_address/save_sender_addr_bg.pal	palette	64	gfx/address_book/save_sender_address.asm	2A	4FA0	PROBABLE	-	0		Palette_SaveSenderAddr_Bg
@@ -664,28 +664,28 @@ gfx/mail/connect_screen_bank29/tiles_5400.2bpp	tiles	1024	gfx/mail/connect_scree
 gfx/mail/connect_screen_bank29/tilemap_5800.tilemap	tilemap	360	gfx/mail/connect_screen_bank29.asm	29	5800	PROBABLE	-	0	20x18	Data_29_5800
 gfx/mail/connect_screen_bank29/tilemap_5800.attrmap	attrmap	360	gfx/mail/connect_screen_bank29.asm	29	5968	PROBABLE	-	0	20x18	Data_29_5800
 gfx/mail/connect_screen_bank29/palette_5ad0.pal	palette	64	gfx/mail/connect_screen_bank29.asm	29	5AD0	PROBABLE	-	0		Palette_29_5AD0
-gfx/mail/draft_menu/mail_draft_menu_tiles9300.2bpp	tiles	720	gfx/mail/draft_menu.asm	2B	4880	CONFIRMED	exact	0		Gfx_MailDraftMenu_Tiles9300
+gfx/mail/draft_menu/mail_draft_menu_tiles9300.2bpp	tiles	720	gfx/mail/draft_menu.asm	2B	4880	CONFIRMED	exact	0		Gfx_MailDraftMenu_Tiles9300Vb1
 gfx/mail/draft_menu/data_mail_draft_menu_tilemap_attr.tilemap	tilemap	360	gfx/mail/draft_menu.asm	2B	4B50	CONFIRMED	-	0	20x18	Data_MailDraftMenu_TilemapAttr
 gfx/mail/draft_menu/data_mail_draft_menu_tilemap_attr.attrmap	attrmap	360	gfx/mail/draft_menu.asm	2B	4CB8	CONFIRMED	-	0	20x18	Data_MailDraftMenu_TilemapAttr
 gfx/mail/draft_menu/mail_draft_menu_bg.pal	palette	64	gfx/mail/draft_menu.asm	2B	4E20	PROBABLE	-	0		Palette_MailDraftMenu_Bg
 gfx/mail/draft_menu/mail_draft_menu_tiles8000.2bpp	tiles	816	gfx/mail/draft_menu.asm	2B	4E60	CONFIRMED	exact	13		Gfx_MailDraftMenu_Tiles8000
 gfx/mail/draft_menu/mail_draft_menu_obj.pal	palette	64	gfx/mail/draft_menu.asm	2B	5190	CONFIRMED	-	0		Palette_MailDraftMenu_Obj
-gfx/mail/mail_title_entry/mail_title_tiles9300.2bpp	tiles	1024	gfx/mail/mail_title_entry.asm	2C	4A30	CONFIRMED	exact	0		Gfx_MailTitle_Tiles9300
+gfx/mail/mail_title_entry/mail_title_tiles9300.2bpp	tiles	1024	gfx/mail/mail_title_entry.asm	2C	4A30	CONFIRMED	exact	0		Gfx_MailTitle_Tiles9300Vb1
 gfx/mail/mail_title_entry/data_mail_title_tilemap_attr.tilemap	tilemap	360	gfx/mail/mail_title_entry.asm	2C	4E30	CONFIRMED	-	0	20x18	Data_MailTitle_TilemapAttr
 gfx/mail/mail_title_entry/data_mail_title_tilemap_attr.attrmap	attrmap	360	gfx/mail/mail_title_entry.asm	2C	4F98	CONFIRMED	-	0	20x18	Data_MailTitle_TilemapAttr
 gfx/mail/mail_title_entry/mail_title_bg.pal	palette	64	gfx/mail/mail_title_entry.asm	2C	5100	PROBABLE	-	0		Palette_MailTitle_Bg
 gfx/mail/mail_title_entry/mail_title_tiles8000.2bpp	tiles	16	gfx/mail/mail_title_entry.asm	2C	5140	PROBABLE	exact	0		Gfx_MailTitle_Tiles8000
 gfx/mail/mail_title_entry/mail_title_tiles8800.2bpp	tiles	592	gfx/mail/mail_title_entry.asm	2C	5410	CONFIRMED	exact	11		Gfx_MailTitle_Tiles8800
 gfx/mail/mail_title_entry/mail_title_obj.pal	palette	64	gfx/mail/mail_title_entry.asm	2C	5670	CONFIRMED	-	0		Palette_MailTitle_Obj
-gfx/mail/mail_viewer/mail_view_tiles9000.2bpp	tiles	1024	gfx/mail/mail_viewer.asm	2B	6DD0	CONFIRMED	exact	0		Gfx_MailView_Tiles9000
-gfx/mail/mail_viewer/mail_view_tiles9400.2bpp	tiles	512	gfx/mail/mail_viewer.asm	2B	71D0	PROBABLE	exact	0		Gfx_MailView_Tiles9400
+gfx/mail/mail_viewer/mail_view_tiles9000.2bpp	tiles	1024	gfx/mail/mail_viewer.asm	2B	6DD0	CONFIRMED	exact	0		Gfx_MailView_Tiles9000Vb1
+gfx/mail/mail_viewer/mail_view_tiles9400.2bpp	tiles	512	gfx/mail/mail_viewer.asm	2B	71D0	PROBABLE	exact	0		Gfx_MailView_Tiles9400Vb1
 gfx/mail/mail_viewer/data_mail_view_tilemap_attr.tilemap	tilemap	360	gfx/mail/mail_viewer.asm	2B	73D0	PROBABLE	-	0	20x18	Data_MailView_TilemapAttr
 gfx/mail/mail_viewer/data_mail_view_tilemap_attr.attrmap	attrmap	360	gfx/mail/mail_viewer.asm	2B	7538	PROBABLE	-	0	20x18	Data_MailView_TilemapAttr
 gfx/mail/mail_viewer/mail_view_bg.pal	palette	64	gfx/mail/mail_viewer.asm	2B	76A0	PROBABLE	-	0		Palette_MailView_Bg
 gfx/mail/mail_viewer/mail_view_tiles8000.2bpp	tiles	384	gfx/mail/mail_viewer.asm	2B	76E0	PROBABLE	exact	0		Gfx_MailView_Tiles8000
 gfx/mail/mail_viewer/mail_view_obj.pal	palette	64	gfx/mail/mail_viewer.asm	2B	7860	PROBABLE	-	0		Palette_MailView_Obj
-gfx/mail/received_mail_grid/mail_grid_tiles9000.2bpp	tiles	1024	gfx/mail/received_mail_grid.asm	2B	59C0	PROBABLE	exact	0		Gfx_MailGrid_Tiles9000
-gfx/mail/received_mail_grid/mail_grid_tiles9400.2bpp	tiles	560	gfx/mail/received_mail_grid.asm	2B	5DC0	PROBABLE	exact	13		Gfx_MailGrid_Tiles9400
+gfx/mail/received_mail_grid/mail_grid_tiles9000.2bpp	tiles	1024	gfx/mail/received_mail_grid.asm	2B	59C0	PROBABLE	exact	0		Gfx_MailGrid_Tiles9000Vb1
+gfx/mail/received_mail_grid/mail_grid_tiles9400.2bpp	tiles	560	gfx/mail/received_mail_grid.asm	2B	5DC0	PROBABLE	exact	13		Gfx_MailGrid_Tiles9400Vb1
 gfx/mail/received_mail_grid/data_mail_grid_tilemap_attr.tilemap	tilemap	360	gfx/mail/received_mail_grid.asm	2B	5FF0	PROBABLE	-	0	20x18	Data_MailGrid_TilemapAttr
 gfx/mail/received_mail_grid/data_mail_grid_tilemap_attr.attrmap	attrmap	360	gfx/mail/received_mail_grid.asm	2B	6158	PROBABLE	-	0	20x18	Data_MailGrid_TilemapAttr
 gfx/mail/received_mail_grid/mail_grid_bg.pal	palette	64	gfx/mail/received_mail_grid.asm	2B	62C0	PROBABLE	-	0		Palette_MailGrid_Bg
@@ -797,7 +797,7 @@ gfx/mailbox/mailbox/mailbox_tiles_6cf0.2bpp	tiles	384	gfx/mailbox/mailbox.asm	25
 gfx/mailbox/mailbox/mailbox_obj_palette.pal	palette	6	gfx/mailbox/mailbox.asm	25	6EF0	CONFIRMED	-	0		Mailbox_ObjPalette
 gfx/mailbox/mailbox/palette_6ef6.pal	palette	56	gfx/mailbox/mailbox.asm	25	6EF6	PROBABLE	-	0		Data_25_6EF6
 gfx/mailbox/objects/palette_7ac0.pal	palette	64	gfx/mailbox/objects.asm	26	7AC0	PROBABLE	-	0		Palette_26_7AC0
-gfx/profile/profile_editor/profile_tiles9300.2bpp	tiles	1024	gfx/profile/profile_editor.asm	2A	6300	CONFIRMED	exact	0		Gfx_Profile_Tiles9300
+gfx/profile/profile_editor/profile_tiles9300.2bpp	tiles	1024	gfx/profile/profile_editor.asm	2A	6300	CONFIRMED	exact	0		Gfx_Profile_Tiles9300Vb1
 gfx/profile/profile_editor/profile_tiles9700.2bpp	tiles	256	gfx/profile/profile_editor.asm	2A	6700	CONFIRMED	exact	0		Gfx_Profile_Tiles9700
 gfx/profile/profile_editor/profile_tiles8800.2bpp	tiles	832	gfx/profile/profile_editor.asm	2A	6800	CONFIRMED	exact	0		Gfx_Profile_Tiles8800
 gfx/profile/profile_editor/data_profile_tilemap_attr.tilemap	tilemap	360	gfx/profile/profile_editor.asm	2A	6B40	CONFIRMED	-	0	20x18	Data_Profile_TilemapAttr

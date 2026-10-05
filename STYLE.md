@@ -164,7 +164,7 @@ evidence; then rename over the whole tree (search and replace), and `make` plus 
 
 * Data and text keep their kind prefix: `String_<Subsystem>_<What>` (`String_Abook_HelpNew`), `Table_<Subsystem>_<What>` (`Table_MailDraftMenu_Captions`), `Data_<Subsystem>_<What>` (`Data_Browser_FrameDesc0`).
 * Graphics: `Gfx_<Screen>_Tiles<n or address>` for tile data (`Gfx_Title_Tiles0`, `Gfx_AddrBook_Tiles8F00`), `Tilemap_<Screen>_<What>`, `Attrmap_<Screen>_<What>`, `Palette_<Screen>_Bg|Obj`
-  (`Palette_Title_Bg`).
+  (`Palette_Title_Bg`).  A tile block that `Gfx_StartHDMA[WithService]` loads into VRAM bank 1 (odd `E` in `de`) ends in `Vb1` after the address (`Gfx_Profile_Tiles9300Vb1`); the address is `de & $FFF0`.
 * When the same semantic name applies to several positions, the original position is appended to keep them unique (`Gfx_StartHDMAAtVBlank_2B_4723`, `Gfx_StartHDMAAtVBlank_2C_669D`).
 * Names must be unique across the ROM (labels, constants and RAM names share one namespace) and must not clash with an RGBDS keyword.
 

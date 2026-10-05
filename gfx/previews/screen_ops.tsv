@@ -111,8 +111,8 @@ AbookAddr_SetupScreen	engine/address_book/address_editor.asm:470	tilemap	Tilemap
 AddrPick_InitScreen	engine/address_book/address_picker.asm:305	palette	Palette_AddrBook_Obj	2C	n=64 dest=$D840
 AddrPick_InitScreen	engine/address_book/address_picker.asm:311	palette	Palette_AddrPick_Bg	2C	n=64 dest=$D800
 AddrPick_InitScreen	engine/address_book/address_picker.asm:318	tiles	Gfx_AddrBook_Tiles8F00	2C	n=9 vram=$8F00 vbank=0
-AddrPick_InitScreen	engine/address_book/address_picker.asm:325	tiles	Gfx_AddrPick_Tiles9300	2C	n=64 vram=$9300 vbank=1
-AddrPick_InitScreen	engine/address_book/address_picker.asm:332	tiles	Gfx_AddrPick_Tiles9700	2C	n=16 vram=$9700 vbank=1
+AddrPick_InitScreen	engine/address_book/address_picker.asm:325	tiles	Gfx_AddrPick_Tiles9300Vb1	2C	n=64 vram=$9300 vbank=1
+AddrPick_InitScreen	engine/address_book/address_picker.asm:332	tiles	Gfx_AddrPick_Tiles9700Vb1	2C	n=16 vram=$9700 vbank=1
 AddrPick_InitScreen	engine/address_book/address_picker.asm:339	tiles	Gfx_AddrBookShared_Tiles8000	28	n=64 vram=$8000 vbank=0
 AddrPick_InitScreen	engine/address_book/address_picker.asm:346	tiles	Gfx_AddrBookShared_Tiles8400	28	n=32 vram=$8400 vbank=0
 AddrPick_InitScreen	engine/address_book/address_picker.asm:352	tilemap	Data_AddrPick_TilemapAttr	2C	rows=18 cols=20 dest=$D000
@@ -124,32 +124,32 @@ AbookList_SetupScreen	engine/address_book/list.asm:901	tiles	Gfx_AddrBookShared_
 AbookList_SetupScreen	engine/address_book/list.asm:906	tilemap	Tilemap_Abook_List	2F	rows=18 cols=20 dest=$D000
 AbookList_SetupScreen	engine/address_book/list.asm:911	palette	Palette_AddrBook_Obj	2C	n=64 dest=$D840
 AbookList_SetupScreen	engine/address_book/list.asm:916	palette	Palette_AbookList_Bg	28	n=64 dest=$D800
-AbookName_SetupScreen	engine/address_book/name_editor.asm:239	tiles	Gfx_AbookName_Tiles9300	2F	n=64 vram=$9300 vbank=1
-AbookName_SetupScreen	engine/address_book/name_editor.asm:245	tiles	Gfx_AbookName_Tiles9700	2F	n=16 vram=$9700 vbank=1
+AbookName_SetupScreen	engine/address_book/name_editor.asm:239	tiles	Gfx_AbookName_Tiles9300Vb1	2F	n=64 vram=$9300 vbank=1
+AbookName_SetupScreen	engine/address_book/name_editor.asm:245	tiles	Gfx_AbookName_Tiles9700Vb1	2F	n=16 vram=$9700 vbank=1
 AbookName_SetupScreen	engine/address_book/name_editor.asm:251	tiles	Gfx_AbookName_Tiles8800	2F	n=48 vram=$8800 vbank=0
 AbookName_SetupScreen	engine/address_book/name_editor.asm:257	tiles	Gfx_AbookEdit_Tiles8000	29	n=48 vram=$8000 vbank=0
 AbookName_SetupScreen	engine/address_book/name_editor.asm:262	palette	Palette_AbookEdit_Obj	29	n=64 dest=$D840
 AbookName_SetupScreen	engine/address_book/name_editor.asm:267	palette	Palette_AbookName_Bg	2F	n=64 dest=$D800
 AbookName_SetupScreen	engine/address_book/name_editor.asm:272	tilemap	Tilemap_AbookName	2F	rows=18 cols=20 dest=$D000
 AddrBook_SaveConfirm_InitScreen	engine/address_book/save_confirm.asm:174	palette	Palette_AddrSaveConfirm_Bg	2A	n=64 dest=$D800
-AddrBook_SaveConfirm_InitScreen	engine/address_book/save_confirm.asm:180	tiles	Gfx_AddrSaveConfirm_Tiles9300	2A	n=64 vram=$9300 vbank=1
-AddrBook_SaveConfirm_InitScreen	engine/address_book/save_confirm.asm:186	tiles	Gfx_AddrSaveConfirm_Tiles9700	2A	n=4 vram=$9700 vbank=1
+AddrBook_SaveConfirm_InitScreen	engine/address_book/save_confirm.asm:180	tiles	Gfx_AddrSaveConfirm_Tiles9300Vb1	2A	n=64 vram=$9300 vbank=1
+AddrBook_SaveConfirm_InitScreen	engine/address_book/save_confirm.asm:186	tiles	Gfx_AddrSaveConfirm_Tiles9700Vb1	2A	n=4 vram=$9700 vbank=1
 AddrBook_SaveConfirm_InitScreen	engine/address_book/save_confirm.asm:191	tilemap	Data_AddrSaveConfirm_TilemapAttr	2A	rows=18 cols=20 dest=$D000
 SaveSenderAddr_InitScreen	engine/address_book/save_sender_address.asm:160	palette	Palette_AddrBook_Obj	2C	n=64 dest=$D840
 SaveSenderAddr_InitScreen	engine/address_book/save_sender_address.asm:165	palette	Palette_SaveSenderAddr_Bg	2A	n=64 dest=$D800
-SaveSenderAddr_InitScreen	engine/address_book/save_sender_address.asm:171	tiles	Gfx_SaveSenderAddr_Tiles9300	2A	n=35 vram=$9300 vbank=1
+SaveSenderAddr_InitScreen	engine/address_book/save_sender_address.asm:171	tiles	Gfx_SaveSenderAddr_Tiles9300Vb1	2A	n=35 vram=$9300 vbank=1
 SaveSenderAddr_InitScreen	engine/address_book/save_sender_address.asm:177	tiles	Gfx_AddrBookShared_Tiles8000	28	n=64 vram=$8000 vbank=0
 SaveSenderAddr_InitScreen	engine/address_book/save_sender_address.asm:183	tiles	Gfx_AddrBookShared_Tiles8400	28	n=32 vram=$8400 vbank=0
 SaveSenderAddr_InitScreen	engine/address_book/save_sender_address.asm:188	tilemap	Data_SaveSenderAddr_TilemapAttr	2A	rows=18 cols=20 dest=$D000
-AddrScreenUnused_InitScreen	engine/address_book/unreferenced_confirm_screen.asm:88	tiles	Gfx_AddrScreenUnused_Tiles9300	2C	n=18 vram=$9300 vbank=1
+AddrScreenUnused_InitScreen	engine/address_book/unreferenced_confirm_screen.asm:88	tiles	Gfx_AddrScreenUnused_Tiles9300Vb1	2C	n=18 vram=$9300 vbank=1
 AddrScreenUnused_InitScreen	engine/address_book/unreferenced_confirm_screen.asm:94	tiles	Gfx_AddrScreenUnused_Tiles8000	2C	n=9 vram=$8000 vbank=0
 AddrScreenUnused_InitScreen	engine/address_book/unreferenced_confirm_screen.asm:99	palette	Palette_AddrScreenUnused_Bg	2C	n=64 dest=$D800
 AddrScreenUnused_InitScreen	engine/address_book/unreferenced_confirm_screen.asm:104	tilemap	Tilemap_AddrScreenUnused_Screen	2C	rows=18 cols=20 dest=$D000
 AddrScreenUnused_InitScreen	engine/address_book/unreferenced_confirm_screen.asm:109	palette	Palette_AddrScreenUnused_Obj	2C	n=64 dest=$D840
 AbookView_SetupScreen	engine/address_book/view.asm:198	palette	Palette_AddrBookEntry_Obj	2C	n=64 dest=$D840
 AbookView_SetupScreen	engine/address_book/view.asm:203	palette	Palette_AddrBookEntry_Bg	2C	n=64 dest=$D800
-AbookView_SetupScreen	engine/address_book/view.asm:209	tiles	Gfx_AbookView_Tiles9300	29	n=64 vram=$9300 vbank=1
-AbookView_SetupScreen	engine/address_book/view.asm:215	tiles	Gfx_AbookView_Tiles9700	29	n=4 vram=$9700 vbank=1
+AbookView_SetupScreen	engine/address_book/view.asm:209	tiles	Gfx_AbookView_Tiles9300Vb1	29	n=64 vram=$9300 vbank=1
+AbookView_SetupScreen	engine/address_book/view.asm:215	tiles	Gfx_AbookView_Tiles9700Vb1	29	n=4 vram=$9700 vbank=1
 AbookView_SetupScreen	engine/address_book/view.asm:221	tiles	Gfx_AddrBookEntry_Tiles8F00	2A	n=14 vram=$8F00 vbank=0
 AbookView_SetupScreen	engine/address_book/view.asm:227	tiles	Gfx_AddrBookEntry_Tiles8000	2A	n=11 vram=$8000 vbank=0
 AbookView_SetupScreen	engine/address_book/view.asm:232	tilemap	Data_AddrBookEntry_TilemapAttr	2C	rows=18 cols=20 dest=$D000
@@ -592,7 +592,7 @@ MailBody_InitScreen	engine/mail/body_view.asm:79	tilemap	MailBody_Tilemap	28	row
 MailDraft_Menu_InitScreen	engine/mail/draft_menu.asm:284	palette	Palette_MailDraftMenu_Bg	2B	n=64 dest=$D800
 MailDraft_Menu_InitScreen	engine/mail/draft_menu.asm:290	tiles	Gfx_MailDraftMenu_Tiles8000	2B	n=51 vram=$8000 vbank=0
 MailDraft_Menu_InitScreen	engine/mail/draft_menu.asm:295	palette	Palette_MailDraftMenu_Obj	2B	n=64 dest=$D840
-MailDraft_Menu_InitScreen	engine/mail/draft_menu.asm:301	tiles	Gfx_MailDraftMenu_Tiles9300	2B	n=45 vram=$9300 vbank=1
+MailDraft_Menu_InitScreen	engine/mail/draft_menu.asm:301	tiles	Gfx_MailDraftMenu_Tiles9300Vb1	2B	n=45 vram=$9300 vbank=1
 MailDraft_Menu_InitScreen	engine/mail/draft_menu.asm:306	tilemap	Data_MailDraftMenu_TilemapAttr	2B	rows=18 cols=20 dest=$D000
 MailSession_InitScreen	engine/mail/mail_session_screen.asm:230	palette	Palette_CommProgress_Bg	22	n=64 dest=$D800
 MailSession_InitScreen	engine/mail/mail_session_screen.asm:235	palette	$5C90	22	n=64 dest=$D840
@@ -607,7 +607,7 @@ MailSession_InitScreen	engine/mail/mail_session_screen.asm:283	tiles	MailSession
 MailSession_InitScreen	engine/mail/mail_session_screen.asm:288	palette	$7520	27	n=64 dest=$D840
 MailSession_InitScreen	engine/mail/mail_session_screen.asm:293	tilemap	Tilemap_CommProgress_Screen	22	rows=18 cols=20 dest=$D000
 MailSession_UpdateTimerDisplay	engine/mail/mail_session_screen.asm:1185	tiles	MailSession_Tiles_66E0	26	n=1 vram=$9400 vbank=1
-MailTitle_InitScreen	engine/mail/mail_title_entry.asm:247	tiles	Gfx_MailTitle_Tiles9300	2C	n=64 vram=$9300 vbank=1
+MailTitle_InitScreen	engine/mail/mail_title_entry.asm:247	tiles	Gfx_MailTitle_Tiles9300Vb1	2C	n=64 vram=$9300 vbank=1
 MailTitle_InitScreen	engine/mail/mail_title_entry.asm:253	tiles	$5410	2C	n=38 vram=$8800 vbank=0
 MailTitle_InitScreen	engine/mail/mail_title_entry.asm:259	tiles	$5140	2C	n=45 vram=$8000 vbank=0
 MailTitle_InitScreen	engine/mail/mail_title_entry.asm:264	palette	Palette_MailTitle_Obj	2C	n=64 dest=$D840
@@ -621,8 +621,8 @@ MailView_BodyPage_InitScreen	engine/mail/mail_viewer_body.asm:121	tilemap	Tilema
 MailView_SenderPage_InitScreen	engine/mail/mail_viewer_sender.asm:174	palette	Palette_MailView_Bg	2B	n=64 dest=$D800
 MailView_SenderPage_InitScreen	engine/mail/mail_viewer_sender.asm:181	tiles	Gfx_MailView_Tiles8000	2B	n=24 vram=$8000 vbank=0
 MailView_SenderPage_InitScreen	engine/mail/mail_viewer_sender.asm:187	palette	Palette_MailView_Obj	2B	n=64 dest=$D840
-MailView_SenderPage_InitScreen	engine/mail/mail_viewer_sender.asm:194	tiles	Gfx_MailView_Tiles9000	2B	n=64 vram=$9000 vbank=1
-MailView_SenderPage_InitScreen	engine/mail/mail_viewer_sender.asm:201	tiles	Gfx_MailView_Tiles9400	2B	n=32 vram=$9400 vbank=1
+MailView_SenderPage_InitScreen	engine/mail/mail_viewer_sender.asm:194	tiles	Gfx_MailView_Tiles9000Vb1	2B	n=64 vram=$9000 vbank=1
+MailView_SenderPage_InitScreen	engine/mail/mail_viewer_sender.asm:201	tiles	Gfx_MailView_Tiles9400Vb1	2B	n=32 vram=$9400 vbank=1
 MailView_SenderPage_InitScreen	engine/mail/mail_viewer_sender.asm:207	tilemap	Data_MailView_TilemapAttr	2B	rows=18 cols=20 dest=$D000
 Mailbox_LoadScreen	engine/mail/mailbox_screen.asm:23	palette	Mailbox_BgPalette	25	n=64 dest=$D800
 Mailbox_LoadScreen	engine/mail/mailbox_screen.asm:29	palette	$6EF0	25	n=64 dest=$D840
@@ -643,8 +643,8 @@ Mailbox_LoadScreen	engine/mail/mailbox_screen.asm:128	tilemap	Mailbox_Tilemap_De
 Mailbox_LoadScreen	engine/mail/mailbox_screen.asm:137	palette	Mailbox_BgPalette	25	n=64 dest=$D800
 Mailbox_LoadScreen	engine/mail/mailbox_screen.asm:143	palette	$6EF0	25	n=64 dest=$D840
 MailGrid_InitScreen	engine/mail/received_mail_grid.asm:99	palette	Palette_MailGrid_Bg	2B	n=64 dest=$D800
-MailGrid_InitScreen	engine/mail/received_mail_grid.asm:105	tiles	Gfx_MailGrid_Tiles9000	2B	n=64 vram=$9000 vbank=1
-MailGrid_InitScreen	engine/mail/received_mail_grid.asm:111	tiles	Gfx_MailGrid_Tiles9400	2B	n=35 vram=$9400 vbank=1
+MailGrid_InitScreen	engine/mail/received_mail_grid.asm:105	tiles	Gfx_MailGrid_Tiles9000Vb1	2B	n=64 vram=$9000 vbank=1
+MailGrid_InitScreen	engine/mail/received_mail_grid.asm:111	tiles	Gfx_MailGrid_Tiles9400Vb1	2B	n=35 vram=$9400 vbank=1
 MailGrid_InitScreen	engine/mail/received_mail_grid.asm:117	tiles	Gfx_MailGrid_Tiles8000	2B	n=15 vram=$8000 vbank=0
 MailGrid_InitScreen	engine/mail/received_mail_grid.asm:122	palette	Palette_MailGrid_Obj	2B	n=64 dest=$D840
 MailGrid_InitScreen	engine/mail/received_mail_grid.asm:127	tilemap	Data_MailGrid_TilemapAttr	2B	rows=18 cols=20 dest=$D000
@@ -687,7 +687,7 @@ MailConnect_InitScreen	engine/mail/send_receive.asm:1584	tilemap	MailConnect_Win
 MailConnect_InitScreen	engine/mail/send_receive.asm:1591	tilemap	MailDisconnect_WinMsg_Ending	27	rows=5 cols=20 dest=$D000
 CommTime_DrawHMSScreen	engine/mail/send_receive.asm:1709	palette	Palette_CommTimeHMS_Bg	29	n=64 dest=$D800
 CommTime_DrawHMSScreen	engine/mail/send_receive.asm:1714	palette	$7520	27	n=64 dest=$D840
-CommTime_DrawHMSScreen	engine/mail/send_receive.asm:1720	tiles	Gfx_CommTimeHMS_Tiles9000	29	n=64 vram=$9000 vbank=1
+CommTime_DrawHMSScreen	engine/mail/send_receive.asm:1720	tiles	Gfx_CommTimeHMS_Tiles9000Vb1	29	n=64 vram=$9000 vbank=1
 CommTime_DrawHMSScreen	engine/mail/send_receive.asm:1725	tilemap	Tilemap_CommTimeHMS_Screen	29	rows=18 cols=20 dest=$D000
 CommTime_DrawHMSScreen	engine/mail/send_receive.asm:1884	tiles	Gfx_CommTime_SummaryB_Tiles9000Vb1	51	n=64 vram=$9000 vbank=1
 CommTime_DrawHMSScreen	engine/mail/send_receive.asm:1890	tiles	Gfx_CommTime_SummaryB_Tiles9400Vb1	51	n=64 vram=$9400 vbank=1
@@ -799,7 +799,7 @@ TopMenu_LoadPanel	engine/menus/top_menu.asm:384	tilemap	Tilemap_TopMenu_1E_40D7	
 TopMenu_AnimatePanel	engine/menus/top_menu.asm:547	tilemap	Tilemap_TopMenu_1E_48C1	1E	rows=9 cols=12 dest=$D0E4
 TopMenu_AnimatePanel	engine/menus/top_menu.asm:560	UNRESOLVED	tilemap	--	source (hl) not an immediate/label
 TopMenu_AnimatePanel	engine/menus/top_menu.asm:580	UNRESOLVED	tilemap	--	source (hl) not an immediate/label
-Profile_InitScreen	engine/profile/profile_editor.asm:513	tiles	Gfx_Profile_Tiles9300	2A	n=64 vram=$9300 vbank=1
+Profile_InitScreen	engine/profile/profile_editor.asm:513	tiles	Gfx_Profile_Tiles9300Vb1	2A	n=64 vram=$9300 vbank=1
 Profile_InitScreen	engine/profile/profile_editor.asm:520	tiles	$6700	2A	n=16 vram=$9700 vbank=1
 Profile_InitScreen	engine/profile/profile_editor.asm:527	tiles	$6800	2A	n=52 vram=$8800 vbank=0
 Profile_InitScreen	engine/profile/profile_editor.asm:534	tiles	Gfx_Profile_Tiles8000	26	n=42 vram=$8000 vbank=0
