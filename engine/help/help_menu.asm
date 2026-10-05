@@ -19,10 +19,10 @@ Function_6C_4000::
 	srl a
 	srl a
 	inc a
-	ld [wRam_C0D8], a
+	ld [wHelpMenu_Page], a
 	ld a, b
 	and a, $07
-	ld [wRam_C0E5], a
+	ld [wHelpMenu_Cursor], a
 
 Label_6C_401D:: ; 6C:401D
 	ld a, $01
@@ -79,7 +79,7 @@ Label_6C_401D:: ; 6C:401D
 	ld hl, Palette_HelpMenu_Bg
 	ld a, $6A
 	farcall Palette_LoadToBuffer
-	ld a, [wRam_C0D8]
+	ld a, [wHelpMenu_Page]
 	cp a, $02
 	jr z, .l40E6
 	cp a, $03
@@ -90,10 +90,10 @@ Label_6C_401D:: ; 6C:401D
 	ld a, $6A
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $02
-	ld [wRam_C0E6], a
+	ld [wHelpMenu_NormalItem], a
 	call HelpMenu_DrawItemNormal
 	ld a, $03
-	ld [wRam_C0E6], a
+	ld [wHelpMenu_NormalItem], a
 	call HelpMenu_DrawItemNormal
 	jr .l411A
 .l40E6 ; 6C:40E6
@@ -103,7 +103,7 @@ Label_6C_401D:: ; 6C:401D
 	ld a, $6A
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $02
-	ld [wRam_C0E6], a
+	ld [wHelpMenu_NormalItem], a
 	call HelpMenu_DrawItemNormal
 	jr .l411A
 
@@ -116,13 +116,13 @@ Label_6C_401D:: ; 6C:401D
 	ld a, $6A
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $02
-	ld [wRam_C0E6], a
+	ld [wHelpMenu_NormalItem], a
 	call HelpMenu_DrawItemNormal
 
 .l411A ; 6C:411A
 	; [CONFIRMED] 61 insn(s); 61 executed (in up to 3/18 scenarios)
 	ld a, $01
-	ld [wRam_C0E6], a
+	ld [wHelpMenu_NormalItem], a
 	ld hl, $DA10
 	ld de, $64AE
 	ld a, $6A
@@ -204,7 +204,7 @@ Label_6C_41D5:: ; 6C:41D5
 	jp Label_6C_41B3
 
 Label_6C_41E5:: ; 6C:41E5
-	ld a, [wRam_C0E5]
+	ld a, [wHelpMenu_Cursor]
 	call HelpMenu_ItemIsLocked
 	or a, a
 	jp nz, .l4247
@@ -218,12 +218,12 @@ Label_6C_41E5:: ; 6C:41E5
 	ldh [rSVBK], a
 	farcall Palette_FadeOutWithTicker
 	farcall Ticker_Stop
-	ld a, [wRam_C0D8]
+	ld a, [wHelpMenu_Page]
 	cp a, $02
 	jr z, .l423B
 	cp a, $03
 	jr z, .l4241
-	ld a, [wRam_C0E5]
+	ld a, [wHelpMenu_Cursor]
 	cp a, $02
 	jr z, .l4222
 	cp a, $03
@@ -231,30 +231,30 @@ Label_6C_41E5:: ; 6C:41E5
 	ret
 .l4222 ; 6C:4222
 	ld a, $02
-	ld [wRam_C0D8], a
+	ld [wHelpMenu_Page], a
 	dec a
-	ld [wRam_C0E5], a
+	ld [wHelpMenu_Cursor], a
 	jp Label_6C_401D
 
 .l422E ; 6C:422E
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1;
 	; entered by jrcc from 6C:421F (executed) [executed in 2 scenarios]
 	ld a, $03
-	ld [wRam_C0D8], a
+	ld [wHelpMenu_Page], a
 	ld a, $01
-	ld [wRam_C0E5], a
+	ld [wHelpMenu_Cursor], a
 	jp Label_6C_401D
 
 .l423B ; 6C:423B
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 2/18 scenarios)
-	ld a, [wRam_C0E5]
+	ld a, [wHelpMenu_Cursor]
 	add a, $08
 	ret
 
 .l4241 ; 6C:4241
 	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1;
 	; entered by jrcc from 6C:4214 (executed) [executed in 2 scenarios]
-	ld a, [wRam_C0E5]
+	ld a, [wHelpMenu_Cursor]
 	add a, $10
 	ret
 
@@ -281,7 +281,7 @@ Label_6C_425A:: ; 6C:425A
 	ldh [rSVBK], a
 	farcall Palette_FadeOutWithTicker
 	farcall Ticker_Stop
-	ld a, [wRam_C0D8]
+	ld a, [wHelpMenu_Page]
 	cp a, $02
 	jr z, .l4283
 	cp a, $03
@@ -290,18 +290,18 @@ Label_6C_425A:: ; 6C:425A
 	ret
 .l4283 ; 6C:4283
 	ld a, $01
-	ld [wRam_C0D8], a
+	ld [wHelpMenu_Page], a
 	inc a
-	ld [wRam_C0E5], a
+	ld [wHelpMenu_Cursor], a
 	jp Label_6C_401D
 
 .l428F ; 6C:428F
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1;
 	; entered by jrcc from 6C:427F (executed) [executed in 2 scenarios]
 	ld a, $01
-	ld [wRam_C0D8], a
+	ld [wHelpMenu_Page], a
 	ld a, $03
-	ld [wRam_C0E5], a
+	ld [wHelpMenu_Cursor], a
 	jp Label_6C_401D
 
 Label_6C_429C:: ; 6C:429C
@@ -315,11 +315,11 @@ HelpMenu_HandleDpad:: ; 6C:429F
 	jr nz, .l42DB
 	ret
 .l42A8 ; 6C:42A8
-	ld a, [wRam_C0E5]
-	ld [wRam_C0E6], a
+	ld a, [wHelpMenu_Cursor]
+	ld [wHelpMenu_NormalItem], a
 	dec a
 	jr nz, .l42BE
-	ld a, [wRam_C0D8]
+	ld a, [wHelpMenu_Page]
 	cp a, $01
 	jr nz, .l42BC
 	ld a, $04
@@ -327,7 +327,7 @@ HelpMenu_HandleDpad:: ; 6C:429F
 .l42BC ; 6C:42BC
 	ld a, $02
 .l42BE ; 6C:42BE
-	ld [wRam_C0E5], a
+	ld [wHelpMenu_Cursor], a
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -341,25 +341,25 @@ HelpMenu_HandleDpad:: ; 6C:429F
 	call HelpMenu_ShowItemText
 	ret
 .l42DB ; 6C:42DB
-	ld a, [wRam_C0D8]
+	ld a, [wHelpMenu_Page]
 	cp a, $01
 	jr nz, .l42F1
-	ld a, [wRam_C0E5]
-	ld [wRam_C0E6], a
+	ld a, [wHelpMenu_Cursor]
+	ld [wHelpMenu_NormalItem], a
 	inc a
 	cp a, $05
 	jr nz, .l42FE
 	ld a, $01
 	jr .l42FE
 .l42F1 ; 6C:42F1
-	ld a, [wRam_C0E5]
-	ld [wRam_C0E6], a
+	ld a, [wHelpMenu_Cursor]
+	ld [wHelpMenu_NormalItem], a
 	inc a
 	cp a, $03
 	jr nz, .l42FE
 	ld a, $01
 .l42FE ; 6C:42FE
-	ld [wRam_C0E5], a
+	ld [wHelpMenu_Cursor], a
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -374,12 +374,12 @@ HelpMenu_HandleDpad:: ; 6C:429F
 	ret
 
 HelpMenu_DrawItemNormal:: ; 6C:431B
-	ld a, [wRam_C0D8]
+	ld a, [wHelpMenu_Page]
 	cp a, $02
 	jp z, .l440B
 	cp a, $03
 	jp z, .l4498
-	ld a, [wRam_C0E6]
+	ld a, [wHelpMenu_NormalItem]
 	cp a, $02
 	jp nz, .l436C
 	ld a, $01
@@ -396,9 +396,9 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	; fall-through of the jrcc at 6C:4342 (executed) [executed in 1 scenarios]
 	ld hl, $49CE
 	ld a, l
-	ld [wRam_C10E], a
+	ld [wHelpMenu_AttrSrcLo], a
 	ld a, h
-	ld [wRam_C10F], a
+	ld [wHelpMenu_AttrSrcHi], a
 	ld hl, $48FC
 	ld de, $D0A9
 	ld bc, $030A
@@ -411,7 +411,7 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 
 .l436C ; 6C:436C
 	; [CONFIRMED] 148 insn(s); 148 executed (in up to 3/18 scenarios)
-	ld a, [wRam_C0E6]
+	ld a, [wHelpMenu_NormalItem]
 	cp a, $03
 	jr nz, .l43AF
 	ld a, $01
@@ -425,9 +425,9 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	jr nz, .l43AF
 	ld hl, $49EC
 	ld a, l
-	ld [wRam_C10E], a
+	ld [wHelpMenu_AttrSrcLo], a
 	ld a, h
-	ld [wRam_C10F], a
+	ld [wHelpMenu_AttrSrcHi], a
 	ld hl, $491A
 	ld de, $D0E9
 	ld bc, $040A
@@ -438,7 +438,7 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	farcall Sprite_UpdateAll
 	ret
 .l43AF ; 6C:43AF
-	ld a, [wRam_C0E6]
+	ld a, [wHelpMenu_NormalItem]
 	dec a
 	ld c, a
 	ld b, $03
@@ -480,9 +480,9 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	ld bc, $00D2
 	add hl, bc
 	ld a, l
-	ld [wRam_C10E], a
+	ld [wHelpMenu_AttrSrcLo], a
 	ld a, h
-	ld [wRam_C10F], a
+	ld [wHelpMenu_AttrSrcHi], a
 	pop bc
 	pop hl
 	ld c, $0A
@@ -493,7 +493,7 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	farcall Sprite_UpdateAll
 	ret
 .l440B ; 6C:440B
-	ld a, [wRam_C0E6]
+	ld a, [wHelpMenu_NormalItem]
 	cp a, $02
 	jp nz, .l4446
 	ld a, $01
@@ -503,9 +503,9 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	jr nz, .l4446
 	ld hl, $4AAA
 	ld a, l
-	ld [wRam_C10E], a
+	ld [wHelpMenu_AttrSrcLo], a
 	ld a, h
-	ld [wRam_C10F], a
+	ld [wHelpMenu_AttrSrcHi], a
 	ld hl, $4A50
 	ld de, $D109
 	ld bc, $030A
@@ -516,7 +516,7 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	farcall Sprite_UpdateAll
 	ret
 .l4446 ; 6C:4446
-	ld a, [wRam_C0E6]
+	ld a, [wHelpMenu_NormalItem]
 	dec a
 	ld c, a
 	ld b, $03
@@ -551,10 +551,10 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	ld h, a
 	ld a, $5A
 	add a, l
-	ld [wRam_C10E], a
+	ld [wHelpMenu_AttrSrcLo], a
 	ld a, h
 	adc a, $00
-	ld [wRam_C10F], a
+	ld [wHelpMenu_AttrSrcHi], a
 	ld c, $0A
 	ld a, $6A
 	farcall Tilemap_CopyRectAndAttrPtr
@@ -566,7 +566,7 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 .l4498 ; 6C:4498
 	; [CONFIRMED] 68 insn(s) reached by static flow only; seeds: exec x68; min discovery hops 1;
 	; entered by jpcc from 6C:4325 (executed) [executed in 2 scenarios]
-	ld a, [wRam_C0E6]
+	ld a, [wHelpMenu_NormalItem]
 	cp a, $02
 	jp nz, .l44D3
 	ld a, $01
@@ -576,9 +576,9 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	jr nz, .l44D3
 	ld hl, $4B5E
 	ld a, l
-	ld [wRam_C10E], a
+	ld [wHelpMenu_AttrSrcLo], a
 	ld a, h
-	ld [wRam_C10F], a
+	ld [wHelpMenu_AttrSrcHi], a
 	ld hl, $4B04
 	ld de, $D109
 	ld bc, $030A
@@ -589,7 +589,7 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	farcall Sprite_UpdateAll
 	ret
 .l44D3 ; 6C:44D3
-	ld a, [wRam_C0E6]
+	ld a, [wHelpMenu_NormalItem]
 	dec a
 	ld c, a
 	ld b, $03
@@ -624,10 +624,10 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	ld h, a
 	ld a, $5A
 	add a, l
-	ld [wRam_C10E], a
+	ld [wHelpMenu_AttrSrcLo], a
 	ld a, h
 	adc a, $00
-	ld [wRam_C10F], a
+	ld [wHelpMenu_AttrSrcHi], a
 	ld c, $0A
 	ld a, $6A
 	farcall Tilemap_CopyRectAndAttrPtr
@@ -647,12 +647,12 @@ HelpMenu_DrawItemSelected:: ; 6C:453D
 Function_6C_453D::
 	; [CONFIRMED] 17 insn(s); 17 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld a, [wRam_C0D8]
+	ld a, [wHelpMenu_Page]
 	cp a, $02
 	jp z, .l462D
 	cp a, $03
 	jp z, .l46BA
-	ld a, [wRam_C0E5]
+	ld a, [wHelpMenu_Cursor]
 	cp a, $02
 	jp nz, .l458E
 	ld a, $01
@@ -669,9 +669,9 @@ Function_6C_453D::
 	; fall-through of the jrcc at 6C:4564 (executed)
 	ld hl, $4CDA
 	ld a, l
-	ld [wRam_C10E], a
+	ld [wHelpMenu_AttrSrcLo], a
 	ld a, h
-	ld [wRam_C10F], a
+	ld [wHelpMenu_AttrSrcHi], a
 	ld hl, $4C08
 	ld de, $D0A9
 	ld bc, $030A
@@ -684,7 +684,7 @@ Function_6C_453D::
 
 .l458E ; 6C:458E
 	; [CONFIRMED] 148 insn(s); 148 executed (in up to 3/18 scenarios)
-	ld a, [wRam_C0E5]
+	ld a, [wHelpMenu_Cursor]
 	cp a, $03
 	jr nz, .l45D1
 	ld a, $01
@@ -698,9 +698,9 @@ Function_6C_453D::
 	jr nz, .l45D1
 	ld hl, $4CF8
 	ld a, l
-	ld [wRam_C10E], a
+	ld [wHelpMenu_AttrSrcLo], a
 	ld a, h
-	ld [wRam_C10F], a
+	ld [wHelpMenu_AttrSrcHi], a
 	ld hl, $4C26
 	ld de, $D0E9
 	ld bc, $040A
@@ -711,7 +711,7 @@ Function_6C_453D::
 	farcall Sprite_UpdateAll
 	ret
 .l45D1 ; 6C:45D1
-	ld a, [wRam_C0E5]
+	ld a, [wHelpMenu_Cursor]
 	dec a
 	ld c, a
 	ld b, $03
@@ -753,9 +753,9 @@ Function_6C_453D::
 	ld bc, $00D2
 	add hl, bc
 	ld a, l
-	ld [wRam_C10E], a
+	ld [wHelpMenu_AttrSrcLo], a
 	ld a, h
-	ld [wRam_C10F], a
+	ld [wHelpMenu_AttrSrcHi], a
 	pop bc
 	pop hl
 	ld c, $0A
@@ -766,7 +766,7 @@ Function_6C_453D::
 	farcall Sprite_UpdateAll
 	ret
 .l462D ; 6C:462D
-	ld a, [wRam_C0E5]
+	ld a, [wHelpMenu_Cursor]
 	cp a, $02
 	jp nz, .l4668
 	ld a, $01
@@ -776,9 +776,9 @@ Function_6C_453D::
 	jr nz, .l4668
 	ld hl, $4DB6
 	ld a, l
-	ld [wRam_C10E], a
+	ld [wHelpMenu_AttrSrcLo], a
 	ld a, h
-	ld [wRam_C10F], a
+	ld [wHelpMenu_AttrSrcHi], a
 	ld hl, $4D5C
 	ld de, $D109
 	ld bc, $030A
@@ -789,7 +789,7 @@ Function_6C_453D::
 	farcall Sprite_UpdateAll
 	ret
 .l4668 ; 6C:4668
-	ld a, [wRam_C0E5]
+	ld a, [wHelpMenu_Cursor]
 	dec a
 	ld c, a
 	ld b, $03
@@ -824,10 +824,10 @@ Function_6C_453D::
 	ld h, a
 	ld a, $5A
 	add a, l
-	ld [wRam_C10E], a
+	ld [wHelpMenu_AttrSrcLo], a
 	ld a, h
 	adc a, $00
-	ld [wRam_C10F], a
+	ld [wHelpMenu_AttrSrcHi], a
 	ld c, $0A
 	ld a, $6A
 	farcall Tilemap_CopyRectAndAttrPtr
@@ -839,7 +839,7 @@ Function_6C_453D::
 .l46BA ; 6C:46BA
 	; [CONFIRMED] 68 insn(s) reached by static flow only; seeds: exec x68; min discovery hops 1;
 	; entered by jpcc from 6C:4547 (executed) [executed in 2 scenarios]
-	ld a, [wRam_C0E5]
+	ld a, [wHelpMenu_Cursor]
 	cp a, $02
 	jp nz, .l46F5
 	ld a, $01
@@ -849,9 +849,9 @@ Function_6C_453D::
 	jr nz, .l46F5
 	ld hl, $4E6A
 	ld a, l
-	ld [wRam_C10E], a
+	ld [wHelpMenu_AttrSrcLo], a
 	ld a, h
-	ld [wRam_C10F], a
+	ld [wHelpMenu_AttrSrcHi], a
 	ld hl, $4E10
 	ld de, $D109
 	ld bc, $030A
@@ -862,7 +862,7 @@ Function_6C_453D::
 	farcall Sprite_UpdateAll
 	ret
 .l46F5 ; 6C:46F5
-	ld a, [wRam_C0E5]
+	ld a, [wHelpMenu_Cursor]
 	dec a
 	ld c, a
 	ld b, $03
@@ -897,10 +897,10 @@ Function_6C_453D::
 	ld h, a
 	ld a, $5A
 	add a, l
-	ld [wRam_C10E], a
+	ld [wHelpMenu_AttrSrcLo], a
 	ld a, h
 	adc a, $00
-	ld [wRam_C10F], a
+	ld [wHelpMenu_AttrSrcHi], a
 	ld c, $0A
 	ld a, $6A
 	farcall Tilemap_CopyRectAndAttrPtr
@@ -920,7 +920,7 @@ HelpMenu_ShowItemText:: ; 6C:4763
 Function_6C_4763::
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld a, [wRam_C0D8]
+	ld a, [wHelpMenu_Page]
 	ld b, $00
 	cp a, $02
 	jr z, .l4772
@@ -938,7 +938,7 @@ Function_6C_4763::
 
 .l4778 ; 6C:4778
 	; [CONFIRMED] 33 insn(s); 33 executed (in up to 3/18 scenarios)
-	ld a, [wRam_C0E5]
+	ld a, [wHelpMenu_Cursor]
 	push bc
 	call HelpMenu_ItemIsLocked
 	pop bc
@@ -947,7 +947,7 @@ Function_6C_4763::
 	jr z, .skip
 	ld hl, Table_HelpMenu_LockedItemTicker
 .skip ; 6C:4789
-	ld a, [wRam_C0E5]
+	ld a, [wHelpMenu_Cursor]
 	dec a
 	add a, b
 	ld b, a
@@ -957,7 +957,7 @@ Function_6C_4763::
 
 HelpMenu_ItemIsLocked:: ; 6C:4798
 	ld c, a
-	ld a, [wRam_C0D8]
+	ld a, [wHelpMenu_Page]
 	cp a, $02
 	jp z, .l47DF
 	cp a, $03

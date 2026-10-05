@@ -10,7 +10,7 @@ Registration_VerifyAndFinalizeOnline:: ; 68:7019
 	call Registration_Verify_Setup
 	call Registration_Verify_RunState
 	farcall Palette_FadeOutToWhite
-	ld a, [wRam_C27C]
+	ld a, [wRegistrationVerify_Result]
 	ret
 
 Registration_Verify_Setup:: ; 68:7029
@@ -19,8 +19,8 @@ Registration_Verify_Setup:: ; 68:7029
 	farcall Joypad_SetRepeatTiming
 	farcall Sprite_ResetAll
 	xor a, a
-	ld [wRam_C27C], a
-	ld [wRam_C27D], a
+	ld [wRegistrationVerify_Result], a
+	ld [wRegistrationVerify_State], a
 	ld a, $00
 	farcall CommPanel_SetVariant
 	xor a, a
@@ -44,7 +44,7 @@ Registration_Verify_RunState:: ; 68:7050
 	ld [wTimerAWarnFlags], a
 
 Label_68_7069:: ; 68:7069
-	ld a, [wRam_C27D]
+	ld a, [wRegistrationVerify_State]
 	add a, a
 	add a, $79
 	ld l, a
@@ -80,7 +80,7 @@ Registration_Verify_StateInit:: ; 68:708D
 	ld a, $02
 	call MobileAPI
 	ld a, $01
-	ld [wRam_C27D], a
+	ld [wRegistrationVerify_State], a
 	jr Label_68_7069
 
 Registration_Verify_StateReadLoginId:: ; 68:70A6
@@ -108,7 +108,7 @@ Registration_Verify_StateReadLoginId:: ; 68:70A6
 	ld a, $0E
 	call MobileAPI
 	ld a, $02
-	ld [wRam_C27D], a
+	ld [wRegistrationVerify_State], a
 	jp Label_68_7069
 
 Registration_Verify_StateReadDialSlots:: ; 68:70E5
@@ -123,7 +123,7 @@ Registration_Verify_StateReadDialSlots:: ; 68:70E5
 	ld a, $0C
 	call MobileAPI
 	ld a, $03
-	ld [wRam_C27D], a
+	ld [wRegistrationVerify_State], a
 	jp Label_68_7069
 
 Registration_Verify_StateReadMailAddress:: ; 68:7109
@@ -138,7 +138,7 @@ Registration_Verify_StateReadMailAddress:: ; 68:7109
 	ld a, $10
 	call MobileAPI
 	ld a, $04
-	ld [wRam_C27D], a
+	ld [wRegistrationVerify_State], a
 	jp Label_68_7069
 
 Registration_Verify_StateIspLogin:: ; 68:712D
@@ -160,7 +160,7 @@ Registration_Verify_StateIspLogin:: ; 68:712D
 	ld a, $06
 	call MobileAPI
 	ld a, $05
-	ld [wRam_C27D], a
+	ld [wRegistrationVerify_State], a
 	jp Label_68_7069
 
 Registration_Verify_StatePopLogin:: ; 68:7166
@@ -199,7 +199,7 @@ Registration_Verify_StatePopLogin:: ; 68:7166
 	ld a, $1E
 	call MobileAPI
 	ld a, $06
-	ld [wRam_C27D], a
+	ld [wRegistrationVerify_State], a
 	ld a, $01
 	farcall CommPanel_DrawCaption
 	jp Label_68_7069
@@ -285,7 +285,7 @@ Registration_Verify_StateAfterPopLogin:: ; 68:71C3
 	ld a, $1C
 	call MobileAPI
 	ld a, $07
-	ld [wRam_C27D], a
+	ld [wRegistrationVerify_State], a
 	jp Label_68_7069
 
 Registration_Verify_StateHangUp:: ; 68:724F
@@ -362,7 +362,7 @@ Registration_Verify_StateHangUp:: ; 68:724F
 	ld a, $0A
 	call MobileAPI
 	ld a, $08
-	ld [wRam_C27D], a
+	ld [wRegistrationVerify_State], a
 	ld a, $02
 	farcall CommPanel_DrawCaption
 	jp Label_68_7069
@@ -389,7 +389,7 @@ Registration_Verify_StateWriteConfig:: ; 68:72D7
 	ld a, $04
 	call MobileAPI
 	ld a, $09
-	ld [wRam_C27D], a
+	ld [wRegistrationVerify_State], a
 	jp Label_68_7069
 
 	; [HYPOTHESIS] single ret between two proven code regions (after the jp at 730F..); nothing

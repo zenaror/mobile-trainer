@@ -40,7 +40,7 @@ Bmp_ParseHeader:: ; 51:70F4
 	ld de, $0005
 	add hl, de
 	ld a, [hli]
-	ldh [hRam_FFD6], a
+	ldh [hBmp_Width], a
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
@@ -49,7 +49,7 @@ Bmp_ParseHeader:: ; 51:70F4
 	or a, e
 	jr nz, .l7157
 	ld a, [hli]
-	ldh [hRam_FFD7], a
+	ldh [hBmp_Height], a
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
@@ -100,8 +100,8 @@ Bmp_ParseHeader:: ; 51:70F4
 	; [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 70E0-73D1 by apply_coverage --split
 	xor a, a
-	ldh [hRam_FFD6], a
-	ldh [hRam_FFD7], a
+	ldh [hBmp_Width], a
+	ldh [hBmp_Height], a
 	ld [wRam_C33F], a
 	pop hl
 	ret
@@ -109,11 +109,11 @@ Bmp_ParseHeader:: ; 51:70F4
 Bmp_CheckSize:: ; 51:7161
 	; [CONFIRMED] 155 insn(s) executed; cut out of the PROBABLE region 70E0-73D1 by apply_coverage
 	; --split [executed in 1 scenarios]
-	ldh a, [hRam_FFD6]
+	ldh a, [hBmp_Width]
 	cp a, $91
 	jr nc, .l7175
 	ld d, a
-	ldh a, [hRam_FFD7]
+	ldh a, [hBmp_Height]
 	or a, a
 	jr z, .l7175
 	cp a, $61
@@ -177,7 +177,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	ld a, $03
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ldh a, [hRam_FFD6]
+	ldh a, [hBmp_Width]
 	add a, $07
 	jp c, .l73CE
 	and a, $F8
@@ -189,11 +189,11 @@ Bmp_ConvertToTiles:: ; 51:7177
 	jp c, .l73CE
 	and a, $FC
 	ld [wHtmlScanOnly], a
-	ldh a, [hRam_FFD7]
+	ldh a, [hBmp_Height]
 	call Bmp_RoundUpToTextRow
 	ld [wRam_C333], a
 	ld e, a
-	ldh a, [hRam_FFD6]
+	ldh a, [hBmp_Width]
 	call Bmp_RoundUpToTextRow
 	ld [wRam_C332], a
 	add a, $07
@@ -244,7 +244,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	ld hl, $D000
 	ld a, $FF
 	call FillBytes
-	ldh a, [hRam_FFD7]
+	ldh a, [hBmp_Height]
 	dec a
 	ld e, a
 	ldh a, [hRam_FFD4]
@@ -285,7 +285,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 .l7276 ; 51:7276
 	; [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 70E0-73D1 by apply_coverage
 	; --split [executed in 2 scenarios]
-	ldh a, [hRam_FFD6]
+	ldh a, [hBmp_Width]
 	and a, $07
 	jr z, .l7287
 
@@ -430,18 +430,18 @@ Bmp_ConvertToTiles:: ; 51:7177
 	ld a, $04
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ldh a, [hRam_FFCE]
+	ldh a, [hHtmlLayout_RecordCount]
 	ld c, a
-	ldh a, [hRam_FFCF]
+	ldh a, [hHtmlLayout_RecordCountHi]
 	ld b, a
 	or a, c
 	jr z, .l7365
-	ldh a, [hRam_FFCC]
+	ldh a, [hHtmlLayout_RecordList]
 	ld l, a
-	ldh a, [hRam_FFCD]
+	ldh a, [hHtmlLayout_RecordListHi]
 	ld h, a
 .l7334 ; 51:7334
-	ldh a, [hRam_FFBA]
+	ldh a, [hHtml_PageBank]
 	call BankSwitch_H
 	push bc
 	push hl
@@ -550,9 +550,9 @@ Bmp_ConvertToTiles:: ; 51:7177
 	inc de
 	ld [de], a
 	ld a, [wRam_C333]
-	ldh [hRam_FFD7], a
+	ldh [hBmp_Height], a
 	ld a, [wHtmlLinkHeapPtr]
-	ldh [hRam_FFD6], a
+	ldh [hBmp_Width], a
 	pop hl
 .l73CB ; 51:73CB
 	ld a, $01
@@ -621,7 +621,8 @@ Bmp_RoundUpToTextRow:: ; 51:73F2
 	pop de
 	ret
 
-; ---- data $740C-$740D (1 bytes) [HYPOTHESIS] single $FF byte between the ret at 740B and the function at 740D (ldh [$FFD0],a ...); probably padding, not referenced, not an instruction reached by flow
+; ---- data $740C-$740D (1 bytes) [PROBABLE] single $FF byte between the ret at 740B and the function at 740D (ldh [$FFD0],a ...); read as an all-ones mask by the edge-strip blit code at 51:75A0 and 51:765B
+; (ld a, [Data_51_740C] ; and a, d: the edge mask passes unchanged); both reads are in code that never ran naturally, so the role is PROBABLE (earlier text: "probably padding, not referenced")
 
 Data_51_740C:: ; 51:740C
 	db $FF
@@ -630,7 +631,7 @@ Image_BlitToTileCanvas:: ; 51:740D
 	; [CONFIRMED] 822 insn(s) reached by static flow only; seeds: site x822; min discovery hops 1;
 	; entered by far from 4E:5B5C (PROBABLE code) | 19 insn(s) executed; cut out of the PROBABLE
 	; region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
-	ldh [hRam_FFD0], a
+	ldh [hImageBlit_Colors], a
 	ld a, $03
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -644,7 +645,7 @@ Image_BlitToTileCanvas:: ; 51:740D
 	ld c, a
 	add a, b
 	and a, $07
-	ldh [hRam_FFD5], a
+	ldh [hImageBlit_BitShift], a
 	ld b, $00
 	ld a, c
 	and a, $07
@@ -658,7 +659,7 @@ Image_BlitToTileCanvas:: ; 51:740D
 	; [CONFIRMED] 24 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld c, a
-	ldh a, [hRam_FFD6]
+	ldh a, [hBmp_Width]
 	sub a, c
 	add a, $07
 	and a, $F8
@@ -676,7 +677,7 @@ Image_BlitToTileCanvas:: ; 51:740D
 	rrca
 	rrca
 	rrca
-	ldh [hRam_FFD3], a
+	ldh [hImageBlit_SrcRowBytes], a
 	inc hl
 	ld a, c
 	or a, a
@@ -685,7 +686,7 @@ Image_BlitToTileCanvas:: ; 51:740D
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 740D-7900 by apply_coverage --split
 	push de
-	ldh a, [hRam_FFD3]
+	ldh a, [hImageBlit_SrcRowBytes]
 	ld e, a
 	ld d, $00
 	ld a, c
@@ -726,7 +727,7 @@ Image_BlitToTileCanvas:: ; 51:740D
 	pop de
 	push hl
 	ld h, e
-	ldh a, [hRam_FFD7]
+	ldh a, [hBmp_Height]
 	add a, e
 	ld l, a
 	push hl
@@ -804,7 +805,7 @@ Image_BlitToTileCanvas:: ; 51:740D
 	inc l
 	inc l
 .l74DA ; 51:74DA
-	ldh a, [hRam_FFD3]
+	ldh a, [hImageBlit_SrcRowBytes]
 	add a, e
 	ld e, a
 	jr nc, .l74E1
@@ -839,8 +840,8 @@ Image_MakeEdgeMasks:: ; 51:74E6
 	; --split [executed in 1 scenarios]
 	ld a, $FF
 .l74FB ; 51:74FB
-	ldh [hRam_FFD1], a
-	ldh a, [hRam_FFD6]
+	ldh [hImageBlit_LeftMask], a
+	ldh a, [hBmp_Width]
 	ld b, a
 	ld a, d
 	add a, b
@@ -864,7 +865,7 @@ Image_MakeEdgeMasks:: ; 51:74E6
 	; --split [executed in 1 scenarios]
 	ld a, $FF
 .l7513 ; 51:7513
-	ldh [hRam_FFD2], a
+	ldh [hImageBlit_RightMask], a
 	pop bc
 	ret
 
@@ -876,7 +877,7 @@ Image_BlitEdgeStrip:: ; 51:7517
 
 	; [PROBABLE] 70 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 740D-7900 by apply_coverage --split
-	ldh a, [hRam_FFD5]
+	ldh a, [hImageBlit_BitShift]
 	ld c, a
 	ld a, [de]
 	ld b, a
@@ -892,14 +893,14 @@ Image_BlitEdgeStrip:: ; 51:7517
 	jr nz, .l7529
 .l752F ; 51:752F
 	push de
-	ldh a, [hRam_FFD1]
+	ldh a, [hImageBlit_LeftMask]
 	ld d, a
-	ldh a, [hRam_FFD2]
+	ldh a, [hImageBlit_RightMask]
 	and a, d
 	ld d, a
 	cpl
 	ld e, a
-	ldh a, [hRam_FFD0]
+	ldh a, [hImageBlit_Colors]
 	bit 0, a
 	jr nz, .l7549
 	bit 4, a
@@ -924,7 +925,7 @@ Image_BlitEdgeStrip:: ; 51:7517
 	and a, e
 	or a, c
 	ld [hli], a
-	ldh a, [hRam_FFD0]
+	ldh a, [hImageBlit_Colors]
 	bit 1, a
 	jr nz, .l7569
 	bit 5, a
@@ -961,14 +962,14 @@ Image_BlitEdgeStrip:: ; 51:7517
 .l7584 ; 51:7584
 	; [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage
 	; --split [executed in 1 scenarios]
-	ldh a, [hRam_FFD1]
+	ldh a, [hImageBlit_LeftMask]
 	cp a, $FF
 	jr z, .l75F1
 
 	; [PROBABLE] 72 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 740D-7900 by apply_coverage --split
 	push bc
-	ldh a, [hRam_FFD5]
+	ldh a, [hImageBlit_BitShift]
 	ld c, a
 	ld a, [de]
 	ld b, a
@@ -984,14 +985,14 @@ Image_BlitEdgeStrip:: ; 51:7517
 	jr nz, .l7596
 .l759C ; 51:759C
 	push de
-	ldh a, [hRam_FFD1]
+	ldh a, [hImageBlit_LeftMask]
 	ld d, a
-	ld a, [$740C]
+	ld a, [Data_51_740C]
 	and a, d
 	ld d, a
 	cpl
 	ld e, a
-	ldh a, [hRam_FFD0]
+	ldh a, [hImageBlit_Colors]
 	bit 0, a
 	jr nz, .l75B7
 	bit 4, a
@@ -1016,7 +1017,7 @@ Image_BlitEdgeStrip:: ; 51:7517
 	and a, e
 	or a, c
 	ld [hli], a
-	ldh a, [hRam_FFD0]
+	ldh a, [hImageBlit_Colors]
 	bit 1, a
 	jr nz, .l75D7
 	bit 5, a
@@ -1054,7 +1055,7 @@ Image_BlitEdgeStrip:: ; 51:7517
 .l75F1 ; 51:75F1
 	; [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage
 	; --split [executed in 1 scenarios]
-	ldh a, [hRam_FFD2]
+	ldh a, [hImageBlit_RightMask]
 	cp a, $FF
 	jr z, .l75F8
 
@@ -1068,7 +1069,7 @@ Image_BlitEdgeStrip:: ; 51:7517
 	ld a, c
 	or a, a
 	jr z, .l7640
-	ldh a, [hRam_FFD5]
+	ldh a, [hImageBlit_BitShift]
 	bit 2, a
 	jr nz, .l7622
 	bit 1, a
@@ -1112,13 +1113,13 @@ Image_BlitEdgeStrip:: ; 51:7517
 .l7640 ; 51:7640
 	; [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage
 	; --split [executed in 1 scenarios]
-	ldh a, [hRam_FFD2]
+	ldh a, [hImageBlit_RightMask]
 	cp a, $FF
 	jr z, .done
 
 	; [PROBABLE] 69 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 740D-7900 by apply_coverage --split
-	ldh a, [hRam_FFD5]
+	ldh a, [hImageBlit_BitShift]
 	ld c, a
 	ld a, [de]
 	ld b, a
@@ -1134,14 +1135,14 @@ Image_BlitEdgeStrip:: ; 51:7517
 	jr nz, .l7651
 .l7657 ; 51:7657
 	push de
-	ldh a, [hRam_FFD2]
+	ldh a, [hImageBlit_RightMask]
 	ld d, a
-	ld a, [$740C]
+	ld a, [Data_51_740C]
 	and a, d
 	ld d, a
 	cpl
 	ld e, a
-	ldh a, [hRam_FFD0]
+	ldh a, [hImageBlit_Colors]
 	bit 0, a
 	jr nz, .l7672
 	bit 4, a
@@ -1166,7 +1167,7 @@ Image_BlitEdgeStrip:: ; 51:7517
 	and a, e
 	or a, c
 	ld [hli], a
-	ldh a, [hRam_FFD0]
+	ldh a, [hImageBlit_Colors]
 	bit 1, a
 	jr nz, .l7692
 	bit 5, a
@@ -1207,7 +1208,7 @@ Image_BlitStripShift0:: ; 51:76AB
 	ld a, [de]
 	ld b, a
 	inc de
-	ldh a, [hRam_FFD0]
+	ldh a, [hImageBlit_Colors]
 	bit 0, a
 	jr nz, .l76BE
 
@@ -1239,7 +1240,7 @@ Image_BlitStripShift0:: ; 51:76AB
 	; [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld [hli], a
-	ldh a, [hRam_FFD0]
+	ldh a, [hImageBlit_Colors]
 	bit 1, a
 	jr nz, .l76D9
 
@@ -1290,7 +1291,7 @@ Image_BlitStripShift1:: ; 51:76EF
 	ld a, [de]
 	rla
 	rl b
-	ldh a, [hRam_FFD0]
+	ldh a, [hImageBlit_Colors]
 	bit 0, a
 	jr nz, .l7706
 	bit 4, a
@@ -1310,7 +1311,7 @@ Image_BlitStripShift1:: ; 51:76EF
 	ld a, $01
 .l7710 ; 51:7710
 	ld [hli], a
-	ldh a, [hRam_FFD0]
+	ldh a, [hImageBlit_Colors]
 	bit 1, a
 	jr nz, .l7721
 	bit 5, a
@@ -1349,7 +1350,7 @@ Image_BlitStripShift2:: ; 51:7737
 	rl b
 	rla
 	rl b
-	ldh a, [hRam_FFD0]
+	ldh a, [hImageBlit_Colors]
 	bit 0, a
 	jr nz, .l7751
 	bit 4, a
@@ -1369,7 +1370,7 @@ Image_BlitStripShift2:: ; 51:7737
 	ld a, $01
 .l775B ; 51:775B
 	ld [hli], a
-	ldh a, [hRam_FFD0]
+	ldh a, [hImageBlit_Colors]
 	bit 1, a
 	jr nz, .l776C
 	bit 5, a
@@ -1410,7 +1411,7 @@ Image_BlitStripShift3:: ; 51:7782
 	rl b
 	rla
 	rl b
-	ldh a, [hRam_FFD0]
+	ldh a, [hImageBlit_Colors]
 	bit 0, a
 	jr nz, .l779F
 	bit 4, a
@@ -1430,7 +1431,7 @@ Image_BlitStripShift3:: ; 51:7782
 	ld a, $01
 .l77A9 ; 51:77A9
 	ld [hli], a
-	ldh a, [hRam_FFD0]
+	ldh a, [hImageBlit_Colors]
 	bit 1, a
 	jr nz, .l77BA
 	bit 5, a
@@ -1470,7 +1471,7 @@ Image_BlitStripShift4:: ; 51:77D0
 	or a, b
 	swap a
 	ld b, a
-	ldh a, [hRam_FFD0]
+	ldh a, [hImageBlit_Colors]
 	bit 0, a
 	jr nz, .l77EC
 	bit 4, a
@@ -1490,7 +1491,7 @@ Image_BlitStripShift4:: ; 51:77D0
 	ld a, $01
 .l77F6 ; 51:77F6
 	ld [hli], a
-	ldh a, [hRam_FFD0]
+	ldh a, [hImageBlit_Colors]
 	bit 1, a
 	jr nz, .l7807
 	bit 5, a
@@ -1532,7 +1533,7 @@ Image_BlitStripShift5:: ; 51:781D
 	rrca
 	rrca
 	ld b, a
-	ldh a, [hRam_FFD0]
+	ldh a, [hImageBlit_Colors]
 	bit 0, a
 	jr nz, .l783A
 	bit 4, a
@@ -1552,7 +1553,7 @@ Image_BlitStripShift5:: ; 51:781D
 	ld a, $01
 .l7844 ; 51:7844
 	ld [hli], a
-	ldh a, [hRam_FFD0]
+	ldh a, [hImageBlit_Colors]
 	bit 1, a
 	jr nz, .l7855
 	bit 5, a
@@ -1592,7 +1593,7 @@ Image_BlitStripShift6:: ; 51:786B
 	rr b
 	rra
 	ld b, a
-	ldh a, [hRam_FFD0]
+	ldh a, [hImageBlit_Colors]
 	bit 0, a
 	jr nz, .l7886
 	bit 4, a
@@ -1612,7 +1613,7 @@ Image_BlitStripShift6:: ; 51:786B
 	ld a, $01
 .l7890 ; 51:7890
 	ld [hli], a
-	ldh a, [hRam_FFD0]
+	ldh a, [hImageBlit_Colors]
 	bit 1, a
 	jr nz, .l78A1
 	bit 5, a
@@ -1650,7 +1651,7 @@ Image_BlitStripShift7:: ; 51:78B7
 	rr b
 	rra
 	ld b, a
-	ldh a, [hRam_FFD0]
+	ldh a, [hImageBlit_Colors]
 	bit 0, a
 	jr nz, .l78CF
 	bit 4, a
@@ -1670,7 +1671,7 @@ Image_BlitStripShift7:: ; 51:78B7
 	ld a, $01
 .l78D9 ; 51:78D9
 	ld [hli], a
-	ldh a, [hRam_FFD0]
+	ldh a, [hImageBlit_Colors]
 	bit 1, a
 	jr nz, .l78EA
 	bit 5, a

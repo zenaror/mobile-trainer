@@ -204,6 +204,16 @@ FillBytes:: ; 00:04D8
 different variable in another bank, so a name there exists only in `ram/banked.asm` (comment starts `bank W1 ...`/`bank S1 ...`) and only where the bank of the access is known; a
 neutral name never claims a bank.
 
+**Overlay aliases.**  Some bank-independent bytes (`wRam_C27C-C280`, `wRam_C0D4-C0FF`, ...) are reused by every screen with a different meaning, so their neutral name stays the only
+global name of the address.  `ram/overlays.asm` adds *screen-local aliases* of them, `DEF wSlotMenu_Cursor EQU wRam_C27D ; [STATUS] evidence`, named `<w|h><Screen>_<Role>` and used only in
+the source file(s) listed in the `; ---- <scope>` line above their group: every mention of the neutral name inside those files is the alias, and every other file keeps the neutral name,
+which stays defined.  An alias is the same number as its base (no byte of the ROM depends on it); its status is the evidence for the role in that scope, so a byte that one file uses
+for two things gets no alias, unless a function range separates the two uses (`path@LabelA..LabelB`: the lines from the global label LabelA up to, not including, LabelB).  The same
+address may therefore have several aliases with different meanings, each in its own scope: that is the point of a time-shared scratch area, and the neutral name remains the one name
+that is true everywhere.  Two aliases of one base never overlap in scope (the tool refuses it), and a byte that the tree writes and never reads gets no name, only
+a HYPOTHESIS record in the manifest.  The manifests are `analysis/naming2/overlay_aliases*.tsv`; `tools/apply_overlay_aliases.py` applies them (it builds and compares the ROM) and
+`tools/apply_overlay_aliases.py --check` audits the file (every alias used only inside its scope).  Banked bytes (`$D000-$DFFF`) keep using `ram/banked.asm`.
+
 ### Constants and numbers
 
 * **Constants** are `UPPER_CASE` (`MAILREC_OFS_TIME`, `ABOOK_SLOT_COUNT`), written `DEF NAME EQU $xxxx ; STATUS note` followed by `EXPORT NAME` in `consts.asm` (so they are in the `.sym` file).
@@ -363,12 +373,18 @@ are edited directly or through `tools/screen_png.py import`. After adding or rem
 | `python3 tools/tidy_comments.py --check`, `python3 tools/localize_labels.py --check` | the tree is in the form of section 3 / local-label form of section 4 (they are idempotent) |
 | `python3 tools/gen_sjis_charmap.py --check`, `python3 tools/text_to_strings.py --dry-run` | the charmap is current / no numeric text block is left to convert |
 | `python3 tools/gfx_export.py check` | the PNGs, `.2bpp` files, sizes and `gfx/assets.tsv` agree (needs `rgbgfx`) |
+| `python3 tools/apply_overlay_aliases.py --check` | every alias of `ram/overlays.asm` is defined once, has a neutral WRAM0/HRAM base, and is used only inside the scope of its group |
 
 **Applying renames.** Names are changed with `python3 tools/apply_renames.py --manifest FILE` (manifest: TAB-separated `old_name new_name kind status evidence`; HYPOTHESIS rows are never applied).
 It renames the definition (`New:: ; BB:AAAA`; the neutral old name stays below it as an alias without comment) and every reference in all `.asm`/`.inc` files, refuses unsafe rows (collisions,
 non-unique or alias old names, conflicting rows), runs `make`, checks the SHA-256 and `sym_check`, and restores every file on failure.  Use `--dry-run` first, `--annotate` to add a
 `; name evidence:` line.  The manifests that produced the current names are `analysis/naming2/*_renames.tsv` (evidence per row) with notes in `docs/research/naming2_*.md`.  Tests:
 `python3 tools/test_apply_renames.py`.
+
+**Applying overlay aliases.** Screen-local aliases of overlay variables (section 4, RAM) are added with `python3 tools/apply_overlay_aliases.py --manifest FILE` (manifest: TAB-separated
+`alias base scope status evidence`, scope = files, globs, `!` exclusions and function ranges `path@LabelA..LabelB`, HYPOTHESIS rows are never applied): it appends the `DEF` lines to `ram/overlays.asm`, rewrites every mention of the neutral name in
+the scope files, refuses unsafe rows (collisions, banked or already-named bases, a scope file that does not mention the base, overlapping scopes), runs `make`, checks the SHA-256 and
+`sym_check`, and restores every file on failure.  Use `--dry-run` first.  The manifests are `analysis/naming2/overlay_aliases*.tsv`.  Tests: `python3 tools/test_overlay_aliases.py`.
 
 ## 11. Git and commits
 

@@ -8,9 +8,9 @@ Account_ResultPage:: ; 68:766E
 Function_68_766E::
 	; [CONFIRMED] 59 insn(s); 59 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld [wRam_C27C], a
+	ld [wResultPage_Kind], a
 	ld a, b
-	ld [wRam_C27D], a
+	ld [wResultPage_Variant], a
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
@@ -122,9 +122,9 @@ Function_68_7745::
 	ld bc, $0612
 	farcall TileCanvas_FillRect
 	ld a, $00
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $03
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	ld a, $48
 	ldh [hTextY], a
 	ld a, $08
@@ -134,25 +134,25 @@ Function_68_7745::
 	ld a, $48
 	ldh [hRam_FFC0], a
 	ld a, $08
-	ldh [hRam_FFC1], a
+	ldh [hTextBox_LineStartX], a
 	ld a, $00
-	ldh [hRam_FFC2], a
+	ldh [hTextBox_LineStartXHi], a
 	ld a, $78
-	ldh [hRam_FFC3], a
+	ldh [hTextBox_MaxLineY], a
 	ld a, $98
-	ldh [hRam_FFC4], a
+	ldh [hTextBox_RightLimitX], a
 	ld a, $00
 	ldh [hRam_FFC5], a
 	ld a, $0C
-	ldh [hRam_FFC6], a
+	ldh [hTextBox_LineAdvance], a
 	ld a, $0C
 	ldh [hRam_FFC7], a
-	ld a, [wRam_C27D]
+	ld a, [wResultPage_Variant]
 	cp a, $01
 	jr z, .l7798
 	cp a, $02
 	jr z, .l779C
-	ld a, [wRam_C27C]
+	ld a, [wResultPage_Kind]
 	jr .l779E
 .l7798 ; 68:7798
 	ld a, $04
@@ -194,7 +194,7 @@ Account_ResultPage_LoadBanner:: ; 68:77D6
 Function_68_77D6::
 	; [CONFIRMED] 55 insn(s); 55 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld a, [wRam_C27C]
+	ld a, [wResultPage_Kind]
 	ld hl, Data_68_7831
 	ld b, a
 	add a, a
@@ -215,10 +215,10 @@ Function_68_77D6::
 	ld b, $95
 	ld c, $28
 	farcall Gfx_StartHDMAWithService
-	ld a, [wRam_C27D]
+	ld a, [wResultPage_Variant]
 	or a, a
 	jr nz, .l780E
-	ld a, [wRam_C27C]
+	ld a, [wResultPage_Kind]
 	ld hl, $7849
 	add a, l
 	ld l, a
@@ -263,13 +263,13 @@ Function_68_784E::
 	; [CONFIRMED] 130 insn(s); 130 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	farcall CommTime_AddTimerA
-	ldh a, [hRam_FFB0]
+	ldh a, [hResultPage_TotalFrames]
 	ld [wCommTimeTotal], a
-	ldh a, [hRam_FFB1]
+	ldh a, [hResultPage_TotalSeconds]
 	ld [wCommTimeTotal + 1], a
-	ldh a, [hRam_FFB2]
+	ldh a, [hResultPage_TotalMinutes]
 	ld [wCommTimeTotal + 2], a
-	ld a, [wRam_C27C]
+	ld a, [wResultPage_Kind]
 	cp a, $02
 	jr z, .l7873
 	cp a, $03
@@ -326,7 +326,7 @@ Function_68_784E::
 	ld de, $D0A9
 	ld a, $4B
 	farcall Tilemap_CopyRectAndAttr
-	ld a, [wRam_C27C]
+	ld a, [wResultPage_Kind]
 	cp a, $02
 	jr z, .l78D6
 	cp a, $03

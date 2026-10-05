@@ -167,21 +167,21 @@ DebugErrorTest_Idle:: ; 19:4B07
 
 DebugErrorTest_OnA:: ; 19:4B12
 	farcall Palette_FadeOutToWhite
-	ld a, [wRam_C0E5]
+	ld a, [wDebugErrorTest_CodeLo]
 	ld l, a
-	ld a, [wRam_C0D6]
+	ld a, [wDebugErrorTest_CodeHi]
 	ld h, a
-	ld a, [wRam_C0D4]
+	ld a, [wDebugErrorTest_Category]
 	push af
 	push hl
 	farcall CommErr_ShowScreen
 	pop hl
 	pop af
-	ld [wRam_C0D4], a
+	ld [wDebugErrorTest_Category], a
 	ld a, l
-	ld [wRam_C0E5], a
+	ld [wDebugErrorTest_CodeLo], a
 	ld a, h
-	ld [wRam_C0D6], a
+	ld [wDebugErrorTest_CodeHi], a
 	jp Label_19_4990
 
 Label_19_4B3B:: ; 19:4B3B
@@ -209,60 +209,60 @@ DebugErrorTest_HandleDpad:: ; 19:4B4A
 	ldh a, [hJoyHeld]
 	bit 1, a
 	jr nz, .l4B6C
-	ld a, [wRam_C0D6]
+	ld a, [wDebugErrorTest_CodeHi]
 	inc a
-	ld [wRam_C0D6], a
+	ld [wDebugErrorTest_CodeHi], a
 	call DebugErrorTest_DrawValues
 	ret
 .l4B6C ; 19:4B6C
-	ld a, [wRam_C0D4]
+	ld a, [wDebugErrorTest_Category]
 	inc a
-	ld [wRam_C0D4], a
+	ld [wDebugErrorTest_Category], a
 	call DebugErrorTest_DrawValues
 	ret
 .l4B77 ; 19:4B77
 	ldh a, [hJoyHeld]
 	bit 1, a
 	jr nz, .l4B88
-	ld a, [wRam_C0D6]
+	ld a, [wDebugErrorTest_CodeHi]
 	dec a
-	ld [wRam_C0D6], a
+	ld [wDebugErrorTest_CodeHi], a
 	call DebugErrorTest_DrawValues
 	ret
 .l4B88 ; 19:4B88
-	ld a, [wRam_C0D4]
+	ld a, [wDebugErrorTest_Category]
 	dec a
-	ld [wRam_C0D4], a
+	ld [wDebugErrorTest_Category], a
 	call DebugErrorTest_DrawValues
 	ret
 .l4B93 ; 19:4B93
-	ld a, [wRam_C0E7]
+	ld a, [wDebugErrorTest_HoldCounter]
 	cp a, $3C
 	jr nc, .l4BA5
-	ld a, [wRam_C0E5]
+	ld a, [wDebugErrorTest_CodeLo]
 	dec a
-	ld [wRam_C0E5], a
+	ld [wDebugErrorTest_CodeLo], a
 	call DebugErrorTest_DrawValues
 	ret
 .l4BA5 ; 19:4BA5
-	ld a, [wRam_C0E5]
+	ld a, [wDebugErrorTest_CodeLo]
 	sub a, $04
-	ld [wRam_C0E5], a
+	ld [wDebugErrorTest_CodeLo], a
 	call DebugErrorTest_DrawValues
 	ret
 .l4BB1 ; 19:4BB1
-	ld a, [wRam_C0E7]
+	ld a, [wDebugErrorTest_HoldCounter]
 	cp a, $3C
 	jr nc, .l4BC3
-	ld a, [wRam_C0E5]
+	ld a, [wDebugErrorTest_CodeLo]
 	inc a
-	ld [wRam_C0E5], a
+	ld [wDebugErrorTest_CodeLo], a
 	call DebugErrorTest_DrawValues
 	ret
 .l4BC3 ; 19:4BC3
-	ld a, [wRam_C0E5]
+	ld a, [wDebugErrorTest_CodeLo]
 	add a, $04
-	ld [wRam_C0E5], a
+	ld [wDebugErrorTest_CodeLo], a
 	call DebugErrorTest_DrawValues
 	ret
 
@@ -271,7 +271,7 @@ DebugErrorTest_LoadHelpText:: ; 19:4BCF
 	ld de, $D000
 	ld bc, $0010
 	ld a, $03
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $19
 	farcall TextTiles_RenderGrid
 	ldh [hScratchA], a
@@ -334,7 +334,7 @@ DebugErrorTest_DrawValues:: ; 19:4C74
 	ld a, $79
 	ld [de], a
 	inc de
-	ld a, [wRam_C0D4]
+	ld a, [wDebugErrorTest_Category]
 	ld b, a
 	swap a
 	and a, $0F
@@ -366,7 +366,7 @@ DebugErrorTest_DrawValues:: ; 19:4C74
 	ld a, [hli]
 	ld [de], a
 	inc de
-	ld a, [wRam_C0D6]
+	ld a, [wDebugErrorTest_CodeHi]
 	ld b, a
 	swap a
 	and a, $0F
@@ -398,7 +398,7 @@ DebugErrorTest_DrawValues:: ; 19:4C74
 	ld a, [hli]
 	ld [de], a
 	inc de
-	ld a, [wRam_C0E5]
+	ld a, [wDebugErrorTest_CodeLo]
 	ld b, a
 	swap a
 	and a, $0F
@@ -442,7 +442,7 @@ DebugErrorTest_DrawValues:: ; 19:4C74
 	ld de, $D000
 	ld bc, $0010
 	ld a, $03
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $02
 	farcall TextTiles_RenderGrid
 	ld a, $03
@@ -472,18 +472,18 @@ DebugErrorTest_UpdateHoldTimer:: ; 19:4D7E
 	; [PROBABLE] 14 insn(s) reached by static flow only; seeds: site x14; min discovery hops 2;
 	; entered by call from 19:4B07 (PROBABLE code) | forced execution: 14/14 instruction starts ran
 	; in forced_debug (traces/forced/, not natural evidence; status unchanged)
-	ld a, [wRam_C0E8]
+	ld a, [wDebugErrorTest_PrevHeld]
 	ld b, a
 	ldh a, [hJoyHeld]
 	cp a, b
 	jr z, .l4D8F
-	ld [wRam_C0E8], a
+	ld [wDebugErrorTest_PrevHeld], a
 	xor a, a
-	ld [wRam_C0E7], a
+	ld [wDebugErrorTest_HoldCounter], a
 	ret
 .l4D8F ; 19:4D8F
-	ld a, [wRam_C0E7]
+	ld a, [wDebugErrorTest_HoldCounter]
 	add a, $01
 	ret c
-	ld [wRam_C0E7], a
+	ld [wDebugErrorTest_HoldCounter], a
 	ret

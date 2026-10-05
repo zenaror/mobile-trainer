@@ -8,7 +8,7 @@ Notice_ShowPage:: ; 65:487C
 Function_65_487C::
 	; [CONFIRMED] 76 insn(s); 76 executed (in up to 9/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld [wRam_C27C], a
+	ld [wNotice_PageArg], a
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
@@ -25,7 +25,7 @@ Function_65_487C::
 	ldh [rWY], a
 	farcall Sprite_ResetAll
 	call Sound_FrameService
-	ld a, [wRam_C27C]
+	ld a, [wNotice_PageArg]
 	ld b, $00
 	ld c, a
 	ld de, $0006
@@ -33,12 +33,12 @@ Function_65_487C::
 	ld de, $4BDE
 	add hl, de
 	ld a, l
-	ld [wRam_C27E], a
+	ld [wNotice_RecordPtr], a
 	ld a, h
-	ld [wRam_C27F], a
+	ld [wNotice_RecordPtrHi], a
 	inc hl
 	ld a, [hl]
-	ld [wRam_C280], a
+	ld [wNotice_FooterKind], a
 	ld de, $9001
 	ld hl, Gfx_Notice_Tiles9000Vb1
 	ld a, $58
@@ -50,9 +50,9 @@ Function_65_487C::
 	ld hl, Palette_Notice_Bg
 	ld a, $58
 	farcall Palette_LoadToBuffer
-	ld a, [wRam_C27E]
+	ld a, [wNotice_RecordPtr]
 	ld l, a
-	ld a, [wRam_C27F]
+	ld a, [wNotice_RecordPtrHi]
 	ld h, a
 	ld a, [hl]
 	cp a, $04
@@ -79,7 +79,7 @@ Function_65_487C::
 	call Gfx_UploadBgMapBuffers
 	farcall Palette_FadeInFromWhite
 	call Notice_RequestPageSound
-	ld a, [wRam_C280]
+	ld a, [wNotice_FooterKind]
 	cp a, $02
 	jr z, Notice_ShowPage_Locked
 
@@ -117,7 +117,7 @@ Notice_ShowPage_ButtonA:: ; 65:495B
 	ret
 
 Notice_ShowPage_ButtonB:: ; 65:4974
-	ld a, [wRam_C280]
+	ld a, [wNotice_FooterKind]
 	cp a, $01
 	jr z, .l4981
 	cp a, $05
@@ -151,9 +151,9 @@ Notice_DrawBodyText:: ; 65:49A2
 	ld hl, $0301
 	ld bc, $0C12
 	farcall TileCanvas_FillRect
-	ld a, [wRam_C27E]
+	ld a, [wNotice_RecordPtr]
 	ld l, a
-	ld a, [wRam_C27F]
+	ld a, [wNotice_RecordPtrHi]
 	ld h, a
 	ld de, $0004
 	add hl, de
@@ -163,9 +163,9 @@ Notice_DrawBodyText:: ; 65:49A2
 	ld h, a
 	ld l, b
 	ld a, $00
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $03
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	ld a, $18
 	ldh [hTextY], a
 	ld a, $08
@@ -175,17 +175,17 @@ Notice_DrawBodyText:: ; 65:49A2
 	ld a, $18
 	ldh [hRam_FFC0], a
 	ld a, $08
-	ldh [hRam_FFC1], a
+	ldh [hTextBox_LineStartX], a
 	ld a, $00
-	ldh [hRam_FFC2], a
+	ldh [hTextBox_LineStartXHi], a
 	ld a, $78
-	ldh [hRam_FFC3], a
+	ldh [hTextBox_MaxLineY], a
 	ld a, $98
-	ldh [hRam_FFC4], a
+	ldh [hTextBox_RightLimitX], a
 	ld a, $00
 	ldh [hRam_FFC5], a
 	ld a, $0C
-	ldh [hRam_FFC6], a
+	ldh [hTextBox_LineAdvance], a
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	xor a, a
@@ -209,9 +209,9 @@ Notice_DrawBodyText:: ; 65:49A2
 	ret
 
 Notice_LoadHeaderGfx:: ; 65:4A37
-	ld a, [wRam_C27E]
+	ld a, [wNotice_RecordPtr]
 	ld l, a
-	ld a, [wRam_C27F]
+	ld a, [wNotice_RecordPtrHi]
 	ld h, a
 	push hl
 	ld a, [hl]
@@ -272,19 +272,19 @@ Notice_DrawPageCounter:: ; 65:4AD7
 Function_65_4AD7::
 	; [CONFIRMED] 100 insn(s); 100 executed (in up to 9/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld a, [wRam_C27E]
+	ld a, [wNotice_RecordPtr]
 	ld l, a
-	ld a, [wRam_C27F]
+	ld a, [wNotice_RecordPtrHi]
 	ld h, a
 	ld a, [hl]
 	cp a, $04
 	jr nz, .l4AEB
 	ld a, $01
-	ld [wRam_C281], a
+	ld [wNotice_DigitVariant], a
 	jr .l4AEF
 .l4AEB ; 65:4AEB
 	xor a, a
-	ld [wRam_C281], a
+	ld [wNotice_DigitVariant], a
 .l4AEF ; 65:4AEF
 	inc hl
 	inc hl
@@ -293,7 +293,7 @@ Function_65_4AD7::
 	ret z
 	push hl
 	push af
-	ld a, [wRam_C281]
+	ld a, [wNotice_DigitVariant]
 	ld hl, Notice_DigitRecordLists
 	add a, a
 	add a, l
@@ -321,7 +321,7 @@ Function_65_4AD7::
 	pop hl
 	ld a, [hl]
 	push af
-	ld a, [wRam_C281]
+	ld a, [wNotice_DigitVariant]
 	ld hl, Notice_DigitRecordLists
 	add a, a
 	add a, l
@@ -348,7 +348,7 @@ Function_65_4AD7::
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $0A
 	push af
-	ld a, [wRam_C281]
+	ld a, [wNotice_DigitVariant]
 	ld hl, Notice_DigitRecordLists
 	add a, a
 	add a, l
@@ -400,7 +400,7 @@ Function_65_4BA8::
 	; [CONFIRMED] 18 insn(s); 18 executed (in up to 9/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, Notice_PageSoundTable
-	ld a, [wRam_C27C]
+	ld a, [wNotice_PageArg]
 	add a, l
 	ld l, a
 	ld a, $00

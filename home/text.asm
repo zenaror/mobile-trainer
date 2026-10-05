@@ -10,13 +10,13 @@ Function_00_0ED3::
 	; through Table_00_0EF0 (handler entered with the string pointer on the stack), bytes >=$20 are
 	; characters (see 0F30). FFB9=current bank, FFBF=call depth [reached via inferred links; raw
 	; refs 43] [executed in 26 scenarios]
-	ldh [hRam_FFB9], a
+	ldh [hTextEngine_StringBank], a
 	xor a, a
-	ldh [hRam_FFBF], a
+	ldh [hTextEngine_CallDepth], a
 
 TextEngine_ReloadBank:: ; 00:0ED8
 Label_00_0ED8::
-	ldh a, [hRam_FFB9]
+	ldh a, [hTextEngine_StringBank]
 	call BankSwitch_H
 
 TextEngine_NextByte:: ; 00:0EDD
@@ -83,7 +83,7 @@ Label_00_0F5A::
 	call Sound_FrameService
 	ldh a, [hTextX]
 	ld c, a
-	ldh a, [hRam_FFC4]
+	ldh a, [hTextBox_RightLimitX]
 	cp a, c
 	jr c, TextEngine_LineWrap
 	jp TextEngine_ReloadBank
@@ -97,11 +97,11 @@ Function_00_0F68::
 
 TextEngine_LineWrap:: ; 00:0F69
 Label_00_0F69::
-	ldh a, [hRam_FFC1]
+	ldh a, [hTextBox_LineStartX]
 	ldh [hTextX], a
-	ldh a, [hRam_FFC2]
+	ldh a, [hTextBox_LineStartXHi]
 	ldh [hTextX + 1], a
-	ldh a, [hRam_FFC6]
+	ldh a, [hTextBox_LineAdvance]
 	ld b, a
 	inc a
 	ret z
@@ -109,7 +109,7 @@ Label_00_0F69::
 	add a, b
 	ldh [hTextY], a
 	ld c, a
-	ldh a, [hRam_FFC3]
+	ldh a, [hTextBox_MaxLineY]
 	cp a, c
 	jp nc, TextEngine_ReloadBank
 	ret
@@ -124,17 +124,17 @@ Function_00_0F83::
 	ld a, [hli]
 	ld b, a
 	ld a, [hli]
-	ldh [hRam_FFB0], a
+	ldh [hTextEngine_CallBank], a
 	push hl
-	ldh a, [hRam_FFB9]
+	ldh a, [hTextEngine_StringBank]
 	push af
-	ldh a, [hRam_FFB0]
-	ldh [hRam_FFB9], a
+	ldh a, [hTextEngine_CallBank]
+	ldh [hTextEngine_StringBank], a
 	ld h, b
 	ld l, c
-	ldh a, [hRam_FFBF]
+	ldh a, [hTextEngine_CallDepth]
 	inc a
-	ldh [hRam_FFBF], a
+	ldh [hTextEngine_CallDepth], a
 	jp TextEngine_ReloadBank
 
 TextEngine_Cmd00_End:: ; 00:0F9D
@@ -142,14 +142,14 @@ Function_00_0F9D::
 	; [CONFIRMED] control byte $00/$08/$0A-$0C/$0E-$1B: end of string: at depth 0 return to caller,
 	; else pop the saved pointer/bank and continue
 	pop hl
-	ldh a, [hRam_FFBF]
+	ldh a, [hTextEngine_CallDepth]
 	or a, a
 	ret z
 	dec a
-	ldh [hRam_FFBF], a
+	ldh [hTextEngine_CallDepth], a
 	pop hl
 	pop af
-	ldh [hRam_FFB9], a
+	ldh [hTextEngine_StringBank], a
 	jp TextEngine_ReloadBank
 
 TextEngine_Cmd02_SetY:: ; 00:0FAC
@@ -313,9 +313,9 @@ Function_00_1059::
 	ldh a, [hTextX]
 	cp a, $A0
 	jr nc, TextEngine_DrawWideGlyph_BlitRight
-	ldh a, [hRam_FFBA]
+	ldh a, [hTextBox_ColorSelB]
 	ld b, a
-	ldh a, [hRam_FFBB]
+	ldh a, [hTextBox_ColorSelC]
 	ld c, a
 	ldh a, [hTextY]
 	ld d, a
@@ -343,9 +343,9 @@ Function_00_1079::
 	cp a, $90
 	jr nc, TextEngine_DrawWideGlyph_AdvanceX
 	ld d, a
-	ldh a, [hRam_FFBA]
+	ldh a, [hTextBox_ColorSelB]
 	ld b, a
-	ldh a, [hRam_FFBB]
+	ldh a, [hTextBox_ColorSelC]
 	ld c, a
 	ld hl, $C0B8
 	farcall Canvas_BlitGlyph
@@ -380,9 +380,9 @@ TextEngine_DrawNarrowGlyph_Blit:: ; 00:10C6
 Function_00_10C6::
 	; [CONFIRMED] continuation of Function_00_10B1 | inline far pointer: FarCall at 10D5: dw $42C3 ;
 	; db $7F -> 7F:42C3
-	ldh a, [hRam_FFBA]
+	ldh a, [hTextBox_ColorSelB]
 	ld b, a
-	ldh a, [hRam_FFBB]
+	ldh a, [hTextBox_ColorSelC]
 	ld c, a
 	ldh a, [hTextY]
 	ld d, a

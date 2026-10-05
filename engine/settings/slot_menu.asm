@@ -9,13 +9,13 @@ SettingsPhone_SlotMenu:: ; 67:4C73
 	; entered by call from 67:4BAF (PROBABLE code) | 246 insn(s) executed; cut out of the PROBABLE
 	; region 4BD5-4F68 by apply_coverage --split [executed in 1 scenarios] (part of region
 	; $4BD5-$4E56)
-	ld [wRam_C27E], a
+	ld [wSlotMenu_OnlyFilled], a
 	call SettingsPhone_SlotMenu_Setup
 	farcall Palette_FadeInFromWhite
 	call SettingsPhone_SlotMenu_Loop
 	farcall Palette_FadeOutToWhite
 	farcall Kbd_HideInstant
-	ld a, [wRam_C27D]
+	ld a, [wSlotMenu_Cursor]
 	ld hl, sPhoneSlotMenuCursor
 	ld b, a
 	ldh [hScratchA], a
@@ -44,7 +44,7 @@ SettingsPhone_SlotMenu:: ; 67:4C73
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ldh a, [hScratchA]
-	ld a, [wRam_C27C]
+	ld a, [wSlotMenu_Result]
 	ret
 
 SettingsPhone_SlotMenu_Setup:: ; 67:4CCB
@@ -53,7 +53,7 @@ SettingsPhone_SlotMenu_Setup:: ; 67:4CCB
 	farcall Joypad_SetRepeatTiming
 	farcall Sprite_ResetAll
 	xor a, a
-	ld [wRam_C27C], a
+	ld [wSlotMenu_Result], a
 	ld hl, sPhoneSlotMenuCursor
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
@@ -82,8 +82,8 @@ SettingsPhone_SlotMenu_Setup:: ; 67:4CCB
 	ld [rRAMG], a
 	ldh a, [hScratchA]
 	ld a, b
-	ld [wRam_C27D], a
-	ld a, [wRam_C27E]
+	ld [wSlotMenu_Cursor], a
+	ld a, [wSlotMenu_OnlyFilled]
 	or a, a
 	jr z, .l4D68
 	ld de, $8801
@@ -188,10 +188,10 @@ SettingsPhone_SlotMenu_Loop:: ; 67:4E20
 	jp nz, .l4EE4
 	jr SettingsPhone_SlotMenu_Loop
 .l4E44 ; 67:4E44
-	ld a, [wRam_C27E]
+	ld a, [wSlotMenu_OnlyFilled]
 	or a, a
 	jr z, .l4E69
-	ld a, [wRam_C27D]
+	ld a, [wSlotMenu_Cursor]
 	farcall Dial_EntryHasNumber
 	or a, a
 	jr nz, .l4E69
@@ -219,9 +219,9 @@ SettingsPhone_SlotMenu_Loop:: ; 67:4E20
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld a, [wRam_C27D]
+	ld a, [wSlotMenu_Cursor]
 	inc a
-	ld [wRam_C27C], a
+	ld [wSlotMenu_Result], a
 	ret
 .l4E81 ; 67:4E81
 	ldh a, [hWRAMBank]
@@ -233,7 +233,7 @@ SettingsPhone_SlotMenu_Loop:: ; 67:4E20
 	pop af
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_C27C], a
+	ld [wSlotMenu_Result], a
 	ret
 .l4E96 ; 67:4E96
 	ldh a, [hWRAMBank]
@@ -244,7 +244,7 @@ SettingsPhone_SlotMenu_Loop:: ; 67:4E20
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld a, [wRam_C27E]
+	ld a, [wSlotMenu_OnlyFilled]
 	or a, a
 	jr nz, .l4ECC
 
@@ -255,12 +255,12 @@ SettingsPhone_SlotMenu_Loop:: ; 67:4E20
 	or a, a
 	jr nz, .l4EC1
 .l4EB7 ; 67:4EB7
-	ld a, [wRam_C27D]
+	ld a, [wSlotMenu_Cursor]
 	xor a, $01
-	ld [wRam_C27D], a
+	ld [wSlotMenu_Cursor], a
 	jr .l4F36
 .l4EC1 ; 67:4EC1
-	ld a, [wRam_C27D]
+	ld a, [wSlotMenu_Cursor]
 	or a, a
 	jr nz, .l4EC9
 	ld a, $03
@@ -295,7 +295,7 @@ SettingsPhone_SlotMenu_Loop:: ; 67:4E20
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld a, [wRam_C27E]
+	ld a, [wSlotMenu_OnlyFilled]
 	or a, a
 	jr nz, .l4F1B
 	ld a, $01
@@ -303,15 +303,15 @@ SettingsPhone_SlotMenu_Loop:: ; 67:4E20
 	or a, a
 	jr nz, .l4F0F
 .l4F05 ; 67:4F05
-	ld a, [wRam_C27D]
+	ld a, [wSlotMenu_Cursor]
 	xor a, $01
-	ld [wRam_C27D], a
+	ld [wSlotMenu_Cursor], a
 	jr .l4F36
 
 .l4F0F ; 67:4F0F
 	; [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4BD5-4F68 by apply_coverage --split
-	ld a, [wRam_C27D]
+	ld a, [wSlotMenu_Cursor]
 	cp a, $02
 	jr nz, .l4F18
 	ld a, $FF
@@ -335,7 +335,7 @@ SettingsPhone_SlotMenu_Loop:: ; 67:4E20
 	; 4BD5-4F68 by apply_coverage --split
 	jr .l4F0F
 .l4F33 ; 67:4F33
-	ld [wRam_C27D], a
+	ld [wSlotMenu_Cursor], a
 
 .l4F36 ; 67:4F36
 	; [CONFIRMED] 23 insn(s) executed; cut out of the PROBABLE region 4BD5-4F68 by apply_coverage
@@ -351,7 +351,7 @@ SettingsPhone_SlotMenu_Loop:: ; 67:4E20
 	jp SettingsPhone_SlotMenu_Loop
 
 SettingsPhone_SlotMenu_PlaceCursor:: ; 67:4F50
-	ld a, [wRam_C27D]
+	ld a, [wSlotMenu_Cursor]
 	add a, a
 	ld hl, SettingsPhone_SlotMenu_CursorPos
 	add a, l
@@ -396,9 +396,9 @@ SettingsPhone_SlotMenu_PrintSlotFields:: ; 67:4F9C
 	ld bc, $020C
 	farcall TileCanvas_FillRect
 	ld a, $00
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $03
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	ld a, $4B
 	ldh [hTextY], a
 	ld a, $38
@@ -408,20 +408,20 @@ SettingsPhone_SlotMenu_PrintSlotFields:: ; 67:4F9C
 	ld a, $48
 	ldh [hRam_FFC0], a
 	ld a, $38
-	ldh [hRam_FFC1], a
+	ldh [hTextBox_LineStartX], a
 	ld a, $00
-	ldh [hRam_FFC2], a
+	ldh [hTextBox_LineStartXHi], a
 	ld a, $58
-	ldh [hRam_FFC3], a
+	ldh [hTextBox_MaxLineY], a
 	ld a, $98
-	ldh [hRam_FFC4], a
+	ldh [hTextBox_RightLimitX], a
 	ld a, $00
 	ldh [hRam_FFC5], a
 	ld a, $0C
-	ldh [hRam_FFC6], a
+	ldh [hTextBox_LineAdvance], a
 	ld a, $0C
 	ldh [hRam_FFC7], a
-	ld a, [wRam_C27D]
+	ld a, [wSlotMenu_Cursor]
 	ld hl, SettingsPhone_SlotMenu_FieldTable
 	add a, a
 	add a, l
@@ -439,9 +439,9 @@ SettingsPhone_SlotMenu_PrintSlotFields:: ; 67:4F9C
 	ld bc, $020C
 	farcall TileCanvas_FillRect
 	ld a, $00
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $03
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	ld a, $5B
 	ldh [hTextY], a
 	ld a, $38
@@ -451,20 +451,20 @@ SettingsPhone_SlotMenu_PrintSlotFields:: ; 67:4F9C
 	ld a, $38
 	ldh [hRam_FFC0], a
 	ld a, $58
-	ldh [hRam_FFC1], a
+	ldh [hTextBox_LineStartX], a
 	ld a, $00
-	ldh [hRam_FFC2], a
+	ldh [hTextBox_LineStartXHi], a
 	ld a, $68
-	ldh [hRam_FFC3], a
+	ldh [hTextBox_MaxLineY], a
 	ld a, $98
-	ldh [hRam_FFC4], a
+	ldh [hTextBox_RightLimitX], a
 	ld a, $00
 	ldh [hRam_FFC5], a
 	ld a, $0C
-	ldh [hRam_FFC6], a
+	ldh [hTextBox_LineAdvance], a
 	ld a, $0C
 	ldh [hRam_FFC7], a
-	ld a, [wRam_C27D]
+	ld a, [wSlotMenu_Cursor]
 	ld hl, $50AB
 	add a, a
 	add a, l
@@ -482,9 +482,9 @@ SettingsPhone_SlotMenu_PrintSlotFields:: ; 67:4F9C
 	ld bc, $0212
 	farcall TileCanvas_FillRect
 	ld a, $00
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $03
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	ld a, $6B
 	ldh [hTextY], a
 	ld a, $30
@@ -494,20 +494,20 @@ SettingsPhone_SlotMenu_PrintSlotFields:: ; 67:4F9C
 	ld a, $68
 	ldh [hRam_FFC0], a
 	ld a, $30
-	ldh [hRam_FFC1], a
+	ldh [hTextBox_LineStartX], a
 	ld a, $00
-	ldh [hRam_FFC2], a
+	ldh [hTextBox_LineStartXHi], a
 	ld a, $78
-	ldh [hRam_FFC3], a
+	ldh [hTextBox_MaxLineY], a
 	ld a, $98
-	ldh [hRam_FFC4], a
+	ldh [hTextBox_RightLimitX], a
 	ld a, $00
 	ldh [hRam_FFC5], a
 	ld a, $0C
-	ldh [hRam_FFC6], a
+	ldh [hTextBox_LineAdvance], a
 	ld a, $0C
 	ldh [hRam_FFC7], a
-	ld a, [wRam_C27D]
+	ld a, [wSlotMenu_Cursor]
 	ld hl, $50B1
 	add a, a
 	add a, l
@@ -549,7 +549,7 @@ SettingsPhone_SlotMenu_UploadTextTiles:: ; 67:50B7
 SettingsPhone_SlotMenu_LoadTabTilemap:: ; 67:50E5
 	ld de, $D0E0
 	ld bc, $0214
-	ld a, [wRam_C27D]
+	ld a, [wSlotMenu_Cursor]
 	ld hl, SettingsPhone_SlotMenu_TabTilemapTable
 	add a, a
 	add a, l

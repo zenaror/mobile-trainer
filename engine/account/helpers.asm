@@ -366,11 +366,11 @@ Account_CopyMailAddressToFar:: ; 68:41E9
 Function_68_41E9::
 	; [CONFIRMED] 40 insn(s); 40 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld [wRam_C27C], a
+	ld [wCopyMailAddressToFar_Bank], a
 	ld a, l
-	ld [wRam_C27D], a
+	ld [wCopyMailAddressToFar_DestLo], a
 	ld a, h
-	ld [wRam_C27E], a
+	ld [wCopyMailAddressToFar_DestHi], a
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
 	push af
@@ -384,16 +384,16 @@ Function_68_41E9::
 	ld hl, $B047
 	ld de, $C27F
 	call DecodeXorA5
-	ld a, [wRam_C27D]
+	ld a, [wCopyMailAddressToFar_DestLo]
 	ld l, a
-	ld a, [wRam_C27E]
+	ld a, [wCopyMailAddressToFar_DestHi]
 	ld h, a
-	ld a, [wRam_C27C]
+	ld a, [wCopyMailAddressToFar_Bank]
 	call BankSwitch_H_Local
 	ld hl, $C27F
-	ld a, [wRam_C27D]
+	ld a, [wCopyMailAddressToFar_DestLo]
 	ld e, a
-	ld a, [wRam_C27E]
+	ld a, [wCopyMailAddressToFar_DestHi]
 	ld d, a
 	call CopyString
 	ldh [hScratchA], a

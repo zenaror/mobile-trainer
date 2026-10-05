@@ -343,7 +343,7 @@ Label_6C_5B47:: ; 6C:5B47
 	; [CONFIRMED] 86 insn(s); 86 executed (in up to 12/18 scenarios)
 	ld a, $01
 	ld [wHelpScriptDelayCounter], a
-	ld [wRam_C0E2], a
+	ld [wHelpScript_PrintingFlag], a
 	ld a, $06
 	ld [wHelpScriptGlyphDelay], a
 	xor a, a
@@ -412,7 +412,7 @@ Label_6C_5B47:: ; 6C:5B47
 Label_6C_5CC5:: ; 6C:5CC5
 	farcall Sprite_UpdateAll
 	call VBlank_WaitAndService
-	ld a, [wRam_C0E2]
+	ld a, [wHelpScript_PrintingFlag]
 	or a, a
 	jr z, .l5CEE
 	call HelpScript_StepText
@@ -449,7 +449,7 @@ Label_6C_5D07:: ; 6C:5D07
 Label_6C_5D09:: ; 6C:5D09
 	ld a, $01
 	ld [wHelpScriptAdvanceMode], a
-	ld a, [wRam_C0E2]
+	ld a, [wHelpScript_PrintingFlag]
 	or a, a
 	jr nz, Label_6C_5CC5
 	ld hl, $DA20
@@ -465,7 +465,7 @@ Label_6C_5D09:: ; 6C:5D09
 Label_6C_5D30:: ; 6C:5D30
 	ld a, $02
 	ld [wHelpScriptAdvanceMode], a
-	ld a, [wRam_C0E2]
+	ld a, [wHelpScript_PrintingFlag]
 	or a, a
 	jr nz, .l5D57
 	ld hl, $DA20
@@ -515,7 +515,7 @@ Label_6C_5D9C:: ; 6C:5D9C
 
 Label_6C_5D9F:: ; 6C:5D9F
 	xor a, a
-	ld [wRam_C0E2], a
+	ld [wHelpScript_PrintingFlag], a
 	ld a, [wHelpScriptAdvanceMode]
 	cp a, $02
 	jr z, .l5DC6
@@ -590,7 +590,7 @@ HelpScript_RenderCaption:: ; 6C:5E25
 	ld bc, $D000
 	ld de, $D0C0
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $6C
 	farcall TextTiles_RenderLine
 	push hl
@@ -615,9 +615,9 @@ HelpScript_ShowPicture:: ; 6C:5E6E
 	ret z
 	ld c, a
 	ld a, l
-	ld [wRam_C10E], a
+	ld [wHelpScript_SavedPtrLo], a
 	ld a, h
-	ld [wRam_C10F], a
+	ld [wHelpScript_SavedPtrHi], a
 	xor a, a
 	or a, c
 	jr z, .l5E8B
@@ -670,7 +670,7 @@ HelpScript_ShowPicture:: ; 6C:5E6E
 	ldh a, [hScratchA]
 	pop hl
 	ld a, [hli]
-	ld [wRam_C110], a
+	ld [wHelpScript_PictureBank], a
 	push hl
 	inc hl
 	inc hl
@@ -684,7 +684,7 @@ HelpScript_ShowPicture:: ; 6C:5E6E
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_C110]
+	ld a, [wHelpScript_PictureBank]
 	ld de, $D830
 	ld bc, $0008
 	farcall Palette_LoadToBuffer
@@ -715,20 +715,20 @@ HelpScript_ShowPicture:: ; 6C:5E6E
 	ld de, $8800
 	ld b, $92
 	ld c, $40
-	ld a, [wRam_C110]
+	ld a, [wHelpScript_PictureBank]
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0400
 	add hl, bc
 	ld de, $8C00
 	ld b, $98
 	ld c, $08
-	ld a, [wRam_C110]
+	ld a, [wHelpScript_PictureBank]
 	farcall Gfx_StartHDMAWithService
 	ld a, $40
 	farcall Palette_FadeInMasked
-	ld a, [wRam_C10E]
+	ld a, [wHelpScript_SavedPtrLo]
 	ld l, a
-	ld a, [wRam_C10F]
+	ld a, [wHelpScript_SavedPtrHi]
 	ld h, a
 	ret
 
@@ -816,11 +816,11 @@ Function_6C_6009::
 .l6068 ; 6C:6068
 	; [CONFIRMED] 19 insn(s); 19 executed (in up to 12/18 scenarios)
 	xor a, a
-	ld [wRam_C17A], a
+	ld [wHelpScript_ClearPlane1Flag], a
 	jr .l601B
 .l606E ; 6C:606E
 	ld a, $01
-	ld [wRam_C17A], a
+	ld [wHelpScript_ClearPlane1Flag], a
 	jr .l601B
 .l6075 ; 6C:6075
 	call HelpScript_RenderCaption
@@ -880,7 +880,7 @@ Function_6C_6009::
 	inc hl
 	push hl
 .l60C9 ; 6C:60C9
-	ld a, [wRam_C17A]
+	ld a, [wHelpScript_ClearPlane1Flag]
 	push af
 	ld a, [wHelpScriptColumn]
 	cp a, $10

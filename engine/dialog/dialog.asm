@@ -125,13 +125,13 @@ Dialog_Open:: ; 72:402A
 	ld bc, $DC00
 	ld de, $DD00
 	ld a, $07
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $72
 	farcall TextTiles_RenderLine
 	ld bc, $DE00
 	ld de, $DF00
 	ld a, $07
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $72
 	farcall TextTiles_RenderLine
 	ld de, $8C01
@@ -275,13 +275,13 @@ Dialog_OpenTall:: ; 72:41D8
 	ld bc, $DC00
 	ld de, $DD00
 	ld a, $07
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $72
 	farcall TextTiles_RenderLine
 	ld bc, $DE00
 	ld de, $DF00
 	ld a, $07
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $72
 	farcall TextTiles_RenderLine
 	push hl
@@ -303,7 +303,7 @@ Dialog_OpenTall:: ; 72:41D8
 	ld bc, $DC00
 	ld de, $DD00
 	ld a, $07
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $72
 	farcall TextTiles_RenderLine
 	ld de, $9001

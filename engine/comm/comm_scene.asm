@@ -8,12 +8,12 @@ CommScene_Init:: ; 70:4000
 Function_70_4000::
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld [wRam_C27D], a
+	ld [wCommScene_Kind], a
 	xor a, a
-	ld [wRam_C27C], a
-	ld [wRam_C27E], a
-	ld [wRam_C27F], a
-	ld a, [wRam_C27D]
+	ld [wCommScene_State], a
+	ld [wCommScene_StepArg], a
+	ld [wCommScene_Result], a
+	ld a, [wCommScene_Kind]
 	or a, a
 	jr z, .l401F
 	ld a, [wTimerEnable]
@@ -29,20 +29,20 @@ Function_70_4000::
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 1/18 scenarios)
 	ld a, $01
 .l401F ; 70:401F
-	ld [wRam_C283], a
+	ld [wCommScene_TimerAFlag], a
 	ret
 
 CommScene_Step:: ; 70:4023
-	ld [wRam_C27E], a
+	ld [wCommScene_StepArg], a
 	ld a, $01
-	ld [wRam_C27F], a
+	ld [wCommScene_Result], a
 	farcall Joypad_Update
 	call CommScene_RunState
 	call CommScene_ApplyScrollFrame
-	ld a, [wRam_C27D]
+	ld a, [wCommScene_Kind]
 	or a, a
 	jr z, .l407B
-	ld a, [wRam_C283]
+	ld a, [wCommScene_TimerAFlag]
 	or a, a
 	jr nz, .l406A
 
@@ -64,7 +64,7 @@ CommScene_Step:: ; 70:4023
 	ld hl, $DA30
 	call Sprite_SetPosition
 	ld a, $01
-	ld [wRam_C283], a
+	ld [wCommScene_TimerAFlag], a
 	jr .l407B
 
 .l406A ; 70:406A
@@ -78,11 +78,11 @@ CommScene_Step:: ; 70:4023
 	ld hl, $DA30
 	call Sprite_ClearSlot
 	xor a, a
-	ld [wRam_C283], a
+	ld [wCommScene_TimerAFlag], a
 
 .l407B ; 70:407B
 	; [CONFIRMED] 31 insn(s); 31 executed (in up to 1/18 scenarios)
-	ld a, [wRam_C27F]
+	ld a, [wCommScene_Result]
 	ret
 
 CommScene_ApplyScrollFrame:: ; 70:407F
@@ -95,7 +95,7 @@ CommScene_ApplyScrollFrame:: ; 70:407F
 	ret
 
 CommScene_RunState:: ; 70:408F
-	ld a, [wRam_C27D]
+	ld a, [wCommScene_Kind]
 	ld hl, CommScene_KindTable
 	add a, a
 	add a, l
@@ -106,7 +106,7 @@ CommScene_RunState:: ; 70:408F
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ld a, [wRam_C27C]
+	ld a, [wCommScene_State]
 	add a, a
 	add a, l
 	ld l, a
@@ -173,9 +173,9 @@ Label_70_40E3:: ; 70:40E3
 	call CommScene_ShowTextBox
 	call CommScene_ResetScroll
 	ld a, $01
-	ld [wRam_C27C], a
+	ld [wCommScene_State], a
 	xor a, a
-	ld [wRam_C280], a
+	ld [wCommScene_SpritePairX], a
 	ld a, $00
 	call CommScene_SetTextSprites
 	call CommScene_PlaceTextSprites
@@ -193,23 +193,23 @@ Label_70_40E3:: ; 70:40E3
 
 Label_70_411B:: ; 70:411B
 	ld a, $02
-	ld [wRam_C27C], a
+	ld [wCommScene_State], a
 	ret
 
 Label_70_4121:: ; 70:4121
-	ld a, [wRam_C280]
+	ld a, [wCommScene_SpritePairX]
 	inc a
-	ld [wRam_C280], a
+	ld [wCommScene_SpritePairX], a
 	cp a, $48
 	jr nz, .skip
 	ld a, $03
-	ld [wRam_C27C], a
+	ld [wCommScene_State], a
 .skip ; 70:4131
 	call CommScene_PlaceTextSprites
 	ret
 
 Label_70_4135:: ; 70:4135
-	ld a, [wRam_C27E]
+	ld a, [wCommScene_StepArg]
 	cp a, $01
 	jr z, .l4144
 	ldh a, [hJoyPressed]
@@ -226,7 +226,7 @@ Label_70_4135:: ; 70:4135
 	pop af
 	ldh [rSVBK], a
 	ld a, $14
-	ld [wRam_C282], a
+	ld [wCommScene_Timer], a
 	ld hl, $DA60
 	ld de, CommScene_TextObjTable
 	ld a, $70
@@ -238,7 +238,7 @@ Label_70_4135:: ; 70:4135
 	ld a, $01
 	call CommScene_ShowTextBox
 	ld a, $04
-	ld [wRam_C27C], a
+	ld [wCommScene_State], a
 	jr .l41BB
 
 .l417E ; 70:417E
@@ -253,7 +253,7 @@ Label_70_4135:: ; 70:4135
 	pop af
 	ldh [rSVBK], a
 	ld a, $02
-	ld [wRam_C27F], a
+	ld [wCommScene_Result], a
 	ld hl, $DA60
 	ld de, CommScene_TextObjTable
 	ld a, $70
@@ -265,9 +265,9 @@ Label_70_4135:: ; 70:4135
 	ld a, $06
 	call CommScene_ShowTextBox
 	ld a, $14
-	ld [wRam_C282], a
+	ld [wCommScene_Timer], a
 	ld a, $07
-	ld [wRam_C27C], a
+	ld [wCommScene_State], a
 
 .l41BB ; 70:41BB
 	; [CONFIRMED] 39 insn(s); 39 executed (in up to 1/18 scenarios)
@@ -275,9 +275,9 @@ Label_70_4135:: ; 70:4135
 	ret
 
 Label_70_41BF:: ; 70:41BF
-	ld a, [wRam_C282]
+	ld a, [wCommScene_Timer]
 	dec a
-	ld [wRam_C282], a
+	ld [wCommScene_Timer], a
 	or a, a
 	jr nz, .l41E4
 	ldh a, [hWRAMBank]
@@ -291,19 +291,19 @@ Label_70_41BF:: ; 70:41BF
 	ld hl, $DA60
 	call Sprite_ClearSlot
 	ld a, $05
-	ld [wRam_C27C], a
+	ld [wCommScene_State], a
 .l41E4 ; 70:41E4
 	call CommScene_ScrollIncrement
 	ret
 
 Label_70_41E8:: ; 70:41E8
-	ld a, [wRam_C280]
+	ld a, [wCommScene_SpritePairX]
 	add a, $02
-	ld [wRam_C280], a
+	ld [wCommScene_SpritePairX], a
 	cp a, $A0
 	jr nz, .l41FB
 	ld a, $06
-	ld [wRam_C27C], a
+	ld [wCommScene_State], a
 	jr .l41FB
 .l41FB ; 70:41FB
 	call CommScene_PlaceTextSprites
@@ -314,18 +314,18 @@ Label_70_4202:: ; 70:4202
 	farcall Palette_FadeOutToWhite
 	call CommScene_Teardown
 	ld a, $FF
-	ld [wRam_C27C], a
+	ld [wCommScene_State], a
 	xor a, a
-	ld [wRam_C27F], a
+	ld [wCommScene_Result], a
 	ret
 
 Label_70_4215:: ; 70:4215
 	; [CONFIRMED] 44 insn(s) reached by static flow only; seeds: table x44; min discovery hops 0;
 	; run starts at an entry of the code-pointer table at 70:40B3 | 19 insn(s) executed; cut out of
 	; the PROBABLE region 4215-4275 by apply_coverage --split [executed in 5 scenarios]
-	ld a, [wRam_C282]
+	ld a, [wCommScene_Timer]
 	dec a
-	ld [wRam_C282], a
+	ld [wCommScene_Timer], a
 	or a, a
 	jr nz, .l4231
 	ld hl, $DA60
@@ -333,14 +333,14 @@ Label_70_4215:: ; 70:4215
 	ld a, $01
 	call CommScene_SetTextSprites
 	ld a, $08
-	ld [wRam_C27C], a
+	ld [wCommScene_State], a
 	jr .l4231
 .l4231 ; 70:4231
 	call CommScene_PlaceTextSprites
 	ret
 
 Label_70_4235:: ; 70:4235
-	ld a, [wRam_C27E]
+	ld a, [wCommScene_StepArg]
 	or a, a
 	jr z, .l4258
 	cp a, $01
@@ -362,20 +362,20 @@ Label_70_4235:: ; 70:4235
 	pop af
 	ldh [rSVBK], a
 	ld a, $09
-	ld [wRam_C27C], a
+	ld [wCommScene_State], a
 	jr .l4258
 .l4258 ; 70:4258
 	call CommScene_ScrollDecrement
 	ret
 
 Label_70_425C:: ; 70:425C
-	ld a, [wRam_C280]
+	ld a, [wCommScene_SpritePairX]
 	dec a
-	ld [wRam_C280], a
+	ld [wCommScene_SpritePairX], a
 	cp a, $E0
 	jr nz, .l426E
 	ld a, $06
-	ld [wRam_C27C], a
+	ld [wCommScene_State], a
 	jr .l426E
 .l426E ; 70:426E
 	call CommScene_PlaceTextSprites
@@ -412,9 +412,9 @@ Label_70_428D:: ; 70:428D
 	call CommScene_ShowTextBox
 	call CommScene_ResetScroll
 	ld a, $01
-	ld [wRam_C27C], a
+	ld [wCommScene_State], a
 	ld a, $48
-	ld [wRam_C280], a
+	ld [wCommScene_SpritePairX], a
 	ld a, $00
 	call CommScene_SetTextSprites
 	call CommScene_PlaceTextSprites
@@ -432,11 +432,11 @@ Label_70_428D:: ; 70:428D
 
 Label_70_42C7:: ; 70:42C7
 	ld a, $02
-	ld [wRam_C27C], a
+	ld [wCommScene_State], a
 	ret
 
 Label_70_42CD:: ; 70:42CD
-	ld a, [wRam_C27E]
+	ld a, [wCommScene_StepArg]
 	cp a, $01
 	jr z, .l42DC
 	ldh a, [hJoyPressed]
@@ -453,7 +453,7 @@ Label_70_42CD:: ; 70:42CD
 	pop af
 	ldh [rSVBK], a
 	ld a, $14
-	ld [wRam_C282], a
+	ld [wCommScene_Timer], a
 	ld hl, $DA60
 	ld de, CommScene_TextObjTable
 	ld a, $70
@@ -465,7 +465,7 @@ Label_70_42CD:: ; 70:42CD
 	ld a, $03
 	call CommScene_ShowTextBox
 	ld a, $03
-	ld [wRam_C27C], a
+	ld [wCommScene_State], a
 	jr .l4353
 
 .l4316 ; 70:4316
@@ -480,7 +480,7 @@ Label_70_42CD:: ; 70:42CD
 	pop af
 	ldh [rSVBK], a
 	ld a, $02
-	ld [wRam_C27F], a
+	ld [wCommScene_Result], a
 	ld hl, $DA60
 	ld de, CommScene_TextObjTable
 	ld a, $70
@@ -492,9 +492,9 @@ Label_70_42CD:: ; 70:42CD
 	ld a, $06
 	call CommScene_ShowTextBox
 	ld a, $14
-	ld [wRam_C282], a
+	ld [wCommScene_Timer], a
 	ld a, $06
-	ld [wRam_C27C], a
+	ld [wCommScene_State], a
 
 .l4353 ; 70:4353
 	; [CONFIRMED] 39 insn(s); 39 executed (in up to 1/18 scenarios)
@@ -502,9 +502,9 @@ Label_70_42CD:: ; 70:42CD
 	ret
 
 Label_70_4357:: ; 70:4357
-	ld a, [wRam_C282]
+	ld a, [wCommScene_Timer]
 	dec a
-	ld [wRam_C282], a
+	ld [wCommScene_Timer], a
 	or a, a
 	jr nz, .l437C
 	ldh a, [hWRAMBank]
@@ -518,19 +518,19 @@ Label_70_4357:: ; 70:4357
 	ld hl, $DA60
 	call Sprite_ClearSlot
 	ld a, $04
-	ld [wRam_C27C], a
+	ld [wCommScene_State], a
 .l437C ; 70:437C
 	call CommScene_ScrollIncrement
 	ret
 
 Label_70_4380:: ; 70:4380
-	ld a, [wRam_C280]
+	ld a, [wCommScene_SpritePairX]
 	add a, $02
-	ld [wRam_C280], a
+	ld [wCommScene_SpritePairX], a
 	cp a, $A0
 	jr nz, .l4393
 	ld a, $05
-	ld [wRam_C27C], a
+	ld [wCommScene_State], a
 	jr .l4393
 .l4393 ; 70:4393
 	call CommScene_PlaceTextSprites
@@ -541,18 +541,18 @@ Label_70_439A:: ; 70:439A
 	farcall Palette_FadeOutToWhite
 	call CommScene_Teardown
 	ld a, $FF
-	ld [wRam_C27C], a
+	ld [wCommScene_State], a
 	xor a, a
-	ld [wRam_C27F], a
+	ld [wCommScene_Result], a
 	ret
 
 Label_70_43AD:: ; 70:43AD
 	; [CONFIRMED] 112 insn(s) reached by static flow only; seeds: site x18, table x94; min discovery
 	; hops 0; run starts at an entry of the code-pointer table at 70:40B3 | 20 insn(s) executed; cut
 	; out of the PROBABLE region 43AD-44B0 by apply_coverage --split [executed in 2 scenarios]
-	ld a, [wRam_C282]
+	ld a, [wCommScene_Timer]
 	dec a
-	ld [wRam_C282], a
+	ld [wCommScene_Timer], a
 	or a, a
 	jr nz, .l43C9
 	ld hl, $DA60
@@ -560,7 +560,7 @@ Label_70_43AD:: ; 70:43AD
 	ld a, $01
 	call CommScene_SetTextSprites
 	ld a, $07
-	ld [wRam_C27C], a
+	ld [wCommScene_State], a
 	jr .l43C9
 .l43C9 ; 70:43C9
 	call CommScene_PlaceTextSprites
@@ -568,7 +568,7 @@ Label_70_43AD:: ; 70:43AD
 	ret
 
 Label_70_43D0:: ; 70:43D0
-	ld a, [wRam_C27E]
+	ld a, [wCommScene_StepArg]
 	or a, a
 	jr z, .l43F8
 	cp a, $01
@@ -592,7 +592,7 @@ Label_70_43D0:: ; 70:43D0
 	pop af
 	ldh [rSVBK], a
 	ld a, $08
-	ld [wRam_C27C], a
+	ld [wCommScene_State], a
 	jr .l43F8
 .l43F8 ; 70:43F8
 	call CommScene_PlaceTextSprites
@@ -600,13 +600,13 @@ Label_70_43D0:: ; 70:43D0
 	ret
 
 Label_70_43FF:: ; 70:43FF
-	ld a, [wRam_C280]
+	ld a, [wCommScene_SpritePairX]
 	dec a
-	ld [wRam_C280], a
+	ld [wCommScene_SpritePairX], a
 	cp a, $E0
 	jr nz, .l4411
 	ld a, $05
-	ld [wRam_C27C], a
+	ld [wCommScene_State], a
 	jr .l4411
 .l4411 ; 70:4411
 	call CommScene_PlaceTextSprites
@@ -619,9 +619,9 @@ Label_70_4418:: ; 70:4418
 	call CommScene_ShowTextBox
 	call CommScene_ResetScroll
 	ld a, $01
-	ld [wRam_C27C], a
+	ld [wCommScene_State], a
 	ld a, $48
-	ld [wRam_C280], a
+	ld [wCommScene_SpritePairX], a
 	ld a, $01
 	call CommScene_SetTextSprites
 	call CommScene_PlaceTextSprites
@@ -639,11 +639,11 @@ Label_70_4418:: ; 70:4418
 
 Label_70_4452:: ; 70:4452
 	ld a, $02
-	ld [wRam_C27C], a
+	ld [wCommScene_State], a
 	ret
 
 Label_70_4458:: ; 70:4458
-	ld a, [wRam_C27E]
+	ld a, [wCommScene_StepArg]
 	or a, a
 	jr z, .l4480
 	cp a, $01
@@ -665,7 +665,7 @@ Label_70_4458:: ; 70:4458
 	pop af
 	ldh [rSVBK], a
 	ld a, $03
-	ld [wRam_C27C], a
+	ld [wCommScene_State], a
 	ld a, $05
 	call CommScene_ShowTextBox
 	jr .l4480
@@ -674,13 +674,13 @@ Label_70_4458:: ; 70:4458
 	ret
 
 Label_70_4484:: ; 70:4484
-	ld a, [wRam_C280]
+	ld a, [wCommScene_SpritePairX]
 	dec a
-	ld [wRam_C280], a
+	ld [wCommScene_SpritePairX], a
 	cp a, $E0
 	jr nz, .l4496
 	ld a, $04
-	ld [wRam_C27C], a
+	ld [wCommScene_State], a
 	jr .l4496
 .l4496 ; 70:4496
 	call CommScene_PlaceTextSprites
@@ -691,9 +691,9 @@ Label_70_449D:: ; 70:449D
 	farcall Palette_FadeOutToWhite
 	call CommScene_Teardown
 	ld a, $FF
-	ld [wRam_C27C], a
+	ld [wCommScene_State], a
 	xor a, a
-	ld [wRam_C27F], a
+	ld [wCommScene_Result], a
 	ret
 
 CommScene_LoadGraphics:: ; 70:44B0
@@ -807,10 +807,10 @@ Function_70_44B0::
 	ld de, $1888
 	ld hl, $DA20
 	call Sprite_SetPosition
-	ld a, [wRam_C27D]
+	ld a, [wCommScene_Kind]
 	or a, a
 	jr z, .l45EC
-	ld a, [wRam_C283]
+	ld a, [wCommScene_TimerAFlag]
 	or a, a
 	jr z, .l4605
 .l45EC ; 70:45EC
@@ -1058,16 +1058,16 @@ CommScene_PlaceTextSprites:: ; 70:477F
 Function_70_477F::
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld a, [wRam_C281]
+	ld a, [wCommScene_SpritePairVariant]
 	or a, a
 	jr nz, .l47A0
 	ld d, $30
-	ld a, [wRam_C280]
+	ld a, [wCommScene_SpritePairX]
 	ld e, a
 	ld hl, $DA40
 	call Sprite_SetPosition
 	ld d, $30
-	ld a, [wRam_C280]
+	ld a, [wCommScene_SpritePairX]
 	sub a, $10
 	ld e, a
 	ld hl, $DA50
@@ -1078,12 +1078,12 @@ Function_70_477F::
 	; [CONFIRMED] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1;
 	; entered by jrcc from 70:4783 (executed) [executed in 3 scenarios]
 	ld d, $30
-	ld a, [wRam_C280]
+	ld a, [wCommScene_SpritePairX]
 	ld e, a
 	ld hl, $DA40
 	call Sprite_SetPosition
 	ld d, $30
-	ld a, [wRam_C280]
+	ld a, [wCommScene_SpritePairX]
 	add a, $10
 	ld e, a
 	ld hl, $DA50
@@ -1094,7 +1094,7 @@ CommScene_SetTextSprites:: ; 70:47BB
 Function_70_47BB::
 	; [CONFIRMED] 14 insn(s); 14 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld [wRam_C281], a
+	ld [wCommScene_SpritePairVariant], a
 	or a, a
 	jr nz, .l47E2
 	ld hl, $DA40

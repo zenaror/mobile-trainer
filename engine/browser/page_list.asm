@@ -1454,7 +1454,7 @@ PageList_ShowMessage:: ; 24:4A79
 	push hl
 	ld a, $02
 	ldh [rVBK], a
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $24
 	ld bc, $D000
 	ld de, $D140
@@ -1465,7 +1465,7 @@ PageList_ShowMessage:: ; 24:4A79
 	add hl, de
 	ld a, $02
 	ldh [rVBK], a
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $24
 	ld bc, $D280
 	ld de, $D3C0
@@ -1476,7 +1476,7 @@ PageList_ShowMessage:: ; 24:4A79
 	add hl, de
 	ld a, $02
 	ldh [rVBK], a
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $24
 	ld bc, $D500
 	ld de, $D640
@@ -1487,7 +1487,7 @@ PageList_ShowMessage:: ; 24:4A79
 	add hl, de
 	ld a, $02
 	ldh [rVBK], a
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $24
 	ld bc, $D780
 	ld de, $D8C0
@@ -1498,7 +1498,7 @@ PageList_ShowMessage:: ; 24:4A79
 	add hl, de
 	ld a, $02
 	ldh [rVBK], a
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $24
 	ld bc, $DA00
 	ld de, $DB40

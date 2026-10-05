@@ -7,7 +7,7 @@ SECTION "engine/settings/choice_menu", ROMX
 SettingsPhone_ChoiceMenu:: ; 67:4631
 	; [CONFIRMED] 275 insn(s) executed; cut out of the PROBABLE region 4593-486D by apply_coverage
 	; --split [executed in 1 scenarios] (part of region $45AB-$486D)
-	ld [wRam_C27E], a
+	ld [wChoiceMenu_Variant], a
 	call SettingsPhone_ChoiceMenu_Setup
 	farcall Palette_FadeInFromWhite
 	ldh a, [hWRAMBank]
@@ -27,20 +27,20 @@ SettingsPhone_ChoiceMenu:: ; 67:4631
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld a, [wRam_C27E]
+	ld a, [wChoiceMenu_Variant]
 	or a, a
 	jr nz, .l4678
-	ld a, [wRam_C27D]
+	ld a, [wChoiceMenu_Cursor]
 	ld [sPhoneTopMenuCursor], a
 	jr .l467E
 .l4678 ; 67:4678
-	ld a, [wRam_C27D]
+	ld a, [wChoiceMenu_Cursor]
 	ld [sPhoneMethodMenuCursor], a
 .l467E ; 67:467E
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld a, [wRam_C27C]
+	ld a, [wChoiceMenu_Result]
 	ret
 
 SettingsPhone_ChoiceMenu_Setup:: ; 67:4688
@@ -49,14 +49,14 @@ SettingsPhone_ChoiceMenu_Setup:: ; 67:4688
 	farcall Joypad_SetRepeatTiming
 	farcall Sprite_ResetAll
 	xor a, a
-	ld [wRam_C27C], a
+	ld [wChoiceMenu_Result], a
 	ld a, $01
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld a, [wRam_C27E]
+	ld a, [wChoiceMenu_Variant]
 	or a, a
 	jr nz, .l46B5
 	ld a, [sPhoneTopMenuCursor]
@@ -69,8 +69,8 @@ SettingsPhone_ChoiceMenu_Setup:: ; 67:4688
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld a, b
-	ld [wRam_C27D], a
-	ld a, [wRam_C27E]
+	ld [wChoiceMenu_Cursor], a
+	ld a, [wChoiceMenu_Variant]
 	or a, a
 	jr nz, .l4724
 	ld de, $8801
@@ -188,9 +188,9 @@ SettingsPhone_ChoiceMenu_Loop:: ; 67:47DC
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld a, [wRam_C27D]
+	ld a, [wChoiceMenu_Cursor]
 	inc a
-	ld [wRam_C27C], a
+	ld [wChoiceMenu_Result], a
 	ret
 .l4817 ; 67:4817
 	ldh a, [hWRAMBank]
@@ -202,7 +202,7 @@ SettingsPhone_ChoiceMenu_Loop:: ; 67:47DC
 	pop af
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_C27C], a
+	ld [wChoiceMenu_Result], a
 	ret
 .l482C ; 67:482C
 	ldh a, [hWRAMBank]
@@ -213,10 +213,10 @@ SettingsPhone_ChoiceMenu_Loop:: ; 67:47DC
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld a, [wRam_C27D]
+	ld a, [wChoiceMenu_Cursor]
 	ld b, $01
 	xor a, b
-	ld [wRam_C27D], a
+	ld [wChoiceMenu_Cursor], a
 	call SettingsPhone_ChoiceMenu_PlaceCursor
 	call SettingsPhone_ChoiceMenu_LoadTilemap
 	ldh a, [rLCDC]
@@ -226,7 +226,7 @@ SettingsPhone_ChoiceMenu_Loop:: ; 67:47DC
 	jp SettingsPhone_ChoiceMenu_Loop
 
 SettingsPhone_ChoiceMenu_PlaceCursor:: ; 67:4855
-	ld a, [wRam_C27D]
+	ld a, [wChoiceMenu_Cursor]
 	add a, a
 	ld hl, SettingsPhone_ChoiceMenu_CursorPos
 	add a, l
@@ -263,9 +263,9 @@ SettingsPhone_ChoiceMenu_PrintPrompt:: ; 67:4881
 	ld bc, $0612
 	farcall TileCanvas_FillRect
 	ld a, $00
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $03
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	ld a, $48
 	ldh [hTextY], a
 	ld a, $08
@@ -275,20 +275,20 @@ SettingsPhone_ChoiceMenu_PrintPrompt:: ; 67:4881
 	ld a, $48
 	ldh [hRam_FFC0], a
 	ld a, $08
-	ldh [hRam_FFC1], a
+	ldh [hTextBox_LineStartX], a
 	ld a, $00
-	ldh [hRam_FFC2], a
+	ldh [hTextBox_LineStartXHi], a
 	ld a, $78
-	ldh [hRam_FFC3], a
+	ldh [hTextBox_MaxLineY], a
 	ld a, $C8
-	ldh [hRam_FFC4], a
+	ldh [hTextBox_RightLimitX], a
 	ld a, $00
 	ldh [hRam_FFC5], a
 	ld a, $0C
-	ldh [hRam_FFC6], a
+	ldh [hTextBox_LineAdvance], a
 	ld a, $0C
 	ldh [hRam_FFC7], a
-	ld a, [wRam_C27E]
+	ld a, [wChoiceMenu_Variant]
 	or a, a
 	jr nz, .l48D4
 	ld a, $08
@@ -309,9 +309,9 @@ SettingsPhone_ChoiceMenu_UploadTextTiles:: ; 67:48E0
 	ret
 
 SettingsPhone_ChoiceMenu_LoadTilemap:: ; 67:48F0
-	ld a, [wRam_C27D]
+	ld a, [wChoiceMenu_Cursor]
 	ld c, a
-	ld a, [wRam_C27E]
+	ld a, [wChoiceMenu_Variant]
 	or a, a
 	jr nz, .l48FD
 	xor a, a

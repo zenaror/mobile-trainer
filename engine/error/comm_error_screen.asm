@@ -101,7 +101,7 @@ Table_5C_5231::
 
 CommErr_ShowScreen_Idle:: ; 5C:523B
 	; [CONFIRMED] 155 insn(s); 155 executed (in up to 3/18 scenarios)
-	ld a, [wRam_C0D8]
+	ld a, [wCommErr_TimerVariantFlag]
 	or a, a
 	call nz, CommErr_UpdateCommFooter
 	ldh a, [hJoyPressedRepeat]
@@ -186,7 +186,7 @@ CommErr_DrawMessage_TimerVariant:: ; 5C:52AB
 	farcall Palette_LoadToBuffer
 	pop hl
 	ld a, $01
-	ld [wRam_C0D8], a
+	ld [wCommErr_TimerVariantFlag], a
 	jr CommErr_LookupTriple
 
 CommErr_DrawMessage_PlainVariant:: ; 5C:52EF
@@ -234,9 +234,9 @@ CommErr_PrintMessage:: ; 5C:531E
 	ld h, [hl]
 	ld l, a
 	ld a, $00
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $03
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	ld a, $18
 	ldh [hTextY], a
 	ld a, $08
@@ -246,17 +246,17 @@ CommErr_PrintMessage:: ; 5C:531E
 	ld a, $18
 	ldh [hRam_FFC0], a
 	ld a, $08
-	ldh [hRam_FFC1], a
+	ldh [hTextBox_LineStartX], a
 	xor a, a
-	ldh [hRam_FFC2], a
+	ldh [hTextBox_LineStartXHi], a
 	ld a, $78
-	ldh [hRam_FFC3], a
+	ldh [hTextBox_MaxLineY], a
 	ld a, $98
-	ldh [hRam_FFC4], a
+	ldh [hTextBox_RightLimitX], a
 	ld a, $00
 	ldh [hRam_FFC5], a
 	ld a, $0C
-	ldh [hRam_FFC6], a
+	ldh [hTextBox_LineAdvance], a
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	ld a, $5C
@@ -415,9 +415,9 @@ Function_5C_546F::
 	; [PROBABLE] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 0;
 	; fall-through of the jrcc at 5C:5474 (executed)
 	ld a, $BE
-	ld [wRam_C10E], a
+	ld [wCommErr_AttrSrc], a
 	ld a, $57
-	ld [wRam_C10F], a
+	ld [wCommErr_AttrSrcHi], a
 	ld bc, $0214
 	ld de, $D200
 	ld hl, $5656
@@ -429,7 +429,7 @@ Function_5C_546F::
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	ld a, $00
-	ld [wRam_C0D8], a
+	ld [wCommErr_TimerVariantFlag], a
 	ret
 
 .l54A5 ; 5C:54A5

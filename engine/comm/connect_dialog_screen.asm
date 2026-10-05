@@ -8,7 +8,7 @@ ConnectDialog_DrawScreen:: ; 57:47A6
 Function_57_47A6::
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 6/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld a, [wRam_C0D8]
+	ld a, [wConnectDialog_Mode]
 	cp a, $02
 	jr c, ConnectDialog_Draw_ConnectConfirm
 	jp z, ConnectDialog_Draw_ConnectConfirm
@@ -118,7 +118,7 @@ ConnectDialog_Draw_ConnectConfirm:: ; 57:47D1
 	ld bc, $0010
 	ld de, $D000
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $56
 	farcall TextTiles_RenderGrid
 	ld de, $9000
@@ -138,13 +138,13 @@ ConnectDialog_Draw_ConnectConfirm:: ; 57:47D1
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
-	ld a, [wRam_C0D8]
+	ld a, [wConnectDialog_Mode]
 	cp a, $04
 	jr z, .l4914
 	ld a, $92
-	ld [wRam_C10E], a
+	ld [wConnectDialog_AttrSrc], a
 	ld a, $52
-	ld [wRam_C10F], a
+	ld [wConnectDialog_AttrSrcHi], a
 	ld bc, $0214
 	ld de, $D200
 	ld hl, Tilemap_ConnectDialog_ConnectConfirm_56_526A
@@ -184,7 +184,7 @@ ConnectDialog_Draw_ConnectConfirm:: ; 57:47D1
 ConnectDialog_Draw_PasswordEntry:: ; 57:4951
 	; [CONFIRMED] 360 insn(s) reached by static flow only; seeds: exec x360; min discovery hops 1;
 	; entered by jpcc from 57:47BA (executed) [executed in 1 scenarios]
-	ld a, [wRam_C0E6]
+	ld a, [wConnectDialog_PrevMode]
 	cp a, $05
 	jp z, .l4AA3
 	cp a, $06
@@ -268,7 +268,7 @@ ConnectDialog_Draw_PasswordEntry:: ; 57:4951
 	ld bc, $0010
 	ld de, $D000
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $56
 	farcall TextTiles_RenderGrid
 	ld de, $9000
@@ -322,7 +322,7 @@ ConnectDialog_Draw_PasswordEntry:: ; 57:4951
 	ret
 
 ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
-	ld a, [wRam_C0E6]
+	ld a, [wConnectDialog_PrevMode]
 	cp a, $08
 	jp nz, .l4BF3
 	ld de, $8800
@@ -403,7 +403,7 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	ld bc, $0010
 	ld de, $D000
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $56
 	farcall TextTiles_RenderGrid
 	ld de, $9000
@@ -444,7 +444,7 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	ld hl, $7800
 	ld a, $56
 	farcall Palette_LoadToBuffer
-	ld a, [wRam_C0E6]
+	ld a, [wConnectDialog_PrevMode]
 	cp a, $06
 	jr nz, .l4C2C
 	call VBlank_WaitStartDI
@@ -501,7 +501,7 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	ld bc, $0010
 	ld de, $D000
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $56
 	farcall TextTiles_RenderGrid
 	ld de, $8801
@@ -633,7 +633,7 @@ ConnectDialog_Draw_PasswordSaved:: ; 57:4D40
 	ld bc, $0010
 	ld de, $D000
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $56
 	farcall TextTiles_RenderGrid
 	ld de, $9000
@@ -736,7 +736,7 @@ ConnectDialog_Draw_StoredPassword:: ; 57:4E4C
 	ld bc, $0010
 	ld de, $D000
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $56
 	farcall TextTiles_RenderGrid
 	ld de, $9000
@@ -826,7 +826,7 @@ ConnectDialog_Draw_ForgetConfirm:: ; 57:4F59
 	ld bc, $0010
 	ld de, $D000
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $56
 	farcall TextTiles_RenderGrid
 	ld de, $8801
@@ -890,7 +890,7 @@ ConnectDialog_Draw_Finish:: ; 57:5077
 	farcall Palette_LoadToBuffer
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
-	ld a, [wRam_C0E6]
+	ld a, [wConnectDialog_PrevMode]
 	cp a, $05
 	jr nc, .l50B3
 .loop ; 57:50A6
@@ -898,7 +898,7 @@ ConnectDialog_Draw_Finish:: ; 57:5077
 	farcall Palette_FadeInFromWhite
 	ret
 .l50B3 ; 57:50B3
-	ld a, [wRam_C0D8]
+	ld a, [wConnectDialog_Mode]
 	cp a, $05
 	jr c, .loop
 
@@ -908,14 +908,14 @@ ConnectDialog_Draw_Finish:: ; 57:5077
 	or a, a
 	jr z, .l50CA
 	call ConnectDialog_HideLowerWindow
-	ld a, [wRam_C0D8]
+	ld a, [wConnectDialog_Mode]
 	cp a, $08
 	jr z, .loop
 .l50CA ; 57:50CA
-	ld a, [wRam_C0E6]
+	ld a, [wConnectDialog_PrevMode]
 	cp a, $0A
 	ret nz
-	ld a, [wRam_C0D8]
+	ld a, [wConnectDialog_Mode]
 	cp a, $05
 	jr z, .loop
 	ret
@@ -933,7 +933,7 @@ Label_57_50D8:: ; 57:50D8
 	ld a, $56
 	farcall Palette_LoadToBuffer
 	call ConnectDialog_DrawPasswordField
-	ld a, [wRam_C0E6]
+	ld a, [wConnectDialog_PrevMode]
 	cp a, $08
 	jr nz, .l510B
 	farcall Palette_FadeInFromWhite
@@ -945,7 +945,7 @@ ConnectDialog_DrawPasswordField:: ; 57:510F
 Function_57_510F::
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 5/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld a, [wRam_C0D8]
+	ld a, [wConnectDialog_Mode]
 	cp a, $02
 	jr c, .done
 	jp z, .done
@@ -1237,7 +1237,7 @@ ConnectDialog_ObjHook_Caret:: ; 57:52D8
 	call Sprite_SetHook
 	call ConnectDialog_PlaceCaretSprites
 	ld a, $01
-	ld [wRam_C0E8], a
+	ld [wConnectDialog_FieldDirty], a
 .l5314 ; 57:5314
 	ldh [hScratchA], a
 	pop af
@@ -1260,7 +1260,7 @@ ConnectDialog_ObjHook_FollowRaster:: ; 57:531E
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_C0F6]
+	ld a, [wConnectDialog_RasterOffset]
 	add a, $15
 	ld [wSpriteSlots + 32], a
 	ld [wSpriteSlots + 48], a
@@ -1355,12 +1355,12 @@ ConnectDialog_ValidatePassword:: ; 57:5369
 	ret
 
 ConnectDialog_RefreshFieldIfDirty:: ; 57:53B9
-	ld a, [wRam_C0E8]
+	ld a, [wConnectDialog_FieldDirty]
 	or a, a
 	ret z
 	call ConnectDialog_DrawPasswordField
 	xor a, a
-	ld [wRam_C0E8], a
+	ld [wConnectDialog_FieldDirty], a
 	ret
 
 ConnectDialog_UploadMapRow:: ; 57:53C6
@@ -1455,7 +1455,7 @@ ConnectDialog_RenderTypedChars:: ; 57:5444
 	ld bc, $0008
 	ld de, $D000
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $00
 	farcall TextTiles_RenderGrid
 	ld de, $9701
@@ -1471,7 +1471,7 @@ Function_57_546C::
 	; [CONFIRMED] 16 insn(s); 16 executed (in up to 6/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld b, a
-	ld a, [wRam_C0D8]
+	ld a, [wConnectDialog_Mode]
 	cp a, $02
 	jr c, .l5498
 	jp z, .l54BE
@@ -1654,7 +1654,7 @@ Function_57_546C::
 	xor a, a
 	or a, b
 	jr nz, .l55A9
-	ld a, [wRam_C0E5]
+	ld a, [wConnectDialog_Cursor]
 	cp a, $01
 	jr nz, .l5598
 	ldh a, [hWRAMBank]

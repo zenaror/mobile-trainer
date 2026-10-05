@@ -44,7 +44,7 @@ MailSrvDel_MsgNoMail:: ; 23:6D8C
 	; entered by call from 23:4E62 (PROBABLE code) [executed in 1 scenarios]
 	push bc
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $23
 	ld bc, $D000
 	ld de, $D140
@@ -67,7 +67,7 @@ MailSrvDel_MsgAllDeleted:: ; 23:6DD0
 	; entered by call from 23:507A (PROBABLE code) [executed in 3 scenarios]
 	push bc
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $23
 	ld bc, $D000
 	ld de, $D140
@@ -90,7 +90,7 @@ MailSrvDel_MsgBlank:: ; 23:6E14
 	; entered by call from 23:5578 (PROBABLE code)
 	push bc
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $23
 	ld bc, $D000
 	ld de, $D140
@@ -117,7 +117,7 @@ Function_23_6E58::
 	; -> HYPOTHESIS]
 	push bc
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $23
 	ld bc, $D000
 	ld de, $D140
@@ -143,7 +143,7 @@ MailSrvDel_MsgReading:: ; 23:6E9C
 	; entered by call from 23:4CEA (PROBABLE code) [executed in 3 scenarios]
 	push bc
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $23
 	ld bc, $D000
 	ld de, $D140

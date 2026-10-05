@@ -36,25 +36,25 @@ Function_4E_5204::
 .l522E ; 4E:522E
 	farcall Browser_ClearTitleArea
 	ld a, $03
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $00
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	ld a, $82
 	ldh [hTextY], a
 	ldh [hRam_FFC0], a
 	ld a, $8F
 	ldh [hRam_FFC3], a
 	ld a, $84
-	ldh [hRam_FFC4], a
+	ldh [hTextBox_RightLimitX], a
 	ld a, $10
 	ldh [hTextX], a
-	ldh [hRam_FFC1], a
+	ldh [hTextBox_LineStartX], a
 	ld a, $00
 	ldh [hTextX + 1], a
 	ldh [hRam_FFC2], a
 	ldh [hRam_FFC5], a
 	ld a, $FF
-	ldh [hRam_FFC6], a
+	ldh [hTextBox_LineAdvance], a
 	ld a, $06
 	ldh [hRam_FFC7], a
 	call Sound_FrameService
@@ -448,7 +448,7 @@ Browser_SetViewport:: ; 4E:5435
 	ret
 
 Browser_RedrawLinkById:: ; 4E:544A
-	ldh [hRam_FFB1], a
+	ldh [hPageRender_WantedLink], a
 	ld bc, $0090
 	ld de, $0060
 	farcall Browser_SetViewport
@@ -496,7 +496,7 @@ Browser_RedrawLinkById:: ; 4E:544A
 	cp a, $01
 	jr nz, .l5505
 	ld a, b
-	ldh [hRam_FFB2], a
+	ldh [hPageRender_SearchLinkId], a
 	pop hl
 	push hl
 	ldh a, [hPageHeaderPtr + 2]
@@ -553,18 +553,18 @@ Browser_RedrawLinkById:: ; 4E:544A
 	ldh a, [hViewY + 1]
 	sbc a, b
 	jp nc, .l5505
-	ldh a, [hRam_FFB1]
+	ldh a, [hPageRender_WantedLink]
 	ld b, a
-	ldh a, [hRam_FFB2]
+	ldh a, [hPageRender_SearchLinkId]
 	cp a, b
 	jr nz, .l5505
 	pop hl
 	push hl
-	ldh a, [hRam_FFB1]
+	ldh a, [hPageRender_WantedLink]
 	push af
 	call Browser_DrawElement
 	pop af
-	ldh [hRam_FFB1], a
+	ldh [hPageRender_WantedLink], a
 .l5505 ; 4E:5505
 	pop hl
 	ld bc, $0010
@@ -577,7 +577,7 @@ Browser_RedrawLinkById:: ; 4E:544A
 	ret
 
 Browser_FindLinkElement:: ; 4E:5512
-	ldh [hRam_FFB1], a
+	ldh [hPageRender_WantedLink], a
 	ld bc, $0090
 	ld de, $0060
 	farcall Browser_SetViewport
@@ -625,7 +625,7 @@ Browser_FindLinkElement:: ; 4E:5512
 	cp a, $01
 	jr nz, .l55D5
 	ld a, b
-	ldh [hRam_FFB2], a
+	ldh [hPageRender_SearchLinkId], a
 	pop hl
 	push hl
 	ldh a, [hPageHeaderPtr + 2]
@@ -682,13 +682,13 @@ Browser_FindLinkElement:: ; 4E:5512
 	ldh a, [hViewY + 1]
 	sbc a, b
 	jp nc, .l55D5
-	ldh a, [hRam_FFB1]
+	ldh a, [hPageRender_WantedLink]
 	or a, a
 	jr z, .l55D1
 	cp a, $FF
 	jr z, .l55CC
 	ld b, a
-	ldh a, [hRam_FFB2]
+	ldh a, [hPageRender_SearchLinkId]
 	cp a, b
 	jr nz, .l55D5
 	pop hl
@@ -698,12 +698,12 @@ Browser_FindLinkElement:: ; 4E:5512
 .l55CC ; 4E:55CC
 	; [PROBABLE] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1;
 	; entered by jrcc from 4E:55C1 (executed)
-	ldh a, [hRam_FFB2]
+	ldh a, [hPageRender_SearchLinkId]
 	pop hl
 	pop bc
 	ret
 .l55D1 ; 4E:55D1
-	ldh a, [hRam_FFB2]
+	ldh a, [hPageRender_SearchLinkId]
 	ldh [hRam_FFB0], a
 
 .l55D5 ; 4E:55D5
@@ -719,7 +719,7 @@ Browser_FindLinkElement:: ; 4E:5512
 
 	; [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jpcc at 4E:55DE (executed)
-	ldh a, [hRam_FFB1]
+	ldh a, [hPageRender_WantedLink]
 	or a, a
 	ret z
 	ldh a, [hRam_FFB0]
@@ -729,7 +729,7 @@ Browser_FindVisibleLink:: ; 4E:55E8
 Function_4E_55E8::
 	; [CONFIRMED] 125 insn(s); 125 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ldh [hRam_FFB1], a
+	ldh [hPageRender_WantedLink], a
 	ld bc, $0090
 	ld de, $0060
 	farcall Browser_SetViewport
@@ -778,7 +778,7 @@ Function_4E_55E8::
 	cp a, $01
 	jp nz, .l56CC
 	ld a, b
-	ldh [hRam_FFB2], a
+	ldh [hPageRender_SearchLinkId], a
 	pop hl
 	push hl
 	ldh a, [hPageHeaderPtr + 2]
@@ -837,36 +837,36 @@ Function_4E_55E8::
 	jp nc, .l56BC
 	ldh a, [hRam_FFB3]
 	ld b, a
-	ldh a, [hRam_FFB2]
+	ldh a, [hPageRender_SearchLinkId]
 	cp a, b
 	jr z, .l56C9
-	ldh a, [hRam_FFB1]
+	ldh a, [hPageRender_WantedLink]
 	or a, a
 	jr z, .l56B6
 	cp a, $FF
 	jr z, .l56AE
 	ld b, a
-	ldh a, [hRam_FFB2]
+	ldh a, [hPageRender_SearchLinkId]
 	cp a, b
 	jr nz, .l56CC
 	ldh [hRam_FFB0], a
 	jr .l56CC
 .l56AE ; 4E:56AE
-	ldh a, [hRam_FFB2]
+	ldh a, [hPageRender_SearchLinkId]
 	ldh [hRam_FFB0], a
-	ldh [hRam_FFB1], a
+	ldh [hPageRender_WantedLink], a
 	jr .l56CC
 
 .l56B6 ; 4E:56B6
 	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1;
 	; entered by jrcc from 4E:569E (executed)
-	ldh a, [hRam_FFB2]
+	ldh a, [hPageRender_SearchLinkId]
 	ldh [hRam_FFB0], a
 	jr .l56CC
 
 .l56BC ; 4E:56BC
 	; [CONFIRMED] 8 insn(s); 8 executed (in up to 1/18 scenarios)
-	ldh a, [hRam_FFB2]
+	ldh a, [hPageRender_SearchLinkId]
 	or a, a
 	jr z, .l56CC
 	ldh [hRam_FFB3], a
@@ -896,7 +896,7 @@ Function_4E_55E8::
 
 Browser_SelectPrevLink:: ; 4E:56DB
 	ldh a, [hBrowserSelectedLink]
-	ldh [hRam_FFDF], a
+	ldh [hPageRender_PrevLink], a
 	dec a
 	jr z, .l56E8
 	call Browser_FindVisibleLink
@@ -919,7 +919,7 @@ Browser_SelectPrevLink:: ; 4E:56DB
 	ldh [hBrowserSelectedLink], a
 	call Browser_RedrawLinkById
 .l56FF ; 4E:56FF
-	ldh a, [hRam_FFDF]
+	ldh a, [hPageRender_PrevLink]
 	or a, a
 	jr z, .l570D
 
@@ -937,7 +937,7 @@ Browser_SelectPrevLink:: ; 4E:56DB
 
 Browser_SelectNextLink:: ; 4E:5716
 	ldh a, [hBrowserSelectedLink]
-	ldh [hRam_FFDF], a
+	ldh [hPageRender_PrevLink], a
 	inc a
 	call Browser_FindVisibleLink
 	or a, a
@@ -957,7 +957,7 @@ Browser_SelectNextLink:: ; 4E:5716
 	ldh [hBrowserSelectedLink], a
 	call Browser_RedrawLinkById
 .l5736 ; 4E:5736
-	ldh a, [hRam_FFDF]
+	ldh a, [hPageRender_PrevLink]
 	or a, a
 	jr z, .l5744
 	call Browser_FindVisibleLink
@@ -1099,12 +1099,12 @@ Browser_DrawElement:: ; 4E:57DC
 	ld e, a
 	ld a, c
 	sub a, e
-	ldh [hRam_FFCE], a
+	ldh [hPageRender_ElemBottom], a
 	ldh a, [hViewY + 1]
 	ld e, a
 	ld a, b
 	sbc a, e
-	ldh [hRam_FFCF], a
+	ldh [hPageRender_ElemBottomHi], a
 	ld bc, $0004
 	push hl
 	add hl, bc
@@ -1124,18 +1124,18 @@ Browser_DrawElement:: ; 4E:57DC
 	sbc a, b
 	jr c, .l5831
 	ld a, c
-	ldh [hRam_FFCC], a
+	ldh [hPageRender_ElemRight], a
 	ld a, b
-	ldh [hRam_FFCD], a
+	ldh [hPageRender_ElemRightHi], a
 	jr .l5839
 
 .l5831 ; 4E:5831
 	; [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 1;
 	; entered by jrcc from 4E:5827 (executed)
 	ldh a, [hViewRight]
-	ldh [hRam_FFCC], a
+	ldh [hPageRender_ElemRight], a
 	ldh a, [hViewRight + 1]
-	ldh [hRam_FFCD], a
+	ldh [hPageRender_ElemRightHi], a
 
 .l5839 ; 4E:5839
 	; [CONFIRMED] 69 insn(s); 69 executed (in up to 2/18 scenarios)
@@ -1156,12 +1156,12 @@ Browser_DrawElement:: ; 4E:57DC
 	ld e, a
 	ld a, c
 	sub a, e
-	ldh [hRam_FFC8], a
+	ldh [hPageRender_ElemX], a
 	ldh a, [hViewX + 1]
 	ld e, a
 	ld a, b
 	sbc a, e
-	ldh [hRam_FFC9], a
+	ldh [hPageRender_ElemXHi], a
 	ld bc, $0002
 	push hl
 	add hl, bc
@@ -1179,12 +1179,12 @@ Browser_DrawElement:: ; 4E:57DC
 	ld e, a
 	ld a, c
 	sub a, e
-	ldh [hRam_FFCA], a
+	ldh [hPageRender_ElemY], a
 	ldh a, [hViewY + 1]
 	ld e, a
 	ld a, b
 	sbc a, e
-	ldh [hRam_FFCB], a
+	ldh [hPageRender_ElemYHi], a
 	ld bc, $0008
 	push hl
 	add hl, bc
@@ -1245,43 +1245,43 @@ Browser_DrawElement_Text:: ; 4E:58AC
 	ldh [hRam_FFB0], a
 	pop hl
 	ld a, b
-	ldh [hRam_FFB6], a
+	ldh [hPageRender_ElemLinkId], a
 	ld a, c
-	ldh [hRam_FFB5], a
+	ldh [hPageRender_ElemFlags], a
 	and a, $03
 	cp a, $01
 	jr z, .l58DB
 	cp a, $02
 	jr z, .l58F7
 	ld a, $03
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $00
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	jr .l58FF
 .l58DB ; 4E:58DB
 	ldh a, [hBrowserSelectedLink]
 	ld b, a
-	ldh a, [hRam_FFB6]
+	ldh a, [hPageRender_ElemLinkId]
 	cp a, b
 	jr z, .l58ED
 	ld a, $02
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $00
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	jr .l58FF
 .l58ED ; 4E:58ED
 	ld a, $00
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $02
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	jr .l58FF
 .l58F7 ; 4E:58F7
 	ld a, $01
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $00
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 .l58FF ; 4E:58FF
-	ldh a, [hRam_FFB5]
+	ldh a, [hPageRender_ElemFlags]
 	and a, $30
 	cp a, $20
 	jr z, .l590D
@@ -1292,14 +1292,14 @@ Browser_DrawElement_Text:: ; 4E:58AC
 .l590D ; 4E:590D
 	; [PROBABLE] 40 insn(s) reached by static flow only; seeds: exec x40; min discovery hops 1;
 	; entered by jrcc from 4E:5905 (executed)
-	ldh a, [hRam_FFCA]
+	ldh a, [hPageRender_ElemY]
 	ld c, a
-	ldh a, [hRam_FFCB]
+	ldh a, [hPageRender_ElemYHi]
 	ld b, a
-	ldh a, [hRam_FFCE]
+	ldh a, [hPageRender_ElemBottom]
 	sub a, c
 	ld c, a
-	ldh a, [hRam_FFCF]
+	ldh a, [hPageRender_ElemBottomHi]
 	sbc a, b
 	ld b, a
 	bit 7, b
@@ -1314,26 +1314,26 @@ Browser_DrawElement_Text:: ; 4E:58AC
 .l5926 ; 4E:5926
 	srl b
 	rr c
-	ldh a, [hRam_FFCA]
+	ldh a, [hPageRender_ElemY]
 	add a, c
 	ld c, a
-	ldh a, [hRam_FFCB]
+	ldh a, [hPageRender_ElemYHi]
 	adc a, b
 	ld b, a
 	ld a, c
 	sub a, $0C
-	ldh [hRam_FFCA], a
+	ldh [hPageRender_ElemY], a
 	ld a, b
 	sbc a, $00
-	ldh [hRam_FFCB], a
+	ldh [hPageRender_ElemYHi], a
 	jr .l594A
 .l593E ; 4E:593E
-	ldh a, [hRam_FFCE]
+	ldh a, [hPageRender_ElemBottom]
 	sub a, $0C
-	ldh [hRam_FFCA], a
-	ldh a, [hRam_FFCF]
+	ldh [hPageRender_ElemY], a
+	ldh a, [hPageRender_ElemBottomHi]
 	sbc a, $00
-	ldh [hRam_FFCB], a
+	ldh [hPageRender_ElemYHi], a
 
 .l594A ; 4E:594A
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 2/18 scenarios)
@@ -1351,35 +1351,35 @@ Browser_DrawElement_Text:: ; 4E:58AC
 	ldh [hRam_FFB0], a
 	pop hl
 	ldh a, [hRam_FFB0]
-	ldh [hRam_FFB7], a
+	ldh [hPageRender_TextBank], a
 	ld h, b
 	ld l, c
 .loop ; 4E:5963
-	ldh a, [hRam_FFCB]
+	ldh a, [hPageRender_ElemYHi]
 	bit 7, a
 	jr z, .l5993
 
 	; [PROBABLE] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 0;
 	; fall-through of the jrcc at 4E:5967 (executed)
-	ldh a, [hRam_FFC8]
+	ldh a, [hPageRender_ElemX]
 	ld e, a
-	ldh a, [hRam_FFC9]
+	ldh a, [hPageRender_ElemXHi]
 	ld d, a
-	ldh a, [hRam_FFCC]
+	ldh a, [hPageRender_ElemRight]
 	ld c, a
-	ldh a, [hRam_FFCD]
+	ldh a, [hPageRender_ElemRightHi]
 	ld b, a
-	ldh a, [hRam_FFB7]
+	ldh a, [hPageRender_TextBank]
 	call Text_MeasureFit
 	ld a, b
 	or a, c
 	jp z, .done
-	ldh a, [hRam_FFCA]
+	ldh a, [hPageRender_ElemY]
 	add a, $0C
-	ldh [hRam_FFCA], a
-	ldh a, [hRam_FFCB]
+	ldh [hPageRender_ElemY], a
+	ldh a, [hPageRender_ElemYHi]
 	adc a, $00
-	ldh [hRam_FFCB], a
+	ldh [hPageRender_ElemYHi], a
 	ld a, [hli]
 	cp a, $0D
 	jr z, .loop
@@ -1388,42 +1388,42 @@ Browser_DrawElement_Text:: ; 4E:58AC
 
 .l5993 ; 4E:5993
 	; [CONFIRMED] 25 insn(s); 25 executed (in up to 2/18 scenarios)
-	ldh a, [hRam_FFCA]
+	ldh a, [hPageRender_ElemY]
 	ld e, a
-	ldh a, [hRam_FFCB]
+	ldh a, [hPageRender_ElemYHi]
 	ld d, a
-	ldh a, [hRam_FFCE]
+	ldh a, [hPageRender_ElemBottom]
 	sub a, e
-	ldh a, [hRam_FFCF]
+	ldh a, [hPageRender_ElemBottomHi]
 	sbc a, d
 	jp c, .done
-	ldh a, [hRam_FFCE]
+	ldh a, [hPageRender_ElemBottom]
 	sub a, e
 	jp z, .done
-	ldh a, [hRam_FFC8]
+	ldh a, [hPageRender_ElemX]
 	ld e, a
-	ldh a, [hRam_FFC9]
+	ldh a, [hPageRender_ElemXHi]
 	ld d, a
-	ldh a, [hRam_FFCC]
+	ldh a, [hPageRender_ElemRight]
 	ld c, a
-	ldh a, [hRam_FFCD]
+	ldh a, [hPageRender_ElemRightHi]
 	ld b, a
-	ldh a, [hRam_FFB5]
+	ldh a, [hPageRender_ElemFlags]
 	and a, $0C
-	ldh [hRam_FFB4], a
+	ldh [hPageRender_LineShiftX], a
 	ldh [hRam_FFB3], a
 	jr z, .l59F4
 
 	; [PROBABLE] 34 insn(s) reached by static flow only; seeds: exec x34; min discovery hops 0;
 	; fall-through of the jrcc at 4E:59BC (executed)
 	push hl
-	ldh a, [hRam_FFB7]
+	ldh a, [hPageRender_TextBank]
 	call Text_MeasureFit
-	ldh a, [hRam_FFCC]
+	ldh a, [hPageRender_ElemRight]
 	sub a, e
-	ldh [hRam_FFB4], a
+	ldh [hPageRender_LineShiftX], a
 	ld e, a
-	ldh a, [hRam_FFCD]
+	ldh a, [hPageRender_ElemRightHi]
 	sbc a, d
 	ldh [hRam_FFB3], a
 	or a, e
@@ -1431,30 +1431,30 @@ Browser_DrawElement_Text:: ; 4E:58AC
 	jr z, .l59F9
 	ld h, d
 	ld l, e
-	ldh a, [hRam_FFB4]
+	ldh a, [hPageRender_LineShiftX]
 	ld e, a
-	ldh a, [hRam_FFB5]
+	ldh a, [hPageRender_ElemFlags]
 	and a, $0C
 	cp a, $04
 	jr z, .skip
 	srl e
 	ld a, e
-	ldh [hRam_FFB4], a
+	ldh [hPageRender_LineShiftX], a
 .skip ; 4E:59E5
-	ldh a, [hRam_FFC8]
+	ldh a, [hPageRender_ElemX]
 	add a, e
 	ld e, a
-	ldh a, [hRam_FFC9]
+	ldh a, [hPageRender_ElemXHi]
 	adc a, $00
 	ld d, a
-	ldh a, [hRam_FFCC]
+	ldh a, [hPageRender_ElemRight]
 	ld c, a
-	ldh a, [hRam_FFCD]
+	ldh a, [hPageRender_ElemRightHi]
 	ld b, a
 
 .l59F4 ; 4E:59F4
 	; [CONFIRMED] 66 insn(s); 66 executed (in up to 2/18 scenarios)
-	ldh a, [hRam_FFB7]
+	ldh a, [hPageRender_TextBank]
 	call Text_MeasureFit
 .l59F9 ; 4E:59F9
 	ld a, b
@@ -1471,49 +1471,49 @@ Browser_DrawElement_Text:: ; 4E:58AC
 	add hl, de
 	inc bc
 	ld de, $C340
-	ldh a, [hRam_FFB7]
+	ldh a, [hPageRender_TextBank]
 	call BankSwitch_H
 	call CopyBytes
 	xor a, a
 	ld [de], a
-	ldh a, [hRam_FFB4]
+	ldh a, [hPageRender_LineShiftX]
 	ld c, a
-	ldh a, [hRam_FFC8]
+	ldh a, [hPageRender_ElemX]
 	add a, c
 	add a, $08
 	ldh [hTextX], a
-	ldh [hRam_FFC1], a
-	ldh a, [hRam_FFC9]
+	ldh [hTextBox_LineStartX], a
+	ldh a, [hPageRender_ElemXHi]
 	adc a, $00
 	ldh [hTextX + 1], a
 	ldh [hRam_FFC2], a
 	ldh a, [hBrowserDrawYOffset]
 	ld c, a
-	ldh a, [hRam_FFCA]
+	ldh a, [hPageRender_ElemY]
 	add a, c
 	ldh [hTextY], a
 	ldh [hRam_FFC0], a
 	ld a, $8F
 	ldh [hRam_FFC3], a
 	ld a, $9F
-	ldh [hRam_FFC4], a
+	ldh [hTextBox_RightLimitX], a
 	ld a, $00
 	ldh [hRam_FFC5], a
 	ld a, $06
 	ldh [hRam_FFC7], a
 	ld a, $FF
-	ldh [hRam_FFC6], a
+	ldh [hTextBox_LineAdvance], a
 	ld hl, $C340
 	xor a, a
 	farcall TextEngine_Run
 	pop hl
-	ldh a, [hRam_FFCA]
+	ldh a, [hPageRender_ElemY]
 	add a, $0C
-	ldh [hRam_FFCA], a
-	ldh a, [hRam_FFCB]
+	ldh [hPageRender_ElemY], a
+	ldh a, [hPageRender_ElemYHi]
 	adc a, $00
-	ldh [hRam_FFCB], a
-	ldh a, [hRam_FFB7]
+	ldh [hPageRender_ElemYHi], a
+	ldh a, [hPageRender_TextBank]
 	call BankSwitch_H
 	ld a, [hli]
 	cp a, $0D
@@ -1544,9 +1544,9 @@ Browser_DrawElement_Bitmap:: ; 4E:5A6D
 	ldh [hRam_FFB0], a
 	pop hl
 	ld a, b
-	ldh [hRam_FFB6], a
+	ldh [hPageRender_ElemLinkId], a
 	ld a, c
-	ldh [hRam_FFB5], a
+	ldh [hPageRender_ElemFlags], a
 	and a, $03
 	cp a, $01
 	jr z, .l5A9A
@@ -1562,7 +1562,7 @@ Browser_DrawElement_Bitmap:: ; 4E:5A6D
 	; 5A6D-5CB6 by apply_coverage --split
 	ldh a, [hBrowserSelectedLink]
 	ld b, a
-	ldh a, [hRam_FFB6]
+	ldh a, [hPageRender_ElemLinkId]
 	cp a, b
 	jr z, .l5AAA
 	ld a, $02
@@ -1586,30 +1586,30 @@ Browser_DrawElement_Bitmap:: ; 4E:5A6D
 	ld c, a
 	ldh a, [hBrowserDrawYOffset + 1]
 	ld b, a
-	ldh a, [hRam_FFCA]
+	ldh a, [hPageRender_ElemY]
 	add a, c
-	ldh [hRam_FFCA], a
-	ldh a, [hRam_FFCB]
+	ldh [hPageRender_ElemY], a
+	ldh a, [hPageRender_ElemYHi]
 	adc a, b
-	ldh [hRam_FFCB], a
-	ldh a, [hRam_FFCE]
+	ldh [hPageRender_ElemYHi], a
+	ldh a, [hPageRender_ElemBottom]
 	add a, c
-	ldh [hRam_FFCE], a
-	ldh a, [hRam_FFCF]
+	ldh [hPageRender_ElemBottom], a
+	ldh a, [hPageRender_ElemBottomHi]
 	adc a, b
-	ldh [hRam_FFCF], a
-	ldh a, [hRam_FFC8]
+	ldh [hPageRender_ElemBottomHi], a
+	ldh a, [hPageRender_ElemX]
 	add a, $08
-	ldh [hRam_FFC8], a
-	ldh a, [hRam_FFC9]
+	ldh [hPageRender_ElemX], a
+	ldh a, [hPageRender_ElemXHi]
 	adc a, $00
-	ldh [hRam_FFC9], a
-	ldh a, [hRam_FFCC]
+	ldh [hPageRender_ElemXHi], a
+	ldh a, [hPageRender_ElemRight]
 	add a, $08
-	ldh [hRam_FFCC], a
-	ldh a, [hRam_FFCD]
+	ldh [hPageRender_ElemRight], a
+	ldh a, [hPageRender_ElemRightHi]
 	adc a, $00
-	ldh [hRam_FFCD], a
+	ldh [hPageRender_ElemRightHi], a
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -1636,46 +1636,46 @@ Browser_DrawElement_Bitmap:: ; 4E:5A6D
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ldh a, [hRam_FFCB]
+	ldh a, [hPageRender_ElemYHi]
 	or a, a
 	jr nz, .l5B26
 	ld c, $00
-	ldh a, [hRam_FFCA]
+	ldh a, [hPageRender_ElemY]
 	ld e, a
-	ldh a, [hRam_FFCE]
+	ldh a, [hPageRender_ElemBottom]
 	sub a, e
 	cp a, h
 	jr c, .l5B22
 	ld a, h
 .l5B22 ; 4E:5B22
-	ldh [hRam_FFD7], a
+	ldh [hBmp_Height], a
 	jr .l5B35
 
 .l5B26 ; 4E:5B26
 	; [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5A6D-5CB6 by apply_coverage --split
 	ld e, $00
-	ldh a, [hRam_FFCA]
+	ldh a, [hPageRender_ElemY]
 	dec a
 	cpl
 	ld c, a
-	ldh a, [hRam_FFCE]
+	ldh a, [hPageRender_ElemBottom]
 	cp a, h
 	jr c, .l5B33
 	ld a, h
 .l5B33 ; 4E:5B33
-	ldh [hRam_FFD7], a
+	ldh [hBmp_Height], a
 
 .l5B35 ; 4E:5B35
 	; [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 5A6D-5CB6 by apply_coverage
 	; --split [executed in 1 scenarios]
-	ldh a, [hRam_FFC9]
+	ldh a, [hPageRender_ElemXHi]
 	or a, a
 	jr nz, .l5B4A
 	ld b, $00
-	ldh a, [hRam_FFC8]
+	ldh a, [hPageRender_ElemX]
 	ld d, a
-	ldh a, [hRam_FFCC]
+	ldh a, [hPageRender_ElemRight]
 	sub a, d
 	cp a, l
 	jr c, .l5B46
@@ -1687,23 +1687,23 @@ Browser_DrawElement_Bitmap:: ; 4E:5A6D
 .l5B46 ; 4E:5B46
 	; [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 5A6D-5CB6 by apply_coverage
 	; --split [executed in 1 scenarios]
-	ldh [hRam_FFD6], a
+	ldh [hBmp_Width], a
 	jr .l5B59
 
 .l5B4A ; 4E:5B4A
 	; [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5A6D-5CB6 by apply_coverage --split
 	ld d, $00
-	ldh a, [hRam_FFC8]
+	ldh a, [hPageRender_ElemX]
 	dec a
 	cpl
 	ld b, a
-	ldh a, [hRam_FFCC]
+	ldh a, [hPageRender_ElemRight]
 	cp a, l
 	jr c, .l5B57
 	ld a, l
 .l5B57 ; 4E:5B57
-	ldh [hRam_FFD6], a
+	ldh [hBmp_Width], a
 
 .l5B59 ; 4E:5B59
 	; [CONFIRMED] 272 insn(s) executed; cut out of the PROBABLE region 5A6D-5CB6 by apply_coverage

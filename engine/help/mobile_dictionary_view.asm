@@ -255,11 +255,11 @@ MobileDictView_LoadEntry:: ; 4C:5122
 
 MobileDictView_LoadImages:: ; 4C:51A1
 	ld a, $00
-	ldh [hRam_FFD2], a
+	ldh [hInlineImages_UrlList], a
 	ld a, $DE
-	ldh [hRam_FFD3], a
+	ldh [hInlineImages_UrlListHi], a
 	ld a, $04
-	ldh [hRam_FFD4], a
+	ldh [hInlineImages_UrlBank], a
 	ld de, $C380
 	ld hl, $D500
 	ld bc, $0100
@@ -287,9 +287,9 @@ MobileDictView_LoadImages:: ; 4C:51A1
 	inc de
 	inc de
 	ld a, e
-	ldh [hRam_FFD0], a
+	ldh [hInlineImages_ListEnd], a
 	ld a, d
-	ldh [hRam_FFD1], a
+	ldh [hInlineImages_ListEndHi], a
 	xor a, a
 	ld [de], a
 	inc de
@@ -297,11 +297,11 @@ MobileDictView_LoadImages:: ; 4C:51A1
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ldh a, [hRam_FFD2]
+	ldh a, [hInlineImages_UrlList]
 	ld l, a
-	ldh a, [hRam_FFD3]
+	ldh a, [hInlineImages_UrlListHi]
 	ld h, a
-	ldh a, [hRam_FFD4]
+	ldh a, [hInlineImages_UrlBank]
 	call BankSwitch_H
 	ld a, [hli]
 	ld e, a
@@ -313,14 +313,14 @@ MobileDictView_LoadImages:: ; 4C:51A1
 	; [PROBABLE] 49 insn(s) reached by static flow only; seeds: exec x49; min discovery hops 0;
 	; fall-through of the retcc at 4C:520B (executed)
 	ld a, l
-	ldh [hRam_FFD2], a
+	ldh [hInlineImages_UrlList], a
 	ld a, h
-	ldh [hRam_FFD3], a
+	ldh [hInlineImages_UrlListHi], a
 	inc de
 	push de
-	ldh a, [hRam_FFD0]
+	ldh a, [hInlineImages_ListEnd]
 	ld l, a
-	ldh a, [hRam_FFD1]
+	ldh a, [hInlineImages_ListEndHi]
 	ld h, a
 	ld a, [wBrowserRxBank]
 	call BankSwitch_H

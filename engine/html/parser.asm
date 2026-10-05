@@ -29,7 +29,7 @@ Function_74_4165::
 	xor a, a
 	ldh [hRam_FFB0], a
 	ldh [hRam_FFB1], a
-	ldh [hRam_FFB2], a
+	ldh [hHtmlMeta_HexByte2], a
 	ldh [hRam_FFB3], a
 
 Html_MetaResultToError_HexLoop:: ; 74:4190
@@ -75,12 +75,12 @@ Html_MetaResultToError_HexLoop:: ; 74:4190
 	ld a, b
 	and a, $0F
 	ld c, a
-	ldh a, [hRam_FFB2]
+	ldh a, [hHtmlMeta_HexByte2]
 	swap a
 	ld b, a
 	and a, $F0
 	or a, c
-	ldh [hRam_FFB2], a
+	ldh [hHtmlMeta_HexByte2], a
 	ld a, b
 	and a, $0F
 	ld c, a
@@ -124,13 +124,13 @@ Function_74_4207::
 	ld [wHtmlScanOnly], a
 	ld a, $00
 	ldh [hPageHeaderPtr], a
-	ldh [hRam_FFB8], a
+	ldh [hHtml_PageHeader], a
 	ld a, $D0
 	ldh [hPageHeaderPtr + 1], a
-	ldh [hRam_FFB9], a
+	ldh [hHtml_PageHeaderHi], a
 	ld a, $04
 	ldh [hPageHeaderPtr + 2], a
-	ldh [hRam_FFBA], a
+	ldh [hHtml_PageBank], a
 	ld de, $D000
 	ld a, $05
 	ldh [hTextX], a
@@ -152,13 +152,13 @@ Html_ScanPage:: ; 74:4254
 	ld [wHtmlScanOnly], a
 	ld a, $00
 	ldh [hPageHeaderPtr], a
-	ldh [hRam_FFB8], a
+	ldh [hHtml_PageHeader], a
 	ld a, $D0
 	ldh [hPageHeaderPtr + 1], a
-	ldh [hRam_FFB9], a
+	ldh [hHtml_PageHeaderHi], a
 	ld a, $04
 	ldh [hPageHeaderPtr + 2], a
-	ldh [hRam_FFBA], a
+	ldh [hHtml_PageBank], a
 	ld de, $D000
 	ld a, $05
 	ldh [hTextX], a
@@ -168,7 +168,7 @@ Html_ScanPage:: ; 74:4254
 	ret
 
 Html_ParseSource:: ; 74:4296
-	ldh [hRam_FFB5], a
+	ldh [hHtml_SourceBank], a
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -181,11 +181,11 @@ Html_ParseSource:: ; 74:4296
 	xor a, a
 	call FillBytes
 	call Sound_FrameService
-	ldh a, [hRam_FFB8]
+	ldh a, [hHtml_PageHeader]
 	ld l, a
-	ldh a, [hRam_FFB9]
+	ldh a, [hHtml_PageHeaderHi]
 	ld h, a
-	ldh a, [hRam_FFBA]
+	ldh a, [hHtml_PageBank]
 	call BankSwitch_H
 	ld bc, $1000
 	xor a, a
@@ -193,7 +193,7 @@ Html_ParseSource:: ; 74:4296
 	call Sound_FrameService
 	pop hl
 	ld a, e
-	ldh [hRam_FFBB], a
+	ldh [hHtml_RunStartLo], a
 	ld a, d
 	ldh [hTextY], a
 	ldh a, [hTextX]
@@ -210,13 +210,13 @@ Html_ParseSource:: ; 74:4296
 	farcall Html_Layout_Init
 	pop hl
 	push de
-	ldh a, [hRam_FFB5]
+	ldh a, [hHtml_SourceBank]
 	farcall Html_NextResourceRecord
 	pop de
 	ldh a, [hTextX]
 	call BankSwitch_D
 	ld a, $20
-	ldh [hRam_FFB3], a
+	ldh [hHtml_LastChar], a
 
 Html_ParseSource_Loop:: ; 74:4307
 	call Sound_FrameService
@@ -229,7 +229,7 @@ Html_ParseSource_Loop:: ; 74:4307
 	jp z, Html_ParseSource_Tag
 	cp a, $26
 	jr z, Html_ParseSource_Entity
-	ldh [hRam_FFB3], a
+	ldh [hHtml_LastChar], a
 	cp a, $81
 	jr c, .l4336
 	cp a, $A0
@@ -262,7 +262,7 @@ Html_ParseSource_Loop:: ; 74:4307
 	dec de
 	dec de
 	jp z, Html_ParseSource_End
-	ldh a, [hRam_FFB3]
+	ldh a, [hHtml_LastChar]
 	ld [de], a
 	inc de
 	ld a, [hli]
@@ -278,7 +278,7 @@ Html_ParseSource_Loop:: ; 74:4307
 	cp a, d
 	dec de
 	jr z, Html_ParseSource_End
-	ldh a, [hRam_FFB3]
+	ldh a, [hHtml_LastChar]
 	ld [de], a
 	inc de
 	jr Html_ParseSource_Loop
@@ -310,7 +310,7 @@ Html_ParseSource_Loop:: ; 74:4307
 	cp a, $21
 	jr c, .l4374
 	dec hl
-	ldh a, [hRam_FFB3]
+	ldh a, [hHtml_LastChar]
 	cp a, $20
 	jr z, Html_ParseSource_Loop
 	ld c, $20
@@ -329,22 +329,22 @@ Html_ParseSource_Entity:: ; 74:4392
 	; [CONFIRMED] 29 insn(s) reached by static flow only; seeds: exec x29; min discovery hops 1;
 	; entered by jrcc from 74:431A (executed) [executed in 1 scenarios]
 	ld a, l
-	ldh [hRam_FFB0], a
+	ldh [hHtml_MatchRestart], a
 	ld a, h
-	ldh [hRam_FFB1], a
+	ldh [hHtml_MatchRestartHi], a
 	ld bc, Html_EntityPtrs
 	push de
 	call Html_MatchKeyword
 	pop de
 	or a, a
 	jr z, .l43BA
-	ldh [hRam_FFB3], a
+	ldh [hHtml_LastChar], a
 	inc de
 	ld a, $E0
 	cp a, d
 	dec de
 	jr z, Html_ParseSource_End
-	ldh a, [hRam_FFB3]
+	ldh a, [hHtml_LastChar]
 	ld [de], a
 	inc de
 	ld a, [hli]
@@ -353,9 +353,9 @@ Html_ParseSource_Entity:: ; 74:4392
 	dec hl
 	jp Html_ParseSource_Loop
 .l43BA ; 74:43BA
-	ldh a, [hRam_FFB0]
+	ldh a, [hHtml_MatchRestart]
 	ld l, a
-	ldh a, [hRam_FFB1]
+	ldh a, [hHtml_MatchRestartHi]
 	ld h, a
 	jp Html_ParseSource_Loop
 
@@ -369,24 +369,24 @@ Html_ParseSource_End:: ; 74:43C4
 	call Sound_FrameService
 	farcall Html_Layout_WrapRun
 	farcall Html_Layout_ClearAllFloats
-	ldh a, [hRam_FFB8]
+	ldh a, [hHtml_PageHeader]
 	ld l, a
-	ldh a, [hRam_FFB9]
+	ldh a, [hHtml_PageHeaderHi]
 	ld h, a
 	ld bc, $0015
 	add hl, bc
-	ldh a, [hRam_FFBA]
+	ldh a, [hHtml_PageBank]
 	call BankSwitch_H
 	ldh a, [hTextX + 1]
 	ld [hli], a
-	ldh a, [hRam_FFBF]
+	ldh a, [hHtml_RecordCountHi]
 	ld [hli], a
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ldh a, [hRam_FFC8]
+	ldh a, [hHtmlLayout_LineY]
 	ld c, a
-	ldh a, [hRam_FFC9]
+	ldh a, [hHtmlLayout_LineYHi]
 	ld b, a
 	ld hl, $FFA0
 	add hl, bc
@@ -408,15 +408,15 @@ Html_ParseSource_Tag:: ; 74:4406
 	inc de
 .l440D ; 74:440D
 	ld a, [hl]
-	ldh [hRam_FFB4], a
+	ldh [hHtml_TagFirstChar], a
 	cp a, $2F
 	jr nz, .l4415
 	inc hl
 .l4415 ; 74:4415
 	ld a, l
-	ldh [hRam_FFB0], a
+	ldh [hHtml_MatchRestart], a
 	ld a, h
-	ldh [hRam_FFB1], a
+	ldh [hHtml_MatchRestartHi], a
 	inc de
 	ld a, $E0
 	cp a, d
@@ -424,9 +424,9 @@ Html_ParseSource_Tag:: ; 74:4406
 	jp z, Html_ParseSource_End
 	xor a, a
 	ld [de], a
-	ldh a, [hRam_FFB6]
+	ldh a, [hHtml_TitleStart]
 	ld c, a
-	ldh a, [hRam_FFB7]
+	ldh a, [hHtml_TitleStartHi]
 	or a, c
 	jp nz, Html_ParseSource_TitleTag
 	ld bc, Html_TagPtrs
@@ -437,20 +437,20 @@ Html_ParseSource_Tag:: ; 74:4406
 	jr nz, Html_DispatchTag
 
 Label_74_4439:: ; 74:4439
-	ldh a, [hRam_FFB0]
+	ldh a, [hHtml_MatchRestart]
 	ld l, a
-	ldh a, [hRam_FFB1]
+	ldh a, [hHtml_MatchRestartHi]
 	ld h, a
 
 Label_74_443F:: ; 74:443F
-	ldh a, [hRam_FFB5]
+	ldh a, [hHtml_SourceBank]
 	call BankSwitch_H
 	ldh a, [hTextX]
 	call BankSwitch_D
 
 Label_74_4449:: ; 74:4449
 	ld a, $20
-	ldh [hRam_FFB3], a
+	ldh [hHtml_LastChar], a
 .loop ; 74:444D
 	ld a, [hli]
 	or a, a

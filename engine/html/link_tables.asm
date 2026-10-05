@@ -102,9 +102,9 @@ Function_74_5AF8::
 	; [CONFIRMED] 29 insn(s); 29 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, l
-	ldh [hRam_FFB0], a
+	ldh [hHtmlLinks_StringStart], a
 	ld a, h
-	ldh [hRam_FFB1], a
+	ldh [hHtmlLinks_StringStartHi], a
 	ld de, $FFFF
 .l5B01 ; 74:5B01
 	inc de
@@ -178,9 +178,9 @@ Function_74_5AF8::
 .l5B3F ; 74:5B3F
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios)
 	pop de
-	ldh a, [hRam_FFB0]
+	ldh a, [hHtmlLinks_StringStart]
 	ld l, a
-	ldh a, [hRam_FFB1]
+	ldh a, [hHtmlLinks_StringStartHi]
 	ld h, a
 	jr .l5B01
 
@@ -233,24 +233,24 @@ Html_ParseDecimal:: ; 74:5B5C
 	rl d
 	rl c
 	ld a, e
-	ldh [hRam_FFF7], a
+	ldh [hHtmlParseDecimal_Times2Lo], a
 	ld a, d
-	ldh [hRam_FFF8], a
+	ldh [hHtmlParseDecimal_Times2Mid], a
 	ld a, c
-	ldh [hRam_FFF9], a
+	ldh [hHtmlParseDecimal_Times2Hi], a
 	sla e
 	rl d
 	rl c
 	sla e
 	rl d
 	rl c
-	ldh a, [hRam_FFF7]
+	ldh a, [hHtmlParseDecimal_Times2Lo]
 	add a, e
 	ld e, a
-	ldh a, [hRam_FFF8]
+	ldh a, [hHtmlParseDecimal_Times2Mid]
 	adc a, d
 	ld d, a
-	ldh a, [hRam_FFF9]
+	ldh a, [hHtmlParseDecimal_Times2Hi]
 	adc a, c
 	ld c, a
 	ld a, b
@@ -269,9 +269,9 @@ Function_74_5BA0::
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, l
-	ldh [hRam_FFB0], a
+	ldh [hHtmlLinks_StringStart], a
 	ld a, h
-	ldh [hRam_FFB1], a
+	ldh [hHtmlLinks_StringStartHi], a
 	ld d, h
 	ld e, l
 .l5BA8 ; 74:5BA8
@@ -347,9 +347,9 @@ Function_74_5BA0::
 
 .l5C00 ; 74:5C00
 	; [CONFIRMED] 35 insn(s); 35 executed (in up to 1/18 scenarios)
-	ldh a, [hRam_FFB0]
+	ldh a, [hHtmlLinks_StringStart]
 	ld c, a
-	ldh a, [hRam_FFB1]
+	ldh a, [hHtmlLinks_StringStartHi]
 	ld b, a
 	ld a, d
 	sub a, b
@@ -358,9 +358,9 @@ Function_74_5BA0::
 	jr z, .l5C0D
 	dec de
 .l5C0D ; 74:5C0D
-	ldh a, [hRam_FFB0]
+	ldh a, [hHtmlLinks_StringStart]
 	ld c, a
-	ldh a, [hRam_FFB1]
+	ldh a, [hHtmlLinks_StringStartHi]
 	ld b, a
 .l5C13 ; 74:5C13
 	ld a, [de]
@@ -415,9 +415,9 @@ Function_74_5BA0::
 	; [CONFIRMED] 16 insn(s); 16 executed (in up to 2/18 scenarios)
 	xor a, a
 	ld [de], a
-	ldh a, [hRam_FFB0]
+	ldh a, [hHtmlLinks_StringStart]
 	ld c, a
-	ldh a, [hRam_FFB1]
+	ldh a, [hHtmlLinks_StringStartHi]
 	ld b, a
 	inc bc
 	ld a, b

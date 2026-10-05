@@ -19,13 +19,13 @@ SettingsPhone_ReadAdapterConfig:: ; 67:53DC
 	ldh [rSVBK], a
 	call SettingsPhone_ReadAdapterConfig_Poll
 	farcall Palette_FadeOutToWhite
-	ld a, [wRam_C27C]
+	ld a, [wAdapterConfig_Result]
 	ret
 
 SettingsPhone_ReadAdapterConfig_Setup:: ; 67:5402
 	xor a, a
-	ld [wRam_C27C], a
-	ld [wRam_C27D], a
+	ld [wAdapterConfig_Result], a
+	ld [wAdapterConfig_State], a
 	farcall AdapterCheck_DrawScreen
 	ret
 
@@ -51,7 +51,7 @@ SettingsPhone_ReadAdapterConfig_Poll:: ; 67:5410
 	jr z, .l5458
 	cp a, $02
 	jr nz, .l545C
-	ld a, [wRam_C286]
+	ld a, [wAdapterConfig_SfxFlag]
 	or a, a
 	jr nz, .l545C
 	ldh a, [hWRAMBank]
@@ -63,13 +63,13 @@ SettingsPhone_ReadAdapterConfig_Poll:: ; 67:5410
 	pop af
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_C286], a
+	ld [wAdapterConfig_SfxFlag], a
 	jr .l545C
 .l5458 ; 67:5458
 	xor a, a
-	ld [wRam_C286], a
+	ld [wAdapterConfig_SfxFlag], a
 .l545C ; 67:545C
-	ld a, [wRam_C27D]
+	ld a, [wAdapterConfig_State]
 	add a, a
 	add a, $6C
 	ld l, a
@@ -99,7 +99,7 @@ Label_67_5472::
 	ld a, $02
 	call MobileAPI
 	ld a, $01
-	ld [wRam_C27D], a
+	ld [wAdapterConfig_State], a
 	jr SettingsPhone_ReadAdapterConfig_Poll
 
 SettingsPhone_ReadAdapterConfig_State_ReadConfig:: ; 67:5484
@@ -124,7 +124,7 @@ Label_67_5484::
 	ld a, $38
 	call MobileAPI
 	ld a, $02
-	ld [wRam_C27D], a
+	ld [wAdapterConfig_State], a
 	jp SettingsPhone_ReadAdapterConfig_Poll
 
 SettingsPhone_ReadAdapterConfig_State_Finish:: ; 67:54B9
@@ -164,14 +164,14 @@ Label_67_54B9::
 	ld hl, $0100
 	farcall CommErr_ShowScreen
 	xor a, a
-	ld [wRam_C27C], a
+	ld [wAdapterConfig_Result], a
 	ret
 
 .l5503 ; 67:5503
 	; [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 54DB-55B8 by apply_coverage
 	; --split [executed in 2 scenarios]
 	ld a, $01
-	ld [wRam_C27C], a
+	ld [wAdapterConfig_Result], a
 	ret
 
 SettingsPhone_ReadAdapterConfig_Abort:: ; 67:5509
@@ -192,25 +192,25 @@ Label_67_5509::
 	call MobileAPI
 	farcall Mobile_ShowLastError
 	xor a, a
-	ld [wRam_C27C], a
+	ld [wAdapterConfig_Result], a
 	ret
 
 SettingsPhone_WriteAdapterConfig:: ; 67:5535
 	; [CONFIRMED] 60 insn(s) executed; cut out of the PROBABLE region 54DB-55B8 by apply_coverage
 	; --split [executed in 1 scenarios]
-	ld [wRam_C27E], a
+	ld [wAdapterConfig_Slot], a
 	farcall Registration_WriteConfig_Setup
 	call SettingsPhone_WriteAdapterConfig_Setup
 	farcall Palette_FadeInFromWhite
 	call SettingsPhone_WriteAdapterConfig_Poll
 	farcall Palette_FadeOutToWhite
-	ld a, [wRam_C27C]
+	ld a, [wAdapterConfig_Result]
 	ret
 
 SettingsPhone_WriteAdapterConfig_Setup:: ; 67:5554
 	xor a, a
-	ld [wRam_C27C], a
-	ld [wRam_C27D], a
+	ld [wAdapterConfig_Result], a
+	ld [wAdapterConfig_State], a
 	ret
 
 SettingsPhone_WriteAdapterConfig_Poll:: ; 67:555C
@@ -235,7 +235,7 @@ SettingsPhone_WriteAdapterConfig_Poll:: ; 67:555C
 	jr z, .l55A4
 	cp a, $02
 	jr nz, .l55A8
-	ld a, [wRam_C286]
+	ld a, [wAdapterConfig_SfxFlag]
 	or a, a
 	jr nz, .l55A8
 	ldh a, [hWRAMBank]
@@ -247,13 +247,13 @@ SettingsPhone_WriteAdapterConfig_Poll:: ; 67:555C
 	pop af
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_C286], a
+	ld [wAdapterConfig_SfxFlag], a
 	jr .l55A8
 .l55A4 ; 67:55A4
 	xor a, a
-	ld [wRam_C286], a
+	ld [wAdapterConfig_SfxFlag], a
 .l55A8 ; 67:55A8
-	ld a, [wRam_C27D]
+	ld a, [wAdapterConfig_State]
 	add a, a
 	add a, $B8
 	ld l, a
@@ -283,7 +283,7 @@ Label_67_55BE::
 	ld a, $02
 	call MobileAPI
 	ld a, $01
-	ld [wRam_C27D], a
+	ld [wAdapterConfig_State], a
 	jr SettingsPhone_WriteAdapterConfig_Poll
 
 SettingsPhone_WriteAdapterConfig_State_PatchAndWrite:: ; 67:55D0
@@ -310,7 +310,7 @@ Label_67_55D0::
 	ld a, $04
 	call MobileAPI
 	ld a, $02
-	ld [wRam_C27D], a
+	ld [wAdapterConfig_State], a
 	jp SettingsPhone_WriteAdapterConfig_Poll
 
 SettingsPhone_WriteAdapterConfig_State_Finish:: ; 67:560A
@@ -337,7 +337,7 @@ Label_67_560A::
 	; in 1 scenarios]
 	farcall Settings_UpdateChecksumAndBackup
 	ld a, $01
-	ld [wRam_C27C], a
+	ld [wAdapterConfig_Result], a
 	ret
 
 SettingsPhone_WriteAdapterConfig_Abort:: ; 67:5638
@@ -358,7 +358,7 @@ Label_67_5638::
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	xor a, a
-	ld [wRam_C27C], a
+	ld [wAdapterConfig_Result], a
 	ret
 
 SettingsPhone_PatchConfigImage:: ; 67:5664
@@ -376,7 +376,7 @@ SettingsPhone_PatchConfigImage:: ; 67:5664
 	or a, a
 	jr nz, .l5677
 .l5677 ; 67:5677
-	ld a, [wRam_C27E]
+	ld a, [wAdapterConfig_Slot]
 	ld hl, SettingsPhone_ConfigNumberAddrs
 	add a, a
 	add a, l
@@ -395,7 +395,7 @@ SettingsPhone_PatchConfigImage:: ; 67:5664
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	; [executed in 1 scenarios]
 	farcall PhoneNumber_PackBcd
-	ld a, [wRam_C27E]
+	ld a, [wAdapterConfig_Slot]
 	ld hl, SettingsPhone_ConfigCommentAddrs
 	add a, a
 	add a, l
@@ -418,7 +418,7 @@ SettingsPhone_PatchConfigImage:: ; 67:5664
 	ld a, $01
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld a, [wRam_C27E]
+	ld a, [wAdapterConfig_Slot]
 	ld hl, SettingsPhone_SramSelfPageAddrs
 	add a, a
 	add a, l

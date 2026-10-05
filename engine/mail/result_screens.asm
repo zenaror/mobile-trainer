@@ -225,7 +225,7 @@ MailResult_ShowSentMessage:: ; 29:41AD
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $01
 	ld hl, $D524
 	ld bc, $D000
@@ -321,7 +321,7 @@ Function_29_4286::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $01
 	ld hl, $D524
 	ld bc, $D200
@@ -896,21 +896,21 @@ Label_29_476B:: ; 29:476B
 	; [CONFIRMED] 27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 0;
 	; entered by jrcc from 29:4755 (executed) [executed in 4 scenarios]
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $29
 	ld bc, $D000
 	ld de, $D050
 	ld hl, MailServerStatus_Txt_Unknown
 	farcall TextTiles_RenderLine
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $29
 	ld bc, $D0A0
 	ld de, $D0F0
 	ld hl, MailServerStatus_Txt_Unknown
 	farcall TextTiles_RenderLine
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $29
 	ld bc, $D140
 	ld de, $D190
@@ -961,7 +961,7 @@ Label_29_47BD:: ; 29:47BD
 	ld b, h
 	ld c, l
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $01
 	ld hl, $0050
 	add hl, bc
@@ -1016,7 +1016,7 @@ Label_29_47BD:: ; 29:47BD
 	ld b, h
 	ld c, l
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $01
 	ld hl, $0050
 	add hl, bc
@@ -1089,7 +1089,7 @@ Label_29_47BD:: ; 29:47BD
 	ld b, h
 	ld c, l
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $01
 	ld hl, $0050
 	add hl, bc
@@ -1431,21 +1431,21 @@ Label_29_4A7D:: ; 29:4A7D
 	; [PROBABLE] 27 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4A65-4AC4 by apply_coverage --split
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $29
 	ld bc, $D000
 	ld de, $D050
 	ld hl, MailServerStatus_Txt_Unknown_M1
 	farcall TextTiles_RenderLine
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $29
 	ld bc, $D0A0
 	ld de, $D0F0
 	ld hl, MailServerStatus_Txt_Unknown_M1
 	farcall TextTiles_RenderLine
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $29
 	ld bc, $D140
 	ld de, $D190
@@ -1481,7 +1481,7 @@ Label_29_4ACF:: ; 29:4ACF
 	ld b, h
 	ld c, l
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $01
 	ld hl, $0050
 	add hl, bc
@@ -1519,7 +1519,7 @@ Label_29_4ACF:: ; 29:4ACF
 	ld b, h
 	ld c, l
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $01
 	ld hl, $0050
 	add hl, bc
@@ -1564,7 +1564,7 @@ Label_29_4ACF:: ; 29:4ACF
 	ld b, h
 	ld c, l
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $01
 	ld hl, $0050
 	add hl, bc
@@ -1915,21 +1915,21 @@ Label_29_4D39:: ; 29:4D39
 	; [CONFIRMED] 27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 0;
 	; fall-through of the jpcc at 29:4D36 (executed) [executed in 2 scenarios]
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $29
 	ld bc, $D000
 	ld de, $D050
 	ld hl, MailServerStatus_Txt_Unknown_M2
 	farcall TextTiles_RenderLine
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $29
 	ld bc, $D0A0
 	ld de, $D0F0
 	ld hl, MailServerStatus_Txt_Unknown_M2
 	farcall TextTiles_RenderLine
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $29
 	ld bc, $D140
 	ld de, $D190
@@ -1980,7 +1980,7 @@ Label_29_4D8B:: ; 29:4D8B
 	ld b, h
 	ld c, l
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $01
 	ld hl, $0050
 	add hl, bc
@@ -2008,7 +2008,7 @@ Label_29_4D8B:: ; 29:4D8B
 	ld b, h
 	ld c, l
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $01
 	ld hl, $0050
 	add hl, bc
@@ -2062,7 +2062,7 @@ Label_29_4D8B:: ; 29:4D8B
 	ld b, h
 	ld c, l
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $01
 	ld hl, $0050
 	add hl, bc

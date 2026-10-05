@@ -13,7 +13,7 @@ Function_68_5296::
 	call Account_LoginIdEntry_InputLoop
 	farcall Palette_FadeOutToWhite
 	farcall Kbd_HideInstant
-	ld a, [wRam_C27C]
+	ld a, [wLoginIdEntry_Result]
 	ret
 
 Account_LoginId_ClearFlagIfChanged:: ; 68:52B2
@@ -84,7 +84,7 @@ Function_68_531A::
 	farcall Joypad_SetRepeatTiming
 	farcall Sprite_ResetAll
 	xor a, a
-	ld [wRam_C27C], a
+	ld [wLoginIdEntry_Result], a
 	ld hl, $DE80
 	ld b, $0A
 	farcall TextBuf_Init
@@ -164,11 +164,11 @@ Function_68_5404::
 	and a, $01
 	jr nz, .l5411
 	ld a, $00
-	ld [wRam_C27D], a
+	ld [wLoginIdEntry_OkFlag], a
 	ret
 .l5411 ; 68:5411
 	ld a, $01
-	ld [wRam_C27D], a
+	ld [wLoginIdEntry_OkFlag], a
 	ret
 
 Account_LoginIdEntry_UpdateOkState:: ; 68:5417
@@ -180,16 +180,16 @@ Function_68_5417::
 	or a, a
 	jr z, .l5429
 	ld a, $00
-	ld [wRam_C27D], a
+	ld [wLoginIdEntry_OkFlag], a
 	ret
 .l5429 ; 68:5429
 	ld a, $01
-	ld [wRam_C27D], a
+	ld [wLoginIdEntry_OkFlag], a
 	ret
 
 Account_LoginIdEntry_InputLoop:: ; 68:542F
 	farcall Sprite_UpdateAll
-	ld a, [wRam_C27D]
+	ld a, [wLoginIdEntry_OkFlag]
 	ld c, a
 	farcall Kbd_Run
 	cp a, $01
@@ -293,7 +293,7 @@ Account_LoginIdEntry_InputLoop:: ; 68:542F
 	ldh [rSVBK], a
 	call Account_CommitLoginId
 	ld a, $01
-	ld [wRam_C27C], a
+	ld [wLoginIdEntry_Result], a
 	ret
 .l5516 ; 68:5516
 	ldh a, [hWRAMBank]
@@ -306,7 +306,7 @@ Account_LoginIdEntry_InputLoop:: ; 68:542F
 	ldh [rSVBK], a
 	call Account_CommitLoginId
 	xor a, a
-	ld [wRam_C27C], a
+	ld [wLoginIdEntry_Result], a
 	ret
 .l552E ; 68:552E
 	ld d, $38
@@ -356,9 +356,9 @@ Account_LoginId_PrintField:: ; 68:5584
 	ld bc, $0207
 	farcall TileCanvas_FillRect
 	ld a, $00
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $03
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	ld a, $15
 	ldh [hTextY], a
 	ld a, $38
@@ -368,17 +368,17 @@ Account_LoginId_PrintField:: ; 68:5584
 	ld a, $10
 	ldh [hRam_FFC0], a
 	ld a, $38
-	ldh [hRam_FFC1], a
+	ldh [hTextBox_LineStartX], a
 	ld a, $00
-	ldh [hRam_FFC2], a
+	ldh [hTextBox_LineStartXHi], a
 	ld a, $20
-	ldh [hRam_FFC3], a
+	ldh [hTextBox_MaxLineY], a
 	ld a, $70
-	ldh [hRam_FFC4], a
+	ldh [hTextBox_RightLimitX], a
 	ld a, $00
 	ldh [hRam_FFC5], a
 	ld a, $0C
-	ldh [hRam_FFC6], a
+	ldh [hTextBox_LineAdvance], a
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	pop af
@@ -476,9 +476,9 @@ Account_LoginIdIntro_PrintMessage:: ; 68:568E
 	ld bc, $0812
 	farcall TileCanvas_FillRect
 	ld a, $00
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $03
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	ld a, $38
 	ldh [hTextY], a
 	ld a, $08
@@ -488,17 +488,17 @@ Account_LoginIdIntro_PrintMessage:: ; 68:568E
 	ld a, $38
 	ldh [hRam_FFC0], a
 	ld a, $08
-	ldh [hRam_FFC1], a
+	ldh [hTextBox_LineStartX], a
 	ld a, $00
-	ldh [hRam_FFC2], a
+	ldh [hTextBox_LineStartXHi], a
 	ld a, $78
-	ldh [hRam_FFC3], a
+	ldh [hTextBox_MaxLineY], a
 	ld a, $98
-	ldh [hRam_FFC4], a
+	ldh [hTextBox_RightLimitX], a
 	ld a, $00
 	ldh [hRam_FFC5], a
 	ld a, $0C
-	ldh [hRam_FFC6], a
+	ldh [hTextBox_LineAdvance], a
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	pop af

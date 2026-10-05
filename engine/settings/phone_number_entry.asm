@@ -77,7 +77,7 @@ SettingsPhone_Run:: ; 67:4000
 	or a, a
 	jr z, .l4029
 	dec a
-	ld [wRam_C283], a
+	ld [wSettingsPhone_Slot], a
 	call SettingsPhone_ResetMethodCursor
 .l409A ; 67:409A
 	ld a, $01
@@ -97,7 +97,7 @@ SettingsPhone_Run:: ; 67:4000
 	; [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 4000-4156 by apply_coverage
 	; --split [executed in 1 scenarios]
 	farcall Dial_LoadDefaultsForAdapterType
-	ld a, [wRam_C283]
+	ld a, [wSettingsPhone_Slot]
 	farcall SettingsPhone_ConfirmScreen
 	or a, a
 	jr z, .l40CE
@@ -134,7 +134,7 @@ SettingsPhone_Run:: ; 67:4000
 	farcall PhoneComment_KeyboardRun
 	or a, a
 	jr z, .l40E9
-	ld a, [wRam_C283]
+	ld a, [wSettingsPhone_Slot]
 	farcall SettingsPhone_ConfirmScreen
 	or a, a
 	jr z, .l40F4
@@ -143,7 +143,7 @@ SettingsPhone_Run:: ; 67:4000
 	ld a, $01
 	ld [wManualNumbersFlag], a
 .l4112 ; 67:4112
-	ld a, [wRam_C283]
+	ld a, [wSettingsPhone_Slot]
 	farcall SettingsPhone_WriteAdapterConfig
 	or a, a
 	jr z, .l414D
@@ -305,13 +305,13 @@ SettingsPhone_ClearEntryBuffers:: ; 67:41FE
 	ret
 
 PhoneKeypad_Run:: ; 67:422B
-	ld [wRam_C27D], a
+	ld [wPhoneKeypad_Kind], a
 	call PhoneKeypad_Setup
 	farcall Palette_FadeInFromWhite
 	call PhoneKeypad_Loop
 	farcall Palette_FadeOutToWhite
 	farcall Kbd_HideInstant
-	ld a, [wRam_C27C]
+	ld a, [wPhoneKeypad_Result]
 	ret
 
 PhoneKeypad_ClearStoredBitsIfEdited:: ; 67:424A
@@ -326,7 +326,7 @@ Function_67_424A::
 	; trampolines (checked) and nothing shows bank 67, so it stays HYPOTHESIS] | forced execution:
 	; 48/104 instruction starts ran in forced_dead (traces/forced/, not natural evidence; status
 	; unchanged)
-	ld a, [wRam_C27D]
+	ld a, [wPhoneKeypad_Kind]
 	or a, a
 	jr nz, .l42B7
 	ldh [hScratchA], a
@@ -443,12 +443,12 @@ PhoneKeypad_Setup:: ; 67:431F
 	farcall Joypad_SetRepeatTiming
 	farcall Sprite_ResetAll
 	xor a, a
-	ld [wRam_C27C], a
-	ld [wRam_C27E], a
+	ld [wPhoneKeypad_Result], a
+	ld [wPhoneKeypad_OkFlag], a
 	ld hl, $DE80
 	ld b, $11
 	farcall TextBuf_Init
-	ld a, [wRam_C27D]
+	ld a, [wPhoneKeypad_Kind]
 	or a, a
 	jr nz, .l4355
 	ld hl, $DE80
@@ -490,7 +490,7 @@ PhoneKeypad_Setup:: ; 67:431F
 	ld hl, Data_5E_4D00
 	ld a, $5E
 	farcall Palette_LoadToBuffer
-	ld a, [wRam_C27D]
+	ld a, [wPhoneKeypad_Kind]
 	or a, a
 	jr nz, .l43D6
 	ld bc, $0514
@@ -537,7 +537,7 @@ PhoneKeypad_Setup:: ; 67:431F
 
 PhoneKeypad_Loop:: ; 67:443C
 	farcall Sprite_UpdateAll
-	ld a, [wRam_C27E]
+	ld a, [wPhoneKeypad_OkFlag]
 	ld c, a
 	farcall Kbd_Run
 	cp a, $01
@@ -649,7 +649,7 @@ PhoneKeypad_Loop:: ; 67:443C
 	ldh [rSVBK], a
 	call PhoneKeypad_StoreResult
 	ld a, $01
-	ld [wRam_C27C], a
+	ld [wPhoneKeypad_Result], a
 	ret
 .l4523 ; 67:4523
 	ldh a, [hWRAMBank]
@@ -662,7 +662,7 @@ PhoneKeypad_Loop:: ; 67:443C
 	ldh [rSVBK], a
 	call PhoneKeypad_StoreResult
 	xor a, a
-	ld [wRam_C27C], a
+	ld [wPhoneKeypad_Result], a
 	ret
 .l453B ; 67:453B
 	ld d, $20
@@ -679,7 +679,7 @@ PhoneKeypad_Loop:: ; 67:443C
 
 PhoneKeypad_StoreResult:: ; 67:4559
 	ld hl, $DE80
-	ld a, [wRam_C27D]
+	ld a, [wPhoneKeypad_Kind]
 	or a, a
 	jr nz, .l4567
 	ld de, $DEDD
@@ -696,7 +696,7 @@ Function_67_4571::
 	; anywhere in the ROM); linear decode is legal ($4571-$4593), all direct targets are known code
 	; starts, tests [$C27D] and [$C278] bits $08/$10 and sets [$C27E]=0/1; ends with ret. Sits after
 	; a ret between PROBABLE/CONFIRMED functions of the same style
-	ld a, [wRam_C27D]
+	ld a, [wPhoneKeypad_Kind]
 	or a, a
 	jr nz, .l4580
 	ld a, [wSettingsFieldMask]
@@ -709,11 +709,11 @@ Function_67_4571::
 	jr nz, .l458D
 .l4587 ; 67:4587
 	ld a, $00
-	ld [wRam_C27E], a
+	ld [wPhoneKeypad_OkFlag], a
 	ret
 .l458D ; 67:458D
 	ld a, $01
-	ld [wRam_C27E], a
+	ld [wPhoneKeypad_OkFlag], a
 	ret
 
 PhoneKeypad_UpdateFullFlag:: ; 67:4593
@@ -725,14 +725,14 @@ PhoneKeypad_UpdateFullFlag:: ; 67:4593
 	or a, a
 	jr z, .l45A5
 	ld a, $00
-	ld [wRam_C27E], a
+	ld [wPhoneKeypad_OkFlag], a
 	ret
 
 .l45A5 ; 67:45A5
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4593-486D by apply_coverage --split
 	ld a, $01
-	ld [wRam_C27E], a
+	ld [wPhoneKeypad_OkFlag], a
 	ret
 
 PhoneKeypad_UpdateNonEmptyFlag:: ; 67:45AB
@@ -743,11 +743,11 @@ PhoneKeypad_UpdateNonEmptyFlag:: ; 67:45AB
 	cp a, $01
 	jr nc, .l45BE
 	ld a, $00
-	ld [wRam_C27E], a
+	ld [wPhoneKeypad_OkFlag], a
 	ret
 .l45BE ; 67:45BE
 	ld a, $01
-	ld [wRam_C27E], a
+	ld [wPhoneKeypad_OkFlag], a
 	ret
 
 PhoneKeypad_BuildTextMap:: ; 67:45C4
@@ -765,9 +765,9 @@ PhoneKeypad_PrintText:: ; 67:45D4
 	ld bc, $020C
 	farcall TileCanvas_FillRect
 	ld a, $00
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $03
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	ld a, $15
 	ldh [hTextY], a
 	ld a, $20
@@ -777,17 +777,17 @@ PhoneKeypad_PrintText:: ; 67:45D4
 	ld a, $10
 	ldh [hRam_FFC0], a
 	ld a, $20
-	ldh [hRam_FFC1], a
+	ldh [hTextBox_LineStartX], a
 	ld a, $00
-	ldh [hRam_FFC2], a
+	ldh [hTextBox_LineStartXHi], a
 	ld a, $20
-	ldh [hRam_FFC3], a
+	ldh [hTextBox_MaxLineY], a
 	ld a, $80
-	ldh [hRam_FFC4], a
+	ldh [hTextBox_RightLimitX], a
 	ld a, $00
 	ldh [hRam_FFC5], a
 	ld a, $0C
-	ldh [hRam_FFC6], a
+	ldh [hTextBox_LineAdvance], a
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	pop af

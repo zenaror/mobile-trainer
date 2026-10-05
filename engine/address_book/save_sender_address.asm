@@ -1286,7 +1286,7 @@ SaveSenderAddr_LoadCaption:: ; 2A:49C5
 	ld hl, String_SaveSenderAddr_Caption
 	ld a, $02
 	ldh [rVBK], a
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $2A
 	ld bc, $D280
 	ld de, $D3C0
@@ -1294,7 +1294,7 @@ SaveSenderAddr_LoadCaption:: ; 2A:49C5
 	ld hl, $4A6F
 	ld a, $02
 	ldh [rVBK], a
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $2A
 	ld bc, $D500
 	ld de, $D640
@@ -1302,7 +1302,7 @@ SaveSenderAddr_LoadCaption:: ; 2A:49C5
 	ld hl, $4A78
 	ld a, $02
 	ldh [rVBK], a
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $2A
 	ld bc, $D780
 	ld de, $D8C0
@@ -1310,7 +1310,7 @@ SaveSenderAddr_LoadCaption:: ; 2A:49C5
 	ld hl, $4A81
 	ld a, $02
 	ldh [rVBK], a
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $2A
 	ld bc, $DA00
 	ld de, $DB40
@@ -1318,7 +1318,7 @@ SaveSenderAddr_LoadCaption:: ; 2A:49C5
 	ld hl, $4A8A
 	ld a, $02
 	ldh [rVBK], a
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $2A
 	ld bc, $DC80
 	ld de, $DDC0

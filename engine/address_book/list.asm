@@ -1712,7 +1712,7 @@ Function_2F_4BAA::
 	ld l, a
 	ld a, $02
 	ldh [rVBK], a
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $2F
 	ld bc, $DB40
 	ld de, $DC80

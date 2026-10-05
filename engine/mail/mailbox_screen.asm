@@ -1295,7 +1295,7 @@ Mailbox_ShowHint:: ; 25:53AA
 	ld l, a
 	ld a, $02
 	ldh [rVBK], a
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $25
 	ld bc, $DA00
 	ld de, $DB40

@@ -29,13 +29,13 @@ Table_74_44A0::
 
 Html_Tag_Title:: ; 74:44C4
 	; [CONFIRMED] 19 insn(s); 19 executed (in up to 2/18 scenarios)
-	ldh a, [hRam_FFB4]
+	ldh a, [hHtml_TagFirstChar]
 	cp a, $2F
 	jp z, Label_74_4439
 	ld a, e
-	ldh [hRam_FFB6], a
+	ldh [hHtml_TitleStart], a
 	ld a, d
-	ldh [hRam_FFB7], a
+	ldh [hHtml_TitleStartHi], a
 	jp Label_74_4439
 
 Html_ParseSource_TitleTag:: ; 74:44D4
@@ -45,7 +45,7 @@ Html_ParseSource_TitleTag:: ; 74:44D4
 	pop de
 	or a, a
 	jr z, .l44EB
-	ldh a, [hRam_FFB4]
+	ldh a, [hHtml_TagFirstChar]
 	cp a, $2F
 	jr nz, .l44EB
 	call Html_StoreTitle
@@ -57,9 +57,9 @@ Html_ParseSource_TitleTag:: ; 74:44D4
 	ld a, $3C
 	ld [de], a
 	inc de
-	ldh a, [hRam_FFB0]
+	ldh a, [hHtml_MatchRestart]
 	ld l, a
-	ldh a, [hRam_FFB1]
+	ldh a, [hHtml_MatchRestartHi]
 	ld h, a
 .loop ; 74:44F5
 	call Sound_FrameService
@@ -102,18 +102,18 @@ Html_StoreTitle:: ; 74:4530
 Function_74_4530::
 	; [CONFIRMED] 28 insn(s); 28 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ldh a, [hRam_FFB8]
+	ldh a, [hHtml_PageHeader]
 	ld l, a
-	ldh a, [hRam_FFB9]
+	ldh a, [hHtml_PageHeaderHi]
 	ld h, a
-	ldh a, [hRam_FFBA]
+	ldh a, [hHtml_PageBank]
 	call BankSwitch_H
 	ld a, [hl]
 	or a, a
 	ret nz
-	ldh a, [hRam_FFB6]
+	ldh a, [hHtml_TitleStart]
 	ld l, a
-	ldh a, [hRam_FFB7]
+	ldh a, [hHtml_TitleStartHi]
 	ld h, a
 	ldh a, [hTextX]
 	call BankSwitch_H
@@ -227,21 +227,21 @@ Function_74_4530::
 	xor a, a
 	ld [de], a
 	ld hl, $C340
-	ldh a, [hRam_FFB8]
+	ldh a, [hHtml_PageHeader]
 	ld e, a
-	ldh a, [hRam_FFB9]
+	ldh a, [hHtml_PageHeaderHi]
 	ld d, a
-	ldh a, [hRam_FFBA]
+	ldh a, [hHtml_PageBank]
 	call BankSwitch_D
 	inc bc
 	call CopyBytes
-	ldh a, [hRam_FFB6]
+	ldh a, [hHtml_TitleStart]
 	ld e, a
-	ldh a, [hRam_FFB7]
+	ldh a, [hHtml_TitleStartHi]
 	ld d, a
 	xor a, a
-	ldh [hRam_FFB6], a
-	ldh [hRam_FFB7], a
+	ldh [hHtml_TitleStart], a
+	ldh [hHtml_TitleStartHi], a
 	ret
 
 Html_Tag_Comment:: ; 74:45D9
@@ -297,7 +297,7 @@ Html_Tag_Comment:: ; 74:45D9
 	jr Html_Tag_Comment
 .l461C ; 74:461C
 	ld a, $20
-	ldh [hRam_FFB3], a
+	ldh [hHtml_LastChar], a
 	jp Html_ParseSource_Loop
 
 Html_Tag_Html:: ; 74:4623
@@ -308,7 +308,7 @@ Html_Tag_Html:: ; 74:4623
 	jp Label_74_4439
 
 Html_Tag_Head:: ; 74:462E
-	ldh a, [hRam_FFB4]
+	ldh a, [hHtml_TagFirstChar]
 	cp a, $2F
 	jr z, .l463F
 	ld a, [wHtmlFlags]
@@ -326,7 +326,7 @@ Html_Tag_Body:: ; 74:464A
 	; hops 0; run starts at an entry of the code-pointer table at 74:44A0 | 11 insn(s) never
 	; executed in the traced runs; cut out of the PROBABLE region 464A-4718 by apply_coverage
 	; --split
-	ldh a, [hRam_FFB4]
+	ldh a, [hHtml_TagFirstChar]
 	cp a, $2F
 	jr z, .l465B
 	ld a, [wHtmlFlags]
@@ -343,7 +343,7 @@ Html_Tag_Pre:: ; 74:4666
 	; [CONFIRMED] 30 insn(s) executed; cut out of the PROBABLE region 464A-4718 by apply_coverage
 	; --split [executed in 4 scenarios]
 	farcall Html_Layout_WrapRun
-	ldh a, [hRam_FFB4]
+	ldh a, [hHtml_TagFirstChar]
 	cp a, $2F
 	jr z, .l4683
 	farcall Html_Layout_EndLine
@@ -353,7 +353,7 @@ Html_Tag_Pre:: ; 74:4666
 	jp Label_74_443F
 .l4683 ; 74:4683
 	ld a, $0C
-	ldh [hRam_FFC7], a
+	ldh [hHtmlLayout_HeightBelow], a
 	farcall Html_Layout_EndLine
 	ld a, [wHtmlFlags]
 	and a, $F7
@@ -428,7 +428,7 @@ Html_Tag_Center:: ; 74:4718
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
 	farcall Html_Layout_WrapRun
 	farcall Html_Layout_EndLine
-	ldh a, [hRam_FFB4]
+	ldh a, [hHtml_TagFirstChar]
 	cp a, $2F
 	jr z, Label_74_4740
 	ld b, $08
@@ -440,7 +440,7 @@ Html_Tag_Div:: ; 74:472E
 	; [executed in 2 scenarios]
 	farcall Html_Layout_WrapRun
 	farcall Html_Layout_EndLine
-	ldh a, [hRam_FFB4]
+	ldh a, [hHtml_TagFirstChar]
 	cp a, $2F
 	jr nz, Label_74_4761
 
@@ -476,9 +476,9 @@ Label_74_4761:: ; 74:4761
 	ld hl, $C380
 	ld bc, Html_AlignValuePtrs
 	ld a, l
-	ldh [hRam_FFB0], a
+	ldh [hHtml_MatchRestart], a
 	ld a, h
-	ldh [hRam_FFB1], a
+	ldh [hHtml_MatchRestartHi], a
 	call Html_MatchKeyword
 	pop hl
 	pop de
@@ -511,7 +511,7 @@ Label_74_4788:: ; 74:4788
 Html_Tag_Ul:: ; 74:47AA
 	farcall Html_Layout_FlushListItem
 	farcall Html_Layout_ListBlockBreak
-	ldh a, [hRam_FFB4]
+	ldh a, [hHtml_TagFirstChar]
 	cp a, $2F
 	jr z, .l47F9
 	push hl
@@ -615,7 +615,7 @@ Html_Tag_Ul:: ; 74:47AA
 	or a, a
 	jr nz, .l4863
 	ld a, $0C
-	ldh [hRam_FFC7], a
+	ldh [hHtmlLayout_HeightBelow], a
 	farcall Html_Layout_EndLine
 .l4863 ; 74:4863
 	pop hl
@@ -628,7 +628,7 @@ Html_Tag_Ol:: ; 74:4867
 	; [executed in 1 scenarios]
 	farcall Html_Layout_FlushListItem
 	farcall Html_Layout_ListBlockBreak
-	ldh a, [hRam_FFB4]
+	ldh a, [hHtml_TagFirstChar]
 	cp a, $2F
 	jr z, .l48D0
 	farcall Html_CountListItems
@@ -647,7 +647,7 @@ Html_Tag_Ol:: ; 74:4867
 	add hl, bc
 	add hl, bc
 	ld c, $00
-	ldh a, [hRam_FFD6]
+	ldh a, [hHtmlCount_ListItems]
 	cp a, $0A
 	jr c, .l48A3
 	ld c, $40
@@ -661,7 +661,7 @@ Html_Tag_Ol:: ; 74:4867
 .l48AE ; 74:48AE
 	pop hl
 	ld c, $0C
-	ldh a, [hRam_FFD6]
+	ldh a, [hHtmlCount_ListItems]
 	cp a, $0A
 	jr c, .l48B9
 	ld c, $12
@@ -742,7 +742,7 @@ Html_Tag_Ol:: ; 74:4867
 	or a, a
 	jr nz, .l493B
 	ld a, $0C
-	ldh [hRam_FFC7], a
+	ldh [hHtmlLayout_HeightBelow], a
 	farcall Html_Layout_EndLine
 .l493B ; 74:493B
 	pop hl
@@ -751,7 +751,7 @@ Html_Tag_Ol:: ; 74:4867
 Html_Tag_Li:: ; 74:493F
 	; [CONFIRMED] 41 insn(s); 41 executed (in up to 1/18 scenarios)
 	farcall Html_Layout_FlushListItem
-	ldh a, [hRam_FFB4]
+	ldh a, [hHtml_TagFirstChar]
 	cp a, $2F
 	jr z, Label_74_4987
 	ld a, [wHtmlListCounter]
@@ -937,7 +937,7 @@ Label_74_4997:: ; 74:4997
 Html_Tag_B:: ; 74:4A32
 	; [CONFIRMED] 51 insn(s); 51 executed (in up to 2/18 scenarios)
 	farcall Html_Layout_WrapRun
-	ldh a, [hRam_FFB4]
+	ldh a, [hHtml_TagFirstChar]
 	cp a, $2F
 	jr nz, .l4A6D
 	ld a, [wHtmlBoldCount]
@@ -951,14 +951,14 @@ Html_Tag_B:: ; 74:4A32
 	ld a, [wHtmlBoldCount + 1]
 	sbc a, $00
 	ld [wHtmlBoldCount + 1], a
-	ldh a, [hRam_FFB2]
+	ldh a, [hHtml_RecordFlags]
 	and a, $03
 	cp a, $02
 	jp nz, Label_74_443F
-	ldh a, [hRam_FFB2]
+	ldh a, [hHtml_RecordFlags]
 	and a, $FC
 	or a, $00
-	ldh [hRam_FFB2], a
+	ldh [hHtml_RecordFlags], a
 	jp Label_74_443F
 .l4A6D ; 74:4A6D
 	ld a, [wHtmlBoldCount]
@@ -967,18 +967,18 @@ Html_Tag_B:: ; 74:4A32
 	ld a, [wHtmlBoldCount + 1]
 	adc a, $00
 	ld [wHtmlBoldCount + 1], a
-	ldh a, [hRam_FFB2]
+	ldh a, [hHtml_RecordFlags]
 	and a, $03
 	cp a, $01
 	jp z, Label_74_443F
-	ldh a, [hRam_FFB2]
+	ldh a, [hHtml_RecordFlags]
 	and a, $FC
 	or a, $02
-	ldh [hRam_FFB2], a
+	ldh [hHtml_RecordFlags], a
 	jp Label_74_443F
 
 Html_Tag_A:: ; 74:4A91
-	ldh a, [hRam_FFB4]
+	ldh a, [hHtml_TagFirstChar]
 	cp a, $2F
 	jr nz, .l4AD5
 	ldh a, [hHtmlLinkTextStart]
@@ -996,26 +996,26 @@ Html_Tag_A:: ; 74:4A91
 	ld a, d
 	cp a, b
 	jr nz, .l4AB8
-	ldh a, [hRam_FFB2]
+	ldh a, [hHtml_RecordFlags]
 	and a, $03
 	cp a, $01
 	jp nz, .l4AB8
-	ldh a, [hRam_FFDF]
+	ldh a, [hHtml_LinkNumber]
 	dec a
-	ldh [hRam_FFDF], a
+	ldh [hHtml_LinkNumber], a
 	jr .l4ABE
 
 .l4AB8 ; 74:4AB8
 	; [CONFIRMED] 17 insn(s); 17 executed (in up to 2/18 scenarios)
 	farcall Html_Layout_WrapRun
 .l4ABE ; 74:4ABE
-	ldh a, [hRam_FFB2]
+	ldh a, [hHtml_RecordFlags]
 	and a, $03
 	cp a, $01
 	jp nz, Label_74_443F
-	ldh a, [hRam_FFB2]
+	ldh a, [hHtml_RecordFlags]
 	and a, $FC
-	ldh [hRam_FFB2], a
+	ldh [hHtml_RecordFlags], a
 	xor a, a
 	ldh [hHtmlLinkTextStart], a
 	ldh [hHtmlLinkTextStartHi], a
@@ -1049,9 +1049,9 @@ Html_Tag_A:: ; 74:4A91
 	farcall Html_StringTable_Add
 	or a, a
 	jr nz, .l4B6D
-	ldh a, [hRam_FFC8]
+	ldh a, [hHtmlLayout_LineY]
 	ld [hli], a
-	ldh a, [hRam_FFC9]
+	ldh a, [hHtmlLayout_LineYHi]
 	ld [hli], a
 	ld a, l
 	ld [wHtmlLinkHeapPtr], a
@@ -1061,13 +1061,13 @@ Html_Tag_A:: ; 74:4A91
 
 .l4B21 ; 74:4B21
 	; [CONFIRMED] 49 insn(s); 49 executed (in up to 2/18 scenarios)
-	ldh a, [hRam_FFB2]
+	ldh a, [hHtml_RecordFlags]
 	and a, $FC
 	or a, $01
-	ldh [hRam_FFB2], a
-	ldh a, [hRam_FFDF]
+	ldh [hHtml_RecordFlags], a
+	ldh a, [hHtml_LinkNumber]
 	inc a
-	ldh [hRam_FFDF], a
+	ldh [hHtml_LinkNumber], a
 	push de
 	push hl
 	ld a, [wHtmlLinkHeapPtr]
@@ -1103,10 +1103,10 @@ Html_Tag_A:: ; 74:4A91
 	inc d
 	jr z, .l4B81
 	ld a, e
-	ldh [hRam_FFE0], a
+	ldh [hHtml_LinkTableIndex], a
 	pop hl
 	pop de
-	ldh a, [hRam_FFBB]
+	ldh a, [hHtml_RunStartLo]
 	ldh [hHtmlLinkTextStart], a
 	ldh a, [hTextY]
 	ldh [hHtmlLinkTextStartHi], a
@@ -1117,14 +1117,14 @@ Html_Tag_A:: ; 74:4A91
 	; entered by jrcc from 74:4B3A (executed) [executed in 1 scenarios]
 	pop hl
 	pop de
-	ldh a, [hRam_FFB2]
+	ldh a, [hHtml_RecordFlags]
 	and a, $FC
-	ldh [hRam_FFB2], a
-	ldh a, [hRam_FFDF]
+	ldh [hHtml_RecordFlags], a
+	ldh a, [hHtml_LinkNumber]
 	dec a
-	ldh [hRam_FFDF], a
+	ldh [hHtml_LinkNumber], a
 	xor a, a
-	ldh [hRam_FFE0], a
+	ldh [hHtml_LinkTableIndex], a
 	ldh [hHtmlLinkTextStart], a
 	ldh [hHtmlLinkTextStartHi], a
 	jp Label_74_443F
@@ -1144,9 +1144,9 @@ Html_Tag_Br:: ; 74:4B98
 	ld hl, $C380
 	ld bc, Html_ClearValuePtrs
 	ld a, l
-	ldh [hRam_FFB0], a
+	ldh [hHtml_MatchRestart], a
 	ld a, h
-	ldh [hRam_FFB1], a
+	ldh [hHtml_MatchRestartHi], a
 	call Html_MatchKeyword
 	pop hl
 	pop de
@@ -1160,7 +1160,7 @@ Html_Tag_Br:: ; 74:4B98
 .l4BB9 ; 74:4BB9
 	; [CONFIRMED] 16 insn(s); 16 executed (in up to 2/18 scenarios)
 	ld [wHtmlBrClear], a
-	ldh a, [hRam_FFBB]
+	ldh a, [hHtml_RunStartLo]
 	ld c, a
 	ldh a, [hTextY]
 	ld b, a
@@ -1170,16 +1170,16 @@ Html_Tag_Br:: ; 74:4B98
 	ld a, d
 	cp a, b
 	jr nz, .l4BD8
-	ldh a, [hRam_FFC6]
+	ldh a, [hHtmlLayout_HeightAbove]
 	ld c, a
-	ldh a, [hRam_FFC7]
+	ldh a, [hHtmlLayout_HeightBelow]
 	or a, c
 	jr nz, .l4BD8
 
 	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
 	; fall-through of the jrcc at 74:4BD0 (executed) [executed in 1 scenarios]
 	ld a, $0C
-	ldh [hRam_FFC7], a
+	ldh [hHtmlLayout_HeightBelow], a
 	jr Label_74_4BDE
 
 .l4BD8 ; 74:4BD8
@@ -1205,37 +1205,37 @@ Table_74_4BEC::
 Label_74_4BF4:: ; 74:4BF4
 	; [CONFIRMED] 31 insn(s) reached by static flow only; seeds: exec x31; min discovery hops 1;
 	; entered by table from 74:4BE9 (executed) [executed in 1 scenarios]
-	ldh a, [hRam_FFC8]
+	ldh a, [hHtmlLayout_LineY]
 	ld e, a
-	ldh a, [hRam_FFC9]
+	ldh a, [hHtmlLayout_LineYHi]
 	ld d, a
 	farcall Html_Layout_GetLimitsAtY
 	ldh a, [hViewX]
 	ld e, a
 	ldh a, [hViewX + 1]
 	ld d, a
-	ldh a, [hRam_FFC4]
+	ldh a, [hHtmlLayout_CursorX]
 	cp a, e
 	jr nz, Label_74_4C5F
-	ldh a, [hRam_FFC5]
+	ldh a, [hHtmlLayout_CursorXHi]
 	cp a, d
 	jr nz, Label_74_4C5F
 	jr Label_74_4C2E
 
 Label_74_4C12:: ; 74:4C12
-	ldh a, [hRam_FFC8]
+	ldh a, [hHtmlLayout_LineY]
 	ld e, a
-	ldh a, [hRam_FFC9]
+	ldh a, [hHtmlLayout_LineYHi]
 	ld d, a
 	farcall Html_Layout_GetLimitsAtY
 	ldh a, [hViewRight]
 	ld e, a
 	ldh a, [hViewRight + 1]
 	ld d, a
-	ldh a, [hRam_FFC2]
+	ldh a, [hHtmlLayout_RightLimit]
 	cp a, e
 	jr nz, Label_74_4C5F
-	ldh a, [hRam_FFC3]
+	ldh a, [hHtmlLayout_RightLimitHi]
 	cp a, d
 	jr nz, Label_74_4C5F
 
@@ -1249,29 +1249,29 @@ Label_74_4C33:: ; 74:4C33
 	; [CONFIRMED] 63 insn(s) reached by static flow only; seeds: exec x63; min discovery hops 1;
 	; entered by table from 74:4BE9 (executed) | 25 insn(s) executed; cut out of the PROBABLE region
 	; 4C33-4CA6 by apply_coverage --split [executed in 1 scenarios]
-	ldh a, [hRam_FFC8]
+	ldh a, [hHtmlLayout_LineY]
 	ld e, a
-	ldh a, [hRam_FFC9]
+	ldh a, [hHtmlLayout_LineYHi]
 	ld d, a
 	farcall Html_Layout_GetLimitsAtY
 	ldh a, [hViewX]
 	ld e, a
 	ldh a, [hViewX + 1]
 	ld d, a
-	ldh a, [hRam_FFC4]
+	ldh a, [hHtmlLayout_CursorX]
 	cp a, e
 	jr nz, Label_74_4C5F
-	ldh a, [hRam_FFC5]
+	ldh a, [hHtmlLayout_CursorXHi]
 	cp a, d
 	jr nz, Label_74_4C5F
 	ldh a, [hViewRight]
 	ld e, a
 	ldh a, [hViewRight + 1]
 	ld d, a
-	ldh a, [hRam_FFC2]
+	ldh a, [hHtmlLayout_RightLimit]
 	cp a, e
 	jr nz, Label_74_4C5F
-	ldh a, [hRam_FFC3]
+	ldh a, [hHtmlLayout_RightLimitHi]
 	cp a, d
 	jr z, Label_74_4C2E
 
@@ -1281,9 +1281,9 @@ Label_74_4C5F:: ; 74:4C5F
 	pop hl
 	pop de
 	ld a, $0C
-	ldh [hRam_FFC7], a
+	ldh [hHtmlLayout_HeightBelow], a
 	xor a, a
-	ldh [hRam_FFC6], a
+	ldh [hHtmlLayout_HeightAbove], a
 	jp Label_74_4BDE
 
 Html_ParseSource_PreCR:: ; 74:4C6B
@@ -1296,10 +1296,10 @@ Html_ParseSource_PreCR:: ; 74:4C6B
 
 Label_74_4C71:: ; 74:4C71
 	ld a, l
-	ldh [hRam_FFB0], a
+	ldh [hHtml_MatchRestart], a
 	ld a, h
-	ldh [hRam_FFB1], a
-	ldh a, [hRam_FFBB]
+	ldh [hHtml_MatchRestartHi], a
+	ldh a, [hHtml_RunStartLo]
 	ld c, a
 	ldh a, [hTextY]
 	ld b, a
@@ -1309,20 +1309,20 @@ Label_74_4C71:: ; 74:4C71
 	ld a, d
 	cp a, b
 	jr nz, .l4C93
-	ldh a, [hRam_FFC6]
+	ldh a, [hHtmlLayout_HeightAbove]
 	ld c, a
-	ldh a, [hRam_FFC7]
+	ldh a, [hHtmlLayout_HeightBelow]
 	or a, c
 	jr nz, .l4C93
 	ld a, $0C
-	ldh [hRam_FFC7], a
+	ldh [hHtmlLayout_HeightBelow], a
 	jr .l4C99
 .l4C93 ; 74:4C93
 	farcall Html_Layout_WrapRun
 .l4C99 ; 74:4C99
 	farcall Html_Layout_EndLine
 	ld a, $20
-	ldh [hRam_FFB3], a
+	ldh [hHtml_LastChar], a
 	jp Html_ParseSource_Loop
 
 Html_Tag_Hr:: ; 74:4CA6
@@ -1381,25 +1381,25 @@ Html_Tag_Hr:: ; 74:4CA6
 .l4CF2 ; 74:4CF2
 	; [CONFIRMED] 24 insn(s); 24 executed (in up to 2/18 scenarios)
 	push bc
-	ldh a, [hRam_FFC8]
+	ldh a, [hHtmlLayout_LineY]
 	ld e, a
-	ldh a, [hRam_FFC9]
+	ldh a, [hHtmlLayout_LineYHi]
 	ld d, a
 	farcall Html_Layout_GetLimitsAtY
-	ldh a, [hRam_FFC4]
+	ldh a, [hHtmlLayout_CursorX]
 	ld c, a
-	ldh a, [hRam_FFC2]
+	ldh a, [hHtmlLayout_RightLimit]
 	sub a, c
-	ldh [hRam_FFC0], a
-	ldh a, [hRam_FFC5]
+	ldh [hHtmlTag_HrFreeWidth], a
+	ldh a, [hHtmlLayout_CursorXHi]
 	ld b, a
-	ldh a, [hRam_FFC3]
+	ldh a, [hHtmlLayout_RightLimitHi]
 	sbc a, b
-	ldh [hRam_FFC1], a
+	ldh [hHtmlTag_HrFreeWidthHi], a
 	pop hl
-	ldh a, [hRam_FFC0]
+	ldh a, [hHtmlTag_HrFreeWidth]
 	sub a, l
-	ldh a, [hRam_FFC1]
+	ldh a, [hHtmlTag_HrFreeWidthHi]
 	sbc a, h
 	ld de, $FFF4
 	ld bc, $FFFF
@@ -1407,9 +1407,9 @@ Html_Tag_Hr:: ; 74:4CA6
 
 	; [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0;
 	; fall-through of the jrcc at 74:4D1C (executed) [executed in 3 scenarios]
-	ldh a, [hRam_FFC0]
+	ldh a, [hHtmlTag_HrFreeWidth]
 	ld l, a
-	ldh a, [hRam_FFC1]
+	ldh a, [hHtmlTag_HrFreeWidthHi]
 	ld h, a
 
 .l4D24 ; 74:4D24
@@ -1500,21 +1500,21 @@ Html_Tag_Hr:: ; 74:4CA6
 	ld [de], a
 	inc de
 	pop hl
-	ldh a, [hRam_FFB2]
+	ldh a, [hHtml_RecordFlags]
 	push af
 	and a, $FC
-	ldh [hRam_FFB2], a
+	ldh [hHtml_RecordFlags], a
 	farcall Html_Layout_WrapRun
 	farcall Html_Layout_EndLine
 	xor a, a
 	ldh [hHtmlAlignAdjust], a
 	ldh [hHtmlAlignAdjustHi], a
 	pop af
-	ldh [hRam_FFB2], a
+	ldh [hHtml_RecordFlags], a
 	pop af
 	ld [wHtmlAlign], a
 	ld a, $20
-	ldh [hRam_FFB3], a
+	ldh [hHtml_LastChar], a
 .l4DB5 ; 74:4DB5
 	ld a, [hli]
 	or a, a
@@ -1569,16 +1569,16 @@ Html_Tag_Img:: ; 74:4DF9
 	ld a, [wHtmlScanOnly]
 	or a, a
 	jp nz, .l4F09
-	ldh a, [hRam_FFB4]
+	ldh a, [hHtml_TagFirstChar]
 	cp a, $2F
 	jp z, Label_74_443F
 	xor a, a
-	ldh [hRam_FFD2], a
-	ldh [hRam_FFD3], a
-	ldh [hRam_FFD4], a
-	ldh [hRam_FFD5], a
-	ldh [hRam_FFD6], a
-	ldh [hRam_FFD7], a
+	ldh [hHtml_ImageData], a
+	ldh [hHtml_ImageDataHi], a
+	ldh [hHtml_ImageBank], a
+	ldh [hHtml_ImageAlign], a
+	ldh [hBmp_Width], a
+	ldh [hBmp_Height], a
 .l4E14 ; 74:4E14
 	ld bc, $408A
 	call Html_ScanAttributes
@@ -1588,15 +1588,15 @@ Html_Tag_Img:: ; 74:4DF9
 	jp z, .l4EB1
 	push de
 	push hl
-	ldh a, [hRam_FFD2]
+	ldh a, [hHtml_ImageData]
 	ld l, a
-	ldh a, [hRam_FFD3]
+	ldh a, [hHtml_ImageDataHi]
 	ld h, a
-	ldh a, [hRam_FFD4]
+	ldh a, [hHtml_ImageBank]
 	or a, h
 	or a, l
 	jp z, .l4ECD
-	ldh a, [hRam_FFD4]
+	ldh a, [hHtml_ImageBank]
 	farcall Html_NextResourceRecord
 	farcall Bmp_Validate
 	or a, a
@@ -1606,25 +1606,25 @@ Html_Tag_Img:: ; 74:4DF9
 	farcall Html_Layout_WrapRun
 	push de
 	push hl
-	ldh a, [hRam_FFB2]
+	ldh a, [hHtml_RecordFlags]
 	push af
 	and a, $03
 	ld c, a
-	ldh a, [hRam_FFD5]
+	ldh a, [hHtml_ImageAlign]
 	or a, a
 	jr z, .l4E5D
 
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4DF9-4F4F by apply_coverage --split
 	or a, c
-	ldh [hRam_FFB2], a
+	ldh [hHtml_RecordFlags], a
 
 .l4E5D ; 74:4E5D
 	; [CONFIRMED] 47 insn(s) executed; cut out of the PROBABLE region 4DF9-4F4F by apply_coverage
 	; --split [executed in 1 scenarios]
 	farcall Html_Layout_PlaceImage
 	pop af
-	ldh [hRam_FFB2], a
+	ldh [hHtml_RecordFlags], a
 	pop hl
 	pop de
 	jp Label_74_443F
@@ -1660,20 +1660,20 @@ Html_Tag_Img:: ; 74:4DF9
 	jr .l4E70
 .l4E94 ; 74:4E94
 	ld a, e
-	ldh [hRam_FFD2], a
+	ldh [hHtml_ImageData], a
 	ld a, d
-	ldh [hRam_FFD3], a
+	ldh [hHtml_ImageDataHi], a
 	ld a, $03
-	ldh [hRam_FFD4], a
+	ldh [hHtml_ImageBank], a
 .l4E9E ; 74:4E9E
 	pop de
 	pop hl
-	ldh a, [hRam_FFB5]
+	ldh a, [hHtml_SourceBank]
 	call BankSwitch_H
 	ldh a, [hTextX]
 	call BankSwitch_D
 	ld a, $20
-	ldh [hRam_FFB3], a
+	ldh [hHtml_LastChar], a
 	jp .l4E14
 
 .l4EB1 ; 74:4EB1
@@ -1684,15 +1684,15 @@ Html_Tag_Img:: ; 74:4DF9
 	ld hl, $C380
 	ld bc, Html_AlignValuePtrs
 	ld a, l
-	ldh [hRam_FFB0], a
+	ldh [hHtml_MatchRestart], a
 	ld a, h
-	ldh [hRam_FFB1], a
+	ldh [hHtml_MatchRestartHi], a
 	call Html_MatchKeyword
 	or a, a
 	jr z, .l4E9E
 	cp a, $08
 	jr z, .l4E9E
-	ldh [hRam_FFD5], a
+	ldh [hHtml_ImageAlign], a
 	jr .l4E9E
 
 .l4ECD ; 74:4ECD
@@ -1720,28 +1720,28 @@ Html_Tag_Img:: ; 74:4DF9
 	ld [de], a
 	inc de
 .l4EEF ; 74:4EEF
-	ldh a, [hRam_FFB2]
+	ldh a, [hHtml_RecordFlags]
 	push af
 	and a, $03
 	ld c, a
-	ldh a, [hRam_FFD5]
+	ldh a, [hHtml_ImageAlign]
 	or a, a
 	jr z, .l4EFD
 
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4DF9-4F4F by apply_coverage --split
 	or a, c
-	ldh [hRam_FFB2], a
+	ldh [hHtml_RecordFlags], a
 
 .l4EFD ; 74:4EFD
 	; [CONFIRMED] 40 insn(s) executed; cut out of the PROBABLE region 4DF9-4F4F by apply_coverage
 	; --split [executed in 1 scenarios]
 	farcall Html_Layout_WrapRun
 	pop af
-	ldh [hRam_FFB2], a
+	ldh [hHtml_RecordFlags], a
 	jp Label_74_443F
 .l4F09 ; 74:4F09
-	ldh a, [hRam_FFB4]
+	ldh a, [hHtml_TagFirstChar]
 	cp a, $2F
 	jp z, Label_74_443F
 .l4F10 ; 74:4F10
@@ -1753,11 +1753,11 @@ Html_Tag_Img:: ; 74:4DF9
 	jp nz, .l4F10
 	push hl
 	push de
-	ldh a, [hRam_FFCA]
+	ldh a, [hHtmlTag_ImgUrlHeap]
 	ld e, a
-	ldh a, [hRam_FFCB]
+	ldh a, [hHtmlTag_ImgUrlHeapHi]
 	ld d, a
-	ldh a, [hRam_FFBA]
+	ldh a, [hHtml_PageBank]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $2F
@@ -1768,9 +1768,9 @@ Html_Tag_Img:: ; 74:4DF9
 	or a, a
 	jr nz, .l4F45
 	ld a, l
-	ldh [hRam_FFCA], a
+	ldh [hHtmlTag_ImgUrlHeap], a
 	ld a, h
-	ldh [hRam_FFCB], a
+	ldh [hHtmlTag_ImgUrlHeapHi], a
 .l4F45 ; 74:4F45
 	ld a, d
 	inc d

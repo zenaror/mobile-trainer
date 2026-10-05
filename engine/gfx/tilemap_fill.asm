@@ -6,21 +6,21 @@ SECTION "engine/gfx/tilemap_fill", ROMX
 
 Tilemap_FillRectSequential:: ; 48:4679
 	; [CONFIRMED] 141 insn(s); 141 executed (in up to 14/18 scenarios) (part of region $462A-$4744)
-	ld [wRam_C10F], a
+	ld [wTilemapFill_StartTile], a
 	ld a, $07
-	ld [wRam_C10E], a
-	ld a, [wRam_C10F]
+	ld [wTilemapFill_WramBank], a
+	ld a, [wTilemapFill_StartTile]
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
 	ldh a, [hScratchA]
-	ld [wRam_C10F], a
-	ld a, [wRam_C10E]
+	ld [wTilemapFill_StartTile], a
+	ld a, [wTilemapFill_WramBank]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	push de
 	push hl
-	ld a, [wRam_C10F]
+	ld a, [wTilemapFill_StartTile]
 	ld d, b
 .l469B ; 48:469B
 	ld e, c

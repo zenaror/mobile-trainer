@@ -5,6 +5,7 @@ INCLUDE "ram/sram.asm"
 INCLUDE "ram/wram.asm"
 INCLUDE "ram/hram.asm"
 INCLUDE "ram/banked.asm"
+INCLUDE "ram/overlays.asm"
 
 ; label of the far-call convention entry 00:06D1; the farcall macros of
 ; constants/macros.inc call it through this EQUS

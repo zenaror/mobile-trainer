@@ -8,13 +8,13 @@ Account_ActionConfirmPage:: ; 68:6E1A
 Function_68_6E1A::
 	; [CONFIRMED] 147 insn(s); 147 executed (in up to 6/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld [wRam_C27E], a
+	ld [wActionConfirmPage_Variant], a
 	call Account_ActionConfirmPage_Setup
 	farcall Palette_FadeInFromWhite
 	call Account_ActionConfirmPage_InputLoop
 	farcall Palette_FadeOutToWhite
 	farcall Kbd_HideInstant
-	ld a, [wRam_C27C]
+	ld a, [wActionConfirmPage_Result]
 	ret
 
 Account_ActionConfirmPage_Setup:: ; 68:6E39
@@ -23,9 +23,9 @@ Account_ActionConfirmPage_Setup:: ; 68:6E39
 	farcall Joypad_SetRepeatTiming
 	farcall Sprite_ResetAll
 	xor a, a
-	ld [wRam_C27C], a
+	ld [wActionConfirmPage_Result], a
 	ld a, $00
-	ld [wRam_C27D], a
+	ld [wActionConfirmPage_Cursor], a
 	ld de, $9001
 	ld hl, Gfx_Account_ActionConfirmPage_Tiles9000Vb1
 	ld a, $5E
@@ -54,7 +54,7 @@ Account_ActionConfirmPage_Setup:: ; 68:6E39
 	ld hl, $4CE0
 	ld a, $5F
 	farcall Palette_LoadToBuffer
-	ld a, [wRam_C27E]
+	ld a, [wActionConfirmPage_Variant]
 	or a, a
 	jr z, .l6EC3
 	ld bc, $1214
@@ -106,20 +106,20 @@ Account_ActionConfirmPage_InputLoop:: ; 68:6EF6
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld a, [wRam_C27D]
+	ld a, [wActionConfirmPage_Cursor]
 	or a, a
 	jr nz, .l6F35
 	ld a, $01
-	ld [wRam_C27C], a
+	ld [wActionConfirmPage_Result], a
 	ret
 .l6F35 ; 68:6F35
 	ld a, $02
-	ld [wRam_C27C], a
+	ld [wActionConfirmPage_Result], a
 	ld a, $01
-	ld [wRam_C28E], a
+	ld [wActionConfirmPage_NoFlag], a
 	ret
 .l6F40 ; 68:6F40
-	ld a, [wRam_C27E]
+	ld a, [wActionConfirmPage_Variant]
 	or a, a
 	jr z, Account_ActionConfirmPage_InputLoop
 	ldh a, [hWRAMBank]
@@ -131,8 +131,8 @@ Account_ActionConfirmPage_InputLoop:: ; 68:6EF6
 	pop af
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_C27C], a
-	ld [wRam_C28E], a
+	ld [wActionConfirmPage_Result], a
+	ld [wActionConfirmPage_NoFlag], a
 	ret
 .l6F5E ; 68:6F5E
 	ldh a, [hWRAMBank]
@@ -143,17 +143,17 @@ Account_ActionConfirmPage_InputLoop:: ; 68:6EF6
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld a, [wRam_C27D]
+	ld a, [wActionConfirmPage_Cursor]
 	ld b, $01
 	xor a, b
-	ld [wRam_C27D], a
+	ld [wActionConfirmPage_Cursor], a
 	call Account_ActionConfirmPage_UpdateCursor
 	jr .l6F7C
 .l6F7C ; 68:6F7C
 	jp Account_ActionConfirmPage_InputLoop
 
 Account_ActionConfirmPage_UpdateCursor:: ; 68:6F7F
-	ld a, [wRam_C27D]
+	ld a, [wActionConfirmPage_Cursor]
 	add a, a
 	ld hl, Account_ActionConfirmCursorPositions
 	add a, l
@@ -191,9 +191,9 @@ Account_ActionConfirmPage_PrintMessage:: ; 68:6FAB
 	ld bc, $0612
 	farcall TileCanvas_FillRect
 	ld a, $00
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $03
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	ld a, $48
 	ldh [hTextY], a
 	ld a, $08
@@ -203,20 +203,20 @@ Account_ActionConfirmPage_PrintMessage:: ; 68:6FAB
 	ld a, $48
 	ldh [hRam_FFC0], a
 	ld a, $08
-	ldh [hRam_FFC1], a
+	ldh [hTextBox_LineStartX], a
 	ld a, $00
-	ldh [hRam_FFC2], a
+	ldh [hTextBox_LineStartXHi], a
 	ld a, $78
-	ldh [hRam_FFC3], a
+	ldh [hTextBox_MaxLineY], a
 	ld a, $C8
-	ldh [hRam_FFC4], a
+	ldh [hTextBox_RightLimitX], a
 	ld a, $00
 	ldh [hRam_FFC5], a
 	ld a, $0C
-	ldh [hRam_FFC6], a
+	ldh [hTextBox_LineAdvance], a
 	ld a, $0C
 	ldh [hRam_FFC7], a
-	ld a, [wRam_C27E]
+	ld a, [wActionConfirmPage_Variant]
 	ld hl, Account_ActionMessageIds
 	add a, l
 	ld l, a

@@ -129,25 +129,25 @@ Glyph_SjisToJis:: ; 7F:4072
 	cp a, $00
 	jr nz, .l4094
 	ld a, $7E
-	ldh [hRam_FFB0], a
+	ldh [hGlyph_TrailOffset], a
 	jr .l40A3
 .l4094 ; 7F:4094
 	ld a, l
 	cp a, $80
 	jr nc, .l409F
 	ld a, $1F
-	ldh [hRam_FFB0], a
+	ldh [hGlyph_TrailOffset], a
 	jr .l40A3
 .l409F ; 7F:409F
 	ld a, $20
-	ldh [hRam_FFB0], a
+	ldh [hGlyph_TrailOffset], a
 .l40A3 ; 7F:40A3
 	ld a, h
 	sub a, c
 	add a, a
 	sub a, b
 	ld h, a
-	ldh a, [hRam_FFB0]
+	ldh a, [hGlyph_TrailOffset]
 	ld b, a
 	ld a, l
 	sub a, b

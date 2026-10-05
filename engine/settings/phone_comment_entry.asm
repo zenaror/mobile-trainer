@@ -12,7 +12,7 @@ PhoneComment_KeyboardRun:: ; 67:4924
 	call PhoneComment_KeyboardLoop
 	farcall Palette_FadeOutToWhite
 	farcall Kbd_HideInstant
-	ld a, [wRam_C27C]
+	ld a, [wPhoneComment_Result]
 	ret
 
 PhoneComment_ClearStoredBitIfEdited:: ; 67:4940
@@ -83,8 +83,8 @@ PhoneComment_KeyboardSetup:: ; 67:49A8
 	farcall Joypad_SetRepeatTiming
 	farcall Sprite_ResetAll
 	xor a, a
-	ld [wRam_C27C], a
-	ld [wRam_C27D], a
+	ld [wPhoneComment_Result], a
+	ld [wPhoneComment_OkFlag], a
 	ld hl, $DE80
 	ld b, $11
 	farcall TextBuf_Init
@@ -157,7 +157,7 @@ PhoneComment_KeyboardSetup:: ; 67:49A8
 
 PhoneComment_KeyboardLoop:: ; 67:4A98
 	farcall Sprite_UpdateAll
-	ld a, [wRam_C27D]
+	ld a, [wPhoneComment_OkFlag]
 	ld c, a
 	farcall Kbd_Run
 	cp a, $01
@@ -275,7 +275,7 @@ PhoneComment_KeyboardLoop:: ; 67:4A98
 	ldh [rSVBK], a
 	call PhoneComment_StoreResult
 	ld a, $01
-	ld [wRam_C27C], a
+	ld [wPhoneComment_Result], a
 	ret
 .l4B7F ; 67:4B7F
 	ldh a, [hWRAMBank]
@@ -288,7 +288,7 @@ PhoneComment_KeyboardLoop:: ; 67:4A98
 	ldh [rSVBK], a
 	call PhoneComment_StoreResult
 	xor a, a
-	ld [wRam_C27C], a
+	ld [wPhoneComment_Result], a
 	ret
 .l4B97 ; 67:4B97
 	ld d, $20
@@ -319,11 +319,11 @@ Function_67_4BC2::
 	and a, $20
 	jr nz, .l4BCF
 	ld a, $00
-	ld [wRam_C27D], a
+	ld [wPhoneComment_OkFlag], a
 	ret
 .l4BCF ; 67:4BCF
 	ld a, $01
-	ld [wRam_C27D], a
+	ld [wPhoneComment_OkFlag], a
 	ret
 
 PhoneComment_UpdateFullFlag:: ; 67:4BD5
@@ -336,11 +336,11 @@ PhoneComment_UpdateFullFlag:: ; 67:4BD5
 	or a, a
 	jr z, .l4BE7
 	ld a, $00
-	ld [wRam_C27D], a
+	ld [wPhoneComment_OkFlag], a
 	ret
 .l4BE7 ; 67:4BE7
 	ld a, $01
-	ld [wRam_C27D], a
+	ld [wPhoneComment_OkFlag], a
 	ret
 
 PhoneComment_UpdateNonEmptyFlag:: ; 67:4BED
@@ -349,11 +349,11 @@ PhoneComment_UpdateNonEmptyFlag:: ; 67:4BED
 	cp a, $01
 	jr nc, .l4C00
 	ld a, $00
-	ld [wRam_C27D], a
+	ld [wPhoneComment_OkFlag], a
 	ret
 .l4C00 ; 67:4C00
 	ld a, $01
-	ld [wRam_C27D], a
+	ld [wPhoneComment_OkFlag], a
 	ret
 
 PhoneComment_BuildTextMap:: ; 67:4C06
@@ -371,9 +371,9 @@ PhoneComment_PrintText:: ; 67:4C16
 	ld bc, $020C
 	farcall TileCanvas_FillRect
 	ld a, $00
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $03
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	ld a, $15
 	ldh [hTextY], a
 	ld a, $20
@@ -383,17 +383,17 @@ PhoneComment_PrintText:: ; 67:4C16
 	ld a, $10
 	ldh [hRam_FFC0], a
 	ld a, $20
-	ldh [hRam_FFC1], a
+	ldh [hTextBox_LineStartX], a
 	ld a, $00
-	ldh [hRam_FFC2], a
+	ldh [hTextBox_LineStartXHi], a
 	ld a, $20
-	ldh [hRam_FFC3], a
+	ldh [hTextBox_MaxLineY], a
 	ld a, $80
-	ldh [hRam_FFC4], a
+	ldh [hTextBox_RightLimitX], a
 	ld a, $00
 	ldh [hRam_FFC5], a
 	ld a, $0C
-	ldh [hRam_FFC6], a
+	ldh [hTextBox_LineAdvance], a
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	pop af

@@ -177,19 +177,19 @@ Charset_ReadByteCounted:: ; 7E:7C2A
 
 Charset_SjisToIso2022Jp:: ; 7E:7C34
 	ld a, e
-	ldh [hRam_FFB3], a
+	ldh [hSjisToIso2022Jp_OutStartLo], a
 	ld a, d
-	ldh [hRam_FFB4], a
+	ldh [hSjisToIso2022Jp_OutStartHi], a
 	ld a, b
 	or a, c
 	jp z, .l7D0A
 	ld a, $00
-	ldh [hRam_FFB0], a
+	ldh [hSjisToIso2022Jp_Mode], a
 .loop ; 7E:7C43
 	ld a, [hli]
 	or a, a
 	jp z, .l7CE7
-	ldh [hRam_FFB1], a
+	ldh [hSjisToIso2022Jp_SrcByte], a
 	cp a, $81
 	jr c, .l7C62
 	cp a, $A0
@@ -212,7 +212,7 @@ Charset_SjisToIso2022Jp:: ; 7E:7C34
 	or a, a
 .l7C63 ; 7E:7C63
 	jr c, .l7C98
-	ldh a, [hRam_FFB0]
+	ldh a, [hSjisToIso2022Jp_Mode]
 	or a, a
 	jr z, .l7C8C
 	ld a, $1B
@@ -237,9 +237,9 @@ Charset_SjisToIso2022Jp:: ; 7E:7C34
 	or a, b
 	jp z, .l7D0A
 	ld a, $00
-	ldh [hRam_FFB0], a
+	ldh [hSjisToIso2022Jp_Mode], a
 .l7C8C ; 7E:7C8C
-	ldh a, [hRam_FFB1]
+	ldh a, [hSjisToIso2022Jp_SrcByte]
 	ld [de], a
 	inc de
 	dec bc
@@ -248,7 +248,7 @@ Charset_SjisToIso2022Jp:: ; 7E:7C34
 	jp z, .l7D0A
 	jr .loop
 .l7C98 ; 7E:7C98
-	ldh a, [hRam_FFB0]
+	ldh a, [hSjisToIso2022Jp_Mode]
 	or a, a
 	jr nz, .l7CBF
 	ld a, $1B
@@ -273,14 +273,14 @@ Charset_SjisToIso2022Jp:: ; 7E:7C34
 	or a, b
 	jp z, .l7D0A
 	ld a, $01
-	ldh [hRam_FFB0], a
+	ldh [hSjisToIso2022Jp_Mode], a
 .l7CBF ; 7E:7CBF
 	ld a, [hli]
-	ldh [hRam_FFB2], a
+	ldh [hSjisToIso2022Jp_TrailByte], a
 	push hl
-	ldh a, [hRam_FFB1]
+	ldh a, [hSjisToIso2022Jp_SrcByte]
 	ld h, a
-	ldh a, [hRam_FFB2]
+	ldh a, [hSjisToIso2022Jp_TrailByte]
 	ld l, a
 	push bc
 	push de
@@ -313,7 +313,7 @@ Charset_SjisToIso2022Jp:: ; 7E:7C34
 .l7CE7 ; 7E:7CE7
 	; [CONFIRMED] 37 insn(s) executed; cut out of the PROBABLE region 7B7C-7D19 by apply_coverage
 	; --split [executed in 6 scenarios]
-	ldh a, [hRam_FFB0]
+	ldh a, [hSjisToIso2022Jp_Mode]
 	or a, a
 	jr z, .l7D0A
 	ld a, $1B
@@ -338,9 +338,9 @@ Charset_SjisToIso2022Jp:: ; 7E:7C34
 	or a, b
 	jp z, .l7D0A
 .l7D0A ; 7E:7D0A
-	ldh a, [hRam_FFB3]
+	ldh a, [hSjisToIso2022Jp_OutStartLo]
 	ld c, a
-	ldh a, [hRam_FFB4]
+	ldh a, [hSjisToIso2022Jp_OutStartHi]
 	ld b, a
 	ld a, e
 	sub a, c
@@ -437,23 +437,23 @@ Charset_Iso2022JpToSjis:: ; 7E:7D62
 Label_7E_7D66:: ; 7E:7D66
 	; [CONFIRMED] 26 insn(s); 26 executed (in up to 1/18 scenarios)
 	ld a, e
-	ldh [hRam_FFB4], a
+	ldh [hIso2022JpToSjis_OutStartLo], a
 	ld a, d
-	ldh [hRam_FFB5], a
+	ldh [hIso2022JpToSjis_OutStartHi], a
 	ld a, b
 	or a, c
 	jp z, Label_7E_7E37
 	ld a, $00
-	ldh [hRam_FFB1], a
+	ldh [hIso2022JpToSjis_State], a
 
 Label_7E_7D75:: ; 7E:7D75
 	call Sound_FrameService
 	ld a, [hli]
 	or a, a
 	jp z, Label_7E_7E37
-	ldh [hRam_FFB0], a
+	ldh [hIso2022JpToSjis_Byte], a
 	push hl
-	ldh a, [hRam_FFB1]
+	ldh a, [hIso2022JpToSjis_State]
 	add a, a
 	add a, $8F
 	ld l, a
@@ -473,7 +473,7 @@ Table_7E_7D8F::
 
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios)
 	pop hl
-	ldh a, [hRam_FFB0]
+	ldh a, [hIso2022JpToSjis_Byte]
 	cp a, $1B
 	jr z, .l7DAA
 	ld [de], a
@@ -489,37 +489,37 @@ Table_7E_7D8F::
 	; entered by jrcc from 7E:7D9E (executed) [upgraded PROBABLE->CONFIRMED by the classify_g1 pass:
 	; every instruction start of the region appears in analysis/coverage_union.tsv]
 	ld a, $02
-	ldh [hRam_FFB1], a
+	ldh [hIso2022JpToSjis_State], a
 	jr Label_7E_7D75
 
 	; [CONFIRMED] handler 7DB0 (entry 1 of the jump table 7E:7D8F, each handler starts with pop hl);
 	; 7DB0-7DDF decodes to jp/jr targets on instruction starts, ends with jr $7D75 [executed in 6
 	; scenarios]
 	pop hl
-	ldh a, [hRam_FFB0]
+	ldh a, [hIso2022JpToSjis_Byte]
 	cp a, $1B
 	jr z, .l7DAA
 	push bc
 	push de
 	ld a, [hli]
 	ld c, a
-	ldh a, [hRam_FFB0]
+	ldh a, [hIso2022JpToSjis_Byte]
 	ld b, a
 	call Charset_JisToSjis
 	ld a, c
-	ldh [hRam_FFB2], a
+	ldh [hIso2022JpToSjis_OutLo], a
 	ld a, b
-	ldh [hRam_FFB3], a
+	ldh [hIso2022JpToSjis_OutHi], a
 	pop de
 	pop bc
-	ldh a, [hRam_FFB3]
+	ldh a, [hIso2022JpToSjis_OutHi]
 	ld [de], a
 	inc de
 	dec bc
 	ld a, c
 	or a, b
 	jp z, Label_7E_7E37
-	ldh a, [hRam_FFB2]
+	ldh a, [hIso2022JpToSjis_OutLo]
 	ld [de], a
 	inc de
 	dec bc
@@ -532,7 +532,7 @@ Table_7E_7D8F::
 	; branch, table word or call targets 7DDF (checked by the verifier), it follows the
 	; unconditional jr $7D75 at 7DDD, so its entry is unproven
 	ld a, $02
-	ldh [hRam_FFB1], a
+	ldh [hIso2022JpToSjis_State], a
 	jr Label_7E_7D75
 
 	; [CONFIRMED] handlers 7DE5, 7E05, 7E1E (entries 2-4 of the jump table 7E:7D8F: words
@@ -541,7 +541,7 @@ Table_7E_7D8F::
 	; with jp $7D75 exactly at the executed code 7E37 | 6 insn(s) executed; cut out of the PROBABLE
 	; region 7DE5-7E37 by apply_coverage --split [executed in 12 scenarios]
 	pop hl
-	ldh a, [hRam_FFB0]
+	ldh a, [hIso2022JpToSjis_Byte]
 	cp a, $28
 	jr z, .l7DF7
 	cp a, $24
@@ -550,22 +550,22 @@ Table_7E_7D8F::
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 7DE5-7E37 by apply_coverage --split
 	ld a, $00
-	ldh [hRam_FFB1], a
+	ldh [hIso2022JpToSjis_State], a
 	jp Label_7E_7D75
 
 .l7DF7 ; 7E:7DF7
 	; [CONFIRMED] 12 insn(s) executed; cut out of the PROBABLE region 7DE5-7E37 by apply_coverage
 	; --split [executed in 12 scenarios]
 	ld a, $03
-	ldh [hRam_FFB1], a
+	ldh [hIso2022JpToSjis_State], a
 	jp Label_7E_7D75
 .l7DFE ; 7E:7DFE
 	ld a, $04
-	ldh [hRam_FFB1], a
+	ldh [hIso2022JpToSjis_State], a
 	jp Label_7E_7D75
 
 	pop hl
-	ldh a, [hRam_FFB0]
+	ldh a, [hIso2022JpToSjis_Byte]
 	cp a, $4A
 	jr z, .l7E17
 	cp a, $42
@@ -574,18 +574,18 @@ Table_7E_7D8F::
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 7DE5-7E37 by apply_coverage --split
 	ld a, $00
-	ldh [hRam_FFB1], a
+	ldh [hIso2022JpToSjis_State], a
 	jp Label_7E_7D75
 
 .l7E17 ; 7E:7E17
 	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 7DE5-7E37 by apply_coverage
 	; --split [executed in 12 scenarios]
 	ld a, $00
-	ldh [hRam_FFB1], a
+	ldh [hIso2022JpToSjis_State], a
 	jp Label_7E_7D75
 
 	pop hl
-	ldh a, [hRam_FFB0]
+	ldh a, [hIso2022JpToSjis_Byte]
 	cp a, $4A
 	jr z, .l7E30
 	cp a, $42
@@ -594,14 +594,14 @@ Table_7E_7D8F::
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 7DE5-7E37 by apply_coverage --split
 	ld a, $00
-	ldh [hRam_FFB1], a
+	ldh [hIso2022JpToSjis_State], a
 	jp Label_7E_7D75
 
 .l7E30 ; 7E:7E30
 	; [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 7DE5-7E37 by apply_coverage
 	; --split [executed in 12 scenarios]
 	ld a, $01
-	ldh [hRam_FFB1], a
+	ldh [hIso2022JpToSjis_State], a
 	jp Label_7E_7D75
 
 Label_7E_7E37:: ; 7E:7E37
@@ -614,9 +614,9 @@ Label_7E_7E37:: ; 7E:7E37
 	; fall-through of the jrcc at 7E:7E3B (executed) [upgraded PROBABLE->CONFIRMED by the
 	; classify_g1 pass: every instruction start of the region appears in
 	; analysis/coverage_union.tsv]
-	ldh a, [hRam_FFB4]
+	ldh a, [hIso2022JpToSjis_OutStartLo]
 	ld c, a
-	ldh a, [hRam_FFB5]
+	ldh a, [hIso2022JpToSjis_OutStartHi]
 	ld b, a
 	ld a, e
 	sub a, c
@@ -635,9 +635,9 @@ Label_7E_7E37:: ; 7E:7E37
 	inc de
 	ld [de], a
 	inc de
-	ldh a, [hRam_FFB4]
+	ldh a, [hIso2022JpToSjis_OutStartLo]
 	ld c, a
-	ldh a, [hRam_FFB5]
+	ldh a, [hIso2022JpToSjis_OutStartHi]
 	ld b, a
 	ld a, e
 	sub a, c
@@ -683,28 +683,28 @@ Charset_EucJpToSjisStream:: ; 7E:7E68
 .l7E80 ; 7E:7E80
 	; [PROBABLE] 29 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 7E68-7EB3 by apply_coverage --split
-	ldh [hRam_FFB0], a
+	ldh [hEucJpToSjisStream_Byte], a
 	push bc
 	push de
 	ld a, [hli]
 	ld c, a
-	ldh a, [hRam_FFB0]
+	ldh a, [hEucJpToSjisStream_Byte]
 	ld b, a
 	call Charset_EucJpToSjis
 	ld a, c
-	ldh [hRam_FFB2], a
+	ldh [hEucJpToSjisStream_OutLo], a
 	ld a, b
-	ldh [hRam_FFB3], a
+	ldh [hEucJpToSjisStream_OutHi], a
 	pop de
 	pop bc
-	ldh a, [hRam_FFB3]
+	ldh a, [hEucJpToSjisStream_OutHi]
 	ld [de], a
 	inc de
 	dec bc
 	ld a, c
 	or a, b
 	jp z, .l7EAA
-	ldh a, [hRam_FFB2]
+	ldh a, [hEucJpToSjisStream_OutLo]
 	ld [de], a
 	inc de
 	dec bc
