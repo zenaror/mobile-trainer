@@ -1,0 +1,1 @@
+max depth counter +$26 = 0A at frame 10; +$32..+$3B = ['400B', '4017', '401F', '4027', '402F']; expected return addresses ['400B', '4017', '401F', '4027', '402F'] -> EQUAL

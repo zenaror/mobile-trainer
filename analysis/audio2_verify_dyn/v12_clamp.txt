@@ -1,0 +1,2 @@
+pulse2: x = note + pitch add = 0..255: period written equals table[clamp(x - $24)] (+$0C for the wave channel): 256 of 256 (clamped low: 36 values, clamped high: 100 values)
+wave: x = note + pitch add = 0..255: period written equals table[clamp(x - $24)] (+$0C for the wave channel): 256 of 256 (clamped low: 36 values, clamped high: 100 values)

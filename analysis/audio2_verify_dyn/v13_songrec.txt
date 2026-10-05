@@ -1,0 +1,33 @@
+ids accepted by Sound_PlayMusic / Sound_PlaySfx (BC = id): active tracks 4 frames after the call
+   music $28          active tracks [4]
+   music $01          active tracks [4, 5, 6, 7]
+   music $46          active tracks [4, 5]
+   music $47          active tracks []
+   music $48          active tracks []
+   music $FF          active tracks []
+   music $0128 (B=1)  active tracks []
+   music 0            active tracks []
+   sfx $28            active tracks [0]
+   sfx $47            active tracks []
+   sfx $0128 (B=1)    active tracks []
+   sfx 0              active tracks []
+flags byte of the song record (2-track effect started with Sound_PlaySfx): active sfx tracks (0-3) / music tracks (4-7)
+   flags 00: active tracks [0, 1], pitch byte per track {0: '45', 1: '49'}
+   flags 01: active tracks [1, 2], pitch byte per track {1: '45', 2: '49'}
+   flags 02: active tracks [2, 3], pitch byte per track {2: '45', 3: '49'}
+   flags 03: active tracks [3], pitch byte per track {3: '45'}
+   flags 04: active tracks [], pitch byte per track {}
+   flags 05: active tracks [], pitch byte per track {}
+   flags 7F: active tracks [], pitch byte per track {}
+   flags 80: active tracks [0, 1], pitch byte per track {0: '45', 1: '49'}
+   flags FF: active tracks [0, 1], pitch byte per track {0: '45', 1: '49'}
+priority: effect A (id $28, 4 tracks, priority pA, long notes, pitches 45 46 47 48) then effect B (id $27, 1 track, priority pB, pitch 59) 6 frames later (Sound_PlaySfx, flags $FF):
+   pA=C8 pB=C8: B TAKES OVER  | track 0: pitch 59 prio C8; track 1: pitch 46 prio C8; track 2: pitch 47 prio C8; track 3: pitch 48 prio C8
+   pA=C8 pB=C9: B TAKES OVER  | track 0: pitch 59 prio C9; track 1: pitch 46 prio C8; track 2: pitch 47 prio C8; track 3: pitch 48 prio C8
+   pA=C9 pB=C8: B is refused   | track 0: pitch 45 prio C9; track 1: pitch 46 prio C9; track 2: pitch 47 prio C9; track 3: pitch 48 prio C9
+   pA=C8 pB=D2: B TAKES OVER  | track 0: pitch 59 prio D2; track 1: pitch 46 prio C8; track 2: pitch 47 prio C8; track 3: pitch 48 prio C8
+   pA=D2 pB=C8: B is refused   | track 0: pitch 45 prio D2; track 1: pitch 46 prio D2; track 2: pitch 47 prio D2; track 3: pitch 48 prio D2
+   pA=D2 pB=D2: B TAKES OVER  | track 0: pitch 59 prio D2; track 1: pitch 46 prio D2; track 2: pitch 47 prio D2; track 3: pitch 48 prio D2
+   pA=C9 pB=D2: B TAKES OVER  | track 0: pitch 59 prio D2; track 1: pitch 46 prio C9; track 2: pitch 47 prio C9; track 3: pitch 48 prio C9
+   pA=D2 pB=C9: B is refused   | track 0: pitch 45 prio D2; track 1: pitch 46 prio D2; track 2: pitch 47 prio D2; track 3: pitch 48 prio D2
+   pA=C8 pB=C7: B is refused   | track 0: pitch 45 prio C8; track 1: pitch 46 prio C8; track 2: pitch 47 prio C8; track 3: pitch 48 prio C8

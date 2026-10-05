@@ -1,0 +1,2 @@
+{'calls_pulse1': 3733, 'ok_pulse1': 3733, 'calls_pulse2': 2605, 'ok_pulse2': 2605, 'calls_noise': 4234, 'ok_noise': 4234, 'calls_wave': 2754, 'ok_wave': 2754}
+byte1/byte2 values seen: (see data: length and sweep are 0 in all records)

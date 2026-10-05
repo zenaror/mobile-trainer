@@ -1,0 +1,35 @@
+F1 `$B5 count Label`: (count, body executions, executions of the note after the loop, reached $B1): [(0, 39, 0, False), (1, 1, 1, True), (2, 2, 1, True), (3, 3, 1, True), (5, 5, 1, True)]
+   doc: count 0 always jumps; count n = n passes then falls through.  observed passes: {0: 39, 1: 1, 2: 2, 3: 3, 5: 5}
+F2 nested calls to depth d: (notes of the called functions played, main continues after the first call returned, reached the final $B1):
+   depth 1: (1, True, True)
+   depth 2: (2, True, True)
+   depth 3: (3, True, True)
+   depth 4: (4, True, True)
+   depth 5: (5, True, True)
+   depth 6: (5, False, False)
+   depth 7: (5, False, False)
+F3 `$B4` on an empty stack: decoded ['BF', 'BD', 'BC', 'BE', 'B4', 'D0', '82', 'B1'] -> the next command (the note) was decoded: True
+F4 opcodes without handler: (last decoded opcode, number of commands, track-active flag after): {'B6': ('B6', 6, [0]), 'B7': ('B7', 6, [0]), 'B8': ('B8', 6, [0]), 'B9': ('B9', 6, [0]), 'BA': ('BA', 6, [0]), 'BB': ('BB', 6, [0]), 'C7': ('C7', 6, [0]), 'C8': ('C8', 6, [0]), 'CB': ('CB', 6, [0]), 'CC': ('CC', 6, [0])}
+F5 `$80`: commands (opcode, tM): [('BF', 3), ('BD', 3), ('BC', 3), ('BE', 3), ('80', 3), ('D0', 3), ('82', 3), ('B1', 5)]  -> same tick as the next command: True
+F6 running status after `$BC` / `$BD` / a wait (notes: pitch, duration): [('40', 3), ('45', 3), ('47', 3), ('49', 3)]  expected pitches 40 45 47 49 with duration 3 each
+F7 note bytes (S event = note start: pitch, note volume byte, duration, frame):
+   frame   2: pitch 40 vol 00 dur  6  (gate expired at +6)
+   frame  10: pitch 48 vol 67 dur  7  (gate expired at +7)
+   frame  18: pitch 49 vol 67 dur  4  (gate expired at +4)
+   frame  26: pitch 41 vol D7 dur  4  (gate expired at +4)
+   frame  34: pitch 42 vol 5F dur  5  (gate expired at +5)
+   frame  42: pitch 43 vol 5F dur  4  (gate expired at +4)
+   frame  42: pitch 44 vol 5F dur  4  (gate expired at +4)
+   frame  50: pitch 45 vol 87 dur  4  (gate expired at +4)
+   frame  50: pitch 45 vol 8F dur  4  (gate expired at +4)
+   frame  58: pitch 46 vol FF dur  0  (gate expired at +8)
+   frame  70: pitch 46 vol FF dur  2  (gate expired at +2)
+   plan: ['adjust $22 after pitch (duration 4 + 2 = 6 expected)', 'pitch, volume, adjust $23 (4 + 3 = 7 expected)', 'adjust $20 (+0)', 'volume then pitch', 'adjust $21, volume $0B, pitch', 'pitch $43 then pitch $44 (duplicate class)', 'pitch $45, volume $10, volume $11', '$CE held note pitch $46', '$CF $46 releases it', 'note without bytes']
+F8 held, $CF same pitch               note starts [(2, 70)]  $CF at [(8, 70)]  gate events [(8, 1)]
+F8 held, bare $CF                     note starts [(2, 70)]  $CF at [(8, 134)]  gate events [(8, 1)]
+F8 held, $CF other pitch              note starts [(2, 70)]  $CF at [(8, 71)]  gate events []
+F8 gate 24, $CF same pitch at 6       note starts [(2, 70)]  $CF at [(8, 70)]  gate events [(26, 1)]
+F8 pitch add 12, held, $CF 0x46       note starts [(2, 70)]  $CF at [(8, 70), (14, 82)]  gate events [(8, 1)]
+F8 held, $CF twice                    note starts [(2, 70)]  $CF at [(8, 70), (11, 70)]  gate events [(8, 1)]
+F8 add 12, held $46, $CF $52          note starts [(2, 70)]  $CF at [(8, 82), (14, 70)]  gate events [(14, 1)]
+F8 `$CF` followed by a byte < $24 (here $10): HANG - the frame tick never returns: callRom 20A6 did not return (pc=419E sp=CEE4)

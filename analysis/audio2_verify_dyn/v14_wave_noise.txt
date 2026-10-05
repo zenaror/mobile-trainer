@@ -1,0 +1,34 @@
+A. wave NR32 (steady state): 32 of 32 notes: NR32 == ((M - $40) ^ $C0) rotated right, and mGBA's level == bits 6-5
+   mirror level (high nibble) -> (NR32 written, mGBA level code 0 mute / 1 100% / 2 50% / 3 25%):
+     level  0: [('00', 0)]
+     level  1: [('08', 0)]
+     level  2: [('10', 0)]
+     level  3: [('18', 0)]
+     level  4: [('60', 3)]
+     level  5: [('68', 3)]
+     level  6: [('70', 3)]
+     level  7: [('78', 3)]
+     level  8: [('40', 2)]
+     level  9: [('48', 2)]
+     level 10: [('50', 2)]
+     level 11: [('58', 2)]
+     level 12: [('20', 1)]
+     level 13: [('28', 1)]
+     level 14: [('30', 1)]
+     level 15: [('38', 1)]
+B. wave channel, decays from level 15: frames compared 2178, frames where `NR32 written <=> (top two bits of the mirror changed, or its low 3 bits changed (= an explicit NRx2-style write: decay start, sustain, release), or note start)` is violated: 0
+C. noise NR43 for note + pitch add = 0..255 (and a sample with width bit 0): 308 of 308 equal to the model of 04:4F2D
+   mGBA ch4 (ratio, shift, power) equals the register bits (bits 2-0, 7-4, 3) in 256 of 256 cases
+   x = pitch+add $24-$7F: NR43 and frequency (262144 / (r * 2^s) Hz) for x = $24,$30,$3C,$48,$4C,$4D,$54,$60,$7F:
+      x=24 NR43=AC  s=10 r=4  64.0 Hz
+      x=30 NR43=7C  s=7 r=4  512.0 Hz
+      x=3C NR43=4C  s=4 r=4  4096.0 Hz
+      x=48 NR43=1C  s=1 r=4  32768.0 Hz
+      x=4C NR43=0C  s=0 r=4  65536.0 Hz
+      x=4D NR43=0B  s=0 r=3  87381.3 Hz
+      x=54 NR43=08  s=0 r=0  524288.0 Hz
+      x=60 NR43=08  s=0 r=0  524288.0 Hz
+      x=7F NR43=09  s=0 r=1  262144.0 Hz
+   monotonic increase of the frequency with x over $24-$7F? breaks at: [(80, 81), (84, 85), (88, 89), (92, 93), (96, 97), (100, 101), (104, 105), (108, 109)] (x >= $4D selects the s = 0 branch)
+   over x = 0..255 the frequency decreases between x and x+1 at: [(0, 1), (4, 5), (8, 9), (12, 13), (80, 81), (84, 85), (88, 89), (92, 93), (96, 97), (100, 101), (104, 105), (108, 109), (112, 113), (116, 117), (120, 121), (124, 125)] ... total 48
+   real data: noise pitch writes 5029, equal to the model: 5029, different: 0; distinct x values: ['31', '33', '34', '35', '36', '37', '39', '3A', '3C', '3D', '3E', '3F', '40', '41', '42', '43', '45', '47', '48', '4C', '52', '54', '57', '58', '5E', '5F', '64']

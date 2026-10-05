@@ -19,6 +19,10 @@ limitations: [`docs/research/dynamic_tracing.md`](../../docs/research/dynamic_tr
 * `make_campaigns.py` macro text of the monkey campaigns (`traces/inputs/monkey_camp_*.macro`)
 * `mkinput.py`        offline macro -> frame-script compiler (the harness has its own run-time macro mode; this is for inspection)
 * `contact_sheet.py`  montage of screenshots (Pillow)
+* `apu_probe.c`       sound-driver probe (links libmgba; parks the CPU, calls the ROM's own sound stubs every frame, logs every APU write, command decode, note start, gate expiry,
+                      track/channel snapshots and the rendered audio); `build_apu_probe.sh` builds it against `.cache/trace/mgba` (run `run_trace.py` once first)
+* `audio2_*.py`      the measurements of the dynamic verification of the audio pass 2 ([`docs/research/audio2_verify_dynamic.md`](../../docs/research/audio2_verify_dynamic.md));
+                      `analysis/audio2_verify_dyn/reproduce.sh` builds the probe and runs all of them (about 3 minutes; synthetic ROMs only in a scratch directory)
 
 `tools/apply_coverage.py` (one level up) compares the union with the region tables, promotes fully executed code regions and (`--split`)
 cuts partly executed regions at the boundaries of the executed runs so that every executed instruction is CONFIRMED.

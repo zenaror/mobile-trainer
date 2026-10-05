@@ -1,0 +1,4 @@
+mirror - hardware volume over 1126 frames of 36 notes: {-2: 1, -1: 49, 0: 1014, 1: 61, 2: 1}
+ channel state 01 (11 attack, 10 decay/sustain, 01 release, 00 tail): {0: 145, 1: 43, 2: 1}
+ channel state 10 (11 attack, 10 decay/sustain, 01 release, 00 tail): {0: 689, 1: 18}
+ channel state 11 (11 attack, 10 decay/sustain, 01 release, 00 tail): {-2: 1, -1: 49, 0: 180}

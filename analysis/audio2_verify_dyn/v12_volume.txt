@@ -1,0 +1,2 @@
+combinations 8192 first NRx2 == (T<<4)|1: 8192  +$2F mismatches: 0  NRx2 mismatches: 0  missing V: 0
+distinct +$2F values observed: {'00': 512, '40': 2048, '80': 2048, 'C0': 2048, 'FF': 1536}

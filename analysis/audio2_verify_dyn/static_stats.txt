@@ -1,0 +1,25 @@
+commands 11916, bytes 19716, headers 59, song records 70
+by macro: {'sound_call': 276, 'sound_end': 152, 'sound_instrument': 1110, 'sound_jump': 86, 'sound_note': 3996, 'sound_note_off': 2, 'sound_note_vol': 329, 'sound_pitch_add': 152, 'sound_pitch_bend': 550, 'sound_pitch_bend_scale': 19, 'sound_ret': 113, 'sound_tempo': 59, 'sound_vibrato_delay': 14, 'sound_vibrato_depth': 18, 'sound_vibrato_rate': 17, 'sound_volume': 152, 'sound_wait': 4871}
+running status: {'sound_note': 963, 'sound_note_vol': 278, 'sound_pitch_bend': 101, 'sound_instrument': 6} (notes 1241)
+note byte patterns: {'pv': 2311, 'p': 1381, '': 304, 'v': 329} wait values 39, note durations 27 (0 included: True), note volumes 30
+  $C1: 37 distinct values; most common [('40', 232), ('28', 113), ('20', 89)]
+  $C2: 8 distinct values; most common [('0C', 6), ('30', 6), ('04', 2)]
+  $C3: 8 distinct values; most common [('20', 6), ('40', 4), ('2A', 2)]
+  $C4: 9 distinct values; most common [('20', 3), ('1E', 2), ('10', 2)]
+  $C5: 7 distinct values; most common [('18', 6), ('10', 3), ('0F', 2)]
+  $BC: 18 distinct values; most common [('4A', 33), ('39', 3), ('30', 3)]
+  $BE: 45 distinct values; most common [('08', 253), ('04', 215), ('09', 181)]
+  $BD: 2 distinct values; most common [('00', 145), ('F4', 7)]
+song records (ROM bytes, ids $01-$46): priority {'C8': 67, 'D2': 2, 'C9': 1}, flags {'FF': 70}, track counts {4: 35, 3: 5, 1: 19, 2: 11}, spare {0: 70}, banks {4: 24, 5: 46}; ids $1E-$28 equal to record 1: True
+instrument classes: {'pulse2': 63, 'pulse1': 11, 'wave': 20, 'noise': 18} byte1 nonzero 0, byte2 nonzero 0, byte5 = $3C in 100 of records 0-99
+wave patterns used by the records: [0, 1, 3, 4, 5, 7, 8, 9]
+  pattern 0: 0011235689ACDEEFFFEEDCA986532110  (samples >= 8: 17)
+  pattern 1: 0123456789ABCDEFFEDCBA9876543210  (samples >= 8: 16)
+  pattern 2: FFEEDDCCBBAA99887766554433221100  (samples >= 8: 16)
+  pattern 3: FEDCBA99888888887777777766543210  (samples >= 8: 16)
+  pattern 4: FFFF0000000000000000000000000000  (samples >= 8: 4)
+  pattern 5: FFFFFFFF000000000000000000000000  (samples >= 8: 8)
+  pattern 6: FFFFFFFFFFFF00000000000000000000  (samples >= 8: 12)
+  pattern 7: FFFFFFFFFFFFFFFF0000000000000000  (samples >= 8: 16)
+  pattern 8: 00135788889ACEFFFFEDB98888753100  (samples >= 8: 20)
+  pattern 9: 000048888888BFFFFFFFB88888884000  (samples >= 8: 23)

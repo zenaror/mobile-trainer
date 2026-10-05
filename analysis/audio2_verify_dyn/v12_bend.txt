@@ -1,0 +1,2 @@
+{'total': 2304, 'v<=7F_total': 1152, 'v<=7F_doc_+19_ok': 1152, 'v<=7F_doc_prod_ok': 640, 'v<=7F_own_prod_ok': 1152, 'doc_+19_ok': 1152, 'scale_ok': 2304, 'doc_prod_ok': 768, 'own_prod_ok': 2304, 'v>=80_total': 1152, 'v>=80_doc_prod_ok': 128, 'v>=80_own_prod_ok': 1152, 'doc_prod_differs': 1536}
+doc product differs: (bend byte negative, difference == +scale) -> {('v<$40', True): 512, (True, True): 512, (True, False): 512, (False, False): 512}
