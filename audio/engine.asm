@@ -2187,7 +2187,7 @@ Label_04_4BEB::
 	ld d, a
 	ld a, [de]
 	cp a, $C0
-	jr c, SoundDrv_StopChannelTrackEnded
+	jr c, SoundDrv_StopChannelTrackNotRunning
 	inc hl
 	ld a, [hl]
 	and a, a
@@ -2206,7 +2206,7 @@ SoundDrv_NoteGateExpired:: ; 04:4BFC
 	ld [hl], a
 	ret
 
-SoundDrv_StopChannelTrackEnded:: ; 04:4C0B
+SoundDrv_StopChannelTrackNotRunning:: ; 04:4C0B
 Label_04_4C0B::
 	ld bc, $FFFA
 	add hl, bc
