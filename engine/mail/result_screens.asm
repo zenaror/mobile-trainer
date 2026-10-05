@@ -2436,7 +2436,7 @@ MailResult_StartHDMAAtVBlank:: ; 29:503F
 	ldh [rHDMA3], a
 	ld a, e
 	ldh [rHDMA4], a
-	ld de, $FF44
+	ld de, rLY
 .l504E ; 29:504E
 	ld a, [de]
 	cp a, $8F

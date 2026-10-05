@@ -1308,7 +1308,7 @@ ConnectDialog_ValidatePassword:: ; 57:5369
 	cp a, $04
 	ret c
 	ld e, a
-	ld hl, $C1B2
+	ld hl, wConnectDialogText
 .l5377 ; 57:5377
 	ld a, [hli]
 	cp a, $30
@@ -1320,7 +1320,7 @@ ConnectDialog_ValidatePassword:: ; 57:5369
 	jr nz, .l5377
 	ret
 .l5384 ; 57:5384
-	ld hl, $C1B2
+	ld hl, wConnectDialogText
 	ld a, [wConnectDialogTextLen]
 	ld e, a
 .l538B ; 57:538B
@@ -1332,7 +1332,7 @@ ConnectDialog_ValidatePassword:: ; 57:5369
 .l5394 ; 57:5394
 	dec e
 	jr nz, .l538B
-	ld hl, $C1B2
+	ld hl, wConnectDialogText
 	ld a, [wConnectDialogTextLen]
 	ld e, a
 .l539E ; 57:539E
@@ -1452,7 +1452,7 @@ Function_57_541C::
 ConnectDialog_RenderTypedChars:: ; 57:5444
 	; [CONFIRMED] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 3;
 	; entered by call from 57:4308 (PROBABLE code) [executed in 4 scenarios]
-	ld hl, $C1BA
+	ld hl, wConnectDialogGlyphs
 	ld bc, $0008
 	ld de, $D000
 	ld a, $02

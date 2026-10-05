@@ -29,7 +29,7 @@ Http_StartGet:: ; 54:4288
 	push hl
 	call Url_EnsurePath
 	pop hl
-	ld de, $C240
+	ld de, wRam_C240
 	xor a, a
 	ld [de], a
 	inc de
@@ -41,12 +41,12 @@ Http_StartGet:: ; 54:4288
 	ld a, h
 	ld [de], a
 	inc de
-	ld hl, $C1E0
+	ld hl, wMobileLoginId
 	farcall CopyString
-	ld hl, $C220
+	ld hl, wMobilePassword
 	farcall CopyString
 	pop de
-	ld hl, $C240
+	ld hl, wRam_C240
 	ld a, $2A
 	farcall MobileAPI
 	ret
@@ -101,7 +101,7 @@ Function_54_42FB::
 	push hl
 	call Url_EnsurePath
 	pop hl
-	ld de, $C244
+	ld de, wRam_C244
 	xor a, a
 	ld [de], a
 	inc de
@@ -113,12 +113,12 @@ Function_54_42FB::
 	ld a, h
 	ld [de], a
 	inc de
-	ld hl, $C1E0
+	ld hl, wMobileLoginId
 	farcall CopyString
-	ld hl, $C220
+	ld hl, wMobilePassword
 	farcall CopyString
 	pop de
-	ld hl, $C240
+	ld hl, wRam_C240
 	ld a, $2C
 	farcall MobileAPI
 	ret
@@ -169,7 +169,7 @@ Http_Poll:: ; 54:4357
 	ld a, [wMobileRetriesLeft]
 	or a, a
 	jr z, .l4383
-	ld hl, $C1DB
+	ld hl, wMobileRetriesLeft
 	dec [hl]
 	ld a, [wCommSessionKind]
 	or a, a
@@ -184,7 +184,7 @@ Http_Poll:: ; 54:4357
 	; [CONFIRMED] 20 insn(s) executed; cut out of the PROBABLE region 4393-43EE by apply_coverage
 	; --split [executed in 2 scenarios]
 	call Url_ResolveLocation
-	ld hl, $C1D2
+	ld hl, wMobileTaskArgs
 	ld a, [hli]
 	ld c, a
 	ld a, [hli]
@@ -193,7 +193,7 @@ Http_Poll:: ; 54:4357
 	ld e, a
 	ld a, [hli]
 	ld d, a
-	ld hl, $C240
+	ld hl, wRam_C240
 	ld a, [wMobileTaskKind]
 	cp a, $03
 	jr z, .l43CF
@@ -277,7 +277,7 @@ Url_ResolveLocation:: ; 54:4417
 	ld a, [hli]
 	cp a, $2F
 	jr nz, .l444B
-	ld hl, $C1D6
+	ld hl, wMobileTaskArgs + $04
 	ld a, [hli]
 	ld d, [hl]
 	ld e, a
@@ -291,7 +291,7 @@ Url_ResolveLocation:: ; 54:4417
 	ld a, [hl]
 	cp a, $2F
 	jr z, .l446F
-	ld hl, $C1D6
+	ld hl, wMobileTaskArgs + $04
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -314,7 +314,7 @@ Url_ResolveLocation:: ; 54:4417
 	farcall CopyString
 	ret
 .l446F ; 54:446F
-	ld hl, $C1D6
+	ld hl, wMobileTaskArgs + $04
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -356,7 +356,7 @@ Mobile_StopPoll:: ; 54:4492
 .l44A6 ; 54:44A6
 	; [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 43F1-44AC by apply_coverage
 	; --split [executed in 4 scenarios]
-	ld hl, $C1D8
+	ld hl, wMobileTaskKind
 	xor a, a
 	ld [hl], a
 	ret
@@ -411,7 +411,7 @@ Function_54_44AC::
 	ld a, $26
 	ld [wMobileResultCode], a
 	xor a, a
-	ld hl, $C1DE
+	ld hl, wMobileResultDetail
 	ld [hli], a
 	ld [hl], a
 	xor a, a

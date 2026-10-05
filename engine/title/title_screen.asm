@@ -65,7 +65,7 @@ Title_StateLoop:: ; 0E:405F
 	cp a, $FF
 	jr nz, Title_StateLoop
 	call VBlank_WaitAndService
-	ld hl, $FF40
+	ld hl, rLCDC
 	ld a, [hl]
 	and a, $FB
 	ld [hl], a
@@ -317,7 +317,7 @@ Function_0E_4215::
 	; [CONFIRMED] 98 insn(s); 98 executed (in up to 14/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call VBlank_WaitAndService
-	ld hl, $FF40
+	ld hl, rLCDC
 	ld a, [hl]
 	or a, $04
 	ld [hl], a
@@ -453,7 +453,7 @@ Function_0E_434F::
 	; [CONFIRMED] 32 insn(s); 32 executed (in up to 14/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call VBlank_WaitAndService
-	ld hl, $FF40
+	ld hl, rLCDC
 	ld a, [hl]
 	or a, $04
 	ld [hl], a

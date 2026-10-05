@@ -22,7 +22,7 @@ Function_73_5F17::
 	call VBlank_WaitAndService
 	xor a, a
 	ld bc, $00FC
-	ld hl, $C0D4
+	ld hl, $C0D4 ; raw: start of the 252-byte per-screen window wipe
 	call FillBytes
 	ld a, $01
 	ld hl, sBrowserStartMenuCursor
@@ -165,7 +165,7 @@ Label_73_60A0::
 
 	; [PROBABLE] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 0;
 	; fall-through of the jrcc at 73:60A4 (executed)
-	ld hl, $C0E4
+	ld hl, wRam_C0E4
 	ld a, [hl]
 	dec a
 	ld [hl], a

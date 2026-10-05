@@ -16,10 +16,10 @@ Function_68_4010::
 	; executed call/far call
 	xor a, a
 	ld [wCommSessionActive], a
-	ld hl, $C2D2
+	ld hl, wBrowserTimerLastSec
 	ld [hli], a
 	ld [hl], a
-	ld hl, $C2D4
+	ld hl, wTimerAFrames
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
@@ -189,7 +189,7 @@ Function_68_40D8::
 
 OnlineTimer_HasElapsed:: ; 68:40F1
 	xor a, a
-	ld hl, $C2D4
+	ld hl, wTimerAFrames
 	ld b, [hl]
 	inc hl
 	or a, b
@@ -382,7 +382,7 @@ Function_68_41E9::
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ld hl, sSettingsMailAddress
-	ld de, $C27F
+	ld de, $C27F ; raw: base of the decoded mail-address string buffer, not the screen variable byte
 	call DecodeXorA5
 	ld a, [wCopyMailAddressToFar_DestLo]
 	ld l, a
@@ -390,7 +390,7 @@ Function_68_41E9::
 	ld h, a
 	ld a, [wCopyMailAddressToFar_Bank]
 	call BankSwitch_H_Local
-	ld hl, $C27F
+	ld hl, $C27F ; raw: base of the decoded mail-address string buffer, not the screen variable byte
 	ld a, [wCopyMailAddressToFar_DestLo]
 	ld e, a
 	ld a, [wCopyMailAddressToFar_DestHi]

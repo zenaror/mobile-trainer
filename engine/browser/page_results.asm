@@ -123,7 +123,7 @@ Function_4C_4DFB::
 	farcall Bmp_Validate
 	or a, a
 	jp z, .l4F05
-	ld de, $C382
+	ld de, wAttrUrlBuf + $02
 	ld hl, String_Html_PageHead
 	farcall CopyString
 	dec de
@@ -152,7 +152,7 @@ Function_4C_4DFB::
 	farcall CopyString
 	dec de
 	ld bc, $0001
-	ld hl, $C382
+	ld hl, wAttrUrlBuf + $02
 .l4EAC ; 4C:4EAC
 	inc bc
 	ld a, [hli]
@@ -203,7 +203,7 @@ Function_4C_4DFB::
 	add hl, bc
 	call CopyBytesBackward
 	pop bc
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	ld de, sBrowserPageBuf
 	call CopyBytes
 	xor a, a

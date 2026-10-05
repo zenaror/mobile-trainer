@@ -114,12 +114,12 @@ CommNotice_RunDialog:: ; 50:4061
 	; [PROBABLE] 16 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4000-4244 by apply_coverage --split
 	ld a, $F0
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	call ReadByteFar
 	cp a, $3C
 	jr c, .l4121
 	ld a, $F0
-	ld hl, $C2D6
+	ld hl, wTimerAMinutes
 	call ReadByteFar
 	cp a, $3C
 	jr c, .l4121
@@ -135,7 +135,7 @@ CommNotice_RunDialog:: ; 50:4061
 	; [CONFIRMED] 5 insn(s) executed; cut out of the PROBABLE region 4000-4244 by apply_coverage
 	; --split [executed in 4 scenarios]
 	ld a, $F0
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	call ReadByteFar
 	cp a, $3C
 	jr c, .l4148
@@ -143,7 +143,7 @@ CommNotice_RunDialog:: ; 50:4061
 	; [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4000-4244 by apply_coverage --split
 	ld a, $F0
-	ld hl, $C2D6
+	ld hl, wTimerAMinutes
 	call ReadByteFar
 	cp a, $3C
 	jr c, .l4148
@@ -206,12 +206,12 @@ CommNotice_RunDialog:: ; 50:4061
 	or a, a
 	jr nz, .l41FA
 	ld a, $F0
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	call ReadByteFar
 	cp a, $3C
 	jr c, .l41F2
 	ld a, $F0
-	ld hl, $C2D6
+	ld hl, wTimerAMinutes
 	call ReadByteFar
 	cp a, $3C
 	jr c, .l41F2
@@ -224,12 +224,12 @@ CommNotice_RunDialog:: ; 50:4061
 	jp CommNotice_DrawScreenAndLoop
 .l41FA ; 50:41FA
 	ld a, $F0
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	call ReadByteFar
 	cp a, $3C
 	jr c, .l4219
 	ld a, $F0
-	ld hl, $C2D6
+	ld hl, wTimerAMinutes
 	call ReadByteFar
 	cp a, $3C
 	jr c, .l4219
@@ -451,7 +451,7 @@ CommNotice_DrawMinuteDigit:: ; 50:4352
 	ld l, a
 	push hl
 	ld a, $F0
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	call ReadByteFar
 	inc a
 	ld b, a

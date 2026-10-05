@@ -94,7 +94,7 @@ Label_67_5472::
 	; [CONFIRMED] entered through Table_67_546C (state handlers indexed by [$C27D]); decode chain
 	; legal, all 3 table targets are instruction starts, ends in known code region at 54DB; not
 	; executed in traces [executed in 2 scenarios]
-	ld de, $C271
+	ld de, wMobileAdapterType
 	ld hl, $0067
 	ld a, $02
 	call MobileAPI
@@ -278,7 +278,7 @@ Label_67_55BE::
 	; [CONFIRMED] entered through Table_67_55B8 (state handlers indexed by [$C27D]); decode chain
 	; legal, all 3 table targets are instruction starts, ends in known code region at 562C; not
 	; executed in traces [executed in 1 scenarios]
-	ld de, $C271
+	ld de, wMobileAdapterType
 	ld hl, $0067
 	ld a, $02
 	call MobileAPI

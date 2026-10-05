@@ -104,7 +104,7 @@ Browser_PageView_Loop:: ; 4E:4A58
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, .l4AB2
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l4AB3
 	ld a, [wTimerAWarnMinute]
@@ -127,7 +127,7 @@ Browser_PageView_Loop:: ; 4E:4A58
 
 	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4A85-4AB2 by apply_coverage --split
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
 	jr nz, .l4AB2
 	set 1, [hl]
@@ -135,9 +135,9 @@ Browser_PageView_Loop:: ; 4E:4A58
 .l4A9E ; 4E:4A9E
 	; [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 4A85-4AB2 by apply_coverage
 	; --split [executed in 1 scenarios]
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	set 0, [hl]
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
 	jr z, .l4AB3
@@ -231,7 +231,7 @@ Browser_PageView_FollowLink:: ; 4E:4B0E
 	inc hl
 	ld de, $D500
 	farcall HtmlUrl_Resolve
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	farcall HtmlUrl_NormalizePath
 	ldh a, [hWRAMBank]
 	push af
@@ -265,7 +265,7 @@ Browser_PageView_FollowLink_Restore:: ; 4E:4B8C
 Label_4E_4B8C::
 	; [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1;
 	; entered by table from 4E:4B7B (executed) [executed in 2 scenarios]
-	ld de, $C380
+	ld de, wAttrUrlBuf
 	xor a, a
 	farcall Browser_HistoryPop
 	ld bc, $1000
@@ -288,7 +288,7 @@ Browser_PageView_GoBack:: ; 4E:4BAD
 	ld de, $D400
 	ld bc, $0100
 	call CopyBytes
-	ld de, $C380
+	ld de, wAttrUrlBuf
 	xor a, a
 	farcall Browser_HistoryPop
 	or a, a
@@ -313,7 +313,7 @@ Browser_PageView_GoBack:: ; 4E:4BAD
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	ld de, $D500
 	ld bc, $0100
 	call CopyBytes
@@ -328,7 +328,7 @@ Browser_PageView_GoBack:: ; 4E:4BAD
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, $D500
-	ld de, $C380
+	ld de, wAttrUrlBuf
 	ld bc, $0100
 	call CopyBytes
 	ld a, [wTimerEnable]
@@ -355,7 +355,7 @@ Browser_PageView_GoBack_Restore:: ; 4E:4C57
 Label_4E_4C57::
 	; [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 1;
 	; entered by table from 4E:4C46 (PROBABLE code)
-	ld de, $C380
+	ld de, wAttrUrlBuf
 	xor a, a
 	farcall Browser_HistoryPop
 	ld bc, $1000
@@ -367,7 +367,7 @@ Label_4E_4C57::
 
 Browser_PageView_GoBack_Loaded:: ; 4E:4C78
 Label_4E_4C78::
-	ld de, $C380
+	ld de, wAttrUrlBuf
 	xor a, a
 	farcall Browser_HistoryPop
 	farcall Browser_HistoryUndoPush
@@ -498,13 +498,13 @@ Browser_Menu_PageList:: ; 4E:4D7B
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, $D000
-	ld de, $C380
+	ld de, wAttrUrlBuf
 	ld bc, $0014
 	call CopyBytes
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	ld de, $D3C0
 	ld bc, $0014
 	call CopyBytes
@@ -523,7 +523,7 @@ Browser_Menu_PageList:: ; 4E:4D7B
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, .l4E11
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l4E12
 	ld a, [wTimerAWarnMinute]
@@ -542,14 +542,14 @@ Browser_Menu_PageList:: ; 4E:4D7B
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l4DFD
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
 	jr nz, .l4E11
 	set 1, [hl]
 .l4DFD ; 4E:4DFD
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	set 0, [hl]
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
 	jr z, .l4E12
@@ -584,7 +584,7 @@ Browser_Menu_PageList:: ; 4E:4D7B
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld de, $C380
+	ld de, wAttrUrlBuf
 	ld bc, $0100
 	call CopyBytes
 	xor a, a
@@ -613,7 +613,7 @@ Label_4E_4E6E::
 	; [PROBABLE] 54 insn(s) reached by static flow only; seeds: exec x54; min discovery hops 1;
 	; entered by table from 4E:4E5D (PROBABLE code) | 8 insn(s) never executed in the traced runs;
 	; cut out of the PROBABLE region 4E6E-4F1A by apply_coverage --split
-	ld de, $C380
+	ld de, wAttrUrlBuf
 	xor a, a
 	farcall Browser_HistoryPop
 	ld bc, $1000
@@ -915,7 +915,7 @@ Browser_FetchResult_RestorePage:: ; 4E:509D
 Label_4E_509D::
 	; [CONFIRMED] 33 insn(s) executed; cut out of the PROBABLE region 501F-5204 by apply_coverage
 	; --split [executed in 1 scenarios]
-	ld de, $C380
+	ld de, wAttrUrlBuf
 	xor a, a
 	farcall Browser_HistoryPop
 	ld bc, $1000
@@ -933,7 +933,7 @@ Browser_ConnectionNotice:: ; 4E:50BE
 	ld [wCommNoticeMode], a
 	ld a, [wCommSessionKind]
 	ld [wCommNoticeGfxSet], a
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	res 0, [hl]
 	farcall CommNotice_ShowDialog
 	or a, a
@@ -964,14 +964,14 @@ Label_4E_5107::
 	ld [wCommNoticeMode], a
 	ld a, [wCommSessionKind]
 	ld [wCommNoticeGfxSet], a
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	res 0, [hl]
 	farcall CommNotice_ShowDialog
 	or a, a
 	jr z, .l512D
 	farcall CommTime_ShowSummary
 .l512D ; 4E:512D
-	ld de, $C380
+	ld de, wAttrUrlBuf
 	xor a, a
 	farcall Browser_HistoryPop
 	ld bc, $1000

@@ -21,20 +21,20 @@ MobileAPI:: ; 00:0150
 	ldh [hROMBankHi], a
 	ld a, l
 	ldh [hROMBankLo], a
-	ld hl, $C820
+	ld hl, wRam_C820
 	ld a, c
 	ld [hli], a
 	ld a, b
 	ld [hl], a
 .l016B ; 00:016B
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	set 6, [hl]
-	ld hl, $FF8A
+	ld hl, hROMBankLo
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
 	push hl
-	ld hl, $FF8A
+	ld hl, hROMBankLo
 	ld a, $75
 	ld [hli], a
 	ld a, $00
@@ -55,7 +55,7 @@ ReturnMobileAPI:: ; 00:018D
 	ld a, h
 	ld [wMobileAPIIndex], a
 	pop de
-	ld hl, $FF8A
+	ld hl, hROMBankLo
 	ld a, e
 	ld [hli], a
 	ld a, d
@@ -64,9 +64,9 @@ ReturnMobileAPI:: ; 00:018D
 	ld [rROMB0], a
 	ld a, d
 	ld [rROMB1], a
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	res 6, [hl]
-	ld hl, $C824
+	ld hl, wRam_C824
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -81,12 +81,12 @@ Int_Serial:: ; 00:01B7
 	push bc
 	push de
 	push hl
-	ld hl, $FF8A
+	ld hl, hROMBankLo
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
 	push hl
-	ld hl, $FF8A
+	ld hl, hROMBankLo
 	ld a, $75
 	ld [hli], a
 	ld a, $00
@@ -97,7 +97,7 @@ Int_Serial:: ; 00:01B7
 	ld [rROMB1], a
 	call MobileSDK_SerialReceive
 	pop de
-	ld hl, $FF8A
+	ld hl, hROMBankLo
 	ld a, e
 	ld [hli], a
 	ld a, d
@@ -137,12 +137,12 @@ Int_Timer:: ; 00:01ED
 	ldh a, [rSC]
 	and a, $80
 	jr nz, .l023A
-	ld hl, $FF8A
+	ld hl, hROMBankLo
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
 	push hl
-	ld hl, $FF8A
+	ld hl, hROMBankLo
 	ld a, $75
 	ld [hli], a
 	ld a, $00
@@ -153,7 +153,7 @@ Int_Timer:: ; 00:01ED
 	ld [rROMB1], a
 	call MobileSDK_TimerTick
 	pop de
-	ld hl, $FF8A
+	ld hl, hROMBankLo
 	ld a, e
 	ld [hli], a
 	ld a, d

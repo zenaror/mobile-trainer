@@ -115,7 +115,7 @@ Palette_SetFadeTargetMasked:: ; 48:459D
 .loop ; 48:45D3
 	push hl
 	ldh a, [hRam_FFB0]
-	ld hl, $FFB1
+	ld hl, hRam_FFB1
 	and a, [hl]
 	pop hl
 	jr nz, .l45F4
@@ -130,7 +130,7 @@ Palette_SetFadeTargetMasked:: ; 48:459D
 	jr nz, .l45F0
 	push hl
 	ld c, $04
-	ld hl, $FFB1
+	ld hl, hRam_FFB1
 	sla [hl]
 	pop hl
 .l45F0 ; 48:45F0
@@ -152,7 +152,7 @@ Palette_SetFadeTargetMasked:: ; 48:459D
 	jr nz, .l4612
 	push hl
 	ld c, $04
-	ld hl, $FFB1
+	ld hl, hRam_FFB1
 	sla [hl]
 	pop hl
 .l4612 ; 48:4612

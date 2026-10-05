@@ -327,7 +327,7 @@ Function_27_41E3::
 	ldh [rSVBK], a
 	ld b, $09
 	ld hl, $D524
-	ld de, $C0A0
+	ld de, $C0A0 ; raw: scratch: 9 bytes copied from $D524, not a glyph
 .loop ; 27:4225
 	ld a, [hli]
 	ld [de], a
@@ -411,10 +411,10 @@ Function_27_41E3::
 	farcall Stub_Nop_7F_61FC
 	xor a, a
 	ld [wCommSessionActive], a
-	ld hl, $C2D2
+	ld hl, wBrowserTimerLastSec
 	ld [hli], a
 	ld [hl], a
-	ld hl, $C2D4
+	ld hl, wTimerAFrames
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
@@ -423,7 +423,7 @@ Function_27_41E3::
 	ld [wTimerAWarnMinute], a
 	xor a, a
 	ld [wTimerAWarnFlags], a
-	ld de, $C0A9
+	ld de, $C0A9 ; raw: dead load: Mobile_SessionInit loads DE itself
 	farcall Mobile_SessionInit
 	ld b, $00
 
@@ -506,7 +506,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 	inc b
 	ld c, b
 	farcall Timer_ResetClockB
-	ld hl, $C0A0
+	ld hl, $C0A0 ; raw: scratch: the password source of Mobile_BeginConnect, not a glyph
 	farcall Mobile_BeginConnect
 	pop bc
 .l43B3 ; 27:43B3
@@ -923,7 +923,7 @@ MailConnect_ShowError:: ; 27:46E5
 	call VBlank_WaitAndService
 	farcall Palette_FadeOutToWhite
 	farcall Timer_ResetClockB
-	ld de, $C0A9
+	ld de, $C0A9 ; raw: dead load: Mobile_BeginDisconnect loads DE itself
 	farcall Mobile_BeginDisconnect
 .l471A ; 27:471A
 	farcall Mobile_DisconnectPoll
@@ -1099,7 +1099,7 @@ Function_27_4768::
 	call Sprite_SetPosition
 .l4869 ; 27:4869
 	farcall Timer_ResetClockB
-	ld de, $C0A9
+	ld de, $C0A9 ; raw: dead load: Mobile_BeginDisconnect loads DE itself
 	farcall Mobile_BeginDisconnect
 	ld b, $00
 .l487A ; 27:487A

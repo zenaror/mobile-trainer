@@ -11,7 +11,7 @@ Function_6C_4000::
 	push bc
 	xor a, a
 	ld bc, $00FC
-	ld hl, $C0D4
+	ld hl, $C0D4 ; raw: start of the 252-byte per-screen window wipe
 	call FillBytes
 	pop bc
 	ld a, b

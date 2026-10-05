@@ -1760,8 +1760,8 @@ Function_2C_614D::
 	ld l, a
 	pop af
 	ld h, a
-	ld bc, $C0A0
-	ld de, $C0B8
+	ld bc, wGlyphBufLeft
+	ld de, wGlyphBufRight
 	farcall Glyph_LoadWide
 	pop hl
 	pop de
@@ -1771,7 +1771,7 @@ Function_2C_614D::
 	push bc
 	push de
 	push hl
-	ld hl, $C0B8
+	ld hl, wGlyphBufRight
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -1795,7 +1795,7 @@ Function_2C_614D::
 	push de
 	push hl
 	ld b, a
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -1814,7 +1814,7 @@ Function_2C_614D::
 	push de
 	push hl
 	ld b, $20
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -1832,7 +1832,7 @@ AddrBook_DrawSlotName_BlitGlyphAdvance:: ; 2C:61F9
 	push bc
 	push de
 	push hl
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -2443,7 +2443,7 @@ Gfx_StartHDMAAtVBlank_2C_669D:: ; 2C:669D
 	ldh [rHDMA3], a
 	ld a, e
 	ldh [rHDMA4], a
-	ld de, $FF44
+	ld de, rLY
 .l66AC ; 2C:66AC
 	ld a, [de]
 	cp a, $8F

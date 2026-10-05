@@ -51,9 +51,9 @@ Function_68_5D2F:: ; 68:5D2F
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, sSettingsPassword
-	ld de, $C28F
+	ld de, wRam_C28F
 	call DecodeXorA5
-	ld hl, $C28F
+	ld hl, wRam_C28F
 	ld de, $DED4
 	call CompareString
 	or a, a

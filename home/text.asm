@@ -298,8 +298,8 @@ Function_00_1044::
 	ldh a, [hTextY]
 	cp a, $90
 	jr nc, TextEngine_DrawWideGlyph_BlitRight
-	ld de, $C0B8
-	ld bc, $C0A0
+	ld de, wGlyphBufRight
+	ld bc, wGlyphBufLeft
 	xor a, a
 	farcall Glyph_LoadWide
 
@@ -321,7 +321,7 @@ Function_00_1059::
 	ld d, a
 	ldh a, [hTextX]
 	ld e, a
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 
 TextEngine_DrawWideGlyph_BlitRight:: ; 00:1079
@@ -347,7 +347,7 @@ Function_00_1079::
 	ld b, a
 	ldh a, [hTextBox_ColorSelC]
 	ld c, a
-	ld hl, $C0B8
+	ld hl, wGlyphBufRight
 	farcall Canvas_BlitGlyph
 
 TextEngine_DrawWideGlyph_AdvanceX:: ; 00:10A3
@@ -373,7 +373,7 @@ Function_00_10B1::
 	ldh a, [hTextX]
 	cp a, $A0
 	jr nc, TextEngine_DrawNarrowGlyph_AdvanceX
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 
 TextEngine_DrawNarrowGlyph_Blit:: ; 00:10C6
@@ -388,7 +388,7 @@ Function_00_10C6::
 	ld d, a
 	ldh a, [hTextX]
 	ld e, a
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 
 TextEngine_DrawNarrowGlyph_AdvanceX:: ; 00:10DB

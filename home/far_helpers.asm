@@ -36,7 +36,7 @@ Function_00_172D::
 .l1739 ; 00:1739
 	push bc
 	push de
-	ld de, $C10E
+	ld de, $C10E ; raw: base of a 16-byte buffer
 	ld c, $10
 	ldh a, [hRam_FFB1]
 	call BankSwitch_H
@@ -48,7 +48,7 @@ Function_00_172D::
 	jr nz, .l1745
 	pop de
 	push hl
-	ld hl, $C10E
+	ld hl, $C10E ; raw: base of a 16-byte buffer
 	ldh a, [hRam_FFB0]
 	call BankSwitch_D
 	ld c, $10

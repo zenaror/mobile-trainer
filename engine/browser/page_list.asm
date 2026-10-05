@@ -100,7 +100,7 @@ PageList_Main_Loop:: ; 24:4083
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, .l40FA
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l40FB
 	ld a, [wTimerAWarnMinute]
@@ -119,14 +119,14 @@ PageList_Main_Loop:: ; 24:4083
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l40E6
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
 	jr nz, .l40FA
 	set 1, [hl]
 .l40E6 ; 24:40E6
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	set 0, [hl]
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
 	jr z, .l40FB
@@ -1285,8 +1285,8 @@ PageList_DrawTextLine:: ; 24:494C
 	ld l, a
 	pop af
 	ld h, a
-	ld bc, $C0A0
-	ld de, $C0B8
+	ld bc, wGlyphBufLeft
+	ld de, wGlyphBufRight
 	farcall Glyph_LoadWide
 	pop hl
 	pop de
@@ -1296,7 +1296,7 @@ PageList_DrawTextLine:: ; 24:494C
 	push bc
 	push de
 	push hl
-	ld hl, $C0B8
+	ld hl, wGlyphBufRight
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -1322,7 +1322,7 @@ PageList_DrawTextLine:: ; 24:494C
 	push de
 	push hl
 	ld b, a
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -1344,7 +1344,7 @@ PageList_DrawTextLine:: ; 24:494C
 	push de
 	push hl
 	ld b, $20
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -1362,7 +1362,7 @@ PageList_BlitGlyphAdvance:: ; 24:49EC
 	push bc
 	push de
 	push hl
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -1418,7 +1418,7 @@ PageList_StartHDMAAtVBlank:: ; 24:4A54
 	ldh [rHDMA3], a
 	ld a, e
 	ldh [rHDMA4], a
-	ld de, $FF44
+	ld de, rLY
 .l4A63 ; 24:4A63
 	ld a, [de]
 	cp a, $5D
@@ -1644,7 +1644,7 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, .l4C4C
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l4C4D
 	ld a, [wTimerAWarnMinute]
@@ -1663,7 +1663,7 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 
 	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4BCD-53FE by apply_coverage --split
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
 	jr nz, .l4C4C
 	set 1, [hl]
@@ -1671,9 +1671,9 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 .l4C38 ; 24:4C38
 	; [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage
 	; --split [executed in 1 scenarios]
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	set 0, [hl]
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
 	jr z, .l4C4D

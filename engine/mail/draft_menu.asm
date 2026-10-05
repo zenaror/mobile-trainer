@@ -509,8 +509,8 @@ Function_2B_4421::
 	ld l, a
 	pop af
 	ld h, a
-	ld bc, $C0A0
-	ld de, $C0B8
+	ld bc, wGlyphBufLeft
+	ld de, wGlyphBufRight
 	farcall Glyph_LoadWide
 	pop hl
 	pop de
@@ -520,7 +520,7 @@ Function_2B_4421::
 	push bc
 	push de
 	push hl
-	ld hl, $C0B8
+	ld hl, wGlyphBufRight
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -543,7 +543,7 @@ Function_2B_4421::
 	push de
 	push hl
 	ld b, a
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -565,7 +565,7 @@ Function_2B_4421::
 	push de
 	push hl
 	ld b, $3C
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -581,7 +581,7 @@ Function_2B_4421::
 	push de
 	push hl
 	ld b, $20
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -599,7 +599,7 @@ MailDraft_DrawTextLine21_BlitGlyphAdvance:: ; 2B:44E1
 	push bc
 	push de
 	push hl
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -615,7 +615,7 @@ MailDraft_DrawTextLine21_BlitBlankAdvance:: ; 2B:44F5
 	push hl
 	ld b, $02
 	ld c, $00
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -657,8 +657,8 @@ MailDraft_DrawTextLine25:: ; 2B:450D
 	ld l, a
 	pop af
 	ld h, a
-	ld bc, $C0A0
-	ld de, $C0B8
+	ld bc, wGlyphBufLeft
+	ld de, wGlyphBufRight
 	farcall Glyph_LoadWide
 	pop hl
 	pop de
@@ -668,7 +668,7 @@ MailDraft_DrawTextLine25:: ; 2B:450D
 	push bc
 	push de
 	push hl
-	ld hl, $C0B8
+	ld hl, wGlyphBufRight
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -694,7 +694,7 @@ MailDraft_DrawTextLine25:: ; 2B:450D
 	push de
 	push hl
 	ld b, a
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -716,7 +716,7 @@ MailDraft_DrawTextLine25:: ; 2B:450D
 	push de
 	push hl
 	ld b, $3C
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -732,7 +732,7 @@ MailDraft_DrawTextLine25:: ; 2B:450D
 	push de
 	push hl
 	ld b, $20
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -752,7 +752,7 @@ MailDraft_DrawTextLine25_BlitGlyphAdvance:: ; 2B:45CD
 	push bc
 	push de
 	push hl
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -771,7 +771,7 @@ Function_2B_45E1::
 	push hl
 	ld b, $02
 	ld c, $00
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -810,8 +810,8 @@ MailDraft_DrawTextLine17:: ; 2B:45F9
 	ld l, a
 	pop af
 	ld h, a
-	ld bc, $C0A0
-	ld de, $C0B8
+	ld bc, wGlyphBufLeft
+	ld de, wGlyphBufRight
 	farcall Glyph_LoadWide
 	pop hl
 	pop de
@@ -821,7 +821,7 @@ MailDraft_DrawTextLine17:: ; 2B:45F9
 	push bc
 	push de
 	push hl
-	ld hl, $C0B8
+	ld hl, wGlyphBufRight
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -847,7 +847,7 @@ MailDraft_DrawTextLine17:: ; 2B:45F9
 	push de
 	push hl
 	ld b, a
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -866,7 +866,7 @@ MailDraft_DrawTextLine17:: ; 2B:45F9
 	push de
 	push hl
 	ld b, $3C
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -882,7 +882,7 @@ MailDraft_DrawTextLine17:: ; 2B:45F9
 	push de
 	push hl
 	ld b, $20
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -902,7 +902,7 @@ MailDraft_DrawTextLine17_BlitGlyphAdvance:: ; 2B:46B9
 	push bc
 	push de
 	push hl
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -921,7 +921,7 @@ Function_2B_46CD::
 	push hl
 	ld b, $02
 	ld c, $00
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -969,7 +969,7 @@ Gfx_StartHDMAAtVBlank_2B_4723:: ; 2B:4723
 	ldh [rHDMA3], a
 	ld a, e
 	ldh [rHDMA4], a
-	ld de, $FF44
+	ld de, rLY
 .l4732 ; 2B:4732
 	ld a, [de]
 	cp a, $8F

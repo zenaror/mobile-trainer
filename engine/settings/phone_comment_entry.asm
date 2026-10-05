@@ -43,9 +43,9 @@ Function_67_4940::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, sSettingsNumberComment
-	ld de, $C28F
+	ld de, wRam_C28F
 	call DecodeXorA5
-	ld hl, $C28F
+	ld hl, wRam_C28F
 	ld de, $DEFF
 	call CompareString
 	or a, a

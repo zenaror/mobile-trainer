@@ -325,7 +325,7 @@ Kbd_Run_Loop:: ; 55:5D49
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld hl, $C2AC
+	ld hl, wKbdPage
 	ld a, [hl]
 	inc a
 	cp a, $04
@@ -368,7 +368,7 @@ Label_55_5E5A::
 	jp Kbd_Run_Loop
 
 Kbd_Run_ButtonA:: ; 55:5E5D
-	ld hl, $C2AE
+	ld hl, wKeyboardCharHi
 	ld a, [hld]
 	cp a, $01
 	jr z, .l5E6C
@@ -400,7 +400,7 @@ Kbd_Run_ButtonA:: ; 55:5E5D
 
 	; [PROBABLE] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0;
 	; fall-through of the jrcc at 55:5E80 (executed)
-	ld hl, $C2AE
+	ld hl, wKeyboardCharHi
 	ld a, $00
 	ld [hld], a
 	ld a, $20
@@ -409,7 +409,7 @@ Kbd_Run_ButtonA:: ; 55:5E5D
 
 .l5E8E ; 55:5E8E
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 9/18 scenarios)
-	ld hl, $C2AE
+	ld hl, wKeyboardCharHi
 	ld a, $81
 	ld [hld], a
 	ld a, $40
@@ -430,7 +430,7 @@ Kbd_Run_ButtonA:: ; 55:5E5D
 	; fall-through of the jrcc at 55:5EA8 (executed)
 	jr .l5F09
 .l5EAC ; 55:5EAC
-	ld hl, $C2AE
+	ld hl, wKeyboardCharHi
 	ld a, $00
 	ld [hld], a
 	ld a, $20
@@ -576,7 +576,7 @@ Function_55_5F35::
 	ld e, a
 	add hl, de
 	add hl, de
-	ld de, $C2AE
+	ld de, wKeyboardCharHi
 	ld a, [hli]
 	ld [de], a
 	dec de
@@ -957,7 +957,7 @@ Function_55_6190::
 	ld a, [hli]
 	ld b, [hl]
 	ld c, a
-	ld hl, $C2AE
+	ld hl, wKeyboardCharHi
 	ld a, [hld]
 	cp a, $FF
 	jr z, .l61BF
@@ -1233,7 +1233,7 @@ Function_55_6318::
 
 .l63D2 ; 55:63D2
 	; [CONFIRMED] 38 insn(s); 38 executed (in up to 11/18 scenarios)
-	ld hl, $FF4A
+	ld hl, rWY
 	ld a, [hl]
 	sub a, $08
 	ld [hl], a
@@ -1403,7 +1403,7 @@ Function_55_6427::
 	call VBlank_Wait
 	pop de
 .l6502 ; 55:6502
-	ld hl, $FF4A
+	ld hl, rWY
 	ld a, [hl]
 	add a, $08
 	ld [hl], a
@@ -1583,7 +1583,7 @@ Function_55_65DA::
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld hl, $C2BC
+	ld hl, wKbdInputMode
 	ld a, [hl]
 	or a, a
 	jr z, .l6641
@@ -1603,7 +1603,7 @@ Function_55_65DA::
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld hl, $C2BC
+	ld hl, wKbdInputMode
 	ld a, [hl]
 	cp a, $02
 	jr z, .l6662
@@ -2361,7 +2361,7 @@ Kbd_DrawGlyphPreview:: ; 55:6C16
 	ld a, [wKbdGlyphDirty]
 	or a, a
 	ret z
-	ld hl, $C2AE
+	ld hl, wKeyboardCharHi
 	ld a, [hl]
 	or a, a
 	jr z, .l6C28

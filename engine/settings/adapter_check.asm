@@ -154,7 +154,7 @@ Data_67_64AE::
 
 AdapterCheck_State_Init:: ; 67:64B4
 	; [CONFIRMED] 114 insn(s); 114 executed (in up to 18/18 scenarios) (part of region $64B4-$65F2)
-	ld de, $C271
+	ld de, wMobileAdapterType
 	ld hl, $0067
 	ld a, $02
 	call MobileAPI

@@ -2091,7 +2091,7 @@ Gfx_GdmaAtVBlank:: ; 7F:4C20
 	ldh [rHDMA3], a
 	ld a, e
 	ldh [rHDMA4], a
-	ld de, $FF44
+	ld de, rLY
 .l4C2F ; 7F:4C2F
 	ld a, [de]
 	cp a, $8F
@@ -2116,7 +2116,7 @@ Function_7F_4C42::
 	push de
 	push hl
 	ld hl, Glyph_DottedLineData
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	ld b, $20
 .loop ; 7F:4C4D
 	ld a, [hli]

@@ -13,14 +13,14 @@ Ticker_Update:: ; 48:4223
 	ld [wTickerPauseFrames], a
 	ret
 .l422E ; 48:422E
-	ld hl, $C0F5
+	ld hl, wTickerFrameDivider
 	dec [hl]
 	ret nz
 	ld [hl], $02
 	ld a, [wTickerScrollX]
 	and a, $01
 	jr z, .l424F
-	ld hl, $C0F4
+	ld hl, wTickerStepCounter
 	dec [hl]
 	jr nz, .l424F
 	ld a, [wTickerColumnCount]
@@ -95,7 +95,7 @@ Ticker_Update:: ; 48:4223
 	ld a, [wTickerSrcColumn]
 	inc a
 	ld [wTickerSrcColumn], a
-	ld hl, $C0EC
+	ld hl, wTickerColumnCount
 	cp a, [hl]
 	ret nz
 	xor a, a
@@ -332,14 +332,14 @@ Ticker_Stop:: ; 48:4460
 	ldh a, [rSTAT]
 	and a, $87
 	ldh [rSTAT], a
-	ld hl, $CBF4
+	ld hl, wLcdStatVector
 	ld a, [wSavedLcdStatVector]
 	ld [hli], a
 	ld a, [wSavedLcdStatVector + 1]
 	ld [hli], a
 	ld a, [wSavedLcdStatVector + 2]
 	ld [hl], a
-	ld hl, $CBF1
+	ld hl, wVBlankVector
 	ld a, [wSavedVBlankVector]
 	ld [hli], a
 	ld a, [wSavedVBlankVector + 1]

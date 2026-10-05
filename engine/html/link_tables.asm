@@ -22,7 +22,7 @@ Function_74_5A96::
 
 Html_StringTable_Add:: ; 74:5AAE
 	push hl
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	push de
 	call Html_StringTable_Find
 	pop hl
@@ -60,7 +60,7 @@ Html_StringTable_Add:: ; 74:5AAE
 .l5AD7 ; 74:5AD7
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 2/18 scenarios)
 	push de
-	ld de, $C380
+	ld de, wAttrUrlBuf
 .loop ; 74:5ADB
 	ld a, [de]
 	or a, a

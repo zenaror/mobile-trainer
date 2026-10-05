@@ -367,7 +367,7 @@ Table_68_7C6B::
 
 	; [CONFIRMED] 50 insn(s); 50 executed (in up to 1/18 scenarios)
 	call Config_ClearSramMirror
-	ld de, $C271
+	ld de, wMobileAdapterType
 	ld hl, $0068
 	ld a, $02
 	call MobileAPI

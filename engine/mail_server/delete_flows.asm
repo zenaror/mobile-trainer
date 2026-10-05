@@ -467,7 +467,7 @@ MailSrvDel_DeleteAllRun_CheckLoop:: ; 23:4D39
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, .l4D81
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l4D82
 	ld a, [wTimerAWarnMinute]
@@ -486,14 +486,14 @@ MailSrvDel_DeleteAllRun_CheckLoop:: ; 23:4D39
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l4D6D
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
 	jr nz, .l4D81
 	set 1, [hl]
 .l4D6D ; 23:4D6D
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	set 0, [hl]
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
 	jr z, .l4D82
@@ -718,7 +718,7 @@ MailSrvDel_DeleteAllRun_DeleteLoop:: ; 23:4EB7
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, .l4F0A
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l4F0B
 	ld a, [wTimerAWarnMinute]
@@ -737,14 +737,14 @@ MailSrvDel_DeleteAllRun_DeleteLoop:: ; 23:4EB7
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l4EF6
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
 	jr nz, .l4F0A
 	set 1, [hl]
 .l4EF6 ; 23:4EF6
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	set 0, [hl]
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
 	jr z, .l4F0B
@@ -1166,7 +1166,7 @@ Function_23_5137::
 	ret
 
 	farcall Timer_ResetClockB
-	ld de, $C0A9
+	ld de, $C0A9 ; raw: dead load: unreachable code after a ret
 	farcall CommNotice_ShowDialogMode0
 	farcall Stat_DisableScrollSplit
 	call VBlank_WaitAndService
@@ -1377,7 +1377,7 @@ MailSrvDel_DeleteCompletelyRun_DeleteLoop:: ; 23:5324
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, .l5377
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l5378
 	ld a, [wTimerAWarnMinute]
@@ -1396,14 +1396,14 @@ MailSrvDel_DeleteCompletelyRun_DeleteLoop:: ; 23:5324
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l5363
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
 	jr nz, .l5377
 	set 1, [hl]
 .l5363 ; 23:5363
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	set 0, [hl]
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
 	jr z, .l5378
@@ -1669,7 +1669,7 @@ Function_23_54B1::
 	ret
 
 	farcall Timer_ResetClockB
-	ld de, $C0A9
+	ld de, $C0A9 ; raw: dead load: DE is never read
 	farcall CommNotice_ShowDialogMode0
 	farcall Stat_DisableScrollSplit
 	call VBlank_WaitAndService
@@ -1726,7 +1726,7 @@ MailSrvDel_Cancelled:: ; 23:553D
 	ld hl, $DAB0
 	call Sprite_SetPosition
 	farcall Timer_ResetClockB
-	ld de, $C0A9
+	ld de, $C0A9 ; raw: dead load: DE is never read
 	ld a, $B4
 	ld a, $01
 .loop ; 23:55A1

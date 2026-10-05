@@ -12,7 +12,7 @@ Function_57_4000::
 	push de
 	xor a, a
 	ld bc, $00FC
-	ld hl, $C0D4
+	ld hl, $C0D4 ; raw: start of the 252-byte per-screen window wipe
 	call FillBytes
 	farcall Stub_Nop_48_48BB
 	pop de
@@ -105,7 +105,7 @@ ConnectDialog_Run_Accept:: ; 57:4096
 	call ReadByteFar
 	ld h, a
 	ld l, e
-	ld de, $C1B2
+	ld de, wConnectDialogText
 	ld a, [wConnectDialogTextLen]
 	ld c, a
 .loop ; 57:40C3
@@ -390,10 +390,10 @@ ConnectDialog_Keyboard_AppendChar:: ; 57:4299
 	call ConnectDialog_PlaceCaretSprites
 	call ConnectDialog_DrawPasswordField
 	ld a, $F0
-	ld hl, $C2AD
+	ld hl, wKeyboardCharLo
 	call ReadByteFar
 	ld b, a
-	ld hl, $C1B2
+	ld hl, wConnectDialogText
 	ld a, [wConnectDialogTextLen]
 	add a, l
 	ld l, a
@@ -403,7 +403,7 @@ ConnectDialog_Keyboard_AppendChar:: ; 57:4299
 	ld [hl], b
 	ld a, b
 	farcall Text_HalfToFullWidth
-	ld hl, $C1BA
+	ld hl, wConnectDialogGlyphs
 	ld a, [wConnectDialogTextLen]
 	add a, a
 	add a, l
@@ -489,7 +489,7 @@ ConnectDialog_Keyboard_EraseChar:: ; 57:433F
 	ld a, $57
 	call Sprite_SetHook
 	call ConnectDialog_PlaceCaretSprites
-	ld hl, $C1BA
+	ld hl, wConnectDialogGlyphs
 	ld a, [wConnectDialogTextLen]
 	add a, a
 	add a, l
@@ -787,7 +787,7 @@ Label_57_4566::
 	ret
 
 ConnectDialog_Enter_PasswordSaved:: ; 57:4590
-	ld de, $C1B2
+	ld de, wConnectDialogText
 	ld a, [wConnectDialogTextLen]
 	call SavedPassword_Store
 	ret
@@ -800,7 +800,7 @@ ConnectDialog_Enter_StoredPassword:: ; 57:459A
 	ld [wConnectDialogTextLen], a
 	ld c, a
 	ld hl, sSavedPasswordText
-	ld de, $C1B2
+	ld de, wConnectDialogText
 .loop ; 57:45AC
 	ld a, $01
 	call ReadByteFar
@@ -962,7 +962,7 @@ ConnectDialog_Leave_Keyboard:: ; 57:46E0
 	ldh a, [rSTAT]
 	and a, $87
 	ldh [rSTAT], a
-	ld hl, $CBF4
+	ld hl, wLcdStatVector
 	ld a, [wSavedLcdStatVector]
 	ld [hli], a
 	ld a, [wSavedLcdStatVector + 1]

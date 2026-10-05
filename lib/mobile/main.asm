@@ -52,7 +52,7 @@ MobileSDK_CopyStringLen:: ; 75:400F
 
 Mobile_ResetReceivePacketBuffer:: ; 75:4029
 	xor a, a
-	ld hl, $C8D7
+	ld hl, wMobileSDK_ReceivedBytes
 	ld [hli], a
 	ld [hl], a
 	ret
@@ -91,7 +91,7 @@ MobileSDK_ApiDispatch:: ; 75:4030
 	cp a, h
 .skip ; 75:4066
 	call nz, MobileSDK_WaitStatusPoll
-	ld hl, $C823
+	ld hl, wRam_C823
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -167,7 +167,7 @@ Function_75_40B4::
 	jr z, .loop
 	xor a, a
 	ld [wMobileSDK_ErrorCode], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	set 1, [hl]
 	scf
 
@@ -218,7 +218,7 @@ MobileAPI_SetTimer:: ; 75:40DC
 	ret
 
 MobileAPI_PollResult:: ; 75:4115
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	bit 1, [hl]
 	jr nz, .l4120
 
@@ -276,10 +276,10 @@ MobileAPI_PollResult:: ; 75:4115
 	add a, $15
 	ld e, a
 	xor a, a
-	ld hl, $C6B0
+	ld hl, wMobileSDK_ErrorInfo
 	ld [hli], a
 	ld [hl], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 
 .l416A ; 75:416A
 	; [CONFIRMED] 18 insn(s); 18 executed (in up to 2/18 scenarios)
@@ -289,10 +289,10 @@ MobileAPI_PollResult:: ; 75:4115
 	ld [wMobileSDK_PhaseCode], a
 	inc a
 	ld [wMobileSDK_State], a
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	res 0, [hl]
 	res 5, [hl]
-	ld hl, $C9E4
+	ld hl, wMobileSDK_PacketBuffer
 	xor a, a
 	ld [hli], a
 	inc a
@@ -319,9 +319,9 @@ MobileAPI_PollResult:: ; 75:4115
 .l41A4 ; 75:41A4
 	; [CONFIRMED] 33 insn(s); 33 executed (in up to 2/18 scenarios)
 	res 0, [hl]
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	res 5, [hl]
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 7, [hl]
 	res 6, [hl]
 	set 5, [hl]
@@ -342,7 +342,7 @@ MobileAPI_PollResult:: ; 75:4115
 	cp a, $31
 	jr nz, .l4158
 .l41D6 ; 75:41D6
-	ld hl, $C6B0
+	ld hl, wMobileSDK_ErrorInfo
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -362,7 +362,7 @@ MobileAPI_PollResult:: ; 75:4115
 	cp a, l
 	jp nz, .l415B
 .l41F1 ; 75:41F1
-	ld bc, $C71F
+	ld bc, wMobileSDK_Window
 	jp .l415B
 .l41F7 ; 75:41F7
 	ld a, [wMobileSDK_ReceivePacketBuffer]
@@ -370,7 +370,7 @@ MobileAPI_PollResult:: ; 75:4115
 	jr z, .l41A4
 	ld a, $03
 	ld [wMobileSDK_State], a
-	ld hl, $C6B0
+	ld hl, wMobileSDK_ErrorInfo
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -383,7 +383,7 @@ MobileAPI_PollResult:: ; 75:4115
 	jr z, .l41A4
 	ld a, $04
 	ld [wMobileSDK_State], a
-	ld hl, $C6B0
+	ld hl, wMobileSDK_ErrorInfo
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -395,7 +395,7 @@ MobileSDK_ErrBusy:: ; 75:4225
 
 MobileSDK_SetErrorEvent:: ; 75:4227
 	ld [wMobileSDK_ErrorCode], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	set 1, [hl]
 	ret
 
@@ -421,7 +421,7 @@ MobileAPI_Init:: ; 75:4235
 	ldh [rIF], a
 	call Mobile_ResetReceivePacketBuffer
 	ld bc, $0450
-	ld hl, $C69F
+	ld hl, wTimerEnable
 .loop ; 75:424D
 	xor a, a
 	ld [hli], a
@@ -438,12 +438,12 @@ MobileAPI_Init:: ; 75:4235
 	ld a, h
 	ldh [hROMBankHi], a
 	pop bc
-	ld hl, $C820
+	ld hl, wRam_C820
 	ld a, c
 	ld [hli], a
 	ld a, b
 	ld [hl], a
-	ld hl, $C70D
+	ld hl, wMobileSDK_ResultPointer
 	ld a, e
 	ld [hli], a
 	ld [hl], d
@@ -496,7 +496,7 @@ MobileAPI_WriteConfig:: ; 75:428E
 	ld [wMobileSDK_RetryCount], a
 	ld a, l
 	ld b, h
-	ld hl, $C71F
+	ld hl, wMobileSDK_Window
 	ld [hli], a
 	ld a, b
 	ld [hli], a
@@ -509,12 +509,12 @@ MobileAPI_WriteConfig:: ; 75:428E
 	ld a, [wMobileSDK_TimingOffset]
 	ld c, a
 	call MobileAPI_SetTimer
-	ld hl, $C6C8
+	ld hl, wMobileSDK_DestPointer
 	ld a, $11
 	ld [hli], a
 	ld a, $C7
 	ld [hl], a
-	ld de, $C9E4
+	ld de, wMobileSDK_PacketBuffer
 	ld b, $05
 	ld hl, MobilePacket_WriteConfigurationData
 	call MobileSDK_CopyBytes
@@ -540,14 +540,14 @@ MobileAPI_WriteConfig:: ; 75:428E
 	inc de
 	ld a, $80
 	add a, c
-	ld hl, $C721
+	ld hl, wMobileSDK_Window + $02
 	ld [hli], a
 	ld a, [hl]
 	ld [de], a
 	inc de
 	add a, $80
 	ld [hl], a
-	ld hl, $C71F
+	ld hl, wMobileSDK_Window
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -563,7 +563,7 @@ MobileAPI_WriteConfig:: ; 75:428E
 	call MobileSDK_StartIdlePolling
 	ld a, $2E
 	ld [wMobileSDK_State], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 1, [hl]
 	set 0, [hl]
 	ret
@@ -580,7 +580,7 @@ MobileAPI_ReadConfig:: ; 75:4329
 	xor a, a
 	ldh [rTAC], a
 	ld [wMobileSDK_RetryCount], a
-	ld hl, $C71F
+	ld hl, wMobileSDK_Window
 	ld a, e
 	ld [hli], a
 	ld a, d
@@ -589,7 +589,7 @@ MobileAPI_ReadConfig:: ; 75:4329
 	ld [hli], a
 	ld a, b
 	ld [hli], a
-	ld hl, $C6C8
+	ld hl, wMobileSDK_DestPointer
 	ld a, e
 	ld [hli], a
 	ld a, d
@@ -597,7 +597,7 @@ MobileAPI_ReadConfig:: ; 75:4329
 	ld a, [wMobileSDK_TimingOffset]
 	ld c, a
 	call MobileAPI_SetTimer
-	ld de, $C9E4
+	ld de, wMobileSDK_PacketBuffer
 	ld b, $06
 	ld hl, MobilePacket_ReadConfigurationDataPart1
 	call MobileSDK_CopyBytes
@@ -659,7 +659,7 @@ MobileSDK_ValidateStringLen:: ; 75:4397
 
 MobileAPI_ConnectIspDns:: ; 75:43A9
 	; [CONFIRMED] 19 insn(s); 19 executed (in up to 7/18 scenarios)
-	ld de, $C6D5
+	ld de, wMobileSDK_DnsServers
 	ld b, $08
 	call MobileSDK_CopyBytes
 
@@ -696,7 +696,7 @@ MobileAPI_ConnectIsp:: ; 75:43B1
 	ld a, [wMobileSDK_TimingOffset]
 	ld c, a
 	call MobileAPI_SetTimer
-	ld hl, $C6C8
+	ld hl, wMobileSDK_DestPointer
 	ld a, $1F
 	ld [hli], a
 	ld a, $C7
@@ -707,7 +707,7 @@ MobileAPI_ConnectIsp:: ; 75:43B1
 	call Mobile_PacketBuildFooter
 	ld b, $05
 	ld hl, MobilePacket_ISPLogin
-	ld de, $CA11
+	ld de, wMobileSDK_PacketBuffer + $2D
 	call MobileSDK_CopyBytes
 	inc de
 	inc de
@@ -736,7 +736,7 @@ MobileAPI_ConnectIsp:: ; 75:43B1
 	ld [wMobileSDK_State], a
 
 MobileSDK_SetBusy:: ; 75:4437
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	set 0, [hl]
 	ret
 
@@ -762,7 +762,7 @@ MobileAPI_Dial:: ; 75:443D
 	ld a, [wMobileSDK_TimingOffset]
 	ld c, a
 	call MobileAPI_SetTimer
-	ld hl, $C82C
+	ld hl, wRam_C82C
 	ld a, $20
 	ld [hli], a
 	ld a, $C7
@@ -786,7 +786,7 @@ Mobile_DialTelephone:: ; 75:448A
 Function_75_448A::
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 7/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld de, $C9E4
+	ld de, wMobileSDK_PacketBuffer
 	ld hl, MobilePacket_DialTelephone
 	ld b, $06
 	call MobileSDK_CopyBytes
@@ -837,7 +837,7 @@ MobileAPI_Disconnect:: ; 75:44CB
 	jr z, .l452B
 	cp a, $02
 	jp nz, MobileSDK_ErrBusy
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	bit 4, [hl]
 	jr nz, .l450C
 	ld a, $02
@@ -851,7 +851,7 @@ MobileAPI_Disconnect:: ; 75:44CB
 .loop ; 75:44FF
 	ld a, $0E
 	ld [wMobileSDK_State], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	set 0, [hl]
 	res 3, [hl]
 	ret
@@ -864,9 +864,9 @@ MobileAPI_Disconnect:: ; 75:44CB
 	jr nz, .l4524
 	ld a, $01
 	ld [wMobileSDK_State], a
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	res 4, [hl]
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	ld a, [hl]
 	and a, $17
 	ld [hl], a
@@ -881,7 +881,7 @@ MobileAPI_Disconnect:: ; 75:44CB
 	call MobileSDK_ResetRxWindowAndResultPtr
 	xor a, a
 	ld [wMobileSDK_Substep], a
-	ld de, $CA04
+	ld de, wMobileSDK_PacketBuffer + $20
 	ld hl, MobilePacket_TransferData
 	ld b, $06
 	call MobileSDK_CopyBytes
@@ -890,7 +890,7 @@ MobileAPI_Disconnect:: ; 75:44CB
 	inc de
 	ld b, $01
 	call Mobile_PacketBuildFooter
-	ld de, $C9E4
+	ld de, wMobileSDK_PacketBuffer
 	ld hl, MobilePacket_TransferData
 	ld b, $05
 	call MobileSDK_CopyBytes
@@ -907,7 +907,7 @@ MobileAPI_Disconnect:: ; 75:44CB
 	call Mobile_PacketBuildFooter
 	ld a, $95
 	ld [wMobileSDK_SendCommandID], a
-	ld hl, $C9E4
+	ld hl, wMobileSDK_PacketBuffer
 	ld b, $05
 	call Mobile_PacketSendBytes
 	ld a, $0E
@@ -968,7 +968,7 @@ Function_75_459B::
 	ld a, [wMobileSDK_TimingOffset]
 	ld c, a
 	call MobileAPI_SetTimer
-	ld hl, $C6C8
+	ld hl, wMobileSDK_DestPointer
 	ld a, $1F
 	ld [hli], a
 	ld a, $C7
@@ -997,7 +997,7 @@ MobileAPI_WaitForCall:: ; 75:45E2
 	ld a, [wMobileSDK_TimingOffset]
 	ld c, a
 	call MobileAPI_SetTimer
-	ld hl, $C82C
+	ld hl, wRam_C82C
 	ld a, $20
 	ld [hli], a
 	ld a, $C7
@@ -1034,18 +1034,18 @@ MobileSDK_DnsAndTcpOpen:: ; 75:461A
 	; [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 4629-4631 by apply_coverage
 	; --split [executed in 7 scenarios]
 	ld a, $19
-	ld hl, $C6DD
+	ld hl, wMobileSDK_SmtpServerName
 	jr .l4636
 
 .l4631 ; 75:4631
 	; [CONFIRMED] 44 insn(s); 44 executed (in up to 7/18 scenarios)
 	ld a, $6E
-	ld hl, $C6F1
+	ld hl, wMobileSDK_PopServerName
 .l4636 ; 75:4636
 	push hl
 	push bc
 	ld [wMobileSDK_PacketBuffer + 91], a
-	ld hl, $C6C8
+	ld hl, wMobileSDK_DestPointer
 	ld a, $3A
 	ld [hli], a
 	ld a, $CA
@@ -1054,11 +1054,11 @@ MobileSDK_DnsAndTcpOpen:: ; 75:461A
 	ld [wMobileSDK_PacketBuffer + 90], a
 	ld [wMobileSDK_Substep], a
 	ld [wMobileSDK_OpenTcpRetries], a
-	ld de, $CA34
+	ld de, wMobileSDK_PacketBuffer + $50
 	ld hl, MobilePacket_OpenTCPConnection
 	ld b, $06
 	call MobileSDK_CopyBytes
-	ld de, $C9E4
+	ld de, wMobileSDK_PacketBuffer
 	ld hl, $605E
 	ld b, $05
 	call MobileSDK_CopyBytes
@@ -1080,7 +1080,7 @@ MobileSDK_DnsAndTcpOpen:: ; 75:461A
 	ld a, [wMobileSDK_ReceivePacketBuffer + 128]
 	or a, a
 	jr z, .l46B1
-	ld hl, $C832
+	ld hl, wRam_C832
 	ld a, [hli]
 	cp a, $99
 	jr nz, .l46B1
@@ -1099,7 +1099,7 @@ MobileSDK_DnsAndTcpOpen:: ; 75:461A
 	ld [wMobileSDK_Substep], a
 	ld a, $A3
 	ld de, $0010
-	ld hl, $C832
+	ld hl, wRam_C832
 	call Mobile_PacketSendExpect
 	ld a, $0F
 	ld [wMobileSDK_State], a
@@ -1107,7 +1107,7 @@ MobileSDK_DnsAndTcpOpen:: ; 75:461A
 
 .l46B1 ; 75:46B1
 	; [CONFIRMED] 34 insn(s); 34 executed (in up to 7/18 scenarios)
-	ld hl, $C9E4
+	ld hl, wMobileSDK_PacketBuffer
 	ld a, $A8
 	ld [wMobileSDK_SendCommandID], a
 	ld b, $05
@@ -1117,13 +1117,13 @@ MobileSDK_DnsAndTcpOpen:: ; 75:461A
 	jp MobileSDK_SetBusy
 .l46C6 ; 75:46C6
 	ld b, $50
-	ld hl, $C715
+	ld hl, wMobileSDK_HttpRequestPointer
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
 	ld de, $0007
 	add hl, de
-	ld de, $C79E
+	ld de, wMobileSDK_Window + $7F
 .loop ; 75:46D5
 	ld a, [hli]
 	ld [de], a
@@ -1140,7 +1140,7 @@ MobileSDK_DnsAndTcpOpen:: ; 75:461A
 	ld [wMobileSDK_HttpRequestPointer], a
 	ld a, h
 	ld [wMobileSDK_HttpRequestPointer + 1], a
-	ld hl, $C79E
+	ld hl, wMobileSDK_Window + $7F
 	ld a, $50
 	ld b, $40
 	jp .l4636
@@ -1174,11 +1174,11 @@ MobileAPI_SmtpConnect:: ; 75:46F4
 	; --split [executed in 5 scenarios]
 	xor a, a
 	ld [wMobileSDK_Substep], a
-	ld de, $CA44
+	ld de, wMobileSDK_PacketBuffer + $60
 	ld hl, MobilePacket_TransferData
 	ld b, $06
 	call MobileSDK_CopyBytes
-	ld de, $CA54
+	ld de, wMobileSDK_PacketBuffer + $70
 	ld hl, MobilePacket_TransferData
 	ld b, $05
 	call MobileSDK_CopyBytes
@@ -1241,7 +1241,7 @@ MobileAPI_SmtpMailFrom:: ; 75:475C
 	call MobileSDK_ResetRxWindowAndResultPtr
 	xor a, a
 	ld [wMobileSDK_Substep], a
-	ld de, $C9E4
+	ld de, wMobileSDK_PacketBuffer
 	ld hl, MobilePacket_TransferData
 	ld b, $06
 	call MobileSDK_CopyBytes
@@ -1250,16 +1250,16 @@ MobileAPI_SmtpMailFrom:: ; 75:475C
 	inc de
 	ld b, $01
 	call Mobile_PacketBuildFooter
-	ld de, $C9F0
+	ld de, wMobileSDK_PacketBuffer + $0C
 	ld hl, MobilePacket_TransferData
 	ld b, $05
 	call MobileSDK_CopyBytes
-	ld de, $C9F6
+	ld de, wMobileSDK_PacketBuffer + $12
 	ld a, [wMobileSDK_ConnectionId]
 	ld [de], a
 	inc de
 	ld bc, $0001
-	ld de, $C9F7
+	ld de, wMobileSDK_PacketBuffer + $13
 	ld hl, MobileStr_MailFrom
 	call MobileSDK_CopyString
 	pop hl
@@ -1279,7 +1279,7 @@ MobileAPI_SmtpMailFrom:: ; 75:475C
 	call Mobile_PacketBuildFooter
 	ld a, $95
 	ld [wMobileSDK_SendCommandID], a
-	ld hl, $C9F0
+	ld hl, wMobileSDK_PacketBuffer + $0C
 	ld d, $00
 	ld e, c
 	ld b, $05
@@ -1313,7 +1313,7 @@ MobileAPI_SmtpData:: ; 75:4804
 	ld [wMobileSDK_DataPointer], a
 	ld a, h
 	ld [wMobileSDK_DataPointer + 1], a
-	ld hl, $C71D
+	ld hl, wMobileSDK_DataLength
 	ld a, c
 	ld [hli], a
 	ld a, b
@@ -1321,34 +1321,34 @@ MobileAPI_SmtpData:: ; 75:4804
 	ld a, d
 	ld [wMobileSDK_ResultPointer + 1], a
 	call MobileSDK_ResetRxWindowAndResultPtr
-	ld hl, $C827
+	ld hl, wRam_C827
 	ld a, [hl]
 	and a, $01
 	xor a, $01
 	ld [wMobileSDK_Substep], a
 	inc [hl]
-	ld de, $C9E4
+	ld de, wMobileSDK_PacketBuffer
 	ld hl, MobilePacket_TransferData
 	ld b, $06
 	call MobileSDK_CopyBytes
-	ld de, $C9EA
+	ld de, wMobileSDK_PacketBuffer + $06
 	ld a, [wMobileSDK_ConnectionId]
 	ld [de], a
 	inc de
 	ld b, $01
 	call Mobile_PacketBuildFooter
-	ld de, $CA7A
+	ld de, wMobileSDK_PacketBuffer + $96
 	ld hl, MobilePacket_TransferData
 	ld b, $05
 	call MobileSDK_CopyBytes
-	ld de, $CA80
+	ld de, wMobileSDK_PacketBuffer + $9C
 	ld a, [wMobileSDK_ConnectionId]
 	ld [de], a
 	ld a, [wMobileSDK_Substep]
 	or a, a
 	jr nz, .l4896
 	ld bc, $0001
-	ld de, $CA81
+	ld de, wMobileSDK_PacketBuffer + $9D
 	ld hl, MobileStr_Data
 	call MobileSDK_CopyString
 	ld a, c
@@ -1358,7 +1358,7 @@ MobileAPI_SmtpData:: ; 75:4804
 	ld a, $95
 	ld [wMobileSDK_SendCommandID], a
 	ld de, $0011
-	ld hl, $CA7A
+	ld hl, wMobileSDK_PacketBuffer + $96
 	ld b, $05
 	call Mobile_PacketSendBytes
 .l4896 ; 75:4896
@@ -1379,13 +1379,13 @@ MobileAPI_Pop3Quit:: ; 75:48A8
 	jp nz, MobileSDK_ErrBusy
 
 MobileSDK_SendQuit:: ; 75:48B0
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	bit 0, [hl]
 	jp nz, MobileSDK_ErrBusy
 	call MobileSDK_ResetRxWindowAndResultPtr
 	xor a, a
 	ld [wMobileSDK_Substep], a
-	ld de, $CA04
+	ld de, wMobileSDK_PacketBuffer + $20
 	ld hl, MobilePacket_TransferData
 	ld b, $06
 	call MobileSDK_CopyBytes
@@ -1394,7 +1394,7 @@ MobileSDK_SendQuit:: ; 75:48B0
 	inc de
 	ld b, $01
 	call Mobile_PacketBuildFooter
-	ld de, $C9E4
+	ld de, wMobileSDK_PacketBuffer
 	ld hl, MobilePacket_TransferData
 	ld b, $05
 	call MobileSDK_CopyBytes
@@ -1411,7 +1411,7 @@ MobileSDK_SendQuit:: ; 75:48B0
 	call Mobile_PacketBuildFooter
 	ld a, $95
 	ld [wMobileSDK_SendCommandID], a
-	ld hl, $C9E4
+	ld hl, wMobileSDK_PacketBuffer
 	ld b, $05
 	call Mobile_PacketSendBytes
 	ld a, $17
@@ -1446,7 +1446,7 @@ MobileAPI_Pop3Login:: ; 75:490A
 
 .l4938 ; 75:4938
 	; [CONFIRMED] 87 insn(s); 87 executed (in up to 5/18 scenarios)
-	ld de, $CA44
+	ld de, wMobileSDK_PacketBuffer + $60
 	ld hl, MobilePacket_TransferData
 	ld b, $05
 	call MobileSDK_CopyBytes
@@ -1470,7 +1470,7 @@ MobileAPI_Pop3Login:: ; 75:490A
 	ld c, a
 	ld [wMobileSDK_PacketBuffer + 101], a
 	pop hl
-	ld de, $CA50
+	ld de, wMobileSDK_PacketBuffer + $6C
 	call MobileSDK_CopyBytes
 .l4966 ; 75:4966
 	ld a, [hli]
@@ -1480,21 +1480,21 @@ MobileAPI_Pop3Login:: ; 75:490A
 	ld a, c
 	ld [wMobileSDK_PacketBuffer + 101], a
 	ld bc, $0006
-	ld de, $CA90
+	ld de, wMobileSDK_PacketBuffer + $AC
 	ld a, $20
 	call MobileSDK_CopyStringLen
 	call MobileSDK_AppendCrLf
 	ld a, c
 	ld [wMobileSDK_PacketBuffer + 165], a
-	ld de, $CA84
+	ld de, wMobileSDK_PacketBuffer + $A0
 	ld hl, MobilePacket_TransferData
 	ld b, $05
 	call MobileSDK_CopyBytes
-	ld de, $CA8B
+	ld de, wMobileSDK_PacketBuffer + $A7
 	ld hl, $60C9
 	ld b, $05
 	call MobileSDK_CopyBytes
-	ld de, $CA64
+	ld de, wMobileSDK_PacketBuffer + $80
 	ld hl, MobilePacket_TransferData
 	ld b, $06
 	call MobileSDK_CopyBytes
@@ -1502,7 +1502,7 @@ MobileAPI_Pop3Login:: ; 75:490A
 	jp MobileSDK_DnsAndTcpOpen
 
 MobileAPI_Pop3Stat:: ; 75:49A9
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	bit 0, [hl]
 	jp nz, MobileSDK_ErrBusy
 	ld a, [wMobileSDK_State]
@@ -1515,7 +1515,7 @@ MobileAPI_Pop3Stat:: ; 75:49A9
 	xor a, a
 	ld [wMobileSDK_Substep], a
 	call MobileSDK_ResetRxWindow
-	ld de, $C9E4
+	ld de, wMobileSDK_PacketBuffer
 	ld hl, MobilePacket_TransferData
 	ld b, $05
 	call MobileSDK_CopyBytes
@@ -1532,7 +1532,7 @@ MobileAPI_Pop3Stat:: ; 75:49A9
 	call Mobile_PacketBuildFooter
 	ld a, $95
 	ld [wMobileSDK_SendCommandID], a
-	ld hl, $C9E4
+	ld hl, wMobileSDK_PacketBuffer
 	ld b, $05
 	call Mobile_PacketSendBytes
 	ld a, $18
@@ -1561,7 +1561,7 @@ MobileAPI_Pop3List:: ; 75:49FE
 	jp z, MobileSDK_ErrBadArg
 	push hl
 	call MobileSDK_ResetRxWindow
-	ld de, $C9E4
+	ld de, wMobileSDK_PacketBuffer
 	ld hl, MobilePacket_TransferData
 	ld b, $05
 	call MobileSDK_CopyBytes
@@ -1574,14 +1574,14 @@ MobileAPI_Pop3List:: ; 75:49FE
 	ld bc, $0001
 	ld hl, $60D6
 	call MobileSDK_CopyString
-	ld de, $C9F0
+	ld de, wMobileSDK_PacketBuffer + $0C
 	pop hl
 	call MobileSDK_FormatMessageNumber
 	ld b, c
 	call Mobile_PacketBuildFooter
 	ld a, $95
 	ld [wMobileSDK_SendCommandID], a
-	ld hl, $C9E4
+	ld hl, wMobileSDK_PacketBuffer
 	ld b, $05
 	call Mobile_PacketSendBytes
 	ld a, $1D
@@ -1617,7 +1617,7 @@ MobileAPI_Pop3Retr:: ; 75:4A60
 	ld [wMobileSDK_ResultPointer], a
 	ld a, h
 	ld [wMobileSDK_ResultPointer + 1], a
-	ld hl, $C6C6
+	ld hl, wMobileSDK_ResultBufferPtr
 	ld a, e
 	ld [hli], a
 	ld a, d
@@ -1626,7 +1626,7 @@ MobileAPI_Pop3Retr:: ; 75:4A60
 	inc de
 	dec bc
 	dec bc
-	ld hl, $C82C
+	ld hl, wRam_C82C
 	ld a, e
 	ld [hli], a
 	ld a, d
@@ -1635,7 +1635,7 @@ MobileAPI_Pop3Retr:: ; 75:4A60
 	ld [hli], a
 	ld a, b
 	ld [hl], a
-	ld hl, $C6C8
+	ld hl, wMobileSDK_DestPointer
 	ld a, $1F
 	ld [hli], a
 	ld a, $C7
@@ -1649,7 +1649,7 @@ MobileAPI_Pop3Retr:: ; 75:4A60
 	ld [hli], a
 	xor a, a
 	ld [wMobileSDK_Substep], a
-	ld de, $C9E4
+	ld de, wMobileSDK_PacketBuffer
 	ld hl, MobilePacket_TransferData
 	ld b, $05
 	call MobileSDK_CopyBytes
@@ -1662,8 +1662,8 @@ MobileAPI_Pop3Retr:: ; 75:4A60
 	ld bc, $0001
 	ld hl, $60E3
 	call MobileSDK_CopyString
-	ld de, $C9F0
-	ld hl, $C70D
+	ld de, wMobileSDK_PacketBuffer + $0C
+	ld hl, wMobileSDK_ResultPointer
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -1672,7 +1672,7 @@ MobileAPI_Pop3Retr:: ; 75:4A60
 	call Mobile_PacketBuildFooter
 	ld a, $95
 	ld [wMobileSDK_SendCommandID], a
-	ld hl, $C9E4
+	ld hl, wMobileSDK_PacketBuffer
 	ld b, $05
 	call Mobile_PacketSendBytes
 	ld a, $1A
@@ -1682,7 +1682,7 @@ MobileAPI_Pop3Retr:: ; 75:4A60
 MobileSDK_Pop3RxBodyChunk:: ; 75:4AF9
 	; [PROBABLE] 197 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 49FE-4DE2 by apply_coverage --split
-	ld hl, $C6C6
+	ld hl, wMobileSDK_ResultBufferPtr
 	ld a, e
 	ld [hli], a
 	ld a, d
@@ -1720,7 +1720,7 @@ MobileSDK_Pop3RxBodyChunk:: ; 75:4AF9
 	sub a, c
 	ld [hl], a
 	ld b, c
-	ld hl, $C6CC
+	ld hl, wMobileSDK_ReceivedLength
 	ld a, [wRam_C830]
 	add a, c
 	ld [hli], a
@@ -1729,7 +1729,7 @@ MobileSDK_Pop3RxBodyChunk:: ; 75:4AF9
 	ld [hl], a
 	xor a, a
 	ld [wRam_C830], a
-	ld hl, $C8DC
+	ld hl, wMobileSDK_ReceivePacketBuffer + $03
 	ld a, [hli]
 	inc hl
 	sub a, e
@@ -1743,7 +1743,7 @@ MobileSDK_Pop3RxBodyChunk:: ; 75:4AF9
 	ld d, a
 	call MobileSDK_CopyBytes
 	pop bc
-	ld hl, $C6C6
+	ld hl, wMobileSDK_ResultBufferPtr
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -1761,7 +1761,7 @@ MobileSDK_Pop3RxBodyChunk:: ; 75:4AF9
 	ld a, c
 	ld [hli], a
 	ld [hl], b
-	ld hl, $C6CC
+	ld hl, wMobileSDK_ReceivedLength
 	ld a, [wRam_C830]
 	add a, e
 	ld [hli], a
@@ -1774,7 +1774,7 @@ MobileSDK_Pop3RxBodyChunk:: ; 75:4AF9
 	or a, a
 	jr z, .l4BA0
 	ld b, e
-	ld hl, $C8DC
+	ld hl, wMobileSDK_ReceivePacketBuffer + $03
 	ld a, [hli]
 	inc hl
 	sub a, e
@@ -1787,7 +1787,7 @@ MobileSDK_Pop3RxBodyChunk:: ; 75:4AF9
 	ld a, [wMobileSDK_DestPointer + 1]
 	ld d, a
 	call MobileSDK_CopyBytes
-	ld hl, $C6C8
+	ld hl, wMobileSDK_DestPointer
 	ld a, e
 	ld [hli], a
 	ld a, d
@@ -1796,27 +1796,27 @@ MobileSDK_Pop3RxBodyChunk:: ; 75:4AF9
 	call MobileSDK_ReplyEndOfMultiline
 	jr z, .l4BC0
 	di
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 2, [hl]
 	ld a, $01
 	ld [wMobileSDK_Substep], a
 	ld de, $000B
 	ld a, $95
 	ld [wMobileSDK_SendCommandID], a
-	ld hl, $CA64
+	ld hl, wMobileSDK_PacketBuffer + $80
 	ld b, $05
 	jp Mobile_PacketSendBytes
 .l4BC0 ; 75:4BC0
 	ld a, $04
 	ld [wMobileSDK_State], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 0, [hl]
 	res 2, [hl]
-	ld hl, $C6C6
+	ld hl, wMobileSDK_ResultBufferPtr
 	ld a, [hli]
 	ld e, a
 	ld d, [hl]
-	ld hl, $C6CC
+	ld hl, wMobileSDK_ReceivedLength
 	ld b, $02
 	jp MobileSDK_CopyBytes
 .l4BDA ; 75:4BDA
@@ -1828,7 +1828,7 @@ MobileSDK_Pop3RxBodyChunk:: ; 75:4AF9
 	cp a, c
 	jr c, .l4C0A
 	ld b, c
-	ld hl, $C830
+	ld hl, wRam_C830
 	ld a, [hl]
 	sub a, c
 	ld [hl], a
@@ -1836,14 +1836,14 @@ MobileSDK_Pop3RxBodyChunk:: ; 75:4AF9
 	sub a, e
 	ld e, a
 	ld d, $00
-	ld hl, $C71F
+	ld hl, wMobileSDK_Window
 	add hl, de
 	ld a, [wMobileSDK_DestPointer]
 	ld e, a
 	ld a, [wMobileSDK_DestPointer + 1]
 	ld d, a
 	call MobileSDK_CopyBytes
-	ld hl, $C6C6
+	ld hl, wMobileSDK_ResultBufferPtr
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -1861,7 +1861,7 @@ MobileSDK_Pop3RxBodyChunk:: ; 75:4AF9
 	sub a, e
 	ld e, a
 	ld d, $00
-	ld hl, $C71F
+	ld hl, wMobileSDK_Window
 	add hl, de
 	ld a, [wMobileSDK_DestPointer]
 	ld e, a
@@ -1903,7 +1903,7 @@ MobileAPI_Pop3Dele:: ; 75:4C41
 	ld a, h
 	ld [wMobileSDK_ResultPointer + 1], a
 	call MobileSDK_ResetRxWindow
-	ld de, $C9E4
+	ld de, wMobileSDK_PacketBuffer
 	ld hl, MobilePacket_TransferData
 	ld b, $05
 	call MobileSDK_CopyBytes
@@ -1916,8 +1916,8 @@ MobileAPI_Pop3Dele:: ; 75:4C41
 	ld bc, $0001
 	ld hl, $60F0
 	call MobileSDK_CopyString
-	ld de, $C9F0
-	ld hl, $C70D
+	ld de, wMobileSDK_PacketBuffer + $0C
+	ld hl, wMobileSDK_ResultPointer
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -1926,7 +1926,7 @@ MobileAPI_Pop3Dele:: ; 75:4C41
 	call Mobile_PacketBuildFooter
 	ld a, $95
 	ld [wMobileSDK_SendCommandID], a
-	ld hl, $C9E4
+	ld hl, wMobileSDK_PacketBuffer
 	ld b, $05
 	call Mobile_PacketSendBytes
 	ld a, $1B
@@ -1960,7 +1960,7 @@ MobileAPI_Pop3Top:: ; 75:4CA3
 	ld [wMobileSDK_ResultPointer], a
 	ld a, h
 	ld [wMobileSDK_ResultPointer + 1], a
-	ld hl, $C6C6
+	ld hl, wMobileSDK_ResultBufferPtr
 	ld a, e
 	ld [hli], a
 	ld a, d
@@ -1969,7 +1969,7 @@ MobileAPI_Pop3Top:: ; 75:4CA3
 	inc de
 	dec bc
 	dec bc
-	ld hl, $C82C
+	ld hl, wRam_C82C
 	ld a, e
 	ld [hli], a
 	ld a, d
@@ -1978,7 +1978,7 @@ MobileAPI_Pop3Top:: ; 75:4CA3
 	ld [hli], a
 	ld a, b
 	ld [hl], a
-	ld hl, $C6C8
+	ld hl, wMobileSDK_DestPointer
 	ld a, $1F
 	ld [hli], a
 	ld a, $C7
@@ -1992,7 +1992,7 @@ MobileAPI_Pop3Top:: ; 75:4CA3
 	ld [hli], a
 	xor a, a
 	ld [wMobileSDK_Substep], a
-	ld de, $C9E4
+	ld de, wMobileSDK_PacketBuffer
 	ld hl, MobilePacket_TransferData
 	ld b, $05
 	call MobileSDK_CopyBytes
@@ -2005,8 +2005,8 @@ MobileAPI_Pop3Top:: ; 75:4CA3
 	ld bc, $0001
 	ld hl, $60FD
 	call MobileSDK_CopyString
-	ld de, $C9EF
-	ld hl, $C70D
+	ld de, wMobileSDK_PacketBuffer + $0B
+	ld hl, wMobileSDK_ResultPointer
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -2015,7 +2015,7 @@ MobileAPI_Pop3Top:: ; 75:4CA3
 	call Mobile_PacketBuildFooter
 	ld a, $95
 	ld [wMobileSDK_SendCommandID], a
-	ld hl, $C9E4
+	ld hl, wMobileSDK_PacketBuffer
 	ld b, $05
 	call Mobile_PacketSendBytes
 	ld a, $1C
@@ -2338,7 +2338,7 @@ MobileAPI_HttpGet:: ; 75:4DE2
 	dec b
 	jr nz, .l4EAF
 .l4EB8 ; 75:4EB8
-	ld hl, $C81E
+	ld hl, wRam_C81E
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -2368,7 +2368,7 @@ MobileAPI_HttpGet:: ; 75:4DE2
 
 .l4EE8 ; 75:4EE8
 	; [CONFIRMED] 48 insn(s); 48 executed (in up to 2/18 scenarios)
-	ld hl, $C828
+	ld hl, wMobileSDK_HttpStatus
 	xor a, a
 	ld [hli], a
 	ld [hli], a
@@ -2381,7 +2381,7 @@ MobileAPI_HttpGet:: ; 75:4DE2
 	ld [wMobileSDK_HttpRequestPointer], a
 	ld a, h
 	ld [wMobileSDK_HttpRequestPointer + 1], a
-	ld hl, $C711
+	ld hl, wRam_C711
 	ld a, c
 	ld [hli], a
 	ld a, b
@@ -2396,7 +2396,7 @@ MobileAPI_HttpGet:: ; 75:4DE2
 	ld [wRam_C831], a
 
 MobileSDK_HttpConnect:: ; 75:4F0C
-	ld hl, $C6D2
+	ld hl, wMobileSDK_HttpDatePtr
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -2405,11 +2405,11 @@ MobileSDK_HttpConnect:: ; 75:4F0C
 	xor a, a
 	ld [hl], a
 .skip ; 75:4F17
-	ld hl, $C82E
+	ld hl, wRam_C82E
 	xor a, a
 	ld [hli], a
 	ld [hl], a
-	ld hl, $C705
+	ld hl, wMobileSDK_ServerIp
 	ld a, [hli]
 	or a, [hl]
 	inc hl
@@ -2431,11 +2431,11 @@ MobileSDK_HttpConnect:: ; 75:4F0C
 	ld [wMobileSDK_PacketBuffer + 11], a
 	ld a, $01
 	ld [wMobileSDK_Substep], a
-	ld de, $C9E4
+	ld de, wMobileSDK_PacketBuffer
 	ld hl, MobilePacket_OpenTCPConnection
 	ld b, $06
 	call MobileSDK_CopyBytes
-	ld hl, $C705
+	ld hl, wMobileSDK_ServerIp
 	ld b, $04
 	call MobileSDK_CopyBytes
 	inc de
@@ -2445,7 +2445,7 @@ MobileSDK_HttpConnect:: ; 75:4F0C
 	ld a, [wMobileSDK_ReceivePacketBuffer + 128]
 	or a, a
 	jr z, .l4F9A
-	ld hl, $C832
+	ld hl, wRam_C832
 	ld a, [hli]
 	cp a, $99
 	jr nz, .l4F8F
@@ -2461,19 +2461,19 @@ MobileSDK_HttpConnect:: ; 75:4F0C
 	ld [wMobileSDK_Substep], a
 	ld a, $A3
 	ld de, $0010
-	ld hl, $C832
+	ld hl, wRam_C832
 	call Mobile_PacketSendExpect
 	ld a, $0F
 	ld [wMobileSDK_State], a
 	jp MobileSDK_SetBusy
 .l4F8F ; 75:4F8F
-	ld hl, $C9E4
-	ld de, $C832
+	ld hl, wMobileSDK_PacketBuffer
+	ld de, wRam_C832
 	ld b, $10
 	call MobileSDK_CopyBytes
 .l4F9A ; 75:4F9A
 	ld de, $0010
-	ld hl, $C9E4
+	ld hl, wMobileSDK_PacketBuffer
 	ld a, $A3
 	ld [wMobileSDK_SendCommandID], a
 	ld b, $05
@@ -2525,7 +2525,7 @@ MobileSDK_HttpReadBody:: ; 75:5049
 	; [CONFIRMED] 127 insn(s) reached by static flow only; seeds: exec x127; min discovery hops 1;
 	; entered by jpcc from 75:4DEE (PROBABLE code) | 19 insn(s) executed; cut out of the PROBABLE
 	; region 5049-5118 by apply_coverage --split [executed in 2 scenarios]
-	ld hl, $C6C6
+	ld hl, wMobileSDK_ResultBufferPtr
 	ld a, e
 	ld [hli], a
 	ld a, d
@@ -2563,12 +2563,12 @@ MobileSDK_HttpReadBody:: ; 75:5049
 	sub a, c
 	ld [hl], a
 	ld b, c
-	ld hl, $C6CC
+	ld hl, wMobileSDK_ReceivedLength
 	ld a, c
 	ld [hli], a
 	xor a, a
 	ld [hl], a
-	ld hl, $C8DC
+	ld hl, wMobileSDK_ReceivePacketBuffer + $03
 	ld a, [hli]
 	inc hl
 	sub a, e
@@ -2590,7 +2590,7 @@ MobileSDK_HttpReadBody:: ; 75:5049
 	ld b, h
 	xor a, a
 	ld [wRam_C82E], a
-	ld hl, $C6C6
+	ld hl, wMobileSDK_ResultBufferPtr
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -2608,7 +2608,7 @@ MobileSDK_HttpReadBody:: ; 75:5049
 	ld a, c
 	ld [hli], a
 	ld [hl], b
-	ld hl, $C6CC
+	ld hl, wMobileSDK_ReceivedLength
 	ld a, [wRam_C82E]
 	add a, e
 	ld [hli], a
@@ -2621,7 +2621,7 @@ MobileSDK_HttpReadBody:: ; 75:5049
 	or a, a
 	jr z, .l50F0
 	ld b, e
-	ld hl, $C8DC
+	ld hl, wMobileSDK_ReceivePacketBuffer + $03
 	ld a, [hli]
 	inc hl
 	sub a, e
@@ -2634,7 +2634,7 @@ MobileSDK_HttpReadBody:: ; 75:5049
 	ld a, [wMobileSDK_DestPointer + 1]
 	ld d, a
 	call MobileSDK_CopyBytes
-	ld hl, $C6C8
+	ld hl, wMobileSDK_DestPointer
 	ld a, e
 	ld [hli], a
 	ld a, d
@@ -2643,7 +2643,7 @@ MobileSDK_HttpReadBody:: ; 75:5049
 	di
 	ld a, $02
 	ld [wMobileSDK_HttpParseState], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 2, [hl]
 	ld a, [wMobileSDK_ReceivePacketBuffer]
 	cp a, $9F
@@ -2651,7 +2651,7 @@ MobileSDK_HttpReadBody:: ; 75:5049
 	ld de, $000B
 	ld a, $95
 	ld [wMobileSDK_SendCommandID], a
-	ld hl, $C9E4
+	ld hl, wMobileSDK_PacketBuffer
 	ld b, $05
 	call Mobile_PacketSendBytes
 	ld a, $01
@@ -2662,7 +2662,7 @@ MobileSDK_HttpReadBody:: ; 75:5049
 	; h,[hl] ; ld l,a ... ld a,$A3 ; ld de,$0010 ; ld hl,$C832 ; jp $5F0B); follows a ret;
 	; well-formed instruction chain (clean decode, all direct targets land on instruction starts,
 	; lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS
-	ld hl, $C6C6
+	ld hl, wMobileSDK_ResultBufferPtr
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -2670,7 +2670,7 @@ MobileSDK_HttpReadBody:: ; 75:5049
 	ld [hli], a
 	ld a, [wMobileSDK_ReceivedLength + 1]
 	ld [hl], a
-	ld hl, $C82C
+	ld hl, wRam_C82C
 	inc [hl]
 	ld a, $0F
 	ld [wMobileSDK_State], a
@@ -2682,7 +2682,7 @@ MobileSDK_HttpReadBody:: ; 75:5049
 	ld [wMobileSDK_HttpParseState], a
 	ld a, $A3
 	ld de, $0010
-	ld hl, $C832
+	ld hl, wRam_C832
 	jp Mobile_PacketSendExpect
 
 .l5149 ; 75:5149
@@ -2690,7 +2690,7 @@ MobileSDK_HttpReadBody:: ; 75:5049
 	; entered by jrcc from 75:5100 (PROBABLE code) | 85 insn(s) never executed in the traced runs;
 	; cut out of the PROBABLE region 5149-51DC by apply_coverage --split
 	res 0, [hl]
-	ld hl, $C6C6
+	ld hl, wMobileSDK_ResultBufferPtr
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -2723,21 +2723,21 @@ Function_75_5164::
 	sub a, e
 	ld e, a
 	ld d, $00
-	ld hl, $C71F
+	ld hl, wMobileSDK_Window
 	add hl, de
 	ld a, [wMobileSDK_DestPointer]
 	ld e, a
 	ld a, [wMobileSDK_DestPointer + 1]
 	ld d, a
 	call MobileSDK_CopyBytes
-	ld hl, $C6C8
+	ld hl, wMobileSDK_DestPointer
 	ld a, e
 	ld [hli], a
 	ld a, d
 	ld [hl], a
 	ld e, c
 	ld a, c
-	ld hl, $C6CC
+	ld hl, wMobileSDK_ReceivedLength
 	ld [hli], a
 	xor a, a
 	ld [hl], a
@@ -2761,7 +2761,7 @@ Function_75_5164::
 	sub a, e
 	ld e, a
 	ld d, $00
-	ld hl, $C71F
+	ld hl, wMobileSDK_Window
 	add hl, de
 	ld a, [wMobileSDK_DestPointer]
 	ld e, a
@@ -2769,7 +2769,7 @@ Function_75_5164::
 	ld d, a
 	ld b, c
 	call MobileSDK_CopyBytes
-	ld hl, $C6C6
+	ld hl, wMobileSDK_ResultBufferPtr
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -2784,7 +2784,7 @@ MobileSDK_HttpReadBody_ZeroSizeClose:: ; 75:51CF
 Label_75_51CF::
 	; [CONFIRMED] 5 insn(s) executed; cut out of the PROBABLE region 5149-51DC by apply_coverage
 	; --split [executed in 2 scenarios]
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 2, [hl]
 	ld a, $06
 	ld [wMobileSDK_Substep], a
@@ -2795,7 +2795,7 @@ Function_75_51DC::
 	; [CONFIRMED] 73 insn(s); 73 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push hl
-	ld hl, $C705
+	ld hl, wMobileSDK_ServerIp
 	ld a, [hli]
 	or a, [hl]
 	inc hl
@@ -2818,7 +2818,7 @@ Function_75_51DC::
 	inc bc
 	or a, a
 	jr nz, .l51F6
-	ld hl, $C719
+	ld hl, wRam_C719
 	ld a, c
 	ld [hli], a
 	ld a, b
@@ -2964,7 +2964,7 @@ MobileAPI_HttpPost:: ; 75:5203
 	jr c, .l52D9
 	cp a, $3A
 	jr nc, .l52D9
-	ld hl, $C81E
+	ld hl, wRam_C81E
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -3008,7 +3008,7 @@ MobileAPI_HttpPost:: ; 75:5203
 	ld [wMobileSDK_HttpRequestPointer], a
 	ld a, h
 	ld [wMobileSDK_HttpRequestPointer + 1], a
-	ld hl, $C711
+	ld hl, wRam_C711
 	ld a, c
 	ld [hli], a
 	ld a, b
@@ -3024,7 +3024,7 @@ MobileAPI_HttpPost:: ; 75:5203
 	ld a, d
 	ld [hl], a
 	call MobileSDK_FormatContentLength
-	ld hl, $C715
+	ld hl, wMobileSDK_HttpRequestPointer
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -3048,7 +3048,7 @@ MobileAPI_HttpPost:: ; 75:5203
 	jp MobileSDK_HttpConnect
 
 MobileSDK_FormatContentLength:: ; 75:5342
-	ld hl, $C715
+	ld hl, wMobileSDK_HttpRequestPointer
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -3167,8 +3167,8 @@ MobileSDK_FormatContentLength:: ; 75:5342
 	add hl, de
 	add a, l
 	ld [wMobileSDK_Window + 72], a
-	ld de, $C842
-	ld hl, $C765
+	ld de, wMobileSDK_ContentLengthDigits
+	ld hl, wMobileSDK_Window + $46
 	ld a, [hli]
 	or a, $30
 	ld [de], a
@@ -3238,7 +3238,7 @@ MobileAPI_PeerSend:: ; 75:540B
 	ld a, [wMobileSDK_PhaseCode]
 	or a, a
 	jr nz, .l543F
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	set 1, [hl]
 	ld a, $23
 	ld [wMobileSDK_ErrorCode], a
@@ -3249,13 +3249,13 @@ MobileAPI_PeerSend:: ; 75:540B
 	xor a, a
 	ld [wMobileSDK_Substep], a
 	push hl
-	ld hl, $C6C8
+	ld hl, wMobileSDK_DestPointer
 	xor a, a
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
 	ld [hl], a
-	ld de, $C9E4
+	ld de, wMobileSDK_PacketBuffer
 	ld hl, MobilePacket_TransferData
 	ld b, $05
 	call MobileSDK_CopyBytes
@@ -3282,9 +3282,9 @@ MobileAPI_PeerSend:: ; 75:540B
 	inc b
 	inc b
 	call Mobile_PacketBuildFooter
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	set 7, [hl]
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	set 0, [hl]
 	ld a, $00
 	ei
@@ -3320,7 +3320,7 @@ MobileAPI_PeerReceive:: ; 75:5495
 	ld a, [wRam_C830]
 	ld c, a
 	ld b, $00
-	ld hl, $C8DD
+	ld hl, wMobileSDK_ReceivePacketBuffer + $04
 	add hl, bc
 	ld a, [hli]
 	or a, a
@@ -3347,7 +3347,7 @@ MobileAPI_PeerReceive:: ; 75:5495
 	xor a, a
 	or a, c
 	jr nz, .l54E5
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 3, [hl]
 	ret
 .l54E5 ; 75:54E5
@@ -3368,10 +3368,10 @@ MobileAPI_PeerReceive:: ; 75:5495
 	jr z, .l5509
 	ld [wRam_C82F], a
 	ld b, a
-	ld de, $C71F
+	ld de, wMobileSDK_Window
 	call MobileSDK_CopyBytes
 .l5503 ; 75:5503
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 3, [hl]
 	ret
 .l5509 ; 75:5509
@@ -3387,7 +3387,7 @@ MobileAPI_PeerReceive:: ; 75:5495
 	ld a, [wRam_C82E]
 	sub a, b
 	ld c, a
-	ld hl, $C71F
+	ld hl, wMobileSDK_Window
 	ld a, [wRam_C82E]
 	ld [de], a
 	inc de
@@ -3396,7 +3396,7 @@ MobileAPI_PeerReceive:: ; 75:5495
 	jr z, .l552A
 	call MobileSDK_CopyBytes
 .l552A ; 75:552A
-	ld hl, $C8DE
+	ld hl, wMobileSDK_ReceivePacketBuffer + $05
 	ld b, c
 	call MobileSDK_CopyBytes
 	push hl
@@ -3409,7 +3409,7 @@ MobileAPI_PeerReceive:: ; 75:5495
 	ld [wRam_C831], a
 	ld c, a
 	xor a, a
-	ld hl, $C82E
+	ld hl, wRam_C82E
 	ld [hli], a
 	ld [hl], a
 	pop hl
@@ -3419,7 +3419,7 @@ MobileAPI_TelephoneStatusAlias:: ; 75:5549
 	nop
 
 MobileAPI_TelephoneStatus:: ; 75:554A
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	bit 0, [hl]
 	jp nz, MobileSDK_ErrBusy
 	ld a, [wMobileSDK_State]
@@ -3462,7 +3462,7 @@ MobileAPI_TelephoneStatus:: ; 75:554A
 
 MobileAPI_Abort:: ; 75:559F
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios)
-	ld hl, $C709
+	ld hl, wMobileSDK_State
 	ld a, [hl]
 	cp a, $01
 	jp z, MobileSDK_ErrBusy
@@ -3489,7 +3489,7 @@ MobileAPI_Abort:: ; 75:559F
 	di
 	ld [hli], a
 	ld [hl], b
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	res 5, [hl]
 	res 0, [hl]
 	xor a, a
@@ -3499,7 +3499,7 @@ MobileAPI_Abort:: ; 75:559F
 	ld [wMobileSDK_PhaseCode], a
 	call Mobile_ResetReceivePacketBuffer
 	call MobileSDK_RearmResponseTimeout
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	set 0, [hl]
 	ei
 	ret
@@ -3540,7 +3540,7 @@ Label_75_55ED::
 
 .l5607 ; 75:5607
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	set 0, [hl]
 	ld a, $01
 	ld [wMobileSDK_Substep], a
@@ -3559,7 +3559,7 @@ Label_75_55ED::
 
 MobileAPI_Cancel:: ; 75:561D
 Label_75_561D::
-	ld hl, $C709
+	ld hl, wMobileSDK_State
 	ld a, [hl]
 	dec a
 	jp z, MobileSDK_ErrBusy
@@ -3583,13 +3583,13 @@ MobileAPI_Reset:: ; 75:563A
 	cp a, $01
 	jp nz, MobileSDK_ErrBusy
 	xor a, a
-	ld hl, $C9E4
+	ld hl, wMobileSDK_PacketBuffer
 	ld [hli], a
 	ld [hl], a
 	call MobileSDK_StopLink
 	call Mobile_ResetReceivePacketBuffer
 	ld bc, $0450
-	ld hl, $C6A0
+	ld hl, wMobileSDK_SerialPhase
 .loop ; 75:5654
 	xor a, a
 	ld [hli], a
@@ -3603,7 +3603,7 @@ MobileSDK_RearmResponseTimeout:: ; 75:565C
 Function_75_565C::
 	; [PROBABLE] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 3;
 	; entered by call from 75:55DC (PROBABLE code)
-	ld hl, $C6B5
+	ld hl, wMobileSDK_TimeoutCounter
 	xor a, a
 	ld [hli], a
 	ld a, [wMobileSDK_TimeoutReload]
@@ -3621,7 +3621,7 @@ MobileSDK_RxStoreByte:: ; 75:5671
 Function_75_5671::
 	; [CONFIRMED] 37 insn(s); 37 executed (in up to 18/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld hl, $C8D7
+	ld hl, wMobileSDK_ReceivedBytes
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
@@ -3633,12 +3633,12 @@ Function_75_5671::
 	bit 0, a
 	jr z, .l5689
 .l5686 ; 75:5686
-	ld hl, $C8CC
+	ld hl, wMobileSDK_ReceivePacketBufferAlt
 .l5689 ; 75:5689
 	add hl, de
 	ld [hl], c
 	inc de
-	ld hl, $C8D7
+	ld hl, wMobileSDK_ReceivedBytes
 	ld a, e
 	ld [hli], a
 	ld [hl], d
@@ -3655,7 +3655,7 @@ MobileSDK_StopLink:: ; 75:5693
 	ld [wMobileSDK_State], a
 	ld a, [wMobileSDK_PacketBuffer]
 	ld c, a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	ld a, [hl]
 	or a, c
 	ld [hl], a
@@ -3674,13 +3674,13 @@ MobileSDK_FinishWithError:: ; 75:56B1
 MobileSDK_SetFinalState:: ; 75:56B6
 	; [CONFIRMED] 67 insn(s); 67 executed (in up to 18/18 scenarios)
 	ld [wMobileSDK_PacketBuffer + 1], a
-	ld hl, $C6B5
+	ld hl, wMobileSDK_TimeoutCounter
 	xor a, a
 	ld [hli], a
 	ld a, [wMobileSDK_TimeoutReload]
 	rla
 	ld [hl], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	ld a, [hl]
 	ld b, a
 	and a, $0D
@@ -3696,7 +3696,7 @@ MobileSDK_SerialReceive:: ; 75:56D2
 	jp nc, MobileSDK_SerialRxExit
 	rrca
 	jp c, MobileSDK_RxStageDispatch
-	ld hl, $C6A1
+	ld hl, wMobileSDK_TxRemaining
 	ld a, [hli]
 	ld d, [hl]
 	ld e, a
@@ -3710,7 +3710,7 @@ MobileSDK_SerialReceive:: ; 75:56D2
 	ld a, d
 	or a, a
 	jp nz, MobileSDK_SerialRxExit
-	ld hl, $C6A8
+	ld hl, wMobileSDK_AckBytes
 	add hl, de
 	ldh a, [rSB]
 	ld [hl], a
@@ -3761,15 +3761,15 @@ MobileSDK_SerialReceive:: ; 75:56D2
 	ld a, $03
 	ld [wMobileSDK_SerialPhase], a
 	xor a, a
-	ld hl, $C6AA
+	ld hl, wMobileSDK_RxIndex
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld hl, $C6BF
+	ld hl, wMobileSDK_TimeoutReload
 	ld a, [hli]
 	ld b, a
 	ld a, [hl]
-	ld hl, $C6B5
+	ld hl, wMobileSDK_TimeoutCounter
 	ld [hli], a
 	ld a, b
 	ld [hli], a
@@ -3809,7 +3809,7 @@ MobileSDK_SerialReceive:: ; 75:56D2
 
 MobileSDK_SerialReceive_LoadShortTimeout:: ; 75:5789
 Label_75_5789::
-	ld hl, $C6C0
+	ld hl, wMobileSDK_TimeoutReload + $01
 	ld a, [hld]
 	ld e, a
 	ld a, [hl]
@@ -3823,7 +3823,7 @@ Label_75_5789::
 	jr nz, .loop
 	or a, a
 	inc a
-	ld hl, $C6B6
+	ld hl, wMobileSDK_TimeoutCounter + $01
 	ld [hld], a
 	ld [hl], e
 	jp MobileSDK_SerialRxExit
@@ -3848,31 +3848,31 @@ MobileSDK_TxRetryLimit3:: ; 75:57AD
 	ld b, $03
 
 MobileSDK_TxRetryCheck:: ; 75:57AF
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	set 3, [hl]
-	ld hl, $C6B5
+	ld hl, wMobileSDK_TimeoutCounter
 	ld a, [wMobileSDK_TimeoutReload + 1]
 	ld [hli], a
 	ld a, [wMobileSDK_TimeoutReload]
 	ld [hl], a
 	xor a, a
 	ld [wMobileSDK_SerialPhase], a
-	ld hl, $C6B9
+	ld hl, wMobileSDK_RetryCount
 	inc [hl]
 	ld a, b
 	cp a, [hl]
 	jp nc, MobileSDK_SerialRxExit
 	xor a, a
-	ld hl, $C6A6
+	ld hl, wRam_C6A6
 	ld [hli], a
 	ld [wMobileSDK_SerialPhase], a
 	ld a, $06
 	ld [hl], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	set 1, [hl]
 	ld a, $15
 	ld [wMobileSDK_ErrorCode], a
-	ld hl, $C6B0
+	ld hl, wMobileSDK_ErrorInfo
 	ld a, [wMobileSDK_AckBytes]
 	and a, $0F
 	cp a, $02
@@ -3895,7 +3895,7 @@ MobileSDK_RxStageDispatch:: ; 75:57F4
 	jp z, MobileSDK_RxDataByte
 	jp MobileSDK_RxTrailerByte
 .l5804 ; 75:5804
-	ld hl, $C6AA
+	ld hl, wMobileSDK_RxIndex
 	ld a, [hl]
 	or a, a
 	jr nz, .l580F
@@ -3930,9 +3930,9 @@ MobileSDK_RxStageDispatch:: ; 75:57F4
 	ld [wMobileSDK_ErrorCode], a
 	xor a, a
 	ld [wMobileSDK_SerialPhase], a
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	res 0, [hl]
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	ld a, [hl]
 	set 1, a
 	and a, $0F
@@ -3948,7 +3948,7 @@ MobileSDK_RxStageDispatch:: ; 75:57F4
 	xor a, a
 	ld [hli], a
 	inc [hl]
-	ld hl, $C6B2
+	ld hl, wMobileSDK_PacketChecksum
 	ld b, $03
 .l585A ; 75:585A
 	ld [hli], a
@@ -4003,7 +4003,7 @@ MobileSDK_RxTrailerByte:: ; 75:589E
 	ldh a, [rSB]
 	ld c, a
 	call MobileSDK_RxStoreByte
-	ld hl, $C6AA
+	ld hl, wMobileSDK_RxIndex
 	inc [hl]
 	ld a, $02
 	cp a, [hl]
@@ -4032,7 +4032,7 @@ MobileSDK_RxTrailerByte:: ; 75:589E
 	inc [hl]
 
 MobileSDK_SerialRxExit:: ; 75:58C8
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	res 1, [hl]
 	ret
 
@@ -4040,7 +4040,7 @@ MobileSDK_RxAddChecksum:: ; 75:58CE
 	ldh a, [rSB]
 	ld c, a
 	ld b, $00
-	ld hl, $C6B2
+	ld hl, wMobileSDK_PacketChecksum
 	ld a, [hli]
 	ld l, [hl]
 	ld h, a
@@ -4050,7 +4050,7 @@ MobileSDK_RxAddChecksum:: ; 75:58CE
 	ld a, l
 	ld [wMobileSDK_PacketChecksum + 1], a
 	call MobileSDK_RxStoreByte
-	ld hl, $C6AA
+	ld hl, wMobileSDK_RxIndex
 	inc [hl]
 	ret
 
@@ -4059,7 +4059,7 @@ MobileSDK_TimerTick:: ; 75:58EA
 	cp a, $04
 	call z, MobileSDK_RxPacketComplete
 	call MobileSDK_StateDispatch
-	ld hl, $C6A7
+	ld hl, wMobileSDK_PhaseCode
 	ld a, [hli]
 	cp a, $02
 	jr c, .l5933
@@ -4074,7 +4074,7 @@ MobileSDK_TimerTick:: ; 75:58EA
 	or a, b
 	jr nz, .l5933
 .l590A ; 75:590A
-	ld hl, $C6A7
+	ld hl, wMobileSDK_PhaseCode
 	ld a, $06
 	cp a, [hl]
 	jp z, MobileSDK_TimerTickExit
@@ -4083,9 +4083,9 @@ MobileSDK_TimerTick:: ; 75:58EA
 	ld [wMobileSDK_ErrorCode], a
 	xor a, a
 	ld [wMobileSDK_SerialPhase], a
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	res 0, [hl]
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	ld a, [hl]
 	and a, $0F
 	or a, $02
@@ -4102,13 +4102,13 @@ MobileSDK_TimerTick:: ; 75:58EA
 	ld a, [wMobileSDK_PhaseCode]
 	cp a, $01
 	jp c, MobileSDK_TimerTickExit
-	ld hl, $C6B5
+	ld hl, wMobileSDK_TimeoutCounter
 	dec [hl]
 	jp nz, MobileSDK_TimerTickExit
 	inc hl
 	dec [hl]
 	jp nz, MobileSDK_TimerTickExit
-	ld hl, $C6A7
+	ld hl, wMobileSDK_PhaseCode
 	ld a, [wMobileFlags]
 	bit 3, a
 	jp nz, MobileSDK_ResendPacket
@@ -4149,7 +4149,7 @@ MobileSDK_TimerTick:: ; 75:58EA
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 17/18 scenarios)
 	xor a, a
 	ld [hl], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 0, [hl]
 	call MobileSDK_StopLink
 	jp MobileSDK_TimerTickExit
@@ -4193,15 +4193,15 @@ MobileSDK_TimerTick:: ; 75:58EA
 	ld d, $00
 	ld a, $95
 	ld [wMobileSDK_SendCommandID], a
-	ld hl, $C9E4
+	ld hl, wMobileSDK_PacketBuffer
 	ld b, $05
 	call Mobile_PacketSendBytes
 	jp MobileSDK_TimerTickExit
 .l59E9 ; 75:59E9
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	set 1, [hl]
 	res 0, [hl]
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	res 7, [hl]
 	ld a, $21
 	ld [wMobileSDK_ErrorCode], a
@@ -4226,10 +4226,10 @@ MobileSDK_ResendPacket:: ; 75:5A17
 	ld a, [hl]
 	cp a, $06
 	jp z, MobileSDK_TimerTickExit
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	res 3, [hl]
 	res 0, [hl]
-	ld hl, $C6BA
+	ld hl, wMobileSDK_ResendSize
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
@@ -4243,7 +4243,7 @@ MobileSDK_ResendPacket:: ; 75:5A17
 
 MobileSDK_TickReceiving:: ; 75:5A36
 	; [CONFIRMED] 17 insn(s); 17 executed (in up to 17/18 scenarios)
-	ld hl, $C6AB
+	ld hl, wMobileSDK_RxStage
 	ld a, [hld]
 	or a, a
 	jr z, MobileSDK_TickResponseWait
@@ -4263,7 +4263,7 @@ MobileSDK_TxByte:: ; 75:5A4C
 	jp MobileSDK_StartTransfer
 
 MobileSDK_TickResponseWait:: ; 75:5A51
-	ld hl, $C6B5
+	ld hl, wMobileSDK_TimeoutCounter
 	dec [hl]
 	jr nz, MobileSDK_TxIdlePollByte
 
@@ -4276,11 +4276,11 @@ MobileSDK_TickResponseWait:: ; 75:5A51
 	inc hl
 	dec [hl]
 	jr z, .l5A6D
-	ld hl, $C6BF
+	ld hl, wMobileSDK_TimeoutReload
 	ld a, [hli]
 	ld d, a
 	ld a, [hl]
-	ld hl, $C6B5
+	ld hl, wMobileSDK_TimeoutCounter
 	ld [hli], a
 	ld a, d
 	ld [hli], a
@@ -4293,15 +4293,15 @@ MobileSDK_TickResponseWait:: ; 75:5A51
 	ld a, [wMobileSDK_State]
 	cp a, $2A
 	jr z, .l5AB2
-	ld hl, $C84F
+	ld hl, wRam_C84F
 	inc [hl]
 	ld a, [hl]
 	cp a, $01
 	jr z, .l5A9B
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	res 5, [hl]
 	res 0, [hl]
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 4, [hl]
 	ld a, $00
 	ld [wMobileSDK_PrevPhaseCode], a
@@ -4323,7 +4323,7 @@ MobileSDK_TickResponseWait:: ; 75:5A51
 .l5AB2 ; 75:5AB2
 	call Mobile_ResetReceivePacketBuffer
 	call MobileSDK_RearmResponseTimeout
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	res 5, [hl]
 	res 0, [hl]
 	ei
@@ -4345,7 +4345,7 @@ MobileSDK_TxAckRxPacket:: ; 75:5AC7
 .l5AD5 ; 75:5AD5
 	; [PROBABLE] 42 insn(s) reached by static flow only; seeds: exec x42; min discovery hops 1;
 	; entered by jrcc from 75:5ACB (executed)
-	ld hl, $C6B9
+	ld hl, wMobileSDK_RetryCount
 	inc [hl]
 	ld a, $03
 	cp a, [hl]
@@ -4354,11 +4354,11 @@ MobileSDK_TxAckRxPacket:: ; 75:5AC7
 	ld a, $03
 	ld [wMobileSDK_SerialPhase], a
 	xor a, a
-	ld hl, $C6AA
+	ld hl, wMobileSDK_RxIndex
 	ld [hli], a
 	ld [hli], a
 	ld [hl], a
-	ld hl, $C6B5
+	ld hl, wMobileSDK_TimeoutCounter
 	ld a, [wMobileSDK_TimeoutReload + 1]
 	ld [hli], a
 	ld a, [wMobileSDK_TimeoutReload]
@@ -4374,13 +4374,13 @@ MobileSDK_TxAckRxPacket:: ; 75:5AC7
 	ld [hli], a
 	jr .l5B26
 .l5B08 ; 75:5B08
-	ld hl, $C6A6
+	ld hl, wRam_C6A6
 	xor a, a
 	ld [hli], a
 	ld [wMobileSDK_SerialPhase], a
 	ld a, $06
 	ld [hl], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	set 1, [hl]
 	ld a, $15
 	ld [wMobileSDK_ErrorCode], a
@@ -4394,7 +4394,7 @@ MobileSDK_TxAckRxPacket:: ; 75:5AC7
 
 MobileSDK_TxNextByte:: ; 75:5B2B
 	; [CONFIRMED] 135 insn(s); 135 executed (in up to 18/18 scenarios)
-	ld hl, $C6A3
+	ld hl, wMobileSDK_TxPointer
 	ld a, [hli]
 	ld e, a
 	ld d, [hl]
@@ -4406,7 +4406,7 @@ MobileSDK_TxNextByte:: ; 75:5B2B
 	ld [hl], e
 
 MobileSDK_StartTransfer:: ; 75:5B38
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	set 1, [hl]
 	ld a, $03
 	ldh [rSC], a
@@ -4420,11 +4420,11 @@ MobileSDK_RxPacketComplete:: ; 75:5B46
 	xor a, a
 	ld [wMobileSDK_RetryCount], a
 	ld [wMobileSDK_RxStage], a
-	ld hl, $C84E
+	ld hl, wRam_C84E
 	ld [hli], a
 	ld [hl], a
 	ld [wMobileSDK_SerialPhase], a
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	res 5, [hl]
 	bit 0, [hl]
 	jr z, .l5B63
@@ -4471,7 +4471,7 @@ MobileSDK_RxPacketComplete:: ; 75:5B46
 	jp z, MobileSDK_RxDialReply
 	cp a, $92
 	jp z, MobileSDK_RxDialReply
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	res 0, [hl]
 	ld a, $0A
 	ld [wMobileSDK_PhaseCode], a
@@ -4494,26 +4494,26 @@ MobileSDK_RxIspLogoutReply:: ; 75:5BD3
 MobileSDK_RxIspLoginReply:: ; 75:5BD9
 	ld a, $04
 	ld [wMobileSDK_PhaseCode], a
-	ld de, $C6C2
-	ld hl, $C8DD
+	ld de, wMobileSDK_IspIpAddress
+	ld hl, wMobileSDK_ReceivePacketBuffer + $04
 	ld b, $04
 	jp MobileSDK_CopyBytes
 
 MobileSDK_RxHangUpReply:: ; 75:5BE9
 	ld a, $02
 	ld [wMobileSDK_PhaseCode], a
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	res 4, [hl]
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 4, [hl]
 	ret
 
 MobileSDK_RxReadConfigReply:: ; 75:5BF9
-	ld hl, $C6C8
+	ld hl, wMobileSDK_DestPointer
 	ld a, [hli]
 	ld d, [hl]
 	ld e, a
-	ld hl, $C8DC
+	ld hl, wMobileSDK_ReceivePacketBuffer + $03
 	ld a, [hli]
 	dec a
 	ld b, a
@@ -4524,8 +4524,8 @@ MobileSDK_RxReadConfigReply:: ; 75:5BF9
 	ret
 
 MobileSDK_RxWriteConfigReply:: ; 75:5C0F
-	ld de, $C711
-	ld hl, $C8DD
+	ld de, wRam_C711
+	ld hl, wMobileSDK_ReceivePacketBuffer + $04
 	ld b, $02
 	call MobileSDK_CopyBytes
 	ld a, $02
@@ -4541,7 +4541,7 @@ MobileSDK_RxTransferData:: ; 75:5C20
 	ld a, [wMobileSDK_ResultPointer]
 	or a, b
 	jp z, MobileSDK_RxFinish
-	ld hl, $C6CA
+	ld hl, wMobileSDK_DestRemaining
 	ld a, [hli]
 	ld e, a
 	ld d, [hl]
@@ -4573,9 +4573,9 @@ MobileSDK_RxTransferData:: ; 75:5C20
 	cp a, b
 	jr c, .l5C77
 .loop ; 75:5C64
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	set 3, [hl]
-	ld hl, $C830
+	ld hl, wRam_C830
 	ld a, $01
 	ld [hli], a
 	ld a, [wMobileSDK_ReceivePacketBuffer + 3]
@@ -4583,14 +4583,14 @@ MobileSDK_RxTransferData:: ; 75:5C20
 	ld [hl], a
 	jp MobileSDK_RxFinish
 .l5C77 ; 75:5C77
-	ld hl, $C82F
+	ld hl, wRam_C82F
 	or a, a
 	jr z, .l5C8C
 	ld [hld], a
 	ld [hl], b
 	ld b, a
-	ld hl, $C8DF
-	ld de, $C71F
+	ld hl, wMobileSDK_ReceivePacketBuffer + $06
+	ld de, wMobileSDK_Window
 	call MobileSDK_CopyBytes
 	jp MobileSDK_RxFinish
 .l5C8C ; 75:5C8C
@@ -4601,7 +4601,7 @@ MobileSDK_RxTransferData:: ; 75:5C20
 .l5C92 ; 75:5C92
 	cp a, $FF
 	jr nz, .l5CA6
-	ld hl, $C82E
+	ld hl, wRam_C82E
 	ld a, [hli]
 	ld b, a
 	ld a, [wMobileSDK_ReceivePacketBuffer + 3]
@@ -4612,7 +4612,7 @@ MobileSDK_RxTransferData:: ; 75:5C20
 	xor a, a
 	ld [hl], a
 .l5CA6 ; 75:5CA6
-	ld hl, $C82E
+	ld hl, wRam_C82E
 	ld a, [hli]
 	sub a, [hl]
 	ld b, a
@@ -4626,11 +4626,11 @@ MobileSDK_RxTransferData:: ; 75:5C20
 	ld h, $00
 	add a, l
 	ld [wRam_C82F], a
-	ld de, $C71F
+	ld de, wMobileSDK_Window
 	add hl, de
 	ld e, l
 	ld d, h
-	ld hl, $C8DE
+	ld hl, wMobileSDK_ReceivePacketBuffer + $05
 	call MobileSDK_CopyBytes
 	jr MobileSDK_RxFinish
 
@@ -4666,13 +4666,13 @@ MobileSDK_RxCopyToDest:: ; 75:5CCB
 	ld e, a
 	ld a, [wMobileSDK_DestPointer + 1]
 	ld d, a
-	ld hl, $C8DE
+	ld hl, wMobileSDK_ReceivePacketBuffer + $05
 	ld a, c
 	or a, a
 	jr z, MobileSDK_RxFinish
 	ld b, a
 	call MobileSDK_CopyBytes
-	ld hl, $C6C8
+	ld hl, wMobileSDK_DestPointer
 	ld a, e
 	ld [hli], a
 	ld [hl], d
@@ -4693,9 +4693,9 @@ MobileSDK_RxFinish:: ; 75:5D10
 	; fall-through of the jrcc at 75:5D15 (executed)
 	bit 7, a
 	jr z, .l5D25
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	res 7, [hl]
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 0, [hl]
 
 .l5D25 ; 75:5D25
@@ -4709,7 +4709,7 @@ MobileSDK_RxDnsReply:: ; 75:5D2C
 	ld e, a
 	ld a, [wMobileSDK_DestPointer + 1]
 	ld d, a
-	ld hl, $C8DD
+	ld hl, wMobileSDK_ReceivePacketBuffer + $04
 	ld b, $04
 	call MobileSDK_CopyBytes
 	ld a, $04
@@ -4717,7 +4717,7 @@ MobileSDK_RxDnsReply:: ; 75:5D2C
 	ret
 
 Mobile_ParseResponse_BeginSession:: ; 75:5D42
-	ld de, $C8DC
+	ld de, wMobileSDK_ReceivePacketBuffer + $03
 	ld hl, $6001
 	ld b, $09
 .loop ; 75:5D4A
@@ -4753,12 +4753,12 @@ MobileSDK_RxDialReply:: ; 75:5D6E
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 7/18 scenarios)
 	ld a, $03
 	ld [wMobileSDK_PhaseCode], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	set 4, [hl]
 	ret
 
 MobileSDK_RxTelephoneStatus:: ; 75:5D79
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	bit 0, [hl]
 	jr z, .l5DC9
 	ld a, [wMobileSDK_PrevPhaseCode]
@@ -4776,7 +4776,7 @@ MobileSDK_RxTelephoneStatus:: ; 75:5D79
 
 	; [PROBABLE] 22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 0;
 	; fall-through of the retcc at 75:5D98 (executed)
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 4, [hl]
 	set 1, [hl]
 	ld a, [wMobileFlags]
@@ -4788,7 +4788,7 @@ MobileSDK_RxTelephoneStatus:: ; 75:5D79
 	ld [wMobileSDK_PhaseCode], a
 	ret
 .l5DB2 ; 75:5DB2
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 4, [hl]
 	set 1, [hl]
 	ld a, $11
@@ -4803,7 +4803,7 @@ MobileSDK_RxTelephoneStatus:: ; 75:5D79
 
 .l5DC9 ; 75:5DC9
 	; [CONFIRMED] 19 insn(s); 19 executed (in up to 7/18 scenarios)
-	ld hl, $C70D
+	ld hl, wMobileSDK_ResultPointer
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -4904,7 +4904,7 @@ Mobile_GetErrorCode:: ; 75:5E34
 	jr z, .l5E51
 	ld a, $06
 	ld [wMobileSDK_PhaseCode], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	set 1, [hl]
 .l5E51 ; 75:5E51
 	ld a, [wMobileFlags]
@@ -4913,12 +4913,12 @@ Mobile_GetErrorCode:: ; 75:5E34
 
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 75:5E56 (executed)
-	ld hl, $C8D0
+	ld hl, wMobileSDK_ReceivePacketBufferAlt + $04
 	jr .l5E60
 
 .l5E5D ; 75:5E5D
 	; [CONFIRMED] 23 insn(s); 23 executed (in up to 1/18 scenarios)
-	ld hl, $C8DD
+	ld hl, wMobileSDK_ReceivePacketBuffer + $04
 .l5E60 ; 75:5E60
 	ld a, [hli]
 	ld [wMobileSDK_ErrorCommand], a
@@ -4979,7 +4979,7 @@ Mobile_GetErrorCode:: ; 75:5E34
 	ld a, $12
 	jr .loop
 .l5EAA ; 75:5EAA
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 1, [hl]
 	res 4, [hl]
 	ld a, $02
@@ -5000,7 +5000,7 @@ Mobile_GetErrorCode:: ; 75:5E34
 	jr z, .l5EDC
 	res 4, a
 	ld [wMobileFlags], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	ld a, [hl]
 	and a, $0F
 	or a, $02
@@ -5014,7 +5014,7 @@ Mobile_GetErrorCode:: ; 75:5E34
 .l5EDC ; 75:5EDC
 	; [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 5E91-5EF2 by apply_coverage
 	; --split [executed in 6 scenarios]
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	res 5, [hl]
 	ld a, $24
 	jr .loop
@@ -5031,7 +5031,7 @@ Mobile_GetErrorCode:: ; 75:5E34
 .l5EED ; 75:5EED
 	; [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 5E91-5EF2 by apply_coverage
 	; --split [executed in 4 scenarios]
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 1, [hl]
 
 .l5EF2 ; 75:5EF2
@@ -5042,7 +5042,7 @@ Mobile_GetErrorCode:: ; 75:5E34
 .l5EF6 ; 75:5EF6
 	; [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1;
 	; entered by jrcc from 75:5E86 (executed)
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 1, [hl]
 	ld a, $03
 	ld [wMobileSDK_PhaseCode], a
@@ -5100,7 +5100,7 @@ Mobile_PacketSendBytes:: ; 75:5F10
 	ld [wMobileSDK_TxPointer], a
 	ld a, h
 	ld [wMobileSDK_TxPointer + 1], a
-	ld hl, $C6A7
+	ld hl, wMobileSDK_PhaseCode
 	ld a, [hl]
 	cp a, b
 	jr z, .skip
@@ -5112,7 +5112,7 @@ Mobile_PacketSendBytes:: ; 75:5F10
 	ld [wRam_C6A6], a
 	ld a, $01
 	ld [wMobileSDK_SerialPhase], a
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	set 5, [hl]
 	ei
 	ret
@@ -5164,7 +5164,7 @@ Function_75_5F96::
 	ret
 
 MobileSDK_PollAdapterStatus:: ; 75:5FA0
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	bit 0, [hl]
 	ret nz
 	ld a, [wMobileSDK_PhaseCode]
@@ -5199,7 +5199,7 @@ MobileSDK_PollAdapterStatus:: ; 75:5FA0
 .l5FD6 ; 75:5FD6
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 4/18 scenarios)
 	ld b, $05
-	ld hl, $C6BE
+	ld hl, wMobileSDK_SendCommandID
 	ld a, [hl]
 	cp a, $FF
 	jr z, .l5FF2
@@ -5208,7 +5208,7 @@ MobileSDK_PollAdapterStatus:: ; 75:5FA0
 	ld hl, MobilePacket_TelephoneStatus
 	ld de, $000A
 	call Mobile_PacketSendBytes
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	set 0, [hl]
 	ret
 
@@ -5409,7 +5409,7 @@ Function_75_6149::
 	ld h, [hl]
 	ld l, a
 	push hl
-	ld hl, $C70A
+	ld hl, wMobileSDK_Substep
 	inc [hl]
 	ld a, [hl]
 	ret
@@ -5421,7 +5421,7 @@ Function_75_6149::
 	ld a, [wMobileSDK_Substep]
 	cp a, $01
 	jr nz, .loop
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 1, [hl]
 	jr .l6170
 
@@ -5437,7 +5437,7 @@ Function_75_6149::
 
 	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
 	; fall-through of the jrcc at 75:619E (executed) [executed in 3 scenarios]
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 1, [hl]
 	jr .l6170
 
@@ -5508,7 +5508,7 @@ MobileState_IdentifyAdapter:: ; 75:61F1
 
 .l620B ; 75:620B
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 17/18 scenarios)
-	ld hl, $C70D
+	ld hl, wMobileSDK_ResultPointer
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -5553,7 +5553,7 @@ MobileState_IdentifyAdapter:: ; 75:61F1
 
 .l6235 ; 75:6235
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 17/18 scenarios)
-	ld hl, $C710
+	ld hl, wMobileSDK_DialAdapterByte
 	ld [hld], a
 	ld [hl], c
 	ld a, [wMobileSDK_State]
@@ -5583,7 +5583,7 @@ MobileSDK_EnterErrorState:: ; 75:6258
 	ld [wMobileSDK_ErrorCode], a
 	ld a, $05
 	ld [wMobileSDK_State], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	ret
 
 Mobile_EndSession:: ; 75:6264
@@ -5618,7 +5618,7 @@ MobileState_ConnectIsp:: ; 75:626C
 	ld hl, MobilePacket_ReadConfigurationDataPart1
 	jp Mobile_PacketSendReadConfig
 .l628D ; 75:628D
-	ld hl, $C6C8
+	ld hl, wMobileSDK_DestPointer
 	ld a, $7F
 	ld [hli], a
 	ld a, $C7
@@ -5626,7 +5626,7 @@ MobileState_ConnectIsp:: ; 75:626C
 	ld hl, $604D
 	jp Mobile_PacketSendReadConfig
 .l629C ; 75:629C
-	ld hl, $C71F
+	ld hl, wMobileSDK_Window
 	ld a, [hli]
 	cp a, $4D
 	jr nz, .l62FB
@@ -5653,15 +5653,15 @@ MobileState_ConnectIsp:: ; 75:626C
 	ld a, [wMobileSDK_DnsServers]
 	or a, a
 	jr z, .l62CB
-	ld de, $C6DD
+	ld de, wMobileSDK_SmtpServerName
 	jr .l62D6
 .l62CB ; 75:62CB
-	ld hl, $C723
-	ld de, $C6D5
+	ld hl, wMobileSDK_Window + $04
+	ld de, wMobileSDK_DnsServers
 	ld b, $08
 	call MobileSDK_CopyBytes
 .l62D6 ; 75:62D6
-	ld hl, $C769
+	ld hl, wMobileSDK_Window + $4A
 	ld b, $2C
 	call MobileSDK_CopyBytes
 	ld a, [wMobileSDK_PacketBuffer + 50]
@@ -5669,11 +5669,11 @@ MobileState_ConnectIsp:: ; 75:626C
 	sub a, $08
 	ld e, a
 	ld d, $00
-	ld hl, $CA17
+	ld hl, wMobileSDK_PacketBuffer + $33
 	add hl, de
 	ld e, l
 	ld d, h
-	ld hl, $C6D5
+	ld hl, wMobileSDK_DnsServers
 	ld b, $08
 	call MobileSDK_CopyBytes
 	ld b, c
@@ -5721,13 +5721,13 @@ MobileState_ConnectIsp:: ; 75:626C
 	ld a, [wMobileSDK_PacketBuffer + 50]
 	add a, $0A
 	ld e, a
-	ld hl, $CA11
+	ld hl, wMobileSDK_PacketBuffer + $2D
 	ld a, $A1
 	jp Mobile_PacketSendExpect
 .l633B ; 75:633B
 	ld a, $02
 	ld [wMobileSDK_State], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 0, [hl]
 	set 5, [hl]
 	ret
@@ -5745,12 +5745,12 @@ Mobile_PacketSendBuffered:: ; 75:6351
 	add a, $0A
 	ld e, a
 	ld d, $00
-	ld hl, $C9E4
+	ld hl, wMobileSDK_PacketBuffer
 	ld a, b
 	jp Mobile_PacketSendExpect
 
 Mobile_PacketSendTelephoneStatus:: ; 75:6360
-	ld hl, $C70D
+	ld hl, wMobileSDK_ResultPointer
 	ld a, $1F
 	ld [hli], a
 	ld a, $C7
@@ -5793,11 +5793,11 @@ MobileState_Dial:: ; 75:6379
 	ld [wMobileSDK_Substep], a
 	jp Mobile_EndSession
 .l63A1 ; 75:63A1
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	set 4, [hl]
 	ld a, $02
 	ld [wMobileSDK_State], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 0, [hl]
 	set 6, [hl]
 	ret
@@ -5822,11 +5822,11 @@ MobileState_WaitForCall:: ; 75:63BC
 	ld a, [wMobileSDK_ReceivePacketBuffer]
 	cp a, $EE
 	jr z, .loop
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	set 4, [hl]
 	ld a, $02
 	ld [wMobileSDK_State], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 0, [hl]
 	set 6, [hl]
 	set 5, [hl]
@@ -5856,9 +5856,9 @@ MobileState_Disconnect:: ; 75:63E7
 	; [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0;
 	; fall-through of the jrcc at 75:6402 (executed) | upgraded by classifier 6: all 4 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
-	ld hl, $C70A
+	ld hl, wMobileSDK_Substep
 	dec [hl]
-	ld hl, $CA04
+	ld hl, wMobileSDK_PacketBuffer + $20
 	jp Mobile_PacketSendTransferData
 
 .l640E ; 75:640E
@@ -5877,9 +5877,9 @@ MobileState_Disconnect:: ; 75:63E7
 .l6424 ; 75:6424
 	jp Mobile_EndSession
 .l6427 ; 75:6427
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	res 4, [hl]
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	ld a, [hl]
 	and a, $0F
 	ld [hl], a
@@ -5888,7 +5888,7 @@ MobileState_Disconnect:: ; 75:63E7
 Mobile_CloseTcpConnection:: ; 75:6436
 	ld a, $03
 	ld [wMobileSDK_PhaseCode], a
-	ld de, $C9E4
+	ld de, wMobileSDK_PacketBuffer
 	ld hl, $607E
 	ld b, $06
 	call MobileSDK_CopyBytes
@@ -5898,7 +5898,7 @@ Mobile_CloseTcpConnection:: ; 75:6436
 	inc b
 	call Mobile_PacketBuildFooter
 	ld a, $A4
-	ld hl, $C9E4
+	ld hl, wMobileSDK_PacketBuffer
 	jp Mobile_PacketSendExpect
 
 MobileState_OpenTcp:: ; 75:6457
@@ -5914,7 +5914,7 @@ MobileState_OpenTcp:: ; 75:6457
 .l645E ; 75:645E
 	; [CONFIRMED] 14 insn(s); 14 executed (in up to 6/18 scenarios)
 	ld b, $06
-	ld de, $CA40
+	ld de, wMobileSDK_PacketBuffer + $5C
 	call Mobile_PacketBuildFooter
 	ld a, [wMobileSDK_ResultPointer]
 	inc a
@@ -5923,7 +5923,7 @@ MobileState_OpenTcp:: ; 75:6457
 	ld a, [wMobileSDK_ReceivePacketBuffer + 128]
 	or a, a
 	jr z, .l6491
-	ld hl, $C832
+	ld hl, wRam_C832
 	ld a, [hli]
 	cp a, $99
 	jr nz, .l6486
@@ -5939,14 +5939,14 @@ MobileState_OpenTcp:: ; 75:6457
 
 .l6486 ; 75:6486
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 6/18 scenarios)
-	ld hl, $CA34
-	ld de, $C832
+	ld hl, wMobileSDK_PacketBuffer + $50
+	ld de, wRam_C832
 	ld b, $10
 	call MobileSDK_CopyBytes
 .l6491 ; 75:6491
 	ld a, $A3
 	ld de, $0010
-	ld hl, $CA34
+	ld hl, wMobileSDK_PacketBuffer + $50
 	jp Mobile_PacketSendExpect
 .l649C ; 75:649C
 	ld a, [wMobileSDK_ReceivePacketBuffer]
@@ -5966,16 +5966,16 @@ MobileState_OpenTcp:: ; 75:6457
 	ld a, [wMobileSDK_OpenTcpRetries]
 	cp a, $05
 	jr c, .l64BE
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	set 1, [hl]
 	ret
 .l64BE ; 75:64BE
 	dec [hl]
-	ld hl, $C84C
+	ld hl, wMobileSDK_OpenTcpRetries
 	inc [hl]
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	set 3, [hl]
-	ld hl, $C6B5
+	ld hl, wMobileSDK_TimeoutCounter
 	ld a, [wMobileSDK_TimeoutReload + 1]
 	ld [hli], a
 	ld a, [wMobileSDK_TimeoutReload]
@@ -6005,8 +6005,8 @@ Label_75_64E0::
 	jp z, MobileSDK_HttpOpened_Service3
 	call MobileSDK_HttpPrepareRequestPackets
 	push de
-	ld de, $C71F
-	ld hl, $C6C6
+	ld de, wMobileSDK_Window
+	ld hl, wMobileSDK_ResultBufferPtr
 	ld a, e
 	ld [hli], a
 	ld a, d
@@ -6051,7 +6051,7 @@ Function_75_653A::
 	; [CONFIRMED] 21 insn(s); 21 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld b, $FA
-	ld hl, $C71F
+	ld hl, wMobileSDK_Window
 	xor a, a
 .loop ; 75:6540
 	ld [hli], a
@@ -6070,7 +6070,7 @@ Function_75_653A::
 	ld b, c
 	call Mobile_PacketBuildFooter
 	ld a, $95
-	ld hl, $C9F0
+	ld hl, wMobileSDK_PacketBuffer + $0C
 	jp Mobile_PacketSendExpect
 
 MobileSDK_HttpOpened_Service3:: ; 75:656C
@@ -6125,13 +6125,13 @@ MobileSDK_HttpOpened:: ; 75:659D
 
 MobileSDK_HttpOpened_SetBusyTail:: ; 75:65C5
 Label_75_65C5::
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	set 0, [hl]
 	res 2, [hl]
 	ret
 
 MobileSDK_HttpPrepareRequestPackets:: ; 75:65CD
-	ld hl, $C711
+	ld hl, wRam_C711
 	ld a, [hli]
 	ld c, a
 	ld a, [hli]
@@ -6143,7 +6143,7 @@ MobileSDK_HttpPrepareRequestPackets:: ; 75:65CD
 	and a, $01
 	xor a, $01
 	ld [wMobileSDK_Substep], a
-	ld hl, $C6C6
+	ld hl, wMobileSDK_ResultBufferPtr
 	ld a, e
 	ld [hli], a
 	ld a, d
@@ -6163,7 +6163,7 @@ MobileSDK_HttpPrepareRequestPackets:: ; 75:65CD
 	xor a, a
 	ld [hli], a
 	ld [hli], a
-	ld de, $C9E4
+	ld de, wMobileSDK_PacketBuffer
 	ld hl, MobilePacket_TransferData
 	ld b, $06
 	call MobileSDK_CopyBytes
@@ -6172,7 +6172,7 @@ MobileSDK_HttpPrepareRequestPackets:: ; 75:65CD
 	inc de
 	ld b, $01
 	call Mobile_PacketBuildFooter
-	ld de, $C9F0
+	ld de, wMobileSDK_PacketBuffer + $0C
 	ld hl, MobilePacket_TransferData
 	ld b, $05
 	call MobileSDK_CopyBytes
@@ -6190,7 +6190,7 @@ MobileSDK_SmtpOpened:: ; 75:6622
 	ld [wMobileSDK_Substep], a
 	ld a, [wMobileSDK_ConnectionId]
 	ld [wMobileSDK_PacketBuffer + 118], a
-	ld de, $CA4A
+	ld de, wMobileSDK_PacketBuffer + $66
 	ld [de], a
 	inc de
 	ld b, $01
@@ -6198,14 +6198,14 @@ MobileSDK_SmtpOpened:: ; 75:6622
 	call MobileSDK_ResetRxWindowAndResultPtr
 	ld a, [wMobileSDK_PacketBuffer + 117]
 	ld b, a
-	ld de, $CA5A
+	ld de, wMobileSDK_PacketBuffer + $76
 	add a, e
 	ld e, a
 	ld a, $00
 	adc a, d
 	ld d, a
 	call Mobile_PacketBuildFooter
-	ld hl, $CA44
+	ld hl, wMobileSDK_PacketBuffer + $60
 	call Mobile_PacketSendTransferData
 	ld a, $11
 	ld [wMobileSDK_State], a
@@ -6213,7 +6213,7 @@ MobileSDK_SmtpOpened:: ; 75:6622
 MobileSDK_SmtpOpened_SetBusyTail:: ; 75:6654
 Label_75_6654::
 	; [CONFIRMED] 61 insn(s); 61 executed (in up to 4/18 scenarios)
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	set 0, [hl]
 	ret
 
@@ -6223,7 +6223,7 @@ MobileSDK_Pop3Opened:: ; 75:665A
 	ld a, [wMobileSDK_ConnectionId]
 	ld [wMobileSDK_PacketBuffer + 102], a
 	ld [wMobileSDK_PacketBuffer + 166], a
-	ld de, $CA6A
+	ld de, wMobileSDK_PacketBuffer + $86
 	ld [de], a
 	inc de
 	ld b, $01
@@ -6231,7 +6231,7 @@ MobileSDK_Pop3Opened:: ; 75:665A
 	call MobileSDK_ResetRxWindowAndResultPtr
 	ld a, [wMobileSDK_PacketBuffer + 165]
 	ld b, a
-	ld de, $CA8A
+	ld de, wMobileSDK_PacketBuffer + $A6
 	add a, e
 	ld e, a
 	ld a, $00
@@ -6240,14 +6240,14 @@ MobileSDK_Pop3Opened:: ; 75:665A
 	call Mobile_PacketBuildFooter
 	ld a, [wMobileSDK_PacketBuffer + 101]
 	ld b, a
-	ld de, $CA4A
+	ld de, wMobileSDK_PacketBuffer + $66
 	add a, e
 	ld e, a
 	ld a, $00
 	adc a, d
 	ld d, a
 	call Mobile_PacketBuildFooter
-	ld hl, $CA64
+	ld hl, wMobileSDK_PacketBuffer + $80
 	call Mobile_PacketSendTransferData
 	ld a, $12
 	ld [wMobileSDK_State], a
@@ -6323,7 +6323,7 @@ MobileSDK_HttpContentLengthLine:: ; 75:66FC
 	ld [wMobileSDK_Substep], a
 	ld hl, MobileStr_ContentLength
 	call MobileSDK_CopyString
-	ld hl, $C842
+	ld hl, wMobileSDK_ContentLengthDigits
 	ld b, $05
 .loop ; 75:670B
 	ld a, [hl]
@@ -6358,7 +6358,7 @@ MobileState_ReturnToConnected:: ; 75:672B
 	ld [wMobileSDK_ConnectionId], a
 	ld a, $02
 	ld [wMobileSDK_State], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 0, [hl]
 	ret
 
@@ -6371,7 +6371,7 @@ Function_75_673A::
 
 MobileSDK_ResetRxWindow:: ; 75:673F
 	push hl
-	ld hl, $C6CB
+	ld hl, wMobileSDK_DestRemaining + $01
 	xor a, a
 	ld [hld], a
 	ld a, $FF
@@ -6412,7 +6412,7 @@ MobileState_SmtpGreeting:: ; 75:6750
 .l6768 ; 75:6768
 	call MobileSDK_ReplyLineComplete
 	jr nz, .l6790
-	ld hl, $C71F
+	ld hl, wMobileSDK_Window
 	call MobileSDK_ParseReplyCode
 	ld a, $02
 	cp a, d
@@ -6426,22 +6426,22 @@ MobileState_SmtpGreeting:: ; 75:6750
 	ld e, a
 	ld d, $00
 	ld a, $95
-	ld hl, $CA54
+	ld hl, wMobileSDK_PacketBuffer + $70
 	jp Mobile_PacketSendExpect
 .l6790 ; 75:6790
 	ld a, [wMobileSDK_ReceivePacketBuffer]
 	cp a, $9F
 	jr z, MobileSDK_SmtpConnectionLost
-	ld hl, $C70A
+	ld hl, wMobileSDK_Substep
 	dec [hl]
 	xor a, a
 	ld [wMobileSDK_ReceivePacketBuffer + 3], a
-	ld hl, $CA44
+	ld hl, wMobileSDK_PacketBuffer + $60
 	jp Mobile_PacketSendTransferData
 .l67A5 ; 75:67A5
 	call MobileSDK_ReplyLineComplete
 	jr nz, .l6790
-	ld hl, $C71F
+	ld hl, wMobileSDK_Window
 	call MobileSDK_ParseReplyCode
 	ld a, $02
 	cp a, d
@@ -6451,7 +6451,7 @@ MobileState_SmtpGreeting:: ; 75:6750
 	jr nz, .l67CD
 	ld a, $03
 	ld [wMobileSDK_State], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	ld a, [hl]
 	and a, $D6
 	or a, $80
@@ -6460,7 +6460,7 @@ MobileState_SmtpGreeting:: ; 75:6750
 	ld [wRam_C827], a
 	ret
 .l67CD ; 75:67CD
-	ld hl, $C6B0
+	ld hl, wMobileSDK_ErrorInfo
 	ld a, e
 	ld [hli], a
 	ld [hl], d
@@ -6479,7 +6479,7 @@ Function_75_67DB::
 MobileSDK_SmtpConnectionLost:: ; 75:67E3
 	; [PROBABLE] 11 insn(s) reached by static flow only; seeds: mobile x11; min discovery hops 2;
 	; entered by jrcc from 75:6795 (PROBABLE code)
-	ld hl, $C6B0
+	ld hl, wMobileSDK_ErrorInfo
 	xor a, a
 	ld [hli], a
 	ld [hl], a
@@ -6496,7 +6496,7 @@ Function_75_67F7::
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call MobileSDK_TrackReplyTail
-	ld hl, $C6D1
+	ld hl, wMobileSDK_ReplyTail + $03
 
 MobileSDK_ReplyLineComplete_TestCrLf:: ; 75:67FD
 Label_75_67FD::
@@ -6515,7 +6515,7 @@ MobileSDK_ReplyEndOfMultiline:: ; 75:6809
 	; entered by call from 75:4BA0 (PROBABLE code) | upgraded by classifier 6: all 12 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	call MobileSDK_TrackReplyTail
-	ld hl, $C6CE
+	ld hl, wMobileSDK_ReplyTail
 	ld a, [hli]
 	cp a, $0D
 	ret nz
@@ -6533,7 +6533,7 @@ Function_75_681D::
 	; executed call/far call
 	push bc
 	push de
-	ld hl, $C8DC
+	ld hl, wMobileSDK_ReceivePacketBuffer + $03
 	ld a, [hl]
 	dec a
 	jr z, .l6843
@@ -6548,11 +6548,11 @@ Function_75_681D::
 	ld b, a
 	ld e, c
 	ld d, $00
-	ld hl, $C6CE
+	ld hl, wMobileSDK_ReplyTail
 	add hl, de
-	ld de, $C6CE
+	ld de, wMobileSDK_ReplyTail
 	call MobileSDK_CopyBytes
-	ld hl, $C8DE
+	ld hl, wMobileSDK_ReceivePacketBuffer + $05
 	ld b, c
 
 .loop ; 75:6840
@@ -6566,10 +6566,10 @@ Function_75_681D::
 	sub a, $05
 	ld c, a
 	ld b, $00
-	ld hl, $C8DE
+	ld hl, wMobileSDK_ReceivePacketBuffer + $05
 	add hl, bc
 	ld b, $05
-	ld de, $C6CE
+	ld de, wMobileSDK_ReplyTail
 	jr .loop
 
 MobileState_SmtpRecipients:: ; 75:6856
@@ -6589,7 +6589,7 @@ MobileState_SmtpRecipients:: ; 75:6856
 	; --split [executed in 1 scenarios]
 	call MobileSDK_ReplyLineComplete
 	jr nz, .l68C1
-	ld hl, $C71F
+	ld hl, wMobileSDK_Window
 	ld a, [hli]
 	cp a, $32
 	jr nz, MobileSDK_ServerReplyError
@@ -6597,7 +6597,7 @@ MobileState_SmtpRecipients:: ; 75:6856
 	cp a, $35
 	jr nz, MobileSDK_ServerReplyError
 	call MobileSDK_ResetRxWindowAndResultPtr
-	ld hl, $C71B
+	ld hl, wMobileSDK_DataPointer
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -6605,10 +6605,10 @@ MobileState_SmtpRecipients:: ; 75:6856
 	or a, a
 	jr z, .l68B3
 	push hl
-	ld hl, $C70A
+	ld hl, wMobileSDK_Substep
 	dec [hl]
 	ld bc, $0001
-	ld de, $C9F7
+	ld de, wMobileSDK_PacketBuffer + $13
 	ld hl, $60AB
 	call MobileSDK_CopyString
 	pop hl
@@ -6627,7 +6627,7 @@ MobileState_SmtpRecipients:: ; 75:6856
 	ld [wMobileSDK_PacketBuffer + 17], a
 	ld b, c
 	call Mobile_PacketBuildFooter
-	ld hl, $C9F0
+	ld hl, wMobileSDK_PacketBuffer + $0C
 	ld d, $00
 	ld e, c
 	ld a, $95
@@ -6643,15 +6643,15 @@ MobileState_SmtpRecipients:: ; 75:6856
 	ld a, [wMobileSDK_ReceivePacketBuffer]
 	cp a, $9F
 	jp z, MobileSDK_SmtpConnectionLost
-	ld hl, $C70A
+	ld hl, wMobileSDK_Substep
 	dec [hl]
-	ld hl, $C9E4
+	ld hl, wMobileSDK_PacketBuffer
 	jp Mobile_PacketSendTransferData
 
 MobileSDK_ServerReplyError:: ; 75:68D3
-	ld hl, $C71F
+	ld hl, wMobileSDK_Window
 	call MobileSDK_ParseReplyCode
-	ld hl, $C6B0
+	ld hl, wMobileSDK_ErrorInfo
 	ld a, e
 	ld [hli], a
 	ld [hl], d
@@ -6665,7 +6665,7 @@ MobileSDK_ClearBusyAndPending:: ; 75:68E9
 Function_75_68E9::
 	; [CONFIRMED] 4 insn(s); 4 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 0, [hl]
 	res 2, [hl]
 	ret
@@ -6698,12 +6698,12 @@ MobileState_SmtpData:: ; 75:68F1
 	jr nz, .l6917
 	ld a, $03
 	ld [wMobileSDK_State], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 0, [hl]
 	ret
 .l6917 ; 75:6917
 	call MobileSDK_ResetRxWindowAndResultPtr
-	ld de, $C9E9
+	ld de, wMobileSDK_PacketBuffer + $05
 	ld a, $01
 	ld [de], a
 	inc de
@@ -6717,7 +6717,7 @@ MobileState_SmtpData:: ; 75:68F1
 	ld a, [wMobileSDK_ReceivePacketBuffer]
 	cp a, $9F
 	jp z, MobileSDK_SmtpConnectionLost
-	ld hl, $C71F
+	ld hl, wMobileSDK_Window
 	call MobileSDK_ParseReplyCode
 	ld a, d
 	cp a, $02
@@ -6732,15 +6732,15 @@ MobileState_SmtpData:: ; 75:68F1
 	ld [wRam_C827], a
 	ret
 .l6953 ; 75:6953
-	ld hl, $C70A
+	ld hl, wMobileSDK_Substep
 	dec [hl]
 .l6957 ; 75:6957
-	ld hl, $C9E4
+	ld hl, wMobileSDK_PacketBuffer
 	jp Mobile_PacketSendTransferData
 .l695D ; 75:695D
 	call MobileSDK_ReplyLineComplete
 	jr nz, .l6953
-	ld hl, $C71F
+	ld hl, wMobileSDK_Window
 	call MobileSDK_ParseReplyCode
 	ld a, d
 	cp a, $03
@@ -6786,9 +6786,9 @@ MobileState_SessionQuit:: ; 75:697F
 	; [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0;
 	; fall-through of the jrcc at 75:6990 (executed) | upgraded by classifier 6: all 4 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
-	ld hl, $C70A
+	ld hl, wMobileSDK_Substep
 	dec [hl]
-	ld hl, $CA04
+	ld hl, wMobileSDK_PacketBuffer + $20
 	jp Mobile_PacketSendTransferData
 
 .l699C ; 75:699C
@@ -6799,7 +6799,7 @@ MobileState_SessionQuit:: ; 75:697F
 	ld [wMobileSDK_ConnectionFlag], a
 	ld a, $02
 	ld [wMobileSDK_State], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 0, [hl]
 	res 7, [hl]
 	set 5, [hl]
@@ -6836,7 +6836,7 @@ MobileState_Pop3Login:: ; 75:69B2
 	ld e, a
 	ld d, $00
 	ld a, $95
-	ld hl, $CA44
+	ld hl, wMobileSDK_PacketBuffer + $60
 	jp Mobile_PacketSendExpect
 .l69DF ; 75:69DF
 	ld d, a
@@ -6850,7 +6850,7 @@ MobileState_Pop3Login:: ; 75:69B2
 	add a, $0A
 	ld e, a
 	ld a, $95
-	ld hl, $CA84
+	ld hl, wMobileSDK_PacketBuffer + $A0
 	jp Mobile_PacketSendExpect
 .l69FD ; 75:69FD
 	call MobileSDK_ReplyLineComplete
@@ -6871,9 +6871,9 @@ MobileState_Pop3Login:: ; 75:69B2
 	ld a, [wMobileSDK_ReceivePacketBuffer]
 	cp a, $9F
 	jr z, MobileSDK_Pop3ConnectionLost
-	ld hl, $C70A
+	ld hl, wMobileSDK_Substep
 	dec [hl]
-	ld hl, $CA64
+	ld hl, wMobileSDK_PacketBuffer + $80
 	jp Mobile_PacketSendTransferData
 .l6A25 ; 75:6A25
 	ld a, [wMobileSDK_Substep]
@@ -6891,10 +6891,10 @@ MobileState_Pop3Login:: ; 75:69B2
 	inc de
 
 MobileSDK_Pop3ReplyError:: ; 75:6A42
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	set 1, [hl]
 	res 0, [hl]
-	ld hl, $C6AF
+	ld hl, wMobileSDK_ErrorCode
 	ld a, $31
 	ld [hli], a
 	ld a, e
@@ -6907,7 +6907,7 @@ MobileSDK_Pop3ReplyError:: ; 75:6A42
 MobileSDK_Pop3ConnectionLost:: ; 75:6A58
 	; [PROBABLE] 11 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 6A14-6A6C by apply_coverage --split
-	ld hl, $C6B0
+	ld hl, wMobileSDK_ErrorInfo
 	xor a, a
 	ld [hli], a
 	ld [hl], a
@@ -6932,7 +6932,7 @@ MobileState_Pop3Stat:: ; 75:6A6C
 	; [CONFIRMED] 35 insn(s); 35 executed (in up to 2/18 scenarios)
 	call MobileSDK_ReplyLineComplete
 	jr nz, .l6AAB
-	ld hl, $C71F
+	ld hl, wMobileSDK_Window
 	ld a, [hli]
 	cp a, $2B
 	jr nz, .l6ABC
@@ -6951,7 +6951,7 @@ MobileState_Pop3Stat:: ; 75:6A6C
 	ld a, d
 	ld [bc], a
 	call MobileSDK_ParseDecimal
-	ld hl, $C70D
+	ld hl, wMobileSDK_ResultPointer
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -6973,9 +6973,9 @@ MobileState_Pop3Stat:: ; 75:6A6C
 	ld a, [wMobileSDK_ReceivePacketBuffer]
 	cp a, $9F
 	jr z, MobileSDK_Pop3ConnectionLost
-	ld hl, $C70A
+	ld hl, wMobileSDK_Substep
 	dec [hl]
-	ld hl, $CA64
+	ld hl, wMobileSDK_PacketBuffer + $80
 	jp Mobile_PacketSendTransferData
 .l6ABC ; 75:6ABC
 	ld de, $0005
@@ -7052,7 +7052,7 @@ MobileSDK_ParseReplyCode:: ; 75:6B27
 	ld a, [wRam_C713]
 	push af
 	ld bc, $0300
-	ld de, $C711
+	ld de, wRam_C711
 	call MobileSDK_ParseReplyCodeDigit
 	call nc, MobileSDK_ParseReplyCodeDigit
 	call nc, MobileSDK_ParseReplyCodeDigit
@@ -7065,7 +7065,7 @@ MobileSDK_ParseReplyCode:: ; 75:6B27
 	jr nz, .loop
 .l6B4C ; 75:6B4C
 	push hl
-	ld hl, $C711
+	ld hl, wRam_C711
 	ld de, $0000
 	ld a, b
 	or a, a
@@ -7128,7 +7128,7 @@ MobileState_Pop3List:: ; 75:6B87
 .l6B8B ; 75:6B8B
 	call MobileSDK_ReplyLineComplete
 	jr nz, .l6BB9
-	ld hl, $C71F
+	ld hl, wMobileSDK_Window
 	ld a, [hli]
 	cp a, $2B
 	jr nz, .l6BCB
@@ -7141,7 +7141,7 @@ MobileState_Pop3List:: ; 75:6B87
 	cp a, $20
 	jr nz, .l6B9D
 	call MobileSDK_ParseDecimal
-	ld hl, $C70D
+	ld hl, wMobileSDK_ResultPointer
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -7158,9 +7158,9 @@ MobileState_Pop3List:: ; 75:6B87
 	ld a, [wMobileSDK_ReceivePacketBuffer]
 	cp a, $9F
 	jp z, MobileSDK_Pop3ConnectionLost
-	ld hl, $C70A
+	ld hl, wMobileSDK_Substep
 	dec [hl]
-	ld hl, $CA64
+	ld hl, wMobileSDK_PacketBuffer + $80
 	jp Mobile_PacketSendTransferData
 .l6BCB ; 75:6BCB
 	ld de, $0004
@@ -7175,7 +7175,7 @@ MobileState_Pop3Dele:: ; 75:6BD1
 .l6BD5 ; 75:6BD5
 	call MobileSDK_ReplyLineComplete
 	jr nz, .l6BEA
-	ld hl, $C71F
+	ld hl, wMobileSDK_Window
 	ld a, [hli]
 	cp a, $2B
 	jr nz, .l6BFC
@@ -7186,9 +7186,9 @@ MobileState_Pop3Dele:: ; 75:6BD1
 	ld a, [wMobileSDK_ReceivePacketBuffer]
 	cp a, $9F
 	jp z, MobileSDK_Pop3ConnectionLost
-	ld hl, $C70A
+	ld hl, wMobileSDK_Substep
 	dec [hl]
-	ld hl, $CA64
+	ld hl, wMobileSDK_PacketBuffer + $80
 	jp Mobile_PacketSendTransferData
 
 .l6BFC ; 75:6BFC
@@ -7225,9 +7225,9 @@ MobileState_Pop3Retrieve:: ; 75:6C02
 	bit 2, a
 	jp z, .l6D05
 .l6C21 ; 75:6C21
-	ld hl, $C70A
+	ld hl, wMobileSDK_Substep
 	inc [hl]
-	ld hl, $C71F
+	ld hl, wMobileSDK_Window
 	ld a, [hli]
 	cp a, $2B
 	jp nz, .l6D36
@@ -7238,7 +7238,7 @@ MobileState_Pop3Retrieve:: ; 75:6C02
 	cp a, $0A
 	jr nz, .loop
 	push hl
-	ld hl, $C82C
+	ld hl, wRam_C82C
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
@@ -7258,7 +7258,7 @@ MobileState_Pop3Retrieve:: ; 75:6C02
 	; 6B85-6D49 by apply_coverage --split
 	cp a, $FF
 	jr nz, .l6C6C
-	ld hl, $C82E
+	ld hl, wRam_C82E
 	ld a, [hli]
 	ld c, a
 	inc hl
@@ -7267,7 +7267,7 @@ MobileState_Pop3Retrieve:: ; 75:6C02
 	ld [hli], a
 	ld a, [wMobileSDK_DestRemaining]
 	ld [hl], a
-	ld hl, $C6C6
+	ld hl, wMobileSDK_ResultBufferPtr
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -7310,7 +7310,7 @@ MobileState_Pop3Retrieve:: ; 75:6C02
 	call MobileSDK_CopyBytes
 	pop af
 	push de
-	ld hl, $C8DD
+	ld hl, wMobileSDK_ReceivePacketBuffer + $04
 	ld e, a
 	ld d, $00
 	add hl, de
@@ -7320,7 +7320,7 @@ MobileState_Pop3Retrieve:: ; 75:6C02
 	ld a, [wMobileSDK_ReceivePacketBuffer + 1]
 	sub a, c
 	ld [wRam_C831], a
-	ld hl, $C6C6
+	ld hl, wMobileSDK_ResultBufferPtr
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -7344,7 +7344,7 @@ MobileState_Pop3Retrieve:: ; 75:6C02
 	ld a, [wMobileSDK_ReceivePacketBuffer + 3]
 	sub a, c
 	push de
-	ld hl, $C8DD
+	ld hl, wMobileSDK_ReceivePacketBuffer + $04
 	ld e, a
 	ld d, $00
 	add hl, de
@@ -7357,12 +7357,12 @@ MobileState_Pop3Retrieve:: ; 75:6C02
 	ld a, [wMobileSDK_ReceivedLength + 1]
 	adc a, $00
 	ld [wMobileSDK_ReceivedLength + 1], a
-	ld hl, $C6C8
+	ld hl, wMobileSDK_DestPointer
 	ld a, e
 	ld [hli], a
 	ld a, d
 	ld [hl], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 2, [hl]
 .l6CF1 ; 75:6CF1
 	ld a, [wTimerEnable]
@@ -7384,9 +7384,9 @@ MobileState_Pop3Retrieve:: ; 75:6C02
 	ld a, [wMobileSDK_ReceivePacketBuffer]
 	cp a, $9F
 	jp z, MobileSDK_Pop3ConnectionLost
-	ld hl, $C70A
+	ld hl, wMobileSDK_Substep
 	dec [hl]
-	ld hl, $CA64
+	ld hl, wMobileSDK_PacketBuffer + $80
 	jp Mobile_PacketSendTransferData
 .l6D17 ; 75:6D17
 	ld a, $04
@@ -7398,11 +7398,11 @@ MobileState_Pop3Retrieve:: ; 75:6C02
 	ld a, [wMobileSDK_ResultPointer + 1]
 	or a, l
 	ret z
-	ld hl, $C6C6
+	ld hl, wMobileSDK_ResultBufferPtr
 	ld a, [hli]
 	ld e, a
 	ld d, [hl]
-	ld hl, $C6CC
+	ld hl, wMobileSDK_ReceivedLength
 	ld b, $02
 	jp MobileSDK_CopyBytes
 .l6D36 ; 75:6D36
@@ -7458,7 +7458,7 @@ Label_75_6D63::
 .l6D76 ; 75:6D76
 	; [PROBABLE] 19 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 6D63-6D9D by apply_coverage --split
-	ld hl, $C828
+	ld hl, wMobileSDK_HttpStatus
 	ld a, [hli]
 	cp a, $01
 	jr nz, .l6D98
@@ -7466,23 +7466,23 @@ Label_75_6D63::
 	cp a, $04
 	jr nz, .l6D98
 .l6D83 ; 75:6D83
-	ld hl, $C70D
+	ld hl, wMobileSDK_ResultPointer
 	xor a, a
 	ld [hli], a
 	ld [hl], a
-	ld hl, $C6CA
+	ld hl, wMobileSDK_DestRemaining
 	ld [hli], a
 	ld [hl], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 2, [hl]
-	ld hl, $C70A
+	ld hl, wMobileSDK_Substep
 	dec [hl]
 	dec [hl]
 
 .l6D98 ; 75:6D98
 	; [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 6D63-6D9D by apply_coverage
 	; --split [executed in 2 scenarios]
-	ld hl, $C70A
+	ld hl, wMobileSDK_Substep
 	dec [hl]
 	ret
 
@@ -7490,7 +7490,7 @@ MobileState_HttpExchange_Substep1_SendPostBody:: ; 75:6D9D
 Label_75_6D9D::
 	; [CONFIRMED] 44 insn(s); 44 executed (in up to 2/18 scenarios)
 	call MobileSDK_HttpSendBodyChunk
-	ld de, $C9E4
+	ld de, wMobileSDK_PacketBuffer
 	ld hl, MobilePacket_TransferData
 	ld b, $06
 	call MobileSDK_CopyBytes
@@ -7512,10 +7512,10 @@ Label_75_6DB5::
 	ld a, [wMobileSDK_ReceivePacketBuffer]
 	cp a, $9F
 	jr z, .l6DD7
-	ld hl, $C70A
+	ld hl, wMobileSDK_Substep
 	dec [hl]
 	ld de, $000B
-	ld hl, $C9E4
+	ld hl, wMobileSDK_PacketBuffer
 	ld b, $05
 	jp Mobile_PacketSendBytes
 .l6DD7 ; 75:6DD7
@@ -7535,7 +7535,7 @@ Label_75_6DB5::
 	cp a, $20
 	jr nz, .l6E08
 .l6DF7 ; 75:6DF7
-	ld hl, $C828
+	ld hl, wMobileSDK_HttpStatus
 	ld a, [hli]
 	cp a, $01
 	jr nz, .l6E08
@@ -7568,7 +7568,7 @@ Label_75_6DB5::
 	ret z
 	cp a, $1F
 	jr nz, .l6E37
-	ld hl, $C828
+	ld hl, wMobileSDK_HttpStatus
 	ld a, [hli]
 	cp a, $00
 	ret nz
@@ -7587,27 +7587,27 @@ Label_75_6DB5::
 
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 75:6E39 (executed)
-	ld hl, $C717
+	ld hl, wRam_C717
 	jr .l6E43
 
 .l6E40 ; 75:6E40
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 2/18 scenarios)
-	ld hl, $C6C6
+	ld hl, wMobileSDK_ResultBufferPtr
 .l6E43 ; 75:6E43
 	ld a, [hli]
 	ld e, a
 	ld d, [hl]
-	ld hl, $C6CC
+	ld hl, wMobileSDK_ReceivedLength
 	ld b, $02
 	jp MobileSDK_CopyBytes
 
 .l6E4E ; 75:6E4E
 	; [PROBABLE] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1;
 	; entered by jrcc from 75:6DE6 (executed)
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	set 1, [hl]
 	res 0, [hl]
-	ld de, $C828
+	ld de, wMobileSDK_HttpStatus
 	ld a, $24
 	jr MobileState_HttpExchange_LatchError
 
@@ -7634,7 +7634,7 @@ Label_75_6E5C::
 
 MobileState_HttpExchange_StatusErrorExit:: ; 75:6E82
 Label_75_6E82::
-	ld hl, $C829
+	ld hl, wMobileSDK_HttpStatus + $01
 	ld a, [hld]
 	cp a, $03
 	jr nz, MobileState_HttpExchange_SetStatusErrorCode
@@ -7651,10 +7651,10 @@ Label_75_6E82::
 MobileState_HttpExchange_SetStatusErrorCode:: ; 75:6E95
 Label_75_6E95::
 	; [CONFIRMED] 8 insn(s); 8 executed (in up to 1/18 scenarios)
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	set 1, [hl]
 	res 0, [hl]
-	ld de, $C828
+	ld de, wMobileSDK_HttpStatus
 	ld a, [wRam_C82D]
 	cp a, $01
 	ld a, $32
@@ -7670,7 +7670,7 @@ MobileState_HttpExchange_LatchError:: ; 75:6EAB
 Label_75_6EAB::
 	; [CONFIRMED] 16 insn(s); 16 executed (in up to 1/18 scenarios)
 	ld [wMobileSDK_ErrorCode], a
-	ld hl, $C6B0
+	ld hl, wMobileSDK_ErrorInfo
 	ld a, [de]
 	inc de
 	ld [hli], a
@@ -7682,7 +7682,7 @@ Label_75_6EAB::
 
 MobileState_HttpExchange_Substep3_States1F_20:: ; 75:6EBC
 Label_75_6EBC::
-	ld hl, $C828
+	ld hl, wMobileSDK_HttpStatus
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -7724,13 +7724,13 @@ Label_75_6EBC::
 	ld [wMobileSDK_State], a
 	xor a, a
 	ld [wMobileSDK_ConnectionFlag], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 0, [hl]
 	ret
 
 MobileState_HttpExchange_Substep3_States21_22:: ; 75:6F00
 Label_75_6F00::
-	ld hl, $C828
+	ld hl, wMobileSDK_HttpStatus
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -7757,7 +7757,7 @@ Label_75_6F11::
 	ld a, [wMobileSDK_Substep]
 	cp a, $07
 	jr z, MobileState_HttpExchange_Finish
-	ld hl, $C82C
+	ld hl, wRam_C82C
 	inc [hl]
 	ld a, $0F
 	ld [wMobileSDK_State], a
@@ -7769,7 +7769,7 @@ Label_75_6F11::
 	ld [wMobileSDK_HttpParseState], a
 	ld a, $A3
 	ld de, $0010
-	ld hl, $C832
+	ld hl, wRam_C832
 	jp Mobile_PacketSendExpect
 
 MobileState_HttpExchange_Finish:: ; 75:6F53
@@ -7783,7 +7783,7 @@ Label_75_6F53::
 	; fall-through of the jrcc at 75:6F58 (executed)
 	ld a, $02
 	ld [wRam_C82D], a
-	ld hl, $C82A
+	ld hl, wMobileSDK_GbStatus
 	dec a
 	ld [hli], a
 	ld [hl], a
@@ -7795,17 +7795,17 @@ Label_75_6F53::
 	ld [wMobileSDK_State], a
 	xor a, a
 	ld [wMobileSDK_ConnectionFlag], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 0, [hl]
 	ret
 
 MobileSDK_HttpParseResponseHeaders:: ; 75:6F77
-	ld hl, $C826
+	ld hl, wMobileSDK_HttpParseState
 	ld a, [hl]
 	or a, a
 	jr nz, .l6FA0
 	inc [hl]
-	ld hl, $C71F
+	ld hl, wMobileSDK_Window
 	ld de, $0008
 	add hl, de
 .loop ; 75:6F86
@@ -7821,12 +7821,12 @@ MobileSDK_HttpParseResponseHeaders:: ; 75:6F77
 	ld a, d
 	ld [wRam_C82D], a
 	call MobileSDK_ParseReplyCode
-	ld hl, $C828
+	ld hl, wMobileSDK_HttpStatus
 	ld a, e
 	ld [hli], a
 	ld [hl], d
 .l6FA0 ; 75:6FA0
-	ld hl, $C71F
+	ld hl, wMobileSDK_Window
 	ld a, [wMobileSDK_ReceivedLength]
 	ld b, a
 	or a, a
@@ -7834,7 +7834,7 @@ MobileSDK_HttpParseResponseHeaders:: ; 75:6F77
 
 	; [PROBABLE] 7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 0;
 	; fall-through of the jrcc at 75:6FA8 (executed)
-	ld hl, $C828
+	ld hl, wMobileSDK_HttpStatus
 	ld a, $00
 	ld [hli], a
 	ld [hl], a
@@ -7861,7 +7861,7 @@ MobileSDK_HttpParseResponseHeaders:: ; 75:6F77
 	cp a, [hl]
 	jr nz, .l6FB7
 .l6FDA ; 75:6FDA
-	ld hl, $C82D
+	ld hl, wRam_C82D
 	res 2, [hl]
 	jr .l7006
 
@@ -7877,7 +7877,7 @@ MobileSDK_HttpParseResponseHeaders:: ; 75:6F77
 	jr nz, .l7001
 	ld a, $01
 	ld [wRam_C82D], a
-	ld hl, $C828
+	ld hl, wMobileSDK_HttpStatus
 	xor a, a
 	ld [hli], a
 	ld [hl], a
@@ -7886,7 +7886,7 @@ MobileSDK_HttpParseResponseHeaders:: ; 75:6F77
 	ld a, $0A
 	ld [wMobileSDK_Window + 249], a
 .l7001 ; 75:7001
-	ld hl, $C82D
+	ld hl, wRam_C82D
 	set 2, [hl]
 
 .l7006 ; 75:7006
@@ -7955,7 +7955,7 @@ Function_75_7040::
 	; [CONFIRMED] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1;
 	; entered by jrcc from 75:7047 (executed) [executed in 1 scenarios]
 	call MobileSDK_ParseReplyCode
-	ld hl, $C82A
+	ld hl, wMobileSDK_GbStatus
 	ld a, e
 	ld [hli], a
 	ld [hl], d
@@ -7993,10 +7993,10 @@ Function_75_705E::
 	jr nz, .loop
 	pop hl
 	ld c, b
-	ld de, $C9F6
+	ld de, wMobileSDK_PacketBuffer + $12
 	call MobileSDK_CopyBytes
-	ld hl, $C9F6
-	ld de, $C852
+	ld hl, wMobileSDK_PacketBuffer + $12
+	ld de, wRam_C852
 	ld b, c
 	call MobileSDK_CopyBytes
 	xor a, a
@@ -8020,7 +8020,7 @@ Function_75_708C::
 	; [CONFIRMED] 7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 1;
 	; entered by jrcc from 75:7093 (executed) [executed in 1 scenarios]
 	push bc
-	ld de, $C852
+	ld de, wRam_C852
 	ld b, $30
 	call MobileSDK_AuthBuildResponse
 	pop bc
@@ -8031,7 +8031,7 @@ MobileSDK_HttpFindHeaderEnd:: ; 75:70A3
 Function_75_70A3::
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld hl, $C71F
+	ld hl, wMobileSDK_Window
 	ld a, [wMobileSDK_ReceivedLength]
 	ld b, a
 .loop ; 75:70AA
@@ -8044,7 +8044,7 @@ Function_75_70A3::
 	cp a, $9F
 	jp nz, MobileSDK_HttpFindHeaderEnd_JoinPartialLine
 	push hl
-	ld hl, $C82D
+	ld hl, wRam_C82D
 	res 2, [hl]
 	pop hl
 	jr MobileSDK_HttpBodyStart
@@ -8082,10 +8082,10 @@ MobileSDK_HttpBodyStart:: ; 75:70CD
 	; [PROBABLE] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 1;
 	; entered by jrcc from 75:70D8 (executed)
 	xor a, a
-	ld hl, $C70D
+	ld hl, wMobileSDK_ResultPointer
 	ld [hli], a
 	ld [hl], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 2, [hl]
 	ld a, [wMobileSDK_State]
 	cp a, $13
@@ -8151,7 +8151,7 @@ MobileSDK_HttpBodyStart:: ; 75:70CD
 	sub a, c
 	ld c, a
 	ld a, l
-	ld hl, $C8DD
+	ld hl, wMobileSDK_ReceivePacketBuffer + $04
 	add hl, bc
 	ld b, a
 	push de
@@ -8173,7 +8173,7 @@ MobileSDK_HttpBodyStart:: ; 75:70CD
 	; [CONFIRMED] 37 insn(s); 37 executed (in up to 2/18 scenarios)
 	pop de
 	push hl
-	ld hl, $C6CC
+	ld hl, wMobileSDK_ReceivedLength
 	ld a, [hl]
 	add a, b
 	ld [hli], a
@@ -8183,7 +8183,7 @@ MobileSDK_HttpBodyStart:: ; 75:70CD
 	ld c, b
 	pop hl
 	call MobileSDK_CopyBytes
-	ld hl, $C6CA
+	ld hl, wMobileSDK_DestRemaining
 	ld a, [hl]
 	sub a, c
 	ld [hli], a
@@ -8191,12 +8191,12 @@ MobileSDK_HttpBodyStart:: ; 75:70CD
 	sbc a, $00
 	ld [hl], a
 .l7188 ; 75:7188
-	ld hl, $C6C8
+	ld hl, wMobileSDK_DestPointer
 	ld a, e
 	ld [hli], a
 	ld a, d
 	ld [hl], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 2, [hl]
 	ld a, $01
 	ld [wMobileSDK_Substep], a
@@ -8256,7 +8256,7 @@ Function_75_71B8::
 MobileSDK_HttpStoreHeaderValue:: ; 75:71CF
 	pop hl
 	ld c, b
-	ld de, $C9F4
+	ld de, wMobileSDK_PacketBuffer + $10
 	ld a, b
 	ld [de], a
 	inc de
@@ -8273,8 +8273,8 @@ MobileSDK_HttpFindHeaderEnd_JoinPartialLine:: ; 75:71E1
 Label_75_71E1::
 	; [PROBABLE] 110 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 71C3-72A0 by apply_coverage --split
-	ld hl, $C818
-	ld de, $C71F
+	ld hl, wMobileSDK_Window + $F9
+	ld de, wMobileSDK_Window
 	ld b, $00
 	ld c, b
 	ld a, [hl]
@@ -8300,7 +8300,7 @@ Label_75_71E1::
 	sub a, b
 	ld c, a
 	ld b, $00
-	ld hl, $C8DD
+	ld hl, wMobileSDK_ReceivePacketBuffer + $04
 	add hl, bc
 	pop bc
 	call MobileSDK_CopyBytes
@@ -8309,14 +8309,14 @@ Label_75_71E1::
 	ld a, $FA
 	sub a, c
 	ld [wMobileSDK_DestRemaining], a
-	ld hl, $C6C8
+	ld hl, wMobileSDK_DestPointer
 	ld a, e
 	ld [hli], a
 	ld a, d
 	ld [hl], a
 	ld l, e
 	ld h, d
-	ld de, $C819
+	ld de, wMobileSDK_Window + $FA ; end of the window (one past its last byte)
 .l7227 ; 75:7227
 	xor a, a
 	ld [hli], a
@@ -8326,9 +8326,9 @@ Label_75_71E1::
 	ld a, d
 	cp a, h
 	jr nz, .l7227
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 2, [hl]
-	ld hl, $C70A
+	ld hl, wMobileSDK_Substep
 	dec [hl]
 	dec [hl]
 	ld a, $04
@@ -8358,14 +8358,14 @@ Label_75_723E::
 	ld a, [wRam_C82E]
 	ld [wRam_C830], a
 	ld b, a
-	ld de, $C71F
+	ld de, wMobileSDK_Window
 	call MobileSDK_CopyBytes
-	ld hl, $C6CC
+	ld hl, wMobileSDK_ReceivedLength
 	ld a, c
 	ld [hli], a
 	xor a, a
 	ld [hl], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	set 2, [hl]
 	ld a, $03
 	ld [wMobileSDK_Substep], a
@@ -8381,14 +8381,14 @@ Label_75_727D::
 	ld c, e
 	pop de
 	call MobileSDK_CopyBytes
-	ld hl, $C6CC
+	ld hl, wMobileSDK_ReceivedLength
 	ld a, c
 	add a, [hl]
 	ld [hli], a
 	ld a, $00
 	adc a, [hl]
 	ld [hl], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	set 2, [hl]
 	ld a, $03
 	ld [wMobileSDK_Substep], a
@@ -8507,7 +8507,7 @@ MobileSDK_HttpBuildRequest:: ; 75:734F
 	; entered by jpcc from 75:6D57 (executed)
 	ld a, $01
 	ld [wMobileSDK_Substep], a
-	ld de, $C9F6
+	ld de, wMobileSDK_PacketBuffer + $12
 	ld a, [wMobileSDK_ConnectionId]
 	ld [de], a
 	inc de
@@ -8533,7 +8533,7 @@ MobileSDK_HttpBuildRequest:: ; 75:734F
 	jr z, .l73A2
 	call MobileSDK_HttpAddContentLength
 .l7389 ; 75:7389
-	ld hl, $C852
+	ld hl, wRam_C852
 	call MobileSDK_CopyString
 	call MobileSDK_HttpUserAgentLine
 	ld a, c
@@ -8541,7 +8541,7 @@ MobileSDK_HttpBuildRequest:: ; 75:734F
 	ld b, c
 	call Mobile_PacketBuildFooter
 	ld a, $95
-	ld hl, $C9F0
+	ld hl, wMobileSDK_PacketBuffer + $0C
 	jp Mobile_PacketSendExpect
 .l73A2 ; 75:73A2
 	ld hl, MobileStr_ContentLengthZero
@@ -8562,7 +8562,7 @@ Label_75_73BE::
 	call MobileSDK_HttpSendBodyChunk
 	ld a, $01
 	ld [wMobileSDK_Substep], a
-	ld de, $C9E4
+	ld de, wMobileSDK_PacketBuffer
 	ld hl, MobilePacket_TransferData
 	ld b, $06
 	call MobileSDK_CopyBytes
@@ -8571,14 +8571,14 @@ Label_75_73BE::
 	inc de
 	ld b, $01
 	call Mobile_PacketBuildFooter
-	ld de, $C9F0
+	ld de, wMobileSDK_PacketBuffer + $0C
 	ld hl, MobilePacket_TransferData
 	ld b, $06
 	call MobileSDK_CopyBytes
 	ld a, [wMobileSDK_ConnectionFlag]
 	cp a, $03
 	jp nz, MobileSDK_HttpBuildRequest
-	ld de, $C9F6
+	ld de, wMobileSDK_PacketBuffer + $12
 	ld a, [wMobileSDK_ConnectionId]
 	ld [de], a
 	inc de
@@ -8593,7 +8593,7 @@ Label_75_73BE::
 	ld b, c
 	call Mobile_PacketBuildFooter
 	ld a, $95
-	ld hl, $C9F0
+	ld hl, wMobileSDK_PacketBuffer + $0C
 	jp Mobile_PacketSendExpect
 
 MobileSDK_HttpAddContentLength:: ; 75:7416
@@ -8613,8 +8613,8 @@ MobileSDK_HttpAddContentLength:: ; 75:7416
 MobileSDK_HttpBuildRedirectUrl:: ; 75:7436
 	; [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1;
 	; entered by call from 75:6E92 (PROBABLE code) [executed in 1 scenarios]
-	ld hl, $C9F4
-	ld de, $C71F
+	ld hl, wMobileSDK_PacketBuffer + $10
+	ld de, wMobileSDK_Window
 	ld a, [hli]
 	ld b, a
 	call MobileSDK_CopyBytes
@@ -8626,7 +8626,7 @@ MobileSDK_HttpSendBodyChunk:: ; 75:7444
 Function_75_7444::
 	; [CONFIRMED] 23 insn(s); 23 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld hl, $C71E
+	ld hl, wMobileSDK_DataLength + $01
 	ld a, [hld]
 	ld b, a
 	ld a, [hld]
@@ -8644,7 +8644,7 @@ Function_75_7444::
 .l7458 ; 75:7458
 	ld e, l
 	ld d, h
-	ld hl, $C71E
+	ld hl, wMobileSDK_DataLength + $01
 	ld a, d
 	ld [hld], a
 	ld a, e
@@ -8663,7 +8663,7 @@ Function_75_7444::
 	ld a, c
 	inc a
 	ld [wMobileSDK_PacketBuffer + 5], a
-	ld de, $C9EB
+	ld de, wMobileSDK_PacketBuffer + $07
 	ld b, c
 	call MobileSDK_CopyBytes
 	ld a, l
@@ -8673,9 +8673,9 @@ Function_75_7444::
 	ld b, c
 	inc b
 	call Mobile_PacketBuildFooter
-	ld hl, $C70A
+	ld hl, wMobileSDK_Substep
 	dec [hl]
-	ld hl, $C9E4
+	ld hl, wMobileSDK_PacketBuffer
 	ld a, $95
 	jp Mobile_PacketSendExpect
 
@@ -8700,7 +8700,7 @@ MobileState_TelephoneStatus:: ; 75:748D
 	jr z, .l74B2
 	ld a, [wMobileSDK_SavedState]
 	ld [wMobileSDK_State], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	res 0, [hl]
 	ret
 .l74B2 ; 75:74B2
@@ -8712,7 +8712,7 @@ MobileState_TelephoneStatus:: ; 75:748D
 	ld hl, MobilePacket_TelephoneStatus
 	jp Mobile_PacketSendEmptyBody
 .l74BE ; 75:74BE
-	ld hl, $C70D
+	ld hl, wMobileSDK_ResultPointer
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -8744,7 +8744,7 @@ MobileState_ReadConfigExport:: ; 75:74DB
 	ld hl, MobilePacket_ReadConfigurationDataPart1
 	jp Mobile_PacketSendReadConfig
 .l74EF ; 75:74EF
-	ld hl, $C6C8
+	ld hl, wMobileSDK_DestPointer
 	ld a, $7F
 	ld [hli], a
 	ld a, $C7
@@ -8754,7 +8754,7 @@ MobileState_ReadConfigExport:: ; 75:74DB
 .l74FE ; 75:74FE
 	jp Mobile_EndSession
 .l7501 ; 75:7501
-	ld hl, $C71F
+	ld hl, wMobileSDK_Window
 	ld a, [hli]
 	cp a, $4D
 	jr nz, .l7548
@@ -8829,7 +8829,7 @@ MobileSDK_ExportLoginId:: ; 75:755F
 	ld b, $20
 	call MobileSDK_ClearBuffer
 	ld a, $21
-	ld hl, $C72B
+	ld hl, wMobileSDK_Window + $0C
 	call MobileSDK_CopyStringLen
 	xor a, a
 	ld [de], a
@@ -8839,28 +8839,28 @@ MobileSDK_ExportMailAddress:: ; 75:756F
 	ld b, $1E
 	call MobileSDK_ClearBuffer
 	ld a, $1F
-	ld hl, $C74B
+	ld hl, wMobileSDK_Window + $2C
 	jp MobileSDK_CopyStringLen
 
 MobileSDK_ExportDialSlots:: ; 75:757C
 	ld b, $65
 	call MobileSDK_ClearBuffer
-	ld hl, $C795
+	ld hl, wMobileSDK_Window + $76
 	call MobileSDK_BcdPhoneToAscii
 	ld a, $11
-	ld hl, $C79D
+	ld hl, wMobileSDK_Window + $7E
 	call MobileSDK_CopyStringLen
 	inc de
-	ld hl, $C7AD
+	ld hl, wMobileSDK_Window + $8E
 	call MobileSDK_BcdPhoneToAscii
 	ld a, $11
-	ld hl, $C7B5
+	ld hl, wMobileSDK_Window + $96
 	call MobileSDK_CopyStringLen
 	inc de
-	ld hl, $C7C5
+	ld hl, wMobileSDK_Window + $A6
 	call MobileSDK_BcdPhoneToAscii
 	ld a, $11
-	ld hl, $C7CD
+	ld hl, wMobileSDK_Window + $AE
 	jp MobileSDK_CopyStringLen
 
 MobileSDK_BcdPhoneToAscii:: ; 75:75AD
@@ -8934,7 +8934,7 @@ MobileState_WriteConfig:: ; 75:75E8
 
 .l7604 ; 75:7604
 	; [CONFIRMED] 43 insn(s); 43 executed (in up to 17/18 scenarios)
-	ld de, $C9E9
+	ld de, wMobileSDK_PacketBuffer + $05
 	ld c, a
 	inc a
 	ld [de], a
@@ -8942,7 +8942,7 @@ MobileState_WriteConfig:: ; 75:75E8
 	ld a, $80
 	ld [de], a
 	inc de
-	ld hl, $C71F
+	ld hl, wMobileSDK_Window
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -8956,7 +8956,7 @@ MobileState_WriteConfig:: ; 75:75E8
 	ld e, a
 	ld d, $00
 	ld a, $9A
-	ld hl, $C9E4
+	ld hl, wMobileSDK_PacketBuffer
 	jp Mobile_PacketSendExpect
 .l762E ; 75:762E
 	jp Mobile_EndSession
@@ -8975,7 +8975,7 @@ MobileState_ReadConfig:: ; 75:7634
 	dec [hl]
 	ret
 .l7642 ; 75:7642
-	ld hl, $C9E4
+	ld hl, wMobileSDK_PacketBuffer
 	jp Mobile_PacketSendReadConfig
 .l7648 ; 75:7648
 	ld a, [wMobileSDK_Window + 2]
@@ -8991,15 +8991,15 @@ MobileState_ReadConfig:: ; 75:7634
 
 .l7655 ; 75:7655
 	; [CONFIRMED] 23 insn(s); 23 executed (in up to 17/18 scenarios)
-	ld hl, $C9EB
+	ld hl, wMobileSDK_PacketBuffer + $07
 	sub a, $80
 	ld [hld], a
 	ld a, $80
 	ld [hl], a
-	ld de, $C9EC
+	ld de, wMobileSDK_PacketBuffer + $08
 	ld b, $02
 	call Mobile_PacketBuildFooter
-	ld hl, $C71F
+	ld hl, wMobileSDK_Window
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -9007,10 +9007,10 @@ MobileState_ReadConfig:: ; 75:7634
 	add hl, de
 	ld e, h
 	ld a, l
-	ld hl, $C6C8
+	ld hl, wMobileSDK_DestPointer
 	ld [hli], a
 	ld [hl], e
-	ld hl, $C9E4
+	ld hl, wMobileSDK_PacketBuffer
 	jp Mobile_PacketSendReadConfig
 .l767D ; 75:767D
 	jp Mobile_EndSession
@@ -9027,22 +9027,22 @@ MobileSDK_AuthBuildResponse:: ; 75:7683
 	ld [wMobileSDK_PacketBuffer + 192], a
 	ld a, h
 	ld [wMobileSDK_PacketBuffer + 193], a
-	ld hl, $CAA6
+	ld hl, wMobileSDK_PacketBuffer + $C2
 	ld a, e
 	ld [hli], a
 	ld a, d
 	ld [hli], a
 	ld a, b
 	ld [hli], a
-	ld hl, $CAA4
+	ld hl, wMobileSDK_PacketBuffer + $C0
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ld de, $CA04
+	ld de, wMobileSDK_PacketBuffer + $20
 	ld b, $30
 	ld c, b
 	call MobileSDK_CopyBytes
-	ld hl, $C81E
+	ld hl, wRam_C81E
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -9099,27 +9099,27 @@ MobileSDK_AuthBuildResponse:: ; 75:7683
 	ld [hli], a
 	dec b
 	jr nz, .l76E7
-	ld de, $CA84
+	ld de, wMobileSDK_PacketBuffer + $A0
 	ld hl, MobileSDK_Md5InitConstants
 	ld b, $10
 	call MobileSDK_CopyBytes
 .l76F6 ; 75:76F6
-	ld hl, $CAA9
+	ld hl, wMobileSDK_PacketBuffer + $C5
 	ld a, $50
 	ld [hli], a
 	ld a, $7B
 	ld [hl], a
-	ld hl, $CAAB
+	ld hl, wMobileSDK_PacketBuffer + $C7
 	ld a, $32
 	ld [hli], a
 	ld a, $7A
 	ld [hl], a
-	ld hl, $CA84
-	ld de, $CAB5
+	ld hl, wMobileSDK_PacketBuffer + $A0
+	ld de, wMobileSDK_PacketBuffer + $D1
 	ld b, $10
 	call MobileSDK_CopyBytes
 .l7713 ; 75:7713
-	ld hl, $CAAB
+	ld hl, wMobileSDK_PacketBuffer + $C7
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -9127,11 +9127,11 @@ MobileSDK_AuthBuildResponse:: ; 75:7683
 	ld c, a
 	push hl
 	call MobileSDK_Md5Round
-	ld hl, $CA94
+	ld hl, wMobileSDK_PacketBuffer + $B0
 	ld a, [hli]
 	ld d, [hl]
 	ld e, a
-	ld hl, $CA9C
+	ld hl, wMobileSDK_PacketBuffer + $B8
 	call MobileSDK_Md5Add32
 	pop hl
 	ld a, [hli]
@@ -9153,17 +9153,17 @@ MobileSDK_AuthBuildResponse:: ; 75:7683
 .l773E ; 75:773E
 	; [CONFIRMED] 60 insn(s) executed; cut out of the PROBABLE region 7683-7A17 by apply_coverage
 	; --split [executed in 1 scenarios]
-	ld hl, $CA04
+	ld hl, wMobileSDK_PacketBuffer + $20
 	add hl, de
 	ld e, l
 	ld d, h
-	ld hl, $CA9C
+	ld hl, wMobileSDK_PacketBuffer + $B8
 	call MobileSDK_Md5Add32
-	ld hl, $CAA9
+	ld hl, wMobileSDK_PacketBuffer + $C5
 	ld a, [hli]
 	ld d, [hl]
 	ld e, a
-	ld hl, $CA9C
+	ld hl, wMobileSDK_PacketBuffer + $B8
 	call MobileSDK_Md5Add32
 	pop hl
 	ld a, [hli]
@@ -9172,22 +9172,22 @@ MobileSDK_AuthBuildResponse:: ; 75:7683
 	ld [wMobileSDK_PacketBuffer + 199], a
 	ld a, h
 	ld [wMobileSDK_PacketBuffer + 200], a
-	ld hl, $CA9C
+	ld hl, wMobileSDK_PacketBuffer + $B8
 	call MobileSDK_Md5Rol32
-	ld hl, $CA96
+	ld hl, wMobileSDK_PacketBuffer + $B2
 	ld a, [hli]
 	ld d, [hl]
 	ld e, a
-	ld hl, $CA9C
+	ld hl, wMobileSDK_PacketBuffer + $B8
 	call MobileSDK_Md5Add32
-	ld hl, $CA94
+	ld hl, wMobileSDK_PacketBuffer + $B0
 	ld a, [hli]
 	ld d, [hl]
 	ld e, a
-	ld hl, $CA9C
+	ld hl, wMobileSDK_PacketBuffer + $B8
 	ld b, $04
 	call MobileSDK_CopyBytes
-	ld hl, $CAA9
+	ld hl, wMobileSDK_PacketBuffer + $C5
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -9201,16 +9201,16 @@ MobileSDK_AuthBuildResponse:: ; 75:7683
 	ld [wMobileSDK_PacketBuffer + 197], a
 	cp a, $50
 	jp nz, .l7713
-	ld de, $CAB5
-	ld hl, $CA84
+	ld de, wMobileSDK_PacketBuffer + $D1
+	ld hl, wMobileSDK_PacketBuffer + $A0
 	call MobileSDK_Md5Add32
-	ld de, $CAB9
+	ld de, wMobileSDK_PacketBuffer + $D5
 	call MobileSDK_Md5Add32
-	ld de, $CABD
+	ld de, wMobileSDK_PacketBuffer + $D9
 	call MobileSDK_Md5Add32
-	ld de, $CAC1
+	ld de, wMobileSDK_PacketBuffer + $DD
 	call MobileSDK_Md5Add32
-	ld hl, $CAC5
+	ld hl, wMobileSDK_PacketBuffer + $E1
 	bit 1, [hl]
 	jr z, .l77BE
 
@@ -9222,17 +9222,17 @@ MobileSDK_AuthBuildResponse:: ; 75:7683
 .l77BE ; 75:77BE
 	; [CONFIRMED] 333 insn(s) executed; cut out of the PROBABLE region 7683-7A17 by apply_coverage
 	; --split [executed in 1 scenarios]
-	ld hl, $CA04
-	ld de, $CA34
+	ld hl, wMobileSDK_PacketBuffer + $20
+	ld de, wMobileSDK_PacketBuffer + $50
 	ld bc, $0030
 	call MobileSDK_Base64Decode
-	ld hl, $CAA6
+	ld hl, wMobileSDK_PacketBuffer + $C2
 	ld a, [hli]
 	ld d, [hl]
 	ld e, a
 	ld hl, MobileStr_Authorization
 	call MobileSDK_CopyString
-	ld hl, $CA34
+	ld hl, wMobileSDK_PacketBuffer + $50
 	ld bc, $0020
 	call MobileSDK_Base64Encode
 	ld a, l
@@ -9240,8 +9240,8 @@ MobileSDK_AuthBuildResponse:: ; 75:7683
 	ld a, h
 	ld [wMobileSDK_PacketBuffer + 195], a
 	ld b, $12
-	ld hl, $CA34
-	ld de, $CA04
+	ld hl, wMobileSDK_PacketBuffer + $50
+	ld de, wMobileSDK_PacketBuffer + $20
 .l77EF ; 75:77EF
 	ld a, $40
 	and a, [hl]
@@ -9283,8 +9283,8 @@ MobileSDK_AuthBuildResponse:: ; 75:7683
 	dec b
 	jr nz, .l77EF
 	ld b, $12
-	ld hl, $CA57
-	ld de, $CA27
+	ld hl, wMobileSDK_PacketBuffer + $73
+	ld de, wMobileSDK_PacketBuffer + $43
 .l782E ; 75:782E
 	ld a, $02
 	and a, [hl]
@@ -9326,11 +9326,11 @@ MobileSDK_AuthBuildResponse:: ; 75:7683
 	dec b
 	jr nz, .l782E
 	ld b, $10
-	ld de, $CA34
-	ld hl, $CA84
+	ld de, wMobileSDK_PacketBuffer + $50
+	ld hl, wMobileSDK_PacketBuffer + $A0
 	call MobileSDK_CopyBytes
 	ld bc, $0010
-	ld hl, $C81E
+	ld hl, wRam_C81E
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -9348,8 +9348,8 @@ MobileSDK_AuthBuildResponse:: ; 75:7683
 	xor a, a
 	ld [hl], a
 	ld b, $24
-	ld hl, $CA04
-	ld de, $CA34
+	ld hl, wMobileSDK_PacketBuffer + $20
+	ld de, wMobileSDK_PacketBuffer + $50
 .l7892 ; 75:7892
 	ld a, [de]
 	inc de
@@ -9372,11 +9372,11 @@ MobileSDK_AuthBuildResponse:: ; 75:7683
 	ld [hli], a
 	dec b
 	jr nz, .l7892
-	ld hl, $CAA6
+	ld hl, wMobileSDK_PacketBuffer + $C2
 	ld a, [hli]
 	ld d, [hl]
 	ld e, a
-	ld hl, $CA04
+	ld hl, wMobileSDK_PacketBuffer + $20
 	ld bc, $0024
 	call MobileSDK_Base64Encode
 	ld a, $22
@@ -9408,121 +9408,121 @@ MobileSDK_Md5LoadStatePtrs:: ; 75:78E0
 	ld d, $00
 	ld hl, MobileSDK_Md5StatePtrTable
 	add hl, de
-	ld de, $CA94
+	ld de, wMobileSDK_PacketBuffer + $B0
 	ld b, $08
 	jp MobileSDK_CopyBytes
 
 MobileSDK_Md5FuncF:: ; 75:78F1
-	ld hl, $CA96
+	ld hl, wMobileSDK_PacketBuffer + $B2
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ld de, $CA9C
+	ld de, wMobileSDK_PacketBuffer + $B8
 	ld b, $04
 	call MobileSDK_CopyBytes
-	ld hl, $CA98
+	ld hl, wMobileSDK_PacketBuffer + $B4
 	ld a, [hli]
 	ld d, [hl]
 	ld e, a
-	ld hl, $CA9C
+	ld hl, wMobileSDK_PacketBuffer + $B8
 	call MobileSDK_Md5And32
-	ld hl, $CA96
+	ld hl, wMobileSDK_PacketBuffer + $B2
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ld de, $CAA0
+	ld de, wMobileSDK_PacketBuffer + $BC
 	ld b, $04
 	call MobileSDK_CopyBytes
-	ld hl, $CAA0
+	ld hl, wMobileSDK_PacketBuffer + $BC
 	call MobileSDK_Md5Not32
-	ld hl, $CA9A
+	ld hl, wMobileSDK_PacketBuffer + $B6
 	ld a, [hli]
 	ld d, [hl]
 	ld e, a
-	ld hl, $CAA0
+	ld hl, wMobileSDK_PacketBuffer + $BC
 	call MobileSDK_Md5And32
-	ld hl, $CA9C
-	ld de, $CAA0
+	ld hl, wMobileSDK_PacketBuffer + $B8
+	ld de, wMobileSDK_PacketBuffer + $BC
 	call MobileSDK_Md5Or32
 	ret
 
 MobileSDK_Md5FuncG:: ; 75:7935
-	ld hl, $CA96
+	ld hl, wMobileSDK_PacketBuffer + $B2
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ld de, $CA9C
+	ld de, wMobileSDK_PacketBuffer + $B8
 	ld b, $04
 	call MobileSDK_CopyBytes
-	ld hl, $CA9A
+	ld hl, wMobileSDK_PacketBuffer + $B6
 	ld a, [hli]
 	ld d, [hl]
 	ld e, a
-	ld hl, $CA9C
+	ld hl, wMobileSDK_PacketBuffer + $B8
 	call MobileSDK_Md5And32
-	ld hl, $CA9A
+	ld hl, wMobileSDK_PacketBuffer + $B6
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ld de, $CAA0
+	ld de, wMobileSDK_PacketBuffer + $BC
 	ld b, $04
 	call MobileSDK_CopyBytes
-	ld hl, $CAA0
+	ld hl, wMobileSDK_PacketBuffer + $BC
 	call MobileSDK_Md5Not32
-	ld hl, $CA98
+	ld hl, wMobileSDK_PacketBuffer + $B4
 	ld a, [hli]
 	ld d, [hl]
 	ld e, a
-	ld hl, $CAA0
+	ld hl, wMobileSDK_PacketBuffer + $BC
 	call MobileSDK_Md5And32
-	ld hl, $CA9C
-	ld de, $CAA0
+	ld hl, wMobileSDK_PacketBuffer + $B8
+	ld de, wMobileSDK_PacketBuffer + $BC
 	call MobileSDK_Md5Or32
 	ret
 
 MobileSDK_Md5FuncH:: ; 75:7979
-	ld hl, $CA96
+	ld hl, wMobileSDK_PacketBuffer + $B2
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ld de, $CA9C
+	ld de, wMobileSDK_PacketBuffer + $B8
 	ld b, $04
 	call MobileSDK_CopyBytes
-	ld hl, $CA98
+	ld hl, wMobileSDK_PacketBuffer + $B4
 	ld a, [hli]
 	ld d, [hl]
 	ld e, a
-	ld hl, $CA9C
+	ld hl, wMobileSDK_PacketBuffer + $B8
 	call MobileSDK_Md5Xor32
-	ld hl, $CA9A
+	ld hl, wMobileSDK_PacketBuffer + $B6
 	ld a, [hli]
 	ld d, [hl]
 	ld e, a
-	ld hl, $CA9C
+	ld hl, wMobileSDK_PacketBuffer + $B8
 	call MobileSDK_Md5Xor32
 	ret
 
 MobileSDK_Md5FuncI:: ; 75:79A0
-	ld hl, $CA9A
+	ld hl, wMobileSDK_PacketBuffer + $B6
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ld de, $CA9C
+	ld de, wMobileSDK_PacketBuffer + $B8
 	ld b, $04
 	call MobileSDK_CopyBytes
-	ld hl, $CA9C
+	ld hl, wMobileSDK_PacketBuffer + $B8
 	call MobileSDK_Md5Not32
-	ld hl, $CA96
+	ld hl, wMobileSDK_PacketBuffer + $B2
 	ld a, [hli]
 	ld d, [hl]
 	ld e, a
-	ld hl, $CA9C
+	ld hl, wMobileSDK_PacketBuffer + $B8
 	call MobileSDK_Md5Or32
-	ld hl, $CA98
+	ld hl, wMobileSDK_PacketBuffer + $B4
 	ld a, [hli]
 	ld d, [hl]
 	ld e, a
-	ld hl, $CA9C
+	ld hl, wMobileSDK_PacketBuffer + $B8
 	call MobileSDK_Md5Xor32
 	ret
 
@@ -9687,7 +9687,7 @@ MobileSDK_Base64Encode:: ; 75:7C50
 .l7C62 ; 75:7C62
 	ld b, $03
 	push hl
-	ld hl, $CAAF
+	ld hl, wMobileSDK_PacketBuffer + $CB
 .l7C68 ; 75:7C68
 	ld a, [de]
 	inc de
@@ -9848,7 +9848,7 @@ MobileSDK_Base64Decode:: ; 75:7D28
 .l7D44 ; 75:7D44
 	ld b, $04
 	push hl
-	ld hl, $CAAF
+	ld hl, wMobileSDK_PacketBuffer + $CB
 .l7D4A ; 75:7D4A
 	ld a, [de]
 	inc de
@@ -9976,7 +9976,7 @@ Function_75_7DBC::
 
 MobileSDK_Base64Decode_BadArg:: ; 75:7DE8
 Label_75_7DE8::
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	set 1, [hl]
 	ld a, $20
 	ld [wMobileSDK_ErrorCode], a
@@ -10041,7 +10041,7 @@ MobileState_Cancel:: ; 75:7E04
 	ld [wMobileSDK_ConnectionFlag], a
 	ld a, $02
 	ld [wMobileSDK_State], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	ld a, [hl]
 	and a, $10
 	set 5, a
@@ -10072,12 +10072,12 @@ MobileState_Cancel:: ; 75:7E04
 	ld [wMobileSDK_State], a
 	ld a, $03
 	ld [wMobileSDK_PhaseCode], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	ld a, [hl]
 	and a, $10
 	set 5, a
 	ld [hl], a
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	bit 0, [hl]
 	call z, MobileSDK_PollAdapterStatus
 	ret
@@ -10096,7 +10096,7 @@ MobileSDK_ResumeIdlePolling:: ; 75:7E7A
 	; 7C50-7E89 by apply_coverage --split
 	ld a, $FF
 	ld [wMobileSDK_SendCommandID], a
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	res 5, [hl]
 	res 0, [hl]
 	jp MobileSDK_PollAdapterStatus
@@ -10106,12 +10106,12 @@ Function_75_7E89:: ; 75:7E89
 	; 0,[hl] ... bit 0,a ; ret z ; ld hl,$C6C1 ; set 0,[hl] ; ret) falling into the code at 7EB4;
 	; well-formed instruction chain (clean decode, all direct targets land on instruction starts,
 	; lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	ld a, [hl]
 	push af
 	res 3, [hl]
 	res 0, [hl]
-	ld hl, $C6BA
+	ld hl, wMobileSDK_ResendSize
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
@@ -10130,7 +10130,7 @@ Function_75_7E89:: ; 75:7E89
 	pop af
 	bit 0, a
 	ret z
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	set 0, [hl]
 	ret
 
@@ -10154,7 +10154,7 @@ MobileState_Timeout:: ; 75:7EB4
 	call MobileSDK_EnterErrorState
 	ld a, $2A
 	ld [wMobileSDK_State], a
-	ld hl, $C6C0
+	ld hl, wMobileSDK_TimeoutReload + $01
 	ld a, [hld]
 	ld h, [hl]
 	ld l, a
@@ -10164,14 +10164,14 @@ MobileState_Timeout:: ; 75:7EB4
 	add hl, de
 	ld e, l
 	ld d, h
-	ld hl, $C6B5
+	ld hl, wMobileSDK_TimeoutCounter
 	ld e, a
 	ld [hli], a
 	ld a, d
 	ld [hl], a
 	xor a, a
 	ld [wMobileSDK_SerialPhase], a
-	ld hl, $C9E4
+	ld hl, wMobileSDK_PacketBuffer
 	ld a, $02
 	ld [hli], a
 	dec a
@@ -10208,16 +10208,16 @@ MobileState_Abort:: ; 75:7EEF
 	; [CONFIRMED] 34 insn(s); 34 executed (in up to 1/18 scenarios)
 	xor a, a
 	ld [wMobileSDK_ConnectionFlag], a
-	ld hl, $C69F
+	ld hl, wTimerEnable
 	set 0, [hl]
-	ld hl, $C6C1
+	ld hl, wMobileFlags
 	xor a, a
 	ld [hl], a
 	xor a, a
 	ld [wMobileSDK_RxStage], a
 	xor a, a
 	ld [wMobileSDK_PacketBuffer], a
-	ld hl, $C6C0
+	ld hl, wMobileSDK_TimeoutReload + $01
 	ld a, [hld]
 	ld h, [hl]
 	ld l, a
@@ -10227,14 +10227,14 @@ MobileState_Abort:: ; 75:7EEF
 	add hl, de
 	ld e, l
 	ld d, h
-	ld hl, $C6B5
+	ld hl, wMobileSDK_TimeoutCounter
 	ld e, a
 	ld [hli], a
 	ld a, d
 	ld [hl], a
 	xor a, a
 	ld [wMobileSDK_SerialPhase], a
-	ld hl, $C9E4
+	ld hl, wMobileSDK_PacketBuffer
 	xor a, a
 	ld [hli], a
 	inc a

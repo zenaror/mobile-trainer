@@ -10,7 +10,7 @@ Function_4C_4F56::
 	; executed call/far call
 	ld [wRam_C2DC], a
 	call Url_StripFragment
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	farcall HtmlStore_BuildPageUrl
 	xor a, a
 	ld [wBrowserNavigating], a
@@ -121,7 +121,7 @@ Label_4C_501E::
 	inc hl
 	ld de, $D500
 	farcall HtmlUrl_Resolve
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	farcall HtmlUrl_NormalizePath
 	ldh a, [hWRAMBank]
 	push af
@@ -146,7 +146,7 @@ Label_4C_501E::
 
 MobileDictView_OnB:: ; 4C:509A
 Label_4C_509A::
-	ld de, $C380
+	ld de, wAttrUrlBuf
 	xor a, a
 	farcall MobileDictView_HistoryPop
 	or a, a
@@ -231,11 +231,11 @@ MobileDictView_LoadEntry:: ; 4C:5122
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	ld de, $D500
 	ld bc, $0100
 	call CopyBytes
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	ld de, sBrowserPageBuf
 	ld bc, $0FFC
 	ld a, e
@@ -268,7 +268,7 @@ MobileDictView_LoadImages:: ; 4C:51A1
 	ldh [hInlineImages_UrlListHi], a
 	ld a, $04
 	ldh [hInlineImages_UrlBank], a
-	ld de, $C380
+	ld de, wAttrUrlBuf
 	ld hl, $D500
 	ld bc, $0100
 	ld a, $06
@@ -276,7 +276,7 @@ MobileDictView_LoadImages:: ; 4C:51A1
 	ldh [rSVBK], a
 	call CopyBytes
 	ld de, $DD00
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	ld bc, $0100
 	ld a, $04
 	ldh [hWRAMBank], a
@@ -351,12 +351,12 @@ MobileDictView_LoadImages:: ; 4C:51A1
 	pop hl
 	ld de, $DD00
 	farcall HtmlUrl_Resolve
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	farcall HtmlUrl_NormalizePath
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	ld a, [wBrowserRxPtr]
 	ld e, a
 	ld a, [wBrowserRxPtr + 1]

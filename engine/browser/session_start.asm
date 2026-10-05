@@ -25,7 +25,7 @@ Browser_LoadUrlFromSramBank3:: ; 4E:488D
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ld hl, sNetStartUrl
-	ld de, $C380
+	ld de, wAttrUrlBuf
 	farcall CopyString
 	xor a, a
 	ldh [hSRAMEnable], a
@@ -49,7 +49,7 @@ Browser_LoadHomePage:: ; 4E:48CB
 	ld [wBrowserScrollbarEnable], a
 	farcall Joypad_UpdateUnsaved
 	ld hl, String_Browser_HomeUrl
-	ld de, $C380
+	ld de, wAttrUrlBuf
 	farcall CopyString
 	jp Browser_LoadAndDispatch
 

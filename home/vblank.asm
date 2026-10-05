@@ -67,7 +67,7 @@ Int_VBlank:: ; 00:03BA
 	jr nz, .l03DA
 	xor a, a
 .l03DA ; 00:03DA
-	ld hl, $C2D4
+	ld hl, wTimerAFrames
 	add a, [hl]
 	cp a, $3C
 	jr c, .l0400
@@ -84,7 +84,7 @@ Int_VBlank:: ; 00:03BA
 	cp a, $46
 	jr c, .l0400
 	push hl
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	res 1, [hl]
 	pop hl
 	ld a, $3C
@@ -99,7 +99,7 @@ Int_VBlank:: ; 00:03BA
 	jr nz, .l040B
 	xor a, a
 .l040B ; 00:040B
-	ld hl, $C266
+	ld hl, wTimerBFrames
 	add a, [hl]
 	cp a, $3C
 	jr c, .l042E

@@ -54,7 +54,7 @@ Function_29_5090:: ; 29:5090
 	push bc
 	push hl
 	ld b, $A0
-	ld hl, $C000
+	ld hl, wShadowOAM
 	xor a, a
 .l50BF ; 29:50BF
 	ld [hli], a
@@ -105,7 +105,7 @@ Function_29_5090:: ; 29:5090
 	ret
 
 	push hl
-	ld hl, $FFB1
+	ld hl, hRam_FFB1
 	ld [hl], $00
 .l5102 ; 29:5102
 	cp a, $0A

@@ -698,8 +698,8 @@ Profile_DrawNickname:: ; 2A:5952
 	ld l, a
 	pop af
 	ld h, a
-	ld bc, $C0A0
-	ld de, $C0B8
+	ld bc, wGlyphBufLeft
+	ld de, wGlyphBufRight
 	farcall Glyph_LoadWide
 	pop hl
 	pop de
@@ -709,7 +709,7 @@ Profile_DrawNickname:: ; 2A:5952
 	push bc
 	push de
 	push hl
-	ld hl, $C0B8
+	ld hl, wGlyphBufRight
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -735,7 +735,7 @@ Profile_DrawNickname:: ; 2A:5952
 	push de
 	push hl
 	ld b, a
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -754,7 +754,7 @@ Profile_DrawNickname:: ; 2A:5952
 	push de
 	push hl
 	ld b, $3C
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -786,7 +786,7 @@ Profile_DrawNickname_BlitGlyphAdvance:: ; 2A:5A0F
 	push bc
 	push de
 	push hl
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -802,7 +802,7 @@ Profile_DrawNickname_BlitBlankAdvance:: ; 2A:5A23
 	push hl
 	ld b, $02
 	ld c, $00
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyphNoRemap
 	pop hl
 	pop de
@@ -841,8 +841,8 @@ Profile_DrawAddressLine1:: ; 2A:5A3B
 	ld l, a
 	pop af
 	ld h, a
-	ld bc, $C0A0
-	ld de, $C0B8
+	ld bc, wGlyphBufLeft
+	ld de, wGlyphBufRight
 	farcall Glyph_LoadWide
 	pop hl
 	pop de
@@ -852,7 +852,7 @@ Profile_DrawAddressLine1:: ; 2A:5A3B
 	push bc
 	push de
 	push hl
-	ld hl, $C0B8
+	ld hl, wGlyphBufRight
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -877,7 +877,7 @@ Profile_DrawAddressLine1:: ; 2A:5A3B
 	push de
 	push hl
 	ld b, a
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -899,7 +899,7 @@ Profile_DrawAddressLine1:: ; 2A:5A3B
 	push de
 	push hl
 	ld b, $20
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -915,7 +915,7 @@ Profile_DrawAddressLine1:: ; 2A:5A3B
 	push de
 	push hl
 	ld b, $20
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -933,7 +933,7 @@ Profile_DrawAddressLine1_BlitGlyphAdvance:: ; 2A:5AFB
 	push bc
 	push de
 	push hl
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -949,7 +949,7 @@ Profile_DrawAddressLine1_BlitBlankAdvance:: ; 2A:5B0F
 	push hl
 	ld b, $02
 	ld c, $00
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -988,8 +988,8 @@ Profile_DrawAddressLine2:: ; 2A:5B27
 	ld l, a
 	pop af
 	ld h, a
-	ld bc, $C0A0
-	ld de, $C0B8
+	ld bc, wGlyphBufLeft
+	ld de, wGlyphBufRight
 	farcall Glyph_LoadWide
 	pop hl
 	pop de
@@ -999,7 +999,7 @@ Profile_DrawAddressLine2:: ; 2A:5B27
 	push bc
 	push de
 	push hl
-	ld hl, $C0B8
+	ld hl, wGlyphBufRight
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -1024,7 +1024,7 @@ Profile_DrawAddressLine2:: ; 2A:5B27
 	push de
 	push hl
 	ld b, a
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -1046,7 +1046,7 @@ Profile_DrawAddressLine2:: ; 2A:5B27
 	push de
 	push hl
 	ld b, $20
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -1062,7 +1062,7 @@ Profile_DrawAddressLine2:: ; 2A:5B27
 	push de
 	push hl
 	ld b, $20
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -1080,7 +1080,7 @@ Profile_DrawAddressLine2_BlitGlyphAdvance:: ; 2A:5BE7
 	push bc
 	push de
 	push hl
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -1096,7 +1096,7 @@ Profile_DrawAddressLine2_BlitBlankAdvance:: ; 2A:5BFB
 	push hl
 	ld b, $02
 	ld c, $00
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -1136,7 +1136,7 @@ Gfx_StartHDMAAtVBlank_2A_5C3B:: ; 2A:5C3B
 	ldh [rHDMA3], a
 	ld a, e
 	ldh [rHDMA4], a
-	ld de, $FF44
+	ld de, rLY
 .l5C4A ; 2A:5C4A
 	ld a, [de]
 	cp a, $8F

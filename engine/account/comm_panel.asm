@@ -17,7 +17,7 @@ CommPanel_WaitClose:: ; 68:733C
 Registration_Verify_OnTimeLimit:: ; 68:734D
 	; [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 1;
 	; entered by jpcc from 68:7213 (executed)
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	res 0, [hl]
 	ld a, $00
 	ld [wCommNoticeMode], a
@@ -91,7 +91,7 @@ Function_68_73DD::
 	farcall Palette_FadeOutToWhite
 	farcall Sprite_ResetAll
 	call VBlank_WaitAndService
-	ld hl, $FF40
+	ld hl, rLCDC
 	ld a, [hl]
 	and a, $FB
 	ld [hl], a

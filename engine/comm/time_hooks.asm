@@ -37,7 +37,7 @@ Function_7F_6218::
 	; [CONFIRMED] 23 insn(s) reached by static flow only; seeds: exec x13, site x10; min discovery
 	; hops 0; entered by far from 23:50E5 (PROBABLE code) | 11 insn(s) executed; cut out of the
 	; PROBABLE region 6218-624F by apply_coverage --split [executed in 1 scenarios]
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	res 0, [hl]
 	ld a, $01
 	ld [wCommNoticeMode], a
@@ -57,7 +57,7 @@ Function_7F_6218::
 
 CommNotice_ShowDialogMode0:: ; 7F:6235
 Function_7F_6235::
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	res 0, [hl]
 	ld a, $00
 	ld [wCommNoticeMode], a

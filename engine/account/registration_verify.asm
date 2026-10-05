@@ -30,10 +30,10 @@ Registration_Verify_Setup:: ; 68:7029
 Registration_Verify_RunState:: ; 68:7050
 	xor a, a
 	ld [wCommSessionActive], a
-	ld hl, $C2D2
+	ld hl, wBrowserTimerLastSec
 	ld [hli], a
 	ld [hl], a
-	ld hl, $C2D4
+	ld hl, wTimerAFrames
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
@@ -76,7 +76,7 @@ Registration_Verify_StateInit:: ; 68:708D
 	; [CONFIRMED] 134 insn(s); 134 executed (in up to 3/18 scenarios)
 	xor a, a
 	farcall CommPanel_Step
-	ld de, $C271
+	ld de, wMobileAdapterType
 	ld hl, $0068
 	ld a, $02
 	call MobileAPI
@@ -191,7 +191,7 @@ Registration_Verify_StatePopLogin:: ; 68:7166
 	ldh a, [hScratchA]
 	ld a, $05
 	ld [wCommTimeoutMinutes], a
-	ld hl, $C266
+	ld hl, wTimerBFrames
 	xor a, a
 	ld [hli], a
 	ld [hli], a
@@ -212,7 +212,7 @@ Registration_Verify_StateAfterPopLogin:: ; 68:71C3
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, .l7210
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l7211
 	ld a, [wTimerAWarnMinute]
@@ -231,14 +231,14 @@ Registration_Verify_StateAfterPopLogin:: ; 68:71C3
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l71FC
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
 	jr nz, .l7210
 	set 1, [hl]
 .l71FC ; 68:71FC
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	set 0, [hl]
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
 	jr z, .l7211
@@ -278,7 +278,7 @@ Registration_Verify_StateAfterPopLogin:: ; 68:71C3
 	jp nz, Registration_Verify_RunState_Dispatch
 	ld a, $05
 	ld [wCommTimeoutMinutes], a
-	ld hl, $C266
+	ld hl, wTimerBFrames
 	xor a, a
 	ld [hli], a
 	ld [hli], a
@@ -296,7 +296,7 @@ Registration_Verify_StateHangUp:: ; 68:724F
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, .l729C
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l729D
 	ld a, [wTimerAWarnMinute]
@@ -315,14 +315,14 @@ Registration_Verify_StateHangUp:: ; 68:724F
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l7288
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
 	jr nz, .l729C
 	set 1, [hl]
 .l7288 ; 68:7288
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	set 0, [hl]
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
 	jr z, .l729D

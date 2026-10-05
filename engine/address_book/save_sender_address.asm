@@ -661,8 +661,8 @@ SaveSenderAddr_DrawSenderName:: ; 2A:4483
 	ld l, a
 	pop af
 	ld h, a
-	ld bc, $C0A0
-	ld de, $C0B8
+	ld bc, wGlyphBufLeft
+	ld de, wGlyphBufRight
 	farcall Glyph_LoadWide
 	pop hl
 	pop de
@@ -672,7 +672,7 @@ SaveSenderAddr_DrawSenderName:: ; 2A:4483
 	push bc
 	push de
 	push hl
-	ld hl, $C0B8
+	ld hl, wGlyphBufRight
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -696,7 +696,7 @@ SaveSenderAddr_DrawSenderName:: ; 2A:4483
 	push de
 	push hl
 	ld b, a
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -713,7 +713,7 @@ SaveSenderAddr_DrawSenderName:: ; 2A:4483
 	push de
 	push hl
 	ld b, $20
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -730,7 +730,7 @@ SaveSenderAddr_DrawSenderName:: ; 2A:4483
 	push de
 	push hl
 	ld b, $20
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -748,7 +748,7 @@ SaveSenderAddr_DrawSenderName_BlitGlyphAdvance:: ; 2A:4547
 	push bc
 	push de
 	push hl
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -764,7 +764,7 @@ SaveSenderAddr_DrawSenderName_BlitBlankAdvance:: ; 2A:455B
 	push hl
 	ld b, $02
 	ld c, $00
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de

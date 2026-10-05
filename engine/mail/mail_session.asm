@@ -1155,7 +1155,7 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, .l4987
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l4988
 	ld a, [wTimerAWarnMinute]
@@ -1174,14 +1174,14 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l4973
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
 	jr nz, .l4987
 	set 1, [hl]
 .l4973 ; 26:4973
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	set 0, [hl]
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
 	jr z, .l4988
@@ -1825,7 +1825,7 @@ Function_26_4EC3::
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, .l4F0D
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l4F0E
 	ld a, [wTimerAWarnMinute]
@@ -1844,14 +1844,14 @@ Function_26_4EC3::
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l4EF9
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
 	jr nz, .l4F0D
 	set 1, [hl]
 .l4EF9 ; 26:4EF9
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	set 0, [hl]
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
 	jr z, .l4F0E
@@ -1932,7 +1932,7 @@ MailSession_CheckTimeWarningRecv:: ; 26:4F7B
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, .l4FC5
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l4FC6
 	ld a, [wTimerAWarnMinute]
@@ -1951,14 +1951,14 @@ MailSession_CheckTimeWarningRecv:: ; 26:4F7B
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l4FB1
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
 	jr nz, .l4FC5
 	set 1, [hl]
 .l4FB1 ; 26:4FB1
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	set 0, [hl]
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
 	jr z, .l4FC6
