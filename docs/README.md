@@ -91,7 +91,9 @@ Naming passes (names with evidence, HYPOTHESES kept under neutral names, open qu
 
 ## Later passes (added after the freeze)
 
-* `audio_format.md` - sound stream/song format, driver-verified (reference, current).
+* `audio_format.md` - sound stream/song format and what the commands, instruments and tables do (reference, current); re-checked on 2026-10-05 by two independent verifiers.
+* `audio2_verify_static.md` (code and data read, no emulation; scripts in `../analysis/audio2_verify/`) and `audio2_verify_dynamic.md` (the ROM's own driver on mGBA with the real songs and synthetic streams; harness `../tools/trace/apu_probe.c`, scripts `../tools/trace/audio2_*.py`,
+  results and `reproduce.sh` in `../analysis/audio2_verify_dyn/`) - adversarial verification of the audio pass 2 and its names; the corrections they found are applied in `audio_format.md` (section 12).
 * `naming2_ram2.md`, `naming2_data2.md` - RAM and data-label naming passes; `naming2_verify_ram2.md`, `naming2_verify_data2a.md`, `naming2_verify_data2b.md` - their adversarial verification (status corrections live there).
 
 ## Translation and previews
