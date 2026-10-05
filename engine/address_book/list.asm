@@ -20,7 +20,7 @@ Function_2F_4000::
 	ld a, $10
 	ld [wStatSplitLine], a
 	ld a, $0A
-	ld [wRam_D725], a
+	ld [wKbdSlideDeltaRow], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -943,7 +943,7 @@ AbookList_SetupScreen:: ; 2F:4572
 	ld a, $15
 	ld [wStatSplitLine], a
 	ld a, $00
-	ld [wRam_D725], a
+	ld [wKbdSlideDeltaRow], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a

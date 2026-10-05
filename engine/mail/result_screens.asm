@@ -17,7 +17,7 @@ Function_29_4000::
 	ld a, $0B
 	ld [wStatSplitLine], a
 	ld a, $00
-	ld [wRam_D725], a
+	ld [wKbdSlideDeltaRow], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -149,7 +149,7 @@ MailResult_InitScreen:: ; 29:407A
 	ld a, $0B
 	ld [wStatSplitLine], a
 	ld a, $00
-	ld [wRam_D725], a
+	ld [wKbdSlideDeltaRow], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -197,7 +197,7 @@ MailResult_ShowSentMessage:: ; 29:41AD
 	ld hl, $426B
 	jr .l41CD
 .l41CA ; 29:41CA
-	ld hl, $4254
+	ld hl, MailResult_Txt_SentOk
 
 .l41CD ; 29:41CD
 	; [CONFIRMED] 40 insn(s); 40 executed (in up to 1/18 scenarios)
@@ -268,7 +268,7 @@ Function_29_4286::
 	ld a, d
 	or a, e
 	jr nz, .l429F
-	ld hl, $4323
+	ld hl, MailResult_Txt_NothingArrived
 	push de
 	farcall Mailbox_CountRecords
 	ld a, d
@@ -279,7 +279,7 @@ Function_29_4286::
 	; [PROBABLE] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 0;
 	; fall-through of the jrcc at 29:4298 (executed) | 2 insn(s) never executed in the traced runs;
 	; cut out of the PROBABLE region 429A-42AF by apply_coverage --split
-	ld hl, $4357
+	ld hl, MailResult_Txt_CannotReceive
 	jr .l42AF
 
 .l429F ; 29:429F
@@ -568,7 +568,7 @@ Function_29_44F6::
 	ld a, $0B
 	ld [wStatSplitLine], a
 	ld a, $00
-	ld [wRam_D725], a
+	ld [wKbdSlideDeltaRow], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -858,7 +858,7 @@ MailServerStatus_InitScreen:: ; 29:4608
 	ld a, $0B
 	ld [wStatSplitLine], a
 	ld a, $00
-	ld [wRam_D725], a
+	ld [wKbdSlideDeltaRow], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a

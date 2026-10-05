@@ -1,0 +1,33 @@
+# file	operand	label	sites	decision	evidence
+# analysis/naming2/rawptr1_sites.tsv -- raw 16-bit operands (`ld hl|de|bc, $XXXX`, $0150-$7FFF) whose number equals the address of a global label in the same bank, read site by site (docs/research/naming2_ram3.md section 4).
+engine/html/count_pass.asm	$4110	Html_NoKeywords	1	symbolized	BC = keyword table for Html_ScanAttributes (home/keyword_scan.asm: Html_MatchKeyword reads [bc] in the current bank 74)
+engine/html/parser.asm	$4110	Html_NoKeywords	1	symbolized	same: attribute scan with no keywords
+engine/html/tags.asm	$4110	Html_NoKeywords	1	symbolized	same
+engine/html/tags.asm	$4033	Html_MetaAttrPtrs	1	symbolized	keyword table of the meta tag (Html_ScanAttributes)
+engine/html/tags.asm	$4078	Html_AnchorAttrPtrs	1	symbolized	keyword table of the a tag
+engine/html/tags.asm	$4057	Html_BrAttrPtrs	1	symbolized	keyword table of the br tag (Html_Tag_Br)
+engine/html/tags.asm	$4062	Html_HrAttrPtrs	1	symbolized	keyword table of the hr tag
+engine/mail/result_screens.asm	$4254	MailResult_Txt_SentOk	1	symbolized	HL = text of the same bank 29 (printed through the text engine)
+engine/mail/result_screens.asm	$4323	MailResult_Txt_NothingArrived	1	symbolized	same
+engine/mail/result_screens.asm	$4357	MailResult_Txt_CannotReceive	1	symbolized	same
+engine/mail/send_receive.asm	$7520	MailScreens_ObjPalette_7520	3	symbolized	HL = palette in bank 27 (`ld a, $27 ; farcall Palette_LoadToBuffer` follows; bank 27 is the file bank)
+engine/settings/adapter_config.asm	$5706	SettingsPhone_ConfigCommentAddrs	1	symbolized	word table indexed by wRam_C27E * 2 (add a, a ; add a, l), same bank
+engine/settings/adapter_config.asm	$5700	SettingsPhone_SramSelfPageAddrs	1	symbolized	word table indexed by wRam_C27E * 2, same bank
+engine/account/result_page.asm	$7831	Data_68_7831	1	symbolized	3-byte-entry table indexed by wRam_C27C * 3, same bank 68
+engine/browser/page_list.asm	$5800	PageList_Tiles_5800	1	symbolized	tile block for Gfx_StartHDMA with `ld a, $24` (the file bank)
+lib/mobile/main.asm	$6059	MobilePacket_WriteConfigurationData	1	symbolized	packet template copied by MobileSDK_CopyBytes from the library bank 75
+lib/mobile/main.asm	$6041	MobilePacket_ReadConfigurationDataPart1	3	symbolized	packet header for MobileSDK_CopyBytes / Mobile_PacketSendReadConfig
+lib/mobile/main.asm	$6032	MobilePacket_ISPLogin	1	symbolized	packet template for MobileSDK_CopyBytes
+lib/mobile/main.asm	$6018	MobilePacket_DialTelephone	1	symbolized	packet template for MobileSDK_CopyBytes
+lib/mobile/main.asm	$6037	MobilePacket_ISPLogout	2	symbolized	packet header for Mobile_PacketSendBytes / Mobile_PacketSendEmptyBody
+lib/mobile/main.asm	$6028	MobilePacket_TelephoneStatus	4	symbolized	packet header for Mobile_PacketSendBytes / Mobile_PacketSendEmptyBody
+lib/mobile/main.asm	$6063	Data_75_6063	1	symbolized	packet header for Mobile_PacketSendEmptyBody (command $94)
+lib/mobile/main.asm	$6132	MobileStr_HttpPostMethod	1	symbolized	string for MobileSDK_CopyString
+lib/mobile/main.asm	$6110	MobileStr_HttpVersion	1	symbolized	string for MobileSDK_CopyString
+lib/mobile/main.asm	$7039	MobileStr_HdrDate	1	symbolized	DE = prefix for MobileSDK_MatchPrefixNoCase
+lib/mobile/main.asm	$7344	MobileStr_HdrLocation	1	symbolized	DE = prefix for MobileSDK_MatchPrefix
+engine/dialog/dialog.asm	$7828	BrowserShared_ObjTable	2	kept raw	NOT a pointer: DE = position pair (y, x) for Sprite_SetPosition; the number equals the address of the label by coincidence
+engine/comm/connect_dialog_screen.asm	$4000	ConnectDialog_Run	1	kept raw	NOT the label: pointer into bank $56 (`ld a, $56` before TextTiles_RenderGrid), not the file bank
+engine/sram/integrity_check.asm	$0684	Bank_InitState	2	kept raw	NOT a pointer: byte count of the checksummed block A000-A683
+engine/sram/save_block_check.asm	$0684	Bank_InitState	3	kept raw	NOT a pointer: byte count of the checksummed block A000-A683
+engine/unreferenced/page_list_prototype.asm	$1018	Function_00_1018	1	kept raw	NOT a pointer: coordinate pair

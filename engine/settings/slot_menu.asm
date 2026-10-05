@@ -16,7 +16,7 @@ SettingsPhone_SlotMenu:: ; 67:4C73
 	farcall Palette_FadeOutToWhite
 	farcall Kbd_HideInstant
 	ld a, [wRam_C27D]
-	ld hl, $BF03
+	ld hl, sPhoneSlotMenuCursor
 	ld b, a
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
@@ -54,7 +54,7 @@ SettingsPhone_SlotMenu_Setup:: ; 67:4CCB
 	farcall Sprite_ResetAll
 	xor a, a
 	ld [wRam_C27C], a
-	ld hl, $BF03
+	ld hl, sPhoneSlotMenuCursor
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
 	push af

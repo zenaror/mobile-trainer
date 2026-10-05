@@ -516,7 +516,7 @@ MobileAPI_WriteConfig:: ; 75:428E
 	ld [hl], a
 	ld de, $C9E4
 	ld b, $05
-	ld hl, $6059
+	ld hl, MobilePacket_WriteConfigurationData
 	call MobileSDK_CopyBytes
 	ld a, [wMobileSDK_Window + 2]
 	ld c, a
@@ -599,7 +599,7 @@ MobileAPI_ReadConfig:: ; 75:4329
 	call MobileAPI_SetTimer
 	ld de, $C9E4
 	ld b, $06
-	ld hl, $6041
+	ld hl, MobilePacket_ReadConfigurationDataPart1
 	call MobileSDK_CopyBytes
 	ld a, [wMobileSDK_Window + 3]
 	ld [de], a
@@ -706,7 +706,7 @@ MobileAPI_ConnectIsp:: ; 75:43B1
 	ld b, a
 	call Mobile_PacketBuildFooter
 	ld b, $05
-	ld hl, $6032
+	ld hl, MobilePacket_ISPLogin
 	ld de, $CA11
 	call MobileSDK_CopyBytes
 	inc de
@@ -787,7 +787,7 @@ Function_75_448A::
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 7/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld de, $C9E4
-	ld hl, $6018
+	ld hl, MobilePacket_DialTelephone
 	ld b, $06
 	call MobileSDK_CopyBytes
 	pop bc
@@ -845,7 +845,7 @@ MobileAPI_Disconnect:: ; 75:44CB
 	ld a, $A2
 	ld [wMobileSDK_SendCommandID], a
 	ld de, $000A
-	ld hl, $6037
+	ld hl, MobilePacket_ISPLogout
 	ld b, $05
 	call Mobile_PacketSendBytes
 .loop ; 75:44FF
@@ -3432,7 +3432,7 @@ MobileAPI_TelephoneStatus:: ; 75:554A
 	xor a, a
 	ld [wMobileSDK_Substep], a
 	ld a, $97
-	ld hl, $6028
+	ld hl, MobilePacket_TelephoneStatus
 	call Mobile_PacketSendEmptyBody
 .loop ; 75:5578
 	ld a, [wMobileAPIIndex]
@@ -5199,7 +5199,7 @@ MobileSDK_PollAdapterStatus:: ; 75:5FA0
 	jr z, .l5FF2
 	ld a, $97
 	ld [hl], a
-	ld hl, $6028
+	ld hl, MobilePacket_TelephoneStatus
 	ld de, $000A
 	call Mobile_PacketSendBytes
 	ld hl, $C6C1
@@ -5609,7 +5609,7 @@ MobileState_ConnectIsp:: ; 75:626C
 
 .l6287 ; 75:6287
 	; [CONFIRMED] 59 insn(s); 59 executed (in up to 7/18 scenarios)
-	ld hl, $6041
+	ld hl, MobilePacket_ReadConfigurationDataPart1
 	jp Mobile_PacketSendReadConfig
 .l628D ; 75:628D
 	ld hl, $C6C8
@@ -5750,7 +5750,7 @@ Mobile_PacketSendTelephoneStatus:: ; 75:6360
 	ld a, $C7
 	ld [hl], a
 	ld a, $97
-	ld hl, $6028
+	ld hl, MobilePacket_TelephoneStatus
 	jp Mobile_PacketSendEmptyBody
 
 Mobile_PacketSendReadConfig:: ; 75:6371
@@ -5810,7 +5810,7 @@ MobileState_WaitForCall:: ; 75:63BC
 	dec [hl]
 .l63C4 ; 75:63C4
 	ld a, $94
-	ld hl, $6063
+	ld hl, Data_75_6063
 	jp Mobile_PacketSendEmptyBody
 .l63CC ; 75:63CC
 	ld a, [wMobileSDK_ReceivePacketBuffer]
@@ -5862,7 +5862,7 @@ MobileState_Disconnect:: ; 75:63E7
 	xor a, a
 	ld [wMobileSDK_ConnectionFlag], a
 	ld a, $A2
-	ld hl, $6037
+	ld hl, MobilePacket_ISPLogout
 	jp Mobile_PacketSendEmptyBody
 .l641C ; 75:641C
 	ld a, $93
@@ -6253,11 +6253,11 @@ MobileSDK_HttpCopyMethod:: ; 75:66A1
 	ret
 
 MobileSDK_HttpSelectPost:: ; 75:66B2
-	ld hl, $6132
+	ld hl, MobileStr_HttpPostMethod
 	ret
 
 MobileSDK_HttpCopyVersion:: ; 75:66B6
-	ld hl, $6110
+	ld hl, MobileStr_HttpVersion
 	jp MobileSDK_CopyString
 
 MobileSDK_HttpUserAgentLine:: ; 75:66BC
@@ -7874,7 +7874,7 @@ MobileSDK_HttpParseResponseHeaders:: ; 75:6F77
 	ret
 
 MobileSDK_HttpHdrDate:: ; 75:700D
-	ld de, $7039
+	ld de, MobileStr_HdrDate
 	push hl
 	call MobileSDK_MatchPrefixNoCase
 	jr nc, .l7018
@@ -8209,7 +8209,7 @@ MobileSDK_HttpHdrLocation:: ; 75:71B8
 Function_75_71B8::
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld de, $7344
+	ld de, MobileStr_HdrLocation
 	push hl
 	call MobileSDK_MatchPrefix
 	jr nc, .l71C3
@@ -8683,7 +8683,7 @@ MobileState_TelephoneStatus:: ; 75:748D
 	jr .l74BE
 .l74B6 ; 75:74B6
 	ld a, $97
-	ld hl, $6028
+	ld hl, MobilePacket_TelephoneStatus
 	jp Mobile_PacketSendEmptyBody
 .l74BE ; 75:74BE
 	ld hl, $C70D
@@ -8715,7 +8715,7 @@ MobileState_ReadConfigExport:: ; 75:74DB
 	dec [hl]
 	ret
 .l74E9 ; 75:74E9
-	ld hl, $6041
+	ld hl, MobilePacket_ReadConfigurationDataPart1
 	jp Mobile_PacketSendReadConfig
 .l74EF ; 75:74EF
 	ld hl, $C6C8

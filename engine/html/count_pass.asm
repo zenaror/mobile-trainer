@@ -294,7 +294,7 @@ Label_74_50C3:: ; 74:50C3
 	; [CONFIRMED] 26 insn(s) executed; cut out of the PROBABLE region 4FF2-511A by apply_coverage
 	; --split [executed in 4 scenarios]
 	dec hl
-	ld bc, $4110
+	ld bc, Html_NoKeywords
 	call Html_ScanAttributes
 	jp .loop
 

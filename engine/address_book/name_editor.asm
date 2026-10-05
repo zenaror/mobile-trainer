@@ -17,7 +17,7 @@ AbookName_Edit:: ; 2F:57F2
 	ld a, $10
 	ld [wStatSplitLine], a
 	ld a, $0B
-	ld [wRam_D725], a
+	ld [wKbdSlideDeltaRow], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -359,7 +359,7 @@ AbookName_SetupScreen:: ; 2F:593B
 	ld a, $10
 	ld [wStatSplitLine], a
 	ld a, $0B
-	ld [wRam_D725], a
+	ld [wKbdSlideDeltaRow], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a

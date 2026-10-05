@@ -366,7 +366,7 @@ Html_Tag_Meta:: ; 74:4698
 	ld a, [wHtmlFlags]
 	and a, $02
 	jp z, Label_74_443F
-	ld bc, $4033
+	ld bc, Html_MetaAttrPtrs
 	call Html_ScanAttributes
 	cp a, $01
 	jr z, .l46C1
@@ -1022,7 +1022,7 @@ Html_Tag_A:: ; 74:4A91
 	jp Label_74_443F
 .l4AD5 ; 74:4AD5
 	farcall Html_Layout_WrapRun
-	ld bc, $4078
+	ld bc, Html_AnchorAttrPtrs
 	call Html_ScanAttributes
 	cp a, $01
 	jr z, .l4B21
@@ -1131,7 +1131,7 @@ Html_Tag_A:: ; 74:4A91
 
 Html_Tag_Br:: ; 74:4B98
 	; [CONFIRMED] 4 insn(s); 4 executed (in up to 2/18 scenarios)
-	ld bc, $4057
+	ld bc, Html_BrAttrPtrs
 	call Html_ScanAttributes
 	or a, a
 	jr z, .l4BB9
@@ -1342,7 +1342,7 @@ Html_Tag_Hr:: ; 74:4CA6
 	sbc a, b
 	ld b, a
 	push bc
-	ld bc, $4062
+	ld bc, Html_HrAttrPtrs
 	call Html_ScanAttributes
 	pop bc
 	push hl
@@ -1544,7 +1544,7 @@ Html_Tag_Hr:: ; 74:4CA6
 	jp .l4DB5
 .l4DDE ; 74:4DDE
 	dec hl
-	ld bc, $4110
+	ld bc, Html_NoKeywords
 	call Html_ScanAttributes
 	jp .l4DB5
 
