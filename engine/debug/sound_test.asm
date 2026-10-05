@@ -177,9 +177,9 @@ SoundTest_Idle:: ; 1B:41CD
 	jp SoundTest_Loop
 
 SoundTest_OnA:: ; 1B:41D8
-	ld a, [wRam_C0E5]
+	ld a, [wSoundTest_NumberLo]
 	ld c, a
-	ld a, [wRam_C0D6]
+	ld a, [wSoundTest_NumberHi]
 	ld b, a
 	ldh a, [hWRAMBank]
 	push af
@@ -191,9 +191,9 @@ SoundTest_OnA:: ; 1B:41D8
 	jp SoundTest_Loop
 
 SoundTest_OnB:: ; 1B:41F0
-	ld a, [wRam_C0E5]
+	ld a, [wSoundTest_NumberLo]
 	ld c, a
-	ld a, [wRam_C0D6]
+	ld a, [wSoundTest_NumberHi]
 	ld b, a
 	ldh a, [hWRAMBank]
 	push af
@@ -262,45 +262,45 @@ SoundTest_HandleDpad:: ; 1B:4261
 	jr nz, .l4288
 	ret
 .l4272 ; 1B:4272
-	ld a, [wRam_C0D6]
+	ld a, [wSoundTest_NumberHi]
 	inc a
-	ld [wRam_C0D6], a
+	ld [wSoundTest_NumberHi], a
 	call SoundTest_DrawNumber
 	ret
 .l427D ; 1B:427D
-	ld a, [wRam_C0D6]
+	ld a, [wSoundTest_NumberHi]
 	dec a
-	ld [wRam_C0D6], a
+	ld [wSoundTest_NumberHi], a
 	call SoundTest_DrawNumber
 	ret
 .l4288 ; 1B:4288
-	ld a, [wRam_C0E7]
+	ld a, [wSoundTest_HoldCounter]
 	cp a, $3C
 	jr nc, .l429A
-	ld a, [wRam_C0E5]
+	ld a, [wSoundTest_NumberLo]
 	dec a
-	ld [wRam_C0E5], a
+	ld [wSoundTest_NumberLo], a
 	call SoundTest_DrawNumber
 	ret
 .l429A ; 1B:429A
-	ld a, [wRam_C0E5]
+	ld a, [wSoundTest_NumberLo]
 	sub a, $04
-	ld [wRam_C0E5], a
+	ld [wSoundTest_NumberLo], a
 	call SoundTest_DrawNumber
 	ret
 .l42A6 ; 1B:42A6
-	ld a, [wRam_C0E7]
+	ld a, [wSoundTest_HoldCounter]
 	cp a, $3C
 	jr nc, .l42B8
-	ld a, [wRam_C0E5]
+	ld a, [wSoundTest_NumberLo]
 	inc a
-	ld [wRam_C0E5], a
+	ld [wSoundTest_NumberLo], a
 	call SoundTest_DrawNumber
 	ret
 .l42B8 ; 1B:42B8
-	ld a, [wRam_C0E5]
+	ld a, [wSoundTest_NumberLo]
 	add a, $04
-	ld [wRam_C0E5], a
+	ld [wSoundTest_NumberLo], a
 	call SoundTest_DrawNumber
 	ret
 
@@ -309,7 +309,7 @@ SoundTest_LoadHelpText:: ; 1B:42C4
 	ld de, $D000
 	ld bc, $0010
 	ld a, $03
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $1B
 	farcall TextTiles_RenderGrid
 	ldh [hScratchA], a
@@ -371,7 +371,7 @@ SoundTest_DrawNumber:: ; 1B:4371
 	ld a, $79
 	ld [de], a
 	inc de
-	ld a, [wRam_C0D6]
+	ld a, [wSoundTest_NumberHi]
 	ld b, a
 	swap a
 	and a, $0F
@@ -403,7 +403,7 @@ SoundTest_DrawNumber:: ; 1B:4371
 	ld a, [hli]
 	ld [de], a
 	inc de
-	ld a, [wRam_C0E5]
+	ld a, [wSoundTest_NumberLo]
 	ld b, a
 	swap a
 	and a, $0F
@@ -447,7 +447,7 @@ SoundTest_DrawNumber:: ; 1B:4371
 	ld de, $D000
 	ld bc, $0010
 	ld a, $03
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $02
 	farcall TextTiles_RenderGrid
 	ld a, $03
@@ -478,18 +478,18 @@ SoundTest_UpdateHoldTimer:: ; 1B:4450
 	; [PROBABLE] 14 insn(s) reached by static flow only; seeds: site x14; min discovery hops 2;
 	; entered by call from 1B:41CD (PROBABLE code) | forced execution: 14/14 instruction starts ran
 	; in forced_debug (traces/forced/, not natural evidence; status unchanged)
-	ld a, [wRam_C0E8]
+	ld a, [wSoundTest_PrevHeld]
 	ld b, a
 	ldh a, [hJoyHeld]
 	cp a, b
 	jr z, .l4461
-	ld [wRam_C0E8], a
+	ld [wSoundTest_PrevHeld], a
 	xor a, a
-	ld [wRam_C0E7], a
+	ld [wSoundTest_HoldCounter], a
 	ret
 .l4461 ; 1B:4461
-	ld a, [wRam_C0E7]
+	ld a, [wSoundTest_HoldCounter]
 	add a, $01
 	ret c
-	ld [wRam_C0E7], a
+	ld [wSoundTest_HoldCounter], a
 	ret

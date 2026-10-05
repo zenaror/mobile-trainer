@@ -78,7 +78,7 @@ AdapterCheck_Run:: ; 67:6401
 	pop af
 	ldh [rSVBK], a
 	call VBlank_WaitAndService
-	ld a, [wRam_C27C]
+	ld a, [wAdapterCheck_Result]
 	ret
 
 AdapterCheck_Setup:: ; 67:6437
@@ -91,7 +91,7 @@ AdapterCheck_Setup:: ; 67:6437
 
 AdapterCheck_Poll:: ; 67:644E
 	xor a, a
-	ld [wRam_C286], a
+	ld [wAdapterCheck_SfxFlag], a
 
 AdapterCheck_Poll_Loop:: ; 67:6452
 Label_67_6452::
@@ -116,7 +116,7 @@ Label_67_6452::
 	jr z, .l649A
 	cp a, $02
 	jr nz, .l649E
-	ld a, [wRam_C286]
+	ld a, [wAdapterCheck_SfxFlag]
 	or a, a
 	jr nz, .l649E
 	ldh a, [hWRAMBank]
@@ -128,13 +128,13 @@ Label_67_6452::
 	pop af
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_C286], a
+	ld [wAdapterCheck_SfxFlag], a
 	jr .l649E
 .l649A ; 67:649A
 	xor a, a
-	ld [wRam_C286], a
+	ld [wAdapterCheck_SfxFlag], a
 .l649E ; 67:649E
-	ld a, [wRam_C27D]
+	ld a, [wAdapterCheck_State]
 	add a, a
 	add a, $AE
 	ld l, a
@@ -159,7 +159,7 @@ AdapterCheck_State_Init:: ; 67:64B4
 	ld a, $02
 	call MobileAPI
 	ld a, $01
-	ld [wRam_C27D], a
+	ld [wAdapterCheck_State], a
 	jp AdapterCheck_Poll_Loop
 
 AdapterCheck_State_ReadConfig:: ; 67:64C7
@@ -179,7 +179,7 @@ AdapterCheck_State_ReadConfig:: ; 67:64C7
 	ld a, $38
 	call MobileAPI
 	ld a, $02
-	ld [wRam_C27D], a
+	ld [wAdapterCheck_State], a
 	jp AdapterCheck_Poll_Loop
 
 AdapterCheck_State_Finish:: ; 67:64F5
@@ -201,7 +201,7 @@ AdapterCheck_State_Finish:: ; 67:64F5
 .l651A ; 67:651A
 	ld a, $02
 .l651C ; 67:651C
-	ld [wRam_C27C], a
+	ld [wAdapterCheck_Result], a
 	ret
 
 AdapterCheck_Abort:: ; 67:6520
@@ -212,5 +212,5 @@ AdapterCheck_Abort:: ; 67:6520
 	ld a, $36
 	call MobileAPI
 	xor a, a
-	ld [wRam_C27C], a
+	ld [wAdapterCheck_Result], a
 	ret

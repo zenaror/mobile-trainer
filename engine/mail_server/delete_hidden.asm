@@ -462,7 +462,7 @@ MailSrvDelHidden_ShowDescDeleteAll:: ; 22:43C5
 	ld hl, String_MailSrvDelHidden_DescDeleteAll
 	ld a, $02
 	ldh [rVBK], a
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $22
 	ld bc, $D000
 	ld de, $D360
@@ -484,7 +484,7 @@ MailSrvDelHidden_ShowDescCheck:: ; 22:444D
 	ld hl, String_MailSrvDelHidden_DescCheck
 	ld a, $02
 	ldh [rVBK], a
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $22
 	ld bc, $D000
 	ld de, $D360
@@ -513,7 +513,7 @@ MailSrvDelHidden_ShowDescDeleteCompletely:: ; 22:44FA
 	ld hl, String_MailSrvDelHidden_DescDeleteCompletely
 	ld a, $02
 	ldh [rVBK], a
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $22
 	ld bc, $D000
 	ld de, $D360
@@ -617,7 +617,7 @@ MailSrvDelHidden_Confirm:: ; 22:4582
 	ld hl, String_MailSrvDelHidden_Confirm
 	ld a, $02
 	ldh [rVBK], a
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $22
 	ld bc, $D000
 	ld de, $D100
@@ -626,7 +626,7 @@ MailSrvDelHidden_Confirm:: ; 22:4582
 	ld hl, $483C
 	ld a, $02
 	ldh [rVBK], a
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $22
 	ld bc, $D200
 	ld de, $D300
@@ -635,7 +635,7 @@ MailSrvDelHidden_Confirm:: ; 22:4582
 	ld hl, $485D
 	ld a, $02
 	ldh [rVBK], a
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $22
 	ld bc, $D400
 	ld de, $D500
@@ -644,7 +644,7 @@ MailSrvDelHidden_Confirm:: ; 22:4582
 	ld hl, $487E
 	ld a, $02
 	ldh [rVBK], a
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $22
 	ld bc, $D600
 	ld de, $D700
@@ -898,7 +898,7 @@ Function_22_48CD::
 	ld b, h
 	ld c, l
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $01
 	ld hl, $0140
 	add hl, bc
@@ -932,7 +932,7 @@ Function_22_48CD::
 	ld b, h
 	ld c, l
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $01
 	ld hl, $0140
 	add hl, bc
@@ -961,7 +961,7 @@ Function_22_48CD::
 	ld b, h
 	ld c, l
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $01
 	ld hl, $0140
 	add hl, bc

@@ -8,22 +8,22 @@ Title_Run:: ; 0E:4000
 Function_0E_4000::
 	; [CONFIRMED] 70 insn(s); 70 executed (in up to 14/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld [wRam_C280], a
+	ld [wTitle_Arg], a
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
-	ld a, [wRam_C280]
+	ld a, [wTitle_Arg]
 	or a, a
 	jr nz, .l4019
 	xor a, a
-	ld [wRam_C27C], a
+	ld [wTitle_State], a
 	jr .l401E
 .l4019 ; 0E:4019
 	ld a, $03
-	ld [wRam_C27C], a
+	ld [wTitle_State], a
 .l401E ; 0E:401E
 	call Title_StateLoop
-	ld a, [wRam_C27D]
+	ld a, [wTitle_Cursor]
 	ld hl, sTitleMenuCursor
 	ld b, a
 	ldh [hScratchA], a
@@ -52,7 +52,7 @@ Function_0E_4000::
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ldh a, [hScratchA]
-	ld a, [wRam_C27D]
+	ld a, [wTitle_Cursor]
 	inc a
 	ret
 
@@ -61,7 +61,7 @@ Title_StateLoop:: ; 0E:405F
 	call Title_DispatchState
 	farcall Sprite_UpdateAll
 	call VBlank_WaitAndService
-	ld a, [wRam_C27C]
+	ld a, [wTitle_State]
 	cp a, $FF
 	jr nz, Title_StateLoop
 	call VBlank_WaitAndService
@@ -72,7 +72,7 @@ Title_StateLoop:: ; 0E:405F
 	ret
 
 Title_DispatchState:: ; 0E:4083
-	ld a, [wRam_C27C]
+	ld a, [wTitle_State]
 	ld hl, Table_Title_States
 	add a, a
 	add a, l
@@ -110,17 +110,17 @@ Title_StateLoadLogo:: ; 0E:40A2
 	pop af
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_C27E], a
-	ld [wRam_C27F], a
-	ld a, [wRam_C27C]
+	ld [wTitle_FrameCounterHi], a
+	ld [wTitle_FrameCounterLo], a
+	ld a, [wTitle_State]
 	inc a
-	ld [wRam_C27C], a
+	ld [wTitle_State], a
 	ret
 
 Title_StateLogoWait:: ; 0E:40CA
-	ld a, [wRam_C27E]
+	ld a, [wTitle_FrameCounterHi]
 	ld b, a
-	ld a, [wRam_C27F]
+	ld a, [wTitle_FrameCounterLo]
 	ld c, a
 	ld h, b
 	ld l, c
@@ -134,9 +134,9 @@ Title_StateLogoWait:: ; 0E:40CA
 	jr z, .l4104
 	inc hl
 	ld a, h
-	ld [wRam_C27E], a
+	ld [wTitle_FrameCounterHi], a
 	ld a, l
-	ld [wRam_C27F], a
+	ld [wTitle_FrameCounterLo], a
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
 	jr nz, .l40F4
@@ -145,22 +145,22 @@ Title_StateLogoWait:: ; 0E:40CA
 	jr .done
 .l40F4 ; 0E:40F4
 	farcall Palette_FadeOutToWhite
-	ld a, [wRam_C27C]
+	ld a, [wTitle_State]
 	add a, $02
-	ld [wRam_C27C], a
+	ld [wTitle_State], a
 	jr .done
 .l4104 ; 0E:4104
-	ld a, [wRam_C27C]
+	ld a, [wTitle_State]
 	inc a
-	ld [wRam_C27C], a
+	ld [wTitle_State], a
 .done ; 0E:410B
 	ret
 
 Title_StateLogoFadeOut:: ; 0E:410C
 	farcall Palette_FadeOutToWhiteSlow
-	ld a, [wRam_C27C]
+	ld a, [wTitle_State]
 	inc a
-	ld [wRam_C27C], a
+	ld [wTitle_State], a
 	ret
 
 Title_StateLoadTitle:: ; 0E:411A
@@ -192,7 +192,7 @@ Title_StateLoadTitle:: ; 0E:411A
 	ld [rRAMG], a
 	ldh a, [hScratchA]
 	ld a, b
-	ld [wRam_C27D], a
+	ld [wTitle_Cursor], a
 	call Title_LoadTitleScreen
 	farcall Palette_FadeInFromWhite
 	ldh a, [hWRAMBank]
@@ -204,20 +204,20 @@ Title_StateLoadTitle:: ; 0E:411A
 	pop af
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_C27E], a
-	ld [wRam_C27F], a
-	ld a, [wRam_C27C]
+	ld [wTitle_FrameCounterHi], a
+	ld [wTitle_FrameCounterLo], a
+	ld a, [wTitle_State]
 	inc a
-	ld [wRam_C27C], a
+	ld [wTitle_State], a
 	ret
 
 Title_StateMenu:: ; 0E:417B
-	ld a, [wRam_C280]
+	ld a, [wTitle_Arg]
 	or a, a
 	jr nz, Title_MenuHandleButtons
-	ld a, [wRam_C27E]
+	ld a, [wTitle_FrameCounterHi]
 	ld b, a
-	ld a, [wRam_C27F]
+	ld a, [wTitle_FrameCounterLo]
 	ld c, a
 	ld h, b
 	ld l, c
@@ -236,9 +236,9 @@ Title_StateMenu:: ; 0E:417B
 	jr z, Title_MenuTimeout
 	inc hl
 	ld a, h
-	ld [wRam_C27E], a
+	ld [wTitle_FrameCounterHi], a
 	ld a, l
-	ld [wRam_C27F], a
+	ld [wTitle_FrameCounterLo], a
 
 Title_MenuHandleButtons:: ; 0E:419F
 	ldh a, [hJoyPressedRepeat]
@@ -256,14 +256,14 @@ Title_MenuTimeout:: ; 0E:41B3
 	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1;
 	; entered by jrcc from 0E:4194 (executed)
 	ld a, $06
-	ld [wRam_C27C], a
+	ld [wTitle_State], a
 	jr Label_0E_41FD
 
 Title_MenuToggleSelection:: ; 0E:41BA
 	; [CONFIRMED] 35 insn(s); 35 executed (in up to 14/18 scenarios)
 	xor a, a
-	ld [wRam_C27E], a
-	ld [wRam_C27F], a
+	ld [wTitle_FrameCounterHi], a
+	ld [wTitle_FrameCounterLo], a
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -272,9 +272,9 @@ Title_MenuToggleSelection:: ; 0E:41BA
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld a, [wRam_C27D]
+	ld a, [wTitle_Cursor]
 	xor a, $01
-	ld [wRam_C27D], a
+	ld [wTitle_Cursor], a
 	call Title_PlaceCursor
 	call Title_DrawMenuHighlight
 	ldh a, [rLCDC]
@@ -290,9 +290,9 @@ Title_MenuConfirm:: ; 0E:41E6
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld a, [wRam_C27C]
+	ld a, [wTitle_State]
 	inc a
-	ld [wRam_C27C], a
+	ld [wTitle_State], a
 
 Label_0E_41FD:: ; 0E:41FD
 	ret
@@ -300,7 +300,7 @@ Label_0E_41FD:: ; 0E:41FD
 Title_StateExit:: ; 0E:41FE
 	farcall Palette_FadeOutToWhite
 	ld a, $FF
-	ld [wRam_C27C], a
+	ld [wTitle_State], a
 	ret
 
 Title_StateTimeoutRestart:: ; 0E:420A
@@ -308,7 +308,7 @@ Title_StateTimeoutRestart:: ; 0E:420A
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Palette_FadeOutToWhite
 	xor a, a
-	ld [wRam_C27C], a
+	ld [wTitle_State], a
 	ret
 
 Title_LoadTitleScreen:: ; 0E:4215
@@ -399,7 +399,7 @@ Function_0E_4215::
 	ret
 
 Title_DrawMenuHighlight:: ; 0E:4311
-	ld a, [wRam_C27D]
+	ld a, [wTitle_Cursor]
 	ld de, $D185
 	ld bc, $040A
 	ld hl, Table_Title_HighlightTilemaps
@@ -426,7 +426,7 @@ Title_PlaceCursor:: ; 0E:4334
 Function_0E_4334::
 	; [CONFIRMED] 14 insn(s); 14 executed (in up to 14/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld a, [wRam_C27D]
+	ld a, [wTitle_Cursor]
 	ld hl, Table_Title_CursorPositions
 	add a, a
 	add a, l

@@ -1038,7 +1038,7 @@ Function_2B_478B::
 	ld l, a
 	ld a, $02
 	ldh [rVBK], a
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $2B
 	ld bc, $DB40
 	ld de, $DC80

@@ -39,13 +39,13 @@ SettingsMenu_Run:: ; 68:4F9E
 	farcall Settings_GetHiddenModeFlag
 	ld [wHiddenModeFlag], a
 	xor a, a
-	ld [wRam_C28E], a
+	ld [wSettingsMenu_State], a
 	ld a, $00
 	ld [wCommNoticeMode], a
 	ld a, $01
 	ld [wCommNoticeGfxSet], a
 	call SettingsMenu_RunLoop
-	ld a, [wRam_C27C]
+	ld a, [wSettingsMenu_Cursor]
 	ld hl, sVarSettingsMenuCursor
 	ld b, a
 	ldh [hScratchA], a
@@ -74,10 +74,10 @@ SettingsMenu_Run:: ; 68:4F9E
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ldh a, [hScratchA]
-	ld a, [wRam_C27D]
+	ld a, [wSettingsMenu_CancelFlag]
 	dec a
 	ret z
-	ld a, [wRam_C27C]
+	ld a, [wSettingsMenu_Cursor]
 	inc a
 	ret
 
@@ -86,13 +86,13 @@ SettingsMenu_RunLoop:: ; 68:5033
 	call SettingsMenu_Dispatch
 	farcall Sprite_UpdateAll
 	call VBlank_WaitAndService
-	ld a, [wRam_C28E]
+	ld a, [wSettingsMenu_State]
 	cp a, $FF
 	jr nz, SettingsMenu_RunLoop
 	ret
 
 SettingsMenu_Dispatch:: ; 68:504D
-	ld a, [wRam_C28E]
+	ld a, [wSettingsMenu_State]
 	ld hl, SettingsMenu_StateTable
 	add a, a
 	add a, l
@@ -121,7 +121,7 @@ SettingsMenu_StateInit:: ; 68:5066
 	farcall Joypad_SetRepeatTiming
 	farcall Sprite_ResetAll
 	xor a, a
-	ld [wRam_C27D], a
+	ld [wSettingsMenu_CancelFlag], a
 	ld hl, sVarSettingsMenuCursor
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
@@ -150,7 +150,7 @@ SettingsMenu_StateInit:: ; 68:5066
 	ld [rRAMG], a
 	ldh a, [hScratchA]
 	ld a, b
-	ld [wRam_C27C], a
+	ld [wSettingsMenu_Cursor], a
 	ld de, $8801
 	ld hl, Gfx_SettingsMenu_Tiles8800Vb1
 	ld a, $4A
@@ -202,7 +202,7 @@ SettingsMenu_StateInit:: ; 68:5066
 	call SettingsMenu_UpdateCursorSprite
 	farcall Sprite_UpdateAll
 	ld a, $01
-	ld [wRam_C28E], a
+	ld [wSettingsMenu_State], a
 	ret
 
 SettingsMenu_StateFadeIn:: ; 68:5156
@@ -216,7 +216,7 @@ SettingsMenu_StateFadeIn:: ; 68:5156
 	pop af
 	ldh [rSVBK], a
 	ld a, $02
-	ld [wRam_C28E], a
+	ld [wSettingsMenu_State], a
 	ret
 
 SettingsMenu_StateInput:: ; 68:5172
@@ -240,7 +240,7 @@ SettingsMenu_StateInput:: ; 68:5172
 	pop af
 	ldh [rSVBK], a
 	ld a, $03
-	ld [wRam_C28E], a
+	ld [wSettingsMenu_State], a
 	jr .done
 .l519E ; 68:519E
 	ldh a, [hWRAMBank]
@@ -252,12 +252,12 @@ SettingsMenu_StateInput:: ; 68:5172
 	pop af
 	ldh [rSVBK], a
 	ld a, $03
-	ld [wRam_C28E], a
+	ld [wSettingsMenu_State], a
 	ld a, $01
-	ld [wRam_C27D], a
+	ld [wSettingsMenu_CancelFlag], a
 	jr .done
 .l51BA ; 68:51BA
-	ld a, [wRam_C27C]
+	ld a, [wSettingsMenu_Cursor]
 	or a, a
 	jr nz, .l51C9
 	ld a, [wHiddenModeFlag]
@@ -267,19 +267,19 @@ SettingsMenu_StateInput:: ; 68:5172
 	sub a, b
 .l51C9 ; 68:51C9
 	dec a
-	ld [wRam_C27C], a
+	ld [wSettingsMenu_Cursor], a
 	jr .l51E1
 .l51CF ; 68:51CF
 	ld a, [wHiddenModeFlag]
 	add a, $03
 	ld b, a
-	ld a, [wRam_C27C]
+	ld a, [wSettingsMenu_Cursor]
 	cp a, b
 	jr nz, .skip
 	ld a, $FF
 .skip ; 68:51DD
 	inc a
-	ld [wRam_C27C], a
+	ld [wSettingsMenu_Cursor], a
 .l51E1 ; 68:51E1
 	ldh a, [hWRAMBank]
 	push af
@@ -299,11 +299,11 @@ SettingsMenu_StateInput:: ; 68:5172
 SettingsMenu_StateExit:: ; 68:51FD
 	farcall Palette_FadeOutToWhite
 	ld a, $FF
-	ld [wRam_C28E], a
+	ld [wSettingsMenu_State], a
 	ret
 
 SettingsMenu_UpdateCursorSprite:: ; 68:5209
-	ld a, [wRam_C27C]
+	ld a, [wSettingsMenu_Cursor]
 	sla a
 	sla a
 	sla a
@@ -351,7 +351,7 @@ SettingsMenu_DrawItems:: ; 68:522C
 
 .l5256 ; 68:5256
 	; [CONFIRMED] 8 insn(s); 8 executed (in up to 4/18 scenarios)
-	ld a, [wRam_C27C]
+	ld a, [wSettingsMenu_Cursor]
 	ld de, $0040
 	call Multiply8x16
 	ld a, [wHiddenModeFlag]
@@ -371,7 +371,7 @@ SettingsMenu_DrawItems:: ; 68:522C
 	ld d, h
 	ld e, l
 	ld bc, $020A
-	ld a, [wRam_C27C]
+	ld a, [wSettingsMenu_Cursor]
 	ld hl, SettingsMenu_ItemHighlightMaps
 	add a, a
 	add a, l

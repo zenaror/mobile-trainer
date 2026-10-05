@@ -213,11 +213,11 @@ Ticker_Start:: ; 48:42D4
 	ld c, $40
 	ld de, $D000
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	dec a
-	ldh [hRam_FFB2], a
+	ldh [hTextTiles_GridRowEnd], a
 	dec a
-	ldh [hRam_FFB1], a
+	ldh [hTextTiles_GridRow], a
 	ld a, [wTickerTextBank]
 	farcall TextTiles_RenderGridRows
 	ld b, $15
@@ -228,11 +228,11 @@ Ticker_Start:: ; 48:42D4
 	ld c, $40
 	ld de, $D000
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	dec a
-	ldh [hRam_FFB2], a
+	ldh [hTextTiles_GridRowEnd], a
 	dec a
-	ldh [hRam_FFB1], a
+	ldh [hTextTiles_GridRow], a
 	ld a, [wTickerTextBank]
 	farcall TextTiles_RenderGridRows
 	ldh a, [rIE]

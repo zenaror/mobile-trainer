@@ -64,79 +64,79 @@ Function_48_4000::
 	ret
 
 TextTiles_RenderLine:: ; 48:403E
-	ldh [hRam_FFBB], a
+	ldh [hTextTiles_StringBank], a
 	ld a, c
-	ldh [hRam_FFB2], a
+	ldh [hTextTiles_Dest1Lo], a
 	ld a, b
-	ldh [hRam_FFB3], a
+	ldh [hTextTiles_Dest1Hi], a
 	ld a, e
-	ldh [hRam_FFB4], a
+	ldh [hTextTiles_Dest2Lo], a
 	ld a, d
-	ldh [hRam_FFB5], a
+	ldh [hTextTiles_Dest2Hi], a
 .loop ; 48:404C
-	ldh a, [hRam_FFBB]
+	ldh a, [hTextTiles_StringBank]
 	call ReadByteFar
 	or a, a
 	jr z, .l409C
 	ld b, a
-	ldh a, [hRam_FFBB]
+	ldh a, [hTextTiles_StringBank]
 	call ReadByteFar
 	or a, a
 	jr z, .l409C
 	push hl
 	ld c, a
-	ldh a, [hRam_FFB0]
+	ldh a, [hTextTiles_DestBank]
 	ld l, a
 	ld h, $00
 	push hl
 	push de
 	push hl
-	ldh a, [hRam_FFB2]
+	ldh a, [hTextTiles_Dest1Lo]
 	ld l, a
-	ldh a, [hRam_FFB3]
+	ldh a, [hTextTiles_Dest1Hi]
 	ld h, a
 	push hl
 	push bc
 	farcall Font_BlitGlyph8x16
 	add sp, 10
 	pop hl
-	ldh a, [hRam_FFB4]
+	ldh a, [hTextTiles_Dest2Lo]
 	add a, $10
 	ld e, a
-	ldh [hRam_FFB4], a
+	ldh [hTextTiles_Dest2Lo], a
 	jr nc, .l4086
-	ldh a, [hRam_FFB5]
+	ldh a, [hTextTiles_Dest2Hi]
 	inc a
-	ldh [hRam_FFB5], a
+	ldh [hTextTiles_Dest2Hi], a
 .l4086 ; 48:4086
-	ldh a, [hRam_FFB2]
+	ldh a, [hTextTiles_Dest1Lo]
 	add a, $10
 	ld c, a
-	ldh [hRam_FFB2], a
+	ldh [hTextTiles_Dest1Lo], a
 	jr nc, .l4094
-	ldh a, [hRam_FFB3]
+	ldh a, [hTextTiles_Dest1Hi]
 	inc a
-	ldh [hRam_FFB3], a
+	ldh [hTextTiles_Dest1Hi], a
 .l4094 ; 48:4094
-	ldh a, [hRam_FFB5]
+	ldh a, [hTextTiles_Dest2Hi]
 	ld d, a
-	ldh a, [hRam_FFB3]
+	ldh a, [hTextTiles_Dest1Hi]
 	ld b, a
 	jr .loop
 .l409C ; 48:409C
-	ldh a, [hRam_FFB2]
+	ldh a, [hTextTiles_Dest1Lo]
 	ld c, a
-	ldh a, [hRam_FFB3]
+	ldh a, [hTextTiles_Dest1Hi]
 	ld b, a
-	ldh a, [hRam_FFB4]
+	ldh a, [hTextTiles_Dest2Lo]
 	ld e, a
-	ldh a, [hRam_FFB5]
+	ldh a, [hTextTiles_Dest2Hi]
 	ld d, a
 	ret
 
 TextTiles_RenderGrid:: ; 48:40A9
 	ld [wTextGridStrBank], a
-	ldh a, [hRam_FFB0]
+	ldh a, [hTextTiles_DestBank]
 	ld [wTextGridWramBank], a
 	ld a, c
 	ld [wTextGridWidth], a
@@ -245,26 +245,26 @@ TextTiles_RenderGrid:: ; 48:40A9
 	ret
 
 TextTiles_RenderGridRows:: ; 48:415A
-	ldh [hRam_FFBB], a
+	ldh [hTextTiles_StringBank], a
 	ld a, e
 	ldh [hRam_FFB6], a
 	ld a, d
 	ldh [hRam_FFB7], a
 	ld a, b
-	ldh [hRam_FFB5], a
-	ldh [hRam_FFB8], a
+	ldh [hTextTiles_GridStartCol], a
+	ldh [hTextTiles_GridColumn], a
 	ld a, c
-	ldh [hRam_FFB4], a
+	ldh [hTextTiles_GridWidth], a
 	swap a
 	ld c, a
 	and a, $F0
-	ldh [hRam_FFB9], a
+	ldh [hTextTiles_RowStride], a
 	ld a, c
 	and a, $0F
-	ldh [hRam_FFBA], a
+	ldh [hTextTiles_RowStrideHi], a
 	push hl
 	push de
-	ldh a, [hRam_FFB4]
+	ldh a, [hTextTiles_GridWidth]
 	swap a
 	ld l, a
 	and a, $0F
@@ -274,13 +274,13 @@ TextTiles_RenderGridRows:: ; 48:415A
 	ld l, a
 	ld d, h
 	ld e, l
-	ldh a, [hRam_FFB1]
+	ldh a, [hTextTiles_GridRow]
 	call Multiply8x16
 	pop de
 	add hl, de
 	ld d, h
 	ld e, l
-	ldh a, [hRam_FFB8]
+	ldh a, [hTextTiles_GridColumn]
 .l4191 ; 48:4191
 	swap a
 	ld l, a
@@ -294,32 +294,32 @@ TextTiles_RenderGridRows:: ; 48:415A
 	ld e, l
 	pop hl
 .l419F ; 48:419F
-	ldh a, [hRam_FFBB]
+	ldh a, [hTextTiles_StringBank]
 	call ReadByteFar
 	or a, a
 	jp z, .done
 	cp a, $0D
 	jr z, .l4202
 	ld b, a
-	ldh a, [hRam_FFBB]
+	ldh a, [hTextTiles_StringBank]
 	call ReadByteFar
 	or a, a
 	jr z, .done
 	push de
 	push hl
 	ld c, a
-	ldh a, [hRam_FFB0]
+	ldh a, [hTextTiles_DestBank]
 	ld l, a
 	ld h, $00
 	push hl
-	ldh a, [hRam_FFB9]
+	ldh a, [hTextTiles_RowStride]
 	add a, e
 	ld l, a
-	ldh a, [hRam_FFBA]
+	ldh a, [hTextTiles_RowStrideHi]
 	adc a, d
 	ld h, a
 	push hl
-	ldh a, [hRam_FFB0]
+	ldh a, [hTextTiles_DestBank]
 	ld l, a
 	ld h, $00
 	push hl
@@ -335,47 +335,47 @@ TextTiles_RenderGridRows:: ; 48:415A
 	ld a, d
 	adc a, $00
 	ld d, a
-	ldh a, [hRam_FFB4]
+	ldh a, [hTextTiles_GridWidth]
 	ld b, a
-	ldh a, [hRam_FFB8]
+	ldh a, [hTextTiles_GridColumn]
 	inc a
 	cp a, b
-	ldh [hRam_FFB8], a
+	ldh [hTextTiles_GridColumn], a
 	jr nz, .l419F
 
 	; [PROBABLE] 36 insn(s) reached by static flow only; seeds: exec x36; min discovery hops 0;
 	; fall-through of the jrcc at 48:41EA (executed)
-	ldh a, [hRam_FFB1]
+	ldh a, [hTextTiles_GridRow]
 	inc a
-	ldh [hRam_FFB1], a
+	ldh [hTextTiles_GridRow], a
 	ld b, a
-	ldh a, [hRam_FFB2]
+	ldh a, [hTextTiles_GridRowEnd]
 	cp a, b
 	jr z, .done
-	ldh a, [hRam_FFB5]
-	ldh [hRam_FFB8], a
+	ldh a, [hTextTiles_GridStartCol]
+	ldh [hTextTiles_GridColumn], a
 	ld b, a
-	ldh a, [hRam_FFB4]
+	ldh a, [hTextTiles_GridWidth]
 	add a, b
 	push hl
 	jr .l4191
 .l4202 ; 48:4202
-	ldh a, [hRam_FFB1]
+	ldh a, [hTextTiles_GridRow]
 	inc a
-	ldh [hRam_FFB1], a
+	ldh [hTextTiles_GridRow], a
 	ld b, a
-	ldh a, [hRam_FFB2]
+	ldh a, [hTextTiles_GridRowEnd]
 	cp a, b
 	jr z, .done
 	inc hl
-	ldh a, [hRam_FFB8]
+	ldh a, [hTextTiles_GridColumn]
 	ld b, a
-	ldh a, [hRam_FFB4]
+	ldh a, [hTextTiles_GridWidth]
 	ld c, a
 	sub a, b
 	ld b, a
-	ldh a, [hRam_FFB5]
-	ldh [hRam_FFB8], a
+	ldh a, [hTextTiles_GridStartCol]
+	ldh [hTextTiles_GridColumn], a
 	add a, b
 	ld b, a
 	ld a, c

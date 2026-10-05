@@ -31,9 +31,9 @@ Function_73_5F17::
 	jr nz, .skip
 	ld a, $01
 .skip ; 73:5F4A
-	ld [wRam_C0E5], a
+	ld [wBrowserStart_Cursor], a
 	ld a, $01
-	ld [wRam_C0E7], a
+	ld [wBrowserStart_AnimCounter], a
 	ld de, $8000
 	ld hl, BrowserStart_Tiles0
 	ld a, $73
@@ -175,12 +175,12 @@ Label_73_60A0::
 	ld a, [wSpriteSlots + 47]
 	or a, a
 	jr nz, .l60D7
-	ld a, [wRam_C0E5]
+	ld a, [wBrowserStart_Cursor]
 	cp a, $01
 	jr z, .l60EA
 	farcall Palette_FadeOutWithTicker
 	farcall Ticker_Stop
-	ld a, [wRam_C0E5]
+	ld a, [wBrowserStart_Cursor]
 	ld b, $00
 	or a, a
 	ret z
@@ -230,12 +230,12 @@ Label_73_6114::
 	ldh [rSVBK], a
 	farcall Palette_FadeOutWithTicker
 	farcall Ticker_Stop
-	ld a, [wRam_C0E5]
+	ld a, [wBrowserStart_Cursor]
 	ld b, a
 	ld a, $01
 	ld hl, $A8B7
 	farcall WriteByteFar
-	ld a, [wRam_C0E5]
+	ld a, [wBrowserStart_Cursor]
 	ret
 
 Function_73_6143:: ; 73:6143
@@ -297,11 +297,11 @@ BrowserStart_HandleDpad:: ; 73:6180
 .done ; 73:6192
 	ret
 .l6193 ; 73:6193
-	ld a, [wRam_C0E5]
+	ld a, [wBrowserStart_Cursor]
 	dec a
 	xor a, $01
 	inc a
-	ld [wRam_C0E5], a
+	ld [wBrowserStart_Cursor], a
 	call BrowserStart_DrawButtons
 	call BrowserStart_ShowDescription
 	ldh a, [hWRAMBank]
@@ -314,11 +314,11 @@ BrowserStart_HandleDpad:: ; 73:6180
 	ldh [rSVBK], a
 	ret
 .l61B4 ; 73:61B4
-	ld a, [wRam_C0E5]
+	ld a, [wBrowserStart_Cursor]
 	dec a
 	xor a, $01
 	inc a
-	ld [wRam_C0E5], a
+	ld [wBrowserStart_Cursor], a
 	call BrowserStart_DrawButtons
 	call BrowserStart_ShowDescription
 	ldh a, [hWRAMBank]
@@ -335,22 +335,22 @@ BrowserStart_DrawButtons:: ; 73:61D5
 Function_73_61D5::
 	; [CONFIRMED] 26 insn(s); 26 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld a, [wRam_C0E5]
+	ld a, [wBrowserStart_Cursor]
 	dec a
 	jr nz, .l6220
 	ld a, $D5
-	ld [wRam_C10E], a
+	ld [wBrowserStart_AttrSrcLo], a
 	ld a, $43
-	ld [wRam_C10F], a
+	ld [wBrowserStart_AttrSrcHi], a
 	ld bc, $030A
 	ld de, $D129
 	ld hl, BrowserStart_BottomMapNormal
 	ld a, $73
 	farcall Tilemap_CopyRectAndAttrPtr
 	ld a, $39
-	ld [wRam_C10E], a
+	ld [wBrowserStart_AttrSrcLo], a
 	ld a, $44
-	ld [wRam_C10F], a
+	ld [wBrowserStart_AttrSrcHi], a
 	ld bc, $040A
 	ld de, $D089
 	ld hl, $43F3
@@ -366,18 +366,18 @@ Function_73_61D5::
 	; [CONFIRMED] 23 insn(s) reached by static flow only; seeds: exec x23; min discovery hops 1;
 	; entered by jrcc from 73:61D9 (executed) [executed in 4 scenarios]
 	ld a, $AD
-	ld [wRam_C10E], a
+	ld [wBrowserStart_AttrSrcLo], a
 	ld a, $43
-	ld [wRam_C10F], a
+	ld [wBrowserStart_AttrSrcHi], a
 	ld bc, $040A
 	ld de, $D089
 	ld hl, BrowserStart_TopMapNormal
 	ld a, $73
 	farcall Tilemap_CopyRectAndAttrPtr
 	ld a, $61
-	ld [wRam_C10E], a
+	ld [wBrowserStart_AttrSrcLo], a
 	ld a, $44
-	ld [wRam_C10F], a
+	ld [wBrowserStart_AttrSrcHi], a
 	ld bc, $030A
 	ld de, $D129
 	ld hl, BrowserStart_BottomMapSelected
@@ -393,11 +393,11 @@ BrowserStart_AnimateFrame:: ; 73:6265
 Function_73_6265::
 	; [CONFIRMED] 50 insn(s); 50 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld hl, $C0E7
+	ld hl, wBrowserStart_AnimCounter
 	dec [hl]
 	ret nz
 	ld [hl], $19
-	ld a, [wRam_C0E8]
+	ld a, [wBrowserStart_AnimFrame]
 	ld hl, $447F
 	ld de, $0023
 	or a, a
@@ -409,27 +409,27 @@ Function_73_6265::
 .l627C ; 73:627C
 	ld a, $AF
 	add a, l
-	ld [wRam_C10E], a
+	ld [wBrowserStart_AttrSrcLo], a
 	ld a, h
 	adc a, $00
-	ld [wRam_C10F], a
+	ld [wBrowserStart_AttrSrcHi], a
 	ld bc, $0507
 	ld de, $D0C1
 	ld a, $73
 	farcall Tilemap_CopyRectAndAttrPtr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
-	ld a, [wRam_C0E8]
+	ld a, [wBrowserStart_AnimFrame]
 	inc a
-	ld [wRam_C0E8], a
+	ld [wBrowserStart_AnimFrame], a
 	cp a, $05
 	ret nz
 	xor a, a
-	ld [wRam_C0E8], a
+	ld [wBrowserStart_AnimFrame], a
 	ret
 
 BrowserStart_ShowDescription:: ; 73:62AA
-	ld a, [wRam_C0E5]
+	ld a, [wBrowserStart_Cursor]
 	ld b, $FF
 .loop ; 73:62AF
 	inc b

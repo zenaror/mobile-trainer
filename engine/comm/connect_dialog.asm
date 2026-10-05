@@ -27,7 +27,7 @@ Function_57_4000::
 	ld l, c
 	ld a, d
 	call ReadByteFar
-	ld [wRam_C0D8], a
+	ld [wConnectDialog_Mode], a
 
 ConnectDialog_Run_LoadMode:: ; 57:4029
 	ldh a, [rLCDC]
@@ -45,7 +45,7 @@ ConnectDialog_Run_LoadMode:: ; 57:4029
 
 ConnectDialog_Run_EnterMode:: ; 57:4044
 	ld a, $01
-	ld [wRam_C0E5], a
+	ld [wConnectDialog_Cursor], a
 	call ConnectDialog_DrawScreen
 	call ConnectDialog_EnterMode
 	ldh a, [hWRAMBank]
@@ -66,7 +66,7 @@ ConnectDialog_Run_FrameLoop:: ; 57:405F
 ConnectDialog_Run_ModeChanged:: ; 57:4068
 	call ConnectDialog_LeaveMode
 	farcall Sprite_UpdateAll
-	ld a, [wRam_C0D8]
+	ld a, [wConnectDialog_Mode]
 	or a, a
 	jr z, ConnectDialog_Run_Cancel
 	cp a, $10
@@ -75,7 +75,7 @@ ConnectDialog_Run_ModeChanged:: ; 57:4068
 	jr nc, .l4082
 	jp ConnectDialog_Run_LoadMode
 .l4082 ; 57:4082
-	ld a, [wRam_C0E6]
+	ld a, [wConnectDialog_PrevMode]
 	cp a, $05
 	jp nc, ConnectDialog_Run_EnterMode
 	jp ConnectDialog_Run_LoadMode
@@ -97,7 +97,7 @@ ConnectDialog_Run_Accept:: ; 57:4096
 	inc hl
 	inc hl
 	call ReadByteFar
-	ld [wRam_C10E], a
+	ld [wConnectDialog_DestBank], a
 	ld a, d
 	call ReadByteFar
 	ld e, a
@@ -112,18 +112,18 @@ ConnectDialog_Run_Accept:: ; 57:4096
 	ld a, [de]
 	inc de
 	ld b, a
-	ld a, [wRam_C10E]
+	ld a, [wConnectDialog_DestBank]
 	farcall WriteByteFar
 	dec c
 	jr nz, .loop
 	ld b, $00
-	ld a, [wRam_C10E]
+	ld a, [wConnectDialog_DestBank]
 	farcall WriteByteFar
 	ld b, $00
 	ret
 
 ConnectDialog_HandleFrame:: ; 57:40E0
-	ld a, [wRam_C0D8]
+	ld a, [wConnectDialog_Mode]
 	cp a, $06
 	jp z, ConnectDialog_Input_Keyboard
 	farcall Sprite_UpdateAll
@@ -134,7 +134,7 @@ ConnectDialog_HandleFrame:: ; 57:40E0
 	or a, a
 	ret z
 	ld b, a
-	ld a, [wRam_C0D8]
+	ld a, [wConnectDialog_Mode]
 	cp a, $02
 	jr c, .l412A
 	jp z, .l4189
@@ -172,23 +172,23 @@ ConnectDialog_HandleFrame:: ; 57:40E0
 .l413E ; 57:413E
 	ld a, $00
 	call ConnectDialog_PlayButtonSfx
-	ld a, [wRam_C0E5]
+	ld a, [wConnectDialog_Cursor]
 	cp a, $01
 	jr nz, .l4150
 	ld a, $02
-	ld [wRam_C0D6], a
+	ld [wConnectDialog_NextMode], a
 	ret
 .l4150 ; 57:4150
 	ld a, $01
 	call ConnectDialog_PlayButtonSfx
 	xor a, a
-	ld [wRam_C0D6], a
+	ld [wConnectDialog_NextMode], a
 	ld a, $01
 	ret
 .l415C ; 57:415C
-	ld a, [wRam_C0E5]
+	ld a, [wConnectDialog_Cursor]
 	xor a, $03
-	ld [wRam_C0E5], a
+	ld [wConnectDialog_Cursor], a
 	ld de, $7828
 	cp a, $01
 	jr z, .l416E
@@ -221,7 +221,7 @@ ConnectDialog_HandleFrame:: ; 57:40E0
 .l419D ; 57:419D
 	ld a, $00
 	call ConnectDialog_PlayButtonSfx
-	ld a, [wRam_C0E5]
+	ld a, [wConnectDialog_Cursor]
 	cp a, $01
 	jr nz, .l41BF
 	ld a, $01
@@ -233,14 +233,14 @@ ConnectDialog_HandleFrame:: ; 57:40E0
 	ld b, $09
 .l41B8 ; 57:41B8
 	ld a, b
-	ld [wRam_C0D6], a
+	ld [wConnectDialog_NextMode], a
 	ld a, $01
 	ret
 .l41BF ; 57:41BF
 	ld a, $01
 	call ConnectDialog_PlayButtonSfx
 	ld a, $01
-	ld [wRam_C0D6], a
+	ld [wConnectDialog_NextMode], a
 	ret
 
 ConnectDialog_Input_ConnectConfirm:: ; 57:41CA
@@ -259,7 +259,7 @@ ConnectDialog_Input_ConnectConfirm:: ; 57:41CA
 .l41DE ; 57:41DE
 	ld a, $00
 	call ConnectDialog_PlayButtonSfx
-	ld a, [wRam_C0E5]
+	ld a, [wConnectDialog_Cursor]
 	cp a, $01
 	jr nz, .l4203
 	ld a, $01
@@ -271,20 +271,20 @@ ConnectDialog_Input_ConnectConfirm:: ; 57:41CA
 	ld b, $09
 .l41F9 ; 57:41F9
 	ld a, b
-	ld [wRam_C0D6], a
+	ld [wConnectDialog_NextMode], a
 	ret
 .l41FE ; 57:41FE
 	ld a, $01
 	call ConnectDialog_PlayButtonSfx
 .l4203 ; 57:4203
 	xor a, a
-	ld [wRam_C0D6], a
+	ld [wConnectDialog_NextMode], a
 	ld a, $01
 	ret
 .l420A ; 57:420A
-	ld a, [wRam_C0E5]
+	ld a, [wConnectDialog_Cursor]
 	xor a, $03
-	ld [wRam_C0E5], a
+	ld [wConnectDialog_Cursor], a
 	ld de, $6828
 	cp a, $01
 	jr z, .l421C
@@ -318,7 +318,7 @@ ConnectDialog_Input_PasswordPrompt:: ; 57:4237
 	ld a, $00
 	call ConnectDialog_PlayButtonSfx
 	ld a, $06
-	ld [wRam_C0D6], a
+	ld [wConnectDialog_NextMode], a
 	ret
 .l424E ; 57:424E
 	ld a, $01
@@ -339,7 +339,7 @@ ConnectDialog_Input_PasswordPrompt:: ; 57:4237
 .skip ; 57:4267
 	; [CONFIRMED] 17 insn(s) executed; cut out of the PROBABLE region 4237-4443 by apply_coverage
 	; --split [executed in 4 scenarios]
-	ld [wRam_C0D6], a
+	ld [wConnectDialog_NextMode], a
 	ret
 
 ConnectDialog_Input_Keyboard:: ; 57:426B
@@ -436,7 +436,7 @@ ConnectDialog_Keyboard_AppendChar:: ; 57:4299
 
 Label_57_431F:: ; 57:431F
 	ld a, $05
-	ld [wRam_C0D6], a
+	ld [wConnectDialog_NextMode], a
 	ret
 
 Label_57_4325:: ; 57:4325
@@ -446,17 +446,17 @@ Label_57_4325:: ; 57:4325
 	ld a, $00
 	ret z
 	ld a, $07
-	ld [wRam_C0D6], a
+	ld [wConnectDialog_NextMode], a
 	ret
 
 Label_57_4333:: ; 57:4333
 	ld a, $10
-	ld [wRam_C0D6], a
+	ld [wConnectDialog_NextMode], a
 	ret
 
 Label_57_4339:: ; 57:4339
 	ld a, $05
-	ld [wRam_C0D6], a
+	ld [wConnectDialog_NextMode], a
 	ret
 
 ConnectDialog_Keyboard_EraseChar:: ; 57:433F
@@ -499,7 +499,7 @@ ConnectDialog_Keyboard_EraseChar:: ; 57:433F
 .l438E ; 57:438E
 	call ConnectDialog_DrawPasswordField
 	xor a, a
-	ld [wRam_C0E8], a
+	ld [wConnectDialog_FieldDirty], a
 	ld hl, $DA20
 	ld de, ConnectDialog_ObjTable
 	ld a, $56
@@ -528,25 +528,25 @@ ConnectDialog_Input_SaveConfirm:: ; 57:43BC
 .l43D0 ; 57:43D0
 	ld a, $00
 	call ConnectDialog_PlayButtonSfx
-	ld a, [wRam_C0E5]
+	ld a, [wConnectDialog_Cursor]
 	cp a, $01
 	jr nz, .l43E2
 	ld a, $08
-	ld [wRam_C0D6], a
+	ld [wConnectDialog_NextMode], a
 	ret
 .l43E2 ; 57:43E2
 	ld a, $01
 	call ConnectDialog_PlayButtonSfx
 	ld a, $02
-	ld [wRam_C0E5], a
+	ld [wConnectDialog_Cursor], a
 	ld a, $06
-	ld [wRam_C0D6], a
+	ld [wConnectDialog_NextMode], a
 	ld a, $01
 	ret
 .l43F4 ; 57:43F4
-	ld a, [wRam_C0E5]
+	ld a, [wConnectDialog_Cursor]
 	xor a, $03
-	ld [wRam_C0E5], a
+	ld [wConnectDialog_Cursor], a
 	ld de, $7828
 	cp a, $01
 	jr z, .skip
@@ -577,13 +577,13 @@ ConnectDialog_Input_PasswordSaved:: ; 57:4421
 	ld a, $00
 	call ConnectDialog_PlayButtonSfx
 	ld a, $10
-	ld [wRam_C0D6], a
+	ld [wConnectDialog_NextMode], a
 	ret
 .l4438 ; 57:4438
 	ld a, $01
 	call ConnectDialog_PlayButtonSfx
 	ld a, $07
-	ld [wRam_C0D6], a
+	ld [wConnectDialog_NextMode], a
 	ret
 
 ConnectDialog_Input_StoredPassword:: ; 57:4443
@@ -601,7 +601,7 @@ ConnectDialog_Input_StoredPassword:: ; 57:4443
 	ld a, $00
 	call ConnectDialog_PlayButtonSfx
 	ld a, $10
-	ld [wRam_C0D6], a
+	ld [wConnectDialog_NextMode], a
 	ret
 .l445E ; 57:445E
 	ld a, $01
@@ -621,14 +621,14 @@ ConnectDialog_Input_StoredPassword:: ; 57:4443
 
 .skip ; 57:4477
 	; [CONFIRMED] 2 insn(s); 2 executed (in up to 1/18 scenarios)
-	ld [wRam_C0D6], a
+	ld [wConnectDialog_NextMode], a
 	ret
 
 .l447B ; 57:447B
 	; [CONFIRMED] 48 insn(s) reached by static flow only; seeds: exec x48; min discovery hops 1;
 	; entered by jrcc from 57:444F (executed) [executed in 1 scenarios]
 	ld a, $0A
-	ld [wRam_C0D6], a
+	ld [wConnectDialog_NextMode], a
 	ret
 
 ConnectDialog_Input_ForgetConfirm:: ; 57:4481
@@ -646,24 +646,24 @@ ConnectDialog_Input_ForgetConfirm:: ; 57:4481
 .l4495 ; 57:4495
 	ld a, $00
 	call ConnectDialog_PlayButtonSfx
-	ld a, [wRam_C0E5]
+	ld a, [wConnectDialog_Cursor]
 	cp a, $01
 	jr nz, .l44A7
 	ld a, $05
-	ld [wRam_C0D6], a
+	ld [wConnectDialog_NextMode], a
 	ret
 .l44A7 ; 57:44A7
 	ld a, $01
 	call ConnectDialog_PlayButtonSfx
 	ld a, $02
-	ld [wRam_C0E5], a
+	ld [wConnectDialog_Cursor], a
 	ld a, $09
-	ld [wRam_C0D6], a
+	ld [wConnectDialog_NextMode], a
 	ret
 .l44B7 ; 57:44B7
-	ld a, [wRam_C0E5]
+	ld a, [wConnectDialog_Cursor]
 	xor a, $03
-	ld [wRam_C0E5], a
+	ld [wConnectDialog_Cursor], a
 	ld de, $7828
 	cp a, $01
 	jr z, .skip
@@ -686,7 +686,7 @@ ConnectDialog_EnterMode:: ; 57:44E4
 Function_57_44E4::
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 6/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld a, [wRam_C0D8]
+	ld a, [wConnectDialog_Mode]
 	cp a, $02
 	jr c, .l450F
 	jp z, .l4510
@@ -729,7 +729,7 @@ Function_57_44E4::
 
 ConnectDialog_Enter_Keyboard:: ; 57:4517
 	ld a, $09
-	ld [wRam_C0F6], a
+	ld [wConnectDialog_RasterOffset], a
 	di
 	ld a, $44
 	ldh [rSTAT], a
@@ -832,11 +832,11 @@ ConnectDialog_LeaveMode:: ; 57:45E6
 Function_57_45E6::
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 6/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld a, [wRam_C0D8]
-	ld [wRam_C0E6], a
+	ld a, [wConnectDialog_Mode]
+	ld [wConnectDialog_PrevMode], a
 	ld b, a
-	ld a, [wRam_C0D6]
-	ld [wRam_C0D8], a
+	ld a, [wConnectDialog_NextMode]
+	ld [wConnectDialog_Mode], a
 	ld a, b
 	cp a, $02
 	jr c, .l461C
@@ -862,7 +862,7 @@ Function_57_45E6::
 	; 4618-4668 by apply_coverage --split
 	ret
 .l461C ; 57:461C
-	ld a, [wRam_C0E5]
+	ld a, [wConnectDialog_Cursor]
 	dec a
 	jr nz, .l4632
 	farcall Palette_FadeOutToWhite
@@ -877,7 +877,7 @@ Function_57_45E6::
 	call Sprite_SetPosition
 	ret
 .l4642 ; 57:4642
-	ld a, [wRam_C0E5]
+	ld a, [wConnectDialog_Cursor]
 	dec a
 	jr nz, .l4658
 	farcall Palette_FadeOutToWhite
@@ -894,7 +894,7 @@ Function_57_45E6::
 
 .l4668 ; 57:4668
 	; [CONFIRMED] 8 insn(s); 8 executed (in up to 2/18 scenarios)
-	ld a, [wRam_C0E5]
+	ld a, [wConnectDialog_Cursor]
 	dec a
 	jr nz, .l467E
 	farcall Palette_FadeOutToWhite
@@ -914,7 +914,7 @@ Function_57_45E6::
 
 .l468E ; 57:468E
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 4/18 scenarios)
-	ld a, [wRam_C0E5]
+	ld a, [wConnectDialog_Cursor]
 	dec a
 	jr nz, .l46A4
 	farcall Palette_FadeOutToWhite
@@ -932,7 +932,7 @@ Function_57_45E6::
 .l46B4 ; 57:46B4
 	; [CONFIRMED] 73 insn(s) reached by static flow only; seeds: exec x73; min discovery hops 1;
 	; entered by jpcc from 57:4605 (executed) [executed in 1 scenarios]
-	ld a, [wRam_C0D8]
+	ld a, [wConnectDialog_Mode]
 	cp a, $06
 	jr z, .done
 	ld de, $00B4
@@ -970,7 +970,7 @@ ConnectDialog_Leave_Keyboard:: ; 57:46E0
 	ldh [rIF], a
 	ldh [rSCY], a
 	ei
-	ld a, [wRam_C0D8]
+	ld a, [wConnectDialog_Mode]
 	cp a, $05
 	ret z
 	ld de, $00B4
@@ -983,7 +983,7 @@ ConnectDialog_Leave_Keyboard:: ; 57:46E0
 	ld de, $00B4
 	ld hl, $DA30
 	call Sprite_SetPosition
-	ld a, [wRam_C0D8]
+	ld a, [wConnectDialog_Mode]
 	cp a, $10
 	ret nz
 	farcall Palette_FadeOutToWhite
@@ -993,7 +993,7 @@ Label_57_4738:: ; 57:4738
 	ld de, $00B4
 	ld hl, $DA40
 	call Sprite_SetPosition
-	ld a, [wRam_C0E5]
+	ld a, [wConnectDialog_Cursor]
 	dec a
 	jr nz, .done
 	farcall Palette_FadeOutToWhite
@@ -1002,7 +1002,7 @@ Label_57_4738:: ; 57:4738
 	ret
 
 ConnectDialog_Leave_PasswordSaved:: ; 57:474F
-	ld a, [wRam_C0D8]
+	ld a, [wConnectDialog_Mode]
 	cp a, $07
 	jr z, .l475D
 	farcall Palette_FadeOutToWhite
@@ -1017,7 +1017,7 @@ ConnectDialog_Leave_PasswordSaved:: ; 57:474F
 
 Label_57_4771:: ; 57:4771
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 5/18 scenarios)
-	ld a, [wRam_C0D8]
+	ld a, [wConnectDialog_Mode]
 	cp a, $0A
 	ret z
 	farcall Palette_FadeOutToWhite
@@ -1029,7 +1029,7 @@ ConnectDialog_Leave_ForgetConfirm:: ; 57:477E
 	ld de, $00B4
 	ld hl, $DA40
 	call Sprite_SetPosition
-	ld a, [wRam_C0D8]
+	ld a, [wConnectDialog_Mode]
 	cp a, $09
 	jr z, .done
 	xor a, a

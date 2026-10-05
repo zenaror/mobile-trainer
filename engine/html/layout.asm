@@ -11,34 +11,34 @@ Function_74_5252::
 	farcall Html_Layout_EndLine
 	push de
 	push hl
-	ldh a, [hRam_FFC8]
+	ldh a, [hHtmlLayout_LineY]
 	ld e, a
-	ldh a, [hRam_FFC9]
+	ldh a, [hHtmlLayout_LineYHi]
 	ld d, a
 	farcall Html_Layout_GetLimitsAtY
 	ldh a, [hViewX]
 	ld e, a
 	ldh a, [hViewX + 1]
 	ld d, a
-	ldh a, [hRam_FFC4]
+	ldh a, [hHtmlLayout_CursorX]
 	cp a, e
 	jr nz, .l5293
-	ldh a, [hRam_FFC5]
+	ldh a, [hHtmlLayout_CursorXHi]
 	cp a, d
 	jr nz, .l5293
 	ldh a, [hViewRight]
 	ld e, a
 	ldh a, [hViewRight + 1]
 	ld d, a
-	ldh a, [hRam_FFC2]
+	ldh a, [hHtmlLayout_RightLimit]
 	cp a, e
 	jr nz, .l5293
-	ldh a, [hRam_FFC3]
+	ldh a, [hHtmlLayout_RightLimitHi]
 	cp a, d
 	jr nz, .l5293
 	pop hl
 	pop de
-	ldh a, [hRam_FFB5]
+	ldh a, [hHtml_SourceBank]
 	call BankSwitch_H
 	ldh a, [hTextX]
 	call BankSwitch_D
@@ -51,16 +51,16 @@ Function_74_5252::
 	pop hl
 	pop de
 	ld a, $0C
-	ldh [hRam_FFC7], a
+	ldh [hHtmlLayout_HeightBelow], a
 	xor a, a
-	ldh [hRam_FFC6], a
+	ldh [hHtmlLayout_HeightAbove], a
 	jp Html_Layout_ClearAllFloats
 
 Html_Layout_PlaceImage:: ; 74:529F
 	ld a, [wHtmlScanOnly]
 	or a, a
 	ret nz
-	ldh a, [hRam_FFD6]
+	ldh a, [hBmp_Width]
 	ld e, a
 	ld hl, $000C
 	ld d, h
@@ -80,8 +80,8 @@ Html_Layout_PlaceImage:: ; 74:529F
 	add hl, de
 	add hl, hl
 	ld a, l
-	ldh [hRam_FFD6], a
-	ldh a, [hRam_FFD7]
+	ldh [hBmp_Width], a
+	ldh a, [hBmp_Height]
 	ld e, a
 	ld hl, $000C
 	ld d, h
@@ -101,10 +101,10 @@ Html_Layout_PlaceImage:: ; 74:529F
 	add hl, de
 	add hl, hl
 	ld a, l
-	ldh [hRam_FFD7], a
-	ldh a, [hRam_FFC6]
+	ldh [hBmp_Height], a
+	ldh a, [hHtmlLayout_HeightAbove]
 	ld c, a
-	ldh a, [hRam_FFC7]
+	ldh a, [hHtmlLayout_HeightBelow]
 	add a, c
 	jr nz, .l52E7
 	push hl
@@ -112,19 +112,19 @@ Html_Layout_PlaceImage:: ; 74:529F
 	pop hl
 .l52E7 ; 74:52E7
 	call Sound_FrameService
-	ldh a, [hRam_FFC4]
+	ldh a, [hHtmlLayout_CursorX]
 	ld c, a
-	ldh a, [hRam_FFC5]
+	ldh a, [hHtmlLayout_CursorXHi]
 	ld b, a
-	ldh a, [hRam_FFC2]
+	ldh a, [hHtmlLayout_RightLimit]
 	sub a, c
 	ld c, a
 	ldh [hRam_FFC0], a
-	ldh a, [hRam_FFC3]
+	ldh a, [hHtmlLayout_RightLimitHi]
 	sbc a, b
 	ld b, a
 	ldh [hRam_FFC1], a
-	ldh a, [hRam_FFD6]
+	ldh a, [hBmp_Width]
 	ld l, a
 	ld a, c
 	sub a, l
@@ -162,22 +162,22 @@ Html_Layout_PlaceImage:: ; 74:529F
 
 Html_Layout_AppendImageRecord:: ; 74:532A
 Function_74_532A::
-	ldh a, [hRam_FFCA]
+	ldh a, [hHtmlLayout_NextRecord]
 	ld l, a
-	ldh a, [hRam_FFCB]
+	ldh a, [hHtmlLayout_NextRecordHi]
 	ld h, a
 	push bc
-	ldh a, [hRam_FFD6]
+	ldh a, [hBmp_Width]
 	ld c, a
-	ldh a, [hRam_FFD7]
+	ldh a, [hBmp_Height]
 	ld b, a
-	ldh a, [hRam_FFD2]
+	ldh a, [hHtml_ImageData]
 	ld e, a
-	ldh a, [hRam_FFD3]
+	ldh a, [hHtml_ImageDataHi]
 	ld d, a
 	ld a, $04
 	ldh [hRam_FFB0], a
-	ldh a, [hRam_FFD4]
+	ldh a, [hHtml_ImageBank]
 	call Html_Layout_AppendRecord
 	pop bc
 	ret
@@ -190,31 +190,31 @@ Function_74_5348::
 	ld e, a
 	ldh a, [hViewX + 1]
 	ld d, a
-	ldh a, [hRam_FFC4]
+	ldh a, [hHtmlLayout_CursorX]
 	cp a, e
 	jr nz, .l5369
-	ldh a, [hRam_FFC5]
+	ldh a, [hHtmlLayout_CursorXHi]
 	cp a, d
 	jr nz, .l5369
 	ldh a, [hViewRight]
 	ld e, a
 	ldh a, [hViewRight + 1]
 	ld d, a
-	ldh a, [hRam_FFC2]
+	ldh a, [hHtmlLayout_RightLimit]
 	cp a, e
 	jr nz, .l5369
-	ldh a, [hRam_FFC3]
+	ldh a, [hHtmlLayout_RightLimitHi]
 	cp a, d
 	jr nz, .l5369
 	ret
 .l5369 ; 74:5369
-	ldh a, [hRam_FFC8]
+	ldh a, [hHtmlLayout_LineY]
 	add a, $0C
-	ldh [hRam_FFC8], a
+	ldh [hHtmlLayout_LineY], a
 	ld e, a
-	ldh a, [hRam_FFC9]
+	ldh a, [hHtmlLayout_LineYHi]
 	adc a, $00
-	ldh [hRam_FFC9], a
+	ldh [hHtmlLayout_LineYHi], a
 	ld d, a
 	call Html_Layout_GetLimitsAtY
 	jp Html_Layout_SkipPastFloats
@@ -226,19 +226,19 @@ Function_74_537D::
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ldh a, [hRam_FFCE]
+	ldh a, [hHtmlLayout_RecordCount]
 	ld c, a
-	ldh a, [hRam_FFCF]
+	ldh a, [hHtmlLayout_RecordCountHi]
 	ld b, a
 	or a, c
 	jr z, .l53DC
-	ldh a, [hRam_FFCC]
+	ldh a, [hHtmlLayout_RecordList]
 	ld l, a
-	ldh a, [hRam_FFCD]
+	ldh a, [hHtmlLayout_RecordListHi]
 	ld h, a
 .loop ; 74:5393
 	call Sound_FrameService
-	ldh a, [hRam_FFBA]
+	ldh a, [hHtml_PageBank]
 	call BankSwitch_H
 	push bc
 	push hl
@@ -266,7 +266,7 @@ Function_74_537D::
 	ld d, h
 	ld e, l
 	pop hl
-	ldh a, [hRam_FFBA]
+	ldh a, [hHtml_PageBank]
 	call BankSwitch_H
 	ld a, e
 	ld [hli], a
@@ -293,31 +293,31 @@ Function_74_537D::
 
 Html_Layout_Init:: ; 74:53E3
 	xor a, a
-	ldh [hRam_FFC6], a
-	ldh [hRam_FFC7], a
-	ldh [hRam_FFC8], a
-	ldh [hRam_FFC9], a
-	ldh [hRam_FFB2], a
-	ldh a, [hRam_FFB8]
+	ldh [hHtmlLayout_HeightAbove], a
+	ldh [hHtmlLayout_HeightBelow], a
+	ldh [hHtmlLayout_LineY], a
+	ldh [hHtmlLayout_LineYHi], a
+	ldh [hHtml_RecordFlags], a
+	ldh a, [hHtml_PageHeader]
 	add a, $20
-	ldh [hRam_FFCA], a
-	ldh [hRam_FFCC], a
-	ldh a, [hRam_FFB9]
+	ldh [hHtmlLayout_NextRecord], a
+	ldh [hHtmlLayout_RecordList], a
+	ldh a, [hHtml_PageHeaderHi]
 	adc a, $00
-	ldh [hRam_FFCB], a
-	ldh [hRam_FFCD], a
+	ldh [hHtmlLayout_NextRecordHi], a
+	ldh [hHtmlLayout_RecordListHi], a
 	ldh a, [hTextX + 1]
-	ldh [hRam_FFCE], a
-	ldh a, [hRam_FFBF]
-	ldh [hRam_FFCF], a
+	ldh [hHtmlLayout_RecordCount], a
+	ldh a, [hHtml_RecordCountHi]
+	ldh [hHtmlLayout_RecordCountHi], a
 	ldh a, [hViewRight]
-	ldh [hRam_FFC2], a
+	ldh [hHtmlLayout_RightLimit], a
 	ldh a, [hViewRight + 1]
-	ldh [hRam_FFC3], a
+	ldh [hHtmlLayout_RightLimitHi], a
 	ldh a, [hViewX]
-	ldh [hRam_FFC4], a
+	ldh [hHtmlLayout_CursorX], a
 	ldh a, [hViewX + 1]
-	ldh [hRam_FFC5], a
+	ldh [hHtmlLayout_CursorXHi], a
 	ret
 
 Html_Layout_EndLine:: ; 74:5417
@@ -326,14 +326,14 @@ Html_Layout_EndLine:: ; 74:5417
 	ret nz
 	push de
 	push hl
-	ldh a, [hRam_FFC4]
+	ldh a, [hHtmlLayout_CursorX]
 	ld c, a
-	ldh a, [hRam_FFC2]
+	ldh a, [hHtmlLayout_RightLimit]
 	sub a, c
 	ld c, a
-	ldh a, [hRam_FFC5]
+	ldh a, [hHtmlLayout_CursorXHi]
 	ld b, a
-	ldh a, [hRam_FFC3]
+	ldh a, [hHtmlLayout_RightLimitHi]
 	sbc a, b
 	ld b, a
 	ldh a, [hTextX]
@@ -341,7 +341,7 @@ Html_Layout_EndLine:: ; 74:5417
 	call Html_Layout_PlaceLine
 	pop hl
 	pop de
-	ldh a, [hRam_FFB5]
+	ldh a, [hHtml_SourceBank]
 	call BankSwitch_H
 	ldh a, [hTextX]
 	jp BankSwitch_D
@@ -354,7 +354,7 @@ Html_Layout_WrapRun:: ; 74:5440
 	push de
 .l5447 ; 74:5447
 	ld bc, $0C00
-	ldh a, [hRam_FFBB]
+	ldh a, [hHtml_RunStartLo]
 	ld e, a
 	ldh a, [hTextY]
 	ld d, a
@@ -367,15 +367,15 @@ Html_Layout_WrapRun:: ; 74:5440
 	jp z, .l54F4
 	ldh a, [hTextX]
 	call Html_Layout_AppendRecord
-	ldh a, [hRam_FFC4]
+	ldh a, [hHtmlLayout_CursorX]
 	ld c, a
-	ldh a, [hRam_FFC5]
+	ldh a, [hHtmlLayout_CursorXHi]
 	ld b, a
-	ldh a, [hRam_FFC2]
+	ldh a, [hHtmlLayout_RightLimit]
 	sub a, c
 	ld c, a
 	ldh [hRam_FFC0], a
-	ldh a, [hRam_FFC3]
+	ldh a, [hHtmlLayout_RightLimitHi]
 	sbc a, b
 	ld b, a
 	ldh [hRam_FFC1], a
@@ -383,7 +383,7 @@ Html_Layout_WrapRun:: ; 74:5440
 	ldh [hRam_FFB0], a
 	ld a, h
 	ldh [hRam_FFB1], a
-	ldh a, [hRam_FFBB]
+	ldh a, [hHtml_RunStartLo]
 	ld l, a
 	ldh a, [hTextY]
 	ld h, a
@@ -505,7 +505,7 @@ Html_Layout_WrapRun:: ; 74:5440
 	pop hl
 	inc de
 	ld a, e
-	ldh [hRam_FFBB], a
+	ldh [hHtml_RunStartLo], a
 	ld a, d
 	ldh [hTextY], a
 	ret
@@ -517,7 +517,7 @@ Html_Layout_WrapRun:: ; 74:5440
 	call Html_Layout_AddRecordToLine
 	ld bc, $0000
 	call Html_Layout_PlaceLine
-	ldh a, [hRam_FFBB]
+	ldh a, [hHtml_RunStartLo]
 	ld e, a
 	ldh a, [hTextY]
 	ld d, a
@@ -531,7 +531,7 @@ Html_Layout_WrapRun:: ; 74:5440
 	; fall-through of the jrcc at 74:551C (executed) [executed in 1 scenarios]
 	inc de
 	ld a, e
-	ldh [hRam_FFBB], a
+	ldh [hHtml_RunStartLo], a
 	ld a, d
 	ldh [hTextY], a
 
@@ -542,7 +542,7 @@ Html_Layout_WrapRun:: ; 74:5440
 Html_Layout_CloseRunRecord:: ; 74:5528
 Function_74_5528::
 	ld a, l
-	ldh [hRam_FFBB], a
+	ldh [hHtml_RunStartLo], a
 	ld a, h
 	ldh [hTextY], a
 	ldh a, [hRam_FFB0]
@@ -552,7 +552,7 @@ Function_74_5528::
 	push hl
 	ld de, $0004
 	add hl, de
-	ldh a, [hRam_FFBA]
+	ldh a, [hHtml_PageBank]
 	call BankSwitch_H
 	ldh a, [hRam_FFC0]
 	sub a, c
@@ -565,25 +565,25 @@ Function_74_5528::
 
 Html_Layout_AppendRecord:: ; 74:5548
 	ldh [hRam_FFB1], a
-	ldh a, [hRam_FFCA]
+	ldh a, [hHtmlLayout_NextRecord]
 	ld l, a
 	add a, $10
-	ldh [hRam_FFCA], a
-	ldh a, [hRam_FFCB]
+	ldh [hHtmlLayout_NextRecord], a
+	ldh a, [hHtmlLayout_NextRecordHi]
 	ld h, a
 	adc a, $00
-	ldh [hRam_FFCB], a
+	ldh [hHtmlLayout_NextRecordHi], a
 	cp a, $E0
 	jp nz, .l556B
 
 	; [PROBABLE] 7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 0;
 	; fall-through of the jpcc at 74:555A (executed)
-	ldh a, [hRam_FFCA]
+	ldh a, [hHtmlLayout_NextRecord]
 	sub a, $10
-	ldh [hRam_FFCA], a
-	ldh a, [hRam_FFCB]
+	ldh [hHtmlLayout_NextRecord], a
+	ldh a, [hHtmlLayout_NextRecordHi]
 	sbc a, $00
-	ldh [hRam_FFCB], a
+	ldh [hHtmlLayout_NextRecordHi], a
 	jr .l557B
 
 .l556B ; 74:556B
@@ -591,13 +591,13 @@ Html_Layout_AppendRecord:: ; 74:5548
 	ldh a, [hTextX + 1]
 	add a, $01
 	ldh [hTextX + 1], a
-	ldh [hRam_FFCE], a
-	ldh a, [hRam_FFBF]
+	ldh [hHtmlLayout_RecordCount], a
+	ldh a, [hHtml_RecordCountHi]
 	adc a, $00
-	ldh [hRam_FFBF], a
-	ldh [hRam_FFCF], a
+	ldh [hHtml_RecordCountHi], a
+	ldh [hHtmlLayout_RecordCountHi], a
 .l557B ; 74:557B
-	ldh a, [hRam_FFBA]
+	ldh a, [hHtml_PageBank]
 	call BankSwitch_H
 	push hl
 	xor a, a
@@ -615,12 +615,12 @@ Html_Layout_AppendRecord:: ; 74:5548
 	ld [hli], a
 	ldh a, [hRam_FFB0]
 	ld [hli], a
-	ldh a, [hRam_FFB2]
+	ldh a, [hHtml_RecordFlags]
 	or a, $80
 	ld [hli], a
 	and a, $01
 	jr z, .l559C
-	ldh a, [hRam_FFDF]
+	ldh a, [hHtml_LinkNumber]
 .l559C ; 74:559C
 	ld [hli], a
 	ld a, e
@@ -629,14 +629,14 @@ Html_Layout_AppendRecord:: ; 74:5548
 	ld [hli], a
 	ldh a, [hRam_FFB1]
 	ld [hli], a
-	ldh a, [hRam_FFB2]
+	ldh a, [hHtml_RecordFlags]
 	and a, $01
 	jr z, .l55AC
-	ldh a, [hRam_FFE0]
+	ldh a, [hHtml_LinkTableIndex]
 .l55AC ; 74:55AC
 	ld [hli], a
 	pop hl
-	ldh a, [hRam_FFB2]
+	ldh a, [hHtml_RecordFlags]
 	and a, $0C
 	cp a, $04
 	jr z, .done
@@ -648,9 +648,9 @@ Html_Layout_AppendRecord:: ; 74:5548
 
 Html_Layout_AddRecordToLine:: ; 74:55BE
 Function_74_55BE::
-	ldh a, [hRam_FFC6]
+	ldh a, [hHtmlLayout_HeightAbove]
 	ld c, a
-	ldh a, [hRam_FFC7]
+	ldh a, [hHtmlLayout_HeightBelow]
 	add a, c
 	jr nz, .l55CB
 	push hl
@@ -668,14 +668,14 @@ Function_74_55BE::
 	push hl
 	ld bc, $0004
 	add hl, bc
-	ldh a, [hRam_FFC4]
+	ldh a, [hHtmlLayout_CursorX]
 	ld c, a
-	ldh a, [hRam_FFC2]
+	ldh a, [hHtmlLayout_RightLimit]
 	sub a, c
 	ld c, a
-	ldh a, [hRam_FFC5]
+	ldh a, [hHtmlLayout_CursorXHi]
 	ld b, a
-	ldh a, [hRam_FFC3]
+	ldh a, [hHtmlLayout_RightLimitHi]
 	sbc a, b
 	ld b, a
 	ld a, c
@@ -687,13 +687,13 @@ Function_74_55BE::
 	ld b, a
 	dec hl
 	jp c, .l565C
-	ldh a, [hRam_FFC4]
+	ldh a, [hHtmlLayout_CursorX]
 	add a, [hl]
-	ldh [hRam_FFC4], a
+	ldh [hHtmlLayout_CursorX], a
 	inc hl
-	ldh a, [hRam_FFC5]
+	ldh a, [hHtmlLayout_CursorXHi]
 	adc a, [hl]
-	ldh [hRam_FFC5], a
+	ldh [hHtmlLayout_CursorXHi], a
 	inc hl
 	ld a, [hli]
 	ld c, a
@@ -712,25 +712,25 @@ Function_74_55BE::
 	jr z, .l5622
 	cp a, $20
 	jr z, .l562E
-	ldh a, [hRam_FFC6]
+	ldh a, [hHtmlLayout_HeightAbove]
 	cp a, c
 	ret nc
 	ld a, c
-	ldh [hRam_FFC6], a
+	ldh [hHtmlLayout_HeightAbove], a
 	xor a, a
-	ldh [hRam_FFC7], a
+	ldh [hHtmlLayout_HeightBelow], a
 	ret
 
 .l5622 ; 74:5622
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 2/18 scenarios)
-	ldh a, [hRam_FFC6]
+	ldh a, [hHtmlLayout_HeightAbove]
 	or a, a
 	ret nz
-	ldh a, [hRam_FFC7]
+	ldh a, [hHtmlLayout_HeightBelow]
 	cp a, c
 	ret nc
 	ld a, c
-	ldh [hRam_FFC7], a
+	ldh [hHtmlLayout_HeightBelow], a
 	ret
 
 .l562E ; 74:562E
@@ -765,13 +765,13 @@ Function_74_55BE::
 	ld b, a
 	pop de
 	pop hl
-	ldh a, [hRam_FFC6]
+	ldh a, [hHtmlLayout_HeightAbove]
 	cp a, c
 	ret nc
 	ld a, c
-	ldh [hRam_FFC6], a
+	ldh [hHtmlLayout_HeightAbove], a
 	ld a, b
-	ldh [hRam_FFC7], a
+	ldh [hHtmlLayout_HeightBelow], a
 	ret
 .l565C ; 74:565C
 	call Html_Layout_PlaceLine
@@ -782,14 +782,14 @@ Html_Layout_PlaceLine:: ; 74:5663
 Function_74_5663::
 	; [CONFIRMED] 21 insn(s); 21 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ldh a, [hRam_FFC6]
+	ldh a, [hHtmlLayout_HeightAbove]
 	ld e, a
-	ldh a, [hRam_FFC7]
+	ldh a, [hHtmlLayout_HeightBelow]
 	ld d, a
 	push de
-	ldh a, [hRam_FFC8]
+	ldh a, [hHtmlLayout_LineY]
 	ld e, a
-	ldh a, [hRam_FFC9]
+	ldh a, [hHtmlLayout_LineYHi]
 	ld d, a
 	push bc
 	call Html_Layout_GetLimitsAtY
@@ -812,12 +812,12 @@ Function_74_5663::
 	ldh a, [hHtmlAlignAdjustHi]
 	adc a, b
 	ld b, a
-	ldh a, [hRam_FFC4]
+	ldh a, [hHtmlLayout_CursorX]
 	add a, c
-	ldh [hRam_FFC4], a
-	ldh a, [hRam_FFC5]
+	ldh [hHtmlLayout_CursorX], a
+	ldh a, [hHtmlLayout_CursorXHi]
 	adc a, b
-	ldh [hRam_FFC5], a
+	ldh [hHtmlLayout_CursorXHi], a
 	jr .l56B0
 
 .l569A ; 74:569A
@@ -830,35 +830,35 @@ Function_74_5663::
 	ld b, a
 	srl b
 	rr c
-	ldh a, [hRam_FFC4]
+	ldh a, [hHtmlLayout_CursorX]
 	add a, c
-	ldh [hRam_FFC4], a
-	ldh a, [hRam_FFC5]
+	ldh [hHtmlLayout_CursorX], a
+	ldh a, [hHtmlLayout_CursorXHi]
 	adc a, b
-	ldh [hRam_FFC5], a
+	ldh [hHtmlLayout_CursorXHi], a
 .l56B0 ; 74:56B0
 	pop bc
 	ld a, c
-	ldh [hRam_FFC6], a
+	ldh [hHtmlLayout_HeightAbove], a
 	ld a, b
-	ldh [hRam_FFC7], a
+	ldh [hHtmlLayout_HeightBelow], a
 	ld a, e
 	add a, c
 	ld e, a
 	ld a, d
 	adc a, $00
 	ld d, a
-	ldh a, [hRam_FFCE]
+	ldh a, [hHtmlLayout_RecordCount]
 	ld c, a
-	ldh a, [hRam_FFCF]
+	ldh a, [hHtmlLayout_RecordCountHi]
 	ld b, a
 	or a, c
 	jp z, .l5795
-	ldh a, [hRam_FFCC]
+	ldh a, [hHtmlLayout_RecordList]
 	ld l, a
-	ldh a, [hRam_FFCD]
+	ldh a, [hHtmlLayout_RecordListHi]
 	ld h, a
-	ldh a, [hRam_FFBA]
+	ldh a, [hHtml_PageBank]
 	call BankSwitch_H
 .loop ; 74:56D3
 	call Sound_FrameService
@@ -928,7 +928,7 @@ Function_74_5663::
 
 .l572F ; 74:572F
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 2/18 scenarios)
-	ldh a, [hRam_FFC6]
+	ldh a, [hHtmlLayout_HeightAbove]
 	or a, a
 	jr nz, .l573F
 	ld bc, $0000
@@ -963,9 +963,9 @@ Function_74_5663::
 	; [CONFIRMED] 115 insn(s); 115 executed (in up to 2/18 scenarios)
 	pop hl
 	push hl
-	ldh a, [hRam_FFC4]
+	ldh a, [hHtmlLayout_CursorX]
 	ld [hli], a
-	ldh a, [hRam_FFC5]
+	ldh a, [hHtmlLayout_CursorXHi]
 	ld [hli], a
 	ld a, e
 	sub a, c
@@ -973,15 +973,15 @@ Function_74_5663::
 	ld a, d
 	sbc a, b
 	ld [hli], a
-	ldh a, [hRam_FFC4]
+	ldh a, [hHtmlLayout_CursorX]
 	add a, [hl]
 	ld [hli], a
-	ldh [hRam_FFC4], a
+	ldh [hHtmlLayout_CursorX], a
 	ld c, a
-	ldh a, [hRam_FFC5]
+	ldh a, [hHtmlLayout_CursorXHi]
 	adc a, [hl]
 	ld [hli], a
-	ldh [hRam_FFC5], a
+	ldh [hHtmlLayout_CursorXHi], a
 	ld b, a
 	ldh a, [hRam_FFC0]
 	add a, e
@@ -992,9 +992,9 @@ Function_74_5663::
 	inc hl
 	res 7, [hl]
 	inc bc
-	ldh a, [hRam_FFC2]
+	ldh a, [hHtmlLayout_RightLimit]
 	sub a, c
-	ldh a, [hRam_FFC3]
+	ldh a, [hHtmlLayout_RightLimitHi]
 	sbc a, b
 	jr nc, .l5789
 	pop hl
@@ -1010,40 +1010,40 @@ Function_74_5663::
 	or a, b
 	jp nz, .loop
 .l5795 ; 74:5795
-	ldh a, [hRam_FFC6]
+	ldh a, [hHtmlLayout_HeightAbove]
 	ld c, a
-	ldh a, [hRam_FFC7]
+	ldh a, [hHtmlLayout_HeightBelow]
 	ld b, a
 	add a, e
-	ldh [hRam_FFC8], a
+	ldh [hHtmlLayout_LineY], a
 	ld a, $00
 	adc a, d
-	ldh [hRam_FFC9], a
+	ldh [hHtmlLayout_LineYHi], a
 	ldh a, [hHtmlListIndent]
 	ldh [hHtmlLineIndent], a
 	xor a, a
-	ldh [hRam_FFC6], a
-	ldh [hRam_FFC7], a
+	ldh [hHtmlLayout_HeightAbove], a
+	ldh [hHtmlLayout_HeightBelow], a
 	ret
 
 Html_Layout_BeginLineAndPlaceFloats:: ; 74:57AD
 Function_74_57AD::
-	ldh a, [hRam_FFC8]
+	ldh a, [hHtmlLayout_LineY]
 	ld e, a
-	ldh a, [hRam_FFC9]
+	ldh a, [hHtmlLayout_LineYHi]
 	ld d, a
 	call Html_Layout_GetLimitsAtY
-	ldh a, [hRam_FFCE]
+	ldh a, [hHtmlLayout_RecordCount]
 	ld c, a
-	ldh a, [hRam_FFCF]
+	ldh a, [hHtmlLayout_RecordCountHi]
 	ld b, a
 	or a, c
 	ret z
-	ldh a, [hRam_FFCC]
+	ldh a, [hHtmlLayout_RecordList]
 	ld l, a
-	ldh a, [hRam_FFCD]
+	ldh a, [hHtmlLayout_RecordListHi]
 	ld h, a
-	ldh a, [hRam_FFBA]
+	ldh a, [hHtml_PageBank]
 	call BankSwitch_H
 .loop ; 74:57C9
 	call Sound_FrameService
@@ -1057,14 +1057,14 @@ Function_74_57AD::
 	ldh [hRam_FFC0], a
 	ld bc, $FFFB
 	add hl, bc
-	ldh a, [hRam_FFC4]
+	ldh a, [hHtmlLayout_CursorX]
 	ld c, a
-	ldh a, [hRam_FFC2]
+	ldh a, [hHtmlLayout_RightLimit]
 	sub a, c
 	ld c, a
-	ldh a, [hRam_FFC5]
+	ldh a, [hHtmlLayout_CursorXHi]
 	ld b, a
-	ldh a, [hRam_FFC3]
+	ldh a, [hHtmlLayout_RightLimitHi]
 	sbc a, b
 	ld b, a
 	ld a, c
@@ -1090,16 +1090,16 @@ Function_74_57AD::
 	push hl
 	ldh a, [hRam_FFC1]
 	ld b, a
-	ldh a, [hRam_FFC2]
+	ldh a, [hHtmlLayout_RightLimit]
 	ldh [hRam_FFC0], a
 	sub a, c
 	ld [hli], a
-	ldh [hRam_FFC2], a
-	ldh a, [hRam_FFC3]
+	ldh [hHtmlLayout_RightLimit], a
+	ldh a, [hHtmlLayout_RightLimitHi]
 	ldh [hRam_FFC1], a
 	sbc a, b
 	ld [hli], a
-	ldh [hRam_FFC3], a
+	ldh [hHtmlLayout_RightLimitHi], a
 	ld a, e
 	ld [hli], a
 	ld a, d
@@ -1112,10 +1112,10 @@ Function_74_57AD::
 .l5825 ; 74:5825
 	pop hl
 	push hl
-	ldh a, [hRam_FFC4]
+	ldh a, [hHtmlLayout_CursorX]
 	ld [hli], a
 	ld c, a
-	ldh a, [hRam_FFC5]
+	ldh a, [hHtmlLayout_CursorXHi]
 	ld [hli], a
 	ld b, a
 	ld a, e
@@ -1125,11 +1125,11 @@ Function_74_57AD::
 	ld a, [hl]
 	add a, c
 	ld [hli], a
-	ldh [hRam_FFC4], a
+	ldh [hHtmlLayout_CursorX], a
 	ld a, [hl]
 	adc a, b
 	ld [hli], a
-	ldh [hRam_FFC5], a
+	ldh [hHtmlLayout_CursorXHi], a
 .l583D ; 74:583D
 	ld a, [hl]
 	ld c, a
@@ -1142,20 +1142,20 @@ Function_74_57AD::
 	res 7, [hl]
 	jr .l5861
 .l584A ; 74:584A
-	ldh a, [hRam_FFC6]
+	ldh a, [hHtmlLayout_HeightAbove]
 	add a, e
 	ld e, a
 	ld a, $00
 	adc a, d
 	ld d, a
-	ldh a, [hRam_FFC7]
+	ldh a, [hHtmlLayout_HeightBelow]
 	add a, e
 	ld e, a
-	ldh [hRam_FFC8], a
+	ldh [hHtmlLayout_LineY], a
 	ld a, $00
 	adc a, d
 	ld d, a
-	ldh [hRam_FFC9], a
+	ldh [hHtmlLayout_LineYHi], a
 	call Html_Layout_GetLimitsAtY
 
 .l5861 ; 74:5861
@@ -1172,32 +1172,32 @@ Function_74_57AD::
 
 Html_Layout_GetLimitsAtY:: ; 74:586E
 	ldh a, [hViewRight]
-	ldh [hRam_FFC2], a
+	ldh [hHtmlLayout_RightLimit], a
 	ldh a, [hViewRight + 1]
-	ldh [hRam_FFC3], a
+	ldh [hHtmlLayout_RightLimitHi], a
 	ldh a, [hViewX]
-	ldh [hRam_FFC4], a
+	ldh [hHtmlLayout_CursorX], a
 	ldh a, [hViewX + 1]
-	ldh [hRam_FFC5], a
+	ldh [hHtmlLayout_CursorXHi], a
 	ldh a, [hHtmlLineIndent]
 	ld c, a
-	ldh a, [hRam_FFC4]
+	ldh a, [hHtmlLayout_CursorX]
 	add a, c
-	ldh [hRam_FFC4], a
-	ldh a, [hRam_FFC5]
+	ldh [hHtmlLayout_CursorX], a
+	ldh a, [hHtmlLayout_CursorXHi]
 	adc a, $00
-	ldh [hRam_FFC5], a
-	ldh a, [hRam_FFCE]
+	ldh [hHtmlLayout_CursorXHi], a
+	ldh a, [hHtmlLayout_RecordCount]
 	ld c, a
-	ldh a, [hRam_FFCF]
+	ldh a, [hHtmlLayout_RecordCountHi]
 	ld b, a
 	or a, c
 	jr z, .l5900
-	ldh a, [hRam_FFCC]
+	ldh a, [hHtmlLayout_RecordList]
 	ld l, a
-	ldh a, [hRam_FFCD]
+	ldh a, [hHtmlLayout_RecordListHi]
 	ld h, a
-	ldh a, [hRam_FFBA]
+	ldh a, [hHtml_PageBank]
 	call BankSwitch_H
 	inc de
 .loop ; 74:58A1
@@ -1234,32 +1234,32 @@ Html_Layout_GetLimitsAtY:: ; 74:586E
 	jr z, .l58DC
 	cp a, $04
 	jr nz, .l58F4
-	ldh a, [hRam_FFC2]
+	ldh a, [hHtmlLayout_RightLimit]
 	sub a, c
-	ldh a, [hRam_FFC3]
+	ldh a, [hHtmlLayout_RightLimitHi]
 	sbc a, b
 	jr c, .l58F4
 	ld a, c
-	ldh [hRam_FFC2], a
+	ldh [hHtmlLayout_RightLimit], a
 	ld a, b
-	ldh [hRam_FFC3], a
+	ldh [hHtmlLayout_RightLimitHi], a
 	jr .l58F4
 .l58DC ; 74:58DC
 	ldh a, [hRam_FFC6]
 	ld c, a
 	ldh a, [hRam_FFC7]
 	ld b, a
-	ldh a, [hRam_FFC4]
+	ldh a, [hHtmlLayout_CursorX]
 	sub a, c
-	ldh a, [hRam_FFC5]
+	ldh a, [hHtmlLayout_CursorXHi]
 	sbc a, b
 	jr nc, .l58F4
 	ldh a, [hHtmlLineIndent]
 	add a, c
-	ldh [hRam_FFC4], a
+	ldh [hHtmlLayout_CursorX], a
 	ld a, $00
 	adc a, b
-	ldh [hRam_FFC5], a
+	ldh [hHtmlLayout_CursorXHi], a
 
 .l58F4 ; 74:58F4
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 2/18 scenarios)

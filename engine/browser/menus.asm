@@ -428,7 +428,7 @@ BrowserMenu_DrawItemTwo:: ; 72:669F
 	ld bc, $DC00
 	ld de, $DD40
 	ld a, $07
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $72
 	farcall TextTiles_RenderLine
 	ld de, $8C01
@@ -884,7 +884,7 @@ Function_72_69F3::
 	ld bc, $DC00
 	ld de, $DD40
 	ld a, $07
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $72
 	farcall TextTiles_RenderLine
 	call Sound_FrameService

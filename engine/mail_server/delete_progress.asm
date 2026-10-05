@@ -120,7 +120,7 @@ MailSrvDel_DrawProgressText:: ; 23:56A1
 	ld c, l
 	pop hl
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $23
 	ld hl, $0140
 	add hl, bc
@@ -346,7 +346,7 @@ MailSrvDel_FormatNumber:: ; 23:56F0
 	pop bc
 	push af
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $01
 	ld hl, $0140
 	add hl, bc

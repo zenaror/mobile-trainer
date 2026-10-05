@@ -7,11 +7,11 @@ SECTION "engine/browser/inline_images", ROMX
 Browser_FetchInlineImages:: ; 4C:4840
 	; [CONFIRMED] 67 insn(s); 67 executed (in up to 1/18 scenarios) (part of region $482A-$48B6)
 	ld a, $00
-	ldh [hRam_FFD2], a
+	ldh [hInlineImages_UrlList], a
 	ld a, $DE
-	ldh [hRam_FFD3], a
+	ldh [hInlineImages_UrlListHi], a
 	ld a, $04
-	ldh [hRam_FFD4], a
+	ldh [hInlineImages_UrlBank], a
 	ld de, $C380
 	ld hl, $D500
 	ld bc, $0100
@@ -42,9 +42,9 @@ Browser_FetchInlineImages:: ; 4C:4840
 	inc de
 	inc de
 	ld a, e
-	ldh [hRam_FFD0], a
+	ldh [hInlineImages_ListEnd], a
 	ld a, d
-	ldh [hRam_FFD1], a
+	ldh [hInlineImages_ListEndHi], a
 	xor a, a
 	ld [de], a
 	inc de
@@ -53,11 +53,11 @@ Browser_FetchInlineImages:: ; 4C:4840
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	call Sound_FrameService
-	ldh a, [hRam_FFD2]
+	ldh a, [hInlineImages_UrlList]
 	ld l, a
-	ldh a, [hRam_FFD3]
+	ldh a, [hInlineImages_UrlListHi]
 	ld h, a
-	ldh a, [hRam_FFD4]
+	ldh a, [hInlineImages_UrlBank]
 	call BankSwitch_H
 	ld a, [hli]
 	ld e, a
@@ -70,14 +70,14 @@ Browser_FetchInlineImages:: ; 4C:4840
 	; fall-through of the retcc at 4C:48B5 (executed) | 90 insn(s) executed; cut out of the PROBABLE
 	; region 48B6-4B54 by apply_coverage --split [executed in 3 scenarios]
 	ld a, l
-	ldh [hRam_FFD2], a
+	ldh [hInlineImages_UrlList], a
 	ld a, h
-	ldh [hRam_FFD3], a
+	ldh [hInlineImages_UrlListHi], a
 	inc de
 	push de
-	ldh a, [hRam_FFD0]
+	ldh a, [hInlineImages_ListEnd]
 	ld l, a
-	ldh a, [hRam_FFD1]
+	ldh a, [hInlineImages_ListEndHi]
 	ld h, a
 	ld a, $FC
 	sub a, l
@@ -300,9 +300,9 @@ Browser_FetchInlineImages:: ; 4C:4840
 .l4A58 ; 4C:4A58
 	; [CONFIRMED] 28 insn(s) executed; cut out of the PROBABLE region 48B6-4B54 by apply_coverage
 	; --split [executed in 1 scenarios]
-	ldh a, [hRam_FFD0]
+	ldh a, [hInlineImages_ListEnd]
 	ld e, a
-	ldh a, [hRam_FFD1]
+	ldh a, [hInlineImages_ListEndHi]
 	ld d, a
 	ld a, [wBrowserRxBank]
 	call BankSwitch_D
@@ -389,9 +389,9 @@ Browser_FetchInlineImages:: ; 4C:4840
 	ld a, $02
 	ld [wBrowserFetchResult], a
 .l4AE7 ; 4C:4AE7
-	ldh a, [hRam_FFD0]
+	ldh a, [hInlineImages_ListEnd]
 	ld e, a
-	ldh a, [hRam_FFD1]
+	ldh a, [hInlineImages_ListEndHi]
 	ld d, a
 	ld a, [wBrowserRxBank]
 	call BankSwitch_D

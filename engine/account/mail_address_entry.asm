@@ -11,7 +11,7 @@ Account_MailAddressEntryScreen:: ; 68:571D
 	call Account_MailAddressEntry_InputLoop
 	farcall Palette_FadeOutToWhite
 	farcall Kbd_HideInstant
-	ld a, [wRam_C27C]
+	ld a, [wMailAddressEntry_Result]
 	ret
 
 Account_MailAddress_ClearFlagIfChanged:: ; 68:5739
@@ -92,8 +92,8 @@ Function_68_57B6::
 	farcall Joypad_SetRepeatTiming
 	farcall Sprite_ResetAll
 	xor a, a
-	ld [wRam_C27C], a
-	ld [wRam_C27D], a
+	ld [wMailAddressEntry_Result], a
+	ld [wMailAddressEntry_Field], a
 	ld hl, $DE80
 	ld b, $09
 	farcall TextBuf_Init
@@ -174,7 +174,7 @@ Function_68_57B6::
 	jr .l58C7
 .l58BB ; 68:58BB
 	ld a, $01
-	ld [wRam_C27D], a
+	ld [wMailAddressEntry_Field], a
 	ld d, $40
 	ld e, $10
 	ld hl, $DE94
@@ -199,11 +199,11 @@ Function_68_58E8::
 	and a, $02
 	jr nz, .l58F5
 	ld a, $00
-	ld [wRam_C27E], a
+	ld [wMailAddressEntry_OkFlag], a
 	ret
 .l58F5 ; 68:58F5
 	ld a, $01
-	ld [wRam_C27E], a
+	ld [wMailAddressEntry_OkFlag], a
 	ret
 
 Account_MailAddressEntry_UpdateOkState:: ; 68:58FB
@@ -215,11 +215,11 @@ Function_68_58FB::
 	or a, a
 	jr z, .l590D
 	ld a, $00
-	ld [wRam_C27E], a
+	ld [wMailAddressEntry_OkFlag], a
 	ret
 .l590D ; 68:590D
 	ld a, $01
-	ld [wRam_C27E], a
+	ld [wMailAddressEntry_OkFlag], a
 	ret
 
 Account_MailAddressEntry_CheckDomainLen:: ; 68:5913
@@ -228,16 +228,16 @@ Account_MailAddressEntry_CheckDomainLen:: ; 68:5913
 	cp a, $03
 	jr nc, .l5926
 	ld a, $00
-	ld [wRam_C27E], a
+	ld [wMailAddressEntry_OkFlag], a
 	ret
 .l5926 ; 68:5926
 	ld a, $01
-	ld [wRam_C27E], a
+	ld [wMailAddressEntry_OkFlag], a
 	ret
 
 Account_MailAddressEntry_InputLoop:: ; 68:592C
 	farcall Sprite_UpdateAll
-	ld a, [wRam_C27E]
+	ld a, [wMailAddressEntry_OkFlag]
 	ld c, a
 	farcall Kbd_Run
 	cp a, $01
@@ -252,7 +252,7 @@ Account_MailAddressEntry_InputLoop:: ; 68:592C
 .l5952 ; 68:5952
 	ld a, [wKeyboardCharLo]
 	ld d, a
-	ld a, [wRam_C27D]
+	ld a, [wMailAddressEntry_Field]
 	or a, a
 	jr nz, .l598A
 	ld hl, $DE80
@@ -270,7 +270,7 @@ Account_MailAddressEntry_InputLoop:: ; 68:592C
 	or a, a
 	jp nz, .l5A95
 	ld a, $01
-	ld [wRam_C27D], a
+	ld [wMailAddressEntry_Field], a
 	jp .l5A95
 .l598A ; 68:598A
 	ld hl, $DE94
@@ -311,7 +311,7 @@ Account_MailAddressEntry_InputLoop:: ; 68:592C
 	farcall Kbd_ShowMarkerSprite
 	jp .l5AA2
 .l59D7 ; 68:59D7
-	ld a, [wRam_C27D]
+	ld a, [wMailAddressEntry_Field]
 	or a, a
 	jr nz, .l59FD
 	ld hl, $DE80
@@ -356,7 +356,7 @@ Account_MailAddressEntry_InputLoop:: ; 68:592C
 .l5A36 ; 68:5A36
 	; [CONFIRMED] 297 insn(s); 297 executed (in up to 7/18 scenarios) (part of region $5A36-$5D2F)
 	xor a, a
-	ld [wRam_C27D], a
+	ld [wMailAddressEntry_Field], a
 	farcall Kbd_ShowMarkerSprite
 	jr .l59D7
 .l5A42 ; 68:5A42
@@ -385,7 +385,7 @@ Account_MailAddressEntry_InputLoop:: ; 68:592C
 	call Account_CommitMailFields
 	call Account_BuildMailAddress
 	ld a, $01
-	ld [wRam_C27C], a
+	ld [wMailAddressEntry_Result], a
 	ret
 .l5A7D ; 68:5A7D
 	ldh a, [hWRAMBank]
@@ -398,7 +398,7 @@ Account_MailAddressEntry_InputLoop:: ; 68:592C
 	ldh [rSVBK], a
 	call Account_CommitMailFields
 	xor a, a
-	ld [wRam_C27C], a
+	ld [wMailAddressEntry_Result], a
 	ret
 .l5A95 ; 68:5A95
 	ld a, $03
@@ -413,7 +413,7 @@ Account_MailAddressEntry_InputLoop:: ; 68:592C
 	call Account_MailDomain_UploadTextTiles
 	call Account_MailAddressEntry_UpdateOkState
 .l5AB0 ; 68:5AB0
-	ld a, [wRam_C27D]
+	ld a, [wMailAddressEntry_Field]
 	or a, a
 	jr nz, .l5AC6
 	ld d, $08
@@ -456,9 +456,9 @@ Account_MailLocal_PrintField:: ; 68:5B0E
 	ld bc, $0206
 	farcall TileCanvas_FillRect
 	ld a, $00
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $03
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	ld a, $15
 	ldh [hTextY], a
 	ld a, $08
@@ -468,17 +468,17 @@ Account_MailLocal_PrintField:: ; 68:5B0E
 	ld a, $10
 	ldh [hRam_FFC0], a
 	ld a, $08
-	ldh [hRam_FFC1], a
+	ldh [hTextBox_LineStartX], a
 	ld a, $00
-	ldh [hRam_FFC2], a
+	ldh [hTextBox_LineStartXHi], a
 	ld a, $20
-	ldh [hRam_FFC3], a
+	ldh [hTextBox_MaxLineY], a
 	ld a, $38
-	ldh [hRam_FFC4], a
+	ldh [hTextBox_RightLimitX], a
 	ld a, $00
 	ldh [hRam_FFC5], a
 	ld a, $0C
-	ldh [hRam_FFC6], a
+	ldh [hTextBox_LineAdvance], a
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	pop af
@@ -496,11 +496,11 @@ Account_MailDomain_PrintField:: ; 68:5B59
 	ld a, $00
 
 Label_68_5B6C:: ; 68:5B6C
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $03
 
 Label_68_5B70:: ; 68:5B70
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	ld a, $15
 
 Label_68_5B74:: ; 68:5B74
@@ -520,21 +520,21 @@ Label_68_5B80:: ; 68:5B80
 	ld a, $40
 
 Label_68_5B84:: ; 68:5B84
-	ldh [hRam_FFC1], a
+	ldh [hTextBox_LineStartX], a
 	ld a, $00
 
 Label_68_5B88:: ; 68:5B88
-	ldh [hRam_FFC2], a
+	ldh [hTextBox_LineStartXHi], a
 	ld a, $20
 
 Label_68_5B8C:: ; 68:5B8C
-	ldh [hRam_FFC3], a
+	ldh [hTextBox_MaxLineY], a
 	ld a, $58
-	ldh [hRam_FFC4], a
+	ldh [hTextBox_RightLimitX], a
 	ld a, $00
 	ldh [hRam_FFC5], a
 	ld a, $0C
-	ldh [hRam_FFC6], a
+	ldh [hTextBox_LineAdvance], a
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	pop af
@@ -638,9 +638,9 @@ Account_MailIntro_PrintMessage:: ; 68:5C71
 	ld bc, $0812
 	farcall TileCanvas_FillRect
 	ld a, $00
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $03
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	ld a, $38
 	ldh [hTextY], a
 	ld a, $08
@@ -650,17 +650,17 @@ Account_MailIntro_PrintMessage:: ; 68:5C71
 	ld a, $38
 	ldh [hRam_FFC0], a
 	ld a, $08
-	ldh [hRam_FFC1], a
+	ldh [hTextBox_LineStartX], a
 	ld a, $00
-	ldh [hRam_FFC2], a
+	ldh [hTextBox_LineStartXHi], a
 	ld a, $78
-	ldh [hRam_FFC3], a
+	ldh [hTextBox_MaxLineY], a
 	ld a, $98
-	ldh [hRam_FFC4], a
+	ldh [hTextBox_RightLimitX], a
 	ld a, $00
 	ldh [hRam_FFC5], a
 	ld a, $0C
-	ldh [hRam_FFC6], a
+	ldh [hTextBox_LineAdvance], a
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	pop af

@@ -20,7 +20,7 @@ DebugFlags_Run:: ; 19:4000
 	; evidence; status unchanged)
 	farcall Stub_Nop_48_48BB
 	ld a, $02
-	ld [wRam_C0D8], a
+	ld [wDebugFlags_Mode], a
 	call LCDOff
 	ldh a, [rLCDC]
 	and a, $9F
@@ -185,13 +185,13 @@ DebugFlags_Idle:: ; 19:41BB
 	jp DebugFlags_Loop
 
 DebugFlags_OnA:: ; 19:41CB
-	ld a, [wRam_C0D8]
+	ld a, [wDebugFlags_Mode]
 	cp a, $01
 	jp z, .l41D8
 	cp a, $02
 	jp z, .l4234
 .l41D8 ; 19:41D8
-	ld a, [wRam_C0D4]
+	ld a, [wDebugFlags_Cursor]
 	ld bc, $8000
 	or a, a
 	jr z, .l41E8
@@ -246,7 +246,7 @@ DebugFlags_OnA:: ; 19:41CB
 	call DebugFlags_DrawEntryName
 	jp DebugFlags_Loop
 .l4234 ; 19:4234
-	ld a, [wRam_C0D4]
+	ld a, [wDebugFlags_Cursor]
 	ld hl, $2710
 	or a, a
 	jr z, .l4248
@@ -324,13 +324,13 @@ DebugFlags_Exit:: ; 19:42A1
 	ret
 
 DebugFlags_OnStart:: ; 19:42B7
-	ld a, [wRam_C0D8]
+	ld a, [wDebugFlags_Mode]
 	inc a
-	ld [wRam_C0D8], a
+	ld [wDebugFlags_Mode], a
 	cp a, $03
 	jr nz, .skip
 	ld a, $01
-	ld [wRam_C0D8], a
+	ld [wDebugFlags_Mode], a
 .skip ; 19:42C7
 	cp a, $00
 	jp z, .l42FE
@@ -342,7 +342,7 @@ DebugFlags_OnStart:: ; 19:42B7
 	ld hl, $DA10
 	call Sprite_SetPosition
 	ld a, $00
-	ld [wRam_C0D4], a
+	ld [wDebugFlags_Cursor], a
 	call DebugFlags_DrawEntryName
 	jp DebugFlags_Loop
 .l42EA ; 19:42EA
@@ -350,7 +350,7 @@ DebugFlags_OnStart:: ; 19:42B7
 	ld hl, $DA10
 	call Sprite_SetPosition
 	ld a, $08
-	ld [wRam_C0D4], a
+	ld [wDebugFlags_Cursor], a
 	call DebugFlags_DrawEntryName
 	jp DebugFlags_Loop
 .l42FE ; 19:42FE
@@ -364,7 +364,7 @@ DebugFlags_OnStart:: ; 19:42B7
 	ld hl, $DA10
 	call Sprite_SetPosition
 	ld a, $00
-	ld [wRam_C0D4], a
+	ld [wDebugFlags_Cursor], a
 	call DebugFlags_DrawEntryName
 	jp DebugFlags_Loop
 
@@ -385,7 +385,7 @@ DebugFlags_EntryHasHighByte:: ; 19:4321
 
 DebugFlags_HandleDpad:: ; 19:4333
 	ld b, a
-	ld a, [wRam_C0D8]
+	ld a, [wDebugFlags_Mode]
 	cp a, $01
 	jp z, .l43A0
 	cp a, $02
@@ -418,29 +418,29 @@ DebugFlags_HandleDpad:: ; 19:4333
 .l436F ; 19:436F
 	call DebugFlags_EntryHasHighByte2
 	ret nz
-	ld a, [wRam_C0D8]
+	ld a, [wDebugFlags_Mode]
 	cp a, $01
 	ret nz
-	ld a, [wRam_C0D4]
+	ld a, [wDebugFlags_Cursor]
 	cp a, $08
 	ret nc
 	ld a, $08
-	ld [wRam_C0D4], a
+	ld [wDebugFlags_Cursor], a
 	ret
 .l4385 ; 19:4385
-	ld a, [wRam_C0D4]
+	ld a, [wDebugFlags_Cursor]
 	or a, a
 	ret z
 	dec a
-	ld [wRam_C0D4], a
+	ld [wDebugFlags_Cursor], a
 	call DebugFlags_PlaceCursor
 	ret
 .l4392 ; 19:4392
-	ld a, [wRam_C0D4]
+	ld a, [wDebugFlags_Cursor]
 	inc a
 	cp a, $05
 	ret z
-	ld [wRam_C0D4], a
+	ld [wDebugFlags_Cursor], a
 	call DebugFlags_PlaceCursor
 	ret
 .l43A0 ; 19:43A0
@@ -459,19 +459,19 @@ DebugFlags_HandleDpad:: ; 19:4333
 	jr nz, .skip
 	ld b, $08
 .skip ; 19:43BC
-	ld a, [wRam_C0D4]
+	ld a, [wDebugFlags_Cursor]
 	cp a, b
 	ret z
 	dec a
-	ld [wRam_C0D4], a
+	ld [wDebugFlags_Cursor], a
 	call DebugFlags_PlaceCursor
 	ret
 .l43C9 ; 19:43C9
-	ld a, [wRam_C0D4]
+	ld a, [wDebugFlags_Cursor]
 	inc a
 	cp a, $10
 	ret z
-	ld [wRam_C0D4], a
+	ld [wDebugFlags_Cursor], a
 	call DebugFlags_PlaceCursor
 	ret
 
@@ -506,7 +506,7 @@ DebugFlags_LoadHelpText:: ; 19:43E9
 	ld de, $D000
 	ld bc, $0010
 	ld a, $03
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $19
 	farcall TextTiles_RenderGrid
 	ld de, $8800
@@ -531,7 +531,7 @@ DebugFlags_LoadHelpText:: ; 19:43E9
 	ld de, $D000
 	ld bc, $0010
 	ld a, $03
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $19
 	farcall TextTiles_RenderGrid
 	ld de, $8000
@@ -593,7 +593,7 @@ DebugFlags_DrawEntryName:: ; 19:4532
 	ld de, $D000
 	ld bc, $0010
 	ld a, $03
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $19
 	farcall TextTiles_RenderGrid
 	ld de, $9400
@@ -625,7 +625,7 @@ DebugFlags_DrawValue:: ; 19:458A
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_C0D8]
+	ld a, [wDebugFlags_Mode]
 	cp a, $01
 	jp z, .l468F
 	cp a, $02
@@ -754,7 +754,7 @@ DebugFlags_DrawValue:: ; 19:458A
 	ld de, $D000
 	ld bc, $0610
 	ld a, $03
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $02
 	farcall TextTiles_RenderGrid
 	ld a, $03
@@ -864,7 +864,7 @@ DebugFlags_DrawValue:: ; 19:458A
 	ld de, $D000
 	ld bc, $0010
 	ld a, $03
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $02
 	farcall TextTiles_RenderGrid
 	ld a, $03
@@ -928,7 +928,7 @@ DebugFlags_DrawValue:: ; 19:458A
 	ld de, $D000
 	ld bc, $0610
 	ld a, $03
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $02
 	farcall TextTiles_RenderGrid
 	ld a, $03
@@ -959,7 +959,7 @@ DebugFlags_PlaceCursor:: ; 19:47ED
 	; [PROBABLE] 26 insn(s) reached by static flow only; seeds: site x26; min discovery hops 2;
 	; entered by call from 19:41BB (PROBABLE code) | forced execution: 25/26 instruction starts ran
 	; in forced_debug (traces/forced/, not natural evidence; status unchanged)
-	ld a, [wRam_C0D8]
+	ld a, [wDebugFlags_Mode]
 	cp a, $01
 	jr z, .l47F9
 	cp a, $02
@@ -969,7 +969,7 @@ DebugFlags_PlaceCursor:: ; 19:47ED
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_C0D4]
+	ld a, [wDebugFlags_Cursor]
 	add a, a
 	add a, a
 	add a, a
@@ -980,7 +980,7 @@ DebugFlags_PlaceCursor:: ; 19:47ED
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_C0D4]
+	ld a, [wDebugFlags_Cursor]
 	add a, a
 	add a, a
 	add a, a
@@ -1013,15 +1013,15 @@ DebugFlags_SlideIn:: ; 19:482B
 	ld a, $99
 	ld [wRam_C0E5], a
 	ld a, $11
-	ld [wRam_C0DF], a
+	ld [wDebugFlags_SlideStep], a
 .loop ; 19:4835
 	farcall Sprite_UpdateAll
 	call VBlank_WaitAndService
-	ld a, [wRam_C0DF]
+	ld a, [wDebugFlags_SlideStep]
 	dec a
 	ld b, $01
 	jr z, .skip
-	ld [wRam_C0DF], a
+	ld [wDebugFlags_SlideStep], a
 	ld b, a
 .skip ; 19:484A
 	ld a, [wRam_C0E5]
@@ -1036,15 +1036,15 @@ DebugFlags_SlideOut:: ; 19:4858
 	ld a, $00
 	ld [wRam_C0E5], a
 	ld a, $11
-	ld [wRam_C0DF], a
+	ld [wDebugFlags_SlideStep], a
 .loop ; 19:4862
 	farcall Sprite_UpdateAll
 	call VBlank_WaitAndService
-	ld a, [wRam_C0DF]
+	ld a, [wDebugFlags_SlideStep]
 	dec a
 	ld b, $01
 	jr z, .skip
-	ld [wRam_C0DF], a
+	ld [wDebugFlags_SlideStep], a
 	ld b, a
 .skip ; 19:4877
 	ld a, [wRam_C0E5]
@@ -1056,20 +1056,20 @@ DebugFlags_SlideOut:: ; 19:4858
 	ret
 
 DebugFlags_UpdateHoldTimer:: ; 19:4885
-	ld a, [wRam_C0E8]
+	ld a, [wDebugFlags_PrevHeld]
 	ld b, a
 	ldh a, [hJoyHeld]
 	cp a, b
 	jr z, .l4896
-	ld [wRam_C0E8], a
+	ld [wDebugFlags_PrevHeld], a
 	xor a, a
-	ld [wRam_C0E7], a
+	ld [wDebugFlags_HoldCounter], a
 	ret
 .l4896 ; 19:4896
-	ld a, [wRam_C0E7]
+	ld a, [wDebugFlags_HoldCounter]
 	add a, $01
 	ret c
-	ld [wRam_C0E7], a
+	ld [wDebugFlags_HoldCounter], a
 	ret
 
 DebugFlags_ReadValue:: ; 19:48A0

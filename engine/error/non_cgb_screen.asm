@@ -12,7 +12,7 @@ NonCgb_ErrorScreen:: ; 6B:4C80
 	ld hl, $C0D4
 	call FillBytes
 	ld a, $14
-	ld [wRam_C0E7], a
+	ld [wNonCgb_FadeTimer], a
 	call LCDOff
 	ldh a, [rLCDC]
 	and a, $9F
@@ -66,11 +66,11 @@ NonCgb_ErrorScreen:: ; 6B:4C80
 	jr .l4CF3
 
 NonCgb_FadeStep:: ; 6B:4CF6
-	ld hl, $C0E7
+	ld hl, wNonCgb_FadeTimer
 	dec [hl]
 	ret nz
 	ld [hl], $14
-	ld a, [wRam_C0E8]
+	ld a, [wNonCgb_FadeIndex]
 	ld hl, NonCgb_BgpFadeTable
 	add a, l
 	ld l, a
@@ -79,9 +79,9 @@ NonCgb_FadeStep:: ; 6B:4CF6
 	ld h, a
 	ld a, [hl]
 	ldh [rBGP], a
-	ld a, [wRam_C0E8]
+	ld a, [wNonCgb_FadeIndex]
 	inc a
-	ld [wRam_C0E8], a
+	ld [wNonCgb_FadeIndex], a
 	cp a, $04
 	ld a, $00
 	ret z

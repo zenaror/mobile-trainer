@@ -1171,7 +1171,7 @@ MailServerMgr_ShowLoadingMsg:: ; 2E:538B
 	push bc
 	push hl
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $2E
 	ld bc, $D000
 	ld de, $D0C0
@@ -1205,7 +1205,7 @@ MailServerMgr_ShowNoMailMsg:: ; 2E:53DA
 	push bc
 	push hl
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $2E
 	ld bc, $D000
 	ld de, $D0C0
@@ -1240,7 +1240,7 @@ MailServerMgr_ShowDeletingMsg:: ; 2E:5429
 	push bc
 	push hl
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $2E
 	ld bc, $D000
 	ld de, $D0C0
@@ -1302,7 +1302,7 @@ MailServerMgr_ShowChoiceHelp:: ; 2E:5498
 	ld l, a
 	ld a, $02
 	ldh [rVBK], a
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $2E
 	ld bc, $D800
 	ld de, $D940

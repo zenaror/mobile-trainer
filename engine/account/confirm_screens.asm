@@ -11,7 +11,7 @@ Account_ConfirmScreen:: ; 68:61F7
 	call Account_ConfirmScreen_InputLoop
 	farcall Palette_FadeOutToWhite
 	farcall Kbd_HideInstant
-	ld a, [wRam_C27C]
+	ld a, [wAccountConfirm_Result]
 	ret
 
 Account_ConfirmScreen_Setup:: ; 68:6213
@@ -20,9 +20,9 @@ Account_ConfirmScreen_Setup:: ; 68:6213
 	farcall Joypad_SetRepeatTiming
 	farcall Sprite_ResetAll
 	xor a, a
-	ld [wRam_C27C], a
+	ld [wAccountConfirm_Result], a
 	ld a, $00
-	ld [wRam_C27D], a
+	ld [wAccountConfirm_Cursor], a
 	ld de, $8801
 	ld hl, Gfx_Account_ConfirmScreens_Tiles8800Vb1
 	ld a, $5D
@@ -98,18 +98,18 @@ Account_ConfirmScreen_InputLoop:: ; 68:62C9
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld a, [wRam_C27D]
+	ld a, [wAccountConfirm_Cursor]
 	or a, a
 	jr nz, .l6308
 	ld a, $01
-	ld [wRam_C27C], a
+	ld [wAccountConfirm_Result], a
 	ret
 
 .l6308 ; 68:6308
 	; [PROBABLE] 29 insn(s) reached by static flow only; seeds: exec x29; min discovery hops 1;
 	; entered by jrcc from 68:6300 (executed)
 	ld a, $02
-	ld [wRam_C27C], a
+	ld [wAccountConfirm_Result], a
 	ret
 .l630E ; 68:630E
 	ldh a, [hWRAMBank]
@@ -121,7 +121,7 @@ Account_ConfirmScreen_InputLoop:: ; 68:62C9
 	pop af
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_C27C], a
+	ld [wAccountConfirm_Result], a
 	ret
 .l6323 ; 68:6323
 	ldh a, [hWRAMBank]
@@ -132,10 +132,10 @@ Account_ConfirmScreen_InputLoop:: ; 68:62C9
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld a, [wRam_C27D]
+	ld a, [wAccountConfirm_Cursor]
 	ld b, $01
 	xor a, b
-	ld [wRam_C27D], a
+	ld [wAccountConfirm_Cursor], a
 	call Account_ConfirmScreen_UpdateCursor
 	jr .l6341
 .l6341 ; 68:6341
@@ -145,7 +145,7 @@ Account_ConfirmScreen_UpdateCursor:: ; 68:6344
 Function_68_6344::
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld a, [wRam_C27D]
+	ld a, [wAccountConfirm_Cursor]
 	add a, a
 	ld hl, Account_ConfirmCursorPositions
 	add a, l
@@ -187,9 +187,9 @@ Account_ConfirmScreen_PrintAccount:: ; 68:637F
 	ld bc, $0208
 	farcall TileCanvas_FillRect
 	ld a, $00
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $03
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	ld a, $2B
 	ldh [hTextY], a
 	ld a, $30
@@ -199,17 +199,17 @@ Account_ConfirmScreen_PrintAccount:: ; 68:637F
 	ld a, $28
 	ldh [hRam_FFC0], a
 	ld a, $30
-	ldh [hRam_FFC1], a
+	ldh [hTextBox_LineStartX], a
 	ld a, $00
-	ldh [hRam_FFC2], a
+	ldh [hTextBox_LineStartXHi], a
 	ld a, $38
-	ldh [hRam_FFC3], a
+	ldh [hTextBox_MaxLineY], a
 	ld a, $70
-	ldh [hRam_FFC4], a
+	ldh [hTextBox_RightLimitX], a
 	ld a, $00
 	ldh [hRam_FFC5], a
 	ld a, $0C
-	ldh [hRam_FFC6], a
+	ldh [hTextBox_LineAdvance], a
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	ld a, $03
@@ -220,9 +220,9 @@ Account_ConfirmScreen_PrintAccount:: ; 68:637F
 	ld bc, $0212
 	farcall TileCanvas_FillRect
 	ld a, $00
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $03
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	ld a, $4B
 	ldh [hTextY], a
 	ld a, $08
@@ -232,17 +232,17 @@ Account_ConfirmScreen_PrintAccount:: ; 68:637F
 	ld a, $48
 	ldh [hRam_FFC0], a
 	ld a, $08
-	ldh [hRam_FFC1], a
+	ldh [hTextBox_LineStartX], a
 	ld a, $00
-	ldh [hRam_FFC2], a
+	ldh [hTextBox_LineStartXHi], a
 	ld a, $58
-	ldh [hRam_FFC3], a
+	ldh [hTextBox_MaxLineY], a
 	ld a, $98
-	ldh [hRam_FFC4], a
+	ldh [hTextBox_RightLimitX], a
 	ld a, $00
 	ldh [hRam_FFC5], a
 	ld a, $0C
-	ldh [hRam_FFC6], a
+	ldh [hTextBox_LineAdvance], a
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	ld a, $03
@@ -269,7 +269,7 @@ Account_ConfirmManualScreen:: ; 68:6435
 	call Account_ConfirmManualScreen_InputLoop
 	farcall Palette_FadeOutToWhite
 	farcall Kbd_HideInstant
-	ld a, [wRam_C27C]
+	ld a, [wAccountConfirm_Result]
 	ret
 
 Account_ConfirmManualScreen_Setup:: ; 68:6451
@@ -278,9 +278,9 @@ Account_ConfirmManualScreen_Setup:: ; 68:6451
 	farcall Joypad_SetRepeatTiming
 	farcall Sprite_ResetAll
 	xor a, a
-	ld [wRam_C27C], a
+	ld [wAccountConfirm_Result], a
 	ld a, $00
-	ld [wRam_C27D], a
+	ld [wAccountConfirm_Cursor], a
 	ld de, $8801
 	ld hl, Gfx_Account_ConfirmScreens_Tiles8800Vb1
 	ld a, $5D
@@ -356,15 +356,15 @@ Account_ConfirmManualScreen_InputLoop:: ; 68:6507
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld a, [wRam_C27D]
+	ld a, [wAccountConfirm_Cursor]
 	or a, a
 	jr nz, .l6546
 	ld a, $01
-	ld [wRam_C27C], a
+	ld [wAccountConfirm_Result], a
 	ret
 .l6546 ; 68:6546
 	ld a, $02
-	ld [wRam_C27C], a
+	ld [wAccountConfirm_Result], a
 	ret
 .l654C ; 68:654C
 	ldh a, [hWRAMBank]
@@ -376,7 +376,7 @@ Account_ConfirmManualScreen_InputLoop:: ; 68:6507
 	pop af
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_C27C], a
+	ld [wAccountConfirm_Result], a
 	ret
 .l6561 ; 68:6561
 	ldh a, [hWRAMBank]
@@ -387,17 +387,17 @@ Account_ConfirmManualScreen_InputLoop:: ; 68:6507
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld a, [wRam_C27D]
+	ld a, [wAccountConfirm_Cursor]
 	ld b, $01
 	xor a, b
-	ld [wRam_C27D], a
+	ld [wAccountConfirm_Cursor], a
 	call Account_ConfirmManualScreen_UpdateCursor
 	jr .l657F
 .l657F ; 68:657F
 	jp Account_ConfirmManualScreen_InputLoop
 
 Account_ConfirmManualScreen_UpdateCursor:: ; 68:6582
-	ld a, [wRam_C27D]
+	ld a, [wAccountConfirm_Cursor]
 	add a, a
 	ld hl, Account_ConfirmManualCursorPositions
 	add a, l
@@ -451,9 +451,9 @@ Account_ConfirmManualScreen_PrintAccount:: ; 68:65EA
 	ld bc, $0208
 	farcall TileCanvas_FillRect
 	ld a, $00
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $03
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	ld a, $13
 	ldh [hTextY], a
 	ld a, $40
@@ -463,17 +463,17 @@ Account_ConfirmManualScreen_PrintAccount:: ; 68:65EA
 	ld a, $10
 	ldh [hRam_FFC0], a
 	ld a, $40
-	ldh [hRam_FFC1], a
+	ldh [hTextBox_LineStartX], a
 	ld a, $00
-	ldh [hRam_FFC2], a
+	ldh [hTextBox_LineStartXHi], a
 	ld a, $20
-	ldh [hRam_FFC3], a
+	ldh [hTextBox_MaxLineY], a
 	ld a, $80
-	ldh [hRam_FFC4], a
+	ldh [hTextBox_RightLimitX], a
 	ld a, $00
 	ldh [hRam_FFC5], a
 	ld a, $0C
-	ldh [hRam_FFC6], a
+	ldh [hTextBox_LineAdvance], a
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	ld a, $03
@@ -484,9 +484,9 @@ Account_ConfirmManualScreen_PrintAccount:: ; 68:65EA
 	ld bc, $0212
 	farcall TileCanvas_FillRect
 	ld a, $00
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $03
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	ld a, $33
 	ldh [hTextY], a
 	ld a, $08
@@ -496,17 +496,17 @@ Account_ConfirmManualScreen_PrintAccount:: ; 68:65EA
 	ld a, $30
 	ldh [hRam_FFC0], a
 	ld a, $08
-	ldh [hRam_FFC1], a
+	ldh [hTextBox_LineStartX], a
 	ld a, $00
-	ldh [hRam_FFC2], a
+	ldh [hTextBox_LineStartXHi], a
 	ld a, $40
-	ldh [hRam_FFC3], a
+	ldh [hTextBox_MaxLineY], a
 	ld a, $98
-	ldh [hRam_FFC4], a
+	ldh [hTextBox_RightLimitX], a
 	ld a, $00
 	ldh [hRam_FFC5], a
 	ld a, $0C
-	ldh [hRam_FFC6], a
+	ldh [hTextBox_LineAdvance], a
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	ld a, $03
@@ -517,9 +517,9 @@ Account_ConfirmManualScreen_PrintAccount:: ; 68:65EA
 	ld bc, $020C
 	farcall TileCanvas_FillRect
 	ld a, $00
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $03
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	ld a, $43
 	ldh [hTextY], a
 	ld a, $38
@@ -529,17 +529,17 @@ Account_ConfirmManualScreen_PrintAccount:: ; 68:65EA
 	ld a, $40
 	ldh [hRam_FFC0], a
 	ld a, $38
-	ldh [hRam_FFC1], a
+	ldh [hTextBox_LineStartX], a
 	ld a, $00
-	ldh [hRam_FFC2], a
+	ldh [hTextBox_LineStartXHi], a
 	ld a, $50
-	ldh [hRam_FFC3], a
+	ldh [hTextBox_MaxLineY], a
 	ld a, $98
-	ldh [hRam_FFC4], a
+	ldh [hTextBox_RightLimitX], a
 	ld a, $00
 	ldh [hRam_FFC5], a
 	ld a, $0C
-	ldh [hRam_FFC6], a
+	ldh [hTextBox_LineAdvance], a
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	ld a, $03
@@ -550,9 +550,9 @@ Account_ConfirmManualScreen_PrintAccount:: ; 68:65EA
 	ld bc, $020C
 	farcall TileCanvas_FillRect
 	ld a, $00
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $03
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	ld a, $53
 	ldh [hTextY], a
 	ld a, $38
@@ -562,17 +562,17 @@ Account_ConfirmManualScreen_PrintAccount:: ; 68:65EA
 	ld a, $50
 	ldh [hRam_FFC0], a
 	ld a, $38
-	ldh [hRam_FFC1], a
+	ldh [hTextBox_LineStartX], a
 	ld a, $00
-	ldh [hRam_FFC2], a
+	ldh [hTextBox_LineStartXHi], a
 	ld a, $60
-	ldh [hRam_FFC3], a
+	ldh [hTextBox_MaxLineY], a
 	ld a, $98
-	ldh [hRam_FFC4], a
+	ldh [hTextBox_RightLimitX], a
 	ld a, $00
 	ldh [hRam_FFC5], a
 	ld a, $0C
-	ldh [hRam_FFC6], a
+	ldh [hTextBox_LineAdvance], a
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	ld a, $03
@@ -583,9 +583,9 @@ Account_ConfirmManualScreen_PrintAccount:: ; 68:65EA
 	ld bc, $020D
 	farcall TileCanvas_FillRect
 	ld a, $00
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $03
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	ld a, $63
 	ldh [hTextY], a
 	ld a, $30
@@ -595,17 +595,17 @@ Account_ConfirmManualScreen_PrintAccount:: ; 68:65EA
 	ld a, $68
 	ldh [hRam_FFC0], a
 	ld a, $30
-	ldh [hRam_FFC1], a
+	ldh [hTextBox_LineStartX], a
 	ld a, $00
-	ldh [hRam_FFC2], a
+	ldh [hTextBox_LineStartXHi], a
 	ld a, $70
-	ldh [hRam_FFC3], a
+	ldh [hTextBox_MaxLineY], a
 	ld a, $98
-	ldh [hRam_FFC4], a
+	ldh [hTextBox_RightLimitX], a
 	ld a, $00
 	ldh [hRam_FFC5], a
 	ld a, $0C
-	ldh [hRam_FFC6], a
+	ldh [hTextBox_LineAdvance], a
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	ld a, $03

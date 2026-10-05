@@ -14,8 +14,8 @@ Function_1A_4000::
 	call FillBytes
 	farcall Stub_Nop_48_48BB
 	ld a, $01
-	ld [wRam_C0D4], a
-	ld [wRam_C0D6], a
+	ld [wMobileDict_Category], a
+	ld [wMobileDict_RowCursor], a
 
 MobileDict_Redraw:: ; 1A:4018
 	ldh a, [rLCDC]
@@ -161,7 +161,7 @@ MobileDict_OnA:: ; 1A:4177
 	pop af
 	ldh [rSVBK], a
 	farcall Palette_FadeOutToWhite
-	ld a, [wRam_C0D4]
+	ld a, [wMobileDict_Category]
 	dec a
 	add a, a
 	ld hl, $40B9
@@ -178,10 +178,10 @@ MobileDict_OnA:: ; 1A:4177
 	call ReadByteFar
 	ld h, a
 	ld l, c
-	ld a, [wRam_C0D6]
+	ld a, [wMobileDict_RowCursor]
 	dec a
 	ld b, a
-	ld a, [wRam_C0E5]
+	ld a, [wMobileDict_ScrollOffset]
 	add a, b
 	add a, l
 	ld l, a
@@ -233,10 +233,10 @@ MobileDict_HandleDpad:: ; 1A:41E5
 MobileDict_CursorUp:: ; 1A:41F8
 	; [CONFIRMED] 31 insn(s) executed; cut out of the PROBABLE region 41F2-4238 by apply_coverage
 	; --split [executed in 1 scenarios]
-	ld a, [wRam_C0D6]
+	ld a, [wMobileDict_RowCursor]
 	dec a
 	jr z, MobileDict_ScrollUp
-	ld [wRam_C0D6], a
+	ld [wMobileDict_RowCursor], a
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -249,11 +249,11 @@ MobileDict_CursorUp:: ; 1A:41F8
 	ret
 
 MobileDict_ScrollUp:: ; 1A:4215
-	ld a, [wRam_C0E5]
+	ld a, [wMobileDict_ScrollOffset]
 	or a, a
 	ret z
 	dec a
-	ld [wRam_C0E5], a
+	ld [wMobileDict_ScrollOffset], a
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -269,11 +269,11 @@ MobileDict_ScrollUp:: ; 1A:4215
 
 MobileDict_CursorDown:: ; 1A:4238
 	; [CONFIRMED] 23 insn(s); 23 executed (in up to 1/18 scenarios)
-	ld a, [wRam_C0D8]
+	ld a, [wMobileDict_EntryCount]
 	ld b, a
-	ld a, [wRam_C0D6]
+	ld a, [wMobileDict_RowCursor]
 	ld c, a
-	ld a, [wRam_C0E5]
+	ld a, [wMobileDict_ScrollOffset]
 	add a, c
 	cp a, b
 	ret z
@@ -281,7 +281,7 @@ MobileDict_CursorDown:: ; 1A:4238
 	cp a, $05
 	jr z, MobileDict_ScrollDown
 	inc a
-	ld [wRam_C0D6], a
+	ld [wMobileDict_RowCursor], a
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -296,7 +296,7 @@ MobileDict_CursorDown:: ; 1A:4238
 MobileDict_ScrollDown:: ; 1A:4263
 	; [CONFIRMED] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 1;
 	; entered by jrcc from 1A:4249 (executed) [executed in 1 scenarios]
-	ld hl, $C0E5
+	ld hl, wMobileDict_ScrollOffset
 	inc [hl]
 	ldh a, [hWRAMBank]
 	push af
@@ -313,7 +313,7 @@ MobileDict_ScrollDown:: ; 1A:4263
 
 MobileDict_NextCategory:: ; 1A:4281
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
-	ld a, [wRam_C0D4]
+	ld a, [wMobileDict_Category]
 	cp a, $0B
 	jr nz, .skip
 
@@ -324,11 +324,11 @@ MobileDict_NextCategory:: ; 1A:4281
 .skip ; 1A:4289
 	; [CONFIRMED] 18 insn(s); 18 executed (in up to 1/18 scenarios)
 	inc a
-	ld [wRam_C0D4], a
+	ld [wMobileDict_Category], a
 	ld a, $01
-	ld [wRam_C0D6], a
+	ld [wMobileDict_RowCursor], a
 	dec a
-	ld [wRam_C0E5], a
+	ld [wMobileDict_ScrollOffset], a
 	call MobileDict_LoadPage
 	call MobileDict_DrawRowHighlight
 	call MobileDict_UpdateTabSprites
@@ -345,16 +345,16 @@ MobileDict_NextCategory:: ; 1A:4281
 MobileDict_PrevCategory:: ; 1A:42B0
 	; [CONFIRMED] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 1;
 	; entered by jpcc from 1A:41F4 (PROBABLE code) [executed in 3 scenarios]
-	ld a, [wRam_C0D4]
+	ld a, [wMobileDict_Category]
 	dec a
 	jr nz, .skip
 	ld a, $0B
 .skip ; 1A:42B8
-	ld [wRam_C0D4], a
+	ld [wMobileDict_Category], a
 	ld a, $01
-	ld [wRam_C0D6], a
+	ld [wMobileDict_RowCursor], a
 	dec a
-	ld [wRam_C0E5], a
+	ld [wMobileDict_ScrollOffset], a
 	call MobileDict_LoadPage
 	call MobileDict_DrawRowHighlight
 	call MobileDict_UpdateTabSprites
@@ -377,7 +377,7 @@ Function_1A_42DE::
 	ld de, $F800
 	ld a, $07
 	farcall Tilemap_ApplyMaskRect
-	ld a, [wRam_C0D6]
+	ld a, [wMobileDict_RowCursor]
 	dec a
 	swap a
 	ld h, a
@@ -399,7 +399,7 @@ Function_1A_42DE::
 	ret
 
 MobileDict_UpdateTabSprites:: ; 1A:4317
-	ld a, [wRam_C0D4]
+	ld a, [wMobileDict_Category]
 	dec a
 	add a, a
 	ld hl, Table_MobileDict_TabPositions
@@ -420,7 +420,7 @@ MobileDict_UpdateTabSprites:: ; 1A:4317
 	ld [wSpriteSlots + 65], a
 	ld a, $15
 	ld [wSpriteSlots + 64], a
-	ld a, [wRam_C0E5]
+	ld a, [wMobileDict_ScrollOffset]
 	or a, a
 	jr z, .l4351
 
@@ -437,9 +437,9 @@ MobileDict_UpdateTabSprites:: ; 1A:4317
 	ld hl, $DA20
 	call Sprite_SetPosition
 .l435A ; 1A:435A
-	ld a, [wRam_C0D8]
+	ld a, [wMobileDict_EntryCount]
 	ld b, a
-	ld a, [wRam_C0E5]
+	ld a, [wMobileDict_ScrollOffset]
 	add a, $05
 	cp a, b
 	jr nc, .l4371
@@ -478,7 +478,7 @@ Function_1A_4391::
 	call FillBytes
 	ld d, $00
 .loop ; 1A:43AA
-	ld a, [wRam_C0D4]
+	ld a, [wMobileDict_Category]
 	ld hl, Table_MobileDict_Categories
 	dec a
 	add a, a
@@ -491,8 +491,8 @@ Function_1A_4391::
 	ld h, [hl]
 	ld l, a
 	ld a, [hli]
-	ld [wRam_C0D8], a
-	ld a, [wRam_C0E5]
+	ld [wMobileDict_EntryCount], a
+	ld a, [wMobileDict_ScrollOffset]
 	add a, d
 	add a, a
 	add a, l
@@ -506,12 +506,12 @@ Function_1A_4391::
 	push de
 	ld a, d
 	add a, a
-	ldh [hRam_FFB1], a
+	ldh [hTextTiles_GridRow], a
 	ld a, $05
-	ldh [hRam_FFB2], a
+	ldh [hTextTiles_GridRowEnd], a
 	ld de, $D000
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld bc, $0010
 	ld a, $1A
 	farcall TextTiles_RenderGridRows
@@ -522,7 +522,7 @@ Function_1A_4391::
 	cp a, $05
 	jr z, .l43F9
 	ld b, a
-	ld a, [wRam_C0D8]
+	ld a, [wMobileDict_EntryCount]
 	cp a, b
 	jr nz, .loop
 .l43F9 ; 1A:43F9

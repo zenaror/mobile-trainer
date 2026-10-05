@@ -236,3 +236,9 @@ The manifest has one header line, one `#` comment line, 49 applied rows and 30 H
 ## 8. Follow-up (ram3)
 
 `wRam_D725` (section 6, idea `wStatSplitParam2`) was named in [`naming2_ram3.md`](naming2_ram3.md): it is `wKbdSlideDeltaRow` in `ram/banked.asm` (WRAM bank 1, PROBABLE), the row index of the keyboard-slide delta tables.
+
+The overlay windows of section 4 were then given **screen-local aliases** (`ram/overlays.asm`, 258 aliases of 67 bytes; [`naming2_ram3.md`](naming2_ram3.md) section 5, verified in
+[`naming2_verify_ram3.md`](naming2_verify_ram3.md)).  The rule of section 4 stands (the neutral name is the only global name of the address); the table of section 4 is a first reading and some of
+its rows are **corrected** by the aliases (and the idea row `FFE0 hHtmlLinkHeapOffset` of section 5 is wrong: `FFE0` is an index into the link pointer table): `C27C-C286` (`C27E:C27F` is a big-endian frame counter in the title screen, a little-endian record pointer in the notice pages; `C286` is a one-shot sound
+latch, not an API poll counter), `C0D4-C0FF` (`C0E5/C0E6` are current/previous item in the top menu only; in the help and mail menus `C0E6` is the item to draw as normal; the browser start page has
+`C0E5` only) and `C10E-C11D` (the "counter" in `Tilemap_FillRectSequential` is a constant `$07` and a start tile; the counter is in `Palette_FadeOutWithTicker`).  The ideas for `C0D4`, `C0D6`, `C0DF` (sections 3 and 5) are superseded by the aliases of the top menu.

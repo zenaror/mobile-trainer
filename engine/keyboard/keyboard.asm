@@ -1667,7 +1667,7 @@ Kbd_LoadPageGraphics:: ; 55:66C6
 Function_55_66C6::
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 11/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ldh [hRam_FFB0], a
+	ldh [hKbd_LoadPageArg], a
 	ld a, [wKbdType]
 	ld hl, Kbd_LoadPageGraphics_TypeTable
 	add a, a
@@ -1964,7 +1964,7 @@ Label_55_691C:: ; 55:691C
 
 Label_55_6952:: ; 55:6952
 	; [CONFIRMED] 22 insn(s); 22 executed (in up to 4/18 scenarios)
-	ldh a, [hRam_FFB0]
+	ldh a, [hKbd_LoadPageArg]
 	or a, a
 	ret z
 	ld bc, $0B14
@@ -2096,7 +2096,7 @@ Label_55_6A2F:: ; 55:6A2F
 
 Label_55_6A65:: ; 55:6A65
 	; [CONFIRMED] 68 insn(s); 68 executed (in up to 5/18 scenarios)
-	ldh a, [hRam_FFB0]
+	ldh a, [hKbd_LoadPageArg]
 	or a, a
 	ret z
 	ld bc, $0B14

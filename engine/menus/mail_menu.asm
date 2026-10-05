@@ -22,9 +22,9 @@ Function_1D_4000::
 	jr nz, .skip
 	ld a, $01
 .skip ; 1D:4023
-	ld [wRam_C0E5], a
+	ld [wMailMenu_Cursor], a
 	ld a, $01
-	ld [wRam_C0E7], a
+	ld [wMailMenu_AnimCounter], a
 	ldh a, [rLCDC]
 	and a, $9F
 	ldh [rLCDC], a
@@ -124,16 +124,16 @@ Function_1D_4000::
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
 	ld a, $02
-	ld [wRam_C0E6], a
+	ld [wMailMenu_NormalItem], a
 	call MailMenu_DrawItemNormal
 	ld a, $01
-	ld [wRam_C0E6], a
+	ld [wMailMenu_NormalItem], a
 	call MailMenu_DrawItemSelected
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	farcall Sprite_UpdateAll
 	farcall Palette_FadeInFromWhite
-	ld a, [wRam_C0E5]
+	ld a, [wMailMenu_Cursor]
 	dec a
 	cp a, $01
 	call z, MailMenu_GetLabelIndexA
@@ -187,12 +187,12 @@ MailMenu_OnA:: ; 1D:41BD
 	ldh [rSVBK], a
 	farcall Palette_FadeOutWithTicker
 	farcall Ticker_Stop
-	ld a, [wRam_C0E5]
+	ld a, [wMailMenu_Cursor]
 	ld b, a
 	ld a, $01
 	ld hl, $A8B8
 	farcall WriteByteFar
-	ld a, [wRam_C0E5]
+	ld a, [wMailMenu_Cursor]
 	ret
 
 MailMenu_OnB:: ; 1D:41EC
@@ -233,8 +233,8 @@ MailMenu_HandleDpad:: ; 1D:4229
 	jr nz, .l4256
 	ret
 .l4232 ; 1D:4232
-	ld a, [wRam_C0E5]
-	ld [wRam_C0E6], a
+	ld a, [wMailMenu_Cursor]
+	ld [wMailMenu_NormalItem], a
 	dec a
 	jr nz, .l423D
 
@@ -244,7 +244,7 @@ MailMenu_HandleDpad:: ; 1D:4229
 
 .l423D ; 1D:423D
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 7/18 scenarios)
-	ld [wRam_C0E5], a
+	ld [wMailMenu_Cursor], a
 	call MailMenu_DrawItemNormal
 	call MailMenu_DrawItemSelected
 	farcall Sprite_UpdateAll
@@ -253,8 +253,8 @@ MailMenu_HandleDpad:: ; 1D:4229
 	call MailMenu_AnimateIcon
 	jr MailMenu_AfterMove
 .l4256 ; 1D:4256
-	ld a, [wRam_C0E5]
-	ld [wRam_C0E6], a
+	ld a, [wMailMenu_Cursor]
+	ld [wMailMenu_NormalItem], a
 	inc a
 	cp a, $07
 	jr nz, .l4263
@@ -265,7 +265,7 @@ MailMenu_HandleDpad:: ; 1D:4229
 
 .l4263 ; 1D:4263
 	; [CONFIRMED] 89 insn(s); 89 executed (in up to 9/18 scenarios)
-	ld [wRam_C0E5], a
+	ld [wMailMenu_Cursor], a
 	call MailMenu_DrawItemNormal
 	call MailMenu_DrawItemSelected
 	farcall Sprite_UpdateAll
@@ -282,7 +282,7 @@ MailMenu_AfterMove:: ; 1D:427A
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld a, [wRam_C0E5]
+	ld a, [wMailMenu_Cursor]
 	dec a
 	cp a, $01
 	call z, MailMenu_GetLabelIndexB
@@ -303,7 +303,7 @@ MailMenu_GetLabelIndexB:: ; 1D:42A0
 	ret
 
 MailMenu_DrawItemNormal:: ; 1D:42AF
-	ld a, [wRam_C0E6]
+	ld a, [wMailMenu_NormalItem]
 	dec a
 	cp a, $01
 	call z, MailMenu_GetPlateIndexA
@@ -344,10 +344,10 @@ MailMenu_DrawItemNormal:: ; 1D:42AF
 	ld h, a
 	ld a, $F0
 	add a, l
-	ld [wRam_C10E], a
+	ld [wMailMenu_AttrSrcLo], a
 	ld a, h
 	adc a, $00
-	ld [wRam_C10F], a
+	ld [wMailMenu_AttrSrcHi], a
 	ld c, $0A
 	ld a, $1D
 	call Tilemap_CopyRectAndAttrPtr
@@ -379,7 +379,7 @@ MailMenu_DrawItemSelected:: ; 1D:4325
 Function_1D_4325::
 	; [CONFIRMED] 57 insn(s); 57 executed (in up to 9/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld a, [wRam_C0E5]
+	ld a, [wMailMenu_Cursor]
 	dec a
 	cp a, $01
 	call z, MailMenu_GetPlateIndexB
@@ -420,10 +420,10 @@ Function_1D_4325::
 	ld h, a
 	ld a, $F0
 	add a, l
-	ld [wRam_C10E], a
+	ld [wMailMenu_AttrSrcLo], a
 	ld a, h
 	adc a, $00
-	ld [wRam_C10F], a
+	ld [wMailMenu_AttrSrcHi], a
 	ld c, $0A
 	ld a, $1D
 	call Tilemap_CopyRectAndAttrPtr
@@ -455,18 +455,18 @@ MailMenu_AnimateIcon:: ; 1D:439B
 Function_1D_439B::
 	; [CONFIRMED] 34 insn(s); 34 executed (in up to 9/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld hl, $C0E7
+	ld hl, wMailMenu_AnimCounter
 	dec [hl]
 	ret nz
 	ld [hl], $1E
-	ld a, [wRam_C0E8]
+	ld a, [wMailMenu_AnimFrame]
 	xor a, $01
-	ld [wRam_C0E8], a
+	ld [wMailMenu_AnimFrame], a
 	jr nz, .l43D3
 	ld a, $B1
-	ld [wRam_C10E], a
+	ld [wMailMenu_AttrSrcLo], a
 	ld a, $4C
-	ld [wRam_C10F], a
+	ld [wMailMenu_AttrSrcHi], a
 	ld bc, $0608
 	ld de, $D0C1
 	ld hl, Tilemap_MailMenu_IconFrames
@@ -478,9 +478,9 @@ Function_1D_439B::
 	ret
 .l43D3 ; 1D:43D3
 	ld a, $E1
-	ld [wRam_C10E], a
+	ld [wMailMenu_AttrSrcLo], a
 	ld a, $4C
-	ld [wRam_C10F], a
+	ld [wMailMenu_AttrSrcHi], a
 	ld bc, $0608
 	ld de, $D0C1
 	ld hl, $4C81

@@ -58,12 +58,12 @@ CommNotice_RunDialog:: ; 50:4061
 	pop bc
 	ld a, c
 	dec a
-	ld [wRam_C0D6], a
+	ld [wCommNotice_GfxSetArg], a
 	ld a, b
 	dec a
-	ld [wRam_C0D8], a
+	ld [wCommNotice_ModeArg], a
 	ld a, $00
-	ld [wRam_C0D4], a
+	ld [wCommNotice_Cursor], a
 	ldh a, [rLCDC]
 	and a, $9F
 	ldh [rLCDC], a
@@ -75,7 +75,7 @@ CommNotice_RunDialog:: ; 50:4061
 	ld a, $90
 	ldh [rWY], a
 	farcall Sprite_ResetAll
-	ld a, [wRam_C0D6]
+	ld a, [wCommNotice_GfxSetArg]
 	or a, a
 	jp nz, .l4173
 	ld de, $9000
@@ -107,7 +107,7 @@ CommNotice_RunDialog:: ; 50:4061
 	ld hl, Palette_CommNotice
 	ld a, $50
 	farcall Palette_LoadToBuffer
-	ld a, [wRam_C0D8]
+	ld a, [wCommNotice_ModeArg]
 	or a, a
 	jr nz, .l4129
 
@@ -202,7 +202,7 @@ CommNotice_RunDialog:: ; 50:4061
 	ld hl, $6C00
 	ld a, $50
 	farcall Palette_LoadToBuffer
-	ld a, [wRam_C0D8]
+	ld a, [wCommNotice_ModeArg]
 	or a, a
 	jr nz, .l41FA
 	ld a, $F0
@@ -334,7 +334,7 @@ Label_50_42B6:: ; 50:42B6
 	inc a
 	ld [wCommNoticeSeconds], a
 	ld b, a
-	ld a, [wRam_C0D8]
+	ld a, [wCommNotice_ModeArg]
 	or a, a
 	ld a, b
 	jp nz, .l42E4
@@ -361,7 +361,7 @@ Label_50_42EB:: ; 50:42EB
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld a, [wRam_C0D8]
+	ld a, [wCommNotice_ModeArg]
 	or a, a
 	jr nz, Label_50_4304
 
@@ -370,7 +370,7 @@ Label_50_4301:: ; 50:4301
 	ret
 
 Label_50_4304:: ; 50:4304
-	ld a, [wRam_C0D4]
+	ld a, [wCommNotice_Cursor]
 	xor a, $01
 	ret
 
@@ -382,7 +382,7 @@ Label_50_430A:: ; 50:430A
 CommNotice_HandleLeftRight:: ; 50:430C
 	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 42B6-438A by apply_coverage
 	; --split [executed in 1 scenarios]
-	ld a, [wRam_C0D8]
+	ld a, [wCommNotice_ModeArg]
 	or a, a
 	ret z
 	ldh a, [hJoyPressedRepeat]
@@ -395,9 +395,9 @@ CommNotice_HandleLeftRight:: ; 50:430C
 .l431C ; 50:431C
 	; [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 42B6-438A by apply_coverage --split
-	ld a, [wRam_C0D4]
+	ld a, [wCommNotice_Cursor]
 	xor a, $01
-	ld [wRam_C0D4], a
+	ld [wCommNotice_Cursor], a
 	call CommNotice_DrawChoiceCursor
 	ldh a, [hWRAMBank]
 	push af
@@ -412,7 +412,7 @@ CommNotice_HandleLeftRight:: ; 50:430C
 CommNotice_DrawChoiceCursor:: ; 50:4338
 	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 42B6-438A by apply_coverage
 	; --split [executed in 4 scenarios]
-	ld a, [wRam_C0D4]
+	ld a, [wCommNotice_Cursor]
 	or a, a
 	jr nz, .l4348
 	ld de, $6727

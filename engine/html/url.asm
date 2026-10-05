@@ -44,9 +44,9 @@ Function_74_5969::
 	jr nz, .loop
 	pop hl
 	ld a, l
-	ldh [hRam_FFB0], a
+	ldh [hHtml_MatchRestart], a
 	ld a, h
-	ldh [hRam_FFB1], a
+	ldh [hHtml_MatchRestartHi], a
 	ld bc, HtmlUrl_SchemeTable
 	jp Html_MatchKeyword
 .l597F ; 74:597F
@@ -69,9 +69,9 @@ HtmlUrl_Resolve:: ; 74:5981
 	push hl
 	push de
 	ld a, l
-	ldh [hRam_FFB0], a
+	ldh [hHtml_MatchRestart], a
 	ld a, h
-	ldh [hRam_FFB1], a
+	ldh [hHtml_MatchRestartHi], a
 	ld bc, HtmlUrl_SchemeTable
 	call Html_MatchKeyword
 	or a, a
@@ -103,9 +103,9 @@ HtmlUrl_Resolve:: ; 74:5981
 	ld h, d
 	ld l, e
 	ld a, e
-	ldh [hRam_FFB0], a
+	ldh [hHtml_MatchRestart], a
 	ld a, d
-	ldh [hRam_FFB1], a
+	ldh [hHtml_MatchRestartHi], a
 	ld bc, HtmlUrl_SchemeTable
 	call Html_MatchKeyword
 	ld bc, $0100

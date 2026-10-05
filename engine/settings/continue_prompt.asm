@@ -13,7 +13,7 @@ SettingsPhone_ContinuePrompt:: ; 67:570C
 	call SettingsPhone_ContinuePrompt_Loop
 	farcall Palette_FadeOutToWhite
 	farcall Kbd_HideInstant
-	ld a, [wRam_C27C]
+	ld a, [wContinuePrompt_Result]
 	ret
 
 SettingsPhone_ContinuePrompt_Setup:: ; 67:5728
@@ -22,9 +22,9 @@ SettingsPhone_ContinuePrompt_Setup:: ; 67:5728
 	farcall Joypad_SetRepeatTiming
 	farcall Sprite_ResetAll
 	xor a, a
-	ld [wRam_C27C], a
+	ld [wContinuePrompt_Result], a
 	ld a, $00
-	ld [wRam_C27D], a
+	ld [wContinuePrompt_Cursor], a
 	ld de, $9001
 	ld hl, Gfx_SettingsPhone_ContinuePrompt_Tiles9000Vb1
 	ld a, $4B
@@ -92,18 +92,18 @@ SettingsPhone_ContinuePrompt_Loop:: ; 67:57CC
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld a, [wRam_C27D]
+	ld a, [wContinuePrompt_Cursor]
 	or a, a
 	jr nz, .l5807
 	ld a, $01
-	ld [wRam_C27C], a
+	ld [wContinuePrompt_Result], a
 	ret
 
 .l5807 ; 67:5807
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 570C-580C by apply_coverage --split
 	xor a, a
-	ld [wRam_C27C], a
+	ld [wContinuePrompt_Result], a
 	ret
 
 	; [HYPOTHESIS] function with no found entry (no call/jp/table word/far pointer/ld r16 to $580C
@@ -119,7 +119,7 @@ SettingsPhone_ContinuePrompt_Loop:: ; 67:57CC
 	pop af
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_C27C], a
+	ld [wContinuePrompt_Result], a
 	ret
 
 .l5821 ; 67:5821
@@ -134,10 +134,10 @@ SettingsPhone_ContinuePrompt_Loop:: ; 67:57CC
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld a, [wRam_C27D]
+	ld a, [wContinuePrompt_Cursor]
 	ld b, $01
 	xor a, b
-	ld [wRam_C27D], a
+	ld [wContinuePrompt_Cursor], a
 	call SettingsPhone_ContinuePrompt_PlaceCursor
 	jr .l583F
 .l583F ; 67:583F
@@ -146,7 +146,7 @@ SettingsPhone_ContinuePrompt_Loop:: ; 67:57CC
 SettingsPhone_ContinuePrompt_PlaceCursor:: ; 67:5842
 	; [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 5821-585A by apply_coverage
 	; --split [executed in 1 scenarios]
-	ld a, [wRam_C27D]
+	ld a, [wContinuePrompt_Cursor]
 	add a, a
 	ld hl, SettingsPhone_ContinuePrompt_CursorPos
 	add a, l
@@ -183,9 +183,9 @@ SettingsPhone_ContinuePrompt_PrintPrompt:: ; 67:586E
 	ld bc, $0612
 	farcall TileCanvas_FillRect
 	ld a, $00
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $03
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	ld a, $48
 	ldh [hTextY], a
 	ld a, $08
@@ -195,17 +195,17 @@ SettingsPhone_ContinuePrompt_PrintPrompt:: ; 67:586E
 	ld a, $48
 	ldh [hRam_FFC0], a
 	ld a, $08
-	ldh [hRam_FFC1], a
+	ldh [hTextBox_LineStartX], a
 	ld a, $00
-	ldh [hRam_FFC2], a
+	ldh [hTextBox_LineStartXHi], a
 	ld a, $78
-	ldh [hRam_FFC3], a
+	ldh [hTextBox_MaxLineY], a
 	ld a, $C8
-	ldh [hRam_FFC4], a
+	ldh [hTextBox_RightLimitX], a
 	ld a, $00
 	ldh [hRam_FFC5], a
 	ld a, $0C
-	ldh [hRam_FFC6], a
+	ldh [hTextBox_LineAdvance], a
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	ld a, $0A

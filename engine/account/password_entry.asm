@@ -6,7 +6,7 @@ SECTION "engine/account/password_entry", ROMX
 
 Account_PasswordEntryScreen:: ; 68:5D00
 	; [CONFIRMED] 297 insn(s); 297 executed (in up to 7/18 scenarios) (part of region $5A36-$5D2F)
-	ld [wRam_C27D], a
+	ld [wPasswordEntry_Variant], a
 	call Account_PasswordEntry_Setup
 	farcall Palette_FadeInFromWhite
 	ldh a, [hWRAMBank]
@@ -20,7 +20,7 @@ Account_PasswordEntryScreen:: ; 68:5D00
 	call Account_PasswordEntry_InputLoop
 	farcall Palette_FadeOutToWhite
 	farcall Kbd_HideInstant
-	ld a, [wRam_C27C]
+	ld a, [wPasswordEntry_Result]
 	ret
 
 Function_68_5D2F:: ; 68:5D2F
@@ -93,7 +93,7 @@ Function_68_5D9C::
 	farcall Joypad_SetRepeatTiming
 	farcall Sprite_ResetAll
 	xor a, a
-	ld [wRam_C27C], a
+	ld [wPasswordEntry_Result], a
 	ld hl, $DE80
 	ld b, $09
 	farcall TextBuf_Init
@@ -101,7 +101,7 @@ Function_68_5D9C::
 	ld de, $DED4
 	call TextEntry_InsertString
 	call Account_PasswordEntry_UpdateOkState
-	ld a, [wRam_C27D]
+	ld a, [wPasswordEntry_Variant]
 	or a, a
 	jr nz, .l5DCD
 .l5DCD ; 68:5DCD
@@ -134,7 +134,7 @@ Function_68_5D9C::
 	ld hl, Data_5E_4D00
 	ld a, $5E
 	farcall Palette_LoadToBuffer
-	ld a, [wRam_C27D]
+	ld a, [wPasswordEntry_Variant]
 	ld hl, Account_PasswordEntryMaps
 	add a, a
 	add a, l
@@ -193,11 +193,11 @@ Function_68_5E9A::
 	and a, $04
 	jr nz, .l5EA7
 	ld a, $00
-	ld [wRam_C27E], a
+	ld [wPasswordEntry_OkFlag], a
 	ret
 .l5EA7 ; 68:5EA7
 	call Account_PasswordIsValid
-	ld [wRam_C27E], a
+	ld [wPasswordEntry_OkFlag], a
 	ret
 
 Account_PasswordEntry_UpdateOkState:: ; 68:5EAE
@@ -209,16 +209,16 @@ Function_68_5EAE::
 	or a, a
 	jr z, .l5EC0
 	ld a, $00
-	ld [wRam_C27E], a
+	ld [wPasswordEntry_OkFlag], a
 	ret
 .l5EC0 ; 68:5EC0
 	call Account_PasswordIsValid
-	ld [wRam_C27E], a
+	ld [wPasswordEntry_OkFlag], a
 	ret
 
 Account_PasswordEntry_InputLoop:: ; 68:5EC7
 	farcall Sprite_UpdateAll
-	ld a, [wRam_C27E]
+	ld a, [wPasswordEntry_OkFlag]
 	ld c, a
 	farcall Kbd_Run
 	cp a, $01
@@ -316,7 +316,7 @@ Account_PasswordEntry_InputLoop:: ; 68:5EC7
 	ld de, $DED4
 	farcall TextEntry_CopyText
 	ld a, $01
-	ld [wRam_C27C], a
+	ld [wPasswordEntry_Result], a
 	ret
 .l5FA2 ; 68:5FA2
 	ldh a, [hWRAMBank]
@@ -331,7 +331,7 @@ Account_PasswordEntry_InputLoop:: ; 68:5EC7
 	ld de, $DED4
 	farcall TextEntry_CopyText
 	xor a, a
-	ld [wRam_C27C], a
+	ld [wPasswordEntry_Result], a
 	ret
 .l5FC3 ; 68:5FC3
 	ld d, $38
@@ -359,8 +359,8 @@ Account_PasswordIsValid:: ; 68:5FE1
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ldh [hRam_FFB0], a
-	ldh [hRam_FFB1], a
+	ldh [hPasswordEntry_HasDigit], a
+	ldh [hPasswordEntry_HasLetter], a
 	ld hl, $DE83
 .loop ; 68:6004
 	ld a, [hli]
@@ -386,14 +386,14 @@ Account_PasswordIsValid:: ; 68:5FE1
 .l6022 ; 68:6022
 	; [CONFIRMED] 284 insn(s); 284 executed (in up to 7/18 scenarios) (part of region $6022-$6308)
 	ld a, $01
-	ldh [hRam_FFB0], a
+	ldh [hPasswordEntry_HasDigit], a
 	jr .loop
 .l6028 ; 68:6028
 	ld a, $01
-	ldh [hRam_FFB1], a
+	ldh [hPasswordEntry_HasLetter], a
 	jr .loop
 .l602E ; 68:602E
-	ld hl, $FFB0
+	ld hl, hPasswordEntry_HasDigit
 	ld a, [hli]
 	or a, a
 	jr z, .l6045
@@ -432,9 +432,9 @@ Account_Password_PrintField:: ; 68:6060
 	ld bc, $0206
 	farcall TileCanvas_FillRect
 	ld a, $00
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $03
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	ld a, $15
 	ldh [hTextY], a
 	ld a, $38
@@ -444,17 +444,17 @@ Account_Password_PrintField:: ; 68:6060
 	ld a, $10
 	ldh [hRam_FFC0], a
 	ld a, $38
-	ldh [hRam_FFC1], a
+	ldh [hTextBox_LineStartX], a
 	ld a, $00
-	ldh [hRam_FFC2], a
+	ldh [hTextBox_LineStartXHi], a
 	ld a, $20
-	ldh [hRam_FFC3], a
+	ldh [hTextBox_MaxLineY], a
 	ld a, $98
-	ldh [hRam_FFC4], a
+	ldh [hTextBox_RightLimitX], a
 	ld a, $00
 	ldh [hRam_FFC5], a
 	ld a, $0C
-	ldh [hRam_FFC6], a
+	ldh [hTextBox_LineAdvance], a
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	pop af
@@ -551,9 +551,9 @@ Account_PasswordIntro_PrintMessage:: ; 68:6168
 	ld bc, $0812
 	farcall TileCanvas_FillRect
 	ld a, $00
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $03
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	ld a, $38
 	ldh [hTextY], a
 	ld a, $08
@@ -563,17 +563,17 @@ Account_PasswordIntro_PrintMessage:: ; 68:6168
 	ld a, $38
 	ldh [hRam_FFC0], a
 	ld a, $08
-	ldh [hRam_FFC1], a
+	ldh [hTextBox_LineStartX], a
 	ld a, $00
-	ldh [hRam_FFC2], a
+	ldh [hTextBox_LineStartXHi], a
 	ld a, $78
-	ldh [hRam_FFC3], a
+	ldh [hTextBox_MaxLineY], a
 	ld a, $98
-	ldh [hRam_FFC4], a
+	ldh [hTextBox_RightLimitX], a
 	ld a, $00
 	ldh [hRam_FFC5], a
 	ld a, $0C
-	ldh [hRam_FFC6], a
+	ldh [hTextBox_LineAdvance], a
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	pop af

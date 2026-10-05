@@ -8,13 +8,13 @@ SettingsPhone_ConfirmScreen:: ; 67:510A
 	; [CONFIRMED] 139 insn(s) reached by static flow only; seeds: exec x139; min discovery hops 5;
 	; entered by far from 67:40B9 (PROBABLE code) | 95 insn(s) executed; cut out of the PROBABLE
 	; region 510A-5275 by apply_coverage --split [executed in 1 scenarios]
-	ld [wRam_C27E], a
+	ld [wConfirmScreen_Slot], a
 	call SettingsPhone_ConfirmScreen_Setup
 	farcall Palette_FadeInFromWhite
 	call SettingsPhone_ConfirmScreen_Loop
 	farcall Palette_FadeOutToWhite
 	farcall Kbd_HideInstant
-	ld a, [wRam_C27C]
+	ld a, [wConfirmScreen_Result]
 	ret
 
 SettingsPhone_ConfirmScreen_Setup:: ; 67:5129
@@ -23,9 +23,9 @@ SettingsPhone_ConfirmScreen_Setup:: ; 67:5129
 	farcall Joypad_SetRepeatTiming
 	farcall Sprite_ResetAll
 	xor a, a
-	ld [wRam_C27C], a
+	ld [wConfirmScreen_Result], a
 	ld a, $00
-	ld [wRam_C27D], a
+	ld [wConfirmScreen_Cursor], a
 	ld de, $8801
 	ld hl, Gfx_SettingsPhone_ConfirmScreen_Tiles8800Vb1
 	ld a, $4B
@@ -102,18 +102,18 @@ SettingsPhone_ConfirmScreen_Loop:: ; 67:51E2
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld a, [wRam_C27D]
+	ld a, [wConfirmScreen_Cursor]
 	or a, a
 	jr nz, .l5221
 	ld a, $01
-	ld [wRam_C27C], a
+	ld [wConfirmScreen_Result], a
 	ret
 
 .l5221 ; 67:5221
 	; [CONFIRMED] 29 insn(s) executed; cut out of the PROBABLE region
 	; 510A-5275 by apply_coverage --split [executed in 1 scenarios]
 	ld a, $02
-	ld [wRam_C27C], a
+	ld [wConfirmScreen_Result], a
 	ret
 .l5227 ; 67:5227
 	ldh a, [hWRAMBank]
@@ -125,7 +125,7 @@ SettingsPhone_ConfirmScreen_Loop:: ; 67:51E2
 	pop af
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_C27C], a
+	ld [wConfirmScreen_Result], a
 	ret
 .l523C ; 67:523C
 	ldh a, [hWRAMBank]
@@ -136,10 +136,10 @@ SettingsPhone_ConfirmScreen_Loop:: ; 67:51E2
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld a, [wRam_C27D]
+	ld a, [wConfirmScreen_Cursor]
 	ld b, $01
 	xor a, b
-	ld [wRam_C27D], a
+	ld [wConfirmScreen_Cursor], a
 	call SettingsPhone_ConfirmScreen_PlaceCursor
 	jr .l525A
 .l525A ; 67:525A
@@ -148,7 +148,7 @@ SettingsPhone_ConfirmScreen_Loop:: ; 67:51E2
 SettingsPhone_ConfirmScreen_PlaceCursor:: ; 67:525D
 	; [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 510A-5275 by apply_coverage
 	; --split [executed in 1 scenarios]
-	ld a, [wRam_C27D]
+	ld a, [wConfirmScreen_Cursor]
 	add a, a
 	ld hl, SettingsPhone_ConfirmScreen_CursorPos
 	add a, l
@@ -193,9 +193,9 @@ SettingsPhone_ConfirmScreen_PrintFields:: ; 67:52A7
 	ld bc, $020C
 	farcall TileCanvas_FillRect
 	ld a, $00
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $03
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	ld a, $2A
 	ldh [hTextY], a
 	ld a, $38
@@ -205,17 +205,17 @@ SettingsPhone_ConfirmScreen_PrintFields:: ; 67:52A7
 	ld a, $28
 	ldh [hRam_FFC0], a
 	ld a, $38
-	ldh [hRam_FFC1], a
+	ldh [hTextBox_LineStartX], a
 	ld a, $00
-	ldh [hRam_FFC2], a
+	ldh [hTextBox_LineStartXHi], a
 	ld a, $38
-	ldh [hRam_FFC3], a
+	ldh [hTextBox_MaxLineY], a
 	ld a, $98
-	ldh [hRam_FFC4], a
+	ldh [hTextBox_RightLimitX], a
 	ld a, $00
 	ldh [hRam_FFC5], a
 	ld a, $0C
-	ldh [hRam_FFC6], a
+	ldh [hTextBox_LineAdvance], a
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	ld a, $03
@@ -226,9 +226,9 @@ SettingsPhone_ConfirmScreen_PrintFields:: ; 67:52A7
 	ld bc, $020C
 	farcall TileCanvas_FillRect
 	ld a, $00
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $03
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	ld a, $3A
 	ldh [hTextY], a
 	ld a, $38
@@ -238,17 +238,17 @@ SettingsPhone_ConfirmScreen_PrintFields:: ; 67:52A7
 	ld a, $38
 	ldh [hRam_FFC0], a
 	ld a, $38
-	ldh [hRam_FFC1], a
+	ldh [hTextBox_LineStartX], a
 	ld a, $00
-	ldh [hRam_FFC2], a
+	ldh [hTextBox_LineStartXHi], a
 	ld a, $48
-	ldh [hRam_FFC3], a
+	ldh [hTextBox_MaxLineY], a
 	ld a, $98
-	ldh [hRam_FFC4], a
+	ldh [hTextBox_RightLimitX], a
 	ld a, $00
 	ldh [hRam_FFC5], a
 	ld a, $0C
-	ldh [hRam_FFC6], a
+	ldh [hTextBox_LineAdvance], a
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	ld a, $03
@@ -259,9 +259,9 @@ SettingsPhone_ConfirmScreen_PrintFields:: ; 67:52A7
 	ld bc, $020D
 	farcall TileCanvas_FillRect
 	ld a, $00
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $03
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	ld a, $4A
 	ldh [hTextY], a
 	ld a, $30
@@ -271,17 +271,17 @@ SettingsPhone_ConfirmScreen_PrintFields:: ; 67:52A7
 	ld a, $48
 	ldh [hRam_FFC0], a
 	ld a, $30
-	ldh [hRam_FFC1], a
+	ldh [hTextBox_LineStartX], a
 	ld a, $00
-	ldh [hRam_FFC2], a
+	ldh [hTextBox_LineStartXHi], a
 	ld a, $58
-	ldh [hRam_FFC3], a
+	ldh [hTextBox_MaxLineY], a
 	ld a, $98
-	ldh [hRam_FFC4], a
+	ldh [hTextBox_RightLimitX], a
 	ld a, $00
 	ldh [hRam_FFC5], a
 	ld a, $0C
-	ldh [hRam_FFC6], a
+	ldh [hTextBox_LineAdvance], a
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	ld a, $03
@@ -305,7 +305,7 @@ SettingsPhone_ConfirmScreen_UploadTextTiles:: ; 67:5389
 	ret
 
 SettingsPhone_ConfirmScreen_LoadSlotTilemap:: ; 67:53B7
-	ld a, [wRam_C27E]
+	ld a, [wConfirmScreen_Slot]
 	ld hl, SettingsPhone_ConfirmScreen_SlotTilemapTable
 	add a, a
 	add a, l

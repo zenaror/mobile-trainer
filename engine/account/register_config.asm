@@ -12,7 +12,7 @@ Function_68_6AE0::
 	farcall Palette_FadeInFromWhite
 	call Registration_WriteConfig_RunState
 	farcall Palette_FadeOutToWhite
-	ld a, [wRam_C27C]
+	ld a, [wRegistrationWriteConfig_Result]
 	ret
 
 Registration_WriteConfig_Setup:: ; 68:6AF6
@@ -21,8 +21,8 @@ Registration_WriteConfig_Setup:: ; 68:6AF6
 	farcall Joypad_SetRepeatTiming
 	farcall Sprite_ResetAll
 	xor a, a
-	ld [wRam_C27C], a
-	ld [wRam_C27D], a
+	ld [wRegistrationWriteConfig_Result], a
+	ld [wRegistrationWriteConfig_State], a
 	ld de, $8801
 	ld hl, $6A00
 	ld a, $5D
@@ -91,7 +91,7 @@ Registration_WriteConfig_RunState:: ; 68:6B98
 	jr z, .l6BE0
 	cp a, $02
 	jr nz, .l6BE4
-	ld a, [wRam_C286]
+	ld a, [wRegistrationWriteConfig_SfxFlag]
 	or a, a
 	jr nz, .l6BE4
 	ldh a, [hWRAMBank]
@@ -103,13 +103,13 @@ Registration_WriteConfig_RunState:: ; 68:6B98
 	pop af
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_C286], a
+	ld [wRegistrationWriteConfig_SfxFlag], a
 	jr .l6BE4
 .l6BE0 ; 68:6BE0
 	xor a, a
-	ld [wRam_C286], a
+	ld [wRegistrationWriteConfig_SfxFlag], a
 .l6BE4 ; 68:6BE4
-	ld a, [wRam_C27D]
+	ld a, [wRegistrationWriteConfig_State]
 	add a, a
 	add a, $F4
 	ld l, a
@@ -134,7 +134,7 @@ Registration_WriteConfig_StateInit:: ; 68:6BFA
 	ld a, $02
 	call MobileAPI
 	ld a, $01
-	ld [wRam_C27D], a
+	ld [wRegistrationWriteConfig_State], a
 	jr Registration_WriteConfig_RunState
 
 Registration_WriteConfig_StateWrite:: ; 68:6C0C
@@ -156,7 +156,7 @@ Registration_WriteConfig_StateWrite:: ; 68:6C0C
 	ld a, $04
 	call MobileAPI
 	ld a, $02
-	ld [wRam_C27D], a
+	ld [wRegistrationWriteConfig_State], a
 	jp Registration_WriteConfig_RunState
 
 Registration_WriteConfig_StateFinish:: ; 68:6C3F
@@ -171,7 +171,7 @@ Registration_WriteConfig_StateFinish:: ; 68:6C3F
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld a, $01
-	ld [wRam_C27C], a
+	ld [wRegistrationWriteConfig_Result], a
 	ret
 
 Label_68_6C5D:: ; 68:6C5D
@@ -186,7 +186,7 @@ Label_68_6C5D:: ; 68:6C5D
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	xor a, a
-	ld [wRam_C27C], a
+	ld [wRegistrationWriteConfig_Result], a
 	ret
 
 Registration_DoNotUnplugMessage:: ; 68:6C7F
@@ -202,9 +202,9 @@ Function_68_6C7F::
 	ld bc, $0612
 	farcall TileCanvas_FillRect
 	ld a, $00
-	ldh [hRam_FFBA], a
+	ldh [hTextBox_ColorSelB], a
 	ld a, $03
-	ldh [hRam_FFBB], a
+	ldh [hTextBox_ColorSelC], a
 	ld a, $58
 	ldh [hTextY], a
 	ld a, $08
@@ -214,17 +214,17 @@ Function_68_6C7F::
 	ld a, $58
 	ldh [hRam_FFC0], a
 	ld a, $08
-	ldh [hRam_FFC1], a
+	ldh [hTextBox_LineStartX], a
 	ld a, $00
-	ldh [hRam_FFC2], a
+	ldh [hTextBox_LineStartXHi], a
 	ld a, $88
-	ldh [hRam_FFC3], a
+	ldh [hTextBox_MaxLineY], a
 	ld a, $98
-	ldh [hRam_FFC4], a
+	ldh [hTextBox_RightLimitX], a
 	ld a, $00
 	ldh [hRam_FFC5], a
 	ld a, $0C
-	ldh [hRam_FFC6], a
+	ldh [hTextBox_LineAdvance], a
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	pop af

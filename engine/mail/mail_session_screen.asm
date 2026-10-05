@@ -427,7 +427,7 @@ MailSession_DrawMailCounts:: ; 26:537C
 	call MailSession_TotalNumberBuffer
 	push bc
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $26
 	ld hl, $0200
 	add hl, bc
@@ -470,7 +470,7 @@ MailSession_DrawMailCounts:: ; 26:537C
 	ld c, l
 	pop hl
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $26
 	ld hl, $0200
 	add hl, bc
@@ -483,7 +483,7 @@ MailSession_DrawMailCounts:: ; 26:537C
 	call MailSession_CurrentNumberBuffer
 	push bc
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $26
 	ld hl, $0200
 	add hl, bc
@@ -504,7 +504,7 @@ MailSession_DrawMailCounts:: ; 26:537C
 	ld c, l
 	pop hl
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $26
 	ld hl, $0200
 	add hl, bc
@@ -727,7 +727,7 @@ MailSession_DrawNumber:: ; 26:5447
 	pop bc
 	push af
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $01
 	ld hl, $0200
 	add hl, bc
@@ -931,7 +931,7 @@ MailSession_ShowMsgSending:: ; 26:5697
 	; entered by call from 26:403E (PROBABLE code) [executed in 5 scenarios]
 	push bc
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $26
 	ld bc, $D400
 	ld de, $D600
@@ -955,7 +955,7 @@ Function_26_56DB::
 	; executed call/far call
 	push bc
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $26
 	ld bc, $D400
 	ld de, $D600
@@ -980,7 +980,7 @@ Function_26_571F::
 	; through into that site-validated far call; entry unproven
 	push bc
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $26
 	ld bc, $D400
 	ld de, $D600
@@ -1007,7 +1007,7 @@ Function_26_5763::
 	; call at 5773; entry unproven
 	push bc
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $26
 	ld bc, $D400
 	ld de, $D600
@@ -1034,7 +1034,7 @@ Function_26_57A7::
 	; executed call/far call
 	push bc
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $26
 	ld bc, $D400
 	ld de, $D600
@@ -1057,7 +1057,7 @@ MailSession_ShowMsgCannotReceive:: ; 26:57EB
 	; entered by call from 26:4A99 (PROBABLE code)
 	push bc
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $26
 	ld bc, $D400
 	ld de, $D600
@@ -1080,7 +1080,7 @@ MailSession_ShowMsgReceived:: ; 26:582F
 	; entered by call from 26:4A1E (PROBABLE code) [executed in 2 scenarios]
 	push bc
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $26
 	ld bc, $D400
 	ld de, $D600
@@ -1104,7 +1104,7 @@ Function_26_5873::
 	; executed call/far call
 	push bc
 	ld a, $02
-	ldh [hRam_FFB0], a
+	ldh [hTextTiles_DestBank], a
 	ld a, $26
 	ld bc, $D400
 	ld de, $D600

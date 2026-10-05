@@ -170,7 +170,7 @@ Function_67_5A3E::
 	call PasswordChange_Communicate_Setup
 	call PasswordChange_Communicate_Poll
 	farcall Palette_FadeOutToWhite
-	ld a, [wRam_C27C]
+	ld a, [wPasswordChange_Result]
 	ret
 
 PasswordChange_Communicate_Setup:: ; 67:5A4E
@@ -179,8 +179,8 @@ PasswordChange_Communicate_Setup:: ; 67:5A4E
 	farcall Joypad_SetRepeatTiming
 	farcall Sprite_ResetAll
 	xor a, a
-	ld [wRam_C27C], a
-	ld [wRam_C27D], a
+	ld [wPasswordChange_Result], a
+	ld [wPasswordChange_State], a
 	ld a, $01
 	farcall CommPanel_SetVariant
 	xor a, a
@@ -205,7 +205,7 @@ PasswordChange_Communicate_Poll:: ; 67:5A75
 
 PasswordChange_Communicate_Dispatch:: ; 67:5A8E
 Label_67_5A8E::
-	ld a, [wRam_C27D]
+	ld a, [wPasswordChange_State]
 	add a, a
 	add a, $9E
 	ld l, a
@@ -240,7 +240,7 @@ PasswordChange_State_Init:: ; 67:5AAA
 	ld a, $02
 	call MobileAPI
 	ld a, $01
-	ld [wRam_C27D], a
+	ld [wPasswordChange_State], a
 	jr PasswordChange_Communicate_Dispatch
 
 PasswordChange_State_ReadLoginId:: ; 67:5ACA
@@ -270,7 +270,7 @@ PasswordChange_State_ReadLoginId:: ; 67:5ACA
 	ld a, $0E
 	call MobileAPI
 	ld a, $02
-	ld [wRam_C27D], a
+	ld [wPasswordChange_State], a
 	jp PasswordChange_Communicate_Dispatch
 
 PasswordChange_State_Connect:: ; 67:5B0E
@@ -298,7 +298,7 @@ PasswordChange_State_Connect:: ; 67:5B0E
 	ld a, $3E
 	call MobileAPI
 	ld a, $03
-	ld [wRam_C27D], a
+	ld [wPasswordChange_State], a
 	jp PasswordChange_Communicate_Dispatch
 
 PasswordChange_State_SendRequest:: ; 67:5B5B
@@ -356,7 +356,7 @@ PasswordChange_State_SendRequest:: ; 67:5B5B
 	ld a, $2C
 	call MobileAPI
 	ld a, $04
-	ld [wRam_C27D], a
+	ld [wPasswordChange_State], a
 	ld a, $01
 	farcall CommPanel_DrawCaption
 	jp PasswordChange_Communicate_Dispatch
@@ -494,7 +494,7 @@ PasswordChange_State_WaitResponse:: ; 67:5BD8
 	ld a, $0A
 	call MobileAPI
 	ld a, $05
-	ld [wRam_C27D], a
+	ld [wPasswordChange_State], a
 	ld a, $02
 	farcall CommPanel_DrawCaption
 	jp PasswordChange_Communicate_Dispatch
@@ -519,7 +519,7 @@ PasswordChange_State_Finish:: ; 67:5CC2
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld a, $01
-	ld [wRam_C27C], a
+	ld [wPasswordChange_Result], a
 	ret
 
 PasswordChange_WaitCommPanelClose:: ; 67:5CF4
@@ -665,7 +665,7 @@ PasswordChange_Cleanup:: ; 67:5D99
 	ld a, $36
 	call MobileAPI
 	xor a, a
-	ld [wRam_C27C], a
+	ld [wPasswordChange_Result], a
 	ret
 
 PasswordChange_Abort:: ; 67:5DFE
@@ -695,7 +695,7 @@ PasswordChange_Abort:: ; 67:5DFE
 	ld a, $36
 	call MobileAPI
 	ld a, $02
-	ld [wRam_C27C], a
+	ld [wPasswordChange_Result], a
 	ret
 
 ; ---- data $5E43-$5E7D (58 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
@@ -757,8 +757,8 @@ Function_67_5ED1::
 	; follows the strings at 5EB4-5ED1 and runs into the far-call site at 5ED8 (PROBABLE code); no
 	; entry found
 	xor a, a
-	ld [wRam_C27C], a
-	ld [wRam_C27D], a
+	ld [wPasswordChange_Result], a
+	ld [wPasswordChange_State], a
 
 	; [PROBABLE] 19 insn(s) reached by static flow only; seeds: site x19; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
@@ -766,14 +766,14 @@ Function_67_5ED1::
 	farcall Palette_FadeInFromWhite
 	call AdapterCheck_InitOnly_Poll
 	farcall Palette_FadeOutToWhite
-	ld a, [wRam_C27C]
+	ld a, [wPasswordChange_Result]
 	ret
 
 AdapterCheck_InitOnly_Poll:: ; 67:5EF1
 Function_67_5EF1::
 	farcall Sprite_UpdateAll
 	call VBlank_WaitAndService
-	ld a, [wRam_C27D]
+	ld a, [wPasswordChange_State]
 	add a, a
 	add a, $0A
 	ld l, a
@@ -802,7 +802,7 @@ Label_67_5F0E::
 	ld a, $02
 	call MobileAPI
 	ld a, $01
-	ld [wRam_C27D], a
+	ld [wPasswordChange_State], a
 	jr AdapterCheck_InitOnly_Poll
 
 AdapterCheck_InitOnly_State_Finish:: ; 67:5F20
@@ -815,7 +815,7 @@ Label_67_5F20::
 	ld a, $36
 	call MobileAPI
 	ld a, $01
-	ld [wRam_C27C], a
+	ld [wPasswordChange_Result], a
 	ret
 
 .l5F38 ; 67:5F38
@@ -827,7 +827,7 @@ Label_67_5F20::
 	call MobileAPI
 	farcall Mobile_ShowLastError
 	xor a, a
-	ld [wRam_C27C], a
+	ld [wPasswordChange_Result], a
 	ret
 
 Net_CopyDefaultDnsPair:: ; 67:5F54
