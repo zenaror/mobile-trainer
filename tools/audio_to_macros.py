@@ -608,7 +608,7 @@ def rewrite(root, rom, songs, headers, items, dur, verbose):
         if not names:
             raise DecodeError('no label for %02X:%04X' % (bank, addr))
         for n in names:                               # a song/track name given by tools/apply_renames.py (analysis/naming2/audio2_renames.tsv) ...
-            if n.startswith('SoundSong'):
+            if n.startswith(('SoundSong', 'SoundSfx')):
                 return n
         for n in names:                               # ... else the neutral name (a semantic label such as Data_SoundDrv_Streams is not used)
             if NEUTRAL.match(n):
@@ -857,14 +857,14 @@ def song_name_rows(songs, headers, labels):
         hn = neutral(bank, ptr)
         if hn and hn not in used:
             used.add(hn)
-            rows.append('\t'.join([hn, 'SoundSong%02X_Header' % sid, 'data', 'CONFIRMED',
+            rows.append('\t'.join([hn, '%s%02X_Header' % ('SoundSfx' if sid >= 0x29 else 'SoundSong', sid), 'data', 'CONFIRMED',
                                    'stream header of song id $%02X: song table record (04:5515 + 8*id) points here, %d track(s)%s; decoded by tools/audio_to_macros.py'
                                    % (sid, h.tracks, ('; the records of ' + others + ' point to the same header') if others else '')]))
         for k, t in enumerate(h.sets[0]):
             tn = neutral(bank, t)
             if tn and tn not in used:
                 used.add(tn)
-                rows.append('\t'.join([tn, 'SoundSong%02X_Track%d' % (sid, k), 'data', 'CONFIRMED',
+                rows.append('\t'.join([tn, '%s%02X_Track%d' % ('SoundSfx' if sid >= 0x29 else 'SoundSong', sid, k), 'data', 'CONFIRMED',
                                        'start of the stream of track %d of song id $%02X: word %d of the stream header, read by SoundDrv_InitTrackRuntime (04:4386); the stream reader of the driver was run on this track (tools/audio_driver_check.py, check_songs)' % (k, sid, k)]))
     return rows
 

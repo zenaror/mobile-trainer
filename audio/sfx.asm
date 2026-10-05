@@ -6,7 +6,7 @@ SECTION "audio/sfx", ROMX
 
 ; ---- data $631A-$632A (16 bytes) [CONFIRMED] read as data by executed code (in up to 14/18 scenarios); content class unknown
 
-SoundSong29_Track0:: ; 05:631A
+SoundSfx29_Track0:: ; 05:631A
 Data_05_631A::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -20,18 +20,18 @@ Data_05_631A::
 
 ; ---- data $632A-$632C (2 bytes) [PROBABLE] header NN=01 KK=00 of the channel-pointer table at 632C (1 words = NN*(KK+1)); the byte before (6329) is $B1 [v4: bytes 632A-632B were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-SoundSong29_Header:: ; 05:632A
+SoundSfx29_Header:: ; 05:632A
 Data_05_632A::
 	sound_stream_header 1, 0
 
 ; ---- words $632C-$632E (2 bytes) [PROBABLE] 1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 632A [v4: bytes 632C-632E were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 Table_05_632C:: ; 05:632C
-	dw SoundSong29_Track0 ; track stream pointers (read by the driver)
+	dw SoundSfx29_Track0 ; track stream pointers (read by the driver)
 
 ; ---- data $632E-$634A (28 bytes) [CONFIRMED] read as data by executed code (in up to 14/18 scenarios); content class unknown
 
-SoundSong2A_Track0:: ; 05:632E
+SoundSfx2A_Track0:: ; 05:632E
 Data_05_632E::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -51,18 +51,18 @@ Data_05_632E::
 
 ; ---- data $634A-$634C (2 bytes) [PROBABLE] header NN=01 KK=00 of the channel-pointer table at 634C (1 words = NN*(KK+1)); the byte before (6349) is $B1 [v4: bytes 634A-634B were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-SoundSong2A_Header:: ; 05:634A
+SoundSfx2A_Header:: ; 05:634A
 Data_05_634A::
 	sound_stream_header 1, 0
 
 ; ---- words $634C-$634E (2 bytes) [PROBABLE] 1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 634A [v4: bytes 634C-634E were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 Table_05_634C:: ; 05:634C
-	dw SoundSong2A_Track0 ; track stream pointers (read by the driver)
+	dw SoundSfx2A_Track0 ; track stream pointers (read by the driver)
 
 ; ---- data $634E-$636A (28 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
 
-SoundSong2B_Track0:: ; 05:634E
+SoundSfx2B_Track0:: ; 05:634E
 Data_05_634E::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -82,18 +82,18 @@ Data_05_634E::
 
 ; ---- data $636A-$636C (2 bytes) [PROBABLE] header NN=01 KK=00 of the channel-pointer table at 636C (1 words = NN*(KK+1)); the byte before (6369) is $B1 [v4: bytes 636A-636B were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-SoundSong2B_Header:: ; 05:636A
+SoundSfx2B_Header:: ; 05:636A
 Data_05_636A::
 	sound_stream_header 1, 0
 
 ; ---- words $636C-$636E (2 bytes) [PROBABLE] 1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 636A [v4: bytes 636C-636E were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 Table_05_636C:: ; 05:636C
-	dw SoundSong2B_Track0 ; track stream pointers (read by the driver)
+	dw SoundSfx2B_Track0 ; track stream pointers (read by the driver)
 
 ; ---- data $636E-$638D (31 bytes) [CONFIRMED] read as data by executed code (in up to 17/18 scenarios); content class unknown
 
-SoundSong2C_Track0:: ; 05:636E
+SoundSfx2C_Track0:: ; 05:636E
 Data_05_636E::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -118,18 +118,18 @@ Data_05_636E::
 
 ; ---- data $638D-$638F (2 bytes) [PROBABLE] header NN=01 KK=00 of the channel-pointer table at 638F (1 words = NN*(KK+1)); the byte before (638C) is $B1 [v4: bytes 638D-638E were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-SoundSong2C_Header:: ; 05:638D
+SoundSfx2C_Header:: ; 05:638D
 Data_05_638D::
 	sound_stream_header 1, 0
 
 ; ---- words $638F-$6391 (2 bytes) [PROBABLE] 1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 638D [v4: bytes 638F-6391 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 Table_05_638F:: ; 05:638F
-	dw SoundSong2C_Track0 ; track stream pointers (read by the driver)
+	dw SoundSfx2C_Track0 ; track stream pointers (read by the driver)
 
 ; ---- data $6391-$63B0 (31 bytes) [CONFIRMED] read as data by executed code (in up to 17/18 scenarios); content class unknown
 
-SoundSong2D_Track0:: ; 05:6391
+SoundSfx2D_Track0:: ; 05:6391
 Data_05_6391::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -154,18 +154,18 @@ Data_05_6391::
 
 ; ---- data $63B0-$63B2 (2 bytes) [PROBABLE] header NN=01 KK=00 of the channel-pointer table at 63B2 (1 words = NN*(KK+1)); the byte before (63AF) is $B1 [v4: bytes 63B0-63B1 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-SoundSong2D_Header:: ; 05:63B0
+SoundSfx2D_Header:: ; 05:63B0
 Data_05_63B0::
 	sound_stream_header 1, 0
 
 ; ---- words $63B2-$63B4 (2 bytes) [PROBABLE] 1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 63B0 [v4: bytes 63B2-63B4 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 Table_05_63B2:: ; 05:63B2
-	dw SoundSong2D_Track0 ; track stream pointers (read by the driver)
+	dw SoundSfx2D_Track0 ; track stream pointers (read by the driver)
 
 ; ---- data $63B4-$63FD (73 bytes) [CONFIRMED] read as data by executed code (in up to 11/18 scenarios); content class unknown
 
-SoundSong2E_Track0:: ; 05:63B4
+SoundSfx2E_Track0:: ; 05:63B4
 Data_05_63B4::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -228,18 +228,18 @@ Data_05_63B4::
 
 ; ---- data $63FD-$63FF (2 bytes) [PROBABLE] header NN=01 KK=00 of the channel-pointer table at 63FF (1 words = NN*(KK+1)); the byte before (63FC) is $B1 [v4: bytes 63FD-63FE were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-SoundSong2E_Header:: ; 05:63FD
+SoundSfx2E_Header:: ; 05:63FD
 Data_05_63FD::
 	sound_stream_header 1, 0
 
 ; ---- words $63FF-$6401 (2 bytes) [PROBABLE] 1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 63FD [v4: bytes 63FF-6401 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 Table_05_63FF:: ; 05:63FF
-	dw SoundSong2E_Track0 ; track stream pointers (read by the driver)
+	dw SoundSfx2E_Track0 ; track stream pointers (read by the driver)
 
 ; ---- data $6401-$6410 (15 bytes) [CONFIRMED] read as data by executed code (in up to 11/18 scenarios); content class unknown
 
-SoundSong2F_Track0:: ; 05:6401
+SoundSfx2F_Track0:: ; 05:6401
 Data_05_6401::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -253,18 +253,18 @@ Data_05_6401::
 
 ; ---- data $6410-$6412 (2 bytes) [PROBABLE] header NN=01 KK=00 of the channel-pointer table at 6412 (1 words = NN*(KK+1)); the byte before (640F) is $B1 [v4: bytes 6410-6411 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-SoundSong2F_Header:: ; 05:6410
+SoundSfx2F_Header:: ; 05:6410
 Data_05_6410::
 	sound_stream_header 1, 0
 
 ; ---- words $6412-$6414 (2 bytes) [PROBABLE] 1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 6410 [v4: bytes 6412-6414 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 Table_05_6412:: ; 05:6412
-	dw SoundSong2F_Track0 ; track stream pointers (read by the driver)
+	dw SoundSfx2F_Track0 ; track stream pointers (read by the driver)
 
 ; ---- data $6414-$643C (40 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown
 
-SoundSong30_Track0:: ; 05:6414
+SoundSfx30_Track0:: ; 05:6414
 Data_05_6414::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -281,7 +281,7 @@ Data_05_6414::
 	sound_rs sound_note 4, $61
 	sound_wait 4
 	sound_end
-SoundSong30_Track1:: ; 05:6429
+SoundSfx30_Track1:: ; 05:6429
 Data_05_6429::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -300,18 +300,18 @@ Data_05_6429::
 
 ; ---- data $643C-$643E (2 bytes) [PROBABLE] header NN=02 KK=00 of the channel-pointer table at 643E (2 words = NN*(KK+1)); the byte before (643B) is $B1 [v4: bytes 643C-643D were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-SoundSong30_Header:: ; 05:643C
+SoundSfx30_Header:: ; 05:643C
 Data_05_643C::
 	sound_stream_header 2, 0
 
 ; ---- words $643E-$6442 (4 bytes) [PROBABLE] 2 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 643C [v4: bytes 643E-6442 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 Table_05_643E:: ; 05:643E
-	dw SoundSong30_Track0, SoundSong30_Track1 ; track stream pointers (read by the driver)
+	dw SoundSfx30_Track0, SoundSfx30_Track1 ; track stream pointers (read by the driver)
 
 ; ---- data $6442-$645E (28 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown
 
-SoundSong31_Track0:: ; 05:6442
+SoundSfx31_Track0:: ; 05:6442
 Data_05_6442::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -322,7 +322,7 @@ Data_05_6442::
 	sound_note 12
 	sound_wait 12
 	sound_end
-SoundSong31_Track1:: ; 05:6451
+SoundSfx31_Track1:: ; 05:6451
 Data_05_6451::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -335,18 +335,18 @@ Data_05_6451::
 
 ; ---- data $645E-$6460 (2 bytes) [PROBABLE] header NN=02 KK=00 of the channel-pointer table at 6460 (2 words = NN*(KK+1)); the byte before (645D) is $B1 [v4: bytes 645E-645F were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-SoundSong31_Header:: ; 05:645E
+SoundSfx31_Header:: ; 05:645E
 Data_05_645E::
 	sound_stream_header 2, 0
 
 ; ---- words $6460-$6464 (4 bytes) [PROBABLE] 2 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 645E [v4: bytes 6460-6464 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 Table_05_6460:: ; 05:6460
-	dw SoundSong31_Track0, SoundSong31_Track1 ; track stream pointers (read by the driver)
+	dw SoundSfx31_Track0, SoundSfx31_Track1 ; track stream pointers (read by the driver)
 
 ; ---- data $6464-$64B3 (79 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown
 
-SoundSong32_Track0:: ; 05:6464
+SoundSfx32_Track0:: ; 05:6464
 Data_05_6464::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -368,7 +368,7 @@ Data_05_6464::
 	sound_rs sound_note 4, $60
 	sound_wait 4
 	sound_end
-SoundSong32_Track1:: ; 05:647E
+SoundSfx32_Track1:: ; 05:647E
 Data_05_647E::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -389,7 +389,7 @@ Data_05_647E::
 	sound_rs sound_note 4, $59
 	sound_wait 4
 	sound_end
-SoundSong32_Track2:: ; 05:6496
+SoundSfx32_Track2:: ; 05:6496
 Data_05_6496::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -413,18 +413,18 @@ Data_05_6496::
 
 ; ---- data $64B3-$64B5 (2 bytes) [PROBABLE] header NN=03 KK=00 of the channel-pointer table at 64B5 (3 words = NN*(KK+1)); the byte before (64B2) is $B1 [v4: bytes 64B3-64B4 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-SoundSong32_Header:: ; 05:64B3
+SoundSfx32_Header:: ; 05:64B3
 Data_05_64B3::
 	sound_stream_header 3, 0
 
 ; ---- words $64B5-$64BB (6 bytes) [PROBABLE] 3 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 64B3 [v4: bytes 64B5-64BB were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 Table_05_64B5:: ; 05:64B5
-	dw SoundSong32_Track0, SoundSong32_Track1, SoundSong32_Track2 ; track stream pointers (read by the driver)
+	dw SoundSfx32_Track0, SoundSfx32_Track1, SoundSfx32_Track2 ; track stream pointers (read by the driver)
 
 ; ---- data $64BB-$6506 (75 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 
-SoundSong33_Track0:: ; 05:64BB
+SoundSfx33_Track0:: ; 05:64BB
 Data_05_64BB::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -444,7 +444,7 @@ Data_05_64BB::
 	sound_rs sound_note 4, $47
 	sound_wait 4
 	sound_end
-SoundSong33_Track1:: ; 05:64D3
+SoundSfx33_Track1:: ; 05:64D3
 Data_05_64D3::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -463,7 +463,7 @@ Data_05_64D3::
 	sound_rs sound_note 4, $3F
 	sound_wait 4
 	sound_end
-SoundSong33_Track2:: ; 05:64E9
+SoundSfx33_Track2:: ; 05:64E9
 Data_05_64E9::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -487,18 +487,18 @@ Data_05_64E9::
 
 ; ---- data $6506-$6508 (2 bytes) [PROBABLE] header NN=03 KK=00 of the channel-pointer table at 6508 (3 words = NN*(KK+1)); the byte before (6505) is $B1
 
-SoundSong33_Header:: ; 05:6506
+SoundSfx33_Header:: ; 05:6506
 Data_05_6506::
 	sound_stream_header 3, 0
 
 ; ---- words $6508-$650E (6 bytes) [PROBABLE] 3 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 6506
 
 Table_05_6508:: ; 05:6508
-	dw SoundSong33_Track0, SoundSong33_Track1, SoundSong33_Track2 ; track stream pointers (read by the driver)
+	dw SoundSfx33_Track0, SoundSfx33_Track1, SoundSfx33_Track2 ; track stream pointers (read by the driver)
 
 ; ---- data $650E-$6544 (54 bytes) [CONFIRMED] read as data by executed code (in up to 6/18 scenarios); content class unknown
 
-SoundSong34_Track0:: ; 05:650E
+SoundSfx34_Track0:: ; 05:650E
 Data_05_650E::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -530,7 +530,7 @@ Data_05_650E::
 	sound_rs sound_pitch_bend $67
 	sound_wait 2
 	sound_end
-SoundSong34_Track1:: ; 05:6538
+SoundSfx34_Track1:: ; 05:6538
 Data_05_6538::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -542,18 +542,18 @@ Data_05_6538::
 
 ; ---- data $6544-$6546 (2 bytes) [PROBABLE] header NN=02 KK=00 of the channel-pointer table at 6546 (2 words = NN*(KK+1)); the byte before (6543) is $B1 [v4: bytes 6544-6545 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-SoundSong34_Header:: ; 05:6544
+SoundSfx34_Header:: ; 05:6544
 Data_05_6544::
 	sound_stream_header 2, 0
 
 ; ---- words $6546-$654A (4 bytes) [PROBABLE] 2 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 6544 [v4: bytes 6546-654A were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 Table_05_6546:: ; 05:6546
-	dw SoundSong34_Track0, SoundSong34_Track1 ; track stream pointers (read by the driver)
+	dw SoundSfx34_Track0, SoundSfx34_Track1 ; track stream pointers (read by the driver)
 
 ; ---- data $654A-$6568 (30 bytes) [CONFIRMED] read as data by executed code (in up to 6/18 scenarios); content class unknown
 
-SoundSong35_Track0:: ; 05:654A
+SoundSfx35_Track0:: ; 05:654A
 Data_05_654A::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -579,18 +579,18 @@ Data_05_654A::
 
 ; ---- data $6568-$656A (2 bytes) [PROBABLE] header NN=01 KK=00 of the channel-pointer table at 656A (1 words = NN*(KK+1)); the byte before (6567) is $B1 [v4: bytes 6568-6569 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-SoundSong35_Header:: ; 05:6568
+SoundSfx35_Header:: ; 05:6568
 Data_05_6568::
 	sound_stream_header 1, 0
 
 ; ---- words $656A-$656C (2 bytes) [PROBABLE] 1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 6568 [v4: bytes 656A-656C were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 Table_05_656A:: ; 05:656A
-	dw SoundSong35_Track0 ; track stream pointers (read by the driver)
+	dw SoundSfx35_Track0 ; track stream pointers (read by the driver)
 
 ; ---- data $656C-$6580 (20 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown
 
-SoundSong36_Track0:: ; 05:656C
+SoundSfx36_Track0:: ; 05:656C
 Data_05_656C::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -606,18 +606,18 @@ Data_05_656C::
 
 ; ---- data $6580-$6582 (2 bytes) [PROBABLE] header NN=01 KK=00 of the channel-pointer table at 6582 (1 words = NN*(KK+1)); the byte before (657F) is $B1 [v4: bytes 6580-6581 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-SoundSong36_Header:: ; 05:6580
+SoundSfx36_Header:: ; 05:6580
 Data_05_6580::
 	sound_stream_header 1, 0
 
 ; ---- words $6582-$6584 (2 bytes) [PROBABLE] 1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 6580 [v4: bytes 6582-6584 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 Table_05_6582:: ; 05:6582
-	dw SoundSong36_Track0 ; track stream pointers (read by the driver)
+	dw SoundSfx36_Track0 ; track stream pointers (read by the driver)
 
 ; ---- data $6584-$6595 (17 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 
-SoundSong37_Track0:: ; 05:6584
+SoundSfx37_Track0:: ; 05:6584
 Data_05_6584::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -631,18 +631,18 @@ Data_05_6584::
 
 ; ---- data $6595-$6597 (2 bytes) [PROBABLE] header NN=01 KK=00 of the channel-pointer table at 6597 (1 words = NN*(KK+1)); the byte before (6594) is $B1
 
-SoundSong37_Header:: ; 05:6595
+SoundSfx37_Header:: ; 05:6595
 Data_05_6595::
 	sound_stream_header 1, 0
 
 ; ---- words $6597-$6599 (2 bytes) [PROBABLE] 1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 6595
 
 Table_05_6597:: ; 05:6597
-	dw SoundSong37_Track0 ; track stream pointers (read by the driver)
+	dw SoundSfx37_Track0 ; track stream pointers (read by the driver)
 
 ; ---- data $6599-$65C3 (42 bytes) [CONFIRMED] read as data by executed code (in up to 10/18 scenarios); content class unknown
 
-SoundSong38_Track0:: ; 05:6599
+SoundSfx38_Track0:: ; 05:6599
 Data_05_6599::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -676,18 +676,18 @@ Data_05_6599::
 
 ; ---- data $65C3-$65C5 (2 bytes) [PROBABLE] header NN=01 KK=00 of the channel-pointer table at 65C5 (1 words = NN*(KK+1)); the byte before (65C2) is $B1 [v4: bytes 65C3-65C4 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-SoundSong38_Header:: ; 05:65C3
+SoundSfx38_Header:: ; 05:65C3
 Data_05_65C3::
 	sound_stream_header 1, 0
 
 ; ---- words $65C5-$65C7 (2 bytes) [PROBABLE] 1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 65C3 [v4: bytes 65C5-65C7 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 Table_05_65C5:: ; 05:65C5
-	dw SoundSong38_Track0 ; track stream pointers (read by the driver)
+	dw SoundSfx38_Track0 ; track stream pointers (read by the driver)
 
 ; ---- data $65C7-$65FD (54 bytes) [CONFIRMED] read as data by executed code (in up to 10/18 scenarios); content class unknown
 
-SoundSong39_Track0:: ; 05:65C7
+SoundSfx39_Track0:: ; 05:65C7
 Data_05_65C7::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -722,18 +722,18 @@ Data_05_65C7::
 
 ; ---- data $65FD-$65FF (2 bytes) [PROBABLE] header NN=01 KK=00 of the channel-pointer table at 65FF (1 words = NN*(KK+1)); the byte before (65FC) is $B1 [v4: bytes 65FD-65FE were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-SoundSong39_Header:: ; 05:65FD
+SoundSfx39_Header:: ; 05:65FD
 Data_05_65FD::
 	sound_stream_header 1, 0
 
 ; ---- words $65FF-$6601 (2 bytes) [PROBABLE] 1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 65FD [v4: bytes 65FF-6601 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 Table_05_65FF:: ; 05:65FF
-	dw SoundSong39_Track0 ; track stream pointers (read by the driver)
+	dw SoundSfx39_Track0 ; track stream pointers (read by the driver)
 
 ; ---- data $6601-$6612 (17 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown
 
-SoundSong3A_Track0:: ; 05:6601
+SoundSfx3A_Track0:: ; 05:6601
 Data_05_6601::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -749,18 +749,18 @@ Data_05_6601::
 
 ; ---- data $6612-$6614 (2 bytes) [PROBABLE] header NN=01 KK=00 of the channel-pointer table at 6614 (1 words = NN*(KK+1)); the byte before (6611) is $B1 [v4: bytes 6612-6613 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-SoundSong3A_Header:: ; 05:6612
+SoundSfx3A_Header:: ; 05:6612
 Data_05_6612::
 	sound_stream_header 1, 0
 
 ; ---- words $6614-$6616 (2 bytes) [PROBABLE] 1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 6612 [v4: bytes 6614-6616 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 Table_05_6614:: ; 05:6614
-	dw SoundSong3A_Track0 ; track stream pointers (read by the driver)
+	dw SoundSfx3A_Track0 ; track stream pointers (read by the driver)
 
 ; ---- data $6616-$662F (25 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 
-SoundSong3B_Track0:: ; 05:6616
+SoundSfx3B_Track0:: ; 05:6616
 Data_05_6616::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -781,18 +781,18 @@ Data_05_6616::
 
 ; ---- data $662F-$6631 (2 bytes) [PROBABLE] header NN=01 KK=00 of the channel-pointer table at 6631 (1 words = NN*(KK+1)); the byte before (662E) is $B1
 
-SoundSong3B_Header:: ; 05:662F
+SoundSfx3B_Header:: ; 05:662F
 Data_05_662F::
 	sound_stream_header 1, 0
 
 ; ---- words $6631-$6633 (2 bytes) [PROBABLE] 1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 662F
 
 Table_05_6631:: ; 05:6631
-	dw SoundSong3B_Track0 ; track stream pointers (read by the driver)
+	dw SoundSfx3B_Track0 ; track stream pointers (read by the driver)
 
 ; ---- data $6633-$665B (40 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 
-SoundSong3C_Track0:: ; 05:6633
+SoundSfx3C_Track0:: ; 05:6633
 Data_05_6633::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -809,7 +809,7 @@ Data_05_6633::
 	sound_rs sound_note 6, $60
 	sound_wait 6
 	sound_end
-SoundSong3C_Track1:: ; 05:6648
+SoundSfx3C_Track1:: ; 05:6648
 Data_05_6648::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -828,18 +828,18 @@ Data_05_6648::
 
 ; ---- data $665B-$665D (2 bytes) [PROBABLE] header NN=02 KK=00 of the channel-pointer table at 665D (2 words = NN*(KK+1)); the byte before (665A) is $B1
 
-SoundSong3C_Header:: ; 05:665B
+SoundSfx3C_Header:: ; 05:665B
 Data_05_665B::
 	sound_stream_header 2, 0
 
 ; ---- words $665D-$6661 (4 bytes) [PROBABLE] 2 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 665B
 
 Table_05_665D:: ; 05:665D
-	dw SoundSong3C_Track0, SoundSong3C_Track1 ; track stream pointers (read by the driver)
+	dw SoundSfx3C_Track0, SoundSfx3C_Track1 ; track stream pointers (read by the driver)
 
 ; ---- data $6661-$66BF (94 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
-SoundSong3D_Track0:: ; 05:6661
+SoundSfx3D_Track0:: ; 05:6661
 Data_05_6661::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -873,7 +873,7 @@ Data_05_6661::
 	sound_rs sound_pitch_bend $52
 	sound_wait 1
 	sound_end
-SoundSong3D_Track1:: ; 05:6691
+SoundSfx3D_Track1:: ; 05:6691
 Data_05_6691::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -909,18 +909,18 @@ Data_05_6691::
 
 ; ---- data $66BF-$66C1 (2 bytes) [PROBABLE] header NN=02 KK=00 of the channel-pointer table at 66C1 (2 words = NN*(KK+1)); the byte before (66BE) is $B1 [v4: bytes 66BF-66C0 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-SoundSong3D_Header:: ; 05:66BF
+SoundSfx3D_Header:: ; 05:66BF
 Data_05_66BF::
 	sound_stream_header 2, 0
 
 ; ---- words $66C1-$66C5 (4 bytes) [PROBABLE] 2 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 66BF [v4: bytes 66C1-66C5 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 Table_05_66C1:: ; 05:66C1
-	dw SoundSong3D_Track0, SoundSong3D_Track1 ; track stream pointers (read by the driver)
+	dw SoundSfx3D_Track0, SoundSfx3D_Track1 ; track stream pointers (read by the driver)
 
 ; ---- data $66C5-$66F2 (45 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
 
-SoundSong3E_Track0:: ; 05:66C5
+SoundSfx3E_Track0:: ; 05:66C5
 Data_05_66C5::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -939,7 +939,7 @@ Data_05_66C5::
 	sound_rs sound_note 4, $52
 	sound_wait 4
 	sound_end
-SoundSong3E_Track1:: ; 05:66DC
+SoundSfx3E_Track1:: ; 05:66DC
 Data_05_66DC::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -961,18 +961,18 @@ Data_05_66DC::
 
 ; ---- data $66F2-$66F4 (2 bytes) [PROBABLE] header NN=02 KK=00 of the channel-pointer table at 66F4 (2 words = NN*(KK+1)); the byte before (66F1) is $B1 [v4: bytes 66F2-66F3 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-SoundSong3E_Header:: ; 05:66F2
+SoundSfx3E_Header:: ; 05:66F2
 Data_05_66F2::
 	sound_stream_header 2, 0
 
 ; ---- words $66F4-$66F8 (4 bytes) [PROBABLE] 2 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 66F2 [v4: bytes 66F4-66F8 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 Table_05_66F4:: ; 05:66F4
-	dw SoundSong3E_Track0, SoundSong3E_Track1 ; track stream pointers (read by the driver)
+	dw SoundSfx3E_Track0, SoundSfx3E_Track1 ; track stream pointers (read by the driver)
 
 ; ---- data $66F8-$6725 (45 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
 
-SoundSong3F_Track0:: ; 05:66F8
+SoundSfx3F_Track0:: ; 05:66F8
 Data_05_66F8::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -991,7 +991,7 @@ Data_05_66F8::
 	sound_rs sound_note 4, $42
 	sound_wait 4
 	sound_end
-SoundSong3F_Track1:: ; 05:670F
+SoundSfx3F_Track1:: ; 05:670F
 Data_05_670F::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -1013,18 +1013,18 @@ Data_05_670F::
 
 ; ---- data $6725-$6727 (2 bytes) [PROBABLE] header NN=02 KK=00 of the channel-pointer table at 6727 (2 words = NN*(KK+1)); the byte before (6724) is $B1 [v4: bytes 6725-6726 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-SoundSong3F_Header:: ; 05:6725
+SoundSfx3F_Header:: ; 05:6725
 Data_05_6725::
 	sound_stream_header 2, 0
 
 ; ---- words $6727-$672B (4 bytes) [PROBABLE] 2 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 6725 [v4: bytes 6727-672B were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 Table_05_6727:: ; 05:6727
-	dw SoundSong3F_Track0, SoundSong3F_Track1 ; track stream pointers (read by the driver)
+	dw SoundSfx3F_Track0, SoundSfx3F_Track1 ; track stream pointers (read by the driver)
 
 ; ---- data $672B-$673C (17 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
 
-SoundSong40_Track0:: ; 05:672B
+SoundSfx40_Track0:: ; 05:672B
 Data_05_672B::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -1040,18 +1040,18 @@ Data_05_672B::
 
 ; ---- data $673C-$673E (2 bytes) [PROBABLE] header NN=01 KK=00 of the channel-pointer table at 673E (1 words = NN*(KK+1)); the byte before (673B) is $B1 [v4: bytes 673C-673D were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-SoundSong40_Header:: ; 05:673C
+SoundSfx40_Header:: ; 05:673C
 Data_05_673C::
 	sound_stream_header 1, 0
 
 ; ---- words $673E-$6740 (2 bytes) [PROBABLE] 1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 673C [v4: bytes 673E-6740 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 Table_05_673E:: ; 05:673E
-	dw SoundSong40_Track0 ; track stream pointers (read by the driver)
+	dw SoundSfx40_Track0 ; track stream pointers (read by the driver)
 
 ; ---- data $6740-$6751 (17 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
 
-SoundSong41_Track0:: ; 05:6740
+SoundSfx41_Track0:: ; 05:6740
 Data_05_6740::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -1067,18 +1067,18 @@ Data_05_6740::
 
 ; ---- data $6751-$6753 (2 bytes) [PROBABLE] header NN=01 KK=00 of the channel-pointer table at 6753 (1 words = NN*(KK+1)); the byte before (6750) is $B1 [v4: bytes 6751-6752 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-SoundSong41_Header:: ; 05:6751
+SoundSfx41_Header:: ; 05:6751
 Data_05_6751::
 	sound_stream_header 1, 0
 
 ; ---- words $6753-$6755 (2 bytes) [PROBABLE] 1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 6751 [v4: bytes 6753-6755 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 Table_05_6753:: ; 05:6753
-	dw SoundSong41_Track0 ; track stream pointers (read by the driver)
+	dw SoundSfx41_Track0 ; track stream pointers (read by the driver)
 
 ; ---- data $6755-$6789 (52 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
 
-SoundSong42_Track0:: ; 05:6755
+SoundSfx42_Track0:: ; 05:6755
 Data_05_6755::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -1126,18 +1126,18 @@ Data_05_6755::
 
 ; ---- data $6789-$678B (2 bytes) [PROBABLE] header NN=01 KK=00 of the channel-pointer table at 678B (1 words = NN*(KK+1)); the byte before (6788) is $B1 [v4: bytes 6789-678A were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-SoundSong42_Header:: ; 05:6789
+SoundSfx42_Header:: ; 05:6789
 Data_05_6789::
 	sound_stream_header 1, 0
 
 ; ---- words $678B-$678D (2 bytes) [PROBABLE] 1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 6789 [v4: bytes 678B-678D were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 Table_05_678B:: ; 05:678B
-	dw SoundSong42_Track0 ; track stream pointers (read by the driver)
+	dw SoundSfx42_Track0 ; track stream pointers (read by the driver)
 
 ; ---- data $678D-$67B5 (40 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 
-SoundSong43_Track0:: ; 05:678D
+SoundSfx43_Track0:: ; 05:678D
 Data_05_678D::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -1154,7 +1154,7 @@ Data_05_678D::
 	sound_rs sound_note 6, $60
 	sound_wait 6
 	sound_end
-SoundSong43_Track1:: ; 05:67A2
+SoundSfx43_Track1:: ; 05:67A2
 Data_05_67A2::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -1173,18 +1173,18 @@ Data_05_67A2::
 
 ; ---- data $67B5-$67B7 (2 bytes) [PROBABLE] header NN=02 KK=00 of the channel-pointer table at 67B7 (2 words = NN*(KK+1)); the byte before (67B4) is $B1
 
-SoundSong43_Header:: ; 05:67B5
+SoundSfx43_Header:: ; 05:67B5
 Data_05_67B5::
 	sound_stream_header 2, 0
 
 ; ---- words $67B7-$67BB (4 bytes) [PROBABLE] 2 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 67B5
 
 Table_05_67B7:: ; 05:67B7
-	dw SoundSong43_Track0, SoundSong43_Track1 ; track stream pointers (read by the driver)
+	dw SoundSfx43_Track0, SoundSfx43_Track1 ; track stream pointers (read by the driver)
 
 ; ---- data $67BB-$6822 (103 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
 
-SoundSong44_Track0:: ; 05:67BB
+SoundSfx44_Track0:: ; 05:67BB
 Data_05_67BB::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -1223,7 +1223,7 @@ Data_05_67BB::
 	sound_rs sound_note 3, $61
 	sound_wait 3
 	sound_end
-SoundSong44_Track1:: ; 05:67EF
+SoundSfx44_Track1:: ; 05:67EF
 Data_05_67EF::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -1265,18 +1265,18 @@ Data_05_67EF::
 
 ; ---- data $6822-$6824 (2 bytes) [PROBABLE] header NN=02 KK=00 of the channel-pointer table at 6824 (2 words = NN*(KK+1)); the byte before (6821) is $B1 [v4: bytes 6822-6823 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-SoundSong44_Header:: ; 05:6822
+SoundSfx44_Header:: ; 05:6822
 Data_05_6822::
 	sound_stream_header 2, 0
 
 ; ---- words $6824-$6828 (4 bytes) [PROBABLE] 2 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 6822 [v4: bytes 6824-6828 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 Table_05_6824:: ; 05:6824
-	dw SoundSong44_Track0, SoundSong44_Track1 ; track stream pointers (read by the driver)
+	dw SoundSfx44_Track0, SoundSfx44_Track1 ; track stream pointers (read by the driver)
 
 ; ---- data $6828-$689B (115 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
 
-SoundSong45_Track0:: ; 05:6828
+SoundSfx45_Track0:: ; 05:6828
 Data_05_6828::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -1321,7 +1321,7 @@ Data_05_6828::
 	sound_rs sound_note 3, $4D
 	sound_wait 3
 	sound_end
-SoundSong45_Track1:: ; 05:6862
+SoundSfx45_Track1:: ; 05:6862
 Data_05_6862::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -1369,18 +1369,18 @@ Data_05_6862::
 
 ; ---- data $689B-$689D (2 bytes) [PROBABLE] header NN=02 KK=00 of the channel-pointer table at 689D (2 words = NN*(KK+1)); the byte before (689A) is $B1 [v4: bytes 689B-689C were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-SoundSong45_Header:: ; 05:689B
+SoundSfx45_Header:: ; 05:689B
 Data_05_689B::
 	sound_stream_header 2, 0
 
 ; ---- words $689D-$68A1 (4 bytes) [PROBABLE] 2 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 689B [v4: bytes 689D-68A1 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 Table_05_689D:: ; 05:689D
-	dw SoundSong45_Track0, SoundSong45_Track1 ; track stream pointers (read by the driver)
+	dw SoundSfx45_Track0, SoundSfx45_Track1 ; track stream pointers (read by the driver)
 
 ; ---- data $68A1-$68BF (30 bytes) [PROBABLE] read as data by executed code (in up to 17/18 scenarios); content class unknown | block boundary $68BE removed (it cut a command in two; its label Data_05_68BE was not referenced); the second part was: data $68BE-$68BF (1 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md (status of the merged block lowered to the weaker of the two parts)
 
-SoundSong46_Track0:: ; 05:68A1
+SoundSfx46_Track0:: ; 05:68A1
 Data_05_68A1::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -1391,7 +1391,7 @@ Data_05_68A1::
 	sound_note 3
 	sound_wait 3
 	sound_end
-SoundSong46_Track1:: ; 05:68B0
+SoundSfx46_Track1:: ; 05:68B0
 Data_05_68B0::
 	sound_volume $7F
 	sound_pitch_add $00
@@ -1401,11 +1401,11 @@ Data_05_68B0::
 	sound_note 3
 	sound_wait 3
 	sound_end
-SoundSong46_Header:: ; 05:68BD
+SoundSfx46_Header:: ; 05:68BD
 Data_05_68BD::
 	sound_stream_header 2, 0
 
 ; ---- data $68BF-$68C3 (4 bytes) [CONFIRMED] read as data by executed code (in up to 17/18 scenarios); content class unknown [v4: this is the 46th channel-pointer table (header b1 02 00 at 68BC, referenced by the song-table entry 04:5740 -> 68BD): 2 words A1 68 B0 68 = track starts 68A1 and 68B0 (both bf 7f bd); kept as data because it is CONFIRMED-read and has no following track]
 
 Data_05_68BF:: ; 05:68BF
-	dw SoundSong46_Track0, SoundSong46_Track1 ; track stream pointers (read by the driver)
+	dw SoundSfx46_Track0, SoundSfx46_Track1 ; track stream pointers (read by the driver)
