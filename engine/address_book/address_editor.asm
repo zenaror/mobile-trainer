@@ -18,7 +18,7 @@ Function_2F_6D00::
 	ld a, $10
 	ld [wStatSplitLine], a
 	ld a, $0A
-	ld [wRam_D725], a
+	ld [wKbdSlideDeltaRow], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -574,7 +574,7 @@ Function_2F_6F8C::
 	ld a, $10
 	ld [wStatSplitLine], a
 	ld a, $0A
-	ld [wRam_D725], a
+	ld [wKbdSlideDeltaRow], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a

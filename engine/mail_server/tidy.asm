@@ -17,7 +17,7 @@ Function_2E_4000::
 	ld a, $0B
 	ld [wStatSplitLine], a
 	ld a, $00
-	ld [wRam_D725], a
+	ld [wKbdSlideDeltaRow], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1258,7 +1258,7 @@ Label_2E_4298:: ; 2E:4298
 	ld a, $0B
 	ld [wStatSplitLine], a
 	ld a, $00
-	ld [wRam_D725], a
+	ld [wKbdSlideDeltaRow], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1310,7 +1310,7 @@ Function_2E_48F8::
 	ld a, $0B
 	ld [wStatSplitLine], a
 	ld a, $00
-	ld [wRam_D725], a
+	ld [wKbdSlideDeltaRow], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1512,7 +1512,7 @@ Function_2E_4A7D::
 	ld a, $0B
 	ld [wStatSplitLine], a
 	ld a, $00
-	ld [wRam_D725], a
+	ld [wKbdSlideDeltaRow], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1555,7 +1555,7 @@ Function_2E_4A7D::
 	ld a, $0B
 	ld [wStatSplitLine], a
 	ld a, $00
-	ld [wRam_D725], a
+	ld [wKbdSlideDeltaRow], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a

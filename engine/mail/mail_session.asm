@@ -25,7 +25,7 @@ Function_26_4000::
 	ld a, $0B
 	ld [wStatSplitLine], a
 	ld a, $00
-	ld [wRam_D725], a
+	ld [wKbdSlideDeltaRow], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1885,7 +1885,7 @@ Function_26_4EC3::
 	ld a, $0B
 	ld [wStatSplitLine], a
 	ld a, $00
-	ld [wRam_D725], a
+	ld [wKbdSlideDeltaRow], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1996,7 +1996,7 @@ MailSession_CheckTimeWarningRecv:: ; 26:4F7B
 	ld a, $0B
 	ld [wStatSplitLine], a
 	ld a, $00
-	ld [wRam_D725], a
+	ld [wKbdSlideDeltaRow], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a

@@ -70,7 +70,7 @@ KbdSlide_InPrepMode8:: ; 7F:7149
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_D725]
+	ld a, [wKbdSlideDeltaRow]
 	cp a, $00
 	jr z, .l715F
 
@@ -79,7 +79,7 @@ KbdSlide_InPrepMode8:: ; 7F:7149
 	; classify_g1 pass: every instruction start of the region appears in
 	; analysis/coverage_union.tsv]
 	ld e, $00
-	ld a, [wRam_D725]
+	ld a, [wKbdSlideDeltaRow]
 	ld d, a
 	jr .l7163
 
@@ -107,7 +107,7 @@ KbdSlide_OutPrepMode8:: ; 7F:7178
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_D725]
+	ld a, [wKbdSlideDeltaRow]
 	cp a, $00
 	jr z, .l718E
 
@@ -116,7 +116,7 @@ KbdSlide_OutPrepMode8:: ; 7F:7178
 	; classify_g1 pass: every instruction start of the region appears in
 	; analysis/coverage_union.tsv]
 	ld e, $00
-	ld a, [wRam_D725]
+	ld a, [wKbdSlideDeltaRow]
 	ld d, a
 	jr .l7192
 
@@ -144,11 +144,11 @@ KbdSlide_InPrepMode9:: ; 7F:71A7
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_D725]
+	ld a, [wKbdSlideDeltaRow]
 	cp a, $00
 	jr z, .l71BD
 	ld e, $00
-	ld a, [wRam_D725]
+	ld a, [wKbdSlideDeltaRow]
 	ld d, a
 	jr .l71C1
 .l71BD ; 7F:71BD
@@ -174,11 +174,11 @@ KbdSlide_OutPrepMode9:: ; 7F:71D6
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_D725]
+	ld a, [wKbdSlideDeltaRow]
 	cp a, $00
 	jr z, .l71EC
 	ld e, $00
-	ld a, [wRam_D725]
+	ld a, [wKbdSlideDeltaRow]
 	ld d, a
 	jr .l71F0
 .l71EC ; 7F:71EC

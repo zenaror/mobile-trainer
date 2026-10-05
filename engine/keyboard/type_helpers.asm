@@ -294,7 +294,7 @@ Kbd_LoadInputMode:: ; 55:7007
 	ld [wKbdInputMode], a
 	ret
 .l700E ; 55:700E
-	ld hl, $BF05
+	ld hl, sKbdInputMode
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
 	push af
@@ -327,7 +327,7 @@ Kbd_LoadInputMode:: ; 55:7007
 
 Kbd_SaveInputMode:: ; 55:7048
 	ld a, [wKbdInputMode]
-	ld hl, $BF05
+	ld hl, sKbdInputMode
 	ld b, a
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]

@@ -128,7 +128,7 @@ Function_65_41DA::
 	farcall Settings_ClearFieldsKeepProgress
 	farcall Settings_LoadAccountToWram
 .l4226 ; 65:4226
-	ld hl, $B0BE
+	ld hl, sSettingsFieldMask
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
 	push af

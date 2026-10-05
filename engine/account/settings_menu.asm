@@ -46,7 +46,7 @@ SettingsMenu_Run:: ; 68:4F9E
 	ld [wCommNoticeGfxSet], a
 	call SettingsMenu_RunLoop
 	ld a, [wRam_C27C]
-	ld hl, $BF01
+	ld hl, sVarSettingsMenuCursor
 	ld b, a
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
@@ -122,7 +122,7 @@ SettingsMenu_StateInit:: ; 68:5066
 	farcall Sprite_ResetAll
 	xor a, a
 	ld [wRam_C27D], a
-	ld hl, $BF01
+	ld hl, sVarSettingsMenuCursor
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
 	push af

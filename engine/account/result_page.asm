@@ -195,7 +195,7 @@ Function_68_77D6::
 	; [CONFIRMED] 55 insn(s); 55 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wRam_C27C]
-	ld hl, $7831
+	ld hl, Data_68_7831
 	ld b, a
 	add a, a
 	add a, b

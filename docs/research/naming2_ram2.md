@@ -232,3 +232,7 @@ python3 tools/apply_renames.py --manifest analysis/naming2/ram2_renames.tsv --st
 ```
 
 The manifest has one header line, one `#` comment line, 49 applied rows and 30 HYPOTHESIS rows; HYPOTHESIS rows start their evidence with `idea: <name> | ...`.
+
+## 8. Follow-up (ram3)
+
+`wRam_D725` (section 6, idea `wStatSplitParam2`) was named in [`naming2_ram3.md`](naming2_ram3.md): it is `wKbdSlideDeltaRow` in `ram/banked.asm` (WRAM bank 1, PROBABLE), the row index of the keyboard-slide delta tables.

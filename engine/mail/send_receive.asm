@@ -1500,7 +1500,7 @@ Function_27_4B95::
 	push af
 	ld bc, $0040
 	ld de, $D840
-	ld hl, $7520
+	ld hl, MailScreens_ObjPalette_7520
 	ld a, $27
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
@@ -1569,7 +1569,7 @@ Function_27_4B95::
 	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0040
 	ld de, $D840
-	ld hl, $7520
+	ld hl, MailScreens_ObjPalette_7520
 	ld a, $27
 	farcall Palette_LoadToBuffer
 	ldh a, [rLCDC]
@@ -1709,7 +1709,7 @@ CommTime_DrawHMSScreen:: ; 27:4D81
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, $D840
-	ld hl, $7520
+	ld hl, MailScreens_ObjPalette_7520
 	ld a, $27
 	farcall Palette_LoadToBuffer
 	ld de, $9001

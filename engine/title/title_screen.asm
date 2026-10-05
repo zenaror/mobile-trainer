@@ -24,7 +24,7 @@ Function_0E_4000::
 .l401E ; 0E:401E
 	call Title_StateLoop
 	ld a, [wRam_C27D]
-	ld hl, $BF00
+	ld hl, sTitleMenuCursor
 	ld b, a
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
@@ -164,7 +164,7 @@ Title_StateLogoFadeOut:: ; 0E:410C
 	ret
 
 Title_StateLoadTitle:: ; 0E:411A
-	ld hl, $BF00
+	ld hl, sTitleMenuCursor
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
 	push af

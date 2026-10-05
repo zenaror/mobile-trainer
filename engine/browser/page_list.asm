@@ -29,7 +29,7 @@ PageList_Main:: ; 24:4018
 	ld a, $0A
 	ld [wStatSplitLine], a
 	ld a, $00
-	ld [wRam_D725], a
+	ld [wKbdSlideDeltaRow], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -203,7 +203,7 @@ PageList_Main_Loop:: ; 24:4083
 	ld a, $0B
 	ld [wStatSplitLine], a
 	ld a, $00
-	ld [wRam_D725], a
+	ld [wKbdSlideDeltaRow], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -443,7 +443,7 @@ PageList_InitScreen:: ; 24:42F0
 	farcall Gfx_StartHDMA
 	call VBlank_Wait
 	ld de, $9701
-	ld hl, $5800
+	ld hl, PageList_Tiles_5800
 	ld a, $24
 	ld b, $97
 	ld c, $10
@@ -524,7 +524,7 @@ PageList_InitScreen:: ; 24:42F0
 	ld a, $0A
 	ld [wStatSplitLine], a
 	ld a, $00
-	ld [wRam_D725], a
+	ld [wKbdSlideDeltaRow], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1749,7 +1749,7 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	ld a, $0B
 	ld [wStatSplitLine], a
 	ld a, $00
-	ld [wRam_D725], a
+	ld [wKbdSlideDeltaRow], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a

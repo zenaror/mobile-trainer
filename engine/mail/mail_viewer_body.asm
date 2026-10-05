@@ -18,7 +18,7 @@ MailView_BodyPage:: ; 2B:7B02
 	ld a, $0B
 	ld [wStatSplitLine], a
 	ld a, $00
-	ld [wRam_D725], a
+	ld [wKbdSlideDeltaRow], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -264,7 +264,7 @@ MailView_BodyPage_InitScreen:: ; 2B:7B9B
 	ld a, $15
 	ld [wStatSplitLine], a
 	ld a, $00
-	ld [wRam_D725], a
+	ld [wKbdSlideDeltaRow], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a

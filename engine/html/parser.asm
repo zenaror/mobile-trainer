@@ -487,7 +487,7 @@ Label_74_4449:: ; 74:4449
 .l4477 ; 74:4477
 	; [CONFIRMED] 26 insn(s); 26 executed (in up to 2/18 scenarios)
 	dec hl
-	ld bc, $4110
+	ld bc, Html_NoKeywords
 	call Html_ScanAttributes
 	jp .loop
 

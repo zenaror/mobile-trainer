@@ -396,7 +396,7 @@ SettingsPhone_PatchConfigImage:: ; 67:5664
 	; [executed in 1 scenarios]
 	farcall PhoneNumber_PackBcd
 	ld a, [wRam_C27E]
-	ld hl, $5706
+	ld hl, SettingsPhone_ConfigCommentAddrs
 	add a, a
 	add a, l
 	ld l, a
@@ -419,7 +419,7 @@ SettingsPhone_PatchConfigImage:: ; 67:5664
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ld a, [wRam_C27E]
-	ld hl, $5700
+	ld hl, SettingsPhone_SramSelfPageAddrs
 	add a, a
 	add a, l
 	ld l, a

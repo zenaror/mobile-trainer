@@ -17,7 +17,7 @@ AbookView_Run:: ; 2F:5098
 	ld a, $10
 	ld [wStatSplitLine], a
 	ld a, $0B
-	ld [wRam_D725], a
+	ld [wKbdSlideDeltaRow], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -260,7 +260,7 @@ AbookView_SetupScreen:: ; 2F:51C1
 	ld a, $10
 	ld [wStatSplitLine], a
 	ld a, $0B
-	ld [wRam_D725], a
+	ld [wKbdSlideDeltaRow], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -284,7 +284,7 @@ AbookView_SetupScreen:: ; 2F:51C1
 	ld a, $10
 	ld [wStatSplitLine], a
 	ld a, $0B
-	ld [wRam_D725], a
+	ld [wKbdSlideDeltaRow], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a

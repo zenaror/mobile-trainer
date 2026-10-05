@@ -16,7 +16,7 @@ AddrBook_SaveConfirm:: ; 2A:6F95
 	ld a, $10
 	ld [wStatSplitLine], a
 	ld a, $0B
-	ld [wRam_D725], a
+	ld [wKbdSlideDeltaRow], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -213,7 +213,7 @@ AddrBook_SaveConfirm_InitScreen:: ; 2A:70AB
 	ld a, $10
 	ld [wStatSplitLine], a
 	ld a, $0B
-	ld [wRam_D725], a
+	ld [wKbdSlideDeltaRow], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -237,7 +237,7 @@ AddrBook_SaveConfirm_InitScreen:: ; 2A:70AB
 	ld a, $10
 	ld [wStatSplitLine], a
 	ld a, $0B
-	ld [wRam_D725], a
+	ld [wKbdSlideDeltaRow], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a

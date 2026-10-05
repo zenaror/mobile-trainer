@@ -41,7 +41,7 @@ SettingsPhone_Run:: ; 67:4000
 .l4046 ; 67:4046
 	farcall Settings_GetSelectedDialEntry
 	ld a, b
-	ld hl, $BF03
+	ld hl, sPhoneSlotMenuCursor
 	ld b, a
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
@@ -183,7 +183,7 @@ Function_67_4156::
 	; [CONFIRMED] 90 insn(s); 90 executed (in up to 5/18 scenarios); entry proven: target of an
 	; executed call/far call
 	xor a, a
-	ld hl, $BF02
+	ld hl, sPhoneTopMenuCursor
 	ld b, a
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
@@ -215,7 +215,7 @@ Function_67_4156::
 
 SettingsPhone_ResetSlotCursor:: ; 67:418E
 	xor a, a
-	ld hl, $BF03
+	ld hl, sPhoneSlotMenuCursor
 	ld b, a
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
@@ -247,7 +247,7 @@ SettingsPhone_ResetSlotCursor:: ; 67:418E
 
 SettingsPhone_ResetMethodCursor:: ; 67:41C6
 	xor a, a
-	ld hl, $BF04
+	ld hl, sPhoneMethodMenuCursor
 	ld b, a
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]

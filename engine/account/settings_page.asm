@@ -431,7 +431,7 @@ Settings_ClearVariableBlock:: ; 68:4A0F
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	xor a, a
-	ld hl, $BF00
+	ld hl, sVarPage
 	ld bc, $0100
 	call FillBytes
 	ldh [hScratchA], a
@@ -518,7 +518,7 @@ Settings_StoreStringField:: ; 68:4A4A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ldh a, [hScratchA]
-	ld hl, $B0BE
+	ld hl, sSettingsFieldMask
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
 	push af
@@ -640,7 +640,7 @@ Settings_StoreByteField:: ; 68:4B48
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ldh a, [hScratchA]
-	ld hl, $B0BE
+	ld hl, sSettingsFieldMask
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
 	push af
