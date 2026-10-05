@@ -4,7 +4,7 @@
 
 SECTION "audio/sfx", ROMX
 
-; ---- data $631A-$632A (16 bytes) [CONFIRMED] read as data by executed code (in up to 14/18 scenarios); content class unknown
+; ---- data $631A-$632A (16 bytes) [CONFIRMED] read as data by executed code (in up to 14/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSfx29_Track0:: ; 05:631A
 Data_05_631A::
@@ -29,7 +29,7 @@ Data_05_632A::
 Table_05_632C:: ; 05:632C
 	dw SoundSfx29_Track0 ; track stream pointers (read by the driver)
 
-; ---- data $632E-$634A (28 bytes) [CONFIRMED] read as data by executed code (in up to 14/18 scenarios); content class unknown
+; ---- data $632E-$634A (28 bytes) [CONFIRMED] read as data by executed code (in up to 14/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSfx2A_Track0:: ; 05:632E
 Data_05_632E::
@@ -60,7 +60,7 @@ Data_05_634A::
 Table_05_634C:: ; 05:634C
 	dw SoundSfx2A_Track0 ; track stream pointers (read by the driver)
 
-; ---- data $634E-$636A (28 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
+; ---- data $634E-$636A (28 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSfx2B_Track0:: ; 05:634E
 Data_05_634E::
@@ -91,7 +91,7 @@ Data_05_636A::
 Table_05_636C:: ; 05:636C
 	dw SoundSfx2B_Track0 ; track stream pointers (read by the driver)
 
-; ---- data $636E-$638D (31 bytes) [CONFIRMED] read as data by executed code (in up to 17/18 scenarios); content class unknown
+; ---- data $636E-$638D (31 bytes) [CONFIRMED] read as data by executed code (in up to 17/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSfx2C_Track0:: ; 05:636E
 Data_05_636E::
@@ -127,7 +127,7 @@ Data_05_638D::
 Table_05_638F:: ; 05:638F
 	dw SoundSfx2C_Track0 ; track stream pointers (read by the driver)
 
-; ---- data $6391-$63B0 (31 bytes) [CONFIRMED] read as data by executed code (in up to 17/18 scenarios); content class unknown
+; ---- data $6391-$63B0 (31 bytes) [CONFIRMED] read as data by executed code (in up to 17/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSfx2D_Track0:: ; 05:6391
 Data_05_6391::
@@ -163,7 +163,7 @@ Data_05_63B0::
 Table_05_63B2:: ; 05:63B2
 	dw SoundSfx2D_Track0 ; track stream pointers (read by the driver)
 
-; ---- data $63B4-$63FD (73 bytes) [CONFIRMED] read as data by executed code (in up to 11/18 scenarios); content class unknown
+; ---- data $63B4-$63FD (73 bytes) [CONFIRMED] read as data by executed code (in up to 11/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSfx2E_Track0:: ; 05:63B4
 Data_05_63B4::
@@ -237,7 +237,7 @@ Data_05_63FD::
 Table_05_63FF:: ; 05:63FF
 	dw SoundSfx2E_Track0 ; track stream pointers (read by the driver)
 
-; ---- data $6401-$6410 (15 bytes) [CONFIRMED] read as data by executed code (in up to 11/18 scenarios); content class unknown
+; ---- data $6401-$6410 (15 bytes) [CONFIRMED] read as data by executed code (in up to 11/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSfx2F_Track0:: ; 05:6401
 Data_05_6401::
@@ -262,7 +262,7 @@ Data_05_6410::
 Table_05_6412:: ; 05:6412
 	dw SoundSfx2F_Track0 ; track stream pointers (read by the driver)
 
-; ---- data $6414-$643C (40 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown
+; ---- data $6414-$643C (40 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSfx30_Track0:: ; 05:6414
 Data_05_6414::
@@ -309,7 +309,7 @@ Data_05_643C::
 Table_05_643E:: ; 05:643E
 	dw SoundSfx30_Track0, SoundSfx30_Track1 ; track stream pointers (read by the driver)
 
-; ---- data $6442-$645E (28 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown
+; ---- data $6442-$645E (28 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSfx31_Track0:: ; 05:6442
 Data_05_6442::
@@ -344,7 +344,7 @@ Data_05_645E::
 Table_05_6460:: ; 05:6460
 	dw SoundSfx31_Track0, SoundSfx31_Track1 ; track stream pointers (read by the driver)
 
-; ---- data $6464-$64B3 (79 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown
+; ---- data $6464-$64B3 (79 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSfx32_Track0:: ; 05:6464
 Data_05_6464::
@@ -422,7 +422,7 @@ Data_05_64B3::
 Table_05_64B5:: ; 05:64B5
 	dw SoundSfx32_Track0, SoundSfx32_Track1, SoundSfx32_Track2 ; track stream pointers (read by the driver)
 
-; ---- data $64BB-$6506 (75 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+; ---- data $64BB-$6506 (75 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md
 
 SoundSfx33_Track0:: ; 05:64BB
 Data_05_64BB::
@@ -496,7 +496,7 @@ Data_05_6506::
 Table_05_6508:: ; 05:6508
 	dw SoundSfx33_Track0, SoundSfx33_Track1, SoundSfx33_Track2 ; track stream pointers (read by the driver)
 
-; ---- data $650E-$6544 (54 bytes) [CONFIRMED] read as data by executed code (in up to 6/18 scenarios); content class unknown
+; ---- data $650E-$6544 (54 bytes) [CONFIRMED] read as data by executed code (in up to 6/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSfx34_Track0:: ; 05:650E
 Data_05_650E::
@@ -551,7 +551,7 @@ Data_05_6544::
 Table_05_6546:: ; 05:6546
 	dw SoundSfx34_Track0, SoundSfx34_Track1 ; track stream pointers (read by the driver)
 
-; ---- data $654A-$6568 (30 bytes) [CONFIRMED] read as data by executed code (in up to 6/18 scenarios); content class unknown
+; ---- data $654A-$6568 (30 bytes) [CONFIRMED] read as data by executed code (in up to 6/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSfx35_Track0:: ; 05:654A
 Data_05_654A::
@@ -588,7 +588,7 @@ Data_05_6568::
 Table_05_656A:: ; 05:656A
 	dw SoundSfx35_Track0 ; track stream pointers (read by the driver)
 
-; ---- data $656C-$6580 (20 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown
+; ---- data $656C-$6580 (20 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSfx36_Track0:: ; 05:656C
 Data_05_656C::
@@ -615,7 +615,7 @@ Data_05_6580::
 Table_05_6582:: ; 05:6582
 	dw SoundSfx36_Track0 ; track stream pointers (read by the driver)
 
-; ---- data $6584-$6595 (17 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+; ---- data $6584-$6595 (17 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md
 
 SoundSfx37_Track0:: ; 05:6584
 Data_05_6584::
@@ -640,7 +640,7 @@ Data_05_6595::
 Table_05_6597:: ; 05:6597
 	dw SoundSfx37_Track0 ; track stream pointers (read by the driver)
 
-; ---- data $6599-$65C3 (42 bytes) [CONFIRMED] read as data by executed code (in up to 10/18 scenarios); content class unknown
+; ---- data $6599-$65C3 (42 bytes) [CONFIRMED] read as data by executed code (in up to 10/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSfx38_Track0:: ; 05:6599
 Data_05_6599::
@@ -685,7 +685,7 @@ Data_05_65C3::
 Table_05_65C5:: ; 05:65C5
 	dw SoundSfx38_Track0 ; track stream pointers (read by the driver)
 
-; ---- data $65C7-$65FD (54 bytes) [CONFIRMED] read as data by executed code (in up to 10/18 scenarios); content class unknown
+; ---- data $65C7-$65FD (54 bytes) [CONFIRMED] read as data by executed code (in up to 10/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSfx39_Track0:: ; 05:65C7
 Data_05_65C7::
@@ -731,7 +731,7 @@ Data_05_65FD::
 Table_05_65FF:: ; 05:65FF
 	dw SoundSfx39_Track0 ; track stream pointers (read by the driver)
 
-; ---- data $6601-$6612 (17 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown
+; ---- data $6601-$6612 (17 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSfx3A_Track0:: ; 05:6601
 Data_05_6601::
@@ -758,7 +758,7 @@ Data_05_6612::
 Table_05_6614:: ; 05:6614
 	dw SoundSfx3A_Track0 ; track stream pointers (read by the driver)
 
-; ---- data $6616-$662F (25 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+; ---- data $6616-$662F (25 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md
 
 SoundSfx3B_Track0:: ; 05:6616
 Data_05_6616::
@@ -790,7 +790,7 @@ Data_05_662F::
 Table_05_6631:: ; 05:6631
 	dw SoundSfx3B_Track0 ; track stream pointers (read by the driver)
 
-; ---- data $6633-$665B (40 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+; ---- data $6633-$665B (40 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md
 
 SoundSfx3C_Track0:: ; 05:6633
 Data_05_6633::
@@ -837,7 +837,7 @@ Data_05_665B::
 Table_05_665D:: ; 05:665D
 	dw SoundSfx3C_Track0, SoundSfx3C_Track1 ; track stream pointers (read by the driver)
 
-; ---- data $6661-$66BF (94 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+; ---- data $6661-$66BF (94 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSfx3D_Track0:: ; 05:6661
 Data_05_6661::
@@ -918,7 +918,7 @@ Data_05_66BF::
 Table_05_66C1:: ; 05:66C1
 	dw SoundSfx3D_Track0, SoundSfx3D_Track1 ; track stream pointers (read by the driver)
 
-; ---- data $66C5-$66F2 (45 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+; ---- data $66C5-$66F2 (45 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSfx3E_Track0:: ; 05:66C5
 Data_05_66C5::
@@ -970,7 +970,7 @@ Data_05_66F2::
 Table_05_66F4:: ; 05:66F4
 	dw SoundSfx3E_Track0, SoundSfx3E_Track1 ; track stream pointers (read by the driver)
 
-; ---- data $66F8-$6725 (45 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+; ---- data $66F8-$6725 (45 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSfx3F_Track0:: ; 05:66F8
 Data_05_66F8::
@@ -1022,7 +1022,7 @@ Data_05_6725::
 Table_05_6727:: ; 05:6727
 	dw SoundSfx3F_Track0, SoundSfx3F_Track1 ; track stream pointers (read by the driver)
 
-; ---- data $672B-$673C (17 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
+; ---- data $672B-$673C (17 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSfx40_Track0:: ; 05:672B
 Data_05_672B::
@@ -1049,7 +1049,7 @@ Data_05_673C::
 Table_05_673E:: ; 05:673E
 	dw SoundSfx40_Track0 ; track stream pointers (read by the driver)
 
-; ---- data $6740-$6751 (17 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
+; ---- data $6740-$6751 (17 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSfx41_Track0:: ; 05:6740
 Data_05_6740::
@@ -1076,7 +1076,7 @@ Data_05_6751::
 Table_05_6753:: ; 05:6753
 	dw SoundSfx41_Track0 ; track stream pointers (read by the driver)
 
-; ---- data $6755-$6789 (52 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+; ---- data $6755-$6789 (52 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSfx42_Track0:: ; 05:6755
 Data_05_6755::
@@ -1135,7 +1135,7 @@ Data_05_6789::
 Table_05_678B:: ; 05:678B
 	dw SoundSfx42_Track0 ; track stream pointers (read by the driver)
 
-; ---- data $678D-$67B5 (40 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+; ---- data $678D-$67B5 (40 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md
 
 SoundSfx43_Track0:: ; 05:678D
 Data_05_678D::
@@ -1182,7 +1182,7 @@ Data_05_67B5::
 Table_05_67B7:: ; 05:67B7
 	dw SoundSfx43_Track0, SoundSfx43_Track1 ; track stream pointers (read by the driver)
 
-; ---- data $67BB-$6822 (103 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+; ---- data $67BB-$6822 (103 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSfx44_Track0:: ; 05:67BB
 Data_05_67BB::
@@ -1274,7 +1274,7 @@ Data_05_6822::
 Table_05_6824:: ; 05:6824
 	dw SoundSfx44_Track0, SoundSfx44_Track1 ; track stream pointers (read by the driver)
 
-; ---- data $6828-$689B (115 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
+; ---- data $6828-$689B (115 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSfx45_Track0:: ; 05:6828
 Data_05_6828::
@@ -1378,7 +1378,7 @@ Data_05_689B::
 Table_05_689D:: ; 05:689D
 	dw SoundSfx45_Track0, SoundSfx45_Track1 ; track stream pointers (read by the driver)
 
-; ---- data $68A1-$68BF (30 bytes) [PROBABLE] read as data by executed code (in up to 17/18 scenarios); content class unknown | block boundary $68BE removed (it cut a command in two; its label Data_05_68BE was not referenced); the second part was: data $68BE-$68BF (1 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md (status of the merged block lowered to the weaker of the two parts)
+; ---- data $68A1-$68BF (30 bytes) [PROBABLE] read as data by executed code (in up to 17/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md) | block boundary $68BE removed (it cut a command in two; its label Data_05_68BE was not referenced); the second part was: data $68BE-$68BF (1 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md (status of the merged block lowered to the weaker of the two parts)
 
 SoundSfx46_Track0:: ; 05:68A1
 Data_05_68A1::
@@ -1405,7 +1405,7 @@ SoundSfx46_Header:: ; 05:68BD
 Data_05_68BD::
 	sound_stream_header 2, 0
 
-; ---- data $68BF-$68C3 (4 bytes) [CONFIRMED] read as data by executed code (in up to 17/18 scenarios); content class unknown [v4: this is the 46th channel-pointer table (header b1 02 00 at 68BC, referenced by the song-table entry 04:5740 -> 68BD): 2 words A1 68 B0 68 = track starts 68A1 and 68B0 (both bf 7f bd); kept as data because it is CONFIRMED-read and has no following track]
+; ---- data $68BF-$68C3 (4 bytes) [CONFIRMED] read as data by executed code (in up to 17/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md) [v4: this is the 46th channel-pointer table (header b1 02 00 at 68BC, referenced by the song-table entry 04:5740 -> 68BD): 2 words A1 68 B0 68 = track starts 68A1 and 68B0 (both bf 7f bd); kept as data because it is CONFIRMED-read and has no following track]
 
 Data_05_68BF:: ; 05:68BF
 	dw SoundSfx46_Track0, SoundSfx46_Track1 ; track stream pointers (read by the driver)

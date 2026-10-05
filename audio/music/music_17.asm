@@ -4,7 +4,7 @@
 
 SECTION "audio/music/music_17", ROMX
 
-; ---- data $54E3-$5617 (308 bytes) [CONFIRMED] read as data by executed code (in up to 12/18 scenarios); content class unknown
+; ---- data $54E3-$5617 (308 bytes) [CONFIRMED] read as data by executed code (in up to 12/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSong17_Track0:: ; 05:54E3
 Data_05_54E3::
@@ -225,12 +225,12 @@ Data_05_554E:: ; 05:554E
 	sound_wait 6
 	sound_jump Data_05_54E7
 
-; ---- data $5617-$5618 (1 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+; ---- data $5617-$5618 (1 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md
 
 Data_05_5617:: ; 05:5617
 	sound_end
 
-; ---- data $5618-$585A (578 bytes) [CONFIRMED] read as data by executed code (in up to 12/18 scenarios); content class unknown
+; ---- data $5618-$585A (578 bytes) [CONFIRMED] read as data by executed code (in up to 12/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSong17_Track1:: ; 05:5618
 Data_05_5618::
@@ -601,12 +601,12 @@ Data_05_57AC:: ; 05:57AC
 	sound_wait 96
 	sound_jump Data_05_561C
 
-; ---- data $585A-$585B (1 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+; ---- data $585A-$585B (1 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md
 
 Data_05_585A:: ; 05:585A
 	sound_end
 
-; ---- data $585B-$5997 (316 bytes) [CONFIRMED] read as data by executed code (in up to 12/18 scenarios); content class unknown
+; ---- data $585B-$5997 (316 bytes) [CONFIRMED] read as data by executed code (in up to 12/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSong17_Track2:: ; 05:585B
 Data_05_585B::
@@ -817,12 +817,12 @@ Data_05_591A:: ; 05:591A
 	sound_wait 6
 	sound_jump Data_05_585F
 
-; ---- data $5997-$5998 (1 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+; ---- data $5997-$5998 (1 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md
 
 Data_05_5997:: ; 05:5997
 	sound_end
 
-; ---- data $5998-$5ADB (323 bytes) [CONFIRMED] read as data by executed code (in up to 12/18 scenarios); content class unknown
+; ---- data $5998-$5ADB (323 bytes) [CONFIRMED] read as data by executed code (in up to 12/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSong17_Track3:: ; 05:5998
 Data_05_5998::
@@ -997,7 +997,7 @@ Data_05_5A28:: ; 05:5A28
 	sound_wait 23
 	sound_jump Data_05_599C
 
-; ---- data $5ADB-$5ADC (1 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+; ---- data $5ADB-$5ADC (1 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md
 
 Data_05_5ADB:: ; 05:5ADB
 	sound_end

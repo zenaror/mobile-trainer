@@ -4,7 +4,7 @@
 
 SECTION "audio/music/music_15", ROMX
 
-; ---- data $50BC-$516A (174 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+; ---- data $50BC-$516A (174 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSong15_Track0:: ; 05:50BC
 Data_05_50BC::

@@ -4,7 +4,7 @@
 
 SECTION "audio/music/music_0f", ROMX
 
-; ---- data $4232-$42E7 (181 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+; ---- data $4232-$42E7 (181 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSong0F_Track0:: ; 05:4232
 Data_05_4232::
@@ -133,12 +133,12 @@ Data_05_4236:: ; 05:4236
 	sound_wait 96
 	sound_jump Data_05_4236
 
-; ---- data $42E7-$42E8 (1 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+; ---- data $42E7-$42E8 (1 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md
 
 Data_05_42E7:: ; 05:42E7
 	sound_end
 
-; ---- data $42E8-$43AE (198 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+; ---- data $42E8-$43AE (198 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSong0F_Track1:: ; 05:42E8
 Data_05_42E8::
@@ -261,12 +261,12 @@ Data_05_42EC:: ; 05:42EC
 	sound_wait 24
 	sound_jump Data_05_42EC
 
-; ---- data $43AE-$43AF (1 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+; ---- data $43AE-$43AF (1 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md
 
 Data_05_43AE:: ; 05:43AE
 	sound_end
 
-; ---- data $43AF-$44BF (272 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+; ---- data $43AF-$44BF (272 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSong0F_Track2:: ; 05:43AF
 Data_05_43AF::
@@ -427,12 +427,12 @@ Data_05_43B3:: ; 05:43B3
 	sound_wait 12
 	sound_jump Data_05_43B3
 
-; ---- data $44BF-$44C0 (1 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+; ---- data $44BF-$44C0 (1 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md
 
 Data_05_44BF:: ; 05:44BF
 	sound_end
 
-; ---- data $44C0-$4535 (117 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+; ---- data $44C0-$4535 (117 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSong0F_Track3:: ; 05:44C0
 Data_05_44C0::
@@ -499,7 +499,7 @@ Data_05_44F3:: ; 05:44F3
 	sound_call Data_05_44C4
 	sound_jump Data_05_44C4
 
-; ---- data $4535-$4540 (11 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+; ---- data $4535-$4540 (11 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md
 
 Data_05_4535:: ; 05:4535
 	sound_instrument SOUND_INSTRUMENT_PER_NOTE
