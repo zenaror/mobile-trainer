@@ -196,10 +196,10 @@ Pop3_TopPoll:: ; 54:4969
 	ldh [rSVBK], a
 	call Mail_ScanAndCheckGameMail
 	or a, a
-	jr z, Label_54_4A12
+	jr z, Pop3_TopPoll_ScanCheckPassed
 	ld a, [wMobileTaskArgs]
 	cp a, $01
-	jp nz, Label_54_4BE8
+	jp nz, Pop3_TopPoll_ExitB1
 
 	; [PROBABLE] 14 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4914-49E0 by apply_coverage --split
@@ -216,7 +216,7 @@ Pop3_TopPoll:: ; 54:4969
 	ld hl, $49F0
 	ld de, $D4C0
 	farcall CopyString
-	jp Label_54_4BE8
+	jp Pop3_TopPoll_ExitB1
 
 ; ---- text $49E0-$4A12 (50 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
@@ -229,7 +229,8 @@ String_Mail_PleaseDelete:: ; 54:4A01
 	db "けしてください。", 0
 POPC
 
-Label_54_4A12:: ; 54:4A12
+Pop3_TopPoll_ScanCheckPassed:: ; 54:4A12
+Label_54_4A12::
 	; [CONFIRMED] 78 insn(s) reached by static flow only; seeds: exec x78; min discovery hops 12;
 	; entered by jrcc from 54:49A6 (PROBABLE code) | 74 insn(s) executed; cut out of the PROBABLE
 	; region 4A12-4AD0 by apply_coverage --split [executed in 5 scenarios]
@@ -238,9 +239,9 @@ Label_54_4A12:: ; 54:4A12
 	jp z, .l4A24
 	ld a, b
 	or a, a
-	jp z, Label_54_4BEC
+	jp z, Pop3_TopPoll_CheckGameCode
 	ld b, $00
-	jp Label_54_4BC6
+	jp Pop3_TopPoll_Exit
 .l4A24 ; 54:4A24
 	ld a, b
 	ld [sPop3TopSummary + $FF], a
@@ -291,7 +292,7 @@ Label_54_4A12:: ; 54:4A12
 	ld de, $C240
 	farcall Mail_DispatchFar
 	or a, a
-	jr nz, Label_54_4AE6
+	jr nz, Pop3_TopPoll_UseDefaultSource
 	ld c, l
 	ld b, h
 	ld hl, $C480
@@ -307,7 +308,7 @@ Label_54_4A12:: ; 54:4A12
 	ld a, [de]
 	inc de
 	or a, a
-	jr z, Label_54_4AE6
+	jr z, Pop3_TopPoll_UseDefaultSource
 	cp a, [hl]
 	inc hl
 	jr z, .l4AB9
@@ -317,7 +318,7 @@ Label_54_4A12:: ; 54:4A12
 	ld de, sPop3TopSourceLabel
 	ld hl, $C480
 	farcall CopyString
-	jr Label_54_4AF2
+	jr Pop3_TopPoll_ReadDate
 
 ; ---- text $4AD0-$4AD7 (7 bytes) [PROBABLE] NUL-terminated Shift-JIS string "メール" (mail); passed in HL to CopyString 00:14BF (FarCall bf 14 00) at 54:4AE9
 
@@ -335,7 +336,8 @@ String_54_4AD7::
 	db "MOBILE TRAINER", 0
 POPC
 
-Label_54_4AE6:: ; 54:4AE6
+Pop3_TopPoll_UseDefaultSource:: ; 54:4AE6
+Label_54_4AE6::
 	; [CONFIRMED] 133 insn(s) reached by static flow only; seeds: exec x133; min discovery hops 12;
 	; entered by jrcc from 54:4AA1 (PROBABLE code) | 76 insn(s) executed; cut out of the PROBABLE
 	; region 4AE6-4C2A by apply_coverage --split [executed in 2 scenarios]
@@ -343,7 +345,8 @@ Label_54_4AE6:: ; 54:4AE6
 	ld hl, String_Mail_DefaultSource
 	farcall CopyString
 
-Label_54_4AF2:: ; 54:4AF2
+Pop3_TopPoll_ReadDate:: ; 54:4AF2
+Label_54_4AF2::
 	ld a, $06
 	ld [wRam_C240], a
 	ld a, $05
@@ -444,10 +447,11 @@ Label_54_4AF2:: ; 54:4AF2
 	; --split [executed in 7 scenarios]
 	ld a, [sPop3TopSummary + $FF]
 	or a, a
-	jr z, Label_54_4BEC
+	jr z, Pop3_TopPoll_CheckGameCode
 	ld b, $00
 
-Label_54_4BC6:: ; 54:4BC6
+Pop3_TopPoll_Exit:: ; 54:4BC6
+Label_54_4BC6::
 	ld hl, $C1D8
 	xor a, a
 	ld [hl], a
@@ -467,11 +471,13 @@ Label_54_4BC6:: ; 54:4BC6
 	ld [hl], a
 	ret
 
-Label_54_4BE8:: ; 54:4BE8
+Pop3_TopPoll_ExitB1:: ; 54:4BE8
+Label_54_4BE8::
 	ld b, $01
-	jr Label_54_4BC6
+	jr Pop3_TopPoll_Exit
 
-Label_54_4BEC:: ; 54:4BEC
+Pop3_TopPoll_CheckGameCode:: ; 54:4BEC
+Label_54_4BEC::
 	ld de, $C240
 	ld hl, Data_54_4C3D
 	ld bc, $0007
@@ -485,14 +491,14 @@ Label_54_4BEC:: ; 54:4BEC
 	ld de, $C240
 	farcall Mail_DispatchFar
 	or a, a
-	jp nz, Label_54_4BE8
+	jp nz, Pop3_TopPoll_ExitB1
 	ld b, $0B
 	ld hl, $C480
 	ld de, String_Mail_GameCodeCrystal
 .loop ; 54:4C1D
 	ld a, [de]
 	cp a, [hl]
-	jr nz, Label_54_4BE8
+	jr nz, Pop3_TopPoll_ExitB1
 	inc hl
 	inc de
 	dec b
@@ -501,7 +507,7 @@ Label_54_4BEC:: ; 54:4BEC
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4AE6-4C2A by apply_coverage --split
 	ld b, $02
-	jr Label_54_4BC6
+	jr Pop3_TopPoll_Exit
 
 ; ---- text $4C2A-$4C35 (11 bytes) [PROBABLE] 11 ASCII bytes "CGB-BXTJ-00" (no terminator; the game ID string): compared byte by byte with [$C480..] for b=$0B by 54:4C1A (ld de,$4C2A)
 

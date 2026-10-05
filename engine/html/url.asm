@@ -82,7 +82,7 @@ HtmlUrl_Resolve:: ; 74:5981
 	ld bc, $0100
 	call CopyBytes
 	ld hl, $C380
-	jp Label_74_5A5A
+	jp HtmlUrl_Resolve_EnsureHostSlash
 
 .l59B0 ; 74:59B0
 	; [CONFIRMED] 24 insn(s); 24 executed (in up to 2/18 scenarios)
@@ -96,7 +96,7 @@ HtmlUrl_Resolve:: ; 74:5981
 .l59B6 ; 74:59B6
 	ld a, [hli]
 	or a, a
-	jr z, Label_74_59E0
+	jr z, HtmlUrl_Resolve_BaseNoScheme
 	cp a, $3A
 	jr nz, .l59B6
 	push de
@@ -111,11 +111,11 @@ HtmlUrl_Resolve:: ; 74:5981
 	ld bc, $0100
 	ld de, $C380
 	or a, a
-	jr nz, Label_74_59F1
+	jr nz, HtmlUrl_Resolve_JoinToBase
 
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
 	; fall-through of the jrcc at 74:59D4 (executed)
-	jr Label_74_59E7
+	jr HtmlUrl_Resolve_CopyHttpPrefix
 
 ; ---- text $59D8-$59E0 (8 bytes) [PROBABLE] 'http://' NUL: copied byte-by-byte to $C380 until NUL by the loop at 74:59E7 (ld hl,$59D8 ; ld a,[hli] ; ld [de],a ; inc de ; dec bc ; or a ; jr nz)
 
@@ -125,14 +125,16 @@ String_74_59D8::
 	db "http://", 0
 POPC
 
-Label_74_59E0:: ; 74:59E0
+HtmlUrl_Resolve_BaseNoScheme:: ; 74:59E0
+Label_74_59E0::
 	; [PROBABLE] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 1;
 	; entered by jrcc from 74:59B8 (executed)
 	push de
 	ld bc, $0100
 	ld de, $C380
 
-Label_74_59E7:: ; 74:59E7
+HtmlUrl_Resolve_CopyHttpPrefix:: ; 74:59E7
+Label_74_59E7::
 	ld hl, HtmlUrl_HttpPrefix
 .loop ; 74:59EA
 	ld a, [hli]
@@ -142,7 +144,8 @@ Label_74_59E7:: ; 74:59E7
 	or a, a
 	jr nz, .loop
 
-Label_74_59F1:: ; 74:59F1
+HtmlUrl_Resolve_JoinToBase:: ; 74:59F1
+Label_74_59F1::
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 2/18 scenarios)
 	pop hl
 	call CopyBytes
@@ -186,7 +189,7 @@ Label_74_59F1:: ; 74:59F1
 	or a, a
 	jr nz, .l5A20
 	ld hl, $C380
-	jp Label_74_5A5A
+	jp HtmlUrl_Resolve_EnsureHostSlash
 
 .l5A2C ; 74:5A2C
 	; [PROBABLE] 29 insn(s) reached by static flow only; seeds: exec x29; min discovery hops 2;
@@ -226,13 +229,14 @@ Label_74_59F1:: ; 74:59F1
 	dec hl
 	jr .l5A20
 
-Label_74_5A5A:: ; 74:5A5A
+HtmlUrl_Resolve_EnsureHostSlash:: ; 74:5A5A
+Label_74_5A5A::
 	; [CONFIRMED] 14 insn(s); 14 executed (in up to 2/18 scenarios)
 	ld a, [hli]
 	or a, a
 	ret z
 	cp a, $2F
-	jr nz, Label_74_5A5A
+	jr nz, HtmlUrl_Resolve_EnsureHostSlash
 	ld a, [hli]
 	cp a, $2F
 	jr nz, .l5A66

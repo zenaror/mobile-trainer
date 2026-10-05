@@ -137,7 +137,9 @@ Each point was re-derived by the reader of the package (details and addresses in
   range stops before `Html_Layout_GetLimitsAtY`, the only user of the pair as scratch.
 * **Possible endless retry (HYPOTHESIS, open).**  `Html_Layout_ClearAllFloats` (`74:5252`) compares `FFC4` with `hViewX`, but `GetLimitsAtY` sets `FFC4 = hViewX + hHtmlLineIndent`; the retry at `74:5293`
   ran 292,374 times in one natural scenario (`monkey_camp_rich`, 96% of the 303,337 `GetLimitsAtY` calls counted in the alias rows) against 612 in the other 15.  It looks like a loop that does not end when a page
-  finishes inside an unclosed list.  The counts in the layout rows are real but not representative.  Nothing was changed.
+  finishes inside an unclosed list.  The counts in the layout rows are real but not representative.  Nothing was changed.  Naming pass 5 ([`naming2_label5.md`](naming2_label5.md) section 5) found the same
+  flaw in the never-executed `Html_Tag_Br_ClearLeft` and `Html_Tag_Br_ClearAll` tests: `Html_Layout_PlaceLine` reloads `hHtmlLineIndent` from `hHtmlListIndent` after every line, so inside a list (indent `$0C`) clear=left and
+  clear=all would never end (CPU-only replay: 16,216 retries in 600,000 steps; with indent 0 one retry; clear=right is unaffected); the replays show the mechanism, not what the page of the long natural run contained.
 * **Original program quirk (inference).**  The setup sequences of the text box store `FFC0 = hTextY - 3` and `FFC1 = hTextX`.  In the phone slot menu the first and third field do (`$48` for `hTextY = $4B`,
   `$68` for `$6B`); the second field (`hTextY = $5B`, `hTextX = $38`) stores `$38` to `FFC0` and `$58` to `FFC1` (`67:5017-501D`, `3E 38 E0 C0 3E 58 E0 C1`) where `$58` and `$38` would be expected, the two
   values swapped.  A field of at most 16 characters starting at x = `$38` cannot reach the right limit `$98`, so the swap is probably invisible (inference, not proof).

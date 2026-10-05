@@ -349,15 +349,15 @@ ConnectDialog_Input_Keyboard:: ; 57:426B
 	cp a, $01
 	jr z, ConnectDialog_Keyboard_AppendChar
 	cp a, $0A
-	jp z, Label_57_4325
+	jp z, ConnectDialog_Keyboard_ToSaveConfirmIfValid
 	cp a, $07
-	jp z, Label_57_4333
+	jp z, ConnectDialog_Keyboard_ToAccept
 	cp a, $09
-	jp z, Label_57_4339
+	jp z, ConnectDialog_Keyboard_ToPasswordPrompt
 	cp a, $02
 	jp z, ConnectDialog_Keyboard_EraseChar
 	cp a, $08
-	jp z, Label_57_4339
+	jp z, ConnectDialog_Keyboard_ToPasswordPrompt
 
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4237-4443 by apply_coverage --split
@@ -434,12 +434,14 @@ ConnectDialog_Keyboard_AppendChar:: ; 57:4299
 	xor a, a
 	ret
 
-Label_57_431F:: ; 57:431F
+ConnectDialog_Keyboard_EraseChar_ToPasswordPrompt:: ; 57:431F
+Label_57_431F::
 	ld a, $05
 	ld [wConnectDialog_NextMode], a
 	ret
 
-Label_57_4325:: ; 57:4325
+ConnectDialog_Keyboard_ToSaveConfirmIfValid:: ; 57:4325
+Label_57_4325::
 	call ConnectDialog_ValidatePassword
 	xor a, a
 	or a, b
@@ -449,12 +451,14 @@ Label_57_4325:: ; 57:4325
 	ld [wConnectDialog_NextMode], a
 	ret
 
-Label_57_4333:: ; 57:4333
+ConnectDialog_Keyboard_ToAccept:: ; 57:4333
+Label_57_4333::
 	ld a, $10
 	ld [wConnectDialog_NextMode], a
 	ret
 
-Label_57_4339:: ; 57:4339
+ConnectDialog_Keyboard_ToPasswordPrompt:: ; 57:4339
+Label_57_4339::
 	ld a, $05
 	ld [wConnectDialog_NextMode], a
 	ret
@@ -511,7 +515,7 @@ ConnectDialog_Keyboard_EraseChar:: ; 57:433F
 	call Sprite_SetHook
 	call ConnectDialog_PlaceCaretSprites
 	farcall Kbd_Hide
-	jp Label_57_431F
+	jp ConnectDialog_Keyboard_EraseChar_ToPasswordPrompt
 
 ConnectDialog_Input_SaveConfirm:: ; 57:43BC
 	bit 5, b
@@ -697,7 +701,7 @@ Function_57_44E4::
 	jp c, .l4513
 	jp z, ConnectDialog_Enter_Keyboard
 	cp a, $08
-	jp c, Label_57_4566
+	jp c, ConnectDialog_Enter_SaveConfirm
 	jp z, ConnectDialog_Enter_PasswordSaved
 	cp a, $0A
 	jp c, ConnectDialog_Enter_StoredPassword
@@ -705,7 +709,7 @@ Function_57_44E4::
 	; [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0;
 	; fall-through of the jpcc at 57:4508 (executed) | 1 insn(s) executed; cut out of the PROBABLE
 	; region 450B-4511 by apply_coverage --split [executed in 6 scenarios]
-	jp z, Label_57_45BC
+	jp z, ConnectDialog_Enter_ForgetConfirm
 
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 450B-4511 by apply_coverage --split
@@ -762,7 +766,8 @@ ConnectDialog_Enter_Keyboard:: ; 57:4517
 	farcall Kbd_Open
 	ret
 
-Label_57_4566:: ; 57:4566
+ConnectDialog_Enter_SaveConfirm:: ; 57:4566
+Label_57_4566::
 	ld hl, $DA40
 	ld de, ConnectDialog_ObjTable
 	ld a, $56
@@ -807,7 +812,8 @@ ConnectDialog_Enter_StoredPassword:: ; 57:459A
 	call ConnectDialog_DrawPasswordField
 	ret
 
-Label_57_45BC:: ; 57:45BC
+ConnectDialog_Enter_ForgetConfirm:: ; 57:45BC
+Label_57_45BC::
 	; [CONFIRMED] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 1;
 	; entered by jpcc from 57:450B (PROBABLE code) [executed in 4 scenarios]
 	ld hl, $DA40
@@ -848,10 +854,10 @@ Function_57_45E6::
 	jp c, .l46B4
 	jp z, ConnectDialog_Leave_Keyboard
 	cp a, $08
-	jp c, Label_57_4738
+	jp c, ConnectDialog_Leave_SaveConfirm
 	jp z, ConnectDialog_Leave_PasswordSaved
 	cp a, $0A
-	jp c, Label_57_4771
+	jp c, ConnectDialog_Leave_StoredPassword
 
 	; [CONFIRMED] 28 insn(s) reached by static flow only; seeds: exec x28; min discovery hops 0;
 	; fall-through of the jpcc at 57:4615 (executed) | 1 insn(s) executed; cut out of the PROBABLE
@@ -989,7 +995,8 @@ ConnectDialog_Leave_Keyboard:: ; 57:46E0
 	farcall Palette_FadeOutToWhite
 	ret
 
-Label_57_4738:: ; 57:4738
+ConnectDialog_Leave_SaveConfirm:: ; 57:4738
+Label_57_4738::
 	ld de, $00B4
 	ld hl, $DA40
 	call Sprite_SetPosition
@@ -1015,7 +1022,8 @@ ConnectDialog_Leave_PasswordSaved:: ; 57:474F
 	farcall WriteByteFar
 	ret
 
-Label_57_4771:: ; 57:4771
+ConnectDialog_Leave_StoredPassword:: ; 57:4771
+Label_57_4771::
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 5/18 scenarios)
 	ld a, [wConnectDialog_Mode]
 	cp a, $0A

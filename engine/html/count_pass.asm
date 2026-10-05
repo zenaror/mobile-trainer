@@ -107,15 +107,16 @@ Html_CountListItems:: ; 74:4FF2
 	ldh [hHtmlCount_ListItems], a
 	ldh [hHtmlCount_ListDepth], a
 
-Label_74_4FFA:: ; 74:4FFA
+Html_CountListItems_Loop:: ; 74:4FFA
+Label_74_4FFA::
 	call Sound_FrameService
 	ld a, [hli]
 	or a, a
-	jp z, Label_74_508D
+	jp z, Html_CountListItems_Done
 	cp a, $21
 	jr c, .l502F
 	cp a, $3C
-	jp z, Label_74_5091
+	jp z, Html_CountListItems_Tag
 	cp a, $26
 	jr z, .l5067
 	ldh [hHtml_LastChar], a
@@ -140,9 +141,9 @@ Label_74_4FFA:: ; 74:4FFA
 	; --split [executed in 5 scenarios]
 	or a, a
 .l502A ; 74:502A
-	jr nc, Label_74_4FFA
+	jr nc, Html_CountListItems_Loop
 	ld a, [hli]
-	jr Label_74_4FFA
+	jr Html_CountListItems_Loop
 .l502F ; 74:502F
 	ld c, a
 	ld a, [wHtmlFlags]
@@ -166,16 +167,16 @@ Label_74_4FFA:: ; 74:4FFA
 	; --split [executed in 5 scenarios]
 	ld a, [hli]
 	or a, a
-	jr z, Label_74_508D
+	jr z, Html_CountListItems_Done
 	cp a, $21
 	jr c, .l504A
 	dec hl
 	ldh a, [hHtml_LastChar]
 	cp a, $20
-	jr z, Label_74_4FFA
+	jr z, Html_CountListItems_Loop
 	ld c, $20
 .l505B ; 74:505B
-	jp Label_74_4FFA
+	jp Html_CountListItems_Loop
 
 .l505E ; 74:505E
 	; [PROBABLE] 26 insn(s) never executed in the traced runs; cut out of the PROBABLE region
@@ -185,7 +186,7 @@ Label_74_4FFA:: ; 74:4FFA
 	jr nz, .l5064
 	inc hl
 .l5064 ; 74:5064
-	jp Label_74_4FFA
+	jp Html_CountListItems_Loop
 .l5067 ; 74:5067
 	ld a, l
 	ldh [hHtml_MatchRestart], a
@@ -200,17 +201,18 @@ Label_74_4FFA:: ; 74:4FFA
 	ldh [hHtml_LastChar], a
 	ld a, [hli]
 	cp a, $3B
-	jp z, Label_74_4FFA
+	jp z, Html_CountListItems_Loop
 	dec hl
-	jp Label_74_4FFA
+	jp Html_CountListItems_Loop
 .l5084 ; 74:5084
 	ldh a, [hHtml_MatchRestart]
 	ld l, a
 	ldh a, [hHtml_MatchRestartHi]
 	ld h, a
-	jp Label_74_4FFA
+	jp Html_CountListItems_Loop
 
-Label_74_508D:: ; 74:508D
+Html_CountListItems_Done:: ; 74:508D
+Label_74_508D::
 	; [CONFIRMED] 41 insn(s) executed; cut out of the PROBABLE region 4FF2-511A by apply_coverage
 	; --split [executed in 4 scenarios]
 	pop hl
@@ -218,7 +220,8 @@ Label_74_508D:: ; 74:508D
 	pop bc
 	ret
 
-Label_74_5091:: ; 74:5091
+Html_CountListItems_Tag:: ; 74:5091
+Label_74_5091::
 	ld a, [hl]
 	ldh [hHtml_TagFirstChar], a
 	cp a, $2F
@@ -233,35 +236,38 @@ Label_74_5091:: ; 74:5091
 	ld c, a
 	ldh a, [hHtml_TitleStartHi]
 	or a, c
-	jp nz, Label_74_514E
+	jp nz, Html_CountListItems_InTitle
 	ld bc, Html_TagPtrs
 	push de
 	call Html_MatchKeyword
 	pop de
 	or a, a
-	jr nz, Label_74_50FB
+	jr nz, Html_CountListItems_Dispatch
 
-Label_74_50B3:: ; 74:50B3
+Html_CountListItems_Tag_Ignore:: ; 74:50B3
+Label_74_50B3::
 	ldh a, [hHtml_MatchRestart]
 	ld l, a
 	ldh a, [hHtml_MatchRestartHi]
 	ld h, a
 
-Label_74_50B9:: ; 74:50B9
+Html_CountListItems_Tag_Done:: ; 74:50B9
+Label_74_50B9::
 	ldh a, [hHtml_SourceBank]
 	call BankSwitch_H
 	ldh a, [hTextX]
 	call BankSwitch_D
 
-Label_74_50C3:: ; 74:50C3
+Html_CountListItems_Tag_SkipToEnd:: ; 74:50C3
+Label_74_50C3::
 	ld a, $20
 	ldh [hHtml_LastChar], a
 .loop ; 74:50C7
 	ld a, [hli]
 	or a, a
-	jp z, Label_74_508D
+	jp z, Html_CountListItems_Done
 	cp a, $3E
-	jp z, Label_74_4FFA
+	jp z, Html_CountListItems_Loop
 	cp a, $81
 	jr c, .l50E9
 
@@ -298,7 +304,8 @@ Label_74_50C3:: ; 74:50C3
 	call Html_ScanAttributes
 	jp .loop
 
-Label_74_50FB:: ; 74:50FB
+Html_CountListItems_Dispatch:: ; 74:50FB
+Label_74_50FB::
 	cp a, $0F
 	jr z, .l510A
 	ld b, a
@@ -306,7 +313,7 @@ Label_74_50FB:: ; 74:50FB
 	cp a, $3E
 	jr z, .l5109
 	cp a, $21
-	jr nc, Label_74_50C3
+	jr nc, Html_CountListItems_Tag_SkipToEnd
 .l5109 ; 74:5109
 	ld a, b
 .l510A ; 74:510A
@@ -328,38 +335,40 @@ Label_74_50FB:: ; 74:50FB
 
 Html_CountPassTagTable:: ; 74:511A
 Table_74_511A::
-	dw Label_74_50B3
-	dw Label_74_50B3
-	dw Label_74_513E
-	dw Label_74_50B3
-	dw Label_74_50B3
-	dw Label_74_50B3
-	dw Label_74_50B3
-	dw Label_74_50B3
-	dw Label_74_50B3
-	dw Label_74_50B3
-	dw Label_74_50B3
-	dw Label_74_50B3
-	dw Label_74_51FE
-	dw Label_74_521B
-	dw Label_74_5238
-	dw Label_74_519A
-	dw Label_74_50B3
-	dw Label_74_51E4
+	dw Html_CountListItems_Tag_Ignore
+	dw Html_CountListItems_Tag_Ignore
+	dw Html_CountListItems_Title
+	dw Html_CountListItems_Tag_Ignore
+	dw Html_CountListItems_Tag_Ignore
+	dw Html_CountListItems_Tag_Ignore
+	dw Html_CountListItems_Tag_Ignore
+	dw Html_CountListItems_Tag_Ignore
+	dw Html_CountListItems_Tag_Ignore
+	dw Html_CountListItems_Tag_Ignore
+	dw Html_CountListItems_Tag_Ignore
+	dw Html_CountListItems_Tag_Ignore
+	dw Html_CountListItems_Ul
+	dw Html_CountListItems_Ol
+	dw Html_CountListItems_Li
+	dw Html_CountListItems_Comment
+	dw Html_CountListItems_Tag_Ignore
+	dw Html_CountListItems_Pre
 
-Label_74_513E:: ; 74:513E
+Html_CountListItems_Title:: ; 74:513E
+Label_74_513E::
 	; [PROBABLE] 86 insn(s) reached by static flow only; seeds: site x39, table x47; min discovery
 	; hops 0; run starts at an entry of the code-pointer table at 74:511A
 	ldh a, [hHtml_TagFirstChar]
 	cp a, $2F
-	jp z, Label_74_50B3
+	jp z, Html_CountListItems_Tag_Ignore
 	ld a, e
 	ldh [hHtml_TitleStart], a
 	ld a, d
 	ldh [hHtml_TitleStartHi], a
-	jp Label_74_50B3
+	jp Html_CountListItems_Tag_Ignore
 
-Label_74_514E:: ; 74:514E
+Html_CountListItems_InTitle:: ; 74:514E
+Label_74_514E::
 	ld bc, Html_TitleTagPtrs
 	push de
 	call Html_MatchKeyword
@@ -372,7 +381,7 @@ Label_74_514E:: ; 74:514E
 	xor a, a
 	ldh [hHtml_TitleStart], a
 	ldh [hHtml_TitleStartHi], a
-	jp Label_74_50B3
+	jp Html_CountListItems_Tag_Ignore
 .l5167 ; 74:5167
 	ldh a, [hHtml_MatchRestart]
 	ld l, a
@@ -382,9 +391,9 @@ Label_74_514E:: ; 74:514E
 	call Sound_FrameService
 	ld a, [hli]
 	or a, a
-	jp z, Label_74_508D
+	jp z, Html_CountListItems_Done
 	cp a, $3E
-	jp z, Label_74_4FFA
+	jp z, Html_CountListItems_Loop
 	cp a, $81
 	jr c, .l5192
 	cp a, $A0
@@ -404,11 +413,12 @@ Label_74_514E:: ; 74:514E
 	ld a, [hli]
 	jp .loop
 
-Label_74_519A:: ; 74:519A
+Html_CountListItems_Comment:: ; 74:519A
+Label_74_519A::
 	ld a, [hli]
 .l519B ; 74:519B
 	or a, a
-	jp z, Label_74_508D
+	jp z, Html_CountListItems_Done
 	cp a, $2D
 	jr z, .l51C5
 	cp a, $3E
@@ -428,9 +438,9 @@ Label_74_519A:: ; 74:519A
 .l51BF ; 74:51BF
 	or a, a
 .l51C0 ; 74:51C0
-	jr nc, Label_74_519A
+	jr nc, Html_CountListItems_Comment
 	ld a, [hli]
-	jr Label_74_519A
+	jr Html_CountListItems_Comment
 .l51C5 ; 74:51C5
 	ld a, [hli]
 	cp a, $2D
@@ -439,19 +449,20 @@ Label_74_519A:: ; 74:519A
 	call Sound_FrameService
 	ld a, [hli]
 	or a, a
-	jp z, Label_74_508D
+	jp z, Html_CountListItems_Done
 	cp a, $2D
 	jr nz, .l51CA
 	ld a, [hli]
 	cp a, $2D
 	jr nz, .l51CA
-	jr Label_74_519A
+	jr Html_CountListItems_Comment
 .l51DD ; 74:51DD
 	ld a, $20
 	ldh [hHtml_LastChar], a
-	jp Label_74_4FFA
+	jp Html_CountListItems_Loop
 
-Label_74_51E4:: ; 74:51E4
+Html_CountListItems_Pre:: ; 74:51E4
+Label_74_51E4::
 	; [PROBABLE] table entry 18 (last word) of Table_74_511A ($51E4) validated jump-table target;
 	; decode chain cp $2F / jr z / ld a,[$C2C1] / or $08 ... jp $50B9 ends in unconditional jumps to
 	; known code and lands exactly on the next code region 51FE (also a table target)
@@ -460,14 +471,15 @@ Label_74_51E4:: ; 74:51E4
 	ld a, [wHtmlFlags]
 	or a, $08
 	ld [wHtmlFlags], a
-	jp Label_74_50B9
+	jp Html_CountListItems_Tag_Done
 .l51F3 ; 74:51F3
 	ld a, [wHtmlFlags]
 	and a, $F7
 	ld [wHtmlFlags], a
-	jp Label_74_50B9
+	jp Html_CountListItems_Tag_Done
 
-Label_74_51FE:: ; 74:51FE
+Html_CountListItems_Ul:: ; 74:51FE
+Label_74_51FE::
 	; [CONFIRMED] 40 insn(s) reached by static flow only; seeds: table x40; min discovery hops 0;
 	; run starts at an entry of the code-pointer table at 74:511A [executed in 1 scenarios]
 	ldh a, [hHtml_TagFirstChar]
@@ -475,44 +487,46 @@ Label_74_51FE:: ; 74:51FE
 	jr z, .l520F
 	ldh a, [hHtmlCount_ListDepth]
 	inc a
-	jp z, Label_74_50B9
+	jp z, Html_CountListItems_Tag_Done
 	ldh [hHtmlCount_ListDepth], a
-	jp Label_74_50B9
+	jp Html_CountListItems_Tag_Done
 .l520F ; 74:520F
 	ldh a, [hHtmlCount_ListDepth]
 	or a, a
-	jp z, Label_74_50B9
+	jp z, Html_CountListItems_Tag_Done
 	dec a
 	ldh [hHtmlCount_ListDepth], a
-	jp Label_74_50B9
+	jp Html_CountListItems_Tag_Done
 
-Label_74_521B:: ; 74:521B
+Html_CountListItems_Ol:: ; 74:521B
+Label_74_521B::
 	ldh a, [hHtml_TagFirstChar]
 	cp a, $2F
 	jr z, .l522C
 	ldh a, [hHtmlCount_ListDepth]
 	inc a
-	jp z, Label_74_50B9
+	jp z, Html_CountListItems_Tag_Done
 	ldh [hHtmlCount_ListDepth], a
-	jp Label_74_50B9
+	jp Html_CountListItems_Tag_Done
 .l522C ; 74:522C
 	ldh a, [hHtmlCount_ListDepth]
 	or a, a
-	jp z, Label_74_508D
+	jp z, Html_CountListItems_Done
 	dec a
 	ldh [hHtmlCount_ListDepth], a
-	jp Label_74_50B9
+	jp Html_CountListItems_Tag_Done
 
-Label_74_5238:: ; 74:5238
+Html_CountListItems_Li:: ; 74:5238
+Label_74_5238::
 	ldh a, [hHtml_TagFirstChar]
 	cp a, $2F
-	jp z, Label_74_50B9
+	jp z, Html_CountListItems_Tag_Done
 	ldh a, [hHtmlCount_ListDepth]
 	or a, a
-	jp nz, Label_74_50B9
+	jp nz, Html_CountListItems_Tag_Done
 	ldh a, [hHtmlCount_ListItems]
 	inc a
 	ldh [hHtmlCount_ListItems], a
 	cp a, $0A
-	jp c, Label_74_50B9
-	jp Label_74_508D
+	jp c, Html_CountListItems_Tag_Done
+	jp Html_CountListItems_Done

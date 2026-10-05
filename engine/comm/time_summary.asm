@@ -59,7 +59,7 @@ Function_51_404A::
 	call LCDOn
 	call CommTime_TimerAIsNonZero
 	or a, a
-	jp z, Label_51_41D3
+	jp z, CommTime_Summary_Exit
 	ld a, [wCommSessionKind]
 	cp a, $01
 	jr z, .l40BF
@@ -207,7 +207,8 @@ Function_51_404A::
 	xor a, a
 	ldh [hDialogResult], a
 
-Label_51_4199:: ; 51:4199
+CommTime_Summary_FrameLoop:: ; 51:4199
+Label_51_4199::
 	farcall Sprite_UpdateAll
 	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
@@ -218,33 +219,39 @@ Label_51_4199:: ; 51:4199
 
 CommTime_SummaryInputTable:: ; 51:41B1
 Table_51_41B1::
-	dw Label_51_41BB
-	dw Label_51_41BE
-	dw Label_51_41C1
-	dw Label_51_41C4
-	dw Label_51_4199
+	dw CommTime_SummaryInput_ButtonA
+	dw CommTime_SummaryInput_IgnoreB
+	dw CommTime_SummaryInput_IgnoreSelect
+	dw CommTime_SummaryInput_IgnoreStart
+	dw CommTime_Summary_FrameLoop
 
-Label_51_41BB:: ; 51:41BB
+CommTime_SummaryInput_ButtonA:: ; 51:41BB
+Label_51_41BB::
 	; [CONFIRMED] 1 insn(s); 1 executed (in up to 2/18 scenarios)
-	jp Label_51_41C7
+	jp CommTime_Summary_Close
 
-Label_51_41BE:: ; 51:41BE
+CommTime_SummaryInput_IgnoreB:: ; 51:41BE
+Label_51_41BE::
 	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1;
 	; entered by table from 51:41AE (executed) [executed in 2 scenarios]
-	jp Label_51_4199
+	jp CommTime_Summary_FrameLoop
 
-Label_51_41C1:: ; 51:41C1
-	jp Label_51_4199
+CommTime_SummaryInput_IgnoreSelect:: ; 51:41C1
+Label_51_41C1::
+	jp CommTime_Summary_FrameLoop
 
-Label_51_41C4:: ; 51:41C4
-	jp Label_51_4199
+CommTime_SummaryInput_IgnoreStart:: ; 51:41C4
+Label_51_41C4::
+	jp CommTime_Summary_FrameLoop
 
-Label_51_41C7:: ; 51:41C7
+CommTime_Summary_Close:: ; 51:41C7
+Label_51_41C7::
 	; [CONFIRMED] 14 insn(s); 14 executed (in up to 4/18 scenarios)
 	farcall Palette_FadeOutToWhite
 	farcall Sprite_ResetAll
 
-Label_51_41D3:: ; 51:41D3
+CommTime_Summary_Exit:: ; 51:41D3
+Label_51_41D3::
 	ldh [hRam_FFA7], a
 	ldh a, [hDialogResult]
 	ret

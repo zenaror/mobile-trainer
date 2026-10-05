@@ -174,7 +174,8 @@ Function_4E_4000::
 	call Sprite_ClearSlot
 	call VBlank_WaitAndService
 
-Label_4E_4154:: ; 4E:4154
+Browser_FrameStylePreview_InputLoop:: ; 4E:4154
+Label_4E_4154::
 	farcall Sprite_UpdateAll
 	farcall Browser_DrawCommTimer
 	call VBlank_WaitAndService
@@ -185,13 +186,14 @@ Label_4E_4154:: ; 4E:4154
 ; ---- ptrtable $4172-$417C (10 bytes) [PROBABLE] inline table of `call $056A` (JoypadDispatch) at 4E:416F: 5 entries; fixed length (5 words) by the routine
 
 Table_4E_4172:: ; 4E:4172
-	dw Label_4E_417C
-	dw Label_4E_41A1
-	dw Label_4E_41C2
-	dw Label_4E_41C5
-	dw Label_4E_4154
+	dw Browser_FrameStylePreview_OnA
+	dw Browser_FrameStylePreview_OnB
+	dw Browser_FrameStylePreview_IgnoreSelect
+	dw Browser_FrameStylePreview_IgnoreStart
+	dw Browser_FrameStylePreview_InputLoop
 
-Label_4E_417C:: ; 4E:417C
+Browser_FrameStylePreview_OnA:: ; 4E:417C
+Label_4E_417C::
 	; [PROBABLE] 39 insn(s) reached by static flow only; seeds: site x39; min discovery hops 0;
 	; entered by table from 4E:416F (PROBABLE code) | forced execution: 23/39 instruction starts ran
 	; in forced_screens (traces/forced/, not natural evidence; status unchanged)
@@ -210,9 +212,10 @@ Label_4E_417C:: ; 4E:417C
 	ld [rRAMG], a
 	ld a, $01
 	ldh [hDialogResult], a
-	jp Label_4E_41C8
+	jp Browser_FrameStylePreview_Exit
 
-Label_4E_41A1:: ; 4E:41A1
+Browser_FrameStylePreview_OnB:: ; 4E:41A1
+Label_4E_41A1::
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -226,15 +229,18 @@ Label_4E_41A1:: ; 4E:41A1
 	ld [rRAMG], a
 	ld a, $00
 	ldh [hDialogResult], a
-	jp Label_4E_41C8
+	jp Browser_FrameStylePreview_Exit
 
-Label_4E_41C2:: ; 4E:41C2
-	jp Label_4E_4154
+Browser_FrameStylePreview_IgnoreSelect:: ; 4E:41C2
+Label_4E_41C2::
+	jp Browser_FrameStylePreview_InputLoop
 
-Label_4E_41C5:: ; 4E:41C5
-	jp Label_4E_4154
+Browser_FrameStylePreview_IgnoreStart:: ; 4E:41C5
+Label_4E_41C5::
+	jp Browser_FrameStylePreview_InputLoop
 
-Label_4E_41C8:: ; 4E:41C8
+Browser_FrameStylePreview_Exit:: ; 4E:41C8
+Label_4E_41C8::
 	farcall SaveCheck_Update
 	farcall Palette_FadeOutToWhite
 	farcall Sprite_ResetAll

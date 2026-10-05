@@ -15,16 +15,18 @@ CommProgress_Init:: ; 4C:46B8
 
 CommProgress_Init_KindTable:: ; 4C:46C0
 Table_4C_46C0::
-	dw Label_4C_46C4
-	dw Label_4C_46CD
+	dw CommProgress_Init_Scene
+	dw CommProgress_Init_Panel
 
-Label_4C_46C4:: ; 4C:46C4
+CommProgress_Init_Scene:: ; 4C:46C4
+Label_4C_46C4::
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 2/18 scenarios)
 	ldh a, [hRam_FFB0]
 	farcall CommScene_Init
 	ret
 
-Label_4C_46CD:: ; 4C:46CD
+CommProgress_Init_Panel:: ; 4C:46CD
+Label_4C_46CD::
 	ldh a, [hRam_FFB0]
 	farcall CommPanel_Init
 	ret
@@ -38,16 +40,18 @@ CommProgress_Step:: ; 4C:46D6
 
 CommProgress_Step_KindTable:: ; 4C:46DE
 Table_4C_46DE::
-	dw Label_4C_46E2
-	dw Label_4C_46EB
+	dw CommProgress_Step_Scene
+	dw CommProgress_Step_Panel
 
-Label_4C_46E2:: ; 4C:46E2
+CommProgress_Step_Scene:: ; 4C:46E2
+Label_4C_46E2::
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
 	ldh a, [hRam_FFB0]
 	farcall CommScene_Step
 	ret
 
-Label_4C_46EB:: ; 4C:46EB
+CommProgress_Step_Panel:: ; 4C:46EB
+Label_4C_46EB::
 	ldh a, [hRam_FFB0]
 	farcall CommPanel_Step
 	ret

@@ -300,7 +300,8 @@ CommNotice_DrawScreenAndLoop:: ; 50:4254
 	pop af
 	ldh [rSVBK], a
 
-Label_50_429A:: ; 50:429A
+CommNotice_FrameLoop:: ; 50:429A
+Label_50_429A::
 	farcall Sprite_UpdateAll
 	call VBlank_WaitAndService
 	farcall Joypad_UpdateUnsaved
@@ -310,13 +311,14 @@ Label_50_429A:: ; 50:429A
 
 CommNotice_InputTable:: ; 50:42AC
 Table_50_42AC::
-	dw Label_50_42EB
-	dw Label_50_430A
-	dw Label_50_430A
-	dw Label_50_430A
-	dw Label_50_42B6
+	dw CommNotice_Input_ButtonA
+	dw CommNotice_Input_Ignore
+	dw CommNotice_Input_Ignore
+	dw CommNotice_Input_Ignore
+	dw CommNotice_Input_Idle
 
-Label_50_42B6:: ; 50:42B6
+CommNotice_Input_Idle:: ; 50:42B6
+Label_50_42B6::
 	; [CONFIRMED] 109 insn(s) reached by static flow only; seeds: exec x109; min discovery hops 4;
 	; entered by table from 50:42A9 (PROBABLE code) | 18 insn(s) executed; cut out of the PROBABLE
 	; region 42B6-438A by apply_coverage --split [executed in 4 scenarios]
@@ -327,7 +329,7 @@ Label_50_42B6:: ; 50:42B6
 	inc a
 	ld [wCommNoticeFrames], a
 	cp a, $3C
-	jp nz, Label_50_429A
+	jp nz, CommNotice_FrameLoop
 	xor a, a
 	ld [wCommNoticeFrames], a
 	ld a, [wCommNoticeSeconds]
@@ -342,17 +344,18 @@ Label_50_42B6:: ; 50:42B6
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 42B6-438A by apply_coverage --split
 	cp a, $0A
-	jr z, Label_50_42EB
-	jp Label_50_429A
+	jr z, CommNotice_Input_ButtonA
+	jp CommNotice_FrameLoop
 
 .l42E4 ; 50:42E4
 	; [CONFIRMED] 19 insn(s) executed; cut out of the PROBABLE region 42B6-438A by apply_coverage
 	; --split [executed in 2 scenarios]
 	cp a, $0A
-	jr z, Label_50_4301
-	jp Label_50_429A
+	jr z, CommNotice_Exit_Disconnect
+	jp CommNotice_FrameLoop
 
-Label_50_42EB:: ; 50:42EB
+CommNotice_Input_ButtonA:: ; 50:42EB
+Label_50_42EB::
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -363,21 +366,24 @@ Label_50_42EB:: ; 50:42EB
 	ldh [rSVBK], a
 	ld a, [wCommNotice_ModeArg]
 	or a, a
-	jr nz, Label_50_4304
+	jr nz, CommNotice_Exit_ByChoice
 
-Label_50_4301:: ; 50:4301
+CommNotice_Exit_Disconnect:: ; 50:4301
+Label_50_4301::
 	ld a, $00
 	ret
 
-Label_50_4304:: ; 50:4304
+CommNotice_Exit_ByChoice:: ; 50:4304
+Label_50_4304::
 	ld a, [wCommNotice_Cursor]
 	xor a, $01
 	ret
 
-Label_50_430A:: ; 50:430A
+CommNotice_Input_Ignore:: ; 50:430A
+Label_50_430A::
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 42B6-438A by apply_coverage --split
-	jr Label_50_429A
+	jr CommNotice_FrameLoop
 
 CommNotice_HandleLeftRight:: ; 50:430C
 	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 42B6-438A by apply_coverage

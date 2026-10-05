@@ -110,7 +110,7 @@ Columns: address, old neutral name, new name, status, key evidence.  The full ev
   and `A=$FF`.  `Int_VBlank` (00:03BA) clears bit1 when timer A reaches 70 minutes (`cp $46`).  Two earlier namers (g2 `wConnWarnMinute`, g7 `wOnlineWarnMinute`) independently gave the same role
   but different names ("connection time" vs "online time"); the neutral `TimerA` form avoids deciding what timer A measures (still PROBABLE).
 * **Error detail word (`wMobileErrorDetail`).**  Sits between `wMobileErrorCode` (C272) and `wMobileErrorExtra` (C275).  CONFIRMED because both ends are visible: stored from HL of `MobileAPI($00)` and
-  reloaded into HL for `CommErr_ShowScreen` together with the error code.  Two callers (`Label_4C_4138`, `PasswordChange_State_WaitResponse`) store four decoded ASCII-BCD digits of a server reply
+  reloaded into HL for `CommErr_ShowScreen` together with the error code.  Two callers (`Browser_LoadPage_Fail` and the block `4C:4026-402C`, `PasswordChange_State_WaitResponse`; an earlier version of this note named `Label_4C_4138`, which has no such store: naming pass 5) store four decoded ASCII-BCD digits of a server reply
   code into the same two bytes, so the word is "detail of the last failure", not always an API HL.  The `DEF` lines still say `size 1`; `C273/C274` is a word (hi byte named `...Hi`).
 * **Help-script interpreter (bank 6C).**  All nine bytes are used only by `engine/help/help_script.asm` (single subsystem, no overlay): text stepper `HelpScript_StepText` 6C:6009, reader
   `Label_6C_5B47` 6C:5B47, input table `HelpScript_InputTable`.  Not named from the same code: `C176`, `C17B`, `C17C` (written by the opcode class $5x, never read), `C17A` (glyph plane-clear flag

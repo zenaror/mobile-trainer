@@ -94,9 +94,9 @@ CommErr_ShowScreen_FrameLoop:: ; 5C:5219
 CommErr_JoypadTable:: ; 5C:5231
 Table_5C_5231::
 	dw CommErr_ShowScreen_ButtonA
-	dw Label_5C_5264
-	dw Label_5C_5264
-	dw Label_5C_5264
+	dw CommErr_ShowScreen_Ignore
+	dw CommErr_ShowScreen_Ignore
+	dw CommErr_ShowScreen_Ignore
 	dw CommErr_ShowScreen_Idle
 
 CommErr_ShowScreen_Idle:: ; 5C:523B
@@ -122,7 +122,8 @@ CommErr_ShowScreen_ButtonA:: ; 5C:524C
 	xor a, a
 	ret
 
-Label_5C_5264:: ; 5C:5264
+CommErr_ShowScreen_Ignore:: ; 5C:5264
+Label_5C_5264::
 	jr CommErr_ShowScreen_FrameLoop
 
 Stub_Nop_5C_5266:: ; 5C:5266
@@ -141,7 +142,7 @@ CommErr_DrawMessage:: ; 5C:5267
 CommErr_FindRecord:: ; 5C:527D
 	ld a, [hli]
 	cp a, $FF
-	jp z, Label_5C_53A1
+	jp z, CommErr_FindRecord_NotFound
 	cp a, b
 	jr z, .l528B
 	inc hl
@@ -279,7 +280,8 @@ CommErr_PrintMessage:: ; 5C:531E
 	farcall Tilemap_FillAscendingWithAttr
 	ret
 
-Label_5C_53A1:: ; 5C:53A1
+CommErr_FindRecord_NotFound:: ; 5C:53A1
+Label_5C_53A1::
 	; [PROBABLE] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1;
 	; entered by jpcc from 5C:5280 (executed) | forced execution: 6/6 instruction starts ran in
 	; forced_debug (traces/forced/, not natural evidence; status unchanged)

@@ -172,19 +172,21 @@ BrowserMenu_RunTwoItem:: ; 72:6563
 	; region 6563-65EB by apply_coverage --split [executed in 1 scenarios]
 	ldh a, [hDialogResult]
 
-Label_72_6565:: ; 72:6565
+BrowserMenu_RunTwoItem_SetItem:: ; 72:6565
+Label_72_6565::
 	ldh [hDialogResult], a
 	farcall BrowserMenu_DrawItemTwo
 
-Label_72_656D:: ; 72:656D
+BrowserMenu_RunTwoItem_Loop:: ; 72:656D
+Label_72_656D::
 	ld a, [wDialogOnlineSnapshot]
 	bit 4, a
 	jr z, .l65CD
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp nz, Label_72_669A
+	jp nz, BrowserMenu_RunTwoItem_OnAdapterError
 	bit 4, a
-	jp z, Label_72_6690
+	jp z, BrowserMenu_RunTwoItem_OnLinkLost
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
@@ -231,7 +233,7 @@ Label_72_656D:: ; 72:656D
 .l65C8 ; 72:65C8
 	pop hl
 	or a, a
-	jp nz, Label_72_6695
+	jp nz, BrowserMenu_RunTwoItem_OnConnectionNotice
 .l65CD ; 72:65CD
 	farcall Sprite_UpdateAll
 	farcall ConnIcon_LoadGraphicsIfRequested
@@ -244,13 +246,14 @@ Label_72_656D:: ; 72:656D
 
 BrowserMenu_RunTwoItem_InputTable:: ; 72:65EB
 Table_72_65EB::
-	dw Label_72_663E
-	dw Label_72_6677
-	dw Label_72_663B
-	dw Label_72_6677
-	dw Label_72_65F5
+	dw BrowserMenu_RunTwoItem_OnA
+	dw BrowserMenu_RunTwoItem_Cancel
+	dw BrowserMenu_RunTwoItem_IgnoreSelect
+	dw BrowserMenu_RunTwoItem_Cancel
+	dw BrowserMenu_RunTwoItem_HandleDpad
 
-Label_72_65F5:: ; 72:65F5
+BrowserMenu_RunTwoItem_HandleDpad:: ; 72:65F5
+Label_72_65F5::
 	; [CONFIRMED] 37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 3;
 	; entered by table from 72:65E8 (PROBABLE code) | 6 insn(s) executed; cut out of the PROBABLE
 	; region 65F5-6643 by apply_coverage --split [executed in 1 scenarios]
@@ -259,7 +262,7 @@ Label_72_65F5:: ; 72:65F5
 	jr nz, .l6602
 	bit 5, a
 	jr nz, .l661E
-	jp Label_72_656D
+	jp BrowserMenu_RunTwoItem_Loop
 
 .l6602 ; 72:6602
 	; [PROBABLE] 29 insn(s) never executed in the traced runs; cut out of the PROBABLE region
@@ -275,9 +278,9 @@ Label_72_65F5:: ; 72:65F5
 	ldh a, [hDialogResult]
 	inc a
 	cp a, $02
-	jp nz, Label_72_6565
+	jp nz, BrowserMenu_RunTwoItem_SetItem
 	xor a, a
-	jp Label_72_6565
+	jp BrowserMenu_RunTwoItem_SetItem
 .l661E ; 72:661E
 	ldh a, [hWRAMBank]
 	push af
@@ -290,14 +293,16 @@ Label_72_65F5:: ; 72:65F5
 	ldh a, [hDialogResult]
 	dec a
 	bit 7, a
-	jp z, Label_72_6565
+	jp z, BrowserMenu_RunTwoItem_SetItem
 	ld a, $01
-	jp Label_72_6565
+	jp BrowserMenu_RunTwoItem_SetItem
 
-Label_72_663B:: ; 72:663B
-	jp Label_72_656D
+BrowserMenu_RunTwoItem_IgnoreSelect:: ; 72:663B
+Label_72_663B::
+	jp BrowserMenu_RunTwoItem_Loop
 
-Label_72_663E:: ; 72:663E
+BrowserMenu_RunTwoItem_OnA:: ; 72:663E
+Label_72_663E::
 	; [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 65F5-6643 by apply_coverage
 	; --split [executed in 1 scenarios]
 	ldh a, [hDialogResult]
@@ -307,10 +312,11 @@ Label_72_663E:: ; 72:663E
 
 BrowserMenu_RunTwoItem_DialogResultTable:: ; 72:6643
 Table_72_6643::
-	dw Label_72_665A
-	dw Label_72_667B
+	dw BrowserMenu_RunTwoItem_AcceptItem0
+	dw BrowserMenu_RunTwoItem_AcceptItem1
 
-Label_72_6647:: ; 72:6647
+BrowserMenu_RunTwoItem_Reject:: ; 72:6647
+Label_72_6647::
 	; [PROBABLE] 104 insn(s) reached by static flow only; seeds: exec x104; min discovery hops 2;
 	; entered by jpcc from 72:665F (PROBABLE code) | 9 insn(s) never executed in the traced runs;
 	; cut out of the PROBABLE region 6647-6711 by apply_coverage --split
@@ -322,14 +328,15 @@ Label_72_6647:: ; 72:6647
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	jp Label_72_656D
+	jp BrowserMenu_RunTwoItem_Loop
 
-Label_72_665A:: ; 72:665A
+BrowserMenu_RunTwoItem_AcceptItem0:: ; 72:665A
+Label_72_665A::
 	; [CONFIRMED] 14 insn(s) executed; cut out of the PROBABLE region 6647-6711 by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld a, [wTimerEnable]
 	bit 4, a
-	jp z, Label_72_6647
+	jp z, BrowserMenu_RunTwoItem_Reject
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -342,14 +349,16 @@ Label_72_665A:: ; 72:665A
 	ldh [hDialogResult], a
 	ret
 
-Label_72_6677:: ; 72:6677
+BrowserMenu_RunTwoItem_Cancel:: ; 72:6677
+Label_72_6677::
 	; [PROBABLE] 23 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 6647-6711 by apply_coverage --split
 	xor a, a
 	ldh [hDialogResult], a
 	ret
 
-Label_72_667B:: ; 72:667B
+BrowserMenu_RunTwoItem_AcceptItem1:: ; 72:667B
+Label_72_667B::
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -362,17 +371,20 @@ Label_72_667B:: ; 72:667B
 	ldh [hDialogResult], a
 	ret
 
-Label_72_6690:: ; 72:6690
+BrowserMenu_RunTwoItem_OnLinkLost:: ; 72:6690
+Label_72_6690::
 	ld a, $04
 	ldh [hDialogResult], a
 	ret
 
-Label_72_6695:: ; 72:6695
+BrowserMenu_RunTwoItem_OnConnectionNotice:: ; 72:6695
+Label_72_6695::
 	ld a, $05
 	ldh [hDialogResult], a
 	ret
 
-Label_72_669A:: ; 72:669A
+BrowserMenu_RunTwoItem_OnAdapterError:: ; 72:669A
+Label_72_669A::
 	ld a, $06
 	ldh [hDialogResult], a
 	ret
@@ -612,19 +624,21 @@ Function_72_689F::
 	; executed call/far call
 	ldh a, [hDialogResult]
 
-Label_72_68A1:: ; 72:68A1
+BrowserMenu_RunThreeItem_SetItem:: ; 72:68A1
+Label_72_68A1::
 	ldh [hDialogResult], a
 	farcall BrowserMenu_DrawItemThree
 
-Label_72_68A9:: ; 72:68A9
+BrowserMenu_RunThreeItem_Loop:: ; 72:68A9
+Label_72_68A9::
 	ld a, [wDialogOnlineSnapshot]
 	bit 4, a
 	jr z, .l6909
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp nz, Label_72_69EE
+	jp nz, BrowserMenu_RunThreeItem_OnAdapterError
 	bit 4, a
-	jp z, Label_72_69E4
+	jp z, BrowserMenu_RunThreeItem_OnLinkLost
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
@@ -670,7 +684,7 @@ Label_72_68A9:: ; 72:68A9
 .l6904 ; 72:6904
 	pop hl
 	or a, a
-	jp nz, Label_72_69E9
+	jp nz, BrowserMenu_RunThreeItem_OnConnectionNotice
 .l6909 ; 72:6909
 	farcall Sprite_UpdateAll
 	farcall ConnIcon_LoadGraphicsIfRequested
@@ -683,20 +697,21 @@ Label_72_68A9:: ; 72:68A9
 
 BrowserMenu_RunThreeItem_InputTable:: ; 72:6927
 Table_72_6927::
-	dw Label_72_697A
-	dw Label_72_69CA
-	dw Label_72_6977
-	dw Label_72_69CA
-	dw Label_72_6931
+	dw BrowserMenu_RunThreeItem_OnA
+	dw BrowserMenu_RunThreeItem_Cancel
+	dw BrowserMenu_RunThreeItem_IgnoreSelect
+	dw BrowserMenu_RunThreeItem_Cancel
+	dw BrowserMenu_RunThreeItem_HandleDpad
 
-Label_72_6931:: ; 72:6931
+BrowserMenu_RunThreeItem_HandleDpad:: ; 72:6931
+Label_72_6931::
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressedRepeat]
 	bit 4, a
 	jr nz, .l693E
 	bit 5, a
 	jr nz, .l695A
-	jp Label_72_68A9
+	jp BrowserMenu_RunThreeItem_Loop
 
 .l693E ; 72:693E
 	; [CONFIRMED] 31 insn(s) reached by static flow only; seeds: exec x31; min discovery hops 1;
@@ -712,9 +727,9 @@ Label_72_6931:: ; 72:6931
 	ldh a, [hDialogResult]
 	inc a
 	cp a, $03
-	jp nz, Label_72_68A1
+	jp nz, BrowserMenu_RunThreeItem_SetItem
 	xor a, a
-	jp Label_72_68A1
+	jp BrowserMenu_RunThreeItem_SetItem
 .l695A ; 72:695A
 	ldh a, [hWRAMBank]
 	push af
@@ -727,14 +742,16 @@ Label_72_6931:: ; 72:6931
 	ldh a, [hDialogResult]
 	dec a
 	bit 7, a
-	jp z, Label_72_68A1
+	jp z, BrowserMenu_RunThreeItem_SetItem
 	ld a, $02
-	jp Label_72_68A1
+	jp BrowserMenu_RunThreeItem_SetItem
 
-Label_72_6977:: ; 72:6977
-	jp Label_72_68A9
+BrowserMenu_RunThreeItem_IgnoreSelect:: ; 72:6977
+Label_72_6977::
+	jp BrowserMenu_RunThreeItem_Loop
 
-Label_72_697A:: ; 72:697A
+BrowserMenu_RunThreeItem_OnA:: ; 72:697A
+Label_72_697A::
 	ldh a, [hDialogResult]
 	call JumpTableInline
 
@@ -742,11 +759,12 @@ Label_72_697A:: ; 72:697A
 
 BrowserMenu_RunThreeItem_DialogResultTable:: ; 72:697F
 Table_72_697F::
-	dw Label_72_6998
-	dw Label_72_69AD
-	dw Label_72_69CE
+	dw BrowserMenu_RunThreeItem_AcceptItem0
+	dw BrowserMenu_RunThreeItem_AcceptItem1
+	dw BrowserMenu_RunThreeItem_AcceptItem2
 
-Label_72_6985:: ; 72:6985
+BrowserMenu_RunThreeItem_Reject:: ; 72:6985
+Label_72_6985::
 	; [PROBABLE] 34 insn(s) reached by static flow only; seeds: exec x34; min discovery hops 2;
 	; entered by jpcc from 72:69B2 (PROBABLE code) | 9 insn(s) never executed in the traced runs;
 	; cut out of the PROBABLE region 6985-69CA by apply_coverage --split
@@ -758,9 +776,10 @@ Label_72_6985:: ; 72:6985
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	jp Label_72_68A9
+	jp BrowserMenu_RunThreeItem_Loop
 
-Label_72_6998:: ; 72:6998
+BrowserMenu_RunThreeItem_AcceptItem0:: ; 72:6998
+Label_72_6998::
 	; [CONFIRMED] 25 insn(s) executed; cut out of the PROBABLE region 6985-69CA by apply_coverage
 	; --split [executed in 2 scenarios]
 	ldh a, [hWRAMBank]
@@ -775,10 +794,11 @@ Label_72_6998:: ; 72:6998
 	ldh [hDialogResult], a
 	ret
 
-Label_72_69AD:: ; 72:69AD
+BrowserMenu_RunThreeItem_AcceptItem1:: ; 72:69AD
+Label_72_69AD::
 	ld a, [wTimerEnable]
 	bit 4, a
-	jp z, Label_72_6985
+	jp z, BrowserMenu_RunThreeItem_Reject
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -791,13 +811,15 @@ Label_72_69AD:: ; 72:69AD
 	ldh [hDialogResult], a
 	ret
 
-Label_72_69CA:: ; 72:69CA
+BrowserMenu_RunThreeItem_Cancel:: ; 72:69CA
+Label_72_69CA::
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	xor a, a
 	ldh [hDialogResult], a
 	ret
 
-Label_72_69CE:: ; 72:69CE
+BrowserMenu_RunThreeItem_AcceptItem2:: ; 72:69CE
+Label_72_69CE::
 	; [CONFIRMED] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 1;
 	; entered by table from 72:697C (PROBABLE code) | 12 insn(s) executed; cut out of the PROBABLE
 	; region 69CE-69F3 by apply_coverage --split [executed in 1 scenarios]
@@ -814,19 +836,22 @@ Label_72_69CE:: ; 72:69CE
 	ldh [hDialogResult], a
 	ret
 
-Label_72_69E4:: ; 72:69E4
+BrowserMenu_RunThreeItem_OnLinkLost:: ; 72:69E4
+Label_72_69E4::
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 69CE-69F3 by apply_coverage --split
 	ld a, $04
 	ldh [hDialogResult], a
 	ret
 
-Label_72_69E9:: ; 72:69E9
+BrowserMenu_RunThreeItem_OnConnectionNotice:: ; 72:69E9
+Label_72_69E9::
 	ld a, $05
 	ldh [hDialogResult], a
 	ret
 
-Label_72_69EE:: ; 72:69EE
+BrowserMenu_RunThreeItem_OnAdapterError:: ; 72:69EE
+Label_72_69EE::
 	ld a, $06
 	ldh [hDialogResult], a
 	ret

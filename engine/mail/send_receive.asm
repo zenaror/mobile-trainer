@@ -1947,7 +1947,8 @@ Label_27_4EEB:: ; 27:4EEB
 	xor a, a
 	ldh [hDialogResult], a
 
-Label_27_4FC0:: ; 27:4FC0
+CommTime_Summary_FrameLoop_27_4FC0:: ; 27:4FC0
+Label_27_4FC0::
 	farcall Sprite_UpdateAll
 	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
@@ -1957,27 +1958,32 @@ Label_27_4FC0:: ; 27:4FC0
 ; ---- ptrtable $4FD8-$4FE2 (10 bytes) [PROBABLE] inline table of `call $056A` (JoypadDispatch) at 27:4FD5: 5 entries; fixed length (5 words) by the routine
 
 Table_27_4FD8:: ; 27:4FD8
-	dw Label_27_4FE2
-	dw Label_27_4FE5
-	dw Label_27_4FE8
-	dw Label_27_4FEB
-	dw Label_27_4FC0
+	dw CommTime_SummaryInput_ButtonA_27_4FE2
+	dw CommTime_SummaryInput_IgnoreB_27_4FE5
+	dw CommTime_SummaryInput_IgnoreSelect_27_4FE8
+	dw CommTime_SummaryInput_IgnoreStart_27_4FEB
+	dw CommTime_Summary_FrameLoop_27_4FC0
 
-Label_27_4FE2:: ; 27:4FE2
+CommTime_SummaryInput_ButtonA_27_4FE2:: ; 27:4FE2
+Label_27_4FE2::
 	; [PROBABLE] 63 insn(s) reached by static flow only; seeds: site x63; min discovery hops 0;
 	; entered by table from 27:4FD5 (PROBABLE code)
-	jp Label_27_4FEE
+	jp CommTime_Summary_Close_27_4FEE
 
-Label_27_4FE5:: ; 27:4FE5
-	jp Label_27_4FC0
+CommTime_SummaryInput_IgnoreB_27_4FE5:: ; 27:4FE5
+Label_27_4FE5::
+	jp CommTime_Summary_FrameLoop_27_4FC0
 
-Label_27_4FE8:: ; 27:4FE8
-	jp Label_27_4FC0
+CommTime_SummaryInput_IgnoreSelect_27_4FE8:: ; 27:4FE8
+Label_27_4FE8::
+	jp CommTime_Summary_FrameLoop_27_4FC0
 
-Label_27_4FEB:: ; 27:4FEB
-	jp Label_27_4FC0
+CommTime_SummaryInput_IgnoreStart_27_4FEB:: ; 27:4FEB
+Label_27_4FEB::
+	jp CommTime_Summary_FrameLoop_27_4FC0
 
-Label_27_4FEE:: ; 27:4FEE
+CommTime_Summary_Close_27_4FEE:: ; 27:4FEE
+Label_27_4FEE::
 	farcall Palette_FadeOutToWhite
 	farcall Sprite_ResetAll
 	ret

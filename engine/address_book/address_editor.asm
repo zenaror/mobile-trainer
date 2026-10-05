@@ -1049,10 +1049,12 @@ Function_2F_7385::
 	jr z, AbookAddr_GetCharPtr_Newline
 	jr .loop
 
-; ---- data $73A6-$73AA (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_2F_73A6:: ; 2F:73A6
-	db $0C, $0D, $20, $02
+	; [HYPOTHESIS] dead code: follows an unconditional jump, nothing references it and it never ran;
+	; decodes as `inc c ; dec c ; jr nz, NoChar` (the same bytes sit unlabeled in the body and
+	; profile copies)
+	inc c
+	dec c
+	jr nz, AbookAddr_GetCharPtr_NoChar
 
 AbookAddr_GetCharPtr_Found:: ; 2F:73AA
 Label_2F_73AA::
