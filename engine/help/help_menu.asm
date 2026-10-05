@@ -389,11 +389,11 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	cp a, $02
 	jp nz, .l436C
 	ld a, $01
-	ld hl, $A686
+	ld hl, sHelpSeenMail
 	call ReadByteFar
 	ld d, a
 	ld a, $01
-	ld hl, $A687
+	ld hl, sHelpSeenAddressBook
 	call ReadByteFar
 	or a, d
 	jr nz, .l436C
@@ -421,11 +421,11 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	cp a, $03
 	jr nz, .l43AF
 	ld a, $01
-	ld hl, $A688
+	ld hl, sHelpSeenHomepage
 	call ReadByteFar
 	ld d, a
 	ld a, $01
-	ld hl, $A689
+	ld hl, sHelpSeenPageList
 	call ReadByteFar
 	or a, d
 	jr nz, .l43AF
@@ -503,7 +503,7 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	cp a, $02
 	jp nz, .l4446
 	ld a, $01
-	ld hl, $A687
+	ld hl, sHelpSeenAddressBook
 	call ReadByteFar
 	or a, a
 	jr nz, .l4446
@@ -576,7 +576,7 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	cp a, $02
 	jp nz, .l44D3
 	ld a, $01
-	ld hl, $A689
+	ld hl, sHelpSeenPageList
 	call ReadByteFar
 	or a, a
 	jr nz, .l44D3
@@ -662,11 +662,11 @@ Function_6C_453D::
 	cp a, $02
 	jp nz, .l458E
 	ld a, $01
-	ld hl, $A686
+	ld hl, sHelpSeenMail
 	call ReadByteFar
 	ld d, a
 	ld a, $01
-	ld hl, $A687
+	ld hl, sHelpSeenAddressBook
 	call ReadByteFar
 	or a, d
 	jr nz, .l458E
@@ -694,11 +694,11 @@ Function_6C_453D::
 	cp a, $03
 	jr nz, .l45D1
 	ld a, $01
-	ld hl, $A688
+	ld hl, sHelpSeenHomepage
 	call ReadByteFar
 	ld d, a
 	ld a, $01
-	ld hl, $A689
+	ld hl, sHelpSeenPageList
 	call ReadByteFar
 	or a, d
 	jr nz, .l45D1
@@ -776,7 +776,7 @@ Function_6C_453D::
 	cp a, $02
 	jp nz, .l4668
 	ld a, $01
-	ld hl, $A687
+	ld hl, sHelpSeenAddressBook
 	call ReadByteFar
 	or a, a
 	jr nz, .l4668
@@ -849,7 +849,7 @@ Function_6C_453D::
 	cp a, $02
 	jp nz, .l46F5
 	ld a, $01
-	ld hl, $A689
+	ld hl, sHelpSeenPageList
 	call ReadByteFar
 	or a, a
 	jr nz, .l46F5
@@ -972,11 +972,11 @@ HelpMenu_ItemIsLocked:: ; 6C:4798
 	cp a, $02
 	jp nz, .l47C3
 	ld a, $01
-	ld hl, $A686
+	ld hl, sHelpSeenMail
 	call ReadByteFar
 	ld b, a
 	ld a, $01
-	ld hl, $A687
+	ld hl, sHelpSeenAddressBook
 	call ReadByteFar
 	or a, b
 	jr nz, .l4807
@@ -992,11 +992,11 @@ HelpMenu_ItemIsLocked:: ; 6C:4798
 	cp a, $03
 	jr nz, .l4807
 	ld a, $01
-	ld hl, $A688
+	ld hl, sHelpSeenHomepage
 	call ReadByteFar
 	ld d, a
 	ld a, $01
-	ld hl, $A689
+	ld hl, sHelpSeenPageList
 	call ReadByteFar
 	or a, d
 	jr nz, .l4807
@@ -1007,7 +1007,7 @@ HelpMenu_ItemIsLocked:: ; 6C:4798
 	cp a, $02
 	jp nz, .l4807
 	ld a, $01
-	ld hl, $A687
+	ld hl, sHelpSeenAddressBook
 	call ReadByteFar
 	or a, a
 	jr nz, .l4807
@@ -1021,7 +1021,7 @@ HelpMenu_ItemIsLocked:: ; 6C:4798
 	cp a, $02
 	jp nz, .l4807
 	ld a, $01
-	ld hl, $A689
+	ld hl, sHelpSeenPageList
 	call ReadByteFar
 	or a, a
 	jr nz, .l4807

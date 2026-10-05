@@ -43,7 +43,7 @@ Function_68_52B2::
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $B066
+	ld hl, sSettingsLoginId
 	ld de, $C28F
 	call DecodeXorA5
 	ld hl, $C28F

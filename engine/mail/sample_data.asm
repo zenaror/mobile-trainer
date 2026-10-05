@@ -19,7 +19,7 @@ MailRecord_InstallSampleMails:: ; 2D:4195
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld hl, MailSample0_Header
-	ld de, $A124
+	ld de, sSram_MailRecords
 	ld b, $09
 .l41AB ; 2D:41AB
 	ld a, [hli]
@@ -28,19 +28,19 @@ MailRecord_InstallSampleMails:: ; 2D:4195
 	dec b
 	jr nz, .l41AB
 	ld hl, MailSample0_Body
-	ld de, $A12D
+	ld de, sSram_MailRecords + $09
 	call SampleData_CopyString
 	ld hl, MailSample0_Name
-	ld de, $A1ED
+	ld de, sSram_MailRecords + $C9
 	call SampleData_CopyString
 	ld hl, MailSample0_Subject
-	ld de, $A1FD
+	ld de, sSram_MailRecords + $D9
 	call SampleData_CopyString
 	ld hl, $42E6
-	ld de, $A211
+	ld de, sSram_MailRecords + $ED
 	call SampleData_CopyString
 	ld hl, MailSample1_Header
-	ld de, $A251
+	ld de, sMailRecord1
 	ld b, $09
 .l41DD ; 2D:41DD
 	ld a, [hli]
@@ -49,19 +49,19 @@ MailRecord_InstallSampleMails:: ; 2D:4195
 	dec b
 	jr nz, .l41DD
 	ld hl, MailSample1_Body
-	ld de, $A25A
+	ld de, sMailRecord1 + $09
 	call SampleData_CopyString
 	ld hl, $433A
-	ld de, $A31A
+	ld de, sMailRecord1 + $C9
 	call SampleData_CopyString
 	ld hl, $4349
-	ld de, $A32A
+	ld de, sMailRecord1 + $D9
 	call SampleData_CopyString
 	ld hl, $4358
-	ld de, $A33E
+	ld de, sMailRecord1 + $ED
 	call SampleData_CopyString
 	ld hl, MailSample2_Header
-	ld de, $A37E
+	ld de, sMailRecord2
 	ld b, $09
 .l420F ; 2D:420F
 	ld a, [hli]
@@ -70,19 +70,19 @@ MailRecord_InstallSampleMails:: ; 2D:4195
 	dec b
 	jr nz, .l420F
 	ld hl, MailSample2_Body
-	ld de, $A387
+	ld de, sMailRecord2 + $09
 	call SampleData_CopyString
 	ld hl, $43E8
-	ld de, $A447
+	ld de, sMailRecord2 + $C9
 	call SampleData_CopyString
 	ld hl, $43F9
-	ld de, $A457
+	ld de, sMailRecord2 + $D9
 	call SampleData_CopyString
 	ld hl, $4406
-	ld de, $A46B
+	ld de, sMailRecord2 + $ED
 	call SampleData_CopyString
 	ld hl, MailSample3_Header
-	ld de, $A4AB
+	ld de, sMailRecord3
 	ld b, $09
 .l4241 ; 2D:4241
 	ld a, [hli]
@@ -91,19 +91,19 @@ MailRecord_InstallSampleMails:: ; 2D:4195
 	dec b
 	jr nz, .l4241
 	ld hl, MailSample3_Body
-	ld de, $A4B4
+	ld de, sMailRecord3 + $09
 	call SampleData_CopyString
 	ld hl, $44A3
-	ld de, $A574
+	ld de, sMailRecord3 + $C9
 	call SampleData_CopyString
 	ld hl, $44B0
-	ld de, $A584
+	ld de, sMailRecord3 + $D9
 	call SampleData_CopyString
 	ld hl, $44C1
-	ld de, $A598
+	ld de, sMailRecord3 + $ED
 	call SampleData_CopyString
 	ld hl, MailSample4_Header
-	ld de, $A5D8
+	ld de, sMailRecord4
 	ld b, $09
 .l4273 ; 2D:4273
 	ld a, [hli]
@@ -112,16 +112,16 @@ MailRecord_InstallSampleMails:: ; 2D:4195
 	dec b
 	jr nz, .l4273
 	ld hl, MailSample4_Body
-	ld de, $A5E1
+	ld de, sMailRecord4 + $09
 	call SampleData_CopyString
 	ld hl, $44E9
-	ld de, $A6A1
+	ld de, sMailRecord4 + $C9
 	call SampleData_CopyString
 	ld hl, $44EA
-	ld de, $A6B1
+	ld de, sMailRecord4 + $D9
 	call SampleData_CopyString
 	ld hl, $44F1
-	ld de, $A6C5
+	ld de, sMailRecord4 + $ED
 	call SampleData_CopyString
 	xor a, a
 	ldh [hSRAMEnable], a
@@ -284,7 +284,7 @@ Abook_InstallSampleEntries:: ; 2D:44FB
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld hl, AbookSample0_Name
-	ld de, $A69D
+	ld de, sAbookSlots
 .l450F ; 2D:450F
 	ld a, [hli]
 	ld [de], a
@@ -292,7 +292,7 @@ Abook_InstallSampleEntries:: ; 2D:44FB
 	cp a, $00
 	jr nz, .l450F
 	ld hl, $45DA
-	ld de, $A6AD
+	ld de, sAbookSlots + $10
 .l451C ; 2D:451C
 	ld a, [hli]
 	ld [de], a
@@ -300,7 +300,7 @@ Abook_InstallSampleEntries:: ; 2D:44FB
 	cp a, $00
 	jr nz, .l451C
 	ld hl, AbookSample1_Name
-	ld de, $A6ED
+	ld de, sAbookSlots + $50
 .l4529 ; 2D:4529
 	ld a, [hli]
 	ld [de], a
@@ -308,7 +308,7 @@ Abook_InstallSampleEntries:: ; 2D:44FB
 	cp a, $00
 	jr nz, .l4529
 	ld hl, $45F6
-	ld de, $A6FD
+	ld de, sAbookSlots + $60
 .l4536 ; 2D:4536
 	ld a, [hli]
 	ld [de], a
@@ -316,7 +316,7 @@ Abook_InstallSampleEntries:: ; 2D:44FB
 	cp a, $00
 	jr nz, .l4536
 	ld hl, $45B8
-	ld de, $A73D
+	ld de, sAbookSlots + $A0
 .l4543 ; 2D:4543
 	ld a, [hli]
 	ld [de], a
@@ -324,7 +324,7 @@ Abook_InstallSampleEntries:: ; 2D:44FB
 	cp a, $00
 	jr nz, .l4543
 	ld hl, $45F7
-	ld de, $A74D
+	ld de, sAbookSlots + $B0
 .l4550 ; 2D:4550
 	ld a, [hli]
 	ld [de], a
@@ -332,7 +332,7 @@ Abook_InstallSampleEntries:: ; 2D:44FB
 	cp a, $00
 	jr nz, .l4550
 	ld hl, $45C7
-	ld de, $A78D
+	ld de, sAbookSlots + $F0
 .l455D ; 2D:455D
 	ld a, [hli]
 	ld [de], a
@@ -340,7 +340,7 @@ Abook_InstallSampleEntries:: ; 2D:44FB
 	cp a, $00
 	jr nz, .l455D
 	ld hl, $4611
-	ld de, $A79D
+	ld de, sAbookSlots + $100
 .l456A ; 2D:456A
 	ld a, [hli]
 	ld [de], a
@@ -348,7 +348,7 @@ Abook_InstallSampleEntries:: ; 2D:44FB
 	cp a, $00
 	jr nz, .l456A
 	ld hl, $45D8
-	ld de, $A7DD
+	ld de, sAbookSlots + $140
 .l4577 ; 2D:4577
 	ld a, [hli]
 	ld [de], a
@@ -356,7 +356,7 @@ Abook_InstallSampleEntries:: ; 2D:44FB
 	cp a, $00
 	jr nz, .l4577
 	ld hl, AbookSample4_Address
-	ld de, $A7ED
+	ld de, sAbookSlots + $150
 .l4584 ; 2D:4584
 	ld a, [hli]
 	ld [de], a
@@ -364,7 +364,7 @@ Abook_InstallSampleEntries:: ; 2D:44FB
 	cp a, $00
 	jr nz, .l4584
 	ld hl, $45D9
-	ld de, $A82D
+	ld de, sAbookSlots + $190
 .l4591 ; 2D:4591
 	ld a, [hli]
 	ld [de], a
@@ -372,7 +372,7 @@ Abook_InstallSampleEntries:: ; 2D:44FB
 	cp a, $00
 	jr nz, .l4591
 	ld hl, $462B
-	ld de, $A83D
+	ld de, sAbookSlots + $1A0
 .l459E ; 2D:459E
 	ld a, [hli]
 	ld [de], a
@@ -436,6 +436,8 @@ SampleData_InstallNameAddressPair:: ; 2D:4635
 	; [PROBABLE] third profile-defaults routine: SRAM bank select/enable + 2 strcpy calls (ld
 	; hl,$465E ; de $AF40 / ld hl,$466D ; de $AF50) whose sources are the strings at 465E/466D; ends
 	; with ret; entry not located
+	; sic: bank 1 is selected here, so AF40/AF50 are entry 5 of the browser history (sBrowserHistory + $540 / $550), although the strings are the profile name and address
+	; of bank 0 (sProfileName, sProfileAddress); no caller, never executed (not even by the forced runs)
 	ld a, $01
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -443,7 +445,7 @@ SampleData_InstallNameAddressPair:: ; 2D:4635
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld hl, SampleData_Name
-	ld de, $AF40
+	ld de, sBrowserHistory + $540
 .l4649 ; 2D:4649
 	ld a, [hli]
 	ld [de], a
@@ -451,7 +453,7 @@ SampleData_InstallNameAddressPair:: ; 2D:4635
 	cp a, $00
 	jr nz, .l4649
 	ld hl, $466D
-	ld de, $AF50
+	ld de, sBrowserHistory + $550
 .l4656 ; 2D:4656
 	ld a, [hli]
 	ld [de], a

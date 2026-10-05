@@ -134,7 +134,7 @@ Function_74_4207::
 	ld de, $D000
 	ld a, $05
 	ldh [hTextX], a
-	ld hl, $B000
+	ld hl, sBrowserPageBuf
 	ld a, $03
 	farcall Html_ParseSource
 	farcall Html_LoadPageImages
@@ -162,7 +162,7 @@ Html_ScanPage:: ; 74:4254
 	ld de, $D000
 	ld a, $05
 	ldh [hTextX], a
-	ld hl, $B000
+	ld hl, sBrowserPageBuf
 	ld a, $03
 	farcall Html_ParseSource
 	ret

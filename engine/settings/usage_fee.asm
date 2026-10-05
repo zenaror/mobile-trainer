@@ -77,11 +77,11 @@ Function_67_62D5::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld hl, $A000
+	ld hl, sNetWorkPage
 	ld bc, $2000
 	call FillBytes
 	ld hl, Net_UsageFeeUrl
-	ld de, $A100
+	ld de, sNetStartUrl
 	call CopyString
 	ld a, $03
 	farcall CommPanel_SetVariant

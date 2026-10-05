@@ -37,17 +37,17 @@ HttpRedirect_ResolveUrl:: ; 67:5F66
 	ld l, a
 	ld a, [wMobileErrorExtra + 1]
 	ld h, a
-	ld de, $A463
+	ld de, sPwdChg_HttpUrl
 	call CopyString
 	ret
 .l5FA0 ; 67:5FA0
-	ld hl, $A463
+	ld hl, sPwdChg_HttpUrl
 	ld a, [wMobileErrorExtra]
 	ld e, a
 	ld a, [wMobileErrorExtra + 1]
 	ld d, a
 	call HttpRedirect_JoinRelative
-	ld hl, $A463
+	ld hl, sPwdChg_HttpUrl
 	call HttpRedirect_NormalizePath
 	ret
 

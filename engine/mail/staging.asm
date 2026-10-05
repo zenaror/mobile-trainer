@@ -14,7 +14,7 @@ Sram_ClearBank0Page0:: ; 2D:4686
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $A000
+	ld hl, sSaveBank0Page0
 	ld bc, $1000
 .loop ; 2D:469A
 	xor a, a

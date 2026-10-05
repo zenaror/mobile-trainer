@@ -225,7 +225,7 @@ ConnectDialog_HandleFrame:: ; 57:40E0
 	cp a, $01
 	jr nz, .l41BF
 	ld a, $01
-	ld hl, $A880
+	ld hl, sSavedPasswordLen
 	call ReadByteFar
 	ld b, $05
 	or a, a
@@ -263,7 +263,7 @@ ConnectDialog_Input_ConnectConfirm:: ; 57:41CA
 	cp a, $01
 	jr nz, .l4203
 	ld a, $01
-	ld hl, $A880
+	ld hl, sSavedPasswordLen
 	call ReadByteFar
 	ld b, $05
 	or a, a
@@ -790,11 +790,11 @@ ConnectDialog_Enter_PasswordSaved:: ; 57:4590
 ConnectDialog_Enter_StoredPassword:: ; 57:459A
 	; [CONFIRMED] 16 insn(s); 16 executed (in up to 5/18 scenarios)
 	ld a, $01
-	ld hl, $A880
+	ld hl, sSavedPasswordLen
 	call ReadByteFar
 	ld [wConnectDialogTextLen], a
 	ld c, a
-	ld hl, $A88D
+	ld hl, sSavedPasswordText
 	ld de, $C1B2
 .loop ; 57:45AC
 	ld a, $01
@@ -1011,7 +1011,7 @@ ConnectDialog_Leave_PasswordSaved:: ; 57:474F
 	farcall Palette_FadeOutToWhite
 	ld b, $00
 	ld a, $01
-	ld hl, $A880
+	ld hl, sSavedPasswordLen
 	farcall WriteByteFar
 	ret
 
@@ -1036,7 +1036,7 @@ ConnectDialog_Leave_ForgetConfirm:: ; 57:477E
 	ld [wConnectDialogTextLen], a
 	ld b, a
 	ld a, $01
-	ld hl, $A880
+	ld hl, sSavedPasswordLen
 	farcall WriteByteFar
 	farcall Palette_FadeOutToWhite
 	ret

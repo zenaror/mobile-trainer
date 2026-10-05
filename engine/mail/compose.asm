@@ -52,7 +52,7 @@ MailDraft_SaveToSram:: ; 2D:403C
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld hl, $D400
-	ld de, $A040
+	ld de, sMailDraft_Body
 	ld b, $C0
 .l4058 ; 2D:4058
 	ld a, [hli]
@@ -61,7 +61,7 @@ MailDraft_SaveToSram:: ; 2D:403C
 	dec b
 	jr nz, .l4058
 	ld hl, $D4C0
-	ld de, $A000
+	ld de, sMailDraft_ToAddress
 	ld b, $40
 .l4066 ; 2D:4066
 	ld a, [hli]
@@ -70,7 +70,7 @@ MailDraft_SaveToSram:: ; 2D:403C
 	dec b
 	jr nz, .l4066
 	ld hl, $D500
-	ld de, $A100
+	ld de, sMailDraft_Subject
 	ld b, $14
 .l4074 ; 2D:4074
 	ld a, [hli]
@@ -79,7 +79,7 @@ MailDraft_SaveToSram:: ; 2D:403C
 	dec b
 	jr nz, .l4074
 	ld hl, $D514
-	ld de, $A114
+	ld de, sMailDraft_ToName
 	ld b, $10
 .l4082 ; 2D:4082
 	ld a, [hli]
@@ -101,7 +101,7 @@ MailDraft_LoadFromSram:: ; 2D:408F
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld de, $D400
-	ld hl, $A040
+	ld hl, sMailDraft_Body
 	ld b, $C0
 .l40AB ; 2D:40AB
 	ld a, [hli]
@@ -110,7 +110,7 @@ MailDraft_LoadFromSram:: ; 2D:408F
 	dec b
 	jr nz, .l40AB
 	ld de, $D4C0
-	ld hl, $A000
+	ld hl, sMailDraft_ToAddress
 	ld b, $40
 .l40B9 ; 2D:40B9
 	ld a, [hli]
@@ -119,7 +119,7 @@ MailDraft_LoadFromSram:: ; 2D:408F
 	dec b
 	jr nz, .l40B9
 	ld de, $D500
-	ld hl, $A100
+	ld hl, sMailDraft_Subject
 	ld b, $14
 .l40C7 ; 2D:40C7
 	ld a, [hli]
@@ -128,7 +128,7 @@ MailDraft_LoadFromSram:: ; 2D:408F
 	dec b
 	jr nz, .l40C7
 	ld de, $D514
-	ld hl, $A114
+	ld hl, sMailDraft_ToName
 	ld b, $10
 .l40D5 ; 2D:40D5
 	ld a, [hli]
@@ -153,7 +153,7 @@ MailDraft_Clear:: ; 2D:40DC
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld de, $D400
-	ld hl, $A040
+	ld hl, sMailDraft_Body
 	ld b, $C0
 .l40F8 ; 2D:40F8
 	xor a, a
@@ -163,7 +163,7 @@ MailDraft_Clear:: ; 2D:40DC
 	dec b
 	jr nz, .l40F8
 	ld de, $D4C0
-	ld hl, $A000
+	ld hl, sMailDraft_ToAddress
 	ld b, $40
 .l4107 ; 2D:4107
 	xor a, a
@@ -173,7 +173,7 @@ MailDraft_Clear:: ; 2D:40DC
 	dec b
 	jr nz, .l4107
 	ld de, $D500
-	ld hl, $A100
+	ld hl, sMailDraft_Subject
 	ld b, $14
 .l4116 ; 2D:4116
 	xor a, a
@@ -183,7 +183,7 @@ MailDraft_Clear:: ; 2D:40DC
 	dec b
 	jr nz, .l4116
 	ld de, $D514
-	ld hl, $A114
+	ld hl, sMailDraft_ToName
 	ld b, $10
 .l4125 ; 2D:4125
 	xor a, a
@@ -234,7 +234,7 @@ MailRecord_Delete:: ; 2D:4133
 	ld a, b
 	cp a, $0C
 	jr nz, .l4134
-	ld hl, $AE13
+	ld hl, sSram_MailRecords + $CEF
 	ld bc, $012D
 .l416E ; 2D:416E
 	xor a, a

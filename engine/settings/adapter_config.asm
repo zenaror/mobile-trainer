@@ -120,7 +120,7 @@ Label_67_5484::
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ld bc, $00C0
-	ld de, $A000
+	ld de, sConfigImage
 	ld a, $38
 	call MobileAPI
 	ld a, $02
@@ -305,7 +305,7 @@ Label_67_55D0::
 	ld [rRAMB], a
 	call SettingsPhone_PatchConfigImage
 	ld c, $C0
-	ld hl, $A000
+	ld hl, sConfigImage
 	ld de, $0000
 	ld a, $04
 	call MobileAPI
@@ -436,7 +436,7 @@ SettingsPhone_PatchConfigImage:: ; 67:5664
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ldh a, [hScratchA]
-	ld hl, $A000
+	ld hl, sConfigImage
 	ld de, $0000
 	ld b, $BE
 .loop ; 67:56E3
@@ -465,7 +465,7 @@ Table_67_56FA::
 	dw $A076, $A08E, $A0A6
 
 SettingsPhone_SramSelfPageAddrs:: ; 67:5700
-	dw $B014, $B025, $B036
+	dw sSettingsDialNumbers, sSettingsDialNumbers + $11, sSettingsDialNumbers + $22
 
 SettingsPhone_ConfigCommentAddrs:: ; 67:5706
 	dw $A07E, $A096, $A0AE

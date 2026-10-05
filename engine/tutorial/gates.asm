@@ -9,7 +9,7 @@ Tutorial_GateHomepage:: ; 48:498C
 	farcall Stub_Nop_48_48BB
 	ld b, $00
 	ld a, $01
-	ld hl, $A881
+	ld hl, sTutorialGateHomepage
 	call ReadByteFar
 	cp a, $FF
 	ret z
@@ -44,12 +44,12 @@ Tutorial_GateHomepage:: ; 48:498C
 .l49C3 ; 48:49C3
 	; [CONFIRMED] 82 insn(s); 82 executed (in up to 12/18 scenarios)
 	ld a, $01
-	ld hl, $A881
+	ld hl, sTutorialGateHomepage
 	call ReadByteFar
 	inc a
 	ld b, a
 	ld a, $01
-	ld hl, $A881
+	ld hl, sTutorialGateHomepage
 	farcall WriteByteFar
 	ld b, $00
 	ret
@@ -58,7 +58,7 @@ Tutorial_GateMailMenu:: ; 48:49DB
 	farcall Stub_Nop_48_48BB
 	ld b, $00
 	ld a, $01
-	ld hl, $A89A
+	ld hl, sTutorialGateMailMenu
 	call ReadByteFar
 	cp a, $FF
 	ret z
@@ -77,12 +77,12 @@ Tutorial_GateMailMenu:: ; 48:49DB
 	ld a, $01
 	farcall Profile_Edit
 	ld a, $01
-	ld hl, $A89A
+	ld hl, sTutorialGateMailMenu
 	call ReadByteFar
 	inc a
 	ld b, a
 	ld a, $01
-	ld hl, $A89A
+	ld hl, sTutorialGateMailMenu
 	farcall WriteByteFar
 	ld b, $00
 	ret
@@ -95,12 +95,12 @@ Tutorial_GateMailMenu:: ; 48:49DB
 	jr .l4A36
 .l4A36 ; 48:4A36
 	ld a, $01
-	ld hl, $A89A
+	ld hl, sTutorialGateMailMenu
 	call ReadByteFar
 	inc a
 	ld b, a
 	ld a, $01
-	ld hl, $A89A
+	ld hl, sTutorialGateMailMenu
 	farcall WriteByteFar
 	ld b, $00
 	ret
@@ -109,7 +109,7 @@ Tutorial_GateTopMenu:: ; 48:4A4E
 	farcall Stub_Nop_48_48BB
 	ld b, $00
 	ld a, $01
-	ld hl, $A89B
+	ld hl, sTutorialGateTopMenu
 	call ReadByteFar
 	cp a, $FF
 	ret z
@@ -125,12 +125,12 @@ Tutorial_GateTopMenu:: ; 48:4A4E
 	jr .l4A74
 .l4A74 ; 48:4A74
 	ld a, $01
-	ld hl, $A89B
+	ld hl, sTutorialGateTopMenu
 	call ReadByteFar
 	inc a
 	ld b, a
 	ld a, $01
-	ld hl, $A89B
+	ld hl, sTutorialGateTopMenu
 	farcall WriteByteFar
 	ld b, $00
 	ret

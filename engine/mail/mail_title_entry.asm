@@ -36,11 +36,12 @@ Function_2C_4000::
 	jr nz, .loop
 	pop af
 	cp a, $01
-	jr nz, Label_2C_403B
+	jr nz, MailTitle_Entry_ClampColumn
 	call MailTitle_KeyboardLoop
-	jp Label_2C_405F
+	jp MailTitle_Entry_AfterKeyboard
 
-Label_2C_403B:: ; 2C:403B
+MailTitle_Entry_ClampColumn:: ; 2C:403B
+Label_2C_403B::
 	ld a, c
 	cp a, $0B
 	jr nz, MailTitle_Entry_Loop
@@ -59,12 +60,13 @@ MailTitle_Entry_Loop:: ; 2C:4042
 	call MailTitle_PlaceTextCursor
 	ldh a, [hJoyPressed]
 	and a, $01
-	jr z, Label_2C_407C
+	jr z, MailTitle_Entry_CheckButtonB
 	call MailTitle_OpenKeyboard
 
-Label_2C_405F:: ; 2C:405F
+MailTitle_Entry_AfterKeyboard:: ; 2C:405F
+Label_2C_405F::
 	cp a, $07
-	jr nz, Label_2C_407C
+	jr nz, MailTitle_Entry_CheckButtonB
 	farcall Stat_DisableScrollSplit
 	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
@@ -75,7 +77,8 @@ Label_2C_405F:: ; 2C:405F
 	xor a, a
 	ret
 
-Label_2C_407C:: ; 2C:407C
+MailTitle_Entry_CheckButtonB:: ; 2C:407C
+Label_2C_407C::
 	ldh a, [hJoyPressed]
 	and a, $02
 	jr z, .l40C1
@@ -117,7 +120,7 @@ Label_2C_407C:: ; 2C:407C
 	and a, $10
 	call nz, MailTitle_CursorRight
 	ld d, $10
-	jp Label_2C_403B
+	jp MailTitle_Entry_ClampColumn
 
 MailTitle_CursorLeft:: ; 2C:40D4
 	; [CONFIRMED] 38 insn(s) reached by static flow only; seeds: exec x38; min discovery hops 1;
@@ -625,20 +628,20 @@ MailTitle_CharPtr:: ; 2C:4441
 	ldh [rSVBK], a
 	ld a, $FF
 	cp a, d
-	jr z, Label_2C_4469
+	jr z, MailTitle_CharPtr_NoChar
 	inc c
 	ld a, [hl]
 .loop ; 2C:4452
 	dec c
-	jr z, Label_2C_4467
+	jr z, MailTitle_CharPtr_Found
 	inc hl
 	inc hl
 	ld a, [hl]
 	cp a, $00
-	jr z, Label_2C_4469
+	jr z, MailTitle_CharPtr_NoChar
 	ld a, [hl]
 	cp a, $0D
-	jr z, Label_2C_446F
+	jr z, MailTitle_CharPtr_Newline
 	jr .loop
 
 ; ---- data $4463-$4467 (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
@@ -646,18 +649,21 @@ MailTitle_CharPtr:: ; 2C:4441
 Data_2C_4463:: ; 2C:4463
 	db $0C, $0D, $20, $02
 
-Label_2C_4467:: ; 2C:4467
+MailTitle_CharPtr_Found:: ; 2C:4467
+Label_2C_4467::
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios)
 	pop bc
 	ret
 
-Label_2C_4469:: ; 2C:4469
+MailTitle_CharPtr_NoChar:: ; 2C:4469
+Label_2C_4469::
 	ld a, $FF
 	ld d, $FF
 	pop bc
 	ret
 
-Label_2C_446F:: ; 2C:446F
+MailTitle_CharPtr_Newline:: ; 2C:446F
+Label_2C_446F::
 	; [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 1;
 	; entered by jrcc from 2C:445F (executed)
 	ld a, $0D
@@ -729,7 +735,7 @@ MailTitle_InsertChar:: ; 2C:44B8
 	ld hl, $D512
 	ld a, [hl]
 	cp a, $00
-	jr z, Label_2C_44DC
+	jr z, MailTitle_InsertChar_Insert
 
 	; [CONFIRMED] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 0;
 	; fall-through of the jrcc at 2C:44C4 (executed) [executed in 3 scenarios]
@@ -752,7 +758,8 @@ MailTitle_InsertChar:: ; 2C:44B8
 Data_2C_44DB:: ; 2C:44DB
 	db $C0
 
-Label_2C_44DC:: ; 2C:44DC
+MailTitle_InsertChar_Insert:: ; 2C:44DC
+Label_2C_44DC::
 	; [CONFIRMED] 58 insn(s); 58 executed (in up to 2/18 scenarios)
 	push de
 	push bc
@@ -813,7 +820,7 @@ Label_2C_44DC:: ; 2C:44DC
 	ld c, $00
 	call MailTitle_FindLine
 	inc d
-	jr z, Label_2C_459C
+	jr z, MailTitle_InsertChar_ShiftAndStore
 
 	; [PROBABLE] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 0;
 	; fall-through of the jrcc at 2C:455A (executed)
@@ -821,32 +828,35 @@ Label_2C_44DC:: ; 2C:44DC
 	push bc
 	ld c, $0B
 
-Label_2C_4560:: ; 2C:4560
+MailTitle_InsertChar_CheckRow:: ; 2C:4560
+Label_2C_4560::
 	call MailTitle_CharPtr
 	inc d
-	jr nz, Label_2C_457A
+	jr nz, MailTitle_InsertChar_NextRow
 	ld a, e
 	cp a, $0B
-	jr z, Label_2C_4585
-	jr Label_2C_459C
+	jr z, MailTitle_InsertChar_Reject
+	jr MailTitle_InsertChar_ShiftAndStore
 
 ; ---- data $456D-$457A (13 bytes) [HYPOTHESIS] UNCLASSIFIED 13 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
 Data_2C_456D:: ; 2C:456D
 	db $3E, $01, $E0, $8D, $E0, $70, $7E, $FE, $0D, $FE, $00, $28, $22
 
-Label_2C_457A:: ; 2C:457A
+MailTitle_InsertChar_NextRow:: ; 2C:457A
+Label_2C_457A::
 	; [PROBABLE] 22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 1;
 	; entered by jrcc from 2C:4564 (PROBABLE code)
 	ld a, $08
 	cp a, b
-	jr z, Label_2C_4585
+	jr z, MailTitle_InsertChar_Reject
 	inc b
 	ld a, $08
 	cp a, b
-	jr nz, Label_2C_4560
+	jr nz, MailTitle_InsertChar_CheckRow
 
-Label_2C_4585:: ; 2C:4585
+MailTitle_InsertChar_Reject:: ; 2C:4585
+Label_2C_4585::
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -863,7 +873,8 @@ Label_2C_4585:: ; 2C:4585
 	pop de
 	ret
 
-Label_2C_459C:: ; 2C:459C
+MailTitle_InsertChar_ShiftAndStore:: ; 2C:459C
+Label_2C_459C::
 	; [CONFIRMED] 49 insn(s); 49 executed (in up to 2/18 scenarios)
 	pop bc
 	pop de
@@ -1605,7 +1616,7 @@ MailTitle_KeyboardLoop:: ; 2C:4972
 	cp a, $07
 	ret z
 	cp a, $08
-	jr z, Label_2C_49E9
+	jr z, MailTitle_KeyboardLoop_HideKeyboard
 	ld a, [wKeyboardCharLo]
 	cp a, $4A
 	jr nz, .l49B8
@@ -1653,7 +1664,7 @@ MailTitle_KeyboardLoop:: ; 2C:4972
 	; fall-through of the jrcc at 2C:49DD (executed) [executed in 2 scenarios]
 	ld a, b
 	or a, c
-	jr z, Label_2C_49E9
+	jr z, MailTitle_KeyboardLoop_HideKeyboard
 
 .l49E3 ; 2C:49E3
 	; [CONFIRMED] 2 insn(s); 2 executed (in up to 1/18 scenarios)
@@ -1665,7 +1676,8 @@ MailTitle_KeyboardLoop:: ; 2C:4972
 Data_2C_49E8:: ; 2C:49E8
 	db $C9
 
-Label_2C_49E9:: ; 2C:49E9
+MailTitle_KeyboardLoop_HideKeyboard:: ; 2C:49E9
+Label_2C_49E9::
 	; [CONFIRMED] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1;
 	; entered by jrcc from 2C:4999 (executed) [executed in 2 scenarios]
 	push bc

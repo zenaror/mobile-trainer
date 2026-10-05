@@ -100,7 +100,7 @@ Function_67_58CD::
 	jr z, .l59BF
 	ld b, $00
 	ld a, $01
-	ld hl, $A880
+	ld hl, sSavedPasswordLen
 	farcall WriteByteFar
 	jr .l59C2
 .l59BF ; 67:59BF
@@ -266,7 +266,7 @@ PasswordChange_State_ReadLoginId:: ; 67:5ACA
 	ld a, $03
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld de, $A200
+	ld de, sPwdChg_LoginId
 	ld a, $0E
 	call MobileAPI
 	ld a, $02
@@ -285,16 +285,16 @@ PasswordChange_State_Connect:: ; 67:5B0E
 	jp nz, PasswordChange_Communicate_Dispatch
 	ld de, $DEEE
 	farcall Dial_CopySelectedNumber
-	ld de, $A100
+	ld de, sPwdChg_ApiArgs
 	call Net_CopyDefaultDnsPair
 	ld hl, $DEEE
-	ld de, $A108
+	ld de, sPwdChg_ApiArgs + $08
 	call CopyString
 	ld hl, $5E77
 	call CopyString
 	ld hl, $5E77
 	call CopyString
-	ld hl, $A100
+	ld hl, sPwdChg_ApiArgs
 	ld a, $3E
 	call MobileAPI
 	ld a, $03
@@ -312,20 +312,20 @@ PasswordChange_State_SendRequest:: ; 67:5B5B
 	bit 0, a
 	jp nz, PasswordChange_Communicate_Dispatch
 	xor a, a
-	ld hl, $B000
+	ld hl, sBrowserPageBuf
 	ld bc, $1000
 	call FillBytes
 	ld hl, Net_PwdChgCgiUrl
-	ld de, $A463
+	ld de, sPwdChg_HttpUrl
 	call CopyString
 	call PasswordChange_BuildRequestBody
-	ld hl, $A100
+	ld hl, sPwdChg_ApiArgs
 	ld a, $63
 	ld [hli], a
 	ld a, $A3
 	ld [hli], a
 	push hl
-	ld hl, $A363
+	ld hl, sPwdChg_PostBody
 	call StringLength
 	pop hl
 	ld a, c
@@ -350,8 +350,8 @@ PasswordChange_State_SendRequest:: ; 67:5B5B
 	ld [hli], a
 	ld [hli], a
 	ld [hl], a
-	ld hl, $A100
-	ld de, $B000
+	ld hl, sPwdChg_ApiArgs
+	ld de, sBrowserPageBuf
 	ld bc, $1000
 	ld a, $2C
 	call MobileAPI
@@ -444,8 +444,8 @@ PasswordChange_State_WaitResponse:: ; 67:5BD8
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld de, $B000
-	ld hl, $B000
+	ld de, sBrowserPageBuf
+	ld hl, sBrowserPageBuf
 	ld bc, $1000
 	farcall Charset_ConvertPage
 	farcall Html_ParsePage
@@ -583,11 +583,11 @@ PasswordChange_FollowRedirect:: ; 67:5D45
 	ld [hli], a
 	ld [hl], a
 	xor a, a
-	ld hl, $B000
+	ld hl, sBrowserPageBuf
 	ld bc, $1000
 	call FillBytes
 	call HttpRedirect_ResolveUrl
-	ld hl, $A100
+	ld hl, sPwdChg_ApiArgs
 	ld a, $63
 	ld [hli], a
 	ld a, $A2
@@ -606,8 +606,8 @@ PasswordChange_FollowRedirect:: ; 67:5D45
 	ld [hli], a
 	ld [hli], a
 	ld [hl], a
-	ld hl, $A100
-	ld de, $B000
+	ld hl, sPwdChg_ApiArgs
+	ld de, sBrowserPageBuf
 	ld bc, $1000
 	ld a, $2A
 	call MobileAPI
@@ -715,22 +715,22 @@ Function_67_5E7D::
 	; [CONFIRMED] 19 insn(s); 19 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, Net_PppIdKey
-	ld de, $A363
+	ld de, sPwdChg_PostBody
 	call CopyString
-	ld hl, $A200
-	ld de, $A363
+	ld hl, sPwdChg_LoginId
+	ld de, sPwdChg_PostBody
 	call StringAppend
 	ld hl, $5EBC
-	ld de, $A363
+	ld de, sPwdChg_PostBody
 	call StringAppend
 	ld hl, $DEB9
-	ld de, $A363
+	ld de, sPwdChg_PostBody
 	call StringAppend
 	ld hl, $5EC5
-	ld de, $A363
+	ld de, sPwdChg_PostBody
 	call StringAppend
 	ld hl, $DEC2
-	ld de, $A363
+	ld de, sPwdChg_PostBody
 	call StringAppend
 	ret
 

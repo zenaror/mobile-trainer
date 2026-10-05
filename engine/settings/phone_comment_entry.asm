@@ -42,7 +42,7 @@ Function_67_4940::
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $B0AD
+	ld hl, sSettingsNumberComment
 	ld de, $C28F
 	call DecodeXorA5
 	ld hl, $C28F

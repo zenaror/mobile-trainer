@@ -50,7 +50,7 @@ Function_68_5D2F:: ; 68:5D2F
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $B07F
+	ld hl, sSettingsPassword
 	ld de, $C28F
 	call DecodeXorA5
 	ld hl, $C28F

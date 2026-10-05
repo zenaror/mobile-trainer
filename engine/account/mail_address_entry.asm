@@ -42,7 +42,7 @@ Function_68_5739::
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $B071
+	ld hl, sSettingsMailLocalPart
 	ld de, $C28F
 	call DecodeXorA5
 	ld hl, $C28F
@@ -50,7 +50,7 @@ Function_68_5739::
 	call CompareString
 	or a, a
 	jr nz, .l578C
-	ld hl, $B07A
+	ld hl, sSettingsMailSubdomain
 	ld de, $C28F
 	call DecodeXorA5
 	ld hl, $C28F

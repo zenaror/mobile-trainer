@@ -105,7 +105,7 @@ Registration_Verify_StateReadLoginId:: ; 68:70A6
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld de, $A200
+	ld de, sRegVerify_LoginId
 	ld a, $0E
 	call MobileAPI
 	ld a, $02
@@ -120,7 +120,7 @@ Registration_Verify_StateReadDialSlots:: ; 68:70E5
 	jp nz, Registration_Verify_OnAdapterError
 	bit 0, a
 	jp nz, Registration_Verify_RunState_Dispatch
-	ld de, $A222
+	ld de, sRegVerify_DialSlots
 	ld a, $0C
 	call MobileAPI
 	ld a, $03
@@ -135,7 +135,7 @@ Registration_Verify_StateReadMailAddress:: ; 68:7109
 	jp nz, Registration_Verify_OnAdapterError
 	bit 0, a
 	jp nz, Registration_Verify_RunState_Dispatch
-	ld de, $A244
+	ld de, sRegVerify_MailAddress
 	ld a, $10
 	call MobileAPI
 	ld a, $04
@@ -150,14 +150,14 @@ Registration_Verify_StateIspLogin:: ; 68:712D
 	jp nz, Registration_Verify_OnAdapterError
 	bit 0, a
 	jp nz, Registration_Verify_RunState_Dispatch
-	ld hl, $A222
-	ld de, $A100
+	ld hl, sRegVerify_DialSlots
+	ld de, sRegVerify_ApiArgs
 	call CopyString
-	ld hl, $A200
+	ld hl, sRegVerify_LoginId
 	call CopyString
 	ld hl, $DEB9
 	call CopyString
-	ld hl, $A100
+	ld hl, sRegVerify_ApiArgs
 	ld a, $06
 	call MobileAPI
 	ld a, $05
@@ -179,8 +179,8 @@ Registration_Verify_StatePopLogin:: ; 68:7166
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $A244
-	ld de, $A100
+	ld hl, sRegVerify_MailAddress
+	ld de, sRegVerify_ApiArgs
 	call CopyString
 	ld hl, $DEB9
 	call CopyString
@@ -196,7 +196,7 @@ Registration_Verify_StatePopLogin:: ; 68:7166
 	ld [hli], a
 	ld [hli], a
 	ld [hl], a
-	ld hl, $A100
+	ld hl, sRegVerify_ApiArgs
 	ld a, $1E
 	call MobileAPI
 	ld a, $06
@@ -376,16 +376,16 @@ Registration_Verify_StateWriteConfig:: ; 68:72D7
 	jp nz, Registration_Verify_OnAdapterError
 	bit 0, a
 	jp nz, Registration_Verify_RunState_Dispatch
-	ld hl, $A002
+	ld hl, sConfigRegState
 	ld a, [hl]
 	set 7, a
 	ld [hl], a
-	ld hl, $A003
+	ld hl, sConfigImage + $03
 	xor a, a
 	ld [hl], a
 	farcall Config_MirrorUpdateChecksum
 	ld c, $C0
-	ld hl, $A000
+	ld hl, sConfigImage
 	ld de, $0000
 	ld a, $04
 	call MobileAPI

@@ -242,7 +242,7 @@ SramCheck_Bank1BlockSum:: ; 22:5035
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $A000
+	ld hl, sPageList
 	ld de, $0000
 	ld bc, $0684
 .l504C ; 22:504C
@@ -256,7 +256,7 @@ SramCheck_Bank1BlockSum:: ; 22:5035
 	ld a, b
 	or a, c
 	jr nz, .l504C
-	ld hl, $A69D
+	ld hl, sAbookSlots
 	ld bc, $01E0
 .l505D ; 22:505D
 	ld a, [hli]
@@ -269,7 +269,7 @@ SramCheck_Bank1BlockSum:: ; 22:5035
 	ld a, b
 	or a, c
 	jr nz, .l505D
-	ld hl, $A8D7
+	ld hl, sSramCheckBank1Sum
 	ld a, [hli]
 	ld b, a
 	ld a, [hl]
@@ -283,7 +283,7 @@ SramCheck_Bank1BlockSum:: ; 22:5035
 SramCheck_Bank1StoreSum:: ; 22:5077
 	; [CONFIRMED] 15 insn(s) reached by static flow only; seeds: exec x15; min discovery hops 7;
 	; entered by call from 22:5103 (PROBABLE code) [executed in 4 scenarios]
-	ld hl, $A8D7
+	ld hl, sSramCheckBank1Sum
 	ld a, $01
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -327,7 +327,7 @@ SramCheck_Bank1ClearBlock:: ; 22:50A0
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $A000
+	ld hl, sPageList
 	ld bc, $0684
 .l50B4 ; 22:50B4
 	xor a, a
@@ -336,7 +336,7 @@ SramCheck_Bank1ClearBlock:: ; 22:50A0
 	ld a, b
 	or a, c
 	jr nz, .l50B4
-	ld hl, $A69D
+	ld hl, sAbookSlots
 	ld bc, $01E0
 .l50C1 ; 22:50C1
 	xor a, a

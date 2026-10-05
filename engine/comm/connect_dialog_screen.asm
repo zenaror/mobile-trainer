@@ -1430,7 +1430,7 @@ Function_57_541C::
 	cp a, $09
 	ret nc
 	push af
-	ld hl, $A88D
+	ld hl, sSavedPasswordText
 	ld c, a
 .loop ; 57:5427
 	ld a, [de]
@@ -1444,7 +1444,7 @@ Function_57_541C::
 .l5437 ; 57:5437
 	pop bc
 	ld a, $01
-	ld hl, $A880
+	ld hl, sSavedPasswordLen
 	farcall WriteByteFar
 	ret
 

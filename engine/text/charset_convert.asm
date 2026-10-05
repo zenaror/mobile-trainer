@@ -651,9 +651,9 @@ Label_7E_7E37::
 	ld c, e
 	ld b, d
 	ld a, c
-	ld [sSram_B000], a
+	ld [sBrowserPageBuf], a
 	ld a, b
-	ld [sSram_B001], a
+	ld [sBrowserPageBuf + $01], a
 	ret
 
 Charset_EucJpToSjisStream:: ; 7E:7E68
@@ -719,8 +719,8 @@ Charset_EucJpToSjisStream:: ; 7E:7E68
 .l7EAA ; 7E:7EAA
 	; [CONFIRMED] 5 insn(s) executed; cut out of the PROBABLE region 7E68-7EB3 by apply_coverage
 	; --split [executed in 1 scenarios]
-	ld a, [sSram_B000]
+	ld a, [sBrowserPageBuf]
 	ld c, a
-	ld a, [sSram_B001]
+	ld a, [sBrowserPageBuf + $01]
 	ld b, a
 	ret

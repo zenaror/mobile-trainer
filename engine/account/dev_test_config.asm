@@ -29,7 +29,7 @@ Dev_InstallTestConfig:: ; 68:4DB4
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld hl, Dev_TestDialNumber
-	ld de, $B014
+	ld de, sSettingsDialNumbers
 	call EncodeXorA5
 	xor a, a
 	ldh [hSRAMEnable], a

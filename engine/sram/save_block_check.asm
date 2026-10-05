@@ -77,7 +77,7 @@ SaveCheck_Verify:: ; 4E:46CF
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ld de, $0000
-	ld hl, $A9E8
+	ld hl, sSaveCheckStateBlock
 	ld bc, $0010
 	call SaveCheck_Sum16
 	ld a, [sSram_A9EA]
@@ -87,10 +87,10 @@ SaveCheck_Verify:: ; 4E:46CF
 	cp a, d
 	jr nz, .l4730
 	ld de, $0000
-	ld hl, $A000
+	ld hl, sPageList
 	ld bc, $0684
 	call SaveCheck_Sum16
-	ld hl, $A9E4
+	ld hl, sSaveCheckBlockTag
 	ld bc, $0004
 	call SaveCheck_Sum16
 	ld a, [sSram_A9E6]
@@ -148,7 +148,7 @@ SaveCheck_ResetBlock:: ; 4E:4749
 	ld a, $01
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld hl, $A9E8
+	ld hl, sSaveCheckStateBlock
 	ld bc, $0010
 	xor a, a
 	call FillBytes
@@ -161,7 +161,7 @@ SaveCheck_ResetBlock:: ; 4E:4749
 	ld a, $01
 	ld [sSram_A9EC], a
 	ld [sSram_A9EF], a
-	ld hl, $A000
+	ld hl, sPageList
 	ld bc, $0684
 	xor a, a
 	call FillBytes
@@ -183,7 +183,7 @@ SaveCheck_Update:: ; 4E:4795
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ld de, $0000
-	ld hl, $A9E8
+	ld hl, sSaveCheckStateBlock
 	ld bc, $0010
 	call SaveCheck_Sum16
 	ld a, e
@@ -195,10 +195,10 @@ SaveCheck_Update:: ; 4E:4795
 	cpl
 	ld [sSram_A9E9], a
 	ld de, $0000
-	ld hl, $A000
+	ld hl, sPageList
 	ld bc, $0684
 	call SaveCheck_Sum16
-	ld hl, $A9E4
+	ld hl, sSaveCheckBlockTag
 	ld bc, $0004
 	call SaveCheck_Sum16
 	ld a, e

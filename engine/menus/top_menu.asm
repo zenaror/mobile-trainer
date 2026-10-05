@@ -15,7 +15,7 @@ Function_1F_4000::
 	call FillBytes
 	farcall Stub_Nop_48_48BB
 	ld a, $01
-	ld hl, $A8B9
+	ld hl, sTopMenuCursor
 	call ReadByteFar
 	or a, a
 	jr nz, .skip
@@ -231,7 +231,7 @@ Label_1F_421D::
 	ld a, [wTopMenu_Cursor]
 	ld b, a
 	ld a, $01
-	ld hl, $A8B9
+	ld hl, sTopMenuCursor
 	farcall WriteByteFar
 	ld a, [wTopMenu_Cursor]
 	ret
@@ -261,7 +261,7 @@ TopMenu_OnB:: ; 1F:425A
 	ldh [rLCDC], a
 	ld b, $00
 	ld a, $01
-	ld hl, $A8B9
+	ld hl, sTopMenuCursor
 	farcall WriteByteFar
 	xor a, a
 	ret

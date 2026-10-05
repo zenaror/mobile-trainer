@@ -66,7 +66,7 @@ Function_2E_4000::
 	call MailServerMgr_UpdateTimerDisplay
 	ldh a, [hJoyHeld]
 	and a, $02
-	jp nz, Label_2E_4A47
+	jp nz, MailServerMgr_Run_Cancel
 	farcall Pop3_LoginStatPoll
 	cp a, $01
 	jr z, .l4067
@@ -187,7 +187,7 @@ Function_2E_4000::
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 40B9-417F by apply_coverage --split
 	pop de
-	jp Label_2E_4A47
+	jp MailServerMgr_Run_Cancel
 
 .l4149 ; 2E:4149
 	; [CONFIRMED] 17 insn(s) executed; cut out of the PROBABLE region 40B9-417F by apply_coverage
@@ -394,7 +394,8 @@ Function_2E_4000::
 	ld bc, $0000
 	ld hl, $0000
 
-Label_2E_4298:: ; 2E:4298
+MailServerMgr_Run_MailLoop:: ; 2E:4298
+Label_2E_4298::
 	push bc
 	push hl
 	push hl
@@ -476,7 +477,7 @@ Label_2E_4298:: ; 2E:4298
 	jr z, .l4332
 	pop hl
 	pop bc
-	jp Label_2E_4A47
+	jp MailServerMgr_Run_Cancel
 .l4332 ; 2E:4332
 	xor a, a
 	farcall Pop3_TopPoll
@@ -1030,7 +1031,7 @@ Label_2E_4298:: ; 2E:4298
 	jr z, .l4717
 	pop hl
 	pop bc
-	jp Label_2E_4A47
+	jp MailServerMgr_Run_Cancel
 .l4717 ; 2E:4717
 	xor a, a
 	farcall Pop3_DelePoll
@@ -1223,7 +1224,7 @@ Label_2E_4298:: ; 2E:4298
 	xor a, a
 	ret
 .l4887 ; 2E:4887
-	jp Label_2E_4298
+	jp MailServerMgr_Run_MailLoop
 
 	; [HYPOTHESIS] function prologue push af/bc/de/hl right after the unconditional jp $4298 at 4887
 	; and directly before the far-call site region at 488E; the matching pop sequence was not
@@ -1385,7 +1386,7 @@ Function_2E_48F8::
 	inc bc
 	ld a, d
 	ld [bc], a
-	jp Label_2E_4A47
+	jp MailServerMgr_Run_Cancel
 .l49DA ; 2E:49DA
 	xor a, a
 	farcall Pop3_DelePoll
@@ -1424,7 +1425,7 @@ Function_2E_48F8::
 	pop hl
 	ld a, d
 	or a, e
-	jp nz, Label_2E_4298
+	jp nz, MailServerMgr_Run_MailLoop
 	call $58C4
 	ld hl, $0000
 	call $5FA2
@@ -1445,7 +1446,8 @@ Function_2E_48F8::
 	xor a, a
 	ret
 
-Label_2E_4A47:: ; 2E:4A47
+MailServerMgr_Run_Cancel:: ; 2E:4A47
+Label_2E_4A47::
 	; [CONFIRMED] 47 insn(s) executed; cut out of the PROBABLE region 488E-4B2E by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld a, $04

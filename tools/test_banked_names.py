@@ -225,5 +225,63 @@ class BuildTests(Base):
         self.assertIn('SHA-256 OK', out)
 
 
+class CheckTests(Base):
+    """--check: overlapping names of one bank are accepted when no source file mentions both (time-shared overlays)."""
+
+    def setup_banked(self, lines, files=None):
+        put(os.path.join(self.dir, 'ram/banked.asm'), '; header\n' + ''.join(l + '\n' for l in lines))
+        for rel, text in (files or {}).items():
+            put(os.path.join(self.dir, rel), text)
+
+    def run_check(self):
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out), contextlib.redirect_stderr(out):
+            rc = ab.main(['--root', self.dir, '--check'])
+        return rc, out.getvalue()
+
+    BIG = 'DEF sBigBuf EQU $B000 ; bank S3 size 4096 array CONFIRMED [t] page buffer'
+    SMALL = 'DEF sSmallRec EQU $B009 ; bank S3 size 4 struct CONFIRMED [t] record'
+
+    def test_disjoint_files_are_overlays(self):
+        self.setup_banked([self.BIG, self.SMALL], {'engine/a.asm': 'ld hl, sBigBuf\n', 'engine/b.asm': 'ld hl, sSmallRec\n'})
+        rc, out = self.run_check()
+        self.assertEqual(rc, 0, out)
+        self.assertIn('overlay, disjoint files', out)
+        self.assertIn('1 overlapping pair(s), 0 error(s), 1 note(s)', out)         # nobody documents the overlay
+
+    def test_shared_file_is_a_violation(self):
+        self.setup_banked([self.BIG, self.SMALL], {'engine/a.asm': 'ld hl, sBigBuf\n', 'engine/b.asm': 'ld hl, sSmallRec\nld de, sBigBuf\n'})
+        rc, out = self.run_check()
+        self.assertEqual(rc, 1, out)
+        self.assertIn('VIOLATION: shared files engine/b.asm', out)
+
+    def test_documented_overlay_in_a_shared_file(self):
+        big = 'DEF sBigBuf EQU $B000 ; bank S3 size 4096 array CONFIRMED [t] page buffer; overlay: shares bytes with sSmallRec'
+        self.setup_banked([big, self.SMALL], {'engine/a.asm': 'ld hl, sBigBuf\nld de, sSmallRec\n'})
+        rc, out = self.run_check()
+        self.assertEqual(rc, 0, out)
+        self.assertIn('documented overlay, shared files engine/a.asm', out)
+        self.setup_banked([big.replace('sSmallRec', 'sOther'), self.SMALL], {'engine/a.asm': 'ld hl, sBigBuf\nld de, sSmallRec\n'})      # names another name: no help
+        self.assertEqual(self.run_check()[0], 1)
+
+    def test_container_and_field(self):
+        self.setup_banked(['DEF sPage EQU $B000 ; bank S3 size 256 struct CONFIRMED [t] page', self.SMALL], {'engine/a.asm': 'ld hl, sPage\nld de, sSmallRec\n'})
+        rc, out = self.run_check()
+        self.assertEqual(rc, 0, out)
+        self.assertIn('container and field', out)
+        both = {'engine/a.asm': 'ld hl, sPage\nld de, sSmallRec\n'}
+        self.setup_banked(['DEF sPage EQU $B000 ; bank S3 size 256 array CONFIRMED [t] container of the records', self.SMALL], both)
+        self.assertEqual(self.run_check()[0], 0)
+        self.setup_banked(['DEF sPage EQU $B000 ; bank S3 size 256 array CONFIRMED [t] page', self.SMALL], both)        # an array alone is no container
+        self.assertEqual(self.run_check()[0], 1)
+
+    def test_other_bank_or_disjoint_range_is_no_overlap(self):
+        self.setup_banked(['DEF sA EQU $B000 ; bank S1 size 16 array CONFIRMED [t] a overlay: none', 'DEF sB EQU $B008 ; bank S3 size 4 byte CONFIRMED [t] b',
+                           'DEF sC EQU $B100 ; bank S1 size 4 byte CONFIRMED [t] c'], {'engine/a.asm': 'ld hl, sA\nld de, sB\nld bc, sC\n'})
+        rc, out = self.run_check()
+        self.assertEqual(rc, 0, out)
+        self.assertIn('0 overlapping pair(s)', out)
+
+
 if __name__ == '__main__':
     unittest.main(argv=[sys.argv[0]] + [a for a in sys.argv[1:] if a != '-v'], verbosity=2 if '-v' in sys.argv else 1)

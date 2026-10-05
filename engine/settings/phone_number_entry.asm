@@ -350,7 +350,7 @@ Function_67_424A::
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $B08B
+	ld hl, sSettingsNumberInternet
 	ld de, $C28F
 	call DecodeXorA5
 	ld hl, $C28F
@@ -402,7 +402,7 @@ Function_67_424A::
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $B09C
+	ld hl, sSettingsNumberSelfPage
 	ld de, $C28F
 	call DecodeXorA5
 	ld hl, $C28F
