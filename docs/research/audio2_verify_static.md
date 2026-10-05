@@ -4,7 +4,9 @@ Scope: the names of `analysis/naming2/audio2_renames.tsv` (40 applied driver row
 `docs/research/audio_format.md` (sections 1-12) and of `constants/audio_macros.inc` about the sound driver (bank 04) and the sound data (banks 04/05).
 Fixes: [`analysis/naming2/verify_audio2_fixes.tsv`](../../analysis/naming2/verify_audio2_fixes.tsv) (77 rows; applies cleanly with `tools/apply_renames.py --strict`; `make` stays IDENTICAL, `make sym-check` OK).
 Scripts and per-claim verdicts: [`analysis/audio2_verify/`](../../analysis/audio2_verify/) (`run_all.sh` re-runs everything; `verdicts.tsv` has one line per verified name or claim).
-Status (2026-10-05): the 77 renames of the TSV and the three-line change of `tools/audio_to_macros.py` (prefix `SoundSfx`) were applied to the tree (`make` IDENTICAL, `sym_check` OK, `tools/audio_to_macros.py --check` exit 0); the patch file was not kept.  The text corrections under "Corrections to apply" are tracked separately.  Line numbers in this report are those of the tree at 8f9b055.
+Status (2026-10-05): the 77 renames of the TSV and the three-line change of `tools/audio_to_macros.py` (prefix `SoundSfx`) were applied to the tree (`make` IDENTICAL, `sym_check` OK, `tools/audio_to_macros.py --check` exit 0); the patch file was not kept.  The text corrections under "Corrections to apply" were applied on 2026-10-05 together with those of the dynamic report, in `docs/research/audio_format.md` and the other files named there.  Line numbers in this report are those of the tree at 8f9b055.
+**Erratum (2026-10-05, after the mGBA run of [`audio2_verify_dynamic.md`](audio2_verify_dynamic.md)): finding 5 and the "Suggested wording" for `+$27/+$28` below are WRONG and withdrawn.**  The report notes the 8-bit wrap of the age counter but does not follow it through: the counter rises by one every 15 ticks, so it wraps to 0 after
+about `(256 - +$28) * 15` ticks and the channel is then silenced; `+$28` therefore is a tail length.  On mGBA 48 of 48 combinations of (`+$27`, `+$28`) equal that model.  The status stays PROBABLE (no song sets either field; synthetic runs do not raise a status): `audio_format.md` section 5.1 has the corrected text.
 Verifier stance: try to refute every name and claim; a claim is UPHELD only when re-derived independently from the ROM bytes and the disassembly (not from the evidence column, not from `tools/audio_driver_check.py`
 or `tools/audio_to_macros.py`).  This verifier is STATIC: no emulation; its only dynamic input is the existing mGBA material of the repository (`analysis/coverage_union.tsv`, `traces/detail/*/dataaccess.tsv`) read as data.
 
@@ -29,7 +31,7 @@ The findings that matter most (details in the sections below):
    and instrument bytes 1-2 (always 0 in the data) has the same cause.
 3. **`$C1` formula is exact only for `v >= $40`**; below `$40` the code adds `scale` units of 1/256 semitone (18.75 cents at the largest scale used).
 4. **`$CF` releases the first matching channel only**, not each.
-5. **The "tail after the note" hypothesis (`+$27/+$28`) is contradicted by the code's own counter**: the age counter gets +1 (+2 on every 15th tick) per tick and only -1 in the end state, so it cannot count down; `+$28` is not a duration.
+5. **[WITHDRAWN, see the erratum under Status] The "tail after the note" hypothesis (`+$27/+$28`) is contradicted by the code's own counter**: the age counter gets +1 (+2 on every 15th tick) per tick and only -1 in the end state, so it cannot count down; `+$28` is not a duration.
 6. **Attack evidence**: the doc's attack row rests on record `$68`, which the data never selects; the only attack record used is wave record `$4B` (effect `$42`).
 7. **`SoundSongNN` for the 30 effect records contradicts the project's own classification** (ids `$29-$46` go only to `Sound_PlaySfx`; the sound-test screen says "MUSIC" / "SOUND"): renamed `SoundSfxNN_*` (75 rows); `SoundDrv_StopChannelTrackEnded` states a cause the code does not test: renamed `...TrackNotRunning`.
 8. Stale text: `REVERSE_ENGINEERING.md:62` still lists the role of bank 04 as open ("PROBABLE at best") although the sound driver is CONFIRMED by 3.4 million executed ticks; stale pre-rename names in the doc and the macro comments; 124 superseded region comments.
@@ -177,7 +179,7 @@ and not an emulation).  Statuses follow the rule of V2.1.
 (period 0), its age counter channel+`$12` := +`$28`, and the state bits are cleared (`and $8F`: state `00`).  In state `00` the only code is 04:4D89-4D8E: `dec [channel+$12]; jr nz` (stop when 0).  But `SoundDrv_UpdateChannel` adds 1 to that same counter
 on every tick (2 on every 15th) before the state dispatch (04:4C3F-4C4A, every state with bit 6 clear), so in state `00` its net change per tick is 0 (or +1): **the counter cannot count down to 0**; the channel keeps the tail volume until
 the track stops or the channel is taken over (the only exit by itself is the 8-bit wrap after (256-d)*15 ticks).  This agrees with the author's observation that the channel "was not silenced before the track ended" and means "+`$28` = tail length in ticks" is not what the code does.
-Suggested wording: HYPOTHESIS (unchanged status): +`$27` is a tail volume factor and +`$28` only has to be non-zero.  Neither the state-`00` branch (04:4C5C, 4D72-4D8E) nor +`$27/$28` is executed in the 64 scenarios.
+Suggested wording (WITHDRAWN, see the erratum under Status): HYPOTHESIS (unchanged status): +`$27` is a tail volume factor and +`$28` only has to be non-zero.  Neither the state-`00` branch (04:4C5C, 4D72-4D8E) nor +`$27/$28` is executed in the 64 scenarios.
 
 ### Section 5.2 (per-tick chain) and the `Param` handlers
 
@@ -307,7 +309,7 @@ for the effects; block A (lines 4-5) applies alone (dry run).  Without the conve
 | `:18, :20-22, :100, :117, :152, :158, :159, :164-166, :223-224` | status words: `$B5`, adjust bytes, `$C0`, `$C6`, `$C9`, `$CD` 1-3/10 and instrument bytes 1-2 are PROBABLE (never executed in the ROM; the evidence is the author's interpreter) |
 | `:153`, `constants/audio_macros.inc:225` | `$C1`: "exact for `v >= $40`; below `$40` the code adds `scale` units of 1/256 semitone (`4(v-$40)*scale + scale`)"; macro line 226: the scales used by the data are `$04-$30` |
 | `:162` | `$CF` releases the first matching channel only |
-| `:166-169`, `:206` | `+$27` / `+$28` are read at 04:4D66 / 04:4D68; add that the age counter cannot count down in state `00` (net 0 / +1 per tick), so `+$28` is not a tail length (HYPOTHESIS: `+$27` a tail volume factor) |
+| `:166-169`, `:206` | `+$27` / `+$28` are read at 04:4D66 / 04:4D68; add that the age counter cannot count down in state `00` (net 0 / +1 per tick), so `+$28` is not a tail length (HYPOTHESIS: `+$27` a tail volume factor) [withdrawn: see the erratum under Status] |
 | `:188` | flags: add bit 5 (`$A0` from `StartTrack`; `ResumeMusic` tests `$60`) |
 | `:193` | initial instrument copy `0, 0, 0, FF, FF` (two effects `$2A`, `$2B` play before any `sound_instrument`) |
 | `:238`, `:243-245`, `:22` | attack: the data never selects `$68`; the only record with an attack is wave record `$4B` (effect `$42`, `BE $4B` at 05:675B), whose attack ran 12 times in the ROM scenarios; pulse/noise attack is PROBABLE |
