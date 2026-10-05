@@ -8,7 +8,7 @@ PasswordChange_Run:: ; 67:58CD
 Function_67_58CD::
 	; [CONFIRMED] 30 insn(s); 30 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
-	farcall Function_68_4282
+	farcall Stub_Nop_68_4282
 .l58D3 ; 67:58D3
 	ld a, $0F
 	farcall Notice_ShowPage

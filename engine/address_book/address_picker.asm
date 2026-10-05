@@ -761,7 +761,8 @@ Function_2C_5CA3::
 	pop bc
 	ret
 
-Function_2C_5CD2:: ; 2C:5CD2
+AddrPick_SetListAreaAttrs:: ; 2C:5CD2
+Function_2C_5CD2::
 	push af
 	push bc
 	di
@@ -1480,7 +1481,7 @@ Function_2C_5FB1::
 	pop hl
 	jr .l6025
 .l6022 ; 2C:6022
-	call Function_2C_5CD2
+	call AddrPick_SetListAreaAttrs
 .l6025 ; 2C:6025
 	call AddrBook_UploadTextTiles
 	pop bc
@@ -1586,7 +1587,7 @@ Function_2C_6032::
 .l60A3 ; 2C:60A3
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;
 	; entered by jrcc from 2C:6078 (executed)
-	call Function_2C_5CD2
+	call AddrPick_SetListAreaAttrs
 
 .l60A6 ; 2C:60A6
 	; [CONFIRMED] 8 insn(s); 8 executed (in up to 1/18 scenarios)
@@ -1599,7 +1600,8 @@ Function_2C_6032::
 	pop af
 	ret
 
-Function_2C_60B3:: ; 2C:60B3
+AddrPick_DrawSlotNames:: ; 2C:60B3
+Function_2C_60B3::
 	; [PROBABLE] 102 insn(s): complete SRAM-access routine (same prologue/epilogue as 2C:5FB1);
 	; well-formed instruction chain (clean decode, all direct targets land on instruction starts,
 	; lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS

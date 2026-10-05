@@ -661,7 +661,7 @@ Table_55_5FC8::
 	jr z, .l602E
 	ld a, [wKbdNeighbourCell]
 	call Kbd_IndexToColRow
-	call Function_55_6041
+	call Kbd_AdjustColRowForSticky
 	ld a, [wKbdStickyRow]
 	ld c, a
 	call Kbd_ColRowToIndex
@@ -682,7 +682,7 @@ Table_55_5FC8::
 	jr z, .l602E
 	ld a, [wKbdNeighbourCell]
 	call Kbd_IndexToColRow
-	call Function_55_6041
+	call Kbd_AdjustColRowForSticky
 	ld a, [wKbdStickyCol]
 	ld b, a
 	call Kbd_ColRowToIndex
@@ -706,7 +706,8 @@ Table_55_5FC8::
 	call Kbd_FetchCell
 	ret
 
-Function_55_6041:: ; 55:6041
+Kbd_AdjustColRowForSticky:: ; 55:6041
+Function_55_6041::
 	ld a, [wKbdType]
 	cp a, $01
 	jr z, .l604D

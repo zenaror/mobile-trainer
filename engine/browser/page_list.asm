@@ -1611,7 +1611,7 @@ PageList_ActionMenu:: ; 24:4BCD
 	; entered by call from 24:4203 (PROBABLE code) | 11 insn(s) executed; cut out of the PROBABLE
 	; region 4BCD-53FE by apply_coverage --split [executed in 3 scenarios]
 	call PageList_ActionMenuInit
-	call Function_24_53FD
+	call Stub_Nop_24_53FD
 	ld b, $00
 
 PageList_ActionMenu_Loop:: ; 24:4BD5
@@ -1794,7 +1794,7 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
-	call nz, Function_24_53FC
+	call nz, Stub_Nop_24_53FC ; never taken: ldh sets no flags, Z is the one the farcall left (naming2_verify_fn4.md)
 	ldh a, [hJoyPressed]
 	and a, $01
 	jr z, .l4DBA
@@ -2741,12 +2741,14 @@ PageList_DeleteSlot:: ; 24:51CB
 	ld a, $FF
 	ret
 
-Function_24_53FC:: ; 24:53FC
+Stub_Nop_24_53FC:: ; 24:53FC
+Function_24_53FC::
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4BCD-53FE by apply_coverage --split
 	ret
 
-Function_24_53FD:: ; 24:53FD
+Stub_Nop_24_53FD:: ; 24:53FD
+Function_24_53FD::
 	; [CONFIRMED] 1 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage
 	; --split [executed in 8 scenarios]
 	ret

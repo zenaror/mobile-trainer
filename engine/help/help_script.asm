@@ -34,7 +34,7 @@ HelpScript_Run:: ; 6C:59B2
 	ld bc, $00FC
 	ld hl, $C0D4
 	call FillBytes
-	farcall Function_48_48BB
+	farcall Stub_Nop_48_48BB
 	pop bc
 	ld a, $01
 	ld hl, $A684

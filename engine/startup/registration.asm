@@ -827,7 +827,8 @@ Registration_SavePassword:: ; 65:47EA
 	farcall SavedPassword_Store
 	ret
 
-Function_65_481A:: ; 65:481A
+Startup_VerifySaveDataDeadVariant:: ; 65:481A
+Function_65_481A::
 	; [PROBABLE] 37 insn(s) reached by static flow only; seeds: site x37; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Settings_VerifyAndRepair

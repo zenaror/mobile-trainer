@@ -878,7 +878,7 @@ MobileAPI_Disconnect:: ; 75:44CB
 
 .l452B ; 75:452B
 	; [CONFIRMED] 39 insn(s); 39 executed (in up to 7/18 scenarios)
-	call Function_75_673A
+	call MobileSDK_ResetRxWindowAndResultPtr
 	xor a, a
 	ld [wMobileSDK_Substep], a
 	ld de, $CA04
@@ -1238,7 +1238,7 @@ MobileAPI_SmtpMailFrom:: ; 75:475C
 	xor a, a
 	cp a, [hl]
 	jr nz, .l4786
-	call Function_75_673A
+	call MobileSDK_ResetRxWindowAndResultPtr
 	xor a, a
 	ld [wMobileSDK_Substep], a
 	ld de, $C9E4
@@ -1320,7 +1320,7 @@ MobileAPI_SmtpData:: ; 75:4804
 	ld [hli], a
 	ld a, d
 	ld [wMobileSDK_ResultPointer + 1], a
-	call Function_75_673A
+	call MobileSDK_ResetRxWindowAndResultPtr
 	ld hl, $C827
 	ld a, [hl]
 	and a, $01
@@ -1382,7 +1382,7 @@ MobileSDK_SendQuit:: ; 75:48B0
 	ld hl, $C69F
 	bit 0, [hl]
 	jp nz, MobileSDK_ErrBusy
-	call Function_75_673A
+	call MobileSDK_ResetRxWindowAndResultPtr
 	xor a, a
 	ld [wMobileSDK_Substep], a
 	ld de, $CA04
@@ -4883,7 +4883,8 @@ Function_75_5E1E::
 	pop hl
 	ret
 
-Function_75_5E31:: ; 75:5E31
+MobileSDK_RxDispatch_ResetBufferOnReturn:: ; 75:5E31
+Function_75_5E31::
 	jp Mobile_ResetReceivePacketBuffer
 
 Mobile_GetErrorCode:: ; 75:5E34
@@ -5118,12 +5119,12 @@ Mobile_PacketBuildFooter:: ; 75:5F6C
 	cp a, b
 	jr z, .l5F7A
 .l5F75 ; 75:5F75
-	call Function_75_5F96
+	call Mobile_PacketBuildFooter_SumByte
 	jr nz, .l5F75
 .l5F7A ; 75:5F7A
 	ld b, $04
 .l5F7C ; 75:5F7C
-	call Function_75_5F96
+	call Mobile_PacketBuildFooter_SumByte
 	jr nz, .l5F7C
 	ld e, l
 	ld d, h
@@ -5144,7 +5145,8 @@ Mobile_PacketBuildFooter:: ; 75:5F6C
 	ld d, b
 	ret
 
-Function_75_5F96:: ; 75:5F96
+Mobile_PacketBuildFooter_SumByte:: ; 75:5F96
+Function_75_5F96::
 	dec de
 	ld a, [de]
 	add a, l
@@ -6184,7 +6186,7 @@ MobileSDK_SmtpOpened:: ; 75:6622
 	inc de
 	ld b, $01
 	call Mobile_PacketBuildFooter
-	call Function_75_673A
+	call MobileSDK_ResetRxWindowAndResultPtr
 	ld a, [wMobileSDK_PacketBuffer + 117]
 	ld b, a
 	ld de, $CA5A
@@ -6216,7 +6218,7 @@ MobileSDK_Pop3Opened:: ; 75:665A
 	inc de
 	ld b, $01
 	call Mobile_PacketBuildFooter
-	call Function_75_673A
+	call MobileSDK_ResetRxWindowAndResultPtr
 	ld a, [wMobileSDK_PacketBuffer + 165]
 	ld b, a
 	ld de, $CA8A
@@ -6350,7 +6352,8 @@ MobileState_ReturnToConnected:: ; 75:672B
 	res 0, [hl]
 	ret
 
-Function_75_673A:: ; 75:673A
+MobileSDK_ResetRxWindowAndResultPtr:: ; 75:673A
+Function_75_673A::
 	; [CONFIRMED] 14 insn(s); 14 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $FF
@@ -6407,7 +6410,7 @@ MobileState_SmtpGreeting:: ; 75:6750
 	ld a, $20
 	cp a, e
 	jr nz, .l67CD
-	call Function_75_673A
+	call MobileSDK_ResetRxWindowAndResultPtr
 	ld a, [wMobileSDK_PacketBuffer + 117]
 	add a, $0A
 	ld e, a
@@ -6582,7 +6585,7 @@ MobileState_SmtpRecipients:: ; 75:6856
 	ld a, [hli]
 	cp a, $35
 	jr nz, MobileSDK_ServerReplyError
-	call Function_75_673A
+	call MobileSDK_ResetRxWindowAndResultPtr
 	ld hl, $C71B
 	ld a, [hli]
 	ld h, [hl]
@@ -6688,7 +6691,7 @@ MobileState_SmtpData:: ; 75:68F1
 	res 0, [hl]
 	ret
 .l6917 ; 75:6917
-	call Function_75_673A
+	call MobileSDK_ResetRxWindowAndResultPtr
 	ld de, $C9E9
 	ld a, $01
 	ld [de], a
@@ -6816,7 +6819,7 @@ MobileState_Pop3Login:: ; 75:69B2
 	ld a, [wMobileSDK_Window]
 	cp a, $2B
 	jr nz, .l6A25
-	call Function_75_673A
+	call MobileSDK_ResetRxWindowAndResultPtr
 	ld a, [wMobileSDK_PacketBuffer + 101]
 	add a, $0A
 	ld e, a
@@ -6831,7 +6834,7 @@ MobileState_Pop3Login:: ; 75:69B2
 	ld a, [wMobileSDK_Window]
 	cp a, $2B
 	jr nz, .l6A25
-	call Function_75_673A
+	call MobileSDK_ResetRxWindowAndResultPtr
 	ld a, [wMobileSDK_PacketBuffer + 165]
 	add a, $0A
 	ld e, a

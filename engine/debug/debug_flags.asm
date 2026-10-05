@@ -18,7 +18,7 @@ DebugFlags_Run:: ; 19:4000
 	; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code |
 	; forced execution: 142/142 instruction starts ran in forced_debug (traces/forced/, not natural
 	; evidence; status unchanged)
-	farcall Function_48_48BB
+	farcall Stub_Nop_48_48BB
 	ld a, $02
 	ld [wRam_C0D8], a
 	call LCDOff

@@ -522,7 +522,7 @@ Label_2F_4131:: ; 2F:4131
 
 .l4350 ; 2F:4350
 	; [CONFIRMED] 29 insn(s); 29 executed (in up to 1/18 scenarios)
-	call Function_2F_4496
+	call Abook_Clear16AtHlAndEditAddressBuf
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -731,7 +731,8 @@ Abook_ClearSlot:: ; 2F:4455
 	pop af
 	ret
 
-Function_2F_4496:: ; 2F:4496
+Abook_Clear16AtHlAndEditAddressBuf:: ; 2F:4496
+Function_2F_4496::
 	; [CONFIRMED] 49 insn(s); 49 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af

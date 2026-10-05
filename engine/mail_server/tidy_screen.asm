@@ -292,7 +292,7 @@ MailServerMgr_DrawMailInfo:: ; 2E:4DBF
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	ei
-	call Function_2E_4EB1
+	call Stub_Nop_2E_4EB1
 	pop hl
 	pop bc
 	ret
@@ -320,7 +320,7 @@ MailServerMgr_DrawMailInfo:: ; 2E:4DBF
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	ei
-	call Function_2E_4EB1
+	call Stub_Nop_2E_4EB1
 	pop hl
 	pop bc
 	ret
@@ -354,7 +354,7 @@ MailServerMgr_DrawMailInfo:: ; 2E:4DBF
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	ei
-	call Function_2E_4EB1
+	call Stub_Nop_2E_4EB1
 	pop hl
 	pop bc
 	ret
@@ -382,12 +382,13 @@ MailServerMgr_DrawMailInfo:: ; 2E:4DBF
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	ei
-	call Function_2E_4EB1
+	call Stub_Nop_2E_4EB1
 	pop hl
 	pop bc
 	ret
 
-Function_2E_4EB1:: ; 2E:4EB1
+Stub_Nop_2E_4EB1:: ; 2E:4EB1
+Function_2E_4EB1::
 	; [CONFIRMED] 1 insn(s) executed; cut out of the PROBABLE region 4C58-4EB2 by apply_coverage
 	; --split [executed in 7 scenarios]
 	ret

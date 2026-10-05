@@ -456,7 +456,8 @@ Function_68_4252::
 	ld [rRAMG], a
 	ret
 
-Function_68_4282:: ; 68:4282
+Stub_Nop_68_4282:: ; 68:4282
+Function_68_4282::
 	ret
 
 Sram_WipeBanks2And3:: ; 68:4283
@@ -747,8 +748,8 @@ Function_68_4469::
 
 	; [PROBABLE] 27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 0;
 	; fall-through of the retcc at 68:446D (executed)
-	call Function_68_4495
-	call Function_68_4495
+	call Dial_SkipStringThenSetSelectedEntry
+	call Dial_SkipStringThenSetSelectedEntry
 	ld a, b
 	dec a
 	jr z, .l4484
@@ -757,8 +758,8 @@ Function_68_4469::
 	ld a, $FF
 	ret
 .l447E ; 68:447E
-	call Function_68_4495
-	call Function_68_4495
+	call Dial_SkipStringThenSetSelectedEntry
+	call Dial_SkipStringThenSetSelectedEntry
 .l4484 ; 68:4484
 	ld a, [hl]
 	or a, a
@@ -775,10 +776,11 @@ Function_68_4469::
 	xor a, a
 	ret
 
-Function_68_4495:: ; 68:4495
+Dial_SkipStringThenSetSelectedEntry:: ; 68:4495
+Function_68_4495::
 	ld a, [hli]
 	or a, a
-	jr nz, Function_68_4495
+	jr nz, Dial_SkipStringThenSetSelectedEntry
 
 Settings_SetSelectedDialEntry:: ; 68:4499
 Function_68_4499::
@@ -1062,15 +1064,15 @@ Config_LoadMirrorToWram:: ; 68:4608
 	ld hl, $A07E
 	ld de, $DF32
 	ld bc, $0010
-	call Function_00_14D1
+	call CopyStringMax_ZeroSrcOnEmpty
 	ld hl, $A096
 	ld de, $DF65
 	ld bc, $0010
-	call Function_00_14D1
+	call CopyStringMax_ZeroSrcOnEmpty
 	ld hl, $A0AE
 	ld de, $DF98
 	ld bc, $0010
-	call Function_00_14D1
+	call CopyStringMax_ZeroSrcOnEmpty
 	ld hl, $A076
 	ld de, $DF10
 	call PhoneNumber_UnpackBcd
@@ -1167,7 +1169,7 @@ Dial_LoadDefaultsForAdapterType:: ; 68:46C8
 	add hl, de
 	ld de, $DEFF
 	ld bc, $0010
-	farcall Function_00_14D1
+	farcall CopyStringMax_ZeroSrcOnEmpty
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
