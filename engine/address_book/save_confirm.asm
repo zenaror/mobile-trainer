@@ -173,13 +173,13 @@ AddrBook_SaveConfirm_InitScreen:: ; 2A:70AB
 	ld a, $2A
 	farcall Palette_LoadToBuffer
 	ld de, $9301
-	ld hl, Gfx_AddrSaveConfirm_Tiles9300
+	ld hl, Gfx_AddrSaveConfirm_Tiles9300Vb1
 	ld a, $2A
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9701
-	ld hl, Gfx_AddrSaveConfirm_Tiles9700
+	ld hl, Gfx_AddrSaveConfirm_Tiles9700Vb1
 	ld a, $2A
 	ld b, $98
 	ld c, $04

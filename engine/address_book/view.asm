@@ -202,13 +202,13 @@ AbookView_SetupScreen:: ; 2F:51C1
 	ld a, $2C
 	farcall Palette_LoadToBuffer
 	ld de, $9301
-	ld hl, Gfx_AbookView_Tiles9300
+	ld hl, Gfx_AbookView_Tiles9300Vb1
 	ld a, $29
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9701
-	ld hl, Gfx_AbookView_Tiles9700
+	ld hl, Gfx_AbookView_Tiles9700Vb1
 	ld a, $29
 	ld b, $98
 	ld c, $04

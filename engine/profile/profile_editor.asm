@@ -506,7 +506,7 @@ Function_2A_57BD::
 	farcall Sprite_UpdateAll
 	farcall TextTiles_ClearBuffers
 	ld de, $9301
-	ld hl, Gfx_Profile_Tiles9300
+	ld hl, Gfx_Profile_Tiles9300Vb1
 	ld a, $2A
 	ld b, $92
 	ld c, $40

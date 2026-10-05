@@ -232,13 +232,13 @@ AbookName_SetupScreen:: ; 2F:593B
 	farcall TextTiles_UploadBuffers
 	farcall LCDOff
 	ld de, $9301
-	ld hl, Gfx_AbookName_Tiles9300
+	ld hl, Gfx_AbookName_Tiles9300Vb1
 	ld a, $2F
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMA
 	ld de, $9701
-	ld hl, Gfx_AbookName_Tiles9700
+	ld hl, Gfx_AbookName_Tiles9700Vb1
 	ld a, $2F
 	ld b, $97
 	ld c, $10

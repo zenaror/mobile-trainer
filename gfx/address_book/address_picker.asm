@@ -6,13 +6,13 @@ SECTION "gfx/address_book/address_picker", ROMX
 
 ; ---- gfx $6730-$6B30 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2C:5907: hl=$6730 a=$2C c=$40 de=$9301 (dest VRAM $9300, vbank=1)
 
-Gfx_AddrPick_Tiles9300:: ; 2C:6730
+Gfx_AddrPick_Tiles9300Vb1:: ; 2C:6730
 Data_2C_6730::
 	INCBIN "gfx/address_book/address_picker/addr_pick_tiles9300.2bpp"
 
 ; ---- gfx $6B30-$6C30 (256 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2C:591C: hl=$6B30 a=$2C c=$10 de=$9701 (dest VRAM $9700, vbank=1)
 
-Gfx_AddrPick_Tiles9700:: ; 2C:6B30
+Gfx_AddrPick_Tiles9700Vb1:: ; 2C:6B30
 Data_2C_6B30::
 	INCBIN "gfx/address_book/address_picker/addr_pick_tiles9700.2bpp"
 

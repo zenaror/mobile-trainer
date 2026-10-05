@@ -6,7 +6,7 @@ SECTION "gfx/address_book/save_sender_address", ROMX
 
 ; ---- gfx $4AA0-$4CD0 (560 bytes) [CONFIRMED] 35 tiles (560 bytes) 2bpp: 'ld de,$9301 ; ld hl,$4AA0 ; ld a,$2A ; ld c,$23 ; call FarCall -> 00:0749 (HDMA rom->vram)' at 2A:413A-4149 (c = tile count $23 = 35; ends exactly where the tilemap+attr at 4CD0 begins; blank/$FF stretches inside are tile content). Merges the former zero/$FF/UNCLASSIFIED fragments [every byte read as data in 6 scenario(s)]
 
-Gfx_SaveSenderAddr_Tiles9300:: ; 2A:4AA0
+Gfx_SaveSenderAddr_Tiles9300Vb1:: ; 2A:4AA0
 Tiles_2A_4AA0::
 	INCBIN "gfx/address_book/save_sender_address/save_sender_addr_tiles9300.2bpp"
 
