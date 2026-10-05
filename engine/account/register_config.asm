@@ -140,7 +140,7 @@ Registration_WriteConfig_StateInit:: ; 68:6BFA
 Registration_WriteConfig_StateWrite:: ; 68:6C0C
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp nz, Label_68_6C5D
+	jp nz, Registration_WriteConfig_OnAdapterError
 	bit 0, a
 	jp nz, Registration_WriteConfig_RunState
 	ld a, $0A
@@ -162,7 +162,7 @@ Registration_WriteConfig_StateWrite:: ; 68:6C0C
 Registration_WriteConfig_StateFinish:: ; 68:6C3F
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp nz, Label_68_6C5D
+	jp nz, Registration_WriteConfig_OnAdapterError
 	bit 0, a
 	jp nz, Registration_WriteConfig_RunState
 	ld a, $36
@@ -174,7 +174,8 @@ Registration_WriteConfig_StateFinish:: ; 68:6C3F
 	ld [wRegistrationWriteConfig_Result], a
 	ret
 
-Label_68_6C5D:: ; 68:6C5D
+Registration_WriteConfig_OnAdapterError:: ; 68:6C5D
+Label_68_6C5D::
 	; [PROBABLE] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 1;
 	; entered by jpcc from 68:6C11 (executed)
 	farcall Mobile_SaveLastResult

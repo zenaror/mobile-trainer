@@ -56,13 +56,15 @@ Startup_NoAdapter:: ; 65:4042
 	ld l, a
 	jp hl
 
-Label_65_4055:: ; 65:4055
+Startup_NoAdapter_Continue:: ; 65:4055
+Label_65_4055::
 	; [PROBABLE] code entries 4055 (jp $416C) and 4058 (ld a,$F0 ; ld hl,$0110, falls into the
 	; far-call site 405D): both are words of Table_65_406E (word 4055 at 65:4076, 4058 at 65:4070);
 	; clean decode
 	jp Startup_VerifySaveData
 
-Label_65_4058:: ; 65:4058
+Startup_NoAdapter_ShowInfoError:: ; 65:4058
+Label_65_4058::
 	ld a, $F0
 	ld hl, $0110
 
@@ -81,10 +83,10 @@ Startup_NoAdapterScreen:: ; 65:4063
 Startup_NoAdapterJumpTable:: ; 65:406E
 Table_65_406E::
 	dw Startup_NoAdapterScreen
-	dw Label_65_4058
+	dw Startup_NoAdapter_ShowInfoError
 	dw Startup_NoAdapterScreen
 	dw Startup_NoAdapterScreen
-	dw Label_65_4055
+	dw Startup_NoAdapter_Continue
 
 Startup_ConfigValid:: ; 65:4078
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 12/18 scenarios)

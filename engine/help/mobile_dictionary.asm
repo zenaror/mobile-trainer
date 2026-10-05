@@ -140,8 +140,8 @@ Table_MobileDict_Buttons:: ; 1A:4163
 Table_1A_4163::
 	dw MobileDict_OnA
 	dw MobileDict_OnB
-	dw Label_1A_41E2
-	dw Label_1A_41E2
+	dw MobileDict_Ignore
+	dw MobileDict_Ignore
 	dw MobileDict_Idle
 
 MobileDict_Idle:: ; 1A:416D
@@ -209,7 +209,8 @@ MobileDict_OnB:: ; 1A:41CA
 	xor a, a
 	ret
 
-Label_1A_41E2:: ; 1A:41E2
+MobileDict_Ignore:: ; 1A:41E2
+Label_1A_41E2::
 	jp MobileDict_Loop
 
 MobileDict_HandleDpad:: ; 1A:41E5

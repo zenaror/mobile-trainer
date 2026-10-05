@@ -43,7 +43,8 @@ Registration_Verify_RunState:: ; 68:7050
 	xor a, a
 	ld [wTimerAWarnFlags], a
 
-Label_68_7069:: ; 68:7069
+Registration_Verify_RunState_Dispatch:: ; 68:7069
+Label_68_7069::
 	ld a, [wRegistrationVerify_State]
 	add a, a
 	add a, $79
@@ -81,7 +82,7 @@ Registration_Verify_StateInit:: ; 68:708D
 	call MobileAPI
 	ld a, $01
 	ld [wRegistrationVerify_State], a
-	jr Label_68_7069
+	jr Registration_Verify_RunState_Dispatch
 
 Registration_Verify_StateReadLoginId:: ; 68:70A6
 	xor a, a
@@ -90,7 +91,7 @@ Registration_Verify_StateReadLoginId:: ; 68:70A6
 	bit 1, a
 	jp nz, Registration_Verify_OnAdapterError
 	bit 0, a
-	jp nz, Label_68_7069
+	jp nz, Registration_Verify_RunState_Dispatch
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -109,7 +110,7 @@ Registration_Verify_StateReadLoginId:: ; 68:70A6
 	call MobileAPI
 	ld a, $02
 	ld [wRegistrationVerify_State], a
-	jp Label_68_7069
+	jp Registration_Verify_RunState_Dispatch
 
 Registration_Verify_StateReadDialSlots:: ; 68:70E5
 	xor a, a
@@ -118,13 +119,13 @@ Registration_Verify_StateReadDialSlots:: ; 68:70E5
 	bit 1, a
 	jp nz, Registration_Verify_OnAdapterError
 	bit 0, a
-	jp nz, Label_68_7069
+	jp nz, Registration_Verify_RunState_Dispatch
 	ld de, $A222
 	ld a, $0C
 	call MobileAPI
 	ld a, $03
 	ld [wRegistrationVerify_State], a
-	jp Label_68_7069
+	jp Registration_Verify_RunState_Dispatch
 
 Registration_Verify_StateReadMailAddress:: ; 68:7109
 	xor a, a
@@ -133,13 +134,13 @@ Registration_Verify_StateReadMailAddress:: ; 68:7109
 	bit 1, a
 	jp nz, Registration_Verify_OnAdapterError
 	bit 0, a
-	jp nz, Label_68_7069
+	jp nz, Registration_Verify_RunState_Dispatch
 	ld de, $A244
 	ld a, $10
 	call MobileAPI
 	ld a, $04
 	ld [wRegistrationVerify_State], a
-	jp Label_68_7069
+	jp Registration_Verify_RunState_Dispatch
 
 Registration_Verify_StateIspLogin:: ; 68:712D
 	xor a, a
@@ -148,7 +149,7 @@ Registration_Verify_StateIspLogin:: ; 68:712D
 	bit 1, a
 	jp nz, Registration_Verify_OnAdapterError
 	bit 0, a
-	jp nz, Label_68_7069
+	jp nz, Registration_Verify_RunState_Dispatch
 	ld hl, $A222
 	ld de, $A100
 	call CopyString
@@ -161,7 +162,7 @@ Registration_Verify_StateIspLogin:: ; 68:712D
 	call MobileAPI
 	ld a, $05
 	ld [wRegistrationVerify_State], a
-	jp Label_68_7069
+	jp Registration_Verify_RunState_Dispatch
 
 Registration_Verify_StatePopLogin:: ; 68:7166
 	xor a, a
@@ -170,7 +171,7 @@ Registration_Verify_StatePopLogin:: ; 68:7166
 	bit 1, a
 	jp nz, Registration_Verify_OnAdapterError
 	bit 0, a
-	jp nz, Label_68_7069
+	jp nz, Registration_Verify_RunState_Dispatch
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -202,7 +203,7 @@ Registration_Verify_StatePopLogin:: ; 68:7166
 	ld [wRegistrationVerify_State], a
 	ld a, $01
 	farcall CommPanel_DrawCaption
-	jp Label_68_7069
+	jp Registration_Verify_RunState_Dispatch
 
 Registration_Verify_StateAfterPopLogin:: ; 68:71C3
 	xor a, a
@@ -274,7 +275,7 @@ Registration_Verify_StateAfterPopLogin:: ; 68:71C3
 	bit 1, a
 	jp nz, Registration_Verify_OnAdapterError
 	bit 0, a
-	jp nz, Label_68_7069
+	jp nz, Registration_Verify_RunState_Dispatch
 	ld a, $05
 	ld [wCommTimeoutMinutes], a
 	ld hl, $C266
@@ -286,7 +287,7 @@ Registration_Verify_StateAfterPopLogin:: ; 68:71C3
 	call MobileAPI
 	ld a, $07
 	ld [wRegistrationVerify_State], a
-	jp Label_68_7069
+	jp Registration_Verify_RunState_Dispatch
 
 Registration_Verify_StateHangUp:: ; 68:724F
 	xor a, a
@@ -358,14 +359,14 @@ Registration_Verify_StateHangUp:: ; 68:724F
 	bit 1, a
 	jp nz, Registration_Verify_OnAdapterError
 	bit 0, a
-	jp nz, Label_68_7069
+	jp nz, Registration_Verify_RunState_Dispatch
 	ld a, $0A
 	call MobileAPI
 	ld a, $08
 	ld [wRegistrationVerify_State], a
 	ld a, $02
 	farcall CommPanel_DrawCaption
-	jp Label_68_7069
+	jp Registration_Verify_RunState_Dispatch
 
 Registration_Verify_StateWriteConfig:: ; 68:72D7
 	xor a, a
@@ -374,7 +375,7 @@ Registration_Verify_StateWriteConfig:: ; 68:72D7
 	bit 1, a
 	jp nz, Registration_Verify_OnAdapterError
 	bit 0, a
-	jp nz, Label_68_7069
+	jp nz, Registration_Verify_RunState_Dispatch
 	ld hl, $A002
 	ld a, [hl]
 	set 7, a
@@ -390,7 +391,7 @@ Registration_Verify_StateWriteConfig:: ; 68:72D7
 	call MobileAPI
 	ld a, $09
 	ld [wRegistrationVerify_State], a
-	jp Label_68_7069
+	jp Registration_Verify_RunState_Dispatch
 
 	; [HYPOTHESIS] single ret between two proven code regions (after the jp at 730F..); nothing
 	; branches to it
@@ -404,7 +405,7 @@ Registration_Verify_StateFinish:: ; 68:7313
 	bit 1, a
 	jp nz, Registration_Verify_OnAdapterError
 	bit 0, a
-	jp nz, Label_68_7069
+	jp nz, Registration_Verify_RunState_Dispatch
 	ldh [hScratchA], a
 	pop af
 	ldh [hSRAMBank], a

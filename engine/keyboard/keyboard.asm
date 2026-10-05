@@ -131,7 +131,7 @@ Kbd_Run:: ; 55:5C8F
 	ld [wKbdGlyphDirty], a
 	ld a, [wKbdType]
 	cp a, $0A
-	jp z, Label_55_6563
+	jp z, Kbd_Run_TypePicker
 	ld a, [wKbdMode]
 	cp a, $02
 	jr z, .l5CBC
@@ -253,27 +253,27 @@ Kbd_Run_Loop:: ; 55:5D49
 .l5D9A ; 55:5D9A
 	jp Kbd_Run_ButtonA
 .l5D9D ; 55:5D9D
-	jp Label_55_5F1A
+	jp Kbd_Run_ReturnB
 .l5DA0 ; 55:5DA0
 	ld a, $00
 	call Kbd_MoveCursor
 	call Kbd_UpdateCursorSprite
-	jp Label_55_5E5A
+	jp Kbd_Run_ContinueLoop
 .l5DAB ; 55:5DAB
 	ld a, $01
 	call Kbd_MoveCursor
 	call Kbd_UpdateCursorSprite
-	jp Label_55_5E5A
+	jp Kbd_Run_ContinueLoop
 .l5DB6 ; 55:5DB6
 	ld a, $02
 	call Kbd_MoveCursor
 	call Kbd_UpdateCursorSprite
-	jp Label_55_5E5A
+	jp Kbd_Run_ContinueLoop
 .l5DC1 ; 55:5DC1
 	ld a, $03
 	call Kbd_MoveCursor
 	call Kbd_UpdateCursorSprite
-	jp Label_55_5E5A
+	jp Kbd_Run_ContinueLoop
 .l5DCC ; 55:5DCC
 	ld a, [wKbdType]
 	ld hl, $400A
@@ -294,7 +294,7 @@ Kbd_Run_Loop:: ; 55:5D49
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	jp Label_55_5E5A
+	jp Kbd_Run_ContinueLoop
 
 	; [HYPOTHESIS] 13-byte routine ld a,[$C2AB] ; call $6EEC ; or a ; jp z,$5E5A ; jp $5F29 - the
 	; state variable and the jp targets match the neighbouring CONFIRMED handlers, and it calls the
@@ -303,7 +303,7 @@ Kbd_Run_Loop:: ; 55:5D49
 	ld a, [wKbdType]
 	call Function_55_6EEC
 	or a, a
-	jp z, Label_55_5E5A
+	jp z, Kbd_Run_ContinueLoop
 	jp Label_55_5F29
 
 .l5E02 ; 55:5E02
@@ -357,13 +357,14 @@ Kbd_Run_Loop:: ; 55:5D49
 	call Kbd_SlideOut
 	ld a, $00
 	ld [wKbdMode], a
-	jp Label_55_5F26
+	jp Kbd_Run_ReturnSelect
 
 .l5E57 ; 55:5E57
 	; [CONFIRMED] 14 insn(s); 14 executed (in up to 10/18 scenarios)
-	jp Label_55_5F26
+	jp Kbd_Run_ReturnSelect
 
-Label_55_5E5A:: ; 55:5E5A
+Kbd_Run_ContinueLoop:: ; 55:5E5A
+Label_55_5E5A::
 	jp Kbd_Run_Loop
 
 Kbd_Run_ButtonA:: ; 55:5E5D
@@ -389,7 +390,7 @@ Kbd_Run_ButtonA:: ; 55:5E5D
 .l5E78 ; 55:5E78
 	; [CONFIRMED] 1 insn(s) executed; cut out of the PROBABLE region 5E75-5E7B by apply_coverage
 	; --split [executed in 5 scenarios]
-	jp Label_55_5F1D
+	jp Kbd_Run_ReturnNewline
 
 .l5E7B ; 55:5E7B
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
@@ -436,7 +437,7 @@ Kbd_Run_ButtonA:: ; 55:5E5D
 	ld [hl], a
 	jr .l5F17
 .l5EB7 ; 55:5EB7
-	jr Label_55_5F1D
+	jr Kbd_Run_ReturnNewline
 
 .l5EB9 ; 55:5EB9
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 9/18 scenarios)
@@ -461,12 +462,12 @@ Kbd_Run_ButtonA:: ; 55:5E5D
 	ld a, [wKbdType]
 	call Kbd_TypeHidesOnKey82
 	or a, a
-	jr z, Label_55_5F23
+	jr z, Kbd_Run_ReturnKey82
 	xor a, a
 	call Kbd_SlideOut
 	ld a, $00
 	ld [wKbdMode], a
-	jr Label_55_5F23
+	jr Kbd_Run_ReturnKey82
 .l5EE7 ; 55:5EE7
 	ld a, [wKbdType]
 	cp a, $07
@@ -483,7 +484,7 @@ Kbd_Run_ButtonA:: ; 55:5E5D
 	ld a, [wKbdType]
 	call Kbd_TypeHidesOnKey83
 	or a, a
-	jr z, Label_55_5F20
+	jr z, Kbd_Run_ReturnKey83
 
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 55:5EFC (executed) [executed in 4 scenarios]
@@ -491,7 +492,7 @@ Kbd_Run_ButtonA:: ; 55:5E5D
 	call Kbd_SlideOut
 	ld a, $00
 	ld [wKbdMode], a
-	jr Label_55_5F20
+	jr Kbd_Run_ReturnKey83
 
 .l5F09 ; 55:5F09
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 10/18 scenarios)
@@ -500,31 +501,36 @@ Kbd_Run_ButtonA:: ; 55:5E5D
 	jr nz, .l5F17
 	call Kbd_RejectSymbol
 	or a, a
-	jp nz, Label_55_5E5A
+	jp nz, Kbd_Run_ContinueLoop
 .l5F17 ; 55:5F17
 	ld a, $01
 	ret
 
-Label_55_5F1A:: ; 55:5F1A
+Kbd_Run_ReturnB:: ; 55:5F1A
+Label_55_5F1A::
 	ld a, $02
 	ret
 
-Label_55_5F1D:: ; 55:5F1D
+Kbd_Run_ReturnNewline:: ; 55:5F1D
+Label_55_5F1D::
 	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 2;
 	; entered by jp from 55:5E78 (PROBABLE code) [executed in 3 scenarios]
 	ld a, $03
 	ret
 
-Label_55_5F20:: ; 55:5F20
+Kbd_Run_ReturnKey83:: ; 55:5F20
+Label_55_5F20::
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 9/18 scenarios)
 	ld a, $08
 	ret
 
-Label_55_5F23:: ; 55:5F23
+Kbd_Run_ReturnKey82:: ; 55:5F23
+Label_55_5F23::
 	ld a, $07
 	ret
 
-Label_55_5F26:: ; 55:5F26
+Kbd_Run_ReturnSelect:: ; 55:5F26
+Label_55_5F26::
 	ld a, $0A
 	ret
 
@@ -746,7 +752,7 @@ Function_55_6068::
 	; executed call/far call
 	ld a, [wKeyboardCharHi]
 	cp a, $FF
-	jr z, Label_55_60E1
+	jr z, Kbd_UpdateSticky_SpecialKey
 	ld a, $FF
 	ld [wKbdStickyCol], a
 	ld [wKbdStickyRow], a
@@ -813,7 +819,8 @@ Function_55_60DA::
 	ld [wKbdStickyRow], a
 	ret
 
-Label_55_60E1:: ; 55:60E1
+Kbd_UpdateSticky_SpecialKey:: ; 55:60E1
+Label_55_60E1::
 	ld a, [wKbdMoveDirection]
 	add a, a
 	add a, $F1
@@ -1449,7 +1456,8 @@ Kbd_Hide:: ; 55:6559
 	ld [wKbdMode], a
 	ret
 
-Label_55_6563:: ; 55:6563
+Kbd_Run_TypePicker:: ; 55:6563
+Label_55_6563::
 	call VBlank_WaitStartDI
 	ldh a, [rLCDC]
 	or a, $20
@@ -1685,19 +1693,20 @@ Function_55_66C6::
 
 Kbd_LoadPageGraphics_TypeTable:: ; 55:66D9
 Table_55_66D9::
-	dw Label_55_66EF
-	dw Label_55_6704
-	dw Label_55_672B
-	dw Label_55_6740
-	dw Label_55_6755
-	dw Label_55_679F
-	dw Label_55_6858
-	dw Label_55_696B
-	dw Label_55_696B
-	dw Label_55_6A7E
-	dw Label_55_6AC9
+	dw Kbd_LoadPageGraphics_T0
+	dw Kbd_LoadPageGraphics_T1
+	dw Kbd_LoadPageGraphics_T2
+	dw Kbd_LoadPageGraphics_T3
+	dw Kbd_LoadPageGraphics_T4
+	dw Kbd_LoadPageGraphics_T5
+	dw Kbd_LoadPageGraphics_T6
+	dw Kbd_LoadPageGraphics_T78
+	dw Kbd_LoadPageGraphics_T78
+	dw Kbd_LoadPageGraphics_T9
+	dw Kbd_LoadPageGraphics_T10
 
-Label_55_66EF:: ; 55:66EF
+Kbd_LoadPageGraphics_T0:: ; 55:66EF
+Label_55_66EF::
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 3/18 scenarios)
 	ld bc, $0D14
 	ld de, $D240
@@ -1707,7 +1716,8 @@ Label_55_66EF:: ; 55:66EF
 	call Kbd_UploadPanelMap13Rows
 	ret
 
-Label_55_6704:: ; 55:6704
+Kbd_LoadPageGraphics_T1:: ; 55:6704
+Label_55_6704::
 	ld de, $8800
 	ld hl, Gfx_Kbd_T1_Tiles8800
 	ld a, $5E
@@ -1722,7 +1732,8 @@ Label_55_6704:: ; 55:6704
 	call Kbd_UploadPanelMap13Rows
 	ret
 
-Label_55_672B:: ; 55:672B
+Kbd_LoadPageGraphics_T2:: ; 55:672B
+Label_55_672B::
 	; [CONFIRMED] 14 insn(s) reached by static flow only; seeds: site x6, table x8; min discovery
 	; hops 0; run starts at an entry of the code-pointer table at 55:66D9 [executed in 1 scenarios]
 	ld bc, $0D14
@@ -1733,7 +1744,8 @@ Label_55_672B:: ; 55:672B
 	call Kbd_UploadPanelMap13Rows
 	ret
 
-Label_55_6740:: ; 55:6740
+Kbd_LoadPageGraphics_T3:: ; 55:6740
+Label_55_6740::
 	ld bc, $0D14
 	ld de, $D240
 	ld hl, Tilemap_Kbd_T3
@@ -1742,7 +1754,8 @@ Label_55_6740:: ; 55:6740
 	call Kbd_UploadPanelMap13Rows
 	ret
 
-Label_55_6755:: ; 55:6755
+Kbd_LoadPageGraphics_T4:: ; 55:6755
+Label_55_6755::
 	; [CONFIRMED] 24 insn(s); 24 executed (in up to 7/18 scenarios)
 	ld de, $8801
 	ld hl, Gfx_Kbd_T4_Tiles8800Vb1
@@ -1769,7 +1782,8 @@ Label_55_6755:: ; 55:6755
 	call Kbd_UploadPanelMap13Rows
 	ret
 
-Label_55_679F:: ; 55:679F
+Kbd_LoadPageGraphics_T5:: ; 55:679F
+Label_55_679F::
 	; [CONFIRMED] 69 insn(s) reached by static flow only; seeds: site x64, table x5; min discovery
 	; hops 0; run starts at an entry of the code-pointer table at 55:66D9 [executed in 4 scenarios]
 	ld de, $8801
@@ -1842,7 +1856,8 @@ Label_55_679F:: ; 55:679F
 	call Kbd_UploadPanelMap13Rows
 	ret
 
-Label_55_6858:: ; 55:6858
+Kbd_LoadPageGraphics_T6:: ; 55:6858
+Label_55_6858::
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 2/18 scenarios)
 	ld a, [wKbdPage]
 	ld hl, Table_Kbd_T6_PageLoaders
@@ -1861,17 +1876,18 @@ Label_55_6858:: ; 55:6858
 
 Table_Kbd_T6_PageLoaders:: ; 55:6869
 Table_55_6869::
-	dw Label_55_6871
-	dw Label_55_68AA
-	dw Label_55_68E3
+	dw Kbd_LoadPageGraphics_T6_Page0
+	dw Kbd_LoadPageGraphics_T6_Page1
+	dw Kbd_LoadPageGraphics_T6_Page2
 
 ; ---- ptrtable $686F-$6871 (2 bytes) [PROBABLE] one more code pointer ($691C) at the end of the dispatch table that precedes it; target = the code classified at 691C
 
 Table_Kbd_T6_PageLoaders_Page3:: ; 55:686F
 Table_55_686F::
-	dw Label_55_691C
+	dw Kbd_LoadPageGraphics_T6_Page3
 
-Label_55_6871:: ; 55:6871
+Kbd_LoadPageGraphics_T6_Page0:: ; 55:6871
+Label_55_6871::
 	; [CONFIRMED] 57 insn(s); 57 executed (in up to 2/18 scenarios)
 	ld de, $8801
 	ld hl, Gfx_Kbd_T6_Page0_Tiles8800Vb1
@@ -1891,9 +1907,10 @@ Label_55_6871:: ; 55:6871
 	ld b, $95
 	ld c, $24
 	farcall Gfx_StartHDMAWithService
-	jp Label_55_6952
+	jp Kbd_LoadPageGraphics_T6_Tail
 
-Label_55_68AA:: ; 55:68AA
+Kbd_LoadPageGraphics_T6_Page1:: ; 55:68AA
+Label_55_68AA::
 	ld de, $8801
 	ld hl, Gfx_Kbd_T6_Page1_Tiles8800Vb1
 	ld a, $66
@@ -1912,9 +1929,10 @@ Label_55_68AA:: ; 55:68AA
 	ld b, $95
 	ld c, $24
 	farcall Gfx_StartHDMAWithService
-	jp Label_55_6952
+	jp Kbd_LoadPageGraphics_T6_Tail
 
-Label_55_68E3:: ; 55:68E3
+Kbd_LoadPageGraphics_T6_Page2:: ; 55:68E3
+Label_55_68E3::
 	ld de, $8801
 	ld hl, Gfx_Kbd_T6_Page2_Tiles8800Vb1
 	ld a, $66
@@ -1933,9 +1951,10 @@ Label_55_68E3:: ; 55:68E3
 	ld b, $95
 	ld c, $24
 	farcall Gfx_StartHDMAWithService
-	jp Label_55_6952
+	jp Kbd_LoadPageGraphics_T6_Tail
 
-Label_55_691C:: ; 55:691C
+Kbd_LoadPageGraphics_T6_Page3:: ; 55:691C
+Label_55_691C::
 	; [CONFIRMED] ld de,$8801 ; ld hl,$5EC0 ; ld a,$66 ; ld b,$92 ; ld c,$40: argument set-up for
 	; the far call of the tile uploader that follows (region 6928); its address $691C is the last
 	; word of the code-pointer table before it (55:686F word $691C) [executed in 2 scenarios]
@@ -1962,7 +1981,8 @@ Label_55_691C:: ; 55:691C
 	ld c, $24
 	farcall Gfx_StartHDMAWithService
 
-Label_55_6952:: ; 55:6952
+Kbd_LoadPageGraphics_T6_Tail:: ; 55:6952
+Label_55_6952::
 	; [CONFIRMED] 22 insn(s); 22 executed (in up to 4/18 scenarios)
 	ldh a, [hKbd_LoadPageArg]
 	or a, a
@@ -1975,7 +1995,8 @@ Label_55_6952:: ; 55:6952
 	call Kbd_UploadPanelMap11Rows
 	ret
 
-Label_55_696B:: ; 55:696B
+Kbd_LoadPageGraphics_T78:: ; 55:696B
+Label_55_696B::
 	ld a, [wKbdPage]
 	ld hl, Table_Kbd_T78_PageLoaders
 	add a, a
@@ -1993,17 +2014,18 @@ Label_55_696B:: ; 55:696B
 
 Table_Kbd_T78_PageLoaders:: ; 55:697C
 Table_55_697C::
-	dw Label_55_6984
-	dw Label_55_69BD
-	dw Label_55_69F6
+	dw Kbd_LoadPageGraphics_T78_Page0
+	dw Kbd_LoadPageGraphics_T78_Page1
+	dw Kbd_LoadPageGraphics_T78_Page2
 
 ; ---- ptrtable $6982-$6984 (2 bytes) [PROBABLE] one more code pointer ($6A2F) at the end of the dispatch table that precedes it
 
 Table_Kbd_T78_PageLoaders_Page3:: ; 55:6982
 Table_55_6982::
-	dw Label_55_6A2F
+	dw Kbd_LoadPageGraphics_T78_Page3
 
-Label_55_6984:: ; 55:6984
+Kbd_LoadPageGraphics_T78_Page0:: ; 55:6984
+Label_55_6984::
 	; [CONFIRMED] 57 insn(s); 57 executed (in up to 4/18 scenarios)
 	ld de, $8801
 	ld hl, Gfx_Kbd_T78_Page0_Tiles8800Vb1
@@ -2023,9 +2045,10 @@ Label_55_6984:: ; 55:6984
 	ld b, $95
 	ld c, $24
 	farcall Gfx_StartHDMAWithService
-	jp Label_55_6A65
+	jp Kbd_LoadPageGraphics_T78_Tail
 
-Label_55_69BD:: ; 55:69BD
+Kbd_LoadPageGraphics_T78_Page1:: ; 55:69BD
+Label_55_69BD::
 	ld de, $8801
 	ld hl, Gfx_Kbd_T78_Page1_Tiles8800Vb1
 	ld a, $62
@@ -2044,9 +2067,10 @@ Label_55_69BD:: ; 55:69BD
 	ld b, $95
 	ld c, $24
 	farcall Gfx_StartHDMAWithService
-	jp Label_55_6A65
+	jp Kbd_LoadPageGraphics_T78_Tail
 
-Label_55_69F6:: ; 55:69F6
+Kbd_LoadPageGraphics_T78_Page2:: ; 55:69F6
+Label_55_69F6::
 	ld de, $8801
 	ld hl, Gfx_Kbd_T78_Page2_Tiles8800Vb1
 	ld a, $62
@@ -2065,9 +2089,10 @@ Label_55_69F6:: ; 55:69F6
 	ld b, $95
 	ld c, $24
 	farcall Gfx_StartHDMAWithService
-	jp Label_55_6A65
+	jp Kbd_LoadPageGraphics_T78_Tail
 
-Label_55_6A2F:: ; 55:6A2F
+Kbd_LoadPageGraphics_T78_Page3:: ; 55:6A2F
+Label_55_6A2F::
 	; [CONFIRMED] ld de,$8801 ; ld hl,$6100 ; ld a,$62 ; ld b,$92 ; ld c,$40: argument set-up for
 	; the tile uploader that follows at 6A3B; its address is the last word $6A2F of the table at
 	; 55:6982 [executed in 4 scenarios]
@@ -2094,7 +2119,8 @@ Label_55_6A2F:: ; 55:6A2F
 	ld c, $24
 	farcall Gfx_StartHDMAWithService
 
-Label_55_6A65:: ; 55:6A65
+Kbd_LoadPageGraphics_T78_Tail:: ; 55:6A65
+Label_55_6A65::
 	; [CONFIRMED] 68 insn(s); 68 executed (in up to 5/18 scenarios)
 	ldh a, [hKbd_LoadPageArg]
 	or a, a
@@ -2107,7 +2133,8 @@ Label_55_6A65:: ; 55:6A65
 	call Kbd_UploadPanelMap11Rows
 	ret
 
-Label_55_6A7E:: ; 55:6A7E
+Kbd_LoadPageGraphics_T9:: ; 55:6A7E
+Label_55_6A7E::
 	ld de, $8801
 	ld hl, Gfx_Kbd_T9_Tiles8800Vb1
 	ld a, $5F
@@ -2134,7 +2161,8 @@ Label_55_6A7E:: ; 55:6A7E
 	call Kbd_UploadPanelMap11Rows
 	ret
 
-Label_55_6AC9:: ; 55:6AC9
+Kbd_LoadPageGraphics_T10:: ; 55:6AC9
+Label_55_6AC9::
 	ld de, $8A81
 	ld hl, Gfx_Kbd_T10_Tiles8A80Vb1
 	ld a, $66

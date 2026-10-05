@@ -494,40 +494,22 @@ Account_MailDomain_PrintField:: ; 68:5B59
 	ld bc, $0203
 	farcall TileCanvas_FillRect
 	ld a, $00
-
-Label_68_5B6C:: ; 68:5B6C
 	ldh [hTextBox_ColorSelB], a
 	ld a, $03
-
-Label_68_5B70:: ; 68:5B70
 	ldh [hTextBox_ColorSelC], a
 	ld a, $15
-
-Label_68_5B74:: ; 68:5B74
 	ldh [hTextY], a
 	ld a, $40
-
-Label_68_5B78:: ; 68:5B78
 	ldh [hTextX], a
 	ld a, $00
-
-Label_68_5B7C:: ; 68:5B7C
 	ldh [hTextX + 1], a
 	ld a, $10
-
-Label_68_5B80:: ; 68:5B80
 	ldh [hRam_FFC0], a
 	ld a, $40
-
-Label_68_5B84:: ; 68:5B84
 	ldh [hTextBox_LineStartX], a
 	ld a, $00
-
-Label_68_5B88:: ; 68:5B88
 	ldh [hTextBox_LineStartXHi], a
 	ld a, $20
-
-Label_68_5B8C:: ; 68:5B8C
 	ldh [hTextBox_MaxLineY], a
 	ld a, $58
 	ldh [hTextBox_RightLimitX], a

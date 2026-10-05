@@ -175,7 +175,8 @@ HelpScript_Run:: ; 6C:59B2
 	pop af
 	ldh [rSVBK], a
 
-Label_6C_5B47:: ; 6C:5B47
+HelpScript_Run_NextCommand:: ; 6C:5B47
+Label_6C_5B47::
 	ld a, [wHelpScriptPtr]
 	ld l, a
 	ld a, [wHelpScriptPtr + 1]
@@ -409,7 +410,8 @@ Label_6C_5B47:: ; 6C:5B47
 	ld a, h
 	ld [wHelpScriptPtr + 1], a
 
-Label_6C_5CC5:: ; 6C:5CC5
+HelpScript_Run_FrameLoop:: ; 6C:5CC5
+Label_6C_5CC5::
 	farcall Sprite_UpdateAll
 	call VBlank_WaitAndService
 	ld a, [wHelpScript_PrintingFlag]
@@ -417,7 +419,7 @@ Label_6C_5CC5:: ; 6C:5CC5
 	jr z, .l5CEE
 	call HelpScript_StepText
 	or a, a
-	jp nz, Label_6C_5D9F
+	jp nz, HelpScript_Run_TextFinished
 	ld a, [wHelpScriptAdvanceMode]
 	cp a, $01
 	jr nz, .l5CEE
@@ -436,22 +438,24 @@ Label_6C_5CC5:: ; 6C:5CC5
 
 HelpScript_InputTable:: ; 6C:5CFD
 Table_6C_5CFD::
-	dw Label_6C_5D09
-	dw Label_6C_5D30
-	dw Label_6C_5D5A
-	dw Label_6C_5D9C
-	dw Label_6C_5D07
+	dw HelpScript_OnA
+	dw HelpScript_OnB
+	dw HelpScript_OnSelect
+	dw HelpScript_IgnoreStart
+	dw HelpScript_Idle
 
-Label_6C_5D07:: ; 6C:5D07
+HelpScript_Idle:: ; 6C:5D07
+Label_6C_5D07::
 	; [CONFIRMED] 264 insn(s); 264 executed (in up to 12/18 scenarios)
-	jr Label_6C_5CC5
+	jr HelpScript_Run_FrameLoop
 
-Label_6C_5D09:: ; 6C:5D09
+HelpScript_OnA:: ; 6C:5D09
+Label_6C_5D09::
 	ld a, $01
 	ld [wHelpScriptAdvanceMode], a
 	ld a, [wHelpScript_PrintingFlag]
 	or a, a
-	jr nz, Label_6C_5CC5
+	jr nz, HelpScript_Run_FrameLoop
 	ld hl, $DA20
 	ld de, Table_6A_72BB
 	ld a, $6A
@@ -460,9 +464,10 @@ Label_6C_5D09:: ; 6C:5D09
 	ld de, $00AA
 	ld hl, $DA20
 	call Sprite_SetPosition
-	jp Label_6C_5E03
+	jp HelpScript_Run_ResumeScript
 
-Label_6C_5D30:: ; 6C:5D30
+HelpScript_OnB:: ; 6C:5D30
+Label_6C_5D30::
 	ld a, $02
 	ld [wHelpScriptAdvanceMode], a
 	ld a, [wHelpScript_PrintingFlag]
@@ -476,11 +481,12 @@ Label_6C_5D30:: ; 6C:5D30
 	ld de, $00AA
 	ld hl, $DA20
 	call Sprite_SetPosition
-	jp Label_6C_5E03
+	jp HelpScript_Run_ResumeScript
 .l5D57 ; 6C:5D57
-	jp Label_6C_5CC5
+	jp HelpScript_Run_FrameLoop
 
-Label_6C_5D5A:: ; 6C:5D5A
+HelpScript_OnSelect:: ; 6C:5D5A
+Label_6C_5D5A::
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -508,12 +514,14 @@ Label_6C_5D5A:: ; 6C:5D5A
 	ld [wHelpScriptPtr], a
 	ld a, [wHelpScriptAltPtrHi]
 	ld [wHelpScriptPtr + 1], a
-	jp Label_6C_5B47
+	jp HelpScript_Run_NextCommand
 
-Label_6C_5D9C:: ; 6C:5D9C
-	jp Label_6C_5CC5
+HelpScript_IgnoreStart:: ; 6C:5D9C
+Label_6C_5D9C::
+	jp HelpScript_Run_FrameLoop
 
-Label_6C_5D9F:: ; 6C:5D9F
+HelpScript_Run_TextFinished:: ; 6C:5D9F
+Label_6C_5D9F::
 	xor a, a
 	ld [wHelpScript_PrintingFlag], a
 	ld a, [wHelpScriptAdvanceMode]
@@ -527,7 +535,7 @@ Label_6C_5D9F:: ; 6C:5D9F
 	ld de, $7880
 	ld hl, $DA20
 	call Sprite_SetPosition
-	jp Label_6C_5CC5
+	jp HelpScript_Run_FrameLoop
 .l5DC6 ; 6C:5DC6
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -553,9 +561,10 @@ Label_6C_5D9F:: ; 6C:5D9F
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
-	jp Label_6C_5D30
+	jp HelpScript_OnB
 
-Label_6C_5E03:: ; 6C:5E03
+HelpScript_Run_ResumeScript:: ; 6C:5E03
+Label_6C_5E03::
 	ld a, [wHelpScriptAdvanceMode]
 	cp a, $02
 	jr z, .l5E1D
@@ -567,11 +576,11 @@ Label_6C_5E03:: ; 6C:5E03
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	jp Label_6C_5B47
+	jp HelpScript_Run_NextCommand
 .l5E1D ; 6C:5E1D
 	ld a, $01
 	ld [wRam_C0D9], a
-	jp Label_6C_5B47
+	jp HelpScript_Run_NextCommand
 
 HelpScript_RenderCaption:: ; 6C:5E25
 	ldh [hScratchA], a
