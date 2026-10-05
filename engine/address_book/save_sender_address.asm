@@ -64,11 +64,9 @@ SaveSenderAddr_Menu_Loop:: ; 2A:4027
 .l4079 ; 2A:4079
 	ldh a, [hJoyPressed]
 	and a, $02
-	jr z, Label_2A_40A8
+	jr z, .l40A8
 	push bc
 	push de
-
-Label_2A_4081:: ; 2A:4081
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -87,8 +85,8 @@ Label_2A_4081:: ; 2A:4081
 	ld c, b
 	ld a, $FF
 	ret
-
-Label_2A_40A8:: ; 2A:40A8
+.l40A8 ; 2A:40A8
+	; D-pad part of the menu loop (3,605 hits in 6 scenarios): Up and Down repeats move the cursor through the six slots (SaveSenderAddr_CursorUp / CursorDown)
 	ldh a, [hJoyPressedRepeat]
 	and a, $40
 	call nz, SaveSenderAddr_CursorUp
@@ -1334,19 +1332,14 @@ String_2A_4A3D:: ; 2A:4A3D
 	db "　　アドレスを　せんたくしてください　　", 0
 POPC
 
-; ---- ptrtable $4A66-$4A6C (6 bytes) [PROBABLE] code-pointer table, 3 entries: 3/3 words hit own-bank code starts (start is the operand of ld r16); 0/3 targets executed
-
-String_SaveSenderAddr_Caption:: ; 2A:4A66
-Table_2A_4A66::
-	dw Label_2A_4081
-	dw Label_2A_5A83
-	dw Label_2A_5B81
-
-; ---- text $4A6C-$4A93 (39 bytes) [PROBABLE] text: 6 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated) [clipped from 4A3D-4A93 by higher-priority evidence]
+; ---- text $4A66-$4A93 (45 bytes) [PROBABLE] text: the caption "　セーブ" (loaded by SaveSenderAddr_LoadCaption, 2A:49C7, 19 hits in 6 scenarios) and four more NUL terminated strings
+; ("するばしょを　えらんでください　" in four pieces).  The survey had typed the first six bytes as a code-pointer table (dw $4081, $5A83, $5B81), which made three spurious labels in the middle of code
+; (Label_2A_4081 here, Label_2A_5A83 and Label_2A_5B81 in profile_editor.asm: no instruction ever referenced them); they are gone
 
 PUSHC sjis
-String_2A_4A6C:: ; 2A:4A6C
-	db "ブ", 0
+String_SaveSenderAddr_Caption:: ; 2A:4A66
+Table_2A_4A66::
+	db "　セーブ", 0
 	db "するばし", 0
 	db "ょを　え", 0
 	db "らんでく", 0

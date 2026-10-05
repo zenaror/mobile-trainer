@@ -21,12 +21,12 @@ Settings_InitPage:: ; 68:4785
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $B000
+	ld hl, sSettingsPage
 	ld bc, $0200
 	ld a, $A5
 	call FillBytes
 	ld hl, Settings_MagicString
-	ld de, $B000
+	ld de, sSettingsPage
 	ld bc, $0010
 	call CopyBytes
 	ldh [hScratchA], a
@@ -39,7 +39,7 @@ Settings_InitPage:: ; 68:4785
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ldh a, [hScratchA]
-	ld hl, $B088
+	ld hl, sSettingsSavePasswordFlag
 	ld a, $01
 	xor a, $A5
 	ld b, a
@@ -87,10 +87,10 @@ Settings_ClearFieldsKeepProgress:: ; 68:480A
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld a, [sSram_B010]
+	ld a, [sSettingsRegistrationProgress]
 	ld b, a
 	push bc
-	ld hl, $B000
+	ld hl, sSettingsPage
 	ld bc, $0066
 	ld a, $A5
 	call FillBytes
@@ -111,9 +111,9 @@ Settings_ClearFieldsKeepProgress:: ; 68:480A
 .l4847 ; 68:4847
 	; [CONFIRMED] 64 insn(s); 64 executed (in up to 18/18 scenarios)
 	xor a, $A5
-	ld [sSram_B010], a
+	ld [sSettingsRegistrationProgress], a
 	ld hl, Settings_MagicString
-	ld de, $B000
+	ld de, sSettingsPage
 	ld bc, $0010
 	call CopyBytes
 	ldh [hScratchA], a
@@ -142,7 +142,7 @@ Settings_GetRegistrationProgress:: ; 68:4870
 	ld l, a
 	jp hl
 
-	ld hl, $B010
+	ld hl, sSettingsRegistrationProgress
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
 	push af
@@ -222,7 +222,7 @@ Settings_VerifyAndRepair:: ; 68:48DE
 Function_68_48DE::
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 18/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld hl, $B000
+	ld hl, sSettingsPage
 	call Settings_CheckPageMagicAndSum
 	or a, a
 	jr z, .l48ED
@@ -238,7 +238,7 @@ Function_68_48DE::
 	; [CONFIRMED] 37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 1;
 	; entered by jrcc from 68:48E9 (executed) | 4 insn(s) executed; cut out of the PROBABLE region
 	; 48F3-4940 by apply_coverage --split [executed in 1 scenarios]
-	ld hl, $B100
+	ld hl, sSettingsBackup
 	call Settings_CheckPageMagicAndSum
 	or a, a
 	jr z, .l48FE
@@ -264,8 +264,8 @@ Function_68_48DE::
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $B100
-	ld de, $B000
+	ld hl, sSettingsBackup
+	ld de, sSettingsPage
 	ld bc, $0100
 	call CopyBytes
 	ldh [hScratchA], a
@@ -289,7 +289,7 @@ Function_68_48DE::
 
 .l4940 ; 68:4940
 	; [CONFIRMED] 48 insn(s); 48 executed (in up to 18/18 scenarios)
-	ld hl, $B100
+	ld hl, sSettingsBackup
 	call Settings_CheckPageMagicAndSum
 	or a, a
 	jr z, .l48FE
@@ -378,14 +378,14 @@ Settings_UpdateChecksumAndBackup:: ; 68:49B6
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $B000
+	ld hl, sSettingsPage
 	ld bc, $00FE
 	call Checksum16_Sum
 	ld [hl], e
 	inc hl
 	ld [hl], d
-	ld hl, $B000
-	ld de, $B100
+	ld hl, sSettingsPage
+	ld de, sSettingsBackup
 	ld bc, $0100
 	call CopyBytes
 	ldh [hScratchA], a
@@ -488,7 +488,7 @@ Settings_StoreStringField:: ; 68:4A4A
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
-	ld hl, $B010
+	ld hl, sSettingsRegistrationProgress
 	ld a, $01
 	xor a, $A5
 	ld b, a
@@ -610,7 +610,7 @@ Settings_StoreByteField:: ; 68:4B48
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ldh a, [hScratchA]
-	ld hl, $B010
+	ld hl, sSettingsRegistrationProgress
 	ld a, $01
 	xor a, $A5
 	ld b, a
@@ -703,7 +703,7 @@ Settings_StoreByteField:: ; 68:4B48
 	ret
 
 Settings_SetProgressState2:: ; 68:4C2B
-	ld hl, $B010
+	ld hl, sSettingsRegistrationProgress
 	ld a, $02
 	xor a, $A5
 	ld b, a
@@ -758,31 +758,31 @@ Settings_LoadAccountToWram:: ; 68:4C69
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $B066
+	ld hl, sSettingsLoginId
 	ld de, $DEA0
 	call DecodeXorA5
-	ld hl, $B071
+	ld hl, sSettingsMailLocalPart
 	ld de, $DEAB
 	call DecodeXorA5
-	ld hl, $B07A
+	ld hl, sSettingsMailSubdomain
 	ld de, $DEB4
 	call DecodeXorA5
-	ld hl, $B07F
+	ld hl, sSettingsPassword
 	ld de, $DEB9
 	call DecodeXorA5
-	ld hl, $B07F
+	ld hl, sSettingsPassword
 	ld de, $DECB
 	call DecodeXorA5
-	ld hl, $B08B
+	ld hl, sSettingsNumberInternet
 	ld de, $DEDD
 	call DecodeXorA5
-	ld hl, $B09C
+	ld hl, sSettingsNumberSelfPage
 	ld de, $DEEE
 	call DecodeXorA5
-	ld hl, $B0AD
+	ld hl, sSettingsNumberComment
 	ld de, $DEFF
 	call DecodeXorA5
-	ld hl, $B088
+	ld hl, sSettingsSavePasswordFlag
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
 	push af
@@ -812,7 +812,7 @@ Settings_LoadAccountToWram:: ; 68:4C69
 	ld a, b
 	xor a, $A5
 	ld [wSavePasswordFlag], a
-	ld hl, $B08A
+	ld hl, sSettingsManualNumbersFlag
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
 	push af
@@ -843,7 +843,7 @@ Settings_LoadAccountToWram:: ; 68:4C69
 	xor a, $A5
 	ld [sPhoneMethodMenuCursor], a
 	ld [wManualNumbersFlag], a
-	ld hl, $B089
+	ld hl, sSettingsHiddenAtRegistration
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
 	push af

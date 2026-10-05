@@ -14,7 +14,7 @@ Function_4C_4B54::
 	ld a, $01
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld hl, $AA00
+	ld hl, sBrowserHistory
 	ld bc, $0600
 	xor a, a
 	ld [sSram_A9FF], a
@@ -179,7 +179,7 @@ Function_4C_4C4E::
 	ld a, $02
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld hl, $A000
+	ld hl, _SRAM
 	ld bc, $2000
 	xor a, a
 	call FillBytes
@@ -187,7 +187,7 @@ Function_4C_4C4E::
 	ld a, $03
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld hl, $A000
+	ld hl, _SRAM
 	ld bc, $2000
 	xor a, a
 	call FillBytes
@@ -199,7 +199,7 @@ Function_4C_4C4E::
 
 PageCache_Push:: ; 4C:4C95
 	ld bc, $1000
-	ld hl, $B000
+	ld hl, sBrowserPageBuf
 	ld a, $03
 	ldh [hRam_FFB0], a
 	ld a, $0A

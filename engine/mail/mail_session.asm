@@ -624,7 +624,7 @@ MailSession_ReceivePhase:: ; 26:44F5
 	push de
 	ld a, d
 	or a, e
-	jp z, Label_26_4636
+	jp z, MailSession_ReceivePhase_AfterScan
 
 	; [CONFIRMED] 72 insn(s) reached by static flow only; seeds: exec x72; min discovery hops 0;
 	; fall-through of the jpcc at 26:45B3 (executed) | 9 insn(s) executed; cut out of the PROBABLE
@@ -722,7 +722,8 @@ MailSession_ScanMailsLoop:: ; 26:45BC
 	ld e, c
 	ld d, b
 
-Label_26_4636:: ; 26:4636
+MailSession_ReceivePhase_AfterScan:: ; 26:4636
+Label_26_4636::
 	; [CONFIRMED] 104 insn(s); 104 executed (in up to 1/18 scenarios)
 	ld a, $01
 	ldh [hWRAMBank], a

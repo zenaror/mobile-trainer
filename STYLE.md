@@ -214,6 +214,16 @@ that is true everywhere.  Two aliases of one base never overlap in scope (the to
 a HYPOTHESIS record in the manifest.  The manifests are `analysis/naming2/overlay_aliases*.tsv`; `tools/apply_overlay_aliases.py` applies them (it builds and compares the ROM) and
 `tools/apply_overlay_aliases.py --check` audits the file (every alias used only inside its scope).  Banked bytes (`$D000-$DFFF`) keep using `ram/banked.asm`.
 
+**Banked names.**  A name in `ram/banked.asm` (`DEF sSettingsHiddenMode EQU $B012 ; bank S1 size 1 byte PROBABLE [ram4] evidence`) states the bank, the size in bytes, the kind (`byte`, `word`, `array`, `struct`), the status and the
+evidence.  It is used only where the bank of the access is known: `tools/apply_banked_names.py` replaces `ld hl|de|bc, $XXXX` operands by the name (`name + $XX` inside a larger object), one row per file and operand with the proof of
+the bank.  Nothing else is rewritten: a raw `$A000` in a wipe of several banks stays numeric or uses the constant `_SRAM`, and a descriptor that spells a bank and an address keeps its numbers.
+
+**Overlay names in banked memory.**  A banked scratch area that several subsystems reuse at different times (SRAM bank 3 `$A000-$BFFF`: the network work area, the browser page buffer, the POP3 parse and summary blocks, the
+password-change buffers; bank 2 `$A000-$A2FF`: the configuration image and the registration scratch) may carry one name per subsystem although the ranges overlap; the neutral `sSram_XXXX` stays the one name that is true
+everywhere.  The rule is the file scope of the WRAM0 aliases: two overlapping names of one bank are accepted when (1) no source file mentions both, or (2) one is the container of the other (kind `struct`, or its `DEF` comment says
+`container`: the umbrella name of a work area, or an array of named elements), or (3) the `DEF` comment of one says `overlay:` and names the other (a phase overlay inside one file).  Every overlapping name says `overlay:` and lists
+the others; `python3 tools/apply_banked_names.py --check` audits `ram/banked.asm` against the sources.
+
 ### Constants and numbers
 
 * **Constants** are `UPPER_CASE` (`MAILREC_OFS_TIME`, `ABOOK_SLOT_COUNT`), written `DEF NAME EQU $xxxx ; STATUS note` followed by `EXPORT NAME` in `consts.asm` (so they are in the `.sym` file).
@@ -374,6 +384,7 @@ are edited directly or through `tools/screen_png.py import`. After adding or rem
 | `python3 tools/gen_sjis_charmap.py --check`, `python3 tools/text_to_strings.py --dry-run` | the charmap is current / no numeric text block is left to convert |
 | `python3 tools/gfx_export.py check` | the PNGs, `.2bpp` files, sizes and `gfx/assets.tsv` agree (needs `rgbgfx`) |
 | `python3 tools/apply_overlay_aliases.py --check` | every alias of `ram/overlays.asm` is defined once, has a neutral WRAM0/HRAM base, and is used only inside the scope of its group |
+| `python3 tools/apply_banked_names.py --check` | every pair of overlapping bank-qualified names in `ram/banked.asm` is a container and its field, a documented overlay, or used in disjoint files |
 
 **Applying renames.** Names are changed with `python3 tools/apply_renames.py --manifest FILE` (manifest: TAB-separated `old_name new_name kind status evidence`; HYPOTHESIS rows are never applied).
 It renames the definition (`New:: ; BB:AAAA`; the neutral old name stays below it as an alias without comment) and every reference in all `.asm`/`.inc` files, refuses unsafe rows (collisions,
@@ -385,6 +396,11 @@ non-unique or alias old names, conflicting rows), runs `make`, checks the SHA-25
 `alias base scope status evidence`, scope = files, globs, `!` exclusions and function ranges `path@LabelA..LabelB`, HYPOTHESIS rows are never applied): it appends the `DEF` lines to `ram/overlays.asm`, rewrites every mention of the neutral name in
 the scope files, refuses unsafe rows (collisions, banked or already-named bases, a scope file that does not mention the base, overlapping scopes), runs `make`, checks the SHA-256 and
 `sym_check`, and restores every file on failure.  Use `--dry-run` first.  The manifests are `analysis/naming2/overlay_aliases*.tsv`.  Tests: `python3 tools/test_overlay_aliases.py`.
+
+**Applying banked names.** Bank-qualified names and the raw operands that use them are added with `python3 tools/apply_banked_names.py --names FILE --sites FILE` (names: TAB-separated
+`name address bank size kind status evidence`; sites: `file operand name sites proof`, the file may carry a function range `path@LabelA..LabelB`; HYPOTHESIS rows are never applied): it appends the `DEF` lines to
+`ram/banked.asm`, replaces the counted `ld hl|de|bc, $XXXX` lines, refuses a wrong count, an operand outside its name or a name defined twice, runs `make`, checks the SHA-256 and `sym_check`, and restores every file on
+failure.  Use `--dry-run` first.  The manifests are `analysis/naming2/sram4_*.tsv`.  Tests: `python3 tools/test_banked_names.py`.
 
 ## 11. Git and commits
 

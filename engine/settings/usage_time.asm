@@ -110,11 +110,11 @@ UsageTime_Request:: ; 67:6171
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld hl, $A000
+	ld hl, sNetWorkPage
 	ld bc, $2000
 	call FillBytes
 	ld hl, Net_UsageTimeCgiUrl
-	ld de, $A100
+	ld de, sNetStartUrl
 	call CopyString
 	ld de, $C28F
 	farcall Dial_CopySelectedNumber
@@ -166,18 +166,18 @@ Function_67_6205::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, Net_PppIdKeyDup
-	ld de, $A000
+	ld de, sNetWorkPage
 	call CopyString
 	ld hl, $C1E0
-	ld de, $A000
+	ld de, sNetWorkPage
 	call StringAppend
 	ld hl, $624E
-	ld de, $A000
+	ld de, sNetWorkPage
 	call StringAppend
 	ld hl, $DECB
-	ld de, $A000
+	ld de, sNetWorkPage
 	call StringAppend
-	ld hl, $A000
+	ld hl, sNetWorkPage
 	call StringLength
 	ldh [hScratchA], a
 	pop af

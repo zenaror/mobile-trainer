@@ -34,7 +34,7 @@ MailView_SenderPage_Loop:: ; 2B:64A7
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $01
-	jp z, Label_2B_6548
+	jp z, MailView_SenderPage_CheckBAndSelect
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -98,7 +98,8 @@ Function_2B_64F1:: ; 2B:64F1
 	farcall Palette_FadeOutToWhite
 	ret
 
-Label_2B_6548:: ; 2B:6548
+MailView_SenderPage_CheckBAndSelect:: ; 2B:6548
+Label_2B_6548::
 	; [CONFIRMED] 298 insn(s) executed; cut out of the PROBABLE region 6500-6863 by apply_coverage
 	; --split [executed in 3 scenarios]
 	ldh a, [hJoyPressed]

@@ -381,7 +381,7 @@ Function_68_41E9::
 	ld a, $01
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld hl, $B047
+	ld hl, sSettingsMailAddress
 	ld de, $C27F
 	call DecodeXorA5
 	ld a, [wCopyMailAddressToFar_DestLo]
@@ -444,7 +444,7 @@ Function_68_4252::
 	ld [rRAMB], a
 	xor a, a
 	ld bc, $0100
-	ld hl, $A000
+	ld hl, sConfigImage
 	call FillBytes
 	ldh [hScratchA], a
 	pop af
@@ -477,7 +477,7 @@ Function_68_4283::
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	xor a, a
-	ld hl, $A000
+	ld hl, _SRAM
 	ld bc, $1000
 	call FillBytes
 	call Sound_FrameService
@@ -490,7 +490,7 @@ Function_68_4283::
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	xor a, a
-	ld hl, $A000
+	ld hl, _SRAM
 	ld bc, $1000
 	call FillBytes
 	call Sound_FrameService
@@ -522,7 +522,7 @@ Function_68_42E4::
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	xor a, a
-	ld hl, $A000
+	ld hl, _SRAM
 	ld bc, $1000
 	call FillBytes
 	call Sound_FrameService
@@ -604,7 +604,7 @@ Function_68_4377::
 	ld a, $01
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld a, [sSram_B010]
+	ld a, [sSettingsRegistrationProgress]
 	xor a, $A5
 	or a, a
 	jr z, .l43A7
@@ -634,7 +634,7 @@ Settings_SetProgressState3:: ; 68:43B9
 Function_68_43B9::
 	; [CONFIRMED] 62 insn(s); 62 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld hl, $B010
+	ld hl, sSettingsRegistrationProgress
 	ld a, $03
 	xor a, $A5
 	ld b, a
@@ -667,7 +667,7 @@ Function_68_43B9::
 	ret
 
 Settings_StoreAdapterType:: ; 68:43F4
-	ld hl, $B011
+	ld hl, sSettingsAdapterType
 	ld a, [wMobileAdapterType]
 	xor a, $A5
 	ld b, a
@@ -705,7 +705,7 @@ Function_68_4430::
 	; from bank 1 with the enable/bank save-restore sequence, returns b xor $A5; entry not proven
 	; [verifier: no entry proven (no caller, no valid table word, never executed): decode chain
 	; alone is not proof -> HYPOTHESIS]
-	ld hl, $B011
+	ld hl, sSettingsAdapterType
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
 	push af
@@ -968,7 +968,7 @@ Function_68_459A::
 	ld a, $02
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld hl, $A000
+	ld hl, sConfigImage
 	ld de, $0000
 	ld b, $BE
 .loop ; 68:45B7
@@ -1018,7 +1018,7 @@ Config_MirrorUpdateChecksum:: ; 68:45F1
 Function_68_45F1::
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld hl, $A000
+	ld hl, sConfigImage
 	ld de, $0000
 	ld b, $BE
 .loop ; 68:45F9
@@ -1055,31 +1055,31 @@ Config_LoadMirrorToWram:: ; 68:4608
 	ld a, $02
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld hl, $A00C
+	ld hl, sConfigLoginId
 	ld de, $DEA0
 	call CopyString
-	ld hl, $A02C
+	ld hl, sConfigMailAddress
 	ld de, $DFAA
 	call CopyString
-	ld hl, $A07E
+	ld hl, sConfigDial0Text
 	ld de, $DF32
 	ld bc, $0010
 	call CopyStringMax_ZeroSrcOnEmpty
-	ld hl, $A096
+	ld hl, sConfigDial1Text
 	ld de, $DF65
 	ld bc, $0010
 	call CopyStringMax_ZeroSrcOnEmpty
-	ld hl, $A0AE
+	ld hl, sConfigDial2Text
 	ld de, $DF98
 	ld bc, $0010
 	call CopyStringMax_ZeroSrcOnEmpty
-	ld hl, $A076
+	ld hl, sConfigDial0Number
 	ld de, $DF10
 	call PhoneNumber_UnpackBcd
-	ld hl, $A08E
+	ld hl, sConfigDial1Number
 	ld de, $DF43
 	call PhoneNumber_UnpackBcd
-	ld hl, $A0A6
+	ld hl, sConfigDial2Number
 	ld de, $DF76
 	call PhoneNumber_UnpackBcd
 	ldh [hScratchA], a
@@ -1094,13 +1094,13 @@ Config_LoadMirrorToWram:: ; 68:4608
 	ld a, $01
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld hl, $B014
+	ld hl, sSettingsDialNumbers
 	ld de, $DF21
 	call DecodeXorA5
-	ld hl, $B025
+	ld hl, sSettingsDialNumbers + $11
 	ld de, $DF54
 	call DecodeXorA5
-	ld hl, $B036
+	ld hl, sSettingsDialNumbers + $22
 	ld de, $DF87
 	call DecodeXorA5
 	ldh [hScratchA], a
@@ -1203,7 +1203,7 @@ Function_68_4735::
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld hl, $DFAA
-	ld de, $B047
+	ld de, sSettingsMailAddress
 	call EncodeXorA5
 	ldh [hScratchA], a
 	pop af

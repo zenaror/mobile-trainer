@@ -48,7 +48,7 @@ Function_2F_4000::
 	call AbookList_SetHelpBoxAttr
 	pop de
 	pop bc
-	jp Label_2F_4131
+	jp AbookList_Run_ButtonRow
 
 AbookList_Run_Loop:: ; 2F:4049
 Label_2F_4049::
@@ -60,7 +60,7 @@ Label_2F_4049::
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $01
-	jr z, Label_2F_4097
+	jr z, AbookList_Run_CheckButtonB
 	push bc
 	push de
 	call Abook_ProbeSlot
@@ -95,14 +95,15 @@ Label_2F_4049::
 	ld a, c
 	ld [hl], a
 	ld b, $00
-	jp Label_2F_4131
+	jp AbookList_Run_ButtonRow
 
 ; ---- data $4094-$4097 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
 Data_2F_4094:: ; 2F:4094
 	db $C3, $00, $40
 
-Label_2F_4097:: ; 2F:4097
+AbookList_Run_CheckButtonB:: ; 2F:4097
+Label_2F_4097::
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 2/18 scenarios)
 	ldh a, [hJoyPressed]
 	and a, $02
@@ -201,7 +202,8 @@ Function_2F_4109::
 	call AbookList_UpdateRowMarkers
 	ret
 
-Label_2F_4131:: ; 2F:4131
+AbookList_Run_ButtonRow:: ; 2F:4131
+Label_2F_4131::
 	push bc
 	ld hl, $DA80
 	ld de, AddrBookShared_ObjTable

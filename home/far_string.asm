@@ -147,4 +147,4 @@ Function_00_158D::
 
 Table_Dial_SramEntryPtrs:: ; 00:161A
 Table_00_161A::
-	dw $B014, $B025, $B036
+	dw sSettingsDialNumbers, sSettingsDialNumbers + $11, sSettingsDialNumbers + $22

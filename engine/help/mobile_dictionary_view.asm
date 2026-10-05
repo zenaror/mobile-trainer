@@ -217,7 +217,7 @@ MobileDictView_LoadEntry:: ; 4C:5122
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld bc, $1000
-	ld hl, $B000
+	ld hl, sBrowserPageBuf
 	ld a, $03
 	call BankSwitch_H
 	xor a, a
@@ -236,7 +236,7 @@ MobileDictView_LoadEntry:: ; 4C:5122
 	ld bc, $0100
 	call CopyBytes
 	ld hl, $C380
-	ld de, $B000
+	ld de, sBrowserPageBuf
 	ld bc, $0FFC
 	ld a, e
 	ld [wBrowserRxPtr], a

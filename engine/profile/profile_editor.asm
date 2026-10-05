@@ -28,7 +28,7 @@ Function_2A_5495::
 	call VBlank_Wait
 	push bc
 	ld a, $00
-	ld hl, $AF50
+	ld hl, sProfileAddress
 	farcall Account_CopyMailAddressToFar
 	farcall SramCheck_Bank0Commit
 	pop bc
@@ -39,7 +39,7 @@ Function_2A_5495::
 	ld de, $D514
 	ld a, [de]
 	cp a, $00
-	jr z, Label_2A_552A
+	jr z, Profile_Edit_RunKeyboard
 	call Profile_MoveCursorRight
 	call Profile_MoveCursorRight
 	call Profile_MoveCursorRight
@@ -74,9 +74,10 @@ Profile_Edit_Loop:: ; 2A:54FD
 	ld [wSpriteSlots + 33], a
 	ldh a, [hJoyPressed]
 	and a, $01
-	jp z, Label_2A_56EC
+	jp z, Profile_Edit_CheckButtonB
 
-Label_2A_552A:: ; 2A:552A
+Profile_Edit_RunKeyboard:: ; 2A:552A
+Label_2A_552A::
 	push af
 	push bc
 	ld de, $40D0
@@ -148,7 +149,7 @@ Label_2A_552A:: ; 2A:552A
 	call Sprite_SetPosition
 	pop bc
 	pop af
-	jp Label_2A_552A
+	jp Profile_Edit_RunKeyboard
 
 .l55AD ; 2A:55AD
 	; [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios)
@@ -211,7 +212,7 @@ Label_2A_552A:: ; 2A:552A
 	call Sprite_SetPosition
 	pop bc
 	pop af
-	jp Label_2A_552A
+	jp Profile_Edit_RunKeyboard
 .l5617 ; 2A:5617
 	push af
 	push bc
@@ -290,7 +291,7 @@ Label_2A_552A:: ; 2A:552A
 	call Sprite_SetPosition
 	pop bc
 	pop af
-	jp Label_2A_552A
+	jp Profile_Edit_RunKeyboard
 
 .l569E ; 2A:569E
 	; [CONFIRMED] 22 insn(s); 22 executed (in up to 1/18 scenarios)
@@ -315,7 +316,7 @@ Label_2A_552A:: ; 2A:552A
 	call Profile_SaveToSram
 	ld a, [wMailScreenMode]
 	dec a
-	jp z, Label_2A_5706
+	jp z, Profile_Edit_Exit
 
 	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
 	; fall-through of the jpcc at 2A:56C5 (executed) [executed in 5 scenarios]
@@ -339,11 +340,12 @@ Label_2A_552A:: ; 2A:552A
 
 	call Profile_SaveToSram
 
-Label_2A_56EC:: ; 2A:56EC
+Profile_Edit_CheckButtonB:: ; 2A:56EC
+Label_2A_56EC::
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressed]
 	and a, $02
-	jr z, Label_2A_5731
+	jr z, Profile_Edit_DPad
 
 	; [CONFIRMED] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
 	; fall-through of the jrcc at 2A:56F0 (executed) [executed in 5 scenarios]
@@ -360,7 +362,8 @@ Label_2A_56EC:: ; 2A:56EC
 	pop de
 	pop bc
 
-Label_2A_5706:: ; 2A:5706
+Profile_Edit_Exit:: ; 2A:5706
+Label_2A_5706::
 	; [CONFIRMED] 21 insn(s); 21 executed (in up to 1/18 scenarios)
 	farcall Stat_DisableScrollSplit
 	call VBlank_Wait
@@ -376,7 +379,8 @@ Label_2A_5706:: ; 2A:5706
 	ld a, $FF
 	ret
 
-Label_2A_5731:: ; 2A:5731
+Profile_Edit_DPad:: ; 2A:5731
+Label_2A_5731::
 	ldh a, [hJoyPressedRepeat]
 	and a, $20
 	call nz, Profile_CursorLeft
@@ -811,20 +815,20 @@ Profile_DrawNickname_BlitBlankAdvance:: ; 2A:5A23
 Profile_DrawAddressLine1:: ; 2A:5A3B
 	ld a, $0A
 	ld [wTextCellsLeft], a
-
-Label_2A_5A40:: ; 2A:5A40
+.l5A40 ; 2A:5A40
+	; loop head: next byte of the address; $00 ends the line (pad), $0D takes one blank cell and ends it, a Shift-JIS lead byte goes to the wide-glyph path, anything else is drawn as ASCII
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, Label_2A_5ADB
+	jp z, .l5ADB
 	cp a, $0D
-	jr z, Label_2A_5AC0
+	jr z, .l5AC0
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, Label_2A_5A9B
+	jr nz, .l5A9B
 
 	; [PROBABLE] 37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 0;
 	; fall-through of the jrcc at 2A:5A58 (executed)
@@ -851,8 +855,6 @@ Label_2A_5A40:: ; 2A:5A40
 	ld hl, $C0B8
 	farcall Canvas_BlitGlyph
 	pop hl
-
-Label_2A_5A83:: ; 2A:5A83
 	pop de
 	pop bc
 	ld a, $06
@@ -863,12 +865,12 @@ Label_2A_5A83:: ; 2A:5A83
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_2A_5ADB
+	jr z, .l5ADB
 	cp a, $01
-	jr z, Label_2A_5ADB
-	jr Label_2A_5A40
-
-Label_2A_5A9B:: ; 2A:5A9B
+	jr z, .l5ADB
+	jr .l5A40
+.l5A9B ; 2A:5A9B
+	; one-byte (ASCII) character: load the glyph, blit it, one cell less; with no cell (or one) left the line is padded
 	; [CONFIRMED] 19 insn(s); 19 executed (in up to 2/18 scenarios)
 	pop af
 	push bc
@@ -885,12 +887,12 @@ Label_2A_5A9B:: ; 2A:5A9B
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_2A_5ADB
+	jr z, .l5ADB
 	cp a, $01
-	jr z, Label_2A_5ADB
-	jr Label_2A_5A40
-
-Label_2A_5AC0:: ; 2A:5AC0
+	jr z, .l5ADB
+	jr .l5A40
+.l5AC0 ; 2A:5AC0
+	; a $0D byte takes one blank cell and ends the line (never executed)
 	; [PROBABLE] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 1;
 	; entered by jrcc from 2A:5A4E (executed)
 	push bc
@@ -906,8 +908,8 @@ Label_2A_5AC0:: ; 2A:5AC0
 	dec a
 	ld [wTextCellsLeft], a
 	call Profile_DrawAddressLine1_BlitBlankAdvance
-
-Label_2A_5ADB:: ; 2A:5ADB
+.l5ADB ; 2A:5ADB
+	; pads the rest of the line with blank cells and ends it
 	; [CONFIRMED] 56 insn(s); 56 executed (in up to 2/18 scenarios)
 	push bc
 	push de
@@ -960,20 +962,20 @@ Profile_DrawAddressLine1_BlitBlankAdvance:: ; 2A:5B0F
 Profile_DrawAddressLine2:: ; 2A:5B27
 	ld a, $10
 	ld [wTextCellsLeft], a
-
-Label_2A_5B2C:: ; 2A:5B2C
+.l5B2C ; 2A:5B2C
+	; loop head: next byte of the address; $00 ends the line (pad), $0D takes one blank cell and ends it, a Shift-JIS lead byte goes to the wide-glyph path, anything else is drawn as ASCII
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, Label_2A_5BC7
+	jp z, .l5BC7
 	cp a, $0D
-	jr z, Label_2A_5BAC
+	jr z, .l5BAC
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, Label_2A_5B87
+	jr nz, .l5B87
 
 	; [PROBABLE] 37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 0;
 	; fall-through of the jrcc at 2A:5B44 (executed)
@@ -1010,14 +1012,12 @@ Label_2A_5B2C:: ; 2A:5B2C
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_2A_5BC7
-
-Label_2A_5B81:: ; 2A:5B81
+	jr z, .l5BC7
 	cp a, $01
-	jr z, Label_2A_5BC7
-	jr Label_2A_5B2C
-
-Label_2A_5B87:: ; 2A:5B87
+	jr z, .l5BC7
+	jr .l5B2C
+.l5B87 ; 2A:5B87
+	; one-byte (ASCII) character: load the glyph, blit it, one cell less; with no cell (or one) left the line is padded
 	; [CONFIRMED] 19 insn(s); 19 executed (in up to 2/18 scenarios)
 	pop af
 	push bc
@@ -1034,12 +1034,12 @@ Label_2A_5B87:: ; 2A:5B87
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_2A_5BC7
+	jr z, .l5BC7
 	cp a, $01
-	jr z, Label_2A_5BC7
-	jr Label_2A_5B2C
-
-Label_2A_5BAC:: ; 2A:5BAC
+	jr z, .l5BC7
+	jr .l5B2C
+.l5BAC ; 2A:5BAC
+	; a $0D byte takes one blank cell and ends the line (never executed)
 	; [PROBABLE] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 1;
 	; entered by jrcc from 2A:5B3A (executed)
 	push bc
@@ -1055,8 +1055,8 @@ Label_2A_5BAC:: ; 2A:5BAC
 	dec a
 	ld [wTextCellsLeft], a
 	call Profile_DrawAddressLine2_BlitBlankAdvance
-
-Label_2A_5BC7:: ; 2A:5BC7
+.l5BC7 ; 2A:5BC7
+	; pads the rest of the line with blank cells and ends it
 	; [CONFIRMED] 102 insn(s); 102 executed (in up to 2/18 scenarios)
 	push bc
 	push de
@@ -2229,7 +2229,7 @@ Function_2A_6257::
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld b, $10
-	ld hl, $AF40
+	ld hl, sProfileName
 	ld de, $D514
 .l6274 ; 2A:6274
 	ld a, [hli]
@@ -2238,7 +2238,7 @@ Function_2A_6257::
 	dec b
 	jr nz, .l6274
 	ld b, $40
-	ld hl, $AF50
+	ld hl, sProfileAddress
 	ld de, $D4C0
 .l6282 ; 2A:6282
 	ld a, [hli]
@@ -2285,7 +2285,7 @@ Profile_SaveToSram:: ; 2A:62C5
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld b, $10
-	ld de, $AF40
+	ld de, sProfileName
 	ld hl, $D514
 .l62E2 ; 2A:62E2
 	ld a, [hli]
@@ -2294,7 +2294,7 @@ Profile_SaveToSram:: ; 2A:62C5
 	dec b
 	jr nz, .l62E2
 	ld b, $40
-	ld de, $AF50
+	ld de, sProfileAddress
 	ld hl, $D4C0
 .l62F0 ; 2A:62F0
 	ld a, [hli]

@@ -265,7 +265,7 @@ Label_4E_4B8C:: ; 4E:4B8C
 	xor a, a
 	farcall Browser_HistoryPop
 	ld bc, $1000
-	ld de, $B000
+	ld de, sBrowserPageBuf
 	ld a, $03
 	farcall PageCache_Pop
 	farcall Html_ParsePage
@@ -297,7 +297,7 @@ Browser_PageView_GoBack:: ; 4E:4BAD
 	pop af
 	ldh [rSVBK], a
 	ld bc, $1000
-	ld de, $B000
+	ld de, sBrowserPageBuf
 	ld a, $03
 	farcall PageCache_Pop
 	or a, a
@@ -353,7 +353,7 @@ Label_4E_4C57:: ; 4E:4C57
 	xor a, a
 	farcall Browser_HistoryPop
 	ld bc, $1000
-	ld de, $B000
+	ld de, sBrowserPageBuf
 	ld a, $03
 	farcall PageCache_Pop
 	farcall Html_ParsePage
@@ -606,7 +606,7 @@ Label_4E_4E6E:: ; 4E:4E6E
 	xor a, a
 	farcall Browser_HistoryPop
 	ld bc, $1000
-	ld de, $B000
+	ld de, sBrowserPageBuf
 	ld a, $03
 	farcall PageCache_Pop
 	farcall Html_ParsePage
@@ -899,7 +899,7 @@ Label_4E_509D:: ; 4E:509D
 	xor a, a
 	farcall Browser_HistoryPop
 	ld bc, $1000
-	ld de, $B000
+	ld de, sBrowserPageBuf
 	ld a, $03
 	farcall PageCache_Pop
 	farcall Html_ParsePage
@@ -954,7 +954,7 @@ Label_4E_5107:: ; 4E:5107
 	xor a, a
 	farcall Browser_HistoryPop
 	ld bc, $1000
-	ld de, $B000
+	ld de, sBrowserPageBuf
 	ld a, $03
 	farcall PageCache_Pop
 	farcall Html_ParsePage

@@ -41,7 +41,7 @@ Function_2F_6D00::
 	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 2F:6D33 (executed) [executed in 2 scenarios]
 	call AbookAddr_KeyboardLoop
-	jp Label_2F_6D5E
+	jp AbookAddr_Edit_AfterKeyboard
 
 ; ---- data $6D3B-$6D40 (5 bytes) [HYPOTHESIS] UNCLASSIFIED 5 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
@@ -59,10 +59,11 @@ Label_2F_6D40::
 	call AbookAddr_PlaceCursorSprites
 	ldh a, [hJoyPressed]
 	and a, $01
-	jp z, Label_2F_6DF9
+	jp z, AbookAddr_Edit_CheckButtonB
 	call AbookAddr_OpenKeyboard
 
-Label_2F_6D5E:: ; 2F:6D5E
+AbookAddr_Edit_AfterKeyboard:: ; 2F:6D5E
+Label_2F_6D5E::
 	cp a, $07
 	jp nz, .l6DF1
 
@@ -141,7 +142,8 @@ Label_2F_6D5E:: ; 2F:6D5E
 	farcall Joypad_Update
 	pop bc
 
-Label_2F_6DF9:: ; 2F:6DF9
+AbookAddr_Edit_CheckButtonB:: ; 2F:6DF9
+Label_2F_6DF9::
 	ldh a, [hJoyPressed]
 	and a, $02
 	jp z, .l6EF4
@@ -1028,12 +1030,12 @@ Function_2F_7385::
 	ldh [rSVBK], a
 	ld a, $FF
 	cp a, d
-	jr z, Label_2F_73AC
+	jr z, AbookAddr_GetCharPtr_NoChar
 	inc c
 	ld a, [hl]
 .loop ; 2F:7396
 	dec c
-	jr z, Label_2F_73AA
+	jr z, AbookAddr_GetCharPtr_Found
 
 	; [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0;
 	; fall-through of the jrcc at 2F:7397 (executed) | upgraded by classifier 6: all 8 instruction
@@ -1041,10 +1043,10 @@ Function_2F_7385::
 	inc hl
 	ld a, [hl]
 	cp a, $00
-	jr z, Label_2F_73AC
+	jr z, AbookAddr_GetCharPtr_NoChar
 	ld a, [hl]
 	cp a, $0D
-	jr z, Label_2F_73B2
+	jr z, AbookAddr_GetCharPtr_Newline
 	jr .loop
 
 ; ---- data $73A6-$73AA (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
@@ -1052,12 +1054,14 @@ Function_2F_7385::
 Data_2F_73A6:: ; 2F:73A6
 	db $0C, $0D, $20, $02
 
-Label_2F_73AA:: ; 2F:73AA
+AbookAddr_GetCharPtr_Found:: ; 2F:73AA
+Label_2F_73AA::
 	; [CONFIRMED] 2 insn(s); 2 executed (in up to 1/18 scenarios)
 	pop bc
 	ret
 
-Label_2F_73AC:: ; 2F:73AC
+AbookAddr_GetCharPtr_NoChar:: ; 2F:73AC
+Label_2F_73AC::
 	; [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1;
 	; entered by jrcc from 2F:7392 (executed) | 4 insn(s) executed; cut out of the PROBABLE region
 	; 73AC-73B8 by apply_coverage --split [executed in 6 scenarios]
@@ -1066,7 +1070,8 @@ Label_2F_73AC:: ; 2F:73AC
 	pop bc
 	ret
 
-Label_2F_73B2:: ; 2F:73B2
+AbookAddr_GetCharPtr_Newline:: ; 2F:73B2
+Label_2F_73B2::
 	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 73AC-73B8 by apply_coverage --split
 	ld a, $0D

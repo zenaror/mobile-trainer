@@ -32,7 +32,7 @@ Pop3_StartRetr:: ; 54:4CB0
 	ld [rRAMG], a
 	xor a, a
 	ld [wMailFetchStatus], a
-	ld de, $A000
+	ld de, sNetWorkPage
 	ld bc, $0FFF
 	ld a, $24
 	farcall MobileAPI
@@ -258,7 +258,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 	ld a, $03
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld hl, $B00C
+	ld hl, sPop3RetrBodyPtrLen + $03
 	ld a, [hld]
 	ld b, a
 	ld a, [hld]
@@ -733,7 +733,7 @@ Function_54_511D::
 	ld hl, Data_54_4C44
 	ld bc, $0003
 	farcall CopyBytes
-	ld hl, $A000
+	ld hl, sNetWorkPage
 	ld a, [hli]
 	ld [wRam_C243], a
 	ld a, [hl]

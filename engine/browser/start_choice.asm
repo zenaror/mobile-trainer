@@ -25,7 +25,7 @@ Function_73_5F17::
 	ld hl, $C0D4
 	call FillBytes
 	ld a, $01
-	ld hl, $A8B7
+	ld hl, sBrowserStartMenuCursor
 	call ReadByteFar
 	or a, a
 	jr nz, .skip
@@ -207,12 +207,12 @@ Label_73_60A0::
 	farcall Ticker_Stop
 	ld b, $01
 	ld a, $01
-	ld hl, $A8C1
+	ld hl, sMenuCursorMemory + $0A
 	farcall WriteByteFar
 	ld a, $01
 	ld b, a
 	ld a, $01
-	ld hl, $A8B7
+	ld hl, sBrowserStartMenuCursor
 	farcall WriteByteFar
 	ld a, $01
 	ret
@@ -233,7 +233,7 @@ Label_73_6114::
 	ld a, [wBrowserStart_Cursor]
 	ld b, a
 	ld a, $01
-	ld hl, $A8B7
+	ld hl, sBrowserStartMenuCursor
 	farcall WriteByteFar
 	ld a, [wBrowserStart_Cursor]
 	ret
@@ -270,7 +270,7 @@ Label_73_614F::
 	farcall Ticker_Stop
 	ld b, $00
 	ld a, $01
-	ld hl, $A8B7
+	ld hl, sBrowserStartMenuCursor
 	farcall WriteByteFar
 	xor a, a
 	ret
@@ -474,7 +474,7 @@ Function_73_62DA::
 BrowserStart_DescIndex_AdjustItem3:: ; 73:62E2
 Function_73_62E2::
 	ld a, $01
-	ld hl, $A9ED
+	ld hl, sSaveCheckStateBlock + $05
 	call ReadByteFar
 	bit 7, a
 	ret z

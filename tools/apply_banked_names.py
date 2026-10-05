@@ -2,6 +2,7 @@
 """Add bank-qualified RAM names to ram/banked.asm and use them at the raw pointer operands that were read one by one.
 
     python3 tools/apply_banked_names.py --names FILE --sites FILE [options]
+    python3 tools/apply_banked_names.py --check [--root DIR]
 
   --names FILE   names manifest (TAB separated): name, address, bank, size, kind, status, evidence
   --sites FILE   sites manifest (TAB separated): file, operand, name, sites, proof
@@ -13,6 +14,7 @@
   --min-status S lowest status that is applied: PROBABLE (default) or CONFIRMED (HYPOTHESIS is never applied)
   --report FILE  write a TSV with one line per row and its outcome
   --strict       exit 3 when any row was refused
+  --check        read-only audit of the overlapping names of ram/banked.asm against the sources (see below); no manifest needed
 
 Why (STYLE.md, RAM): WRAM `$D000-$DFFF` and SRAM `$A000-$BFFF` are banked, so the same CPU address is another variable in every bank and a name exists only in
 `ram/banked.asm` (`DEF name EQU $addr ; bank W1 size N byte STATUS [pass] description`), used only where the bank of the access is known.  Most accesses to
@@ -47,8 +49,14 @@ Idempotent: a name already defined in ram/banked.asm at the same address with th
 appears at the file) is reported as such.  After editing the tree the tool builds (`make`, or $RENAME_BUILD_CMD), compares the SHA-256 with roms.sha256 and runs tools/sym_check.py
 (as tools/apply_renames.py does); on any failure every touched file is restored and the exit status is 1.
 
-Exit status: 0 ok (also when rows were refused, unless --strict), 1 build/verification failed and everything was rolled back, 2 usage or input error (nothing written), 3 --strict and
-at least one row refused.
+--check (STYLE.md section 4, RAM, "Overlay names in banked memory"): two names of one bank whose ranges overlap are time-shared overlays of one scratch area (SRAM bank 3 `$A000-$BFFF`:
+the network work area, the browser page buffer, the POP3 parse and summary blocks, ...).  They are accepted when (1) no source file mentions both: a name is used only in the files of its own
+subsystem; or (2) one is the container of the other: the larger name is kind `struct`, or its DEF comment says `container` (a container is the umbrella name of a work area or the array of
+its elements, and its fields or views may be used in the same file); or (3) the overlap is documented: the DEF comment of one of the two says `overlay:` and names the other (a phase overlay
+inside one file).  A pair that no DEF comment documents is a note when the files are disjoint, an error when a file mentions both.  Prints every overlapping pair; exit status 1 on an error.
+
+Exit status: 0 ok (also when rows were refused, unless --strict), 1 build/verification failed and everything was rolled back (or --check found an error), 2 usage or input error (nothing
+written), 3 --strict and at least one row refused.
 """
 import argparse
 import os
@@ -276,10 +284,62 @@ def apply_all(tree, names, sites, tag):
     return new
 
 
+DEF_FULL = re.compile(r'^DEF\s+([A-Za-z_][A-Za-z0-9_]*)\s+EQU\s+\$([0-9A-F]{4})\s*;\s*bank\s+([WS][0-9])\s+size\s+(\d+)\s+(\w+)\s+(\w+)(.*)$')
+CHECK_DIRS = ('home', 'engine', 'lib', 'data', 'audio', 'gfx')
+
+
+def check_overlaps(root):
+    """Audit overlapping bank-qualified names (see the module docstring); returns the number of violations."""
+    names = {}
+    with open(os.path.join(root, BANKED), encoding='utf-8') as f:
+        for ln in f:
+            m = DEF_FULL.match(ln.rstrip('\n'))
+            if m:
+                names[m.group(1)] = (m.group(3), int(m.group(2), 16), int(m.group(4)), m.group(5), m.group(7))
+    uses = {n: set() for n in names}
+    pats = {n: re.compile(r'(?<![A-Za-z0-9_])' + re.escape(n) + r'(?![A-Za-z0-9_])') for n in names}
+    for top in CHECK_DIRS:
+        for dp, _, fns in os.walk(os.path.join(root, top)):
+            for fn in sorted(fns):
+                if fn.endswith('.asm'):
+                    rel = os.path.relpath(os.path.join(dp, fn), root)
+                    with open(os.path.join(dp, fn), encoding='utf-8') as f:
+                        text = f.read()
+                    for n, pat in pats.items():
+                        if pat.search(text):
+                            uses[n].add(rel)
+    order = sorted(names, key=lambda n: (names[n][0], names[n][1], -names[n][2], n))
+    pairs = viol = notes = 0
+    for i, a in enumerate(order):
+        for b in order[i + 1:]:
+            (ba, aa, sa, ka, ca), (bb, ab, sb, kb, cb) = names[a], names[b]
+            if ba != bb or not (aa < ab + sb and ab < aa + sa):
+                continue
+            pairs += 1
+            shared = sorted(uses[a] & uses[b])
+            contains = aa <= ab and ab + sb <= aa + sa
+            container_field = contains and (ka == 'struct' or 'container' in ca)
+            documented = ('overlay:' in ca and b in ca) or ('overlay:' in cb and a in cb)
+            if container_field:
+                verdict = 'container and field'
+            elif documented:
+                verdict = 'documented overlay' + (', shared files %s' % ', '.join(shared) if shared else '')
+            elif not shared:
+                verdict = 'overlay, disjoint files (note: no DEF comment says `overlay:` and names the other)'
+                notes += 1
+            else:
+                verdict = 'VIOLATION: shared files %s, no DEF comment says `overlay:` and names the other' % ', '.join(shared)
+                viol += 1
+            print('%s $%04X+%-4d %-30s x $%04X+%-4d %-30s %s' % (ba, aa, sa, a, ab, sb, b, verdict))
+    print('apply_banked_names: --check: %d name(s), %d overlapping pair(s), %d error(s), %d note(s)' % (len(names), pairs, viol, notes))
+    return viol
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description='Add bank-qualified RAM names and use them at raw operands (see the module docstring).')
-    ap.add_argument('--names', required=True, metavar='FILE')
-    ap.add_argument('--sites', required=True, metavar='FILE')
+    ap.add_argument('--names', metavar='FILE')
+    ap.add_argument('--sites', metavar='FILE')
+    ap.add_argument('--check', action='store_true')
     ap.add_argument('--tag', default='ram4')
     ap.add_argument('--root', default=ROOT)
     ap.add_argument('--dry-run', action='store_true')
@@ -290,6 +350,13 @@ def main(argv=None):
     ap.add_argument('--strict', action='store_true')
     args = ap.parse_args(argv)
     root = os.path.abspath(args.root)
+    if args.check:
+        if not os.path.exists(os.path.join(root, BANKED)):
+            print('apply_banked_names: %s has no %s' % (root, BANKED), file=sys.stderr)
+            return 2
+        return 1 if check_overlaps(root) else 0
+    if not args.names or not args.sites:
+        ap.error('--names and --sites are required (or --check)')
     try:
         tree = ar.Tree.load(root)
     except OSError as e:

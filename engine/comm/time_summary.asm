@@ -26,7 +26,7 @@ CommTime_ShowSummary:: ; 51:4000
 	ld a, $01
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld hl, $A9F8
+	ld hl, sCommTimeTotal
 	ld a, [wCommTimeTotal]
 	ld [hli], a
 	ld a, [wCommTimeTotal + 1]

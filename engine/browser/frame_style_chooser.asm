@@ -341,7 +341,7 @@ Function_4E_45FE::
 	add hl, bc
 	ld d, h
 	ld e, l
-	ld hl, $B000
+	ld hl, sBrowserFramePreview
 	add hl, bc
 	ld a, [hl]
 	ld [de], a
@@ -349,7 +349,7 @@ Function_4E_45FE::
 	add hl, bc
 	ld d, h
 	ld e, l
-	ld hl, $B400
+	ld hl, sBrowserFramePreview + $400
 	add hl, bc
 	ld a, [hl]
 	ld [de], a

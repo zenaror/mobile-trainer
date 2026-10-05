@@ -8,7 +8,7 @@ Registration_ReadStage:: ; 65:4123
 Function_65_4123::
 	; [CONFIRMED] 34 insn(s); 34 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld hl, $B010
+	ld hl, sSettingsRegistrationProgress
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
 	push af
@@ -224,7 +224,7 @@ Label_65_42C3::
 
 Registration_NoticePages:: ; 65:42E3
 	; [CONFIRMED] 50 insn(s); 50 executed (in up to 4/18 scenarios)
-	ld hl, $B089
+	ld hl, sSettingsHiddenAtRegistration
 	ld a, [wHiddenModeFlag]
 	ld b, $00
 	farcall Settings_StoreByteField
@@ -268,7 +268,7 @@ Registration_LoginIdEntry:: ; 65:432D
 	or a, a
 	jr z, Registration_LoginIdIntro
 	ld hl, $DEA0
-	ld de, $B066
+	ld de, sSettingsLoginId
 	ld b, $01
 	farcall Settings_StoreStringField
 
@@ -282,11 +282,11 @@ Registration_MailAddressEntry:: ; 65:434D
 	or a, a
 	jr z, Registration_MailIntro
 	ld hl, $DEAB
-	ld de, $B071
+	ld de, sSettingsMailLocalPart
 	ld b, $02
 	farcall Settings_StoreStringField
 	ld hl, $DEB4
-	ld de, $B07A
+	ld de, sSettingsMailSubdomain
 	ld b, $02
 	farcall Settings_StoreStringField
 
@@ -350,7 +350,7 @@ Registration_PasswordEntry:: ; 65:438D
 
 Registration_PasswordAccepted:: ; 65:4402
 	ld hl, $DEB9
-	ld de, $B07F
+	ld de, sSettingsPassword
 	ld b, $04
 	farcall Settings_StoreStringField
 
@@ -373,7 +373,7 @@ Label_65_4410::
 .l4424 ; 65:4424
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 3/18 scenarios)
 	ld [wSavePasswordFlag], a
-	ld hl, $B088
+	ld hl, sSettingsSavePasswordFlag
 	ld a, [wSavePasswordFlag]
 	ld b, $00
 	farcall Settings_StoreByteField
@@ -400,7 +400,7 @@ Label_65_444B::
 Registration_NoticePages_Hidden:: ; 65:4455
 	; [CONFIRMED] 147 insn(s) executed; cut out of the PROBABLE region 444B-4642 by apply_coverage
 	; --split [executed in 1 scenarios]
-	ld hl, $B089
+	ld hl, sSettingsHiddenAtRegistration
 	ld a, [wHiddenModeFlag]
 	ld b, $00
 	farcall Settings_StoreByteField
@@ -442,7 +442,7 @@ Label_65_4498::
 	or a, a
 	jr z, Registration_LoginIdIntro_Hidden
 	ld hl, $DEA0
-	ld de, $B066
+	ld de, sSettingsLoginId
 	ld b, $01
 	farcall Settings_StoreStringField
 
@@ -458,11 +458,11 @@ Label_65_44B8::
 	or a, a
 	jr z, Registration_MailIntro_Hidden
 	ld hl, $DEAB
-	ld de, $B071
+	ld de, sSettingsMailLocalPart
 	ld b, $02
 	farcall Settings_StoreStringField
 	ld hl, $DEB4
-	ld de, $B07A
+	ld de, sSettingsMailSubdomain
 	ld b, $02
 	farcall Settings_StoreStringField
 
@@ -473,20 +473,20 @@ Registration_PhoneMethodMenu:: ; 65:44DD
 	jr z, .l44FC
 	cp a, $01
 	jp z, .l4511
-	ld hl, $B08A
+	ld hl, sSettingsManualNumbersFlag
 	ld a, $01
 	ld b, $00
 	farcall Settings_StoreByteField
 	jr Registration_ManualPhoneEntry
 .l44FC ; 65:44FC
-	ld hl, $B08A
+	ld hl, sSettingsManualNumbersFlag
 	ld a, $01
 	ld b, $00
 	farcall Settings_StoreByteField
 	farcall SettingsPhone_ClearEntryBuffers
 	jr Registration_MailAddressEntry_Hidden
 .l4511 ; 65:4511
-	ld hl, $B08A
+	ld hl, sSettingsManualNumbersFlag
 	xor a, a
 	ld b, $00
 	farcall Settings_StoreByteField
@@ -506,7 +506,7 @@ Label_65_4531::
 	or a, a
 	jr z, Registration_ManualPhoneEntry
 	ld hl, $DEDD
-	ld de, $B08B
+	ld de, sSettingsNumberInternet
 	ld b, $08
 	farcall Settings_StoreStringField
 
@@ -517,7 +517,7 @@ Label_65_454A::
 	or a, a
 	jr z, Registration_PhoneKeypad0
 	ld hl, $DEEE
-	ld de, $B09C
+	ld de, sSettingsNumberSelfPage
 	ld b, $10
 	farcall Settings_StoreStringField
 
@@ -527,7 +527,7 @@ Label_65_4563::
 	or a, a
 	jr z, Registration_PhoneKeypad1
 	ld hl, $DEFF
-	ld de, $B0AD
+	ld de, sSettingsNumberComment
 	ld b, $20
 	farcall Settings_StoreStringField
 
@@ -579,7 +579,7 @@ Label_65_4584::
 	jr Registration_PasswordEntry_Hidden
 .l45F9 ; 65:45F9
 	ld hl, $DEB9
-	ld de, $B07F
+	ld de, sSettingsPassword
 	ld b, $04
 	farcall Settings_StoreStringField
 
@@ -603,7 +603,7 @@ Label_65_4607::
 	; [CONFIRMED] 13 insn(s) executed; cut out of the PROBABLE region 444B-4642 by apply_coverage
 	; --split [executed in 2 scenarios]
 	ld [wSavePasswordFlag], a
-	ld hl, $B088
+	ld hl, sSettingsSavePasswordFlag
 	ld a, [wSavePasswordFlag]
 	ld b, $00
 	farcall Settings_StoreByteField
@@ -624,7 +624,7 @@ Registration_Communicate:: ; 65:4642
 	farcall Settings_SetProgressState2
 	ld b, $00
 	ld a, $01
-	ld hl, $A880
+	ld hl, sSavedPasswordLen
 	farcall WriteByteFar
 	ld a, [wSavePasswordFlag]
 	or a, a

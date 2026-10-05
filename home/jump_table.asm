@@ -53,13 +53,13 @@ FarJumpTable:: ; 00:0551
 	jp hl
 
 JoypadDispatch:: ; 00:056A
-	; [CONFIRMED] inline table (5 words) follows the call: index = lowest set bit among bits0-3 of
-	; (FFA5|FFA7) (FFA7 is cleared), 4 if none; jumps through 0545 (call sites in other banks). FFA5
-	; = newly pressed buttons computed by 7D:7BC1 ((old xor new) and new, new = rP1 read by 7D:7B7C:
-	; high nibble D-pad, low nibble A,B,Select,Start, active high), so by the rP1 layout index 0=A
-	; 1=B 2=Select 3=Start 4=none (PROBABLE); FFA7 has raw `ldh [$FFA7],a` byte patterns in other
-	; banks (1D:5F3F, 2D:70FD, 4A:62DF ...; not checked whether they are code), meaning unknown
-	; [reached via inferred links; raw refs 26] [executed in 14 scenarios]
+	; [CONFIRMED] inline table (5 words) follows the call (22 `call $056A` sites, each with 5 words): index = lowest set bit among bits 0-3 of (FFA5|FFA7)
+	; (FFA7 is cleared), 4 if none (a D-pad-only press also gives 4); jumps through 0545 (call sites in other banks).  FFA5 = newly pressed buttons computed by
+	; 7D:7BC1 ((old xor new) and new, new = rP1 read by 7D:7B7C: bits 4-7 the D-pad (Right, Left, Up, Down), bits 0-3 the buttons A, B, Select, Start, active
+	; high), so index 0 = A, 1 = B, 2 = Select, 3 = Start, 4 = none of them.  Confirmed by execution: in the natural scenarios the handler of a word ran only
+	; in scenarios whose input script presses that button (501 site/word/scenario triples, 0 violations; B is fixed by the hJoyHeld tests of
+	; dynamic_tracing 9.3, B+Select+Right and Select+Left); hits 804,050 = 5,231 A (word 0) + 1,654 B + 767 Select + 950 Start + 795,448 none.  FFA7 writers store 0,
+	; except 51:41D3, which stores the A returned by a farcall [executed in 61 scenarios]
 	ldh a, [hRam_FFA7]
 	ld l, a
 	xor a, a

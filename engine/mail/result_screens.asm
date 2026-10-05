@@ -877,7 +877,7 @@ MailServerStatus_DrawCounts_Mode0:: ; 29:4745
 	ld de, $D637
 	ld a, [de]
 	cp a, $00
-	jr nz, Label_29_476B
+	jr nz, MailServerStatus_DrawCounts_Mode0_Unknown
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -890,9 +890,10 @@ MailServerStatus_DrawCounts_Mode0:: ; 29:4745
 	inc hl
 	ld a, h
 	or a, l
-	jp nz, Label_29_47BD
+	jp nz, MailServerStatus_DrawCounts_Mode0_Numbers
 
-Label_29_476B:: ; 29:476B
+MailServerStatus_DrawCounts_Mode0_Unknown:: ; 29:476B
+Label_29_476B::
 	; [CONFIRMED] 27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 0;
 	; entered by jrcc from 29:4755 (executed) [executed in 4 scenarios]
 	ld a, $02
@@ -931,7 +932,8 @@ String_29_47B2::
 	db "？？？？？", 0
 POPC
 
-Label_29_47BD:: ; 29:47BD
+MailServerStatus_DrawCounts_Mode0_Numbers:: ; 29:47BD
+Label_29_47BD::
 	; [CONFIRMED] 116 insn(s); 116 executed (in up to 1/18 scenarios)
 	push bc
 	push de
@@ -1056,7 +1058,7 @@ Label_29_47BD:: ; 29:47BD
 	cp a, $FF
 	jr nz, .l487C
 	pop hl
-	jp Label_29_476B
+	jp MailServerStatus_DrawCounts_Mode0_Unknown
 
 .l487C ; 29:487C
 	; [CONFIRMED] 67 insn(s); 67 executed (in up to 1/18 scenarios)
@@ -1425,9 +1427,10 @@ MailServerStatus_DrawCounts_Mode1:: ; 29:4A65
 	inc hl
 	ld a, h
 	or a, l
-	jp nz, Label_29_4ACF
+	jp nz, MailServerStatus_DrawCounts_Mode1_Numbers
 
-Label_29_4A7D:: ; 29:4A7D
+MailServerStatus_DrawCounts_Mode1_Unknown:: ; 29:4A7D
+Label_29_4A7D::
 	; [PROBABLE] 27 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4A65-4AC4 by apply_coverage --split
 	ld a, $02
@@ -1466,7 +1469,8 @@ String_29_4AC4::
 	db "？？？？？", 0
 POPC
 
-Label_29_4ACF:: ; 29:4ACF
+MailServerStatus_DrawCounts_Mode1_Numbers:: ; 29:4ACF
+Label_29_4ACF::
 	; [CONFIRMED] 279 insn(s) reached by static flow only; seeds: exec x279; min discovery hops 2;
 	; entered by jpcc from 29:4A7A (PROBABLE code) | 71 insn(s) executed; cut out of the PROBABLE
 	; region 4ACF-4C96 by apply_coverage --split [executed in 4 scenarios]
@@ -1548,7 +1552,7 @@ Label_29_4ACF:: ; 29:4ACF
 	cp a, $FF
 	jr nz, .l4B51
 	pop hl
-	jp Label_29_4A7D
+	jp MailServerStatus_DrawCounts_Mode1_Unknown
 
 .l4B51 ; 29:4B51
 	; [CONFIRMED] 49 insn(s) executed; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage
@@ -1909,9 +1913,10 @@ Function_29_4D21::
 	inc hl
 	ld a, h
 	or a, l
-	jp nz, Label_29_4D8B
+	jp nz, MailServerStatus_DrawCounts_Mode2_Numbers
 
-Label_29_4D39:: ; 29:4D39
+MailServerStatus_DrawCounts_Mode2_Unknown:: ; 29:4D39
+Label_29_4D39::
 	; [CONFIRMED] 27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 0;
 	; fall-through of the jpcc at 29:4D36 (executed) [executed in 2 scenarios]
 	ld a, $02
@@ -1950,7 +1955,8 @@ String_29_4D80::
 	db "？？？？？", 0
 POPC
 
-Label_29_4D8B:: ; 29:4D8B
+MailServerStatus_DrawCounts_Mode2_Numbers:: ; 29:4D8B
+Label_29_4D8B::
 	; [CONFIRMED] 88 insn(s); 88 executed (in up to 1/18 scenarios)
 	dec hl
 	push bc
@@ -2047,7 +2053,7 @@ Label_29_4D8B:: ; 29:4D8B
 	cp a, $FF
 	jr nz, .l4E27
 	pop hl
-	jp Label_29_4D39
+	jp MailServerStatus_DrawCounts_Mode2_Unknown
 
 .l4E27 ; 29:4E27
 	; [CONFIRMED] 49 insn(s); 49 executed (in up to 1/18 scenarios)

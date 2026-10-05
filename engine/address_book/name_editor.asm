@@ -35,16 +35,17 @@ AbookName_Edit:: ; 2F:57F2
 	jr nz, .loop
 	pop af
 	cp a, $01
-	jr nz, Label_2F_5832
+	jr nz, AbookName_Edit_Loop
 	call AbookName_KeyboardLoop
-	jp Label_2F_5857
+	jp AbookName_Edit_AfterKeyboard
 
 ; ---- data $582D-$5832 (5 bytes) [HYPOTHESIS] UNCLASSIFIED 5 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
 Data_2F_582D:: ; 2F:582D
 	db $F1, $FE, $01, $28, $22
 
-Label_2F_5832:: ; 2F:5832
+AbookName_Edit_Loop:: ; 2F:5832
+Label_2F_5832::
 	; [CONFIRMED] 102 insn(s) reached by static flow only; seeds: exec x102; min discovery hops 3;
 	; entered by jrcc from 2F:5825 (PROBABLE code) | 3 insn(s) executed; cut out of the PROBABLE
 	; region 5832-590B by apply_coverage --split [executed in 6 scenarios]
@@ -67,12 +68,13 @@ Label_2F_5832:: ; 2F:5832
 	call AbookName_PlaceCursorSprites
 	ldh a, [hJoyPressed]
 	and a, $01
-	jp z, Label_2F_5876
+	jp z, AbookName_Edit_CheckButtonB
 	call AbookName_OpenKeyboard
 
-Label_2F_5857:: ; 2F:5857
+AbookName_Edit_AfterKeyboard:: ; 2F:5857
+Label_2F_5857::
 	cp a, $07
-	jr nz, Label_2F_5876
+	jr nz, AbookName_Edit_CheckButtonB
 	push bc
 	farcall Stat_DisableScrollSplit
 	call VBlank_Wait
@@ -85,7 +87,8 @@ Label_2F_5857:: ; 2F:5857
 	xor a, a
 	ret
 
-Label_2F_5876:: ; 2F:5876
+AbookName_Edit_CheckButtonB:: ; 2F:5876
+Label_2F_5876::
 	ldh a, [hJoyPressed]
 	and a, $02
 	jr z, .l58BB
@@ -122,7 +125,7 @@ Label_2F_5876:: ; 2F:5876
 	and a, $10
 	call nz, AbookName_CursorRight
 	ld d, $10
-	jp Label_2F_5832
+	jp AbookName_Edit_Loop
 
 AbookName_CursorLeft:: ; 2F:58CE
 	push bc
@@ -600,20 +603,20 @@ AbookName_GetCharPtr:: ; 2F:5C0E
 	ldh [rSVBK], a
 	ld a, $FF
 	cp a, d
-	jr z, Label_2F_5C36
+	jr z, AbookName_GetCharPtr_NoChar
 	inc c
 	ld a, [hl]
 .loop ; 2F:5C1F
 	dec c
-	jr z, Label_2F_5C34
+	jr z, AbookName_GetCharPtr_Found
 	inc hl
 	inc hl
 	ld a, [hl]
 	cp a, $00
-	jr z, Label_2F_5C36
+	jr z, AbookName_GetCharPtr_NoChar
 	ld a, [hl]
 	cp a, $0D
-	jr z, Label_2F_5C3C
+	jr z, AbookName_GetCharPtr_Newline
 	jr .loop
 
 ; ---- data $5C30-$5C34 (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
@@ -621,20 +624,23 @@ AbookName_GetCharPtr:: ; 2F:5C0E
 Data_2F_5C30:: ; 2F:5C30
 	db $0C, $0D, $20, $02
 
-Label_2F_5C34:: ; 2F:5C34
+AbookName_GetCharPtr_Found:: ; 2F:5C34
+Label_2F_5C34::
 	; [CONFIRMED] 88 insn(s) reached by static flow only; seeds: exec x88; min discovery hops 7;
 	; entered by jrcc from 2F:5C20 (PROBABLE code) | 6 insn(s) executed; cut out of the PROBABLE
 	; region 5C34-5CC5 by apply_coverage --split [executed in 4 scenarios]
 	pop bc
 	ret
 
-Label_2F_5C36:: ; 2F:5C36
+AbookName_GetCharPtr_NoChar:: ; 2F:5C36
+Label_2F_5C36::
 	ld a, $FF
 	ld d, $FF
 	pop bc
 	ret
 
-Label_2F_5C3C:: ; 2F:5C3C
+AbookName_GetCharPtr_Newline:: ; 2F:5C3C
+Label_2F_5C3C::
 	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5C34-5CC5 by apply_coverage --split
 	ld a, $0D
@@ -727,7 +733,7 @@ AbookName_InsertChar:: ; 2F:5C85
 	ld c, $00
 	call AbookName_GetRowPtr
 	inc d
-	jr z, Label_2F_5CF4
+	jr z, AbookName_InsertChar_Insert
 
 	; [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5C34-5CC5 by apply_coverage --split
@@ -735,33 +741,36 @@ AbookName_InsertChar:: ; 2F:5C85
 	push bc
 	ld c, $0B
 
-Label_2F_5CB8:: ; 2F:5CB8
+AbookName_InsertChar_CheckRow:: ; 2F:5CB8
+Label_2F_5CB8::
 	call AbookName_GetCharPtr
 	inc d
-	jr nz, Label_2F_5CD2
+	jr nz, AbookName_InsertChar_NextRow
 	ld a, e
 	cp a, $0B
-	jr z, Label_2F_5CDD
-	jr Label_2F_5CF4
+	jr z, AbookName_InsertChar_Reject
+	jr AbookName_InsertChar_Insert
 
 ; ---- data $5CC5-$5CD2 (13 bytes) [HYPOTHESIS] UNCLASSIFIED 13 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
 Data_2F_5CC5:: ; 2F:5CC5
 	db $3E, $01, $E0, $8D, $E0, $70, $7E, $FE, $0D, $FE, $00, $28, $22
 
-Label_2F_5CD2:: ; 2F:5CD2
+AbookName_InsertChar_NextRow:: ; 2F:5CD2
+Label_2F_5CD2::
 	; [PROBABLE] 334 insn(s) reached by static flow only; seeds: exec x334; min discovery hops 5;
 	; entered by jrcc from 2F:5CBC (PROBABLE code) | 22 insn(s) never executed in the traced runs;
 	; cut out of the PROBABLE region 5CD2-5F28 by apply_coverage --split
 	ld a, $08
 	cp a, b
-	jr z, Label_2F_5CDD
+	jr z, AbookName_InsertChar_Reject
 	inc b
 	ld a, $08
 	cp a, b
-	jr nz, Label_2F_5CB8
+	jr nz, AbookName_InsertChar_CheckRow
 
-Label_2F_5CDD:: ; 2F:5CDD
+AbookName_InsertChar_Reject:: ; 2F:5CDD
+Label_2F_5CDD::
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -778,7 +787,8 @@ Label_2F_5CDD:: ; 2F:5CDD
 	pop de
 	ret
 
-Label_2F_5CF4:: ; 2F:5CF4
+AbookName_InsertChar_Insert:: ; 2F:5CF4
+Label_2F_5CF4::
 	; [CONFIRMED] 99 insn(s) executed; cut out of the PROBABLE region 5CD2-5F28 by apply_coverage
 	; --split [executed in 3 scenarios]
 	push bc

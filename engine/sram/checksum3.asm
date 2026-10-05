@@ -10,11 +10,11 @@ Function_48_4899::
 	; executed call/far call
 	call Sram_ComputeChecksum3
 	ld a, $01
-	ld hl, $A8B5
+	ld hl, sChecksum3Sum
 	call ReadByteFar
 	ld b, a
 	ld a, $01
-	ld hl, $A8B6
+	ld hl, sChecksum3Sum + $01
 	call ReadByteFar
 	ld h, a
 	ld l, b
@@ -47,11 +47,11 @@ Function_48_48BC::
 	; (48E1, 1620, 4920) are known code starts
 	call Sram_ComputeChecksum3
 	ld a, $01
-	ld hl, $A8B5
+	ld hl, sChecksum3Sum
 	call ReadByteFar
 	ld b, a
 	ld a, $01
-	ld hl, $A8B6
+	ld hl, sChecksum3Sum + $01
 	call ReadByteFar
 	ld h, a
 	ld l, b
@@ -74,7 +74,7 @@ Function_48_48E1::
 	; executed call/far call
 	xor a, a
 	ld [wSramChecksum3Carries], a
-	ld hl, $A684
+	ld hl, sChecksum3Block1
 	ld d, $01
 	ld c, $10
 	ld e, $00
@@ -96,7 +96,7 @@ Function_48_48E1::
 	; [CONFIRMED] 84 insn(s); 84 executed (in up to 17/18 scenarios) (part of region $48FE-$49A3)
 	dec c
 	jr nz, .l48EE
-	ld hl, $A87D
+	ld hl, sChecksum3Block2
 	ld d, $01
 	ld c, $38
 .l4908 ; 48:4908
@@ -127,14 +127,14 @@ Sram_ResetChecksum3Areas:: ; 48:4920
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $A684
+	ld hl, sChecksum3Block1
 	xor a, a
 	ld c, $10
 .l493B ; 48:493B
 	ld [hli], a
 	dec c
 	jr nz, .l493B
-	ld hl, $A87D
+	ld hl, sChecksum3Block2
 	ld c, $38
 .l4944 ; 48:4944
 	ld [hli], a
@@ -163,7 +163,7 @@ Sram_UpdateChecksum3:: ; 48:495C
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $A8B5
+	ld hl, sChecksum3Sum
 	ld a, e
 	ld [hli], a
 	ld a, d

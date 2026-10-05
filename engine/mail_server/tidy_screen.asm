@@ -528,7 +528,8 @@ MailServerMgr_DrawFieldText:: ; 2E:4F06
 	pop de
 	pop bc
 
-Label_2E_4F99:: ; 2E:4F99
+MailServerMgr_DrawFieldText_Done:: ; 2E:4F99
+Label_2E_4F99::
 	ret
 
 Function_2E_4F9A:: ; 2E:4F9A
@@ -543,7 +544,7 @@ Function_2E_4F9A:: ; 2E:4F9A
 	dec a
 	ld [wTextCellsLeft], a
 	call MailServerMgr_DrawFieldText_Glyph
-	jr Label_2E_4F99
+	jr MailServerMgr_DrawFieldText_Done
 
 MailServerMgr_DrawFieldText_Glyph:: ; 2E:4FA9
 	; [CONFIRMED] 528 insn(s) reached by static flow only; seeds: exec x528; min discovery hops 6;
@@ -1411,7 +1412,7 @@ Function_2E_55FA::
 	ldh [rSVBK], a
 	ld a, [wMailSessionBlock]
 	cp a, b
-	jr nz, Label_2E_5636
+	jr nz, MailServerMgr_DrawTimer_Redraw
 	pop hl
 	pop de
 	pop bc
@@ -1437,7 +1438,8 @@ MailServerMgr_DrawTimer:: ; 2E:561C
 	ldh [rSVBK], a
 	ld a, [wMailSessionBlock]
 
-Label_2E_5636:: ; 2E:5636
+MailServerMgr_DrawTimer_Redraw:: ; 2E:5636
+Label_2E_5636::
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
 	ld a, b
 	ld [wMailSessionBlock], a

@@ -275,7 +275,7 @@ Function_4E_6291::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, $D000
-	ld de, $B000
+	ld de, sBrowserFramePreview
 	ld bc, $0800
 	ld a, $03
 	ldh [hSRAMBank], a

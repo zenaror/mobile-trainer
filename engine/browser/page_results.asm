@@ -119,7 +119,7 @@ Function_4C_4DFB::
 	ld a, $03
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld hl, $B002
+	ld hl, sBrowserPageBuf + $02
 	farcall Bmp_Validate
 	or a, a
 	jp z, .l4F05
@@ -177,9 +177,9 @@ Function_4C_4DFB::
 	jr nz, .l4EC1
 	inc bc
 	call Sound_FrameService
-	ld a, [sSram_B000]
+	ld a, [sBrowserPageBuf]
 	ld l, a
-	ld a, [sSram_B001]
+	ld a, [sBrowserPageBuf + $01]
 	ld h, a
 	inc hl
 	inc hl
@@ -204,7 +204,7 @@ Function_4C_4DFB::
 	call CopyBytesBackward
 	pop bc
 	ld hl, $C380
-	ld de, $B000
+	ld de, sBrowserPageBuf
 	call CopyBytes
 	xor a, a
 	ldh [hSRAMEnable], a

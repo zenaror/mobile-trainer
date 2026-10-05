@@ -159,7 +159,7 @@ Nav_MailMenu_WriteMail:: ; 7C:7C7C
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $A000
+	ld hl, sMailDraft_ToAddress
 	ld a, [hl]
 	cp a, $00
 	jr nz, .l7CA5

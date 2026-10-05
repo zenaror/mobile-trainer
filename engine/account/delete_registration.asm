@@ -391,7 +391,7 @@ Table_68_7C6B::
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ld c, $C0
-	ld hl, $A000
+	ld hl, sConfigImage
 	ld de, $0000
 	ld a, $04
 	call MobileAPI

@@ -18,7 +18,7 @@ Function_48_4AAB::
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $A8B7
+	ld hl, sMenuCursorMemory
 	ld c, $20
 	xor a, a
 .loop ; 48:4AC6

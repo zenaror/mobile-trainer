@@ -16,7 +16,7 @@ Function_1D_4000::
 	farcall Stub_Nop_48_48BB
 	call VBlank_WaitAndService
 	ld a, $01
-	ld hl, $A8B8
+	ld hl, sMailMenuCursor
 	call ReadByteFar
 	or a, a
 	jr nz, .skip
@@ -190,7 +190,7 @@ MailMenu_OnA:: ; 1D:41BD
 	ld a, [wMailMenu_Cursor]
 	ld b, a
 	ld a, $01
-	ld hl, $A8B8
+	ld hl, sMailMenuCursor
 	farcall WriteByteFar
 	ld a, [wMailMenu_Cursor]
 	ret
@@ -208,7 +208,7 @@ MailMenu_OnB:: ; 1D:41EC
 	farcall Ticker_Stop
 	ld b, $00
 	ld a, $01
-	ld hl, $A8B8
+	ld hl, sMailMenuCursor
 	farcall WriteByteFar
 	xor a, a
 	ret
@@ -218,7 +218,7 @@ MailMenu_Ignore:: ; 1D:4217
 
 MailMenu_GetLabelIndexA:: ; 1D:421A
 	ld a, $00
-	ld hl, $A000
+	ld hl, sMailDraft_ToAddress
 	call ReadByteFar
 	or a, a
 	ld a, $01
@@ -294,7 +294,7 @@ MailMenu_AfterMove:: ; 1D:427A
 
 MailMenu_GetLabelIndexB:: ; 1D:42A0
 	ld a, $00
-	ld hl, $A000
+	ld hl, sMailDraft_ToAddress
 	call ReadByteFar
 	or a, a
 	ld a, $01
@@ -355,7 +355,7 @@ MailMenu_DrawItemNormal:: ; 1D:42AF
 
 MailMenu_GetPlateIndexA:: ; 1D:42FE
 	ld a, $00
-	ld hl, $A000
+	ld hl, sMailDraft_ToAddress
 	call ReadByteFar
 	or a, a
 	ld a, $01
@@ -431,7 +431,7 @@ Function_1D_4325::
 
 MailMenu_GetPlateIndexB:: ; 1D:4374
 	ld a, $00
-	ld hl, $A000
+	ld hl, sMailDraft_ToAddress
 	call ReadByteFar
 	or a, a
 	ld a, $01

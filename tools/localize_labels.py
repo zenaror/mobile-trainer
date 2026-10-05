@@ -18,7 +18,8 @@ The local label is `.lAAAA` (AAAA = the address in the old name), so the histori
 
     Label_00_04DC:: ; 00:04DC      ->      .loop ; 00:04DC        (or `.l04DC` when no better name is safe)
 
-Role names are used only when the role is visible in the code itself and the name is unique in the scope:
+Role names are used only when the role is visible in the code itself and the name is unique in the scope (also against the local labels that
+already exist there):
 
   .loop   every jump to the label is a backward jump (the label is the head of a loop / retry)
   .done   every jump is forward and the label is directly followed by `ret`
@@ -38,6 +39,7 @@ SCOPE_DIRS = ('home', 'engine', 'lib', 'audio')
 SKIP_DIRS = {'.git', 'build', 'traces', 'tools', 'docs', 'analysis', 'config', '__pycache__'}
 
 NAME = re.compile(r'(?<![A-Za-z0-9_.])(Label_([0-9A-F]{2})_([0-9A-F]{4}))(?![A-Za-z0-9_])')
+LOCAL_NAME = re.compile(r'^\.([A-Za-z0-9_]+)')
 DEF = re.compile(r'^(Label_([0-9A-F]{2})_([0-9A-F]{4}))::?(?P<rest>(?:\s.*)?)$')
 GLOBAL_DEF = re.compile(r'^([A-Za-z_][A-Za-z0-9_]*)::?(?:\s.*)?$')
 LOCAL_DEF = re.compile(r'^\.[A-Za-z_][A-Za-z0-9_]*(?:\s.*)?$')
@@ -204,13 +206,19 @@ def analyse(root):
                         if plain and 1 <= n_ins <= 3:
                             role = 'skip'
                 roles[name] = role
+            taken = set()                  # local names already present in the scope (a role name must not repeat one)
+            for j, s in enumerate(lines):
+                if scope[j] == anchor:
+                    lm = LOCAL_NAME.match(s)
+                    if lm:
+                        taken.add(lm.group(1))
             count = {}
             for r in roles.values():
                 if r:
                     count[r] = count.get(r, 0) + 1
             for name in names:
                 r = roles[name]
-                if r and count[r] == 1:
+                if r and count[r] == 1 and r not in taken:
                     newname[name] = r
                     stats['named'] += 1
                 else:

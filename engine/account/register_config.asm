@@ -151,7 +151,7 @@ Registration_WriteConfig_StateWrite:: ; 68:6C0C
 	ld [rRAMB], a
 	call Config_BuildImageFromAccount
 	ld c, $C0
-	ld hl, $A000
+	ld hl, sConfigImage
 	ld de, $0000
 	ld a, $04
 	call MobileAPI
@@ -256,11 +256,11 @@ Config_BuildImageFromAccount:: ; 68:6CF0
 	ld h, [hl]
 	ld l, a
 	ld bc, $00C0
-	ld de, $A000
+	ld de, sConfigImage
 	call CopyBytes
 	ld a, $FF
 	ld bc, $0040
-	ld hl, $A0C0
+	ld hl, sConfigImagePad
 	call FillBytes
 	pop af
 	ld [sSram_A003], a
@@ -281,7 +281,7 @@ Config_BuildImageFromAccount:: ; 68:6CF0
 	ld de, $DFC3
 	call StringAppend
 	ld hl, $DFC3
-	ld de, $A05E
+	ld de, sConfigPopServer
 	ld bc, $0014
 	call CopyStringMax
 	ld hl, $6E08
@@ -294,14 +294,14 @@ Config_BuildImageFromAccount:: ; 68:6CF0
 	ld de, $DFC3
 	call StringAppend
 	ld hl, $DFC3
-	ld de, $A04A
+	ld de, sConfigSmtpServer
 	ld bc, $0014
 	call CopyStringMax
 	ld hl, $DEA0
-	ld de, $A00C
+	ld de, sConfigLoginId
 	call CopyString
 	ld hl, $DFAA
-	ld de, $A02C
+	ld de, sConfigMailAddress
 	call CopyString
 	ldh [hScratchA], a
 	ldh a, [hSRAMBank]
@@ -321,7 +321,7 @@ Config_BuildImageFromAccount:: ; 68:6CF0
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ld de, $B014
+	ld de, sSettingsDialNumbers
 	call EncodeXorA5
 	ldh [hScratchA], a
 	pop af
@@ -335,10 +335,10 @@ Config_BuildImageFromAccount:: ; 68:6CF0
 	; [CONFIRMED] 22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 0;
 	; fall-through of the jrcc at 68:6DBB (executed) [executed in 2 scenarios]
 	ld hl, $DEDD
-	ld de, $A076
+	ld de, sConfigDial0Number
 	call PhoneNumber_PackBcd
 	ld hl, $DEFF
-	ld de, $A07E
+	ld de, sConfigDial0Text
 	ld bc, $0010
 	call CopyStringMax
 	ldh [hScratchA], a
@@ -349,7 +349,7 @@ Config_BuildImageFromAccount:: ; 68:6CF0
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ld hl, $DEEE
-	ld de, $B014
+	ld de, sSettingsDialNumbers
 	call EncodeXorA5
 	ldh [hScratchA], a
 	pop af

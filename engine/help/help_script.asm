@@ -17,7 +17,7 @@ Function_6C_5987::
 	jr z, .l59A8
 	ld b, a
 	ld a, $01
-	ld hl, $A684
+	ld hl, sHelpScriptVars
 	farcall WriteByteFar
 	push bc
 	call HelpScript_Run
@@ -37,7 +37,7 @@ HelpScript_Run:: ; 6C:59B2
 	farcall Stub_Nop_48_48BB
 	pop bc
 	ld a, $01
-	ld hl, $A684
+	ld hl, sHelpScriptVars
 	farcall WriteByteFar
 	ld a, $09
 	ld [wHelpScriptPtr], a
@@ -259,7 +259,7 @@ Label_6C_5B47::
 	ld b, [hl]
 	inc hl
 	push hl
-	ld hl, $A684
+	ld hl, sHelpScriptVars
 	add hl, de
 	ld a, $01
 	farcall WriteByteFar
@@ -271,7 +271,7 @@ Label_6C_5B47::
 	ld e, a
 	ld d, $00
 	push hl
-	ld hl, $A684
+	ld hl, sHelpScriptVars
 	add hl, de
 	ld a, $01
 	call ReadByteFar
@@ -294,12 +294,12 @@ Label_6C_5B47::
 	ld c, a
 	ld b, $00
 	push hl
-	ld hl, $A684
+	ld hl, sHelpScriptVars
 	add hl, de
 	ld a, $01
 	call ReadByteFar
 	ld d, a
-	ld hl, $A684
+	ld hl, sHelpScriptVars
 	add hl, bc
 	ld a, $01
 	call ReadByteFar
@@ -497,7 +497,7 @@ Label_6C_5D5A::
 	ldh [rSVBK], a
 	push hl
 	ld a, $01
-	ld hl, $A684
+	ld hl, sHelpScriptVars
 	call ReadByteFar
 	pop hl
 	bit 7, a

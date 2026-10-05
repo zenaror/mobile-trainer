@@ -16,7 +16,7 @@ Sram_ClearAllBanks:: ; 2D:7E60
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $A000
+	ld hl, _SRAM
 	ld bc, $2000
 .l7E74 ; 2D:7E74
 	xor a, a
@@ -31,7 +31,7 @@ Sram_ClearAllBanks:: ; 2D:7E60
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $A000
+	ld hl, _SRAM
 	ld bc, $2000
 .l7E8F ; 2D:7E8F
 	xor a, a
@@ -46,7 +46,7 @@ Sram_ClearAllBanks:: ; 2D:7E60
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $A000
+	ld hl, _SRAM
 	ld bc, $2000
 .l7EAA ; 2D:7EAA
 	xor a, a
@@ -61,7 +61,7 @@ Sram_ClearAllBanks:: ; 2D:7E60
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $A000
+	ld hl, _SRAM
 	ld bc, $2000
 .l7EC5 ; 2D:7EC5
 	xor a, a

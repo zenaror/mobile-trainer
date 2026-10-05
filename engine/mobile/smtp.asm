@@ -105,7 +105,7 @@ Smtp_StartMailFrom:: ; 54:4575
 	ld a, $00
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld hl, $AF40
+	ld hl, sProfileName
 	ld a, [hl]
 	or a, a
 	jr z, .l45DB
@@ -134,14 +134,14 @@ Smtp_StartMailFrom:: ; 54:4575
 	ld a, $00
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld hl, $A000
+	ld hl, sMailDraft_ToAddress
 	ld c, $40
 	call Smtp_CopyFieldToWork
 	push de
 	ld a, $03
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld de, $A000
+	ld de, sNetWorkPage
 	ld hl, $C201
 	farcall CopyString
 	ld hl, $C580
@@ -152,7 +152,7 @@ Smtp_StartMailFrom:: ; 54:4575
 	ld a, $00
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld hl, $A114
+	ld hl, sMailDraft_ToName
 	ld a, [hl]
 	or a, a
 	jr z, .l464D
@@ -181,7 +181,7 @@ Smtp_StartMailFrom:: ; 54:4575
 	ld a, $00
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld hl, $A100
+	ld hl, sMailDraft_Subject
 	ld a, [hl]
 	or a, a
 	jr z, .l46A9
@@ -218,7 +218,7 @@ Smtp_StartMailFrom:: ; 54:4575
 	ld a, $03
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld hl, $A000
+	ld hl, sNetWorkPage
 	ld a, $16
 	farcall MobileAPI
 	ldh [hScratchA], a
@@ -391,7 +391,7 @@ Smtp_DataPoll:: ; 54:4772
 	add hl, de
 	ld c, l
 	ld b, h
-	ld hl, $A100
+	ld hl, sSmtp_HeaderText
 	ld a, $18
 	ld d, $00
 	farcall MobileAPI
@@ -402,10 +402,10 @@ Smtp_DataPoll:: ; 54:4772
 	ld a, $00
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld hl, $A040
+	ld hl, sMailDraft_Body
 	ld c, $C0
 	call Smtp_MeasureBody
-	ld hl, $A040
+	ld hl, sMailDraft_Body
 	ld a, [hl]
 	or a, a
 	jr z, .l4834

@@ -24,7 +24,7 @@ Browser_LoadUrlFromSramBank3:: ; 4E:488D
 	ld a, $03
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld hl, $A100
+	ld hl, sNetStartUrl
 	ld de, $C380
 	farcall CopyString
 	xor a, a

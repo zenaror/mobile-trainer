@@ -152,7 +152,7 @@ Pop3_StartTop:: ; 54:4914
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld de, $A000
+	ld de, sNetWorkPage
 	ld bc, $0FFF
 	ld a, $28
 	farcall MobileAPI
@@ -243,8 +243,8 @@ Label_54_4A12:: ; 54:4A12
 	jp Label_54_4BC6
 .l4A24 ; 54:4A24
 	ld a, b
-	ld [sSram_B4FF], a
-	ld hl, $B400
+	ld [sPop3TopSummary + $FF], a
+	ld hl, sPop3TopSummary
 	ld b, $FA
 	xor a, a
 .l4A2E ; 54:4A2E
@@ -275,11 +275,11 @@ Label_54_4A12:: ; 54:4A12
 	ld hl, $C480
 	ld bc, $0200
 	farcall Charset_Iso2022JpToSjis
-	ld de, $B450
-	ld hl, $B470
+	ld de, sPop3TopSenderName
+	ld hl, sPop3TopSenderAddress
 	call Mail_SplitFromHeader
 	ld b, $13
-	ld hl, $B470
+	ld hl, sPop3TopSenderAddress
 	call Text_TruncateSjis
 .l4A8A ; 54:4A8A
 	ld a, $0A
@@ -314,7 +314,7 @@ Label_54_4A12:: ; 54:4A12
 
 	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4A12-4AD0 by apply_coverage --split
-	ld de, $B430
+	ld de, sPop3TopSourceLabel
 	ld hl, $C480
 	farcall CopyString
 	jr Label_54_4AF2
@@ -339,7 +339,7 @@ Label_54_4AE6:: ; 54:4AE6
 	; [CONFIRMED] 133 insn(s) reached by static flow only; seeds: exec x133; min discovery hops 12;
 	; entered by jrcc from 54:4AA1 (PROBABLE code) | 76 insn(s) executed; cut out of the PROBABLE
 	; region 4AE6-4C2A by apply_coverage --split [executed in 2 scenarios]
-	ld de, $B430
+	ld de, sPop3TopSourceLabel
 	ld hl, String_Mail_DefaultSource
 	farcall CopyString
 
@@ -355,7 +355,7 @@ Label_54_4AF2:: ; 54:4AF2
 	or a, a
 	jr nz, .l4B1D
 	call Mail_ParseDate
-	ld de, $B400
+	ld de, sPop3TopSummary
 	ld hl, $C580
 	ld bc, $0006
 	farcall CopyBytes
@@ -374,19 +374,19 @@ Label_54_4AF2:: ; 54:4AF2
 	add hl, de
 	xor a, a
 	ld [hl], a
-	ld hl, $B410
+	ld hl, sPop3TopSubject
 	ld b, $1A
 	xor a, a
 .l4B42 ; 54:4B42
 	ld [hli], a
 	dec b
 	jr nz, .l4B42
-	ld de, $B410
+	ld de, sPop3TopSubject
 	ld hl, $C480
 	ld bc, $0018
 	farcall Charset_Iso2022JpToSjis
-	ld hl, $B410
-	ld hl, $B410
+	ld hl, sPop3TopSubject
+	ld hl, sPop3TopSubject
 	ld b, $FF
 .l4B5D ; 54:4B5D
 	inc b
@@ -397,41 +397,41 @@ Label_54_4AF2:: ; 54:4AF2
 	cp a, $15
 	jr c, .l4B6F
 	ld b, $12
-	ld hl, $B410
+	ld hl, sPop3TopSubject
 	call Text_TruncateSjis
 .l4B6F ; 54:4B6F
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $B400
+	ld hl, sPop3TopSummary
 	ld de, $D400
 	ld bc, $0006
 	farcall CopyBytes
-	ld hl, $B430
+	ld hl, sPop3TopSourceLabel
 	ld de, $D406
 	farcall CopyString
-	ld hl, $B410
+	ld hl, sPop3TopSubject
 	ld de, $D41B
 	farcall CopyString
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, $D4C0
-	ld hl, $B450
+	ld hl, sPop3TopSenderName
 	ld a, [hl]
 	or a, a
 	jr nz, .l4BAF
 
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4AE6-4C2A by apply_coverage --split
-	ld hl, $B470
+	ld hl, sPop3TopSenderAddress
 
 .l4BAF ; 54:4BAF
 	; [CONFIRMED] 5 insn(s) executed; cut out of the PROBABLE region 4AE6-4C2A by apply_coverage
 	; --split [executed in 7 scenarios]
 	farcall CopyString
 	ld c, $00
-	ld a, [sSram_B450]
+	ld a, [sPop3TopSenderName]
 	or a, a
 	jr nz, .l4BBE
 
@@ -442,7 +442,7 @@ Label_54_4AF2:: ; 54:4AF2
 .l4BBE ; 54:4BBE
 	; [CONFIRMED] 48 insn(s) executed; cut out of the PROBABLE region 4AE6-4C2A by apply_coverage
 	; --split [executed in 7 scenarios]
-	ld a, [sSram_B4FF]
+	ld a, [sPop3TopSummary + $FF]
 	or a, a
 	jr z, Label_54_4BEC
 	ld b, $00

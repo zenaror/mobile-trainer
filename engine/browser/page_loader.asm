@@ -506,7 +506,7 @@ Browser_LoadPage_Request:: ; 4C:43CD
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld bc, $1000
-	ld hl, $B000
+	ld hl, sBrowserPageBuf
 	ld a, $03
 	call BankSwitch_H
 	xor a, a
@@ -525,7 +525,7 @@ Browser_LoadPage_Request:: ; 4C:43CD
 	ld [hli], a
 	ld [hl], a
 	ld hl, $C380
-	ld de, $B000
+	ld de, sBrowserPageBuf
 	ld a, e
 	ld [wBrowserRxPtr], a
 	ld a, d
@@ -546,7 +546,7 @@ Browser_LoadPage_Request:: ; 4C:43CD
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld bc, $1000
-	ld hl, $B000
+	ld hl, sBrowserPageBuf
 	ld a, $03
 	call BankSwitch_H
 	xor a, a
@@ -561,7 +561,7 @@ Browser_LoadPage_Request:: ; 4C:43CD
 	ld [hli], a
 	ld [hl], a
 	ld hl, $C380
-	ld de, $B000
+	ld de, sBrowserPageBuf
 	ld a, e
 	ld [wBrowserRxPtr], a
 	ld a, d
@@ -667,8 +667,8 @@ Label_4C_4537:: ; 4C:4537
 	ld a, $03
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld de, $B000
-	ld hl, $B000
+	ld de, sBrowserPageBuf
+	ld hl, sBrowserPageBuf
 	ld bc, $1000
 	ld a, $03
 	ldh [hSRAMBank], a

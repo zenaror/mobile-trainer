@@ -67,34 +67,35 @@ Function_27_4000::
 	cp a, $FF
 	jr z, .l407B
 	cp a, $20
-	jr z, Label_27_40BB
+	jr z, MailSendRecv_Main_EndNoSession
 	cp a, $80
-	jr nz, Label_27_40D7
+	jr nz, MailSendRecv_Main_RunSession
 
 .l407B ; 27:407B
 	; [CONFIRMED] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0;
 	; entered by jrcc from 27:4071 (executed) [executed in 2 scenarios]
 	ld a, [wMobileErrorCode]
 	cp a, $17
-	jp z, Label_27_40A1
+	jp z, MailSendRecv_Main_ErrorDisconnect
 	cp a, $20
-	jp z, Label_27_40A1
+	jp z, MailSendRecv_Main_ErrorDisconnect
 	cp a, $21
-	jp z, Label_27_40A1
+	jp z, MailSendRecv_Main_ErrorDisconnect
 	cp a, $23
-	jp z, Label_27_40A1
+	jp z, MailSendRecv_Main_ErrorDisconnect
 	cp a, $24
-	jp z, Label_27_40A1
+	jp z, MailSendRecv_Main_ErrorDisconnect
 	cp a, $26
-	jp z, Label_27_40A1
-	jp Label_27_40BB
+	jp z, MailSendRecv_Main_ErrorDisconnect
+	jp MailSendRecv_Main_EndNoSession
 
 ; ---- data $409F-$40A1 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
 Data_27_409F:: ; 27:409F
 	db $18, $5E
 
-Label_27_40A1:: ; 27:40A1
+MailSendRecv_Main_ErrorDisconnect:: ; 27:40A1
+Label_27_40A1::
 	; [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1;
 	; entered by jpcc from 27:4080 (PROBABLE code)
 	ld a, [wTimerEnable]
@@ -102,12 +103,13 @@ Label_27_40A1:: ; 27:40A1
 	jp z, .l40B3
 	ld b, $00
 	farcall MailDisconnect_Screen
-	jr Label_27_40BB
+	jr MailSendRecv_Main_EndNoSession
 .l40B3 ; 27:40B3
 	ld b, $00
 	farcall MailDisconnect_ScreenNoTimer
 
-Label_27_40BB:: ; 27:40BB
+MailSendRecv_Main_EndNoSession:: ; 27:40BB
+Label_27_40BB::
 	; [CONFIRMED] 21 insn(s); 21 executed (in up to 2/18 scenarios)
 	farcall CommTime_TimerAIsNonZero
 	or a, a
@@ -123,7 +125,8 @@ Label_27_40BB:: ; 27:40BB
 .done ; 27:40D6
 	ret
 
-Label_27_40D7:: ; 27:40D7
+MailSendRecv_Main_RunSession:: ; 27:40D7
+Label_27_40D7::
 	farcall MailSession_Run
 	cp a, $80
 	cp a, $7F
@@ -260,7 +263,7 @@ Function_27_41BC::
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $A000
+	ld hl, sMailDraft_ToAddress
 	ld a, [hl]
 	cp a, $00
 	jr nz, .l41DB

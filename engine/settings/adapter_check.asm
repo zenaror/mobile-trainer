@@ -175,7 +175,7 @@ AdapterCheck_State_ReadConfig:: ; 67:64C7
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ld bc, $00C0
-	ld de, $A000
+	ld de, sConfigImage
 	ld a, $38
 	call MobileAPI
 	ld a, $02

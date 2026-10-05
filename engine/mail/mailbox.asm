@@ -109,7 +109,7 @@ Mailbox_Main_Loop:: ; 25:4043
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $A000
+	ld hl, sMailDraft_ToAddress
 	ld a, [hl]
 	cp a, $00
 	jr nz, .l40C3
@@ -127,7 +127,7 @@ Mailbox_Main_Loop:: ; 25:4043
 	call Sprite_SetPosition
 	pop de
 	pop bc
-	jp Label_25_411E
+	jp Mailbox_IconMenu_Enter
 .l40DF ; 25:40DF
 	ldh a, [hJoyPressed]
 	and a, $02
@@ -160,7 +160,8 @@ Mailbox_Main_Loop:: ; 25:4043
 	call nz, Mailbox_CursorDown
 	jp Mailbox_Main_Loop
 
-Label_25_411E:: ; 25:411E
+Mailbox_IconMenu_Enter:: ; 25:411E
+Label_25_411E::
 	push bc
 	ld hl, $DA10
 	ld de, Mailbox_ObjTable
@@ -642,7 +643,7 @@ Mailbox_IconMenu_ReplyOrRead:: ; 25:446E
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $A000
+	ld hl, sMailDraft_ToAddress
 	ld a, [hl]
 	cp a, $00
 	jp z, Mailbox_ReplyStart
@@ -1015,7 +1016,7 @@ Mailbox_ReadMail:: ; 25:465C
 	pop de
 	pop bc
 	cp a, $FF
-	jr nz, Label_25_47FD
+	jr nz, Mailbox_ReadMail_RestartList
 	push de
 	push bc
 	ld d, $FF
@@ -1041,7 +1042,7 @@ Mailbox_ReadMail:: ; 25:465C
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $A000
+	ld hl, sMailDraft_ToAddress
 	ld a, [hl]
 	cp a, $00
 	jr nz, .l47CA
@@ -1071,14 +1072,15 @@ Mailbox_ReadMail:: ; 25:465C
 .l47F3 ; 25:47F3
 	pop bc
 	pop de
-	jp Label_25_411E
+	jp Mailbox_IconMenu_Enter
 
 ; ---- data $47F8-$47FD (5 bytes) [HYPOTHESIS] UNCLASSIFIED 5 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
 Data_25_47F8:: ; 25:47F8
 	db $26, $01, $C3, $00, $40
 
-Label_25_47FD:: ; 25:47FD
+Mailbox_ReadMail_RestartList:: ; 25:47FD
+Label_25_47FD::
 	; [CONFIRMED] 262 insn(s) reached by static flow only; seeds: exec x262; min discovery hops 1;
 	; entered by jrcc from 25:4788 (PROBABLE code) | 138 insn(s) executed; cut out of the PROBABLE
 	; region 47FD-4A15 by apply_coverage --split [executed in 1 scenarios]

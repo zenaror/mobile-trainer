@@ -1631,7 +1631,7 @@ Html_Tag_Img:: ; 74:4DF9
 .l4E6B ; 74:4E6B
 	push hl
 	push de
-	ld hl, $B000
+	ld hl, sBrowserPageBuf
 .l4E70 ; 74:4E70
 	ld a, $03
 	farcall Html_NextResourceRecord
