@@ -4,7 +4,7 @@
 
 SECTION "audio/music/music_11", ROMX
 
-; ---- data $4700-$4766 (102 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+; ---- data $4700-$4766 (102 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSong11_Track0:: ; 05:4700
 Data_05_4700::
@@ -74,13 +74,13 @@ Data_05_4712:: ; 05:4712
 	sound_wait 96
 	sound_jump Data_05_4704
 
-; ---- data $4766-$4769 (3 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+; ---- data $4766-$4769 (3 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md
 
 Data_05_4766:: ; 05:4766
 	sound_note_off $42
 	sound_end
 
-; ---- data $4769-$48D3 (362 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+; ---- data $4769-$48D3 (362 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSong11_Track1:: ; 05:4769
 Data_05_4769::
@@ -308,12 +308,12 @@ Data_05_47A3:: ; 05:47A3
 	sound_wait 6
 	sound_jump Data_05_476D
 
-; ---- data $48D3-$48D4 (1 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+; ---- data $48D3-$48D4 (1 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md
 
 Data_05_48D3:: ; 05:48D3
 	sound_end
 
-; ---- data $48D4-$4990 (188 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+; ---- data $48D4-$4990 (188 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSong11_Track2:: ; 05:48D4
 Data_05_48D4::
@@ -428,12 +428,12 @@ Data_05_48F3:: ; 05:48F3
 	sound_wait 24
 	sound_jump Data_05_48D8
 
-; ---- data $4990-$4991 (1 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+; ---- data $4990-$4991 (1 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md
 
 Data_05_4990:: ; 05:4990
 	sound_end
 
-; ---- data $4991-$4A14 (131 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+; ---- data $4991-$4A14 (131 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSong11_Track3:: ; 05:4991
 Data_05_4991::
@@ -509,7 +509,7 @@ Data_05_49E1:: ; 05:49E1
 	sound_call Data_05_49E1
 	sound_jump Data_05_4995
 
-; ---- data $4A14-$4A15 (1 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+; ---- data $4A14-$4A15 (1 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md
 
 Data_05_4A14:: ; 05:4A14
 	sound_end

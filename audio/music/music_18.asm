@@ -4,7 +4,7 @@
 
 SECTION "audio/music/music_18", ROMX
 
-; ---- data $5AF6-$5B02 (12 bytes) [CONFIRMED] read as data by executed code (in up to 18/18 scenarios); content class unknown
+; ---- data $5AF6-$5B02 (12 bytes) [CONFIRMED] read as data by executed code (in up to 18/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSong18_Track0:: ; 05:5AF6
 Data_05_5AF6::

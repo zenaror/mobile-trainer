@@ -1,10 +1,10 @@
 ; audio/music_pointers.asm
 ; bank 04, $551D-$574D (560 bytes); pinned by layout.link
-; Table_SoundDrv_Songs (70 headers: stream word, bank word, priority, flags, track count)
+; Table_SoundDrv_Songs (70 records of 8 bytes: header word, bank word, priority, flags, track count, spare; 59 distinct headers)
 
 SECTION "audio/music_pointers", ROMX
 
-; ---- data $551D-$574D (560 bytes) [PROBABLE] song table: 70 records x 8 bytes = word address (58BC 5CBF 5EF4 60E8 ...), word ROM bank (0004 or 0005; 9-bit bank number as read by 00:215E/216F from D026/D027, per docs/research/boot_and_home.md), word $FFC8 (rarely $FFD2/$FFC9), word 0001-0004 (last byte $00 is the unread constant in traces); the 11 identical 58BC/0004 records and the bank-5 entries (4218 4540 46E6 ...) confirm the address+bank reading; 551D+560 = 574D = first sound bytecode
+; ---- data $551D-$574D (560 bytes) [PROBABLE] song table: 70 records x 8 bytes = word address (58BC 5CBF 5EF4 60E8 ...), word ROM bank (0004 or 0005; 9-bit bank number as read by 00:215E/216F from D026/D027, per docs/research/boot_and_home.md), then four single bytes read by the driver: priority ($C8, rarely $D2/$C9), flags ($FF), track count (1-4), and a spare $00 that nothing reads (decoded in docs/research/audio_format.md section 3.1); the 11 identical 58BC/0004 records and the bank-5 entries (4218 4540 46E6 ...) confirm the address+bank reading; 551D+560 = 574D = first sound bytecode
 
 Table_SoundDrv_Songs:: ; 04:551D
 Data_04_551D::

@@ -4,7 +4,7 @@
 
 SECTION "audio/music/music_0e", ROMX
 
-; ---- data $4000-$4024 (36 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+; ---- data $4000-$4024 (36 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSong0E_Track0:: ; 05:4000
 Data_05_4000::
@@ -33,7 +33,7 @@ Data_05_4004:: ; 05:4004
 	sound_wait 12
 	sound_wait 60
 
-; ---- data $4024-$4047 (35 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+; ---- data $4024-$4047 (35 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md
 
 Data_05_4024:: ; 05:4024
 	sound_note 12, $46
@@ -64,7 +64,7 @@ Data_05_4024:: ; 05:4024
 Data_05_4046:: ; 05:4046
 	sound_end
 
-; ---- data $4047-$4090 (73 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+; ---- data $4047-$4090 (73 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSong0E_Track1:: ; 05:4047
 Data_05_4047::
@@ -113,7 +113,7 @@ Data_05_406E:: ; 05:406E
 	sound_wait 12
 	sound_ret
 
-; ---- data $4090-$40FF (111 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+; ---- data $4090-$40FF (111 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md
 
 Data_05_4090:: ; 05:4090
 	sound_note 4, $45, $0C
@@ -182,7 +182,7 @@ Data_05_40B3:: ; 05:40B3
 Data_05_40FE:: ; 05:40FE
 	sound_end
 
-; ---- data $40FF-$4139 (58 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+; ---- data $40FF-$4139 (58 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSong0E_Track2:: ; 05:40FF
 Data_05_40FF::
@@ -221,7 +221,7 @@ Data_05_411E:: ; 05:411E
 	sound_wait 24
 	sound_ret
 
-; ---- data $4139-$4167 (46 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+; ---- data $4139-$4167 (46 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md
 
 Data_05_4139:: ; 05:4139
 	sound_instrument $08
@@ -248,7 +248,7 @@ Data_05_4139:: ; 05:4139
 Data_05_4166:: ; 05:4166
 	sound_end
 
-; ---- data $4167-$41D0 (105 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+; ---- data $4167-$41D0 (105 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSong0E_Track3:: ; 05:4167
 Data_05_4167::
@@ -313,7 +313,7 @@ Data_05_419F:: ; 05:419F
 	sound_wait 6
 	sound_note 3
 
-; ---- data $41D0-$4218 (72 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+; ---- data $41D0-$4218 (72 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md
 
 Data_05_41D0:: ; 05:41D0
 	sound_wait 6

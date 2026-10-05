@@ -1764,6 +1764,7 @@ Label_04_49B6:: ; 04:49B6
 
 SoundDrv_ExtSetTrack27:: ; 04:49C3
 Label_04_49C3::
+	; $CD 6 (never used by the data): +$27 = level of the note-end tail, high nibble (PROBABLE, demonstrated (synthetic): see .l4D54)
 	; [PROBABLE] entries 49C3/49C8/49CD/49D3/49D8/49DD/49E2/49FF/4A1A/4A1F are words of the jump
 	; tables Table_04_44A3 and Table_04_46E8/4726; clean decode to a terminator at 4A24
 	ld bc, $0027
@@ -1771,6 +1772,7 @@ Label_04_49C3::
 
 SoundDrv_ExtSetTrack28:: ; 04:49C8
 Label_04_49C8::
+	; $CD 7 (never used by the data): +$28 = length of the note-end tail, (256 - value) * 15 ticks (PROBABLE, demonstrated (synthetic): see .l4D54)
 	ld bc, $0028
 	jr SoundDrv_CmdStoreTrackByte
 
@@ -2075,6 +2077,9 @@ SoundDrv_StartNote:: ; 04:4A81
 
 SoundDrv_CmdNoteOff:: ; 04:4B66
 Label_04_4B66::
+	; Hazard (demonstrated (synthetic) on mGBA, docs/research/audio_format.md section 5.1): a byte $00-$23 right after $CF takes
+	; the `jr c, .l4B7F` below without being consumed; running status then dispatches $CF again for the same byte, for ever, and
+	; the frame tick never returns.  Only a pitch byte ($24-$7F) or an opcode may follow $CF.
 	; [CONFIRMED] 53 insn(s) reached by static flow only; seeds: table x53; min discovery hops 0;
 	; run starts at an entry of the code-pointer table at 04:46E8 | 9 insn(s) executed; cut out of
 	; the PROBABLE region 4B66-4BC9 by apply_coverage --split [executed in 7 scenarios]
@@ -2437,6 +2442,10 @@ SoundDrv_UpdateChannel:: ; 04:4C14
 	dec hl
 
 .l4D54 ; 04:4D54
+	; Note end (release started with code 0, release finished, or sustain level 0): when track+$2F, +$27 and +$28 are all non-zero the
+	; channel gets a constant-volume tail (NRx2 = ceil(hi(+$2F) * hi(+$27) / 16) << 4, age counter channel+$12 = +$28, state 00) that
+	; ends when the age counter wraps to 0; otherwise it is silenced at .l4D90.  The data never sets +$27/+$28, so only the silencing
+	; path runs (PROBABLE, demonstrated (synthetic) on mGBA: docs/research/audio_format.md section 5.1).
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 17/18 scenarios)
 	push hl
 	ld a, [wSoundDrv_TrackPtr]

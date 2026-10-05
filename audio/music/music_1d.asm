@@ -4,7 +4,7 @@
 
 SECTION "audio/music/music_1d", ROMX
 
-; ---- data $62D0-$6312 (66 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+; ---- data $62D0-$6312 (66 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md
 
 SoundSong1D_Track0:: ; 05:62D0
 Data_05_62D0::

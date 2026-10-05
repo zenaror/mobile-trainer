@@ -4,7 +4,7 @@
 
 SECTION "audio/music/music_19", ROMX
 
-; ---- data $5B06-$5B6D (103 bytes) [PROBABLE] read as data by executed code (in up to 18/18 scenarios); content class unknown | block boundary $5B34 removed (it cut a command in two; its label Data_05_5B34 was not referenced); the second part was: data $5B34-$5B6D (57 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md (status of the merged block lowered to the weaker of the two parts)
+; ---- data $5B06-$5B6D (103 bytes) [PROBABLE] read as data by executed code (in up to 18/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md) | block boundary $5B34 removed (it cut a command in two; its label Data_05_5B34 was not referenced); the second part was: data $5B34-$5B6D (57 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md (status of the merged block lowered to the weaker of the two parts)
 
 SoundSong19_Track0:: ; 05:5B06
 Data_05_5B06::
@@ -84,7 +84,7 @@ Data_05_5B0A:: ; 05:5B0A
 Data_05_5B6C:: ; 05:5B6C
 	sound_end
 
-; ---- data $5B6D-$5C4C (223 bytes) [PROBABLE] read as data by executed code (in up to 2/18 scenarios); content class unknown | block boundary $5BCB removed (it cut a command in two; its label Data_05_5BCB was not referenced); the second part was: data $5BCB-$5C4C (129 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md (status of the merged block lowered to the weaker of the two parts)
+; ---- data $5B6D-$5C4C (223 bytes) [PROBABLE] read as data by executed code (in up to 2/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md) | block boundary $5BCB removed (it cut a command in two; its label Data_05_5BCB was not referenced); the second part was: data $5BCB-$5C4C (129 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md (status of the merged block lowered to the weaker of the two parts)
 
 SoundSong19_Track1:: ; 05:5B6D
 Data_05_5B6D::
@@ -219,7 +219,7 @@ Data_05_5B71:: ; 05:5B71
 Data_05_5C4B:: ; 05:5C4B
 	sound_end
 
-; ---- data $5C4C-$5D14 (200 bytes) [PROBABLE] read as data by executed code (in up to 2/18 scenarios); content class unknown | block boundary $5C9E removed (it cut a command in two; its label Data_05_5C9E was not referenced); the second part was: data $5C9E-$5D14 (118 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md (status of the merged block lowered to the weaker of the two parts)
+; ---- data $5C4C-$5D14 (200 bytes) [PROBABLE] read as data by executed code (in up to 2/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md) | block boundary $5C9E removed (it cut a command in two; its label Data_05_5C9E was not referenced); the second part was: data $5C9E-$5D14 (118 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md (status of the merged block lowered to the weaker of the two parts)
 
 SoundSong19_Track2:: ; 05:5C4C
 Data_05_5C4C::
@@ -334,7 +334,7 @@ Data_05_5C50:: ; 05:5C50
 Data_05_5D13:: ; 05:5D13
 	sound_end
 
-; ---- data $5D14-$5DB5 (161 bytes) [PROBABLE] read as data by executed code (in up to 2/18 scenarios); content class unknown | block boundary $5D69 removed (it cut a command in two; its label Data_05_5D69 was not referenced); the second part was: data $5D69-$5DB5 (76 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md (status of the merged block lowered to the weaker of the two parts)
+; ---- data $5D14-$5DB5 (161 bytes) [PROBABLE] read as data by executed code (in up to 2/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md) | block boundary $5D69 removed (it cut a command in two; its label Data_05_5D69 was not referenced); the second part was: data $5D69-$5DB5 (76 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md (status of the merged block lowered to the weaker of the two parts)
 
 SoundSong19_Track3:: ; 05:5D14
 Data_05_5D14::

@@ -4,7 +4,7 @@
 
 SECTION "audio/music/music_13", ROMX
 
-; ---- data $4CA1-$4D76 (213 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
+; ---- data $4CA1-$4D76 (213 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSong13_Track0:: ; 05:4CA1
 Data_05_4CA1::
