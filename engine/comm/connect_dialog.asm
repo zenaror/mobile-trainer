@@ -194,7 +194,7 @@ ConnectDialog_HandleFrame:: ; 57:40E0
 	jr z, .l416E
 	ld de, $7858
 .l416E ; 57:416E
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	farcall Sprite_SetPosition
 	ldh a, [hWRAMBank]
 	push af
@@ -290,7 +290,7 @@ ConnectDialog_Input_ConnectConfirm:: ; 57:41CA
 	jr z, .l421C
 	ld de, $6858
 .l421C ; 57:421C
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	farcall Sprite_SetPosition
 	ldh a, [hWRAMBank]
 	push af
@@ -378,12 +378,12 @@ ConnectDialog_Keyboard_AppendChar:: ; 57:4299
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, ConnectDialog_ObjTable
 	ld a, $56
 	ld b, $03
 	farcall Sprite_InitSlot
-	ld hl, $DA2B
+	ld hl, wSpriteSlot2 + $0B
 	ld de, $52D8
 	ld a, $57
 	call Sprite_SetHook
@@ -479,12 +479,12 @@ ConnectDialog_Keyboard_EraseChar:: ; 57:433F
 	ld a, [wConnectDialogTextLen]
 	dec a
 	ld [wConnectDialogTextLen], a
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, ConnectDialog_ObjTable
 	ld a, $56
 	ld b, $02
 	farcall Sprite_InitSlot
-	ld hl, $DA2B
+	ld hl, wSpriteSlot2 + $0B
 	ld de, $52D8
 	ld a, $57
 	call Sprite_SetHook
@@ -504,12 +504,12 @@ ConnectDialog_Keyboard_EraseChar:: ; 57:433F
 	call ConnectDialog_DrawPasswordField
 	xor a, a
 	ld [wConnectDialog_FieldDirty], a
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, ConnectDialog_ObjTable
 	ld a, $56
 	ld b, $81
 	farcall Sprite_InitSlot
-	ld hl, $DA2B
+	ld hl, wSpriteSlot2 + $0B
 	ld de, $531E
 	ld a, $57
 	call Sprite_SetHook
@@ -556,7 +556,7 @@ ConnectDialog_Input_SaveConfirm:: ; 57:43BC
 	jr z, .skip
 	ld de, $7858
 .skip ; 57:4406
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	farcall Sprite_SetPosition
 	ldh a, [hWRAMBank]
 	push af
@@ -673,7 +673,7 @@ ConnectDialog_Input_ForgetConfirm:: ; 57:4481
 	jr z, .skip
 	ld de, $7858
 .skip ; 57:44C9
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	farcall Sprite_SetPosition
 	ldh a, [hWRAMBank]
 	push af
@@ -757,7 +757,7 @@ ConnectDialog_Enter_Keyboard:: ; 57:4517
 	xor a, a
 	ldh [rIF], a
 	ei
-	ld hl, $DA2B
+	ld hl, wSpriteSlot2 + $0B
 	ld de, $531E
 	ld a, $57
 	call Sprite_SetHook
@@ -768,13 +768,13 @@ ConnectDialog_Enter_Keyboard:: ; 57:4517
 
 ConnectDialog_Enter_SaveConfirm:: ; 57:4566
 Label_57_4566::
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, ConnectDialog_ObjTable
 	ld a, $56
 	ld b, $85
 	farcall Sprite_InitSlot
 	ld de, $7828
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	ldh a, [hWRAMBank]
 	push af
@@ -816,13 +816,13 @@ ConnectDialog_Enter_ForgetConfirm:: ; 57:45BC
 Label_57_45BC::
 	; [CONFIRMED] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 1;
 	; entered by jpcc from 57:450B (PROBABLE code) [executed in 4 scenarios]
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, ConnectDialog_ObjTable
 	ld a, $56
 	ld b, $85
 	farcall Sprite_InitSlot
 	ld de, $7828
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	ldh a, [hWRAMBank]
 	push af
@@ -873,13 +873,13 @@ Function_57_45E6::
 	jr nz, .l4632
 	farcall Palette_FadeOutToWhite
 	ld de, $00B4
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	ret
 .l4632 ; 57:4632
 	farcall Palette_FadeOutToWhite
 	ld de, $00B4
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	ret
 .l4642 ; 57:4642
@@ -888,13 +888,13 @@ Function_57_45E6::
 	jr nz, .l4658
 	farcall Palette_FadeOutToWhite
 	ld de, $00B4
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	ret
 .l4658 ; 57:4658
 	farcall Palette_FadeOutToWhite
 	ld de, $00B4
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	ret
 
@@ -905,7 +905,7 @@ Function_57_45E6::
 	jr nz, .l467E
 	farcall Palette_FadeOutToWhite
 	ld de, $00B4
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	ret
 
@@ -914,7 +914,7 @@ Function_57_45E6::
 	; entered by jrcc from 57:466C (executed) [executed in 5 scenarios]
 	farcall Palette_FadeOutToWhite
 	ld de, $00B4
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	ret
 
@@ -925,13 +925,13 @@ Function_57_45E6::
 	jr nz, .l46A4
 	farcall Palette_FadeOutToWhite
 	ld de, $00B4
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	ret
 .l46A4 ; 57:46A4
 	farcall Palette_FadeOutToWhite
 	ld de, $00B4
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	ret
 
@@ -942,14 +942,14 @@ Function_57_45E6::
 	cp a, $06
 	jr z, .done
 	ld de, $00B4
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
-	ld hl, $DA2B
+	ld hl, wSpriteSlot2 + $0B
 	ld de, $0000
 	ld a, $00
 	call Sprite_SetHook
 	ld de, $00A0
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	farcall Palette_FadeOutToWhite
 	ret
@@ -980,14 +980,14 @@ ConnectDialog_Leave_Keyboard:: ; 57:46E0
 	cp a, $05
 	ret z
 	ld de, $00B4
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
-	ld hl, $DA2B
+	ld hl, wSpriteSlot2 + $0B
 	ld de, $0000
 	ld a, $00
 	call Sprite_SetHook
 	ld de, $00B4
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	ld a, [wConnectDialog_Mode]
 	cp a, $10
@@ -998,7 +998,7 @@ ConnectDialog_Leave_Keyboard:: ; 57:46E0
 ConnectDialog_Leave_SaveConfirm:: ; 57:4738
 Label_57_4738::
 	ld de, $00B4
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	ld a, [wConnectDialog_Cursor]
 	dec a
@@ -1035,7 +1035,7 @@ ConnectDialog_Leave_ForgetConfirm:: ; 57:477E
 	; [CONFIRMED] 15 insn(s) reached by static flow only; seeds: exec x15; min discovery hops 1;
 	; entered by jpcc from 57:4618 (PROBABLE code) [executed in 2 scenarios]
 	ld de, $00B4
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	ld a, [wConnectDialog_Mode]
 	cp a, $09

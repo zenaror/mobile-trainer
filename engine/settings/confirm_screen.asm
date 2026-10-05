@@ -51,12 +51,12 @@ SettingsPhone_ConfirmScreen_Setup:: ; 67:5129
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, $73B0
 	ld a, $4B
 	farcall Palette_LoadToBuffer
 	ld bc, $0018
-	ld de, $D868
+	ld de, wPaletteBufObj + $28
 	ld hl, $4CE0
 	ld a, $5F
 	farcall Palette_LoadToBuffer
@@ -71,7 +71,7 @@ SettingsPhone_ConfirmScreen_Setup:: ; 67:5129
 	call SettingsPhone_ConfirmScreen_BuildTextMap
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	ld de, ConfirmPages_ObjTable
 	ld a, $4A
 	ld b, $81
@@ -160,7 +160,7 @@ SettingsPhone_ConfirmScreen_PlaceCursor:: ; 67:525D
 	ld e, a
 	ld a, [hl]
 	ld d, a
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	call Sprite_SetPosition
 	ret
 

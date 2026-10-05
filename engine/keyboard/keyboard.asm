@@ -56,7 +56,7 @@ Function_55_5BA2::
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0018
-	ld de, $D868
+	ld de, wPaletteBufObj + $28
 	ld hl, $4CE0
 	ld a, $5F
 	farcall Palette_LoadToBuffer
@@ -65,7 +65,7 @@ Function_55_5BA2::
 	or a, a
 	jp z, .l5C5A
 	ld bc, $0010
-	ld de, $D830
+	ld de, wPaletteBufBg + $30
 	ld hl, Palette_5F_4CD0
 	ld a, $5F
 	farcall Palette_LoadToBuffer
@@ -77,7 +77,7 @@ Function_55_5BA2::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService
@@ -101,13 +101,13 @@ Function_55_5BA2::
 .l5C71 ; 55:5C71
 	ld a, $01
 	call Kbd_LoadPageGraphics
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	ld de, Kbd_ObjTable
 	ld a, $5F
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $FF
-	ld [wSpriteSlots + 180], a
+	ld [wSpriteSlot11 + $04], a
 	call Kbd_ClearSticky
 	ret
 
@@ -187,13 +187,13 @@ Kbd_Run:: ; 55:5C8F
 	ld a, [wKbdRunArgC]
 	or a, a
 	jr z, .l5D36
-	ld hl, $DAD0
+	ld hl, wSpriteSlot13
 	ld de, $4D40
 	ld a, $5F
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7870
-	ld hl, $DAD0
+	ld hl, wSpriteSlot13
 	call Sprite_SetPosition
 .l5D36 ; 55:5D36
 	ld a, [wKbdType]
@@ -962,7 +962,7 @@ Function_55_6190::
 	cp a, $FF
 	jr z, .l61BF
 	push bc
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	ld de, Kbd_ObjTable
 	ld a, $5F
 	ld b, $81
@@ -971,7 +971,7 @@ Function_55_6190::
 	jr .l61F6
 .l61BF ; 55:61BF
 	push bc
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	ld de, Kbd_ObjTable
 	ld a, $5F
 	ld b, $82
@@ -1034,9 +1034,9 @@ Function_55_6190::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, e
-	ld [wSpriteSlots + 176], a
+	ld [wSpriteSlot11], a
 	ld a, d
-	ld [wSpriteSlots + 177], a
+	ld [wSpriteSlot11 + $01], a
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -1058,14 +1058,14 @@ Function_55_6190::
 
 .l624F ; 55:624F
 	; [CONFIRMED] 33 insn(s); 33 executed (in up to 11/18 scenarios)
-	ld hl, $DAA0
+	ld hl, wSpriteSlot10
 	ld de, $4D18
 	ld a, $5F
 	ld b, $85
 	farcall Sprite_InitSlot
 	jr .l6271
 .l6261 ; 55:6261
-	ld hl, $DAA0
+	ld hl, wSpriteSlot10
 	ld de, $4D18
 	ld a, $5F
 	ld b, $84
@@ -1078,12 +1078,12 @@ Function_55_6190::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wSpriteSlots + 176]
+	ld a, [wSpriteSlot11]
 	sub a, $09
-	ld [wSpriteSlots + 160], a
-	ld a, [wSpriteSlots + 177]
+	ld [wSpriteSlot10], a
+	ld a, [wSpriteSlot11 + $01]
 	sub a, $02
-	ld [wSpriteSlots + 161], a
+	ld [wSpriteSlot10 + $01], a
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -1091,7 +1091,7 @@ Function_55_6190::
 	ldh a, [hScratchA]
 	jr .done
 .l6299 ; 55:6299
-	ld hl, $DAA0
+	ld hl, wSpriteSlot10
 	call Sprite_ClearSlot
 .done ; 55:629F
 	ret
@@ -1288,13 +1288,13 @@ Kbd_SlideOut:: ; 55:6427
 Function_55_6427::
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld hl, $DAA0
+	ld hl, wSpriteSlot10
 	call Sprite_ClearSlot
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	call Sprite_ClearSlot
-	ld hl, $DAC0
+	ld hl, wSpriteSlot12
 	call Sprite_ClearSlot
-	ld hl, $DAD0
+	ld hl, wSpriteSlot13
 	call Sprite_ClearSlot
 	farcall Sprite_UpdateAll
 	ld a, [wKbdType]
@@ -1418,13 +1418,13 @@ Function_55_6427::
 	ret
 
 Kbd_HideInstant:: ; 55:651C
-	ld hl, $DAA0
+	ld hl, wSpriteSlot10
 	call Sprite_ClearSlot
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	call Sprite_ClearSlot
-	ld hl, $DAC0
+	ld hl, wSpriteSlot12
 	call Sprite_ClearSlot
-	ld hl, $DAD0
+	ld hl, wSpriteSlot13
 	call Sprite_ClearSlot
 	farcall Sprite_UpdateAll
 	ld a, [wKbdType]
@@ -1534,7 +1534,7 @@ Kbd_TypePickerLoop:: ; 55:65DA
 Function_55_65DA::
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	ld de, Kbd_ObjTable
 	ld a, $5F
 	ld b, $82
@@ -1621,9 +1621,9 @@ Function_55_65DA::
 .l6666 ; 55:6666
 	; [CONFIRMED] 42 insn(s); 42 executed (in up to 2/18 scenarios)
 	push af
-	ld hl, $DAA0
+	ld hl, wSpriteSlot10
 	call Sprite_ClearSlot
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	call Sprite_ClearSlot
 	farcall Sprite_UpdateAll
 	pop af
@@ -1640,13 +1640,13 @@ Kbd_UpdatePickerSprites:: ; 55:667B
 	ld a, [hl]
 	ld d, $66
 	ld e, a
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	call Sprite_SetPosition
 	ld a, [wKbdInputMode]
 	inc a
 	set 7, a
 	ld b, a
-	ld hl, $DAA0
+	ld hl, wSpriteSlot10
 	ld de, $4D18
 	ld a, $5F
 	farcall Sprite_InitSlot
@@ -1660,7 +1660,7 @@ Kbd_UpdatePickerSprites:: ; 55:667B
 	ld a, [hl]
 	ld d, $5D
 	ld e, a
-	ld hl, $DAA0
+	ld hl, wSpriteSlot10
 	call Sprite_SetPosition
 	call Kbd_LoadPickerTabTiles
 	ret
@@ -1770,7 +1770,7 @@ Label_55_6755::
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0018
-	ld de, $D828
+	ld de, wPaletteBufBg + $28
 	ld hl, $4D28
 	ld a, $5E
 	farcall Palette_LoadToBuffer
@@ -1805,12 +1805,12 @@ Label_55_679F::
 	ld c, $10
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0008
-	ld de, $D808
+	ld de, wPaletteBufBg + $08
 	ld hl, Palette_Kbd_T5_Bg1
 	ld a, $5F
 	farcall Palette_LoadToBuffer
 	ld bc, $0010
-	ld de, $D830
+	ld de, wPaletteBufBg + $30
 	ld hl, $6BC0
 	ld a, $5F
 	farcall Palette_LoadToBuffer
@@ -1822,7 +1822,7 @@ Label_55_679F::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService
@@ -1839,7 +1839,7 @@ Label_55_679F::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService
@@ -2301,12 +2301,12 @@ Kbd_ShowPageIndicator:: ; 55:6BB2
 	ld a, [wKbdPage]
 	inc a
 	ld b, a
-	ld hl, $DAC0
+	ld hl, wSpriteSlot12
 	ld de, $4D04
 	ld a, $5F
 	farcall Sprite_InitSlot
 	ld de, $8808
-	ld hl, $DAC0
+	ld hl, wSpriteSlot12
 	call Sprite_SetPosition
 	ret
 
@@ -2416,9 +2416,9 @@ Kbd_DrawGlyphPreview:: ; 55:6C16
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [wKbdCursorSpriteY]
-	ld [wSpriteSlots + 176], a
+	ld [wSpriteSlot11], a
 	ld a, [wKbdCursorSpriteX]
-	ld [wSpriteSlots + 177], a
+	ld [wSpriteSlot11 + $01], a
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a

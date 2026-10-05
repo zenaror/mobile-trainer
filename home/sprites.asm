@@ -24,7 +24,7 @@ Function_00_0956::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, wShadowOAM + $04
-	ld hl, $DA00
+	ld hl, wSpriteSlots
 	ld b, $0E
 .loop ; 00:0977
 	push bc
@@ -87,7 +87,7 @@ Function_00_09B6::
 	xor a, a
 	ldh [hSpriteSlideOffsetX], a
 	ldh [hSpriteSlideOffsetY], a
-	ld hl, $DA00
+	ld hl, wSpriteSlots
 	ld bc, $00E0
 	ld a, $FF
 	call FillBytes

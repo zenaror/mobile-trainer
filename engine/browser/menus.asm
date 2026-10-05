@@ -28,7 +28,7 @@ BrowserMenu_OpenTwoItem:: ; 72:63D8
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0010
-	ld de, $D830
+	ld de, wPaletteBufBg + $30
 	ld hl, BrowserMenu2_Palette
 	ld a, $72
 	farcall Palette_LoadToBuffer
@@ -38,7 +38,7 @@ BrowserMenu_OpenTwoItem:: ; 72:63D8
 	ld a, $72
 	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0008
-	ld de, $D860
+	ld de, wPaletteBufObj + $20
 	ld hl, $7820
 	ld a, $72
 	farcall Palette_LoadToBuffer
@@ -92,7 +92,7 @@ BrowserMenu_OpenTwoItem:: ; 72:63D8
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService
@@ -103,12 +103,12 @@ BrowserMenu_OpenTwoItem:: ; 72:63D8
 	ldh a, [hScratchA]
 	ldh a, [rLCDC]
 	farcall Dialog_UploadWindowMap
-	ld hl, $DAC0
+	ld hl, wSpriteSlot12
 	ld de, BrowserShared_ObjTable
 	ld a, $72
 	ld b, $81
 	farcall Sprite_InitSlot
-	ld hl, $DACB
+	ld hl, wSpriteSlot12 + $0B
 	ld de, $0A1A
 	ld a, $00
 	call Sprite_SetHook
@@ -118,8 +118,8 @@ BrowserMenu_OpenTwoItem:: ; 72:63D8
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $98
-	ld [wSpriteSlots + 192], a
-	ld hl, $DAD0
+	ld [wSpriteSlot12], a
+	ld hl, wSpriteSlot13
 	call Sprite_ClearSlot
 	call VBlank_WaitStartDI
 	ldh a, [rLCDC]
@@ -407,13 +407,13 @@ BrowserMenu_DrawItemTwo:: ; 72:669F
 	ld a, [hli]
 	ld d, a
 	push hl
-	ld hl, $DAC0
+	ld hl, wSpriteSlot12
 	call Sprite_SetPosition
 	pop hl
 	ld a, [hli]
 	ld b, a
 	push hl
-	ld hl, $DAD0
+	ld hl, wSpriteSlot13
 	ld de, BrowserShared_ObjTable
 	ld a, $72
 	farcall Sprite_InitSlot
@@ -423,7 +423,7 @@ BrowserMenu_DrawItemTwo:: ; 72:669F
 	ld a, [hli]
 	ld d, a
 	push hl
-	ld hl, $DAD0
+	ld hl, wSpriteSlot13
 	call Sprite_SetPosition
 	call Sound_FrameService
 	ld a, $07
@@ -480,7 +480,7 @@ Function_72_6712::
 	ld c, $10
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0010
-	ld de, $D830
+	ld de, wPaletteBufBg + $30
 	ld hl, Palette_BrowserMenu_Bg6
 	ld a, $72
 	farcall Palette_LoadToBuffer
@@ -490,7 +490,7 @@ Function_72_6712::
 	ld a, $72
 	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0008
-	ld de, $D860
+	ld de, wPaletteBufObj + $20
 	ld hl, $7210
 	ld a, $72
 	farcall Palette_LoadToBuffer
@@ -544,7 +544,7 @@ Function_72_6712::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService
@@ -555,12 +555,12 @@ Function_72_6712::
 	ldh a, [hScratchA]
 	ldh a, [rLCDC]
 	farcall Dialog_UploadWindowMap
-	ld hl, $DAC0
+	ld hl, wSpriteSlot12
 	ld de, BrowserShared_ObjTable
 	ld a, $72
 	ld b, $81
 	farcall Sprite_InitSlot
-	ld hl, $DACB
+	ld hl, wSpriteSlot12 + $0B
 	ld de, $0A1A
 	ld a, $00
 	call Sprite_SetHook
@@ -570,8 +570,8 @@ Function_72_6712::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $98
-	ld [wSpriteSlots + 192], a
-	ld hl, $DAD0
+	ld [wSpriteSlot12], a
+	ld hl, wSpriteSlot13
 	call Sprite_ClearSlot
 	call VBlank_WaitStartDI
 	ldh a, [rLCDC]
@@ -875,13 +875,13 @@ Function_72_69F3::
 	ld a, [hli]
 	ld d, a
 	push hl
-	ld hl, $DAC0
+	ld hl, wSpriteSlot12
 	call Sprite_SetPosition
 	pop hl
 	ld a, [hli]
 	ld b, a
 	push hl
-	ld hl, $DAD0
+	ld hl, wSpriteSlot13
 	ld de, BrowserShared_ObjTable
 	ld a, $72
 	farcall Sprite_InitSlot
@@ -891,7 +891,7 @@ Function_72_69F3::
 	ld a, [hli]
 	ld d, a
 	push hl
-	ld hl, $DAD0
+	ld hl, wSpriteSlot13
 	call Sprite_SetPosition
 	call Sound_FrameService
 	ld a, $07
@@ -928,9 +928,9 @@ BrowserMenu_Close:: ; 72:6A6B
 	ldh a, [hScratchA]
 	ldh a, [rLCDC]
 	farcall Dialog_UploadWindowMap
-	ld hl, $DAD0
+	ld hl, wSpriteSlot13
 	call Sprite_ClearSlot
-	ld hl, $DACB
+	ld hl, wSpriteSlot12 + $0B
 	ld de, $0A1A
 	ld a, $00
 	call Sprite_SetHook
@@ -956,7 +956,7 @@ BrowserMenu_Close:: ; 72:6A6B
 	ldh [rLCDC], a
 	ei
 	call Sound_FrameService
-	ld hl, $DAC0
+	ld hl, wSpriteSlot12
 	call Sprite_ClearSlot
 	ld a, [wJoySavedRepeatInterval]
 	ld b, a

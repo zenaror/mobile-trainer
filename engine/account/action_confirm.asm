@@ -45,12 +45,12 @@ Account_ActionConfirmPage_Setup:: ; 68:6E39
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, $72C0
 	ld a, $5E
 	farcall Palette_LoadToBuffer
 	ld bc, $0018
-	ld de, $D868
+	ld de, wPaletteBufObj + $28
 	ld hl, $4CE0
 	ld a, $5F
 	farcall Palette_LoadToBuffer
@@ -75,7 +75,7 @@ Account_ActionConfirmPage_Setup:: ; 68:6E39
 	call Account_ActionConfirmPage_BuildTextMap
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	ld de, ConfirmPages_ObjTable
 	ld a, $4A
 	ld b, $81
@@ -165,7 +165,7 @@ Account_ActionConfirmPage_UpdateCursor:: ; 68:6F7F
 	ld e, a
 	ld a, [hl]
 	ld d, a
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	call Sprite_SetPosition
 	ret
 

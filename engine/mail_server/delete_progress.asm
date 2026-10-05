@@ -17,12 +17,12 @@ MailSrvDel_ProgressInit:: ; 23:55C3
 	ld a, $F0
 	ldh [rWY], a
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_MailSrvDelProgress_Bg
 	ld a, $23
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, Palette_MailSrvDelProgress_Obj
 	ld a, $23
 	farcall Palette_LoadToBuffer

@@ -52,12 +52,12 @@ PwSaveConfirm_Setup:: ; 67:6565
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_PwSaveConfirm_Bg
 	ld a, $5D
 	farcall Palette_LoadToBuffer
 	ld bc, $0018
-	ld de, $D868
+	ld de, wPaletteBufObj + $28
 	ld hl, $4CE0
 	ld a, $5F
 	farcall Palette_LoadToBuffer
@@ -87,7 +87,7 @@ PwSaveConfirm_Setup:: ; 67:6565
 	call PwSaveConfirm_BuildTextMap
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	ld de, ConfirmPages_ObjTable
 	ld a, $4A
 	ld b, $81
@@ -180,7 +180,7 @@ Function_67_66A6::
 	ld e, a
 	ld a, [hl]
 	ld d, a
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	call Sprite_SetPosition
 	ret
 

@@ -231,6 +231,17 @@ first use of the register), and so does a line whose comment starts with `; raw`
 screen-local alias stays numeric inside the files of the alias.  Banked addresses (`$D000-$DFFF`, `$A000-$BFFF`) follow the bank rules above.  `python3 tools/apply_ram_operands.py --areas wram0,hram,io --check` lists the
 operands that are still raw.
 
+**Banked WRAM pointer operands.**  An immediate `ld hl|de|bc, $Dxxx` points into whichever WRAM bank is selected, so the number proves nothing: `$DA00` is the first sprite slot in bank 7, a dictionary history buffer in bank 6 and a
+text tile buffer in bank 2.  `python3 tools/apply_ram_operands.py --areas wramx` rewrites one only when a *consumer rule* proves the bank in which the pointer is dereferenced: a row of `analysis/naming2/wramx_consumers.tsv` (routine,
+register, bank, `needs`, name family, proof).  The consumer is the first `call`, `farcall` or tail `jp Label` of the straight line after the load, with only plain instructions in between that touch neither the register nor a bank register (no
+label, jump, macro or data line); `needs` is `-` when the routine selects the bank itself (`Sprite_InitSlot`, `Sprite_SetPosition`, `Sprite_ClearSlot`, `Sprite_SetHook` and `Palette_LoadToBuffer` select bank 7) and `switch` when its caller does: the
+nearest write of the bank register before the load, at most 60 lines back, must be the idiom `ld a, $07 / ldh [hWRAMBank], a / ldh [rSVBK], a` of that bank (or a call to a routine that sets it), and the scan ends without a proof at a global label, an
+unconditional `ret`/`jp`/`jr`, a call to a routine that `analysis/naming2/wramx_calls.tsv` does not list as keeping the bank, a conditional call, and a local label other than the head of a loop whose body keeps the bank.  The name is the innermost object of
+`ram/banked.asm` for that bank, and must match the family of the rule (`ld hl, wSpriteSlot3`, `ld hl, wSpriteSlot2 + $0B`, `ld de, wPaletteBufObj`).  It states the bank in which the *consumer* dereferences the pointer; the caller's own bank may be another one.
+Everything else stays numeric and is counted by consumer, which says which rule to write next.  The generated `wSpriteSlots + 17` is held to the same proof: `python3 tools/apply_ram_operands.py --elements wSpriteSlots --observed` writes it
+`wSpriteSlot1 + $01` where bank 7 is shown by the scan or because every replayed execution of the instruction ran under bank 7 only (`analysis/rambank/observed_banks.tsv`, the source line mapped to its ROM address by `tools/line_addresses.py`); an
+expression without proof keeps the old spelling, and a site proven by reading goes into `analysis/naming2/ramop7_manual.tsv` with its proof.  `python3 tools/apply_ram_operands.py --areas wramx --check` lists the operands a rule proves that are still numeric.
+
 ### Constants and numbers
 
 * **Constants** are `UPPER_CASE` (`MAILREC_OFS_TIME`, `ABOOK_SLOT_COUNT`), written `DEF NAME EQU $xxxx ; STATUS note` followed by `EXPORT NAME` in `consts.asm` (so they are in the `.sym` file).
@@ -393,6 +404,8 @@ are edited directly or through `tools/screen_png.py import`. After adding or rem
 | `python3 tools/apply_overlay_aliases.py --check` | every alias of `ram/overlays.asm` is defined once, has a neutral WRAM0/HRAM base, and is used only inside the scope of its group |
 | `python3 tools/apply_banked_names.py --check` | every pair of overlapping bank-qualified names in `ram/banked.asm` is a container and its field, a documented overlay, or used in disjoint files |
 | `python3 tools/apply_ram_operands.py --areas wram0,hram,io --check` | no `ld hl\|de\|bc, $XXXX` of WRAM0, HRAM or the hardware registers is left numeric where an object covers the address (overlay bases excepted) |
+| `python3 tools/apply_ram_operands.py --areas wramx --check` | no banked `ld hl\|de\|bc, $Dxxx` that a consumer rule of `analysis/naming2/wramx_consumers.tsv` proves is left numeric |
+| `python3 tools/apply_ram_operands.py --elements wSpriteSlots --observed --check` | no `wSpriteSlots + N` is left where bank 7 is shown (needs rgbasm: it builds a marked copy of the tree) |
 
 **Applying renames.** Names are changed with `python3 tools/apply_renames.py --manifest FILE` (manifest: TAB-separated `old_name new_name kind status evidence`; HYPOTHESIS rows are never applied).
 It renames the definition (`New:: ; BB:AAAA`; the neutral old name stays below it as an alias without comment) and every reference in all `.asm`/`.inc` files, refuses unsafe rows (collisions,
@@ -412,7 +425,8 @@ failure.  Use `--dry-run` first.  The manifests are `analysis/naming2/sram4_*.ts
 
 **Applying RAM operands.** `python3 tools/apply_ram_operands.py --areas wram0,hram,io` rewrites the raw pointer operands described in section 4 (RAM pointer operands) from the `DEF` lines of `ram/wram.asm`, `ram/hram.asm` and
 `constants/hardware.inc` (no manifest: the object table is the rule), runs `make`, checks the SHA-256 and `sym_check`, and restores every file on failure.  Use `--dry-run` first.  The record of the mapping is
-`analysis/naming2/ramop6_names.tsv`.  Tests: `python3 tools/test_ram_operands.py`.
+`analysis/naming2/ramop6_names.tsv`.  `--areas wramx` (banked WRAM, rules in `analysis/naming2/wramx_consumers.tsv`, bank effects of routines in `analysis/naming2/wramx_calls.tsv`) and `--elements NAME [--observed]` (an array's `NAME + N` expressions as element names) work the same way;
+`python3 tools/line_addresses.py file.asm:LINE ...` prints the bank and the address of a source line (it builds a marked copy of the tree and never touches the repository).  Tests: `python3 tools/test_ram_operands.py`.
 
 ## 11. Git and commits
 

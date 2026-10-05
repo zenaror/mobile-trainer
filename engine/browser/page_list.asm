@@ -150,7 +150,7 @@ PageList_Main_Loop:: ; 24:4083
 	; 4018-42AF by apply_coverage --split
 	xor a, a
 	ld [wBrowserFetchResult], a
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	call Sprite_ClearSlot
 	ld de, $0110
 	push af
@@ -464,13 +464,13 @@ PageList_InitScreen:: ; 24:42F0
 	farcall Gfx_StartHDMA
 	call VBlank_Wait
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, PageList_ObjPalette
 	ld a, $24
 	farcall Palette_LoadToBuffer
 	call VBlank_Wait
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, PageList_BgPalette
 	ld a, $24
 	farcall Palette_LoadToBuffer
@@ -538,7 +538,7 @@ PageList_InitScreen:: ; 24:42F0
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService
@@ -570,32 +570,32 @@ PageList_InitRowSprites:: ; 24:445C
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	pop af
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $6560
 	ld a, $24
 	ld b, $01
 	farcall Sprite_InitSlot
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $6560
 	ld a, $24
 	ld b, $01
 	farcall Sprite_InitSlot
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $6560
 	ld a, $24
 	ld b, $01
 	farcall Sprite_InitSlot
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $6560
 	ld a, $24
 	ld b, $01
 	farcall Sprite_InitSlot
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $6560
 	ld a, $24
 	ld b, $01
 	farcall Sprite_InitSlot
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $6560
 	ld a, $24
 	ld b, $01
@@ -608,7 +608,7 @@ PageList_InitRowSprites:: ; 24:445C
 	ld a, [de]
 	cp a, $00
 	jr z, .l44EF
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $6550
 	ld a, $24
 	ld b, $01
@@ -622,7 +622,7 @@ PageList_InitRowSprites:: ; 24:445C
 	ld a, [de]
 	cp a, $00
 	jr z, .l450B
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $6550
 	ld a, $24
 	ld b, $01
@@ -639,7 +639,7 @@ PageList_InitRowSprites:: ; 24:445C
 
 	; [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 42F0-4B10 by apply_coverage --split
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $6550
 	ld a, $24
 	ld b, $01
@@ -656,7 +656,7 @@ PageList_InitRowSprites:: ; 24:445C
 	ld a, [de]
 	cp a, $00
 	jr z, .l4543
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $6550
 	ld a, $24
 	ld b, $01
@@ -673,7 +673,7 @@ PageList_InitRowSprites:: ; 24:445C
 
 	; [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 42F0-4B10 by apply_coverage --split
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $6550
 	ld a, $24
 	ld b, $01
@@ -693,7 +693,7 @@ PageList_InitRowSprites:: ; 24:445C
 
 	; [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 42F0-4B10 by apply_coverage --split
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $6550
 	ld a, $24
 	ld b, $01
@@ -703,24 +703,24 @@ PageList_InitRowSprites:: ; 24:445C
 	; [CONFIRMED] 111 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld a, $23
-	ld [wSpriteSlots + 96], a
+	ld [wSpriteSlot6], a
 	ld a, $2F
-	ld [wSpriteSlots + 80], a
+	ld [wSpriteSlot5], a
 	ld a, $3B
-	ld [wSpriteSlots + 64], a
+	ld [wSpriteSlot4], a
 	ld a, $47
-	ld [wSpriteSlots + 48], a
+	ld [wSpriteSlot3], a
 	ld a, $53
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot2], a
 	ld a, $5F
-	ld [wSpriteSlots + 16], a
+	ld [wSpriteSlot1], a
 	ld a, $06
-	ld [wSpriteSlots + 97], a
-	ld [wSpriteSlots + 81], a
-	ld [wSpriteSlots + 65], a
-	ld [wSpriteSlots + 49], a
-	ld [wSpriteSlots + 33], a
-	ld [wSpriteSlots + 17], a
+	ld [wSpriteSlot6 + $01], a
+	ld [wSpriteSlot5 + $01], a
+	ld [wSpriteSlot4 + $01], a
+	ld [wSpriteSlot3 + $01], a
+	ld [wSpriteSlot2 + $01], a
+	ld [wSpriteSlot1 + $01], a
 	push af
 	xor a, a
 	ldh [hSRAMEnable], a
@@ -753,26 +753,26 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld a, [de]
 	cp a, $00
 	jr z, .l45FB
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, PageList_ObjTable
 	ld a, $24
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $23
-	ld [wSpriteSlots + 96], a
+	ld [wSpriteSlot6], a
 	ld a, $06
-	ld [wSpriteSlots + 97], a
+	ld [wSpriteSlot6 + $01], a
 	jp .l478A
 .l45FB ; 24:45FB
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $6540
 	ld a, $24
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $23
-	ld [wSpriteSlots + 96], a
+	ld [wSpriteSlot6], a
 	ld a, $06
-	ld [wSpriteSlots + 97], a
+	ld [wSpriteSlot6 + $01], a
 	jp .l478A
 .l4618 ; 24:4618
 	inc a
@@ -786,26 +786,26 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld a, [de]
 	cp a, $00
 	jr z, .l4645
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, PageList_ObjTable
 	ld a, $24
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $2F
-	ld [wSpriteSlots + 80], a
+	ld [wSpriteSlot5], a
 	ld a, $06
-	ld [wSpriteSlots + 81], a
+	ld [wSpriteSlot5 + $01], a
 	jp .l478A
 .l4645 ; 24:4645
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $6540
 	ld a, $24
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $2F
-	ld [wSpriteSlots + 80], a
+	ld [wSpriteSlot5], a
 	ld a, $06
-	ld [wSpriteSlots + 81], a
+	ld [wSpriteSlot5 + $01], a
 	jp .l478A
 .l4662 ; 24:4662
 	inc a
@@ -822,29 +822,29 @@ PageList_HighlightRowSprite:: ; 24:45B7
 
 	; [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 42F0-4B10 by apply_coverage --split
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, PageList_ObjTable
 	ld a, $24
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $3B
-	ld [wSpriteSlots + 64], a
+	ld [wSpriteSlot4], a
 	ld a, $06
-	ld [wSpriteSlots + 65], a
+	ld [wSpriteSlot4 + $01], a
 	jp .l478A
 
 .l468F ; 24:468F
 	; [CONFIRMED] 21 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage
 	; --split [executed in 2 scenarios]
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $6540
 	ld a, $24
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $3B
-	ld [wSpriteSlots + 64], a
+	ld [wSpriteSlot4], a
 	ld a, $06
-	ld [wSpriteSlots + 65], a
+	ld [wSpriteSlot4 + $01], a
 	jp .l478A
 .l46AC ; 24:46AC
 	inc a
@@ -861,29 +861,29 @@ PageList_HighlightRowSprite:: ; 24:45B7
 
 	; [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 42F0-4B10 by apply_coverage --split
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, PageList_ObjTable
 	ld a, $24
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $47
-	ld [wSpriteSlots + 48], a
+	ld [wSpriteSlot3], a
 	ld a, $06
-	ld [wSpriteSlots + 49], a
+	ld [wSpriteSlot3 + $01], a
 	jp .l478A
 
 .l46D9 ; 24:46D9
 	; [CONFIRMED] 21 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage
 	; --split [executed in 2 scenarios]
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $6540
 	ld a, $24
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $47
-	ld [wSpriteSlots + 48], a
+	ld [wSpriteSlot3], a
 	ld a, $06
-	ld [wSpriteSlots + 49], a
+	ld [wSpriteSlot3 + $01], a
 	jp .l478A
 .l46F6 ; 24:46F6
 	inc a
@@ -900,29 +900,29 @@ PageList_HighlightRowSprite:: ; 24:45B7
 
 	; [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 42F0-4B10 by apply_coverage --split
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, PageList_ObjTable
 	ld a, $24
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $53
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot2], a
 	ld a, $06
-	ld [wSpriteSlots + 33], a
+	ld [wSpriteSlot2 + $01], a
 	jp .l478A
 
 .l4723 ; 24:4723
 	; [CONFIRMED] 21 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage
 	; --split [executed in 4 scenarios]
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $6540
 	ld a, $24
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $53
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot2], a
 	ld a, $06
-	ld [wSpriteSlots + 33], a
+	ld [wSpriteSlot2 + $01], a
 	jp .l478A
 .l4740 ; 24:4740
 	inc a
@@ -939,29 +939,29 @@ PageList_HighlightRowSprite:: ; 24:45B7
 
 	; [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 42F0-4B10 by apply_coverage --split
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, PageList_ObjTable
 	ld a, $24
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $5F
-	ld [wSpriteSlots + 16], a
+	ld [wSpriteSlot1], a
 	ld a, $06
-	ld [wSpriteSlots + 17], a
+	ld [wSpriteSlot1 + $01], a
 	jp .l478A
 
 .l476D ; 24:476D
 	; [CONFIRMED] 334 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage
 	; --split [executed in 2 scenarios]
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $6540
 	ld a, $24
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $5F
-	ld [wSpriteSlots + 16], a
+	ld [wSpriteSlot1], a
 	ld a, $06
-	ld [wSpriteSlots + 17], a
+	ld [wSpriteSlot1 + $01], a
 	jp .l478A
 .l478A ; 24:478A
 	push af
@@ -1695,7 +1695,7 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	xor a, a
 	ld [wBrowserFetchResult], a
 	farcall Sprites_SaveSlotsToBank3
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	call Sprite_ClearSlot
 	ld de, $0110
 	push af
@@ -1949,15 +1949,15 @@ PageList_ActionMenuInit:: ; 24:4E46
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	ld de, $6570
 	ld a, $24
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $6F
-	ld [wSpriteSlots], a
+	ld [wSpriteSlot0], a
 	ld a, $16
-	ld [wSpriteSlots + 1], a
+	ld [wSpriteSlot0 + $01], a
 	pop bc
 	xor a, a
 	ld d, b
@@ -1972,7 +1972,7 @@ PageList_HideActionCursor:: ; 24:4E71
 	ldh [rSVBK], a
 	push bc
 	ld a, $E8
-	ld [wSpriteSlots + 1], a
+	ld [wSpriteSlot0 + $01], a
 	farcall Sprite_UpdateAll
 	pop bc
 	ret
@@ -1985,45 +1985,45 @@ PageList_SetActionCursor:: ; 24:4E85
 	ld a, $00
 	cp a, b
 	jr nz, .l4EAD
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	ld de, $6570
 	ld a, $24
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $6F
-	ld [wSpriteSlots], a
+	ld [wSpriteSlot0], a
 	ld a, $16
-	ld [wSpriteSlots + 1], a
+	ld [wSpriteSlot0 + $01], a
 	pop bc
 	ret
 .l4EAD ; 24:4EAD
 	ld a, $01
 	cp a, b
 	jr nz, .l4ECE
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	ld de, $6580
 	ld a, $24
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $6F
-	ld [wSpriteSlots], a
+	ld [wSpriteSlot0], a
 	ld a, $46
-	ld [wSpriteSlots + 1], a
+	ld [wSpriteSlot0 + $01], a
 	pop bc
 	ret
 .l4ECE ; 24:4ECE
 	ld a, $02
 	cp a, b
 	jr nz, .l4EEF
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	ld de, $6590
 	ld a, $24
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $6F
-	ld [wSpriteSlots], a
+	ld [wSpriteSlot0], a
 	ld a, $76
-	ld [wSpriteSlots + 1], a
+	ld [wSpriteSlot0 + $01], a
 	pop bc
 	ret
 
@@ -2099,16 +2099,16 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wSpriteSlots + 33]
+	ld a, [wSpriteSlot2 + $01]
 	ld c, a
 	ld a, $C0
-	ld [wSpriteSlots + 49], a
-	ld [wSpriteSlots + 33], a
-	ld [wSpriteSlots + 17], a
-	ld a, [wSpriteSlots]
+	ld [wSpriteSlot3 + $01], a
+	ld [wSpriteSlot2 + $01], a
+	ld [wSpriteSlot1 + $01], a
+	ld a, [wSpriteSlot0]
 	ld b, a
 	ld a, $C0
-	ld [wSpriteSlots], a
+	ld [wSpriteSlot0], a
 	push bc
 	ld de, $0109
 	push af
@@ -2159,7 +2159,7 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	ld de, $6580
 	ld a, $24
 	ld b, $81
@@ -2168,9 +2168,9 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $6F
-	ld [wSpriteSlots], a
+	ld [wSpriteSlot0], a
 	ld a, $46
-	ld [wSpriteSlots + 1], a
+	ld [wSpriteSlot0 + $01], a
 	pop bc
 	push bc
 	call PageList_UpdateRowSprites
@@ -2202,7 +2202,7 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	ld a, c
 	cp a, $00
 	jr nz, .l5039
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $65A0
 	ld a, $24
 	ld b, $01
@@ -2211,14 +2211,14 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $23
-	ld [wSpriteSlots + 96], a
+	ld [wSpriteSlot6], a
 	ld a, $06
-	ld [wSpriteSlots + 97], a
+	ld [wSpriteSlot6 + $01], a
 	jp .l50FC
 .l5039 ; 24:5039
 	cp a, $01
 	jr nz, .l5060
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $65A0
 	ld a, $24
 	ld b, $01
@@ -2227,9 +2227,9 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $2F
-	ld [wSpriteSlots + 80], a
+	ld [wSpriteSlot5], a
 	ld a, $06
-	ld [wSpriteSlots + 81], a
+	ld [wSpriteSlot5 + $01], a
 	jp .l50FC
 .l5060 ; 24:5060
 	cp a, $02
@@ -2237,7 +2237,7 @@ PageList_SaveCurrentPage:: ; 24:4F14
 
 	; [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4BCD-53FE by apply_coverage --split
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $65A0
 	ld a, $24
 	ld b, $01
@@ -2246,9 +2246,9 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $3B
-	ld [wSpriteSlots + 64], a
+	ld [wSpriteSlot4], a
 	ld a, $06
-	ld [wSpriteSlots + 65], a
+	ld [wSpriteSlot4 + $01], a
 	jp .l50FC
 
 .l5087 ; 24:5087
@@ -2256,7 +2256,7 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	; --split [executed in 1 scenarios]
 	cp a, $03
 	jr nz, .l50AE
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $65A0
 	ld a, $24
 	ld b, $01
@@ -2265,9 +2265,9 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $47
-	ld [wSpriteSlots + 48], a
+	ld [wSpriteSlot3], a
 	ld a, $06
-	ld [wSpriteSlots + 49], a
+	ld [wSpriteSlot3 + $01], a
 	jp .l50FC
 
 .l50AE ; 24:50AE
@@ -2275,7 +2275,7 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	; 4BCD-53FE by apply_coverage --split
 	cp a, $04
 	jr nz, .l50D5
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $65A0
 	ld a, $24
 	ld b, $01
@@ -2284,14 +2284,14 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $53
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot2], a
 	ld a, $06
-	ld [wSpriteSlots + 33], a
+	ld [wSpriteSlot2 + $01], a
 	jp .l50FC
 .l50D5 ; 24:50D5
 	cp a, $05
 	jr nz, .l50FC
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $65A0
 	ld a, $24
 	ld b, $01
@@ -2300,9 +2300,9 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $5F
-	ld [wSpriteSlots + 16], a
+	ld [wSpriteSlot1], a
 	ld a, $06
-	ld [wSpriteSlots + 17], a
+	ld [wSpriteSlot1 + $01], a
 	jp .l50FC
 
 .l50FC ; 24:50FC
@@ -2486,16 +2486,16 @@ PageList_DeleteSlot:: ; 24:51CB
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wSpriteSlots + 33]
+	ld a, [wSpriteSlot2 + $01]
 	ld c, a
 	ld a, $C0
-	ld [wSpriteSlots + 49], a
-	ld [wSpriteSlots + 33], a
-	ld [wSpriteSlots + 17], a
-	ld a, [wSpriteSlots]
+	ld [wSpriteSlot3 + $01], a
+	ld [wSpriteSlot2 + $01], a
+	ld [wSpriteSlot1 + $01], a
+	ld a, [wSpriteSlot0]
 	ld b, a
 	ld a, $C0
-	ld [wSpriteSlots], a
+	ld [wSpriteSlot0], a
 	push bc
 	ld de, $0108
 	push af
@@ -2546,7 +2546,7 @@ PageList_DeleteSlot:: ; 24:51CB
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	ld de, $6590
 	ld a, $24
 	ld b, $81
@@ -2555,9 +2555,9 @@ PageList_DeleteSlot:: ; 24:51CB
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $6F
-	ld [wSpriteSlots], a
+	ld [wSpriteSlot0], a
 	ld a, $76
-	ld [wSpriteSlots + 1], a
+	ld [wSpriteSlot0 + $01], a
 	pop bc
 	push bc
 	call PageList_UpdateRowSprites
@@ -2584,7 +2584,7 @@ PageList_DeleteSlot:: ; 24:51CB
 	ld a, c
 	cp a, $00
 	jr nz, .l52E3
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $65B0
 	ld a, $24
 	ld b, $01
@@ -2593,14 +2593,14 @@ PageList_DeleteSlot:: ; 24:51CB
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $23
-	ld [wSpriteSlots + 96], a
+	ld [wSpriteSlot6], a
 	ld a, $06
-	ld [wSpriteSlots + 97], a
+	ld [wSpriteSlot6 + $01], a
 	jp .l53A6
 .l52E3 ; 24:52E3
 	cp a, $01
 	jr nz, .l530A
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $65B0
 	ld a, $24
 	ld b, $01
@@ -2609,9 +2609,9 @@ PageList_DeleteSlot:: ; 24:51CB
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $2F
-	ld [wSpriteSlots + 80], a
+	ld [wSpriteSlot5], a
 	ld a, $06
-	ld [wSpriteSlots + 81], a
+	ld [wSpriteSlot5 + $01], a
 	jp .l53A6
 
 .l530A ; 24:530A
@@ -2619,7 +2619,7 @@ PageList_DeleteSlot:: ; 24:51CB
 	; 4BCD-53FE by apply_coverage --split
 	cp a, $02
 	jr nz, .l5331
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $65B0
 	ld a, $24
 	ld b, $01
@@ -2628,14 +2628,14 @@ PageList_DeleteSlot:: ; 24:51CB
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $3B
-	ld [wSpriteSlots + 64], a
+	ld [wSpriteSlot4], a
 	ld a, $06
-	ld [wSpriteSlots + 65], a
+	ld [wSpriteSlot4 + $01], a
 	jp .l53A6
 .l5331 ; 24:5331
 	cp a, $03
 	jr nz, .l5358
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $65B0
 	ld a, $24
 	ld b, $01
@@ -2644,14 +2644,14 @@ PageList_DeleteSlot:: ; 24:51CB
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $47
-	ld [wSpriteSlots + 48], a
+	ld [wSpriteSlot3], a
 	ld a, $06
-	ld [wSpriteSlots + 49], a
+	ld [wSpriteSlot3 + $01], a
 	jp .l53A6
 .l5358 ; 24:5358
 	cp a, $04
 	jr nz, .l537F
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $65B0
 	ld a, $24
 	ld b, $01
@@ -2660,14 +2660,14 @@ PageList_DeleteSlot:: ; 24:51CB
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $53
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot2], a
 	ld a, $06
-	ld [wSpriteSlots + 33], a
+	ld [wSpriteSlot2 + $01], a
 	jp .l53A6
 .l537F ; 24:537F
 	cp a, $05
 	jr nz, .l53A6
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $65B0
 	ld a, $24
 	ld b, $01
@@ -2676,9 +2676,9 @@ PageList_DeleteSlot:: ; 24:51CB
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $5F
-	ld [wSpriteSlots + 16], a
+	ld [wSpriteSlot1], a
 	ld a, $06
-	ld [wSpriteSlots + 17], a
+	ld [wSpriteSlot1 + $01], a
 	jp .l53A6
 
 .l53A6 ; 24:53A6

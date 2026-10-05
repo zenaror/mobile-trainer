@@ -224,12 +224,12 @@ Function_26_5168::
 	or a, c
 	jr nz, .l51C4
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_CommProgress_Bg
 	ld a, $22
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, $5C90
 	ld a, $22
 	farcall Palette_LoadToBuffer
@@ -282,7 +282,7 @@ Function_26_5168::
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, $7520
 	ld a, $27
 	farcall Palette_LoadToBuffer
@@ -310,7 +310,7 @@ Function_26_5168::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 
 	; [PROBABLE] 11 insn(s) reached by static flow only; seeds: site x11; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code

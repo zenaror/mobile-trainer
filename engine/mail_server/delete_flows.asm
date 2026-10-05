@@ -414,13 +414,13 @@ MailSrvDel_DeleteAllRun:: ; 23:4C94
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	ld de, $7AD0
 	ld a, $23
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0000
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	call Sprite_SetPosition
 	call MailSrvDel_MsgReading
 	farcall Timer_ResetClockB
@@ -666,13 +666,13 @@ MailSrvDel_DeleteAllRun_CheckDone:: ; 23:4DFB
 	ld a, $FF
 	call SpriteCounter_StubB
 	call MailSrvDel_MsgNoMail
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	ld de, $7AD0
 	ld a, $23
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld de, $0000
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	call Sprite_SetPosition
 	ld a, $78
 .loop ; 23:4E80
@@ -1020,13 +1020,13 @@ MailSrvDel_DeleteAllRun_NextMail:: ; 23:5063
 	call SpriteCounter_StubB
 	farcall Sprite_UpdateAll
 	call MailSrvDel_MsgAllDeleted
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	ld de, $7AD0
 	ld a, $23
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld de, $0000
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	call Sprite_SetPosition
 	ld a, $78
 .loop ; 23:5098
@@ -1213,13 +1213,13 @@ MailSrvDel_DeleteCompletelyRun:: ; 23:51C7
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	ld de, $7AD0
 	ld a, $23
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0000
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	call Sprite_SetPosition
 	call MailSrvDel_MsgReading
 	farcall Timer_ResetClockB
@@ -1328,13 +1328,13 @@ MailSrvDel_DeleteCompletelyRun_GotMailCount:: ; 23:525E
 	ld a, $FF
 	call SpriteCounter_StubB
 	call MailSrvDel_MsgNoMail
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	ld de, $7AD0
 	ld a, $23
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld de, $0000
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	call Sprite_SetPosition
 	ld a, $78
 .loop ; 23:52ED
@@ -1576,13 +1576,13 @@ MailSrvDel_DeleteCompletelyRun_NextMail:: ; 23:5424
 	call SpriteCounter_StubB
 	farcall Sprite_UpdateAll
 	call MailSrvDel_MsgAllDeleted
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	ld de, $7AD0
 	ld a, $23
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld de, $0000
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	call Sprite_SetPosition
 	ld a, $78
 .loop ; 23:547D
@@ -1717,13 +1717,13 @@ MailSrvDel_Cancelled:: ; 23:553D
 	ld [bc], a
 	pop hl
 	call MailSrvDel_MsgBlank
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	ld de, $7AD0
 	ld a, $23
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld de, $0000
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	call Sprite_SetPosition
 	farcall Timer_ResetClockB
 	ld de, $C0A9 ; raw: dead load: DE is never read

@@ -210,7 +210,7 @@ PalFade_BlendColor:: ; 4F:4083
 	ld a, [hli]
 	ldh [hRam_FFB1], a
 .l4126 ; 4F:4126
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	add hl, de
 	ldh a, [hRam_FFB0]
 	ld [hli], a
@@ -224,7 +224,7 @@ PalFade_BlendColor:: ; 4F:4083
 	ldh [hRam_FFB0], a
 	ld a, [hli]
 	ldh [hRam_FFB1], a
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	add hl, de
 	ldh a, [hRam_FFB0]
 	ld [hli], a
@@ -476,7 +476,7 @@ Function_4F_428E::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 
 	; [PROBABLE] 8 insn(s) reached by static flow only; seeds: site x8; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
@@ -502,7 +502,7 @@ Function_4F_42B4::
 	ldh [rSVBK], a
 	ld bc, $0080
 	ld de, $D880
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	call CopyBytes
 	ld a, $00
 	ld [wPalFadeMode], a
@@ -513,7 +513,7 @@ Function_4F_42B4::
 	call LCDOn
 .loop ; 4F:42E0
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService
@@ -536,7 +536,7 @@ Palette_FadeInFromWhiteSlow:: ; 4F:42FF
 	ldh [rSVBK], a
 	ld bc, $0080
 	ld de, $D880
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	call CopyBytes
 	ld a, $00
 	ld [wPalFadeMode], a
@@ -547,7 +547,7 @@ Palette_FadeInFromWhiteSlow:: ; 4F:42FF
 	call LCDOn
 .loop ; 4F:432B
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService
@@ -575,7 +575,7 @@ Function_4F_434A::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 
 	; [PROBABLE] 8 insn(s) reached by static flow only; seeds: site x8; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
@@ -601,7 +601,7 @@ Function_4F_4370::
 	ldh [rSVBK], a
 	ld bc, $0080
 	ld de, $D880
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	call CopyBytes
 	ld a, $00
 	ld [wPalFadeMode], a
@@ -611,7 +611,7 @@ Function_4F_4370::
 	call PalFade_Step
 .loop ; 4F:4399
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService
@@ -634,7 +634,7 @@ Palette_FadeOutToWhiteSlow:: ; 4F:43B8
 	ldh [rSVBK], a
 	ld bc, $0080
 	ld de, $D880
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	call CopyBytes
 	ld a, $00
 	ld [wPalFadeMode], a
@@ -644,7 +644,7 @@ Palette_FadeOutToWhiteSlow:: ; 4F:43B8
 	call PalFade_Step
 .loop ; 4F:43E1
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService
@@ -672,7 +672,7 @@ Function_4F_4400::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 
 	; [PROBABLE] 39 insn(s) reached by static flow only; seeds: site x39; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
@@ -696,7 +696,7 @@ Function_4F_4426::
 	ldh [rSVBK], a
 	ld bc, $0080
 	ld de, $D880
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	call CopyBytes
 	ld a, $00
 	ld [wPalFadeMode], a
@@ -707,7 +707,7 @@ Function_4F_4426::
 	call LCDOn
 .loop ; 4F:4452
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService
@@ -735,7 +735,7 @@ Function_4F_4471::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 
 	; [PROBABLE] 38 insn(s) reached by static flow only; seeds: site x38; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
@@ -759,7 +759,7 @@ Function_4F_4497::
 	ldh [rSVBK], a
 	ld bc, $0080
 	ld de, $D880
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	call CopyBytes
 	ld a, $00
 	ld [wPalFadeMode], a
@@ -769,7 +769,7 @@ Function_4F_4497::
 	call PalFade_Step
 .loop ; 4F:44C0
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService
@@ -798,7 +798,7 @@ Function_4F_44DF::
 	ldh [rSVBK], a
 	ld bc, $0080
 	ld de, $D880
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	call CopyBytes
 	ld a, $03
 	ld [wPalFadeMode], a
@@ -812,7 +812,7 @@ Function_4F_44DF::
 	; [PROBABLE] 13 insn(s) reached by static flow only; seeds: site x13; min discovery hops 0;
 	; entered by jrcc from 4F:451E (PROBABLE code)
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService
@@ -841,7 +841,7 @@ Function_4F_452A::
 	ldh [rSVBK], a
 	ld bc, $0080
 	ld de, $D880
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	call CopyBytes
 	ld a, $03
 	ld [wPalFadeMode], a
@@ -854,7 +854,7 @@ Function_4F_452A::
 	; [PROBABLE] 13 insn(s) reached by static flow only; seeds: site x13; min discovery hops 0;
 	; entered by jrcc from 4F:4566 (PROBABLE code)
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService

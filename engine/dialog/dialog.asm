@@ -57,7 +57,7 @@ Dialog_Open:: ; 72:402A
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0010
-	ld de, $D830
+	ld de, wPaletteBufBg + $30
 	ld hl, Dialog_Palette
 	ld a, $72
 	farcall Palette_LoadToBuffer
@@ -67,7 +67,7 @@ Dialog_Open:: ; 72:402A
 	ld a, $72
 	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0008
-	ld de, $D860
+	ld de, wPaletteBufObj + $20
 	ld hl, $4E38
 	ld a, $72
 	farcall Palette_LoadToBuffer
@@ -79,7 +79,7 @@ Dialog_Open:: ; 72:402A
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService
@@ -88,12 +88,12 @@ Dialog_Open:: ; 72:402A
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
-	ld hl, $DAC0
+	ld hl, wSpriteSlot12
 	ld de, Dialog_CursorObjTable
 	ld a, $72
 	ld b, $81
 	farcall Sprite_InitSlot
-	ld hl, $DACB
+	ld hl, wSpriteSlot12 + $0B
 	ld de, $0A1A
 	ld a, $00
 	call Sprite_SetHook
@@ -206,7 +206,7 @@ Dialog_OpenTall:: ; 72:41D8
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0010
-	ld de, $D830
+	ld de, wPaletteBufBg + $30
 	ld hl, Dialog_Palette
 	ld a, $72
 	farcall Palette_LoadToBuffer
@@ -216,7 +216,7 @@ Dialog_OpenTall:: ; 72:41D8
 	ld a, $72
 	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0008
-	ld de, $D860
+	ld de, wPaletteBufObj + $20
 	ld hl, $4E38
 	ld a, $72
 	farcall Palette_LoadToBuffer
@@ -228,7 +228,7 @@ Dialog_OpenTall:: ; 72:41D8
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService
@@ -237,12 +237,12 @@ Dialog_OpenTall:: ; 72:41D8
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
-	ld hl, $DAC0
+	ld hl, wSpriteSlot12
 	ld de, Dialog_CursorObjTable
 	ld a, $72
 	ld b, $81
 	farcall Sprite_InitSlot
-	ld hl, $DACB
+	ld hl, wSpriteSlot12 + $0B
 	ld de, $0A1A
 	ld a, $00
 	call Sprite_SetHook
@@ -394,7 +394,7 @@ Table_72_43AA::
 Dialog_SetupCursorByType_NoButton:: ; 72:43B6
 Label_72_43B6::
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
-	ld hl, $DAC0
+	ld hl, wSpriteSlot12
 	call Sprite_ClearSlot
 	ld a, $00
 	ldh [hDialogResult], a
@@ -412,7 +412,7 @@ Label_72_43C1::
 	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 43C1-43DC by apply_coverage --split
 	ld de, $D058
-	ld hl, $DAC0
+	ld hl, wSpriteSlot12
 	call Sprite_SetPosition
 	jr Dialog_SetupCursorByType_DrawTwoButtons
 
@@ -420,7 +420,7 @@ Label_72_43C1::
 	; [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 43C1-43DC by apply_coverage
 	; --split [executed in 3 scenarios]
 	ld de, $D028
-	ld hl, $DAC0
+	ld hl, wSpriteSlot12
 	call Sprite_SetPosition
 	jr Dialog_SetupCursorByType_DrawTwoButtons
 
@@ -431,12 +431,12 @@ Label_72_43DC::
 	or a, a
 	jr z, .l43EC
 	ld de, $C058
-	ld hl, $DAC0
+	ld hl, wSpriteSlot12
 	call Sprite_SetPosition
 	jr Dialog_SetupCursorByType_DrawTwoButtons
 .l43EC ; 72:43EC
 	ld de, $C028
-	ld hl, $DAC0
+	ld hl, wSpriteSlot12
 	call Sprite_SetPosition
 	jr Dialog_SetupCursorByType_DrawTwoButtons
 
@@ -452,14 +452,14 @@ Label_72_43F7::
 Dialog_SetupCursorByType_OneButtonTall:: ; 72:4407
 Label_72_4407::
 	ld de, $D040
-	ld hl, $DAC0
+	ld hl, wSpriteSlot12
 	call Sprite_SetPosition
 	jr Dialog_SetupCursorByType_DrawOneButton
 
 Dialog_SetupCursorByType_OneButton:: ; 72:4412
 Label_72_4412::
 	ld de, $C040
-	ld hl, $DAC0
+	ld hl, wSpriteSlot12
 	call Sprite_SetPosition
 
 Dialog_SetupCursorByType_DrawOneButton:: ; 72:441B
@@ -528,7 +528,7 @@ Dialog_Close:: ; 72:444F
 	call CopyBytesBackward
 	ldh a, [rLCDC]
 	farcall Dialog_UploadWindowMap
-	ld hl, $DACB
+	ld hl, wSpriteSlot12 + $0B
 	ld de, $0A1A
 	ld a, $00
 	call Sprite_SetHook
@@ -554,7 +554,7 @@ Dialog_Close:: ; 72:444F
 	ldh [rLCDC], a
 	ei
 	call Sound_FrameService
-	ld hl, $DAC0
+	ld hl, wSpriteSlot12
 	call Sprite_ClearSlot
 	ld a, [wJoySavedRepeatInterval]
 	ld c, a
@@ -586,7 +586,7 @@ Dialog_CloseTall:: ; 72:44E6
 	call CopyBytesBackward
 	ldh a, [rLCDC]
 	farcall Dialog_UploadWindowMapTall
-	ld hl, $DACB
+	ld hl, wSpriteSlot12 + $0B
 	ld de, $0A1A
 	ld a, $00
 	call Sprite_SetHook
@@ -612,7 +612,7 @@ Dialog_CloseTall:: ; 72:44E6
 	ldh [rLCDC], a
 	ei
 	call Sound_FrameService
-	ld hl, $DAC0
+	ld hl, wSpriteSlot12
 	call Sprite_ClearSlot
 	ld a, [wJoySavedRepeatInterval]
 	ld c, a
@@ -683,12 +683,12 @@ Label_72_45A0::
 	or a, a
 	jr nz, .l45DE
 	ld de, $7828
-	ld hl, $DAC0
+	ld hl, wSpriteSlot12
 	call Sprite_SetPosition
 	jp Dialog_WaitInput
 .l45DE ; 72:45DE
 	ld de, $7858
-	ld hl, $DAC0
+	ld hl, wSpriteSlot12
 	call Sprite_SetPosition
 	jp Dialog_WaitInput
 
@@ -845,12 +845,12 @@ Label_72_46A2::
 	or a, a
 	jr nz, .l46E0
 	ld de, $7828
-	ld hl, $DAC0
+	ld hl, wSpriteSlot12
 	call Sprite_SetPosition
 	jp Dialog_WaitInputMonitored
 .l46E0 ; 72:46E0
 	ld de, $7858
-	ld hl, $DAC0
+	ld hl, wSpriteSlot12
 	call Sprite_SetPosition
 	jp Dialog_WaitInputMonitored
 

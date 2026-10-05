@@ -120,10 +120,10 @@ Mailbox_Main_Loop:: ; 25:4043
 .l40C5 ; 25:40C5
 	call Mailbox_SetIconBarAttrs
 	ld de, $68D0
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	ld de, $30D0
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	pop de
 	pop bc
@@ -163,21 +163,21 @@ Mailbox_Main_Loop:: ; 25:4043
 Mailbox_IconMenu_Enter:: ; 25:411E
 Label_25_411E::
 	push bc
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, Mailbox_ObjTable
 	ld a, $26
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7020
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $7B10
 	ld a, $26
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7020
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 	ld d, $00
 	call Mailbox_ShowHint
@@ -207,18 +207,18 @@ Mailbox_IconMenu_Loop:: ; 25:415C
 	pop af
 	ldh [rSVBK], a
 	ld de, $6848
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	ld de, $3048
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	pop de
 	pop bc
 	ld de, $70D0
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld de, $70D0
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 	xor a, a
 	call Mailbox_SetIconBarAttrs
@@ -288,25 +288,25 @@ Mailbox_IconMenu_PressA:: ; 25:420A
 	push de
 	farcall Sprites_SaveSlotsToBank3
 	ld de, $70D0
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld de, $70D0
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $E0
-	ld [wSpriteSlots + 97], a
-	ld [wSpriteSlots + 113], a
-	ld [wSpriteSlots + 129], a
-	ld [wSpriteSlots + 161], a
-	ld [wSpriteSlots + 177], a
-	ld [wSpriteSlots + 193], a
-	ld a, [wSpriteSlots + 64]
+	ld [wSpriteSlot6 + $01], a
+	ld [wSpriteSlot7 + $01], a
+	ld [wSpriteSlot8 + $01], a
+	ld [wSpriteSlot10 + $01], a
+	ld [wSpriteSlot11 + $01], a
+	ld [wSpriteSlot12 + $01], a
+	ld a, [wSpriteSlot4]
 	ld d, a
 	ld a, $D0
-	ld [wSpriteSlots + 64], a
+	ld [wSpriteSlot4], a
 	push de
 	ld de, $0206
 	push af
@@ -342,14 +342,14 @@ Mailbox_IconMenu_PressA:: ; 25:420A
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $08
-	ld [wSpriteSlots + 97], a
-	ld [wSpriteSlots + 113], a
-	ld [wSpriteSlots + 129], a
-	ld [wSpriteSlots + 161], a
-	ld [wSpriteSlots + 177], a
-	ld [wSpriteSlots + 193], a
+	ld [wSpriteSlot6 + $01], a
+	ld [wSpriteSlot7 + $01], a
+	ld [wSpriteSlot8 + $01], a
+	ld [wSpriteSlot10 + $01], a
+	ld [wSpriteSlot11 + $01], a
+	ld [wSpriteSlot12 + $01], a
 	ld a, d
-	ld [wSpriteSlots + 64], a
+	ld [wSpriteSlot4], a
 	farcall Sprites_RestoreSlotsFromBank3
 	pop af
 	pop de
@@ -427,13 +427,13 @@ Mailbox_IconMenu_PressA:: ; 25:420A
 	jr nz, .l4322
 	jr .l433B
 .l4322 ; 25:4322
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7B40
 	ld a, $26
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3048
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 .l433B ; 25:433B
 	pop bc
@@ -450,10 +450,10 @@ Mailbox_IconMenu_PressA:: ; 25:420A
 	; --split [executed in 4 scenarios]
 	push bc
 	ld de, $70D0
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld de, $70D0
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 	pop bc
 	call Mailbox_DrawMailCount
@@ -495,25 +495,25 @@ Mailbox_IconMenu_PressA:: ; 25:420A
 	push bc
 	push de
 	ld de, $70D0
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld de, $70D0
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $E0
-	ld [wSpriteSlots + 97], a
-	ld [wSpriteSlots + 113], a
-	ld [wSpriteSlots + 129], a
-	ld [wSpriteSlots + 161], a
-	ld [wSpriteSlots + 177], a
-	ld [wSpriteSlots + 193], a
-	ld a, [wSpriteSlots + 64]
+	ld [wSpriteSlot6 + $01], a
+	ld [wSpriteSlot7 + $01], a
+	ld [wSpriteSlot8 + $01], a
+	ld [wSpriteSlot10 + $01], a
+	ld [wSpriteSlot11 + $01], a
+	ld [wSpriteSlot12 + $01], a
+	ld a, [wSpriteSlot4]
 	ld d, a
 	ld a, $D0
-	ld [wSpriteSlots + 64], a
+	ld [wSpriteSlot4], a
 	push de
 	ld de, $0221
 	push af
@@ -549,14 +549,14 @@ Mailbox_IconMenu_PressA:: ; 25:420A
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $08
-	ld [wSpriteSlots + 97], a
-	ld [wSpriteSlots + 113], a
-	ld [wSpriteSlots + 129], a
-	ld [wSpriteSlots + 161], a
-	ld [wSpriteSlots + 177], a
-	ld [wSpriteSlots + 193], a
+	ld [wSpriteSlot6 + $01], a
+	ld [wSpriteSlot7 + $01], a
+	ld [wSpriteSlot8 + $01], a
+	ld [wSpriteSlot10 + $01], a
+	ld [wSpriteSlot11 + $01], a
+	ld [wSpriteSlot12 + $01], a
 	ld a, d
-	ld [wSpriteSlots + 64], a
+	ld [wSpriteSlot4], a
 	pop af
 	pop de
 	pop bc
@@ -572,10 +572,10 @@ Mailbox_IconMenu_PressA:: ; 25:420A
 	dec a
 	jp nz, .l4454
 	ld de, $D020
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld de, $D020
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 	push bc
 	push de
@@ -665,19 +665,19 @@ Mailbox_IconMenu_ReplyOrRead:: ; 25:446E
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $E0
-	ld [wSpriteSlots + 97], a
-	ld [wSpriteSlots + 113], a
-	ld [wSpriteSlots + 129], a
-	ld [wSpriteSlots + 161], a
-	ld [wSpriteSlots + 177], a
-	ld [wSpriteSlots + 193], a
-	ld a, [wSpriteSlots + 64]
+	ld [wSpriteSlot6 + $01], a
+	ld [wSpriteSlot7 + $01], a
+	ld [wSpriteSlot8 + $01], a
+	ld [wSpriteSlot10 + $01], a
+	ld [wSpriteSlot11 + $01], a
+	ld [wSpriteSlot12 + $01], a
+	ld a, [wSpriteSlot4]
 	ld d, a
 	push de
 	ld a, $E0
-	ld [wSpriteSlots + 16], a
-	ld [wSpriteSlots + 32], a
-	ld [wSpriteSlots + 64], a
+	ld [wSpriteSlot1], a
+	ld [wSpriteSlot2], a
+	ld [wSpriteSlot4], a
 	farcall Sprite_UpdateAll
 	ld de, $0213
 	push af
@@ -713,19 +713,19 @@ Mailbox_IconMenu_ReplyOrRead:: ; 25:446E
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, d
-	ld [wSpriteSlots + 64], a
+	ld [wSpriteSlot4], a
 	pop af
 	push af
 	ld a, $08
-	ld [wSpriteSlots + 97], a
-	ld [wSpriteSlots + 113], a
-	ld [wSpriteSlots + 129], a
-	ld [wSpriteSlots + 161], a
-	ld [wSpriteSlots + 177], a
-	ld [wSpriteSlots + 193], a
+	ld [wSpriteSlot6 + $01], a
+	ld [wSpriteSlot7 + $01], a
+	ld [wSpriteSlot8 + $01], a
+	ld [wSpriteSlot10 + $01], a
+	ld [wSpriteSlot11 + $01], a
+	ld [wSpriteSlot12 + $01], a
 	ld a, $70
-	ld [wSpriteSlots + 16], a
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot1], a
+	ld [wSpriteSlot2], a
 	farcall Sprite_UpdateAll
 	pop af
 	pop de
@@ -808,21 +808,21 @@ Mailbox_ReplyStart:: ; 25:4564
 	jr nz, .l45E8
 	jr .l4601
 .l45E8 ; 25:45E8
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7B40
 	ld a, $26
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3048
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 .l4601 ; 25:4601
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, Mailbox_ObjTable
 	ld a, $26
 	ld b, $81
 	farcall Sprite_InitSlot
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $7B10
 	ld a, $26
 	ld b, $81
@@ -831,13 +831,13 @@ Mailbox_ReplyStart:: ; 25:4564
 	call Mailbox_ShowHint
 	call Mailbox_UploadTextTiles
 	ld de, $7020
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld de, $68D0
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	ld de, $30D0
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	ld d, $01
 	call Mailbox_SetActionCursor
@@ -845,7 +845,7 @@ Mailbox_ReplyStart:: ; 25:4564
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $70
-	ld [wSpriteSlots + 16], a
+	ld [wSpriteSlot1], a
 	pop bc
 	pop de
 	jp Mailbox_IconMenu_Loop
@@ -901,21 +901,21 @@ Mailbox_ReadMail:: ; 25:465C
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $E0
-	ld [wSpriteSlots + 97], a
-	ld [wSpriteSlots + 113], a
-	ld [wSpriteSlots + 129], a
-	ld [wSpriteSlots + 161], a
-	ld [wSpriteSlots + 177], a
-	ld [wSpriteSlots + 193], a
-	ld a, [wSpriteSlots + 64]
+	ld [wSpriteSlot6 + $01], a
+	ld [wSpriteSlot7 + $01], a
+	ld [wSpriteSlot8 + $01], a
+	ld [wSpriteSlot10 + $01], a
+	ld [wSpriteSlot11 + $01], a
+	ld [wSpriteSlot12 + $01], a
+	ld a, [wSpriteSlot4]
 	ld d, a
 	pop af
 	push de
 	push af
 	ld a, $E0
-	ld [wSpriteSlots + 16], a
-	ld [wSpriteSlots + 32], a
-	ld [wSpriteSlots + 64], a
+	ld [wSpriteSlot1], a
+	ld [wSpriteSlot2], a
+	ld [wSpriteSlot4], a
 	farcall Sprite_UpdateAll
 	pop af
 	ld de, $021E
@@ -962,19 +962,19 @@ Mailbox_ReadMail:: ; 25:465C
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, d
-	ld [wSpriteSlots + 64], a
+	ld [wSpriteSlot4], a
 	pop af
 	push af
 	ld a, $08
-	ld [wSpriteSlots + 97], a
-	ld [wSpriteSlots + 113], a
-	ld [wSpriteSlots + 129], a
-	ld [wSpriteSlots + 161], a
-	ld [wSpriteSlots + 177], a
-	ld [wSpriteSlots + 193], a
+	ld [wSpriteSlot6 + $01], a
+	ld [wSpriteSlot7 + $01], a
+	ld [wSpriteSlot8 + $01], a
+	ld [wSpriteSlot10 + $01], a
+	ld [wSpriteSlot11 + $01], a
+	ld [wSpriteSlot12 + $01], a
 	ld a, $70
-	ld [wSpriteSlots + 16], a
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot1], a
+	ld [wSpriteSlot2], a
 	farcall Sprite_UpdateAll
 	pop af
 .l473D ; 25:473D
@@ -1025,10 +1025,10 @@ Mailbox_ReadMail:: ; 25:465C
 	push de
 	push hl
 	ld de, $68D0
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	ld de, $68D0
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	pop hl
 	pop de
@@ -1061,13 +1061,13 @@ Mailbox_ReadMail:: ; 25:465C
 	jr nz, .l47DA
 	jr .l47F3
 .l47DA ; 25:47DA
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7B40
 	ld a, $26
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3048
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 .l47F3 ; 25:47F3
 	pop bc
@@ -1101,43 +1101,43 @@ Mailbox_SetActionCursor:: ; 25:4804
 	add a, $28
 	jr .loop
 .l4815 ; 25:4815
-	ld [wSpriteSlots + 17], a
+	ld [wSpriteSlot1 + $01], a
 	push bc
 	push de
 	ld a, d
 	cp a, $00
 	jr nz, .l483A
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $7B10
 	ld a, $26
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7020
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 	jr .l4878
 .l483A ; 25:483A
 	cp a, $01
 	jr nz, .l4859
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $7B20
 	ld a, $26
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7048
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 	jr .l4878
 .l4859 ; 25:4859
 	cp a, $02
 	jr nz, .l4878
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $7B30
 	ld a, $26
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7070
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 	jr .l4878
 .l4878 ; 25:4878
@@ -1213,13 +1213,13 @@ Mailbox_CursorUp:: ; 25:4885
 	jr nz, .l48E9
 	jr .l4902
 .l48E9 ; 25:48E9
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7B40
 	ld a, $26
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3048
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 .l4902 ; 25:4902
 	pop bc
@@ -1291,13 +1291,13 @@ Mailbox_CursorDown:: ; 25:4907
 	jr nz, .l4969
 	jr .l4982
 .l4969 ; 25:4969
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7B40
 	ld a, $26
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3048
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 .l4982 ; 25:4982
 	pop bc
@@ -1319,31 +1319,31 @@ Mailbox_UpdateScrollArrows:: ; 25:4987
 	jr z, .l49D6
 	cp a, $04
 	jr z, .l49D6
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $7B50
 	ld a, $26
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6848
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7B40
 	ld a, $26
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3048
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	pop de
 	pop bc
 	ret
 .l49D6 ; 25:49D6
 	ld de, $68D0
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	ld de, $30D0
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	pop de
 	pop bc

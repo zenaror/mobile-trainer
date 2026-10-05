@@ -1,0 +1,32 @@
+# analysis/naming2/wramx_calls.tsv -- the effect of a routine on the WRAM bank in force, for the backward scan of tools/apply_ram_operands.py (docs/research/naming2_ramop7.md)
+# effect: `keeps` = the bank in force after the call is the one before it (the routine writes no bank register, or saves the shadow at entry and restores it at exit);
+#         `sets W7` = it is bank 7 after the call (the routine selects it and does not restore).
+# A routine that is not listed is unknown: a call to it between a bank switch and a site ends the proof.  Every row says how the effect was read.
+# routine	effect	proof
+VBlank_WaitStartDI	keeps	00:047A waits for the VBlank, writes no bank register, calls Sound_FrameService
+VBlank_Wait	keeps	00:0464 waits for the VBlank, writes no bank register
+VBlank_WaitAndService	keeps	00:044B waits for the VBlank and calls Sound_FrameService, no bank register
+Sound_FrameService	keeps	00:0392 saves BC, DE, HL and the bank shadow, sets rSVBK = 1 (the shadow is not written), calls Sound_FrameTick, then writes rSVBK back from the saved shadow
+LCDOn	keeps	00:05C4 (home/lcd.asm:36) writes no bank register
+LCDOff	keeps	home/lcd.asm:43 writes no bank register, calls Sound_FrameService
+CopyBytes	keeps	00:050C writes no bank register, calls nothing
+FillBytes	keeps	00:04D8 writes no bank register, calls nothing
+Joypad_Update	keeps	engine/input/joypad.asm:48 calls Joypad_UpdateUnsaved (Joypad_ReadRaw); none of them writes a bank register
+PalFade_Start	keeps	engine/gfx/palette.asm:263 dispatches through JumpTableInline to the PalFade states; no bank register is written in the state routines
+PalFade_Step	keeps	engine/gfx/palette.asm:347 the same dispatch, no bank register written
+Palette_SetFadeTargetMasked	keeps	engine/gfx/palette_fade_masked.asm:87 writes no bank register, calls nothing
+Palette_UploadBuffer	keeps	4F:404B writes no bank register
+Palette_ReadHardwareToBuffer	keeps	4F:400E writes no bank register
+Sprite_InitSlot	keeps	00:0A82 saves the bank shadow, selects bank 7, restores the saved bank at exit (00:0AB0-0AB3)
+Sprite_SetPosition	keeps	00:0A65 saves the bank shadow, selects bank 7, restores the saved bank at exit
+Sprite_ClearSlot	keeps	00:09E6 saves the bank shadow, selects bank 7, restores the saved bank at exit
+Sprite_SetHook	keeps	00:0A45 saves the bank shadow, selects bank 7, restores the saved bank at exit
+Sprite_UpdateAll	keeps	00:0956 saves the bank shadow, selects bank 7 (00:0969-096D), restores the saved bank at exit
+Sprite_ResetAll	keeps	00:09B6 saves the bank shadow, selects bank 7, restores the saved bank at exit
+Ticker_Update	keeps	engine/menus/ticker.asm:7 saves the bank shadow before its farcalls to Gfx_StartHDMAWithService and restores it at the end (ticker.asm:61-89)
+Palette_LoadToBuffer	sets W7	4F:4000 selects bank 7 (4F:4002-4006) and does not restore it
+Tilemap_CopyRectAndAttr	sets W7	00:08EA `ld a, $07 / call BankSwitch_D` with D >= $C0 selects WRAM bank 7 for the destination and nothing restores it
+Tilemap_CopyRectAndAttrSplitSrc	sets W7	00:08CA the same selection of bank 7, not restored
+Tilemap_CopyRectAndAttrPtr	sets W7	00:16A2 the same selection of bank 7, not restored
+Gfx_UploadBgMapBuffers	sets W7	00:082C selects bank 7 (00:082F-0833) before the two HDMA starts with A = 0 and does not restore it
+Gfx_UploadBgMapBuffersDi	sets W7	00:07CB the same selection of bank 7, not restored

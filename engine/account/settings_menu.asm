@@ -182,19 +182,19 @@ SettingsMenu_StateInit:: ; 68:5066
 	ld c, $20
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0028
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, $5180
 	ld a, $4A
 	farcall Palette_LoadToBuffer
 	ld bc, $0008
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, $51A8
 	ld a, $4A
 	farcall Palette_LoadToBuffer
 	call SettingsMenu_DrawItems
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, SettingsMenu_ObjTable
 	ld a, $4A
 	ld b, $81
@@ -324,9 +324,9 @@ SettingsMenu_UpdateCursorSprite:: ; 68:5209
 
 .l5223 ; 68:5223
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 4/18 scenarios)
-	ld [wSpriteSlots + 16], a
+	ld [wSpriteSlot1], a
 	ld a, $20
-	ld [wSpriteSlots + 17], a
+	ld [wSpriteSlot1 + $01], a
 	ret
 
 SettingsMenu_DrawItems:: ; 68:522C

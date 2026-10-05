@@ -236,13 +236,13 @@ MailSrvDel_MenuSelect:: ; 23:4161
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffersNoService
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $6E90
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $FC00
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	farcall Sprite_UpdateAll
 	call MailSrvDel_ShowDescCheck
@@ -257,13 +257,13 @@ MailSrvDel_MenuSelect:: ; 23:4161
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffersNoService
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $6E90
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1800
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	farcall Sprite_UpdateAll
 	call MailSrvDel_ShowDescDeleteAll
@@ -280,13 +280,13 @@ Function_23_41DC::
 	farcall TextTiles_ClearBuffers
 	call VBlank_Wait
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, MailServerDeleteMethod_BgPalette
 	ld a, $28
 	farcall Palette_LoadToBuffer
 	call VBlank_Wait
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, $6E40
 	ld a, $28
 	farcall Palette_LoadToBuffer
@@ -346,13 +346,13 @@ Function_23_41DC::
 	cp a, $00
 	jr z, .l42C2
 	call MailSrvDel_ShowDescCheck
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $6E90
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $FC00
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	jr MailSrvDel_MenuStart
 
@@ -367,13 +367,13 @@ Function_23_41DC::
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $6E90
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1800
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 
 MailSrvDel_MenuStart:: ; 23:42F4
@@ -487,13 +487,13 @@ MailSrvDel_Confirm:: ; 23:4471
 	farcall TextTiles_ClearBuffers
 	call VBlank_Wait
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, MailServerDeleteAll_BgPalette
 	ld a, $28
 	farcall Palette_LoadToBuffer
 	call VBlank_Wait
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, $5EE0
 	ld a, $28
 	farcall Palette_LoadToBuffer
@@ -540,13 +540,13 @@ MailSrvDel_Confirm:: ; 23:4471
 	ld a, b
 	or a, c
 	jr nz, .l4535
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, MailServerDeleteMethod_ObjTable
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6858
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld hl, String_MailSrvDel_Confirm
 	ld a, $02
@@ -729,25 +729,25 @@ MailSrvDel_ConfirmSelect:: ; 23:46CD
 	cp a, $00
 	jr nz, .l46EE
 	push bc
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, MailServerDeleteMethod_ObjTable
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6828
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	pop bc
 	ret
 .l46EE ; 23:46EE
 	push bc
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, MailServerDeleteMethod_ObjTable
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6858
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	pop bc
 	ret

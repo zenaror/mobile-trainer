@@ -243,13 +243,13 @@ MailSrvDelHidden_MenuSelect:: ; 22:4173
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffersNoService
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $6E90
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $F400
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	farcall Sprite_UpdateAll
 	call MailSrvDelHidden_ShowDescCheck
@@ -269,13 +269,13 @@ MailSrvDelHidden_MenuSelect:: ; 22:4173
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffersNoService
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $6E90
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0800
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	farcall Sprite_UpdateAll
 	call MailSrvDelHidden_ShowDescDeleteAll
@@ -290,13 +290,13 @@ MailSrvDelHidden_MenuSelect:: ; 22:4173
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffersNoService
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $6E90
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1C00
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	farcall Sprite_UpdateAll
 	call MailSrvDelHidden_ShowDescDeleteCompletely
@@ -310,13 +310,13 @@ MailSrvDelHidden_MenuInit:: ; 22:422D
 	farcall TextTiles_ClearBuffers
 	call VBlank_Wait
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, MailServerDeleteMethod_BgPalette
 	ld a, $28
 	farcall Palette_LoadToBuffer
 	call VBlank_Wait
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, $6E40
 	ld a, $28
 	farcall Palette_LoadToBuffer
@@ -378,13 +378,13 @@ MailSrvDelHidden_MenuInit:: ; 22:422D
 	cp a, $02
 	jr z, .l434B
 	call MailSrvDelHidden_ShowDescCheck
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $6E90
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $F400
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	jr MailSrvDelHidden_MenuStart
 .l4317 ; 22:4317
@@ -396,13 +396,13 @@ MailSrvDelHidden_MenuInit:: ; 22:422D
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $6E90
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0800
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	jr MailSrvDelHidden_MenuStart
 .l434B ; 22:434B
@@ -414,13 +414,13 @@ MailSrvDelHidden_MenuInit:: ; 22:422D
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $6E90
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1C00
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 
 MailSrvDelHidden_MenuStart:: ; 22:437D
@@ -553,13 +553,13 @@ MailSrvDelHidden_Confirm:: ; 22:4582
 	farcall TextTiles_ClearBuffers
 	call VBlank_Wait
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, MailServerDeleteAll_BgPalette
 	ld a, $28
 	farcall Palette_LoadToBuffer
 	call VBlank_Wait
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, $5EE0
 	ld a, $28
 	farcall Palette_LoadToBuffer
@@ -606,13 +606,13 @@ MailSrvDelHidden_Confirm:: ; 22:4582
 	ld a, b
 	or a, c
 	jr nz, .l4646
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, MailServerDeleteMethod_ObjTable
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6858
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld hl, String_MailSrvDelHidden_Confirm
 	ld a, $02
@@ -807,13 +807,13 @@ MailSrvDelHidden_ConfirmSelect:: ; 22:47DE
 	cp a, $00
 	jr nz, .l47FF
 	push bc
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, MailServerDeleteMethod_ObjTable
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6828
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	pop bc
 	ret
@@ -822,13 +822,13 @@ MailSrvDelHidden_ConfirmSelect:: ; 22:47DE
 	; [PROBABLE] 11 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 47DE-481B by apply_coverage --split
 	push bc
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, MailServerDeleteMethod_ObjTable
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6858
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	pop bc
 	ret

@@ -83,7 +83,7 @@ Function_1F_4000::
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_TopMenu_Bg
 	ld a, $1E
 	farcall Palette_LoadToBuffer
@@ -92,39 +92,39 @@ Function_1F_4000::
 	ld hl, Tilemap_TopMenu_1E_40D7
 	ld a, $1E
 	farcall Tilemap_CopyRectAndAttr
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, TopMenu_ObjTable
 	ld a, $1E
 	ld b, $85
 	farcall Sprite_InitSlot
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, Palette_TopMenu_Obj
 	ld a, $1E
 	farcall Palette_LoadToBuffer
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, TopMenu_ObjTable
 	ld a, $1E
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld de, $191D
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, TopMenu_ObjTable
 	ld a, $1E
 	ld b, $02
 	farcall Sprite_InitSlot
 	ld de, $1676
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 	xor a, a
-	ld [wSpriteSlots + 22], a
-	ld [wSpriteSlots + 23], a
-	ld [wSpriteSlots + 24], a
-	ld [wSpriteSlots + 38], a
-	ld [wSpriteSlots + 39], a
-	ld [wSpriteSlots + 40], a
+	ld [wSpriteSlot1 + $06], a
+	ld [wSpriteSlot1 + $07], a
+	ld [wSpriteSlot1 + $08], a
+	ld [wSpriteSlot2 + $06], a
+	ld [wSpriteSlot2 + $07], a
+	ld [wSpriteSlot2 + $08], a
 	call TopMenu_InitItemSprites
 	ld a, $40
 	ld bc, $0220
@@ -388,18 +388,18 @@ Function_1F_4351::
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, TopMenu_ObjTable
 	ld a, $1E
 	ld b, $04
 	farcall Sprite_InitSlot
 	ld de, $4048
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	xor a, a
-	ld [wSpriteSlots + 70], a
-	ld [wSpriteSlots + 71], a
-	ld [wSpriteSlots + 72], a
+	ld [wSpriteSlot4 + $06], a
+	ld [wSpriteSlot4 + $07], a
+	ld [wSpriteSlot4 + $08], a
 	ld a, [wTopMenu_PrevCursor]
 	dec a
 	cp a, $01
@@ -407,53 +407,53 @@ Function_1F_4351::
 	jp z, .l43BA
 	ret
 .l4396 ; 1F:4396
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, TopMenu_ObjTable
 	ld a, $1E
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld de, $191D
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	xor a, a
-	ld [wSpriteSlots + 22], a
-	ld [wSpriteSlots + 23], a
-	ld [wSpriteSlots + 24], a
+	ld [wSpriteSlot1 + $06], a
+	ld [wSpriteSlot1 + $07], a
+	ld [wSpriteSlot1 + $08], a
 	ret
 .l43BA ; 1F:43BA
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, TopMenu_ObjTable
 	ld a, $1E
 	ld b, $02
 	farcall Sprite_InitSlot
 	ld de, $1676
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, TopMenu_ObjTable
 	ld a, $1E
 	ld b, $03
 	farcall Sprite_InitSlot
 	ld de, $AAAA
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	xor a, a
-	ld [wSpriteSlots + 38], a
-	ld [wSpriteSlots + 39], a
-	ld [wSpriteSlots + 40], a
+	ld [wSpriteSlot2 + $06], a
+	ld [wSpriteSlot2 + $07], a
+	ld [wSpriteSlot2 + $08], a
 	ret
 
 TopMenu_InitItemSprites:: ; 1F:43F7
 	ld a, [wTopMenu_Cursor]
 	cp a, $03
 	jr z, .l4417
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, TopMenu_ObjTable
 	ld a, $1E
 	ld b, $06
 	farcall Sprite_InitSlot
 	ld de, $4848
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 .l4417 ; 1F:4417
 	ld a, [wTopMenu_Cursor]
@@ -461,13 +461,13 @@ TopMenu_InitItemSprites:: ; 1F:43F7
 	cp a, $01
 	jr c, .l444F
 	jp z, .l447C
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, TopMenu_ObjTable
 	ld a, $1E
 	ld b, $84
 	farcall Sprite_InitSlot
 	ld de, $4048
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	ld a, $2E
 	ld e, a
@@ -475,17 +475,17 @@ TopMenu_InitItemSprites:: ; 1F:43F7
 	ld a, $60
 	ld d, a
 	ld [wTopMenu_CursorPosY], a
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
 	jr .l44C0
 .l444F ; 1F:444F
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, TopMenu_ObjTable
 	ld a, $1E
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $191D
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld a, $0B
 	ld e, a
@@ -493,25 +493,25 @@ TopMenu_InitItemSprites:: ; 1F:43F7
 	ld a, $28
 	ld d, a
 	ld [wTopMenu_CursorPosY], a
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
 	jr .l44C0
 .l447C ; 1F:447C
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, TopMenu_ObjTable
 	ld a, $1E
 	ld b, $82
 	farcall Sprite_InitSlot
 	ld de, $1676
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, TopMenu_ObjTable
 	ld a, $1E
 	ld b, $83
 	farcall Sprite_InitSlot
 	ld de, $1A6B
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	ld a, $51
 	ld e, a
@@ -519,7 +519,7 @@ TopMenu_InitItemSprites:: ; 1F:43F7
 	ld a, $28
 	ld d, a
 	ld [wTopMenu_CursorPosY], a
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
 .l44C0 ; 1F:44C0
 	xor a, a
@@ -650,7 +650,7 @@ Function_1F_4561::
 	ld [wTopMenuCursorYFrac], a
 	ld d, h
 .l45C3 ; 1F:45C3
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
 	ret
 

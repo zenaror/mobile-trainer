@@ -33,8 +33,8 @@ ConnIcon_Refresh:: ; 69:401A
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wSpriteSlots + 143], a
-	ld hl, $DA80
+	ld [wSpriteSlot8 + $0F], a
+	ld hl, wSpriteSlot8
 	farcall ConnIcon_UpdateState
 	jp ConnIcon_LoadGraphicsIfRequested
 
@@ -181,7 +181,7 @@ Label_69_40E0::
 	ld c, $20
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0020
-	ld de, $D860
+	ld de, wPaletteBufObj + $20
 	ld hl, Palette_ConnIcon_Request2_Obj4
 	ld a, $51
 	farcall Palette_LoadToBuffer
@@ -203,7 +203,7 @@ Label_69_4118::
 	ld c, $20
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0018
-	ld de, $D860
+	ld de, wPaletteBufObj + $20
 	ld hl, ConnIcon_Palettes
 	ld a, $69
 	farcall Palette_LoadToBuffer

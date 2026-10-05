@@ -42,12 +42,12 @@ Registration_WriteConfig_Setup:: ; 68:6AF6
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, $7000
 	ld a, $5D
 	farcall Palette_LoadToBuffer
 	ld bc, $0008
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, $7040
 	ld a, $5D
 	farcall Palette_LoadToBuffer
@@ -59,13 +59,13 @@ Registration_WriteConfig_Setup:: ; 68:6AF6
 	call Registration_DoNotUnplugMessage
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	ld de, $7318
 	ld a, $5D
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1838
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	call Sprite_SetPosition
 	ret
 
@@ -79,7 +79,7 @@ Registration_WriteConfig_RunState:: ; 68:6B98
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wSpriteSlots + 4]
+	ld a, [wSpriteSlot0 + $04]
 	ld b, a
 	ldh [hScratchA], a
 	pop af

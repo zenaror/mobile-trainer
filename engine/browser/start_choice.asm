@@ -65,7 +65,7 @@ Function_73_5F17::
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, BrowserStart_Palettes
 	ld a, $73
 	farcall Palette_LoadToBuffer
@@ -75,24 +75,24 @@ Function_73_5F17::
 	ld a, $73
 	farcall Tilemap_CopyRectAndAttr
 	call BrowserStart_DrawButtons
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $5F0F
 	ld a, $73
 	ld b, $80
 	farcall Sprite_InitSlot
 	ld de, $3D2C
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $5F0F
 	ld a, $73
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $4122
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, $5E20
 	ld a, $73
 	farcall Palette_LoadToBuffer

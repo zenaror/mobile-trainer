@@ -168,7 +168,7 @@ AddrBook_SaveConfirm_InitScreen:: ; 2A:70AB
 	xor a, a
 	ldh [rSCY], a
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_AddrSaveConfirm_Bg
 	ld a, $2A
 	farcall Palette_LoadToBuffer

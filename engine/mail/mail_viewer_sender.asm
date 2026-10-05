@@ -67,8 +67,8 @@ Function_2B_64F1:: ; 2B:64F1
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $E0
-	ld [wSpriteSlots + 16], a
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot1], a
+	ld [wSpriteSlot2], a
 
 	; [PROBABLE] 397 insn(s) reached by static flow only; seeds: exec x374, site x23; min discovery
 	; hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with
@@ -169,7 +169,7 @@ MailView_SenderPage_InitScreen:: ; 2B:65AB
 	farcall MailDraft_LoadFromSram
 	call VBlank_Wait
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_MailView_Bg
 	ld a, $2B
 	farcall Palette_LoadToBuffer
@@ -182,7 +182,7 @@ MailView_SenderPage_InitScreen:: ; 2B:65AB
 	farcall Gfx_StartHDMA
 	call VBlank_Wait
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, Palette_MailView_Obj
 	ld a, $2B
 	farcall Palette_LoadToBuffer
@@ -210,22 +210,22 @@ MailView_SenderPage_InitScreen:: ; 2B:65AB
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	call VBlank_Wait
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, Table_MailView_Anims
 	ld a, $2B
 	ld b, $81
 	farcall Sprite_InitSlot
 	call VBlank_Wait
 	ld de, $1808
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $78C0
 	ld a, $2B
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6810
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	xor a, a
 	ldh [rVBK], a
@@ -262,13 +262,13 @@ MailView_SenderPage_InitScreen:: ; 2B:65AB
 	ld a, [hl]
 	cp a, $00
 	jr z, .l66F9
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $7900
 	ld a, $2B
 	ld b, $00
 	farcall Sprite_InitSlot
 	ld de, $0868
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	call Sprite_SetPosition
 .l66F9 ; 2B:66F9
 	pop bc
@@ -513,9 +513,9 @@ Function_2B_687C:: ; 2B:687C
 	cp a, $00
 	jr nz, .l68A6
 	ld de, $6810
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $78D0
 	ld a, $2B
 	ld b, $81
@@ -524,7 +524,7 @@ Function_2B_687C:: ; 2B:687C
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Sprite_InitSlot
 	ld de, $6810
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 	pop bc
 	ret
@@ -538,9 +538,9 @@ Function_2B_687C:: ; 2B:687C
 	cp a, $01
 	jr nz, .l68CE
 	ld de, $6830
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $7910
 	ld a, $2B
 	ld b, $81
@@ -549,7 +549,7 @@ Function_2B_687C:: ; 2B:687C
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Sprite_InitSlot
 	ld de, $6830
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 	pop bc
 	ret
@@ -563,9 +563,9 @@ Function_2B_687C:: ; 2B:687C
 	cp a, $02
 	jr nz, .l68F6
 	ld de, $6850
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $78E0
 	ld a, $2B
 	ld b, $81
@@ -574,7 +574,7 @@ Function_2B_687C:: ; 2B:687C
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Sprite_InitSlot
 	ld de, $6850
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 	pop bc
 	ret
@@ -586,9 +586,9 @@ Function_2B_687C:: ; 2B:687C
 	; targets) and continues into the PROBABLE far-call site that follows; the function entry 687C
 	; has no caller/pointer in the ROM
 	ld de, $6870
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $78F0
 	ld a, $2B
 	ld b, $81
@@ -599,7 +599,7 @@ Function_2B_687C:: ; 2B:687C
 	; 6909-69AD by apply_coverage --split
 	farcall Sprite_InitSlot
 	ld de, $6870
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 	pop bc
 	ret

@@ -13,7 +13,7 @@ Function_7F_70FD::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld d, $00
-	ld a, [wSpriteSlots + 16]
+	ld a, [wSpriteSlot1]
 	sub a, $0D
 	jr z, .l7112
 

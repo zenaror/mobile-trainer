@@ -48,12 +48,12 @@ Account_ConfirmScreen_Setup:: ; 68:6213
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_Account_ConfirmScreen_Bg
 	ld a, $5D
 	farcall Palette_LoadToBuffer
 	ld bc, $0018
-	ld de, $D868
+	ld de, wPaletteBufObj + $28
 	ld hl, $4CE0
 	ld a, $5F
 	farcall Palette_LoadToBuffer
@@ -67,7 +67,7 @@ Account_ConfirmScreen_Setup:: ; 68:6213
 	call Account_ConfirmScreen_BuildTextMap
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	ld de, ConfirmPages_ObjTable
 	ld a, $4A
 	ld b, $81
@@ -157,7 +157,7 @@ Function_68_6344::
 	ld e, a
 	ld a, [hl]
 	ld d, a
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	call Sprite_SetPosition
 	ret
 
@@ -306,12 +306,12 @@ Account_ConfirmManualScreen_Setup:: ; 68:6451
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_Account_ConfirmManualScreen_Bg
 	ld a, $4A
 	farcall Palette_LoadToBuffer
 	ld bc, $0018
-	ld de, $D868
+	ld de, wPaletteBufObj + $28
 	ld hl, $4CE0
 	ld a, $5F
 	farcall Palette_LoadToBuffer
@@ -325,7 +325,7 @@ Account_ConfirmManualScreen_Setup:: ; 68:6451
 	call Account_ConfirmManualScreen_BuildTextMap
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	ld de, ConfirmPages_ObjTable
 	ld a, $4A
 	ld b, $81
@@ -409,7 +409,7 @@ Account_ConfirmManualScreen_UpdateCursor:: ; 68:6582
 	ld e, a
 	ld a, [hl]
 	ld d, a
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	call Sprite_SetPosition
 	ret
 

@@ -47,26 +47,26 @@ Function_26_4000::
 	ld a, $40
 	call MailSession_ShowMsgReceiving
 .l4048 ; 26:4048
-	ld hl, $DA80
+	ld hl, wSpriteSlot8
 	ld de, $7030
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7100
-	ld hl, $DA80
+	ld hl, wSpriteSlot8
 	call Sprite_SetPosition
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7A30
 	ld a, $27
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $28E0
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	farcall Mail_OutboxIsEmpty
 	inc a
 	jr nz, .l4095
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $7A40
 	ld a, $27
 	ld b, $81
@@ -76,7 +76,7 @@ Function_26_4000::
 .l4095 ; 26:4095
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1;
 	; entered by jrcc from 26:4081 (executed) [executed in 5 scenarios]
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $7A50
 	ld a, $27
 	ld b, $81
@@ -85,7 +85,7 @@ Function_26_4000::
 .l40A5 ; 26:40A5
 	; [CONFIRMED] 24 insn(s); 24 executed (in up to 1/18 scenarios)
 	ld de, $28D1
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	ld b, $00
 .loop ; 26:40B0
@@ -93,12 +93,12 @@ Function_26_4000::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	push bc
-	ld a, [wSpriteSlots + 49]
+	ld a, [wSpriteSlot3 + $01]
 	inc a
-	ld [wSpriteSlots + 49], a
-	ld a, [wSpriteSlots + 65]
+	ld [wSpriteSlot3 + $01], a
+	ld a, [wSpriteSlot4 + $01]
 	inc a
-	ld [wSpriteSlots + 65], a
+	ld [wSpriteSlot4 + $01], a
 	di
 	farcall Sprite_UpdateAll
 	ei
@@ -118,20 +118,20 @@ Function_26_4000::
 
 .l40E8 ; 26:40E8
 	; [CONFIRMED] 24 insn(s); 24 executed (in up to 1/18 scenarios)
-	ld a, [wSpriteSlots + 49]
+	ld a, [wSpriteSlot3 + $01]
 	cp a, $3F
 	jr z, .l40F3
 	cp a, $40
 	jr nz, .loop
 .l40F3 ; 26:40F3
 	push bc
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, MailSession_ObjTable_6F20
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2840
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	di
 	farcall Sprite_UpdateAll
@@ -168,22 +168,22 @@ MailSession_SendPhase:: ; 26:412C
 	cp a, $FF
 	jr nz, .l4163
 .l4163 ; 26:4163
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $6F70
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $28D0
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
 .l417C ; 26:417C
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	push bc
-	ld a, [wSpriteSlots + 81]
+	ld a, [wSpriteSlot5 + $01]
 	dec a
-	ld [wSpriteSlots + 81], a
+	ld [wSpriteSlot5 + $01], a
 	di
 	farcall Sprite_UpdateAll
 	ei
@@ -194,19 +194,19 @@ MailSession_SendPhase:: ; 26:412C
 	ldh a, [hJoyHeld]
 	and a, $02
 	jp nz, MailSession_Cancel
-	ld a, [wSpriteSlots + 81]
+	ld a, [wSpriteSlot5 + $01]
 	cp a, $58
 	jr z, .l41B1
 	cp a, $57
 	jr nz, .l417C
 .l41B1 ; 26:41B1
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $6F90
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2857
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
 	ld c, $0F
 .l41CC ; 26:41CC
@@ -223,29 +223,29 @@ MailSession_SendPhase:: ; 26:412C
 	jp nz, MailSession_Cancel
 	dec c
 	jr nz, .l41CC
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $6F40
 	ld a, $28
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld de, $2840
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $6F80
 	ld a, $28
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld de, $2857
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $7A40
 	ld a, $27
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2830
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	ld c, $14
 .l4239 ; 26:4239
@@ -262,13 +262,13 @@ MailSession_SendPhase:: ; 26:412C
 	jp nz, MailSession_Cancel
 	dec c
 	jr nz, .l4239
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $6FD0
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $234B
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	call Sprite_SetPosition
 	di
 	farcall Sprite_UpdateAll
@@ -376,29 +376,29 @@ MailSession_SendPhase:: ; 26:412C
 	jp nz, MailSession_Cancel
 	dec c
 	jr nz, .l434F
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, MailSession_ObjTable_6F20
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2840
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $6FA0
 	ld a, $28
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld de, $2857
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $6FD0
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2257
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	call Sprite_SetPosition
 	ld c, $3C
 .l43BC ; 26:43BC
@@ -415,25 +415,25 @@ MailSession_SendPhase:: ; 26:412C
 	jp nz, MailSession_Cancel
 	dec c
 	jr nz, .l43BC
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $7AE0
 	ld a, $27
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2857
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
 	ld de, $1FE0
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	call Sprite_SetPosition
 .l43FE ; 26:43FE
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	push bc
-	ld a, [wSpriteSlots + 81]
+	ld a, [wSpriteSlot5 + $01]
 	inc a
-	ld [wSpriteSlots + 81], a
+	ld [wSpriteSlot5 + $01], a
 	di
 	farcall Sprite_UpdateAll
 	ei
@@ -444,7 +444,7 @@ MailSession_SendPhase:: ; 26:412C
 	ldh a, [hJoyHeld]
 	and a, $02
 	jp nz, MailSession_Cancel
-	ld a, [wSpriteSlots + 81]
+	ld a, [wSpriteSlot5 + $01]
 	cp a, $D1
 	jr z, .l4433
 	cp a, $D0
@@ -462,7 +462,7 @@ MailSession_SendPhase:: ; 26:412C
 	; decode chain falls through exactly into the site-validated far call at 4445 (`call $06D1`,
 	; inline 0A82:00 = init_object_from_table); previous byte is a ret; entry unproven (no
 	; call/jp/far-pointer/word reference found)
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $7A70
 	ld a, $27
 	ld b, $81
@@ -471,7 +471,7 @@ MailSession_SendPhase:: ; 26:412C
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Sprite_InitSlot
 	ld de, $2847
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
 	ld b, $3C
 .l4456 ; 26:4456
@@ -485,15 +485,15 @@ MailSession_SendPhase:: ; 26:412C
 	dec b
 	jr nz, .l4456
 	ld de, $28E0
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $7A40
 	ld a, $27
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2857
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 .l448B ; 26:448B
 	ldh a, [rSCX]
@@ -515,12 +515,12 @@ MailSession_SendPhase:: ; 26:412C
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	push bc
-	ld a, [wSpriteSlots + 49]
+	ld a, [wSpriteSlot3 + $01]
 	dec a
-	ld [wSpriteSlots + 49], a
-	ld a, [wSpriteSlots + 65]
+	ld [wSpriteSlot3 + $01], a
+	ld a, [wSpriteSlot4 + $01]
 	dec a
-	ld [wSpriteSlots + 65], a
+	ld [wSpriteSlot4 + $01], a
 	di
 	farcall Sprite_UpdateAll
 	ei
@@ -528,7 +528,7 @@ MailSession_SendPhase:: ; 26:412C
 	call MailSession_UpdateTimerDisplay
 	farcall Joypad_Update
 	pop bc
-	ld a, [wSpriteSlots + 49]
+	ld a, [wSpriteSlot3 + $01]
 	cp a, $C0
 	jr nz, .l44AC
 	farcall Stat_DisableScrollSplit
@@ -543,13 +543,13 @@ MailSession_SendPhase:: ; 26:412C
 MailSession_ReceivePhase:: ; 26:44F5
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios)
 	call MailSession_ClearMsg
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $733B
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0000
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	farcall Mail_OutboxIsEmpty
 	inc a
@@ -557,34 +557,34 @@ MailSession_ReceivePhase:: ; 26:44F5
 
 	; [CONFIRMED] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0;
 	; fall-through of the jpcc at 26:4518 (executed) [executed in 1 scenarios]
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $73DB
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2700
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	jr .l454F
 
 .l4536 ; 26:4536
 	; [CONFIRMED] 33 insn(s); 33 executed (in up to 1/18 scenarios)
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $73BB
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0000
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 .l454F ; 26:454F
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $73AB
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0050
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
 	call MailSession_ShowMsgReceiving
 	farcall Timer_ResetClockB
@@ -758,9 +758,9 @@ Label_26_4636::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	push bc
-	ld a, [wSpriteSlots + 81]
+	ld a, [wSpriteSlot5 + $01]
 	dec a
-	ld [wSpriteSlots + 81], a
+	ld [wSpriteSlot5 + $01], a
 	call VBlank_Wait
 	di
 	farcall Sprite_UpdateAll
@@ -774,19 +774,19 @@ Label_26_4636::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wSpriteSlots + 81]
+	ld a, [wSpriteSlot5 + $01]
 	cp a, $01
 	jr z, .l4699
 	cp a, $00
 	jr nz, .l465E
 .l4699 ; 26:4699
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $739B
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0100
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
 	ld c, $1E
 .l46B4 ; 26:46B4
@@ -880,25 +880,25 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	push bc
 	push de
 	push hl
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, MailSession_ObjTable_72FB
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0100
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	call MailSession_SetReceivedCountSprite
 	ld de, $0000
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $739B
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0100
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
 	pop hl
 	pop de
@@ -1015,25 +1015,25 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $734B
 	ld a, $28
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld de, $0000
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $737B
 	ld a, $28
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld de, $0000
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
 	call MailSession_SetNextReceivedCountSprite
 	ld de, $0700
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	call Sprite_SetPosition
 	ld c, $3C
 	ld c, $04
@@ -1058,9 +1058,9 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wSpriteSlots + 96]
+	ld a, [wSpriteSlot6]
 	dec a
-	ld [wSpriteSlots + 96], a
+	ld [wSpriteSlot6], a
 	pop bc
 	ldh a, [hJoyHeld]
 	and a, $02
@@ -1122,7 +1122,7 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	ret
 .l4911 ; 26:4911
 	ld de, $0080
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	call Sprite_SetPosition
 	pop hl
 	pop bc
@@ -1289,25 +1289,25 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	jp MailSession_NoMailOrFull
 .l4A1E ; 26:4A1E
 	call MailSession_ShowMsgReceived
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $735B
 	ld a, $28
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld de, $0000
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	call MailSession_SetReceivedCountSprite
 	ld de, $0000
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $736B
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0000
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
 	ld c, $3C
 .l4A61 ; 26:4A61
@@ -1360,29 +1360,29 @@ MailSession_NoMailOrFull:: ; 26:4A8A
 	ldh [rSVBK], a
 	pop de
 	pop bc
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $734B
 	ld a, $28
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld de, $0000
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $737B
 	ld a, $28
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld de, $0000
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $73FB
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1000
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	call Sprite_SetPosition
 	ld c, $09
 .loop ; 26:4B02
@@ -1406,9 +1406,9 @@ MailSession_NoMailOrFull:: ; 26:4A8A
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wSpriteSlots + 96]
+	ld a, [wSpriteSlot6]
 	dec a
-	ld [wSpriteSlots + 96], a
+	ld [wSpriteSlot6], a
 	pop bc
 	ldh a, [hJoyHeld]
 	and a, $02
@@ -1416,7 +1416,7 @@ MailSession_NoMailOrFull:: ; 26:4A8A
 	dec c
 	jr nz, .loop
 	ld de, $0080
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	call Sprite_SetPosition
 
 MailSession_Finish:: ; 26:4B54
@@ -1432,21 +1432,21 @@ MailSession_Finish:: ; 26:4B54
 	ldh [rSVBK], a
 	pop de
 	pop bc
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $732B
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0000
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $738B
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0000
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
 .l4B9A ; 26:4B9A
 	call MailSession_PollAdapterError
@@ -1455,9 +1455,9 @@ MailSession_Finish:: ; 26:4B54
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	push bc
-	ld a, [wSpriteSlots + 49]
+	ld a, [wSpriteSlot3 + $01]
 	dec a
-	ld [wSpriteSlots + 49], a
+	ld [wSpriteSlot3 + $01], a
 	di
 	farcall Sprite_UpdateAll
 	ei
@@ -1468,7 +1468,7 @@ MailSession_Finish:: ; 26:4B54
 	ldh a, [hJoyHeld]
 	and a, $02
 	jp nz, MailSession_Cancel
-	ld a, [wSpriteSlots + 49]
+	ld a, [wSpriteSlot3 + $01]
 	cp a, $E1
 	jr z, .l4BD5
 	cp a, $E0
@@ -1480,7 +1480,7 @@ MailSession_Finish:: ; 26:4B54
 
 	; [CONFIRMED] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0;
 	; fall-through of the jpcc at 26:4BDC (executed) [executed in 1 scenarios]
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $73EB
 	ld a, $28
 	ld b, $81
@@ -1489,7 +1489,7 @@ MailSession_Finish:: ; 26:4B54
 
 .l4BF1 ; 26:4BF1
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios)
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $73CB
 	ld a, $28
 	ld b, $81
@@ -1505,7 +1505,7 @@ MailSession_Finish:: ; 26:4B54
 
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 26:4C0D (executed) [executed in 2 scenarios]
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $73EB
 	ld a, $28
 	ld b, $81
@@ -1514,15 +1514,15 @@ MailSession_Finish:: ; 26:4B54
 .l4C1F ; 26:4C1F
 	; [CONFIRMED] 43 insn(s); 43 executed (in up to 1/18 scenarios)
 	ld de, $0000
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $738B
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0000
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
 .l4C41 ; 26:4C41
 	call MailSession_PollAdapterError
@@ -1531,12 +1531,12 @@ MailSession_Finish:: ; 26:4B54
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	push bc
-	ld a, [wSpriteSlots + 49]
+	ld a, [wSpriteSlot3 + $01]
 	dec a
-	ld [wSpriteSlots + 49], a
-	ld a, [wSpriteSlots + 65]
+	ld [wSpriteSlot3 + $01], a
+	ld a, [wSpriteSlot4 + $01]
 	dec a
-	ld [wSpriteSlots + 65], a
+	ld [wSpriteSlot4 + $01], a
 	di
 	farcall Sprite_UpdateAll
 	ei
@@ -1547,7 +1547,7 @@ MailSession_Finish:: ; 26:4B54
 	ldh a, [hJoyHeld]
 	and a, $02
 	jp nz, MailSession_Cancel
-	ld a, [wSpriteSlots + 65]
+	ld a, [wSpriteSlot4 + $01]
 	cp a, $91
 	jr z, .l4C83
 	cp a, $90
@@ -1571,7 +1571,7 @@ Function_26_4C94::
 	ld a, [hli]
 	cp a, $00
 	jr nz, .l4CB3
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $73BB
 	ld a, $28
 	ld b, $81
@@ -1580,7 +1580,7 @@ Function_26_4C94::
 .l4CB3 ; 26:4CB3
 	cp a, $01
 	jr nz, .l4CC8
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $74CB
 	ld a, $28
 	ld b, $81
@@ -1589,7 +1589,7 @@ Function_26_4C94::
 .l4CC8 ; 26:4CC8
 	cp a, $02
 	jr nz, .l4CDD
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $74DB
 	ld a, $28
 	ld b, $81
@@ -1598,7 +1598,7 @@ Function_26_4C94::
 .l4CDD ; 26:4CDD
 	cp a, $03
 	jr nz, .l4CF2
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $74EB
 	ld a, $28
 	ld b, $81
@@ -1607,7 +1607,7 @@ Function_26_4C94::
 .l4CF2 ; 26:4CF2
 	cp a, $04
 	jr nz, .l4D07
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $74FB
 	ld a, $28
 	ld b, $81
@@ -1616,7 +1616,7 @@ Function_26_4C94::
 .l4D07 ; 26:4D07
 	cp a, $05
 	jr nz, .l4D1C
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $750B
 	ld a, $28
 	ld b, $81
@@ -1625,7 +1625,7 @@ Function_26_4C94::
 .l4D1C ; 26:4D1C
 	cp a, $06
 	jr nz, .l4D31
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $751B
 	ld a, $28
 	ld b, $81
@@ -1634,7 +1634,7 @@ Function_26_4C94::
 .l4D31 ; 26:4D31
 	cp a, $07
 	jr nz, .l4D46
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $752B
 	ld a, $28
 	ld b, $81
@@ -1643,7 +1643,7 @@ Function_26_4C94::
 .l4D46 ; 26:4D46
 	cp a, $08
 	jr nz, .l4D5B
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $753B
 	ld a, $28
 	ld b, $81
@@ -1652,7 +1652,7 @@ Function_26_4C94::
 .l4D5B ; 26:4D5B
 	cp a, $09
 	jr nz, .l4D70
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $754B
 	ld a, $28
 	ld b, $81
@@ -1661,7 +1661,7 @@ Function_26_4C94::
 .l4D70 ; 26:4D70
 	cp a, $0A
 	jr nz, .l4D85
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $755B
 	ld a, $28
 	ld b, $81
@@ -1670,14 +1670,14 @@ Function_26_4C94::
 .l4D85 ; 26:4D85
 	cp a, $0B
 	jr nz, .l4D9A
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $756B
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ret
 .l4D9A ; 26:4D9A
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $757B
 	ld a, $28
 	ld b, $81
@@ -1697,7 +1697,7 @@ Function_26_4DAB::
 
 	; [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4C94-4EC3 by apply_coverage --split
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $73FB
 	ld a, $28
 	ld b, $81
@@ -1709,7 +1709,7 @@ Function_26_4DAB::
 	; --split [executed in 1 scenarios]
 	cp a, $01
 	jr nz, .l4DE0
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $740B
 	ld a, $28
 	ld b, $81
@@ -1718,7 +1718,7 @@ Function_26_4DAB::
 .l4DE0 ; 26:4DE0
 	cp a, $02
 	jr nz, .l4DF5
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $741B
 	ld a, $28
 	ld b, $81
@@ -1727,7 +1727,7 @@ Function_26_4DAB::
 .l4DF5 ; 26:4DF5
 	cp a, $03
 	jr nz, .l4E0A
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $742B
 	ld a, $28
 	ld b, $81
@@ -1736,7 +1736,7 @@ Function_26_4DAB::
 .l4E0A ; 26:4E0A
 	cp a, $04
 	jr nz, .l4E1F
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $743B
 	ld a, $28
 	ld b, $81
@@ -1745,7 +1745,7 @@ Function_26_4DAB::
 .l4E1F ; 26:4E1F
 	cp a, $05
 	jr nz, .l4E34
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $744B
 	ld a, $28
 	ld b, $81
@@ -1754,7 +1754,7 @@ Function_26_4DAB::
 .l4E34 ; 26:4E34
 	cp a, $06
 	jr nz, .l4E49
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $745B
 	ld a, $28
 	ld b, $81
@@ -1763,7 +1763,7 @@ Function_26_4DAB::
 .l4E49 ; 26:4E49
 	cp a, $07
 	jr nz, .l4E5E
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $746B
 	ld a, $28
 	ld b, $81
@@ -1772,7 +1772,7 @@ Function_26_4DAB::
 .l4E5E ; 26:4E5E
 	cp a, $08
 	jr nz, .l4E73
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $747B
 	ld a, $28
 	ld b, $81
@@ -1781,7 +1781,7 @@ Function_26_4DAB::
 .l4E73 ; 26:4E73
 	cp a, $09
 	jr nz, .l4E88
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $748B
 	ld a, $28
 	ld b, $81
@@ -1790,7 +1790,7 @@ Function_26_4DAB::
 .l4E88 ; 26:4E88
 	cp a, $0A
 	jr nz, .l4E9D
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $749B
 	ld a, $28
 	ld b, $81
@@ -1799,14 +1799,14 @@ Function_26_4DAB::
 .l4E9D ; 26:4E9D
 	cp a, $0B
 	jr nz, .l4EB2
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $74AB
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ret
 .l4EB2 ; 26:4EB2
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $74BB
 	ld a, $28
 	ld b, $81

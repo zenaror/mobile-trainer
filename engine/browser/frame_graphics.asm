@@ -73,7 +73,7 @@ Function_4E_6196::
 	ld h, b
 	ld l, c
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	farcall Palette_LoadToBuffer
 	pop hl
 	ld a, [hli]
@@ -110,7 +110,7 @@ Function_4E_6196::
 	ld h, b
 	ld l, c
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	farcall Palette_LoadToBuffer
 	pop hl
 	farcall Browser_ClearBodyArea
@@ -199,7 +199,7 @@ Function_4E_6291::
 	ld bc, $0008
 	add hl, bc
 	ld bc, $0020
-	ld de, $D808
+	ld de, wPaletteBufBg + $08
 	farcall Palette_LoadToBuffer
 	pop hl
 	ld a, [hli]
@@ -332,11 +332,11 @@ Function_4E_6291::
 	push af
 	ld bc, $0008
 	add hl, bc
-	ld de, $D800
+	ld de, wPaletteBufBg
 	farcall Palette_LoadToBuffer
 	pop af
 	ld bc, $0018
-	ld de, $D828
+	ld de, wPaletteBufBg + $28
 	farcall Palette_LoadToBuffer
 	pop hl
 	ld a, [hli]
@@ -373,7 +373,7 @@ Function_4E_6291::
 	ld h, b
 	ld l, c
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	farcall Palette_LoadToBuffer
 	pop hl
 	ld a, $07

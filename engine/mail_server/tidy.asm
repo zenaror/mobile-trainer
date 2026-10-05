@@ -47,13 +47,13 @@ Function_2E_4000::
 	ld [hli], a
 	ld [hli], a
 	call MailServerMgr_ShowLoadingMsg
-	ld hl, $DAD0
+	ld hl, wSpriteSlot13
 	ld de, $7700
 	ld a, $2E
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0000
-	ld hl, $DAD0
+	ld hl, wSpriteSlot13
 	call Sprite_SetPosition
 	farcall Timer_ResetClockB
 	farcall Pop3_StartLogin
@@ -510,7 +510,7 @@ Label_2E_4298::
 	push hl
 	push af
 	ld de, $B000
-	ld hl, $DAD0
+	ld hl, wSpriteSlot13
 	call Sprite_SetPosition
 	di
 	farcall Sprite_UpdateAll
@@ -656,13 +656,13 @@ Label_2E_4298::
 	pop bc
 	push bc
 	push hl
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	ld de, Table_MailServerMgr_ObjAnims
 	ld a, $2E
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7010
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	call Sprite_SetPosition
 	ld a, $00
 	call MailServerMgr_ShowChoiceHelp
@@ -795,13 +795,13 @@ Label_2E_4298::
 	cp a, $00
 	jr nz, .l4544
 	push bc
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	ld de, Table_MailServerMgr_ObjAnims
 	ld a, $2E
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7010
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	call Sprite_SetPosition
 	ld a, $00
 	call MailServerMgr_ShowChoiceHelp
@@ -811,13 +811,13 @@ Label_2E_4298::
 	cp a, $01
 	jr nz, .l4569
 	push bc
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	ld de, $76D0
 	ld a, $2E
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7030
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	call Sprite_SetPosition
 	ld a, $01
 	call MailServerMgr_ShowChoiceHelp
@@ -827,13 +827,13 @@ Label_2E_4298::
 	cp a, $02
 	jr nz, .l458E
 	push bc
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	ld de, $76E0
 	ld a, $2E
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7050
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	call Sprite_SetPosition
 	ld a, $02
 	call MailServerMgr_ShowChoiceHelp
@@ -942,13 +942,13 @@ Label_2E_4298::
 	pop bc
 	push bc
 	push hl
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	ld de, $76E0
 	ld a, $2E
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7050
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	call Sprite_SetPosition
 	ld a, $02
 	call MailServerMgr_ShowChoiceHelp
@@ -958,7 +958,7 @@ Label_2E_4298::
 	push bc
 	push hl
 	ld de, $D010
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	call Sprite_SetPosition
 	pop hl
 	pop bc
@@ -974,13 +974,13 @@ Label_2E_4298::
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	ei
-	ld hl, $DAD0
+	ld hl, wSpriteSlot13
 	ld de, $76F0
 	ld a, $2E
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0000
-	ld hl, $DAD0
+	ld hl, wSpriteSlot13
 	call Sprite_SetPosition
 	call MailServerMgr_ShowDeletingMsg
 	pop hl
@@ -1058,7 +1058,7 @@ Label_2E_4298::
 	push bc
 	push hl
 	ld de, $D010
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	call Sprite_SetPosition
 	pop hl
 	pop bc
@@ -1074,13 +1074,13 @@ Label_2E_4298::
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	ei
-	ld hl, $DAD0
+	ld hl, wSpriteSlot13
 	ld de, $7700
 	ld a, $2E
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0000
-	ld hl, $DAD0
+	ld hl, wSpriteSlot13
 	call Sprite_SetPosition
 	call MailServerMgr_ShowLoadingMsg
 	pop hl

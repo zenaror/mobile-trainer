@@ -55,13 +55,13 @@ CommScene_Step:: ; 70:4023
 
 	; [PROBABLE] 11 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4043-406A by apply_coverage --split
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, CommScene_ObjTable
 	ld a, $70
 	ld b, $83
 	farcall Sprite_InitSlot
 	ld de, $7000
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	ld a, $01
 	ld [wCommScene_TimerAFlag], a
@@ -75,7 +75,7 @@ CommScene_Step:: ; 70:4023
 
 	; [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0;
 	; fall-through of the jrcc at 70:406F (executed) [executed in 4 scenarios]
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_ClearSlot
 	xor a, a
 	ld [wCommScene_TimerAFlag], a
@@ -225,13 +225,13 @@ Label_70_4135::
 	ldh [rSVBK], a
 	ld a, $14
 	ld [wCommScene_Timer], a
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, CommScene_SpriteObjTable
 	ld a, $70
 	ld b, $85
 	farcall Sprite_InitSlot
 	ld de, $3048
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	call Sprite_SetPosition
 	ld a, $01
 	call CommScene_ShowTextBox
@@ -252,13 +252,13 @@ Label_70_4135::
 	ldh [rSVBK], a
 	ld a, $02
 	ld [wCommScene_Result], a
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, CommScene_SpriteObjTable
 	ld a, $70
 	ld b, $85
 	farcall Sprite_InitSlot
 	ld de, $3048
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	call Sprite_SetPosition
 	ld a, $06
 	call CommScene_ShowTextBox
@@ -287,7 +287,7 @@ Label_70_41BF::
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	call Sprite_ClearSlot
 	ld a, $05
 	ld [wCommScene_State], a
@@ -330,7 +330,7 @@ Label_70_4215::
 	ld [wCommScene_Timer], a
 	or a, a
 	jr nz, .l4231
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	call Sprite_ClearSlot
 	ld a, $01
 	call CommScene_SetSpritePair
@@ -461,13 +461,13 @@ Label_70_42CD::
 	ldh [rSVBK], a
 	ld a, $14
 	ld [wCommScene_Timer], a
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, CommScene_SpriteObjTable
 	ld a, $70
 	ld b, $85
 	farcall Sprite_InitSlot
 	ld de, $3048
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	call Sprite_SetPosition
 	ld a, $03
 	call CommScene_ShowTextBox
@@ -488,13 +488,13 @@ Label_70_42CD::
 	ldh [rSVBK], a
 	ld a, $02
 	ld [wCommScene_Result], a
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, CommScene_SpriteObjTable
 	ld a, $70
 	ld b, $85
 	farcall Sprite_InitSlot
 	ld de, $3048
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	call Sprite_SetPosition
 	ld a, $06
 	call CommScene_ShowTextBox
@@ -523,7 +523,7 @@ Label_70_4357::
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	call Sprite_ClearSlot
 	ld a, $04
 	ld [wCommScene_State], a
@@ -566,7 +566,7 @@ Label_70_43AD::
 	ld [wCommScene_Timer], a
 	or a, a
 	jr nz, .l43C9
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	call Sprite_ClearSlot
 	ld a, $01
 	call CommScene_SetSpritePair
@@ -794,12 +794,12 @@ Function_70_44B0::
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_CommScene_Bg
 	ld a, $70
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, Palette_CommScene_Obj
 	ld a, $70
 	farcall Palette_LoadToBuffer
@@ -809,21 +809,21 @@ Function_70_44B0::
 	ld a, $70
 	farcall Tilemap_CopyRectAndAttr
 	call CommScene_UploadBackgroundMap
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, CommScene_ObjTable
 	ld a, $70
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld de, $1800
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, CommScene_ObjTable
 	ld a, $70
 	ld b, $02
 	farcall Sprite_InitSlot
 	ld de, $1888
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 	ld a, [wCommScene_Kind]
 	or a, a
@@ -832,13 +832,13 @@ Function_70_44B0::
 	or a, a
 	jr z, .l4605
 .l45EC ; 70:45EC
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, CommScene_ObjTable
 	ld a, $70
 	ld b, $83
 	farcall Sprite_InitSlot
 	ld de, $7000
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 .l4605 ; 70:4605
 	call VBlank_WaitStartDI
@@ -1082,13 +1082,13 @@ Function_70_477F::
 	ld d, $30
 	ld a, [wCommScene_SpritePairX]
 	ld e, a
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	ld d, $30
 	ld a, [wCommScene_SpritePairX]
 	sub a, $10
 	ld e, a
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
 	ret
 
@@ -1098,13 +1098,13 @@ Function_70_477F::
 	ld d, $30
 	ld a, [wCommScene_SpritePairX]
 	ld e, a
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	ld d, $30
 	ld a, [wCommScene_SpritePairX]
 	add a, $10
 	ld e, a
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
 	ret
 
@@ -1115,12 +1115,12 @@ Function_70_47BB::
 	ld [wCommScene_SpritePairVariant], a
 	or a, a
 	jr nz, .l47E2
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, CommScene_SpriteObjTable
 	ld a, $70
 	ld b, $81
 	farcall Sprite_InitSlot
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, CommScene_SpriteObjTable
 	ld a, $70
 	ld b, $83
@@ -1130,12 +1130,12 @@ Function_70_47BB::
 .l47E2 ; 70:47E2
 	; [CONFIRMED] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 1;
 	; entered by jrcc from 70:47BF (executed) [executed in 3 scenarios]
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, CommScene_SpriteObjTable
 	ld a, $70
 	ld b, $82
 	farcall Sprite_InitSlot
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, CommScene_SpriteObjTable
 	ld a, $70
 	ld b, $84

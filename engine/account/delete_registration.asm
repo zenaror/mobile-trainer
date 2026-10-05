@@ -119,19 +119,19 @@ Registration_DeleteConfirm_Setup:: ; 68:79B8
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_Registration_Delete_Bg
 	ld a, $71
 	farcall Palette_LoadToBuffer
 	ld bc, $0018
-	ld de, $D868
+	ld de, wPaletteBufObj + $28
 	ld hl, $4CE0
 	ld a, $5F
 	farcall Palette_LoadToBuffer
 	call Registration_DeleteConfirm_PrintMessage
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	ld de, ConfirmPages_ObjTable
 	ld a, $4A
 	ld b, $81
@@ -217,7 +217,7 @@ Registration_DeleteConfirm_UpdateCursor:: ; 68:7B01
 	ld e, a
 	ld a, [hl]
 	ld d, a
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	call Sprite_SetPosition
 	ret
 
@@ -317,12 +317,12 @@ Registration_DeleteExecute_Setup:: ; 68:7BB0
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_Registration_Delete_Bg
 	ld a, $71
 	farcall Palette_LoadToBuffer
 	ld bc, $0008
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, $66C0
 	ld a, $71
 	farcall Palette_LoadToBuffer
@@ -334,13 +334,13 @@ Registration_DeleteExecute_Setup:: ; 68:7BB0
 	call Registration_DeleteExecute_PrintMessage
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	ld de, Registration_DeleteExecute_ObjTable
 	ld a, $71
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1C44
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	call Sprite_SetPosition
 	ret
 

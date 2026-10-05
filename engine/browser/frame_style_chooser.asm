@@ -19,11 +19,11 @@ Function_4E_4000::
 	; natural evidence; status unchanged)
 	farcall Browser_FrameStylePreview_LoadGraphics
 	ld de, $18A0
-	ld hl, $DA90
+	ld hl, wSpriteSlot9
 	call Sprite_SetPosition
-	ld hl, $DAA0
+	ld hl, wSpriteSlot10
 	call Sprite_ClearSlot
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	call Sprite_ClearSlot
 	ld a, [wBrowserFrameStyle]
 	push bc
@@ -61,13 +61,13 @@ Function_4E_4000::
 	ld l, c
 	push af
 	ld bc, $0028
-	ld de, $D840
+	ld de, wPaletteBufObj
 	farcall Palette_LoadToBuffer
 	ld bc, $0010
 	add hl, bc
 	pop af
 	ld bc, $0008
-	ld de, $D878
+	ld de, wPaletteBufObj + $38
 	farcall Palette_LoadToBuffer
 	ld a, $0C
 	ld [wConnIconState], a
@@ -139,13 +139,13 @@ Function_4E_4000::
 	ld l, c
 	push af
 	ld bc, $0028
-	ld de, $D840
+	ld de, wPaletteBufObj
 	farcall Palette_LoadToBuffer
 	ld bc, $0010
 	add hl, bc
 	pop af
 	ld bc, $0008
-	ld de, $D878
+	ld de, wPaletteBufObj + $38
 	farcall Palette_LoadToBuffer
 	xor a, a
 	ld [wBrowserTimerSecToggle], a
@@ -161,7 +161,7 @@ Function_4E_4000::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService
@@ -170,7 +170,7 @@ Function_4E_4000::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
-	ld hl, $DA80
+	ld hl, wSpriteSlot8
 	call Sprite_ClearSlot
 	call VBlank_WaitAndService
 
@@ -365,9 +365,9 @@ Function_4E_45FE::
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld a, [wSpriteSlots + 129]
+	ld a, [wSpriteSlot8 + $01]
 	add a, [hl]
-	ld [wSpriteSlots + 129], a
+	ld [wSpriteSlot8 + $01], a
 	inc hl
 	inc hl
 	ld a, [hli]

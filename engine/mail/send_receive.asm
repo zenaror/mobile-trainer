@@ -334,21 +334,21 @@ Function_27_41E3::
 	inc de
 	dec b
 	jr nz, .loop
-	ld hl, $DA80
+	ld hl, wSpriteSlot8
 	ld de, $7030
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7100
-	ld hl, $DA80
+	ld hl, wSpriteSlot8
 	call Sprite_SetPosition
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7A30
 	ld a, $27
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2FE0
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	ld a, [wMailScreenMode]
 	cp a, $00
@@ -356,7 +356,7 @@ Function_27_41E3::
 	call Mail_OutboxIsEmpty
 	inc a
 	jr nz, .l427C
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $7A40
 	ld a, $27
 	ld b, $81
@@ -367,7 +367,7 @@ Function_27_41E3::
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1;
 	; entered by jrcc from 27:4268 (executed) | upgraded by classifier 6: all 5 instruction starts
 	; of the region are in analysis/coverage_union.tsv (executed in a trace)
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $7A50
 	ld a, $27
 	ld b, $81
@@ -376,7 +376,7 @@ Function_27_41E3::
 .l428C ; 27:428C
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 3/18 scenarios)
 	ld de, $2FD0
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	jr .l42CF
 .l4297 ; 27:4297
@@ -385,25 +385,25 @@ Function_27_41E3::
 
 	; [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0;
 	; fall-through of the jrcc at 27:4299 (executed)
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $7AA0
 	ld a, $27
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2FD0
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	jr .l42CF
 
 .l42B6 ; 27:42B6
 	; [CONFIRMED] 86 insn(s); 86 executed (in up to 4/18 scenarios)
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7AC0
 	ld a, $27
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2FE0
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 .l42CF ; 27:42CF
 	farcall Session_ResetCounters
@@ -432,12 +432,12 @@ MailConnect_Screen_Loop:: ; 27:4305
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	push bc
-	ld a, [wSpriteSlots + 49]
+	ld a, [wSpriteSlot3 + $01]
 	inc a
-	ld [wSpriteSlots + 49], a
-	ld a, [wSpriteSlots + 65]
+	ld [wSpriteSlot3 + $01], a
+	ld a, [wSpriteSlot4 + $01]
 	inc a
-	ld [wSpriteSlots + 65], a
+	ld [wSpriteSlot4 + $01], a
 	di
 	farcall Sprite_UpdateAll
 	ei
@@ -451,7 +451,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 .l4334 ; 27:4334
 	call MailConnect_PollAdapterError
 	jp z, MailConnect_ShowError
-	ld a, [wSpriteSlots + 49]
+	ld a, [wSpriteSlot3 + $01]
 	cp a, $47
 	jr nz, MailConnect_Screen_Loop
 .l4341 ; 27:4341
@@ -577,13 +577,13 @@ MailConnect_Screen_Loop:: ; 27:4305
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $40
 	farcall Gfx_UploadWinMapBuffers
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $7A70
 	ld a, $27
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2F47
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
 	ld c, $1E
 .l444C ; 27:444C
@@ -606,7 +606,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 	dec c
 	jr nz, .l444C
 	ld de, $2FD0
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
 	push bc
 	push de
@@ -627,14 +627,14 @@ MailConnect_Screen_Loop:: ; 27:4305
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	push bc
-	ld a, [wSpriteSlots + 49]
+	ld a, [wSpriteSlot3 + $01]
 	inc a
 	inc a
-	ld [wSpriteSlots + 49], a
-	ld a, [wSpriteSlots + 65]
+	ld [wSpriteSlot3 + $01], a
+	ld a, [wSpriteSlot4 + $01]
 	inc a
 	inc a
-	ld [wSpriteSlots + 65], a
+	ld [wSpriteSlot4 + $01], a
 	di
 	farcall Sprite_UpdateAll
 	ei
@@ -651,7 +651,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 	ldh [rSVBK], a
 	farcall Joypad_Update
 	pop bc
-	ld a, [wSpriteSlots + 49]
+	ld a, [wSpriteSlot3 + $01]
 	cp a, $A7
 	jr c, .l448B
 	farcall Palette_FadeOutToWhite
@@ -681,13 +681,13 @@ MailConnect_Screen_Loop:: ; 27:4305
 	ldh [rSVBK], a
 	pop de
 	pop bc
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $7A70
 	ld a, $27
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2F47
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
 	ld b, $3C
 .l452C ; 27:452C
@@ -702,15 +702,15 @@ MailConnect_Screen_Loop:: ; 27:4305
 	farcall Timer_ResetClockB
 	farcall Mobile_BeginCancel
 	ld de, $2FE0
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $6F30
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2F47
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	ld a, [wMailScreenMode]
 	cp a, $00
@@ -718,7 +718,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 	call Mail_OutboxIsEmpty
 	inc a
 	jr nz, .l4589
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $7020
 	ld a, $28
 	ld b, $81
@@ -728,7 +728,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 .l4589 ; 27:4589
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1;
 	; entered by jrcc from 27:4575 (executed) [executed in 4 scenarios]
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $7A60
 	ld a, $27
 	ld b, $81
@@ -737,7 +737,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 .l4599 ; 27:4599
 	; [CONFIRMED] 4 insn(s); 4 executed (in up to 2/18 scenarios)
 	ld de, $2F57
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	jr .l45DC
 
@@ -750,26 +750,26 @@ MailConnect_Screen_Loop:: ; 27:4305
 
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 45A4-45DC by apply_coverage --split
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $7AB0
 	ld a, $27
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2F57
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	jr .l45DC
 
 .l45C3 ; 27:45C3
 	; [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 45A4-45DC by apply_coverage
 	; --split [executed in 8 scenarios]
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7AD0
 	ld a, $27
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2F47
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 
 .l45DC ; 27:45DC
@@ -807,7 +807,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 	pop de
 	pop bc
 	ld de, $71D0
-	ld hl, $DA80
+	ld hl, wSpriteSlot8
 	call Sprite_SetPosition
 	ld bc, $0514
 	ld de, $D000
@@ -821,12 +821,12 @@ MailConnect_Screen_Loop:: ; 27:4305
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	push bc
-	ld a, [wSpriteSlots + 49]
+	ld a, [wSpriteSlot3 + $01]
 	dec a
-	ld [wSpriteSlots + 49], a
-	ld a, [wSpriteSlots + 65]
+	ld [wSpriteSlot3 + $01], a
+	ld a, [wSpriteSlot4 + $01]
 	dec a
-	ld [wSpriteSlots + 65], a
+	ld [wSpriteSlot4 + $01], a
 	di
 	farcall Sprite_UpdateAll
 	ei
@@ -843,7 +843,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 	ldh [rSVBK], a
 	farcall Joypad_Update
 	pop bc
-	ld a, [wSpriteSlots + 49]
+	ld a, [wSpriteSlot3 + $01]
 	cp a, $C0
 	jr nz, .l4641
 	farcall Palette_FadeOutToWhite
@@ -1018,21 +1018,21 @@ Function_27_4768::
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $40
 	farcall Gfx_UploadWinMapBuffers
-	ld hl, $DA80
+	ld hl, wSpriteSlot8
 	ld de, $7030
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7100
-	ld hl, $DA80
+	ld hl, wSpriteSlot8
 	call Sprite_SetPosition
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $6F30
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2F48
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	ld a, [wMailScreenMode]
 	cp a, $00
@@ -1040,7 +1040,7 @@ Function_27_4768::
 	call Mail_OutboxIsEmpty
 	inc a
 	jr nz, .l4816
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $7020
 	ld a, $28
 	ld b, $81
@@ -1059,7 +1059,7 @@ Function_27_4768::
 	cp a, $FF
 	jr z, .l4826
 .l4816 ; 27:4816
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $7A60
 	ld a, $27
 	ld b, $81
@@ -1068,7 +1068,7 @@ Function_27_4768::
 .l4826 ; 27:4826
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
 	ld de, $2F58
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	jr .l4869
 .l4831 ; 27:4831
@@ -1077,25 +1077,25 @@ Function_27_4768::
 
 	; [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0;
 	; fall-through of the jrcc at 27:4833 (executed)
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $7AB0
 	ld a, $27
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2F58
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	jr .l4869
 
 .l4850 ; 27:4850
 	; [CONFIRMED] 63 insn(s); 63 executed (in up to 2/18 scenarios)
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7AD0
 	ld a, $27
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2F48
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 .l4869 ; 27:4869
 	farcall Timer_ResetClockB
@@ -1107,18 +1107,18 @@ Function_27_4768::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	push bc
-	ld a, [wSpriteSlots + 49]
+	ld a, [wSpriteSlot3 + $01]
 	dec a
-	ld [wSpriteSlots + 49], a
-	ld a, [wSpriteSlots + 65]
+	ld [wSpriteSlot3 + $01], a
+	ld a, [wSpriteSlot4 + $01]
 	dec a
-	ld [wSpriteSlots + 65], a
+	ld [wSpriteSlot4 + $01], a
 	di
 	farcall Sprite_UpdateAll
 	ei
 	call VBlank_WaitAndService
 	pop bc
-	ld a, [wSpriteSlots + 49]
+	ld a, [wSpriteSlot3 + $01]
 	cp a, $47
 	jr nz, .l487A
 	ld de, $012C
@@ -1201,7 +1201,7 @@ Function_27_4768::
 	pop de
 	pop bc
 	ld de, $71D0
-	ld hl, $DA80
+	ld hl, wSpriteSlot8
 	call Sprite_SetPosition
 	ld bc, $0514
 	ld de, $D000
@@ -1215,12 +1215,12 @@ Function_27_4768::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	push bc
-	ld a, [wSpriteSlots + 49]
+	ld a, [wSpriteSlot3 + $01]
 	dec a
-	ld [wSpriteSlots + 49], a
-	ld a, [wSpriteSlots + 65]
+	ld [wSpriteSlot3 + $01], a
+	ld a, [wSpriteSlot4 + $01]
 	dec a
-	ld [wSpriteSlots + 65], a
+	ld [wSpriteSlot4 + $01], a
 	di
 	farcall Sprite_UpdateAll
 	ei
@@ -1237,7 +1237,7 @@ Function_27_4768::
 	ldh [rSVBK], a
 	farcall Joypad_Update
 	pop bc
-	ld a, [wSpriteSlots + 49]
+	ld a, [wSpriteSlot3 + $01]
 	cp a, $D0
 	jr nz, .l495E
 	farcall Palette_FadeOutToWhite
@@ -1305,21 +1305,21 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $40
 	farcall Gfx_UploadWinMapBuffers
-	ld hl, $DA80
+	ld hl, wSpriteSlot8
 	ld de, $7030
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7100
-	ld hl, $DA80
+	ld hl, wSpriteSlot8
 	call Sprite_SetPosition
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $6F30
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2F48
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	ld a, [wMailScreenMode]
 	cp a, $00
@@ -1330,7 +1330,7 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	call Mail_OutboxIsEmpty
 	inc a
 	jr nz, .l4A66
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $7020
 	ld a, $28
 	ld b, $81
@@ -1345,14 +1345,14 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	cp a, $FF
 	jr z, .l4A76
 .l4A66 ; 27:4A66
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $7A60
 	ld a, $27
 	ld b, $81
 	farcall Sprite_InitSlot
 .l4A76 ; 27:4A76
 	ld de, $2F58
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	jr .l4AB9
 
@@ -1364,26 +1364,26 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 49B0-4B95 by apply_coverage --split
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $7AB0
 	ld a, $27
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2F58
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	jr .l4AB9
 
 .l4AA0 ; 27:4AA0
 	; [CONFIRMED] 106 insn(s) executed; cut out of the PROBABLE region 49B0-4B95 by apply_coverage
 	; --split [executed in 1 scenarios]
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7AD0
 	ld a, $27
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2F48
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 .l4AB9 ; 27:4AB9
 	ld b, $00
@@ -1392,18 +1392,18 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	push bc
-	ld a, [wSpriteSlots + 49]
+	ld a, [wSpriteSlot3 + $01]
 	dec a
-	ld [wSpriteSlots + 49], a
-	ld a, [wSpriteSlots + 65]
+	ld [wSpriteSlot3 + $01], a
+	ld a, [wSpriteSlot4 + $01]
 	dec a
-	ld [wSpriteSlots + 65], a
+	ld [wSpriteSlot4 + $01], a
 	di
 	farcall Sprite_UpdateAll
 	ei
 	call VBlank_WaitAndService
 	pop bc
-	ld a, [wSpriteSlots + 49]
+	ld a, [wSpriteSlot3 + $01]
 	cp a, $47
 	jr nz, .l4ABB
 	ld b, $3C
@@ -1440,7 +1440,7 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	pop de
 	pop bc
 	ld de, $71D0
-	ld hl, $DA80
+	ld hl, wSpriteSlot8
 	call Sprite_SetPosition
 	ld bc, $0514
 	ld de, $D000
@@ -1454,12 +1454,12 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	push bc
-	ld a, [wSpriteSlots + 49]
+	ld a, [wSpriteSlot3 + $01]
 	dec a
-	ld [wSpriteSlots + 49], a
-	ld a, [wSpriteSlots + 65]
+	ld [wSpriteSlot3 + $01], a
+	ld a, [wSpriteSlot4 + $01]
 	dec a
-	ld [wSpriteSlots + 65], a
+	ld [wSpriteSlot4 + $01], a
 	di
 	farcall Sprite_UpdateAll
 	ei
@@ -1476,7 +1476,7 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	ldh [rSVBK], a
 	farcall Joypad_Update
 	pop bc
-	ld a, [wSpriteSlots + 49]
+	ld a, [wSpriteSlot3 + $01]
 	cp a, $D0
 	jr nz, .l4B43
 	farcall Palette_FadeOutToWhite
@@ -1502,12 +1502,12 @@ Function_27_4B95::
 	push bc
 	push af
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, MailScreens_ObjPalette_7520
 	ld a, $27
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, MailConnect_BgPalette
 	ld a, $27
 	farcall Palette_LoadToBuffer
@@ -1571,7 +1571,7 @@ Function_27_4B95::
 	ld a, $27
 	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, MailScreens_ObjPalette_7520
 	ld a, $27
 	farcall Palette_LoadToBuffer
@@ -1595,21 +1595,21 @@ Function_27_4B95::
 .l4CC0 ; 27:4CC0
 	ld a, $40
 	farcall Gfx_UploadWinMapBuffers
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, MailConnect_ObjTable
 	ld a, $27
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1800
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $7A20
 	ld a, $27
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1888
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 	di
 	farcall Sprite_UpdateAll
@@ -1629,7 +1629,7 @@ Function_27_4B95::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 
 	; [PROBABLE] 10 insn(s) reached by static flow only; seeds: site x10; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
@@ -1706,12 +1706,12 @@ CommTime_DrawHMSScreen:: ; 27:4D81
 	push de
 	push bc
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_CommTimeHMS_Bg
 	ld a, $29
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, MailScreens_ObjPalette_7520
 	ld a, $27
 	farcall Palette_LoadToBuffer
@@ -1734,7 +1734,7 @@ CommTime_DrawHMSScreen:: ; 27:4D81
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService
@@ -1839,7 +1839,7 @@ Function_27_4EC0:: ; 27:4EC0
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 
 	; [PROBABLE] 13 insn(s) reached by static flow only; seeds: site x13; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
@@ -1892,7 +1892,7 @@ Label_27_4EEB:: ; 27:4EEB
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_CommTime_SummaryB
 	ld a, $51
 	farcall Palette_LoadToBuffer

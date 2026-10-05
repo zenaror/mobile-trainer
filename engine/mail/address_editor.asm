@@ -163,10 +163,10 @@ Function_2D_65B0::
 	cp a, $14
 	jr c, .l66CD
 	ld de, $D000
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld de, $D000
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 .l66CD ; 2D:66CD
 	ld a, $01
@@ -511,12 +511,12 @@ Function_2D_68A9::
 	ld hl, Tilemap_MailAddr
 	ld a, $2D
 	farcall Tilemap_CopyRectAndAttr
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $7B50
 	ld a, $7F
 	ld b, $81
@@ -582,12 +582,12 @@ Function_2D_68A9::
 .l69B3 ; 2D:69B3
 	; [CONFIRMED] 14 insn(s); 14 executed (in up to 2/18 scenarios)
 	ld bc, $0028
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, Palette_TextCursor_Obj
 	ld a, $7F
 	farcall Palette_LoadToBuffer
 	ld bc, $0030
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_MailAddr_Bg
 	ld a, $2D
 	farcall Palette_LoadToBuffer
@@ -608,7 +608,7 @@ Function_2D_68A9::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService
@@ -707,8 +707,8 @@ MailAddr_PlaceCursorSprites:: ; 2D:6A4C
 	ld e, a
 	ld a, d
 	sub a, e
-	ld [wSpriteSlots + 16], a
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot1], a
+	ld [wSpriteSlot2], a
 	ld a, $08
 .l6A87 ; 2D:6A87
 	dec c
@@ -716,8 +716,8 @@ MailAddr_PlaceCursorSprites:: ; 2D:6A4C
 	add a, $06
 	jr .l6A87
 .l6A8E ; 2D:6A8E
-	ld [wSpriteSlots + 17], a
-	ld [wSpriteSlots + 33], a
+	ld [wSpriteSlot1 + $01], a
+	ld [wSpriteSlot2 + $01], a
 	pop bc
 	ret
 
@@ -1210,7 +1210,7 @@ MailAddr_InsertChar:: ; 2D:6D21
 	pop de
 	pop bc
 	push bc
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $7B70
 	ld a, $7F
 	ld b, $81
@@ -1239,7 +1239,7 @@ MailAddr_InsertChar:: ; 2D:6D21
 	jr nz, .l6D74
 .l6D98 ; 2D:6D98
 	farcall Joypad_ClearAndResetRepeat
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81
@@ -1321,7 +1321,7 @@ MailAddr_Backspace:: ; 2D:6E03
 	pop de
 	pop bc
 	push bc
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $7B80
 	ld a, $7F
 	ld b, $81
@@ -1372,7 +1372,7 @@ MailAddr_Backspace:: ; 2D:6E03
 	jr nz, .loop
 .l6E6B ; 2D:6E6B
 	farcall Joypad_ClearAndResetRepeat
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81

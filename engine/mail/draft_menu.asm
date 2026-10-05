@@ -101,39 +101,39 @@ MailDraft_Menu_Loop:: ; 2B:402B
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $FF
-	ld [wSpriteSlots + 16], a
-	ld [wSpriteSlots + 17], a
-	ld [wSpriteSlots + 18], a
-	ld [wSpriteSlots + 19], a
-	ld [wSpriteSlots + 20], a
-	ld [wSpriteSlots + 21], a
-	ld [wSpriteSlots + 22], a
-	ld [wSpriteSlots + 23], a
-	ld [wSpriteSlots + 24], a
-	ld [wSpriteSlots + 25], a
-	ld [wSpriteSlots + 26], a
-	ld [wSpriteSlots + 27], a
-	ld [wSpriteSlots + 28], a
-	ld [wSpriteSlots + 29], a
-	ld [wSpriteSlots + 30], a
-	ld [wSpriteSlots + 31], a
-	ld [wSpriteSlots + 36], a
-	ld [wSpriteSlots + 32], a
-	ld [wSpriteSlots + 33], a
-	ld [wSpriteSlots + 34], a
-	ld [wSpriteSlots + 35], a
-	ld [wSpriteSlots + 36], a
-	ld [wSpriteSlots + 37], a
-	ld [wSpriteSlots + 38], a
-	ld [wSpriteSlots + 39], a
-	ld [wSpriteSlots + 40], a
-	ld [wSpriteSlots + 41], a
-	ld [wSpriteSlots + 42], a
-	ld [wSpriteSlots + 43], a
-	ld [wSpriteSlots + 44], a
-	ld [wSpriteSlots + 45], a
-	ld [wSpriteSlots + 46], a
-	ld [wSpriteSlots + 47], a
+	ld [wSpriteSlot1], a
+	ld [wSpriteSlot1 + $01], a
+	ld [wSpriteSlot1 + $02], a
+	ld [wSpriteSlot1 + $03], a
+	ld [wSpriteSlot1 + $04], a
+	ld [wSpriteSlot1 + $05], a
+	ld [wSpriteSlot1 + $06], a
+	ld [wSpriteSlot1 + $07], a
+	ld [wSpriteSlot1 + $08], a
+	ld [wSpriteSlot1 + $09], a
+	ld [wSpriteSlot1 + $0A], a
+	ld [wSpriteSlot1 + $0B], a
+	ld [wSpriteSlot1 + $0C], a
+	ld [wSpriteSlot1 + $0D], a
+	ld [wSpriteSlot1 + $0E], a
+	ld [wSpriteSlot1 + $0F], a
+	ld [wSpriteSlot2 + $04], a
+	ld [wSpriteSlot2], a
+	ld [wSpriteSlot2 + $01], a
+	ld [wSpriteSlot2 + $02], a
+	ld [wSpriteSlot2 + $03], a
+	ld [wSpriteSlot2 + $04], a
+	ld [wSpriteSlot2 + $05], a
+	ld [wSpriteSlot2 + $06], a
+	ld [wSpriteSlot2 + $07], a
+	ld [wSpriteSlot2 + $08], a
+	ld [wSpriteSlot2 + $09], a
+	ld [wSpriteSlot2 + $0A], a
+	ld [wSpriteSlot2 + $0B], a
+	ld [wSpriteSlot2 + $0C], a
+	ld [wSpriteSlot2 + $0D], a
+	ld [wSpriteSlot2 + $0E], a
+	ld [wSpriteSlot2 + $0F], a
 	farcall Sprite_UpdateAll
 	ld de, $0209
 	push af
@@ -278,7 +278,7 @@ MailDraft_Menu_InitScreen:: ; 2B:420C
 	farcall TextTiles_ClearBuffers
 	farcall MailDraft_LoadFromSram
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_MailDraftMenu_Bg
 	ld a, $2B
 	farcall Palette_LoadToBuffer
@@ -289,7 +289,7 @@ MailDraft_Menu_InitScreen:: ; 2B:420C
 	ld c, $33
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, Palette_MailDraftMenu_Obj
 	ld a, $2B
 	farcall Palette_LoadToBuffer
@@ -306,37 +306,37 @@ MailDraft_Menu_InitScreen:: ; 2B:420C
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, Table_MailDraftMenu_Anims
 	ld a, $2B
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1008
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $51E0
 	ld a, $2B
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3008
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $51F0
 	ld a, $2B
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $68D0
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $5200
 	ld a, $2B
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $68D0
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -348,13 +348,13 @@ MailDraft_Menu_InitScreen:: ; 2B:420C
 
 	; [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0;
 	; fall-through of the jrcc at 2B:42F1 (executed) [executed in 2 scenarios]
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $5230
 	ld a, $2B
 	ld b, $00
 	farcall Sprite_InitSlot
 	ld de, $0068
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	call Sprite_SetPosition
 
 .l430C ; 2B:430C
@@ -429,15 +429,15 @@ MailDraft_Menu_MoveCursorSprites:: ; 2B:43A5
 	cp a, $00
 	jr nz, .l43CF
 	ld de, $6810
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $5200
 	ld a, $2B
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6810
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 	pop bc
 	ret
@@ -445,15 +445,15 @@ MailDraft_Menu_MoveCursorSprites:: ; 2B:43A5
 	cp a, $01
 	jr nz, .l43F7
 	ld de, $6840
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $5210
 	ld a, $2B
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6840
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 	pop bc
 	ret
@@ -461,15 +461,15 @@ MailDraft_Menu_MoveCursorSprites:: ; 2B:43A5
 	cp a, $02
 	jr nz, .l441F
 	ld de, $6870
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $5220
 	ld a, $2B
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6870
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 	pop bc
 	ret

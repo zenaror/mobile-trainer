@@ -17,13 +17,13 @@ Function_25_4B0D::
 	inc a
 	jp z, .l4BD0
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Mailbox_BgPalette
 	ld a, $25
 	farcall Palette_LoadToBuffer
 	call VBlank_Wait
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, $6EF0
 	ld a, $25
 	farcall Palette_LoadToBuffer
@@ -75,13 +75,13 @@ Function_25_4B0D::
 	; [CONFIRMED] 53 insn(s) reached by static flow only; seeds: exec x53; min discovery hops 1;
 	; entered by jpcc from 25:4B25 (executed) [executed in 3 scenarios]
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Mailbox_BgPalette
 	ld a, $25
 	farcall Palette_LoadToBuffer
 	call VBlank_Wait
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, $6EF0
 	ld a, $25
 	farcall Palette_LoadToBuffer
@@ -131,13 +131,13 @@ Function_25_4B0D::
 .l4C75 ; 25:4C75
 	; [CONFIRMED] 68 insn(s); 68 executed (in up to 1/18 scenarios)
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Mailbox_BgPalette
 	ld a, $25
 	farcall Palette_LoadToBuffer
 	call VBlank_Wait
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, $6EF0
 	ld a, $25
 	farcall Palette_LoadToBuffer
@@ -247,13 +247,13 @@ Function_25_4B0D::
 	jr nz, .l4D33
 	jr .l4D4C
 .l4D33 ; 25:4D33
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7B40
 	ld a, $26
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3048
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 .l4D4C ; 25:4D4C
 	pop bc
@@ -312,31 +312,31 @@ Mailbox_UpdateScrollArrows_B:: ; 25:4D99
 	jr z, .l4DE8
 	cp a, $04
 	jr z, .l4DE8
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $7B50
 	ld a, $26
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6848
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7B40
 	ld a, $26
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3048
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	pop de
 	pop bc
 	ret
 .l4DE8 ; 25:4DE8
 	ld de, $68D0
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	ld de, $30D0
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	pop de
 	pop bc
@@ -1494,16 +1494,16 @@ Mailbox_ShowRowNumbers:: ; 25:5581
 	dec b
 	jr nz, .l559A
 	ld de, $38D0
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
 	ld de, $38D0
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	call Sprite_SetPosition
 	ld de, $38D0
-	ld hl, $DA70
+	ld hl, wSpriteSlot7
 	call Sprite_SetPosition
 	ld de, $38D0
-	ld hl, $DA80
+	ld hl, wSpriteSlot8
 	call Sprite_SetPosition
 	pop bc
 	push bc
@@ -1517,40 +1517,40 @@ Mailbox_ShowRowNumbers:: ; 25:5581
 	jr z, .l560C
 	cp a, $03
 	jr z, .l55F3
-	ld hl, $DA80
+	ld hl, wSpriteSlot8
 	ld de, $7B90
 	ld a, $26
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5C08
-	ld hl, $DA80
+	ld hl, wSpriteSlot8
 	call Sprite_SetPosition
 .l55F3 ; 25:55F3
-	ld hl, $DA70
+	ld hl, wSpriteSlot7
 	ld de, $7B80
 	ld a, $26
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5008
-	ld hl, $DA70
+	ld hl, wSpriteSlot7
 	call Sprite_SetPosition
 .l560C ; 25:560C
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $7B70
 	ld a, $26
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $4408
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	call Sprite_SetPosition
 .l5625 ; 25:5625
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $7B60
 	ld a, $26
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3808
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
 .l563E ; 25:563E
 	pop bc
@@ -1561,16 +1561,16 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 	push de
 	push bc
 	ld de, $38D0
-	ld hl, $DA90
+	ld hl, wSpriteSlot9
 	call Sprite_SetPosition
 	ld de, $38D0
-	ld hl, $DAA0
+	ld hl, wSpriteSlot10
 	call Sprite_SetPosition
 	ld de, $38D0
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	call Sprite_SetPosition
 	ld de, $38D0
-	ld hl, $DAC0
+	ld hl, wSpriteSlot12
 	call Sprite_SetPosition
 	pop bc
 	push bc
@@ -1585,7 +1585,7 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 	cp a, $03
 	jp z, .l56B6
 	push bc
-	ld hl, $DAC0
+	ld hl, wSpriteSlot12
 	ld de, $7BB0
 	ld a, $26
 	ld b, $81
@@ -1596,19 +1596,19 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 	call Mailbox_IsRecordClosedEnvelope
 	inc a
 	jr nz, .l56AC
-	ld hl, $DAC0
+	ld hl, wSpriteSlot12
 	ld de, $7BA0
 	ld a, $26
 	ld b, $81
 	farcall Sprite_InitSlot
 .l56AC ; 25:56AC
 	ld de, $5C08
-	ld hl, $DAC0
+	ld hl, wSpriteSlot12
 	call Sprite_SetPosition
 	pop bc
 .l56B6 ; 25:56B6
 	push bc
-	ld hl, $DAA0
+	ld hl, wSpriteSlot10
 	ld de, $7BB0
 	ld a, $26
 	ld b, $81
@@ -1619,19 +1619,19 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 	call Mailbox_IsRecordClosedEnvelope
 	inc a
 	jr nz, .l56E1
-	ld hl, $DAA0
+	ld hl, wSpriteSlot10
 	ld de, $7BA0
 	ld a, $26
 	ld b, $81
 	farcall Sprite_InitSlot
 .l56E1 ; 25:56E1
 	ld de, $5008
-	ld hl, $DAA0
+	ld hl, wSpriteSlot10
 	call Sprite_SetPosition
 	pop bc
 .l56EB ; 25:56EB
 	push bc
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	ld de, $7BB0
 	ld a, $26
 	ld b, $81
@@ -1642,19 +1642,19 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 	call Mailbox_IsRecordClosedEnvelope
 	inc a
 	jr nz, .l5716
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	ld de, $7BA0
 	ld a, $26
 	ld b, $81
 	farcall Sprite_InitSlot
 .l5716 ; 25:5716
 	ld de, $4408
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	call Sprite_SetPosition
 	pop bc
 .l5720 ; 25:5720
 	push bc
-	ld hl, $DA90
+	ld hl, wSpriteSlot9
 	ld de, $7BB0
 	ld a, $26
 	ld b, $81
@@ -1665,14 +1665,14 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 	call Mailbox_IsRecordClosedEnvelope
 	inc a
 	jr nz, .l574B
-	ld hl, $DA90
+	ld hl, wSpriteSlot9
 	ld de, $7BA0
 	ld a, $26
 	ld b, $81
 	farcall Sprite_InitSlot
 .l574B ; 25:574B
 	ld de, $3808
-	ld hl, $DA90
+	ld hl, wSpriteSlot9
 	call Sprite_SetPosition
 	pop bc
 .l5755 ; 25:5755
@@ -1684,7 +1684,7 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 	cp a, $02
 	jp z, .l579D
 	push bc
-	ld hl, $DAC0
+	ld hl, wSpriteSlot12
 	ld de, $7BD0
 	ld a, $26
 	ld b, $81
@@ -1695,20 +1695,20 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 	call Mailbox_IsRecordClosedEnvelope
 	inc a
 	jr nz, .l5790
-	ld hl, $DAC0
+	ld hl, wSpriteSlot12
 	ld de, $7BC0
 	ld a, $26
 	ld b, $81
 	farcall Sprite_InitSlot
 .l5790 ; 25:5790
 	ld de, $5C08
-	ld hl, $DAC0
+	ld hl, wSpriteSlot12
 	call Sprite_SetPosition
 	pop bc
 	jp .l5845
 .l579D ; 25:579D
 	push bc
-	ld hl, $DAA0
+	ld hl, wSpriteSlot10
 	ld de, $7BD0
 	ld a, $26
 	ld b, $81
@@ -1719,20 +1719,20 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 	call Mailbox_IsRecordClosedEnvelope
 	inc a
 	jr nz, .l57C8
-	ld hl, $DAA0
+	ld hl, wSpriteSlot10
 	ld de, $7BC0
 	ld a, $26
 	ld b, $81
 	farcall Sprite_InitSlot
 .l57C8 ; 25:57C8
 	ld de, $5008
-	ld hl, $DAA0
+	ld hl, wSpriteSlot10
 	call Sprite_SetPosition
 	pop bc
 	jp .l5845
 .l57D5 ; 25:57D5
 	push bc
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	ld de, $7BD0
 	ld a, $26
 	ld b, $81
@@ -1743,20 +1743,20 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 	call Mailbox_IsRecordClosedEnvelope
 	inc a
 	jr nz, .l5800
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	ld de, $7BC0
 	ld a, $26
 	ld b, $81
 	farcall Sprite_InitSlot
 .l5800 ; 25:5800
 	ld de, $4408
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	call Sprite_SetPosition
 	pop bc
 	jp .l5845
 .l580D ; 25:580D
 	push bc
-	ld hl, $DA90
+	ld hl, wSpriteSlot9
 	ld de, $7BD0
 	ld a, $26
 	ld b, $81
@@ -1767,14 +1767,14 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 	call Mailbox_IsRecordClosedEnvelope
 	inc a
 	jr nz, .l5838
-	ld hl, $DA90
+	ld hl, wSpriteSlot9
 	ld de, $7BC0
 	ld a, $26
 	ld b, $81
 	farcall Sprite_InitSlot
 .l5838 ; 25:5838
 	ld de, $3808
-	ld hl, $DA90
+	ld hl, wSpriteSlot9
 	call Sprite_SetPosition
 	pop bc
 	jp .l5845

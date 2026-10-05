@@ -53,17 +53,17 @@ ConnectDialog_Draw_ConnectConfirm:: ; 57:47D1
 	ld a, $56
 	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_ConnectDialog_Bg
 	ld a, $56
 	farcall Palette_LoadToBuffer
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, ConnectDialog_ObjTable
 	ld a, $56
 	ld b, $85
 	farcall Sprite_InitSlot
 	ld de, $6828
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	ld a, $00
 	ld bc, $0410
@@ -221,7 +221,7 @@ ConnectDialog_Draw_PasswordEntry:: ; 57:4951
 	farcall Tilemap_CopyRectAndAttr
 	call ConnectDialog_DrawPasswordField
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, $7800
 	ld a, $56
 	farcall Palette_LoadToBuffer
@@ -295,12 +295,12 @@ ConnectDialog_Draw_PasswordEntry:: ; 57:4951
 	ld a, $08
 	ld [wRam_D522], a
 	ld [wRam_D542], a
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, ConnectDialog_ObjTable
 	ld a, $56
 	ld b, $80
 	farcall Sprite_InitSlot
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, ConnectDialog_ObjTable
 	ld a, $56
 	ld b, $81
@@ -308,12 +308,12 @@ ConnectDialog_Draw_PasswordEntry:: ; 57:4951
 	call ConnectDialog_PlaceCaretSprites
 	jp ConnectDialog_Draw_Finish
 .l4AA3 ; 57:4AA3
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, ConnectDialog_ObjTable
 	ld a, $56
 	ld b, $80
 	farcall Sprite_InitSlot
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, ConnectDialog_ObjTable
 	ld a, $56
 	ld b, $81
@@ -440,7 +440,7 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	ld a, $56
 	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, $7800
 	ld a, $56
 	farcall Palette_LoadToBuffer
@@ -448,7 +448,7 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	cp a, $06
 	jr nz, .l4C2C
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService
@@ -581,7 +581,7 @@ ConnectDialog_Draw_PasswordSaved:: ; 57:4D40
 	farcall Tilemap_CopyRectAndAttr
 	call ConnectDialog_DrawPasswordField
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, $7800
 	ld a, $56
 	farcall Palette_LoadToBuffer
@@ -689,7 +689,7 @@ ConnectDialog_Draw_StoredPassword:: ; 57:4E4C
 	farcall Tilemap_CopyRectAndAttr
 	call ConnectDialog_DrawPasswordField
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, $7800
 	ld a, $56
 	farcall Palette_LoadToBuffer
@@ -774,7 +774,7 @@ ConnectDialog_Draw_ForgetConfirm:: ; 57:4F59
 	ld a, $56
 	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, $7800
 	ld a, $56
 	farcall Palette_LoadToBuffer
@@ -884,7 +884,7 @@ ConnectDialog_Draw_Finish:: ; 57:5077
 	ld c, $20
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, $7840
 	ld a, $56
 	farcall Palette_LoadToBuffer
@@ -929,7 +929,7 @@ Label_57_50D8::
 	ld c, $20
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, $7840
 	ld a, $56
 	farcall Palette_LoadToBuffer
@@ -1157,7 +1157,7 @@ ConnectDialog_PlaceCaretSprites:: ; 57:527D
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld a, [wRam_C1CC]
 	add a, $1E
 	ld d, a
@@ -1175,7 +1175,7 @@ ConnectDialog_PlaceCaretSprites:: ; 57:527D
 	add a, $32
 	ld e, a
 	farcall Sprite_SetPosition
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld a, [wRam_C1CC]
 	add a, $1E
 	ld d, a
@@ -1223,7 +1223,7 @@ ConnectDialog_ObjHook_Caret:: ; 57:52D8
 	or a, a
 	jr nz, .l5314
 .l52F1 ; 57:52F1
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $79B8
 	ld a, $56
 	ld b, $81
@@ -1232,7 +1232,7 @@ ConnectDialog_ObjHook_Caret:: ; 57:52D8
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	; [executed in 4 scenarios]
 	farcall Sprite_InitSlot
-	ld hl, $DA2B
+	ld hl, wSpriteSlot2 + $0B
 	ld de, $531E
 	ld a, $57
 	call Sprite_SetHook
@@ -1263,8 +1263,8 @@ ConnectDialog_ObjHook_FollowRaster:: ; 57:531E
 	ldh [rSVBK], a
 	ld a, [wConnectDialog_RasterOffset]
 	add a, $15
-	ld [wSpriteSlots + 32], a
-	ld [wSpriteSlots + 48], a
+	ld [wSpriteSlot2], a
+	ld [wSpriteSlot3], a
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
