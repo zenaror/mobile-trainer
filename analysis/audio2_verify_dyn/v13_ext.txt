@@ -1,0 +1,34 @@
+A. fields after `$CD sub val`: 63 cases, equal to the doc's field map: 63, different: 0
+B. `$CD sub 11` then a note: (number of commands decoded, last opcode, frame, track-active flag in the next frames):
+   sub 00: (6, 'CD', 4, [0, 0])  -> track ENDED at the CD (note never decoded)
+   sub 08: (6, 'CD', 4, [0, 0])  -> track ENDED at the CD (note never decoded)
+   sub 09: (6, 'CD', 4, [0, 0])  -> track ENDED at the CD (note never decoded)
+   sub 0C: (6, 'CD', 4, [0, 0])  -> track ENDED at the CD (note never decoded)
+   sub 0D: (6, 'CD', 4, [0, 0])  -> track ENDED at the CD (note never decoded)
+   sub 0E: (6, 'CD', 4, [0, 0])  -> track ENDED at the CD (note never decoded)
+   sub 0F: (6, 'CD', 4, [0, 0])  -> track ENDED at the CD (note never decoded)
+   sub 20: (6, 'CD', 4, [0, 0])  -> track ENDED at the CD (note never decoded)
+   sub 7F: (6, 'CD', 4, [0, 0])  -> track ENDED at the CD (note never decoded)
+   sub FF: (6, 'CD', 4, [0, 0])  -> track ENDED at the CD (note never decoded)
+   sub 01: (10, 'B1', 8, [0, 0])  -> track continued
+   sub 0B: (10, 'B1', 8, [0, 0])  -> track continued
+C. `$CD 2/3/4/5` build bytes 3 and 4 nibble by nibble: 30 of 30 notes: instrument bytes and NRx2 sequence equal the envelope model
+D. sub 1 byte0=08 -> class pulse2, channel register $17 seen at WriteChannelParams: ok
+D. sub 1 byte0=09 -> class pulse2, channel register $17 seen at WriteChannelParams: ok
+D. sub 1 byte0=0B -> class pulse2, channel register $17 seen at WriteChannelParams: ok
+D. sub 1 byte0=00 -> class pulse1, channel register $12 seen at WriteChannelParams: ok
+D. sub 1 byte0=03 -> class pulse1, channel register $12 seen at WriteChannelParams: ok
+D. sub 1 byte0=10 -> class wave, channel register $1C seen at WriteChannelParams: ok
+D. sub 1 byte0=12 -> class wave, channel register $1C seen at WriteChannelParams: ok
+D. sub 1 byte0=41 -> class noise, channel register $21 seen at WriteChannelParams: ok
+D. sub 1 byte0=40 -> class noise, channel register $21 seen at WriteChannelParams: ok
+D. sub 10 length=01 -> writes at note start [('FF19', '40'), ('FF16', 'BF')] ; mGBA ch2 playing flag drops after 0 frames (length/256 s = 0.2 (NR21 gets (-len)&$3F = 63 -> 1/256 s) frames)
+D. sub 10 length=10 -> writes at note start [('FF19', '40'), ('FF16', 'B0')] ; mGBA ch2 playing flag drops after 3 frames (length/256 s = 3.8 (NR21 gets (-len)&$3F = 48 -> 16/256 s) frames)
+D. sub 10 length=20 -> writes at note start [('FF19', '40'), ('FF16', 'A0')] ; mGBA ch2 playing flag drops after 7 frames (length/256 s = 7.5 (NR21 gets (-len)&$3F = 32 -> 32/256 s) frames)
+D. sub 10 length=3F -> writes at note start [('FF19', '40'), ('FF16', '81')] ; mGBA ch2 playing flag drops after 14 frames (length/256 s = 14.8 (NR21 gets (-len)&$3F = 1 -> 63/256 s) frames)
+D. sub 10 length=40 -> writes at note start [('FF19', '40'), ('FF16', '80')] ; mGBA ch2 playing flag drops after 14 frames (length/256 s = 15.0 (NR21 gets (-len)&$3F = 0 -> 64/256 s) frames)
+D. sub 10 length=FF -> writes at note start [('FF19', '40'), ('FF16', '81')] ; mGBA ch2 playing flag drops after 14 frames (length/256 s = 14.8 (NR21 gets (-len)&$3F = 1 -> 63/256 s) frames)
+D. sub 10 length=00 -> writes at note start [('FF19', '00'), ('FF16', '80')] ; mGBA ch2 playing flag drops after None frames (length/256 s = - frames)
+D. sub 11 byte2=00 -> writes at note start [('FF15', '00')]
+D. sub 11 byte2=5A -> writes at note start [('FF15', '5A')]
+D. sub 11 byte2=FF -> writes at note start [('FF15', 'FF')]

@@ -1,0 +1,3 @@
+headers 59 (bank 04: 13, bank 05: 46), tracks 152, label mismatches 0
+ids sharing another id's header: ['1E', '1F', '20', '21', '22', '23', '24', '25', '26', '27', '28'] -> all share the header of id ['01']
+distinct headers by id range: $01-$0D 13, $0E-$1D 16, $29-$46 30

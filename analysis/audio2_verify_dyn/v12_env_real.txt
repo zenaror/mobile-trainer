@@ -1,0 +1,1 @@
+{'decay': 10143, 'release': 30, 'state1_release': 30, 'state2_decay': 10143, 'state2_sustain_or_nodecay': 6601, 'sustain_or_nodecay': 6601}

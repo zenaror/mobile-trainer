@@ -1,0 +1,30 @@
+bend: pitch $45 (439.84 Hz at period 1750), `$C2 s`, `$C1 v`: measured shift in semitones vs the doc's (v-$40)*s/64 (v >= $40) and that + s/256 below, and the period-domain model:
+   v=$40 s=$02: measured   439.84 Hz = -0.000 semitones; doc +0.000, own +0.000; model period 1750 -> 439.84 Hz (-0.000)
+   v=$48 s=$10: measured   492.75 Hz = +1.967 semitones; doc +2.000, own +2.000; model period 1782 -> 492.75 Hz (+1.967)
+   v=$50 s=$10: measured   555.39 Hz = +4.038 semitones; doc +4.000, own +4.000; model period 1812 -> 555.39 Hz (+4.038)
+   v=$60 s=$10: measured   697.19 Hz = +7.975 semitones; doc +8.000, own +8.000; model period 1860 -> 697.19 Hz (+7.975)
+   v=$70 s=$08: measured   621.19 Hz = +5.977 semitones; doc +6.000, own +6.000; model period 1837 -> 621.19 Hz (+5.977)
+   v=$7F s=$04: measured   553.04 Hz = +3.965 semitones; doc +3.938, own +3.938; model period 1811 -> 553.05 Hz (+3.965)
+   v=$38 s=$10: measured   394.80 Hz = -1.870 semitones; doc -2.000, own -1.938; model period 1716 -> 394.80 Hz (-1.870)
+   v=$30 s=$10: measured   351.40 Hz = -3.886 semitones; doc -4.000, own -3.938; model period 1675 -> 351.40 Hz (-3.886)
+   v=$20 s=$10: measured   278.28 Hz = -7.925 semitones; doc -8.000, own -7.938; model period 1577 -> 278.28 Hz (-7.925)
+   v=$00 s=$08: measured   277.69 Hz = -7.962 semitones; doc -8.000, own -7.969; model period 1576 -> 277.69 Hz (-7.962)
+pan: `$C0 v` on pulse 2: RMS of the left / right output (doc: left only $00-$1F, both $20-$5F, right only $60-$7F):
+   v=$00: left   5732.3  right      0.0   -> left only
+   v=$10: left   5732.4  right      0.0   -> left only
+   v=$1F: left   5732.4  right      0.0   -> left only
+   v=$20: left   5732.3  right   5732.3   -> both
+   v=$40: left   5732.3  right   5732.3   -> both
+   v=$5F: left   5732.4  right   5732.4   -> both
+   v=$60: left      0.0  right   5732.4   -> right only
+   v=$70: left      0.0  right   5732.3   -> right only
+   v=$7F: left      0.0  right   5732.3   -> right only
+wave output level: RMS for note volumes (mirror level = ceil(15 * (v>>1) / 16)):
+   note volume 1F -> mirror level 15: RMS   4074.6 (1.00 of the first)
+   note volume 19 -> mirror level 12: RMS   4074.5 (1.00 of the first)
+   note volume 17 -> mirror level 11: RMS   2052.1 (0.50 of the first)
+   note volume 11 -> mirror level  8: RMS   2052.2 (0.50 of the first)
+   note volume 0F -> mirror level  7: RMS    984.9 (0.24 of the first)
+   note volume 09 -> mirror level  4: RMS    984.9 (0.24 of the first)
+   note volume 07 -> mirror level  3: RMS      0.0 (0.00 of the first)
+   note volume 03 -> mirror level  1: RMS      0.0 (0.00 of the first)

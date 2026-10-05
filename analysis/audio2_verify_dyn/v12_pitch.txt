@@ -1,0 +1,2 @@
+{'pulse_calls': 8178, 'ok': 12136, 'noise_calls': 5029, 'wave_calls': 3958, 'ok_with_fraction': 2877}
+calls with a nonzero fraction byte (+$2C): 2877 distinct note-table indices exercised: 72 min/max 0 82 period > $7FF: 0

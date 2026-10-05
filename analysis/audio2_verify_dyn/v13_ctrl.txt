@@ -1,0 +1,19 @@
+StopSfxById(id $27): before [0, 1, 4, 5] after [1, 4, 5]  (sfx $27 was track 0, sfx $26 track 1; music $28 on tracks 4, 5)
+Sound_PlaySfx(0) = StopAllSfx: before [0, 1, 4, 5] after [4, 5]
+Sound_PauseMusic: before [0, 4, 5] after [0]; music track 4 stream pointer 400C -> 400C (kept) ; flags C0 -> 40
+Sound_PauseMusic then Sound_ResumeMusic: frame 8 [4, 5], frame 13 [], frame 20 [4, 5]
+Sound_PlayMusic(0) (= PauseMusic): frame 8 [4, 5], frame 14 []
+PlayMusicOrResume($28) after pause: active [4, 5], stream pointer of track 4 400C (a restart would give 4003 or so)
+PlayMusicOrResume($28) while playing: stream pointer track 4 400C (frame 8) -> 400C (frame 14): unchanged = not restarted
+PlayMusicIfNotPlaying($28) while playing: track 4 pointer 400C -> 400C (unchanged); then ($01) different id: active tracks [4, 5, 6, 7] (song 1 has 4 tracks)
+   stub 20A0 at frame 0 returned A=63 BC=006B DE=0018
+   stub 20B2 at frame 2 returned A=00 BC=5515 DE=D130
+   stub 20AC at frame 2 returned A=00 BC=5515 DE=D040
+   stub 20AC at frame 2 returned A=00 BC=5515 DE=D040
+   stub 20D0 at frame 8 returned A=00 BC=5515 DE=0303
+   stub 20E2 at frame 9 returned A=00 BC=0028 DE=0303
+   stub 20E2 at frame 10 returned A=00 BC=0027 DE=0303
+   stub 20E2 at frame 11 returned A=00 BC=0026 DE=0303
+   stub 20E2 at frame 12 returned A=00 BC=0000 DE=0303
+   stub 20E2 at frame 13 returned A=00 BC=0000 DE=0303
+   (Sound_GetActiveMasks 00:20D0 -> D = sfx mask, E = music mask; Sound_GetPlayingId 00:20E2 with A = 0 music / 1-4 sfx track -> BC = song id)

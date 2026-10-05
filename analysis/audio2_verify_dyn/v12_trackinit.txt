@@ -1,0 +1,44 @@
++00 flags            doc C0  observed C0
++09 pitch            doc 00  observed 00
++0A note volume      doc 00  observed 00
++0B duration         doc 00  observed 00
++0C instr b0         doc 00  observed 00
++0D instr b1         doc 00  observed 00
++0E instr b2         doc FF  observed 00   <-- differs
++0F instr b3         doc FF  observed FF
++10 instr b4         doc 00  observed FF   <-- differs
++11 running status   doc 00  observed 00
++12 pitch add        doc 00  observed 00
++13 ext pitch lo     doc 00  observed 00
++14 ext pitch hi     doc 00  observed 00
++15 track volume     doc FF  observed FF
++16 volume scale     doc 40  observed 40
++17 pan              doc 00  observed 00
++18 pan offset       doc 00  observed 00
++19 bend value       doc 00  observed 00
++1A bend scale       doc 02  observed 02
++1B bend product lo  doc 00  observed 00
++1C bend product hi  doc 00  observed 00
++1D detune           doc 00  observed 00
++1E $CA byte         doc 00  observed 00
++1F vib rate         doc 17  observed 17
++20 vib phase        doc 00  observed 17   <-- differs
++21 vib depth        doc 00  observed 00
++22 vib addend       doc 00  observed 00
++23 vib disable      doc 00  observed 00
++24 vib out lo       doc 00  observed 00
++25 vib out hi       doc 00  observed 00
++26 call depth       doc 00  observed 00
++27 +27              doc 00  observed 00
++28 +28              doc 00  observed 00
++29 loop counter     doc 00  observed 00
++2A vib delay        doc 00  observed 00
++2B vib countdown    doc 00  observed 00
++2C pitch out lo     doc 00  observed 00
++2D pitch out hi     doc 00  observed 00
++2E pan out          doc 00  observed 00
++2F volume out       doc 00  observed 00
++30 +30              doc FF  observed FF
+track record bytes +31..+3B: 0000000000000000000000 (+$31 not initialised; +$32.. call stack)
+fields: +1 wait counter 7, +2/3 pointer 4001, +4/5 bank 0006, +6/7 id 0028, +8 priority C8
+differences from the doc column: 3

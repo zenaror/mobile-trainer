@@ -1,0 +1,6 @@
+pan: {'pan_calls_ch0': 256, 'f17_ok': 1024, 'f2e_ok': 1024, 'total': 1024, 'pan_calls_ch1': 256, 'pan_calls_ch2': 256, 'pan_calls_ch3': 256, 'nr51_writes': 1024, 'nr51_total': 1024, 'nr51_ok': 1024}
+  bits 7/6 of +$2E (00 both, 01 right, 10 left, 11 both) -> channel bits written (pulse1 mask $11):  {('ch0', '00'): ['11'], ('ch0', '40'): ['01'], ('ch0', '80'): ['10'], ('ch0', 'C0'): ['11']}
+detune: {'total': 256, '+1D_ok': 256, '+2C_ok': 256, 'v<=7F_total': 128, 'v<=7F_(+2C == (v-$40)*4)': 128}
+$CA: values of +$1E seen in the end-of-frame snapshots: 256 (256 expected incl. 0);  CPU reads of +$1E (all 8 tracks, WRAM bank 1): 0
+   WriteChannelPitch calls during the run: 256  distinct +$2C/$2D values in them: {0: 256}  (a call per `$CA` = the pitch flag, same value)
+   `$CA` executed in 256 frames; WriteChannelPitch called in 256 of them

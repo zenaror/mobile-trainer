@@ -1,0 +1,68 @@
+id  bank hdr  trk  cmds_run  distinct  reachable  obs_not_reach  reach_not_obs  viol
+01  04 58BC   4       229       229       229         0         0      0
+02  04 5CBF   4      1612       684       684         0         0      0
+03  04 5EF4   4       794       314       314         0         0      0
+04  04 60E8   4      1147       265       265         0         0      0
+05  04 6822   4      3634      1015      1015         0         0      0
+06  04 6B3A   4       881       438       438         0         0      0
+07  04 7079   4      1903       765       765         0         0      0
+08  04 7445   4      1365       572       572         0         0      0
+09  04 77CF   4      1263       535       535         0         0      0
+0A  04 7990   3      1015       314       314         0         0      0
+0B  04 7BD9   4       808       336       336         0         0      0
+0C  04 7DA2   4       519       257       257         0         0      0
+0D  04 7E82   4       143       143       143         0         0      0
+0E  05 4218   4      1165       300       300         0         0      0
+0F  05 4540   4      1215       455       455         0         0      0
+10  05 46E6   4       471       232       232         0         0      0
+11  05 4A15   4      1296       460       460         0         0      0
+12  05 4C87   4      1614       352       352         0         0      0
+13  05 4D76   4       125       125       125         0         0      0
+14  05 50A2   4      4861       431       431         0         0      0
+15  05 516A   4       117       117       117         0         0      0
+16  05 54C9   4      1135       485       485         0         0      0
+17  05 5ADC   4      4262       932       932         0         0      0
+18  05 5B02   1         6         6         6         0         0      0
+19  05 5DB5   4       843       391       391         0         0      0
+1A  05 60CF   4      1234       438       438         0         0      0
+1B  05 60F5   1         6         6         6         0         0      0
+1C  05 62BC   3       739       277       277         0         0      0
+1D  05 6312   3        50        50        50         0         0      0
+29  05 632A   1         9         9         9         0         0      0
+2A  05 634A   1        15        15        15         0         0      0
+2B  05 636A   1        15        15        15         0         0      0
+2C  05 638D   1        20        20        20         0         0      0
+2D  05 63B0   1        20        20        20         0         0      0
+2E  05 63FD   1        58        58        58         0         0      0
+2F  05 6410   1         9         9         9         0         0      0
+30  05 643C   2        29        29        29         0         0      0
+31  05 645E   2        17        17        17         0         0      0
+32  05 64B3   3        58        58        58         0         0      0
+33  05 6506   3        54        54        54         0         0      0
+34  05 6544   2        37        37        37         0         0      0
+35  05 6568   1        21        21        21         0         0      0
+36  05 6580   1        11        11        11         0         0      0
+37  05 6595   1         9         9         9         0         0      0
+38  05 65C3   1        29        29        29         0         0      0
+39  05 65FD   1        30        30        30         0         0      0
+3A  05 6612   1        11        11        11         0         0      0
+3B  05 662F   1        16        16        16         0         0      0
+3C  05 665B   2        29        29        29         0         0      0
+3D  05 66BF   2        63        63        63         0         0      0
+3E  05 66F2   2        34        34        34         0         0      0
+3F  05 6725   2        34        34        34         0         0      0
+40  05 673C   1        11        11        11         0         0      0
+41  05 6751   1        11        11        11         0         0      0
+42  05 6789   1        43        43        43         0         0      0
+43  05 67B5   2        29        29        29         0         0      0
+44  05 6822   2        74        74        74         0         0      0
+45  05 689B   2        86        86        86         0         0      0
+46  05 68BD   2        17        17        17         0         0      0
+TOTAL {'commands_run': 35351, 'distinct_observed': 11823, 'reachable': 11823, 'violations': 0, 'reach_unobs': 0, 'obs_not_reach': 0} songs 59
+violation kinds {}
+STAT executions by kind {'one': 5439, 'wait': 15016, 'note': 13328, 'end': 66, 'jump': 172, 'ret': 776, 'call': 552, 'noteoff': 2}
+STAT executions by macro {'sound_call': 552, 'sound_end': 66, 'sound_instrument': 3128, 'sound_jump': 172, 'sound_note': 12121, 'sound_note_off': 2, 'sound_note_vol': 1207, 'sound_pitch_add': 152, 'sound_pitch_bend': 1769, 'sound_pitch_bend_scale': 21, 'sound_ret': 776, 'sound_tempo': 99, 'sound_vibrato_delay': 37, 'sound_vibrato_depth': 41, 'sound_vibrato_rate': 40, 'sound_volume': 152, 'sound_wait': 15016}
+STAT running-status executions 3550 {'sound_note': 2376, 'sound_note_vol': 1043, 'sound_pitch_bend': 119, 'sound_instrument': 12}
+STAT distinct wait values executed 39 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 20, 21, 23, 24, 28, 30, 32, 36, 42, 44, 48, 52, 54, 56, 60, 66, 72, 78, 80, 84, 88, 96]
+STAT max call depth observed 1
+macro decode: 11916 commands in the stream files, 59 headers, 70 song records

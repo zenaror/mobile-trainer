@@ -1,0 +1,23 @@
+idx1 BC=0100 (ext pitch offset)                      -> observed ('00', '01')  expected ('00', '01')  OK  (track flags C0)
+idx1 BC=FF80                                         -> observed ('80', 'FF')  expected ('80', 'FF')  OK  (track flags C0)
+idx2 B=20 (volume scale)                             -> observed ('20', '80')  expected ('20', '80')  OK  (track flags C0)
+idx2 B=10                                            -> observed ('10', '40')  expected ('10', '40')  OK  (track flags C0)
+idx2 B=00                                            -> observed ('00', '00')  expected ('00', '00')  OK  (track flags C0)
+idx3 B=20 (pan offset)                               -> observed ('20', '20')  expected ('20', '20')  OK  (track flags C0)
+idx4 B=33 (vibrato depth addend)                     -> observed ('33',)  expected ('33',)  OK  (track flags C0)
+idx5 B=21 (vibrato rate)                             -> observed ('21',)  expected ('21',)  OK  (track flags C0)
+idx5 B=00 (rate 0: preset?)                          -> observed ('00', '00')  expected None    (track flags C0)
+idx6 BC=2211 (+27/+28)                               -> observed ('11', '22')  expected ('11', '22')  OK  (track flags C0)
+idx7 (out of range)                                  -> observed ('00', '40', '00')  expected ('00', '40', '00')  OK  (track flags C0)
+idx1 music mask 0 (no track selected)                -> observed ('00', '00')  expected ('00', '00')  OK  (track flags C0)
+idx1 music mask 2 (track 5 only), read track 4       -> observed ('00', '00')  expected ('00', '00')  OK  (track flags C0)
+mask 2: track 4 +13/14 = 0000, track 5 +13/14 = 0100
+   P event frame 2: +$2C/$2D = 0000, pitch in channel 40
+   P event frame 8: +$2C/$2D = 0100, pitch in channel 40
+   tempo scale 40 (music group): ticks in frames 20..69 = 50  (step = 4A*scale/64 = 74 -> 1.000 ticks/frame -> 50.0 expected)
+   tempo scale 20 (music group): ticks in frames 20..69 = 25  (step = 4A*scale/64 = 37 -> 0.500 ticks/frame -> 25.0 expected)
+   tempo scale 80 (music group): ticks in frames 20..69 = 100  (step = 4A*scale/64 = 148 -> 2.000 ticks/frame -> 100.0 expected)
+   tempo scale 10 (music group): ticks in frames 20..69 = 13  (step = 4A*scale/64 = 18 -> 0.243 ticks/frame -> 12.2 expected)
+   tempo scale 00 (music group): ticks in frames 20..69 = 0  (step = 4A*scale/64 = 1 -> 0.014 ticks/frame -> 0.7 expected)
+   idx0 with D=1 (sfx mask) only: music ticks in 50 frames = 50, sfx ticks = 25 (expected 50 / 25)
+fade (StartFadeOut A=1 at frame 6): (frame, +$16, +$2F, track active): [(0, '40', '00', 0), (2, '40', 'FF', 1), (6, '3C', 'C0', 1), (7, '38', 'C0', 1), (8, '34', 'C0', 1), (9, '30', 'C0', 1), (10, '2C', '80', 1), (11, '28', '80', 1), (12, '24', '80', 1), (13, '20', '80', 1), (14, '1C', '40', 1), (15, '18', '40', 1), (16, '14', '40', 1), (17, '10', '40', 1), (18, '0C', '00', 1), (19, '08', '00', 1), (20, '04', '00', 1), (21, '00', '00', 1), (22, '00', '00', 0)]

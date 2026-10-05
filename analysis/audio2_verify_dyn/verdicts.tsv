@@ -1,0 +1,55 @@
+id	doc_ref (committed audio_format.md)	claim	verdict	evidence
+A1	1, 4.2-4.4 (l.19)	command sizes and boundaries: 11916 commands, no overlap	UPHELD (executed part)	audio2_v11.py -> v11_commands.txt, v11_summary.tsv
+A2	4.1 (l.83-87)	running status repeats the last opcode >= $BE; $B2-$BD not stored	UPHELD	audio2_v11.py; audio2_v13_flow.py (F6)
+A3	4.2 (l.94-95)	$81-$B0 wait = duration table ticks; $80 no-op	UPHELD	audio2_v11.py; audio2_v13_flow.py (F5)
+A4	4.2 (l.96-99)	$B2 jump, $B3 call, $B4 return at depth 1	UPHELD	audio2_v11.py
+A5	4.3 / 4.4	note = opcode + optional pitch/volume bytes (data uses 4 patterns)	UPHELD	audio2_v11.py; audio2_stats.py
+A6	3.2 (l.61-62)	header set 0 = stream start of each track, read by the driver	UPHELD	audio2_v11.py; audio2_v11_headers.py
+A7	3.2 (l.64-72)	header bytes +0/+1 and sets 1/2 never read	PARTIAL: UPHELD for the driver, NOT VERIFIED elsewhere	audio2_v11_headers.py -> v11_headers.txt
+A8	3.2 (l.71-72)	set 1 = loop point, set 2 = address behind the final jump (86 tracks)	UPHELD	audio2_v11_headers.py
+A9	3.1 (l.45-57)	song record fields; +7 spare never read; data statistics	UPHELD	audio2_v11_headers.py; audio2_stats.py
+B1	4.3 (l.126-131)	duration = gate time (NoteGateExpired after d ticks), 0 = held	UPHELD	audio2_v12_timing.py
+B2	5.2 (l.181-182)	tempo accumulator, one tick per $4A	UPHELD	audio2_v12_timing.py
+B3	4.3, 5.2, 8	pitch -> index -> period (interpolation) -> NRx3/NRx4	UPHELD	audio2_v12_pitch.py
+B4	8 (l.251-255)	note table within 1 of equal temperament; steps	UPHELD	audio2_v12_pitch.py; static check in the report
+B5	6 (l.220-226)	instrument bytes 0-2 -> NRx1/NRx4/NR10, wave pattern, noise width	UPHELD (+ refinement B15)	audio2_v12_params.py; audio2_v13_len.py
+B6	5.2 (l.178-180)	+$2C/$2D = 2*(+$1D)+(+$1B/$1C)+(+$13/$14)+vib	UPHELD	audio2_v12_pitchfields.py
+B7	5.1 (l.155-158)	vibrato rate/delay/depth/disable	UPHELD (formula exact)	audio2_v12_pitchfields.py; audio2_v12_vibrato.py
+B8	5.1 (l.153)	$C1/$C2: +$19=2v-$80, +$1B/$1C=2*(+$19)*(+$1A)	CORRECTED: negative +$19 gives (2*(+$19)+1)*(+$1A)	audio2_v12_bend.py -> v12_bend.txt
+B9	4.3 (l.126-131), 5.2	note volume x track volume -> NRx2 (8192 combinations)	UPHELD (+ 5-level quantisation of +$2F)	audio2_v12_volume.py
+B10	7 (l.236-241)	attack/decay/sustain/release values and order	UPHELD	audio2_v12_env_sweep.py; audio2_envmodel.py; audio2_v12_env_real.py
+B11	7 (l.239)	decay '0 = no decay: $F0'	CORRECTED: first NRx2 = S<<4	audio2_v12_env_sweep.py
+B12	7 (l.233-234)	software mirror counts the same steps	UPHELD within +-1 level	audio2_v12_mirror.py
+B13	7 (l.243)	byte3 bits 4,0 and byte4 bit 0 unused	UPHELD (no effect; pulse 2 and noise)	audio2_v12_env_sweep.py (--ext, --class noise)
+B14	5.3 (l.193)	initial instrument copy 0,0,FF,FF,0	CORRECTED: 00 00 00 FF FF	audio2_v12_trackinit.py
+B15	6 (l.224)	byte 2 written to NR10, nothing else reads it	CORRECTED (precision): also written to FF15 by pulse 2	audio2_v12_params.py; audio2_v13_ext.py
+B16	4.2 (l.104), 6	$BE copies record bytes 0-4; $BE $64 per-note mode	UPHELD	audio2_v12_be.py; audio2_v12_pernote.py
+B17	4.3 (l.120)	index clamp 0..$77	UPHELD	audio2_v12_clamp.py
+C1	5.1 (l.152)	$C0 pan -> NR51 (left/both/right)	UPHELD	audio2_v13_pan_detune.py; audio2_v12_phys.py
+C2	5.1 (l.158)	$C6 vibrato disable	UPHELD	audio2_v12_vibrato.py
+C3	5.1 (l.159)	$C9 detune	UPHELD	audio2_v13_pan_detune.py
+C4	5.1 (l.160, 201)	$CA stores +$1E, nothing reads it	UPHELD (no reader; executed paths)	audio2_v13_pan_detune.py; audio2_rwatch.py
+C5	5.1 (l.164-169)	$CD sub 1-7,10,11 field map; 0,8,9,>=12 end the track	UPHELD (sub 4,5,11 PROBABLE -> CONFIRMED)	audio2_v13_ext.py
+C6	5.1 (l.162)	$CF note-off wording	CORRECTED (wording) + hang for a following byte < $24	audio2_v13_flow.py (F8)
+C7	4.2 (l.100)	$B5 counted loop	UPHELD	audio2_v13_flow.py (F1)
+C8	4.2 (l.98)	$B3 limit of 5 nested calls	UPHELD	audio2_v13_flow.py (F2)
+C9	4.2 (l.99)	$B4 on an empty stack is a no-op	UPHELD	audio2_v13_flow.py (F3)
+C10	4.2 (l.101)	ten opcodes without handler end the track	UPHELD	audio2_v13_flow.py (F4)
+C11	4.2 (l.94)	$80 no-op	UPHELD	audio2_v13_flow.py (F5)
+C12	4.1 (l.84-86)	opcodes < $BE do not update the running status	UPHELD	audio2_v13_flow.py (F6)
+C13	4.3 (l.115-118)	note bytes: adjust, order, duplicates, $CE	UPHELD	audio2_v13_flow.py (F7)
+C14	5.1 (l.171-174)	SetTrackParam, 7 entries	UPHELD	audio2_v13_param.py
+C15	3.1 (l.45-57)	ids 1-$46, flags bit 7, priority	UPHELD (+ <$80 semantics)	audio2_v13_songrec.py
+C16	5.3 (l.205, 212)	call stack +$32..+$3B, depth +$26	UPHELD	audio2_v13_stack.py
+D1	7 (l.243-245)	wave output level NR32 (PROBABLE, not simulated)	UPGRADED to CONFIRMED (formula)	audio2_v14.py; audio2_v12_phys.py
+D2	4.3, 7 (l.123, 245)	noise pitch formula 04:4F2D (only read)	UPGRADED to CONFIRMED (formula)	audio2_v14.py
+D3	4.3, 8	pitch byte = MIDI note; wave +$0C compensation	UPHELD (rendered audio)	audio2_v12_freq.py
+E1	5.1, 5.3 (l.167-169, 206)	+$27/+$28 note-end tail (HYPOTHESIS)	UPGRADED to CONFIRMED (mechanism)	audio2_v15_tail.py
+E2	5.3 (l.210-211)	+$30/+$31 unused	UPHELD	audio2_rwatch.py; poke test in the report
+F1	4.4 (l.133-139)	usage statistics	UPHELD	audio2_stats.py
+F2a	3.1 (l.56)	song-record data statistics (priority, flags, track counts, spare, ids $1E-$28 = record 1)	UPHELD	audio2_stats.py
+F2b	6, 8	instrument / wave-pattern table statistics; note-name and envelope comments of audio/notes.asm and audio/instruments.asm	UPHELD	audio2_stats.py; checks in the report
+F3	b939965	SoundSongNN_Header / _TrackK labels	UPHELD	audio2_labels.py
+F4	b939965	control entry point names	UPHELD (behaviour)	audio2_v13_ctrl.py
+F5	b939965	command handler names	UPHELD (behaviour)	V1.2-V1.5 scripts
+F6	11 (l.375)	priority $C9/$D2 in practice (open question)	ANSWERED: takeover iff new >= old	audio2_v13_songrec.py
