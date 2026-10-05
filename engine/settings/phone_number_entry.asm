@@ -108,7 +108,7 @@ SettingsPhone_Run:: ; 67:4000
 	jr .l4112
 
 .l40CE ; 67:40CE
-	; [CONFIRMED] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region
 	; 4000-4156 by apply_coverage --split [executed in 1 scenarios]
 	call SettingsPhone_ClearEntryBuffers
 	jr .l409A
@@ -172,7 +172,7 @@ SettingsPhone_Run:: ; 67:4000
 	ret
 
 .l414D ; 67:414D
-	; [CONFIRMED] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region
 	; 4000-4156 by apply_coverage --split [executed in 1 scenarios]
 	ld a, $0E
 	farcall Notice_ShowPage

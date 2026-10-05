@@ -110,7 +110,7 @@ SettingsPhone_ConfirmScreen_Loop:: ; 67:51E2
 	ret
 
 .l5221 ; 67:5221
-	; [CONFIRMED] 29 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; [CONFIRMED] 29 insn(s) executed; cut out of the PROBABLE region
 	; 510A-5275 by apply_coverage --split [executed in 1 scenarios]
 	ld a, $02
 	ld [wRam_C27C], a

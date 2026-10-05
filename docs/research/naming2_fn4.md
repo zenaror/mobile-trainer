@@ -1,7 +1,7 @@
 # Naming pass 4 (fn4): the residual neutral `Function_*` labels
 
-> Status: **reference (current)** for the names it adopts.  Manifest: [`analysis/naming2/fn4_renames.tsv`](../../analysis/naming2/fn4_renames.tsv) (applied with
-> `tools/apply_renames.py`, kind `function`); independent verification: [`naming2_verify_fn4.md`](naming2_verify_fn4.md), whose corrections are already in the manifest
+> Status: **reference (current)** for the names it adopts.  Manifests: [`analysis/naming2/fn4_renames.tsv`](../../analysis/naming2/fn4_renames.tsv) and the follow-up
+> [`fn4b_renames.tsv`](../../analysis/naming2/fn4b_renames.tsv) (two layout functions) (applied with `tools/apply_renames.py`, kind `function`); independent verification: [`naming2_verify_fn4.md`](naming2_verify_fn4.md), whose corrections are already in the manifest
 > ([`analysis/naming2/verify_fn4_fixes.tsv`](../../analysis/naming2/verify_fn4_fixes.tsv) lists the changed rows).  Scope: the `Function_<bank>_<addr>` labels that were still neutral after
 > naming pass 2 (59 of them).  Neutral labels of other kinds (`Label_`, `Data_`, ...) are not part of this pass.
 
@@ -10,11 +10,11 @@
 | item | count |
 |---|---|
 | neutral `Function_*` labels before the pass | 59 |
-| rows in the manifest | 31 |
-| names applied | **30** (14 CONFIRMED, 16 PROBABLE) |
+| rows in the manifests | 33 (31 in `fn4_renames.tsv`, 2 in `fn4b_renames.tsv`) |
+| names applied | **32** (14 CONFIRMED, 18 PROBABLE) |
 | HYPOTHESIS record (new name == old name, never applied) | 1 (`Function_24_42B0`) |
-| labels left neutral | 29 (the 28 without a row and `Function_24_42B0`), section 4 |
-| references rewritten | 63 in code, in 28 files; 30 alias labels kept (the old neutral name stays below the new one) |
+| labels left neutral | 27 (the 26 without a row and `Function_24_42B0`), section 4 |
+| references rewritten | 69 in code, in 29 files; 32 alias labels kept (the old neutral name stays below the new one) |
 | ROM | byte-identical (`SHA-256 OK 6d802e66...`, `sym_check OK`, `make` prints `RESULT: IDENTICAL`) |
 
 Verification (in the real tree, after the verifier's corrections were merged into the manifest):
@@ -23,6 +23,8 @@ Verification (in the real tree, after the verifier's corrections were merged int
 python3 tools/apply_renames.py --manifest analysis/naming2/fn4_renames.tsv --strict
 apply_renames: verification: SHA-256 OK 6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570, sym_check OK
 apply_renames: summary: 31 row(s): 30 applied, 0 already applied, 1 HYPOTHESIS (not applied), 0 below min-status, 0 refused/malformed; 28 file(s) changed, 63 code + 0 comment + 0 string reference(s) renamed, 30 alias(es) added
+python3 tools/apply_renames.py --manifest analysis/naming2/fn4b_renames.tsv --strict      # the two layout rows, same checks
+apply_renames: summary: 2 row(s): 2 applied, 0 refused; 1 file(s) changed, 6 code references renamed, 2 alias(es) added
 ```
 
 `tools/tidy_comments.py --check`, `tools/localize_labels.py --check`, `tools/gfx_export.py check`, `tools/sprite_chain_check.py`, `tools/tree_check.py` and `tools/test_apply_renames.py` pass afterwards.
@@ -36,9 +38,9 @@ apply_renames: summary: 31 row(s): 30 applied, 0 already applied, 1 HYPOTHESIS (
    `Stub_Nop_7F_61FC` (`engine/comm/time_hooks.asm`).
 3. **Statuses** follow `STYLE.md` section 1: CONFIRMED = the code itself shows it and the code ran in the natural traces; PROBABLE = a consistent reading with one inferred step, or code that never ran
    naturally (never-executed code is capped at PROBABLE, a forced run does not raise it).
-4. **Independent check.**  A reader with a fresh context re-derived every row from the code ([`naming2_verify_fn4.md`](naming2_verify_fn4.md)): 17 upheld, 12 corrected (two of them renamed), 1 downgraded, 1 retracted.
+4. **Independent check.**  A reader with a fresh context re-derived every row from the code ([`naming2_verify_fn4.md`](naming2_verify_fn4.md)): 17 upheld, 12 corrected (two of them renamed), 1 downgraded, 1 retracted; the two layout rows proposed afterwards were checked the same way (section 8 of that note: both corrected, one renamed).
 
-## 3. The 30 applied names
+## 3. The 32 applied names
 
 Stubs (a single `ret`; the name says what the body does and nothing about why it is empty):
 
@@ -77,6 +79,13 @@ Home and library:
 | `Function_75_5F96` | `Mobile_PacketBuildFooter_SumByte` | CONFIRMED | loop body of the 16-bit byte sum of `Mobile_PacketBuildFooter` (backwards, B = bytes left); 166,194 hits |
 | `Function_75_673A` | `MobileSDK_ResetRxWindowAndResultPtr` | PROBABLE | stores `$FF` at `C70D` (`wMobileSDK_ResultPointer`, a dual-use PROBABLE role) then falls into `MobileSDK_ResetRxWindow`; 340 hits in 26 scenarios |
 
+HTML line layout (`engine/html/layout.asm`, bank 74; follow-up manifest `fn4b_renames.tsv`):
+
+| label | name | status | note |
+|---|---|---|---|
+| `Function_74_55BE` | `Html_Layout_AddRecordToLine` | PROBABLE | accounts for the 16-byte record just appended (HL, preserved): at an empty line it first calls `Html_Layout_BeginLineAndPlaceFloats`; returns when bit 7 (pending) of `[HL+9]` is clear; `cursor hRam_FFC4:FFC5 += width` and merges the record height into the line's `hRam_FFC6` (extent above the baseline) / `hRam_FFC7` (below it) by the vertical-alignment bits (`and $30`); 11,694 hits in 16 scenarios on this path; the no-fit path and the `$10/$20/$30` tests never ran |
+| `Function_74_57AD` | `Html_Layout_BeginLineAndPlaceFloats` | PROBABLE | called when the line is empty: `Html_Layout_GetLimitsAtY` puts the cursor back at the left limit, sets the right limit and zeroes `hRam_FFC6/FFC7` (the only effect ever seen: 4,481 hits), then walks the page's record list and places pending left (`$0C`) / right (`$04`) float records, clearing bit 7; the float code never ran (float records only come from `<img align=left\|right>`, which no traced page used) |
+
 Screens:
 
 | label | name | status | note |
@@ -92,7 +101,7 @@ Screens:
 | `Function_65_481A` | `Startup_VerifySaveDataDeadVariant` | PROBABLE | dead variant of `Startup_VerifySaveData` (different first check, two stale `call $21A0` into zero padding); never executed |
 | `Function_7F_4E85` | `Canvas_UploadToVramWrapper` | PROBABLE | `call Canvas_UploadToVram ; ret`; only caller is `Canvas_RunSampleDemo` (the text-canvas demo) |
 
-## 4. Labels left neutral (29)
+## 4. Labels left neutral (27)
 
 A neutral name is a claim of ignorance, not an error.  Unreferenced labels stay neutral unless they have an executed twin (the rule that kept `Function_24_42B0` neutral).
 
@@ -106,8 +115,6 @@ A neutral name is a claim of ignorance, not an error.  Unreferenced labels stay 
 | `Function_29_5090` | `engine/gfx/unreferenced_palette_library.asm:7` | 1 | never | head of the unreferenced palette library, body HYPOTHESIS |
 | `Function_29_511E` | `engine/gfx/unreferenced_palette_library.asm:133` | 1 | never | same file, only reached from the library |
 | `Function_6C_61AC` | `engine/help/help_script.asm:1018` | 0 | never | unreferenced, PROBABLE body, no live twin |
-| `Function_74_55BE` | `engine/html/layout.asm:649` | 4 | 11,694 hits / 16 scenarios | HTML layout, line fitting (section 6) |
-| `Function_74_57AD` | `engine/html/layout.asm:1028` | 2 | 4,481 hits / 16 scenarios | HTML layout, floats (section 6) |
 | `Function_55_6EAA` | `engine/keyboard/type_helpers.asm:26` | 1 | 1,268 hits / 25 scenarios | keyboard-type predicate (table `Data_55_6EB5`: 1 for types 6-10), consulted by `Kbd_Run` only when `wKbdMode` = 2 to put the cursor on the OK cell; what decides that (the `wKbdMode` values, `Kbd_Run`'s C argument) is not understood, as in `naming2_g4_apps_b.md` |
 | `Function_55_6EC0` | `engine/keyboard/type_helpers.asm:43` | 1 | 14,425 hits / 35 scenarios | the complementary predicate (table `Data_55_6ECB`: 1 for types 0-5), consulted when `Kbd_Run`'s C argument is non-zero; same reason |
 | `Function_55_6EEC` | `engine/keyboard/type_helpers.asm:79` | 1 | never | predicate (table `Data_55_6EF7`: types 5-10); its only caller is the unexecuted HYPOTHESIS code at `55:5DF5` |
@@ -147,11 +154,25 @@ A neutral name is a claim of ignorance, not an error.  Unreferenced labels stay 
 
 ## 6. The two layout functions (follow-up)
 
-`Function_74_55BE` and `Function_74_57AD` are the central steps of the HTML line layout (`engine/html/layout.asm`).  They are handled in a follow-up verification: see section 7 once it is recorded.
+`Function_74_55BE` and `Function_74_57AD` are the central steps of the HTML line layout.  What the verified reading established (record layout, flags and line state; the HRAM names of these bytes are still neutral,
+the overlay aliases of `hRam_FFC2-FFCF` are a separate step):
+
+* **Records.**  16 bytes in the WRAM bank `hRam_FFBA`: `+4:+5` width, `+6` height, `+8` kind (1 text run, 4 image, 5 loaded image), `+9` flags: bit 7 = **pending** (set by `Html_Layout_AppendRecord`, cleared when the record is placed;
+  `Html_Layout_GetLimitsAtY` ignores pending records), `and $0C` = horizontal alignment (`$04` right, `$08` centre, `$0C` left; floats are `$04` and `$0C`), `and $30` = vertical (`$10` top, `$20` middle, `$30` bottom).
+  The encoding is confirmed by data, not only by code: the keyword table `Html_AlignValueNames` (`74:40C4`) maps right = `$04`, top = `$10`, centre = `$08`, middle = `$20`, left = `$0C`, bottom = `$30`.  Placement overwrites `+0..+7`
+  with x, y, right edge and bottom.
+* **Line state.**  `hRam_FFC2:FFC3` right limit, `hRam_FFC4:FFC5` cursor / left limit, `hRam_FFC6` extent above the baseline and `hRam_FFC7` below it (`Html_Layout_PlaceLine`: baseline = Y + FFC6, next line Y = Y + FFC6 + FFC7),
+  `hRam_FFC8:FFC9` line Y.  In every traced run FFC6 was 0 and the whole line height sat in FFC7.
+* **`Html_Layout_AddRecordToLine`** is called 11,694 times (74:54F1 3,681, 74:5505 2,156, 74:55BA 5,857; text runs are accounted twice, at append with width 0 and after `Html_Layout_CloseRunRecord` with the final width).
+  "Wrap" or "Fit" would over-claim: by a replay on synthetic records, the no-fit path calls `Html_Layout_PlaceLine`, which places every pending record up to the one that overflows, itself included, so the retry returns at once.
+* **`Html_Layout_BeginLineAndPlaceFloats`** is the only code that resets the cursor between lines (via `Html_Layout_GetLimitsAtY`), which is why the name starts with "BeginLine" and pairs with `Html_Layout_EndLine`; the
+  float placement half never ran.  Float records can only come from `<img align=left>` / `align=right` (`Html_Tag_Img` at `74:4EB1` stores the alignment in `hRam_FFD5`, merged into `hRam_FFB2` at `74:4E5A` and `74:4EFA`; centre is
+  deliberately skipped); `Html_Layout_ClearAllFloats` and `<br clear>` exist for them.
 
 ## 7. Reproduce
 
 ```bash
 python3 tools/apply_renames.py --manifest analysis/naming2/fn4_renames.tsv --dry-run     # 31 rows: 30 to apply, 1 HYPOTHESIS
 python3 tools/apply_renames.py --manifest analysis/naming2/fn4_renames.tsv --strict      # in a private copy first; SHA-256 must stay OK
+python3 tools/apply_renames.py --manifest analysis/naming2/fn4b_renames.tsv --strict     # the two layout rows
 ```
