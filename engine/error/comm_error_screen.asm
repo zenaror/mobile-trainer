@@ -12,7 +12,7 @@ Function_5C_5150::
 	push hl
 	xor a, a
 	ld bc, $00FC
-	ld hl, $C0D4
+	ld hl, $C0D4 ; raw: start of the 252-byte per-screen window wipe
 	call FillBytes
 	farcall Stub_Nop_48_48BB
 	pop hl
@@ -440,7 +440,7 @@ Function_5C_546F::
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, .l54EB
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l54EC
 	ld a, [wTimerAWarnMinute]
@@ -459,14 +459,14 @@ Function_5C_546F::
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l54D7
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
 	jr nz, .l54EB
 	set 1, [hl]
 .l54D7 ; 5C:54D7
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	set 0, [hl]
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
 	jr z, .l54EC
@@ -485,7 +485,7 @@ Function_5C_546F::
 
 	; [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0;
 	; fall-through of the retcc at 5C:54EE (executed)
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	res 0, [hl]
 	farcall CommNotice_ShowDialog
 	pop bc

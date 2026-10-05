@@ -12,7 +12,7 @@ Browser_FetchInlineImages:: ; 4C:4840
 	ldh [hInlineImages_UrlListHi], a
 	ld a, $04
 	ldh [hInlineImages_UrlBank], a
-	ld de, $C380
+	ld de, wAttrUrlBuf
 	ld hl, $D500
 	ld bc, $0100
 	ld a, $06
@@ -21,7 +21,7 @@ Browser_FetchInlineImages:: ; 4C:4840
 	call CopyBytes
 	call Sound_FrameService
 	ld de, $DD00
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	ld bc, $0100
 	ld a, $04
 	ldh [hWRAMBank], a
@@ -110,12 +110,12 @@ Browser_FetchInlineImages:: ; 4C:4840
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	farcall HtmlUrl_Resolve
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	farcall HtmlUrl_NormalizePath
 	call Url_StripFragment
 	ld a, $05
 	ld [wCommTimeoutMinutes], a
-	ld hl, $C266
+	ld hl, wTimerBFrames
 	xor a, a
 	ld [hli], a
 	ld [hli], a
@@ -123,7 +123,7 @@ Browser_FetchInlineImages:: ; 4C:4840
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	ld a, [wBrowserRxPtr]
 	ld e, a
 	ld a, [wBrowserRxPtr + 1]
@@ -177,7 +177,7 @@ Browser_FetchInlineImages:: ; 4C:4840
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, .l49C6
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l49C7
 	ld a, [wTimerAWarnMinute]
@@ -196,14 +196,14 @@ Browser_FetchInlineImages:: ; 4C:4840
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l49B2
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
 	jr nz, .l49C6
 	set 1, [hl]
 .l49B2 ; 4C:49B2
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	set 0, [hl]
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
 	jr z, .l49C7
@@ -226,7 +226,7 @@ Browser_FetchInlineImages:: ; 4C:4840
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, .l4A15
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l4A16
 	ld a, [wTimerAWarnMinute]
@@ -245,14 +245,14 @@ Browser_FetchInlineImages:: ; 4C:4840
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l4A01
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
 	jr nz, .l4A15
 	set 1, [hl]
 .l4A01 ; 4C:4A01
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	set 0, [hl]
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
 	jr z, .l4A16
@@ -320,7 +320,7 @@ Browser_FetchInlineImages:: ; 4C:4840
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, .l4ABB
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l4ABC
 	ld a, [wTimerAWarnMinute]
@@ -339,14 +339,14 @@ Browser_FetchInlineImages:: ; 4C:4840
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l4AA7
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
 	jr nz, .l4ABB
 	set 1, [hl]
 .l4AA7 ; 4C:4AA7
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	set 0, [hl]
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
 	jr z, .l4ABC
@@ -409,7 +409,7 @@ Browser_FetchInlineImages:: ; 4C:4840
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, .l4B4A
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l4B4B
 	ld a, [wTimerAWarnMinute]
@@ -428,14 +428,14 @@ Browser_FetchInlineImages:: ; 4C:4840
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l4B36
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
 	jr nz, .l4B4A
 	set 1, [hl]
 .l4B36 ; 4C:4B36
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	set 0, [hl]
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
 	jr z, .l4B4B

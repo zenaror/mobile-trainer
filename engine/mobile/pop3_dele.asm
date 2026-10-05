@@ -59,7 +59,7 @@ Pop3_DelePoll:: ; 54:53BB
 .l53E3 ; 54:53E3
 	; [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 5386-53E9 by apply_coverage
 	; --split [executed in 8 scenarios]
-	ld hl, $C1D8
+	ld hl, wMobileTaskKind
 	xor a, a
 	ld [hl], a
 	ret

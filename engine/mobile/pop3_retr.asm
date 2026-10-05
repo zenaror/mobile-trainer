@@ -57,7 +57,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 .l4D0F ; 54:4D0F
 	; [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4CB0-4FC3 by apply_coverage --split
-	ld de, $C480
+	ld de, wRam_C480
 	ld bc, $0000
 	ld a, $24
 	farcall MobileAPI
@@ -67,7 +67,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 .l4D20 ; 54:4D20
 	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage
 	; --split [executed in 5 scenarios]
-	ld hl, $C1D9
+	ld hl, wMobileTaskStep
 	inc [hl]
 	ld a, [hl]
 	dec a
@@ -85,7 +85,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 	; --split [executed in 5 scenarios]
 	ld a, [wMailFetchStatus]
 	ld b, a
-	ld hl, $C1D8
+	ld hl, wMobileTaskKind
 	xor a, a
 	ld [hl], a
 	ret
@@ -100,7 +100,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 	call Mail_ScanAndCheckGameMail
 	or a, a
 	jp nz, .l4FA4
-	ld de, $C240
+	ld de, wRam_C240
 	ld hl, Data_54_4FC3
 	ld bc, $0008
 	farcall CopyBytes
@@ -108,11 +108,11 @@ Pop3_RetrPoll:: ; 54:4CF4
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $04
-	ld de, $C240
+	ld de, wRam_C240
 	farcall Mail_DispatchFar
 	or a, a
 	jp nz, .l4FA4
-	ld de, $C240
+	ld de, wRam_C240
 	ld hl, Data_54_4FCB
 	ld bc, $0007
 	farcall CopyBytes
@@ -120,7 +120,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $06
-	ld de, $C240
+	ld de, wRam_C240
 	farcall Mail_DispatchFar
 	or a, a
 	jr z, .l4D9A
@@ -134,12 +134,12 @@ Pop3_RetrPoll:: ; 54:4CF4
 .l4D9A ; 54:4D9A
 	; [CONFIRMED] 40 insn(s) executed; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage
 	; --split [executed in 6 scenarios]
-	ld de, $C480
+	ld de, wRam_C480
 	add hl, de
 	xor a, a
 	ld [hl], a
-	ld de, $C580
-	ld hl, $C480
+	ld de, wRam_C580
+	ld hl, wRam_C480
 	ld bc, $0200
 	farcall Charset_Iso2022JpToSjis
 	farcall MailRecord_GetFreeSlotPtr
@@ -152,7 +152,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 	ld bc, $00ED
 	add hl, bc
 	call Mail_SplitFromHeader
-	ld hl, $C252
+	ld hl, wRam_C252
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -172,7 +172,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $06
-	ld de, $C240
+	ld de, wRam_C240
 	farcall Mail_DispatchFar
 	or a, a
 	jr z, .l4DF5
@@ -186,7 +186,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 .l4DF5 ; 54:4DF5
 	; [CONFIRMED] 47 insn(s) executed; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage
 	; --split [executed in 4 scenarios]
-	ld de, $C480
+	ld de, wRam_C480
 	add hl, de
 	xor a, a
 	ld [hl], a
@@ -196,21 +196,21 @@ Pop3_RetrPoll:: ; 54:4CF4
 	ld e, l
 	ld d, h
 	push hl
-	ld hl, $C480
+	ld hl, wRam_C480
 	ld bc, $0014
 	farcall Charset_Iso2022JpToSjis
-	ld hl, $C580
+	ld hl, wRam_C580
 	ld b, $1A
 	xor a, a
 .l4E1A ; 54:4E1A
 	ld [hli], a
 	dec b
 	jr nz, .l4E1A
-	ld hl, $C480
-	ld de, $C580
+	ld hl, wRam_C480
+	ld de, wRam_C580
 	ld bc, $0018
 	farcall Charset_Iso2022JpToSjis
-	ld hl, $C580
+	ld hl, wRam_C580
 	ld b, $FF
 .l4E32 ; 54:4E32
 	inc b
@@ -232,7 +232,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $06
-	ld de, $C240
+	ld de, wRam_C240
 	farcall Mail_DispatchFar
 	or a, a
 	jr z, .l4E67
@@ -252,7 +252,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 	add hl, de
 	ld e, l
 	ld d, h
-	ld hl, $C580
+	ld hl, wRam_C580
 	ld bc, $0006
 	farcall CopyBytes
 	ld a, $03
@@ -278,9 +278,9 @@ Pop3_RetrPoll:: ; 54:4CF4
 	jr z, .l4E95
 	pop hl
 	ld bc, $00C1
-	ld de, $C480
+	ld de, wRam_C480
 	farcall Charset_Iso2022JpToSjis
-	ld hl, $C480
+	ld hl, wRam_C480
 	ld b, $C0
 .l4EB2 ; 54:4EB2
 	dec b
@@ -302,7 +302,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 	; [CONFIRMED] 53 insn(s) executed; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage
 	; --split [executed in 4 scenarios]
 	ld b, $00
-	ld hl, $C480
+	ld hl, wRam_C480
 	ld a, $C0
 	cp a, c
 	jr c, .l4F24
@@ -315,7 +315,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 	add hl, de
 	ld e, l
 	ld d, h
-	ld hl, $C480
+	ld hl, wRam_C480
 	farcall CopyString
 .l4EE7 ; 54:4EE7
 	farcall MailRecord_GetFreeSlotPtr
@@ -337,7 +337,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $C1D6
+	ld hl, wMobileTaskArgs + $04
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -347,7 +347,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 	ret
 .l4F24 ; 54:4F24
 	ld b, $00
-	ld hl, $C480
+	ld hl, wRam_C480
 .l4F29 ; 54:4F29
 	ld e, l
 	ld d, h
@@ -438,7 +438,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 	add hl, de
 	ld e, l
 	ld d, h
-	ld hl, $C480
+	ld hl, wRam_C480
 	pop bc
 	farcall CopyBytes
 	jp .l4EE7
@@ -484,7 +484,7 @@ Function_54_4FD2::
 	ld [wRam_C252], a
 	ld a, h
 	ld [wRam_C253], a
-	ld hl, $C580
+	ld hl, wRam_C580
 	ld bc, $FFFF
 .l4FE8 ; 54:4FE8
 	inc bc
@@ -499,17 +499,17 @@ Function_54_4FD2::
 	ld e, a
 	ld a, [wRam_C253]
 	ld d, a
-	ld hl, $C580
+	ld hl, wRam_C580
 	ld b, $40
 	call Mail_CopyClampedEllipsis
-	ld hl, $C250
+	ld hl, wRam_C250
 	ld a, [wMobileTaskStep]
 	or a, a
 	jr nz, .l5081
 	ld a, [hli]
 	ld d, [hl]
 	ld e, a
-	ld hl, $C580
+	ld hl, wRam_C580
 	ld b, $10
 	call Mail_CopyClampedEllipsis
 	jr .l5081
@@ -526,7 +526,7 @@ Function_54_4FD2::
 	ld e, a
 	ld a, [wRam_C251]
 	ld d, a
-	ld hl, $C580
+	ld hl, wRam_C580
 	ld b, $10
 	call Mail_CopyClampedEllipsis
 	pop hl
@@ -562,7 +562,7 @@ Function_54_4FD2::
 	ld e, a
 	ld a, [wRam_C253]
 	ld d, a
-	ld hl, $C580
+	ld hl, wRam_C580
 	ld b, $40
 	call Mail_CopyClampedEllipsis
 	pop hl
@@ -585,7 +585,7 @@ Function_54_4FD2::
 	ld b, $10
 	call Mail_CopyClampedEllipsis
 .l5081 ; 54:5081
-	ld hl, $C250
+	ld hl, wRam_C250
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -729,7 +729,7 @@ Function_54_511D::
 	; $511D-$51B9)
 	xor a, a
 	ld [sSram_AFFF], a
-	ld de, $C240
+	ld de, wRam_C240
 	ld hl, Data_54_4C44
 	ld bc, $0003
 	farcall CopyBytes
@@ -742,7 +742,7 @@ Function_54_511D::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $01
-	ld de, $C240
+	ld de, wRam_C240
 	farcall Mail_DispatchFar
 	ld e, $00
 	or a, a
@@ -753,7 +753,7 @@ Function_54_511D::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $02
-	ld de, $C240
+	ld de, wRam_C240
 	farcall Mail_DispatchFar
 	ld e, $01
 	ret

@@ -32,7 +32,7 @@ Palette_FadeOutWithTicker:: ; 48:46C6
 	ei
 	call Sound_FrameService
 	call Ticker_Update
-	ld hl, $C10E
+	ld hl, wRam_C10E
 	dec [hl]
 	jr nz, .loop
 	ld [hl], $04

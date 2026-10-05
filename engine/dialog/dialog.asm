@@ -745,7 +745,7 @@ Dialog_WaitInputMonitored:: ; 72:461A
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, .l4674
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l4675
 	ld a, [wTimerAWarnMinute]
@@ -768,7 +768,7 @@ Dialog_WaitInputMonitored:: ; 72:461A
 
 	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4647-4674 by apply_coverage --split
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
 	jr nz, .l4674
 	set 1, [hl]
@@ -776,9 +776,9 @@ Dialog_WaitInputMonitored:: ; 72:461A
 .l4660 ; 72:4660
 	; [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 4647-4674 by apply_coverage
 	; --split [executed in 1 scenarios]
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	set 0, [hl]
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
 	jr z, .l4675

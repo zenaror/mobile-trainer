@@ -63,7 +63,7 @@ Joypad_UpdateUnsaved:: ; 7D:7BC1
 	ldh [hJoyPressed], a
 	ld a, b
 	ldh [hJoyHeld], a
-	ld hl, $C2E5
+	ld hl, wJoyRepeatCounters
 	ld c, $08
 	ld e, $00
 .loop ; 7D:7BD4
@@ -106,7 +106,7 @@ Joypad_SetRepeatTiming:: ; 7D:7C00
 	ld [wJoyRepeatInterval], a
 	ld a, b
 	ld [wJoyRepeatDelay], a
-	ld hl, $C2E5
+	ld hl, wJoyRepeatCounters
 	ld b, $08
 .loop ; 7D:7C0D
 	ld [hli], a

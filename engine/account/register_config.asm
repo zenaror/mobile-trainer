@@ -129,7 +129,7 @@ Table_68_6BF4::
 
 Registration_WriteConfig_StateInit:: ; 68:6BFA
 	; [CONFIRMED] 40 insn(s); 40 executed (in up to 3/18 scenarios)
-	ld de, $C271
+	ld de, wMobileAdapterType
 	ld hl, $0068
 	ld a, $02
 	call MobileAPI

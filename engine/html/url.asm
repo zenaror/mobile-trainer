@@ -78,10 +78,10 @@ HtmlUrl_Resolve:: ; 74:5981
 	jr z, .l59B3
 	pop de
 	pop hl
-	ld de, $C380
+	ld de, wAttrUrlBuf
 	ld bc, $0100
 	call CopyBytes
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	jp HtmlUrl_Resolve_EnsureHostSlash
 
 .l59B0 ; 74:59B0
@@ -109,7 +109,7 @@ HtmlUrl_Resolve:: ; 74:5981
 	ld bc, HtmlUrl_SchemeTable
 	call Html_MatchKeyword
 	ld bc, $0100
-	ld de, $C380
+	ld de, wAttrUrlBuf
 	or a, a
 	jr nz, HtmlUrl_Resolve_JoinToBase
 
@@ -131,7 +131,7 @@ Label_74_59E0::
 	; entered by jrcc from 74:59B8 (executed)
 	push de
 	ld bc, $0100
-	ld de, $C380
+	ld de, wAttrUrlBuf
 
 HtmlUrl_Resolve_CopyHttpPrefix:: ; 74:59E7
 Label_74_59E7::
@@ -176,7 +176,7 @@ Label_74_59F1::
 	ld b, $2F
 .l5A15 ; 74:5A15
 	push hl
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	call HtmlUrl_FindLastSegmentDelimiter
 	dec hl
 	ld a, b
@@ -188,7 +188,7 @@ Label_74_59F1::
 	inc de
 	or a, a
 	jr nz, .l5A20
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	jp HtmlUrl_Resolve_EnsureHostSlash
 
 .l5A2C ; 74:5A2C
@@ -198,7 +198,7 @@ Label_74_59F1::
 	ld e, l
 	inc hl
 	ld a, [hld]
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	cp a, $2F
 	jr nz, .l5A42
 .l5A37 ; 74:5A37

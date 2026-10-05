@@ -836,17 +836,17 @@ Registration_SavePassword:: ; 65:47EA
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, $DEB9
-	ld de, $C28F
+	ld de, wRam_C28F
 	call CopyString
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
-	ld hl, $C28F
+	ld hl, wRam_C28F
 	call StringLength
 	ld a, c
-	ld de, $C28F
+	ld de, wRam_C28F
 	farcall SavedPassword_Store
 	ret
 

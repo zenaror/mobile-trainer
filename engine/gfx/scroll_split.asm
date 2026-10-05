@@ -68,7 +68,7 @@ Gfx_GdmaAtVBlankNoDi:: ; 7F:72C2
 	ldh [rHDMA3], a
 	ld a, e
 	ldh [rHDMA4], a
-	ld de, $FF44
+	ld de, rLY
 .l72D1 ; 7F:72D1
 	ld a, [de]
 	cp a, $8F

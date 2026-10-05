@@ -191,7 +191,7 @@ Label_72_656D::
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, .l65C7
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l65C8
 	ld a, [wTimerAWarnMinute]
@@ -210,14 +210,14 @@ Label_72_656D::
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l65B3
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
 	jr nz, .l65C7
 	set 1, [hl]
 .l65B3 ; 72:65B3
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	set 0, [hl]
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
 	jr z, .l65C8
@@ -643,7 +643,7 @@ Label_72_68A9::
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, .l6903
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l6904
 	ld a, [wTimerAWarnMinute]
@@ -662,14 +662,14 @@ Label_72_68A9::
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l68EF
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
 	jr nz, .l6903
 	set 1, [hl]
 .l68EF ; 72:68EF
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	set 0, [hl]
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
 	jr z, .l6904

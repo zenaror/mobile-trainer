@@ -339,7 +339,7 @@ Function_51_4239::
 	; [CONFIRMED] 26 insn(s); 26 executed (in up to 7/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push hl
-	ld hl, $C2D4
+	ld hl, wTimerAFrames
 	ld a, [hli]
 	or a, [hl]
 	inc hl
@@ -362,7 +362,7 @@ CommTime_Reset:: ; 51:4245
 	ret
 
 CommTime_AddTimerA:: ; 51:425F
-	ld hl, $C2D8
+	ld hl, wCommTimeTotal
 	ld a, [wTimerAFrames]
 	add a, [hl]
 	ldh [hRam_FFB0], a

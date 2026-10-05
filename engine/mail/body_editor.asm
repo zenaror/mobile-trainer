@@ -1269,8 +1269,8 @@ Function_2D_4F2F::
 	ld l, a
 	pop af
 	ld h, a
-	ld bc, $C0A0
-	ld de, $C0B8
+	ld bc, wGlyphBufLeft
+	ld de, wGlyphBufRight
 	farcall Glyph_LoadWide
 	pop hl
 	pop de
@@ -1280,7 +1280,7 @@ Function_2D_4F2F::
 	push bc
 	push de
 	push hl
-	ld hl, $C0B8
+	ld hl, wGlyphBufRight
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -1307,7 +1307,7 @@ Function_2D_4F2F::
 	push de
 	push hl
 	ld b, a
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -1329,7 +1329,7 @@ Function_2D_4F2F::
 	push de
 	push hl
 	ld b, $7F
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -1361,7 +1361,7 @@ MailBody_DrawRow_Glyph:: ; 2D:4FEA
 	push bc
 	push de
 	push hl
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -1377,7 +1377,7 @@ MailBody_DrawRow_Pad:: ; 2D:4FFE
 	push hl
 	ld b, $02
 	ld c, $00
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyphNoRemap
 	pop hl
 	pop de
@@ -1425,7 +1425,7 @@ TextTiles_HdmaBlock:: ; 2D:5054
 	ldh [rHDMA3], a
 	ld a, e
 	ldh [rHDMA4], a
-	ld de, $FF44
+	ld de, rLY
 .l5063 ; 2D:5063
 	ld a, [de]
 	cp a, $8F

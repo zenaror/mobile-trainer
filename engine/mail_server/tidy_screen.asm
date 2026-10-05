@@ -473,8 +473,8 @@ MailServerMgr_DrawFieldText:: ; 2E:4F06
 	ld l, a
 	pop af
 	ld h, a
-	ld bc, $C0A0
-	ld de, $C0B8
+	ld bc, wGlyphBufLeft
+	ld de, wGlyphBufRight
 	farcall Glyph_LoadWide
 	pop hl
 	pop de
@@ -484,7 +484,7 @@ MailServerMgr_DrawFieldText:: ; 2E:4F06
 	push bc
 	push de
 	push hl
-	ld hl, $C0B8
+	ld hl, wGlyphBufRight
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -505,7 +505,7 @@ MailServerMgr_DrawFieldText:: ; 2E:4F06
 	push de
 	push hl
 	ld b, a
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -522,7 +522,7 @@ MailServerMgr_DrawFieldText:: ; 2E:4F06
 	push de
 	push hl
 	ld b, $20
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -553,7 +553,7 @@ MailServerMgr_DrawFieldText_Glyph:: ; 2E:4FA9
 	push bc
 	push de
 	push hl
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -593,7 +593,7 @@ MailServerMgr_HdmaBlock:: ; 2E:4FE5
 	ldh [rHDMA3], a
 	ld a, e
 	ldh [rHDMA4], a
-	ld de, $FF44
+	ld de, rLY
 .l4FF4 ; 2E:4FF4
 	ld a, [de]
 	cp a, $8F
@@ -1326,7 +1326,7 @@ MailServerMgr_ShowChoiceHelp:: ; 2E:5498
 	ldh [rHDMA3], a
 	ld a, e
 	ldh [rHDMA4], a
-	ld de, $FF44
+	ld de, rLY
 .l54DE ; 2E:54DE
 	ld a, [de]
 	cp a, $8F

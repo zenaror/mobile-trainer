@@ -9,18 +9,18 @@ Mail_ParseDate:: ; 54:5168
 	; entered by call from 54:49A2 (PROBABLE code) | 79 insn(s) executed; cut out of the PROBABLE
 	; region 511D-5343 by apply_coverage --split [executed in 3 scenarios] (part of region
 	; $511D-$51B9)
-	ld hl, $C480
+	ld hl, wRam_C480
 	add hl, bc
 	xor a, a
 	ld [hl], a
-	ld hl, $C580
+	ld hl, wRam_C580
 	ld bc, $0600
 	xor a, a
 .l5175 ; 54:5175
 	ld [hli], a
 	dec b
 	jr nz, .l5175
-	ld hl, $C480
+	ld hl, wRam_C480
 	call Mail_SkipToDigit
 	call Mail_CountDigits
 	ld a, $01
@@ -239,7 +239,7 @@ Function_54_5240::
 	sub a, $24
 	daa
 	ld [wRam_C584], a
-	ld hl, $C583
+	ld hl, wRam_C583
 	ld a, [hl]
 	ld c, a
 	add a, $01
@@ -263,7 +263,7 @@ Function_54_5240::
 	daa
 	cp a, $13
 	jr nz, .l52D6
-	ld hl, $C581
+	ld hl, wRam_C581
 	ld a, [hl]
 	add a, $01
 	daa
@@ -287,7 +287,7 @@ Function_54_5240::
 	add a, $24
 	daa
 	ld [wRam_C584], a
-	ld hl, $C583
+	ld hl, wRam_C583
 	ld a, [hl]
 	sub a, $01
 	daa
@@ -299,7 +299,7 @@ Function_54_5240::
 	daa
 	cp a, $00
 	jr nz, .l530F
-	ld hl, $C581
+	ld hl, wRam_C581
 	ld a, [hl]
 	sub a, $01
 	daa

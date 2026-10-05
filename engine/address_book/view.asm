@@ -445,8 +445,8 @@ AbookView_DrawName:: ; 2F:53F5
 	ld l, a
 	pop af
 	ld h, a
-	ld bc, $C0A0
-	ld de, $C0B8
+	ld bc, wGlyphBufLeft
+	ld de, wGlyphBufRight
 	farcall Glyph_LoadWide
 	pop hl
 	pop de
@@ -456,7 +456,7 @@ AbookView_DrawName:: ; 2F:53F5
 	push bc
 	push de
 	push hl
-	ld hl, $C0B8
+	ld hl, wGlyphBufRight
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -482,7 +482,7 @@ AbookView_DrawName:: ; 2F:53F5
 	push de
 	push hl
 	ld b, a
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -501,7 +501,7 @@ AbookView_DrawName:: ; 2F:53F5
 	push de
 	push hl
 	ld b, $20
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -518,7 +518,7 @@ AbookView_DrawName:: ; 2F:53F5
 	push de
 	push hl
 	ld b, $20
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -536,7 +536,7 @@ AbookView_DrawName_Glyph:: ; 2F:54B5
 	push bc
 	push de
 	push hl
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -552,7 +552,7 @@ AbookView_DrawName_Pad:: ; 2F:54C9
 	push hl
 	ld b, $02
 	ld c, $00
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -590,8 +590,8 @@ AbookView_DrawAddrLine1:: ; 2F:54E1
 	ld l, a
 	pop af
 	ld h, a
-	ld bc, $C0A0
-	ld de, $C0B8
+	ld bc, wGlyphBufLeft
+	ld de, wGlyphBufRight
 	farcall Glyph_LoadWide
 	pop hl
 	pop de
@@ -601,7 +601,7 @@ AbookView_DrawAddrLine1:: ; 2F:54E1
 	push bc
 	push de
 	push hl
-	ld hl, $C0B8
+	ld hl, wGlyphBufRight
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -627,7 +627,7 @@ AbookView_DrawAddrLine1:: ; 2F:54E1
 	push de
 	push hl
 	ld b, a
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -649,7 +649,7 @@ AbookView_DrawAddrLine1:: ; 2F:54E1
 	push de
 	push hl
 	ld b, $20
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -666,7 +666,7 @@ AbookView_DrawAddrLine1:: ; 2F:54E1
 	push de
 	push hl
 	ld b, $20
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -684,7 +684,7 @@ AbookView_DrawAddrLine1_Glyph:: ; 2F:55A1
 	push bc
 	push de
 	push hl
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -700,7 +700,7 @@ AbookView_DrawAddrLine1_Pad:: ; 2F:55B5
 	push hl
 	ld b, $02
 	ld c, $00
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -738,8 +738,8 @@ AbookView_DrawAddrLine2:: ; 2F:55CD
 	ld l, a
 	pop af
 	ld h, a
-	ld bc, $C0A0
-	ld de, $C0B8
+	ld bc, wGlyphBufLeft
+	ld de, wGlyphBufRight
 	farcall Glyph_LoadWide
 	pop hl
 	pop de
@@ -749,7 +749,7 @@ AbookView_DrawAddrLine2:: ; 2F:55CD
 	push bc
 	push de
 	push hl
-	ld hl, $C0B8
+	ld hl, wGlyphBufRight
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -775,7 +775,7 @@ AbookView_DrawAddrLine2:: ; 2F:55CD
 	push de
 	push hl
 	ld b, a
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -797,7 +797,7 @@ AbookView_DrawAddrLine2:: ; 2F:55CD
 	push de
 	push hl
 	ld b, $20
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -814,7 +814,7 @@ AbookView_DrawAddrLine2:: ; 2F:55CD
 	push de
 	push hl
 	ld b, $20
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -832,7 +832,7 @@ AbookView_DrawAddrLine2_Glyph:: ; 2F:568D
 	push bc
 	push de
 	push hl
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -848,7 +848,7 @@ AbookView_DrawAddrLine2_Pad:: ; 2F:56A1
 	push hl
 	ld b, $02
 	ld c, $00
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -886,8 +886,8 @@ AbookView_DrawAddrLine3:: ; 2F:56B9
 	ld l, a
 	pop af
 	ld h, a
-	ld bc, $C0A0
-	ld de, $C0B8
+	ld bc, wGlyphBufLeft
+	ld de, wGlyphBufRight
 	farcall Glyph_LoadWide
 	pop hl
 	pop de
@@ -897,7 +897,7 @@ AbookView_DrawAddrLine3:: ; 2F:56B9
 	push bc
 	push de
 	push hl
-	ld hl, $C0B8
+	ld hl, wGlyphBufRight
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -923,7 +923,7 @@ AbookView_DrawAddrLine3:: ; 2F:56B9
 	push de
 	push hl
 	ld b, a
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -945,7 +945,7 @@ AbookView_DrawAddrLine3:: ; 2F:56B9
 	push de
 	push hl
 	ld b, $20
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -962,7 +962,7 @@ AbookView_DrawAddrLine3:: ; 2F:56B9
 	push de
 	push hl
 	ld b, $20
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -980,7 +980,7 @@ AbookView_DrawAddrLine3_Glyph:: ; 2F:5779
 	push bc
 	push de
 	push hl
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -996,7 +996,7 @@ AbookView_DrawAddrLine3_Pad:: ; 2F:578D
 	push hl
 	ld b, $02
 	ld c, $00
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de

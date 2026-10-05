@@ -5,8 +5,6 @@ DEF hROMBankLo EQU $FF8A ; size 1 byte CONFIRMED mirror of the MBC5 ROM bank low
 DEF hROMBankHi EQU $FF8B ; size 1 byte CONFIRMED mirror of the MBC5 bank bit 8 written to [$3000] (00:0324, 00:2105); saved/restored with FF8A by 00:0150/01B7/01ED/20EE
 DEF hSRAMBank EQU $FF8C ; size 1 byte CONFIRMED mirror of [$4000] (SRAM bank): 00:0631/0684/163E/15CE
 DEF hWRAMBank EQU $FF8D ; size 1 byte CONFIRMED mirror of rSVBK kept by the BankSwitch_* helpers, 00:0684, 00:0956... (each paired with ldh [rSVBK],a); NOT updated by Boot (00:02C1-02D2, 0305/030B) nor by the frame service (03AD/03B3), which restore rSVBK from a pushed value
-DEF hRam_FF9C EQU $FF9C ; size 1 ptrbase HYPOTHESIS usage r=0 w=0 l=5 ptr-uses=0 banks=4 (t1: r=0 w=0 l=1); loaded before call 4FFB x1,41D8 x1; only ever loaded as an address/16-bit immediate, extent unknown
-DEF hRam_FFA0 EQU $FFA0 ; size 1 ptrbase HYPOTHESIS usage r=0 w=0 l=1 ptr-uses=0 banks=1 (t1: r=0 w=0 l=1); only ever loaded as an address/16-bit immediate, extent unknown
 DEF hBootA EQU $FFA3 ; size 1 byte CONFIRMED register A at the entry point (first instruction of 00:0278: ldh [$FFA3],a); $11 = CGB; cleared later by the HRAM wipe at 00:02ED-02F4
 DEF hJoyHeld EQU $FFA4 ; size 1 byte CONFIRMED buttons currently held: the bank-7D polling routine (7D:7B7C-7BA3) reads rP1 (P14 direction nibble -> bits 7-4, P15 button nibble -> bits 3-0, inverted) and stores it with `ldh [$FFA4],a` at 7D:7BCB [usage r=57 w=3 l=2 banks=17]
 DEF hJoyPressed EQU $FFA5 ; size 1 byte CONFIRMED newly pressed buttons = (old FFA4 xor new) and new, stored at 7D:7BC4-7BC8; bits 0-3 = A,B,Select,Start (bit order used by the 00:056A button dispatcher) [usage r=94 w=13 l=0 banks=20]
@@ -81,8 +79,6 @@ DEF hDialogResult EQU $FFF6 ; size 1 byte PROBABLE [g7] dialog selection/result:
 DEF hRam_FFF7 EQU $FFF7 ; size 1 byte HYPOTHESIS usage r=2 w=2 l=0 ptr-uses=0 banks=2 (t1: r=1 w=1 l=0)
 DEF hRam_FFF8 EQU $FFF8 ; size 1 byte HYPOTHESIS usage r=1 w=1 l=2 ptr-uses=0 banks=2 (t1: r=0 w=0 l=2)
 DEF hRam_FFF9 EQU $FFF9 ; size 1 byte HYPOTHESIS usage r=1 w=1 l=1 ptr-uses=0 banks=2 (t1: r=0 w=0 l=1)
-DEF hRam_FFFA EQU $FFFA ; size 1 ptrbase HYPOTHESIS usage r=0 w=0 l=3 ptr-uses=0 banks=1 (t1: r=0 w=0 l=3); loaded before call 502B x1; only ever loaded as an address/16-bit immediate, extent unknown
-DEF hRam_FFFB EQU $FFFB ; size 1 ptrbase HYPOTHESIS usage r=0 w=0 l=2 ptr-uses=0 banks=2 (t1: r=0 w=0 l=2); only ever loaded as an address/16-bit immediate, extent unknown
 DEF hFramesWithoutService EQU $FFFC ; size 1 byte PROBABLE Int_VBlank: incremented when C2BF==0 (service did not run this frame), reset to 0 otherwise (00:0435-0443)
 DEF hRandomIndex EQU $FFFD ; size 1 byte CONFIRMED index into Table_00_0C34, incremented by Random (00:0C18)
 DEF hRandomState EQU $FFFE ; size 1 byte CONFIRMED state of Random: new = (5*old+2) xor table[index] (00:0C18)

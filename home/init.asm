@@ -58,7 +58,7 @@ Boot:: ; 00:0278
 	xor a, a
 	ldh [rSVBK], a
 	ldh [rVBK], a
-	ld hl, $C000
+	ld hl, wShadowOAM
 	ld bc, $2000
 	xor a, a
 	call FillBytes
@@ -67,7 +67,7 @@ Boot:: ; 00:0278
 	xor a, a
 	call FillBytes
 	ld sp, $CFFF
-	ld hl, $FF80
+	ld hl, hOamDmaRoutine
 	ld bc, $007E
 	xor a, a
 	call FillBytes

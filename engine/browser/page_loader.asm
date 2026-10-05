@@ -8,7 +8,7 @@ Browser_LoadPage:: ; 4C:4000
 Function_4C_4000::
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	farcall HtmlUrl_GetSchemeId
 	cp a, $FF
 	jr z, Browser_LoadPage_Fail
@@ -208,7 +208,7 @@ Browser_LoadPage_StopRequest:: ; 4C:417D
 Label_4C_417D::
 	ld a, $05
 	ld [wCommTimeoutMinutes], a
-	ld hl, $C266
+	ld hl, wTimerBFrames
 	xor a, a
 	ld [hli], a
 	ld [hli], a
@@ -269,7 +269,7 @@ Label_4C_417D::
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, .l424C
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l424D
 	ld a, [wTimerAWarnMinute]
@@ -288,14 +288,14 @@ Label_4C_417D::
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l4238
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
 	jr nz, .l424C
 	set 1, [hl]
 .l4238 ; 4C:4238
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	set 0, [hl]
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
 	jr z, .l424D
@@ -354,7 +354,7 @@ Label_4C_427F::
 Browser_LoadPage_Http:: ; 4C:4291
 	; [CONFIRMED] 28 insn(s); 28 executed (in up to 4/18 scenarios)
 	ld de, $D400
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	ld bc, $0100
 	ld a, $06
 	ldh [hWRAMBank], a
@@ -430,10 +430,10 @@ Browser_LoadPage_Connect:: ; 4C:4330
 	farcall CommProgress_Step
 	xor a, a
 	ld [wCommSessionActive], a
-	ld hl, $C2D2
+	ld hl, wBrowserTimerLastSec
 	ld [hli], a
 	ld [hl], a
-	ld hl, $C2D4
+	ld hl, wTimerAFrames
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
@@ -465,10 +465,10 @@ Browser_LoadPage_Connect:: ; 4C:4330
 	ld c, a
 	or a, a
 	jr nz, .l439B
-	ld de, $C240
+	ld de, wRam_C240
 	farcall Dial_CopySelectedNumber
 .l439B ; 4C:439B
-	ld hl, $C220
+	ld hl, wMobilePassword
 	farcall Mobile_BeginConnect
 .l43A4 ; 4C:43A4
 	farcall Mobile_ConnectPoll
@@ -492,7 +492,7 @@ Browser_LoadPage_Request:: ; 4C:43CD
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $C380
+	ld de, wAttrUrlBuf
 	ld hl, $D400
 	ld bc, $0100
 	call CopyBytes
@@ -529,12 +529,12 @@ Browser_LoadPage_Request:: ; 4C:43CD
 	ld [wRam_C243], a
 	ld a, $05
 	ld [wCommTimeoutMinutes], a
-	ld hl, $C266
+	ld hl, wTimerBFrames
 	xor a, a
 	ld [hli], a
 	ld [hli], a
 	ld [hl], a
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	ld de, sBrowserPageBuf
 	ld a, e
 	ld [wBrowserRxPtr], a
@@ -565,12 +565,12 @@ Browser_LoadPage_Request:: ; 4C:43CD
 	call Url_StripFragment
 	ld a, $05
 	ld [wCommTimeoutMinutes], a
-	ld hl, $C266
+	ld hl, wTimerBFrames
 	xor a, a
 	ld [hli], a
 	ld [hli], a
 	ld [hl], a
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	ld de, sBrowserPageBuf
 	ld a, e
 	ld [wBrowserRxPtr], a
@@ -620,7 +620,7 @@ Label_4C_44E8::
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, .l452E
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l452F
 	ld a, [wTimerAWarnMinute]
@@ -643,14 +643,14 @@ Label_4C_44E8::
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l451A
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
 	jr nz, .l452E
 	set 1, [hl]
 .l451A ; 4C:451A
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	set 0, [hl]
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
 	jr z, .l452F
@@ -729,7 +729,7 @@ Label_4C_458B::
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, .l45F8
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l45F9
 	ld a, [wTimerAWarnMinute]
@@ -745,14 +745,14 @@ Label_4C_458B::
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l45E4
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
 	jr nz, .l45F8
 	set 1, [hl]
 .l45E4 ; 4C:45E4
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	set 0, [hl]
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
 	jr z, .l45F9
@@ -804,7 +804,7 @@ Label_4C_460D::
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, .l4684
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l4685
 	ld a, [wTimerAWarnMinute]
@@ -827,14 +827,14 @@ Label_4C_460D::
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l4670
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
 	jr nz, .l4684
 	set 1, [hl]
 .l4670 ; 4C:4670
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	set 0, [hl]
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
 	jr z, .l4685
@@ -878,7 +878,7 @@ Function_4C_46A6::
 	; [CONFIRMED] 14 insn(s); 14 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call (part of region $46A6-$46C0)
 	call Sound_FrameService
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 .loop ; 4C:46AC
 	ld a, [hli]
 	cp a, $23

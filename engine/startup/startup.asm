@@ -14,10 +14,10 @@ Function_65_4000::
 	farcall Settings_ClearVariableBlock
 	xor a, a
 	ld [wCommSessionActive], a
-	ld hl, $C2D2
+	ld hl, wBrowserTimerLastSec
 	ld [hli], a
 	ld [hl], a
-	ld hl, $C2D4
+	ld hl, wTimerAFrames
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a

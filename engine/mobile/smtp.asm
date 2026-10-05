@@ -14,7 +14,7 @@ Smtp_StartHelo:: ; 54:44FE
 	ld [wMobileTaskKind], a
 	xor a, a
 	ld [wMobileTaskStep], a
-	ld hl, $C201
+	ld hl, wMobileEmailAddr
 	ld a, $14
 	farcall MobileAPI
 	ret
@@ -33,7 +33,7 @@ Smtp_HeloPoll:: ; 54:451B
 	ld a, $FF
 	ret
 .l4532 ; 54:4532
-	ld hl, $C1D8
+	ld hl, wMobileTaskKind
 	xor a, a
 	ld [hl], a
 	ret
@@ -71,7 +71,7 @@ Smtp_QuitPoll:: ; 54:4552
 .l456F ; 54:456F
 	; [CONFIRMED] 210 insn(s) executed; cut out of the PROBABLE region 44C3-475A by apply_coverage
 	; --split [executed in 4 scenarios]
-	ld hl, $C1D8
+	ld hl, wMobileTaskKind
 	xor a, a
 	ld [hl], a
 	ret
@@ -92,14 +92,14 @@ Smtp_StartMailFrom:: ; 54:4575
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, Data_54_475A
-	ld de, $C240
+	ld de, wRam_C240
 	ld bc, $000A
 	farcall CopyBytes
 	ld c, $01
-	ld de, $C240
+	ld de, wRam_C240
 	ld b, $06
 	call Mail_BuildHeaderField
-	ld hl, $C201
+	ld hl, wMobileEmailAddr
 	ld c, $40
 	call Smtp_CopyFieldToWork
 	ld a, $00
@@ -121,14 +121,14 @@ Smtp_StartMailFrom:: ; 54:4575
 	ld hl, String_Mail_CloseParen
 	farcall CopyString
 .l45DB ; 54:45DB
-	ld hl, $C580
-	ld de, $C480
+	ld hl, wRam_C580
+	ld de, wRam_C480
 	ld bc, $0100
 	farcall Charset_SjisToIso2022Jp
-	ld hl, $C480
+	ld hl, wRam_C480
 	call Smtp_MeasureField
 	ld c, $01
-	ld de, $C240
+	ld de, wRam_C240
 	ld b, $00
 	call Mail_BuildHeaderField
 	ld a, $00
@@ -142,9 +142,9 @@ Smtp_StartMailFrom:: ; 54:4575
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ld de, sNetWorkPage
-	ld hl, $C201
+	ld hl, wMobileEmailAddr
 	farcall CopyString
-	ld hl, $C580
+	ld hl, wRam_C580
 	farcall CopyString
 	xor a, a
 	ld [de], a
@@ -168,14 +168,14 @@ Smtp_StartMailFrom:: ; 54:4575
 	ld hl, String_Mail_CloseParen
 	farcall CopyString
 .l464D ; 54:464D
-	ld hl, $C580
-	ld de, $C480
+	ld hl, wRam_C580
+	ld de, wRam_C480
 	ld bc, $0100
 	farcall Charset_SjisToIso2022Jp
-	ld hl, $C480
+	ld hl, wRam_C480
 	call Smtp_MeasureField
 	ld c, $01
-	ld de, $C240
+	ld de, wRam_C240
 	ld b, $03
 	call Mail_BuildHeaderField
 	ld a, $00
@@ -185,34 +185,34 @@ Smtp_StartMailFrom:: ; 54:4575
 	ld a, [hl]
 	or a, a
 	jr z, .l46A9
-	ld de, $C500
+	ld de, wRam_C500
 	ld bc, $0014
 	farcall CopyBytes
 	xor a, a
 	ld [wRam_C514], a
-	ld hl, $C500
-	ld de, $C480
+	ld hl, wRam_C500
+	ld de, wRam_C480
 	ld bc, $0080
 	farcall Charset_SjisToIso2022Jp
-	ld hl, $C480
+	ld hl, wRam_C480
 	call Smtp_MeasureField
 	ld c, $01
-	ld de, $C240
+	ld de, wRam_C240
 	ld b, $05
 	call Mail_BuildHeaderField
 .l46A9 ; 54:46A9
 	xor a, a
 	ld [wRam_C245], a
 	ld c, $01
-	ld de, $C240
+	ld de, wRam_C240
 	ld b, $07
 	call Mail_BuildHeaderField
 	ld c, $01
-	ld de, $C240
+	ld de, wRam_C240
 	ld b, $08
 	call Mail_BuildHeaderField
 	ld c, $01
-	ld de, $C240
+	ld de, wRam_C240
 	ld b, $0A
 	call Mail_BuildHeaderField
 	ld a, $03
@@ -240,7 +240,7 @@ Mail_BuildHeaderField:: ; 54:46E8
 	jr z, Mail_BuildHeaderField
 	ld c, l
 	ld b, h
-	ld hl, $C241
+	ld hl, wRam_C241
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -256,7 +256,7 @@ Mail_BuildHeaderField:: ; 54:46E8
 	xor a, b
 	ld b, a
 	inc bc
-	ld hl, $C243
+	ld hl, wRam_C243
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -286,7 +286,7 @@ Function_54_4726::
 Smtp_CopyFieldToWork:: ; 54:4736
 Function_54_4736::
 	ld b, $00
-	ld de, $C580
+	ld de, wRam_C580
 .loop ; 54:473B
 	ld a, [hli]
 	ld [de], a
@@ -362,7 +362,7 @@ Smtp_DataPoll:: ; 54:4772
 	ld a, $FF
 	ret
 .l478E ; 54:478E
-	ld hl, $C1D9
+	ld hl, wMobileTaskStep
 	inc [hl]
 	ld a, [hl]
 	dec a
@@ -383,7 +383,7 @@ Smtp_DataPoll:: ; 54:4772
 .l47A6 ; 54:47A6
 	; [CONFIRMED] 66 insn(s) executed; cut out of the PROBABLE region 4772-4856 by apply_coverage
 	; --split [executed in 5 scenarios]
-	ld hl, $C241
+	ld hl, wRam_C241
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -412,38 +412,38 @@ Smtp_DataPoll:: ; 54:4772
 	ld c, b
 	ld b, $00
 	push bc
-	ld de, $C580
+	ld de, wRam_C580
 	farcall CopyBytes
 	pop bc
-	ld hl, $C580
+	ld hl, wRam_C580
 	add hl, bc
 	xor a, a
 	ld [hl], a
-	ld de, $C480
+	ld de, wRam_C480
 	ld a, $0D
 	ld [de], a
 	inc de
 	ld a, $0A
 	ld [de], a
 	inc de
-	ld hl, $C580
+	ld hl, wRam_C580
 	ld bc, $0200
 	farcall Charset_SjisToIso2022Jp
-	ld hl, $C482
+	ld hl, wRam_C482
 	add hl, bc
 	ld e, l
 	ld d, h
 	ld hl, String_Smtp_EndOfData
 	farcall CopyString
 .l4812 ; 54:4812
-	ld hl, $C480
+	ld hl, wRam_C480
 	ld bc, $FFFF
 .l4818 ; 54:4818
 	inc bc
 	ld a, [hli]
 	or a, a
 	jr nz, .l4818
-	ld hl, $C480
+	ld hl, wRam_C480
 	ld a, $18
 	ld d, $01
 	farcall MobileAPI
@@ -458,7 +458,7 @@ Smtp_DataPoll:: ; 54:4772
 .l4834 ; 54:4834
 	; [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4772-4856 by apply_coverage --split
-	ld de, $C480
+	ld de, wRam_C480
 	ld a, $0D
 	ld [de], a
 	inc de

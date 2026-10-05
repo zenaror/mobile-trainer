@@ -149,17 +149,17 @@ PasswordChange_SaveNewPassword:: ; 67:5A0E
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, $DEC2
-	ld de, $C28F
+	ld de, wRam_C28F
 	call CopyString
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
-	ld hl, $C28F
+	ld hl, wRam_C28F
 	call StringLength
 	ld a, c
-	ld de, $C28F
+	ld de, wRam_C28F
 	farcall SavedPassword_Store
 	ret
 
@@ -190,10 +190,10 @@ PasswordChange_Communicate_Setup:: ; 67:5A4E
 PasswordChange_Communicate_Poll:: ; 67:5A75
 	xor a, a
 	ld [wCommSessionActive], a
-	ld hl, $C2D2
+	ld hl, wBrowserTimerLastSec
 	ld [hli], a
 	ld [hl], a
-	ld hl, $C2D4
+	ld hl, wTimerAFrames
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
@@ -235,7 +235,7 @@ PasswordChange_State_Init:: ; 67:5AAA
 	farcall CommPanel_Step
 	cp a, $02
 	jp z, PasswordChange_Abort
-	ld de, $C271
+	ld de, wMobileAdapterType
 	ld hl, $0067
 	ld a, $02
 	call MobileAPI
@@ -345,7 +345,7 @@ PasswordChange_State_SendRequest:: ; 67:5B5B
 	ld [hl], a
 	ld a, $05
 	ld [wCommTimeoutMinutes], a
-	ld hl, $C266
+	ld hl, wTimerBFrames
 	xor a, a
 	ld [hli], a
 	ld [hli], a
@@ -370,7 +370,7 @@ PasswordChange_State_WaitResponse:: ; 67:5BD8
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, .l5C2A
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l5C2B
 	ld a, [wTimerAWarnMinute]
@@ -389,14 +389,14 @@ PasswordChange_State_WaitResponse:: ; 67:5BD8
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l5C16
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
 	jr nz, .l5C2A
 	set 1, [hl]
 .l5C16 ; 67:5C16
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	set 0, [hl]
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
 	jr z, .l5C2B
@@ -536,7 +536,7 @@ PasswordChange_ConnectionNotice:: ; 67:5D00
 Label_67_5D00::
 	; [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 1;
 	; entered by jpcc from 67:5C2D (executed)
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	res 0, [hl]
 	ld a, $00
 	ld [wCommNoticeMode], a
@@ -577,7 +577,7 @@ PasswordChange_HandleHttpStatus:: ; 67:5D26
 PasswordChange_FollowRedirect:: ; 67:5D45
 	ld a, $05
 	ld [wCommTimeoutMinutes], a
-	ld hl, $C266
+	ld hl, wTimerBFrames
 	xor a, a
 	ld [hli], a
 	ld [hli], a
@@ -601,7 +601,7 @@ PasswordChange_FollowRedirect:: ; 67:5D45
 	ld [hl], a
 	ld a, $05
 	ld [wCommTimeoutMinutes], a
-	ld hl, $C266
+	ld hl, wTimerBFrames
 	xor a, a
 	ld [hli], a
 	ld [hli], a
@@ -797,7 +797,7 @@ Label_67_5F0E::
 	; [PROBABLE] entered through Table_67_5F0A (state handlers indexed by [$C27D]); decode chain
 	; legal, all 2 table targets are instruction starts, ends in known code region at 5F38; not
 	; executed in traces
-	ld de, $C271
+	ld de, wMobileAdapterType
 	ld hl, $0067
 	ld a, $02
 	call MobileAPI

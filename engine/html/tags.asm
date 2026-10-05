@@ -195,7 +195,7 @@ Function_74_4530::
 .l4592 ; 74:4592
 	; [CONFIRMED] 16 insn(s) executed; cut out of the PROBABLE region 4587-45AA by apply_coverage
 	; --split [executed in 3 scenarios]
-	ld de, $C340
+	ld de, wHtmlTitleBuf
 	pop hl
 	ld c, a
 	ld b, $00
@@ -214,7 +214,7 @@ Function_74_4530::
 
 .l45AA ; 74:45AA
 	; [CONFIRMED] 28 insn(s); 28 executed (in up to 2/18 scenarios)
-	ld de, $C340
+	ld de, wHtmlTitleBuf
 	pop hl
 	ld a, c
 	or a, a
@@ -226,7 +226,7 @@ Function_74_4530::
 .l45B9 ; 74:45B9
 	xor a, a
 	ld [de], a
-	ld hl, $C340
+	ld hl, wHtmlTitleBuf
 	ldh a, [hHtml_PageHeader]
 	ld e, a
 	ldh a, [hHtml_PageHeaderHi]
@@ -381,7 +381,7 @@ Html_Tag_Meta:: ; 74:4698
 	; 464A-4718 by apply_coverage --split
 	push hl
 	push de
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	ld de, $D300
 	ld bc, $0040
 	ld a, $06
@@ -396,7 +396,7 @@ Html_Tag_Meta:: ; 74:4698
 .l46DE ; 74:46DE
 	push hl
 	push de
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	ld de, $D340
 	ld bc, $0040
 	ld a, $06
@@ -411,7 +411,7 @@ Html_Tag_Meta:: ; 74:4698
 .l46FB ; 74:46FB
 	push hl
 	push de
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	ld de, $D380
 	ld bc, $0040
 	ld a, $06
@@ -475,7 +475,7 @@ Label_74_4761::
 	jp z, Html_ParseSource_Tag_Done
 	push de
 	push hl
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	ld bc, Html_AlignValuePtrs
 	ld a, l
 	ldh [hHtml_MatchRestart], a
@@ -1084,7 +1084,7 @@ Html_Tag_A:: ; 74:4A91
 	jr z, .l4B81
 	push bc
 	push de
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	farcall HtmlUrl_GetSchemeId
 	pop de
 	pop bc
@@ -1147,7 +1147,7 @@ Html_Tag_Br:: ; 74:4B98
 	; region 4BA1-4BB9 by apply_coverage --split [executed in 1 scenarios]
 	push de
 	push hl
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	ld bc, Html_ClearValuePtrs
 	ld a, l
 	ldh [hHtml_MatchRestart], a
@@ -1367,7 +1367,7 @@ Html_Tag_Hr:: ; 74:4CA6
 	; fall-through of the jrcc at 74:4CCF (executed) | 7 insn(s) executed; cut out of the PROBABLE
 	; region 4CD1-4CF2 by apply_coverage --split [executed in 3 scenarios]
 	push bc
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	farcall Html_ParseDecimal
 	inc c
 	dec c
@@ -1653,7 +1653,7 @@ Html_Tag_Img:: ; 74:4DF9
 	ld a, [de]
 	or a, a
 	jr z, .l4E9E
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 .l4E81 ; 74:4E81
 	ld a, [hli]
 	ld c, a
@@ -1694,7 +1694,7 @@ Html_Tag_Img:: ; 74:4DF9
 	; 4DF9-4F4F by apply_coverage --split
 	push hl
 	push de
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	ld bc, Html_AlignValuePtrs
 	ld a, l
 	ldh [hHtml_MatchRestart], a

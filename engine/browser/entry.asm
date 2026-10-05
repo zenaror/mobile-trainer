@@ -92,7 +92,7 @@ Browser_StartPageListEntry:: ; 4F:46BA
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld de, $C380
+	ld de, wAttrUrlBuf
 	ld bc, $0100
 	call CopyBytes
 	xor a, a

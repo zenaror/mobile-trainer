@@ -85,7 +85,7 @@ Function_67_611C::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, $DECB
-	ld de, $C220
+	ld de, wMobilePassword
 	call CopyString
 	ldh [hScratchA], a
 	pop af
@@ -116,7 +116,7 @@ UsageTime_Request:: ; 67:6171
 	ld hl, Net_UsageTimeCgiUrl
 	ld de, sNetStartUrl
 	call CopyString
-	ld de, $C28F
+	ld de, wRam_C28F
 	farcall Dial_CopySelectedNumber
 	ld a, $02
 	farcall CommPanel_SetVariant
@@ -168,7 +168,7 @@ Function_67_6205::
 	ld hl, Net_PppIdKeyDup
 	ld de, sNetWorkPage
 	call CopyString
-	ld hl, $C1E0
+	ld hl, wMobileLoginId
 	ld de, sNetWorkPage
 	call StringAppend
 	ld hl, $624E

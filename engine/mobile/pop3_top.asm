@@ -15,15 +15,15 @@ Function_54_485C::
 	ld [wMobileTaskKind], a
 	xor a, a
 	ld [wMobileTaskStep], a
-	ld hl, $C201
-	ld de, $C480
+	ld hl, wMobileEmailAddr
+	ld de, wRam_C480
 	farcall CopyString
-	ld hl, $C220
+	ld hl, wMobilePassword
 	farcall CopyString
 	ld a, [wMobileFlags]
 	bit 0, a
 	jr nz, .l4895
-	ld hl, $C480
+	ld hl, wRam_C480
 	ld a, $1E
 	farcall MobileAPI
 	ret
@@ -58,7 +58,7 @@ Function_54_489B::
 
 .l48B8 ; 54:48B8
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 2/18 scenarios)
-	ld hl, $C1D9
+	ld hl, wMobileTaskStep
 	inc [hl]
 	ld a, [hl]
 	dec a
@@ -78,12 +78,12 @@ Function_54_489B::
 	jr nz, .l48F5
 	xor a, a
 	ld [hl], a
-	ld hl, $C201
-	ld de, $C480
+	ld hl, wMobileEmailAddr
+	ld de, wRam_C480
 	farcall CopyString
-	ld hl, $C220
+	ld hl, wMobilePassword
 	farcall CopyString
-	ld hl, $C480
+	ld hl, wRam_C480
 	ld a, $1E
 	farcall MobileAPI
 	ld a, $01
@@ -96,15 +96,15 @@ Function_54_489B::
 .l48F9 ; 54:48F9
 	; [CONFIRMED] 14 insn(s); 14 executed (in up to 2/18 scenarios)
 	ld a, $20
-	ld de, $C240
+	ld de, wRam_C240
 	farcall MobileAPI
 	ld a, $01
 	ret
 .l4907 ; 54:4907
-	ld hl, $C1D8
+	ld hl, wMobileTaskKind
 	xor a, a
 	ld [hl], a
-	ld hl, $C240
+	ld hl, wRam_C240
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -129,7 +129,7 @@ Pop3_StartTop:: ; 54:4914
 	ld a, $03
 	ld [wMobileRetriesLeft], a
 	push hl
-	ld hl, $C480
+	ld hl, wRam_C480
 	ld bc, $0200
 .loop ; 54:4933
 	xor a, a
@@ -177,7 +177,7 @@ Pop3_TopPoll:: ; 54:4969
 .l4984 ; 54:4984
 	; [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4914-49E0 by apply_coverage --split
-	ld de, $C480
+	ld de, wRam_C480
 	ld bc, $0000
 	ld a, $28
 	farcall MobileAPI
@@ -252,11 +252,11 @@ Label_54_4A12::
 	ld [hli], a
 	dec b
 	jr nz, .l4A2E
-	ld de, $C240
+	ld de, wRam_C240
 	ld hl, Data_54_4C35
 	ld bc, $0008
 	farcall CopyBytes
-	ld de, $C240
+	ld de, wRam_C240
 	ld hl, Data_54_4C3D
 	ld bc, $0007
 	farcall CopyBytes
@@ -264,16 +264,16 @@ Label_54_4A12::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $06
-	ld de, $C240
+	ld de, wRam_C240
 	farcall Mail_DispatchFar
 	or a, a
 	jr nz, .l4A8A
-	ld de, $C480
+	ld de, wRam_C480
 	add hl, de
 	xor a, a
 	ld [hl], a
-	ld de, $C580
-	ld hl, $C480
+	ld de, wRam_C580
+	ld hl, wRam_C480
 	ld bc, $0200
 	farcall Charset_Iso2022JpToSjis
 	ld de, sPop3TopSenderName
@@ -289,20 +289,20 @@ Label_54_4A12::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $06
-	ld de, $C240
+	ld de, wRam_C240
 	farcall Mail_DispatchFar
 	or a, a
 	jr nz, Pop3_TopPoll_UseDefaultSource
 	ld c, l
 	ld b, h
-	ld hl, $C480
+	ld hl, wRam_C480
 	add hl, bc
 	xor a, a
 	ld [hl], a
 	ld b, $13
-	ld hl, $C480
+	ld hl, wRam_C480
 	call Text_TruncateSjis
-	ld hl, $C480
+	ld hl, wRam_C480
 	ld de, String_Mail_GameTitle
 .l4AB9 ; 54:4AB9
 	ld a, [de]
@@ -316,7 +316,7 @@ Label_54_4A12::
 	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4A12-4AD0 by apply_coverage --split
 	ld de, sPop3TopSourceLabel
-	ld hl, $C480
+	ld hl, wRam_C480
 	farcall CopyString
 	jr Pop3_TopPoll_ReadDate
 
@@ -353,13 +353,13 @@ Label_54_4AF2::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $06
-	ld de, $C240
+	ld de, wRam_C240
 	farcall Mail_DispatchFar
 	or a, a
 	jr nz, .l4B1D
 	call Mail_ParseDate
 	ld de, sPop3TopSummary
-	ld hl, $C580
+	ld hl, wRam_C580
 	ld bc, $0006
 	farcall CopyBytes
 .l4B1D ; 54:4B1D
@@ -369,11 +369,11 @@ Label_54_4AF2::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $06
-	ld de, $C240
+	ld de, wRam_C240
 	farcall Mail_DispatchFar
 	or a, a
 	jr nz, .l4B6F
-	ld de, $C480
+	ld de, wRam_C480
 	add hl, de
 	xor a, a
 	ld [hl], a
@@ -385,7 +385,7 @@ Label_54_4AF2::
 	dec b
 	jr nz, .l4B42
 	ld de, sPop3TopSubject
-	ld hl, $C480
+	ld hl, wRam_C480
 	ld bc, $0018
 	farcall Charset_Iso2022JpToSjis
 	ld hl, sPop3TopSubject
@@ -452,7 +452,7 @@ Label_54_4AF2::
 
 Pop3_TopPoll_Exit:: ; 54:4BC6
 Label_54_4BC6::
-	ld hl, $C1D8
+	ld hl, wMobileTaskKind
 	xor a, a
 	ld [hl], a
 	ld a, [wPop3SavedSramBank]
@@ -466,7 +466,7 @@ Label_54_4BC6::
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $C1D8
+	ld hl, wMobileTaskKind
 	xor a, a
 	ld [hl], a
 	ret
@@ -478,7 +478,7 @@ Label_54_4BE8::
 
 Pop3_TopPoll_CheckGameCode:: ; 54:4BEC
 Label_54_4BEC::
-	ld de, $C240
+	ld de, wRam_C240
 	ld hl, Data_54_4C3D
 	ld bc, $0007
 	farcall CopyBytes
@@ -488,12 +488,12 @@ Label_54_4BEC::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $06
-	ld de, $C240
+	ld de, wRam_C240
 	farcall Mail_DispatchFar
 	or a, a
 	jp nz, Pop3_TopPoll_ExitB1
 	ld b, $0B
-	ld hl, $C480
+	ld hl, wRam_C480
 	ld de, String_Mail_GameCodeCrystal
 .loop ; 54:4C1D
 	ld a, [de]

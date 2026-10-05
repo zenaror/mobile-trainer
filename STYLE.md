@@ -224,6 +224,13 @@ everywhere.  The rule is the file scope of the WRAM0 aliases: two overlapping na
 `container`: the umbrella name of a work area, or an array of named elements), or (3) the `DEF` comment of one says `overlay:` and names the other (a phase overlay inside one file).  Every overlapping name says `overlay:` and lists
 the others; `python3 tools/apply_banked_names.py --check` audits `ram/banked.asm` against the sources.
 
+**RAM pointer operands.**  An immediate `ld hl|de|bc, $XXXX` in `$C000-$CFFF` (WRAM0), in HRAM `$FF80-$FFFE` or in the hardware registers `$FF00-$FF7F` that is the address of something is written as the
+name of the object that covers the address (`ld hl, wGlyphBufLeft`, `ld hl, wMobileSDK_Window + $0C`, `ld de, rLY`): the innermost semantic object, or the neutral `wRam_Cxxx` / `hRam_FFxx` when nothing semantic
+covers it.  Not every such immediate is an address: in HRAM `ld bc, $FF9C ; add hl, bc` adds the number -100, and a DE handed to `Sprite_SetPosition` is a Y, X pair.  Those stay numeric (the tool recognises them by the
+first use of the register), and so does a line whose comment starts with `; raw`, a human decision that gives its reason (a dead load, a scratch use of a named buffer, the base of a window wipe).  An address that has a
+screen-local alias stays numeric inside the files of the alias.  Banked addresses (`$D000-$DFFF`, `$A000-$BFFF`) follow the bank rules above.  `python3 tools/apply_ram_operands.py --areas wram0,hram,io --check` lists the
+operands that are still raw.
+
 ### Constants and numbers
 
 * **Constants** are `UPPER_CASE` (`MAILREC_OFS_TIME`, `ABOOK_SLOT_COUNT`), written `DEF NAME EQU $xxxx ; STATUS note` followed by `EXPORT NAME` in `consts.asm` (so they are in the `.sym` file).
@@ -385,6 +392,7 @@ are edited directly or through `tools/screen_png.py import`. After adding or rem
 | `python3 tools/gfx_export.py check` | the PNGs, `.2bpp` files, sizes and `gfx/assets.tsv` agree (needs `rgbgfx`) |
 | `python3 tools/apply_overlay_aliases.py --check` | every alias of `ram/overlays.asm` is defined once, has a neutral WRAM0/HRAM base, and is used only inside the scope of its group |
 | `python3 tools/apply_banked_names.py --check` | every pair of overlapping bank-qualified names in `ram/banked.asm` is a container and its field, a documented overlay, or used in disjoint files |
+| `python3 tools/apply_ram_operands.py --areas wram0,hram,io --check` | no `ld hl\|de\|bc, $XXXX` of WRAM0, HRAM or the hardware registers is left numeric where an object covers the address (overlay bases excepted) |
 
 **Applying renames.** Names are changed with `python3 tools/apply_renames.py --manifest FILE` (manifest: TAB-separated `old_name new_name kind status evidence`; HYPOTHESIS rows are never applied).
 It renames the definition (`New:: ; BB:AAAA`; the neutral old name stays below it as an alias without comment) and every reference in all `.asm`/`.inc` files, refuses unsafe rows (collisions,
@@ -401,6 +409,10 @@ the scope files, refuses unsafe rows (collisions, banked or already-named bases,
 `name address bank size kind status evidence`; sites: `file operand name sites proof`, the file may carry a function range `path@LabelA..LabelB`; HYPOTHESIS rows are never applied): it appends the `DEF` lines to
 `ram/banked.asm`, replaces the counted `ld hl|de|bc, $XXXX` lines, refuses a wrong count, an operand outside its name or a name defined twice, runs `make`, checks the SHA-256 and `sym_check`, and restores every file on
 failure.  Use `--dry-run` first.  The manifests are `analysis/naming2/sram4_*.tsv`.  Tests: `python3 tools/test_banked_names.py`.
+
+**Applying RAM operands.** `python3 tools/apply_ram_operands.py --areas wram0,hram,io` rewrites the raw pointer operands described in section 4 (RAM pointer operands) from the `DEF` lines of `ram/wram.asm`, `ram/hram.asm` and
+`constants/hardware.inc` (no manifest: the object table is the rule), runs `make`, checks the SHA-256 and `sym_check`, and restores every file on failure.  Use `--dry-run` first.  The record of the mapping is
+`analysis/naming2/ramop6_names.tsv`.  Tests: `python3 tools/test_ram_operands.py`.
 
 ## 11. Git and commits
 

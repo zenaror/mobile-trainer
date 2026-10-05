@@ -285,7 +285,7 @@ Function_68_784E::
 	jr .l7884
 .l7873 ; 68:7873
 	xor a, a
-	ld hl, $C2D8
+	ld hl, wCommTimeTotal
 	ld b, [hl]
 	inc hl
 	or a, b
@@ -342,7 +342,7 @@ Function_68_784E::
 	jr .l78E7
 .l78D6 ; 68:78D6
 	xor a, a
-	ld hl, $C2D8
+	ld hl, wCommTimeTotal
 	ld b, [hl]
 	inc hl
 	or a, b

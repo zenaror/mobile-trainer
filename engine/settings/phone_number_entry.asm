@@ -351,9 +351,9 @@ Function_67_424A::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, sSettingsNumberInternet
-	ld de, $C28F
+	ld de, wRam_C28F
 	call DecodeXorA5
-	ld hl, $C28F
+	ld hl, wRam_C28F
 	ld de, $DEDD
 	call CompareString
 	or a, a
@@ -403,9 +403,9 @@ Function_67_424A::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, sSettingsNumberSelfPage
-	ld de, $C28F
+	ld de, wRam_C28F
 	call DecodeXorA5
-	ld hl, $C28F
+	ld hl, wRam_C28F
 	ld de, $DEEE
 	call CompareString
 	or a, a

@@ -10,7 +10,7 @@ Function_54_4000::
 	; executed call/far call
 	ld a, $05
 	ld [wCommTimeoutMinutes], a
-	ld hl, $C266
+	ld hl, wTimerBFrames
 	xor a, a
 	ld [hli], a
 	ld [hli], a
@@ -57,11 +57,11 @@ Function_54_403D::
 	ld [wMobileTaskKind], a
 	xor a, a
 	ld [wMobileTaskStep], a
-	ld hl, $FF8A
+	ld hl, hROMBankLo
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ld de, $C271
+	ld de, wMobileAdapterType
 	ld a, $02
 	farcall MobileAPI
 	ret
@@ -84,7 +84,7 @@ Mobile_ConnectPoll:: ; 54:405D
 
 .l4071 ; 54:4071
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 5/18 scenarios)
-	ld hl, $C1D9
+	ld hl, wMobileTaskStep
 	inc [hl]
 	ld a, [hl]
 	dec a
@@ -103,16 +103,16 @@ Mobile_ConnectPoll:: ; 54:405D
 
 .l4086 ; 54:4086
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 5/18 scenarios)
-	ld de, $C1E0
+	ld de, wMobileLoginId
 	ld a, $0E
 	farcall MobileAPI
 	ld a, $01
 	ret
 .l4094 ; 54:4094
-	ld de, $C201
+	ld de, wMobileEmailAddr
 	ld a, $10
 	farcall MobileAPI
-	ld hl, $C1D8
+	ld hl, wMobileTaskKind
 	res 0, [hl]
 	xor a, a
 	bit 1, [hl]
@@ -120,9 +120,9 @@ Mobile_ConnectPoll:: ; 54:405D
 
 	; [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the retcc at 54:40A7 (executed)
-	ld hl, $C1D9
+	ld hl, wMobileTaskStep
 	inc [hl]
-	ld de, $C480
+	ld de, wRam_C480
 	ld a, $0C
 	farcall MobileAPI
 
@@ -131,7 +131,7 @@ Mobile_ConnectPoll:: ; 54:405D
 	ld a, [wMobileTaskArgs]
 	or a, a
 	jr nz, .l4102
-	ld hl, $C240
+	ld hl, wRam_C240
 	ld b, $00
 .l40C2 ; 54:40C2
 	inc b
@@ -152,7 +152,7 @@ Mobile_ConnectPoll:: ; 54:405D
 	dec de
 	dec b
 	jr nz, .l40D1
-	ld de, $C240
+	ld de, wRam_C240
 	farcall Net_CopyDefaultDnsPair
 	pop de
 	inc de
@@ -161,27 +161,27 @@ Mobile_ConnectPoll:: ; 54:405D
 	ld hl, String_Mobile_GuestLogin
 	farcall CopyString
 	ld a, $3E
-	ld hl, $C240
+	ld hl, wRam_C240
 	farcall MobileAPI
 	ld a, $01
 	ret
 .l4102 ; 54:4102
 	dec a
-	ld hl, $C480
+	ld hl, wRam_C480
 	farcall Dial_SelectEntryFromList
-	ld de, $C240
+	ld de, wRam_C240
 	farcall CopyString
-	ld hl, $C1E0
+	ld hl, wMobileLoginId
 	farcall CopyString
-	ld hl, $C220
+	ld hl, wMobilePassword
 	farcall CopyString
 	ld a, $06
-	ld hl, $C240
+	ld hl, wRam_C240
 	farcall MobileAPI
 	ld a, $01
 	ret
 .l4135 ; 54:4135
-	ld hl, $C1D8
+	ld hl, wMobileTaskKind
 	xor a, a
 	ld [hl], a
 	ret
@@ -200,7 +200,7 @@ Function_54_4141::
 	ld [wMobileTaskArgs], a
 	ld a, $03
 	ld [wMobileRetriesLeft], a
-	ld de, $C220
+	ld de, wMobilePassword
 	farcall CopyString
 	ld a, [wMobileSDK_State]
 	cp a, $01
@@ -212,11 +212,11 @@ Function_54_4141::
 	ld [wMobileTaskKind], a
 	ld a, $00
 	ld [wMobileTaskStep], a
-	ld hl, $FF8A
+	ld hl, hROMBankLo
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ld de, $C271
+	ld de, wMobileAdapterType
 	ld a, $02
 	farcall MobileAPI
 	ret
@@ -227,7 +227,7 @@ Function_54_4141::
 	ld [wMobileTaskKind], a
 	ld a, $02
 	ld [wMobileTaskStep], a
-	ld de, $C480
+	ld de, wRam_C480
 	ld a, $0C
 	farcall MobileAPI
 	ret
@@ -263,7 +263,7 @@ Mobile_DisconnectPoll:: ; 54:41A3
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 3/18 scenarios)
 	ld a, $36
 	farcall MobileAPI
-	ld hl, $C1D8
+	ld hl, wMobileTaskKind
 	xor a, a
 	ld [hl], a
 	ret
@@ -300,7 +300,7 @@ Function_54_41C5:: ; 54:41C5
 	ld a, [wMobileSDK_State]
 	cp a, $1A
 	jr z, .l4204
-	ld de, $C480
+	ld de, wRam_C480
 	ld bc, $0000
 	ld a, $28
 
@@ -313,7 +313,7 @@ Function_54_41C5:: ; 54:41C5
 .l4204 ; 54:4204
 	; [PROBABLE] 3 insn(s) (ld de,$C480 ; ld bc,0 ; ld a,$24) register setup for the FarCall at
 	; 420C; entered by jr z from 54:41F1 (this classification)
-	ld de, $C480
+	ld de, wRam_C480
 	ld bc, $0000
 	ld a, $24
 
@@ -326,7 +326,7 @@ Function_54_41C5:: ; 54:41C5
 .l4215 ; 54:4215
 	; [PROBABLE] 10 insn(s) (ld hl,$C1D9 ; inc [hl] ; ld a,[hl] ; dec a ; jr z ... ret) ; entered by
 	; jr z from 54:41E1 (this classification)
-	ld hl, $C1D9
+	ld hl, wMobileTaskStep
 	inc [hl]
 	ld a, [hl]
 	dec a
@@ -351,7 +351,7 @@ Function_54_41C5:: ; 54:41C5
 	; [PROBABLE] 5 insn(s) reached by static flow only; seeds: site x5; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall MobileAPI
-	ld hl, $C1D8
+	ld hl, wMobileTaskKind
 	xor a, a
 	ld [hl], a
 	ret
@@ -401,7 +401,7 @@ Mobile_CancelPoll:: ; 54:4266
 	; [CONFIRMED] 61 insn(s); 61 executed (in up to 4/18 scenarios) (part of region $427A-$42F5)
 	ld a, $36
 	farcall MobileAPI
-	ld hl, $C1D8
+	ld hl, wMobileTaskKind
 	xor a, a
 	ld [hl], a
 	ret

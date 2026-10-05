@@ -123,14 +123,14 @@ Sram_CopyLongBlock:: ; 4C:4C03
 	call BankSwitch_H
 	push bc
 	push de
-	ld de, $C380
+	ld de, wAttrUrlBuf
 	call CopyBytes
 	pop de
 	pop bc
 	ldh a, [hRam_FFB1]
 	call BankSwitch_D
 	push hl
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	call CopyBytes
 	pop hl
 	ld a, h
@@ -298,7 +298,7 @@ Function_4C_4CF6::
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	ld de, $D500
 	ld bc, $0100
 	call CopyBytes

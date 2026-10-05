@@ -11,7 +11,7 @@ Function_1D_4000::
 	call VBlank_WaitAndService
 	xor a, a
 	ld bc, $00FC
-	ld hl, $C0D4
+	ld hl, $C0D4 ; raw: start of the 252-byte per-screen window wipe
 	call FillBytes
 	farcall Stub_Nop_48_48BB
 	call VBlank_WaitAndService

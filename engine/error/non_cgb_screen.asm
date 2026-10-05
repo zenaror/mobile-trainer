@@ -9,7 +9,7 @@ NonCgb_ErrorScreen:: ; 6B:4C80
 	; entered by call from 00:02A9 (PROBABLE code) [executed in 1 scenarios]
 	xor a, a
 	ld bc, $00FC
-	ld hl, $C0D4
+	ld hl, $C0D4 ; raw: start of the 252-byte per-screen window wipe
 	call FillBytes
 	ld a, $14
 	ld [wNonCgb_FadeTimer], a

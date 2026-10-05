@@ -43,17 +43,17 @@ Function_68_5739::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, sSettingsMailLocalPart
-	ld de, $C28F
+	ld de, wRam_C28F
 	call DecodeXorA5
-	ld hl, $C28F
+	ld hl, wRam_C28F
 	ld de, $DEAB
 	call CompareString
 	or a, a
 	jr nz, .l578C
 	ld hl, sSettingsMailSubdomain
-	ld de, $C28F
+	ld de, wRam_C28F
 	call DecodeXorA5
-	ld hl, $C28F
+	ld hl, wRam_C28F
 	ld de, $DEB4
 	call CompareString
 	or a, a

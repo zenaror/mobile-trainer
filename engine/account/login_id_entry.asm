@@ -44,9 +44,9 @@ Function_68_52B2::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, sSettingsLoginId
-	ld de, $C28F
+	ld de, wRam_C28F
 	call DecodeXorA5
-	ld hl, $C28F
+	ld hl, wRam_C28F
 	ld de, $DEA0
 	call CompareString
 	or a, a

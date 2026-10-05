@@ -32,7 +32,7 @@ HelpScript_Run:: ; 6C:59B2
 	push bc
 	xor a, a
 	ld bc, $00FC
-	ld hl, $C0D4
+	ld hl, $C0D4 ; raw: start of the 252-byte per-screen window wipe
 	call FillBytes
 	farcall Stub_Nop_48_48BB
 	pop bc
@@ -1028,7 +1028,7 @@ Function_6C_61AC:: ; 6C:61AC
 	; [PROBABLE] coherent 24-byte routine (ld hl,$C0DA ; dec [hl] ; ret nz ; ld [hl],$23 ; toggle
 	; [C0D9] ; ld d,$78 ; ... ld hl,$DA20) that falls exactly into the raw far-call site at 61C4
 	; (call 00:0A65); previous region ends with jp; entry not located
-	ld hl, $C0DA
+	ld hl, wRam_C0DA
 	dec [hl]
 	ret nz
 	ld [hl], $23

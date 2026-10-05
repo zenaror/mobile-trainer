@@ -749,8 +749,8 @@ MailAddr_DrawLine20:: ; 2D:6A96
 	ld l, a
 	pop af
 	ld h, a
-	ld bc, $C0A0
-	ld de, $C0B8
+	ld bc, wGlyphBufLeft
+	ld de, wGlyphBufRight
 	farcall Glyph_LoadWide
 	pop hl
 	pop de
@@ -760,7 +760,7 @@ MailAddr_DrawLine20:: ; 2D:6A96
 	push bc
 	push de
 	push hl
-	ld hl, $C0B8
+	ld hl, wGlyphBufRight
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -785,7 +785,7 @@ MailAddr_DrawLine20:: ; 2D:6A96
 	push de
 	push hl
 	ld b, a
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -807,7 +807,7 @@ MailAddr_DrawLine20:: ; 2D:6A96
 	push de
 	push hl
 	ld b, $3C
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -839,7 +839,7 @@ MailAddr_DrawLine20_Glyph:: ; 2D:6B51
 	push bc
 	push de
 	push hl
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -855,7 +855,7 @@ MailAddr_DrawLine20_Pad:: ; 2D:6B65
 	push hl
 	ld b, $02
 	ld c, $00
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyphNoRemap
 	pop hl
 	pop de
@@ -897,8 +897,8 @@ MailAddr_DrawLine24:: ; 2D:6B7D
 	ld l, a
 	pop af
 	ld h, a
-	ld bc, $C0A0
-	ld de, $C0B8
+	ld bc, wGlyphBufLeft
+	ld de, wGlyphBufRight
 	farcall Glyph_LoadWide
 	pop hl
 	pop de
@@ -908,7 +908,7 @@ MailAddr_DrawLine24:: ; 2D:6B7D
 	push bc
 	push de
 	push hl
-	ld hl, $C0B8
+	ld hl, wGlyphBufRight
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -934,7 +934,7 @@ MailAddr_DrawLine24:: ; 2D:6B7D
 	push de
 	push hl
 	ld b, a
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -956,7 +956,7 @@ MailAddr_DrawLine24:: ; 2D:6B7D
 	push de
 	push hl
 	ld b, $3C
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -990,7 +990,7 @@ MailAddr_DrawLine24_Glyph:: ; 2D:6C38
 	push bc
 	push de
 	push hl
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -1009,7 +1009,7 @@ Function_2D_6C4C::
 	push hl
 	ld b, $02
 	ld c, $00
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyphNoRemap
 	pop hl
 	pop de
@@ -1050,7 +1050,7 @@ Function_2D_6C8C::
 	ldh [rHDMA3], a
 	ld a, e
 	ldh [rHDMA4], a
-	ld de, $FF44
+	ld de, rLY
 .l6C9B ; 2D:6C9B
 	ld a, [de]
 	cp a, $8F
@@ -1781,7 +1781,7 @@ Joypad_ClearAndResetRepeat:: ; 2D:70F4
 	ld [wJoyRepeatInterval], a
 	ld a, b
 	ld [wJoyRepeatDelay], a
-	ld hl, $C2E5
+	ld hl, wJoyRepeatCounters
 	ld b, $04
 .loop ; 2D:7115
 	ld [hli], a

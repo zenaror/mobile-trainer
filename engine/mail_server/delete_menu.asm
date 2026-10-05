@@ -802,7 +802,7 @@ Function_23_47BC::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $C2D7
+	ld de, wTimerAExtra
 	ld a, [de]
 	ld l, a
 	inc de
@@ -836,7 +836,7 @@ Function_23_47BC::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $C2D6
+	ld de, wTimerAMinutes
 	ld a, [de]
 	ld l, a
 	inc de
@@ -865,7 +865,7 @@ Function_23_47BC::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $C2D5
+	ld de, wTimerASeconds
 	ld a, [de]
 	ld l, a
 	inc de

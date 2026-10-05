@@ -165,7 +165,7 @@ Function_00_0E7E::
 	; after the shadow OAM, also used as glyph buffer by 1044) [candidate; no static referrer]
 	ldh [hROMBankLo], a
 	ld [$2100], a
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 .loop ; 00:0E86
 	ld a, [de]
 	inc de

@@ -22,7 +22,7 @@ SoundTest_Run:: ; 1B:4040
 	; (traces/forced/, not natural evidence; status unchanged)
 	xor a, a
 	ld bc, $00FC
-	ld hl, $C0D4
+	ld hl, $C0D4 ; raw: start of the 252-byte per-screen window wipe
 	call FillBytes
 
 	; [PROBABLE] 125 insn(s) reached by static flow only; seeds: site x125; min discovery hops 0;

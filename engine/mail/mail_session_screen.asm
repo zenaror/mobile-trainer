@@ -1283,7 +1283,7 @@ MailSession_StartHDMAAtVBlank:: ; 26:59B6
 	ldh [rHDMA3], a
 	ld a, e
 	ldh [rHDMA4], a
-	ld de, $FF44
+	ld de, rLY
 .l59C6 ; 26:59C6
 	ld a, [de]
 	cp a, $8F

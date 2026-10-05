@@ -440,8 +440,8 @@ AbookName_DrawName:: ; 2F:5AEA
 	ld l, a
 	pop af
 	ld h, a
-	ld bc, $C0A0
-	ld de, $C0B8
+	ld bc, wGlyphBufLeft
+	ld de, wGlyphBufRight
 	farcall Glyph_LoadWide
 	pop hl
 	pop de
@@ -451,7 +451,7 @@ AbookName_DrawName:: ; 2F:5AEA
 	push bc
 	push de
 	push hl
-	ld hl, $C0B8
+	ld hl, wGlyphBufRight
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -477,7 +477,7 @@ AbookName_DrawName:: ; 2F:5AEA
 	push de
 	push hl
 	ld b, a
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -496,7 +496,7 @@ AbookName_DrawName:: ; 2F:5AEA
 	push de
 	push hl
 	ld b, $3C
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -529,7 +529,7 @@ AbookName_DrawName_Glyph:: ; 2F:5BA5
 	push bc
 	push de
 	push hl
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -545,7 +545,7 @@ AbookName_DrawName_Pad:: ; 2F:5BB9
 	push hl
 	ld b, $02
 	ld c, $00
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyphNoRemap
 	pop hl
 	pop de
@@ -581,7 +581,7 @@ AbookName_HdmaBlock:: ; 2F:5BEE
 	ldh [rHDMA3], a
 	ld a, e
 	ldh [rHDMA4], a
-	ld de, $FF44
+	ld de, rLY
 .l5BFD ; 2F:5BFD
 	ld a, [de]
 	cp a, $8F

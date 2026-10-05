@@ -144,7 +144,7 @@ Function_00_1119::
 	ldh [hRam_FFB0], a
 	ld a, d
 	ldh [hRam_FFB1], a
-	ld de, $C380
+	ld de, wAttrUrlBuf
 .l118B ; 00:118B
 	ld a, [hli]
 	or a, a

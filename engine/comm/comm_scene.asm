@@ -88,7 +88,7 @@ CommScene_Step:: ; 70:4023
 CommScene_ApplyScrollFrame:: ; 70:407F
 	call Sprite_UpdateAll
 	call VBlank_Wait
-	ld hl, $C2A8
+	ld hl, wCommSceneScrollX
 	ld a, [hli]
 	ldh [rSCX], a
 	call Sound_FrameService
@@ -719,11 +719,11 @@ Function_70_44B0::
 	; [CONFIRMED] 203 insn(s); 203 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	farcall Sprite_ResetAll
-	ld hl, $C2A8
+	ld hl, wCommSceneScrollX
 	xor a, a
 	ld [hli], a
 	ld [hl], a
-	ld hl, $FF40
+	ld hl, rLCDC
 	ld a, [hl]
 	and a, $9F
 	ld b, a
@@ -852,7 +852,7 @@ Function_70_44B0::
 CommScene_Teardown:: ; 70:4613
 	farcall Sprite_ResetAll
 	call VBlank_WaitAndService
-	ld hl, $FF40
+	ld hl, rLCDC
 	ld a, [hl]
 	and a, $FB
 	ld [hl], a

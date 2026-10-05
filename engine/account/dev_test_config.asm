@@ -74,7 +74,7 @@ POPC
 Mobile_InitAndWait:: ; 68:4E51
 	; [PROBABLE] 41 insn(s) reached by static flow only; seeds: exec x41; min discovery hops 2;
 	; entered by call from 68:4DC9 (PROBABLE code)
-	ld de, $C271
+	ld de, wMobileAdapterType
 	ld hl, $0068
 	ld a, $02
 	call MobileAPI

@@ -1089,8 +1089,8 @@ Mailbox_DrawTextLine:: ; 25:5240
 	ld l, a
 	pop af
 	ld h, a
-	ld bc, $C0A0
-	ld de, $C0B8
+	ld bc, wGlyphBufLeft
+	ld de, wGlyphBufRight
 	farcall Glyph_LoadWide
 	pop hl
 	pop de
@@ -1100,7 +1100,7 @@ Mailbox_DrawTextLine:: ; 25:5240
 	push bc
 	push de
 	push hl
-	ld hl, $C0B8
+	ld hl, wGlyphBufRight
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -1121,7 +1121,7 @@ Mailbox_DrawTextLine:: ; 25:5240
 	push de
 	push hl
 	ld b, a
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -1138,7 +1138,7 @@ Mailbox_DrawTextLine:: ; 25:5240
 	push de
 	push hl
 	ld b, $20
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -1156,7 +1156,7 @@ Mailbox_BlitGlyphAdvance:: ; 25:52EA
 	push bc
 	push de
 	push hl
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -1266,7 +1266,7 @@ Gfx_StartHDMAAtVBlank:: ; 25:538A
 	ldh [rHDMA3], a
 	ld a, e
 	ldh [rHDMA4], a
-	ld de, $FF44
+	ld de, rLY
 .l5399 ; 25:5399
 	ld a, [de]
 	cp a, $8F

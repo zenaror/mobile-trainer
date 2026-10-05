@@ -23,7 +23,7 @@ Function_00_0956::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $C004
+	ld de, wShadowOAM + $04
 	ld hl, $DA00
 	ld b, $0E
 .loop ; 00:0977
@@ -133,7 +133,7 @@ Function_00_0A09::
 	push bc
 	push hl
 	ld b, $A0
-	ld hl, $C000
+	ld hl, wShadowOAM
 	xor a, a
 .loop ; 00:0A12
 	ld [hli], a

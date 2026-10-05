@@ -1,0 +1,198 @@
+# analysis/naming2/ramop6_names.tsv -- the pointer operands (`ld hl|de|bc, $XXXX`) of WRAM0, HRAM and the hardware registers that tools/apply_ram_operands.py wrote as the name of their object (one row per address and expression; one operand, `$C819`, was edited by hand); docs/research/naming2_ramop6.md
+# area	address	expression	operands	files	registers
+hram	$FF80	hOamDmaRoutine	1	1	hl
+hram	$FF8A	hROMBankLo	11	2	hl
+hram	$FFA4	hJoyHeld	2	1	hl
+hram	$FFB1	hRam_FFB1	4	2	hl
+io	$FF40	rLCDC	6	3	hl
+io	$FF44	rLY	20	19	de
+io	$FF4A	rWY	2	1	hl
+wram0	$C000	wShadowOAM	5	4	hl
+wram0	$C004	wShadowOAM + $04	1	1	de
+wram0	$C0A0	wGlyphBufLeft	198	23	bc,de,hl
+wram0	$C0B8	wGlyphBufRight	74	21	de,hl
+wram0	$C0DA	wRam_C0DA	1	1	hl
+wram0	$C0E4	wRam_C0E4	1	1	hl
+wram0	$C0EC	wTickerColumnCount	1	1	hl
+wram0	$C0F4	wTickerStepCounter	1	1	hl
+wram0	$C0F5	wTickerFrameDivider	1	1	hl
+wram0	$C10E	wRam_C10E	1	1	hl
+wram0	$C1B2	wConnectDialogText	7	2	de,hl
+wram0	$C1BA	wConnectDialogGlyphs	3	2	hl
+wram0	$C1D2	wMobileTaskArgs	1	1	hl
+wram0	$C1D6	wMobileTaskArgs + $04	4	2	hl
+wram0	$C1D8	wMobileTaskKind	13	6	hl
+wram0	$C1D9	wMobileTaskStep	6	4	hl
+wram0	$C1DB	wMobileRetriesLeft	1	1	hl
+wram0	$C1DE	wMobileResultDetail	1	1	hl
+wram0	$C1E0	wMobileLoginId	5	3	de,hl
+wram0	$C201	wMobileEmailAddr	6	3	de,hl
+wram0	$C220	wMobilePassword	8	5	de,hl
+wram0	$C240	wRam_C240	37	6	de,hl
+wram0	$C241	wRam_C241	2	1	hl
+wram0	$C243	wRam_C243	1	1	hl
+wram0	$C244	wRam_C244	1	1	de
+wram0	$C250	wRam_C250	2	1	hl
+wram0	$C252	wRam_C252	1	1	hl
+wram0	$C266	wTimerBFrames	11	6	hl
+wram0	$C26E	wTimerAWarnMinute	34	14	hl
+wram0	$C26F	wTimerAWarnFlags	95	16	hl
+wram0	$C271	wMobileAdapterType	11	8	de
+wram0	$C28F	wRam_C28F	21	8	de,hl
+wram0	$C2A8	wCommSceneScrollX	2	1	hl
+wram0	$C2AC	wKbdPage	1	1	hl
+wram0	$C2AD	wKeyboardCharLo	1	1	hl
+wram0	$C2AE	wKeyboardCharHi	7	1	de,hl
+wram0	$C2BC	wKbdInputMode	2	1	hl
+wram0	$C2D2	wBrowserTimerLastSec	7	7	hl
+wram0	$C2D4	wTimerAFrames	10	9	hl
+wram0	$C2D5	wTimerASeconds	2	2	de
+wram0	$C2D6	wTimerAMinutes	6	3	de,hl
+wram0	$C2D7	wTimerAExtra	2	2	de
+wram0	$C2D8	wCommTimeTotal	3	2	hl
+wram0	$C2E5	wJoyRepeatCounters	3	2	hl
+wram0	$C340	wHtmlTitleBuf	9	2	de,hl
+wram0	$C380	wAttrUrlBuf	60	13	de,hl
+wram0	$C382	wAttrUrlBuf + $02	2	1	de,hl
+wram0	$C480	wRam_C480	44	5	de,hl
+wram0	$C482	wRam_C482	1	1	hl
+wram0	$C500	wRam_C500	2	1	de,hl
+wram0	$C580	wRam_C580	20	4	de,hl
+wram0	$C581	wRam_C581	2	1	hl
+wram0	$C583	wRam_C583	2	1	hl
+wram0	$C69F	wTimerEnable	75	1	hl
+wram0	$C6A0	wMobileSDK_SerialPhase	1	1	hl
+wram0	$C6A1	wMobileSDK_TxRemaining	1	1	hl
+wram0	$C6A3	wMobileSDK_TxPointer	1	1	hl
+wram0	$C6A6	wRam_C6A6	2	1	hl
+wram0	$C6A7	wMobileSDK_PhaseCode	4	1	hl
+wram0	$C6A8	wMobileSDK_AckBytes	1	1	hl
+wram0	$C6AA	wMobileSDK_RxIndex	5	1	hl
+wram0	$C6AB	wMobileSDK_RxStage	1	1	hl
+wram0	$C6AF	wMobileSDK_ErrorCode	1	1	hl
+wram0	$C6B0	wMobileSDK_ErrorInfo	10	1	hl
+wram0	$C6B2	wMobileSDK_PacketChecksum	2	1	hl
+wram0	$C6B5	wMobileSDK_TimeoutCounter	11	1	hl
+wram0	$C6B6	wMobileSDK_TimeoutCounter + $01	1	1	hl
+wram0	$C6B9	wMobileSDK_RetryCount	2	1	hl
+wram0	$C6BA	wMobileSDK_ResendSize	2	1	hl
+wram0	$C6BE	wMobileSDK_SendCommandID	1	1	hl
+wram0	$C6BF	wMobileSDK_TimeoutReload	2	1	hl
+wram0	$C6C0	wMobileSDK_TimeoutReload + $01	3	1	hl
+wram0	$C6C1	wMobileFlags	35	2	hl
+wram0	$C6C2	wMobileSDK_IspIpAddress	1	1	de
+wram0	$C6C6	wMobileSDK_ResultBufferPtr	17	1	hl
+wram0	$C6C8	wMobileSDK_DestPointer	19	1	hl
+wram0	$C6CA	wMobileSDK_DestRemaining	3	1	hl
+wram0	$C6CB	wMobileSDK_DestRemaining + $01	1	1	hl
+wram0	$C6CC	wMobileSDK_ReceivedLength	11	1	hl
+wram0	$C6CE	wMobileSDK_ReplyTail	4	1	de,hl
+wram0	$C6D1	wMobileSDK_ReplyTail + $03	1	1	hl
+wram0	$C6D2	wMobileSDK_HttpDatePtr	1	1	hl
+wram0	$C6D5	wMobileSDK_DnsServers	3	1	de,hl
+wram0	$C6DD	wMobileSDK_SmtpServerName	2	1	de,hl
+wram0	$C6F1	wMobileSDK_PopServerName	1	1	hl
+wram0	$C705	wMobileSDK_ServerIp	3	1	hl
+wram0	$C709	wMobileSDK_State	2	1	hl
+wram0	$C70A	wMobileSDK_Substep	18	1	hl
+wram0	$C70D	wMobileSDK_ResultPointer	12	1	hl
+wram0	$C710	wMobileSDK_DialAdapterByte	1	1	hl
+wram0	$C711	wRam_C711	6	1	de,hl
+wram0	$C715	wMobileSDK_HttpRequestPointer	3	1	hl
+wram0	$C717	wRam_C717	1	1	hl
+wram0	$C719	wRam_C719	1	1	hl
+wram0	$C71B	wMobileSDK_DataPointer	1	1	hl
+wram0	$C71D	wMobileSDK_DataLength	1	1	hl
+wram0	$C71E	wMobileSDK_DataLength + $01	2	1	hl
+wram0	$C71F	wMobileSDK_Window	34	1	bc,de,hl
+wram0	$C721	wMobileSDK_Window + $02	1	1	hl
+wram0	$C723	wMobileSDK_Window + $04	1	1	hl
+wram0	$C72B	wMobileSDK_Window + $0C	1	1	hl
+wram0	$C74B	wMobileSDK_Window + $2C	1	1	hl
+wram0	$C765	wMobileSDK_Window + $46	1	1	hl
+wram0	$C769	wMobileSDK_Window + $4A	1	1	hl
+wram0	$C795	wMobileSDK_Window + $76	1	1	hl
+wram0	$C79D	wMobileSDK_Window + $7E	1	1	hl
+wram0	$C79E	wMobileSDK_Window + $7F	2	1	de,hl
+wram0	$C7AD	wMobileSDK_Window + $8E	1	1	hl
+wram0	$C7B5	wMobileSDK_Window + $96	1	1	hl
+wram0	$C7C5	wMobileSDK_Window + $A6	1	1	hl
+wram0	$C7CD	wMobileSDK_Window + $AE	1	1	hl
+wram0	$C818	wMobileSDK_Window + $F9	1	1	hl
+wram0	$C819	wMobileSDK_Window + $FA	1	1	de
+wram0	$C81E	wRam_C81E	4	1	hl
+wram0	$C820	wRam_C820	2	2	hl
+wram0	$C823	wRam_C823	1	1	hl
+wram0	$C824	wRam_C824	1	1	hl
+wram0	$C826	wMobileSDK_HttpParseState	1	1	hl
+wram0	$C827	wRam_C827	1	1	hl
+wram0	$C828	wMobileSDK_HttpStatus	11	1	de,hl
+wram0	$C829	wMobileSDK_HttpStatus + $01	1	1	hl
+wram0	$C82A	wMobileSDK_GbStatus	2	1	hl
+wram0	$C82C	wRam_C82C	7	1	hl
+wram0	$C82D	wRam_C82D	3	1	hl
+wram0	$C82E	wRam_C82E	5	1	hl
+wram0	$C82F	wRam_C82F	1	1	hl
+wram0	$C830	wRam_C830	2	1	hl
+wram0	$C832	wRam_C832	9	1	de,hl
+wram0	$C842	wMobileSDK_ContentLengthDigits	2	1	de,hl
+wram0	$C84C	wMobileSDK_OpenTcpRetries	1	1	hl
+wram0	$C84E	wRam_C84E	1	1	hl
+wram0	$C84F	wRam_C84F	1	1	hl
+wram0	$C852	wRam_C852	3	1	de,hl
+wram0	$C8CC	wMobileSDK_ReceivePacketBufferAlt	1	1	hl
+wram0	$C8D0	wMobileSDK_ReceivePacketBufferAlt + $04	1	1	hl
+wram0	$C8D7	wMobileSDK_ReceivedBytes	3	1	hl
+wram0	$C8DC	wMobileSDK_ReceivePacketBuffer + $03	7	1	de,hl
+wram0	$C8DD	wMobileSDK_ReceivePacketBuffer + $04	9	1	hl
+wram0	$C8DE	wMobileSDK_ReceivePacketBuffer + $05	5	1	hl
+wram0	$C8DF	wMobileSDK_ReceivePacketBuffer + $06	1	1	hl
+wram0	$C9E4	wMobileSDK_PacketBuffer	44	1	de,hl
+wram0	$C9E9	wMobileSDK_PacketBuffer + $05	2	1	de
+wram0	$C9EA	wMobileSDK_PacketBuffer + $06	1	1	de
+wram0	$C9EB	wMobileSDK_PacketBuffer + $07	2	1	de,hl
+wram0	$C9EC	wMobileSDK_PacketBuffer + $08	1	1	de
+wram0	$C9EF	wMobileSDK_PacketBuffer + $0B	1	1	de
+wram0	$C9F0	wMobileSDK_PacketBuffer + $0C	11	1	de,hl
+wram0	$C9F4	wMobileSDK_PacketBuffer + $10	2	1	de,hl
+wram0	$C9F6	wMobileSDK_PacketBuffer + $12	5	1	de,hl
+wram0	$C9F7	wMobileSDK_PacketBuffer + $13	2	1	de
+wram0	$CA04	wMobileSDK_PacketBuffer + $20	10	1	de,hl
+wram0	$CA11	wMobileSDK_PacketBuffer + $2D	2	1	de,hl
+wram0	$CA17	wMobileSDK_PacketBuffer + $33	1	1	hl
+wram0	$CA27	wMobileSDK_PacketBuffer + $43	1	1	de
+wram0	$CA34	wMobileSDK_PacketBuffer + $50	8	1	de,hl
+wram0	$CA40	wMobileSDK_PacketBuffer + $5C	1	1	de
+wram0	$CA44	wMobileSDK_PacketBuffer + $60	5	1	de,hl
+wram0	$CA4A	wMobileSDK_PacketBuffer + $66	2	1	de
+wram0	$CA50	wMobileSDK_PacketBuffer + $6C	1	1	de
+wram0	$CA54	wMobileSDK_PacketBuffer + $70	2	1	de,hl
+wram0	$CA57	wMobileSDK_PacketBuffer + $73	1	1	hl
+wram0	$CA5A	wMobileSDK_PacketBuffer + $76	1	1	de
+wram0	$CA64	wMobileSDK_PacketBuffer + $80	8	1	de,hl
+wram0	$CA6A	wMobileSDK_PacketBuffer + $86	1	1	de
+wram0	$CA7A	wMobileSDK_PacketBuffer + $96	2	1	de,hl
+wram0	$CA80	wMobileSDK_PacketBuffer + $9C	1	1	de
+wram0	$CA81	wMobileSDK_PacketBuffer + $9D	1	1	de
+wram0	$CA84	wMobileSDK_PacketBuffer + $A0	6	1	de,hl
+wram0	$CA8A	wMobileSDK_PacketBuffer + $A6	1	1	de
+wram0	$CA8B	wMobileSDK_PacketBuffer + $A7	1	1	de
+wram0	$CA90	wMobileSDK_PacketBuffer + $AC	1	1	de
+wram0	$CA94	wMobileSDK_PacketBuffer + $B0	3	1	de,hl
+wram0	$CA96	wMobileSDK_PacketBuffer + $B2	6	1	hl
+wram0	$CA98	wMobileSDK_PacketBuffer + $B4	4	1	hl
+wram0	$CA9A	wMobileSDK_PacketBuffer + $B6	5	1	hl
+wram0	$CA9C	wMobileSDK_PacketBuffer + $B8	19	1	de,hl
+wram0	$CAA0	wMobileSDK_PacketBuffer + $BC	8	1	de,hl
+wram0	$CAA4	wMobileSDK_PacketBuffer + $C0	1	1	hl
+wram0	$CAA6	wMobileSDK_PacketBuffer + $C2	3	1	hl
+wram0	$CAA9	wMobileSDK_PacketBuffer + $C5	3	1	hl
+wram0	$CAAB	wMobileSDK_PacketBuffer + $C7	2	1	hl
+wram0	$CAAF	wMobileSDK_PacketBuffer + $CB	2	1	hl
+wram0	$CAB5	wMobileSDK_PacketBuffer + $D1	2	1	de
+wram0	$CAB9	wMobileSDK_PacketBuffer + $D5	1	1	de
+wram0	$CABD	wMobileSDK_PacketBuffer + $D9	1	1	de
+wram0	$CAC1	wMobileSDK_PacketBuffer + $DD	1	1	de
+wram0	$CAC5	wMobileSDK_PacketBuffer + $E1	1	1	hl
+wram0	$CBF1	wVBlankVector	1	1	hl
+wram0	$CBF4	wLcdStatVector	2	2	hl

@@ -422,8 +422,8 @@ AddrBook_SaveConfirm_DrawTextLine16:: ; 2A:72CF
 	ld l, a
 	pop af
 	ld h, a
-	ld bc, $C0A0
-	ld de, $C0B8
+	ld bc, wGlyphBufLeft
+	ld de, wGlyphBufRight
 	farcall Glyph_LoadWide
 	pop hl
 	pop de
@@ -433,7 +433,7 @@ AddrBook_SaveConfirm_DrawTextLine16:: ; 2A:72CF
 	push bc
 	push de
 	push hl
-	ld hl, $C0B8
+	ld hl, wGlyphBufRight
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -459,7 +459,7 @@ AddrBook_SaveConfirm_DrawTextLine16:: ; 2A:72CF
 	push de
 	push hl
 	ld b, a
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -478,7 +478,7 @@ AddrBook_SaveConfirm_DrawTextLine16:: ; 2A:72CF
 	push de
 	push hl
 	ld b, $20
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -495,7 +495,7 @@ AddrBook_SaveConfirm_DrawTextLine16:: ; 2A:72CF
 	push de
 	push hl
 	ld b, $20
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -513,7 +513,7 @@ AddrBook_SaveConfirm_DrawTextLine16_BlitGlyphAdvance:: ; 2A:738F
 	push bc
 	push de
 	push hl
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -529,7 +529,7 @@ AddrBook_SaveConfirm_DrawTextLine16_BlitBlankAdvance:: ; 2A:73A3
 	push hl
 	ld b, $02
 	ld c, $00
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -573,8 +573,8 @@ Function_2A_73BB::
 	ld l, a
 	pop af
 	ld h, a
-	ld bc, $C0A0
-	ld de, $C0B8
+	ld bc, wGlyphBufLeft
+	ld de, wGlyphBufRight
 	farcall Glyph_LoadWide
 	pop hl
 	pop de
@@ -584,7 +584,7 @@ Function_2A_73BB::
 	push bc
 	push de
 	push hl
-	ld hl, $C0B8
+	ld hl, wGlyphBufRight
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -607,7 +607,7 @@ Function_2A_73BB::
 	push de
 	push hl
 	ld b, a
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -626,7 +626,7 @@ Function_2A_73BB::
 	push de
 	push hl
 	ld b, $20
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -640,7 +640,7 @@ Function_2A_73BB::
 	push de
 	push hl
 	ld b, $20
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -659,7 +659,7 @@ Function_2A_747B::
 	push bc
 	push de
 	push hl
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -676,7 +676,7 @@ Function_2A_748F::
 	push hl
 	ld b, $02
 	ld c, $00
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -720,8 +720,8 @@ Function_2A_74A7::
 	ld l, a
 	pop af
 	ld h, a
-	ld bc, $C0A0
-	ld de, $C0B8
+	ld bc, wGlyphBufLeft
+	ld de, wGlyphBufRight
 	farcall Glyph_LoadWide
 	pop hl
 	pop de
@@ -731,7 +731,7 @@ Function_2A_74A7::
 	push bc
 	push de
 	push hl
-	ld hl, $C0B8
+	ld hl, wGlyphBufRight
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -754,7 +754,7 @@ Function_2A_74A7::
 	push de
 	push hl
 	ld b, a
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -773,7 +773,7 @@ Function_2A_74A7::
 	push de
 	push hl
 	ld b, $20
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -787,7 +787,7 @@ Function_2A_74A7::
 	push de
 	push hl
 	ld b, $20
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -806,7 +806,7 @@ Function_2A_7567::
 	push bc
 	push de
 	push hl
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -823,7 +823,7 @@ Function_2A_757B::
 	push hl
 	ld b, $02
 	ld c, $00
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de

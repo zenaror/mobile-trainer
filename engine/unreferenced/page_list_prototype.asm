@@ -162,11 +162,11 @@ Palette_7F_4D50::
 	push hl
 	push de
 	ld b, a
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	call Glyph_LoadAscii
 	pop de
 	push de
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	ld b, $03
 	ld c, $00
 	farcall Canvas_BlitGlyph
@@ -214,12 +214,12 @@ Function_7F_4D95::
 	ld h, b
 	ld l, c
 	ld a, $00
-	ld de, $C0B8
-	ld bc, $C0A0
+	ld de, wGlyphBufRight
+	ld bc, wGlyphBufLeft
 	call Glyph_LoadWide
 	pop de
 	push de
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	ld b, $03
 	ld c, $00
 	farcall Canvas_BlitGlyph
@@ -231,7 +231,7 @@ Function_7F_4D95::
 	inc e
 	inc e
 	push de
-	ld hl, $C0B8
+	ld hl, wGlyphBufRight
 	ld b, $03
 	ld c, $00
 	farcall Canvas_BlitGlyph
@@ -286,12 +286,12 @@ Function_7F_4E0D::
 	ld h, b
 	ld l, c
 	ld a, $00
-	ld de, $C0B8
-	ld bc, $C0A0
+	ld de, wGlyphBufRight
+	ld bc, wGlyphBufLeft
 	call Glyph_LoadWide
 	pop de
 	push de
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	ld b, $00
 	ld c, $03
 	farcall Canvas_BlitGlyph
@@ -303,7 +303,7 @@ Function_7F_4E0D::
 	inc e
 	inc e
 	push de
-	ld hl, $C0B8
+	ld hl, wGlyphBufRight
 	ld b, $00
 	ld c, $03
 	farcall Canvas_BlitGlyph
@@ -489,7 +489,7 @@ Function_7F_5011::
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, .l5088
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l5089
 	ld a, [wTimerAWarnMinute]
@@ -505,14 +505,14 @@ Function_7F_5011::
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l5074
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
 	jr nz, .l5088
 	set 1, [hl]
 .l5074 ; 7F:5074
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	set 0, [hl]
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
 	jr z, .l5089
@@ -1510,8 +1510,8 @@ Function_7F_5805::
 	ld l, a
 	pop af
 	ld h, a
-	ld bc, $C0A0
-	ld de, $C0B8
+	ld bc, wGlyphBufLeft
+	ld de, wGlyphBufRight
 	farcall Glyph_LoadWide
 	pop hl
 	pop de
@@ -1521,7 +1521,7 @@ Function_7F_5805::
 	push bc
 	push de
 	push hl
-	ld hl, $C0B8
+	ld hl, wGlyphBufRight
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -1544,7 +1544,7 @@ Function_7F_5805::
 	push de
 	push hl
 	ld b, a
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -1563,7 +1563,7 @@ Function_7F_5805::
 	push de
 	push hl
 	ld b, $20
-	ld de, $C0A0
+	ld de, wGlyphBufLeft
 	farcall Glyph_LoadAscii
 	pop hl
 	pop de
@@ -1582,7 +1582,7 @@ Function_7F_58A5::
 	push bc
 	push de
 	push hl
-	ld hl, $C0A0
+	ld hl, wGlyphBufLeft
 	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
@@ -1632,7 +1632,7 @@ Function_7F_58F9::
 	ldh [rHDMA3], a
 	ld a, e
 	ldh [rHDMA4], a
-	ld de, $FF44
+	ld de, rLY
 	di
 .l5909 ; 7F:5909
 	ld a, [de]
@@ -1731,7 +1731,7 @@ Function_7F_5989::
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, .l5A08
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l5A09
 	ld a, [wTimerAWarnMinute]
@@ -1747,14 +1747,14 @@ Function_7F_5989::
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l59F4
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
 	jr nz, .l5A08
 	set 1, [hl]
 .l59F4 ; 7F:59F4
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	set 0, [hl]
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
 	jr z, .l5A09

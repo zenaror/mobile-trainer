@@ -21,11 +21,11 @@ Function_4F_4717::
 	ldh [rBGP], a
 	ldh [rOBP0], a
 	ldh [rOBP1], a
-	ld hl, $C000
+	ld hl, wShadowOAM
 	ld bc, $0AF0
 	xor a, a
 	call FillBytes
-	ld hl, $FFA4
+	ld hl, hJoyHeld
 	ld bc, $005A
 	xor a, a
 	call FillBytes
@@ -83,11 +83,11 @@ Boot_ReinitRuntime:: ; 4F:47A5
 	ldh [rLCDC], a
 	call Palette_SetAllWhite
 	call Sound_FrameService
-	ld hl, $FFA4
+	ld hl, hJoyHeld
 	ld bc, $005A
 	xor a, a
 	call FillBytes
-	ld hl, $C000
+	ld hl, wShadowOAM
 	ld bc, $0AF0
 	xor a, a
 	call FillBytes

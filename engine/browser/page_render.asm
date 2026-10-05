@@ -30,7 +30,7 @@ Function_4E_5204::
 
 .l5225 ; 4E:5225
 	; [CONFIRMED] 32 insn(s); 32 executed (in up to 2/18 scenarios)
-	ld de, $C340
+	ld de, wHtmlTitleBuf
 	ld bc, $0016
 	call CopyBytes
 .l522E ; 4E:522E
@@ -58,7 +58,7 @@ Function_4E_5204::
 	ld a, $06
 	ldh [hRam_FFC7], a
 	call Sound_FrameService
-	ld hl, $C340
+	ld hl, wHtmlTitleBuf
 	xor a, a
 	farcall TextEngine_Run
 	farcall Browser_UploadTitleCanvas
@@ -140,7 +140,7 @@ Browser_MakeShortTitle:: ; 4E:5274
 .l52BD ; 4E:52BD
 	; [CONFIRMED] 16 insn(s) executed; cut out of the PROBABLE region 5274-52E7 by apply_coverage
 	; --split [executed in 2 scenarios]
-	ld de, $C340
+	ld de, wHtmlTitleBuf
 	pop hl
 	ld c, a
 	ld b, $00
@@ -160,7 +160,7 @@ Browser_MakeShortTitle:: ; 4E:5274
 .l52D5 ; 4E:52D5
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5274-52E7 by apply_coverage --split
-	ld de, $C340
+	ld de, wHtmlTitleBuf
 	pop hl
 	ld a, c
 	or a, a
@@ -199,7 +199,7 @@ Function_4E_52E7::
 	; [CONFIRMED] 23 insn(s) reached by static flow only; seeds: exec x23; min discovery hops 1;
 	; entered by jrcc from 4E:52FF (executed) | 12 insn(s) executed; cut out of the PROBABLE region
 	; 5306-532B by apply_coverage --split [executed in 1 scenarios]
-	ld de, $C380
+	ld de, wAttrUrlBuf
 	dec hl
 .l530A ; 4E:530A
 	ld a, [hli]
@@ -207,7 +207,7 @@ Function_4E_52E7::
 	inc de
 	or a, a
 	jr nz, .l530A
-	ld hl, $C380
+	ld hl, wAttrUrlBuf
 	ld bc, $D600
 	call Browser_FindAnchor
 	or a, a
@@ -1475,7 +1475,7 @@ Browser_DrawElement_Text:: ; 4E:58AC
 	ld d, a
 	add hl, de
 	inc bc
-	ld de, $C340
+	ld de, wHtmlTitleBuf
 	ldh a, [hPageRender_TextBank]
 	call BankSwitch_H
 	call CopyBytes
@@ -1508,7 +1508,7 @@ Browser_DrawElement_Text:: ; 4E:58AC
 	ldh [hRam_FFC7], a
 	ld a, $FF
 	ldh [hTextBox_LineAdvance], a
-	ld hl, $C340
+	ld hl, wHtmlTitleBuf
 	xor a, a
 	farcall TextEngine_Run
 	pop hl

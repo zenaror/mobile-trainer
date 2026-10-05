@@ -112,7 +112,7 @@ Function_2E_4000::
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, .l4107
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l4108
 	ld a, [wTimerAWarnMinute]
@@ -131,14 +131,14 @@ Function_2E_4000::
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l40F3
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
 	jr nz, .l4107
 	set 1, [hl]
 .l40F3 ; 2E:40F3
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	set 0, [hl]
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
 	jr z, .l4108
@@ -694,7 +694,7 @@ Label_2E_4298::
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, .l44C3
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l44C4
 	ld a, [wTimerAWarnMinute]
@@ -713,7 +713,7 @@ Label_2E_4298::
 
 	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4292-488A by apply_coverage --split
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
 	jr nz, .l44C3
 	set 1, [hl]
@@ -721,9 +721,9 @@ Label_2E_4298::
 .l44AF ; 2E:44AF
 	; [CONFIRMED] 56 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage
 	; --split [executed in 1 scenarios]
-	ld hl, $C26F
+	ld hl, wTimerAWarnFlags
 	set 0, [hl]
-	ld hl, $C26E
+	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
 	jr z, .l44C4
@@ -1338,7 +1338,7 @@ Function_2E_48F8::
 	ret
 
 	farcall Timer_ResetClockB
-	ld de, $C0A9
+	ld de, $C0A9 ; raw: dead load: unreachable code after a ret
 	farcall CommNotice_ShowDialogMode0
 	farcall Stat_DisableScrollSplit
 	call VBlank_WaitAndService
