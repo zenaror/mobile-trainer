@@ -108,7 +108,7 @@ Html_Layout_PlaceImage:: ; 74:529F
 	add a, c
 	jr nz, .l52E7
 	push hl
-	call Function_74_57AD
+	call Html_Layout_BeginLineAndPlaceFloats
 	pop hl
 .l52E7 ; 74:52E7
 	call Sound_FrameService
@@ -499,7 +499,7 @@ Html_Layout_WrapRun:: ; 74:5440
 .l54EE ; 74:54EE
 	; [CONFIRMED] 25 insn(s); 25 executed (in up to 2/18 scenarios)
 	call Html_Layout_CloseRunRecord
-	call Function_74_55BE
+	call Html_Layout_AddRecordToLine
 .l54F4 ; 74:54F4
 	pop de
 	pop hl
@@ -514,7 +514,7 @@ Html_Layout_WrapRun:: ; 74:5440
 	jp nz, .l5486
 .l5502 ; 74:5502
 	call Html_Layout_CloseRunRecord
-	call Function_74_55BE
+	call Html_Layout_AddRecordToLine
 	ld bc, $0000
 	call Html_Layout_PlaceLine
 	ldh a, [hRam_FFBB]
@@ -642,18 +642,19 @@ Html_Layout_AppendRecord:: ; 74:5548
 	jr z, .done
 	cp a, $0C
 	jr z, .done
-	call Function_74_55BE
+	call Html_Layout_AddRecordToLine
 .done ; 74:55BD
 	ret
 
-Function_74_55BE:: ; 74:55BE
+Html_Layout_AddRecordToLine:: ; 74:55BE
+Function_74_55BE::
 	ldh a, [hRam_FFC6]
 	ld c, a
 	ldh a, [hRam_FFC7]
 	add a, c
 	jr nz, .l55CB
 	push hl
-	call Function_74_57AD
+	call Html_Layout_BeginLineAndPlaceFloats
 	pop hl
 .l55CB ; 74:55CB
 	call Sound_FrameService
@@ -775,7 +776,7 @@ Function_74_55BE:: ; 74:55BE
 .l565C ; 74:565C
 	call Html_Layout_PlaceLine
 	pop hl
-	jp Function_74_55BE
+	jp Html_Layout_AddRecordToLine
 
 Html_Layout_PlaceLine:: ; 74:5663
 Function_74_5663::
@@ -1025,7 +1026,8 @@ Function_74_5663::
 	ldh [hRam_FFC7], a
 	ret
 
-Function_74_57AD:: ; 74:57AD
+Html_Layout_BeginLineAndPlaceFloats:: ; 74:57AD
+Function_74_57AD::
 	ldh a, [hRam_FFC8]
 	ld e, a
 	ldh a, [hRam_FFC9]

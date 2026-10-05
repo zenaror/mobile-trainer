@@ -197,3 +197,53 @@ reading and the main path is demonstrated.  Left/right: `Glyph_KuTenAddr` return
   checked against a rendered glyph.
 * The Ghidra project and the `traces/` files were not opened; forced-run facts are those of `analysis/coverage_forced.tsv` and `dynamic_tracing.md`.
 * `make`, `make sym-check` and `apply_renames` ran only in the private copy.
+
+## 8. Follow-up: the two layout rows (`Function_74_55BE`, `Function_74_57AD`)
+
+Two more rows, proposed after the first report and checked by the same reader (same rules; replays of the real ROM code on synthetic records with the CPU-only interpreter, which support the reading and are not natural evidence).
+**Both CORRECTED**: row 1 keeps its name and PROBABLE with corrected evidence; row 2 is renamed, PROBABLE kept.  Validation in a fresh private copy: `apply_renames` applied both, `SHA-256 OK`, `sym_check OK`, `RESULT: IDENTICAL`;
+the names collide with nothing.  The corrected rows are in [`analysis/naming2/fn4b_renames.tsv`](../../analysis/naming2/fn4b_renames.tsv).
+
+**Row 1, `Function_74_55BE` -> `Html_Layout_AddRecordToLine`.**
+* Calls (raw scan and coverage): `call` at `74:54F1` (3,681 runs, 16 scenarios), `74:5505` (2,156, 15) and `74:55BA` (5,857, 16), `jp` at `74:5660` (never ran): 3,681 + 2,156 + 5,857 = 11,694 in 16 scenarios, as stated.  Text runs are appended with
+  width 0 (`ld bc, $0C00` at `74:5447`) and accounted twice (at append and after `CloseRunRecord` with the final width): 5,837 text runs x 2 + 20 image records = 11,694.
+* Contract: input HL = the record in the WRAM bank `hRam_FFBA`, already mapped by the caller (`AppendRecord` at `74:557B`, `CloseRunRecord` at `74:5538`); HL is preserved on every `ret` (callers rely on it: `AppendRecord` returns HL = record);
+  A, BC, DE and the flags are clobbered.
+* Steps: (1) if `hRam_FFC6 + FFC7 = 0` call `57AD` (4,461 times); (2) return if bit 7 of `[HL+9]` is clear (never was in the traces); (3) free = `FFC2:FFC3 - FFC4:FFC5 - [+4:+5]` (the `jp c, .l565C` was never taken);
+  (4) if it fits, cursor += width and the height `[+6]` is merged into `FFC6` / `FFC7` by `and $30`.
+* FFC6 / FFC7: `Html_Layout_PlaceLine` saves the pair, calls `GetLimitsAtY` (which zeroes it) and restores it, then baseline = Y + FFC6 (`74:56B7-56BD`) and next line Y = baseline + FFC7 (`74:5795-57A1`): FFC6 is the extent above the baseline,
+  FFC7 below it.  In every traced run FFC6 was 0 and the whole height sat in FFC7 (the `ret nz` at `74:5625` never returned; FFC7 was raised 4,461 times).
+* Branches (replay): `and $30` = `$00` / `$10`: only while FFC6 = 0, FFC7 = max(FFC7, h); `$20`: C = h/2 rounded to the nearest multiple of 12 (`Divide32by15`, remainder >= 6 rounds up), if FFC6 < C then FFC6 = C and FFC7 = h - C (FFC7 is overwritten,
+  not max-ed; h = 30 gives 12 / 18, h = 36 gives 24 / 12); `$30`: if FFC6 < h then FFC6 = h and FFC7 = 0 (cleared only when FFC6 rises).
+* Flag meanings are confirmed by data: the keyword table `Html_AlignValueNames` (`74:40C4`): right = `$04`, top = `$10`, centre = `$08`, middle = `$20`, left = `$0C`, bottom = `$30`.  Bit 7 is "pending", set by `AppendRecord`, cleared when placed; `GetLimitsAtY` ignores records with bit 7 set.
+* Name: keep `AddRecordToLine`.  The demonstrated effect is accounting (cursor += width, height merged); "Wrap" or "Fit" would over-claim, because by replay the no-fit path does not move the record to a new line: `PlaceLine` places every pending record up to
+  the one that overflows, including this one, and clears its bit 7, so the retry returns at once and the record overflows the old line; with `wHtmlAlign = $08` (centre) `PlaceLine` then shifts the line by about `$7FF8` because the `BC` it is passed
+  (free - width) is negative (this path never ran).
+* Status PROBABLE is right: the no-fit path, the `cp $10` test and the `$20` / `$30` branches never ran naturally.
+
+**Row 2, `Function_74_57AD` -> `Html_Layout_BeginLineAndPlaceFloats` (renamed from the proposed `Html_Layout_PlacePendingFloats`).**
+* Calls: `74:55C7` (4,461 runs, 16 scenarios, from `AddRecordToLine` when the line is empty) and `74:52E3` (20 runs, 2 scenarios, `Html_Layout_PlaceImage`, `layout.asm:111`): 4,481 in 16 scenarios, as stated.
+* `$0C` = left float and `$04` = right float, confirmed three ways: `GetLimitsAtY` (`74:58C0-58F4`), the keyword table, and replay.  Left float: x = cursor, y = line Y, `+4:+5` = x + width, `+6:+7` = y + height, cursor = right edge.  Right float:
+  x = limit - width, `+4:+5` = old limit, limit = x.  "Pending" = bit 7 (set by `or $80` at `74:5593`, cleared by `57AD` for floats and by `PlaceLine` for inline records, skipped by `GetLimitsAtY`).
+* What creates float records: only `<img align=left>` (`$0C`) and `<img align=right>` (`$04`): `Html_Tag_Img` `74:4EB1-4ECB` parses `align` and stores it in `hRam_FFD5` (centre `$08` is deliberately skipped at `74:4EC5`); two places merge FFD5 into `hRam_FFB2`: `74:4E5A` (image
+  record) and `74:4EFA` (the placeholder text run of a failed image, which would make a kind-1 float).  Both merges never ran, and the `align` branch is never taken (`74:4E21` falls through 34 of 34 times).  All 5,857 `AppendRecord` calls had
+  `FFB2 & $0C = 0`; the stored flags in the traces are `$80-$82`.  Floats are real in the design: `Html_Layout_ClearAllFloats` and `<br clear>` exist for them.
+* What `57AD` actually does: (1) `GetLimitsAtY(DE = line Y)` resets the cursor `FFC4` to the left limit (view + indent, moved past placed left floats), sets the right limit `FFC2` (narrowed by placed right floats) and zeroes `FFC6/FFC7`: it ran
+  4,481 times and is the only effect seen in any trace; without it the next line would start where `PlaceLine` left `FFC4`, at the end of the old line, so this is the real line-start reset.  (2) A walk over the page's record list (the whole list,
+  placed records included, about 33 records per walk, not "the line's list"): the fit test comes first and applies to every pending record whatever its kind; a pending record that does not fit is skipped and stays pending; the Y bump at `74:584A`
+  adds `FFC6 + FFC7`, which `GetLimitsAtY` has just zeroed, so Y never moves (replay with FFC6/7 preset to 5/7 and Y = 40: Y stays 40); only then is `and $0C` tested: a float is placed with bit 7 cleared, other kinds are left for `PlaceLine`.
+* Coverage: 148,662 loop passes, and 4,461 of them saw a pending record: exactly one per `55BE` call, the inline record just appended, which went through the fit test and the kind test and was skipped at `74:5801`.  The float code
+  (`74:5803-5848`) and `74:584A` never ran, naturally or forced.
+* Name: "pending" is right and "Floats" matches `ClearAllFloats`, but `PlacePendingFloats` leaves out the only effect that ever ran (a reader would not expect the cursor reset when no float exists), and it is the only code that resets `FFC4` between
+  lines; hence `Html_Layout_BeginLineAndPlaceFloats`, which pairs with `Html_Layout_EndLine` (the shorter `Html_Layout_BeginLine` would also be defensible).  PROBABLE because the float half is static only.
+
+**Errors in the proposed evidence text:** (1) "called at 74:55B8": the call is at `74:55BA` (`55B8` is `jr z, .done`); (2) "74:5513": the second `WrapRun` call is at `74:5505`; (3) the never-ran list was incomplete (also the `cp $10` test and the `$30`
+branch `74:560F-5621`: `and $30` was 0 in all 11,694 calls and FFC6 was 0 in all of them); (4) "`$30` -> FFC7 = 0" holds only when FFC6 is raised, and `$20` overwrites FFC7 with h - C (not a max); (5) "retries": the retry returns at once and BC is negative at
+that call; (6) "called at 74:55C0": the call is at `74:55C7`; (7) "the line's record list": it is the page's list, placed records included; (8) the no-fit handling of `57AD` was described wrongly (the fit test applies to every pending record and precedes
+the kind test; the Y bump adds 0); (9) "only the no pending float path": 4,461 passes saw a pending inline record, and the name and evidence omitted the `GetLimitsAtY` effect that runs every time.  Minor: "pending/active" should read "pending" (not yet
+placed); the layout "`+4:+5` width, `+6` height" holds only while the record is pending, because placement overwrites `+0..+7`.
+
+RAM role hints from the same reading (not applied here): `hRam_FFC4:FFC5` line cursor X, `FFC2:FFC3` right limit, `FFC6` extent above the baseline, `FFC7` extent below it, `FFC8:FFC9` line Y, `FFCA:FFCB` next free record, `FFCC:FFCD` first record,
+`FFCE:FFCF` record count, `FFBA` WRAM bank of the record list, `FFB0` record kind (1 text run, 4 image, 5 loaded image), `FFB2` style / alignment flags of the next record (bit 0 link, bit 1 bold, bits 2-5 as above).
+Limits: replays use synthetic records and an own interpreter (no PPU, no timing); the layout was not compared with rendered output; the never-executed paths (wrap, vertical alignment `$10/$20/$30`, float placing) are static plus replay only; the RAM names
+quoted come from `ram/hram.asm` as PROBABLE or HYPOTHESIS and were not re-derived.
