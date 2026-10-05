@@ -16,7 +16,7 @@ MailBody_Tiles_44D0:: ; 28:44D0
 Data_28_44D0::
 	INCBIN "gfx/mail/body_view/mail_body_tiles_44d0.2bpp"
 
-; ---- data $4550-$4820 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2B:7C08: hl=$4550 a=$28 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+; ---- data $4550-$4820 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2B:7C08: hl=$4550 a=$28 b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 65 hits in 9 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_MailView_BodyPage:: ; 28:4550
 Data_28_4550::

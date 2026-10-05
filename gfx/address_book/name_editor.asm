@@ -22,7 +22,7 @@ Gfx_AbookName_Tiles8800:: ; 2F:66F0
 Tiles_2F_66F0::
 	INCBIN "gfx/address_book/name_editor/tiles_66f0.2bpp"
 
-; ---- data $69F0-$6CC0 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2F:59CF: hl=$69F0 a=$2F b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+; ---- data $69F0-$6CC0 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2F:59CF: hl=$69F0 a=$2F b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 15 hits in 6 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_AbookName:: ; 2F:69F0
 Data_2F_69F0::

@@ -4,38 +4,38 @@
 
 SECTION "gfx/mail_server/delete_method_screen", ROMX
 
-; ---- gfx $5F20-$6150 (560 bytes) [PROBABLE] tiles-vram: 2 call site(s) (22:4277 23:4226); first: hdma_rom_to_vram at 22:4277: hl=$5F20 a=$28 c=$23 de=$9301 (dest VRAM $9300, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $5F20-$6150 (560 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (22:4277 23:4226); first: hdma_rom_to_vram at 22:4277: hl=$5F20 a=$28 c=$23 de=$9301 (dest VRAM $9300, vbank=1) [first call site executed: 7 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 MailServerDeleteMethod_Tiles_5F20:: ; 28:5F20
 Data_28_5F20::
 	INCBIN "gfx/mail_server/delete_method_screen/mail_server_delete_method_tiles_5f20.2bpp"
 
-; ---- gfx $6150-$6550 (1024 bytes) [PROBABLE] tiles-vram: 2 call site(s) (22:428C 23:423B); first: hdma_rom_to_vram at 22:428C: hl=$6150 a=$28 c=$40 de=$8800 (dest VRAM $8800, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $6150-$6550 (1024 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (22:428C 23:423B); first: hdma_rom_to_vram at 22:428C: hl=$6150 a=$28 c=$40 de=$8800 (dest VRAM $8800, vbank=0) [first call site executed: 7 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 MailServerDeleteMethod_Tiles_6150:: ; 28:6150
 Data_28_6150::
 	INCBIN "gfx/mail_server/delete_method_screen/mail_server_delete_method_tiles_6150.2bpp"
 
-; ---- gfx $6550-$67E0 (656 bytes) [PROBABLE] tiles-vram: 2 call site(s) (22:42A1 23:4250); first: hdma_rom_to_vram at 22:42A1: hl=$6550 a=$28 c=$29 de=$8C00 (dest VRAM $8C00, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $6550-$67E0 (656 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (22:42A1 23:4250); first: hdma_rom_to_vram at 22:42A1: hl=$6550 a=$28 c=$29 de=$8C00 (dest VRAM $8C00, vbank=0) [first call site executed: 7 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 MailServerDeleteMethod_Tiles_6550:: ; 28:6550
 Data_28_6550::
 	INCBIN "gfx/mail_server/delete_method_screen/mail_server_delete_method_tiles_6550.2bpp"
 
-; ---- gfx $67E0-$6860 (128 bytes) [PROBABLE] tiles-vram: 2 call site(s) (22:42B6 23:4265); first: hdma_rom_to_vram at 22:42B6: hl=$67E0 a=$28 c=$08 de=$8000 (dest VRAM $8000, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $67E0-$6860 (128 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (22:42B6 23:4265); first: hdma_rom_to_vram at 22:42B6: hl=$67E0 a=$28 c=$08 de=$8000 (dest VRAM $8000, vbank=0) [first call site executed: 7 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 MailServerDeleteMethod_Tiles_67E0:: ; 28:67E0
 Data_28_67E0::
 	INCBIN "gfx/mail_server/delete_method_screen/mail_server_delete_method_tiles_67e0.2bpp"
 
-; ---- data $6860-$6B30 (720 bytes) [PROBABLE] tilemap+attr: 2 call site(s) (23:4172 23:4279); first: copy_tilemap_rect_pair at 23:4172: hl=$6860 a=$28 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+; ---- data $6860-$6B30 (720 bytes) [CONFIRMED] tilemap+attr: 2 call site(s) (23:4172 23:4279); first: copy_tilemap_rect_pair at 23:4172: hl=$6860 a=$28 b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 27 hits in 7 scenarios (analysis/coverage_union.tsv)]
 
 MailServerDeleteMethod_Tilemap_First:: ; 28:6860
 Data_28_6860::
 	INCBIN "gfx/mail_server/delete_method_screen/mail_server_delete_method_tilemap_first.tilemap"
 	INCBIN "gfx/mail_server/delete_method_screen/mail_server_delete_method_tilemap_first.attrmap"
 
-; ---- data $6B30-$6E00 (720 bytes) [PROBABLE] tilemap+attr: 2 call site(s) (23:41AD 23:42D0); first: copy_tilemap_rect_pair at 23:41AD: hl=$6B30 a=$28 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+; ---- data $6B30-$6E00 (720 bytes) [CONFIRMED] tilemap+attr: 2 call site(s) (23:41AD 23:42D0); first: copy_tilemap_rect_pair at 23:41AD: hl=$6B30 a=$28 b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 47 hits in 9 scenarios (analysis/coverage_union.tsv)]
 
 MailServerDeleteMethod_Tilemap_Second:: ; 28:6B30
 Data_28_6B30::

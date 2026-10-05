@@ -4,19 +4,19 @@
 
 SECTION "gfx/comm/time_summary", ROMX
 
-; ---- gfx $42A0-$46A0 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 51:40CB: hl=$42A0 a=$51 c=$40 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $42A0-$46A0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 51:40CB: hl=$42A0 a=$51 c=$40 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 1 hits in 1 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_CommTime_SummaryA_Tiles9000Vb1:: ; 51:42A0
 Data_51_42A0::
 	INCBIN "gfx/comm/time_summary/tiles_42a0.2bpp"
 
-; ---- gfx $46A0-$4AA0 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 51:40DD: hl=$46A0 a=$51 c=$40 de=$9401 (dest VRAM $9400, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $46A0-$4AA0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 51:40DD: hl=$46A0 a=$51 c=$40 de=$9401 (dest VRAM $9400, vbank=1) [first call site executed: 1 hits in 1 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_CommTime_SummaryA_Tiles9400Vb1:: ; 51:46A0
 Data_51_46A0::
 	INCBIN "gfx/comm/time_summary/tiles_46a0.2bpp"
 
-; ---- data $4AA0-$4D70 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 51:40FF: hl=$4AA0 a=$51 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+; ---- data $4AA0-$4D70 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 51:40FF: hl=$4AA0 a=$51 b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 1 hits in 1 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_CommTime_SummaryA:: ; 51:4AA0
 Data_51_4AA0::
@@ -29,19 +29,19 @@ Palette_CommTime_SummaryA:: ; 51:4D70
 Data_51_4D70::
 	INCLUDE "gfx/comm/time_summary/palette_4d70.pal"
 
-; ---- gfx $4DB0-$51B0 (1024 bytes) [PROBABLE] tiles-vram: 2 call site(s) (27:4F1D 51:4083); first: hdma_rom_to_vram at 27:4F1D: hl=$4DB0 a=$51 c=$40 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $4DB0-$51B0 (1024 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (27:4F1D 51:4083); first: hdma_rom_to_vram at 27:4F1D: hl=$4DB0 a=$51 c=$40 de=$9001 (dest VRAM $9000, vbank=1) [call site 51:4083 executed: 104 hits in 26 scenarios (analysis/coverage_union.tsv); the first listed site was not executed]
 
 Gfx_CommTime_SummaryB_Tiles9000Vb1:: ; 51:4DB0
 Data_51_4DB0::
 	INCBIN "gfx/comm/time_summary/tiles_4db0.2bpp"
 
-; ---- gfx $51B0-$55B0 (1024 bytes) [PROBABLE] tiles-vram: 2 call site(s) (27:4F2F 51:4095); first: hdma_rom_to_vram at 27:4F2F: hl=$51B0 a=$51 c=$40 de=$9401 (dest VRAM $9400, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $51B0-$55B0 (1024 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (27:4F2F 51:4095); first: hdma_rom_to_vram at 27:4F2F: hl=$51B0 a=$51 c=$40 de=$9401 (dest VRAM $9400, vbank=1) [call site 51:4095 executed: 104 hits in 26 scenarios (analysis/coverage_union.tsv); the first listed site was not executed]
 
 Gfx_CommTime_SummaryB_Tiles9400Vb1:: ; 51:51B0
 Data_51_51B0::
 	INCBIN "gfx/comm/time_summary/tiles_51b0.2bpp"
 
-; ---- data $55B0-$5880 (720 bytes) [PROBABLE] tilemap+attr: 2 call site(s) (27:4F51 51:40B7); first: copy_tilemap_rect_pair at 27:4F51: hl=$55B0 a=$51 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+; ---- data $55B0-$5880 (720 bytes) [CONFIRMED] tilemap+attr: 2 call site(s) (27:4F51 51:40B7); first: copy_tilemap_rect_pair at 27:4F51: hl=$55B0 a=$51 b=18 rows c=20 cols (tiles then attrs) de=$D000 [call site 51:40B7 executed: 104 hits in 26 scenarios (analysis/coverage_union.tsv); the first listed site was not executed]
 
 Tilemap_CommTime_SummaryB:: ; 51:55B0
 Data_51_55B0::
@@ -57,13 +57,13 @@ Data_51_5880::
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 
-; ---- gfx $58C0-$5CC0 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 69:40EC: hl=$58C0 a=$51 c=$40 de=$8200 (dest VRAM $8200, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $58C0-$5CC0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 69:40EC: hl=$58C0 a=$51 c=$40 de=$8200 (dest VRAM $8200, vbank=0) [first call site executed: 2 hits in 1 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_ConnIcon_Request2_Tiles8200:: ; 51:58C0
 Data_51_58C0::
 	INCBIN "gfx/comm/time_summary/tiles_58c0.2bpp"
 
-; ---- gfx $5CC0-$5EC0 (512 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 69:40FE: hl=$5CC0 a=$51 c=$20 de=$8600 (dest VRAM $8600, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $5CC0-$5EC0 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 69:40FE: hl=$5CC0 a=$51 c=$20 de=$8600 (dest VRAM $8600, vbank=0) [first call site executed: 2 hits in 1 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_ConnIcon_Request2_Tiles8600:: ; 51:5CC0
 Data_51_5CC0::

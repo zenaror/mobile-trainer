@@ -17,7 +17,7 @@ Where evidence lives now:
 
 * **In the source**: the `[CONFIRMED]`/`[PROBABLE]`/`[HYPOTHESIS]` note under each code label; the `; ---- <kind> $a-$b (n bytes) [STATUS] note` header of each data/words/ptrtable/text/gfx/zero block; the status word and note
   after the value of RAM names (`ram/*.asm`) and constants (`consts.asm`).  Source counts (`grep -rhE '^\s+; \[CONFIRMED\]' --include=*.asm home engine data gfx audio lib | wc -l`, likewise `PROBABLE`, `HYPOTHESIS`; headers
-  with `grep -rhE '^; ---- .*\[STATUS\]'`): code notes 2,465 CONFIRMED / 1,297 PROBABLE / 124 HYPOTHESIS; block headers 600 / 1,930 / 146.
+  with `grep -rhE '^; ---- .*\[STATUS\]'`): code notes 2,465 CONFIRMED / 1,297 PROBABLE / 124 HYPOTHESIS; block headers 718 / 1,810 / 146 (on 2026-10-05, 120 graphics block headers went from PROBABLE to CONFIRMED because their load call site executed in the 64 natural scenarios).
 * **Frozen tables** (full evidence text, not updated): `config/symbols/bankNN.tsv` (per-symbol status and evidence), `config/regions/bankNN.tsv` (per-region status and note), `config/ram/*.tsv`, `config/xrefs.tsv`; `docs/PROGRESS.md` is generated from them.
 * **Research notes**: `docs/research/*.md` (reasoning, method, retractions), dynamic evidence in `traces/` and `analysis/`.
 * **New findings** go into `docs/research/*.md` and into the comment at the code; `config/` and `docs/PROGRESS.md` are not updated.

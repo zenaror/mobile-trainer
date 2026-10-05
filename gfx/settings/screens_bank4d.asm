@@ -4,58 +4,58 @@
 
 SECTION "gfx/settings/screens_bank4d", ROMX
 
-; ---- gfx $4000-$4200 (512 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4789: hl=$4000 a=$4D c=$20 de=$8001 (dest VRAM $8000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $4000-$4200 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4789: hl=$4000 a=$4D c=$20 de=$8001 (dest VRAM $8000, vbank=1) [first call site executed: 46 hits in 6 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_SettingsPhone_ChoiceMenu_Tiles8000Vb1:: ; 4D:4000
 Data_4D_4000::
 	INCBIN "gfx/settings/screens_bank4d/tiles_4000.2bpp"
 
-; ---- gfx $4200-$4510 (784 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:46D5: hl=$4110 a=$4D c=$40 de=$8801 (dest VRAM $8800, vbank=1) [verifier: call site never executed in a trace -> PROBABLE] [clipped from 4110-4510 by higher-priority evidence]
+; ---- gfx $4200-$4510 (784 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:46D5: hl=$4110 a=$4D c=$40 de=$8801 (dest VRAM $8800, vbank=1) [first call site executed: 13 hits in 3 scenarios (analysis/coverage_union.tsv)] [clipped from 4110-4510 by higher-priority evidence]
 
 Data_4D_4200:: ; 4D:4200
 	INCBIN "gfx/settings/screens_bank4d/tiles_4200.2bpp"
 
-; ---- gfx $4510-$4610 (256 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:46E7: hl=$4510 a=$4D c=$10 de=$8C01 (dest VRAM $8C00, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $4510-$4610 (256 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:46E7: hl=$4510 a=$4D c=$10 de=$8C01 (dest VRAM $8C00, vbank=1) [first call site executed: 13 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_SettingsPhone_ChoiceMenu_Tiles8C00Vb1_4D_4510:: ; 4D:4510
 Data_4D_4510::
 	INCBIN "gfx/settings/screens_bank4d/tiles_4510.2bpp"
 
-; ---- gfx $4610-$4A10 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:46F9: hl=$4610 a=$4D c=$40 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $4610-$4A10 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:46F9: hl=$4610 a=$4D c=$40 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 13 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_SettingsPhone_ChoiceMenu_Tiles9000Vb1_4D_4610:: ; 4D:4610
 Data_4D_4610::
 	INCBIN "gfx/settings/screens_bank4d/tiles_4610.2bpp"
 
-; ---- gfx $4A10-$4D10 (768 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:470B: hl=$4A10 a=$4D c=$30 de=$9401 (dest VRAM $9400, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $4A10-$4D10 (768 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:470B: hl=$4A10 a=$4D c=$30 de=$9401 (dest VRAM $9400, vbank=1) [first call site executed: 13 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_SettingsPhone_ChoiceMenu_Tiles9400Vb1:: ; 4D:4A10
 Data_4D_4A10::
 	INCBIN "gfx/settings/screens_bank4d/tiles_4a10.2bpp"
 
-; ---- gfx $4D10-$5010 (768 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4730: hl=$4C10 a=$4D c=$40 de=$8801 (dest VRAM $8800, vbank=1) [verifier: call site never executed in a trace -> PROBABLE] [clipped from 4C10-5010 by higher-priority evidence]
+; ---- gfx $4D10-$5010 (768 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4730: hl=$4C10 a=$4D c=$40 de=$8801 (dest VRAM $8800, vbank=1) [first call site executed: 33 hits in 5 scenarios (analysis/coverage_union.tsv)] [clipped from 4C10-5010 by higher-priority evidence]
 
 Data_4D_4D10:: ; 4D:4D10
 	INCBIN "gfx/settings/screens_bank4d/tiles_4d10.2bpp"
 
-; ---- gfx $5010-$5110 (256 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4742: hl=$5010 a=$4D c=$10 de=$8C01 (dest VRAM $8C00, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $5010-$5110 (256 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4742: hl=$5010 a=$4D c=$10 de=$8C01 (dest VRAM $8C00, vbank=1) [first call site executed: 33 hits in 5 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_SettingsPhone_ChoiceMenu_Tiles8C00Vb1_4D_5010:: ; 4D:5010
 Data_4D_5010::
 	INCBIN "gfx/settings/screens_bank4d/tiles_5010.2bpp"
 
-; ---- gfx $5110-$5510 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4754: hl=$5110 a=$4D c=$40 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $5110-$5510 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4754: hl=$5110 a=$4D c=$40 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 33 hits in 5 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_SettingsPhone_ChoiceMenu_Tiles9000Vb1_4D_5110:: ; 4D:5110
 Data_4D_5110::
 	INCBIN "gfx/settings/screens_bank4d/tiles_5110.2bpp"
 
-; ---- gfx $5510-$5810 (768 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4766: hl=$5510 a=$4D c=$30 de=$9401 (dest VRAM $9400, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $5510-$5810 (768 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4766: hl=$5510 a=$4D c=$30 de=$9401 (dest VRAM $9400, vbank=1) [first call site executed: 33 hits in 5 scenarios (analysis/coverage_union.tsv)]
 
 Data_4D_5510:: ; 4D:5510
 	INCBIN "gfx/settings/screens_bank4d/tiles_5510.2bpp"
 
-; ---- data $5810-$5AE0 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 67:4777: hl=$5810 a=$4D b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+; ---- data $5810-$5AE0 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 67:4777: hl=$5810 a=$4D b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 33 hits in 5 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_SettingsPhone_ChoiceMenu:: ; 4D:5810
 Data_4D_5810::
@@ -120,52 +120,52 @@ SpriteScript_4D_5D3E:: ; 4D:5D3E
 	sprite_anim_step 1, 5
 	ds $D, $00
 
-; ---- gfx $5D50-$5D70 (32 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4DBC: hl=$5D50 a=$4D c=$02 de=$8001 (dest VRAM $8000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $5D50-$5D70 (32 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4DBC: hl=$5D50 a=$4D c=$02 de=$8001 (dest VRAM $8000, vbank=1) [first call site executed: 12 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_SettingsPhone_SlotMenu_Tiles8000Vb1:: ; 4D:5D50
 Data_4D_5D50::
 	INCBIN "gfx/settings/screens_bank4d/tiles_5d50.2bpp"
 
-; ---- gfx $5D70-$6170 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4D2A: hl=$5D70 a=$4D c=$40 de=$8801 (dest VRAM $8800, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $5D70-$6170 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4D2A: hl=$5D70 a=$4D c=$40 de=$8801 (dest VRAM $8800, vbank=1) [first call site executed: 5 hits in 2 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_SettingsPhone_SlotMenu_Tiles8800Vb1:: ; 4D:5D70
 Data_4D_5D70::
 	INCBIN "gfx/settings/screens_bank4d/tiles_5d70.2bpp"
 
-; ---- gfx $6170-$6570 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4D3C: hl=$6170 a=$4D c=$40 de=$8C01 (dest VRAM $8C00, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $6170-$6570 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4D3C: hl=$6170 a=$4D c=$40 de=$8C01 (dest VRAM $8C00, vbank=1) [first call site executed: 5 hits in 2 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_SettingsPhone_SlotMenu_Tiles8C00Vb1_4D_6170:: ; 4D:6170
 Data_4D_6170::
 	INCBIN "gfx/settings/screens_bank4d/tiles_6170.2bpp"
 
-; ---- gfx $6570-$6870 (768 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4D4E: hl=$6470 a=$4D c=$40 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE] [clipped from 6470-6870 by higher-priority evidence]
+; ---- gfx $6570-$6870 (768 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4D4E: hl=$6470 a=$4D c=$40 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 5 hits in 2 scenarios (analysis/coverage_union.tsv)] [clipped from 6470-6870 by higher-priority evidence]
 
 Data_4D_6570:: ; 4D:6570
 	INCBIN "gfx/settings/screens_bank4d/tiles_6570.2bpp"
 
-; ---- gfx $6870-$6C70 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4D60: hl=$6870 a=$4D c=$40 de=$9401 (dest VRAM $9400, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $6870-$6C70 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4D60: hl=$6870 a=$4D c=$40 de=$9401 (dest VRAM $9400, vbank=1) [first call site executed: 5 hits in 2 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_SettingsPhone_SlotMenu_Tiles9400Vb1_4D_6870:: ; 4D:6870
 Data_4D_6870::
 	INCBIN "gfx/settings/screens_bank4d/tiles_6870.2bpp"
 
-; ---- gfx $6C70-$6D70 (256 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4D74: hl=$6970 a=$4D c=$40 de=$8801 (dest VRAM $8800, vbank=1) [verifier: call site never executed in a trace -> PROBABLE] [clipped from 6970-6D70 by higher-priority evidence]
+; ---- gfx $6C70-$6D70 (256 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4D74: hl=$6970 a=$4D c=$40 de=$8801 (dest VRAM $8800, vbank=1) [first call site executed: 7 hits in 2 scenarios (analysis/coverage_union.tsv)] [clipped from 6970-6D70 by higher-priority evidence]
 
 Data_4D_6C70:: ; 4D:6C70
 	INCBIN "gfx/settings/screens_bank4d/tiles_6c70.2bpp"
 
-; ---- gfx $6D70-$7170 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4D86: hl=$6D70 a=$4D c=$40 de=$8C01 (dest VRAM $8C00, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $6D70-$7170 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4D86: hl=$6D70 a=$4D c=$40 de=$8C01 (dest VRAM $8C00, vbank=1) [first call site executed: 7 hits in 2 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_SettingsPhone_SlotMenu_Tiles8C00Vb1_4D_6D70:: ; 4D:6D70
 Data_4D_6D70::
 	INCBIN "gfx/settings/screens_bank4d/tiles_6d70.2bpp"
 
-; ---- gfx $7170-$7470 (768 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4D98: hl=$7070 a=$4D c=$40 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE] [clipped from 7070-7470 by higher-priority evidence]
+; ---- gfx $7170-$7470 (768 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4D98: hl=$7070 a=$4D c=$40 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 7 hits in 2 scenarios (analysis/coverage_union.tsv)] [clipped from 7070-7470 by higher-priority evidence]
 
 Data_4D_7170:: ; 4D:7170
 	INCBIN "gfx/settings/screens_bank4d/tiles_7170.2bpp"
 
-; ---- gfx $7470-$7870 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4DAA: hl=$7470 a=$4D c=$40 de=$9401 (dest VRAM $9400, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $7470-$7870 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4DAA: hl=$7470 a=$4D c=$40 de=$9401 (dest VRAM $9400, vbank=1) [first call site executed: 7 hits in 2 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_SettingsPhone_SlotMenu_Tiles9400Vb1_4D_7470:: ; 4D:7470
 Data_4D_7470::

@@ -52,28 +52,28 @@ Data_2E_6960::
 	INCBIN "gfx/mail_server/tidy_screen/mail_server_mgr_main.tilemap"
 	INCBIN "gfx/mail_server/tidy_screen/mail_server_mgr_main.attrmap"
 
-; ---- data $6C30-$6D20 (240 bytes) [PROBABLE] tilemap+attr: 4 call site(s) (2E:4697 2E:4753 2E:4C02 2E:4D2D); first: copy_tilemap_rect_pair at 2E:4697: hl=$6C30 a=$2E b=6 rows c=20 cols (tiles then attrs) de=$D0A0 [verifier: call site never executed in a trace -> PROBABLE]
+; ---- data $6C30-$6D20 (240 bytes) [CONFIRMED] tilemap+attr: 4 call site(s) (2E:4697 2E:4753 2E:4C02 2E:4D2D); first: copy_tilemap_rect_pair at 2E:4697: hl=$6C30 a=$2E b=6 rows c=20 cols (tiles then attrs) de=$D0A0 [first call site executed: 19 hits in 6 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_MailServerMgr_Footer:: ; 2E:6C30
 Data_2E_6C30::
 	INCBIN "gfx/mail_server/tidy_screen/mail_server_mgr_footer.tilemap"
 	INCBIN "gfx/mail_server/tidy_screen/mail_server_mgr_footer.attrmap"
 
-; ---- data $6D20-$6FF0 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2E:4E29: hl=$6D20 a=$2E b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+; ---- data $6D20-$6FF0 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2E:4E29: hl=$6D20 a=$2E b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 5 hits in 5 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_MailServerMgr_InfoB:: ; 2E:6D20
 Data_2E_6D20::
 	INCBIN "gfx/mail_server/tidy_screen/mail_server_mgr_info_b.tilemap"
 	INCBIN "gfx/mail_server/tidy_screen/mail_server_mgr_info_b.attrmap"
 
-; ---- data $6FF0-$72C0 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2E:4E64: hl=$6FF0 a=$2E b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+; ---- data $6FF0-$72C0 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2E:4E64: hl=$6FF0 a=$2E b=18 rows c=20 cols (tiles then attrs) de=$D000 [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_MailServerMgr_InfoC:: ; 2E:6FF0
 Data_2E_6FF0::
 	INCBIN "gfx/mail_server/tidy_screen/mail_server_mgr_info_c.tilemap"
 	INCBIN "gfx/mail_server/tidy_screen/mail_server_mgr_info_c.attrmap"
 
-; ---- data $72C0-$7590 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2E:4E9B: hl=$72C0 a=$2E b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+; ---- data $72C0-$7590 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2E:4E9B: hl=$72C0 a=$2E b=18 rows c=20 cols (tiles then attrs) de=$D000 [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_MailServerMgr_InfoD:: ; 2E:72C0
 Data_2E_72C0::

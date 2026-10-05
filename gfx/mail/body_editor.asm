@@ -4,7 +4,7 @@
 
 SECTION "gfx/mail/body_editor", ROMX
 
-; ---- gfx $5AC0-$5E80 (960 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2D:4B58: hl=$5AC0 a=$2D c=$3C de=$9301 (dest VRAM $9300, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $5AC0-$5E80 (960 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2D:4B58: hl=$5AC0 a=$2D c=$3C de=$9301 (dest VRAM $9300, vbank=1) [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv)]
 
 Gfx_MailBody_Tiles:: ; 2D:5AC0
 Data_2D_5AC0::
@@ -35,7 +35,7 @@ Palette_MailBody_Bg:: ; 2D:6290
 Data_2D_6290::
 	INCLUDE "gfx/mail/body_editor/mail_body_bg.pal"
 
-; ---- gfx $62D0-$6570 (672 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2D:4B6A: hl=$62D0 a=$2D c=$2A de=$8000 (dest VRAM $8000, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $62D0-$6570 (672 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2D:4B6A: hl=$62D0 a=$2D c=$2A de=$8000 (dest VRAM $8000, vbank=0) [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv)]
 
 Gfx_MailBody_ObjTiles:: ; 2D:62D0
 Data_2D_62D0::

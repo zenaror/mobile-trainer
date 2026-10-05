@@ -33,7 +33,7 @@ Data_71_6F6A::
 	sprite_anim_step 0, 30
 	sprite_anim_step 1, 30
 
-; ---- data $6F6F-$723F (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 67:65FD: hl=$6F6F a=$71 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+; ---- data $6F6F-$723F (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 67:65FD: hl=$6F6F a=$71 b=18 rows c=20 cols (tiles then attrs) de=$D000 [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_PwSaveConfirm_71_6F6F:: ; 71:6F6F
 Data_71_6F6F::

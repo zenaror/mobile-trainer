@@ -10,7 +10,7 @@ Gfx_SaveSenderAddr_Tiles9300Vb1:: ; 2A:4AA0
 Tiles_2A_4AA0::
 	INCBIN "gfx/address_book/save_sender_address/save_sender_addr_tiles9300.2bpp"
 
-; ---- data $4CD0-$4FA0 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2A:417B: hl=$4CD0 a=$2A b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+; ---- data $4CD0-$4FA0 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2A:417B: hl=$4CD0 a=$2A b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 19 hits in 6 scenarios (analysis/coverage_union.tsv)]
 
 Data_SaveSenderAddr_TilemapAttr:: ; 2A:4CD0
 Data_2A_4CD0::

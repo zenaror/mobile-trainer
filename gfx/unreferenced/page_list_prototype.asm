@@ -4,19 +4,19 @@
 
 SECTION "gfx/unreferenced/page_list_prototype", ROMX
 
-; ---- gfx $62B0-$66B0 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 7F:5233: hl=$62B0 a=$7F c=$40 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $62B0-$66B0 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 7F:5233: hl=$62B0 a=$7F c=$40 de=$9001 (dest VRAM $9000, vbank=1) [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv)]
 
 PageListProto_Tiles_62B0:: ; 7F:62B0
 Data_7F_62B0::
 	INCBIN "gfx/unreferenced/page_list_prototype/tiles_62b0.2bpp"
 
-; ---- gfx $66B0-$67D0 (288 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 7F:5245: hl=$66B0 a=$7F c=$12 de=$9401 (dest VRAM $9400, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $66B0-$67D0 (288 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 7F:5245: hl=$66B0 a=$7F c=$12 de=$9401 (dest VRAM $9400, vbank=1) [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv)]
 
 PageListProto_Tiles_66B0:: ; 7F:66B0
 Data_7F_66B0::
 	INCBIN "gfx/unreferenced/page_list_prototype/tiles_66b0.2bpp"
 
-; ---- data $67D0-$6AA0 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 7F:5281: hl=$67D0 a=$7F b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+; ---- data $67D0-$6AA0 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 7F:5281: hl=$67D0 a=$7F b=18 rows c=20 cols (tiles then attrs) de=$D000 [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv)]
 
 PageListProto_Tilemap_67D0:: ; 7F:67D0
 Data_7F_67D0::
@@ -29,7 +29,7 @@ PageListProto_BgPalette:: ; 7F:6AA0
 Palette_7F_6AA0::
 	INCLUDE "gfx/unreferenced/page_list_prototype/palette_6aa0.pal"
 
-; ---- gfx $6AE0-$6D70 (656 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 7F:5257: hl=$6AE0 a=$7F c=$29 de=$8000 (dest VRAM $8000, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $6AE0-$6D70 (656 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 7F:5257: hl=$6AE0 a=$7F c=$29 de=$8000 (dest VRAM $8000, vbank=0) [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv)]
 
 PageListProto_Tiles_6AE0:: ; 7F:6AE0
 Data_7F_6AE0::

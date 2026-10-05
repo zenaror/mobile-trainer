@@ -35,7 +35,7 @@ Data_25_6410::
 	INCBIN "gfx/mailbox/mailbox/mailbox_tilemap_normal.tilemap"
 	INCBIN "gfx/mailbox/mailbox/mailbox_tilemap_normal.attrmap"
 
-; ---- data $66E0-$69B0 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 25:4C6C: hl=$66E0 a=$25 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+; ---- data $66E0-$69B0 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 25:4C6C: hl=$66E0 a=$25 b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 52 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Mailbox_Tilemap_DeleteSelect:: ; 25:66E0
 Data_25_66E0::

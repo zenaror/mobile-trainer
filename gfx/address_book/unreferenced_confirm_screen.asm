@@ -4,13 +4,13 @@
 
 SECTION "gfx/address_book/unreferenced_confirm_screen", ROMX
 
-; ---- gfx $7740-$7860 (288 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2C:7499: hl=$7740 a=$2C c=$12 de=$9301 (dest VRAM $9300, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $7740-$7860 (288 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2C:7499: hl=$7740 a=$2C c=$12 de=$9301 (dest VRAM $9300, vbank=1) [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv); executed only by the forced run forced_dead (traces/forced/, not natural evidence)]
 
 Gfx_AddrScreenUnused_Tiles9300Vb1:: ; 2C:7740
 Data_2C_7740::
 	INCBIN "gfx/address_book/unreferenced_confirm_screen/tiles_7740.2bpp"
 
-; ---- data $7860-$7B30 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2C:74CD: hl=$7860 a=$2C b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+; ---- data $7860-$7B30 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2C:74CD: hl=$7860 a=$2C b=18 rows c=20 cols (tiles then attrs) de=$D000 [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv); executed only by the forced run forced_dead (traces/forced/, not natural evidence)]
 
 Tilemap_AddrScreenUnused_Screen:: ; 2C:7860
 Data_2C_7860::
@@ -23,7 +23,7 @@ Palette_AddrScreenUnused_Bg:: ; 2C:7B30
 Data_2C_7B30::
 	INCLUDE "gfx/address_book/unreferenced_confirm_screen/palette_7b30.pal"
 
-; ---- gfx $7B70-$7C00 (144 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2C:74AB: hl=$7B70 a=$2C c=$09 de=$8000 (dest VRAM $8000, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $7B70-$7C00 (144 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2C:74AB: hl=$7B70 a=$2C c=$09 de=$8000 (dest VRAM $8000, vbank=0) [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv); executed only by the forced run forced_dead (traces/forced/, not natural evidence)]
 
 Gfx_AddrScreenUnused_Tiles8000:: ; 2C:7B70
 Data_2C_7B70::
@@ -65,7 +65,7 @@ SpriteScript_2C_7C77:: ; 2C:7C77
 	sprite_anim_step 0, 4
 	db $00, $00, $00, $00, $00, $00
 
-; ---- data $7C80-$7F50 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2F:524F: hl=$7C80 a=$2C b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+; ---- data $7C80-$7F50 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2F:524F: hl=$7C80 a=$2C b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 6 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Data_AddrBookEntry_TilemapAttr:: ; 2C:7C80
 Data_2C_7C80::

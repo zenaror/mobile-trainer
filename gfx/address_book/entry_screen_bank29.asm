@@ -16,13 +16,13 @@ Palette_AbookEdit_Obj:: ; 29:5E10
 Palette_29_5E10::
 	INCLUDE "gfx/address_book/entry_screen_bank29/palette_5e10.pal"
 
-; ---- gfx $5E50-$6250 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2F:5208: hl=$5E50 a=$29 c=$40 de=$9301 (dest VRAM $9300, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $5E50-$6250 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2F:5208: hl=$5E50 a=$29 c=$40 de=$9301 (dest VRAM $9300, vbank=1) [first call site executed: 6 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_AbookView_Tiles9300Vb1:: ; 29:5E50
 Data_29_5E50::
 	INCBIN "gfx/address_book/entry_screen_bank29/tiles_5e50.2bpp"
 
-; ---- gfx $6250-$6290 (64 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2F:521A: hl=$6250 a=$29 c=$04 de=$9701 (dest VRAM $9700, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $6250-$6290 (64 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2F:521A: hl=$6250 a=$29 c=$04 de=$9701 (dest VRAM $9700, vbank=1) [first call site executed: 6 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_AbookView_Tiles9700Vb1:: ; 29:6250
 Data_29_6250::

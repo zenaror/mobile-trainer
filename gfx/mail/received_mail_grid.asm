@@ -4,19 +4,19 @@
 
 SECTION "gfx/mail/received_mail_grid", ROMX
 
-; ---- gfx $59C0-$5DC0 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2B:547D: hl=$59C0 a=$2B c=$40 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $59C0-$5DC0 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2B:547D: hl=$59C0 a=$2B c=$40 de=$9001 (dest VRAM $9000, vbank=1) [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv); executed only by the forced run forced_screens (traces/forced/, not natural evidence)]
 
 Gfx_MailGrid_Tiles9000Vb1:: ; 2B:59C0
 Data_2B_59C0::
 	INCBIN "gfx/mail/received_mail_grid/mail_grid_tiles9000.2bpp"
 
-; ---- gfx $5DC0-$5FF0 (560 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2B:548F: hl=$5DC0 a=$2B c=$23 de=$9401 (dest VRAM $9400, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $5DC0-$5FF0 (560 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2B:548F: hl=$5DC0 a=$2B c=$23 de=$9401 (dest VRAM $9400, vbank=1) [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv); executed only by the forced run forced_screens (traces/forced/, not natural evidence)]
 
 Gfx_MailGrid_Tiles9400Vb1:: ; 2B:5DC0
 Data_2B_5DC0::
 	INCBIN "gfx/mail/received_mail_grid/mail_grid_tiles9400.2bpp"
 
-; ---- data $5FF0-$62C0 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2B:54C3: hl=$5FF0 a=$2B b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+; ---- data $5FF0-$62C0 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2B:54C3: hl=$5FF0 a=$2B b=18 rows c=20 cols (tiles then attrs) de=$D000 [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv); executed only by the forced run forced_screens (traces/forced/, not natural evidence)]
 
 Data_MailGrid_TilemapAttr:: ; 2B:5FF0
 Data_2B_5FF0::
@@ -29,7 +29,7 @@ Palette_MailGrid_Bg:: ; 2B:62C0
 Data_2B_62C0::
 	INCLUDE "gfx/mail/received_mail_grid/mail_grid_bg.pal"
 
-; ---- gfx $6300-$63F0 (240 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2B:54A1: hl=$6300 a=$2B c=$0F de=$8000 (dest VRAM $8000, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $6300-$63F0 (240 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2B:54A1: hl=$6300 a=$2B c=$0F de=$8000 (dest VRAM $8000, vbank=0) [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv); executed only by the forced run forced_screens (traces/forced/, not natural evidence)]
 
 Gfx_MailGrid_Tiles8000:: ; 2B:6300
 Data_2B_6300::

@@ -103,49 +103,49 @@ Attrmap_50_58B2::
 ; ---- zero $5A1A-$5A20 (6 bytes) [PROBABLE] 6 bytes of $00 between the last attribute map (ends 5A1A) and the tiles loaded from 5A20 (padding)
 	ds $6, $00
 
-; ---- gfx $5A20-$5E20 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 50:40AE: hl=$5A20 a=$50 c=$40 de=$9000 (dest VRAM $9000, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $5A20-$5E20 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 50:40AE: hl=$5A20 a=$50 c=$40 de=$9000 (dest VRAM $9000, vbank=0) [first call site executed: 4 hits in 4 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_CommNotice_A_Tiles9000:: ; 50:5A20
 Data_50_5A20::
 	INCBIN "gfx/comm/notice_dialog/tiles_5a20.2bpp"
 
-; ---- gfx $5E20-$5FC0 (416 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 50:40C0: hl=$5E20 a=$50 c=$1A de=$9400 (dest VRAM $9400, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $5E20-$5FC0 (416 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 50:40C0: hl=$5E20 a=$50 c=$1A de=$9400 (dest VRAM $9400, vbank=0) [first call site executed: 4 hits in 4 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_CommNotice_A_Tiles9400:: ; 50:5E20
 Data_50_5E20::
 	INCBIN "gfx/comm/notice_dialog/tiles_5e20.2bpp"
 
-; ---- gfx $5FC0-$5FD0 (16 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 50:40D2: hl=$5FC0 a=$50 c=$01 de=$8001 (dest VRAM $8000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $5FC0-$5FD0 (16 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 50:40D2: hl=$5FC0 a=$50 c=$01 de=$8001 (dest VRAM $8000, vbank=1) [first call site executed: 4 hits in 4 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_CommNotice_A_Tiles8000Vb1:: ; 50:5FC0
 Data_50_5FC0::
 	INCBIN "gfx/comm/notice_dialog/tiles_5fc0.2bpp"
 
-; ---- gfx $5FD0-$62F0 (800 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 50:40E4: hl=$5FD0 a=$50 c=$32 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $5FD0-$62F0 (800 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 50:40E4: hl=$5FD0 a=$50 c=$32 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 4 hits in 4 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_CommNotice_A_Tiles9000Vb1:: ; 50:5FD0
 Data_50_5FD0::
 	INCBIN "gfx/comm/notice_dialog/tiles_5fd0.2bpp"
 
-; ---- gfx $62F0-$66F0 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 50:417F: hl=$62F0 a=$50 c=$40 de=$9000 (dest VRAM $9000, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $62F0-$66F0 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 50:417F: hl=$62F0 a=$50 c=$40 de=$9000 (dest VRAM $9000, vbank=0) [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv)]
 
 Gfx_CommNotice_B_Tiles9000:: ; 50:62F0
 Data_50_62F0::
 	INCBIN "gfx/comm/notice_dialog/tiles_62f0.2bpp"
 
-; ---- gfx $66F0-$6890 (416 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 50:4191: hl=$66F0 a=$50 c=$1A de=$9400 (dest VRAM $9400, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $66F0-$6890 (416 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 50:4191: hl=$66F0 a=$50 c=$1A de=$9400 (dest VRAM $9400, vbank=0) [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv)]
 
 Gfx_CommNotice_B_Tiles9400:: ; 50:66F0
 Data_50_66F0::
 	INCBIN "gfx/comm/notice_dialog/tiles_66f0.2bpp"
 
-; ---- gfx $6890-$68A0 (16 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 50:41A3: hl=$6890 a=$50 c=$01 de=$8001 (dest VRAM $8000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $6890-$68A0 (16 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 50:41A3: hl=$6890 a=$50 c=$01 de=$8001 (dest VRAM $8000, vbank=1) [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv)]
 
 Gfx_CommNotice_B_Tiles8000Vb1:: ; 50:6890
 Data_50_6890::
 	INCBIN "gfx/comm/notice_dialog/tiles_6890.2bpp"
 
-; ---- gfx $68A0-$6BC0 (800 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 50:41B5: hl=$68A0 a=$50 c=$32 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $68A0-$6BC0 (800 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 50:41B5: hl=$68A0 a=$50 c=$32 de=$9001 (dest VRAM $9000, vbank=1) [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv)]
 
 Gfx_CommNotice_B_Tiles9000Vb1:: ; 50:68A0
 Data_50_68A0::

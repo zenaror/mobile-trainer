@@ -108,7 +108,7 @@ Data_4A_5240:: ; 4A:5240
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $29, $09, $09, $09, $09
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
 
-; ---- data $54A0-$5770 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:5250: hl=$54A0 a=$4A b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+; ---- data $54A0-$5770 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:5250: hl=$54A0 a=$4A b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 96 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_SettingsMenu:: ; 4A:54A0
 Data_4A_54A0::
@@ -162,7 +162,7 @@ SpriteFrame_4A_5855:: ; 4A:5855
 Data_4A_5860:: ; 4A:5860
 	INCBIN "gfx/account/screens_bank4a/tiles_5860.2bpp"
 
-; ---- gfx $5870-$5C70 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:649A: hl=$5870 a=$4A c=$40 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $5870-$5C70 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:649A: hl=$5870 a=$4A c=$40 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 10 hits in 2 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_Account_ConfirmManualScreen_Tiles9000Vb1:: ; 4A:5870
 Data_4A_5870::
@@ -174,7 +174,7 @@ Palette_Account_ConfirmManualScreen_Bg:: ; 4A:5C70
 Data_4A_5C70::
 	INCBIN "gfx/account/screens_bank4a/tiles_5c70.2bpp"
 
-; ---- data $5CB0-$5F80 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:64DF: hl=$5CB0 a=$4A b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+; ---- data $5CB0-$5F80 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:64DF: hl=$5CB0 a=$4A b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 10 hits in 2 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_Account_ConfirmManualScreen:: ; 4A:5CB0
 Data_4A_5CB0::

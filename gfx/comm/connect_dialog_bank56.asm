@@ -4,7 +4,7 @@
 
 SECTION "gfx/comm/connect_dialog_bank56", ROMX
 
-; ---- data $418A-$445A (720 bytes) [PROBABLE] tilemap+attr: 3 call site(s) (57:49B4 57:4B25 57:5146); first: copy_tilemap_rect_pair at 57:49B4: hl=$418A a=$56 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+; ---- data $418A-$445A (720 bytes) [CONFIRMED] tilemap+attr: 3 call site(s) (57:49B4 57:4B25 57:5146); first: copy_tilemap_rect_pair at 57:49B4: hl=$418A a=$56 b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 99 hits in 4 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_ConnectDialog_56_418A:: ; 56:418A
 Data_56_418A::
@@ -18,21 +18,21 @@ Data_56_445A::
 	INCBIN "gfx/comm/connect_dialog_bank56/tilemap_445a.tilemap"
 	INCBIN "gfx/comm/connect_dialog_bank56/tilemap_445a.attrmap"
 
-; ---- data $472A-$49FA (720 bytes) [PROBABLE] tilemap+attr: 2 call site(s) (57:4F64 57:51B6); first: copy_tilemap_rect_pair at 57:4F64: hl=$472A a=$56 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+; ---- data $472A-$49FA (720 bytes) [CONFIRMED] tilemap+attr: 2 call site(s) (57:4F64 57:51B6); first: copy_tilemap_rect_pair at 57:4F64: hl=$472A a=$56 b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 10 hits in 6 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_ConnectDialog_56_472A:: ; 56:472A
 Data_56_472A::
 	INCBIN "gfx/comm/connect_dialog_bank56/tilemap_472a.tilemap"
 	INCBIN "gfx/comm/connect_dialog_bank56/tilemap_472a.attrmap"
 
-; ---- data $49FA-$4CCA (720 bytes) [PROBABLE] tilemap+attr: 2 call site(s) (57:4BFE 57:516B); first: copy_tilemap_rect_pair at 57:4BFE: hl=$49FA a=$56 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+; ---- data $49FA-$4CCA (720 bytes) [CONFIRMED] tilemap+attr: 2 call site(s) (57:4BFE 57:516B); first: copy_tilemap_rect_pair at 57:4BFE: hl=$49FA a=$56 b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 12 hits in 4 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_ConnectDialog_56_49FA:: ; 56:49FA
 Data_56_49FA::
 	INCBIN "gfx/comm/connect_dialog_bank56/tilemap_49fa.tilemap"
 	INCBIN "gfx/comm/connect_dialog_bank56/tilemap_49fa.attrmap"
 
-; ---- data $4CCA-$4F9A (720 bytes) [PROBABLE] tilemap+attr: 2 call site(s) (57:4D6F 57:517F); first: copy_tilemap_rect_pair at 57:4D6F: hl=$4CCA a=$56 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+; ---- data $4CCA-$4F9A (720 bytes) [CONFIRMED] tilemap+attr: 2 call site(s) (57:4D6F 57:517F); first: copy_tilemap_rect_pair at 57:4D6F: hl=$4CCA a=$56 b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 3 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_ConnectDialog_56_4CCA:: ; 56:4CCA
 Data_56_4CCA::
@@ -65,19 +65,19 @@ Gfx_ConnectDialog_ConnectConfirm_Tiles9400Vb1:: ; 56:56C0
 Data_56_56C0::
 	INCBIN "gfx/comm/connect_dialog_bank56/tiles_56c0.2bpp"
 
-; ---- gfx $5AC0-$5DC0 (768 bytes) [PROBABLE] tiles-vram: 2 call site(s) (57:496A 57:4ADB); first: hdma_rom_to_vram at 57:496A: hl=$5AC0 a=$56 c=$30 de=$8800 (dest VRAM $8800, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $5AC0-$5DC0 (768 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (57:496A 57:4ADB); first: hdma_rom_to_vram at 57:496A: hl=$5AC0 a=$56 c=$30 de=$8800 (dest VRAM $8800, vbank=0) [first call site executed: 99 hits in 4 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_ConnectDialog_PasswordEntryAndSaveConfirm_Tiles8800:: ; 56:5AC0
 Data_56_5AC0::
 	INCBIN "gfx/comm/connect_dialog_bank56/tiles_5ac0.2bpp"
 
-; ---- gfx $5DC0-$60C0 (768 bytes) [PROBABLE] tiles-vram: 2 call site(s) (57:498E 57:4AFF); first: hdma_rom_to_vram at 57:498E: hl=$5DC0 a=$56 c=$30 de=$9101 (dest VRAM $9100, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $5DC0-$60C0 (768 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (57:498E 57:4AFF); first: hdma_rom_to_vram at 57:498E: hl=$5DC0 a=$56 c=$30 de=$9101 (dest VRAM $9100, vbank=1) [first call site executed: 99 hits in 4 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_ConnectDialog_PasswordEntryAndSaveConfirm_Tiles9100Vb1:: ; 56:5DC0
 Data_56_5DC0::
 	INCBIN "gfx/comm/connect_dialog_bank56/tiles_5dc0.2bpp"
 
-; ---- gfx $60C0-$64C0 (1024 bytes) [PROBABLE] tiles-vram: 2 call site(s) (57:49A0 57:4B11); first: hdma_rom_to_vram at 57:49A0: hl=$60C0 a=$56 c=$40 de=$9401 (dest VRAM $9400, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $60C0-$64C0 (1024 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (57:49A0 57:4B11); first: hdma_rom_to_vram at 57:49A0: hl=$60C0 a=$56 c=$40 de=$9401 (dest VRAM $9400, vbank=1) [first call site executed: 99 hits in 4 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_ConnectDialog_PasswordEntryAndSaveConfirm_Tiles9400Vb1:: ; 56:60C0
 Data_56_60C0::
@@ -100,13 +100,13 @@ Gfx_ConnectDialog_StoredPassword_Tiles9400Vb1:: ; 56:6AC0
 Data_56_6AC0::
 	INCBIN "gfx/comm/connect_dialog_bank56/tiles_6ac0.2bpp"
 
-; ---- gfx $6EC0-$71C0 (768 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 57:4D4C: hl=$6EC0 a=$56 c=$30 de=$9101 (dest VRAM $9100, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $6EC0-$71C0 (768 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 57:4D4C: hl=$6EC0 a=$56 c=$30 de=$9101 (dest VRAM $9100, vbank=1) [first call site executed: 3 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_ConnectDialog_PasswordSaved_Tiles9100Vb1:: ; 56:6EC0
 Data_56_6EC0::
 	INCBIN "gfx/comm/connect_dialog_bank56/tiles_6ec0.2bpp"
 
-; ---- gfx $71C0-$75C0 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 57:4D5E: hl=$71C0 a=$56 c=$40 de=$9401 (dest VRAM $9400, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $71C0-$75C0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 57:4D5E: hl=$71C0 a=$56 c=$40 de=$9401 (dest VRAM $9400, vbank=1) [first call site executed: 3 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_ConnectDialog_PasswordSaved_Tiles9400Vb1:: ; 56:71C0
 Data_56_71C0::
