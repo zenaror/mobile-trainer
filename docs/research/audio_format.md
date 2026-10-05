@@ -403,7 +403,7 @@ The hash of the ROM changes, so work on a copy of the tree/branch and keep the r
 * Whether the set-1/set-2 pointers of the headers come from the authoring tool (loop point / end address) or are used by code that was never found: no reader was found in the driver (its only reads of header words are those of `SoundDrv_InitTrackRuntime`, through
   `wSoundDrv_HeaderPtr`; the CPU read watch of the 59 headers played on mGBA agrees); no search of the other banks for a reader was made.
 * Ids `$1E`-`$28` (eleven copies of song 1's record): no caller; only the sound-test screen (`engine/debug/sound_test.asm`, which nothing calls either) can request them, so they are not reachable in normal play.  `Sound_PlaySfx` is called with `$29`-`$46`
-  (no literal `$37`) and with `$48` only in the unreferenced `engine/unreferenced/page_list_prototype.asm`; the driver starts nothing for ids >= `$47`.  The literal ids of `Sound_PlayMusic*` cover `$01`-`$1D` except `$19` (computed ids not followed).
+  (no literal `$37`) and with `$48` only in the unreferenced `engine/unreferenced/page_list_prototype.asm`; the driver starts nothing for ids >= `$47`.  The literal ids of `Sound_PlayMusic*` cover `$01`-`$1D` except `$19`, which is requested through a table: `Notice_RequestPageSound` (65:4BA8) plays `Notice_PageSoundTable` (65:4BC6, entries `$09`, `$19`, `$13`) with `Sound_PlayMusicOrResume`; the only other computed ids are in the unreferenced sound-test screen.
 * Which songs/effects are which (the sound-test screen and callers give ids, not titles): the new names are by id only.
 
 ## 12. Differences from earlier notes
