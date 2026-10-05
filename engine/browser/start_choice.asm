@@ -437,19 +437,20 @@ BrowserStart_ShowDescription:: ; 73:62AA
 	jr nc, .loop
 	ld a, b
 	cp a, $01
-	call z, Function_73_62D2
+	call z, BrowserStart_DescIndex_AdjustItem1
 	ld a, b
 	cp a, $02
-	call z, Function_73_62DA
+	call z, BrowserStart_DescIndex_AdjustItem2
 	ld a, b
 	cp a, $03
-	call z, Function_73_62E2
+	call z, BrowserStart_DescIndex_AdjustItem3
 	ld hl, Data_BrowserStart_StringIndexBank
 	ld a, $73
 	farcall Ticker_Start
 	ret
 
-Function_73_62D2:: ; 73:62D2
+BrowserStart_DescIndex_AdjustItem1:: ; 73:62D2
+Function_73_62D2::
 	; [CONFIRMED] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 1;
 	; entered by callcc from 73:62B7 (executed) | 3 insn(s) executed; cut out of the PROBABLE region
 	; 62D2-62EF by apply_coverage --split [executed in 8 scenarios]
@@ -462,14 +463,16 @@ Function_73_62D2:: ; 73:62D2
 	ld b, $05
 	ret
 
-Function_73_62DA:: ; 73:62DA
+BrowserStart_DescIndex_AdjustItem2:: ; 73:62DA
+Function_73_62DA::
 	ld a, [wRam_C0F9]
 	or a, a
 	ret z
 	ld b, $06
 	ret
 
-Function_73_62E2:: ; 73:62E2
+BrowserStart_DescIndex_AdjustItem3:: ; 73:62E2
+Function_73_62E2::
 	ld a, $01
 	ld hl, $A9ED
 	call ReadByteFar

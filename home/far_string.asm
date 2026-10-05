@@ -59,7 +59,8 @@ Function_00_1586::
 	push de
 	farcall Settings_GetHiddenModeFlag
 
-Function_00_158D:: ; 00:158D
+Dial_CopySelectedNumber_AfterModeCheck:: ; 00:158D
+Function_00_158D::
 	; [CONFIRMED] continuation [reached via inferred links; raw refs 11] [executed in 1 scenarios]
 	or a, a
 	jr nz, .l15BD

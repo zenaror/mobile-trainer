@@ -6,7 +6,7 @@ SECTION "engine/tutorial/gates", ROMX
 
 Tutorial_GateHomepage:: ; 48:498C
 	; [CONFIRMED] 84 insn(s); 84 executed (in up to 17/18 scenarios) (part of region $48FE-$49A3)
-	farcall Function_48_48BB
+	farcall Stub_Nop_48_48BB
 	ld b, $00
 	ld a, $01
 	ld hl, $A881
@@ -55,7 +55,7 @@ Tutorial_GateHomepage:: ; 48:498C
 	ret
 
 Tutorial_GateMailMenu:: ; 48:49DB
-	farcall Function_48_48BB
+	farcall Stub_Nop_48_48BB
 	ld b, $00
 	ld a, $01
 	ld hl, $A89A
@@ -106,7 +106,7 @@ Tutorial_GateMailMenu:: ; 48:49DB
 	ret
 
 Tutorial_GateTopMenu:: ; 48:4A4E
-	farcall Function_48_48BB
+	farcall Stub_Nop_48_48BB
 	ld b, $00
 	ld a, $01
 	ld hl, $A89B

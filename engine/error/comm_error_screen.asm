@@ -14,7 +14,7 @@ Function_5C_5150::
 	ld bc, $00FC
 	ld hl, $C0D4
 	call FillBytes
-	farcall Function_48_48BB
+	farcall Stub_Nop_48_48BB
 	pop hl
 	ld a, h
 	ld [wCommErrCodeHi], a
@@ -106,7 +106,7 @@ CommErr_ShowScreen_Idle:: ; 5C:523B
 	call nz, CommErr_UpdateCommFooter
 	ldh a, [hJoyPressedRepeat]
 	and a, $F0
-	call nz, Function_5C_5266
+	call nz, Stub_Nop_5C_5266
 	jp CommErr_ShowScreen_FrameLoop
 
 CommErr_ShowScreen_ButtonA:: ; 5C:524C
@@ -125,7 +125,8 @@ CommErr_ShowScreen_ButtonA:: ; 5C:524C
 Label_5C_5264:: ; 5C:5264
 	jr CommErr_ShowScreen_FrameLoop
 
-Function_5C_5266:: ; 5C:5266
+Stub_Nop_5C_5266:: ; 5C:5266
+Function_5C_5266::
 	ret
 
 CommErr_DrawMessage:: ; 5C:5267

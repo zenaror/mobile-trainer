@@ -100,7 +100,8 @@ Boot_MainLoop:: ; 00:0328
 Label_00_0328::
 	farcall Main_Run
 
-Function_00_032E:: ; 00:032E
+Boot_MainLoop_Repeat:: ; 00:032E
+Function_00_032E::
 	; [CONFIRMED] continuation
 	jp Boot_MainLoop
 

@@ -28,7 +28,8 @@ CopyStringMax:: ; 00:14C6
 	jr nz, CopyStringMax
 	ret
 
-Function_00_14D1:: ; 00:14D1
+CopyStringMax_ZeroSrcOnEmpty:: ; 00:14D1
+Function_00_14D1::
 	; [CONFIRMED] like 14C6; when BC==0 writes a $00 at [HL] (source pointer) [reached via inferred
 	; links; raw refs 4] | 10 insn(s) executed; cut out of the PROBABLE region 14D1-14E0 by
 	; apply_coverage --split [executed in 2 scenarios]

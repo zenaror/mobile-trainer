@@ -377,7 +377,8 @@ Function_26_5168::
 	ld bc, $0000
 	ret
 
-Function_26_5343:: ; 26:5343
+Stub_Nop_26_5343:: ; 26:5343
+Function_26_5343::
 	ret
 
 ; ---- data $5344-$537C (56 bytes) [HYPOTHESIS] UNCLASSIFIED 56 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) [g4: complete self-contained decode ending in ret with no caller/table/far-pointer reference found, so left unclassified]
@@ -1150,7 +1151,7 @@ MailSession_UpdateTimerDisplay:: ; 26:58DC
 	push bc
 	push de
 	push hl
-	call Function_26_5343
+	call Stub_Nop_26_5343
 	xor a, a
 	ldh [rVBK], a
 	ldh a, [rSVBK]

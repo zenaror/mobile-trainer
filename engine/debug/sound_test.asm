@@ -29,7 +29,7 @@ SoundTest_Run:: ; 1B:4040
 	; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code |
 	; forced execution: 125/125 instruction starts ran in forced_debug (traces/forced/, not natural
 	; evidence; status unchanged)
-	farcall Function_48_48BB
+	farcall Stub_Nop_48_48BB
 	call LCDOff
 	ldh a, [rLCDC]
 	and a, $9F

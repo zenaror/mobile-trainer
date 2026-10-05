@@ -297,21 +297,22 @@ Function_00_1044::
 	ld l, b
 	ldh a, [hTextY]
 	cp a, $90
-	jr nc, Function_00_1079
+	jr nc, TextEngine_DrawWideGlyph_BlitRight
 	ld de, $C0B8
 	ld bc, $C0A0
 	xor a, a
 	farcall Glyph_LoadWide
 
-Function_00_1059:: ; 00:1059
+TextEngine_DrawWideGlyph_BlitLeft:: ; 00:1059
+Function_00_1059::
 	; [CONFIRMED] continuation of Function_00_1028 | inline far pointer: FarCall at 1073: dw $42C3 ;
 	; db $7F -> 7F:42C3
 	ldh a, [hTextX + 1]
 	or a, a
-	jr nz, Function_00_1079
+	jr nz, TextEngine_DrawWideGlyph_BlitRight
 	ldh a, [hTextX]
 	cp a, $A0
-	jr nc, Function_00_1079
+	jr nc, TextEngine_DrawWideGlyph_BlitRight
 	ldh a, [hRam_FFBA]
 	ld b, a
 	ldh a, [hRam_FFBB]
@@ -323,7 +324,8 @@ Function_00_1059:: ; 00:1059
 	ld hl, $C0A0
 	farcall Canvas_BlitGlyph
 
-Function_00_1079:: ; 00:1079
+TextEngine_DrawWideGlyph_BlitRight:: ; 00:1079
+Function_00_1079::
 	; [CONFIRMED] continuation of Function_00_1028 | inline far pointer: FarCall at 109D: dw $42C3 ;
 	; db $7F -> 7F:42C3
 	ldh a, [hTextX]
@@ -333,13 +335,13 @@ Function_00_1079:: ; 00:1079
 	ldh a, [hTextX + 1]
 	adc a, $00
 	ldh [hTextX + 1], a
-	jr nz, Function_00_10A3
+	jr nz, TextEngine_DrawWideGlyph_AdvanceX
 	ld a, e
 	cp a, $A0
-	jr nc, Function_00_10A3
+	jr nc, TextEngine_DrawWideGlyph_AdvanceX
 	ldh a, [hTextY]
 	cp a, $90
-	jr nc, Function_00_10A3
+	jr nc, TextEngine_DrawWideGlyph_AdvanceX
 	ld d, a
 	ldh a, [hRam_FFBA]
 	ld b, a
@@ -348,7 +350,8 @@ Function_00_1079:: ; 00:1079
 	ld hl, $C0B8
 	farcall Canvas_BlitGlyph
 
-Function_00_10A3:: ; 00:10A3
+TextEngine_DrawWideGlyph_AdvanceX:: ; 00:10A3
+Function_00_10A3::
 	; [CONFIRMED] continuation
 	ldh a, [hTextX]
 	add a, $06
@@ -366,14 +369,15 @@ Function_00_10B1::
 	ld b, c
 	ldh a, [hTextX + 1]
 	or a, a
-	jr nz, Function_00_10DB
+	jr nz, TextEngine_DrawNarrowGlyph_AdvanceX
 	ldh a, [hTextX]
 	cp a, $A0
-	jr nc, Function_00_10DB
+	jr nc, TextEngine_DrawNarrowGlyph_AdvanceX
 	ld de, $C0A0
 	farcall Glyph_LoadAscii
 
-Function_00_10C6:: ; 00:10C6
+TextEngine_DrawNarrowGlyph_Blit:: ; 00:10C6
+Function_00_10C6::
 	; [CONFIRMED] continuation of Function_00_10B1 | inline far pointer: FarCall at 10D5: dw $42C3 ;
 	; db $7F -> 7F:42C3
 	ldh a, [hRam_FFBA]
@@ -387,7 +391,8 @@ Function_00_10C6:: ; 00:10C6
 	ld hl, $C0A0
 	farcall Canvas_BlitGlyph
 
-Function_00_10DB:: ; 00:10DB
+TextEngine_DrawNarrowGlyph_AdvanceX:: ; 00:10DB
+Function_00_10DB::
 	; [CONFIRMED] continuation
 	ldh a, [hTextX]
 	add a, $06

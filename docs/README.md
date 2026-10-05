@@ -95,6 +95,7 @@ Naming passes (names with evidence, HYPOTHESES kept under neutral names, open qu
 * `audio2_verify_static.md` (code and data read, no emulation; scripts in `../analysis/audio2_verify/`) and `audio2_verify_dynamic.md` (the ROM's own driver on mGBA with the real songs and synthetic streams; harness `../tools/trace/apu_probe.c`, scripts `../tools/trace/audio2_*.py`,
   results and `reproduce.sh` in `../analysis/audio2_verify_dyn/`) - adversarial verification of the audio pass 2 and its names; the corrections they found are applied in `audio_format.md` (section 12).
 * `naming2_ram2.md`, `naming2_data2.md` - RAM and data-label naming passes; `naming2_verify_ram2.md`, `naming2_verify_data2a.md`, `naming2_verify_data2b.md` - their adversarial verification (status corrections live there).
+* `naming2_fn4.md` - naming pass 4: the residual neutral `Function_*` labels (30 named, 29 left neutral with the reasons); `naming2_verify_fn4.md` - its independent verification (the corrections are merged into `analysis/naming2/fn4_renames.tsv`).
 
 ## Translation and previews
 

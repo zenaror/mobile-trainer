@@ -12,7 +12,7 @@ Function_7F_4C78::
 	; natural evidence; status unchanged)
 	farcall Sprite_ResetAll
 	call Canvas_InitScreen
-	call Function_7F_4E85
+	call Canvas_UploadToVramWrapper
 .l4C84 ; 7F:4C84
 	call Canvas_DrawSampleRows
 .l4C87 ; 7F:4C87
@@ -336,7 +336,8 @@ String_7F_4E6A::
 	db "サンプルデータですからね～", 0
 POPC
 
-Function_7F_4E85:: ; 7F:4E85
+Canvas_UploadToVramWrapper:: ; 7F:4E85
+Function_7F_4E85::
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: site x2; min discovery hops 1;
 	; entered by call from 7F:4C81 (PROBABLE code) | forced execution: 2/2 instruction starts ran in
 	; forced_screens (traces/forced/, not natural evidence; status unchanged)
@@ -1704,7 +1705,7 @@ Function_7F_591E::
 PageListProto_ActionMenu:: ; 7F:5989
 Function_7F_5989::
 	call PageListProto_ActionMenuInit
-	call Function_7F_61E7
+	call Stub_Nop_7F_61E7
 	ld b, $00
 .loop ; 7F:5991
 	push bc
@@ -1849,7 +1850,7 @@ Function_7F_5989::
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
-	call nz, Function_7F_61E6
+	call nz, Stub_Nop_7F_61E6 ; never taken: ldh sets no flags, Z is the one the farcall left (naming2_verify_fn4.md)
 	ldh a, [hJoyPressed]
 	and a, $01
 	jr z, .l5B2D
@@ -2821,10 +2822,12 @@ Function_7F_5FBC::
 	ld a, $FF
 	ret
 
-Function_7F_61E6:: ; 7F:61E6
+Stub_Nop_7F_61E6:: ; 7F:61E6
+Function_7F_61E6::
 	ret
 
-Function_7F_61E7:: ; 7F:61E7
+Stub_Nop_7F_61E7:: ; 7F:61E7
+Function_7F_61E7::
 	ret
 
 	; [HYPOTHESIS] complete small function (ld a,7 ; ldh [hFF8D],a ; ldh [hFF70],a ; xor a ; ld

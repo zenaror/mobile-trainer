@@ -18,7 +18,7 @@ Debug_ErrorScreenTest:: ; 19:4980
 	; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code |
 	; forced execution: 123/123 instruction starts ran in forced_debug (traces/forced/, not natural
 	; evidence; status unchanged)
-	farcall Function_48_48BB
+	farcall Stub_Nop_48_48BB
 
 Label_19_4990:: ; 19:4990
 	ldh a, [rLCDC]

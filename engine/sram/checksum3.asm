@@ -1,6 +1,6 @@
 ; engine/sram/checksum3.asm
 ; bank 48, $4899-$498C (243 bytes); pinned by layout.link
-; SRAM checksum 3 (verify/compute/reset/update) and the patched-out 48BB hook
+; SRAM checksum 3 (verify/compute/reset/update) and the one-ret stub Stub_Nop_48_48BB (13 farcall sites at screen entries)
 
 SECTION "engine/sram/checksum3", ROMX
 
@@ -33,7 +33,8 @@ Function_48_4899::
 	ld a, $FF
 	ret
 
-Function_48_48BB:: ; 48:48BB
+Stub_Nop_48_48BB:: ; 48:48BB
+Function_48_48BB::
 	; [CONFIRMED] 1 insn(s); 1 executed (in up to 15/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ret
