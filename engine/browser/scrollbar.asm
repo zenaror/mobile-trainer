@@ -303,7 +303,7 @@ Function_4E_5CB6::
 	ld b, $98
 	ld c, $03
 	farcall Gfx_StartHDMAWithService
-	ld hl, $DA90
+	ld hl, wSpriteSlot9
 	ld de, $7858
 	ld a, $72
 	ld b, $83
@@ -322,7 +322,7 @@ Function_4E_5CB6::
 	ld b, $98
 	ld c, $03
 	farcall Gfx_StartHDMAWithService
-	ld hl, $DA90
+	ld hl, wSpriteSlot9
 	ld de, $7858
 	ld a, $72
 	ld b, $84
@@ -344,7 +344,7 @@ Function_4E_5CB6::
 	ld b, $98
 	ld c, $03
 	farcall Gfx_StartHDMAWithService
-	ld hl, $DA90
+	ld hl, wSpriteSlot9
 	ld de, $7858
 	ld a, $72
 	ld b, $81
@@ -353,7 +353,7 @@ Function_4E_5CB6::
 .l5D66 ; 4E:5D66
 	; [CONFIRMED] 4 insn(s); 4 executed (in up to 2/18 scenarios)
 	ld de, $18A0
-	ld hl, $DA90
+	ld hl, wSpriteSlot9
 	call Sprite_SetPosition
 	ret
 
@@ -445,7 +445,7 @@ Function_4E_5D70::
 	ld de, $010F
 	farcall Tilemap_FillAscendingWithAttr
 	ld de, $18A0
-	ld hl, $DA90
+	ld hl, wSpriteSlot9
 	call Sprite_SetPosition
 	ret
 
@@ -527,7 +527,7 @@ Browser_UpdateScrollThumb:: ; 4E:5E5B
 	ld c, a
 	ld a, [hli]
 	ld b, a
-	ld hl, $DA90
+	ld hl, wSpriteSlot9
 	ld de, $0058
 	ld a, $07
 	ldh [rSVBK], a
@@ -579,11 +579,11 @@ Browser_UpdateScrollThumb:: ; 4E:5E5B
 
 Browser_DrawScrollIndicators:: ; 4E:5EC0
 	ld de, $18A0
-	ld hl, $DA90
+	ld hl, wSpriteSlot9
 	call Sprite_SetPosition
-	ld hl, $DAA0
+	ld hl, wSpriteSlot10
 	call Sprite_ClearSlot
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	call Sprite_ClearSlot
 	farcall Browser_UpdateScrollThumb
 	ldh a, [hViewScrollMax]
@@ -612,7 +612,7 @@ Browser_DrawScrollIndicators:: ; 4E:5EC0
 	ld a, [wBrowserFrameStyle]
 	cp a, $02
 	jr z, .l5F46
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	ld de, BrowserShared_ObjTable
 	ld a, $72
 	ld b, $86
@@ -635,13 +635,13 @@ Browser_DrawScrollIndicators:: ; 4E:5EC0
 	ld a, [hli]
 	ld e, a
 	ld d, [hl]
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	jp Sprite_SetPosition
 
 .l5F34 ; 4E:5F34
 	; [CONFIRMED] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1;
 	; entered by jrcc from 4E:5EFC (executed) [executed in 1 scenarios]
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	ld de, BrowserShared_ObjTable
 	ld a, $72
 	ld b, $89
@@ -650,7 +650,7 @@ Browser_DrawScrollIndicators:: ; 4E:5EC0
 
 .l5F46 ; 4E:5F46
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	ld de, BrowserShared_ObjTable
 	ld a, $72
 	ld b, $8B
@@ -666,7 +666,7 @@ Browser_ShowUpArrow:: ; 4E:5F58
 	ld a, [wBrowserFrameStyle]
 	cp a, $02
 	jr z, .l5FA7
-	ld hl, $DAA0
+	ld hl, wSpriteSlot10
 	ld de, BrowserShared_ObjTable
 	ld a, $72
 	ld b, $85
@@ -689,17 +689,17 @@ Browser_ShowUpArrow:: ; 4E:5F58
 	ld a, [hli]
 	ld e, a
 	ld d, [hl]
-	ld hl, $DAA0
+	ld hl, wSpriteSlot10
 	jp Sprite_SetPosition
 .l5F95 ; 4E:5F95
-	ld hl, $DAA0
+	ld hl, wSpriteSlot10
 	ld de, BrowserShared_ObjTable
 	ld a, $72
 	ld b, $88
 	farcall Sprite_InitSlot
 	jr .loop
 .l5FA7 ; 4E:5FA7
-	ld hl, $DAA0
+	ld hl, wSpriteSlot10
 	ld de, BrowserShared_ObjTable
 	ld a, $72
 	ld b, $8A

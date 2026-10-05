@@ -53,12 +53,12 @@ NoAdapter_DrawScreen:: ; 63:7342
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, NoAdapter_Palette_Bg
 	ld a, $63
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, $72D0
 	ld a, $63
 	farcall Palette_LoadToBuffer
@@ -69,13 +69,13 @@ NoAdapter_DrawScreen:: ; 63:7342
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	ld de, NoAdapter_ObjTable
 	ld a, $63
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2040
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	call Sprite_SetPosition
 	farcall Sprite_UpdateAll
 	call VBlank_WaitAndService

@@ -530,7 +530,7 @@ Function_7F_5011::
 .l5091 ; 7F:5091
 	xor a, a
 	ld [wBrowserFetchResult], a
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	call Sprite_ClearSlot
 	ld de, $0110
 	farcall Dialog_Open
@@ -746,13 +746,13 @@ Function_7F_51EE::
 	ld b, $94
 	ld c, $29
 	farcall Gfx_StartHDMAWithService
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $6DC0
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6000
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld bc, $1214
 	ld de, $D000
@@ -763,12 +763,12 @@ Function_7F_51EE::
 	call Gfx_UploadBgMapBuffers
 	di
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, PageListProto_ObjPalette
 	ld a, $7F
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, PageListProto_BgPalette
 	ld a, $7F
 	farcall Palette_LoadToBuffer
@@ -831,32 +831,32 @@ Function_7F_530F::
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	pop af
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $6DF0
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $6DF0
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $6DF0
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $6DF0
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $6DF0
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $6DF0
 	ld a, $7F
 	ld b, $81
@@ -869,7 +869,7 @@ Function_7F_530F::
 	ld a, [de]
 	cp a, $00
 	jr z, .l53A2
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $6DE0
 	ld a, $7F
 	ld b, $81
@@ -883,7 +883,7 @@ Function_7F_530F::
 	ld a, [de]
 	cp a, $00
 	jr z, .l53BE
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $6DE0
 	ld a, $7F
 	ld b, $81
@@ -897,7 +897,7 @@ Function_7F_530F::
 	ld a, [de]
 	cp a, $00
 	jr z, .l53DA
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $6DE0
 	ld a, $7F
 	ld b, $81
@@ -911,7 +911,7 @@ Function_7F_530F::
 	ld a, [de]
 	cp a, $00
 	jr z, .l53F6
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $6DE0
 	ld a, $7F
 	ld b, $81
@@ -925,7 +925,7 @@ Function_7F_530F::
 	ld a, [de]
 	cp a, $00
 	jr z, .l5412
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $6DE0
 	ld a, $7F
 	ld b, $81
@@ -939,31 +939,31 @@ Function_7F_530F::
 	ld a, [de]
 	cp a, $00
 	jr z, .l542E
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $6DE0
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
 .l542E ; 7F:542E
 	ld a, $16
-	ld [wSpriteSlots + 16], a
+	ld [wSpriteSlot1], a
 	ld a, $22
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot2], a
 	ld a, $2E
-	ld [wSpriteSlots + 48], a
+	ld [wSpriteSlot3], a
 	ld a, $3A
-	ld [wSpriteSlots + 64], a
+	ld [wSpriteSlot4], a
 	ld a, $46
-	ld [wSpriteSlots + 80], a
+	ld [wSpriteSlot5], a
 	ld a, $52
-	ld [wSpriteSlots + 96], a
+	ld [wSpriteSlot6], a
 	ld a, $05
-	ld [wSpriteSlots + 17], a
-	ld [wSpriteSlots + 33], a
-	ld [wSpriteSlots + 49], a
-	ld [wSpriteSlots + 65], a
-	ld [wSpriteSlots + 81], a
-	ld [wSpriteSlots + 97], a
+	ld [wSpriteSlot1 + $01], a
+	ld [wSpriteSlot2 + $01], a
+	ld [wSpriteSlot3 + $01], a
+	ld [wSpriteSlot4 + $01], a
+	ld [wSpriteSlot5 + $01], a
+	ld [wSpriteSlot6 + $01], a
 	push af
 	xor a, a
 	ldh [hSRAMEnable], a
@@ -997,26 +997,26 @@ Function_7F_546A::
 	ld a, [de]
 	cp a, $00
 	jr z, .l54AE
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $6DC0
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $16
-	ld [wSpriteSlots + 16], a
+	ld [wSpriteSlot1], a
 	ld a, $05
-	ld [wSpriteSlots + 17], a
+	ld [wSpriteSlot1 + $01], a
 	jp .l563D
 .l54AE ; 7F:54AE
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $6DD0
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $16
-	ld [wSpriteSlots + 16], a
+	ld [wSpriteSlot1], a
 	ld a, $05
-	ld [wSpriteSlots + 17], a
+	ld [wSpriteSlot1 + $01], a
 	jp .l563D
 .l54CB ; 7F:54CB
 	inc a
@@ -1030,26 +1030,26 @@ Function_7F_546A::
 	ld a, [de]
 	cp a, $00
 	jr z, .l54F8
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $6DC0
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $22
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot2], a
 	ld a, $05
-	ld [wSpriteSlots + 33], a
+	ld [wSpriteSlot2 + $01], a
 	jp .l563D
 .l54F8 ; 7F:54F8
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $6DD0
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $22
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot2], a
 	ld a, $05
-	ld [wSpriteSlots + 33], a
+	ld [wSpriteSlot2 + $01], a
 	jp .l563D
 .l5515 ; 7F:5515
 	inc a
@@ -1063,26 +1063,26 @@ Function_7F_546A::
 	ld a, [de]
 	cp a, $00
 	jr z, .l5542
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $6DC0
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $2E
-	ld [wSpriteSlots + 48], a
+	ld [wSpriteSlot3], a
 	ld a, $05
-	ld [wSpriteSlots + 49], a
+	ld [wSpriteSlot3 + $01], a
 	jp .l563D
 .l5542 ; 7F:5542
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $6DD0
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $2E
-	ld [wSpriteSlots + 48], a
+	ld [wSpriteSlot3], a
 	ld a, $05
-	ld [wSpriteSlots + 49], a
+	ld [wSpriteSlot3 + $01], a
 	jp .l563D
 .l555F ; 7F:555F
 	inc a
@@ -1096,26 +1096,26 @@ Function_7F_546A::
 	ld a, [de]
 	cp a, $00
 	jr z, .l558C
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $6DC0
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $3A
-	ld [wSpriteSlots + 64], a
+	ld [wSpriteSlot4], a
 	ld a, $05
-	ld [wSpriteSlots + 65], a
+	ld [wSpriteSlot4 + $01], a
 	jp .l563D
 .l558C ; 7F:558C
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $6DD0
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $3A
-	ld [wSpriteSlots + 64], a
+	ld [wSpriteSlot4], a
 	ld a, $05
-	ld [wSpriteSlots + 65], a
+	ld [wSpriteSlot4 + $01], a
 	jp .l563D
 .l55A9 ; 7F:55A9
 	inc a
@@ -1129,26 +1129,26 @@ Function_7F_546A::
 	ld a, [de]
 	cp a, $00
 	jr z, .l55D6
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $6DC0
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $46
-	ld [wSpriteSlots + 80], a
+	ld [wSpriteSlot5], a
 	ld a, $05
-	ld [wSpriteSlots + 81], a
+	ld [wSpriteSlot5 + $01], a
 	jp .l563D
 .l55D6 ; 7F:55D6
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $6DD0
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $46
-	ld [wSpriteSlots + 80], a
+	ld [wSpriteSlot5], a
 	ld a, $05
-	ld [wSpriteSlots + 81], a
+	ld [wSpriteSlot5 + $01], a
 	jp .l563D
 .l55F3 ; 7F:55F3
 	inc a
@@ -1162,26 +1162,26 @@ Function_7F_546A::
 	ld a, [de]
 	cp a, $00
 	jr z, .l5620
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $6DC0
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $52
-	ld [wSpriteSlots + 96], a
+	ld [wSpriteSlot6], a
 	ld a, $05
-	ld [wSpriteSlots + 97], a
+	ld [wSpriteSlot6 + $01], a
 	jp .l563D
 .l5620 ; 7F:5620
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $6DD0
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $52
-	ld [wSpriteSlots + 96], a
+	ld [wSpriteSlot6], a
 	ld a, $05
-	ld [wSpriteSlots + 97], a
+	ld [wSpriteSlot6 + $01], a
 	jp .l563D
 .l563D ; 7F:563D
 	push af
@@ -1773,7 +1773,7 @@ Function_7F_5989::
 	xor a, a
 	ld [wBrowserFetchResult], a
 	farcall Sprites_SaveSlotsToBank3
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	call Sprite_ClearSlot
 	ld de, $0110
 	push af
@@ -1983,36 +1983,36 @@ Function_7F_5BB5::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $DA80
+	ld hl, wSpriteSlot8
 	ld de, $6E00
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $57
-	ld [wSpriteSlots + 128], a
+	ld [wSpriteSlot8], a
 	ld a, $1F
-	ld [wSpriteSlots + 129], a
-	ld hl, $DA70
+	ld [wSpriteSlot8 + $01], a
+	ld hl, wSpriteSlot7
 	ld de, PageListProto_ObjTable
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6000
-	ld hl, $DA70
+	ld hl, wSpriteSlot7
 	call Sprite_SetPosition
 	ld a, $F2
-	ld [wSpriteSlots + 113], a
+	ld [wSpriteSlot7 + $01], a
 	ld a, $66
-	ld [wSpriteSlots + 112], a
+	ld [wSpriteSlot7], a
 .loop ; 7F:5BF9
-	ld a, [wSpriteSlots + 113]
+	ld a, [wSpriteSlot7 + $01]
 	inc a
 	inc a
 	inc a
 	inc a
 	cp a, $22
 	jr z, .l5C09
-	ld [wSpriteSlots + 113], a
+	ld [wSpriteSlot7 + $01], a
 	jr .loop
 .l5C09 ; 7F:5C09
 	pop bc
@@ -2030,9 +2030,9 @@ Function_7F_5C13::
 	ldh [rSVBK], a
 	push bc
 	ld a, $E8
-	ld [wSpriteSlots + 129], a
+	ld [wSpriteSlot8 + $01], a
 	farcall Sprite_UpdateAll
-	ld a, [wSpriteSlots + 113]
+	ld a, [wSpriteSlot7 + $01]
 	inc a
 	inc a
 	inc a
@@ -2043,7 +2043,7 @@ Function_7F_5C13::
 	inc a
 	cp a, $AE
 	ld a, $AE
-	ld [wSpriteSlots + 113], a
+	ld [wSpriteSlot7 + $01], a
 	pop bc
 	ret
 
@@ -2056,51 +2056,51 @@ Function_7F_5C39::
 	ld a, $00
 	cp a, b
 	jr nz, .l5C66
-	ld hl, $DA80
+	ld hl, wSpriteSlot8
 	ld de, $6E00
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $57
-	ld [wSpriteSlots + 128], a
+	ld [wSpriteSlot8], a
 	ld a, $1F
-	ld [wSpriteSlots + 129], a
+	ld [wSpriteSlot8 + $01], a
 	ld a, $1E
-	ld [wSpriteSlots + 113], a
+	ld [wSpriteSlot7 + $01], a
 	pop bc
 	ret
 .l5C66 ; 7F:5C66
 	ld a, $01
 	cp a, b
 	jr nz, .l5C8C
-	ld hl, $DA80
+	ld hl, wSpriteSlot8
 	ld de, $6E10
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $57
-	ld [wSpriteSlots + 128], a
+	ld [wSpriteSlot8], a
 	ld a, $46
-	ld [wSpriteSlots + 129], a
+	ld [wSpriteSlot8 + $01], a
 	ld a, $46
-	ld [wSpriteSlots + 113], a
+	ld [wSpriteSlot7 + $01], a
 	pop bc
 	ret
 .l5C8C ; 7F:5C8C
 	ld a, $02
 	cp a, b
 	jr nz, .l5CB2
-	ld hl, $DA80
+	ld hl, wSpriteSlot8
 	ld de, $6E20
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $57
-	ld [wSpriteSlots + 128], a
+	ld [wSpriteSlot8], a
 	ld a, $71
-	ld [wSpriteSlots + 129], a
+	ld [wSpriteSlot8 + $01], a
 	ld a, $6E
-	ld [wSpriteSlots + 113], a
+	ld [wSpriteSlot7 + $01], a
 	pop bc
 	ret
 .l5CB2 ; 7F:5CB2
@@ -2220,16 +2220,16 @@ Function_7F_5D0A::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wSpriteSlots + 81]
+	ld a, [wSpriteSlot5 + $01]
 	ld c, a
 	ld a, $C0
-	ld [wSpriteSlots + 81], a
-	ld [wSpriteSlots + 97], a
-	ld a, [wSpriteSlots + 112]
+	ld [wSpriteSlot5 + $01], a
+	ld [wSpriteSlot6 + $01], a
+	ld a, [wSpriteSlot7]
 	ld b, a
 	ld a, $C0
-	ld [wSpriteSlots + 112], a
-	ld [wSpriteSlots + 128], a
+	ld [wSpriteSlot7], a
+	ld [wSpriteSlot8], a
 	push bc
 	ld de, $0104
 	push af
@@ -2266,12 +2266,12 @@ Function_7F_5D0A::
 	ld [wSpriteSlots + 112], a
 	sub a, $10
 	ld [wSpriteSlots + 128], a
-	ld hl, $DA70
+	ld hl, wSpriteSlot7
 	ld de, PageListProto_ObjTable
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
-	ld hl, $DA80
+	ld hl, wSpriteSlot8
 	ld de, $6E10
 	ld a, $7F
 	ld b, $81
@@ -2312,7 +2312,7 @@ Function_7F_5D0A::
 	ld a, c
 	cp a, $00
 	jr nz, .l5E2F
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $6E30
 	ld a, $7F
 	ld b, $01
@@ -2321,14 +2321,14 @@ Function_7F_5D0A::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $16
-	ld [wSpriteSlots + 16], a
+	ld [wSpriteSlot1], a
 	ld a, $05
-	ld [wSpriteSlots + 17], a
+	ld [wSpriteSlot1 + $01], a
 	jp .l5EF2
 .l5E2F ; 7F:5E2F
 	cp a, $01
 	jr nz, .l5E56
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $6E30
 	ld a, $7F
 	ld b, $01
@@ -2337,14 +2337,14 @@ Function_7F_5D0A::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $22
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot2], a
 	ld a, $05
-	ld [wSpriteSlots + 33], a
+	ld [wSpriteSlot2 + $01], a
 	jp .l5EF2
 .l5E56 ; 7F:5E56
 	cp a, $02
 	jr nz, .l5E7D
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $6E30
 	ld a, $7F
 	ld b, $01
@@ -2353,14 +2353,14 @@ Function_7F_5D0A::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $2E
-	ld [wSpriteSlots + 48], a
+	ld [wSpriteSlot3], a
 	ld a, $05
-	ld [wSpriteSlots + 49], a
+	ld [wSpriteSlot3 + $01], a
 	jp .l5EF2
 .l5E7D ; 7F:5E7D
 	cp a, $03
 	jr nz, .l5EA4
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $6E30
 	ld a, $7F
 	ld b, $01
@@ -2369,14 +2369,14 @@ Function_7F_5D0A::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $3A
-	ld [wSpriteSlots + 64], a
+	ld [wSpriteSlot4], a
 	ld a, $05
-	ld [wSpriteSlots + 65], a
+	ld [wSpriteSlot4 + $01], a
 	jp .l5EF2
 .l5EA4 ; 7F:5EA4
 	cp a, $04
 	jr nz, .l5ECB
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $6E30
 	ld a, $7F
 	ld b, $01
@@ -2385,14 +2385,14 @@ Function_7F_5D0A::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $46
-	ld [wSpriteSlots + 80], a
+	ld [wSpriteSlot5], a
 	ld a, $05
-	ld [wSpriteSlots + 81], a
+	ld [wSpriteSlot5 + $01], a
 	jp .l5EF2
 .l5ECB ; 7F:5ECB
 	cp a, $05
 	jr nz, .l5EF2
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $6E30
 	ld a, $7F
 	ld b, $01
@@ -2401,9 +2401,9 @@ Function_7F_5D0A::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $52
-	ld [wSpriteSlots + 96], a
+	ld [wSpriteSlot6], a
 	ld a, $05
-	ld [wSpriteSlots + 97], a
+	ld [wSpriteSlot6 + $01], a
 	jp .l5EF2
 .l5EF2 ; 7F:5EF2
 	pop bc
@@ -2585,16 +2585,16 @@ Function_7F_5FBC::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wSpriteSlots + 81]
+	ld a, [wSpriteSlot5 + $01]
 	ld c, a
 	ld a, $C0
-	ld [wSpriteSlots + 81], a
-	ld [wSpriteSlots + 97], a
-	ld a, [wSpriteSlots + 112]
+	ld [wSpriteSlot5 + $01], a
+	ld [wSpriteSlot6 + $01], a
+	ld a, [wSpriteSlot7]
 	ld b, a
 	ld a, $C0
-	ld [wSpriteSlots + 112], a
-	ld [wSpriteSlots + 128], a
+	ld [wSpriteSlot7], a
+	ld [wSpriteSlot8], a
 	push bc
 	ld de, $0103
 	push af
@@ -2631,7 +2631,7 @@ Function_7F_5FBC::
 	ld [wSpriteSlots + 112], a
 	sub a, $10
 	ld [wSpriteSlots + 128], a
-	ld hl, $DA70
+	ld hl, wSpriteSlot7
 	ld de, PageListProto_ObjTable
 	ld a, $7F
 	ld b, $81
@@ -2640,13 +2640,13 @@ Function_7F_5FBC::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $57
-	ld [wSpriteSlots + 128], a
+	ld [wSpriteSlot8], a
 	ld a, $71
-	ld [wSpriteSlots + 129], a
+	ld [wSpriteSlot8 + $01], a
 	ld a, $66
-	ld [wSpriteSlots + 112], a
+	ld [wSpriteSlot7], a
 	ld a, $6E
-	ld [wSpriteSlots + 113], a
+	ld [wSpriteSlot7 + $01], a
 	call PageListProto_UpdateRowSprites
 	pop af
 	pop de
@@ -2670,7 +2670,7 @@ Function_7F_5FBC::
 	ld a, c
 	cp a, $00
 	jr nz, .l60CA
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $6E40
 	ld a, $7F
 	ld b, $01
@@ -2679,14 +2679,14 @@ Function_7F_5FBC::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $16
-	ld [wSpriteSlots + 16], a
+	ld [wSpriteSlot1], a
 	ld a, $05
-	ld [wSpriteSlots + 17], a
+	ld [wSpriteSlot1 + $01], a
 	jp .l618D
 .l60CA ; 7F:60CA
 	cp a, $01
 	jr nz, .l60F1
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $6E40
 	ld a, $7F
 	ld b, $01
@@ -2695,14 +2695,14 @@ Function_7F_5FBC::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $22
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot2], a
 	ld a, $05
-	ld [wSpriteSlots + 33], a
+	ld [wSpriteSlot2 + $01], a
 	jp .l618D
 .l60F1 ; 7F:60F1
 	cp a, $02
 	jr nz, .l6118
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $6E40
 	ld a, $7F
 	ld b, $01
@@ -2711,14 +2711,14 @@ Function_7F_5FBC::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $2E
-	ld [wSpriteSlots + 48], a
+	ld [wSpriteSlot3], a
 	ld a, $05
-	ld [wSpriteSlots + 49], a
+	ld [wSpriteSlot3 + $01], a
 	jp .l618D
 .l6118 ; 7F:6118
 	cp a, $03
 	jr nz, .l613F
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $6E40
 	ld a, $7F
 	ld b, $01
@@ -2727,14 +2727,14 @@ Function_7F_5FBC::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $3A
-	ld [wSpriteSlots + 64], a
+	ld [wSpriteSlot4], a
 	ld a, $05
-	ld [wSpriteSlots + 65], a
+	ld [wSpriteSlot4 + $01], a
 	jp .l618D
 .l613F ; 7F:613F
 	cp a, $04
 	jr nz, .l6166
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $6E40
 	ld a, $7F
 	ld b, $01
@@ -2743,14 +2743,14 @@ Function_7F_5FBC::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $46
-	ld [wSpriteSlots + 80], a
+	ld [wSpriteSlot5], a
 	ld a, $05
-	ld [wSpriteSlots + 81], a
+	ld [wSpriteSlot5 + $01], a
 	jp .l618D
 .l6166 ; 7F:6166
 	cp a, $05
 	jr nz, .l618D
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $6E40
 	ld a, $7F
 	ld b, $01
@@ -2759,9 +2759,9 @@ Function_7F_5FBC::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $52
-	ld [wSpriteSlots + 96], a
+	ld [wSpriteSlot6], a
 	ld a, $05
-	ld [wSpriteSlots + 97], a
+	ld [wSpriteSlot6 + $01], a
 	jp .l618D
 .l618D ; 7F:618D
 	pop bc

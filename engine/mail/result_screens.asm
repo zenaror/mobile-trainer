@@ -24,13 +24,13 @@ Function_29_4000::
 	pop af
 	farcall Stat_EnableScrollSplit
 	call MailResult_InitScreen
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, MailResult_ObjTable
 	ld a, $24
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3038
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 .loop ; 29:403C
 	push bc
@@ -75,12 +75,12 @@ MailResult_InitScreen:: ; 29:407A
 	and a, $DB
 	ldh [rLCDC], a
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, MailResult_BgPalette
 	ld a, $24
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, MailResult_ObjPalette
 	ld a, $24
 	farcall Palette_LoadToBuffer
@@ -116,13 +116,13 @@ MailResult_InitScreen:: ; 29:407A
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	farcall LCDOn
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $7B30
 	ld a, $24
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3038
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	farcall Sprite_UpdateAll
 	push bc
@@ -369,13 +369,13 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	dec a
 	cp a, $01
 	jr nz, .l4399
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7B40
 	ld a, $24
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3035
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	jp .l44F2
 .l4399 ; 29:4399
@@ -384,13 +384,13 @@ MailResult_SetReceivedSprite:: ; 29:4374
 
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4374-44F6 by apply_coverage --split
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7B50
 	ld a, $24
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3035
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	jp .l44F2
 
@@ -399,25 +399,25 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	; --split [executed in 1 scenarios]
 	cp a, $03
 	jr nz, .l43D9
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7B60
 	ld a, $24
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3035
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	jp .l44F2
 .l43D9 ; 29:43D9
 	cp a, $04
 	jr nz, .l43F9
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7B70
 	ld a, $24
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3035
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	jp .l44F2
 .l43F9 ; 29:43F9
@@ -426,13 +426,13 @@ MailResult_SetReceivedSprite:: ; 29:4374
 
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4374-44F6 by apply_coverage --split
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7B80
 	ld a, $24
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3035
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	jp .l44F2
 
@@ -444,13 +444,13 @@ MailResult_SetReceivedSprite:: ; 29:4374
 
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4374-44F6 by apply_coverage --split
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7B90
 	ld a, $24
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3035
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	jp .l44F2
 
@@ -462,13 +462,13 @@ MailResult_SetReceivedSprite:: ; 29:4374
 
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4374-44F6 by apply_coverage --split
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7BA0
 	ld a, $24
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3035
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	jp .l44F2
 
@@ -477,13 +477,13 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	; --split [executed in 1 scenarios]
 	cp a, $08
 	jr nz, .l4479
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7BB0
 	ld a, $24
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3035
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	jp .l44F2
 .l4479 ; 29:4479
@@ -492,13 +492,13 @@ MailResult_SetReceivedSprite:: ; 29:4374
 
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4374-44F6 by apply_coverage --split
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7BC0
 	ld a, $24
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3035
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	jp .l44F2
 
@@ -510,13 +510,13 @@ MailResult_SetReceivedSprite:: ; 29:4374
 
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4374-44F6 by apply_coverage --split
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7BD0
 	ld a, $24
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3037
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	jp .l44F2
 
@@ -528,26 +528,26 @@ MailResult_SetReceivedSprite:: ; 29:4374
 
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4374-44F6 by apply_coverage --split
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7BE0
 	ld a, $24
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3037
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	jp .l44F2
 
 .l44D9 ; 29:44D9
 	; [CONFIRMED] 12 insn(s) executed; cut out of the PROBABLE region 4374-44F6 by apply_coverage
 	; --split [executed in 1 scenarios]
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7BF0
 	ld a, $24
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3037
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 .l44F2 ; 29:44F2
 	pop hl
@@ -748,7 +748,7 @@ MailServerStatus_InitScreen:: ; 29:4608
 	and a, $DB
 	ldh [rLCDC], a
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, MailServerStatus_BgPalette
 	ld a, $24
 	farcall Palette_LoadToBuffer

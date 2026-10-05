@@ -365,12 +365,12 @@ Function_0E_4215::
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_Title_Bg
 	ld a, $0E
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, $5F70
 	ld a, $0E
 	farcall Palette_LoadToBuffer
@@ -382,19 +382,19 @@ Function_0E_4215::
 	call Title_DrawMenuHighlight
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffersDi
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $5FB0
 	ld a, $0E
 	ld b, $81
 	farcall Sprite_InitSlot
 	call Title_PlaceCursor
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $5FB0
 	ld a, $0E
 	ld b, $82
 	farcall Sprite_InitSlot
 	ld de, $0000
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 	farcall Sprite_UpdateAll
 	ret
@@ -438,7 +438,7 @@ Function_0E_4334::
 	ld a, [hli]
 	ld d, [hl]
 	ld e, a
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ret
 
@@ -471,7 +471,7 @@ Function_0E_434F::
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_TitleLogo
 	ld a, $0E
 	farcall Palette_LoadToBuffer

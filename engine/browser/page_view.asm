@@ -56,9 +56,9 @@ Browser_PageView_Enter:: ; 4E:49A1
 	ld a, [wTimerEnable]
 	ld [wDialogOnlineSnapshot], a
 	ld de, $18A0
-	ld hl, $DA90
+	ld hl, wSpriteSlot9
 	call Sprite_SetPosition
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	call Sprite_ClearSlot
 	ld a, [wBrowserPendingMessage]
 	ld d, $01
@@ -382,7 +382,7 @@ Label_4E_4C8B::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0080
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, $D880
 	call CopyBytes
 	farcall Html_ParsePage
@@ -391,9 +391,9 @@ Label_4E_4C8B::
 Browser_PageView_GoBack_NoHistory:: ; 4E:4CB2
 Label_4E_4CB2::
 	ld de, $18A0
-	ld hl, $DA90
+	ld hl, wSpriteSlot9
 	call Sprite_SetPosition
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	call Sprite_ClearSlot
 	ld de, $0113
 	farcall Dialog_ShowMonitored
@@ -423,9 +423,9 @@ Browser_PageView_OpenMenu:: ; 4E:4CEB
 Browser_PageView_OpenMenu_Show:: ; 4E:4CEE
 Label_4E_4CEE::
 	ld de, $18A0
-	ld hl, $DA90
+	ld hl, wSpriteSlot9
 	call Sprite_SetPosition
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	call Sprite_ClearSlot
 	ld a, [wCommSessionKind]
 	cp a, $01
@@ -673,9 +673,9 @@ Label_4E_4E8F::
 
 Browser_Menu_DisconnectPrompt:: ; 4E:4EED
 	ld de, $18A0
-	ld hl, $DA90
+	ld hl, wSpriteSlot9
 	call Sprite_SetPosition
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	call Sprite_ClearSlot
 	ld de, $0101
 	farcall Dialog_ShowMonitored
@@ -720,9 +720,9 @@ Browser_Menu_DisconnectDo:: ; 4E:4F39
 	xor a, a
 	ld [wBrowserFetchResult], a
 	ld de, $18A0
-	ld hl, $DA90
+	ld hl, wSpriteSlot9
 	call Sprite_SetPosition
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	call Sprite_ClearSlot
 	ld de, $010F
 	farcall Dialog_Open
@@ -739,9 +739,9 @@ Browser_Menu_DisconnectDo:: ; 4E:4F39
 
 Browser_Menu_EndPrompt:: ; 4E:4F81
 	ld de, $18A0
-	ld hl, $DA90
+	ld hl, wSpriteSlot9
 	call Sprite_SetPosition
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	call Sprite_ClearSlot
 	ld de, $0105
 	ld a, [wTimerEnable]
@@ -998,9 +998,9 @@ Browser_Menu_LinkLost:: ; 4E:5162
 	xor a, a
 	ld [wBrowserFetchResult], a
 	ld de, $18A0
-	ld hl, $DA90
+	ld hl, wSpriteSlot9
 	call Sprite_SetPosition
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	call Sprite_ClearSlot
 	ld de, $0110
 	farcall Dialog_ShowMonitored

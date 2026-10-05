@@ -76,7 +76,7 @@ Label_6C_401D::
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_HelpMenu_Bg
 	ld a, $6A
 	farcall Palette_LoadToBuffer
@@ -124,16 +124,16 @@ Label_6C_401D::
 	; [CONFIRMED] 61 insn(s); 61 executed (in up to 3/18 scenarios)
 	ld a, $01
 	ld [wHelpMenu_NormalItem], a
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $64AE
 	ld a, $6A
 	ld b, $80
 	farcall Sprite_InitSlot
 	ld de, $371F
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, $62F0
 	ld a, $6A
 	farcall Palette_LoadToBuffer

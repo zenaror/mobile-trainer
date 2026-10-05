@@ -205,7 +205,7 @@ Function_2F_4109::
 AbookList_Run_ButtonRow:: ; 2F:4131
 Label_2F_4131::
 	push bc
-	ld hl, $DA80
+	ld hl, wSpriteSlot8
 	ld de, AddrBookShared_ObjTable
 	ld a, $28
 	ld b, $81
@@ -233,7 +233,7 @@ Label_2F_4131::
 .l4158 ; 2F:4158
 	; [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios)
 	ld de, $7018
-	ld hl, $DA80
+	ld hl, wSpriteSlot8
 	call Sprite_SetPosition
 	jr .l4184
 
@@ -242,12 +242,12 @@ Label_2F_4131::
 	; entered by jrcc from 2F:414E (PROBABLE code) | 8 insn(s) executed; cut out of the PROBABLE
 	; region 4163-4184 by apply_coverage --split [executed in 1 scenarios]
 	ld de, $7038
-	ld hl, $DA80
+	ld hl, wSpriteSlot8
 	call Sprite_SetPosition
 	jr .l4184
 .l416E ; 2F:416E
 	ld de, $7058
-	ld hl, $DA80
+	ld hl, wSpriteSlot8
 	call Sprite_SetPosition
 	jr .l4184
 
@@ -255,7 +255,7 @@ Label_2F_4131::
 	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4163-4184 by apply_coverage --split
 	ld de, $7078
-	ld hl, $DA80
+	ld hl, wSpriteSlot8
 	call Sprite_SetPosition
 	jr .l4184
 
@@ -287,8 +287,8 @@ Label_2F_4131::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $E0
-	ld [wSpriteSlots + 128], a
-	ld [wSpriteSlots], a
+	ld [wSpriteSlot8], a
+	ld [wSpriteSlot0], a
 	push bc
 	push bc
 	push de
@@ -355,13 +355,13 @@ Label_2F_4131::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $D0
-	ld [wSpriteSlots], a
-	ld [wSpriteSlots + 128], a
-	ld hl, $DA40
+	ld [wSpriteSlot0], a
+	ld [wSpriteSlot8], a
+	ld hl, wSpriteSlot4
 	call Sprite_ClearSlot
-	ld [wSpriteSlots + 65], a
-	ld [wSpriteSlots + 49], a
-	ld [wSpriteSlots + 33], a
+	ld [wSpriteSlot4 + $01], a
+	ld [wSpriteSlot3 + $01], a
+	ld [wSpriteSlot2 + $01], a
 	ld de, $020D
 	push af
 	ldh a, [rSVBK]
@@ -441,8 +441,8 @@ Label_2F_4131::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $E0
-	ld [wSpriteSlots + 128], a
-	ld [wSpriteSlots], a
+	ld [wSpriteSlot8], a
+	ld [wSpriteSlot0], a
 	jp AbookList_Run_Loop
 
 .l42DA ; 2F:42DA
@@ -681,9 +681,9 @@ Label_2F_4131::
 	sla e
 	ld a, $18
 	add a, e
-	ld [wSpriteSlots + 129], a
+	ld [wSpriteSlot8 + $01], a
 	ld a, $70
-	ld [wSpriteSlots + 128], a
+	ld [wSpriteSlot8], a
 	jp .loop
 
 Abook_ClearSlot:: ; 2F:4455
@@ -818,13 +818,13 @@ Function_2F_44F2::
 
 .l4504 ; 2F:4504
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	ld de, Table_Abook_ButtonCursorAnims
 	ld a, $2F
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7018
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	call Sprite_SetPosition
 	jr .l4570
 
@@ -832,33 +832,33 @@ Function_2F_44F2::
 	; [CONFIRMED] 27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 1;
 	; entered by jrcc from 2F:44FA (PROBABLE code) | upgraded by classifier 6: all 27 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	ld de, $5020
 	ld a, $2F
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7038
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	call Sprite_SetPosition
 	jr .l4570
 .l453A ; 2F:453A
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	ld de, $5030
 	ld a, $2F
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7058
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	call Sprite_SetPosition
 	jr .l4570
 .l4555 ; 2F:4555
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	ld de, $5040
 	ld a, $2F
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7078
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	call Sprite_SetPosition
 	jr .l4570
 
@@ -908,12 +908,12 @@ AbookList_SetupScreen:: ; 2F:4572
 	ld a, $2F
 	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, Palette_AddrBook_Obj
 	ld a, $2C
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_AbookList_Bg
 	ld a, $28
 	farcall Palette_LoadToBuffer
@@ -972,7 +972,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ldh [rSVBK], a
 	push bc
 	push bc
-	ld hl, $DA70
+	ld hl, wSpriteSlot7
 	ld de, $5220
 	ld a, $28
 	ld b, $01
@@ -987,7 +987,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 2F:469A (executed) | upgraded by classifier 6: all 5 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
-	ld hl, $DA70
+	ld hl, wSpriteSlot7
 	ld de, $5230
 	ld a, $28
 	ld b, $01
@@ -997,7 +997,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
 	pop bc
 	push bc
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $5220
 	ld a, $28
 	ld b, $01
@@ -1012,7 +1012,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 2F:46C6 (executed) | upgraded by classifier 6: all 5 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $5230
 	ld a, $28
 	ld b, $01
@@ -1022,7 +1022,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
 	pop bc
 	push bc
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $5220
 	ld a, $28
 	ld b, $01
@@ -1037,7 +1037,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 2F:46F2 (executed) | upgraded by classifier 6: all 5 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $5230
 	ld a, $28
 	ld b, $01
@@ -1047,7 +1047,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
 	pop bc
 	push bc
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $5220
 	ld a, $28
 	ld b, $01
@@ -1062,7 +1062,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 2F:471E (executed) | upgraded by classifier 6: all 5 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $5230
 	ld a, $28
 	ld b, $01
@@ -1072,7 +1072,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
 	pop bc
 	push bc
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $5220
 	ld a, $28
 	ld b, $01
@@ -1087,7 +1087,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 2F:474A (executed) | upgraded by classifier 6: all 5 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $5230
 	ld a, $28
 	ld b, $01
@@ -1097,7 +1097,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
 	pop bc
 	push bc
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $5220
 	ld a, $28
 	ld b, $01
@@ -1112,7 +1112,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 2F:4776 (executed) | upgraded by classifier 6: all 5 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $5230
 	ld a, $28
 	ld b, $01
@@ -1139,7 +1139,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	jp z, .l4893
 .l47A8 ; 2F:47A8
 	push bc
-	ld hl, $DA70
+	ld hl, wSpriteSlot7
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
@@ -1154,7 +1154,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 2F:47C1 (executed) | upgraded by classifier 6: all 5 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
-	ld hl, $DA70
+	ld hl, wSpriteSlot7
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
@@ -1170,7 +1170,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	; entered by jpcc from 2F:4795 (executed) | upgraded by classifier 6: all 76 instruction starts
 	; of the region are in analysis/coverage_union.tsv (executed in a trace)
 	push bc
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
@@ -1181,7 +1181,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	call Abook_TestSlotEmpty
 	inc a
 	jr z, .l4802
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
@@ -1191,7 +1191,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	jp .l48C2
 .l4806 ; 2F:4806
 	push bc
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
@@ -1202,7 +1202,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	call Abook_TestSlotEmpty
 	inc a
 	jr z, .l4831
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
@@ -1212,7 +1212,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	jp .l48C2
 .l4835 ; 2F:4835
 	push bc
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
@@ -1223,7 +1223,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	call Abook_TestSlotEmpty
 	inc a
 	jr z, .l4860
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
@@ -1233,7 +1233,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	jp .l48C2
 .l4864 ; 2F:4864
 	push bc
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
@@ -1244,7 +1244,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	call Abook_TestSlotEmpty
 	inc a
 	jr z, .l488F
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
@@ -1256,7 +1256,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 .l4893 ; 2F:4893
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios)
 	push bc
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
@@ -1271,7 +1271,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 2F:48AC (executed) | upgraded by classifier 6: all 5 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
@@ -1283,29 +1283,29 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	jp .l48C2
 .l48C2 ; 2F:48C2
 	ld a, $20
-	ld [wSpriteSlots + 112], a
+	ld [wSpriteSlot7], a
 	ld a, $10
-	ld [wSpriteSlots + 113], a
+	ld [wSpriteSlot7 + $01], a
 	ld a, $2C
-	ld [wSpriteSlots + 96], a
+	ld [wSpriteSlot6], a
 	ld a, $10
-	ld [wSpriteSlots + 97], a
+	ld [wSpriteSlot6 + $01], a
 	ld a, $38
-	ld [wSpriteSlots + 80], a
+	ld [wSpriteSlot5], a
 	ld a, $10
-	ld [wSpriteSlots + 81], a
+	ld [wSpriteSlot5 + $01], a
 	ld a, $44
-	ld [wSpriteSlots + 64], a
+	ld [wSpriteSlot4], a
 	ld a, $10
-	ld [wSpriteSlots + 65], a
+	ld [wSpriteSlot4 + $01], a
 	ld a, $50
-	ld [wSpriteSlots + 48], a
+	ld [wSpriteSlot3], a
 	ld a, $10
-	ld [wSpriteSlots + 49], a
+	ld [wSpriteSlot3 + $01], a
 	ld a, $5C
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot2], a
 	ld a, $10
-	ld [wSpriteSlots + 33], a
+	ld [wSpriteSlot2 + $01], a
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $C0
@@ -1375,7 +1375,7 @@ Function_2F_4942::
 	cp a, $05
 	jp z, .l4A6B
 .l4962 ; 2F:4962
-	ld hl, $DA70
+	ld hl, wSpriteSlot7
 	ld de, $5240
 	ld a, $28
 	ld b, $01
@@ -1388,7 +1388,7 @@ Function_2F_4942::
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 2F:4978 (executed) | upgraded by classifier 6: all 5 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
-	ld hl, $DA70
+	ld hl, wSpriteSlot7
 	ld de, $5250
 	ld a, $28
 	ld b, $01
@@ -1397,16 +1397,16 @@ Function_2F_4942::
 .l498A ; 2F:498A
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 2/18 scenarios)
 	ld a, $20
-	ld [wSpriteSlots + 112], a
+	ld [wSpriteSlot7], a
 	ld a, $10
-	ld [wSpriteSlots + 113], a
+	ld [wSpriteSlot7 + $01], a
 	jp .l4AA0
 
 .l4997 ; 2F:4997
 	; [CONFIRMED] 76 insn(s) reached by static flow only; seeds: exec x76; min discovery hops 1;
 	; entered by jpcc from 2F:494B (executed) | upgraded by classifier 6: all 76 instruction starts
 	; of the region are in analysis/coverage_union.tsv (executed in a trace)
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $5240
 	ld a, $28
 	ld b, $01
@@ -1415,19 +1415,19 @@ Function_2F_4942::
 	call Abook_TestSlotEmpty
 	inc a
 	jr z, .l49BF
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $5250
 	ld a, $28
 	ld b, $01
 	farcall Sprite_InitSlot
 .l49BF ; 2F:49BF
 	ld a, $2C
-	ld [wSpriteSlots + 96], a
+	ld [wSpriteSlot6], a
 	ld a, $10
-	ld [wSpriteSlots + 97], a
+	ld [wSpriteSlot6 + $01], a
 	jp .l4AA0
 .l49CC ; 2F:49CC
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $5240
 	ld a, $28
 	ld b, $01
@@ -1436,19 +1436,19 @@ Function_2F_4942::
 	call Abook_TestSlotEmpty
 	inc a
 	jr z, .l49F4
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $5250
 	ld a, $28
 	ld b, $01
 	farcall Sprite_InitSlot
 .l49F4 ; 2F:49F4
 	ld a, $38
-	ld [wSpriteSlots + 80], a
+	ld [wSpriteSlot5], a
 	ld a, $10
-	ld [wSpriteSlots + 81], a
+	ld [wSpriteSlot5 + $01], a
 	jp .l4AA0
 .l4A01 ; 2F:4A01
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $5240
 	ld a, $28
 	ld b, $01
@@ -1457,19 +1457,19 @@ Function_2F_4942::
 	call Abook_TestSlotEmpty
 	inc a
 	jr z, .l4A29
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $5250
 	ld a, $28
 	ld b, $01
 	farcall Sprite_InitSlot
 .l4A29 ; 2F:4A29
 	ld a, $44
-	ld [wSpriteSlots + 64], a
+	ld [wSpriteSlot4], a
 	ld a, $10
-	ld [wSpriteSlots + 65], a
+	ld [wSpriteSlot4 + $01], a
 	jp .l4AA0
 .l4A36 ; 2F:4A36
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $5240
 	ld a, $28
 	ld b, $01
@@ -1478,21 +1478,21 @@ Function_2F_4942::
 	call Abook_TestSlotEmpty
 	inc a
 	jr z, .l4A5E
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $5250
 	ld a, $28
 	ld b, $01
 	farcall Sprite_InitSlot
 .l4A5E ; 2F:4A5E
 	ld a, $50
-	ld [wSpriteSlots + 48], a
+	ld [wSpriteSlot3], a
 	ld a, $10
-	ld [wSpriteSlots + 49], a
+	ld [wSpriteSlot3 + $01], a
 	jp .l4AA0
 
 .l4A6B ; 2F:4A6B
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $5240
 	ld a, $28
 	ld b, $01
@@ -1505,7 +1505,7 @@ Function_2F_4942::
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 2F:4A81 (executed) | upgraded by classifier 6: all 5 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $5250
 	ld a, $28
 	ld b, $01
@@ -1514,9 +1514,9 @@ Function_2F_4942::
 .l4A93 ; 2F:4A93
 	; [CONFIRMED] 49 insn(s); 49 executed (in up to 2/18 scenarios)
 	ld a, $5C
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot2], a
 	ld a, $10
-	ld [wSpriteSlots + 33], a
+	ld [wSpriteSlot2 + $01], a
 	jp .l4AA0
 .l4AA0 ; 2F:4AA0
 	ld b, $1E

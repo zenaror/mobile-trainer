@@ -100,11 +100,11 @@ Browser_OamPutDigit:: ; 4E:6034
 
 ConnIcon_StartSprite:: ; 4E:604C
 	ld [wConnIconState], a
-	ld hl, $DA80
+	ld hl, wSpriteSlot8
 	ld de, ConnIcon_ObjTable
 	ld a, $69
 	farcall Sprite_InitSlot
-	ld hl, $DA8B
+	ld hl, wSpriteSlot8 + $0B
 	ld de, $4034
 	ld a, $69
 	call Sprite_SetHook
@@ -125,7 +125,7 @@ ConnIcon_StartSprite:: ; 4E:604C
 	ld a, [hli]
 	ld e, a
 	ld d, [hl]
-	ld hl, $DA80
+	ld hl, wSpriteSlot8
 	jp Sprite_SetPosition
 
 ConnIcon_GetBrowserFramePos:: ; 4E:6087

@@ -51,12 +51,12 @@ MailBody_InitScreen:: ; 28:404E
 	farcall Sprite_ResetAll
 	farcall Sprite_UpdateAll
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, MailBody_BgPalette
 	ld a, $28
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, $4B30
 	ld a, $28
 	farcall Palette_LoadToBuffer
@@ -79,13 +79,13 @@ MailBody_InitScreen:: ; 28:404E
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, MailBody_ObjTable
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0808
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld b, $00
 	farcall MailBody_GetRowPtr

@@ -103,7 +103,7 @@ CommNotice_RunDialog:: ; 50:4061
 	ld c, $32
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_CommNotice
 	ld a, $50
 	farcall Palette_LoadToBuffer
@@ -158,13 +158,13 @@ CommNotice_RunDialog:: ; 50:4061
 	ld [wCommNoticeScreen], a
 	jr .l414F
 .l414F ; 50:414F
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, CommNotice_ObjTable
 	ld a, $50
 	ld b, $80
 	farcall Sprite_InitSlot
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, $6C40
 	ld a, $50
 	farcall Palette_LoadToBuffer
@@ -198,7 +198,7 @@ CommNotice_RunDialog:: ; 50:4061
 	ld c, $32
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, $6C00
 	ld a, $50
 	farcall Palette_LoadToBuffer
@@ -241,13 +241,13 @@ CommNotice_RunDialog:: ; 50:4061
 	ld [wCommNoticeScreen], a
 	jr .l4220
 .l4220 ; 50:4220
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $6D1A
 	ld a, $50
 	ld b, $80
 	farcall Sprite_InitSlot
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, $6C80
 	ld a, $50
 	farcall Palette_LoadToBuffer
@@ -422,7 +422,7 @@ CommNotice_DrawChoiceCursor:: ; 50:4338
 	or a, a
 	jr nz, .l4348
 	ld de, $6727
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ret
 
@@ -430,7 +430,7 @@ CommNotice_DrawChoiceCursor:: ; 50:4338
 	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 42B6-438A by apply_coverage --split
 	ld de, $6757
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ret
 

@@ -14,8 +14,8 @@ Function_7F_624F::
 	push hl
 	ldh a, [rSVBK]
 	push af
-	ld hl, $DA00
-	ld de, $D900
+	ld hl, wSpriteSlots
+	ld de, wSpriteSlotBackup
 	ld b, $00
 .loop ; 7F:625E
 	ld a, $07
@@ -47,8 +47,8 @@ Sprites_RestoreSlotsFromBank3:: ; 7F:627C
 	push hl
 	ldh a, [rSVBK]
 	push af
-	ld de, $DA00
-	ld hl, $D900
+	ld de, wSpriteSlots
+	ld hl, wSpriteSlotBackup
 	ld b, $00
 .loop ; 7F:628B
 	ld a, $03

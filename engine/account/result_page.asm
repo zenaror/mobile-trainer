@@ -41,7 +41,7 @@ Function_68_766E::
 	farcall Gfx_StartHDMAWithService
 	call Account_ResultPage_LoadBanner
 	ld bc, $0028
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, $5870
 	ld a, $4B
 	farcall Palette_LoadToBuffer

@@ -117,7 +117,7 @@ PhoneComment_KeyboardSetup:: ; 67:49A8
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Data_5E_4D00
 	ld a, $5E
 	farcall Palette_LoadToBuffer
@@ -136,7 +136,7 @@ PhoneComment_KeyboardSetup:: ; 67:49A8
 	ld a, $03
 	ld b, $02
 	farcall Kbd_Open
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	ld de, $4D30
 	ld a, $5F
 	ld b, $81

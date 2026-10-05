@@ -48,7 +48,7 @@ MobileDict_Redraw:: ; 1A:4018
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_MobileDict_Bg
 	ld a, $1A
 	farcall Palette_LoadToBuffer
@@ -57,18 +57,18 @@ MobileDict_Redraw:: ; 1A:4018
 	ld hl, Tilemap_MobileDict_Screen
 	ld a, $1A
 	farcall Tilemap_CopyRectAndAttr
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, Objects_MobileDict
 	ld a, $1A
 	ld b, $80
 	farcall Sprite_InitSlot
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, Objects_MobileDict
 	ld a, $1A
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, $53D0
 	ld a, $1A
 	farcall Palette_LoadToBuffer
@@ -413,14 +413,14 @@ MobileDict_UpdateTabSprites:: ; 1A:4317
 	inc hl
 	push hl
 	ld de, $55A8
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld a, $1A
 	farcall Sprite_InitSlot
 	pop hl
 	ld a, [hl]
-	ld [wSpriteSlots + 65], a
+	ld [wSpriteSlot4 + $01], a
 	ld a, $15
-	ld [wSpriteSlots + 64], a
+	ld [wSpriteSlot4], a
 	ld a, [wMobileDict_ScrollOffset]
 	or a, a
 	jr z, .l4351
@@ -428,14 +428,14 @@ MobileDict_UpdateTabSprites:: ; 1A:4317
 	; [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0;
 	; fall-through of the jrcc at 1A:4344 (executed) [executed in 1 scenarios]
 	ld de, $2048
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 	jr .l435A
 
 .l4351 ; 1A:4351
 	; [CONFIRMED] 17 insn(s); 17 executed (in up to 1/18 scenarios)
 	ld de, $00A0
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 .l435A ; 1A:435A
 	ld a, [wMobileDict_EntryCount]
@@ -445,12 +445,12 @@ MobileDict_UpdateTabSprites:: ; 1A:4317
 	cp a, b
 	jr nc, .l4371
 	ld de, $7848
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	jr .done
 .l4371 ; 1A:4371
 	ld de, $00A0
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 .done ; 1A:437A
 	ret

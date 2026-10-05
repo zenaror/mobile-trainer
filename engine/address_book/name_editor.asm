@@ -260,12 +260,12 @@ AbookName_SetupScreen:: ; 2F:593B
 	ld c, $30
 	farcall Gfx_StartHDMA
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, Palette_AbookEdit_Obj
 	ld a, $29
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_AbookName_Bg
 	ld a, $2F
 	farcall Palette_LoadToBuffer
@@ -274,12 +274,12 @@ AbookName_SetupScreen:: ; 2F:593B
 	ld hl, Tilemap_AbookName
 	ld a, $2F
 	farcall Tilemap_CopyRectAndAttr
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $7B50
 	ld a, $7F
 	ld b, $81
@@ -340,7 +340,7 @@ AbookName_SetupScreen:: ; 2F:593B
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService
@@ -401,8 +401,8 @@ AbookName_PlaceCursorSprites:: ; 2F:5AB8
 	ld e, a
 	ld a, d
 	sub a, e
-	ld [wSpriteSlots + 16], a
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot1], a
+	ld [wSpriteSlot2], a
 	ld a, $38
 .l5ADB ; 2F:5ADB
 	dec c
@@ -410,8 +410,8 @@ AbookName_PlaceCursorSprites:: ; 2F:5AB8
 	add a, $0C
 	jr .l5ADB
 .l5AE2 ; 2F:5AE2
-	ld [wSpriteSlots + 17], a
-	ld [wSpriteSlots + 33], a
+	ld [wSpriteSlot1 + $01], a
+	ld [wSpriteSlot2 + $01], a
 	pop bc
 	ret
 
@@ -817,7 +817,7 @@ Label_2F_5CF4::
 	push de
 	push bc
 	push bc
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $7B70
 	ld a, $7F
 	ld b, $81
@@ -843,7 +843,7 @@ Label_2F_5CF4::
 	jr nz, .l5D23
 .l5D45 ; 2F:5D45
 	farcall Joypad_ClearAndResetRepeat
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81
@@ -966,7 +966,7 @@ AbookName_Backspace:: ; 2F:5DDC
 	pop de
 	pop bc
 	push bc
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $7B80
 	ld a, $7F
 	ld b, $81
@@ -1017,7 +1017,7 @@ AbookName_Backspace:: ; 2F:5DDC
 	jr nz, .loop
 .l5E42 ; 2F:5E42
 	farcall Joypad_ClearAndResetRepeat
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81

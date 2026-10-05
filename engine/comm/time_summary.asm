@@ -76,7 +76,7 @@ Function_51_404A::
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_CommTime_SummaryB
 	ld a, $51
 	farcall Palette_LoadToBuffer
@@ -103,7 +103,7 @@ Function_51_404A::
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_CommTime_SummaryA
 	ld a, $51
 	farcall Palette_LoadToBuffer

@@ -17,7 +17,7 @@ Palette_FadeOutWithTicker:: ; 48:46C6
 	ld [wRam_C10E], a
 	ld bc, $0080
 	ld de, $D880
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	call CopyBytes
 	ld a, $00
 	ld [wPalFadeMode], a
@@ -27,7 +27,7 @@ Palette_FadeOutWithTicker:: ; 48:46C6
 	farcall PalFade_Step
 .loop ; 48:46FA
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService

@@ -31,12 +31,12 @@ Function_67_6369::
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, $6580
 	ld a, $4A
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, $65C0
 	ld a, $4A
 	farcall Palette_LoadToBuffer
@@ -45,13 +45,13 @@ Function_67_6369::
 	ld hl, $6600
 	ld a, $4A
 	farcall Tilemap_CopyRectAndAttr
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	ld de, AdapterCheck_ObjTableAndAnimData
 	ld a, $4A
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2838
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	call Sprite_SetPosition
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
@@ -104,7 +104,7 @@ Label_67_6452::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wSpriteSlots + 4]
+	ld a, [wSpriteSlot0 + $04]
 	ld b, a
 	ldh [hScratchA], a
 	pop af

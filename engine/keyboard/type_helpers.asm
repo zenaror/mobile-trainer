@@ -202,7 +202,7 @@ Data_55_6F3B::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D872
+	ld de, wPaletteBufObj + $32
 	ld a, [hli]
 	ld [de], a
 	inc de
@@ -254,7 +254,7 @@ Kbd_ShowMarkerSprite:: ; 55:6FCD
 Function_55_6FCD::
 	; [CONFIRMED] 19 insn(s); 19 executed (in up to 7/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld hl, $DAD0
+	ld hl, wSpriteSlot13
 	ld de, $4D38
 	ld a, $5F
 	ld b, $81
@@ -270,7 +270,7 @@ Function_55_6FCD::
 	ld a, [hli]
 	ld d, [hl]
 	ld e, a
-	ld hl, $DAD0
+	ld hl, wSpriteSlot13
 	call Sprite_SetPosition
 	ret
 
@@ -284,7 +284,7 @@ Kbd_HideMarkerSprite:: ; 55:7000
 Function_55_7000::
 	; [CONFIRMED] 67 insn(s); 67 executed (in up to 11/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld hl, $DAD0
+	ld hl, wSpriteSlot13
 	call Sprite_ClearSlot
 	ret
 

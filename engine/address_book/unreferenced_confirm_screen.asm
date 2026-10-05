@@ -93,7 +93,7 @@ Function_2C_746F::
 	ld c, $09
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_AddrScreenUnused_Bg
 	ld a, $2C
 	farcall Palette_LoadToBuffer
@@ -103,17 +103,17 @@ Function_2C_746F::
 	ld a, $2C
 	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, Palette_AddrScreenUnused_Obj
 	ld a, $2C
 	farcall Palette_LoadToBuffer
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, Table_AddrScreenUnused_Objects
 	ld a, $2C
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1008
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -123,7 +123,7 @@ Function_2C_746F::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService

@@ -39,7 +39,7 @@ SettingsPhone_ReadAdapterConfig_Poll:: ; 67:5410
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wSpriteSlots + 4]
+	ld a, [wSpriteSlot0 + $04]
 	ld b, a
 	ldh [hScratchA], a
 	pop af
@@ -223,7 +223,7 @@ SettingsPhone_WriteAdapterConfig_Poll:: ; 67:555C
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wSpriteSlots + 4]
+	ld a, [wSpriteSlot0 + $04]
 	ld b, a
 	ldh [hScratchA], a
 	pop af

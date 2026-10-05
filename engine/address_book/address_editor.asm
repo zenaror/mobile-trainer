@@ -80,11 +80,11 @@ Label_2F_6D5E::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wSpriteSlots + 16]
+	ld a, [wSpriteSlot1]
 	push af
 	ld a, $D0
-	ld [wSpriteSlots + 16], a
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot1], a
+	ld [wSpriteSlot2], a
 	ld de, $0205
 	push af
 	ldh a, [rSVBK]
@@ -117,8 +117,8 @@ Label_2F_6D5E::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	ld [wSpriteSlots + 16], a
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot1], a
+	ld [wSpriteSlot2], a
 	pop bc
 	jp AbookAddr_Edit_Loop
 .l6DC9 ; 2F:6DC9
@@ -179,11 +179,11 @@ Label_2F_6DF9::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wSpriteSlots + 16]
+	ld a, [wSpriteSlot1]
 	push af
 	ld a, $D0
-	ld [wSpriteSlots + 16], a
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot1], a
+	ld [wSpriteSlot2], a
 	ld de, $0217
 	push af
 	ldh a, [rSVBK]
@@ -217,8 +217,8 @@ Label_2F_6DF9::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	ld [wSpriteSlots + 16], a
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot1], a
+	ld [wSpriteSlot2], a
 	ld a, e
 	dec a
 	jr z, .l6EE1
@@ -231,11 +231,11 @@ Label_2F_6DF9::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wSpriteSlots + 16]
+	ld a, [wSpriteSlot1]
 	push af
 	ld a, $D0
-	ld [wSpriteSlots + 16], a
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot1], a
+	ld [wSpriteSlot2], a
 	ld de, $0218
 	push af
 	ldh a, [rSVBK]
@@ -269,8 +269,8 @@ Label_2F_6DF9::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	ld [wSpriteSlots + 16], a
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot1], a
+	ld [wSpriteSlot2], a
 	ld a, e
 	dec a
 	jr z, .l6EE1
@@ -456,12 +456,12 @@ Function_2F_6F8C::
 	ld c, $30
 	farcall Gfx_StartHDMA
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, Palette_AbookEdit_Obj
 	ld a, $29
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_AbookAddr_Bg
 	ld a, $2F
 	farcall Palette_LoadToBuffer
@@ -470,12 +470,12 @@ Function_2F_6F8C::
 	ld hl, Tilemap_AbookAddr
 	ld a, $2F
 	farcall Tilemap_CopyRectAndAttr
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $7B50
 	ld a, $7F
 	ld b, $81
@@ -551,7 +551,7 @@ Function_2F_6F8C::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService
@@ -646,8 +646,8 @@ AbookAddr_PlaceCursorSprites:: ; 2F:7121
 	ld e, a
 	ld a, d
 	sub a, e
-	ld [wSpriteSlots + 16], a
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot1], a
+	ld [wSpriteSlot2], a
 	ld a, $08
 .l7160 ; 2F:7160
 	dec c
@@ -655,8 +655,8 @@ AbookAddr_PlaceCursorSprites:: ; 2F:7121
 	add a, $06
 	jr .l7160
 .l7167 ; 2F:7167
-	ld [wSpriteSlots + 17], a
-	ld [wSpriteSlots + 33], a
+	ld [wSpriteSlot1 + $01], a
+	ld [wSpriteSlot2 + $01], a
 	pop bc
 	ret
 
@@ -1189,7 +1189,7 @@ AbookAddr_InsertChar:: ; 2F:73FA
 	pop de
 	pop bc
 	push bc
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $7B70
 	ld a, $7F
 	ld b, $81
@@ -1215,7 +1215,7 @@ AbookAddr_InsertChar:: ; 2F:73FA
 	jr nz, .l744A
 .l746C ; 2F:746C
 	farcall Joypad_ClearAndResetRepeat
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81
@@ -1298,7 +1298,7 @@ AbookAddr_Backspace:: ; 2F:74D7
 	pop de
 	pop bc
 	push bc
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $7B80
 	ld a, $7F
 	ld b, $81
@@ -1349,7 +1349,7 @@ AbookAddr_Backspace:: ; 2F:74D7
 	jr nz, .loop
 .l753D ; 2F:753D
 	farcall Joypad_ClearAndResetRepeat
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81

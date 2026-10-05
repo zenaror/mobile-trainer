@@ -16,11 +16,11 @@ Palette_FadeInMasked:: ; 48:44E0
 	ldh [rSVBK], a
 	ld bc, $0080
 	ld de, $D880
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	call CopyBytes
 	ld bc, $0080
 	ld de, $D900
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	call CopyBytes
 	ld a, $00
 	ld [wPalFadeMode], a
@@ -31,7 +31,7 @@ Palette_FadeInMasked:: ; 48:44E0
 	call LCDOn
 .loop ; 48:451D
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService
@@ -56,11 +56,11 @@ Palette_FadeOutMasked:: ; 48:4540
 	ldh [rSVBK], a
 	ld bc, $0080
 	ld de, $D880
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	call CopyBytes
 	ld bc, $0080
 	ld de, $D900
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	call CopyBytes
 	ld a, $01
 	ld [wPalFadeMode], a
@@ -70,7 +70,7 @@ Palette_FadeOutMasked:: ; 48:4540
 	farcall PalFade_Step
 .loop ; 48:457A
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService

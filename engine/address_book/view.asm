@@ -192,12 +192,12 @@ AbookView_SetupScreen:: ; 2F:51C1
 	farcall TextTiles_ClearBuffers
 	farcall LCDOff
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, Palette_AddrBookEntry_Obj
 	ld a, $2C
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_AddrBookEntry_Bg
 	ld a, $2C
 	farcall Palette_LoadToBuffer
@@ -233,15 +233,15 @@ AbookView_SetupScreen:: ; 2F:51C1
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	farcall LCDOn
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, Table_Abook_ViewCursorAnims
 	ld a, $2F
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $20
-	ld [wSpriteSlots + 16], a
+	ld [wSpriteSlot1], a
 	ld a, $08
-	ld [wSpriteSlots + 17], a
+	ld [wSpriteSlot1 + $01], a
 	ld bc, $0000
 	pop bc
 	ld a, b

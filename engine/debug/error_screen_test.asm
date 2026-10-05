@@ -116,7 +116,7 @@ Label_19_4990::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_DebugScreens
 	ld a, $19
 	farcall Palette_LoadToBuffer

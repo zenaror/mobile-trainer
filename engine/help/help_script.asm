@@ -72,7 +72,7 @@ HelpScript_Run:: ; 6C:59B2
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_HelpScript_Bg
 	ld a, $6A
 	farcall Palette_LoadToBuffer
@@ -82,7 +82,7 @@ HelpScript_Run:: ; 6C:59B2
 	ld a, $6A
 	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, $7260
 	ld a, $6A
 	farcall Palette_LoadToBuffer
@@ -157,7 +157,7 @@ HelpScript_Run:: ; 6C:59B2
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	farcall Palette_ReadHardwareToBuffer
 	ei
 	call Sound_FrameService
@@ -456,13 +456,13 @@ Label_6C_5D09::
 	ld a, [wHelpScript_PrintingFlag]
 	or a, a
 	jr nz, HelpScript_Run_FrameLoop
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, Table_6A_72BB
 	ld a, $6A
 	ld b, $80
 	farcall Sprite_InitSlot
 	ld de, $00AA
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 	jp HelpScript_Run_ResumeScript
 
@@ -473,13 +473,13 @@ Label_6C_5D30::
 	ld a, [wHelpScript_PrintingFlag]
 	or a, a
 	jr nz, .l5D57
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, Table_6A_72BB
 	ld a, $6A
 	ld b, $80
 	farcall Sprite_InitSlot
 	ld de, $00AA
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 	jp HelpScript_Run_ResumeScript
 .l5D57 ; 6C:5D57
@@ -527,13 +527,13 @@ Label_6C_5D9F::
 	ld a, [wHelpScriptAdvanceMode]
 	cp a, $02
 	jr z, .l5DC6
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, Table_6A_72BB
 	ld a, $6A
 	ld b, $80
 	farcall Sprite_InitSlot
 	ld de, $7880
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 	jp HelpScript_Run_FrameLoop
 .l5DC6 ; 6C:5DC6
@@ -694,7 +694,7 @@ HelpScript_ShowPicture:: ; 6C:5E6E
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [wHelpScript_PictureBank]
-	ld de, $D830
+	ld de, wPaletteBufBg + $30
 	ld bc, $0008
 	farcall Palette_LoadToBuffer
 	ldh [hScratchA], a
@@ -1039,7 +1039,7 @@ Function_6C_61AC:: ; 6C:61AC
 	add a, d
 	ld d, a
 	ld e, $80
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: site x2; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code

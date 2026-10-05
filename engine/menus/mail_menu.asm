@@ -73,7 +73,7 @@ Function_1D_4000::
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_MailMenu_Bg
 	ld a, $1D
 	farcall Palette_LoadToBuffer
@@ -82,16 +82,16 @@ Function_1D_4000::
 	ld hl, Tilemap_MailMenu_Screen
 	ld a, $1D
 	farcall Tilemap_CopyRectAndAttr
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $63B6
 	ld a, $1D
 	ld b, $80
 	farcall Sprite_InitSlot
 	ld de, $431A
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, $6270
 	ld a, $1D
 	farcall Palette_LoadToBuffer

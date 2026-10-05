@@ -152,12 +152,12 @@ SaveSenderAddr_InitScreen:: ; 2A:4105
 	farcall Sprite_UpdateAll
 	farcall TextTiles_ClearBuffers
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, Palette_AddrBook_Obj
 	ld a, $2C
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_SaveSenderAddr_Bg
 	ld a, $2A
 	farcall Palette_LoadToBuffer
@@ -444,10 +444,10 @@ SaveSenderAddr_SaveToSlot:: ; 2A:4312
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $B0
-	ld [wSpriteSlots + 33], a
-	ld [wSpriteSlots + 49], a
-	ld [wSpriteSlots + 65], a
-	ld [wSpriteSlots + 81], a
+	ld [wSpriteSlot2 + $01], a
+	ld [wSpriteSlot3 + $01], a
+	ld [wSpriteSlot4 + $01], a
+	ld [wSpriteSlot5 + $01], a
 	ld de, $0208
 	push af
 	ldh a, [rSVBK]
@@ -782,7 +782,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	ldh [rSVBK], a
 	push bc
 	push bc
-	ld hl, $DA70
+	ld hl, wSpriteSlot7
 	ld de, $5220
 	ld a, $28
 	ld b, $01
@@ -793,7 +793,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	call SaveSenderAddr_IsSlotUsed
 	inc a
 	jr z, .l45A7
-	ld hl, $DA70
+	ld hl, wSpriteSlot7
 	ld de, $5230
 	ld a, $28
 	ld b, $01
@@ -801,7 +801,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 .l45A7 ; 2A:45A7
 	pop bc
 	push bc
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $5220
 	ld a, $28
 	ld b, $01
@@ -812,7 +812,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	call SaveSenderAddr_IsSlotUsed
 	inc a
 	jr z, .l45D3
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $5230
 	ld a, $28
 	ld b, $01
@@ -820,7 +820,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 .l45D3 ; 2A:45D3
 	pop bc
 	push bc
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $5220
 	ld a, $28
 	ld b, $01
@@ -831,7 +831,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	call SaveSenderAddr_IsSlotUsed
 	inc a
 	jr z, .l45FF
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $5230
 	ld a, $28
 	ld b, $01
@@ -839,7 +839,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 .l45FF ; 2A:45FF
 	pop bc
 	push bc
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $5220
 	ld a, $28
 	ld b, $01
@@ -850,7 +850,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	call SaveSenderAddr_IsSlotUsed
 	inc a
 	jr z, .l462B
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $5230
 	ld a, $28
 	ld b, $01
@@ -858,7 +858,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 .l462B ; 2A:462B
 	pop bc
 	push bc
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $5220
 	ld a, $28
 	ld b, $01
@@ -869,7 +869,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	call SaveSenderAddr_IsSlotUsed
 	inc a
 	jr z, .l4657
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $5230
 	ld a, $28
 	ld b, $01
@@ -877,7 +877,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 .l4657 ; 2A:4657
 	pop bc
 	push bc
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $5220
 	ld a, $28
 	ld b, $01
@@ -888,7 +888,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	call SaveSenderAddr_IsSlotUsed
 	inc a
 	jr z, .l4683
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $5230
 	ld a, $28
 	ld b, $01
@@ -913,7 +913,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	jp z, .l478E
 .l46A3 ; 2A:46A3
 	push bc
-	ld hl, $DA70
+	ld hl, wSpriteSlot7
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
@@ -924,7 +924,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	call SaveSenderAddr_IsSlotUsed
 	inc a
 	jr z, .l46CE
-	ld hl, $DA70
+	ld hl, wSpriteSlot7
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
@@ -934,7 +934,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	jp .l47BD
 .l46D2 ; 2A:46D2
 	push bc
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
@@ -945,7 +945,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	call SaveSenderAddr_IsSlotUsed
 	inc a
 	jr z, .l46FD
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
@@ -955,7 +955,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	jp .l47BD
 .l4701 ; 2A:4701
 	push bc
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
@@ -966,7 +966,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	call SaveSenderAddr_IsSlotUsed
 	inc a
 	jr z, .l472C
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
@@ -976,7 +976,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	jp .l47BD
 .l4730 ; 2A:4730
 	push bc
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
@@ -987,7 +987,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	call SaveSenderAddr_IsSlotUsed
 	inc a
 	jr z, .l475B
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
@@ -997,7 +997,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	jp .l47BD
 .l475F ; 2A:475F
 	push bc
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
@@ -1008,7 +1008,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	call SaveSenderAddr_IsSlotUsed
 	inc a
 	jr z, .l478A
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
@@ -1018,7 +1018,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	jp .l47BD
 .l478E ; 2A:478E
 	push bc
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
@@ -1029,7 +1029,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	call SaveSenderAddr_IsSlotUsed
 	inc a
 	jr z, .l47B9
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
@@ -1039,33 +1039,33 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	jp .l47BD
 .l47BD ; 2A:47BD
 	ld a, $18
-	ld [wSpriteSlots + 16], a
+	ld [wSpriteSlot1], a
 	ld a, $10
-	ld [wSpriteSlots + 17], a
+	ld [wSpriteSlot1 + $01], a
 	ld a, $28
-	ld [wSpriteSlots + 112], a
+	ld [wSpriteSlot7], a
 	ld a, $10
-	ld [wSpriteSlots + 113], a
+	ld [wSpriteSlot7 + $01], a
 	ld a, $34
-	ld [wSpriteSlots + 96], a
+	ld [wSpriteSlot6], a
 	ld a, $10
-	ld [wSpriteSlots + 97], a
+	ld [wSpriteSlot6 + $01], a
 	ld a, $40
-	ld [wSpriteSlots + 80], a
+	ld [wSpriteSlot5], a
 	ld a, $10
-	ld [wSpriteSlots + 81], a
+	ld [wSpriteSlot5 + $01], a
 	ld a, $4C
-	ld [wSpriteSlots + 64], a
+	ld [wSpriteSlot4], a
 	ld a, $10
-	ld [wSpriteSlots + 65], a
+	ld [wSpriteSlot4 + $01], a
 	ld a, $58
-	ld [wSpriteSlots + 48], a
+	ld [wSpriteSlot3], a
 	ld a, $10
-	ld [wSpriteSlots + 49], a
+	ld [wSpriteSlot3 + $01], a
 	ld a, $64
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot2], a
 	ld a, $10
-	ld [wSpriteSlots + 33], a
+	ld [wSpriteSlot2 + $01], a
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $C0
@@ -1129,7 +1129,7 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	cp a, $05
 	jp z, .l4970
 .l4867 ; 2A:4867
-	ld hl, $DA70
+	ld hl, wSpriteSlot7
 	ld de, $5240
 	ld a, $28
 	ld b, $01
@@ -1138,19 +1138,19 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	call SaveSenderAddr_IsSlotUsed
 	inc a
 	jr z, .l488F
-	ld hl, $DA70
+	ld hl, wSpriteSlot7
 	ld de, $5250
 	ld a, $28
 	ld b, $01
 	farcall Sprite_InitSlot
 .l488F ; 2A:488F
 	ld a, $28
-	ld [wSpriteSlots + 112], a
+	ld [wSpriteSlot7], a
 	ld a, $10
-	ld [wSpriteSlots + 113], a
+	ld [wSpriteSlot7 + $01], a
 	jp .l49A5
 .l489C ; 2A:489C
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $5240
 	ld a, $28
 	ld b, $01
@@ -1159,19 +1159,19 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	call SaveSenderAddr_IsSlotUsed
 	inc a
 	jr z, .l48C4
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $5250
 	ld a, $28
 	ld b, $01
 	farcall Sprite_InitSlot
 .l48C4 ; 2A:48C4
 	ld a, $34
-	ld [wSpriteSlots + 96], a
+	ld [wSpriteSlot6], a
 	ld a, $10
-	ld [wSpriteSlots + 97], a
+	ld [wSpriteSlot6 + $01], a
 	jp .l49A5
 .l48D1 ; 2A:48D1
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $5240
 	ld a, $28
 	ld b, $01
@@ -1180,19 +1180,19 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	call SaveSenderAddr_IsSlotUsed
 	inc a
 	jr z, .l48F9
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $5250
 	ld a, $28
 	ld b, $01
 	farcall Sprite_InitSlot
 .l48F9 ; 2A:48F9
 	ld a, $40
-	ld [wSpriteSlots + 80], a
+	ld [wSpriteSlot5], a
 	ld a, $10
-	ld [wSpriteSlots + 81], a
+	ld [wSpriteSlot5 + $01], a
 	jp .l49A5
 .l4906 ; 2A:4906
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $5240
 	ld a, $28
 	ld b, $01
@@ -1201,19 +1201,19 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	call SaveSenderAddr_IsSlotUsed
 	inc a
 	jr z, .l492E
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $5250
 	ld a, $28
 	ld b, $01
 	farcall Sprite_InitSlot
 .l492E ; 2A:492E
 	ld a, $4C
-	ld [wSpriteSlots + 64], a
+	ld [wSpriteSlot4], a
 	ld a, $10
-	ld [wSpriteSlots + 65], a
+	ld [wSpriteSlot4 + $01], a
 	jp .l49A5
 .l493B ; 2A:493B
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $5240
 	ld a, $28
 	ld b, $01
@@ -1222,19 +1222,19 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	call SaveSenderAddr_IsSlotUsed
 	inc a
 	jr z, .l4963
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $5250
 	ld a, $28
 	ld b, $01
 	farcall Sprite_InitSlot
 .l4963 ; 2A:4963
 	ld a, $58
-	ld [wSpriteSlots + 48], a
+	ld [wSpriteSlot3], a
 	ld a, $10
-	ld [wSpriteSlots + 49], a
+	ld [wSpriteSlot3 + $01], a
 	jp .l49A5
 .l4970 ; 2A:4970
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $5240
 	ld a, $28
 	ld b, $01
@@ -1246,7 +1246,7 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 
 	; [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4847-4A3D by apply_coverage --split
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $5250
 	ld a, $28
 	ld b, $01
@@ -1256,9 +1256,9 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	; [CONFIRMED] 64 insn(s) executed; cut out of the PROBABLE region 4847-4A3D by apply_coverage
 	; --split [executed in 4 scenarios]
 	ld a, $64
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot2], a
 	ld a, $10
-	ld [wSpriteSlots + 33], a
+	ld [wSpriteSlot2 + $01], a
 	jp .l49A5
 .l49A5 ; 2A:49A5
 	ld b, $1E

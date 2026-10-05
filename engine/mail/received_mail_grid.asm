@@ -93,7 +93,7 @@ MailGrid_InitScreen:: ; 2B:5448
 	farcall TextTiles_ClearBuffers
 	farcall LCDOff
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_MailGrid_Bg
 	ld a, $2B
 	farcall Palette_LoadToBuffer
@@ -116,7 +116,7 @@ MailGrid_InitScreen:: ; 2B:5448
 	ld c, $0F
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, Palette_MailGrid_Obj
 	ld a, $2B
 	farcall Palette_LoadToBuffer
@@ -133,7 +133,7 @@ MailGrid_InitScreen:: ; 2B:5448
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService
@@ -144,13 +144,13 @@ MailGrid_InitScreen:: ; 2B:5448
 	ldh a, [hScratchA]
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, Table_MailGrid_Anims
 	ld a, $2B
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1404
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	call MailGrid_DrawCellIcons
 	farcall LCDOn
@@ -168,7 +168,7 @@ MailGrid_PlaceCursorSprite:: ; 2B:5523
 	cp a, $00
 	jr nz, .l553A
 	ld de, $1404
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	pop bc
 	ret
@@ -176,7 +176,7 @@ MailGrid_PlaceCursorSprite:: ; 2B:5523
 	cp a, $01
 	jr nz, .l5549
 	ld de, $142C
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	pop bc
 	ret
@@ -184,7 +184,7 @@ MailGrid_PlaceCursorSprite:: ; 2B:5523
 	cp a, $02
 	jr nz, .l5558
 	ld de, $1454
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	pop bc
 	ret
@@ -192,7 +192,7 @@ MailGrid_PlaceCursorSprite:: ; 2B:5523
 	cp a, $03
 	jr nz, .l5567
 	ld de, $147C
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	pop bc
 	ret
@@ -200,7 +200,7 @@ MailGrid_PlaceCursorSprite:: ; 2B:5523
 	cp a, $04
 	jr nz, .l5576
 	ld de, $3404
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	pop bc
 	ret
@@ -208,7 +208,7 @@ MailGrid_PlaceCursorSprite:: ; 2B:5523
 	cp a, $05
 	jr nz, .l5585
 	ld de, $342C
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	pop bc
 	ret
@@ -216,7 +216,7 @@ MailGrid_PlaceCursorSprite:: ; 2B:5523
 	cp a, $06
 	jr nz, .l5594
 	ld de, $3454
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	pop bc
 	ret
@@ -224,7 +224,7 @@ MailGrid_PlaceCursorSprite:: ; 2B:5523
 	cp a, $07
 	jr nz, .l55A3
 	ld de, $347C
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	pop bc
 	ret
@@ -232,7 +232,7 @@ MailGrid_PlaceCursorSprite:: ; 2B:5523
 	cp a, $08
 	jr nz, .l55B2
 	ld de, $5404
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	pop bc
 	ret
@@ -240,7 +240,7 @@ MailGrid_PlaceCursorSprite:: ; 2B:5523
 	cp a, $09
 	jr nz, .l55C1
 	ld de, $542C
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	pop bc
 	ret
@@ -248,7 +248,7 @@ MailGrid_PlaceCursorSprite:: ; 2B:5523
 	cp a, $0A
 	jr nz, .l55D0
 	ld de, $5454
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	pop bc
 	ret
@@ -256,7 +256,7 @@ MailGrid_PlaceCursorSprite:: ; 2B:5523
 	cp a, $0B
 	jr nz, .l55DF
 	ld de, $547C
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	pop bc
 	ret

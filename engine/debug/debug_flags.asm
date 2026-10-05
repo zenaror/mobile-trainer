@@ -123,13 +123,13 @@ DebugFlags_Run:: ; 19:4000
 	ld [wRam_D806], a
 	ld a, $7F
 	ld [wRam_D807], a
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, Table_DebugFlags_Objects
 	ld a, $19
 	ld b, $00
 	farcall Sprite_InitSlot
 	ld de, $80A0
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld a, $80
 	ld bc, $0400
@@ -339,7 +339,7 @@ DebugFlags_OnStart:: ; 19:42B7
 	call DebugFlags_EntryHasHighByte
 	jr z, .l42EA
 	ld de, $8010
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld a, $00
 	ld [wDebugFlags_Cursor], a
@@ -347,7 +347,7 @@ DebugFlags_OnStart:: ; 19:42B7
 	jp DebugFlags_Loop
 .l42EA ; 19:42EA
 	ld de, $8050
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld a, $08
 	ld [wDebugFlags_Cursor], a
@@ -355,13 +355,13 @@ DebugFlags_OnStart:: ; 19:42B7
 	jp DebugFlags_Loop
 .l42FE ; 19:42FE
 	ld de, $80A0
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	call DebugFlags_DrawEntryName
 	jp DebugFlags_Loop
 .l430D ; 19:430D
 	ld de, $80A0
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld a, $00
 	ld [wDebugFlags_Cursor], a
@@ -974,7 +974,7 @@ DebugFlags_PlaceCursor:: ; 19:47ED
 	add a, a
 	add a, a
 	add a, $10
-	ld [wSpriteSlots + 17], a
+	ld [wSpriteSlot1 + $01], a
 	ret
 .l480B ; 19:480B
 	ld a, $07
@@ -985,7 +985,7 @@ DebugFlags_PlaceCursor:: ; 19:47ED
 	add a, a
 	add a, a
 	add a, $48
-	ld [wSpriteSlots + 17], a
+	ld [wSpriteSlot1 + $01], a
 	ret
 
 ; ---- words $481D-$4821 (4 bytes) [PROBABLE] 1 object-table entries of 4 bytes (ptr to frame table, ptr to script; 0000 = unused); de=$481D a=$19 at 19:4136 (1 entry); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs

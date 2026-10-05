@@ -46,7 +46,7 @@ Function_65_487C::
 	ld c, $1D
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0028
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_Notice_Bg
 	ld a, $58
 	farcall Palette_LoadToBuffer

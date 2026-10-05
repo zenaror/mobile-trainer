@@ -261,12 +261,12 @@ Function_2C_414C::
 	ld c, $2D
 	farcall Gfx_StartHDMA
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, Palette_MailTitle_Obj
 	ld a, $2C
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_MailTitle_Bg
 	ld a, $2C
 	farcall Palette_LoadToBuffer
@@ -275,23 +275,23 @@ Function_2C_414C::
 	ld hl, Data_MailTitle_TilemapAttr
 	ld a, $2C
 	farcall Tilemap_CopyRectAndAttr
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $7B50
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $14D0
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	ld a, $D0
-	ld [wSpriteSlots + 48], a
+	ld [wSpriteSlot3], a
 	xor a, a
-	ld [wSpriteSlots + 49], a
+	ld [wSpriteSlot3 + $01], a
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	pop af
@@ -366,7 +366,7 @@ Function_2C_414C::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService
@@ -426,8 +426,8 @@ MailTitle_PlaceTextCursor:: ; 2C:42EB
 	ld e, a
 	ld a, d
 	sub a, e
-	ld [wSpriteSlots + 16], a
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot1], a
+	ld [wSpriteSlot2], a
 	ld a, $20
 .l430E ; 2C:430E
 	dec c
@@ -435,8 +435,8 @@ MailTitle_PlaceTextCursor:: ; 2C:42EB
 	add a, $0C
 	jr .l430E
 .l4315 ; 2C:4315
-	ld [wSpriteSlots + 17], a
-	ld [wSpriteSlots + 33], a
+	ld [wSpriteSlot1 + $01], a
+	ld [wSpriteSlot2 + $01], a
 	pop bc
 	ret
 
@@ -777,7 +777,7 @@ Label_2C_44DC::
 	pop de
 	pop bc
 	push bc
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $7B70
 	ld a, $7F
 	ld b, $81
@@ -804,7 +804,7 @@ Label_2C_44DC::
 	jr nz, .loop
 .l452D ; 2C:452D
 	farcall Joypad_ClearAndResetRepeat
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81
@@ -994,7 +994,7 @@ MailTitle_DeleteChar:: ; 2C:4612
 	pop de
 	pop bc
 	push bc
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $7B80
 	ld a, $7F
 	ld b, $81
@@ -1049,7 +1049,7 @@ MailTitle_DeleteChar:: ; 2C:4612
 	jr nz, .loop
 .l467A ; 2C:467A
 	farcall Joypad_ClearAndResetRepeat
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81

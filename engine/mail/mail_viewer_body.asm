@@ -91,12 +91,12 @@ MailView_BodyPage_InitScreen:: ; 2B:7B9B
 	farcall TextTiles_ClearBuffers
 	call VBlank_Wait
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, MailBody_BgPalette
 	ld a, $28
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, $4B30
 	ld a, $28
 	farcall Palette_LoadToBuffer
@@ -122,13 +122,13 @@ MailView_BodyPage_InitScreen:: ; 2B:7B9B
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	call VBlank_Wait
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, MailBody_ObjTable
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0808
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	pop bc
 	push bc

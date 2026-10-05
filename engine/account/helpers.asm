@@ -183,7 +183,7 @@ Function_68_40D8::
 	add a, l
 	ld d, e
 	ld e, a
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	call Sprite_SetPosition
 	ret
 

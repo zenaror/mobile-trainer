@@ -93,8 +93,8 @@ Gfx_GdmaAtVBlankNoDi:: ; 7F:72C2
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wSpriteSlots + 48], a
-	ld a, [wSpriteSlots + 49]
+	ld [wSpriteSlot3], a
+	ld a, [wSpriteSlot3 + $01]
 	cp a, d
 	jr z, .l72FE
 	jr c, .l72FC
@@ -103,7 +103,7 @@ Gfx_GdmaAtVBlankNoDi:: ; 7F:72C2
 .l72FC ; 7F:72FC
 	add a, $08
 .l72FE ; 7F:72FE
-	ld [wSpriteSlots + 49], a
+	ld [wSpriteSlot3 + $01], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -123,8 +123,8 @@ Gfx_GdmaAtVBlankNoDi:: ; 7F:72C2
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wSpriteSlots + 80], a
-	ld a, [wSpriteSlots + 81]
+	ld [wSpriteSlot5], a
+	ld a, [wSpriteSlot5 + $01]
 	cp a, d
 	jr z, .l732A
 	jr c, .l7328
@@ -133,7 +133,7 @@ Gfx_GdmaAtVBlankNoDi:: ; 7F:72C2
 .l7328 ; 7F:7328
 	add a, $0C
 .l732A ; 7F:732A
-	ld [wSpriteSlots + 81], a
+	ld [wSpriteSlot5 + $01], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -171,15 +171,15 @@ Function_7F_733A::
 	add a, b
 	ld [wSplitScrollY], a
 	ei
-	ld a, [wSpriteSlots + 64]
+	ld a, [wSpriteSlot4]
 	sub a, b
-	ld [wSpriteSlots + 64], a
-	ld a, [wSpriteSlots + 32]
+	ld [wSpriteSlot4], a
+	ld a, [wSpriteSlot2]
 	sub a, b
-	ld [wSpriteSlots + 32], a
-	ld a, [wSpriteSlots + 16]
+	ld [wSpriteSlot2], a
+	ld a, [wSpriteSlot1]
 	sub a, b
-	ld [wSpriteSlots + 16], a
+	ld [wSpriteSlot1], a
 	inc e
 	pop bc
 	ret
@@ -232,18 +232,18 @@ Function_7F_7425::
 	add a, b
 	ld [wSplitScrollY], a
 	ei
-	ld a, [wSpriteSlots + 64]
+	ld a, [wSpriteSlot4]
 	sub a, b
-	ld [wSpriteSlots + 64], a
-	ld a, [wSpriteSlots + 32]
+	ld [wSpriteSlot4], a
+	ld a, [wSpriteSlot2]
 	sub a, b
-	ld [wSpriteSlots + 32], a
-	ld a, [wSpriteSlots + 16]
+	ld [wSpriteSlot2], a
+	ld a, [wSpriteSlot1]
 	sub a, b
-	ld [wSpriteSlots + 16], a
-	ld a, [wSpriteSlots + 48]
+	ld [wSpriteSlot1], a
+	ld a, [wSpriteSlot3]
 	sub a, b
-	ld [wSpriteSlots + 48], a
+	ld [wSpriteSlot3], a
 	inc e
 	pop bc
 	ret
@@ -313,15 +313,15 @@ Function_7F_7578::
 	sub a, b
 	ld [wSplitScrollY], a
 	ei
-	ld a, [wSpriteSlots + 64]
+	ld a, [wSpriteSlot4]
 	add a, b
-	ld [wSpriteSlots + 64], a
-	ld a, [wSpriteSlots + 32]
+	ld [wSpriteSlot4], a
+	ld a, [wSpriteSlot2]
 	add a, b
-	ld [wSpriteSlots + 32], a
-	ld a, [wSpriteSlots + 16]
+	ld [wSpriteSlot2], a
+	ld a, [wSpriteSlot1]
 	add a, b
-	ld [wSpriteSlots + 16], a
+	ld [wSpriteSlot1], a
 	inc e
 	pop bc
 	ret
@@ -391,18 +391,18 @@ Function_7F_76C4::
 	sub a, b
 	ld [wSplitScrollY], a
 	ei
-	ld a, [wSpriteSlots + 64]
+	ld a, [wSpriteSlot4]
 	add a, b
-	ld [wSpriteSlots + 64], a
-	ld a, [wSpriteSlots + 32]
+	ld [wSpriteSlot4], a
+	ld a, [wSpriteSlot2]
 	add a, b
-	ld [wSpriteSlots + 32], a
-	ld a, [wSpriteSlots + 16]
+	ld [wSpriteSlot2], a
+	ld a, [wSpriteSlot1]
 	add a, b
-	ld [wSpriteSlots + 16], a
-	ld a, [wSpriteSlots + 48]
+	ld [wSpriteSlot1], a
+	ld a, [wSpriteSlot3]
 	add a, b
-	ld [wSpriteSlots + 48], a
+	ld [wSpriteSlot3], a
 	inc e
 	pop bc
 	ret
@@ -459,7 +459,7 @@ Function_7F_7817::
 	ld b, a
 	ld a, $20
 	sub a, b
-	ld [wSpriteSlots + 16], a
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot1], a
+	ld [wSpriteSlot2], a
 	pop bc
 	ret

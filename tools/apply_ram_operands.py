@@ -1,23 +1,32 @@
 #!/usr/bin/env python3
-"""Write the raw pointer operands of WRAM0 and HRAM (`ld hl, $C0A0`) as the name of the object they point at (`ld hl, wGlyphBufLeft`).
+"""Write the raw pointer operands of WRAM (`ld hl, $C0A0`) and HRAM as the name of the object they point at (`ld hl, wGlyphBufLeft`).
 
-    python3 tools/apply_ram_operands.py [--areas wram0,hram] [--dry-run] [--report FILE] [options]
-    python3 tools/apply_ram_operands.py --check [--areas ...] [--root DIR]
+    python3 tools/apply_ram_operands.py [--areas wram0,hram,io] [--dry-run] [--report FILE] [options]
+    python3 tools/apply_ram_operands.py --areas wramx [--consumers FILE] [--calls FILE] [--dry-run] [options]
+    python3 tools/apply_ram_operands.py --elements wSpriteSlots [--observed] [--dry-run] [options]
+    python3 tools/apply_ram_operands.py --check [--areas ...] [--elements ... [--observed]] [--root DIR]
 
-  --areas A,B    wram0 ($C000-$CFFF, `ram/wram.asm`), hram ($FF80-$FFFE, `ram/hram.asm`) and/or io ($FF00-$FF7F, the hardware registers of `constants/hardware.inc`); default wram0
+  --areas A,B    wram0 ($C000-$CFFF, `ram/wram.asm`), hram ($FF80-$FFFE, `ram/hram.asm`), io ($FF00-$FF7F, the hardware registers of `constants/hardware.inc`) and/or wramx
+                 (banked WRAM $D000-$DFFF, the names of `ram/banked.asm`, only where a consumer rule proves the bank, see below); default wram0 (no area when only --elements is given)
+  --consumers F  consumer rules of the wramx area (TAB separated; default analysis/naming2/wramx_consumers.tsv)
+  --calls F      bank effects of routines, used by the bank proofs (default analysis/naming2/wramx_calls.tsv)
+  --elements N   container names of `ram/wram.asm` (an array of records whose elements are named in `ram/banked.asm`): `N + 128` becomes `wSpriteSlot8`, `N + 129` becomes
+                 `wSpriteSlot8 + $01`, where the bank of the access is shown (see below)
+  --observed     with --elements: the replays also prove the bank (analysis/rambank/observed_banks.tsv: every replayed execution of the instruction ran under that bank only); builds a
+                 marked copy of the tree to map source lines to ROM addresses (tools/line_addresses.py, needs rgbasm)
   --root DIR     tree to edit (default: the repository root; use it to work in a copy)
   --dry-run      analyse and print what would change; write nothing, build nothing
   --no-build     apply the edit but do not run the build / SHA-256 / sym_check verification (no rollback then!)
   --no-symcheck  run the build and the SHA-256 check but not tools/sym_check.py
   --report FILE  write a TSV with one line per operand (file, line, operand, outcome, replacement)
-  --check        read-only audit: lists the operands that are still raw although an object covers the address; exit 1 when there are some
+  --check        read-only audit: lists the operands and expressions that are still raw although the tool can name them; exit 1 when there are some
 
 Why (STYLE.md, RAM): the generator wrote RAM names where code reads or writes a variable (`ld a, [wTimerEnable]`) but left every pointer *immediate* numeric
 (`ld hl, $C0A0`), because an immediate can be a constant.  In `$C000-$CFFF` (WRAM0, never banked) it practically never is: it is the address of something, and
 `ram/wram.asm` names what is there.  In HRAM and the hardware registers it often is a constant (the 16-bit negative numbers `$FF9C` = -100, `$FFF6` = -10 that `add hl, bc`
 adds), so those two areas are rewritten only after a look at the next use of the register.  The edit is a text rewrite of the operand only (`ld hl, $C0A0` ->
 `ld hl, wGlyphBufLeft`, `ld de, $C0A3` -> `ld de, wGlyphBufLeft + $03`): `name` is the same number, so no byte of the ROM changes (`make` and the SHA-256 prove it, and the files
-are restored if not).  The banked areas (`$D000-$DFFF` WRAM, `$A000-$BFFF` SRAM) are not touched here: their names depend on the bank, see tools/apply_banked_names.py.
+are restored if not).  SRAM (`$A000-$BFFF`) is not touched here (tools/apply_banked_names.py).
 
 Rules
   * only code lines of the form `ld hl|de|bc, $XXXX` (4 hex digits, optional trailing comment) in home/ engine/ lib/ data/ audio/;
@@ -29,6 +38,26 @@ Rules
     whose first use is `add hl, <the register>` (or `add hl, bc|de` when the register is hl), and in every area a DE that goes to `Sprite_SetPosition` (the Y, X pair) or a BC that goes
     to `CommTime_DrawNumber` (the addend); (3) a line whose trailing comment starts with `; raw` (a human decision, with the reason: a dead load, a scratch use of the buffer, ...);
   * an operand with no object at its address stays numeric and is reported.
+
+The wramx area (banked WRAM `$D000-$DFFF`: the same address is another variable in every bank, so the number alone proves nothing).  An operand is rewritten only when a
+*consumer rule* proves the bank in which the pointer is dereferenced.  The consumer is the first `call`, `farcall` or tail `jp Label` of the straight line after the load, when only
+plain instructions (no label, jump, macro or data line) that touch neither the register nor a bank register come first.  A row of `analysis/naming2/wramx_consumers.tsv` (consumer,
+register, bank W1-W7, needs, family, proof) says that this routine dereferences that register in that bank: `needs` is `-` when the routine selects the bank itself
+(`Sprite_InitSlot` selects bank 7 before it writes the slot) or `switch` when the caller does, and the tool must show the bank by a backward scan of the straight line: the nearest write
+of the bank register must be the idiom `ld a, $0N / ldh [hWRAMBank], a / ldh [rSVBK], a` (or a call to a routine that `sets` the bank in `analysis/naming2/wramx_calls.tsv`).  The scan
+gives up at a global label, at an unconditional `ret`/`jp`/`jr` (what follows is another path), at a call to a routine that is not known to `keep` the bank (`wramx_calls.tsv` lists
+the routines that keep or set it; an unknown routine, a conditional call, `rst` or a macro ends the proof), and at a local label unless it heads a loop whose body writes no bank
+register and calls only routines that keep it; the scan reaches back at most 60 lines.  `family` is a regular expression for the name: a rule about sprite slots never writes a palette
+name.  The name is the innermost object of `ram/banked.asm` for that bank that covers the address.  Operands without a rule (`no rule`), whose bank is not shown (`bank not shown`),
+that have no name in the bank (`no object`) or whose name is of another family (`wrong family`) stay numeric and are counted per consumer, which tells which rule to write next.
+
+--elements: `ld [wSpriteSlots + 128], a` in the generated code is the byte `$DA80` written as the container name plus a decimal offset.  When the elements of the container (the names
+of `ram/banked.asm` that lie inside it: `wSpriteSlot0` ... `wSpriteSlot13`) are known, every code expression `container`, `container + N` or `container + $XX` of a code line
+without a string is rewritten as `element` or `element + $XX` (hexadecimal offsets, STYLE.md) when the bank of the access is shown: by the backward scan above (bank of the elements),
+or with --observed because every replayed execution of the instruction ran under that bank only (an instruction seen under another bank is reported `other bank`).  A bare
+`ld hl|de|bc, container` is the base of the whole array and stays, and so does an expression that is part of a larger one (`container + 16 * 3`, `container - 1`).  The value is
+the same, so the ROM does not change.
+
 After editing the tree the tool builds (`make`, or $RENAME_BUILD_CMD), compares the ROM's SHA-256 with roms.sha256 and runs tools/sym_check.py (as tools/apply_renames.py
 does); on any failure every touched file is restored and the exit status is 1.  Idempotent: a second run finds nothing to do.
 
@@ -50,7 +79,12 @@ AREAS = {
     'wram0': ('ram/wram.asm', 0xC000, 0xD000, re.compile(r'^wRam_C[0-9A-F]{3}$')),
     'hram': ('ram/hram.asm', 0xFF80, 0xFFFF, re.compile(r'^hRam_FF[0-9A-F]{2}$')),
     'io': ('constants/hardware.inc', 0xFF00, 0xFF80, re.compile(r'^$^')),
+    'wramx': ('ram/banked.asm', 0xD000, 0xE000, re.compile(r'^$^')),
 }
+BANKED_DEF = re.compile(r'^DEF\s+([A-Za-z_][A-Za-z0-9_]*)\s+EQU\s+\$([0-9A-F]{4})\s*;\s*bank\s+(W[1-7])\s+size\s+(\d+)\b')
+CONSUMERS = 'analysis/naming2/wramx_consumers.tsv'
+CALLS = 'analysis/naming2/wramx_calls.tsv'
+SWITCH_WINDOW = 60                                  # lines searched backwards for the bank-switch idiom
 IO_DEF = re.compile(r'^DEF\s+(r[A-Z0-9_]+)\s+EQU\s+\$(FF[0-7][0-9A-F])\b')
 OBJ_DEF = re.compile(r'^DEF\s+([A-Za-z_][A-Za-z0-9_]*)\s+EQU\s+\$([0-9A-F]{4})\s*;\s*size\s+(\d+)\b')
 ALIAS_DEF = re.compile(r'^DEF\s+[A-Za-z_][A-Za-z0-9_]*\s+EQU\s+((?:wRam_C[0-9A-F]{3})|(?:hRam_FF[0-9A-F]{2}))\s*;')
@@ -67,20 +101,28 @@ def value_registers(target):
         if target == name or target.startswith(name + '_'):
             return regs
     return ()
-FAMILY = {'hl': {'hl', 'h', 'l', '[hl]', '[hli]', '[hld]', '[hl+]', '[hl-]'}, 'bc': {'bc', 'b', 'c', '[bc]'}, 'de': {'de', 'd', 'e', '[de]'}}
+FAMILY = {'hl': {'hl', 'h', 'l', '[hl]', '[hli]', '[hld]', '[hl+]', '[hl-]'}, 'bc': {'bc', 'b', 'c', '[bc]', '[c]'}, 'de': {'de', 'd', 'e', '[de]'}}
+PLAIN = {'ld', 'ldh', 'push', 'pop', 'xor', 'or', 'and', 'add', 'adc', 'sub', 'sbc', 'inc', 'dec', 'cp', 'bit', 'set', 'res', 'swap', 'sla', 'sra', 'srl', 'rl', 'rr', 'rlc', 'rrc',
+         'rla', 'rra', 'rlca', 'rrca', 'cpl', 'ccf', 'scf', 'daa', 'nop', 'di', 'ei'}      # instructions that neither jump nor call: anything else (a macro, a data line) ends a proof
+BANK_REGS = ('[rSVBK]', '[hWRAMBank]', '[$FF70]', '[$FF8D]')                               # every spelling of the WRAM bank register and its shadow
 CONDITIONS = {'z', 'nz', 'c', 'nc'}
 TRANSFERS = {'call', 'jp', 'jr', 'ret', 'reti', 'rst', 'farcall'}
 
 
 class Obj:
-    def __init__(self, name, start, size, neutral):
-        self.name, self.start, self.size, self.neutral = name, start, size, neutral
+    def __init__(self, name, start, size, neutral, bank=None):
+        self.name, self.start, self.size, self.neutral, self.bank = name, start, size, neutral, bank
 
 
 def read_objects(tree, area):
     rel, lo, hi, neutral_re = AREAS[area]
     objs = []
     for line in tree.files.get(rel, []):
+        if area == 'wramx':
+            m = BANKED_DEF.match(line)
+            if m:
+                objs.append(Obj(m.group(1), int(m.group(2), 16), int(m.group(4)), False, m.group(3)))
+            continue
         if area == 'io':
             m = IO_DEF.match(line)
             if m and not any(o.start == int(m.group(2), 16) for o in objs):
@@ -123,8 +165,11 @@ def in_alias_scope(scopes, v, rel):
     return False
 
 
+REGTOK = re.compile(r'^\[?(?:af|bc|de|hl|sp|[abcdehl]|hli|hld|hl\+|hl-|nz|z|nc)\]?$', re.I)
+
+
 def parse_insn(line):
-    """None for a global label or a directive (the straight line ends), '' for a blank or comment-only line, else (mnemonic, operands)."""
+    """None for a global label or a directive (the straight line ends), '' for a blank or comment-only line, else (mnemonic, operands); registers and conditions are lower-cased."""
     raw = line.split(';')[0]
     if not raw.strip():
         return ''
@@ -132,7 +177,7 @@ def parse_insn(line):
         return None
     parts = raw.strip().split(None, 1)
     ops = [o.strip() for o in parts[1].split(',')] if len(parts) > 1 else []
-    return parts[0].lower(), ops
+    return parts[0].lower(), [o.lower() if REGTOK.match(o) else o for o in ops]
 
 
 def is_value(lines, i, reg, area):
@@ -169,6 +214,198 @@ def is_value(lines, i, reg, area):
     return False
 
 
+def read_tsv(root, path, what):
+    """The rows (list of column lists, with the file line number) of a TAB separated file under the root (or absolute); `#` and blank lines are skipped."""
+    full = path if os.path.isabs(path) else os.path.join(root, path)
+    try:
+        with open(full, encoding='utf-8') as f:
+            text = f.read().split('\n')
+    except OSError as e:
+        raise ValueError('cannot read the %s: %s' % (what, e))
+    return [(n, line.split('\t')) for n, line in enumerate(text, 1) if line.strip() and not line.startswith('#')]
+
+
+def read_rules(root, path):
+    """{(consumer, register): (bank, needs, family regex, proof)} of the consumer rules file; raises ValueError on a missing file or a malformed row."""
+    rules = {}
+    for n, cols in read_tsv(root, path, 'consumer rules'):
+        if len(cols) != 6:
+            raise ValueError('%s:%d: 6 TAB separated columns expected (consumer, register, bank, needs, family, proof)' % (path, n))
+        consumer, reg, bank, needs, family, proof = [c.strip() for c in cols]
+        try:
+            re.compile(family)
+        except re.error:
+            family = ''
+        if reg not in ('hl', 'de', 'bc') or not re.match(r'^W[1-7]$', bank) or needs not in ('-', 'switch') or not consumer or not family or not proof:
+            raise ValueError('%s:%d: bad rule row %r' % (path, n, cols[:5]))
+        if (consumer, reg) in rules:
+            raise ValueError('%s:%d: duplicate rule for %s %s' % (path, n, consumer, reg))
+        rules[(consumer, reg)] = (bank, needs, family, proof)
+    return rules
+
+
+def read_calls(root, path):
+    """{routine: 'keeps' | 'W1'..'W7'} of the bank effects file (routine, effect, proof): `keeps` = the WRAM bank in force is the same after the call, `sets W7` = it is bank 7 after the call."""
+    effects = {}
+    for n, cols in read_tsv(root, path, 'bank effects of calls'):
+        if len(cols) != 3:
+            raise ValueError('%s:%d: 3 TAB separated columns expected (routine, effect, proof)' % (path, n))
+        routine, effect, proof = [c.strip() for c in cols]
+        m = re.match(r'^(keeps|sets (W[1-7]))$', effect)
+        if not routine or not m or not proof:
+            raise ValueError('%s:%d: bad row %r' % (path, n, cols[:2]))
+        if routine in effects:
+            raise ValueError('%s:%d: duplicate routine %s' % (path, n, routine))
+        effects[routine] = 'keeps' if effect == 'keeps' else m.group(2)
+    return effects
+
+
+def find_consumer(lines, i, reg):
+    """(routine, line index) that receives the register loaded at lines[i]: the first call/farcall/tail jp of the straight line, when only plain instructions that touch neither the register nor the
+    bank come first (no label, jump, macro or data line); (None, None) otherwise."""
+    for j in range(i + 1, min(i + 60, len(lines))):
+        if lines[j].startswith('.'):
+            return None, None                              # a local label: another path joins here
+        ins = parse_insn(lines[j])
+        if ins is None:
+            return None, None
+        if ins == '':
+            continue
+        m, ops = ins
+        if m == 'farcall' and len(ops) == 1:
+            return ops[0], j
+        if m == 'call' and len(ops) == 1:
+            return ops[0], j                               # (a conditional `call nz, X` has two operands: not a proof)
+        if m == 'jp' and len(ops) == 1 and ops[0] != 'hl' and re.match(r'^[A-Za-z_][A-Za-z0-9_]*$', ops[0]):
+            return ops[0], j                               # a tail call: `jp Sprite_SetPosition`
+        if m not in PLAIN:
+            return None, None                              # another transfer, a macro, a data line
+        if any(o in FAMILY[reg] for o in ops):
+            return None, None                              # the register is touched before the call
+        if any(o in BANK_REGS for o in ops):
+            return None, None                              # the bank changes between the load and the call
+    return None, None
+
+
+GLOBAL_LABEL = re.compile(r'^[A-Za-z_][A-Za-z0-9_]*::?')
+IMM8 = re.compile(r'^\$([0-9A-F]{2})$', re.I)
+
+
+def writes_bank(ins):
+    """True for `ldh|ld [rSVBK|hWRAMBank], a` (any spelling of the two)."""
+    return bool(ins) and ins[0] in ('ldh', 'ld') and len(ins[1]) == 2 and ins[1][0] in BANK_REGS
+
+
+def previous_insns(lines, j, count):
+    """The `count` instructions before lines[j] in the straight line, nearest first (fewer when a label or directive comes first)."""
+    out = []
+    for k in range(j - 1, max(-1, j - 1 - SWITCH_WINDOW), -1):
+        line = lines[k]
+        if line.startswith('.') or (line.strip() and not line.startswith('\t') and not line.startswith(';')):
+            break
+        ins = parse_insn(line)
+        if ins is None or ins == '':
+            continue
+        out.append(ins)
+        if len(out) == count:
+            break
+    return out
+
+
+def call_effect(ins, effects):
+    """The bank effect of a call/farcall instruction (`keeps`, `W7`, or None when unknown, conditional or not in the effects table)."""
+    m, ops = ins
+    if m not in ('call', 'farcall') or len(ops) != 1:
+        return None
+    return effects.get(ops[0])
+
+
+def loop_head_keeps_bank(lines, j, effects):
+    """True when the local label at lines[j] is only the head of a loop (every reference is a jr/jp *after* it, inside the same routine) and the loop body, from the head to the last back
+    edge, neither writes the bank register nor calls a routine that is not known to keep the bank: the bank at the head is then the bank of the code that falls into it."""
+    name = lines[j].split(';')[0].strip().rstrip(':')
+    s = j
+    while s > 0 and not GLOBAL_LABEL.match(lines[s]):
+        s -= 1
+    e = j + 1
+    while e < len(lines) and not GLOBAL_LABEL.match(lines[e]):
+        e += 1
+    pat = re.compile(r'(?<![A-Za-z0-9_.])%s(?![A-Za-z0-9_])' % re.escape(name))
+    refs = []
+    for k in range(s, e):
+        if k == j or not pat.search(lines[k].split(';')[0]):
+            continue
+        ins = parse_insn(lines[k])
+        if not ins or k < j or ins[0] not in ('jr', 'jp'):
+            return False                                   # a forward jump, a call or a data reference: another path enters here
+        refs.append(k)
+    last = max(refs) if refs else j
+    for k in range(j + 1, last + 1):
+        ins = parse_insn(lines[k])
+        if not ins:
+            continue
+        if writes_bank(ins) or any(o in BANK_REGS for o in ins[1]):
+            return False
+        if ins[0] in ('call', 'farcall') and call_effect(ins, effects) != 'keeps':
+            return False
+        if ins[0] not in PLAIN and ins[0] not in ('jr', 'jp', 'ret', 'reti', 'call', 'farcall'):
+            return False                                   # rst, a macro, a data line
+    return True
+
+
+def bank_at(lines, i, effects):
+    """The WRAM bank N (1-7) in force when lines[i] runs, found by a backward scan of the straight line: the nearest write of the bank register must be the idiom `ld a, $0N / ldh [hWRAMBank], a /
+    ldh [rSVBK], a`, or a call to a routine that `sets` the bank (analysis/naming2/wramx_calls.tsv).  The scan gives up (None) at a global label, at an unconditional `ret`/`jp`/`jr` (the code
+    below is another path), at a call whose effect is unknown or not `keeps`, at a conditional call, at `rst`, a macro or a data line, and at a local label unless it heads a loop that keeps the
+    bank (loop_head_keeps_bank); calls between the idiom and the site must be known to keep the bank."""
+    for j in range(i - 1, max(-1, i - 1 - SWITCH_WINDOW), -1):
+        line = lines[j]
+        if line.startswith('.'):
+            if loop_head_keeps_bank(lines, j, effects):
+                continue
+            return None
+        if line.strip() and not line.startswith('\t') and not line.startswith(';'):
+            return None                                    # a global label or directive: the routine may be entered from anywhere
+        ins = parse_insn(line)
+        if ins is None or ins == '':
+            continue
+        m, ops = ins
+        if writes_bank(ins):
+            if ops[0] not in ('[rSVBK]', '[$FF70]'):
+                return None                                # the shadow written alone
+            back = previous_insns(lines, j, 2)
+            if len(back) < 2:
+                return None
+            second, first = back                           # the instruction right before the write, and the one before that
+            if (second[0] in ('ldh', 'ld') and len(second[1]) == 2 and second[1][0] in ('[hWRAMBank]', '[$FF8D]') and second[1][1] == 'a'
+                    and first[0] == 'ld' and len(first[1]) == 2 and first[1][0] == 'a'):
+                mm = IMM8.match(first[1][1])
+                if mm and 1 <= int(mm.group(1), 16) <= 7:
+                    return int(mm.group(1), 16)
+            return None
+        if m in ('ret', 'reti') and not ops:
+            return None                                    # unconditional: what follows is another path (a fragment)
+        if m in ('jp', 'jr') and len(ops) == 1:
+            return None                                    # unconditional (jp hl too)
+        if m in ('ret', 'reti', 'jp', 'jr'):
+            continue                                       # conditional: the fall-through path
+        if m in ('call', 'farcall'):
+            eff = call_effect(ins, effects)
+            if eff == 'keeps':
+                continue
+            if eff:
+                return int(eff[1])                         # the routine leaves this bank selected
+            return None
+        if m not in PLAIN:
+            return None                                    # rst, a macro, a data line
+    return None
+
+
+def bank_switch_before(lines, i, bank, effects):
+    """True when bank_at shows this bank (`W7`)."""
+    return bank_at(lines, i, effects) == int(bank[1])
+
+
 def choose(objs, v):
     """The object whose name replaces the address v, or None."""
     sem = [o for o in objs if not o.neutral and o.start <= v < o.start + o.size]
@@ -184,8 +421,9 @@ def text_for(obj, v):
     return obj.name if v == obj.start else '%s + $%02X' % (obj.name, v - obj.start)
 
 
-def plan(tree, areas):
-    """List of (relpath, index, operand_value, outcome, replacement)."""
+def plan(tree, areas, rules=None, effects=None):
+    """List of (relpath, index, operand_value, outcome, replacement); the replacement of a `no rule` row is the consumer found."""
+    effects = {} if effects is None else effects
     tables = {}
     scopes = alias_scopes(tree)
     for a in areas:
@@ -210,6 +448,21 @@ def plan(tree, areas):
                 rows.append((rel, i, v, 'overlay base', ''))
             elif is_value(lines, i, reg, area):
                 rows.append((rel, i, v, 'value', ''))
+            elif area == 'wramx':
+                consumer, _ = find_consumer(lines, i, reg)
+                rule = rules.get((consumer, reg)) if consumer else None
+                if rule is None:
+                    rows.append((rel, i, v, 'no rule', consumer or '(none)'))
+                elif rule[1] == 'switch' and not bank_switch_before(lines, i, rule[0], effects):
+                    rows.append((rel, i, v, 'bank not shown', consumer))
+                else:
+                    obj = choose([o for o in tables[area][0] if o.bank == rule[0]], v)
+                    if obj is None:
+                        rows.append((rel, i, v, 'no object', consumer))
+                    elif not re.fullmatch(rule[2], obj.name):
+                        rows.append((rel, i, v, 'wrong family', '%s %s' % (consumer, obj.name)))      # the rule is about another kind of object
+                    else:
+                        rows.append((rel, i, v, 'apply', text_for(obj, v)))
             else:
                 obj = choose(tables[area][0], v)
                 if obj is None:
@@ -219,21 +472,130 @@ def plan(tree, areas):
     return rows
 
 
-def apply_rows(tree, rows):
-    new = {}
+def lines_of(tree, new, rel):
+    return new[rel] if rel in new else list(tree.files[rel])
+
+
+def apply_rows(tree, rows, new):
+    """Apply the operand rewrites to `new` ({relpath: list of lines}, edited in place)."""
     for rel, i, v, outcome, text in rows:
         if outcome != 'apply':
             continue
-        lines = new[rel] if rel in new else list(tree.files[rel])
+        lines = lines_of(tree, new, rel)
         m = LD.match(lines[i])
         lines[i] = m.group(1) + text + m.group(3)
         new[rel] = lines
-    return {rel: '\n'.join(lines) for rel, lines in new.items()}
+    return new
+
+
+def container_info(tree, name):
+    for line in tree.files.get('ram/wram.asm', []):
+        m = OBJ_DEF.match(line)
+        if m and m.group(1) == name:
+            return int(m.group(2), 16), int(m.group(3))
+    return None
+
+
+def split_code(line):
+    k = line.find(';')
+    return (line, '') if k < 0 else (line[:k], line[k:])
+
+
+def observed_masks(root, sites):
+    """{(file, line): wram_mask or None} of analysis/rambank/observed_banks.tsv for the instruction at every source line (None: unmapped or never executed in the replays); builds a marked copy of the tree."""
+    import line_addresses as la
+    res = la.addresses(root, sorted(sites))
+    out = {}
+    for s, r in res.items():
+        out[s] = None if r is None else la.observed_wram_mask(root, r[0], r[1])
+    return out
+
+
+def plan_elements(tree, containers, observed=None, effects=None):
+    """List of (relpath, index, start, end, old, outcome, new): every `container`, `container + N` expression of a code line, and what the element name for it is.
+    The bank of the access must be shown: the idiom of bank_switch_before, or (with `observed`, {(file, line): mask}) the replays saw the instruction under that bank only; an instruction
+    seen under another bank is `other bank`, one with no proof `bank not shown`; a match that is part of a larger arithmetic expression is `complex` and left alone."""
+    effects = {} if effects is None else effects
+    banked = read_objects(tree, 'wramx')
+    rows = []
+    for cname in containers:
+        info = container_info(tree, cname)
+        if info is None:
+            raise ValueError('%s is not defined in ram/wram.asm' % cname)
+        cstart, csize = info
+        elems = [o for o in banked if cstart <= o.start and o.start + o.size <= cstart + csize]
+        if not elems:
+            raise ValueError('ram/banked.asm has no names inside %s ($%04X-$%04X)' % (cname, cstart, cstart + csize - 1))
+        banks = sorted({o.bank for o in elems})
+        if len(banks) != 1:
+            raise ValueError('the elements of %s are in several banks: %s' % (cname, ', '.join(banks)))
+        bank = banks[0]
+        bit = 1 << int(bank[1])
+        pat = re.compile(r'\b%s\b(?:\s*\+\s*(\$[0-9A-Fa-f]+|\d+)\b)?' % re.escape(cname))
+        base = re.compile(r'^\s*ld (?:hl|de|bc), %s\s*$' % re.escape(cname))
+        for rel in sorted(tree.files):
+            if not rel.endswith('.asm') or not rel.startswith(SOURCE_DIRS):
+                continue
+            for i, line in enumerate(tree.files[rel]):
+                if not line.startswith('\t'):
+                    continue
+                code, _ = split_code(line)
+                if '"' in code or base.match(code):
+                    continue                               # a string, or the base of the whole array
+                for m in pat.finditer(code):
+                    before = code[:m.start()].rstrip()[-1:]
+                    after = code[m.end():].lstrip()[:1]
+                    if before in tuple('-*/%&|^<>~(') or after in tuple('*/%&|^<>-+'):
+                        rows.append((rel, i, m.start(), m.end(), m.group(0), 'complex', ''))        # `N + 16 * 3`, `N - 1`: not a plain offset
+                        continue
+                    n = 0 if m.group(1) is None else (int(m.group(1)[1:], 16) if m.group(1).startswith('$') else int(m.group(1)))
+                    addr = cstart + n
+                    cover = [o for o in elems if o.start <= addr < o.start + o.size]
+                    if not cover:
+                        rows.append((rel, i, m.start(), m.end(), m.group(0), 'no element', ''))
+                        continue
+                    seen = observed.get((rel, i + 1)) if observed is not None else None
+                    if seen is not None and seen != bit:
+                        outcome = 'other bank'                 # the replays saw this instruction under another bank (or under several)
+                    elif seen == bit or bank_switch_before(tree.files[rel], i, bank, effects):
+                        outcome = 'apply'
+                    else:
+                        outcome = 'bank not shown'
+                    rows.append((rel, i, m.start(), m.end(), m.group(0), outcome, text_for(max(cover, key=lambda o: (o.start, -o.size)), addr)))
+    return rows
+
+
+def apply_elements(tree, rows, new):
+    """Apply the element rewrites to `new` ({relpath: list of lines}, edited in place)."""
+    by_line = {}
+    for rel, i, s, e, old, outcome, text in rows:
+        if outcome == 'apply':
+            by_line.setdefault((rel, i), []).append((s, e, text))
+    for (rel, i), items in by_line.items():
+        lines = lines_of(tree, new, rel)
+        line = lines[i]
+        for s, e, text in sorted(items, reverse=True):
+            line = line[:s] + text + line[e:]
+        lines[i] = line
+        new[rel] = lines
+    return new
+
+
+def top_consumers(rows, outcome, n=12):
+    counts = {}
+    for r in rows:
+        if r[3] == outcome:
+            counts[r[4]] = counts.get(r[4], 0) + 1
+    return sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))[:n]
 
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description='Write the raw RAM pointer operands as the names of their objects (see the module docstring).')
-    ap.add_argument('--areas', default='wram0')
+    ap.add_argument('--areas', default=None)
+    ap.add_argument('--consumers', default=CONSUMERS)
+    ap.add_argument('--calls', default=CALLS)
+    ap.add_argument('--elements', default='')
+    ap.add_argument('--observed', action='store_true', help='with --elements: also accept the replays (observed_banks.tsv) as proof of the bank; needs rgbasm (a marked copy is built)')
     ap.add_argument('--root', default=ROOT)
     ap.add_argument('--dry-run', action='store_true')
     ap.add_argument('--no-build', action='store_true')
@@ -241,8 +603,9 @@ def main(argv=None):
     ap.add_argument('--report', metavar='FILE')
     ap.add_argument('--check', action='store_true')
     args = ap.parse_args(argv)
-    areas = [a.strip() for a in args.areas.split(',') if a.strip()]
-    if not areas or any(a not in AREAS for a in areas):
+    containers = [c.strip() for c in args.elements.split(',') if c.strip()]
+    areas = [a.strip() for a in (args.areas if args.areas is not None else ('' if containers else 'wram0')).split(',') if a.strip()]
+    if (not areas and not containers) or any(a not in AREAS for a in areas):
         print('apply_ram_operands: --areas takes %s' % ', '.join(AREAS), file=sys.stderr)
         return 2
     root = os.path.abspath(args.root)
@@ -251,43 +614,99 @@ def main(argv=None):
     except OSError as e:
         print('apply_ram_operands: cannot read the tree: %s' % e, file=sys.stderr)
         return 2
-    for a in areas:
+    for a in areas + (['wramx'] if containers else []):
         if AREAS[a][0] not in tree.files:
             print('apply_ram_operands: %s has no %s' % (root, AREAS[a][0]), file=sys.stderr)
             return 2
-    rows = plan(tree, areas)
+    rules, effects = {}, {}
+    if 'wramx' in areas or containers:
+        try:
+            if 'wramx' in areas:
+                rules = read_rules(root, args.consumers)
+            effects = read_calls(root, args.calls)
+        except ValueError as e:
+            print('apply_ram_operands: %s' % e, file=sys.stderr)
+            return 2
+    rows = plan(tree, areas, rules, effects) if areas else []
+    try:
+        masks = None
+        if containers and args.observed:
+            wanted = set()
+            for rel, text in tree.files.items():
+                if rel.endswith('.asm') and rel.startswith(SOURCE_DIRS):
+                    for i, line in enumerate(text):
+                        if line.startswith('\t') and any(re.search(r'\b%s\b' % re.escape(c), split_code(line)[0]) for c in containers):
+                            wanted.add((rel, i + 1))
+            masks = observed_masks(root, wanted)
+        erows = plan_elements(tree, containers, masks, effects) if containers else []
+    except (ValueError, RuntimeError) as e:
+        print('apply_ram_operands: %s' % e, file=sys.stderr)
+        return 2
     todo = [r for r in rows if r[3] == 'apply']
+    etodo = [r for r in erows if r[5] == 'apply']
     counts = {}
     for r in rows:
         counts[r[3]] = counts.get(r[3], 0) + 1
     by_name = {}
     for r in todo:
         by_name[r[4].split(' + ')[0]] = by_name.get(r[4].split(' + ')[0], 0) + 1
+    for r in etodo:
+        by_name[r[6].split(' + ')[0]] = by_name.get(r[6].split(' + ')[0], 0) + 1
     if args.report:
         with open(args.report, 'w', encoding='utf-8') as f:
             f.write('file\tline\toperand\toutcome\treplacement\n')
             for rel, i, v, outcome, text in rows:
                 f.write('%s\t%d\t$%04X\t%s\t%s\n' % (rel, i + 1, v, outcome, text))
+            for rel, i, s, e, old, outcome, text in erows:
+                f.write('%s\t%d\t%s\t%s\t%s\n' % (rel, i + 1, old, outcome, text))
+    purpose = counts.get('overlay base', 0) + counts.get('value', 0) + counts.get('marked raw', 0)
+    pending = sum(counts.get(k, 0) for k in ('no rule', 'bank not shown', 'wrong family'))
     if args.check:
         for rel, i, v, outcome, text in rows:
             if outcome == 'apply':
                 print('  raw  %s:%d  $%04X  -> %s' % (rel, i + 1, v, text))
-        print('apply_ram_operands: --check: %d raw operand(s) with an object, %d left numeric on purpose (%d overlay base, %d value, %d marked raw), %d without an object'
-              % (len(todo), counts.get('overlay base', 0) + counts.get('value', 0) + counts.get('marked raw', 0), counts.get('overlay base', 0), counts.get('value', 0), counts.get('marked raw', 0), counts.get('no object', 0)))
-        return 1 if todo else 0
+        for rel, i, s, e, old, outcome, text in erows:
+            if outcome == 'apply':
+                print('  expr %s:%d  %s  -> %s' % (rel, i + 1, old, text))
+        if areas:
+            print('apply_ram_operands: --check: %d raw operand(s) with an object, %d left numeric on purpose (%d overlay base, %d value, %d marked raw), %d without an object'
+                  % (len(todo), purpose, counts.get('overlay base', 0), counts.get('value', 0), counts.get('marked raw', 0), counts.get('no object', 0))
+                  + ('; wramx: %d without a consumer rule or a shown bank' % pending if 'wramx' in areas else ''))
+        if containers:
+            print('apply_ram_operands: --check: %d expression(s) of %s that an element name replaces, %d without an element, %d with the bank not shown, %d seen in another bank, %d complex'
+                  % (len(etodo), ', '.join(containers), sum(1 for r in erows if r[5] == 'no element'), sum(1 for r in erows if r[5] == 'bank not shown'), sum(1 for r in erows if r[5] == 'other bank'),
+                     sum(1 for r in erows if r[5] == 'complex')))
+        return 1 if (todo or etodo) else 0
     for rel, i, v, outcome, text in rows:
         if outcome == 'no object':
             print('  no object        %s:%d  $%04X' % (rel, i + 1, v))
-    print('apply_ram_operands: summary: %d operand(s) in %d file(s) to rewrite with %d distinct name(s); left numeric: %d overlay base, %d value, %d marked raw; %d without an object'
-          % (len(todo), len({r[0] for r in todo}), len(by_name), counts.get('overlay base', 0), counts.get('value', 0), counts.get('marked raw', 0), counts.get('no object', 0)))
+    for rel, i, s, e, old, outcome, text in erows:
+        if outcome in ('no element', 'other bank'):
+            print('  %-16s %s:%d  %s' % (outcome, rel, i + 1, old))
+    if areas:
+        print('apply_ram_operands: summary: %d operand(s) in %d file(s) to rewrite with %d distinct name(s); left numeric: %d overlay base, %d value, %d marked raw; %d without an object'
+              % (len(todo), len({r[0] for r in todo}), len({r[4].split(' + ')[0] for r in todo}), counts.get('overlay base', 0), counts.get('value', 0), counts.get('marked raw', 0), counts.get('no object', 0))
+              + ('; wramx: %d no consumer rule, %d bank not shown, %d wrong family' % (counts.get('no rule', 0), counts.get('bank not shown', 0), counts.get('wrong family', 0)) if 'wramx' in areas else ''))
+    if containers:
+        print('apply_ram_operands: summary: %d expression(s) of %s in %d file(s) to rewrite; left as they are: %d bank not shown, %d seen in another bank, %d complex, %d without an element'
+              % (len(etodo), ', '.join(containers), len({r[0] for r in etodo}), sum(1 for r in erows if r[5] == 'bank not shown'), sum(1 for r in erows if r[5] == 'other bank'),
+                 sum(1 for r in erows if r[5] == 'complex'), sum(1 for r in erows if r[5] == 'no element')))
     if args.dry_run:
-        for name, n in sorted(by_name.items(), key=lambda kv: (-kv[1], kv[0]))[:12]:
+        for name, n in sorted(by_name.items(), key=lambda kv: (-kv[1], kv[0]))[:16]:
             print('    %5d  %s' % (n, name))
+        for outcome in ('no rule', 'bank not shown', 'wrong family'):
+            if any(r[3] == outcome for r in rows):
+                print('  %s, by consumer:' % outcome)
+                for c, n in top_consumers(rows, outcome):
+                    print('    %5d  %s' % (n, c))
         print('(dry run: nothing written, nothing built)')
         return 0
-    if not todo:
+    if not todo and not etodo:
         return 0
-    new = apply_rows(tree, rows)
+    edits = {}
+    apply_rows(tree, rows, edits)
+    apply_elements(tree, erows, edits)
+    new = {rel: '\n'.join(lines) for rel, lines in edits.items()}
     originals = {rel: open(os.path.join(root, rel), 'rb').read() for rel in new}
     for rel, text in sorted(new.items()):
         with open(os.path.join(root, rel), 'w', encoding='utf-8', newline='') as f:

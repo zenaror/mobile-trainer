@@ -125,7 +125,7 @@ SoundTest_Run:: ; 1B:4040
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_DebugScreens1B
 	ld a, $1B
 	farcall Palette_LoadToBuffer

@@ -71,7 +71,7 @@ Profile_Edit_Loop:: ; 2A:54FD
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $D0
-	ld [wSpriteSlots + 33], a
+	ld [wSpriteSlot2 + $01], a
 	ldh a, [hJoyPressed]
 	and a, $01
 	jp z, Profile_Edit_CheckButtonB
@@ -81,7 +81,7 @@ Label_2A_552A::
 	push af
 	push bc
 	ld de, $40D0
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	call Sprite_SetPosition
 	pop bc
 	pop af
@@ -89,7 +89,7 @@ Label_2A_552A::
 	push af
 	push bc
 	ld de, $4000
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	call Sprite_SetPosition
 	pop bc
 	pop af
@@ -108,7 +108,7 @@ Label_2A_552A::
 	push af
 	push bc
 	ld de, $40D0
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	call Sprite_SetPosition
 	pop bc
 	pop af
@@ -145,7 +145,7 @@ Label_2A_552A::
 	push af
 	push bc
 	ld de, $4000
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	call Sprite_SetPosition
 	pop bc
 	pop af
@@ -171,7 +171,7 @@ Label_2A_552A::
 	push af
 	push bc
 	ld de, $40D0
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	call Sprite_SetPosition
 	pop bc
 	pop af
@@ -208,7 +208,7 @@ Label_2A_552A::
 	push af
 	push bc
 	ld de, $4000
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	call Sprite_SetPosition
 	pop bc
 	pop af
@@ -217,7 +217,7 @@ Label_2A_552A::
 	push af
 	push bc
 	ld de, $40D0
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	call Sprite_SetPosition
 	pop bc
 	pop af
@@ -227,7 +227,7 @@ Label_2A_552A::
 	push af
 	push bc
 	ld de, $4000
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	call Sprite_SetPosition
 	pop bc
 	pop af
@@ -250,7 +250,7 @@ Label_2A_552A::
 	push af
 	push bc
 	ld de, $40D0
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	call Sprite_SetPosition
 	pop bc
 	pop af
@@ -287,7 +287,7 @@ Label_2A_552A::
 	push af
 	push bc
 	ld de, $4000
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	call Sprite_SetPosition
 	pop bc
 	pop af
@@ -298,7 +298,7 @@ Label_2A_552A::
 	push af
 	push bc
 	ld de, $40D0
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	call Sprite_SetPosition
 	pop bc
 	pop af
@@ -308,7 +308,7 @@ Label_2A_552A::
 	push af
 	push bc
 	ld de, $4000
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	call Sprite_SetPosition
 	pop bc
 	pop af
@@ -538,13 +538,13 @@ Function_2A_57BD::
 	farcall Gfx_StartHDMA
 	call VBlank_Wait
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, Palette_Profile_Obj
 	ld a, $26
 	farcall Palette_LoadToBuffer
 	call VBlank_Wait
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_Profile_Bg
 	ld a, $2A
 	farcall Palette_LoadToBuffer
@@ -555,31 +555,31 @@ Function_2A_57BD::
 	ld a, $2A
 	farcall Tilemap_CopyRectAndAttr
 	call VBlank_Wait
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $7B50
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $6E70
 	ld a, $2A
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2000
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $6E80
 	ld a, $2A
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $4000
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	call Sprite_SetPosition
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
@@ -645,8 +645,8 @@ Profile_PlaceTextCursor:: ; 2A:590B
 	ld e, a
 	ld a, d
 	sub a, e
-	ld [wSpriteSlots + 16], a
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot1], a
+	ld [wSpriteSlot2], a
 	ld a, $38
 .l592E ; 2A:592E
 	dec c
@@ -654,14 +654,14 @@ Profile_PlaceTextCursor:: ; 2A:590B
 	add a, $0C
 	jr .l592E
 .l5935 ; 2A:5935
-	ld [wSpriteSlots + 17], a
-	ld [wSpriteSlots + 33], a
+	ld [wSpriteSlot1 + $01], a
+	ld [wSpriteSlot2 + $01], a
 	push af
 	ld a, [wSplitScrollY]
 	cp a, $00
 	jr z, .skip
 	ld a, $D0
-	ld [wSpriteSlots + 33], a
+	ld [wSpriteSlot2 + $01], a
 .skip ; 2A:5948
 	pop af
 	pop bc
@@ -1300,7 +1300,7 @@ Profile_InsertChar:: ; 2A:5CD2
 	pop de
 	pop bc
 	push bc
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $7B70
 	ld a, $7F
 	ld b, $81
@@ -1323,7 +1323,7 @@ Profile_InsertChar:: ; 2A:5CD2
 	jr nz, .l5D22
 .l5D3E ; 2A:5D3E
 	farcall Joypad_ClearAndResetRepeat
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81
@@ -1509,7 +1509,7 @@ Profile_DeleteChar:: ; 2A:5E23
 	pop de
 	pop bc
 	push bc
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $7B80
 	ld a, $7F
 	ld b, $81
@@ -1560,7 +1560,7 @@ Profile_DeleteChar:: ; 2A:5E23
 	jr nz, .loop
 .l5E83 ; 2A:5E83
 	farcall Joypad_ClearAndResetRepeat
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81
@@ -2193,13 +2193,13 @@ Profile_KeyboardLoop_Poll:: ; 2A:617B
 	ld [wTextEditGoalColumn], a
 	ldh [rSCY], a
 	ld [wSplitScrollY], a
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $6E70
 	ld a, $2A
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2000
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	pop bc
 	call Profile_PlaceTextCursor

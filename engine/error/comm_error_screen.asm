@@ -58,12 +58,12 @@ Function_5C_5150::
 	ld c, $18
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, $6390
 	ld a, $5C
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, $63D0
 	ld a, $5C
 	farcall Palette_LoadToBuffer
@@ -172,16 +172,16 @@ CommErr_DrawMessage_TimerVariant:: ; 5C:52AB
 	ld hl, CommErr_Tilemap_CommTimer
 	ld a, $5C
 	farcall Tilemap_CopyRectAndAttr
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $642B
 	ld a, $5C
 	ld b, $80
 	farcall Sprite_InitSlot
 	ld de, $8010
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, CommErr_Palette_BgTimer
 	ld a, $5C
 	farcall Palette_LoadToBuffer
@@ -426,7 +426,7 @@ Function_5C_546F::
 	ld a, $5C
 	farcall Tilemap_CopyRectAndAttrPtr
 	ld de, $80A0
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers

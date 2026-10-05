@@ -185,12 +185,12 @@ CommPanel_StateDraw:: ; 68:744C
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, $4C50
 	ld a, $71
 	farcall Palette_LoadToBuffer
 	ld bc, $0008
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, Palette_CommPanel_Obj
 	ld a, $71
 	farcall Palette_LoadToBuffer
@@ -217,13 +217,13 @@ CommPanel_StateDraw:: ; 68:744C
 	call CommPanel_PrintWarningText
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	ld de, CommPanel_ObjTable
 	ld a, $71
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1C14
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	call Sprite_SetPosition
 	ld a, $01
 	ld [wCommPanelState], a

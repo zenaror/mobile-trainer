@@ -37,14 +37,14 @@ Label_4C_4F95::
 	farcall Browser_SetScroll
 	ld a, $00
 	ldh [hBrowserSelectedLink], a
-	ld hl, $DAA0
+	ld hl, wSpriteSlot10
 	call Sprite_ClearSlot
-	ld hl, $DAB0
+	ld hl, wSpriteSlot11
 	call Sprite_ClearSlot
 	xor a, a
 	ld [wConnIconState], a
 	ld [wConnIconGfxRequest], a
-	ld hl, $DA80
+	ld hl, wSpriteSlot8
 	call Sprite_ClearSlot
 	farcall Browser_RenderPage
 	ld b, $14
@@ -139,7 +139,7 @@ Label_4C_501E::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0080
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, $D880
 	call CopyBytes
 	jp MobileDictView_Show_RenderPage
@@ -167,7 +167,7 @@ Label_4C_509A::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0080
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, $D880
 	call CopyBytes
 	jp MobileDictView_Show_RenderPage

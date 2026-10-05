@@ -141,12 +141,12 @@ SettingsPhone_ChoiceMenu_Setup:: ; 67:4688
 	ld c, $20
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Data_4D_5510
 	ld a, $4D
 	farcall Palette_LoadToBuffer
 	ld bc, $0008
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, $5538
 	ld a, $4D
 	farcall Palette_LoadToBuffer
@@ -156,7 +156,7 @@ SettingsPhone_ChoiceMenu_Setup:: ; 67:4688
 	call SettingsPhone_ChoiceMenu_BuildTextMap
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	ld de, SettingsPhone_ChoiceMenu_ObjTable
 	ld a, $4D
 	ld b, $81
@@ -238,7 +238,7 @@ SettingsPhone_ChoiceMenu_PlaceCursor:: ; 67:4855
 	ld e, a
 	ld a, [hl]
 	ld d, a
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	call Sprite_SetPosition
 	ret
 

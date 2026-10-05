@@ -299,13 +299,13 @@ Function_2C_58AC::
 	farcall Sprite_UpdateAll
 	farcall TextTiles_ClearBuffers
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, Palette_AddrBook_Obj
 	ld a, $2C
 	farcall Palette_LoadToBuffer
 	call VBlank_Wait
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_AddrPick_Bg
 	ld a, $2C
 	farcall Palette_LoadToBuffer
@@ -437,7 +437,7 @@ Function_2C_5A12::
 	ldh [rSVBK], a
 	push bc
 	push bc
-	ld hl, $DA70
+	ld hl, wSpriteSlot7
 	ld de, $7220
 	ld a, $2C
 	ld b, $01
@@ -452,7 +452,7 @@ Function_2C_5A12::
 	call AddrPick_TestSlotEmpty_2C_5CA3
 	inc a
 	jr z, .l5A45
-	ld hl, $DA70
+	ld hl, wSpriteSlot7
 	ld de, $7230
 	ld a, $2C
 	ld b, $01
@@ -460,7 +460,7 @@ Function_2C_5A12::
 .l5A45 ; 2C:5A45
 	pop bc
 	push bc
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $7220
 	ld a, $2C
 	ld b, $01
@@ -471,7 +471,7 @@ Function_2C_5A12::
 	call AddrPick_TestSlotEmpty_2C_5CA3
 	inc a
 	jr z, .l5A71
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $7230
 	ld a, $2C
 	ld b, $01
@@ -479,7 +479,7 @@ Function_2C_5A12::
 .l5A71 ; 2C:5A71
 	pop bc
 	push bc
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $7220
 	ld a, $2C
 	ld b, $01
@@ -490,7 +490,7 @@ Function_2C_5A12::
 	call AddrPick_TestSlotEmpty_2C_5CA3
 	inc a
 	jr z, .l5A9D
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $7230
 	ld a, $2C
 	ld b, $01
@@ -498,7 +498,7 @@ Function_2C_5A12::
 .l5A9D ; 2C:5A9D
 	pop bc
 	push bc
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $7220
 	ld a, $2C
 	ld b, $01
@@ -509,7 +509,7 @@ Function_2C_5A12::
 	call AddrPick_TestSlotEmpty_2C_5CA3
 	inc a
 	jr z, .l5AC9
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $7230
 	ld a, $2C
 	ld b, $01
@@ -517,7 +517,7 @@ Function_2C_5A12::
 .l5AC9 ; 2C:5AC9
 	pop bc
 	push bc
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7220
 	ld a, $2C
 	ld b, $01
@@ -528,7 +528,7 @@ Function_2C_5A12::
 	call AddrPick_TestSlotEmpty_2C_5CA3
 	inc a
 	jr z, .l5AF5
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7230
 	ld a, $2C
 	ld b, $01
@@ -536,7 +536,7 @@ Function_2C_5A12::
 .l5AF5 ; 2C:5AF5
 	pop bc
 	push bc
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $7220
 	ld a, $2C
 	ld b, $01
@@ -547,7 +547,7 @@ Function_2C_5A12::
 	call AddrPick_TestSlotEmpty_2C_5CA3
 	inc a
 	jr z, .l5B21
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $7230
 	ld a, $2C
 	ld b, $01
@@ -572,7 +572,7 @@ Function_2C_5A12::
 	jp z, .l5C2C
 .l5B41 ; 2C:5B41
 	push bc
-	ld hl, $DA70
+	ld hl, wSpriteSlot7
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
@@ -583,7 +583,7 @@ Function_2C_5A12::
 	call AddrPick_TestSlotEmpty_2C_5CA3
 	inc a
 	jr z, .l5B6C
-	ld hl, $DA70
+	ld hl, wSpriteSlot7
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
@@ -593,7 +593,7 @@ Function_2C_5A12::
 	jp .l5C5B
 .l5B70 ; 2C:5B70
 	push bc
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
@@ -604,7 +604,7 @@ Function_2C_5A12::
 	call AddrPick_TestSlotEmpty_2C_5CA3
 	inc a
 	jr z, .l5B9B
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
@@ -614,7 +614,7 @@ Function_2C_5A12::
 	jp .l5C5B
 .l5B9F ; 2C:5B9F
 	push bc
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
@@ -625,7 +625,7 @@ Function_2C_5A12::
 	call AddrPick_TestSlotEmpty_2C_5CA3
 	inc a
 	jr z, .l5BCA
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
@@ -635,7 +635,7 @@ Function_2C_5A12::
 	jp .l5C5B
 .l5BCE ; 2C:5BCE
 	push bc
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
@@ -646,7 +646,7 @@ Function_2C_5A12::
 	call AddrPick_TestSlotEmpty_2C_5CA3
 	inc a
 	jr z, .l5BF9
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
@@ -656,7 +656,7 @@ Function_2C_5A12::
 	jp .l5C5B
 .l5BFD ; 2C:5BFD
 	push bc
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
@@ -667,7 +667,7 @@ Function_2C_5A12::
 	call AddrPick_TestSlotEmpty_2C_5CA3
 	inc a
 	jr z, .l5C28
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
@@ -677,7 +677,7 @@ Function_2C_5A12::
 	jp .l5C5B
 .l5C2C ; 2C:5C2C
 	push bc
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
@@ -688,7 +688,7 @@ Function_2C_5A12::
 	call AddrPick_TestSlotEmpty_2C_5CA3
 	inc a
 	jr z, .l5C57
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
@@ -698,33 +698,33 @@ Function_2C_5A12::
 	jp .l5C5B
 .l5C5B ; 2C:5C5B
 	ld a, $18
-	ld [wSpriteSlots + 16], a
+	ld [wSpriteSlot1], a
 	ld a, $10
-	ld [wSpriteSlots + 17], a
+	ld [wSpriteSlot1 + $01], a
 	ld a, $30
-	ld [wSpriteSlots + 112], a
+	ld [wSpriteSlot7], a
 	ld a, $0D
-	ld [wSpriteSlots + 113], a
+	ld [wSpriteSlot7 + $01], a
 	ld a, $3C
-	ld [wSpriteSlots + 96], a
+	ld [wSpriteSlot6], a
 	ld a, $0D
-	ld [wSpriteSlots + 97], a
+	ld [wSpriteSlot6 + $01], a
 	ld a, $48
-	ld [wSpriteSlots + 80], a
+	ld [wSpriteSlot5], a
 	ld a, $0D
-	ld [wSpriteSlots + 81], a
+	ld [wSpriteSlot5 + $01], a
 	ld a, $54
-	ld [wSpriteSlots + 64], a
+	ld [wSpriteSlot4], a
 	ld a, $0D
-	ld [wSpriteSlots + 65], a
+	ld [wSpriteSlot4 + $01], a
 	ld a, $60
-	ld [wSpriteSlots + 48], a
+	ld [wSpriteSlot3], a
 	ld a, $0D
-	ld [wSpriteSlots + 49], a
+	ld [wSpriteSlot3 + $01], a
 	ld a, $6C
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot2], a
 	ld a, $0D
-	ld [wSpriteSlots + 33], a
+	ld [wSpriteSlot2 + $01], a
 	pop bc
 	ret
 
@@ -1849,7 +1849,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	ldh [rSVBK], a
 	push bc
 	push bc
-	ld hl, $DA70
+	ld hl, wSpriteSlot7
 	ld de, $5220
 	ld a, $28
 	ld b, $01
@@ -1863,7 +1863,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 2C:622E (executed) [executed in 3 scenarios]
-	ld hl, $DA70
+	ld hl, wSpriteSlot7
 	ld de, $5230
 	ld a, $28
 	ld b, $01
@@ -1873,7 +1873,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 1/18 scenarios)
 	pop bc
 	push bc
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $5220
 	ld a, $28
 	ld b, $01
@@ -1887,7 +1887,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 2C:625A (executed) [executed in 2 scenarios]
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $5230
 	ld a, $28
 	ld b, $01
@@ -1897,7 +1897,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 1/18 scenarios)
 	pop bc
 	push bc
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $5220
 	ld a, $28
 	ld b, $01
@@ -1911,7 +1911,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 2C:6286 (executed) [executed in 2 scenarios]
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $5230
 	ld a, $28
 	ld b, $01
@@ -1921,7 +1921,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 1/18 scenarios)
 	pop bc
 	push bc
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $5220
 	ld a, $28
 	ld b, $01
@@ -1935,7 +1935,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 2C:62B2 (executed) [executed in 1 scenarios]
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $5230
 	ld a, $28
 	ld b, $01
@@ -1945,7 +1945,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 1/18 scenarios)
 	pop bc
 	push bc
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $5220
 	ld a, $28
 	ld b, $01
@@ -1959,7 +1959,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 2C:62DE (executed) [executed in 2 scenarios]
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $5230
 	ld a, $28
 	ld b, $01
@@ -1969,7 +1969,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 1/18 scenarios)
 	pop bc
 	push bc
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $5220
 	ld a, $28
 	ld b, $01
@@ -1983,7 +1983,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 2C:630A (executed) [executed in 2 scenarios]
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $5230
 	ld a, $28
 	ld b, $01
@@ -2015,7 +2015,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 .l633C ; 2C:633C
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios)
 	push bc
-	ld hl, $DA70
+	ld hl, wSpriteSlot7
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
@@ -2029,7 +2029,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 2C:6355 (executed) [executed in 3 scenarios]
-	ld hl, $DA70
+	ld hl, wSpriteSlot7
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
@@ -2044,7 +2044,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	; [CONFIRMED] 95 insn(s) reached by static flow only; seeds: exec x95; min discovery hops 1;
 	; entered by jpcc from 2C:6329 (PROBABLE code) [executed in 1 scenarios]
 	push bc
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
@@ -2055,7 +2055,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	call AddrPick_IsSlotUsed
 	inc a
 	jr z, .l6396
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
@@ -2065,7 +2065,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	jp .l6456
 .l639A ; 2C:639A
 	push bc
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
@@ -2076,7 +2076,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	call AddrPick_IsSlotUsed
 	inc a
 	jr z, .l63C5
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
@@ -2086,7 +2086,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	jp .l6456
 .l63C9 ; 2C:63C9
 	push bc
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
@@ -2097,7 +2097,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	call AddrPick_IsSlotUsed
 	inc a
 	jr z, .l63F4
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
@@ -2107,7 +2107,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	jp .l6456
 .l63F8 ; 2C:63F8
 	push bc
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
@@ -2118,7 +2118,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	call AddrPick_IsSlotUsed
 	inc a
 	jr z, .l6423
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
@@ -2128,7 +2128,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	jp .l6456
 .l6427 ; 2C:6427
 	push bc
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
@@ -2139,7 +2139,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	call AddrPick_IsSlotUsed
 	inc a
 	jr z, .l6452
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
@@ -2151,33 +2151,33 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 .l6456 ; 2C:6456
 	; [CONFIRMED] 56 insn(s); 56 executed (in up to 1/18 scenarios)
 	ld a, $16
-	ld [wSpriteSlots + 16], a
+	ld [wSpriteSlot1], a
 	ld a, $0E
-	ld [wSpriteSlots + 17], a
+	ld [wSpriteSlot1 + $01], a
 	ld a, $28
-	ld [wSpriteSlots + 112], a
+	ld [wSpriteSlot7], a
 	ld a, $10
-	ld [wSpriteSlots + 113], a
+	ld [wSpriteSlot7 + $01], a
 	ld a, $34
-	ld [wSpriteSlots + 96], a
+	ld [wSpriteSlot6], a
 	ld a, $10
-	ld [wSpriteSlots + 97], a
+	ld [wSpriteSlot6 + $01], a
 	ld a, $40
-	ld [wSpriteSlots + 80], a
+	ld [wSpriteSlot5], a
 	ld a, $10
-	ld [wSpriteSlots + 81], a
+	ld [wSpriteSlot5 + $01], a
 	ld a, $4C
-	ld [wSpriteSlots + 64], a
+	ld [wSpriteSlot4], a
 	ld a, $10
-	ld [wSpriteSlots + 65], a
+	ld [wSpriteSlot4 + $01], a
 	ld a, $58
-	ld [wSpriteSlots + 48], a
+	ld [wSpriteSlot3], a
 	ld a, $10
-	ld [wSpriteSlots + 49], a
+	ld [wSpriteSlot3 + $01], a
 	ld a, $64
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot2], a
 	ld a, $10
-	ld [wSpriteSlots + 33], a
+	ld [wSpriteSlot2 + $01], a
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $C0
@@ -2252,7 +2252,7 @@ Function_2C_64E0::
 
 .l6501 ; 2C:6501
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
-	ld hl, $DA70
+	ld hl, wSpriteSlot7
 	ld de, $5240
 	ld a, $28
 	ld b, $01
@@ -2264,7 +2264,7 @@ Function_2C_64E0::
 
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 2C:6517 (executed) [executed in 3 scenarios]
-	ld hl, $DA70
+	ld hl, wSpriteSlot7
 	ld de, $5250
 	ld a, $28
 	ld b, $01
@@ -2273,15 +2273,15 @@ Function_2C_64E0::
 .l6529 ; 2C:6529
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
 	ld a, $28
-	ld [wSpriteSlots + 112], a
+	ld [wSpriteSlot7], a
 	ld a, $10
-	ld [wSpriteSlots + 113], a
+	ld [wSpriteSlot7 + $01], a
 	jp .l663F
 
 .l6536 ; 2C:6536
 	; [CONFIRMED] 95 insn(s) reached by static flow only; seeds: exec x95; min discovery hops 1;
 	; entered by jpcc from 2C:64EA (PROBABLE code) [executed in 1 scenarios]
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $5240
 	ld a, $28
 	ld b, $01
@@ -2290,19 +2290,19 @@ Function_2C_64E0::
 	call AddrPick_IsSlotUsed
 	inc a
 	jr z, .l655E
-	ld hl, $DA60
+	ld hl, wSpriteSlot6
 	ld de, $5250
 	ld a, $28
 	ld b, $01
 	farcall Sprite_InitSlot
 .l655E ; 2C:655E
 	ld a, $34
-	ld [wSpriteSlots + 96], a
+	ld [wSpriteSlot6], a
 	ld a, $10
-	ld [wSpriteSlots + 97], a
+	ld [wSpriteSlot6 + $01], a
 	jp .l663F
 .l656B ; 2C:656B
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $5240
 	ld a, $28
 	ld b, $01
@@ -2311,19 +2311,19 @@ Function_2C_64E0::
 	call AddrPick_IsSlotUsed
 	inc a
 	jr z, .l6593
-	ld hl, $DA50
+	ld hl, wSpriteSlot5
 	ld de, $5250
 	ld a, $28
 	ld b, $01
 	farcall Sprite_InitSlot
 .l6593 ; 2C:6593
 	ld a, $40
-	ld [wSpriteSlots + 80], a
+	ld [wSpriteSlot5], a
 	ld a, $10
-	ld [wSpriteSlots + 81], a
+	ld [wSpriteSlot5 + $01], a
 	jp .l663F
 .l65A0 ; 2C:65A0
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $5240
 	ld a, $28
 	ld b, $01
@@ -2332,19 +2332,19 @@ Function_2C_64E0::
 	call AddrPick_IsSlotUsed
 	inc a
 	jr z, .l65C8
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $5250
 	ld a, $28
 	ld b, $01
 	farcall Sprite_InitSlot
 .l65C8 ; 2C:65C8
 	ld a, $4C
-	ld [wSpriteSlots + 64], a
+	ld [wSpriteSlot4], a
 	ld a, $10
-	ld [wSpriteSlots + 65], a
+	ld [wSpriteSlot4 + $01], a
 	jp .l663F
 .l65D5 ; 2C:65D5
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $5240
 	ld a, $28
 	ld b, $01
@@ -2353,19 +2353,19 @@ Function_2C_64E0::
 	call AddrPick_IsSlotUsed
 	inc a
 	jr z, .l65FD
-	ld hl, $DA30
+	ld hl, wSpriteSlot3
 	ld de, $5250
 	ld a, $28
 	ld b, $01
 	farcall Sprite_InitSlot
 .l65FD ; 2C:65FD
 	ld a, $58
-	ld [wSpriteSlots + 48], a
+	ld [wSpriteSlot3], a
 	ld a, $10
-	ld [wSpriteSlots + 49], a
+	ld [wSpriteSlot3 + $01], a
 	jp .l663F
 .l660A ; 2C:660A
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $5240
 	ld a, $28
 	ld b, $01
@@ -2374,16 +2374,16 @@ Function_2C_64E0::
 	call AddrPick_IsSlotUsed
 	inc a
 	jr z, .l6632
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $5250
 	ld a, $28
 	ld b, $01
 	farcall Sprite_InitSlot
 .l6632 ; 2C:6632
 	ld a, $64
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot2], a
 	ld a, $10
-	ld [wSpriteSlots + 33], a
+	ld [wSpriteSlot2 + $01], a
 	jp .l663F
 
 .l663F ; 2C:663F

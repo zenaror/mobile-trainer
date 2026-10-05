@@ -132,7 +132,7 @@ Function_68_57B6::
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Data_5E_4D00
 	ld a, $5E
 	farcall Palette_LoadToBuffer
@@ -155,7 +155,7 @@ Function_68_57B6::
 	ld a, $01
 	ld b, $02
 	farcall Kbd_Open
-	ld hl, $DA00
+	ld hl, wSpriteSlot0
 	ld de, $4D30
 	ld a, $5F
 	ld b, $81
@@ -596,7 +596,7 @@ Account_MailIntro_Draw:: ; 68:5C12
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Data_5E_4D00
 	ld a, $5E
 	farcall Palette_LoadToBuffer

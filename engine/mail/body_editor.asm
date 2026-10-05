@@ -479,12 +479,12 @@ Function_2D_499E::
 	ld c, $2A
 	farcall Gfx_StartHDMA
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, Palette_MailBody_Obj
 	ld a, $2D
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_MailBody_Bg
 	ld a, $2D
 	farcall Palette_LoadToBuffer
@@ -493,21 +493,21 @@ Function_2D_499E::
 	ld hl, Tilemap_MailBody
 	ld a, $2D
 	farcall Tilemap_CopyRectAndAttr
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1414
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $7B50
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1414
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
@@ -630,12 +630,12 @@ Function_2D_499E::
 	ld c, $2A
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
-	ld de, $D840
+	ld de, wPaletteBufObj
 	ld hl, Palette_MailBody_Obj
 	ld a, $2D
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
-	ld de, $D800
+	ld de, wPaletteBufBg
 	ld hl, Palette_MailBody_Bg
 	ld a, $2D
 	farcall Palette_LoadToBuffer
@@ -644,21 +644,21 @@ Function_2D_499E::
 	ld hl, Tilemap_MailBody
 	ld a, $2D
 	farcall Tilemap_CopyRectAndAttr
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1414
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	ld de, $7B50
 	ld a, $7F
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1414
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -668,7 +668,7 @@ Function_2D_499E::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call VBlank_WaitStartDI
-	ld hl, $D800
+	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService
@@ -779,8 +779,8 @@ Function_2D_4CA5::
 	ld e, a
 	ld a, d
 	sub a, e
-	ld [wSpriteSlots + 16], a
-	ld [wSpriteSlots + 32], a
+	ld [wSpriteSlot1], a
+	ld [wSpriteSlot2], a
 	ld a, $08
 .l4CC6 ; 2D:4CC6
 	dec c
@@ -788,8 +788,8 @@ Function_2D_4CA5::
 	add a, $0C
 	jr .l4CC6
 .l4CCD ; 2D:4CCD
-	ld [wSpriteSlots + 17], a
-	ld [wSpriteSlots + 33], a
+	ld [wSpriteSlot1 + $01], a
+	ld [wSpriteSlot2 + $01], a
 	pop bc
 	ldh a, [hJoyHeld]
 	cp a, $00
@@ -820,7 +820,7 @@ Function_2D_4CA5::
 	cp a, $07
 	jp z, .l4DE4
 .l4D04 ; 2D:4D04
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $6350
 	ld a, $29
 	ld b, $81
@@ -841,7 +841,7 @@ Function_2D_4CA5::
 .l4D24 ; 2D:4D24
 	; [PROBABLE] block target of the jp z chain at 2D:4CDA (ld hl,$DA40 ; ld de,$63x0 ; ld a,$29 ;
 	; ld b,$81) that falls into the far-call site (call 00:0A82, init_object_from_table) right after
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $6360
 	ld a, $29
 	ld b, $81
@@ -862,7 +862,7 @@ Function_2D_4CA5::
 .l4D44 ; 2D:4D44
 	; [PROBABLE] block target of the jp z chain at 2D:4CDA (ld hl,$DA40 ; ld de,$63x0 ; ld a,$29 ;
 	; ld b,$81) that falls into the far-call site (call 00:0A82, init_object_from_table) right after
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $6370
 	ld a, $29
 	ld b, $81
@@ -883,7 +883,7 @@ Function_2D_4CA5::
 .l4D64 ; 2D:4D64
 	; [PROBABLE] block target of the jp z chain at 2D:4CDA (ld hl,$DA40 ; ld de,$63x0 ; ld a,$29 ;
 	; ld b,$81) that falls into the far-call site (call 00:0A82, init_object_from_table) right after
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $6380
 	ld a, $29
 	ld b, $81
@@ -904,7 +904,7 @@ Function_2D_4CA5::
 .l4D84 ; 2D:4D84
 	; [PROBABLE] block target of the jp z chain at 2D:4CDA (ld hl,$DA40 ; ld de,$63x0 ; ld a,$29 ;
 	; ld b,$81) that falls into the far-call site (call 00:0A82, init_object_from_table) right after
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $6390
 	ld a, $29
 	ld b, $81
@@ -925,7 +925,7 @@ Function_2D_4CA5::
 .l4DA4 ; 2D:4DA4
 	; [PROBABLE] block target of the jp z chain at 2D:4CDA (ld hl,$DA40 ; ld de,$63x0 ; ld a,$29 ;
 	; ld b,$81) that falls into the far-call site (call 00:0A82, init_object_from_table) right after
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $63A0
 	ld a, $29
 	ld b, $81
@@ -946,7 +946,7 @@ Function_2D_4CA5::
 .l4DC4 ; 2D:4DC4
 	; [PROBABLE] block target of the jp z chain at 2D:4CDA (ld hl,$DA40 ; ld de,$63x0 ; ld a,$29 ;
 	; ld b,$81) that falls into the far-call site (call 00:0A82, init_object_from_table) right after
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $63B0
 	ld a, $29
 	ld b, $81
@@ -967,7 +967,7 @@ Function_2D_4CA5::
 .l4DE4 ; 2D:4DE4
 	; [PROBABLE] block target of the jp z chain at 2D:4CDA (ld hl,$DA40 ; ld de,$63x0 ; ld a,$29 ;
 	; ld b,$81) that falls into the far-call site (call 00:0A82, init_object_from_table) right after
-	ld hl, $DA40
+	ld hl, wSpriteSlot4
 	ld de, $63C0
 	ld a, $29
 	ld b, $81
@@ -1580,7 +1580,7 @@ Function_2D_50B8::
 	push de
 	push bc
 	push bc
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $7B70
 	ld a, $7F
 	ld b, $81
@@ -1607,7 +1607,7 @@ Function_2D_50B8::
 	jr nz, .l5131
 .l5155 ; 2D:5155
 	farcall Joypad_ClearAndResetRepeat
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81
@@ -1988,7 +1988,7 @@ Function_2D_535C::
 	pop de
 	pop bc
 	push bc
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $7B80
 	ld a, $7F
 	ld b, $81
@@ -2039,7 +2039,7 @@ Function_2D_535C::
 	jr nz, .loop
 .l53C4 ; 2D:53C4
 	farcall Joypad_ClearAndResetRepeat
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81
@@ -2748,10 +2748,10 @@ Function_2D_5691::
 	; [CONFIRMED] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0;
 	; entered by jrcc from 2D:57A9 (executed) [executed in 1 scenarios]
 	ld de, $14D0
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld de, $14D0
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 
 .l57C1 ; 2D:57C1
@@ -2848,8 +2848,8 @@ Function_2D_5691::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $D0
-	ld [wSpriteSlots + 17], a
-	ld [wSpriteSlots + 33], a
+	ld [wSpriteSlot1 + $01], a
+	ld [wSpriteSlot2 + $01], a
 
 .l585C ; 2D:585C
 	; [CONFIRMED] 53 insn(s); 53 executed (in up to 2/18 scenarios)
@@ -2954,10 +2954,10 @@ Function_2D_5691::
 	; [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 58D9-59AD by apply_coverage --split
 	ld de, $14D0
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld de, $14D0
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 
 .l590B ; 2D:590B
@@ -2987,10 +2987,10 @@ Function_2D_5691::
 	; [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 58D9-59AD by apply_coverage --split
 	ld de, $14D0
-	ld hl, $DA10
+	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld de, $14D0
-	ld hl, $DA20
+	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
 
 .l5942 ; 2D:5942
@@ -3083,8 +3083,8 @@ Function_2D_5691::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $D0
-	ld [wSpriteSlots + 17], a
-	ld [wSpriteSlots + 33], a
+	ld [wSpriteSlot1 + $01], a
+	ld [wSpriteSlot2 + $01], a
 
 .l59E1 ; 2D:59E1
 	; [CONFIRMED] 8 insn(s); 8 executed (in up to 1/18 scenarios)
