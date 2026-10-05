@@ -16,7 +16,7 @@ MailServerStatus_Tiles_7330:: ; 25:7330
 Data_25_7330::
 	INCBIN "gfx/mail/server_status/mail_server_status_tiles_7330.2bpp"
 
-; ---- data $7730-$7A00 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 29:46B0: hl=$7730 a=$25 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+; ---- data $7730-$7A00 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 29:46B0: hl=$7730 a=$25 b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 6 hits in 5 scenarios (analysis/coverage_union.tsv)]
 
 MailServerStatus_Tilemap_Received:: ; 25:7730
 Data_25_7730::

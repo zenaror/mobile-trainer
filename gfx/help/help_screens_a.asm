@@ -18,7 +18,7 @@ Data_6A_42D0::
 	INCBIN "gfx/help/help_screens_a/tilemap_42d0.tilemap"
 	INCBIN "gfx/help/help_screens_a/tilemap_42d0.attrmap"
 
-; ---- data $45A0-$4870 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 6C:410C: hl=$45A0 a=$6A b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+; ---- data $45A0-$4870 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 6C:410C: hl=$45A0 a=$6A b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 50 hits in 4 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_HelpMenu_6A_45A0:: ; 6A:45A0
 Data_6A_45A0::

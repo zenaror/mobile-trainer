@@ -7,38 +7,38 @@ SECTION "gfx/mail_server/delete_progress", ROMX
 ; ---- zero $6FD7-$6FE0 (9 bytes) [PROBABLE] 0x00 padding between the last function of the bank and the tile block at $6FE0
 	ds $9, $00
 
-; ---- gfx $6FE0-$73E0 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 23:5616: hl=$6FE0 a=$23 c=$40 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $6FE0-$73E0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 23:5616: hl=$6FE0 a=$23 c=$40 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 6 hits in 5 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_MailSrvDelProgress_Tiles0:: ; 23:6FE0
 Data_23_6FE0::
 	INCBIN "gfx/mail_server/delete_progress/mail_srv_del_progress_tiles0.2bpp"
 
-; ---- gfx $73E0-$74E0 (256 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 23:5628: hl=$73E0 a=$23 c=$10 de=$9401 (dest VRAM $9400, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $73E0-$74E0 (256 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 23:5628: hl=$73E0 a=$23 c=$10 de=$9401 (dest VRAM $9400, vbank=1) [first call site executed: 6 hits in 5 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_MailSrvDelProgress_Tiles1:: ; 23:73E0
 Data_23_73E0::
 	INCBIN "gfx/mail_server/delete_progress/mail_srv_del_progress_tiles1.2bpp"
 
-; ---- gfx $74E0-$7640 (352 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 23:563A: hl=$74E0 a=$23 c=$16 de=$8000 (dest VRAM $8000, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $74E0-$7640 (352 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 23:563A: hl=$74E0 a=$23 c=$16 de=$8000 (dest VRAM $8000, vbank=0) [first call site executed: 6 hits in 5 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_MailSrvDelProgress_Tiles2:: ; 23:74E0
 Data_23_74E0::
 	INCBIN "gfx/mail_server/delete_progress/mail_srv_del_progress_tiles2.2bpp"
 
-; ---- data $7640-$7910 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 23:564B: hl=$7640 a=$23 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+; ---- data $7640-$7910 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 23:564B: hl=$7640 a=$23 b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 6 hits in 5 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_MailSrvDelProgress_Screen:: ; 23:7640
 Data_23_7640::
 	INCBIN "gfx/mail_server/delete_progress/mail_srv_del_progress_screen.tilemap"
 	INCBIN "gfx/mail_server/delete_progress/mail_srv_del_progress_screen.attrmap"
 
-; ---- data $7910-$7950 (64 bytes) [PROBABLE] 64-byte RGB555 palette block copied by Function_4F_4000 (hl=$7910 a=$23 bc=$0040 de=$D800) at 23:55F3; call site never executed; replaces the mapper palette guess 7910-7A3F which swallowed the object tables
+; ---- data $7910-$7950 (64 bytes) [CONFIRMED] 64-byte RGB555 palette block copied by Function_4F_4000 (hl=$7910 a=$23 bc=$0040 de=$D800) at 23:55F3; call site executed: 6 hits in 5 scenarios (analysis/coverage_union.tsv); replaces the mapper palette guess 7910-7A3F which swallowed the object tables
 
 Palette_MailSrvDelProgress_Bg:: ; 23:7910
 Palette_23_7910::
 	INCLUDE "gfx/mail_server/delete_progress/mail_srv_del_progress_bg.pal"
 
-; ---- data $7950-$7990 (64 bytes) [PROBABLE] 64-byte RGB555 palette block copied by Function_4F_4000 (hl=$7950 a=$23 bc=$0040 de=$D840) at 23:5604; call site never executed
+; ---- data $7950-$7990 (64 bytes) [CONFIRMED] 64-byte RGB555 palette block copied by Function_4F_4000 (hl=$7950 a=$23 bc=$0040 de=$D840) at 23:5604; call site executed: 6 hits in 5 scenarios (analysis/coverage_union.tsv)
 
 Palette_MailSrvDelProgress_Obj:: ; 23:7950
 Palette_23_7950::

@@ -58,19 +58,19 @@ Gfx_Kbd_T6_Page2_Tiles9000Vb1:: ; 66:5C80
 Data_66_5C80::
 	INCBIN "gfx/keyboard/tiles_bank66/tiles_5c80.2bpp"
 
-; ---- gfx $5EC0-$62C0 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:6928: hl=$5EC0 a=$66 c=$40 de=$8801 (dest VRAM $8800, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $5EC0-$62C0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:6928: hl=$5EC0 a=$66 c=$40 de=$8801 (dest VRAM $8800, vbank=1) [first call site executed: 4 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_Kbd_T6_Page3_Tiles8800Vb1:: ; 66:5EC0
 Data_66_5EC0::
 	INCBIN "gfx/keyboard/tiles_bank66/tiles_5ec0.2bpp"
 
-; ---- gfx $62C0-$66C0 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:693A: hl=$62C0 a=$66 c=$40 de=$8C01 (dest VRAM $8C00, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $62C0-$66C0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:693A: hl=$62C0 a=$66 c=$40 de=$8C01 (dest VRAM $8C00, vbank=1) [first call site executed: 4 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_Kbd_T6_Page3_Tiles8C00Vb1:: ; 66:62C0
 Data_66_62C0::
 	INCBIN "gfx/keyboard/tiles_bank66/tiles_62c0.2bpp"
 
-; ---- gfx $66C0-$6900 (576 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:694C: hl=$66C0 a=$66 c=$24 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $66C0-$6900 (576 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:694C: hl=$66C0 a=$66 c=$24 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 4 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_Kbd_T6_Page3_Tiles9000Vb1:: ; 66:66C0
 Data_66_66C0::

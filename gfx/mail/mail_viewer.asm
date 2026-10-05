@@ -16,7 +16,7 @@ Gfx_MailView_Tiles9400Vb1:: ; 2B:71D0
 Tiles_2B_71D0::
 	INCBIN "gfx/mail/mail_viewer/mail_view_tiles9400.2bpp"
 
-; ---- data $73D0-$76A0 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2B:6655: hl=$73D0 a=$2B b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+; ---- data $73D0-$76A0 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2B:6655: hl=$73D0 a=$2B b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 101 hits in 9 scenarios (analysis/coverage_union.tsv)]
 
 Data_MailView_TilemapAttr:: ; 2B:73D0
 Data_2B_73D0::

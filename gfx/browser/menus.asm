@@ -42,19 +42,19 @@ Data_72_7216:: ; 72:7216
 ; ---- zero $7218-$7220 (8 bytes) [PROBABLE] 8 x 00 padding between the palette/data at 72:7206-7218 and the tile block 72:7220
 	ds $8, $00
 
-; ---- gfx $7220-$7620 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 72:640B: hl=$7220 a=$72 c=$40 de=$8801 (dest VRAM $8800, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $7220-$7620 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 72:640B: hl=$7220 a=$72 c=$40 de=$8801 (dest VRAM $8800, vbank=1) [first call site executed: 1 hits in 1 scenarios (analysis/coverage_union.tsv)]
 
 BrowserMenu2_Tiles0:: ; 72:7220
 Data_72_7220::
 	INCBIN "gfx/browser/menus/browser_menu2_tiles0.2bpp"
 
-; ---- gfx $7620-$7720 (256 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 72:63F9: hl=$7620 a=$72 c=$10 de=$8F01 (dest VRAM $8F00, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $7620-$7720 (256 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 72:63F9: hl=$7620 a=$72 c=$10 de=$8F01 (dest VRAM $8F00, vbank=1) [first call site executed: 1 hits in 1 scenarios (analysis/coverage_union.tsv)]
 
 BrowserMenu2_Tiles1:: ; 72:7620
 Data_72_7620::
 	INCBIN "gfx/browser/menus/browser_menu2_tiles1.2bpp"
 
-; ---- data $7720-$7810 (240 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 72:642D: hl=$7720 a=$72 b=6 rows c=20 cols (tiles then attrs) de=$D180 [verifier: call site never executed in a trace -> PROBABLE]
+; ---- data $7720-$7810 (240 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 72:642D: hl=$7720 a=$72 b=6 rows c=20 cols (tiles then attrs) de=$D180 [first call site executed: 1 hits in 1 scenarios (analysis/coverage_union.tsv)]
 
 BrowserMenu2_Map:: ; 72:7720
 Data_72_7720::

@@ -93,24 +93,24 @@ Data_4B_6590:: ; 4B:6590
 	db $36, $11, $F4, $F3, $F4, $13, $38, $2B, $EA, $E1, $E2, $01, $0E, $01, $F8, $07
 	db $09, $F1, $09, $F1, $09, $F1, $F9, $F1, $89, $81, $09, $F1, $09, $F1, $09, $F1
 
-; ---- gfx $6A90-$6E90 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:514E: hl=$6A90 a=$4B c=$40 de=$8801 (dest VRAM $8800, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $6A90-$6E90 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:514E: hl=$6A90 a=$4B c=$40 de=$8801 (dest VRAM $8800, vbank=1) [first call site executed: 4 hits in 2 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_SettingsPhone_ConfirmScreen_Tiles8800Vb1:: ; 4B:6A90
 Data_4B_6A90::
 	INCBIN "gfx/settings/screens_bank4b/tiles_6a90.2bpp"
 
-; ---- gfx $6E90-$70B0 (544 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:5160: hl=$6E90 a=$4B c=$22 de=$8C01 (dest VRAM $8C00, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $6E90-$70B0 (544 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:5160: hl=$6E90 a=$4B c=$22 de=$8C01 (dest VRAM $8C00, vbank=1) [first call site executed: 4 hits in 2 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_SettingsPhone_ConfirmScreen_Tiles8C00Vb1:: ; 4B:6E90
 Data_4B_6E90::
 	INCBIN "gfx/settings/screens_bank4b/tiles_6e90.2bpp"
 
-; ---- gfx $70B0-$7490 (992 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:5172: hl=$7090 a=$4B c=$40 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE] [clipped from 7090-7490 by higher-priority evidence]
+; ---- gfx $70B0-$7490 (992 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:5172: hl=$7090 a=$4B c=$40 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 4 hits in 2 scenarios (analysis/coverage_union.tsv)] [clipped from 7090-7490 by higher-priority evidence]
 
 Data_4B_70B0:: ; 4B:70B0
 	INCBIN "gfx/settings/screens_bank4b/tiles_70b0.2bpp"
 
-; ---- data $7490-$76C0 (560 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 67:51B7: hl=$73F0 a=$4B b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE] [clipped from 73F0-76C0 by higher-priority evidence]
+; ---- data $7490-$76C0 (560 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 67:51B7: hl=$73F0 a=$4B b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 4 hits in 2 scenarios (analysis/coverage_union.tsv)] [clipped from 73F0-76C0 by higher-priority evidence]
 
 Data_4B_7490:: ; 4B:7490
 	db $9C, $19, $1A, $1B, $1C, $1D, $15, $9C, $9C, $9C, $9C, $9C, $9C, $9C, $9C, $9C
@@ -154,19 +154,19 @@ Data_4B_7490:: ; 4B:7490
 Table_4B_76C0:: ; 4B:76C0
 	db $26, $2F, $09, $09, $27, $30, $09, $09, $28, $31, $09, $09, $00, $00, $00, $00
 
-; ---- gfx $76D0-$7AD0 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:574D: hl=$76D0 a=$4B c=$40 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $76D0-$7AD0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:574D: hl=$76D0 a=$4B c=$40 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 2 hits in 1 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_SettingsPhone_ContinuePrompt_Tiles9000Vb1:: ; 4B:76D0
 Data_4B_76D0::
 	INCBIN "gfx/settings/screens_bank4b/tiles_76d0.2bpp"
 
-; ---- gfx $7AD0-$7DD0 (768 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:575F: hl=$7AD0 a=$4B c=$30 de=$9401 (dest VRAM $9400, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $7AD0-$7DD0 (768 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:575F: hl=$7AD0 a=$4B c=$30 de=$9401 (dest VRAM $9400, vbank=1) [first call site executed: 2 hits in 1 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_SettingsPhone_ContinuePrompt_Tiles9400Vb1:: ; 4B:7AD0
 Data_4B_7AD0::
 	INCBIN "gfx/settings/screens_bank4b/tiles_7ad0.2bpp"
 
-; ---- data $7DD0-$7FE0 (528 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 67:57A4: hl=$7D10 a=$4B b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE] [clipped from 7D10-7FE0 by higher-priority evidence]
+; ---- data $7DD0-$7FE0 (528 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 67:57A4: hl=$7D10 a=$4B b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 2 hits in 1 scenarios (analysis/coverage_union.tsv)] [clipped from 7D10-7FE0 by higher-priority evidence]
 
 Data_4B_7DD0:: ; 4B:7DD0
 	db $00, $00, $00, $00, $00, $00, $00, $1C, $1C, $00, $00, $00, $00, $00, $00, $00

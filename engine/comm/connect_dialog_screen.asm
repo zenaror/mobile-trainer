@@ -553,7 +553,7 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 ; ---- zero $4D28-$4D30 (8 bytes) [PROBABLE] 8 zero bytes of padding before the tile block 4D30
 	ds $8, $00
 
-; ---- gfx $4D30-$4D40 (16 bytes) [PROBABLE] tiles-vram: 2 call site(s) (57:497C 57:4AED); first: hdma_rom_to_vram at 57:497C: hl=$4D30 a=$57 c=$01 de=$8C10 (dest VRAM $8C10, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $4D30-$4D40 (16 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (57:497C 57:4AED); first: hdma_rom_to_vram at 57:497C: hl=$4D30 a=$57 c=$01 de=$8C10 (dest VRAM $8C10, vbank=0) [first call site executed: 99 hits in 4 scenarios (analysis/coverage_union.tsv)]
 
 ConnectDialog_BlankTile:: ; 57:4D30
 Data_57_4D30::

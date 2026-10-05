@@ -447,14 +447,14 @@ Data_5F_52DB::
 	INCBIN "gfx/keyboard/panels_bank5f/tilemap_52db.tilemap"
 	INCBIN "gfx/keyboard/panels_bank5f/tilemap_52db.attrmap"
 
-; ---- data $54E3-$56EB (520 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 55:6736: hl=$54E3 a=$5F b=13 rows c=20 cols (tiles then attrs) de=$D240 [verifier: call site never executed in a trace -> PROBABLE]
+; ---- data $54E3-$56EB (520 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 55:6736: hl=$54E3 a=$5F b=13 rows c=20 cols (tiles then attrs) de=$D240 [first call site executed: 63 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_Kbd_T2:: ; 5F:54E3
 Data_5F_54E3::
 	INCBIN "gfx/keyboard/panels_bank5f/tilemap_54e3.tilemap"
 	INCBIN "gfx/keyboard/panels_bank5f/tilemap_54e3.attrmap"
 
-; ---- data $56EB-$58F3 (520 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 55:674B: hl=$56EB a=$5F b=13 rows c=20 cols (tiles then attrs) de=$D240 [verifier: call site never executed in a trace -> PROBABLE]
+; ---- data $56EB-$58F3 (520 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 55:674B: hl=$56EB a=$5F b=13 rows c=20 cols (tiles then attrs) de=$D240 [first call site executed: 13 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_Kbd_T3:: ; 5F:56EB
 Data_5F_56EB::
@@ -466,19 +466,19 @@ Data_5F_56EB::
 Data_5F_58F3:: ; 5F:58F3
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
-; ---- gfx $5900-$5D00 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:67AB: hl=$5900 a=$5F c=$40 de=$8801 (dest VRAM $8800, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $5900-$5D00 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:67AB: hl=$5900 a=$5F c=$40 de=$8801 (dest VRAM $8800, vbank=1) [first call site executed: 110 hits in 4 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_Kbd_T5_Tiles8800Vb1:: ; 5F:5900
 Data_5F_5900::
 	INCBIN "gfx/keyboard/panels_bank5f/tiles_5900.2bpp"
 
-; ---- gfx $5D00-$6100 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:67BD: hl=$5D00 a=$5F c=$40 de=$8C01 (dest VRAM $8C00, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $5D00-$6100 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:67BD: hl=$5D00 a=$5F c=$40 de=$8C01 (dest VRAM $8C00, vbank=1) [first call site executed: 110 hits in 4 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_Kbd_T5_Tiles8C00Vb1:: ; 5F:5D00
 Data_5F_5D00::
 	INCBIN "gfx/keyboard/panels_bank5f/tiles_5d00.2bpp"
 
-; ---- gfx $6100-$6200 (256 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:67CF: hl=$6100 a=$5F c=$10 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $6100-$6200 (256 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:67CF: hl=$6100 a=$5F c=$10 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 110 hits in 4 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_Kbd_T5_Tiles9000Vb1:: ; 5F:6100
 Data_5F_6100::
@@ -494,7 +494,7 @@ Data_5F_6980:: ; 5F:6980
 	db $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06
 	db $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06
 
-; ---- data $69B0-$6BB8 (520 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 55:684E: hl=$69B0 a=$5F b=13 rows c=20 cols (tiles then attrs) de=$D240 [verifier: call site never executed in a trace -> PROBABLE]
+; ---- data $69B0-$6BB8 (520 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 55:684E: hl=$69B0 a=$5F b=13 rows c=20 cols (tiles then attrs) de=$D240 [first call site executed: 110 hits in 4 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_Kbd_T5:: ; 5F:69B0
 Data_5F_69B0::

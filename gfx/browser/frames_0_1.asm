@@ -4,13 +4,13 @@
 
 SECTION "gfx/browser/frames_0_1", ROMX
 
-; ---- gfx $4000-$4010 (16 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 4E:5D3E: hl=$4000 a=$47 c=$01 de=$8FF0 (dest VRAM $8FF0, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $4000-$4010 (16 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 4E:5D3E: hl=$4000 a=$47 c=$01 de=$8FF0 (dest VRAM $8FF0, vbank=0) [first call site executed: 13 hits in 2 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_BrowserScrollbar_Tiles8FF0_47_4000:: ; 47:4000
 Data_47_4000::
 	INCBIN "gfx/browser/frames_0_1/tiles_4000.2bpp"
 
-; ---- gfx $4010-$4040 (48 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 4E:5D50: hl=$4010 a=$47 c=$03 de=$97D0 (dest VRAM $97D0, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
+; ---- gfx $4010-$4040 (48 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 4E:5D50: hl=$4010 a=$47 c=$03 de=$97D0 (dest VRAM $97D0, vbank=0) [first call site executed: 13 hits in 2 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_BrowserScrollbar_Tiles97D0_47_4010:: ; 47:4010
 Data_47_4010::
