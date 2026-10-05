@@ -95,11 +95,12 @@ Notice_JoypadTable:: ; 65:494E
 Table_65_494E::
 	dw Notice_ShowPage_ButtonA
 	dw Notice_ShowPage_ButtonB
-	dw Label_65_4999
-	dw Label_65_499B
-	dw Label_65_4958
+	dw Notice_ShowPage_IgnoreSelect
+	dw Notice_ShowPage_IgnoreStart
+	dw Notice_ShowPage_Idle
 
-Label_65_4958:: ; 65:4958
+Notice_ShowPage_Idle:: ; 65:4958
+Label_65_4958::
 	; [CONFIRMED] 138 insn(s); 138 executed (in up to 9/18 scenarios)
 	jp Notice_ShowPage_InputLoop
 
@@ -136,10 +137,12 @@ Notice_ShowPage_ButtonB:: ; 65:4974
 	xor a, a
 	ret
 
-Label_65_4999:: ; 65:4999
+Notice_ShowPage_IgnoreSelect:: ; 65:4999
+Label_65_4999::
 	jr Notice_ShowPage_InputLoop
 
-Label_65_499B:: ; 65:499B
+Notice_ShowPage_IgnoreStart:: ; 65:499B
+Label_65_499B::
 	jr Notice_ShowPage_InputLoop
 
 Notice_ShowPage_Locked:: ; 65:499D

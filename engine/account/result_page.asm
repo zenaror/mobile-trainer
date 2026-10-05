@@ -64,7 +64,8 @@ Function_68_766E::
 	pop af
 	ldh [rSVBK], a
 
-Label_68_7708:: ; 68:7708
+Account_ResultPage_InputLoop:: ; 68:7708
+Label_68_7708::
 	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
 	farcall Joypad_UpdateUnsaved
@@ -74,17 +75,19 @@ Label_68_7708:: ; 68:7708
 
 Account_ResultPage_InputTable:: ; 68:771A
 Table_68_771A::
-	dw Label_68_7727
-	dw Label_68_773E
-	dw Label_68_7741
-	dw Label_68_7743
-	dw Label_68_7724
+	dw Account_ResultPage_OnA
+	dw Account_ResultPage_IgnoreB
+	dw Account_ResultPage_IgnoreSelect
+	dw Account_ResultPage_IgnoreStart
+	dw Account_ResultPage_Idle
 
-Label_68_7724:: ; 68:7724
+Account_ResultPage_Idle:: ; 68:7724
+Label_68_7724::
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 4/18 scenarios)
-	jp Label_68_7708
+	jp Account_ResultPage_InputLoop
 
-Label_68_7727:: ; 68:7727
+Account_ResultPage_OnA:: ; 68:7727
+Label_68_7727::
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -96,22 +99,25 @@ Label_68_7727:: ; 68:7727
 	farcall Palette_FadeOutToWhite
 	ret
 
-Label_68_773E:: ; 68:773E
+Account_ResultPage_IgnoreB:: ; 68:773E
+Label_68_773E::
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;
 	; entered by table from 68:7717 (executed)
-	jr Label_68_7708
+	jr Account_ResultPage_InputLoop
 
 	; [HYPOTHESIS] single ret between the jr thunks 773E, 7741 and 7743 (all jr $7708); nothing
 	; branches to it
 	ret
 
-Label_68_7741:: ; 68:7741
+Account_ResultPage_IgnoreSelect:: ; 68:7741
+Label_68_7741::
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1;
 	; entered by table from 68:7717 (executed)
-	jr Label_68_7708
+	jr Account_ResultPage_InputLoop
 
-Label_68_7743:: ; 68:7743
-	jr Label_68_7708
+Account_ResultPage_IgnoreStart:: ; 68:7743
+Label_68_7743::
+	jr Account_ResultPage_InputLoop
 
 Account_ResultPage_PrintMessage:: ; 68:7745
 Function_68_7745::
@@ -402,21 +408,19 @@ Byte_ToPackedBcd:: ; 68:792A
 	or a, d
 	ret
 
-; ---- ptrtable $793D-$793F (2 bytes) [PROBABLE] little-endian word table, 10 entries, monotone=1.00, 30% of targets on string start/after NUL, targets $5B68..$5B8C; referenced by ld r16,$793D at 68:788D [clipped from 793D-7951 by higher-priority evidence]
+; ---- ptrtable $793D-$7951 (20 bytes) [CONFIRMED] ten little-endian pointers into ROM bank $4B, one per decimal digit: the 4-byte digit records of Table_4B_5B68 (tile, tile + $10, two attributes);
+; indexed by the digit in Account_ResultPage_DrawTimeDigits (ld hl, Account_DigitTilemapTable ... farcall Tilemap_CopyRectAndAttr with A = $4B; 68:788D, 31 hits in 8 scenarios).  The survey had typed the words as
+; bank-68 code pointers, which created nine spurious labels Label_68_5B6C..5B8C inside Account_MailDomain_PrintField (mail_address_entry.asm); they are gone
 
 Account_DigitTilemapTable:: ; 68:793D
 Table_68_793D::
-	dw $5B68
-
-; ---- ptrtable $793F-$7951 (18 bytes) [PROBABLE] code-pointer table, 9 entries: 9/9 words hit own-bank code starts (survey pointer-table extent); 9/9 targets executed
-
-Table_68_793F:: ; 68:793F
-	dw Label_68_5B6C
-	dw Label_68_5B70
-	dw Label_68_5B74
-	dw Label_68_5B78
-	dw Label_68_5B7C
-	dw Label_68_5B80
-	dw Label_68_5B84
-	dw Label_68_5B88
-	dw Label_68_5B8C
+	dw Table_4B_5B68
+	dw Table_4B_5B68 + $04
+	dw Table_4B_5B68 + $08
+	dw Table_4B_5B68 + $0C
+	dw Table_4B_5B68 + $10
+	dw Table_4B_5B68 + $14
+	dw Table_4B_5B68 + $18
+	dw Table_4B_5B68 + $1C
+	dw Table_4B_5B68 + $20
+	dw Table_4B_5B68 + $24

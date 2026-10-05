@@ -384,14 +384,15 @@ Function_72_43A7::
 
 Dialog_SetupCursorByType_TypeTable:: ; 72:43AA
 Table_72_43AA::
-	dw Label_72_43B6
-	dw Label_72_4412
-	dw Label_72_43DC
-	dw Label_72_43B6
-	dw Label_72_4407
-	dw Label_72_43C1
+	dw Dialog_SetupCursorByType_NoButton
+	dw Dialog_SetupCursorByType_OneButton
+	dw Dialog_SetupCursorByType_TwoButtons
+	dw Dialog_SetupCursorByType_NoButton
+	dw Dialog_SetupCursorByType_OneButtonTall
+	dw Dialog_SetupCursorByType_TwoButtonsTall
 
-Label_72_43B6:: ; 72:43B6
+Dialog_SetupCursorByType_NoButton:: ; 72:43B6
+Label_72_43B6::
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
 	ld hl, $DAC0
 	call Sprite_ClearSlot
@@ -399,7 +400,8 @@ Label_72_43B6:: ; 72:43B6
 	ldh [hDialogResult], a
 	ret
 
-Label_72_43C1:: ; 72:43C1
+Dialog_SetupCursorByType_TwoButtonsTall:: ; 72:43C1
+Label_72_43C1::
 	; [CONFIRMED] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 1;
 	; entered by table from 72:43A7 (executed) | 3 insn(s) executed; cut out of the PROBABLE region
 	; 43C1-43DC by apply_coverage --split [executed in 3 scenarios]
@@ -412,7 +414,7 @@ Label_72_43C1:: ; 72:43C1
 	ld de, $D058
 	ld hl, $DAC0
 	call Sprite_SetPosition
-	jr Label_72_43F7
+	jr Dialog_SetupCursorByType_DrawTwoButtons
 
 .l43D1 ; 72:43D1
 	; [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 43C1-43DC by apply_coverage
@@ -420,9 +422,10 @@ Label_72_43C1:: ; 72:43C1
 	ld de, $D028
 	ld hl, $DAC0
 	call Sprite_SetPosition
-	jr Label_72_43F7
+	jr Dialog_SetupCursorByType_DrawTwoButtons
 
-Label_72_43DC:: ; 72:43DC
+Dialog_SetupCursorByType_TwoButtons:: ; 72:43DC
+Label_72_43DC::
 	; [CONFIRMED] 177 insn(s); 177 executed (in up to 4/18 scenarios)
 	ldh a, [hDialogResult]
 	or a, a
@@ -430,14 +433,15 @@ Label_72_43DC:: ; 72:43DC
 	ld de, $C058
 	ld hl, $DAC0
 	call Sprite_SetPosition
-	jr Label_72_43F7
+	jr Dialog_SetupCursorByType_DrawTwoButtons
 .l43EC ; 72:43EC
 	ld de, $C028
 	ld hl, $DAC0
 	call Sprite_SetPosition
-	jr Label_72_43F7
+	jr Dialog_SetupCursorByType_DrawTwoButtons
 
-Label_72_43F7:: ; 72:43F7
+Dialog_SetupCursorByType_DrawTwoButtons:: ; 72:43F7
+Label_72_43F7::
 	ld hl, $D245
 	ld a, $88
 	call Dialog_DrawButtonTiles
@@ -445,18 +449,21 @@ Label_72_43F7:: ; 72:43F7
 	ld a, $8C
 	jp Dialog_DrawButtonTiles
 
-Label_72_4407:: ; 72:4407
+Dialog_SetupCursorByType_OneButtonTall:: ; 72:4407
+Label_72_4407::
 	ld de, $D040
 	ld hl, $DAC0
 	call Sprite_SetPosition
-	jr Label_72_441B
+	jr Dialog_SetupCursorByType_DrawOneButton
 
-Label_72_4412:: ; 72:4412
+Dialog_SetupCursorByType_OneButton:: ; 72:4412
+Label_72_4412::
 	ld de, $C040
 	ld hl, $DAC0
 	call Sprite_SetPosition
 
-Label_72_441B:: ; 72:441B
+Dialog_SetupCursorByType_DrawOneButton:: ; 72:441B
+Label_72_441B::
 	ld a, $00
 	ldh [hDialogResult], a
 	ld hl, $D248
@@ -640,13 +647,14 @@ Function_72_4578::
 
 Dialog_WaitInputTable:: ; 72:4596
 Table_72_4596::
-	dw Label_72_45EA
-	dw Label_72_4606
-	dw Label_72_4600
-	dw Label_72_4603
-	dw Label_72_45A0
+	dw Dialog_WaitInput_OnA
+	dw Dialog_WaitInput_OnB
+	dw Dialog_WaitInput_IgnoreSelect
+	dw Dialog_WaitInput_IgnoreStart
+	dw Dialog_WaitInput_Idle
 
-Label_72_45A0:: ; 72:45A0
+Dialog_WaitInput_Idle:: ; 72:45A0
+Label_72_45A0::
 	; [CONFIRMED] 45 insn(s); 45 executed (in up to 3/18 scenarios)
 	ld a, [wDialogType]
 	cp a, $05
@@ -684,7 +692,8 @@ Label_72_45A0:: ; 72:45A0
 	call Sprite_SetPosition
 	jp Dialog_WaitInput
 
-Label_72_45EA:: ; 72:45EA
+Dialog_WaitInput_OnA:: ; 72:45EA
+Label_72_45EA::
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -698,15 +707,18 @@ Label_72_45EA:: ; 72:45EA
 	ldh [hDialogResult], a
 	ret
 
-Label_72_4600:: ; 72:4600
+Dialog_WaitInput_IgnoreSelect:: ; 72:4600
+Label_72_4600::
 	jp Dialog_WaitInput
 
-Label_72_4603:: ; 72:4603
+Dialog_WaitInput_IgnoreStart:: ; 72:4603
+Label_72_4603::
 	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;
 	; entered by table from 72:4593 (executed) [executed in 4 scenarios]
 	jp Dialog_WaitInput
 
-Label_72_4606:: ; 72:4606
+Dialog_WaitInput_OnB:: ; 72:4606
+Label_72_4606::
 	; [CONFIRMED] 31 insn(s); 31 executed (in up to 1/18 scenarios)
 	ldh a, [hWRAMBank]
 	push af
@@ -726,9 +738,9 @@ Dialog_WaitInputMonitored:: ; 72:461A
 	jr z, .l467A
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp nz, Label_72_4726
+	jp nz, Dialog_WaitInputMonitored_ExitAdapterError
 	bit 4, a
-	jp z, Label_72_471C
+	jp z, Dialog_WaitInputMonitored_ExitLinkLost
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
@@ -781,7 +793,7 @@ Dialog_WaitInputMonitored:: ; 72:461A
 .l4675 ; 72:4675
 	pop hl
 	or a, a
-	jp nz, Label_72_4721
+	jp nz, Dialog_WaitInputMonitored_ExitConnectionNotice
 .l467A ; 72:467A
 	farcall Sprite_UpdateAll
 	farcall ConnIcon_LoadGraphicsIfRequested
@@ -794,13 +806,14 @@ Dialog_WaitInputMonitored:: ; 72:461A
 
 Dialog_WaitInputMonitoredTable:: ; 72:4698
 Table_72_4698::
-	dw Label_72_46EC
-	dw Label_72_4708
-	dw Label_72_4702
-	dw Label_72_4705
-	dw Label_72_46A2
+	dw Dialog_WaitInputMonitored_OnA
+	dw Dialog_WaitInputMonitored_OnB
+	dw Dialog_WaitInputMonitored_IgnoreSelect
+	dw Dialog_WaitInputMonitored_IgnoreStart
+	dw Dialog_WaitInputMonitored_Idle
 
-Label_72_46A2:: ; 72:46A2
+Dialog_WaitInputMonitored_Idle:: ; 72:46A2
+Label_72_46A2::
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
 	ld a, [wDialogType]
 	cp a, $05
@@ -841,7 +854,8 @@ Label_72_46A2:: ; 72:46A2
 	call Sprite_SetPosition
 	jp Dialog_WaitInputMonitored
 
-Label_72_46EC:: ; 72:46EC
+Dialog_WaitInputMonitored_OnA:: ; 72:46EC
+Label_72_46EC::
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -855,13 +869,16 @@ Label_72_46EC:: ; 72:46EC
 	ldh [hDialogResult], a
 	ret
 
-Label_72_4702:: ; 72:4702
+Dialog_WaitInputMonitored_IgnoreSelect:: ; 72:4702
+Label_72_4702::
 	jp Dialog_WaitInputMonitored
 
-Label_72_4705:: ; 72:4705
+Dialog_WaitInputMonitored_IgnoreStart:: ; 72:4705
+Label_72_4705::
 	jp Dialog_WaitInputMonitored
 
-Label_72_4708:: ; 72:4708
+Dialog_WaitInputMonitored_OnB:: ; 72:4708
+Label_72_4708::
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios)
 	ldh a, [hWRAMBank]
 	push af
@@ -875,7 +892,8 @@ Label_72_4708:: ; 72:4708
 	ldh [hDialogResult], a
 	ret
 
-Label_72_471C:: ; 72:471C
+Dialog_WaitInputMonitored_ExitLinkLost:: ; 72:471C
+Label_72_471C::
 	; [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1;
 	; entered by jpcc from 72:462B (executed) | 3 insn(s) never executed in the traced runs; cut out
 	; of the PROBABLE region 471C-472B by apply_coverage --split
@@ -883,14 +901,16 @@ Label_72_471C:: ; 72:471C
 	ldh [hDialogResult], a
 	ret
 
-Label_72_4721:: ; 72:4721
+Dialog_WaitInputMonitored_ExitConnectionNotice:: ; 72:4721
+Label_72_4721::
 	; [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 471C-472B by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld a, $04
 	ldh [hDialogResult], a
 	ret
 
-Label_72_4726:: ; 72:4726
+Dialog_WaitInputMonitored_ExitAdapterError:: ; 72:4726
+Label_72_4726::
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 471C-472B by apply_coverage --split
 	ld a, $05

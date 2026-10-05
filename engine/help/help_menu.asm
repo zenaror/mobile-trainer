@@ -24,7 +24,8 @@ Function_6C_4000::
 	and a, $07
 	ld [wHelpMenu_Cursor], a
 
-Label_6C_401D:: ; 6C:401D
+HelpMenu_ShowPage_Redraw:: ; 6C:401D
+Label_6C_401D::
 	ld a, $01
 	ld [wRam_C0E7], a
 	ldh a, [rLCDC]
@@ -178,7 +179,8 @@ Label_6C_401D:: ; 6C:401D
 	pop af
 	ldh [rSVBK], a
 
-Label_6C_41B3:: ; 6C:41B3
+HelpMenu_ShowPage_InputLoop:: ; 6C:41B3
+Label_6C_41B3::
 	farcall Sprite_UpdateAll
 	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
@@ -189,21 +191,23 @@ Label_6C_41B3:: ; 6C:41B3
 
 HelpMenu_InputTable:: ; 6C:41CB
 Table_6C_41CB::
-	dw Label_6C_41E5
-	dw Label_6C_425A
-	dw Label_6C_429C
-	dw Label_6C_429C
-	dw Label_6C_41D5
+	dw HelpMenu_OnA
+	dw HelpMenu_OnB
+	dw HelpMenu_Ignore
+	dw HelpMenu_Ignore
+	dw HelpMenu_Idle
 
-Label_6C_41D5:: ; 6C:41D5
+HelpMenu_Idle:: ; 6C:41D5
+Label_6C_41D5::
 	; [CONFIRMED] 35 insn(s); 35 executed (in up to 3/18 scenarios)
 	farcall Ticker_Update
 	ldh a, [hJoyPressedRepeat]
 	and a, $F0
 	call nz, HelpMenu_HandleDpad
-	jp Label_6C_41B3
+	jp HelpMenu_ShowPage_InputLoop
 
-Label_6C_41E5:: ; 6C:41E5
+HelpMenu_OnA:: ; 6C:41E5
+Label_6C_41E5::
 	ld a, [wHelpMenu_Cursor]
 	call HelpMenu_ItemIsLocked
 	or a, a
@@ -234,7 +238,7 @@ Label_6C_41E5:: ; 6C:41E5
 	ld [wHelpMenu_Page], a
 	dec a
 	ld [wHelpMenu_Cursor], a
-	jp Label_6C_401D
+	jp HelpMenu_ShowPage_Redraw
 
 .l422E ; 6C:422E
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1;
@@ -243,7 +247,7 @@ Label_6C_41E5:: ; 6C:41E5
 	ld [wHelpMenu_Page], a
 	ld a, $01
 	ld [wHelpMenu_Cursor], a
-	jp Label_6C_401D
+	jp HelpMenu_ShowPage_Redraw
 
 .l423B ; 6C:423B
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 2/18 scenarios)
@@ -268,9 +272,10 @@ Label_6C_41E5:: ; 6C:41E5
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	jp Label_6C_41B3
+	jp HelpMenu_ShowPage_InputLoop
 
-Label_6C_425A:: ; 6C:425A
+HelpMenu_OnB:: ; 6C:425A
+Label_6C_425A::
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -293,7 +298,7 @@ Label_6C_425A:: ; 6C:425A
 	ld [wHelpMenu_Page], a
 	inc a
 	ld [wHelpMenu_Cursor], a
-	jp Label_6C_401D
+	jp HelpMenu_ShowPage_Redraw
 
 .l428F ; 6C:428F
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1;
@@ -302,11 +307,12 @@ Label_6C_425A:: ; 6C:425A
 	ld [wHelpMenu_Page], a
 	ld a, $03
 	ld [wHelpMenu_Cursor], a
-	jp Label_6C_401D
+	jp HelpMenu_ShowPage_Redraw
 
-Label_6C_429C:: ; 6C:429C
+HelpMenu_Ignore:: ; 6C:429C
+Label_6C_429C::
 	; [CONFIRMED] 75 insn(s); 75 executed (in up to 3/18 scenarios)
-	jp Label_6C_41B3
+	jp HelpMenu_ShowPage_InputLoop
 
 HelpMenu_HandleDpad:: ; 6C:429F
 	bit 6, a

@@ -188,8 +188,8 @@ Table_TopMenu_Buttons:: ; 1F:41E9
 Table_1F_41E9::
 	dw TopMenu_OnA
 	dw TopMenu_OnB
-	dw Label_1F_428E
-	dw Label_1F_428B
+	dw TopMenu_IgnoreSelect
+	dw TopMenu_IgnoreStart
 	dw TopMenu_Idle
 
 TopMenu_Idle:: ; 1F:41F3
@@ -205,15 +205,16 @@ TopMenu_Idle:: ; 1F:41F3
 	jp nz, TopMenu_Loop
 	ld a, [wTopMenu_PendingAFlag]
 	or a, a
-	jp nz, Label_1F_421D
+	jp nz, TopMenu_OnA_Accept
 	jp TopMenu_Loop
 
 TopMenu_OnA:: ; 1F:4217
 	ld a, [wTopMenu_SlideFlag]
 	or a, a
-	jr nz, Label_1F_4252
+	jr nz, TopMenu_OnA_QueueWhileMoving
 
-Label_1F_421D:: ; 1F:421D
+TopMenu_OnA_Accept:: ; 1F:421D
+Label_1F_421D::
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -235,7 +236,8 @@ Label_1F_421D:: ; 1F:421D
 	ld a, [wTopMenu_Cursor]
 	ret
 
-Label_1F_4252:: ; 1F:4252
+TopMenu_OnA_QueueWhileMoving:: ; 1F:4252
+Label_1F_4252::
 	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1;
 	; entered by jrcc from 1F:421B (executed) [executed in 5 scenarios]
 	ld a, $01
@@ -264,10 +266,12 @@ TopMenu_OnB:: ; 1F:425A
 	xor a, a
 	ret
 
-Label_1F_428B:: ; 1F:428B
+TopMenu_IgnoreStart:: ; 1F:428B
+Label_1F_428B::
 	jp TopMenu_Loop
 
-Label_1F_428E:: ; 1F:428E
+TopMenu_IgnoreSelect:: ; 1F:428E
+Label_1F_428E::
 	jp TopMenu_Loop
 
 TopMenu_HandleDpad:: ; 1F:4291

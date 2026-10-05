@@ -149,21 +149,22 @@ SramCheck_VerifyAndRepairAll:: ; 22:4FA9
 	call SramCheck_Bank0ClearPage
 	ld a, $01
 	call SramCheck_Bank0ClearPage
-	jr Label_22_4FDB
+	jr SramCheck_VerifyAndRepairAll_Bank1Check
 
 SramCheck_RestorePage0:: ; 22:4FCF
 	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1;
 	; entered by jrcc from 22:4FC1 (executed)
 	ld a, $01
 	call SramCheck_Bank0CopyPage
-	jr Label_22_4FDB
+	jr SramCheck_VerifyAndRepairAll_Bank1Check
 
 SramCheck_MirrorPage0:: ; 22:4FD6
 	; [CONFIRMED] 29 insn(s); 29 executed (in up to 12/18 scenarios)
 	ld a, $00
 	call SramCheck_Bank0CopyPage
 
-Label_22_4FDB:: ; 22:4FDB
+SramCheck_VerifyAndRepairAll_Bank1Check:: ; 22:4FDB
+Label_22_4FDB::
 	pop hl
 	pop de
 	pop bc

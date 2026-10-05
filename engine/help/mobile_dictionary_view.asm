@@ -30,7 +30,8 @@ Function_4C_4F56::
 	ld [wBrowserFrameStyle], a
 	farcall Browser_LoadFrameGraphics
 
-Label_4C_4F95:: ; 4C:4F95
+MobileDictView_Show_RenderPage:: ; 4C:4F95
+Label_4C_4F95::
 	ld bc, $0000
 	ld de, $0000
 	farcall Browser_SetScroll
@@ -54,7 +55,8 @@ Label_4C_4F95:: ; 4C:4F95
 	xor a, a
 	ldh [hDialogResult], a
 
-Label_4C_4FDD:: ; 4C:4FDD
+MobileDictView_Show_InputLoop:: ; 4C:4FDD
+Label_4C_4FDD::
 	farcall Sprite_UpdateAll
 	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
@@ -65,36 +67,38 @@ Label_4C_4FDD:: ; 4C:4FDD
 
 MobileDictView_InputTable:: ; 4C:4FF5
 Table_4C_4FF5::
-	dw Label_4C_501E
-	dw Label_4C_509A
-	dw Label_4C_50E0
-	dw Label_4C_50DD
-	dw Label_4C_4FFF
+	dw MobileDictView_OnA
+	dw MobileDictView_OnB
+	dw MobileDictView_OnSelect
+	dw MobileDictView_IgnoreStart
+	dw MobileDictView_Idle
 
-Label_4C_4FFF:: ; 4C:4FFF
+MobileDictView_Idle:: ; 4C:4FFF
+Label_4C_4FFF::
 	; [CONFIRMED] 215 insn(s); 215 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressedRepeat]
 	bit 6, a
 	jr nz, .l500C
 	bit 7, a
 	jr nz, .l5015
-	jp Label_4C_4FDD
+	jp MobileDictView_Show_InputLoop
 .l500C ; 4C:500C
 	farcall Browser_SelectPrevLink
-	jp Label_4C_4FDD
+	jp MobileDictView_Show_InputLoop
 .l5015 ; 4C:5015
 	farcall Browser_SelectNextLink
-	jp Label_4C_4FDD
+	jp MobileDictView_Show_InputLoop
 
-Label_4C_501E:: ; 4C:501E
+MobileDictView_OnA:: ; 4C:501E
+Label_4C_501E::
 	ldh a, [hBrowserSelectedLink]
 	or a, a
-	jp z, Label_4C_4FDD
+	jp z, MobileDictView_Show_InputLoop
 	cp a, $FF
-	jp z, Label_4C_4FDD
+	jp z, MobileDictView_Show_InputLoop
 	farcall Browser_FindLinkElement
 	or a, a
-	jp z, Label_4C_4FDD
+	jp z, MobileDictView_Show_InputLoop
 	ld bc, $000E
 	add hl, bc
 	ldh a, [hPageHeaderPtr + 2]
@@ -138,14 +142,15 @@ Label_4C_501E:: ; 4C:501E
 	ld de, $D800
 	ld hl, $D880
 	call CopyBytes
-	jp Label_4C_4F95
+	jp MobileDictView_Show_RenderPage
 
-Label_4C_509A:: ; 4C:509A
+MobileDictView_OnB:: ; 4C:509A
+Label_4C_509A::
 	ld de, $C380
 	xor a, a
 	farcall MobileDictView_HistoryPop
 	or a, a
-	jp z, Label_4C_50E3
+	jp z, MobileDictView_Show_Exit
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -165,16 +170,19 @@ Label_4C_509A:: ; 4C:509A
 	ld de, $D800
 	ld hl, $D880
 	call CopyBytes
-	jp Label_4C_4F95
+	jp MobileDictView_Show_RenderPage
 
-Label_4C_50DD:: ; 4C:50DD
-	jp Label_4C_4FDD
+MobileDictView_IgnoreStart:: ; 4C:50DD
+Label_4C_50DD::
+	jp MobileDictView_Show_InputLoop
 
-Label_4C_50E0:: ; 4C:50E0
+MobileDictView_OnSelect:: ; 4C:50E0
+Label_4C_50E0::
 	xor a, a
 	ldh [hDialogResult], a
 
-Label_4C_50E3:: ; 4C:50E3
+MobileDictView_Show_Exit:: ; 4C:50E3
+Label_4C_50E3::
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01

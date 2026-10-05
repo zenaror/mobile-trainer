@@ -250,14 +250,14 @@ Title_MenuHandleButtons:: ; 0E:419F
 	jr nz, Title_MenuToggleSelection
 	bit 7, a
 	jr nz, Title_MenuToggleSelection
-	jr Label_0E_41FD
+	jr Title_StateMenu_Done
 
 Title_MenuTimeout:: ; 0E:41B3
 	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1;
 	; entered by jrcc from 0E:4194 (executed)
 	ld a, $06
 	ld [wTitle_State], a
-	jr Label_0E_41FD
+	jr Title_StateMenu_Done
 
 Title_MenuToggleSelection:: ; 0E:41BA
 	; [CONFIRMED] 35 insn(s); 35 executed (in up to 14/18 scenarios)
@@ -279,7 +279,7 @@ Title_MenuToggleSelection:: ; 0E:41BA
 	call Title_DrawMenuHighlight
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffersDi
-	jr Label_0E_41FD
+	jr Title_StateMenu_Done
 
 Title_MenuConfirm:: ; 0E:41E6
 	ldh a, [hWRAMBank]
@@ -294,7 +294,8 @@ Title_MenuConfirm:: ; 0E:41E6
 	inc a
 	ld [wTitle_State], a
 
-Label_0E_41FD:: ; 0E:41FD
+Title_StateMenu_Done:: ; 0E:41FD
+Label_0E_41FD::
 	ret
 
 Title_StateExit:: ; 0E:41FE

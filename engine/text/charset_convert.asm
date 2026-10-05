@@ -425,7 +425,7 @@ Function_7E_7D19::
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ld a, $01
 	ld [wRam_C282], a
-	jp Label_7E_7D66
+	jp Charset_Iso2022JpToSjis_Init
 
 Charset_Iso2022JpToSjis:: ; 7E:7D62
 	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 14;
@@ -434,7 +434,8 @@ Charset_Iso2022JpToSjis:: ; 7E:7D62
 	xor a, a
 	ld [wRam_C282], a
 
-Label_7E_7D66:: ; 7E:7D66
+Charset_Iso2022JpToSjis_Init:: ; 7E:7D66
+Label_7E_7D66::
 	; [CONFIRMED] 26 insn(s); 26 executed (in up to 1/18 scenarios)
 	ld a, e
 	ldh [hIso2022JpToSjis_OutStartLo], a
@@ -442,15 +443,16 @@ Label_7E_7D66:: ; 7E:7D66
 	ldh [hIso2022JpToSjis_OutStartHi], a
 	ld a, b
 	or a, c
-	jp z, Label_7E_7E37
+	jp z, Charset_Iso2022JpToSjis_Finish
 	ld a, $00
 	ldh [hIso2022JpToSjis_State], a
 
-Label_7E_7D75:: ; 7E:7D75
+Charset_Iso2022JpToSjis_Loop:: ; 7E:7D75
+Label_7E_7D75::
 	call Sound_FrameService
 	ld a, [hli]
 	or a, a
-	jp z, Label_7E_7E37
+	jp z, Charset_Iso2022JpToSjis_Finish
 	ldh [hIso2022JpToSjis_Byte], a
 	push hl
 	ldh a, [hIso2022JpToSjis_State]
@@ -481,8 +483,8 @@ Table_7E_7D8F::
 	dec bc
 	ld a, c
 	or a, b
-	jp z, Label_7E_7E37
-	jr Label_7E_7D75
+	jp z, Charset_Iso2022JpToSjis_Finish
+	jr Charset_Iso2022JpToSjis_Loop
 
 .l7DAA ; 7E:7DAA
 	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1;
@@ -490,7 +492,7 @@ Table_7E_7D8F::
 	; every instruction start of the region appears in analysis/coverage_union.tsv]
 	ld a, $02
 	ldh [hIso2022JpToSjis_State], a
-	jr Label_7E_7D75
+	jr Charset_Iso2022JpToSjis_Loop
 
 	; [CONFIRMED] handler 7DB0 (entry 1 of the jump table 7E:7D8F, each handler starts with pop hl);
 	; 7DB0-7DDF decodes to jp/jr targets on instruction starts, ends with jr $7D75 [executed in 6
@@ -518,22 +520,22 @@ Table_7E_7D8F::
 	dec bc
 	ld a, c
 	or a, b
-	jp z, Label_7E_7E37
+	jp z, Charset_Iso2022JpToSjis_Finish
 	ldh a, [hIso2022JpToSjis_OutLo]
 	ld [de], a
 	inc de
 	dec bc
 	ld a, c
 	or a, b
-	jp z, Label_7E_7E37
-	jr Label_7E_7D75
+	jp z, Charset_Iso2022JpToSjis_Finish
+	jr Charset_Iso2022JpToSjis_Loop
 
 	; [HYPOTHESIS] ld a,2 ; ldh [$FFB1],a ; jr $7D75 (same body as the executed 7E:7DAA): no decoded
 	; branch, table word or call targets 7DDF (checked by the verifier), it follows the
 	; unconditional jr $7D75 at 7DDD, so its entry is unproven
 	ld a, $02
 	ldh [hIso2022JpToSjis_State], a
-	jr Label_7E_7D75
+	jr Charset_Iso2022JpToSjis_Loop
 
 	; [CONFIRMED] handlers 7DE5, 7E05, 7E1E (entries 2-4 of the jump table 7E:7D8F: words
 	; 7DE5/7E05/7E1E, each starts with pop hl; verified instruction starts); 19 direct targets of
@@ -551,18 +553,18 @@ Table_7E_7D8F::
 	; 7DE5-7E37 by apply_coverage --split
 	ld a, $00
 	ldh [hIso2022JpToSjis_State], a
-	jp Label_7E_7D75
+	jp Charset_Iso2022JpToSjis_Loop
 
 .l7DF7 ; 7E:7DF7
 	; [CONFIRMED] 12 insn(s) executed; cut out of the PROBABLE region 7DE5-7E37 by apply_coverage
 	; --split [executed in 12 scenarios]
 	ld a, $03
 	ldh [hIso2022JpToSjis_State], a
-	jp Label_7E_7D75
+	jp Charset_Iso2022JpToSjis_Loop
 .l7DFE ; 7E:7DFE
 	ld a, $04
 	ldh [hIso2022JpToSjis_State], a
-	jp Label_7E_7D75
+	jp Charset_Iso2022JpToSjis_Loop
 
 	pop hl
 	ldh a, [hIso2022JpToSjis_Byte]
@@ -575,14 +577,14 @@ Table_7E_7D8F::
 	; 7DE5-7E37 by apply_coverage --split
 	ld a, $00
 	ldh [hIso2022JpToSjis_State], a
-	jp Label_7E_7D75
+	jp Charset_Iso2022JpToSjis_Loop
 
 .l7E17 ; 7E:7E17
 	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 7DE5-7E37 by apply_coverage
 	; --split [executed in 12 scenarios]
 	ld a, $00
 	ldh [hIso2022JpToSjis_State], a
-	jp Label_7E_7D75
+	jp Charset_Iso2022JpToSjis_Loop
 
 	pop hl
 	ldh a, [hIso2022JpToSjis_Byte]
@@ -595,16 +597,17 @@ Table_7E_7D8F::
 	; 7DE5-7E37 by apply_coverage --split
 	ld a, $00
 	ldh [hIso2022JpToSjis_State], a
-	jp Label_7E_7D75
+	jp Charset_Iso2022JpToSjis_Loop
 
 .l7E30 ; 7E:7E30
 	; [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 7DE5-7E37 by apply_coverage
 	; --split [executed in 12 scenarios]
 	ld a, $01
 	ldh [hIso2022JpToSjis_State], a
-	jp Label_7E_7D75
+	jp Charset_Iso2022JpToSjis_Loop
 
-Label_7E_7E37:: ; 7E:7E37
+Charset_Iso2022JpToSjis_Finish:: ; 7E:7E37
+Label_7E_7E37::
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ld a, [wRam_C282]
 	or a, a

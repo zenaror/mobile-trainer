@@ -289,42 +289,47 @@ PalFade_Start:: ; 4F:4166
 
 PalFade_Start_ModeTable:: ; 4F:4194
 Table_4F_4194::
-	dw Label_4F_41C2
-	dw Label_4F_41B8
-	dw Label_4F_41AE
-	dw Label_4F_41A4
-	dw Label_4F_41C2
-	dw Label_4F_41C2
-	dw Label_4F_41C2
-	dw Label_4F_41C2
+	dw PalFade_Start_AllColors
+	dw PalFade_Start_BgColors
+	dw PalFade_Start_ObjColors
+	dw PalFade_Start_FourColors
+	dw PalFade_Start_AllColors
+	dw PalFade_Start_AllColors
+	dw PalFade_Start_AllColors
+	dw PalFade_Start_AllColors
 
-Label_4F_41A4:: ; 4F:41A4
+PalFade_Start_FourColors:: ; 4F:41A4
+Label_4F_41A4::
 	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1;
 	; entered by table from 4F:4191 (executed)
 	ld de, $D9F0
 	ld hl, $D970
 	ld b, $04
-	jr Label_4F_41CA
+	jr PalFade_Start_FillLoop
 
-Label_4F_41AE:: ; 4F:41AE
+PalFade_Start_ObjColors:: ; 4F:41AE
+Label_4F_41AE::
 	ld de, $D9C0
 	ld hl, $D940
 	ld b, $20
-	jr Label_4F_41CA
+	jr PalFade_Start_FillLoop
 
-Label_4F_41B8:: ; 4F:41B8
+PalFade_Start_BgColors:: ; 4F:41B8
+Label_4F_41B8::
 	ld de, $D980
 	ld hl, $D900
 	ld b, $20
-	jr Label_4F_41CA
+	jr PalFade_Start_FillLoop
 
-Label_4F_41C2:: ; 4F:41C2
+PalFade_Start_AllColors:: ; 4F:41C2
+Label_4F_41C2::
 	; [CONFIRMED] 54 insn(s); 54 executed (in up to 18/18 scenarios)
 	ld de, $D980
 	ld hl, $D900
 	ld b, $40
 
-Label_4F_41CA:: ; 4F:41CA
+PalFade_Start_FillLoop:: ; 4F:41CA
+Label_4F_41CA::
 	ld a, [wTextCellsLeft]
 	ld [hli], a
 	ld a, [wRam_C2EF]
@@ -336,7 +341,7 @@ Label_4F_41CA:: ; 4F:41CA
 	ld [de], a
 	inc de
 	dec b
-	jr nz, Label_4F_41CA
+	jr nz, PalFade_Start_FillLoop
 	ret
 
 PalFade_Step:: ; 4F:41E0
@@ -388,42 +393,47 @@ PalFade_Step:: ; 4F:41E0
 
 PalFade_Step_ModeTable:: ; 4F:4233
 Table_4F_4233::
-	dw Label_4F_4261
-	dw Label_4F_4257
-	dw Label_4F_424D
-	dw Label_4F_4243
-	dw Label_4F_4261
-	dw Label_4F_4261
-	dw Label_4F_4261
-	dw Label_4F_4261
+	dw PalFade_Step_AllColors
+	dw PalFade_Step_BgColors
+	dw PalFade_Step_ObjColors
+	dw PalFade_Step_FourColors
+	dw PalFade_Step_AllColors
+	dw PalFade_Step_AllColors
+	dw PalFade_Step_AllColors
+	dw PalFade_Step_AllColors
 
-Label_4F_4243:: ; 4F:4243
+PalFade_Step_FourColors:: ; 4F:4243
+Label_4F_4243::
 	; [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1;
 	; entered by table from 4F:4230 (executed)
 	ld de, $0060
 	ld hl, $D9F0
 	ld b, $04
-	jr Label_4F_4269
+	jr PalFade_Step_UpdateRange
 
-Label_4F_424D:: ; 4F:424D
+PalFade_Step_ObjColors:: ; 4F:424D
+Label_4F_424D::
 	ld de, $0040
 	ld hl, $D9C0
 	ld b, $20
-	jr Label_4F_4269
+	jr PalFade_Step_UpdateRange
 
-Label_4F_4257:: ; 4F:4257
+PalFade_Step_BgColors:: ; 4F:4257
+Label_4F_4257::
 	; [CONFIRMED] 31 insn(s); 31 executed (in up to 18/18 scenarios)
 	ld de, $0000
 	ld hl, $D980
 	ld b, $20
-	jr Label_4F_4269
+	jr PalFade_Step_UpdateRange
 
-Label_4F_4261:: ; 4F:4261
+PalFade_Step_AllColors:: ; 4F:4261
+Label_4F_4261::
 	ld de, $0000
 	ld hl, $D980
 	ld b, $40
 
-Label_4F_4269:: ; 4F:4269
+PalFade_Step_UpdateRange:: ; 4F:4269
+Label_4F_4269::
 	push bc
 	push de
 	ld a, [wPalFadeProgress]

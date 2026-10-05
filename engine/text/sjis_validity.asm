@@ -46,52 +46,60 @@ Function_63_4000::
 
 Font_SjisBitJumpTable:: ; 63:402D
 Table_63_402D::
-	dw Label_63_403D
-	dw Label_63_4043
-	dw Label_63_4049
-	dw Label_63_404F
-	dw Label_63_4055
-	dw Label_63_405B
-	dw Label_63_4061
-	dw Label_63_4067
+	dw Font_ValidateSjisCode_TestBit0
+	dw Font_ValidateSjisCode_TestBit1
+	dw Font_ValidateSjisCode_TestBit2
+	dw Font_ValidateSjisCode_TestBit3
+	dw Font_ValidateSjisCode_TestBit4
+	dw Font_ValidateSjisCode_TestBit5
+	dw Font_ValidateSjisCode_TestBit6
+	dw Font_ValidateSjisCode_TestBit7
 
-Label_63_403D:: ; 63:403D
+Font_ValidateSjisCode_TestBit0:: ; 63:403D
+Label_63_403D::
 	; [CONFIRMED] 29 insn(s); 29 executed (in up to 13/18 scenarios)
 	bit 0, c
 	jr z, Font_ValidateSjisCode_Invalid
 	jr Font_ValidateSjisCode_Valid
 
-Label_63_4043:: ; 63:4043
+Font_ValidateSjisCode_TestBit1:: ; 63:4043
+Label_63_4043::
 	bit 1, c
 	jr z, Font_ValidateSjisCode_Invalid
 	jr Font_ValidateSjisCode_Valid
 
-Label_63_4049:: ; 63:4049
+Font_ValidateSjisCode_TestBit2:: ; 63:4049
+Label_63_4049::
 	bit 2, c
 	jr z, Font_ValidateSjisCode_Invalid
 	jr Font_ValidateSjisCode_Valid
 
-Label_63_404F:: ; 63:404F
+Font_ValidateSjisCode_TestBit3:: ; 63:404F
+Label_63_404F::
 	bit 3, c
 	jr z, Font_ValidateSjisCode_Invalid
 	jr Font_ValidateSjisCode_Valid
 
-Label_63_4055:: ; 63:4055
+Font_ValidateSjisCode_TestBit4:: ; 63:4055
+Label_63_4055::
 	bit 4, c
 	jr z, Font_ValidateSjisCode_Invalid
 	jr Font_ValidateSjisCode_Valid
 
-Label_63_405B:: ; 63:405B
+Font_ValidateSjisCode_TestBit5:: ; 63:405B
+Label_63_405B::
 	bit 5, c
 	jr z, Font_ValidateSjisCode_Invalid
 	jr Font_ValidateSjisCode_Valid
 
-Label_63_4061:: ; 63:4061
+Font_ValidateSjisCode_TestBit6:: ; 63:4061
+Label_63_4061::
 	bit 6, c
 	jr z, Font_ValidateSjisCode_Invalid
 	jr Font_ValidateSjisCode_Valid
 
-Label_63_4067:: ; 63:4067
+Font_ValidateSjisCode_TestBit7:: ; 63:4067
+Label_63_4067::
 	bit 7, c
 	jr z, Font_ValidateSjisCode_Invalid
 	jr Font_ValidateSjisCode_Valid

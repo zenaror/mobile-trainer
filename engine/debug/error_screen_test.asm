@@ -20,7 +20,8 @@ Debug_ErrorScreenTest:: ; 19:4980
 	; evidence; status unchanged)
 	farcall Stub_Nop_48_48BB
 
-Label_19_4990:: ; 19:4990
+DebugErrorTest_SetupScreen:: ; 19:4990
+Label_19_4990::
 	ldh a, [rLCDC]
 	and a, $9F
 	ldh [rLCDC], a
@@ -151,9 +152,9 @@ DebugErrorTest_Loop:: ; 19:4AEB
 Table_DebugErrorTest_Buttons:: ; 19:4AFD
 Table_19_4AFD::
 	dw DebugErrorTest_OnA
-	dw Label_19_4B3B
+	dw DebugErrorTest_IgnoreB
 	dw DebugErrorTest_Exit
-	dw Label_19_4B47
+	dw DebugErrorTest_IgnoreStart
 	dw DebugErrorTest_Idle
 
 DebugErrorTest_Idle:: ; 19:4B07
@@ -182,9 +183,10 @@ DebugErrorTest_OnA:: ; 19:4B12
 	ld [wDebugErrorTest_CodeLo], a
 	ld a, h
 	ld [wDebugErrorTest_CodeHi], a
-	jp Label_19_4990
+	jp DebugErrorTest_SetupScreen
 
-Label_19_4B3B:: ; 19:4B3B
+DebugErrorTest_IgnoreB:: ; 19:4B3B
+Label_19_4B3B::
 	jp DebugErrorTest_Loop
 
 DebugErrorTest_Exit:: ; 19:4B3E
@@ -192,7 +194,8 @@ DebugErrorTest_Exit:: ; 19:4B3E
 	ld a, $01
 	ret
 
-Label_19_4B47:: ; 19:4B47
+DebugErrorTest_IgnoreStart:: ; 19:4B47
+Label_19_4B47::
 	jp DebugErrorTest_Loop
 
 DebugErrorTest_HandleDpad:: ; 19:4B4A

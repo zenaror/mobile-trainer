@@ -152,7 +152,7 @@ Table_68_7442::
 ; ---- ptrtable $744A-$744C (2 bytes) [PROBABLE] little-endian word table, 5 entries, monotone=1.00, 0% of targets on string start/after NUL, targets $744C..$7594; referenced by ld r16,$7442 at 68:7434 [clipped from 7442-744C by higher-priority evidence]
 
 Table_68_744A:: ; 68:744A
-	dw Label_68_7594
+	dw CommPanel_StateWaitCloseOnly
 
 CommPanel_StateDraw:: ; 68:744C
 	; [CONFIRMED] 94 insn(s); 94 executed (in up to 4/18 scenarios)
@@ -291,7 +291,8 @@ CommPanel_StateHide:: ; 68:7583
 	ld [wCommPanelBusy], a
 	ret
 
-Label_68_7594:: ; 68:7594
+CommPanel_StateWaitCloseOnly:: ; 68:7594
+Label_68_7594::
 	; [CONFIRMED] 8 insn(s) reached by static flow only; seeds: table x8; min discovery hops 0; run
 	; starts at an entry of the code-pointer table at 68:7442 [executed in 4 scenarios]
 	ld a, [wCommPanelArg]
