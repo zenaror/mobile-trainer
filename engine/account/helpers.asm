@@ -551,16 +551,16 @@ Config_MirrorIsRegistered:: ; 68:431A
 	ld a, $02
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld a, [sSram_A000]
+	ld a, [sConfigImage]
 	cp a, $4D
 	jr nz, .l4365
-	ld a, [sSram_A001]
+	ld a, [sConfigImage + $01]
 	cp a, $41
 	jr nz, .l4365
-	ld a, [sSram_A002]
+	ld a, [sConfigRegState]
 	cp a, $81
 	jp nz, .l4365
-	ld a, [sSram_A003]
+	ld a, [sConfigImage + $03]
 	cp a, $00
 	jr nz, .l4365
 	call Config_MirrorChecksumOk

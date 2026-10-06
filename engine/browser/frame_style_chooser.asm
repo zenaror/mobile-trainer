@@ -206,7 +206,7 @@ Label_4E_417C::
 	ldh a, [hRam_FFD2]
 	or a, $80
 	ld [wBrowserFrameStyle], a
-	ld [sSram_A9EF], a
+	ld [sBrowserFrameStyle], a
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -222,7 +222,7 @@ Label_4E_41A1::
 	ld a, $01
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld a, [sSram_A9EF]
+	ld a, [sBrowserFrameStyle]
 	ld [wBrowserFrameStyle], a
 	xor a, a
 	ldh [hSRAMEnable], a

@@ -14,15 +14,15 @@ Function_4E_4658::
 	ld a, $01
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld a, [sSram_A9F2]
-	ld [sSram_A9F6], a
-	ld a, [sSram_A9F3]
-	ld [sSram_A9F7], a
-	ld a, [sSram_A9F0]
-	ld [sSram_A9F4], a
-	ld a, [sSram_A9F1]
-	ld [sSram_A9F5], a
-	ld a, [sSram_A9EF]
+	ld a, [sSaveCheckStateBlock + $0A]
+	ld [sSaveCheckStateBlock + $0E], a
+	ld a, [sSaveCheckStateBlock + $0B]
+	ld [sSaveCheckStateBlock + $0F], a
+	ld a, [sSaveCheckStateBlock + $08]
+	ld [sSaveCheckStateBlock + $0C], a
+	ld a, [sSaveCheckStateBlock + $09]
+	ld [sSaveCheckStateBlock + $0D], a
+	ld a, [sBrowserFrameStyle]
 	and a, $7F
 	jr nz, .skip
 
@@ -32,13 +32,13 @@ Function_4E_4658::
 
 .skip ; 4E:4687
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 18/18 scenarios)
-	ld [sSram_A9EF], a
+	ld [sBrowserFrameStyle], a
 	xor a, a
-	ld [sSram_A9E3], a
-	ld [sSram_A9F8], a
-	ld [sSram_A9F9], a
-	ld [sSram_A9FA], a
-	ld [sSram_A9FB], a
+	ld [sMobileError12Or26Count], a
+	ld [sCommTimeTotal], a
+	ld [sCommTimeTotal + $01], a
+	ld [sCommTimeTotal + $02], a
+	ld [sCommTimeTotal + $03], a
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -51,7 +51,7 @@ Browser_BeginSession:: ; 4E:46A3
 	ld a, $01
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld a, [sSram_A9EF]
+	ld a, [sBrowserFrameStyle]
 	and a, $7F
 	jr nz, .skip
 
@@ -61,7 +61,7 @@ Browser_BeginSession:: ; 4E:46A3
 
 .skip ; 4E:46BA
 	; [CONFIRMED] 50 insn(s); 50 executed (in up to 12/18 scenarios)
-	ld [sSram_A9EF], a
+	ld [sBrowserFrameStyle], a
 	ld [wBrowserFrameStyle], a
 	xor a, a
 	ldh [hSRAMEnable], a
@@ -80,10 +80,10 @@ SaveCheck_Verify:: ; 4E:46CF
 	ld hl, sSaveCheckStateBlock
 	ld bc, $0010
 	call SaveCheck_Sum16
-	ld a, [sSram_A9EA]
+	ld a, [sSaveCheckStateBlock + $02]
 	cp a, e
 	jr nz, .l4730
-	ld a, [sSram_A9EB]
+	ld a, [sSaveCheckStateBlock + $03]
 	cp a, d
 	jr nz, .l4730
 	ld de, $0000
@@ -93,19 +93,19 @@ SaveCheck_Verify:: ; 4E:46CF
 	ld hl, sSaveCheckBlockTag
 	ld bc, $0004
 	call SaveCheck_Sum16
-	ld a, [sSram_A9E6]
+	ld a, [sSaveCheckBlockTag + $02]
 	cp a, e
 	jr nz, .l4730
-	ld a, [sSram_A9E7]
+	ld a, [sSaveCheckBlockTag + $03]
 	cp a, d
 	jr nz, .l4730
-	ld a, [sSram_A9EF]
+	ld a, [sBrowserFrameStyle]
 	and a, $7F
 	or a, a
 	jr z, .l4730
 	cp a, $1B
 	jr nc, .l4730
-	ld a, [sSram_A9EC]
+	ld a, [sSaveCheckValidFlag]
 	or a, a
 	jr z, .l4730
 	xor a, a
@@ -153,24 +153,24 @@ SaveCheck_ResetBlock:: ; 4E:4749
 	xor a, a
 	call FillBytes
 	xor a, a
-	ld [sSram_A9EA], a
-	ld [sSram_A9EB], a
+	ld [sSaveCheckStateBlock + $02], a
+	ld [sSaveCheckStateBlock + $03], a
 	cpl
-	ld [sSram_A9E8], a
-	ld [sSram_A9E9], a
+	ld [sSaveCheckStateBlock], a
+	ld [sSaveCheckStateBlock + $01], a
 	ld a, $01
-	ld [sSram_A9EC], a
-	ld [sSram_A9EF], a
+	ld [sSaveCheckValidFlag], a
+	ld [sBrowserFrameStyle], a
 	ld hl, sPageList
 	ld bc, $0684
 	xor a, a
 	call FillBytes
 	xor a, a
-	ld [sSram_A9E6], a
-	ld [sSram_A9E7], a
+	ld [sSaveCheckBlockTag + $02], a
+	ld [sSaveCheckBlockTag + $03], a
 	cpl
-	ld [sSram_A9E4], a
-	ld [sSram_A9E5], a
+	ld [sSaveCheckBlockTag], a
+	ld [sSaveCheckBlockTag + $01], a
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -187,13 +187,13 @@ SaveCheck_Update:: ; 4E:4795
 	ld bc, $0010
 	call SaveCheck_Sum16
 	ld a, e
-	ld [sSram_A9EA], a
+	ld [sSaveCheckStateBlock + $02], a
 	cpl
-	ld [sSram_A9E8], a
+	ld [sSaveCheckStateBlock], a
 	ld a, d
-	ld [sSram_A9EB], a
+	ld [sSaveCheckStateBlock + $03], a
 	cpl
-	ld [sSram_A9E9], a
+	ld [sSaveCheckStateBlock + $01], a
 	ld de, $0000
 	ld hl, sPageList
 	ld bc, $0684
@@ -202,13 +202,13 @@ SaveCheck_Update:: ; 4E:4795
 	ld bc, $0004
 	call SaveCheck_Sum16
 	ld a, e
-	ld [sSram_A9E6], a
+	ld [sSaveCheckBlockTag + $02], a
 	cpl
-	ld [sSram_A9E4], a
+	ld [sSaveCheckBlockTag], a
 	ld a, d
-	ld [sSram_A9E7], a
+	ld [sSaveCheckBlockTag + $03], a
 	cpl
-	ld [sSram_A9E5], a
+	ld [sSaveCheckBlockTag + $01], a
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -232,51 +232,51 @@ Function_4E_47EB::
 	ld [rRAMB], a
 	ld d, h
 	ld e, l
-	ld a, [sSram_A9F2]
+	ld a, [sSaveCheckStateBlock + $0A]
 	ld [hli], a
-	ld a, [sSram_A9F3]
+	ld a, [sSaveCheckStateBlock + $0B]
 	ld [hli], a
-	ld a, [sSram_A9F0]
+	ld a, [sSaveCheckStateBlock + $08]
 	ld [hli], a
-	ld a, [sSram_A9F1]
+	ld a, [sSaveCheckStateBlock + $09]
 	ld [hli], a
-	ld a, [sSram_A9F6]
+	ld a, [sSaveCheckStateBlock + $0E]
 	ld c, a
-	ld a, [sSram_A9F2]
+	ld a, [sSaveCheckStateBlock + $0A]
 	sub a, c
 	ld [hli], a
-	ld a, [sSram_A9F7]
+	ld a, [sSaveCheckStateBlock + $0F]
 	ld b, a
-	ld a, [sSram_A9F3]
+	ld a, [sSaveCheckStateBlock + $0B]
 	sbc a, b
 	ld [hli], a
-	ld a, [sSram_A9F4]
+	ld a, [sSaveCheckStateBlock + $0C]
 	ld c, a
-	ld a, [sSram_A9F0]
+	ld a, [sSaveCheckStateBlock + $08]
 	sub a, c
 	ld [hli], a
-	ld a, [sSram_A9F5]
+	ld a, [sSaveCheckStateBlock + $0D]
 	ld b, a
-	ld a, [sSram_A9F1]
+	ld a, [sSaveCheckStateBlock + $09]
 	sbc a, b
 	ld [hli], a
 	ld a, [wBrowserFrameStyle]
 	and a, $80
 	ld [hli], a
-	ld a, [sSram_A9E3]
+	ld a, [sMobileError12Or26Count]
 	ld [hli], a
-	ld a, [sSram_A9EC]
+	ld a, [sSaveCheckValidFlag]
 	ld [hli], a
 	ld a, [wTimerEnable]
 	and a, $10
 	ld [hli], a
-	ld a, [sSram_A9F8]
+	ld a, [sCommTimeTotal]
 	ld [hli], a
-	ld a, [sSram_A9F9]
+	ld a, [sCommTimeTotal + $01]
 	ld [hli], a
-	ld a, [sSram_A9FA]
+	ld a, [sCommTimeTotal + $02]
 	ld [hli], a
-	ld a, [sSram_A9FB]
+	ld a, [sCommTimeTotal + $03]
 	ld [hli], a
 	xor a, a
 	ld [hli], a
@@ -309,9 +309,9 @@ Function_4E_4866::
 .l487F ; 4E:487F
 	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
 	; entered by jrcc from 4E:4879 (executed)
-	ld a, [sSram_A9E3]
+	ld a, [sMobileError12Or26Count]
 	inc a
-	ld [sSram_A9E3], a
+	ld [sMobileError12Or26Count], a
 
 .l4886 ; 4E:4886
 	; [CONFIRMED] 48 insn(s); 48 executed (in up to 3/18 scenarios) (part of region $4886-$4904)

@@ -17,8 +17,8 @@ Function_4C_4B54::
 	ld hl, sBrowserHistory
 	ld bc, $0600
 	xor a, a
-	ld [sSram_A9FF], a
-	ld [sSram_A9FE], a
+	ld [sBrowserHistoryCount], a
+	ld [sBrowserHistoryWriteSlot], a
 	call FillBytes
 	xor a, a
 	ldh [hSRAMEnable], a
@@ -39,13 +39,13 @@ Function_4C_4B81::
 	ld a, $01
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld a, [sSram_A9FE]
+	ld a, [sBrowserHistoryWriteSlot]
 	add a, $AA
 	ld d, a
 	ld e, $00
 	ld bc, $0100
 	call CopyBytes
-	ld a, [sSram_A9FE]
+	ld a, [sBrowserHistoryWriteSlot]
 	inc a
 	cp a, $06
 	jr c, .l4BA9
@@ -56,12 +56,12 @@ Function_4C_4B81::
 
 .l4BA9 ; 4C:4BA9
 	; [CONFIRMED] 30 insn(s); 30 executed (in up to 1/18 scenarios)
-	ld [sSram_A9FE], a
-	ld a, [sSram_A9FF]
+	ld [sBrowserHistoryWriteSlot], a
+	ld a, [sBrowserHistoryCount]
 	cp a, $06
 	jr nc, .l4BB7
 	inc a
-	ld [sSram_A9FF], a
+	ld [sBrowserHistoryCount], a
 .l4BB7 ; 4C:4BB7
 	xor a, a
 	ldh [hSRAMEnable], a
@@ -80,12 +80,12 @@ Browser_HistoryPop:: ; 4C:4BC1
 	ld a, $01
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld a, [sSram_A9FF]
+	ld a, [sBrowserHistoryCount]
 	or a, a
 	jr z, .l4BF7
 	dec a
-	ld [sSram_A9FF], a
-	ld a, [sSram_A9FE]
+	ld [sBrowserHistoryCount], a
+	ld a, [sBrowserHistoryWriteSlot]
 	dec a
 	cp a, $06
 	jr c, .skip
@@ -96,7 +96,7 @@ Browser_HistoryPop:: ; 4C:4BC1
 
 .skip ; 4C:4BE9
 	; [CONFIRMED] 55 insn(s); 55 executed (in up to 1/18 scenarios)
-	ld [sSram_A9FE], a
+	ld [sBrowserHistoryWriteSlot], a
 	add a, $AA
 	ld h, a
 	ld l, $00
@@ -174,8 +174,8 @@ Function_4C_4C4E::
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	xor a, a
-	ld [sSram_A9FD], a
-	ld [sSram_A9FC], a
+	ld [sPageCacheCount], a
+	ld [sPageCacheWriteSlot], a
 	ld a, $02
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -208,7 +208,7 @@ PageCache_Push:: ; 4C:4C95
 	ld a, $01
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld a, [sSram_A9FC]
+	ld a, [sPageCacheWriteSlot]
 	ld e, a
 	ld d, $00
 	push hl
@@ -227,7 +227,7 @@ PageCache_Push:: ; 4C:4C95
 	ld a, $01
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld a, [sSram_A9FC]
+	ld a, [sPageCacheWriteSlot]
 	inc a
 	cp a, $03
 	jr c, .l4CD5
@@ -238,12 +238,12 @@ PageCache_Push:: ; 4C:4C95
 
 .l4CD5 ; 4C:4CD5
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios)
-	ld [sSram_A9FC], a
-	ld a, [sSram_A9FD]
+	ld [sPageCacheWriteSlot], a
+	ld a, [sPageCacheCount]
 	cp a, $03
 	jr nc, .l4CE3
 	inc a
-	ld [sSram_A9FD], a
+	ld [sPageCacheCount], a
 .l4CE3 ; 4C:4CE3
 	xor a, a
 	ldh [hSRAMEnable], a
@@ -269,12 +269,12 @@ Function_4C_4CF6::
 	ld a, $01
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld a, [sSram_A9FD]
+	ld a, [sPageCacheCount]
 	or a, a
 	jr z, .l4D66
 	dec a
-	ld [sSram_A9FD], a
-	ld a, [sSram_A9FC]
+	ld [sPageCacheCount], a
+	ld a, [sPageCacheWriteSlot]
 	dec a
 	cp a, $03
 	jr c, .skip
@@ -285,7 +285,7 @@ Function_4C_4CF6::
 
 .skip ; 4C:4D1E
 	; [CONFIRMED] 40 insn(s); 40 executed (in up to 1/18 scenarios)
-	ld [sSram_A9FC], a
+	ld [sPageCacheWriteSlot], a
 	ldh [hRam_FFB0], a
 	ldh a, [hRam_FFB1]
 	ld h, d
@@ -344,31 +344,31 @@ Function_4C_4D6F::
 	ld a, $01
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld a, [sSram_A9FD]
+	ld a, [sPageCacheCount]
 	or a, a
 	jr z, .l4D94
 	dec a
-	ld [sSram_A9FD], a
-	ld a, [sSram_A9FC]
+	ld [sPageCacheCount], a
+	ld a, [sPageCacheWriteSlot]
 	dec a
 	cp a, $03
 	jr c, .l4D91
 	ld a, $02
 .l4D91 ; 4C:4D91
-	ld [sSram_A9FC], a
+	ld [sPageCacheWriteSlot], a
 .l4D94 ; 4C:4D94
-	ld a, [sSram_A9FF]
+	ld a, [sBrowserHistoryCount]
 	or a, a
 	jr z, .l4DAB
 	dec a
-	ld [sSram_A9FF], a
-	ld a, [sSram_A9FE]
+	ld [sBrowserHistoryCount], a
+	ld a, [sBrowserHistoryWriteSlot]
 	dec a
 	cp a, $06
 	jr c, .l4DA8
 	ld a, $05
 .l4DA8 ; 4C:4DA8
-	ld [sSram_A9FE], a
+	ld [sBrowserHistoryWriteSlot], a
 .l4DAB ; 4C:4DAB
 	xor a, a
 	ldh [hSRAMEnable], a
