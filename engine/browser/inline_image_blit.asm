@@ -59,11 +59,11 @@ Bmp_ParseHeader:: ; 51:70F4
 	jr z, .l712E
 	cp a, $FF
 	jr nz, .l7157
-	ld [wRam_C33F], a
+	ld [wBmpTopDownFlag], a
 	jr .l7132
 .l712E ; 51:712E
 	xor a, a
-	ld [wRam_C33F], a
+	ld [wBmpTopDownFlag], a
 .l7132 ; 51:7132
 	ld a, [hli]
 	dec a
@@ -102,7 +102,7 @@ Bmp_ParseHeader:: ; 51:70F4
 	xor a, a
 	ldh [hBmp_Width], a
 	ldh [hBmp_Height], a
-	ld [wRam_C33F], a
+	ld [wBmpTopDownFlag], a
 	pop hl
 	ret
 
@@ -139,7 +139,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	dec hl
 	dec hl
 	dec hl
-	ld a, [wRam_C33F]
+	ld a, [wBmpTopDownFlag]
 	or a, a
 	jp nz, .l73CB
 	push hl
@@ -167,7 +167,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	ld a, l
 	ld [wHtmlBrClear], a
 	ld a, h
-	ld [wRam_C331], a
+	ld [wBmp_ColorDiffHi], a
 	ld hl, $0017
 	add hl, de
 	ld a, $FF
@@ -191,7 +191,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	ld [wHtmlScanOnly], a
 	ldh a, [hBmp_Height]
 	call Bmp_RoundUpToTextRow
-	ld [wRam_C333], a
+	ld [wBmpRowAlignedHeight], a
 	ld e, a
 	ldh a, [hBmp_Width]
 	call Bmp_RoundUpToTextRow
@@ -223,7 +223,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	rlca
 	ld [wHtmlLinkHeapPtr], a
 	ld [hli], a
-	ld a, [wRam_C333]
+	ld a, [wBmpRowAlignedHeight]
 	ld [hli], a
 	push bc
 	push hl
@@ -265,7 +265,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	push de
 	call CopyBytes
 	pop hl
-	ld a, [wRam_C331]
+	ld a, [wBmp_ColorDiffHi]
 	bit 7, a
 	jr z, .l7276
 
@@ -549,7 +549,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	ld [de], a
 	inc de
 	ld [de], a
-	ld a, [wRam_C333]
+	ld a, [wBmpRowAlignedHeight]
 	ldh [hBmp_Height], a
 	ld a, [wHtmlLinkHeapPtr]
 	ldh [hBmp_Width], a

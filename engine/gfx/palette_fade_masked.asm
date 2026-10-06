@@ -91,7 +91,7 @@ Palette_SetFadeTargetMasked:: ; 48:459D
 	ld a, c
 	ld [wTextCellsLeft], a
 	ld a, b
-	ld [wRam_C2EF], a
+	ld [wPalFadeTargetColorHi], a
 	xor a, a
 	ld [wPalFadeProgress], a
 	ld [wPalFadeProgress + 1], a
@@ -100,7 +100,7 @@ Palette_SetFadeTargetMasked:: ; 48:459D
 	ld a, c
 	ld [wTextCellsLeft], a
 	ld a, b
-	ld [wRam_C2EF], a
+	ld [wPalFadeTargetColorHi], a
 	xor a, a
 	ld [wPalFadeProgress], a
 	inc a
@@ -140,7 +140,7 @@ Palette_SetFadeTargetMasked:: ; 48:459D
 .l45F4 ; 48:45F4
 	ld a, [wTextCellsLeft]
 	ld [hli], a
-	ld a, [wRam_C2EF]
+	ld a, [wPalFadeTargetColorHi]
 	ld [hli], a
 	ld a, [wPalFadeProgress]
 	ld [de], a

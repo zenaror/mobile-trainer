@@ -149,17 +149,17 @@ PasswordChange_SaveNewPassword:: ; 67:5A0E
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, wAcctPasswordNew
-	ld de, wRam_C28F
+	ld de, wPasswordChangeSave_PasswordBuf
 	call CopyString
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
-	ld hl, wRam_C28F
+	ld hl, wPasswordChangeSave_PasswordBuf
 	call StringLength
 	ld a, c
-	ld de, wRam_C28F
+	ld de, wPasswordChangeSave_PasswordBuf
 	farcall SavedPassword_Store
 	ret
 

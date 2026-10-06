@@ -267,7 +267,7 @@ PalFade_Start:: ; 4F:4166
 	ld a, c
 	ld [wTextCellsLeft], a
 	ld a, b
-	ld [wRam_C2EF], a
+	ld [wPalFadeTargetColorHi], a
 	xor a, a
 	ld [wPalFadeProgress], a
 	ld [wPalFadeProgress + 1], a
@@ -276,7 +276,7 @@ PalFade_Start:: ; 4F:4166
 	ld a, c
 	ld [wTextCellsLeft], a
 	ld a, b
-	ld [wRam_C2EF], a
+	ld [wPalFadeTargetColorHi], a
 	xor a, a
 	ld [wPalFadeProgress], a
 	inc a
@@ -332,7 +332,7 @@ PalFade_Start_FillLoop:: ; 4F:41CA
 Label_4F_41CA::
 	ld a, [wTextCellsLeft]
 	ld [hli], a
-	ld a, [wRam_C2EF]
+	ld a, [wPalFadeTargetColorHi]
 	ld [hli], a
 	ld a, [wPalFadeProgress]
 	ld [de], a

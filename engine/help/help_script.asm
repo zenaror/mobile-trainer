@@ -343,14 +343,14 @@ Label_6C_5B47::
 	xor a, a
 	ld [wHelpScriptColumn], a
 	ld [wHelpScriptAdvanceMode], a
-	ld a, [wRam_C0D9]
+	ld a, [wHelpScript_DeferredTextSfx]
 	or a, a
 	jr z, .l5C66
 	push hl
 	play_sfx $0041
 	pop hl
 	xor a, a
-	ld [wRam_C0D9], a
+	ld [wHelpScript_DeferredTextSfx], a
 .l5C66 ; 6C:5C66
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -551,7 +551,7 @@ Label_6C_5E03::
 	jp HelpScript_Run_NextCommand
 .l5E1D ; 6C:5E1D
 	ld a, $01
-	ld [wRam_C0D9], a
+	ld [wHelpScript_DeferredTextSfx], a
 	jp HelpScript_Run_NextCommand
 
 HelpScript_RenderCaption:: ; 6C:5E25

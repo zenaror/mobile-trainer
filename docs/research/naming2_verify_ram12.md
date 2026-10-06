@@ -1,6 +1,6 @@
 # Independent verification of ram12 RAM naming (ROM unchanged)
 
-> Status: **reference (current)**. A fresh-context skeptic reviewed the first ram12 area against the original f0b978a source, independently of the proposer. SRAM and HRAM are complete below; WRAM remains pending.
+> Status: **reference (current)**. A fresh-context skeptic reviewed the first ram12 area against the original f0b978a source, independently of the proposer. All four areas are complete below; keep verdicts are explicit.
 
 ## 1. Verdict
 
@@ -27,3 +27,13 @@ A fresh-context skeptic checked all 65 proposal rows, all 403 original ROM opera
 The private executor audited exact substitutions and every old DEF/scope; the coordinator repeated the exact-change audit against the SRAM commit on main. FFC3 keeps its original DEF/scope and two neutral browser stores. All instruction lines remain in place. The only existing scope extension is FFC2's two named browser ranges. Private focused tests (170 total), banked/overlay audits and invariants pass; main make, sym-check and palette-check report original-byte equivalence. Preview H=0 termination and the parser's missing +10 were corrected in public evidence, without promotion from replay or forced execution.
 
 The full main suite has 36 rc=0 entries and the known ramop7 obsolete-format exception (37 total). Three context records in ramop9/ramop10 were independently rechecked after adjacent HRAM operands were renamed; only their `ctx` fields changed. Their operands, W7 banks and proofs remain intact. Focused dry-runs restore the previous totals (150/6, 285/15); the SRAM record remains 106 already written / zero skips. A historical mail proof line number is stale (1914 versus current 1872), but its ROM address 27:4F6F and bank selection remain correct.
+
+## 5. Independent WRAM verdict and integration
+
+The communication skeptic checked every one of the 75 rows, 55 bases and 376 original-ROM sites. Six aliases were refuted because whole-function numeric-parser scopes include caller-state preservation/restoration; their 20 sites stay neutral. The corrected result is 13 global renames plus 33 aliases, 179 named / 197 neutral. The residual skeptic checked all 57 rows, 42 bases and 173 sites; six global renames plus 24 aliases name 99 sites, with 74 kept neutral. Namespace, scope, indirect consumers, bank phase and natural tuples were rederived independently.
+
+A private executor applied the corrected English manifests, tested idempotence and updated 19 global DEF evidence lines with exact old-line guards. The coordinator repeated strict dry-runs on the current HRAM checkpoint, then integrated the manifests and guarded DEF updates. Every one of the 549 sites was re-audited: 278 exact token replacements, 271 neutral uses preserved, and every prior alias DEF/scope preserved. The combined source passes the original SHA/byte-equivalence and symbol gates. Total 152-base worklist coverage is 1,059 sites with zero omission; 560 named and 499 neutral.
+
+Private make, sym-check, palette-check, banked/overlay audits, invariants and 65 focused rename/alias tests pass; strict reapplication has zero refusal. The public source does not imply successful HTTP cache resend, parser execution, malformed BMP recovery, hardware or new natural coverage. Decimal/hex evidence and the zero-hit BMP clear are explicitly corrected in the pass notes and manifests.
+
+Final main validation: 37 suite entries, 36 rc=0 and only the inherited ramop7 obsolete-format rc=2. make/compare report SHA-256 OK and RESULT: IDENTICAL; sym-check, PNG/palette/graphics and invariants pass. Manual SRAM is 106 already written / zero skips; ramop11 remains 138 / zero, and ramop9/10 retain the documented 150/6 and 285/15 totals.
