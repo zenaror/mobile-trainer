@@ -84,13 +84,13 @@ Data_4A_51B0:: ; 4A:51B0
 
 ; ---- data $51D0-$54A0 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:523D: hl=$51D0 a=$4A b=18 rows c=20 cols (tiles then attrs) de=$D000
 
-Tilemap_SettingsMenu_4A_51D0:: ; 4A:51D0
+Tilemap_SettingsMenu_FlagClear:: ; 4A:51D0
 	INCBIN "gfx/account/screens_bank4a/settings_menu_4a_51d0.tilemap"
 	INCBIN "gfx/account/screens_bank4a/settings_menu_4a_51d0.attrmap"
 
 ; ---- data $54A0-$5770 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:5250: hl=$54A0 a=$4A b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 96 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
-Tilemap_SettingsMenu:: ; 4A:54A0
+Tilemap_SettingsMenu_FlagSet:: ; 4A:54A0
 Data_4A_54A0::
 	INCBIN "gfx/account/screens_bank4a/tilemap_54a0.tilemap"
 	INCBIN "gfx/account/screens_bank4a/tilemap_54a0.attrmap"

@@ -115,13 +115,13 @@ Palette_Account_ActionConfirmPage_Bg:: ; 5E:72C0
 
 ; ---- data $7300-$75D0 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:6ECE: hl=$7300 a=$5E b=18 rows c=20 cols (tiles then attrs) de=$D000
 
-Tilemap_Account_ActionConfirmPage_5E_7300:: ; 5E:7300
+Tilemap_Account_ActionConfirmPage_Variant0:: ; 5E:7300
 	INCBIN "gfx/account/screens_bank5e/account_action_confirm_page_5e_7300.tilemap"
 	INCBIN "gfx/account/screens_bank5e/account_action_confirm_page_5e_7300.attrmap"
 
 ; ---- data $75D0-$78A0 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:6EBB: hl=$75D0 a=$5E b=18 rows c=20 cols (tiles then attrs) de=$D000
 
-Tilemap_Account_ActionConfirmPage:: ; 5E:75D0
+Tilemap_Account_ActionConfirmPage_NonzeroVariant:: ; 5E:75D0
 Data_5E_75D0::
 	INCBIN "gfx/account/screens_bank5e/tilemap_75d0.tilemap"
 	INCBIN "gfx/account/screens_bank5e/tilemap_75d0.attrmap"
