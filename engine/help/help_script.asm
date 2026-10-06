@@ -443,8 +443,8 @@ Label_6C_5D09::
 	or a, a
 	jr nz, HelpScript_Run_FrameLoop
 	ld hl, wSpriteSlot2
-	ld de, Table_6A_72BB
-	ld a, BANK(Table_6A_72BB)
+	ld de, Objects_HelpScript_Slot2
+	ld a, BANK(Objects_HelpScript_Slot2)
 	ld b, $80
 	farcall Sprite_InitSlot
 	ld de, $00AA
@@ -460,8 +460,8 @@ Label_6C_5D30::
 	or a, a
 	jr nz, .l5D57
 	ld hl, wSpriteSlot2
-	ld de, Table_6A_72BB
-	ld a, BANK(Table_6A_72BB)
+	ld de, Objects_HelpScript_Slot2
+	ld a, BANK(Objects_HelpScript_Slot2)
 	ld b, $80
 	farcall Sprite_InitSlot
 	ld de, $00AA
@@ -507,8 +507,8 @@ Label_6C_5D9F::
 	cp a, $02
 	jr z, .l5DC6
 	ld hl, wSpriteSlot2
-	ld de, Table_6A_72BB
-	ld a, BANK(Table_6A_72BB)
+	ld de, Objects_HelpScript_Slot2
+	ld a, BANK(Objects_HelpScript_Slot2)
 	ld b, $80
 	farcall Sprite_InitSlot
 	ld de, $7880
