@@ -750,7 +750,7 @@ DebugFlags_DrawValue:: ; 19:458A
 	inc de
 	xor a, a
 	ld [de], a
-	ld hl, $D000
+	ld hl, $D000 ; raw: source string of TextTiles_RenderGrid (A = 2): the string scratch of bank 2 built above, not tile staging
 	ld de, wTileStage3
 	ld bc, $0610
 	ld a, $03
@@ -860,7 +860,7 @@ DebugFlags_DrawValue:: ; 19:458A
 	jr nz, .l46ED
 	xor a, a
 	ld [de], a
-	ld hl, $D000
+	ld hl, $D000 ; raw: source string of TextTiles_RenderGrid (A = 2): the string scratch of bank 2 built above, not tile staging
 	ld de, wTileStage3
 	ld bc, $0010
 	ld a, $03
@@ -892,7 +892,7 @@ DebugFlags_DrawValue:: ; 19:458A
 	inc de
 	dec c
 	jr nz, .l4746
-	ld de, $D00A
+	ld de, $D00A ; raw: the least significant digit cell of the string scratch of bank 2 (digits written right to left), not tile staging
 	call DebugFlags_ReadValue
 	ld h, b
 	ld l, c
@@ -924,7 +924,7 @@ DebugFlags_DrawValue:: ; 19:458A
 	ld a, h
 	or a, l
 	jr nz, .l4756
-	ld hl, $D000
+	ld hl, $D000 ; raw: source string of TextTiles_RenderGrid (A = 2): the string scratch of bank 2 built above, not tile staging
 	ld de, wTileStage3
 	ld bc, $0610
 	ld a, $03

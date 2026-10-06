@@ -521,17 +521,17 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
-	ld hl, $D000
+	ld hl, wScreenTileMap
 	ld de, $9800
 	ld b, $98
 	ld c, $02
 	call ConnectDialog_UploadMapRow
-	ld hl, $D020
+	ld hl, wScreenTileMap + $20
 	ld de, $9820
 	ld b, $98
 	ld c, $02
 	call ConnectDialog_UploadMapRow
-	ld hl, $D040
+	ld hl, wScreenTileMap + $40
 	ld de, $9840
 	ld b, $98
 	ld c, $02
@@ -846,17 +846,17 @@ ConnectDialog_Draw_ForgetConfirm:: ; 57:4F59
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
-	ld hl, $D000
+	ld hl, wScreenTileMap
 	ld de, $9800
 	ld b, $98
 	ld c, $02
 	call ConnectDialog_UploadMapRow
-	ld hl, $D020
+	ld hl, wScreenTileMap + $20
 	ld de, $9820
 	ld b, $98
 	ld c, $02
 	call ConnectDialog_UploadMapRow
-	ld hl, $D040
+	ld hl, wScreenTileMap + $40
 	ld de, $9840
 	ld b, $98
 	ld c, $02
@@ -1032,28 +1032,28 @@ Function_57_510F::
 	jr z, .l51E8
 	ld c, a
 	ld b, c
-	ld hl, $D086
+	ld hl, wScreenTileMap + $86
 	ld a, $11
 .l51C9 ; 57:51C9
 	ld [hli], a
 	dec c
 	jr nz, .l51C9
 	ld c, b
-	ld hl, $D0A6
+	ld hl, wScreenTileMap + $A6
 	inc a
 .l51D2 ; 57:51D2
 	ld [hli], a
 	dec c
 	jr nz, .l51D2
 	ld c, b
-	ld hl, $D486
+	ld hl, wScreenAttrMap + $86
 	ld a, $08
 .l51DC ; 57:51DC
 	ld [hli], a
 	dec c
 	jr nz, .l51DC
 	ld c, b
-	ld hl, $D4A6
+	ld hl, wScreenAttrMap + $A6
 .l51E4 ; 57:51E4
 	ld [hli], a
 	dec c
@@ -1080,7 +1080,7 @@ Function_57_510F::
 	cp a, $08
 	jr z, .l5258
 	ld c, a
-	ld hl, $D086
+	ld hl, wScreenTileMap + $86
 	add a, l
 	ld l, a
 	ld a, h

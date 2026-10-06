@@ -113,7 +113,7 @@ Function_26_5106:: ; 26:5106
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D631
+	ld hl, wMailSessionBlock + $0D
 	ld a, [hli]
 	xor a, $FF
 	ld c, a
@@ -121,7 +121,7 @@ Function_26_5106:: ; 26:5106
 	xor a, $FF
 	ld b, a
 	inc bc
-	ld hl, $D62F
+	ld hl, wMailSessionBlock + $0B
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -147,15 +147,15 @@ Function_26_5106:: ; 26:5106
 .l514D ; 26:514D
 	; [PROBABLE] 20 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 50B6-5168 by apply_coverage --split
-	ld hl, $D62F
-	ld de, $D631
+	ld hl, wMailSessionBlock + $0B
+	ld de, wMailSessionBlock + $0D
 	ld a, [hli]
 	ld [de], a
 	inc de
 	ld a, [hli]
 	ld [de], a
 	inc de
-	ld hl, $D629
+	ld hl, wMailSessionBlock + $05
 	ld a, [hli]
 	ld c, a
 	ld a, [hli]
@@ -403,7 +403,7 @@ MailSession_DrawMailCounts:: ; 26:537C
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D631
+	ld de, wMailSessionBlock + $0D
 	ld a, [de]
 	xor a, $FF
 	ld c, a
@@ -448,7 +448,7 @@ MailSession_DrawMailCounts:: ; 26:537C
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D62F
+	ld hl, wMailSessionBlock + $0B
 	ld a, [hli]
 	xor a, $FF
 	ld c, a
@@ -531,7 +531,7 @@ MailSession_DrawNumber:: ; 26:5447
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, MailSession_NumberTemplate
-	ld de, $D524
+	ld de, wMailTextScratch
 .loop ; 26:5455
 	ld a, [hli]
 	ld [de], a
@@ -541,7 +541,7 @@ MailSession_DrawNumber:: ; 26:5447
 	pop bc
 	pop hl
 	push bc
-	ld bc, $D525
+	ld bc, wMailTextScratch + $01
 	ld de, $2710
 	push bc
 	farcall Divide16
@@ -733,7 +733,7 @@ MailSession_DrawNumber:: ; 26:5447
 	add hl, bc
 	ld d, h
 	ld e, l
-	ld hl, $D524
+	ld hl, wMailTextScratch
 	farcall TextTiles_RenderLine
 	pop af
 	ret

@@ -17,7 +17,7 @@ Function_74_5A96::
 	ld [wHtmlLinkHeapPtr + 1], a
 	xor a, a
 	ld [wHtmlLinkPtrList], a
-	ld [wRam_D601], a
+	ld [wHtmlLinkPtrList + $01], a
 	ret
 
 Html_StringTable_Add:: ; 74:5AAE

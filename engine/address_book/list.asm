@@ -91,7 +91,7 @@ Label_2F_4049::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D726
+	ld hl, wAbookListState
 	ld a, c
 	ld [hl], a
 	ld b, $00
@@ -126,7 +126,7 @@ Label_2F_4097::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D726
+	ld hl, wAbookListState
 	ld a, c
 	ld [hl], a
 	push bc
@@ -489,7 +489,7 @@ Label_2F_4131::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D726
+	ld hl, wAbookListState
 	ld a, c
 	ld [hli], a
 	ld a, $01
@@ -545,7 +545,7 @@ Label_2F_4131::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D726
+	ld hl, wAbookListState
 	ld a, c
 	ld [hli], a
 	ld a, $01
@@ -577,7 +577,7 @@ Label_2F_4131::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D726
+	ld hl, wAbookListState
 	ld a, c
 	ld [hli], a
 	ld a, $01
@@ -713,7 +713,7 @@ Abook_ClearSlot:: ; 2F:4455
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld b, $10
-	ld de, $D514
+	ld de, $D514 ; raw: dead load, nothing dereferences DE here and `ld de, $0010` overwrites it
 .l447F ; 2F:447F
 	xor a, a
 	ld [hli], a
@@ -723,7 +723,7 @@ Abook_ClearSlot:: ; 2F:4455
 	ld de, $0010
 	add hl, de
 	ld b, $40
-	ld de, $D4C0
+	ld de, $D4C0 ; raw: dead load, nothing dereferences DE here
 .l448E ; 2F:448E
 	xor a, a
 	ld [hli], a
@@ -743,14 +743,14 @@ Function_2F_4496::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld b, $10
-	ld de, $D514
+	ld de, $D514 ; raw: dead load, nothing dereferences DE here
 .l44A3 ; 2F:44A3
 	xor a, a
 	ld [hli], a
 	dec b
 	jr nz, .l44A3
 	ld b, $40
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 .l44AD ; 2F:44AD
 	xor a, a
 	ld [hli], a
@@ -786,7 +786,7 @@ Abook_ProbeSlot:: ; 2F:44B5
 	ld de, $0010
 	add hl, de
 	ld b, $40
-	ld de, $D4C0
+	ld de, $D4C0 ; raw: dead load, nothing dereferences DE here
 	ld a, [hl]
 	pop bc
 	ret
@@ -1796,7 +1796,7 @@ Function_2F_4CA7::
 	jr nz, .l4CD4
 	pop hl
 	push hl
-	ld de, $D5C0
+	ld de, wScreenAttrMap + $1C0
 	ld c, $14
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -1808,7 +1808,7 @@ Function_2F_4CA7::
 	dec c
 	jr nz, .l4CE7
 	pop hl
-	ld de, $D5E0
+	ld de, wScreenAttrMap + $1E0
 	ld c, $14
 .l4CF3 ; 2F:4CF3
 	ld a, [hli]

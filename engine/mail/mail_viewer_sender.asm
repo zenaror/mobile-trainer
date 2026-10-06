@@ -159,7 +159,7 @@ MailView_SenderPage_InitScreen:: ; 2B:65AB
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld b, $40
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 .l65D2 ; 2B:65D2
 	xor a, a
 	ld [hli], a
@@ -441,7 +441,7 @@ MailView_SenderPage_InitScreen:: ; 2B:65AB
 	ldh [rVBK], a
 	ld hl, $9800
 	ld b, $14
-	ld de, $D000
+	ld de, wScreenTileMap
 .l6808 ; 2B:6808
 	ldh a, [rLY]
 	cp a, $90
@@ -652,7 +652,7 @@ MailView_DrawDateTime:: ; 2B:691A
 	ld l, e
 	ld de, $0003
 	add hl, de
-	ld de, $D524
+	ld de, wMailTextScratch
 	xor a, a
 	ldh [rVBK], a
 	ld a, $01
@@ -674,7 +674,7 @@ MailView_DrawDateTime:: ; 2B:691A
 	dec b
 	jr nz, .l6963
 	ld de, $9801
-	ld hl, $D524
+	ld hl, wMailTextScratch
 	di
 .l697D ; 2B:697D
 	ldh a, [rLY]
@@ -1253,7 +1253,7 @@ Function_2B_6CF5:: ; 2B:6CF5
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $D400
+	ld hl, $D400 ; raw: unreferenced function (HYPOTHESIS) that clears $24 bytes at $D400 of bank 1: not shown to be the body buffer or the mail info record
 	ld b, $24
 .l6D0F ; 2B:6D0F
 	xor a, a
@@ -1283,7 +1283,7 @@ Function_2B_6CF5:: ; 2B:6CF5
 	push hl
 	ld de, $00ED
 	add hl, de
-	ld de, $D4C0
+	ld de, wEditAddressBuf
 	ld b, $40
 .l6D3E ; 2B:6D3E
 	ld a, [hli]
@@ -1294,7 +1294,7 @@ Function_2B_6CF5:: ; 2B:6CF5
 	pop hl
 	ld de, $00C9
 	add hl, de
-	ld de, $D514
+	ld de, wEditNameBuf
 	ld b, $10
 .l6D4E ; 2B:6D4E
 	ld a, [hli]

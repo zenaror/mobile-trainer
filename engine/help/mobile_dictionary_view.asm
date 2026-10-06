@@ -18,7 +18,7 @@ Function_4C_4F56::
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $DA00
+	ld hl, $DA00 ; raw: clears $0600 bytes from $DA00 of bank 6: wDictHistory and the end of the link heap, more than its 768 bytes
 	ld bc, $0600
 	xor a, a
 	ld [wDictHistoryCount], a
@@ -112,14 +112,14 @@ Label_4C_501E::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld b, $00
-	ld hl, $D600
+	ld hl, wHtmlLinkPtrList
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
 	inc hl
-	ld de, $D500
+	ld de, wBrowserPageUrl
 	farcall HtmlUrl_Resolve
 	ld hl, wAttrUrlBuf
 	farcall HtmlUrl_NormalizePath
@@ -232,7 +232,7 @@ MobileDictView_LoadEntry:: ; 4C:5122
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, wAttrUrlBuf
-	ld de, $D500
+	ld de, wBrowserPageUrl
 	ld bc, $0100
 	call CopyBytes
 	ld hl, wAttrUrlBuf
@@ -269,13 +269,13 @@ MobileDictView_LoadImages:: ; 4C:51A1
 	ld a, $04
 	ldh [hInlineImages_UrlBank], a
 	ld de, wAttrUrlBuf
-	ld hl, $D500
+	ld hl, wBrowserPageUrl
 	ld bc, $0100
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call CopyBytes
-	ld de, $DD00
+	ld de, wHtmlImageBaseUrl
 	ld hl, wAttrUrlBuf
 	ld bc, $0100
 	ld a, $04
@@ -349,7 +349,7 @@ MobileDictView_LoadImages:: ; 4C:51A1
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	pop hl
-	ld de, $DD00
+	ld de, wHtmlImageBaseUrl
 	farcall HtmlUrl_Resolve
 	ld hl, wAttrUrlBuf
 	farcall HtmlUrl_NormalizePath
@@ -375,7 +375,7 @@ MobileDictView_HistoryPush:: ; 4C:5274
 Function_4C_5274::
 	; [CONFIRMED] 22 insn(s); 22 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld hl, $D500
+	ld hl, wBrowserPageUrl
 	ld a, $06
 	call BankSwitch_H
 	ld a, [wDictHistoryHead]

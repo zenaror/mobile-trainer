@@ -17,7 +17,8 @@
                  (`wScreenTileMap + $1A6`); a bare `ld hl|de|bc, wRam_Dxxx` is a pointer and stays
   --observed     with --elements, --neutral and --areas wramx (the `switch` rows, the `a` rows with A = 0 and the `(direct)` rows): the replays also prove the bank
                  (analysis/rambank/observed_banks.tsv: every replayed execution of the instruction ran under that bank only; a bank that contradicts the scan, or several banks, leave the
-                 site alone); builds a marked copy of the tree to map source lines to ROM addresses (tools/line_addresses.py, needs rgbasm)
+                 site alone; for a pointer the instruction is the one that consumes or dereferences it, or the load when no bank register is written in between); builds a marked copy of the
+                 tree to map source lines to ROM addresses (tools/line_addresses.py, needs rgbasm)
   --root DIR     tree to edit (default: the repository root; use it to work in a copy)
   --dry-run      analyse and print what would change; write nothing, build nothing
   --no-build     apply the edit but do not run the build / SHA-256 / sym_check verification (no rollback then!)
@@ -40,27 +41,36 @@ Rules
   * left numeric: (1) an address that has a screen-local alias in `ram/overlays.asm`, in a file that is inside the scope of that alias (the neutral name would be rewritten into the
     alias by tools/apply_overlay_aliases.py, and a window base such as `ld hl, $C0D4` is not the byte the alias names); (2) a *value*: in HRAM and the hardware registers an operand
     whose first use is `add hl, <the register>` (or `add hl, bc|de` when the register is hl), and in every area a DE that goes to `Sprite_SetPosition` (the Y, X pair) or a BC that goes
-    to `CommTime_DrawNumber` (the addend); (3) a line whose trailing comment starts with `; raw` (a human decision, with the reason: a dead load, a scratch use of the buffer, ...);
+    to `CommTime_DrawNumber` (the addend); (3) a line whose trailing comment starts with `; raw` (a human decision, with the reason: a dead load, a scratch use of the buffer, ...), in every mode (--areas, --elements, --neutral)
+    and for tools/apply_manual_sites.py too;
     (4) with the banked names (--areas wramx, --elements, --neutral): a name whose DEF line in `ram/banked.asm` says `CAVEAT` (the address has other meanings elsewhere, so the name is
     true only in the flow its comment gives, as `wMailComposeMode` at `$D524`, which other screens use as digit scratch): counted as `caveat`, never written by the tool;
   * an operand with no object at its address stays numeric and is reported.
 
 The wramx area (banked WRAM `$D000-$DFFF`: the same address is another variable in every bank, so the number alone proves nothing).  An operand is rewritten only when a
 *consumer rule* proves the bank in which the pointer is dereferenced.  The consumer is the first `call`, `farcall` or tail `jp Label` of the straight line after the load, when only
-plain instructions (no label, jump, macro or data line) that touch neither the register nor a bank register come first.  A row of `analysis/naming2/wramx_consumers.tsv` (consumer,
+plain instructions (no label, jump, macro or data line) that do not touch the register come first; a write of a bank register may lie between the load and the call, and the bank of a
+`switch` or `a = 0` consumer is then the one shown at the call, never the one of the load.  A row of `analysis/naming2/wramx_consumers.tsv` (consumer,
 register, bank W1-W7 or `*`, needs, family, proof) says that this routine dereferences that register in that bank (`*`: the bank that the proof shows, any of W1-W7): `needs` is `-` when the
-routine selects the bank itself (`Sprite_InitSlot` selects bank 7 before it writes the slot), `switch` when the caller does, `a` when the routine takes the bank of the pointer in A
-(`Gfx_StartHDMA`: A = 0 means the bank in force), or `dest` when the bank is the value stored in `hTextTiles_DestBank` (the text renderer: the scan starts at the consumer call, not at the load, and finds the nearest
+routine selects the bank itself (`Sprite_InitSlot` selects bank 7 before it writes the slot), `fixed` when the bank is a property of the code and not of its caller (the mail library of bank 0F is entered only
+through `Mail_DispatchFar`, which follows the bank 5 idiom, and nothing in the bank writes a WRAM bank register: the proof of the row states the invariant), `switch` when the caller does, `a` when the routine takes the bank of the pointer in A
+(`Gfx_StartHDMA`: A = 0 means the bank in force, which holds only for a consumer that the effects table lists as `keeps if A=0`: `TextTiles_RenderGrid` hands A to `ReadByteFar`, which has no test for 0), or `dest` when the bank is the value stored in `hTextTiles_DestBank` (the text renderer: the scan starts at the consumer call, not at the load, and finds the nearest
 `ldh [hTextTiles_DestBank], a` with `ld a, $0N` before it in the same straight line, no label, unconditional jump or call but the renderers in between: the store may lie between the load and the call).  The consumer `(direct)` stands for a pointer that no call receives: the first
-instruction that uses the register reads or writes memory through it (`ld a, [hl]`), with the bank shown as for `switch` (plus the replays with --observed).  For `switch` the tool must
+instruction that uses the register reads or writes memory through it (`ld a, [hl]`), with the bank shown at that instruction as for `switch` (plus the replays with --observed); a local label that
+only heads a loop whose body keeps the bank, and a bank switch (the idiom), may come before it.  For `switch` the tool must
 show the bank by a backward scan of the straight line: the nearest write
 of the bank register must be the idiom `ld a, $0N / ldh [hWRAMBank], a / ldh [rSVBK], a` (or a call to a routine that `sets` the bank in `analysis/naming2/wramx_calls.tsv`); for `a` the
 constant in A at the call (`ld a, $NN` or `xor a` as the nearest write of A) must be the bank, or 0 with the idiom showing the bank.  The scan
 gives up at a global label, at an unconditional `ret`/`jp`/`jr` (what follows is another path), at a call to a routine that is not known to `keep` the bank (`wramx_calls.tsv` lists
-the routines that keep or set it, or keep it `if A=0`; an unknown routine, a conditional call, `rst` or a macro ends the proof), and at a local label unless it heads a loop whose body writes no bank
-register and calls only routines that keep it; the scan reaches back at most 60 lines.  `family` is a regular expression for the name: a rule about sprite slots never writes a palette
+the routines that keep or set it, or keep it `if A=0`; an unknown routine, a conditional call, `rst` or a macro ends the proof), and at a local label unless every way into it shows the same bank (the fall-through from above, unless the line above is an unconditional `ret`/`jp`/`jr`;
+each `jr`/`jp` that names the label from above; the back edges of a loop whose body writes no bank register and calls only routines that keep it, provided that no label inside the body is entered from outside it; any other
+mention of the label, a `call`, a table word, a load of its address, gives up, and so do more than four nested joins), and in a routine that loads the address of a bank register (`ld de, rSVBK`) anywhere; the scan reaches back
+at most 60 lines for each way into a label.  `family` is a regular expression for the name: a rule about sprite slots never writes a palette
 name.  The name is the innermost object of `ram/banked.asm` for that bank that covers the address.  Operands without a rule (`no rule`), whose bank is not shown (`bank not shown`),
-that have no name in the bank (`no object`) or whose name is of another family (`wrong family`) stay numeric and are counted per consumer, which tells which rule to write next.
+that have no name in the bank (`no object`), whose name is of another family (`wrong family`) or whose pointer walks further than the object in a loop (`overrun`: a `ld bc, $NNNN`, `ld b, $NN`
+or `ld c, $NN` among the two instructions before the load and the ones up to the dereference, for a `(direct)` pointer with a loop head between the load and the dereference, that exceeds the bytes from the pointer to the end of
+the object: a wipe or copy over the neighbours; a heuristic that does not see a count in DE or A, set further up, in two immediates or an end-address compare) stay numeric and are counted per consumer, which tells which rule
+to write next.
 
 --elements: `ld [wSpriteSlots + 128], a` in the generated code is the byte `$DA80` written as the container name plus a decimal offset.  When the elements of the container (the names
 of `ram/banked.asm` that lie inside it: `wSpriteSlot0` ... `wSpriteSlot13`) are known, every code expression `container`, `container + N` or `container + $XX` of a code line
@@ -117,6 +127,7 @@ PLAIN = {'ld', 'ldh', 'push', 'pop', 'xor', 'or', 'and', 'add', 'adc', 'sub', 's
          'rla', 'rra', 'rlca', 'rrca', 'cpl', 'ccf', 'scf', 'daa', 'nop', 'di', 'ei'}      # instructions that neither jump nor call: anything else (a macro, a data line) ends a proof
 BANK_REGS = ('[rSVBK]', '[hWRAMBank]', '[$FF70]', '[$FF8D]', '[$70]', '[$8D]', '[$ff70]', '[$ff8d]', '[c]',
              'rSVBK', 'hWRAMBank', '$FF70', '$FF8D', '$ff70', '$ff8d')                        # every spelling of the WRAM bank register and its shadow, a store through [c], and the address of either register as an operand
+BARE_BANK_REGS = ('rSVBK', 'hWRAMBank', '$FF70', '$FF8D', '$ff70', '$ff8d')            # the address of a bank register or its shadow as an immediate (`ld de, rSVBK`)
 CONDITIONS = {'z', 'nz', 'c', 'nc'}
 TRANSFERS = {'call', 'jp', 'jr', 'ret', 'reti', 'rst', 'farcall'}
 
@@ -248,8 +259,8 @@ def read_rules(root, path):
             re.compile(family)
         except re.error:
             family = ''
-        if (reg not in ('hl', 'de', 'bc') or not re.match(r'^(W[1-7]|\*)$', bank) or needs not in ('-', 'switch', 'a', 'dest') or not consumer or not family or not proof
-                or (bank == '*' and needs == '-') or (consumer == DIRECT and needs != 'switch')):      # `(direct)` has no routine that selects the bank or takes it in A
+        if (reg not in ('hl', 'de', 'bc') or not re.match(r'^(W[1-7]|\*)$', bank) or needs not in ('-', 'fixed', 'switch', 'a', 'dest') or not consumer or not family or not proof
+                or (bank == '*' and needs in ('-', 'fixed')) or (consumer == DIRECT and needs != 'switch')):      # `(direct)` has no routine that selects the bank or takes it in A
             raise ValueError('%s:%d: bad rule row %r' % (path, n, cols[:5]))
         if (consumer, reg) in rules:
             raise ValueError('%s:%d: duplicate rule for %s %s' % (path, n, consumer, reg))
@@ -274,31 +285,32 @@ def read_calls(root, path):
     return effects
 
 
-def find_consumer(lines, i, reg):
-    """(routine, line index) that receives the register loaded at lines[i]: the first call/farcall/tail jp of the straight line, when only plain instructions that touch neither the register nor the
-    bank come first (no label, jump, macro or data line); (None, None) otherwise."""
+def find_consumer_ex(lines, i, reg):
+    """(routine, line index, bank_changed): as find_consumer, but a write of a bank register between the load and the call does not end the search: `bank_changed` is then True and the bank of a
+    `switch` consumer is the one shown *at the call* (bank_at(lines, ci)), never the one of the load (the replays saw the load, not the call)."""
+    changed = False
     for j in range(i + 1, min(i + 60, len(lines))):
         if lines[j].startswith('.'):
-            return None, None                              # a local label: another path joins here
+            return None, None, False                       # a local label: another path joins here
         ins = parse_insn(lines[j])
         if ins is None:
-            return None, None
+            return None, None, False
         if ins == '':
             continue
         m, ops = ins
         if m == 'farcall' and len(ops) == 1:
-            return ops[0], j
+            return ops[0], j, changed
         if m == 'call' and len(ops) == 1:
-            return ops[0], j                               # (a conditional `call nz, X` has two operands: not a proof)
+            return ops[0], j, changed                      # (a conditional `call nz, X` has two operands: not a proof)
         if m == 'jp' and len(ops) == 1 and ops[0] != 'hl' and re.match(r'^[A-Za-z_][A-Za-z0-9_]*$', ops[0]):
-            return ops[0], j                               # a tail call: `jp Sprite_SetPosition`
+            return ops[0], j, changed                      # a tail call: `jp Sprite_SetPosition`
         if m not in PLAIN:
-            return None, None                              # another transfer, a macro, a data line
+            return None, None, False                       # another transfer, a macro, a data line
         if any(o in FAMILY[reg] for o in ops):
-            return None, None                              # the register is touched before the call
+            return None, None, False                       # the register is touched before the call
         if any(o in BANK_REGS for o in ops):
-            return None, None                              # the bank changes between the load and the call
-    return None, None
+            changed = True                                 # the bank changes between the load and the call: the proof is made at the call
+    return None, None, False
 
 
 GLOBAL_LABEL = re.compile(r'^[A-Za-z_][A-Za-z0-9_]*::?')
@@ -374,9 +386,29 @@ def keeps_bank(lines, k, ins, effects):
     return eff == 'keeps' or (eff == 'keeps0' and a_before(lines, k) == 0)
 
 
-def loop_head_keeps_bank(lines, j, effects):
+
+def interior_entries_ok(lines, j, last, s, e):
+    """True when no local label inside the loop body (j, last] is mentioned from outside [j, last] or by anything but a jr/jp: such a label is a second way into the body (a jump over the head,
+    a table word, a load of its address), which would bring a bank that the head does not show to the back edge."""
+    for x in range(j + 1, last + 1):
+        if not lines[x].startswith('.'):
+            continue
+        name = lines[x].split(';')[0].strip().rstrip(':')
+        pat = re.compile(r'(?<![A-Za-z0-9_.])%s(?![A-Za-z0-9_])' % re.escape(name))
+        for y in range(s, e):
+            if y == x or not pat.search(lines[y].split(';')[0]):
+                continue
+            ins = parse_insn(lines[y])
+            if not ins or ins[0] not in ('jr', 'jp') or ins[1] == ['hl'] or not (j < y <= last):
+                return False
+    return True
+
+
+def loop_head_keeps_bank(lines, j, effects, need_ref=False):
     """True when the local label at lines[j] is only the head of a loop (every reference is a jr/jp *after* it, inside the same routine) and the loop body, from the head to the last back
-    edge, neither writes the bank register nor calls a routine that is not known to keep the bank: the bank at the head is then the bank of the code that falls into it."""
+    edge, neither writes the bank register nor calls a routine that is not known to keep the bank, and no label inside the body is a second way in (interior_entries_ok): the bank at the head is
+    then the bank of the code that falls into it.  With `need_ref` the label must really be jumped back to (a label with no reference is no loop head: the search for the dereference of a pointer
+    passes loop heads only)."""
     name = lines[j].split(';')[0].strip().rstrip(':')
     s = j
     while s > 0 and not GLOBAL_LABEL.match(lines[s]):
@@ -393,6 +425,8 @@ def loop_head_keeps_bank(lines, j, effects):
         if not ins or k < j or ins[0] not in ('jr', 'jp'):
             return False                                   # a forward jump, a call or a data reference: another path enters here
         refs.append(k)
+    if need_ref and not refs:
+        return False
     last = max(refs) if refs else j
     for k in range(j + 1, last + 1):
         ins = parse_insn(lines[k])
@@ -404,26 +438,112 @@ def loop_head_keeps_bank(lines, j, effects):
             return False
         if ins[0] not in PLAIN and ins[0] not in ('jr', 'jp', 'ret', 'reti', 'call', 'farcall'):
             return False                                   # rst, a macro, a data line
+    if refs and not interior_entries_ok(lines, j, last, s, e):
+        return False
     return True
 
 
-def bank_at(lines, i, effects):
+def label_join_bank(lines, j, effects, depth=0):
+    """The WRAM bank in force at the local label lines[j] when every way into it shows the same bank, else None.  The ways in are the fall-through from the code above (none when the previous
+    instruction is an unconditional `ret`/`jp`/`jr`; a global label or a data line above gives up), every `jr`/`jp` that names the label (conditional or not) from *above* it, and the back edges from
+    below, which add nothing when the loop body writes no bank register, calls only routines that keep it and has no label that is entered from outside the body (interior_entries_ok).  Any other mention of the label (a `call`, a `dw`, a `ld`) is an entry from elsewhere
+    and gives up, and so does a nesting deeper than four joins (the scans only go up the routine, so there are no cycles).  Every way in is scanned like bank_at; the answer is the bank
+    that all of them show."""
+    if depth >= 4:
+        return None
+    s = j
+    while s > 0 and not GLOBAL_LABEL.match(lines[s]):
+        s -= 1
+    e = j + 1
+    while e < len(lines) and not GLOBAL_LABEL.match(lines[e]):
+        e += 1
+    run = [j]                                            # adjacent labels name the same address
+    k = j - 1
+    while k >= s and (lines[k].startswith('.') or not lines[k].strip() or lines[k].lstrip().startswith(';')):
+        if lines[k].startswith('.'):
+            run.append(k)
+        k -= 1
+    top = min(run)
+    names = [lines[x].split(';')[0].strip().rstrip(':') for x in run]
+    forward, back = [], []
+    for name in names:
+        pat = re.compile(r'(?<![A-Za-z0-9_.])%s(?![A-Za-z0-9_])' % re.escape(name))
+        for x in range(s, e):
+            if x in run or not pat.search(lines[x].split(';')[0]):
+                continue
+            ins = parse_insn(lines[x])
+            if not ins or ins[0] not in ('jr', 'jp') or ins[1] == ['hl']:
+                return None                              # a call, a table word, a load of the address: an entry the scan cannot see
+            (forward if x < top else back).append(x)
+    if back:
+        last = max(back)
+        for x in range(j + 1, last + 1):                 # the loop body must keep the bank
+            ins = parse_insn(lines[x])
+            if not ins:
+                continue
+            if writes_bank(ins) or any(o in BANK_REGS for o in ins[1]):
+                return None
+            if ins[0] in ('call', 'farcall') and not keeps_bank(lines, x, ins, effects):
+                return None
+            if ins[0] not in PLAIN and ins[0] not in ('jr', 'jp', 'ret', 'reti', 'call', 'farcall'):
+                return None
+        if not interior_entries_ok(lines, j, last, s, e):
+            return None
+    banks = []
+    prev = None                                          # the instruction before the run of labels
+    for x in range(top - 1, s - 1, -1):
+        if lines[x].strip() and not lines[x].lstrip().startswith(';'):
+            prev = x
+            break
+    if prev is None:
+        return None
+    ins = parse_insn(lines[prev])                        # None for the global label that starts the routine: the scan from the label gives up there
+    falls = not (ins and ((ins[0] in ('ret', 'reti') and not ins[1]) or (ins[0] in ('jp', 'jr') and len(ins[1]) == 1)))
+    if falls:
+        banks.append(bank_at(lines, top, effects, depth + 1))
+    for x in forward:
+        banks.append(bank_at(lines, x, effects, depth + 1))
+    if not banks or banks[0] is None or any(b != banks[0] for b in banks):
+        return None
+    return banks[0]
+
+
+
+def routine_materializes_bank_address(lines, i):
+    """True when the routine that contains lines[i] (between the global labels around it) loads the address of a bank register or of its shadow into any register (`ld de, rSVBK`, `ld hl, $FF70`),
+    anywhere: a later `ld [de], a` would then be a bank write that no backward scan can see, whatever the distance to the idiom."""
+    s = i
+    while s > 0 and not GLOBAL_LABEL.match(lines[s]):
+        s -= 1
+    e = i + 1
+    while e < len(lines) and not GLOBAL_LABEL.match(lines[e]):
+        e += 1
+    for x in range(s, e):
+        ins = parse_insn(lines[x])
+        if ins and ins != '' and not writes_bank(ins) and any(o in BARE_BANK_REGS for o in ins[1]):
+            return True
+    return False
+
+
+def bank_at(lines, i, effects, depth=0):
     """The WRAM bank N (1-7) in force when lines[i] runs, found by a backward scan of the straight line: the nearest write of the bank register must be the idiom `ld a, $0N / ldh [hWRAMBank], a /
     ldh [rSVBK], a`, or a call to a routine that `sets` the bank (analysis/naming2/wramx_calls.tsv).  The scan gives up (None) at a global label, at an unconditional `ret`/`jp`/`jr` (the code
-    below is another path), at a call whose effect is unknown or not `keeps`, at a conditional call, at `rst`, a macro or a data line, and at a local label unless it heads a loop that keeps the
-    bank (loop_head_keeps_bank); calls between the idiom and the site must be known to keep the bank."""
+    below is another path), at a call whose effect is unknown or not `keeps`, at a conditional call, at `rst`, a macro or a data line, and at a local label unless every way into it shows the same bank
+    (label_join_bank), and refuses every proof in a routine that loads the address of a bank register (routine_materializes_bank_address); calls between the idiom and the site must be known to keep the bank."""
+    if depth == 0 and routine_materializes_bank_address(lines, i):
+        return None
     for j in range(i - 1, max(-1, i - 1 - SWITCH_WINDOW), -1):
         line = lines[j]
         if line.startswith('.'):
-            if loop_head_keeps_bank(lines, j, effects):
-                continue
-            return None
+            return label_join_bank(lines, j, effects, depth)
         if line.strip() and not line.startswith('\t') and not line.startswith(';'):
             return None                                    # a global label or directive: the routine may be entered from anywhere
         ins = parse_insn(line)
         if ins is None or ins == '':
             continue
         m, ops = ins
+        if not writes_bank(ins) and any(o in BARE_BANK_REGS for o in ops):
+            return None                                    # the address of a bank register is loaded (`ld de, $FF70`): a store through it may change the bank
         if writes_bank(ins):
             if ops[0] not in ('[rSVBK]', '[$FF70]'):
                 return None                                # the shadow written alone
@@ -488,23 +608,72 @@ DEREF = {'hl': {'[hl]', '[hli]', '[hld]', '[hl+]', '[hl-]'}, 'de': {'[de]'}, 'bc
 DIRECT = '(direct)'                                  # the pseudo consumer of a pointer that is dereferenced by the next instruction that uses it
 
 
-def first_use_is_deref(lines, i, reg):
-    """True when the first instruction after lines[i] that uses the register (and no label, jump, call, macro, data line or write of a bank register comes before it) reads or writes
-    memory through it: `ld a, [hl]`, `ld [de], a`, `ld a, [hli]`, `inc [hl]`, ...  The pointer is then dereferenced in the bank in force at the load."""
+def first_use_deref(lines, i, reg, effects):
+    """(index, bank_changed, looped) of the instruction that dereferences the register loaded at lines[i] as its first use (`ld a, [hl]`, `ld [de], a`, `ld a, [hli]`, `inc [hl]`, ...), or
+    (None, False, False) when a label, jump, call, macro or data line comes first or the first instruction that uses the register does anything but dereference it.  Two things do not end the
+    search: (1) a local label that only heads a loop whose body keeps the bank (loop_head_keeps_bank: every reference is a backward jr/jp of the same routine), since the fall-through path is
+    the only way into the first pass (`looped` is then True: the dereference walks on from the pointer, see loop_count); (2) a write of a bank register between the load and the use:
+    `bank_changed` is then True and the bank is the one shown at the use (bank_at(lines, index)), so a replay mask of the load is no proof."""
+    changed = looped = False
     for j in range(i + 1, min(i + 30, len(lines))):
         if lines[j].startswith('.'):
-            return False
+            if loop_head_keeps_bank(lines, j, effects, need_ref=True):
+                looped = True
+                continue
+            return None, False, False
         ins = parse_insn(lines[j])
         if ins is None:
-            return False
+            return None, False, False
         if ins == '':
             continue
         m, ops = ins
-        if m not in PLAIN or any(o in BANK_REGS for o in ops):
-            return False
+        if m not in PLAIN:
+            return None, False, False
+        if any(o in BANK_REGS for o in ops):
+            changed = True
+            continue
         if any(o in FAMILY[reg] for o in ops):
-            return any(o in DEREF[reg] for o in ops)
-    return False
+            return ((j, changed, looped) if any(o in DEREF[reg] for o in ops) else (None, False, False))
+    return None, False, False
+
+
+COUNT_LD = re.compile(r'^ld (bc|b|c), \$([0-9A-F]+)$', re.I)
+
+
+def loop_count(lines, i, ci):
+    """The largest byte count that the straight line around a pointer loop shows: an immediate `ld bc, $NNNN` (not $FFFF, the start of a pre-incremented length count), `ld b, $NN` or `ld c, $NN`
+    (0 = 256) among the two instructions before the load lines[i] and the ones up to the dereference lines[ci]; None when there is none.  A loop that walks further than the object that the
+    pointer names is a wipe or copy over the neighbours, which the project leaves raw (the rule rows say so for FillBytes and CopyBytes)."""
+    best = None
+    for k in list(range(max(0, i - 2), i)) + list(range(i + 1, ci)):
+        mm = COUNT_LD.match(lines[k].split(';')[0].strip())
+        if not mm:
+            continue
+        n = int(mm.group(2), 16)
+        if mm.group(1).lower() == 'bc':
+            if n == 0xFFFF:
+                continue
+        elif n == 0:
+            n = 256
+        best = n if best is None else max(best, n)
+    return best
+
+
+NO_MASK = object()                                   # no replay evidence usable for the site
+
+
+def evidence_mask(masks, rel, i, ci, changed):
+    """The replay mask that proves the bank of the pointer loaded at lines[i] and consumed (called, dereferenced) at lines[ci]: the mask of the consumer instruction when the replays have one
+    (its bank is the bank in force where the pointer is used), else the mask of the load when no bank register is written in between; NO_MASK when there is none (no replays, or the bank
+    changes between load and consumer and the consumer was never mapped or never executed: `None` is a mapped instruction that never ran, which proves nothing either way)."""
+    if masks is None:
+        return NO_MASK
+    at = masks.get((rel, ci + 1))
+    if at:
+        return at
+    if changed:
+        return NO_MASK
+    return masks.get((rel, i + 1))
 
 
 def mask_conflict(mask, static):
@@ -563,35 +732,37 @@ def plan(tree, areas, rules=None, effects=None, masks=None, why=None):
             elif is_value(lines, i, reg, area):
                 rows.append((rel, i, v, 'value', ''))
             elif area == 'wramx':
-                consumer, ci = find_consumer(lines, i, reg)
-                direct = consumer is None and (DIRECT, reg) in rules and first_use_is_deref(lines, i, reg)
-                if direct:
-                    consumer = DIRECT
+                consumer, ci, changed = find_consumer_ex(lines, i, reg)
+                direct = looped = False
+                if consumer is None and (DIRECT, reg) in rules:
+                    di, changed, looped = first_use_deref(lines, i, reg, effects)
+                    if di is not None:
+                        direct, consumer, ci = True, DIRECT, di      # ci: the instruction that dereferences the pointer
                 rule = rules.get((consumer, reg)) if consumer else None
                 n = None
                 if rule is not None:
                     rbank, needs = rule[0], rule[1]
-                    if needs == '-':
+                    if needs in ('-', 'fixed'):
                         n = int(rbank[1])
                     elif needs == 'switch':
-                        n = bank_at(lines, i, effects)
-                        if masks is not None:                               # (patch B: not only for `(direct)`)
-                            dyn = single_bank(masks.get((rel, i + 1)))      # the replays: the load ran under one bank only
-                            if mask_conflict(masks.get((rel, i + 1)), n):
+                        n = bank_at(lines, ci, effects)                     # the bank in force where the pointer is consumed (a bank switch may lie between the load and the call)
+                        mk = evidence_mask(masks, rel, i, ci, changed)
+                        if mk != NO_MASK:                                   # the replays: the consumer (or, when nothing switches in between, the load) ran under one bank only
+                            if mask_conflict(mk, n):
                                 n = None
                             elif n is None:
-                                n = dyn
+                                n = single_bank(mk)
                     elif needs == 'a':
                         a = a_before(lines, ci)            # the routine takes the bank of the pointer in A; A = 0 keeps the bank in force
-                        n = (a if 1 <= a <= 7 else None) if a else (bank_at(lines, i, effects) if a == 0 else None)
-                        if a == 0 and masks is not None:                    # patch B: A = 0 means `the bank in force`, shown like `switch`
-                            dyn = single_bank(masks.get((rel, i + 1)))
-                            if mask_conflict(masks.get((rel, i + 1)), n):
+                        n = (a if 1 <= a <= 7 else None) if a else (bank_at(lines, ci, effects) if a == 0 and effects.get(consumer) == 'keeps0' else None)      # A = 0 is `the bank in force` only for a routine that the effects table lists as `keeps if A=0`
+                        mk = evidence_mask(masks, rel, i, ci, changed) if a == 0 and effects.get(consumer) == 'keeps0' else NO_MASK
+                        if mk != NO_MASK:                                   # A = 0 means `the bank in force`, shown like `switch`
+                            if mask_conflict(mk, n):
                                 n = None
                             elif n is None:
-                                n = dyn
+                                n = single_bank(mk)
                     else:
-                        n = dest_bank_before(lines, ci)    # patch A: scan from the consumer call (the store lies between the load and the call in 32 of 147 operands)
+                        n = dest_bank_before(lines, ci)    # scan from the consumer call (the store lies between the load and the call in 32 of 147 operands)
                     if n is not None and rbank != '*' and n != int(rbank[1]):
                         n = None
                 if why is not None:
@@ -608,6 +779,8 @@ def plan(tree, areas, rules=None, effects=None, masks=None, why=None):
                         rows.append((rel, i, v, 'wrong family', '%s %s' % (consumer, obj.name)))      # the rule is about another kind of object
                     elif obj.caveat:
                         rows.append((rel, i, v, 'caveat', '%s %s' % (consumer, obj.name)))            # the DEF line says the address has other meanings: the name is not written by a tool
+                    elif looped and (loop_count(lines, i, ci) or 0) > obj.start + obj.size - v:
+                        rows.append((rel, i, v, 'overrun', '%s %s' % (consumer, obj.name)))           # a loop over more bytes than the object has: a wipe or copy over the neighbours, left raw
                     else:
                         rows.append((rel, i, v, 'apply', text_for(obj, v)))
             else:
@@ -686,9 +859,9 @@ def plan_elements(tree, containers, observed=None, effects=None):
             for i, line in enumerate(tree.files[rel]):
                 if not line.startswith('\t'):
                     continue
-                code, _ = split_code(line)
-                if '"' in code or base.match(code):
-                    continue                               # a string, or the base of the whole array
+                code, comment = split_code(line)
+                if '"' in code or base.match(code) or RAW_MARK.search(comment):
+                    continue                               # a string, the base of the whole array, or a line marked `; raw`
                 for m in pat.finditer(code):
                     before = code[:m.start()].rstrip()[-1:]
                     after = code[m.end():].lstrip()[:1]
@@ -749,8 +922,8 @@ def plan_neutral(tree, observed=None, effects=None):
         for i, line in enumerate(lines):
             if not line.startswith('\t'):
                 continue
-            code, _ = split_code(line)
-            if '"' in code or pointer.match(code):
+            code, comment = split_code(line)
+            if '"' in code or pointer.match(code) or RAW_MARK.search(comment):          # a line marked `; raw` is a human decision
                 continue
             for m in NEUTRAL_WRAMX.finditer(code):
                 before = code[:m.start()].rstrip()[-1:]
@@ -840,6 +1013,14 @@ def main(argv=None):
                         if code and (any(re.search(r'\b%s\b' % re.escape(c), code) for c in containers) or (args.neutral and NEUTRAL_WRAMX.search(code))
                                      or ('wramx' in areas and LD.match(line) and LD.match(line).group(2).startswith('D'))):
                             wanted.add((rel, i + 1))
+                        m = LD.match(line) if 'wramx' in areas else None
+                        if m and m.group(2).startswith('D'):                   # the instruction that consumes or dereferences the pointer: the bank in force there is the one that counts
+                            reg = m.group(1).split()[-1].rstrip(',')
+                            _, ci, _ = find_consumer_ex(text, i, reg)
+                            if ci is None:
+                                ci, _, _ = first_use_deref(text, i, reg, effects)
+                            if ci is not None:
+                                wanted.add((rel, ci + 1))
             masks = observed_masks(root, wanted)
         why = {}
         rows = plan(tree, areas, rules, effects, masks, why) if areas else []
@@ -882,7 +1063,7 @@ def main(argv=None):
         if areas:
             print('apply_ram_operands: --check: %d raw operand(s) with an object, %d left numeric on purpose (%d overlay base, %d value, %d marked raw), %d without an object'
                   % (len(todo), purpose, counts.get('overlay base', 0), counts.get('value', 0), counts.get('marked raw', 0), counts.get('no object', 0))
-                  + ('; wramx: %d without a consumer rule or a shown bank, %d caveat' % (pending, counts.get('caveat', 0)) if 'wramx' in areas else ''))
+                  + ('; wramx: %d without a consumer rule or a shown bank, %d caveat, %d overrun' % (pending, counts.get('caveat', 0), counts.get('overrun', 0)) if 'wramx' in areas else ''))
         if containers:
             print('apply_ram_operands: --check: %d expression(s) of %s that an element name replaces, %d without an element, %d with the bank not shown, %d seen in another bank, %d complex, %d caveat'
                   % (len(etodo), ', '.join(containers), sum(1 for r in erows if r[5] == 'no element'), sum(1 for r in erows if r[5] == 'bank not shown'), sum(1 for r in erows if r[5] == 'other bank'),
@@ -901,7 +1082,7 @@ def main(argv=None):
     if areas:
         print('apply_ram_operands: summary: %d operand(s) in %d file(s) to rewrite with %d distinct name(s); left numeric: %d overlay base, %d value, %d marked raw; %d without an object'
               % (len(todo), len({r[0] for r in todo}), len({r[4].split(' + ')[0] for r in todo}), counts.get('overlay base', 0), counts.get('value', 0), counts.get('marked raw', 0), counts.get('no object', 0))
-              + ('; wramx: %d no consumer rule, %d bank not shown, %d wrong family, %d caveat' % (counts.get('no rule', 0), counts.get('bank not shown', 0), counts.get('wrong family', 0), counts.get('caveat', 0)) if 'wramx' in areas else ''))
+              + ('; wramx: %d no consumer rule, %d bank not shown, %d wrong family, %d caveat, %d overrun' % (counts.get('no rule', 0), counts.get('bank not shown', 0), counts.get('wrong family', 0), counts.get('caveat', 0), counts.get('overrun', 0)) if 'wramx' in areas else ''))
     if containers:
         print('apply_ram_operands: summary: %d expression(s) of %s in %d file(s) to rewrite; left as they are: %d bank not shown, %d seen in another bank, %d complex, %d without an element, %d caveat'
               % (len(etodo), ', '.join(containers), len({r[0] for r in etodo}), sum(1 for r in erows if r[5] == 'bank not shown'), sum(1 for r in erows if r[5] == 'other bank'),
@@ -913,7 +1094,7 @@ def main(argv=None):
     if args.dry_run:
         for name, n in sorted(by_name.items(), key=lambda kv: (-kv[1], kv[0]))[:16]:
             print('    %5d  %s' % (n, name))
-        for outcome in ('no rule', 'bank not shown', 'wrong family'):
+        for outcome in ('no rule', 'bank not shown', 'wrong family', 'overrun'):
             if any(r[3] == outcome for r in rows):
                 print('  %s, by consumer:' % outcome)
                 for c, n in top_consumers(rows, outcome):

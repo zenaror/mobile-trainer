@@ -904,7 +904,7 @@ Function_22_48CD::
 	add hl, bc
 	ld d, h
 	ld e, l
-	ld hl, $D524
+	ld hl, wMailTextScratch
 
 	; [PROBABLE] 243 insn(s) reached by static flow only; seeds: site x243; min discovery hops 0;
 	; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code |
@@ -938,7 +938,7 @@ Function_22_48CD::
 	add hl, bc
 	ld d, h
 	ld e, l
-	ld hl, $D524
+	ld hl, wMailTextScratch
 	farcall TextTiles_RenderLine
 	pop hl
 	ld a, $07
@@ -967,7 +967,7 @@ Function_22_48CD::
 	add hl, bc
 	ld d, h
 	ld e, l
-	ld hl, $D524
+	ld hl, wMailTextScratch
 	farcall TextTiles_RenderLine
 	pop hl
 	call MailSrvDelHidden_UploadDecimalTiles
@@ -985,7 +985,7 @@ Function_22_4975::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, String_MailSrvDelHidden_NumberTemplate
-	ld de, $D524
+	ld de, wMailTextScratch
 .loop ; 22:4983
 	ld a, [hli]
 	ld [de], a
@@ -995,7 +995,7 @@ Function_22_4975::
 	pop bc
 	pop hl
 	push bc
-	ld bc, $D525
+	ld bc, wMailTextScratch + $01
 	ld de, $2710
 	push bc
 	farcall Divide16
@@ -1264,7 +1264,7 @@ MailSrvDelHidden_DeleteAll_Confirm:: ; 22:4B2F
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D624
+	ld hl, wMailSessionBlock
 	ld de, Data_MailSrvDelHidden_DeleteAll_Confirm_SessionBlockTemplate
 	ld b, $07
 .loop ; 22:4B45
@@ -1274,7 +1274,7 @@ MailSrvDelHidden_DeleteAll_Confirm:: ; 22:4B2F
 	dec b
 	jr nz, .loop
 	ld d, $01
-	ld bc, $D624
+	ld bc, wMailSessionBlock
 	farcall ConnectDialog_Run
 	inc b
 	jr z, MailSrvDelHidden_DeleteAll_Confirm
@@ -1453,7 +1453,7 @@ MailSrvDelHidden_DeleteCompletely_Confirm:: ; 22:4C7A
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D624
+	ld hl, wMailSessionBlock
 	ld de, Data_MailSrvDelHidden_DeleteCompletely_Confirm_SessionBlockTemplate
 	ld b, $07
 .loop ; 22:4C90
@@ -1463,7 +1463,7 @@ MailSrvDelHidden_DeleteCompletely_Confirm:: ; 22:4C7A
 	dec b
 	jr nz, .loop
 	ld d, $01
-	ld bc, $D624
+	ld bc, wMailSessionBlock
 	farcall ConnectDialog_Run
 	inc b
 	jr z, MailSrvDelHidden_DeleteCompletely_Confirm
@@ -1634,7 +1634,7 @@ MailSrvDelHidden_CheckAndDelete:: ; 22:4DAD
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D624
+	ld hl, wMailSessionBlock
 	ld de, Data_MailSrvDelHidden_CheckAndDelete_SessionBlockTemplate
 	ld b, $07
 .loop ; 22:4DD2
@@ -1644,7 +1644,7 @@ MailSrvDelHidden_CheckAndDelete:: ; 22:4DAD
 	dec b
 	jr nz, .loop
 	ld d, $01
-	ld bc, $D624
+	ld bc, wMailSessionBlock
 	farcall ConnectDialog_Run
 	inc b
 	ret z

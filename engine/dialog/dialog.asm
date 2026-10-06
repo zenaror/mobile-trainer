@@ -442,10 +442,10 @@ Label_72_43DC::
 
 Dialog_SetupCursorByType_DrawTwoButtons:: ; 72:43F7
 Label_72_43F7::
-	ld hl, $D245
+	ld hl, wScreenTileMap + $245
 	ld a, $88
 	call Dialog_DrawButtonTiles
-	ld hl, $D24B
+	ld hl, wScreenTileMap + $24B
 	ld a, $8C
 	jp Dialog_DrawButtonTiles
 
@@ -466,7 +466,7 @@ Dialog_SetupCursorByType_DrawOneButton:: ; 72:441B
 Label_72_441B::
 	ld a, $00
 	ldh [hDialogResult], a
-	ld hl, $D248
+	ld hl, wScreenTileMap + $248
 	ld a, $A0
 
 Dialog_DrawButtonTiles:: ; 72:4424

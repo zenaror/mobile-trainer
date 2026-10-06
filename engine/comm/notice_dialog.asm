@@ -477,4 +477,4 @@ CommNotice_DrawMinuteDigit:: ; 50:4352
 
 Table_CommNotice_DigitCells:: ; 50:438A
 Table_50_438A::
-	dw $D0A3, $D083, $D0E4, $D0C4, $D0A3, $D083, $D0E4, $D0C4
+	dw wScreenTileMap + $A3, wScreenTileMap + $83, wScreenTileMap + $E4, wScreenTileMap + $C4, wScreenTileMap + $A3, wScreenTileMap + $83, wScreenTileMap + $E4, wScreenTileMap + $C4

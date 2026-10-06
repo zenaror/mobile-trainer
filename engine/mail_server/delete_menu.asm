@@ -825,7 +825,7 @@ Function_23_47BC::
 	add hl, bc
 	ld d, h
 	ld e, l
-	ld hl, $D524
+	ld hl, wMailTextScratch
 
 	; [PROBABLE] 243 insn(s) reached by static flow only; seeds: site x243; min discovery hops 0;
 	; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code |
@@ -859,7 +859,7 @@ Function_23_47BC::
 	add hl, bc
 	ld d, h
 	ld e, l
-	ld hl, $D524
+	ld hl, wMailTextScratch
 	farcall TextTiles_RenderLine
 	pop hl
 	ld a, $07
@@ -888,7 +888,7 @@ Function_23_47BC::
 	add hl, bc
 	ld d, h
 	ld e, l
-	ld hl, $D524
+	ld hl, wMailTextScratch
 	farcall TextTiles_RenderLine
 	pop hl
 	call MailSrvDel_UploadDecimalTiles
@@ -906,7 +906,7 @@ Function_23_4864::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, String_MailSrvDel_NumberTemplate_23_497B
-	ld de, $D524
+	ld de, wMailTextScratch
 .loop ; 23:4872
 	ld a, [hli]
 	ld [de], a
@@ -916,7 +916,7 @@ Function_23_4864::
 	pop bc
 	pop hl
 	push bc
-	ld bc, $D525
+	ld bc, wMailTextScratch + $01
 	ld de, $2710
 	push bc
 	farcall Divide16

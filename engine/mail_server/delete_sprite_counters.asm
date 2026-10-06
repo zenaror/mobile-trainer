@@ -23,7 +23,7 @@ Function_23_58C5::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D631
+	ld de, wMailSessionBlock + $0D
 	ld a, [de]
 	xor a, $FF
 	ld c, a

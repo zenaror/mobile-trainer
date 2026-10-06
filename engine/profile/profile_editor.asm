@@ -1209,7 +1209,7 @@ Function_2A_5C8F::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D514
+	ld hl, wEditNameBuf
 	inc b
 .l5C9A ; 2A:5C9A
 	ld d, $00
@@ -1409,8 +1409,8 @@ Profile_InsertChar:: ; 2A:5CD2
 	push bc
 	push de
 	push hl
-	ld de, $D522
-	ld bc, $D520
+	ld de, wEditNameBuf + $0E
+	ld bc, wEditNameBuf + $0C
 .l5DC3 ; 2A:5DC3
 	ld a, d
 	cp a, h
@@ -2230,7 +2230,7 @@ Function_2A_6257::
 	ld [rRAMG], a
 	ld b, $10
 	ld hl, sProfileName
-	ld de, $D514
+	ld de, wEditNameBuf
 .l6274 ; 2A:6274
 	ld a, [hli]
 	ld [de], a
@@ -2239,7 +2239,7 @@ Function_2A_6257::
 	jr nz, .l6274
 	ld b, $40
 	ld hl, sProfileAddress
-	ld de, $D4C0
+	ld de, wEditAddressBuf
 .l6282 ; 2A:6282
 	ld a, [hli]
 	ld [de], a
@@ -2286,7 +2286,7 @@ Profile_SaveToSram:: ; 2A:62C5
 	ld [rRAMG], a
 	ld b, $10
 	ld de, sProfileName
-	ld hl, $D514
+	ld hl, wEditNameBuf
 .l62E2 ; 2A:62E2
 	ld a, [hli]
 	ld [de], a
@@ -2295,7 +2295,7 @@ Profile_SaveToSram:: ; 2A:62C5
 	jr nz, .l62E2
 	ld b, $40
 	ld de, sProfileAddress
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 .l62F0 ; 2A:62F0
 	ld a, [hli]
 	ld [de], a

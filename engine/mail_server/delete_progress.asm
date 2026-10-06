@@ -93,7 +93,7 @@ MailSrvDel_DrawProgressText:: ; 23:56A1
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D631
+	ld de, wMailSessionBlock + $0D
 	ld a, [de]
 	xor a, $FF
 	ld c, a
@@ -144,7 +144,7 @@ MailSrvDel_FormatNumber:: ; 23:56F0
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, String_MailSrvDel_NumberTemplate
-	ld de, $D524
+	ld de, wMailTextScratch
 .loop ; 23:56FE
 	ld a, [hli]
 	ld [de], a
@@ -154,7 +154,7 @@ MailSrvDel_FormatNumber:: ; 23:56F0
 	pop bc
 	pop hl
 	push bc
-	ld bc, $D525
+	ld bc, wMailTextScratch + $01
 	ld de, $2710
 	push bc
 	farcall Divide16
@@ -352,7 +352,7 @@ MailSrvDel_FormatNumber:: ; 23:56F0
 	add hl, bc
 	ld d, h
 	ld e, l
-	ld hl, $D524
+	ld hl, wMailTextScratch
 	farcall TextTiles_RenderLine
 	pop af
 	ret

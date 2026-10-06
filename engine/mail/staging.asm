@@ -36,7 +36,7 @@ Function_2D_46A8::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D400
+	ld hl, wEditBodyBuf
 	ld b, $C0
 .l46B3 ; 2D:46B3
 	xor a, a
@@ -46,7 +46,7 @@ Function_2D_46A8::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 	ld b, $40
 .l46C3 ; 2D:46C3
 	xor a, a
@@ -56,7 +56,7 @@ Function_2D_46A8::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D500
+	ld hl, wEditSubjectBuf
 	ld b, $14
 .l46D3 ; 2D:46D3
 	xor a, a
@@ -66,7 +66,7 @@ Function_2D_46A8::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D514
+	ld hl, wEditNameBuf
 	ld b, $10
 .l46E3 ; 2D:46E3
 	xor a, a

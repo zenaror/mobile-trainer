@@ -1024,7 +1024,7 @@ MailBody_ClearBuffer:: ; 2D:4E2D
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D400
+	ld hl, wEditBodyBuf
 	ld b, $C0
 .loop ; 2D:4E38
 	xor a, a
@@ -1054,7 +1054,7 @@ Function_2D_4E42:: ; 2D:4E42
 
 Function_2D_4E54:: ; 2D:4E54
 	push bc
-	ld hl, $D400
+	ld hl, wEditBodyBuf
 	inc b
 .l4E59 ; 2D:4E59
 	dec b
@@ -1156,7 +1156,7 @@ Function_2D_4EC0::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D400
+	ld hl, wEditBodyBuf
 	inc b
 .l4ECB ; 2D:4ECB
 	ld d, $00
@@ -1623,8 +1623,8 @@ Function_2D_50B8::
 	push bc
 	push de
 	push hl
-	ld de, $D4BE
-	ld bc, $D4BC
+	ld de, wEditBodyBuf + $BE
+	ld bc, wEditBodyBuf + $BC
 .l5181 ; 2D:5181
 	ld a, d
 	cp a, h
@@ -1836,8 +1836,8 @@ MailBody_InsertNewline:: ; 2D:522B
 	push bc
 	push de
 	push hl
-	ld de, $D4BE
-	ld bc, $D4BC
+	ld de, wEditBodyBuf + $BE
+	ld bc, wEditBodyBuf + $BC
 .loop ; 2D:5286
 	ld a, d
 	cp a, h
@@ -3201,7 +3201,7 @@ Function_2D_5A7B::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D400
+	ld hl, wEditBodyBuf
 	ld d, $00
 .loop ; 2D:5A88
 	ld a, [hli]

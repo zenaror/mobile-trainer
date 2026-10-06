@@ -247,7 +247,7 @@ Function_2E_4000::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D62F
+	ld hl, wMailSessionBlock + $0B
 	ld a, e
 	ld [hli], a
 	ld a, d
@@ -272,7 +272,7 @@ Function_2E_4000::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D633
+	ld hl, wMailSessionBlock + $0F
 	ld a, e
 	ld [hli], a
 	ld a, d
@@ -280,7 +280,7 @@ Function_2E_4000::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D62F
+	ld hl, wMailSessionBlock + $0B
 	ld a, [hli]
 	xor a, $FF
 	ld c, a
@@ -441,7 +441,7 @@ Label_2E_4298::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D631
+	ld de, wMailSessionBlock + $0D
 	ld a, [de]
 	xor a, $FF
 	ld c, a
@@ -556,7 +556,7 @@ Label_2E_4298::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D631
+	ld hl, wMailSessionBlock + $0D
 	ld a, [hli]
 	ld c, a
 	ld a, [hl]
@@ -582,7 +582,7 @@ Label_2E_4298::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D635
+	ld hl, wMailSessionBlock + $11
 	ld a, e
 	ld [hli], a
 	ld a, d
@@ -606,7 +606,7 @@ Label_2E_4298::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D631
+	ld de, wMailSessionBlock + $0D
 	ld a, [de]
 	xor a, $FF
 	ld c, a
@@ -1090,7 +1090,7 @@ Label_2E_4298::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D633
+	ld de, wMailSessionBlock + $0F
 	ld a, [de]
 	ld c, a
 	inc de
@@ -1107,7 +1107,7 @@ Label_2E_4298::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D633
+	ld de, wMailSessionBlock + $0F
 	ld a, [de]
 	cp a, $00
 	jp nz, .l4887

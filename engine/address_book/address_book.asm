@@ -11,7 +11,7 @@ Function_2F_7EBF::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D726
+	ld hl, wAbookListState
 	xor a, a
 	ld [hli], a
 	ld [hli], a
@@ -22,7 +22,7 @@ Label_2F_7ECC::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D726
+	ld hl, wAbookListState
 	ld a, [hli]
 	ld c, a
 	inc hl
@@ -35,7 +35,7 @@ Label_2F_7ECC::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D727
+	ld hl, wAbookListState + $01
 	xor a, a
 	ld [hl], a
 	pop af
@@ -139,7 +139,7 @@ Label_2F_7F4E::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D727
+	ld hl, wAbookListState + $01
 	ld a, $01
 	ld [hl], a
 	jp Abook_Run_List
@@ -171,7 +171,7 @@ Function_2F_7F5D::
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld b, $10
-	ld de, $D514
+	ld de, wEditNameBuf
 .l7F87 ; 2F:7F87
 	ld a, [hli]
 	ld [de], a
@@ -182,7 +182,7 @@ Function_2F_7F5D::
 	ld de, $0010
 	add hl, de
 	ld b, $40
-	ld de, $D4C0
+	ld de, wEditAddressBuf
 .l7F97 ; 2F:7F97
 	ld a, [hli]
 	ld [de], a

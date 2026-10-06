@@ -321,7 +321,7 @@ MailMenu_DrawItemNormal:: ; 1D:42AF
 	ld a, h
 	adc a, $00
 	ld h, a
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -397,7 +397,7 @@ Function_1D_4325::
 	ld a, h
 	adc a, $00
 	ld h, a
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a

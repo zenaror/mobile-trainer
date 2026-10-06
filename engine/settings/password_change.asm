@@ -452,7 +452,7 @@ PasswordChange_State_WaitResponse:: ; 67:5BD8
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D340
+	ld hl, wHtmlMetaRCode
 	ld a, [hli]
 	cp a, $4F
 	jr nz, .l5C88
@@ -469,7 +469,7 @@ PasswordChange_State_WaitResponse:: ; 67:5BD8
 	; --split [executed in 1 scenarios]
 	ld a, $40
 	ld [wMobileErrorCode], a
-	ld hl, $D380
+	ld hl, wHtmlMetaDCode
 	ld a, [hli]
 	sub a, $30
 	swap a

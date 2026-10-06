@@ -13,14 +13,14 @@ Browser_FetchInlineImages:: ; 4C:4840
 	ld a, $04
 	ldh [hInlineImages_UrlBank], a
 	ld de, wAttrUrlBuf
-	ld hl, $D500
+	ld hl, wBrowserPageUrl
 	ld bc, $0100
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call CopyBytes
 	call Sound_FrameService
-	ld de, $DD00
+	ld de, wHtmlImageBaseUrl
 	ld hl, wAttrUrlBuf
 	ld bc, $0100
 	ld a, $04
@@ -105,7 +105,7 @@ Browser_FetchInlineImages:: ; 4C:4840
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	pop hl
-	ld de, $DD00
+	ld de, wHtmlImageBaseUrl
 	ld a, $04
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a

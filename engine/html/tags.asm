@@ -382,14 +382,14 @@ Html_Tag_Meta:: ; 74:4698
 	push hl
 	push de
 	ld hl, wAttrUrlBuf
-	ld de, $D300
+	ld de, wHtmlMetaPppId
 	ld bc, $0040
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call CopyBytes
 	xor a, a
-	ld [wRam_D33F], a
+	ld [wHtmlMetaPppId + $3F], a
 	pop de
 	pop hl
 	jp Html_ParseSource_Tag_Done
@@ -397,14 +397,14 @@ Html_Tag_Meta:: ; 74:4698
 	push hl
 	push de
 	ld hl, wAttrUrlBuf
-	ld de, $D340
+	ld de, wHtmlMetaRCode
 	ld bc, $0040
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call CopyBytes
 	xor a, a
-	ld [wRam_D37F], a
+	ld [wHtmlMetaRCode + $3F], a
 	pop de
 	pop hl
 	jp Html_ParseSource_Tag_Done
@@ -412,14 +412,14 @@ Html_Tag_Meta:: ; 74:4698
 	push hl
 	push de
 	ld hl, wAttrUrlBuf
-	ld de, $D380
+	ld de, wHtmlMetaDCode
 	ld bc, $0040
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call CopyBytes
 	xor a, a
-	ld [wRam_D3BF], a
+	ld [wHtmlMetaDCode + $3F], a
 	pop de
 	pop hl
 	jp Html_ParseSource_Tag_Done
@@ -528,7 +528,7 @@ Html_Tag_Ul:: ; 74:47AA
 	ld b, $00
 	inc a
 	ld [wHtmlListDepth], a
-	ld hl, $D100
+	ld hl, wHtmlListStack
 	add hl, bc
 	add hl, bc
 	ld a, [wHtmlListCounter]
@@ -561,7 +561,7 @@ Html_Tag_Ul:: ; 74:47AA
 	ld [wHtmlListDepth], a
 	ld c, a
 	ld b, $00
-	ld hl, $D100
+	ld hl, wHtmlListStack
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
@@ -646,7 +646,7 @@ Html_Tag_Ol:: ; 74:4867
 	ld b, $00
 	inc a
 	ld [wHtmlListDepth], a
-	ld hl, $D100
+	ld hl, wHtmlListStack
 	add hl, bc
 	add hl, bc
 	ld c, $00
@@ -692,7 +692,7 @@ Html_Tag_Ol:: ; 74:4867
 	ld [wHtmlListDepth], a
 	ld c, a
 	ld b, $00
-	ld hl, $D100
+	ld hl, wHtmlListStack
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
@@ -1050,8 +1050,8 @@ Html_Tag_A:: ; 74:4A91
 	ldh [rSVBK], a
 	ld a, $23
 	ld [de], a
-	ld hl, $DFFE
-	ld bc, $D600
+	ld hl, $DFFE ; raw: string limit of the link heap, two bytes below the end of wHtmlLinkHeap (the Y position of a #name follows the string), compared with the write pointer and never dereferenced
+	ld bc, wHtmlLinkPtrList
 	farcall Html_StringTable_Add
 	or a, a
 	jr nz, .l4B6D
@@ -1095,8 +1095,8 @@ Html_Tag_A:: ; 74:4A91
 	ldh [rSVBK], a
 	ld a, $2F
 	ld [de], a
-	ld hl, $DFFE
-	ld bc, $D600
+	ld hl, $DFFE ; raw: string limit of the link heap, two bytes below the end of wHtmlLinkHeap (the Y position of a #name follows the string), compared with the write pointer and never dereferenced
+	ld bc, wHtmlLinkPtrList
 	farcall Html_StringTable_Add
 	or a, a
 	jr nz, .l4B6D
@@ -1775,8 +1775,8 @@ Html_Tag_Img:: ; 74:4DF9
 	ldh [rSVBK], a
 	ld a, $2F
 	ld [de], a
-	ld hl, $DCFE
-	ld bc, $DE00
+	ld hl, $DCFE ; raw: limit of the image URL heap of the scan pass (bank 4, one past the used area), never dereferenced
+	ld bc, wHtmlImageUrlList
 	farcall Html_StringTable_Add
 	or a, a
 	jr nz, .l4F45

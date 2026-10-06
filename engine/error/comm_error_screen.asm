@@ -307,7 +307,7 @@ Function_5C_53B3::
 	ld d, a
 	swap a
 	and a, $0F
-	ld hl, $D00C
+	ld hl, wScreenTileMap + $0C
 	call CommErr_DrawDigit
 	inc hl
 	ld a, d
@@ -335,7 +335,7 @@ Function_5C_53B3::
 	ld d, a
 	swap a
 	and a, $0F
-	ld hl, $D00F
+	ld hl, wScreenTileMap + $0F
 	ld b, a
 	ld a, [wCommErrCategory]
 	cp a, $40

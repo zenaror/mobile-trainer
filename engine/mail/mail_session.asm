@@ -11,7 +11,7 @@ Function_26_4000::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D637
+	ld de, wMailSessionBlock + $13
 	xor a, a
 	ld [de], a
 	xor a, a
@@ -728,7 +728,7 @@ Label_26_4636::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D62F
+	ld hl, wMailSessionBlock + $0B
 	ld a, e
 	ld [hli], a
 	ld a, d
@@ -809,7 +809,7 @@ Label_26_4636::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D62F
+	ld hl, wMailSessionBlock + $0B
 	ld a, [hli]
 	xor a, $FF
 	ld c, a
@@ -986,7 +986,7 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D631
+	ld hl, wMailSessionBlock + $0D
 	ld a, [hli]
 	ld c, a
 	ld a, [hl]
@@ -2045,7 +2045,7 @@ MailSession_Cancel:: ; 26:503C
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D637
+	ld de, wMailSessionBlock + $13
 	ld a, $01
 	ld [de], a
 	ld a, $FF

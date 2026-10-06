@@ -222,14 +222,14 @@ Browser_PageView_FollowLink:: ; 4E:4B0E
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld b, $00
-	ld hl, $D600
+	ld hl, wHtmlLinkPtrList
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
 	inc hl
-	ld de, $D500
+	ld de, wBrowserPageUrl
 	farcall HtmlUrl_Resolve
 	ld hl, wAttrUrlBuf
 	farcall HtmlUrl_NormalizePath
@@ -284,8 +284,8 @@ Browser_PageView_GoBack:: ; 4E:4BAD
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D500
-	ld de, $D400
+	ld hl, wBrowserPageUrl
+	ld de, wBrowserUrlSave
 	ld bc, $0100
 	call CopyBytes
 	ld de, wAttrUrlBuf
@@ -314,20 +314,20 @@ Browser_PageView_GoBack:: ; 4E:4BAD
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, wAttrUrlBuf
-	ld de, $D500
+	ld de, wBrowserPageUrl
 	ld bc, $0100
 	call CopyBytes
-	ld hl, $D500
+	ld hl, wBrowserPageUrl
 	ld a, $06
 	farcall Browser_HistoryPushFrom
-	ld hl, $D400
+	ld hl, wBrowserUrlSave
 	ld a, $06
 	farcall Browser_HistoryPushFrom
 	farcall PageCache_Push
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D500
+	ld hl, wBrowserPageUrl
 	ld de, wAttrUrlBuf
 	ld bc, $0100
 	call CopyBytes
@@ -497,7 +497,7 @@ Browser_Menu_PageList:: ; 4E:4D7B
 	ld a, $04
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D000
+	ld hl, wHtmlPage
 	ld de, wAttrUrlBuf
 	ld bc, $0014
 	call CopyBytes
@@ -505,7 +505,7 @@ Browser_Menu_PageList:: ; 4E:4D7B
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, wAttrUrlBuf
-	ld de, $D3C0
+	ld de, wBrowserPageTitle
 	ld bc, $0014
 	call CopyBytes
 	ld a, [wTimerEnable]

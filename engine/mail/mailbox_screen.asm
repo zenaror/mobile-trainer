@@ -537,7 +537,7 @@ Mailbox_DrawTimestamp:: ; 25:4F40
 	ld l, e
 	ld de, $0003
 	add hl, de
-	ld de, $D524 ; raw: digit scratch dereferenced under bank 1 after ld a, $01 at 25:4F5B (not the bank in force at the load), not the compose mode
+	ld de, wMailTextScratch ; the bank in force at this load is 2 (2 of the 41 bank-observed replays); bank 1 is selected at 25:4F5B, before the first store through DE
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -557,7 +557,7 @@ Mailbox_DrawTimestamp:: ; 25:4F40
 	dec b
 	jr nz, .l4F61
 	ld de, $98A1
-	ld hl, $D524
+	ld hl, wMailTextScratch
 	xor a, a
 	ldh [rVBK], a
 	di
@@ -615,8 +615,8 @@ Mailbox_DrawTimestamp:: ; 25:4F40
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	ld de, $D0A1
-	ld hl, $D524
+	ld de, wScreenTileMap + $A1
+	ld hl, wMailTextScratch
 	push af
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -805,7 +805,7 @@ Function_25_50C2::
 	ld l, e
 	ld de, $0003
 	add hl, de
-	ld de, $D524
+	ld de, wMailTextScratch
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -827,7 +827,7 @@ Function_25_50C2::
 	dec b
 	jr nz, .loop
 	ld de, $98A1
-	ld hl, $D524
+	ld hl, wMailTextScratch
 	xor a, a
 	ldh [rVBK], a
 	ld a, [hli]
@@ -879,8 +879,8 @@ Function_25_50C2::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	ld de, $D0A1
-	ld hl, $D524
+	ld de, wScreenTileMap + $A1
+	ld hl, wMailTextScratch
 	push af
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -1351,7 +1351,7 @@ Mailbox_ReplyToRecord:: ; 25:54A7
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $D400
+	ld hl, $D400 ; raw: wipe of the whole 292-byte staging area $D400-$D523 (`ld bc, $0124`: body, address, subject and name buffers), not of wEditBodyBuf alone
 	ld bc, $0124
 .l54C5 ; 25:54C5
 	xor a, a
@@ -1383,7 +1383,7 @@ Mailbox_ReplyToRecord:: ; 25:54A7
 	push hl
 	ld de, $00ED
 	add hl, de
-	ld de, $D4C0
+	ld de, wEditAddressBuf
 	ld b, $40
 .l54F6 ; 25:54F6
 	ld a, [hli]
@@ -1394,7 +1394,7 @@ Mailbox_ReplyToRecord:: ; 25:54A7
 	pop hl
 	ld de, $00C9
 	add hl, de
-	ld de, $D514
+	ld de, wEditNameBuf
 	ld b, $10
 .l5506 ; 25:5506
 	ld a, [hli]
@@ -1865,7 +1865,7 @@ Mailbox_SetIconBarAttrs:: ; 25:5889
 	push hl
 	ld de, $0018
 	add hl, de
-	ld de, $D5C0
+	ld de, wScreenAttrMap + $1C0
 	ld c, $14
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -1877,7 +1877,7 @@ Mailbox_SetIconBarAttrs:: ; 25:5889
 	dec c
 	jr nz, .l58D1
 	pop hl
-	ld de, $D5E0
+	ld de, wScreenAttrMap + $1E0
 	ld c, $14
 .l58DD ; 25:58DD
 	ld a, [hli]

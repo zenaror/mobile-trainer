@@ -292,7 +292,7 @@ PalLibUnused_ReadPalettesToBuffer:: ; 29:520D
 Function_29_520D::
 	ld a, $01
 	ldh [rSVBK], a
-	ld de, $DBD0
+	ld de, $DBD0 ; raw: unreferenced palette library (no caller, forced execution only): bank 1 is selected on the real register at 29:520D, but no name covers $DBD0 of bank 1
 	xor a, a
 	ldh [rBCPS], a
 	call PalLibUnused_WaitLY90
@@ -325,7 +325,7 @@ Function_29_520D::
 
 PalLibUnused_WriteBufferToPalettes:: ; 29:523F
 Function_29_523F::
-	ld de, $DBD0
+	ld de, $DBD0 ; raw: unreferenced palette library (no caller, forced execution only), the bank in force is not shown
 	xor a, a
 	ldh [rBCPS], a
 	call PalLibUnused_WaitLY90
@@ -390,7 +390,7 @@ Function_29_523F::
 
 PalLibUnused_FadeStepTowardWhite:: ; 29:529F
 Function_29_529F::
-	ld hl, $DBD0
+	ld hl, $DBD0 ; raw: unreferenced palette library (no caller, forced execution only), the bank in force is not shown
 	ld b, $40
 .loop ; 29:52A4
 	push bc
@@ -451,7 +451,7 @@ Function_29_529F::
 
 PalLibUnused_FadeStepTowardBlack:: ; 29:52ED
 Function_29_52ED::
-	ld hl, $DBD0
+	ld hl, $DBD0 ; raw: unreferenced palette library (no caller, forced execution only), the bank in force is not shown
 	ld b, $40
 .loop ; 29:52F2
 	push bc
@@ -511,7 +511,7 @@ PalLibUnused_FillBufferFromBlock:: ; 29:5335
 Function_29_5335::
 	push bc
 	ld c, $02
-	ld de, $DBD0
+	ld de, $DBD0 ; raw: unreferenced palette library (no caller, forced execution only), the bank in force is not shown
 .l533B ; 29:533B
 	ld b, $40
 	push hl

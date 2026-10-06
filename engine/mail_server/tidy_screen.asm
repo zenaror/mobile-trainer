@@ -188,7 +188,7 @@ MailServerMgr_RedrawScreen:: ; 2E:4C58
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D635
+	ld hl, wMailSessionBlock + $11
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
@@ -207,7 +207,7 @@ MailServerMgr_RedrawScreen:: ; 2E:4C58
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D631
+	ld de, wMailSessionBlock + $0D
 	ld a, [de]
 	xor a, $FF
 	ld c, a
@@ -418,7 +418,7 @@ MailServerMgr_DrawMailFields:: ; 2E:4EBD
 	ld a, $10
 	ld bc, $0300
 	ld de, $0220
-	ld hl, $D406 ; raw: POP3 header summary staged by bank 54 (source label), not the mail body edit buffer
+	ld hl, wMailInfo + $06
 	farcall MailServerMgr_DrawFieldText
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -426,7 +426,7 @@ MailServerMgr_DrawMailFields:: ; 2E:4EBD
 	ld a, $14
 	ld bc, $0300
 	ld de, $1220
-	ld hl, $D4C0 ; raw: POP3 header summary staged by bank 54 (sender name or address), not the address edit buffer
+	ld hl, wMailInfo + $C0
 	farcall MailServerMgr_DrawFieldText
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -434,7 +434,7 @@ MailServerMgr_DrawMailFields:: ; 2E:4EBD
 	ld a, $14
 	ld bc, $0300
 	ld de, $2220
-	ld hl, $D41B ; raw: POP3 header summary staged by bank 54 (subject), not the mail body edit buffer
+	ld hl, wMailInfo + $1B
 	farcall MailServerMgr_DrawFieldText
 	call MailServerMgr_UploadTextTiles
 	ret
@@ -613,8 +613,8 @@ MailServerMgr_DrawMailDate:: ; 2E:5005
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D400
-	ld de, $D524
+	ld hl, wMailInfo
+	ld de, wMailTextScratch
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -654,7 +654,7 @@ MailServerMgr_DrawMailDate:: ; 2E:5005
 	dec b
 	jr nz, .l501A
 	ld de, $9881
-	ld hl, $D524
+	ld hl, wMailTextScratch
 	xor a, a
 	ldh [rVBK], a
 	di
@@ -712,8 +712,8 @@ MailServerMgr_DrawMailDate:: ; 2E:5005
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	ld de, $D081
-	ld hl, $D524
+	ld de, wScreenTileMap + $81
+	ld hl, wMailTextScratch
 	push af
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -1072,12 +1072,12 @@ MailServerMgr_DrawMailNumber:: ; 2E:5184
 	add a, $08
 	cp a, $08
 	jr nz, .l52F7
-	ld hl, $D042
+	ld hl, wScreenTileMap + $42
 	jr .l5315
 .l52F7 ; 2E:52F7
 	cp a, $10
 	jr nz, .l5300
-	ld hl, $D043
+	ld hl, wScreenTileMap + $43
 	jr .l5315
 
 .l5300 ; 2E:5300
@@ -1085,15 +1085,15 @@ MailServerMgr_DrawMailNumber:: ; 2E:5184
 	; 4FA9-533C by apply_coverage --split
 	cp a, $18
 	jr nz, .l5309
-	ld hl, $D044
+	ld hl, wScreenTileMap + $44
 	jr .l5315
 .l5309 ; 2E:5309
 	cp a, $20
 	jr nz, .l5312
-	ld hl, $D045
+	ld hl, wScreenTileMap + $45
 	jr .l5315
 .l5312 ; 2E:5312
-	ld hl, $D046
+	ld hl, wScreenTileMap + $46
 
 .l5315 ; 2E:5315
 	; [CONFIRMED] 26 insn(s) executed; cut out of the PROBABLE region 4FA9-533C by apply_coverage

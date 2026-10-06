@@ -11,7 +11,7 @@ Function_74_4165::
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D340
+	ld hl, wHtmlMetaRCode
 	ld bc, Html_ResultCodePtrs
 	ld a, l
 	ldh [hRam_FFB0], a
@@ -25,7 +25,7 @@ Function_74_4165::
 	; fall-through of the jpcc at 74:417C (executed)
 	cp a, $02
 	jp z, Html_MetaResultToError_NoError
-	ld hl, $D380
+	ld hl, wHtmlMetaDCode
 	xor a, a
 	ldh [hRam_FFB0], a
 	ldh [hRam_FFB1], a
@@ -133,7 +133,7 @@ Function_74_4207::
 	ld a, $04
 	ldh [hPageHeaderPtr + 2], a
 	ldh [hHtml_PageBank], a
-	ld de, $D000
+	ld de, wHtmlTextStream
 	ld a, $05
 	ldh [hTextX], a
 	ld hl, sBrowserPageBuf
@@ -161,7 +161,7 @@ Html_ScanPage:: ; 74:4254
 	ld a, $04
 	ldh [hPageHeaderPtr + 2], a
 	ldh [hHtml_PageBank], a
-	ld de, $D000
+	ld de, wHtmlTextStream
 	ld a, $05
 	ldh [hTextX], a
 	ld hl, sBrowserPageBuf
@@ -176,7 +176,7 @@ Html_ParseSource:: ; 74:4296
 	ld [rRAMG], a
 	push hl
 	ld a, $06
-	ld hl, $D300
+	ld hl, $D300 ; raw: clears $0100 bytes from $D300 of bank 6: the three meta values and the page title record, not one name
 	ld bc, $0100
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a

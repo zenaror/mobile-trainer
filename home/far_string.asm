@@ -34,7 +34,7 @@ Function_00_153D::
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ld de, $D000
+	ld de, wPromptTextBuf
 	call CopyString
 	ldh [hScratchA], a
 	pop af
@@ -46,7 +46,7 @@ Function_00_153D::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
-	ld hl, $D000
+	ld hl, wPromptTextBuf
 	ld a, $05
 	ret
 

@@ -460,7 +460,7 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	ld a, h
 	adc a, $00
 	ld h, a
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -534,7 +534,7 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	ld a, h
 	adc a, $00
 	ld h, a
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -607,7 +607,7 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	ld a, h
 	adc a, $00
 	ld h, a
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -733,7 +733,7 @@ Function_6C_453D::
 	ld a, h
 	adc a, $00
 	ld h, a
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -807,7 +807,7 @@ Function_6C_453D::
 	ld a, h
 	adc a, $00
 	ld h, a
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -880,7 +880,7 @@ Function_6C_453D::
 	ld a, h
 	adc a, $00
 	ld h, a
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a

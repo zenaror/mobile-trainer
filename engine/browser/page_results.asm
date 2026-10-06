@@ -56,7 +56,7 @@ Function_4C_4DFB::
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D500
+	ld hl, wBrowserPageUrl
 	ld bc, $FFFF
 .l4E0A ; 4C:4E0A
 	inc bc
@@ -133,7 +133,7 @@ Function_4C_4DFB::
 	ld hl, String_Html_TitleToImg
 	farcall CopyString
 	dec de
-	ld hl, $D500
+	ld hl, wBrowserPageUrl
 	farcall CopyString
 	dec de
 	ld hl, String_Html_ImgTail
@@ -148,7 +148,7 @@ Function_4C_4DFB::
 	inc de
 	ld [de], a
 	inc de
-	ld hl, $D500
+	ld hl, wBrowserPageUrl
 	farcall CopyString
 	dec de
 	ld bc, $0001

@@ -178,7 +178,7 @@ MailView_BodyPage_InitScreen:: ; 2B:7B9B
 	ld l, e
 	ld de, $0009
 	add hl, de
-	ld de, $D400
+	ld de, wEditBodyBuf
 	ld b, $C0
 .loop ; 2B:7C89
 	ld a, [hli]
@@ -490,7 +490,7 @@ MailView_BodyPage_FindLine:: ; 2B:7EE0
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D400
+	ld hl, wEditBodyBuf
 	inc b
 .l7EEB ; 2B:7EEB
 	ld d, $00

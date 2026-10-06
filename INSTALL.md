@@ -95,6 +95,7 @@ python3 tools/tidy_comments.py --check      # function comments are in the curre
 python3 tools/localize_labels.py --check    # jump targets inside functions are local labels
 python3 tools/gen_sjis_charmap.py --check   # constants/sjis_charmap.asm is current (reads the ROM, or mobile_trainer.gbc)
 python3 tools/gfx_export.py check           # PNGs vs .2bpp (needs rgbgfx), asset sizes, gfx/assets.tsv
+python3 tools/invariants_check.py           # the mail library runs only under WRAM bank 5, the sound driver only under bank 1 (needs the built tree)
 ```
 
 `make regen`, `make verify` and `make tree*` refuse to run: the bootstrap generator (`tools/gen_asm.py` + `config/`) that produced the source once is frozen history and must not be run over it

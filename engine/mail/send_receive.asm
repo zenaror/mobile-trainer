@@ -15,7 +15,7 @@ Function_27_4000::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D624
+	ld hl, wMailSessionBlock
 	ld de, MailSendRecv_RequestTemplate
 	ld b, $07
 .loop ; 27:4017
@@ -31,7 +31,7 @@ Function_27_4000::
 	xor a, a
 	ld [wMailSessionBlock + 7], a
 	ld d, $01
-	ld bc, $D624
+	ld bc, wMailSessionBlock
 	farcall ConnectDialog_Run
 	inc b
 	ret z
@@ -326,7 +326,7 @@ Function_27_41E3::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld b, $09
-	ld hl, $D524
+	ld hl, wMailTextScratch
 	ld de, $C0A0 ; raw: scratch: 9 bytes copied from $D524, not a glyph
 .loop ; 27:4225
 	ld a, [hli]
@@ -1912,7 +1912,7 @@ Label_27_4EEB:: ; 27:4EEB
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D164
+	ld de, wScreenTileMap + $164
 	ldh a, [hRam_FFB2]
 	ld l, a
 	ld h, $00
@@ -1930,7 +1930,7 @@ Label_27_4EEB:: ; 27:4EEB
 	call CommTime_DrawNumber_27_4FFB
 	ld a, l
 	call CommTime_PutDigit_27_5021
-	ld de, $D169
+	ld de, wScreenTileMap + $169
 	ldh a, [hRam_FFB1]
 	ld l, a
 	ld h, $00

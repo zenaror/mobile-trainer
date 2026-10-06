@@ -389,7 +389,7 @@ Function_1A_42DE::
 	ld h, a
 	add hl, hl
 	add hl, hl
-	ld de, $D4A1
+	ld de, wScreenAttrMap + $A1
 	add hl, de
 	ld bc, $0210
 	ld de, $F801

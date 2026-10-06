@@ -139,7 +139,7 @@ Bank4_GateEnter:: ; 00:2116
 Function_00_2116::
 	; [CONFIRMED] stub guard used by 20AC..20EB: see stubs. D000 is banked WRAM: the guard state
 	; lives in whichever WRAM bank is selected at the call (Boot and 0392 select bank 1 first)
-	ld hl, $D000
+	ld hl, wBank4State
 	bit 7, [hl]
 	jr nz, Bank4_GateReturnBusy
 
@@ -161,7 +161,7 @@ Bank4_GateEnterTick:: ; 00:2129
 Function_00_2129::
 	; [CONFIRMED] stub guard used by 20A6: if bank-4 already active (D000.bit7) and not pending,
 	; sets D000.bit6 and saves the return address at D003/D004 (deferred call); else returns A=$FF
-	ld hl, $D000
+	ld hl, wBank4State
 	bit 7, [hl]
 	jr z, Bank4_GateSetBusy
 	bit 6, [hl]
@@ -180,7 +180,7 @@ Function_00_2141::
 	; [CONFIRMED] return from bank 04: if D000.bit6 clear restore bank and clear bit7; else re-queue
 	; the deferred stub address from D003/D004 (ret jumps to it) and clear bit6. 15 call sites in
 	; bank 04 [reached via inferred links; raw refs 29] [executed in 1 scenarios]
-	ld hl, $D000
+	ld hl, wBank4State
 	bit 6, [hl]
 	jr nz, .l214F
 	call Bank4_RestoreCallerBank
@@ -193,7 +193,7 @@ Function_00_2141::
 	ld a, [wBank4DeferredCall]
 	ld l, a
 	push hl
-	ld hl, $D000
+	ld hl, wBank4State
 	res 6, [hl]
 	ret
 

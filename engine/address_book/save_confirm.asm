@@ -103,7 +103,7 @@ AddrBook_StoreEditBufferToSlot:: ; 2A:704B
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D726
+	ld hl, wAbookListState
 	ld a, [hl]
 	ld c, a
 	ld b, $00
@@ -127,7 +127,7 @@ AddrBook_StoreEditBufferToSlot:: ; 2A:704B
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld b, $10
-	ld de, $D514
+	ld de, wEditNameBuf
 .l7080 ; 2A:7080
 	ld a, [de]
 	ld [hli], a
@@ -138,7 +138,7 @@ AddrBook_StoreEditBufferToSlot:: ; 2A:704B
 	ld de, $0010
 	add hl, de
 	ld b, $40
-	ld de, $D4C0
+	ld de, wEditAddressBuf
 .l7090 ; 2A:7090
 	ld a, [de]
 	ld [hli], a
@@ -270,7 +270,7 @@ AddrBook_SaveConfirm_DrawSlot:: ; 2A:7187
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld b, $10
-	ld de, $D514
+	ld de, wEditNameBuf
 .l71B0 ; 2A:71B0
 	ld a, [hli]
 	ld [de], a
@@ -281,7 +281,7 @@ AddrBook_SaveConfirm_DrawSlot:: ; 2A:7187
 	ld de, $0010
 	add hl, de
 	ld b, $40
-	ld de, $D4C0
+	ld de, wEditAddressBuf
 .l71C0 ; 2A:71C0
 	ld a, [hli]
 	ld [de], a
