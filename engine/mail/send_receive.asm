@@ -39,7 +39,7 @@ Function_27_4000::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D624
+	ld hl, wMailSessionBlock
 	xor a, a
 	ld [hli], a
 	ld a, $FF
@@ -1048,7 +1048,7 @@ Function_27_4768::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D625
+	ld hl, wMailSessionBlock + $01
 	ld a, [hli]
 	cp a, $00
 	jr z, .l4826
@@ -1338,7 +1338,7 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D625
+	ld hl, wMailSessionBlock + $01
 	ld a, [hli]
 	cp a, $00
 	jr z, .l4A76

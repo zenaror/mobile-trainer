@@ -211,7 +211,7 @@ Ticker_Start:: ; 48:42D4
 	ld a, [wTickerTitlePtr + 1]
 	ld h, a
 	ld c, $40
-	ld de, $D000
+	ld de, wTileStage2
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	dec a
@@ -226,7 +226,7 @@ Ticker_Start:: ; 48:42D4
 	ld a, [wTickerTextPtr + 1]
 	ld h, a
 	ld c, $40
-	ld de, $D000
+	ld de, wTileStage2
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	dec a
@@ -242,14 +242,14 @@ Ticker_Start:: ; 48:42D4
 	ld [wRam_C0F6], a
 	call Sound_FrameService
 	ld de, $9400
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld a, $00
 	ld b, $97
 	ld c, $14
 	farcall Gfx_StartHDMAWithService
 	call Sound_FrameService
 	ld de, $9600
-	ld hl, $D400
+	ld hl, wTileStage2 + $400
 	ld a, $00
 	ld b, $97
 	ld c, $14
@@ -309,18 +309,18 @@ Ticker_Stop:: ; 48:4460
 	ldh [rSVBK], a
 	xor a, a
 	ld bc, $0800
-	ld hl, $D000
+	ld hl, wTileStage2
 	call FillBytes
 	call Sound_FrameService
 	ld de, $9400
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld a, $00
 	ld b, $95
 	ld c, $20
 	farcall Gfx_StartHDMAWithService
 	call Sound_FrameService
 	ld de, $9600
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld a, $00
 	ld b, $95
 	ld c, $20

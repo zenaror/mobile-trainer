@@ -1,5 +1,6 @@
 # analysis/naming2/wramx_calls.tsv -- the effect of a routine on the WRAM bank in force, for the backward scan of tools/apply_ram_operands.py (docs/research/naming2_ramop7.md)
-# effect: `keeps` = the bank in force after the call is the one before it (the routine writes no bank register, or saves the shadow at entry and restores it at exit);
+# effect: `keeps` = the routine writes no bank register, or saves the hWRAMBank shadow at entry and restores both registers from it at exit: the real bank after the call is the one before it only while
+#         hWRAMBank == rSVBK at entry (the shadow-desync window of docs/research/naming2_verify_ramop7.md section 4c: 5 executed call sites of the part A rows return in a bank not seen before the call);
 #         `sets W7` = it is bank 7 after the call (the routine selects it and does not restore);
 #         `keeps if A=0` = the same as `keeps` when A is the constant 0 at the call (the routine takes a bank in A, 0 meaning none).
 # A routine that is not listed is unknown: a call to it between a bank switch and a site ends the proof.  Every row says how the effect was read.
@@ -8,7 +9,7 @@ VBlank_WaitStartDI	keeps	00:047A waits for the VBlank, writes no bank register, 
 VBlank_Wait	keeps	00:0464 waits for the VBlank, writes no bank register
 VBlank_WaitAndService	keeps	00:044B waits for the VBlank and calls Sound_FrameService, no bank register
 Sound_FrameService	keeps	00:0392 saves BC, DE, HL and the bank shadow, sets rSVBK = 1 (the shadow is not written), calls Sound_FrameTick, then writes rSVBK back from the saved shadow
-LCDOn	keeps	00:05C4 (home/lcd.asm:36) writes no bank register
+LCDOn	keeps	00:05B6 (home/lcd.asm:36) writes no bank register
 LCDOff	keeps	home/lcd.asm:43 writes no bank register, calls Sound_FrameService
 CopyBytes	keeps	00:050C writes no bank register, calls nothing
 FillBytes	keeps	00:04D8 writes no bank register, calls nothing
@@ -42,3 +43,46 @@ Gfx_StartHDMAWithService	keeps if A=0	00:0787 the same convention; the frame ser
 Gfx_WaitForFrameTop	keeps	00:08B7 (home/gfx_upload.asm) reads rLCDC and rLY, executes ei, writes no bank register, calls nothing
 CopyBytesBackward	keeps	00:0526 writes no bank register, calls nothing
 Tilemap_ApplyMaskRect	keeps if A=0	00:091C `call BankSwitch_H` (A = the bank of the region of HL, 0 = no change), then the AND/OR loop; no other bank register is written
+CopyString	keeps	00:14BF (home/string.asm:7) writes no bank register, calls nothing
+CopyStringMax	keeps	00:14C6 writes no bank register, calls nothing
+CopyStringMax_ZeroSrcOnEmpty	keeps	00:14D1 writes no bank register, calls nothing
+EncodeXorA5	keeps	00:14E0 writes no bank register, calls nothing
+DecodeXorA5	keeps	00:14EA writes no bank register, calls nothing
+StringAppend	keeps	00:14F3 writes no bank register, calls nothing
+CompareString	keeps	00:1509 writes no bank register, calls nothing
+PhoneNumber_UnpackBcd	keeps	68:4054 (engine/account/helpers.asm:44) writes no bank register, calls nothing
+PhoneNumber_PackBcd	keeps	68:409A writes no bank register, calls nothing
+Wram3_CopyString	keeps	68:4021 saves the bank shadow, selects bank 3, calls CopyString, restores the saved bank
+Wram3_ClearByte	keeps	68:403B saves the bank shadow, selects bank 3, restores the saved bank
+TextBuf_Init	keeps	67:6731 (engine/settings/text_buffer.asm) saves the bank shadow, selects bank 3, restores the saved bank on every exit
+TextBuf_AppendChar	keeps	67:674F (engine/settings/text_buffer.asm) saves the bank shadow, selects bank 3, restores the saved bank on every exit
+TextBuf_DeleteLast	keeps	67:6799 (engine/settings/text_buffer.asm) saves the bank shadow, selects bank 3, restores the saved bank on every exit
+TextBuf_GetFree	keeps	67:6828 (engine/settings/text_buffer.asm) saves the bank shadow, selects bank 3, restores the saved bank on every exit
+TextBuf_GetLength	keeps	67:6842 (engine/settings/text_buffer.asm) saves the bank shadow, selects bank 3, restores the saved bank on every exit
+TextBuf_GetCount	keeps	67:6807 (engine/settings/text_buffer.asm) saves the bank shadow, selects bank 3, restores the saved bank on every exit
+TextEntry_InsertString	keeps	68:4127 saves the bank shadow, selects bank 3, restores the saved bank at 68:4148-414D
+TextEntry_CopyText	keeps	68:417F saves the bank shadow, selects bank 3, calls CopyString, restores the saved bank
+TextEntry_UpdateCursorSprite	keeps	68:40D8 calls TextBuf_GetCount, Multiply8x16 and Sprite_SetPosition, which keep the bank; writes no bank register itself
+Settings_StoreStringField	keeps	68:4A4A saves the bank shadow, selects bank 3 and restores it at 68:4A94-4A99
+TextTiles_RenderLine	keeps	48:403E calls ReadByteFar and Font_BlitGlyph8x16 (48:4748), which save the shadow and restore it (48:47F4-4808); writes no bank register itself
+TextTiles_RenderGrid	keeps	48:40A9 the same two calls, no bank register written
+TextTiles_RenderGridRows	keeps	48:415A the same two calls, no bank register written
+Gfx_GdmaAtVBlankNoDi	keeps	7F:72C2 loads HDMA1-4, waits for the frame top, starts the transfer; writes no bank register
+Gfx_GdmaAtVBlank	keeps	7F:4C20 the same, with di/ei; writes no bank register
+Gfx_StartHDMAAtVBlank	keeps	local HDMA starter (loads rHDMA1-5 from HL/DE/C, waits for the frame top): writes no bank register
+PageList_StartHDMAAtVBlank	keeps	local HDMA starter (loads rHDMA1-5 from HL/DE/C, waits for the frame top): writes no bank register
+PageListProto_StartHDMAAtVBlank	keeps	local HDMA starter (loads rHDMA1-5 from HL/DE/C, waits for the frame top): writes no bank register
+TextTiles_HdmaBlock	keeps	loads rHDMA1-5 from HL/DE/C, waits for the frame top, selects bank 1 for wStatSplitLine between 2D:506E and 2D:507A and restores hWRAMBank and rSVBK from the value read back from rSVBK before it starts the DMA (the shadow is left as that value, e.g. $FA)
+MailServerMgr_HdmaBlock	keeps	local HDMA starter (loads rHDMA1-5 from HL/DE/C, waits for the frame top): writes no bank register
+AbookName_HdmaBlock	keeps	local HDMA starter (loads rHDMA1-5 from HL/DE/C, waits for the frame top): writes no bank register
+MailResult_StartHDMAAtVBlank	keeps	local HDMA starter (loads rHDMA1-5 from HL/DE/C, waits for the frame top): writes no bank register
+MailSession_StartHDMAAtVBlank	keeps	local HDMA starter (loads rHDMA1-5 from HL/DE/C, waits for the frame top): writes no bank register
+Gfx_StartHDMAAtVBlank_2A_5C3B	keeps	local HDMA starter (loads rHDMA1-5 from HL/DE/C, waits for the frame top): writes no bank register
+Gfx_StartHDMAAtVBlank_2B_4723	keeps	local HDMA starter (loads rHDMA1-5 from HL/DE/C, waits for the frame top): writes no bank register
+Gfx_StartHDMAAtVBlank_2B_5994	keeps	local HDMA starter (loads rHDMA1-5 from HL/DE/C, waits for the frame top): writes no bank register
+Gfx_StartHDMAAtVBlank_2B_6CD5	keeps	local HDMA starter (loads rHDMA1-5 from HL/DE/C, waits for the frame top): writes no bank register
+Gfx_StartHDMAAtVBlank_2B_7DD0	keeps	local HDMA starter (loads rHDMA1-5 from HL/DE/C, waits for the frame top): writes no bank register
+Gfx_StartHDMAAtVBlank_2C_4421	keeps	local HDMA starter (loads rHDMA1-5 from HL/DE/C, waits for the frame top): writes no bank register
+Gfx_StartHDMAAtVBlank_2C_669D	keeps	local HDMA starter (loads rHDMA1-5 from HL/DE/C, waits for the frame top): writes no bank register
+Gfx_StartHDMAAtVBlank_2D_6C8C	keeps	local HDMA starter (loads rHDMA1-5 from HL/DE/C, waits for the frame top): writes no bank register
+Gfx_StartHDMAAtVBlank_2F_7365	keeps	local HDMA starter (loads rHDMA1-5 from HL/DE/C, waits for the frame top): writes no bank register

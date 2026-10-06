@@ -47,7 +47,7 @@ Function_68_52B2::
 	ld de, wRam_C28F
 	call DecodeXorA5
 	ld hl, wRam_C28F
-	ld de, $DEA0
+	ld de, wAcctLoginId
 	call CompareString
 	or a, a
 	jr z, .l52FC
@@ -85,11 +85,11 @@ Function_68_531A::
 	farcall Sprite_ResetAll
 	xor a, a
 	ld [wLoginIdEntry_Result], a
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	ld b, $0A
 	farcall TextBuf_Init
-	ld hl, $DE80
-	ld de, $DEA1
+	ld hl, wTextEntryBuf
+	ld de, wAcctLoginId + $01
 	call TextEntry_InsertString
 	call Account_LoginIdEntry_UpdateOkState
 	ld de, $8801
@@ -127,7 +127,7 @@ Function_68_531A::
 	ld a, $5E
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $03
-	ld hl, $DE83
+	ld hl, wTextEntryBuf + $03
 	call Account_LoginId_PrintField
 	call Account_LoginId_UploadTextTiles
 	call Account_LoginId_BuildTextMap
@@ -143,9 +143,9 @@ Function_68_531A::
 	farcall Sprite_InitSlot
 	ld d, $38
 	ld e, $10
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextEntry_UpdateCursorSprite
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextBuf_GetLength
 	cp a, $09
 	jr c, .l53F7
@@ -175,7 +175,7 @@ Account_LoginIdEntry_UpdateOkState:: ; 68:5417
 Function_68_5417::
 	; [CONFIRMED] 22 insn(s); 22 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextBuf_GetFree
 	or a, a
 	jr z, .l5429
@@ -208,7 +208,7 @@ Account_LoginIdEntry_InputLoop:: ; 68:542F
 .l5454 ; 68:5454
 	; [CONFIRMED] 47 insn(s); 47 executed (in up to 3/18 scenarios)
 	ld a, [wKeyboardCharLo]
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	ld d, a
 	farcall TextBuf_AppendChar
 	or a, a
@@ -232,7 +232,7 @@ Account_LoginIdEntry_InputLoop:: ; 68:542F
 	pop af
 	ldh [rSVBK], a
 .l5486 ; 68:5486
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextBuf_GetLength
 	cp a, $09
 	jr c, .l549C
@@ -242,7 +242,7 @@ Account_LoginIdEntry_InputLoop:: ; 68:542F
 	farcall Kbd_ShowMarkerSprite
 	jp .l552E
 .l54A5 ; 68:54A5
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextBuf_DeleteLast
 	or a, a
 	jr nz, .l5516
@@ -254,7 +254,7 @@ Account_LoginIdEntry_InputLoop:: ; 68:542F
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextBuf_GetLength
 	cp a, $09
 	jr c, .l54D6
@@ -269,7 +269,7 @@ Account_LoginIdEntry_InputLoop:: ; 68:542F
 	farcall Kbd_ShowMarkerSprite
 	jr .l552E
 .l54DE ; 68:54DE
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextBuf_GetLength
 	cp a, $09
 	jr nc, .l54FD
@@ -311,10 +311,10 @@ Account_LoginIdEntry_InputLoop:: ; 68:542F
 .l552E ; 68:552E
 	ld d, $38
 	ld e, $10
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextEntry_UpdateCursorSprite
 	ld a, $03
-	ld hl, $DE83
+	ld hl, wTextEntryBuf + $03
 	call Account_LoginId_PrintField
 	call Account_LoginId_UploadTextTiles
 	call Account_LoginIdEntry_UpdateOkState
@@ -336,8 +336,8 @@ Account_CommitLoginId:: ; 68:554C
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
-	ld hl, $DE80
-	ld de, $DEA1
+	ld hl, wTextEntryBuf
+	ld de, wAcctLoginId + $01
 	farcall TextEntry_CopyText
 	ret
 

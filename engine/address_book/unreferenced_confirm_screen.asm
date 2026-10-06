@@ -137,15 +137,15 @@ Function_2C_746F::
 	farcall LCDOn
 	ld bc, $0300
 	ld de, $0420
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 	call AddrScreenUnused_DrawTextLine21
 	ld bc, $0300
 	ld de, $1008
-	ld hl, $D4D4
+	ld hl, wEditAddressBuf + $14
 	call AddrScreenUnused_DrawTextLine25
 	ld bc, $0300
 	ld de, $1C08
-	ld hl, $D4EC
+	ld hl, wEditAddressBuf + $2C
 	call AddrScreenUnused_DrawTextLine21
 	farcall TextTiles_UploadBuffersShort
 	ld bc, $0000

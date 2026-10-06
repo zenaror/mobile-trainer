@@ -140,10 +140,10 @@ Function_1F_4000::
 	ldh [rSVBK], a
 	xor a, a
 	ld bc, $0400
-	ld hl, $D000
+	ld hl, wTileStage2
 	call FillBytes
 	ld de, $9400
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld a, $00
 	ld b, $92
 	ld c, $40

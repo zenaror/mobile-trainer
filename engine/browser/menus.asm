@@ -50,36 +50,36 @@ BrowserMenu_OpenTwoItem:: ; 72:63D8
 	bit 4, a
 	jr z, .l6476
 	ld a, $A2
-	ld [wRam_D1A6], a
+	ld [wScreenTileMap + $1A6], a
 	inc a
-	ld [wRam_D1A7], a
+	ld [wScreenTileMap + $1A7], a
 	ld a, $B2
-	ld [wRam_D1C6], a
+	ld [wScreenTileMap + $1C6], a
 	inc a
-	ld [wRam_D1C7], a
+	ld [wScreenTileMap + $1C7], a
 	ld a, $0F
-	ld [wRam_D5A6], a
-	ld [wRam_D5A7], a
-	ld [wRam_D5C6], a
-	ld [wRam_D5C7], a
+	ld [wScreenAttrMap + $1A6], a
+	ld [wScreenAttrMap + $1A7], a
+	ld [wScreenAttrMap + $1C6], a
+	ld [wScreenAttrMap + $1C7], a
 	jr .l6495
 
 .l6476 ; 72:6476
 	; [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 63D8-6556 by apply_coverage --split
 	ld a, $F0
-	ld [wRam_D1A6], a
+	ld [wScreenTileMap + $1A6], a
 	inc a
-	ld [wRam_D1A7], a
+	ld [wScreenTileMap + $1A7], a
 	inc a
-	ld [wRam_D1C6], a
+	ld [wScreenTileMap + $1C6], a
 	inc a
-	ld [wRam_D1C7], a
+	ld [wScreenTileMap + $1C7], a
 	ld a, $0E
-	ld [wRam_D5A6], a
-	ld [wRam_D5A7], a
-	ld [wRam_D5C6], a
-	ld [wRam_D5C7], a
+	ld [wScreenAttrMap + $1A6], a
+	ld [wScreenAttrMap + $1A7], a
+	ld [wScreenAttrMap + $1C6], a
+	ld [wScreenAttrMap + $1C7], a
 
 .l6495 ; 72:6495
 	; [CONFIRMED] 74 insn(s) executed; cut out of the PROBABLE region 63D8-6556 by apply_coverage
@@ -429,7 +429,7 @@ BrowserMenu_DrawItemTwo:: ; 72:669F
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $DC00
+	ld hl, wDialogTileStage
 	ld bc, $0400
 	xor a, a
 	call FillBytes
@@ -437,14 +437,14 @@ BrowserMenu_DrawItemTwo:: ; 72:669F
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ld bc, $DC00
-	ld de, $DD40
+	ld bc, wDialogTileStage
+	ld de, wDialogTileStage + $140
 	ld a, $07
 	ldh [hTextTiles_DestBank], a
 	ld a, $72
 	farcall TextTiles_RenderLine
 	ld de, $8C01
-	ld hl, $DC00
+	ld hl, wDialogTileStage
 	ld a, $00
 	ld b, $95
 	ld c, $28
@@ -503,36 +503,36 @@ Function_72_6712::
 	jr z, .l67B2
 	ld a, $0F
 	ld a, $A2
-	ld [wRam_D1A9], a
+	ld [wScreenTileMap + $1A9], a
 	inc a
-	ld [wRam_D1AA], a
+	ld [wScreenTileMap + $1AA], a
 	ld a, $B2
-	ld [wRam_D1C9], a
+	ld [wScreenTileMap + $1C9], a
 	inc a
-	ld [wRam_D1CA], a
+	ld [wScreenTileMap + $1CA], a
 	ld a, $0F
-	ld [wRam_D5A9], a
-	ld [wRam_D5AA], a
-	ld [wRam_D5C9], a
-	ld [wRam_D5CA], a
+	ld [wScreenAttrMap + $1A9], a
+	ld [wScreenAttrMap + $1AA], a
+	ld [wScreenAttrMap + $1C9], a
+	ld [wScreenAttrMap + $1CA], a
 	jr .l67D1
 
 .l67B2 ; 72:67B2
 	; [CONFIRMED] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 1;
 	; entered by jrcc from 72:678C (executed) [executed in 1 scenarios]
 	ld a, $F0
-	ld [wRam_D1A9], a
+	ld [wScreenTileMap + $1A9], a
 	inc a
-	ld [wRam_D1AA], a
+	ld [wScreenTileMap + $1AA], a
 	inc a
-	ld [wRam_D1C9], a
+	ld [wScreenTileMap + $1C9], a
 	inc a
-	ld [wRam_D1CA], a
+	ld [wScreenTileMap + $1CA], a
 	ld a, $0E
-	ld [wRam_D5A9], a
-	ld [wRam_D5AA], a
-	ld [wRam_D5C9], a
-	ld [wRam_D5CA], a
+	ld [wScreenAttrMap + $1A9], a
+	ld [wScreenAttrMap + $1AA], a
+	ld [wScreenAttrMap + $1C9], a
+	ld [wScreenAttrMap + $1CA], a
 
 .l67D1 ; 72:67D1
 	; [CONFIRMED] 74 insn(s); 74 executed (in up to 1/18 scenarios)
@@ -897,7 +897,7 @@ Function_72_69F3::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $DC00
+	ld hl, wDialogTileStage
 	ld bc, $0400
 	xor a, a
 	call FillBytes
@@ -906,15 +906,15 @@ Function_72_69F3::
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ld bc, $DC00
-	ld de, $DD40
+	ld bc, wDialogTileStage
+	ld de, wDialogTileStage + $140
 	ld a, $07
 	ldh [hTextTiles_DestBank], a
 	ld a, $72
 	farcall TextTiles_RenderLine
 	call Sound_FrameService
 	ld de, $8C01
-	ld hl, $DC00
+	ld hl, wDialogTileStage
 	ld a, $00
 	ld b, $95
 	ld c, $28

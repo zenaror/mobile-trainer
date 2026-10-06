@@ -2041,7 +2041,7 @@ MobileSDK_FormatMessageNumber:: ; 75:4D3C
 .l4D4E ; 75:4D4E
 	inc b
 	ld a, b
-	ld bc, $D8F0
+	ld bc, $D8F0 ; raw: the number -10000 added with add hl, bc (decimal conversion of the SDK), not an address
 	add hl, bc
 	ld b, a
 	jr .l4D40
@@ -3074,7 +3074,7 @@ MobileSDK_FormatContentLength:: ; 75:5342
 	ld de, $7530
 	add hl, de
 .l535F ; 75:535F
-	ld de, $D8F0
+	ld de, $D8F0 ; raw: the number -10000 added with add hl, de (decimal conversion of the SDK), not an address
 	add hl, de
 	jr nc, .l5368
 

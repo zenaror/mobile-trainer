@@ -46,7 +46,7 @@ Function_67_4940::
 	ld de, wRam_C28F
 	call DecodeXorA5
 	ld hl, wRam_C28F
-	ld de, $DEFF
+	ld de, wAcctNumberComment
 	call CompareString
 	or a, a
 	jr z, .l498A
@@ -85,11 +85,11 @@ PhoneComment_KeyboardSetup:: ; 67:49A8
 	xor a, a
 	ld [wPhoneComment_Result], a
 	ld [wPhoneComment_OkFlag], a
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	ld b, $11
 	farcall TextBuf_Init
-	ld hl, $DE80
-	ld de, $DEFF
+	ld hl, wTextEntryBuf
+	ld de, wAcctNumberComment
 	farcall TextEntry_InsertString
 	call PhoneComment_UpdateNonEmptyFlag
 	ld de, $8801
@@ -127,7 +127,7 @@ PhoneComment_KeyboardSetup:: ; 67:49A8
 	ld a, $4A
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $03
-	ld hl, $DE83
+	ld hl, wTextEntryBuf + $03
 	call PhoneComment_PrintText
 	call PhoneComment_UploadTextTiles
 	call PhoneComment_BuildTextMap
@@ -143,9 +143,9 @@ PhoneComment_KeyboardSetup:: ; 67:49A8
 	farcall Sprite_InitSlot
 	ld d, $20
 	ld e, $10
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextEntry_UpdateCursorSprite
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextBuf_GetLength
 	cp a, $01
 	jr c, .l4A8B
@@ -177,7 +177,7 @@ PhoneComment_KeyboardLoop:: ; 67:4A98
 	; [CONFIRMED] 29 insn(s) executed; cut out of the PROBABLE region 49A8-4BC2 by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld a, [wKeyboardCharLo]
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	ld d, a
 	farcall TextBuf_AppendChar
 	or a, a
@@ -201,7 +201,7 @@ PhoneComment_KeyboardLoop:: ; 67:4A98
 	pop af
 	ldh [rSVBK], a
 .l4AEF ; 67:4AEF
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextBuf_GetLength
 	cp a, $01
 	jr c, .l4B05
@@ -217,7 +217,7 @@ PhoneComment_KeyboardLoop:: ; 67:4A98
 .l4B0E ; 67:4B0E
 	; [CONFIRMED] 18 insn(s) executed; cut out of the PROBABLE region 49A8-4BC2 by apply_coverage
 	; --split [executed in 2 scenarios]
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextBuf_DeleteLast
 	or a, a
 	jr nz, .l4B7F
@@ -229,7 +229,7 @@ PhoneComment_KeyboardLoop:: ; 67:4A98
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextBuf_GetLength
 	cp a, $01
 	jr c, .l4B3F
@@ -245,7 +245,7 @@ PhoneComment_KeyboardLoop:: ; 67:4A98
 .l4B47 ; 67:4B47
 	; [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 49A8-4BC2 by apply_coverage
 	; --split [executed in 3 scenarios]
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextBuf_GetLength
 	cp a, $01
 	jr nc, .l4B66
@@ -293,10 +293,10 @@ PhoneComment_KeyboardLoop:: ; 67:4A98
 .l4B97 ; 67:4B97
 	ld d, $20
 	ld e, $10
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextEntry_UpdateCursorSprite
 	ld a, $03
-	ld hl, $DE83
+	ld hl, wTextEntryBuf + $03
 	call PhoneComment_PrintText
 	call PhoneComment_UploadTextTiles
 	call PhoneComment_UpdateFullFlag
@@ -304,8 +304,8 @@ PhoneComment_KeyboardLoop:: ; 67:4A98
 	jp PhoneComment_KeyboardLoop
 
 PhoneComment_StoreResult:: ; 67:4BB5
-	ld hl, $DE80
-	ld de, $DEFF
+	ld hl, wTextEntryBuf
+	ld de, wAcctNumberComment
 	farcall TextEntry_CopyText
 	ret
 
@@ -331,7 +331,7 @@ PhoneComment_UpdateFullFlag:: ; 67:4BD5
 	; entered by call from 67:4BAF (PROBABLE code) | 246 insn(s) executed; cut out of the PROBABLE
 	; region 4BD5-4F68 by apply_coverage --split [executed in 1 scenarios] (part of region
 	; $4BD5-$4E56)
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextBuf_GetFree
 	or a, a
 	jr z, .l4BE7
@@ -344,7 +344,7 @@ PhoneComment_UpdateFullFlag:: ; 67:4BD5
 	ret
 
 PhoneComment_UpdateNonEmptyFlag:: ; 67:4BED
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextBuf_GetLength
 	cp a, $01
 	jr nc, .l4C00

@@ -79,7 +79,7 @@ SoundDrv_FrameTick:: ; 04:4082
 	call SoundDrv_UpdateFade
 	ld hl, $D000
 	set 5, [hl]
-	ld hl, $D007
+	ld hl, wSoundDrv_SfxTempoStep
 	ld a, [hli]
 	add a, [hl]
 	ld [hli], a
@@ -128,7 +128,7 @@ SoundDrv_SfxTickLoop:: ; 04:40AC
 SoundDrv_MusicPhase:: ; 04:40D0
 	ld hl, $D000
 	res 5, [hl]
-	ld hl, $D00C
+	ld hl, wSoundDrv_MusicTempoStep
 	ld a, [hli]
 	add a, [hl]
 	ld [hli], a
@@ -220,7 +220,7 @@ Function_04_415A::
 
 SoundDrv_SetTrackIterator:: ; 04:415F
 	; [CONFIRMED] 67 insn(s); 67 executed (in up to 18/18 scenarios)
-	ld hl, $D00F
+	ld hl, wSoundDrv_TrackCount
 	ld [hli], a
 	ld a, e
 	ld [hli], a
@@ -228,7 +228,7 @@ SoundDrv_SetTrackIterator:: ; 04:415F
 	ret
 
 SoundDrv_NextTrack:: ; 04:4167
-	ld hl, $D00F
+	ld hl, wSoundDrv_TrackCount
 	dec [hl]
 	ret z
 	inc hl
@@ -580,10 +580,10 @@ SoundDrv_StartTrack:: ; 04:434C
 	ld [hli], a
 
 SoundDrv_NextHeaderTrack:: ; 04:4374
-	ld hl, $D03C
+	ld hl, wSoundDrv_HeaderTrackCount
 	dec [hl]
 	ret z
-	ld hl, $D017
+	ld hl, wSoundDrv_HeaderPtr
 	ld a, $02
 	add a, [hl]
 	ld [hli], a

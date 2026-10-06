@@ -759,28 +759,28 @@ Settings_LoadAccountToWram:: ; 68:4C69
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld hl, sSettingsLoginId
-	ld de, $DEA0
+	ld de, wAcctLoginId
 	call DecodeXorA5
 	ld hl, sSettingsMailLocalPart
-	ld de, $DEAB
+	ld de, wAcctMailLocalPart
 	call DecodeXorA5
 	ld hl, sSettingsMailSubdomain
-	ld de, $DEB4
+	ld de, wAcctMailSubdomain
 	call DecodeXorA5
 	ld hl, sSettingsPassword
-	ld de, $DEB9
+	ld de, wAcctPassword
 	call DecodeXorA5
 	ld hl, sSettingsPassword
-	ld de, $DECB
+	ld de, wAcctPasswordConfirm
 	call DecodeXorA5
 	ld hl, sSettingsNumberInternet
-	ld de, $DEDD
+	ld de, wAcctNumberInternet
 	call DecodeXorA5
 	ld hl, sSettingsNumberSelfPage
-	ld de, $DEEE
+	ld de, wAcctNumberSelfPage
 	call DecodeXorA5
 	ld hl, sSettingsNumberComment
-	ld de, $DEFF
+	ld de, wAcctNumberComment
 	call DecodeXorA5
 	ld hl, sSettingsSavePasswordFlag
 	ldh [hScratchA], a

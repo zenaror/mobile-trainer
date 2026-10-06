@@ -383,7 +383,7 @@ Label_4E_4C8B::
 	ldh [rSVBK], a
 	ld bc, $0080
 	ld de, wPaletteBufBg
-	ld hl, $D880
+	ld hl, wPaletteFadeFrom
 	call CopyBytes
 	farcall Html_ParsePage
 	jp Browser_PageView_Enter

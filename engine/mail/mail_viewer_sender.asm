@@ -1192,19 +1192,19 @@ MailView_UploadTextTiles:: ; 2B:6C97
 	ldh [rSVBK], a
 	xor a, a
 	ldh [rVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld de, $9000
 	ld c, $3F
 	call Gfx_StartHDMAAtVBlank_2B_6CD5
-	ld hl, $D400
+	ld hl, wTileStage2 + $400
 	ld de, $9400
 	ld c, $3F
 	call Gfx_StartHDMAAtVBlank_2B_6CD5
-	ld hl, $D800
+	ld hl, wTileStage2 + $800
 	ld de, $8800
 	ld c, $3F
 	call Gfx_StartHDMAAtVBlank_2B_6CD5
-	ld hl, $DC00
+	ld hl, wTileStage2 + $C00
 	ld de, $8C00
 	ld c, $3F
 	call Gfx_StartHDMAAtVBlank_2B_6CD5

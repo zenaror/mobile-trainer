@@ -77,7 +77,7 @@ Function_2D_65B0::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 	ld a, [hl]
 	cp a, $00
 	jr nz, .l666B
@@ -527,15 +527,15 @@ Function_2D_68A9::
 	call MailAddr_PlaceCursorSprites
 	ld bc, $0300
 	ld de, $0420
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 	call MailAddr_DrawLine20
 	ld bc, $0300
 	ld de, $1008
-	ld hl, $D4D4
+	ld hl, wEditAddressBuf + $14
 	call MailAddr_DrawLine24
 	ld bc, $0300
 	ld de, $1C08
-	ld hl, $D4EC
+	ld hl, wEditAddressBuf + $2C
 	call MailAddr_DrawLine20
 	call TextTiles_UploadBuffersShort
 	pop af
@@ -1027,11 +1027,11 @@ TextTiles_UploadBuffersShort:: ; 2D:6C64
 	ldh [rSVBK], a
 	xor a, a
 	ldh [rVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld de, $9000
 	ld c, $3F
 	call Gfx_StartHDMAAtVBlank_2D_6C8C
-	ld hl, $D400
+	ld hl, wTileStage2 + $400
 	ld de, $9400
 	ld c, $3F
 	call Gfx_StartHDMAAtVBlank_2D_6C8C
@@ -1172,7 +1172,7 @@ MailAddr_InsertChar:: ; 2D:6D21
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D4FF
+	ld hl, wEditAddressBuf + $3F
 	ld a, [hl]
 	cp a, $00
 	jr z, .l6D44
@@ -1569,7 +1569,7 @@ Function_2D_6F7B::
 	jr nc, .l6F93
 	ld bc, $0300
 	ld de, $0420
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 	call MailAddr_DrawLine20
 	jp .l7025
 
@@ -1582,7 +1582,7 @@ Function_2D_6F7B::
 	jr c, .l6FA7
 	ld bc, $0300
 	ld de, $1C08
-	ld hl, $D4EC
+	ld hl, wEditAddressBuf + $2C
 	call MailAddr_DrawLine20
 	jp .l7025
 .l6FA7 ; 2D:6FA7
@@ -1594,7 +1594,7 @@ Function_2D_6F7B::
 	jr nc, .l6FC1
 	ld bc, $0300
 	ld de, $1008
-	ld hl, $D4D4
+	ld hl, wEditAddressBuf + $14
 	call MailAddr_DrawLine24
 	jr .l7025
 .l6FC1 ; 2D:6FC1
@@ -1603,11 +1603,11 @@ Function_2D_6F7B::
 	jr c, .l6FE0
 	ld bc, $0300
 	ld de, $1008
-	ld hl, $D4D4
+	ld hl, wEditAddressBuf + $14
 	call MailAddr_DrawLine24
 	ld bc, $0300
 	ld de, $1C08
-	ld hl, $D4EC
+	ld hl, wEditAddressBuf + $2C
 	call MailAddr_DrawLine20
 	jr .l7025
 .l6FE0 ; 2D:6FE0
@@ -1616,11 +1616,11 @@ Function_2D_6F7B::
 	jr nc, .l7001
 	ld bc, $0300
 	ld de, $0420
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 	call MailAddr_DrawLine20
 	ld bc, $0300
 	ld de, $1008
-	ld hl, $D4D4
+	ld hl, wEditAddressBuf + $14
 	call MailAddr_DrawLine24
 	jr .l7025
 
@@ -1629,15 +1629,15 @@ Function_2D_6F7B::
 	; 6F93-7025 by apply_coverage --split
 	ld bc, $0300
 	ld de, $0420
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 	call MailAddr_DrawLine20
 	ld bc, $0300
 	ld de, $1008
-	ld hl, $D4D4
+	ld hl, wEditAddressBuf + $14
 	call MailAddr_DrawLine24
 	ld bc, $0300
 	ld de, $1C08
-	ld hl, $D4EC
+	ld hl, wEditAddressBuf + $2C
 	call MailAddr_DrawLine20
 
 .l7025 ; 2D:7025
@@ -1675,7 +1675,7 @@ MailAddr_RedrawAfterBackspace:: ; 2D:7046
 	jr nc, .l705D
 	ld bc, $0300
 	ld de, $0420
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 	call MailAddr_DrawLine20
 	jp .l70EF
 
@@ -1691,7 +1691,7 @@ MailAddr_RedrawAfterBackspace:: ; 2D:7046
 	; 705D-70EF by apply_coverage --split
 	ld bc, $0300
 	ld de, $1C08
-	ld hl, $D4EC
+	ld hl, wEditAddressBuf + $2C
 	call MailAddr_DrawLine20
 	jp .l70EF
 
@@ -1706,7 +1706,7 @@ MailAddr_RedrawAfterBackspace:: ; 2D:7046
 	jr nc, .l708B
 	ld bc, $0300
 	ld de, $1008
-	ld hl, $D4D4
+	ld hl, wEditAddressBuf + $14
 	call MailAddr_DrawLine24
 	jr .l70EF
 .l708B ; 2D:708B
@@ -1718,11 +1718,11 @@ MailAddr_RedrawAfterBackspace:: ; 2D:7046
 	; 705D-70EF by apply_coverage --split
 	ld bc, $0300
 	ld de, $1008
-	ld hl, $D4D4
+	ld hl, wEditAddressBuf + $14
 	call MailAddr_DrawLine24
 	ld bc, $0300
 	ld de, $1C08
-	ld hl, $D4EC
+	ld hl, wEditAddressBuf + $2C
 	call MailAddr_DrawLine20
 	jr .l70EF
 
@@ -1734,11 +1734,11 @@ MailAddr_RedrawAfterBackspace:: ; 2D:7046
 	jr nc, .l70CB
 	ld bc, $0300
 	ld de, $0420
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 	call MailAddr_DrawLine20
 	ld bc, $0300
 	ld de, $1008
-	ld hl, $D4D4
+	ld hl, wEditAddressBuf + $14
 	call MailAddr_DrawLine24
 	jr .l70EF
 
@@ -1747,15 +1747,15 @@ MailAddr_RedrawAfterBackspace:: ; 2D:7046
 	; 705D-70EF by apply_coverage --split
 	ld bc, $0300
 	ld de, $0420
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 	call MailAddr_DrawLine20
 	ld bc, $0300
 	ld de, $1008
-	ld hl, $D4D4
+	ld hl, wEditAddressBuf + $14
 	call MailAddr_DrawLine24
 	ld bc, $0300
 	ld de, $1C08
-	ld hl, $D4EC
+	ld hl, wEditAddressBuf + $2C
 	call MailAddr_DrawLine20
 
 .l70EF ; 2D:70EF

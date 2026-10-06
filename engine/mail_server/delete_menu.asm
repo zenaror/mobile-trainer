@@ -331,7 +331,7 @@ Function_23_41DC::
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld bc, $0F00
 .loop ; 23:4296
 	xor a, a
@@ -420,8 +420,8 @@ MailSrvDel_ShowDescDeleteAll:: ; 23:433C
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
 	ld a, $23
-	ld bc, $D000
-	ld de, $D360
+	ld bc, wTileStage2
+	ld de, wTileStage2 + $360
 	farcall TextTiles_RenderLine
 	call MailSrvDel_UploadTextTiles
 	ret
@@ -443,8 +443,8 @@ Function_23_43C4::
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
 	ld a, $23
-	ld bc, $D000
-	ld de, $D360
+	ld bc, wTileStage2
+	ld de, wTileStage2 + $360
 	farcall TextTiles_RenderLine
 	call MailSrvDel_UploadTextTiles
 	ret
@@ -531,7 +531,7 @@ MailSrvDel_Confirm:: ; 23:4471
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld bc, $0F00
 .l4535 ; 23:4535
 	xor a, a
@@ -553,8 +553,8 @@ MailSrvDel_Confirm:: ; 23:4471
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
 	ld a, $23
-	ld bc, $D000
-	ld de, $D100
+	ld bc, wTileStage2
+	ld de, wTileStage2 + $100
 	farcall TextTiles_RenderLine
 	call VBlank_Wait
 	ld hl, $472B
@@ -562,8 +562,8 @@ MailSrvDel_Confirm:: ; 23:4471
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
 	ld a, $23
-	ld bc, $D200
-	ld de, $D300
+	ld bc, wTileStage2 + $200
+	ld de, wTileStage2 + $300
 	farcall TextTiles_RenderLine
 	call VBlank_Wait
 	ld hl, $474C
@@ -571,8 +571,8 @@ MailSrvDel_Confirm:: ; 23:4471
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
 	ld a, $23
-	ld bc, $D400
-	ld de, $D500
+	ld bc, wTileStage2 + $400
+	ld de, wTileStage2 + $500
 	farcall TextTiles_RenderLine
 	call VBlank_Wait
 	ld hl, $476D
@@ -580,8 +580,8 @@ MailSrvDel_Confirm:: ; 23:4471
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
 	ld a, $23
-	ld bc, $D600
-	ld de, $D700
+	ld bc, wTileStage2 + $600
+	ld de, wTileStage2 + $700
 	farcall TextTiles_RenderLine
 	call VBlank_Wait
 	call MailSrvDel_UploadTextTiles
@@ -774,11 +774,11 @@ Function_23_478E::
 	ldh [rSVBK], a
 	xor a, a
 	ldh [rVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld de, $9000
 	ld c, $3F
 	farcall Gfx_StartHDMAAtVBlank
-	ld hl, $D400
+	ld hl, wTileStage2 + $400
 	ld de, $9400
 	ld c, $3F
 	farcall Gfx_StartHDMAAtVBlank
@@ -814,7 +814,7 @@ Function_23_47BC::
 	pop hl
 	push hl
 	call MailSrvDel_NumberOffset_23_4986
-	ld hl, $D800
+	ld hl, wTileStage2 + $800
 	add hl, bc
 	ld b, h
 	ld c, l
@@ -848,7 +848,7 @@ Function_23_47BC::
 	pop hl
 	push hl
 	call MailSrvDel_NumberOffset_23_4986
-	ld hl, $D830
+	ld hl, wTileStage2 + $830
 	add hl, bc
 	ld b, h
 	ld c, l
@@ -877,7 +877,7 @@ Function_23_47BC::
 	pop hl
 	push hl
 	call MailSrvDel_NumberOffset_23_4986
-	ld hl, $D860
+	ld hl, wTileStage2 + $860
 	add hl, bc
 	ld b, h
 	ld c, l
@@ -1155,7 +1155,7 @@ Function_23_49E6::
 	ldh [rSVBK], a
 	xor a, a
 	ldh [rVBK], a
-	ld hl, $D800
+	ld hl, wTileStage2 + $800
 	ld de, $8800
 	ld c, $27
 	farcall Gfx_GdmaAtVBlankNoDi

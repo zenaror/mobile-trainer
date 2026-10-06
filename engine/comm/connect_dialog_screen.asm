@@ -84,16 +84,16 @@ ConnectDialog_Draw_ConnectConfirm:: ; 57:47D1
 	ldh [rSVBK], a
 	xor a, a
 	ld bc, $0A00
-	ld hl, $D000
+	ld hl, wTileStage2
 	call FillBytes
 	ld de, $9000
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9400
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld a, $00
 	ld b, $92
 	ld c, $40
@@ -112,23 +112,23 @@ ConnectDialog_Draw_ConnectConfirm:: ; 57:47D1
 	ldh [rSVBK], a
 	xor a, a
 	ld bc, $0400
-	ld hl, $D000
+	ld hl, wTileStage2
 	call FillBytes
 	ld hl, $4000
 	ld bc, $0010
-	ld de, $D000
+	ld de, wTileStage2
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $56
 	farcall TextTiles_RenderGrid
 	ld de, $9000
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9400
-	ld hl, $D400
+	ld hl, wTileStage2 + $400
 	ld a, $00
 	ld b, $92
 	ld c, $40
@@ -168,17 +168,17 @@ ConnectDialog_Draw_ConnectConfirm:: ; 57:47D1
 	and a, $0F
 	add a, a
 	add a, $5A
-	ld [wRam_D20D], a
+	ld [wScreenTileMap + $20D], a
 	inc a
-	ld [wRam_D22D], a
+	ld [wScreenTileMap + $22D], a
 	ld a, d
 	swap a
 	and a, $0F
 	add a, a
 	add a, $5A
-	ld [wRam_D20C], a
+	ld [wScreenTileMap + $20C], a
 	inc a
-	ld [wRam_D22C], a
+	ld [wScreenTileMap + $22C], a
 	jp ConnectDialog_Draw_Finish
 
 ConnectDialog_Draw_PasswordEntry:: ; 57:4951
@@ -234,16 +234,16 @@ ConnectDialog_Draw_PasswordEntry:: ; 57:4951
 	ldh [rSVBK], a
 	xor a, a
 	ld bc, $0A00
-	ld hl, $D000
+	ld hl, wTileStage2
 	call FillBytes
 	ld de, $9000
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9400
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld a, $00
 	ld b, $95
 	ld c, $20
@@ -262,23 +262,23 @@ ConnectDialog_Draw_PasswordEntry:: ; 57:4951
 	ldh [rSVBK], a
 	xor a, a
 	ld bc, $0400
-	ld hl, $D000
+	ld hl, wTileStage2
 	call FillBytes
 	ld hl, $4047
 	ld bc, $0010
-	ld de, $D000
+	ld de, wTileStage2
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $56
 	farcall TextTiles_RenderGrid
 	ld de, $9000
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9400
-	ld hl, $D400
+	ld hl, wTileStage2 + $400
 	ld a, $00
 	ld b, $95
 	ld c, $20
@@ -289,12 +289,12 @@ ConnectDialog_Draw_PasswordEntry:: ; 57:4951
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
 	ld a, $1F
-	ld [wRam_D122], a
+	ld [wScreenTileMap + $122], a
 	ld a, $2F
-	ld [wRam_D142], a
+	ld [wScreenTileMap + $142], a
 	ld a, $08
-	ld [wRam_D522], a
-	ld [wRam_D542], a
+	ld [wScreenAttrMap + $122], a
+	ld [wScreenAttrMap + $142], a
 	ld hl, wSpriteSlot3
 	ld de, ConnectDialog_ObjTable
 	ld a, $56
@@ -369,16 +369,16 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	ldh [rSVBK], a
 	xor a, a
 	ld bc, $0A00
-	ld hl, $D000
+	ld hl, wTileStage2
 	call FillBytes
 	ld de, $9000
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9400
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld a, $00
 	ld b, $95
 	ld c, $20
@@ -397,23 +397,23 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	ldh [rSVBK], a
 	xor a, a
 	ld bc, $0400
-	ld hl, $D000
+	ld hl, wTileStage2
 	call FillBytes
 	ld hl, $4047
 	ld bc, $0010
-	ld de, $D000
+	ld de, wTileStage2
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $56
 	farcall TextTiles_RenderGrid
 	ld de, $9000
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9400
-	ld hl, $D400
+	ld hl, wTileStage2 + $400
 	ld a, $00
 	ld b, $95
 	ld c, $20
@@ -424,12 +424,12 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
 	ld a, $1F
-	ld [wRam_D122], a
+	ld [wScreenTileMap + $122], a
 	ld a, $2F
-	ld [wRam_D142], a
+	ld [wScreenTileMap + $142], a
 	ld a, $08
-	ld [wRam_D522], a
-	ld [wRam_D542], a
+	ld [wScreenAttrMap + $122], a
+	ld [wScreenAttrMap + $142], a
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	call ConnectDialog_DrawPasswordField
@@ -467,16 +467,16 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	ldh [rSVBK], a
 	xor a, a
 	ld bc, $0A00
-	ld hl, $D000
+	ld hl, wTileStage2
 	call FillBytes
 	ld de, $8801
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld a, $00
 	ld b, $95
 	ld c, $20
@@ -495,23 +495,23 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	ldh [rSVBK], a
 	xor a, a
 	ld bc, $0400
-	ld hl, $D000
+	ld hl, wTileStage2
 	call FillBytes
 	ld hl, $406A
 	ld bc, $0010
-	ld de, $D000
+	ld de, wTileStage2
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $56
 	farcall TextTiles_RenderGrid
 	ld de, $8801
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
-	ld hl, $D400
+	ld hl, wTileStage2 + $400
 	ld a, $00
 	ld b, $95
 	ld c, $20
@@ -537,13 +537,13 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	ld c, $02
 	call ConnectDialog_UploadMapRow
 	ld de, $9C00
-	ld hl, $D0E0
+	ld hl, wScreenTileMap + $E0
 	ld a, $00
 	ld b, $96
 	ld c, $16
 	farcall Gfx_StartHDMAWithService
 	ld de, $9C01
-	ld hl, $D4E0
+	ld hl, wScreenAttrMap + $E0
 	ld a, $00
 	ld b, $96
 	ld c, $16
@@ -599,16 +599,16 @@ ConnectDialog_Draw_PasswordSaved:: ; 57:4D40
 	ldh [rSVBK], a
 	xor a, a
 	ld bc, $0A00
-	ld hl, $D000
+	ld hl, wTileStage2
 	call FillBytes
 	ld de, $9000
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9400
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld a, $00
 	ld b, $95
 	ld c, $20
@@ -627,23 +627,23 @@ ConnectDialog_Draw_PasswordSaved:: ; 57:4D40
 	ldh [rSVBK], a
 	xor a, a
 	ld bc, $0400
-	ld hl, $D000
+	ld hl, wTileStage2
 	call FillBytes
 	ld hl, $40BF
 	ld bc, $0010
-	ld de, $D000
+	ld de, wTileStage2
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $56
 	farcall TextTiles_RenderGrid
 	ld de, $9000
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9400
-	ld hl, $D400
+	ld hl, wTileStage2 + $400
 	ld a, $00
 	ld b, $95
 	ld c, $20
@@ -654,12 +654,12 @@ ConnectDialog_Draw_PasswordSaved:: ; 57:4D40
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
 	ld a, $19
-	ld [wRam_D1A2], a
+	ld [wScreenTileMap + $1A2], a
 	ld a, $29
-	ld [wRam_D1C2], a
+	ld [wScreenTileMap + $1C2], a
 	ld a, $08
-	ld [wRam_D5A2], a
-	ld [wRam_D5C2], a
+	ld [wScreenAttrMap + $1A2], a
+	ld [wScreenAttrMap + $1C2], a
 	jp ConnectDialog_Draw_Finish
 
 ConnectDialog_Draw_StoredPassword:: ; 57:4E4C
@@ -702,16 +702,16 @@ ConnectDialog_Draw_StoredPassword:: ; 57:4E4C
 	ldh [rSVBK], a
 	xor a, a
 	ld bc, $0A00
-	ld hl, $D000
+	ld hl, wTileStage2
 	call FillBytes
 	ld de, $9000
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9400
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld a, $00
 	ld b, $95
 	ld c, $20
@@ -730,23 +730,23 @@ ConnectDialog_Draw_StoredPassword:: ; 57:4E4C
 	ldh [rSVBK], a
 	xor a, a
 	ld bc, $0400
-	ld hl, $D000
+	ld hl, wTileStage2
 	call FillBytes
 	ld hl, $410A
 	ld bc, $0010
-	ld de, $D000
+	ld de, wTileStage2
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $56
 	farcall TextTiles_RenderGrid
 	ld de, $9000
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9400
-	ld hl, $D400
+	ld hl, wTileStage2 + $400
 	ld a, $00
 	ld b, $95
 	ld c, $20
@@ -757,12 +757,12 @@ ConnectDialog_Draw_StoredPassword:: ; 57:4E4C
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
 	ld a, $19
-	ld [wRam_D1A2], a
+	ld [wScreenTileMap + $1A2], a
 	ld a, $29
-	ld [wRam_D1C2], a
+	ld [wScreenTileMap + $1C2], a
 	ld a, $08
-	ld [wRam_D5A2], a
-	ld [wRam_D5C2], a
+	ld [wScreenAttrMap + $1A2], a
+	ld [wScreenAttrMap + $1C2], a
 	jp ConnectDialog_Draw_Finish
 
 ConnectDialog_Draw_ForgetConfirm:: ; 57:4F59
@@ -792,16 +792,16 @@ ConnectDialog_Draw_ForgetConfirm:: ; 57:4F59
 	ldh [rSVBK], a
 	xor a, a
 	ld bc, $0A00
-	ld hl, $D000
+	ld hl, wTileStage2
 	call FillBytes
 	ld de, $8801
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld a, $00
 	ld b, $95
 	ld c, $20
@@ -820,23 +820,23 @@ ConnectDialog_Draw_ForgetConfirm:: ; 57:4F59
 	ldh [rSVBK], a
 	xor a, a
 	ld bc, $0400
-	ld hl, $D000
+	ld hl, wTileStage2
 	call FillBytes
 	ld hl, $4159
 	ld bc, $0010
-	ld de, $D000
+	ld de, wTileStage2
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $56
 	farcall TextTiles_RenderGrid
 	ld de, $8801
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
-	ld hl, $D400
+	ld hl, wTileStage2 + $400
 	ld a, $00
 	ld b, $95
 	ld c, $20
@@ -862,13 +862,13 @@ ConnectDialog_Draw_ForgetConfirm:: ; 57:4F59
 	ld c, $02
 	call ConnectDialog_UploadMapRow
 	ld de, $9C00
-	ld hl, $D0E0
+	ld hl, wScreenTileMap + $E0
 	ld a, $00
 	ld b, $96
 	ld c, $16
 	farcall Gfx_StartHDMAWithService
 	ld de, $9C01
-	ld hl, $D4E0
+	ld hl, wScreenAttrMap + $E0
 	ld a, $00
 	ld b, $96
 	ld c, $16
@@ -1060,13 +1060,13 @@ Function_57_510F::
 	jr nz, .l51E4
 .l51E8 ; 57:51E8
 	ld de, $9880
-	ld hl, $D080
+	ld hl, wScreenTileMap + $80
 	ld a, $00
 	ld b, $98
 	ld c, $04
 	farcall Gfx_StartHDMAWithService
 	ld de, $9881
-	ld hl, $D480
+	ld hl, wScreenAttrMap + $80
 	ld a, $00
 	ld b, $98
 	ld c, $04
@@ -1136,13 +1136,13 @@ Function_57_510F::
 	jr nz, .l5254
 .l5258 ; 57:5258
 	ld de, $9880
-	ld hl, $D080
+	ld hl, wScreenTileMap + $80
 	ld a, $00
 	ld b, $98
 	ld c, $04
 	farcall Gfx_StartHDMAWithService
 	ld de, $9881
-	ld hl, $D480
+	ld hl, wScreenAttrMap + $80
 	ld a, $00
 	ld b, $98
 	ld c, $04
@@ -1454,13 +1454,13 @@ ConnectDialog_RenderTypedChars:: ; 57:5444
 	; entered by call from 57:4308 (PROBABLE code) [executed in 4 scenarios]
 	ld hl, wConnectDialogGlyphs
 	ld bc, $0008
-	ld de, $D000
+	ld de, wTileStage2
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $00
 	farcall TextTiles_RenderGrid
 	ld de, $9701
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld a, $02
 	ld b, $97
 	ld c, $10

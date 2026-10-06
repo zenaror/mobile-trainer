@@ -342,7 +342,7 @@ Function_2C_414C::
 	ld bc, $0000
 	ld bc, $0300
 	ld de, $0420
-	ld hl, $D500
+	ld hl, wEditSubjectBuf
 	call MailTitle_DrawTextLine
 	call MailTitle_UploadTextTiles
 	di
@@ -587,7 +587,7 @@ MailTitle_UploadTextTiles:: ; 2C:4404
 	ldh [rSVBK], a
 	xor a, a
 	ldh [rVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld de, $9000
 	ld c, $27
 	call Gfx_StartHDMAAtVBlank_2C_4421
@@ -734,7 +734,7 @@ MailTitle_InsertChar:: ; 2C:44B8
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D512
+	ld hl, wEditSubjectBuf + $12
 	ld a, [hl]
 	cp a, $00
 	jr z, MailTitle_InsertChar_Insert
@@ -928,7 +928,7 @@ Label_2C_459C::
 	push bc
 	ld bc, $0300
 	ld de, $0420
-	ld hl, $D500
+	ld hl, wEditSubjectBuf
 	call MailTitle_DrawTextLine
 	call MailTitle_UploadTextTiles
 	pop bc
@@ -1128,7 +1128,7 @@ MailTitle_DeleteChar:: ; 2C:4612
 	push bc
 	ld bc, $0300
 	ld de, $0420
-	ld hl, $D500
+	ld hl, wEditSubjectBuf
 	call MailTitle_DrawTextLine
 	call MailTitle_UploadTextTiles
 	pop bc
@@ -1202,7 +1202,7 @@ MailTitle_ApplyDakuten:: ; 2C:46EB
 	push bc
 	ld bc, $0300
 	ld de, $0420
-	ld hl, $D500
+	ld hl, wEditSubjectBuf
 	call MailTitle_DrawTextLine
 	call MailTitle_UploadTextTiles
 	pop bc
@@ -1214,7 +1214,7 @@ MailTitle_ApplyDakuten:: ; 2C:46EB
 	push bc
 	ld bc, $0300
 	ld de, $0420
-	ld hl, $D500
+	ld hl, wEditSubjectBuf
 	call MailTitle_DrawTextLine
 	call MailTitle_UploadTextTiles
 	pop bc
@@ -1338,7 +1338,7 @@ MailTitle_ApplyVu:: ; 2C:47CB
 	push bc
 	ld bc, $0300
 	ld de, $0420
-	ld hl, $D500
+	ld hl, wEditSubjectBuf
 	call MailTitle_DrawTextLine
 	call MailTitle_UploadTextTiles
 	pop bc
@@ -1350,7 +1350,7 @@ MailTitle_ApplyVu:: ; 2C:47CB
 	push bc
 	ld bc, $0300
 	ld de, $0420
-	ld hl, $D500
+	ld hl, wEditSubjectBuf
 	call MailTitle_DrawTextLine
 	call MailTitle_UploadTextTiles
 	pop bc
@@ -1490,7 +1490,7 @@ MailTitle_ApplyHandakuten:: ; 2C:487E
 	push bc
 	ld bc, $0300
 	ld de, $0420
-	ld hl, $D500
+	ld hl, wEditSubjectBuf
 	call MailTitle_DrawTextLine
 	call MailTitle_UploadTextTiles
 	pop bc
@@ -1502,7 +1502,7 @@ MailTitle_ApplyHandakuten:: ; 2C:487E
 	push bc
 	ld bc, $0300
 	ld de, $0420
-	ld hl, $D500
+	ld hl, wEditSubjectBuf
 	call MailTitle_DrawTextLine
 	call MailTitle_UploadTextTiles
 	pop bc

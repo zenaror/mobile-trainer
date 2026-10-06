@@ -36,78 +36,78 @@ Label_19_4990::
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld bc, $0800
 	xor a, a
 	call FillBytes
 	ld de, $8000
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8400
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8800
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C00
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9000
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9400
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8001
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8401
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8801
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $00
 	ld b, $92
 	ld c, $40
@@ -271,7 +271,7 @@ DebugErrorTest_HandleDpad:: ; 19:4B4A
 
 DebugErrorTest_LoadHelpText:: ; 19:4BCF
 	ld hl, $4C1F
-	ld de, $D000
+	ld de, wTileStage3
 	ld bc, $0010
 	ld a, $03
 	ldh [hTextTiles_DestBank], a
@@ -285,13 +285,13 @@ DebugErrorTest_LoadHelpText:: ; 19:4BCF
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, $8800
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C00
-	ld hl, $D400
+	ld hl, wTileStage3 + $400
 	ld a, $00
 	ld b, $92
 	ld c, $40
@@ -323,14 +323,14 @@ DebugErrorTest_DrawValues:: ; 19:4C74
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld bc, $0400
 	xor a, a
 	call FillBytes
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D000
+	ld de, $D000 ; raw: string scratch of bank 2 (Shift-JIS text built here, rendered by TextTiles_RenderGrid with A = 2), not tile staging
 	ld a, $81
 	ld [de], a
 	inc de
@@ -442,7 +442,7 @@ DebugErrorTest_DrawValues:: ; 19:4C74
 	xor a, a
 	ld [de], a
 	ld hl, $D000
-	ld de, $D000
+	ld de, wTileStage3
 	ld bc, $0010
 	ld a, $03
 	ldh [hTextTiles_DestBank], a
@@ -452,7 +452,7 @@ DebugErrorTest_DrawValues:: ; 19:4C74
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, $8E00
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $00
 	ld b, $95
 	ld c, $20

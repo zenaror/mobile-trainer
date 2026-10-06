@@ -45,78 +45,78 @@ SoundTest_Run:: ; 1B:4040
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld bc, $0800
 	xor a, a
 	call FillBytes
 	ld de, $8000
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8400
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8800
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C00
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9000
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9400
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8001
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8401
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8801
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $00
 	ld b, $92
 	ld c, $40
@@ -306,7 +306,7 @@ SoundTest_HandleDpad:: ; 1B:4261
 
 SoundTest_LoadHelpText:: ; 1B:42C4
 	ld hl, $4314
-	ld de, $D000
+	ld de, wTileStage3
 	ld bc, $0010
 	ld a, $03
 	ldh [hTextTiles_DestBank], a
@@ -320,13 +320,13 @@ SoundTest_LoadHelpText:: ; 1B:42C4
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, $8800
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C00
-	ld hl, $D400
+	ld hl, wTileStage3 + $400
 	ld a, $00
 	ld b, $92
 	ld c, $40
@@ -357,14 +357,14 @@ SoundTest_DrawNumber:: ; 1B:4371
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld bc, $0400
 	xor a, a
 	call FillBytes
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D000
+	ld de, $D000 ; raw: string scratch of bank 2 (Shift-JIS text built here, rendered by TextTiles_RenderGrid with A = 2), not tile staging
 	ld a, $81
 	ld [de], a
 	inc de
@@ -444,7 +444,7 @@ SoundTest_DrawNumber:: ; 1B:4371
 	xor a, a
 	ld [de], a
 	ld hl, $D000
-	ld de, $D000
+	ld de, wTileStage3
 	ld bc, $0010
 	ld a, $03
 	ldh [hTextTiles_DestBank], a
@@ -454,7 +454,7 @@ SoundTest_DrawNumber:: ; 1B:4371
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, $8E00
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $00
 	ld b, $95
 	ld c, $20

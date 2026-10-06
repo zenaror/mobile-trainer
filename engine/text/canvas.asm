@@ -265,7 +265,7 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	srl d
 	srl d
 	inc d
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld bc, $0140
 .l42E1 ; 7F:42E1
 	dec d
@@ -1676,7 +1676,7 @@ Function_7F_49AE::
 	srl d
 	srl d
 	inc d
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld bc, $0140
 .l49CA ; 7F:49CA
 	dec d
@@ -1862,7 +1862,7 @@ Function_7F_4AAF::
 	srl d
 	srl d
 	inc d
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld bc, $0140
 .l4AD3 ; 7F:4AD3
 	dec d
@@ -2042,15 +2042,15 @@ Canvas_UploadToVram:: ; 7F:4BBC
 	ldh [rSVBK], a
 	xor a, a
 	ldh [rVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld de, $9000
 	ld c, $3F
 	call Gfx_GdmaAtVBlank
-	ld hl, $D400
+	ld hl, wTileStage2 + $400
 	ld de, $9400
 	ld c, $3F
 	call Gfx_GdmaAtVBlank
-	ld hl, $D800
+	ld hl, wTileStage2 + $800
 	ld de, $8800
 	ld c, $6F
 	call Gfx_GdmaAtVBlank
@@ -2063,11 +2063,11 @@ Canvas_UploadToVram:: ; 7F:4BBC
 	ldh [rSVBK], a
 	ld a, $01
 	ldh [rVBK], a
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld de, $9000
 	call Gfx_GdmaAtVBlank
 	ld c, $0F
-	ld hl, $D540
+	ld hl, wTileStage3 + $540
 	ld de, $9540
 	call Gfx_GdmaAtVBlank
 	ret
@@ -2077,7 +2077,7 @@ Canvas_UploadToVram:: ; 7F:4BBC
 	ldh [rSVBK], a
 	ld a, $01
 	ldh [rVBK], a
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld de, $9000
 	call Gfx_GdmaAtVBlank
 	ret

@@ -113,7 +113,7 @@ HelpScript_Run:: ; 6C:59B2
 	ldh [hVRAMBank], a
 	ldh [rVBK], a
 	ld bc, $0400
-	ld hl, $D000
+	ld hl, wTileStage3
 	call FillBytes
 	call Sound_FrameService
 	ldh [hScratchA], a
@@ -122,25 +122,25 @@ HelpScript_Run:: ; 6C:59B2
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
 	ld de, $8800
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $03
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C00
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $03
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9000
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $03
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9400
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $03
 	ld b, $92
 	ld c, $40
@@ -380,16 +380,16 @@ Label_6C_5B47::
 	ldh [rSVBK], a
 	xor a, a
 	ld bc, $0600
-	ld hl, $D000
+	ld hl, wTileStage3
 	call FillBytes
 	ld de, $9000
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9400
-	ld hl, $D400
+	ld hl, wTileStage3 + $400
 	ld a, $00
 	ld b, $95
 	ld c, $20
@@ -545,13 +545,13 @@ Label_6C_5D9F::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, $9000
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9400
-	ld hl, $D400
+	ld hl, wTileStage3 + $400
 	ld a, $00
 	ld b, $95
 	ld c, $20
@@ -593,18 +593,18 @@ HelpScript_RenderCaption:: ; 6C:5E25
 	push hl
 	xor a, a
 	ld bc, $0180
-	ld hl, $D000
+	ld hl, wTileStage2
 	call FillBytes
 	pop hl
-	ld bc, $D000
-	ld de, $D0C0
+	ld bc, wTileStage2
+	ld de, wTileStage2 + $C0
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $6C
 	farcall TextTiles_RenderLine
 	push hl
 	ld de, $9600
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld a, $00
 	ld b, $96
 	ld c, $18
@@ -658,16 +658,16 @@ HelpScript_ShowPicture:: ; 6C:5E6E
 	ldh [rSVBK], a
 	xor a, a
 	ld bc, $0900
-	ld hl, $D000
+	ld hl, wTileStage3
 	call FillBytes
 	ld de, $8C80
-	ld hl, $D480
+	ld hl, wTileStage3 + $480
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9080
-	ld hl, $D880
+	ld hl, wTileStage3 + $880
 	ld a, $00
 	ld b, $98
 	ld c, $08
@@ -702,7 +702,7 @@ HelpScript_ShowPicture:: ; 6C:5E6E
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
-	ld hl, $D464
+	ld hl, wScreenAttrMap + $64
 	ld bc, $060C
 	ld de, $F806
 	xor a, a

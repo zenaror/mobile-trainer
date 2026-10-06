@@ -173,7 +173,7 @@ Function_25_4B0D::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D4A1
+	ld hl, wScreenAttrMap + $A1
 	ld a, $02
 	ld [hli], a
 	ld [hli], a
@@ -537,7 +537,7 @@ Mailbox_DrawTimestamp:: ; 25:4F40
 	ld l, e
 	ld de, $0003
 	add hl, de
-	ld de, $D524
+	ld de, $D524 ; raw: digit scratch dereferenced under bank 1 after ld a, $01 at 25:4F5B (not the bank in force at the load), not the compose mode
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1214,7 +1214,7 @@ Mailbox_DrawMailCount:: ; 25:52FE
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D0CE
+	ld hl, wScreenTileMap + $CE
 	ld a, b
 	add a, $E0
 	ld [hli], a
@@ -1236,19 +1236,19 @@ Function_25_534C::
 	ldh [rSVBK], a
 	xor a, a
 	ldh [rVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld de, $9000
 	ld c, $3F
 	call Gfx_StartHDMAAtVBlank
-	ld hl, $D400
+	ld hl, wTileStage2 + $400
 	ld de, $9400
 	ld c, $3F
 	call Gfx_StartHDMAAtVBlank
-	ld hl, $D800
+	ld hl, wTileStage2 + $800
 	ld de, $8800
 	ld c, $3F
 	call Gfx_StartHDMAAtVBlank
-	ld hl, $DC00
+	ld hl, wTileStage2 + $C00
 	ld de, $8C00
 	ld c, $07
 	call Gfx_StartHDMAAtVBlank
@@ -1297,8 +1297,8 @@ Mailbox_ShowHint:: ; 25:53AA
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
 	ld a, $25
-	ld bc, $DA00
-	ld de, $DB40
+	ld bc, wTileStage2 + $A00
+	ld de, wTileStage2 + $B40
 	farcall TextTiles_RenderLine
 	pop de
 	pop bc

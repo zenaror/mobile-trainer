@@ -20,24 +20,24 @@ Function_67_58CD::
 	or a, a
 	jr z, .l58D3
 .l58E8 ; 67:58E8
-	ld hl, $DED4
+	ld hl, wAcctPasswordEntry
 	farcall Wram3_ClearByte
 	ld a, $02
 	farcall Account_PasswordEntryScreen
 	or a, a
 	jr z, .l58DD
-	ld hl, $DED4
-	ld de, $DEB9
+	ld hl, wAcctPasswordEntry
+	ld de, wAcctPassword
 	farcall Wram3_CopyString
 .l5908 ; 67:5908
-	ld hl, $DED4
+	ld hl, wAcctPasswordEntry
 	farcall Wram3_ClearByte
 	ld a, $03
 	farcall Account_PasswordEntryScreen
 	or a, a
 	jr z, .l58E8
-	ld hl, $DED4
-	ld de, $DECB
+	ld hl, wAcctPasswordEntry
+	ld de, wAcctPasswordConfirm
 	farcall Wram3_CopyString
 	farcall Password_CompareEntries
 	or a, a
@@ -52,17 +52,17 @@ Function_67_58CD::
 
 .l593E ; 67:593E
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 3/18 scenarios)
-	ld hl, $DED4
-	ld de, $DEC2
+	ld hl, wAcctPasswordEntry
+	ld de, wAcctPasswordNew
 	farcall Wram3_CopyString
-	ld hl, $DED4
+	ld hl, wAcctPasswordEntry
 	farcall Wram3_ClearByte
 	ld a, $01
 	farcall Account_PasswordEntryScreen
 	or a, a
 	jr z, .l5908
-	ld hl, $DED4
-	ld de, $DECB
+	ld hl, wAcctPasswordEntry
+	ld de, wAcctPasswordConfirm
 	farcall Wram3_CopyString
 	farcall Password_CompareNewAndConfirm
 	or a, a
@@ -148,7 +148,7 @@ PasswordChange_SaveNewPassword:: ; 67:5A0E
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $DEC2
+	ld hl, wAcctPasswordNew
 	ld de, wRam_C28F
 	call CopyString
 	ldh [hScratchA], a
@@ -283,11 +283,11 @@ PasswordChange_State_Connect:: ; 67:5B0E
 	jp nz, PasswordChange_OnAdapterError
 	bit 0, a
 	jp nz, PasswordChange_Communicate_Dispatch
-	ld de, $DEEE
+	ld de, $DEEE ; raw: scratch: the field is reused for the number to dial (Dial_CopySelectedNumber, PasswordChange_State_Connect), not the self page number
 	farcall Dial_CopySelectedNumber
 	ld de, sPwdChg_ApiArgs
 	call Net_CopyDefaultDnsPair
-	ld hl, $DEEE
+	ld hl, $DEEE ; raw: scratch: the field is reused for the number to dial (Dial_CopySelectedNumber, PasswordChange_State_Connect), not the self page number
 	ld de, sPwdChg_ApiArgs + $08
 	call CopyString
 	ld hl, $5E77
@@ -723,13 +723,13 @@ Function_67_5E7D::
 	ld hl, $5EBC
 	ld de, sPwdChg_PostBody
 	call StringAppend
-	ld hl, $DEB9
+	ld hl, wAcctPassword
 	ld de, sPwdChg_PostBody
 	call StringAppend
 	ld hl, $5EC5
 	ld de, sPwdChg_PostBody
 	call StringAppend
-	ld hl, $DEC2
+	ld hl, wAcctPasswordNew
 	ld de, sPwdChg_PostBody
 	call StringAppend
 	ret

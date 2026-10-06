@@ -499,7 +499,7 @@ Function_5C_5504::
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $40
-	ld hl, $D00C
+	ld hl, wScreenTileMap + $0C
 	ld [hli], a
 	inc a
 	ld [hl], a

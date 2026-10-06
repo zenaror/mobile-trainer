@@ -295,28 +295,28 @@ AddrBook_SaveConfirm_DrawSlot:: ; 2A:7187
 	ldh [rSVBK], a
 	ld bc, $0300
 	ld de, $0438
-	ld hl, $D514
+	ld hl, wEditNameBuf
 	call AddrBook_SaveConfirm_DrawTextLine16
 	ld a, $14
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0300
 	ld de, $1438
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 	farcall AbookView_DrawAddrLine1
 	ld a, $14
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0300
 	ld de, $2008
-	ld hl, $D4D0
+	ld hl, wEditAddressBuf + $10
 	farcall AbookView_DrawAddrLine2
 	ld a, $14
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0300
 	ld de, $2C08
-	ld hl, $D4E8
+	ld hl, wEditAddressBuf + $28
 	farcall AbookView_DrawAddrLine3
 	farcall AddrBook_UploadEntryTextTiles
 	pop bc
@@ -337,28 +337,28 @@ AddrBook_SaveConfirm_DrawEditBuffer:: ; 2A:722D
 	ldh [rSVBK], a
 	ld bc, $0300
 	ld de, $0438
-	ld hl, $D514
+	ld hl, wEditNameBuf
 	call AddrBook_SaveConfirm_DrawTextLine16
 	ld a, $14
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0300
 	ld de, $1438
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 	farcall AbookView_DrawAddrLine1
 	ld a, $14
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0300
 	ld de, $2008
-	ld hl, $D4D0
+	ld hl, wEditAddressBuf + $10
 	farcall AbookView_DrawAddrLine2
 	ld a, $14
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0300
 	ld de, $2C08
-	ld hl, $D4E8
+	ld hl, wEditAddressBuf + $28
 	farcall AbookView_DrawAddrLine3
 	farcall AddrBook_UploadEntryTextTiles
 	pop bc
@@ -380,15 +380,15 @@ AddrBook_UploadEntryTextTiles:: ; 2A:7293
 	ldh [rSVBK], a
 	xor a, a
 	ldh [rVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld de, $9000
 	ld c, $3F
 	farcall Gfx_StartHDMAAtVBlank_2A_5C3B
-	ld hl, $D400
+	ld hl, wTileStage2 + $400
 	ld de, $9400
 	ld c, $3F
 	farcall Gfx_StartHDMAAtVBlank_2A_5C3B
-	ld hl, $D800
+	ld hl, wTileStage2 + $800
 	ld de, $8800
 	ld c, $0F
 	farcall Gfx_StartHDMAAtVBlank_2A_5C3B

@@ -15,11 +15,11 @@ Palette_FadeInMasked:: ; 48:44E0
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0080
-	ld de, $D880
+	ld de, wPaletteFadeFrom
 	ld hl, wPaletteBufBg
 	call CopyBytes
 	ld bc, $0080
-	ld de, $D900
+	ld de, wPaletteFadeTo
 	ld hl, wPaletteBufBg
 	call CopyBytes
 	ld a, $00
@@ -55,11 +55,11 @@ Palette_FadeOutMasked:: ; 48:4540
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0080
-	ld de, $D880
+	ld de, wPaletteFadeFrom
 	ld hl, wPaletteBufBg
 	call CopyBytes
 	ld bc, $0080
-	ld de, $D900
+	ld de, wPaletteFadeTo
 	ld hl, wPaletteBufBg
 	call CopyBytes
 	ld a, $01
@@ -106,8 +106,8 @@ Palette_SetFadeTargetMasked:: ; 48:459D
 	inc a
 	ld [wPalFadeProgress + 1], a
 .l45C5 ; 48:45C5
-	ld de, $D980
-	ld hl, $D900
+	ld de, wPaletteFadeLevels
+	ld hl, wPaletteFadeTo
 	ld b, $40
 	ld c, $04
 	ld a, $01

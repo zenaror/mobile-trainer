@@ -389,7 +389,7 @@ SettingsPhone_PatchConfigImage:: ; 67:5664
 	ld l, a
 	ld d, h
 	ld e, l
-	ld hl, $DEDD
+	ld hl, wAcctNumberInternet
 
 	; [CONFIRMED] 62 insn(s) reached by static flow only; seeds: site x62; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
@@ -408,7 +408,7 @@ SettingsPhone_PatchConfigImage:: ; 67:5664
 	ld l, a
 	ld d, h
 	ld e, l
-	ld hl, $DEFF
+	ld hl, wAcctNumberComment
 	ld bc, $0010
 	call CopyStringMax
 	ldh [hScratchA], a
@@ -429,7 +429,7 @@ SettingsPhone_PatchConfigImage:: ; 67:5664
 	ld a, [hli]
 	ld d, [hl]
 	ld e, a
-	ld hl, $DEEE
+	ld hl, wAcctNumberSelfPage
 	call EncodeXorA5
 	ldh [hScratchA], a
 	pop af

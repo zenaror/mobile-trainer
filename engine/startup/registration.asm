@@ -267,7 +267,7 @@ Registration_LoginIdEntry:: ; 65:432D
 	farcall Account_LoginIdEntryScreen
 	or a, a
 	jr z, Registration_LoginIdIntro
-	ld hl, $DEA0
+	ld hl, wAcctLoginId
 	ld de, sSettingsLoginId
 	ld b, $01
 	farcall Settings_StoreStringField
@@ -281,11 +281,11 @@ Registration_MailAddressEntry:: ; 65:434D
 	farcall Account_MailAddressEntryScreen
 	or a, a
 	jr z, Registration_MailIntro
-	ld hl, $DEAB
+	ld hl, wAcctMailLocalPart
 	ld de, sSettingsMailLocalPart
 	ld b, $02
 	farcall Settings_StoreStringField
-	ld hl, $DEB4
+	ld hl, wAcctMailSubdomain
 	ld de, sSettingsMailSubdomain
 	ld b, $02
 	farcall Settings_StoreStringField
@@ -310,27 +310,27 @@ Registration_PasswordIntro:: ; 65:4384
 	jr z, Registration_MailAddressEntry
 
 Registration_PasswordEntry:: ; 65:438D
-	ld hl, $DEB9
-	ld de, $DED4
+	ld hl, wAcctPassword
+	ld de, wAcctPasswordEntry
 	farcall Wram3_CopyString
 	xor a, a
 	farcall Account_PasswordEntryScreen
 	push af
 	call Password_ClearConfirmIfEdited
-	ld hl, $DED4
-	ld de, $DEB9
+	ld hl, wAcctPasswordEntry
+	ld de, wAcctPassword
 	farcall Wram3_CopyString
 	pop af
 	or a, a
 	jr z, Registration_PasswordStep
-	ld hl, $DECB
-	ld de, $DED4
+	ld hl, wAcctPasswordConfirm
+	ld de, wAcctPasswordEntry
 	farcall Wram3_CopyString
 	ld a, $01
 	farcall Account_PasswordEntryScreen
 	push af
-	ld hl, $DED4
-	ld de, $DECB
+	ld hl, wAcctPasswordEntry
+	ld de, wAcctPasswordConfirm
 	farcall Wram3_CopyString
 	pop af
 	or a, a
@@ -342,14 +342,14 @@ Registration_PasswordEntry:: ; 65:438D
 	ld a, $F0
 	ld hl, $0010
 	farcall CommErr_ShowScreen
-	ld hl, $DEB9
+	ld hl, wAcctPassword
 	farcall Wram3_ClearByte
-	ld hl, $DECB
+	ld hl, wAcctPasswordConfirm
 	farcall Wram3_ClearByte
 	jr Registration_PasswordEntry
 
 Registration_PasswordAccepted:: ; 65:4402
-	ld hl, $DEB9
+	ld hl, wAcctPassword
 	ld de, sSettingsPassword
 	ld b, $04
 	farcall Settings_StoreStringField
@@ -441,7 +441,7 @@ Label_65_4498::
 	farcall Account_LoginIdEntryScreen
 	or a, a
 	jr z, Registration_LoginIdIntro_Hidden
-	ld hl, $DEA0
+	ld hl, wAcctLoginId
 	ld de, sSettingsLoginId
 	ld b, $01
 	farcall Settings_StoreStringField
@@ -457,11 +457,11 @@ Label_65_44B8::
 	farcall Account_MailAddressEntryScreen
 	or a, a
 	jr z, Registration_MailIntro_Hidden
-	ld hl, $DEAB
+	ld hl, wAcctMailLocalPart
 	ld de, sSettingsMailLocalPart
 	ld b, $02
 	farcall Settings_StoreStringField
-	ld hl, $DEB4
+	ld hl, wAcctMailSubdomain
 	ld de, sSettingsMailSubdomain
 	ld b, $02
 	farcall Settings_StoreStringField
@@ -505,7 +505,7 @@ Label_65_4531::
 	farcall PhoneKeypad_Run
 	or a, a
 	jr z, Registration_ManualPhoneEntry
-	ld hl, $DEDD
+	ld hl, wAcctNumberInternet
 	ld de, sSettingsNumberInternet
 	ld b, $08
 	farcall Settings_StoreStringField
@@ -516,7 +516,7 @@ Label_65_454A::
 	farcall PhoneKeypad_Run
 	or a, a
 	jr z, Registration_PhoneKeypad0
-	ld hl, $DEEE
+	ld hl, wAcctNumberSelfPage
 	ld de, sSettingsNumberSelfPage
 	ld b, $10
 	farcall Settings_StoreStringField
@@ -526,7 +526,7 @@ Label_65_4563::
 	farcall PhoneComment_KeyboardRun
 	or a, a
 	jr z, Registration_PhoneKeypad1
-	ld hl, $DEFF
+	ld hl, wAcctNumberComment
 	ld de, sSettingsNumberComment
 	ld b, $20
 	farcall Settings_StoreStringField
@@ -540,27 +540,27 @@ Label_65_457A::
 
 Registration_PasswordEntry_Hidden:: ; 65:4584
 Label_65_4584::
-	ld hl, $DEB9
-	ld de, $DED4
+	ld hl, wAcctPassword
+	ld de, wAcctPasswordEntry
 	farcall Wram3_CopyString
 	xor a, a
 	farcall Account_PasswordEntryScreen
 	push af
 	call Password_ClearConfirmIfEdited
-	ld hl, $DED4
-	ld de, $DEB9
+	ld hl, wAcctPasswordEntry
+	ld de, wAcctPassword
 	farcall Wram3_CopyString
 	pop af
 	or a, a
 	jr z, Registration_PasswordIntro_Hidden
-	ld hl, $DECB
-	ld de, $DED4
+	ld hl, wAcctPasswordConfirm
+	ld de, wAcctPasswordEntry
 	farcall Wram3_CopyString
 	ld a, $01
 	farcall Account_PasswordEntryScreen
 	push af
-	ld hl, $DED4
-	ld de, $DECB
+	ld hl, wAcctPasswordEntry
+	ld de, wAcctPasswordConfirm
 	farcall Wram3_CopyString
 	pop af
 	or a, a
@@ -572,13 +572,13 @@ Label_65_4584::
 	ld a, $F0
 	ld hl, $0010
 	farcall CommErr_ShowScreen
-	ld hl, $DEB9
+	ld hl, wAcctPassword
 	farcall Wram3_ClearByte
-	ld hl, $DECB
+	ld hl, wAcctPasswordConfirm
 	farcall Wram3_ClearByte
 	jr Registration_PasswordEntry_Hidden
 .l45F9 ; 65:45F9
-	ld hl, $DEB9
+	ld hl, wAcctPassword
 	ld de, sSettingsPassword
 	ld b, $04
 	farcall Settings_StoreStringField
@@ -698,8 +698,8 @@ Function_65_46FF::
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $DECB
-	ld de, $DEB9
+	ld hl, wAcctPasswordConfirm
+	ld de, wAcctPassword
 	call CopyString
 	ldh [hScratchA], a
 	pop af
@@ -719,8 +719,8 @@ Function_65_471F::
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $DECB
-	ld de, $DEC2
+	ld hl, wAcctPasswordConfirm
+	ld de, wAcctPasswordNew
 	call CopyString
 	ldh [hScratchA], a
 	pop af
@@ -740,8 +740,8 @@ Function_65_473F::
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $DEB9
-	ld de, $DECB
+	ld hl, wAcctPassword
+	ld de, wAcctPasswordConfirm
 	call CompareString
 	ld b, a
 	ldh [hScratchA], a
@@ -761,8 +761,8 @@ Function_65_4761::
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $DEB9
-	ld de, $DED4
+	ld hl, wAcctPassword
+	ld de, wAcctPasswordEntry
 	call CompareString
 	ld b, a
 	ldh [hScratchA], a
@@ -773,7 +773,7 @@ Function_65_4761::
 	ld a, b
 	or a, a
 	jr z, .done
-	ld hl, $DECB
+	ld hl, wAcctPasswordConfirm
 	farcall Wram3_ClearByte
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
@@ -815,8 +815,8 @@ Password_CompareNewAndConfirm:: ; 65:47C8
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $DECB
-	ld de, $DEC2
+	ld hl, wAcctPasswordConfirm
+	ld de, wAcctPasswordNew
 	call CompareString
 	ld b, a
 	ldh [hScratchA], a
@@ -835,7 +835,7 @@ Registration_SavePassword:: ; 65:47EA
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $DEB9
+	ld hl, wAcctPassword
 	ld de, wRam_C28F
 	call CopyString
 	ldh [hScratchA], a

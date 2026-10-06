@@ -7,8 +7,8 @@ SECTION "engine/browser/scrollbar", ROMX
 Browser_ShiftCanvasUp:: ; 4E:5B69
 	; [CONFIRMED] 272 insn(s) executed; cut out of the PROBABLE region 5A6D-5CB6 by apply_coverage
 	; --split [executed in 1 scenarios] (part of region $5B59-$5CB6)
-	ld de, $D000
-	ld hl, $D148
+	ld de, wTileStage2
+	ld hl, wTileStage2 + $148
 	ld b, $13
 	ld a, $02
 	ldh [hWRAMBank], a
@@ -124,7 +124,7 @@ Browser_ShiftCanvasUp:: ; 4E:5B69
 	dec b
 	jp nz, .l5B77
 	call Sound_FrameService
-	ld hl, $DC88
+	ld hl, wTileStage2 + $C88
 	ld de, $0008
 	ld b, $14
 	xor a, a
@@ -145,8 +145,8 @@ Browser_ShiftCanvasUp:: ; 4E:5B69
 	ret
 
 Browser_ShiftCanvasDown:: ; 4E:5C10
-	ld hl, $DC87
-	ld de, $DDCF
+	ld hl, wTileStage2 + $C87
+	ld de, wTileStage2 + $DCF
 	ld b, $13
 	ld a, $02
 	ldh [hWRAMBank], a
@@ -261,7 +261,7 @@ Browser_ShiftCanvasDown:: ; 4E:5C10
 	dec b
 	jp nz, .l5C1E
 	call Sound_FrameService
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld bc, $0140
 	xor a, a
 	call FillBytes

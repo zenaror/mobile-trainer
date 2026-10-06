@@ -112,7 +112,7 @@ Dialog_Open:: ; 72:402A
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $DC00
+	ld hl, wDialogTileStage
 	ld bc, $0400
 	xor a, a
 	call FillBytes
@@ -122,20 +122,20 @@ Dialog_Open:: ; 72:402A
 	farcall Tilemap_FillAscendingWithAttr
 	pop hl
 	call Sound_FrameService
-	ld bc, $DC00
-	ld de, $DD00
+	ld bc, wDialogTileStage
+	ld de, wDialogTileStage + $100
 	ld a, $07
 	ldh [hTextTiles_DestBank], a
 	ld a, $72
 	farcall TextTiles_RenderLine
-	ld bc, $DE00
-	ld de, $DF00
+	ld bc, wDialogTileStage + $200
+	ld de, wDialogTileStage + $300
 	ld a, $07
 	ldh [hTextTiles_DestBank], a
 	ld a, $72
 	farcall TextTiles_RenderLine
 	ld de, $8C01
-	ld hl, $DC00
+	ld hl, wDialogTileStage
 	ld a, $00
 	ld b, $92
 	ld c, $40
@@ -258,7 +258,7 @@ Dialog_OpenTall:: ; 72:41D8
 	push hl
 	ld a, [wDialogType]
 	call Dialog_SetupCursorByType
-	ld hl, $DC00
+	ld hl, wDialogTileStage
 	ld bc, $0400
 	xor a, a
 	call FillBytes
@@ -272,21 +272,21 @@ Dialog_OpenTall:: ; 72:41D8
 	farcall Tilemap_FillAscendingWithAttr
 	pop hl
 	call Sound_FrameService
-	ld bc, $DC00
-	ld de, $DD00
+	ld bc, wDialogTileStage
+	ld de, wDialogTileStage + $100
 	ld a, $07
 	ldh [hTextTiles_DestBank], a
 	ld a, $72
 	farcall TextTiles_RenderLine
-	ld bc, $DE00
-	ld de, $DF00
+	ld bc, wDialogTileStage + $200
+	ld de, wDialogTileStage + $300
 	ld a, $07
 	ldh [hTextTiles_DestBank], a
 	ld a, $72
 	farcall TextTiles_RenderLine
 	push hl
 	ld de, $8C01
-	ld hl, $DC00
+	ld hl, wDialogTileStage
 	ld a, $00
 	ld b, $92
 	ld c, $40
@@ -294,20 +294,20 @@ Dialog_OpenTall:: ; 72:41D8
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $DC00
+	ld hl, wDialogTileStage
 	ld bc, $0400
 	xor a, a
 	call FillBytes
 	call Sound_FrameService
 	pop hl
-	ld bc, $DC00
-	ld de, $DD00
+	ld bc, wDialogTileStage
+	ld de, wDialogTileStage + $100
 	ld a, $07
 	ldh [hTextTiles_DestBank], a
 	ld a, $72
 	farcall TextTiles_RenderLine
 	ld de, $9001
-	ld hl, $DC00
+	ld hl, wDialogTileStage
 	ld a, $00
 	ld b, $95
 	ld c, $20

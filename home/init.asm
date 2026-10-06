@@ -48,7 +48,7 @@ Boot:: ; 00:0278
 .l02C0 ; 00:02C0
 	ld a, e
 	ldh [rSVBK], a
-	ld hl, $D000
+	ld hl, $D000 ; raw: base of the wipe of every bank 2-7
 	ld bc, $1000
 	xor a, a
 	call FillBytes

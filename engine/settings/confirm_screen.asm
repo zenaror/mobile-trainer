@@ -219,7 +219,7 @@ SettingsPhone_ConfirmScreen_PrintFields:: ; 67:52A7
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	ld a, $03
-	ld hl, $DEDD
+	ld hl, wAcctNumberInternet
 	call TextEngine_Run
 	ld de, $FFFF
 	ld hl, $0707
@@ -252,7 +252,7 @@ SettingsPhone_ConfirmScreen_PrintFields:: ; 67:52A7
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	ld a, $03
-	ld hl, $DEEE
+	ld hl, wAcctNumberSelfPage
 	call TextEngine_Run
 	ld de, $FFFF
 	ld hl, $0906
@@ -285,7 +285,7 @@ SettingsPhone_ConfirmScreen_PrintFields:: ; 67:52A7
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	ld a, $03
-	ld hl, $DEFF
+	ld hl, wAcctNumberComment
 	call TextEngine_Run
 	ret
 

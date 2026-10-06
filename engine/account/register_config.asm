@@ -272,35 +272,35 @@ Config_BuildImageFromAccount:: ; 68:6CF0
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, Config_HostPrefixStrings
-	ld de, $DFC3
+	ld de, wAcctHostScratch
 	call CopyString
-	ld hl, $DEB4
-	ld de, $DFC3
+	ld hl, wAcctMailSubdomain
+	ld de, wAcctHostScratch
 	call StringAppend
 	ld hl, $6E0E
-	ld de, $DFC3
+	ld de, wAcctHostScratch
 	call StringAppend
-	ld hl, $DFC3
+	ld hl, wAcctHostScratch
 	ld de, sConfigPopServer
 	ld bc, $0014
 	call CopyStringMax
 	ld hl, $6E08
-	ld de, $DFC3
+	ld de, wAcctHostScratch
 	call CopyString
-	ld hl, $DEB4
-	ld de, $DFC3
+	ld hl, wAcctMailSubdomain
+	ld de, wAcctHostScratch
 	call StringAppend
 	ld hl, $6E0E
-	ld de, $DFC3
+	ld de, wAcctHostScratch
 	call StringAppend
-	ld hl, $DFC3
+	ld hl, wAcctHostScratch
 	ld de, sConfigSmtpServer
 	ld bc, $0014
 	call CopyStringMax
-	ld hl, $DEA0
+	ld hl, wAcctLoginId
 	ld de, sConfigLoginId
 	call CopyString
-	ld hl, $DFAA
+	ld hl, wAcctMailAddress
 	ld de, sConfigMailAddress
 	call CopyString
 	ldh [hScratchA], a
@@ -334,10 +334,10 @@ Config_BuildImageFromAccount:: ; 68:6CF0
 
 	; [CONFIRMED] 22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 0;
 	; fall-through of the jrcc at 68:6DBB (executed) [executed in 2 scenarios]
-	ld hl, $DEDD
+	ld hl, wAcctNumberInternet
 	ld de, sConfigDial0Number
 	call PhoneNumber_PackBcd
-	ld hl, $DEFF
+	ld hl, wAcctNumberComment
 	ld de, sConfigDial0Text
 	ld bc, $0010
 	call CopyStringMax
@@ -348,7 +348,7 @@ Config_BuildImageFromAccount:: ; 68:6CF0
 	ld a, $01
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld hl, $DEEE
+	ld hl, wAcctNumberSelfPage
 	ld de, sSettingsDialNumbers
 	call EncodeXorA5
 	ldh [hScratchA], a

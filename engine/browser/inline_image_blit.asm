@@ -241,7 +241,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld a, $FF
 	call FillBytes
 	ldh a, [hBmp_Height]
@@ -250,7 +250,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	ldh a, [hRam_FFD4]
 	ld d, $00
 	call Multiply8x16
-	ld de, $D000
+	ld de, wTileStage3
 	add hl, de
 	ld e, l
 	ld d, h
@@ -516,7 +516,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	ld a, d
 	cpl
 	ld [wHtmlListCounter], a
-	ld hl, $D001
+	ld hl, wTileStage3 + $01 ; the +1 undoes the dec de above: HL = wTileStage3 + the DE popped
 	add hl, de
 	ld e, l
 	ld d, h
@@ -537,7 +537,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	pop bc
 	call Sound_FrameService
 	pop de
-	ld hl, $D000
+	ld hl, wTileStage3
 	call CopyBytes
 	xor a, a
 	ld [de], a
