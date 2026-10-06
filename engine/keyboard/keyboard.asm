@@ -140,7 +140,7 @@ Kbd_Run:: ; 55:5C8F
 	jr .l5CE0
 .l5CBC ; 55:5CBC
 	ld a, [wKbdType]
-	call Function_55_6EAA
+	call Kbd_TypeMode2DefaultCursorFlag
 	or a, a
 	jr z, .l5CE0
 	ld a, [wKbdType]
@@ -159,7 +159,7 @@ Kbd_Run:: ; 55:5C8F
 	call Kbd_SlideIn
 .l5CE0 ; 55:5CE0
 	ld a, [wKbdType]
-	call Function_55_6EC0
+	call Kbd_TypeArgCDefaultCursorFlag
 	or a, a
 	jr z, .l5D05
 	ld a, [wKbdRunArgC]

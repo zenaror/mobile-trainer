@@ -23,10 +23,11 @@ Table_Kbd_TypeHasPages_ByType:: ; 55:6E9F
 Data_55_6E9F::
 	db $00, $00, $00, $00, $00, $00, $01, $01, $01, $00, $00
 
-Function_55_6EAA:: ; 55:6EAA
-	; [CONFIRMED] 8 insn(s); 8 executed (in up to 7/18 scenarios); entry proven: target of an
-	; executed call/far call
-	ld hl, Data_55_6EB5
+Kbd_TypeMode2DefaultCursorFlag:: ; 55:6EAA
+Function_55_6EAA::
+	; [CONFIRMED] A=type0..10, returns the mode2 default-cursor flag (0/1); HL/flags clobbered.
+	; Sole Kbd_Run call executes 1,268/25 natural hits/scenarios; type10 exits before this test.
+	ld hl, Table_Kbd_Mode2DefaultCursorFlag_ByType
 	add a, l
 	ld l, a
 	ld a, $00
@@ -35,15 +36,19 @@ Function_55_6EAA:: ; 55:6EAA
 	ld a, [hl]
 	ret
 
-; ---- data $6EB5-$6EC0 (11 bytes) [PROBABLE] zero/short bytes of the keyboard page tables between text rows; part of the run 6EB5-6EC0 that executed code reads piecewise [split by classify_g2]
+; ---- data $6EB5-$6EC0 (11 bytes) [PROBABLE] per-type flag for mode2
+; default-cursor restoration; consumer role CONFIRMED. Natural reads cover 7/11 bytes.
+; Types 5,6,7,10 have no natural byte-read evidence; keep the whole storage PROBABLE.
 
-Data_55_6EB5:: ; 55:6EB5
+Table_Kbd_Mode2DefaultCursorFlag_ByType:: ; 55:6EB5
+Data_55_6EB5::
 	db $00, $00, $00, $00, $00, $00, $01, $01, $01, $01, $01
 
-Function_55_6EC0:: ; 55:6EC0
-	; [CONFIRMED] 8 insn(s); 8 executed (in up to 11/18 scenarios); entry proven: target of an
-	; executed call/far call
-	ld hl, Data_55_6ECB
+Kbd_TypeArgCDefaultCursorFlag:: ; 55:6EC0
+Function_55_6EC0::
+	; [CONFIRMED] A=type0..10, returns the argument-C default-cursor flag (0/1); HL/flags clobbered.
+	; Sole Kbd_Run call executes 14,425/35 natural hits/scenarios; type10 exits before this test.
+	ld hl, Table_Kbd_ArgCDefaultCursorFlag_ByType
 	add a, l
 	ld l, a
 	ld a, $00
@@ -52,9 +57,12 @@ Function_55_6EC0:: ; 55:6EC0
 	ld a, [hl]
 	ret
 
-; ---- data $6ECB-$6ED6 (11 bytes) [PROBABLE] zero/short bytes of the keyboard page tables between text rows; part of the run 6ECB-6ED6 that executed code reads piecewise [split by classify_g2]
+; ---- data $6ECB-$6ED6 (11 bytes) [PROBABLE] per-type flag for nonzero run argument C
+; default-cursor restoration; consumer role CONFIRMED. Natural reads cover 10/11 bytes.
+; Type 10 has no natural byte-read evidence; keep the whole storage PROBABLE.
 
-Data_55_6ECB:: ; 55:6ECB
+Table_Kbd_ArgCDefaultCursorFlag_ByType:: ; 55:6ECB
+Data_55_6ECB::
 	db $01, $01, $01, $01, $01, $01, $00, $00, $00, $00, $00
 
 Kbd_TypeNeedsExtraPalette:: ; 55:6ED6
