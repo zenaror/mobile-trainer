@@ -10,11 +10,12 @@ PUSHC sjis
 
 CommErr_Msg_AdapterNotPlugged:: ; 5C:4000
 String_5C_4000::
-	db "モバイルアダプタが正しく", $0D
-	db "差しこまれていません。　", $0D
-	db "取扱説明書をごらんの上、", $0D
-	db "しっかりと差しこんで下さ", $0D
-	db "い。", 0
+	; English UI slot; retain fixed boundaries for following messages.
+	db "The Mobile Adapter", $0D, "is no"
+	db "t connected", $0D, "properly.", $0D, "Pl"
+	db "ease check the", $0D, "manual.", 0, 0
+	db 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+	db 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 CommErr_Msg_DialFailedOrBusy:: ; 5C:4069
 	db "電話がうまくかけられない", $0D

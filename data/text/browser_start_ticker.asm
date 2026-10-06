@@ -23,9 +23,8 @@ Table_73_4001::
 
 ; ---- text $4009-$4097 (142 bytes) [PROBABLE] text: 4 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-BrowserStart_Strings:: ; 73:4009
-String_73_4009::
-	db "ホームページ", 0
+	; Original 13-byte title slot retained after relocation.
+	ds 13, 0
 	db "インターネットをつかって　にんてんどうモバイルホームページをみることができます", 0
 	db "ページリスト", 0
 	db "ページリストを　つかうことができます", 0
