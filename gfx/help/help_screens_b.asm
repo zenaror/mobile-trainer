@@ -45,7 +45,10 @@ Palette_HelpScript_Bg:: ; 6A:7220
 Palette_6A_7220::
 	INCLUDE "gfx/help/help_screens_b/palette_7220.pal"
 
-; ---- data $72A0-$72BB (27 bytes) [PROBABLE] 1 object record(s): 1 frame tables, 2 frames, 1 scripts, tiled exactly (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 6A:72A0-72BB [v4: bytes 72B8-72BB were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+; ---- data $72A0-$72BB (27 bytes) [CONFIRMED] selected slot2 object chain:
+; two frame pointers, two count2 OAM records, and script pairs (0,46)/(1,8).
+; All 27 bytes have natural read evidence; per-byte scenario counts range 28-30.
+; Existing neutral frame-table label and structured macros remain unchanged.
 
 Data_6A_72A0:: ; 6A:72A0
 	sprite_frame_table SpriteFrame_6A_72A4, SpriteFrame_6A_72AD
@@ -62,7 +65,11 @@ SpriteScript_6A_72B6:: ; 6A:72B6
 	sprite_anim_step 0, 46
 	sprite_anim_step 1, 8
 
-; ---- words $72BB-$72BF (4 bytes) [PROBABLE] 1 object-table entries of 4 bytes (ptr to frame table, ptr to script; 0000 = unused); de=$72BB a=$6A at 6C:5D1E (1 entry: 72A0/72B6); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs [v4: bytes 72BB-72BF were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+; ---- words $72BB-$72BF (4 bytes) [CONFIRMED] one slot2 object-table entry
+; pointing to frame table $72A0 and script $72B6. OnA/OnB/TextFinished select
+; B=$80 (entry0, looping); natural InitSlot counts are 263/20, 292/11, 317/29.
+; All four entry bytes read in 30 natural data scenarios; no visual role inferred.
 
-Table_6A_72BB:: ; 6A:72BB
+Objects_HelpScript_Slot2:: ; 6A:72BB
+Table_6A_72BB::
 	sprite_object_entry Data_6A_72A0, SpriteScript_6A_72B6 ; entry 0

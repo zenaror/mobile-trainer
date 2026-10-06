@@ -521,18 +521,18 @@ gfx/help/help_screens_a/tilemap_42d0.tilemap	tilemap	360	gfx/help/help_screens_a
 gfx/help/help_screens_a/tilemap_42d0.attrmap	attrmap	360	gfx/help/help_screens_a.asm	6A	4438	CONFIRMED	-	0	20x18	Data_6A_42D0
 gfx/help/help_screens_a/tilemap_45a0.tilemap	tilemap	360	gfx/help/help_screens_a.asm	6A	45A0	CONFIRMED	-	0	20x18	Data_6A_45A0
 gfx/help/help_screens_a/tilemap_45a0.attrmap	attrmap	360	gfx/help/help_screens_a.asm	6A	4708	CONFIRMED	-	0	20x18	Data_6A_45A0
-gfx/help/help_screens_a/tilemap_4870.tilemap	tilemap	210	gfx/help/help_screens_a.asm	6A	4870	PROBABLE	-	0	10x21	Tilemap_6A_4870
-gfx/help/help_screens_a/tilemap_4870.attrmap	attrmap	210	gfx/help/help_screens_a.asm	6A	4942	PROBABLE	-	0	10x21	Tilemap_6A_4870
-gfx/help/help_screens_a/tilemap_4a14.tilemap	tilemap	90	gfx/help/help_screens_a.asm	6A	4A14	PROBABLE	-	0	10x9	Tilemap_6A_4A14
-gfx/help/help_screens_a/tilemap_4a14.attrmap	attrmap	90	gfx/help/help_screens_a.asm	6A	4A6E	PROBABLE	-	0	10x9	Tilemap_6A_4A14
-gfx/help/help_screens_a/tilemap_4ac8.tilemap	tilemap	90	gfx/help/help_screens_a.asm	6A	4AC8	PROBABLE	-	0	10x9	Tilemap_6A_4AC8
-gfx/help/help_screens_a/tilemap_4ac8.attrmap	attrmap	90	gfx/help/help_screens_a.asm	6A	4B22	PROBABLE	-	0	10x9	Tilemap_6A_4AC8
-gfx/help/help_screens_a/tilemap_4b7c.tilemap	tilemap	210	gfx/help/help_screens_a.asm	6A	4B7C	PROBABLE	-	0	10x21	Tilemap_6A_4B7C
-gfx/help/help_screens_a/tilemap_4b7c.attrmap	attrmap	210	gfx/help/help_screens_a.asm	6A	4C4E	PROBABLE	-	0	10x21	Tilemap_6A_4B7C
-gfx/help/help_screens_a/tilemap_4d20.tilemap	tilemap	90	gfx/help/help_screens_a.asm	6A	4D20	PROBABLE	-	0	10x9	Tilemap_6A_4D20
-gfx/help/help_screens_a/tilemap_4d20.attrmap	attrmap	90	gfx/help/help_screens_a.asm	6A	4D7A	PROBABLE	-	0	10x9	Tilemap_6A_4D20
-gfx/help/help_screens_a/tilemap_4dd4.tilemap	tilemap	90	gfx/help/help_screens_a.asm	6A	4DD4	PROBABLE	-	0	10x9	Tilemap_6A_4DD4
-gfx/help/help_screens_a/tilemap_4dd4.attrmap	attrmap	90	gfx/help/help_screens_a.asm	6A	4E2E	PROBABLE	-	0	10x9	Tilemap_6A_4DD4
+gfx/help/help_screens_a/tilemap_4870.tilemap	tilemap	210	gfx/help/help_screens_a.asm	6A	4870	CONFIRMED	-	0	10x21	Tilemap_HelpMenu_Page1_NormalItems
+gfx/help/help_screens_a/tilemap_4870.attrmap	attrmap	210	gfx/help/help_screens_a.asm	6A	4942	CONFIRMED	-	0	10x21	Tilemap_HelpMenu_Page1_NormalItems
+gfx/help/help_screens_a/tilemap_4a14.tilemap	tilemap	90	gfx/help/help_screens_a.asm	6A	4A14	CONFIRMED	-	0	10x9	Tilemap_HelpMenu_Page2_NormalItems
+gfx/help/help_screens_a/tilemap_4a14.attrmap	attrmap	90	gfx/help/help_screens_a.asm	6A	4A6E	CONFIRMED	-	0	10x9	Tilemap_HelpMenu_Page2_NormalItems
+gfx/help/help_screens_a/tilemap_4ac8.tilemap	tilemap	90	gfx/help/help_screens_a.asm	6A	4AC8	CONFIRMED	-	0	10x9	Tilemap_HelpMenu_Page3_NormalItems
+gfx/help/help_screens_a/tilemap_4ac8.attrmap	attrmap	90	gfx/help/help_screens_a.asm	6A	4B22	CONFIRMED	-	0	10x9	Tilemap_HelpMenu_Page3_NormalItems
+gfx/help/help_screens_a/tilemap_4b7c.tilemap	tilemap	210	gfx/help/help_screens_a.asm	6A	4B7C	PROBABLE	-	0	10x21	Tilemap_HelpMenu_Page1_SelectedItems
+gfx/help/help_screens_a/tilemap_4b7c.attrmap	attrmap	210	gfx/help/help_screens_a.asm	6A	4C4E	PROBABLE	-	0	10x21	Tilemap_HelpMenu_Page1_SelectedItems
+gfx/help/help_screens_a/tilemap_4d20.tilemap	tilemap	90	gfx/help/help_screens_a.asm	6A	4D20	CONFIRMED	-	0	10x9	Tilemap_HelpMenu_Page2_SelectedItems
+gfx/help/help_screens_a/tilemap_4d20.attrmap	attrmap	90	gfx/help/help_screens_a.asm	6A	4D7A	CONFIRMED	-	0	10x9	Tilemap_HelpMenu_Page2_SelectedItems
+gfx/help/help_screens_a/tilemap_4dd4.tilemap	tilemap	90	gfx/help/help_screens_a.asm	6A	4DD4	CONFIRMED	-	0	10x9	Tilemap_HelpMenu_Page3_SelectedItems
+gfx/help/help_screens_a/tilemap_4dd4.attrmap	attrmap	90	gfx/help/help_screens_a.asm	6A	4E2E	CONFIRMED	-	0	10x9	Tilemap_HelpMenu_Page3_SelectedItems
 gfx/help/help_screens_a/tiles_4e90.2bpp	tiles	1024	gfx/help/help_screens_a.asm	6A	4E90	CONFIRMED	exact	0		Data_6A_4E90
 gfx/help/help_screens_a/tiles_5290.2bpp	tiles	1024	gfx/help/help_screens_a.asm	6A	5290	CONFIRMED	exact	0		Data_6A_5290
 gfx/help/help_screens_a/tiles_5690.2bpp	tiles	1024	gfx/help/help_screens_a.asm	6A	5690	CONFIRMED	exact	0		Data_6A_5690

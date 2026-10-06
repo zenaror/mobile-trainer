@@ -25,39 +25,70 @@ Data_6A_45A0::
 	INCBIN "gfx/help/help_screens_a/tilemap_45a0.tilemap"
 	INCBIN "gfx/help/help_screens_a/tilemap_45a0.attrmap"
 
-; ---- data $4870-$4A14 (420 bytes) [PROBABLE] 10-wide box tilemap: 21 rows x 10 tile indices (0xd2 bytes) then 21 rows x 10 attribute bytes (+0xd2); code at 6C:43DC does `ld hl,$4870` then indexes it with an offset and adds 0xd2 to reach the attribute byte (`ld bc,$00D2`/`ld a,$5A`); attribute rows mirror the tile rows (left border attr 09/19, right border 29 = X-flip); parts read by executed code in up to 3/18 scenarios
+; ---- data $4870-$4A14 (420 bytes) [CONFIRMED] HelpMenu page 1 normal
+; item rectangles: 21 rows x 10 tile indices, then the same number of attribute bytes.
+; Tilemap_CopyRectAndAttrPtr copies each packed source to WRAM7:D000/D400; fixed
+; asset halves match the original bank 6A. Natural data union reads 420/420 bytes.
+; Item rows: 4/3/4/3, followed by locked-item variants of 3/4 rows.
 
-Tilemap_6A_4870:: ; 6A:4870
+Tilemap_HelpMenu_Page1_NormalItems:: ; 6A:4870
+Tilemap_6A_4870::
 	INCBIN "gfx/help/help_screens_a/tilemap_4870.tilemap"
 	INCBIN "gfx/help/help_screens_a/tilemap_4870.attrmap"
 
-; ---- data $4A14-$4AC8 (180 bytes) [PROBABLE] 10-wide box tilemap: 9 rows x 10 tile indices (0x5a bytes) then 9 rows x 10 attribute bytes (+0x5a); code at 6C:446D does `ld hl,$4A14` then indexes it with an offset and adds 0x5a to reach the attribute byte (`ld bc,$00D2`/`ld a,$5A`); attribute rows mirror the tile rows (left border attr 09/19, right border 29 = X-flip); parts read by executed code in up to 3/18 scenarios
+; ---- data $4A14-$4AC8 (180 bytes) [CONFIRMED] HelpMenu page 2 normal
+; item rectangles: 9 rows x 10 tile indices, then the same number of attribute bytes.
+; Tilemap_CopyRectAndAttrPtr copies each packed source to WRAM7:D000/D400; fixed
+; asset halves match the original bank 6A. Natural data union reads 180/180 bytes.
+; Item rows: 3/3, followed by the locked-item2 variant of 3 rows.
 
-Tilemap_6A_4A14:: ; 6A:4A14
+Tilemap_HelpMenu_Page2_NormalItems:: ; 6A:4A14
+Tilemap_6A_4A14::
 	INCBIN "gfx/help/help_screens_a/tilemap_4a14.tilemap"
 	INCBIN "gfx/help/help_screens_a/tilemap_4a14.attrmap"
 
-; ---- data $4AC8-$4B7C (180 bytes) [PROBABLE] 10-wide box tilemap: 9 rows x 10 tile indices (0x5a bytes) then 9 rows x 10 attribute bytes (+0x5a); code at 6C:44FA does `ld hl,$4AC8` then indexes it with an offset and adds 0x5a to reach the attribute byte (`ld bc,$00D2`/`ld a,$5A`); attribute rows mirror the tile rows (left border attr 09/19, right border 29 = X-flip); parts read by executed code in up to 3/18 scenarios
+; ---- data $4AC8-$4B7C (180 bytes) [CONFIRMED] HelpMenu page 3 normal
+; item rectangles: 9 rows x 10 tile indices, then the same number of attribute bytes.
+; Tilemap_CopyRectAndAttrPtr copies each packed source to WRAM7:D000/D400; fixed
+; asset halves match the original bank 6A. Natural data union reads 180/180 bytes.
+; Item rows: 3/3, followed by the locked-item2 variant of 3 rows.
 
-Tilemap_6A_4AC8:: ; 6A:4AC8
+Tilemap_HelpMenu_Page3_NormalItems:: ; 6A:4AC8
+Tilemap_6A_4AC8::
 	INCBIN "gfx/help/help_screens_a/tilemap_4ac8.tilemap"
 	INCBIN "gfx/help/help_screens_a/tilemap_4ac8.attrmap"
 
-; ---- data $4B7C-$4D20 (420 bytes) [PROBABLE] 10-wide box tilemap: 21 rows x 10 tile indices (0xd2 bytes) then 21 rows x 10 attribute bytes (+0xd2); code at 6C:45FE does `ld hl,$4B7C` then indexes it with an offset and adds 0xd2 to reach the attribute byte (`ld bc,$00D2`/`ld a,$5A`); attribute rows mirror the tile rows (left border attr 09/19, right border 29 = X-flip); parts read by executed code in up to 3/18 scenarios
+; ---- data $4B7C-$4D20 (420 bytes) [PROBABLE] HelpMenu page 1 selected
+; item rectangles: 21 rows x 10 tile indices, then the same number of attribute bytes.
+; Tilemap_CopyRectAndAttrPtr copies each packed source to WRAM7:D000/D400; fixed
+; asset halves match the original bank 6A. Natural data union reads 360/420 bytes.
+; Item rows: 4/3/4/3, followed by locked-item variants of 3/4 rows.
+; Unread: $4C08-$4C26 and $4CDA-$4CF8 (locked item2); its call never ran naturally.
 
-Tilemap_6A_4B7C:: ; 6A:4B7C
+Tilemap_HelpMenu_Page1_SelectedItems:: ; 6A:4B7C
+Tilemap_6A_4B7C::
 	INCBIN "gfx/help/help_screens_a/tilemap_4b7c.tilemap"
 	INCBIN "gfx/help/help_screens_a/tilemap_4b7c.attrmap"
 
-; ---- data $4D20-$4DD4 (180 bytes) [PROBABLE] 10-wide box tilemap: 9 rows x 10 tile indices (0x5a bytes) then 9 rows x 10 attribute bytes (+0x5a); code at 6C:468F does `ld hl,$4D20` then indexes it with an offset and adds 0x5a to reach the attribute byte (`ld bc,$00D2`/`ld a,$5A`); attribute rows mirror the tile rows (left border attr 09/19, right border 29 = X-flip); parts read by executed code in up to 3/18 scenarios
+; ---- data $4D20-$4DD4 (180 bytes) [CONFIRMED] HelpMenu page 2 selected
+; item rectangles: 9 rows x 10 tile indices, then the same number of attribute bytes.
+; Tilemap_CopyRectAndAttrPtr copies each packed source to WRAM7:D000/D400; fixed
+; asset halves match the original bank 6A. Natural data union reads 180/180 bytes.
+; Item rows: 3/3, followed by the locked-item2 variant of 3 rows.
 
-Tilemap_6A_4D20:: ; 6A:4D20
+Tilemap_HelpMenu_Page2_SelectedItems:: ; 6A:4D20
+Tilemap_6A_4D20::
 	INCBIN "gfx/help/help_screens_a/tilemap_4d20.tilemap"
 	INCBIN "gfx/help/help_screens_a/tilemap_4d20.attrmap"
 
-; ---- data $4DD4-$4E88 (180 bytes) [PROBABLE] 10-wide box tilemap: 9 rows x 10 tile indices (0x5a bytes) then 9 rows x 10 attribute bytes (+0x5a); code at 6C:471C does `ld hl,$4DD4` then indexes it with an offset and adds 0x5a to reach the attribute byte (`ld bc,$00D2`/`ld a,$5A`); attribute rows mirror the tile rows (left border attr 09/19, right border 29 = X-flip); parts read by executed code in up to 3/18 scenarios
+; ---- data $4DD4-$4E88 (180 bytes) [CONFIRMED] HelpMenu page 3 selected
+; item rectangles: 9 rows x 10 tile indices, then the same number of attribute bytes.
+; Tilemap_CopyRectAndAttrPtr copies each packed source to WRAM7:D000/D400; fixed
+; asset halves match the original bank 6A. Natural data union reads 180/180 bytes.
+; Item rows: 3/3, followed by the locked-item2 variant of 3 rows.
 
-Tilemap_6A_4DD4:: ; 6A:4DD4
+Tilemap_HelpMenu_Page3_SelectedItems:: ; 6A:4DD4
+Tilemap_6A_4DD4::
 	INCBIN "gfx/help/help_screens_a/tilemap_4dd4.tilemap"
 	INCBIN "gfx/help/help_screens_a/tilemap_4dd4.attrmap"
 
@@ -111,16 +142,24 @@ Data_6A_62B0::
 Palette_HelpMenu_Obj:: ; 6A:62F0
 	INCLUDE "gfx/help/help_screens_a/help_menu_obj.pal"
 
-; ---- data $6330-$6448 (280 bytes) [PROBABLE] palette-rgb555: heuristic: 140 RGB555 words as 35 palette group(s) of 4 (the rest of a heuristic block; the palette array(s) that the code reads were cut out of it)
+; ---- data $6330-$6448 (280 bytes) [PROBABLE] existing RGB-word representation;
+; the selected object at $64AE reaches a nine-word frame table here and OAM frame
+; records, continuing across $6448. Every byte has natural read evidence.
+; The earlier palette heuristic conflicts with this demonstrated sprite use;
+; preserve the INCLUDE/RGB encoding and palette asset classification pending a
+; separate review of that classification. No new palette role is asserted.
 
 Data_6A_6330:: ; 6A:6330
 	INCLUDE "gfx/help/help_screens_a/palette_6330.pal"
 
-; ---- data $6448-$64B1 (105 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown [clipped from 4E90-64BB by higher-priority evidence]
+; ---- data $6448-$64B1 (105 bytes) [CONFIRMED] tail of the 12-piece frame at $6429,
+; frame8 at $645A, nine-step script at $649B, and first three entry bytes at $64AE.
+; Every byte is read in the natural data union. The fourth entry byte is $64 at
+; neighboring 6A:$64B1; representations and historical boundaries remain intact.
 
 Data_6A_6448:: ; 6A:6448
-	db $31, $00, $00, $F8, $0A, $00, $08, $F8, $1A, $00, $00, $10, $0A, $00, $08, $10 ; not reached by any walked sprite chain
-	db $1A, $00 ; not reached by any walked sprite chain
+	db $31, $00, $00, $F8, $0A, $00, $08, $F8, $1A, $00, $00, $10, $0A, $00, $08, $10
+	db $1A, $00
 SpriteFrame_6A_645A:: ; 6A:645A
 	sprite_frame 16
 	sprite_oam 0, 0, $00, 0
@@ -150,5 +189,10 @@ SpriteScript_6A_649B:: ; 6A:649B
 	sprite_anim_step 6, 6
 	sprite_anim_step 7, 12
 	sprite_anim_step 8, 12
-Table_6A_64AE:: ; 6A:64AE
+; [CONFIRMED] one logical four-byte object entry $6330/$649B at $64AE-$64B2.
+; All four bytes were naturally read in 12 scenarios. Its final $64 byte is emitted
+; by the first dw at 6A:$64B1 in help_menu_ticker.asm; actual ticker base is $64B2.
+; Keep the three-byte db and neighboring dw intact; no macro conversion.
+Objects_HelpMenu:: ; 6A:64AE
+Table_6A_64AE::
 	db $30, $63, $9B ; sprite object-table entry kept as db: the item crosses the end of its block
