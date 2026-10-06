@@ -81,7 +81,7 @@ Function_51_404A::
 	ld a, $51
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_CommTime_SummaryB
 	ld a, $51
 	farcall Tilemap_CopyRectAndAttr
@@ -108,7 +108,7 @@ Function_51_404A::
 	ld a, $51
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_CommTime_SummaryA
 	ld a, $51
 	farcall Tilemap_CopyRectAndAttr

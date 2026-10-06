@@ -49,16 +49,20 @@ FILES = {
                        'DEF wSpriteSlot1 EQU $DA10 ; bank W7 size 16 struct CONFIRMED slot 1\n'
                        'DEF wSpriteSlot2 EQU $DA20 ; bank W7 size 16 struct CONFIRMED slot 2\n'
                        'DEF wPaletteBufBg EQU $D800 ; bank W7 size 64 array CONFIRMED bg palettes\n'
-                       'DEF wEditBodyBuf EQU $D400 ; bank W1 size 192 array PROBABLE edit buffer\n'),
+                       'DEF wEditBodyBuf EQU $D400 ; bank W1 size 192 array PROBABLE edit buffer\n'
+                       'DEF wScreenTileMap EQU $D000 ; bank W7 size 1024 array CONFIRMED tile map buffer\n'
+                       'DEF wScreenAttrMap EQU $D400 ; bank W7 size 1024 array CONFIRMED attribute map buffer\n'),
     'analysis/naming2/wramx_consumers.tsv': ('# header\n'
                                              'Sprite_InitSlot\thl\tW7\t-\twSpriteSlot[0-9]+\tselects bank 7 itself\n'
                                              'Sprite_SetPosition\thl\tW7\t-\twSpriteSlot[0-9]+\tselects bank 7 itself\n'
-                                             'Palette_UploadBuffer\thl\tW7\tswitch\twPaletteBuf(Bg|Obj)\tthe caller selects bank 7\n'),
+                                             'Palette_UploadBuffer\thl\tW7\tswitch\twPaletteBuf(Bg|Obj)\tthe caller selects bank 7\n'
+                                             'Gfx_StartHDMA\thl\tW7\ta\twScreen(Tile|Attr)Map\tA is the bank of the source\n'),
     'analysis/naming2/wramx_calls.tsv': ('# header\n'
                                          'VBlank_WaitStartDI\tkeeps\twrites no bank register\n'
                                          'Foo_Keeps\tkeeps\ttest\n'
                                          'Palette_UploadBuffer\tkeeps\twrites no bank register\n'
-                                         'SwitchToBank7\tsets W7\tselects bank 7 and leaves it\n'),
+                                         'SwitchToBank7\tsets W7\tselects bank 7 and leaves it\n'
+                                         'Gfx_StartHDMA\tkeeps if A=0\tA = 0 changes no bank\n'),
 }
 
 
@@ -425,6 +429,54 @@ class ComplexExpressionTests(Base):
         self.assertIn('\tld a, [wSpriteSlots + 16 * 3]\n\tld a, [wSpriteSlots - 1]\n\tld a, [2 * wSpriteSlots]\n\tld a, [wSpriteSlots + 16 + 1]\n', e)
         self.assertIn('\tld [wSpriteSlot1 + $01], a\n', e)
         self.assertIn('4 complex', out)
+
+
+class ArgumentBankTests(Base):
+    """`needs = a`: the routine takes the bank of the pointer in A (0 = the bank in force)."""
+
+    def run_one(self, code):
+        put(os.path.join(self.dir, 'engine/h.asm'), code)
+        rc, out = self.run_tool('--areas', 'wramx')
+        self.assertEqual(rc, 0, out)
+        return [ln for ln in self.read('engine/h.asm').split('\n') if ln.startswith('\tld hl, ')]
+
+    def test_a_argument(self):
+        self.assertEqual(self.run_one('H::\n\tld hl, $D400\n\tld a, $07\n\tcall Gfx_StartHDMA\n\tret\n'), ['\tld hl, wScreenAttrMap'])       # A = 7
+        self.assertEqual(self.run_one('H::\n\tld a, $07\n\tld hl, $D400\n\tcall Gfx_StartHDMA\n\tret\n'), ['\tld hl, wScreenAttrMap'])       # A set before the load
+        self.assertEqual(self.run_one('H::\n\tld hl, $D400\n\tld a, $03\n\tcall Gfx_StartHDMA\n\tret\n'), ['\tld hl, $D400'])               # another bank
+        self.assertEqual(self.run_one('H::\n\tld hl, $D400\n\tld a, [$C000]\n\tcall Gfx_StartHDMA\n\tret\n'), ['\tld hl, $D400'])           # A not a constant
+        self.assertEqual(self.run_one('H::\n\tld hl, $D400\n\tld a, $07\n\tinc a\n\tcall Gfx_StartHDMA\n\tret\n'), ['\tld hl, $D400'])      # A changed after the constant
+
+    def test_a_zero_uses_the_bank_in_force(self):
+        self.assertEqual(self.run_one('H::\n' + BANK7 + '\tld hl, $D400\n\txor a, a\n\tcall Gfx_StartHDMA\n\tret\n'), ['\tld hl, wScreenAttrMap'])
+        self.assertEqual(self.run_one('H::\n' + BANK3 + '\tld hl, $D400\n\txor a, a\n\tcall Gfx_StartHDMA\n\tret\n'), ['\tld hl, $D400'])
+        self.assertEqual(self.run_one('H::\n\tld hl, $D400\n\tld a, $00\n\tcall Gfx_StartHDMA\n\tret\n'), ['\tld hl, $D400'])              # no bank shown at all
+
+    def test_hdma_with_a_zero_keeps_the_bank(self):
+        code = 'H::\n' + BANK7 + '\tld hl, $D000\n\txor a, a\n\tcall Gfx_StartHDMA\n\tld hl, $D400\n\txor a, a\n\tcall Gfx_StartHDMA\n\tret\n'
+        self.assertEqual(self.run_one(code), ['\tld hl, wScreenTileMap', '\tld hl, wScreenAttrMap'])                                     # the second call is after the first
+        code = 'H::\n' + BANK7 + '\tld hl, $D000\n\tld a, $03\n\tcall Gfx_StartHDMA\n\tld hl, $D400\n\txor a, a\n\tcall Gfx_StartHDMA\n\tret\n'
+        self.assertEqual(self.run_one(code), ['\tld hl, $D000', '\tld hl, $D400'])                                                    # A = 3 may leave bank 3
+
+    def test_a_written_by_other_instructions(self):
+        """Every form that changes A after `ld a, $07` must leave the operand numeric (the one-operand `add` included)."""
+        for body in ('\tld a, [hl]\n', '\tpop af\n', '\tld a, b\n', '\tldh a, [$FF44]\n', '\tinc a\n', '\tadd $01\n', '\tadd b\n', '\tadd a, $01\n', '\tsub $01\n', '\tswap a\n', '.x\n', '\tjr .x\n.x\n'):
+            code = 'H::\n\tld hl, $D400\n\tld a, $07\n' + body + '\tcall Gfx_StartHDMA\n\tret\n'
+            self.assertEqual(self.run_one(code), ['\tld hl, $D400'], body)
+        for body in ('\tcp b\n', '\tbit 0, a\n', '\tld b, a\n', '\tinc bc\n', '\tadd sp, 2\n'):                       # these leave A alone
+            code = 'H::\n\tld hl, $D400\n\tld a, $07\n' + body + '\tcall Gfx_StartHDMA\n\tret\n'
+            self.assertEqual(self.run_one(code), ['\tld hl, wScreenAttrMap'], body)
+
+    def test_hdma_keeps_if_a_zero_in_a_loop(self):
+        loop = 'H::\n' + BANK7 + '.loop\n\txor a, a\n\tcall Gfx_StartHDMA\n\tjr nz, .loop\n\tld hl, $D400\n\txor a, a\n\tcall Gfx_StartHDMA\n\tret\n'
+        self.assertEqual(self.run_one(loop), ['\tld hl, wScreenAttrMap'])                                  # A = 0 on every iteration
+        loop = 'H::\n' + BANK7 + '\txor a, a\n.loop\n\tcall Gfx_StartHDMA\n\tld a, $03\n\tjr nz, .loop\n\tld hl, $D400\n\txor a, a\n\tcall Gfx_StartHDMA\n\tret\n'
+        self.assertEqual(self.run_one(loop), ['\tld hl, $D400'])                                          # A = 3 from the second pass on
+
+    def test_a_forms_of_the_call(self):
+        self.assertEqual(self.run_one('H::\n\tld hl, $D400\n\tld a, $07\n\tfarcall Gfx_StartHDMA\n\tret\n'), ['\tld hl, wScreenAttrMap'])
+        self.assertEqual(self.run_one('H::\n\tld hl, $D400\n\tld a, $07\n\tjp Gfx_StartHDMA\n'), ['\tld hl, wScreenAttrMap'])
+        self.assertEqual(self.run_one('H::\n\tld hl, $D400\n\tld a, $07\n\tcall nz, Gfx_StartHDMA\n\tret\n'), ['\tld hl, $D400'])
 
 
 if __name__ == '__main__':

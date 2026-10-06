@@ -237,7 +237,7 @@ MailSrvDelHidden_MenuSelect:: ; 22:4173
 	; 4000-43E0 by apply_coverage --split
 	push bc
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_MailSrvDelHidden_Button1
 	ld a, $22
 	farcall Tilemap_CopyRectAndAttr
@@ -263,7 +263,7 @@ MailSrvDelHidden_MenuSelect:: ; 22:4173
 	jr nz, .l41F2
 	push bc
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_MailSrvDelHidden_Button0
 	ld a, $22
 	farcall Tilemap_CopyRectAndAttr
@@ -284,7 +284,7 @@ MailSrvDelHidden_MenuSelect:: ; 22:4173
 .l41F2 ; 22:41F2
 	push bc
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_MailSrvDelHidden_Button2
 	ld a, $22
 	farcall Tilemap_CopyRectAndAttr
@@ -350,7 +350,7 @@ MailSrvDelHidden_MenuInit:: ; 22:422D
 	farcall Gfx_StartHDMAWithService
 	call VBlank_Wait
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_MailSrvDelHidden_Button1
 	ld a, $22
 	farcall Tilemap_CopyRectAndAttr
@@ -390,7 +390,7 @@ MailSrvDelHidden_MenuInit:: ; 22:422D
 .l4317 ; 22:4317
 	call MailSrvDelHidden_ShowDescDeleteAll
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_MailSrvDelHidden_Button0
 	ld a, $22
 	farcall Tilemap_CopyRectAndAttr
@@ -408,7 +408,7 @@ MailSrvDelHidden_MenuInit:: ; 22:422D
 .l434B ; 22:434B
 	call MailSrvDelHidden_ShowDescDeleteCompletely
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_MailSrvDelHidden_Button2
 	ld a, $22
 	farcall Tilemap_CopyRectAndAttr
@@ -586,7 +586,7 @@ MailSrvDelHidden_Confirm:: ; 22:4582
 	farcall Gfx_StartHDMAWithService
 	call VBlank_Wait
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, MailServerDeleteAll_Tilemap
 	ld a, $28
 	farcall Tilemap_CopyRectAndAttr

@@ -489,7 +489,7 @@ Function_2D_499E::
 	ld a, $2D
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_MailBody
 	ld a, $2D
 	farcall Tilemap_CopyRectAndAttr
@@ -640,7 +640,7 @@ Function_2D_499E::
 	ld a, $2D
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_MailBody
 	ld a, $2D
 	farcall Tilemap_CopyRectAndAttr

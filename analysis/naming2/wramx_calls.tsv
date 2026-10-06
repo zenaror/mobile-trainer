@@ -1,6 +1,7 @@
 # analysis/naming2/wramx_calls.tsv -- the effect of a routine on the WRAM bank in force, for the backward scan of tools/apply_ram_operands.py (docs/research/naming2_ramop7.md)
 # effect: `keeps` = the bank in force after the call is the one before it (the routine writes no bank register, or saves the shadow at entry and restores it at exit);
-#         `sets W7` = it is bank 7 after the call (the routine selects it and does not restore).
+#         `sets W7` = it is bank 7 after the call (the routine selects it and does not restore);
+#         `keeps if A=0` = the same as `keeps` when A is the constant 0 at the call (the routine takes a bank in A, 0 meaning none).
 # A routine that is not listed is unknown: a call to it between a bank switch and a site ends the proof.  Every row says how the effect was read.
 # routine	effect	proof
 VBlank_WaitStartDI	keeps	00:047A waits for the VBlank, writes no bank register, calls Sound_FrameService
@@ -30,3 +31,14 @@ Tilemap_CopyRectAndAttrSplitSrc	sets W7	00:08CA the same selection of bank 7, no
 Tilemap_CopyRectAndAttrPtr	sets W7	00:16A2 the same selection of bank 7, not restored
 Gfx_UploadBgMapBuffers	sets W7	00:082C selects bank 7 (00:082F-0833) before the two HDMA starts with A = 0 and does not restore it
 Gfx_UploadBgMapBuffersDi	sets W7	00:07CB the same selection of bank 7, not restored
+Tilemap_FillRectSequential	keeps	48:4679 saves the bank shadow before selecting wTilemapFill_WramBank and restores it at the end (tilemap_fill.asm:14-52)
+Tilemap_FillAscendingWithAttr	keeps	4F:45C6 saves the bank shadow, selects bank 7, restores the saved bank at the end (tile_canvas.asm:78-118)
+Tilemap_ClearBuffers	sets W7	00:093B selects bank 7 in its first lines (`ld a, $07 / ldh [hWRAMBank], a / ldh [rSVBK], a`) before the two FillBytes and does not restore it
+Gfx_UploadBgMapBuffersNoService	sets W7	00:085B selects bank 7 in its first lines and does not restore it
+Gfx_UploadWinMapBuffersDi	sets W7	00:07FB selects bank 7 first and does not restore it
+Gfx_UploadWinMapBuffers	sets W7	00:0887 selects bank 7 first and does not restore it
+Gfx_StartHDMA	keeps if A=0	00:0749 `ldh [hFarBank], a / call BankSwitch_H`: A = 0 changes no bank (BankSwitch_H returns at once), another A selects that bank for the region of HL; no other bank register is written
+Gfx_StartHDMAWithService	keeps if A=0	00:0787 the same convention; the frame service it calls (Sound_FrameService) keeps the bank
+Gfx_WaitForFrameTop	keeps	00:08B7 (home/gfx_upload.asm) reads rLCDC and rLY, executes ei, writes no bank register, calls nothing
+CopyBytesBackward	keeps	00:0526 writes no bank register, calls nothing
+Tilemap_ApplyMaskRect	keeps if A=0	00:091C `call BankSwitch_H` (A = the bank of the region of HL, 0 = no change), then the AND/OR loop; no other bank register is written

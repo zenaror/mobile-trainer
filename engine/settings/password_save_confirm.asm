@@ -65,7 +65,7 @@ PwSaveConfirm_Setup:: ; 67:6565
 	or a, a
 	jr nz, .l65F2
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_PwSaveConfirm_5D_7BA0
 	ld a, $5D
 	farcall Tilemap_CopyRectAndAttr
@@ -75,7 +75,7 @@ PwSaveConfirm_Setup:: ; 67:6565
 	; [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1;
 	; entered by jrcc from 67:65DD (executed)
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_PwSaveConfirm_71_6F6F
 	ld a, $71
 	farcall Tilemap_CopyRectAndAttr
@@ -194,7 +194,7 @@ PwSaveConfirm_BuildTextMap:: ; 67:66C2
 Function_67_66C2::
 	; [CONFIRMED] 166 insn(s); 166 executed (in up to 7/18 scenarios); entry proven: target of an
 	; executed call/far call (part of region $66C2-$67DB)
-	ld hl, $D121
+	ld hl, wScreenTileMap + $121
 	ld de, $0000
 	ld bc, $0612
 	farcall Tilemap_FillAscendingWithAttr

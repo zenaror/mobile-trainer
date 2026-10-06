@@ -85,7 +85,7 @@ Function_4E_6196::
 	ld h, b
 	ld l, c
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	farcall Tilemap_CopyRectAndAttr
 	pop hl
 	ld a, [hli]
@@ -211,7 +211,7 @@ Function_4E_6291::
 	ld h, b
 	ld l, c
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	farcall Tilemap_CopyRectAndAttr
 	pop hl
 	ldh a, [hRam_FFD2]
@@ -274,7 +274,8 @@ Function_4E_6291::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D000
+	; $0800 bytes: wScreenTileMap and wScreenAttrMap
+	ld hl, wScreenTileMap
 	ld de, sBrowserFramePreview
 	ld bc, $0800
 	ld a, $03
@@ -348,7 +349,7 @@ Function_4E_6291::
 	ld h, b
 	ld l, c
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	farcall Tilemap_CopyRectAndAttr
 	pop hl
 	ld a, [hli]

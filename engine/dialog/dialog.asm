@@ -62,7 +62,7 @@ Dialog_Open:: ; 72:402A
 	ld a, $72
 	farcall Palette_LoadToBuffer
 	ld bc, $0914
-	ld de, $D180
+	ld de, wScreenTileMap + $180
 	ld hl, Dialog_WindowMap
 	ld a, $72
 	farcall Tilemap_CopyRectAndAttr
@@ -116,7 +116,7 @@ Dialog_Open:: ; 72:402A
 	ld bc, $0400
 	xor a, a
 	call FillBytes
-	ld hl, $D1A2
+	ld hl, wScreenTileMap + $1A2
 	ld bc, $0410
 	ld de, $0EC0
 	farcall Tilemap_FillAscendingWithAttr
@@ -145,12 +145,12 @@ Dialog_Open:: ; 72:402A
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D180
-	ld de, $D120
+	ld hl, wScreenTileMap + $180
+	ld de, wScreenTileMap + $120
 	ld bc, $0120
 	call CopyBytes
-	ld hl, $D580
-	ld de, $D520
+	ld hl, wScreenAttrMap + $180
+	ld de, wScreenAttrMap + $120
 	ld bc, $0120
 	call CopyBytes
 	call VBlank_WaitStartDI
@@ -211,7 +211,7 @@ Dialog_OpenTall:: ; 72:41D8
 	ld a, $72
 	farcall Palette_LoadToBuffer
 	ld bc, $0B14
-	ld de, $D140
+	ld de, wScreenTileMap + $140
 	ld hl, Dialog_WindowMapTall
 	ld a, $72
 	farcall Tilemap_CopyRectAndAttr
@@ -262,11 +262,11 @@ Dialog_OpenTall:: ; 72:41D8
 	ld bc, $0400
 	xor a, a
 	call FillBytes
-	ld hl, $D162
+	ld hl, wScreenTileMap + $162
 	ld bc, $0410
 	ld de, $0EC0
 	farcall Tilemap_FillAscendingWithAttr
-	ld hl, $D1E2
+	ld hl, wScreenTileMap + $1E2
 	ld bc, $0210
 	ld de, $0E00
 	farcall Tilemap_FillAscendingWithAttr
@@ -317,12 +317,12 @@ Dialog_OpenTall:: ; 72:41D8
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D140
-	ld de, $D0E0
+	ld hl, wScreenTileMap + $140
+	ld de, wScreenTileMap + $E0
 	ld bc, $0160
 	call CopyBytes
-	ld hl, $D540
-	ld de, $D4E0
+	ld hl, wScreenAttrMap + $140
+	ld de, wScreenAttrMap + $E0
 	ld bc, $0160
 	call CopyBytes
 	call VBlank_WaitStartDI
@@ -518,12 +518,12 @@ Dialog_Close:: ; 72:444F
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D23F
-	ld de, $D29F
+	ld hl, wScreenTileMap + $23F
+	ld de, wScreenTileMap + $29F
 	ld bc, $0120
 	call CopyBytesBackward
-	ld hl, $D63F
-	ld de, $D69F
+	ld hl, wScreenAttrMap + $23F
+	ld de, wScreenAttrMap + $29F
 	ld bc, $0120
 	call CopyBytesBackward
 	ldh a, [rLCDC]
@@ -576,12 +576,12 @@ Dialog_CloseTall:: ; 72:44E6
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D1FF
-	ld de, $D25F
+	ld hl, wScreenTileMap + $1FF
+	ld de, wScreenTileMap + $25F
 	ld bc, $0120
 	call CopyBytesBackward
-	ld hl, $D5FF
-	ld de, $D65F
+	ld hl, wScreenAttrMap + $1FF
+	ld de, wScreenAttrMap + $25F
 	ld bc, $0120
 	call CopyBytesBackward
 	ldh a, [rLCDC]
@@ -925,12 +925,12 @@ Function_72_472B::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0120
-	ld hl, $D120
-	ld de, $D2E0
+	ld hl, wScreenTileMap + $120
+	ld de, wScreenTileMap + $2E0
 	call CopyBytes
 	ld bc, $0120
-	ld hl, $D520
-	ld de, $D6E0
+	ld hl, wScreenAttrMap + $120
+	ld de, wScreenAttrMap + $2E0
 	jp CopyBytes
 
 Dialog_SaveBackgroundTall:: ; 72:4749
@@ -938,12 +938,12 @@ Dialog_SaveBackgroundTall:: ; 72:4749
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0160
-	ld hl, $D0E0
-	ld de, $D2A0
+	ld hl, wScreenTileMap + $E0
+	ld de, wScreenTileMap + $2A0
 	call CopyBytes
 	ld bc, $0160
-	ld hl, $D4E0
-	ld de, $D6A0
+	ld hl, wScreenAttrMap + $E0
+	ld de, wScreenAttrMap + $2A0
 	jp CopyBytes
 
 Dialog_RestoreBackground:: ; 72:4767
@@ -951,12 +951,12 @@ Dialog_RestoreBackground:: ; 72:4767
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0120
-	ld hl, $D2E0
-	ld de, $D120
+	ld hl, wScreenTileMap + $2E0
+	ld de, wScreenTileMap + $120
 	call CopyBytes
 	ld bc, $0120
-	ld hl, $D6E0
-	ld de, $D520
+	ld hl, wScreenAttrMap + $2E0
+	ld de, wScreenAttrMap + $120
 	jp CopyBytes
 
 Dialog_RestoreBackgroundTall:: ; 72:4785
@@ -964,12 +964,12 @@ Dialog_RestoreBackgroundTall:: ; 72:4785
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0160
-	ld hl, $D2A0
-	ld de, $D0E0
+	ld hl, wScreenTileMap + $2A0
+	ld de, wScreenTileMap + $E0
 	call CopyBytes
 	ld bc, $0160
-	ld hl, $D6A0
-	ld de, $D4E0
+	ld hl, wScreenAttrMap + $2A0
+	ld de, wScreenAttrMap + $E0
 	jp CopyBytes
 
 Dialog_UploadWindowMap:: ; 72:47A3
@@ -987,13 +987,13 @@ Dialog_UploadWindowMap:: ; 72:47A3
 	call Gfx_WaitForFrameTop
 	ld b, $97
 	ld c, $12
-	ld hl, $D180
+	ld hl, wScreenTileMap + $180
 	xor a, a
 	call Gfx_StartHDMA
 	inc e
 	ld b, $97
 	ld c, $12
-	ld hl, $D580
+	ld hl, wScreenAttrMap + $180
 	xor a, a
 	call Gfx_StartHDMA
 	ei
@@ -1015,13 +1015,13 @@ Dialog_UploadWindowMapTall:: ; 72:47D4
 	call Gfx_WaitForFrameTop
 	ld b, $96
 	ld c, $16
-	ld hl, $D140
+	ld hl, wScreenTileMap + $140
 	xor a, a
 	call Gfx_StartHDMA
 	inc e
 	ld b, $96
 	ld c, $16
-	ld hl, $D540
+	ld hl, wScreenAttrMap + $140
 	xor a, a
 	call Gfx_StartHDMA
 	ei

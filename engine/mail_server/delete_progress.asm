@@ -45,7 +45,7 @@ MailSrvDel_ProgressInit:: ; 23:55C3
 	ld c, $16
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_MailSrvDelProgress_Screen
 	ld a, $23
 	farcall Tilemap_CopyRectAndAttr

@@ -88,7 +88,7 @@ Function_1F_4000::
 	ld a, $1E
 	farcall Palette_LoadToBuffer
 	ld bc, $1014
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_TopMenu_1E_40D7
 	ld a, $1E
 	farcall Tilemap_CopyRectAndAttr
@@ -129,7 +129,7 @@ Function_1F_4000::
 	ld a, $40
 	ld bc, $0220
 	ld de, $8000
-	ld hl, $D200
+	ld hl, wScreenTileMap + $200
 	farcall Tilemap_FillRectSequential
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -382,7 +382,7 @@ Function_1F_4351::
 	; [CONFIRMED] 196 insn(s); 196 executed (in up to 11/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld bc, $1014
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_TopMenu_1E_40D7
 	ld a, $1E
 	farcall Tilemap_CopyRectAndAttr
@@ -545,7 +545,7 @@ TopMenu_AnimatePanel:: ; 1F:44D5
 	jr c, .l4503
 	jp z, .l4532
 	ld bc, $090C
-	ld de, $D0E4
+	ld de, wScreenTileMap + $E4
 	ld hl, Tilemap_TopMenu_1E_48C1
 	ld a, $1E
 	farcall Tilemap_CopyRectAndAttr
@@ -558,7 +558,7 @@ TopMenu_AnimatePanel:: ; 1F:44D5
 	call Multiply8x16
 	ld de, $4357
 	add hl, de
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld a, $1E
 	ld bc, $090B
 	farcall Tilemap_CopyRectAndAttr
@@ -578,7 +578,7 @@ TopMenu_AnimatePanel:: ; 1F:44D5
 	call Multiply8x16
 	ld de, $44E3
 	add hl, de
-	ld de, $D009
+	ld de, wScreenTileMap + $09
 	ld a, $1E
 	ld bc, $090B
 	farcall Tilemap_CopyRectAndAttr

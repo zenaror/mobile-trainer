@@ -281,7 +281,7 @@ CommNotice_DrawScreenAndLoop:: ; 50:4254
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld bc, $1214
 	ld a, $50
 	farcall Tilemap_CopyRectAndAttr

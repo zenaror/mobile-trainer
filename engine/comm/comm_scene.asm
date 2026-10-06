@@ -804,7 +804,7 @@ Function_70_44B0::
 	ld a, $70
 	farcall Palette_LoadToBuffer
 	ld bc, $0E20
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_CommScene
 	ld a, $70
 	farcall Tilemap_CopyRectAndAttr
@@ -879,13 +879,13 @@ CommScene_UploadBackgroundMap:: ; 70:4638
 	di
 	ld b, $92
 	ld c, $40
-	ld hl, $D000
+	ld hl, wScreenTileMap
 	xor a, a
 	call Gfx_StartHDMAWithService
 	inc e
 	ld b, $92
 	ld c, $40
-	ld hl, $D400
+	ld hl, wScreenAttrMap
 	xor a, a
 	call Gfx_StartHDMAWithService
 	ei
@@ -913,13 +913,13 @@ CommScene_UploadTextBox:: ; 70:466B
 	di
 	ld b, $95
 	ld c, $24
-	ld hl, $D000
+	ld hl, wScreenTileMap
 	xor a, a
 	call Gfx_StartHDMAWithService
 	inc e
 	ld b, $95
 	ld c, $24
-	ld hl, $D400
+	ld hl, wScreenAttrMap
 	xor a, a
 	call Gfx_StartHDMAWithService
 	ei
@@ -1157,7 +1157,7 @@ Function_70_4803::
 	ld h, [hl]
 	ld l, a
 	ld bc, $0414
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld a, $70
 	farcall Tilemap_CopyRectAndAttr
 	call CommScene_UploadTextBox

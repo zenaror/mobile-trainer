@@ -271,7 +271,7 @@ Function_2C_414C::
 	ld a, $2C
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Data_MailTitle_TilemapAttr
 	ld a, $2C
 	farcall Tilemap_CopyRectAndAttr

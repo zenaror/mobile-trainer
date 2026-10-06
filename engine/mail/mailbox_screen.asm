@@ -64,7 +64,7 @@ Function_25_4B0D::
 	farcall Gfx_StartHDMA
 	call VBlank_Wait
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Mailbox_Tilemap_Normal
 	ld a, $25
 	farcall Tilemap_CopyRectAndAttr
@@ -122,7 +122,7 @@ Function_25_4B0D::
 	farcall Gfx_StartHDMA
 	call VBlank_Wait
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Mailbox_Tilemap_DeleteSelect
 	ld a, $25
 	farcall Tilemap_CopyRectAndAttr

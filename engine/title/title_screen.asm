@@ -375,7 +375,7 @@ Function_0E_4215::
 	ld a, $0E
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_Title_Screen
 	ld a, $0E
 	farcall Tilemap_CopyRectAndAttr
@@ -401,7 +401,7 @@ Function_0E_4215::
 
 Title_DrawMenuHighlight:: ; 0E:4311
 	ld a, [wTitle_Cursor]
-	ld de, $D185
+	ld de, wScreenTileMap + $185
 	ld bc, $040A
 	ld hl, Table_Title_HighlightTilemaps
 	add a, a
@@ -476,7 +476,7 @@ Function_0E_434F::
 	ld a, $0E
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_TitleLogo_Screen
 	ld a, $0E
 	farcall Tilemap_CopyRectAndAttr

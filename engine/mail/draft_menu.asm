@@ -300,7 +300,7 @@ MailDraft_Menu_InitScreen:: ; 2B:420C
 	ld c, $2D
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Data_MailDraftMenu_TilemapAttr
 	ld a, $2B
 	farcall Tilemap_CopyRectAndAttr

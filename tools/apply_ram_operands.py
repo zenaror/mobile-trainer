@@ -43,10 +43,12 @@ The wramx area (banked WRAM `$D000-$DFFF`: the same address is another variable 
 *consumer rule* proves the bank in which the pointer is dereferenced.  The consumer is the first `call`, `farcall` or tail `jp Label` of the straight line after the load, when only
 plain instructions (no label, jump, macro or data line) that touch neither the register nor a bank register come first.  A row of `analysis/naming2/wramx_consumers.tsv` (consumer,
 register, bank W1-W7, needs, family, proof) says that this routine dereferences that register in that bank: `needs` is `-` when the routine selects the bank itself
-(`Sprite_InitSlot` selects bank 7 before it writes the slot) or `switch` when the caller does, and the tool must show the bank by a backward scan of the straight line: the nearest write
-of the bank register must be the idiom `ld a, $0N / ldh [hWRAMBank], a / ldh [rSVBK], a` (or a call to a routine that `sets` the bank in `analysis/naming2/wramx_calls.tsv`).  The scan
+(`Sprite_InitSlot` selects bank 7 before it writes the slot), `switch` when the caller does, or `a` when the routine takes the bank of the pointer in A (`Gfx_StartHDMA`: A = 0 means the
+bank in force); the tool must show the bank by a backward scan of the straight line: the nearest write
+of the bank register must be the idiom `ld a, $0N / ldh [hWRAMBank], a / ldh [rSVBK], a` (or a call to a routine that `sets` the bank in `analysis/naming2/wramx_calls.tsv`); for `a` the
+constant in A at the call (`ld a, $NN` or `xor a` as the nearest write of A) must be the bank, or 0 with the idiom showing the bank.  The scan
 gives up at a global label, at an unconditional `ret`/`jp`/`jr` (what follows is another path), at a call to a routine that is not known to `keep` the bank (`wramx_calls.tsv` lists
-the routines that keep or set it; an unknown routine, a conditional call, `rst` or a macro ends the proof), and at a local label unless it heads a loop whose body writes no bank
+the routines that keep or set it, or keep it `if A=0`; an unknown routine, a conditional call, `rst` or a macro ends the proof), and at a local label unless it heads a loop whose body writes no bank
 register and calls only routines that keep it; the scan reaches back at most 60 lines.  `family` is a regular expression for the name: a rule about sprite slots never writes a palette
 name.  The name is the innermost object of `ram/banked.asm` for that bank that covers the address.  Operands without a rule (`no rule`), whose bank is not shown (`bank not shown`),
 that have no name in the bank (`no object`) or whose name is of another family (`wrong family`) stay numeric and are counted per consumer, which tells which rule to write next.
@@ -236,7 +238,7 @@ def read_rules(root, path):
             re.compile(family)
         except re.error:
             family = ''
-        if reg not in ('hl', 'de', 'bc') or not re.match(r'^W[1-7]$', bank) or needs not in ('-', 'switch') or not consumer or not family or not proof:
+        if reg not in ('hl', 'de', 'bc') or not re.match(r'^W[1-7]$', bank) or needs not in ('-', 'switch', 'a') or not consumer or not family or not proof:
             raise ValueError('%s:%d: bad rule row %r' % (path, n, cols[:5]))
         if (consumer, reg) in rules:
             raise ValueError('%s:%d: duplicate rule for %s %s' % (path, n, consumer, reg))
@@ -245,18 +247,19 @@ def read_rules(root, path):
 
 
 def read_calls(root, path):
-    """{routine: 'keeps' | 'W1'..'W7'} of the bank effects file (routine, effect, proof): `keeps` = the WRAM bank in force is the same after the call, `sets W7` = it is bank 7 after the call."""
+    """{routine: 'keeps' | 'keeps0' | 'W1'..'W7'} of the bank effects file (routine, effect, proof): `keeps` = the WRAM bank in force is the same after the call, `keeps if A=0` = the same when A is
+    the constant 0 at the call (the routine takes a bank in A, 0 meaning none), `sets W7` = it is bank 7 after the call."""
     effects = {}
     for n, cols in read_tsv(root, path, 'bank effects of calls'):
         if len(cols) != 3:
             raise ValueError('%s:%d: 3 TAB separated columns expected (routine, effect, proof)' % (path, n))
         routine, effect, proof = [c.strip() for c in cols]
-        m = re.match(r'^(keeps|sets (W[1-7]))$', effect)
+        m = re.match(r'^(keeps|keeps if A=0|sets (W[1-7]))$', effect)
         if not routine or not m or not proof:
             raise ValueError('%s:%d: bad row %r' % (path, n, cols[:2]))
         if routine in effects:
             raise ValueError('%s:%d: duplicate routine %s' % (path, n, routine))
-        effects[routine] = 'keeps' if effect == 'keeps' else m.group(2)
+        effects[routine] = 'keeps' if effect == 'keeps' else 'keeps0' if effect == 'keeps if A=0' else m.group(2)
     return effects
 
 
@@ -320,6 +323,12 @@ def call_effect(ins, effects):
     return effects.get(ops[0])
 
 
+def keeps_bank(lines, k, ins, effects):
+    """True when the call at lines[k] is known to leave the bank in force alone (`keeps`, or `keeps if A=0` with A = 0 at the call)."""
+    eff = call_effect(ins, effects)
+    return eff == 'keeps' or (eff == 'keeps0' and a_before(lines, k) == 0)
+
+
 def loop_head_keeps_bank(lines, j, effects):
     """True when the local label at lines[j] is only the head of a loop (every reference is a jr/jp *after* it, inside the same routine) and the loop body, from the head to the last back
     edge, neither writes the bank register nor calls a routine that is not known to keep the bank: the bank at the head is then the bank of the code that falls into it."""
@@ -346,7 +355,7 @@ def loop_head_keeps_bank(lines, j, effects):
             continue
         if writes_bank(ins) or any(o in BANK_REGS for o in ins[1]):
             return False
-        if ins[0] in ('call', 'farcall') and call_effect(ins, effects) != 'keeps':
+        if ins[0] in ('call', 'farcall') and not keeps_bank(lines, k, ins, effects):
             return False
         if ins[0] not in PLAIN and ins[0] not in ('jr', 'jp', 'ret', 'reti', 'call', 'farcall'):
             return False                                   # rst, a macro, a data line
@@ -390,10 +399,10 @@ def bank_at(lines, i, effects):
         if m in ('ret', 'reti', 'jp', 'jr'):
             continue                                       # conditional: the fall-through path
         if m in ('call', 'farcall'):
-            eff = call_effect(ins, effects)
-            if eff == 'keeps':
+            if keeps_bank(lines, j, ins, effects):
                 continue
-            if eff:
+            eff = call_effect(ins, effects)
+            if eff and eff[0] == 'W':
                 return int(eff[1])                         # the routine leaves this bank selected
             return None
         if m not in PLAIN:
@@ -404,6 +413,30 @@ def bank_at(lines, i, effects):
 def bank_switch_before(lines, i, bank, effects):
     """True when bank_at shows this bank (`W7`)."""
     return bank_at(lines, i, effects) == int(bank[1])
+
+
+def a_before(lines, ci):
+    """The constant in A when the call at lines[ci] runs: the nearest write of A in the straight line before it is `ld a, $NN` or `xor a`; None for any other write of A, a label, a jump
+    or a call on the way (the registers they leave are unknown)."""
+    for k in range(ci - 1, max(-1, ci - 40), -1):
+        line = lines[k]
+        if line.startswith('.') or (line.strip() and not line.startswith('\t') and not line.startswith(';')):
+            return None
+        ins = parse_insn(line)
+        if ins is None or ins == '':
+            continue
+        m, ops = ins
+        if m not in PLAIN:
+            return None
+        if m == 'ld' and len(ops) == 2 and ops[0] == 'a':
+            mm = IMM8.match(ops[1])
+            return int(mm.group(1), 16) if mm else None
+        if m == 'xor' and ops in (['a'], ['a', 'a']):
+            return 0
+        if (m in ('and', 'or', 'xor', 'sub', 'sbc', 'adc') or (m == 'add' and not (ops and ops[0] in ('hl', 'sp'))) or (m in ('inc', 'dec', 'swap', 'rl', 'rr', 'rlc', 'rrc', 'sla', 'sra', 'srl', 'res', 'set') and 'a' in ops)
+                or m in ('rla', 'rra', 'rlca', 'rrca', 'cpl', 'daa') or (m == 'pop' and ops == ['af']) or (m == 'ldh' and ops and ops[0] == 'a')):
+            return None
+    return None
 
 
 def choose(objs, v):
@@ -449,11 +482,17 @@ def plan(tree, areas, rules=None, effects=None):
             elif is_value(lines, i, reg, area):
                 rows.append((rel, i, v, 'value', ''))
             elif area == 'wramx':
-                consumer, _ = find_consumer(lines, i, reg)
+                consumer, ci = find_consumer(lines, i, reg)
                 rule = rules.get((consumer, reg)) if consumer else None
+                shown = True
+                if rule is not None and rule[1] == 'switch':
+                    shown = bank_switch_before(lines, i, rule[0], effects)
+                elif rule is not None and rule[1] == 'a':
+                    a = a_before(lines, ci)                # the routine takes the bank of the pointer in A; A = 0 keeps the bank in force
+                    shown = (a == int(rule[0][1])) if a else (a == 0 and bank_switch_before(lines, i, rule[0], effects))
                 if rule is None:
                     rows.append((rel, i, v, 'no rule', consumer or '(none)'))
-                elif rule[1] == 'switch' and not bank_switch_before(lines, i, rule[0], effects):
+                elif not shown:
                     rows.append((rel, i, v, 'bank not shown', consumer))
                 else:
                     obj = choose([o for o in tables[area][0] if o.bank == rule[0]], v)

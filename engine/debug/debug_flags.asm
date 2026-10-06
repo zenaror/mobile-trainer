@@ -133,9 +133,9 @@ DebugFlags_Run:: ; 19:4000
 	call Sprite_SetPosition
 	ld a, $80
 	ld bc, $0400
-	ld hl, $D000
+	ld hl, wScreenTileMap
 	call FillBytes
-	ld hl, $D400
+	ld hl, wScreenAttrMap
 	ld bc, $1214
 	ld de, $0008
 	xor a, a
@@ -145,7 +145,7 @@ DebugFlags_Run:: ; 19:4000
 	ld a, $80
 	ld bc, $1010
 	ld de, $1000
-	ld hl, $D002
+	ld hl, wScreenTileMap + $02
 	farcall Tilemap_FillRectSequential
 	call DebugFlags_LoadHelpText
 	call DebugFlags_DrawEntryName

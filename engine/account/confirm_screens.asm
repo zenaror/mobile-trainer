@@ -58,7 +58,7 @@ Account_ConfirmScreen_Setup:: ; 68:6213
 	ld a, $5F
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_Account_ConfirmScreen
 	ld a, $5D
 	farcall Tilemap_CopyRectAndAttr
@@ -171,11 +171,11 @@ Account_ConfirmScreen_BuildTextMap:: ; 68:6360
 Function_68_6360::
 	; [CONFIRMED] 85 insn(s); 85 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld hl, $D0A6
+	ld hl, wScreenTileMap + $A6
 	ld de, $0000
 	ld bc, $0208
 	farcall Tilemap_FillAscendingWithAttr
-	ld hl, $D121
+	ld hl, wScreenTileMap + $121
 	ld de, $0010
 	ld bc, $0212
 	farcall Tilemap_FillAscendingWithAttr
@@ -316,7 +316,7 @@ Account_ConfirmManualScreen_Setup:: ; 68:6451
 	ld a, $5F
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_Account_ConfirmManualScreen
 	ld a, $4A
 	farcall Tilemap_CopyRectAndAttr
@@ -423,23 +423,23 @@ Account_ConfirmManualScreen_BuildTextMap:: ; 68:659E
 Function_68_659E::
 	; [CONFIRMED] 208 insn(s) reached by static flow only; seeds: exec x208; min discovery hops 7;
 	; entered by call from 68:64EB (PROBABLE code) [executed in 2 scenarios]
-	ld hl, $D048
+	ld hl, wScreenTileMap + $48
 	ld de, $0000
 	ld bc, $0208
 	farcall Tilemap_FillAscendingWithAttr
-	ld hl, $D0C1
+	ld hl, wScreenTileMap + $C1
 	ld de, $0010
 	ld bc, $0212
 	farcall Tilemap_FillAscendingWithAttr
-	ld hl, $D107
+	ld hl, wScreenTileMap + $107
 	ld de, $0040
 	ld bc, $020C
 	farcall Tilemap_FillAscendingWithAttr
-	ld hl, $D147
+	ld hl, wScreenTileMap + $147
 	ld de, $0060
 	ld bc, $020C
 	farcall Tilemap_FillAscendingWithAttr
-	ld hl, $D186
+	ld hl, wScreenTileMap + $186
 	ld de, $0080
 	ld bc, $020D
 	farcall Tilemap_FillAscendingWithAttr

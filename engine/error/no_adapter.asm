@@ -63,7 +63,7 @@ NoAdapter_DrawScreen:: ; 63:7342
 	ld a, $63
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, $6FC0
 	ld a, $63
 	farcall Tilemap_CopyRectAndAttr

@@ -346,7 +346,7 @@ Function_2C_58AC::
 	farcall Gfx_StartHDMAWithService
 	call VBlank_Wait
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Data_AddrPick_TilemapAttr
 	ld a, $2C
 	farcall Tilemap_CopyRectAndAttr

@@ -121,7 +121,7 @@ MailGrid_InitScreen:: ; 2B:5448
 	ld a, $2B
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Data_MailGrid_TilemapAttr
 	ld a, $2B
 	farcall Tilemap_CopyRectAndAttr

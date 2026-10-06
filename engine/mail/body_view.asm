@@ -73,7 +73,7 @@ MailBody_InitScreen:: ; 28:404E
 	ld c, $08
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, MailBody_Tilemap
 	ld a, $28
 	farcall Tilemap_CopyRectAndAttr

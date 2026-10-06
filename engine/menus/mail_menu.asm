@@ -78,7 +78,7 @@ Function_1D_4000::
 	ld a, $1D
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_MailMenu_Screen
 	ld a, $1D
 	farcall Tilemap_CopyRectAndAttr
@@ -98,7 +98,7 @@ Function_1D_4000::
 	ld a, $40
 	ld bc, $0220
 	ld de, $8000
-	ld hl, $D200
+	ld hl, wScreenTileMap + $200
 	farcall Tilemap_FillRectSequential
 	call VBlank_WaitAndService
 	ldh [hScratchA], a
@@ -468,7 +468,7 @@ Function_1D_439B::
 	ld a, $4C
 	ld [wMailMenu_AttrSrcHi], a
 	ld bc, $0608
-	ld de, $D0C1
+	ld de, wScreenTileMap + $C1
 	ld hl, Tilemap_MailMenu_IconFrames
 	ld a, $1D
 	farcall Tilemap_CopyRectAndAttrPtr
@@ -482,7 +482,7 @@ Function_1D_439B::
 	ld a, $4C
 	ld [wMailMenu_AttrSrcHi], a
 	ld bc, $0608
-	ld de, $D0C1
+	ld de, wScreenTileMap + $C1
 	ld hl, $4C81
 	ld a, $1D
 	farcall Tilemap_CopyRectAndAttrPtr

@@ -98,7 +98,7 @@ Function_2C_746F::
 	ld a, $2C
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_AddrScreenUnused_Screen
 	ld a, $2C
 	farcall Tilemap_CopyRectAndAttr

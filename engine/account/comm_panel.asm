@@ -195,7 +195,7 @@ CommPanel_StateDraw:: ; 68:744C
 	ld a, $71
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_CommPanel_71_4C98
 	ld a, $71
 	farcall Tilemap_CopyRectAndAttr
@@ -209,7 +209,7 @@ CommPanel_StateDraw:: ; 68:744C
 	jr nz, .l74FB
 .l74EA ; 68:74EA
 	ld bc, $0214
-	ld de, $D200
+	ld de, wScreenTileMap + $200
 	ld hl, Tilemap_CommPanel_71_4F68
 	ld a, $71
 	farcall Tilemap_CopyRectAndAttr
@@ -347,7 +347,7 @@ Function_68_75A4::
 	ld hl, $0901
 	ld bc, $0612
 	farcall TileCanvas_UploadRect
-	ld hl, $D121
+	ld hl, wScreenTileMap + $121
 	ld bc, $0612
 	ld de, $0000
 	farcall Tilemap_FillAscendingWithAttr
@@ -382,7 +382,7 @@ CommPanel_DrawCaption:: ; 68:7611
 	ld h, [hl]
 	ld l, a
 	ld bc, $040C
-	ld de, $D067
+	ld de, wScreenTileMap + $67
 	ld a, $71
 	farcall Tilemap_CopyRectAndAttr
 	call VBlank_WaitAndService

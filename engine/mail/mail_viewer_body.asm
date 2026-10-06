@@ -115,7 +115,7 @@ MailView_BodyPage_InitScreen:: ; 2B:7B9B
 	farcall Gfx_StartHDMA
 	call VBlank_Wait
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_MailView_BodyPage
 	ld a, $28
 	farcall Tilemap_CopyRectAndAttr

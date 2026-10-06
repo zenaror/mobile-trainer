@@ -41,7 +41,7 @@ Function_67_6369::
 	ld a, $4A
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, $6600
 	ld a, $4A
 	farcall Tilemap_CopyRectAndAttr

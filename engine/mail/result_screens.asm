@@ -109,7 +109,7 @@ MailResult_InitScreen:: ; 29:407A
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, MailResult_Tilemap
 	ld a, $24
 	farcall Tilemap_CopyRectAndAttr
@@ -792,7 +792,7 @@ MailServerStatus_InitScreen:: ; 29:4608
 	cp a, $FF
 	jr z, .l46B9
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, MailServerStatus_Tilemap_Received
 	ld a, $25
 	farcall Tilemap_CopyRectAndAttr
@@ -801,14 +801,14 @@ MailServerStatus_InitScreen:: ; 29:4608
 .l46B9 ; 29:46B9
 	; [CONFIRMED] 21 insn(s); 21 executed (in up to 2/18 scenarios)
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, MailServerStatus_Tilemap_NoneReceived
 	ld a, $25
 	farcall Tilemap_CopyRectAndAttr
 	jp .l46DE
 .l46CD ; 29:46CD
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, MailServerStatus_Tilemap_ServerMgmt
 	ld a, $25
 	farcall Tilemap_CopyRectAndAttr

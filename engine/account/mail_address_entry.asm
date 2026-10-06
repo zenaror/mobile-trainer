@@ -137,7 +137,7 @@ Function_68_57B6::
 	ld a, $5E
 	farcall Palette_LoadToBuffer
 	ld bc, $0514
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_Account_MailAddressEntry
 	ld a, $5E
 	farcall Tilemap_CopyRectAndAttr
@@ -438,11 +438,11 @@ Account_CommitMailFields:: ; 68:5AD6
 	ret
 
 Account_MailAddress_BuildTextMap:: ; 68:5AEF
-	ld hl, $D041
+	ld hl, wScreenTileMap + $41
 	ld de, $0000
 	ld bc, $0206
 	farcall Tilemap_FillAscendingWithAttr
-	ld hl, $D048
+	ld hl, wScreenTileMap + $48
 	ld de, $0010
 	ld bc, $0203
 	farcall Tilemap_FillAscendingWithAttr
@@ -601,7 +601,7 @@ Account_MailIntro_Draw:: ; 68:5C12
 	ld a, $5E
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_Account_MailIntro
 	ld a, $5E
 	farcall Tilemap_CopyRectAndAttr
@@ -656,11 +656,11 @@ Account_MailIntro_PrintMessage:: ; 68:5C71
 	ld hl, $0E01
 	ld bc, $0112
 	farcall TileCanvas_UploadRect
-	ld hl, $D0E1
+	ld hl, wScreenTileMap + $E1
 	ld bc, $0712
 	ld de, $0000
 	farcall Tilemap_FillAscendingWithAttr
-	ld hl, $D1C1
+	ld hl, wScreenTileMap + $1C1
 	ld bc, $0112
 	ld de, $0080
 	farcall Tilemap_FillAscendingWithAttr

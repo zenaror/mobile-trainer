@@ -185,7 +185,7 @@ AddrBook_SaveConfirm_InitScreen:: ; 2A:70AB
 	ld c, $04
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Data_AddrSaveConfirm_TilemapAttr
 	ld a, $2A
 	farcall Tilemap_CopyRectAndAttr

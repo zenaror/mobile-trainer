@@ -230,7 +230,7 @@ MailSrvDel_MenuSelect:: ; 23:4161
 	jr nz, .l41A1
 	push bc
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, MailServerDeleteMethod_Tilemap_First
 	ld a, $28
 	farcall Tilemap_CopyRectAndAttr
@@ -251,7 +251,7 @@ MailSrvDel_MenuSelect:: ; 23:4161
 .l41A1 ; 23:41A1
 	push bc
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, MailServerDeleteMethod_Tilemap_Second
 	ld a, $28
 	farcall Tilemap_CopyRectAndAttr
@@ -320,7 +320,7 @@ Function_23_41DC::
 	farcall Gfx_StartHDMAWithService
 	call VBlank_Wait
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, MailServerDeleteMethod_Tilemap_First
 	ld a, $28
 	farcall Tilemap_CopyRectAndAttr
@@ -361,7 +361,7 @@ Function_23_41DC::
 	; entered by jrcc from 23:42A2 (executed) [executed in 6 scenarios]
 	call MailSrvDel_ShowDescDeleteAll
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, MailServerDeleteMethod_Tilemap_Second
 	ld a, $28
 	farcall Tilemap_CopyRectAndAttr
@@ -520,7 +520,7 @@ MailSrvDel_Confirm:: ; 23:4471
 	farcall Gfx_StartHDMAWithService
 	call VBlank_Wait
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, MailServerDeleteAll_Tilemap
 	ld a, $28
 	farcall Tilemap_CopyRectAndAttr

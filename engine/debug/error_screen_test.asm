@@ -122,9 +122,9 @@ Label_19_4990::
 	farcall Palette_LoadToBuffer
 	ld a, $80
 	ld bc, $0400
-	ld hl, $D000
+	ld hl, wScreenTileMap
 	call FillBytes
-	ld hl, $D400
+	ld hl, wScreenAttrMap
 	ld bc, $1214
 	ld de, $0009
 	xor a, a
@@ -132,7 +132,7 @@ Label_19_4990::
 	ld a, $80
 	ld bc, $0810
 	ld de, $F001
-	ld hl, $D142
+	ld hl, wScreenTileMap + $142
 	farcall Tilemap_FillRectSequential
 	call DebugErrorTest_LoadHelpText
 	call DebugErrorTest_DrawValues

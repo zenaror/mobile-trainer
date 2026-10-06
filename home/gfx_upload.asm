@@ -95,10 +95,10 @@ Function_00_0787::
 
 Gfx_UploadBgMapBuffersDi:: ; 00:07CB
 Function_00_07CB::
-	; [CONFIRMED] uploads the two 1 KiB screen buffers of WRAM bank 7 to VRAM with two HDMA
-	; transfers (0749, B=$95, C=$24 blocks): D000 -> VRAM bank 0, D400 -> VRAM bank 1, map $9800 or
-	; $9C00 selected by A bit3; di before the wait, ei + frame service after [reached via inferred
-	; links; raw refs 31] [executed in 37 scenarios]
+	; [CONFIRMED] uploads the first $240 bytes (18 rows) of each of the two 1 KiB screen buffers of
+	; WRAM bank 7 to VRAM with two HDMA transfers (0749, B=$95, C=$24 blocks of 16 bytes): D000 ->
+	; VRAM bank 0, D400 -> VRAM bank 1, map $9800 or $9C00 selected by A bit3; di before the wait, ei
+	; + frame service after [reached via inferred links; raw refs 31] [executed in 37 scenarios]
 	push af
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -113,13 +113,13 @@ Function_00_07CB::
 	call Gfx_WaitForFrameTop
 	ld b, $95
 	ld c, $24
-	ld hl, $D000
+	ld hl, wScreenTileMap
 	xor a, a
 	call Gfx_StartHDMA
 	inc e
 	ld b, $95
 	ld c, $24
-	ld hl, $D400
+	ld hl, wScreenAttrMap
 	xor a, a
 	call Gfx_StartHDMA
 	ei
@@ -128,9 +128,10 @@ Function_00_07CB::
 
 Gfx_UploadWinMapBuffersDi:: ; 00:07FB
 Function_00_07FB::
-	; [PROBABLE] uploads the two 1 KiB screen buffers of WRAM bank 7 to VRAM with two HDMA transfers
-	; (0749, B=$95, C=$24 blocks): D000 -> VRAM bank 0, D400 -> VRAM bank 1, map $9800 or $9C00
-	; selected by A bit6; di before the wait, ei + frame service after [candidate; raw refs 17]
+	; [PROBABLE] uploads the first $240 bytes (18 rows) of each of the two 1 KiB screen buffers of
+	; WRAM bank 7 to VRAM with two HDMA transfers (0749, B=$95, C=$24 blocks of 16 bytes): D000 ->
+	; VRAM bank 0, D400 -> VRAM bank 1, map $9800 or $9C00 selected by A bit6; di before the wait, ei
+	; + frame service after [candidate; raw refs 17]
 	push af
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -145,13 +146,13 @@ Function_00_07FB::
 	call Gfx_WaitForFrameTop
 	ld b, $95
 	ld c, $24
-	ld hl, $D000
+	ld hl, wScreenTileMap
 	xor a, a
 	call Gfx_StartHDMA
 	inc e
 	ld b, $95
 	ld c, $24
-	ld hl, $D400
+	ld hl, wScreenAttrMap
 	xor a, a
 	call Gfx_StartHDMA
 	ei
@@ -160,9 +161,10 @@ Function_00_07FB::
 
 Gfx_UploadBgMapBuffers:: ; 00:082C
 Function_00_082C::
-	; [CONFIRMED] uploads the two 1 KiB screen buffers of WRAM bank 7 to VRAM with two HDMA
-	; transfers (0749, B=$95, C=$24 blocks): D000 -> VRAM bank 0, D400 -> VRAM bank 1, map $9800 or
-	; $9C00 selected by A bit3; no di, ei + frame service after
+	; [CONFIRMED] uploads the first $240 bytes (18 rows) of each of the two 1 KiB screen buffers of
+	; WRAM bank 7 to VRAM with two HDMA transfers (0749, B=$95, C=$24 blocks of 16 bytes): D000 ->
+	; VRAM bank 0, D400 -> VRAM bank 1, map $9800 or $9C00 selected by A bit3; no di, ei + frame
+	; service after
 	push af
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -176,13 +178,13 @@ Function_00_082C::
 	call Gfx_WaitForFrameTop
 	ld b, $95
 	ld c, $24
-	ld hl, $D000
+	ld hl, wScreenTileMap
 	xor a, a
 	call Gfx_StartHDMA
 	inc e
 	ld b, $95
 	ld c, $24
-	ld hl, $D400
+	ld hl, wScreenAttrMap
 	xor a, a
 	call Gfx_StartHDMA
 	ei
@@ -191,10 +193,10 @@ Function_00_082C::
 
 Gfx_UploadBgMapBuffersNoService:: ; 00:085B
 Function_00_085B::
-	; [CONFIRMED] uploads the two 1 KiB screen buffers of WRAM bank 7 to VRAM with two HDMA
-	; transfers (0749, B=$95, C=$24 blocks): D000 -> VRAM bank 0, D400 -> VRAM bank 1, map $9800 or
-	; $9C00 selected by A bit3; no di, ei + ret (no frame service) [reached via inferred links; raw
-	; refs 7] [executed in 7 scenarios]
+	; [CONFIRMED] uploads the first $240 bytes (18 rows) of each of the two 1 KiB screen buffers of
+	; WRAM bank 7 to VRAM with two HDMA transfers (0749, B=$95, C=$24 blocks of 16 bytes): D000 ->
+	; VRAM bank 0, D400 -> VRAM bank 1, map $9800 or $9C00 selected by A bit3; no di, ei + ret (no
+	; frame service) [reached via inferred links; raw refs 7] [executed in 7 scenarios]
 	push af
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -208,13 +210,13 @@ Function_00_085B::
 	call Gfx_WaitForFrameTop
 	ld b, $95
 	ld c, $24
-	ld hl, $D000
+	ld hl, wScreenTileMap
 	xor a, a
 	call Gfx_StartHDMA
 	inc e
 	ld b, $95
 	ld c, $24
-	ld hl, $D400
+	ld hl, wScreenAttrMap
 	xor a, a
 	call Gfx_StartHDMA
 	ei
@@ -222,10 +224,10 @@ Function_00_085B::
 
 Gfx_UploadWinMapBuffers:: ; 00:0887
 Function_00_0887::
-	; [CONFIRMED] uploads the two 1 KiB screen buffers of WRAM bank 7 to VRAM with two HDMA
-	; transfers (0749, B=$95, C=$24 blocks): D000 -> VRAM bank 0, D400 -> VRAM bank 1, map $9800 or
-	; $9C00 selected by A bit6; no di, ei + frame service after [reached via inferred links; raw
-	; refs 1] [executed in 15 scenarios]
+	; [CONFIRMED] uploads the first $240 bytes (18 rows) of each of the two 1 KiB screen buffers of
+	; WRAM bank 7 to VRAM with two HDMA transfers (0749, B=$95, C=$24 blocks of 16 bytes): D000 ->
+	; VRAM bank 0, D400 -> VRAM bank 1, map $9800 or $9C00 selected by A bit6; no di, ei + frame
+	; service after [reached via inferred links; raw refs 1] [executed in 15 scenarios]
 	push af
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -239,13 +241,13 @@ Function_00_0887::
 	call Gfx_WaitForFrameTop
 	ld b, $95
 	ld c, $24
-	ld hl, $D000
+	ld hl, wScreenTileMap
 	xor a, a
 	call Gfx_StartHDMA
 	inc e
 	ld b, $95
 	ld c, $24
-	ld hl, $D400
+	ld hl, wScreenAttrMap
 	xor a, a
 	call Gfx_StartHDMA
 	ei
@@ -372,11 +374,11 @@ Function_00_093B::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D000
+	ld hl, wScreenTileMap
 	ld bc, $0400
 	xor a, a
 	call FillBytes
-	ld hl, $D400
+	ld hl, wScreenAttrMap
 	ld bc, $0400
 	xor a, a
 	call FillBytes

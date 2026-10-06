@@ -33,7 +33,7 @@ BrowserMenu_OpenTwoItem:: ; 72:63D8
 	ld a, $72
 	farcall Palette_LoadToBuffer
 	ld bc, $0614
-	ld de, $D180
+	ld de, wScreenTileMap + $180
 	ld hl, BrowserMenu2_Map
 	ld a, $72
 	farcall Tilemap_CopyRectAndAttr
@@ -134,7 +134,7 @@ BrowserMenu_OpenTwoItem:: ; 72:63D8
 	ld hl, Data_BrowserMenu_OpenTwoItem_SlideScript
 	farcall Dialog_SlideIn
 .l6515 ; 72:6515
-	ld hl, $D200
+	ld hl, wScreenTileMap + $200
 	ld bc, $0214
 	ld de, $0EC0
 	farcall Tilemap_FillAscendingWithAttr
@@ -485,7 +485,7 @@ Function_72_6712::
 	ld a, $72
 	farcall Palette_LoadToBuffer
 	ld bc, $0614
-	ld de, $D180
+	ld de, wScreenTileMap + $180
 	ld hl, BrowserMenu3_Map
 	ld a, $72
 	farcall Tilemap_CopyRectAndAttr
@@ -586,7 +586,7 @@ Function_72_6712::
 	ld hl, Data_BrowserMenu_OpenThreeItem_SlideScript
 	farcall Dialog_SlideIn
 .l6851 ; 72:6851
-	ld hl, $D200
+	ld hl, wScreenTileMap + $200
 	ld bc, $0214
 	ld de, $0EC0
 	farcall Tilemap_FillAscendingWithAttr

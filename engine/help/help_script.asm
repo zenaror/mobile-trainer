@@ -77,7 +77,7 @@ HelpScript_Run:: ; 6C:59B2
 	ld a, $6A
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_HelpScript
 	ld a, $6A
 	farcall Tilemap_CopyRectAndAttr
@@ -89,17 +89,17 @@ HelpScript_Run:: ; 6C:59B2
 	ld a, $60
 	ld bc, $020C
 	ld de, $1700
-	ld hl, $D004
+	ld hl, wScreenTileMap + $04
 	farcall Tilemap_FillRectSequential
 	ld a, $80
 	ld bc, $060C
 	ld de, $1700
-	ld hl, $D064
+	ld hl, wScreenTileMap + $64
 	farcall Tilemap_FillRectSequential
 	ld a, $00
 	ld bc, $0610
 	ld de, $1700
-	ld hl, $D122
+	ld hl, wScreenTileMap + $122
 	farcall Tilemap_FillRectSequential
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]

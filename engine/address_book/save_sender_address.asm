@@ -180,7 +180,7 @@ SaveSenderAddr_InitScreen:: ; 2A:4105
 	ld c, $20
 	farcall Gfx_StartHDMA
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Data_SaveSenderAddr_TilemapAttr
 	ld a, $2A
 	farcall Tilemap_CopyRectAndAttr
