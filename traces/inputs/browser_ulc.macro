@@ -1,0 +1,58 @@
+# Scenario 'browser_ulc': control of 'browser_ul': closed.html holds the same list WITH its </ul>; the page ends normally (Html_Layout_ClearAllFloats runs a few times and never retries)
+# and the browser waits for a button.
+# Navigation as in 'browser_r2' (title -> top menu -> ホームページ -> tutorial and prompts -> index of the 'ul' site, traces/web/ul, web=ul); the links of the index are, in order,
+# closed, unclosed, brl_list, bra_list, brl_out, brl_after, brr_list (DOWN x N selects link N; the selection starts from none after a B).
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A                        # title -> top menu (the first A is swallowed by the logo)
+waitstable 60 max 600
+tap RIGHT
+wait 40
+tap A                        # ホームページ
+waitstable 60 max 900
+shot pagelist_tutorial_1
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+shot prompt
+tap A                        # ホームページ
+waitstable 60 max 900
+tap A                        # はい
+waitstable 60 max 900
+tap A                        # password screen
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 1200
+shot index
+shot ul_index
+tap B
+wait 200
+shot no_previous_page
+tap A
+wait 200
+tap DOWN x1
+wait 80
+wait 20
+tap A                        # closed.html
+wait 600
+shot closed_600
+wait 3000
+shot closed_3600
+end

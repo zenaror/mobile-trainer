@@ -1,0 +1,69 @@
+# Scenario 'browser_bra': ホームページ, the page 'bra_list' (bra_list.html): `<ul><li>a<br clear=all>b</ul>`: a <br clear=all> inside a list. Inside a list the line indent is not 0, the test of that handler (the cursor x against hViewX) never succeeds and it
+# retries forever (Html_Tag_Br_ClearAll 74:4C33 -> Html_Tag_Br_ClearRetry 74:4C5F): the screen stays blank, the buttons pressed afterwards do not leave it.  Controls: 'browser_brc' (the same tags outside a list, and clear=right inside one).
+# Navigation as in 'browser_r2' (title -> top menu -> ホームページ -> tutorial and prompts -> index of the 'ul' site, traces/web/ul, web=ul); the links of the index are, in order,
+# closed, unclosed, brl_list, bra_list, brl_out, brl_after, brr_list (DOWN x N selects link N; the selection starts from none after a B).
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A                        # title -> top menu (the first A is swallowed by the logo)
+waitstable 60 max 600
+tap RIGHT
+wait 40
+tap A                        # ホームページ
+waitstable 60 max 900
+shot pagelist_tutorial_1
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+shot prompt
+tap A                        # ホームページ
+waitstable 60 max 900
+tap A                        # はい
+waitstable 60 max 900
+tap A                        # password screen
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 1200
+shot index
+shot ul_index
+tap B
+wait 200
+shot no_previous_page
+tap A
+wait 200
+tap DOWN x4
+wait 80
+wait 20
+tap A                        # bra_list.html
+wait 600
+shot bra_list_600
+tap B
+wait 200
+tap A
+wait 200
+tap START
+wait 200
+tap DOWN x2
+wait 200
+tap UP x2
+wait 200
+shot bra_list_after_input
+wait 1500
+shot bra_list_2300
+end

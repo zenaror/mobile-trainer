@@ -1,0 +1,72 @@
+# recorded by mgba_trace --macro browser_ul.macro (resolved absolute frames)
+460 A
+464 -
+1094 A
+1098 -
+1728 RIGHT
+1732 -
+1802 A
+1806 -
+2736 shot pagelist_tutorial_1
+2736 A
+2740 -
+3079 A
+3083 -
+3317 A
+3321 -
+3717 A
+3721 -
+4025 A
+4029 -
+4383 A
+4387 -
+4754 A
+4758 -
+5014 A
+5018 -
+5448 shot prompt
+5448 A
+5452 -
+6382 A
+6386 -
+6487 A
+6491 -
+7421 A
+7425 -
+9555 shot index
+9555 shot ul_index
+9555 B
+9559 -
+9789 shot no_previous_page
+9789 A
+9793 -
+10023 DOWN
+10027 -
+10057 DOWN
+10061 -
+10191 A
+10195 -
+10825 shot unclosed_600
+10825 B
+10829 -
+11059 A
+11063 -
+11293 START
+11297 -
+11527 SELECT
+11531 -
+11761 DOWN
+11765 -
+11795 DOWN
+11799 -
+12029 UP
+12033 -
+12063 UP
+12067 -
+12297 LEFT
+12301 -
+12531 RIGHT
+12535 -
+12765 shot unclosed_after_input
+15765 shot unclosed_3800
+# last scripted frame: 15765

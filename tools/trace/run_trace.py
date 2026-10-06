@@ -97,8 +97,9 @@ def ensure_harness(b):
 class Scen:
     """One row of traces/scenarios.tsv.  `net` is `stub|fake|real` optionally followed by `:key=value,key=value` (fake Internet
     options, see the comment above the fake net in mgba_trace.c; the key `mail=a+b` selects traces/net/mail_a.eml, mail_b.eml for
-    the fake POP3 mailbox).  `web` is 0, 1 (index.html + page.html, the original two pages) or `all` (every traces/web/* file
-    served under its own name, index.html for any path containing index.html, page.html for other .html)."""
+    the fake POP3 mailbox).  `web` is 0, 1 (index.html + page.html, the original two pages), `all` (every traces/web/* file
+    served under its own name, index.html for any path containing index.html, page.html for other .html) or the name of a site, a sub-directory
+    of traces/web (`r2`, `ul`): its own pages first, then everything of `all`."""
 
     def __init__(self, row):
         (self.name, self.mobile, net, self.parent, self.web, self.desc) = row[:6]
@@ -147,6 +148,21 @@ def order(scens):
     return res
 
 
+def web_sites():
+    """The names of the sub-directories of traces/web (r2, ul, ...): each is a site that a scenario selects with `web=<name>`."""
+    return sorted(d.name for d in (ROOT / "traces" / "web").iterdir() if d.is_dir())
+
+
+def put_file(dst, data):
+    """Write `data` to `dst` unless it already holds exactly that, and replace it atomically otherwise: scenarios run in parallel (--jobs) and every one calls prepare_web(), so a plain
+    write_bytes() would truncate a page that another scenario's fake server is serving at that moment (an empty answer: the replay then differs from the recorded one)."""
+    if dst.exists() and dst.read_bytes() == data:
+        return
+    tmp = dst.with_name(".%s.%d.tmp" % (dst.name, os.getpid()))
+    tmp.write_bytes(data)
+    os.replace(tmp, dst)
+
+
 def prepare_web():
     """Shift-JIS copies of the synthetic pages -> .cache/trace/web/ (binary files such as .bmp are copied as they are)"""
     w = CACHE / "web"
@@ -154,27 +170,26 @@ def prepare_web():
     for f in sorted((ROOT / "traces" / "web").iterdir()):
         if f.suffix == ".html":
             t = f.read_text(encoding="utf-8")
-            (w / f.name).write_bytes(t.replace("\r\n", "\n").encode("cp932"))
+            put_file(w / f.name, t.replace("\r\n", "\n").encode("cp932"))
         elif f.suffix in (".bmp", ".htm"):
-            shutil.copy(f, w / f.name)
-    r2 = ROOT / "traces" / "web" / "r2"
-    if r2.is_dir():                                   # round-2 site (web=r2): its own index.html and pages, same conversion rules
-        (w / "r2").mkdir(exist_ok=True)
-        for f in sorted(r2.iterdir()):
+            put_file(w / f.name, f.read_bytes())
+    for site in web_sites():                          # a site (web=<name>): its own index.html and pages, same conversion rules
+        (w / site).mkdir(exist_ok=True)
+        for f in sorted((ROOT / "traces" / "web" / site).iterdir()):
             if f.suffix == ".html":
-                (w / "r2" / f.name).write_bytes(f.read_text(encoding="utf-8").replace("\r\n", "\n").encode("cp932"))
+                put_file(w / site / f.name, f.read_text(encoding="utf-8").replace("\r\n", "\n").encode("cp932"))
             elif f.suffix in (".bmp", ".htm", ".meta"):
-                shutil.copy(f, w / "r2" / f.name)
+                put_file(w / site / f.name, f.read_bytes())
     return w
 
 
 def web_args(mode):
     w = prepare_web()
-    if mode == "r2":
-        # round-2 site: traces/web/r2/* first (own names; index.html = r2/index.html), then everything of web=all.  A file
+    if mode in web_sites():
+        # a site (web=r2, web=ul, ...): traces/web/<site>/* first (own names; index.html = <site>/index.html), then everything of web=all.  A file
         # NAME.meta next to NAME holds `status N` and/or `hdr Header: value` lines (--web-status / --web-hdr for that path).
         a = []
-        r2 = w / "r2"
+        r2 = w / mode
         for f in sorted(r2.iterdir()):
             if f.suffix == ".meta" or f.name == "index.html":
                 continue
