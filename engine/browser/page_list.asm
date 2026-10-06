@@ -38,7 +38,7 @@ PageList_Main:: ; 24:4018
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_D500]
+	ld a, [wBrowserPageUrl]
 	cp a, $00
 	jr nz, .skip
 	xor a, a
@@ -47,7 +47,7 @@ PageList_Main:: ; 24:4018
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_D500]
+	ld a, [wBrowserPageUrl]
 	ld b, a
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -371,7 +371,7 @@ Function_24_42B0:: ; 24:42B0
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D500
+	ld de, wBrowserPageUrl
 	ld hl, Url_GooNeJp
 .l42BC ; 24:42BC
 	ld a, [hli]
@@ -379,7 +379,7 @@ Function_24_42B0:: ; 24:42B0
 	inc de
 	cp a, $00
 	jr nz, .l42BC
-	ld de, $D3C0
+	ld de, wBrowserPageTitle
 	ld hl, String_24_42E7
 .l42C9 ; 24:42C9
 	ld a, [hli]
@@ -484,7 +484,7 @@ PageList_InitScreen:: ; 24:42F0
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D500
+	ld hl, wBrowserPageUrl
 	ld a, [hl]
 	cp a, $00
 	jr z, .l43D2
@@ -1004,7 +1004,7 @@ PageList_GetActionAvailability:: ; 24:4794
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D500
+	ld hl, wBrowserPageUrl
 	ld a, [hl]
 	cp a, $00
 	jr z, .l47D3
@@ -1026,7 +1026,7 @@ PageList_GetActionAvailability:: ; 24:4794
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D500
+	ld hl, wBrowserPageUrl
 	ld a, [hl]
 	cp a, $00
 	jr z, .l47F6
@@ -1159,7 +1159,7 @@ PageList_RedrawSelection:: ; 24:483E
 	ld b, $03
 	ld c, $00
 	ld de, $0220
-	ld hl, $D3C0
+	ld hl, wBrowserPageTitle
 	call PageList_DrawTextLine
 	call PageList_UploadTextTiles
 	pop bc
@@ -1245,7 +1245,7 @@ PageList_DrawAllTitles:: ; 24:48C7
 	ld b, $03
 	ld c, $00
 	ld de, $0220
-	ld hl, $D3C0
+	ld hl, wBrowserPageTitle
 	call PageList_DrawTextLine
 	call PageList_UploadTextTiles
 	pop bc
@@ -2063,7 +2063,7 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D500
+	ld hl, wBrowserPageUrl
 	ld a, [hl]
 	cp a, $00
 	ret z
@@ -2332,7 +2332,7 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	ld [rRAMG], a
 	pop af
 	push bc
-	ld hl, $D500
+	ld hl, wBrowserPageUrl
 	ld c, $00
 .l512C ; 24:512C
 	ld a, [hli]
@@ -2351,14 +2351,14 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	ld a, [hl]
 	ld d, a
 	push bc
-	ld hl, $D3C0
+	ld hl, wBrowserPageTitle
 	ld a, [hl]
 	cp a, $00
 	jr nz, .skip
 
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4BCD-53FE by apply_coverage --split
-	ld hl, $D500
+	ld hl, wBrowserPageUrl
 
 .skip ; 24:514C
 	; [CONFIRMED] 242 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage
@@ -2386,7 +2386,7 @@ PageList_GoToSlot:: ; 24:5164
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D500
+	ld hl, wBrowserPageUrl
 	ld a, [hl]
 	cp a, $00
 	jr nz, .l5173

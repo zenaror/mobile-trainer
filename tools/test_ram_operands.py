@@ -259,7 +259,7 @@ class WramxTests(Base):
             '\tld hl, $DA10\n.x\n\tcall Sprite_InitSlot\n'                                              # a label on the way
             '\tld hl, $DA10\n\tcall Unknown\n'                                                          # no rule for this routine
             '\tld de, $D048\n\tld hl, $DA10\n\tcall Sprite_SetPosition\n'                               # DE is the position pair
-            '\tld hl, $DA10\n\tld a, $03\n\tldh [rSVBK], a\n\tcall Sprite_InitSlot\n'                  # the bank changes before the call
+            '\tld hl, $DA10\n\tld a, $03\n\tldh [rSVBK], a\n\tcall Sprite_InitSlot\n'                  # the bank changes before the call: the consumer selects bank 7 itself
             '\tld hl, $D410\n\tcall Sprite_InitSlot\n'                                                  # a rule bank with no name there
             '\tret\n')
         rc, out = self.run_tool('--areas', 'wramx')
@@ -272,7 +272,7 @@ class WramxTests(Base):
         self.assertIn('\tld hl, $DA10\n.x\n', w)
         self.assertIn('\tld hl, $DA10\n\tcall Unknown\n', w)
         self.assertIn('\tld de, $D048\n\tld hl, wSpriteSlot1\n\tcall Sprite_SetPosition\n', w)
-        self.assertIn('\tld hl, $DA10\n\tld a, $03\n', w)
+        self.assertIn('\tld hl, wSpriteSlot1\n\tld a, $03\n\tldh [rSVBK], a\n\tcall Sprite_InitSlot\n', w)
         self.assertIn('\tld hl, $D410\n', w)
         self.assertIn('no consumer rule', out)
 
@@ -283,14 +283,14 @@ class WramxTests(Base):
             BANK3 + up +                                                                                  # the nearest switch is another bank
             'Other::\n' + up +                                                                           # no switch in this routine
             'Loop::\n' + BANK7 + '\tcall VBlank_WaitStartDI\n.loop ; 4F:0001\n' + up + '\tjr nz, .loop\n\tret\n' +       # a loop head, no switch in the loop
-            'Fwd::\n' + BANK7 + '\tjr .x\n.x\n' + up + '\tret\n' +                                       # a forward jump into the label
+            'Fwd::\n' + BANK7 + '\tjr .x\n.x\n' + up + '\tret\n' +                                       # a forward jump into the label: its only way in, after the idiom
             'Sw::\n' + BANK7 + '.loop2\n' + up + BANK3 + '\tjr nz, .loop2\n\tret\n')                      # the loop switches banks
         rc, out = self.run_tool('--areas', 'wramx')
         self.assertEqual(rc, 0, out)
         s = self.read('engine/s.asm').split('\n')
         got = [ln for ln in s if ln.startswith('\tld hl, ')]
-        self.assertEqual(got, ['\tld hl, wPaletteBufBg', '\tld hl, $D800', '\tld hl, $D800', '\tld hl, wPaletteBufBg', '\tld hl, $D800', '\tld hl, $D800'])
-        self.assertIn('4 bank not shown', out)
+        self.assertEqual(got, ['\tld hl, wPaletteBufBg', '\tld hl, $D800', '\tld hl, $D800', '\tld hl, wPaletteBufBg', '\tld hl, wPaletteBufBg', '\tld hl, $D800'])
+        self.assertIn('3 bank not shown', out)
 
     def test_check_and_idempotent(self):
         put(os.path.join(self.dir, 'engine/w.asm'), 'W_Run::\n\tld hl, $DA10\n\tcall Sprite_InitSlot\n\tret\n')
@@ -335,6 +335,12 @@ class ElementTests(Base):
             '\tld [wSpriteSlots + 17], a\n'                       # no switch in this routine
             '\tld [wSpriteSlots + 18], a\n'
             '\tret\n')
+
+    def test_a_line_marked_raw_keeps_the_container_name(self):
+        put(os.path.join(self.dir, 'engine/e.asm'), 'E_Run::\n' + BANK7 + '\tld [wSpriteSlots + 17], a ; raw: not a slot field\n\tld [wSpriteSlots + 18], a\n\tret\n')
+        rc, out = self.run_tool('--elements', 'wSpriteSlots')
+        self.assertEqual(rc, 0, out)
+        self.assertEqual([l for l in self.read('engine/e.asm').split('\n') if l.startswith('\tld [')], ['\tld [wSpriteSlots + 17], a ; raw: not a slot field', '\tld [wSpriteSlot1 + $02], a'])
 
     def test_shown_by_the_idiom(self):
         put(os.path.join(self.dir, 'engine/e.asm'), self.CODE)
@@ -409,6 +415,42 @@ class StrictProofTests(Base):
         got = self.run_one('S::\n' + BANK7 + '\tret z\n\tjr nz, Elsewhere\n' + self.UP + '\tret\n')            # conditional ones fall through
         self.assertEqual(got, ['\tld hl, wPaletteBufBg'])
 
+    def test_join_of_all_the_ways_into_a_label(self):
+        ok = 'S::\n' + BANK7 + '\tjr nz, .x\n\tinc a\n.x\n' + self.UP + '\tret\n'                                  # the fall-through and the jump both come from bank 7
+        self.assertEqual(self.run_one(ok), ['\tld hl, wPaletteBufBg'])
+        skip = 'S::\n' + BANK7 + '\tjr .x\n\tinc a\n\tret\n.x\n' + self.UP + '\tret\n'                                 # the only way in is the jump (no fall-through after the ret)
+        self.assertEqual(self.run_one(skip), ['\tld hl, wPaletteBufBg'])
+        two = 'S::\n' + BANK7 + '\tjr nz, .x\n' + BANK3 + '\n.x\n' + self.UP + '\tret\n'                                # the jump comes from bank 7, the fall-through from bank 3
+        self.assertEqual(self.run_one(two), ['\tld hl, $D800'])
+        both3 = 'S::\n' + BANK3 + '\tjr nz, .x\n\tinc a\n.x\n' + self.UP + '\tret\n'                                    # both ways show bank 3: not the bank of the object
+        self.assertEqual(self.run_one(both3), ['\tld hl, $D800'])
+        two_jumps = 'S::\n' + BANK7 + '\tjr nz, .x\n\tret\n.y\n' + BANK3 + '\tjr nz, .x\n\tret\n.x\n' + self.UP + '\tret\n'  # two jumps into the label, from banks 7 and 3 (.y has no entry)
+        self.assertEqual(self.run_one(two_jumps), ['\tld hl, $D800'])
+        self.assertEqual(self.run_one('S::\n' + BANK7 + '\tjr nz, .x\n\tinc a\n.x\n' + self.UP + '\tcall .x\n\tret\n'), ['\tld hl, $D800'])   # a call into the label is another entry
+        self.assertEqual(self.run_one('S::\n' + BANK7 + '\tjr nz, .x\n\tinc a\n.x\n' + self.UP + '\tjp hl\n'), ['\tld hl, wPaletteBufBg'])   # jp hl does not name the label
+        glob = 'S::\n' + BANK7 + '\tret\nT::\n.x\n' + self.UP + '\tret\n'                                                   # a global label right above: entered from anywhere
+        self.assertEqual(self.run_one(glob), ['\tld hl, $D800'])
+        frag = 'S::\n' + BANK7 + '\tret\n.x\n' + self.UP + '\tret\n'                                                       # no way in at all after an unconditional ret: a fragment
+        self.assertEqual(self.run_one(frag), ['\tld hl, $D800'])
+        adj = 'S::\n' + BANK7 + '\tjr nz, .y\n\tret\n.x\n.y\n' + self.UP + '\tret\n'                                     # adjacent labels: the jump names the second one
+        self.assertEqual(self.run_one(adj), ['\tld hl, wPaletteBufBg'])
+        adj_bad = 'S::\n' + BANK7 + '\tjr nz, .y\n\tret\n.x\n.y\n' + self.UP + '\tjr nz, .x\n\tret\n'                  # adjacent labels: the jump to .y comes from bank 7 and the jump to .x is a back edge whose body keeps the bank
+        self.assertEqual(self.run_one(adj_bad), ['\tld hl, wPaletteBufBg'])
+        adj_bank = 'S::\n' + BANK7 + '\tjr nz, .x\n' + BANK3 + '\tjr .z\n.x\n.y\n' + self.UP + '\tjr nz, .y\n.z\n\tret\n'  # adjacent labels .x .y: entered only by the jump to .x from bank 7 (the bank 3 code above ends in jr .z), .y is also a loop head
+        self.assertEqual(self.run_one(adj_bank), ['\tld hl, wPaletteBufBg'])
+        back_bad = 'S::\n' + BANK7 + '.x\n' + self.UP + BANK3 + '\tjr nz, .x\n\tret\n'                                      # a back edge from a body that switches banks
+        self.assertEqual(self.run_one(back_bad), ['\tld hl, $D800'])
+        nest = 'S::\n' + BANK7 + '\tjr nz, .a\n.a\n\tjr nz, .b\n.b\n\tjr nz, .c\n.c\n\tjr nz, .d\n.d\n\tjr nz, .e\n.e\n' + self.UP + '\tret\n'   # five joins in a row: deeper than the limit of four
+        self.assertEqual(self.run_one(nest), ['\tld hl, $D800'])
+        chain = 'S::\n' + BANK7 + '\tjr .x\n\tret\n.x\n\tjr .y\n\tret\n.y\n' + self.UP + '\tret\n'                            # a chain of two joins: each label is entered by one jump from the code above
+        self.assertEqual(self.run_one(chain), ['\tld hl, wPaletteBufBg'])
+        only_back = 'S::\n' + BANK7 + '\tjr .y\n.x\n\tjr .z\n.y\n\tjr .x\n.z\n' + self.UP + '\tret\n'                 # a label that only a back edge enters: no way in from above, no proof
+        self.assertEqual(self.run_one(only_back), ['\tld hl, $D800'])
+
+    def test_call_into_the_label_from_above(self):
+        code = 'S::\n' + BANK7 + '\tcall .x\n\tret\n.x\n' + self.UP + '\tret\n'                                       # a call enters .x with the caller's bank, but the scan follows jumps only
+        self.assertEqual(self.run_one(code), ['\tld hl, $D800'])
+
     def test_loop_body_must_keep_the_bank(self):
         body_bad = 'S::\n' + BANK7 + '.loop\n' + self.UP + '\tcall SwitchToBank3\n\tjr nz, .loop\n\tret\n'          # R2
         self.assertEqual(self.run_one(body_bad), ['\tld hl, $D800'])
@@ -422,6 +464,13 @@ class StrictProofTests(Base):
         self.assertEqual(self.run_one('S::\n' + idiom + self.UP + '\tret\n'), ['\tld hl, wPaletteBufBg'])
         got = self.run_one('S::\n' + BANK7 + '\tld hl, $D800\n\tld a, H\n\tfarcall Palette_UploadBuffer\n\tret\n')   # R13: upper-case register
         self.assertEqual(got, ['\tld hl, $D800'])
+
+    def test_switch_between_the_load_and_the_call(self):
+        late = 'S::\n\tld hl, $D800\n' + BANK7 + '\tfarcall Palette_UploadBuffer\n\tret\n'
+        self.assertEqual(self.run_one(late), ['\tld hl, wPaletteBufBg'])                                              # the bank at the call is the one that counts
+        wrong = 'S::\n' + BANK7 + '\tld hl, $D800\n' + BANK3 + '\tfarcall Palette_UploadBuffer\n\tret\n'
+        self.assertEqual(self.run_one(wrong), ['\tld hl, $D800'])                                                      # idiom 7 before the load, bank 3 at the call
+        self.assertEqual(self.run_one('S::\n\tld hl, $D800\n\tld a, $07\n\tldh [rSVBK], a\n\tfarcall Palette_UploadBuffer\n\tret\n'), ['\tld hl, $D800'])   # not the idiom
 
     def test_macro_between_load_and_call(self):
         got = self.run_one('S::\n' + BANK7 + '\tld hl, $D800\n\tfarcall_raw $4123, $20\n\tfarcall Palette_UploadBuffer\n\tret\n')     # R4
@@ -575,6 +624,11 @@ class NeutralNameTests(Base):
         self.assertEqual(got, ['\tld a, [wRam_D1A6]'])
         self.assertIn('1 bank not shown', out)
 
+    def test_a_line_marked_raw_stays(self):
+        """A human decision (`; raw` with the reason) keeps the number in every mode."""
+        got, out = self.run_one('N::\n' + BANK7 + '\tld a, [wRam_D1A6] ; raw: scratch, not the tile map\n\tld a, [wRam_D5A6]\n\tret\n')
+        self.assertEqual(got[-2:], ['\tld a, [wRam_D1A6] ; raw: scratch, not the tile map', '\tld a, [wScreenAttrMap + $1A6]'])
+
     def test_pointers_and_complex_expressions_stay(self):
         got, out = self.run_one('N::\n' + BANK7 + '\tld hl, wRam_D1A6\n\tld a, [wRam_D1A6 + 2 * 3]\n\tld a, [wRam_D1A6 - 1]\n\tret\n')
         self.assertEqual(got[-3:], ['\tld hl, wRam_D1A6', '\tld a, [wRam_D1A6 + 2 * 3]', '\tld a, [wRam_D1A6 - 1]'])
@@ -617,7 +671,7 @@ class NeutralNameTests(Base):
 class DirectUseTests(Base):
     """`(direct)` rows: a pointer that the next instruction using it dereferences gets the name of the bank shown at the load."""
 
-    def run_one(self, code, observed=None):
+    def run_one(self, code, observed=None, bc=False):
         put(os.path.join(self.dir, 'engine/d.asm'), code)
         saved = ao.observed_masks
         if observed is not None:
@@ -627,7 +681,7 @@ class DirectUseTests(Base):
         finally:
             ao.observed_masks = saved
         self.assertEqual(rc, 0, out)
-        return [ln for ln in self.read('engine/d.asm').split('\n') if ln.startswith('\tld hl, ') or ln.startswith('\tld de, ') or ln.startswith('\tld bc, ')]
+        return [ln for ln in self.read('engine/d.asm').split('\n') if ln.startswith('\tld hl, ') or ln.startswith('\tld de, ') or (bc and ln.startswith('\tld bc, '))]
 
     def test_idiom(self):
         self.assertEqual(self.run_one('D::\n' + BANK7 + '\tld hl, $D400\n\tld a, [hl]\n\tret\n'), ['\tld hl, wScreenAttrMap'])
@@ -636,6 +690,7 @@ class DirectUseTests(Base):
         self.assertEqual(self.run_one('D::\n\tld hl, $D400\n\tld a, [hl]\n\tret\n'), ['\tld hl, $D400'])                    # no bank shown
         self.assertEqual(self.run_one('D::\n' + BANK7 + '\tld hl, $D400\n\tadd hl, bc\n\tld a, [hl]\n\tret\n'), ['\tld hl, $D400'])    # arithmetic first: not a plain pointer use
         self.assertEqual(self.run_one('D::\n' + BANK7 + '\tld hl, $D400\n.x\n\tld a, [hl]\n\tret\n'), ['\tld hl, $D400'])             # a label before the use
+        self.assertEqual(self.run_one('D::\n' + BANK7 + '\tld hl, $D400\n\tjr nz, .x\n\tinc a\n.x\n\tld a, [hl]\n\tret\n'), ['\tld hl, $D400'])    # a label that another path joins (a forward jump)
         self.assertEqual(self.run_one('D::\n' + BANK7 + '\tld hl, $D400\n\tcall Foo\n\tld a, [hl]\n\tret\n'), ['\tld hl, $D400'])      # a call before the use
         self.assertEqual(self.run_one('D::\n' + BANK7 + '\tld hl, $D400\n\tld a, $03\n\tldh [rSVBK], a\n\tld a, [hl]\n\tret\n'), ['\tld hl, $D400'])    # the bank changes first
 
@@ -648,7 +703,7 @@ class DirectUseTests(Base):
         self.assertEqual(self.run_one('D::\n' + BANK7 + '\tld a, $03\n\tldh [$70], a\n\tld hl, $D400\n\tld a, [hl]\n\tret\n'), keep)               # the write is before the load: the idiom above it is not the bank in force
         self.assertEqual(self.run_one('D::\n' + BANK7 + '\tld hl, $D400\n\tld de, $FF70\n\tld a, $03\n\tld [de], a\n\tld a, [hl]\n\tret\n'), keep + ['\tld de, $FF70'])
         self.assertEqual(self.run_one('D::\n' + BANK7 + '\tld hl, $D400\n\tld de, rSVBK\n\tld a, $03\n\tld [de], a\n\tld a, [hl]\n\tret\n'), keep + ['\tld de, rSVBK'])
-        self.assertEqual(self.run_one('D::\n' + BANK7 + '\tld bc, $D400\n\tld hl, $FF70\n\tld a, $03\n\tld [hl], a\n\tld a, [bc]\n\tret\n'), ['\tld bc, $D400', '\tld hl, $FF70'])
+        self.assertEqual(self.run_one('D::\n' + BANK7 + '\tld bc, $D400\n\tld hl, $FF70\n\tld a, $03\n\tld [hl], a\n\tld a, [bc]\n\tret\n', bc=True), ['\tld bc, $D400', '\tld hl, $FF70'])
 
     def test_what_ends_the_direct_proof(self):
         keep = ['\tld hl, $D400']
@@ -657,7 +712,43 @@ class DirectUseTests(Base):
         self.assertEqual(self.run_one('D::\n' + BANK7 + '\tld hl, $D400\n\tld a, [hld]\n\tret\n'), ['\tld hl, wScreenAttrMap'])        # [hld] and [hl+] are dereferences too
         self.assertEqual(self.run_one('D::\n' + BANK7 + '\tld hl, $D400\n\tld a, [hl+]\n\tret\n'), ['\tld hl, wScreenAttrMap'])
         self.assertEqual(self.run_one('D::\n' + BANK7 + '\tld de, $D400\n\tld a, [de]\n\tret\n'), ['\tld de, wScreenAttrMap'])
-        self.assertEqual(self.run_one('D::\n' + BANK7 + '\tld bc, $D400\n\tld a, [bc]\n\tret\n'), ['\tld bc, wScreenAttrMap'])
+        self.assertEqual(self.run_one('D::\n' + BANK7 + '\tld bc, $D400\n\tld a, [bc]\n\tret\n', bc=True), ['\tld bc, wScreenAttrMap'])
+
+    def test_loop_head_before_the_use(self):
+        loop = 'D::\n' + BANK7 + '\tld hl, $D400\n\tld b, $10\n.loop\n\tld [hli], a\n\tdec b\n\tjr nz, .loop\n\tret\n'
+        self.assertEqual(self.run_one(loop), ['\tld hl, wScreenAttrMap'])                                              # a loop head: the load falls into it, the body keeps the bank
+        self.assertEqual(self.run_one('D::\n\tld hl, $D400\n\tld b, $10\n.loop\n\tld [hli], a\n\tdec b\n\tjr nz, .loop\n\tret\n'), ['\tld hl, $D400'])    # no bank shown
+        bad = 'D::\n' + BANK7 + '\tld hl, $D400\n.loop\n\tld [hli], a\n\tcall SwitchToBank7\n\tcall Elsewhere\n\tjr nz, .loop\n\tret\n'
+        self.assertEqual(self.run_one(bad), ['\tld hl, $D400'])                                                         # the body calls a routine that may change the bank
+        fwd = 'D::\n' + BANK7 + '\tld hl, $D400\n\tjr nz, .loop\n.loop\n\tld [hli], a\n\tdec b\n\tjr nz, .loop\n\tret\n'
+        self.assertEqual(self.run_one(fwd), ['\tld hl, $D400'])                                                         # a forward jump into the head: another path enters
+
+    def test_label_entered_without_the_load(self):
+        skip = 'D::\n' + BANK7 + '\tjr nz, .x\n\tld hl, $D400\n.x\n\tld a, [hl]\n\tret\n'            # the jump skips the load: HL is not the pointer on that path
+        self.assertEqual(self.run_one(skip), ['\tld hl, $D400'])
+
+    def test_idiom_between_the_load_and_the_use(self):
+        late = 'D::\n\tld hl, $D400\n\tld b, $10\n' + BANK7 + '.loop\n\tld [hli], a\n\tdec b\n\tjr nz, .loop\n\tret\n'
+        self.assertEqual(self.run_one(late), ['\tld hl, wScreenAttrMap'])                                              # the bank is shown at the use, not at the load
+        other = 'D::\n' + BANK3 + '\tld hl, $D400\n' + BANK7 + '\tld a, [hl]\n\tret\n'
+        self.assertEqual(self.run_one(other), ['\tld hl, wScreenAttrMap'])                                             # the bank at the load is another one: the use decides
+        self.assertEqual(self.run_one('D::\n' + BANK7 + '\tld hl, $D400\n\tld a, $03\n\tldh [rSVBK], a\n\tld a, [hl]\n\tret\n'), ['\tld hl, $D400'])    # the shadow is not written: no proof
+        self.assertEqual(self.run_one('D::\n' + BANK7 + '\tld hl, $D400\n\tld a, $03\n\tldh [hWRAMBank], a\n\tld a, [hl]\n\tret\n'), ['\tld hl, $D400'])  # the real register is not written
+        got = self.run_one(late, observed={('engine/d.asm', 2): 0x02})                                                 # the replays saw the load under bank 1: no proof at the use
+        self.assertEqual(got, ['\tld hl, wScreenAttrMap'])
+        self.assertEqual(self.run_one('D::\n\tld hl, $D400\n\tld a, [hl]\n\tret\n', observed={('engine/d.asm', 2): 0x80}), ['\tld hl, wScreenAttrMap'])   # no switch between: the replays decide
+
+    def test_loop_over_more_bytes_than_the_object(self):
+        loop = '\tld [hli], a\n\tdec bc\n\tld a, b\n\tor c\n\tjr nz, .loop\n\tret\n'
+        self.assertEqual(self.run_one('D::\n' + BANK7 + '\tld hl, $D400\n\tld bc, $0400\n.loop\n' + loop), ['\tld hl, wScreenAttrMap'])             # as many bytes as the object has
+        self.assertEqual(self.run_one('D::\n' + BANK7 + '\tld hl, $D400\n\tld bc, $0401\n.loop\n' + loop), ['\tld hl, $D400'])                # one more: a wipe over the neighbour, left raw
+        self.assertEqual(self.run_one('D::\n' + BANK7 + '\tld bc, $0401\n\tld hl, $D400\n.loop\n' + loop), ['\tld hl, $D400'])                # the count above the load counts too
+        self.assertEqual(self.run_one('D::\n' + BANK7 + '\tld hl, $D400\n\tld bc, $FFFF\n.loop\n' + loop), ['\tld hl, wScreenAttrMap'])             # $FFFF is the start of a pre-incremented count, not a length
+        self.assertEqual(self.run_one('D::\n' + BANK7 + '\tld hl, $D7F0\n\tld b, $10\n.loop\n\tld [hli], a\n\tdec b\n\tjr nz, .loop\n\tret\n'), ['\tld hl, wScreenAttrMap + $3F0'])
+        self.assertEqual(self.run_one('D::\n' + BANK7 + '\tld hl, $D7F0\n\tld b, $11\n.loop\n\tld [hli], a\n\tdec b\n\tjr nz, .loop\n\tret\n'), ['\tld hl, $D7F0'])
+        self.assertEqual(self.run_one('D::\n' + BANK7 + '\tld hl, $D700\n\tld c, $00\n.loop\n\tld [hli], a\n\tdec c\n\tjr nz, .loop\n\tret\n'), ['\tld hl, wScreenAttrMap + $300'])  # c = 0 is 256 bytes, which fit
+        self.assertEqual(self.run_one('D::\n' + BANK7 + '\tld hl, $D7F0\n\tld c, $00\n.loop\n\tld [hli], a\n\tdec c\n\tjr nz, .loop\n\tret\n'), ['\tld hl, $D7F0'])         # 256 bytes do not
+        self.assertEqual(self.run_one('D::\n' + BANK7 + '\tld hl, $D400\n\tld bc, $0500\n\tld a, [hl]\n\tret\n'), ['\tld hl, wScreenAttrMap'])           # no loop: the count is not the length of a walk
 
     def test_replays(self):
         code = 'D::\n\tld hl, $D400\n\tld a, [hl]\n\tld hl, $D400\n\tld a, [hl]\n\tld hl, $D400\n\tld a, [hl]\n\tret\n'
@@ -748,12 +839,134 @@ class ObservedSwitchTests(Base):
         self.assertEqual(self.run_one(code, {('engine/s.asm', 5): 0x80}), ['\tld hl, wScreenAttrMap'])           # they agree
         self.assertEqual(self.run_one(code, {('engine/s.asm', 5): 0x02}), ['\tld hl, $D400'])                    # replays say bank 1 only, idiom says 7
 
+    def test_switch_between_the_load_and_the_consumer(self):
+        code = 'S::\n\tld hl, $D100\n' + BANK3 + '\tcall FillBytes\n\tret\n'                  # the replays saw the load under bank 7, the idiom switches to bank 3 before the call
+        call = 2 + len(BANK3.rstrip('\n').split('\n')) + 1
+        self.assertEqual(self.run_one(code, {('engine/s.asm', 2): 0x80}), ['\tld hl, wTileStage3 + $100'])    # the mask of the load says nothing about the call: the idiom decides
+        self.assertEqual(self.run_one(code, {('engine/s.asm', 2): 0x80, ('engine/s.asm', call): 0x08}), ['\tld hl, wTileStage3 + $100'])   # the replays at the call agree
+        self.assertEqual(self.run_one(code, {('engine/s.asm', 2): 0x08, ('engine/s.asm', call): 0x04}), ['\tld hl, $D100'])                # the replays at the call contradict the idiom
+        code = 'S::\n\tld hl, $D100\n\tld a, $03\n\tldh [rSVBK], a\n\tcall FillBytes\n\tret\n'               # no idiom (the shadow is not written): only the replays can prove it
+        self.assertEqual(self.run_one(code, {('engine/s.asm', 2): 0x08}), ['\tld hl, $D100'])                 # the load mask is no proof when the bank changes before the call
+        self.assertEqual(self.run_one(code, {('engine/s.asm', 5): 0x08}), ['\tld hl, wTileStage3 + $100'])    # the mask of the call is
+
     def test_a_zero_consumer(self):
         code = 'S::\n\tld hl, $D400\n\txor a, a\n\tcall Gfx_StartHDMA\n\tret\n'
         self.assertEqual(self.run_one(code, {('engine/s.asm', 2): 0x80}), ['\tld hl, wScreenAttrMap'])          # A = 0 and the replays show bank 7
         self.assertEqual(self.run_one(code, {('engine/s.asm', 2): 0x04}), ['\tld hl, $D400'])                  # bank 2: no name of the rule's bank
         code = 'S::\n\tld hl, $D400\n\tld a, $03\n\tcall Gfx_StartHDMA\n\tret\n'                         # A = 3 names the bank itself: the replays do not matter
         self.assertEqual(self.run_one(code, {('engine/s.asm', 2): 0x80}), ['\tld hl, $D400'])
+
+
+class Round10Tests(Base):
+    """Tests added after the independent readers of ramop10: mutants of the new proofs that survived, and three defects (a loop entered in the middle, the address of a bank register above the idiom, A = 0 for a
+    consumer that hands A to ReadByteFar)."""
+
+    UP = '\tld hl, $D800\n\tfarcall Palette_UploadBuffer\n'
+    LOOPW = '\tld [hli], a\n\tdec bc\n\tld a, b\n\tor c\n\tjr nz, .loop\n\tret\n'
+    BANK2 = BANK3.replace('$03', '$02')
+
+    def setUp(self):
+        super().setUp()
+        p = os.path.join(self.dir, 'analysis/naming2/wramx_calls.tsv')
+        put(p, get(p) + 'FillBytes\tkeeps\twrites no bank register\nTextTiles_RenderGrid\tkeeps\tproof\n')
+        p = os.path.join(self.dir, 'analysis/naming2/wramx_consumers.tsv')
+        put(p, get(p) + 'TextTiles_RenderGrid\thl\t*\ta\twTileStage[0-9]\tproof\n')
+
+    def hl(self, code, observed=None, extra=()):
+        put(os.path.join(self.dir, 'engine/x.asm'), code)
+        saved = ao.observed_masks
+        if observed is not None:
+            ao.observed_masks = lambda root, sites: dict(observed)
+        try:
+            rc, out = self.run_tool('--areas', 'wramx', *(['--observed'] if observed is not None else []), *extra)
+        finally:
+            ao.observed_masks = saved
+        self.assertEqual(rc, 0, out)
+        return [l for l in self.read('engine/x.asm').split('\n') if l.startswith(('\tld de, ', '\tld hl, ')) or (l.startswith('\tld bc, ') and not l.startswith('\tld bc, $0'))]
+
+    def test_a_farcall_consumer_after_a_switch_ignores_the_load_mask(self):
+        code = 'S::\n\tld hl, $D100\n' + BANK3 + '\tfarcall FillBytes\n\tret\n'
+        self.assertEqual(self.hl(code, {('engine/x.asm', 2): 0x80}), ['\tld hl, wTileStage3 + $100'])
+
+    def test_a_zero_takes_the_bank_at_the_call_not_at_the_load(self):
+        self.assertEqual(self.hl('H::\n' + BANK7 + '\tld hl, $D400\n' + BANK3 + '\txor a, a\n\tcall Gfx_StartHDMA\n\tret\n'), ['\tld hl, $D400'])
+        self.assertEqual(self.hl('H::\n\tld hl, $D400\n' + BANK7 + '\txor a, a\n\tcall Gfx_StartHDMA\n\tret\n'), ['\tld hl, wScreenAttrMap'])
+
+    def test_a_constant_in_a_is_not_contradicted_by_the_replays(self):
+        code = 'H::\n\tld hl, $D400\n\tld a, $07\n\tcall Gfx_StartHDMA\n\tret\n'
+        self.assertEqual(self.hl(code, {('engine/x.asm', 2): 0x02, ('engine/x.asm', 4): 0x02}), ['\tld hl, wScreenAttrMap'])
+
+    def test_other_spellings_of_a_switch_between_load_and_call(self):
+        code = 'S::\n\tld hl, $D100\n\tld a, $03\n\tldh [$FF8D], a\n\tldh [$FF70], a\n\tcall FillBytes\n\tret\n'
+        self.assertEqual(self.hl(code, {('engine/x.asm', 2): 0x80}), ['\tld hl, wTileStage3 + $100'])
+
+    def test_observed_maps_the_consumer_and_the_dereference_lines(self):
+        got = {}
+        saved = ao.observed_masks
+        ao.observed_masks = lambda root, sites: (got.update({'sites': set(sites)}) or {})
+        code = 'S::\n\tld hl, $D100\n' + BANK3 + '\tcall FillBytes\n\tld de, $D200\n\tld a, [de]\n\tret\n'
+        put(os.path.join(self.dir, 'engine/x.asm'), code)
+        try:
+            self.run_tool('--areas', 'wramx', '--observed', '--dry-run')
+        finally:
+            ao.observed_masks = saved
+        lines = code.split('\n')
+        call = [i + 1 for i, l in enumerate(lines) if l == '\tcall FillBytes'][0]
+        deref = [i + 1 for i, l in enumerate(lines) if l == '\tld a, [de]'][0]
+        self.assertIn(('engine/x.asm', call), got['sites'])
+        self.assertIn(('engine/x.asm', deref), got['sites'])
+
+    def test_first_use_beyond_30_lines(self):
+        self.assertEqual(self.hl('D::\n' + BANK7 + '\tld hl, $D400\n' + '\tnop\n' * 40 + '\tld a, [hl]\n\tret\n'), ['\tld hl, $D400'])
+
+    def test_loop_body_that_may_write_the_bank_in_other_ways(self):
+        body = 'S::\n' + BANK7 + '.loop\n' + self.UP
+        self.assertEqual(self.hl(body + '\tld de, $FF70\n\tld a, $03\n\tld [de], a\n\tjr nz, .loop\n\tret\n'), ['\tld hl, $D800', '\tld de, $FF70'])
+        self.assertEqual(self.hl(body + '\trst $08\n\tjr nz, .loop\n\tret\n'), ['\tld hl, $D800'])
+
+    def test_comments_between_labels_and_before_a_label(self):
+        adj = 'S::\n' + BANK7 + '\tjr nz, .y\n\tret\n.x\n; a comment between two adjacent labels\n.y\n' + self.UP + '\tjr nz, .x\n\tret\n'
+        self.assertEqual(self.hl(adj), ['\tld hl, wPaletteBufBg'])
+        before = 'S::\n' + BANK7 + '\tjr nz, .x\n\tret\n; a comment line above the label\n.x\n' + self.UP + '\tret\n'
+        self.assertEqual(self.hl(before), ['\tld hl, wPaletteBufBg'])
+
+    def test_largest_count_wins_and_the_window_before_the_load_is_two(self):
+        self.assertEqual(self.hl('D::\n' + BANK7 + '\tld hl, $D400\n\tld bc, $0401\n\tld b, $01\n.loop\n' + self.LOOPW), ['\tld hl, $D400'])
+        self.assertEqual(self.hl('D::\n' + BANK7 + '\tld bc, $0401\n\tnop\n\tld hl, $D400\n.loop\n' + self.LOOPW), ['\tld hl, $D400'])
+        self.assertEqual(self.hl('D::\n' + BANK7 + '\tld bc, $0401\n\tnop\n\tnop\n\tnop\n\tld hl, $D400\n.loop\n' + self.LOOPW), ['\tld hl, wScreenAttrMap'])
+
+    def test_a_lone_shadow_write_is_no_bank_idiom(self):
+        self.assertEqual(self.hl('S::\n\tld a, $07\n\tldh [hWRAMBank], a\n\tldh [hWRAMBank], a\n' + self.UP + '\tret\n'), ['\tld hl, $D800'])
+
+    def test_lower_case_hex_of_a_bank_register_address(self):
+        code = 'S::\n' + BANK7 + '\tld hl, $D800\n\tld de, $ff70\n\tld a, $03\n\tld [de], a\n\tfarcall Palette_UploadBuffer\n\tret\n'
+        self.assertEqual(self.hl(code), ['\tld hl, $D800', '\tld de, $ff70'])
+
+    def test_F1_loop_entered_in_the_middle(self):
+        self.assertEqual(self.hl('D::\n' + BANK3 + '\tjr nz, .mid\n' + BANK7 + '.loop\n\tld hl, $D400\n\tld a, [hl]\n.mid\n\tdec b\n\tjr nz, .loop\n\tret\n'), ['\tld hl, $D400'])
+        self.assertEqual(self.hl('D::\n' + self.BANK2 + '\tjr nz, .mid\n' + BANK3 + '.loop\n\tld hl, $D100\n\tcall FillBytes\n.mid\n\tdec b\n\tjr nz, .loop\n\tret\n'), ['\tld hl, $D100'])
+        self.assertEqual(self.hl('D::\n' + BANK7 + '.loop\n\tld hl, $D400\n\tld a, [hl]\n.mid\n\tdec b\n\tjr nz, .loop\n\tret\n\tdw .mid\n'), ['\tld hl, $D400'])
+
+    def test_F1_direct_use_in_a_loop_whose_body_has_a_second_entry(self):
+        code = 'D::\n' + BANK3 + '\tjr nz, .mid\n' + BANK7 + '\tld hl, $D400\n.loop\n\tld a, [hl]\n.mid\n\tdec b\n\tjr nz, .loop\n\tret\n'
+        self.assertEqual(self.hl(code), ['\tld hl, $D400'])                       # via .mid the loop runs under bank 3
+        ok = 'D::\n' + BANK7 + '\tld hl, $D400\n.loop\n\tld a, [hl]\n.mid\n\tdec b\n\tjr nz, .loop\n\tret\n'
+        self.assertEqual(self.hl(ok), ['\tld hl, wScreenAttrMap'])                # the same loop with no way into .mid from outside the body (.mid has no reference)
+
+    def test_F2_address_of_the_bank_register_above_the_idiom(self):
+        code = 'D::\n\tld de, rSVBK\n' + BANK7 + '\tld a, $03\n\tld [de], a\n\tld hl, $D400\n\tld a, [hl]\n\tret\n'
+        self.assertEqual(self.hl(code), ['\tld de, rSVBK', '\tld hl, $D400'])
+
+    def test_A0_is_not_the_bank_in_force_for_a_consumer_that_hands_a_to_ReadByteFar(self):
+        self.assertEqual(self.hl('D::\n' + self.BANK2 + '\tld hl, $D000\n\tld de, $D800\n\tld bc, $0010\n\txor a, a\n\tfarcall TextTiles_RenderGrid\n\tret\n'), ['\tld hl, $D000', '\tld de, $D800'])
+        self.assertEqual(self.hl('D::\n' + self.BANK2 + '\tld hl, $D000\n\tld de, $D800\n\tld bc, $0010\n\tld a, $02\n\tfarcall TextTiles_RenderGrid\n\tret\n'), ['\tld hl, wTileStage2', '\tld de, $D800'])
+
+    def test_fixed_rows_are_accepted_like_minus_rows_but_never_with_a_star_bank(self):
+        put(os.path.join(self.dir, 'analysis/naming2/wramx_consumers.tsv'), 'Lib_Fn\thl\tW3\tfixed\twTileStage3\tthe bank is a property of the library (invariant)\n')
+        self.assertEqual(self.hl('L::\n\tld hl, $D100\n\tcall Lib_Fn\n\tret\n'), ['\tld hl, wTileStage3 + $100'])
+        put(os.path.join(self.dir, 'analysis/naming2/wramx_consumers.tsv'), 'Lib_Fn\thl\t*\tfixed\twTileStage3\tproof\n')
+        rc, out = self.run_tool('--areas', 'wramx', '--dry-run')
+        self.assertEqual(rc, 2, out)
 
 
 if __name__ == '__main__':

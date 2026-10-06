@@ -12,7 +12,7 @@ SoundDrv_Init:: ; 04:4000
 	push af
 	ld a, [wBank4SavedBankHi]
 	push af
-	ld hl, $D001
+	ld hl, wBank4SavedBankLo
 	ld b, $3F
 	xor a, a
 .l4013 ; 04:4013
@@ -36,7 +36,7 @@ SoundDrv_Init:: ; 04:4000
 	xor a, a
 	ld b, $08
 	ld de, $003C
-	ld hl, $D040
+	ld hl, wSoundDrv_Tracks
 .l4043 ; 04:4043
 	ld [hl], a
 	add hl, de
@@ -45,7 +45,7 @@ SoundDrv_Init:: ; 04:4000
 	xor a, a
 	ld b, $04
 	ld de, $0018
-	ld hl, $D220
+	ld hl, wSoundDrv_Channels
 .l4051 ; 04:4051
 	ld [hl], a
 	add hl, de
@@ -77,7 +77,7 @@ SoundDrv_FrameTick:: ; 04:4082
 	push bc
 	push de
 	call SoundDrv_UpdateFade
-	ld hl, $D000
+	ld hl, wBank4State
 	set 5, [hl]
 	ld hl, wSoundDrv_SfxTempoStep
 	ld a, [hli]
@@ -117,7 +117,7 @@ SoundDrv_SfxTickLoop:: ; 04:40AC
 	call SoundDrv_StepTrack
 	call SoundDrv_NextTrack
 	jr nz, .l40BC
-	ld hl, $D008
+	ld hl, wSoundDrv_SfxTempoAccum
 	ld a, [hli]
 	sub a, $4A
 	ld b, a
@@ -126,7 +126,7 @@ SoundDrv_SfxTickLoop:: ; 04:40AC
 	jr nc, SoundDrv_SfxTickLoop
 
 SoundDrv_MusicPhase:: ; 04:40D0
-	ld hl, $D000
+	ld hl, wBank4State
 	res 5, [hl]
 	ld hl, wSoundDrv_MusicTempoStep
 	ld a, [hli]
@@ -161,7 +161,7 @@ SoundDrv_MusicTickLoop:: ; 04:40F5
 	call SoundDrv_StepTrack
 	call SoundDrv_NextTrack
 	jr nz, .l4105
-	ld hl, $D00D
+	ld hl, wSoundDrv_MusicTempoAccum
 	ld a, [hli]
 	sub a, $4A
 	ld b, a
@@ -184,7 +184,7 @@ SoundDrv_ChannelPhase:: ; 04:4119
 	ld [wSoundDrv_TickDivider], a
 	ld c, $08
 	ld de, $003C
-	ld hl, $D040
+	ld hl, wSoundDrv_Tracks
 .l4138 ; 04:4138
 	ld a, [hl]
 	and a, $F8
@@ -201,12 +201,12 @@ SoundDrv_ChannelPhase:: ; 04:4119
 	jp Bank4_GateLeave
 
 SoundDrv_SelectSfxTracks:: ; 04:414C
-	ld de, $D040
+	ld de, wSoundDrv_Tracks
 	ld a, $04
 	jr SoundDrv_SetTrackIterator
 
 SoundDrv_SelectMusicTracks:: ; 04:4153
-	ld de, $D130
+	ld de, wSoundDrv_Tracks + $F0
 	ld a, $04
 	jr SoundDrv_SetTrackIterator
 
@@ -215,7 +215,7 @@ Function_04_415A::
 	; [HYPOTHESIS] sibling of the executed entries 414C/4153 (ld de,imm ; ld a,imm ; shared tail
 	; 415F): decodes to ld de,$D040 ; ld a,$08 and lands exactly on the executed tail 415F; no
 	; caller or table entry found anywhere in the ROM, so entry unproven
-	ld de, $D040
+	ld de, wSoundDrv_Tracks
 	ld a, $08
 
 SoundDrv_SetTrackIterator:: ; 04:415F
@@ -242,36 +242,36 @@ SoundDrv_NextTrack:: ; 04:4167
 	ret
 
 SoundDrv_SelectChannel1:: ; 04:4177
-	ld de, $D220
+	ld de, wSoundDrv_Channels
 	ld a, $01
 	ld c, $12
 	jr SoundDrv_SetChannelIterator
 
 SoundDrv_SelectChannel2:: ; 04:4180
-	ld de, $D238
+	ld de, wSoundDrv_Channels + $18
 	ld a, $01
 	ld c, $17
 	jr SoundDrv_SetChannelIterator
 
 SoundDrv_SelectChannel3:: ; 04:4189
-	ld de, $D250
+	ld de, wSoundDrv_Channels + $30
 	ld a, $01
 	ld c, $1C
 	jr SoundDrv_SetChannelIterator
 
 SoundDrv_SelectChannel4:: ; 04:4192
-	ld de, $D268
+	ld de, wSoundDrv_Channels + $48
 	ld a, $01
 	ld c, $21
 	jr SoundDrv_SetChannelIterator
 
 SoundDrv_SelectAllChannels:: ; 04:419B
-	ld de, $D220
+	ld de, wSoundDrv_Channels
 	ld a, $04
 	ld c, $12
 
 SoundDrv_SetChannelIterator:: ; 04:41A2
-	ld hl, $D012
+	ld hl, wSoundDrv_ChannelCount
 	ld [hli], a
 	ld a, e
 	ld [hli], a
@@ -281,7 +281,7 @@ SoundDrv_SetChannelIterator:: ; 04:41A2
 	ret
 
 SoundDrv_NextChannel:: ; 04:41AC
-	ld hl, $D012
+	ld hl, wSoundDrv_ChannelCount
 	dec [hl]
 	ret z
 	inc hl
@@ -313,8 +313,8 @@ SoundDrv_PlaySfx:: ; 04:41C0
 	jr nc, .l4216
 	cpl
 	inc a
-	ld [wRam_D00F], a
-	ld hl, $D040
+	ld [wSoundDrv_TrackCount], a
+	ld hl, wSoundDrv_Tracks
 	ld a, b
 	and a, a
 	jr z, .l41E7
@@ -325,21 +325,21 @@ SoundDrv_PlaySfx:: ; 04:41C0
 	jr nz, .l41E3
 .l41E7 ; 04:41E7
 	ld a, l
-	ld [wRam_D010], a
+	ld [wSoundDrv_TrackPtr], a
 	ld a, h
-	ld [wRam_D011], a
+	ld [wSoundDrv_TrackPtr + $01], a
 	jr .l41F9
 .l41F1 ; 04:41F1
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + $01]
 	ld h, a
 .l41F9 ; 04:41F9
 	bit 7, [hl]
 	jr z, .l420C
 	ld bc, $0008
 	add hl, bc
-	ld a, [wRam_D03E]
+	ld a, [wSoundDrv_HeaderPriority]
 	cp a, [hl]
 	jr nc, .l420C
 	call SoundDrv_NextHeaderTrack
@@ -459,13 +459,13 @@ SoundDrv_PlayMusicIfNotPlaying:: ; 04:42C0
 	; known caller; the entry rests on the ROM0 stub of the same shape as the executed stub 20C4
 	; plus exact tiling between CONFIRMED code (42AE-42C0 and 42D6-42EC); clean decode to a
 	; terminator, no illegal opcodes, targets inside the bank
-	ld a, [wRam_D01B]
+	ld a, [wSoundDrv_MusicId]
 	cp a, c
 	jr nz, SoundDrv_PlayMusic
-	ld a, [wRam_D01C]
+	ld a, [wSoundDrv_MusicId + $01]
 	cp a, b
 	jr nz, SoundDrv_PlayMusic
-	ld a, [wRam_D024]
+	ld a, [wSoundDrv_ActiveMask]
 	and a, $F0
 	jr z, SoundDrv_PlayMusic
 	jp Bank4_GateLeave
@@ -487,12 +487,12 @@ SoundDrv_ResumeMusic:: ; 04:42EC
 	; [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 1;
 	; entered by jrcc from 04:42E7 (executed)
 	xor a, a
-	ld [wRam_D025], a
+	ld [wSoundDrv_MusicPaused], a
 	call SoundDrv_SelectMusicTracks
 .loop ; 04:42F3
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + $01]
 	ld h, a
 	ld a, [hl]
 	and a, $60
@@ -674,25 +674,25 @@ SoundDrv_StopSfxById:: ; 04:43DC
 	or a, c
 	jp z, SoundDrv_StopAllSfx
 	ld a, c
-	ld [wRam_D038], a
+	ld [wSoundDrv_ReqBC], a
 	ld a, b
-	ld [wRam_D039], a
+	ld [wSoundDrv_ReqBC + $01], a
 	call SoundDrv_SelectSfxTracks
 .loop ; 04:43EC
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld c, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + $01]
 	ld b, a
 	ld a, [bc]
 	bit 7, a
 	jr z, .l440C
 	ld hl, $0006
 	add hl, bc
-	ld a, [wRam_D038]
+	ld a, [wSoundDrv_ReqBC]
 	cp a, [hl]
 	jr nz, .l440C
 	inc hl
-	ld a, [wRam_D039]
+	ld a, [wSoundDrv_ReqBC + $01]
 	cp a, [hl]
 	jr nz, .l440C
 	xor a, a
@@ -705,9 +705,9 @@ SoundDrv_StopSfxById:: ; 04:43DC
 SoundDrv_StopAllSfx:: ; 04:4414
 	call SoundDrv_SelectSfxTracks
 .loop ; 04:4417
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + $01]
 	ld h, a
 	xor a, a
 	ld [hl], a
@@ -746,10 +746,10 @@ Function_04_4433::
 SoundDrv_GetActiveMasks:: ; 04:444B
 	; [PROBABLE] entry: ROM0 stub 00:20D0 (call 2116 ; jp 04:444B; no call/jp to $20D0 found in the
 	; ROM, stub has no known caller); reads [D024] nibbles into D/E, jp 2141 (bank-04 routine exit)
-	ld a, [wRam_D024]
+	ld a, [wSoundDrv_ActiveMask]
 	and a, $0F
 	ld d, a
-	ld a, [wRam_D024]
+	ld a, [wSoundDrv_ActiveMask]
 	and a, $F0
 	swap a
 	ld e, a
@@ -761,12 +761,12 @@ SoundDrv_GetPlayingId:: ; 04:445C
 	; with jp 2141
 	and a, a
 	jr nz, .l4470
-	ld a, [wRam_D024]
+	ld a, [wSoundDrv_ActiveMask]
 	and a, $F0
 	jr z, .l4474
-	ld a, [wRam_D01B]
+	ld a, [wSoundDrv_MusicId]
 	ld c, a
-	ld a, [wRam_D01C]
+	ld a, [wSoundDrv_MusicId + $01]
 	ld b, a
 	jr .l4498
 .l4470 ; 04:4470
@@ -804,7 +804,7 @@ SoundDrv_GetPlayingId:: ; 04:445C
 
 Table_SoundDrv_SfxTrackPtrs:: ; 04:449B
 Data_04_449B::
-	dw $D040, $D07C, $D0B8, $D0F4
+	dw wSoundDrv_Tracks, wSoundDrv_Tracks + $3C, wSoundDrv_Tracks + $78, wSoundDrv_Tracks + $B4
 
 ; ---- ptrtable $44A3-$44B1 (14 bytes) [PROBABLE] 7 code pointers (4819 4840 4947 4962 4991 4908 49CD), base loaded by ld bc,$44A3 at 04:44C9 then jp 45CD (jump-table dispatcher: sla a ; add a,c ; ... ; jp hl); all 7 targets decode cleanly
 
@@ -830,7 +830,7 @@ SoundDrv_SetTrackParamCore:: ; 04:44B7
 	cp a, $07
 	ret nc
 	push af
-	ld hl, $D038
+	ld hl, wSoundDrv_ReqBC
 	ld a, c
 	ld [hli], a
 	ld a, b
@@ -860,7 +860,7 @@ SoundDrv_SetTrackFieldByte:: ; 04:44CF
 	ld [hl], a
 	push hl
 	add hl, bc
-	ld a, [wRam_D039]
+	ld a, [wSoundDrv_ReqBC + $01]
 	ld [hl], a
 	pop hl
 .l44E6 ; 04:44E6
@@ -880,9 +880,9 @@ SoundDrv_SetTrackFieldWord:: ; 04:44EC
 	ld [hl], a
 	push hl
 	add hl, bc
-	ld a, [wRam_D038]
+	ld a, [wSoundDrv_ReqBC]
 	ld [hli], a
-	ld a, [wRam_D039]
+	ld a, [wSoundDrv_ReqBC + $01]
 	ld [hld], a
 	pop hl
 .l4507 ; 04:4507
@@ -891,16 +891,16 @@ SoundDrv_SetTrackFieldWord:: ; 04:44EC
 	ret
 
 SoundDrv_BuildTrackMask:: ; 04:450D
-	ld a, [wRam_D03B]
+	ld a, [wSoundDrv_ReqDE + $01]
 	and a, $0F
 	ld d, a
-	ld a, [wRam_D03A]
+	ld a, [wSoundDrv_ReqDE]
 	swap a
 	and a, $F0
 	or a, d
 	ld d, a
 	ld e, $08
-	ld hl, $D040
+	ld hl, wSoundDrv_Tracks
 	ret
 
 SoundDrv_NextTrackRecord:: ; 04:4522
@@ -914,10 +914,10 @@ SoundDrv_NextTrackRecord:: ; 04:4522
 	ret
 
 SoundDrv_StartFadeOut:: ; 04:452C
-	ld [wRam_D020], a
-	ld [wRam_D021], a
+	ld [wSoundDrv_FadeSpeed], a
+	ld [wSoundDrv_FadeCounter], a
 	ld a, $40
-	ld [wRam_D022], a
+	ld [wSoundDrv_FadeLevel], a
 	jp Bank4_GateLeave
 
 SoundDrv_UpdateFade:: ; 04:453A
@@ -933,7 +933,7 @@ Function_04_453A::
 
 	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
 	; fall-through of the retcc at 04:4543 (executed)
-	ld hl, $D021
+	ld hl, wSoundDrv_FadeCounter
 	dec [hl]
 	ret nz
 	ld [hli], a
@@ -1410,11 +1410,11 @@ SoundDrv_CmdRepeat:: ; 04:47C5
 
 SoundDrv_CmdSetTempo:: ; 04:47E3
 	; [CONFIRMED] 19 insn(s); 19 executed (in up to 18/18 scenarios)
-	ld hl, $D000
+	ld hl, wBank4State
 	bit 5, [hl]
-	ld hl, $D00A
+	ld hl, wSoundDrv_MusicTempo
 	jr z, .skip
-	ld hl, $D005
+	ld hl, wSoundDrv_SfxTempo
 .skip ; 04:47F0
 	ld a, [wSoundDrv_StreamByte]
 	inc de
@@ -1460,19 +1460,19 @@ SoundDrv_UpdateTempoStep:: ; 04:47FB
 SoundDrv_ParamTempoScale:: ; 04:4819
 	; [PROBABLE] validated entry 4819 of jump table Table_04_44A3 (index 0); clean decode to a
 	; terminator
-	ld a, [wRam_D03B]
+	ld a, [wSoundDrv_ReqDE + $01]
 	and a, a
 	jr z, .l4829
-	ld hl, $D006
-	ld a, [wRam_D039]
+	ld hl, wSoundDrv_SfxTempoScale
+	ld a, [wSoundDrv_ReqBC + $01]
 	ld [hld], a
 	call SoundDrv_UpdateTempoStep
 .l4829 ; 04:4829
-	ld a, [wRam_D03A]
+	ld a, [wSoundDrv_ReqDE]
 	and a, a
 	jr z, .done
-	ld hl, $D00B
-	ld a, [wRam_D039]
+	ld hl, wSoundDrv_MusicTempoScale
+	ld a, [wSoundDrv_ReqBC + $01]
 	ld [hld], a
 	call SoundDrv_UpdateTempoStep
 .done ; 04:4839
@@ -1636,17 +1636,17 @@ Label_04_48EC::
 SoundDrv_ParamVibratoRate:: ; 04:4908
 Label_04_4908::
 	; [PROBABLE] validated entry 4908 of jump table Table_04_44A3; clean decode to a terminator
-	ld a, [wRam_D039]
+	ld a, [wSoundDrv_ReqBC + $01]
 	sla a
 	jr z, .l4915
 	ld bc, $001F
 	jp SoundDrv_SetTrackFieldByte
 .l4915 ; 04:4915
 	rra
-	ld [wRam_D038], a
+	ld [wSoundDrv_ReqBC], a
 	rra
 	xor a, $40
-	ld [wRam_D039], a
+	ld [wSoundDrv_ReqBC + $01], a
 	ld bc, $001F
 	jp SoundDrv_SetTrackFieldWord
 
@@ -1684,9 +1684,9 @@ SoundDrv_CmdPan:: ; 04:4955
 Label_04_4955::
 	; [PROBABLE] 5 insn(s) reached by static flow only; seeds: table x5; min discovery hops 0; run
 	; starts at an entry of the code-pointer table at 04:46E8
-	ld a, [wRam_D019]
+	ld a, [wSoundDrv_UpdateFlags]
 	set 0, a
-	ld [wRam_D019], a
+	ld [wSoundDrv_UpdateFlags], a
 	ld bc, $0017
 	jr SoundDrv_CmdStoreTrackSigned
 
@@ -1736,19 +1736,19 @@ SoundDrv_CmdDetune:: ; 04:4997
 Label_04_4997::
 	; [PROBABLE] 20 insn(s) reached by static flow only; seeds: table x20; min discovery hops 0; run
 	; starts at an entry of the code-pointer table at 04:46E8
-	ld a, [wRam_D019]
+	ld a, [wSoundDrv_UpdateFlags]
 	set 2, a
-	ld [wRam_D019], a
+	ld [wSoundDrv_UpdateFlags], a
 	ld bc, $001D
 
 SoundDrv_CmdStoreTrackSigned:: ; 04:49A2
 Label_04_49A2::
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + $01]
 	ld h, a
 	add hl, bc
-	ld a, [wRam_D01F]
+	ld a, [wSoundDrv_StreamByte]
 	inc de
 	rlca
 	sub a, $80
@@ -1801,12 +1801,12 @@ Label_04_49E2::
 
 SoundDrv_StoreHighNibble:: ; 04:49E5
 Label_04_49E5::
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + $01]
 	ld h, a
 	add hl, bc
-	ld a, [wRam_D01F]
+	ld a, [wSoundDrv_StreamByte]
 	inc de
 	swap a
 	and a, $F0
@@ -1823,12 +1823,12 @@ Label_04_49FF::
 
 SoundDrv_StoreLowNibble:: ; 04:4A02
 Label_04_4A02::
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + $01]
 	ld h, a
 	add hl, bc
-	ld a, [wRam_D01F]
+	ld a, [wSoundDrv_StreamByte]
 	inc de
 	and a, $0F
 	ld b, a
@@ -1985,7 +1985,7 @@ SoundDrv_StartNote:: ; 04:4A81
 	call SoundDrv_SelectChannel4
 .l4ADD ; 04:4ADD
 	ld a, [wSoundDrv_TrackCount]
-	ld hl, $D000
+	ld hl, wBank4State
 	bit 5, [hl]
 	jr z, .skip
 	set 7, a
@@ -2111,7 +2111,7 @@ Label_04_4B66::
 	push de
 	call SoundDrv_SelectAllChannels
 	ld a, [wSoundDrv_TrackCount]
-	ld hl, $D000
+	ld hl, wBank4State
 	bit 5, [hl]
 	jr z, .skip
 
@@ -2841,7 +2841,7 @@ SoundDrv_WriteChannelPan:: ; 04:4F4F
 	ld de, $EE11
 	jr .l4F7A
 .l4F72 ; 04:4F72
-	ld de, $DD22
+	ld de, $DD22 ; raw: a value (the NR51 pan mask pair $DD, $22), not a pointer
 	jr .l4F7A
 .l4F77 ; 04:4F77
 	ld de, $BB44

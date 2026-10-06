@@ -219,7 +219,7 @@ Account_ClearWorkBuffers:: ; 68:4106
 	ldh [rSVBK], a
 	xor a, a
 	ld bc, $0163
-	ld hl, $DE80
+	ld hl, $DE80 ; raw: wipes $0163 bytes over wTextEntryBuf and the account fields, not only the first name
 	call FillBytes
 	ldh [hScratchA], a
 	pop af

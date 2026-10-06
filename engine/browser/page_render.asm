@@ -22,7 +22,7 @@ Function_4E_5204::
 
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 4E:5213 (executed) [executed in 2 scenarios]
-	ld hl, $D500
+	ld hl, wBrowserPageUrl
 	ld a, $06
 	call BankSwitch_H
 	farcall Browser_MakeShortTitle
@@ -186,7 +186,7 @@ Function_4E_52E7::
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D500
+	ld hl, wBrowserPageUrl
 .l52FC ; 4E:52FC
 	ld a, [hli]
 	cp a, $23
@@ -208,14 +208,14 @@ Function_4E_52E7::
 	or a, a
 	jr nz, .l530A
 	ld hl, wAttrUrlBuf
-	ld bc, $D600
+	ld bc, wHtmlLinkPtrList
 	call Browser_FindAnchor
 	or a, a
 	jr z, .l532B
 
 	; [PROBABLE] 11 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5306-532B by apply_coverage --split
-	ld hl, $D602
+	ld hl, wHtmlLinkPtrList + $02
 	add hl, de
 	add hl, de
 	ld a, [hli]

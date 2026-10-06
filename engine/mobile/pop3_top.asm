@@ -207,14 +207,14 @@ Pop3_TopPoll:: ; 54:4969
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, String_Mail_DataCorrupt
-	ld de, $D406
+	ld de, wMailInfo + $06
 	ld bc, $0010
 	farcall CopyBytes
 	ld hl, $4A01
-	ld de, $D41B
+	ld de, wMailInfo + $1B
 	farcall CopyString
 	ld hl, $49F0
-	ld de, $D4C0
+	ld de, wMailInfo + $C0
 	farcall CopyString
 	jp Pop3_TopPoll_ExitB1
 
@@ -407,19 +407,19 @@ Label_54_4AF2::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, sPop3TopSummary
-	ld de, $D400
+	ld de, wMailInfo
 	ld bc, $0006
 	farcall CopyBytes
 	ld hl, sPop3TopSourceLabel
-	ld de, $D406
+	ld de, wMailInfo + $06
 	farcall CopyString
 	ld hl, sPop3TopSubject
-	ld de, $D41B
+	ld de, wMailInfo + $1B
 	farcall CopyString
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D4C0
+	ld de, wMailInfo + $C0
 	ld hl, sPop3TopSenderName
 	ld a, [hl]
 	or a, a

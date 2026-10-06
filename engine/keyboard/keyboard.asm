@@ -2193,7 +2193,7 @@ Kbd_UploadPanelMap11Rows:: ; 55:6AF0
 	ld e, $00
 	ld b, $96
 	ld c, $16
-	ld hl, $D240
+	ld hl, wScreenTileMap + $240
 	ld a, [wKbdType]
 	call Kbd_TypeWaitsWithService
 	or a, a
@@ -2212,7 +2212,7 @@ Kbd_UploadPanelMap11Rows:: ; 55:6AF0
 	inc e
 	ld b, $96
 	ld c, $16
-	ld hl, $D640
+	ld hl, wScreenAttrMap + $240
 	ld a, [wKbdType]
 	call Kbd_TypeWaitsWithService
 	or a, a
@@ -2251,7 +2251,7 @@ Kbd_UploadPanelMap13Rows:: ; 55:6B51
 	ld e, $00
 	ld b, $96
 	ld c, $1A
-	ld hl, $D240
+	ld hl, wScreenTileMap + $240
 	ld a, [wKbdType]
 	call Kbd_TypeWaitsWithService
 	or a, a
@@ -2270,7 +2270,7 @@ Kbd_UploadPanelMap13Rows:: ; 55:6B51
 	inc e
 	ld b, $96
 	ld c, $1A
-	ld hl, $D640
+	ld hl, wScreenAttrMap + $240
 	ld a, [wKbdType]
 	call Kbd_TypeWaitsWithService
 	or a, a

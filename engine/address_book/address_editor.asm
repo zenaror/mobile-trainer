@@ -1089,7 +1089,7 @@ Function_2F_73B8::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 	inc b
 .l73C3 ; 2F:73C3
 	ld d, $00
@@ -1235,8 +1235,8 @@ AbookAddr_InsertChar:: ; 2F:73FA
 	push bc
 	push de
 	push hl
-	ld de, $D4FF
-	ld bc, $D4FE
+	ld de, wEditAddressBuf + $3F
+	ld bc, wEditAddressBuf + $3E
 .l74A3 ; 2F:74A3
 	ld a, d
 	cp a, h
@@ -1553,7 +1553,7 @@ Function_2F_764D::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 	ld d, $00
 .loop ; 2F:765A
 	ld a, [hli]

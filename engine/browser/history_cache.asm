@@ -27,7 +27,7 @@ Function_4C_4B54::
 	ret
 
 Browser_HistoryPush:: ; 4C:4B7C
-	ld hl, $D500
+	ld hl, wBrowserPageUrl
 	ld a, $06
 
 Browser_HistoryPushFrom:: ; 4C:4B81
@@ -299,7 +299,7 @@ Function_4C_4CF6::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, wAttrUrlBuf
-	ld de, $D500
+	ld de, wBrowserPageUrl
 	ld bc, $0100
 	call CopyBytes
 	pop de

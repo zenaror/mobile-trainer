@@ -89,10 +89,10 @@ Mobile_InitAndWait:: ; 68:4E51
 
 Dev_WriteTestConfigImage:: ; 68:4E6A
 	ld hl, Dev_TestConfigImage
-	ld de, $D000 ; raw: dev code with no caller (Dev_WriteTestConfigImage 68:4E6A), the bank in force at the call is not shown
+	ld de, $D000 ; raw: 192-byte test configuration image of Dev_WriteTestConfigImage (68:4E6A; called at 68:4DCF after bank 6 is selected at 68:4DC3, never executed): bank 6 $D000 is wHtmlAlignStack, a different role
 	ld bc, $00C0
 	call CopyBytes
-	ld hl, $D000 ; raw: dev code with no caller (Dev_WriteTestConfigImage 68:4E6A), the bank in force at the call is not shown
+	ld hl, $D000 ; raw: 192-byte test configuration image of Dev_WriteTestConfigImage (68:4E6A; called at 68:4DCF after bank 6 is selected at 68:4DC3, never executed): bank 6 $D000 is wHtmlAlignStack, a different role
 	ld de, $0000
 	ld b, $BE
 .l4E7E ; 68:4E7E
@@ -108,7 +108,7 @@ Dev_WriteTestConfigImage:: ; 68:4E6A
 	ld [hli], a
 	ld [hl], e
 	ld c, $C0
-	ld hl, $D000
+	ld hl, $D000 ; raw: 192-byte test configuration image of Dev_WriteTestConfigImage (68:4E6A; called at 68:4DCF after bank 6 is selected at 68:4DC3, never executed): bank 6 $D000 is wHtmlAlignStack, a different role
 	ld de, $0000
 	ld a, $04
 	call MobileAPI

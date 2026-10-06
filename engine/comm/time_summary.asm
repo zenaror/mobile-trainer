@@ -133,13 +133,13 @@ Function_51_404A::
 	ld a, [wCommSessionKind]
 	cp a, $01
 	jr z, .l4125
-	ld de, $D162
+	ld de, wScreenTileMap + $162
 	jr .l4128
 
 .l4125 ; 51:4125
 	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;
 	; entered by jrcc from 51:411E (executed) [executed in 1 scenarios]
-	ld de, $D162
+	ld de, wScreenTileMap + $162
 
 .l4128 ; 51:4128
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
@@ -154,13 +154,13 @@ Function_51_404A::
 	ld a, [wCommSessionKind]
 	cp a, $01
 	jr z, .l4147
-	ld de, $D167
+	ld de, wScreenTileMap + $167
 	jr .l414A
 
 .l4147 ; 51:4147
 	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;
 	; entered by jrcc from 51:4140 (executed) [executed in 1 scenarios]
-	ld de, $D167
+	ld de, wScreenTileMap + $167
 
 .l414A ; 51:414A
 	; [CONFIRMED] 25 insn(s); 25 executed (in up to 2/18 scenarios)

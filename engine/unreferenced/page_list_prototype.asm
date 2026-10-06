@@ -455,7 +455,7 @@ Function_7F_4FDB::
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_D500]
+	ld a, [wBrowserPageUrl]
 	cp a, $00
 	jr nz, .skip
 	xor a, a
@@ -1225,7 +1225,7 @@ Function_7F_5647::
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D500
+	ld hl, wBrowserPageUrl
 	ld a, [hl]
 	cp a, $00
 	jr z, .l5686
@@ -1247,7 +1247,7 @@ Function_7F_5647::
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D500
+	ld hl, wBrowserPageUrl
 	ld a, [hl]
 	cp a, $00
 	jr z, .l56A9
@@ -1382,7 +1382,7 @@ Function_7F_56F1::
 	ld b, $03
 	ld c, $00
 	ld de, $0218
-	ld hl, $D3C0
+	ld hl, wBrowserPageTitle
 	call PageListProto_DrawTextLine
 	farcall PageListProto_UploadTextTiles
 	pop bc
@@ -1469,7 +1469,7 @@ Function_7F_577D::
 	ld b, $03
 	ld c, $00
 	ld de, $0218
-	ld hl, $D3C0
+	ld hl, wBrowserPageTitle
 	call PageListProto_DrawTextLine
 	farcall PageListProto_UploadTextTiles
 	pop bc
@@ -2178,7 +2178,7 @@ Function_7F_5D0A::
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D500
+	ld hl, wBrowserPageUrl
 	ld a, [hl]
 	cp a, $00
 	ret z
@@ -2430,7 +2430,7 @@ Function_7F_5D0A::
 	ld [rRAMG], a
 	pop af
 	push bc
-	ld hl, $D500
+	ld hl, wBrowserPageUrl
 	ld c, $00
 .l5F22 ; 7F:5F22
 	ld a, [hli]
@@ -2449,11 +2449,11 @@ Function_7F_5D0A::
 	ld a, [hl]
 	ld d, a
 	push bc
-	ld hl, $D3C0
+	ld hl, wBrowserPageTitle
 	ld a, [hl]
 	cp a, $00
 	jr nz, .skip
-	ld hl, $D500
+	ld hl, wBrowserPageUrl
 .skip ; 7F:5F42
 	ld c, $16
 .l5F44 ; 7F:5F44
@@ -2480,7 +2480,7 @@ Function_7F_5F5D::
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D500
+	ld hl, wBrowserPageUrl
 	ld a, [hl]
 	cp a, $00
 	jr nz, .l5F6C

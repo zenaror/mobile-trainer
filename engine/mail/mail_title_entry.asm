@@ -681,7 +681,7 @@ Function_2C_4475::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D500
+	ld hl, wEditSubjectBuf
 	inc b
 .l4480 ; 2C:4480
 	ld d, $00
@@ -894,8 +894,8 @@ Label_2C_459C::
 	push bc
 	push de
 	push hl
-	ld de, $D512
-	ld bc, $D510
+	ld de, wEditSubjectBuf + $12
+	ld bc, wEditSubjectBuf + $10
 .loop ; 2C:45B2
 	ld a, d
 	cp a, h
@@ -1711,7 +1711,7 @@ Function_2C_4A05::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D500
+	ld hl, wEditSubjectBuf
 	ld d, $00
 .loop ; 2C:4A12
 	ld a, [hli]

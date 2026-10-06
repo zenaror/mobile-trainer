@@ -20,7 +20,7 @@ Function_23_6D61:: ; 23:6D61
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D1E0
+	ld hl, wScreenTileMap + $1E0
 	ld a, $14
 	ld b, $14
 .loop ; 23:6D79

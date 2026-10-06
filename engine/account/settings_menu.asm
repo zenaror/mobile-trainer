@@ -357,13 +357,13 @@ SettingsMenu_DrawItems:: ; 68:522C
 	ld a, [wHiddenModeFlag]
 	or a, a
 	jr nz, .l526A
-	ld de, $D0C5
+	ld de, wScreenTileMap + $C5
 	jr .l526D
 
 .l526A ; 68:526A
 	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;
 	; entered by jrcc from 68:5263 (executed) [executed in 2 scenarios]
-	ld de, $D0A5
+	ld de, wScreenTileMap + $A5
 
 .l526D ; 68:526D
 	; [CONFIRMED] 18 insn(s); 18 executed (in up to 4/18 scenarios)

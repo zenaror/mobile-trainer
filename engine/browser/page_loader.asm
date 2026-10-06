@@ -353,7 +353,7 @@ Label_4C_427F::
 
 Browser_LoadPage_Http:: ; 4C:4291
 	; [CONFIRMED] 28 insn(s); 28 executed (in up to 4/18 scenarios)
-	ld de, $D400
+	ld de, wBrowserUrlSave
 	ld hl, wAttrUrlBuf
 	ld bc, $0100
 	ld a, $06
@@ -493,11 +493,11 @@ Browser_LoadPage_Request:: ; 4C:43CD
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, wAttrUrlBuf
-	ld hl, $D400
+	ld hl, wBrowserUrlSave
 	ld bc, $0100
 	call CopyBytes
-	ld de, $D500
-	ld hl, $D400
+	ld de, wBrowserPageUrl
+	ld hl, wBrowserUrlSave
 	ld bc, $0100
 	call CopyBytes
 	call Sound_FrameService

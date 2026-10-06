@@ -97,6 +97,29 @@ class ManualSites(unittest.TestCase):
         self.assertEqual(get(os.path.join(self.dir, 'engine/t.asm')),
                          'T::\n\tld hl, wTileStage2\n\tld hl, $D000\n\tld hl, $D000\n\tld hl, $D100\n\tld hl, $D000\n\tdw $DF10, wDialEntries + $33\n\tret\n')
 
+    def test_a_line_marked_raw_is_never_written(self):
+        put(os.path.join(self.dir, 'engine/r.asm'), 'R::\n\tld hl, $D000 ; raw: debug string scratch\n\tld hl, $D000\n\tret\n')
+        self.record(('engine/r.asm', '2', '$D000', 'W2', 'wTileStage2', 'g', 'manual', 'proof', ''),
+                    ('engine/r.asm', '3', '$D000', 'W2', 'wTileStage2', 'g', 'manual', 'proof', ''))
+        rc, out = self.run_tool()
+        self.assertEqual(rc, 0, out)
+        self.assertIn('1 row(s) written, 0 already written, 1 skipped', out)
+        self.assertEqual(get(os.path.join(self.dir, 'engine/r.asm')), 'R::\n\tld hl, $D000 ; raw: debug string scratch\n\tld hl, wTileStage2\n\tret\n')
+
+    def test_a_repeated_word_of_a_data_line_needs_its_count(self):
+        put(os.path.join(self.dir, 'engine/w.asm'), 'W::\n\tdw $D0A3, $D083, $D0A3, $D083\n\tdw $D0A3, $D0A3, $D0A3\n\tdw $D0A3, $D083 ; $D0A3 $D0A3\n\tret\n')
+        self.record(('engine/w.asm', '2', '$D0A3 x2', 'W7', 'wScreenTileMap + $A3', 'g', 'manual', 'proof', ''),
+                    ('engine/w.asm', '2', '$D083 x2', 'W7', 'wScreenTileMap + $83', 'g', 'manual', 'proof', ''),
+                    ('engine/w.asm', '3', '$D0A3 x2', 'W7', 'wScreenTileMap + $A3', 'g', 'manual', 'proof', ''),             # three occurrences: not two
+                    ('engine/w.asm', '4', '$D0A3', 'W7', 'wScreenTileMap + $A3', 'g', 'manual', 'proof', ''))              # the comment does not count: once, no suffix needed
+        rc, out = self.run_tool()
+        self.assertEqual(rc, 0, out)
+        self.assertIn('3 row(s) written, 0 already written, 1 skipped', out)
+        self.assertEqual(get(os.path.join(self.dir, 'engine/w.asm')),
+                         'W::\n\tdw wScreenTileMap + $A3, wScreenTileMap + $83, wScreenTileMap + $A3, wScreenTileMap + $83\n\tdw $D0A3, $D0A3, $D0A3\n\tdw wScreenTileMap + $A3, $D083 ; $D0A3 $D0A3\n\tret\n')
+        rc, out = self.run_tool()
+        self.assertIn('0 row(s) written, 3 already written, 1 skipped', out)
+
     def test_dry_run_and_bad_record(self):
         self.record(('engine/a.asm', '2', '$D000', 'W2', 'wTileStage2', 'g', 'manual', 'proof', ''))
         rc, out = self.run_tool('--dry-run')

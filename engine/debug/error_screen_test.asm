@@ -441,7 +441,7 @@ DebugErrorTest_DrawValues:: ; 19:4C74
 	inc de
 	xor a, a
 	ld [de], a
-	ld hl, $D000
+	ld hl, $D000 ; raw: source string of TextTiles_RenderGrid (A = 2): the string scratch of bank 2 built above, not tile staging
 	ld de, wTileStage3
 	ld bc, $0010
 	ld a, $03

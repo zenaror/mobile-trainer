@@ -472,7 +472,7 @@ MailGrid_ShowCellDetails:: ; 2B:56CB
 	ld l, e
 	ld de, $0003
 	add hl, de
-	ld de, $D524
+	ld de, wMailTextScratch
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -492,7 +492,7 @@ MailGrid_ShowCellDetails:: ; 2B:56CB
 	dec b
 	jr nz, .l5710
 	ld de, $99E1
-	ld hl, $D524
+	ld hl, wMailTextScratch
 	xor a, a
 	ldh [rVBK], a
 	di
@@ -555,11 +555,11 @@ MailGrid_ShowCellDetails:: ; 2B:56CB
 	ld l, e
 	ld de, $00C9
 	add hl, de
-	ld de, $D524
+	ld de, wMailTextScratch
 	call MailGrid_CopyTextEllipsis
 	ld bc, $0200
 	ld de, $0408
-	ld hl, $D524
+	ld hl, wMailTextScratch
 	call MailGrid_DrawTextLine12
 	pop bc
 	push bc
@@ -577,11 +577,11 @@ MailGrid_ShowCellDetails:: ; 2B:56CB
 	ld l, e
 	ld de, $00D9
 	add hl, de
-	ld de, $D524
+	ld de, wMailTextScratch
 	call MailGrid_CopyTextEllipsis
 	ld bc, $0200
 	ld de, $0458
-	ld hl, $D524
+	ld hl, wMailTextScratch
 	call MailGrid_DrawTextLine12
 	call MailGrid_UploadTextTiles
 	pop bc

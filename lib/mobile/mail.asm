@@ -285,7 +285,7 @@ Mail_ScanHeaders:: ; 0F:426D
 	ld l, e
 	xor a, a
 	ld [wMail_Selector], a
-	ld [wBank4DeferredCall], a
+	ld [wMail_Work + $03], a
 	ld a, [hli]
 	ld [wMail_InputBank], a
 	ldh [hSRAMBank], a
@@ -302,7 +302,7 @@ Mail_ScanHeaders:: ; 0F:426D
 	and a, a
 	jr z, .l42A8
 	ld h, a
-	ld a, [wBank4DeferredCall]
+	ld a, [wMail_Work + $03]
 	and a, a
 	jr nz, .l4296
 	ld a, h
@@ -325,7 +325,7 @@ Mail_ScanHeaders:: ; 0F:426D
 .l42A8 ; 0F:42A8
 	; [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4247-47A5 by apply_coverage --split
-	ld a, [wBank4DeferredCall]
+	ld a, [wMail_Work + $03]
 	and a, a
 	jr nz, .l4307
 	ld b, $80
@@ -353,7 +353,7 @@ Mail_ScanHeaders:: ; 0F:426D
 	jr z, .l42A8
 	ld a, [de]
 	ld h, a
-	ld a, [wBank4DeferredCall]
+	ld a, [wMail_Work + $03]
 	and a, a
 	jr nz, .l42D8
 	ld a, h
@@ -363,7 +363,7 @@ Mail_ScanHeaders:: ; 0F:426D
 	ld a, h
 	cp a, $0A
 	jr nz, .l42B2
-	ld a, [wBank4DeferredCall]
+	ld a, [wMail_Work + $03]
 	and a, a
 	jr nz, .l4311
 	ld a, [wMail_Selector]
@@ -405,7 +405,7 @@ Mail_ScanHeaders:: ; 0F:426D
 	and a, a
 	jr nz, .l4302
 	ld a, $01
-	ld [wBank4DeferredCall], a
+	ld [wMail_Work + $03], a
 	inc e
 	call z, Mail_ScanHeaders_NextPage
 	dec bc
@@ -423,7 +423,7 @@ Mail_ScanHeaders:: ; 0F:426D
 
 Mail_ScanHeaders_NextPage:: ; 0F:4337
 	push bc
-	ld bc, $D000
+	ld bc, wMail_InputBank
 	call Mail_NextSramPage
 	pop bc
 	ret
@@ -463,7 +463,7 @@ Mail_CheckGameMail:: ; 0F:4340
 	; [CONFIRMED] 17 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage
 	; --split [executed in 14 scenarios]
 	ld a, h
-	ld [wBank4DeferredCall], a
+	ld [wMail_Work + $03], a
 	pop hl
 	push bc
 	push de
@@ -493,14 +493,14 @@ Mail_CheckGameMail:: ; 0F:4340
 	; --split [executed in 1 scenarios]
 	pop de
 	pop bc
-	ld a, [wBank4DeferredCall]
+	ld a, [wMail_Work + $03]
 	ld [wMail_InputBank], a
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	call Mail_UnfoldHeader
 	ld hl, MailStr_GameCodeAllowList
 .l4398 ; 0F:4398
-	ld de, $D024
+	ld de, wMail_TextBuf1
 .l439B ; 0F:439B
 	ld a, [hli]
 	and a, a
@@ -744,7 +744,7 @@ Function_0F_4416::
 
 Mail_FindHeader_NextPage:: ; 0F:44CC
 	push bc
-	ld bc, $D000
+	ld bc, wMail_InputBank
 	call Mail_NextSramPage
 	pop bc
 	ret
@@ -770,11 +770,11 @@ Mail_ParseBody:: ; 0F:44D5
 	ld a, [de]
 	ld [hl], a
 	xor a, a
-	ld [wRam_D016], a
+	ld [wMail_Work + $16], a
 	ld [wMail_ErrorFlag], a
 	ld a, $02
-	ld [wMail_ItemListPointer + 1], a
-	ld hl, $D003
+	ld [wMail_Work + $0E], a
+	ld hl, wMail_InputPos
 	ld c, [hl]
 	inc hl
 	ld e, [hl]
@@ -786,7 +786,7 @@ Mail_ParseBody:: ; 0F:44D5
 	and a, a
 	jr z, .l4515
 	ld a, $01
-	ld [wMail_ItemListPointer], a
+	ld [wMail_Work + $0D], a
 	call Mail_ParseMultipart
 	and a, a
 	jr nz, .l455F
@@ -796,7 +796,7 @@ Mail_ParseBody:: ; 0F:44D5
 	and a, a
 	jr nz, .l455F
 	ld a, $02
-	ld [wMail_ItemListPointer], a
+	ld [wMail_Work + $0D], a
 .l4520 ; 0F:4520
 	pop hl
 	ld a, [hli]
@@ -806,10 +806,10 @@ Mail_ParseBody:: ; 0F:44D5
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
-	ld a, [wMail_ItemListPointer]
+	ld a, [wMail_Work + $0D]
 	ld [de], a
 	ld b, $00
-	ld a, [wRam_D016]
+	ld a, [wMail_Work + $16]
 	and a, a
 	jr z, .skip
 
@@ -825,7 +825,7 @@ Mail_ParseBody:: ; 0F:44D5
 	ld [wMail_OutputBank], a
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld hl, $D009
+	ld hl, wMail_OutputStream + $03
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
@@ -833,7 +833,7 @@ Mail_ParseBody:: ; 0F:44D5
 	ld a, d
 	or a, e
 	jr z, .l455D
-	ld hl, $D007
+	ld hl, wMail_OutputStream + $01
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
@@ -853,7 +853,7 @@ Mail_ParseBody:: ; 0F:44D5
 Mail_LoadArgs:: ; 0F:4565
 	; [CONFIRMED] 53 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage
 	; --split [executed in 6 scenarios]
-	ld hl, $D003
+	ld hl, wMail_InputPos
 	ld a, [de]
 	ld [hli], a
 	inc de
@@ -889,7 +889,7 @@ Mail_ParseContentType:: ; 0F:457A
 	push hl
 	push de
 	push bc
-	ld hl, $D024
+	ld hl, wMail_TextBuf1
 	call Mail_CopyFromSram
 	call Mail_ParseMultipartBoundary
 	pop bc
@@ -929,7 +929,7 @@ Mail_ParseContentType:: ; 0F:457A
 	ret
 
 Mail_ParseMultipartBoundary:: ; 0F:45C9
-	ld hl, $D024
+	ld hl, wMail_TextBuf1
 	ld de, MailStr_KwMultipart
 	ld c, $00
 .l45D1 ; 0F:45D1
@@ -1003,7 +1003,7 @@ Mail_ParseMultipartBoundary:: ; 0F:45C9
 	jr nz, .skip
 	inc hl
 .skip ; 0F:4624
-	ld de, $D625
+	ld de, wMail_TextBuf2 + $01
 	ld b, $00
 	ld c, $40
 .l462B ; 0F:462B
@@ -1019,7 +1019,7 @@ Mail_ParseMultipartBoundary:: ; 0F:45C9
 	jr nz, .l462B
 .l463A ; 0F:463A
 	ld a, b
-	ld [wRam_D624], a
+	ld [wMail_TextBuf2], a
 	xor a, a
 	ret
 
@@ -1027,8 +1027,8 @@ Mail_MatchBoundary:: ; 0F:4640
 	ld a, [wMail_InputBank]
 	push af
 	push de
-	ld hl, $D625
-	ld a, [wRam_D624]
+	ld hl, wMail_TextBuf2 + $01
+	ld a, [wMail_TextBuf2]
 	ld b, a
 .l464C ; 0F:464C
 	ld a, [de]
@@ -1090,7 +1090,7 @@ Mail_MatchBoundary_NextPage:: ; 0F:469F
 	; [CONFIRMED] 40 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage
 	; --split [executed in 3 scenarios]
 	push bc
-	ld bc, $D000
+	ld bc, wMail_InputBank
 	call Mail_NextSramPage
 	pop bc
 	ret
@@ -1099,7 +1099,7 @@ Mail_ParseSinglePart:: ; 0F:46A8
 	call Mail_PartRec_EmitHeaderBlock
 	and a, a
 	jr nz, .l46E8
-	ld hl, $D003
+	ld hl, wMail_InputPos
 	ld a, [hli]
 	ld [wMail_InputBank], a
 	ldh [hSRAMBank], a
@@ -1113,7 +1113,7 @@ Mail_ParseSinglePart:: ; 0F:46A8
 	call Mail_PartRec_EmitLengthAndPart
 	and a, a
 	jr nz, .l46E8
-	ld hl, $D003
+	ld hl, wMail_InputPos
 	ld a, [hli]
 	ld [wMail_InputBank], a
 	ldh [hSRAMBank], a
@@ -1157,7 +1157,7 @@ Mail_ParseMultipart:: ; 0F:46FE
 	call Mail_PartRec_EmitHeaderBlock
 	and a, a
 	jp nz, .l478E
-	ld hl, $D003
+	ld hl, wMail_InputPos
 	ld a, [hli]
 	ld [wMail_InputBank], a
 	ldh [hSRAMBank], a
@@ -1172,12 +1172,12 @@ Mail_ParseMultipart:: ; 0F:46FE
 	and a, a
 	jp nz, .l478E
 	ld a, $01
-	ld [wMail_ItemListPointer + 1], a
+	ld [wMail_Work + $0E], a
 	ld a, [wMail_InputBank]
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ld a, $01
-	ld [wRam_D015], a
+	ld [wMail_Work + $15], a
 	call Mail_FindBoundary
 	and a, a
 	jp nz, .l47BB
@@ -1200,10 +1200,10 @@ Mail_ParseMultipart:: ; 0F:46FE
 	call Mail_PartRec_EmitPart
 	and a, a
 	jr nz, .l478E
-	ld a, [wRam_D016]
+	ld a, [wMail_Work + $16]
 	and a, a
 	jr nz, .l478A
-	ld hl, $D003
+	ld hl, wMail_InputPos
 	ld a, [hli]
 	ld [wMail_InputBank], a
 	ldh [hSRAMBank], a
@@ -1214,7 +1214,7 @@ Mail_ParseMultipart:: ; 0F:46FE
 	call Mail_FindBoundary
 	and a, a
 	jr nz, .l47BB
-	ld a, [wMail_ItemListPointer + 1]
+	ld a, [wMail_Work + $0E]
 	cp a, $03
 	jr nz, .l4777
 	dec bc
@@ -1223,10 +1223,10 @@ Mail_ParseMultipart:: ; 0F:46FE
 	call Mail_PartRec_EmitLength
 	and a, a
 	jr nz, .l478E
-	ld a, [wMail_ItemListPointer]
+	ld a, [wMail_Work + $0D]
 	inc a
-	ld [wMail_ItemListPointer], a
-	ld a, [wRam_D016]
+	ld [wMail_Work + $0D], a
+	ld a, [wMail_Work + $16]
 	and a, a
 	jr z, .l479D
 
@@ -1261,7 +1261,7 @@ Mail_ParseMultipart:: ; 0F:46FE
 	; code at 47BB; call target 4A7E is called elsewhere (0F:46D8) and the jr target is a valid
 	; start; it directly follows the unconditional jr $47CF at 47A3, so it must be a
 	; branch/jump-table target that was not found; entry unproven
-	ld hl, $D003
+	ld hl, wMail_Work + $03
 	ld a, [hli]
 	ld [wMail_InputBank], a
 	ldh [hSRAMBank], a
@@ -1281,7 +1281,7 @@ Mail_ParseMultipart:: ; 0F:46FE
 	jr z, .l4798
 	ld a, $01
 	ld [wRam_D016], a
-	ld a, [wMail_ItemListPointer]
+	ld a, [wMail_Work + $0D]
 	cp a, $01
 	jr nz, .l4777
 	ld b, $01
@@ -1294,7 +1294,7 @@ Mail_ParseMultipart:: ; 0F:46FE
 
 Mail_FindBoundary:: ; 0F:47D1
 	ld bc, $0000
-	ld a, [wRam_D015]
+	ld a, [wMail_Work + $15]
 	and a, a
 	jr nz, .l4810
 .l47DA ; 0F:47DA
@@ -1382,7 +1382,7 @@ Mail_FindBoundary_NextPage:: ; 0F:483E
 	; [CONFIRMED] 19 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage
 	; --split [executed in 3 scenarios]
 	push bc
-	ld bc, $D000
+	ld bc, wMail_InputBank
 	call Mail_NextSramPage
 	pop bc
 	ret
@@ -1432,7 +1432,7 @@ Function_0F_486B::
 	ld [de], a
 	inc e
 	call z, Mail_PartRec_EmitHeaderBlock_NextPage
-	ld hl, $D003
+	ld hl, wMail_InputPos
 	ld a, [hli]
 	ld [de], a
 	inc e
@@ -1478,7 +1478,7 @@ Function_0F_486B::
 Mail_PartRec_EmitHeaderBlock_NextPage:: ; 0F:48BD
 Function_0F_48BD::
 	push bc
-	ld bc, $D001
+	ld bc, wMail_OutputBank
 	call Mail_NextSramPage
 	pop bc
 	ret
@@ -1503,7 +1503,7 @@ Function_0F_48C6::
 	ld [de], a
 	inc e
 	call z, Mail_PartRec_EmitLengthAndPart_NextPage
-	ld a, [wMail_ItemListPointer + 1]
+	ld a, [wMail_Work + $0E]
 	ld [de], a
 	inc e
 	call z, Mail_PartRec_EmitLengthAndPart_NextPage
@@ -1512,7 +1512,7 @@ Function_0F_48C6::
 
 	; [PROBABLE] 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 47BB-4C59 by apply_coverage --split
-	ld hl, $D011
+	ld hl, wMail_KeywordValue
 	ld a, [hli]
 	ld [de], a
 	inc e
@@ -1533,7 +1533,7 @@ Function_0F_48C6::
 .l4908 ; 0F:4908
 	; [CONFIRMED] 28 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage
 	; --split [executed in 6 scenarios]
-	ld hl, $D003
+	ld hl, wMail_InputPos
 	ld a, [hli]
 	ld [de], a
 	inc e
@@ -1556,7 +1556,7 @@ Function_0F_48C6::
 	ld c, [hl]
 	inc hl
 	ld b, [hl]
-	ld a, [wMail_ItemListPointer + 1]
+	ld a, [wMail_Work + $0E]
 	cp a, $03
 	jr z, .l4936
 	ld d, $06
@@ -1591,7 +1591,7 @@ Function_0F_48C6::
 Mail_PartRec_EmitLengthAndPart_NextPage:: ; 0F:4948
 Function_0F_4948::
 	push bc
-	ld bc, $D001
+	ld bc, wMail_OutputBank
 	call Mail_NextSramPage
 	pop bc
 	ret
@@ -1608,7 +1608,7 @@ Function_0F_4951::
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
-	ld a, [wMail_ItemListPointer + 1]
+	ld a, [wMail_Work + $0E]
 	ld [de], a
 	inc e
 	call z, Mail_PartRec_EmitPart_NextPage
@@ -1632,7 +1632,7 @@ Function_0F_4951::
 	inc e
 	call z, Mail_PartRec_EmitPart_NextPage
 .l4987 ; 0F:4987
-	ld hl, $D003
+	ld hl, wMail_InputPos
 	ld a, [hli]
 	ld [de], a
 	inc e
@@ -1655,7 +1655,7 @@ Function_0F_4951::
 	ld c, [hl]
 	inc hl
 	ld b, [hl]
-	ld a, [wMail_ItemListPointer + 1]
+	ld a, [wMail_Work + $0E]
 	cp a, $03
 	jr z, .l49B5
 	ld d, $04
@@ -1684,7 +1684,7 @@ Function_0F_4951::
 Mail_PartRec_EmitPart_NextPage:: ; 0F:49C7
 Function_0F_49C7::
 	push bc
-	ld bc, $D001
+	ld bc, wMail_OutputBank
 	call Mail_NextSramPage
 	pop bc
 	ret
@@ -1699,7 +1699,7 @@ Function_0F_49D0::
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	push de
-	ld hl, $D009
+	ld hl, wMail_OutputStream + $03
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
@@ -1714,7 +1714,7 @@ Function_0F_49D0::
 	ld [hl], d
 	dec hl
 	ld [hl], e
-	ld hl, $D007
+	ld hl, wMail_OutputStream + $01
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
@@ -1746,7 +1746,7 @@ Function_0F_49D0::
 Mail_PartRec_EmitLength_NextPage:: ; 0F:4A13
 Function_0F_4A13::
 	push bc
-	ld bc, $D001
+	ld bc, wMail_OutputBank
 	call Mail_NextSramPage
 	pop bc
 	ret
@@ -1797,7 +1797,7 @@ Mail_SkipHeaderBlock:: ; 0F:4A1C
 .l4A56 ; 0F:4A56
 	; [CONFIRMED] 12 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage
 	; --split [executed in 1 scenarios]
-	ld hl, $D003
+	ld hl, wMail_InputPos
 	ld a, [wMail_InputBank]
 	ld [hli], a
 	ld [hl], e
@@ -1827,7 +1827,7 @@ Mail_SkipHeaderBlock_NextPage:: ; 0F:4A75
 	; [CONFIRMED] 43 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage
 	; --split [executed in 6 scenarios]
 	push bc
-	ld bc, $D000
+	ld bc, wMail_InputBank
 	call Mail_NextSramPage
 	pop bc
 	ret
@@ -1864,7 +1864,7 @@ Mail_FindMessageEnd:: ; 0F:4A7E
 	jr nz, .l4ABF
 	inc e
 	call z, Mail_FindMessageEnd_NextPage
-	ld hl, $D003
+	ld hl, wMail_InputPos
 	ld a, [wMail_InputBank]
 	ld [hli], a
 	ld [hl], e
@@ -1888,7 +1888,7 @@ Mail_FindMessageEnd_NextPage:: ; 0F:4ACA
 	; [CONFIRMED] 51 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage
 	; --split [executed in 4 scenarios]
 	push bc
-	ld bc, $D000
+	ld bc, wMail_InputBank
 	call Mail_NextSramPage
 	pop bc
 	ret
@@ -1918,7 +1918,7 @@ Mail_FindKeywordValue:: ; 0F:4AD3
 	jr nz, .l4AD5
 .l4AF0 ; 0F:4AF0
 	ld a, $02
-	ld [wMail_ItemListPointer + 1], a
+	ld [wMail_Work + $0E], a
 	pop bc
 	pop hl
 	ret
@@ -1989,13 +1989,13 @@ Mail_FindKeywordValue:: ; 0F:4AD3
 	pop bc
 	pop hl
 	ld a, $03
-	ld [wMail_ItemListPointer + 1], a
+	ld [wMail_Work + $0E], a
 	xor a, a
 	ret
 
 Mail_FindKeywordValue_NextPage:: ; 0F:4B50
 	push bc
-	ld bc, $D000
+	ld bc, wMail_InputBank
 	call Mail_NextSramPage
 	pop bc
 	ret
@@ -2005,13 +2005,13 @@ Mail_IndexHeaders:: ; 0F:4B59
 	; 47BB-4C59 by apply_coverage --split
 	call Mail_LoadArgs
 	ld b, $00
-	ld hl, $D003
+	ld hl, wMail_InputPos
 	ld c, [hl]
 	inc hl
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
-	ld hl, $D024
+	ld hl, wMail_TextBuf1
 .l4B69 ; 0F:4B69
 	push de
 	push bc
@@ -2055,7 +2055,7 @@ Mail_IndexHeaders:: ; 0F:4B59
 	ld [hli], a
 	jr .l4B86
 .l4B9A ; 0F:4B9A
-	ld hl, $D006
+	ld hl, wMail_OutputBankVar
 	ld a, [hli]
 	ld [wMail_OutputBank], a
 	ldh [hSRAMBank], a
@@ -2065,7 +2065,7 @@ Mail_IndexHeaders:: ; 0F:4B59
 	ld d, [hl]
 	inc hl
 	ld bc, $004E
-	ld hl, $D024
+	ld hl, wMail_TextBuf1
 	call Mail_CopyToSram
 	jp Mail_Return
 .l4BB6 ; 0F:4BB6
@@ -2100,7 +2100,7 @@ Mail_GetDecodedHeader:: ; 0F:4BC0
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	call Mail_UnfoldHeader
-	ld hl, $D024
+	ld hl, wMail_TextBuf1
 	call Mail_DecodeEncodedWords
 	ld a, b
 	or a, c
@@ -2113,7 +2113,7 @@ Mail_GetDecodedHeader:: ; 0F:4BC0
 	ld a, [hli]
 	ld e, a
 	ld d, [hl]
-	ld hl, $D024
+	ld hl, wMail_TextBuf1
 	push bc
 	call Mail_CopyToSram
 	pop hl
@@ -2135,11 +2135,11 @@ Mail_GetDecodedHeader:: ; 0F:4BC0
 	jp Mail_Return
 
 Mail_UnfoldHeader:: ; 0F:4C0F
-	ld hl, $D024
+	ld hl, wMail_TextBuf1
 	push bc
 	call Mail_CopyFromSram
 	pop bc
-	ld hl, $D024
+	ld hl, wMail_TextBuf1
 	ld d, h
 	ld e, l
 .l4C1C ; 0F:4C1C
@@ -2155,7 +2155,7 @@ Mail_UnfoldHeader:: ; 0F:4C0F
 .l4C28 ; 0F:4C28
 	xor a, a
 	ld [de], a
-	ld hl, $D024
+	ld hl, wMail_TextBuf1
 	ld bc, $0000
 .l4C30 ; 0F:4C30
 	ld a, [hli]
@@ -2200,7 +2200,7 @@ Mail_UnfoldHeader:: ; 0F:4C0F
 	; between the code regions 4C57 and 4C62; call target 5D95 is a code start of this bank; no
 	; caller/pointer found, entry unproven
 	push bc
-	ld bc, $D000
+	ld bc, wMail_InputBank
 	call Mail_NextSramPage
 	pop bc
 	ret
@@ -2209,7 +2209,7 @@ Mail_DecodeEncodedWords:: ; 0F:4C62
 	; [CONFIRMED] 137 insn(s) reached by static flow only; seeds: mobile x137; min discovery hops 0;
 	; entered by call from 0F:4BE4 (PROBABLE code) | 85 insn(s) executed; cut out of the PROBABLE
 	; region 4C62-4D35 by apply_coverage --split [executed in 1 scenarios]
-	ld de, $D624
+	ld de, wMail_TextBuf2
 	push hl
 .l4C66 ; 0F:4C66
 	ld a, [hli]
@@ -2248,9 +2248,9 @@ Mail_DecodeEncodedWords:: ; 0F:4C62
 	dec bc
 	dec bc
 	ld a, l
-	ld [wBank4DeferredCall], a
+	ld [wMail_Work + $03], a
 	ld a, h
-	ld [wBank4DeferredCall + 1], a
+	ld [wMail_Work + $04], a
 	pop hl
 	push de
 	call Mail_Base64Decode
@@ -2269,9 +2269,9 @@ Mail_DecodeEncodedWords:: ; 0F:4C62
 	ld a, b
 	or a, c
 	jr nz, .l4CAA
-	ld a, [wBank4DeferredCall]
+	ld a, [wMail_Work + $03]
 	ld l, a
-	ld a, [wBank4DeferredCall + 1]
+	ld a, [wMail_Work + $04]
 	ld h, a
 	jr .l4C66
 .l4CBC ; 0F:4CBC
@@ -2290,7 +2290,7 @@ Mail_DecodeEncodedWords:: ; 0F:4C62
 .l4CCA ; 0F:4CCA
 	ld [de], a
 	pop hl
-	ld de, $D624
+	ld de, wMail_TextBuf2
 	ld bc, $0000
 .l4CD2 ; 0F:4CD2
 	inc bc
@@ -2321,15 +2321,15 @@ Mail_GetAddressList:: ; 0F:4CDD
 	call Mail_FindHeader
 	and a, a
 	jr nz, .l4D37
-	ld [wBank4DeferredCall], a
-	ld [wBank4DeferredCall + 1], a
+	ld [wMail_Work + $03], a
+	ld [wMail_Work + $04], a
 	ld a, h
 	ld [wMail_InputBank], a
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld hl, $D024
+	ld hl, wMail_TextBuf1
 	call Mail_StripCommentsAndSpaces
-	ld hl, $D024
+	ld hl, wMail_TextBuf1
 	call Mail_ExtractAddresses
 	pop hl
 	push hl
@@ -2351,7 +2351,7 @@ Mail_GetAddressList:: ; 0F:4CDD
 	ld e, a
 	ld a, [hli]
 	ld d, a
-	ld hl, $D624
+	ld hl, wMail_TextBuf2
 	call Mail_CopyToSram
 	xor a, a
 	jp Mail_Return
@@ -2377,7 +2377,7 @@ Mail_GetAddressList:: ; 0F:4CDD
 	jp Mail_Return
 
 Mail_StripCommentsAndSpaces:: ; 0F:4D3D
-	ld a, [wBank4DeferredCall + 1]
+	ld a, [wMail_Work + $04]
 	and a, a
 	jr nz, .l4D4E
 	ld a, [de]
@@ -2394,25 +2394,25 @@ Mail_StripCommentsAndSpaces:: ; 0F:4D3D
 	jr z, .l4D73
 	jr .l4D88
 .l4D59 ; 0F:4D59
-	ld [wBank4DeferredCall], a
+	ld [wMail_Work + $03], a
 	ld a, $01
-	ld [wBank4DeferredCall + 1], a
+	ld [wMail_Work + $04], a
 	jr .l4D88
 .l4D63 ; 0F:4D63
-	ld a, [wBank4DeferredCall]
+	ld a, [wMail_Work + $03]
 	cp a, $28
 	jr nz, .l4D88
 	xor a, a
-	ld [wBank4DeferredCall], a
-	ld [wBank4DeferredCall + 1], a
+	ld [wMail_Work + $03], a
+	ld [wMail_Work + $04], a
 	jr .l4D88
 .l4D73 ; 0F:4D73
-	ld a, [wBank4DeferredCall]
+	ld a, [wMail_Work + $03]
 	cp a, $22
 	jr nz, .l4D88
 	xor a, a
-	ld [wBank4DeferredCall], a
-	ld [wBank4DeferredCall + 1], a
+	ld [wMail_Work + $03], a
+	ld [wMail_Work + $04], a
 	jr .l4D88
 .l4D83 ; 0F:4D83
 	cp a, $20
@@ -2426,7 +2426,7 @@ Mail_StripCommentsAndSpaces:: ; 0F:4D3D
 	inc e
 	jr nz, Mail_StripCommentsAndSpaces
 	push bc
-	ld bc, $D000
+	ld bc, wMail_InputBank
 	call Mail_NextSramPage
 	pop bc
 	jr Mail_StripCommentsAndSpaces
@@ -2436,7 +2436,7 @@ Mail_StripCommentsAndSpaces:: ; 0F:4D3D
 	ret
 
 Mail_ExtractAddresses:: ; 0F:4D9D
-	ld de, $D624
+	ld de, wMail_TextBuf2
 	xor a, a
 	ld [de], a
 .l4DA2 ; 0F:4DA2
@@ -2611,7 +2611,7 @@ Mail_ComposeNext:: ; 0F:4E66
 	call Mail_EmitCrLf
 	and a, a
 	jr nz, .l4E9D
-	ld hl, $D009
+	ld hl, wMail_OutputStream + $03
 	ld a, [hli]
 	cpl
 	ld e, a
@@ -2687,13 +2687,13 @@ Mail_EmitCrLf_NextPage:: ; 0F:4EE4
 	; [CONFIRMED] 49 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage
 	; --split [executed in 1 scenarios]
 	push bc
-	ld bc, $D001
+	ld bc, wMail_OutputBank
 	call Mail_NextSramPage
 	pop bc
 	ret
 
 Mail_ComposeInit:: ; 0F:4EED
-	ld hl, $D003
+	ld hl, wMail_Work + $03
 	ld a, b
 	ld [hli], a
 	ld a, c
@@ -2729,7 +2729,7 @@ Mail_ComposeStep:: ; 0F:4F0E
 	call Mail_FetchComposeItem
 	and a, a
 	jr nz, .l4F2A
-	ld a, [wBank4DeferredCall]
+	ld a, [wMail_Work + $03]
 	cp a, $06
 	jr c, .l4F25
 	cp a, $0C
@@ -2801,7 +2801,7 @@ Mail_EmitHeaderField:: ; 0F:4F5D
 	ld a, [wMail_ComposeState]
 	and a, a
 	jr nz, .l4F80
-	ld a, [wBank4DeferredCall]
+	ld a, [wMail_Work + $03]
 	cp a, $11
 	jr z, .l4FAB
 	add a, a
@@ -2818,7 +2818,7 @@ Mail_EmitHeaderField:: ; 0F:4F5D
 	ld a, $01
 	ld [wMail_ComposeState], a
 .l4F80 ; 0F:4F80
-	ld a, [wBank4DeferredCall]
+	ld a, [wMail_Work + $03]
 	cp a, $05
 	jr c, .l4FCD
 	jr z, .l4FF0
@@ -2851,7 +2851,7 @@ Mail_EmitHeaderField:: ; 0F:4F5D
 .l4FAB ; 0F:4FAB
 	; [PROBABLE] 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4D37-5DAE by apply_coverage --split
-	ld hl, $D00F
+	ld hl, wMail_ComposeItem
 	ld c, [hl]
 	inc hl
 	ld a, [hli]
@@ -2861,9 +2861,9 @@ Mail_EmitHeaderField:: ; 0F:4F5D
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
-	ld hl, $D024
+	ld hl, wMail_TextBuf1
 	call Mail_CopyFromSram
-	ld hl, $D024
+	ld hl, wMail_TextBuf1
 	call Mail_EmitString
 	and a, a
 	jr nz, .l4FEB
@@ -2875,9 +2875,9 @@ Mail_EmitHeaderField:: ; 0F:4F5D
 	call Mail_EmitAddressListItem
 	and a, a
 	jr nz, .l4FEB
-	ld a, [wBank4DeferredCall + 1]
+	ld a, [wMail_Work + $04]
 	dec a
-	ld [wBank4DeferredCall + 1], a
+	ld [wMail_Work + $04], a
 	and a, a
 	jr z, .l4FE3
 
@@ -2891,7 +2891,7 @@ Mail_EmitHeaderField:: ; 0F:4F5D
 	; [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage
 	; --split [executed in 6 scenarios]
 	ld a, [wRam_D005]
-	ld [wBank4DeferredCall + 1], a
+	ld [wMail_Work + $04], a
 	jr .l5022
 
 .l4FEB ; 0F:4FEB
@@ -2924,7 +2924,7 @@ Mail_EmitHeaderField:: ; 0F:4F5D
 	jr .l5022
 .l500B ; 0F:500B
 	call Mail_CopyItemToBuffer
-	ld hl, $D024
+	ld hl, wMail_TextBuf1
 	call Mail_EmitStringAndSuffix
 	and a, a
 	jr nz, .l4FEB
@@ -2993,13 +2993,13 @@ Mail_EmitString_NextPage:: ; 0F:505D
 	; [CONFIRMED] 22 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage
 	; --split [executed in 4 scenarios]
 	push bc
-	ld bc, $D001
+	ld bc, wMail_OutputBank
 	call Mail_NextSramPage
 	pop bc
 	ret
 
 Mail_EmitAddressListItem:: ; 0F:5066
-	ld hl, $D00F
+	ld hl, wMail_ComposeItem
 	ld a, [hli]
 	and a, a
 	jr z, .l50B2
@@ -3012,7 +3012,7 @@ Mail_EmitAddressListItem:: ; 0F:5066
 	inc hl
 	ld d, [hl]
 	ld b, $00
-	ld hl, $D024
+	ld hl, wMail_TextBuf1
 	ld a, [wMail_ComposeState]
 	cp a, $01
 	jr z, .l509F
@@ -3060,8 +3060,8 @@ Mail_EmitAddressListItem:: ; 0F:5066
 	ret
 
 Mail_EncodeHeaderWords:: ; 0F:50B7
-	ld hl, $D024
-	ld de, $D624
+	ld hl, wMail_TextBuf1
+	ld de, wMail_TextBuf2
 	ld b, $00
 .l50BF ; 0F:50BF
 	ld c, $00
@@ -3120,9 +3120,9 @@ Mail_EncodeHeaderWords:: ; 0F:50B7
 	; [CONFIRMED] 81 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage
 	; --split [executed in 6 scenarios]
 	ld a, l
-	ld [wMail_KeywordValue + 2], a
+	ld [wMail_Work + $13], a
 	ld a, h
-	ld [wMail_KeywordValue + 3], a
+	ld [wMail_Work + $14], a
 	ld hl, MailStr_EncodedWordPrefix
 .l5107 ; 0F:5107
 	ld a, [hli]
@@ -3158,9 +3158,9 @@ Mail_EncodeHeaderWords:: ; 0F:50B7
 	ld a, $3D
 	ld [de], a
 	inc de
-	ld a, [wMail_KeywordValue + 2]
+	ld a, [wMail_Work + $13]
 	ld l, a
-	ld a, [wMail_KeywordValue + 3]
+	ld a, [wMail_Work + $14]
 	ld h, a
 	jr .l50BF
 .l5137 ; 0F:5137
@@ -3182,7 +3182,7 @@ Mail_EmitBufferToOutput:: ; 0F:513A
 	ld c, a
 	ld a, [hli]
 	ld b, a
-	ld hl, $D624
+	ld hl, wMail_TextBuf2
 .loop ; 0F:5151
 	ld a, [hli]
 	and a, a
@@ -3217,7 +3217,7 @@ Mail_EmitBufferToOutput:: ; 0F:513A
 
 Mail_EmitBufferToOutput_NextPage:: ; 0F:5174
 	push bc
-	ld bc, $D001
+	ld bc, wMail_OutputBank
 	call Mail_NextSramPage
 	pop bc
 	ret
@@ -3345,16 +3345,16 @@ Mail_EmitGameCodeValue_NextPage:: ; 0F:5212
 	; [PROBABLE] 1043 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4D37-5DAE by apply_coverage --split
 	push bc
-	ld bc, $D001
+	ld bc, wMail_OutputBank
 	call Mail_NextSramPage
 	pop bc
 	ret
 
 Mail_EmitStringAndSuffix:: ; 0F:521B
 	push hl
-	ld hl, $D006
+	ld hl, wMail_OutputBankVar
 	ld a, [hli]
-	ld [wBank4SavedBankLo], a
+	ld [wMail_OutputBank], a
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ld a, [hli]
@@ -3379,7 +3379,7 @@ Mail_EmitStringAndSuffix:: ; 0F:521B
 	call z, Mail_EmitStringAndSuffix_NextPage
 	jr .l5231
 .l5241 ; 0F:5241
-	ld a, [wBank4DeferredCall]
+	ld a, [wMail_Work + $03]
 	cp a, $0B
 	jr z, .l527C
 	cp a, $0C
@@ -3390,8 +3390,8 @@ Mail_EmitStringAndSuffix:: ; 0F:521B
 	jr z, .l5269
 	jr .l5266
 .l5256 ; 0F:5256
-	ld hl, $D006
-	ld a, [wBank4SavedBankLo]
+	ld hl, wMail_OutputBankVar
+	ld a, [wMail_OutputBank]
 	ld [hli], a
 	ld a, e
 	ld [hli], a
@@ -3432,24 +3432,24 @@ Mail_EmitStringAndSuffix:: ; 0F:521B
 
 Mail_EmitStringAndSuffix_NextPage:: ; 0F:528A
 	push bc
-	ld bc, $D001
+	ld bc, wMail_OutputBank
 	call Mail_NextSramPage
 	pop bc
 	ret
 
 Mail_CopyItemToBuffer:: ; 0F:5293
-	ld hl, $D00F
+	ld hl, wMail_ComposeItem
 	ld c, [hl]
 	inc hl
 	ld a, [hli]
-	ld [wBank4State], a
+	ld [wMail_InputBank], a
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
 	ld d, a
-	ld hl, $D024
+	ld hl, wMail_TextBuf1
 .loop ; 0F:52A8
 	ld a, [de]
 	ld [hli], a
@@ -3462,7 +3462,7 @@ Mail_CopyItemToBuffer:: ; 0F:5293
 
 Mail_CopyItemToBuffer_NextPage:: ; 0F:52B3
 	push bc
-	ld bc, $D000
+	ld bc, wMail_InputBank
 	call Mail_NextSramPage
 	pop bc
 	ret
@@ -3482,12 +3482,12 @@ Function_0F_52BC::
 	and a, a
 	jr nz, .l52FD
 .l52CE ; 0F:52CE
-	ld hl, $D00D
+	ld hl, wMail_ItemListPointer
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
 .l52D4 ; 0F:52D4
-	ld a, [wBank4DeferredCall]
+	ld a, [wMail_Work + $03]
 	cp a, $03
 	jr nz, .skip
 	push de
@@ -3506,11 +3506,11 @@ Function_0F_52BC::
 	inc de
 	and a, a
 	jr nz, .l5305
-	ld a, [wBank4DeferredCall]
+	ld a, [wMail_Work + $03]
 	cp a, $06
 	jr z, .l5339
 	inc a
-	ld [wBank4DeferredCall], a
+	ld [wMail_Work + $03], a
 	jr .l52D4
 .l52FD ; 0F:52FD
 	pop hl
@@ -3518,14 +3518,14 @@ Function_0F_52BC::
 	ld b, $83
 	jp Mail_Return
 .l5305 ; 0F:5305
-	ld hl, $D00D
+	ld hl, wMail_ItemListPointer
 	ld [hl], e
 	inc hl
 	ld [hl], d
 .l530B ; 0F:530B
 	ld [wRam_D005], a
 	ld a, $01
-	ld [wBank4DeferredCall + 1], a
+	ld [wMail_Work + $04], a
 	call Mail_ComposeHeaderBlock_FetchItem
 	call Mail_EmitHeaderField
 	and a, a
@@ -3533,14 +3533,14 @@ Function_0F_52BC::
 	ld a, [wRam_D005]
 	dec a
 	jr nz, .l530B
-	ld a, [wBank4DeferredCall]
+	ld a, [wMail_Work + $03]
 	inc a
-	ld [wBank4DeferredCall], a
+	ld [wMail_Work + $03], a
 	call Mail_EmitCrLf
 	and a, a
 	jr nz, .l52FD
 	ld [wRam_D023], a
-	ld a, [wBank4DeferredCall]
+	ld a, [wMail_Work + $03]
 	cp a, $06
 	jr nz, .l52CE
 .l5339 ; 0F:5339
@@ -3553,9 +3553,9 @@ Function_0F_52BC::
 	call Mail_EmitCrLf
 	and a, a
 	jr nz, .l52FD
-	ld a, [wBank4DeferredCall]
+	ld a, [wMail_Work + $03]
 	inc a
-	ld [wBank4DeferredCall], a
+	ld [wMail_Work + $03], a
 	cp a, $09
 	jr nz, .l5339
 	pop bc
@@ -3572,7 +3572,7 @@ Function_0F_52BC::
 	and a, a
 	jr nz, .l52FD
 .l536F ; 0F:536F
-	ld hl, $D009
+	ld hl, wMail_OutputStream + $03
 	ld a, [hli]
 	cpl
 	ld e, a
@@ -3589,7 +3589,7 @@ Function_0F_52BC::
 
 Mail_ComposeHeaderBlock_LoadArgs:: ; 0F:5381
 Function_0F_5381::
-	ld hl, $D006
+	ld hl, wMail_OutputBankVar
 	ld a, [de]
 	ld [hli], a
 	inc de
@@ -3611,7 +3611,7 @@ Function_0F_5381::
 	ld a, b
 	ld [hli], a
 	inc de
-	ld hl, $D015
+	ld hl, wMail_Work + $15
 	ld a, [de]
 	ld [hli], a
 	inc de
@@ -3627,18 +3627,18 @@ Function_0F_5381::
 	ld a, [de]
 	ld [hli], a
 	inc de
-	ld hl, $D00D
+	ld hl, wMail_ItemListPointer
 	ld [hl], e
 	inc hl
 	ld [hl], d
 	xor a, a
-	ld [wBank4DeferredCall], a
+	ld [wMail_Work + $03], a
 	ld [wRam_D023], a
 	ret
 
 Mail_ComposeHeaderBlock_FetchItem:: ; 0F:53B9
 Function_0F_53B9::
-	ld hl, $D00D
+	ld hl, wMail_ItemListPointer
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
@@ -3656,7 +3656,7 @@ Function_0F_53B9::
 	ld a, [de]
 	ld [wRam_D00F], a
 	inc de
-	ld hl, $D00D
+	ld hl, wMail_ItemListPointer
 	ld [hl], e
 	inc hl
 	ld [hl], d
@@ -3664,14 +3664,14 @@ Function_0F_53B9::
 
 Mail_ComposeHeaderBlock_BuildAddressList:: ; 0F:53D6
 Function_0F_53D6::
-	ld a, [wBank4DeferredCall]
+	ld a, [wMail_Work + $03]
 	ld d, a
-	ld a, [wBank4DeferredCall + 1]
+	ld a, [wMail_Work + $04]
 	ld e, a
 	push de
 	xor a, a
-	ld [wBank4DeferredCall], a
-	ld [wBank4DeferredCall + 1], a
+	ld [wMail_Work + $03], a
+	ld [wMail_Work + $04], a
 	ld a, $24
 	ld [wRam_D013], a
 	ld a, $D0
@@ -3687,7 +3687,7 @@ Function_0F_53D6::
 	push bc
 .l53F9 ; 0F:53F9
 	ld a, [hli]
-	ld [wBank4State], a
+	ld [wMail_InputBank], a
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ld e, [hl]
@@ -3733,7 +3733,7 @@ Function_0F_53D6::
 	ld [wRam_D014], a
 	xor a, a
 	ld [de], a
-	ld hl, $D024
+	ld hl, wMail_TextBuf1
 .l5441 ; 0F:5441
 	ld a, [hli]
 	and a, a
@@ -3748,15 +3748,15 @@ Function_0F_53D6::
 .l544F ; 0F:544F
 	pop hl
 	ld a, h
-	ld [wBank4DeferredCall], a
+	ld [wMail_Work + $03], a
 	ld a, l
-	ld [wBank4DeferredCall + 1], a
+	ld [wMail_Work + $04], a
 	ld a, $01
 	ret
 .l545B ; 0F:545B
-	ld hl, $D024
+	ld hl, wMail_TextBuf1
 	call Mail_ExtractAddresses
-	ld hl, $D625
+	ld hl, wMail_TextBuf2 + $01
 .l5464 ; 0F:5464
 	ld a, [hli]
 	and a, a
@@ -3778,7 +3778,7 @@ Function_0F_53D6::
 .l547B ; 0F:547B
 	dec bc
 .l547C ; 0F:547C
-	ld hl, $D018
+	ld hl, wMail_Work + $18
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -3792,7 +3792,7 @@ Function_0F_53D6::
 	jr z, .l5490
 	jr .l544F
 .l5490 ; 0F:5490
-	ld hl, $D018
+	ld hl, wMail_Work + $18
 	ld a, c
 	cpl
 	ld e, a
@@ -3804,24 +3804,24 @@ Function_0F_53D6::
 	ld h, [hl]
 	ld l, a
 	add hl, de
-	ld de, $D018
+	ld de, wMail_Work + $18
 	ld a, l
 	ld [de], a
 	inc de
 	ld a, h
 	ld [de], a
-	ld hl, $D015
+	ld hl, wMail_Work + $15
 	ld a, [hli]
-	ld [wBank4SavedBankLo], a
+	ld [wMail_OutputBank], a
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
-	ld hl, $D625
+	ld hl, wMail_TextBuf2 + $01
 	call Mail_CopyToSram
-	ld hl, $D015
-	ld a, [wBank4SavedBankLo]
+	ld hl, wMail_Work + $15
+	ld a, [wMail_OutputBank]
 	ld [hli], a
 	ld [hl], e
 	inc hl
@@ -3832,9 +3832,9 @@ Function_0F_53D6::
 	ld d, a
 	pop hl
 	ld a, h
-	ld [wBank4DeferredCall], a
+	ld [wMail_Work + $03], a
 	ld a, l
-	ld [wBank4DeferredCall + 1], a
+	ld [wMail_Work + $04], a
 	xor a, a
 	ret
 
@@ -3864,14 +3864,14 @@ Function_0F_54D8::
 	jr z, .l5513
 .l5506 ; 0F:5506
 	ld a, $0A
-	ld [wBank4DeferredCall], a
+	ld [wMail_Work + $03], a
 	call Mail_EmitHeaderField
 	and a, a
 	jr z, .l552F
 	jr .l5541
 .l5513 ; 0F:5513
 	ld a, $0C
-	ld [wBank4DeferredCall], a
+	ld [wMail_Work + $03], a
 	call Mail_EmitHeaderField
 	and a, a
 	jr nz, .l5541
@@ -3879,7 +3879,7 @@ Function_0F_54D8::
 	and a, a
 	jr nz, .l5541
 	ld a, $0D
-	ld [wBank4DeferredCall], a
+	ld [wMail_Work + $03], a
 	call Mail_EmitHeaderField
 	and a, a
 	jr nz, .l5541
@@ -3900,7 +3900,7 @@ Function_0F_54D8::
 	ld a, $01
 	ld [wRam_D01C], a
 	ld a, $0B
-	ld [wBank4DeferredCall], a
+	ld [wMail_Work + $03], a
 	call Mail_EmitHeaderField
 	and a, a
 	jr nz, .l5541
@@ -3912,7 +3912,7 @@ Function_0F_54D8::
 	and a, a
 	jr nz, .l5541
 	ld a, $0E
-	ld [wBank4DeferredCall], a
+	ld [wMail_Work + $03], a
 	call Mail_EmitHeaderField
 	and a, a
 	jr nz, .l5541
@@ -3928,7 +3928,7 @@ Function_0F_54D8::
 	and a, a
 	jr z, .l5592
 	ld a, $0F
-	ld [wBank4DeferredCall], a
+	ld [wMail_Work + $03], a
 	call Mail_EmitHeaderField
 	and a, a
 	jr nz, .l5541
@@ -3938,14 +3938,14 @@ Function_0F_54D8::
 	jr nz, .l5541
 .l5592 ; 0F:5592
 	ld a, $10
-	ld [wBank4DeferredCall], a
+	ld [wMail_Work + $03], a
 	call Mail_EmitHeaderField
 	and a, a
 	jr nz, .l5541
 	call Mail_EmitCrLf
 	and a, a
 	jr nz, .l5541
-	ld hl, $D009
+	ld hl, wMail_OutputStream + $03
 	ld a, [hli]
 	cpl
 	ld e, a
@@ -3970,7 +3970,7 @@ Function_0F_54D8::
 
 Mail_ComposeMimeBody_LoadArgs:: ; 0F:55C4
 Function_0F_55C4::
-	ld hl, $D006
+	ld hl, wMail_OutputBankVar
 	ld a, [de]
 	ld [hli], a
 	inc de
@@ -4009,7 +4009,7 @@ Function_0F_55E6::
 	ld [wRam_D016], a
 	cp a, $03
 	jr nz, .l5605
-	ld de, $D010
+	ld de, wMail_ComposeItem + $01
 	ld a, [hli]
 	ld [de], a
 	inc de
@@ -4021,7 +4021,7 @@ Function_0F_55E6::
 	ld a, [hli]
 	ld [wRam_D00F], a
 .l5605 ; 0F:5605
-	ld de, $D017
+	ld de, wMail_Work + $17
 	ld a, [hli]
 	ld [de], a
 	inc de
@@ -4045,12 +4045,12 @@ Function_0F_55E6::
 Mail_ComposeMimeBody_CopyData:: ; 0F:561F
 Function_0F_561F::
 	ld a, [wRam_D006]
-	ld [wBank4SavedBankLo], a
+	ld [wMail_OutputBank], a
 	ld a, [wRam_D017]
-	ld [wBank4State], a
+	ld [wMail_InputBank], a
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld hl, $D01A
+	ld hl, wMail_Work + $1A
 	ld c, [hl]
 	inc hl
 	ld b, [hl]
@@ -4107,31 +4107,31 @@ Function_0F_561F::
 	ld a, h
 	ld [wRam_D01B], a
 	push bc
-	ld hl, $D018
+	ld hl, wMail_Work + $18
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
-	ld hl, $D024
+	ld hl, wMail_TextBuf1
 	call Mail_CopyFromSram
-	ld hl, $D018
+	ld hl, wMail_Work + $18
 	ld [hl], e
 	inc hl
 	ld [hl], d
 	pop bc
-	ld a, [wBank4SavedBankLo]
+	ld a, [wMail_OutputBank]
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld hl, $D007
+	ld hl, wMail_OutputStream + $01
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
-	ld hl, $D024
+	ld hl, wMail_TextBuf1
 	call Mail_CopyToSram
-	ld hl, $D007
+	ld hl, wMail_OutputStream + $01
 	ld [hl], e
 	inc hl
 	ld [hl], d
-	ld hl, $D01A
+	ld hl, wMail_Work + $1A
 	ld c, [hl]
 	inc hl
 	ld b, [hl]
@@ -4139,7 +4139,7 @@ Function_0F_561F::
 	or a, c
 	jr nz, .loop
 .l56BE ; 0F:56BE
-	ld a, [wBank4SavedBankLo]
+	ld a, [wMail_OutputBank]
 	ld [wRam_D006], a
 	xor a, a
 	ret
@@ -4155,7 +4155,7 @@ Function_0F_561F::
 	cpl
 	ld l, a
 	add hl, bc
-	ld de, $D01A
+	ld de, wMail_Work + $1A
 	ld a, l
 	ld [de], a
 	inc de
@@ -4184,9 +4184,9 @@ Function_0F_56E1::
 	call Mail_Base64Stream_LoadArgs
 	call Mail_CalcBase64EncodedSize
 	ld a, h
-	ld [wMail_KeywordValue + 1], a
+	ld [wMail_Work + $12], a
 	ld a, l
-	ld [wMail_KeywordValue], a
+	ld [wMail_Work + $11], a
 .l570F ; 0F:570F
 	call Mail_Base64EncodeStream_ClampChunk
 .l5712 ; 0F:5712
@@ -4196,14 +4196,14 @@ Function_0F_56E1::
 	ld a, [wMail_ComposeState]
 	cp a, $05
 	jr z, .l572B
-	ld a, [wMail_KeywordValue + 1]
+	ld a, [wMail_Work + $12]
 	ld h, a
-	ld a, [wMail_KeywordValue]
+	ld a, [wMail_Work + $11]
 	ld l, a
 	xor a, a
 	jp Mail_Return
 .l572B ; 0F:572B
-	ld hl, $D00A
+	ld hl, wMail_Work + $0A
 	ld a, [hli]
 	cpl
 	ld e, a
@@ -4225,7 +4225,7 @@ Function_0F_56E1::
 
 Mail_Base64Stream_LoadArgs:: ; 0F:5747
 Function_0F_5747::
-	ld hl, $D002
+	ld hl, wMail_Work + $02
 	ld a, [de]
 	ld [hli], a
 	inc de
@@ -4268,7 +4268,7 @@ Function_0F_5747::
 
 Mail_CalcBase64EncodedSize:: ; 0F:5771
 Function_0F_5771::
-	ld hl, $D005
+	ld hl, wMail_Work + $05
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -4350,7 +4350,7 @@ Function_0F_5771::
 
 Mail_Base64EncodeStream_ClampChunk:: ; 0F:57E5
 Function_0F_57E5::
-	ld hl, $D005
+	ld hl, wMail_Work + $05
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -4412,28 +4412,28 @@ Function_0F_5833::
 	ld c, a
 	ld a, [wRam_D00F]
 	ld b, a
-	ld hl, $D002
+	ld hl, wMail_Work + $02
 	ld a, [hli]
-	ld [wBank4State], a
+	ld [wMail_InputBank], a
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
-	ld hl, $D024
+	ld hl, wMail_TextBuf1
 	push bc
 	call Mail_CopyFromSram
 	pop bc
-	ld hl, $D002
-	ld a, [wBank4State]
+	ld hl, wMail_Work + $02
+	ld a, [wMail_InputBank]
 	ld [hli], a
 	ld [hl], e
 	inc hl
 	ld [hl], d
-	ld hl, $D024
-	ld de, $D624
+	ld hl, wMail_TextBuf1
+	ld de, wMail_TextBuf2
 	call Mail_Base64Encode
-	ld hl, $D624
+	ld hl, wMail_TextBuf2
 	ld c, [hl]
 	inc hl
 	ld b, [hl]
@@ -4465,18 +4465,18 @@ Function_0F_5833::
 	ld [wRam_D00B], a
 	pop bc
 	pop hl
-	ld hl, $D007
+	ld hl, wMail_Work + $07
 	ld a, [hli]
-	ld [wBank4SavedBankLo], a
+	ld [wMail_OutputBank], a
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
-	ld hl, $D626
+	ld hl, wMail_TextBuf2 + $02
 	call Mail_CopyToSram
-	ld hl, $D007
-	ld a, [wBank4SavedBankLo]
+	ld hl, wMail_Work + $07
+	ld a, [wMail_OutputBank]
 	ld [hli], a
 	ld a, e
 	ld [hli], a
@@ -4508,20 +4508,20 @@ Mail_Base64Encode:: ; 0F:58D7
 	; [CONFIRMED] 133 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage
 	; --split [executed in 5 scenarios]
 	ld a, e
-	ld [wRam_D020], a
+	ld [wMail_Work + $20], a
 	ld a, d
-	ld [wRam_D021], a
+	ld [wMail_Work + $21], a
 	xor a, a
-	ld [wRam_D022], a
+	ld [wMail_Work + $22], a
 	xor a, a
 	ld [de], a
 	inc de
 	ld [de], a
 	inc de
 	ld a, c
-	ld [wRam_D019], a
+	ld [wMail_Work + $19], a
 	ld a, b
-	ld [wRam_D01A], a
+	ld [wMail_Work + $1A], a
 	ld c, e
 	ld b, d
 	ld e, l
@@ -4529,20 +4529,20 @@ Mail_Base64Encode:: ; 0F:58D7
 	ld l, c
 	ld h, b
 	xor a, a
-	ld [wRam_D01F], a
+	ld [wMail_Work + $1F], a
 .l58FA ; 0F:58FA
 	ld b, $03
 	push hl
-	ld hl, $D01B
+	ld hl, wMail_Work + $1B
 .l5900 ; 0F:5900
 	ld a, [de]
 	inc de
 	ld [hli], a
 	dec b
 	jr nz, .l5900
-	ld a, [wRam_D019]
+	ld a, [wMail_Work + $19]
 	ld c, a
-	ld a, [wRam_D01A]
+	ld a, [wMail_Work + $1A]
 	ld b, a
 	xor a, a
 	or a, b
@@ -4553,7 +4553,7 @@ Mail_Base64Encode:: ; 0F:58D7
 	push hl
 	dec hl
 	ld a, c
-	ld [wRam_D01F], a
+	ld [wMail_Work + $1F], a
 .l591D ; 0F:591D
 	xor a, a
 	ld [hld], a
@@ -4568,12 +4568,12 @@ Mail_Base64Encode:: ; 0F:58D7
 	dec bc
 	dec bc
 	ld a, c
-	ld [wRam_D019], a
+	ld [wMail_Work + $19], a
 	ld a, b
-	ld [wRam_D01A], a
+	ld [wMail_Work + $1A], a
 	push de
 	push hl
-	ld hl, $D020
+	ld hl, wMail_Work + $20
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -4640,7 +4640,7 @@ Mail_Base64Encode:: ; 0F:58D7
 	inc bc
 	call Mail_Base64EncodeChar
 	ld [hli], a
-	ld a, [wRam_D022]
+	ld a, [wMail_Work + $22]
 	inc a
 	cp a, $10
 	jr nz, .l59C6
@@ -4656,7 +4656,7 @@ Mail_Base64Encode:: ; 0F:58D7
 	jr nz, .l59AD
 	ld a, [wRam_D005]
 	ld b, a
-	ld a, [wMail_OutputBankVar]
+	ld a, [wMail_Work + $06]
 	or a, b
 	jr nz, .l59AD
 	pop bc
@@ -4670,7 +4670,7 @@ Mail_Base64Encode:: ; 0F:58D7
 	ld a, $0A
 	ld [hli], a
 	push hl
-	ld hl, $D020
+	ld hl, wMail_Work + $20
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -4688,15 +4688,15 @@ Mail_Base64Encode:: ; 0F:58D7
 .l59C6 ; 0F:59C6
 	; [CONFIRMED] 29 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage
 	; --split [executed in 2 scenarios]
-	ld [wRam_D022], a
-	ld a, [wRam_D019]
+	ld [wMail_Work + $22], a
+	ld a, [wMail_Work + $19]
 	cp a, $00
 	jp nz, .l58FA
-	ld a, [wRam_D01A]
+	ld a, [wMail_Work + $1A]
 	cp a, $00
 	jp nz, .l58FA
 .l59D9 ; 0F:59D9
-	ld a, [wRam_D01F]
+	ld a, [wMail_Work + $1F]
 	cp a, $00
 	jr z, .l59ED
 	push hl
@@ -4787,7 +4787,7 @@ Function_0F_5A10::
 	xor a, a
 	jp Mail_Return
 .l5A5A ; 0F:5A5A
-	ld hl, $D00A
+	ld hl, wMail_Work + $0A
 	ld a, [hli]
 	cpl
 	ld e, a
@@ -4808,7 +4808,7 @@ Function_0F_5A10::
 
 Mail_CalcBase64DecodedSize:: ; 0F:5A74
 Function_0F_5A74::
-	ld hl, $D005
+	ld hl, wMail_Work + $05
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -4866,7 +4866,7 @@ Function_0F_5A74::
 
 Mail_Base64DecodeStream_ClampChunk:: ; 0F:5AC5
 Function_0F_5AC5::
-	ld hl, $D005
+	ld hl, wMail_Work + $05
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -4930,15 +4930,15 @@ Function_0F_5B15::
 	ld c, a
 	ld a, [wRam_D00F]
 	ld b, a
-	ld hl, $D002
+	ld hl, wMail_Work + $02
 	ld a, [hli]
-	ld [wBank4State], a
+	ld [wMail_InputBank], a
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
-	ld hl, $D624
+	ld hl, wMail_TextBuf2
 	push bc
 	call Mail_CopyBase64StripLineBreaks
 	pop hl
@@ -4972,16 +4972,16 @@ Function_0F_5B15::
 	add hl, bc
 	ld b, h
 	ld c, l
-	ld hl, $D002
-	ld a, [wBank4State]
+	ld hl, wMail_Work + $02
+	ld a, [wMail_InputBank]
 	ld [hli], a
 	ld [hl], e
 	inc hl
 	ld [hl], d
-	ld hl, $D624
-	ld de, $D024
+	ld hl, wMail_TextBuf2
+	ld de, wMail_TextBuf1
 	call Mail_Base64Decode
-	ld hl, $D024
+	ld hl, wMail_TextBuf1
 	ld c, [hl]
 	inc hl
 	ld b, [hl]
@@ -5013,18 +5013,18 @@ Function_0F_5B15::
 	ld [wRam_D00B], a
 	pop bc
 	pop hl
-	ld hl, $D007
+	ld hl, wMail_Work + $07
 	ld a, [hli]
-	ld [wBank4SavedBankLo], a
+	ld [wMail_OutputBank], a
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
-	ld hl, $D026
+	ld hl, wMail_TextBuf1 + $02
 	call Mail_CopyToSram
-	ld hl, $D007
-	ld a, [wBank4SavedBankLo]
+	ld hl, wMail_Work + $07
+	ld a, [wMail_OutputBank]
 	ld [hli], a
 	ld a, e
 	ld [hli], a
@@ -5135,7 +5135,7 @@ Function_0F_5BDD::
 Mail_CopyBase64StripLineBreaks_NextPage:: ; 0F:5C52
 Function_0F_5C52::
 	push bc
-	ld bc, $D000
+	ld bc, wMail_InputBank
 	call Mail_NextSramPage
 	pop bc
 	ret
@@ -5149,18 +5149,18 @@ Mail_Base64Decode:: ; 0F:5C5E
 	; [CONFIRMED] 47 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage
 	; --split [executed in 12 scenarios]
 	ld a, e
-	ld [wRam_D01F], a
+	ld [wMail_Work + $1F], a
 	ld a, d
-	ld [wRam_D020], a
+	ld [wMail_Work + $20], a
 	xor a, a
 	ld [de], a
 	inc de
 	ld [de], a
 	inc de
 	ld a, c
-	ld [wRam_D019], a
+	ld [wMail_Work + $19], a
 	ld a, b
-	ld [wRam_D01A], a
+	ld [wMail_Work + $1A], a
 	ld c, e
 	ld b, d
 	ld e, l
@@ -5168,16 +5168,16 @@ Mail_Base64Decode:: ; 0F:5C5E
 	ld l, c
 	ld h, b
 .l5C79 ; 0F:5C79
-	ld a, [wRam_D01A]
+	ld a, [wMail_Work + $1A]
 	or a, a
 	jr nz, .l5C86
-	ld a, [wRam_D019]
+	ld a, [wMail_Work + $19]
 	cp a, $04
 	jr c, .l5CAE
 .l5C86 ; 0F:5C86
 	ld b, $04
 	push hl
-	ld hl, $D01B
+	ld hl, wMail_Work + $1B
 .l5C8C ; 0F:5C8C
 	ld a, [de]
 	inc de
@@ -5185,9 +5185,9 @@ Mail_Base64Decode:: ; 0F:5C5E
 	ld [hli], a
 	dec b
 	jr nz, .l5C8C
-	ld a, [wRam_D019]
+	ld a, [wMail_Work + $19]
 	ld c, a
-	ld a, [wRam_D01A]
+	ld a, [wMail_Work + $1A]
 	ld b, a
 	dec bc
 	dec bc
@@ -5215,12 +5215,12 @@ Mail_Base64Decode:: ; 0F:5C5E
 	; [CONFIRMED] 91 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage
 	; --split [executed in 12 scenarios]
 	ld a, c
-	ld [wRam_D019], a
+	ld [wMail_Work + $19], a
 	ld a, b
-	ld [wRam_D01A], a
+	ld [wMail_Work + $1A], a
 	push de
 	push hl
-	ld hl, $D01F
+	ld hl, wMail_Work + $1F
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -5277,10 +5277,10 @@ Mail_Base64Decode:: ; 0F:5C5E
 	inc bc
 	ld a, [bc]
 	ld [hli], a
-	ld a, [wRam_D019]
+	ld a, [wMail_Work + $19]
 	cp a, $00
 	jp nz, .l5C79
-	ld a, [wRam_D01A]
+	ld a, [wMail_Work + $1A]
 	cp a, $00
 	jp nz, .l5C79
 	ret
@@ -5331,9 +5331,9 @@ Mail_Base64DecodeChar:: ; 0F:5D12
 .l5D4D ; 0F:5D4D
 	push de
 	push hl
-	ld a, [wRam_D01F]
+	ld a, [wMail_Work + $1F]
 	ld l, a
-	ld a, [wRam_D020]
+	ld a, [wMail_Work + $20]
 	ld h, a
 	ld e, [hl]
 	inc hl
@@ -5368,7 +5368,7 @@ Mail_CopyFromSram:: ; 0F:5D68
 
 Mail_CopyFromSram_NextPage:: ; 0F:5D76
 	push bc
-	ld bc, $D000
+	ld bc, wMail_InputBank
 	call Mail_NextSramPage
 	pop bc
 	ret
@@ -5389,7 +5389,7 @@ Mail_CopyToSram_NextPage:: ; 0F:5D8C
 	; [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4D37-5DAE by apply_coverage --split
 	push bc
-	ld bc, $D001
+	ld bc, wMail_OutputBank
 	call Mail_NextSramPage
 	pop bc
 	ret

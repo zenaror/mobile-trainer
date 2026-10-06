@@ -72,8 +72,8 @@ Browser_StartPageListEntry:: ; 4F:46BA
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_D3C0], a
-	ld [wRam_D500], a
+	ld [wBrowserPageTitle], a
+	ld [wBrowserPageUrl], a
 	farcall PageList_Main
 	push bc
 	push de

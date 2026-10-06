@@ -380,7 +380,7 @@ Function_4E_6291::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D000
+	ld hl, wScreenTileMap
 	ld bc, $0400
 .l6477 ; 4E:6477
 	ld a, [hl]
@@ -390,7 +390,7 @@ Function_4E_6291::
 	ld a, c
 	or a, b
 	jr nz, .l6477
-	ld hl, $D400
+	ld hl, wScreenAttrMap
 	ld bc, $0400
 .l6486 ; 4E:6486
 	ld a, [hl]

@@ -5,8 +5,8 @@
 
 The record (TSV with a header) has the columns `file`, `line` (1-based), `operand` (`$XXXX`, or the text of the neutral name use, `wRam_D1A6` or `wRam_D1A6 + $02`), `bank`, `proposed text` (the name, or `name + $XX`), `group`,
 `disposition`, `proof` and `ctx`.  Only the rows whose disposition starts with `manual` are written; the others are the sites that were looked at and stay numeric (the proof column says why).  A `$XXXX` row is the instruction
-`ld hl|de|bc, $XXXX` with that operand, or a data line (`dw $DF10, $DF43`) where the number occurs once; any other operand is a token that must occur exactly once in the code of the line (not in the comment or
-a string, not as the start of a longer expression).  Before it writes, the tool evaluates the proposed text with the `DEF` lines of `ram/banked.asm` and `ram/wram.asm`: the name must exist, `name + offset` must equal
+`ld hl|de|bc, $XXXX` with that operand, or a data line (`dw $DF10, $DF43`) where the number occurs once, or `$XXXX xN` where it occurs exactly N times (2-9, a table that repeats a word: every
+occurrence becomes the name); any other operand is a token that must occur exactly once in the code of the line (not in the comment or a string, not as the start of a longer expression).  Before it writes, the tool evaluates the proposed text with the `DEF` lines of `ram/banked.asm` and `ram/wram.asm`: the name must exist, `name + offset` must equal
 the operand (the SHA-256 gate cannot see a name of another bank with the same number) and, when the row gives a bank, it must be the bank of the name.  The operand becomes the proposed
 text (the same value, so no byte of the ROM changes); the row is skipped, never moved, when the line is no longer that code or when `ctx` (the previous, the own and the next code line, comments removed, the operand of an
 `ld hl|de|bc` written `*`, a memory operand that is a name or an address written `[*]`; the physical lines, a comment-only line is empty) no longer matches; a line that already holds the proposed text is `already written`, so the tool is idempotent.  Afterwards the tool builds (`make`, or $RENAME_BUILD_CMD), compares the SHA-256 with
@@ -43,6 +43,7 @@ def loose(ctx):
     return BRACKET.sub('[*]', ctx)
 
 
+RAW_MARK = re.compile(r';\s*raw\b')
 DEF_LINE = re.compile(r'^DEF\s+([A-Za-z_][A-Za-z0-9_]*)\s+EQU\s+\$([0-9A-Fa-f]+)\s*(?:;\s*(?:bank\s+(W[1-7]|S[0-9]+))?)?')
 EXPR = re.compile(r'^([A-Za-z_][A-Za-z0-9_]*)(?:\s*\+\s*(\$[0-9A-Fa-f]+|\d+))?$')
 
@@ -99,26 +100,33 @@ def split_code(line):
     return line, ''
 
 
-def replace_token(line, token, text):
-    """The line with the single use of `token` in its code replaced by `text`; None when it occurs 0 or several times, or is the start of a longer expression."""
+def split_count(operand):
+    """(token, n) of an operand `$D0A3 x2`: the number of times that the token must occur on a data line (2-9); (operand, 1) without the suffix."""
+    m = re.match(r'^(.*?)\s+x([2-9])$', operand.strip())
+    return (m.group(1), int(m.group(2))) if m else (operand, 1)
+
+
+def replace_token(line, token, text, count=1):
+    """The line with the `count` uses of `token` in its code (the single use by default) replaced by `text`; None when it occurs another number of times, or is the start of a longer expression."""
     code, comment = split_code(line)
     if '"' in code:
         return None
     pat = re.compile(r'(?<![A-Za-z0-9_$])' + re.escape(token) + r'(?![A-Za-z0-9_])' + ('' if '+' in token else r'(?!\s*\+)'))
     hits = list(pat.finditer(code))
-    if len(hits) != 1:
+    if len(hits) != count:
         return None
-    m = hits[0]
-    return code[:m.start()] + text + code[m.end():] + comment
+    for m in reversed(hits):
+        code = code[:m.start()] + text + code[m.end():]
+    return code + comment
 
 
-def already_written(line, row):
+def already_written(line, row, count=1):
     """True when the line already holds the proposed text where the operand was."""
     m = LD_ANY.match(line)
     if row['operand'].startswith('$') and m:
         return m.group(2) == row['proposed text']
     code, _ = split_code(line)
-    return bool(re.search(r'(?<![A-Za-z0-9_$])' + re.escape(row['proposed text']) + r'(?![A-Za-z0-9_])', code)) and replace_token(line, row['operand'], row['proposed text']) is None
+    return bool(re.search(r'(?<![A-Za-z0-9_$])' + re.escape(row['proposed text']) + r'(?![A-Za-z0-9_])', code)) and replace_token(line, row['operand'], row['proposed text'], count) is None
 
 
 def plan(root, rows):
@@ -134,17 +142,22 @@ def plan(root, rows):
             orig = fh.read().split('\n')
         text = list(orig)
         for r in items:
+            r = dict(r)
+            r['operand'], count = split_count(r['operand'])
             i = int(r['line']) - 1
             if not 0 <= i < len(text):
                 skipped.append((f, r['line'], 'no such line'))
                 continue
+            if RAW_MARK.search(split_code(text[i])[1]):
+                skipped.append((f, r['line'], 'marked raw: a human decision keeps the number (remove the mark to name it)'))
+                continue
             if r['operand'].startswith('$') and LD.match(text[i]):
                 m = LD.match(text[i])
-                changed = (m.group(1) + r['proposed text'] + m.group(3)) if '$' + m.group(2) == r['operand'] else None
+                changed = (m.group(1) + r['proposed text'] + m.group(3)) if count == 1 and '$' + m.group(2) == r['operand'] else None
             else:
-                changed = replace_token(text[i], r['operand'], r['proposed text'])      # a data line (`dw $DF10`) or the use of a neutral name
+                changed = replace_token(text[i], r['operand'], r['proposed text'], count)      # a data line (`dw $DF10`) or the use of a neutral name
             if changed is None:
-                if already_written(orig[i], r):
+                if already_written(orig[i], r, count):
                     already.append((f, r['line']))
                 else:
                     skipped.append((f, r['line'], 'not that code any more'))

@@ -169,14 +169,14 @@ AddrPick_LoadSelection:: ; 2C:57F1
 	; [PROBABLE] 14 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 57A7-58AC by apply_coverage --split
 	ld b, $40
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 .l580F ; 2C:580F
 	xor a, a
 	ld [hli], a
 	dec b
 	jr nz, .l580F
 	ld b, $10
-	ld hl, $D514
+	ld hl, wEditNameBuf
 .l5819 ; 2C:5819
 	xor a, a
 	ld [hli], a
@@ -202,7 +202,7 @@ AddrPick_LoadSelection:: ; 2C:57F1
 	add hl, de
 	pop bc
 	ld b, $40
-	ld de, $D4C0
+	ld de, wEditAddressBuf
 	ld a, [hl]
 	cp a, $00
 	jr nz, .l5854
@@ -256,7 +256,7 @@ AddrPick_LoadSelection:: ; 2C:57F1
 	add hl, de
 	pop bc
 	ld b, $10
-	ld de, $D514
+	ld de, wEditNameBuf
 .l587E ; 2C:587E
 	ld a, [hli]
 	ld [de], a
@@ -1004,7 +1004,7 @@ Function_2C_5CD2::
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld hl, $D526
+	ld hl, wScreenAttrMap + $126
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
@@ -1018,7 +1018,7 @@ Function_2C_5CD2::
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld hl, $D546
+	ld hl, wScreenAttrMap + $146
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
@@ -1032,7 +1032,7 @@ Function_2C_5CD2::
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld hl, $D566
+	ld hl, wScreenAttrMap + $166
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
@@ -1046,7 +1046,7 @@ Function_2C_5CD2::
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld hl, $D586
+	ld hl, wScreenAttrMap + $186
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
@@ -1060,7 +1060,7 @@ Function_2C_5CD2::
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld hl, $D5A6
+	ld hl, wScreenAttrMap + $1A6
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
@@ -1074,7 +1074,7 @@ Function_2C_5CD2::
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld hl, $D5C6
+	ld hl, wScreenAttrMap + $1C6
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a

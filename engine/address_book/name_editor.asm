@@ -658,7 +658,7 @@ AbookName_GetRowPtr:: ; 2F:5C42
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D514
+	ld hl, wEditNameBuf
 	inc b
 .l5C4D ; 2F:5C4D
 	ld d, $00
@@ -863,8 +863,8 @@ Label_2F_5CF4::
 	push bc
 	push de
 	push hl
-	ld de, $D522
-	ld bc, $D520
+	ld de, wEditNameBuf + $0E
+	ld bc, wEditNameBuf + $0C
 .l5D7C ; 2F:5D7C
 	ld a, d
 	cp a, h
@@ -1635,7 +1635,7 @@ AbookName_GetLength:: ; 2F:61CE
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D514
+	ld hl, wEditNameBuf
 	ld d, $00
 .loop ; 2F:61DB
 	ld a, [hli]

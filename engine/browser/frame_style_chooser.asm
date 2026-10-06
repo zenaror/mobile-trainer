@@ -343,7 +343,7 @@ Function_4E_45FE::
 	cp a, $FF
 	jr z, .l4637
 	push hl
-	ld hl, $D000
+	ld hl, wScreenTileMap
 	add hl, bc
 	ld d, h
 	ld e, l
@@ -351,7 +351,7 @@ Function_4E_45FE::
 	add hl, bc
 	ld a, [hl]
 	ld [de], a
-	ld hl, $D400
+	ld hl, wScreenAttrMap
 	add hl, bc
 	ld d, h
 	ld e, l

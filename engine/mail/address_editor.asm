@@ -1120,7 +1120,7 @@ Function_2D_6CDF::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 	inc b
 .l6CEA ; 2D:6CEA
 	ld d, $00
@@ -1259,8 +1259,8 @@ MailAddr_InsertChar:: ; 2D:6D21
 	push bc
 	push de
 	push hl
-	ld de, $D4FF
-	ld bc, $D4FE
+	ld de, wEditAddressBuf + $3F
+	ld bc, wEditAddressBuf + $3E
 .l6DCF ; 2D:6DCF
 	ld a, d
 	cp a, h
@@ -1652,7 +1652,7 @@ MailAddr_GetLength:: ; 2D:702A
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 	ld d, $00
 .loop ; 2D:7037
 	ld a, [hli]

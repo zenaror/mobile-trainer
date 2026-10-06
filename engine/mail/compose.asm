@@ -51,7 +51,7 @@ MailDraft_SaveToSram:: ; 2D:403C
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $D400
+	ld hl, wEditBodyBuf
 	ld de, sMailDraft_Body
 	ld b, $C0
 .l4058 ; 2D:4058
@@ -60,7 +60,7 @@ MailDraft_SaveToSram:: ; 2D:403C
 	inc de
 	dec b
 	jr nz, .l4058
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 	ld de, sMailDraft_ToAddress
 	ld b, $40
 .l4066 ; 2D:4066
@@ -69,7 +69,7 @@ MailDraft_SaveToSram:: ; 2D:403C
 	inc de
 	dec b
 	jr nz, .l4066
-	ld hl, $D500
+	ld hl, wEditSubjectBuf
 	ld de, sMailDraft_Subject
 	ld b, $14
 .l4074 ; 2D:4074
@@ -78,7 +78,7 @@ MailDraft_SaveToSram:: ; 2D:403C
 	inc de
 	dec b
 	jr nz, .l4074
-	ld hl, $D514
+	ld hl, wEditNameBuf
 	ld de, sMailDraft_ToName
 	ld b, $10
 .l4082 ; 2D:4082
@@ -100,7 +100,7 @@ MailDraft_LoadFromSram:: ; 2D:408F
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld de, $D400
+	ld de, wEditBodyBuf
 	ld hl, sMailDraft_Body
 	ld b, $C0
 .l40AB ; 2D:40AB
@@ -109,7 +109,7 @@ MailDraft_LoadFromSram:: ; 2D:408F
 	inc de
 	dec b
 	jr nz, .l40AB
-	ld de, $D4C0
+	ld de, wEditAddressBuf
 	ld hl, sMailDraft_ToAddress
 	ld b, $40
 .l40B9 ; 2D:40B9
@@ -118,7 +118,7 @@ MailDraft_LoadFromSram:: ; 2D:408F
 	inc de
 	dec b
 	jr nz, .l40B9
-	ld de, $D500
+	ld de, wEditSubjectBuf
 	ld hl, sMailDraft_Subject
 	ld b, $14
 .l40C7 ; 2D:40C7
@@ -127,7 +127,7 @@ MailDraft_LoadFromSram:: ; 2D:408F
 	inc de
 	dec b
 	jr nz, .l40C7
-	ld de, $D514
+	ld de, wEditNameBuf
 	ld hl, sMailDraft_ToName
 	ld b, $10
 .l40D5 ; 2D:40D5
@@ -152,7 +152,7 @@ MailDraft_Clear:: ; 2D:40DC
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld de, $D400
+	ld de, wEditBodyBuf
 	ld hl, sMailDraft_Body
 	ld b, $C0
 .l40F8 ; 2D:40F8
@@ -162,7 +162,7 @@ MailDraft_Clear:: ; 2D:40DC
 	inc de
 	dec b
 	jr nz, .l40F8
-	ld de, $D4C0
+	ld de, wEditAddressBuf
 	ld hl, sMailDraft_ToAddress
 	ld b, $40
 .l4107 ; 2D:4107
@@ -172,7 +172,7 @@ MailDraft_Clear:: ; 2D:40DC
 	inc de
 	dec b
 	jr nz, .l4107
-	ld de, $D500
+	ld de, wEditSubjectBuf
 	ld hl, sMailDraft_Subject
 	ld b, $14
 .l4116 ; 2D:4116
@@ -182,7 +182,7 @@ MailDraft_Clear:: ; 2D:40DC
 	inc de
 	dec b
 	jr nz, .l4116
-	ld de, $D514
+	ld de, wEditNameBuf
 	ld hl, sMailDraft_ToName
 	ld b, $10
 .l4125 ; 2D:4125

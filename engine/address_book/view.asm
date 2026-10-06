@@ -130,7 +130,7 @@ Abook_StoreEntryToSram:: ; 2F:5167
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D726
+	ld hl, wAbookListState
 	ld a, [hl]
 	ld c, a
 	ld b, $00
@@ -154,7 +154,7 @@ Abook_StoreEntryToSram:: ; 2F:5167
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld b, $10
-	ld de, $D514
+	ld de, wEditNameBuf
 .l519C ; 2F:519C
 	ld a, [de]
 	ld [hli], a
@@ -165,7 +165,7 @@ Abook_StoreEntryToSram:: ; 2F:5167
 	ld de, $0010
 	add hl, de
 	ld b, $40
-	ld de, $D4C0
+	ld de, wEditAddressBuf
 .l51AC ; 2F:51AC
 	ld a, [de]
 	ld [hli], a
@@ -317,7 +317,7 @@ AbookView_LoadAndDraw:: ; 2F:52E9
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld b, $10
-	ld de, $D514
+	ld de, wEditNameBuf
 .l5312 ; 2F:5312
 	ld a, [hli]
 	ld [de], a
@@ -328,7 +328,7 @@ AbookView_LoadAndDraw:: ; 2F:52E9
 	ld de, $0010
 	add hl, de
 	ld b, $40
-	ld de, $D4C0
+	ld de, wEditAddressBuf
 .l5322 ; 2F:5322
 	ld a, [hli]
 	ld [de], a
