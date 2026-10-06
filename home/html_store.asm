@@ -11,7 +11,7 @@ Function_00_131A::
 	; inferred links; raw refs 43] [executed in 5 scenarios]
 	call BankSwitch_H
 	push hl
-	ld hl, Data_3F_4000
+	ld hl, Table_HtmlStore_KeywordPointers
 	ld a, $3F
 	ldh [hROMBankLo], a
 	ld [$2100], a
@@ -78,7 +78,7 @@ Function_00_1354::
 	inc de
 	push bc
 	push de
-	ld bc, Data_3F_4000
+	ld bc, Table_HtmlStore_KeywordPointers
 	ld a, $3F
 	ldh [hROMBankLo], a
 	ld [$2100], a

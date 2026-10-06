@@ -5816,7 +5816,7 @@ MobileState_WaitForCall:: ; 75:63BC
 	dec [hl]
 .l63C4 ; 75:63C4
 	ld a, $94
-	ld hl, Data_75_6063
+	ld hl, MobilePacket_WaitForTelephoneCall
 	jp Mobile_PacketSendEmptyBody
 .l63CC ; 75:63CC
 	ld a, [wMobileSDK_ReceivePacketBuffer]

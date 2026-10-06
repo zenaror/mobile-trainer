@@ -1467,7 +1467,7 @@ Label_55_6563::
 	ret
 .l65C9 ; 55:65C9
 	ld a, [wKbdInputMode]
-	ld hl, Data_55_65D7
+	ld hl, Table_Kbd_InputModeReturnCodes
 	add a, l
 	ld l, a
 	ld a, $00
@@ -1476,9 +1476,12 @@ Label_55_6563::
 	ld a, [hl]
 	ret
 
-; ---- data $65D7-$65DA (3 bytes) [PROBABLE] zero/short bytes of the keyboard page tables between text rows; part of the run 65D7-65DA that executed code reads piecewise [split by classify_g2]
+; ---- data $65D7-$65DA (3 bytes) [CONFIRMED] input-mode return codes $04, $05, $06. The keyboard
+; reads the indexed byte at 55:65D5 using wKbdInputMode and returns it in A; the lookup ran
+; naturally. The index is not bounds-checked here.
 
-Data_55_65D7:: ; 55:65D7
+Table_Kbd_InputModeReturnCodes:: ; 55:65D7
+Data_55_65D7::
 	db $04, $05, $06
 
 Kbd_TypePickerLoop:: ; 55:65DA

@@ -6,9 +6,12 @@ SECTION "data/html/index", ROMX
 
 PUSHC sjis
 
-; ---- data $4000-$4006 (6 bytes) [PROBABLE] html_index_hdr: dw $4006,$4006,$0000 before the URL prefix string (purpose unverified) (verified structure, layout from engine code)
+; ---- data $4000-$4006 (6 bytes) [CONFIRMED] two word pointers to the built-in URL keyword at
+; 3F:4006, followed by a zero-word terminator. HtmlStore_BuildPageUrl indexes the list by B * 2;
+; HtmlStore_LoadPage walks and compares the pointed-to strings. Both consumers ran naturally.
 
-Data_3F_4000:: ; 3F:4000
+Table_HtmlStore_KeywordPointers:: ; 3F:4000
+Data_3F_4000::
 	db $06, $40, $06, $40, $00, $00
 
 ; ---- text $4006-$4011 (11 bytes) [PROBABLE] html_url_prefix: "file://di/",0 (ASCII) (verified structure, layout from engine code)

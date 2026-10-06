@@ -595,29 +595,29 @@ MailSrvDelHidden_Confirm:: ; 22:4582
 	ld de, wTileStage2 + $100
 	farcall TextTiles_RenderLine
 	call VBlank_Wait
-	ld hl, String_22_483C
+	ld hl, String_MailSrvDelHidden_DeleteAllWarningPart2
 	ld a, $02
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
-	ld a, BANK(String_22_483C)
+	ld a, BANK(String_MailSrvDelHidden_DeleteAllWarningPart2)
 	ld bc, wTileStage2 + $200
 	ld de, wTileStage2 + $300
 	farcall TextTiles_RenderLine
 	call VBlank_Wait
-	ld hl, String_22_485D
+	ld hl, String_MailSrvDelHidden_DeleteAllWarningPart3
 	ld a, $02
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
-	ld a, BANK(String_22_485D)
+	ld a, BANK(String_MailSrvDelHidden_DeleteAllWarningPart3)
 	ld bc, wTileStage2 + $400
 	ld de, wTileStage2 + $500
 	farcall TextTiles_RenderLine
 	call VBlank_Wait
-	ld hl, String_22_487E
+	ld hl, String_MailSrvDelHidden_DeleteAllWarningPart4
 	ld a, $02
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
-	ld a, BANK(String_22_487E)
+	ld a, BANK(String_MailSrvDelHidden_DeleteAllWarningPart4)
 	ld bc, wTileStage2 + $600
 	ld de, wTileStage2 + $700
 	farcall TextTiles_RenderLine
@@ -777,17 +777,22 @@ MailSrvDelHidden_ConfirmSelect:: ; 22:47DE
 	pop bc
 	ret
 
-; ---- text $481B-$489F (132 bytes) [PROBABLE] text: 4 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+; ---- text $481B-$489F (132 bytes) [CONFIRMED] four NUL-terminated Shift-JIS fragments of the
+; server delete-all warning. Each fragment has a naturally executed bank-aware TextTiles_RenderLine
+; consumer; the four 33-byte fragments remain separate.
 
 PUSHC sjis
 String_MailSrvDelHidden_Confirm:: ; 22:481B
 String_22_481B::
 	db "このしょりをおこなうと　　　　　", 0
-String_22_483C:: ; 22:483C
+String_MailSrvDelHidden_DeleteAllWarningPart2:: ; 22:483C
+String_22_483C::
 	db "サーバにある　すべてのメールが　", 0
-String_22_485D:: ; 22:485D
+String_MailSrvDelHidden_DeleteAllWarningPart3:: ; 22:485D
+String_22_485D::
 	db "きえてしまいます　　　　　　　　", 0
-String_22_487E:: ; 22:487E
+String_MailSrvDelHidden_DeleteAllWarningPart4:: ; 22:487E
+String_22_487E::
 	db "　　　　よろしいですか？　　　　", 0
 POPC
 

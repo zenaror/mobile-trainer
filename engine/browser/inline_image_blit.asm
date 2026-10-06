@@ -624,7 +624,8 @@ Bmp_RoundUpToTextRow:: ; 51:73F2
 ; ---- data $740C-$740D (1 bytes) [PROBABLE] single $FF byte between the ret at 740B and the function at 740D (ldh [$FFD0],a ...); read as an all-ones mask by the edge-strip blit code at 51:75A0 and 51:765B
 ; (ld a, [Data_51_740C] ; and a, d: the edge mask passes unchanged); both reads are in code that never ran naturally, so the role is PROBABLE (earlier text: "probably padding, not referenced")
 
-Data_51_740C:: ; 51:740C
+ImageBlit_AllBitsMask:: ; 51:740C
+Data_51_740C::
 	db $FF
 
 Image_BlitToTileCanvas:: ; 51:740D
@@ -987,7 +988,7 @@ Image_BlitEdgeStrip:: ; 51:7517
 	push de
 	ldh a, [hImageBlit_LeftMask]
 	ld d, a
-	ld a, [Data_51_740C]
+	ld a, [ImageBlit_AllBitsMask]
 	and a, d
 	ld d, a
 	cpl
@@ -1137,7 +1138,7 @@ Image_BlitEdgeStrip:: ; 51:7517
 	push de
 	ldh a, [hImageBlit_RightMask]
 	ld d, a
-	ld a, [Data_51_740C]
+	ld a, [ImageBlit_AllBitsMask]
 	and a, d
 	ld d, a
 	cpl
