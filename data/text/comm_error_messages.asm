@@ -272,12 +272,14 @@ CommErr_Msg_NewPasswordNeedsMix:: ; 5C:4CB3
 	db "力して下さい。", 0
 
 CommErr_Msg_NewPasswordSameAsOld:: ; 5C:4D3F
-	db "新しいパスワードと古いパ", $0D
-	db "スワードが同じです。　　", $0D
-	db "もういちどちがうパスワー", $0D
-	db "ドをアルファベットと数字", $0D
-	db "を組み合わせた４～８文字", $0D
-	db "で入力して下さい。", 0
+	db "The new password", $0D
+	db "matches your old", $0D
+	db "password.", $0D
+	db "Please try a new one", $0D
+	db "and enter 4 to 8", $0D
+	db "alphanumeric characters", $0D
+	db "for your password.", 0
+	ds 19, 0
 
 CommErr_Msg_RegistrationPending:: ; 5C:4DCF
 	db "登録書の処理が完了してい", $0D
