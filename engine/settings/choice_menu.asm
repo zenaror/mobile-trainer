@@ -142,8 +142,8 @@ SettingsPhone_ChoiceMenu_Setup:: ; 67:4688
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
-	ld hl, Data_4D_5510
-	ld a, BANK(Data_4D_5510)
+	ld hl, Palette_SettingsPhone_ChoiceMenu_Bg
+	ld a, BANK(Palette_SettingsPhone_ChoiceMenu_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $0008
 	ld de, wPaletteBufObj

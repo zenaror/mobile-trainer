@@ -505,65 +505,65 @@ MobileDict_LoadPage	engine/help/mobile_dictionary.asm:491	tiles	$D800	00	n=32 vr
 Kbd_Open	engine/keyboard/keyboard.asm:57	tiles	Data_5F_49D0	5F	n=48 vram=$8000 vbank=1
 Kbd_Open	engine/keyboard/keyboard.asm:62	palette	Palette_5F_4CD0 + $10	5F	n=24 dest=$D868
 Kbd_Open	engine/keyboard/keyboard.asm:71	palette	Palette_5F_4CD0	5F	n=16 dest=$D830
-Kbd_LoadPageGraphics_T0	engine/keyboard/keyboard.asm:1652	tilemap	Tilemap_Kbd_T0	5F	rows=13 cols=20 dest=$D240
-Kbd_LoadPageGraphics_T1	engine/keyboard/keyboard.asm:1663	tiles	Gfx_Kbd_T1_Tiles8800	5E	n=2 vram=$8800 vbank=0
-Kbd_LoadPageGraphics_T1	engine/keyboard/keyboard.asm:1668	tilemap	Tilemap_Kbd_T1	5F	rows=13 cols=20 dest=$D240
-Kbd_LoadPageGraphics_T2	engine/keyboard/keyboard.asm:1680	tilemap	Tilemap_Kbd_T2	5F	rows=13 cols=20 dest=$D240
-Kbd_LoadPageGraphics_T3	engine/keyboard/keyboard.asm:1690	tilemap	Tilemap_Kbd_T3	5F	rows=13 cols=20 dest=$D240
-Kbd_LoadPageGraphics_T4	engine/keyboard/keyboard.asm:1702	tiles	Gfx_Kbd_T4_Tiles8800Vb1	5D	n=64 vram=$8800 vbank=1
-Kbd_LoadPageGraphics_T4	engine/keyboard/keyboard.asm:1708	tiles	Gfx_Kbd_T4_Tiles8C00Vb1	5D	n=64 vram=$8C00 vbank=1
-Kbd_LoadPageGraphics_T4	engine/keyboard/keyboard.asm:1713	palette	Data_5E_4D00 + $28	5E	n=24 dest=$D828
-Kbd_LoadPageGraphics_T4	engine/keyboard/keyboard.asm:1718	tilemap	Tilemap_Kbd_T4	5F	rows=13 cols=20 dest=$D240
-Kbd_LoadPageGraphics_T5	engine/keyboard/keyboard.asm:1731	tiles	Gfx_Kbd_T5_Tiles8800Vb1	5F	n=64 vram=$8800 vbank=1
-Kbd_LoadPageGraphics_T5	engine/keyboard/keyboard.asm:1737	tiles	Gfx_Kbd_T5_Tiles8C00Vb1	5F	n=64 vram=$8C00 vbank=1
-Kbd_LoadPageGraphics_T5	engine/keyboard/keyboard.asm:1743	tiles	Gfx_Kbd_T5_Tiles9000Vb1	5F	n=16 vram=$9000 vbank=1
-Kbd_LoadPageGraphics_T5	engine/keyboard/keyboard.asm:1748	palette	Palette_Kbd_T5_Bg1	5F	n=8 dest=$D808
-Kbd_LoadPageGraphics_T5	engine/keyboard/keyboard.asm:1753	palette	Palette_Kbd_T5_Bg1 + $8	5F	n=16 dest=$D830
-Kbd_LoadPageGraphics_T5	engine/keyboard/keyboard.asm:1792	tilemap	Tilemap_Kbd_T5	5F	rows=13 cols=20 dest=$D240
-Kbd_LoadPageGraphics_T6_Page0	engine/keyboard/keyboard.asm:1834	tiles	Gfx_Kbd_T6_Page0_Tiles8800Vb1	66	n=64 vram=$8800 vbank=1
-Kbd_LoadPageGraphics_T6_Page0	engine/keyboard/keyboard.asm:1840	tiles	Gfx_Kbd_T6_Page0_Tiles8C00Vb1	66	n=64 vram=$8C00 vbank=1
-Kbd_LoadPageGraphics_T6_Page0	engine/keyboard/keyboard.asm:1846	tiles	Gfx_Kbd_T6_Page0_Tiles9000Vb1	66	n=36 vram=$9000 vbank=1
-Kbd_LoadPageGraphics_T6_Page1	engine/keyboard/keyboard.asm:1856	tiles	Gfx_Kbd_T6_Page1_Tiles8800Vb1	66	n=64 vram=$8800 vbank=1
-Kbd_LoadPageGraphics_T6_Page1	engine/keyboard/keyboard.asm:1862	tiles	Gfx_Kbd_T6_Page1_Tiles8C00Vb1	66	n=64 vram=$8C00 vbank=1
-Kbd_LoadPageGraphics_T6_Page1	engine/keyboard/keyboard.asm:1868	tiles	Gfx_Kbd_T6_Page1_Tiles9000Vb1	66	n=36 vram=$9000 vbank=1
-Kbd_LoadPageGraphics_T6_Page2	engine/keyboard/keyboard.asm:1878	tiles	Gfx_Kbd_T6_Page2_Tiles8800Vb1	66	n=64 vram=$8800 vbank=1
-Kbd_LoadPageGraphics_T6_Page2	engine/keyboard/keyboard.asm:1884	tiles	Gfx_Kbd_T6_Page2_Tiles8C00Vb1	66	n=64 vram=$8C00 vbank=1
-Kbd_LoadPageGraphics_T6_Page2	engine/keyboard/keyboard.asm:1890	tiles	Gfx_Kbd_T6_Page2_Tiles9000Vb1	66	n=36 vram=$9000 vbank=1
-Kbd_LoadPageGraphics_T6_Page3	engine/keyboard/keyboard.asm:1907	tiles	Gfx_Kbd_T6_Page3_Tiles8800Vb1	66	n=64 vram=$8800 vbank=1
-Kbd_LoadPageGraphics_T6_Page3	engine/keyboard/keyboard.asm:1913	tiles	Gfx_Kbd_T6_Page3_Tiles8C00Vb1	66	n=64 vram=$8C00 vbank=1
-Kbd_LoadPageGraphics_T6_Page3	engine/keyboard/keyboard.asm:1919	tiles	Gfx_Kbd_T6_Page3_Tiles9000Vb1	66	n=36 vram=$9000 vbank=1
-Kbd_LoadPageGraphics_T6_Tail	engine/keyboard/keyboard.asm:1931	tilemap	Tilemap_Kbd_T6And78_PageTail	66	rows=11 cols=20 dest=$D240
-Kbd_LoadPageGraphics_T78_Page0	engine/keyboard/keyboard.asm:1972	tiles	Gfx_Kbd_T78_Page0_Tiles8800Vb1	62	n=64 vram=$8800 vbank=1
-Kbd_LoadPageGraphics_T78_Page0	engine/keyboard/keyboard.asm:1978	tiles	Gfx_Kbd_T78_Page0_Tiles8C00Vb1	62	n=64 vram=$8C00 vbank=1
-Kbd_LoadPageGraphics_T78_Page0	engine/keyboard/keyboard.asm:1984	tiles	Gfx_Kbd_T78_Page0_Tiles9000Vb1	62	n=36 vram=$9000 vbank=1
-Kbd_LoadPageGraphics_T78_Page1	engine/keyboard/keyboard.asm:1994	tiles	Gfx_Kbd_T78_Page1_Tiles8800Vb1	62	n=64 vram=$8800 vbank=1
-Kbd_LoadPageGraphics_T78_Page1	engine/keyboard/keyboard.asm:2000	tiles	Gfx_Kbd_T78_Page1_Tiles8C00Vb1	62	n=64 vram=$8C00 vbank=1
-Kbd_LoadPageGraphics_T78_Page1	engine/keyboard/keyboard.asm:2006	tiles	Gfx_Kbd_T78_Page1_Tiles9000Vb1	62	n=36 vram=$9000 vbank=1
-Kbd_LoadPageGraphics_T78_Page2	engine/keyboard/keyboard.asm:2016	tiles	Gfx_Kbd_T78_Page2_Tiles8800Vb1	62	n=64 vram=$8800 vbank=1
-Kbd_LoadPageGraphics_T78_Page2	engine/keyboard/keyboard.asm:2022	tiles	Gfx_Kbd_T78_Page2_Tiles8C00Vb1	62	n=64 vram=$8C00 vbank=1
-Kbd_LoadPageGraphics_T78_Page2	engine/keyboard/keyboard.asm:2028	tiles	Gfx_Kbd_T78_Page2_Tiles9000Vb1	62	n=36 vram=$9000 vbank=1
-Kbd_LoadPageGraphics_T78_Page3	engine/keyboard/keyboard.asm:2045	tiles	Gfx_Kbd_T78_Page3_Tiles8800Vb1	62	n=64 vram=$8800 vbank=1
-Kbd_LoadPageGraphics_T78_Page3	engine/keyboard/keyboard.asm:2051	tiles	Gfx_Kbd_T78_Page3_Tiles8C00Vb1	62	n=64 vram=$8C00 vbank=1
-Kbd_LoadPageGraphics_T78_Page3	engine/keyboard/keyboard.asm:2057	tiles	Gfx_Kbd_T78_Page3_Tiles9000Vb1	62	n=36 vram=$9000 vbank=1
-Kbd_LoadPageGraphics_T78_Tail	engine/keyboard/keyboard.asm:2069	tilemap	Tilemap_Kbd_T6And78_PageTail	66	rows=11 cols=20 dest=$D240
-Kbd_LoadPageGraphics_T9	engine/keyboard/keyboard.asm:2080	tiles	Gfx_Kbd_T9_Tiles8800Vb1	5F	n=64 vram=$8800 vbank=1
-Kbd_LoadPageGraphics_T9	engine/keyboard/keyboard.asm:2086	tiles	Gfx_Kbd_T9_Tiles8C00Vb1	5F	n=64 vram=$8C00 vbank=1
-Kbd_LoadPageGraphics_T9	engine/keyboard/keyboard.asm:2092	tiles	Gfx_Kbd_T9_Tiles9000Vb1	5F	n=1 vram=$9000 vbank=1
-Kbd_LoadPageGraphics_T9	engine/keyboard/keyboard.asm:2097	tilemap	Tilemap_Kbd_T9	5F	rows=11 cols=20 dest=$D240
-Kbd_LoadPageGraphics_T10	engine/keyboard/keyboard.asm:2108	tiles	Gfx_Kbd_T10_Tiles8A80Vb1	66	n=25 vram=$8A80 vbank=1
-Kbd_LoadPageGraphics_T10	engine/keyboard/keyboard.asm:2113	tilemap	Tilemap_Kbd_T10	66	rows=6 cols=20 dest=$D240
-Kbd_UploadPanelMap11Rows	engine/keyboard/keyboard.asm:2142	UNRESOLVED	tiles	--	source (hl) not an immediate/label
-Kbd_UploadPanelMap11Rows	engine/keyboard/keyboard.asm:2147	UNRESOLVED	tiles	--	bank (a) not an immediate
-Kbd_UploadPanelMap11Rows	engine/keyboard/keyboard.asm:2161	UNRESOLVED	tiles	--	source (hl) not an immediate/label
-Kbd_UploadPanelMap11Rows	engine/keyboard/keyboard.asm:2166	UNRESOLVED	tiles	--	bank (a) not an immediate
-Kbd_UploadPanelMap13Rows	engine/keyboard/keyboard.asm:2197	UNRESOLVED	tiles	--	source (hl) not an immediate/label
-Kbd_UploadPanelMap13Rows	engine/keyboard/keyboard.asm:2203	UNRESOLVED	tiles	--	bank (a) not an immediate
-Kbd_UploadPanelMap13Rows	engine/keyboard/keyboard.asm:2216	UNRESOLVED	tiles	--	source (hl) not an immediate/label
-Kbd_UploadPanelMap13Rows	engine/keyboard/keyboard.asm:2222	UNRESOLVED	tiles	--	bank (a) not an immediate
-Kbd_LoadPickerTabTiles	engine/keyboard/keyboard.asm:2273	UNRESOLVED	tiles	--	source (hl) not an immediate/label
-Kbd_LoadPickerTabTiles	engine/keyboard/keyboard.asm:2279	UNRESOLVED	tiles	--	source (hl) not an immediate/label
-Kbd_DrawGlyphPreview	engine/keyboard/keyboard.asm:2381	UNRESOLVED	tiles	--	source (hl) not an immediate/label
-Kbd_DrawGlyphPreview	engine/keyboard/keyboard.asm:2384	UNRESOLVED	tiles	--	bank (a) not an immediate
+Kbd_LoadPageGraphics_T0	engine/keyboard/keyboard.asm:1655	tilemap	Tilemap_Kbd_T0	5F	rows=13 cols=20 dest=$D240
+Kbd_LoadPageGraphics_T1	engine/keyboard/keyboard.asm:1666	tiles	Gfx_Kbd_T1_Tiles8800	5E	n=2 vram=$8800 vbank=0
+Kbd_LoadPageGraphics_T1	engine/keyboard/keyboard.asm:1671	tilemap	Tilemap_Kbd_T1	5F	rows=13 cols=20 dest=$D240
+Kbd_LoadPageGraphics_T2	engine/keyboard/keyboard.asm:1683	tilemap	Tilemap_Kbd_T2	5F	rows=13 cols=20 dest=$D240
+Kbd_LoadPageGraphics_T3	engine/keyboard/keyboard.asm:1693	tilemap	Tilemap_Kbd_T3	5F	rows=13 cols=20 dest=$D240
+Kbd_LoadPageGraphics_T4	engine/keyboard/keyboard.asm:1705	tiles	Gfx_Kbd_T4_Tiles8800Vb1	5D	n=64 vram=$8800 vbank=1
+Kbd_LoadPageGraphics_T4	engine/keyboard/keyboard.asm:1711	tiles	Gfx_Kbd_T4_Tiles8C00Vb1	5D	n=64 vram=$8C00 vbank=1
+Kbd_LoadPageGraphics_T4	engine/keyboard/keyboard.asm:1716	palette	Data_5E_4D00 + $28	5E	n=24 dest=$D828
+Kbd_LoadPageGraphics_T4	engine/keyboard/keyboard.asm:1721	tilemap	Tilemap_Kbd_T4	5F	rows=13 cols=20 dest=$D240
+Kbd_LoadPageGraphics_T5	engine/keyboard/keyboard.asm:1734	tiles	Gfx_Kbd_T5_Tiles8800Vb1	5F	n=64 vram=$8800 vbank=1
+Kbd_LoadPageGraphics_T5	engine/keyboard/keyboard.asm:1740	tiles	Gfx_Kbd_T5_Tiles8C00Vb1	5F	n=64 vram=$8C00 vbank=1
+Kbd_LoadPageGraphics_T5	engine/keyboard/keyboard.asm:1746	tiles	Gfx_Kbd_T5_Tiles9000Vb1	5F	n=16 vram=$9000 vbank=1
+Kbd_LoadPageGraphics_T5	engine/keyboard/keyboard.asm:1751	palette	Palette_Kbd_T5_Bg1	5F	n=8 dest=$D808
+Kbd_LoadPageGraphics_T5	engine/keyboard/keyboard.asm:1756	palette	Palette_Kbd_T5_Bg1 + $8	5F	n=16 dest=$D830
+Kbd_LoadPageGraphics_T5	engine/keyboard/keyboard.asm:1795	tilemap	Tilemap_Kbd_T5	5F	rows=13 cols=20 dest=$D240
+Kbd_LoadPageGraphics_T6_Page0	engine/keyboard/keyboard.asm:1837	tiles	Gfx_Kbd_T6_Page0_Tiles8800Vb1	66	n=64 vram=$8800 vbank=1
+Kbd_LoadPageGraphics_T6_Page0	engine/keyboard/keyboard.asm:1843	tiles	Gfx_Kbd_T6_Page0_Tiles8C00Vb1	66	n=64 vram=$8C00 vbank=1
+Kbd_LoadPageGraphics_T6_Page0	engine/keyboard/keyboard.asm:1849	tiles	Gfx_Kbd_T6_Page0_Tiles9000Vb1	66	n=36 vram=$9000 vbank=1
+Kbd_LoadPageGraphics_T6_Page1	engine/keyboard/keyboard.asm:1859	tiles	Gfx_Kbd_T6_Page1_Tiles8800Vb1	66	n=64 vram=$8800 vbank=1
+Kbd_LoadPageGraphics_T6_Page1	engine/keyboard/keyboard.asm:1865	tiles	Gfx_Kbd_T6_Page1_Tiles8C00Vb1	66	n=64 vram=$8C00 vbank=1
+Kbd_LoadPageGraphics_T6_Page1	engine/keyboard/keyboard.asm:1871	tiles	Gfx_Kbd_T6_Page1_Tiles9000Vb1	66	n=36 vram=$9000 vbank=1
+Kbd_LoadPageGraphics_T6_Page2	engine/keyboard/keyboard.asm:1881	tiles	Gfx_Kbd_T6_Page2_Tiles8800Vb1	66	n=64 vram=$8800 vbank=1
+Kbd_LoadPageGraphics_T6_Page2	engine/keyboard/keyboard.asm:1887	tiles	Gfx_Kbd_T6_Page2_Tiles8C00Vb1	66	n=64 vram=$8C00 vbank=1
+Kbd_LoadPageGraphics_T6_Page2	engine/keyboard/keyboard.asm:1893	tiles	Gfx_Kbd_T6_Page2_Tiles9000Vb1	66	n=36 vram=$9000 vbank=1
+Kbd_LoadPageGraphics_T6_Page3	engine/keyboard/keyboard.asm:1910	tiles	Gfx_Kbd_T6_Page3_Tiles8800Vb1	66	n=64 vram=$8800 vbank=1
+Kbd_LoadPageGraphics_T6_Page3	engine/keyboard/keyboard.asm:1916	tiles	Gfx_Kbd_T6_Page3_Tiles8C00Vb1	66	n=64 vram=$8C00 vbank=1
+Kbd_LoadPageGraphics_T6_Page3	engine/keyboard/keyboard.asm:1922	tiles	Gfx_Kbd_T6_Page3_Tiles9000Vb1	66	n=36 vram=$9000 vbank=1
+Kbd_LoadPageGraphics_T6_Tail	engine/keyboard/keyboard.asm:1934	tilemap	Tilemap_Kbd_T6And78_PageTail	66	rows=11 cols=20 dest=$D240
+Kbd_LoadPageGraphics_T78_Page0	engine/keyboard/keyboard.asm:1975	tiles	Gfx_Kbd_T78_Page0_Tiles8800Vb1	62	n=64 vram=$8800 vbank=1
+Kbd_LoadPageGraphics_T78_Page0	engine/keyboard/keyboard.asm:1981	tiles	Gfx_Kbd_T78_Page0_Tiles8C00Vb1	62	n=64 vram=$8C00 vbank=1
+Kbd_LoadPageGraphics_T78_Page0	engine/keyboard/keyboard.asm:1987	tiles	Gfx_Kbd_T78_Page0_Tiles9000Vb1	62	n=36 vram=$9000 vbank=1
+Kbd_LoadPageGraphics_T78_Page1	engine/keyboard/keyboard.asm:1997	tiles	Gfx_Kbd_T78_Page1_Tiles8800Vb1	62	n=64 vram=$8800 vbank=1
+Kbd_LoadPageGraphics_T78_Page1	engine/keyboard/keyboard.asm:2003	tiles	Gfx_Kbd_T78_Page1_Tiles8C00Vb1	62	n=64 vram=$8C00 vbank=1
+Kbd_LoadPageGraphics_T78_Page1	engine/keyboard/keyboard.asm:2009	tiles	Gfx_Kbd_T78_Page1_Tiles9000Vb1	62	n=36 vram=$9000 vbank=1
+Kbd_LoadPageGraphics_T78_Page2	engine/keyboard/keyboard.asm:2019	tiles	Gfx_Kbd_T78_Page2_Tiles8800Vb1	62	n=64 vram=$8800 vbank=1
+Kbd_LoadPageGraphics_T78_Page2	engine/keyboard/keyboard.asm:2025	tiles	Gfx_Kbd_T78_Page2_Tiles8C00Vb1	62	n=64 vram=$8C00 vbank=1
+Kbd_LoadPageGraphics_T78_Page2	engine/keyboard/keyboard.asm:2031	tiles	Gfx_Kbd_T78_Page2_Tiles9000Vb1	62	n=36 vram=$9000 vbank=1
+Kbd_LoadPageGraphics_T78_Page3	engine/keyboard/keyboard.asm:2048	tiles	Gfx_Kbd_T78_Page3_Tiles8800Vb1	62	n=64 vram=$8800 vbank=1
+Kbd_LoadPageGraphics_T78_Page3	engine/keyboard/keyboard.asm:2054	tiles	Gfx_Kbd_T78_Page3_Tiles8C00Vb1	62	n=64 vram=$8C00 vbank=1
+Kbd_LoadPageGraphics_T78_Page3	engine/keyboard/keyboard.asm:2060	tiles	Gfx_Kbd_T78_Page3_Tiles9000Vb1	62	n=36 vram=$9000 vbank=1
+Kbd_LoadPageGraphics_T78_Tail	engine/keyboard/keyboard.asm:2072	tilemap	Tilemap_Kbd_T6And78_PageTail	66	rows=11 cols=20 dest=$D240
+Kbd_LoadPageGraphics_T9	engine/keyboard/keyboard.asm:2083	tiles	Gfx_Kbd_T9_Tiles8800Vb1	5F	n=64 vram=$8800 vbank=1
+Kbd_LoadPageGraphics_T9	engine/keyboard/keyboard.asm:2089	tiles	Gfx_Kbd_T9_Tiles8C00Vb1	5F	n=64 vram=$8C00 vbank=1
+Kbd_LoadPageGraphics_T9	engine/keyboard/keyboard.asm:2095	tiles	Gfx_Kbd_T9_Tiles9000Vb1	5F	n=1 vram=$9000 vbank=1
+Kbd_LoadPageGraphics_T9	engine/keyboard/keyboard.asm:2100	tilemap	Tilemap_Kbd_T9	5F	rows=11 cols=20 dest=$D240
+Kbd_LoadPageGraphics_T10	engine/keyboard/keyboard.asm:2111	tiles	Gfx_Kbd_T10_Tiles8A80Vb1	66	n=25 vram=$8A80 vbank=1
+Kbd_LoadPageGraphics_T10	engine/keyboard/keyboard.asm:2116	tilemap	Tilemap_Kbd_T10	66	rows=6 cols=20 dest=$D240
+Kbd_UploadPanelMap11Rows	engine/keyboard/keyboard.asm:2145	UNRESOLVED	tiles	--	source (hl) not an immediate/label
+Kbd_UploadPanelMap11Rows	engine/keyboard/keyboard.asm:2150	UNRESOLVED	tiles	--	bank (a) not an immediate
+Kbd_UploadPanelMap11Rows	engine/keyboard/keyboard.asm:2164	UNRESOLVED	tiles	--	source (hl) not an immediate/label
+Kbd_UploadPanelMap11Rows	engine/keyboard/keyboard.asm:2169	UNRESOLVED	tiles	--	bank (a) not an immediate
+Kbd_UploadPanelMap13Rows	engine/keyboard/keyboard.asm:2200	UNRESOLVED	tiles	--	source (hl) not an immediate/label
+Kbd_UploadPanelMap13Rows	engine/keyboard/keyboard.asm:2206	UNRESOLVED	tiles	--	bank (a) not an immediate
+Kbd_UploadPanelMap13Rows	engine/keyboard/keyboard.asm:2219	UNRESOLVED	tiles	--	source (hl) not an immediate/label
+Kbd_UploadPanelMap13Rows	engine/keyboard/keyboard.asm:2225	UNRESOLVED	tiles	--	bank (a) not an immediate
+Kbd_LoadPickerTabTiles	engine/keyboard/keyboard.asm:2276	UNRESOLVED	tiles	--	source (hl) not an immediate/label
+Kbd_LoadPickerTabTiles	engine/keyboard/keyboard.asm:2282	UNRESOLVED	tiles	--	source (hl) not an immediate/label
+Kbd_DrawGlyphPreview	engine/keyboard/keyboard.asm:2384	UNRESOLVED	tiles	--	source (hl) not an immediate/label
+Kbd_DrawGlyphPreview	engine/keyboard/keyboard.asm:2387	UNRESOLVED	tiles	--	bank (a) not an immediate
 MailAddr_SetupScreen	engine/mail/address_editor.asm:469	tiles	Gfx_MailAddr_Tiles	2D	n=64 vram=$9300 vbank=1
 MailAddr_SetupScreen	engine/mail/address_editor.asm:475	tiles	Gfx_MailAddr_Tiles2	2D	n=11 vram=$9700 vbank=1
 MailAddr_SetupScreen	engine/mail/address_editor.asm:481	tiles	Gfx_MailAddr_Tiles3	2D	n=43 vram=$8800 vbank=0

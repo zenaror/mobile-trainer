@@ -1261,35 +1261,35 @@ SaveSenderAddr_LoadCaption:: ; 2A:49C5
 	ld bc, wTileStage2 + $280
 	ld de, wTileStage2 + $3C0
 	farcall TextTiles_RenderLine
-	ld hl, String_2A_4A6F
+	ld hl, String_SaveSenderAddr_CaptionPart2
 	ld a, $02
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
-	ld a, BANK(String_2A_4A6F)
+	ld a, BANK(String_SaveSenderAddr_CaptionPart2)
 	ld bc, wTileStage2 + $500
 	ld de, wTileStage2 + $640
 	farcall TextTiles_RenderLine
-	ld hl, String_2A_4A78
+	ld hl, String_SaveSenderAddr_CaptionPart3
 	ld a, $02
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
-	ld a, BANK(String_2A_4A78)
+	ld a, BANK(String_SaveSenderAddr_CaptionPart3)
 	ld bc, wTileStage2 + $780
 	ld de, wTileStage2 + $8C0
 	farcall TextTiles_RenderLine
-	ld hl, String_2A_4A81
+	ld hl, String_SaveSenderAddr_CaptionPart4
 	ld a, $02
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
-	ld a, BANK(String_2A_4A81)
+	ld a, BANK(String_SaveSenderAddr_CaptionPart4)
 	ld bc, wTileStage2 + $A00
 	ld de, wTileStage2 + $B40
 	farcall TextTiles_RenderLine
-	ld hl, String_2A_4A8A
+	ld hl, String_SaveSenderAddr_CaptionPart5
 	ld a, $02
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
-	ld a, BANK(String_2A_4A8A)
+	ld a, BANK(String_SaveSenderAddr_CaptionPart5)
 	ld bc, wTileStage2 + $C80
 	ld de, wTileStage2 + $DC0
 	farcall TextTiles_RenderLine
@@ -1304,7 +1304,7 @@ String_2A_4A3D:: ; 2A:4A3D
 	db "　　アドレスを　せんたくしてください　　", 0
 POPC
 
-; ---- text $4A66-$4A93 (45 bytes) [PROBABLE] text: the caption "　セーブ" (loaded by SaveSenderAddr_LoadCaption, 2A:49C7, 19 hits in 6 scenarios) and four more NUL terminated strings
+; ---- text $4A66-$4A93 (45 bytes) [CONFIRMED] text: the caption "　セーブ" (loaded by SaveSenderAddr_LoadCaption, 2A:49C7, 19 hits in 6 scenarios) and four more NUL terminated strings
 ; ("するばしょを　えらんでください　" in four pieces).  The survey had typed the first six bytes as a code-pointer table (dw $4081, $5A83, $5B81), which made three spurious labels in the middle of code
 ; (Label_2A_4081 here, Label_2A_5A83 and Label_2A_5B81 in profile_editor.asm: no instruction ever referenced them); they are gone
 
@@ -1312,13 +1312,17 @@ PUSHC sjis
 String_SaveSenderAddr_Caption:: ; 2A:4A66
 Table_2A_4A66::
 	db "　セーブ", 0
-String_2A_4A6F:: ; 2A:4A6F
+String_SaveSenderAddr_CaptionPart2:: ; 2A:4A6F
+String_2A_4A6F::
 	db "するばし", 0
-String_2A_4A78:: ; 2A:4A78
+String_SaveSenderAddr_CaptionPart3:: ; 2A:4A78
+String_2A_4A78::
 	db "ょを　え", 0
-String_2A_4A81:: ; 2A:4A81
+String_SaveSenderAddr_CaptionPart4:: ; 2A:4A81
+String_2A_4A81::
 	db "らんでく", 0
-String_2A_4A8A:: ; 2A:4A8A
+String_SaveSenderAddr_CaptionPart5:: ; 2A:4A8A
+String_2A_4A8A::
 	db "ださい　", 0
 POPC
 
