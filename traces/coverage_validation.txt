@@ -1,9 +1,9 @@
 # Coverage validation report (tools/trace/merge_coverage.py)
-# 77993 unique executed instruction starts from 64 scenarios
+# 78005 unique executed instruction starts from 69 scenarios
 # ERROR = inconsistent with the SM83 decoding chain, WARN = expected in some situations, see the tool's --help
 
 ## counts
-COND_ALWAYS_TAKEN 704
+COND_ALWAYS_TAKEN 703
 FALL_MISSING     4041
 
 ## ERRORs
@@ -21,7 +21,7 @@ callee 4DAD : 1 call sites
 callee 54A7 : 1 call sites
 callee 06BC : 1 call sites
 
-### COND_ALWAYS_TAKEN : 704
+### COND_ALWAYS_TAKEN : 703
 00:03F2  jr c, $0400
 00:0528  jr nz, $0531
 00:065C  jr z, $066D
@@ -222,7 +222,7 @@ callee 06BC : 1 call sites
 29:4CC5  jr z, $4CCD
 29:4CDB  jr z, $4CE3
 29:4CF1  jr z, $4CF9
-... 504 more
+... 503 more
 
 ### FALL_MISSING(call) : 4041
 00:02A9  call $4C80

@@ -80,3 +80,8 @@ fuzz_mailfull	on	fake:latency=2,mail=jp+ascii+game+multipart+long	mail_receive_m
 state_full	on	fake:latency=2	mail_receive_many	0	Cartridge with a full mailbox (12) and a full address book (6): sender of eight mails saved in a row
 monkey_camp_allfull	on	fake:latency=2,mail=jp+ascii+game+multipart+long	state_full	r2	Monkey campaign (24 segments) from the cartridge with a full mailbox AND a full address book	lite
 fuzz_register	on	fake:latency=2,mail=jp+ascii+game+multipart+long	register	all	Coverage-guided input search from the freshly registered cartridge (tutorial pending): 2 useful random-input segments	lite
+browser_ul	on	fake:latency=2	browser_bookmarks	ul	A page that ends inside an unclosed <ul>: Html_Layout_ClearAllFloats retries forever (blank screen, buttons do nothing)	lite
+browser_ulc	on	fake:latency=2	browser_bookmarks	ul	Control of browser_ul: the same list with </ul>: the page ends normally	lite
+browser_brl	on	fake:latency=2	browser_bookmarks	ul	<br clear=left> inside a list: Html_Tag_Br_ClearLeft retries forever (blank screen, buttons do nothing)	lite
+browser_bra	on	fake:latency=2	browser_bookmarks	ul	<br clear=all> inside a list: Html_Tag_Br_ClearAll retries forever (blank screen, buttons do nothing)	lite
+browser_brc	on	fake:latency=2	browser_bookmarks	ul	Controls of browser_brl/bra: <br clear=left> outside a list and after a closed list, <br clear=right> inside a list: all end normally	lite

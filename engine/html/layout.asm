@@ -8,6 +8,9 @@ Html_Layout_ClearAllFloats:: ; 74:5252
 Function_74_5252::
 	; [CONFIRMED] 35 insn(s); 35 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
+	; [CONFIRMED] never returns for a page that ends inside a list (scenario browser_ul: 96,318 retries of .l5293 in 5,407 frames, to the end of the run, the buttons pressed meanwhile do nothing, the screen
+	; stays blank; control browser_ulc: the same list closed, 4 calls, no retry; docs/research/dynamic_tracing.md section 12).  The test compares hHtmlLayout_CursorX with hViewX, and
+	; Html_Layout_GetLimitsAtY (74:586E) sets hHtmlLayout_CursorX = hViewX + hHtmlLineIndent, which is $0C and more inside a list (read from the code: PROBABLE), so it takes the retry forever.
 	farcall Html_Layout_EndLine
 	push de
 	push hl
@@ -1227,13 +1230,15 @@ Html_Layout_GetLimitsAtY:: ; 74:586E
 	bit 7, a
 	jr nz, .l58F4
 
-	; [PROBABLE] 30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 0;
-	; fall-through of the jrcc at 74:58C0 (executed)
+	; [CONFIRMED] 5 insn(s) executed (browser_ul, browser_brl, browser_bra: the layout record list is walked while the page hangs, a record of the float flags $0C or $04 is tested)
 	and a, $0C
 	cp a, $0C
 	jr z, .l58DC
 	cp a, $04
 	jr nz, .l58F4
+
+	; [PROBABLE] 25 insn(s) reached by static flow only; seeds: exec x25; min discovery hops 0;
+	; fall-through of the jrcc at 74:58CA (executed)
 	ldh a, [hHtmlLayout_RightLimit]
 	sub a, c
 	ldh a, [hHtmlLayout_RightLimitHi]

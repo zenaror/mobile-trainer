@@ -1213,6 +1213,9 @@ Html_Tag_Br_ClearLeft:: ; 74:4BF4
 Label_74_4BF4::
 	; [CONFIRMED] 31 insn(s) reached by static flow only; seeds: exec x31; min discovery hops 1;
 	; entered by table from 74:4BE9 (executed) [executed in 1 scenarios]
+	; [CONFIRMED] a <br clear=left> inside a list never ends (scenario browser_brl: 67,805 calls, 67,803 retries through Html_Tag_Br_ClearRetry, blank screen, buttons do nothing;
+	; controls in browser_brc: outside a list and after a closed list it runs twice and returns).  Same mechanism as Html_Layout_ClearAllFloats: the test compares
+	; hHtmlLayout_CursorX with hViewX and GetLimitsAtY adds the indent of the list to it.
 	ldh a, [hHtmlLayout_LineY]
 	ld e, a
 	ldh a, [hHtmlLayout_LineYHi]
@@ -1260,6 +1263,8 @@ Label_74_4C33::
 	; [CONFIRMED] 63 insn(s) reached by static flow only; seeds: exec x63; min discovery hops 1;
 	; entered by table from 74:4BE9 (executed) | 25 insn(s) executed; cut out of the PROBABLE region
 	; 4C33-4CA6 by apply_coverage --split [executed in 1 scenarios]
+	; [CONFIRMED] a <br clear=all> inside a list never ends (scenario browser_bra: 67,777 calls, 67,776 retries; same mechanism as Html_Tag_Br_ClearLeft); <br clear=right> inside a list
+	; (Html_Tag_Br_ClearRight) is not affected (browser_brc).
 	ldh a, [hHtmlLayout_LineY]
 	ld e, a
 	ldh a, [hHtmlLayout_LineYHi]
@@ -1288,7 +1293,7 @@ Label_74_4C33::
 
 Html_Tag_Br_ClearRetry:: ; 74:4C5F
 Label_74_4C5F::
-	; [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; [CONFIRMED] 7 insn(s) executed (browser_brl, browser_bra: the retry of a <br clear=left|all> inside a list, over 67,000 times each); cut out of the PROBABLE region
 	; 4C33-4CA6 by apply_coverage --split
 	pop hl
 	pop de

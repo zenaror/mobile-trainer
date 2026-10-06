@@ -66,7 +66,8 @@ interpreter; replays support a reading and never raise a status.  The readers of
   `723E`/`727D` are overflows of the caller's buffer, `73BE` sends the request-path chunks (the POST body goes out in substep 1), `656C` sets states `$21/$22`.
 * `naming_g8.md:445`: `Html_MetaResultToError_HexLoop` decodes `A-F` and `a-f` as 0-5 (`sub $41` without adding 10); never executed.  Menu items are numbered from 1 in `config/symbols/bank4E.tsv` and `naming_g5.md`; the new rows use the 0-based `hDialogResult`.
 * `Html_Layout_ClearAllFloats` (section 5.4 of `naming2_ram3.md`): the same flaw (`FFC4` built as `hViewX + hHtmlLineIndent`, compared with `hViewX`) is in the `Html_Tag_Br_ClearLeft` and `Html_Tag_Br_ClearAll` tests; inside a list (indent `$0C`) clear=left and clear=all would
-  never end (replay: 16,216 retries in 600,000 steps; with indent 0 one retry; clear=right is unaffected).  Still a HYPOTHESIS: the replays show the mechanism, not what the page of the 292,374-retry scenario contained.
+  never end (replay: 16,216 retries in 600,000 steps; with indent 0 one retry; clear=right is unaffected).  CONFIRMED by execution in round 4 (`dynamic_tracing.md` section 12: scenarios `browser_brl`, `browser_bra`, controls in `browser_brc`;
+  a page that ends inside a list freezes too: `browser_ul`, control `browser_ulc`).
 * The generated `config/` notes that call `Table_68_793F` a code-pointer table, `CommScene_TextObjTable` a "text-box arrow and text sprites" table, or say a "not executed" `Registration_ManualPhoneEntry` (it ran 31 times in 2 scenarios) are stale (the config tables are frozen).
 
 ## 6. New quirks of the original ROM (all in never-executed code, by reading and CPU-only replay)

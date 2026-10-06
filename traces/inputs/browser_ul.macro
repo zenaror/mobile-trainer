@@ -1,0 +1,76 @@
+# Scenario 'browser_ul': ホームページ, the page 'unclosed' (unclosed.html: `<ul><li>a<li>b` and no </ul>).  The page ends inside a list, Html_Layout_ClearAllFloats (74:5252, called
+# by Html_ParseSource_End) compares the cursor x (hHtmlLayout_CursorX, set by Html_Layout_GetLimitsAtY to hViewX + hHtmlLineIndent) with hViewX alone; inside a list the indent is not 0,
+# so it retries forever (74:5293): the screen stays blank and the buttons pressed afterwards (B, A, START, SELECT, D-pad) do not leave it.  Control: 'browser_ulc'.
+# Navigation as in 'browser_r2' (title -> top menu -> ホームページ -> tutorial and prompts -> index of the 'ul' site, traces/web/ul, web=ul); the links of the index are, in order,
+# closed, unclosed, brl_list, bra_list, brl_out, brl_after, brr_list (DOWN x N selects link N; the selection starts from none after a B).
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A                        # title -> top menu (the first A is swallowed by the logo)
+waitstable 60 max 600
+tap RIGHT
+wait 40
+tap A                        # ホームページ
+waitstable 60 max 900
+shot pagelist_tutorial_1
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+shot prompt
+tap A                        # ホームページ
+waitstable 60 max 900
+tap A                        # はい
+waitstable 60 max 900
+tap A                        # password screen
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 1200
+shot index
+shot ul_index
+tap B
+wait 200
+shot no_previous_page
+tap A
+wait 200
+tap DOWN x2
+wait 80
+wait 20
+tap A                        # unclosed.html
+wait 600
+shot unclosed_600
+tap B
+wait 200
+tap A
+wait 200
+tap START
+wait 200
+tap SELECT
+wait 200
+tap DOWN x2
+wait 200
+tap UP x2
+wait 200
+tap LEFT
+wait 200
+tap RIGHT
+wait 200
+shot unclosed_after_input
+wait 3000
+shot unclosed_3800
+end

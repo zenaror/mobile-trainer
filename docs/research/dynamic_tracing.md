@@ -9,6 +9,7 @@ Names in this document are *descriptions*, never symbol names: unknown code stay
 
 Sections 0-8 describe the first round (18 scenarios); **section 9 onwards documents the second round (41 scenarios, 72 224 executed ROM instruction starts, hidden inputs, new harness features)**.
 **Section 11 documents the third round (directed scenarios, a fork-server input search, forced execution; numbers in 11.7).**
+**Section 12 documents the fourth round (pages that freeze the renderer: five scenarios, a second fixture site).**
 
 Everything below was produced by `tools/trace/run_trace.py` from `baserom.gbc`
 (SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`); numbers come from `traces/summary.md`,
@@ -708,3 +709,54 @@ Static frontier after the round (`frontier.py`): 55 627 bytes of code never exec
   families that a longer blind search may still reach. `frontier.py` lists them in order.
 * **Not modelled by the harness.** A real CGI success format (`daa_gb_*.cgi`, section 9.3), other players / cartridges, audio-only paths (music playback exists only in the forced sound test), the real clock, a real DMG
   (only its boot register).
+
+## 12. Round 4: scenarios from the hypotheses of the naming passes
+
+Two HYPOTHESIS items of the naming passes said that a page can freeze the browser: `Html_Layout_ClearAllFloats` (`74:5252`, called at the end of every page by `Html_ParseSource_End`) retries forever when a page ends inside a
+list (`naming2_ram3.md` section 5.4: its retry `74:5293` ran 292,374 times in one natural run, the monkey campaign `monkey_camp_rich`, which power-cycles the cartridge at every segment), and the `<br clear=left>` /
+`<br clear=all>` handlers `Html_Tag_Br_ClearLeft` / `Html_Tag_Br_ClearAll` (`74:4BF4`, `74:4C33`) never end inside a list (`naming2_label5.md` section 5: a CPU-only replay, 16,216 retries in 600,000 steps; the handlers had never
+run in a trace).  This round turns both into natural evidence: macro scenarios with button presses and a fake HTTP server, no forced execution.
+
+### 12.1 What was added
+
+* `tools/trace/run_trace.py`: the `web` column accepts the name of any sub-directory of `traces/web/` (a *site*: its own `index.html` and pages, then everything of `all`); `r2` was the only one, `ul` is the second.  The
+  preparation of the converted pages is idempotent and atomic (`put_file`): with `--jobs` every scenario called it and a plain write truncated a page that another scenario's fake server was serving, which gave an
+  empty answer and a different replay of `browser_pages` in one run (HTTP 200, 0 bytes instead of 221).  A full replay of the 64 earlier scenarios is byte-identical to the committed `traces/`.
+* `traces/web/ul/`: `index.html` and seven pages of a list or a `<br clear=...>`: `closed` (`<ul><li>a<li>b</ul>`), `unclosed` (the same without `</ul>`), `brl_list` (`<br clear=left>` inside a list), `bra_list` (`clear=all`
+  inside a list), `brl_out` (`clear=left` outside a list), `brl_after` (`clear=left` after a closed list), `brr_list` (`clear=right` inside a list).
+
+| scenario | starts from | what it does | result |
+|---|---|---|---|
+| `browser_ul` | `browser_bookmarks` | opens `unclosed`, then presses B, A, START, SELECT, the D-pad | **freezes**: `74:5252` ran 96,322 times and the retry `74:5293` 96,318 times from frame 10,358 to the end of the run (frame 15,765); the screen is blank, no button leaves it; final PC in bank 74 |
+| `browser_ulc` | `browser_bookmarks` | control: opens `closed` | the page ends normally: `74:5252` ran 4 times, no retry, the browser idles for a button |
+| `browser_brl` | `browser_bookmarks` | opens `brl_list`, then B, A, START, D-pad | **freezes**: `74:4BF4` ran 67,805 times, `74:4C5F` (`Html_Tag_Br_ClearRetry`) 67,803 times; blank screen |
+| `browser_bra` | `browser_bookmarks` | opens `bra_list`, then B, A, START, D-pad | **freezes**: `74:4C33` ran 67,777 times, `74:4C5F` 67,776 times; blank screen |
+| `browser_brc` | `browser_bookmarks` | controls: opens `brl_out`, `brl_after`, `brr_list` (B back to the index between them) | all three end normally: `Html_Tag_Br_ClearLeft` ran 4 times and `Html_Tag_Br_ClearRight` twice, no retry |
+
+### 12.2 Findings (evidence read from the coverage, the final state and the screenshots of these runs)
+
+1. **A page that ends inside a list freezes the Trainer (CONFIRMED by execution).**  Every list kind and shape tried (scratch runs of the same navigation, not committed: `<ol><li>a`, `<ul>` alone, `<ul><li>a</ul><ul><li>b`,
+   `<ul><ul><li>a</ul>`, `<ul><li>a<br>b`) ends in the retry loop of `Html_Layout_ClearAllFloats` with a blank screen; the same list closed (`<ul><li>a<li>b</ul>`), a `<li>` outside any list and `<br clear=right>` inside a list
+   end normally.  Only a power cycle leaves the loop: the buttons pressed during it (B, A, START, SELECT, the D-pad) do nothing, and neither does A+B+START+SELECT held for 120 frames (a scratch run: `00:0100` ran once, the
+   retry went on).  In `monkey_camp_rich` the retry started at frame 144,145 and the run went on to frame 233,084: the harness power-cycles the cartridge at the end of each of the 36 segments of that campaign, which
+   is what `00:0100` running 36 times in that run counts.
+2. **A `<br clear=left>` or `<br clear=all>` inside a list freezes it too (CONFIRMED by execution)**, in the retry of its own handler (`Html_Tag_Br_ClearRetry`); outside a list or after the list is closed both end after two
+   executions of the handler, and `clear=right` is not affected inside a list (the handler has no such test).
+3. **Mechanism (read from the code; the behaviour above is what confirms it).**  `Html_Layout_GetLimitsAtY` (`74:586E`) sets `hHtmlLayout_CursorX = hViewX + hHtmlLineIndent`; the three handlers compare it with `hViewX`
+   alone (`ClearAllFloats` and `ClearAll` also `hHtmlLayout_RightLimit` with `hViewRight`) and, when they differ, set `hHtmlLayout_HeightBelow = $0C`, `hHtmlLayout_HeightAbove = 0` and start again.  `hHtmlLineIndent` is reloaded from
+   `hHtmlListIndent` after every line, and that is `$0C` and more inside a list (the list tags change it, `Html_Tag_Ol` and the others, `engine/html/tags.asm`), so the test can never succeed.  It looks like an error of the
+   original program (inference: the other side of the comparison lacks `+ hHtmlLineIndent`).  Nothing in the source was changed except comments: the notes of `Html_Layout_ClearAllFloats`, `Html_Tag_Br_ClearLeft`, `Html_Tag_Br_ClearAll` and `Html_Tag_Br_ClearRetry`, and the status of five instructions of
+   `Html_Layout_GetLimitsAtY`.
+4. **New coverage: 12 instruction starts** that no earlier scenario executed: the 7 instructions of `Html_Tag_Br_ClearRetry` (`74:4C5F-4C68`, `browser_brl`, `browser_bra`) and 5 in the record walk of
+   `Html_Layout_GetLimitsAtY` (`74:58C2-58CA`: `and a, $0C / cp a, $0C / jr z / cp a, $04 / jr nz`, in all three freezing scenarios; the walk meets a record of the float flags while the page hangs).  Both regions were
+   PROBABLE and are CONFIRMED now (their comments say so).
+5. **What is not shown.**  The fake server serves these pages; a real page with the same markup is parsed by the same code, but no real DION page is known to end inside a list.  Real hardware was not run.
+
+### 12.3 Numbers
+
+| | end of round 3 | end of round 4 |
+|---|---:|---:|
+| scenarios (natural + forced) | 64 + 3 | 69 + 3 |
+| executed ROM instruction starts (union) | 77 979 | 77 991 |
+
+`analysis/coverage_report.md` and `traces/growth.md` are not regenerated (they come from the frozen `tools/apply_coverage.py` and from `growth.py`); the numbers of 11.7 are those of the end of round 3.

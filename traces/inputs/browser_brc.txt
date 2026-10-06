@@ -1,0 +1,92 @@
+# recorded by mgba_trace --macro browser_brc.macro (resolved absolute frames)
+460 A
+464 -
+1094 A
+1098 -
+1728 RIGHT
+1732 -
+1802 A
+1806 -
+2736 shot pagelist_tutorial_1
+2736 A
+2740 -
+3079 A
+3083 -
+3317 A
+3321 -
+3717 A
+3721 -
+4025 A
+4029 -
+4383 A
+4387 -
+4754 A
+4758 -
+5014 A
+5018 -
+5448 shot prompt
+5448 A
+5452 -
+6382 A
+6386 -
+6487 A
+6491 -
+7421 A
+7425 -
+9555 shot index
+9555 shot ul_index
+9555 B
+9559 -
+9789 shot no_previous_page
+9789 A
+9793 -
+10023 DOWN
+10027 -
+10057 DOWN
+10061 -
+10091 DOWN
+10095 -
+10125 DOWN
+10129 -
+10159 DOWN
+10163 -
+10293 A
+10297 -
+10927 shot brl_out
+10927 B
+10931 -
+11261 DOWN
+11265 -
+11295 DOWN
+11299 -
+11329 DOWN
+11333 -
+11363 DOWN
+11367 -
+11397 DOWN
+11401 -
+11511 DOWN
+11515 -
+11645 A
+11649 -
+12279 shot brl_after
+12279 B
+12283 -
+12613 DOWN
+12617 -
+12647 DOWN
+12651 -
+12681 DOWN
+12685 -
+12715 DOWN
+12719 -
+12749 DOWN
+12753 -
+12863 DOWN
+12867 -
+12897 DOWN
+12901 -
+13031 A
+13035 -
+13665 shot brr_list
+# last scripted frame: 13665
