@@ -341,7 +341,7 @@ MailDraft_Menu_InitScreen:: ; 2B:420C
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D514
+	ld hl, wEditNameBuf
 	ld a, [hl]
 	cp a, $00
 	jr z, .l430C
@@ -365,27 +365,27 @@ MailDraft_Menu_InitScreen:: ; 2B:420C
 	ld bc, $0300
 	ld d, $14
 	ld e, $20
-	ld hl, $D500
+	ld hl, wEditSubjectBuf
 	call MailDraft_DrawTextLine21
 	ld bc, $0300
 	ld d, $02
 	ld e, $08
-	ld hl, $D514
+	ld hl, wEditNameBuf
 	call MailDraft_DrawTextLine17
 	ld bc, $0300
 	ld d, $24
 	ld e, $20
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 	call MailDraft_DrawTextLine21
 	ld bc, $0300
 	ld d, $30
 	ld e, $08
-	ld hl, $D4D4
+	ld hl, wEditAddressBuf + $14
 	call MailDraft_DrawTextLine25
 	ld bc, $0300
 	ld d, $3C
 	ld e, $08
-	ld hl, $D4EC
+	ld hl, wEditAddressBuf + $2C
 	call MailDraft_DrawTextLine21
 	call MailDraft_UploadTextTiles
 	farcall Sprite_UpdateAll
@@ -939,19 +939,19 @@ MailDraft_UploadTextTiles:: ; 2B:46E5
 	ldh [rSVBK], a
 	xor a, a
 	ldh [rVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld de, $9000
 	ld c, $3F
 	call Gfx_StartHDMAAtVBlank_2B_4723
-	ld hl, $D400
+	ld hl, wTileStage2 + $400
 	ld de, $9400
 	ld c, $3F
 	call Gfx_StartHDMAAtVBlank_2B_4723
-	ld hl, $D800
+	ld hl, wTileStage2 + $800
 	ld de, $8800
 	ld c, $3F
 	call Gfx_StartHDMAAtVBlank_2B_4723
-	ld hl, $DC00
+	ld hl, wTileStage2 + $C00
 	ld de, $8C00
 	ld c, $3F
 	call Gfx_StartHDMAAtVBlank_2B_4723
@@ -1040,8 +1040,8 @@ Function_2B_478B::
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
 	ld a, $2B
-	ld bc, $DB40
-	ld de, $DC80
+	ld bc, wTileStage2 + $B40
+	ld de, wTileStage2 + $C80
 	farcall TextTiles_RenderLine
 	ldh a, [rSVBK]
 	push af
@@ -1050,7 +1050,7 @@ Function_2B_478B::
 	ldh [rSVBK], a
 	xor a, a
 	ldh [rVBK], a
-	ld hl, $DB40
+	ld hl, wTileStage2 + $B40
 	ld de, $8B40
 	ld c, $27
 	farcall Gfx_StartHDMAAtVBlank

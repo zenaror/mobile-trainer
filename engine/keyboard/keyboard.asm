@@ -2399,11 +2399,11 @@ Kbd_DrawGlyphPreview:: ; 55:6C16
 .l6C48 ; 55:6C48
 	ld hl, $0003
 	push hl
-	ld hl, $DE10
+	ld hl, wKbdGlyphPreviewTiles + $10
 	push hl
 	ld hl, $0003
 	push hl
-	ld hl, $DE00
+	ld hl, wKbdGlyphPreviewTiles
 	push hl
 	push bc
 	farcall Font_BlitGlyph8x16
@@ -2433,7 +2433,7 @@ Kbd_DrawGlyphPreview:: ; 55:6C16
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, $8241
-	ld hl, $DE00
+	ld hl, wKbdGlyphPreviewTiles
 	ld b, $98
 	ld c, $02
 	ld a, [wKbdType]

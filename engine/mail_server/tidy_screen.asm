@@ -272,7 +272,7 @@ MailServerMgr_DrawMailInfo:: ; 2E:4DBF
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld bc, $0800
 .l4DDD ; 2E:4DDD
 	xor a, a
@@ -300,7 +300,7 @@ MailServerMgr_DrawMailInfo:: ; 2E:4DBF
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld bc, $0800
 .l4E14 ; 2E:4E14
 	xor a, a
@@ -334,7 +334,7 @@ MailServerMgr_DrawMailInfo:: ; 2E:4DBF
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld bc, $0800
 .l4E4F ; 2E:4E4F
 	xor a, a
@@ -362,7 +362,7 @@ MailServerMgr_DrawMailInfo:: ; 2E:4DBF
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld bc, $0800
 .l4E86 ; 2E:4E86
 	xor a, a
@@ -418,7 +418,7 @@ MailServerMgr_DrawMailFields:: ; 2E:4EBD
 	ld a, $10
 	ld bc, $0300
 	ld de, $0220
-	ld hl, $D406
+	ld hl, $D406 ; raw: POP3 header summary staged by bank 54 (source label), not the mail body edit buffer
 	farcall MailServerMgr_DrawFieldText
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -426,7 +426,7 @@ MailServerMgr_DrawMailFields:: ; 2E:4EBD
 	ld a, $14
 	ld bc, $0300
 	ld de, $1220
-	ld hl, $D4C0
+	ld hl, $D4C0 ; raw: POP3 header summary staged by bank 54 (sender name or address), not the address edit buffer
 	farcall MailServerMgr_DrawFieldText
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -434,7 +434,7 @@ MailServerMgr_DrawMailFields:: ; 2E:4EBD
 	ld a, $14
 	ld bc, $0300
 	ld de, $2220
-	ld hl, $D41B
+	ld hl, $D41B ; raw: POP3 header summary staged by bank 54 (subject), not the mail body edit buffer
 	farcall MailServerMgr_DrawFieldText
 	call MailServerMgr_UploadTextTiles
 	ret
@@ -571,11 +571,11 @@ MailServerMgr_UploadTextTiles:: ; 2E:4FBD
 	ldh [rSVBK], a
 	xor a, a
 	ldh [rVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld de, $9000
 	ld c, $3F
 	call MailServerMgr_HdmaBlock
-	ld hl, $D400
+	ld hl, wTileStage2 + $400
 	ld de, $9400
 	ld c, $3F
 	call MailServerMgr_HdmaBlock
@@ -892,9 +892,9 @@ MailServerMgr_DrawMailNumber:: ; 2E:5184
 	; 4FA9-533C by apply_coverage --split
 	ld a, l
 	add a, $D0
-	ld [wRam_D041], a
+	ld [wScreenTileMap + $41], a
 	add a, $10
-	ld [wRam_D061], a
+	ld [wScreenTileMap + $61], a
 	push de
 	pop hl
 	ld de, $03E8
@@ -902,9 +902,9 @@ MailServerMgr_DrawMailNumber:: ; 2E:5184
 	ld a, l
 	ld a, l
 	add a, $D0
-	ld [wRam_D042], a
+	ld [wScreenTileMap + $42], a
 	add a, $10
-	ld [wRam_D062], a
+	ld [wScreenTileMap + $62], a
 	push de
 	pop hl
 	ld de, $0064
@@ -912,9 +912,9 @@ MailServerMgr_DrawMailNumber:: ; 2E:5184
 	ld a, l
 	ld a, l
 	add a, $D0
-	ld [wRam_D043], a
+	ld [wScreenTileMap + $43], a
 	add a, $10
-	ld [wRam_D063], a
+	ld [wScreenTileMap + $63], a
 	push de
 	pop hl
 	ld de, $000A
@@ -922,17 +922,17 @@ MailServerMgr_DrawMailNumber:: ; 2E:5184
 	ld a, l
 	ld a, l
 	add a, $D0
-	ld [wRam_D044], a
+	ld [wScreenTileMap + $44], a
 	add a, $10
-	ld [wRam_D064], a
+	ld [wScreenTileMap + $64], a
 	push de
 	pop hl
 	ld a, l
 	ld a, l
 	add a, $D0
-	ld [wRam_D045], a
+	ld [wScreenTileMap + $45], a
 	add a, $10
-	ld [wRam_D065], a
+	ld [wScreenTileMap + $65], a
 	ld e, $28
 	jp .l52DC
 
@@ -952,9 +952,9 @@ MailServerMgr_DrawMailNumber:: ; 2E:5184
 	ld a, l
 	ld a, l
 	add a, $D0
-	ld [wRam_D041], a
+	ld [wScreenTileMap + $41], a
 	add a, $10
-	ld [wRam_D061], a
+	ld [wScreenTileMap + $61], a
 	push de
 	pop hl
 	ld de, $0064
@@ -962,9 +962,9 @@ MailServerMgr_DrawMailNumber:: ; 2E:5184
 	ld a, l
 	ld a, l
 	add a, $D0
-	ld [wRam_D042], a
+	ld [wScreenTileMap + $42], a
 	add a, $10
-	ld [wRam_D062], a
+	ld [wScreenTileMap + $62], a
 	push de
 	pop hl
 	ld de, $000A
@@ -972,17 +972,17 @@ MailServerMgr_DrawMailNumber:: ; 2E:5184
 	ld a, l
 	ld a, l
 	add a, $D0
-	ld [wRam_D043], a
+	ld [wScreenTileMap + $43], a
 	add a, $10
-	ld [wRam_D063], a
+	ld [wScreenTileMap + $63], a
 	push de
 	pop hl
 	ld a, l
 	ld a, l
 	add a, $D0
-	ld [wRam_D044], a
+	ld [wScreenTileMap + $44], a
 	add a, $10
-	ld [wRam_D064], a
+	ld [wScreenTileMap + $64], a
 	ld e, $20
 	jp .l52DC
 
@@ -1002,9 +1002,9 @@ MailServerMgr_DrawMailNumber:: ; 2E:5184
 	ld a, l
 	ld a, l
 	add a, $D0
-	ld [wRam_D041], a
+	ld [wScreenTileMap + $41], a
 	add a, $10
-	ld [wRam_D061], a
+	ld [wScreenTileMap + $61], a
 	push de
 	pop hl
 	ld de, $000A
@@ -1012,17 +1012,17 @@ MailServerMgr_DrawMailNumber:: ; 2E:5184
 	ld a, l
 	ld a, l
 	add a, $D0
-	ld [wRam_D042], a
+	ld [wScreenTileMap + $42], a
 	add a, $10
-	ld [wRam_D062], a
+	ld [wScreenTileMap + $62], a
 	push de
 	pop hl
 	ld a, l
 	ld a, l
 	add a, $D0
-	ld [wRam_D043], a
+	ld [wScreenTileMap + $43], a
 	add a, $10
-	ld [wRam_D063], a
+	ld [wScreenTileMap + $63], a
 	ld e, $18
 	jp .l52DC
 
@@ -1039,25 +1039,25 @@ MailServerMgr_DrawMailNumber:: ; 2E:5184
 	ld a, l
 	ld a, l
 	add a, $D0
-	ld [wRam_D041], a
+	ld [wScreenTileMap + $41], a
 	add a, $10
-	ld [wRam_D061], a
+	ld [wScreenTileMap + $61], a
 	push de
 	pop hl
 	ld a, l
 	ld a, l
 	add a, $D0
-	ld [wRam_D042], a
+	ld [wScreenTileMap + $42], a
 	add a, $10
-	ld [wRam_D062], a
+	ld [wScreenTileMap + $62], a
 	ld e, $10
 	jp .l52DC
 .l52CF ; 2E:52CF
 	ld a, e
 	add a, $D0
-	ld [wRam_D041], a
+	ld [wScreenTileMap + $41], a
 	add a, $10
-	ld [wRam_D061], a
+	ld [wScreenTileMap + $61], a
 	ld e, $08
 .l52DC ; 2E:52DC
 	ld a, $07
@@ -1137,7 +1137,7 @@ Function_2E_533C::
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld bc, $1000
 .loop ; 2E:534E
 	xor a, a
@@ -1148,15 +1148,15 @@ Function_2E_533C::
 	jr nz, .loop
 	xor a, a
 	ldh [rVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld de, $9000
 	ld c, $3F
 	farcall Gfx_GdmaAtVBlankNoDi
-	ld hl, $D400
+	ld hl, wTileStage2 + $400
 	ld de, $9400
 	ld c, $3F
 	farcall Gfx_GdmaAtVBlankNoDi
-	ld hl, $D800
+	ld hl, wTileStage2 + $800
 	ld de, $8800
 	ld c, $27
 	farcall Gfx_GdmaAtVBlankNoDi
@@ -1174,8 +1174,8 @@ MailServerMgr_ShowLoadingMsg:: ; 2E:538B
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $2E
-	ld bc, $D000
-	ld de, $D0C0
+	ld bc, wTileStage2
+	ld de, wTileStage2 + $C0
 	ld hl, String_MailServerMgr_LoadingMail
 	farcall TextTiles_RenderLine
 	call MailServerMgr_UploadMessageTiles
@@ -1208,8 +1208,8 @@ MailServerMgr_ShowNoMailMsg:: ; 2E:53DA
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $2E
-	ld bc, $D000
-	ld de, $D0C0
+	ld bc, wTileStage2
+	ld de, wTileStage2 + $C0
 	ld hl, $53F7
 
 	; [PROBABLE] 5 insn(s) reached by static flow only; seeds: site x5; min discovery hops 0; run
@@ -1243,8 +1243,8 @@ MailServerMgr_ShowDeletingMsg:: ; 2E:5429
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $2E
-	ld bc, $D000
-	ld de, $D0C0
+	ld bc, wTileStage2
+	ld de, wTileStage2 + $C0
 	ld hl, String_MailServerMgr_DeletingMail
 	farcall TextTiles_RenderLine
 	call MailServerMgr_UploadMessageTiles
@@ -1278,7 +1278,7 @@ Function_2E_5478::
 	ldh [rSVBK], a
 	xor a, a
 	ldh [rVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld de, $9000
 	ld c, $17
 	farcall Gfx_GdmaAtVBlankNoDi
@@ -1305,8 +1305,8 @@ MailServerMgr_ShowChoiceHelp:: ; 2E:5498
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
 	ld a, $2E
-	ld bc, $D800
-	ld de, $D940
+	ld bc, wTileStage2 + $800
+	ld de, wTileStage2 + $940
 	farcall TextTiles_RenderLine
 	ldh a, [rSVBK]
 	push af
@@ -1315,7 +1315,7 @@ MailServerMgr_ShowChoiceHelp:: ; 2E:5498
 	ldh [rSVBK], a
 	xor a, a
 	ldh [rVBK], a
-	ld hl, $D800
+	ld hl, wTileStage2 + $800
 	ld de, $8800
 	ld c, $27
 	ld a, h
@@ -1453,7 +1453,7 @@ Label_2E_5636::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D1EE
+	ld hl, wScreenTileMap + $1EE
 	ld a, $F5
 	ld [hli], a
 	ld a, $F9
@@ -1485,10 +1485,10 @@ Label_2E_5636::
 	ldh [rSVBK], a
 	ld a, l
 	add a, $F0
-	ld [wRam_D1EE], a
+	ld [wScreenTileMap + $1EE], a
 	ld a, e
 	add a, $F0
-	ld [wRam_D1EF], a
+	ld [wScreenTileMap + $1EF], a
 	jr .l56A4
 
 .l5683 ; 2E:5683
@@ -1503,10 +1503,10 @@ Label_2E_5636::
 	ldh [rSVBK], a
 	ld a, l
 	add a, $F0
-	ld [wRam_D1EE], a
+	ld [wScreenTileMap + $1EE], a
 	ld a, e
 	add a, $F0
-	ld [wRam_D1EF], a
+	ld [wScreenTileMap + $1EF], a
 .l56A4 ; 2E:56A4
 	ld a, [wTimerASeconds]
 	ld l, a
@@ -1518,10 +1518,10 @@ Label_2E_5636::
 	ldh [rSVBK], a
 	ld a, l
 	add a, $F0
-	ld [wRam_D1F1], a
+	ld [wScreenTileMap + $1F1], a
 	ld a, e
 	add a, $F0
-	ld [wRam_D1F2], a
+	ld [wScreenTileMap + $1F2], a
 .l56C5 ; 2E:56C5
 	di
 	ldh a, [rLCDC]

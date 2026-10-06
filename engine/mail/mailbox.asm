@@ -1435,7 +1435,7 @@ Mailbox_ShowEmptyList:: ; 25:4A68
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld bc, $0D00
 .loop ; 25:4A75
 	xor a, a

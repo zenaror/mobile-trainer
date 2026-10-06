@@ -46,8 +46,8 @@ MailSrvDel_MsgNoMail:: ; 23:6D8C
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $23
-	ld bc, $D000
-	ld de, $D140
+	ld bc, wTileStage2
+	ld de, wTileStage2 + $140
 	ld hl, String_MailSrvDel_MsgNoMail
 	farcall TextTiles_RenderLine
 	call MailSrvDel_UploadMessageTiles
@@ -69,8 +69,8 @@ MailSrvDel_MsgAllDeleted:: ; 23:6DD0
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $23
-	ld bc, $D000
-	ld de, $D140
+	ld bc, wTileStage2
+	ld de, wTileStage2 + $140
 	ld hl, String_MailSrvDel_MsgAllDeleted
 	farcall TextTiles_RenderLine
 	call MailSrvDel_UploadMessageTiles
@@ -92,8 +92,8 @@ MailSrvDel_MsgBlank:: ; 23:6E14
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $23
-	ld bc, $D000
-	ld de, $D140
+	ld bc, wTileStage2
+	ld de, wTileStage2 + $140
 	ld hl, String_MailSrvDel_MsgBlank
 	farcall TextTiles_RenderLine
 	call MailSrvDel_UploadMessageTiles
@@ -119,8 +119,8 @@ Function_23_6E58::
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $23
-	ld bc, $D000
-	ld de, $D140
+	ld bc, wTileStage2
+	ld de, wTileStage2 + $140
 	ld hl, $6E73
 
 	; [PROBABLE] 4 insn(s) reached by static flow only; seeds: site x4; min discovery hops 0; run
@@ -145,8 +145,8 @@ MailSrvDel_MsgReading:: ; 23:6E9C
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $23
-	ld bc, $D000
-	ld de, $D140
+	ld bc, wTileStage2
+	ld de, wTileStage2 + $140
 	ld hl, String_MailSrvDel_MsgReading
 	farcall TextTiles_RenderLine
 	call MailSrvDel_UploadMessageTiles
@@ -171,7 +171,7 @@ MailSrvDel_UploadMessageTiles:: ; 23:6EE0
 	ldh [rSVBK], a
 	xor a, a
 	ldh [rVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld de, $9000
 	ld c, $27
 	farcall Gfx_GdmaAtVBlankNoDi
@@ -239,7 +239,7 @@ MailSrvDel_DrawElapsedTime:: ; 23:6F00
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D221
+	ld hl, wScreenTileMap + $221
 	ld a, $45
 	ld [hli], a
 	ld a, $49
@@ -271,10 +271,10 @@ MailSrvDel_DrawElapsedTime:: ; 23:6F00
 	ldh [rSVBK], a
 	ld a, l
 	add a, $40
-	ld [wRam_D221], a
+	ld [wScreenTileMap + $221], a
 	ld a, e
 	add a, $40
-	ld [wRam_D222], a
+	ld [wScreenTileMap + $222], a
 	jr .l6FAA
 
 .l6F89 ; 23:6F89
@@ -290,10 +290,10 @@ MailSrvDel_DrawElapsedTime:: ; 23:6F00
 	ldh [rSVBK], a
 	ld a, l
 	add a, $40
-	ld [wRam_D221], a
+	ld [wScreenTileMap + $221], a
 	ld a, e
 	add a, $40
-	ld [wRam_D222], a
+	ld [wScreenTileMap + $222], a
 .l6FAA ; 23:6FAA
 	ld a, [wTimerASeconds]
 	ld l, a
@@ -305,10 +305,10 @@ MailSrvDel_DrawElapsedTime:: ; 23:6F00
 	ldh [rSVBK], a
 	ld a, l
 	add a, $40
-	ld [wRam_D224], a
+	ld [wScreenTileMap + $224], a
 	ld a, e
 	add a, $40
-	ld [wRam_D225], a
+	ld [wScreenTileMap + $225], a
 .l6FCB ; 23:6FCB
 	di
 	ldh a, [rLCDC]

@@ -289,7 +289,7 @@ SettingsPhone_ClearEntryBuffers:: ; 67:41FE
 	ldh [rSVBK], a
 	xor a, a
 	ld bc, $0033
-	ld hl, $DEDD
+	ld hl, $DEDD ; raw: wipes the three phone fields (Internet, SelfPage, Comment: $0033 bytes), not only the first
 	call FillBytes
 	ld a, [wSettingsFieldMask]
 	ld b, a
@@ -354,7 +354,7 @@ Function_67_424A::
 	ld de, wRam_C28F
 	call DecodeXorA5
 	ld hl, wRam_C28F
-	ld de, $DEDD
+	ld de, wAcctNumberInternet
 	call CompareString
 	or a, a
 	jr z, .l429A
@@ -406,7 +406,7 @@ Function_67_424A::
 	ld de, wRam_C28F
 	call DecodeXorA5
 	ld hl, wRam_C28F
-	ld de, $DEEE
+	ld de, wAcctNumberSelfPage
 	call CompareString
 	or a, a
 	jr z, .l4301
@@ -445,19 +445,19 @@ PhoneKeypad_Setup:: ; 67:431F
 	xor a, a
 	ld [wPhoneKeypad_Result], a
 	ld [wPhoneKeypad_OkFlag], a
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	ld b, $11
 	farcall TextBuf_Init
 	ld a, [wPhoneKeypad_Kind]
 	or a, a
 	jr nz, .l4355
-	ld hl, $DE80
-	ld de, $DEDD
+	ld hl, wTextEntryBuf
+	ld de, wAcctNumberInternet
 	farcall TextEntry_InsertString
 	jr .l4361
 .l4355 ; 67:4355
-	ld hl, $DE80
-	ld de, $DEEE
+	ld hl, wTextEntryBuf
+	ld de, wAcctNumberSelfPage
 	farcall TextEntry_InsertString
 .l4361 ; 67:4361
 	call PhoneKeypad_UpdateNonEmptyFlag
@@ -507,7 +507,7 @@ PhoneKeypad_Setup:: ; 67:431F
 	farcall Tilemap_CopyRectAndAttr
 .l43E7 ; 67:43E7
 	ld a, $03
-	ld hl, $DE83
+	ld hl, wTextEntryBuf + $03
 	call PhoneKeypad_PrintText
 	call PhoneKeypad_UploadTextTiles
 	call PhoneKeypad_BuildTextMap
@@ -523,9 +523,9 @@ PhoneKeypad_Setup:: ; 67:431F
 	farcall Sprite_InitSlot
 	ld d, $20
 	ld e, $10
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextEntry_UpdateCursorSprite
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextBuf_GetLength
 	cp a, $01
 	jr c, .l442F
@@ -557,7 +557,7 @@ PhoneKeypad_Loop:: ; 67:443C
 	; [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 431F-4571 by apply_coverage
 	; --split [executed in 3 scenarios]
 	ld a, [wKeyboardCharLo]
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	ld d, a
 	farcall TextBuf_AppendChar
 	or a, a
@@ -587,7 +587,7 @@ PhoneKeypad_Loop:: ; 67:443C
 .l4493 ; 67:4493
 	; [CONFIRMED] 6 insn(s) executed; cut out of the PROBABLE region 431F-4571 by apply_coverage
 	; --split [executed in 3 scenarios]
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextBuf_GetLength
 	cp a, $01
 	jr c, .l44A9
@@ -603,7 +603,7 @@ PhoneKeypad_Loop:: ; 67:443C
 .l44B2 ; 67:44B2
 	; [CONFIRMED] 76 insn(s) executed; cut out of the PROBABLE region 431F-4571 by apply_coverage
 	; --split [executed in 1 scenarios]
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextBuf_DeleteLast
 	or a, a
 	jr nz, .l4523
@@ -615,7 +615,7 @@ PhoneKeypad_Loop:: ; 67:443C
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextBuf_GetLength
 	cp a, $01
 	jr c, .l44E3
@@ -625,7 +625,7 @@ PhoneKeypad_Loop:: ; 67:443C
 	farcall Kbd_ShowMarkerSprite
 	jr .l453B
 .l44EB ; 67:44EB
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextBuf_GetLength
 	cp a, $01
 	jr nc, .l450A
@@ -667,10 +667,10 @@ PhoneKeypad_Loop:: ; 67:443C
 .l453B ; 67:453B
 	ld d, $20
 	ld e, $10
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextEntry_UpdateCursorSprite
 	ld a, $03
-	ld hl, $DE83
+	ld hl, wTextEntryBuf + $03
 	call PhoneKeypad_PrintText
 	call PhoneKeypad_UploadTextTiles
 	call PhoneKeypad_UpdateFullFlag
@@ -678,14 +678,14 @@ PhoneKeypad_Loop:: ; 67:443C
 	jp PhoneKeypad_Loop
 
 PhoneKeypad_StoreResult:: ; 67:4559
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	ld a, [wPhoneKeypad_Kind]
 	or a, a
 	jr nz, .l4567
-	ld de, $DEDD
+	ld de, wAcctNumberInternet
 	jr .l456A
 .l4567 ; 67:4567
-	ld de, $DEEE
+	ld de, wAcctNumberSelfPage
 .l456A ; 67:456A
 	farcall TextEntry_CopyText
 	ret
@@ -720,7 +720,7 @@ PhoneKeypad_UpdateFullFlag:: ; 67:4593
 	; [CONFIRMED] 285 insn(s) reached by static flow only; seeds: exec x285; min discovery hops 3;
 	; entered by call from 67:4553 (PROBABLE code) | 7 insn(s) executed; cut out of the PROBABLE
 	; region 4593-486D by apply_coverage --split [executed in 3 scenarios]
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextBuf_GetFree
 	or a, a
 	jr z, .l45A5
@@ -738,7 +738,7 @@ PhoneKeypad_UpdateFullFlag:: ; 67:4593
 PhoneKeypad_UpdateNonEmptyFlag:: ; 67:45AB
 	; [CONFIRMED] 275 insn(s) executed; cut out of the PROBABLE region 4593-486D by apply_coverage
 	; --split [executed in 1 scenarios] (part of region $45AB-$486D)
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextBuf_GetLength
 	cp a, $01
 	jr nc, .l45BE

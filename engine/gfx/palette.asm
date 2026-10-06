@@ -105,7 +105,7 @@ Palette_UploadBlock:: ; 4F:405E
 	ret
 
 PalFade_BlendColor:: ; 4F:4083
-	ld hl, $D980
+	ld hl, wPaletteFadeLevels
 	add hl, de
 	ld a, [hli]
 	ld c, a
@@ -116,7 +116,7 @@ PalFade_BlendColor:: ; 4F:4083
 	or a, a
 	jp nz, .l4131
 	push bc
-	ld hl, $D880
+	ld hl, wPaletteFadeFrom
 	add hl, de
 	ld a, [hl]
 	and a, $1F
@@ -137,7 +137,7 @@ PalFade_BlendColor:: ; 4F:4083
 	rra
 	rra
 	ldh [hRam_FFB2], a
-	ld hl, $D900
+	ld hl, wPaletteFadeTo
 	add hl, de
 	ld a, [hl]
 	and a, $1F
@@ -203,7 +203,7 @@ PalFade_BlendColor:: ; 4F:4083
 	pop bc
 	jr .l4126
 .l411C ; 4F:411C
-	ld hl, $D880
+	ld hl, wPaletteFadeFrom
 	add hl, de
 	ld a, [hli]
 	ldh [hRam_FFB0], a
@@ -218,7 +218,7 @@ PalFade_BlendColor:: ; 4F:4083
 	ld [hli], a
 	ret
 .l4131 ; 4F:4131
-	ld hl, $D900
+	ld hl, wPaletteFadeTo
 	add hl, de
 	ld a, [hli]
 	ldh [hRam_FFB0], a
@@ -302,30 +302,30 @@ PalFade_Start_FourColors:: ; 4F:41A4
 Label_4F_41A4::
 	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1;
 	; entered by table from 4F:4191 (executed)
-	ld de, $D9F0
-	ld hl, $D970
+	ld de, wPaletteFadeLevels + $70
+	ld hl, wPaletteFadeTo + $70
 	ld b, $04
 	jr PalFade_Start_FillLoop
 
 PalFade_Start_ObjColors:: ; 4F:41AE
 Label_4F_41AE::
-	ld de, $D9C0
-	ld hl, $D940
+	ld de, wPaletteFadeLevels + $40
+	ld hl, wPaletteFadeTo + $40
 	ld b, $20
 	jr PalFade_Start_FillLoop
 
 PalFade_Start_BgColors:: ; 4F:41B8
 Label_4F_41B8::
-	ld de, $D980
-	ld hl, $D900
+	ld de, wPaletteFadeLevels
+	ld hl, wPaletteFadeTo
 	ld b, $20
 	jr PalFade_Start_FillLoop
 
 PalFade_Start_AllColors:: ; 4F:41C2
 Label_4F_41C2::
 	; [CONFIRMED] 54 insn(s); 54 executed (in up to 18/18 scenarios)
-	ld de, $D980
-	ld hl, $D900
+	ld de, wPaletteFadeLevels
+	ld hl, wPaletteFadeTo
 	ld b, $40
 
 PalFade_Start_FillLoop:: ; 4F:41CA
@@ -406,15 +406,18 @@ PalFade_Step_FourColors:: ; 4F:4243
 Label_4F_4243::
 	; [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1;
 	; entered by table from 4F:4230 (executed)
+	; static reading, the mode never runs: PalFade_Start_FourColors (4F:41A4) fills the end colours and the progress words at offset $70,
+	; and this routine writes the progress words at offset $70 too, but blends the colours at offset $60 (DE): the two disagree
+	; (docs/research/naming2_ramop9.md)
 	ld de, $0060
-	ld hl, $D9F0
+	ld hl, wPaletteFadeLevels + $70
 	ld b, $04
 	jr PalFade_Step_UpdateRange
 
 PalFade_Step_ObjColors:: ; 4F:424D
 Label_4F_424D::
 	ld de, $0040
-	ld hl, $D9C0
+	ld hl, wPaletteFadeLevels + $40
 	ld b, $20
 	jr PalFade_Step_UpdateRange
 
@@ -422,14 +425,14 @@ PalFade_Step_BgColors:: ; 4F:4257
 Label_4F_4257::
 	; [CONFIRMED] 31 insn(s); 31 executed (in up to 18/18 scenarios)
 	ld de, $0000
-	ld hl, $D980
+	ld hl, wPaletteFadeLevels
 	ld b, $20
 	jr PalFade_Step_UpdateRange
 
 PalFade_Step_AllColors:: ; 4F:4261
 Label_4F_4261::
 	ld de, $0000
-	ld hl, $D980
+	ld hl, wPaletteFadeLevels
 	ld b, $40
 
 PalFade_Step_UpdateRange:: ; 4F:4269
@@ -501,7 +504,7 @@ Function_4F_42B4::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0080
-	ld de, $D880
+	ld de, wPaletteFadeFrom
 	ld hl, wPaletteBufBg
 	call CopyBytes
 	ld a, $00
@@ -535,7 +538,7 @@ Palette_FadeInFromWhiteSlow:: ; 4F:42FF
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0080
-	ld de, $D880
+	ld de, wPaletteFadeFrom
 	ld hl, wPaletteBufBg
 	call CopyBytes
 	ld a, $00
@@ -600,7 +603,7 @@ Function_4F_4370::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0080
-	ld de, $D880
+	ld de, wPaletteFadeFrom
 	ld hl, wPaletteBufBg
 	call CopyBytes
 	ld a, $00
@@ -633,7 +636,7 @@ Palette_FadeOutToWhiteSlow:: ; 4F:43B8
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0080
-	ld de, $D880
+	ld de, wPaletteFadeFrom
 	ld hl, wPaletteBufBg
 	call CopyBytes
 	ld a, $00
@@ -695,7 +698,7 @@ Function_4F_4426::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0080
-	ld de, $D880
+	ld de, wPaletteFadeFrom
 	ld hl, wPaletteBufBg
 	call CopyBytes
 	ld a, $00
@@ -758,7 +761,7 @@ Function_4F_4497::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0080
-	ld de, $D880
+	ld de, wPaletteFadeFrom
 	ld hl, wPaletteBufBg
 	call CopyBytes
 	ld a, $00
@@ -797,7 +800,7 @@ Function_4F_44DF::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0080
-	ld de, $D880
+	ld de, wPaletteFadeFrom
 	ld hl, wPaletteBufBg
 	call CopyBytes
 	ld a, $03
@@ -840,7 +843,7 @@ Function_4F_452A::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0080
-	ld de, $D880
+	ld de, wPaletteFadeFrom
 	ld hl, wPaletteBufBg
 	call CopyBytes
 	ld a, $03

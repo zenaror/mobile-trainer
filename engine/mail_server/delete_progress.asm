@@ -379,7 +379,7 @@ MailSrvDel_NumberTileOffset:: ; 23:5829
 
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5829-58A9 by apply_coverage --split
-	ld bc, $D010
+	ld bc, wTileStage2 + $10
 	jp .l5886
 
 .l583F ; 23:583F
@@ -395,7 +395,7 @@ MailSrvDel_NumberTileOffset:: ; 23:5829
 
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5829-58A9 by apply_coverage --split
-	ld bc, $D010
+	ld bc, wTileStage2 + $10
 	jp .l5886
 
 .l5855 ; 23:5855
@@ -411,7 +411,7 @@ MailSrvDel_NumberTileOffset:: ; 23:5829
 
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5829-58A9 by apply_coverage --split
-	ld bc, $D020
+	ld bc, wTileStage2 + $20
 	jp .l5886
 
 .l586B ; 23:586B
@@ -427,13 +427,13 @@ MailSrvDel_NumberTileOffset:: ; 23:5829
 
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5829-58A9 by apply_coverage --split
-	ld bc, $D030
+	ld bc, wTileStage2 + $30
 	jp .l5886
 
 .l5881 ; 23:5881
 	; [CONFIRMED] 20 insn(s) executed; cut out of the PROBABLE region 5829-58A9 by apply_coverage
 	; --split [executed in 5 scenarios]
-	ld bc, $D030
+	ld bc, wTileStage2 + $30
 	ld a, $01
 .l5886 ; 23:5886
 	pop hl
@@ -448,7 +448,7 @@ MailSrvDel_UploadNumberTiles:: ; 23:5889
 	ldh [rSVBK], a
 	xor a, a
 	ldh [rVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld de, $9000
 	ld c, $27
 	farcall Gfx_GdmaAtVBlankNoDi

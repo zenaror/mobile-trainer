@@ -213,7 +213,7 @@ Account_ConfirmScreen_PrintAccount:: ; 68:637F
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	ld a, $03
-	ld hl, $DEA0
+	ld hl, wAcctLoginId
 	call TextEngine_Run
 	ld de, $FFFF
 	ld hl, $0901
@@ -246,7 +246,7 @@ Account_ConfirmScreen_PrintAccount:: ; 68:637F
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	ld a, $03
-	ld hl, $DFAA
+	ld hl, wAcctMailAddress
 	call TextEngine_Run
 	ret
 
@@ -477,7 +477,7 @@ Account_ConfirmManualScreen_PrintAccount:: ; 68:65EA
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	ld a, $03
-	ld hl, $DEA0
+	ld hl, wAcctLoginId
 	call TextEngine_Run
 	ld de, $FFFF
 	ld hl, $0601
@@ -510,7 +510,7 @@ Account_ConfirmManualScreen_PrintAccount:: ; 68:65EA
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	ld a, $03
-	ld hl, $DFAA
+	ld hl, wAcctMailAddress
 	call TextEngine_Run
 	ld de, $FFFF
 	ld hl, $0807
@@ -543,7 +543,7 @@ Account_ConfirmManualScreen_PrintAccount:: ; 68:65EA
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	ld a, $03
-	ld hl, $DEDD
+	ld hl, wAcctNumberInternet
 	call TextEngine_Run
 	ld de, $FFFF
 	ld hl, $0A07
@@ -576,7 +576,7 @@ Account_ConfirmManualScreen_PrintAccount:: ; 68:65EA
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	ld a, $03
-	ld hl, $DEEE
+	ld hl, wAcctNumberSelfPage
 	call TextEngine_Run
 	ld de, $FFFF
 	ld hl, $0C06
@@ -609,7 +609,7 @@ Account_ConfirmManualScreen_PrintAccount:: ; 68:65EA
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	ld a, $03
-	ld hl, $DEFF
+	ld hl, wAcctNumberComment
 	call TextEngine_Run
 	ret
 

@@ -997,7 +997,7 @@ Function_2D_4E06::
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld bc, $1000
 .l4E12 ; 2D:4E12
 	xor a, a
@@ -1009,7 +1009,7 @@ Function_2D_4E06::
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld bc, $0780
 .l4E25 ; 2D:4E25
 	xor a, a
@@ -1395,19 +1395,19 @@ TextTiles_UploadBuffers:: ; 2D:5016
 	ldh [rSVBK], a
 	xor a, a
 	ldh [rVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld de, $9000
 	ld c, $3F
 	call TextTiles_HdmaBlock
-	ld hl, $D400
+	ld hl, wTileStage2 + $400
 	ld de, $9400
 	ld c, $3F
 	call TextTiles_HdmaBlock
-	ld hl, $D800
+	ld hl, wTileStage2 + $800
 	ld de, $8800
 	ld c, $3F
 	call TextTiles_HdmaBlock
-	ld hl, $DC00
+	ld hl, wTileStage2 + $C00
 	ld de, $8C00
 	ld c, $3F
 	call TextTiles_HdmaBlock

@@ -412,7 +412,7 @@ PageList_InitScreen:: ; 24:42F0
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld bc, $1000
 .l42FD ; 24:42FD
 	xor a, a
@@ -424,7 +424,7 @@ PageList_InitScreen:: ; 24:42F0
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld bc, $0780
 .l4310 ; 24:4310
 	xor a, a
@@ -1378,7 +1378,7 @@ PageList_UploadTextTiles:: ; 24:4A00
 	ldh [rSVBK], a
 	xor a, a
 	ldh [rVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld de, $9000
 	ld c, $3F
 	call PageList_StartHDMAAtVBlank
@@ -1386,7 +1386,7 @@ PageList_UploadTextTiles:: ; 24:4A00
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D400
+	ld hl, wTileStage2 + $400
 	ld de, $9400
 	ld c, $3F
 	call PageList_StartHDMAAtVBlank
@@ -1394,7 +1394,7 @@ PageList_UploadTextTiles:: ; 24:4A00
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D800
+	ld hl, wTileStage2 + $800
 	ld de, $8800
 	ld c, $3F
 	call PageList_StartHDMAAtVBlank
@@ -1402,7 +1402,7 @@ PageList_UploadTextTiles:: ; 24:4A00
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $DC00
+	ld hl, wTileStage2 + $C00
 	ld de, $8C00
 	ld c, $2F
 	call PageList_StartHDMAAtVBlank
@@ -1456,8 +1456,8 @@ PageList_ShowMessage:: ; 24:4A79
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
 	ld a, $24
-	ld bc, $D000
-	ld de, $D140
+	ld bc, wTileStage2
+	ld de, wTileStage2 + $140
 	farcall TextTiles_RenderLine
 	pop hl
 	push hl
@@ -1467,8 +1467,8 @@ PageList_ShowMessage:: ; 24:4A79
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
 	ld a, $24
-	ld bc, $D280
-	ld de, $D3C0
+	ld bc, wTileStage2 + $280
+	ld de, wTileStage2 + $3C0
 	farcall TextTiles_RenderLine
 	pop hl
 	push hl
@@ -1478,8 +1478,8 @@ PageList_ShowMessage:: ; 24:4A79
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
 	ld a, $24
-	ld bc, $D500
-	ld de, $D640
+	ld bc, wTileStage2 + $500
+	ld de, wTileStage2 + $640
 	farcall TextTiles_RenderLine
 	pop hl
 	push hl
@@ -1489,8 +1489,8 @@ PageList_ShowMessage:: ; 24:4A79
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
 	ld a, $24
-	ld bc, $D780
-	ld de, $D8C0
+	ld bc, wTileStage2 + $780
+	ld de, wTileStage2 + $8C0
 	farcall TextTiles_RenderLine
 	pop hl
 	push hl
@@ -1500,8 +1500,8 @@ PageList_ShowMessage:: ; 24:4A79
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
 	ld a, $24
-	ld bc, $DA00
-	ld de, $DB40
+	ld bc, wTileStage2 + $A00
+	ld de, wTileStage2 + $B40
 	farcall TextTiles_RenderLine
 	pop hl
 	call PageList_UploadTextTiles

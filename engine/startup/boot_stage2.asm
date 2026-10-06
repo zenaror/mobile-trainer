@@ -40,7 +40,7 @@ Function_4F_4717::
 .loop ; 4F:4754
 	ld a, e
 	ldh [rSVBK], a
-	ld hl, $D000
+	ld hl, $D000 ; raw: base of the wipe of every bank 2-7
 	ld bc, $1000
 	xor a, a
 	call FillBytes
@@ -109,7 +109,7 @@ Boot_ReinitRuntime:: ; 4F:47A5
 	ld a, e
 	ldh [rSVBK], a
 	xor a, a
-	ld hl, $D000
+	ld hl, $D000 ; raw: base of the wipe of every bank 2-7
 	ld bc, $1000
 	call FillBytes
 	call Sound_FrameService

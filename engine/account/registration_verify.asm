@@ -155,7 +155,7 @@ Registration_Verify_StateIspLogin:: ; 68:712D
 	call CopyString
 	ld hl, sRegVerify_LoginId
 	call CopyString
-	ld hl, $DEB9
+	ld hl, wAcctPassword
 	call CopyString
 	ld hl, sRegVerify_ApiArgs
 	ld a, $06
@@ -182,7 +182,7 @@ Registration_Verify_StatePopLogin:: ; 68:7166
 	ld hl, sRegVerify_MailAddress
 	ld de, sRegVerify_ApiArgs
 	call CopyString
-	ld hl, $DEB9
+	ld hl, wAcctPassword
 	call CopyString
 	ldh [hScratchA], a
 	pop af

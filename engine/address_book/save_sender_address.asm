@@ -1286,40 +1286,40 @@ SaveSenderAddr_LoadCaption:: ; 2A:49C5
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
 	ld a, $2A
-	ld bc, $D280
-	ld de, $D3C0
+	ld bc, wTileStage2 + $280
+	ld de, wTileStage2 + $3C0
 	farcall TextTiles_RenderLine
 	ld hl, $4A6F
 	ld a, $02
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
 	ld a, $2A
-	ld bc, $D500
-	ld de, $D640
+	ld bc, wTileStage2 + $500
+	ld de, wTileStage2 + $640
 	farcall TextTiles_RenderLine
 	ld hl, $4A78
 	ld a, $02
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
 	ld a, $2A
-	ld bc, $D780
-	ld de, $D8C0
+	ld bc, wTileStage2 + $780
+	ld de, wTileStage2 + $8C0
 	farcall TextTiles_RenderLine
 	ld hl, $4A81
 	ld a, $02
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
 	ld a, $2A
-	ld bc, $DA00
-	ld de, $DB40
+	ld bc, wTileStage2 + $A00
+	ld de, wTileStage2 + $B40
 	farcall TextTiles_RenderLine
 	ld hl, $4A8A
 	ld a, $02
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
 	ld a, $2A
-	ld bc, $DC80
-	ld de, $DDC0
+	ld bc, wTileStage2 + $C80
+	ld de, wTileStage2 + $DC0
 	farcall TextTiles_RenderLine
 	pop de
 	pop bc

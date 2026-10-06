@@ -875,7 +875,7 @@ MailGrid_UploadTextTiles:: ; 2B:5977
 	ldh [rSVBK], a
 	xor a, a
 	ldh [rVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld de, $9000
 	ld c, $27
 	call Gfx_StartHDMAAtVBlank_2B_5994

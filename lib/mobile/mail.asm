@@ -820,7 +820,7 @@ Mail_ParseBody:: ; 0F:44D5
 .skip ; 0F:453B
 	; [CONFIRMED] 20 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage
 	; --split [executed in 6 scenarios]
-	ld hl, $D006
+	ld hl, wMail_OutputBankVar
 	ld a, [hl]
 	ld [wMail_OutputBank], a
 	ldh [hSRAMBank], a
@@ -1416,7 +1416,7 @@ Mail_PartRec_EmitHeaderBlock:: ; 0F:486B
 Function_0F_486B::
 	; [CONFIRMED] 51 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage
 	; --split [executed in 6 scenarios]
-	ld hl, $D006
+	ld hl, wMail_OutputBankVar
 	ld a, [hli]
 	ld [wMail_OutputBank], a
 	ldh [hSRAMBank], a
@@ -1445,7 +1445,7 @@ Function_0F_486B::
 	ld [de], a
 	inc e
 	call z, Mail_PartRec_EmitHeaderBlock_NextPage
-	ld hl, $D006
+	ld hl, wMail_OutputBankVar
 	ld a, [wMail_OutputBank]
 	ld [hli], a
 	ld [hl], e
@@ -1487,7 +1487,7 @@ Mail_PartRec_EmitLengthAndPart:: ; 0F:48C6
 Function_0F_48C6::
 	; [CONFIRMED] 22 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage
 	; --split [executed in 6 scenarios]
-	ld hl, $D006
+	ld hl, wMail_OutputBankVar
 	ld a, [hli]
 	ld [wMail_OutputBank], a
 	ldh [hSRAMBank], a
@@ -1546,7 +1546,7 @@ Function_0F_48C6::
 	ld [de], a
 	inc e
 	call z, Mail_PartRec_EmitLengthAndPart_NextPage
-	ld hl, $D006
+	ld hl, wMail_OutputBankVar
 	ld a, [wMail_OutputBank]
 	ld [hli], a
 	ld [hl], e
@@ -1600,7 +1600,7 @@ Mail_PartRec_EmitPart:: ; 0F:4951
 Function_0F_4951::
 	; [CONFIRMED] 71 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage
 	; --split [executed in 4 scenarios]
-	ld hl, $D006
+	ld hl, wMail_OutputBankVar
 	ld a, [hli]
 	ld [wMail_OutputBank], a
 	ldh [hSRAMBank], a
@@ -1614,7 +1614,7 @@ Function_0F_4951::
 	call z, Mail_PartRec_EmitPart_NextPage
 	cp a, $03
 	jr nz, .l4987
-	ld hl, $D011
+	ld hl, wMail_KeywordValue
 	ld a, [hli]
 	ld [de], a
 	inc e
@@ -1645,7 +1645,7 @@ Function_0F_4951::
 	ld [de], a
 	inc e
 	call z, Mail_PartRec_EmitPart_NextPage
-	ld hl, $D006
+	ld hl, wMail_OutputBankVar
 	ld a, [wMail_OutputBank]
 	ld [hli], a
 	ld [hl], e
@@ -1693,7 +1693,7 @@ Mail_PartRec_EmitLength:: ; 0F:49D0
 Function_0F_49D0::
 	; [CONFIRMED] 42 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage
 	; --split [executed in 6 scenarios]
-	ld hl, $D006
+	ld hl, wMail_OutputBankVar
 	ld a, [hl]
 	ld [wMail_OutputBank], a
 	ldh [hSRAMBank], a
@@ -1726,7 +1726,7 @@ Function_0F_49D0::
 	ld [de], a
 	inc e
 	call z, Mail_PartRec_EmitLength_NextPage
-	ld hl, $D006
+	ld hl, wMail_OutputBankVar
 	ld a, [wMail_OutputBank]
 	ld [hli], a
 	ld [hl], e
@@ -1966,7 +1966,7 @@ Mail_FindKeywordValue:: ; 0F:4AD3
 	inc e
 	call z, Mail_FindKeywordValue_NextPage
 .l4B2A ; 0F:4B2A
-	ld hl, $D011
+	ld hl, wMail_KeywordValue
 	ld a, [wMail_InputBank]
 	ld [hli], a
 	ld [hl], e
@@ -2636,7 +2636,7 @@ Mail_ComposeNext:: ; 0F:4E66
 Mail_EmitCrLf:: ; 0F:4EA4
 	; [CONFIRMED] 39 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage
 	; --split [executed in 6 scenarios]
-	ld hl, $D006
+	ld hl, wMail_OutputBankVar
 	ld a, [hli]
 	ld [wMail_OutputBank], a
 	ldh [hSRAMBank], a
@@ -2662,7 +2662,7 @@ Mail_EmitCrLf:: ; 0F:4EA4
 	dec bc
 	inc e
 	call z, Mail_EmitCrLf_NextPage
-	ld hl, $D006
+	ld hl, wMail_OutputBankVar
 	ld a, [wMail_OutputBank]
 	ld [hli], a
 	ld a, e
@@ -2753,7 +2753,7 @@ Mail_ComposeStep:: ; 0F:4F0E
 	call Mail_EmitHeaderField
 	and a, a
 	jr nz, .l4F27
-	ld hl, $D00D
+	ld hl, wMail_ItemListPointer
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
@@ -2769,7 +2769,7 @@ Mail_ComposeStep:: ; 0F:4F0E
 Mail_FetchComposeItem:: ; 0F:4F3D
 	; [CONFIRMED] 54 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage
 	; --split [executed in 6 scenarios]
-	ld hl, $D00D
+	ld hl, wMail_ItemListPointer
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
@@ -2788,7 +2788,7 @@ Mail_FetchComposeItem:: ; 0F:4F3D
 	ld a, [de]
 	ld [hli], a
 	inc de
-	ld hl, $D00D
+	ld hl, wMail_ItemListPointer
 	ld [hl], e
 	inc hl
 	ld [hl], d
@@ -2943,7 +2943,7 @@ Mail_EmitHeaderField:: ; 0F:4F5D
 
 Mail_EmitString:: ; 0F:5024
 	push hl
-	ld hl, $D006
+	ld hl, wMail_OutputBankVar
 	ld a, [hli]
 	ld [wMail_OutputBank], a
 	ldh [hSRAMBank], a
@@ -2970,7 +2970,7 @@ Mail_EmitString:: ; 0F:5024
 	call z, Mail_EmitString_NextPage
 	jr .loop
 .l504A ; 0F:504A
-	ld hl, $D006
+	ld hl, wMail_OutputBankVar
 	ld a, [wMail_OutputBank]
 	ld [hli], a
 	ld a, e
@@ -3169,7 +3169,7 @@ Mail_EncodeHeaderWords:: ; 0F:50B7
 	ret
 
 Mail_EmitBufferToOutput:: ; 0F:513A
-	ld hl, $D006
+	ld hl, wMail_OutputBankVar
 	ld a, [hli]
 	ld [wMail_OutputBank], a
 	ldh [hSRAMBank], a
@@ -3196,7 +3196,7 @@ Mail_EmitBufferToOutput:: ; 0F:513A
 	call z, Mail_EmitBufferToOutput_NextPage
 	jr .loop
 .l5161 ; 0F:5161
-	ld hl, $D006
+	ld hl, wMail_OutputBankVar
 	ld a, [wMail_OutputBank]
 	ld [hli], a
 	ld a, e
@@ -3225,7 +3225,7 @@ Mail_EmitBufferToOutput_NextPage:: ; 0F:5174
 Mail_EmitGameCodeValue:: ; 0F:517D
 	; [CONFIRMED] 62 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage
 	; --split [executed in 6 scenarios]
-	ld hl, $D006
+	ld hl, wMail_OutputBankVar
 	ld a, [hli]
 	ld [wMail_OutputBank], a
 	ldh [hSRAMBank], a
@@ -3328,7 +3328,7 @@ Mail_EmitGameCodeValue:: ; 0F:517D
 	jr z, .l51F3
 	inc e
 	call z, Mail_EmitGameCodeValue_NextPage
-	ld hl, $D006
+	ld hl, wMail_OutputBankVar
 	ld a, [wMail_OutputBank]
 	ld [hli], a
 	ld a, e

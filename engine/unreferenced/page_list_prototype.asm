@@ -110,7 +110,7 @@ Canvas_InitScreen:: ; 7F:4CA9
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $1000
-	ld hl, $D000
+	ld hl, wTileStage2
 .l4D23 ; 7F:4D23
 	xor a, a
 	ld [hli], a
@@ -122,7 +122,7 @@ Canvas_InitScreen:: ; 7F:4CA9
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0800
-	ld hl, $D000
+	ld hl, wTileStage3
 .l4D36 ; 7F:4D36
 	xor a, a
 	ld [hli], a
@@ -704,7 +704,7 @@ Function_7F_51EE::
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld bc, $1000
 .l51FB ; 7F:51FB
 	xor a, a
@@ -716,7 +716,7 @@ Function_7F_51EE::
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D000
+	ld hl, wTileStage3
 	ld bc, $0780
 .l520E ; 7F:520E
 	xor a, a
@@ -1599,7 +1599,7 @@ Function_7F_58B9::
 	ldh [rSVBK], a
 	xor a, a
 	ldh [rVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld de, $9000
 	ld c, $3F
 	call PageListProto_StartHDMAAtVBlank
@@ -1607,7 +1607,7 @@ Function_7F_58B9::
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D400
+	ld hl, wTileStage2 + $400
 	ld de, $9400
 	ld c, $3F
 	call PageListProto_StartHDMAAtVBlank
@@ -1615,7 +1615,7 @@ Function_7F_58B9::
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D800
+	ld hl, wTileStage2 + $800
 	ld de, $8800
 	ld c, $6F
 	call PageListProto_StartHDMAAtVBlank

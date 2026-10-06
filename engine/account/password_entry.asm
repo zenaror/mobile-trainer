@@ -54,7 +54,7 @@ Function_68_5D2F:: ; 68:5D2F
 	ld de, wRam_C28F
 	call DecodeXorA5
 	ld hl, wRam_C28F
-	ld de, $DED4
+	ld de, wAcctPasswordEntry
 	call CompareString
 	or a, a
 	jr z, .l5D7E
@@ -94,11 +94,11 @@ Function_68_5D9C::
 	farcall Sprite_ResetAll
 	xor a, a
 	ld [wPasswordEntry_Result], a
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	ld b, $09
 	farcall TextBuf_Init
-	ld hl, $DE80
-	ld de, $DED4
+	ld hl, wTextEntryBuf
+	ld de, wAcctPasswordEntry
 	call TextEntry_InsertString
 	call Account_PasswordEntry_UpdateOkState
 	ld a, [wPasswordEntry_Variant]
@@ -150,7 +150,7 @@ Function_68_5D9C::
 	ld a, $5D
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $03
-	ld hl, $DE83
+	ld hl, wTextEntryBuf + $03
 	call Account_Password_PrintField
 	call Account_Password_UploadTextTiles
 	call Account_Password_BuildTextMap
@@ -166,7 +166,7 @@ Function_68_5D9C::
 	farcall Sprite_InitSlot
 	ld d, $38
 	ld e, $10
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextEntry_UpdateCursorSprite
 	call Account_PasswordIsValid
 	or a, a
@@ -204,7 +204,7 @@ Account_PasswordEntry_UpdateOkState:: ; 68:5EAE
 Function_68_5EAE::
 	; [CONFIRMED] 22 insn(s); 22 executed (in up to 7/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextBuf_GetFree
 	or a, a
 	jr z, .l5EC0
@@ -237,7 +237,7 @@ Account_PasswordEntry_InputLoop:: ; 68:5EC7
 .l5EEC ; 68:5EEC
 	; [CONFIRMED] 129 insn(s); 129 executed (in up to 7/18 scenarios)
 	ld a, [wKeyboardCharLo]
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	ld d, a
 	farcall TextBuf_AppendChar
 	or a, a
@@ -270,7 +270,7 @@ Account_PasswordEntry_InputLoop:: ; 68:5EC7
 	farcall Kbd_ShowMarkerSprite
 	jp .l5FC3
 .l5F36 ; 68:5F36
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextBuf_DeleteLast
 	or a, a
 	jr nz, .l5FA2
@@ -312,8 +312,8 @@ Account_PasswordEntry_InputLoop:: ; 68:5EC7
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld hl, $DE80
-	ld de, $DED4
+	ld hl, wTextEntryBuf
+	ld de, wAcctPasswordEntry
 	farcall TextEntry_CopyText
 	ld a, $01
 	ld [wPasswordEntry_Result], a
@@ -327,8 +327,8 @@ Account_PasswordEntry_InputLoop:: ; 68:5EC7
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld hl, $DE80
-	ld de, $DED4
+	ld hl, wTextEntryBuf
+	ld de, wAcctPasswordEntry
 	farcall TextEntry_CopyText
 	xor a, a
 	ld [wPasswordEntry_Result], a
@@ -336,10 +336,10 @@ Account_PasswordEntry_InputLoop:: ; 68:5EC7
 .l5FC3 ; 68:5FC3
 	ld d, $38
 	ld e, $10
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextEntry_UpdateCursorSprite
 	ld a, $03
-	ld hl, $DE83
+	ld hl, wTextEntryBuf + $03
 	call Account_Password_PrintField
 	call Account_Password_UploadTextTiles
 	call Account_PasswordEntry_UpdateOkState
@@ -347,7 +347,7 @@ Account_PasswordEntry_InputLoop:: ; 68:5EC7
 	jp Account_PasswordEntry_InputLoop
 
 Account_PasswordIsValid:: ; 68:5FE1
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextBuf_GetLength
 	cp a, $04
 	jp c, .l604E
@@ -361,7 +361,7 @@ Account_PasswordIsValid:: ; 68:5FE1
 	xor a, a
 	ldh [hPasswordEntry_HasDigit], a
 	ldh [hPasswordEntry_HasLetter], a
-	ld hl, $DE83
+	ld hl, wTextEntryBuf + $03
 .loop ; 68:6004
 	ld a, [hli]
 	or a, a

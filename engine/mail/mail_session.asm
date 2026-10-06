@@ -276,7 +276,7 @@ MailSession_SendPhase:: ; 26:412C
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D624
+	ld hl, wMailSessionBlock
 	ld a, $02
 	ld [hli], a
 	farcall Timer_ResetClockB
@@ -318,7 +318,7 @@ MailSession_SendPhase:: ; 26:412C
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D624
+	ld hl, wMailSessionBlock
 	ld a, $FF
 	ld [hli], a
 	farcall Timer_ResetClockB
@@ -358,7 +358,7 @@ MailSession_SendPhase:: ; 26:412C
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D624
+	ld hl, wMailSessionBlock
 	ld a, $01
 	ld [hli], a
 	ld c, $3C
@@ -740,7 +740,7 @@ Label_26_4636::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D625
+	ld hl, wMailSessionBlock + $01
 	xor a, a
 	ld [hli], a
 	ld [hli], a
@@ -820,7 +820,7 @@ Label_26_4636::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D629
+	ld de, wMailSessionBlock + $05
 	ld a, [de]
 	ld l, a
 	inc de
@@ -854,7 +854,7 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D625
+	ld de, wMailSessionBlock + $01
 	ld a, c
 	ld [de], a
 	inc de
@@ -907,7 +907,7 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	push hl
-	ld hl, $D629
+	ld hl, wMailSessionBlock + $05
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
@@ -1130,7 +1130,7 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	push hl
-	ld hl, $D625
+	ld hl, wMailSessionBlock + $01
 	ld a, c
 	ld [hli], a
 	ld a, b
@@ -1236,7 +1236,7 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	push de
 	ld d, h
 	ld e, l
-	ld hl, $D625
+	ld hl, wMailSessionBlock + $01
 	ld a, c
 	ld [hli], a
 	ld a, b
@@ -1271,7 +1271,7 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	push de
 	ld d, h
 	ld e, l
-	ld hl, $D625
+	ld hl, wMailSessionBlock + $01
 	ld a, c
 	ld [hli], a
 	ld a, b
@@ -1498,7 +1498,7 @@ MailSession_Finish:: ; 26:4B54
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D625
+	ld hl, wMailSessionBlock + $01
 	ld a, [hli]
 	cp a, $00
 	jr z, .l4C1F
@@ -1567,7 +1567,7 @@ Function_26_4C94::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D625
+	ld hl, wMailSessionBlock + $01
 	ld a, [hli]
 	cp a, $00
 	jr nz, .l4CB3
@@ -1689,7 +1689,7 @@ Function_26_4DAB::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D625
+	ld hl, wMailSessionBlock + $01
 	ld a, [hli]
 	inc a
 	cp a, $00

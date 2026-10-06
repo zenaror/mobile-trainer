@@ -932,7 +932,7 @@ Function_2C_5CD2::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D466
+	ld hl, wScreenAttrMap + $66
 	ld a, $08
 	ld [hli], a
 	ld [hli], a
@@ -947,7 +947,7 @@ Function_2C_5CD2::
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld hl, $D486
+	ld hl, wScreenAttrMap + $86
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
@@ -962,7 +962,7 @@ Function_2C_5CD2::
 	ld [hli], a
 	ld [hli], a
 	ld a, $04
-	ld hl, $D4C6
+	ld hl, wScreenAttrMap + $C6
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
@@ -976,7 +976,7 @@ Function_2C_5CD2::
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld hl, $D4E6
+	ld hl, wScreenAttrMap + $E6
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
@@ -990,7 +990,7 @@ Function_2C_5CD2::
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld hl, $D506
+	ld hl, wScreenAttrMap + $106
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
@@ -1237,7 +1237,7 @@ Function_2C_5E51::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D466
+	ld hl, wScreenAttrMap + $66
 	ld a, $0C
 	ld [hli], a
 	ld [hli], a
@@ -1252,7 +1252,7 @@ Function_2C_5E51::
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld hl, $D486
+	ld hl, wScreenAttrMap + $86
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
@@ -1267,7 +1267,7 @@ Function_2C_5E51::
 	ld [hli], a
 	ld [hli], a
 	ld a, $00
-	ld hl, $D4C6
+	ld hl, wScreenAttrMap + $C6
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
@@ -1281,7 +1281,7 @@ Function_2C_5E51::
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld hl, $D4E6
+	ld hl, wScreenAttrMap + $E6
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
@@ -1295,7 +1295,7 @@ Function_2C_5E51::
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld hl, $D506
+	ld hl, wScreenAttrMap + $106
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
@@ -1309,7 +1309,7 @@ Function_2C_5E51::
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld hl, $D526
+	ld hl, wScreenAttrMap + $126
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
@@ -1323,7 +1323,7 @@ Function_2C_5E51::
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld hl, $D546
+	ld hl, wScreenAttrMap + $146
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
@@ -1337,7 +1337,7 @@ Function_2C_5E51::
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld hl, $D566
+	ld hl, wScreenAttrMap + $166
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
@@ -1351,7 +1351,7 @@ Function_2C_5E51::
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld hl, $D586
+	ld hl, wScreenAttrMap + $186
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
@@ -1365,7 +1365,7 @@ Function_2C_5E51::
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld hl, $D5A6
+	ld hl, wScreenAttrMap + $1A6
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
@@ -1379,7 +1379,7 @@ Function_2C_5E51::
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	ld hl, $D5C6
+	ld hl, wScreenAttrMap + $1C6
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
@@ -2413,19 +2413,19 @@ AddrBook_UploadTextTiles:: ; 2C:665F
 	ldh [rSVBK], a
 	xor a, a
 	ldh [rVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld de, $9000
 	ld c, $3F
 	call Gfx_StartHDMAAtVBlank_2C_669D
-	ld hl, $D400
+	ld hl, wTileStage2 + $400
 	ld de, $9400
 	ld c, $3F
 	call Gfx_StartHDMAAtVBlank_2C_669D
-	ld hl, $D800
+	ld hl, wTileStage2 + $800
 	ld de, $8800
 	ld c, $3F
 	call Gfx_StartHDMAAtVBlank_2C_669D
-	ld hl, $DC00
+	ld hl, wTileStage2 + $C00
 	ld de, $8C00
 	ld c, $2F
 	call Gfx_StartHDMAAtVBlank_2C_669D
@@ -2473,8 +2473,8 @@ AddrPick_LoadCaption:: ; 2C:66BD
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
 	ld a, $2C
-	ld bc, $DB40
-	ld de, $DC80
+	ld bc, wTileStage2 + $B40
+	ld de, wTileStage2 + $C80
 	farcall TextTiles_RenderLine
 	ldh a, [rSVBK]
 	push af
@@ -2483,7 +2483,7 @@ AddrPick_LoadCaption:: ; 2C:66BD
 	ldh [rSVBK], a
 	xor a, a
 	ldh [rVBK], a
-	ld hl, $DB40
+	ld hl, wTileStage2 + $B40
 	ld de, $8B40
 	ld c, $27
 	farcall Gfx_StartHDMAAtVBlank

@@ -158,7 +158,7 @@ MailResult_InitScreen:: ; 29:407A
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D624
+	ld hl, wMailSessionBlock
 	ld a, [hli]
 	ld d, a
 	ld e, a
@@ -166,7 +166,7 @@ MailResult_InitScreen:: ; 29:407A
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D625
+	ld hl, wMailSessionBlock + $01
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
@@ -228,8 +228,8 @@ MailResult_ShowSentMessage:: ; 29:41AD
 	ldh [hTextTiles_DestBank], a
 	ld a, $01
 	ld hl, $D524
-	ld bc, $D000
-	ld de, $D100
+	ld bc, wTileStage2
+	ld de, wTileStage2 + $100
 	farcall TextTiles_RenderLine
 	farcall MailResult_UploadTextTiles
 	call VBlank_Wait
@@ -324,8 +324,8 @@ Function_29_4286::
 	ldh [hTextTiles_DestBank], a
 	ld a, $01
 	ld hl, $D524
-	ld bc, $D200
-	ld de, $D300
+	ld bc, wTileStage2 + $200
+	ld de, wTileStage2 + $300
 	farcall TextTiles_RenderLine
 	farcall MailResult_UploadTextTiles
 	farcall Sprite_UpdateAll
@@ -608,7 +608,7 @@ Function_29_44F6::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D625
+	ld de, wMailSessionBlock + $01
 	ld a, [de]
 	ld l, a
 	inc de
@@ -717,7 +717,7 @@ Function_29_44F6::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D625
+	ld de, wMailSessionBlock + $01
 	ld a, [de]
 	cp a, $00
 	jr z, .l4605
@@ -782,7 +782,7 @@ MailServerStatus_InitScreen:: ; 29:4608
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D625
+	ld de, wMailSessionBlock + $01
 	ld a, [de]
 	cp a, $00
 	jr z, .l46B9
@@ -881,7 +881,7 @@ MailServerStatus_DrawCounts_Mode0:: ; 29:4745
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D627
+	ld de, wMailSessionBlock + $03
 	ld a, [de]
 	ld l, a
 	inc de
@@ -899,22 +899,22 @@ Label_29_476B::
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $29
-	ld bc, $D000
-	ld de, $D050
+	ld bc, wTileStage2
+	ld de, wTileStage2 + $50
 	ld hl, MailServerStatus_Txt_Unknown
 	farcall TextTiles_RenderLine
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $29
-	ld bc, $D0A0
-	ld de, $D0F0
+	ld bc, wTileStage2 + $A0
+	ld de, wTileStage2 + $F0
 	ld hl, MailServerStatus_Txt_Unknown
 	farcall TextTiles_RenderLine
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $29
-	ld bc, $D140
-	ld de, $D190
+	ld bc, wTileStage2 + $140
+	ld de, wTileStage2 + $190
 	ld hl, MailServerStatus_Txt_Unknown
 	farcall TextTiles_RenderLine
 	call MailServerStatus_UploadNumberTiles_Blank
@@ -958,7 +958,7 @@ Label_29_47BD::
 	pop hl
 	push hl
 	call MailServerStatus_NumberOffset_M0
-	ld hl, $D000
+	ld hl, wTileStage2
 	add hl, bc
 	ld b, h
 	ld c, l
@@ -975,7 +975,7 @@ Label_29_47BD::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D625
+	ld de, wMailSessionBlock + $01
 	ld a, [de]
 	xor a, $FF
 	ld c, a
@@ -1013,7 +1013,7 @@ Label_29_47BD::
 	pop hl
 	push hl
 	call MailServerStatus_NumberOffset_M0
-	ld hl, $D0A0
+	ld hl, wTileStage2 + $A0
 	add hl, bc
 	ld b, h
 	ld c, l
@@ -1030,7 +1030,7 @@ Label_29_47BD::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D625
+	ld de, wMailSessionBlock + $01
 	ld a, [de]
 	xor a, $FF
 	ld c, a
@@ -1086,7 +1086,7 @@ Label_29_47BD::
 	pop hl
 	push hl
 	call MailServerStatus_NumberOffset_M0
-	ld hl, $D140
+	ld hl, wTileStage2 + $140
 	add hl, bc
 	ld b, h
 	ld c, l
@@ -1398,7 +1398,7 @@ MailServerStatus_UploadNumberTiles_M0:: ; 29:4A45
 	ldh [rSVBK], a
 	xor a, a
 	ldh [rVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld de, $9000
 	ld c, $1F
 	farcall Gfx_GdmaAtVBlankNoDi
@@ -1418,7 +1418,7 @@ MailServerStatus_DrawCounts_Mode1:: ; 29:4A65
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D627
+	ld de, wMailSessionBlock + $03
 	ld a, [de]
 	ld l, a
 	inc de
@@ -1436,22 +1436,22 @@ Label_29_4A7D::
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $29
-	ld bc, $D000
-	ld de, $D050
+	ld bc, wTileStage2
+	ld de, wTileStage2 + $50
 	ld hl, MailServerStatus_Txt_Unknown_M1
 	farcall TextTiles_RenderLine
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $29
-	ld bc, $D0A0
-	ld de, $D0F0
+	ld bc, wTileStage2 + $A0
+	ld de, wTileStage2 + $F0
 	ld hl, MailServerStatus_Txt_Unknown_M1
 	farcall TextTiles_RenderLine
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $29
-	ld bc, $D140
-	ld de, $D190
+	ld bc, wTileStage2 + $140
+	ld de, wTileStage2 + $190
 	ld hl, MailServerStatus_Txt_Unknown_M1
 	farcall TextTiles_RenderLine
 	call MailServerStatus_UploadNumberTiles_Blank
@@ -1480,7 +1480,7 @@ Label_29_4ACF::
 	pop hl
 	push hl
 	call MailServerStatus_NumberOffset_M1
-	ld hl, $D000
+	ld hl, wTileStage2
 	add hl, bc
 	ld b, h
 	ld c, l
@@ -1497,7 +1497,7 @@ Label_29_4ACF::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D625
+	ld de, wMailSessionBlock + $01
 	ld a, [de]
 	xor a, $FF
 	ld c, a
@@ -1518,7 +1518,7 @@ Label_29_4ACF::
 	pop hl
 	push hl
 	call MailServerStatus_NumberOffset_M1
-	ld hl, $D0A0
+	ld hl, wTileStage2 + $A0
 	add hl, bc
 	ld b, h
 	ld c, l
@@ -1535,7 +1535,7 @@ Label_29_4ACF::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D629
+	ld de, wMailSessionBlock + $05
 	ld a, [de]
 	ld l, a
 	inc de
@@ -1563,7 +1563,7 @@ Label_29_4ACF::
 	pop hl
 	push hl
 	call MailServerStatus_NumberOffset_M1
-	ld hl, $D140
+	ld hl, wTileStage2 + $140
 	add hl, bc
 	ld b, h
 	ld c, l
@@ -1884,7 +1884,7 @@ MailServerStatus_UploadNumberTiles_M1:: ; 29:4D01
 	ldh [rSVBK], a
 	xor a, a
 	ldh [rVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld de, $9000
 	ld c, $1F
 	farcall Gfx_GdmaAtVBlankNoDi
@@ -1904,7 +1904,7 @@ Function_29_4D21::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D627
+	ld de, wMailSessionBlock + $03
 	ld a, [de]
 	ld l, a
 	inc de
@@ -1922,22 +1922,22 @@ Label_29_4D39::
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $29
-	ld bc, $D000
-	ld de, $D050
+	ld bc, wTileStage2
+	ld de, wTileStage2 + $50
 	ld hl, MailServerStatus_Txt_Unknown_M2
 	farcall TextTiles_RenderLine
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $29
-	ld bc, $D0A0
-	ld de, $D0F0
+	ld bc, wTileStage2 + $A0
+	ld de, wTileStage2 + $F0
 	ld hl, MailServerStatus_Txt_Unknown_M2
 	farcall TextTiles_RenderLine
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $29
-	ld bc, $D140
-	ld de, $D190
+	ld bc, wTileStage2 + $140
+	ld de, wTileStage2 + $190
 	ld hl, MailServerStatus_Txt_Unknown_M2
 	farcall TextTiles_RenderLine
 	call MailServerStatus_UploadNumberTiles_Blank
@@ -1981,7 +1981,7 @@ Label_29_4D8B::
 	pop hl
 	push hl
 	call MailServerStatus_NumberOffset_M2
-	ld hl, $D000
+	ld hl, wTileStage2
 	add hl, bc
 	ld b, h
 	ld c, l
@@ -1998,7 +1998,7 @@ Label_29_4D8B::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D625
+	ld de, wMailSessionBlock + $01
 	ld a, [de]
 	ld l, a
 	inc de
@@ -2009,7 +2009,7 @@ Label_29_4D8B::
 	pop hl
 	push hl
 	call MailServerStatus_NumberOffset_M2
-	ld hl, $D0A0
+	ld hl, wTileStage2 + $A0
 	add hl, bc
 	ld b, h
 	ld c, l
@@ -2026,7 +2026,7 @@ Label_29_4D8B::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D625
+	ld hl, wMailSessionBlock + $01
 	ld a, [hli]
 	xor a, $FF
 	ld e, a
@@ -2035,7 +2035,7 @@ Label_29_4D8B::
 	ld d, a
 	inc de
 	push de
-	ld de, $D629
+	ld de, wMailSessionBlock + $05
 	ld a, [de]
 	ld l, a
 	inc de
@@ -2063,7 +2063,7 @@ Label_29_4D8B::
 	pop hl
 	push hl
 	call MailServerStatus_NumberOffset_M2
-	ld hl, $D140
+	ld hl, wTileStage2 + $140
 	add hl, bc
 	ld b, h
 	ld c, l
@@ -2375,7 +2375,7 @@ MailServerStatus_UploadNumberTiles_M2:: ; 29:4FD7
 	ldh [rSVBK], a
 	xor a, a
 	ldh [rVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld de, $9000
 	ld c, $1F
 	farcall Gfx_GdmaAtVBlankNoDi
@@ -2394,7 +2394,7 @@ MailServerStatus_UploadNumberTiles_Blank:: ; 29:4FF7
 	ldh [rSVBK], a
 	xor a, a
 	ldh [rVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld de, $9000
 	ld c, $1F
 	farcall Gfx_GdmaAtVBlankNoDi
@@ -2414,11 +2414,11 @@ Function_29_5017::
 	ldh [rSVBK], a
 	xor a, a
 	ldh [rVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld de, $9000
 	ld c, $3F
 	call MailResult_StartHDMAAtVBlank
-	ld hl, $D400
+	ld hl, wTileStage2 + $400
 	ld de, $9400
 	ld c, $3F
 	call MailResult_StartHDMAAtVBlank

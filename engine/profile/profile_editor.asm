@@ -36,7 +36,7 @@ Function_2A_5495::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D514
+	ld de, wEditNameBuf
 	ld a, [de]
 	cp a, $00
 	jr z, Profile_Edit_RunKeyboard
@@ -101,7 +101,7 @@ Label_2A_552A::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D514
+	ld de, wEditNameBuf
 	ld a, [de]
 	cp a, $00
 	jp nz, .l5617
@@ -164,7 +164,7 @@ Label_2A_552A::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D514
+	ld de, wEditNameBuf
 	ld a, [de]
 	cp a, $00
 	jr nz, .l5617
@@ -240,7 +240,7 @@ Label_2A_552A::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D514
+	ld de, wEditNameBuf
 	ld a, [de]
 	cp a, $00
 	jr nz, .l569E
@@ -1114,11 +1114,11 @@ Profile_UploadTextTiles:: ; 2A:5C13
 	ldh [rSVBK], a
 	xor a, a
 	ldh [rVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld de, $9000
 	ld c, $3F
 	call Gfx_StartHDMAAtVBlank_2A_5C3B
-	ld hl, $D400
+	ld hl, wTileStage2 + $400
 	ld de, $9400
 	ld c, $37
 	call Gfx_StartHDMAAtVBlank_2A_5C3B
@@ -1262,7 +1262,7 @@ Profile_InsertChar:: ; 2A:5CD2
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D522
+	ld hl, wEditNameBuf + $0E
 	ld a, [hl]
 	cp a, $00
 	jr z, .l5CF5
@@ -1443,7 +1443,7 @@ Profile_InsertChar:: ; 2A:5CD2
 	push bc
 	ld bc, $0300
 	ld de, $0000
-	ld hl, $D514
+	ld hl, wEditNameBuf
 	call Profile_RedrawNickname
 	call Profile_UploadTextTiles
 	pop bc
@@ -1639,7 +1639,7 @@ Profile_DeleteChar:: ; 2A:5E23
 	push bc
 	ld bc, $0300
 	ld de, $0000
-	ld hl, $D514
+	ld hl, wEditNameBuf
 	call Profile_RedrawNickname
 	call Profile_UploadTextTiles
 	pop bc
@@ -1707,7 +1707,7 @@ Profile_ApplyDakuten:: ; 2A:5EF4
 	push bc
 	ld bc, $0300
 	ld de, $0000
-	ld hl, $D514
+	ld hl, wEditNameBuf
 	call Profile_RedrawNickname
 	call Profile_UploadTextTiles
 	pop bc
@@ -1719,7 +1719,7 @@ Profile_ApplyDakuten:: ; 2A:5EF4
 	push bc
 	ld bc, $0300
 	ld de, $0000
-	ld hl, $D514
+	ld hl, wEditNameBuf
 	call Profile_RedrawNickname
 	call Profile_UploadTextTiles
 	pop bc
@@ -1832,7 +1832,7 @@ Profile_ApplyVu:: ; 2A:5FD4
 	push bc
 	ld bc, $0300
 	ld de, $0000
-	ld hl, $D514
+	ld hl, wEditNameBuf
 	call Profile_RedrawNickname
 	call Profile_UploadTextTiles
 	pop bc
@@ -1844,7 +1844,7 @@ Profile_ApplyVu:: ; 2A:5FD4
 	push bc
 	ld bc, $0300
 	ld de, $0000
-	ld hl, $D514
+	ld hl, wEditNameBuf
 	call Profile_RedrawNickname
 	call Profile_UploadTextTiles
 	pop bc
@@ -1971,7 +1971,7 @@ Profile_ApplyHandakuten:: ; 2A:6087
 	push bc
 	ld bc, $0300
 	ld de, $0000
-	ld hl, $D514
+	ld hl, wEditNameBuf
 	call Profile_RedrawNickname
 	call Profile_UploadTextTiles
 	pop bc
@@ -1983,7 +1983,7 @@ Profile_ApplyHandakuten:: ; 2A:6087
 	push bc
 	ld bc, $0300
 	ld de, $0000
-	ld hl, $D514
+	ld hl, wEditNameBuf
 	call Profile_RedrawNickname
 	call Profile_UploadTextTiles
 	pop bc
@@ -2105,7 +2105,7 @@ Profile_KeyboardLoop_Poll:: ; 2A:617B
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D514
+	ld de, wEditNameBuf
 	ld a, [de]
 	cp a, $00
 	jr z, .l61C0
@@ -2253,21 +2253,21 @@ Function_2A_6257::
 	ldh [rSVBK], a
 	ld bc, $0300
 	ld de, $0000
-	ld hl, $D514
+	ld hl, wEditNameBuf
 	call Profile_RedrawNickname
 	ld a, $14
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0300
 	ld de, $1000
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 	call Profile_DrawAddressLine1
 	ld a, $14
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0300
 	ld de, $1C00
-	ld hl, $D4C9
+	ld hl, wEditAddressBuf + $09
 	call Profile_DrawAddressLine2
 	call Profile_UploadTextTiles
 	pop bc

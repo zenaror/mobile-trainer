@@ -342,28 +342,28 @@ AbookView_LoadAndDraw:: ; 2F:52E9
 	ldh [rSVBK], a
 	ld bc, $0300
 	ld de, $0438
-	ld hl, $D514
+	ld hl, wEditNameBuf
 	call AbookView_DrawName
 	ld a, $14
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0300
 	ld de, $1438
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 	farcall AbookView_DrawAddrLine1
 	ld a, $14
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0300
 	ld de, $2008
-	ld hl, $D4D0
+	ld hl, wEditAddressBuf + $10
 	farcall AbookView_DrawAddrLine2
 	ld a, $14
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0300
 	ld de, $2C08
-	ld hl, $D4E8
+	ld hl, wEditAddressBuf + $28
 	farcall AbookView_DrawAddrLine3
 	farcall AddrBook_UploadEntryTextTiles
 	pop bc
@@ -384,28 +384,28 @@ AbookView_DrawFromBuffers:: ; 2F:538F
 	ldh [rSVBK], a
 	ld bc, $0300
 	ld de, $0438
-	ld hl, $D514
+	ld hl, wEditNameBuf
 	call AbookView_DrawName
 	ld a, $14
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0300
 	ld de, $1438
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 	farcall AbookView_DrawAddrLine1
 	ld a, $14
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0300
 	ld de, $2008
-	ld hl, $D4D0
+	ld hl, wEditAddressBuf + $10
 	farcall AbookView_DrawAddrLine2
 	ld a, $14
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0300
 	ld de, $2C08
-	ld hl, $D4E8
+	ld hl, wEditAddressBuf + $28
 	farcall AbookView_DrawAddrLine3
 	farcall AddrBook_UploadEntryTextTiles
 	pop bc

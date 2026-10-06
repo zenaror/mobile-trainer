@@ -88,22 +88,22 @@ MobileDict_Redraw:: ; 1A:4018
 	ldh [rSVBK], a
 	xor a, a
 	ld bc, $0A00
-	ld hl, $D000
+	ld hl, wTileStage2
 	call FillBytes
 	ld de, $9000
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9400
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8800
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld a, $00
 	ld b, $95
 	ld c, $20
@@ -475,7 +475,7 @@ Function_1A_4391::
 	ldh [rSVBK], a
 	xor a, a
 	ld bc, $0A00
-	ld hl, $D000
+	ld hl, wTileStage2
 	call FillBytes
 	ld d, $00
 .loop ; 1A:43AA
@@ -510,7 +510,7 @@ Function_1A_4391::
 	ldh [hTextTiles_GridRow], a
 	ld a, $05
 	ldh [hTextTiles_GridRowEnd], a
-	ld de, $D000
+	ld de, wTileStage2
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld bc, $0010
@@ -528,19 +528,19 @@ Function_1A_4391::
 	jr nz, .loop
 .l43F9 ; 1A:43F9
 	ld de, $9000
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9400
-	ld hl, $D400
+	ld hl, wTileStage2 + $400
 	ld a, $00
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8800
-	ld hl, $D800
+	ld hl, wTileStage2 + $800
 	ld a, $00
 	ld b, $95
 	ld c, $20

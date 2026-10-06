@@ -18,7 +18,7 @@ MailSession_ShowCommError:: ; 26:5067
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D629
+	ld hl, wMailSessionBlock + $05
 	ld a, $FF
 	ld [hli], a
 	ld [hli], a
@@ -74,7 +74,7 @@ MailSession_ShowCommErrorNoWindow:: ; 26:50C6
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D629
+	ld hl, wMailSessionBlock + $05
 	ld a, $FF
 	ld [hli], a
 	ld [hli], a
@@ -97,7 +97,7 @@ Function_26_5106:: ; 26:5106
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D627
+	ld hl, wMailSessionBlock + $03
 	ld a, [hli]
 	xor a, $FF
 	ld c, a
@@ -214,7 +214,7 @@ Function_26_5168::
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld bc, $0F00
 .l51C4 ; 26:51C4
 	ld a, $00
@@ -760,7 +760,7 @@ MailSession_TotalNumberBuffer:: ; 26:5580
 
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5580-566E by apply_coverage --split
-	ld bc, $D070
+	ld bc, wTileStage2 + $70
 	jp .l55DD
 
 .l5596 ; 26:5596
@@ -776,7 +776,7 @@ MailSession_TotalNumberBuffer:: ; 26:5580
 
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5580-566E by apply_coverage --split
-	ld bc, $D080
+	ld bc, wTileStage2 + $80
 	jp .l55DD
 
 .l55AC ; 26:55AC
@@ -792,7 +792,7 @@ MailSession_TotalNumberBuffer:: ; 26:5580
 
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5580-566E by apply_coverage --split
-	ld bc, $D090
+	ld bc, wTileStage2 + $90
 	jp .l55DD
 
 .l55C2 ; 26:55C2
@@ -805,10 +805,10 @@ MailSession_TotalNumberBuffer:: ; 26:5580
 	ld a, l
 	cp a, $00
 	jr z, .l55D8
-	ld bc, $D0A0
+	ld bc, wTileStage2 + $A0
 	jp .l55DD
 .l55D8 ; 26:55D8
-	ld bc, $D0B0
+	ld bc, wTileStage2 + $B0
 	ld a, $01
 .l55DD ; 26:55DD
 	pop hl
@@ -826,7 +826,7 @@ MailSession_CurrentNumberBuffer:: ; 26:55E0
 
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5580-566E by apply_coverage --split
-	ld bc, $D420
+	ld bc, wTileStage2 + $420
 	jp .l563D
 
 .l55F6 ; 26:55F6
@@ -842,7 +842,7 @@ MailSession_CurrentNumberBuffer:: ; 26:55E0
 
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5580-566E by apply_coverage --split
-	ld bc, $D420
+	ld bc, wTileStage2 + $420
 	jp .l563D
 
 .l560C ; 26:560C
@@ -858,7 +858,7 @@ MailSession_CurrentNumberBuffer:: ; 26:55E0
 
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5580-566E by apply_coverage --split
-	ld bc, $D420
+	ld bc, wTileStage2 + $420
 	jp .l563D
 
 .l5622 ; 26:5622
@@ -871,10 +871,10 @@ MailSession_CurrentNumberBuffer:: ; 26:55E0
 	ld a, l
 	cp a, $00
 	jr z, .l5638
-	ld bc, $D420
+	ld bc, wTileStage2 + $420
 	jp .l563D
 .l5638 ; 26:5638
-	ld bc, $D430
+	ld bc, wTileStage2 + $430
 	ld a, $01
 .l563D ; 26:563D
 	pop hl
@@ -889,11 +889,11 @@ MailSession_UploadNumberTiles:: ; 26:5640
 	ldh [rSVBK], a
 	xor a, a
 	ldh [rVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld de, $9000
 	ld c, $3F
 	farcall Gfx_GdmaAtVBlankNoDi
-	ld hl, $D400
+	ld hl, wTileStage2 + $400
 	ld de, $9400
 	ld c, $3F
 	farcall Gfx_GdmaAtVBlankNoDi
@@ -933,8 +933,8 @@ MailSession_ShowMsgSending:: ; 26:5697
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $26
-	ld bc, $D400
-	ld de, $D600
+	ld bc, wTileStage2 + $400
+	ld de, wTileStage2 + $600
 	ld hl, MailSession_Msg_Sending
 	farcall TextTiles_RenderLine
 	call MailSession_UploadMsgTiles
@@ -957,8 +957,8 @@ Function_26_56DB::
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $26
-	ld bc, $D400
-	ld de, $D600
+	ld bc, wTileStage2 + $400
+	ld de, wTileStage2 + $600
 	ld hl, MailSession_Msg_Receiving
 	farcall TextTiles_RenderLine
 	call MailSession_UploadMsgTiles
@@ -982,8 +982,8 @@ Function_26_571F::
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $26
-	ld bc, $D400
-	ld de, $D600
+	ld bc, wTileStage2 + $400
+	ld de, wTileStage2 + $600
 	ld hl, $573A
 
 	; [PROBABLE] 4 insn(s) reached by static flow only; seeds: site x4; min discovery hops 0; run
@@ -1009,8 +1009,8 @@ Function_26_5763::
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $26
-	ld bc, $D400
-	ld de, $D600
+	ld bc, wTileStage2 + $400
+	ld de, wTileStage2 + $600
 	ld hl, $577E
 
 	; [PROBABLE] 4 insn(s) reached by static flow only; seeds: site x4; min discovery hops 0; run
@@ -1036,8 +1036,8 @@ Function_26_57A7::
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $26
-	ld bc, $D400
-	ld de, $D600
+	ld bc, wTileStage2 + $400
+	ld de, wTileStage2 + $600
 	ld hl, MailSession_Msg_NoMail
 	farcall TextTiles_RenderLine
 	call MailSession_UploadMsgTiles
@@ -1059,8 +1059,8 @@ MailSession_ShowMsgCannotReceive:: ; 26:57EB
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $26
-	ld bc, $D400
-	ld de, $D600
+	ld bc, wTileStage2 + $400
+	ld de, wTileStage2 + $600
 	ld hl, MailSession_Msg_CannotReceive
 	farcall TextTiles_RenderLine
 	call MailSession_UploadMsgTiles
@@ -1082,8 +1082,8 @@ MailSession_ShowMsgReceived:: ; 26:582F
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $26
-	ld bc, $D400
-	ld de, $D600
+	ld bc, wTileStage2 + $400
+	ld de, wTileStage2 + $600
 	ld hl, MailSession_Msg_Received
 	farcall TextTiles_RenderLine
 	call MailSession_UploadMsgTiles
@@ -1106,8 +1106,8 @@ Function_26_5873::
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
 	ld a, $26
-	ld bc, $D400
-	ld de, $D600
+	ld bc, wTileStage2 + $400
+	ld de, wTileStage2 + $600
 	ld hl, MailSession_Msg_Blank
 	farcall TextTiles_RenderLine
 	call MailSession_UploadMsgTiles
@@ -1134,10 +1134,10 @@ Function_26_58B7::
 	ldh [rSVBK], a
 	xor a, a
 	ldh [rVBK], a
-	ld hl, $D000
+	ld hl, $D000 ; raw: dead load, overwritten by the ld hl at 26:58CB before the call
 	ld de, $9000
 	ld c, $3F
-	ld hl, $D400
+	ld hl, wTileStage2 + $400
 	ld de, $9400
 	ld c, $3F
 	call MailSession_StartHDMAAtVBlank
@@ -1194,7 +1194,7 @@ MailSession_UpdateTimerDisplay:: ; 26:58DC
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D221
+	ld hl, wScreenTileMap + $221
 	ld a, $45
 	ld [hli], a
 	ld a, $49
@@ -1225,10 +1225,10 @@ MailSession_UpdateTimerDisplay:: ; 26:58DC
 	ldh [rSVBK], a
 	ld a, l
 	add a, $40
-	ld [wRam_D221], a
+	ld [wScreenTileMap + $221], a
 	ld a, e
 	add a, $40
-	ld [wRam_D222], a
+	ld [wScreenTileMap + $222], a
 	jr .l5989
 
 .l5968 ; 26:5968
@@ -1243,10 +1243,10 @@ MailSession_UpdateTimerDisplay:: ; 26:58DC
 	ldh [rSVBK], a
 	ld a, l
 	add a, $40
-	ld [wRam_D221], a
+	ld [wScreenTileMap + $221], a
 	ld a, e
 	add a, $40
-	ld [wRam_D222], a
+	ld [wScreenTileMap + $222], a
 .l5989 ; 26:5989
 	ld a, [wTimerASeconds]
 	ld l, a
@@ -1258,10 +1258,10 @@ MailSession_UpdateTimerDisplay:: ; 26:58DC
 	ldh [rSVBK], a
 	ld a, l
 	add a, $40
-	ld [wRam_D224], a
+	ld [wScreenTileMap + $224], a
 	ld a, e
 	add a, $40
-	ld [wRam_D225], a
+	ld [wScreenTileMap + $225], a
 .l59AA ; 26:59AA
 	di
 	ldh a, [rLCDC]

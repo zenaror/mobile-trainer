@@ -140,7 +140,7 @@ Label_4C_501E::
 	ldh [rSVBK], a
 	ld bc, $0080
 	ld de, wPaletteBufBg
-	ld hl, $D880
+	ld hl, wPaletteFadeFrom
 	call CopyBytes
 	jp MobileDictView_Show_RenderPage
 
@@ -168,7 +168,7 @@ Label_4C_509A::
 	ldh [rSVBK], a
 	ld bc, $0080
 	ld de, wPaletteBufBg
-	ld hl, $D880
+	ld hl, wPaletteFadeFrom
 	call CopyBytes
 	jp MobileDictView_Show_RenderPage
 

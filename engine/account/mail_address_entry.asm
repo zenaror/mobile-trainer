@@ -46,7 +46,7 @@ Function_68_5739::
 	ld de, wRam_C28F
 	call DecodeXorA5
 	ld hl, wRam_C28F
-	ld de, $DEAB
+	ld de, wAcctMailLocalPart
 	call CompareString
 	or a, a
 	jr nz, .l578C
@@ -54,7 +54,7 @@ Function_68_5739::
 	ld de, wRam_C28F
 	call DecodeXorA5
 	ld hl, wRam_C28F
-	ld de, $DEB4
+	ld de, wAcctMailSubdomain
 	call CompareString
 	or a, a
 	jr z, .l5798
@@ -94,17 +94,17 @@ Function_68_57B6::
 	xor a, a
 	ld [wMailAddressEntry_Result], a
 	ld [wMailAddressEntry_Field], a
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	ld b, $09
 	farcall TextBuf_Init
-	ld hl, $DE94
+	ld hl, wTextEntryBuf2
 	ld b, $05
 	farcall TextBuf_Init
-	ld hl, $DE80
-	ld de, $DEAB
+	ld hl, wTextEntryBuf
+	ld de, wAcctMailLocalPart
 	call TextEntry_InsertString
-	ld hl, $DE94
-	ld de, $DEB4
+	ld hl, wTextEntryBuf2
+	ld de, wAcctMailSubdomain
 	call TextEntry_InsertString
 	call Account_MailAddressEntry_CheckDomainLen
 	ld de, $8801
@@ -142,10 +142,10 @@ Function_68_57B6::
 	ld a, $5E
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $03
-	ld hl, $DE83
+	ld hl, wTextEntryBuf + $03
 	call Account_MailLocal_PrintField
 	ld a, $03
-	ld hl, $DE97
+	ld hl, wTextEntryBuf2 + $03
 	call Account_MailDomain_PrintField
 	call Account_MailLocal_UploadTextTiles
 	call Account_MailDomain_UploadTextTiles
@@ -160,27 +160,27 @@ Function_68_57B6::
 	ld a, $5F
 	ld b, $81
 	farcall Sprite_InitSlot
-	ld hl, $DE94
+	ld hl, wTextEntryBuf2
 	farcall TextBuf_GetLength
 	or a, a
 	jr nz, .l58BB
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextBuf_GetFree
 	or a, a
 	jr z, .l58BB
 	ld d, $08
 	ld e, $10
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	jr .l58C7
 .l58BB ; 68:58BB
 	ld a, $01
 	ld [wMailAddressEntry_Field], a
 	ld d, $40
 	ld e, $10
-	ld hl, $DE94
+	ld hl, wTextEntryBuf2
 .l58C7 ; 68:58C7
 	farcall TextEntry_UpdateCursorSprite
-	ld hl, $DE94
+	ld hl, wTextEntryBuf2
 	farcall TextBuf_GetLength
 	cp a, $03
 	jr c, .l58DB
@@ -210,7 +210,7 @@ Account_MailAddressEntry_UpdateOkState:: ; 68:58FB
 Function_68_58FB::
 	; [CONFIRMED] 68 insn(s); 68 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld hl, $DE94
+	ld hl, wTextEntryBuf2
 	farcall TextBuf_GetFree
 	or a, a
 	jr z, .l590D
@@ -223,7 +223,7 @@ Function_68_58FB::
 	ret
 
 Account_MailAddressEntry_CheckDomainLen:: ; 68:5913
-	ld hl, $DE94
+	ld hl, wTextEntryBuf2
 	farcall TextBuf_GetLength
 	cp a, $03
 	jr nc, .l5926
@@ -255,7 +255,7 @@ Account_MailAddressEntry_InputLoop:: ; 68:592C
 	ld a, [wMailAddressEntry_Field]
 	or a, a
 	jr nz, .l598A
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextBuf_AppendChar
 	ldh a, [hWRAMBank]
 	push af
@@ -265,7 +265,7 @@ Account_MailAddressEntry_InputLoop:: ; 68:592C
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextBuf_GetFree
 	or a, a
 	jp nz, .l5A95
@@ -273,7 +273,7 @@ Account_MailAddressEntry_InputLoop:: ; 68:592C
 	ld [wMailAddressEntry_Field], a
 	jp .l5A95
 .l598A ; 68:598A
-	ld hl, $DE94
+	ld hl, wTextEntryBuf2
 	farcall TextBuf_AppendChar
 	or a, a
 	jr nz, .l59A8
@@ -301,7 +301,7 @@ Account_MailAddressEntry_InputLoop:: ; 68:592C
 
 .l59B8 ; 68:59B8
 	; [CONFIRMED] 42 insn(s); 42 executed (in up to 3/18 scenarios)
-	ld hl, $DE94
+	ld hl, wTextEntryBuf2
 	farcall TextBuf_GetLength
 	cp a, $03
 	jr c, .l59CE
@@ -314,7 +314,7 @@ Account_MailAddressEntry_InputLoop:: ; 68:592C
 	ld a, [wMailAddressEntry_Field]
 	or a, a
 	jr nz, .l59FD
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextBuf_DeleteLast
 	or a, a
 	jp nz, .l5A7D
@@ -336,11 +336,11 @@ Account_MailAddressEntry_InputLoop:: ; 68:592C
 	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
-	ld hl, $DE94
+	ld hl, wTextEntryBuf2
 	farcall TextBuf_DeleteLast
 	or a, a
 	jr nz, .l5A36
-	ld hl, $DE94
+	ld hl, wTextEntryBuf2
 	farcall TextBuf_GetLength
 	cp a, $03
 	jr c, .l5A2E
@@ -360,7 +360,7 @@ Account_MailAddressEntry_InputLoop:: ; 68:592C
 	farcall Kbd_ShowMarkerSprite
 	jr .l59D7
 .l5A42 ; 68:5A42
-	ld hl, $DE94
+	ld hl, wTextEntryBuf2
 	farcall TextBuf_GetLength
 	cp a, $03
 	jr nc, .l5A61
@@ -402,13 +402,13 @@ Account_MailAddressEntry_InputLoop:: ; 68:592C
 	ret
 .l5A95 ; 68:5A95
 	ld a, $03
-	ld hl, $DE83
+	ld hl, wTextEntryBuf + $03
 	call Account_MailLocal_PrintField
 	call Account_MailLocal_UploadTextTiles
 	jr .l5AB0
 .l5AA2 ; 68:5AA2
 	ld a, $03
-	ld hl, $DE97
+	ld hl, wTextEntryBuf2 + $03
 	call Account_MailDomain_PrintField
 	call Account_MailDomain_UploadTextTiles
 	call Account_MailAddressEntry_UpdateOkState
@@ -418,22 +418,22 @@ Account_MailAddressEntry_InputLoop:: ; 68:592C
 	jr nz, .l5AC6
 	ld d, $08
 	ld e, $10
-	ld hl, $DE80
+	ld hl, wTextEntryBuf
 	farcall TextEntry_UpdateCursorSprite
 	jp Account_MailAddressEntry_InputLoop
 .l5AC6 ; 68:5AC6
 	ld d, $40
 	ld e, $10
-	ld hl, $DE94
+	ld hl, wTextEntryBuf2
 	farcall TextEntry_UpdateCursorSprite
 	jp Account_MailAddressEntry_InputLoop
 
 Account_CommitMailFields:: ; 68:5AD6
-	ld hl, $DE80
-	ld de, $DEAB
+	ld hl, wTextEntryBuf
+	ld de, wAcctMailLocalPart
 	farcall TextEntry_CopyText
-	ld hl, $DE94
-	ld de, $DEB4
+	ld hl, wTextEntryBuf2
+	ld de, wAcctMailSubdomain
 	farcall TextEntry_CopyText
 	ret
 

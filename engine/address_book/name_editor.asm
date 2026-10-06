@@ -326,7 +326,7 @@ AbookName_SetupScreen:: ; 2F:593B
 	ld bc, $0000
 	ld bc, $0300
 	ld de, $0038
-	ld hl, $D514
+	ld hl, wEditNameBuf
 	call AbookName_DrawName
 	call AbookName_UploadTextTiles
 	pop af
@@ -563,7 +563,7 @@ AbookName_UploadTextTiles:: ; 2F:5BD1
 	ldh [rSVBK], a
 	xor a, a
 	ldh [rVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld de, $9000
 	ld c, $27
 	call AbookName_HdmaBlock
@@ -712,7 +712,7 @@ AbookName_InsertChar:: ; 2F:5C85
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D522
+	ld hl, wEditNameBuf + $0E
 	ld a, [hl]
 	cp a, $00
 	jr z, .l5CA8
@@ -897,7 +897,7 @@ Label_2F_5CF4::
 	push bc
 	ld bc, $0300
 	ld de, $0038
-	ld hl, $D514
+	ld hl, wEditNameBuf
 	call AbookName_DrawName
 	call AbookName_UploadTextTiles
 	pop bc
@@ -1094,7 +1094,7 @@ AbookName_Backspace:: ; 2F:5DDC
 	push bc
 	ld bc, $0300
 	ld de, $0038
-	ld hl, $D514
+	ld hl, wEditNameBuf
 	call AbookName_DrawName
 	call AbookName_UploadTextTiles
 	pop bc
@@ -1159,7 +1159,7 @@ AbookName_ApplyDakuten:: ; 2F:5EB3
 	push bc
 	ld bc, $0300
 	ld de, $0038
-	ld hl, $D514
+	ld hl, wEditNameBuf
 	call AbookName_DrawName
 	call AbookName_UploadTextTiles
 	pop bc
@@ -1171,7 +1171,7 @@ AbookName_ApplyDakuten:: ; 2F:5EB3
 	push bc
 	ld bc, $0300
 	ld de, $0038
-	ld hl, $D514
+	ld hl, wEditNameBuf
 	call AbookName_DrawName
 	call AbookName_UploadTextTiles
 	pop bc
@@ -1285,7 +1285,7 @@ AbookName_ApplyDakutenU:: ; 2F:5F93
 	push bc
 	ld bc, $0300
 	ld de, $0038
-	ld hl, $D514
+	ld hl, wEditNameBuf
 	call AbookName_DrawName
 	call AbookName_UploadTextTiles
 	pop bc
@@ -1297,7 +1297,7 @@ AbookName_ApplyDakutenU:: ; 2F:5F93
 	push bc
 	ld bc, $0300
 	ld de, $0038
-	ld hl, $D514
+	ld hl, wEditNameBuf
 	call AbookName_DrawName
 	call AbookName_UploadTextTiles
 	pop bc
@@ -1435,7 +1435,7 @@ AbookName_ApplyHandakuten:: ; 2F:6046
 	push bc
 	ld bc, $0300
 	ld de, $0038
-	ld hl, $D514
+	ld hl, wEditNameBuf
 	call AbookName_DrawName
 	call AbookName_UploadTextTiles
 	pop bc
@@ -1447,7 +1447,7 @@ AbookName_ApplyHandakuten:: ; 2F:6046
 	push bc
 	ld bc, $0300
 	ld de, $0038
-	ld hl, $D514
+	ld hl, wEditNameBuf
 	call AbookName_DrawName
 	call AbookName_UploadTextTiles
 	pop bc

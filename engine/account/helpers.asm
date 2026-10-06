@@ -329,17 +329,17 @@ Account_BuildMailAddress:: ; 68:419C
 	ldh [rSVBK], a
 	xor a, a
 	ld [wAcctMailAddress], a
-	ld hl, $DEAB
-	ld de, $DFAA
+	ld hl, wAcctMailLocalPart
+	ld de, wAcctMailAddress
 	call CopyString
 	ld hl, $41DB
-	ld de, $DFAA
+	ld de, wAcctMailAddress
 	call StringAppend
-	ld hl, $DEB4
-	ld de, $DFAA
+	ld hl, wAcctMailSubdomain
+	ld de, wAcctMailAddress
 	call StringAppend
 	ld hl, $41DD
-	ld de, $DFAA
+	ld de, wAcctMailAddress
 	call StringAppend
 	ldh [hScratchA], a
 	pop af
@@ -948,11 +948,11 @@ Dial_EntryHasNumber:: ; 68:4568
 	ld a, $01
 	ret
 
-; ---- words $4594-$459A (6 bytes) [PROBABLE] 3 words $DF10,$DF43,$DF76 (stride $33, WRAM1 addresses) addressed by ld hl,$4594 at 68:4577; extent bounded by the next code region
+; ---- words $4594-$459A (6 bytes) [PROBABLE] 3 words wDialEntries + $00, $33, $66 (stride $33, WRAM3 addresses: bank 3 is selected at 68:4570-4574) addressed by ld hl,$4594 at 68:4577; extent bounded by the next code region
 
 Dial_EntryNumberBuffers:: ; 68:4594
 Table_68_4594::
-	dw $DF10, $DF43, $DF76
+	dw wDialEntries, wDialEntries + $33, wDialEntries + $66
 
 Config_MirrorChecksumOk:: ; 68:459A
 Function_68_459A::
@@ -1056,31 +1056,31 @@ Config_LoadMirrorToWram:: ; 68:4608
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ld hl, sConfigLoginId
-	ld de, $DEA0
+	ld de, wAcctLoginId
 	call CopyString
 	ld hl, sConfigMailAddress
-	ld de, $DFAA
+	ld de, wAcctMailAddress
 	call CopyString
 	ld hl, sConfigDial0Text
-	ld de, $DF32
+	ld de, wDialEntries + $22
 	ld bc, $0010
 	call CopyStringMax_ZeroSrcOnEmpty
 	ld hl, sConfigDial1Text
-	ld de, $DF65
+	ld de, wDialEntries + $55
 	ld bc, $0010
 	call CopyStringMax_ZeroSrcOnEmpty
 	ld hl, sConfigDial2Text
-	ld de, $DF98
+	ld de, wDialEntries + $88
 	ld bc, $0010
 	call CopyStringMax_ZeroSrcOnEmpty
 	ld hl, sConfigDial0Number
-	ld de, $DF10
+	ld de, wDialEntries
 	call PhoneNumber_UnpackBcd
 	ld hl, sConfigDial1Number
-	ld de, $DF43
+	ld de, wDialEntries + $33
 	call PhoneNumber_UnpackBcd
 	ld hl, sConfigDial2Number
-	ld de, $DF76
+	ld de, wDialEntries + $66
 	call PhoneNumber_UnpackBcd
 	ldh [hScratchA], a
 	pop af
@@ -1095,13 +1095,13 @@ Config_LoadMirrorToWram:: ; 68:4608
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ld hl, sSettingsDialNumbers
-	ld de, $DF21
+	ld de, wDialEntries + $11
 	call DecodeXorA5
 	ld hl, sSettingsDialNumbers + $11
-	ld de, $DF54
+	ld de, wDialEntries + $44
 	call DecodeXorA5
 	ld hl, sSettingsDialNumbers + $22
-	ld de, $DF87
+	ld de, wDialEntries + $77
 	call DecodeXorA5
 	ldh [hScratchA], a
 	pop af
@@ -1139,7 +1139,7 @@ Dial_LoadDefaultsForAdapterType:: ; 68:46C8
 	ld l, a
 	ld de, $0076
 	add hl, de
-	ld de, $DEDD
+	ld de, wAcctNumberInternet
 	farcall PhoneNumber_UnpackBcd
 	ld a, [wMobileAdapterType]
 	ld hl, Dial_DefaultNumberTable
@@ -1152,7 +1152,7 @@ Dial_LoadDefaultsForAdapterType:: ; 68:46C8
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ld de, $DEEE
+	ld de, wAcctNumberSelfPage
 	farcall CopyString
 	ld a, [wMobileAdapterType]
 	ld hl, Config_DefaultImageTable
@@ -1167,7 +1167,7 @@ Dial_LoadDefaultsForAdapterType:: ; 68:46C8
 	ld l, a
 	ld de, $007E
 	add hl, de
-	ld de, $DEFF
+	ld de, wAcctNumberComment
 	ld bc, $0010
 	farcall CopyStringMax_ZeroSrcOnEmpty
 	ldh [hScratchA], a
@@ -1202,7 +1202,7 @@ Function_68_4735::
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $DFAA
+	ld hl, wAcctMailAddress
 	ld de, sSettingsMailAddress
 	call EncodeXorA5
 	ldh [hScratchA], a

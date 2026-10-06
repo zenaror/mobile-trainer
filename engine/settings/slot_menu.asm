@@ -526,8 +526,8 @@ SettingsPhone_SlotMenu_PrintSlotFields:: ; 67:4F9C
 
 SettingsPhone_SlotMenu_FieldTable:: ; 67:50A5
 Table_67_50A5::
-	dw $DF10, $DF43, $DF76, $DF21, $DF54, $DF87, $DF32, $DF65
-	dw $DF98
+	dw wDialEntries, wDialEntries + $33, wDialEntries + $66, wDialEntries + $11, wDialEntries + $44, wDialEntries + $77, wDialEntries + $22, wDialEntries + $55
+	dw wDialEntries + $88
 
 SettingsPhone_SlotMenu_UploadTextTiles:: ; 67:50B7
 	; [CONFIRMED] 29 insn(s) reached by static flow only; seeds: exec x29; min discovery hops 8;

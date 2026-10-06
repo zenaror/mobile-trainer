@@ -16,7 +16,7 @@ Palette_FadeOutWithTicker:: ; 48:46C6
 	ld a, $04
 	ld [wRam_C10E], a
 	ld bc, $0080
-	ld de, $D880
+	ld de, wPaletteFadeFrom
 	ld hl, wPaletteBufBg
 	call CopyBytes
 	ld a, $00

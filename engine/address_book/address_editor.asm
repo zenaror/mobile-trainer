@@ -73,7 +73,7 @@ Label_2F_6D5E::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 	ld a, [hl]
 	cp a, $00
 	jr nz, .l6DC9
@@ -526,15 +526,15 @@ Function_2F_6F8C::
 	farcall LCDOn
 	ld bc, $0300
 	ld de, $0438
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 	call AbookAddr_DrawLine1
 	ld bc, $0300
 	ld de, $1008
-	ld hl, $D4D0
+	ld hl, wEditAddressBuf + $10
 	call AbookAddr_DrawLine
 	ld bc, $0300
 	ld de, $1C08
-	ld hl, $D4E8
+	ld hl, wEditAddressBuf + $28
 	call AbookAddr_DrawLine
 	farcall TextTiles_UploadBuffersShort
 	pop af
@@ -981,11 +981,11 @@ AbookAddr_UploadTextTiles:: ; 2F:733D
 	ldh [rSVBK], a
 	xor a, a
 	ldh [rVBK], a
-	ld hl, $D000
+	ld hl, wTileStage2
 	ld de, $9000
 	ld c, $3F
 	call Gfx_StartHDMAAtVBlank_2F_7365
-	ld hl, $D400
+	ld hl, wTileStage2 + $400
 	ld de, $9400
 	ld c, $3F
 	call Gfx_StartHDMAAtVBlank_2F_7365
@@ -1150,7 +1150,7 @@ AbookAddr_InsertChar:: ; 2F:73FA
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D4FF
+	ld hl, wEditAddressBuf + $3F
 	ld a, [hl]
 	cp a, $00
 	jr z, .l741D
@@ -1586,7 +1586,7 @@ AbookAddr_RedrawAfterInsert:: ; 2F:7669
 	jr nc, .l7681
 	ld bc, $0300
 	ld de, $0438
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 	call AbookAddr_DrawLine1
 	jp .l7713
 .l7681 ; 2F:7681
@@ -1595,7 +1595,7 @@ AbookAddr_RedrawAfterInsert:: ; 2F:7669
 	jr c, .l7695
 	ld bc, $0300
 	ld de, $1C08
-	ld hl, $D4E8
+	ld hl, wEditAddressBuf + $28
 	call AbookAddr_DrawLine
 	jp .l7713
 .l7695 ; 2F:7695
@@ -1607,7 +1607,7 @@ AbookAddr_RedrawAfterInsert:: ; 2F:7669
 	jr nc, .l76AF
 	ld bc, $0300
 	ld de, $1008
-	ld hl, $D4D0
+	ld hl, wEditAddressBuf + $10
 	call AbookAddr_DrawLine
 	jr .l7713
 .l76AF ; 2F:76AF
@@ -1616,11 +1616,11 @@ AbookAddr_RedrawAfterInsert:: ; 2F:7669
 	jr c, .l76CE
 	ld bc, $0300
 	ld de, $1008
-	ld hl, $D4D0
+	ld hl, wEditAddressBuf + $10
 	call AbookAddr_DrawLine
 	ld bc, $0300
 	ld de, $1C08
-	ld hl, $D4E8
+	ld hl, wEditAddressBuf + $28
 	call AbookAddr_DrawLine
 	jr .l7713
 .l76CE ; 2F:76CE
@@ -1629,11 +1629,11 @@ AbookAddr_RedrawAfterInsert:: ; 2F:7669
 	jr nc, .l76EF
 	ld bc, $0300
 	ld de, $0438
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 	call AbookAddr_DrawLine1
 	ld bc, $0300
 	ld de, $1008
-	ld hl, $D4D0
+	ld hl, wEditAddressBuf + $10
 	call AbookAddr_DrawLine
 	jr .l7713
 
@@ -1642,15 +1642,15 @@ AbookAddr_RedrawAfterInsert:: ; 2F:7669
 	; 7669-77C6 by apply_coverage --split
 	ld bc, $0300
 	ld de, $0438
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 	call AbookAddr_DrawLine1
 	ld bc, $0300
 	ld de, $1008
-	ld hl, $D4D0
+	ld hl, wEditAddressBuf + $10
 	call AbookAddr_DrawLine
 	ld bc, $0300
 	ld de, $1C08
-	ld hl, $D4E8
+	ld hl, wEditAddressBuf + $28
 	call AbookAddr_DrawLine
 
 .l7713 ; 2F:7713
@@ -1667,7 +1667,7 @@ AbookAddr_RedrawAfterBackspace:: ; 2F:7718
 	jr nc, .l772F
 	ld bc, $0300
 	ld de, $0438
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 	call AbookAddr_DrawLine1
 	jp .l77C1
 .l772F ; 2F:772F
@@ -1676,7 +1676,7 @@ AbookAddr_RedrawAfterBackspace:: ; 2F:7718
 	jr c, .l7743
 	ld bc, $0300
 	ld de, $1C08
-	ld hl, $D4E8
+	ld hl, wEditAddressBuf + $28
 	call AbookAddr_DrawLine
 	jp .l77C1
 .l7743 ; 2F:7743
@@ -1688,7 +1688,7 @@ AbookAddr_RedrawAfterBackspace:: ; 2F:7718
 	jr nc, .l775D
 	ld bc, $0300
 	ld de, $1008
-	ld hl, $D4D0
+	ld hl, wEditAddressBuf + $10
 	call AbookAddr_DrawLine
 	jr .l77C1
 .l775D ; 2F:775D
@@ -1700,11 +1700,11 @@ AbookAddr_RedrawAfterBackspace:: ; 2F:7718
 	; 7669-77C6 by apply_coverage --split
 	ld bc, $0300
 	ld de, $1008
-	ld hl, $D4D0
+	ld hl, wEditAddressBuf + $10
 	call AbookAddr_DrawLine
 	ld bc, $0300
 	ld de, $1C08
-	ld hl, $D4E8
+	ld hl, wEditAddressBuf + $28
 	call AbookAddr_DrawLine
 	jr .l77C1
 
@@ -1716,11 +1716,11 @@ AbookAddr_RedrawAfterBackspace:: ; 2F:7718
 	jr nc, .l779D
 	ld bc, $0300
 	ld de, $0438
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 	call AbookAddr_DrawLine1
 	ld bc, $0300
 	ld de, $1008
-	ld hl, $D4D0
+	ld hl, wEditAddressBuf + $10
 	call AbookAddr_DrawLine
 	jr .l77C1
 
@@ -1729,15 +1729,15 @@ AbookAddr_RedrawAfterBackspace:: ; 2F:7718
 	; 7669-77C6 by apply_coverage --split
 	ld bc, $0300
 	ld de, $0438
-	ld hl, $D4C0
+	ld hl, wEditAddressBuf
 	call AbookAddr_DrawLine1
 	ld bc, $0300
 	ld de, $1008
-	ld hl, $D4D0
+	ld hl, wEditAddressBuf + $10
 	call AbookAddr_DrawLine
 	ld bc, $0300
 	ld de, $1C08
-	ld hl, $D4E8
+	ld hl, wEditAddressBuf + $28
 	call AbookAddr_DrawLine
 
 .l77C1 ; 2F:77C1

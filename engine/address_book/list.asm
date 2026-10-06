@@ -1716,8 +1716,8 @@ Function_2F_4BAA::
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
 	ld a, $2F
-	ld bc, $DB40
-	ld de, $DC80
+	ld bc, wTileStage2 + $B40
+	ld de, wTileStage2 + $C80
 	farcall TextTiles_RenderLine
 	pop de
 	pop bc

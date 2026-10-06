@@ -38,7 +38,7 @@ Dev_InstallTestConfig:: ; 68:4DB4
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, Dev_TestMailAddress
-	ld de, $DFAA
+	ld de, wAcctMailAddress
 	call CopyString
 	ld b, $00
 	call Settings_SetSelectedDialEntry
@@ -89,10 +89,10 @@ Mobile_InitAndWait:: ; 68:4E51
 
 Dev_WriteTestConfigImage:: ; 68:4E6A
 	ld hl, Dev_TestConfigImage
-	ld de, $D000
+	ld de, $D000 ; raw: dev code with no caller (Dev_WriteTestConfigImage 68:4E6A), the bank in force at the call is not shown
 	ld bc, $00C0
 	call CopyBytes
-	ld hl, $D000
+	ld hl, $D000 ; raw: dev code with no caller (Dev_WriteTestConfigImage 68:4E6A), the bank in force at the call is not shown
 	ld de, $0000
 	ld b, $BE
 .l4E7E ; 68:4E7E

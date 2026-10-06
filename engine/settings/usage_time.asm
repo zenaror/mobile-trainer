@@ -68,14 +68,14 @@ Function_67_611C::
 	jr z, .l616F
 	cp a, $02
 	jr z, .l616F
-	ld hl, $DED4
+	ld hl, wAcctPasswordEntry
 	farcall Wram3_ClearByte
 	xor a, a
 	farcall Account_PasswordEntryScreen
 	or a, a
 	jr z, PasswordPrompt_Ask
-	ld hl, $DED4
-	ld de, $DECB
+	ld hl, wAcctPasswordEntry
+	ld de, wAcctPasswordConfirm
 	farcall Wram3_CopyString
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -84,7 +84,7 @@ Function_67_611C::
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $DECB
+	ld hl, wAcctPasswordConfirm
 	ld de, wMobilePassword
 	call CopyString
 	ldh [hScratchA], a
@@ -174,7 +174,7 @@ Function_67_6205::
 	ld hl, $624E
 	ld de, sNetWorkPage
 	call StringAppend
-	ld hl, $DECB
+	ld hl, wAcctPasswordConfirm
 	ld de, sNetWorkPage
 	call StringAppend
 	ld hl, sNetWorkPage

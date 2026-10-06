@@ -42,7 +42,7 @@ MailSrvDel_DeleteAll_Confirm:: ; 23:4A1E
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D624
+	ld hl, wMailSessionBlock
 	xor a, a
 	ld [hli], a
 	ld a, $FF
@@ -224,7 +224,7 @@ Function_23_4B51::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D624
+	ld hl, wMailSessionBlock
 	xor a, a
 	ld [hli], a
 	ld a, $FF
@@ -397,7 +397,7 @@ MailSrvDel_DeleteAllRun:: ; 23:4C94
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D625
+	ld hl, wMailSessionBlock + $01
 	ld a, $FF
 	ld [hli], a
 	ld [hli], a
@@ -614,7 +614,7 @@ MailSrvDel_DeleteAllRun_CheckDone:: ; 23:4DFB
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D625
+	ld hl, wMailSessionBlock + $01
 	xor a, a
 	ld [hli], a
 	ld [hli], a
@@ -638,7 +638,7 @@ MailSrvDel_DeleteAllRun_CheckDone:: ; 23:4DFB
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D629
+	ld de, wMailSessionBlock + $05
 	ld a, [de]
 	ld l, a
 	inc de
@@ -648,7 +648,7 @@ MailSrvDel_DeleteAllRun_CheckDone:: ; 23:4DFB
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D629
+	ld de, wMailSessionBlock + $05
 	ld a, l
 	ld [de], a
 	inc de
@@ -773,7 +773,7 @@ MailSrvDel_DeleteAllRun_DeleteLoop:: ; 23:4EB7
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld bc, $D629
+	ld bc, wMailSessionBlock + $05
 	ld a, [bc]
 	inc bc
 	ld l, a
@@ -890,7 +890,7 @@ Label_23_4FD8::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld bc, $D629
+	ld bc, wMailSessionBlock + $05
 	ld a, [bc]
 	ld e, a
 	inc bc
@@ -925,7 +925,7 @@ MailSrvDel_DeleteAllRun_Error:: ; 23:5002
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld bc, $D627
+	ld bc, wMailSessionBlock + $03
 	ld a, l
 	ld [bc], a
 	inc bc
@@ -957,7 +957,7 @@ MailSrvDel_DeleteAllRun_Error:: ; 23:5002
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld bc, $D629
+	ld bc, wMailSessionBlock + $05
 	ld a, [bc]
 	ld e, a
 	inc bc
@@ -981,7 +981,7 @@ Label_23_503F::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld bc, $D627
+	ld bc, wMailSessionBlock + $03
 	ld a, [bc]
 	ld l, a
 	inc bc
@@ -1196,7 +1196,7 @@ MailSrvDel_DeleteCompletelyRun:: ; 23:51C7
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D625
+	ld hl, wMailSessionBlock + $01
 	ld a, $FF
 	ld [hli], a
 	ld [hli], a
@@ -1273,7 +1273,7 @@ MailSrvDel_DeleteCompletelyRun_GotMailCount:: ; 23:525E
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $D625
+	ld hl, wMailSessionBlock + $01
 	xor a, a
 	ld [hli], a
 	ld [hli], a
@@ -1297,7 +1297,7 @@ MailSrvDel_DeleteCompletelyRun_GotMailCount:: ; 23:525E
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D629
+	ld de, wMailSessionBlock + $05
 	ld a, [de]
 	ld l, a
 	inc de
@@ -1307,7 +1307,7 @@ MailSrvDel_DeleteCompletelyRun_GotMailCount:: ; 23:525E
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, $D629
+	ld de, wMailSessionBlock + $05
 	ld a, l
 	ld [de], a
 	inc de
@@ -1452,7 +1452,7 @@ MailSrvDel_DeleteCompletelyRun_DelePoll:: ; 23:53A1
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld bc, $D629
+	ld bc, wMailSessionBlock + $05
 	ld a, [bc]
 	ld e, a
 	inc bc
@@ -1485,7 +1485,7 @@ MailSrvDel_DeleteCompletelyRun_DelePoll:: ; 23:53A1
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld bc, $D627
+	ld bc, wMailSessionBlock + $03
 	ld a, l
 	ld [bc], a
 	inc bc
@@ -1516,7 +1516,7 @@ MailSrvDel_DeleteCompletelyRun_DelePoll:: ; 23:53A1
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld bc, $D629
+	ld bc, wMailSessionBlock + $05
 	ld a, [bc]
 	ld e, a
 	inc bc
@@ -1539,7 +1539,7 @@ MailSrvDel_DeleteCompletelyRun_NextMail:: ; 23:5424
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld bc, $D627
+	ld bc, wMailSessionBlock + $03
 	ld a, [bc]
 	ld l, a
 	inc bc
@@ -1692,7 +1692,7 @@ MailSrvDel_Cancelled:: ; 23:553D
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld bc, $D627
+	ld bc, wMailSessionBlock + $03
 	ld a, l
 	ld [bc], a
 	inc bc
@@ -1702,7 +1702,7 @@ MailSrvDel_Cancelled:: ; 23:553D
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld bc, $D625
+	ld bc, wMailSessionBlock + $01
 	ld a, $FF
 	ld [bc], a
 	inc bc
