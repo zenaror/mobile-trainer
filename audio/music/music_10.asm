@@ -299,5 +299,9 @@ Data_05_46E6::
 SoundSong10_TrackPtrs:: ; 05:46E8
 Table_05_46E8::
 	dw SoundSong10_Track0, SoundSong10_Track1, SoundSong10_Track2, SoundSong10_Track3 ; track stream pointers (read by the driver)
-	dw SoundSong10_Track0_Loop, SoundSong10_Track1_Loop, SoundSong10_Track2_Loop, SoundSong10_Track3_Loop ; not read by the driver: target of each track's final sound_jump
-	dw SoundSong10_Track0_AfterJump, SoundSong10_Track1_AfterJump, SoundSong10_Track2_AfterJump, SoundSong10_Track3_AfterJump ; not read by the driver: address after each track's final sound_jump
+	; not read by the driver: target of each track's final sound_jump
+	dw SoundSong10_Track0_Loop, SoundSong10_Track1_Loop
+	dw SoundSong10_Track2_Loop, SoundSong10_Track3_Loop
+	; not read by the driver: address after each track's final sound_jump
+	dw SoundSong10_Track0_AfterJump, SoundSong10_Track1_AfterJump
+	dw SoundSong10_Track2_AfterJump, SoundSong10_Track3_AfterJump

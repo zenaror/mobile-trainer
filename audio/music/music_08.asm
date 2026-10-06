@@ -612,5 +612,9 @@ SoundSong08_Header:: ; 04:7445
 Data_04_7445::
 	sound_stream_header 4, 2
 	dw SoundSong08_Track0, SoundSong08_Track1, SoundSong08_Track2, SoundSong08_Track3 ; track stream pointers (read by the driver)
-	dw SoundSong08_Track0_Loop, SoundSong08_Track1_Loop, SoundSong08_Track2_Loop, SoundSong08_Track3_Loop ; not read by the driver: target of each track's final sound_jump
-	dw SoundSong08_Track0_AfterJump, SoundSong08_Track1_AfterJump, SoundSong08_Track2_AfterJump, SoundSong08_Track3_AfterJump ; not read by the driver: address after each track's final sound_jump
+	; not read by the driver: target of each track's final sound_jump
+	dw SoundSong08_Track0_Loop, SoundSong08_Track1_Loop
+	dw SoundSong08_Track2_Loop, SoundSong08_Track3_Loop
+	; not read by the driver: address after each track's final sound_jump
+	dw SoundSong08_Track0_AfterJump, SoundSong08_Track1_AfterJump
+	dw SoundSong08_Track2_AfterJump, SoundSong08_Track3_AfterJump
