@@ -31,12 +31,10 @@ PNG_TILE_OUTS := \
 	gfx/account/screens_bank4a/tiles_4e40.2bpp \
 	gfx/account/screens_bank4a/tiles_5860.2bpp \
 	gfx/account/screens_bank4a/tiles_5870.2bpp \
-	gfx/account/screens_bank4a/tiles_5c70.2bpp \
 	gfx/account/screens_bank4b/tiles_42d0.2bpp \
 	gfx/account/screens_bank4b/tiles_46d0.2bpp \
 	gfx/account/screens_bank4b/tiles_5080.2bpp \
 	gfx/account/screens_bank4b/tiles_5420.2bpp \
-	gfx/account/screens_bank4b/tiles_5878.2bpp \
 	gfx/account/screens_bank5d/tiles_4800.2bpp \
 	gfx/account/screens_bank5d/tiles_4c00.2bpp \
 	gfx/account/screens_bank5d/tiles_5320.2bpp \
@@ -44,7 +42,6 @@ PNG_TILE_OUTS := \
 	gfx/account/screens_bank5d/tiles_5df0.2bpp \
 	gfx/account/screens_bank5d/tiles_61f0.2bpp \
 	gfx/account/screens_bank5d/tiles_63f0.2bpp \
-	gfx/account/screens_bank5d/tiles_65f0.2bpp \
 	gfx/account/screens_bank5d/tiles_6900.2bpp \
 	gfx/account/screens_bank5d/tiles_6c00.2bpp \
 	gfx/account/screens_bank5d/tiles_6e00.2bpp \
@@ -70,6 +67,7 @@ PNG_TILE_OUTS := \
 	gfx/account/screens_bank71/tiles_61c0.2bpp \
 	gfx/account/screens_bank71/tiles_6440.2bpp \
 	gfx/account/screens_bank71/tiles_6580.2bpp \
+	gfx/address_book/address_editor/abook_addr_tiles8800.2bpp \
 	gfx/address_book/address_picker/addr_book_tiles8f00.2bpp \
 	gfx/address_book/address_picker/addr_pick_tiles9300.2bpp \
 	gfx/address_book/address_picker/addr_pick_tiles9700.2bpp \
@@ -190,7 +188,6 @@ PNG_TILE_OUTS := \
 	gfx/comm/comm_scene/tiles_6690.2bpp \
 	gfx/comm/comm_scene/tiles_6890.2bpp \
 	gfx/comm/comm_scene/tiles_6a90.2bpp \
-	gfx/comm/connect_dialog_bank56/tiles_526a.2bpp \
 	gfx/comm/connect_dialog_bank56/tiles_52c0.2bpp \
 	gfx/comm/connect_dialog_bank56/tiles_56c0.2bpp \
 	gfx/comm/connect_dialog_bank56/tiles_5ac0.2bpp \
@@ -324,6 +321,7 @@ PNG_TILE_OUTS := \
 	gfx/mail/server_status/mail_server_status_tiles_6f30.2bpp \
 	gfx/mail/server_status/mail_server_status_tiles_7330.2bpp \
 	gfx/mail/server_status_bank26/mail_server_status_tiles_7420.2bpp \
+	gfx/mail/server_status_bank26/profile_tiles8000.2bpp \
 	gfx/mail/server_status_bank26/tiles_7840.2bpp \
 	gfx/mail/session_scenery/mail_session_tiles_59e0.2bpp \
 	gfx/mail/session_scenery/mail_session_tiles_5de0.2bpp \
@@ -399,7 +397,6 @@ PNG_TILE_OUTS := \
 	gfx/settings/screens_bank4d/tiles_4d10.2bpp \
 	gfx/settings/screens_bank4d/tiles_5010.2bpp \
 	gfx/settings/screens_bank4d/tiles_5110.2bpp \
-	gfx/settings/screens_bank4d/tiles_5510.2bpp \
 	gfx/settings/screens_bank4d/tiles_5d50.2bpp \
 	gfx/settings/screens_bank4d/tiles_5d70.2bpp \
 	gfx/settings/screens_bank4d/tiles_6170.2bpp \
@@ -439,16 +436,14 @@ gfx/account/screens_bank4a/tiles_4040.2bpp: PNG_SIZE := 512
 gfx/account/screens_bank4a/tiles_4240.2bpp: PNG_SIZE := 1024
 gfx/account/screens_bank4a/tiles_4640.2bpp: PNG_SIZE := 1024
 gfx/account/screens_bank4a/tiles_4a40.2bpp: PNG_SIZE := 1024
-gfx/account/screens_bank4a/tiles_4e40.2bpp: PNG_SIZE := 1024
+gfx/account/screens_bank4a/tiles_4e40.2bpp: PNG_SIZE := 832
 gfx/account/screens_bank4a/tiles_5860.2bpp: PNG_SIZE := 16
 gfx/account/screens_bank4a/tiles_5870.2bpp: PNG_SIZE := 1024
-gfx/account/screens_bank4a/tiles_5c70.2bpp: PNG_SIZE := 64
 gfx/account/screens_bank4b/tiles_42d0.2bpp: PNG_SIZE := 1024
 gfx/account/screens_bank4b/tiles_46d0.2bpp: PNG_SIZE := 1024
 gfx/account/screens_bank4b/tiles_5080.2bpp: PNG_SIZE := 896
 gfx/account/screens_bank4b/tiles_5420.2bpp: PNG_SIZE := 1104
 gfx/account/screens_bank4b/tiles_5420.2bpp: PNG_PAD := -x 11
-gfx/account/screens_bank4b/tiles_5878.2bpp: PNG_SIZE := 32
 gfx/account/screens_bank5d/tiles_4800.2bpp: PNG_SIZE := 1024
 gfx/account/screens_bank5d/tiles_4c00.2bpp: PNG_SIZE := 1024
 gfx/account/screens_bank5d/tiles_5320.2bpp: PNG_SIZE := 1024
@@ -456,26 +451,25 @@ gfx/account/screens_bank5d/tiles_5720.2bpp: PNG_SIZE := 1024
 gfx/account/screens_bank5d/tiles_5df0.2bpp: PNG_SIZE := 1024
 gfx/account/screens_bank5d/tiles_61f0.2bpp: PNG_SIZE := 512
 gfx/account/screens_bank5d/tiles_63f0.2bpp: PNG_SIZE := 512
-gfx/account/screens_bank5d/tiles_65f0.2bpp: PNG_SIZE := 64
 gfx/account/screens_bank5d/tiles_6900.2bpp: PNG_SIZE := 768
 gfx/account/screens_bank5d/tiles_6c00.2bpp: PNG_SIZE := 512
-gfx/account/screens_bank5d/tiles_6e00.2bpp: PNG_SIZE := 1024
+gfx/account/screens_bank5d/tiles_6e00.2bpp: PNG_SIZE := 512
 gfx/account/screens_bank5e/tiles_4800.2bpp: PNG_SIZE := 1024
 gfx/account/screens_bank5e/tiles_4c00.2bpp: PNG_SIZE := 256
 gfx/account/screens_bank5e/tiles_4e10.2bpp: PNG_SIZE := 1024
-gfx/account/screens_bank5e/tiles_5210.2bpp: PNG_SIZE := 1024
+gfx/account/screens_bank5e/tiles_5210.2bpp: PNG_SIZE := 768
 gfx/account/screens_bank5e/tiles_57e0.2bpp: PNG_SIZE := 32
 gfx/account/screens_bank5e/tiles_5800.2bpp: PNG_SIZE := 1024
 gfx/account/screens_bank5e/tiles_5c00.2bpp: PNG_SIZE := 1024
 gfx/account/screens_bank5e/tiles_60d0.2bpp: PNG_SIZE := 1024
 gfx/account/screens_bank5e/tiles_64d0.2bpp: PNG_SIZE := 1024
 gfx/account/screens_bank5e/tiles_6ba0.2bpp: PNG_SIZE := 1024
-gfx/account/screens_bank5e/tiles_6fa0.2bpp: PNG_SIZE := 1024
+gfx/account/screens_bank5e/tiles_6fa0.2bpp: PNG_SIZE := 800
 gfx/account/screens_bank71/tiles_4000.2bpp: PNG_SIZE := 768
 gfx/account/screens_bank71/tiles_4300.2bpp: PNG_SIZE := 512
 gfx/account/screens_bank71/tiles_4500.2bpp: PNG_SIZE := 912
 gfx/account/screens_bank71/tiles_4500.2bpp: PNG_PAD := -x 7
-gfx/account/screens_bank71/tiles_4890.2bpp: PNG_SIZE := 1024
+gfx/account/screens_bank71/tiles_4890.2bpp: PNG_SIZE := 960
 gfx/account/screens_bank71/tiles_5340.2bpp: PNG_SIZE := 1024
 gfx/account/screens_bank71/tiles_5740.2bpp: PNG_SIZE := 1024
 gfx/account/screens_bank71/tiles_5b40.2bpp: PNG_SIZE := 640
@@ -483,6 +477,8 @@ gfx/account/screens_bank71/tiles_5dc0.2bpp: PNG_SIZE := 1024
 gfx/account/screens_bank71/tiles_61c0.2bpp: PNG_SIZE := 640
 gfx/account/screens_bank71/tiles_6440.2bpp: PNG_SIZE := 320
 gfx/account/screens_bank71/tiles_6580.2bpp: PNG_SIZE := 256
+gfx/address_book/address_editor/abook_addr_tiles8800.2bpp: PNG_SIZE := 752
+gfx/address_book/address_editor/abook_addr_tiles8800.2bpp: PNG_PAD := -x 1
 gfx/address_book/address_picker/addr_book_tiles8f00.2bpp: PNG_SIZE := 144
 gfx/address_book/address_picker/addr_pick_tiles9300.2bpp: PNG_SIZE := 1024
 gfx/address_book/address_picker/addr_pick_tiles9700.2bpp: PNG_SIZE := 256
@@ -620,7 +616,6 @@ gfx/comm/comm_scene/tiles_6490.2bpp: PNG_SIZE := 512
 gfx/comm/comm_scene/tiles_6690.2bpp: PNG_SIZE := 512
 gfx/comm/comm_scene/tiles_6890.2bpp: PNG_SIZE := 512
 gfx/comm/comm_scene/tiles_6a90.2bpp: PNG_SIZE := 512
-gfx/comm/connect_dialog_bank56/tiles_526a.2bpp: PNG_SIZE := 80
 gfx/comm/connect_dialog_bank56/tiles_52c0.2bpp: PNG_SIZE := 1024
 gfx/comm/connect_dialog_bank56/tiles_56c0.2bpp: PNG_SIZE := 1024
 gfx/comm/connect_dialog_bank56/tiles_5ac0.2bpp: PNG_SIZE := 768
@@ -761,6 +756,7 @@ gfx/mail/result_screens/mail_server_status_tiles_5060.2bpp: PNG_SIZE := 48
 gfx/mail/server_status/mail_server_status_tiles_6f30.2bpp: PNG_SIZE := 1024
 gfx/mail/server_status/mail_server_status_tiles_7330.2bpp: PNG_SIZE := 1024
 gfx/mail/server_status_bank26/mail_server_status_tiles_7420.2bpp: PNG_SIZE := 1024
+gfx/mail/server_status_bank26/profile_tiles8000.2bpp: PNG_SIZE := 32
 gfx/mail/server_status_bank26/tiles_7840.2bpp: PNG_SIZE := 624
 gfx/mail/session_scenery/mail_session_tiles_59e0.2bpp: PNG_SIZE := 1024
 gfx/mail/session_scenery/mail_session_tiles_5de0.2bpp: PNG_SIZE := 1024
@@ -826,7 +822,7 @@ gfx/registration/screens_bank58/tiles_7650.2bpp: PNG_SIZE := 320
 gfx/registration/screens_bank58/tiles_7790.2bpp: PNG_SIZE := 960
 gfx/settings/screens_bank4a/tiles_5f80.2bpp: PNG_SIZE := 256
 gfx/settings/screens_bank4a/tiles_6080.2bpp: PNG_SIZE := 1024
-gfx/settings/screens_bank4a/tiles_6480.2bpp: PNG_SIZE := 1024
+gfx/settings/screens_bank4a/tiles_6480.2bpp: PNG_SIZE := 256
 gfx/settings/screens_bank4a/tiles_68d0.2bpp: PNG_SIZE := 80
 gfx/settings/screens_bank4a/tiles_6920.2bpp: PNG_SIZE := 1024
 gfx/settings/screens_bank4a/tiles_6d20.2bpp: PNG_SIZE := 1024
@@ -834,10 +830,9 @@ gfx/settings/screens_bank4b/tiles_5b90.2bpp: PNG_SIZE := 2560
 gfx/settings/screens_bank4b/tiles_6a90.2bpp: PNG_SIZE := 1024
 gfx/settings/screens_bank4b/tiles_6e90.2bpp: PNG_SIZE := 544
 gfx/settings/screens_bank4b/tiles_6e90.2bpp: PNG_PAD := -x 14
-gfx/settings/screens_bank4b/tiles_70b0.2bpp: PNG_SIZE := 992
-gfx/settings/screens_bank4b/tiles_70b0.2bpp: PNG_PAD := -x 2
+gfx/settings/screens_bank4b/tiles_70b0.2bpp: PNG_SIZE := 768
 gfx/settings/screens_bank4b/tiles_76d0.2bpp: PNG_SIZE := 1024
-gfx/settings/screens_bank4b/tiles_7ad0.2bpp: PNG_SIZE := 768
+gfx/settings/screens_bank4b/tiles_7ad0.2bpp: PNG_SIZE := 512
 gfx/settings/screens_bank4d/tiles_4000.2bpp: PNG_SIZE := 512
 gfx/settings/screens_bank4d/tiles_4200.2bpp: PNG_SIZE := 784
 gfx/settings/screens_bank4d/tiles_4200.2bpp: PNG_PAD := -x 15
@@ -847,7 +842,6 @@ gfx/settings/screens_bank4d/tiles_4a10.2bpp: PNG_SIZE := 768
 gfx/settings/screens_bank4d/tiles_4d10.2bpp: PNG_SIZE := 768
 gfx/settings/screens_bank4d/tiles_5010.2bpp: PNG_SIZE := 256
 gfx/settings/screens_bank4d/tiles_5110.2bpp: PNG_SIZE := 1024
-gfx/settings/screens_bank4d/tiles_5510.2bpp: PNG_SIZE := 768
 gfx/settings/screens_bank4d/tiles_5d50.2bpp: PNG_SIZE := 32
 gfx/settings/screens_bank4d/tiles_5d70.2bpp: PNG_SIZE := 1024
 gfx/settings/screens_bank4d/tiles_6170.2bpp: PNG_SIZE := 1024
@@ -856,7 +850,7 @@ gfx/settings/screens_bank4d/tiles_6870.2bpp: PNG_SIZE := 1024
 gfx/settings/screens_bank4d/tiles_6c70.2bpp: PNG_SIZE := 256
 gfx/settings/screens_bank4d/tiles_6d70.2bpp: PNG_SIZE := 1024
 gfx/settings/screens_bank4d/tiles_7170.2bpp: PNG_SIZE := 768
-gfx/settings/screens_bank4d/tiles_7470.2bpp: PNG_SIZE := 1024
+gfx/settings/screens_bank4d/tiles_7470.2bpp: PNG_SIZE := 256
 gfx/settings/screens_bank5d/tiles_7360.2bpp: PNG_SIZE := 1024
 gfx/settings/screens_bank5d/tiles_7760.2bpp: PNG_SIZE := 1024
 gfx/settings/screens_bank5e/tiles_4000.2bpp: PNG_SIZE := 1024

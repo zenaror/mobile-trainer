@@ -185,13 +185,13 @@ SettingsMenu_StateInit:: ; 68:5066
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0028
 	ld de, wPaletteBufBg
-	ld hl, $5180
-	ld a, $4A
+	ld hl, Palette_SettingsMenu_Bg
+	ld a, BANK(Palette_SettingsMenu_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $0008
 	ld de, wPaletteBufObj
-	ld hl, $51A8
-	ld a, $4A
+	ld hl, Palette_SettingsMenu_Obj
+	ld a, BANK(Palette_SettingsMenu_Obj)
 	farcall Palette_LoadToBuffer
 	call SettingsMenu_DrawItems
 	ldh a, [rLCDC]
@@ -316,8 +316,8 @@ SettingsMenu_DrawItems:: ; 68:522C
 	jr nz, .l5245
 	ld bc, $1214
 	ld de, wScreenTileMap
-	ld hl, $51D0
-	ld a, $4A
+	ld hl, Tilemap_SettingsMenu_4A_51D0
+	ld a, BANK(Tilemap_SettingsMenu_4A_51D0)
 	farcall Tilemap_CopyRectAndAttr
 	jr .l5256
 

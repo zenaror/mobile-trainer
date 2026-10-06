@@ -27,12 +27,12 @@ edit a PNG   ->   make            ->   open mobile_trainer.gbc
 
 | what | file | how | count |
 |---|---|---|---:|
-| tile blocks (2bpp art: screens, text baked into tiles, buttons, logos) | `gfx/**/name.png` next to `name.2bpp` | exact `rgbgfx` source: 4 greys in a fixed order (index 0 white ... 3 black); 16 tiles per row (8-15 when 16 does not divide the count; the last row padded, padding tiles are ignored) | 409 |
+| tile blocks (2bpp art: screens, text baked into tiles, buttons, logos) | `gfx/**/name.png` next to `name.2bpp` | exact `rgbgfx` source: 4 greys in a fixed order (index 0 white ... 3 black); 16 tiles per row (8-15 when 16 does not divide the count; the last row padded, padding tiles are ignored) | 406 |
 | JIS 12x12 font banks, 8x16 font runs, 6x12 Latin font | `data/fonts/name.png` next to `name.bin` / `name.1bpp` | glyph sheet, see section 4; `tools/font_png.py` | 37 sheets (38 binaries) |
 | whole screens (tilemap + attributes + tiles + palettes composed, in real colours) | `gfx/**/name.screen.png` next to `name.tilemap` | see section 3; an *editing view*: import writes the edit back into the tile sheets | 83 screens |
-| palettes | `gfx/**/name.pal` | text, one `RGB r, g, b` line per colour (0-31 per channel), four colours per palette; hand-editable; screen PNGs can write colours back (`--palette`) | 133 files |
+| palettes | `gfx/**/name.pal` | text, one `RGB r, g, b` line per colour (0-31 per channel), four colours per palette; hand-editable; screen PNGs can write colours back (`--palette`) | 144 files |
 
-Stay binary: `.tilemap` / `.attrmap` (which tile sits in which cell, flips, palette numbers; 169 + 169 files; the layout of a screen is fixed, see
+Stay binary: `.tilemap` / `.attrmap` (which tile sits in which cell, flips, palette numbers; 180 + 180 files; the layout of a screen is fixed, see
 section 3 for what you can change), the Shift-JIS validity bitmap (`data/fonts/sjis_valid_bitmap.bin`, data rather than an image; a view-only picture
 `sjis_valid_bitmap_view.png` exists), and every graphics block that is still `db` in the `.asm` (sprite frame tables, animation scripts, unclassified data).
 
@@ -55,7 +55,7 @@ make
 * Import keeps the tilemap and the attribute map: an edit of a cell is written into the tile that cell shows (flips undone).  A tile that several cells
   show must look the same in all of them: editing one of them alone is refused ("tile N is shared ...") because the tilemap cannot give it another
   tile.  Edit a cell that uses its tile once, or all sharing cells identically.  Other screens that show the same tile change too (import tells you).
-* Unedited screen PNG -> import = no change, for all 83 screens (`make png-check` proves it on every run).
+* Unedited screen PNG -> import = no change, for all 92 screens (`make png-check` proves it on every run).
 
 ## 4. Font sheets
 

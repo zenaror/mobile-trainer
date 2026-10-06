@@ -4,7 +4,7 @@
 
 SECTION "gfx/mail/mail_title_entry", ROMX
 
-; ---- data $4A30-$4E30 (1024 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 4A30-56B0 by higher-priority evidence]
+; ---- data $4A30-$4E30 (1024 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); kind tiles from the label name [clipped from 4A30-56B0 by higher-priority evidence]
 
 Gfx_MailTitle_Tiles9300Vb1:: ; 2C:4A30
 Data_2C_4A30::
@@ -28,7 +28,7 @@ Gfx_MailTitle_Tiles8000:: ; 2C:5140
 	; kind (tiles) from the label name / config/symbols note; the region header above describes the block differently
 	INCBIN "gfx/mail/mail_title_entry/mail_title_tiles8000.2bpp"
 
-; ---- data $5150-$566C (1308 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 4A30-56B0 by higher-priority evidence]
+; ---- data $5150-$566C (1308 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); kind tiles from the label name [clipped from 4A30-56B0 by higher-priority evidence]
 
 Data_2C_5150:: ; 2C:5150
 	db $00, $00, $00, $00, $00, $00, $FF, $FF, $02, $02, $05, $54, $07, $AC, $0F, $08

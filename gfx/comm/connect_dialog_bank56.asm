@@ -46,11 +46,16 @@ Data_56_4F9A::
 	INCBIN "gfx/comm/connect_dialog_bank56/tilemap_4f9a.tilemap"
 	INCBIN "gfx/comm/connect_dialog_bank56/tilemap_4f9a.attrmap"
 
-; ---- gfx $526A-$52C0 (86 bytes) [PROBABLE] tiles-2bpp: heuristic: 54 coherent tiles (hsim2=0.695 vsim2=0.766, 0 blank) parity 1; 826/912 bytes also covered by call-site blocks [clipped from 5101-5491 by higher-priority evidence]
+; ---- data $526A-$52BA (80 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: Tilemap_CopyRectAndAttrPtr at 57:490B: hl=$526A a=$56 b=2 rows c=20 cols (tiles then attrs; the attribute half is read through the pointer wConnectDialog_AttrSrc = $5292) de=$D200 [call site 57:490B executed: 221 hits in 28 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_ConnectDialog_ConnectConfirm_56_526A:: ; 56:526A
 Data_56_526A::
-	INCBIN "gfx/comm/connect_dialog_bank56/tiles_526a.2bpp"
+	INCBIN "gfx/comm/connect_dialog_bank56/connect_dialog_connect_confirm_56_526a.tilemap"
+	INCBIN "gfx/comm/connect_dialog_bank56/connect_dialog_connect_confirm_56_526a.attrmap"
+
+; ---- data $52BA-$52C0 (6 bytes) [HYPOTHESIS] 6 bytes of $00 between the 20 x 2 tilemap pair and the next tile sheet (alignment padding); read by no code that was found
+
+Data_56_52BA:: ; 56:52BA
 	db $00, $00, $00, $00, $00, $00
 
 ; ---- gfx $52C0-$56C0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 57:47DD: hl=$52C0 a=$56 c=$40 de=$9001 (dest VRAM $9000, vbank=1)

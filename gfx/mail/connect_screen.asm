@@ -65,16 +65,13 @@ Data_27_7060::
 	INCBIN "gfx/mail/connect_screen/mail_connect_tilemap.tilemap"
 	INCBIN "gfx/mail/connect_screen/mail_connect_tilemap.attrmap"
 
-; ---- data $74E0-$7518 (56 bytes) [PROBABLE] palette-rgb555: heuristic: 28 RGB555 words as 7 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+; ---- data $74E0-$7520 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/mail/send_receive.asm:1471, call 27:4BC9 executed 252 hits in 25 scenarios (analysis/coverage_union.tsv))
 
 MailConnect_BgPalette:: ; 27:74E0
 Data_27_74E0::
 	INCLUDE "gfx/mail/connect_screen/mail_connect_bg_palette.pal"
 
-; ---- data $7518-$7560 (72 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown [clipped from 5060-7A10 by higher-priority evidence]
-
-Data_27_7518:: ; 27:7518
-	db $00, $00, $00, $00, $00, $00, $00, $00
+; ---- data $7520-$7560 (64 bytes) [PROBABLE] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufObj (engine/mail/mail_session_screen.asm:288, call 26:5289 executed 57 hits in 16 scenarios (analysis/coverage_union.tsv)); +$00 bc=$40 into wPaletteBufObj (engine/mail/send_receive.asm:1466, call 27:4BB8 executed 252 hits in 25 scenarios (analysis/coverage_union.tsv)); +$00 bc=$40 into wPaletteBufObj (engine/mail/send_receive.asm:1535, call 27:4C8D executed 252 hits in 25 scenarios (analysis/coverage_union.tsv)); and 1 more load(s)
 
 MailScreens_ObjPalette_7520:: ; 27:7520
 	INCLUDE "gfx/mail/connect_screen/mail_screens_obj_palette_7520.pal"

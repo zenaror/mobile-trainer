@@ -107,11 +107,11 @@ Gfx_Account_ConfirmScreen_Tiles9000Vb1:: ; 5D:63F0
 Data_5D_63F0::
 	INCBIN "gfx/account/screens_bank5d/tiles_63f0.2bpp"
 
-; ---- gfx $65F0-$6630 (64 bytes) [PROBABLE] tiles-2bpp: heuristic: 38 coherent tiles (hsim2=0.711 vsim2=0.719, 5 blank) parity 0; 656/720 bytes also covered by call-site blocks [clipped from 6360-6630 by higher-priority evidence]
+; ---- data $65F0-$6630 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/account/confirm_screens.asm:54, call 68:627F executed 14 hits in 5 scenarios (analysis/coverage_union.tsv))
 
 Palette_Account_ConfirmScreen_Bg:: ; 5D:65F0
 Data_5D_65F0::
-	INCBIN "gfx/account/screens_bank5d/tiles_65f0.2bpp"
+	INCLUDE "gfx/account/screens_bank5d/account_confirm_screen_bg.pal"
 
 ; ---- data $6630-$6900 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:62A1: hl=$6630 a=$5D b=18 rows c=20 cols (tiles then attrs) de=$D000
 
@@ -131,33 +131,27 @@ Data_5D_6900::
 Data_5D_6C00:: ; 5D:6C00
 	INCBIN "gfx/account/screens_bank5d/tiles_6c00.2bpp"
 
-; ---- gfx $6E00-$7200 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:6B2B: hl=$6E00 a=$5D c=$40 de=$9001 (dest VRAM $9000, vbank=1)
+; ---- gfx $6E00-$7000 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:6B2B: hl=$6E00 a=$5D c=$40 de=$9001 (dest VRAM $9000, vbank=1); the last $200 bytes of the old blob hold 2 palettes and the head of a tilemap pair; the blocks below type them by what the code reads, and the HDMA request that copies the tiles copies them into VRAM as well
 
 Gfx_Registration_WriteConfig_Tiles9000Vb1:: ; 5D:6E00
 Data_5D_6E00::
 	INCBIN "gfx/account/screens_bank5d/tiles_6e00.2bpp"
 
-; ---- data $7200-$7318 (280 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:6B70: hl=$7048 a=$5D b=18 rows c=20 cols (tiles then attrs) de=$D000 [clipped from 7048-7318 by higher-priority evidence]
+; ---- data $7000-$7040 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/account/register_config.asm:48, call 68:6B4E executed 23 hits in 8 scenarios (analysis/coverage_union.tsv))
 
-Data_5D_7200:: ; 5D:7200
-	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0B, $0B, $09, $0C, $0C, $0C, $0A, $0A, $0A
-	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0B, $0B, $09, $0C, $0C
-	db $0C, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
-	db $09, $0A, $0C, $0C, $0C, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
-	db $0A, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $0A, $0A, $0A, $0A, $0A
-	db $0A, $0A, $0A, $0A, $0A, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $0A
-	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
-	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $09, $09, $09, $09, $09, $09, $09, $09
-	db $0A, $0A, $0A, $0A, $29, $29, $29, $29, $29, $29, $29, $29, $09, $10, $10, $10
-	db $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $29
-	db $09, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10
-	db $10, $10, $10, $29, $09, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10
-	db $10, $10, $10, $10, $10, $10, $10, $29, $09, $10, $10, $10, $10, $10, $10, $10
-	db $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $29, $09, $10, $10, $10
-	db $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $29
-	db $09, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10
-	db $10, $10, $10, $29, $49, $49, $69, $69, $69, $69, $69, $69, $69, $69, $69, $69
-	db $69, $69, $69, $69, $69, $69, $69, $69
+Palette_Registration_WriteConfig_Bg:: ; 5D:7000
+	INCLUDE "gfx/account/screens_bank5d/registration_write_config_bg.pal"
+
+; ---- data $7040-$7048 (8 bytes) [CONFIRMED] palette-rgb555: 4 colours (1 palettes) read by Palette_LoadToBuffer: +$00 bc=$08 into wPaletteBufObj (engine/account/register_config.asm:53, call 68:6B5F executed 23 hits in 8 scenarios (analysis/coverage_union.tsv))
+
+Palette_Registration_WriteConfig_Obj:: ; 5D:7040
+	INCLUDE "gfx/account/screens_bank5d/registration_write_config_obj.pal"
+
+; ---- data $7048-$7318 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:6B70: hl=$7048 a=$5D b=18 rows c=20 cols (tiles then attrs) de=$D000
+
+Tilemap_Registration_WriteConfig_5D_7048:: ; 5D:7048
+	INCBIN "gfx/account/screens_bank5d/registration_write_config_5d_7048.tilemap"
+	INCBIN "gfx/account/screens_bank5d/registration_write_config_5d_7048.attrmap"
 
 ; ---- zero $7318-$731C (4 bytes) [PROBABLE] 4 x 00 (all bytes zero) between two read-data blocks
 Table_5D_7318:: ; 5D:7318

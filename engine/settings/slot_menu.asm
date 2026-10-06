@@ -145,18 +145,18 @@ SettingsPhone_SlotMenu_Setup:: ; 67:4CCB
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
-	ld hl, $7570
-	ld a, $4D
+	ld hl, Palette_SettingsPhone_SlotMenu_Bg
+	ld a, BANK(Palette_SettingsPhone_SlotMenu_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $0008
 	ld de, wPaletteBufObj
-	ld hl, $7598
-	ld a, $4D
+	ld hl, Palette_SettingsPhone_SlotMenu_Obj
+	ld a, BANK(Palette_SettingsPhone_SlotMenu_Obj)
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap
-	ld hl, $75A0
-	ld a, $4D
+	ld hl, Tilemap_SettingsPhone_SlotMenu_4D_75A0
+	ld a, BANK(Tilemap_SettingsPhone_SlotMenu_4D_75A0)
 	farcall Tilemap_CopyRectAndAttr
 	call SettingsPhone_SlotMenu_LoadTabTilemap
 	call SettingsPhone_SlotMenu_PrintSlotFields

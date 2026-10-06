@@ -20,17 +20,22 @@ Data_71_4300:: ; 71:4300
 Data_71_4500:: ; 71:4500
 	INCBIN "gfx/account/screens_bank71/tiles_4500.2bpp"
 
-; ---- gfx $4890-$4C90 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:748C: hl=$4890 a=$71 c=$40 de=$9401 (dest VRAM $9400, vbank=1)
+; ---- gfx $4890-$4C50 (960 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:748C: hl=$4890 a=$71 c=$40 de=$9401 (dest VRAM $9400, vbank=1); the last $40 bytes of the old blob hold a palette; the blocks below type them by what the code reads, and the HDMA request that copies the tiles copies them into VRAM as well
 
 Gfx_CommPanel_Tiles9400Vb1:: ; 71:4890
 Data_71_4890::
 	INCBIN "gfx/account/screens_bank71/tiles_4890.2bpp"
 
-; ---- data $4C90-$4C98 (8 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown [clipped from 4000-4FB8 by higher-priority evidence]
+; ---- data $4C50-$4C90 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/account/comm_panel.asm:191, call 68:74AF executed 56 hits in 16 scenarios (analysis/coverage_union.tsv))
+
+Palette_CommPanel_Bg:: ; 71:4C50
+	INCLUDE "gfx/account/screens_bank71/comm_panel_bg.pal"
+
+; ---- data $4C90-$4C98 (8 bytes) [CONFIRMED] palette-rgb555: 4 colours (1 palettes) read by Palette_LoadToBuffer: +$00 bc=$08 into wPaletteBufObj (engine/account/comm_panel.asm:196, call 68:74C0 executed 56 hits in 16 scenarios (analysis/coverage_union.tsv))
 
 Palette_CommPanel_Obj:: ; 71:4C90
 Data_71_4C90::
-	db $ED, $7D, $4A, $55, $A6, $3C, $FF, $01
+	INCLUDE "gfx/account/screens_bank71/comm_panel_obj.pal"
 
 ; ---- data $4C98-$4F68 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:74D1: hl=$4C98 a=$71 b=18 rows c=20 cols (tiles then attrs) de=$D000
 
@@ -208,31 +213,16 @@ Gfx_Registration_DeleteExecute_Tiles9000Vb1:: ; 71:6580
 Data_71_6580::
 	INCBIN "gfx/account/screens_bank71/tiles_6580.2bpp"
 
-; ---- data $6680-$6688 (8 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 5340-6F38 by higher-priority evidence]
+; ---- data $6680-$66C0 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/account/delete_registration.asm:125, call 68:7A5C executed 70 hits in 8 scenarios (analysis/coverage_union.tsv)); +$00 bc=$40 into wPaletteBufBg (engine/account/delete_registration.asm:302, call 68:7C08 executed 1 hits in 1 scenarios (analysis/coverage_union.tsv)); the old blocks cut it in four (8 + 24 + 33 bytes, heuristics)
 
 Palette_Registration_Delete_Bg:: ; 71:6680
-Data_71_6680::
-	db $00, $00, $00, $00, $00, $00, $FF, $7F
+	INCLUDE "gfx/account/screens_bank71/registration_delete_bg.pal"
 
-; ---- data $6688-$66A0 (24 bytes) [PROBABLE] palette-rgb555: heuristic: 12 RGB555 words as 3 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+; ---- data $66C0-$66C8 (8 bytes) [CONFIRMED] palette-rgb555: 4 colours (1 palettes) read by Palette_LoadToBuffer: +$00 bc=$08 into wPaletteBufObj (engine/account/delete_registration.asm:307, call 68:7C19 executed 1 hits in 1 scenarios (analysis/coverage_union.tsv))
 
-Data_71_6688:: ; 71:6688
-	INCLUDE "gfx/account/screens_bank71/palette_6688.pal"
-
-; ---- data $66A0-$66C1 (33 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 5340-6F38 by higher-priority evidence]
-
-Data_71_66A0:: ; 71:66A0
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
-	db $00, $00, $00, $00, $00, $00, $00, $00, $DF, $25, $A0, $3A, $FF, $7F, $00, $00
-; [PROBABLE] the 8 bytes from here (1 byte of this block and the 7 bytes of Data_71_66C1 below) are one palette that Palette_LoadToBuffer reads (bc = 8, engine/account/delete_registration.asm); the headers around
-; this label (data $66A0-$66C1, tiles-2bpp $66C1-$66C8) are heuristics that this read contradicts: $6688-$66C8 is an array of palettes, still to be retyped
-Palette_71_66C0:: ; 71:66C0
-	db $00
-
-; ---- gfx $66C1-$66C8 (7 bytes) [PROBABLE] tiles-2bpp: heuristic: 82 coherent tiles (hsim2=0.618 vsim2=0.845, 4 blank) parity 1; 1449/1456 bytes also covered by call-site blocks [clipped from 66C1-6C71 by higher-priority evidence]
-
-Data_71_66C1:: ; 71:66C1
-	db $7C, $FF, $7F, $FF, $01, $1F, $00
+Palette_Registration_Delete_Obj:: ; 71:66C0
+Palette_71_66C0::
+	INCLUDE "gfx/account/screens_bank71/registration_delete_obj.pal"
 
 ; ---- data $66C8-$6998 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:7A02: hl=$66C8 a=$71 b=18 rows c=20 cols (tiles then attrs) de=$D000
 

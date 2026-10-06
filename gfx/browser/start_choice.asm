@@ -119,39 +119,21 @@ BrowserStart_Tiles4:: ; 73:59E0
 Data_73_59E0::
 	INCBIN "gfx/browser/start_choice/browser_start_tiles4.2bpp"
 
-; ---- data $5DE0-$5DE8 (8 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 4DE0-5F17 by higher-priority evidence]
+; ---- data $5DE0-$5E20 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/browser/start_choice.asm:71, call 73:5FB7 executed 201 hits in 19 scenarios (analysis/coverage_union.tsv))
 
 BrowserStart_Palettes:: ; 73:5DE0
 Data_73_5DE0::
 	INCLUDE "gfx/browser/start_choice/browser_start_palettes.pal"
 
-; ---- data $5DE8-$5E00 (24 bytes) [PROBABLE] palette-rgb555: heuristic: 12 RGB555 words as 3 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
-
-Data_73_5DE8:: ; 73:5DE8
-	INCLUDE "gfx/browser/start_choice/palette_5de8.pal"
-
-; ---- data $5E00-$5E08 (8 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 4DE0-5F17 by higher-priority evidence]
-
-Data_73_5E00:: ; 73:5E00
-	db $00, $00, $00, $00, $00, $00, $00, $00
-
-; ---- data $5E08-$5E30 (40 bytes) [PROBABLE] palette-rgb555: heuristic: 20 RGB555 words as 5 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
-
-Data_73_5E08:: ; 73:5E08
-	INCLUDE "gfx/browser/start_choice/palette_5e08.pal"
+; ---- data $5E20-$5E60 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufObj (engine/browser/start_choice.asm:98, call 73:600E executed 201 hits in 19 scenarios (analysis/coverage_union.tsv))
 
 BrowserStart_ObjPalettes:: ; 73:5E20
 	INCLUDE "gfx/browser/start_choice/browser_start_obj_palettes.pal"
 
-; ---- data $5E30-$5E38 (8 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 4DE0-5F17 by higher-priority evidence]
+; ---- data $5E60-$5EC0 (96 bytes) [PROBABLE] palette-rgb555: heuristic: 48 RGB555 words as 12 palette group(s) of 4 (the rest of a heuristic block; the palette array(s) that the code reads were cut out of it)
 
-Data_73_5E30:: ; 73:5E30
-	db $00, $00, $00, $00, $00, $00, $00, $00
-
-; ---- data $5E38-$5EC0 (136 bytes) [PROBABLE] palette-rgb555: heuristic: 68 RGB555 words as 17 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
-
-Data_73_5E38:: ; 73:5E38
-	INCLUDE "gfx/browser/start_choice/palette_5e38.pal"
+Data_73_5E60:: ; 73:5E60
+	INCLUDE "gfx/browser/start_choice/palette_5e60.pal"
 
 ; ---- data $5EC0-$5F17 (87 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 4DE0-5F17 by higher-priority evidence]
 

@@ -4,7 +4,7 @@
 
 SECTION "gfx/profile/profile_editor", ROMX
 
-; ---- data $6300-$6B40 (2112 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 6300-6E50 by higher-priority evidence]
+; ---- data $6300-$6B40 (2112 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); kind tiles from the label name [clipped from 6300-6E50 by higher-priority evidence]
 
 Gfx_Profile_Tiles9300Vb1:: ; 2A:6300
 Data_2A_6300::

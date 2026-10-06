@@ -187,7 +187,7 @@ too-short frame (both are assembly errors).
 * `home/sprites.asm` comment of `Sprite_StepAndDrawSlot`: "slot layout inferred, HYPOTHESIS": the fields listed in section 2 are read off the code; the comment was not edited here (`home/` is outside this pass's
   edits) and can be upgraded from section 2.
 * The walk of `tools/sprite_chain_check.py` finds no entries for the sites `ld de,$7318` (5D) and `ld de,$64AE` (6A) because its root rule takes the label at or before the operand
-  (`Data_5D_7200`, `Data_6A_6448`, both far before the table).  The converter handles them with the exact operand; the checker was not changed for this (it reports 49 roots with 2 empty ones as before).
+  (`Data_5D_7200` (a label that no longer exists: the retyping `naming2_retype1.md` made 5D:7048-7318 one tilemap pair, `Tilemap_Registration_WriteConfig_5D_7048`), `Data_6A_6448`, both far before the table).  The converter handles them with the exact operand; the checker was not changed for this (it reports 49 roots with 2 empty ones as before).
 
 ## 9. Open questions
 

@@ -29,7 +29,7 @@ Gfx_MailDraftMenu_Tiles8000:: ; 2B:4E60
 Data_2B_4E60::
 	INCBIN "gfx/mail/draft_menu/mail_draft_menu_tiles8000.2bpp"
 
-; ---- data $5190-$51D0 (64 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 4880-51D0 by higher-priority evidence]
+; ---- data $5190-$51D0 (64 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); kind palette from the label name [clipped from 4880-51D0 by higher-priority evidence]
 
 Palette_MailDraftMenu_Obj:: ; 2B:5190
 Data_2B_5190::

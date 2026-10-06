@@ -11,16 +11,13 @@ Data_22_5980::
 	INCBIN "gfx/mail/comm_progress_scene/comm_progress_screen.tilemap"
 	INCBIN "gfx/mail/comm_progress_scene/comm_progress_screen.attrmap"
 
-; ---- data $5C50-$5C52 (2 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 5980-66D0 by higher-priority evidence]
+; ---- data $5C50-$5C90 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/mail/mail_session_screen.asm:230, call 26:51D7 executed 57 hits in 16 scenarios (analysis/coverage_union.tsv))
 
 Palette_CommProgress_Bg:: ; 22:5C50
 Data_22_5C50::
 	INCLUDE "gfx/mail/comm_progress_scene/comm_progress_bg.pal"
 
-; ---- data $5C52-$5CD0 (126 bytes) [PROBABLE] palette-rgb555: heuristic: 76 RGB555 words as 19 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance) (part of region $5C52-$5CEA)
-
-Data_22_5C52:: ; 22:5C52
-	INCLUDE "gfx/mail/comm_progress_scene/palette_5c52.pal"
+; ---- data $5C90-$5CD0 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufObj (engine/mail/mail_session_screen.asm:235, call 26:51E8 executed 57 hits in 16 scenarios (analysis/coverage_union.tsv))
 
 Palette_CommProgress_Obj:: ; 22:5C90
 	INCLUDE "gfx/mail/comm_progress_scene/comm_progress_obj.pal"

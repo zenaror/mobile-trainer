@@ -42,16 +42,13 @@ Data_25_66E0::
 	INCBIN "gfx/mailbox/mailbox/mailbox_tilemap_delete_select.tilemap"
 	INCBIN "gfx/mailbox/mailbox/mailbox_tilemap_delete_select.attrmap"
 
-; ---- data $69B0-$69E0 (48 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 69B0-7730 by higher-priority evidence]
+; ---- data $69B0-$69F0 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/mail/mailbox_screen.asm:23, call 25:4B33 executed 69 hits in 11 scenarios (analysis/coverage_union.tsv)); +$00 bc=$40 into wPaletteBufBg (engine/mail/mailbox_screen.asm:81, call 25:4BDB executed 52 hits in 3 scenarios (analysis/coverage_union.tsv)); +$00 bc=$40 into wPaletteBufBg (engine/mail/mailbox_screen.asm:137, call 25:4C80 executed 121 hits in 12 scenarios (analysis/coverage_union.tsv))
 
 Mailbox_BgPalette:: ; 25:69B0
 Data_25_69B0::
 	INCLUDE "gfx/mailbox/mailbox/mailbox_bg_palette.pal"
 
-; ---- data $69E0-$6AC8 (232 bytes) [PROBABLE] palette-rgb555: heuristic: 116 RGB555 words as 29 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
-
-Data_25_69E0:: ; 25:69E0
-	INCLUDE "gfx/mailbox/mailbox/palette_69e0.pal"
+; ---- data $69F0-$6AC8 (216 bytes) [PROBABLE] palette-rgb555: heuristic: 116 RGB555 words as 29 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance) [the rest of the block; a palette array that the code reads was cut out of it; the label and the asset of what is left say tiles]
 
 Mailbox_Tiles_69F0:: ; 25:69F0
 	; kind (tiles) from the label name / config/symbols note; the region header above describes the block differently
@@ -89,7 +86,7 @@ Mailbox_Tiles_6CF0:: ; 25:6CF0
 	INCBIN "gfx/mailbox/mailbox/mailbox_tiles_6cf0.2bpp"
 	db $00
 
-; ---- data $6E71-$6EF6 (133 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 69B0-7730 by higher-priority evidence]
+; ---- data $6E71-$6EF0 (127 bytes) [CONFIRMED] palette-rgb555: heuristic: 63 RGB555 words as 63 words (the rest of a heuristic block; the palette array(s) that the code reads were cut out of it)
 
 Data_25_6E71:: ; 25:6E71
 	db $00, $38, $7D, $6C, $6D, $38, $7D, $6C, $6D, $6C, $6D, $38, $7D, $00, $00, $00
@@ -101,15 +98,7 @@ Data_25_6E71:: ; 25:6E71
 	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00, $00, $FF, $00
 	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00, $00, $FF
 
+; ---- data $6EF0-$6F30 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufObj (engine/mail/mailbox_screen.asm:29, call 25:4B47 executed 69 hits in 11 scenarios (analysis/coverage_union.tsv)); +$00 bc=$40 into wPaletteBufObj (engine/mail/mailbox_screen.asm:87, call 25:4BEF executed 52 hits in 3 scenarios (analysis/coverage_union.tsv)); +$00 bc=$40 into wPaletteBufObj (engine/mail/mailbox_screen.asm:143, call 25:4C94 executed 121 hits in 12 scenarios (analysis/coverage_union.tsv))
+
 Mailbox_ObjPalette:: ; 25:6EF0
 	INCLUDE "gfx/mailbox/mailbox/mailbox_obj_palette.pal"
-
-; ---- data $6EF6-$6F2E (56 bytes) [PROBABLE] palette-rgb555: heuristic: 28 RGB555 words as 7 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
-
-Data_25_6EF6:: ; 25:6EF6
-	INCLUDE "gfx/mailbox/mailbox/palette_6ef6.pal"
-
-; ---- data $6F2E-$6F30 (2 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 69B0-7730 by higher-priority evidence]
-
-Data_25_6F2E:: ; 25:6F2E
-	db $FF, $7F

@@ -43,18 +43,18 @@ Registration_WriteConfig_Setup:: ; 68:6AF6
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
-	ld hl, $7000
-	ld a, $5D
+	ld hl, Palette_Registration_WriteConfig_Bg
+	ld a, BANK(Palette_Registration_WriteConfig_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $0008
 	ld de, wPaletteBufObj
-	ld hl, $7040
-	ld a, $5D
+	ld hl, Palette_Registration_WriteConfig_Obj
+	ld a, BANK(Palette_Registration_WriteConfig_Obj)
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap
-	ld hl, $7048
-	ld a, $5D
+	ld hl, Tilemap_Registration_WriteConfig_5D_7048
+	ld a, BANK(Tilemap_Registration_WriteConfig_5D_7048)
 	farcall Tilemap_CopyRectAndAttr
 	call Registration_DoNotUnplugMessage
 	ldh a, [rLCDC]

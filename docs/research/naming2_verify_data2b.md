@@ -28,7 +28,7 @@ This is exactly the pass's model (`<Table> entry = {frame table ptr, script ptr}
 1. **Sites**: every `call|farcall Sprite_InitSlot` in the source (712) resolved from the preceding straight-line window (`ld de,X`, `ld a,$BB`, `ld b,..`).  712 = the number of
    `CD xx xx 82 0A 00` patterns (`call FARCALL_FN ; dw $0A82 ; db 00`) in the ROM.  For all sites with a label operand the label's bank equals `A` (0 bank mismatches); every resolved (bank, address)
    is also a possible `ld a,imm8` / `ld de,imm16` pair before a far call in the ROM bytes.  The sites resolve to **49 roots**: 46 with a semantic name (the pass's 30 + 11 new ones, plus `Objects_Title`, `Table_DebugFlags_Objects`, `Table_MailMenu_Objects`, `CommErr_ObjTable`,
-   `BrowserStart_ObjTable`... whose children are not named) and 3 neutral ones (`Data_5D_7200` and `Data_6A_6448` are interior immediates into tile/data groups, `Table_6A_72BB`).
+   `BrowserStart_ObjTable`... whose children are not named) and 3 neutral ones (`Data_5D_7200` (since the graphics retyping the interior of `Tilemap_Registration_WriteConfig_5D_7048`; the label no longer exists) and `Data_6A_6448` are interior immediates into tile/data groups, `Table_6A_72BB`).
 2. **Walk** (reading the reference ROM `Mobile Trainer (Japan).gbc`, not the source): the entries of a root are the run of plausible 4-byte entries from the label (the label's extent is *not*
    used: `ConfirmPages_ObjTable` and `SettingsMenu_ObjTable` are labelled over their null entry 0 only, the real entry 1 is in the next group), cut at the next root and at the lowest pointer target after the table.
    The table end coincides with a symbol boundary in 35 of the 46 semantic roots (the others end at the end of their section, in zero padding).

@@ -80,16 +80,13 @@ Data_2E_72C0::
 	INCBIN "gfx/mail_server/tidy_screen/mail_server_mgr_info_d.tilemap"
 	INCBIN "gfx/mail_server/tidy_screen/mail_server_mgr_info_d.attrmap"
 
-; ---- data $7590-$75C0 (48 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 7590-7610 by higher-priority evidence]
+; ---- data $7590-$75D0 (64 bytes) [PROBABLE] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/mail_server/tidy_screen.asm:24, call 2E:4B5E executed 19 hits in 11 scenarios (analysis/coverage_union.tsv)); +$00 bc=$40 into wPaletteBufBg (engine/mail_server/tidy_screen.asm:130, call 2E:4C89 not executed in the traced runs (analysis/coverage_union.tsv))
 
 Palette_MailServerMgr_Bg:: ; 2E:7590
 Data_2E_7590::
 	INCLUDE "gfx/mail_server/tidy_screen/mail_server_mgr_bg.pal"
 
-; ---- data $75C0-$76C0 (256 bytes) [PROBABLE] palette-rgb555: heuristic (RGB555 words with bit15 clear); region shortened to end at 76C0 where the object tables start (the old region ran on to 7720 over the tables 76C0-7710)
-
-Data_2E_75C0:: ; 2E:75C0
-	INCLUDE "gfx/mail_server/tidy_screen/palette_75c0.pal"
+; ---- data $75D0-$76C0 (240 bytes) [PROBABLE] palette-rgb555: heuristic: 120 RGB555 words as 30 palette group(s) of 4 (the rest of a heuristic block; the palette array(s) that the code reads were cut out of it)
 
 Palette_MailServerMgr_Obj:: ; 2E:75D0
 	INCLUDE "gfx/mail_server/tidy_screen/mail_server_mgr_obj.pal"

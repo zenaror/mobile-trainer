@@ -43,7 +43,7 @@ Registration_DeleteExecute_Setup	engine/account/delete_registration.asm:285	tile
 Registration_DeleteExecute_Setup	engine/account/delete_registration.asm:291	tiles	Gfx_Registration_DeleteExecute_Tiles9000Vb1	71	n=16 vram=$9000 vbank=1
 Registration_DeleteExecute_Setup	engine/account/delete_registration.asm:297	tiles	$6140	71	n=48 vram=$8000 vbank=0
 Registration_DeleteExecute_Setup	engine/account/delete_registration.asm:302	palette	Palette_Registration_Delete_Bg	71	n=64 dest=$D800
-Registration_DeleteExecute_Setup	engine/account/delete_registration.asm:307	palette	Palette_71_66C0	71	n=8 dest=$D840
+Registration_DeleteExecute_Setup	engine/account/delete_registration.asm:307	palette	Palette_Registration_Delete_Obj	71	n=8 dest=$D840
 Registration_DeleteExecute_Setup	engine/account/delete_registration.asm:312	tilemap	Tilemap_Registration_DeleteExecute	71	rows=18 cols=20 dest=$D000
 Account_LoginIdEntry_Setup	engine/account/login_id_entry.asm:100	tiles	Data_5E_4000	5E	n=64 vram=$8800 vbank=1
 Account_LoginIdEntry_Setup	engine/account/login_id_entry.asm:106	tiles	Data_5E_4400	5E	n=64 vram=$8C00 vbank=1
@@ -448,7 +448,7 @@ HelpMenu_ShowPage_Redraw	engine/help/help_menu.asm:82	palette	Palette_HelpMenu_B
 HelpMenu_ShowPage_Redraw	engine/help/help_menu.asm:92	tilemap	Tilemap_HelpMenu_6A_4000	6A	rows=18 cols=20 dest=$D000
 HelpMenu_ShowPage_Redraw	engine/help/help_menu.asm:105	tilemap	Tilemap_HelpMenu_6A_42D0	6A	rows=18 cols=20 dest=$D000
 HelpMenu_ShowPage_Redraw	engine/help/help_menu.asm:118	tilemap	Tilemap_HelpMenu_6A_45A0	6A	rows=18 cols=20 dest=$D000
-HelpMenu_ShowPage_Redraw	engine/help/help_menu.asm:139	palette	Data_6A_62D8 + $18	6A	n=64 dest=$D840
+HelpMenu_ShowPage_Redraw	engine/help/help_menu.asm:139	palette	Palette_HelpMenu_Obj	6A	n=64 dest=$D840
 HelpMenu_ShowPage_Redraw	engine/help/help_menu.asm:145	seq	$0000	00	first=64 rows=2 cols=32 dest=$D200
 HelpMenu_ShowPage_Redraw	engine/help/help_menu.asm:162	tiles	$D000	00	n=64 vram=$9400 vbank=0
 HelpMenu_DrawItemNormal	engine/help/help_menu.asm:377	UNRESOLVED	tilemap	--	attribute source pointer (wRam_C10E/F) not an immediate

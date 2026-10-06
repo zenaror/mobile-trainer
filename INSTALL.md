@@ -97,6 +97,7 @@ python3 tools/gen_sjis_charmap.py --check   # constants/sjis_charmap.asm is curr
 python3 tools/gfx_export.py check           # PNGs vs .2bpp (needs rgbgfx), asset sizes, gfx/assets.tsv
 python3 tools/invariants_check.py           # the mail library runs only under WRAM bank 5, the sound driver only under bank 1 (needs the built tree)
 python3 tools/apply_rom_operands.py --check  # no ROM pointer operand that a rule of analysis/naming2/rom_consumers.tsv proves is left numeric (needs the built tree and rgbasm)
+python3 tools/palette_reads_check.py        # every palette that the code loads is typed as one palette block (needs the built tree)
 python3 tools/apply_play_sfx.py --check        # no eight-line sound idiom is left outside the macro play_sfx
 python3 tools/apply_pad_masks.py --check       # no test of the joypad variables is left as a bare number where the proof holds
 ```

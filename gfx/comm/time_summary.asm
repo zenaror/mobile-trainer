@@ -48,14 +48,11 @@ Data_51_55B0::
 	INCBIN "gfx/comm/time_summary/comm_time_summary_b.tilemap"
 	INCBIN "gfx/comm/time_summary/comm_time_summary_b.attrmap"
 
-; ---- data $5880-$58C0 (64 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 4DB0-58C0 by higher-priority evidence]
+; ---- data $5880-$58C0 (64 bytes) [PROBABLE] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/comm/time_summary.asm:82, call 51:40A6 executed 104 hits in 26 scenarios (analysis/coverage_union.tsv)); +$00 bc=$40 into wPaletteBufBg (engine/mail/send_receive.asm:1856, call 27:4F40 not executed in the traced runs (analysis/coverage_union.tsv))
 
 Palette_CommTime_SummaryB:: ; 51:5880
 Data_51_5880::
-	db $00, $00, $1F, $01, $FF, $02, $FF, $7F, $00, $00, $32, $00, $9F, $01, $FF, $7F
-	db $00, $00, $1F, $00, $5F, $02, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
-	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
-	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+	INCLUDE "gfx/comm/time_summary/comm_time_summary_b.pal"
 
 ; ---- gfx $58C0-$5CC0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 69:40EC: hl=$58C0 a=$51 c=$40 de=$8200 (dest VRAM $8200, vbank=0) [first call site executed: 2 hits in 1 scenarios (analysis/coverage_union.tsv)]
 

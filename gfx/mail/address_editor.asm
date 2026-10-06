@@ -4,7 +4,7 @@
 
 SECTION "gfx/mail/address_editor", ROMX
 
-; ---- data $7120-$7940 (2080 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 7120-7E50 by higher-priority evidence]
+; ---- data $7120-$7940 (2080 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); kind tiles from the label name [clipped from 7120-7E50 by higher-priority evidence]
 
 Gfx_MailAddr_Tiles:: ; 2D:7120
 Data_2D_7120::

@@ -29,21 +29,11 @@ Data_2C_6CC0::
 	INCBIN "gfx/address_book/address_picker/data_addr_pick_tilemap_attr.tilemap"
 	INCBIN "gfx/address_book/address_picker/data_addr_pick_tilemap_attr.attrmap"
 
-; ---- data $6F90-$6F9E (14 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 6730-6FD0 by higher-priority evidence]
+; ---- data $6F90-$6FD0 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/address_book/address_picker.asm:276, call 2C:58DD executed 12 hits in 7 scenarios (analysis/coverage_union.tsv))
 
 Palette_AddrPick_Bg:: ; 2C:6F90
 Data_2C_6F90::
 	INCLUDE "gfx/address_book/address_picker/addr_pick_bg.pal"
-
-; ---- data $6F9E-$6FCE (48 bytes) [PROBABLE] palette-rgb555: heuristic: 24 RGB555 words as 6 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
-
-Data_2C_6F9E:: ; 2C:6F9E
-	INCLUDE "gfx/address_book/address_picker/palette_6f9e.pal"
-
-; ---- data $6FCE-$6FD0 (2 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 6730-6FD0 by higher-priority evidence]
-
-Data_2C_6FCE:: ; 2C:6FCE
-	db $FF, $7F
 
 ; ---- gfx $6FD0-$71D0 (512 bytes) [PROBABLE] 32 tiles (512 bytes) between the palette blocks 6F90 and 71D0; pixel coherence h=0.744 v=0.595; rendered and inspected (sprite/object art); no loader call found
 

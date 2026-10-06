@@ -34,16 +34,13 @@ Gfx_MobileDict_Tiles2:: ; 1A:5090
 Data_1A_5090::
 	INCBIN "gfx/help/mobile_dictionary/mobile_dict_tiles2.2bpp"
 
-; ---- data $5390-$539A (10 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 4A90-5461 by higher-priority evidence]
+; ---- data $5390-$53D0 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/help/mobile_dictionary.asm:54, call 1A:4072 executed 87 hits in 8 scenarios (analysis/coverage_union.tsv))
 
 Palette_MobileDict_Bg:: ; 1A:5390
 Data_1A_5390::
 	INCLUDE "gfx/help/mobile_dictionary/mobile_dict_bg.pal"
 
-; ---- data $539A-$55A0 (518 bytes) [PROBABLE] CGB palette data (RGB555 words): heuristic: 288 RGB555 words as 72 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance) [clipped from 539A-55DA by higher-priority proposals]
-
-Data_1A_539A:: ; 1A:539A
-	INCLUDE "gfx/help/mobile_dictionary/palette_539a.pal"
+; ---- data $53D0-$55A0 (464 bytes) [PROBABLE] palette-rgb555: heuristic: 232 RGB555 words as 58 palette group(s) of 4 (the rest of a heuristic block; the palette array(s) that the code reads were cut out of it)
 
 Palette_MobileDict_Obj:: ; 1A:53D0
 	INCLUDE "gfx/help/mobile_dictionary/mobile_dict_obj.pal"

@@ -86,44 +86,21 @@ Gfx_MailMenu_Tiles5:: ; 1D:5E30
 Data_1D_5E30::
 	INCBIN "gfx/mail_menu/mail_menu/mail_menu_tiles5.2bpp"
 
-; ---- data $6230-$6238 (8 bytes) [CONFIRMED] read as data by executed code (in up to 9/18 scenarios); content class unknown [clipped from 4D20-63BA by higher-priority evidence]
+; ---- data $6230-$6270 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/menus/mail_menu.asm:79, call 1D:40BB executed 784 hits in 37 scenarios (analysis/coverage_union.tsv))
 
 Palette_MailMenu_Bg:: ; 1D:6230
 Data_1D_6230::
 	INCLUDE "gfx/mail_menu/mail_menu/mail_menu_bg.pal"
 
-; ---- data $6238-$6250 (24 bytes) [PROBABLE] palette-rgb555: heuristic: 12 RGB555 words as 3 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
-
-Data_1D_6238:: ; 1D:6238
-	INCLUDE "gfx/mail_menu/mail_menu/palette_6238.pal"
-
-; ---- data $6250-$6258 (8 bytes) [CONFIRMED] read as data by executed code (in up to 9/18 scenarios); content class unknown [clipped from 4D20-63BA by higher-priority evidence]
-
-Data_1D_6250:: ; 1D:6250
-	db $00, $00, $00, $00, $00, $00, $00, $00
-
-; ---- data $6258-$6278 (32 bytes) [PROBABLE] palette-rgb555: heuristic: 16 RGB555 words as 4 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
-
-Data_1D_6258:: ; 1D:6258
-	INCLUDE "gfx/mail_menu/mail_menu/palette_6258.pal"
+; ---- data $6270-$62B0 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufObj (engine/menus/mail_menu.asm:97, call 1D:40F6 executed 784 hits in 37 scenarios (analysis/coverage_union.tsv))
 
 Palette_MailMenu_Obj:: ; 1D:6270
 	INCLUDE "gfx/mail_menu/mail_menu/mail_menu_obj.pal"
 
-; ---- data $6278-$6280 (8 bytes) [CONFIRMED] read as data by executed code (in up to 9/18 scenarios); content class unknown [clipped from 4D20-63BA by higher-priority evidence]
+; ---- data $62B0-$6320 (112 bytes) [PROBABLE] palette-rgb555: heuristic: 56 RGB555 words as 14 palette group(s) of 4 (the rest of a heuristic block; the palette array(s) that the code reads were cut out of it)
 
-Data_1D_6278:: ; 1D:6278
-	db $00, $00, $00, $00, $00, $00, $00, $00
-
-; ---- data $6280-$62AC (44 bytes) [PROBABLE] CGB palette data (RGB555 words): heuristic: 80 RGB555 words as 20 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance) [clipped from 6280-6320 by higher-priority proposals]
-
-Data_1D_6280:: ; 1D:6280
-	INCLUDE "gfx/mail_menu/mail_menu/palette_6280.pal"
-
-; ---- data $62AC-$6320 (116 bytes) [PROBABLE] palette-rgb555: heuristic: 80 RGB555 words as 20 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance) [clipped from 6280-6320 by higher-priority evidence]
-
-Data_1D_62AC:: ; 1D:62AC
-	INCLUDE "gfx/mail_menu/mail_menu/palette_62ac.pal"
+Data_1D_62B0:: ; 1D:62B0
+	INCLUDE "gfx/mail_menu/mail_menu/palette_62b0.pal"
 
 ; ---- data $6320-$63BA (154 bytes) [CONFIRMED] read as data by executed code (in up to 9/18 scenarios); content class unknown [clipped from 4D20-63BA by higher-priority evidence]
 

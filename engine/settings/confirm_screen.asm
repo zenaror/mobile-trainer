@@ -52,8 +52,8 @@ SettingsPhone_ConfirmScreen_Setup:: ; 67:5129
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
-	ld hl, $73B0
-	ld a, $4B
+	ld hl, Palette_SettingsPhone_ConfirmScreen_Bg
+	ld a, BANK(Palette_SettingsPhone_ConfirmScreen_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $0018
 	ld de, wPaletteBufObj + $28
@@ -62,8 +62,8 @@ SettingsPhone_ConfirmScreen_Setup:: ; 67:5129
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap
-	ld hl, $73F0
-	ld a, $4B
+	ld hl, Tilemap_SettingsPhone_ConfirmScreen_4B_73F0
+	ld a, BANK(Tilemap_SettingsPhone_ConfirmScreen_4B_73F0)
 	farcall Tilemap_CopyRectAndAttr
 	call SettingsPhone_ConfirmScreen_LoadSlotTilemap
 	call SettingsPhone_ConfirmScreen_PrintFields

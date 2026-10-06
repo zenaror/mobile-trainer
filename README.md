@@ -43,6 +43,7 @@ is its own object (`rgbasm -P includes.asm`, dependency files `-M -MP`), so an e
 | `make compare` | byte-for-byte comparison with the original ROM (`tools/compare_rom.py`, reports the first differing regions) |
 | `make sym-check` | every label of the source is in `build/mobile_trainer.sym`, at the bank:address its `; BB:AAAA` comment gives (`tools/sym_check.py --fix` refreshes stale comments) |
 make png-check       # verify every editable PNG (graphics) and explain problems in plain words
+make palette-check   # every palette that the code loads is one palette block (needs the build)
 make png-bins        # rebuild only the graphics binaries from their PNGs
 make png-export      # regenerate PNGs from the binaries (maintainers)
 | `make test` | tests of the analysis tools (SM83 decoder, config loader, legacy generator self test; needs the original ROM as `baserom.gbc`) |
@@ -61,6 +62,7 @@ make png-export      # regenerate PNGs from the binaries (maintainers)
 * **Form of the source** (Python, no ROM needed): `python3 tools/tidy_comments.py --check`, `python3 tools/localize_labels.py --check`, `python3 tools/gen_sjis_charmap.py --check`
   (the charmap is generated from the ROM's text regions or from `mobile_trainer.gbc`), `python3 tools/gfx_export.py check` (PNGs vs `.2bpp`, needs `rgbgfx`).
 * **ROM pointer operands** (needs a built tree and rgbasm): `python3 tools/apply_rom_operands.py --check` lists the `ld hl|de|bc, $XXXX` ROM pointers that a consumer rule proves and that are still numeric (none are); `python3 tools/test_rom_operands.py` tests the tool.
+* **Palette loads** (needs a built tree): `python3 tools/palette_reads_check.py` (`make palette-check`) fails when a palette that the code loads is cut into fragments, typed as tiles or typed as unknown; `python3 tools/test_palette_reads.py` tests the tool.
 * **Joypad masks** (no build needed): `python3 tools/apply_pad_masks.py --check` lists a test of hJoyHeld, hJoyPressed or hJoyPressedRepeat that is still a bare number; `python3 tools/test_pad_masks.py` tests the tool.
 * **Sound calls** (no build needed): `python3 tools/apply_play_sfx.py --check` lists a user-interface sound call that is still spelled out instead of `play_sfx ID`; `python3 tools/test_play_sfx.py` tests the tool.
 * **Invariants of the naming passes** (needs a built tree): `python3 tools/invariants_check.py` re-derives the two statements that rows of `analysis/naming2/` rest on: the mail library (bank 0F) runs only under WRAM bank 5 and the sound driver (bank 04) only under bank 1.

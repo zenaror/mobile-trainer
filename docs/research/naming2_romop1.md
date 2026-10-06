@@ -104,7 +104,7 @@ three live object-table entries kept as `db` / `ds` were left numeric; 7 consume
   they are written by hand with `Table_5D_7318` (the all-zero entry 0 of a table whose entry 1 is `Data_5D_731C`), `Table_6A_64AE` (an entry that crosses the end of its block: three bytes here, the fourth in the next
   block) and `Objects_MobileDict_Entry2` (entry 2 of the 13 entries of `Objects_MobileDict`).  Two roots of `sprite_chain_check` that had no entries walked now have 2 and 1.
 * **Blocks typed as tiles that also hold a palette or a tilemap** (reader R3, R4): `Palette_LoadToBuffer` and `Tilemap_CopyRectAndAttr` read their source inside a `.2bpp` block that its own `Gfx_StartHDMA` loads whole: 13
-  palette and 9 tilemap pointers lie in such blocks (for example 5E:72C0 is +800 and 5E:7300 is +864 of the 1,024-byte block at 5E:6FA0, `gfx/account/screens_bank5e.asm:139`).  Four labels have the wrong kind of block
+  palette and 9 tilemap pointers lie in such blocks (for example 5E:72C0 is +800 and 5E:7300 is +864 of the 1,024-byte block at 5E:6FA0, `gfx/account/screens_bank5e.asm:139`; all of them were retyped afterwards, see `naming2_retype1.md`).  Four labels have the wrong kind of block
   behind them: `Data_4D_5510` (`gfx/settings/screens_bank4d.asm:55`: tiles, then the BG palette `$5510`, the OBJ palette `$5538` and a tilemap `$5540`), `Palette_Account_ConfirmScreen_Bg` (5D:65F0) and
   `Palette_Account_ConfirmManualScreen_Bg` (4A:5C70) declared as `.2bpp`, and `Tilemap_ConnectDialog_ConnectConfirm_56_526A` (a 20x2 tilemap declared as `.2bpp`).  They are not renamed here: the next graphics pass
   splits the blocks by the evidence of their consumers.

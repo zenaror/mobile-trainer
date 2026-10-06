@@ -50,10 +50,22 @@ Gfx_SettingsPhone_ChoiceMenu_Tiles9000Vb1_4D_5110:: ; 4D:5110
 Data_4D_5110::
 	INCBIN "gfx/settings/screens_bank4d/tiles_5110.2bpp"
 
-; ---- gfx $5510-$5810 (768 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4766: hl=$5510 a=$4D c=$30 de=$9401 (dest VRAM $9400, vbank=1) [first call site executed: 33 hits in 5 scenarios (analysis/coverage_union.tsv)]
+; ---- data $5510-$5538 (40 bytes) [PROBABLE] palette-rgb555: 20 colours (5 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/settings/choice_menu.asm:147, call 67:479A executed 46 hits in 6 scenarios (analysis/coverage_union.tsv)); the call takes 24 bytes past the end of this block (the palette at $5538 and the first 16 bytes of the tilemap pair at $5540 are copied into the buffer behind it); the length of 40 bytes is by adjacency, not by the call
 
-Data_4D_5510:: ; 4D:5510
-	INCBIN "gfx/settings/screens_bank4d/tiles_5510.2bpp"
+Palette_SettingsPhone_ChoiceMenu_Bg:: ; 4D:5510
+Data_4D_5510::
+	INCLUDE "gfx/settings/screens_bank4d/settings_phone_choice_menu_bg.pal"
+
+; ---- data $5538-$5540 (8 bytes) [CONFIRMED] palette-rgb555: 4 colours (1 palettes) read by Palette_LoadToBuffer: +$00 bc=$08 into wPaletteBufObj (engine/settings/choice_menu.asm:152, call 67:47AB executed 46 hits in 6 scenarios (analysis/coverage_union.tsv))
+
+Palette_SettingsPhone_ChoiceMenu_Obj:: ; 4D:5538
+	INCLUDE "gfx/settings/screens_bank4d/settings_phone_choice_menu_obj.pal"
+
+; ---- data $5540-$5810 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 67:471C: hl=$5540 a=$4D b=18 rows c=20 cols (tiles then attrs) de=$D000 [call site 67:471C executed: 13 hits in 3 scenarios (analysis/coverage_union.tsv)]
+
+Tilemap_SettingsPhone_ChoiceMenu_4D_5540:: ; 4D:5540
+	INCBIN "gfx/settings/screens_bank4d/settings_phone_choice_menu_4d_5540.tilemap"
+	INCBIN "gfx/settings/screens_bank4d/settings_phone_choice_menu_4d_5540.attrmap"
 
 ; ---- data $5810-$5AE0 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 67:4777: hl=$5810 a=$4D b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 33 hits in 5 scenarios (analysis/coverage_union.tsv)]
 
@@ -165,11 +177,27 @@ Data_4D_6D70::
 Data_4D_7170:: ; 4D:7170
 	INCBIN "gfx/settings/screens_bank4d/tiles_7170.2bpp"
 
-; ---- gfx $7470-$7870 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4DAA: hl=$7470 a=$4D c=$40 de=$9401 (dest VRAM $9400, vbank=1) [first call site executed: 7 hits in 2 scenarios (analysis/coverage_union.tsv)]
+; ---- gfx $7470-$7570 (256 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4DAA: hl=$7470 a=$4D c=$40 de=$9401 (dest VRAM $9400, vbank=1) [first call site executed: 7 hits in 2 scenarios (analysis/coverage_union.tsv)]; the last $300 bytes of the old blob hold 2 palettes and a tilemap pair; the blocks below type them by what the code reads, and the HDMA request that copies the tiles copies them into VRAM as well
 
 Gfx_SettingsPhone_SlotMenu_Tiles9400Vb1_4D_7470:: ; 4D:7470
 Data_4D_7470::
 	INCBIN "gfx/settings/screens_bank4d/tiles_7470.2bpp"
+
+; ---- data $7570-$7598 (40 bytes) [PROBABLE] palette-rgb555: 20 colours (5 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/settings/slot_menu.asm:150, call 67:4DCD executed 12 hits in 3 scenarios (analysis/coverage_union.tsv)); the call takes 24 bytes past the end of this block (the palette at $7598 and the first 16 bytes of the tilemap pair at $75A0 are copied into the buffer behind it); the length of 40 bytes is by adjacency, not by the call
+
+Palette_SettingsPhone_SlotMenu_Bg:: ; 4D:7570
+	INCLUDE "gfx/settings/screens_bank4d/settings_phone_slot_menu_bg.pal"
+
+; ---- data $7598-$75A0 (8 bytes) [CONFIRMED] palette-rgb555: 4 colours (1 palettes) read by Palette_LoadToBuffer: +$00 bc=$08 into wPaletteBufObj (engine/settings/slot_menu.asm:155, call 67:4DDE executed 12 hits in 3 scenarios (analysis/coverage_union.tsv))
+
+Palette_SettingsPhone_SlotMenu_Obj:: ; 4D:7598
+	INCLUDE "gfx/settings/screens_bank4d/settings_phone_slot_menu_obj.pal"
+
+; ---- data $75A0-$7870 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 67:4DEF: hl=$75A0 a=$4D b=18 rows c=20 cols (tiles then attrs) de=$D000 [call site 67:4DEF executed: 12 hits in 3 scenarios (analysis/coverage_union.tsv)]
+
+Tilemap_SettingsPhone_SlotMenu_4D_75A0:: ; 4D:75A0
+	INCBIN "gfx/settings/screens_bank4d/settings_phone_slot_menu_4d_75a0.tilemap"
+	INCBIN "gfx/settings/screens_bank4d/settings_phone_slot_menu_4d_75a0.attrmap"
 
 ; ---- data $7870-$78C0 (80 bytes) [PROBABLE] 20x2 tilemap: 40 tile indices (2 rows of 20) then 40 attribute bytes (+0x28); dims from `ld bc,$0214` at 67:50E8, the table is indexed by [$C27D] at `ld hl,$5104` (67:50EE) (v4 correction: earlier text said 8x5 and table 67:510B); word of the pointer table at 67:5104 (70 78 c0 78 10 79)
 
