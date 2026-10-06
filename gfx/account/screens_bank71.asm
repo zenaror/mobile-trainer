@@ -10,9 +10,13 @@ Gfx_CommPanel_Tiles8000:: ; 71:4000
 Data_71_4000::
 	INCBIN "gfx/account/screens_bank71/tiles_4000.2bpp"
 
-; ---- gfx $4300-$4500 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:7468: hl=$4200 a=$71 c=$30 de=$8801 (dest VRAM $8800, vbank=1) [clipped from 4200-4500 by higher-priority evidence]
+; ---- gfx $4300-$4500 (512 bytes) [CONFIRMED] existing shared VRAM source, read by two natural
+; requests. At 68:7468, source $4200-$4500 goes to VRAM $8800/VB1: this whole block contributes
+; $8900-$8B00. At 68:747A, source $4490-$4890 goes to $9000/VB1: only the $70-byte tail here
+; contributes $9000-$9070. Existing content classification and source divisions are retained.
 
-Data_71_4300:: ; 71:4300
+Gfx_CommPanel_SharedVramSource:: ; 71:4300
+Data_71_4300::
 	INCBIN "gfx/account/screens_bank71/tiles_4300.2bpp"
 
 ; ---- gfx $4500-$4890 (912 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:747A: hl=$4490 a=$71 c=$40 de=$9001 (dest VRAM $9000, vbank=1) [clipped from 4490-4890 by higher-priority evidence]

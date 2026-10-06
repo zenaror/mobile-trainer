@@ -2,13 +2,13 @@
 # routine	file:line	kind	label_or_addr	bank	details   (UNRESOLVED rows: a loader call whose arguments are not all immediates)
 Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:34	tiles	Gfx_Account_ActionConfirmPage_Tiles9000Vb1	5E	n=64 vram=$9000 vbank=1
 Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:40	tiles	Gfx_Account_ActionConfirmPage_Tiles9400Vb1	5E	n=64 vram=$9400 vbank=1
-Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:46	tiles	Data_5F_49D0	5F	n=48 vram=$8000 vbank=1
+Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:46	tiles	Gfx_SharedPanels_Vram8000Vb1	5F	n=48 vram=$8000 vbank=1
 Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:51	palette	Palette_Account_ActionConfirmPage_Bg	5E	n=64 dest=$D800
-Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:56	palette	Palette_5F_4CD0 + $10	5F	n=24 dest=$D868
+Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:56	palette	Palette_SharedPanels_BgObj + $10	5F	n=24 dest=$D868
 Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:64	tilemap	Tilemap_Account_ActionConfirmPage_NonzeroVariant	5E	rows=18 cols=20 dest=$D000
 Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:71	tilemap	Tilemap_Account_ActionConfirmPage_Variant0	5E	rows=18 cols=20 dest=$D000
 CommPanel_StateDraw	engine/account/comm_panel.asm:168	tiles	$4200	71	n=48 vram=$8800 vbank=1
-CommPanel_StateDraw	engine/account/comm_panel.asm:174	tiles	Data_71_4300 + $190	71	n=64 vram=$9000 vbank=1
+CommPanel_StateDraw	engine/account/comm_panel.asm:174	tiles	Gfx_CommPanel_SharedVramSource + $190	71	n=64 vram=$9000 vbank=1
 CommPanel_StateDraw	engine/account/comm_panel.asm:180	tiles	Gfx_CommPanel_Tiles9400Vb1	71	n=64 vram=$9400 vbank=1
 CommPanel_StateDraw	engine/account/comm_panel.asm:186	tiles	Gfx_CommPanel_Tiles8000	71	n=48 vram=$8000 vbank=0
 CommPanel_StateDraw	engine/account/comm_panel.asm:191	palette	Palette_CommPanel_Bg	71	n=64 dest=$D800
@@ -19,16 +19,16 @@ CommPanel_DrawCaption	engine/account/comm_panel.asm:380	UNRESOLVED	tilemap	--	so
 Account_ConfirmScreen_Setup	engine/account/confirm_screens.asm:31	tiles	Gfx_Account_ConfirmScreens_Tiles8800Vb1	5D	n=64 vram=$8800 vbank=1
 Account_ConfirmScreen_Setup	engine/account/confirm_screens.asm:37	tiles	Gfx_Account_ConfirmScreens_Tiles8C00Vb1	5D	n=32 vram=$8C00 vbank=1
 Account_ConfirmScreen_Setup	engine/account/confirm_screens.asm:43	tiles	Gfx_Account_ConfirmScreen_Tiles9000Vb1	5D	n=32 vram=$9000 vbank=1
-Account_ConfirmScreen_Setup	engine/account/confirm_screens.asm:49	tiles	Data_5F_49D0	5F	n=48 vram=$8000 vbank=1
+Account_ConfirmScreen_Setup	engine/account/confirm_screens.asm:49	tiles	Gfx_SharedPanels_Vram8000Vb1	5F	n=48 vram=$8000 vbank=1
 Account_ConfirmScreen_Setup	engine/account/confirm_screens.asm:54	palette	Palette_Account_ConfirmScreen_Bg	5D	n=64 dest=$D800
-Account_ConfirmScreen_Setup	engine/account/confirm_screens.asm:59	palette	Palette_5F_4CD0 + $10	5F	n=24 dest=$D868
+Account_ConfirmScreen_Setup	engine/account/confirm_screens.asm:59	palette	Palette_SharedPanels_BgObj + $10	5F	n=24 dest=$D868
 Account_ConfirmScreen_Setup	engine/account/confirm_screens.asm:64	tilemap	Tilemap_Account_ConfirmScreen	5D	rows=18 cols=20 dest=$D000
 Account_ConfirmManualScreen_Setup	engine/account/confirm_screens.asm:268	tiles	Gfx_Account_ConfirmScreens_Tiles8800Vb1	5D	n=64 vram=$8800 vbank=1
 Account_ConfirmManualScreen_Setup	engine/account/confirm_screens.asm:274	tiles	Gfx_Account_ConfirmScreens_Tiles8C00Vb1	5D	n=32 vram=$8C00 vbank=1
 Account_ConfirmManualScreen_Setup	engine/account/confirm_screens.asm:280	tiles	Gfx_Account_ConfirmManualScreen_Tiles9000Vb1	4A	n=64 vram=$9000 vbank=1
-Account_ConfirmManualScreen_Setup	engine/account/confirm_screens.asm:286	tiles	Data_5F_49D0	5F	n=48 vram=$8000 vbank=1
+Account_ConfirmManualScreen_Setup	engine/account/confirm_screens.asm:286	tiles	Gfx_SharedPanels_Vram8000Vb1	5F	n=48 vram=$8000 vbank=1
 Account_ConfirmManualScreen_Setup	engine/account/confirm_screens.asm:291	palette	Palette_Account_ConfirmManualScreen_Bg	4A	n=64 dest=$D800
-Account_ConfirmManualScreen_Setup	engine/account/confirm_screens.asm:296	palette	Palette_5F_4CD0 + $10	5F	n=24 dest=$D868
+Account_ConfirmManualScreen_Setup	engine/account/confirm_screens.asm:296	palette	Palette_SharedPanels_BgObj + $10	5F	n=24 dest=$D868
 Account_ConfirmManualScreen_Setup	engine/account/confirm_screens.asm:301	tilemap	Tilemap_Account_ConfirmManualScreen	4A	rows=18 cols=20 dest=$D000
 Registration_DeleteConfirm_Setup	engine/account/delete_registration.asm:83	tiles	Gfx_Registration_DeleteConfirm_Tiles9000Vb1	71	n=64 vram=$9000 vbank=1
 Registration_DeleteConfirm_Setup	engine/account/delete_registration.asm:89	tiles	Gfx_Registration_DeleteConfirm_Tiles9400Vb1	71	n=64 vram=$9400 vbank=1
@@ -36,9 +36,9 @@ Registration_DeleteConfirm_Setup	engine/account/delete_registration.asm:94	tilem
 Registration_DeleteConfirm_Setup	engine/account/delete_registration.asm:102	tiles	$59C0	71	n=64 vram=$9000 vbank=1
 Registration_DeleteConfirm_Setup	engine/account/delete_registration.asm:108	tiles	Gfx_Registration_Delete_Tiles9400Vb1	71	n=64 vram=$9400 vbank=1
 Registration_DeleteConfirm_Setup	engine/account/delete_registration.asm:113	tilemap	Tilemap_Registration_DeleteConfirm_71_6998	71	rows=18 cols=20 dest=$D000
-Registration_DeleteConfirm_Setup	engine/account/delete_registration.asm:120	tiles	Data_5F_49D0	5F	n=48 vram=$8000 vbank=1
+Registration_DeleteConfirm_Setup	engine/account/delete_registration.asm:120	tiles	Gfx_SharedPanels_Vram8000Vb1	5F	n=48 vram=$8000 vbank=1
 Registration_DeleteConfirm_Setup	engine/account/delete_registration.asm:125	palette	Palette_Registration_Delete_Bg	71	n=64 dest=$D800
-Registration_DeleteConfirm_Setup	engine/account/delete_registration.asm:130	palette	Palette_5F_4CD0 + $10	5F	n=24 dest=$D868
+Registration_DeleteConfirm_Setup	engine/account/delete_registration.asm:130	palette	Palette_SharedPanels_BgObj + $10	5F	n=24 dest=$D868
 Registration_DeleteExecute_Setup	engine/account/delete_registration.asm:285	tiles	$6180	71	n=64 vram=$8800 vbank=1
 Registration_DeleteExecute_Setup	engine/account/delete_registration.asm:291	tiles	Gfx_Registration_DeleteExecute_Tiles9000Vb1	71	n=16 vram=$9000 vbank=1
 Registration_DeleteExecute_Setup	engine/account/delete_registration.asm:297	tiles	$6140	71	n=48 vram=$8000 vbank=0
@@ -502,9 +502,9 @@ MobileDict_Redraw	engine/help/mobile_dictionary.asm:110	tiles	$D000	00	n=32 vram
 MobileDict_LoadPage	engine/help/mobile_dictionary.asm:479	tiles	$D000	00	n=64 vram=$9000 vbank=0
 MobileDict_LoadPage	engine/help/mobile_dictionary.asm:485	tiles	$D400	00	n=64 vram=$9400 vbank=0
 MobileDict_LoadPage	engine/help/mobile_dictionary.asm:491	tiles	$D800	00	n=32 vram=$8800 vbank=0
-Kbd_Open	engine/keyboard/keyboard.asm:57	tiles	Data_5F_49D0	5F	n=48 vram=$8000 vbank=1
-Kbd_Open	engine/keyboard/keyboard.asm:62	palette	Palette_5F_4CD0 + $10	5F	n=24 dest=$D868
-Kbd_Open	engine/keyboard/keyboard.asm:71	palette	Palette_5F_4CD0	5F	n=16 dest=$D830
+Kbd_Open	engine/keyboard/keyboard.asm:57	tiles	Gfx_SharedPanels_Vram8000Vb1	5F	n=48 vram=$8000 vbank=1
+Kbd_Open	engine/keyboard/keyboard.asm:62	palette	Palette_SharedPanels_BgObj + $10	5F	n=24 dest=$D868
+Kbd_Open	engine/keyboard/keyboard.asm:71	palette	Palette_SharedPanels_BgObj	5F	n=16 dest=$D830
 Kbd_LoadPageGraphics_T0	engine/keyboard/keyboard.asm:1655	tilemap	Tilemap_Kbd_T0	5F	rows=13 cols=20 dest=$D240
 Kbd_LoadPageGraphics_T1	engine/keyboard/keyboard.asm:1666	tiles	Gfx_Kbd_T1_Tiles8800	5E	n=2 vram=$8800 vbank=0
 Kbd_LoadPageGraphics_T1	engine/keyboard/keyboard.asm:1671	tilemap	Tilemap_Kbd_T1	5F	rows=13 cols=20 dest=$D240
@@ -829,22 +829,22 @@ SettingsPhone_ChoiceMenu_LoadTilemap	engine/settings/choice_menu.asm:315	UNRESOL
 SettingsPhone_ConfirmScreen_Setup	engine/settings/confirm_screen.asm:34	tiles	Gfx_SettingsPhone_ConfirmScreen_Tiles8800Vb1	4B	n=64 vram=$8800 vbank=1
 SettingsPhone_ConfirmScreen_Setup	engine/settings/confirm_screen.asm:40	tiles	Gfx_SettingsPhone_ConfirmScreen_Tiles8C00Vb1	4B	n=34 vram=$8C00 vbank=1
 SettingsPhone_ConfirmScreen_Setup	engine/settings/confirm_screen.asm:46	tiles	$7090	4B	n=64 vram=$9000 vbank=1
-SettingsPhone_ConfirmScreen_Setup	engine/settings/confirm_screen.asm:52	tiles	Data_5F_49D0	5F	n=48 vram=$8000 vbank=1
+SettingsPhone_ConfirmScreen_Setup	engine/settings/confirm_screen.asm:52	tiles	Gfx_SharedPanels_Vram8000Vb1	5F	n=48 vram=$8000 vbank=1
 SettingsPhone_ConfirmScreen_Setup	engine/settings/confirm_screen.asm:57	palette	Palette_SettingsPhone_ConfirmScreen_Bg	4B	n=64 dest=$D800
-SettingsPhone_ConfirmScreen_Setup	engine/settings/confirm_screen.asm:62	palette	Palette_5F_4CD0 + $10	5F	n=24 dest=$D868
+SettingsPhone_ConfirmScreen_Setup	engine/settings/confirm_screen.asm:62	palette	Palette_SharedPanels_BgObj + $10	5F	n=24 dest=$D868
 SettingsPhone_ConfirmScreen_Setup	engine/settings/confirm_screen.asm:67	tilemap	Tilemap_SettingsPhone_ConfirmScreen_4B_73F0	4B	rows=18 cols=20 dest=$D000
 SettingsPhone_ConfirmScreen_LoadSlotTilemap	engine/settings/confirm_screen.asm:301	UNRESOLVED	tilemap	--	source (hl) not an immediate/label
 SettingsPhone_ContinuePrompt_Setup	engine/settings/continue_prompt.asm:33	tiles	Gfx_SettingsPhone_ContinuePrompt_Tiles9000Vb1	4B	n=64 vram=$9000 vbank=1
 SettingsPhone_ContinuePrompt_Setup	engine/settings/continue_prompt.asm:39	tiles	Gfx_SettingsPhone_ContinuePrompt_Tiles9400Vb1	4B	n=48 vram=$9400 vbank=1
-SettingsPhone_ContinuePrompt_Setup	engine/settings/continue_prompt.asm:45	tiles	Data_5F_49D0	5F	n=48 vram=$8000 vbank=1
+SettingsPhone_ContinuePrompt_Setup	engine/settings/continue_prompt.asm:45	tiles	Gfx_SharedPanels_Vram8000Vb1	5F	n=48 vram=$8000 vbank=1
 SettingsPhone_ContinuePrompt_Setup	engine/settings/continue_prompt.asm:50	palette	Palette_SettingsPhone_ContinuePrompt_Bg	4B	n=64 dest=$D800
-SettingsPhone_ContinuePrompt_Setup	engine/settings/continue_prompt.asm:55	palette	Palette_5F_4CD0 + $10	5F	n=24 dest=$D868
+SettingsPhone_ContinuePrompt_Setup	engine/settings/continue_prompt.asm:55	palette	Palette_SharedPanels_BgObj + $10	5F	n=24 dest=$D868
 SettingsPhone_ContinuePrompt_Setup	engine/settings/continue_prompt.asm:60	tilemap	Tilemap_SettingsPhone_ContinuePrompt_4B_7D10	4B	rows=18 cols=20 dest=$D000
 PwSaveConfirm_Setup	engine/settings/password_save_confirm.asm:41	tiles	Gfx_PwSaveConfirm_Tiles9000Vb1	5D	n=64 vram=$9000 vbank=1
 PwSaveConfirm_Setup	engine/settings/password_save_confirm.asm:47	tiles	Gfx_PwSaveConfirm_Tiles9400Vb1	5D	n=64 vram=$9400 vbank=1
-PwSaveConfirm_Setup	engine/settings/password_save_confirm.asm:53	tiles	Data_5F_49D0	5F	n=48 vram=$8000 vbank=1
+PwSaveConfirm_Setup	engine/settings/password_save_confirm.asm:53	tiles	Gfx_SharedPanels_Vram8000Vb1	5F	n=48 vram=$8000 vbank=1
 PwSaveConfirm_Setup	engine/settings/password_save_confirm.asm:58	palette	Palette_PwSaveConfirm_Bg	5D	n=64 dest=$D800
-PwSaveConfirm_Setup	engine/settings/password_save_confirm.asm:63	palette	Palette_5F_4CD0 + $10	5F	n=24 dest=$D868
+PwSaveConfirm_Setup	engine/settings/password_save_confirm.asm:63	palette	Palette_SharedPanels_BgObj + $10	5F	n=24 dest=$D868
 PwSaveConfirm_Setup	engine/settings/password_save_confirm.asm:71	tilemap	Tilemap_PwSaveConfirm_5D_7BA0	5D	rows=18 cols=20 dest=$D000
 PwSaveConfirm_Setup	engine/settings/password_save_confirm.asm:81	tilemap	Tilemap_PwSaveConfirm_71_6F6F	71	rows=18 cols=20 dest=$D000
 PhoneComment_KeyboardSetup	engine/settings/phone_comment_entry.asm:100	tiles	Data_5E_4000	5E	n=64 vram=$8800 vbank=1

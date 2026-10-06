@@ -167,8 +167,8 @@ CommPanel_StateDraw:: ; 68:744C
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
-	ld hl, Data_71_4300 + $190 ; 71:4490
-	ld a, BANK(Data_71_4300)
+	ld hl, Gfx_CommPanel_SharedVramSource + $190 ; 71:4490
+	ld a, BANK(Gfx_CommPanel_SharedVramSource)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
