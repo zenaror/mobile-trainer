@@ -23,21 +23,16 @@ Data_72_7110::
 	INCBIN "gfx/browser/menus/browser_menu3_map.tilemap"
 	INCBIN "gfx/browser/menus/browser_menu3_map.attrmap"
 
-; ---- data $7200-$7206 (6 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 6C10-7218 by higher-priority evidence]
+; ---- data $7200-$7210 (16 bytes) [CONFIRMED] palette-rgb555: 8 colours (2 palettes) read by Palette_LoadToBuffer: +$00 bc=$10 into wPaletteBufBg + $30 (engine/browser/menus.asm:451, call 72:6756 executed 17 hits in 6 scenarios (analysis/coverage_union.tsv))
 
 Palette_BrowserMenu_Bg6:: ; 72:7200
 Data_72_7200::
-	db $00, $00, $6D, $7A, $20, $69
+	INCLUDE "gfx/browser/menus/browser_menu_bg6.pal"
 
-; ---- data $7206-$7216 (16 bytes) [PROBABLE] palette-rgb555: heuristic: 8 RGB555 words as 2 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+; ---- data $7210-$7218 (8 bytes) [CONFIRMED] palette-rgb555: 4 colours (1 palettes) read by Palette_LoadToBuffer: +$00 bc=$08 into wPaletteBufObj + $20 (engine/browser/menus.asm:461, call 72:6778 executed 17 hits in 6 scenarios (analysis/coverage_union.tsv))
 
-Data_72_7206:: ; 72:7206
-	INCLUDE "gfx/browser/menus/palette_7206.pal"
-
-; ---- data $7216-$7218 (2 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 6C10-7218 by higher-priority evidence]
-
-Data_72_7216:: ; 72:7216
-	db $00, $00
+Palette_BrowserMenu_Obj4:: ; 72:7210
+	INCLUDE "gfx/browser/menus/browser_menu_obj4.pal"
 
 ; ---- zero $7218-$7220 (8 bytes) [PROBABLE] 8 x 00 padding between the palette/data at 72:7206-7218 and the tile block 72:7220
 	ds $8, $00

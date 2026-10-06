@@ -100,36 +100,21 @@ Gfx_HelpMenu_Tiles9400Vb1:: ; 6A:5EB0
 Data_6A_5EB0::
 	INCBIN "gfx/help/help_screens_a/tiles_5eb0.2bpp"
 
-; ---- data $62B0-$62B8 (8 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown [clipped from 4E90-64BB by higher-priority evidence]
+; ---- data $62B0-$62F0 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/help/help_menu.asm:82, call 6C:40B2 executed 411 hits in 12 scenarios (analysis/coverage_union.tsv))
 
 Palette_HelpMenu_Bg:: ; 6A:62B0
 Data_6A_62B0::
-	db $00, $00, $00, $00, $00, $00, $2A, $03
+	INCLUDE "gfx/help/help_screens_a/help_menu_bg.pal"
 
-; ---- data $62B8-$62D0 (24 bytes) [PROBABLE] palette-rgb555: heuristic: 12 RGB555 words as 3 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+; ---- data $62F0-$6330 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufObj (engine/help/help_menu.asm:139, call 6C:4143 executed 411 hits in 12 scenarios (analysis/coverage_union.tsv))
 
-Data_6A_62B8:: ; 6A:62B8
-	INCLUDE "gfx/help/help_screens_a/palette_62b8.pal"
+Palette_HelpMenu_Obj:: ; 6A:62F0
+	INCLUDE "gfx/help/help_screens_a/help_menu_obj.pal"
 
-; ---- data $62D0-$62D8 (8 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown [clipped from 4E90-64BB by higher-priority evidence]
+; ---- data $6330-$6448 (280 bytes) [PROBABLE] palette-rgb555: heuristic: 140 RGB555 words as 35 palette group(s) of 4 (the rest of a heuristic block; the palette array(s) that the code reads were cut out of it)
 
-Data_6A_62D0:: ; 6A:62D0
-	db $00, $00, $00, $00, $00, $00, $00, $00
-
-; ---- data $62D8-$62F8 (32 bytes) [PROBABLE] palette-rgb555: heuristic: 16 RGB555 words as 4 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
-
-Data_6A_62D8:: ; 6A:62D8
-	INCLUDE "gfx/help/help_screens_a/palette_62d8.pal"
-
-; ---- data $62F8-$6300 (8 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown [clipped from 4E90-64BB by higher-priority evidence]
-
-Data_6A_62F8:: ; 6A:62F8
-	db $00, $00, $00, $00, $00, $00, $00, $00
-
-; ---- data $6300-$6448 (328 bytes) [PROBABLE] palette-rgb555: heuristic: 164 RGB555 words as 41 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
-
-Data_6A_6300:: ; 6A:6300
-	INCLUDE "gfx/help/help_screens_a/palette_6300.pal"
+Data_6A_6330:: ; 6A:6330
+	INCLUDE "gfx/help/help_screens_a/palette_6330.pal"
 
 ; ---- data $6448-$64B1 (105 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown [clipped from 4E90-64BB by higher-priority evidence]
 

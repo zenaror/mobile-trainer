@@ -402,8 +402,8 @@ Account_LoginIdIntro_Draw:: ; 68:562F
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap
-	ld hl, $5510
-	ld a, $5E
+	ld hl, Tilemap_Account_LoginIdIntro_5E_5510
+	ld a, BANK(Tilemap_Account_LoginIdIntro_5E_5510)
 	farcall Tilemap_CopyRectAndAttr
 	call Account_LoginIdIntro_PrintMessage
 	ldh a, [rLCDC]

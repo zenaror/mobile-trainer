@@ -37,17 +37,17 @@ gfx/assets.tsv                                 one line per asset: kind, size, b
 
 | kind | files | bytes |
 |---|---:|---:|
-| attribute map (`.attrmap`) | 169 | 47978 |
+| attribute map (`.attrmap`) | 180 | 51618 |
 | JIS 12x12 glyph bits (`.bin`) | 10 | 131966 |
 | 6x12 glyph rows (`.bin`) | 1 | 1152 |
 | 1bpp 8x16 glyphs (`.1bpp`) | 27 | 4848 |
-| RGB palette (`.pal`) | 133 | 10466 |
+| RGB palette (`.pal`) | 144 | 11600 |
 | validity bitmap (`.bin`) | 1 | 8198 |
-| tile-index map (`.tilemap`) | 169 | 47978 |
-| 2bpp tiles (`.2bpp`) | 409 | 350336 |
-| **all** | **919** | **602922** |
+| tile-index map (`.tilemap`) | 180 | 51618 |
+| 2bpp tiles (`.2bpp`) | 406 | 346848 |
+| **all** | **949** | **607848** |
 
-PNGs: 409 exact rgbgfx sources (`.png`), 38 font binaries with an editable sheet PNG (`.png`), 1 view-only picture (`_view.png`).
+PNGs: 406 exact rgbgfx sources (`.png`), 38 font binaries with an editable sheet PNG (`.png`), 1 view-only picture (`_view.png`).
 
 ## Still `db`
 
@@ -55,14 +55,14 @@ Blocks of the graphics regions that are not converted (the note / label does not
 
 | what | blocks | bytes |
 |---|---:|---:|
-| bytes read as data by executed code, content class unknown | 43 | 25572 |
+| bytes read as data by executed code, content class unknown | 28 | 25244 |
 | sprite / OAM frame records, animation scripts, object tables (not tile art) | 109 | 3800 |
-| tilemap+attr blocks clipped by the analysis (size differs from 2 x rows x cols) and 4-byte tile/attr record lists | 12 | 3728 |
-| HYPOTHESIS data (mostly runs of $FF / $00 padding candidates) | 31 | 1590 |
+| HYPOTHESIS data (mostly runs of $FF / $00 padding candidates) | 33 | 1628 |
 | object / animation tables (by label name) | 8 | 453 |
-| label says tilemap but no size evidence | 1 | 256 |
-| tail (less than 16 bytes) after a converted tile block | 19 | 198 |
-| gfx fragments of fewer than 4 whole tiles | 10 | 173 |
+| tilemap+attr blocks clipped by the analysis (size differs from 2 x rows x cols) and 4-byte tile/attr record lists | 4 | 184 |
+| tail (less than 16 bytes) after a converted tile block | 17 | 184 |
+| gfx fragments of fewer than 4 whole tiles | 9 | 166 |
+| palette note but words >= $8000 / odd size | 1 | 127 |
 | label says tiles, note says palette | 1 | 26 |
 
 ## Assets by directory
@@ -121,12 +121,16 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `tiles_4240.2bpp` | 2bpp tiles | 1024 | 4A:4240 | CONFIRMED | exact | - | `gfx/account/screens_bank4a.asm` |
 | `tiles_4640.2bpp` | 2bpp tiles | 1024 | 4A:4640 | CONFIRMED | exact | - | `gfx/account/screens_bank4a.asm` |
 | `tiles_4a40.2bpp` | 2bpp tiles | 1024 | 4A:4A40 | CONFIRMED | exact | - | `gfx/account/screens_bank4a.asm` |
-| `tiles_4e40.2bpp` | 2bpp tiles | 1024 | 4A:4E40 | CONFIRMED | exact | - | `gfx/account/screens_bank4a.asm` |
+| `tiles_4e40.2bpp` | 2bpp tiles | 832 | 4A:4E40 | CONFIRMED | exact | - | `gfx/account/screens_bank4a.asm` |
+| `settings_menu_bg.pal` | RGB palette | 40 | 4A:5180 | CONFIRMED | - | - | `gfx/account/screens_bank4a.asm` |
+| `settings_menu_obj.pal` | RGB palette | 8 | 4A:51A8 | CONFIRMED | - | - | `gfx/account/screens_bank4a.asm` |
+| `settings_menu_4a_51d0.tilemap` | tile-index map | 360 | 4A:51D0 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank4a.asm` |
+| `settings_menu_4a_51d0.attrmap` | attribute map | 360 | 4A:5338 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank4a.asm` |
 | `tilemap_54a0.tilemap` | tile-index map | 360 | 4A:54A0 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank4a.asm` |
 | `tilemap_54a0.attrmap` | attribute map | 360 | 4A:5608 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank4a.asm` |
 | `tiles_5860.2bpp` | 2bpp tiles | 16 | 4A:5860 | PROBABLE | exact | - | `gfx/account/screens_bank4a.asm` |
 | `tiles_5870.2bpp` | 2bpp tiles | 1024 | 4A:5870 | CONFIRMED | exact | - | `gfx/account/screens_bank4a.asm` |
-| `tiles_5c70.2bpp` | 2bpp tiles | 64 | 4A:5C70 | PROBABLE | exact | - | `gfx/account/screens_bank4a.asm` |
+| `account_confirm_manual_screen_bg.pal` | RGB palette | 64 | 4A:5C70 | CONFIRMED | - | - | `gfx/account/screens_bank4a.asm` |
 | `tilemap_5cb0.tilemap` | tile-index map | 360 | 4A:5CB0 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank4a.asm` |
 | `tilemap_5cb0.attrmap` | attribute map | 360 | 4A:5E18 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank4a.asm` |
 
@@ -138,7 +142,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `tiles_46d0.2bpp` | 2bpp tiles | 1024 | 4B:46D0 | CONFIRMED | exact | - | `gfx/account/screens_bank4b.asm` |
 | `tiles_5080.2bpp` | 2bpp tiles | 896 | 4B:5080 | PROBABLE | exact | - | `gfx/account/screens_bank4b.asm` |
 | `tiles_5420.2bpp` | 2bpp tiles | 1104 | 4B:5420 | PROBABLE | exact | - | `gfx/account/screens_bank4b.asm` |
-| `tiles_5878.2bpp` | 2bpp tiles | 32 | 4B:5878 | PROBABLE | exact | - | `gfx/account/screens_bank4b.asm` |
+| `account_result_page_bg.pal` | RGB palette | 40 | 4B:5870 | CONFIRMED | - | - | `gfx/account/screens_bank4b.asm` |
 | `tilemap_5898.tilemap` | tile-index map | 360 | 4B:5898 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank4b.asm` |
 | `tilemap_5898.attrmap` | attribute map | 360 | 4B:5A00 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank4b.asm` |
 
@@ -155,12 +159,16 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `tiles_5df0.2bpp` | 2bpp tiles | 1024 | 5D:5DF0 | CONFIRMED | exact | - | `gfx/account/screens_bank5d.asm` |
 | `tiles_61f0.2bpp` | 2bpp tiles | 512 | 5D:61F0 | CONFIRMED | exact | - | `gfx/account/screens_bank5d.asm` |
 | `tiles_63f0.2bpp` | 2bpp tiles | 512 | 5D:63F0 | CONFIRMED | exact | - | `gfx/account/screens_bank5d.asm` |
-| `tiles_65f0.2bpp` | 2bpp tiles | 64 | 5D:65F0 | PROBABLE | exact | - | `gfx/account/screens_bank5d.asm` |
+| `account_confirm_screen_bg.pal` | RGB palette | 64 | 5D:65F0 | CONFIRMED | - | - | `gfx/account/screens_bank5d.asm` |
 | `tilemap_6630.tilemap` | tile-index map | 360 | 5D:6630 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank5d.asm` |
 | `tilemap_6630.attrmap` | attribute map | 360 | 5D:6798 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank5d.asm` |
 | `tiles_6900.2bpp` | 2bpp tiles | 768 | 5D:6900 | CONFIRMED | exact | - | `gfx/account/screens_bank5d.asm` |
 | `tiles_6c00.2bpp` | 2bpp tiles | 512 | 5D:6C00 | CONFIRMED | exact | - | `gfx/account/screens_bank5d.asm` |
-| `tiles_6e00.2bpp` | 2bpp tiles | 1024 | 5D:6E00 | CONFIRMED | exact | - | `gfx/account/screens_bank5d.asm` |
+| `tiles_6e00.2bpp` | 2bpp tiles | 512 | 5D:6E00 | CONFIRMED | exact | - | `gfx/account/screens_bank5d.asm` |
+| `registration_write_config_bg.pal` | RGB palette | 64 | 5D:7000 | CONFIRMED | - | - | `gfx/account/screens_bank5d.asm` |
+| `registration_write_config_obj.pal` | RGB palette | 8 | 5D:7040 | CONFIRMED | - | - | `gfx/account/screens_bank5d.asm` |
+| `registration_write_config_5d_7048.tilemap` | tile-index map | 360 | 5D:7048 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank5d.asm` |
+| `registration_write_config_5d_7048.attrmap` | attribute map | 360 | 5D:71B0 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank5d.asm` |
 
 ### `gfx/account/screens_bank5e/`
 
@@ -168,10 +176,13 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 |---|---|---:|---|---|---|---|---|
 | `tiles_4800.2bpp` | 2bpp tiles | 1024 | 5E:4800 | CONFIRMED | exact | - | `gfx/account/screens_bank5e.asm` |
 | `tiles_4c00.2bpp` | 2bpp tiles | 256 | 5E:4C00 | CONFIRMED | exact | - | `gfx/account/screens_bank5e.asm` |
+| `palette_4d00.pal` | RGB palette | 64 | 5E:4D00 | CONFIRMED | - | - | `gfx/account/screens_bank5e.asm` |
 | `tilemap_4d40.tilemap` | tile-index map | 100 | 5E:4D40 | CONFIRMED | - | 20x5 | `gfx/account/screens_bank5e.asm` |
 | `tilemap_4d40.attrmap` | attribute map | 100 | 5E:4DA4 | CONFIRMED | - | 20x5 | `gfx/account/screens_bank5e.asm` |
 | `tiles_4e10.2bpp` | 2bpp tiles | 1024 | 5E:4E10 | CONFIRMED | exact | - | `gfx/account/screens_bank5e.asm` |
-| `tiles_5210.2bpp` | 2bpp tiles | 1024 | 5E:5210 | CONFIRMED | exact | - | `gfx/account/screens_bank5e.asm` |
+| `tiles_5210.2bpp` | 2bpp tiles | 768 | 5E:5210 | CONFIRMED | exact | - | `gfx/account/screens_bank5e.asm` |
+| `account_login_id_intro_5e_5510.tilemap` | tile-index map | 360 | 5E:5510 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank5e.asm` |
+| `account_login_id_intro_5e_5510.attrmap` | attribute map | 360 | 5E:5678 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank5e.asm` |
 | `tiles_57e0.2bpp` | 2bpp tiles | 32 | 5E:57E0 | CONFIRMED | exact | - | `gfx/account/screens_bank5e.asm` |
 | `tiles_5800.2bpp` | 2bpp tiles | 1024 | 5E:5800 | CONFIRMED | exact | - | `gfx/account/screens_bank5e.asm` |
 | `tiles_5c00.2bpp` | 2bpp tiles | 1024 | 5E:5C00 | CONFIRMED | exact | - | `gfx/account/screens_bank5e.asm` |
@@ -182,7 +193,10 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `tilemap_68d0.tilemap` | tile-index map | 360 | 5E:68D0 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank5e.asm` |
 | `tilemap_68d0.attrmap` | attribute map | 360 | 5E:6A38 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank5e.asm` |
 | `tiles_6ba0.2bpp` | 2bpp tiles | 1024 | 5E:6BA0 | CONFIRMED | exact | - | `gfx/account/screens_bank5e.asm` |
-| `tiles_6fa0.2bpp` | 2bpp tiles | 1024 | 5E:6FA0 | CONFIRMED | exact | - | `gfx/account/screens_bank5e.asm` |
+| `tiles_6fa0.2bpp` | 2bpp tiles | 800 | 5E:6FA0 | CONFIRMED | exact | - | `gfx/account/screens_bank5e.asm` |
+| `account_action_confirm_page_bg.pal` | RGB palette | 64 | 5E:72C0 | CONFIRMED | - | - | `gfx/account/screens_bank5e.asm` |
+| `account_action_confirm_page_5e_7300.tilemap` | tile-index map | 360 | 5E:7300 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank5e.asm` |
+| `account_action_confirm_page_5e_7300.attrmap` | attribute map | 360 | 5E:7468 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank5e.asm` |
 | `tilemap_75d0.tilemap` | tile-index map | 360 | 5E:75D0 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank5e.asm` |
 | `tilemap_75d0.attrmap` | attribute map | 360 | 5E:7738 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank5e.asm` |
 
@@ -193,7 +207,9 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `tiles_4000.2bpp` | 2bpp tiles | 768 | 71:4000 | CONFIRMED | exact | - | `gfx/account/screens_bank71.asm` |
 | `tiles_4300.2bpp` | 2bpp tiles | 512 | 71:4300 | CONFIRMED | exact | - | `gfx/account/screens_bank71.asm` |
 | `tiles_4500.2bpp` | 2bpp tiles | 912 | 71:4500 | CONFIRMED | exact | - | `gfx/account/screens_bank71.asm` |
-| `tiles_4890.2bpp` | 2bpp tiles | 1024 | 71:4890 | CONFIRMED | exact | - | `gfx/account/screens_bank71.asm` |
+| `tiles_4890.2bpp` | 2bpp tiles | 960 | 71:4890 | CONFIRMED | exact | - | `gfx/account/screens_bank71.asm` |
+| `comm_panel_bg.pal` | RGB palette | 64 | 71:4C50 | CONFIRMED | - | - | `gfx/account/screens_bank71.asm` |
+| `comm_panel_obj.pal` | RGB palette | 8 | 71:4C90 | CONFIRMED | - | - | `gfx/account/screens_bank71.asm` |
 | `tilemap_4c98.tilemap` | tile-index map | 360 | 71:4C98 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank71.asm` |
 | `tilemap_4c98.attrmap` | attribute map | 360 | 71:4E00 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank71.asm` |
 | `tilemap_4f68.tilemap` | tile-index map | 40 | 71:4F68 | CONFIRMED | - | 20x2 | `gfx/account/screens_bank71.asm` |
@@ -205,7 +221,8 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `tiles_61c0.2bpp` | 2bpp tiles | 640 | 71:61C0 | CONFIRMED | exact | - | `gfx/account/screens_bank71.asm` |
 | `tiles_6440.2bpp` | 2bpp tiles | 320 | 71:6440 | CONFIRMED | exact | - | `gfx/account/screens_bank71.asm` |
 | `tiles_6580.2bpp` | 2bpp tiles | 256 | 71:6580 | CONFIRMED | exact | - | `gfx/account/screens_bank71.asm` |
-| `palette_6688.pal` | RGB palette | 24 | 71:6688 | PROBABLE | - | - | `gfx/account/screens_bank71.asm` |
+| `registration_delete_bg.pal` | RGB palette | 64 | 71:6680 | CONFIRMED | - | - | `gfx/account/screens_bank71.asm` |
+| `registration_delete_obj.pal` | RGB palette | 8 | 71:66C0 | CONFIRMED | - | - | `gfx/account/screens_bank71.asm` |
 | `tilemap_66c8.tilemap` | tile-index map | 360 | 71:66C8 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank71.asm` |
 | `tilemap_66c8.attrmap` | attribute map | 360 | 71:6830 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank71.asm` |
 | `tilemap_6998.tilemap` | tile-index map | 360 | 71:6998 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank71.asm` |
@@ -217,10 +234,10 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
+| `abook_addr_tiles8800.2bpp` | 2bpp tiles | 752 | 2F:77D0 | CONFIRMED | exact | - | `gfx/address_book/address_editor.asm` |
 | `abook_addr.tilemap` | tile-index map | 360 | 2F:7AC0 | CONFIRMED | - | 20x18 | `gfx/address_book/address_editor.asm` |
 | `abook_addr.attrmap` | attribute map | 360 | 2F:7C28 | CONFIRMED | - | 20x18 | `gfx/address_book/address_editor.asm` |
-| `abook_addr_bg.pal` | RGB palette | 14 | 2F:7D90 | CONFIRMED | - | - | `gfx/address_book/address_editor.asm` |
-| `palette_7d9e.pal` | RGB palette | 32 | 2F:7D9E | PROBABLE | - | - | `gfx/address_book/address_editor.asm` |
+| `abook_addr_bg.pal` | RGB palette | 64 | 2F:7D90 | CONFIRMED | - | - | `gfx/address_book/address_editor.asm` |
 
 ### `gfx/address_book/address_picker/`
 
@@ -231,8 +248,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `addr_book_tiles8f00.2bpp` | 2bpp tiles | 144 | 2C:6C30 | CONFIRMED | exact | - | `gfx/address_book/address_picker.asm` |
 | `data_addr_pick_tilemap_attr.tilemap` | tile-index map | 360 | 2C:6CC0 | CONFIRMED | - | 20x18 | `gfx/address_book/address_picker.asm` |
 | `data_addr_pick_tilemap_attr.attrmap` | attribute map | 360 | 2C:6E28 | CONFIRMED | - | 20x18 | `gfx/address_book/address_picker.asm` |
-| `addr_pick_bg.pal` | RGB palette | 14 | 2C:6F90 | CONFIRMED | - | - | `gfx/address_book/address_picker.asm` |
-| `palette_6f9e.pal` | RGB palette | 48 | 2C:6F9E | PROBABLE | - | - | `gfx/address_book/address_picker.asm` |
+| `addr_pick_bg.pal` | RGB palette | 64 | 2C:6F90 | CONFIRMED | - | - | `gfx/address_book/address_picker.asm` |
 | `tiles_6fd0.2bpp` | 2bpp tiles | 512 | 2C:6FD0 | PROBABLE | exact | - | `gfx/address_book/address_picker.asm` |
 | `addr_book_obj.pal` | RGB palette | 64 | 2C:71D0 | CONFIRMED | - | - | `gfx/address_book/address_picker.asm` |
 
@@ -543,7 +559,8 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `browser_menu3_tiles1.2bpp` | 2bpp tiles | 256 | 72:7010 | CONFIRMED | exact | - | `gfx/browser/menus.asm` |
 | `browser_menu3_map.tilemap` | tile-index map | 120 | 72:7110 | CONFIRMED | - | 20x6 | `gfx/browser/menus.asm` |
 | `browser_menu3_map.attrmap` | attribute map | 120 | 72:7188 | CONFIRMED | - | 20x6 | `gfx/browser/menus.asm` |
-| `palette_7206.pal` | RGB palette | 16 | 72:7206 | PROBABLE | - | - | `gfx/browser/menus.asm` |
+| `browser_menu_bg6.pal` | RGB palette | 16 | 72:7200 | CONFIRMED | - | - | `gfx/browser/menus.asm` |
+| `browser_menu_obj4.pal` | RGB palette | 8 | 72:7210 | CONFIRMED | - | - | `gfx/browser/menus.asm` |
 | `browser_menu2_tiles0.2bpp` | 2bpp tiles | 1024 | 72:7220 | CONFIRMED | exact | - | `gfx/browser/menus.asm` |
 | `browser_menu2_tiles1.2bpp` | 2bpp tiles | 256 | 72:7620 | CONFIRMED | exact | - | `gfx/browser/menus.asm` |
 | `browser_menu2_map.tilemap` | tile-index map | 120 | 72:7720 | CONFIRMED | - | 20x6 | `gfx/browser/menus.asm` |
@@ -585,11 +602,9 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `browser_start_tiles2.2bpp` | 2bpp tiles | 1024 | 73:51E0 | CONFIRMED | exact | - | `gfx/browser/start_choice.asm` |
 | `browser_start_tiles3.2bpp` | 2bpp tiles | 1024 | 73:55E0 | CONFIRMED | exact | - | `gfx/browser/start_choice.asm` |
 | `browser_start_tiles4.2bpp` | 2bpp tiles | 1024 | 73:59E0 | CONFIRMED | exact | - | `gfx/browser/start_choice.asm` |
-| `browser_start_palettes.pal` | RGB palette | 8 | 73:5DE0 | CONFIRMED | - | - | `gfx/browser/start_choice.asm` |
-| `palette_5de8.pal` | RGB palette | 24 | 73:5DE8 | PROBABLE | - | - | `gfx/browser/start_choice.asm` |
-| `palette_5e08.pal` | RGB palette | 24 | 73:5E08 | PROBABLE | - | - | `gfx/browser/start_choice.asm` |
-| `browser_start_obj_palettes.pal` | RGB palette | 16 | 73:5E20 | PROBABLE | - | - | `gfx/browser/start_choice.asm` |
-| `palette_5e38.pal` | RGB palette | 136 | 73:5E38 | PROBABLE | - | - | `gfx/browser/start_choice.asm` |
+| `browser_start_palettes.pal` | RGB palette | 64 | 73:5DE0 | CONFIRMED | - | - | `gfx/browser/start_choice.asm` |
+| `browser_start_obj_palettes.pal` | RGB palette | 64 | 73:5E20 | CONFIRMED | - | - | `gfx/browser/start_choice.asm` |
+| `palette_5e60.pal` | RGB palette | 96 | 73:5E60 | PROBABLE | - | - | `gfx/browser/start_choice.asm` |
 
 ### `gfx/comm/comm_scene/`
 
@@ -640,7 +655,8 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `tilemap_4cca.attrmap` | attribute map | 360 | 56:4E32 | CONFIRMED | - | 20x18 | `gfx/comm/connect_dialog_bank56.asm` |
 | `tilemap_4f9a.tilemap` | tile-index map | 360 | 56:4F9A | CONFIRMED | - | 20x18 | `gfx/comm/connect_dialog_bank56.asm` |
 | `tilemap_4f9a.attrmap` | attribute map | 360 | 56:5102 | CONFIRMED | - | 20x18 | `gfx/comm/connect_dialog_bank56.asm` |
-| `tiles_526a.2bpp` | 2bpp tiles | 80 | 56:526A | PROBABLE | exact | - | `gfx/comm/connect_dialog_bank56.asm` |
+| `connect_dialog_connect_confirm_56_526a.tilemap` | tile-index map | 40 | 56:526A | CONFIRMED | - | 20x2 | `gfx/comm/connect_dialog_bank56.asm` |
+| `connect_dialog_connect_confirm_56_526a.attrmap` | attribute map | 40 | 56:5292 | CONFIRMED | - | 20x2 | `gfx/comm/connect_dialog_bank56.asm` |
 | `tiles_52c0.2bpp` | 2bpp tiles | 1024 | 56:52C0 | CONFIRMED | exact | - | `gfx/comm/connect_dialog_bank56.asm` |
 | `tiles_56c0.2bpp` | 2bpp tiles | 1024 | 56:56C0 | CONFIRMED | exact | - | `gfx/comm/connect_dialog_bank56.asm` |
 | `tiles_5ac0.2bpp` | 2bpp tiles | 768 | 56:5AC0 | CONFIRMED | exact | - | `gfx/comm/connect_dialog_bank56.asm` |
@@ -711,6 +727,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `tiles_51b0.2bpp` | 2bpp tiles | 1024 | 51:51B0 | CONFIRMED | exact | - | `gfx/comm/time_summary.asm` |
 | `comm_time_summary_b.tilemap` | tile-index map | 360 | 51:55B0 | CONFIRMED | - | 20x18 | `gfx/comm/time_summary.asm` |
 | `comm_time_summary_b.attrmap` | attribute map | 360 | 51:5718 | CONFIRMED | - | 20x18 | `gfx/comm/time_summary.asm` |
+| `comm_time_summary_b.pal` | RGB palette | 64 | 51:5880 | PROBABLE | - | - | `gfx/comm/time_summary.asm` |
 | `tiles_58c0.2bpp` | 2bpp tiles | 1024 | 51:58C0 | CONFIRMED | exact | - | `gfx/comm/time_summary.asm` |
 | `tiles_5cc0.2bpp` | 2bpp tiles | 512 | 51:5CC0 | CONFIRMED | exact | - | `gfx/comm/time_summary.asm` |
 | `palette_5ec0.pal` | RGB palette | 32 | 51:5EC0 | PROBABLE | - | - | `gfx/comm/time_summary.asm` |
@@ -756,7 +773,9 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `no_adapter_gfx_8c00.2bpp` | 2bpp tiles | 1024 | 63:64C0 | CONFIRMED | exact | - | `gfx/error/no_adapter.asm` |
 | `no_adapter_gfx_9000.2bpp` | 2bpp tiles | 1024 | 63:68C0 | CONFIRMED | exact | - | `gfx/error/no_adapter.asm` |
 | `no_adapter_gfx_9400.2bpp` | 2bpp tiles | 768 | 63:6CC0 | CONFIRMED | exact | - | `gfx/error/no_adapter.asm` |
-| `no_adapter_palette_bg.pal` | RGB palette | 40 | 63:7290 | PROBABLE | - | - | `gfx/error/no_adapter.asm` |
+| `no_adapter_tilemap.tilemap` | tile-index map | 360 | 63:6FC0 | CONFIRMED | - | 20x18 | `gfx/error/no_adapter.asm` |
+| `no_adapter_tilemap.attrmap` | attribute map | 360 | 63:7128 | CONFIRMED | - | 20x18 | `gfx/error/no_adapter.asm` |
+| `no_adapter_palette_bg.pal` | RGB palette | 64 | 63:7290 | CONFIRMED | - | - | `gfx/error/no_adapter.asm` |
 | `no_adapter_palette_obj.pal` | RGB palette | 64 | 63:72D0 | CONFIRMED | - | - | `gfx/error/no_adapter.asm` |
 
 ### `gfx/error/non_cgb_screen/`
@@ -794,9 +813,9 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `tiles_5a90.2bpp` | 2bpp tiles | 32 | 6A:5A90 | CONFIRMED | exact | - | `gfx/help/help_screens_a.asm` |
 | `tiles_5ab0.2bpp` | 2bpp tiles | 1024 | 6A:5AB0 | CONFIRMED | exact | - | `gfx/help/help_screens_a.asm` |
 | `tiles_5eb0.2bpp` | 2bpp tiles | 1024 | 6A:5EB0 | CONFIRMED | exact | - | `gfx/help/help_screens_a.asm` |
-| `palette_62b8.pal` | RGB palette | 24 | 6A:62B8 | PROBABLE | - | - | `gfx/help/help_screens_a.asm` |
-| `palette_62d8.pal` | RGB palette | 32 | 6A:62D8 | PROBABLE | - | - | `gfx/help/help_screens_a.asm` |
-| `palette_6300.pal` | RGB palette | 328 | 6A:6300 | PROBABLE | - | - | `gfx/help/help_screens_a.asm` |
+| `help_menu_bg.pal` | RGB palette | 64 | 6A:62B0 | CONFIRMED | - | - | `gfx/help/help_screens_a.asm` |
+| `help_menu_obj.pal` | RGB palette | 64 | 6A:62F0 | CONFIRMED | - | - | `gfx/help/help_screens_a.asm` |
+| `palette_6330.pal` | RGB palette | 280 | 6A:6330 | PROBABLE | - | - | `gfx/help/help_screens_a.asm` |
 
 ### `gfx/help/help_screens_b/`
 
@@ -819,8 +838,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `mobile_dict_tiles0.2bpp` | 2bpp tiles | 512 | 1A:4A90 | CONFIRMED | exact | - | `gfx/help/mobile_dictionary.asm` |
 | `mobile_dict_tiles1.2bpp` | 2bpp tiles | 1024 | 1A:4C90 | CONFIRMED | exact | - | `gfx/help/mobile_dictionary.asm` |
 | `mobile_dict_tiles2.2bpp` | 2bpp tiles | 768 | 1A:5090 | CONFIRMED | exact | - | `gfx/help/mobile_dictionary.asm` |
-| `mobile_dict_bg.pal` | RGB palette | 10 | 1A:5390 | CONFIRMED | - | - | `gfx/help/mobile_dictionary.asm` |
-| `palette_539a.pal` | RGB palette | 54 | 1A:539A | PROBABLE | - | - | `gfx/help/mobile_dictionary.asm` |
+| `mobile_dict_bg.pal` | RGB palette | 64 | 1A:5390 | CONFIRMED | - | - | `gfx/help/mobile_dictionary.asm` |
 | `mobile_dict_obj.pal` | RGB palette | 464 | 1A:53D0 | PROBABLE | - | - | `gfx/help/mobile_dictionary.asm` |
 
 ### `gfx/keyboard/panels_bank5d/`
@@ -946,8 +964,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 |---|---|---:|---|---|---|---|---|
 | `comm_progress_screen.tilemap` | tile-index map | 360 | 22:5980 | CONFIRMED | - | 20x18 | `gfx/mail/comm_progress_scene.asm` |
 | `comm_progress_screen.attrmap` | attribute map | 360 | 22:5AE8 | CONFIRMED | - | 20x18 | `gfx/mail/comm_progress_scene.asm` |
-| `comm_progress_bg.pal` | RGB palette | 2 | 22:5C50 | CONFIRMED | - | - | `gfx/mail/comm_progress_scene.asm` |
-| `palette_5c52.pal` | RGB palette | 62 | 22:5C52 | PROBABLE | - | - | `gfx/mail/comm_progress_scene.asm` |
+| `comm_progress_bg.pal` | RGB palette | 64 | 22:5C50 | CONFIRMED | - | - | `gfx/mail/comm_progress_scene.asm` |
 | `comm_progress_obj.pal` | RGB palette | 64 | 22:5C90 | PROBABLE | - | - | `gfx/mail/comm_progress_scene.asm` |
 
 ### `gfx/mail/comm_result/`
@@ -979,7 +996,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `mail_connect_tiles_6c60.2bpp` | 2bpp tiles | 1024 | 27:6C60 | CONFIRMED | exact | - | `gfx/mail/connect_screen.asm` |
 | `mail_connect_tilemap.tilemap` | tile-index map | 576 | 27:7060 | CONFIRMED | - | 32x18 | `gfx/mail/connect_screen.asm` |
 | `mail_connect_tilemap.attrmap` | attribute map | 576 | 27:72A0 | CONFIRMED | - | 32x18 | `gfx/mail/connect_screen.asm` |
-| `mail_connect_bg_palette.pal` | RGB palette | 56 | 27:74E0 | PROBABLE | - | - | `gfx/mail/connect_screen.asm` |
+| `mail_connect_bg_palette.pal` | RGB palette | 64 | 27:74E0 | CONFIRMED | - | - | `gfx/mail/connect_screen.asm` |
 | `mail_screens_obj_palette_7520.pal` | RGB palette | 64 | 27:7520 | CONFIRMED | - | - | `gfx/mail/connect_screen.asm` |
 | `mail_connect_win_msg_cancelling.tilemap` | tile-index map | 100 | 27:7560 | CONFIRMED | - | 20x5 | `gfx/mail/connect_screen.asm` |
 | `mail_connect_win_msg_cancelling.attrmap` | attribute map | 100 | 27:75C4 | CONFIRMED | - | 20x5 | `gfx/mail/connect_screen.asm` |
@@ -1075,6 +1092,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
 | `mail_server_status_tiles_7420.2bpp` | 2bpp tiles | 1024 | 26:7420 | CONFIRMED | exact | - | `gfx/mail/server_status_bank26.asm` |
+| `profile_tiles8000.2bpp` | 2bpp tiles | 32 | 26:7820 | CONFIRMED | exact | - | `gfx/mail/server_status_bank26.asm` |
 | `tiles_7840.2bpp` | 2bpp tiles | 624 | 26:7840 | PROBABLE | exact | - | `gfx/mail/server_status_bank26.asm` |
 
 ### `gfx/mail/session_scenery/`
@@ -1110,12 +1128,9 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `mail_menu_tiles3.2bpp` | 2bpp tiles | 1024 | 1D:56B0 | CONFIRMED | exact | - | `gfx/mail_menu/mail_menu.asm` |
 | `mail_menu_tiles4.2bpp` | 2bpp tiles | 896 | 1D:5AB0 | CONFIRMED | exact | - | `gfx/mail_menu/mail_menu.asm` |
 | `mail_menu_tiles5.2bpp` | 2bpp tiles | 1024 | 1D:5E30 | CONFIRMED | exact | - | `gfx/mail_menu/mail_menu.asm` |
-| `mail_menu_bg.pal` | RGB palette | 8 | 1D:6230 | CONFIRMED | - | - | `gfx/mail_menu/mail_menu.asm` |
-| `palette_6238.pal` | RGB palette | 24 | 1D:6238 | PROBABLE | - | - | `gfx/mail_menu/mail_menu.asm` |
-| `palette_6258.pal` | RGB palette | 24 | 1D:6258 | PROBABLE | - | - | `gfx/mail_menu/mail_menu.asm` |
-| `mail_menu_obj.pal` | RGB palette | 8 | 1D:6270 | PROBABLE | - | - | `gfx/mail_menu/mail_menu.asm` |
-| `palette_6280.pal` | RGB palette | 44 | 1D:6280 | PROBABLE | - | - | `gfx/mail_menu/mail_menu.asm` |
-| `palette_62ac.pal` | RGB palette | 116 | 1D:62AC | PROBABLE | - | - | `gfx/mail_menu/mail_menu.asm` |
+| `mail_menu_bg.pal` | RGB palette | 64 | 1D:6230 | CONFIRMED | - | - | `gfx/mail_menu/mail_menu.asm` |
+| `mail_menu_obj.pal` | RGB palette | 64 | 1D:6270 | CONFIRMED | - | - | `gfx/mail_menu/mail_menu.asm` |
+| `palette_62b0.pal` | RGB palette | 112 | 1D:62B0 | PROBABLE | - | - | `gfx/mail_menu/mail_menu.asm` |
 
 ### `gfx/mail_server/delete_all_screen/`
 
@@ -1188,8 +1203,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `mail_server_mgr_info_c.attrmap` | attribute map | 360 | 2E:7158 | PROBABLE | - | 20x18 | `gfx/mail_server/tidy_screen.asm` |
 | `mail_server_mgr_info_d.tilemap` | tile-index map | 360 | 2E:72C0 | PROBABLE | - | 20x18 | `gfx/mail_server/tidy_screen.asm` |
 | `mail_server_mgr_info_d.attrmap` | attribute map | 360 | 2E:7428 | PROBABLE | - | 20x18 | `gfx/mail_server/tidy_screen.asm` |
-| `mail_server_mgr_bg.pal` | RGB palette | 48 | 2E:7590 | CONFIRMED | - | - | `gfx/mail_server/tidy_screen.asm` |
-| `palette_75c0.pal` | RGB palette | 16 | 2E:75C0 | PROBABLE | - | - | `gfx/mail_server/tidy_screen.asm` |
+| `mail_server_mgr_bg.pal` | RGB palette | 64 | 2E:7590 | PROBABLE | - | - | `gfx/mail_server/tidy_screen.asm` |
 | `mail_server_mgr_obj.pal` | RGB palette | 240 | 2E:75D0 | PROBABLE | - | - | `gfx/mail_server/tidy_screen.asm` |
 
 ### `gfx/mailbox/mailbox/`
@@ -1204,13 +1218,11 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `mailbox_tilemap_normal.attrmap` | attribute map | 360 | 25:6578 | CONFIRMED | - | 20x18 | `gfx/mailbox/mailbox.asm` |
 | `mailbox_tilemap_delete_select.tilemap` | tile-index map | 360 | 25:66E0 | CONFIRMED | - | 20x18 | `gfx/mailbox/mailbox.asm` |
 | `mailbox_tilemap_delete_select.attrmap` | attribute map | 360 | 25:6848 | CONFIRMED | - | 20x18 | `gfx/mailbox/mailbox.asm` |
-| `mailbox_bg_palette.pal` | RGB palette | 48 | 25:69B0 | CONFIRMED | - | - | `gfx/mailbox/mailbox.asm` |
-| `palette_69e0.pal` | RGB palette | 16 | 25:69E0 | PROBABLE | - | - | `gfx/mailbox/mailbox.asm` |
+| `mailbox_bg_palette.pal` | RGB palette | 64 | 25:69B0 | CONFIRMED | - | - | `gfx/mailbox/mailbox.asm` |
 | `mailbox_tiles_69f0.2bpp` | 2bpp tiles | 208 | 25:69F0 | PROBABLE | exact | - | `gfx/mailbox/mailbox.asm` |
 | `tiles_6bd1.2bpp` | 2bpp tiles | 272 | 25:6BD1 | PROBABLE | exact | - | `gfx/mailbox/mailbox.asm` |
 | `mailbox_tiles_6cf0.2bpp` | 2bpp tiles | 384 | 25:6CF0 | PROBABLE | exact | - | `gfx/mailbox/mailbox.asm` |
-| `mailbox_obj_palette.pal` | RGB palette | 6 | 25:6EF0 | CONFIRMED | - | - | `gfx/mailbox/mailbox.asm` |
-| `palette_6ef6.pal` | RGB palette | 56 | 25:6EF6 | PROBABLE | - | - | `gfx/mailbox/mailbox.asm` |
+| `mailbox_obj_palette.pal` | RGB palette | 64 | 25:6EF0 | CONFIRMED | - | - | `gfx/mailbox/mailbox.asm` |
 
 ### `gfx/mailbox/objects/`
 
@@ -1262,7 +1274,11 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 |---|---|---:|---|---|---|---|---|
 | `tiles_5f80.2bpp` | 2bpp tiles | 256 | 4A:5F80 | CONFIRMED | exact | - | `gfx/settings/screens_bank4a.asm` |
 | `tiles_6080.2bpp` | 2bpp tiles | 1024 | 4A:6080 | CONFIRMED | exact | - | `gfx/settings/screens_bank4a.asm` |
-| `tiles_6480.2bpp` | 2bpp tiles | 1024 | 4A:6480 | CONFIRMED | exact | - | `gfx/settings/screens_bank4a.asm` |
+| `tiles_6480.2bpp` | 2bpp tiles | 256 | 4A:6480 | CONFIRMED | exact | - | `gfx/settings/screens_bank4a.asm` |
+| `adapter_check_bg.pal` | RGB palette | 64 | 4A:6580 | CONFIRMED | - | - | `gfx/settings/screens_bank4a.asm` |
+| `adapter_check_obj.pal` | RGB palette | 64 | 4A:65C0 | CONFIRMED | - | - | `gfx/settings/screens_bank4a.asm` |
+| `adapter_check_4a_6600.tilemap` | tile-index map | 360 | 4A:6600 | CONFIRMED | - | 20x18 | `gfx/settings/screens_bank4a.asm` |
+| `adapter_check_4a_6600.attrmap` | attribute map | 360 | 4A:6768 | CONFIRMED | - | 20x18 | `gfx/settings/screens_bank4a.asm` |
 | `tiles_68d0.2bpp` | 2bpp tiles | 80 | 4A:68D0 | PROBABLE | exact | - | `gfx/settings/screens_bank4a.asm` |
 | `tiles_6920.2bpp` | 2bpp tiles | 1024 | 4A:6920 | CONFIRMED | exact | - | `gfx/settings/screens_bank4a.asm` |
 | `tiles_6d20.2bpp` | 2bpp tiles | 1024 | 4A:6D20 | CONFIRMED | exact | - | `gfx/settings/screens_bank4a.asm` |
@@ -1280,9 +1296,15 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `tiles_5b90.2bpp` | 2bpp tiles | 2560 | 4B:5B90 | PROBABLE | exact | - | `gfx/settings/screens_bank4b.asm` |
 | `tiles_6a90.2bpp` | 2bpp tiles | 1024 | 4B:6A90 | CONFIRMED | exact | - | `gfx/settings/screens_bank4b.asm` |
 | `tiles_6e90.2bpp` | 2bpp tiles | 544 | 4B:6E90 | CONFIRMED | exact | - | `gfx/settings/screens_bank4b.asm` |
-| `tiles_70b0.2bpp` | 2bpp tiles | 992 | 4B:70B0 | CONFIRMED | exact | - | `gfx/settings/screens_bank4b.asm` |
+| `tiles_70b0.2bpp` | 2bpp tiles | 768 | 4B:70B0 | CONFIRMED | exact | - | `gfx/settings/screens_bank4b.asm` |
+| `settings_phone_confirm_screen_bg.pal` | RGB palette | 64 | 4B:73B0 | CONFIRMED | - | - | `gfx/settings/screens_bank4b.asm` |
+| `settings_phone_confirm_screen_4b_73f0.tilemap` | tile-index map | 360 | 4B:73F0 | CONFIRMED | - | 20x18 | `gfx/settings/screens_bank4b.asm` |
+| `settings_phone_confirm_screen_4b_73f0.attrmap` | attribute map | 360 | 4B:7558 | CONFIRMED | - | 20x18 | `gfx/settings/screens_bank4b.asm` |
 | `tiles_76d0.2bpp` | 2bpp tiles | 1024 | 4B:76D0 | CONFIRMED | exact | - | `gfx/settings/screens_bank4b.asm` |
-| `tiles_7ad0.2bpp` | 2bpp tiles | 768 | 4B:7AD0 | CONFIRMED | exact | - | `gfx/settings/screens_bank4b.asm` |
+| `tiles_7ad0.2bpp` | 2bpp tiles | 512 | 4B:7AD0 | CONFIRMED | exact | - | `gfx/settings/screens_bank4b.asm` |
+| `settings_phone_continue_prompt_bg.pal` | RGB palette | 64 | 4B:7CD0 | CONFIRMED | - | - | `gfx/settings/screens_bank4b.asm` |
+| `settings_phone_continue_prompt_4b_7d10.tilemap` | tile-index map | 360 | 4B:7D10 | CONFIRMED | - | 20x18 | `gfx/settings/screens_bank4b.asm` |
+| `settings_phone_continue_prompt_4b_7d10.attrmap` | attribute map | 360 | 4B:7E78 | CONFIRMED | - | 20x18 | `gfx/settings/screens_bank4b.asm` |
 
 ### `gfx/settings/screens_bank4d/`
 
@@ -1296,7 +1318,10 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `tiles_4d10.2bpp` | 2bpp tiles | 768 | 4D:4D10 | CONFIRMED | exact | - | `gfx/settings/screens_bank4d.asm` |
 | `tiles_5010.2bpp` | 2bpp tiles | 256 | 4D:5010 | CONFIRMED | exact | - | `gfx/settings/screens_bank4d.asm` |
 | `tiles_5110.2bpp` | 2bpp tiles | 1024 | 4D:5110 | CONFIRMED | exact | - | `gfx/settings/screens_bank4d.asm` |
-| `tiles_5510.2bpp` | 2bpp tiles | 768 | 4D:5510 | CONFIRMED | exact | - | `gfx/settings/screens_bank4d.asm` |
+| `settings_phone_choice_menu_bg.pal` | RGB palette | 40 | 4D:5510 | PROBABLE | - | - | `gfx/settings/screens_bank4d.asm` |
+| `settings_phone_choice_menu_obj.pal` | RGB palette | 8 | 4D:5538 | CONFIRMED | - | - | `gfx/settings/screens_bank4d.asm` |
+| `settings_phone_choice_menu_4d_5540.tilemap` | tile-index map | 360 | 4D:5540 | CONFIRMED | - | 20x18 | `gfx/settings/screens_bank4d.asm` |
+| `settings_phone_choice_menu_4d_5540.attrmap` | attribute map | 360 | 4D:56A8 | CONFIRMED | - | 20x18 | `gfx/settings/screens_bank4d.asm` |
 | `tilemap_5810.tilemap` | tile-index map | 360 | 4D:5810 | CONFIRMED | - | 20x18 | `gfx/settings/screens_bank4d.asm` |
 | `tilemap_5810.attrmap` | attribute map | 360 | 4D:5978 | CONFIRMED | - | 20x18 | `gfx/settings/screens_bank4d.asm` |
 | `tilemap_5ae0.tilemap` | tile-index map | 70 | 4D:5AE0 | PROBABLE | - | 14x5 | `gfx/settings/screens_bank4d.asm` |
@@ -1315,7 +1340,11 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `tiles_6c70.2bpp` | 2bpp tiles | 256 | 4D:6C70 | CONFIRMED | exact | - | `gfx/settings/screens_bank4d.asm` |
 | `tiles_6d70.2bpp` | 2bpp tiles | 1024 | 4D:6D70 | CONFIRMED | exact | - | `gfx/settings/screens_bank4d.asm` |
 | `tiles_7170.2bpp` | 2bpp tiles | 768 | 4D:7170 | CONFIRMED | exact | - | `gfx/settings/screens_bank4d.asm` |
-| `tiles_7470.2bpp` | 2bpp tiles | 1024 | 4D:7470 | CONFIRMED | exact | - | `gfx/settings/screens_bank4d.asm` |
+| `tiles_7470.2bpp` | 2bpp tiles | 256 | 4D:7470 | CONFIRMED | exact | - | `gfx/settings/screens_bank4d.asm` |
+| `settings_phone_slot_menu_bg.pal` | RGB palette | 40 | 4D:7570 | PROBABLE | - | - | `gfx/settings/screens_bank4d.asm` |
+| `settings_phone_slot_menu_obj.pal` | RGB palette | 8 | 4D:7598 | CONFIRMED | - | - | `gfx/settings/screens_bank4d.asm` |
+| `settings_phone_slot_menu_4d_75a0.tilemap` | tile-index map | 360 | 4D:75A0 | CONFIRMED | - | 20x18 | `gfx/settings/screens_bank4d.asm` |
+| `settings_phone_slot_menu_4d_75a0.attrmap` | attribute map | 360 | 4D:7708 | CONFIRMED | - | 20x18 | `gfx/settings/screens_bank4d.asm` |
 | `tilemap_7870.tilemap` | tile-index map | 40 | 4D:7870 | PROBABLE | - | 20x2 | `gfx/settings/screens_bank4d.asm` |
 | `tilemap_7870.attrmap` | attribute map | 40 | 4D:7898 | PROBABLE | - | 20x2 | `gfx/settings/screens_bank4d.asm` |
 | `tilemap_78c0.tilemap` | tile-index map | 40 | 4D:78C0 | PROBABLE | - | 20x2 | `gfx/settings/screens_bank4d.asm` |
@@ -1329,6 +1358,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 |---|---|---:|---|---|---|---|---|
 | `tiles_7360.2bpp` | 2bpp tiles | 1024 | 5D:7360 | CONFIRMED | exact | - | `gfx/settings/screens_bank5d.asm` |
 | `tiles_7760.2bpp` | 2bpp tiles | 1024 | 5D:7760 | CONFIRMED | exact | - | `gfx/settings/screens_bank5d.asm` |
+| `pw_save_confirm_bg.pal` | RGB palette | 64 | 5D:7B60 | CONFIRMED | - | - | `gfx/settings/screens_bank5d.asm` |
 | `tilemap_7ba0.tilemap` | tile-index map | 360 | 5D:7BA0 | CONFIRMED | - | 20x18 | `gfx/settings/screens_bank5d.asm` |
 | `tilemap_7ba0.attrmap` | attribute map | 360 | 5D:7D08 | CONFIRMED | - | 20x18 | `gfx/settings/screens_bank5d.asm` |
 
@@ -1444,18 +1474,17 @@ make png-export       (maintainers) PNGs regenerated from the binaries; never ov
 
 | kind | PNG source | files | notes |
 |---|---|---:|---|
-| 2bpp tile blocks | `name.png` (exact `rgbgfx` source of `name.2bpp`) | 409 | 100% of the `.2bpp` files; shades 0-3 are grey indices, not the game's colours (the game colours come from palettes and tile attributes; see screens) |
+| 2bpp tile blocks | `name.png` (exact `rgbgfx` source of `name.2bpp`) | 406 | 100% of the `.2bpp` files; shades 0-3 are grey indices, not the game's colours (the game colours come from palettes and tile attributes; see screens) |
 | JIS 12x12 glyphs (10 binaries) | `data/fonts/jis12x12_rows_*.png`, 94 glyphs per sheet row | 9 sheets | bank 7C's two binaries share one sheet |
 | 8x16 font runs | `data/fonts/font_8x16_*.png`, 16 glyphs per row | 27 sheets | |
 | 6x12 Latin font | `data/fonts/ascii_6x12.png` | 1 sheet | 6 pixel wide cells (the two unused bits of each byte stay 0) |
 | whole screens | `name.screen.png` next to `name.tilemap` (`gfx/screens.tsv`) | 83 | edit view: tilemap + attribute map + tiles + palettes composed in real colours; import writes the edit into the tile sheets, see below |
-| palettes | `name.pal` (text, `RGB r, g, b`) | 133 | already an editable text form; a screen PNG can write colours back (`screen_png.py import --palette`). No separate swatch PNG |
+| palettes | `name.pal` (text, `RGB r, g, b`) | 144 | already an editable text form; a screen PNG can write colours back (`screen_png.py import --palette`). No separate swatch PNG |
 
-Not PNG-editable (binary only): the 169 `.tilemap` and 169 `.attrmap` files (the layout of a screen: which tile in which cell, flips, palette
+Not PNG-editable (binary only): the 180 `.tilemap` and 180 `.attrmap` files (the layout of a screen: which tile in which cell, flips, palette
 numbers), the Shift-JIS validity bitmap (data, not an image; `sjis_valid_bitmap_view.png` is a picture of it), and the graphics blocks that are still `db`
-in the `.asm` (see "Still `db`" above).  The 86 tilemaps without a screen PNG are unlisted because their screen cannot be composed from the code: 38 are
-loaded through a pointer / table or as sub-rectangles (no immediate address at the call), 37 have a loader call whose routine loads too few of their tiles
-(tiles arrive by another routine), 11 belong to the bank 41-46 scene records whose layout assumption resolves less than half of the cells.  Their tiles are
+in the `.asm` (see "Still `db`" above).  The 97 tilemaps without a screen PNG are unlisted because their screen cannot be composed from the code (`python3 tools/screen_png.py derive` prints the reasons): they have no loader call with an immediate address (loaded through a pointer / table or as sub-rectangles), or the routine of their loader call loads too few of their tiles (the tiles arrive by another routine),
+or they belong to the bank 41-46 scene records whose layout assumption resolves less than half of the cells.  Their tiles are
 still editable through the tile sheets.
 
 ### Font sheets (`tools/font_png.py`)

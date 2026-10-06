@@ -16,20 +16,27 @@ Gfx_AdapterCheck_Tiles9000Vb1:: ; 4A:6080
 Data_4A_6080::
 	INCBIN "gfx/settings/screens_bank4a/tiles_6080.2bpp"
 
-; ---- gfx $6480-$6880 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:63A9: hl=$6480 a=$4A c=$40 de=$9401 (dest VRAM $9400, vbank=1)
+; ---- gfx $6480-$6580 (256 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:63A9: hl=$6480 a=$4A c=$40 de=$9401 (dest VRAM $9400, vbank=1); the last $300 bytes of the old blob hold 2 palettes and the head of a tilemap pair; the blocks below type them by what the code reads, and the HDMA request that copies the tiles copies them into VRAM as well
 
 Gfx_AdapterCheck_Tiles9400Vb1:: ; 4A:6480
 Data_4A_6480::
 	INCBIN "gfx/settings/screens_bank4a/tiles_6480.2bpp"
 
-; ---- data $6880-$68D0 (80 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 67:63DC: hl=$6600 a=$4A b=18 rows c=20 cols (tiles then attrs) de=$D000 [clipped from 6600-68D0 by higher-priority evidence]
+; ---- data $6580-$65C0 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/settings/adapter_check.asm:37, call 67:63BA executed 680 hits in 68 scenarios (analysis/coverage_union.tsv))
 
-Data_4A_6880:: ; 4A:6880
-	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
-	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
-	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
-	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
-	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
+Palette_AdapterCheck_Bg:: ; 4A:6580
+	INCLUDE "gfx/settings/screens_bank4a/adapter_check_bg.pal"
+
+; ---- data $65C0-$6600 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufObj (engine/settings/adapter_check.asm:42, call 67:63CB executed 680 hits in 68 scenarios (analysis/coverage_union.tsv))
+
+Palette_AdapterCheck_Obj:: ; 4A:65C0
+	INCLUDE "gfx/settings/screens_bank4a/adapter_check_obj.pal"
+
+; ---- data $6600-$68D0 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 67:63DC: hl=$6600 a=$4A b=18 rows c=20 cols (tiles then attrs) de=$D000
+
+Tilemap_AdapterCheck_4A_6600:: ; 4A:6600
+	INCBIN "gfx/settings/screens_bank4a/adapter_check_4a_6600.tilemap"
+	INCBIN "gfx/settings/screens_bank4a/adapter_check_4a_6600.attrmap"
 
 ; ---- gfx $68D0-$6920 (80 bytes) [PROBABLE] tiles-2bpp: heuristic: 52 coherent tiles (hsim2=0.623 vsim2=0.877, 2 blank) parity 1; 832/912 bytes also covered by call-site blocks [clipped from 65C1-6951 by higher-priority evidence]
 

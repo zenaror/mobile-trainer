@@ -17,7 +17,7 @@ Data_72_4CC0::
 	INCBIN "gfx/dialog/dialog_window/dialog_window_map.tilemap"
 	INCBIN "gfx/dialog/dialog_window/dialog_window_map.attrmap"
 
-; ---- data $4E28-$4E40 (24 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown [clipped from 48C0-4E40 by higher-priority evidence]
+; ---- data $4E28-$4E40 (24 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); kind palette from the label name [clipped from 48C0-4E40 by higher-priority evidence]
 
 Dialog_Palette:: ; 72:4E28
 Data_72_4E28::

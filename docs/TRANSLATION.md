@@ -16,7 +16,7 @@ Companion documents:
 | | text in pictures | text drawn at run time |
 |---|---|---|
 | what it is | kana / kanji / Latin **baked into 2bpp tiles** (titles, banners, button labels, legends such as "A 次へ  B 戻る") | Shift-JIS strings rendered from font data while the game runs |
-| where | `gfx/**/*.png` (tile sheets, 409 of them; list in the inventory) | strings in `data/text/*.asm`, `data/html/*.asm` (the HTML store, 55 pages), text blocks in `engine/`, keyboard tables in `data/keyboard/`; glyphs in `data/fonts/` |
+| where | `gfx/**/*.png` (tile sheets, 406 of them; list in the inventory) | strings in `data/text/*.asm`, `data/html/*.asm` (the HTML store, 55 pages), text blocks in `engine/`, keyboard tables in `data/keyboard/`; glyphs in `data/fonts/` |
 | how to change | edit the PNG, `make` (docs/EDITING_IMAGES.md) | edit the string in the `.asm` (section 3) or the glyph in the font PNG |
 | seen in the previews as | the normal picture | grey checker cells (tile data the scene does not load; drawn by the text engine) |
 

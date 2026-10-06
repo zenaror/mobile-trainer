@@ -122,16 +122,15 @@ Data_4B_5400:: ; 4B:5400
 	db $00, $00, $00, $FF, $FF, $00, $F7, $F8, $9B, $0C, $6F, $64, $67, $64, $67, $64
 	db $00, $00, $00, $FF, $FF, $00, $FF, $20, $FF, $BE, $63, $62, $BF, $2A, $FD, $28
 
-; ---- gfx $5420-$5878 (1112 bytes) [PROBABLE] tile data: heuristic: 69 coherent tiles (hsim2=0.852 vsim2=0.752, 0 blank) parity 0; 40/1184 bytes also covered by call-site blocks [clipped from 5420-58C0 by higher-priority proposals]
+; ---- gfx $5420-$5870 (1104 bytes) [PROBABLE] tile data: heuristic: 69 coherent tiles (hsim2=0.852 vsim2=0.752, 0 blank) parity 0; 40/1184 bytes also covered by call-site blocks [clipped from 5420-58C0 by higher-priority proposals]; the 8 bytes behind the INCBIN and the next block ($5878-$5898, 32 bytes) were palette bytes: the palette array below is what engine/account/result_page.asm reads
 
 Data_4B_5420:: ; 4B:5420
 	INCBIN "gfx/account/screens_bank4b/tiles_5420.2bpp"
-	db $00, $00, $00, $00, $00, $00, $FF, $7F
 
-; ---- gfx $5878-$5898 (32 bytes) [PROBABLE] tiles-2bpp: heuristic: 69 coherent tiles (hsim2=0.852 vsim2=0.752, 0 blank) parity 0; 40/1184 bytes also covered by call-site blocks [clipped from 5420-58C0 by higher-priority evidence]
+; ---- data $5870-$5898 (40 bytes) [CONFIRMED] palette-rgb555: 20 colours (5 palettes) read by Palette_LoadToBuffer: +$00 bc=$28 into wPaletteBufBg (engine/account/result_page.asm:47, call 68:76D0 executed 31 hits in 8 scenarios (analysis/coverage_union.tsv))
 
-Data_4B_5878:: ; 4B:5878
-	INCBIN "gfx/account/screens_bank4b/tiles_5878.2bpp"
+Palette_Account_ResultPage_Bg:: ; 4B:5870
+	INCLUDE "gfx/account/screens_bank4b/account_result_page_bg.pal"
 
 ; ---- data $5898-$5B68 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:76E1: hl=$5898 a=$4B b=18 rows c=20 cols (tiles then attrs) de=$D000
 

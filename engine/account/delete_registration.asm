@@ -302,8 +302,8 @@ Registration_DeleteExecute_Setup:: ; 68:7BB0
 	farcall Palette_LoadToBuffer
 	ld bc, $0008
 	ld de, wPaletteBufObj
-	ld hl, Palette_71_66C0
-	ld a, BANK(Palette_71_66C0)
+	ld hl, Palette_Registration_Delete_Obj
+	ld a, BANK(Palette_Registration_Delete_Obj)
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap

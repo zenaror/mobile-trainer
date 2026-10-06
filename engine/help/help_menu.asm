@@ -134,8 +134,8 @@ Label_6C_401D::
 	call Sprite_SetPosition
 	ld bc, $0040
 	ld de, wPaletteBufObj
-	ld hl, Data_6A_62D8 + $18 ; 6A:62F0
-	ld a, BANK(Data_6A_62D8)
+	ld hl, Palette_HelpMenu_Obj ; 6A:62F0
+	ld a, BANK(Palette_HelpMenu_Bg)
 	farcall Palette_LoadToBuffer
 	call HelpMenu_DrawItemSelected
 	ld a, $40

@@ -1,12 +1,12 @@
 # Image text inventory: which graphics carry language-bound content
 
 Purpose: a translator needs to know which pictures contain Japanese text (or other language-bound content), what it says, where the pixels live and what else must change.
-This document lists every tile PNG under `gfx/` (409 exact tile sheets), the font data, and the screens that show them.  Method, evidence and limits are in section 1; the practical guide is
+This document lists every tile PNG under `gfx/` (406 exact tile sheets; five rows of section 3 are marked removed by the graphics retyping and two sheets were added as 410-411), the font data, and the screens that show them.  Method, evidence and limits are in section 1; the practical guide is
 [`docs/TRANSLATION.md`](../TRANSLATION.md).
 
 ## 1. How this was made, and how far to trust it
 
-* **What was looked at**: all 409 tile PNGs (contact sheets at 3x), the 39 font / bitmap view sheets, and 125 composed screens (`gfx/previews/screens/`, `tools/render_screens.py`; 87 of them confirmed against emulator screenshots, see `gfx/previews/README.md`), plus emulator screenshots of the help, browser, registration and mail screens.
+* **What was looked at**: all 409 tile PNGs (409 at the time; the graphics retyping changed 14 of them, see the rows of section 3) (contact sheets at 3x), the 39 font / bitmap view sheets, and 125 composed screens (`gfx/previews/screens/`, `tools/render_screens.py`; 87 of them confirmed against emulator screenshots, see `gfx/previews/README.md`), plus emulator screenshots of the help, browser, registration and mail screens.
 * **Transcriptions** are read by eye from the rendered images.  CONFIRMED here means only: the string is visible in a composed screen whose static cells match an emulator screenshot pixel for pixel (section 2, "screen" table) *and* was read there.  Readings from the tile sheets of section 3 are **pieces**: the text images are stored as continuous streams cut into tiles (16 tiles per PNG row, a line of text wraps across rows), so a sheet shows fragments; where a fragment could not be read the row says so.  Nothing in a "reading" column was OCR-ed by a program.
 * **English renderings are suggestions** (marked "suggestion"); they carry no evidence about the original intent beyond the literal meaning of the kana.
 * `tile` counts: one tile = 8x8 pixels = 16 bytes.  `WxH` = the PNG layout (16 tiles per row where possible), not the on-screen shape.
@@ -119,15 +119,15 @@ Columns: `#` = order of the listing (path order); `asset` = PNG under `gfx/` (th
 | 2 | `account/screens_bank4a/tiles_4240` | 4A:4240 | 64 (16x4) | SettingsMenu_StateInit@8800b1 | TXT | settings-menu item labels, outlined text, one stream over 4240/4640/4A40: パスワードの変更 / ご利用時間の確認 / ご利用額の確認 / 登録情報の削除 / 電話番号の変更 (reading of the stream, PROBABLE) |
 | 3 | `account/screens_bank4a/tiles_4640` | 4A:4640 | 64 (16x4) | SettingsMenu_StateInit@8C00b1 | TXT | continuation of the settings-menu label stream (see 4A:4240): ...報の削除 / 電話番号の変更 / パスワードの変更 ... |
 | 4 | `account/screens_bank4a/tiles_4a40` | 4A:4A40 | 64 (16x4) | SettingsMenu_StateInit@9000b1 | TXT | continuation of the settings-menu label stream (4A:4240 .. 4A:4A40) |
-| 5 | `account/screens_bank4a/tiles_4e40` | 4A:4E40 | 64 (16x4) | SettingsMenu_StateInit@9400b1 | MIX | title image "モバイルせってい" + button legend "＋選ぶ" "A決定" "B戻る" + small icons |
+| 5 | `account/screens_bank4a/tiles_4e40` | 4A:4E40 | 52 (13x4) | SettingsMenu_StateInit@9400b1 | MIX | title image "モバイルせってい" + button legend "＋選ぶ" "A決定" "B戻る" + small icons (retype1 (`docs/research/naming2_retype1.md`): the sheet holds only the tiles; the rest of the old blob is a palette and / or a tilemap pair, now blocks of their own) |
 | 6 | `account/screens_bank4a/tiles_5860` | 4A:5860 | 1 (1x1) | - | UNK | 1 tile, not classified |
 | 7 | `account/screens_bank4a/tiles_5870` | 4A:5870 | 64 (16x4) | Account_ConfirmManualScreen_Setup@9000b1 | TXT | labels "ログインID" "メールアドレス" "コメント" "インターネット用" "セルフページ用" (confirm page of manual registration) |
-| 8 | `account/screens_bank4a/tiles_5c70` | 4A:5C70 | 4 (4x1) | - | ERR | typed as tiles, label says palette (Palette_Account_ConfirmManualScreen_Bg): palette bytes, not art |
+| 8 | `account/screens_bank4a/tiles_5c70` | 4A:5C70 | 0 | - | - | removed by retype1 (`docs/research/naming2_retype1.md`): it was the palette `Palette_Account_ConfirmManualScreen_Bg` typed as 4 tiles |
 | 9 | `account/screens_bank4b/tiles_42d0` | 4B:42D0 | 64 (16x4) | Account_ResultPage@8800b1 | TXT | "通信を終了しました" / "通信時間は　分　秒でした" text + digits 0-9 (result page; digits are placed by the code) |
 | 10 | `account/screens_bank4b/tiles_46d0` | 4B:46D0 | 64 (16x4) | Account_ResultPage@8C00b1 | TXT | title banners "初期登録終了" and "パスワード…変更終了" (partly read) |
 | 11 | `account/screens_bank4b/tiles_5080` | 4B:5080 | 56 (14x4) | - | TXT | fragments "モバイルせってい" "メニュー" (PROBABLE), frame art |
 | 12 | `account/screens_bank4b/tiles_5420` | 4B:5420 | 69 (16x5) | - | MIX | "A WELCOMEメッセージ" label (A button icon + text) and frame art |
-| 13 | `account/screens_bank4b/tiles_5878` | 4B:5878 | 2 (2x1) | - | UNK | 2 tiles, not classified |
+| 13 | `account/screens_bank4b/tiles_5878` | 4B:5878 | 0 | - | - | removed by retype1 (`docs/research/naming2_retype1.md`): its 32 bytes (and the 8 bytes before them) are the palette `Palette_Account_ResultPage_Bg` |
 | 14 | `account/screens_bank5d/tiles_4800` | 5D:4800 | 64 (16x4) | Account_PasswordEntry_Setup@9000b1 | TXT | button legend "＋選ぶ A書く B消す 戻る / OK 次へ" + prompt "パスワードを入力してください" |
 | 15 | `account/screens_bank5d/tiles_4c00` | 5D:4C00 | 64 (16x4) | Account_PasswordEntry_Setup@9400b1 | TXT | "確認のため同じパスワードを入力してください" (confirmation prompt); more fragments unreadable |
 | 16 | `account/screens_bank5d/tiles_5320` | 5D:5320 | 64 (16x4) | Account_PasswordIntro_Draw@9000b1 | TXT | legend "A次へ B戻る", example "例 AbCd1234", title "パスワード…" |
@@ -135,25 +135,25 @@ Columns: `#` = order of the listing (path order); `asset` = PNG under `gfx/` (th
 | 18 | `account/screens_bank5d/tiles_5df0` | 5D:5DF0 | 64 (16x4) | Account_ConfirmScreen_Setup@8800b1 | TXT | legend "＋選ぶ A決定 B戻る" + banner "次の情報をモバイルアダプタGBに登録します" |
 | 19 | `account/screens_bank5d/tiles_61f0` | 5D:61F0 | 32 (16x2) | Account_ConfirmScreen_Setup@8C00b1 | TXT | buttons "はい" "いいえ" + "よろしいですか?" |
 | 20 | `account/screens_bank5d/tiles_63f0` | 5D:63F0 | 32 (16x2) | Account_ConfirmScreen_Setup@9000b1 | TXT | labels "ログインID" "メールアドレス" |
-| 21 | `account/screens_bank5d/tiles_65f0` | 5D:65F0 | 4 (4x1) | - | ERR | typed as tiles, label says palette (Palette_Account_ConfirmScreen_Bg) |
+| 21 | `account/screens_bank5d/tiles_65f0` | 5D:65F0 | 0 | - | - | removed by retype1 (`docs/research/naming2_retype1.md`): it was the palette `Palette_Account_ConfirmScreen_Bg` typed as 4 tiles |
 | 22 | `account/screens_bank5d/tiles_6900` | 5D:6900 | 48 (16x3) | Registration_WriteConfig_Setup@8800b1 (src+100) | TXT | title banner "アダプタ登録中" |
 | 23 | `account/screens_bank5d/tiles_6c00` | 5D:6C00 | 32 (16x2) | - | TXT | "設定情報を登録中です" + "注意" tag |
-| 24 | `account/screens_bank5d/tiles_6e00` | 5D:6E00 | 64 (16x4) | Registration_WriteConfig_Setup@9000b1 | ART | progress-bar pattern tiles + fragments |
+| 24 | `account/screens_bank5d/tiles_6e00` | 5D:6E00 | 32 (16x2) | Registration_WriteConfig_Setup@9000b1 | ART | progress-bar pattern tiles + fragments (retype1 (`docs/research/naming2_retype1.md`): the sheet holds only the tiles; the rest of the old blob is a palette and / or a tilemap pair, now blocks of their own) |
 | 25 | `account/screens_bank5e/tiles_4800` | 5E:4800 | 64 (16x4) | Account_LoginIdEntry_Setup@9000b1 | TXT | legend "＋選ぶ A書く B消す 戻る / OK 次へ" + prompt "ログインIDを入力してください" |
 | 26 | `account/screens_bank5e/tiles_4c00` | 5E:4C00 | 16 (16x1) | Account_LoginIdEntry_Setup@9400b1 | TXT | tail of the prompt ("…ださい") |
 | 27 | `account/screens_bank5e/tiles_4e10` | 5E:4E10 | 64 (16x4) | Account_LoginIdIntro_Draw@9000b1 | TXT | legend "A次へ B戻る", example "例 g123456789", banner "ログインID入力" |
-| 28 | `account/screens_bank5e/tiles_5210` | 5E:5210 | 64 (16x4) | Account_LoginIdIntro_Draw@9400b1 | TXT | banner tail "…ンID入力" |
+| 28 | `account/screens_bank5e/tiles_5210` | 5E:5210 | 48 (16x3) | Account_LoginIdIntro_Draw@9400b1 | TXT | banner tail "…ンID入力" (retype1 (`docs/research/naming2_retype1.md`): the sheet holds only the tiles; the rest of the old blob is a palette and / or a tilemap pair, now blocks of their own) |
 | 29 | `account/screens_bank5e/tiles_57e0` | 5E:57E0 | 2 (2x1) | Kbd_LoadPageGraphics_TypeTable@8800 | KBD | 2 tiles of keyboard type 1 (Gfx_Kbd_T1_Tiles8800) |
 | 30 | `account/screens_bank5e/tiles_5800` | 5E:5800 | 64 (16x4) | Account_MailAddressEntry_Setup@9000b1 | TXT | legend + prompt "メールアドレスを入力してください" |
 | 31 | `account/screens_bank5e/tiles_5c00` | 5E:5C00 | 64 (16x4) | Account_MailAddressEntry_Setup@9400b1 | TXT | prompt tail "してください" + ".dion.ne.jp" and "@" |
 | 32 | `account/screens_bank5e/tiles_60d0` | 5E:60D0 | 64 (16x4) | Account_MailIntro_Draw@9000b1 | TXT | legend "A次へ B戻る", example "例 ninten88@gbaa.dion.ne.jp" |
 | 33 | `account/screens_bank5e/tiles_64d0` | 5E:64D0 | 64 (16x4) | Account_MailIntro_Draw@9400b1 | TXT | "ne.jp", banner "メールアドレス入力" |
 | 34 | `account/screens_bank5e/tiles_6ba0` | 5E:6BA0 | 64 (16x4) | Account_ActionConfirmPage_Setup@9000b1 | TXT | legend "＋選ぶ A決定 B戻る" + banner "通信開始確認" |
-| 35 | `account/screens_bank5e/tiles_6fa0` | 5E:6FA0 | 64 (16x4) | Account_ActionConfirmPage_Setup@9400b1 | TXT | "DIONに接続します" "よろしいですか?" + buttons "はい" "いいえ" |
+| 35 | `account/screens_bank5e/tiles_6fa0` | 5E:6FA0 | 50 (10x5) | Account_ActionConfirmPage_Setup@9400b1 | TXT | "DIONに接続します" "よろしいですか?" + buttons "はい" "いいえ" (retype1 (`docs/research/naming2_retype1.md`): the sheet holds only the tiles; the rest of the old blob is a palette and / or a tilemap pair, now blocks of their own) |
 | 36 | `account/screens_bank71/tiles_4000` | 71:4000 | 48 (16x3) | CommPanel_StateDraw@8800b1 (src+200) | ART | panel art of the connection screen (ball, frame); no readable text |
 | 37 | `account/screens_bank71/tiles_4300` | 71:4300 | 32 (16x2) | CommPanel_StateDraw@9000b1 (src+190) | TXT | fragments of the banner "DIONに接続中" |
 | 38 | `account/screens_bank71/tiles_4500` | 71:4500 | 57 (16x4) | - | TXT | status texts "電話をかけています" "DIONに接続中です" (partly read) + "注意" tag |
-| 39 | `account/screens_bank71/tiles_4890` | 71:4890 | 64 (16x4) | CommPanel_StateDraw@9400b1 | TXT | status-label fragments (partly: 切断, パスワード, 変更, 利用時間); unreadable as a sheet |
+| 39 | `account/screens_bank71/tiles_4890` | 71:4890 | 60 (15x4) | CommPanel_StateDraw@9400b1 | TXT | status-label fragments (partly: 切断, パスワード, 変更, 利用時間); unreadable as a sheet (retype1 (`docs/research/naming2_retype1.md`): the sheet holds only the tiles; the rest of the old blob is a palette and / or a tilemap pair, now blocks of their own) |
 | 40 | `account/screens_bank71/tiles_5340` | 71:5340 | 64 (16x4) | Registration_DeleteConfirm_Setup@9000b1 | TXT | legend + banner "削除確認" + "よろしいですか?" |
 | 41 | `account/screens_bank71/tiles_5740` | 71:5740 | 64 (16x4) | Registration_DeleteConfirm_Setup@9400b1 | TXT | "登録情報を削除します" + button "はい" |
 | 42 | `account/screens_bank71/tiles_5b40` | 71:5B40 | 40 (10x4) | - | TXT | "削除確認" / "削除した情報" fragments |
@@ -281,7 +281,7 @@ Columns: `#` = order of the listing (path order); `asset` = PNG under `gfx/` (th
 | 164 | `comm/comm_scene/tiles_6690` | 70:6690 | 32 (16x2) | CommScene_LoadGraphics@9000b1 | TXT | "B キャンセル" button + "キャンセルしています" (Cancelling) |
 | 165 | `comm/comm_scene/tiles_6890` | 70:6890 | 32 (16x2) | CommScene_LoadGraphics@8400b1 | TXT | text fragments ("ます" ...) of status messages |
 | 166 | `comm/comm_scene/tiles_6a90` | 70:6A90 | 32 (16x2) | CommScene_LoadGraphics@9400b1 | TXT | text fragments of status messages (ダウンロード…? unreadable) |
-| 167 | `comm/connect_dialog_bank56/tiles_526a` | 56:526A | 5 (5x1) | - | ERR | typed as tiles, label says tilemap (Tilemap_ConnectDialog_ConnectConfirm_56_526A) |
+| 167 | `comm/connect_dialog_bank56/tiles_526a` | 56:526A | 0 | - | - | removed by retype1 (`docs/research/naming2_retype1.md`): it was a 20 x 2 tilemap pair typed as 5 tiles |
 | 168 | `comm/connect_dialog_bank56/tiles_52c0` | 56:52C0 | 64 (16x4) | ConnectDialog_Draw_ConnectConfirm@9000b1 | TXT | banner "つうしんせつぞくします" + fragments of the dialog text |
 | 169 | `comm/connect_dialog_bank56/tiles_56c0` | 56:56C0 | 64 (16x4) | ConnectDialog_Draw_ConnectConfirm@9400b1 | TXT | dialog text fragments + buttons "はい" "いいえ" + "うけとり" icon label |
 | 170 | `comm/connect_dialog_bank56/tiles_5ac0` | 56:5AC0 | 48 (16x3) | ConnectDialog_Draw_PasswordEntry@8800 | TXT | password dialog texts (fragments: "パスワードをにゅうりょくしてください") |
@@ -472,16 +472,16 @@ Columns: `#` = order of the listing (path order); `asset` = PNG under `gfx/` (th
 | 355 | `registration/screens_bank58/tiles_7790` | 58:7790 | 60 (15x4) | - | TXT | legend "A 次の画面" "B タイトル画面へ" "メインメニュー" |
 | 356 | `settings/screens_bank4a/tiles_5f80` | 4A:5F80 | 16 (16x1) | AdapterCheck_DrawScreen@8000 | ART | adapter icon pieces |
 | 357 | `settings/screens_bank4a/tiles_6080` | 4A:6080 | 64 (16x4) | AdapterCheck_DrawScreen@9000b1 | TXT | "モバイルアダプタGBを / チェックしています" + adapter picture |
-| 358 | `settings/screens_bank4a/tiles_6480` | 4A:6480 | 64 (16x4) | AdapterCheck_DrawScreen@9400b1 | TXT | text/pattern pieces (unreadable) |
+| 358 | `settings/screens_bank4a/tiles_6480` | 4A:6480 | 16 (16x1) | AdapterCheck_DrawScreen@9400b1 | TXT | text/pattern pieces (unreadable) (retype1 (`docs/research/naming2_retype1.md`): the sheet holds only the tiles; the rest of the old blob is a palette and / or a tilemap pair, now blocks of their own) |
 | 359 | `settings/screens_bank4a/tiles_68d0` | 4A:68D0 | 5 (5x1) | - | ERR | typed as tiles; label AdapterCheck_ObjTableAndAnimData: sprite table data, not tile art |
 | 360 | `settings/screens_bank4a/tiles_6920` | 4A:6920 | 64 (16x4) | PhoneComment_KeyboardSetup@9000b1 | TXT | legend "＋選ぶ A書く B消す 戻る / OK 次へ" + "インターネット電話番号" |
 | 361 | `settings/screens_bank4a/tiles_6d20` | 4A:6D20 | 64 (16x4) | PhoneComment_KeyboardSetup@9400b1 | TXT | "セルフページコメントを入力してください" |
 | 362 | `settings/screens_bank4b/tiles_5b90` | 4B:5B90 | 160 (16x10) | - | TXT | banners "電話番号入力説明" "電話番号変更終了" "電話番号変更中止" "新しいパスワードのご注意" (reading) |
 | 363 | `settings/screens_bank4b/tiles_6a90` | 4B:6A90 | 64 (16x4) | SettingsPhone_ConfirmScreen_Setup@8800b1 | TXT | legend "＋選ぶ A決定 B戻る" + banner "次のように電話番号を変更します" |
 | 364 | `settings/screens_bank4b/tiles_6e90` | 4B:6E90 | 34 (16x3) | SettingsPhone_ConfirmScreen_Setup@8C00b1 | TXT | buttons "はい" "いいえ" + "よろしいですか?" |
-| 365 | `settings/screens_bank4b/tiles_70b0` | 4B:70B0 | 62 (16x4) | - | TXT | labels "インターネット用" "セルフページ用" "コメント" + digits |
+| 365 | `settings/screens_bank4b/tiles_70b0` | 4B:70B0 | 48 (16x3) | - | TXT | labels "インターネット用" "セルフページ用" "コメント" + digits (retype1 (`docs/research/naming2_retype1.md`): the sheet holds only the tiles; the rest of the old blob is a palette and / or a tilemap pair, now blocks of their own) |
 | 366 | `settings/screens_bank4b/tiles_76d0` | 4B:76D0 | 64 (16x4) | SettingsPhone_ContinuePrompt_Setup@9000b1 | TXT | legend + banner "電話番号変更終了" + "続けて登録をしますか?" |
-| 367 | `settings/screens_bank4b/tiles_7ad0` | 4B:7AD0 | 48 (16x3) | SettingsPhone_ContinuePrompt_Setup@9400b1 | TXT | "…録をしますか?" + buttons "はい" "いいえ" |
+| 367 | `settings/screens_bank4b/tiles_7ad0` | 4B:7AD0 | 32 (16x2) | SettingsPhone_ContinuePrompt_Setup@9400b1 | TXT | "…録をしますか?" + buttons "はい" "いいえ" (retype1 (`docs/research/naming2_retype1.md`): the sheet holds only the tiles; the rest of the old blob is a palette and / or a tilemap pair, now blocks of their own) |
 | 368 | `settings/screens_bank4d/tiles_4000` | 4D:4000 | 32 (16x2) | SettingsPhone_ChoiceMenu_Setup@8800b1 (src+110) | TXT | banner piece "電話番号変更" + frame |
 | 369 | `settings/screens_bank4d/tiles_4200` | 4D:4200 | 49 (16x4) | - | TXT | title "電話番号入力方法選択" pieces + legend "内容選択" |
 | 370 | `settings/screens_bank4d/tiles_4510` | 4D:4510 | 16 (16x1) | SettingsPhone_ChoiceMenu_Setup@8C00b1 | TXT | legend pieces "B 戻る" |
@@ -490,7 +490,7 @@ Columns: `#` = order of the listing (path order); `asset` = PNG under `gfx/` (th
 | 373 | `settings/screens_bank4d/tiles_4d10` | 4D:4D10 | 48 (16x3) | - | TXT | title pieces "方法選択" + legend "＋選ぶ A決定" |
 | 374 | `settings/screens_bank4d/tiles_5010` | 4D:5010 | 16 (16x1) | SettingsPhone_ChoiceMenu_Setup@8C00b1 | TXT | legend pieces "B 戻る" |
 | 375 | `settings/screens_bank4d/tiles_5110` | 4D:5110 | 64 (16x4) | SettingsPhone_ChoiceMenu_Setup@9000b1 | TXT | option buttons "自動で入力する" "手動で入力する" |
-| 376 | `settings/screens_bank4d/tiles_5510` | 4D:5510 | 48 (16x3) | SettingsPhone_ChoiceMenu_Setup@9400b1 | TXT | fragments (typed as tiles; same address also loaded as a palette, HYPOTHESIS in naming notes) |
+| 376 | `settings/screens_bank4d/tiles_5510` | 4D:5510 | 0 | - | - | removed by retype1 (`docs/research/naming2_retype1.md`): not tiles at all: a BG palette, an OBJ palette and a tilemap pair (the HDMA request copies them into VRAM as tiles) |
 | 377 | `settings/screens_bank4d/tiles_5d50` | 4D:5D50 | 2 (2x1) | SettingsPhone_SlotMenu_Setup@8000b1 | ART | arrow tiles |
 | 378 | `settings/screens_bank4d/tiles_5d70` | 4D:5D70 | 64 (16x4) | SettingsPhone_SlotMenu_Setup@8800b1 | TXT | title "通常使用電話番号選択" + text "通常使う電話番号を選択…" |
 | 379 | `settings/screens_bank4d/tiles_6170` | 4D:6170 | 64 (16x4) | SettingsPhone_SlotMenu_Setup@8C00b1 | TXT | "…選択してください" + legend "＋選ぶ A決定 B戻る" |
@@ -499,7 +499,7 @@ Columns: `#` = order of the listing (path order); `asset` = PNG under `gfx/` (th
 | 382 | `settings/screens_bank4d/tiles_6c70` | 4D:6C70 | 16 (16x1) | - | TXT | text pieces |
 | 383 | `settings/screens_bank4d/tiles_6d70` | 4D:6D70 | 64 (16x4) | SettingsPhone_SlotMenu_Setup@8C00b1 | TXT | "…してください" + legend |
 | 384 | `settings/screens_bank4d/tiles_7170` | 4D:7170 | 48 (16x3) | - | TXT | labels "登録場所 1/2/3" + "インターネット用" |
-| 385 | `settings/screens_bank4d/tiles_7470` | 4D:7470 | 64 (16x4) | SettingsPhone_SlotMenu_Setup@9400b1 | TXT | text / label pieces |
+| 385 | `settings/screens_bank4d/tiles_7470` | 4D:7470 | 16 (16x1) | SettingsPhone_SlotMenu_Setup@9400b1 | TXT | text / label pieces (retype1 (`docs/research/naming2_retype1.md`): the sheet holds only the tiles; the rest of the old blob is a palette and / or a tilemap pair, now blocks of their own) |
 | 386 | `settings/screens_bank5d/tiles_7360` | 5D:7360 | 64 (16x4) | PwSaveConfirm_Setup@9000b1 | TXT | legend + banner "パスワード保存の確認" |
 | 387 | `settings/screens_bank5d/tiles_7760` | 5D:7760 | 64 (16x4) | PwSaveConfirm_Setup@9400b1 | TXT | "パスワードを保存します" "よろしいですか?" + buttons "はい" "いいえ" |
 | 388 | `settings/screens_bank5e/tiles_4000` | 5E:4000 | 64 (16x4) | Account_LoginIdEntry_Setup@8800b1 | KBD | Latin glyph tiles (A-Z, a-z, digits), shared by the account entry screens |
@@ -524,6 +524,8 @@ Columns: `#` = order of the listing (path order); `asset` = PNG under `gfx/` (th
 | 407 | `unreferenced/page_list_prototype/tiles_66b0` | 7F:66B0 | 18 (9x2) | PageListProto_InitScreen@9400b1 | ART | unused page-list prototype art |
 | 408 | `unreferenced/page_list_prototype/tiles_6ae0` | 7F:6AE0 | 41 (16x3) | PageListProto_InitScreen@8000 | ART | unused page-list prototype art |
 | 409 | `unreferenced/page_list_prototype_objects/tiles_7830` | 7F:7830 | 45 (15x3) | - | ART | unused prototype object tiles |
+| 410 | `address_book/address_editor/abook_addr_tiles8800` | 2F:77D0 | 47 (16x3) | - | UNK | added by retype1 (`docs/research/naming2_retype1.md`): A / B button icons and kana label pieces (looked at at 1x only) |
+| 411 | `mail/server_status_bank26/profile_tiles8000` | 26:7820 | 2 (2x1) | - | UNK | added by retype1 (`docs/research/naming2_retype1.md`): 2 small tiles (not read) |
 
 ## 4. Fonts and other glyph data (language-bound, not pictures of screens)
 

@@ -46,8 +46,8 @@ Account_ActionConfirmPage_Setup:: ; 68:6E39
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
-	ld hl, $72C0
-	ld a, $5E
+	ld hl, Palette_Account_ActionConfirmPage_Bg
+	ld a, BANK(Palette_Account_ActionConfirmPage_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $0018
 	ld de, wPaletteBufObj + $28
@@ -66,8 +66,8 @@ Account_ActionConfirmPage_Setup:: ; 68:6E39
 .l6EC3 ; 68:6EC3
 	ld bc, $1214
 	ld de, wScreenTileMap
-	ld hl, $7300
-	ld a, $5E
+	ld hl, Tilemap_Account_ActionConfirmPage_5E_7300
+	ld a, BANK(Tilemap_Account_ActionConfirmPage_5E_7300)
 	farcall Tilemap_CopyRectAndAttr
 .l6ED4 ; 68:6ED4
 	call Account_ActionConfirmPage_PrintMessage

@@ -99,8 +99,8 @@ SettingsPhone_ChoiceMenu_Setup:: ; 67:4688
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, wScreenTileMap
-	ld hl, $5540
-	ld a, $4D
+	ld hl, Tilemap_SettingsPhone_ChoiceMenu_4D_5540
+	ld a, BANK(Tilemap_SettingsPhone_ChoiceMenu_4D_5540)
 	farcall Tilemap_CopyRectAndAttr
 	jr .l477D
 .l4724 ; 67:4724
@@ -147,8 +147,8 @@ SettingsPhone_ChoiceMenu_Setup:: ; 67:4688
 	farcall Palette_LoadToBuffer
 	ld bc, $0008
 	ld de, wPaletteBufObj
-	ld hl, $5538
-	ld a, $4D
+	ld hl, Palette_SettingsPhone_ChoiceMenu_Obj
+	ld a, BANK(Palette_SettingsPhone_ChoiceMenu_Obj)
 	farcall Palette_LoadToBuffer
 	call SettingsPhone_ChoiceMenu_LoadTilemap
 	call SettingsPhone_ChoiceMenu_PrintPrompt

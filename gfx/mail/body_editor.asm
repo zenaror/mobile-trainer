@@ -10,7 +10,7 @@ Gfx_MailBody_Tiles:: ; 2D:5AC0
 Data_2D_5AC0::
 	INCBIN "gfx/mail/body_editor/mail_body_tiles.2bpp"
 
-; ---- data $5E80-$5FC0 (320 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 5AC0-65B0 by higher-priority evidence]
+; ---- data $5E80-$5FC0 (320 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); kind tiles from the label name [clipped from 5AC0-65B0 by higher-priority evidence]
 
 Data_2D_5E80:: ; 2D:5E80
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
@@ -41,7 +41,7 @@ Gfx_MailBody_ObjTiles:: ; 2D:62D0
 Data_2D_62D0::
 	INCBIN "gfx/mail/body_editor/mail_body_obj_tiles.2bpp"
 
-; ---- data $6570-$65B0 (64 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 5AC0-65B0 by higher-priority evidence]
+; ---- data $6570-$65B0 (64 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); kind palette from the label name [clipped from 5AC0-65B0 by higher-priority evidence]
 
 Palette_MailBody_Obj:: ; 2D:6570
 Data_2D_6570::

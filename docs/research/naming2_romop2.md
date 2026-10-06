@@ -42,6 +42,8 @@ The bank of the far call is the bank of the **data** that `CopyBytes` reads; a p
 * 15 HDMA windows whose sheet label states another VRAM destination (above); 2 operands with no label; 3 vectors; the rest has no rule or no proven length.
 * The label `Palette_71_66C0` is true (8 bytes, `7C00 7FFF 01FF 001F`) but the block it splits still carries heuristic headers (`data $66A0-$66C1`, `tiles-2bpp $66C1-$66C8`): a comment above it says so; the retyping of `gfx/account/screens_bank71.asm` will make one palette array of `$6688-$66C8`.
 
+**Since the graphics retyping** (`naming2_retype1.md`): the 22 palettes and tilemaps inside blocks typed as tiles, the four wrongly typed blocks, `Palette_4B_5870` and `Palette_71_66C0` are retyped; 25 operands became exact labels (23 by this tool); what stays numeric is 14 `anchor names another destination`, 2 `no label`, 1 `read crosses` (`engine/settings/confirm_screen.asm:42`), 3 `vector or null` and the operands with no rule.
+
 ## 5. Reproduce
 
 ```

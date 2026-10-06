@@ -5,22 +5,22 @@
 # pix_static = screenshot pixels equal to the scene drawn with the capture palettes over the static cells (sprites and window excluded; palettes are the pal column); pix_all = the same over every cell the scene draws;
 # lcdc = how the tile addressing was chosen; map_png = 256x256 BG map written (content outside the 20x18 visible cells); rom_bytes = bytes read from baserom.gbc because no asset covers them
 routine	kind	file	tile_ops	map_ops	pal_ops	unresolved	tiles	map	pal	cells	static	dynamic	pix_static	pix_static_pct	pix_all_pct	best_capture	lcdc	map_png	rom_bytes	note
-Account_ActionConfirmPage_Setup	loader	engine/account/action_confirm.asm	3	2	2	0	-	-	-	360	-	-	-	-	-	-	coverage 178/252		560	
-CommPanel_StateDraw	loader	engine/account/comm_panel.asm	4	2	2	0	-	-	-	360	-	-	-	-	-	-	coverage 304/360		8	
+Account_ActionConfirmPage_Setup	loader	engine/account/action_confirm.asm	3	2	2	0	-	-	-	360	-	-	-	-	-	-	coverage 178/252		0	
+CommPanel_StateDraw	loader	engine/account/comm_panel.asm	4	2	2	0	-	-	-	360	-	-	-	-	-	-	coverage 304/360		0	
 Account_ConfirmScreen_Setup	loader	engine/account/confirm_screens.asm	4	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 308/308		0	
 Account_ConfirmManualScreen_Setup	loader	engine/account/confirm_screens.asm	4	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 225/234		0	
-Registration_DeleteConfirm_Setup	loader	engine/account/delete_registration.asm	5	2	2	0	-	-	-	360	-	-	-	-	-	-	coverage 140/252		40	
-Registration_DeleteExecute_Setup	loader	engine/account/delete_registration.asm	3	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 344/252		48	
-Account_LoginIdEntry_Setup	loader	engine/account/login_id_entry.asm	4	1	1	0	-	-	-	100	-	-	-	-	-	-	coverage 0/86		64	
-Account_LoginIdIntro_Draw	loader	engine/account/login_id_entry.asm	2	1	1	0	-	-	-	360	-	-	-	-	-	-	coverage 0/216		528	
-Account_MailAddressEntry_Setup	loader	engine/account/mail_address_entry.asm	4	1	1	0	-	-	-	100	-	-	-	-	-	-	coverage 0/82		64	
-Account_MailIntro_Draw	loader	engine/account/mail_address_entry.asm	2	1	1	0	-	-	-	360	-	-	-	-	-	-	coverage 0/216		64	
-Account_PasswordIntro_Draw	loader	engine/account/password_entry.asm	2	1	1	0	-	-	-	360	-	-	-	-	-	-	coverage 0/216		64	
-Registration_WriteConfig_Setup	loader	engine/account/register_config.asm	3	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 339/252		280	
-Account_ResultPage	loader	engine/account/result_page.asm	2	1	1	0	-	-	-	360	-	-	-	-	-	-	coverage 164/164		8	
-SettingsMenu_DrawItems	loader	engine/account/settings_menu.asm	0	2	0	1	-	-	-	360	-	-	-	-	-	-	coverage 0/0		608	
-AbookAddr_SetupScreen	loader	engine/address_book/address_editor.asm	4	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 92/282		2050	
-AddrPick_InitScreen	loader	engine/address_book/address_picker.asm	5	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 78/187		2	
+Registration_DeleteConfirm_Setup	loader	engine/account/delete_registration.asm	5	2	2	0	-	-	-	360	-	-	-	-	-	-	coverage 140/252		0	
+Registration_DeleteExecute_Setup	loader	engine/account/delete_registration.asm	3	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 344/252		0	
+Account_LoginIdEntry_Setup	loader	engine/account/login_id_entry.asm	4	1	1	0	-	-	-	100	-	-	-	-	-	-	coverage 0/86		0	
+Account_LoginIdIntro_Draw	loader	engine/account/login_id_entry.asm	2	1	1	0	-	-	-	360	-	-	-	-	-	-	coverage 0/216		0	
+Account_MailAddressEntry_Setup	loader	engine/account/mail_address_entry.asm	4	1	1	0	-	-	-	100	-	-	-	-	-	-	coverage 0/82		0	
+Account_MailIntro_Draw	loader	engine/account/mail_address_entry.asm	2	1	1	0	-	-	-	360	-	-	-	-	-	-	coverage 0/216		0	
+Account_PasswordIntro_Draw	loader	engine/account/password_entry.asm	2	1	1	0	-	-	-	360	-	-	-	-	-	-	coverage 0/216		0	
+Registration_WriteConfig_Setup	loader	engine/account/register_config.asm	3	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 339/252		0	
+Account_ResultPage	loader	engine/account/result_page.asm	2	1	1	0	-	-	-	360	-	-	-	-	-	-	coverage 164/164		0	
+SettingsMenu_DrawItems	loader	engine/account/settings_menu.asm	0	2	0	1	-	-	-	360	-	-	-	-	-	-	coverage 0/0		0	
+AbookAddr_SetupScreen	loader	engine/address_book/address_editor.asm	4	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 92/282		1280	
+AddrPick_InitScreen	loader	engine/address_book/address_picker.asm	5	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 78/187		0	
 AbookList_SetupScreen	loader	engine/address_book/list.asm	5	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 62/203		1280	
 AbookName_SetupScreen	loader	engine/address_book/name_editor.asm	4	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 82/336		0	
 AddrBook_SaveConfirm_InitScreen	loader	engine/address_book/save_confirm.asm	2	1	1	0	-	-	-	360	-	-	-	-	-	-	coverage 0/258		0	
@@ -28,9 +28,9 @@ SaveSenderAddr_InitScreen	loader	engine/address_book/save_sender_address.asm	3	1
 AddrScreenUnused_InitScreen	loader	engine/address_book/unreferenced_confirm_screen.asm	2	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 5/279		0	
 AbookView_SetupScreen	loader	engine/address_book/view.asm	4	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 44/258		0	
 BrowserMenu_OpenTwoItem	loader	engine/browser/menus.asm	2	1	2	0	-	-	-	120	-	-	-	-	-	-	coverage 120/120		0	
-BrowserMenu_OpenThreeItem	loader	engine/browser/menus.asm	2	1	2	0	-	-	-	120	-	-	-	-	-	-	coverage 120/120		8	
+BrowserMenu_OpenThreeItem	loader	engine/browser/menus.asm	2	1	2	0	-	-	-	120	-	-	-	-	-	-	coverage 120/120		0	
 PageList_InitScreen	loader	engine/browser/page_list.asm	4	2	2	0	-	-	-	360	-	-	-	-	-	-	coverage 92/155		176	
-Browser_StartChoiceScreen	loader	engine/browser/start_choice.asm	5	2	2	0	-	-	-	320	-	-	-	-	-	-	coverage 29/320	y	16	
+Browser_StartChoiceScreen	loader	engine/browser/start_choice.asm	5	2	2	0	-	-	-	320	-	-	-	-	-	-	coverage 29/320	y	0	
 BrowserStart_DrawButtons	loader	engine/browser/start_choice.asm	0	4	0	0	-	-	-	70	-	-	-	-	-	-	coverage 0/0		140	
 CommScene_LoadGraphics	loader	engine/comm/comm_scene.asm	9	1	2	0	-	-	-	448	-	-	-	-	-	-	coverage 448/448	y	0	
 ConnectDialog_Draw_ConnectConfirm	loader	engine/comm/connect_dialog_screen.asm	2	4	1	0	-	-	-	264	-	-	-	-	-	-	coverage 0/264		0	
@@ -40,7 +40,7 @@ ConnectDialog_Draw_PasswordSaved	loader	engine/comm/connect_dialog_screen.asm	2	
 ConnectDialog_Draw_StoredPassword	loader	engine/comm/connect_dialog_screen.asm	3	1	1	0	-	-	-	360	-	-	-	-	-	-	coverage 25/266		0	
 ConnectDialog_Draw_ForgetConfirm	loader	engine/comm/connect_dialog_screen.asm	0	2	1	0	-	-	-	264	-	-	-	-	-	-	coverage 0/0		0	
 ConnectDialog_DrawPasswordField	loader	engine/comm/connect_dialog_screen.asm	0	7	0	0	-	-	-	360	-	-	-	-	-	-	coverage 0/0		0	
-CommTime_DrawSummaryScreen	loader	engine/comm/time_summary.asm	4	2	2	0	-	-	-	360	-	-	-	-	-	-	coverage 0/360		64	
+CommTime_DrawSummaryScreen	loader	engine/comm/time_summary.asm	4	2	2	0	-	-	-	360	-	-	-	-	-	-	coverage 0/360		0	
 Dialog_Open	loader	engine/dialog/dialog.asm	1	1	2	0	-	-	-	180	-	-	-	-	-	-	coverage 132/132	y	0	
 Dialog_OpenTall	loader	engine/dialog/dialog.asm	1	1	2	0	-	-	-	220	-	-	-	-	-	-	coverage 220/220	y	0	
 CommErr_FindRecord	loader	engine/error/comm_error_screen.asm	0	1	0	0	-	-	-	360	-	-	-	-	-	-	coverage 0/0		0	
@@ -48,15 +48,15 @@ CommErr_DrawMessage_TimerVariant	loader	engine/error/comm_error_screen.asm	0	1	1
 CommErr_DrawMessage_PlainVariant	loader	engine/error/comm_error_screen.asm	0	1	0	0	-	-	-	360	-	-	-	-	-	-	coverage 0/0		0	
 CommErr_FindRecord_NotFound	loader	engine/error/comm_error_screen.asm	0	1	0	0	-	-	-	360	-	-	-	-	-	-	coverage 0/0		0	
 CommErr_UpdateCommFooter	loader	engine/error/comm_error_screen.asm	0	1	0	0	-	-	-	40	-	-	-	-	-	-	coverage 0/0		0	
-NoAdapter_DrawScreen	loader	engine/error/no_adapter.asm	5	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 150/360		1000	
-HelpMenu_ShowPage_Redraw	loader	engine/help/help_menu.asm	6	4	2	0	-	-	-	320	-	-	-	-	-	-	coverage 27/320	y	24	
+NoAdapter_DrawScreen	loader	engine/error/no_adapter.asm	5	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 150/360		0	
+HelpMenu_ShowPage_Redraw	loader	engine/help/help_menu.asm	6	4	2	0	-	-	-	320	-	-	-	-	-	-	coverage 27/320	y	0	
 HelpScript_Run	loader	engine/help/help_script.asm	3	4	2	0	-	-	-	168	-	-	-	-	-	-	coverage 168/168		0	
 MobileDict_Redraw	loader	engine/help/mobile_dictionary.asm	3	2	2	0	-	-	-	200	-	-	-	-	-	-	coverage 130/200		0	
 Kbd_LoadPageGraphics_T0	loader	engine/keyboard/keyboard.asm	0	1	0	0	-	-	-	260	-	-	-	-	-	-	coverage 0/0	y	0	
 Kbd_LoadPageGraphics_T1	loader	engine/keyboard/keyboard.asm	1	1	0	0	-	-	-	260	-	-	-	-	-	-	coverage 2/2	y	0	
 Kbd_LoadPageGraphics_T2	loader	engine/keyboard/keyboard.asm	0	1	0	0	-	-	-	260	-	-	-	-	-	-	coverage 0/0	y	0	
 Kbd_LoadPageGraphics_T3	loader	engine/keyboard/keyboard.asm	0	1	0	0	-	-	-	260	-	-	-	-	-	-	coverage 0/0	y	0	
-Kbd_LoadPageGraphics_T4	loader	engine/keyboard/keyboard.asm	2	1	1	0	-	-	-	260	-	-	-	-	-	-	coverage 220/220	y	24	
+Kbd_LoadPageGraphics_T4	loader	engine/keyboard/keyboard.asm	2	1	1	0	-	-	-	260	-	-	-	-	-	-	coverage 220/220	y	0	
 Kbd_LoadPageGraphics_T5	loader	engine/keyboard/keyboard.asm	3	1	2	0	-	-	-	260	-	-	-	-	-	-	coverage 249/260	y	0	
 Kbd_LoadPageGraphics_T6_Tail	loader	engine/keyboard/keyboard.asm	0	1	0	0	-	-	-	220	-	-	-	-	-	-	coverage 0/0	y	0	
 Kbd_LoadPageGraphics_T78_Tail	loader	engine/keyboard/keyboard.asm	0	1	0	0	-	-	-	220	-	-	-	-	-	-	coverage 0/0	y	0	
@@ -70,15 +70,15 @@ MailSession_InitScreen	loader	engine/mail/mail_session_screen.asm	8	1	3	0	-	-	-	
 MailTitle_InitScreen	loader	engine/mail/mail_title_entry.asm	3	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 81/330		720	
 MailView_BodyPage_InitScreen	loader	engine/mail/mail_viewer_body.asm	2	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 41/110		0	
 MailView_SenderPage_InitScreen	loader	engine/mail/mail_viewer_sender.asm	3	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 12/226		0	
-Mailbox_LoadScreen	loader	engine/mail/mailbox_screen.asm	10	2	6	0	-	-	-	360	-	-	-	-	-	-	coverage 53/204		966	
+Mailbox_LoadScreen	loader	engine/mail/mailbox_screen.asm	10	2	6	0	-	-	-	360	-	-	-	-	-	-	coverage 53/204		960	
 MailGrid_InitScreen	loader	engine/mail/received_mail_grid.asm	3	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 13/324		0	
 MailResult_InitScreen	loader	engine/mail/result_screens.asm	4	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 306/304		0	
 MailServerStatus_InitScreen	loader	engine/mail/result_screens.asm	4	3	1	0	-	-	-	360	-	-	-	-	-	-	coverage 169/330		0	
 MailConnect_Screen_Loop	loader	engine/mail/send_receive.asm	0	3	0	0	-	-	-	100	-	-	-	-	-	-	coverage 0/0		0	
 MailDisconnect_Screen	loader	engine/mail/send_receive.asm	0	2	0	0	-	-	-	100	-	-	-	-	-	-	coverage 0/0		0	
 MailDisconnect_ScreenNoTimer	loader	engine/mail/send_receive.asm	0	2	0	0	-	-	-	100	-	-	-	-	-	-	coverage 0/0		0	
-MailConnect_InitScreen	loader	engine/mail/send_receive.asm	9	3	3	0	-	-	-	576	-	-	-	-	-	-	coverage 576/576	y	8	
-CommTime_DrawHMSScreen	loader	engine/mail/send_receive.asm	3	2	3	0	-	-	-	360	-	-	-	-	-	-	coverage 0/360		64	
+MailConnect_InitScreen	loader	engine/mail/send_receive.asm	9	3	3	0	-	-	-	576	-	-	-	-	-	-	coverage 576/576	y	0	
+CommTime_DrawHMSScreen	loader	engine/mail/send_receive.asm	3	2	3	0	-	-	-	360	-	-	-	-	-	-	coverage 0/360		0	
 MailSrvDelHidden_MenuSelect	loader	engine/mail_server/delete_hidden.asm	0	3	0	0	-	-	-	360	-	-	-	-	-	-	coverage 0/0		0	
 MailSrvDelHidden_MenuInit	loader	engine/mail_server/delete_hidden.asm	4	3	2	0	-	-	-	360	-	-	-	-	-	-	coverage 206/252		0	
 MailSrvDelHidden_Confirm	loader	engine/mail_server/delete_hidden.asm	3	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 8/232		0	
@@ -91,19 +91,19 @@ MailServerMgr_Run_MailLoop	loader	engine/mail_server/tidy.asm	0	3	0	0	-	-	-	360	
 MailServerMgr_SetupScreen	loader	engine/mail_server/tidy_screen.asm	6	2	2	0	-	-	-	360	-	-	-	-	-	-	coverage 93/296		0	
 MailServerMgr_RedrawScreen	loader	engine/mail_server/tidy_screen.asm	6	2	2	0	-	-	-	360	-	-	-	-	-	-	coverage 93/296		0	
 MailServerMgr_DrawMailInfo	loader	engine/mail_server/tidy_screen.asm	0	4	0	0	-	-	-	360	-	-	-	-	-	-	coverage 0/0		0	
-MailMenu_Run	loader	engine/menus/mail_menu.asm	6	2	2	0	-	-	-	320	-	-	-	-	-	-	coverage 47/320	y	16	
+MailMenu_Run	loader	engine/menus/mail_menu.asm	6	2	2	0	-	-	-	320	-	-	-	-	-	-	coverage 47/320	y	0	
 MailMenu_AnimateIcon	loader	engine/menus/mail_menu.asm	0	2	0	0	-	-	-	48	-	-	-	-	-	-	coverage 0/0		0	
 TopMenu_Run	loader	engine/menus/top_menu.asm	7	2	2	0	-	-	-	320	-	-	-	-	-	-	coverage 80/320	y	0	
 TopMenu_LoadPanel	loader	engine/menus/top_menu.asm	0	1	0	0	-	-	-	320	-	-	-	-	-	-	coverage 0/0		0	
 TopMenu_AnimatePanel	loader	engine/menus/top_menu.asm	0	1	0	2	-	-	-	108	-	-	-	-	-	-	coverage 0/0		0	
-Profile_InitScreen	loader	engine/profile/profile_editor.asm	4	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 168/305		48	
-AdapterCheck_DrawScreen	loader	engine/settings/adapter_check.asm	3	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 0/360		80	
+Profile_InitScreen	loader	engine/profile/profile_editor.asm	4	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 168/305		16	
+AdapterCheck_DrawScreen	loader	engine/settings/adapter_check.asm	3	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 0/360		0	
 SettingsPhone_ChoiceMenu_Setup	loader	engine/settings/choice_menu.asm	9	2	2	0	-	-	-	360	-	-	-	-	-	-	coverage 212/252		0	
-SettingsPhone_ConfirmScreen_Setup	loader	engine/settings/confirm_screen.asm	4	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 288/288		560	
-SettingsPhone_ContinuePrompt_Setup	loader	engine/settings/continue_prompt.asm	3	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 204/252		528	
-PwSaveConfirm_Setup	loader	engine/settings/password_save_confirm.asm	3	2	2	0	-	-	-	360	-	-	-	-	-	-	coverage 162/252		64	
-PhoneComment_KeyboardSetup	loader	engine/settings/phone_comment_entry.asm	4	1	1	0	-	-	-	100	-	-	-	-	-	-	coverage 0/76		64	
-PhoneKeypad_Setup	loader	engine/settings/phone_number_entry.asm	4	2	1	0	-	-	-	100	-	-	-	-	-	-	coverage 0/76		64	
+SettingsPhone_ConfirmScreen_Setup	loader	engine/settings/confirm_screen.asm	4	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 288/288		0	
+SettingsPhone_ContinuePrompt_Setup	loader	engine/settings/continue_prompt.asm	3	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 204/252		0	
+PwSaveConfirm_Setup	loader	engine/settings/password_save_confirm.asm	3	2	2	0	-	-	-	360	-	-	-	-	-	-	coverage 162/252		0	
+PhoneComment_KeyboardSetup	loader	engine/settings/phone_comment_entry.asm	4	1	1	0	-	-	-	100	-	-	-	-	-	-	coverage 0/76		0	
+PhoneKeypad_Setup	loader	engine/settings/phone_number_entry.asm	4	2	1	0	-	-	-	100	-	-	-	-	-	-	coverage 0/76		0	
 SettingsPhone_SlotMenu_Setup	loader	engine/settings/slot_menu.asm	9	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 204/288		0	
 Notice_ShowPage	loader	engine/startup/notice_pages.asm	1	2	1	0	-	-	-	360	-	-	-	-	-	-	coverage 0/64		0	
 Title_LoadTitleScreen	loader	engine/title/title_screen.asm	7	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 285/360		0	

@@ -105,49 +105,21 @@ Gfx_SettingsPhone_ConfirmScreen_Tiles8C00Vb1:: ; 4B:6E90
 Data_4B_6E90::
 	INCBIN "gfx/settings/screens_bank4b/tiles_6e90.2bpp"
 
-; ---- gfx $70B0-$7490 (992 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:5172: hl=$7090 a=$4B c=$40 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 4 hits in 2 scenarios (analysis/coverage_union.tsv)] [clipped from 7090-7490 by higher-priority evidence]
+; ---- gfx $70B0-$73B0 (768 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:5172: hl=$7090 a=$4B c=$40 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 4 hits in 2 scenarios (analysis/coverage_union.tsv)] [clipped from 7090-7490 by higher-priority evidence]; the last $E0 bytes of the old blob hold a palette and the head of a tilemap pair; the blocks below type them by what the code reads, and the HDMA request that copies the tiles copies them into VRAM as well
 
 Data_4B_70B0:: ; 4B:70B0
 	INCBIN "gfx/settings/screens_bank4b/tiles_70b0.2bpp"
 
-; ---- data $7490-$76C0 (560 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 67:51B7: hl=$73F0 a=$4B b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 4 hits in 2 scenarios (analysis/coverage_union.tsv)] [clipped from 73F0-76C0 by higher-priority evidence]
+; ---- data $73B0-$73F0 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/settings/confirm_screen.asm:57, call 67:5195 executed 4 hits in 2 scenarios (analysis/coverage_union.tsv))
 
-Data_4B_7490:: ; 4B:7490
-	db $9C, $19, $1A, $1B, $1C, $1D, $15, $9C, $9C, $9C, $9C, $9C, $9C, $9C, $9C, $9C
-	db $9C, $9C, $9C, $9C, $9C, $0E, $0F, $20, $21, $9C, $9C, $9C, $9C, $9C, $9C, $9C
-	db $9C, $9C, $9C, $9C, $9C, $9C, $9C, $9C, $9C, $1E, $1F, $29, $2A, $9C, $9C, $9C
-	db $9C, $9C, $9C, $9C, $9C, $9C, $9C, $9C, $9C, $9C, $9C, $9C, $9C, $9C, $9C, $9C
-	db $9C, $9C, $C8, $C9, $CA, $CB, $CC, $CD, $CE, $CF, $9C, $9C, $9C, $9C, $9C, $9C
-	db $9C, $9C, $9C, $9C, $9C, $9C, $D8, $D9, $DA, $DB, $DC, $DD, $DE, $DF, $9C, $9C
-	db $9C, $9C, $9C, $9C, $9C, $9C, $9C, $9C, $9C, $C0, $C1, $C2, $C3, $9C, $9C, $C4
-	db $C5, $C6, $C7, $9C, $9C, $9C, $9C, $9C, $9C, $9C, $9C, $9C, $9C, $D0, $D1, $D2
-	db $D3, $9C, $9C, $D4, $D5, $D6, $D7, $9C, $9C, $9C, $9C, $9C, $9C, $9C, $9C, $9C
-	db $9C, $9C, $9C, $9C, $9C, $9C, $9C, $9C, $9C, $9C, $9C, $9C, $9C, $9C, $9C, $9C
-	db $80, $81, $82, $83, $8B, $84, $85, $86, $87, $88, $89, $8A, $8B, $8B, $8B, $8B
-	db $8B, $8B, $8B, $8B, $90, $91, $92, $93, $8C, $94, $95, $96, $97, $98, $99, $9A
-	db $9B, $8C, $8C, $8C, $8C, $8C, $8C, $8C, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
-	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $2A, $0A, $0A, $0A, $0A
-	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $2A
-	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
-	db $0A, $0A, $0A, $0A, $0A, $09, $09, $09, $09, $0A, $09, $0A, $0A, $0A, $0A, $0A
-	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $09, $09, $09, $09, $0A, $09, $0A
-	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $09, $09, $09
-	db $09, $09, $09, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $0A
-	db $0A, $09, $09, $09, $09, $09, $09, $02, $02, $02, $02, $02, $02, $02, $02, $02
-	db $02, $02, $02, $0A, $0A, $09, $09, $09, $09, $09, $09, $02, $02, $02, $02, $02
-	db $02, $02, $02, $02, $02, $02, $02, $0A, $0A, $09, $09, $09, $09, $09, $09, $02
-	db $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $0A, $0A, $09, $09, $09
-	db $09, $0A, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $0A, $0A
-	db $0A, $09, $09, $09, $09, $0A, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02
-	db $02, $02, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $09, $09, $09, $09, $09, $09
-	db $09, $09, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $09, $09
-	db $09, $09, $09, $09, $09, $09, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
-	db $0A, $0F, $0F, $0F, $0F, $0A, $0A, $0F, $0F, $0F, $0F, $0A, $0A, $0A, $0A, $0A
-	db $0A, $0A, $0A, $0A, $0A, $0F, $0F, $0F, $0F, $0A, $0A, $0F, $0F, $0F, $0F, $0A
-	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
-	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $09, $09, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
+Palette_SettingsPhone_ConfirmScreen_Bg:: ; 4B:73B0
+	INCLUDE "gfx/settings/screens_bank4b/settings_phone_confirm_screen_bg.pal"
+
+; ---- data $73F0-$76C0 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 67:51B7: hl=$73F0 a=$4B b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 4 hits in 2 scenarios (analysis/coverage_union.tsv)]
+
+Tilemap_SettingsPhone_ConfirmScreen_4B_73F0:: ; 4B:73F0
+	INCBIN "gfx/settings/screens_bank4b/settings_phone_confirm_screen_4b_73f0.tilemap"
+	INCBIN "gfx/settings/screens_bank4b/settings_phone_confirm_screen_4b_73f0.attrmap"
 
 ; ---- data $76C0-$76D0 (16 bytes) [PROBABLE] 3 x 4-byte entries ($26/$2F,$27/$30,$28/$31 with attributes $09 $09) + a zero entry, placed right after the tilemap+attr block 73F0-76C0 exactly like the entries at 5B68; use not decoded
 
@@ -160,45 +132,19 @@ Gfx_SettingsPhone_ContinuePrompt_Tiles9000Vb1:: ; 4B:76D0
 Data_4B_76D0::
 	INCBIN "gfx/settings/screens_bank4b/tiles_76d0.2bpp"
 
-; ---- gfx $7AD0-$7DD0 (768 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:575F: hl=$7AD0 a=$4B c=$30 de=$9401 (dest VRAM $9400, vbank=1) [first call site executed: 2 hits in 1 scenarios (analysis/coverage_union.tsv)]
+; ---- gfx $7AD0-$7CD0 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:575F: hl=$7AD0 a=$4B c=$30 de=$9401 (dest VRAM $9400, vbank=1) [first call site executed: 2 hits in 1 scenarios (analysis/coverage_union.tsv)]; the last $100 bytes of the old blob hold a palette and the head of a tilemap pair; the blocks below type them by what the code reads, and the HDMA request that copies the tiles copies them into VRAM as well
 
 Gfx_SettingsPhone_ContinuePrompt_Tiles9400Vb1:: ; 4B:7AD0
 Data_4B_7AD0::
 	INCBIN "gfx/settings/screens_bank4b/tiles_7ad0.2bpp"
 
-; ---- data $7DD0-$7FE0 (528 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 67:57A4: hl=$7D10 a=$4B b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 2 hits in 1 scenarios (analysis/coverage_union.tsv)] [clipped from 7D10-7FE0 by higher-priority evidence]
+; ---- data $7CD0-$7D10 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/settings/continue_prompt.asm:50, call 67:5782 executed 2 hits in 1 scenarios (analysis/coverage_union.tsv))
 
-Data_4B_7DD0:: ; 4B:7DD0
-	db $00, $00, $00, $00, $00, $00, $00, $1C, $1C, $00, $00, $00, $00, $00, $00, $00
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $1C, $1C, $00, $00, $00
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $1C
-	db $1C, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
-	db $00, $00, $00, $1C, $1C, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
-	db $00, $00, $00, $00, $00, $00, $00, $1C, $1C, $00, $00, $00, $00, $00, $00, $00
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $1C, $0C, $0D, $0D, $0D
-	db $0D, $0D, $0D, $0D, $0D, $0D, $0D, $0D, $0D, $0D, $0D, $0D, $0D, $0D, $0D, $0C
-	db $02, $03, $04, $05, $0A, $06, $07, $08, $09, $0A, $0A, $0A, $0A, $0A, $0A, $0A
-	db $0A, $0A, $0A, $0A, $12, $13, $14, $15, $1A, $16, $17, $18, $19, $1A, $1A, $1A
-	db $1A, $1A, $1A, $1A, $1A, $1A, $1A, $1A, $09, $09, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $29, $0A, $0A, $0A, $0A, $09, $09, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $09, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $09, $09, $09, $09
-	db $09, $09, $09, $09, $09, $09, $09, $09, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
-	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
-	db $0A, $0A, $0A, $0A, $0A, $0F, $0F, $0F, $0F, $0A, $0A, $0F, $0F, $0F, $0F, $0A
-	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0F, $0F, $0F, $0F, $0A, $0A, $0F
-	db $0F, $0F, $0F, $0A, $0A, $0A, $0A, $0A, $09, $09, $29, $29, $29, $29, $29, $29
-	db $29, $29, $29, $29, $29, $29, $29, $29, $29, $29, $29, $29, $09, $10, $10, $10
-	db $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $29
-	db $09, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10
-	db $10, $10, $10, $29, $09, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10
-	db $10, $10, $10, $10, $10, $10, $10, $29, $09, $10, $10, $10, $10, $10, $10, $10
-	db $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $29, $09, $10, $10, $10
-	db $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $29
-	db $49, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10
-	db $10, $10, $10, $69, $49, $49, $69, $69, $69, $69, $69, $69, $69, $69, $69, $69
-	db $69, $69, $69, $69, $69, $69, $69, $69, $09, $09, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
+Palette_SettingsPhone_ContinuePrompt_Bg:: ; 4B:7CD0
+	INCLUDE "gfx/settings/screens_bank4b/settings_phone_continue_prompt_bg.pal"
+
+; ---- data $7D10-$7FE0 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 67:57A4: hl=$7D10 a=$4B b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 2 hits in 1 scenarios (analysis/coverage_union.tsv)]
+
+Tilemap_SettingsPhone_ContinuePrompt_4B_7D10:: ; 4B:7D10
+	INCBIN "gfx/settings/screens_bank4b/settings_phone_continue_prompt_4b_7d10.tilemap"
+	INCBIN "gfx/settings/screens_bank4b/settings_phone_continue_prompt_4b_7d10.attrmap"

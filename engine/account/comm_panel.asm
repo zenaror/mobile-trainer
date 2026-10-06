@@ -186,8 +186,8 @@ CommPanel_StateDraw:: ; 68:744C
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
-	ld hl, $4C50
-	ld a, $71
+	ld hl, Palette_CommPanel_Bg
+	ld a, BANK(Palette_CommPanel_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $0008
 	ld de, wPaletteBufObj

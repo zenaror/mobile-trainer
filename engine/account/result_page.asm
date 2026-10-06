@@ -42,8 +42,8 @@ Function_68_766E::
 	call Account_ResultPage_LoadBanner
 	ld bc, $0028
 	ld de, wPaletteBufBg
-	ld hl, $5870
-	ld a, $4B
+	ld hl, Palette_Account_ResultPage_Bg
+	ld a, BANK(Palette_Account_ResultPage_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap

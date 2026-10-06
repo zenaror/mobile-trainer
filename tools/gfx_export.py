@@ -15,6 +15,8 @@ Everything here is deterministic and reads only the repository (the .asm source,
     python3 tools/gfx_export.py check             # PNG -> rgbgfx -> .2bpp byte-identical?  view sheets decode back?  INCBIN sizes and
                                                   #   region headers consistent?  assets.tsv complete?
     python3 tools/gfx_export.py readme            # rewrite gfx/README.md from gfx/assets.tsv
+    python3 tools/gfx_export.py headers           # a region header that says "content class unknown" above an exported asset now says the kind
+                                                  #   (`export` does this too; `check` fails while one is left)
 
 The ROM bytes come from the binary asset (`.2bpp`, `.1bpp`, `.bin`, `.tilemap`, `.attrmap`) or the `.pal` file that the `.asm`
 INCBINs / INCLUDEs.  A `.png` next to a `.2bpp` is an *exact source*: `rgbgfx -c embedded [-x <pad>] -o x.2bpp x.png` rebuilds the
@@ -702,6 +704,47 @@ def db_lines(data):
     return ['\tdb ' + ', '.join('$%02X' % b for b in data[i:i + 16]) for i in range(0, len(data), 16)]
 
 
+UNKNOWN_CLASS = 'content class unknown'
+ASSET_KIND = (('.pal', 'palette'), ('.2bpp', 'tiles'), ('.1bpp', 'tiles'), ('.tilemap', 'tilemap'), ('.attrmap', 'attrmap'))
+
+
+def unknown_class_headers():
+    """[(rel, header line index, kinds)] of the region headers that say the content class is unknown although an asset of a known kind sits under them
+    (the exporter classifies a block by its label when the header gives no class; the header text was left behind)."""
+    out = []
+    for rel in scan_files():
+        lines = open(os.path.join(ROOT, rel), encoding='utf-8').read().split('\n')
+        hdr, kinds = None, []
+        for i, l in enumerate(lines + ['; ---- end $0000-$0000 (0 bytes) [X]']):
+            if HDR.match(l):
+                if hdr is not None and kinds and UNKNOWN_CLASS in lines[hdr]:
+                    out.append((rel, hdr, kinds))
+                hdr, kinds = i, []
+                continue
+            m = re.match(r'^\t(?:INCBIN|INCLUDE) "([^"]+)"', l)
+            if m and hdr is not None:
+                for ext, kind in ASSET_KIND:
+                    if m.group(1).endswith(ext) and kind not in kinds:
+                        kinds.append(kind)
+    return out
+
+
+def fix_unknown_class_headers(write=True):
+    """Rewrite those headers: `content class unknown` -> `kind <kinds> from the label name`.  Idempotent; returns the number of headers."""
+    found = unknown_class_headers()
+    by_file = {}
+    for rel, i, kinds in found:
+        by_file.setdefault(rel, []).append((i, kinds))
+    if write:
+        for rel, items in by_file.items():
+            full = os.path.join(ROOT, rel)
+            lines = open(full, encoding='utf-8').read().split('\n')
+            for i, kinds in items:
+                lines[i] = lines[i].replace(UNKNOWN_CLASS, 'kind %s from the label name' % '/'.join(kinds), 1)
+            open(full, 'w', encoding='utf-8').write('\n'.join(lines))
+    return len(found)
+
+
 def do_export(write):
     plan = build_plan()
     manifest = read_manifest()
@@ -764,6 +807,7 @@ def do_export(write):
     write_manifest(rows)
     check_rgbgfx_roundtrip(rows, fix=True)
     write_manifest(rows)
+    fix_unknown_class_headers(True)
     return plan
 
 
@@ -879,6 +923,8 @@ def check_sheet(rows, path, data, png_path):
 def do_check():
     rows = read_manifest()
     errors = []
+    for rel, i, kinds in unknown_class_headers():
+        errors.append('%s:%d: the region header says "%s" above an exported %s asset (run `gfx_export headers`)' % (rel, i + 1, UNKNOWN_CLASS, '/'.join(kinds)))
     used = {}                                            # asset path -> uses in asm
     for rel in scan_files():
         for l in open(os.path.join(ROOT, rel), encoding='utf-8'):
@@ -1016,18 +1062,17 @@ make png-export       (maintainers) PNGs regenerated from the binaries; never ov
 
 | kind | PNG source | files | notes |
 |---|---|---:|---|
-| 2bpp tile blocks | `name.png` (exact `rgbgfx` source of `name.2bpp`) | 409 | 100% of the `.2bpp` files; shades 0-3 are grey indices, not the game's colours (the game colours come from palettes and tile attributes; see screens) |
+| 2bpp tile blocks | `name.png` (exact `rgbgfx` source of `name.2bpp`) | @TILE_SHEETS@ | 100% of the `.2bpp` files; shades 0-3 are grey indices, not the game's colours (the game colours come from palettes and tile attributes; see screens) |
 | JIS 12x12 glyphs (10 binaries) | `data/fonts/jis12x12_rows_*.png`, 94 glyphs per sheet row | 9 sheets | bank 7C's two binaries share one sheet |
 | 8x16 font runs | `data/fonts/font_8x16_*.png`, 16 glyphs per row | 27 sheets | |
 | 6x12 Latin font | `data/fonts/ascii_6x12.png` | 1 sheet | 6 pixel wide cells (the two unused bits of each byte stay 0) |
-| whole screens | `name.screen.png` next to `name.tilemap` (`gfx/screens.tsv`) | 83 | edit view: tilemap + attribute map + tiles + palettes composed in real colours; import writes the edit into the tile sheets, see below |
-| palettes | `name.pal` (text, `RGB r, g, b`) | 133 | already an editable text form; a screen PNG can write colours back (`screen_png.py import --palette`). No separate swatch PNG |
+| whole screens | `name.screen.png` next to `name.tilemap` (`gfx/screens.tsv`) | @SCREENS@ | edit view: tilemap + attribute map + tiles + palettes composed in real colours; import writes the edit into the tile sheets, see below |
+| palettes | `name.pal` (text, `RGB r, g, b`) | @PALETTES@ | already an editable text form; a screen PNG can write colours back (`screen_png.py import --palette`). No separate swatch PNG |
 
-Not PNG-editable (binary only): the 169 `.tilemap` and 169 `.attrmap` files (the layout of a screen: which tile in which cell, flips, palette
+Not PNG-editable (binary only): the @MAPS@ `.tilemap` and @MAPS@ `.attrmap` files (the layout of a screen: which tile in which cell, flips, palette
 numbers), the Shift-JIS validity bitmap (data, not an image; `sjis_valid_bitmap_view.png` is a picture of it), and the graphics blocks that are still `db`
-in the `.asm` (see "Still `db`" above).  The 86 tilemaps without a screen PNG are unlisted because their screen cannot be composed from the code: 38 are
-loaded through a pointer / table or as sub-rectangles (no immediate address at the call), 37 have a loader call whose routine loads too few of their tiles
-(tiles arrive by another routine), 11 belong to the bank 41-46 scene records whose layout assumption resolves less than half of the cells.  Their tiles are
+in the `.asm` (see "Still `db`" above).  The @UNLISTED@ tilemaps without a screen PNG are unlisted because their screen cannot be composed from the code (`python3 tools/screen_png.py derive` prints the reasons): they have no loader call with an immediate address (loaded through a pointer / table or as sub-rectangles), or the routine of their loader call loads too few of their tiles (the tiles arrive by another routine),
+or they belong to the bank 41-46 scene records whose layout assumption resolves less than half of the cells.  Their tiles are
 still editable through the tile sheets.
 
 ### Font sheets (`tools/font_png.py`)
@@ -1145,7 +1190,17 @@ def do_readme():
                 os.path.basename(r['path']), TYPE_NAME[r['type']], int(r['size']), r['bank'], r['addr'], r['status'], r['png'],
                 r['dims'] or '-', r['asm']))
         out.append('')
-    open(os.path.join(ROOT, README), 'w', encoding='utf-8').write('\n'.join(out) + '\n' + EDIT_SECTION)
+    tile_sheets = sum(1 for r in rows.values() if r['type'] == 'tiles' and r['png'] == 'exact')
+    maps = sum(1 for r in rows.values() if r['type'] == 'tilemap')
+    screens = set()
+    if os.path.exists(os.path.join(ROOT, 'gfx/screens.tsv')):
+        for l in open(os.path.join(ROOT, 'gfx/screens.tsv'), encoding='utf-8'):
+            c = l.rstrip('\n').split('\t')
+            if len(c) > 2 and not l.startswith('#') and c[0] != 'name':
+                screens.add(c[2])
+    edit = (EDIT_SECTION.replace('@TILE_SHEETS@', str(tile_sheets)).replace('@SCREENS@', str(len(screens)))
+            .replace('@PALETTES@', str(kinds.get('palette', [0])[0])).replace('@MAPS@', str(maps)).replace('@UNLISTED@', str(maps - len(screens))))
+    open(os.path.join(ROOT, README), 'w', encoding='utf-8').write('\n'.join(out) + '\n' + edit)
     return 0
 
 
@@ -1164,7 +1219,7 @@ def print_plan(plan):
 
 def main(argv):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('cmd', choices=['plan', 'export', 'png', 'bin', 'check', 'readme'])
+    ap.add_argument('cmd', choices=['plan', 'export', 'png', 'bin', 'check', 'readme', 'headers'])
     ap.add_argument('--root', help='repository root (default: the parent of tools/)')
     a = ap.parse_args(argv)
     global ROOT
@@ -1186,6 +1241,9 @@ def main(argv):
         return png_rules.cmd_export(argparse.Namespace(force=False))
     if a.cmd == 'bin':
         return do_bin(read_manifest())
+    if a.cmd == 'headers':
+        print('gfx_export headers: %d region header(s) rewritten' % fix_unknown_class_headers(True))
+        return 0
     if a.cmd == 'check':
         return do_check()
     return do_readme()

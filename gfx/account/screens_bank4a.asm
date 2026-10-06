@@ -60,53 +60,33 @@ Gfx_SettingsMenu_Tiles9000Vb1:: ; 4A:4A40
 Data_4A_4A40::
 	INCBIN "gfx/account/screens_bank4a/tiles_4a40.2bpp"
 
-; ---- gfx $4E40-$5240 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:50F5: hl=$4E40 a=$4A c=$40 de=$9401 (dest VRAM $9400, vbank=1)
+; ---- gfx $4E40-$5180 (832 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:50F5: hl=$4E40 a=$4A c=$40 de=$9401 (dest VRAM $9400, vbank=1); the last $C0 bytes of the old blob hold 2 palettes, a 32-byte gap that no code reads and the head of a tilemap pair; the blocks below type them by what the code reads, and the HDMA request that copies the tiles copies them into VRAM as well
 
 Gfx_SettingsMenu_Tiles9400Vb1:: ; 4A:4E40
 Data_4A_4E40::
 	INCBIN "gfx/account/screens_bank4a/tiles_4e40.2bpp"
 
-; ---- data $5240-$54A0 (608 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:523D: hl=$51D0 a=$4A b=18 rows c=20 cols (tiles then attrs) de=$D000 [clipped from 51D0-54A0 by higher-priority evidence]
+; ---- data $5180-$51A8 (40 bytes) [CONFIRMED] palette-rgb555: 20 colours (5 palettes) read by Palette_LoadToBuffer: +$00 bc=$28 into wPaletteBufBg (engine/account/settings_menu.asm:190, call 68:5118 executed 538 hits in 15 scenarios (analysis/coverage_union.tsv))
 
-Data_4A_5240:: ; 4A:5240
-	db $3E, $3E, $3E, $3E, $3E, $3E, $2F, $3F, $3F, $2F, $3E, $3E, $3E, $CF, $E0, $E1
-	db $E2, $E3, $E4, $E5, $E6, $E7, $E8, $3E, $3E, $3E, $2F, $3F, $3F, $2F, $3E, $3E
-	db $3E, $DF, $F0, $F1, $F2, $F3, $F4, $F5, $F6, $F7, $F8, $3E, $3E, $3E, $2F, $3F
-	db $3F, $2F, $3E, $3E, $3E, $E9, $EA, $EB, $EC, $ED, $EE, $EF, $00, $01, $02, $3E
-	db $3E, $3E, $2F, $3F, $3F, $2F, $3E, $3E, $3E, $F9, $FA, $FB, $FC, $FD, $FE, $FF
-	db $10, $11, $12, $3E, $3E, $3E, $2F, $3F, $3F, $2F, $3E, $3E, $3E, $E9, $03, $04
-	db $05, $06, $07, $08, $09, $0A, $02, $3E, $3E, $3E, $2F, $3F, $3F, $2F, $3E, $3E
-	db $3E, $F9, $13, $14, $15, $16, $17, $18, $19, $1A, $12, $3E, $3E, $3E, $2F, $3F
-	db $3F, $2F, $3E, $3E, $3E, $0B, $0C, $0D, $0E, $0F, $20, $21, $22, $23, $24, $3E
-	db $3E, $3E, $2F, $3F, $3F, $2F, $3E, $3E, $3E, $1B, $1C, $1D, $1E, $1F, $30, $31
-	db $32, $33, $34, $3E, $3E, $3E, $2F, $3F, $57, $56, $3E, $3E, $3E, $3E, $3E, $3E
-	db $3E, $3E, $3E, $3E, $3E, $3E, $3E, $3E, $3E, $3E, $56, $57, $4A, $3E, $3E, $3E
-	db $3E, $3E, $3E, $3E, $3E, $3E, $3E, $3E, $3E, $3E, $3E, $3E, $3E, $3E, $3E, $4A
-	db $5A, $5B, $5B, $4C, $4D, $4E, $4F, $5B, $60, $61, $62, $63, $5B, $68, $69, $6A
-	db $6B, $5B, $5B, $5A, $2E, $2E, $2E, $5C, $5D, $5E, $5F, $2E, $64, $65, $66, $67
-	db $2E, $6C, $6D, $6E, $6F, $2E, $2E, $2E, $09, $29, $29, $29, $29, $29, $29, $29
-	db $29, $29, $29, $29, $29, $29, $29, $29, $29, $29, $09, $29, $09, $29, $29, $29
-	db $29, $29, $09, $09, $09, $09, $09, $09, $09, $09, $09, $29, $29, $29, $09, $29
-	db $29, $29, $29, $29, $29, $29, $09, $09, $09, $09, $09, $09, $09, $09, $09, $29
-	db $29, $29, $09, $09, $29, $29, $29, $29, $29, $29, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $29, $29, $29, $09, $09, $29, $29, $29, $29, $29, $29, $09, $09
-	db $09, $09, $09, $09, $09, $09, $09, $29, $29, $29, $09, $09, $29, $29, $29, $29
-	db $29, $29, $29, $29, $29, $29, $29, $29, $29, $29, $29, $29, $29, $29, $09, $09
-	db $29, $29, $29, $29, $29, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $29
-	db $29, $29, $09, $09, $29, $29, $29, $29, $29, $0B, $0B, $0B, $0B, $0B, $0B, $0B
-	db $0B, $0B, $0B, $29, $29, $29, $09, $09, $29, $29, $29, $29, $29, $0B, $0B, $0B
-	db $0B, $0B, $0B, $0B, $0B, $0B, $0B, $29, $29, $29, $09, $09, $29, $29, $29, $29
-	db $29, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $29, $29, $29, $09, $09
-	db $29, $29, $29, $29, $29, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $29
-	db $29, $29, $09, $09, $29, $29, $29, $29, $29, $0B, $0B, $0B, $0B, $0B, $0B, $0B
-	db $0B, $0B, $0B, $29, $29, $29, $09, $09, $29, $29, $29, $29, $29, $0B, $0B, $0B
-	db $0B, $0B, $0B, $0B, $0B, $0B, $0B, $29, $29, $29, $09, $09, $29, $29, $29, $29
-	db $29, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $29, $29, $29, $09, $09
-	db $29, $29, $29, $29, $29, $29, $29, $29, $29, $29, $29, $29, $29, $29, $29, $29
-	db $29, $29, $09, $09, $09, $29, $29, $29, $29, $29, $29, $29, $29, $29, $29, $29
-	db $29, $29, $29, $29, $29, $29, $29, $29, $09, $09, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $29, $09, $09, $09, $09
-	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
+Palette_SettingsMenu_Bg:: ; 4A:5180
+	INCLUDE "gfx/account/screens_bank4a/settings_menu_bg.pal"
+
+; ---- data $51A8-$51B0 (8 bytes) [CONFIRMED] palette-rgb555: 4 colours (1 palettes) read by Palette_LoadToBuffer: +$00 bc=$08 into wPaletteBufObj (engine/account/settings_menu.asm:195, call 68:5129 executed 538 hits in 15 scenarios (analysis/coverage_union.tsv))
+
+Palette_SettingsMenu_Obj:: ; 4A:51A8
+	INCLUDE "gfx/account/screens_bank4a/settings_menu_obj.pal"
+
+; ---- data $51B0-$51D0 (32 bytes) [HYPOTHESIS] four copies of the colours 0000 294A 56B5 7FFF (a grey ramp: the same 32 bytes occur 55 times in the ROM as a default palette block); between the OBJ palette and the tilemap, read by no code that was found; probably unread OBJ palettes 1-4
+
+Data_4A_51B0:: ; 4A:51B0
+	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+
+; ---- data $51D0-$54A0 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:523D: hl=$51D0 a=$4A b=18 rows c=20 cols (tiles then attrs) de=$D000
+
+Tilemap_SettingsMenu_4A_51D0:: ; 4A:51D0
+	INCBIN "gfx/account/screens_bank4a/settings_menu_4a_51d0.tilemap"
+	INCBIN "gfx/account/screens_bank4a/settings_menu_4a_51d0.attrmap"
 
 ; ---- data $54A0-$5770 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:5250: hl=$54A0 a=$4A b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 96 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
@@ -168,11 +148,11 @@ Gfx_Account_ConfirmManualScreen_Tiles9000Vb1:: ; 4A:5870
 Data_4A_5870::
 	INCBIN "gfx/account/screens_bank4a/tiles_5870.2bpp"
 
-; ---- gfx $5C70-$5CB0 (64 bytes) [PROBABLE] tiles-2bpp: heuristic: 56 coherent tiles (hsim2=0.705 vsim2=0.733, 10 blank) parity 0; 1024/1104 bytes also covered by call-site blocks [clipped from 5860-5CB0 by higher-priority evidence]
+; ---- data $5C70-$5CB0 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/account/confirm_screens.asm:291, call 68:64BD executed 10 hits in 2 scenarios (analysis/coverage_union.tsv))
 
 Palette_Account_ConfirmManualScreen_Bg:: ; 4A:5C70
 Data_4A_5C70::
-	INCBIN "gfx/account/screens_bank4a/tiles_5c70.2bpp"
+	INCLUDE "gfx/account/screens_bank4a/account_confirm_manual_screen_bg.pal"
 
 ; ---- data $5CB0-$5F80 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:64DF: hl=$5CB0 a=$4A b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 10 hits in 2 scenarios (analysis/coverage_union.tsv)]
 

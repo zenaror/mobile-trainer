@@ -356,7 +356,7 @@ python3 tools/text_to_strings.py             # convert numeric text blocks, then
 
 ## 8. Graphics
 
-The graphics blocks are files: the `.asm` files under `gfx/` and `data/fonts/` `INCBIN` them (784 `INCBIN` and 133 `INCLUDE` lines at the time of writing).  The layout, the file list (with
+The graphics blocks are files: the `.asm` files under `gfx/` and `data/fonts/` `INCBIN` them (803 `INCBIN` and 144 `INCLUDE` lines at the time of writing).  The layout, the file list (with
 sizes, `bank:addr` and evidence status) and the PNG modes are in [`gfx/README.md`](gfx/README.md) (generated) and `gfx/assets.tsv` (machine readable).
 
 * **What is a file**: 2bpp tile blocks (`.2bpp` + `.png`), tile-index maps (`.tilemap`), CGB attribute maps (`.attrmap`), CGB palettes (`.pal`, `RGB r, g, b` lines), the 8x16 1bpp font runs
@@ -406,7 +406,9 @@ sizes, `bank:addr` and evidence status) and the PNG modes are in [`gfx/README.md
 * `.gitattributes` in `gfx/` and `data/fonts/` mark the binaries as binary (an attribute map without a NUL byte would otherwise be text to git and be changed by line-ending conversion).
 
 **PNG is the source.** The graphics binaries (`.2bpp`, `.1bpp`, font `.bin`) are built from their PNG (`gfx/png_rules.tsv`, generated `gfx/png.mk`): edit the PNG, not the binary. `.tilemap`, `.attrmap` and `.pal`
-are edited directly or through `tools/screen_png.py import`. After adding or removing assets run `python3 tools/png_rules.py rules` on an unedited tree, then `make png-check`.
+are edited directly or through `tools/screen_png.py import`. After adding or removing assets run `python3 tools/png_rules.py rules` on an unedited tree (`--rebaseline` when a block was retyped, so that the baseline hashes follow the new bytes), then `make png-check`.
+
+**A palette is one block.** Every palette that the code loads (`ld hl, X ; ... farcall Palette_LoadToBuffer`, the rows `palette` of `gfx/previews/screen_ops.tsv`) is typed as ONE palette block of exactly the bytes of its loads, under a header that says what loads it and whether the call ran in the natural scenarios (`docs/research/naming2_retype1.md`); a call that takes more bytes than the block holds says so in the header (`the call takes N bytes past the end of this block`). `make palette-check` fails otherwise.  A header that says "content class unknown" above an exported asset is rewritten by `gfx_export export` (and `check` fails while one is left).
 
 ## 9. Words, tables and pointers
 
@@ -435,6 +437,7 @@ are edited directly or through `tools/screen_png.py import`. After adding or rem
 | `python3 tools/apply_rom_operands.py --check` | no `ld hl\|de\|bc, $XXXX` that a consumer rule of `analysis/naming2/rom_consumers.tsv` proves (a ROM pointer with its bank) is left numeric, and no `ld a, $NN` beside a label that it is the bank of is left numeric (needs rgbasm: it builds a marked copy of the tree) |
 | `python3 tools/sprite_chain_check.py` | every `Sprite_InitSlot` site (`ld de, X` with `ld a, $NN` or `ld a, BANK(X)`) resolves to an object table of its bank, the walk reaches the frame tables, records and scripts, and the names `*_Anim<N>*`, `*_ObjAnimData*`, `*_ObjTable` agree with what it reaches (needs the built tree) |
 | `python3 tools/apply_play_sfx.py --check` | no site of the eight-line sound idiom is left outside `play_sfx` (needs nothing built); `python3 tools/test_play_sfx.py` tests the tool |
+| `python3 tools/palette_reads_check.py` | every palette that the code loads is typed as ONE palette block (a load that over-reads says so in the header of the block); `python3 tools/test_palette_reads.py` tests the tool (needs the built tree) |
 | `python3 tools/apply_pad_masks.py --check` | no `bit N, a`, `and a, $NN` (or the `cp a, $NN` / `xor a, $NN` after it) that follows a read of hJoyHeld, hJoyPressed or hJoyPressedRepeat is left numeric where the register A still holds the variable; `python3 tools/test_pad_masks.py` tests the tool |
 
 **Applying renames.** Names are changed with `python3 tools/apply_renames.py --manifest FILE` (manifest: TAB-separated `old_name new_name kind status evidence`; HYPOTHESIS rows are never applied).

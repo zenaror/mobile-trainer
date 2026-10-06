@@ -16,14 +16,11 @@ Gfx_PwSaveConfirm_Tiles9400Vb1:: ; 5D:7760
 Data_5D_7760::
 	INCBIN "gfx/settings/screens_bank5d/tiles_7760.2bpp"
 
-; ---- data $7B60-$7BA0 (64 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 7360-7E70 by higher-priority evidence]
+; ---- data $7B60-$7BA0 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/settings/password_save_confirm.asm:58, call 67:65C2 executed 16 hits in 6 scenarios (analysis/coverage_union.tsv))
 
 Palette_PwSaveConfirm_Bg:: ; 5D:7B60
 Data_5D_7B60::
-	db $00, $00, $00, $00, $00, $00, $FF, $7F, $00, $00, $4A, $41, $73, $42, $FF, $7F
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
-	db $00, $00, $00, $00, $00, $00, $00, $00, $DF, $25, $A0, $3A, $FF, $7F, $00, $00
+	INCLUDE "gfx/settings/screens_bank5d/pw_save_confirm_bg.pal"
 
 ; ---- data $7BA0-$7E70 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 67:65EA: hl=$7BA0 a=$5D b=18 rows c=20 cols (tiles then attrs) de=$D000
 

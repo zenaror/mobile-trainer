@@ -45,8 +45,8 @@ SettingsPhone_ContinuePrompt_Setup:: ; 67:5728
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
-	ld hl, $7CD0
-	ld a, $4B
+	ld hl, Palette_SettingsPhone_ContinuePrompt_Bg
+	ld a, BANK(Palette_SettingsPhone_ContinuePrompt_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $0018
 	ld de, wPaletteBufObj + $28
@@ -55,8 +55,8 @@ SettingsPhone_ContinuePrompt_Setup:: ; 67:5728
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap
-	ld hl, $7D10
-	ld a, $4B
+	ld hl, Tilemap_SettingsPhone_ContinuePrompt_4B_7D10
+	ld a, BANK(Tilemap_SettingsPhone_ContinuePrompt_4B_7D10)
 	farcall Tilemap_CopyRectAndAttr
 	call SettingsPhone_ContinuePrompt_PrintPrompt
 	call SettingsPhone_ContinuePrompt_UploadTextTiles
