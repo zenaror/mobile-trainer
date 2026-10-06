@@ -86,4 +86,3 @@ Updated active metadata: assets.tsv394..396 (three labels), previews/screen_ops.
 Preserve frozen/historical occurrences: mapper/bank70.tsv50..52; naming2/data2_renames.tsv737..739 (seven name occurrences in old evidence); proposals/survey_regions_bank70.tsv19..21; analysis/xrefs/rows.tsv971..974; config/regions/bank70.tsv159..161; config/xrefs.tsv1000..1003; docs/research/naming2_data2.md117. Do not rewrite the frozen type mapper or generator tables.
 
 Only gfx/comm/comm_scene.asm gains aliases/header lines. No active colon or explicit file/line locators into that definition file were found. File-only asset/worklist metadata has bank/address fields, not line numbers. Engine source lines do not move; all 17 existing screen_ops engine locators remain valid. Other engine locators in ram12 manual records and historical naming docs were audited against the preceding checkpoint and remain unaffected. All labels remain pinned to original ROM addresses.
-
