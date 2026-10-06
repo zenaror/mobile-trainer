@@ -434,7 +434,7 @@ MailSrvDel_DeleteAllRun_WaitLogin:: ; 23:4CF9
 	farcall Joypad_Update
 	call MailSrvDel_DrawElapsedTime
 	ldh a, [hJoyHeld]
-	and a, $02
+	and a, PADF_B
 	jp nz, MailSrvDel_Cancelled
 	farcall Pop3_LoginStatPoll
 	cp a, $01
@@ -537,7 +537,7 @@ MailSrvDel_DeleteAllRun_CheckPoll:: ; 23:4DA0
 	pop de
 	pop bc
 	ldh a, [hJoyHeld]
-	and a, $02
+	and a, PADF_B
 	jr z, .l4DC4
 
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
@@ -684,7 +684,7 @@ MailSrvDel_DeleteAllRun_CheckDone:: ; 23:4DFB
 	farcall Joypad_Update
 	call MailSrvDel_DrawElapsedTime
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jr z, .skip
 
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
@@ -797,7 +797,7 @@ MailSrvDel_DeleteAllRun_TopPoll:: ; 23:4F4B
 	call MailSrvDel_DrawElapsedTime
 	farcall Joypad_Update
 	ldh a, [hJoyHeld]
-	and a, $02
+	and a, PADF_B
 	jr z, .l4F69
 
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
@@ -880,7 +880,7 @@ MailSrvDel_DeleteAllRun_DelePoll:: ; 23:4FBC
 	call MailSrvDel_DrawElapsedTime
 	pop hl
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, MailSrvDel_DeleteAllRun_DelePollResult
 
 MailSrvDel_DeleteAllRun_Cancel:: ; 23:4FD8
@@ -1038,7 +1038,7 @@ MailSrvDel_DeleteAllRun_NextMail:: ; 23:5063
 	farcall Joypad_Update
 	call MailSrvDel_DrawElapsedTime
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jr z, .skip
 
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
@@ -1233,7 +1233,7 @@ MailSrvDel_DeleteCompletelyRun_WaitLogin:: ; 23:522C
 	farcall Joypad_Update
 	call MailSrvDel_DrawElapsedTime
 	ldh a, [hJoyHeld]
-	and a, $02
+	and a, PADF_B
 	jp nz, MailSrvDel_Cancelled
 	farcall Pop3_LoginStatPoll
 	cp a, $01
@@ -1346,7 +1346,7 @@ MailSrvDel_DeleteCompletelyRun_GotMailCount:: ; 23:525E
 	farcall Joypad_Update
 	call MailSrvDel_DrawElapsedTime
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jr z, .l530C
 	pop af
 	ld a, $01
@@ -1444,7 +1444,7 @@ MailSrvDel_DeleteCompletelyRun_DelePoll:: ; 23:53A1
 	call MailSrvDel_DrawElapsedTime
 	pop hl
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, .l53D5
 
 	; [PROBABLE] 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region
@@ -1594,7 +1594,7 @@ MailSrvDel_DeleteCompletelyRun_NextMail:: ; 23:5424
 	farcall Joypad_Update
 	call MailSrvDel_DrawElapsedTime
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jr z, .skip
 
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region

@@ -430,6 +430,7 @@ are edited directly or through `tools/screen_png.py import`. After adding or rem
 | `python3 tools/apply_rom_operands.py --check` | no `ld hl\|de\|bc, $XXXX` that a consumer rule of `analysis/naming2/rom_consumers.tsv` proves (a ROM pointer with its bank) is left numeric, and no `ld a, $NN` beside a label that it is the bank of is left numeric (needs rgbasm: it builds a marked copy of the tree) |
 | `python3 tools/sprite_chain_check.py` | every `Sprite_InitSlot` site (`ld de, X` with `ld a, $NN` or `ld a, BANK(X)`) resolves to an object table of its bank, the walk reaches the frame tables, records and scripts, and the names `*_Anim<N>*`, `*_ObjAnimData*`, `*_ObjTable` agree with what it reaches (needs the built tree) |
 | `python3 tools/apply_play_sfx.py --check` | no site of the eight-line sound idiom is left outside `play_sfx` (needs nothing built); `python3 tools/test_play_sfx.py` tests the tool |
+| `python3 tools/apply_pad_masks.py --check` | no `bit N, a`, `and a, $NN` (or the `cp a, $NN` / `xor a, $NN` after it) that follows a read of hJoyHeld, hJoyPressed or hJoyPressedRepeat is left numeric where the register A still holds the variable; `python3 tools/test_pad_masks.py` tests the tool |
 
 **Applying renames.** Names are changed with `python3 tools/apply_renames.py --manifest FILE` (manifest: TAB-separated `old_name new_name kind status evidence`; HYPOTHESIS rows are never applied).
 It renames the definition (`New:: ; BB:AAAA`; the neutral old name stays below it as an alias without comment) and every reference in all `.asm`/`.inc` files, refuses unsafe rows (collisions,
@@ -446,6 +447,10 @@ the scope files, refuses unsafe rows (collisions, banked or already-named bases,
 `name address bank size kind status evidence`; sites: `file operand name sites proof`, the file may carry a function range `path@LabelA..LabelB`; HYPOTHESIS rows are never applied): it appends the `DEF` lines to
 `ram/banked.asm`, replaces the counted `ld hl|de|bc, $XXXX` lines, refuses a wrong count, an operand outside its name or a name defined twice, runs `make`, checks the SHA-256 and `sym_check`, and restores every file on
 failure.  Use `--dry-run` first.  The manifests are `analysis/naming2/sram4_*.tsv`.  Tests: `python3 tools/test_banked_names.py`.
+
+**Applying joypad masks.** `python3 tools/apply_pad_masks.py` writes the `bit N, a`, `and a, $NN` and the `cp a, $NN` or `xor a, $NN` after it (followed by `jr|jp|call|ret z|nz`) that follow a read of hJoyHeld, hJoyPressed or hJoyPressedRepeat as `PADB_*` / `PADF_*`
+names of `constants/hardware.inc` (one bit per button in the three variables: 0 A, 1 B, 2 Select, 3 Start, 4 Right, 5 Left, 6 Up, 7 Down).  The proof is local: the scan keeps A across `bit`, conditional jumps and returns and `push af`, and stops at a label, a call,
+an unconditional jump, a write of A, a `; raw` line or any line it does not know; `$FF` and `$00` stay numeric.  It runs `make`, checks the SHA-256 and restores every file on failure; it is idempotent (`--check`, `--dry-run`).  Tests: `python3 tools/test_pad_masks.py`.
 
 **Applying RAM operands.** `python3 tools/apply_ram_operands.py --areas wram0,hram,io` rewrites the raw pointer operands described in section 4 (RAM pointer operands) from the `DEF` lines of `ram/wram.asm`, `ram/hram.asm` and
 `constants/hardware.inc` (no manifest: the object table is the rule), runs `make`, checks the SHA-256 and `sym_check`, and restores every file on failure.  Use `--dry-run` first.  The record of the mapping is

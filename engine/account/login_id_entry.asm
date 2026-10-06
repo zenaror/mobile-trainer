@@ -359,9 +359,9 @@ Account_LoginIdIntroPage:: ; 68:55E1
 	call VBlank_WaitAndService
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
-	bit 0, a
+	bit PADB_A, a
 	jr nz, .l55FF
-	bit 1, a
+	bit PADB_B, a
 	jr nz, .l5613
 	jr .loop
 .l55FF ; 68:55FF

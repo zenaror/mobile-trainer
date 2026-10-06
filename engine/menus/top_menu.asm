@@ -197,7 +197,7 @@ TopMenu_Idle:: ; 1F:41F3
 	farcall Ticker_Update
 	call TopMenu_UpdateCursorMove
 	ldh a, [hJoyPressed]
-	and a, $F0
+	and a, PADF_DPAD
 	call nz, TopMenu_HandleDpad
 	call TopMenu_AnimatePanel
 	ld a, [wTopMenu_SlideFlag]

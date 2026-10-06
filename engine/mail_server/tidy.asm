@@ -65,7 +65,7 @@ Function_2E_4000::
 	farcall Joypad_Update
 	call MailServerMgr_UpdateTimerDisplay
 	ldh a, [hJoyHeld]
-	and a, $02
+	and a, PADF_B
 	jp nz, MailServerMgr_Run_Cancel
 	farcall Pop3_LoginStatPoll
 	cp a, $01
@@ -181,7 +181,7 @@ Function_2E_4000::
 	pop de
 	pop bc
 	ldh a, [hJoyHeld]
-	and a, $02
+	and a, PADF_B
 	jr z, .l4149
 
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
@@ -351,7 +351,7 @@ Function_2E_4000::
 	call VBlank_WaitAndService
 	farcall Joypad_Update
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jr z, .l4255
 	pop af
 	ld a, $01
@@ -473,7 +473,7 @@ Label_2E_4298::
 	pop de
 	pop bc
 	ldh a, [hJoyHeld]
-	and a, $02
+	and a, PADF_B
 	jr z, .l4332
 	pop hl
 	pop bc
@@ -741,7 +741,7 @@ Label_2E_4298::
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressedRepeat]
-	and a, $20
+	and a, PADF_LEFT
 	jr z, .l44F6
 	push bc
 	push de
@@ -755,7 +755,7 @@ Label_2E_4298::
 	ld c, $02
 .l44F6 ; 2E:44F6
 	ldh a, [hJoyPressedRepeat]
-	and a, $10
+	and a, PADF_RIGHT
 	jr z, .l4518
 	push bc
 	push de
@@ -826,7 +826,7 @@ Label_2E_4298::
 	pop bc
 .l458E ; 2E:458E
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jp z, .l4458
 	push bc
 	push de
@@ -1006,7 +1006,7 @@ Label_2E_4298::
 	farcall Joypad_Update
 	call MailServerMgr_UpdateTimerDisplay
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, .l4717
 	pop hl
 	pop bc
@@ -1169,7 +1169,7 @@ Label_2E_4298::
 	call VBlank_WaitAndService
 	farcall Joypad_Update
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jr z, .skip
 
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
@@ -1346,7 +1346,7 @@ Function_2E_48F8::
 	call VBlank_Wait
 	farcall Joypad_Update
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, .l49DA
 	pop hl
 	ld a, $01

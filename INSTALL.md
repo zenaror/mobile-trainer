@@ -98,6 +98,7 @@ python3 tools/gfx_export.py check           # PNGs vs .2bpp (needs rgbgfx), asse
 python3 tools/invariants_check.py           # the mail library runs only under WRAM bank 5, the sound driver only under bank 1 (needs the built tree)
 python3 tools/apply_rom_operands.py --check  # no ROM pointer operand that a rule of analysis/naming2/rom_consumers.tsv proves is left numeric (needs the built tree and rgbasm)
 python3 tools/apply_play_sfx.py --check        # no eight-line sound idiom is left outside the macro play_sfx
+python3 tools/apply_pad_masks.py --check       # no test of the joypad variables is left as a bare number where the proof holds
 ```
 
 `make regen`, `make verify` and `make tree*` refuse to run: the bootstrap generator (`tools/gen_asm.py` + `config/`) that produced the source once is frozen history and must not be run over it

@@ -178,9 +178,9 @@ Browser_PageView_HandleDpad:: ; 4E:4AEC
 Label_4E_4AEC::
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressedRepeat]
-	bit 6, a
+	bit PADB_UP, a
 	jr nz, .l4AF9
-	bit 7, a
+	bit PADB_DOWN, a
 	jr nz, .l4B02
 	jp Browser_PageView_Loop
 

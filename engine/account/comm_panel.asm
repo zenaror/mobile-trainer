@@ -246,7 +246,7 @@ CommPanel_StateScreenOn:: ; 68:7522
 
 CommPanel_StateWait:: ; 68:7544
 	ldh a, [hJoyHeld]
-	bit 1, a
+	bit PADB_B, a
 	jr nz, .l755B
 	ld a, [wCommPanelArg]
 	or a, a

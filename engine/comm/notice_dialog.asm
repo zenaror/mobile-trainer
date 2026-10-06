@@ -323,7 +323,7 @@ Label_50_42B6::
 	; entered by table from 50:42A9 (PROBABLE code) | 18 insn(s) executed; cut out of the PROBABLE
 	; region 42B6-438A by apply_coverage --split [executed in 4 scenarios]
 	ldh a, [hJoyPressedRepeat]
-	and a, $F0
+	and a, PADF_DPAD
 	call nz, CommNotice_HandleLeftRight
 	ld a, [wCommNoticeFrames]
 	inc a
@@ -385,9 +385,9 @@ CommNotice_HandleLeftRight:: ; 50:430C
 	or a, a
 	ret z
 	ldh a, [hJoyPressedRepeat]
-	bit 4, a
+	bit PADB_RIGHT, a
 	jr nz, .l431C
-	bit 5, a
+	bit PADB_LEFT, a
 	jr nz, .l431C
 	ret
 

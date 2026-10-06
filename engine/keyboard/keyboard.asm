@@ -233,21 +233,21 @@ Kbd_Run_Loop:: ; 55:5D49
 .l5D76 ; 55:5D76
 	; [CONFIRMED] 56 insn(s); 56 executed (in up to 11/18 scenarios)
 	ldh a, [hJoyPressedRepeat]
-	bit 0, a
+	bit PADB_A, a
 	jr nz, .l5D9A
-	bit 1, a
+	bit PADB_B, a
 	jr nz, .l5D9D
-	bit 6, a
+	bit PADB_UP, a
 	jr nz, .l5DB6
-	bit 7, a
+	bit PADB_DOWN, a
 	jr nz, .l5DC1
-	bit 5, a
+	bit PADB_LEFT, a
 	jr nz, .l5DA0
-	bit 4, a
+	bit PADB_RIGHT, a
 	jr nz, .l5DAB
-	bit 3, a
+	bit PADB_START, a
 	jr nz, .l5DCC
-	bit 2, a
+	bit PADB_SELECT, a
 	jr nz, .l5E02
 	jr Kbd_Run_Loop
 .l5D9A ; 55:5D9A
@@ -1510,13 +1510,13 @@ Function_55_65DA::
 	call VBlank_Wait
 .l660A ; 55:660A
 	ldh a, [hJoyPressedRepeat]
-	bit 0, a
+	bit PADB_A, a
 	jr nz, .l661E
-	bit 1, a
+	bit PADB_B, a
 	jr nz, .l6622
-	bit 5, a
+	bit PADB_LEFT, a
 	jr nz, .l6626
-	bit 4, a
+	bit PADB_RIGHT, a
 	jr nz, .l6646
 	jr .l65ED
 .l661E ; 55:661E

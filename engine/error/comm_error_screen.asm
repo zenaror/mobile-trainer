@@ -105,7 +105,7 @@ CommErr_ShowScreen_Idle:: ; 5C:523B
 	or a, a
 	call nz, CommErr_UpdateCommFooter
 	ldh a, [hJoyPressedRepeat]
-	and a, $F0
+	and a, PADF_DPAD
 	call nz, Stub_Nop_5C_5266
 	jp CommErr_ShowScreen_FrameLoop
 

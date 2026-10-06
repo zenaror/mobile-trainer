@@ -33,7 +33,7 @@ MailView_SenderPage_Loop:: ; 2B:64A7
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jp z, MailView_SenderPage_CheckBAndSelect
 	push bc
 	push de
@@ -96,7 +96,7 @@ Label_2B_6548::
 	; [CONFIRMED] 298 insn(s) executed; cut out of the PROBABLE region 6500-6863 by apply_coverage
 	; --split [executed in 3 scenarios]
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, .l6574
 	push bc
 	push de
@@ -110,7 +110,7 @@ Label_2B_6548::
 	ret
 .l6574 ; 2B:6574
 	ldh a, [hJoyPressed]
-	and a, $04
+	and a, PADF_SELECT
 	jr z, .l65A8
 	push bc
 	push de

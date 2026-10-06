@@ -22,7 +22,7 @@ MailGrid_Screen:: ; 2B:53C3
 	pop bc
 	call MailGrid_PlaceCursorSprite
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jr z, .l53F3
 	push bc
 	farcall Palette_FadeOutToWhite
@@ -33,23 +33,23 @@ MailGrid_Screen:: ; 2B:53C3
 	jp MailDraft_Menu
 .l53F3 ; 2B:53F3
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, .l5402
 	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ret
 .l5402 ; 2B:5402
 	ldh a, [hJoyPressedRepeat]
-	and a, $20
+	and a, PADF_LEFT
 	call nz, MailGrid_CursorLeft
 	ldh a, [hJoyPressedRepeat]
-	and a, $10
+	and a, PADF_RIGHT
 	call nz, MailGrid_CursorRight
 	ldh a, [hJoyPressedRepeat]
-	and a, $40
+	and a, PADF_UP
 	call nz, MailGrid_CursorUp
 	ldh a, [hJoyPressedRepeat]
-	and a, $80
+	and a, PADF_DOWN
 	call nz, MailGrid_CursorDown
 	jr .loop
 

@@ -38,7 +38,7 @@ AddrPick_Menu_Loop:: ; 2C:5721
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jr z, .l5768
 
 	; [CONFIRMED] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 0;
@@ -70,7 +70,7 @@ AddrPick_Menu_Loop:: ; 2C:5721
 .l5768 ; 2C:5768
 	; [CONFIRMED] 28 insn(s); 28 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, .l5794
 	push bc
 	push de
@@ -84,10 +84,10 @@ AddrPick_Menu_Loop:: ; 2C:5721
 	ret
 .l5794 ; 2C:5794
 	ldh a, [hJoyPressedRepeat]
-	and a, $40
+	and a, PADF_UP
 	call nz, AddrPick_CursorUp
 	ldh a, [hJoyPressedRepeat]
-	and a, $80
+	and a, PADF_DOWN
 	call nz, AddrPick_CursorDown
 	ld d, $10
 	jp AddrPick_Menu_Loop
@@ -2145,7 +2145,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	ld [wSpriteSlot2 + $01], a
 	pop bc
 	ldh a, [hJoyPressed]
-	and a, $C0
+	and a, PADF_UP | PADF_DOWN
 	call nz, AddrPick_CursorMoveEffect
 	ret
 
@@ -2362,7 +2362,7 @@ Function_2C_64E0::
 	call VBlank_Wait
 	pop bc
 	ldh a, [hJoyHeld]
-	and a, $C0
+	and a, PADF_UP | PADF_DOWN
 	jr nz, .l665D
 	dec b
 	jr nz, .loop

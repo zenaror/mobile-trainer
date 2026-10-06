@@ -84,13 +84,13 @@ SettingsPhone_ConfirmScreen_Loop:: ; 67:51E2
 	call VBlank_WaitAndService
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
-	bit 0, a
+	bit PADB_A, a
 	jr nz, .l5205
-	bit 1, a
+	bit PADB_B, a
 	jr nz, .l5227
-	bit 5, a
+	bit PADB_LEFT, a
 	jr nz, .l523C
-	bit 4, a
+	bit PADB_RIGHT, a
 	jr nz, .l523C
 	jr SettingsPhone_ConfirmScreen_Loop
 .l5205 ; 67:5205

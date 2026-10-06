@@ -434,9 +434,9 @@ Account_PasswordIntroPage:: ; 68:60BB
 	call VBlank_WaitAndService
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
-	bit 0, a
+	bit PADB_A, a
 	jr nz, .l60D9
-	bit 1, a
+	bit PADB_B, a
 	jr nz, .l60ED
 	jr .loop
 .l60D9 ; 68:60D9

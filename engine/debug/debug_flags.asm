@@ -180,7 +180,7 @@ DebugFlags_Idle:: ; 19:41BB
 	call DebugFlags_PlaceCursor
 	call DebugFlags_UpdateHoldTimer
 	ldh a, [hJoyPressedRepeat]
-	and a, $F0
+	and a, PADF_DPAD
 	call nz, DebugFlags_HandleDpad
 	jp DebugFlags_Loop
 

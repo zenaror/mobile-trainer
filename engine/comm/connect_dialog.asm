@@ -163,9 +163,9 @@ ConnectDialog_HandleFrame:: ; 57:40E0
 	bit 4, b
 	jr nz, .l415C
 	ldh a, [hJoyPressed]
-	bit 0, a
+	bit PADB_A, a
 	jr nz, .l413E
-	bit 1, a
+	bit PADB_B, a
 	jr nz, .l4150
 	xor a, a
 	ret
@@ -205,9 +205,9 @@ ConnectDialog_HandleFrame:: ; 57:40E0
 	bit 4, b
 	jr nz, .l415C
 	ldh a, [hJoyPressed]
-	bit 0, a
+	bit PADB_A, a
 	jr nz, .l419D
-	bit 1, a
+	bit PADB_B, a
 	jr nz, .l41BF
 	xor a, a
 	ret
@@ -243,9 +243,9 @@ ConnectDialog_Input_ConnectConfirm:: ; 57:41CA
 	bit 4, b
 	jr nz, .l420A
 	ldh a, [hJoyPressed]
-	bit 0, a
+	bit PADB_A, a
 	jr nz, .l41DE
-	bit 1, a
+	bit PADB_B, a
 	jr nz, .l41FE
 	xor a, a
 	ret
@@ -294,9 +294,9 @@ ConnectDialog_Input_PasswordPrompt:: ; 57:4237
 	; entered by jpcc from 57:4116 (executed) | 22 insn(s) executed; cut out of the PROBABLE region
 	; 4237-4443 by apply_coverage --split [executed in 4 scenarios]
 	ldh a, [hJoyPressed]
-	bit 0, a
+	bit PADB_A, a
 	jr nz, .l4243
-	bit 1, a
+	bit PADB_B, a
 	jr nz, .l424E
 	xor a, a
 	ret
@@ -488,9 +488,9 @@ ConnectDialog_Input_SaveConfirm:: ; 57:43BC
 	bit 4, b
 	jr nz, .l43F4
 	ldh a, [hJoyPressed]
-	bit 0, a
+	bit PADB_A, a
 	jr nz, .l43D0
-	bit 1, a
+	bit PADB_B, a
 	jr nz, .l43E2
 	xor a, a
 	ret
@@ -529,9 +529,9 @@ ConnectDialog_Input_SaveConfirm:: ; 57:43BC
 
 ConnectDialog_Input_PasswordSaved:: ; 57:4421
 	ldh a, [hJoyPressed]
-	bit 0, a
+	bit PADB_A, a
 	jr nz, .l442D
-	bit 1, a
+	bit PADB_B, a
 	jr nz, .l4438
 	xor a, a
 	ret
@@ -551,11 +551,11 @@ ConnectDialog_Input_PasswordSaved:: ; 57:4421
 ConnectDialog_Input_StoredPassword:: ; 57:4443
 	; [CONFIRMED] 24 insn(s); 24 executed (in up to 5/18 scenarios)
 	ldh a, [hJoyPressed]
-	bit 0, a
+	bit PADB_A, a
 	jr nz, .l4453
-	bit 1, a
+	bit PADB_B, a
 	jr nz, .l445E
-	bit 2, a
+	bit PADB_SELECT, a
 	jr nz, .l447B
 	xor a, a
 	ret
@@ -599,9 +599,9 @@ ConnectDialog_Input_ForgetConfirm:: ; 57:4481
 	bit 4, b
 	jr nz, .l44B7
 	ldh a, [hJoyPressed]
-	bit 0, a
+	bit PADB_A, a
 	jr nz, .l4495
-	bit 1, a
+	bit PADB_B, a
 	jr nz, .l44A7
 	xor a, a
 	ret

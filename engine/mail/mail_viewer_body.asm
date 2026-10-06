@@ -36,7 +36,7 @@ MailView_BodyPage_Loop:: ; 2B:7B2A
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jr z, .l7B68
 	push bc
 	push bc
@@ -52,7 +52,7 @@ MailView_BodyPage_Loop:: ; 2B:7B2A
 	ret
 .l7B68 ; 2B:7B68
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, .l7B99
 	push bc
 	push bc

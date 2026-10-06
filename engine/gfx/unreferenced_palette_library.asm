@@ -137,7 +137,7 @@ Function_29_511E:: ; 29:511E
 	pop de
 	pop bc
 	ldh a, [hJoyHeld]
-	and a, $01
+	and a, PADF_A
 	jr z, .l513B
 .loop ; 29:512B
 	ldh a, [rLY]

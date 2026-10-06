@@ -410,7 +410,7 @@ Label_6C_5CC5::
 	cp a, $01
 	jr nz, .l5CEE
 	ldh a, [hJoyHeld]
-	bit 0, a
+	bit PADB_A, a
 	jr nz, .l5CEE
 	xor a, a
 	ld [wHelpScriptAdvanceMode], a

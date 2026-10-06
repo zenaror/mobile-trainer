@@ -18,16 +18,16 @@ Function_7F_4C78::
 .l4C87 ; 7F:4C87
 	farcall Joypad_Update
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jr z, .l4C87
 	call Canvas_DrawSampleRowsInverted
 .l4C96 ; 7F:4C96
 	farcall Joypad_Update
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	ret nz
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jr z, .l4C96
 	jr .l4C84
 
@@ -584,7 +584,7 @@ Function_7F_5011::
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jr z, .l516A
 	push bc
 	push de
@@ -609,7 +609,7 @@ Function_7F_5011::
 	pop bc
 .l516A ; 7F:516A
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, .l5196
 	push bc
 	push de
@@ -624,7 +624,7 @@ Function_7F_5011::
 	ret
 .l5196 ; 7F:5196
 	ldh a, [hJoyPressedRepeat]
-	and a, $40
+	and a, PADF_UP
 	jr z, .l51C0
 	push bc
 	push de
@@ -643,7 +643,7 @@ Function_7F_5011::
 	call PageListProto_UpdateRowSprites
 .l51C0 ; 7F:51C0
 	ldh a, [hJoyPressedRepeat]
-	and a, $80
+	and a, PADF_DOWN
 	jr z, .l51EA
 	push bc
 	push de
@@ -1824,7 +1824,7 @@ Function_7F_5989::
 	ldh a, [hJoyHeld]
 	call nz, Stub_Nop_7F_61E6 ; never taken: ldh sets no flags, Z is the one the farcall left (naming2_verify_fn4.md)
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jr z, .l5B2D
 	push bc
 	push de
@@ -1859,7 +1859,7 @@ Function_7F_5989::
 	ret
 .l5B2D ; 7F:5B2D
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, .l5B54
 	push bc
 	push de
@@ -1874,7 +1874,7 @@ Function_7F_5989::
 	ret
 .l5B54 ; 7F:5B54
 	ldh a, [hJoyPressedRepeat]
-	and a, $20
+	and a, PADF_LEFT
 	jr z, .l5B83
 	push bc
 	push de
@@ -1897,7 +1897,7 @@ Function_7F_5989::
 	ld b, d
 .l5B83 ; 7F:5B83
 	ldh a, [hJoyPressedRepeat]
-	and a, $10
+	and a, PADF_RIGHT
 	jr z, .l5BB2
 	push bc
 	push de

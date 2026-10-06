@@ -76,7 +76,7 @@ MailSrvDelHidden_MenuLoop:: ; 22:4076
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jr z, .l40F4
 	push bc
 	push de
@@ -135,7 +135,7 @@ MailSrvDelHidden_MenuLoop:: ; 22:4076
 	jr .l40B3
 .l40F4 ; 22:40F4
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, .l4120
 
 	; [PROBABLE] 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region
@@ -155,7 +155,7 @@ MailSrvDelHidden_MenuLoop:: ; 22:4076
 	; [CONFIRMED] 27 insn(s) executed; cut out of the PROBABLE region 4000-43E0 by apply_coverage
 	; --split [executed in 1 scenarios]
 	ldh a, [hJoyPressedRepeat]
-	and a, $80
+	and a, PADF_DOWN
 	jr z, .l4148
 	push bc
 	push de
@@ -174,7 +174,7 @@ MailSrvDelHidden_MenuLoop:: ; 22:4076
 	call MailSrvDelHidden_MenuSelect
 .l4148 ; 22:4148
 	ldh a, [hJoyPressedRepeat]
-	and a, $40
+	and a, PADF_UP
 	jr z, .l4170
 
 	; [PROBABLE] 21 insn(s) never executed in the traced runs; cut out of the PROBABLE region
@@ -662,7 +662,7 @@ MailSrvDelHidden_Confirm:: ; 22:4582
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jr z, .l476A
 	push bc
 	push de
@@ -684,7 +684,7 @@ MailSrvDelHidden_Confirm:: ; 22:4582
 	ret
 .l476A ; 22:476A
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, .l4796
 
 	; [PROBABLE] 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region
@@ -704,7 +704,7 @@ MailSrvDelHidden_Confirm:: ; 22:4582
 	; [CONFIRMED] 23 insn(s) executed; cut out of the PROBABLE region 4582-47DD by apply_coverage
 	; --split [executed in 3 scenarios]
 	ldh a, [hJoyPressedRepeat]
-	and a, $20
+	and a, PADF_LEFT
 	jr z, .l47B8
 	push bc
 	push de
@@ -718,7 +718,7 @@ MailSrvDelHidden_Confirm:: ; 22:4582
 	call MailSrvDelHidden_ConfirmSelect
 .l47B8 ; 22:47B8
 	ldh a, [hJoyPressedRepeat]
-	and a, $10
+	and a, PADF_RIGHT
 	jr z, .l47DA
 
 	; [PROBABLE] 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region

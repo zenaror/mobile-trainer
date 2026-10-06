@@ -76,11 +76,11 @@ SettingsPhone_ContinuePrompt_Loop:: ; 67:57CC
 	call VBlank_WaitAndService
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
-	bit 0, a
+	bit PADB_A, a
 	jr nz, .l57EB
-	bit 5, a
+	bit PADB_LEFT, a
 	jr nz, .l5821
-	bit 4, a
+	bit PADB_RIGHT, a
 	jr nz, .l5821
 	jr SettingsPhone_ContinuePrompt_Loop
 .l57EB ; 67:57EB

@@ -258,9 +258,9 @@ Label_72_65F5::
 	; entered by table from 72:65E8 (PROBABLE code) | 6 insn(s) executed; cut out of the PROBABLE
 	; region 65F5-6643 by apply_coverage --split [executed in 1 scenarios]
 	ldh a, [hJoyPressedRepeat]
-	bit 4, a
+	bit PADB_RIGHT, a
 	jr nz, .l6602
-	bit 5, a
+	bit PADB_LEFT, a
 	jr nz, .l661E
 	jp BrowserMenu_RunTwoItem_Loop
 
@@ -672,9 +672,9 @@ BrowserMenu_RunThreeItem_HandleDpad:: ; 72:6931
 Label_72_6931::
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressedRepeat]
-	bit 4, a
+	bit PADB_RIGHT, a
 	jr nz, .l693E
-	bit 5, a
+	bit PADB_LEFT, a
 	jr nz, .l695A
 	jp BrowserMenu_RunThreeItem_Loop
 

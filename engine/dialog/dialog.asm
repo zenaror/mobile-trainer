@@ -649,9 +649,9 @@ Label_72_45A0::
 	jp nz, Dialog_WaitInput
 .l45AC ; 72:45AC
 	ldh a, [hJoyPressedRepeat]
-	bit 4, a
+	bit PADB_RIGHT, a
 	jr nz, .l45B9
-	bit 5, a
+	bit PADB_LEFT, a
 	jr nz, .l45B9
 	jp Dialog_WaitInput
 .l45B9 ; 72:45B9
@@ -790,9 +790,9 @@ Label_72_46A2::
 	; [CONFIRMED] 41 insn(s) reached by static flow only; seeds: exec x41; min discovery hops 0;
 	; entered by jrcc from 72:46A7 (executed) [executed in 1 scenarios]
 	ldh a, [hJoyPressedRepeat]
-	bit 4, a
+	bit PADB_RIGHT, a
 	jr nz, .l46BB
-	bit 5, a
+	bit PADB_LEFT, a
 	jr nz, .l46BB
 	jp Dialog_WaitInputMonitored
 .l46BB ; 72:46BB
