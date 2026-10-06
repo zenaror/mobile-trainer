@@ -68,14 +68,7 @@ AddrBook_SaveConfirm:: ; 2A:6F95
 	jr nz, .l7034
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0032
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_SAVE
 	pop de
 	pop bc
 	push bc

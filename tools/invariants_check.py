@@ -6,8 +6,8 @@
   L5  the mail library (bank 0F, lib/mobile/mail.asm) runs only under WRAM bank 5: its only entry from outside the file is Mail_Dispatch, reached through Mail_DispatchFar (00:0247), which
       the 12 callers reach right after the bank 5 idiom; the file names no WRAM bank register, calls nothing outside itself, has no `jp hl` outside the selector table; every executed
       instruction of bank 0F in analysis/rambank/observed_banks.tsv ran under bank 5.  The consumer rows with `needs fixed` in analysis/naming2/wramx_consumers.tsv state it.
-  S1  the sound driver (bank 04, audio/engine.asm) runs only under WRAM bank 1: it is entered only through the 13 stubs of home/audio.asm, each of the 452 callers sets bank 1 first, the files
-      name no WRAM bank register, every executed instruction of bank 04 ran under bank 1.  The `wSoundDrv_*` names of the never executed sites rest on it.
+  S1  the sound driver (bank 04, audio/engine.asm) runs only under WRAM bank 1: it is entered only through the 13 stubs of home/audio.asm, each of the 452 callers sets bank 1 first (the 367
+      `play_sfx` sites are read as the instructions of the macro in constants/macros.inc), the files name no WRAM bank register, every executed instruction of bank 04 ran under bank 1.  The `wSoundDrv_*` names of the never executed sites rest on it.
 
 Each check prints PASS or FAIL with the numbers; the exit status is 1 when one fails.  (Written by the reader of the library of ramop10 as an independent re-derivation; kept as a tool so that the
 two statements can be re-checked after any change to the library, the sound driver, the stubs or their callers.)
@@ -44,7 +44,30 @@ def src_files():
                 yield os.path.relpath(p, TREE), open(p, encoding='utf-8', errors='replace').read().split('\n')
 
 
-FILES = dict(src_files())
+def macro_body(name):
+    """The instruction lines of `MACRO name` in constants/macros.inc (ASSERT lines dropped, `\\1` kept as the argument marker)."""
+    lines = open(os.path.join(TREE, 'constants/macros.inc'), encoding='utf-8').read().split('\n')
+    start = lines.index('MACRO %s' % name)
+    end = lines.index('ENDM', start)
+    return [l for l in lines[start + 1:end] if l.startswith('\t') and not l.startswith('\tASSERT')]
+
+
+PLAY_SFX = macro_body('play_sfx')
+
+
+def expand_play_sfx(lines):
+    """The lines with every `play_sfx ID` replaced by the instructions of the macro (the S1 checks look at the instructions, not at the macro name)."""
+    out = []
+    for l in lines:
+        m = re.match(r'^\tplay_sfx\s+([^;\s]+)\s*(?:;.*)?$', l)
+        if m:
+            out.extend(b.replace('\\1', m.group(1)) for b in PLAY_SFX)
+        else:
+            out.append(l)
+    return out
+
+
+FILES = {f: expand_play_sfx(L) for f, L in src_files()}
 SYM = {}
 for l in open(os.path.join(TREE, 'build/mobile_trainer.sym')):
     m = re.match(r'^([0-9A-Fa-f]{2}):([0-9A-Fa-f]{4})\s+(\S+)', l)

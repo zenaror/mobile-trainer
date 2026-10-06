@@ -213,24 +213,10 @@ Account_LoginIdEntry_InputLoop:: ; 68:542F
 	farcall TextBuf_AppendChar
 	or a, a
 	jr nz, .l5476
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0038
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ENTERED
 	jr .l5486
 .l5476 ; 68:5476
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 .l5486 ; 68:5486
 	ld hl, wTextEntryBuf
 	farcall TextBuf_GetLength
@@ -246,14 +232,7 @@ Account_LoginIdEntry_InputLoop:: ; 68:542F
 	farcall TextBuf_DeleteLast
 	or a, a
 	jr nz, .l5516
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0039
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ERASED
 	ld hl, wTextEntryBuf
 	farcall TextBuf_GetLength
 	cp a, $09
@@ -273,37 +252,16 @@ Account_LoginIdEntry_InputLoop:: ; 68:542F
 	farcall TextBuf_GetLength
 	cp a, $09
 	jr nc, .l54FD
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	jr .l5549
 .l54FD ; 68:54FD
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	call Account_CommitLoginId
 	ld a, $01
 	ld [wLoginIdEntry_Result], a
 	ret
 .l5516 ; 68:5516
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	call Account_CommitLoginId
 	xor a, a
 	ld [wLoginIdEntry_Result], a
@@ -407,25 +365,11 @@ Account_LoginIdIntroPage:: ; 68:55E1
 	jr nz, .l5613
 	jr .loop
 .l55FF ; 68:55FF
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	ld a, $01
 	jr .l5626
 .l5613 ; 68:5613
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	xor a, a
 	jr .l5626
 .l5626 ; 68:5626

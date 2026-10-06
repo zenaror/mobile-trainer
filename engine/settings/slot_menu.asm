@@ -198,52 +198,24 @@ SettingsPhone_SlotMenu_Loop:: ; 67:4E20
 
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4BD5-4F68 by apply_coverage --split
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	jp .l4F4D
 
 .l4E69 ; 67:4E69
 	; [CONFIRMED] 34 insn(s) executed; cut out of the PROBABLE region 4BD5-4F68 by apply_coverage
 	; --split [executed in 1 scenarios]
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	ld a, [wSlotMenu_Cursor]
 	inc a
 	ld [wSlotMenu_Result], a
 	ret
 .l4E81 ; 67:4E81
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	xor a, a
 	ld [wSlotMenu_Result], a
 	ret
 .l4E96 ; 67:4E96
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	ld a, [wSlotMenu_OnlyFilled]
 	or a, a
 	jr nz, .l4ECC
@@ -287,14 +259,7 @@ SettingsPhone_SlotMenu_Loop:: ; 67:4E20
 .l4EE4 ; 67:4EE4
 	; [CONFIRMED] 19 insn(s) executed; cut out of the PROBABLE region 4BD5-4F68 by apply_coverage
 	; --split [executed in 1 scenarios]
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	ld a, [wSlotMenu_OnlyFilled]
 	or a, a
 	jr nz, .l4F1B

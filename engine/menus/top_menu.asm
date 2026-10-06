@@ -215,14 +215,7 @@ TopMenu_OnA:: ; 1F:4217
 
 TopMenu_OnA_Accept:: ; 1F:421D
 Label_1F_421D::
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	farcall Palette_FadeOutWithTicker
 	farcall Ticker_Stop
 	ldh a, [rLCDC]
@@ -246,14 +239,7 @@ Label_1F_4252::
 
 TopMenu_OnB:: ; 1F:425A
 	; [CONFIRMED] 111 insn(s); 111 executed (in up to 5/18 scenarios)
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	farcall Palette_FadeOutWithTicker
 	farcall Ticker_Stop
 	ldh a, [rLCDC]
@@ -289,14 +275,7 @@ TopMenu_HandleDpad:: ; 1F:4291
 	cp a, $01
 	ret z
 	ld [wTopMenu_PrevCursor], a
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002A
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_TOP_MENU_LEFT_RIGHT
 	call TopMenu_LoadPanel
 	ld a, $01
 	jp TopMenu_SelectItem
@@ -305,14 +284,7 @@ TopMenu_HandleDpad:: ; 1F:4291
 	cp a, $02
 	ret z
 	ld [wTopMenu_PrevCursor], a
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002A
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_TOP_MENU_LEFT_RIGHT
 	call TopMenu_LoadPanel
 	ld a, $02
 	jr TopMenu_SelectItem
@@ -320,14 +292,8 @@ TopMenu_HandleDpad:: ; 1F:4291
 	ld a, [wTopMenu_Cursor]
 	cp a, $03
 	ret nz
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002B
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_TOP_MENU_UP_DOWN
+	; quirk of the original: play_sfx leaves the hWRAMBank shadow in A (7 here, not the cursor 3), and that is what wTopMenu_PrevCursor receives; TopMenu_LoadPanel ignores a value of 3 or more
 	ld hl, wTopMenu_PrevCursor
 	ld b, [hl]
 	ld [hl], a
@@ -340,14 +306,7 @@ TopMenu_HandleDpad:: ; 1F:4291
 	cp a, $03
 	ret z
 	ld [wTopMenu_PrevCursor], a
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002B
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_TOP_MENU_UP_DOWN
 	call TopMenu_LoadPanel
 	ld a, $03
 

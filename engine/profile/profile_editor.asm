@@ -351,14 +351,7 @@ Label_2A_56EC::
 	; fall-through of the jrcc at 2A:56F0 (executed) [executed in 5 scenarios]
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	pop de
 	pop bc
 
@@ -396,14 +389,7 @@ Profile_CursorLeft:: ; 2A:5744
 	; region 5744-577F by apply_coverage --split [executed in 1 scenarios]
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0036
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_TEXT_CURSOR_MOVE
 	pop de
 	pop bc
 	inc c
@@ -431,14 +417,7 @@ Profile_CursorLeft:: ; 2A:5744
 Profile_CursorRight:: ; 2A:576B
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0036
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_TEXT_CURSOR_MOVE
 	pop de
 	pop bc
 
@@ -1271,14 +1250,7 @@ Profile_InsertChar:: ; 2A:5CD2
 	; fall-through of the jrcc at 2A:5CDE (executed) [executed in 5 scenarios]
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	ret
@@ -1289,14 +1261,7 @@ Profile_InsertChar:: ; 2A:5CD2
 	push bc
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0038
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ENTERED
 	pop de
 	pop bc
 	push bc
@@ -1382,14 +1347,7 @@ Profile_InsertChar:: ; 2A:5CD2
 .l5D96 ; 2A:5D96
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	pop bc
@@ -1498,14 +1456,7 @@ Profile_DeleteChar:: ; 2A:5E23
 	push bc
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0039
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ERASED
 	pop de
 	pop bc
 	push bc
@@ -1684,14 +1635,7 @@ Profile_ApplyDakuten:: ; 2A:5EF4
 	ld [hl], a
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0038
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ENTERED
 	xor a, a
 	ld [wKeyboardCharLo], a
 	pop de
@@ -1811,14 +1755,7 @@ Profile_ApplyVu:: ; 2A:5FD4
 	ld [hl], a
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0038
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ENTERED
 	pop de
 	pop bc
 	pop hl
@@ -1868,14 +1805,7 @@ Profile_ApplyVu:: ; 2A:5FD4
 	; entered by jrcc from 2A:5FF2 (PROBABLE code) [executed in 1 scenarios]
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	xor a, a
@@ -1886,14 +1816,7 @@ Profile_ApplyVu:: ; 2A:5FD4
 .l606C ; 2A:606C
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	ret
@@ -1950,14 +1873,7 @@ Profile_ApplyHandakuten:: ; 2A:6087
 	ld [hl], a
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0038
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ENTERED
 	pop de
 	pop bc
 	pop hl
@@ -2007,14 +1923,7 @@ Profile_ApplyHandakuten:: ; 2A:6087
 	; entered by jrcc from 2A:60A5 (PROBABLE code) [executed in 1 scenarios]
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	xor a, a
@@ -2025,14 +1934,7 @@ Profile_ApplyHandakuten:: ; 2A:6087
 .l611D ; 2A:611D
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	ret
@@ -2109,14 +2011,7 @@ Profile_KeyboardLoop_Poll:: ; 2A:617B
 	ld a, [de]
 	cp a, $00
 	jr z, .l61C0
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	call Profile_SaveToSram
 .l61C0 ; 2A:61C0
 	farcall Kbd_Hide

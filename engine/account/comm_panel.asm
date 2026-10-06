@@ -267,14 +267,7 @@ CommPanel_StateWait:: ; 68:7544
 	ld a, [wCommPanelPhase]
 	cp a, $02
 	jr z, .done
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002F
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx $002F
 	ld a, $02
 	ld [wCommPanelBusy], a
 	ld a, $04

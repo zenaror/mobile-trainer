@@ -356,14 +356,7 @@ Label_50_42B6::
 
 CommNotice_Input_ButtonA:: ; 50:42EB
 Label_50_42EB::
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	ld a, [wCommNotice_ModeArg]
 	or a, a
 	jr nz, CommNotice_Exit_ByChoice
@@ -405,14 +398,7 @@ CommNotice_HandleLeftRight:: ; 50:430C
 	xor a, $01
 	ld [wCommNotice_Cursor], a
 	call CommNotice_DrawChoiceCursor
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	ret
 
 CommNotice_DrawChoiceCursor:: ; 50:4338

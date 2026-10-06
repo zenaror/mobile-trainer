@@ -88,14 +88,7 @@ Label_68_7724::
 
 Account_ResultPage_OnA:: ; 68:7727
 Label_68_7727::
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	farcall Palette_FadeOutToWhite
 	ret
 

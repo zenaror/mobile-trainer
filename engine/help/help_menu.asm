@@ -212,14 +212,7 @@ Label_6C_41E5::
 	call HelpMenu_ItemIsLocked
 	or a, a
 	jp nz, .l4247
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	farcall Palette_FadeOutWithTicker
 	farcall Ticker_Stop
 	ld a, [wHelpMenu_Page]
@@ -264,26 +257,12 @@ Label_6C_41E5::
 
 .l4247 ; 6C:4247
 	; [CONFIRMED] 31 insn(s); 31 executed (in up to 3/18 scenarios)
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	jp HelpMenu_ShowPage_InputLoop
 
 HelpMenu_OnB:: ; 6C:425A
 Label_6C_425A::
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	farcall Palette_FadeOutWithTicker
 	farcall Ticker_Stop
 	ld a, [wHelpMenu_Page]
@@ -334,14 +313,7 @@ HelpMenu_HandleDpad:: ; 6C:429F
 	ld a, $02
 .l42BE ; 6C:42BE
 	ld [wHelpMenu_Cursor], a
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	call HelpMenu_DrawItemNormal
 	call HelpMenu_DrawItemSelected
 	call HelpMenu_ShowItemText
@@ -366,14 +338,7 @@ HelpMenu_HandleDpad:: ; 6C:429F
 	ld a, $01
 .l42FE ; 6C:42FE
 	ld [wHelpMenu_Cursor], a
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	call HelpMenu_DrawItemNormal
 	call HelpMenu_DrawItemSelected
 	call HelpMenu_ShowItemText

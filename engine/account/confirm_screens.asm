@@ -90,14 +90,7 @@ Account_ConfirmScreen_InputLoop:: ; 68:62C9
 	jr nz, .l6323
 	jr Account_ConfirmScreen_InputLoop
 .l62EC ; 68:62EC
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	ld a, [wAccountConfirm_Cursor]
 	or a, a
 	jr nz, .l6308
@@ -112,26 +105,12 @@ Account_ConfirmScreen_InputLoop:: ; 68:62C9
 	ld [wAccountConfirm_Result], a
 	ret
 .l630E ; 68:630E
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	xor a, a
 	ld [wAccountConfirm_Result], a
 	ret
 .l6323 ; 68:6323
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	ld a, [wAccountConfirm_Cursor]
 	ld b, $01
 	xor a, b
@@ -348,14 +327,7 @@ Account_ConfirmManualScreen_InputLoop:: ; 68:6507
 	jr nz, .l6561
 	jr Account_ConfirmManualScreen_InputLoop
 .l652A ; 68:652A
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	ld a, [wAccountConfirm_Cursor]
 	or a, a
 	jr nz, .l6546
@@ -367,26 +339,12 @@ Account_ConfirmManualScreen_InputLoop:: ; 68:6507
 	ld [wAccountConfirm_Result], a
 	ret
 .l654C ; 68:654C
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	xor a, a
 	ld [wAccountConfirm_Result], a
 	ret
 .l6561 ; 68:6561
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	ld a, [wAccountConfirm_Cursor]
 	ld b, $01
 	xor a, b

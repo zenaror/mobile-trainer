@@ -321,14 +321,7 @@ Label_6C_5B47::
 	ld b, $00
 	ret
 .l5C1B ; 6C:5C1B
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	farcall Palette_FadeOutToWhite
 	ld b, $FF
 	ret
@@ -354,14 +347,7 @@ Label_6C_5B47::
 	or a, a
 	jr z, .l5C66
 	push hl
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0041
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx $0041
 	pop hl
 	xor a, a
 	ld [wRam_C0D9], a
@@ -487,14 +473,7 @@ Label_6C_5D30::
 
 HelpScript_OnSelect:: ; 6C:5D5A
 Label_6C_5D5A::
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	push hl
 	ld a, $01
 	ld hl, sHelpScriptVars
@@ -568,14 +547,7 @@ Label_6C_5E03::
 	ld a, [wHelpScriptAdvanceMode]
 	cp a, $02
 	jr z, .l5E1D
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0040
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx $0040
 	jp HelpScript_Run_NextCommand
 .l5E1D ; 6C:5E1D
 	ld a, $01

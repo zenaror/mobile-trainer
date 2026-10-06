@@ -286,14 +286,7 @@ Kbd_Run_Loop:: ; 55:5D49
 	ld [wKbdCursorCell], a
 	call Kbd_FetchCell
 	call Kbd_UpdateCursorSprite
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	jp Kbd_Run_ContinueLoop
 
 	; [HYPOTHESIS] 13-byte routine ld a,[$C2AB] ; call $6EEC ; or a ; jp z,$5E5A ; jp $5F29 - the
@@ -317,14 +310,7 @@ Kbd_Run_Loop:: ; 55:5D49
 	call Kbd_TypeHasPages
 	or a, a
 	jp z, Kbd_Run_Loop
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $003A
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx $003A
 	ld hl, wKbdPage
 	ld a, [hl]
 	inc a
@@ -447,14 +433,7 @@ Kbd_Run_ButtonA:: ; 55:5E5D
 
 	; [CONFIRMED] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0;
 	; fall-through of the jpcc at 55:5EBD (executed) [executed in 4 scenarios]
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	jp Kbd_Run_Loop
 
 .l5ED3 ; 55:5ED3
@@ -587,14 +566,7 @@ Function_55_5F35::
 
 Kbd_MoveCursor:: ; 55:5F66
 	push af
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	pop af
 	ld [wKbdMoveDirection], a
 	push af
@@ -1137,14 +1109,7 @@ Function_55_6318::
 	ldh [rLCDC], a
 	ei
 	call Sound_FrameService
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0034
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_POPUP_OPEN
 	call Kbd_GetSlideTargetY
 	ld [wRam_C2A2], a
 	ld a, [wKbdType]
@@ -1314,14 +1279,7 @@ Function_55_6427::
 	ldh a, [rWY]
 	cp a, $90
 	ret nc
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0035
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_POPUP_CLOSE
 	ld a, [wKbdType]
 	cp a, $06
 	jr nz, .l6478
@@ -1464,14 +1422,7 @@ Label_55_6563::
 	ldh [rLCDC], a
 	ei
 	call Sound_FrameService
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0034
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_POPUP_OPEN
 .loop ; 55:6580
 	farcall Sprite_UpdateAll
 	ld a, [wKbdType]
@@ -1575,14 +1526,7 @@ Function_55_65DA::
 	ld a, $00
 	jr .l6666
 .l6626 ; 55:6626
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	ld hl, wKbdInputMode
 	ld a, [hl]
 	or a, a
@@ -1595,14 +1539,7 @@ Function_55_65DA::
 	ld [hl], a
 	jr .l65EA
 .l6646 ; 55:6646
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	ld hl, wKbdInputMode
 	ld a, [hl]
 	cp a, $02

@@ -54,14 +54,7 @@ SettingsPhone_ReadAdapterConfig_Poll:: ; 67:5410
 	ld a, [wAdapterConfig_SfxFlag]
 	or a, a
 	jr nz, .l545C
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0046
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_ADAPTER_ANIM
 	ld a, $01
 	ld [wAdapterConfig_SfxFlag], a
 	jr .l545C
@@ -238,14 +231,7 @@ SettingsPhone_WriteAdapterConfig_Poll:: ; 67:555C
 	ld a, [wAdapterConfig_SfxFlag]
 	or a, a
 	jr nz, .l55A8
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0046
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_ADAPTER_ANIM
 	ld a, $01
 	ld [wAdapterConfig_SfxFlag], a
 	jr .l55A8

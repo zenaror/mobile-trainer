@@ -65,14 +65,7 @@ Mailbox_Main_Loop:: ; 25:4043
 	jr z, Mailbox_Main_Loop
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	pop de
 	pop bc
 	push bc
@@ -92,14 +85,7 @@ Mailbox_Main_Loop:: ; 25:4043
 	jr z, .l40DF
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	ld a, [wMailScreenMode]
 	inc a
 	jp z, .l40C3
@@ -134,14 +120,7 @@ Mailbox_Main_Loop:: ; 25:4043
 	jr z, .l410D
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	pop de
 	pop bc
 	push bc
@@ -198,14 +177,7 @@ Mailbox_IconMenu_Loop:: ; 25:415C
 	jr z, .l41C0
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	ld de, $6848
 	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
@@ -236,14 +208,7 @@ Mailbox_IconMenu_Loop:: ; 25:415C
 	jr z, .l41E5
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	pop de
 	pop bc
 	dec d
@@ -259,14 +224,7 @@ Mailbox_IconMenu_Loop:: ; 25:415C
 	jr z, Mailbox_IconMenu_PressA
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	pop de
 	pop bc
 	inc d
@@ -381,14 +339,7 @@ Mailbox_IconMenu_PressA:: ; 25:420A
 	farcall MailRecord_Delete
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0033
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_DELETE
 	xor a, a
 	call Mailbox_SetIconBarAttrs
 	pop de
@@ -624,14 +575,7 @@ Mailbox_IconMenu_ReplyOrRead:: ; 25:446E
 	jr nz, .l4490
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	jp Mailbox_IconMenu_Loop
@@ -649,14 +593,7 @@ Mailbox_IconMenu_ReplyOrRead:: ; 25:446E
 	jp z, Mailbox_ReplyStart
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	push bc
@@ -740,14 +677,7 @@ Mailbox_IconMenu_ReplyOrRead:: ; 25:446E
 Mailbox_ReplyStart:: ; 25:4564
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	pop de
 	pop bc
 	push de
@@ -861,14 +791,7 @@ Mailbox_ReadMail:: ; 25:465C
 	; region 465C-47F8 by apply_coverage --split [executed in 1 scenarios]
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	pop de
 	pop bc
 	push bc
@@ -1186,14 +1109,7 @@ Mailbox_CursorUp:: ; 25:4885
 .l48B6 ; 25:48B6
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	pop de
 	pop bc
 	dec c
@@ -1264,14 +1180,7 @@ Mailbox_CursorDown:: ; 25:4907
 .l4936 ; 25:4936
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	pop de
 	pop bc
 	inc c
@@ -1405,14 +1314,7 @@ Mailbox_RedrawAfterDelete:: ; 25:4A2D
 .l4A3C ; 25:4A3C
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	pop de
 	pop bc
 	dec c

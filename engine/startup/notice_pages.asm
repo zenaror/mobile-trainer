@@ -105,14 +105,7 @@ Label_65_4958::
 	jp Notice_ShowPage_InputLoop
 
 Notice_ShowPage_ButtonA:: ; 65:495B
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	farcall Palette_FadeOutToWhite
 	ld a, $01
 	ret
@@ -125,14 +118,7 @@ Notice_ShowPage_ButtonB:: ; 65:4974
 	jr z, .l4981
 	jr Notice_ShowPage_InputLoop
 .l4981 ; 65:4981
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	farcall Palette_FadeOutToWhite
 	xor a, a
 	ret

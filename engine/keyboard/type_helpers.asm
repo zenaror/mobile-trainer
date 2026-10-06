@@ -231,14 +231,7 @@ Function_55_6FA1::
 	jr z, .l6FB3
 	jr .loop
 .l6FB3 ; 55:6FB3
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	ld c, $01
 .l6FC5 ; 55:6FC5
 	ld a, c

@@ -264,14 +264,7 @@ Title_MenuToggleSelection:: ; 0E:41BA
 	xor a, a
 	ld [wTitle_FrameCounterHi], a
 	ld [wTitle_FrameCounterLo], a
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	ld a, [wTitle_Cursor]
 	xor a, $01
 	ld [wTitle_Cursor], a
@@ -282,14 +275,7 @@ Title_MenuToggleSelection:: ; 0E:41BA
 	jr Title_StateMenu_Done
 
 Title_MenuConfirm:: ; 0E:41E6
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	ld a, [wTitle_State]
 	inc a
 	ld [wTitle_State], a

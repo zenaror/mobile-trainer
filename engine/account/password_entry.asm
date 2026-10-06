@@ -242,24 +242,10 @@ Account_PasswordEntry_InputLoop:: ; 68:5EC7
 	farcall TextBuf_AppendChar
 	or a, a
 	jr nz, .l5F0E
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0038
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ENTERED
 	jr .l5F1E
 .l5F0E ; 68:5F0E
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 .l5F1E ; 68:5F1E
 	call Account_PasswordIsValid
 	or a, a
@@ -274,14 +260,7 @@ Account_PasswordEntry_InputLoop:: ; 68:5EC7
 	farcall TextBuf_DeleteLast
 	or a, a
 	jr nz, .l5FA2
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0039
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ERASED
 	call Account_PasswordIsValid
 	or a, a
 	jr z, .l5F60
@@ -294,24 +273,10 @@ Account_PasswordEntry_InputLoop:: ; 68:5EC7
 	call Account_PasswordIsValid
 	or a, a
 	jr nz, .l5F80
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	jr .l5FDE
 .l5F80 ; 68:5F80
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	ld hl, wTextEntryBuf
 	ld de, wAcctPasswordEntry
 	farcall TextEntry_CopyText
@@ -319,14 +284,7 @@ Account_PasswordEntry_InputLoop:: ; 68:5EC7
 	ld [wPasswordEntry_Result], a
 	ret
 .l5FA2 ; 68:5FA2
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	ld hl, wTextEntryBuf
 	ld de, wAcctPasswordEntry
 	farcall TextEntry_CopyText
@@ -482,25 +440,11 @@ Account_PasswordIntroPage:: ; 68:60BB
 	jr nz, .l60ED
 	jr .loop
 .l60D9 ; 68:60D9
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	ld a, $01
 	jr .l6100
 .l60ED ; 68:60ED
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	xor a, a
 	jr .l6100
 .l6100 ; 68:6100

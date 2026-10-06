@@ -84,14 +84,7 @@ SettingsPhone_ContinuePrompt_Loop:: ; 67:57CC
 	jr nz, .l5821
 	jr SettingsPhone_ContinuePrompt_Loop
 .l57EB ; 67:57EB
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	ld a, [wContinuePrompt_Cursor]
 	or a, a
 	jr nz, .l5807
@@ -110,14 +103,7 @@ SettingsPhone_ContinuePrompt_Loop:: ; 67:57CC
 	; anywhere in the ROM); linear decode is legal ($580C-$5821), all direct targets are known code
 	; starts, saves rSVBK, bank 1, call $20AC (bc=$002E), restores; clears [$C27C]; ends with ret.
 	; Sits after a ret between PROBABLE/CONFIRMED functions of the same style
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx $002E
 	xor a, a
 	ld [wContinuePrompt_Result], a
 	ret
@@ -126,14 +112,7 @@ SettingsPhone_ContinuePrompt_Loop:: ; 67:57CC
 	; [PROBABLE] 30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 7;
 	; entered by jrcc from 67:57E3 (PROBABLE code) | 15 insn(s) never executed in the traced runs;
 	; cut out of the PROBABLE region 5821-585A by apply_coverage --split
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	ld a, [wContinuePrompt_Cursor]
 	ld b, $01
 	xor a, b

@@ -152,14 +152,7 @@ MobileDict_Idle:: ; 1A:416D
 	jp MobileDict_Loop
 
 MobileDict_OnA:: ; 1A:4177
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	farcall Palette_FadeOutToWhite
 	ld a, [wMobileDict_Category]
 	dec a
@@ -197,14 +190,7 @@ MobileDict_OnA:: ; 1A:4177
 	jp MobileDict_Redraw
 
 MobileDict_OnB:: ; 1A:41CA
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	farcall Palette_FadeOutToWhite
 	xor a, a
 	ret
@@ -238,14 +224,7 @@ MobileDict_CursorUp:: ; 1A:41F8
 	dec a
 	jr z, MobileDict_ScrollUp
 	ld [wMobileDict_RowCursor], a
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	call MobileDict_DrawRowHighlight
 	ret
 
@@ -255,14 +234,7 @@ MobileDict_ScrollUp:: ; 1A:4215
 	ret z
 	dec a
 	ld [wMobileDict_ScrollOffset], a
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	call MobileDict_LoadPage
 	call MobileDict_DrawRowHighlight
 	call MobileDict_UpdateTabSprites
@@ -283,14 +255,7 @@ MobileDict_CursorDown:: ; 1A:4238
 	jr z, MobileDict_ScrollDown
 	inc a
 	ld [wMobileDict_RowCursor], a
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	call MobileDict_DrawRowHighlight
 	ret
 
@@ -299,14 +264,7 @@ MobileDict_ScrollDown:: ; 1A:4263
 	; entered by jrcc from 1A:4249 (executed) [executed in 1 scenarios]
 	ld hl, wMobileDict_ScrollOffset
 	inc [hl]
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	call MobileDict_LoadPage
 	call MobileDict_DrawRowHighlight
 	call MobileDict_UpdateTabSprites
@@ -333,14 +291,7 @@ MobileDict_NextCategory:: ; 1A:4281
 	call MobileDict_LoadPage
 	call MobileDict_DrawRowHighlight
 	call MobileDict_UpdateTabSprites
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	ret
 
 MobileDict_PrevCategory:: ; 1A:42B0
@@ -359,14 +310,7 @@ MobileDict_PrevCategory:: ; 1A:42B0
 	call MobileDict_LoadPage
 	call MobileDict_DrawRowHighlight
 	call MobileDict_UpdateTabSprites
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	ret
 
 MobileDict_DrawRowHighlight:: ; 1A:42DE
