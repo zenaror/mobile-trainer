@@ -3,15 +3,15 @@
 Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:34	tiles	Gfx_Account_ActionConfirmPage_Tiles9000Vb1	5E	n=64 vram=$9000 vbank=1
 Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:40	tiles	Gfx_Account_ActionConfirmPage_Tiles9400Vb1	5E	n=64 vram=$9400 vbank=1
 Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:46	tiles	Data_5F_49D0	5F	n=48 vram=$8000 vbank=1
-Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:51	palette	$72C0	5E	n=64 dest=$D800
+Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:51	palette	Palette_Account_ActionConfirmPage_Bg	5E	n=64 dest=$D800
 Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:56	palette	Palette_5F_4CD0 + $10	5F	n=24 dest=$D868
 Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:64	tilemap	Tilemap_Account_ActionConfirmPage	5E	rows=18 cols=20 dest=$D000
-Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:71	tilemap	$7300	5E	rows=18 cols=20 dest=$D000
+Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:71	tilemap	Tilemap_Account_ActionConfirmPage_5E_7300	5E	rows=18 cols=20 dest=$D000
 CommPanel_StateDraw	engine/account/comm_panel.asm:168	tiles	$4200	71	n=48 vram=$8800 vbank=1
 CommPanel_StateDraw	engine/account/comm_panel.asm:174	tiles	Data_71_4300 + $190	71	n=64 vram=$9000 vbank=1
 CommPanel_StateDraw	engine/account/comm_panel.asm:180	tiles	Gfx_CommPanel_Tiles9400Vb1	71	n=64 vram=$9400 vbank=1
 CommPanel_StateDraw	engine/account/comm_panel.asm:186	tiles	Gfx_CommPanel_Tiles8000	71	n=48 vram=$8000 vbank=0
-CommPanel_StateDraw	engine/account/comm_panel.asm:191	palette	$4C50	71	n=64 dest=$D800
+CommPanel_StateDraw	engine/account/comm_panel.asm:191	palette	Palette_CommPanel_Bg	71	n=64 dest=$D800
 CommPanel_StateDraw	engine/account/comm_panel.asm:196	palette	Palette_CommPanel_Obj	71	n=8 dest=$D840
 CommPanel_StateDraw	engine/account/comm_panel.asm:201	tilemap	Tilemap_CommPanel_71_4C98	71	rows=18 cols=20 dest=$D000
 CommPanel_StateDraw	engine/account/comm_panel.asm:215	tilemap	Tilemap_CommPanel_71_4F68	71	rows=2 cols=20 dest=$D200
@@ -54,7 +54,7 @@ Account_LoginIdEntry_Setup	engine/account/login_id_entry.asm:128	tilemap	Tilemap
 Account_LoginIdIntro_Draw	engine/account/login_id_entry.asm:391	tiles	Gfx_Account_LoginIdIntro_Tiles9000Vb1	5E	n=64 vram=$9000 vbank=1
 Account_LoginIdIntro_Draw	engine/account/login_id_entry.asm:397	tiles	Gfx_Account_LoginIdIntro_Tiles9400Vb1	5E	n=64 vram=$9400 vbank=1
 Account_LoginIdIntro_Draw	engine/account/login_id_entry.asm:402	palette	Data_5E_4D00	5E	n=64 dest=$D800
-Account_LoginIdIntro_Draw	engine/account/login_id_entry.asm:407	tilemap	$5510	5E	rows=18 cols=20 dest=$D000
+Account_LoginIdIntro_Draw	engine/account/login_id_entry.asm:407	tilemap	Tilemap_Account_LoginIdIntro_5E_5510	5E	rows=18 cols=20 dest=$D000
 Account_MailAddressEntry_Setup	engine/account/mail_address_entry.asm:115	tiles	Data_5E_4000	5E	n=64 vram=$8800 vbank=1
 Account_MailAddressEntry_Setup	engine/account/mail_address_entry.asm:121	tiles	Data_5E_4400	5E	n=64 vram=$8C00 vbank=1
 Account_MailAddressEntry_Setup	engine/account/mail_address_entry.asm:127	tiles	Gfx_Account_MailAddressEntry_Tiles9000Vb1	5E	n=64 vram=$9000 vbank=1
@@ -78,12 +78,12 @@ Account_PasswordIntro_Draw	engine/account/password_entry.asm:482	tilemap	Tilemap
 Registration_WriteConfig_Setup	engine/account/register_config.asm:31	tiles	$6A00	5D	n=64 vram=$8800 vbank=1
 Registration_WriteConfig_Setup	engine/account/register_config.asm:37	tiles	Gfx_Registration_WriteConfig_Tiles9000Vb1	5D	n=64 vram=$9000 vbank=1
 Registration_WriteConfig_Setup	engine/account/register_config.asm:43	tiles	Gfx_Registration_WriteConfig_Tiles8000	5D	n=48 vram=$8000 vbank=0
-Registration_WriteConfig_Setup	engine/account/register_config.asm:48	palette	$7000	5D	n=64 dest=$D800
-Registration_WriteConfig_Setup	engine/account/register_config.asm:53	palette	$7040	5D	n=8 dest=$D840
-Registration_WriteConfig_Setup	engine/account/register_config.asm:58	tilemap	$7048	5D	rows=18 cols=20 dest=$D000
+Registration_WriteConfig_Setup	engine/account/register_config.asm:48	palette	Palette_Registration_WriteConfig_Bg	5D	n=64 dest=$D800
+Registration_WriteConfig_Setup	engine/account/register_config.asm:53	palette	Palette_Registration_WriteConfig_Obj	5D	n=8 dest=$D840
+Registration_WriteConfig_Setup	engine/account/register_config.asm:58	tilemap	Tilemap_Registration_WriteConfig_5D_7048	5D	rows=18 cols=20 dest=$D000
 Account_ResultPage	engine/account/result_page.asm:35	tiles	Gfx_Account_ResultPage_Tiles8800Vb1	4B	n=64 vram=$8800 vbank=1
 Account_ResultPage	engine/account/result_page.asm:41	tiles	Gfx_Account_ResultPage_Tiles8C00Vb1	4B	n=64 vram=$8C00 vbank=1
-Account_ResultPage	engine/account/result_page.asm:47	palette	$5870	4B	n=40 dest=$D800
+Account_ResultPage	engine/account/result_page.asm:47	palette	Palette_Account_ResultPage_Bg	4B	n=40 dest=$D800
 Account_ResultPage	engine/account/result_page.asm:52	tilemap	Tilemap_Account_ResultPage	4B	rows=18 cols=20 dest=$D000
 Account_ResultPage_LoadBanner	engine/account/result_page.asm:216	UNRESOLVED	tiles	--	bank (a) not an immediate
 Account_ResultPage_LoadBanner	engine/account/result_page.asm:251	UNRESOLVED	tiles	--	bank (a) not an immediate
@@ -96,9 +96,9 @@ SettingsMenu_StateInit	engine/account/settings_menu.asm:167	tiles	Gfx_SettingsMe
 SettingsMenu_StateInit	engine/account/settings_menu.asm:173	tiles	Gfx_SettingsMenu_Tiles9000Vb1	4A	n=64 vram=$9000 vbank=1
 SettingsMenu_StateInit	engine/account/settings_menu.asm:179	tiles	Gfx_SettingsMenu_Tiles9400Vb1	4A	n=64 vram=$9400 vbank=1
 SettingsMenu_StateInit	engine/account/settings_menu.asm:185	tiles	Gfx_SettingsMenu_Tiles8000Vb1	4A	n=32 vram=$8000 vbank=1
-SettingsMenu_StateInit	engine/account/settings_menu.asm:190	palette	$5180	4A	n=40 dest=$D800
-SettingsMenu_StateInit	engine/account/settings_menu.asm:195	palette	$51A8	4A	n=8 dest=$D840
-SettingsMenu_DrawItems	engine/account/settings_menu.asm:321	tilemap	$51D0	4A	rows=18 cols=20 dest=$D000
+SettingsMenu_StateInit	engine/account/settings_menu.asm:190	palette	Palette_SettingsMenu_Bg	4A	n=40 dest=$D800
+SettingsMenu_StateInit	engine/account/settings_menu.asm:195	palette	Palette_SettingsMenu_Obj	4A	n=8 dest=$D840
+SettingsMenu_DrawItems	engine/account/settings_menu.asm:321	tilemap	Tilemap_SettingsMenu_4A_51D0	4A	rows=18 cols=20 dest=$D000
 SettingsMenu_DrawItems	engine/account/settings_menu.asm:331	tilemap	Tilemap_SettingsMenu	4A	rows=18 cols=20 dest=$D000
 SettingsMenu_DrawItems	engine/account/settings_menu.asm:367	UNRESOLVED	tilemap	--	source (hl) not an immediate/label
 AbookAddr_SetupScreen	engine/address_book/address_editor.asm:418	tiles	Gfx_AddrBook_TilesBank22 + $500	22	n=64 vram=$9300 vbank=1
@@ -809,14 +809,14 @@ Profile_InitScreen	engine/profile/profile_editor.asm:535	tilemap	Data_Profile_Ti
 AdapterCheck_DrawScreen	engine/settings/adapter_check.asm:20	tiles	Gfx_AdapterCheck_Tiles8000	4A	n=16 vram=$8000 vbank=0
 AdapterCheck_DrawScreen	engine/settings/adapter_check.asm:26	tiles	Gfx_AdapterCheck_Tiles9000Vb1	4A	n=64 vram=$9000 vbank=1
 AdapterCheck_DrawScreen	engine/settings/adapter_check.asm:32	tiles	Gfx_AdapterCheck_Tiles9400Vb1	4A	n=64 vram=$9400 vbank=1
-AdapterCheck_DrawScreen	engine/settings/adapter_check.asm:37	palette	$6580	4A	n=64 dest=$D800
-AdapterCheck_DrawScreen	engine/settings/adapter_check.asm:42	palette	$65C0	4A	n=64 dest=$D840
-AdapterCheck_DrawScreen	engine/settings/adapter_check.asm:47	tilemap	$6600	4A	rows=18 cols=20 dest=$D000
+AdapterCheck_DrawScreen	engine/settings/adapter_check.asm:37	palette	Palette_AdapterCheck_Bg	4A	n=64 dest=$D800
+AdapterCheck_DrawScreen	engine/settings/adapter_check.asm:42	palette	Palette_AdapterCheck_Obj	4A	n=64 dest=$D840
+AdapterCheck_DrawScreen	engine/settings/adapter_check.asm:47	tilemap	Tilemap_AdapterCheck_4A_6600	4A	rows=18 cols=20 dest=$D000
 SettingsPhone_ChoiceMenu_Setup	engine/settings/choice_menu.asm:81	tiles	$4110	4D	n=64 vram=$8800 vbank=1
 SettingsPhone_ChoiceMenu_Setup	engine/settings/choice_menu.asm:87	tiles	Gfx_SettingsPhone_ChoiceMenu_Tiles8C00Vb1_4D_4510	4D	n=16 vram=$8C00 vbank=1
 SettingsPhone_ChoiceMenu_Setup	engine/settings/choice_menu.asm:93	tiles	Gfx_SettingsPhone_ChoiceMenu_Tiles9000Vb1_4D_4610	4D	n=64 vram=$9000 vbank=1
 SettingsPhone_ChoiceMenu_Setup	engine/settings/choice_menu.asm:99	tiles	Gfx_SettingsPhone_ChoiceMenu_Tiles9400Vb1	4D	n=48 vram=$9400 vbank=1
-SettingsPhone_ChoiceMenu_Setup	engine/settings/choice_menu.asm:104	tilemap	$5540	4D	rows=18 cols=20 dest=$D000
+SettingsPhone_ChoiceMenu_Setup	engine/settings/choice_menu.asm:104	tilemap	Tilemap_SettingsPhone_ChoiceMenu_4D_5540	4D	rows=18 cols=20 dest=$D000
 SettingsPhone_ChoiceMenu_Setup	engine/settings/choice_menu.asm:112	tiles	$4C10	4D	n=64 vram=$8800 vbank=1
 SettingsPhone_ChoiceMenu_Setup	engine/settings/choice_menu.asm:118	tiles	Gfx_SettingsPhone_ChoiceMenu_Tiles8C00Vb1_4D_5010	4D	n=16 vram=$8C00 vbank=1
 SettingsPhone_ChoiceMenu_Setup	engine/settings/choice_menu.asm:124	tiles	Gfx_SettingsPhone_ChoiceMenu_Tiles9000Vb1_4D_5110	4D	n=64 vram=$9000 vbank=1
@@ -824,22 +824,22 @@ SettingsPhone_ChoiceMenu_Setup	engine/settings/choice_menu.asm:130	tiles	Data_4D
 SettingsPhone_ChoiceMenu_Setup	engine/settings/choice_menu.asm:135	tilemap	Tilemap_SettingsPhone_ChoiceMenu	4D	rows=18 cols=20 dest=$D000
 SettingsPhone_ChoiceMenu_Setup	engine/settings/choice_menu.asm:142	tiles	Gfx_SettingsPhone_ChoiceMenu_Tiles8000Vb1	4D	n=32 vram=$8000 vbank=1
 SettingsPhone_ChoiceMenu_Setup	engine/settings/choice_menu.asm:147	palette	Data_4D_5510	4D	n=64 dest=$D800
-SettingsPhone_ChoiceMenu_Setup	engine/settings/choice_menu.asm:152	palette	$5538	4D	n=8 dest=$D840
+SettingsPhone_ChoiceMenu_Setup	engine/settings/choice_menu.asm:152	palette	Palette_SettingsPhone_ChoiceMenu_Obj	4D	n=8 dest=$D840
 SettingsPhone_ChoiceMenu_LoadTilemap	engine/settings/choice_menu.asm:315	UNRESOLVED	tilemap	--	source (hl) not an immediate/label
 SettingsPhone_ConfirmScreen_Setup	engine/settings/confirm_screen.asm:34	tiles	Gfx_SettingsPhone_ConfirmScreen_Tiles8800Vb1	4B	n=64 vram=$8800 vbank=1
 SettingsPhone_ConfirmScreen_Setup	engine/settings/confirm_screen.asm:40	tiles	Gfx_SettingsPhone_ConfirmScreen_Tiles8C00Vb1	4B	n=34 vram=$8C00 vbank=1
 SettingsPhone_ConfirmScreen_Setup	engine/settings/confirm_screen.asm:46	tiles	$7090	4B	n=64 vram=$9000 vbank=1
 SettingsPhone_ConfirmScreen_Setup	engine/settings/confirm_screen.asm:52	tiles	Data_5F_49D0	5F	n=48 vram=$8000 vbank=1
-SettingsPhone_ConfirmScreen_Setup	engine/settings/confirm_screen.asm:57	palette	$73B0	4B	n=64 dest=$D800
+SettingsPhone_ConfirmScreen_Setup	engine/settings/confirm_screen.asm:57	palette	Palette_SettingsPhone_ConfirmScreen_Bg	4B	n=64 dest=$D800
 SettingsPhone_ConfirmScreen_Setup	engine/settings/confirm_screen.asm:62	palette	Palette_5F_4CD0 + $10	5F	n=24 dest=$D868
-SettingsPhone_ConfirmScreen_Setup	engine/settings/confirm_screen.asm:67	tilemap	$73F0	4B	rows=18 cols=20 dest=$D000
+SettingsPhone_ConfirmScreen_Setup	engine/settings/confirm_screen.asm:67	tilemap	Tilemap_SettingsPhone_ConfirmScreen_4B_73F0	4B	rows=18 cols=20 dest=$D000
 SettingsPhone_ConfirmScreen_LoadSlotTilemap	engine/settings/confirm_screen.asm:301	UNRESOLVED	tilemap	--	source (hl) not an immediate/label
 SettingsPhone_ContinuePrompt_Setup	engine/settings/continue_prompt.asm:33	tiles	Gfx_SettingsPhone_ContinuePrompt_Tiles9000Vb1	4B	n=64 vram=$9000 vbank=1
 SettingsPhone_ContinuePrompt_Setup	engine/settings/continue_prompt.asm:39	tiles	Gfx_SettingsPhone_ContinuePrompt_Tiles9400Vb1	4B	n=48 vram=$9400 vbank=1
 SettingsPhone_ContinuePrompt_Setup	engine/settings/continue_prompt.asm:45	tiles	Data_5F_49D0	5F	n=48 vram=$8000 vbank=1
-SettingsPhone_ContinuePrompt_Setup	engine/settings/continue_prompt.asm:50	palette	$7CD0	4B	n=64 dest=$D800
+SettingsPhone_ContinuePrompt_Setup	engine/settings/continue_prompt.asm:50	palette	Palette_SettingsPhone_ContinuePrompt_Bg	4B	n=64 dest=$D800
 SettingsPhone_ContinuePrompt_Setup	engine/settings/continue_prompt.asm:55	palette	Palette_5F_4CD0 + $10	5F	n=24 dest=$D868
-SettingsPhone_ContinuePrompt_Setup	engine/settings/continue_prompt.asm:60	tilemap	$7D10	4B	rows=18 cols=20 dest=$D000
+SettingsPhone_ContinuePrompt_Setup	engine/settings/continue_prompt.asm:60	tilemap	Tilemap_SettingsPhone_ContinuePrompt_4B_7D10	4B	rows=18 cols=20 dest=$D000
 PwSaveConfirm_Setup	engine/settings/password_save_confirm.asm:41	tiles	Gfx_PwSaveConfirm_Tiles9000Vb1	5D	n=64 vram=$9000 vbank=1
 PwSaveConfirm_Setup	engine/settings/password_save_confirm.asm:47	tiles	Gfx_PwSaveConfirm_Tiles9400Vb1	5D	n=64 vram=$9400 vbank=1
 PwSaveConfirm_Setup	engine/settings/password_save_confirm.asm:53	tiles	Data_5F_49D0	5F	n=48 vram=$8000 vbank=1
@@ -869,9 +869,9 @@ SettingsPhone_SlotMenu_Setup	engine/settings/slot_menu.asm:126	tiles	Gfx_Setting
 SettingsPhone_SlotMenu_Setup	engine/settings/slot_menu.asm:132	tiles	$7070	4D	n=64 vram=$9000 vbank=1
 SettingsPhone_SlotMenu_Setup	engine/settings/slot_menu.asm:138	tiles	Gfx_SettingsPhone_SlotMenu_Tiles9400Vb1_4D_7470	4D	n=64 vram=$9400 vbank=1
 SettingsPhone_SlotMenu_Setup	engine/settings/slot_menu.asm:145	tiles	Gfx_SettingsPhone_SlotMenu_Tiles8000Vb1	4D	n=2 vram=$8000 vbank=1
-SettingsPhone_SlotMenu_Setup	engine/settings/slot_menu.asm:150	palette	$7570	4D	n=64 dest=$D800
-SettingsPhone_SlotMenu_Setup	engine/settings/slot_menu.asm:155	palette	$7598	4D	n=8 dest=$D840
-SettingsPhone_SlotMenu_Setup	engine/settings/slot_menu.asm:160	tilemap	$75A0	4D	rows=18 cols=20 dest=$D000
+SettingsPhone_SlotMenu_Setup	engine/settings/slot_menu.asm:150	palette	Palette_SettingsPhone_SlotMenu_Bg	4D	n=64 dest=$D800
+SettingsPhone_SlotMenu_Setup	engine/settings/slot_menu.asm:155	palette	Palette_SettingsPhone_SlotMenu_Obj	4D	n=8 dest=$D840
+SettingsPhone_SlotMenu_Setup	engine/settings/slot_menu.asm:160	tilemap	Tilemap_SettingsPhone_SlotMenu_4D_75A0	4D	rows=18 cols=20 dest=$D000
 SettingsPhone_SlotMenu_LoadTabTilemap	engine/settings/slot_menu.asm:529	UNRESOLVED	tilemap	--	source (hl) not an immediate/label
 Notice_ShowPage	engine/startup/notice_pages.asm:47	tiles	Gfx_Notice_Tiles9000Vb1	58	n=29 vram=$9000 vbank=1
 Notice_ShowPage	engine/startup/notice_pages.asm:52	palette	Palette_Notice_Bg	58	n=40 dest=$D800

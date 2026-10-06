@@ -27,7 +27,7 @@ make                 # assemble every file, link, check the SHA-256 (+ byte-comp
 make -j8             # the same, in parallel
 ```
 
-The result is `mobile_trainer.gbc` (repository root), with `build/mobile_trainer.map` and `build/mobile_trainer.sym` (about 12,000 symbols: global labels, local labels `Function.name`, and the 31 exported constants).  A successful build prints
+The result is `mobile_trainer.gbc` (repository root), with `build/mobile_trainer.map` and `build/mobile_trainer.sym` (about 15,500 symbols: global labels, local labels `Function.name`, and the 51 exported constants).  A successful build prints
 
 ```
 SHA-256 OK: 6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570

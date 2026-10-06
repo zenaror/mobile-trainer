@@ -9,7 +9,8 @@ gfx/previews/screen_ops.tsv (written by tools/render_screens.py ops) are these l
 1. the bytes of an array lie in exactly one region of the source (one `; ---- ` header and what follows it), and that region is a palette: an `INCLUDE` of a `.pal` under it, or a
    header that says `palette-rgb555` / `RGB555`;
 2. the only exception is an array that the loads over-read: when the call takes more bytes than the block holds, the header of the block must say so (`the call takes N bytes past
-   the end of this block`); the array then starts in a palette block and its tail is something else (the next block) by adjacency.
+   the end of this block`); the array then starts in a palette block and its tail is something else by adjacency. Only the two independently reviewed 4D:5510 / 4D:7570 loads qualify;
+   the excess count must match, the regions must be contiguous without overlaps, and the tail must include non-palette data.
 
 A palette that a header calls "content class unknown", a palette cut into fragments by an old heuristic, or a palette typed as tiles fails rule 1 (how this was cleaned up:
 docs/research/naming2_retype1.md).  Palettes that the code does not load through an immediate address are not checked.
@@ -27,12 +28,16 @@ HDR = re.compile(r'^; ---- (\w+) \$([0-9A-F]+)-\$([0-9A-F]+) \((\d+) bytes\) \[(
 LABEL = re.compile(r'^([A-Za-z_]\w*)::(?: *; ([0-9A-F]{2}):([0-9A-F]{4}))?\s*$')
 DB = re.compile(r'^\tdb (\$[0-9A-Fa-f]{2}(?:, \$[0-9A-Fa-f]{2})*)')
 ASSET = re.compile(r'^\t(?:INCBIN|INCLUDE) "([^"]+)"')
-OVERREAD = 'the call takes'
+# Reviewed exceptions: (bank, load start, palette end, load end).
+# Both original calls read BG 64 bytes from a 40-byte palette, through OBJ 8 and tilemap 16.
+# See docs/research/naming2_verify_retype1.md, round 2. A comment alone cannot add an exception.
+REVIEWED_OVERREADS = {(0x4D, 0x5510, 0x5538, 0x5550), (0x4D, 0x7570, 0x7598, 0x75B0)}
 
 
 def parse_regions(path, sizes):
     """[(bank, start, stop, is_palette, text)] of the header regions of one source file."""
-    L = open(path, encoding='utf-8').read().split('\n')
+    with open(path, encoding='utf-8') as f:
+        L = f.read().split('\n')
     regs, cur = [], None
     for l in L:
         m = HDR.match(l)
@@ -86,12 +91,23 @@ def check(regions_by_bank, loads):
             arrays += 1
             regs = [r for r in regions_by_bank.get(bank, []) if r[1] < b and r[2] > a]
             inside = [r for r in regs if r[1] <= a and r[2] >= b]
-            if len(inside) == 1 and inside[0][3]:
+            if len(regs) == 1 and len(inside) == 1 and inside[0][3]:
                 continue
             first = [r for r in regs if r[1] <= a < r[2]]
-            if first and first[0][3] and first[0][2] < b and OVERREAD in first[0][4]:
-                over += 1                                             # the header says that the call takes more bytes than the block holds
-                continue
+            if len(first) == 1 and first[0][3] and first[0][1] == a and first[0][2] < b:
+                claim = re.search(r'\bthe call takes (\d+) bytes past the end of this block\b', first[0][4])
+                ordered = sorted(regs, key=lambda r: (r[1], r[2]))
+                cursor, contiguous = a, True
+                for r in ordered:
+                    if r[1] != cursor or r[2] <= r[1]:
+                        contiguous = False
+                        break
+                    cursor = min(r[2], b)
+                non_palette_tail = any(not r[3] for r in ordered[1:])
+                if ((bank, a, first[0][2], b) in REVIEWED_OVERREADS and claim
+                        and int(claim.group(1)) == b - first[0][2] and contiguous and cursor == b and non_palette_tail):
+                    over += 1  # exact documented excess, covering adjacent blocks beyond the palette
+                    continue
             what = ', '.join('%04X-%04X %s' % (r[1], r[2], 'palette' if r[3] else 'not palette') for r in regs) or 'no block'
             errors.append('%02X:%04X-%04X is read by Palette_LoadToBuffer but is not one palette block (%s)' % (bank, a, b, what))
     return errors, arrays, over

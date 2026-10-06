@@ -159,6 +159,7 @@ test: baserom.gbc selftest
 	python3 tools/test_cfg.py
 	python3 tools/test_png.py
 	python3 tools/test_palette_reads.py
+	python3 tools/test_retype_parts.py
 
 selftest:
 	python3 tools/selftest_gen.py

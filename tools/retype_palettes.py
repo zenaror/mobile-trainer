@@ -189,13 +189,19 @@ def part_text(r, a, b, exact_arrays, ctx, bank):
         reads = [o for o in ctx.ops if o.kind == 'palette' and o.bank == bank and a <= o.addr < b]
         return ctx.palette_note(bank, a, b, reads)
     tiles_inside = any(it['kind'] == 'data' and it['asset'] and it['asset'].endswith('.2bpp') and a <= it['addr'] < b for it in r['items'])
-    if tiles_inside:                                                  # the old heuristic said palette, the label and the asset say tiles: do not invent palette counts
-        return r['status'], r['text'] + ' [the rest of the block; a palette array that the code reads was cut out of it; the label and the asset of what is left say tiles]'
+    if tiles_inside:
+        return r['status'], ('tile data: the kept .2bpp asset and label identify tiles; any raw bytes beside it remain unclassified '
+                             '(the rest of a block from which a palette array was cut; the old palette heuristic does not describe this fragment)')
     if r['cls'] == 'palette':
+        if not valid_palette(lib.rom(bank, a, b - a)):
+            prior_read = r['text'].split(';', 1)[0] if r['text'].startswith('read as data') else 'read as data'
+            return r['status'], (prior_read + '; content class unknown '
+                                 '(the rest of a block from which a palette array was cut; this fragment is not valid RGB555; '
+                                 'inherited read evidence does not establish each byte of this fragment)')
         w = (b - a) // 2
         groups = ('%d palette group(s) of 4' % (w // 4)) if w % 4 == 0 else '%d words' % w
-        return r['status'], ('palette-rgb555: heuristic: %d RGB555 words as %s (the rest of a heuristic block; the palette array(s) that the code reads were cut out of it)'
-                             % (w, groups))
+        return 'PROBABLE', ('palette-rgb555: heuristic: %d RGB555 words as %s (the rest of a heuristic block; the palette array(s) that the code reads were cut out of it)'
+                            % (w, groups))
     return r['status'], r['text'] + ' [the rest of the block; a palette array that the code reads was cut out of it]'
 
 
