@@ -57,8 +57,8 @@ Function_55_5BA2::
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0018
 	ld de, wPaletteBufObj + $28
-	ld hl, $4CE0
-	ld a, $5F
+	ld hl, Palette_5F_4CD0 + $10 ; 5F:4CE0
+	ld a, BANK(Palette_5F_4CD0)
 	farcall Palette_LoadToBuffer
 	ld a, [wKbdType]
 	call Kbd_TypeNeedsExtraPalette
@@ -1708,8 +1708,8 @@ Label_55_6755::
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0018
 	ld de, wPaletteBufBg + $28
-	ld hl, $4D28
-	ld a, $5E
+	ld hl, Data_5E_4D00 + $28 ; 5E:4D28
+	ld a, BANK(Data_5E_4D00)
 	farcall Palette_LoadToBuffer
 	ld bc, $0D14
 	ld de, wScreenTileMap + $240
@@ -1748,8 +1748,8 @@ Label_55_679F::
 	farcall Palette_LoadToBuffer
 	ld bc, $0010
 	ld de, wPaletteBufBg + $30
-	ld hl, $6BC0
-	ld a, $5F
+	ld hl, Palette_Kbd_T5_Bg1 + $08 ; 5F:6BC0
+	ld a, BANK(Palette_Kbd_T5_Bg1)
 	farcall Palette_LoadToBuffer
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]

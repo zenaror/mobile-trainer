@@ -68,7 +68,36 @@ def word_rgb(w):
 
 # ------------------------------------------------------------------------------------------------ symbols and assets
 
+RAM_SYM = {}          # name -> address of the RAM labels ($8000 and above): the operands `ld de, wPaletteBufBg` are numbers for the extractor (the RAM operand passes wrote them as names)
+
+
+RAM_FILES = ('ram/wram.asm', 'ram/hram.asm', 'ram/banked.asm', 'ram/overlays.asm', 'constants/hardware.inc', 'consts.asm')
+
+
+def load_ram_defs():
+    """The RAM names are `DEF name EQU $XXXX` constants (they are not in the .sym file): fill RAM_SYM from ram/*.asm, constants/hardware.inc and consts.asm (a value below $8000 is a plain constant and is left out)."""
+    for rel in RAM_FILES:
+        try:
+            lines = open(os.path.join(ROOT, rel), encoding='utf-8').read().split('\n')
+        except OSError:
+            continue
+        for l in lines:
+            m = re.match(r'^DEF (\w+) EQU \$([0-9A-Fa-f]{4})\b', l)
+            if m and int(m.group(2), 16) >= 0x8000:
+                RAM_SYM[m.group(1)] = int(m.group(2), 16)
+    for rel in RAM_FILES:                                     # the aliases of the overlays (`DEF wCommErr_AttrSrc EQU wRam_C10E`, `... EQU wHtmlBuf + $10`) name the same address
+        try:
+            lines = open(os.path.join(ROOT, rel), encoding='utf-8').read().split('\n')
+        except OSError:
+            continue
+        for l in lines:
+            m = re.match(r'^DEF (\w+) EQU (\w+)(?: \+ \$([0-9A-Fa-f]+))?\s*(?:;.*)?$', l)
+            if m and m.group(1) not in RAM_SYM and m.group(2) in RAM_SYM:
+                RAM_SYM[m.group(1)] = RAM_SYM[m.group(2)] + (int(m.group(3), 16) if m.group(3) else 0)
+
+
 def load_sym(path=SYM):
+    load_ram_defs()
     by_name, names = {}, collections.defaultdict(list)
     for line in open(path):
         m = re.match(r'^([0-9a-f]{2}):([0-9a-f]{4}) (\S+)$', line.strip())
@@ -188,6 +217,8 @@ def parse_val(src):
 
 def get16(p, r16):
     v = p.get(r16)
+    if isinstance(v, tuple) and v[1] in RAM_SYM:
+        return RAM_SYM[v[1]] + v[2]                       # a RAM label (`wPaletteBufBg + $28`) is the number it stands for
     if v is not None:
         return v
     hi, lo = p.get(r16[0]), p.get(r16[1])
@@ -258,8 +289,8 @@ def extract_ops(sym):
                 continue
             mm = re.match(r'^ld\s+\[(\w+)\],\s*a$', t)
             if mm:
-                if mm.group(1) in ('wRam_C10E', 'wRam_C10F'):
-                    ptr[mm.group(1)] = p.get('a')
+                if RAM_SYM.get(mm.group(1)) in (0xC10E, 0xC10F):          # the attribute source pointer, whatever the overlay calls it
+                    ptr[RAM_SYM[mm.group(1)]] = p.get('a')
                 continue
             if re.match(r'^xor\s+a(,\s*a)?$', t):
                 p['a'] = 0
@@ -307,7 +338,7 @@ def build_op(kind, loader, p, ptr, sym):
         sb, sa = sym[hl[1]]
         if sb != a and sb != 0:
             return dict(err='label %s is in bank %02X, a=%02X' % (hl[1], sb, a))
-        op['label'] = hl[1]
+        op['label'] = hl[1] + (' + $%X' % hl[2] if hl[2] else '')           # `Label + $offset` stays readable in the ops table (src carries the sum)
         op['src'] = sa + hl[2]
     else:
         op['src'] = hl
@@ -326,7 +357,7 @@ def build_op(kind, loader, p, ptr, sym):
             return dict(err='rows/cols (bc) or dest (de) not an immediate')
         op.update(rows=bc >> 8, cols=bc & 0xFF, dest=de)
         if loader.endswith('Ptr'):
-            lo, hi = ptr.get('wRam_C10E'), ptr.get('wRam_C10F')
+            lo, hi = ptr.get(0xC10E), ptr.get(0xC10F)
             if isinstance(lo, int) and isinstance(hi, int):
                 op['attr_src'] = (hi << 8) | lo
             else:

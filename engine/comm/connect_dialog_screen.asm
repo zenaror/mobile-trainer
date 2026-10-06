@@ -222,8 +222,8 @@ ConnectDialog_Draw_PasswordEntry:: ; 57:4951
 	call ConnectDialog_DrawPasswordField
 	ld bc, $0040
 	ld de, wPaletteBufBg
-	ld hl, $7800
-	ld a, $56
+	ld hl, Palette_ConnectDialog_Bg + $40 ; 56:7800
+	ld a, BANK(Palette_ConnectDialog_Bg)
 	farcall Palette_LoadToBuffer
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -264,12 +264,12 @@ ConnectDialog_Draw_PasswordEntry:: ; 57:4951
 	ld bc, $0400
 	ld hl, wTileStage2
 	call FillBytes
-	ld hl, $4047
+	ld hl, String_56_4047
 	ld bc, $0010
 	ld de, wTileStage2
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $56
+	ld a, BANK(String_56_4047)
 	farcall TextTiles_RenderGrid
 	ld de, $9000
 	ld hl, wTileStage2
@@ -399,12 +399,12 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	ld bc, $0400
 	ld hl, wTileStage2
 	call FillBytes
-	ld hl, $4047
+	ld hl, String_56_4047
 	ld bc, $0010
 	ld de, wTileStage2
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $56
+	ld a, BANK(String_56_4047)
 	farcall TextTiles_RenderGrid
 	ld de, $9000
 	ld hl, wTileStage2
@@ -441,8 +441,8 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0040
 	ld de, wPaletteBufBg
-	ld hl, $7800
-	ld a, $56
+	ld hl, Palette_ConnectDialog_Bg + $40 ; 56:7800
+	ld a, BANK(Palette_ConnectDialog_Bg)
 	farcall Palette_LoadToBuffer
 	ld a, [wConnectDialog_PrevMode]
 	cp a, $06
@@ -497,12 +497,12 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	ld bc, $0400
 	ld hl, wTileStage2
 	call FillBytes
-	ld hl, $406A
+	ld hl, String_56_406A
 	ld bc, $0010
 	ld de, wTileStage2
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $56
+	ld a, BANK(String_56_406A)
 	farcall TextTiles_RenderGrid
 	ld de, $8801
 	ld hl, wTileStage2
@@ -582,8 +582,8 @@ ConnectDialog_Draw_PasswordSaved:: ; 57:4D40
 	call ConnectDialog_DrawPasswordField
 	ld bc, $0040
 	ld de, wPaletteBufBg
-	ld hl, $7800
-	ld a, $56
+	ld hl, Palette_ConnectDialog_Bg + $40 ; 56:7800
+	ld a, BANK(Palette_ConnectDialog_Bg)
 	farcall Palette_LoadToBuffer
 	ld a, $00
 	ld bc, $0610
@@ -629,12 +629,12 @@ ConnectDialog_Draw_PasswordSaved:: ; 57:4D40
 	ld bc, $0400
 	ld hl, wTileStage2
 	call FillBytes
-	ld hl, $40BF
+	ld hl, String_56_40BF
 	ld bc, $0010
 	ld de, wTileStage2
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $56
+	ld a, BANK(String_56_40BF)
 	farcall TextTiles_RenderGrid
 	ld de, $9000
 	ld hl, wTileStage2
@@ -690,8 +690,8 @@ ConnectDialog_Draw_StoredPassword:: ; 57:4E4C
 	call ConnectDialog_DrawPasswordField
 	ld bc, $0040
 	ld de, wPaletteBufBg
-	ld hl, $7800
-	ld a, $56
+	ld hl, Palette_ConnectDialog_Bg + $40 ; 56:7800
+	ld a, BANK(Palette_ConnectDialog_Bg)
 	farcall Palette_LoadToBuffer
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -732,12 +732,12 @@ ConnectDialog_Draw_StoredPassword:: ; 57:4E4C
 	ld bc, $0400
 	ld hl, wTileStage2
 	call FillBytes
-	ld hl, $410A
+	ld hl, String_56_410A
 	ld bc, $0010
 	ld de, wTileStage2
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $56
+	ld a, BANK(String_56_410A)
 	farcall TextTiles_RenderGrid
 	ld de, $9000
 	ld hl, wTileStage2
@@ -775,8 +775,8 @@ ConnectDialog_Draw_ForgetConfirm:: ; 57:4F59
 	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0040
 	ld de, wPaletteBufBg
-	ld hl, $7800
-	ld a, $56
+	ld hl, Palette_ConnectDialog_Bg + $40 ; 56:7800
+	ld a, BANK(Palette_ConnectDialog_Bg)
 	farcall Palette_LoadToBuffer
 	ld a, $80
 	ld bc, $0610
@@ -822,12 +822,12 @@ ConnectDialog_Draw_ForgetConfirm:: ; 57:4F59
 	ld bc, $0400
 	ld hl, wTileStage2
 	call FillBytes
-	ld hl, $4159
+	ld hl, String_56_4159
 	ld bc, $0010
 	ld de, wTileStage2
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $56
+	ld a, BANK(String_56_4159)
 	farcall TextTiles_RenderGrid
 	ld de, $8801
 	ld hl, wTileStage2
@@ -885,8 +885,8 @@ ConnectDialog_Draw_Finish:: ; 57:5077
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufObj
-	ld hl, $7840
-	ld a, $56
+	ld hl, Palette_ConnectDialog_Bg + $80 ; 56:7840
+	ld a, BANK(Palette_ConnectDialog_Bg)
 	farcall Palette_LoadToBuffer
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
@@ -930,8 +930,8 @@ Label_57_50D8::
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufObj
-	ld hl, $7840
-	ld a, $56
+	ld hl, Palette_ConnectDialog_Bg + $80 ; 56:7840
+	ld a, BANK(Palette_ConnectDialog_Bg)
 	farcall Palette_LoadToBuffer
 	call ConnectDialog_DrawPasswordField
 	ld a, [wConnectDialog_PrevMode]

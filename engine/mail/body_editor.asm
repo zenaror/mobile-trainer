@@ -3105,8 +3105,8 @@ Function_2D_5A98::
 	ld c, $20
 	farcall Gfx_StartHDMA
 	ld de, $9501
-	ld hl, $5CC0
-	ld a, $2D
+	ld hl, Gfx_MailBody_Tiles + $200 ; 2D:5CC0
+	ld a, BANK(Gfx_MailBody_Tiles)
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMA

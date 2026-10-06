@@ -224,6 +224,9 @@ Data_71_6688:: ; 71:6688
 Data_71_66A0:: ; 71:66A0
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $DF, $25, $A0, $3A, $FF, $7F, $00, $00
+; [PROBABLE] the 8 bytes from here (1 byte of this block and the 7 bytes of Data_71_66C1 below) are one palette that Palette_LoadToBuffer reads (bc = 8, engine/account/delete_registration.asm); the headers around
+; this label (data $66A0-$66C1, tiles-2bpp $66C1-$66C8) are heuristics that this read contradicts: $6688-$66C8 is an array of palettes, still to be retyped
+Palette_71_66C0:: ; 71:66C0
 	db $00
 
 ; ---- gfx $66C1-$66C8 (7 bytes) [PROBABLE] tiles-2bpp: heuristic: 82 coherent tiles (hsim2=0.618 vsim2=0.845, 4 blank) parity 1; 1449/1456 bytes also covered by call-site blocks [clipped from 66C1-6C71 by higher-priority evidence]

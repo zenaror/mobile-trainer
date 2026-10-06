@@ -13,7 +13,7 @@ Function_4F_4000::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call FarCall_Inline16
-	dw $050C
+	dw CopyBytes
 	ret
 
 Palette_ReadHardwareToBuffer:: ; 4F:400E

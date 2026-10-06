@@ -54,8 +54,8 @@ Account_ConfirmScreen_Setup:: ; 68:6213
 	farcall Palette_LoadToBuffer
 	ld bc, $0018
 	ld de, wPaletteBufObj + $28
-	ld hl, $4CE0
-	ld a, $5F
+	ld hl, Palette_5F_4CD0 + $10 ; 5F:4CE0
+	ld a, BANK(Palette_5F_4CD0)
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap
@@ -291,8 +291,8 @@ Account_ConfirmManualScreen_Setup:: ; 68:6451
 	farcall Palette_LoadToBuffer
 	ld bc, $0018
 	ld de, wPaletteBufObj + $28
-	ld hl, $4CE0
-	ld a, $5F
+	ld hl, Palette_5F_4CD0 + $10 ; 5F:4CE0
+	ld a, BANK(Palette_5F_4CD0)
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap

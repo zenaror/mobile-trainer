@@ -529,29 +529,29 @@ MailSrvDel_Confirm:: ; 23:4471
 	ld de, wTileStage2 + $100
 	farcall TextTiles_RenderLine
 	call VBlank_Wait
-	ld hl, $472B
+	ld hl, String_23_472B
 	ld a, $02
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
-	ld a, $23
+	ld a, BANK(String_23_472B)
 	ld bc, wTileStage2 + $200
 	ld de, wTileStage2 + $300
 	farcall TextTiles_RenderLine
 	call VBlank_Wait
-	ld hl, $474C
+	ld hl, String_23_474C
 	ld a, $02
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
-	ld a, $23
+	ld a, BANK(String_23_474C)
 	ld bc, wTileStage2 + $400
 	ld de, wTileStage2 + $500
 	farcall TextTiles_RenderLine
 	call VBlank_Wait
-	ld hl, $476D
+	ld hl, String_23_476D
 	ld a, $02
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
-	ld a, $23
+	ld a, BANK(String_23_476D)
 	ld bc, wTileStage2 + $600
 	ld de, wTileStage2 + $700
 	farcall TextTiles_RenderLine
@@ -702,8 +702,11 @@ PUSHC sjis
 String_MailSrvDel_Confirm:: ; 23:470A
 String_23_470A::
 	db "このしょりをおこなうと　　　　　", 0
+String_23_472B:: ; 23:472B
 	db "サーバにある　すべてのメールが　", 0
+String_23_474C:: ; 23:474C
 	db "きえてしまいます　　　　　　　　", 0
+String_23_476D:: ; 23:476D
 	db "　　　　よろしいですか？　　　　", 0
 POPC
 

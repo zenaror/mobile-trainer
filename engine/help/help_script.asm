@@ -83,8 +83,8 @@ HelpScript_Run:: ; 6C:59B2
 	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0040
 	ld de, wPaletteBufObj
-	ld hl, $7260
-	ld a, $6A
+	ld hl, Palette_HelpScript_Bg + $40 ; 6A:7260
+	ld a, BANK(Palette_HelpScript_Bg)
 	farcall Palette_LoadToBuffer
 	ld a, $60
 	ld bc, $020C

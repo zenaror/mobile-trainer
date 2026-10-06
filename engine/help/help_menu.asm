@@ -134,8 +134,8 @@ Label_6C_401D::
 	call Sprite_SetPosition
 	ld bc, $0040
 	ld de, wPaletteBufObj
-	ld hl, $62F0
-	ld a, $6A
+	ld hl, Data_6A_62D8 + $18 ; 6A:62F0
+	ld a, BANK(Data_6A_62D8)
 	farcall Palette_LoadToBuffer
 	call HelpMenu_DrawItemSelected
 	ld a, $40
@@ -370,10 +370,10 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	ld [wHelpMenu_AttrSrcLo], a
 	ld a, h
 	ld [wHelpMenu_AttrSrcHi], a
-	ld hl, $48FC
+	ld hl, Tilemap_6A_4870 + $8C ; 6A:48FC
 	ld de, wScreenTileMap + $A9
 	ld bc, $030A
-	ld a, $6A
+	ld a, BANK(Tilemap_6A_4870)
 	farcall Tilemap_CopyRectAndAttrPtr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
@@ -399,10 +399,10 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	ld [wHelpMenu_AttrSrcLo], a
 	ld a, h
 	ld [wHelpMenu_AttrSrcHi], a
-	ld hl, $491A
+	ld hl, Tilemap_6A_4870 + $AA ; 6A:491A
 	ld de, wScreenTileMap + $E9
 	ld bc, $040A
-	ld a, $6A
+	ld a, BANK(Tilemap_6A_4870)
 	farcall Tilemap_CopyRectAndAttrPtr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
@@ -477,10 +477,10 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	ld [wHelpMenu_AttrSrcLo], a
 	ld a, h
 	ld [wHelpMenu_AttrSrcHi], a
-	ld hl, $4A50
+	ld hl, Tilemap_6A_4A14 + $3C ; 6A:4A50
 	ld de, wScreenTileMap + $109
 	ld bc, $030A
-	ld a, $6A
+	ld a, BANK(Tilemap_6A_4A14)
 	farcall Tilemap_CopyRectAndAttrPtr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
@@ -550,10 +550,10 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	ld [wHelpMenu_AttrSrcLo], a
 	ld a, h
 	ld [wHelpMenu_AttrSrcHi], a
-	ld hl, $4B04
+	ld hl, Tilemap_6A_4AC8 + $3C ; 6A:4B04
 	ld de, wScreenTileMap + $109
 	ld bc, $030A
-	ld a, $6A
+	ld a, BANK(Tilemap_6A_4AC8)
 	farcall Tilemap_CopyRectAndAttrPtr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
@@ -643,10 +643,10 @@ Function_6C_453D::
 	ld [wHelpMenu_AttrSrcLo], a
 	ld a, h
 	ld [wHelpMenu_AttrSrcHi], a
-	ld hl, $4C08
+	ld hl, Tilemap_6A_4B7C + $8C ; 6A:4C08
 	ld de, wScreenTileMap + $A9
 	ld bc, $030A
-	ld a, $6A
+	ld a, BANK(Tilemap_6A_4B7C)
 	farcall Tilemap_CopyRectAndAttrPtr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
@@ -672,10 +672,10 @@ Function_6C_453D::
 	ld [wHelpMenu_AttrSrcLo], a
 	ld a, h
 	ld [wHelpMenu_AttrSrcHi], a
-	ld hl, $4C26
+	ld hl, Tilemap_6A_4B7C + $AA ; 6A:4C26
 	ld de, wScreenTileMap + $E9
 	ld bc, $040A
-	ld a, $6A
+	ld a, BANK(Tilemap_6A_4B7C)
 	farcall Tilemap_CopyRectAndAttrPtr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
@@ -750,10 +750,10 @@ Function_6C_453D::
 	ld [wHelpMenu_AttrSrcLo], a
 	ld a, h
 	ld [wHelpMenu_AttrSrcHi], a
-	ld hl, $4D5C
+	ld hl, Tilemap_6A_4D20 + $3C ; 6A:4D5C
 	ld de, wScreenTileMap + $109
 	ld bc, $030A
-	ld a, $6A
+	ld a, BANK(Tilemap_6A_4D20)
 	farcall Tilemap_CopyRectAndAttrPtr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
@@ -823,10 +823,10 @@ Function_6C_453D::
 	ld [wHelpMenu_AttrSrcLo], a
 	ld a, h
 	ld [wHelpMenu_AttrSrcHi], a
-	ld hl, $4E10
+	ld hl, Tilemap_6A_4DD4 + $3C ; 6A:4E10
 	ld de, wScreenTileMap + $109
 	ld bc, $030A
-	ld a, $6A
+	ld a, BANK(Tilemap_6A_4DD4)
 	farcall Tilemap_CopyRectAndAttrPtr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers

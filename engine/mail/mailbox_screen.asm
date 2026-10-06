@@ -50,8 +50,8 @@ Function_25_4B0D::
 	farcall Gfx_StartHDMA
 	call VBlank_Wait
 	ld de, $8700
-	ld hl, $6A00
-	ld a, $25
+	ld hl, Mailbox_Tiles_69F0 + $10 ; 25:6A00
+	ld a, BANK(Mailbox_Tiles_69F0)
 	ld b, $97
 	ld c, $10
 	farcall Gfx_StartHDMA
@@ -108,8 +108,8 @@ Function_25_4B0D::
 	farcall Gfx_StartHDMA
 	call VBlank_Wait
 	ld de, $8700
-	ld hl, $6A00
-	ld a, $25
+	ld hl, Mailbox_Tiles_69F0 + $10 ; 25:6A00
+	ld a, BANK(Mailbox_Tiles_69F0)
 	ld b, $97
 	ld c, $10
 	farcall Gfx_StartHDMA

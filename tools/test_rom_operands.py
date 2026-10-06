@@ -3,6 +3,7 @@
 
     python3 tools/test_rom_operands.py [-v]
 """
+import collections
 import contextlib
 import io
 import os
@@ -236,7 +237,7 @@ class RomOperands(unittest.TestCase):
                 with open(os.path.join(d, 'analysis/naming2/r.tsv'), 'w', encoding='utf-8') as fh:
                     fh.write(text)
                 return ro.read_rules(d, 'analysis/naming2/r.tsv')
-            self.assertEqual(rules('# comment\nSprite_InitSlot\tde\tA\tproof\n'), {('Sprite_InitSlot', 'de'): ('A', 'proof')})
+            self.assertEqual(rules('# comment\nSprite_InitSlot\tde\tA\tproof\n'), {('Sprite_InitSlot', 'de'): ('A', 'proof', '-', '-')})
             for bad in ('X\thl\tsomewhere\tproof\n', 'X\ta\tA\tproof\n', 'X\thl\tA\n', 'X\thl\tA\tp\nX\thl\trom0\tq\n'):
                 with self.assertRaises(ValueError):
                     rules(bad)
@@ -260,7 +261,7 @@ class RomOperands(unittest.TestCase):
         root = os.path.dirname(HERE)
         rules = ro.read_rules(root, ro.CONSUMERS)
         self.assertIn(('Sprite_InitSlot', 'de'), rules)
-        self.assertTrue(all(b in ro.BANKS or ro.FIXED.match(b) for b, _ in rules.values()))
+        self.assertTrue(all(r[0] in ro.BANKS or ro.FIXED.match(r[0]) for r in rules.values()))
 
 
 # ---- tests found by reader R1 of romop1 (docs/research/naming2_verify_romop1.md): every one of them kills a mutant of the tool or of the helpers it shares with tools/apply_ram_operands.py
@@ -556,6 +557,337 @@ class MainFlow(unittest.TestCase):
 
     def test_a_missing_rules_file_is_exit_2(self):
         self.assertEqual(self.main('--root', self.d, '--consumers', 'analysis/nothing.tsv'), 2)
+
+
+# ---- the offset form, the neutral labels at an exact start of a data line and the inline word (second pass over the ROM pointers)
+BLOCKS = ('SECTION "b", ROMX\n'
+          'Pal_Block:: ; 5F:4CD0\n\tINCLUDE "gfx/x/palette_4cd0.pal"\n'
+          'Next_Block:: ; 5F:4D10\n\tINCBIN "gfx/x/tiles_4d10.2bpp"\n'
+          'Map_Block:: ; 5F:5110\n\tINCBIN "gfx/x/tilemap_5110.tilemap"\n\tINCBIN "gfx/x/tilemap_5110.attrmap"\n'
+          'Str_Block:: ; 5F:5400\n\tdb "abc", 0\n\tdb "def", 0\n\tnop\n'
+          'Raw_Block:: ; 5F:5500\n\tdb $01, $02, $03, $04\n')
+ASSETS = {'gfx/x/palette_4cd0.pal': 'palette', 'gfx/x/tiles_4d10.2bpp': 'tiles', 'gfx/x/tilemap_5110.tilemap': 'tilemap', 'gfx/x/tilemap_5110.attrmap': 'attrmap'}
+BLOCK_ADDR = {2: 0x4CD0, 4: 0x4D10, 6: 0x5110, 7: 0x5110 + 360, 9: 0x5400, 10: 0x5404, 11: 0x5408, 13: 0x5500}      # line index of gfx/b.asm -> address (360 = a 18 x 20 tilemap)
+RULES2 = {
+    ('Palette_LoadToBuffer', 'hl'): ('A', 'palette source', 'palette', 'bc'),
+    ('Gfx_StartHDMA', 'hl'): ('A', 'tile source', 'tiles', 'c16'),
+    ('Tilemap_CopyRectAndAttr', 'hl'): ('A', 'tilemap source', 'tilemap', 'rowscols2'),
+    ('Tilemap_CopyRectAndAttrPtr', 'hl'): ('A', 'tilemap source', 'tilemap', 'rowscols'),
+    ('TextTiles_RenderLine', 'hl'): ('A', 'string', 'string', '-'),
+    ('CopyBytes', 'hl'): ('mapped', 'source', 'data', 'bc'),
+}
+
+
+def block_plan(code, rules=RULES2, extra=None):
+    tr = ar.Tree({'engine/a.asm': ('SECTION "a", ROMX\nA::\n' + code).split('\n'), 'gfx/b.asm': BLOCKS.split('\n')})
+    by_addr = {(0x5F, 0x4CD0): ['Pal_Block'], (0x5F, 0x4D10): ['Next_Block'], (0x5F, 0x5110): ['Map_Block'], (0x5F, 0x5400): ['Str_Block'], (0x5F, 0x5500): ['Raw_Block'],
+               (0x00, 0x050C): ['CopyBytes'], (0x00, 0x0A1A): ['Sprite_HookAddSlideOffset']}
+    by_addr.update(extra or {})
+    by_name = {n: k for k, v in by_addr.items() for n in v}
+    at, of = {}, {}
+    for j, a in BLOCK_ADDR.items():
+        at[(0x5F, a)] = [('gfx/b.asm', j)]
+        of[('gfx/b.asm', j)] = (0x5F, a)
+    for i in range(len(tr.files['engine/a.asm'])):
+        of[('engine/a.asm', i)] = (0x28, 0x4000 + i)
+    rows = ro.plan(tr, rules, by_addr, by_name, at, of, None, ASSETS)
+    return tr, rows, ro.apply_rows(tr, rows)
+
+
+class RomOperandsBlocks(unittest.TestCase):
+    def test_a_palette_inside_a_palette_block_is_the_label_plus_the_offset(self):
+        _, rows, new = block_plan('\tld hl, $4CE0\n\tld de, wBuf\n\tld bc, $0018\n\tld a, $5F\n\tfarcall Palette_LoadToBuffer\n\tret\n')
+        self.assertEqual([r[4:6] for r in rows if r[2] == 'hl'], [('apply', 'Pal_Block + $10')])
+        got = new['engine/a.asm']
+        self.assertIn('\tld hl, Pal_Block + $10 ; 5F:4CE0', got)
+        self.assertIn('\tld a, BANK(Pal_Block)', got)
+        self.assertNotIn('gfx/b.asm', new)
+
+    def test_the_read_must_be_proven_and_must_stay_in_the_block_or_in_blocks_of_the_same_kind(self):
+        code = '\tld hl, $4CE0\n\tld de, wBuf\n%s\tld a, $5F\n\tfarcall Palette_LoadToBuffer\n\tret\n'
+        _, rows, new = block_plan(code % '\tld bc, $0040\n')                 # 64 bytes from +$10 of a 64-byte palette run into the tile block
+        self.assertEqual(outcome(rows, 'hl'), ['read crosses'])
+        self.assertEqual(new, {})
+        _, rows, _ = block_plan(code % '\tld bc, wCount\n')                   # the byte count is not a constant
+        self.assertEqual(outcome(rows, 'hl'), ['read not shown'])
+        _, rows, _ = block_plan(code % '\tld b, $00\n\tld c, a\n')
+        self.assertEqual(outcome(rows, 'hl'), ['read not shown'])
+
+    def test_a_block_of_another_kind_is_never_named_by_the_wrong_role(self):
+        _, rows, new = block_plan('\tld hl, $4D20\n\tld de, wBuf\n\tld bc, $0010\n\tld a, $5F\n\tfarcall Palette_LoadToBuffer\n\tret\n')
+        self.assertEqual(outcome(rows, 'hl'), ['block kind'])               # a palette read inside a tile sheet: the block is typed wrong, it is not named
+        self.assertEqual(new, {})
+
+    def test_tiles_by_blocks_of_16_bytes_and_tilemaps_by_rows_and_columns(self):
+        _, rows, new = block_plan('\tld hl, $4D20\n\tld de, $8800\n\tld a, $5F\n\tld b, $94\n\tld c, $10\n\tfarcall Gfx_StartHDMA\n\tret\n')
+        self.assertEqual([r[5] for r in rows if r[4] == 'apply'], ['Next_Block + $10'])      # 16 blocks = 256 bytes from +$10 of a 1,024-byte sheet
+        _, rows, _ = block_plan('\tld hl, $4D20\n\tld de, $8800\n\tld a, $5F\n\tld c, $40\n\tfarcall Gfx_StartHDMA\n\tret\n')
+        self.assertEqual(outcome(rows, 'hl'), ['read crosses'])             # 64 blocks run past the end of the sheet
+        code = '\tld hl, $5128\n\tld de, wScreenTileMap\n\tld a, $5F\n\tld bc, $%s\n\tfarcall %s\n\tret\n'
+        _, rows, new = block_plan(code % ('0A14', 'Tilemap_CopyRectAndAttrPtr'))        # 10 x 20 tile bytes from +$18 of a 360-byte tilemap
+        self.assertEqual([r[5] for r in rows if r[4] == 'apply'], ['Map_Block + $18'])
+        _, rows, _ = block_plan(code % ('0A14', 'Tilemap_CopyRectAndAttr'))              # tiles and attributes: 2 x 200 bytes
+        self.assertEqual(outcome(rows, 'hl'), ['apply'])
+        _, rows, _ = block_plan(code % ('1214', 'Tilemap_CopyRectAndAttr'))              # 2 x 360 bytes from +$18 run past the end of the pair of files, into an untyped `db` run: accepted
+        self.assertEqual(outcome(rows, 'hl'), ['apply'])
+        _, rows, _ = block_plan('\tld hl, $4CE8\n\tld de, wBuf\n\tld bc, $0040\n\tld a, $5F\n\tfarcall Palette_LoadToBuffer\n\tret\n')   # the same read into a block typed as tiles: refused
+        self.assertEqual(outcome(rows, 'hl'), ['read crosses'])
+
+    def test_a_neutral_label_of_the_kind_of_the_data_goes_in_front_of_an_exact_start(self):
+        code = '\tld hl, $%s\n\tld a, $5F\n\tfarcall TextTiles_RenderLine\n\tret\n'
+        tr, rows, new = block_plan(code % '5404')
+        self.assertEqual([r[5] for r in rows if r[4] == 'apply'], ['String_5F_5404'])
+        t = new['gfx/b.asm']
+        k = t.index('String_5F_5404:: ; 5F:5404')
+        self.assertEqual(t[k + 1], '\tdb "def", 0')
+        self.assertIn('\tld hl, String_5F_5404', new['engine/a.asm'])
+        self.assertIn('\tld a, BANK(String_5F_5404)', new['engine/a.asm'])
+        _, rows, new = block_plan(code % '5408')                                         # the line at that address is code (`nop`): a pointer there is not a string
+        self.assertEqual(outcome(rows, 'hl'), ['not a table entry'])
+        self.assertEqual(new, {})
+
+    def test_a_pointer_into_a_string_stays_numeric_and_a_rule_without_data_writes_no_label(self):
+        _, rows, new = block_plan('\tld hl, $5402\n\tld a, $5F\n\tfarcall TextTiles_RenderLine\n\tret\n')
+        self.assertEqual(outcome(rows, 'hl'), ['no label'])                              # inside a line, a string has no length to prove
+        rules = dict(RULES2)
+        rules[('TextTiles_RenderLine', 'hl')] = ('A', 'string', '-', '-')
+        _, rows, new = block_plan('\tld hl, $5404\n\tld a, $5F\n\tfarcall TextTiles_RenderLine\n\tret\n', rules)
+        self.assertEqual(outcome(rows, 'hl'), ['not a table entry'])
+        self.assertEqual(new, {})
+
+    def test_a_name_that_exists_is_not_written_twice(self):
+        _, rows, _ = block_plan('\tld hl, $5404\n\tld a, $5F\n\tfarcall TextTiles_RenderLine\n\tret\n', extra={(0x2D, 0x1111): ['String_5F_5404']})
+        self.assertEqual(outcome(rows, 'hl'), ['name taken'])
+
+    def test_the_inline_word_of_the_far_call_with_a_bank_in_hfarbank(self):
+        tr = ar.Tree({'engine/a.asm': ['SECTION "a", ROMX', 'A::', '\tcall FarCall_Inline16', '\tdw $050C', '\tret', '\tcall FarCall_Inline16', '\tdw $5000', '\tcall Other', '\tdw $050C']})
+        by_addr = {(0, 0x050C): ['CopyBytes']}
+        rows = ro.plan_inline_words(tr, by_addr)
+        self.assertEqual([(r[1], r[5]) for r in rows], [(3, 'CopyBytes')])               # only a ROM0 label after that call: `$5000` has the bank of hFarBank, `Other` is not the call
+        new = ro.apply_rows(tr, rows)
+        self.assertEqual(new['engine/a.asm'][3], '\tdw CopyBytes')
+
+    def test_registers_that_hold_a_constant_before_a_call(self):
+        def consts(*body):
+            lines = list(body) + ['\tcall X']
+            return ro.reg_consts(lines, len(lines) - 1)
+        self.assertEqual(consts('\tld bc, $1214'), {'b': 0x12, 'c': 0x14})
+        self.assertEqual(consts('\tld b, $94', '\tld c, $30'), {'b': 0x94, 'c': 0x30})
+        self.assertEqual(consts('\tld bc, $1214', '\tld c, $30'), {'b': 0x12, 'c': 0x30})
+        self.assertEqual(consts('\tld c, $30', '\tld bc, $1214'), {'b': 0x12, 'c': 0x14})        # the nearest write wins
+        self.assertEqual(consts('\tld de, $0102', '\tld bc, $0304'), {'b': 3, 'c': 4, 'd': 1, 'e': 2})
+        for ins in ('\tld b, a', '\tld c, [hl]', '\tinc c', '\tpop bc', '\tld [hl], b', '\tadd hl, bc', '\tld a, [bc]', '\tldh [c], a'):
+            c = consts('\tld bc, $0102', ins)
+            self.assertNotIn('c', c if 'c' in ins or 'bc' in ins else {}, ins)                   # any other mention of the register makes it unknown
+        self.assertEqual(consts('\tld bc, $0102', '.x'), {})                                    # a local label: another path may join
+        self.assertEqual(consts('\tld bc, $0102', '\tcall Foo'), {})
+        self.assertEqual(consts('\tld bc, $0102', '\tjr z, .x'), {})
+        self.assertEqual(consts('\tld bc, wCount'), {})
+
+    def test_the_needed_length_of_each_rule(self):
+        def need(rule, *body):
+            lines = list(body) + ['\tcall X']
+            return ro.needed_length(lines, len(lines) - 1, rule)
+        self.assertEqual(need('bc', '\tld bc, $0040'), 0x40)
+        self.assertEqual(need('de', '\tld de, $000A'), 10)
+        self.assertEqual(need('c16', '\tld c, $30'), 0x300)
+        self.assertIsNone(need('c16', '\tld c, $00'))
+        self.assertEqual(need('b', '\tld b, $07'), 7)
+        self.assertEqual(need('rowscols', '\tld bc, $0A14'), 200)
+        self.assertEqual(need('rowscols2', '\tld bc, $0A14'), 400)
+        self.assertIsNone(need('bc', '\tld b, $00'))
+        self.assertIsNone(need('rowscols', '\tld bc, $0014'))
+
+    def test_a_rules_file_with_data_and_length_columns(self):
+        d = tempfile.mkdtemp(prefix='r6_')
+        try:
+            os.makedirs(os.path.join(d, 'analysis'))
+
+            def rules(text):
+                with open(os.path.join(d, 'analysis', 'r.tsv'), 'w', encoding='utf-8') as fh:
+                    fh.write(text)
+                return ro.read_rules(d, 'analysis/r.tsv')
+            self.assertEqual(rules('X\thl\tA\tpalette\tbc\tproof\n'), {('X', 'hl'): ('A', 'proof', 'palette', 'bc')})
+            self.assertEqual(rules('X\thl\tmapped\t-\t-\tproof\nY\tde\t75\tdata\tde\tproof\n'), {('X', 'hl'): ('mapped', 'proof', '-', '-'), ('Y', 'de'): ('75', 'proof', 'data', 'de')})
+            for bad in ('X\thl\tA\tsprite\tbc\tproof\n', 'X\thl\tA\tpalette\tbytes\tproof\n', 'X\thl\tA\tpalette\tbc\n', 'X\thl\tA\tpalette\tbc\tproof\textra\n'):
+                with self.assertRaises(ValueError):
+                    rules(bad)
+        finally:
+            shutil.rmtree(d, ignore_errors=True)
+
+    def test_a_second_run_finds_nothing_to_write(self):
+        tr, rows, new = block_plan('\tld hl, $4CE0\n\tld de, wBuf\n\tld bc, $0018\n\tld a, $5F\n\tfarcall Palette_LoadToBuffer\n\tld hl, $5404\n\tld a, $5F\n\tfarcall TextTiles_RenderLine\n\tret\n')
+        files = {rel: lines for rel, lines in new.items()}
+        files.setdefault('gfx/b.asm', tr.files['gfx/b.asm'])
+        tr2 = ar.Tree({'engine/a.asm': files['engine/a.asm'], 'gfx/b.asm': files['gfx/b.asm']})
+        by_addr = {(0x5F, 0x4CD0): ['Pal_Block'], (0x5F, 0x4D10): ['Next_Block'], (0x5F, 0x5404): ['String_5F_5404'], (0x5F, 0x5400): ['Str_Block']}
+        by_name = {n: k for k, v in by_addr.items() for n in v}
+        rows2 = ro.plan(tr2, RULES2, by_addr, by_name, {}, {}, None, ASSETS)
+        self.assertEqual([r for r in rows2 if r[4] in ('apply', 'bank only')], [])
+
+
+# ---- the checks that the independent reader asked for: the kind and the length of the read at an exact start too, the zero count, the bank limit, the unit of the data, the anchor and its destination
+HBLOCKS = ('SECTION "c", ROMX\n'                                         # 0
+           'Pal_A:: ; 5F:4C00\n\tINCLUDE "gfx/x/pal_a.pal"\n'            # 1, 2: 32 bytes
+           '\tdb $00, $00, $00\n'                                          # 3: 4C20, 3 bytes
+           'Odd:: ; 5F:4C23\n\tdb $00, $00, $00, $00, $00\n'               # 4, 5: 4C23, 5 bytes
+           '\tdb $01, $02, $03, $04, $05, $06, $07, $08, $09, $0A, $0B, $0C, $0D, $0E, $0F, $10\n'   # 6: 4C28, 16 bytes
+           '\tnop\n'                                                       # 7: 4C38, code
+           '\tINCLUDE "gfx/x/pal_b.pal"\n'                                # 8: 4C39
+           'Sheet_Tiles9400Vb1:: ; 5F:5000\n\tINCBIN "gfx/x/sheet.2bpp"\n'  # 9, 10: 1,024 bytes
+           '\tINCBIN "gfx/x/sheet2.2bpp"\n'                               # 11: 5400, 32 bytes, no label
+           'Str:: ; 5F:5500\n\tdb "ab", 0\n\tdw $1234\n'                  # 12, 13, 14
+           'Map:: ; 5F:5600\n\tINCBIN "gfx/x/map.tilemap"\n\tINCBIN "gfx/x/map.attrmap"\n'   # 15, 16, 17: 360 + 360
+           'Pal_C:: ; 5F:7FE0\n\tINCLUDE "gfx/x/pal_c.pal"\n')           # 18, 19: 32 bytes up to the end of the bank
+HADDR = {2: 0x4C00, 3: 0x4C20, 5: 0x4C23, 6: 0x4C28, 7: 0x4C38, 8: 0x4C39, 10: 0x5000, 11: 0x5400, 13: 0x5500, 14: 0x5504, 16: 0x5600, 17: 0x5768, 19: 0x7FE0}
+HLABELS = {'Pal_A': 0x4C00, 'Odd': 0x4C23, 'Sheet_Tiles9400Vb1': 0x5000, 'Str': 0x5500, 'Map': 0x5600, 'Pal_C': 0x7FE0}
+HASSETS = {'gfx/x/pal_a.pal': 'palette', 'gfx/x/pal_b.pal': 'palette', 'gfx/x/pal_c.pal': 'palette', 'gfx/x/sheet.2bpp': 'tiles', 'gfx/x/sheet2.2bpp': 'tiles', 'gfx/x/map.tilemap': 'tilemap', 'gfx/x/map.attrmap': 'attrmap'}
+HRULES = dict(RULES2)
+HRULES[('Gfx_StartHDMA', 'hl')] = ('A', 'tile source', 'tiles', 'c16')
+
+
+def hplan(code, labels=None, assets=None, rules=None):
+    tr = ar.Tree({'engine/a.asm': ('SECTION "a", ROMX\nA::\n' + code).split('\n'), 'gfx/c.asm': HBLOCKS.split('\n')})
+    by_addr = collections.defaultdict(list)
+    for n, a in (labels or HLABELS).items():
+        by_addr[(0x5F, a)].append(n)
+    by_addr[(0x00, 0x050C)] = ['CopyBytes']
+    by_name = {n: k for k, v in by_addr.items() for n in v}
+    at, of = {}, {}
+    for j, a in HADDR.items():
+        at[(0x5F, a)] = [('gfx/c.asm', j)]
+        of[('gfx/c.asm', j)] = (0x5F, a)
+    for i in range(len(tr.files['engine/a.asm'])):
+        of[('engine/a.asm', i)] = (0x28, 0x4000 + i)
+    rows = ro.plan(tr, rules or HRULES, by_addr, by_name, at, of, None, assets or HASSETS)
+    return tr, rows, ro.apply_rows(tr, rows)
+
+
+PALCALL = '\tld hl, $%s\n\tld de, wBuf\n%s\tld a, $5F\n\tfarcall Palette_LoadToBuffer\n\tret\n'
+HDMACALL = '\tld hl, $%s\n%s\tld a, $5F\n\tld c, $%s\n\tfarcall Gfx_StartHDMA\n\tret\n'
+
+
+class RomOperandsHardened(unittest.TestCase):
+    def test_a_palette_label_is_not_written_in_front_of_a_tile_sheet(self):
+        _, rows, new = hplan(PALCALL % ('5400', '\tld bc, $0008\n'))                  # the exact start of a `.2bpp` INCBIN: a typed block of another kind
+        self.assertEqual(outcome(rows, 'hl'), ['block kind'])
+        self.assertEqual(new, {})
+
+    def test_an_exact_start_runs_the_same_read_check_as_an_offset(self):
+        _, rows, _ = hplan(PALCALL % ('4C28', '\tld bc, $0008\n'))                       # 8 bytes of a db line: fine
+        self.assertEqual(outcome(rows, 'hl'), ['apply'])
+        _, rows, _ = hplan(PALCALL % ('4C28', '\tld bc, $0018\n'))                       # the read runs on into a `nop`
+        self.assertEqual(outcome(rows, 'hl'), ['read crosses'])
+        _, rows, _ = hplan(PALCALL % ('4C28', ''))                                         # the length is not shown
+        self.assertEqual(outcome(rows, 'hl'), ['read not shown'])
+
+    def test_a_string_label_needs_a_db_line_and_a_table_label_a_dw_or_db_line(self):
+        code = '\tld hl, $%s\n\tld a, $5F\n\tfarcall TextTiles_RenderLine\n\tret\n'
+        _, rows, new = hplan(code % '5500')
+        self.assertEqual(outcome(rows, 'hl'), ['apply'])
+        _, rows, new = hplan(code % '5504')                                                # a `dw` line is not a string
+        self.assertEqual(outcome(rows, 'hl'), ['not a table entry'])
+        self.assertEqual(new, {})
+
+    def test_a_count_of_zero_is_not_a_read_of_no_bytes(self):
+        for pre in ('\tld bc, $0000\n', '\tld b, $00\n\tld c, $00\n'):
+            _, rows, _ = hplan(PALCALL % ('4C28', pre))
+            self.assertEqual(outcome(rows, 'hl'), ['read not shown'], pre)
+        lines = ['\tld b, $00', '\tcall X']
+        self.assertIsNone(ro.needed_length(lines, 1, 'b'))
+        self.assertIsNone(ro.needed_length(['\tld de, $0000', '\tcall X'], 1, 'de'))
+        self.assertEqual(ro.needed_length(['\tld b, $07', '\tcall X'], 1, 'b'), 7)
+
+    def test_the_read_must_end_inside_the_bank(self):
+        _, rows, _ = hplan(PALCALL % ('7FF0', '\tld bc, $0010\n'))                       # exactly to the end of the bank: fine
+        self.assertEqual(outcome(rows, 'hl'), ['apply'])
+        _, rows, _ = hplan(PALCALL % ('7FF0', '\tld bc, $0020\n'))                       # runs past $8000
+        self.assertEqual(outcome(rows, 'hl'), ['read crosses'])
+
+    def test_a_tile_read_by_hdma_starts_on_a_tile(self):
+        _, rows, _ = hplan(HDMACALL % ('5208', '\tld de, $9601\n', '10'))
+        self.assertEqual(outcome(rows, 'hl'), ['unaligned'])
+
+    def test_a_tilemap_read_by_the_ptr_routine_stays_in_the_tile_half(self):
+        rules = dict(HRULES)
+        rules[('Tilemap_CopyRectAndAttrPtr', 'hl')] = ('A', 'tilemap source', 'tilemap', 'rowscols')
+        code = '\tld hl, $%s\n\tld de, wScreenTileMap\n\tld a, $5F\n\tld bc, $%s\n\tfarcall Tilemap_CopyRectAndAttrPtr\n\tret\n'
+        _, rows, new = hplan(code % ('5610', '0A14'), rules=rules)                        # 200 bytes from +$10: ends inside the 360-byte tile half
+        self.assertEqual([r[5] for r in rows if r[4] == 'apply'], ['Map + $10'])
+        _, rows, _ = hplan(code % ('5700', '1214'), rules=rules)                          # 360 bytes from +$100: into the attribute half
+        self.assertEqual(outcome(rows, 'hl'), ['read crosses'])
+
+    def test_a_label_that_cuts_a_palette_is_passed_over_for_the_anchor(self):
+        _, rows, new = hplan(PALCALL % ('4C30', '\tld bc, $0008\n'))                      # the nearest label (Odd, 4C23) is not on an 8-byte palette: the anchor is Pal_A
+        self.assertEqual([r[5] for r in rows if r[4] == 'apply'], ['Pal_A + $30'])
+        self.assertIn('\tld hl, Pal_A + $30 ; 5F:4C30', new['engine/a.asm'])
+        _, rows, _ = hplan(PALCALL % ('4C30', '\tld bc, $0008\n'), labels={'Odd': 0x4C23, 'Sheet_Tiles9400Vb1': 0x5000})   # no older label at all
+        self.assertEqual(outcome(rows, 'hl'), ['unaligned anchor'])
+
+    def test_a_tile_sheet_label_must_state_the_destination_that_the_call_loads(self):
+        _, rows, new = hplan(HDMACALL % ('5200', '\tld de, $9601\n', '20'))               # $9400 + $200 = $9600: the label is the right one
+        self.assertEqual([r[5] for r in rows if r[4] == 'apply'], ['Sheet_Tiles9400Vb1 + $200'])
+        self.assertIn('\tld hl, Sheet_Tiles9400Vb1 + $200 ; 5F:5200', new['engine/a.asm'])
+        _, rows, new = hplan(HDMACALL % ('5200', '\tld de, $8801\n', '20'))               # the same bytes are loaded to $8800: another load of the sheet
+        self.assertEqual(outcome(rows, 'hl'), ['anchor names another destination'])
+        self.assertEqual(new, {})
+        _, rows, _ = hplan(HDMACALL % ('5200', '\tld de, wDest\n', '20'))                 # the destination is not a constant
+        self.assertEqual(outcome(rows, 'hl'), ['read not shown'])
+
+    def test_an_offset_operand_carries_the_address_as_a_comment(self):
+        code = '\tld hl, $4C30 ; the second palette\n\tld de, wBuf\n\tld bc, $0008\n\tld a, $5F\n\tfarcall Palette_LoadToBuffer\n\tret\n'
+        _, rows, new = hplan(code)
+        self.assertIn('\tld hl, Pal_A + $30 ; 5F:4C30, the second palette', new['engine/a.asm'])
+        tr2 = ar.Tree({'engine/a.asm': new['engine/a.asm'], 'gfx/c.asm': HBLOCKS.split('\n')})
+        by_addr = {(0x5F, 0x4C00): ['Pal_A']}
+        rows2 = ro.plan(tr2, HRULES, by_addr, {'Pal_A': (0x5F, 0x4C00)}, {}, {}, None, HASSETS)
+        self.assertEqual([r for r in rows2 if r[4] in ('apply', 'bank only')], [])             # a second run finds nothing
+
+
+class RomOperandsMore(unittest.TestCase):
+    def test_a_read_that_ends_exactly_at_the_end_of_a_block_is_inside_it(self):
+        _, rows, _ = hplan(HDMACALL % ('5300', '\tld de, $9701\n', '10'))                  # $100 bytes from +$300 of a 1,024-byte sheet: ends exactly at its end
+        self.assertEqual([r[5] for r in rows if r[4] == 'apply'], ['Sheet_Tiles9400Vb1 + $300'])
+        _, rows, _ = hplan(PALCALL % ('4C10', '\tld bc, $0010\n'))                         # to the end of the first palette file
+        self.assertEqual([r[5] for r in rows if r[4] == 'apply'], ['Pal_A + $10'])
+
+    def test_the_inline_word_guards(self):
+        def run(word, comment=''):
+            tr = ar.Tree({'engine/a.asm': ['SECTION "a", ROMX', 'A::', '\tcall FarCall_Inline16', '\tdw $%s%s' % (word, comment)]})
+            return ro.plan_inline_words(tr, {(0, 0x050C): ['CopyBytes']})
+        self.assertEqual(len(run('050C')), 1)
+        self.assertEqual(run('050C', ' ; raw'), [])                                          # a `; raw` line is never rewritten
+        self.assertEqual(run('4000'), [])                                                    # not ROM0
+        self.assertEqual(run('0100'), [])                                                    # below $0150: a vector or the header
+        self.assertEqual(run('0600'), [])                                                    # no label there
+
+    def test_the_assets_table_gives_the_type_of_each_path(self):
+        d = tempfile.mkdtemp(prefix='r7_')
+        try:
+            os.makedirs(os.path.join(d, 'gfx'))
+            with open(os.path.join(d, 'gfx', 'assets.tsv'), 'w', encoding='utf-8') as fh:
+                fh.write('# comment\npath\ttype\tsize\nx/a.pal\tpalette\t32\nx/b.2bpp\ttiles\t1024\n')
+            self.assertEqual(ro.read_assets(d), {'x/a.pal': 'palette', 'x/b.2bpp': 'tiles'})
+            self.assertEqual(ro.read_assets(os.path.join(d, 'missing')), {})
+        finally:
+            shutil.rmtree(d, ignore_errors=True)
+
+    def test_a_rule_without_a_proof_is_malformed(self):
+        d = tempfile.mkdtemp(prefix='r8_')
+        try:
+            os.makedirs(os.path.join(d, 'analysis'))
+            with open(os.path.join(d, 'analysis', 'r.tsv'), 'w', encoding='utf-8') as fh:
+                fh.write('X\thl\tA\tpalette\tbc\t\n')
+            with self.assertRaises(ValueError):
+                ro.read_rules(d, 'analysis/r.tsv')
+        finally:
+            shutil.rmtree(d, ignore_errors=True)
+
+    def test_a_constant_more_than_forty_lines_before_the_call_is_not_seen(self):
+        far = ['\tld bc, $0010'] + ['\tnop'] * 45 + ['\tcall X']
+        self.assertEqual(ro.reg_consts(far, len(far) - 1), {})
+        near = ['\tld bc, $0010'] + ['\tnop'] * 30 + ['\tcall X']
+        self.assertEqual(ro.reg_consts(near, len(near) - 1), {'b': 0, 'c': 0x10})
 
 
 if __name__ == '__main__':

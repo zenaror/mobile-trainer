@@ -51,8 +51,8 @@ Account_ActionConfirmPage_Setup:: ; 68:6E39
 	farcall Palette_LoadToBuffer
 	ld bc, $0018
 	ld de, wPaletteBufObj + $28
-	ld hl, $4CE0
-	ld a, $5F
+	ld hl, Palette_5F_4CD0 + $10 ; 5F:4CE0
+	ld a, BANK(Palette_5F_4CD0)
 	farcall Palette_LoadToBuffer
 	ld a, [wActionConfirmPage_Variant]
 	or a, a
