@@ -432,7 +432,7 @@ SoundSfx32_TrackPtrs:: ; 05:64B5
 Table_05_64B5::
 	dw SoundSfx32_Track0, SoundSfx32_Track1, SoundSfx32_Track2 ; track stream pointers (read by the driver)
 
-; ---- data $64BB-$6506 (75 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md
+; ---- data $64BB-$6506 (75 bytes) [PROBABLE] interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md; read as data by executed code in up to 10 of 69 natural scenarios (75 of 75 bytes; traces/detail)
 
 SoundSfx33_Track0:: ; 05:64BB
 Data_05_64BB::
@@ -776,7 +776,7 @@ SoundSfx3A_TrackPtrs:: ; 05:6614
 Table_05_6614::
 	dw SoundSfx3A_Track0 ; track stream pointers (read by the driver)
 
-; ---- data $6616-$662F (25 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md
+; ---- data $6616-$662F (25 bytes) [PROBABLE] interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md; read as data by executed code in up to 5 of 69 natural scenarios (25 of 25 bytes; traces/detail)
 
 SoundSfx3B_Track0:: ; 05:6616
 Data_05_6616::
@@ -809,7 +809,7 @@ SoundSfx3B_TrackPtrs:: ; 05:6631
 Table_05_6631::
 	dw SoundSfx3B_Track0 ; track stream pointers (read by the driver)
 
-; ---- data $6633-$665B (40 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md
+; ---- data $6633-$665B (40 bytes) [PROBABLE] interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md; read as data by executed code in up to 7 of 69 natural scenarios (40 of 40 bytes; traces/detail)
 
 SoundSfx3C_Track0:: ; 05:6633
 Data_05_6633::
@@ -1161,7 +1161,7 @@ SoundSfx42_TrackPtrs:: ; 05:678B
 Table_05_678B::
 	dw SoundSfx42_Track0 ; track stream pointers (read by the driver)
 
-; ---- data $678D-$67B5 (40 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md
+; ---- data $678D-$67B5 (40 bytes) [PROBABLE] interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md; read as data by executed code in up to 6 of 69 natural scenarios (40 of 40 bytes; traces/detail)
 
 SoundSfx43_Track0:: ; 05:678D
 Data_05_678D::

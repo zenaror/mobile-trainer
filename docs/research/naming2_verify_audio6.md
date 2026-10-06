@@ -21,7 +21,7 @@
    **TrackPtrs** (46 of 46): the address is header + 2, the value `SoundDrv_LoadSongHeader` stores in `wSoundDrv_HeaderPtr`; the driver reads the first `tracks` words from there.
 3. **Calls**: 113 distinct call targets = 98 `Sub` + 15 `Loop`; all 276 calls are backward, nesting depth is at most 1, each target owns a distinct `$B4`; 65 `sound_call ..._Loop` sites exist (20 and 21 calls of one label in song `$14`, tracks 2 and 3); there is no non-final `$B2`, so the generator's `_JumpN` case never applied.  All 113 call targets are **also executed in line** with an empty call stack (the `$B4` is a no-op there): 50 of the 98 `Sub` follow a non-terminating command.
    The definition in the first version ("entered by `sound_call`, left by `sound_ret`") is true but incomplete; the note says so now.
-4. **The 8 neutral labels**: nothing references them (not by name, not by number, not as an operand, not in a header word); five sit at a `sound_call` site, three at an interior note or wait: no structural name would be true.  Side finding: their headers say "unread interior" although the first byte of each region was read in 7 to 14 natural scenarios; of the 41 regions headed "unread interior" in the audio files, 16 have bytes read in the natural union (1,183 of 1,250 bytes).  The headers come from the frozen pipeline and were not changed here (open item).
+4. **The 8 neutral labels**: nothing references them (not by name, not by number, not as an operand, not in a header word); five sit at a `sound_call` site, three at an interior note or wait: no structural name would be true.  Side finding: their headers say "unread interior" although the first byte of each region was read in 7 to 14 natural scenarios; of the 41 regions headed "unread interior" in the audio files, 16 have bytes read in the natural union (1,183 of 1,250 bytes).  The headers come from the frozen pipeline; the 16 stale ones were corrected in the next commit.
 5. **Natural traces**: all 29 songs `$01-$1D` played (3 to 68 scenarios), 29 of 30 effects (not `$37`); tracks that reached their final jump: 82 of 86 (never song `$19`, all four tracks); `Sub` call sites read with the byte after them: 97 of 98; track pointers read: 45 of 46 tables; the loop and after-jump words of the 22 extra-set headers: 0 of 22 read.
 
 ## 3. Defects and what was done
@@ -32,7 +32,7 @@
 | the evidence text of the 5 bank-05 songs without extra sets said "in 0 more word(s) per track, the loop target ..." (a template artifact), and the note said all 16 song tables hold loop and after-jump words (true for 11) | texts fixed |
 | `docs/research/audio_format.md` section 10 still showed the neutral names in its example and said "the 333 that were missing are `Data_BB_AAAA`" | rewritten with the new names |
 | 42 header `dw` lines are now over 160 columns (longest 195) | left: `STYLE.md` sets no column limit |
-| the "unread interior" headers are stale for 16 of 41 regions | left (open item) |
+| the "unread interior" headers are stale for 16 of 41 regions | corrected in the next commit: the 16 headers give the number of natural scenarios that read the region (`traces/detail/*/dataaccess.tsv`) |
 
 ## 4. Limits
 
