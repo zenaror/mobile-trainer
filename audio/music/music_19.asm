@@ -10,7 +10,8 @@ SoundSong19_Track0:: ; 05:5B06
 Data_05_5B06::
 	sound_volume $7F
 	sound_pitch_add $00
-Data_05_5B0A:: ; 05:5B0A
+SoundSong19_Track0_Loop:: ; 05:5B0A
+Data_05_5B0A::
 	sound_tempo $2A
 	sound_instrument $00
 	sound_wait 8
@@ -80,8 +81,9 @@ Data_05_5B0A:: ; 05:5B0A
 	sound_wait 12
 	sound_note 12, $44
 	sound_wait 52
-	sound_jump Data_05_5B0A
-Data_05_5B6C:: ; 05:5B6C
+	sound_jump SoundSong19_Track0_Loop
+SoundSong19_Track0_AfterJump:: ; 05:5B6C
+Data_05_5B6C::
 	sound_end
 
 ; ---- data $5B6D-$5C4C (223 bytes) [PROBABLE] read as data by executed code (in up to 2/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md) | block boundary $5BCB removed (it cut a command in two; its label Data_05_5BCB was not referenced); the second part was: data $5BCB-$5C4C (129 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md (status of the merged block lowered to the weaker of the two parts)
@@ -90,7 +92,8 @@ SoundSong19_Track1:: ; 05:5B6D
 Data_05_5B6D::
 	sound_volume $7F
 	sound_pitch_add $00
-Data_05_5B71:: ; 05:5B71
+SoundSong19_Track1_Loop:: ; 05:5B71
+Data_05_5B71::
 	sound_instrument $05
 	sound_wait 8
 	sound_note 4, $3F, $0C
@@ -215,8 +218,9 @@ Data_05_5B71:: ; 05:5B71
 	sound_wait 2
 	sound_note 12, $3C, $0C
 	sound_wait 52
-	sound_jump Data_05_5B71
-Data_05_5C4B:: ; 05:5C4B
+	sound_jump SoundSong19_Track1_Loop
+SoundSong19_Track1_AfterJump:: ; 05:5C4B
+Data_05_5C4B::
 	sound_end
 
 ; ---- data $5C4C-$5D14 (200 bytes) [PROBABLE] read as data by executed code (in up to 2/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md) | block boundary $5C9E removed (it cut a command in two; its label Data_05_5C9E was not referenced); the second part was: data $5C9E-$5D14 (118 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md (status of the merged block lowered to the weaker of the two parts)
@@ -225,7 +229,8 @@ SoundSong19_Track2:: ; 05:5C4C
 Data_05_5C4C::
 	sound_volume $7F
 	sound_pitch_add $F4
-Data_05_5C50:: ; 05:5C50
+SoundSong19_Track2_Loop:: ; 05:5C50
+Data_05_5C50::
 	sound_instrument $08
 	sound_note 6, $38, $1F
 	sound_wait 12
@@ -330,8 +335,9 @@ Data_05_5C50:: ; 05:5C50
 	sound_wait 12
 	sound_rs sound_note 6, $2C
 	sound_wait 24
-	sound_jump Data_05_5C50
-Data_05_5D13:: ; 05:5D13
+	sound_jump SoundSong19_Track2_Loop
+SoundSong19_Track2_AfterJump:: ; 05:5D13
+Data_05_5D13::
 	sound_end
 
 ; ---- data $5D14-$5DB5 (161 bytes) [PROBABLE] read as data by executed code (in up to 2/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md) | block boundary $5D69 removed (it cut a command in two; its label Data_05_5D69 was not referenced); the second part was: data $5D69-$5DB5 (76 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md (status of the merged block lowered to the weaker of the two parts)
@@ -340,7 +346,8 @@ SoundSong19_Track3:: ; 05:5D14
 Data_05_5D14::
 	sound_volume $7F
 	sound_pitch_add $00
-Data_05_5D18:: ; 05:5D18
+SoundSong19_Track3_Loop:: ; 05:5D18
+Data_05_5D18::
 	sound_instrument SOUND_INSTRUMENT_PER_NOTE
 	sound_note 4, $27, $0F
 	sound_wait 12
@@ -370,7 +377,8 @@ Data_05_5D18:: ; 05:5D18
 	sound_wait 1
 	sound_pitch_bend $40
 	sound_wait 11
-Data_05_5D4E:: ; 05:5D4E
+SoundSong19_Track3_Sub1:: ; 05:5D4E
+Data_05_5D4E::
 	sound_note 4, $27, $0F
 	sound_wait 12
 	sound_pitch_bend $28
@@ -400,7 +408,7 @@ Data_05_5D4E:: ; 05:5D4E
 	sound_pitch_bend $40
 	sound_wait 11
 	sound_ret
-	sound_call Data_05_5D4E
+	sound_call SoundSong19_Track3_Sub1
 	sound_note 4, $27, $0F
 	sound_wait 12
 	sound_pitch_bend $28
@@ -424,8 +432,9 @@ Data_05_5D4E:: ; 05:5D4E
 	sound_wait 11
 	sound_note 4, $27, $0F
 	sound_wait 24
-	sound_jump Data_05_5D18
-Data_05_5DB4:: ; 05:5DB4
+	sound_jump SoundSong19_Track3_Loop
+SoundSong19_Track3_AfterJump:: ; 05:5DB4
+Data_05_5DB4::
 	sound_end
 
 ; ---- data $5DB5-$5DB7 (2 bytes) [PROBABLE] header NN=04 KK=02 of the channel-pointer table at 5DB7 (12 words = NN*(KK+1)); the byte before (5DB4) is $B1
@@ -436,7 +445,8 @@ Data_05_5DB5::
 
 ; ---- words $5DB7-$5DCF (24 bytes) [PROBABLE] 12 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 5DB5 [v4: bytes 5DB7-5DBF were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-Table_05_5DB7:: ; 05:5DB7
+SoundSong19_TrackPtrs:: ; 05:5DB7
+Table_05_5DB7::
 	dw SoundSong19_Track0, SoundSong19_Track1, SoundSong19_Track2, SoundSong19_Track3 ; track stream pointers (read by the driver)
-	dw Data_05_5B0A, Data_05_5B71, Data_05_5C50, Data_05_5D18 ; not read by the driver: target of each track's final sound_jump
-	dw Data_05_5B6C, Data_05_5C4B, Data_05_5D13, Data_05_5DB4 ; not read by the driver: address after each track's final sound_jump
+	dw SoundSong19_Track0_Loop, SoundSong19_Track1_Loop, SoundSong19_Track2_Loop, SoundSong19_Track3_Loop ; not read by the driver: target of each track's final sound_jump
+	dw SoundSong19_Track0_AfterJump, SoundSong19_Track1_AfterJump, SoundSong19_Track2_AfterJump, SoundSong19_Track3_AfterJump ; not read by the driver: address after each track's final sound_jump

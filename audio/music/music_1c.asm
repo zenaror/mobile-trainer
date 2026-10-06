@@ -10,7 +10,8 @@ SoundSong1C_Track0:: ; 05:60F9
 Data_05_60F9::
 	sound_volume $7F
 	sound_pitch_add $00
-Data_05_60FD:: ; 05:60FD
+SoundSong1C_Track0_Loop:: ; 05:60FD
+Data_05_60FD::
 	sound_tempo $30
 	sound_instrument $00
 	sound_wait 12
@@ -97,14 +98,16 @@ Data_05_60FD:: ; 05:60FD
 	sound_wait 8
 	sound_rs sound_note_vol 3, $05
 	sound_wait 4
-	sound_jump Data_05_60FD
-Data_05_6174:: ; 05:6174
+	sound_jump SoundSong1C_Track0_Loop
+SoundSong1C_Track0_AfterJump:: ; 05:6174
+Data_05_6174::
 	sound_end
 SoundSong1C_Track1:: ; 05:6175
 Data_05_6175::
 	sound_volume $7F
 	sound_pitch_add $00
-Data_05_6179:: ; 05:6179
+SoundSong1C_Track1_Loop:: ; 05:6179
+Data_05_6179::
 	sound_instrument $04
 	sound_note 6, $29, $19
 	sound_wait 12
@@ -194,7 +197,7 @@ Data_05_6179:: ; 05:6179
 	sound_wait 8
 	sound_rs sound_note_vol 3, $04
 	sound_wait 4
-	sound_call Data_05_6179
+	sound_call SoundSong1C_Track1_Loop
 	sound_instrument $04
 	sound_note 6, $2E, $19
 	sound_wait 12
@@ -239,14 +242,16 @@ Data_05_6179:: ; 05:6179
 	sound_wait 8
 	sound_rs sound_note_vol 3, $04
 	sound_wait 4
-	sound_jump Data_05_6179
-Data_05_625E:: ; 05:625E
+	sound_jump SoundSong1C_Track1_Loop
+SoundSong1C_Track1_AfterJump:: ; 05:625E
+Data_05_625E::
 	sound_end
 SoundSong1C_Track2:: ; 05:625F
 Data_05_625F::
 	sound_volume $7F
 	sound_pitch_add $00
-Data_05_6263:: ; 05:6263
+SoundSong1C_Track2_Loop:: ; 05:6263
+Data_05_6263::
 	sound_instrument SOUND_INSTRUMENT_PER_NOTE
 	sound_note 4, $27, $10
 	sound_wait 12
@@ -270,7 +275,8 @@ Data_05_6263:: ; 05:6263
 	sound_wait 8
 	sound_note 3, $2A, $0E
 	sound_wait 4
-Data_05_628B:: ; 05:628B
+SoundSong1C_Track2_Sub1:: ; 05:628B
+Data_05_628B::
 	sound_note 4, $27, $10
 	sound_wait 12
 	sound_note 3, $24, $0B
@@ -294,10 +300,11 @@ Data_05_628B:: ; 05:628B
 	sound_note 3, $2A, $0E
 	sound_wait 4
 	sound_ret
-	sound_call Data_05_628B
-	sound_call Data_05_628B
-	sound_jump Data_05_6263
-Data_05_62BB:: ; 05:62BB
+	sound_call SoundSong1C_Track2_Sub1
+	sound_call SoundSong1C_Track2_Sub1
+	sound_jump SoundSong1C_Track2_Loop
+SoundSong1C_Track2_AfterJump:: ; 05:62BB
+Data_05_62BB::
 	sound_end
 
 ; ---- data $62BC-$62BE (2 bytes) [PROBABLE] header NN=03 KK=02 of the channel-pointer table at 62BE (9 words = NN*(KK+1)); the byte before (62BB) is $B1
@@ -308,7 +315,8 @@ Data_05_62BC::
 
 ; ---- words $62BE-$62D0 (18 bytes) [PROBABLE] 9 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 62BC
 
-Table_05_62BE:: ; 05:62BE
+SoundSong1C_TrackPtrs:: ; 05:62BE
+Table_05_62BE::
 	dw SoundSong1C_Track0, SoundSong1C_Track1, SoundSong1C_Track2 ; track stream pointers (read by the driver)
-	dw Data_05_60FD, Data_05_6179, Data_05_6263 ; not read by the driver: target of each track's final sound_jump
-	dw Data_05_6174, Data_05_625E, Data_05_62BB ; not read by the driver: address after each track's final sound_jump
+	dw SoundSong1C_Track0_Loop, SoundSong1C_Track1_Loop, SoundSong1C_Track2_Loop ; not read by the driver: target of each track's final sound_jump
+	dw SoundSong1C_Track0_AfterJump, SoundSong1C_Track1_AfterJump, SoundSong1C_Track2_AfterJump ; not read by the driver: address after each track's final sound_jump

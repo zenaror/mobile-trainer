@@ -10,7 +10,8 @@ SoundSong17_Track0:: ; 05:54E3
 Data_05_54E3::
 	sound_volume $7F
 	sound_pitch_add $00
-Data_05_54E7:: ; 05:54E7
+SoundSong17_Track0_Loop:: ; 05:54E7
+Data_05_54E7::
 	sound_tempo $36
 	sound_instrument $01
 	sound_vibrato_depth $18
@@ -26,7 +27,8 @@ Data_05_54E7:: ; 05:54E7
 	sound_wait 12
 	sound_note 24, $44
 	sound_wait 54
-Data_05_5501:: ; 05:5501
+SoundSong17_Track0_Sub1:: ; 05:5501
+Data_05_5501::
 	sound_wait 36
 	sound_note 5, $44, $13
 	sound_wait 12
@@ -39,7 +41,8 @@ Data_05_5501:: ; 05:5501
 	sound_note 5, $3F
 	sound_wait 12
 	sound_ret
-Data_05_5513:: ; 05:5513
+SoundSong17_Track0_Sub2:: ; 05:5513
+Data_05_5513::
 	sound_pitch_bend $28
 	sound_note 18, $41, $13
 	sound_wait 1
@@ -48,8 +51,9 @@ Data_05_5513:: ; 05:5513
 	sound_note 6, $44
 	sound_wait 78
 	sound_ret
-	sound_call Data_05_5501
-Data_05_5523:: ; 05:5523
+	sound_call SoundSong17_Track0_Sub1
+SoundSong17_Track0_Sub3:: ; 05:5523
+Data_05_5523::
 	sound_pitch_bend $28
 	sound_note 18, $41, $13
 	sound_wait 1
@@ -66,7 +70,8 @@ Data_05_5523:: ; 05:5523
 	sound_note 12, $3F
 	sound_wait 12
 	sound_ret
-Data_05_553C:: ; 05:553C
+SoundSong17_Track0_Sub4:: ; 05:553C
+Data_05_553C::
 	sound_wait 12
 	sound_note 12, $38, $13
 	sound_wait 24
@@ -81,7 +86,8 @@ Data_05_553C:: ; 05:553C
 	sound_ret
 	sound_note 24, $3D
 	sound_wait 96
-Data_05_554E:: ; 05:554E
+SoundSong17_Track0_Sub5:: ; 05:554E
+Data_05_554E::
 	sound_wait 78
 	sound_instrument $20
 	sound_note 6, $44, $13
@@ -101,14 +107,14 @@ Data_05_554E:: ; 05:554E
 	sound_wait 12
 	sound_note 24, $44
 	sound_wait 54
-	sound_call Data_05_5501
-	sound_call Data_05_5513
-	sound_call Data_05_5501
-	sound_call Data_05_5523
-	sound_call Data_05_553C
+	sound_call SoundSong17_Track0_Sub1
+	sound_call SoundSong17_Track0_Sub2
+	sound_call SoundSong17_Track0_Sub1
+	sound_call SoundSong17_Track0_Sub3
+	sound_call SoundSong17_Track0_Sub4
 	sound_note 24, $3D, $13
 	sound_wait 96
-	sound_call Data_05_554E
+	sound_call SoundSong17_Track0_Sub5
 	sound_instrument $01
 	sound_wait 12
 	sound_pitch_bend $28
@@ -223,11 +229,12 @@ Data_05_554E:: ; 05:554E
 	sound_wait 6
 	sound_rs sound_note 3, $38
 	sound_wait 6
-	sound_jump Data_05_54E7
+	sound_jump SoundSong17_Track0_Loop
 
 ; ---- data $5617-$5618 (1 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md
 
-Data_05_5617:: ; 05:5617
+SoundSong17_Track0_AfterJump:: ; 05:5617
+Data_05_5617::
 	sound_end
 
 ; ---- data $5618-$585A (578 bytes) [CONFIRMED] read as data by executed code (in up to 12/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
@@ -236,7 +243,8 @@ SoundSong17_Track1:: ; 05:5618
 Data_05_5618::
 	sound_volume $7F
 	sound_pitch_add $00
-Data_05_561C:: ; 05:561C
+SoundSong17_Track1_Loop:: ; 05:561C
+Data_05_561C::
 	sound_instrument $06
 	sound_note 6, $41, $0B
 	sound_wait 12
@@ -263,7 +271,8 @@ Data_05_561C:: ; 05:561C
 	sound_note 6, $44, $0B
 	sound_wait 12
 	sound_ret
-Data_05_5645:: ; 05:5645
+SoundSong17_Track1_Sub1:: ; 05:5645
+Data_05_5645::
 	sound_note 6, $46, $0B
 	sound_wait 12
 	sound_rs sound_note 6, $49
@@ -289,7 +298,8 @@ Data_05_5645:: ; 05:5645
 	sound_note 6, $44, $0B
 	sound_wait 12
 	sound_ret
-Data_05_566C:: ; 05:566C
+SoundSong17_Track1_Sub2:: ; 05:566C
+Data_05_566C::
 	sound_note 6, $41, $0B
 	sound_wait 12
 	sound_rs sound_note 6, $44
@@ -315,7 +325,8 @@ Data_05_566C:: ; 05:566C
 	sound_note 6, $49, $0B
 	sound_wait 12
 	sound_ret
-Data_05_5693:: ; 05:5693
+SoundSong17_Track1_Sub3:: ; 05:5693
+Data_05_5693::
 	sound_note 6, $46, $0B
 	sound_wait 12
 	sound_rs sound_note 6, $3D
@@ -339,7 +350,8 @@ Data_05_5693:: ; 05:5693
 	sound_note 6, $44, $0B
 	sound_wait 12
 	sound_ret
-Data_05_56B8:: ; 05:56B8
+SoundSong17_Track1_Sub4:: ; 05:56B8
+Data_05_56B8::
 	sound_note 6, $41, $0B
 	sound_wait 12
 	sound_rs sound_note 6, $46
@@ -363,7 +375,8 @@ Data_05_56B8:: ; 05:56B8
 	sound_note 6, $44, $0B
 	sound_wait 12
 	sound_ret
-Data_05_56DD:: ; 05:56DD
+SoundSong17_Track1_Sub5:: ; 05:56DD
+Data_05_56DD::
 	sound_note 6, $48, $0B
 	sound_wait 12
 	sound_rs sound_note 6, $3F
@@ -384,7 +397,8 @@ Data_05_56DD:: ; 05:56DD
 	sound_rs sound_note 12, $4E
 	sound_wait 12
 	sound_ret
-Data_05_56FD:: ; 05:56FD
+SoundSong17_Track1_Sub6:: ; 05:56FD
+Data_05_56FD::
 	sound_instrument $06
 	sound_note 6, $44, $0B
 	sound_wait 12
@@ -435,13 +449,13 @@ Data_05_56FD:: ; 05:56FD
 	sound_wait 6
 	sound_rs sound_note 6, $3F
 	sound_wait 6
-	sound_call Data_05_561C
-	sound_call Data_05_5645
-	sound_call Data_05_566C
-	sound_call Data_05_5693
-	sound_call Data_05_56B8
-	sound_call Data_05_56DD
-	sound_call Data_05_56FD
+	sound_call SoundSong17_Track1_Loop
+	sound_call SoundSong17_Track1_Sub1
+	sound_call SoundSong17_Track1_Sub2
+	sound_call SoundSong17_Track1_Sub3
+	sound_call SoundSong17_Track1_Sub4
+	sound_call SoundSong17_Track1_Sub5
+	sound_call SoundSong17_Track1_Sub6
 	sound_note 6, $46, $0B
 	sound_wait 12
 	sound_rs sound_note 6, $49
@@ -468,7 +482,8 @@ Data_05_56FD:: ; 05:56FD
 	sound_wait 6
 	sound_rs sound_note 6, $37
 	sound_wait 6
-Data_05_5787:: ; 05:5787
+SoundSong17_Track1_Sub7:: ; 05:5787
+Data_05_5787::
 	sound_note 6, $42, $0B
 	sound_wait 12
 	sound_rs sound_note 6, $49
@@ -492,7 +507,8 @@ Data_05_5787:: ; 05:5787
 	sound_note 6, $49, $0B
 	sound_wait 12
 	sound_ret
-Data_05_57AC:: ; 05:57AC
+SoundSong17_Track1_Sub8:: ; 05:57AC
+Data_05_57AC::
 	sound_note 6, $48, $0B
 	sound_wait 12
 	sound_rs sound_note 6, $3F
@@ -552,8 +568,8 @@ Data_05_57AC:: ; 05:57AC
 	sound_wait 6
 	sound_rs sound_note 6, $3D
 	sound_wait 12
-	sound_call Data_05_5787
-	sound_call Data_05_57AC
+	sound_call SoundSong17_Track1_Sub7
+	sound_call SoundSong17_Track1_Sub8
 	sound_note 6, $43, $0B
 	sound_wait 12
 	sound_rs sound_note 6, $46
@@ -599,11 +615,12 @@ Data_05_57AC:: ; 05:57AC
 	sound_note 6, $3F, $0B
 	sound_wait 12
 	sound_wait 96
-	sound_jump Data_05_561C
+	sound_jump SoundSong17_Track1_Loop
 
 ; ---- data $585A-$585B (1 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md
 
-Data_05_585A:: ; 05:585A
+SoundSong17_Track1_AfterJump:: ; 05:585A
+Data_05_585A::
 	sound_end
 
 ; ---- data $585B-$5997 (316 bytes) [CONFIRMED] read as data by executed code (in up to 12/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
@@ -612,7 +629,8 @@ SoundSong17_Track2:: ; 05:585B
 Data_05_585B::
 	sound_volume $7F
 	sound_pitch_add $00
-Data_05_585F:: ; 05:585F
+SoundSong17_Track2_Loop:: ; 05:585F
+Data_05_585F::
 	sound_instrument $09
 	sound_note 6, $25, $1B
 	sound_wait 24
@@ -626,7 +644,8 @@ Data_05_585F:: ; 05:585F
 	sound_wait 12
 	sound_rs sound_note 12, $29, $1B
 	sound_wait 12
-Data_05_5874:: ; 05:5874
+SoundSong17_Track2_Sub1:: ; 05:5874
+Data_05_5874::
 	sound_note 6, $2A, $1B
 	sound_wait 24
 	sound_rs sound_note 6, $46, $12
@@ -640,7 +659,8 @@ Data_05_5874:: ; 05:5874
 	sound_rs sound_note 12, $2C, $1B
 	sound_wait 12
 	sound_ret
-Data_05_5888:: ; 05:5888
+SoundSong17_Track2_Sub2:: ; 05:5888
+Data_05_5888::
 	sound_note 6, $25, $1B
 	sound_wait 24
 	sound_rs sound_note 6, $44, $12
@@ -654,8 +674,9 @@ Data_05_5888:: ; 05:5888
 	sound_rs sound_note 12, $29, $1B
 	sound_wait 12
 	sound_ret
-	sound_call Data_05_5874
-Data_05_589F:: ; 05:589F
+	sound_call SoundSong17_Track2_Sub1
+SoundSong17_Track2_Sub3:: ; 05:589F
+Data_05_589F::
 	sound_note 6, $2E, $1B
 	sound_wait 24
 	sound_rs sound_note 6, $46, $12
@@ -669,7 +690,8 @@ Data_05_589F:: ; 05:589F
 	sound_note 6, $2C, $1B
 	sound_wait 12
 	sound_ret
-Data_05_58B4:: ; 05:58B4
+SoundSong17_Track2_Sub4:: ; 05:58B4
+Data_05_58B4::
 	sound_wait 12
 	sound_note 6, $2C, $1B
 	sound_wait 12
@@ -684,7 +706,8 @@ Data_05_58B4:: ; 05:58B4
 	sound_rs sound_note 12, $27
 	sound_wait 12
 	sound_ret
-Data_05_58C7:: ; 05:58C7
+SoundSong17_Track2_Sub5:: ; 05:58C7
+Data_05_58C7::
 	sound_note 6, $25, $1B
 	sound_wait 24
 	sound_rs sound_note 6, $44, $12
@@ -698,14 +721,14 @@ Data_05_58C7:: ; 05:58C7
 	sound_rs sound_note 12, $28, $1B
 	sound_wait 12
 	sound_ret
-	sound_call Data_05_5874
-	sound_call Data_05_5888
-	sound_call Data_05_5874
-	sound_call Data_05_5888
-	sound_call Data_05_5874
-	sound_call Data_05_589F
-	sound_call Data_05_58B4
-	sound_call Data_05_58C7
+	sound_call SoundSong17_Track2_Sub1
+	sound_call SoundSong17_Track2_Sub2
+	sound_call SoundSong17_Track2_Sub1
+	sound_call SoundSong17_Track2_Sub2
+	sound_call SoundSong17_Track2_Sub1
+	sound_call SoundSong17_Track2_Sub3
+	sound_call SoundSong17_Track2_Sub4
+	sound_call SoundSong17_Track2_Sub5
 	sound_note 6, $2A, $1B
 	sound_wait 24
 	sound_rs sound_note 6, $46, $12
@@ -718,7 +741,8 @@ Data_05_58C7:: ; 05:58C7
 	sound_wait 12
 	sound_rs sound_note 12, $2B, $1B
 	sound_wait 12
-Data_05_5906:: ; 05:5906
+SoundSong17_Track2_Sub6:: ; 05:5906
+Data_05_5906::
 	sound_note 6, $2A, $1B
 	sound_wait 24
 	sound_rs sound_note 6, $46, $12
@@ -732,7 +756,8 @@ Data_05_5906:: ; 05:5906
 	sound_rs sound_note 12, $2A, $1B
 	sound_wait 12
 	sound_ret
-Data_05_591A:: ; 05:591A
+SoundSong17_Track2_Sub7:: ; 05:591A
+Data_05_591A::
 	sound_note 6, $29, $1B
 	sound_wait 24
 	sound_rs sound_note 6, $44, $12
@@ -768,8 +793,8 @@ Data_05_591A:: ; 05:591A
 	sound_wait 18
 	sound_note 12, $25
 	sound_wait 12
-	sound_call Data_05_5906
-	sound_call Data_05_591A
+	sound_call SoundSong17_Track2_Sub6
+	sound_call SoundSong17_Track2_Sub7
 	sound_note 6, $27, $1B
 	sound_wait 24
 	sound_rs sound_note 6, $43, $12
@@ -815,11 +840,12 @@ Data_05_591A:: ; 05:591A
 	sound_wait 6
 	sound_rs sound_note 3, $44
 	sound_wait 6
-	sound_jump Data_05_585F
+	sound_jump SoundSong17_Track2_Loop
 
 ; ---- data $5997-$5998 (1 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md
 
-Data_05_5997:: ; 05:5997
+SoundSong17_Track2_AfterJump:: ; 05:5997
+Data_05_5997::
 	sound_end
 
 ; ---- data $5998-$5ADB (323 bytes) [CONFIRMED] read as data by executed code (in up to 12/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
@@ -828,7 +854,8 @@ SoundSong17_Track3:: ; 05:5998
 Data_05_5998::
 	sound_volume $7F
 	sound_pitch_add $00
-Data_05_599C:: ; 05:599C
+SoundSong17_Track3_Loop:: ; 05:599C
+Data_05_599C::
 	sound_instrument SOUND_INSTRUMENT_PER_NOTE
 	sound_note 4, $27, $0F
 	sound_wait 6
@@ -865,7 +892,8 @@ Data_05_599C:: ; 05:599C
 	sound_wait 6
 	sound_note 6
 	sound_wait 6
-Data_05_59DB:: ; 05:59DB
+SoundSong17_Track3_Sub1:: ; 05:59DB
+Data_05_59DB::
 	sound_note 4, $27, $0F
 	sound_wait 6
 	sound_note 3, $24, $0A
@@ -902,12 +930,13 @@ Data_05_59DB:: ; 05:59DB
 	sound_note 6
 	sound_wait 6
 	sound_ret
-	sound_call Data_05_59DB
-	sound_call Data_05_59DB
-	sound_call Data_05_59DB
-	sound_call Data_05_59DB
-	sound_call Data_05_59DB
-Data_05_5A28:: ; 05:5A28
+	sound_call SoundSong17_Track3_Sub1
+	sound_call SoundSong17_Track3_Sub1
+	sound_call SoundSong17_Track3_Sub1
+	sound_call SoundSong17_Track3_Sub1
+	sound_call SoundSong17_Track3_Sub1
+SoundSong17_Track3_Sub2:: ; 05:5A28
+Data_05_5A28::
 	sound_note 4, $27, $0F
 	sound_wait 6
 	sound_note 3, $24, $0A
@@ -947,22 +976,22 @@ Data_05_5A28:: ; 05:5A28
 	sound_note 6, $2A
 	sound_wait 6
 	sound_ret
-	sound_call Data_05_59DB
-	sound_call Data_05_59DB
-	sound_call Data_05_59DB
-	sound_call Data_05_59DB
-	sound_call Data_05_59DB
-	sound_call Data_05_59DB
-	sound_call Data_05_59DB
-	sound_call Data_05_5A28
-	sound_call Data_05_59DB
-	sound_call Data_05_59DB
-	sound_call Data_05_59DB
-	sound_call Data_05_5A28
-	sound_call Data_05_59DB
-	sound_call Data_05_59DB
-	sound_call Data_05_59DB
-	sound_call Data_05_59DB
+	sound_call SoundSong17_Track3_Sub1
+	sound_call SoundSong17_Track3_Sub1
+	sound_call SoundSong17_Track3_Sub1
+	sound_call SoundSong17_Track3_Sub1
+	sound_call SoundSong17_Track3_Sub1
+	sound_call SoundSong17_Track3_Sub1
+	sound_call SoundSong17_Track3_Sub1
+	sound_call SoundSong17_Track3_Sub2
+	sound_call SoundSong17_Track3_Sub1
+	sound_call SoundSong17_Track3_Sub1
+	sound_call SoundSong17_Track3_Sub1
+	sound_call SoundSong17_Track3_Sub2
+	sound_call SoundSong17_Track3_Sub1
+	sound_call SoundSong17_Track3_Sub1
+	sound_call SoundSong17_Track3_Sub1
+	sound_call SoundSong17_Track3_Sub1
 	sound_note 4, $27, $0F
 	sound_wait 6
 	sound_note 3, $24, $0A
@@ -995,11 +1024,12 @@ Data_05_5A28:: ; 05:5A28
 	sound_wait 1
 	sound_pitch_bend $40
 	sound_wait 23
-	sound_jump Data_05_599C
+	sound_jump SoundSong17_Track3_Loop
 
 ; ---- data $5ADB-$5ADC (1 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md
 
-Data_05_5ADB:: ; 05:5ADB
+SoundSong17_Track3_AfterJump:: ; 05:5ADB
+Data_05_5ADB::
 	sound_end
 
 ; ---- data $5ADC-$5ADE (2 bytes) [PROBABLE] header NN=04 KK=02 of the channel-pointer table at 5ADE (12 words = NN*(KK+1)); the byte before (5ADB) is $B1
@@ -1010,7 +1040,8 @@ Data_05_5ADC::
 
 ; ---- words $5ADE-$5AF6 (24 bytes) [PROBABLE] 12 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 5ADC [v4: bytes 5ADE-5AE6 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-Table_05_5ADE:: ; 05:5ADE
+SoundSong17_TrackPtrs:: ; 05:5ADE
+Table_05_5ADE::
 	dw SoundSong17_Track0, SoundSong17_Track1, SoundSong17_Track2, SoundSong17_Track3 ; track stream pointers (read by the driver)
-	dw Data_05_54E7, Data_05_561C, Data_05_585F, Data_05_599C ; not read by the driver: target of each track's final sound_jump
-	dw Data_05_5617, Data_05_585A, Data_05_5997, Data_05_5ADB ; not read by the driver: address after each track's final sound_jump
+	dw SoundSong17_Track0_Loop, SoundSong17_Track1_Loop, SoundSong17_Track2_Loop, SoundSong17_Track3_Loop ; not read by the driver: target of each track's final sound_jump
+	dw SoundSong17_Track0_AfterJump, SoundSong17_Track1_AfterJump, SoundSong17_Track2_AfterJump, SoundSong17_Track3_AfterJump ; not read by the driver: address after each track's final sound_jump

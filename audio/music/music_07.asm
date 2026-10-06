@@ -10,7 +10,8 @@ SoundSong07_Track0:: ; 04:6B54
 Data_04_6B54::
 	sound_volume $7F
 	sound_pitch_add $00
-Data_04_6B58:: ; 04:6B58
+SoundSong07_Track0_Loop:: ; 04:6B58
+Data_04_6B58::
 	sound_tempo $24
 	sound_instrument $00
 	sound_vibrato_depth $18
@@ -29,7 +30,8 @@ Data_04_6B58:: ; 04:6B58
 	sound_wait 16
 	sound_note 30, $3D
 	sound_wait 36
-Data_04_6B74:: ; 04:6B74
+SoundSong07_Track0_Sub1:: ; 04:6B74
+Data_04_6B74::
 	sound_wait 12
 	sound_note 8, $4B, $16
 	sound_wait 8
@@ -84,7 +86,7 @@ Data_04_6B74:: ; 04:6B74
 	sound_wait 16
 	sound_note 30, $3D
 	sound_wait 36
-	sound_call Data_04_6B74
+	sound_call SoundSong07_Track0_Sub1
 	sound_wait 12
 	sound_note 6, $46, $16
 	sound_wait 12
@@ -153,14 +155,16 @@ Data_04_6B74:: ; 04:6B74
 	sound_wait 2
 	sound_rs sound_note 2, $4C
 	sound_wait 2
-	sound_jump Data_04_6B58
-Data_04_6C16:: ; 04:6C16
+	sound_jump SoundSong07_Track0_Loop
+SoundSong07_Track0_AfterJump:: ; 04:6C16
+Data_04_6C16::
 	sound_end
 SoundSong07_Track1:: ; 04:6C17
 Data_04_6C17::
 	sound_volume $7F
 	sound_pitch_add $00
-Data_04_6C1B:: ; 04:6C1B
+SoundSong07_Track1_Loop:: ; 04:6C1B
+Data_04_6C1B::
 	sound_instrument $08
 	sound_note 4, $42, $0E
 	sound_wait 12
@@ -198,7 +202,8 @@ Data_04_6C1B:: ; 04:6C1B
 	sound_instrument $08
 	sound_note 4, $47, $0E
 	sound_wait 4
-Data_04_6C63:: ; 04:6C63
+SoundSong07_Track1_Sub1:: ; 04:6C63
+Data_04_6C63::
 	sound_wait 12
 	sound_instrument $09
 	sound_note 6, $4F, $15
@@ -325,7 +330,7 @@ Data_04_6C63:: ; 04:6C63
 	sound_instrument $08
 	sound_note 4, $47, $0E
 	sound_wait 4
-	sound_call Data_04_6C63
+	sound_call SoundSong07_Track1_Sub1
 	sound_instrument $08
 	sound_note 4, $46, $0E
 	sound_wait 12
@@ -429,14 +434,16 @@ Data_04_6C63:: ; 04:6C63
 	sound_wait 2
 	sound_rs sound_note 2, $47
 	sound_wait 2
-	sound_jump Data_04_6C1B
-Data_04_6DF2:: ; 04:6DF2
+	sound_jump SoundSong07_Track1_Loop
+SoundSong07_Track1_AfterJump:: ; 04:6DF2
+Data_04_6DF2::
 	sound_end
 SoundSong07_Track2:: ; 04:6DF3
 Data_04_6DF3::
 	sound_volume $7F
 	sound_pitch_add $00
-Data_04_6DF7:: ; 04:6DF7
+SoundSong07_Track2_Loop:: ; 04:6DF7
+Data_04_6DF7::
 	sound_instrument $04
 	sound_note 6, $2A, $1F
 	sound_wait 12
@@ -460,7 +467,8 @@ Data_04_6DF7:: ; 04:6DF7
 	sound_wait 12
 	sound_rs sound_note 6, $44
 	sound_wait 12
-Data_04_6E1E:: ; 04:6E1E
+SoundSong07_Track2_Sub1:: ; 04:6E1E
+Data_04_6E1E::
 	sound_note 6, $27, $1F
 	sound_wait 12
 	sound_rs sound_note 6, $46, $15
@@ -544,7 +552,7 @@ Data_04_6E1E:: ; 04:6E1E
 	sound_wait 12
 	sound_rs sound_note 6, $44
 	sound_wait 12
-	sound_call Data_04_6E1E
+	sound_call SoundSong07_Track2_Sub1
 	sound_note 6, $2C, $1F
 	sound_wait 12
 	sound_rs sound_note 6, $48, $15
@@ -591,14 +599,16 @@ Data_04_6E1E:: ; 04:6E1E
 	sound_wait 12
 	sound_rs sound_note 6, $2C
 	sound_wait 12
-	sound_jump Data_04_6DF7
-Data_04_6F07:: ; 04:6F07
+	sound_jump SoundSong07_Track2_Loop
+SoundSong07_Track2_AfterJump:: ; 04:6F07
+Data_04_6F07::
 	sound_end
 SoundSong07_Track3:: ; 04:6F08
 Data_04_6F08::
 	sound_volume $7F
 	sound_pitch_add $00
-Data_04_6F0C:: ; 04:6F0C
+SoundSong07_Track3_Loop:: ; 04:6F0C
+Data_04_6F0C::
 	sound_instrument SOUND_INSTRUMENT_PER_NOTE
 	sound_note 4, $27, $11
 	sound_wait 12
@@ -636,7 +646,8 @@ Data_04_6F0C:: ; 04:6F0C
 	sound_wait 7
 	sound_note 3, $24, $0B
 	sound_wait 4
-Data_04_6F51:: ; 04:6F51
+SoundSong07_Track3_Sub1:: ; 04:6F51
+Data_04_6F51::
 	sound_note 4, $27, $11
 	sound_wait 12
 	sound_pitch_bend $28
@@ -674,7 +685,7 @@ Data_04_6F51:: ; 04:6F51
 	sound_note 3, $24, $0B
 	sound_wait 4
 	sound_ret
-	sound_call Data_04_6F51
+	sound_call SoundSong07_Track3_Sub1
 	sound_note 4, $27, $11
 	sound_wait 60
 	sound_pitch_bend $28
@@ -742,8 +753,8 @@ Data_04_6F51:: ; 04:6F51
 	sound_wait 7
 	sound_note 3, $24, $0B
 	sound_wait 4
-	sound_call Data_04_6F51
-	sound_call Data_04_6F51
+	sound_call SoundSong07_Track3_Sub1
+	sound_call SoundSong07_Track3_Sub1
 	sound_note 4, $27, $11
 	sound_wait 12
 	sound_pitch_bend $28
@@ -792,12 +803,13 @@ Data_04_6F51:: ; 04:6F51
 	sound_wait 1
 	sound_pitch_bend $40
 	sound_wait 3
-	sound_jump Data_04_6F0C
-Data_04_7078:: ; 04:7078
+	sound_jump SoundSong07_Track3_Loop
+SoundSong07_Track3_AfterJump:: ; 04:7078
+Data_04_7078::
 	sound_end
 SoundSong07_Header:: ; 04:7079
 Data_04_7079::
 	sound_stream_header 4, 2
 	dw SoundSong07_Track0, SoundSong07_Track1, SoundSong07_Track2, SoundSong07_Track3 ; track stream pointers (read by the driver)
-	dw Data_04_6B58, Data_04_6C1B, Data_04_6DF7, Data_04_6F0C ; not read by the driver: target of each track's final sound_jump
-	dw Data_04_6C16, Data_04_6DF2, Data_04_6F07, Data_04_7078 ; not read by the driver: address after each track's final sound_jump
+	dw SoundSong07_Track0_Loop, SoundSong07_Track1_Loop, SoundSong07_Track2_Loop, SoundSong07_Track3_Loop ; not read by the driver: target of each track's final sound_jump
+	dw SoundSong07_Track0_AfterJump, SoundSong07_Track1_AfterJump, SoundSong07_Track2_AfterJump, SoundSong07_Track3_AfterJump ; not read by the driver: address after each track's final sound_jump
