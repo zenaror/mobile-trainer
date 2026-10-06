@@ -70,7 +70,7 @@ Data_05_5DD3::
 	sound_wait 12
 	sound_wait 24
 
-; ---- data $5E23-$5E37 (20 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md
+; ---- data $5E23-$5E37 (20 bytes) [PROBABLE] interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md; read as data by executed code in up to 7 of 69 natural scenarios (19 of 20 bytes; traces/detail)
 
 Data_05_5E23:: ; 05:5E23
 	sound_note 24, $46
@@ -457,7 +457,7 @@ Data_05_605D::
 	sound_call SoundSong1A_Track3_Sub1
 	sound_call SoundSong1A_Track3_Sub1
 
-; ---- data $609A-$60CF (53 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md
+; ---- data $609A-$60CF (53 bytes) [PROBABLE] interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md; read as data by executed code in up to 7 of 69 natural scenarios (52 of 53 bytes; traces/detail)
 
 Data_05_609A:: ; 05:609A
 	sound_call SoundSong1A_Track3_Sub1
