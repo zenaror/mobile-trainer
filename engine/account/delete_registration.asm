@@ -154,14 +154,7 @@ Registration_DeleteConfirm_InputLoop:: ; 68:7A8F
 	jr nz, .l7AE0
 	jr Registration_DeleteConfirm_InputLoop
 .l7AB2 ; 68:7AB2
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	ld a, [wRam_C27D]
 	or a, a
 	jr nz, .l7ACB
@@ -174,27 +167,13 @@ Registration_DeleteConfirm_InputLoop:: ; 68:7A8F
 	ld a, $02
 	ret
 .l7ACE ; 68:7ACE
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	xor a, a
 	ret
 
 .l7AE0 ; 68:7AE0
 	; [CONFIRMED] 30 insn(s); 30 executed (in up to 1/18 scenarios)
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	ld a, [wRam_C27D]
 	ld b, $01
 	xor a, b

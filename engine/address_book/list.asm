@@ -78,14 +78,7 @@ Label_2F_4049::
 	ld a, $01
 .l406F ; 2F:406F
 	call AbookList_SetHelpBoxAttr
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	pop de
 	pop bc
 	ld a, $01
@@ -113,14 +106,7 @@ Label_2F_4097::
 	; fall-through of the jrcc at 2F:409B (executed) [executed in 2 scenarios]
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	pop de
 	pop bc
 	ld a, $01
@@ -152,14 +138,7 @@ AbookList_CursorDown:: ; 2F:40E1
 	; entered by callcc from 2F:40DB (executed) [executed in 1 scenarios]
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	pop de
 	pop bc
 	ld d, c
@@ -180,14 +159,7 @@ Function_2F_4109::
 	; executed call/far call
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	pop de
 	pop bc
 	ld d, c
@@ -294,14 +266,7 @@ Label_2F_4131::
 	push de
 	xor a, a
 	call AbookList_SetHelpBoxAttr
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	pop de
 	pop bc
 	ld d, $FF
@@ -326,28 +291,14 @@ Label_2F_4131::
 	jr nz, .l420E
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	jr .loop
 .l420E ; 2F:420E
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	pop de
 	pop bc
 	push bc
@@ -409,14 +360,7 @@ Label_2F_4131::
 	call Abook_ClearSlot
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0033
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_DELETE
 	pop de
 	pop bc
 	xor a, a
@@ -457,28 +401,14 @@ Label_2F_4131::
 	jr nz, .l42FC
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	jp .loop
 .l42FC ; 2F:42FC
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	pop de
 	pop bc
 	ld a, $01
@@ -510,14 +440,7 @@ Label_2F_4131::
 	; fall-through of the jrcc at 2F:4337 (executed) [executed in 2 scenarios]
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	jp .loop
@@ -532,14 +455,7 @@ Label_2F_4131::
 	ld [wMailSessionBlock], a
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	pop de
 	pop bc
 	ld a, $01
@@ -562,14 +478,7 @@ Label_2F_4131::
 	jr nz, .l43A1
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	jp .loop
@@ -586,14 +495,7 @@ Label_2F_4131::
 	ld [hli], a
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	pop de
 	pop bc
 
@@ -615,14 +517,7 @@ Label_2F_4131::
 	; fall-through of the jpcc at 2F:43DC (executed) [executed in 1 scenarios]
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	pop de
 	pop bc
 	dec b
@@ -648,14 +543,7 @@ Label_2F_4131::
 	; fall-through of the jpcc at 2F:440E (executed) [executed in 1 scenarios]
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	pop de
 	pop bc
 	inc b

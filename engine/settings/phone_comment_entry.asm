@@ -182,24 +182,10 @@ PhoneComment_KeyboardLoop:: ; 67:4A98
 	farcall TextBuf_AppendChar
 	or a, a
 	jr nz, .l4ADF
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0038
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ENTERED
 	jr .l4AEF
 .l4ADF ; 67:4ADF
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 .l4AEF ; 67:4AEF
 	ld hl, wTextEntryBuf
 	farcall TextBuf_GetLength
@@ -221,14 +207,7 @@ PhoneComment_KeyboardLoop:: ; 67:4A98
 	farcall TextBuf_DeleteLast
 	or a, a
 	jr nz, .l4B7F
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0039
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ERASED
 	ld hl, wTextEntryBuf
 	farcall TextBuf_GetLength
 	cp a, $01
@@ -252,40 +231,19 @@ PhoneComment_KeyboardLoop:: ; 67:4A98
 
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 49A8-4BC2 by apply_coverage --split
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	jr .l4BB2
 
 .l4B66 ; 67:4B66
 	; [CONFIRMED] 38 insn(s) executed; cut out of the PROBABLE region 49A8-4BC2 by apply_coverage
 	; --split [executed in 1 scenarios]
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	call PhoneComment_StoreResult
 	ld a, $01
 	ld [wPhoneComment_Result], a
 	ret
 .l4B7F ; 67:4B7F
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	call PhoneComment_StoreResult
 	xor a, a
 	ld [wPhoneComment_Result], a

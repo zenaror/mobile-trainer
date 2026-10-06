@@ -67,14 +67,7 @@ SaveSenderAddr_Menu_Loop:: ; 2A:4027
 	jr z, .l40A8
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	pop de
 	pop bc
 	push bc
@@ -99,14 +92,7 @@ SaveSenderAddr_Menu_Loop:: ; 2A:4027
 SaveSenderAddr_CursorDown:: ; 2A:40BB
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	pop de
 	pop bc
 	ld d, c
@@ -124,14 +110,7 @@ SaveSenderAddr_CursorDown:: ; 2A:40BB
 SaveSenderAddr_CursorUp:: ; 2A:40E0
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	pop de
 	pop bc
 	ld d, c
@@ -492,14 +471,7 @@ SaveSenderAddr_SaveToSlot:: ; 2A:4312
 .l43A5 ; 2A:43A5
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0032
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_SAVE
 	pop de
 	pop bc
 	push bc

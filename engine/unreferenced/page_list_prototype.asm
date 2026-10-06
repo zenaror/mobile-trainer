@@ -588,14 +588,7 @@ Function_7F_5011::
 	jr z, .l516A
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx $0031
 	pop de
 	pop bc
 	push bc
@@ -620,14 +613,7 @@ Function_7F_5011::
 	jr z, .l5196
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0048
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx $0048
 	pop de
 	pop bc
 	farcall Stat_DisableScrollSplit
@@ -642,14 +628,7 @@ Function_7F_5011::
 	jr z, .l51C0
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0046
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx $0046
 	pop de
 	pop bc
 	ld d, c
@@ -668,14 +647,7 @@ Function_7F_5011::
 	jr z, .l51EA
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0046
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx $0046
 	pop de
 	pop bc
 	ld d, c
@@ -1856,14 +1828,7 @@ Function_7F_5989::
 	jr z, .l5B2D
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx $0031
 	pop de
 	pop bc
 	ld a, b
@@ -1898,14 +1863,7 @@ Function_7F_5989::
 	jr z, .l5B54
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0048
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx $0048
 	pop de
 	pop bc
 	call PageListProto_HideActionCursor
@@ -1920,14 +1878,7 @@ Function_7F_5989::
 	jr z, .l5B83
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0046
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx $0046
 	pop de
 	pop bc
 	ld d, b
@@ -1950,14 +1901,7 @@ Function_7F_5989::
 	jr z, .l5BB2
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0046
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx $0046
 	pop de
 	pop bc
 	ld d, b

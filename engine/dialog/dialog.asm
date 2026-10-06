@@ -174,14 +174,7 @@ Dialog_Open:: ; 72:402A
 	ldh [rLCDC], a
 	ei
 	call Sound_FrameService
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0030
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_DIALOG_OPEN
 	ld a, [wJoyRepeatInterval]
 	ld [wJoySavedRepeatInterval], a
 	ld a, [wJoyRepeatDelay]
@@ -346,14 +339,7 @@ Dialog_OpenTall:: ; 72:41D8
 	ldh [rLCDC], a
 	ei
 	call Sound_FrameService
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0030
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_DIALOG_OPEN
 	ld a, [wJoyRepeatInterval]
 	ld [wJoySavedRepeatInterval], a
 	ld a, [wJoyRepeatDelay]
@@ -669,14 +655,7 @@ Label_72_45A0::
 	jr nz, .l45B9
 	jp Dialog_WaitInput
 .l45B9 ; 72:45B9
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	ldh a, [hDialogResult]
 	xor a, $01
 	ldh [hDialogResult], a
@@ -694,14 +673,7 @@ Label_72_45A0::
 
 Dialog_WaitInput_OnA:: ; 72:45EA
 Label_72_45EA::
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002D
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_DIALOG_CONFIRM
 	ldh a, [hDialogResult]
 	inc a
 	ldh [hDialogResult], a
@@ -720,14 +692,7 @@ Label_72_4603::
 Dialog_WaitInput_OnB:: ; 72:4606
 Label_72_4606::
 	; [CONFIRMED] 31 insn(s); 31 executed (in up to 1/18 scenarios)
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	xor a, a
 	ldh [hDialogResult], a
 	ret
@@ -831,14 +796,7 @@ Label_72_46A2::
 	jr nz, .l46BB
 	jp Dialog_WaitInputMonitored
 .l46BB ; 72:46BB
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	ldh a, [hDialogResult]
 	xor a, $01
 	ldh [hDialogResult], a
@@ -856,14 +814,7 @@ Label_72_46A2::
 
 Dialog_WaitInputMonitored_OnA:: ; 72:46EC
 Label_72_46EC::
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002D
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_DIALOG_CONFIRM
 	ldh a, [hDialogResult]
 	inc a
 	ldh [hDialogResult], a
@@ -880,14 +831,7 @@ Label_72_4705::
 Dialog_WaitInputMonitored_OnB:: ; 72:4708
 Label_72_4708::
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios)
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	xor a, a
 	ldh [hDialogResult], a
 	ret

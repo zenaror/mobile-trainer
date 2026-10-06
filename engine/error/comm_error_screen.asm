@@ -110,14 +110,7 @@ CommErr_ShowScreen_Idle:: ; 5C:523B
 	jp CommErr_ShowScreen_FrameLoop
 
 CommErr_ShowScreen_ButtonA:: ; 5C:524C
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	farcall Palette_FadeOutToWhite
 	xor a, a
 	ret

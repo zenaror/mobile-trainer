@@ -180,39 +180,18 @@ SettingsPhone_ChoiceMenu_Loop:: ; 67:47DC
 	jr nz, .l482C
 	jr SettingsPhone_ChoiceMenu_Loop
 .l47FF ; 67:47FF
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	ld a, [wChoiceMenu_Cursor]
 	inc a
 	ld [wChoiceMenu_Result], a
 	ret
 .l4817 ; 67:4817
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	xor a, a
 	ld [wChoiceMenu_Result], a
 	ret
 .l482C ; 67:482C
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	ld a, [wChoiceMenu_Cursor]
 	ld b, $01
 	xor a, b

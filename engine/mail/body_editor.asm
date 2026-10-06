@@ -202,14 +202,7 @@ Function_2D_4722::
 	jr z, .l4894
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	pop de
 	pop bc
 	farcall Stat_DisableScrollSplit
@@ -235,14 +228,7 @@ Function_2D_4722::
 MailBody_CursorLeft:: ; 2D:48B3
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0036
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_TEXT_CURSOR_MOVE
 	pop de
 	pop bc
 	inc c
@@ -274,14 +260,7 @@ Function_2D_48DA::
 	; executed call/far call
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0036
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_TEXT_CURSOR_MOVE
 	pop de
 	pop bc
 
@@ -364,14 +343,7 @@ Function_2D_4942::
 	; executed call/far call
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0036
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_TEXT_CURSOR_MOVE
 	pop de
 	pop bc
 	inc b
@@ -405,14 +377,7 @@ Function_2D_4968::
 	; executed call/far call
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0036
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_TEXT_CURSOR_MOVE
 	pop de
 	pop bc
 
@@ -1547,14 +1512,7 @@ Function_2D_50B8::
 	; 50C4-5102 by apply_coverage --split
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	pop bc
@@ -1565,14 +1523,7 @@ Function_2D_50B8::
 	; [CONFIRMED] 92 insn(s); 92 executed (in up to 2/18 scenarios)
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0038
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ENTERED
 	pop de
 	pop bc
 	pop bc
@@ -1798,14 +1749,7 @@ MailBody_InsertNewline:: ; 2D:522B
 .l5243 ; 2D:5243
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	pop bc
@@ -1815,14 +1759,7 @@ MailBody_InsertNewline:: ; 2D:522B
 .l525C ; 2D:525C
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $003B
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx $003B
 	pop de
 	pop bc
 	pop bc
@@ -1977,14 +1914,7 @@ Function_2D_535C::
 	push bc
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0039
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ERASED
 	pop de
 	pop bc
 	push bc
@@ -2208,14 +2138,7 @@ MailBody_ApplyDakuten:: ; 2D:546D
 	ld [hl], a
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0038
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ENTERED
 	xor a, a
 	ld [wKeyboardCharLo], a
 	pop de
@@ -2326,14 +2249,7 @@ MailBody_ApplyDakutenU:: ; 2D:553D
 	ld [hl], a
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0038
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ENTERED
 	pop de
 	pop bc
 	pop hl
@@ -2382,14 +2298,7 @@ MailBody_ApplyDakutenU:: ; 2D:553D
 	; cut out of the PROBABLE region 55A9-55DA by apply_coverage --split
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	xor a, a
@@ -2403,14 +2312,7 @@ MailBody_ApplyDakutenU:: ; 2D:553D
 	; --split [executed in 1 scenarios]
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	ret
@@ -2471,14 +2373,7 @@ MailBody_ApplyHandakuten:: ; 2D:55E0
 	ld [hl], a
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0038
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ENTERED
 	pop de
 	pop bc
 	pop hl
@@ -2524,14 +2419,7 @@ MailBody_ApplyHandakuten:: ; 2D:55E0
 	; region 564A-567B by apply_coverage --split [executed in 1 scenarios]
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	xor a, a
@@ -2545,14 +2433,7 @@ MailBody_ApplyHandakuten:: ; 2D:55E0
 	; 564A-567B by apply_coverage --split
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	ret
@@ -2890,14 +2771,7 @@ Function_2D_5691::
 	farcall MailDraft_SaveToSram
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0032
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_SAVE
 	pop de
 	pop bc
 	farcall Stat_DisableScrollSplit

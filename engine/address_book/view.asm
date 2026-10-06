@@ -103,14 +103,7 @@ AbookView_Run:: ; 2F:5098
 	push bc
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	pop de
 	pop bc
 	farcall Stat_DisableScrollSplit

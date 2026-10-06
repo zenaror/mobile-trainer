@@ -231,26 +231,12 @@ SettingsMenu_StateInput:: ; 68:5172
 	jr nz, .l51CF
 	jp .done
 .l5187 ; 68:5187
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	ld a, $03
 	ld [wSettingsMenu_State], a
 	jr .done
 .l519E ; 68:519E
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	ld a, $03
 	ld [wSettingsMenu_State], a
 	ld a, $01
@@ -281,14 +267,7 @@ SettingsMenu_StateInput:: ; 68:5172
 	inc a
 	ld [wSettingsMenu_Cursor], a
 .l51E1 ; 68:51E1
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	call SettingsMenu_DrawItems
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers

@@ -110,14 +110,7 @@ PwSaveConfirm_Loop:: ; 67:6625
 	jr nz, .l6685
 	jr PwSaveConfirm_Loop
 .l6648 ; 67:6648
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	ld a, [wPwSaveConfirm_Cursor]
 	or a, a
 	jr nz, .l6664
@@ -135,26 +128,12 @@ PwSaveConfirm_Loop:: ; 67:6625
 	ld a, [wPwSaveConfirm_Variant]
 	or a, a
 	jr nz, PwSaveConfirm_Loop
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	xor a, a
 	ld [wPwSaveConfirm_Result], a
 	ret
 .l6685 ; 67:6685
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	ld a, [wPwSaveConfirm_Cursor]
 	ld b, $01
 	xor a, b

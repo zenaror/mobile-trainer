@@ -44,14 +44,7 @@ MailDraft_Menu_Loop:: ; 2B:402B
 	jr nz, .l4080
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	pop de
 	pop bc
 .loop ; 2B:405F
@@ -78,14 +71,7 @@ MailDraft_Menu_Loop:: ; 2B:402B
 	; fall-through of the jrcc at 2B:4082 (executed) [executed in 1 scenarios]
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	pop de
 	pop bc
 	call MailDraft_Edit
@@ -176,14 +162,7 @@ MailDraft_Menu_Loop:: ; 2B:402B
 	farcall MailDraft_Clear
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0033
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_DELETE
 	pop de
 	pop bc
 	ld a, $07
@@ -201,14 +180,7 @@ MailDraft_Menu_Loop:: ; 2B:402B
 	jr z, .l41BD
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	pop de
 	pop bc
 	farcall Stat_DisableScrollSplit
@@ -221,14 +193,7 @@ MailDraft_Menu_Loop:: ; 2B:402B
 	jr z, .l41E3
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	pop de
 	pop bc
 	dec c
@@ -245,14 +210,7 @@ MailDraft_Menu_Loop:: ; 2B:402B
 	jr z, .l4209
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	pop de
 	pop bc
 	inc c

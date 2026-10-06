@@ -119,14 +119,7 @@ Label_67_6452::
 	ld a, [wAdapterCheck_SfxFlag]
 	or a, a
 	jr nz, .l649E
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0046
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_ADAPTER_ANIM
 	ld a, $01
 	ld [wAdapterCheck_SfxFlag], a
 	jr .l649E

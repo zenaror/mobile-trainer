@@ -80,14 +80,7 @@ MailSrvDelHidden_MenuLoop:: ; 22:4076
 	jr z, .l40F4
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	pop de
 	pop bc
 	dec c
@@ -149,14 +142,7 @@ MailSrvDelHidden_MenuLoop:: ; 22:4076
 	; 4000-43E0 by apply_coverage --split
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	pop de
 	pop bc
 	farcall Stat_DisableScrollSplit
@@ -174,14 +160,7 @@ MailSrvDelHidden_MenuLoop:: ; 22:4076
 	push bc
 	push de
 	di
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	ei
 	pop de
 	pop bc
@@ -203,14 +182,7 @@ MailSrvDelHidden_MenuLoop:: ; 22:4076
 	push bc
 	push de
 	di
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	ei
 	pop de
 	pop bc
@@ -694,14 +666,7 @@ MailSrvDelHidden_Confirm:: ; 22:4582
 	jr z, .l476A
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	pop de
 	pop bc
 	dec c
@@ -726,14 +691,7 @@ MailSrvDelHidden_Confirm:: ; 22:4582
 	; 4582-47DD by apply_coverage --split
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	pop de
 	pop bc
 	farcall Stat_DisableScrollSplit
@@ -750,14 +708,7 @@ MailSrvDelHidden_Confirm:: ; 22:4582
 	jr z, .l47B8
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	pop de
 	pop bc
 	ld a, c
@@ -774,14 +725,7 @@ MailSrvDelHidden_Confirm:: ; 22:4582
 	; 4582-47DD by apply_coverage --split
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	pop de
 	pop bc
 	ld a, c

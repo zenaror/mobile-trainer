@@ -98,14 +98,7 @@ Account_ActionConfirmPage_InputLoop:: ; 68:6EF6
 	jr nz, .l6F5E
 	jr Account_ActionConfirmPage_InputLoop
 .l6F19 ; 68:6F19
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	ld a, [wActionConfirmPage_Cursor]
 	or a, a
 	jr nz, .l6F35
@@ -122,27 +115,13 @@ Account_ActionConfirmPage_InputLoop:: ; 68:6EF6
 	ld a, [wActionConfirmPage_Variant]
 	or a, a
 	jr z, Account_ActionConfirmPage_InputLoop
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	xor a, a
 	ld [wActionConfirmPage_Result], a
 	ld [wActionConfirmPage_NoFlag], a
 	ret
 .l6F5E ; 68:6F5E
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	ld a, [wActionConfirmPage_Cursor]
 	ld b, $01
 	xor a, b

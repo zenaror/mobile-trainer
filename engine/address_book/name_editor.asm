@@ -95,14 +95,7 @@ Label_2F_5876::
 	jr z, .l58BB
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	pop de
 	pop bc
 	farcall Stat_DisableScrollSplit
@@ -131,14 +124,7 @@ Label_2F_5876::
 AbookName_CursorLeft:: ; 2F:58CE
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0036
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_TEXT_CURSOR_MOVE
 	pop de
 	pop bc
 	inc c
@@ -166,14 +152,7 @@ AbookName_CursorLeft:: ; 2F:58CE
 AbookName_CursorRight:: ; 2F:58F5
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0036
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_TEXT_CURSOR_MOVE
 	pop de
 	pop bc
 
@@ -718,14 +697,7 @@ AbookName_InsertChar:: ; 2F:5C85
 	jr z, .l5CA8
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	ret
@@ -782,14 +754,7 @@ AbookName_InsertChar_Reject:: ; 2F:5CDD
 Label_2F_5CDD::
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	pop bc
@@ -802,14 +767,7 @@ Label_2F_5CF4::
 	; --split [executed in 3 scenarios]
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0038
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ENTERED
 	pop de
 	pop bc
 	pop bc
@@ -955,14 +913,7 @@ AbookName_Backspace:: ; 2F:5DDC
 	push bc
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0039
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ERASED
 	pop de
 	pop bc
 	push bc
@@ -1136,14 +1087,7 @@ AbookName_ApplyDakuten:: ; 2F:5EB3
 	ld [hl], a
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0038
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ENTERED
 	xor a, a
 	ld [wKeyboardCharLo], a
 	pop de
@@ -1264,14 +1208,7 @@ AbookName_ApplyDakutenU:: ; 2F:5F93
 	ld [hl], a
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0038
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ENTERED
 	pop de
 	pop bc
 	pop hl
@@ -1328,14 +1265,7 @@ AbookName_ApplyDakutenU:: ; 2F:5F93
 	; cut out of the PROBABLE region 600F-6040 by apply_coverage --split
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	xor a, a
@@ -1349,14 +1279,7 @@ AbookName_ApplyDakutenU:: ; 2F:5F93
 	; --split [executed in 1 scenarios]
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	ret
@@ -1414,14 +1337,7 @@ AbookName_ApplyHandakuten:: ; 2F:6046
 	ld [hl], a
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0038
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ENTERED
 	pop de
 	pop bc
 	pop hl
@@ -1475,14 +1391,7 @@ AbookName_ApplyHandakuten:: ; 2F:6046
 	; cut out of the PROBABLE region 60C0-60F1 by apply_coverage --split
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	xor a, a
@@ -1496,14 +1405,7 @@ AbookName_ApplyHandakuten:: ; 2F:6046
 	; --split [executed in 1 scenarios]
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	ret

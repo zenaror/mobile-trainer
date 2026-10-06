@@ -259,7 +259,8 @@ whose value is the bank of the target and that nothing but the call reads, becom
 ### Constants and numbers
 
 * **Constants** are `UPPER_CASE` (`MAILREC_OFS_TIME`, `ABOOK_SLOT_COUNT`), written `DEF NAME EQU $xxxx ; STATUS note` followed by `EXPORT NAME` in `consts.asm` (so they are in the `.sym` file).
-  Hardware registers are `rNAME` and bit masks `NAMEF_*` / `NAMEB_*` (`constants/hardware.inc`).
+  Hardware registers are `rNAME` and bit masks `NAMEF_*` / `NAMEB_*` (`constants/hardware.inc`).  The sound effect ids are `SFX_<ROLE>` (the role of the *call*, never how the sound sounds), PROBABLE at best, and are
+  written as the argument of `play_sfx` (section 5); an id whose role differs between its live sites, or that has one site, stays a number (`docs/research/naming2_sfx1.md`).
 * Numbers: hexadecimal with `$` and upper-case digits (`$04D8`, `$FF`), decimal only for counts.  Instructions are lowercase with the explicit operand form of the existing code
   (`or a, a`, `ld a, $08`).
 
@@ -277,6 +278,10 @@ The Trainer calls code in other banks through the routine at `00:06D1` (`FarCall
 * Other inline-data callees are documented in `config/conventions.tsv` (`call $06BC ; dw target` where the bank is taken from `hFFF3`, `jp` forms, jump tables read from the bytes after the call).
   Their inline bytes are written as `dw`/`db`.
 * Never put a section boundary between a `call` and its inline bytes.
+* `play_sfx ID` (macro in `constants/macros.inc`) is the user interface's sound call: it expands to the eight instructions that save the WRAM bank shadow, select WRAM bank 1, call `Sound_PlaySfx` with `bc = ID` and restore the
+  bank (367 sites).  After it A is the `hWRAMBank` shadow, B, C, D, E, H and L are clobbered and the stub's result is dropped (the comment of the macro has the whole contract).  It is the only code idiom that is a macro: the WRAM
+  and SRAM bank-switch idioms stay as written, because the bank proofs of `tools/apply_ram_operands.py` and `tools/invariants_check.py` read those lines.  `python3 tools/apply_play_sfx.py --check` lists a site of the idiom that is
+  still spelled out; a site in the dead prototypes (`engine/unreferenced/`) or in a `[HYPOTHESIS]` stub keeps the number as the argument.
 
 ## 6. Code
 
@@ -424,6 +429,7 @@ are edited directly or through `tools/screen_png.py import`. After adding or rem
 | `python3 tools/apply_ram_operands.py --elements wSpriteSlots --observed --check` | no `wSpriteSlots + N` is left where bank 7 is shown (needs rgbasm: it builds a marked copy of the tree) |
 | `python3 tools/apply_rom_operands.py --check` | no `ld hl\|de\|bc, $XXXX` that a consumer rule of `analysis/naming2/rom_consumers.tsv` proves (a ROM pointer with its bank) is left numeric, and no `ld a, $NN` beside a label that it is the bank of is left numeric (needs rgbasm: it builds a marked copy of the tree) |
 | `python3 tools/sprite_chain_check.py` | every `Sprite_InitSlot` site (`ld de, X` with `ld a, $NN` or `ld a, BANK(X)`) resolves to an object table of its bank, the walk reaches the frame tables, records and scripts, and the names `*_Anim<N>*`, `*_ObjAnimData*`, `*_ObjTable` agree with what it reaches (needs the built tree) |
+| `python3 tools/apply_play_sfx.py --check` | no site of the eight-line sound idiom is left outside `play_sfx` (needs nothing built); `python3 tools/test_play_sfx.py` tests the tool |
 
 **Applying renames.** Names are changed with `python3 tools/apply_renames.py --manifest FILE` (manifest: TAB-separated `old_name new_name kind status evidence`; HYPOTHESIS rows are never applied).
 It renames the definition (`New:: ; BB:AAAA`; the neutral old name stays below it as an alias without comment) and every reference in all `.asm`/`.inc` files, refuses unsafe rows (collisions,
@@ -445,6 +451,7 @@ failure.  Use `--dry-run` first.  The manifests are `analysis/naming2/sram4_*.ts
 `constants/hardware.inc` (no manifest: the object table is the rule), runs `make`, checks the SHA-256 and `sym_check`, and restores every file on failure.  Use `--dry-run` first.  The record of the mapping is
 `analysis/naming2/ramop6_names.tsv`.  `--areas wramx` (banked WRAM, rules in `analysis/naming2/wramx_consumers.tsv`, bank effects of routines in `analysis/naming2/wramx_calls.tsv`) and `--elements NAME [--observed]` (an array's `NAME + N` expressions as element names) work the same way;
 `python3 tools/apply_manual_sites.py [--sites FILE]` writes the by-hand rows of `analysis/naming2/ramop10_manual.tsv` (or another record with the same columns): an operand or a neutral name use becomes the proposed name after a check of the context of the line and of the value and bank of the name, builds, compares the SHA-256 and restores on failure; it is idempotent.
+`python3 tools/remap_record_lines.py OLD_REV` rewrites the line column of the records of `analysis/naming2` after a pass that collapsed or inserted source lines (run once per pass, with the revision before it).
 `python3 tools/line_addresses.py file.asm:LINE ...` prints the bank and the address of a source line (it builds a marked copy of the tree and never touches the repository).  Tests: `python3 tools/test_ram_operands.py`, `python3 tools/test_manual_sites.py`; the invariants: `python3 tools/invariants_check.py`.
 
 **Applying ROM operands.** `python3 tools/apply_rom_operands.py [--dry-run] [--check] [--report FILE]` rewrites the ROM pointer operands described in section 4 (ROM pointer operands) from the rules of `analysis/naming2/rom_consumers.tsv`

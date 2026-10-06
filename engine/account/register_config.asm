@@ -94,14 +94,7 @@ Registration_WriteConfig_RunState:: ; 68:6B98
 	ld a, [wRegistrationWriteConfig_SfxFlag]
 	or a, a
 	jr nz, .l6BE4
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0046
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_ADAPTER_ANIM
 	ld a, $01
 	ld [wRegistrationWriteConfig_SfxFlag], a
 	jr .l6BE4

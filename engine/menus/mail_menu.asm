@@ -177,14 +177,7 @@ MailMenu_Idle:: ; 1D:41AA
 	jp MailMenu_Loop
 
 MailMenu_OnA:: ; 1D:41BD
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	farcall Palette_FadeOutWithTicker
 	farcall Ticker_Stop
 	ld a, [wMailMenu_Cursor]
@@ -196,14 +189,7 @@ MailMenu_OnA:: ; 1D:41BD
 	ret
 
 MailMenu_OnB:: ; 1D:41EC
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	farcall Palette_FadeOutWithTicker
 	farcall Ticker_Stop
 	ld b, $00
@@ -274,14 +260,7 @@ MailMenu_HandleDpad:: ; 1D:4229
 	call MailMenu_AnimateIcon
 
 MailMenu_AfterMove:: ; 1D:427A
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	ld a, [wMailMenu_Cursor]
 	dec a
 	cp a, $01

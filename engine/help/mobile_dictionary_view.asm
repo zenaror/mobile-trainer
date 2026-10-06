@@ -123,14 +123,7 @@ Label_4C_501E::
 	farcall HtmlUrl_Resolve
 	ld hl, wAttrUrlBuf
 	farcall HtmlUrl_NormalizePath
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $003E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_LINK_FOLLOW
 	ld a, $01
 	ld [wBrowserNavigating], a
 	farcall MobileDictView_LoadEntry
@@ -151,14 +144,7 @@ Label_4C_509A::
 	farcall MobileDictView_HistoryPop
 	or a, a
 	jp z, MobileDictView_Show_Exit
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $003F
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_HISTORY_BACK
 	xor a, a
 	ld [wBrowserNavigating], a
 	farcall MobileDictView_LoadEntry
@@ -183,14 +169,7 @@ Label_4C_50E0::
 
 MobileDictView_Show_Exit:: ; 4C:50E3
 Label_4C_50E3::
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	ld bc, $000F
 	farcall Sprite_WaitFrames
 	farcall Palette_FadeOutToWhite

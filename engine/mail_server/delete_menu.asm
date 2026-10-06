@@ -79,14 +79,7 @@ MailSrvDel_MenuLoop:: ; 23:4076
 	jr z, .l40EA
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	pop de
 	pop bc
 	dec c
@@ -146,14 +139,7 @@ MailSrvDel_MenuLoop:: ; 23:4076
 	; fall-through of the jrcc at 23:40EE (executed) [executed in 5 scenarios]
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	pop de
 	pop bc
 	farcall Stat_DisableScrollSplit
@@ -173,14 +159,7 @@ MailSrvDel_MenuLoop:: ; 23:4076
 	push bc
 	push de
 	di
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	ei
 	pop de
 	pop bc
@@ -201,14 +180,7 @@ MailSrvDel_MenuLoop:: ; 23:4076
 	push bc
 	push de
 	di
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	ei
 	pop de
 	pop bc
@@ -628,14 +600,7 @@ MailSrvDel_Confirm:: ; 23:4471
 	jr z, .l4659
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	pop de
 	pop bc
 	dec c
@@ -657,14 +622,7 @@ MailSrvDel_Confirm:: ; 23:4471
 	jr z, .l4685
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	pop de
 	pop bc
 	farcall Stat_DisableScrollSplit
@@ -678,14 +636,7 @@ MailSrvDel_Confirm:: ; 23:4471
 	jr z, .l46A7
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	pop de
 	pop bc
 	ld a, c
@@ -699,14 +650,7 @@ MailSrvDel_Confirm:: ; 23:4471
 	jr z, .l46C9
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	pop de
 	pop bc
 	ld a, c

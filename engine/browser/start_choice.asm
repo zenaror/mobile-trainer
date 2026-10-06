@@ -220,14 +220,7 @@ Label_73_60A0::
 BrowserStart_OnA:: ; 73:6114
 Label_73_6114::
 	; [CONFIRMED] 17 insn(s); 17 executed (in up to 1/18 scenarios)
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	farcall Palette_FadeOutWithTicker
 	farcall Ticker_Stop
 	ld a, [wBrowserStart_Cursor]
@@ -258,14 +251,7 @@ BrowserStart_OnB:: ; 73:614F
 Label_73_614F::
 	; [CONFIRMED] 61 insn(s) reached by static flow only; seeds: exec x61; min discovery hops 1;
 	; entered by table from 73:6093 (executed) [executed in 3 scenarios]
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	farcall Palette_FadeOutWithTicker
 	farcall Ticker_Stop
 	ld b, $00
@@ -304,14 +290,7 @@ BrowserStart_HandleDpad:: ; 73:6180
 	ld [wBrowserStart_Cursor], a
 	call BrowserStart_DrawButtons
 	call BrowserStart_ShowDescription
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	ret
 .l61B4 ; 73:61B4
 	ld a, [wBrowserStart_Cursor]
@@ -321,14 +300,7 @@ BrowserStart_HandleDpad:: ; 73:6180
 	ld [wBrowserStart_Cursor], a
 	call BrowserStart_DrawButtons
 	call BrowserStart_ShowDescription
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	ret
 
 BrowserStart_DrawButtons:: ; 73:61D5

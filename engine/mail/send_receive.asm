@@ -560,14 +560,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 	ld [wCommSessionActive], a
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002F
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx $002F
 	pop de
 	pop bc
 	ld bc, $0514
@@ -610,14 +603,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 	call Sprite_SetPosition
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0044
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_COMM_CLOSE_DONE
 	pop de
 	pop bc
 .l448B ; 27:448B
@@ -671,14 +657,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 	farcall Gfx_UploadWinMapBuffers
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002F
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx $002F
 	pop de
 	pop bc
 	ld hl, wSpriteSlot5
@@ -796,14 +775,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 	jr z, .l45DC
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0045
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_COMM_CLOSE_ENDED
 	pop de
 	pop bc
 	ld de, $71D0
@@ -1190,14 +1162,7 @@ Function_27_4768::
 	jp z, .l48F6
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0045
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_COMM_CLOSE_ENDED
 	pop de
 	pop bc
 	ld de, $71D0
@@ -1429,14 +1394,7 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	jr nz, .l4AE5
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0045
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_COMM_CLOSE_ENDED
 	pop de
 	pop bc
 	ld de, $71D0

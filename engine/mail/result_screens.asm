@@ -45,14 +45,7 @@ Function_29_4000::
 	jr z, .loop
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	pop de
 	pop bc
 	farcall Stat_DisableScrollSplit
@@ -588,14 +581,7 @@ Function_29_44F6::
 	jr z, .loop
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	pop de
 	pop bc
 	ld a, [wMailScreenMode]

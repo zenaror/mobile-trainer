@@ -562,27 +562,13 @@ PhoneKeypad_Loop:: ; 67:443C
 	farcall TextBuf_AppendChar
 	or a, a
 	jr nz, .l4483
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0038
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ENTERED
 	jr .l4493
 
 .l4483 ; 67:4483
 	; [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 431F-4571 by apply_coverage --split
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 
 .l4493 ; 67:4493
 	; [CONFIRMED] 6 insn(s) executed; cut out of the PROBABLE region 431F-4571 by apply_coverage
@@ -607,14 +593,7 @@ PhoneKeypad_Loop:: ; 67:443C
 	farcall TextBuf_DeleteLast
 	or a, a
 	jr nz, .l4523
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0039
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ERASED
 	ld hl, wTextEntryBuf
 	farcall TextBuf_GetLength
 	cp a, $01
@@ -629,37 +608,16 @@ PhoneKeypad_Loop:: ; 67:443C
 	farcall TextBuf_GetLength
 	cp a, $01
 	jr nc, .l450A
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	jr .l4556
 .l450A ; 67:450A
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	call PhoneKeypad_StoreResult
 	ld a, $01
 	ld [wPhoneKeypad_Result], a
 	ret
 .l4523 ; 67:4523
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	call PhoneKeypad_StoreResult
 	xor a, a
 	ld [wPhoneKeypad_Result], a

@@ -196,14 +196,7 @@ ConnectDialog_HandleFrame:: ; 57:40E0
 .l416E ; 57:416E
 	ld hl, wSpriteSlot4
 	farcall Sprite_SetPosition
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	xor a, a
 	ret
 .l4189 ; 57:4189
@@ -292,14 +285,7 @@ ConnectDialog_Input_ConnectConfirm:: ; 57:41CA
 .l421C ; 57:421C
 	ld hl, wSpriteSlot4
 	farcall Sprite_SetPosition
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	xor a, a
 	ret
 
@@ -370,14 +356,7 @@ ConnectDialog_Keyboard_AppendChar:: ; 57:4299
 	ld a, [wConnectDialogTextLen]
 	cp a, $08
 	jr z, .l430D
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0038
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ENTERED
 	ld hl, wSpriteSlot2
 	ld de, ConnectDialog_ObjTable
 	ld a, BANK(ConnectDialog_ObjTable)
@@ -423,14 +402,7 @@ ConnectDialog_Keyboard_AppendChar:: ; 57:4299
 	xor a, a
 	ret
 .l430D ; 57:430D
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	xor a, a
 	ret
 
@@ -467,14 +439,7 @@ ConnectDialog_Keyboard_EraseChar:: ; 57:433F
 	ld a, [wConnectDialogTextLen]
 	or a, a
 	jr z, .l438E
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0039
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ERASED
 	call ConnectDialog_DrawPasswordField
 	ld a, [wConnectDialogTextLen]
 	dec a
@@ -558,14 +523,7 @@ ConnectDialog_Input_SaveConfirm:: ; 57:43BC
 .skip ; 57:4406
 	ld hl, wSpriteSlot4
 	farcall Sprite_SetPosition
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	xor a, a
 	ret
 
@@ -675,14 +633,7 @@ ConnectDialog_Input_ForgetConfirm:: ; 57:4481
 .skip ; 57:44C9
 	ld hl, wSpriteSlot4
 	farcall Sprite_SetPosition
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	xor a, a
 	ret
 
@@ -776,14 +727,7 @@ Label_57_4566::
 	ld de, $7828
 	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0030
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_DIALOG_OPEN
 	ret
 
 ConnectDialog_Enter_PasswordSaved:: ; 57:4590
@@ -824,14 +768,7 @@ Label_57_45BC::
 	ld de, $7828
 	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0030
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_DIALOG_OPEN
 	ret
 
 ConnectDialog_LeaveMode:: ; 57:45E6

@@ -283,14 +283,7 @@ MailSession_SendPhase:: ; 26:412C
 	farcall Smtp_StartMailFrom
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0043
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx $0043
 	pop de
 	pop bc
 .l42A6 ; 26:42A6
@@ -1007,14 +1000,7 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	push bc
 	push de
 	push hl
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $003C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx $003C
 	ld hl, wSpriteSlot3
 	ld de, MailSession_ObjTable_72FB_Entry20
 	ld a, BANK(MailSession_ObjTable_72FB_Entry20)
@@ -1350,14 +1336,7 @@ MailSession_NoMailOrFull:: ; 26:4A8A
 .l4AA1 ; 26:4AA1
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0042
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx $0042
 	pop de
 	pop bc
 	ld hl, wSpriteSlot3
@@ -1422,14 +1401,7 @@ MailSession_NoMailOrFull:: ; 26:4A8A
 MailSession_Finish:: ; 26:4B54
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $003D
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx $003D
 	pop de
 	pop bc
 	ld hl, wSpriteSlot3

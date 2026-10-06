@@ -267,14 +267,7 @@ Label_72_65F5::
 .l6602 ; 72:6602
 	; [PROBABLE] 29 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 65F5-6643 by apply_coverage --split
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	ldh a, [hDialogResult]
 	inc a
 	cp a, $02
@@ -282,14 +275,7 @@ Label_72_65F5::
 	xor a, a
 	jp BrowserMenu_RunTwoItem_SetItem
 .l661E ; 72:661E
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	ldh a, [hDialogResult]
 	dec a
 	bit 7, a
@@ -320,14 +306,7 @@ Label_72_6647::
 	; [PROBABLE] 104 insn(s) reached by static flow only; seeds: exec x104; min discovery hops 2;
 	; entered by jpcc from 72:665F (PROBABLE code) | 9 insn(s) never executed in the traced runs;
 	; cut out of the PROBABLE region 6647-6711 by apply_coverage --split
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	jp BrowserMenu_RunTwoItem_Loop
 
 BrowserMenu_RunTwoItem_AcceptItem0:: ; 72:665A
@@ -337,14 +316,7 @@ Label_72_665A::
 	ld a, [wTimerEnable]
 	bit 4, a
 	jp z, BrowserMenu_RunTwoItem_Reject
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	ld a, $02
 	ldh [hDialogResult], a
 	ret
@@ -359,14 +331,7 @@ Label_72_6677::
 
 BrowserMenu_RunTwoItem_AcceptItem1:: ; 72:667B
 Label_72_667B::
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	ld a, $03
 	ldh [hDialogResult], a
 	ret
@@ -716,14 +681,7 @@ Label_72_6931::
 .l693E ; 72:693E
 	; [CONFIRMED] 31 insn(s) reached by static flow only; seeds: exec x31; min discovery hops 1;
 	; entered by jrcc from 72:6935 (executed) [executed in 1 scenarios]
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	ldh a, [hDialogResult]
 	inc a
 	cp a, $03
@@ -731,14 +689,7 @@ Label_72_6931::
 	xor a, a
 	jp BrowserMenu_RunThreeItem_SetItem
 .l695A ; 72:695A
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	ldh a, [hDialogResult]
 	dec a
 	bit 7, a
@@ -768,28 +719,14 @@ Label_72_6985::
 	; [PROBABLE] 34 insn(s) reached by static flow only; seeds: exec x34; min discovery hops 2;
 	; entered by jpcc from 72:69B2 (PROBABLE code) | 9 insn(s) never executed in the traced runs;
 	; cut out of the PROBABLE region 6985-69CA by apply_coverage --split
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	jp BrowserMenu_RunThreeItem_Loop
 
 BrowserMenu_RunThreeItem_AcceptItem0:: ; 72:6998
 Label_72_6998::
 	; [CONFIRMED] 25 insn(s) executed; cut out of the PROBABLE region 6985-69CA by apply_coverage
 	; --split [executed in 2 scenarios]
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	ld a, $01
 	ldh [hDialogResult], a
 	ret
@@ -799,14 +736,7 @@ Label_72_69AD::
 	ld a, [wTimerEnable]
 	bit 4, a
 	jp z, BrowserMenu_RunThreeItem_Reject
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	ld a, $02
 	ldh [hDialogResult], a
 	ret
@@ -823,14 +753,7 @@ Label_72_69CE::
 	; [CONFIRMED] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 1;
 	; entered by table from 72:697C (PROBABLE code) | 12 insn(s) executed; cut out of the PROBABLE
 	; region 69CE-69F3 by apply_coverage --split [executed in 1 scenarios]
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	ldh a, [hDialogResult]
 	inc a
 	ldh [hDialogResult], a

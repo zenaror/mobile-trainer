@@ -215,14 +215,7 @@ Label_70_4135::
 	jr nz, .l417E
 	jr .l41BB
 .l4144 ; 70:4144
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002F
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx $002F
 	ld a, $14
 	ld [wCommScene_Timer], a
 	ld hl, wSpriteSlot6
@@ -242,14 +235,7 @@ Label_70_4135::
 .l417E ; 70:417E
 	; [CONFIRMED] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 1;
 	; entered by jrcc from 70:4140 (executed) [executed in 2 scenarios]
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002F
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx $002F
 	ld a, $02
 	ld [wCommScene_Result], a
 	ld hl, wSpriteSlot6
@@ -279,14 +265,7 @@ Label_70_41BF::
 	ld [wCommScene_Timer], a
 	or a, a
 	jr nz, .l41E4
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0044
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_COMM_CLOSE_DONE
 	ld hl, wSpriteSlot6
 	call Sprite_ClearSlot
 	ld a, $05
@@ -356,14 +335,7 @@ Label_70_4235::
 .l4241 ; 70:4241
 	; [CONFIRMED] 24 insn(s) executed; cut out of the PROBABLE region 4215-4275 by apply_coverage
 	; --split [executed in 4 scenarios]
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0045
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_COMM_CLOSE_ENDED
 	ld a, $09
 	ld [wCommScene_State], a
 	jr .l4258
@@ -451,14 +423,7 @@ Label_70_42CD::
 	jr nz, .l4316
 	jr .l4353
 .l42DC ; 70:42DC
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002F
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx $002F
 	ld a, $14
 	ld [wCommScene_Timer], a
 	ld hl, wSpriteSlot6
@@ -478,14 +443,7 @@ Label_70_42CD::
 .l4316 ; 70:4316
 	; [CONFIRMED] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 1;
 	; entered by jrcc from 70:42D8 (executed) [executed in 2 scenarios]
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002F
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx $002F
 	ld a, $02
 	ld [wCommScene_Result], a
 	ld hl, wSpriteSlot6
@@ -515,14 +473,7 @@ Label_70_4357::
 	ld [wCommScene_Timer], a
 	or a, a
 	jr nz, .l437C
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0044
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_COMM_CLOSE_DONE
 	ld hl, wSpriteSlot6
 	call Sprite_ClearSlot
 	ld a, $04
@@ -595,14 +546,7 @@ Label_70_43D0::
 	; --split [executed in 2 scenarios]
 	ld a, $01
 	call CommScene_SetSpritePair
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0045
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_COMM_CLOSE_ENDED
 	ld a, $08
 	ld [wCommScene_State], a
 	jr .l43F8
@@ -672,14 +616,7 @@ Label_70_4458::
 .l4464 ; 70:4464
 	; [CONFIRMED] 33 insn(s) executed; cut out of the PROBABLE region 43AD-44B0 by apply_coverage
 	; --split [executed in 5 scenarios]
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0045
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_COMM_CLOSE_ENDED
 	ld a, $03
 	ld [wCommScene_State], a
 	ld a, $05

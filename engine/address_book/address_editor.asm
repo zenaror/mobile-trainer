@@ -153,14 +153,7 @@ Label_2F_6DF9::
 	; region 6E00-6EF4 by apply_coverage --split [executed in 3 scenarios]
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	pop de
 	pop bc
 	push bc
@@ -301,14 +294,7 @@ AbookAddr_CursorLeft:: ; 2F:6F07
 	; region 6F07-6F42 by apply_coverage --split [executed in 1 scenarios]
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0036
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_TEXT_CURSOR_MOVE
 	pop de
 	pop bc
 	inc c
@@ -336,14 +322,7 @@ AbookAddr_CursorLeft:: ; 2F:6F07
 AbookAddr_CursorRight:: ; 2F:6F2E
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0036
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_TEXT_CURSOR_MOVE
 	pop de
 	pop bc
 
@@ -1159,14 +1138,7 @@ AbookAddr_InsertChar:: ; 2F:73FA
 	; 73FA-75A0 by apply_coverage --split
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	ret
@@ -1178,14 +1150,7 @@ AbookAddr_InsertChar:: ; 2F:73FA
 	push bc
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0038
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ENTERED
 	pop de
 	pop bc
 	push bc
@@ -1287,14 +1252,7 @@ AbookAddr_Backspace:: ; 2F:74D7
 	push bc
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0039
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ERASED
 	pop de
 	pop bc
 	push bc

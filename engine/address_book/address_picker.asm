@@ -74,14 +74,7 @@ AddrPick_Menu_Loop:: ; 2C:5721
 	jr z, .l5794
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	pop de
 	pop bc
 	farcall Stat_DisableScrollSplit
@@ -105,14 +98,7 @@ AddrPick_CursorDown:: ; 2C:57A7
 	; region 57A7-58AC by apply_coverage --split [executed in 1 scenarios]
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	pop de
 	pop bc
 	ld d, c
@@ -130,14 +116,7 @@ AddrPick_CursorDown:: ; 2C:57A7
 AddrPick_CursorUp:: ; 2C:57CC
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	pop de
 	pop bc
 	ld d, c
@@ -208,14 +187,7 @@ AddrPick_LoadSelection:: ; 2C:57F1
 	jr nz, .l5854
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	xor a, a
@@ -278,14 +250,7 @@ AddrPick_LoadSelection:: ; 2C:57F1
 .l5895 ; 2C:5895
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	pop de
 	pop bc
 	ld a, $01

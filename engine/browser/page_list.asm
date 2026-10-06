@@ -247,14 +247,7 @@ PageList_Main_Loop:: ; 24:4083
 	jr z, .l422A
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	pop de
 	pop bc
 	push bc
@@ -289,14 +282,7 @@ PageList_Main_Loop:: ; 24:4083
 	jr z, .l4256
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	pop de
 	pop bc
 	farcall Stat_DisableScrollSplit
@@ -311,14 +297,7 @@ PageList_Main_Loop:: ; 24:4083
 	jp z, .l4281
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	pop de
 	pop bc
 	ld d, c
@@ -337,14 +316,7 @@ PageList_Main_Loop:: ; 24:4083
 	jp z, .l42AC
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	pop de
 	pop bc
 	ld d, c
@@ -1816,14 +1788,7 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	jp z, PageList_ActionMenu_Loop
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	jp PageList_ActionMenu_Loop
@@ -1840,14 +1805,7 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	jp z, .l4DB7
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	ld a, $FF
@@ -1861,14 +1819,7 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	jr z, .l4DE1
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	pop de
 	pop bc
 	call PageList_HideActionCursor
@@ -1884,14 +1835,7 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	push bc
 	push de
 	di
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	ei
 	pop de
 	pop bc
@@ -1916,14 +1860,7 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	push bc
 	push de
 	di
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	ei
 	pop de
 	pop bc
@@ -2185,14 +2122,7 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	push bc
 	push de
 	call PageList_UpdateRowSprites
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0032
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_SAVE
 	pop de
 	pop bc
 	pop de
@@ -2435,14 +2365,7 @@ PageList_GoToSlot:: ; 24:5164
 	push bc
 	push de
 	push hl
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	pop hl
 	pop de
 	pop bc
@@ -2569,14 +2492,7 @@ PageList_DeleteSlot:: ; 24:51CB
 .l52A3 ; 24:52A3
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0033
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_DELETE
 	call PageList_UpdateRowSprites
 	pop de
 	pop bc

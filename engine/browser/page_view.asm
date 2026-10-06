@@ -233,14 +233,7 @@ Browser_PageView_FollowLink:: ; 4E:4B0E
 	farcall HtmlUrl_Resolve
 	ld hl, wAttrUrlBuf
 	farcall HtmlUrl_NormalizePath
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $003E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_LINK_FOLLOW
 	ld a, [wTimerEnable]
 	ld [wDialogOnlineSnapshot], a
 	ld a, $01
@@ -293,14 +286,7 @@ Browser_PageView_GoBack:: ; 4E:4BAD
 	farcall Browser_HistoryPop
 	or a, a
 	jp z, Browser_PageView_GoBack_NoHistory
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $003F
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_HISTORY_BACK
 	ld bc, $1000
 	ld de, sBrowserPageBuf
 	ld a, $03
@@ -433,14 +419,7 @@ Label_4E_4CEE::
 
 	; [CONFIRMED] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
 	; fall-through of the jrcc at 4E:4D02 (executed) [executed in 1 scenarios]
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0034
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_POPUP_OPEN
 	ldh a, [hDialogResult]
 	farcall BrowserMenu_OpenTwoItem
 	farcall BrowserMenu_RunTwoItem
@@ -448,26 +427,12 @@ Label_4E_4CEE::
 
 .l4D24 ; 4E:4D24
 	; [CONFIRMED] 26 insn(s); 26 executed (in up to 1/18 scenarios)
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0034
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_POPUP_OPEN
 	ldh a, [hDialogResult]
 	farcall BrowserMenu_OpenThreeItem
 	farcall BrowserMenu_RunThreeItem
 .l4D42 ; 4E:4D42
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0035
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_POPUP_CLOSE
 	farcall BrowserMenu_Close
 	ld b, $14
 	ld c, $01

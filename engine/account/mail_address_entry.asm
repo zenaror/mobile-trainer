@@ -257,14 +257,7 @@ Account_MailAddressEntry_InputLoop:: ; 68:592C
 	jr nz, .l598A
 	ld hl, wTextEntryBuf
 	farcall TextBuf_AppendChar
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0038
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ENTERED
 	ld hl, wTextEntryBuf
 	farcall TextBuf_GetFree
 	or a, a
@@ -277,27 +270,13 @@ Account_MailAddressEntry_InputLoop:: ; 68:592C
 	farcall TextBuf_AppendChar
 	or a, a
 	jr nz, .l59A8
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0038
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ENTERED
 	jr .l59B8
 
 .l59A8 ; 68:59A8
 	; [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1;
 	; entered by jrcc from 68:5994 (executed) [executed in 1 scenarios]
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 
 .l59B8 ; 68:59B8
 	; [CONFIRMED] 42 insn(s); 42 executed (in up to 3/18 scenarios)
@@ -318,24 +297,10 @@ Account_MailAddressEntry_InputLoop:: ; 68:592C
 	farcall TextBuf_DeleteLast
 	or a, a
 	jp nz, .l5A7D
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0039
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ERASED
 	jp .l5A95
 .l59FD ; 68:59FD
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0039
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ERASED
 	ld hl, wTextEntryBuf2
 	farcall TextBuf_DeleteLast
 	or a, a
@@ -364,38 +329,17 @@ Account_MailAddressEntry_InputLoop:: ; 68:592C
 	farcall TextBuf_GetLength
 	cp a, $03
 	jr nc, .l5A61
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	jr .l5AB0
 .l5A61 ; 68:5A61
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	call Account_CommitMailFields
 	call Account_BuildMailAddress
 	ld a, $01
 	ld [wMailAddressEntry_Result], a
 	ret
 .l5A7D ; 68:5A7D
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	call Account_CommitMailFields
 	xor a, a
 	ld [wMailAddressEntry_Result], a
@@ -551,25 +495,11 @@ Account_MailIntroPage:: ; 68:5BC4
 	jr nz, .l5BF6
 	jr .loop
 .l5BE2 ; 68:5BE2
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	ld a, $01
 	jr .l5C09
 .l5BF6 ; 68:5BF6
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	xor a, a
 	jr .l5C09
 .l5C09 ; 68:5C09

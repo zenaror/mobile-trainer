@@ -87,14 +87,7 @@ Label_2C_407C::
 	; fall-through of the jrcc at 2C:4080 (executed) [executed in 1 scenarios]
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	pop de
 	pop bc
 	farcall Stat_DisableScrollSplit
@@ -128,14 +121,7 @@ MailTitle_CursorLeft:: ; 2C:40D4
 	; region 40D4-410F by apply_coverage --split [executed in 3 scenarios]
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0036
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_TEXT_CURSOR_MOVE
 	pop de
 	pop bc
 	inc c
@@ -163,14 +149,7 @@ MailTitle_CursorLeft:: ; 2C:40D4
 MailTitle_CursorRight:: ; 2C:40FB
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0036
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_TEXT_CURSOR_MOVE
 	pop de
 	pop bc
 
@@ -743,14 +722,7 @@ MailTitle_InsertChar:: ; 2C:44B8
 	; fall-through of the jrcc at 2C:44C4 (executed) [executed in 3 scenarios]
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	ret
@@ -766,14 +738,7 @@ Label_2C_44DC::
 	push bc
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0038
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ENTERED
 	pop de
 	pop bc
 	push bc
@@ -866,14 +831,7 @@ MailTitle_InsertChar_Reject:: ; 2C:4585
 Label_2C_4585::
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	pop bc
@@ -983,14 +941,7 @@ MailTitle_DeleteChar:: ; 2C:4612
 	push bc
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0039
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ERASED
 	pop de
 	pop bc
 	push bc
@@ -1179,14 +1130,7 @@ MailTitle_ApplyDakuten:: ; 2C:46EB
 	ld [hl], a
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0038
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ENTERED
 	xor a, a
 	ld [wKeyboardCharLo], a
 	pop de
@@ -1317,14 +1261,7 @@ MailTitle_ApplyVu:: ; 2C:47CB
 	ld [hl], a
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0038
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ENTERED
 	pop de
 	pop bc
 	pop hl
@@ -1380,14 +1317,7 @@ MailTitle_ApplyVu:: ; 2C:47CB
 	; entered by jrcc from 2C:47E9 (PROBABLE code)
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	xor a, a
@@ -1398,14 +1328,7 @@ MailTitle_ApplyVu:: ; 2C:47CB
 .l4863 ; 2C:4863
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	ret
@@ -1469,14 +1392,7 @@ MailTitle_ApplyHandakuten:: ; 2C:487E
 	ld [hl], a
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0038
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CHAR_ENTERED
 	pop de
 	pop bc
 	pop hl
@@ -1529,14 +1445,7 @@ MailTitle_ApplyHandakuten:: ; 2C:487E
 	; entered by jrcc from 2C:489C (PROBABLE code)
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	xor a, a
@@ -1547,14 +1456,7 @@ MailTitle_ApplyHandakuten:: ; 2C:487E
 .l4914 ; 2C:4914
 	push bc
 	push de
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0031
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	ret

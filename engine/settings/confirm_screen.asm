@@ -94,14 +94,7 @@ SettingsPhone_ConfirmScreen_Loop:: ; 67:51E2
 	jr nz, .l523C
 	jr SettingsPhone_ConfirmScreen_Loop
 .l5205 ; 67:5205
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002C
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CONFIRM
 	ld a, [wConfirmScreen_Cursor]
 	or a, a
 	jr nz, .l5221
@@ -116,26 +109,12 @@ SettingsPhone_ConfirmScreen_Loop:: ; 67:51E2
 	ld [wConfirmScreen_Result], a
 	ret
 .l5227 ; 67:5227
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $002E
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CANCEL
 	xor a, a
 	ld [wConfirmScreen_Result], a
 	ret
 .l523C ; 67:523C
-	ldh a, [hWRAMBank]
-	push af
-	ld a, $01
-	ldh [rSVBK], a
-	ld bc, $0029
-	call Sound_PlaySfx
-	pop af
-	ldh [rSVBK], a
+	play_sfx SFX_CURSOR_MOVE
 	ld a, [wConfirmScreen_Cursor]
 	ld b, $01
 	xor a, b
