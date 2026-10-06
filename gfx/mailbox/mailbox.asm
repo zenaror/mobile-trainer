@@ -48,7 +48,7 @@ Mailbox_BgPalette:: ; 25:69B0
 Data_25_69B0::
 	INCLUDE "gfx/mailbox/mailbox/mailbox_bg_palette.pal"
 
-; ---- data $69F0-$6AC8 (216 bytes) [PROBABLE] palette-rgb555: heuristic: 116 RGB555 words as 29 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance) [the rest of the block; a palette array that the code reads was cut out of it; the label and the asset of what is left say tiles]
+; ---- data $69F0-$6AC8 (216 bytes) [PROBABLE] tile data: the kept .2bpp asset and label identify tiles; any raw bytes beside it remain unclassified (the rest of a block from which a palette array was cut; the old palette heuristic does not describe this fragment)
 
 Mailbox_Tiles_69F0:: ; 25:69F0
 	; kind (tiles) from the label name / config/symbols note; the region header above describes the block differently
@@ -86,7 +86,7 @@ Mailbox_Tiles_6CF0:: ; 25:6CF0
 	INCBIN "gfx/mailbox/mailbox/mailbox_tiles_6cf0.2bpp"
 	db $00
 
-; ---- data $6E71-$6EF0 (127 bytes) [CONFIRMED] palette-rgb555: heuristic: 63 RGB555 words as 63 words (the rest of a heuristic block; the palette array(s) that the code reads were cut out of it)
+; ---- data $6E71-$6EF0 (127 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown (the rest of a block from which a palette array was cut; this fragment is not valid RGB555; inherited read evidence does not establish each byte of this fragment)
 
 Data_25_6E71:: ; 25:6E71
 	db $00, $38, $7D, $6C, $6D, $38, $7D, $6C, $6D, $6C, $6D, $38, $7D, $00, $00, $00

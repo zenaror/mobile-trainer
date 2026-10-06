@@ -40,14 +40,50 @@ class Rules(unittest.TestCase):
 
     def test_a_documented_over_read_is_allowed(self):
         text = 'palette-rgb555: 20 colours; the call takes 24 bytes past the end of this block'
-        regions = {0x4D: [reg(0x4D, 0x7570, 0x7598, True, text), reg(0x4D, 0x7598, 0x75A0, True)]}
+        regions = {0x4D: [reg(0x4D, 0x7570, 0x7598, True, text), reg(0x4D, 0x7598, 0x75A0, True), reg(0x4D, 0x75A0, 0x7870, False)]}
         errs, arrays, over = prc.check(regions, [(0x4D, 0x7570, 64)])
         self.assertEqual((errs, over), ([], 1))
 
+    def test_comment_cannot_register_an_unreviewed_exception(self):
+        regions = {0x10: [reg(0x10, 0x4000, 0x4008, True,
+                             'the call takes 56 bytes past the end of this block'),
+                         reg(0x10, 0x4008, 0x4040, False, 'tiles')]}
+        errs, _, over = prc.check(regions, [(0x10, 0x4000, 64)])
+        self.assertEqual((len(errs), over), (1, 0))
+
     def test_an_undocumented_over_read_fails(self):
-        regions = {0x4D: [reg(0x4D, 0x7570, 0x7598, True, 'palette-rgb555: 20 colours'), reg(0x4D, 0x7598, 0x75A0, True)]}
+        regions = {0x4D: [reg(0x4D, 0x7570, 0x7598, True, 'palette-rgb555: 20 colours'), reg(0x4D, 0x7598, 0x75A0, True), reg(0x4D, 0x75A0, 0x7870, False)]}
         errs, _, over = prc.check(regions, [(0x4D, 0x7570, 64)])
         self.assertEqual((len(errs), over), (1, 0))
+
+    def test_wrong_overread_count_fails(self):
+        regions = {0x4D: [reg(0x4D, 0x7570, 0x7598, True, 'the call takes 999 bytes past the end of this block'),
+                       reg(0x4D, 0x7598, 0x75A0, True), reg(0x4D, 0x75A0, 0x7870, False)]}
+        self.assertEqual(len(prc.check(regions, [(0x4D, 0x7570, 64)])[0]), 1)
+
+    def test_overread_phrase_cannot_hide_palette_fragments(self):
+        regions = {0x4D: [reg(0x4D, 0x7570, 0x7598, True, 'the call takes 24 bytes past the end of this block'),
+                       reg(0x4D, 0x7598, 0x75B0, True)]}
+        self.assertEqual(len(prc.check(regions, [(0x4D, 0x7570, 64)])[0]), 1)
+
+    def test_overlapping_fragment_headers_fail(self):
+        regions = {0x4D: [reg(0x4D, 0x7570, 0x75B0, True), reg(0x4D, 0x7598, 0x75B0, True)]}
+        self.assertEqual(len(prc.check(regions, [(0x4D, 0x7570, 64)])[0]), 1)
+
+    def test_overread_gap_fails(self):
+        regions = {0x4D: [reg(0x4D, 0x7570, 0x7598, True, 'the call takes 24 bytes past the end of this block'),
+                       reg(0x4D, 0x75A0, 0x7870, False)]}
+        self.assertEqual(len(prc.check(regions, [(0x4D, 0x7570, 64)])[0]), 1)
+
+    def test_overread_overlapping_tail_fails(self):
+        regions = {0x4D: [reg(0x4D, 0x7570, 0x7598, True, 'the call takes 24 bytes past the end of this block'),
+                       reg(0x4D, 0x7598, 0x75A8, True), reg(0x4D, 0x75A0, 0x7870, False)]}
+        self.assertEqual(len(prc.check(regions, [(0x4D, 0x7570, 64)])[0]), 1)
+
+    def test_overread_must_start_at_palette_start(self):
+        regions = {0x4D: [reg(0x4D, 0x7568, 0x7598, True, 'the call takes 24 bytes past the end of this block'),
+                       reg(0x4D, 0x7598, 0x7870, False)]}
+        self.assertEqual(len(prc.check(regions, [(0x4D, 0x7570, 64)])[0]), 1)
 
     def test_loads_that_overlap_are_one_array(self):
         merged = prc.merge_loads([(1, 0x4D00, 64), (1, 0x4D28, 24)])
@@ -87,7 +123,8 @@ class Parser(unittest.TestCase):
         ])
         with tempfile.TemporaryDirectory() as d:
             p = os.path.join(d, 'x.asm')
-            open(p, 'w', encoding='utf-8').write(src)
+            with open(p, 'w', encoding='utf-8') as f:
+                f.write(src)
             regs = prc.parse_regions(p, None)
         self.assertEqual([(r[0], r[1], r[2], r[3]) for r in regs], [(0x10, 0x4000, 0x4040, True), (0x10, 0x4040, 0x4048, False), (0x10, 0x4048, 0x4088, False), (0x10, 0x4088, 0x4098, True)])
 
