@@ -58,7 +58,7 @@ Label_2F_6D40::
 	pop bc
 	call AbookAddr_PlaceCursorSprites
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jp z, AbookAddr_Edit_CheckButtonB
 	call AbookAddr_OpenKeyboard
 
@@ -145,7 +145,7 @@ Label_2F_6D5E::
 AbookAddr_Edit_CheckButtonB:: ; 2F:6DF9
 Label_2F_6DF9::
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jp z, .l6EF4
 
 	; [CONFIRMED] 124 insn(s) reached by static flow only; seeds: exec x124; min discovery hops 0;
@@ -280,10 +280,10 @@ Label_2F_6DF9::
 .l6EF4 ; 2F:6EF4
 	; [CONFIRMED] 8 insn(s); 8 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressedRepeat]
-	and a, $20
+	and a, PADF_LEFT
 	call nz, AbookAddr_CursorLeft
 	ldh a, [hJoyPressedRepeat]
-	and a, $10
+	and a, PADF_RIGHT
 	call nz, AbookAddr_CursorRight
 	ld d, $10
 	jp AbookAddr_Edit_Loop
@@ -1171,10 +1171,10 @@ AbookAddr_InsertChar:: ; 2F:73FA
 	pop de
 	pop bc
 	ldh a, [hJoyPressedRepeat]
-	and a, $01
+	and a, PADF_A
 	jr nz, .l746C
 	ldh a, [hJoyHeld]
-	and a, $F0
+	and a, PADF_DPAD
 	jr nz, .l746C
 	dec d
 	jr nz, .l744A
@@ -1298,10 +1298,10 @@ AbookAddr_Backspace:: ; 2F:74D7
 	pop de
 	pop bc
 	ldh a, [hJoyPressedRepeat]
-	and a, $02
+	and a, PADF_B
 	jr nz, .l753D
 	ldh a, [hJoyHeld]
-	and a, $F0
+	and a, PADF_DPAD
 	jr nz, .l753D
 	dec d
 	jr nz, .loop

@@ -59,7 +59,7 @@ Label_2F_4049::
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jr z, AbookList_Run_CheckButtonB
 	push bc
 	push de
@@ -99,7 +99,7 @@ AbookList_Run_CheckButtonB:: ; 2F:4097
 Label_2F_4097::
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 2/18 scenarios)
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, .l40D0
 
 	; [CONFIRMED] 25 insn(s) reached by static flow only; seeds: exec x25; min discovery hops 0;
@@ -126,10 +126,10 @@ Label_2F_4097::
 .l40D0 ; 2F:40D0
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 2/18 scenarios)
 	ldh a, [hJoyPressedRepeat]
-	and a, $40
+	and a, PADF_UP
 	call nz, AbookList_CursorUp
 	ldh a, [hJoyPressedRepeat]
-	and a, $80
+	and a, PADF_DOWN
 	call nz, AbookList_CursorDown
 	jp AbookList_Run_Loop
 
@@ -249,7 +249,7 @@ Label_2F_4131::
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jp z, .l41E4
 
 	; [CONFIRMED] 26 insn(s) reached by static flow only; seeds: exec x26; min discovery hops 0;
@@ -278,7 +278,7 @@ Label_2F_4131::
 .l41E4 ; 2F:41E4
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jp z, .l43D8
 	ld a, b
 	cp a, $03
@@ -510,7 +510,7 @@ Label_2F_4131::
 	ret
 .l43D8 ; 2F:43D8
 	ldh a, [hJoyPressedRepeat]
-	and a, $20
+	and a, PADF_LEFT
 	jp z, .l440A
 
 	; [CONFIRMED] 23 insn(s) reached by static flow only; seeds: exec x23; min discovery hops 0;
@@ -536,7 +536,7 @@ Label_2F_4131::
 .l440A ; 2F:440A
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressedRepeat]
-	and a, $10
+	and a, PADF_RIGHT
 	jp z, .l443C
 
 	; [CONFIRMED] 23 insn(s) reached by static flow only; seeds: exec x23; min discovery hops 0;
@@ -1196,7 +1196,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld [wSpriteSlot2 + $01], a
 	pop bc
 	ldh a, [hJoyPressed]
-	and a, $C0
+	and a, PADF_UP | PADF_DOWN
 	call nz, AbookList_FlashSelectedMarker
 	ret
 
@@ -1416,7 +1416,7 @@ Function_2F_4942::
 	call VBlank_Wait
 	pop bc
 	ldh a, [hJoyHeld]
-	and a, $C0
+	and a, PADF_UP | PADF_DOWN
 	jr nz, .l4ABE
 	dec b
 	jr nz, .loop

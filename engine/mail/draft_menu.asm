@@ -37,7 +37,7 @@ MailDraft_Menu_Loop:: ; 2B:402B
 	pop bc
 	call MailDraft_Menu_MoveCursorSprites
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jp z, .l4194
 	ld a, c
 	cp a, $00
@@ -176,7 +176,7 @@ MailDraft_Menu_Loop:: ; 2B:402B
 .l4194 ; 2B:4194
 	; [CONFIRMED] 60 insn(s); 60 executed (in up to 2/18 scenarios)
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, .l41BD
 	push bc
 	push de
@@ -189,7 +189,7 @@ MailDraft_Menu_Loop:: ; 2B:402B
 	ret
 .l41BD ; 2B:41BD
 	ldh a, [hJoyPressedRepeat]
-	and a, $20
+	and a, PADF_LEFT
 	jr z, .l41E3
 	push bc
 	push de
@@ -206,7 +206,7 @@ MailDraft_Menu_Loop:: ; 2B:402B
 	call MailDraft_Menu_SetCaption
 .l41E3 ; 2B:41E3
 	ldh a, [hJoyPressedRepeat]
-	and a, $10
+	and a, PADF_RIGHT
 	jr z, .l4209
 	push bc
 	push de

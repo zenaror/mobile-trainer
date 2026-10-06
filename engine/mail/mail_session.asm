@@ -107,7 +107,7 @@ Function_26_4000::
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, .l40E8
 
 	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
@@ -160,7 +160,7 @@ MailSession_SendPhase:: ; 26:412C
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
-	and a, $02
+	and a, PADF_B
 	jp nz, MailSession_Cancel
 	farcall Smtp_HeloPoll
 	cp a, $01
@@ -192,7 +192,7 @@ MailSession_SendPhase:: ; 26:412C
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
-	and a, $02
+	and a, PADF_B
 	jp nz, MailSession_Cancel
 	ld a, [wSpriteSlot5 + $01]
 	cp a, $58
@@ -219,7 +219,7 @@ MailSession_SendPhase:: ; 26:412C
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
-	and a, $02
+	and a, PADF_B
 	jp nz, MailSession_Cancel
 	dec c
 	jr nz, .l41CC
@@ -258,7 +258,7 @@ MailSession_SendPhase:: ; 26:412C
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
-	and a, $02
+	and a, PADF_B
 	jp nz, MailSession_Cancel
 	dec c
 	jr nz, .l4239
@@ -298,7 +298,7 @@ MailSession_SendPhase:: ; 26:412C
 	jr z, .l42D6
 	push af
 	ldh a, [hJoyHeld]
-	and a, $02
+	and a, PADF_B
 	jr z, .l42CF
 	pop af
 	jp MailSession_Cancel
@@ -342,7 +342,7 @@ MailSession_SendPhase:: ; 26:412C
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
-	and a, $02
+	and a, PADF_B
 	jp nz, MailSession_Cancel
 	farcall Smtp_QuitPoll
 	cp a, $01
@@ -365,7 +365,7 @@ MailSession_SendPhase:: ; 26:412C
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
-	and a, $02
+	and a, PADF_B
 	jp nz, MailSession_Cancel
 	dec c
 	jr nz, .l434F
@@ -404,7 +404,7 @@ MailSession_SendPhase:: ; 26:412C
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
-	and a, $02
+	and a, PADF_B
 	jp nz, MailSession_Cancel
 	dec c
 	jr nz, .l43BC
@@ -435,7 +435,7 @@ MailSession_SendPhase:: ; 26:412C
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
-	and a, $02
+	and a, PADF_B
 	jp nz, MailSession_Cancel
 	ld a, [wSpriteSlot5 + $01]
 	cp a, $D1
@@ -501,7 +501,7 @@ MailSession_SendPhase:: ; 26:412C
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jr z, .l448B
 .l44AC ; 26:44AC
 	ld a, $07
@@ -590,7 +590,7 @@ MailSession_ReceivePhase:: ; 26:44F5
 	call MailSession_UpdateTimerDisplay
 	farcall Joypad_Update
 	ldh a, [hJoyHeld]
-	and a, $02
+	and a, PADF_B
 	jp nz, MailSession_Cancel
 	farcall Pop3_LoginStatPoll
 	cp a, $01
@@ -666,7 +666,7 @@ MailSession_ScanMailsLoop:: ; 26:45BC
 	pop de
 	pop bc
 	ldh a, [hJoyHeld]
-	and a, $02
+	and a, PADF_B
 	jr z, .l4602
 	pop de
 	jp MailSession_Cancel
@@ -762,7 +762,7 @@ Label_26_4636::
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
-	and a, $02
+	and a, PADF_B
 	jp nz, MailSession_Cancel
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -794,7 +794,7 @@ Label_26_4636::
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
-	and a, $02
+	and a, PADF_B
 	jp nz, MailSession_Cancel
 	dec c
 	jr nz, .l46B4
@@ -938,7 +938,7 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	pop de
 	pop bc
 	ldh a, [hJoyHeld]
-	and a, $02
+	and a, PADF_B
 	jr z, .l47DC
 	pop hl
 	pop de
@@ -1049,7 +1049,7 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	ld [wSpriteSlot6], a
 	pop bc
 	ldh a, [hJoyHeld]
-	and a, $02
+	and a, PADF_B
 	jr z, .l48BB
 
 	; [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region
@@ -1087,7 +1087,7 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	pop de
 	pop bc
 	ldh a, [hJoyHeld]
-	and a, $02
+	and a, PADF_B
 	jr z, .l48F8
 	pop hl
 	pop bc
@@ -1308,7 +1308,7 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
-	and a, $02
+	and a, PADF_B
 	jp nz, MailSession_Cancel
 	dec c
 	jr nz, .l4A61
@@ -1390,7 +1390,7 @@ MailSession_NoMailOrFull:: ; 26:4A8A
 	ld [wSpriteSlot6], a
 	pop bc
 	ldh a, [hJoyHeld]
-	and a, $02
+	and a, PADF_B
 	jp nz, MailSession_Cancel
 	dec c
 	jr nz, .loop
@@ -1438,7 +1438,7 @@ MailSession_Finish:: ; 26:4B54
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
-	and a, $02
+	and a, PADF_B
 	jp nz, MailSession_Cancel
 	ld a, [wSpriteSlot3 + $01]
 	cp a, $E1
@@ -1517,7 +1517,7 @@ MailSession_Finish:: ; 26:4B54
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
-	and a, $02
+	and a, PADF_B
 	jp nz, MailSession_Cancel
 	ld a, [wSpriteSlot4 + $01]
 	cp a, $91

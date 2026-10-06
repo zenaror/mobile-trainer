@@ -47,7 +47,7 @@ Function_2D_4722::
 	pop bc
 	call MailBody_PlaceCursorSprites
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jp z, .l4868
 	call MailBody_KeyboardLoop
 
@@ -198,7 +198,7 @@ Function_2D_4722::
 .l4868 ; 2D:4868
 	; [CONFIRMED] 51 insn(s); 51 executed (in up to 2/18 scenarios)
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, .l4894
 	push bc
 	push de
@@ -212,16 +212,16 @@ Function_2D_4722::
 	ret
 .l4894 ; 2D:4894
 	ldh a, [hJoyPressedRepeat]
-	and a, $20
+	and a, PADF_LEFT
 	call nz, MailBody_CursorLeft
 	ldh a, [hJoyPressedRepeat]
-	and a, $10
+	and a, PADF_RIGHT
 	call nz, MailBody_CursorRight
 	ldh a, [hJoyPressedRepeat]
-	and a, $40
+	and a, PADF_UP
 	call nz, MailBody_CursorUp
 	ldh a, [hJoyPressedRepeat]
-	and a, $80
+	and a, PADF_DOWN
 	call nz, MailBody_CursorDown
 	jp .l475C
 
@@ -1548,11 +1548,11 @@ Function_2D_50B8::
 	pop de
 	pop bc
 	ldh a, [hJoyPressedRepeat]
-	and a, $01
+	and a, PADF_A
 	cp a, $00
 	jr nz, .l5155
 	ldh a, [hJoyHeld]
-	and a, $F0
+	and a, PADF_DPAD
 	jr nz, .l5155
 	dec d
 	jr nz, .l5131
@@ -1959,11 +1959,11 @@ Function_2D_535C::
 	pop de
 	pop bc
 	ldh a, [hJoyPressedRepeat]
-	and a, $02
+	and a, PADF_B
 	cp a, $00
 	jr nz, .l53C4
 	ldh a, [hJoyHeld]
-	and a, $F0
+	and a, PADF_DPAD
 	jr nz, .l53C4
 	dec d
 	jr nz, .loop

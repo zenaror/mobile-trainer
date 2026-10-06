@@ -67,7 +67,7 @@ Function_2D_65B0::
 	pop bc
 	call MailAddr_PlaceCursorSprites
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jp z, .l669B
 	call MailAddr_OpenKeyboard
 .l6621 ; 2D:6621
@@ -141,7 +141,7 @@ Function_2D_65B0::
 .l669B ; 2D:669B
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 2/18 scenarios)
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jp z, .l6784
 
 	; [CONFIRMED] 108 insn(s) reached by static flow only; seeds: exec x108; min discovery hops 0;
@@ -261,7 +261,7 @@ Function_2D_65B0::
 .l6784 ; 2D:6784
 	; [CONFIRMED] 16 insn(s); 16 executed (in up to 2/18 scenarios)
 	ldh a, [hJoyPressedRepeat]
-	and a, $04
+	and a, PADF_SELECT
 	jr z, .l67B8
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -290,10 +290,10 @@ Function_2D_65B0::
 .l67B8 ; 2D:67B8
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
 	ldh a, [hJoyPressedRepeat]
-	and a, $20
+	and a, PADF_LEFT
 	call nz, MailAddr_CursorLeft
 	ldh a, [hJoyPressedRepeat]
-	and a, $10
+	and a, PADF_RIGHT
 	call nz, MailAddr_CursorRight
 	ld d, $10
 	jp .l6603
@@ -1194,11 +1194,11 @@ MailAddr_InsertChar:: ; 2D:6D21
 	pop de
 	pop bc
 	ldh a, [hJoyPressedRepeat]
-	and a, $01
+	and a, PADF_A
 	cp a, $00
 	jr nz, .l6D98
 	ldh a, [hJoyHeld]
-	and a, $F0
+	and a, PADF_DPAD
 	jr nz, .l6D98
 	dec d
 	jr nz, .l6D74
@@ -1320,11 +1320,11 @@ MailAddr_Backspace:: ; 2D:6E03
 	pop de
 	pop bc
 	ldh a, [hJoyPressedRepeat]
-	and a, $02
+	and a, PADF_B
 	cp a, $00
 	jr nz, .l6E6B
 	ldh a, [hJoyHeld]
-	and a, $F0
+	and a, PADF_DPAD
 	jr nz, .l6E6B
 	dec d
 	jr nz, .loop

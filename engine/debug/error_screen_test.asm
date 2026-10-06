@@ -210,7 +210,7 @@ DebugErrorTest_HandleDpad:: ; 19:4B4A
 	ret
 .l4B5B ; 19:4B5B
 	ldh a, [hJoyHeld]
-	bit 1, a
+	bit PADB_B, a
 	jr nz, .l4B6C
 	ld a, [wDebugErrorTest_CodeHi]
 	inc a
@@ -225,7 +225,7 @@ DebugErrorTest_HandleDpad:: ; 19:4B4A
 	ret
 .l4B77 ; 19:4B77
 	ldh a, [hJoyHeld]
-	bit 1, a
+	bit PADB_B, a
 	jr nz, .l4B88
 	ld a, [wDebugErrorTest_CodeHi]
 	dec a

@@ -61,7 +61,7 @@ Mailbox_Main_Loop:: ; 25:4043
 	cp a, $00
 	jr nz, .l408A
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, Mailbox_Main_Loop
 	push bc
 	push de
@@ -81,7 +81,7 @@ Mailbox_Main_Loop:: ; 25:4043
 	; entered by jrcc from 25:405A (executed) | 307 insn(s) executed; cut out of the PROBABLE region
 	; 408A-446B by apply_coverage --split [executed in 3 scenarios]
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jr z, .l40DF
 	push bc
 	push de
@@ -116,7 +116,7 @@ Mailbox_Main_Loop:: ; 25:4043
 	jp Mailbox_IconMenu_Enter
 .l40DF ; 25:40DF
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, .l410D
 	push bc
 	push de
@@ -132,10 +132,10 @@ Mailbox_Main_Loop:: ; 25:4043
 	ret
 .l410D ; 25:410D
 	ldh a, [hJoyPressedRepeat]
-	and a, $40
+	and a, PADF_UP
 	call nz, Mailbox_CursorUp
 	ldh a, [hJoyPressedRepeat]
-	and a, $80
+	and a, PADF_DOWN
 	call nz, Mailbox_CursorDown
 	jp Mailbox_Main_Loop
 
@@ -173,7 +173,7 @@ Mailbox_IconMenu_Loop:: ; 25:415C
 	pop de
 	pop bc
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, .l41C0
 	push bc
 	push de
@@ -204,7 +204,7 @@ Mailbox_IconMenu_Loop:: ; 25:415C
 	jp Mailbox_Main_Loop
 .l41C0 ; 25:41C0
 	ldh a, [hJoyPressedRepeat]
-	and a, $20
+	and a, PADF_LEFT
 	jr z, .l41E5
 	push bc
 	push de
@@ -220,7 +220,7 @@ Mailbox_IconMenu_Loop:: ; 25:415C
 	call Mailbox_SetActionCursor
 .l41E5 ; 25:41E5
 	ldh a, [hJoyPressedRepeat]
-	and a, $10
+	and a, PADF_RIGHT
 	jr z, Mailbox_IconMenu_PressA
 	push bc
 	push de
@@ -237,7 +237,7 @@ Mailbox_IconMenu_Loop:: ; 25:415C
 
 Mailbox_IconMenu_PressA:: ; 25:420A
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jp z, Mailbox_IconMenu_Loop
 	ld a, d
 	cp a, $02

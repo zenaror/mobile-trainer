@@ -73,7 +73,7 @@ Profile_Edit_Loop:: ; 2A:54FD
 	ld a, $D0
 	ld [wSpriteSlot2 + $01], a
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jp z, Profile_Edit_CheckButtonB
 
 Profile_Edit_RunKeyboard:: ; 2A:552A
@@ -344,7 +344,7 @@ Profile_Edit_CheckButtonB:: ; 2A:56EC
 Label_2A_56EC::
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, Profile_Edit_DPad
 
 	; [CONFIRMED] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
@@ -375,10 +375,10 @@ Label_2A_5706::
 Profile_Edit_DPad:: ; 2A:5731
 Label_2A_5731::
 	ldh a, [hJoyPressedRepeat]
-	and a, $20
+	and a, PADF_LEFT
 	call nz, Profile_CursorLeft
 	ldh a, [hJoyPressedRepeat]
-	and a, $10
+	and a, PADF_RIGHT
 	call nz, Profile_CursorRight
 	ld d, $10
 	jp Profile_Edit_Loop
@@ -1282,7 +1282,7 @@ Profile_InsertChar:: ; 2A:5CD2
 	pop de
 	pop bc
 	ldh a, [hJoyPressedRepeat]
-	and a, $01
+	and a, PADF_A
 	jr nz, .l5D3E
 	dec d
 	jr nz, .l5D22
@@ -1505,7 +1505,7 @@ Profile_DeleteChar:: ; 2A:5E23
 	pop de
 	pop bc
 	ldh a, [hJoyPressedRepeat]
-	and a, $02
+	and a, PADF_B
 	jr nz, .l5E83
 	dec d
 	jr nz, .loop

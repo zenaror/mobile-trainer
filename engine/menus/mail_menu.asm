@@ -171,7 +171,7 @@ MailMenu_Idle:: ; 1D:41AA
 	; [CONFIRMED] 57 insn(s); 57 executed (in up to 9/18 scenarios)
 	farcall Ticker_Update
 	ldh a, [hJoyPressedRepeat]
-	and a, $F0
+	and a, PADF_DPAD
 	call nz, MailMenu_HandleDpad
 	call MailMenu_AnimateIcon
 	jp MailMenu_Loop

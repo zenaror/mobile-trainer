@@ -243,7 +243,7 @@ PageList_Main_Loop:: ; 24:4083
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jr z, .l422A
 	push bc
 	push de
@@ -278,7 +278,7 @@ PageList_Main_Loop:: ; 24:4083
 	pop bc
 .l422A ; 24:422A
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, .l4256
 	push bc
 	push de
@@ -293,7 +293,7 @@ PageList_Main_Loop:: ; 24:4083
 	ret
 .l4256 ; 24:4256
 	ldh a, [hJoyPressedRepeat]
-	and a, $40
+	and a, PADF_UP
 	jp z, .l4281
 	push bc
 	push de
@@ -312,7 +312,7 @@ PageList_Main_Loop:: ; 24:4083
 	call PageList_UpdateRowSprites
 .l4281 ; 24:4281
 	ldh a, [hJoyPressedRepeat]
-	and a, $80
+	and a, PADF_DOWN
 	jp z, .l42AC
 	push bc
 	push de
@@ -1768,7 +1768,7 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	ldh a, [hJoyHeld]
 	call nz, Stub_Nop_24_53FC ; never taken: ldh sets no flags, Z is the one the farcall left (naming2_verify_fn4.md)
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jr z, .l4DBA
 	ld a, b
 	cp a, $01
@@ -1815,7 +1815,7 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	ret
 .l4DBA ; 24:4DBA
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, .l4DE1
 	push bc
 	push de
@@ -1830,7 +1830,7 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	ret
 .l4DE1 ; 24:4DE1
 	ldh a, [hJoyPressedRepeat]
-	and a, $20
+	and a, PADF_LEFT
 	jr z, .l4E12
 	push bc
 	push de
@@ -1855,7 +1855,7 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	ld b, d
 .l4E12 ; 24:4E12
 	ldh a, [hJoyPressedRepeat]
-	and a, $10
+	and a, PADF_RIGHT
 	jr z, .l4E43
 	push bc
 	push de

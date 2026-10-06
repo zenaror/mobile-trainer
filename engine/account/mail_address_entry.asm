@@ -489,9 +489,9 @@ Account_MailIntroPage:: ; 68:5BC4
 	call VBlank_WaitAndService
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
-	bit 0, a
+	bit PADB_A, a
 	jr nz, .l5BE2
-	bit 1, a
+	bit PADB_B, a
 	jr nz, .l5BF6
 	jr .loop
 .l5BE2 ; 68:5BE2

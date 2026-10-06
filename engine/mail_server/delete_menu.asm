@@ -75,7 +75,7 @@ MailSrvDel_MenuLoop:: ; 23:4076
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jr z, .l40EA
 	push bc
 	push de
@@ -132,7 +132,7 @@ MailSrvDel_MenuLoop:: ; 23:4076
 .l40EA ; 23:40EA
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, .l4116
 
 	; [CONFIRMED] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 0;
@@ -151,7 +151,7 @@ MailSrvDel_MenuLoop:: ; 23:4076
 .l4116 ; 23:4116
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressedRepeat]
-	and a, $40
+	and a, PADF_UP
 	jr z, .l413A
 
 	; [CONFIRMED] 19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 0;
@@ -172,7 +172,7 @@ MailSrvDel_MenuLoop:: ; 23:4076
 .l413A ; 23:413A
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressedRepeat]
-	and a, $80
+	and a, PADF_DOWN
 	jr z, .l415E
 
 	; [CONFIRMED] 19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 0;
@@ -596,7 +596,7 @@ MailSrvDel_Confirm:: ; 23:4471
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jr z, .l4659
 	push bc
 	push de
@@ -618,7 +618,7 @@ MailSrvDel_Confirm:: ; 23:4471
 	ret
 .l4659 ; 23:4659
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, .l4685
 	push bc
 	push de
@@ -632,7 +632,7 @@ MailSrvDel_Confirm:: ; 23:4471
 	ret
 .l4685 ; 23:4685
 	ldh a, [hJoyPressedRepeat]
-	and a, $20
+	and a, PADF_LEFT
 	jr z, .l46A7
 	push bc
 	push de
@@ -646,7 +646,7 @@ MailSrvDel_Confirm:: ; 23:4471
 	call MailSrvDel_ConfirmSelect
 .l46A7 ; 23:46A7
 	ldh a, [hJoyPressedRepeat]
-	and a, $10
+	and a, PADF_RIGHT
 	jr z, .l46C9
 	push bc
 	push de

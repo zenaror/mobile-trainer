@@ -211,7 +211,7 @@ Label_70_4135::
 	cp a, $01
 	jr z, .l4144
 	ldh a, [hJoyPressed]
-	bit 1, a
+	bit PADB_B, a
 	jr nz, .l417E
 	jr .l41BB
 .l4144 ; 70:4144
@@ -419,7 +419,7 @@ Label_70_42CD::
 	cp a, $01
 	jr z, .l42DC
 	ldh a, [hJoyPressed]
-	bit 1, a
+	bit PADB_B, a
 	jr nz, .l4316
 	jr .l4353
 .l42DC ; 70:42DC

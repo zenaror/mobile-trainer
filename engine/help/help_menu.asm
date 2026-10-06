@@ -202,7 +202,7 @@ Label_6C_41D5::
 	; [CONFIRMED] 35 insn(s); 35 executed (in up to 3/18 scenarios)
 	farcall Ticker_Update
 	ldh a, [hJoyPressedRepeat]
-	and a, $F0
+	and a, PADF_DPAD
 	call nz, HelpMenu_HandleDpad
 	jp HelpMenu_ShowPage_InputLoop
 

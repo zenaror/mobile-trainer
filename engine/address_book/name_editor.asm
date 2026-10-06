@@ -68,7 +68,7 @@ Label_2F_5832::
 	pop bc
 	call AbookName_PlaceCursorSprites
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jp z, AbookName_Edit_CheckButtonB
 	call AbookName_OpenKeyboard
 
@@ -91,7 +91,7 @@ Label_2F_5857::
 AbookName_Edit_CheckButtonB:: ; 2F:5876
 Label_2F_5876::
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, .l58BB
 	push bc
 	push de
@@ -113,10 +113,10 @@ Label_2F_5876::
 	ret
 .l58BB ; 2F:58BB
 	ldh a, [hJoyPressedRepeat]
-	and a, $20
+	and a, PADF_LEFT
 	call nz, AbookName_CursorLeft
 	ldh a, [hJoyPressedRepeat]
-	and a, $10
+	and a, PADF_RIGHT
 	call nz, AbookName_CursorRight
 	ld d, $10
 	jp AbookName_Edit_Loop
@@ -792,10 +792,10 @@ Label_2F_5CF4::
 	pop de
 	pop bc
 	ldh a, [hJoyPressedRepeat]
-	and a, $01
+	and a, PADF_A
 	jr nz, .l5D45
 	ldh a, [hJoyHeld]
-	and a, $F0
+	and a, PADF_DPAD
 	jr nz, .l5D45
 	dec d
 	jr nz, .l5D23
@@ -959,10 +959,10 @@ AbookName_Backspace:: ; 2F:5DDC
 	pop de
 	pop bc
 	ldh a, [hJoyPressedRepeat]
-	and a, $02
+	and a, PADF_B
 	jr nz, .l5E42
 	ldh a, [hJoyHeld]
-	and a, $F0
+	and a, PADF_DPAD
 	jr nz, .l5E42
 	dec d
 	jr nz, .loop

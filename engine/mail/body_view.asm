@@ -18,7 +18,7 @@ MailBody_ViewScreen_Loop:: ; 28:4009
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, .l404C
 
 	; [CONFIRMED] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 0;

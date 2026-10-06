@@ -59,7 +59,7 @@ MailTitle_Entry_Loop:: ; 2C:4042
 	pop bc
 	call MailTitle_PlaceTextCursor
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jr z, MailTitle_Entry_CheckButtonB
 	call MailTitle_OpenKeyboard
 
@@ -80,7 +80,7 @@ Label_2C_405F::
 MailTitle_Entry_CheckButtonB:: ; 2C:407C
 Label_2C_407C::
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, .l40C1
 
 	; [CONFIRMED] 25 insn(s) reached by static flow only; seeds: exec x25; min discovery hops 0;
@@ -107,10 +107,10 @@ Label_2C_407C::
 .l40C1 ; 2C:40C1
 	; [CONFIRMED] 8 insn(s); 8 executed (in up to 2/18 scenarios)
 	ldh a, [hJoyPressedRepeat]
-	and a, $20
+	and a, PADF_LEFT
 	call nz, MailTitle_CursorLeft
 	ldh a, [hJoyPressedRepeat]
-	and a, $10
+	and a, PADF_RIGHT
 	call nz, MailTitle_CursorRight
 	ld d, $10
 	jp MailTitle_Entry_ClampColumn
@@ -759,11 +759,11 @@ Label_2C_44DC::
 	pop de
 	pop bc
 	ldh a, [hJoyPressedRepeat]
-	and a, $01
+	and a, PADF_A
 	cp a, $00
 	jr nz, .l452D
 	ldh a, [hJoyHeld]
-	and a, $F0
+	and a, PADF_DPAD
 	jr nz, .l452D
 	dec d
 	jr nz, .loop
@@ -990,11 +990,11 @@ MailTitle_DeleteChar:: ; 2C:4612
 	pop de
 	pop bc
 	ldh a, [hJoyPressedRepeat]
-	and a, $02
+	and a, PADF_B
 	cp a, $00
 	jr nz, .l467A
 	ldh a, [hJoyHeld]
-	and a, $F0
+	and a, PADF_DPAD
 	jr nz, .l467A
 	dec d
 	jr nz, .loop

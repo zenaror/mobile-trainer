@@ -35,7 +35,7 @@ SaveSenderAddr_Menu_Loop:: ; 2A:4027
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jr z, .l4079
 	call SaveSenderAddr_SaveToSlot
 	cp a, $FF
@@ -63,7 +63,7 @@ SaveSenderAddr_Menu_Loop:: ; 2A:4027
 	ret
 .l4079 ; 2A:4079
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, .l40A8
 	push bc
 	push de
@@ -81,10 +81,10 @@ SaveSenderAddr_Menu_Loop:: ; 2A:4027
 .l40A8 ; 2A:40A8
 	; D-pad part of the menu loop (3,605 hits in 6 scenarios): Up and Down repeats move the cursor through the six slots (SaveSenderAddr_CursorUp / CursorDown)
 	ldh a, [hJoyPressedRepeat]
-	and a, $40
+	and a, PADF_UP
 	call nz, SaveSenderAddr_CursorUp
 	ldh a, [hJoyPressedRepeat]
-	and a, $80
+	and a, PADF_DOWN
 	call nz, SaveSenderAddr_CursorDown
 	ld d, $10
 	jp SaveSenderAddr_Menu_Loop
@@ -1040,7 +1040,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	ld [wSpriteSlot2 + $01], a
 	pop bc
 	ldh a, [hJoyPressed]
-	and a, $C0
+	and a, PADF_UP | PADF_DOWN
 	call nz, SaveSenderAddr_CursorMoveEffect
 	ret
 
@@ -1242,7 +1242,7 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	call VBlank_Wait
 	pop bc
 	ldh a, [hJoyHeld]
-	and a, $C0
+	and a, PADF_UP | PADF_DOWN
 	jr nz, .l49C3
 	dec b
 	jr nz, .loop

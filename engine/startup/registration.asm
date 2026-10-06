@@ -193,9 +193,11 @@ Registration_IntroPage:: ; 65:42A3
 	ld b, $00
 	farcall Notice_ShowPage
 	farcall Joypad_Update
+	; Hidden-mode switch: B, Select and Right all held in hJoyHeld (every other button is ignored, so the A that dismisses the page may be held too) when the first notice page is left
+	; sets wHiddenModeFlag and takes the hidden notice pages (executed in register_hidden and register_hidden_manual; docs/research/naming2_pad1.md)
 	ldh a, [hJoyHeld]
-	and a, $16
-	cp a, $16
+	and a, PADF_B | PADF_SELECT | PADF_RIGHT
+	cp a, PADF_B | PADF_SELECT | PADF_RIGHT
 	jr nz, Registration_NoticePages
 
 	; [CONFIRMED] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0;
@@ -211,9 +213,10 @@ Label_65_42C3::
 	ld b, $01
 	farcall Notice_ShowPage
 	farcall Joypad_Update
+	; Same combination on the back path of the page (65:42D3): never executed with the three buttons held, so this branch stays PROBABLE
 	ldh a, [hJoyHeld]
-	and a, $16
-	cp a, $16
+	and a, PADF_B | PADF_SELECT | PADF_RIGHT
+	cp a, PADF_B | PADF_SELECT | PADF_RIGHT
 	jr nz, Registration_NoticePages
 
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region

@@ -88,13 +88,13 @@ Account_ActionConfirmPage_InputLoop:: ; 68:6EF6
 	call VBlank_WaitAndService
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
-	bit 0, a
+	bit PADB_A, a
 	jr nz, .l6F19
-	bit 1, a
+	bit PADB_B, a
 	jr nz, .l6F40
-	bit 5, a
+	bit PADB_LEFT, a
 	jr nz, .l6F5E
-	bit 4, a
+	bit PADB_RIGHT, a
 	jr nz, .l6F5E
 	jr Account_ActionConfirmPage_InputLoop
 .l6F19 ; 68:6F19

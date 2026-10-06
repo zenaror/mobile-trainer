@@ -41,7 +41,7 @@ Function_29_4000::
 	pop hl
 	pop bc
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jr z, .loop
 	push bc
 	push de
@@ -577,7 +577,7 @@ Function_29_44F6::
 	pop hl
 	pop bc
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jr z, .loop
 	push bc
 	push de

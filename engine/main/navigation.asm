@@ -211,7 +211,7 @@ Nav_MailMenu_MailServer:: ; 7C:7CF6
 	farcall Joypad_SetRepeatTiming
 	farcall Joypad_Update
 	ldh a, [hJoyHeld]
-	xor a, $24
+	xor a, PADF_SELECT | PADF_LEFT
 	jr nz, .l7D15
 
 	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
@@ -308,7 +308,7 @@ Function_7C_7D8D:: ; 7C:7D8D
 	cp a, $02
 	jr z, .l7DB0
 	ldh a, [hJoyPressedRepeat]
-	bit 0, a
+	bit PADB_A, a
 	jr z, .l7D93
 .l7DA5 ; 7C:7DA5
 	ld a, $01
@@ -324,7 +324,7 @@ Function_7C_7D8D:: ; 7C:7D8D
 	cp a, $02
 	jr z, .l7DD5
 	ldh a, [hJoyPressedRepeat]
-	bit 0, a
+	bit PADB_A, a
 	jr z, .l7DB8
 .l7DCA ; 7C:7DCA
 	ld a, $01
@@ -340,7 +340,7 @@ Function_7C_7D8D:: ; 7C:7D8D
 	cp a, $02
 	jr z, .l7DFA
 	ldh a, [hJoyPressedRepeat]
-	bit 0, a
+	bit PADB_A, a
 	jr z, .l7DDD
 .l7DEF ; 7C:7DEF
 	ld a, $01

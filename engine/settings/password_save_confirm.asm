@@ -100,13 +100,13 @@ PwSaveConfirm_Loop:: ; 67:6625
 	call VBlank_WaitAndService
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
-	bit 0, a
+	bit PADB_A, a
 	jr nz, .l6648
-	bit 1, a
+	bit PADB_B, a
 	jr nz, .l666A
-	bit 5, a
+	bit PADB_LEFT, a
 	jr nz, .l6685
-	bit 4, a
+	bit PADB_RIGHT, a
 	jr nz, .l6685
 	jr PwSaveConfirm_Loop
 .l6648 ; 67:6648

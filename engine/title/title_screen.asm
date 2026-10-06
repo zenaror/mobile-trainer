@@ -138,9 +138,9 @@ Title_StateLogoWait:: ; 0E:40CA
 	ld a, l
 	ld [wTitle_FrameCounterLo], a
 	ldh a, [hJoyPressedRepeat]
-	bit 0, a
+	bit PADB_A, a
 	jr nz, .l40F4
-	bit 3, a
+	bit PADB_START, a
 	jr nz, .l40F4
 	jr .done
 .l40F4 ; 0E:40F4
@@ -242,13 +242,13 @@ Title_StateMenu:: ; 0E:417B
 
 Title_MenuHandleButtons:: ; 0E:419F
 	ldh a, [hJoyPressedRepeat]
-	bit 0, a
+	bit PADB_A, a
 	jr nz, Title_MenuConfirm
-	bit 3, a
+	bit PADB_START, a
 	jr nz, Title_MenuConfirm
-	bit 6, a
+	bit PADB_UP, a
 	jr nz, Title_MenuToggleSelection
-	bit 7, a
+	bit PADB_DOWN, a
 	jr nz, Title_MenuToggleSelection
 	jr Title_StateMenu_Done
 

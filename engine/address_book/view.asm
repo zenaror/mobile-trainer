@@ -98,7 +98,7 @@ AbookView_Run:: ; 2F:5098
 	; [CONFIRMED] 23 insn(s) executed; cut out of the PROBABLE region 50ED-51B5 by apply_coverage
 	; --split [executed in 3 scenarios]
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, .l5164
 	push bc
 	push bc

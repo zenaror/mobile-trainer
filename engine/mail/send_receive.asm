@@ -445,7 +445,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, .l4334
 	ld b, $01
 .l4334 ; 27:4334
@@ -476,7 +476,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, .l4374
 	ld b, $01
 .l4374 ; 27:4374
@@ -531,7 +531,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, .l43E6
 
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
@@ -851,7 +851,7 @@ Data_27_46A0:: ; 27:46A0
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jr z, .l46C8
 	farcall Palette_FadeOutToWhite
 	ldh a, [rLCDC]
@@ -861,7 +861,7 @@ Data_27_46A0:: ; 27:46A0
 	ret
 .l46C8 ; 27:46C8
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, .l46DD
 	farcall Palette_FadeOutToWhite
 	ldh a, [rLCDC]
@@ -1629,14 +1629,14 @@ Function_27_4B95::
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jr z, .l4D70
 	farcall Palette_FadeOutToWhite
 	xor a, a
 	ret
 .l4D70 ; 27:4D70
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, .l4D7F
 	farcall Palette_FadeOutToWhite
 	ld a, $FF

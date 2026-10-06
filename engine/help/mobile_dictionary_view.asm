@@ -77,9 +77,9 @@ MobileDictView_Idle:: ; 4C:4FFF
 Label_4C_4FFF::
 	; [CONFIRMED] 215 insn(s); 215 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressedRepeat]
-	bit 6, a
+	bit PADB_UP, a
 	jr nz, .l500C
-	bit 7, a
+	bit PADB_DOWN, a
 	jr nz, .l5015
 	jp MobileDictView_Show_InputLoop
 .l500C ; 4C:500C

@@ -170,13 +170,13 @@ SettingsPhone_ChoiceMenu_Loop:: ; 67:47DC
 	call VBlank_WaitAndService
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
-	bit 0, a
+	bit PADB_A, a
 	jr nz, .l47FF
-	bit 1, a
+	bit PADB_B, a
 	jr nz, .l4817
-	bit 6, a
+	bit PADB_UP, a
 	jr nz, .l482C
-	bit 7, a
+	bit PADB_DOWN, a
 	jr nz, .l482C
 	jr SettingsPhone_ChoiceMenu_Loop
 .l47FF ; 67:47FF

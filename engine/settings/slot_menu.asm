@@ -178,13 +178,13 @@ SettingsPhone_SlotMenu_Loop:: ; 67:4E20
 	call VBlank_WaitAndService
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
-	bit 0, a
+	bit PADB_A, a
 	jr nz, .l4E44
-	bit 1, a
+	bit PADB_B, a
 	jr nz, .l4E81
-	bit 5, a
+	bit PADB_LEFT, a
 	jr nz, .l4E96
-	bit 4, a
+	bit PADB_RIGHT, a
 	jp nz, .l4EE4
 	jr SettingsPhone_SlotMenu_Loop
 .l4E44 ; 67:4E44

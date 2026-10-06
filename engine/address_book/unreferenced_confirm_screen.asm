@@ -43,7 +43,7 @@ Function_2C_741C::
 	; targets land on instruction starts, lands exactly on the next code region); no direct
 	; caller/table entry found: entry HYPOTHESIS
 	ldh a, [hJoyPressed]
-	and a, $01
+	and a, PADF_A
 	jr z, .l745E
 
 	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: site x3; min discovery hops 0; run
@@ -56,7 +56,7 @@ Function_2C_741C::
 	; [PROBABLE] 3 insn(s) (ldh a,[$FFA5] ; and $02 ; jr z,$746D); entered by jr z from 2C:7454
 	; (this classification)
 	ldh a, [hJoyPressed]
-	and a, $02
+	and a, PADF_B
 	jr z, .l746D
 
 	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: site x3; min discovery hops 0; run

@@ -23,9 +23,11 @@ SettingsMenu_Run:: ; 68:4F9E
 	ld [hli], a
 	ld [hl], a
 	farcall Joypad_Update
+	; Hidden-mode switch at the entry of the Mobile Settings menu: B, Select and Right all held in hJoyHeld (every other button is ignored) store the flag in SRAM
+	; (Settings_SetHiddenModeFlag) before the menu reads it back (executed in settings_phone and fuzz_register; docs/research/naming2_pad1.md)
 	ldh a, [hJoyHeld]
-	and a, $16
-	cp a, $16
+	and a, PADF_B | PADF_SELECT | PADF_RIGHT
+	cp a, PADF_B | PADF_SELECT | PADF_RIGHT
 	jr nz, .l4FD6
 
 	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
@@ -221,13 +223,13 @@ SettingsMenu_StateFadeIn:: ; 68:5156
 
 SettingsMenu_StateInput:: ; 68:5172
 	ldh a, [hJoyPressedRepeat]
-	bit 0, a
+	bit PADB_A, a
 	jr nz, .l5187
-	bit 1, a
+	bit PADB_B, a
 	jr nz, .l519E
-	bit 6, a
+	bit PADB_UP, a
 	jr nz, .l51BA
-	bit 7, a
+	bit PADB_DOWN, a
 	jr nz, .l51CF
 	jp .done
 .l5187 ; 68:5187

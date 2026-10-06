@@ -89,9 +89,9 @@ NoAdapter_WaitButton:: ; 63:7413
 	farcall Sprite_UpdateAll
 	call VBlank_WaitAndService
 	ldh a, [hJoyPressedRepeat]
-	bit 0, a
+	bit PADB_A, a
 	jr nz, .done
-	bit 3, a
+	bit PADB_START, a
 	jr nz, .done
 	jr NoAdapter_WaitButton
 .done ; 63:742E

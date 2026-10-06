@@ -2,7 +2,10 @@
 ;
 ; Names follow the community-standard gbdev "hardware.inc" spelling (rXXX for
 ; I/O registers, XXXF_* for bit masks, XXXB_* for bit numbers).  Every value is
-; a documented hardware fact (Pan Docs), not a reverse-engineering finding.
+; a documented hardware fact (Pan Docs), not a reverse-engineering finding, with
+; one exception: the PADF_* / PADB_* block (the bit order of the ROM's joypad
+; variables, which is also the one of the community file; PADF_DPAD and
+; PADF_BUTTONS are names of this project).
 ;
 ; The frozen bootstrap generator (tools/gen_asm.py, reference only) PARSED this file: every `DEF rNAME EQU $FFxx`
 ; line in the range $FF00-$FF7F / $FFFF became a register name used in place of the numeric operand of
@@ -238,6 +241,28 @@ DEF OAMB_YFLIP   EQU 6
 DEF OAMB_XFLIP   EQU 5
 DEF OAMB_PAL1    EQU 4
 DEF OAMB_BANK1   EQU 3
+
+; joypad buttons as the polling routine of bank 7D (7D:7B7C-7BED) stores them in hJoyHeld, hJoyPressed and hJoyPressedRepeat: 1 = pressed, the buttons nibble of rP1 in bits 3-0
+; (A, B, Select, Start) and the directions nibble in bits 7-4 (Right, Left, Up, Down) (home/jump_table.asm).  This is the ROM's own layout, the one of the community hardware.inc, not the
+; layout of rP1 itself (rP1 has both groups in bits 3-0, selected by bits 4 and 5).  tools/apply_pad_masks.py writes the tests that follow a read of one of the three variables with these names.
+DEF PADF_A       EQU %00000001
+DEF PADF_B       EQU %00000010
+DEF PADF_SELECT  EQU %00000100
+DEF PADF_START   EQU %00001000
+DEF PADF_RIGHT   EQU %00010000
+DEF PADF_LEFT    EQU %00100000
+DEF PADF_UP      EQU %01000000
+DEF PADF_DOWN    EQU %10000000
+DEF PADF_BUTTONS EQU PADF_A | PADF_B | PADF_SELECT | PADF_START
+DEF PADF_DPAD    EQU PADF_RIGHT | PADF_LEFT | PADF_UP | PADF_DOWN
+DEF PADB_A       EQU 0
+DEF PADB_B       EQU 1
+DEF PADB_SELECT  EQU 2
+DEF PADB_START   EQU 3
+DEF PADB_RIGHT   EQU 4
+DEF PADB_LEFT    EQU 5
+DEF PADB_UP      EQU 6
+DEF PADB_DOWN    EQU 7
 
 ; memory map landmarks
 DEF _VRAM   EQU $8000

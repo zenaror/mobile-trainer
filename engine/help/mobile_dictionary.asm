@@ -147,7 +147,7 @@ Table_1A_4163::
 MobileDict_Idle:: ; 1A:416D
 	; [CONFIRMED] 65 insn(s); 65 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressedRepeat]
-	and a, $F0
+	and a, PADF_DPAD
 	call nz, MobileDict_HandleDpad
 	jp MobileDict_Loop
 

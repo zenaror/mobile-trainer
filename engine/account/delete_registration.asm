@@ -144,13 +144,13 @@ Registration_DeleteConfirm_InputLoop:: ; 68:7A8F
 	farcall Joypad_Update
 	call VBlank_WaitAndService
 	ldh a, [hJoyPressedRepeat]
-	bit 0, a
+	bit PADB_A, a
 	jr nz, .l7AB2
-	bit 1, a
+	bit PADB_B, a
 	jr nz, .l7ACE
-	bit 5, a
+	bit PADB_LEFT, a
 	jr nz, .l7AE0
-	bit 4, a
+	bit PADB_RIGHT, a
 	jr nz, .l7AE0
 	jr Registration_DeleteConfirm_InputLoop
 .l7AB2 ; 68:7AB2

@@ -80,13 +80,13 @@ Account_ConfirmScreen_InputLoop:: ; 68:62C9
 	call VBlank_WaitAndService
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
-	bit 0, a
+	bit PADB_A, a
 	jr nz, .l62EC
-	bit 1, a
+	bit PADB_B, a
 	jr nz, .l630E
-	bit 5, a
+	bit PADB_LEFT, a
 	jr nz, .l6323
-	bit 4, a
+	bit PADB_RIGHT, a
 	jr nz, .l6323
 	jr Account_ConfirmScreen_InputLoop
 .l62EC ; 68:62EC
@@ -317,13 +317,13 @@ Account_ConfirmManualScreen_InputLoop:: ; 68:6507
 	call VBlank_WaitAndService
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
-	bit 0, a
+	bit PADB_A, a
 	jr nz, .l652A
-	bit 1, a
+	bit PADB_B, a
 	jr nz, .l654C
-	bit 5, a
+	bit PADB_LEFT, a
 	jr nz, .l6561
-	bit 4, a
+	bit PADB_RIGHT, a
 	jr nz, .l6561
 	jr Account_ConfirmManualScreen_InputLoop
 .l652A ; 68:652A

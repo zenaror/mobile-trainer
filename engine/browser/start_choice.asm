@@ -195,7 +195,7 @@ Label_73_60A0::
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
 	farcall Ticker_Update
 	ldh a, [hJoyPressedRepeat]
-	and a, $F0
+	and a, PADF_DPAD
 	call nz, BrowserStart_HandleDpad
 	call BrowserStart_AnimateFrame
 	jp BrowserStart_InputLoop
