@@ -93,14 +93,14 @@ Function_68_531A::
 	call TextEntry_InsertString
 	call Account_LoginIdEntry_UpdateOkState
 	ld de, $8801
-	ld hl, Data_5E_4000
-	ld a, BANK(Data_5E_4000)
+	ld hl, Gfx_SharedTextEntry_Vram8800Vb1
+	ld a, BANK(Gfx_SharedTextEntry_Vram8800Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
-	ld hl, Data_5E_4400
-	ld a, BANK(Data_5E_4400)
+	ld hl, Gfx_SharedTextEntry_Vram8C00Vb1
+	ld a, BANK(Gfx_SharedTextEntry_Vram8C00Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
@@ -118,8 +118,8 @@ Function_68_531A::
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
-	ld hl, Data_5E_4D00
-	ld a, BANK(Data_5E_4D00)
+	ld hl, Palette_SharedEntryUi_Bg
+	ld a, BANK(Palette_SharedEntryUi_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $0514
 	ld de, wScreenTileMap
@@ -397,8 +397,8 @@ Account_LoginIdIntro_Draw:: ; 68:562F
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
-	ld hl, Data_5E_4D00
-	ld a, BANK(Data_5E_4D00)
+	ld hl, Palette_SharedEntryUi_Bg
+	ld a, BANK(Palette_SharedEntryUi_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap
