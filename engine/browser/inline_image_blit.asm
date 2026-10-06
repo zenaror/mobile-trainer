@@ -205,7 +205,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	add a, $03
 	jp c, .l73CE
 	and a, $FC
-	ldh [hRam_FFD4], a
+	ldh [hBmpConvert_RowStride], a
 	ld d, $00
 	call Multiply8x16
 	ld c, l
@@ -216,7 +216,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	ld [hli], a
 	ld a, b
 	ld [hli], a
-	ldh a, [hRam_FFD4]
+	ldh a, [hBmpConvert_RowStride]
 	and a, $1F
 	rlca
 	rlca
@@ -247,7 +247,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	ldh a, [hBmp_Height]
 	dec a
 	ld e, a
-	ldh a, [hRam_FFD4]
+	ldh a, [hBmpConvert_RowStride]
 	ld d, $00
 	call Multiply8x16
 	ld de, wTileStage3
@@ -309,7 +309,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	ld c, a
 	ld b, $00
 	add hl, bc
-	ldh a, [hRam_FFD4]
+	ldh a, [hBmpConvert_RowStride]
 	ld c, a
 	ld a, e
 	sub a, c
@@ -667,7 +667,7 @@ Image_BlitToTileCanvas:: ; 51:740D
 	rrca
 	rrca
 	add a, b
-	ldh [hRam_FFD4], a
+	ldh [hImageBlit_DestColumns], a
 	pop bc
 	inc hl
 	inc hl
@@ -870,7 +870,7 @@ Image_MakeEdgeMasks:: ; 51:74E6
 	ret
 
 Image_BlitEdgeStrip:: ; 51:7517
-	ldh a, [hRam_FFD4]
+	ldh a, [hImageBlit_DestColumns]
 	ld c, a
 	cp a, $02
 	jr nc, .l7584

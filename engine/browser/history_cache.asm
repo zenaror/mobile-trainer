@@ -119,7 +119,7 @@ Sram_CopyLongBlock:: ; 4C:4C03
 	jr c, .skip
 	ld bc, $0200
 .skip ; 4C:4C0F
-	ldh a, [hRam_FFB0]
+	ldh a, [hPageCache_SourceBank]
 	call BankSwitch_H
 	push bc
 	push de
@@ -127,7 +127,7 @@ Sram_CopyLongBlock:: ; 4C:4C03
 	call CopyBytes
 	pop de
 	pop bc
-	ldh a, [hRam_FFB1]
+	ldh a, [hPageCache_DestBank]
 	call BankSwitch_D
 	push hl
 	ld hl, wAttrUrlBuf
@@ -138,18 +138,18 @@ Sram_CopyLongBlock:: ; 4C:4C03
 	jr c, .l4C38
 	add a, $A0
 	ld h, a
-	ldh a, [hRam_FFB0]
+	ldh a, [hPageCache_SourceBank]
 	inc a
-	ldh [hRam_FFB0], a
+	ldh [hPageCache_SourceBank], a
 .l4C38 ; 4C:4C38
 	ld a, d
 	sub a, $C0
 	jr c, .l4C45
 	add a, $A0
 	ld d, a
-	ldh a, [hRam_FFB1]
+	ldh a, [hPageCache_DestBank]
 	inc a
-	ldh [hRam_FFB1], a
+	ldh [hPageCache_DestBank], a
 .l4C45 ; 4C:4C45
 	pop bc
 	ld a, b
@@ -201,7 +201,7 @@ PageCache_Push:: ; 4C:4C95
 	ld bc, $1000
 	ld hl, sBrowserPageBuf
 	ld a, $03
-	ldh [hRam_FFB0], a
+	ldh [hPageCache_SourceBank], a
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -221,7 +221,7 @@ PageCache_Push:: ; 4C:4C95
 	ld a, [hli]
 	ld d, a
 	ld a, [hli]
-	ldh [hRam_FFB1], a
+	ldh [hPageCache_DestBank], a
 	pop hl
 	call Sram_CopyLongBlock
 	ld a, $01
@@ -260,7 +260,7 @@ PageCache_Pop:: ; 4C:4CF6
 Function_4C_4CF6::
 	; [CONFIRMED] 18 insn(s); 18 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ldh [hRam_FFB1], a
+	ldh [hPageCache_DestBank], a
 	call Sound_FrameService
 	ld a, $0A
 	ldh [hSRAMEnable], a
@@ -287,7 +287,7 @@ Function_4C_4CF6::
 	; [CONFIRMED] 40 insn(s); 40 executed (in up to 1/18 scenarios)
 	ld [sPageCacheWriteSlot], a
 	ldh [hRam_FFB0], a
-	ldh a, [hRam_FFB1]
+	ldh a, [hPageCache_DestBank]
 	ld h, d
 	ld l, e
 	call BankSwitch_H

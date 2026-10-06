@@ -11,13 +11,13 @@ Function_4E_5FB9::
 	farcall CommTime_AddTimerA
 	ld a, [wBrowserTimerLastSec]
 	ld c, a
-	ldh a, [hRam_FFB1]
+	ldh a, [hCommTime_TotalSeconds]
 	cp a, c
 	jr z, .l5FD5
 	ld a, [wBrowserTimerSecToggle]
 	xor a, $FF
 	ld [wBrowserTimerSecToggle], a
-	ldh a, [hRam_FFB1]
+	ldh a, [hCommTime_TotalSeconds]
 	ld [wBrowserTimerLastSec], a
 .l5FD5 ; 4E:5FD5
 	ld a, [wBrowserFrameStyle]
@@ -47,21 +47,21 @@ Function_4E_5FB9::
 	ld a, [wBrowserTimerSecToggle]
 	or a, a
 	jr nz, .l6014
-	ldh a, [hRam_FFB2]
+	ldh a, [hCommTime_TotalMinutes]
 	ld c, $00
 	call Browser_OamPutNumber
 	ld c, $0A
 	call Browser_OamPutDigit
-	ldh a, [hRam_FFB1]
+	ldh a, [hCommTime_TotalSeconds]
 	ld c, $00
 	jp Browser_OamPutNumber
 .l6014 ; 4E:6014
-	ldh a, [hRam_FFB2]
+	ldh a, [hCommTime_TotalMinutes]
 	ld c, $00
 	call Browser_OamPutNumber
 	ld c, $0A
 	call Browser_OamPutDigit
-	ldh a, [hRam_FFB1]
+	ldh a, [hCommTime_TotalSeconds]
 	ld c, $00
 
 Browser_OamPutNumber:: ; 4E:6024
@@ -70,9 +70,9 @@ Browser_OamPutNumber:: ; 4E:6024
 	jr nc, Browser_OamPutNumber
 	add a, $0A
 	dec c
-	ldh [hRam_FFB0], a
+	ldh [hBrowserOam_UnitsDigit], a
 	call Browser_OamPutDigit
-	ldh a, [hRam_FFB0]
+	ldh a, [hBrowserOam_UnitsDigit]
 	ld c, a
 
 Browser_OamPutDigit:: ; 4E:6034

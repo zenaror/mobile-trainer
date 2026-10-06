@@ -1,6 +1,6 @@
-# Neutral SRAM uses as bank-qualified names (ram12, SRAM) (ROM unchanged)
+# Neutral RAM uses with proven roles (ram12) (ROM unchanged)
 
-> Status: **reference (current)**. First area of ram12: all 34 SRAM bases and 107 explicit use sites of the 152-base worklist. One proposer read every site and indirect reader; a fresh-context skeptic independently checked every proposal, bank proof and natural coverage entry. The remaining 118 HRAM/WRAM bases are separate pending areas.
+> Status: **reference (current)**. First area of ram12: all 34 SRAM bases and 107 explicit use sites of the 152-base worklist. One proposer read every site and indirect reader; a fresh-context skeptic independently checked every proposal, bank proof and natural coverage entry. The HRAM area is now also complete (section 5); the 97 WRAM bases remain pending.
 
 ## 1. Result
 
@@ -45,3 +45,17 @@ make && make sym-check && make palette-check
 The neutral SRAM definitions are intentionally retained. No assembly line was inserted or removed outside the appended equates in `ram/banked.asm`; existing instruction-site records need no line remap.
 
 Validation on both the private integration tree and main: `make` and `make compare` report `RESULT: IDENTICAL`; `sym-check` passes; banked audit reports 221 names / 150 overlaps / zero errors. The full 37-entry suite has 36 rc=0 and only the pre-existing ramop7 format exception (rc=2). Palette audit remains 162 loads / 116 arrays / two documented overreads / zero errors.
+
+## 5. HRAM area
+
+All 21 HRAM bases / 403 explicit sites were proposed and independently reviewed against original ROM operands, enclosing routines, indirect readers, natural coverage and existing alias scopes. The result is 176 named sites and 227 kept neutral. `ram12_hram_renames.tsv` records one global rename; `ram12_hram_overlays.tsv` records 49 new aliases (37 CONFIRMED, 12 PROBABLE). The existing `hTextBox_LineStartXHi` alias gains exactly two browser ranges in `overlay_aliases.tsv`.
+
+`hJoyDispatchExtraMask` replaces FFA7 globally: JoypadDispatch ORs it with hJoyPressed and clears it before dispatch. The eight uses share that consumer role; the name does not assert a physical button event. The new aliases describe routine-local arithmetic, palette components, tilemap widths, banks, text bounds, browser state, timer fields and parser accumulator bytes. Unexecuted preview/parser paths retain PROBABLE status; manifests contain per-site code citations and the existing natural demonstrators.
+
+The reviewer rejected the proposed FFC3 browser extension. Browser setup writes LineAdvance=$FF; TextEngine_LineWrap reads FFC2, then returns on that value before reading MaxLineY/FFC3. The two FFC3 stores therefore remain neutral. FFC2 is read and can use its established line-start-X-high alias. Its DEF has a separate group header; the old FFC3 DEF and scope, and all other existing scopes, remain identical. No broad browser-file scope or new instruction label was introduced.
+
+Two evidence corrections are explicit: preview reveal termination tests H=0, not HL=0; the parser's alphabetic A-F/a-f branch subtracts its base without adding ten, yielding 0-5. Naming its accumulator bytes does not imply correct hexadecimal conversion. Audio immediates $FFD2/$FFD1 are negative offsets, not HRAM pointers, and stay numeric.
+
+The coordinator applied the strict tools and the two guarded FFC2 replacements, then audited all 176 exact operand changes against the published SRAM checkpoint. Instruction line counts, the 227 keep sites and prior SRAM changes are preserved. The combined source passes make (SHA-256 OK, RESULT: IDENTICAL), sym-check and palette-check. Combined totals: 221 banked names (125 CONFIRMED/96 PROBABLE), 307 aliases (241/66). No new natural scenario, PPU capture or hardware validation was added.
+
+The full main suite has 36 rc=0 entries and the known ramop7 obsolete-format exception (37 total). Three context records in ramop9/ramop10 were independently rechecked after adjacent HRAM operands were renamed; only their `ctx` fields changed. Their operands, W7 banks and proofs remain intact. Focused dry-runs restore the previous totals (150/6, 285/15); the SRAM record remains 106 already written / zero skips. A historical mail proof line number is stale (1914 versus current 1872), but its ROM address 27:4F6F and bank selection remain correct.

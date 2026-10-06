@@ -18,7 +18,7 @@ Function_4F_4572::
 	jr nc, .l4578
 	ld a, $99
 	sub a, b
-	ldh [hRam_FFB1], a
+	ldh [hTileCanvas_HdmaControl], a
 	pop bc
 .l4583 ; 4F:4583
 	call Sound_FrameService
@@ -51,10 +51,10 @@ Function_4F_4572::
 	add a, $D0
 	ld h, a
 	ld a, b
-	ldh [hRam_FFB0], a
-	ldh a, [hRam_FFB1]
+	ldh [hTileCanvas_SourceBank], a
+	ldh a, [hTileCanvas_HdmaControl]
 	ld b, a
-	ldh a, [hRam_FFB0]
+	ldh a, [hTileCanvas_SourceBank]
 	call Gfx_StartHDMAWithService
 	pop bc
 	pop de

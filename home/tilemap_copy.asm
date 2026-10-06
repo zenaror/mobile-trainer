@@ -12,7 +12,7 @@ Function_00_16A2::
 	ld a, $07
 	call BankSwitch_D
 	ld a, c
-	ldh [hRam_FFB0], a
+	ldh [hTilemapRect_Width], a
 	push bc
 	push de
 	call Tilemap_CopyRect
