@@ -165,15 +165,15 @@ Label_25_411E::
 	push bc
 	ld hl, wSpriteSlot1
 	ld de, Mailbox_ObjTable
-	ld a, $26
+	ld a, BANK(Mailbox_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7020
 	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot2
-	ld de, $7B10
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry4
+	ld a, BANK(Mailbox_ObjTable_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7020
@@ -428,8 +428,8 @@ Mailbox_IconMenu_PressA:: ; 25:420A
 	jr .l433B
 .l4322 ; 25:4322
 	ld hl, wSpriteSlot3
-	ld de, $7B40
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry16
+	ld a, BANK(Mailbox_ObjTable_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3048
@@ -809,8 +809,8 @@ Mailbox_ReplyStart:: ; 25:4564
 	jr .l4601
 .l45E8 ; 25:45E8
 	ld hl, wSpriteSlot3
-	ld de, $7B40
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry16
+	ld a, BANK(Mailbox_ObjTable_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3048
@@ -819,12 +819,12 @@ Mailbox_ReplyStart:: ; 25:4564
 .l4601 ; 25:4601
 	ld hl, wSpriteSlot1
 	ld de, Mailbox_ObjTable
-	ld a, $26
+	ld a, BANK(Mailbox_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld hl, wSpriteSlot2
-	ld de, $7B10
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry4
+	ld a, BANK(Mailbox_ObjTable_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld d, $01
@@ -1062,8 +1062,8 @@ Mailbox_ReadMail:: ; 25:465C
 	jr .l47F3
 .l47DA ; 25:47DA
 	ld hl, wSpriteSlot3
-	ld de, $7B40
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry16
+	ld a, BANK(Mailbox_ObjTable_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3048
@@ -1108,8 +1108,8 @@ Mailbox_SetActionCursor:: ; 25:4804
 	cp a, $00
 	jr nz, .l483A
 	ld hl, wSpriteSlot2
-	ld de, $7B10
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry4
+	ld a, BANK(Mailbox_ObjTable_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7020
@@ -1120,8 +1120,8 @@ Mailbox_SetActionCursor:: ; 25:4804
 	cp a, $01
 	jr nz, .l4859
 	ld hl, wSpriteSlot2
-	ld de, $7B20
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry8
+	ld a, BANK(Mailbox_ObjTable_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7048
@@ -1132,8 +1132,8 @@ Mailbox_SetActionCursor:: ; 25:4804
 	cp a, $02
 	jr nz, .l4878
 	ld hl, wSpriteSlot2
-	ld de, $7B30
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry12
+	ld a, BANK(Mailbox_ObjTable_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7070
@@ -1214,8 +1214,8 @@ Mailbox_CursorUp:: ; 25:4885
 	jr .l4902
 .l48E9 ; 25:48E9
 	ld hl, wSpriteSlot3
-	ld de, $7B40
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry16
+	ld a, BANK(Mailbox_ObjTable_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3048
@@ -1292,8 +1292,8 @@ Mailbox_CursorDown:: ; 25:4907
 	jr .l4982
 .l4969 ; 25:4969
 	ld hl, wSpriteSlot3
-	ld de, $7B40
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry16
+	ld a, BANK(Mailbox_ObjTable_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3048
@@ -1320,16 +1320,16 @@ Mailbox_UpdateScrollArrows:: ; 25:4987
 	cp a, $04
 	jr z, .l49D6
 	ld hl, wSpriteSlot4
-	ld de, $7B50
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry20
+	ld a, BANK(Mailbox_ObjTable_Entry20)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6848
 	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot3
-	ld de, $7B40
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry16
+	ld a, BANK(Mailbox_ObjTable_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3048

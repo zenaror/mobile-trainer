@@ -270,7 +270,8 @@ Function_00_0A82::
 
 Sprite_LoadObjectEntry:: ; 00:0AB8
 Function_00_0AB8::
-	; [CONFIRMED] fills slot fields from the 4-byte table entry at DE+4*(A&$7F) (used by 0A82)
+	; [CONFIRMED] fills slot fields from the 4-byte table entry at DE+4*(A&$3F) (used by 0A82): `and a, $7F` then two `add a, a` in A, so the carry of the shifts is lost and an id
+	; of 64-127 reads the entry of id-64 (no site uses one)
 	inc hl
 	inc hl
 	push af

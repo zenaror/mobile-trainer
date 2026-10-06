@@ -61,54 +61,67 @@ Table_24_7B20::
 	sprite_object_entry MailResult_Anim0Frames, MailResult_Anim0Script ; entry 1
 	sprite_object_entry MailResult_Anim0Frames, MailResult_Anim0Script ; entry 2
 	sprite_object_entry MailResult_Anim0Frames, MailResult_Anim0Script ; entry 3
+MailResult_ObjTable_Entry4:: ; 24:7B30
 	sprite_object_entry MailResult_Anim4Frames, MailResult_Anim4Script ; entry 4
 	sprite_object_entry MailResult_Anim4Frames, MailResult_Anim4Script ; entry 5
 	sprite_object_entry MailResult_Anim4Frames, MailResult_Anim4Script ; entry 6
 	sprite_object_entry MailResult_Anim4Frames, MailResult_Anim4Script ; entry 7
+MailResult_ObjTable_Entry8:: ; 24:7B40
 	sprite_object_entry MailResult_Anim8Frames, MailResult_Anim8Script ; entry 8
 	sprite_object_entry MailResult_Anim8Frames, MailResult_Anim8Script ; entry 9
 	sprite_object_entry MailResult_Anim8Frames, MailResult_Anim8Script ; entry 10
 	sprite_object_entry MailResult_Anim8Frames, MailResult_Anim8Script ; entry 11
+MailResult_ObjTable_Entry12:: ; 24:7B50
 	sprite_object_entry MailResult_Anim12Frames, MailResult_Anim12Script ; entry 12
 	sprite_object_entry MailResult_Anim12Frames, MailResult_Anim12Script ; entry 13
 	sprite_object_entry MailResult_Anim12Frames, MailResult_Anim12Script ; entry 14
 	sprite_object_entry MailResult_Anim12Frames, MailResult_Anim12Script ; entry 15
+MailResult_ObjTable_Entry16:: ; 24:7B60
 	sprite_object_entry MailResult_Anim16Frames, MailResult_Anim16Script ; entry 16
 	sprite_object_entry MailResult_Anim16Frames, MailResult_Anim16Script ; entry 17
 	sprite_object_entry MailResult_Anim16Frames, MailResult_Anim16Script ; entry 18
 	sprite_object_entry MailResult_Anim16Frames, MailResult_Anim16Script ; entry 19
+MailResult_ObjTable_Entry20:: ; 24:7B70
 	sprite_object_entry MailResult_Anim20Frames, MailResult_Anim20Script ; entry 20
 	sprite_object_entry MailResult_Anim20Frames, MailResult_Anim20Script ; entry 21
 	sprite_object_entry MailResult_Anim20Frames, MailResult_Anim20Script ; entry 22
 	sprite_object_entry MailResult_Anim20Frames, MailResult_Anim20Script ; entry 23
+MailResult_ObjTable_Entry24:: ; 24:7B80
 	sprite_object_entry MailResult_Anim24Frames, MailResult_Anim24Script ; entry 24
 	sprite_object_entry MailResult_Anim24Frames, MailResult_Anim24Script ; entry 25
 	sprite_object_entry MailResult_Anim24Frames, MailResult_Anim24Script ; entry 26
 	sprite_object_entry MailResult_Anim24Frames, MailResult_Anim24Script ; entry 27
+MailResult_ObjTable_Entry28:: ; 24:7B90
 	sprite_object_entry MailResult_Anim28Frames, MailResult_Anim28Script ; entry 28
 	sprite_object_entry MailResult_Anim28Frames, MailResult_Anim28Script ; entry 29
 	sprite_object_entry MailResult_Anim28Frames, MailResult_Anim28Script ; entry 30
 	sprite_object_entry MailResult_Anim28Frames, MailResult_Anim28Script ; entry 31
+MailResult_ObjTable_Entry32:: ; 24:7BA0
 	sprite_object_entry MailResult_Anim32Frames, MailResult_Anim32Script ; entry 32
 	sprite_object_entry MailResult_Anim32Frames, MailResult_Anim32Script ; entry 33
 	sprite_object_entry MailResult_Anim32Frames, MailResult_Anim32Script ; entry 34
 	sprite_object_entry MailResult_Anim32Frames, MailResult_Anim32Script ; entry 35
+MailResult_ObjTable_Entry36:: ; 24:7BB0
 	sprite_object_entry MailResult_Anim36Frames, MailResult_Anim36Script ; entry 36
 	sprite_object_entry MailResult_Anim36Frames, MailResult_Anim36Script ; entry 37
 	sprite_object_entry MailResult_Anim36Frames, MailResult_Anim36Script ; entry 38
 	sprite_object_entry MailResult_Anim36Frames, MailResult_Anim36Script ; entry 39
+MailResult_ObjTable_Entry40:: ; 24:7BC0
 	sprite_object_entry MailResult_Anim40Frames, MailResult_Anim40Script ; entry 40
 	sprite_object_entry MailResult_Anim40Frames, MailResult_Anim40Script ; entry 41
 	sprite_object_entry MailResult_Anim40Frames, MailResult_Anim40Script ; entry 42
 	sprite_object_entry MailResult_Anim40Frames, MailResult_Anim40Script ; entry 43
+MailResult_ObjTable_Entry44:: ; 24:7BD0
 	sprite_object_entry MailResult_Anim44Frames, MailResult_Anim44Script ; entry 44
 	sprite_object_entry MailResult_Anim44Frames, MailResult_Anim44Script ; entry 45
 	sprite_object_entry MailResult_Anim44Frames, MailResult_Anim44Script ; entry 46
 	sprite_object_entry MailResult_Anim44Frames, MailResult_Anim44Script ; entry 47
+MailResult_ObjTable_Entry48:: ; 24:7BE0
 	sprite_object_entry MailResult_Anim48Frames, MailResult_Anim48Script ; entry 48
 	sprite_object_entry MailResult_Anim48Frames, MailResult_Anim48Script ; entry 49
 	sprite_object_entry MailResult_Anim48Frames, MailResult_Anim48Script ; entry 50
 	sprite_object_entry MailResult_Anim48Frames, MailResult_Anim48Script ; entry 51
+MailResult_ObjTable_Entry52:: ; 24:7BF0
 	sprite_object_entry MailResult_Anim52Frames, MailResult_Anim52Script ; entry 52
 	sprite_object_entry MailResult_Anim52Frames, MailResult_Anim52Script ; entry 53
 	sprite_object_entry MailResult_Anim52Frames, MailResult_Anim52Script ; entry 54

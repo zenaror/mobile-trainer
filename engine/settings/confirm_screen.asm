@@ -28,13 +28,13 @@ SettingsPhone_ConfirmScreen_Setup:: ; 67:5129
 	ld [wConfirmScreen_Cursor], a
 	ld de, $8801
 	ld hl, Gfx_SettingsPhone_ConfirmScreen_Tiles8800Vb1
-	ld a, $4B
+	ld a, BANK(Gfx_SettingsPhone_ConfirmScreen_Tiles8800Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Gfx_SettingsPhone_ConfirmScreen_Tiles8C00Vb1
-	ld a, $4B
+	ld a, BANK(Gfx_SettingsPhone_ConfirmScreen_Tiles8C00Vb1)
 	ld b, $95
 	ld c, $22
 	farcall Gfx_StartHDMAWithService
@@ -46,7 +46,7 @@ SettingsPhone_ConfirmScreen_Setup:: ; 67:5129
 	farcall Gfx_StartHDMAWithService
 	ld de, $8001
 	ld hl, Data_5F_49D0
-	ld a, $5F
+	ld a, BANK(Data_5F_49D0)
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
@@ -73,7 +73,7 @@ SettingsPhone_ConfirmScreen_Setup:: ; 67:5129
 	call Gfx_UploadBgMapBuffers
 	ld hl, wSpriteSlot0
 	ld de, ConfirmPages_ObjTable
-	ld a, $4A
+	ld a, BANK(ConfirmPages_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	call SettingsPhone_ConfirmScreen_PlaceCursor

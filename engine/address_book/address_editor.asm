@@ -445,39 +445,39 @@ Function_2F_6F8C::
 	farcall Gfx_StartHDMA
 	ld de, $8800
 	ld hl, Gfx_AbookAddr_Tiles8800
-	ld a, $2F
+	ld a, BANK(Gfx_AbookAddr_Tiles8800)
 	ld b, $94
 	ld c, $32
 	farcall Gfx_StartHDMA
 	ld de, $8000
 	ld hl, Gfx_AbookEdit_Tiles8000
-	ld a, $29
+	ld a, BANK(Gfx_AbookEdit_Tiles8000)
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMA
 	ld bc, $0040
 	ld de, wPaletteBufObj
 	ld hl, Palette_AbookEdit_Obj
-	ld a, $29
+	ld a, BANK(Palette_AbookEdit_Obj)
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_AbookAddr_Bg
-	ld a, $2F
+	ld a, BANK(Palette_AbookAddr_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_AbookAddr
-	ld a, $2F
+	ld a, BANK(Tilemap_AbookAddr)
 	farcall Tilemap_CopyRectAndAttr
 	ld hl, wSpriteSlot1
-	ld de, $7B60
-	ld a, $7F
+	ld de, Table_TextCursor_ObjTables_Entry8
+	ld a, BANK(Table_TextCursor_ObjTables_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld hl, wSpriteSlot2
-	ld de, $7B50
-	ld a, $7F
+	ld de, Table_TextCursor_ObjTables_Entry4
+	ld a, BANK(Table_TextCursor_ObjTables_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ldh a, [rLCDC]
@@ -1190,8 +1190,8 @@ AbookAddr_InsertChar:: ; 2F:73FA
 	pop bc
 	push bc
 	ld hl, wSpriteSlot1
-	ld de, $7B70
-	ld a, $7F
+	ld de, Table_TextCursor_ObjTables_Entry12
+	ld a, BANK(Table_TextCursor_ObjTables_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 	pop bc
@@ -1216,8 +1216,8 @@ AbookAddr_InsertChar:: ; 2F:73FA
 .l746C ; 2F:746C
 	farcall Joypad_ClearAndResetRepeat
 	ld hl, wSpriteSlot1
-	ld de, $7B60
-	ld a, $7F
+	ld de, Table_TextCursor_ObjTables_Entry8
+	ld a, BANK(Table_TextCursor_ObjTables_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	pop bc
@@ -1299,8 +1299,8 @@ AbookAddr_Backspace:: ; 2F:74D7
 	pop bc
 	push bc
 	ld hl, wSpriteSlot1
-	ld de, $7B80
-	ld a, $7F
+	ld de, Table_TextCursor_ObjTables_Entry16
+	ld a, BANK(Table_TextCursor_ObjTables_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	pop bc
@@ -1350,8 +1350,8 @@ AbookAddr_Backspace:: ; 2F:74D7
 .l753D ; 2F:753D
 	farcall Joypad_ClearAndResetRepeat
 	ld hl, wSpriteSlot1
-	ld de, $7B60
-	ld a, $7F
+	ld de, Table_TextCursor_ObjTables_Entry8
+	ld a, BANK(Table_TextCursor_ObjTables_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	pop bc

@@ -32,7 +32,7 @@ Palette_Profile_Bg:: ; 2A:6E10
 Palette_2A_6E10::
 	INCLUDE "gfx/profile/profile_editor/profile_bg.pal"
 
-; ---- words $6E50-$6EA0 (80 bytes) [PROBABLE] animation entry table: 20 entries of 4 bytes (frame-table pointer, script pointer), each animation repeated 4x; format of the sprite-slot initialiser 00:0A82/0AB8 (entry at DE+4*(A&$7F) -> slot[2..3] frame table, slot[6..7] script)
+; ---- words $6E50-$6EA0 (80 bytes) [PROBABLE] animation entry table: 20 entries of 4 bytes (frame-table pointer, script pointer), each animation repeated 4x; format of the sprite-slot initialiser 00:0A82/0AB8 (entry at DE+4*(A&$3F) -> slot[2..3] frame table, slot[6..7] script)
 
 Table_Profile_Anims:: ; 2A:6E50
 Table_2A_6E50::
@@ -44,10 +44,12 @@ Table_2A_6E50::
 	sprite_object_entry Profile_Anim4Frames, Profile_Anim4Script ; entry 5
 	sprite_object_entry Profile_Anim4Frames, Profile_Anim4Script ; entry 6
 	sprite_object_entry Profile_Anim4Frames, Profile_Anim4Script ; entry 7
+Table_Profile_Anims_Entry8:: ; 2A:6E70
 	sprite_object_entry Profile_Anim8Frames, Profile_Anim8Script ; entry 8
 	sprite_object_entry Profile_Anim8Frames, Profile_Anim8Script ; entry 9
 	sprite_object_entry Profile_Anim8Frames, Profile_Anim8Script ; entry 10
 	sprite_object_entry Profile_Anim8Frames, Profile_Anim8Script ; entry 11
+Table_Profile_Anims_Entry12:: ; 2A:6E80
 	sprite_object_entry Profile_Anim12Frames, Profile_Anim12Script ; entry 12
 	sprite_object_entry Profile_Anim12Frames, Profile_Anim12Script ; entry 13
 	sprite_object_entry Profile_Anim12Frames, Profile_Anim12Script ; entry 14

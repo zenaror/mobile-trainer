@@ -93,23 +93,23 @@ MailView_BodyPage_InitScreen:: ; 2B:7B9B
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, MailBody_BgPalette
-	ld a, $28
+	ld a, BANK(MailBody_BgPalette)
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, wPaletteBufObj
-	ld hl, $4B30
-	ld a, $28
+	ld hl, MailBody_ObjPalette
+	ld a, BANK(MailBody_ObjPalette)
 	farcall Palette_LoadToBuffer
 	ld de, $9301
 	ld hl, MailBody_Tiles_42C0
-	ld a, $28
+	ld a, BANK(MailBody_Tiles_42C0)
 	ld b, $95
 	ld c, $21
 	farcall Gfx_StartHDMA
 	call VBlank_Wait
 	ld de, $8000
 	ld hl, MailBody_Tiles_44D0
-	ld a, $28
+	ld a, BANK(MailBody_Tiles_44D0)
 	ld b, $98
 	ld c, $08
 	farcall Gfx_StartHDMA
@@ -117,14 +117,14 @@ MailView_BodyPage_InitScreen:: ; 2B:7B9B
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_MailView_BodyPage
-	ld a, $28
+	ld a, BANK(Tilemap_MailView_BodyPage)
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	call VBlank_Wait
 	ld hl, wSpriteSlot1
 	ld de, MailBody_ObjTable
-	ld a, $28
+	ld a, BANK(MailBody_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0808

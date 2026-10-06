@@ -80,32 +80,32 @@ CommNotice_RunDialog:: ; 50:4061
 	jp nz, .l4173
 	ld de, $9000
 	ld hl, Gfx_CommNotice_A_Tiles9000
-	ld a, $50
+	ld a, BANK(Gfx_CommNotice_A_Tiles9000)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9400
 	ld hl, Gfx_CommNotice_A_Tiles9400
-	ld a, $50
+	ld a, BANK(Gfx_CommNotice_A_Tiles9400)
 	ld b, $96
 	ld c, $1A
 	farcall Gfx_StartHDMAWithService
 	ld de, $8001
 	ld hl, Gfx_CommNotice_A_Tiles8000Vb1
-	ld a, $50
+	ld a, BANK(Gfx_CommNotice_A_Tiles8000Vb1)
 	ld b, $98
 	ld c, $01
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Gfx_CommNotice_A_Tiles9000Vb1
-	ld a, $50
+	ld a, BANK(Gfx_CommNotice_A_Tiles9000Vb1)
 	ld b, $94
 	ld c, $32
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_CommNotice
-	ld a, $50
+	ld a, BANK(Palette_CommNotice)
 	farcall Palette_LoadToBuffer
 	ld a, [wCommNotice_ModeArg]
 	or a, a
@@ -160,7 +160,7 @@ CommNotice_RunDialog:: ; 50:4061
 .l414F ; 50:414F
 	ld hl, wSpriteSlot1
 	ld de, CommNotice_ObjTable
-	ld a, $50
+	ld a, BANK(CommNotice_ObjTable)
 	ld b, $80
 	farcall Sprite_InitSlot
 	ld bc, $0040
@@ -175,25 +175,25 @@ CommNotice_RunDialog:: ; 50:4061
 	; 4000-4244 by apply_coverage --split
 	ld de, $9000
 	ld hl, Gfx_CommNotice_B_Tiles9000
-	ld a, $50
+	ld a, BANK(Gfx_CommNotice_B_Tiles9000)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9400
 	ld hl, Gfx_CommNotice_B_Tiles9400
-	ld a, $50
+	ld a, BANK(Gfx_CommNotice_B_Tiles9400)
 	ld b, $96
 	ld c, $1A
 	farcall Gfx_StartHDMAWithService
 	ld de, $8001
 	ld hl, Gfx_CommNotice_B_Tiles8000Vb1
-	ld a, $50
+	ld a, BANK(Gfx_CommNotice_B_Tiles8000Vb1)
 	ld b, $98
 	ld c, $01
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Gfx_CommNotice_B_Tiles9000Vb1
-	ld a, $50
+	ld a, BANK(Gfx_CommNotice_B_Tiles9000Vb1)
 	ld b, $94
 	ld c, $32
 	farcall Gfx_StartHDMAWithService
@@ -242,8 +242,8 @@ CommNotice_RunDialog:: ; 50:4061
 	jr .l4220
 .l4220 ; 50:4220
 	ld hl, wSpriteSlot1
-	ld de, $6D1A
-	ld a, $50
+	ld de, CommNotice_ObjTable_Entry1
+	ld a, BANK(CommNotice_ObjTable_Entry1)
 	ld b, $80
 	farcall Sprite_InitSlot
 	ld bc, $0040

@@ -38,25 +38,25 @@ Function_1D_4000::
 	farcall Sprite_ResetAll
 	ld de, $8000
 	ld hl, Gfx_MailMenu_Tiles0
-	ld a, $1D
+	ld a, BANK(Gfx_MailMenu_Tiles0)
 	ld b, $96
 	ld c, $19
 	farcall Gfx_StartHDMAWithService
 	ld de, $8800
 	ld hl, Gfx_MailMenu_Tiles1
-	ld a, $1D
+	ld a, BANK(Gfx_MailMenu_Tiles1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C00
 	ld hl, Gfx_MailMenu_Tiles2
-	ld a, $1D
+	ld a, BANK(Gfx_MailMenu_Tiles2)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9000
 	ld hl, Gfx_MailMenu_Tiles3
-	ld a, $1D
+	ld a, BANK(Gfx_MailMenu_Tiles3)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
@@ -68,23 +68,23 @@ Function_1D_4000::
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_MailMenu_Tiles5
-	ld a, $1D
+	ld a, BANK(Gfx_MailMenu_Tiles5)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_MailMenu_Bg
-	ld a, $1D
+	ld a, BANK(Palette_MailMenu_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_MailMenu_Screen
-	ld a, $1D
+	ld a, BANK(Tilemap_MailMenu_Screen)
 	farcall Tilemap_CopyRectAndAttr
 	ld hl, wSpriteSlot1
-	ld de, $63B6
-	ld a, $1D
+	ld de, Table_MailMenu_Objects
+	ld a, BANK(Table_MailMenu_Objects)
 	ld b, $80
 	farcall Sprite_InitSlot
 	ld de, $431A
@@ -92,8 +92,8 @@ Function_1D_4000::
 	call Sprite_SetPosition
 	ld bc, $0040
 	ld de, wPaletteBufObj
-	ld hl, $6270
-	ld a, $1D
+	ld hl, Palette_MailMenu_Obj
+	ld a, BANK(Palette_MailMenu_Obj)
 	farcall Palette_LoadToBuffer
 	ld a, $40
 	ld bc, $0220
@@ -470,7 +470,7 @@ Function_1D_439B::
 	ld bc, $0608
 	ld de, wScreenTileMap + $C1
 	ld hl, Tilemap_MailMenu_IconFrames
-	ld a, $1D
+	ld a, BANK(Tilemap_MailMenu_IconFrames)
 	farcall Tilemap_CopyRectAndAttrPtr
 	farcall Sprite_UpdateAll
 	ldh a, [rLCDC]

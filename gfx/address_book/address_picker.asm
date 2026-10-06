@@ -64,18 +64,22 @@ Table_2C_7210::
 	sprite_object_entry AddrSlotIcon_ObjAnimData_2C_7260, SpriteScript_2C_728E ; entry 1
 	sprite_object_entry AddrSlotIcon_ObjAnimData_2C_7260, SpriteScript_2C_728E ; entry 2
 	sprite_object_entry AddrSlotIcon_ObjAnimData_2C_7260, SpriteScript_2C_728E ; entry 3
+Table_AddrSlotIcon_Anims_Entry4:: ; 2C:7220
 	sprite_object_entry SpriteFrameTable_2C_7291, SpriteScript_2C_72A4 ; entry 4
 	sprite_object_entry SpriteFrameTable_2C_7291, SpriteScript_2C_72A4 ; entry 5
 	sprite_object_entry SpriteFrameTable_2C_7291, SpriteScript_2C_72A4 ; entry 6
 	sprite_object_entry SpriteFrameTable_2C_7291, SpriteScript_2C_72A4 ; entry 7
+Table_AddrSlotIcon_Anims_Entry8:: ; 2C:7230
 	sprite_object_entry SpriteFrameTable_2C_72A7, SpriteScript_2C_72BA ; entry 8
 	sprite_object_entry SpriteFrameTable_2C_72A7, SpriteScript_2C_72BA ; entry 9
 	sprite_object_entry SpriteFrameTable_2C_72A7, SpriteScript_2C_72BA ; entry 10
 	sprite_object_entry SpriteFrameTable_2C_72A7, SpriteScript_2C_72BA ; entry 11
+Table_AddrSlotIcon_Anims_Entry12:: ; 2C:7240
 	sprite_object_entry SpriteFrameTable_2C_72BD, SpriteScript_2C_7354 ; entry 12
 	sprite_object_entry SpriteFrameTable_2C_72BD, SpriteScript_2C_7354 ; entry 13
 	sprite_object_entry SpriteFrameTable_2C_72BD, SpriteScript_2C_7354 ; entry 14
 	sprite_object_entry SpriteFrameTable_2C_72BD, SpriteScript_2C_7354 ; entry 15
+Table_AddrSlotIcon_Anims_Entry16:: ; 2C:7250
 	sprite_object_entry SpriteFrameTable_2C_735F, SpriteScript_2C_740E ; entry 16
 	sprite_object_entry SpriteFrameTable_2C_735F, SpriteScript_2C_740E ; entry 17
 	sprite_object_entry SpriteFrameTable_2C_735F, SpriteScript_2C_740E ; entry 18

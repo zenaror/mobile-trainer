@@ -42,69 +42,69 @@ Function_1F_4000::
 	farcall Sprite_ResetAll
 	ld de, $8000
 	ld hl, Gfx_TopMenu_Tiles8000
-	ld a, $1E
+	ld a, BANK(Gfx_TopMenu_Tiles8000)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8400
 	ld hl, Gfx_TopMenu_Tiles8400
-	ld a, $1E
+	ld a, BANK(Gfx_TopMenu_Tiles8400)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8800
 	ld hl, Gfx_TopMenu_Tiles8800
-	ld a, $1E
+	ld a, BANK(Gfx_TopMenu_Tiles8800)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C00
 	ld hl, Gfx_TopMenu_Tiles8C00
-	ld a, $1E
+	ld a, BANK(Gfx_TopMenu_Tiles8C00)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9000
 	ld hl, Gfx_TopMenu_Tiles9000
-	ld a, $1E
+	ld a, BANK(Gfx_TopMenu_Tiles9000)
 	ld b, $95
 	ld c, $20
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Gfx_TopMenu_Tiles9000Vb1
-	ld a, $1E
+	ld a, BANK(Gfx_TopMenu_Tiles9000Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_TopMenu_Tiles9400Vb1
-	ld a, $1E
+	ld a, BANK(Gfx_TopMenu_Tiles9400Vb1)
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_TopMenu_Bg
-	ld a, $1E
+	ld a, BANK(Palette_TopMenu_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $1014
 	ld de, wScreenTileMap
 	ld hl, Tilemap_TopMenu_1E_40D7
-	ld a, $1E
+	ld a, BANK(Tilemap_TopMenu_1E_40D7)
 	farcall Tilemap_CopyRectAndAttr
 	ld hl, wSpriteSlot5
 	ld de, TopMenu_ObjTable
-	ld a, $1E
+	ld a, BANK(TopMenu_ObjTable)
 	ld b, $85
 	farcall Sprite_InitSlot
 	ld bc, $0040
 	ld de, wPaletteBufObj
 	ld hl, Palette_TopMenu_Obj
-	ld a, $1E
+	ld a, BANK(Palette_TopMenu_Obj)
 	farcall Palette_LoadToBuffer
 	ld hl, wSpriteSlot1
 	ld de, TopMenu_ObjTable
-	ld a, $1E
+	ld a, BANK(TopMenu_ObjTable)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld de, $191D
@@ -112,7 +112,7 @@ Function_1F_4000::
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot2
 	ld de, TopMenu_ObjTable
-	ld a, $1E
+	ld a, BANK(TopMenu_ObjTable)
 	ld b, $02
 	farcall Sprite_InitSlot
 	ld de, $1676
@@ -384,13 +384,13 @@ Function_1F_4351::
 	ld bc, $1014
 	ld de, wScreenTileMap
 	ld hl, Tilemap_TopMenu_1E_40D7
-	ld a, $1E
+	ld a, BANK(Tilemap_TopMenu_1E_40D7)
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	ld hl, wSpriteSlot4
 	ld de, TopMenu_ObjTable
-	ld a, $1E
+	ld a, BANK(TopMenu_ObjTable)
 	ld b, $04
 	farcall Sprite_InitSlot
 	ld de, $4048
@@ -409,7 +409,7 @@ Function_1F_4351::
 .l4396 ; 1F:4396
 	ld hl, wSpriteSlot1
 	ld de, TopMenu_ObjTable
-	ld a, $1E
+	ld a, BANK(TopMenu_ObjTable)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld de, $191D
@@ -423,7 +423,7 @@ Function_1F_4351::
 .l43BA ; 1F:43BA
 	ld hl, wSpriteSlot2
 	ld de, TopMenu_ObjTable
-	ld a, $1E
+	ld a, BANK(TopMenu_ObjTable)
 	ld b, $02
 	farcall Sprite_InitSlot
 	ld de, $1676
@@ -431,7 +431,7 @@ Function_1F_4351::
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot3
 	ld de, TopMenu_ObjTable
-	ld a, $1E
+	ld a, BANK(TopMenu_ObjTable)
 	ld b, $03
 	farcall Sprite_InitSlot
 	ld de, $AAAA
@@ -449,7 +449,7 @@ TopMenu_InitItemSprites:: ; 1F:43F7
 	jr z, .l4417
 	ld hl, wSpriteSlot4
 	ld de, TopMenu_ObjTable
-	ld a, $1E
+	ld a, BANK(TopMenu_ObjTable)
 	ld b, $06
 	farcall Sprite_InitSlot
 	ld de, $4848
@@ -463,7 +463,7 @@ TopMenu_InitItemSprites:: ; 1F:43F7
 	jp z, .l447C
 	ld hl, wSpriteSlot4
 	ld de, TopMenu_ObjTable
-	ld a, $1E
+	ld a, BANK(TopMenu_ObjTable)
 	ld b, $84
 	farcall Sprite_InitSlot
 	ld de, $4048
@@ -481,7 +481,7 @@ TopMenu_InitItemSprites:: ; 1F:43F7
 .l444F ; 1F:444F
 	ld hl, wSpriteSlot1
 	ld de, TopMenu_ObjTable
-	ld a, $1E
+	ld a, BANK(TopMenu_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $191D
@@ -499,7 +499,7 @@ TopMenu_InitItemSprites:: ; 1F:43F7
 .l447C ; 1F:447C
 	ld hl, wSpriteSlot2
 	ld de, TopMenu_ObjTable
-	ld a, $1E
+	ld a, BANK(TopMenu_ObjTable)
 	ld b, $82
 	farcall Sprite_InitSlot
 	ld de, $1676
@@ -507,7 +507,7 @@ TopMenu_InitItemSprites:: ; 1F:43F7
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot3
 	ld de, TopMenu_ObjTable
-	ld a, $1E
+	ld a, BANK(TopMenu_ObjTable)
 	ld b, $83
 	farcall Sprite_InitSlot
 	ld de, $1A6B
@@ -547,7 +547,7 @@ TopMenu_AnimatePanel:: ; 1F:44D5
 	ld bc, $090C
 	ld de, wScreenTileMap + $E4
 	ld hl, Tilemap_TopMenu_1E_48C1
-	ld a, $1E
+	ld a, BANK(Tilemap_TopMenu_1E_48C1)
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers

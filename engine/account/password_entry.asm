@@ -107,32 +107,32 @@ Function_68_5D9C::
 .l5DCD ; 68:5DCD
 	ld de, $8801
 	ld hl, Gfx_Kbd_T4_Tiles8800Vb1
-	ld a, $5D
+	ld a, BANK(Gfx_Kbd_T4_Tiles8800Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Gfx_Kbd_T4_Tiles8C00Vb1
-	ld a, $5D
+	ld a, BANK(Gfx_Kbd_T4_Tiles8C00Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Gfx_Account_PasswordEntry_Tiles9000Vb1
-	ld a, $5D
+	ld a, BANK(Gfx_Account_PasswordEntry_Tiles9000Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_Account_PasswordEntry_Tiles9400Vb1
-	ld a, $5D
+	ld a, BANK(Gfx_Account_PasswordEntry_Tiles9400Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Data_5E_4D00
-	ld a, $5E
+	ld a, BANK(Data_5E_4D00)
 	farcall Palette_LoadToBuffer
 	ld a, [wPasswordEntry_Variant]
 	ld hl, Account_PasswordEntryMaps
@@ -160,8 +160,8 @@ Function_68_5D9C::
 	ld b, $02
 	farcall Kbd_Open
 	ld hl, wSpriteSlot0
-	ld de, $4D30
-	ld a, $5F
+	ld de, Kbd_ObjTable_Entry14
+	ld a, BANK(Kbd_ObjTable_Entry14)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld d, $38
@@ -516,25 +516,25 @@ Account_PasswordIntro_Draw:: ; 68:6109
 	farcall Sprite_ResetAll
 	ld de, $9001
 	ld hl, Gfx_Account_PasswordIntro_Tiles9000Vb1
-	ld a, $5D
+	ld a, BANK(Gfx_Account_PasswordIntro_Tiles9000Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_Account_PasswordIntro_Tiles9400Vb1
-	ld a, $5D
+	ld a, BANK(Gfx_Account_PasswordIntro_Tiles9400Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Data_5E_4D00
-	ld a, $5E
+	ld a, BANK(Data_5E_4D00)
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_Account_PasswordIntro
-	ld a, $5D
+	ld a, BANK(Tilemap_Account_PasswordIntro)
 	farcall Tilemap_CopyRectAndAttr
 	call Account_PasswordIntro_PrintMessage
 	ldh a, [rLCDC]

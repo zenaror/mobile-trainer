@@ -335,16 +335,16 @@ Function_27_41E3::
 	dec b
 	jr nz, .loop
 	ld hl, wSpriteSlot8
-	ld de, $7030
-	ld a, $28
+	ld de, MailSession_ObjTable_6F20_Entry68
+	ld a, BANK(MailSession_ObjTable_6F20_Entry68)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7100
 	ld hl, wSpriteSlot8
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot3
-	ld de, $7A30
-	ld a, $27
+	ld de, MailConnect_ObjTable_Entry8
+	ld a, BANK(MailConnect_ObjTable_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2FE0
@@ -357,8 +357,8 @@ Function_27_41E3::
 	inc a
 	jr nz, .l427C
 	ld hl, wSpriteSlot4
-	ld de, $7A40
-	ld a, $27
+	ld de, MailConnect_ObjTable_Entry12
+	ld a, BANK(MailConnect_ObjTable_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 	jr .l428C
@@ -368,8 +368,8 @@ Function_27_41E3::
 	; entered by jrcc from 27:4268 (executed) | upgraded by classifier 6: all 5 instruction starts
 	; of the region are in analysis/coverage_union.tsv (executed in a trace)
 	ld hl, wSpriteSlot4
-	ld de, $7A50
-	ld a, $27
+	ld de, MailConnect_ObjTable_Entry16
+	ld a, BANK(MailConnect_ObjTable_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 
@@ -386,8 +386,8 @@ Function_27_41E3::
 	; [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0;
 	; fall-through of the jrcc at 27:4299 (executed)
 	ld hl, wSpriteSlot4
-	ld de, $7AA0
-	ld a, $27
+	ld de, MailConnect_ObjTable_Entry36
+	ld a, BANK(MailConnect_ObjTable_Entry36)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2FD0
@@ -398,8 +398,8 @@ Function_27_41E3::
 .l42B6 ; 27:42B6
 	; [CONFIRMED] 86 insn(s); 86 executed (in up to 4/18 scenarios)
 	ld hl, wSpriteSlot3
-	ld de, $7AC0
-	ld a, $27
+	ld de, MailConnect_ObjTable_Entry44
+	ld a, BANK(MailConnect_ObjTable_Entry44)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2FE0
@@ -573,13 +573,13 @@ MailConnect_Screen_Loop:: ; 27:4305
 	ld bc, $0514
 	ld de, wScreenTileMap
 	ld hl, MailConnect_WinMsg_Connected
-	ld a, $27
+	ld a, BANK(MailConnect_WinMsg_Connected)
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $40
 	farcall Gfx_UploadWinMapBuffers
 	ld hl, wSpriteSlot5
-	ld de, $7A70
-	ld a, $27
+	ld de, MailConnect_ObjTable_Entry24
+	ld a, BANK(MailConnect_ObjTable_Entry24)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2F47
@@ -665,7 +665,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 	ld bc, $0514
 	ld de, wScreenTileMap
 	ld hl, MailConnect_WinMsg_Cancelling
-	ld a, $27
+	ld a, BANK(MailConnect_WinMsg_Cancelling)
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $40
 	farcall Gfx_UploadWinMapBuffers
@@ -682,8 +682,8 @@ MailConnect_Screen_Loop:: ; 27:4305
 	pop de
 	pop bc
 	ld hl, wSpriteSlot5
-	ld de, $7A70
-	ld a, $27
+	ld de, MailConnect_ObjTable_Entry24
+	ld a, BANK(MailConnect_ObjTable_Entry24)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2F47
@@ -705,8 +705,8 @@ MailConnect_Screen_Loop:: ; 27:4305
 	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot3
-	ld de, $6F30
-	ld a, $28
+	ld de, MailSession_ObjTable_6F20_Entry4
+	ld a, BANK(MailSession_ObjTable_6F20_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2F47
@@ -719,8 +719,8 @@ MailConnect_Screen_Loop:: ; 27:4305
 	inc a
 	jr nz, .l4589
 	ld hl, wSpriteSlot4
-	ld de, $7020
-	ld a, $28
+	ld de, MailSession_ObjTable_6F20_Entry64
+	ld a, BANK(MailSession_ObjTable_6F20_Entry64)
 	ld b, $81
 	farcall Sprite_InitSlot
 	jr .l4599
@@ -729,8 +729,8 @@ MailConnect_Screen_Loop:: ; 27:4305
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1;
 	; entered by jrcc from 27:4575 (executed) [executed in 4 scenarios]
 	ld hl, wSpriteSlot4
-	ld de, $7A60
-	ld a, $27
+	ld de, MailConnect_ObjTable_Entry20
+	ld a, BANK(MailConnect_ObjTable_Entry20)
 	ld b, $81
 	farcall Sprite_InitSlot
 
@@ -751,8 +751,8 @@ MailConnect_Screen_Loop:: ; 27:4305
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 45A4-45DC by apply_coverage --split
 	ld hl, wSpriteSlot4
-	ld de, $7AB0
-	ld a, $27
+	ld de, MailConnect_ObjTable_Entry40
+	ld a, BANK(MailConnect_ObjTable_Entry40)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2F57
@@ -764,8 +764,8 @@ MailConnect_Screen_Loop:: ; 27:4305
 	; [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 45A4-45DC by apply_coverage
 	; --split [executed in 8 scenarios]
 	ld hl, wSpriteSlot3
-	ld de, $7AD0
-	ld a, $27
+	ld de, MailConnect_ObjTable_Entry48
+	ld a, BANK(MailConnect_ObjTable_Entry48)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2F47
@@ -812,7 +812,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 	ld bc, $0514
 	ld de, wScreenTileMap
 	ld hl, MailConnect_WinMsg_Cancelled
-	ld a, $27
+	ld a, BANK(MailConnect_WinMsg_Cancelled)
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $40
 	farcall Gfx_UploadWinMapBuffers
@@ -1014,21 +1014,21 @@ Function_27_4768::
 	ld bc, $0514
 	ld de, wScreenTileMap
 	ld hl, MailDisconnect_WinMsg_Ending
-	ld a, $27
+	ld a, BANK(MailDisconnect_WinMsg_Ending)
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $40
 	farcall Gfx_UploadWinMapBuffers
 	ld hl, wSpriteSlot8
-	ld de, $7030
-	ld a, $28
+	ld de, MailSession_ObjTable_6F20_Entry68
+	ld a, BANK(MailSession_ObjTable_6F20_Entry68)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7100
 	ld hl, wSpriteSlot8
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot3
-	ld de, $6F30
-	ld a, $28
+	ld de, MailSession_ObjTable_6F20_Entry4
+	ld a, BANK(MailSession_ObjTable_6F20_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2F48
@@ -1041,8 +1041,8 @@ Function_27_4768::
 	inc a
 	jr nz, .l4816
 	ld hl, wSpriteSlot4
-	ld de, $7020
-	ld a, $28
+	ld de, MailSession_ObjTable_6F20_Entry64
+	ld a, BANK(MailSession_ObjTable_6F20_Entry64)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $01
@@ -1060,8 +1060,8 @@ Function_27_4768::
 	jr z, .l4826
 .l4816 ; 27:4816
 	ld hl, wSpriteSlot4
-	ld de, $7A60
-	ld a, $27
+	ld de, MailConnect_ObjTable_Entry20
+	ld a, BANK(MailConnect_ObjTable_Entry20)
 	ld b, $81
 	farcall Sprite_InitSlot
 
@@ -1078,8 +1078,8 @@ Function_27_4768::
 	; [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0;
 	; fall-through of the jrcc at 27:4833 (executed)
 	ld hl, wSpriteSlot4
-	ld de, $7AB0
-	ld a, $27
+	ld de, MailConnect_ObjTable_Entry40
+	ld a, BANK(MailConnect_ObjTable_Entry40)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2F58
@@ -1090,8 +1090,8 @@ Function_27_4768::
 .l4850 ; 27:4850
 	; [CONFIRMED] 63 insn(s); 63 executed (in up to 2/18 scenarios)
 	ld hl, wSpriteSlot3
-	ld de, $7AD0
-	ld a, $27
+	ld de, MailConnect_ObjTable_Entry48
+	ld a, BANK(MailConnect_ObjTable_Entry48)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2F48
@@ -1206,7 +1206,7 @@ Function_27_4768::
 	ld bc, $0514
 	ld de, wScreenTileMap
 	ld hl, MailDisconnect_WinMsg_Ended
-	ld a, $27
+	ld a, BANK(MailDisconnect_WinMsg_Ended)
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $40
 	farcall Gfx_UploadWinMapBuffers
@@ -1301,21 +1301,21 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	ld bc, $0514
 	ld de, wScreenTileMap
 	ld hl, MailDisconnect_WinMsg_Ending
-	ld a, $27
+	ld a, BANK(MailDisconnect_WinMsg_Ending)
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $40
 	farcall Gfx_UploadWinMapBuffers
 	ld hl, wSpriteSlot8
-	ld de, $7030
-	ld a, $28
+	ld de, MailSession_ObjTable_6F20_Entry68
+	ld a, BANK(MailSession_ObjTable_6F20_Entry68)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7100
 	ld hl, wSpriteSlot8
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot3
-	ld de, $6F30
-	ld a, $28
+	ld de, MailSession_ObjTable_6F20_Entry4
+	ld a, BANK(MailSession_ObjTable_6F20_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2F48
@@ -1331,8 +1331,8 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	inc a
 	jr nz, .l4A66
 	ld hl, wSpriteSlot4
-	ld de, $7020
-	ld a, $28
+	ld de, MailSession_ObjTable_6F20_Entry64
+	ld a, BANK(MailSession_ObjTable_6F20_Entry64)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $01
@@ -1346,8 +1346,8 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	jr z, .l4A76
 .l4A66 ; 27:4A66
 	ld hl, wSpriteSlot4
-	ld de, $7A60
-	ld a, $27
+	ld de, MailConnect_ObjTable_Entry20
+	ld a, BANK(MailConnect_ObjTable_Entry20)
 	ld b, $81
 	farcall Sprite_InitSlot
 .l4A76 ; 27:4A76
@@ -1365,8 +1365,8 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 49B0-4B95 by apply_coverage --split
 	ld hl, wSpriteSlot4
-	ld de, $7AB0
-	ld a, $27
+	ld de, MailConnect_ObjTable_Entry40
+	ld a, BANK(MailConnect_ObjTable_Entry40)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2F58
@@ -1378,8 +1378,8 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	; [CONFIRMED] 106 insn(s) executed; cut out of the PROBABLE region 49B0-4B95 by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld hl, wSpriteSlot3
-	ld de, $7AD0
-	ld a, $27
+	ld de, MailConnect_ObjTable_Entry48
+	ld a, BANK(MailConnect_ObjTable_Entry48)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2F48
@@ -1445,7 +1445,7 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	ld bc, $0514
 	ld de, wScreenTileMap
 	ld hl, MailDisconnect_WinMsg_Ended
-	ld a, $27
+	ld a, BANK(MailDisconnect_WinMsg_Ended)
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $40
 	farcall Gfx_UploadWinMapBuffers
@@ -1504,76 +1504,76 @@ Function_27_4B95::
 	ld bc, $0040
 	ld de, wPaletteBufObj
 	ld hl, MailScreens_ObjPalette_7520
-	ld a, $27
+	ld a, BANK(MailScreens_ObjPalette_7520)
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, MailConnect_BgPalette
-	ld a, $27
+	ld a, BANK(MailConnect_BgPalette)
 	farcall Palette_LoadToBuffer
 	ld de, $8001
 	ld hl, MailConnect_Tiles_5060
-	ld a, $27
+	ld a, BANK(MailConnect_Tiles_5060)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8401
 	ld hl, MailConnect_Tiles_5460
-	ld a, $27
+	ld a, BANK(MailConnect_Tiles_5460)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8800
 	ld hl, MailConnect_Tiles_5E60
-	ld a, $27
+	ld a, BANK(MailConnect_Tiles_5E60)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C00
 	ld hl, MailConnect_Tiles_6260
-	ld a, $27
+	ld a, BANK(MailConnect_Tiles_6260)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9000
 	ld hl, MailConnect_Tiles_6660
-	ld a, $27
+	ld a, BANK(MailConnect_Tiles_6660)
 	ld b, $95
 	ld c, $20
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, MailConnect_Tiles_5860
-	ld a, $27
+	ld a, BANK(MailConnect_Tiles_5860)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, MailConnect_Tiles_5C60
-	ld a, $27
+	ld a, BANK(MailConnect_Tiles_5C60)
 	ld b, $95
 	ld c, $20
 	farcall Gfx_StartHDMAWithService
 	ld de, $8000
 	ld hl, MailConnect_Tiles_6860
-	ld a, $27
+	ld a, BANK(MailConnect_Tiles_6860)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8400
 	ld hl, MailConnect_Tiles_6C60
-	ld a, $27
+	ld a, BANK(MailConnect_Tiles_6C60)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1220
 	ld de, wScreenTileMap
 	ld hl, MailConnect_Tilemap
-	ld a, $27
+	ld a, BANK(MailConnect_Tilemap)
 	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0040
 	ld de, wPaletteBufObj
 	ld hl, MailScreens_ObjPalette_7520
-	ld a, $27
+	ld a, BANK(MailScreens_ObjPalette_7520)
 	farcall Palette_LoadToBuffer
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
@@ -1583,29 +1583,29 @@ Function_27_4B95::
 	ld bc, $0514
 	ld de, wScreenTileMap
 	ld hl, MailConnect_WinMsg_Connecting
-	ld a, $27
+	ld a, BANK(MailConnect_WinMsg_Connecting)
 	farcall Tilemap_CopyRectAndAttr
 	jr .l4CC0
 .l4CAF ; 27:4CAF
 	ld bc, $0514
 	ld de, wScreenTileMap
 	ld hl, MailDisconnect_WinMsg_Ending
-	ld a, $27
+	ld a, BANK(MailDisconnect_WinMsg_Ending)
 	farcall Tilemap_CopyRectAndAttr
 .l4CC0 ; 27:4CC0
 	ld a, $40
 	farcall Gfx_UploadWinMapBuffers
 	ld hl, wSpriteSlot1
 	ld de, MailConnect_ObjTable
-	ld a, $27
+	ld a, BANK(MailConnect_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1800
 	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot2
-	ld de, $7A20
-	ld a, $27
+	ld de, MailConnect_ObjTable_Entry4
+	ld a, BANK(MailConnect_ObjTable_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1888
@@ -1708,23 +1708,23 @@ CommTime_DrawHMSScreen:: ; 27:4D81
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_CommTimeHMS_Bg
-	ld a, $29
+	ld a, BANK(Palette_CommTimeHMS_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, wPaletteBufObj
 	ld hl, MailScreens_ObjPalette_7520
-	ld a, $27
+	ld a, BANK(MailScreens_ObjPalette_7520)
 	farcall Palette_LoadToBuffer
 	ld de, $9001
 	ld hl, Gfx_CommTimeHMS_Tiles9000Vb1
-	ld a, $29
+	ld a, BANK(Gfx_CommTimeHMS_Tiles9000Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_CommTimeHMS_Screen
-	ld a, $29
+	ld a, BANK(Tilemap_CommTimeHMS_Screen)
 	farcall Tilemap_CopyRectAndAttr
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -1881,25 +1881,25 @@ Label_27_4EEB:: ; 27:4EEB
 	farcall Sprite_ResetAll
 	ld de, $9001
 	ld hl, Gfx_CommTime_SummaryB_Tiles9000Vb1
-	ld a, $51
+	ld a, BANK(Gfx_CommTime_SummaryB_Tiles9000Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_CommTime_SummaryB_Tiles9400Vb1
-	ld a, $51
+	ld a, BANK(Gfx_CommTime_SummaryB_Tiles9400Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_CommTime_SummaryB
-	ld a, $51
+	ld a, BANK(Palette_CommTime_SummaryB)
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_CommTime_SummaryB
-	ld a, $51
+	ld a, BANK(Tilemap_CommTime_SummaryB)
 	farcall Tilemap_CopyRectAndAttr
 	ld a, [wTimerAFrames]
 	ldh [hRam_FFB0], a

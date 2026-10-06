@@ -55,31 +55,31 @@ HelpScript_Run:: ; 6C:59B2
 	farcall Sprite_ResetAll
 	ld de, $8000
 	ld hl, Gfx_HelpScript_Tiles8000
-	ld a, $6A
+	ld a, BANK(Gfx_HelpScript_Tiles8000)
 	ld b, $98
 	ld c, $02
 	farcall Gfx_StartHDMAWithService
 	ld de, $8AF1
 	ld hl, Gfx_HelpScript_Tiles8AF0Vb1
-	ld a, $6A
+	ld a, BANK(Gfx_HelpScript_Tiles8AF0Vb1)
 	ld b, $98
 	ld c, $01
 	farcall Gfx_StartHDMAWithService
 	ld de, $8B01
 	ld hl, Gfx_HelpScript_Tiles8B00Vb1
-	ld a, $6A
+	ld a, BANK(Gfx_HelpScript_Tiles8B00Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_HelpScript_Bg
-	ld a, $6A
+	ld a, BANK(Palette_HelpScript_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_HelpScript
-	ld a, $6A
+	ld a, BANK(Tilemap_HelpScript)
 	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0040
 	ld de, wPaletteBufObj
@@ -458,7 +458,7 @@ Label_6C_5D09::
 	jr nz, HelpScript_Run_FrameLoop
 	ld hl, wSpriteSlot2
 	ld de, Table_6A_72BB
-	ld a, $6A
+	ld a, BANK(Table_6A_72BB)
 	ld b, $80
 	farcall Sprite_InitSlot
 	ld de, $00AA
@@ -475,7 +475,7 @@ Label_6C_5D30::
 	jr nz, .l5D57
 	ld hl, wSpriteSlot2
 	ld de, Table_6A_72BB
-	ld a, $6A
+	ld a, BANK(Table_6A_72BB)
 	ld b, $80
 	farcall Sprite_InitSlot
 	ld de, $00AA
@@ -529,7 +529,7 @@ Label_6C_5D9F::
 	jr z, .l5DC6
 	ld hl, wSpriteSlot2
 	ld de, Table_6A_72BB
-	ld a, $6A
+	ld a, BANK(Table_6A_72BB)
 	ld b, $80
 	farcall Sprite_InitSlot
 	ld de, $7880

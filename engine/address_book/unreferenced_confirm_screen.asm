@@ -82,34 +82,34 @@ Function_2C_746F::
 	farcall LCDOff
 	ld de, $9301
 	ld hl, Gfx_AddrScreenUnused_Tiles9300Vb1
-	ld a, $2C
+	ld a, BANK(Gfx_AddrScreenUnused_Tiles9300Vb1)
 	ld b, $97
 	ld c, $12
 	farcall Gfx_StartHDMAWithService
 	ld de, $8000
 	ld hl, Gfx_AddrScreenUnused_Tiles8000
-	ld a, $2C
+	ld a, BANK(Gfx_AddrScreenUnused_Tiles8000)
 	ld b, $98
 	ld c, $09
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_AddrScreenUnused_Bg
-	ld a, $2C
+	ld a, BANK(Palette_AddrScreenUnused_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_AddrScreenUnused_Screen
-	ld a, $2C
+	ld a, BANK(Tilemap_AddrScreenUnused_Screen)
 	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0040
 	ld de, wPaletteBufObj
 	ld hl, Palette_AddrScreenUnused_Obj
-	ld a, $2C
+	ld a, BANK(Palette_AddrScreenUnused_Obj)
 	farcall Palette_LoadToBuffer
 	ld hl, wSpriteSlot1
 	ld de, Table_AddrScreenUnused_Objects
-	ld a, $2C
+	ld a, BANK(Table_AddrScreenUnused_Objects)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1008

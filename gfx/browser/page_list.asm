@@ -97,34 +97,42 @@ Table_24_6530::
 	sprite_object_entry PageList_Anim0Frames, PageList_Anim0Script ; entry 1
 	sprite_object_entry PageList_Anim0Frames, PageList_Anim0Script ; entry 2
 	sprite_object_entry PageList_Anim0Frames, PageList_Anim0Script ; entry 3
+PageList_ObjTable_Entry4:: ; 24:6540
 	sprite_object_entry PageList_Anim4Frames, PageList_Anim4Script ; entry 4
 	sprite_object_entry PageList_Anim4Frames, PageList_Anim4Script ; entry 5
 	sprite_object_entry PageList_Anim4Frames, PageList_Anim4Script ; entry 6
 	sprite_object_entry PageList_Anim4Frames, PageList_Anim4Script ; entry 7
+PageList_ObjTable_Entry8:: ; 24:6550
 	sprite_object_entry PageList_Anim8Frames, PageList_Anim8Script ; entry 8
 	sprite_object_entry PageList_Anim8Frames, PageList_Anim8Script ; entry 9
 	sprite_object_entry PageList_Anim8Frames, PageList_Anim8Script ; entry 10
 	sprite_object_entry PageList_Anim8Frames, PageList_Anim8Script ; entry 11
+PageList_ObjTable_Entry12:: ; 24:6560
 	sprite_object_entry PageList_Anim12Frames, PageList_Anim12Script ; entry 12
 	sprite_object_entry PageList_Anim12Frames, PageList_Anim12Script ; entry 13
 	sprite_object_entry PageList_Anim12Frames, PageList_Anim12Script ; entry 14
 	sprite_object_entry PageList_Anim12Frames, PageList_Anim12Script ; entry 15
+PageList_ObjTable_Entry16:: ; 24:6570
 	sprite_object_entry PageList_Anim16Frames, PageList_Anim16Script ; entry 16
 	sprite_object_entry PageList_Anim16Frames, PageList_Anim16Script ; entry 17
 	sprite_object_entry PageList_Anim16Frames, PageList_Anim16Script ; entry 18
 	sprite_object_entry PageList_Anim16Frames, PageList_Anim16Script ; entry 19
+PageList_ObjTable_Entry20:: ; 24:6580
 	sprite_object_entry PageList_Anim20Frames, PageList_Anim20Script ; entry 20
 	sprite_object_entry PageList_Anim20Frames, PageList_Anim20Script ; entry 21
 	sprite_object_entry PageList_Anim20Frames, PageList_Anim20Script ; entry 22
 	sprite_object_entry PageList_Anim20Frames, PageList_Anim20Script ; entry 23
+PageList_ObjTable_Entry24:: ; 24:6590
 	sprite_object_entry PageList_Anim24Frames, PageList_Anim24Script ; entry 24
 	sprite_object_entry PageList_Anim24Frames, PageList_Anim24Script ; entry 25
 	sprite_object_entry PageList_Anim24Frames, PageList_Anim24Script ; entry 26
 	sprite_object_entry PageList_Anim24Frames, PageList_Anim24Script ; entry 27
+PageList_ObjTable_Entry28:: ; 24:65A0
 	sprite_object_entry PageList_Anim28Frames, PageList_Anim28Script ; entry 28
 	sprite_object_entry PageList_Anim28Frames, PageList_Anim28Script ; entry 29
 	sprite_object_entry PageList_Anim28Frames, PageList_Anim28Script ; entry 30
 	sprite_object_entry PageList_Anim28Frames, PageList_Anim28Script ; entry 31
+PageList_ObjTable_Entry32:: ; 24:65B0
 	sprite_object_entry PageList_Anim32Frames, PageList_Anim32Script ; entry 32
 	sprite_object_entry PageList_Anim32Frames, PageList_Anim32Script ; entry 33
 	sprite_object_entry PageList_Anim32Frames, PageList_Anim32Script ; entry 34

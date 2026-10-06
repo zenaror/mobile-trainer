@@ -822,7 +822,7 @@ MobileSDK_StartIdlePolling:: ; 75:44B5
 	xor a, a
 	ld [wMobileSDK_Substep], a
 	ld de, $0001
-	ld hl, $5FFB
+	ld hl, MobilePacket_Idle
 	ld b, $01
 	jp Mobile_PacketSendBytes
 
@@ -901,7 +901,7 @@ MobileAPI_Disconnect:: ; 75:44CB
 	ld [de], a
 	inc de
 	ld bc, $0001
-	ld hl, $60BC
+	ld hl, MobileStr_Quit
 	call MobileSDK_CopyString
 	ld b, c
 	call Mobile_PacketBuildFooter
@@ -1059,7 +1059,7 @@ MobileSDK_DnsAndTcpOpen:: ; 75:461A
 	ld b, $06
 	call MobileSDK_CopyBytes
 	ld de, wMobileSDK_PacketBuffer
-	ld hl, $605E
+	ld hl, MobilePacket_DNSQuery
 	ld b, $05
 	call MobileSDK_CopyBytes
 	pop bc
@@ -1405,7 +1405,7 @@ MobileSDK_SendQuit:: ; 75:48B0
 	ld [de], a
 	inc de
 	ld bc, $0001
-	ld hl, $60BC
+	ld hl, MobileStr_Quit
 	call MobileSDK_CopyString
 	ld b, c
 	call Mobile_PacketBuildFooter
@@ -1452,7 +1452,7 @@ MobileAPI_Pop3Login:: ; 75:490A
 	call MobileSDK_CopyBytes
 	inc de
 	inc de
-	ld hl, $60C3
+	ld hl, MobileStr_User
 	call MobileSDK_CopyString
 	pop hl
 	push hl
@@ -1491,7 +1491,7 @@ MobileAPI_Pop3Login:: ; 75:490A
 	ld b, $05
 	call MobileSDK_CopyBytes
 	ld de, wMobileSDK_PacketBuffer + $A7
-	ld hl, $60C9
+	ld hl, MobileStr_Pass
 	ld b, $05
 	call MobileSDK_CopyBytes
 	ld de, wMobileSDK_PacketBuffer + $80
@@ -1526,7 +1526,7 @@ MobileAPI_Pop3Stat:: ; 75:49A9
 	ld [de], a
 	inc de
 	ld bc, $0001
-	ld hl, $60CF
+	ld hl, MobileStr_Stat
 	call MobileSDK_CopyString
 	ld b, c
 	call Mobile_PacketBuildFooter
@@ -1572,7 +1572,7 @@ MobileAPI_Pop3List:: ; 75:49FE
 	ld [de], a
 	inc de
 	ld bc, $0001
-	ld hl, $60D6
+	ld hl, MobileStr_List
 	call MobileSDK_CopyString
 	ld de, wMobileSDK_PacketBuffer + $0C
 	pop hl
@@ -1660,7 +1660,7 @@ MobileAPI_Pop3Retr:: ; 75:4A60
 	ld [de], a
 	inc de
 	ld bc, $0001
-	ld hl, $60E3
+	ld hl, MobileStr_Retr
 	call MobileSDK_CopyString
 	ld de, wMobileSDK_PacketBuffer + $0C
 	ld hl, wMobileSDK_ResultPointer
@@ -1914,7 +1914,7 @@ MobileAPI_Pop3Dele:: ; 75:4C41
 	ld [de], a
 	inc de
 	ld bc, $0001
-	ld hl, $60F0
+	ld hl, MobileStr_Dele
 	call MobileSDK_CopyString
 	ld de, wMobileSDK_PacketBuffer + $0C
 	ld hl, wMobileSDK_ResultPointer
@@ -2003,7 +2003,7 @@ MobileAPI_Pop3Top:: ; 75:4CA3
 	ld [de], a
 	inc de
 	ld bc, $0001
-	ld hl, $60FD
+	ld hl, MobileStr_Top
 	call MobileSDK_CopyString
 	ld de, wMobileSDK_PacketBuffer + $0B
 	ld hl, wMobileSDK_ResultPointer
@@ -4179,7 +4179,7 @@ MobileSDK_TimerTick:: ; 75:58EA
 	bit 3, a
 	jr nz, .l5983
 	ld de, $000B
-	ld hl, $606D
+	ld hl, MobilePacket_TransferData
 	ld a, $95
 	call Mobile_PacketSendExpect
 	jp MobileSDK_TimerTickExit
@@ -4214,7 +4214,7 @@ MobileSDK_SendBeginSession:: ; 75:59FC
 	ld [wMobileSDK_AckBytes], a
 	ld b, $05
 	ld de, $0012
-	ld hl, $5FFC
+	ld hl, MobilePacket_BeginSession
 	call Mobile_PacketSendBytes
 	ld a, $01
 	ld [wRam_C6A6], a
@@ -5215,7 +5215,7 @@ MobileSDK_PollAdapterStatus:: ; 75:5FA0
 .l5FF2 ; 75:5FF2
 	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1;
 	; entered by jrcc from 75:5FDE (executed)
-	ld hl, $5FFC
+	ld hl, MobilePacket_BeginSession
 	ld de, $0012
 	jp Mobile_PacketSendBytes
 
@@ -5589,7 +5589,7 @@ MobileSDK_EnterErrorState:: ; 75:6258
 Mobile_EndSession:: ; 75:6264
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 17/18 scenarios)
 	ld a, $91
-	ld hl, $600E
+	ld hl, MobilePacket_EndSession
 	jp Mobile_PacketSendEmptyBody
 
 MobileState_ConnectIsp:: ; 75:626C
@@ -5623,7 +5623,7 @@ MobileState_ConnectIsp:: ; 75:626C
 	ld [hli], a
 	ld a, $C7
 	ld [hli], a
-	ld hl, $604D
+	ld hl, MobilePacket_ReadConfigurationDataPart2
 	jp Mobile_PacketSendReadConfig
 .l629C ; 75:629C
 	ld hl, wMobileSDK_Window
@@ -5872,7 +5872,7 @@ MobileState_Disconnect:: ; 75:63E7
 	jp Mobile_PacketSendEmptyBody
 .l641C ; 75:641C
 	ld a, $93
-	ld hl, $601E
+	ld hl, MobilePacket_HangUpTelephone
 	jp Mobile_PacketSendEmptyBody
 .l6424 ; 75:6424
 	jp Mobile_EndSession
@@ -5889,7 +5889,7 @@ Mobile_CloseTcpConnection:: ; 75:6436
 	ld a, $03
 	ld [wMobileSDK_PhaseCode], a
 	ld de, wMobileSDK_PacketBuffer
-	ld hl, $607E
+	ld hl, MobilePacket_CloseTCPConnection
 	ld b, $06
 	call MobileSDK_CopyBytes
 	ld a, [wMobileSDK_ConnectionId]
@@ -6609,7 +6609,7 @@ MobileState_SmtpRecipients:: ; 75:6856
 	dec [hl]
 	ld bc, $0001
 	ld de, wMobileSDK_PacketBuffer + $13
-	ld hl, $60AB
+	ld hl, MobileStr_RcptTo
 	call MobileSDK_CopyString
 	pop hl
 	ld a, $80
@@ -8009,7 +8009,7 @@ MobileSDK_HttpHdrWwwAuthenticate:: ; 75:708C
 Function_75_708C::
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld de, $72F7
+	ld de, MobileStr_HdrWwwAuthenticate
 	push hl
 	call MobileSDK_MatchPrefix
 	jr nc, .l7097
@@ -8749,7 +8749,7 @@ MobileState_ReadConfigExport:: ; 75:74DB
 	ld [hli], a
 	ld a, $C7
 	ld [hli], a
-	ld hl, $604D
+	ld hl, MobilePacket_ReadConfigurationDataPart2
 	jp Mobile_PacketSendReadConfig
 .l74FE ; 75:74FE
 	jp Mobile_EndSession

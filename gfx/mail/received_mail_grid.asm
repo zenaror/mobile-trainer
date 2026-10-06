@@ -41,7 +41,7 @@ Palette_MailGrid_Obj:: ; 2B:63F0
 Palette_2B_63F0::
 	INCLUDE "gfx/mail/received_mail_grid/mail_grid_obj.pal"
 
-; ---- words $6430-$6440 (16 bytes) [PROBABLE] animation entry table: 4 entries of 4 bytes (frame-table pointer, script pointer), each animation repeated 4x; format of the sprite-slot initialiser 00:0A82/0AB8 (entry at DE+4*(A&$7F) -> slot[2..3] frame table, slot[6..7] script)
+; ---- words $6430-$6440 (16 bytes) [PROBABLE] animation entry table: 4 entries of 4 bytes (frame-table pointer, script pointer), each animation repeated 4x; format of the sprite-slot initialiser 00:0A82/0AB8 (entry at DE+4*(A&$3F) -> slot[2..3] frame table, slot[6..7] script)
 
 Table_MailGrid_Anims:: ; 2B:6430
 Table_2B_6430::

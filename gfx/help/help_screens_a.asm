@@ -165,4 +165,5 @@ SpriteScript_6A_649B:: ; 6A:649B
 	sprite_anim_step 6, 6
 	sprite_anim_step 7, 12
 	sprite_anim_step 8, 12
+Table_6A_64AE:: ; 6A:64AE
 	db $30, $63, $9B ; sprite object-table entry kept as db: the item crosses the end of its block

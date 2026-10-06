@@ -171,12 +171,12 @@ MailView_SenderPage_InitScreen:: ; 2B:65AB
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_MailView_Bg
-	ld a, $2B
+	ld a, BANK(Palette_MailView_Bg)
 	farcall Palette_LoadToBuffer
 	call VBlank_Wait
 	ld de, $8000
 	ld hl, Gfx_MailView_Tiles8000
-	ld a, $2B
+	ld a, BANK(Gfx_MailView_Tiles8000)
 	ld b, $96
 	ld c, $18
 	farcall Gfx_StartHDMA
@@ -184,19 +184,19 @@ MailView_SenderPage_InitScreen:: ; 2B:65AB
 	ld bc, $0040
 	ld de, wPaletteBufObj
 	ld hl, Palette_MailView_Obj
-	ld a, $2B
+	ld a, BANK(Palette_MailView_Obj)
 	farcall Palette_LoadToBuffer
 	call VBlank_Wait
 	ld de, $9001
 	ld hl, Gfx_MailView_Tiles9000Vb1
-	ld a, $2B
+	ld a, BANK(Gfx_MailView_Tiles9000Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMA
 	call VBlank_Wait
 	ld de, $9401
 	ld hl, Gfx_MailView_Tiles9400Vb1
-	ld a, $2B
+	ld a, BANK(Gfx_MailView_Tiles9400Vb1)
 	ld b, $95
 	ld c, $20
 	farcall Gfx_StartHDMA
@@ -204,7 +204,7 @@ MailView_SenderPage_InitScreen:: ; 2B:65AB
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Data_MailView_TilemapAttr
-	ld a, $2B
+	ld a, BANK(Data_MailView_TilemapAttr)
 	farcall Tilemap_CopyRectAndAttr
 	call VBlank_Wait
 	ldh a, [rLCDC]
@@ -212,7 +212,7 @@ MailView_SenderPage_InitScreen:: ; 2B:65AB
 	call VBlank_Wait
 	ld hl, wSpriteSlot3
 	ld de, Table_MailView_Anims
-	ld a, $2B
+	ld a, BANK(Table_MailView_Anims)
 	ld b, $81
 	farcall Sprite_InitSlot
 	call VBlank_Wait
@@ -220,8 +220,8 @@ MailView_SenderPage_InitScreen:: ; 2B:65AB
 	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot1
-	ld de, $78C0
-	ld a, $2B
+	ld de, Table_MailView_Anims_Entry8
+	ld a, BANK(Table_MailView_Anims_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6810
@@ -263,8 +263,8 @@ MailView_SenderPage_InitScreen:: ; 2B:65AB
 	cp a, $00
 	jr z, .l66F9
 	ld hl, wSpriteSlot6
-	ld de, $7900
-	ld a, $2B
+	ld de, Table_MailView_Anims_Entry24
+	ld a, BANK(Table_MailView_Anims_Entry24)
 	ld b, $00
 	farcall Sprite_InitSlot
 	ld de, $0868
@@ -516,8 +516,8 @@ Function_2B_687C:: ; 2B:687C
 	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot2
-	ld de, $78D0
-	ld a, $2B
+	ld de, Table_MailView_Anims_Entry12
+	ld a, BANK(Table_MailView_Anims_Entry12)
 	ld b, $81
 
 	; [PROBABLE] 6 insn(s) reached by static flow only; seeds: site x6; min discovery hops 0; run
@@ -541,8 +541,8 @@ Function_2B_687C:: ; 2B:687C
 	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot2
-	ld de, $7910
-	ld a, $2B
+	ld de, Table_MailView_Anims_Entry28
+	ld a, BANK(Table_MailView_Anims_Entry28)
 	ld b, $81
 
 	; [PROBABLE] 6 insn(s) reached by static flow only; seeds: site x6; min discovery hops 0; run
@@ -566,8 +566,8 @@ Function_2B_687C:: ; 2B:687C
 	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot2
-	ld de, $78E0
-	ld a, $2B
+	ld de, Table_MailView_Anims_Entry16
+	ld a, BANK(Table_MailView_Anims_Entry16)
 	ld b, $81
 
 	; [PROBABLE] 6 insn(s) reached by static flow only; seeds: site x6; min discovery hops 0; run
@@ -589,8 +589,8 @@ Function_2B_687C:: ; 2B:687C
 	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot2
-	ld de, $78F0
-	ld a, $2B
+	ld de, Table_MailView_Anims_Entry20
+	ld a, BANK(Table_MailView_Anims_Entry20)
 	ld b, $81
 
 	; [PROBABLE] 111 insn(s) reached by static flow only; seeds: exec x105, site x6; min discovery

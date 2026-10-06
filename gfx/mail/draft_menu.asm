@@ -35,7 +35,7 @@ Palette_MailDraftMenu_Obj:: ; 2B:5190
 Data_2B_5190::
 	INCLUDE "gfx/mail/draft_menu/mail_draft_menu_obj.pal"
 
-; ---- words $51D0-$5240 (112 bytes) [PROBABLE] animation entry table: 28 entries of 4 bytes (frame-table pointer, script pointer), each animation repeated 4x; format of the sprite-slot initialiser 00:0A82/0AB8 (entry at DE+4*(A&$7F) -> slot[2..3] frame table, slot[6..7] script)
+; ---- words $51D0-$5240 (112 bytes) [PROBABLE] animation entry table: 28 entries of 4 bytes (frame-table pointer, script pointer), each animation repeated 4x; format of the sprite-slot initialiser 00:0A82/0AB8 (entry at DE+4*(A&$3F) -> slot[2..3] frame table, slot[6..7] script)
 
 Table_MailDraftMenu_Anims:: ; 2B:51D0
 Table_2B_51D0::
@@ -43,26 +43,32 @@ Table_2B_51D0::
 	sprite_object_entry MailDraftMenu_Anim0Frames, MailDraftMenu_Anim0Script ; entry 1
 	sprite_object_entry MailDraftMenu_Anim0Frames, MailDraftMenu_Anim0Script ; entry 2
 	sprite_object_entry MailDraftMenu_Anim0Frames, MailDraftMenu_Anim0Script ; entry 3
+Table_MailDraftMenu_Anims_Entry4:: ; 2B:51E0
 	sprite_object_entry MailDraftMenu_Anim4Frames, MailDraftMenu_Anim4Script ; entry 4
 	sprite_object_entry MailDraftMenu_Anim4Frames, MailDraftMenu_Anim4Script ; entry 5
 	sprite_object_entry MailDraftMenu_Anim4Frames, MailDraftMenu_Anim4Script ; entry 6
 	sprite_object_entry MailDraftMenu_Anim4Frames, MailDraftMenu_Anim4Script ; entry 7
+Table_MailDraftMenu_Anims_Entry8:: ; 2B:51F0
 	sprite_object_entry MailDraftMenu_Anim8Frames, MailDraftMenu_Anim8Script ; entry 8
 	sprite_object_entry MailDraftMenu_Anim8Frames, MailDraftMenu_Anim8Script ; entry 9
 	sprite_object_entry MailDraftMenu_Anim8Frames, MailDraftMenu_Anim8Script ; entry 10
 	sprite_object_entry MailDraftMenu_Anim8Frames, MailDraftMenu_Anim8Script ; entry 11
+Table_MailDraftMenu_Anims_Entry12:: ; 2B:5200
 	sprite_object_entry MailDraftMenu_Anim12Frames, MailDraftMenu_Anim12Script ; entry 12
 	sprite_object_entry MailDraftMenu_Anim12Frames, MailDraftMenu_Anim12Script ; entry 13
 	sprite_object_entry MailDraftMenu_Anim12Frames, MailDraftMenu_Anim12Script ; entry 14
 	sprite_object_entry MailDraftMenu_Anim12Frames, MailDraftMenu_Anim12Script ; entry 15
+Table_MailDraftMenu_Anims_Entry16:: ; 2B:5210
 	sprite_object_entry MailDraftMenu_Anim16Frames, MailDraftMenu_Anim16Script ; entry 16
 	sprite_object_entry MailDraftMenu_Anim16Frames, MailDraftMenu_Anim16Script ; entry 17
 	sprite_object_entry MailDraftMenu_Anim16Frames, MailDraftMenu_Anim16Script ; entry 18
 	sprite_object_entry MailDraftMenu_Anim16Frames, MailDraftMenu_Anim16Script ; entry 19
+Table_MailDraftMenu_Anims_Entry20:: ; 2B:5220
 	sprite_object_entry MailDraftMenu_Anim20Frames, MailDraftMenu_Anim20Script ; entry 20
 	sprite_object_entry MailDraftMenu_Anim20Frames, MailDraftMenu_Anim20Script ; entry 21
 	sprite_object_entry MailDraftMenu_Anim20Frames, MailDraftMenu_Anim20Script ; entry 22
 	sprite_object_entry MailDraftMenu_Anim20Frames, MailDraftMenu_Anim20Script ; entry 23
+Table_MailDraftMenu_Anims_Entry24:: ; 2B:5230
 	sprite_object_entry MailDraftMenu_Anim24Frames, MailDraftMenu_Anim24Script ; entry 24
 	sprite_object_entry MailDraftMenu_Anim24Frames, MailDraftMenu_Anim24Script ; entry 25
 	sprite_object_entry MailDraftMenu_Anim24Frames, MailDraftMenu_Anim24Script ; entry 26

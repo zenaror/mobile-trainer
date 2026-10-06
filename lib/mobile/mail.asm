@@ -904,7 +904,7 @@ Mail_ParseContentType:: ; 0F:457A
 	ld [wMail_InputBank], a
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld hl, $421C
+	ld hl, MailStr_KwName
 	call Mail_FindKeywordValue
 .l45B8 ; 0F:45B8
 	xor a, a
@@ -1399,7 +1399,7 @@ Mail_FindPartName:: ; 0F:4847
 	pop de
 	pop af
 	ld [wMail_InputBank], a
-	ld hl, $421C
+	ld hl, MailStr_KwName
 	call Mail_FindKeywordValue
 	ret
 
@@ -2917,7 +2917,7 @@ Mail_EmitHeaderField:: ; 0F:4F5D
 .l5000 ; 0F:5000
 	; [PROBABLE] 15 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4D37-5DAE by apply_coverage --split
-	ld hl, $4000
+	ld hl, MailStr_Boundary
 	call Mail_EmitStringAndSuffix
 	and a, a
 	jr nz, .l4FEB
@@ -2930,7 +2930,7 @@ Mail_EmitHeaderField:: ; 0F:4F5D
 	jr nz, .l4FEB
 	jr .l5022
 .l5019 ; 0F:5019
-	ld hl, $4000
+	ld hl, MailStr_Boundary
 	call Mail_EmitStringAndSuffix
 	and a, a
 	jr nz, .l4FEB

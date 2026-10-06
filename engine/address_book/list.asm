@@ -207,7 +207,7 @@ Label_2F_4131::
 	push bc
 	ld hl, wSpriteSlot8
 	ld de, AddrBookShared_ObjTable
-	ld a, $28
+	ld a, BANK(AddrBookShared_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	pop bc
@@ -820,7 +820,7 @@ Function_2F_44F2::
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
 	ld hl, wSpriteSlot0
 	ld de, Table_Abook_ButtonCursorAnims
-	ld a, $2F
+	ld a, BANK(Table_Abook_ButtonCursorAnims)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7018
@@ -833,8 +833,8 @@ Function_2F_44F2::
 	; entered by jrcc from 2F:44FA (PROBABLE code) | upgraded by classifier 6: all 27 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	ld hl, wSpriteSlot0
-	ld de, $5020
-	ld a, $2F
+	ld de, Table_Abook_ButtonCursorAnims_Entry4
+	ld a, BANK(Table_Abook_ButtonCursorAnims_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7038
@@ -843,8 +843,8 @@ Function_2F_44F2::
 	jr .l4570
 .l453A ; 2F:453A
 	ld hl, wSpriteSlot0
-	ld de, $5030
-	ld a, $2F
+	ld de, Table_Abook_ButtonCursorAnims_Entry8
+	ld a, BANK(Table_Abook_ButtonCursorAnims_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7058
@@ -853,8 +853,8 @@ Function_2F_44F2::
 	jr .l4570
 .l4555 ; 2F:4555
 	ld hl, wSpriteSlot0
-	ld de, $5040
-	ld a, $2F
+	ld de, Table_Abook_ButtonCursorAnims_Entry12
+	ld a, BANK(Table_Abook_ButtonCursorAnims_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7078
@@ -874,13 +874,13 @@ AbookList_SetupScreen:: ; 2F:4572
 	farcall TextTiles_ClearBuffers
 	ld de, $8F00
 	ld hl, Gfx_AddrBook_Tiles8F00
-	ld a, $2C
+	ld a, BANK(Gfx_AddrBook_Tiles8F00)
 	ld b, $98
 	ld c, $09
 	farcall Gfx_StartHDMA
 	ld de, $9301
-	ld hl, $5CD0
-	ld a, $22
+	ld hl, Gfx_AddrBook_TilesBank22
+	ld a, BANK(Gfx_AddrBook_TilesBank22)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMA
@@ -892,30 +892,30 @@ AbookList_SetupScreen:: ; 2F:4572
 	farcall Gfx_StartHDMA
 	ld de, $8000
 	ld hl, Gfx_AddrBookShared_Tiles8000
-	ld a, $28
+	ld a, BANK(Gfx_AddrBookShared_Tiles8000)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMA
 	ld de, $8400
 	ld hl, Gfx_AddrBookShared_Tiles8400
-	ld a, $28
+	ld a, BANK(Gfx_AddrBookShared_Tiles8400)
 	ld b, $95
 	ld c, $20
 	farcall Gfx_StartHDMA
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_Abook_List
-	ld a, $2F
+	ld a, BANK(Tilemap_Abook_List)
 	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0040
 	ld de, wPaletteBufObj
 	ld hl, Palette_AddrBook_Obj
-	ld a, $2C
+	ld a, BANK(Palette_AddrBook_Obj)
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_AbookList_Bg
-	ld a, $28
+	ld a, BANK(Palette_AbookList_Bg)
 	farcall Palette_LoadToBuffer
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
@@ -973,8 +973,8 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	push bc
 	push bc
 	ld hl, wSpriteSlot7
-	ld de, $5220
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry4
+	ld a, BANK(AddrBookShared_ObjTable_Entry4)
 	ld b, $01
 	farcall Sprite_InitSlot
 	pop bc
@@ -988,8 +988,8 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	; fall-through of the jrcc at 2F:469A (executed) | upgraded by classifier 6: all 5 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	ld hl, wSpriteSlot7
-	ld de, $5230
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry8
+	ld a, BANK(AddrBookShared_ObjTable_Entry8)
 	ld b, $01
 	farcall Sprite_InitSlot
 
@@ -998,8 +998,8 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	pop bc
 	push bc
 	ld hl, wSpriteSlot6
-	ld de, $5220
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry4
+	ld a, BANK(AddrBookShared_ObjTable_Entry4)
 	ld b, $01
 	farcall Sprite_InitSlot
 	pop bc
@@ -1013,8 +1013,8 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	; fall-through of the jrcc at 2F:46C6 (executed) | upgraded by classifier 6: all 5 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	ld hl, wSpriteSlot6
-	ld de, $5230
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry8
+	ld a, BANK(AddrBookShared_ObjTable_Entry8)
 	ld b, $01
 	farcall Sprite_InitSlot
 
@@ -1023,8 +1023,8 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	pop bc
 	push bc
 	ld hl, wSpriteSlot5
-	ld de, $5220
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry4
+	ld a, BANK(AddrBookShared_ObjTable_Entry4)
 	ld b, $01
 	farcall Sprite_InitSlot
 	pop bc
@@ -1038,8 +1038,8 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	; fall-through of the jrcc at 2F:46F2 (executed) | upgraded by classifier 6: all 5 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	ld hl, wSpriteSlot5
-	ld de, $5230
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry8
+	ld a, BANK(AddrBookShared_ObjTable_Entry8)
 	ld b, $01
 	farcall Sprite_InitSlot
 
@@ -1048,8 +1048,8 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	pop bc
 	push bc
 	ld hl, wSpriteSlot4
-	ld de, $5220
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry4
+	ld a, BANK(AddrBookShared_ObjTable_Entry4)
 	ld b, $01
 	farcall Sprite_InitSlot
 	pop bc
@@ -1063,8 +1063,8 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	; fall-through of the jrcc at 2F:471E (executed) | upgraded by classifier 6: all 5 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	ld hl, wSpriteSlot4
-	ld de, $5230
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry8
+	ld a, BANK(AddrBookShared_ObjTable_Entry8)
 	ld b, $01
 	farcall Sprite_InitSlot
 
@@ -1073,8 +1073,8 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	pop bc
 	push bc
 	ld hl, wSpriteSlot3
-	ld de, $5220
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry4
+	ld a, BANK(AddrBookShared_ObjTable_Entry4)
 	ld b, $01
 	farcall Sprite_InitSlot
 	pop bc
@@ -1088,8 +1088,8 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	; fall-through of the jrcc at 2F:474A (executed) | upgraded by classifier 6: all 5 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	ld hl, wSpriteSlot3
-	ld de, $5230
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry8
+	ld a, BANK(AddrBookShared_ObjTable_Entry8)
 	ld b, $01
 	farcall Sprite_InitSlot
 
@@ -1098,8 +1098,8 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	pop bc
 	push bc
 	ld hl, wSpriteSlot2
-	ld de, $5220
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry4
+	ld a, BANK(AddrBookShared_ObjTable_Entry4)
 	ld b, $01
 	farcall Sprite_InitSlot
 	pop bc
@@ -1113,8 +1113,8 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	; fall-through of the jrcc at 2F:4776 (executed) | upgraded by classifier 6: all 5 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	ld hl, wSpriteSlot2
-	ld de, $5230
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry8
+	ld a, BANK(AddrBookShared_ObjTable_Entry8)
 	ld b, $01
 	farcall Sprite_InitSlot
 
@@ -1140,8 +1140,8 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 .l47A8 ; 2F:47A8
 	push bc
 	ld hl, wSpriteSlot7
-	ld de, $7240
-	ld a, $2C
+	ld de, Table_AddrSlotIcon_Anims_Entry12
+	ld a, BANK(Table_AddrSlotIcon_Anims_Entry12)
 	ld b, $01
 	farcall Sprite_InitSlot
 	pop bc
@@ -1155,8 +1155,8 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	; fall-through of the jrcc at 2F:47C1 (executed) | upgraded by classifier 6: all 5 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	ld hl, wSpriteSlot7
-	ld de, $7250
-	ld a, $2C
+	ld de, Table_AddrSlotIcon_Anims_Entry16
+	ld a, BANK(Table_AddrSlotIcon_Anims_Entry16)
 	ld b, $01
 	farcall Sprite_InitSlot
 
@@ -1171,8 +1171,8 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	; of the region are in analysis/coverage_union.tsv (executed in a trace)
 	push bc
 	ld hl, wSpriteSlot6
-	ld de, $7240
-	ld a, $2C
+	ld de, Table_AddrSlotIcon_Anims_Entry12
+	ld a, BANK(Table_AddrSlotIcon_Anims_Entry12)
 	ld b, $01
 	farcall Sprite_InitSlot
 	pop bc
@@ -1182,8 +1182,8 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	inc a
 	jr z, .l4802
 	ld hl, wSpriteSlot6
-	ld de, $7250
-	ld a, $2C
+	ld de, Table_AddrSlotIcon_Anims_Entry16
+	ld a, BANK(Table_AddrSlotIcon_Anims_Entry16)
 	ld b, $01
 	farcall Sprite_InitSlot
 .l4802 ; 2F:4802
@@ -1192,8 +1192,8 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 .l4806 ; 2F:4806
 	push bc
 	ld hl, wSpriteSlot5
-	ld de, $7240
-	ld a, $2C
+	ld de, Table_AddrSlotIcon_Anims_Entry12
+	ld a, BANK(Table_AddrSlotIcon_Anims_Entry12)
 	ld b, $01
 	farcall Sprite_InitSlot
 	pop bc
@@ -1203,8 +1203,8 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	inc a
 	jr z, .l4831
 	ld hl, wSpriteSlot5
-	ld de, $7250
-	ld a, $2C
+	ld de, Table_AddrSlotIcon_Anims_Entry16
+	ld a, BANK(Table_AddrSlotIcon_Anims_Entry16)
 	ld b, $01
 	farcall Sprite_InitSlot
 .l4831 ; 2F:4831
@@ -1213,8 +1213,8 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 .l4835 ; 2F:4835
 	push bc
 	ld hl, wSpriteSlot4
-	ld de, $7240
-	ld a, $2C
+	ld de, Table_AddrSlotIcon_Anims_Entry12
+	ld a, BANK(Table_AddrSlotIcon_Anims_Entry12)
 	ld b, $01
 	farcall Sprite_InitSlot
 	pop bc
@@ -1224,8 +1224,8 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	inc a
 	jr z, .l4860
 	ld hl, wSpriteSlot4
-	ld de, $7250
-	ld a, $2C
+	ld de, Table_AddrSlotIcon_Anims_Entry16
+	ld a, BANK(Table_AddrSlotIcon_Anims_Entry16)
 	ld b, $01
 	farcall Sprite_InitSlot
 .l4860 ; 2F:4860
@@ -1234,8 +1234,8 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 .l4864 ; 2F:4864
 	push bc
 	ld hl, wSpriteSlot3
-	ld de, $7240
-	ld a, $2C
+	ld de, Table_AddrSlotIcon_Anims_Entry12
+	ld a, BANK(Table_AddrSlotIcon_Anims_Entry12)
 	ld b, $01
 	farcall Sprite_InitSlot
 	pop bc
@@ -1245,8 +1245,8 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	inc a
 	jr z, .l488F
 	ld hl, wSpriteSlot3
-	ld de, $7250
-	ld a, $2C
+	ld de, Table_AddrSlotIcon_Anims_Entry16
+	ld a, BANK(Table_AddrSlotIcon_Anims_Entry16)
 	ld b, $01
 	farcall Sprite_InitSlot
 .l488F ; 2F:488F
@@ -1257,8 +1257,8 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios)
 	push bc
 	ld hl, wSpriteSlot2
-	ld de, $7240
-	ld a, $2C
+	ld de, Table_AddrSlotIcon_Anims_Entry12
+	ld a, BANK(Table_AddrSlotIcon_Anims_Entry12)
 	ld b, $01
 	farcall Sprite_InitSlot
 	pop bc
@@ -1272,8 +1272,8 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	; fall-through of the jrcc at 2F:48AC (executed) | upgraded by classifier 6: all 5 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	ld hl, wSpriteSlot2
-	ld de, $7250
-	ld a, $2C
+	ld de, Table_AddrSlotIcon_Anims_Entry16
+	ld a, BANK(Table_AddrSlotIcon_Anims_Entry16)
 	ld b, $01
 	farcall Sprite_InitSlot
 
@@ -1376,8 +1376,8 @@ Function_2F_4942::
 	jp z, .l4A6B
 .l4962 ; 2F:4962
 	ld hl, wSpriteSlot7
-	ld de, $5240
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry12
+	ld a, BANK(AddrBookShared_ObjTable_Entry12)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $00
@@ -1389,8 +1389,8 @@ Function_2F_4942::
 	; fall-through of the jrcc at 2F:4978 (executed) | upgraded by classifier 6: all 5 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	ld hl, wSpriteSlot7
-	ld de, $5250
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry16
+	ld a, BANK(AddrBookShared_ObjTable_Entry16)
 	ld b, $01
 	farcall Sprite_InitSlot
 
@@ -1407,8 +1407,8 @@ Function_2F_4942::
 	; entered by jpcc from 2F:494B (executed) | upgraded by classifier 6: all 76 instruction starts
 	; of the region are in analysis/coverage_union.tsv (executed in a trace)
 	ld hl, wSpriteSlot6
-	ld de, $5240
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry12
+	ld a, BANK(AddrBookShared_ObjTable_Entry12)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $01
@@ -1416,8 +1416,8 @@ Function_2F_4942::
 	inc a
 	jr z, .l49BF
 	ld hl, wSpriteSlot6
-	ld de, $5250
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry16
+	ld a, BANK(AddrBookShared_ObjTable_Entry16)
 	ld b, $01
 	farcall Sprite_InitSlot
 .l49BF ; 2F:49BF
@@ -1428,8 +1428,8 @@ Function_2F_4942::
 	jp .l4AA0
 .l49CC ; 2F:49CC
 	ld hl, wSpriteSlot5
-	ld de, $5240
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry12
+	ld a, BANK(AddrBookShared_ObjTable_Entry12)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $02
@@ -1437,8 +1437,8 @@ Function_2F_4942::
 	inc a
 	jr z, .l49F4
 	ld hl, wSpriteSlot5
-	ld de, $5250
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry16
+	ld a, BANK(AddrBookShared_ObjTable_Entry16)
 	ld b, $01
 	farcall Sprite_InitSlot
 .l49F4 ; 2F:49F4
@@ -1449,8 +1449,8 @@ Function_2F_4942::
 	jp .l4AA0
 .l4A01 ; 2F:4A01
 	ld hl, wSpriteSlot4
-	ld de, $5240
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry12
+	ld a, BANK(AddrBookShared_ObjTable_Entry12)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $03
@@ -1458,8 +1458,8 @@ Function_2F_4942::
 	inc a
 	jr z, .l4A29
 	ld hl, wSpriteSlot4
-	ld de, $5250
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry16
+	ld a, BANK(AddrBookShared_ObjTable_Entry16)
 	ld b, $01
 	farcall Sprite_InitSlot
 .l4A29 ; 2F:4A29
@@ -1470,8 +1470,8 @@ Function_2F_4942::
 	jp .l4AA0
 .l4A36 ; 2F:4A36
 	ld hl, wSpriteSlot3
-	ld de, $5240
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry12
+	ld a, BANK(AddrBookShared_ObjTable_Entry12)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $04
@@ -1479,8 +1479,8 @@ Function_2F_4942::
 	inc a
 	jr z, .l4A5E
 	ld hl, wSpriteSlot3
-	ld de, $5250
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry16
+	ld a, BANK(AddrBookShared_ObjTable_Entry16)
 	ld b, $01
 	farcall Sprite_InitSlot
 .l4A5E ; 2F:4A5E
@@ -1493,8 +1493,8 @@ Function_2F_4942::
 .l4A6B ; 2F:4A6B
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
 	ld hl, wSpriteSlot2
-	ld de, $5240
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry12
+	ld a, BANK(AddrBookShared_ObjTable_Entry12)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $05
@@ -1506,8 +1506,8 @@ Function_2F_4942::
 	; fall-through of the jrcc at 2F:4A81 (executed) | upgraded by classifier 6: all 5 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	ld hl, wSpriteSlot2
-	ld de, $5250
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry16
+	ld a, BANK(AddrBookShared_ObjTable_Entry16)
 	ld b, $01
 	farcall Sprite_InitSlot
 

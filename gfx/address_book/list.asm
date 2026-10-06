@@ -19,14 +19,17 @@ Table_2F_5010::
 	sprite_object_entry Abook_ButtonCursor_ObjAnimData, SpriteScript_2F_505F ; entry 1
 	sprite_object_entry Abook_ButtonCursor_ObjAnimData, SpriteScript_2F_505F ; entry 2
 	sprite_object_entry Abook_ButtonCursor_ObjAnimData, SpriteScript_2F_505F ; entry 3
+Table_Abook_ButtonCursorAnims_Entry4:: ; 2F:5020
 	sprite_object_entry SpriteFrameTable_2F_5062, SpriteScript_2F_5071 ; entry 4
 	sprite_object_entry SpriteFrameTable_2F_5062, SpriteScript_2F_5071 ; entry 5
 	sprite_object_entry SpriteFrameTable_2F_5062, SpriteScript_2F_5071 ; entry 6
 	sprite_object_entry SpriteFrameTable_2F_5062, SpriteScript_2F_5071 ; entry 7
+Table_Abook_ButtonCursorAnims_Entry8:: ; 2F:5030
 	sprite_object_entry SpriteFrameTable_2F_5074, SpriteScript_2F_5083 ; entry 8
 	sprite_object_entry SpriteFrameTable_2F_5074, SpriteScript_2F_5083 ; entry 9
 	sprite_object_entry SpriteFrameTable_2F_5074, SpriteScript_2F_5083 ; entry 10
 	sprite_object_entry SpriteFrameTable_2F_5074, SpriteScript_2F_5083 ; entry 11
+Table_Abook_ButtonCursorAnims_Entry12:: ; 2F:5040
 	sprite_object_entry SpriteFrameTable_2F_5086, SpriteScript_2F_5095 ; entry 12
 	sprite_object_entry SpriteFrameTable_2F_5086, SpriteScript_2F_5095 ; entry 13
 	sprite_object_entry SpriteFrameTable_2F_5086, SpriteScript_2F_5095 ; entry 14

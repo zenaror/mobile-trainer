@@ -102,11 +102,11 @@ ConnIcon_StartSprite:: ; 4E:604C
 	ld [wConnIconState], a
 	ld hl, wSpriteSlot8
 	ld de, ConnIcon_ObjTable
-	ld a, $69
+	ld a, BANK(ConnIcon_ObjTable)
 	farcall Sprite_InitSlot
 	ld hl, wSpriteSlot8 + $0B
-	ld de, $4034
-	ld a, $69
+	ld de, ConnIcon_UpdateState
+	ld a, BANK(ConnIcon_UpdateState)
 	call Sprite_SetHook
 	ld a, [wBrowserFrameStyle]
 	push bc

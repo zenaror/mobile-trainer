@@ -60,6 +60,7 @@ make png-export      # regenerate PNGs from the binaries (maintainers)
 * **Layout coverage** (analysis of the pin table, needs the original ROM): `python3 tools/check_layout.py`.
 * **Form of the source** (Python, no ROM needed): `python3 tools/tidy_comments.py --check`, `python3 tools/localize_labels.py --check`, `python3 tools/gen_sjis_charmap.py --check`
   (the charmap is generated from the ROM's text regions or from `mobile_trainer.gbc`), `python3 tools/gfx_export.py check` (PNGs vs `.2bpp`, needs `rgbgfx`).
+* **ROM pointer operands** (needs a built tree and rgbasm): `python3 tools/apply_rom_operands.py --check` lists the `ld hl|de|bc, $XXXX` ROM pointers that a consumer rule proves and that are still numeric (none are); `python3 tools/test_rom_operands.py` tests the tool.
 * **Invariants of the naming passes** (needs a built tree): `python3 tools/invariants_check.py` re-derives the two statements that rows of `analysis/naming2/` rest on: the mail library (bank 0F) runs only under WRAM bank 5 and the sound driver (bank 04) only under bank 1.
 
 ## Directory layout

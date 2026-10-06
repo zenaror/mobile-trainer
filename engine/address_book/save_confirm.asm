@@ -170,24 +170,24 @@ AddrBook_SaveConfirm_InitScreen:: ; 2A:70AB
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_AddrSaveConfirm_Bg
-	ld a, $2A
+	ld a, BANK(Palette_AddrSaveConfirm_Bg)
 	farcall Palette_LoadToBuffer
 	ld de, $9301
 	ld hl, Gfx_AddrSaveConfirm_Tiles9300Vb1
-	ld a, $2A
+	ld a, BANK(Gfx_AddrSaveConfirm_Tiles9300Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9701
 	ld hl, Gfx_AddrSaveConfirm_Tiles9700Vb1
-	ld a, $2A
+	ld a, BANK(Gfx_AddrSaveConfirm_Tiles9700Vb1)
 	ld b, $98
 	ld c, $04
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Data_AddrSaveConfirm_TilemapAttr
-	ld a, $2A
+	ld a, BANK(Data_AddrSaveConfirm_TilemapAttr)
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers

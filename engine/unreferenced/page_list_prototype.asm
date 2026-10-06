@@ -730,25 +730,25 @@ Function_7F_51EE::
 	farcall Sprite_ResetAll
 	ld de, $9001
 	ld hl, PageListProto_Tiles_62B0
-	ld a, $7F
+	ld a, BANK(PageListProto_Tiles_62B0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, PageListProto_Tiles_66B0
-	ld a, $7F
+	ld a, BANK(PageListProto_Tiles_66B0)
 	ld b, $97
 	ld c, $12
 	farcall Gfx_StartHDMAWithService
 	ld de, $8000
 	ld hl, PageListProto_Tiles_6AE0
-	ld a, $7F
+	ld a, BANK(PageListProto_Tiles_6AE0)
 	ld b, $94
 	ld c, $29
 	farcall Gfx_StartHDMAWithService
 	ld hl, wSpriteSlot1
-	ld de, $6DC0
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry4
+	ld a, BANK(PageListProto_ObjTable_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6000
@@ -757,7 +757,7 @@ Function_7F_51EE::
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, PageListProto_Tilemap_67D0
-	ld a, $7F
+	ld a, BANK(PageListProto_Tilemap_67D0)
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
@@ -765,12 +765,12 @@ Function_7F_51EE::
 	ld bc, $0040
 	ld de, wPaletteBufObj
 	ld hl, PageListProto_ObjPalette
-	ld a, $7F
+	ld a, BANK(PageListProto_ObjPalette)
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, PageListProto_BgPalette
-	ld a, $7F
+	ld a, BANK(PageListProto_BgPalette)
 	farcall Palette_LoadToBuffer
 	ei
 	farcall LCDOn
@@ -832,33 +832,33 @@ Function_7F_530F::
 	ld [rRAMG], a
 	pop af
 	ld hl, wSpriteSlot1
-	ld de, $6DF0
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry16
+	ld a, BANK(PageListProto_ObjTable_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld hl, wSpriteSlot2
-	ld de, $6DF0
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry16
+	ld a, BANK(PageListProto_ObjTable_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld hl, wSpriteSlot3
-	ld de, $6DF0
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry16
+	ld a, BANK(PageListProto_ObjTable_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld hl, wSpriteSlot4
-	ld de, $6DF0
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry16
+	ld a, BANK(PageListProto_ObjTable_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld hl, wSpriteSlot5
-	ld de, $6DF0
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry16
+	ld a, BANK(PageListProto_ObjTable_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld hl, wSpriteSlot6
-	ld de, $6DF0
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry16
+	ld a, BANK(PageListProto_ObjTable_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld hl, PageListProto_UrlSlotTable
@@ -870,8 +870,8 @@ Function_7F_530F::
 	cp a, $00
 	jr z, .l53A2
 	ld hl, wSpriteSlot1
-	ld de, $6DE0
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry12
+	ld a, BANK(PageListProto_ObjTable_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 .l53A2 ; 7F:53A2
@@ -884,8 +884,8 @@ Function_7F_530F::
 	cp a, $00
 	jr z, .l53BE
 	ld hl, wSpriteSlot2
-	ld de, $6DE0
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry12
+	ld a, BANK(PageListProto_ObjTable_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 .l53BE ; 7F:53BE
@@ -898,8 +898,8 @@ Function_7F_530F::
 	cp a, $00
 	jr z, .l53DA
 	ld hl, wSpriteSlot3
-	ld de, $6DE0
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry12
+	ld a, BANK(PageListProto_ObjTable_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 .l53DA ; 7F:53DA
@@ -912,8 +912,8 @@ Function_7F_530F::
 	cp a, $00
 	jr z, .l53F6
 	ld hl, wSpriteSlot4
-	ld de, $6DE0
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry12
+	ld a, BANK(PageListProto_ObjTable_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 .l53F6 ; 7F:53F6
@@ -926,8 +926,8 @@ Function_7F_530F::
 	cp a, $00
 	jr z, .l5412
 	ld hl, wSpriteSlot5
-	ld de, $6DE0
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry12
+	ld a, BANK(PageListProto_ObjTable_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 .l5412 ; 7F:5412
@@ -940,8 +940,8 @@ Function_7F_530F::
 	cp a, $00
 	jr z, .l542E
 	ld hl, wSpriteSlot6
-	ld de, $6DE0
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry12
+	ld a, BANK(PageListProto_ObjTable_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 .l542E ; 7F:542E
@@ -998,8 +998,8 @@ Function_7F_546A::
 	cp a, $00
 	jr z, .l54AE
 	ld hl, wSpriteSlot1
-	ld de, $6DC0
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry4
+	ld a, BANK(PageListProto_ObjTable_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $16
@@ -1009,8 +1009,8 @@ Function_7F_546A::
 	jp .l563D
 .l54AE ; 7F:54AE
 	ld hl, wSpriteSlot1
-	ld de, $6DD0
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry8
+	ld a, BANK(PageListProto_ObjTable_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $16
@@ -1031,8 +1031,8 @@ Function_7F_546A::
 	cp a, $00
 	jr z, .l54F8
 	ld hl, wSpriteSlot2
-	ld de, $6DC0
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry4
+	ld a, BANK(PageListProto_ObjTable_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $22
@@ -1042,8 +1042,8 @@ Function_7F_546A::
 	jp .l563D
 .l54F8 ; 7F:54F8
 	ld hl, wSpriteSlot2
-	ld de, $6DD0
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry8
+	ld a, BANK(PageListProto_ObjTable_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $22
@@ -1064,8 +1064,8 @@ Function_7F_546A::
 	cp a, $00
 	jr z, .l5542
 	ld hl, wSpriteSlot3
-	ld de, $6DC0
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry4
+	ld a, BANK(PageListProto_ObjTable_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $2E
@@ -1075,8 +1075,8 @@ Function_7F_546A::
 	jp .l563D
 .l5542 ; 7F:5542
 	ld hl, wSpriteSlot3
-	ld de, $6DD0
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry8
+	ld a, BANK(PageListProto_ObjTable_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $2E
@@ -1097,8 +1097,8 @@ Function_7F_546A::
 	cp a, $00
 	jr z, .l558C
 	ld hl, wSpriteSlot4
-	ld de, $6DC0
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry4
+	ld a, BANK(PageListProto_ObjTable_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $3A
@@ -1108,8 +1108,8 @@ Function_7F_546A::
 	jp .l563D
 .l558C ; 7F:558C
 	ld hl, wSpriteSlot4
-	ld de, $6DD0
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry8
+	ld a, BANK(PageListProto_ObjTable_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $3A
@@ -1130,8 +1130,8 @@ Function_7F_546A::
 	cp a, $00
 	jr z, .l55D6
 	ld hl, wSpriteSlot5
-	ld de, $6DC0
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry4
+	ld a, BANK(PageListProto_ObjTable_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $46
@@ -1141,8 +1141,8 @@ Function_7F_546A::
 	jp .l563D
 .l55D6 ; 7F:55D6
 	ld hl, wSpriteSlot5
-	ld de, $6DD0
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry8
+	ld a, BANK(PageListProto_ObjTable_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $46
@@ -1163,8 +1163,8 @@ Function_7F_546A::
 	cp a, $00
 	jr z, .l5620
 	ld hl, wSpriteSlot6
-	ld de, $6DC0
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry4
+	ld a, BANK(PageListProto_ObjTable_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $52
@@ -1174,8 +1174,8 @@ Function_7F_546A::
 	jp .l563D
 .l5620 ; 7F:5620
 	ld hl, wSpriteSlot6
-	ld de, $6DD0
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry8
+	ld a, BANK(PageListProto_ObjTable_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $52
@@ -1667,7 +1667,7 @@ Function_7F_591E::
 .l5931 ; 7F:5931
 	ld de, $9581
 	ld hl, Gfx_PageListProto_Tiles9580Vb1
-	ld a, $52
+	ld a, BANK(Gfx_PageListProto_Tiles9580Vb1)
 	ld b, $95
 	ld c, $28
 	farcall Gfx_StartHDMA
@@ -1984,8 +1984,8 @@ Function_7F_5BB5::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, wSpriteSlot8
-	ld de, $6E00
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry20
+	ld a, BANK(PageListProto_ObjTable_Entry20)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $57
@@ -1994,7 +1994,7 @@ Function_7F_5BB5::
 	ld [wSpriteSlot8 + $01], a
 	ld hl, wSpriteSlot7
 	ld de, PageListProto_ObjTable
-	ld a, $7F
+	ld a, BANK(PageListProto_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6000
@@ -2057,8 +2057,8 @@ Function_7F_5C39::
 	cp a, b
 	jr nz, .l5C66
 	ld hl, wSpriteSlot8
-	ld de, $6E00
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry20
+	ld a, BANK(PageListProto_ObjTable_Entry20)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $57
@@ -2074,8 +2074,8 @@ Function_7F_5C39::
 	cp a, b
 	jr nz, .l5C8C
 	ld hl, wSpriteSlot8
-	ld de, $6E10
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry24
+	ld a, BANK(PageListProto_ObjTable_Entry24)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $57
@@ -2091,8 +2091,8 @@ Function_7F_5C39::
 	cp a, b
 	jr nz, .l5CB2
 	ld hl, wSpriteSlot8
-	ld de, $6E20
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry28
+	ld a, BANK(PageListProto_ObjTable_Entry28)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $57
@@ -2268,12 +2268,12 @@ Function_7F_5D0A::
 	ld [wSpriteSlots + 128], a
 	ld hl, wSpriteSlot7
 	ld de, PageListProto_ObjTable
-	ld a, $7F
+	ld a, BANK(PageListProto_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld hl, wSpriteSlot8
-	ld de, $6E10
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry24
+	ld a, BANK(PageListProto_ObjTable_Entry24)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $57
@@ -2313,8 +2313,8 @@ Function_7F_5D0A::
 	cp a, $00
 	jr nz, .l5E2F
 	ld hl, wSpriteSlot1
-	ld de, $6E30
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry32
+	ld a, BANK(PageListProto_ObjTable_Entry32)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $07
@@ -2329,8 +2329,8 @@ Function_7F_5D0A::
 	cp a, $01
 	jr nz, .l5E56
 	ld hl, wSpriteSlot2
-	ld de, $6E30
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry32
+	ld a, BANK(PageListProto_ObjTable_Entry32)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $07
@@ -2345,8 +2345,8 @@ Function_7F_5D0A::
 	cp a, $02
 	jr nz, .l5E7D
 	ld hl, wSpriteSlot3
-	ld de, $6E30
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry32
+	ld a, BANK(PageListProto_ObjTable_Entry32)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $07
@@ -2361,8 +2361,8 @@ Function_7F_5D0A::
 	cp a, $03
 	jr nz, .l5EA4
 	ld hl, wSpriteSlot4
-	ld de, $6E30
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry32
+	ld a, BANK(PageListProto_ObjTable_Entry32)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $07
@@ -2377,8 +2377,8 @@ Function_7F_5D0A::
 	cp a, $04
 	jr nz, .l5ECB
 	ld hl, wSpriteSlot5
-	ld de, $6E30
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry32
+	ld a, BANK(PageListProto_ObjTable_Entry32)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $07
@@ -2393,8 +2393,8 @@ Function_7F_5D0A::
 	cp a, $05
 	jr nz, .l5EF2
 	ld hl, wSpriteSlot6
-	ld de, $6E30
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry32
+	ld a, BANK(PageListProto_ObjTable_Entry32)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $07
@@ -2633,7 +2633,7 @@ Function_7F_5FBC::
 	ld [wSpriteSlots + 128], a
 	ld hl, wSpriteSlot7
 	ld de, PageListProto_ObjTable
-	ld a, $7F
+	ld a, BANK(PageListProto_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $07
@@ -2671,8 +2671,8 @@ Function_7F_5FBC::
 	cp a, $00
 	jr nz, .l60CA
 	ld hl, wSpriteSlot1
-	ld de, $6E40
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry36
+	ld a, BANK(PageListProto_ObjTable_Entry36)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $07
@@ -2687,8 +2687,8 @@ Function_7F_5FBC::
 	cp a, $01
 	jr nz, .l60F1
 	ld hl, wSpriteSlot2
-	ld de, $6E40
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry36
+	ld a, BANK(PageListProto_ObjTable_Entry36)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $07
@@ -2703,8 +2703,8 @@ Function_7F_5FBC::
 	cp a, $02
 	jr nz, .l6118
 	ld hl, wSpriteSlot3
-	ld de, $6E40
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry36
+	ld a, BANK(PageListProto_ObjTable_Entry36)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $07
@@ -2719,8 +2719,8 @@ Function_7F_5FBC::
 	cp a, $03
 	jr nz, .l613F
 	ld hl, wSpriteSlot4
-	ld de, $6E40
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry36
+	ld a, BANK(PageListProto_ObjTable_Entry36)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $07
@@ -2735,8 +2735,8 @@ Function_7F_5FBC::
 	cp a, $04
 	jr nz, .l6166
 	ld hl, wSpriteSlot5
-	ld de, $6E40
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry36
+	ld a, BANK(PageListProto_ObjTable_Entry36)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $07
@@ -2751,8 +2751,8 @@ Function_7F_5FBC::
 	cp a, $05
 	jr nz, .l618D
 	ld hl, wSpriteSlot6
-	ld de, $6E40
-	ld a, $7F
+	ld de, PageListProto_ObjTable_Entry36
+	ld a, BANK(PageListProto_ObjTable_Entry36)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $07

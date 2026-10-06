@@ -28,19 +28,19 @@ Account_ActionConfirmPage_Setup:: ; 68:6E39
 	ld [wActionConfirmPage_Cursor], a
 	ld de, $9001
 	ld hl, Gfx_Account_ActionConfirmPage_Tiles9000Vb1
-	ld a, $5E
+	ld a, BANK(Gfx_Account_ActionConfirmPage_Tiles9000Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_Account_ActionConfirmPage_Tiles9400Vb1
-	ld a, $5E
+	ld a, BANK(Gfx_Account_ActionConfirmPage_Tiles9400Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8001
 	ld hl, Data_5F_49D0
-	ld a, $5F
+	ld a, BANK(Data_5F_49D0)
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
@@ -60,7 +60,7 @@ Account_ActionConfirmPage_Setup:: ; 68:6E39
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_Account_ActionConfirmPage
-	ld a, $5E
+	ld a, BANK(Tilemap_Account_ActionConfirmPage)
 	farcall Tilemap_CopyRectAndAttr
 	jr .l6ED4
 .l6EC3 ; 68:6EC3
@@ -77,7 +77,7 @@ Account_ActionConfirmPage_Setup:: ; 68:6E39
 	call Gfx_UploadBgMapBuffers
 	ld hl, wSpriteSlot0
 	ld de, ConfirmPages_ObjTable
-	ld a, $4A
+	ld a, BANK(ConfirmPages_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	call Account_ActionConfirmPage_UpdateCursor

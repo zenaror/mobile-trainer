@@ -1,0 +1,47 @@
+# Independent verification of the ROM pointer pass (romop1)
+
+> Status: **reference (current)**.  Four readers with a fresh context (R1 the tool, the rules and the tests; R2 the `Sprite_InitSlot` sites and the new labels; R3 the sites of every other consumer, the false negatives and a
+> survey of the consumers without a rule; R4 the documents, the counts, an independent rebuild, privacy and the classification of what stays numeric) attacked the first version of [`naming2_romop1.md`](naming2_romop1.md) (690 pointers, 1,364
+> bank loads, 158 labels, 16 rules, 19 tests); each reply was a text report with its own scripts.  What the tree contains is the result after their corrections (708 pointers, 1,367 bank loads, 161 labels, 23 rules, 47 tests).
+
+## 1. Verdicts
+
+| reader | scope | verdicts |
+|---|---|---|
+| R1 | tool, 16 rules, tests, `sprite_chain_check` patch | rules: 15 upheld, 1 corrected (text), 0 dropped; 690 pointers and 1,364 bank loads upheld by an independent decode of the ROM bytes at every rewritten line (the load is `ld rr, imm16` with the value, no instruction touches the register, no label inside, the first transfer is the consumer, the constant in A is the bank and the live writer of exactly one site); 158 labels upheld; 4 tool defects and 1 gap in the checker; 65 mutants, ~250 synthetic counterexamples, 400 fuzz runs (0 crashes, 0 wrong conversions) |
+| R2 | 712 `Sprite_InitSlot` sites, 158 labels | 709 sites upheld (589 pointers + 120 bank loads), 3 live sites refused by the tool (false rejects), 0 false accepts; 202 target names upheld; 158 labels upheld; 4 texts corrected; 1 regression of another tool; 3 latent tool bugs; dynamic replay of 21 of the 64 natural scenarios with a hook at 00:0A82 |
+| R3 | 101 + 599 other sites | 101 pointers, 599 bank loads and 56 `ld a` beside the pointers upheld (655 rewrites); 565 labels: 561 upheld, 4 doubtful (pre-existing wrong block kinds); 0 false accepts; 7 further consumers (15 operands) proposed and proved; the survey of the 1,464 no-rule rows |
+| R4 | documents, rebuild | about 120 figures recounted: 7 wrong, corrected; 15 of 16 "the routine does X" claims upheld, 1 corrected; the executed column and the 18 addresses upheld; rebuild from a fresh copy and a re-run of the tool from the base: identical to the delivered tree (348 `.asm` / `.inc` files equal), idempotent; privacy clean; classification of the 103 + 237 numeric rows |
+
+## 2. Findings and what was done
+
+| # | finding | evidence | integration |
+|---|---|---|---|
+| 1 | The entry of `Sprite_LoadObjectEntry` is `DE + 4 * (id & $3F)`, not `& $7F`: `and a, $7F / add a, a / add a, a` on a byte loses the carry (ids 64-127 read entries 0-63; no site uses one).  The formula was in about 17 places of the sources and notes, marked CONFIRMED in three of them | R1, R2: 00:0ABB-0AC4 decoded and simulated over the 256 values of B | corrected in `home/sprites.asm`, `constants/sprite_macros.inc`, `tools/sprite_chain_check.py`, `docs/research/sprite_format.md`, `boot_and_home.md`, 7 block headers of `gfx/` and the rule; older pass notes (`naming2_data2.md`, `naming2_verify_data2b.md`, `classify_g4.md`) and the frozen `analysis/rom0_analysis.py` keep the old text and are superseded by `sprite_format.md` |
+| 2 | Bit 7 of the id is the loop flag (slot `+$0F`), not a flip bit | R2, R4: 00:0B13-0B21, `sprite_format.md` | text corrected |
+| 3 | For a `farcall` to a ROM0 label the bank stays because the inline bank byte is `BANK(Label)` = 0 and `BankSwitch_H` does nothing for 0, not because the far call switches "by the region of the target": `BankSwitch_H` writes `$2100` for every H < `$80` | R4, R1: 00:0622, 00:06F4-06F9, `Palette_LoadToBuffer` | docstring, note and rule text corrected; `farcall_raw` is not a consumer of the tool (no use in the tree) |
+| 4 | Tool: `a_source` took the first canonical `ld a, $NN` within 40 lines, a dead one when the live write has another spelling (`ld  a, $2B`, `LD A, $2B`); a `; raw` bank load was rewritten; an instruction that reads A between the load and the call (`ld [wCount], a`, `ld b, a`, `cp a, c`) did not stop the rewrite | R1 (T-bug-1, T-bug-2), R3, R4 | `a_source` rewritten: the nearest write of A is the line, `; raw` and unusual spellings end the proof, `reads_a` keeps the `ld a` numeric; tests |
+| 5 | Tool: `ROM_BANK_WRITE` knew one spelling; the files stayed modified when the verification was interrupted; `--check` / `--dry-run` returned 1 when the build of the marked copy failed (the "a rule proves an operand" code); the dry-run message said "nothing built" | R1 (T-bug-3, T-bug-4), R4 (T2) | tolerant regex; restore on any exception; exit 2; message corrected |
+| 6 | Tool: `table_label` and `sprite_chain_check.load_sym` skipped every label that ends in `_Entry<N>` (four older tilemap labels `Tilemap_SettingsPhone_ChoiceMenu_Entry0..3` have that shape; a semantic table head named so would have been numbered into the table above) | R2 (F7), R4 (T3) | a label is skipped only when its stem is a label of the run above / a symbol; test |
+| 7 | `sprite_chain_check` did not read N: renaming `..._Entry16` to `_Entry17`, to another parent or to `_Entry15` passed (ROM identical) | R1 | the checker verifies every `<Table>_Entry<N>` at Table + 4 N in the same bank (159 labels) |
+| 8 | `tools/render_screens.py` could not resolve `ld a, BANK(Label)`: 24 resolved loads against 369 on the base (`render_sprites.py` lost 37 of 48 roots' contexts); regenerating `gfx/previews` would have degraded the committed sheets | R2 (F6): `render_screens.py ops` before and after | `extract_ops` reads `BANK(Label)`; 369 / 548 again; `gfx/previews` is not regenerated |
+| 9 | Three live `Sprite_InitSlot` sites were refused (`not a table entry`): the target is an entry written as `ds` or `db` | R2 (F5), R1 | written by hand with `Table_5D_7318`, `Table_6A_64AE`, `Objects_MobileDict_Entry2` (ROM identical, `sprite_chain_check` roots with 2 and 1 entries now walked) |
+| 10 | Seven consumers with 15 operands that the first version had no rule for: `Mobile_PacketSend{Bytes,Expect,EmptyBody,ReadConfig}` (fixed bank 75: the timer interrupt reads the packet in bank 75), `Mail_FindKeywordValue`, `Mail_EmitStringAndSuffix`, `Html_ScanAttributes` (`mapped`) | R3 (S/ptest4) | rules and a fixed-bank kind added, 15 operands written |
+| 11 | Counts and statements: 22 parents -> 21 (22 with the hand-written entry); 16 rules = 9 kind A + 7 mapped; 1,567 -> 1,464; the 82 + 21 list omitted `CopyString` 2; the header has the label `Header` (00:0104) and `$013F` is `Header + $3B`; no file of `home/` changed; `--dry-run` builds a marked copy; the STYLE paragraph merged with the one above | R4, R2, R3 | corrected |
+| 12 | 39 of 65 mutants survived the 19 tests (the `FIRST_POINTER` bound, the ROM bank spellings, `not a table entry`, the `$8000` guard, insertion order of two labels in one file, the whole of `main()`) | R1 | 25 tests added (`RomOperandsExtra`, `MainFlow`); 9 mutants survive the 44 tests, all equivalent or unobservable |
+| 13 | 4 labels have the wrong kind of block behind them (`Data_4D_5510`, `Palette_Account_ConfirmScreen_Bg`, `Palette_Account_ConfirmManualScreen_Bg`, `Tilemap_ConnectDialog_ConnectConfirm_56_526A`); 22 palette / tilemap pointers lie inside `.2bpp` tile blocks that their HDMA loads whole | R3, R4 | recorded in `naming2_romop1.md` sections 5 and 6 for the graphics pass; nothing renamed |
+| 14 | Dynamic evidence of the rule `Sprite_InitSlot` | R2: 21 of 64 scenarios, a hook at 00:0A82 and 00:0AAE (built against the headers of the commit of the library, coverage byte-identical to the committed files), 33,739 executions of 435 sites: DE, A, B, HL and the filled slot agree with the static model in every one | recorded in the rule row and in section 5 of the note |
+
+## 3. Not done, and why
+
+* `Label + offset`, line splits and labels before data lines for the 100 pointers left (section 6 of the note): a different rewrite of the source, the next pass.
+* The `(none)` loads that are ROM pointers (111, R4), the pointer halves stored as bytes (about 25 pairs) and the pointers derived from a table (51): they need new proof classes.
+* `gfx/previews` (needs emulator captures); `Header + $3B` (a design decision for a later pass); the four blocks of finding 13 (graphics pass).
+* The pre-existing limit of `sprite_chain_check`: a consistent swap to another existing root (`ld de, X / ld a, BANK(X)` with X a root of another table) passes, because the ROM-pair check is a set membership over all sites.
+
+## 4. Limits of the check
+
+Static reading, ROM decode and builds in private copies, and the replay of R2 (21 scenarios, 435 of the 712 sites); no emulator run of the other sites.  The ROM walk of R1 applies the same criteria as the tool on bytes and symbols instead of text,
+so a flaw in the criteria themselves would not show; interrupts are assumed to keep the registers and the ROM bank.  Names, meanings and statuses of the targets were judged by R2 and R3 against the code that uses them, not
+against the original program; the sample-data strings of bank 2D were identified by role only.  The 15 operands and the 7 rules of finding 10 were verified by R3 (build identical, 21 tests) and re-run by the coordinator, not
+re-derived by a second reader; the 47 tests and the merged tool were run by the coordinator (the readers worked on the first version).

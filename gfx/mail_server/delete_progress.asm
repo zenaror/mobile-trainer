@@ -52,38 +52,47 @@ Table_23_7990::
 	sprite_object_entry SpriteCounter_Digits_Anim0Frames, SpriteCounter_Digits_Anim0Script ; entry 1
 	sprite_object_entry SpriteCounter_Digits_Anim0Frames, SpriteCounter_Digits_Anim0Script ; entry 2
 	sprite_object_entry SpriteCounter_Digits_Anim0Frames, SpriteCounter_Digits_Anim0Script ; entry 3
+Table_SpriteCounter_Digits_Entry4:: ; 23:79A0
 	sprite_object_entry SpriteCounter_Digits_Anim4Frames, SpriteCounter_Digits_Anim4Script ; entry 4
 	sprite_object_entry SpriteCounter_Digits_Anim4Frames, SpriteCounter_Digits_Anim4Script ; entry 5
 	sprite_object_entry SpriteCounter_Digits_Anim4Frames, SpriteCounter_Digits_Anim4Script ; entry 6
 	sprite_object_entry SpriteCounter_Digits_Anim4Frames, SpriteCounter_Digits_Anim4Script ; entry 7
+Table_SpriteCounter_Digits_Entry8:: ; 23:79B0
 	sprite_object_entry SpriteCounter_Digits_Anim8Frames, SpriteCounter_Digits_Anim8Script ; entry 8
 	sprite_object_entry SpriteCounter_Digits_Anim8Frames, SpriteCounter_Digits_Anim8Script ; entry 9
 	sprite_object_entry SpriteCounter_Digits_Anim8Frames, SpriteCounter_Digits_Anim8Script ; entry 10
 	sprite_object_entry SpriteCounter_Digits_Anim8Frames, SpriteCounter_Digits_Anim8Script ; entry 11
+Table_SpriteCounter_Digits_Entry12:: ; 23:79C0
 	sprite_object_entry SpriteCounter_Digits_Anim12Frames, SpriteCounter_Digits_Anim12Script ; entry 12
 	sprite_object_entry SpriteCounter_Digits_Anim12Frames, SpriteCounter_Digits_Anim12Script ; entry 13
 	sprite_object_entry SpriteCounter_Digits_Anim12Frames, SpriteCounter_Digits_Anim12Script ; entry 14
 	sprite_object_entry SpriteCounter_Digits_Anim12Frames, SpriteCounter_Digits_Anim12Script ; entry 15
+Table_SpriteCounter_Digits_Entry16:: ; 23:79D0
 	sprite_object_entry SpriteCounter_Digits_Anim16Frames, SpriteCounter_Digits_Anim16Script ; entry 16
 	sprite_object_entry SpriteCounter_Digits_Anim16Frames, SpriteCounter_Digits_Anim16Script ; entry 17
 	sprite_object_entry SpriteCounter_Digits_Anim16Frames, SpriteCounter_Digits_Anim16Script ; entry 18
 	sprite_object_entry SpriteCounter_Digits_Anim16Frames, SpriteCounter_Digits_Anim16Script ; entry 19
+Table_SpriteCounter_Digits_Entry20:: ; 23:79E0
 	sprite_object_entry SpriteCounter_Digits_Anim20Frames, SpriteCounter_Digits_Anim20Script ; entry 20
 	sprite_object_entry SpriteCounter_Digits_Anim20Frames, SpriteCounter_Digits_Anim20Script ; entry 21
 	sprite_object_entry SpriteCounter_Digits_Anim20Frames, SpriteCounter_Digits_Anim20Script ; entry 22
 	sprite_object_entry SpriteCounter_Digits_Anim20Frames, SpriteCounter_Digits_Anim20Script ; entry 23
+Table_SpriteCounter_Digits_Entry24:: ; 23:79F0
 	sprite_object_entry SpriteCounter_Digits_Anim24Frames, SpriteCounter_Digits_Anim24Script ; entry 24
 	sprite_object_entry SpriteCounter_Digits_Anim24Frames, SpriteCounter_Digits_Anim24Script ; entry 25
 	sprite_object_entry SpriteCounter_Digits_Anim24Frames, SpriteCounter_Digits_Anim24Script ; entry 26
 	sprite_object_entry SpriteCounter_Digits_Anim24Frames, SpriteCounter_Digits_Anim24Script ; entry 27
+Table_SpriteCounter_Digits_Entry28:: ; 23:7A00
 	sprite_object_entry SpriteCounter_Digits_Anim28Frames, SpriteCounter_Digits_Anim28Script ; entry 28
 	sprite_object_entry SpriteCounter_Digits_Anim28Frames, SpriteCounter_Digits_Anim28Script ; entry 29
 	sprite_object_entry SpriteCounter_Digits_Anim28Frames, SpriteCounter_Digits_Anim28Script ; entry 30
 	sprite_object_entry SpriteCounter_Digits_Anim28Frames, SpriteCounter_Digits_Anim28Script ; entry 31
+Table_SpriteCounter_Digits_Entry32:: ; 23:7A10
 	sprite_object_entry SpriteCounter_Digits_Anim32Frames, SpriteCounter_Digits_Anim32Script ; entry 32
 	sprite_object_entry SpriteCounter_Digits_Anim32Frames, SpriteCounter_Digits_Anim32Script ; entry 33
 	sprite_object_entry SpriteCounter_Digits_Anim32Frames, SpriteCounter_Digits_Anim32Script ; entry 34
 	sprite_object_entry SpriteCounter_Digits_Anim32Frames, SpriteCounter_Digits_Anim32Script ; entry 35
+Table_SpriteCounter_Digits_Entry36:: ; 23:7A20
 	sprite_object_entry SpriteCounter_Digits_Anim36Frames, SpriteCounter_Digits_Anim36Script ; entry 36
 	sprite_object_entry SpriteCounter_Digits_Anim36Frames, SpriteCounter_Digits_Anim36Script ; entry 37
 	sprite_object_entry SpriteCounter_Digits_Anim36Frames, SpriteCounter_Digits_Anim36Script ; entry 38

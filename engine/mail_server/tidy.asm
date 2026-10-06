@@ -48,8 +48,8 @@ Function_2E_4000::
 	ld [hli], a
 	call MailServerMgr_ShowLoadingMsg
 	ld hl, wSpriteSlot13
-	ld de, $7700
-	ld a, $2E
+	ld de, Table_MailServerMgr_ObjAnims_Entry16
+	ld a, BANK(Table_MailServerMgr_ObjAnims_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0000
@@ -86,7 +86,7 @@ Function_2E_4000::
 	push hl
 	ld de, $9401
 	ld hl, Gfx_MailServerMgr_Tiles1
-	ld a, $2E
+	ld a, BANK(Gfx_MailServerMgr_Tiles1)
 	ld b, $98
 	ld c, $01
 	farcall Gfx_StartHDMAWithService
@@ -326,7 +326,7 @@ Function_2E_4000::
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_MailServerMgr_Main
-	ld a, $2E
+	ld a, BANK(Tilemap_MailServerMgr_Main)
 	farcall Tilemap_CopyRectAndAttr
 	call MailServerMgr_UpdateTimerDisplay
 	ld de, $0228
@@ -658,7 +658,7 @@ Label_2E_4298::
 	push hl
 	ld hl, wSpriteSlot0
 	ld de, Table_MailServerMgr_ObjAnims
-	ld a, $2E
+	ld a, BANK(Table_MailServerMgr_ObjAnims)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7010
@@ -797,7 +797,7 @@ Label_2E_4298::
 	push bc
 	ld hl, wSpriteSlot0
 	ld de, Table_MailServerMgr_ObjAnims
-	ld a, $2E
+	ld a, BANK(Table_MailServerMgr_ObjAnims)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7010
@@ -812,8 +812,8 @@ Label_2E_4298::
 	jr nz, .l4569
 	push bc
 	ld hl, wSpriteSlot0
-	ld de, $76D0
-	ld a, $2E
+	ld de, Table_MailServerMgr_ObjAnims_Entry4
+	ld a, BANK(Table_MailServerMgr_ObjAnims_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7030
@@ -828,8 +828,8 @@ Label_2E_4298::
 	jr nz, .l458E
 	push bc
 	ld hl, wSpriteSlot0
-	ld de, $76E0
-	ld a, $2E
+	ld de, Table_MailServerMgr_ObjAnims_Entry8
+	ld a, BANK(Table_MailServerMgr_ObjAnims_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7050
@@ -943,8 +943,8 @@ Label_2E_4298::
 	push bc
 	push hl
 	ld hl, wSpriteSlot0
-	ld de, $76E0
-	ld a, $2E
+	ld de, Table_MailServerMgr_ObjAnims_Entry8
+	ld a, BANK(Table_MailServerMgr_ObjAnims_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7050
@@ -968,15 +968,15 @@ Label_2E_4298::
 	ld bc, $0614
 	ld de, wScreenTileMap + $A0
 	ld hl, Tilemap_MailServerMgr_Footer
-	ld a, $2E
+	ld a, BANK(Tilemap_MailServerMgr_Footer)
 	farcall Tilemap_CopyRectAndAttr
 	di
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	ei
 	ld hl, wSpriteSlot13
-	ld de, $76F0
-	ld a, $2E
+	ld de, Table_MailServerMgr_ObjAnims_Entry12
+	ld a, BANK(Table_MailServerMgr_ObjAnims_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0000
@@ -1068,15 +1068,15 @@ Label_2E_4298::
 	ld bc, $0614
 	ld de, wScreenTileMap + $A0
 	ld hl, Tilemap_MailServerMgr_Footer
-	ld a, $2E
+	ld a, BANK(Tilemap_MailServerMgr_Footer)
 	farcall Tilemap_CopyRectAndAttr
 	di
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	ei
 	ld hl, wSpriteSlot13
-	ld de, $7700
-	ld a, $2E
+	ld de, Table_MailServerMgr_ObjAnims_Entry16
+	ld a, BANK(Table_MailServerMgr_ObjAnims_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0000
@@ -1165,7 +1165,7 @@ Label_2E_4298::
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_MailServerMgr_Main
-	ld a, $2E
+	ld a, BANK(Tilemap_MailServerMgr_Main)
 	farcall Tilemap_CopyRectAndAttr
 	call MailServerMgr_DrawTimer
 	ld de, $0229

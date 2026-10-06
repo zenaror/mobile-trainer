@@ -57,7 +57,7 @@ CommScene_Step:: ; 70:4023
 	; 4043-406A by apply_coverage --split
 	ld hl, wSpriteSlot3
 	ld de, CommScene_ObjTable
-	ld a, $70
+	ld a, BANK(CommScene_ObjTable)
 	ld b, $83
 	farcall Sprite_InitSlot
 	ld de, $7000
@@ -227,7 +227,7 @@ Label_70_4135::
 	ld [wCommScene_Timer], a
 	ld hl, wSpriteSlot6
 	ld de, CommScene_SpriteObjTable
-	ld a, $70
+	ld a, BANK(CommScene_SpriteObjTable)
 	ld b, $85
 	farcall Sprite_InitSlot
 	ld de, $3048
@@ -254,7 +254,7 @@ Label_70_4135::
 	ld [wCommScene_Result], a
 	ld hl, wSpriteSlot6
 	ld de, CommScene_SpriteObjTable
-	ld a, $70
+	ld a, BANK(CommScene_SpriteObjTable)
 	ld b, $85
 	farcall Sprite_InitSlot
 	ld de, $3048
@@ -463,7 +463,7 @@ Label_70_42CD::
 	ld [wCommScene_Timer], a
 	ld hl, wSpriteSlot6
 	ld de, CommScene_SpriteObjTable
-	ld a, $70
+	ld a, BANK(CommScene_SpriteObjTable)
 	ld b, $85
 	farcall Sprite_InitSlot
 	ld de, $3048
@@ -490,7 +490,7 @@ Label_70_42CD::
 	ld [wCommScene_Result], a
 	ld hl, wSpriteSlot6
 	ld de, CommScene_SpriteObjTable
-	ld a, $70
+	ld a, BANK(CommScene_SpriteObjTable)
 	ld b, $85
 	farcall Sprite_InitSlot
 	ld de, $3048
@@ -741,77 +741,77 @@ Function_70_44B0::
 	ldh [rWY], a
 	ld de, $8000
 	ld hl, Gfx_CommScene_Tiles8000
-	ld a, $70
+	ld a, BANK(Gfx_CommScene_Tiles8000)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8400
 	ld hl, Gfx_CommScene_Tiles8400
-	ld a, $70
+	ld a, BANK(Gfx_CommScene_Tiles8400)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8800
 	ld hl, Gfx_CommScene_Tiles8800
-	ld a, $70
+	ld a, BANK(Gfx_CommScene_Tiles8800)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C00
 	ld hl, Gfx_CommScene_Tiles8C00
-	ld a, $70
+	ld a, BANK(Gfx_CommScene_Tiles8C00)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9000
 	ld hl, Data_70_6490
-	ld a, $70
+	ld a, BANK(Data_70_6490)
 	ld b, $95
 	ld c, $20
 	farcall Gfx_StartHDMAWithService
 	ld de, $8001
 	ld hl, Data_70_6490
-	ld a, $70
+	ld a, BANK(Data_70_6490)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8401
 	ld hl, Data_70_6890
-	ld a, $70
+	ld a, BANK(Data_70_6890)
 	ld b, $95
 	ld c, $20
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Data_70_6690
-	ld a, $70
+	ld a, BANK(Data_70_6690)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_CommScene_Tiles9400Vb1
-	ld a, $70
+	ld a, BANK(Gfx_CommScene_Tiles9400Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_CommScene_Bg
-	ld a, $70
+	ld a, BANK(Palette_CommScene_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, wPaletteBufObj
 	ld hl, Palette_CommScene_Obj
-	ld a, $70
+	ld a, BANK(Palette_CommScene_Obj)
 	farcall Palette_LoadToBuffer
 	ld bc, $0E20
 	ld de, wScreenTileMap
 	ld hl, Tilemap_CommScene
-	ld a, $70
+	ld a, BANK(Tilemap_CommScene)
 	farcall Tilemap_CopyRectAndAttr
 	call CommScene_UploadBackgroundMap
 	ld hl, wSpriteSlot1
 	ld de, CommScene_ObjTable
-	ld a, $70
+	ld a, BANK(CommScene_ObjTable)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld de, $1800
@@ -819,7 +819,7 @@ Function_70_44B0::
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot2
 	ld de, CommScene_ObjTable
-	ld a, $70
+	ld a, BANK(CommScene_ObjTable)
 	ld b, $02
 	farcall Sprite_InitSlot
 	ld de, $1888
@@ -834,7 +834,7 @@ Function_70_44B0::
 .l45EC ; 70:45EC
 	ld hl, wSpriteSlot3
 	ld de, CommScene_ObjTable
-	ld a, $70
+	ld a, BANK(CommScene_ObjTable)
 	ld b, $83
 	farcall Sprite_InitSlot
 	ld de, $7000
@@ -1117,12 +1117,12 @@ Function_70_47BB::
 	jr nz, .l47E2
 	ld hl, wSpriteSlot4
 	ld de, CommScene_SpriteObjTable
-	ld a, $70
+	ld a, BANK(CommScene_SpriteObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld hl, wSpriteSlot5
 	ld de, CommScene_SpriteObjTable
-	ld a, $70
+	ld a, BANK(CommScene_SpriteObjTable)
 	ld b, $83
 	farcall Sprite_InitSlot
 	ret
@@ -1132,12 +1132,12 @@ Function_70_47BB::
 	; entered by jrcc from 70:47BF (executed) [executed in 3 scenarios]
 	ld hl, wSpriteSlot4
 	ld de, CommScene_SpriteObjTable
-	ld a, $70
+	ld a, BANK(CommScene_SpriteObjTable)
 	ld b, $82
 	farcall Sprite_InitSlot
 	ld hl, wSpriteSlot5
 	ld de, CommScene_SpriteObjTable
-	ld a, $70
+	ld a, BANK(CommScene_SpriteObjTable)
 	ld b, $84
 	farcall Sprite_InitSlot
 	ret

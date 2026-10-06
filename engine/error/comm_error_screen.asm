@@ -35,37 +35,37 @@ Function_5C_5150::
 	farcall Sprite_ResetAll
 	ld de, $8001
 	ld hl, CommErr_Gfx_Obj8000
-	ld a, $5C
+	ld a, BANK(CommErr_Gfx_Obj8000)
 	ld b, $98
 	ld c, $02
 	farcall Gfx_StartHDMAWithService
 	ld de, $8101
 	ld hl, CommErr_Gfx_Obj8100
-	ld a, $5C
+	ld a, BANK(CommErr_Gfx_Obj8100)
 	ld b, $98
 	ld c, $02
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, CommErr_Gfx_Bg9000
-	ld a, $5C
+	ld a, BANK(CommErr_Gfx_Bg9000)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, CommErr_Gfx_Bg9400
-	ld a, $5C
+	ld a, BANK(CommErr_Gfx_Bg9400)
 	ld b, $96
 	ld c, $18
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
-	ld hl, $6390
-	ld a, $5C
+	ld hl, CommErr_Palette_Bg
+	ld a, BANK(CommErr_Palette_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, wPaletteBufObj
-	ld hl, $63D0
-	ld a, $5C
+	ld hl, CommErr_Palette_Obj
+	ld a, BANK(CommErr_Palette_Obj)
 	farcall Palette_LoadToBuffer
 	call CommErr_DrawMessage
 	call CommErr_DrawErrorNumber
@@ -160,7 +160,7 @@ CommErr_FindRecord:: ; 5C:527D
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, CommErr_Tilemap_Comm
-	ld a, $5C
+	ld a, BANK(CommErr_Tilemap_Comm)
 	farcall Tilemap_CopyRectAndAttr
 	pop hl
 	jr CommErr_LookupTriple
@@ -170,11 +170,11 @@ CommErr_DrawMessage_TimerVariant:: ; 5C:52AB
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, CommErr_Tilemap_CommTimer
-	ld a, $5C
+	ld a, BANK(CommErr_Tilemap_CommTimer)
 	farcall Tilemap_CopyRectAndAttr
 	ld hl, wSpriteSlot1
-	ld de, $642B
-	ld a, $5C
+	ld de, CommErr_ObjTable
+	ld a, BANK(CommErr_ObjTable)
 	ld b, $80
 	farcall Sprite_InitSlot
 	ld de, $8010
@@ -183,7 +183,7 @@ CommErr_DrawMessage_TimerVariant:: ; 5C:52AB
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, CommErr_Palette_BgTimer
-	ld a, $5C
+	ld a, BANK(CommErr_Palette_BgTimer)
 	farcall Palette_LoadToBuffer
 	pop hl
 	ld a, $01
@@ -195,7 +195,7 @@ CommErr_DrawMessage_PlainVariant:: ; 5C:52EF
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, CommErr_Tilemap_Plain
-	ld a, $5C
+	ld a, BANK(CommErr_Tilemap_Plain)
 	farcall Tilemap_CopyRectAndAttr
 	pop hl
 
@@ -288,7 +288,7 @@ Label_5C_53A1::
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, CommErr_Tilemap_Plain
-	ld a, $5C
+	ld a, BANK(CommErr_Tilemap_Plain)
 	farcall Tilemap_CopyRectAndAttr
 	ret
 

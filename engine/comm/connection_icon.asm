@@ -170,20 +170,20 @@ Label_69_40E0::
 	; entered by table from 69:40D7 (executed) [executed in 1 scenarios]
 	ld de, $8200
 	ld hl, Gfx_ConnIcon_Request2_Tiles8200
-	ld a, $51
+	ld a, BANK(Gfx_ConnIcon_Request2_Tiles8200)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8600
 	ld hl, Gfx_ConnIcon_Request2_Tiles8600
-	ld a, $51
+	ld a, BANK(Gfx_ConnIcon_Request2_Tiles8600)
 	ld b, $95
 	ld c, $20
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0020
 	ld de, wPaletteBufObj + $20
 	ld hl, Palette_ConnIcon_Request2_Obj4
-	ld a, $51
+	ld a, BANK(Palette_ConnIcon_Request2_Obj4)
 	farcall Palette_LoadToBuffer
 	jp ConnIcon_LoadGraphics_ClearRequest
 
@@ -192,20 +192,20 @@ Label_69_4118::
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 4/18 scenarios)
 	ld de, $8200
 	ld hl, ConnIcon_Tiles0
-	ld a, $69
+	ld a, BANK(ConnIcon_Tiles0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8600
 	ld hl, ConnIcon_Tiles1
-	ld a, $69
+	ld a, BANK(ConnIcon_Tiles1)
 	ld b, $95
 	ld c, $20
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0018
 	ld de, wPaletteBufObj + $20
 	ld hl, ConnIcon_Palettes
-	ld a, $69
+	ld a, BANK(ConnIcon_Palettes)
 	farcall Palette_LoadToBuffer
 
 ConnIcon_LoadGraphics_ClearRequest:: ; 69:414D

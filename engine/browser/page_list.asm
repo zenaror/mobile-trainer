@@ -437,28 +437,28 @@ PageList_InitScreen:: ; 24:42F0
 	call VBlank_Wait
 	ld de, $9301
 	ld hl, PageList_Tiles_5400
-	ld a, $24
+	ld a, BANK(PageList_Tiles_5400)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMA
 	call VBlank_Wait
 	ld de, $9701
 	ld hl, PageList_Tiles_5800
-	ld a, $24
+	ld a, BANK(PageList_Tiles_5800)
 	ld b, $97
 	ld c, $10
 	farcall Gfx_StartHDMA
 	call VBlank_Wait
 	ld de, $8000
 	ld hl, PageList_Tiles_5EE0
-	ld a, $24
+	ld a, BANK(PageList_Tiles_5EE0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMA
 	call VBlank_Wait
 	ld de, $8400
-	ld hl, $62E0
-	ld a, $24
+	ld hl, PageList_Tiles_62E0
+	ld a, BANK(PageList_Tiles_62E0)
 	ld b, $95
 	ld c, $20
 	farcall Gfx_StartHDMA
@@ -466,19 +466,19 @@ PageList_InitScreen:: ; 24:42F0
 	ld bc, $0040
 	ld de, wPaletteBufObj
 	ld hl, PageList_ObjPalette
-	ld a, $24
+	ld a, BANK(PageList_ObjPalette)
 	farcall Palette_LoadToBuffer
 	call VBlank_Wait
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, PageList_BgPalette
-	ld a, $24
+	ld a, BANK(PageList_BgPalette)
 	farcall Palette_LoadToBuffer
 	call VBlank_Wait
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, PageList_Tilemap_5900
-	ld a, $24
+	ld a, BANK(PageList_Tilemap_5900)
 	farcall Tilemap_CopyRectAndAttr
 	call VBlank_Wait
 	ld a, $06
@@ -491,7 +491,7 @@ PageList_InitScreen:: ; 24:42F0
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, PageList_Tilemap_5BD0
-	ld a, $24
+	ld a, BANK(PageList_Tilemap_5BD0)
 	farcall Tilemap_CopyRectAndAttr
 	call VBlank_Wait
 .l43D2 ; 24:43D2
@@ -571,33 +571,33 @@ PageList_InitRowSprites:: ; 24:445C
 	ld [rRAMG], a
 	pop af
 	ld hl, wSpriteSlot6
-	ld de, $6560
-	ld a, $24
+	ld de, PageList_ObjTable_Entry12
+	ld a, BANK(PageList_ObjTable_Entry12)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld hl, wSpriteSlot5
-	ld de, $6560
-	ld a, $24
+	ld de, PageList_ObjTable_Entry12
+	ld a, BANK(PageList_ObjTable_Entry12)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld hl, wSpriteSlot4
-	ld de, $6560
-	ld a, $24
+	ld de, PageList_ObjTable_Entry12
+	ld a, BANK(PageList_ObjTable_Entry12)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld hl, wSpriteSlot3
-	ld de, $6560
-	ld a, $24
+	ld de, PageList_ObjTable_Entry12
+	ld a, BANK(PageList_ObjTable_Entry12)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld hl, wSpriteSlot2
-	ld de, $6560
-	ld a, $24
+	ld de, PageList_ObjTable_Entry12
+	ld a, BANK(PageList_ObjTable_Entry12)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld hl, wSpriteSlot1
-	ld de, $6560
-	ld a, $24
+	ld de, PageList_ObjTable_Entry12
+	ld a, BANK(PageList_ObjTable_Entry12)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld hl, PageList_UrlSlotTable
@@ -609,8 +609,8 @@ PageList_InitRowSprites:: ; 24:445C
 	cp a, $00
 	jr z, .l44EF
 	ld hl, wSpriteSlot6
-	ld de, $6550
-	ld a, $24
+	ld de, PageList_ObjTable_Entry8
+	ld a, BANK(PageList_ObjTable_Entry8)
 	ld b, $01
 	farcall Sprite_InitSlot
 .l44EF ; 24:44EF
@@ -623,8 +623,8 @@ PageList_InitRowSprites:: ; 24:445C
 	cp a, $00
 	jr z, .l450B
 	ld hl, wSpriteSlot5
-	ld de, $6550
-	ld a, $24
+	ld de, PageList_ObjTable_Entry8
+	ld a, BANK(PageList_ObjTable_Entry8)
 	ld b, $01
 	farcall Sprite_InitSlot
 .l450B ; 24:450B
@@ -640,8 +640,8 @@ PageList_InitRowSprites:: ; 24:445C
 	; [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 42F0-4B10 by apply_coverage --split
 	ld hl, wSpriteSlot4
-	ld de, $6550
-	ld a, $24
+	ld de, PageList_ObjTable_Entry8
+	ld a, BANK(PageList_ObjTable_Entry8)
 	ld b, $01
 	farcall Sprite_InitSlot
 
@@ -657,8 +657,8 @@ PageList_InitRowSprites:: ; 24:445C
 	cp a, $00
 	jr z, .l4543
 	ld hl, wSpriteSlot3
-	ld de, $6550
-	ld a, $24
+	ld de, PageList_ObjTable_Entry8
+	ld a, BANK(PageList_ObjTable_Entry8)
 	ld b, $01
 	farcall Sprite_InitSlot
 .l4543 ; 24:4543
@@ -674,8 +674,8 @@ PageList_InitRowSprites:: ; 24:445C
 	; [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 42F0-4B10 by apply_coverage --split
 	ld hl, wSpriteSlot2
-	ld de, $6550
-	ld a, $24
+	ld de, PageList_ObjTable_Entry8
+	ld a, BANK(PageList_ObjTable_Entry8)
 	ld b, $01
 	farcall Sprite_InitSlot
 
@@ -694,8 +694,8 @@ PageList_InitRowSprites:: ; 24:445C
 	; [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 42F0-4B10 by apply_coverage --split
 	ld hl, wSpriteSlot1
-	ld de, $6550
-	ld a, $24
+	ld de, PageList_ObjTable_Entry8
+	ld a, BANK(PageList_ObjTable_Entry8)
 	ld b, $01
 	farcall Sprite_InitSlot
 
@@ -755,7 +755,7 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	jr z, .l45FB
 	ld hl, wSpriteSlot6
 	ld de, PageList_ObjTable
-	ld a, $24
+	ld a, BANK(PageList_ObjTable)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $23
@@ -765,8 +765,8 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	jp .l478A
 .l45FB ; 24:45FB
 	ld hl, wSpriteSlot6
-	ld de, $6540
-	ld a, $24
+	ld de, PageList_ObjTable_Entry4
+	ld a, BANK(PageList_ObjTable_Entry4)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $23
@@ -788,7 +788,7 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	jr z, .l4645
 	ld hl, wSpriteSlot5
 	ld de, PageList_ObjTable
-	ld a, $24
+	ld a, BANK(PageList_ObjTable)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $2F
@@ -798,8 +798,8 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	jp .l478A
 .l4645 ; 24:4645
 	ld hl, wSpriteSlot5
-	ld de, $6540
-	ld a, $24
+	ld de, PageList_ObjTable_Entry4
+	ld a, BANK(PageList_ObjTable_Entry4)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $2F
@@ -824,7 +824,7 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	; 42F0-4B10 by apply_coverage --split
 	ld hl, wSpriteSlot4
 	ld de, PageList_ObjTable
-	ld a, $24
+	ld a, BANK(PageList_ObjTable)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $3B
@@ -837,8 +837,8 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	; [CONFIRMED] 21 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage
 	; --split [executed in 2 scenarios]
 	ld hl, wSpriteSlot4
-	ld de, $6540
-	ld a, $24
+	ld de, PageList_ObjTable_Entry4
+	ld a, BANK(PageList_ObjTable_Entry4)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $3B
@@ -863,7 +863,7 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	; 42F0-4B10 by apply_coverage --split
 	ld hl, wSpriteSlot3
 	ld de, PageList_ObjTable
-	ld a, $24
+	ld a, BANK(PageList_ObjTable)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $47
@@ -876,8 +876,8 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	; [CONFIRMED] 21 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage
 	; --split [executed in 2 scenarios]
 	ld hl, wSpriteSlot3
-	ld de, $6540
-	ld a, $24
+	ld de, PageList_ObjTable_Entry4
+	ld a, BANK(PageList_ObjTable_Entry4)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $47
@@ -902,7 +902,7 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	; 42F0-4B10 by apply_coverage --split
 	ld hl, wSpriteSlot2
 	ld de, PageList_ObjTable
-	ld a, $24
+	ld a, BANK(PageList_ObjTable)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $53
@@ -915,8 +915,8 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	; [CONFIRMED] 21 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage
 	; --split [executed in 4 scenarios]
 	ld hl, wSpriteSlot2
-	ld de, $6540
-	ld a, $24
+	ld de, PageList_ObjTable_Entry4
+	ld a, BANK(PageList_ObjTable_Entry4)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $53
@@ -941,7 +941,7 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	; 42F0-4B10 by apply_coverage --split
 	ld hl, wSpriteSlot1
 	ld de, PageList_ObjTable
-	ld a, $24
+	ld a, BANK(PageList_ObjTable)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $5F
@@ -954,8 +954,8 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	; [CONFIRMED] 334 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage
 	; --split [executed in 2 scenarios]
 	ld hl, wSpriteSlot1
-	ld de, $6540
-	ld a, $24
+	ld de, PageList_ObjTable_Entry4
+	ld a, BANK(PageList_ObjTable_Entry4)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $5F
@@ -1950,8 +1950,8 @@ PageList_ActionMenuInit:: ; 24:4E46
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, wSpriteSlot0
-	ld de, $6570
-	ld a, $24
+	ld de, PageList_ObjTable_Entry16
+	ld a, BANK(PageList_ObjTable_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $6F
@@ -1986,8 +1986,8 @@ PageList_SetActionCursor:: ; 24:4E85
 	cp a, b
 	jr nz, .l4EAD
 	ld hl, wSpriteSlot0
-	ld de, $6570
-	ld a, $24
+	ld de, PageList_ObjTable_Entry16
+	ld a, BANK(PageList_ObjTable_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $6F
@@ -2001,8 +2001,8 @@ PageList_SetActionCursor:: ; 24:4E85
 	cp a, b
 	jr nz, .l4ECE
 	ld hl, wSpriteSlot0
-	ld de, $6580
-	ld a, $24
+	ld de, PageList_ObjTable_Entry20
+	ld a, BANK(PageList_ObjTable_Entry20)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $6F
@@ -2016,8 +2016,8 @@ PageList_SetActionCursor:: ; 24:4E85
 	cp a, b
 	jr nz, .l4EEF
 	ld hl, wSpriteSlot0
-	ld de, $6590
-	ld a, $24
+	ld de, PageList_ObjTable_Entry24
+	ld a, BANK(PageList_ObjTable_Entry24)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $6F
@@ -2160,8 +2160,8 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, wSpriteSlot0
-	ld de, $6580
-	ld a, $24
+	ld de, PageList_ObjTable_Entry20
+	ld a, BANK(PageList_ObjTable_Entry20)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $07
@@ -2203,8 +2203,8 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	cp a, $00
 	jr nz, .l5039
 	ld hl, wSpriteSlot6
-	ld de, $65A0
-	ld a, $24
+	ld de, PageList_ObjTable_Entry28
+	ld a, BANK(PageList_ObjTable_Entry28)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $07
@@ -2219,8 +2219,8 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	cp a, $01
 	jr nz, .l5060
 	ld hl, wSpriteSlot5
-	ld de, $65A0
-	ld a, $24
+	ld de, PageList_ObjTable_Entry28
+	ld a, BANK(PageList_ObjTable_Entry28)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $07
@@ -2238,8 +2238,8 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	; [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4BCD-53FE by apply_coverage --split
 	ld hl, wSpriteSlot4
-	ld de, $65A0
-	ld a, $24
+	ld de, PageList_ObjTable_Entry28
+	ld a, BANK(PageList_ObjTable_Entry28)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $07
@@ -2257,8 +2257,8 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	cp a, $03
 	jr nz, .l50AE
 	ld hl, wSpriteSlot3
-	ld de, $65A0
-	ld a, $24
+	ld de, PageList_ObjTable_Entry28
+	ld a, BANK(PageList_ObjTable_Entry28)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $07
@@ -2276,8 +2276,8 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	cp a, $04
 	jr nz, .l50D5
 	ld hl, wSpriteSlot2
-	ld de, $65A0
-	ld a, $24
+	ld de, PageList_ObjTable_Entry28
+	ld a, BANK(PageList_ObjTable_Entry28)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $07
@@ -2292,8 +2292,8 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	cp a, $05
 	jr nz, .l50FC
 	ld hl, wSpriteSlot1
-	ld de, $65A0
-	ld a, $24
+	ld de, PageList_ObjTable_Entry28
+	ld a, BANK(PageList_ObjTable_Entry28)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $07
@@ -2547,8 +2547,8 @@ PageList_DeleteSlot:: ; 24:51CB
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, wSpriteSlot0
-	ld de, $6590
-	ld a, $24
+	ld de, PageList_ObjTable_Entry24
+	ld a, BANK(PageList_ObjTable_Entry24)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $07
@@ -2585,8 +2585,8 @@ PageList_DeleteSlot:: ; 24:51CB
 	cp a, $00
 	jr nz, .l52E3
 	ld hl, wSpriteSlot6
-	ld de, $65B0
-	ld a, $24
+	ld de, PageList_ObjTable_Entry32
+	ld a, BANK(PageList_ObjTable_Entry32)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $07
@@ -2601,8 +2601,8 @@ PageList_DeleteSlot:: ; 24:51CB
 	cp a, $01
 	jr nz, .l530A
 	ld hl, wSpriteSlot5
-	ld de, $65B0
-	ld a, $24
+	ld de, PageList_ObjTable_Entry32
+	ld a, BANK(PageList_ObjTable_Entry32)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $07
@@ -2620,8 +2620,8 @@ PageList_DeleteSlot:: ; 24:51CB
 	cp a, $02
 	jr nz, .l5331
 	ld hl, wSpriteSlot4
-	ld de, $65B0
-	ld a, $24
+	ld de, PageList_ObjTable_Entry32
+	ld a, BANK(PageList_ObjTable_Entry32)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $07
@@ -2636,8 +2636,8 @@ PageList_DeleteSlot:: ; 24:51CB
 	cp a, $03
 	jr nz, .l5358
 	ld hl, wSpriteSlot3
-	ld de, $65B0
-	ld a, $24
+	ld de, PageList_ObjTable_Entry32
+	ld a, BANK(PageList_ObjTable_Entry32)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $07
@@ -2652,8 +2652,8 @@ PageList_DeleteSlot:: ; 24:51CB
 	cp a, $04
 	jr nz, .l537F
 	ld hl, wSpriteSlot2
-	ld de, $65B0
-	ld a, $24
+	ld de, PageList_ObjTable_Entry32
+	ld a, BANK(PageList_ObjTable_Entry32)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $07
@@ -2668,8 +2668,8 @@ PageList_DeleteSlot:: ; 24:51CB
 	cp a, $05
 	jr nz, .l53A6
 	ld hl, wSpriteSlot1
-	ld de, $65B0
-	ld a, $24
+	ld de, PageList_ObjTable_Entry32
+	ld a, BANK(PageList_ObjTable_Entry32)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $07

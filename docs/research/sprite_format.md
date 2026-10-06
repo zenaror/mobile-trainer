@@ -12,7 +12,7 @@ Status words as in `STYLE.md`.  The chain of the data (every pointer lands where
 
 | question | result | status |
 |---|---|---|
-| object table entry | 4 bytes: `dw frame_table, dw script`; entry used = `DE + 4 * (id & $7F)` | CONFIRMED (00:0AB8-0ABF, 0AC5-0ACA, 0ACE-0AD4) |
+| object table entry | 4 bytes: `dw frame_table, dw script`; entry used = `DE + 4 * (id & $3F)` (`(id & $7F) * 4` is kept in 8 bits: the carry of the two `add a, a` is lost, so an id of 64-127 reads the entry of id - 64; no site uses one) | CONFIRMED (00:0AB8-0ABF, 0AC5-0ACA, 0ACE-0AD4) |
 | bank of the pointers | none stored: the ROM bank passed in `A` to `Sprite_InitSlot` is selected (`ld [$2100],a`, 00:0A8F) and stored at slot+0E; all four structures are read from that bank | CONFIRMED (00:0A82-0AB7 and 0AA1-0AA7; 00:097D-098A: slot+0E is fed to `BankSwitch_B` before each slot is stepped) |
 | frame table | array of `dw`, word *k* = address of the frame record of frame index *k* (`HL = table + 2*index`) | CONFIRMED (00:0B91-0B99) |
 | frame table length | not stored; implied | PROBABLE (see section 4) |
@@ -56,10 +56,10 @@ Sprite_UpdateAll is followed by `VBlank_WaitAndService` in the wait loops that c
 
 ```
 entry (4 bytes)   dw FrameTable, dw Script
-table             entry k at base + 4k;  k = object id & $7F
+table             entry k at base + 4k;  k = object id & $3F (the id & $7F of earlier notes is wrong for ids of 64 and above: 00:0ABB-0AC4 loses the carry)
 ```
 
-* `Sprite_LoadObjectEntry` (00:0AB8): `id & $7F`, times 4, added to `DE`; word 0 -> slot+02/03, word 1 -> slot+06/07; then `inc bc` past the script's count byte and
+* `Sprite_LoadObjectEntry` (00:0AB8): `id & $7F`, times 4 **in 8 bits** (so `id & $3F` in effect), added to `DE`; word 0 -> slot+02/03, word 1 -> slot+06/07; then `inc bc` past the script's count byte and
   script byte 1 / 2 (first frame index, first delay) -> slot+04/05; slot+08 = 0, slot+09 = 0, slot+0A = `$FF`; the whole id (bit 7 included) -> slot+0F.  CONFIRMED.
 * The id selects the pair (frame table, script) and nothing else does: in the walked data the pair is 1:1 (no frame table with two scripts, no script with two frame tables).
   CONFIRMED for the data of this ROM (`sprite_chain_check.py`).

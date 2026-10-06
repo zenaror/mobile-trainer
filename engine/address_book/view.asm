@@ -194,48 +194,48 @@ AbookView_SetupScreen:: ; 2F:51C1
 	ld bc, $0040
 	ld de, wPaletteBufObj
 	ld hl, Palette_AddrBookEntry_Obj
-	ld a, $2C
+	ld a, BANK(Palette_AddrBookEntry_Obj)
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_AddrBookEntry_Bg
-	ld a, $2C
+	ld a, BANK(Palette_AddrBookEntry_Bg)
 	farcall Palette_LoadToBuffer
 	ld de, $9301
 	ld hl, Gfx_AbookView_Tiles9300Vb1
-	ld a, $29
+	ld a, BANK(Gfx_AbookView_Tiles9300Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9701
 	ld hl, Gfx_AbookView_Tiles9700Vb1
-	ld a, $29
+	ld a, BANK(Gfx_AbookView_Tiles9700Vb1)
 	ld b, $98
 	ld c, $04
 	farcall Gfx_StartHDMAWithService
 	ld de, $8F00
 	ld hl, Gfx_AddrBookEntry_Tiles8F00
-	ld a, $2A
+	ld a, BANK(Gfx_AddrBookEntry_Tiles8F00)
 	ld b, $97
 	ld c, $0E
 	farcall Gfx_StartHDMAWithService
 	ld de, $8000
 	ld hl, Gfx_AddrBookEntry_Tiles8000
-	ld a, $2A
+	ld a, BANK(Gfx_AddrBookEntry_Tiles8000)
 	ld b, $97
 	ld c, $0B
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Data_AddrBookEntry_TilemapAttr
-	ld a, $2C
+	ld a, BANK(Data_AddrBookEntry_TilemapAttr)
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	farcall LCDOn
 	ld hl, wSpriteSlot1
 	ld de, Table_Abook_ViewCursorAnims
-	ld a, $2F
+	ld a, BANK(Table_Abook_ViewCursorAnims)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $20

@@ -127,7 +127,7 @@ SoundTest_Run:: ; 1B:4040
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_DebugScreens1B
-	ld a, $1B
+	ld a, BANK(Palette_DebugScreens1B)
 	farcall Palette_LoadToBuffer
 	ld a, $80
 	ld bc, $0400
@@ -305,12 +305,12 @@ SoundTest_HandleDpad:: ; 1B:4261
 	ret
 
 SoundTest_LoadHelpText:: ; 1B:42C4
-	ld hl, $4314
+	ld hl, String_SoundTest_Help
 	ld de, wTileStage3
 	ld bc, $0010
 	ld a, $03
 	ldh [hTextTiles_DestBank], a
-	ld a, $1B
+	ld a, BANK(String_SoundTest_Help)
 	farcall TextTiles_RenderGrid
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]

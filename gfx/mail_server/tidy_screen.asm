@@ -102,18 +102,22 @@ Table_2E_76C0::
 	sprite_object_entry SpriteFrameTable_2E_77FA, SpriteScript_2E_7838 ; entry 1
 	sprite_object_entry SpriteFrameTable_2E_77FA, SpriteScript_2E_7838 ; entry 2
 	sprite_object_entry SpriteFrameTable_2E_77FA, SpriteScript_2E_7838 ; entry 3
+Table_MailServerMgr_ObjAnims_Entry4:: ; 2E:76D0
 	sprite_object_entry SpriteFrameTable_2E_783D, SpriteScript_2E_787B ; entry 4
 	sprite_object_entry SpriteFrameTable_2E_783D, SpriteScript_2E_787B ; entry 5
 	sprite_object_entry SpriteFrameTable_2E_783D, SpriteScript_2E_787B ; entry 6
 	sprite_object_entry SpriteFrameTable_2E_783D, SpriteScript_2E_787B ; entry 7
+Table_MailServerMgr_ObjAnims_Entry8:: ; 2E:76E0
 	sprite_object_entry SpriteFrameTable_2E_7880, SpriteScript_2E_78BE ; entry 8
 	sprite_object_entry SpriteFrameTable_2E_7880, SpriteScript_2E_78BE ; entry 9
 	sprite_object_entry SpriteFrameTable_2E_7880, SpriteScript_2E_78BE ; entry 10
 	sprite_object_entry SpriteFrameTable_2E_7880, SpriteScript_2E_78BE ; entry 11
+Table_MailServerMgr_ObjAnims_Entry12:: ; 2E:76F0
 	sprite_object_entry SpriteFrameTable_2E_78C3, SpriteScript_2E_7919 ; entry 12
 	sprite_object_entry SpriteFrameTable_2E_78C3, SpriteScript_2E_7919 ; entry 13
 	sprite_object_entry SpriteFrameTable_2E_78C3, SpriteScript_2E_7919 ; entry 14
 	sprite_object_entry SpriteFrameTable_2E_78C3, SpriteScript_2E_7919 ; entry 15
+Table_MailServerMgr_ObjAnims_Entry16:: ; 2E:7700
 	sprite_object_entry MailServerMgr_ObjAnimData_2E_7921, SpriteScript_2E_7957 ; entry 16
 	sprite_object_entry MailServerMgr_ObjAnimData_2E_7921, SpriteScript_2E_7957 ; entry 17
 	sprite_object_entry MailServerMgr_ObjAnimData_2E_7921, SpriteScript_2E_7957 ; entry 18

@@ -51,7 +51,7 @@ Function_55_5BA2::
 	ldh [rWY], a
 	ld de, $8001
 	ld hl, Data_5F_49D0
-	ld a, $5F
+	ld a, BANK(Data_5F_49D0)
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
@@ -67,7 +67,7 @@ Function_55_5BA2::
 	ld bc, $0010
 	ld de, wPaletteBufBg + $30
 	ld hl, Palette_5F_4CD0
-	ld a, $5F
+	ld a, BANK(Palette_5F_4CD0)
 	farcall Palette_LoadToBuffer
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -103,7 +103,7 @@ Function_55_5BA2::
 	call Kbd_LoadPageGraphics
 	ld hl, wSpriteSlot11
 	ld de, Kbd_ObjTable
-	ld a, $5F
+	ld a, BANK(Kbd_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, $FF
@@ -188,8 +188,8 @@ Kbd_Run:: ; 55:5C8F
 	or a, a
 	jr z, .l5D36
 	ld hl, wSpriteSlot13
-	ld de, $4D40
-	ld a, $5F
+	ld de, Kbd_ObjTable_Entry18
+	ld a, BANK(Kbd_ObjTable_Entry18)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7870
@@ -964,7 +964,7 @@ Function_55_6190::
 	push bc
 	ld hl, wSpriteSlot11
 	ld de, Kbd_ObjTable
-	ld a, $5F
+	ld a, BANK(Kbd_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	pop bc
@@ -973,7 +973,7 @@ Function_55_6190::
 	push bc
 	ld hl, wSpriteSlot11
 	ld de, Kbd_ObjTable
-	ld a, $5F
+	ld a, BANK(Kbd_ObjTable)
 	ld b, $82
 	farcall Sprite_InitSlot
 	pop bc
@@ -1059,15 +1059,15 @@ Function_55_6190::
 .l624F ; 55:624F
 	; [CONFIRMED] 33 insn(s); 33 executed (in up to 11/18 scenarios)
 	ld hl, wSpriteSlot10
-	ld de, $4D18
-	ld a, $5F
+	ld de, Kbd_ObjTable_Entry8
+	ld a, BANK(Kbd_ObjTable_Entry8)
 	ld b, $85
 	farcall Sprite_InitSlot
 	jr .l6271
 .l6261 ; 55:6261
 	ld hl, wSpriteSlot10
-	ld de, $4D18
-	ld a, $5F
+	ld de, Kbd_ObjTable_Entry8
+	ld a, BANK(Kbd_ObjTable_Entry8)
 	ld b, $84
 	farcall Sprite_InitSlot
 .l6271 ; 55:6271
@@ -1536,7 +1536,7 @@ Function_55_65DA::
 	; executed call/far call
 	ld hl, wSpriteSlot11
 	ld de, Kbd_ObjTable
-	ld a, $5F
+	ld a, BANK(Kbd_ObjTable)
 	ld b, $82
 	farcall Sprite_InitSlot
 .l65EA ; 55:65EA
@@ -1647,8 +1647,8 @@ Kbd_UpdatePickerSprites:: ; 55:667B
 	set 7, a
 	ld b, a
 	ld hl, wSpriteSlot10
-	ld de, $4D18
-	ld a, $5F
+	ld de, Kbd_ObjTable_Entry8
+	ld a, BANK(Kbd_ObjTable_Entry8)
 	farcall Sprite_InitSlot
 	ld hl, $66C3
 	ld a, [wKbdInputMode]
@@ -1711,7 +1711,7 @@ Label_55_66EF::
 	ld bc, $0D14
 	ld de, wScreenTileMap + $240
 	ld hl, Tilemap_Kbd_T0
-	ld a, $5F
+	ld a, BANK(Tilemap_Kbd_T0)
 	farcall Tilemap_CopyRectAndAttr
 	call Kbd_UploadPanelMap13Rows
 	ret
@@ -1720,14 +1720,14 @@ Kbd_LoadPageGraphics_T1:: ; 55:6704
 Label_55_6704::
 	ld de, $8800
 	ld hl, Gfx_Kbd_T1_Tiles8800
-	ld a, $5E
+	ld a, BANK(Gfx_Kbd_T1_Tiles8800)
 	ld b, $98
 	ld c, $02
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0D14
 	ld de, wScreenTileMap + $240
 	ld hl, Tilemap_Kbd_T1
-	ld a, $5F
+	ld a, BANK(Tilemap_Kbd_T1)
 	farcall Tilemap_CopyRectAndAttr
 	call Kbd_UploadPanelMap13Rows
 	ret
@@ -1739,7 +1739,7 @@ Label_55_672B::
 	ld bc, $0D14
 	ld de, wScreenTileMap + $240
 	ld hl, Tilemap_Kbd_T2
-	ld a, $5F
+	ld a, BANK(Tilemap_Kbd_T2)
 	farcall Tilemap_CopyRectAndAttr
 	call Kbd_UploadPanelMap13Rows
 	ret
@@ -1749,7 +1749,7 @@ Label_55_6740::
 	ld bc, $0D14
 	ld de, wScreenTileMap + $240
 	ld hl, Tilemap_Kbd_T3
-	ld a, $5F
+	ld a, BANK(Tilemap_Kbd_T3)
 	farcall Tilemap_CopyRectAndAttr
 	call Kbd_UploadPanelMap13Rows
 	ret
@@ -1759,13 +1759,13 @@ Label_55_6755::
 	; [CONFIRMED] 24 insn(s); 24 executed (in up to 7/18 scenarios)
 	ld de, $8801
 	ld hl, Gfx_Kbd_T4_Tiles8800Vb1
-	ld a, $5D
+	ld a, BANK(Gfx_Kbd_T4_Tiles8800Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Gfx_Kbd_T4_Tiles8C00Vb1
-	ld a, $5D
+	ld a, BANK(Gfx_Kbd_T4_Tiles8C00Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
@@ -1777,7 +1777,7 @@ Label_55_6755::
 	ld bc, $0D14
 	ld de, wScreenTileMap + $240
 	ld hl, Tilemap_Kbd_T4
-	ld a, $5F
+	ld a, BANK(Tilemap_Kbd_T4)
 	farcall Tilemap_CopyRectAndAttr
 	call Kbd_UploadPanelMap13Rows
 	ret
@@ -1788,26 +1788,26 @@ Label_55_679F::
 	; hops 0; run starts at an entry of the code-pointer table at 55:66D9 [executed in 4 scenarios]
 	ld de, $8801
 	ld hl, Gfx_Kbd_T5_Tiles8800Vb1
-	ld a, $5F
+	ld a, BANK(Gfx_Kbd_T5_Tiles8800Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Gfx_Kbd_T5_Tiles8C00Vb1
-	ld a, $5F
+	ld a, BANK(Gfx_Kbd_T5_Tiles8C00Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Gfx_Kbd_T5_Tiles9000Vb1
-	ld a, $5F
+	ld a, BANK(Gfx_Kbd_T5_Tiles9000Vb1)
 	ld b, $97
 	ld c, $10
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0008
 	ld de, wPaletteBufBg + $08
 	ld hl, Palette_Kbd_T5_Bg1
-	ld a, $5F
+	ld a, BANK(Palette_Kbd_T5_Bg1)
 	farcall Palette_LoadToBuffer
 	ld bc, $0010
 	ld de, wPaletteBufBg + $30
@@ -1851,7 +1851,7 @@ Label_55_679F::
 	ld bc, $0D14
 	ld de, wScreenTileMap + $240
 	ld hl, Tilemap_Kbd_T5
-	ld a, $5F
+	ld a, BANK(Tilemap_Kbd_T5)
 	farcall Tilemap_CopyRectAndAttr
 	call Kbd_UploadPanelMap13Rows
 	ret
@@ -1891,19 +1891,19 @@ Label_55_6871::
 	; [CONFIRMED] 57 insn(s); 57 executed (in up to 2/18 scenarios)
 	ld de, $8801
 	ld hl, Gfx_Kbd_T6_Page0_Tiles8800Vb1
-	ld a, $66
+	ld a, BANK(Gfx_Kbd_T6_Page0_Tiles8800Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Gfx_Kbd_T6_Page0_Tiles8C00Vb1
-	ld a, $66
+	ld a, BANK(Gfx_Kbd_T6_Page0_Tiles8C00Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Gfx_Kbd_T6_Page0_Tiles9000Vb1
-	ld a, $66
+	ld a, BANK(Gfx_Kbd_T6_Page0_Tiles9000Vb1)
 	ld b, $95
 	ld c, $24
 	farcall Gfx_StartHDMAWithService
@@ -1913,19 +1913,19 @@ Kbd_LoadPageGraphics_T6_Page1:: ; 55:68AA
 Label_55_68AA::
 	ld de, $8801
 	ld hl, Gfx_Kbd_T6_Page1_Tiles8800Vb1
-	ld a, $66
+	ld a, BANK(Gfx_Kbd_T6_Page1_Tiles8800Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Gfx_Kbd_T6_Page1_Tiles8C00Vb1
-	ld a, $66
+	ld a, BANK(Gfx_Kbd_T6_Page1_Tiles8C00Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Gfx_Kbd_T6_Page1_Tiles9000Vb1
-	ld a, $66
+	ld a, BANK(Gfx_Kbd_T6_Page1_Tiles9000Vb1)
 	ld b, $95
 	ld c, $24
 	farcall Gfx_StartHDMAWithService
@@ -1935,19 +1935,19 @@ Kbd_LoadPageGraphics_T6_Page2:: ; 55:68E3
 Label_55_68E3::
 	ld de, $8801
 	ld hl, Gfx_Kbd_T6_Page2_Tiles8800Vb1
-	ld a, $66
+	ld a, BANK(Gfx_Kbd_T6_Page2_Tiles8800Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Gfx_Kbd_T6_Page2_Tiles8C00Vb1
-	ld a, $66
+	ld a, BANK(Gfx_Kbd_T6_Page2_Tiles8C00Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Gfx_Kbd_T6_Page2_Tiles9000Vb1
-	ld a, $66
+	ld a, BANK(Gfx_Kbd_T6_Page2_Tiles9000Vb1)
 	ld b, $95
 	ld c, $24
 	farcall Gfx_StartHDMAWithService
@@ -1959,8 +1959,8 @@ Label_55_691C::
 	; the far call of the tile uploader that follows (region 6928); its address $691C is the last
 	; word of the code-pointer table before it (55:686F word $691C) [executed in 2 scenarios]
 	ld de, $8801
-	ld hl, $5EC0
-	ld a, $66
+	ld hl, Gfx_Kbd_T6_Page3_Tiles8800Vb1
+	ld a, BANK(Gfx_Kbd_T6_Page3_Tiles8800Vb1)
 	ld b, $92
 	ld c, $40
 
@@ -1970,13 +1970,13 @@ Label_55_691C::
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Gfx_Kbd_T6_Page3_Tiles8C00Vb1
-	ld a, $66
+	ld a, BANK(Gfx_Kbd_T6_Page3_Tiles8C00Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Gfx_Kbd_T6_Page3_Tiles9000Vb1
-	ld a, $66
+	ld a, BANK(Gfx_Kbd_T6_Page3_Tiles9000Vb1)
 	ld b, $95
 	ld c, $24
 	farcall Gfx_StartHDMAWithService
@@ -1990,7 +1990,7 @@ Label_55_6952::
 	ld bc, $0B14
 	ld de, wScreenTileMap + $240
 	ld hl, Tilemap_Kbd_T6And78_PageTail
-	ld a, $66
+	ld a, BANK(Tilemap_Kbd_T6And78_PageTail)
 	farcall Tilemap_CopyRectAndAttr
 	call Kbd_UploadPanelMap11Rows
 	ret
@@ -2029,19 +2029,19 @@ Label_55_6984::
 	; [CONFIRMED] 57 insn(s); 57 executed (in up to 4/18 scenarios)
 	ld de, $8801
 	ld hl, Gfx_Kbd_T78_Page0_Tiles8800Vb1
-	ld a, $62
+	ld a, BANK(Gfx_Kbd_T78_Page0_Tiles8800Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Gfx_Kbd_T78_Page0_Tiles8C00Vb1
-	ld a, $62
+	ld a, BANK(Gfx_Kbd_T78_Page0_Tiles8C00Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Gfx_Kbd_T78_Page0_Tiles9000Vb1
-	ld a, $62
+	ld a, BANK(Gfx_Kbd_T78_Page0_Tiles9000Vb1)
 	ld b, $95
 	ld c, $24
 	farcall Gfx_StartHDMAWithService
@@ -2051,19 +2051,19 @@ Kbd_LoadPageGraphics_T78_Page1:: ; 55:69BD
 Label_55_69BD::
 	ld de, $8801
 	ld hl, Gfx_Kbd_T78_Page1_Tiles8800Vb1
-	ld a, $62
+	ld a, BANK(Gfx_Kbd_T78_Page1_Tiles8800Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Gfx_Kbd_T78_Page1_Tiles8C00Vb1
-	ld a, $62
+	ld a, BANK(Gfx_Kbd_T78_Page1_Tiles8C00Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Gfx_Kbd_T78_Page1_Tiles9000Vb1
-	ld a, $62
+	ld a, BANK(Gfx_Kbd_T78_Page1_Tiles9000Vb1)
 	ld b, $95
 	ld c, $24
 	farcall Gfx_StartHDMAWithService
@@ -2073,19 +2073,19 @@ Kbd_LoadPageGraphics_T78_Page2:: ; 55:69F6
 Label_55_69F6::
 	ld de, $8801
 	ld hl, Gfx_Kbd_T78_Page2_Tiles8800Vb1
-	ld a, $62
+	ld a, BANK(Gfx_Kbd_T78_Page2_Tiles8800Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Gfx_Kbd_T78_Page2_Tiles8C00Vb1
-	ld a, $62
+	ld a, BANK(Gfx_Kbd_T78_Page2_Tiles8C00Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Gfx_Kbd_T78_Page2_Tiles9000Vb1
-	ld a, $62
+	ld a, BANK(Gfx_Kbd_T78_Page2_Tiles9000Vb1)
 	ld b, $95
 	ld c, $24
 	farcall Gfx_StartHDMAWithService
@@ -2097,8 +2097,8 @@ Label_55_6A2F::
 	; the tile uploader that follows at 6A3B; its address is the last word $6A2F of the table at
 	; 55:6982 [executed in 4 scenarios]
 	ld de, $8801
-	ld hl, $6100
-	ld a, $62
+	ld hl, Gfx_Kbd_T78_Page3_Tiles8800Vb1
+	ld a, BANK(Gfx_Kbd_T78_Page3_Tiles8800Vb1)
 	ld b, $92
 	ld c, $40
 
@@ -2108,13 +2108,13 @@ Label_55_6A2F::
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Gfx_Kbd_T78_Page3_Tiles8C00Vb1
-	ld a, $62
+	ld a, BANK(Gfx_Kbd_T78_Page3_Tiles8C00Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Gfx_Kbd_T78_Page3_Tiles9000Vb1
-	ld a, $62
+	ld a, BANK(Gfx_Kbd_T78_Page3_Tiles9000Vb1)
 	ld b, $95
 	ld c, $24
 	farcall Gfx_StartHDMAWithService
@@ -2128,7 +2128,7 @@ Label_55_6A65::
 	ld bc, $0B14
 	ld de, wScreenTileMap + $240
 	ld hl, Tilemap_Kbd_T6And78_PageTail
-	ld a, $66
+	ld a, BANK(Tilemap_Kbd_T6And78_PageTail)
 	farcall Tilemap_CopyRectAndAttr
 	call Kbd_UploadPanelMap11Rows
 	ret
@@ -2137,26 +2137,26 @@ Kbd_LoadPageGraphics_T9:: ; 55:6A7E
 Label_55_6A7E::
 	ld de, $8801
 	ld hl, Gfx_Kbd_T9_Tiles8800Vb1
-	ld a, $5F
+	ld a, BANK(Gfx_Kbd_T9_Tiles8800Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Gfx_Kbd_T9_Tiles8C00Vb1
-	ld a, $5F
+	ld a, BANK(Gfx_Kbd_T9_Tiles8C00Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Gfx_Kbd_T9_Tiles9000Vb1
-	ld a, $5F
+	ld a, BANK(Gfx_Kbd_T9_Tiles9000Vb1)
 	ld b, $98
 	ld c, $01
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0B14
 	ld de, wScreenTileMap + $240
 	ld hl, Tilemap_Kbd_T9
-	ld a, $5F
+	ld a, BANK(Tilemap_Kbd_T9)
 	farcall Tilemap_CopyRectAndAttr
 	call Kbd_UploadPanelMap11Rows
 	ret
@@ -2165,14 +2165,14 @@ Kbd_LoadPageGraphics_T10:: ; 55:6AC9
 Label_55_6AC9::
 	ld de, $8A81
 	ld hl, Gfx_Kbd_T10_Tiles8A80Vb1
-	ld a, $66
+	ld a, BANK(Gfx_Kbd_T10_Tiles8A80Vb1)
 	ld b, $96
 	ld c, $19
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0614
 	ld de, wScreenTileMap + $240
 	ld hl, Tilemap_Kbd_T10
-	ld a, $66
+	ld a, BANK(Tilemap_Kbd_T10)
 	farcall Tilemap_CopyRectAndAttr
 	call Kbd_UploadPanelMap11Rows
 	ret
@@ -2302,8 +2302,8 @@ Kbd_ShowPageIndicator:: ; 55:6BB2
 	inc a
 	ld b, a
 	ld hl, wSpriteSlot12
-	ld de, $4D04
-	ld a, $5F
+	ld de, Kbd_ObjTable_Entry3
+	ld a, BANK(Kbd_ObjTable_Entry3)
 	farcall Sprite_InitSlot
 	ld de, $8808
 	ld hl, wSpriteSlot12

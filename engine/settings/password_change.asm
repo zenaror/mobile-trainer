@@ -290,9 +290,9 @@ PasswordChange_State_Connect:: ; 67:5B0E
 	ld hl, $DEEE ; raw: scratch: the field is reused for the number to dial (Dial_CopySelectedNumber, PasswordChange_State_Connect), not the self page number
 	ld de, sPwdChg_ApiArgs + $08
 	call CopyString
-	ld hl, $5E77
+	ld hl, Net_GuestString
 	call CopyString
-	ld hl, $5E77
+	ld hl, Net_GuestString
 	call CopyString
 	ld hl, sPwdChg_ApiArgs
 	ld a, $3E
@@ -720,13 +720,13 @@ Function_67_5E7D::
 	ld hl, sPwdChg_LoginId
 	ld de, sPwdChg_PostBody
 	call StringAppend
-	ld hl, $5EBC
+	ld hl, Net_PasswdKey
 	ld de, sPwdChg_PostBody
 	call StringAppend
 	ld hl, wAcctPassword
 	ld de, sPwdChg_PostBody
 	call StringAppend
-	ld hl, $5EC5
+	ld hl, Net_NewPasswdKey
 	ld de, sPwdChg_PostBody
 	call StringAppend
 	ld hl, wAcctPasswordNew

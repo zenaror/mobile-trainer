@@ -31,46 +31,46 @@ MobileDict_Redraw:: ; 1A:4018
 	farcall Sprite_ResetAll
 	ld de, $8000
 	ld hl, Gfx_MobileDict_Tiles0
-	ld a, $1A
+	ld a, BANK(Gfx_MobileDict_Tiles0)
 	ld b, $95
 	ld c, $20
 	farcall Gfx_StartHDMAWithService
 	ld de, $8B01
 	ld hl, Gfx_MobileDict_Tiles1
-	ld a, $1A
+	ld a, BANK(Gfx_MobileDict_Tiles1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8F01
 	ld hl, Gfx_MobileDict_Tiles2
-	ld a, $1A
+	ld a, BANK(Gfx_MobileDict_Tiles2)
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_MobileDict_Bg
-	ld a, $1A
+	ld a, BANK(Palette_MobileDict_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_MobileDict_Screen
-	ld a, $1A
+	ld a, BANK(Tilemap_MobileDict_Screen)
 	farcall Tilemap_CopyRectAndAttr
 	ld hl, wSpriteSlot2
 	ld de, Objects_MobileDict
-	ld a, $1A
+	ld a, BANK(Objects_MobileDict)
 	ld b, $80
 	farcall Sprite_InitSlot
 	ld hl, wSpriteSlot3
 	ld de, Objects_MobileDict
-	ld a, $1A
+	ld a, BANK(Objects_MobileDict)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld bc, $0040
 	ld de, wPaletteBufObj
-	ld hl, $53D0
-	ld a, $1A
+	ld hl, Palette_MobileDict_Obj
+	ld a, BANK(Palette_MobileDict_Obj)
 	farcall Palette_LoadToBuffer
 	ld a, $00
 	ld bc, $0A10
@@ -412,9 +412,9 @@ MobileDict_UpdateTabSprites:: ; 1A:4317
 	ld b, [hl]
 	inc hl
 	push hl
-	ld de, $55A8
+	ld de, Objects_MobileDict_Entry2
 	ld hl, wSpriteSlot4
-	ld a, $1A
+	ld a, BANK(Objects_MobileDict_Entry2)
 	farcall Sprite_InitSlot
 	pop hl
 	ld a, [hl]

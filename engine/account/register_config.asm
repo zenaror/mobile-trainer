@@ -31,13 +31,13 @@ Registration_WriteConfig_Setup:: ; 68:6AF6
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Gfx_Registration_WriteConfig_Tiles9000Vb1
-	ld a, $5D
+	ld a, BANK(Gfx_Registration_WriteConfig_Tiles9000Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8000
 	ld hl, Gfx_Registration_WriteConfig_Tiles8000
-	ld a, $5D
+	ld a, BANK(Gfx_Registration_WriteConfig_Tiles8000)
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
@@ -60,8 +60,8 @@ Registration_WriteConfig_Setup:: ; 68:6AF6
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	ld hl, wSpriteSlot0
-	ld de, $7318
-	ld a, $5D
+	ld de, Table_5D_7318
+	ld a, BANK(Table_5D_7318)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1838
@@ -277,7 +277,7 @@ Config_BuildImageFromAccount:: ; 68:6CF0
 	ld hl, wAcctMailSubdomain
 	ld de, wAcctHostScratch
 	call StringAppend
-	ld hl, $6E0E
+	ld hl, Config_DionDomainSuffix
 	ld de, wAcctHostScratch
 	call StringAppend
 	ld hl, wAcctHostScratch
@@ -290,7 +290,7 @@ Config_BuildImageFromAccount:: ; 68:6CF0
 	ld hl, wAcctMailSubdomain
 	ld de, wAcctHostScratch
 	call StringAppend
-	ld hl, $6E0E
+	ld hl, Config_DionDomainSuffix
 	ld de, wAcctHostScratch
 	call StringAppend
 	ld hl, wAcctHostScratch

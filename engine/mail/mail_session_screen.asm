@@ -226,70 +226,70 @@ Function_26_5168::
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_CommProgress_Bg
-	ld a, $22
+	ld a, BANK(Palette_CommProgress_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, wPaletteBufObj
-	ld hl, $5C90
-	ld a, $22
+	ld hl, Palette_CommProgress_Obj
+	ld a, BANK(Palette_CommProgress_Obj)
 	farcall Palette_LoadToBuffer
 	ld de, $8001
 	ld hl, MailSession_Tiles_59E0
-	ld a, $26
+	ld a, BANK(MailSession_Tiles_59E0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8401
 	ld hl, MailSession_Tiles_5DE0
-	ld a, $26
+	ld a, BANK(MailSession_Tiles_5DE0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8801
 	ld hl, MailSession_Tiles_61E0
-	ld a, $26
+	ld a, BANK(MailSession_Tiles_61E0)
 	ld b, $97
 	ld c, $10
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, MailSession_Tiles_62E0
-	ld a, $26
+	ld a, BANK(MailSession_Tiles_62E0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, MailSession_Tiles_66E0
-	ld a, $26
+	ld a, BANK(MailSession_Tiles_66E0)
 	ld b, $97
 	ld c, $10
 	farcall Gfx_StartHDMAWithService
 	ld de, $8000
 	ld hl, MailSession_Tiles_67E0
-	ld a, $26
+	ld a, BANK(MailSession_Tiles_67E0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8400
 	ld hl, MailSession_Tiles_6BE0
-	ld a, $26
+	ld a, BANK(MailSession_Tiles_6BE0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8800
 	ld hl, MailSession_Tiles_6FE0
-	ld a, $26
+	ld a, BANK(MailSession_Tiles_6FE0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufObj
-	ld hl, $7520
-	ld a, $27
+	ld hl, MailScreens_ObjPalette_7520
+	ld a, BANK(MailScreens_ObjPalette_7520)
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_CommProgress_Screen
-	ld a, $22
+	ld a, BANK(Tilemap_CommProgress_Screen)
 	farcall Tilemap_CopyRectAndAttr
 	di
 	ldh a, [rLCDC]
@@ -428,7 +428,7 @@ MailSession_DrawMailCounts:: ; 26:537C
 	push bc
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $26
+	ld a, BANK(MailSession_Txt_Total)
 	ld hl, $0200
 	add hl, bc
 	ld d, h
@@ -471,7 +471,7 @@ MailSession_DrawMailCounts:: ; 26:537C
 	pop hl
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $26
+	ld a, BANK(MailSession_Txt_Counter)
 	ld hl, $0200
 	add hl, bc
 	ld d, h
@@ -505,7 +505,7 @@ MailSession_DrawMailCounts:: ; 26:537C
 	pop hl
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $26
+	ld a, BANK(MailSession_Txt_Checking)
 	ld hl, $0200
 	add hl, bc
 	ld d, h
@@ -932,7 +932,7 @@ MailSession_ShowMsgSending:: ; 26:5697
 	push bc
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $26
+	ld a, BANK(MailSession_Msg_Sending)
 	ld bc, wTileStage2 + $400
 	ld de, wTileStage2 + $600
 	ld hl, MailSession_Msg_Sending
@@ -956,7 +956,7 @@ Function_26_56DB::
 	push bc
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $26
+	ld a, BANK(MailSession_Msg_Receiving)
 	ld bc, wTileStage2 + $400
 	ld de, wTileStage2 + $600
 	ld hl, MailSession_Msg_Receiving
@@ -981,10 +981,10 @@ Function_26_571F::
 	push bc
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $26
+	ld a, BANK(MailSession_Msg_Sent)
 	ld bc, wTileStage2 + $400
 	ld de, wTileStage2 + $600
-	ld hl, $573A
+	ld hl, MailSession_Msg_Sent
 
 	; [PROBABLE] 4 insn(s) reached by static flow only; seeds: site x4; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
@@ -1008,10 +1008,10 @@ Function_26_5763::
 	push bc
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $26
+	ld a, BANK(MailSession_Msg_ReceiveDone)
 	ld bc, wTileStage2 + $400
 	ld de, wTileStage2 + $600
-	ld hl, $577E
+	ld hl, MailSession_Msg_ReceiveDone
 
 	; [PROBABLE] 4 insn(s) reached by static flow only; seeds: site x4; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
@@ -1035,7 +1035,7 @@ Function_26_57A7::
 	push bc
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $26
+	ld a, BANK(MailSession_Msg_NoMail)
 	ld bc, wTileStage2 + $400
 	ld de, wTileStage2 + $600
 	ld hl, MailSession_Msg_NoMail
@@ -1058,7 +1058,7 @@ MailSession_ShowMsgCannotReceive:: ; 26:57EB
 	push bc
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $26
+	ld a, BANK(MailSession_Msg_CannotReceive)
 	ld bc, wTileStage2 + $400
 	ld de, wTileStage2 + $600
 	ld hl, MailSession_Msg_CannotReceive
@@ -1081,7 +1081,7 @@ MailSession_ShowMsgReceived:: ; 26:582F
 	push bc
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $26
+	ld a, BANK(MailSession_Msg_Received)
 	ld bc, wTileStage2 + $400
 	ld de, wTileStage2 + $600
 	ld hl, MailSession_Msg_Received
@@ -1105,7 +1105,7 @@ Function_26_5873::
 	push bc
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $26
+	ld a, BANK(MailSession_Msg_Blank)
 	ld bc, wTileStage2 + $400
 	ld de, wTileStage2 + $600
 	ld hl, MailSession_Msg_Blank
@@ -1180,7 +1180,7 @@ MailSession_UpdateTimerDisplay:: ; 26:58DC
 	ld [wMailSessionBlock + 7], a
 	ld de, $9401
 	ld hl, MailSession_Tiles_66E0
-	ld a, $26
+	ld a, BANK(MailSession_Tiles_66E0)
 	ld b, $98
 	ld c, $01
 	farcall Gfx_StartHDMAWithService

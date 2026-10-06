@@ -4,7 +4,7 @@
 
 SECTION "gfx/mail/compose_objects", ROMX
 
-; ---- words $6290-$62C0 (48 bytes) [PROBABLE] animation entry table: 12 entries of 4 bytes (frame-table pointer, script pointer) in the format of the sprite-slot initialiser 00:0A82/0AB8 (4-byte entry at DE+4*(A&$7F): word -> slot[2..3] frame table, word -> slot[6..7] script); each animation appears 4 times in a row (4 identical entries)
+; ---- words $6290-$62C0 (48 bytes) [PROBABLE] animation entry table: 12 entries of 4 bytes (frame-table pointer, script pointer) in the format of the sprite-slot initialiser 00:0A82/0AB8 (4-byte entry at DE+4*(A&$3F): word -> slot[2..3] frame table, word -> slot[6..7] script); each animation appears 4 times in a row (4 identical entries)
 
 Table_29_6290:: ; 29:6290
 	dw Table_29_62C0, Data_29_62EF, Table_29_62C0, Data_29_62EF, Table_29_62C0, Data_29_62EF, Table_29_62C0, Data_29_62EF
@@ -75,7 +75,7 @@ Data_29_6343:: ; 29:6343
 ; ---- zero $6348-$6350 (8 bytes) [PROBABLE] zero padding inside the animation-resource block
 	ds $8, $00
 
-; ---- words $6350-$63F0 (160 bytes) [PROBABLE] animation entry table: 40 entries of 4 bytes (frame-table pointer, script pointer) in the format of the sprite-slot initialiser 00:0A82/0AB8 (4-byte entry at DE+4*(A&$7F): word -> slot[2..3] frame table, word -> slot[6..7] script); each animation appears 4 times in a row (4 identical entries)
+; ---- words $6350-$63F0 (160 bytes) [PROBABLE] animation entry table: 40 entries of 4 bytes (frame-table pointer, script pointer) in the format of the sprite-slot initialiser 00:0A82/0AB8 (4-byte entry at DE+4*(A&$3F): word -> slot[2..3] frame table, word -> slot[6..7] script); each animation appears 4 times in a row (4 identical entries)
 
 Table_MailBody_ObjectEntries:: ; 29:6350
 Table_29_6350::
@@ -83,30 +83,37 @@ Table_29_6350::
 	sprite_object_entry MailBody_29_Anim0Frames, MailBody_29_Anim0Script ; entry 1
 	sprite_object_entry MailBody_29_Anim0Frames, MailBody_29_Anim0Script ; entry 2
 	sprite_object_entry MailBody_29_Anim0Frames, MailBody_29_Anim0Script ; entry 3
+Table_MailBody_ObjectEntries_Entry4:: ; 29:6360
 	sprite_object_entry MailBody_29_Anim4Frames, MailBody_29_Anim4Script ; entry 4
 	sprite_object_entry MailBody_29_Anim4Frames, MailBody_29_Anim4Script ; entry 5
 	sprite_object_entry MailBody_29_Anim4Frames, MailBody_29_Anim4Script ; entry 6
 	sprite_object_entry MailBody_29_Anim4Frames, MailBody_29_Anim4Script ; entry 7
+Table_MailBody_ObjectEntries_Entry8:: ; 29:6370
 	sprite_object_entry MailBody_29_Anim8Frames, MailBody_29_Anim8Script ; entry 8
 	sprite_object_entry MailBody_29_Anim8Frames, MailBody_29_Anim8Script ; entry 9
 	sprite_object_entry MailBody_29_Anim8Frames, MailBody_29_Anim8Script ; entry 10
 	sprite_object_entry MailBody_29_Anim8Frames, MailBody_29_Anim8Script ; entry 11
+Table_MailBody_ObjectEntries_Entry12:: ; 29:6380
 	sprite_object_entry MailBody_29_Anim12Frames, MailBody_29_Anim12Script ; entry 12
 	sprite_object_entry MailBody_29_Anim12Frames, MailBody_29_Anim12Script ; entry 13
 	sprite_object_entry MailBody_29_Anim12Frames, MailBody_29_Anim12Script ; entry 14
 	sprite_object_entry MailBody_29_Anim12Frames, MailBody_29_Anim12Script ; entry 15
+Table_MailBody_ObjectEntries_Entry16:: ; 29:6390
 	sprite_object_entry MailBody_29_Anim16Frames, MailBody_29_Anim16Script ; entry 16
 	sprite_object_entry MailBody_29_Anim16Frames, MailBody_29_Anim16Script ; entry 17
 	sprite_object_entry MailBody_29_Anim16Frames, MailBody_29_Anim16Script ; entry 18
 	sprite_object_entry MailBody_29_Anim16Frames, MailBody_29_Anim16Script ; entry 19
+Table_MailBody_ObjectEntries_Entry20:: ; 29:63A0
 	sprite_object_entry MailBody_29_Anim20Frames, MailBody_29_Anim20Script ; entry 20
 	sprite_object_entry MailBody_29_Anim20Frames, MailBody_29_Anim20Script ; entry 21
 	sprite_object_entry MailBody_29_Anim20Frames, MailBody_29_Anim20Script ; entry 22
 	sprite_object_entry MailBody_29_Anim20Frames, MailBody_29_Anim20Script ; entry 23
+Table_MailBody_ObjectEntries_Entry24:: ; 29:63B0
 	sprite_object_entry MailBody_29_Anim24Frames, MailBody_29_Anim24Script ; entry 24
 	sprite_object_entry MailBody_29_Anim24Frames, MailBody_29_Anim24Script ; entry 25
 	sprite_object_entry MailBody_29_Anim24Frames, MailBody_29_Anim24Script ; entry 26
 	sprite_object_entry MailBody_29_Anim24Frames, MailBody_29_Anim24Script ; entry 27
+Table_MailBody_ObjectEntries_Entry28:: ; 29:63C0
 	sprite_object_entry MailBody_29_Anim28Frames, MailBody_29_Anim28Script ; entry 28
 	sprite_object_entry MailBody_29_Anim28Frames, MailBody_29_Anim28Script ; entry 29
 	sprite_object_entry MailBody_29_Anim28Frames, MailBody_29_Anim28Script ; entry 30

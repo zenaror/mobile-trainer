@@ -160,6 +160,7 @@ Data_5D_7200:: ; 5D:7200
 	db $69, $69, $69, $69, $69, $69, $69, $69
 
 ; ---- zero $7318-$731C (4 bytes) [PROBABLE] 4 x 00 (all bytes zero) between two read-data blocks
+Table_5D_7318:: ; 5D:7318
 	ds $4, $00
 
 ; ---- data $731C-$735D (65 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown

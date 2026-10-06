@@ -29,13 +29,13 @@ Function_68_766E::
 	call Sound_FrameService
 	ld de, $8801
 	ld hl, Gfx_Account_ResultPage_Tiles8800Vb1
-	ld a, $4B
+	ld a, BANK(Gfx_Account_ResultPage_Tiles8800Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Gfx_Account_ResultPage_Tiles8C00Vb1
-	ld a, $4B
+	ld a, BANK(Gfx_Account_ResultPage_Tiles8C00Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
@@ -48,7 +48,7 @@ Function_68_766E::
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_Account_ResultPage
-	ld a, $4B
+	ld a, BANK(Tilemap_Account_ResultPage)
 	farcall Tilemap_CopyRectAndAttr
 	call Account_ResultPage_DrawTimeDigits
 	call Account_ResultPage_PrintMessage

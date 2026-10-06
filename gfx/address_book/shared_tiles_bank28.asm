@@ -30,18 +30,22 @@ Table_28_5210::
 	sprite_object_entry AddrBookShared_ObjAnimData, SpriteScript_28_52A6 ; entry 1
 	sprite_object_entry AddrBookShared_ObjAnimData, SpriteScript_28_52A6 ; entry 2
 	sprite_object_entry AddrBookShared_ObjAnimData, SpriteScript_28_52A6 ; entry 3
+AddrBookShared_ObjTable_Entry4:: ; 28:5220
 	sprite_object_entry SpriteFrameTable_28_52AB, SpriteScript_28_52BE ; entry 4
 	sprite_object_entry SpriteFrameTable_28_52AB, SpriteScript_28_52BE ; entry 5
 	sprite_object_entry SpriteFrameTable_28_52AB, SpriteScript_28_52BE ; entry 6
 	sprite_object_entry SpriteFrameTable_28_52AB, SpriteScript_28_52BE ; entry 7
+AddrBookShared_ObjTable_Entry8:: ; 28:5230
 	sprite_object_entry SpriteFrameTable_28_52C1, SpriteScript_28_52D4 ; entry 8
 	sprite_object_entry SpriteFrameTable_28_52C1, SpriteScript_28_52D4 ; entry 9
 	sprite_object_entry SpriteFrameTable_28_52C1, SpriteScript_28_52D4 ; entry 10
 	sprite_object_entry SpriteFrameTable_28_52C1, SpriteScript_28_52D4 ; entry 11
+AddrBookShared_ObjTable_Entry12:: ; 28:5240
 	sprite_object_entry SpriteFrameTable_28_52D7, SpriteScript_28_536E ; entry 12
 	sprite_object_entry SpriteFrameTable_28_52D7, SpriteScript_28_536E ; entry 13
 	sprite_object_entry SpriteFrameTable_28_52D7, SpriteScript_28_536E ; entry 14
 	sprite_object_entry SpriteFrameTable_28_52D7, SpriteScript_28_536E ; entry 15
+AddrBookShared_ObjTable_Entry16:: ; 28:5250
 	sprite_object_entry SpriteFrameTable_28_5379, SpriteScript_28_5428 ; entry 16
 	sprite_object_entry SpriteFrameTable_28_5379, SpriteScript_28_5428 ; entry 17
 	sprite_object_entry SpriteFrameTable_28_5379, SpriteScript_28_5428 ; entry 18

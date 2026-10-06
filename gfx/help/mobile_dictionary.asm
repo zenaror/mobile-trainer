@@ -54,6 +54,7 @@ Objects_MobileDict:: ; 1A:55A0
 Data_1A_55A0::
 	db $10, $54, $26, $54 ; sprite object-table entry kept as db: pointer target 1A:5410 has no label
 	db $2B, $54, $41, $54 ; sprite object-table entry kept as db: pointer target 1A:542B has no label
+Objects_MobileDict_Entry2:: ; 1A:55A8
 	db $46, $54, $61, $54 ; sprite object-table entry kept as db: pointer target 1A:5446 has no label
 	db $64, $54, $7F, $54 ; sprite object-table entry kept as db: pointer target 1A:5464 has no label
 	db $82, $54, $9D, $54 ; sprite object-table entry kept as db: pointer target 1A:5482 has no label
