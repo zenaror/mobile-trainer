@@ -582,8 +582,8 @@ MailBody_SetupScreen	engine/mail/body_editor.asm:596	tiles	Gfx_MailBody_ObjTiles
 MailBody_SetupScreen	engine/mail/body_editor.asm:601	palette	Palette_MailBody_Obj	2D	n=64 dest=$D840
 MailBody_SetupScreen	engine/mail/body_editor.asm:606	palette	Palette_MailBody_Bg	2D	n=64 dest=$D800
 MailBody_SetupScreen	engine/mail/body_editor.asm:611	tilemap	Tilemap_MailBody	2D	rows=18 cols=20 dest=$D000
-MailBody_ReloadTiles	engine/mail/body_editor.asm:3106	tiles	Gfx_MailBody_Tiles	2D	n=32 vram=$9300 vbank=1
-MailBody_ReloadTiles	engine/mail/body_editor.asm:3112	tiles	Gfx_MailBody_Tiles + $200	2D	n=48 vram=$9500 vbank=1
+MailBody_ReloadTiles	engine/mail/body_editor.asm:3109	tiles	Gfx_MailBody_Tiles	2D	n=32 vram=$9300 vbank=1
+MailBody_ReloadTiles	engine/mail/body_editor.asm:3115	tiles	Gfx_MailBody_Tiles + $200	2D	n=48 vram=$9500 vbank=1
 MailBody_InitScreen	engine/mail/body_view.asm:50	palette	MailBody_BgPalette	28	n=64 dest=$D800
 MailBody_InitScreen	engine/mail/body_view.asm:55	palette	MailBody_ObjPalette	28	n=64 dest=$D840
 MailBody_InitScreen	engine/mail/body_view.asm:61	tiles	MailBody_Tiles_42C0	28	n=33 vram=$9300 vbank=1
