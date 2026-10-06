@@ -1043,5 +1043,9 @@ Data_05_5ADC::
 SoundSong17_TrackPtrs:: ; 05:5ADE
 Table_05_5ADE::
 	dw SoundSong17_Track0, SoundSong17_Track1, SoundSong17_Track2, SoundSong17_Track3 ; track stream pointers (read by the driver)
-	dw SoundSong17_Track0_Loop, SoundSong17_Track1_Loop, SoundSong17_Track2_Loop, SoundSong17_Track3_Loop ; not read by the driver: target of each track's final sound_jump
-	dw SoundSong17_Track0_AfterJump, SoundSong17_Track1_AfterJump, SoundSong17_Track2_AfterJump, SoundSong17_Track3_AfterJump ; not read by the driver: address after each track's final sound_jump
+	; not read by the driver: target of each track's final sound_jump
+	dw SoundSong17_Track0_Loop, SoundSong17_Track1_Loop
+	dw SoundSong17_Track2_Loop, SoundSong17_Track3_Loop
+	; not read by the driver: address after each track's final sound_jump
+	dw SoundSong17_Track0_AfterJump, SoundSong17_Track1_AfterJump
+	dw SoundSong17_Track2_AfterJump, SoundSong17_Track3_AfterJump

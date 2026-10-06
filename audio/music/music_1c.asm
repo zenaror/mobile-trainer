@@ -319,4 +319,6 @@ SoundSong1C_TrackPtrs:: ; 05:62BE
 Table_05_62BE::
 	dw SoundSong1C_Track0, SoundSong1C_Track1, SoundSong1C_Track2 ; track stream pointers (read by the driver)
 	dw SoundSong1C_Track0_Loop, SoundSong1C_Track1_Loop, SoundSong1C_Track2_Loop ; not read by the driver: target of each track's final sound_jump
-	dw SoundSong1C_Track0_AfterJump, SoundSong1C_Track1_AfterJump, SoundSong1C_Track2_AfterJump ; not read by the driver: address after each track's final sound_jump
+	; not read by the driver: address after each track's final sound_jump
+	dw SoundSong1C_Track0_AfterJump, SoundSong1C_Track1_AfterJump
+	dw SoundSong1C_Track2_AfterJump

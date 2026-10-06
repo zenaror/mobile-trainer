@@ -448,5 +448,9 @@ Data_05_5DB5::
 SoundSong19_TrackPtrs:: ; 05:5DB7
 Table_05_5DB7::
 	dw SoundSong19_Track0, SoundSong19_Track1, SoundSong19_Track2, SoundSong19_Track3 ; track stream pointers (read by the driver)
-	dw SoundSong19_Track0_Loop, SoundSong19_Track1_Loop, SoundSong19_Track2_Loop, SoundSong19_Track3_Loop ; not read by the driver: target of each track's final sound_jump
-	dw SoundSong19_Track0_AfterJump, SoundSong19_Track1_AfterJump, SoundSong19_Track2_AfterJump, SoundSong19_Track3_AfterJump ; not read by the driver: address after each track's final sound_jump
+	; not read by the driver: target of each track's final sound_jump
+	dw SoundSong19_Track0_Loop, SoundSong19_Track1_Loop
+	dw SoundSong19_Track2_Loop, SoundSong19_Track3_Loop
+	; not read by the driver: address after each track's final sound_jump
+	dw SoundSong19_Track0_AfterJump, SoundSong19_Track1_AfterJump
+	dw SoundSong19_Track2_AfterJump, SoundSong19_Track3_AfterJump
