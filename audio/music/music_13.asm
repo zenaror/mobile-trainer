@@ -148,5 +148,6 @@ Data_05_4D76::
 
 ; ---- words $4D78-$4D80 (8 bytes) [PROBABLE] 4 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 4D76 [v4: bytes 4D78-4D80 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-Table_05_4D78:: ; 05:4D78
+SoundSong13_TrackPtrs:: ; 05:4D78
+Table_05_4D78::
 	dw SoundSong13_Track0, SoundSong13_Track1, SoundSong13_Track2, SoundSong13_Track3 ; track stream pointers (read by the driver)

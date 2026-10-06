@@ -71,5 +71,6 @@ Data_05_6312::
 
 ; ---- words $6314-$631A (6 bytes) [PROBABLE] 3 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 6312
 
-Table_05_6314:: ; 05:6314
+SoundSong1D_TrackPtrs:: ; 05:6314
+Table_05_6314::
 	dw SoundSong1D_Track0, SoundSong1D_Track1, SoundSong1D_Track2 ; track stream pointers (read by the driver)

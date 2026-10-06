@@ -18,7 +18,8 @@ Data_04_77E9::
 	sound_wait 48
 	sound_note 24, $48
 	sound_wait 24
-Data_04_77FC:: ; 04:77FC
+SoundSong0A_Track0_Loop:: ; 04:77FC
+Data_04_77FC::
 	sound_note 48, $4C, $1A
 	sound_wait 48
 	sound_note 24, $51
@@ -27,7 +28,8 @@ Data_04_77FC:: ; 04:77FC
 	sound_note 84, $4F
 	sound_wait 72
 	sound_wait 72
-Data_04_7808:: ; 04:7808
+SoundSong0A_Track0_Sub1:: ; 04:7808
+Data_04_7808::
 	sound_note 48, $45, $1A
 	sound_wait 48
 	sound_note 24, $48
@@ -45,8 +47,8 @@ Data_04_7808:: ; 04:7808
 	sound_wait 48
 	sound_note 24, $43
 	sound_wait 24
-	sound_call Data_04_7808
-	sound_call Data_04_77FC
+	sound_call SoundSong0A_Track0_Sub1
+	sound_call SoundSong0A_Track0_Loop
 	sound_note 84, $4F, $1A
 	sound_wait 72
 	sound_wait 72
@@ -63,9 +65,10 @@ Data_04_7808:: ; 04:7808
 	sound_note 84, $48
 	sound_wait 72
 	sound_wait 72
-	sound_call Data_04_7808
-	sound_jump Data_04_77FC
-Data_04_7844:: ; 04:7844
+	sound_call SoundSong0A_Track0_Sub1
+	sound_jump SoundSong0A_Track0_Loop
+SoundSong0A_Track0_AfterJump:: ; 04:7844
+Data_04_7844::
 	sound_end
 SoundSong0A_Track1:: ; 04:7845
 Data_04_7845::
@@ -84,7 +87,8 @@ Data_04_7845::
 	sound_wait 12
 	sound_rs sound_note 12, $4C
 	sound_wait 12
-Data_04_7859:: ; 04:7859
+SoundSong0A_Track1_Loop:: ; 04:7859
+Data_04_7859::
 	sound_note 12, $35, $10
 	sound_wait 12
 	sound_rs sound_note 12, $3C
@@ -98,7 +102,8 @@ Data_04_7859:: ; 04:7859
 	sound_rs sound_note 12, $4C
 	sound_wait 12
 	sound_ret
-Data_04_7868:: ; 04:7868
+SoundSong0A_Track1_Sub1:: ; 04:7868
+Data_04_7868::
 	sound_note 12, $34, $10
 	sound_wait 12
 	sound_rs sound_note 12, $3B
@@ -112,8 +117,9 @@ Data_04_7868:: ; 04:7868
 	sound_rs sound_note 12, $4A
 	sound_wait 12
 	sound_ret
-	sound_call Data_04_7868
-Data_04_787A:: ; 04:787A
+	sound_call SoundSong0A_Track1_Sub1
+SoundSong0A_Track1_Sub2:: ; 04:787A
+Data_04_787A::
 	sound_note 12, $32, $10
 	sound_wait 12
 	sound_rs sound_note 12, $39
@@ -127,8 +133,9 @@ Data_04_787A:: ; 04:787A
 	sound_rs sound_note 12, $48
 	sound_wait 12
 	sound_ret
-	sound_call Data_04_787A
-Data_04_788C:: ; 04:788C
+	sound_call SoundSong0A_Track1_Sub2
+SoundSong0A_Track1_Sub3:: ; 04:788C
+Data_04_788C::
 	sound_note 12, $30, $10
 	sound_wait 12
 	sound_rs sound_note 12, $37
@@ -154,11 +161,11 @@ Data_04_788C:: ; 04:788C
 	sound_wait 12
 	sound_rs sound_note 12, $47
 	sound_wait 12
-	sound_call Data_04_7859
-	sound_call Data_04_7859
-	sound_call Data_04_7868
-	sound_call Data_04_7868
-	sound_call Data_04_787A
+	sound_call SoundSong0A_Track1_Loop
+	sound_call SoundSong0A_Track1_Loop
+	sound_call SoundSong0A_Track1_Sub1
+	sound_call SoundSong0A_Track1_Sub1
+	sound_call SoundSong0A_Track1_Sub2
 	sound_note 12, $2B, $10
 	sound_wait 12
 	sound_rs sound_note 12, $37
@@ -171,7 +178,7 @@ Data_04_788C:: ; 04:788C
 	sound_wait 12
 	sound_rs sound_note 12, $48
 	sound_wait 12
-	sound_call Data_04_788C
+	sound_call SoundSong0A_Track1_Sub3
 	sound_note 12, $4F, $10
 	sound_wait 12
 	sound_rs sound_note 12, $4C
@@ -184,9 +191,10 @@ Data_04_788C:: ; 04:788C
 	sound_wait 12
 	sound_rs sound_note 12, $4C
 	sound_wait 12
-	sound_call Data_04_7859
-	sound_jump Data_04_7859
-Data_04_78DB:: ; 04:78DB
+	sound_call SoundSong0A_Track1_Loop
+	sound_jump SoundSong0A_Track1_Loop
+SoundSong0A_Track1_AfterJump:: ; 04:78DB
+Data_04_78DB::
 	sound_end
 SoundSong0A_Track2:: ; 04:78DC
 Data_04_78DC::
@@ -204,7 +212,8 @@ Data_04_78DC::
 	sound_wait 12
 	sound_rs sound_note 12, $48
 	sound_wait 12
-Data_04_78EF:: ; 04:78EF
+SoundSong0A_Track2_Loop:: ; 04:78EF
+Data_04_78EF::
 	sound_note 12, $4C, $0B
 	sound_wait 12
 	sound_rs sound_note 12, $35
@@ -218,7 +227,8 @@ Data_04_78EF:: ; 04:78EF
 	sound_rs sound_note 12, $48
 	sound_wait 12
 	sound_ret
-Data_04_78FE:: ; 04:78FE
+SoundSong0A_Track2_Sub1:: ; 04:78FE
+Data_04_78FE::
 	sound_note 12, $4C, $0B
 	sound_wait 12
 	sound_rs sound_note 12, $34
@@ -232,7 +242,8 @@ Data_04_78FE:: ; 04:78FE
 	sound_rs sound_note 12, $47
 	sound_wait 12
 	sound_ret
-Data_04_790D:: ; 04:790D
+SoundSong0A_Track2_Sub2:: ; 04:790D
+Data_04_790D::
 	sound_note 12, $4A, $0B
 	sound_wait 12
 	sound_rs sound_note 12, $34
@@ -246,7 +257,8 @@ Data_04_790D:: ; 04:790D
 	sound_rs sound_note 12, $47
 	sound_wait 12
 	sound_ret
-Data_04_791C:: ; 04:791C
+SoundSong0A_Track2_Sub3:: ; 04:791C
+Data_04_791C::
 	sound_note 12, $4A, $0B
 	sound_wait 12
 	sound_rs sound_note 12, $32
@@ -272,7 +284,8 @@ Data_04_791C:: ; 04:791C
 	sound_wait 12
 	sound_rs sound_note 12, $45
 	sound_wait 12
-Data_04_7937:: ; 04:7937
+SoundSong0A_Track2_Sub4:: ; 04:7937
+Data_04_7937::
 	sound_note 12, $48, $0B
 	sound_wait 12
 	sound_rs sound_note 12, $30
@@ -310,10 +323,10 @@ Data_04_7937:: ; 04:7937
 	sound_wait 12
 	sound_rs sound_note 12, $48
 	sound_wait 12
-	sound_call Data_04_78EF
-	sound_call Data_04_78FE
-	sound_call Data_04_790D
-	sound_call Data_04_791C
+	sound_call SoundSong0A_Track2_Loop
+	sound_call SoundSong0A_Track2_Sub1
+	sound_call SoundSong0A_Track2_Sub2
+	sound_call SoundSong0A_Track2_Sub3
 	sound_note 12, $48, $0B
 	sound_wait 12
 	sound_rs sound_note 12, $2B
@@ -326,7 +339,7 @@ Data_04_7937:: ; 04:7937
 	sound_wait 12
 	sound_rs sound_note 12, $45
 	sound_wait 12
-	sound_call Data_04_7937
+	sound_call SoundSong0A_Track2_Sub4
 	sound_note 12, $4A, $0B
 	sound_wait 12
 	sound_rs sound_note 12, $4F
@@ -339,13 +352,14 @@ Data_04_7937:: ; 04:7937
 	sound_wait 12
 	sound_rs sound_note 12, $43
 	sound_wait 12
-	sound_call Data_04_78EF
-	sound_jump Data_04_78EF
-Data_04_798F:: ; 04:798F
+	sound_call SoundSong0A_Track2_Loop
+	sound_jump SoundSong0A_Track2_Loop
+SoundSong0A_Track2_AfterJump:: ; 04:798F
+Data_04_798F::
 	sound_end
 SoundSong0A_Header:: ; 04:7990
 Data_04_7990::
 	sound_stream_header 3, 2
 	dw SoundSong0A_Track0, SoundSong0A_Track1, SoundSong0A_Track2 ; track stream pointers (read by the driver)
-	dw Data_04_77FC, Data_04_7859, Data_04_78EF ; not read by the driver: target of each track's final sound_jump
-	dw Data_04_7844, Data_04_78DB, Data_04_798F ; not read by the driver: address after each track's final sound_jump
+	dw SoundSong0A_Track0_Loop, SoundSong0A_Track1_Loop, SoundSong0A_Track2_Loop ; not read by the driver: target of each track's final sound_jump
+	dw SoundSong0A_Track0_AfterJump, SoundSong0A_Track1_AfterJump, SoundSong0A_Track2_AfterJump ; not read by the driver: address after each track's final sound_jump

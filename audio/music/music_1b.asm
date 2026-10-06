@@ -23,5 +23,6 @@ Data_05_60F5::
 
 ; ---- words $60F7-$60F9 (2 bytes) [PROBABLE] 1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 60F5 [v4: bytes 60F7-60F9 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-Table_05_60F7:: ; 05:60F7
+SoundSong1B_TrackPtrs:: ; 05:60F7
+Table_05_60F7::
 	dw SoundSong1B_Track0 ; track stream pointers (read by the driver)

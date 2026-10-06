@@ -313,10 +313,10 @@ channel's pitch were not simulated by the interpreter (mGBA measured both: secti
 `Table_SoundDrv_Durations` (49 values, listed in the include and checked against the ROM table by the tool and, in `audio/notes.asm`, by `sound_durations`); a value that is not in the table is an assembly error.
 
 ```asm
-Data_04_58C6:: ; 04:58C6            ; start of a track
+SoundSong02_Track0:: ; 04:58C6      ; start of a track
 	sound_volume $7F
 	sound_pitch_add $00
-Data_04_58CA:: ; 04:58CA            ; loop point, target of the final sound_jump
+SoundSong02_Track0_Loop:: ; 04:58CA ; loop point, target of the final sound_jump
 	sound_tempo $4F
 	sound_instrument $00
 	sound_wait 24
@@ -324,8 +324,8 @@ Data_04_58CA:: ; 04:58CA            ; loop point, target of the final sound_jump
 	sound_wait 3
 	sound_rs sound_note 9, $3F     ; running status: the opcode byte is omitted
 	...
-	sound_jump Data_04_58CA
-Data_04_593C:: ; 04:593C
+	sound_jump SoundSong02_Track0_Loop
+SoundSong02_Track0_AfterJump:: ; 04:593C
 	sound_end                       ; never reached: behind the final jump (address listed in the header)
 ```
 
@@ -335,8 +335,9 @@ Data_04_593C:: ; 04:593C
   `sound_vibrato_rate`, `sound_vibrato_delay`, `sound_vibrato_depth`, `sound_vibrato_disable`, `sound_detune`; `sound_cmd_CA` and `sound_cmd_CD` keep their opcode.  Macro names are not labels: the build hash proves the bytes.
 * Table macros: `sound_durations`, `sound_note_freq period, step`, `sound_instr_pulse1 duty, length, sweep, env_a, env_b, pitch` / `sound_instr_pulse2` / `sound_instr_wave` / `sound_instr_noise` (byte 2 is `$00` in
   the last three; `sound_instr_raw` exists for a record none of them writes, and is not used), `sound_wave_pattern` (32 samples).  A comment per record gives the id and the decoded envelope fields.
-* Labels: every header, track start, loop target, jump/call target and pointer word uses a label.  Labels that already existed were kept (and used); the 333 that were missing are `Data_BB_AAAA:: ; BB:AAAA`
-  in the file that contains the address (only targets got one).  In `music_02` ... `music_0d` and `sfx` the section start has a label now.  `analysis/naming2/audio2_renames.tsv` applied `SoundSongNN_Header` /
+* Labels: every header, track start, loop target, jump/call target and pointer word uses a label.  Labels that already existed were kept (and used); the 333 that were missing were `Data_BB_AAAA:: ; BB:AAAA`
+  in the file that contains the address (only targets got one); 316 of them have a structural name since the audio6 pass (`analysis/naming2/audio6_renames.tsv`, `naming2_audio6.md`: `SoundSongNN_TrackK_Loop`, `_AfterJump`, `_SubN`, `SoundSongNN_TrackPtrs`,
+  `SoundSfxNN_TrackPtrs`; the old name stays below as an alias) and 8 interior labels stay neutral.  In `music_02` ... `music_0d` and `sfx` the section start has a label now.  `analysis/naming2/audio2_renames.tsv` applied `SoundSongNN_Header` /
   `SoundSongNN_TrackK` to the 59 headers and the 151 track starts (the name carries the id of the first song record that uses it; ids `$1E`-`$28` share the header of song 1); `analysis/naming2/verify_audio2_fixes.tsv` then renamed the 30 effects
   (ids `$29`-`$46`) to `SoundSfxNN_*` and the track 0 of song 1 (`Data_SoundDrv_Streams`) to `SoundSong01_Track0`.  The prefix follows what the callers use the ids for (`Sound_PlayMusic*` for `$01`-`$1D`, `Sound_PlaySfx` for `$29`-`$46`): PROBABLE,
   no title is known.  The converter prefers a `SoundSong*` / `SoundSfx*` label when it exists, so it keeps producing the same files.

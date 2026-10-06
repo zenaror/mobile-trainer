@@ -140,5 +140,6 @@ Data_05_516A::
 
 ; ---- words $516C-$5174 (8 bytes) [PROBABLE] 4 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 516A [v4: bytes 516C-5174 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-Table_05_516C:: ; 05:516C
+SoundSong15_TrackPtrs:: ; 05:516C
+Table_05_516C::
 	dw SoundSong15_Track0, SoundSong15_Track1, SoundSong15_Track2, SoundSong15_Track3 ; track stream pointers (read by the driver)
