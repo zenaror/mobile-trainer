@@ -122,7 +122,7 @@ Function_68_531A::
 	ld a, $5E
 	farcall Palette_LoadToBuffer
 	ld bc, $0514
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_Account_LoginIdEntry
 	ld a, $5E
 	farcall Tilemap_CopyRectAndAttr
@@ -342,7 +342,7 @@ Account_CommitLoginId:: ; 68:554C
 	ret
 
 Account_LoginId_BuildTextMap:: ; 68:5574
-	ld hl, $D047
+	ld hl, wScreenTileMap + $47
 	ld de, $0000
 	ld bc, $0207
 	farcall Tilemap_FillAscendingWithAttr
@@ -457,7 +457,7 @@ Account_LoginIdIntro_Draw:: ; 68:562F
 	ld a, $5E
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, $5510
 	ld a, $5E
 	farcall Tilemap_CopyRectAndAttr
@@ -512,11 +512,11 @@ Account_LoginIdIntro_PrintMessage:: ; 68:568E
 	ld hl, $0E01
 	ld bc, $0112
 	farcall TileCanvas_UploadRect
-	ld hl, $D0E1
+	ld hl, wScreenTileMap + $E1
 	ld bc, $0712
 	ld de, $0000
 	farcall Tilemap_FillAscendingWithAttr
-	ld hl, $D1C1
+	ld hl, wScreenTileMap + $1C1
 	ld bc, $0112
 	ld de, $0080
 	farcall Tilemap_FillAscendingWithAttr

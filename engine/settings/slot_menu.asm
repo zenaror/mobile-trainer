@@ -154,7 +154,7 @@ SettingsPhone_SlotMenu_Setup:: ; 67:4CCB
 	ld a, $4D
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, $75A0
 	ld a, $4D
 	farcall Tilemap_CopyRectAndAttr
@@ -376,15 +376,15 @@ Data_67_4F68::
 SettingsPhone_SlotMenu_BuildTextMap:: ; 67:4F6E
 	; [CONFIRMED] 143 insn(s) reached by static flow only; seeds: exec x143; min discovery hops 7;
 	; entered by call from 67:4DFE (PROBABLE code) [executed in 2 scenarios]
-	ld hl, $D127
+	ld hl, wScreenTileMap + $127
 	ld de, $0000
 	ld bc, $020C
 	farcall Tilemap_FillAscendingWithAttr
-	ld hl, $D167
+	ld hl, wScreenTileMap + $167
 	ld de, $0020
 	ld bc, $020C
 	farcall Tilemap_FillAscendingWithAttr
-	ld hl, $D1A6
+	ld hl, wScreenTileMap + $1A6
 	ld de, $0040
 	ld bc, $020C
 	farcall Tilemap_FillAscendingWithAttr
@@ -547,7 +547,7 @@ SettingsPhone_SlotMenu_UploadTextTiles:: ; 67:50B7
 	ret
 
 SettingsPhone_SlotMenu_LoadTabTilemap:: ; 67:50E5
-	ld de, $D0E0
+	ld de, wScreenTileMap + $E0
 	ld bc, $0214
 	ld a, [wSlotMenu_Cursor]
 	ld hl, SettingsPhone_SlotMenu_TabTilemapTable

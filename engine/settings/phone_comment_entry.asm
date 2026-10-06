@@ -122,7 +122,7 @@ PhoneComment_KeyboardSetup:: ; 67:49A8
 	ld a, $5E
 	farcall Palette_LoadToBuffer
 	ld bc, $0514
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_PhoneComment
 	ld a, $4A
 	farcall Tilemap_CopyRectAndAttr
@@ -357,7 +357,7 @@ PhoneComment_UpdateNonEmptyFlag:: ; 67:4BED
 	ret
 
 PhoneComment_BuildTextMap:: ; 67:4C06
-	ld hl, $D044
+	ld hl, wScreenTileMap + $44
 	ld de, $0000
 	ld bc, $020C
 	farcall Tilemap_FillAscendingWithAttr

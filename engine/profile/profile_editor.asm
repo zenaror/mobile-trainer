@@ -550,7 +550,7 @@ Function_2A_57BD::
 	farcall Palette_LoadToBuffer
 	call VBlank_Wait
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Data_Profile_TilemapAttr
 	ld a, $2A
 	farcall Tilemap_CopyRectAndAttr

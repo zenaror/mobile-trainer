@@ -53,7 +53,7 @@ MobileDict_Redraw:: ; 1A:4018
 	ld a, $1A
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_MobileDict_Screen
 	ld a, $1A
 	farcall Tilemap_CopyRectAndAttr
@@ -75,7 +75,7 @@ MobileDict_Redraw:: ; 1A:4018
 	ld a, $00
 	ld bc, $0A10
 	ld de, $F000
-	ld hl, $D0A1
+	ld hl, wScreenTileMap + $A1
 	farcall Tilemap_FillRectSequential
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
@@ -373,7 +373,7 @@ MobileDict_DrawRowHighlight:: ; 1A:42DE
 Function_1A_42DE::
 	; [CONFIRMED] 49 insn(s); 49 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld hl, $D4A1
+	ld hl, wScreenAttrMap + $A1
 	ld bc, $0A10
 	ld de, $F800
 	ld a, $07

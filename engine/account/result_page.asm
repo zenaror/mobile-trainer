@@ -46,7 +46,7 @@ Function_68_766E::
 	ld a, $4B
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_Account_ResultPage
 	ld a, $4B
 	farcall Tilemap_CopyRectAndAttr
@@ -184,7 +184,7 @@ Function_68_7745::
 	ld hl, $0901
 	ld bc, $0612
 	farcall TileCanvas_UploadRect
-	ld hl, $D121
+	ld hl, wScreenTileMap + $121
 	ld bc, $0612
 	ld de, $0000
 	farcall Tilemap_FillAscendingWithAttr
@@ -313,7 +313,7 @@ Function_68_784E::
 	ld h, [hl]
 	ld l, a
 	ld bc, $0201
-	ld de, $D0A8
+	ld de, wScreenTileMap + $A8
 	ld a, $4B
 	farcall Tilemap_CopyRectAndAttr
 	pop af
@@ -329,7 +329,7 @@ Function_68_784E::
 	ld h, [hl]
 	ld l, a
 	ld bc, $0201
-	ld de, $D0A9
+	ld de, wScreenTileMap + $A9
 	ld a, $4B
 	farcall Tilemap_CopyRectAndAttr
 	ld a, [wResultPage_Kind]
@@ -370,7 +370,7 @@ Function_68_784E::
 	ld h, [hl]
 	ld l, a
 	ld bc, $0201
-	ld de, $D0AB
+	ld de, wScreenTileMap + $AB
 	ld a, $4B
 	farcall Tilemap_CopyRectAndAttr
 	pop af
@@ -386,7 +386,7 @@ Function_68_784E::
 	ld h, [hl]
 	ld l, a
 	ld bc, $0201
-	ld de, $D0AC
+	ld de, wScreenTileMap + $AC
 	ld a, $4B
 	farcall Tilemap_CopyRectAndAttr
 	ret

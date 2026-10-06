@@ -88,7 +88,7 @@ Registration_DeleteConfirm_Setup:: ; 68:79B8
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_Registration_DeleteConfirm_71_66C8
 	ld a, $71
 	farcall Tilemap_CopyRectAndAttr
@@ -107,7 +107,7 @@ Registration_DeleteConfirm_Setup:: ; 68:79B8
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_Registration_DeleteConfirm_71_6998
 	ld a, $71
 	farcall Tilemap_CopyRectAndAttr
@@ -276,7 +276,7 @@ Function_68_7B1D::
 	ld hl, $0901
 	ld bc, $0612
 	farcall TileCanvas_UploadRect
-	ld hl, $D121
+	ld hl, wScreenTileMap + $121
 	ld bc, $0612
 	ld de, $0000
 	farcall Tilemap_FillAscendingWithAttr
@@ -327,7 +327,7 @@ Registration_DeleteExecute_Setup:: ; 68:7BB0
 	ld a, $71
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_Registration_DeleteExecute
 	ld a, $71
 	farcall Tilemap_CopyRectAndAttr
@@ -486,7 +486,7 @@ Function_68_7D1C::
 	ld hl, $0B01
 	ld bc, $0612
 	farcall TileCanvas_UploadRect
-	ld hl, $D161
+	ld hl, wScreenTileMap + $161
 	ld bc, $0612
 	ld de, $0000
 	farcall Tilemap_FillAscendingWithAttr

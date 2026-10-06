@@ -270,7 +270,7 @@ AbookName_SetupScreen:: ; 2F:593B
 	ld a, $2F
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_AbookName
 	ld a, $2F
 	farcall Tilemap_CopyRectAndAttr

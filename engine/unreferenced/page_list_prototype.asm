@@ -755,7 +755,7 @@ Function_7F_51EE::
 	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, PageListProto_Tilemap_67D0
 	ld a, $7F
 	farcall Tilemap_CopyRectAndAttr

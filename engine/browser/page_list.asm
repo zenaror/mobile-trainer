@@ -476,7 +476,7 @@ PageList_InitScreen:: ; 24:42F0
 	farcall Palette_LoadToBuffer
 	call VBlank_Wait
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, PageList_Tilemap_5900
 	ld a, $24
 	farcall Tilemap_CopyRectAndAttr
@@ -489,7 +489,7 @@ PageList_InitScreen:: ; 24:42F0
 	cp a, $00
 	jr z, .l43D2
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, PageList_Tilemap_5BD0
 	ld a, $24
 	farcall Tilemap_CopyRectAndAttr

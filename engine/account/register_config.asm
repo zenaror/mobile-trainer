@@ -52,7 +52,7 @@ Registration_WriteConfig_Setup:: ; 68:6AF6
 	ld a, $5D
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, $7048
 	ld a, $5D
 	farcall Tilemap_CopyRectAndAttr
@@ -235,7 +235,7 @@ Function_68_6C7F::
 	ld hl, $0B01
 	ld bc, $0612
 	farcall TileCanvas_UploadRect
-	ld hl, $D161
+	ld hl, wScreenTileMap + $161
 	ld bc, $0612
 	ld de, $0000
 	farcall Tilemap_FillAscendingWithAttr

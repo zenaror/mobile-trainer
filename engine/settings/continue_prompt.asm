@@ -54,7 +54,7 @@ SettingsPhone_ContinuePrompt_Setup:: ; 67:5728
 	ld a, $5F
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, $7D10
 	ld a, $4B
 	farcall Tilemap_CopyRectAndAttr
@@ -171,7 +171,7 @@ Data_67_585A::
 SettingsPhone_ContinuePrompt_BuildTextMap:: ; 67:585E
 	; [CONFIRMED] 44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 7;
 	; entered by call from 67:57B0 (PROBABLE code) [executed in 1 scenarios]
-	ld hl, $D121
+	ld hl, wScreenTileMap + $121
 	ld de, $0000
 	ld bc, $0612
 	farcall Tilemap_FillAscendingWithAttr

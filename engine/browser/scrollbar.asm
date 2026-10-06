@@ -385,7 +385,7 @@ Function_4E_5D70::
 	ld h, b
 	ld l, c
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 
 	; [PROBABLE] 59 insn(s) reached by static flow only; seeds: site x59; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code

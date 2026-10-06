@@ -61,7 +61,7 @@ SettingsPhone_ConfirmScreen_Setup:: ; 67:5129
 	ld a, $5F
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, $73F0
 	ld a, $4B
 	farcall Tilemap_CopyRectAndAttr
@@ -173,15 +173,15 @@ Data_67_5275::
 SettingsPhone_ConfirmScreen_BuildTextMap:: ; 67:5279
 	; [CONFIRMED] 142 insn(s) reached by static flow only; seeds: exec x142; min discovery hops 7;
 	; entered by call from 67:51C6 (PROBABLE code) [executed in 1 scenarios]
-	ld hl, $D0A7
+	ld hl, wScreenTileMap + $A7
 	ld de, $0000
 	ld bc, $020C
 	farcall Tilemap_FillAscendingWithAttr
-	ld hl, $D0E7
+	ld hl, wScreenTileMap + $E7
 	ld de, $0020
 	ld bc, $020C
 	farcall Tilemap_FillAscendingWithAttr
-	ld hl, $D126
+	ld hl, wScreenTileMap + $126
 	ld de, $0040
 	ld bc, $020C
 	farcall Tilemap_FillAscendingWithAttr
@@ -317,7 +317,7 @@ SettingsPhone_ConfirmScreen_LoadSlotTilemap:: ; 67:53B7
 	ld h, [hl]
 	ld l, a
 	ld bc, $0201
-	ld de, $D066
+	ld de, wScreenTileMap + $66
 	ld a, $4B
 	farcall Tilemap_CopyRectAndAttr
 	ret

@@ -70,7 +70,7 @@ Function_73_5F17::
 	ld a, $73
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, BrowserStart_Map
 	ld a, $73
 	farcall Tilemap_CopyRectAndAttr
@@ -99,7 +99,7 @@ Function_73_5F17::
 	ld a, $40
 	ld bc, $0220
 	ld de, $8000
-	ld hl, $D200
+	ld hl, wScreenTileMap + $200
 	farcall Tilemap_FillRectSequential
 	call VBlank_WaitAndService
 	ldh [hScratchA], a
@@ -343,7 +343,7 @@ Function_73_61D5::
 	ld a, $43
 	ld [wBrowserStart_AttrSrcHi], a
 	ld bc, $030A
-	ld de, $D129
+	ld de, wScreenTileMap + $129
 	ld hl, BrowserStart_BottomMapNormal
 	ld a, $73
 	farcall Tilemap_CopyRectAndAttrPtr
@@ -352,7 +352,7 @@ Function_73_61D5::
 	ld a, $44
 	ld [wBrowserStart_AttrSrcHi], a
 	ld bc, $040A
-	ld de, $D089
+	ld de, wScreenTileMap + $89
 	ld hl, $43F3
 	ld a, $73
 	farcall Tilemap_CopyRectAndAttrPtr
@@ -370,7 +370,7 @@ Function_73_61D5::
 	ld a, $43
 	ld [wBrowserStart_AttrSrcHi], a
 	ld bc, $040A
-	ld de, $D089
+	ld de, wScreenTileMap + $89
 	ld hl, BrowserStart_TopMapNormal
 	ld a, $73
 	farcall Tilemap_CopyRectAndAttrPtr
@@ -379,7 +379,7 @@ Function_73_61D5::
 	ld a, $44
 	ld [wBrowserStart_AttrSrcHi], a
 	ld bc, $030A
-	ld de, $D129
+	ld de, wScreenTileMap + $129
 	ld hl, BrowserStart_BottomMapSelected
 	ld a, $73
 	farcall Tilemap_CopyRectAndAttrPtr
@@ -414,7 +414,7 @@ Function_73_6265::
 	adc a, $00
 	ld [wBrowserStart_AttrSrcHi], a
 	ld bc, $0507
-	ld de, $D0C1
+	ld de, wScreenTileMap + $C1
 	ld a, $73
 	farcall Tilemap_CopyRectAndAttrPtr
 	ldh a, [rLCDC]

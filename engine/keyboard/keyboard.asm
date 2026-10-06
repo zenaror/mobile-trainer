@@ -1709,7 +1709,7 @@ Kbd_LoadPageGraphics_T0:: ; 55:66EF
 Label_55_66EF::
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 3/18 scenarios)
 	ld bc, $0D14
-	ld de, $D240
+	ld de, wScreenTileMap + $240
 	ld hl, Tilemap_Kbd_T0
 	ld a, $5F
 	farcall Tilemap_CopyRectAndAttr
@@ -1725,7 +1725,7 @@ Label_55_6704::
 	ld c, $02
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0D14
-	ld de, $D240
+	ld de, wScreenTileMap + $240
 	ld hl, Tilemap_Kbd_T1
 	ld a, $5F
 	farcall Tilemap_CopyRectAndAttr
@@ -1737,7 +1737,7 @@ Label_55_672B::
 	; [CONFIRMED] 14 insn(s) reached by static flow only; seeds: site x6, table x8; min discovery
 	; hops 0; run starts at an entry of the code-pointer table at 55:66D9 [executed in 1 scenarios]
 	ld bc, $0D14
-	ld de, $D240
+	ld de, wScreenTileMap + $240
 	ld hl, Tilemap_Kbd_T2
 	ld a, $5F
 	farcall Tilemap_CopyRectAndAttr
@@ -1747,7 +1747,7 @@ Label_55_672B::
 Kbd_LoadPageGraphics_T3:: ; 55:6740
 Label_55_6740::
 	ld bc, $0D14
-	ld de, $D240
+	ld de, wScreenTileMap + $240
 	ld hl, Tilemap_Kbd_T3
 	ld a, $5F
 	farcall Tilemap_CopyRectAndAttr
@@ -1775,7 +1775,7 @@ Label_55_6755::
 	ld a, $5E
 	farcall Palette_LoadToBuffer
 	ld bc, $0D14
-	ld de, $D240
+	ld de, wScreenTileMap + $240
 	ld hl, Tilemap_Kbd_T4
 	ld a, $5F
 	farcall Tilemap_CopyRectAndAttr
@@ -1849,7 +1849,7 @@ Label_55_679F::
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
 	ld bc, $0D14
-	ld de, $D240
+	ld de, wScreenTileMap + $240
 	ld hl, Tilemap_Kbd_T5
 	ld a, $5F
 	farcall Tilemap_CopyRectAndAttr
@@ -1988,7 +1988,7 @@ Label_55_6952::
 	or a, a
 	ret z
 	ld bc, $0B14
-	ld de, $D240
+	ld de, wScreenTileMap + $240
 	ld hl, Tilemap_Kbd_T6And78_PageTail
 	ld a, $66
 	farcall Tilemap_CopyRectAndAttr
@@ -2126,7 +2126,7 @@ Label_55_6A65::
 	or a, a
 	ret z
 	ld bc, $0B14
-	ld de, $D240
+	ld de, wScreenTileMap + $240
 	ld hl, Tilemap_Kbd_T6And78_PageTail
 	ld a, $66
 	farcall Tilemap_CopyRectAndAttr
@@ -2154,7 +2154,7 @@ Label_55_6A7E::
 	ld c, $01
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0B14
-	ld de, $D240
+	ld de, wScreenTileMap + $240
 	ld hl, Tilemap_Kbd_T9
 	ld a, $5F
 	farcall Tilemap_CopyRectAndAttr
@@ -2170,7 +2170,7 @@ Label_55_6AC9::
 	ld c, $19
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0614
-	ld de, $D240
+	ld de, wScreenTileMap + $240
 	ld hl, Tilemap_Kbd_T10
 	ld a, $66
 	farcall Tilemap_CopyRectAndAttr

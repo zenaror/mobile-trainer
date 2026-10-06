@@ -324,7 +324,7 @@ Function_2E_4000::
 	farcall Sprite_UpdateAll
 	ei
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_MailServerMgr_Main
 	ld a, $2E
 	farcall Tilemap_CopyRectAndAttr
@@ -966,7 +966,7 @@ Label_2E_4298::
 	push hl
 	call MailServerMgr_ClearTextTiles
 	ld bc, $0614
-	ld de, $D0A0
+	ld de, wScreenTileMap + $A0
 	ld hl, Tilemap_MailServerMgr_Footer
 	ld a, $2E
 	farcall Tilemap_CopyRectAndAttr
@@ -1066,7 +1066,7 @@ Label_2E_4298::
 	push hl
 	call MailServerMgr_ClearTextTiles
 	ld bc, $0614
-	ld de, $D0A0
+	ld de, wScreenTileMap + $A0
 	ld hl, Tilemap_MailServerMgr_Footer
 	ld a, $2E
 	farcall Tilemap_CopyRectAndAttr
@@ -1163,7 +1163,7 @@ Label_2E_4298::
 	farcall Joypad_Update
 	call MailServerMgr_UpdateTimerDisplay
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_MailServerMgr_Main
 	ld a, $2E
 	farcall Tilemap_CopyRectAndAttr

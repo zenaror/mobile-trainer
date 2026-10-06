@@ -86,7 +86,7 @@ Label_6C_401D::
 	cp a, $03
 	jr z, .l4101
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_HelpMenu_6A_4000
 	ld a, $6A
 	farcall Tilemap_CopyRectAndAttr
@@ -99,7 +99,7 @@ Label_6C_401D::
 	jr .l411A
 .l40E6 ; 6C:40E6
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_HelpMenu_6A_42D0
 	ld a, $6A
 	farcall Tilemap_CopyRectAndAttr
@@ -112,7 +112,7 @@ Label_6C_401D::
 	; [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1;
 	; entered by jrcc from 6C:40C1 (executed) [executed in 2 scenarios]
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_HelpMenu_6A_45A0
 	ld a, $6A
 	farcall Tilemap_CopyRectAndAttr
@@ -141,7 +141,7 @@ Label_6C_401D::
 	ld a, $40
 	ld bc, $0220
 	ld de, $8000
-	ld hl, $D200
+	ld hl, wScreenTileMap + $200
 	farcall Tilemap_FillRectSequential
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -406,7 +406,7 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	ld a, h
 	ld [wHelpMenu_AttrSrcHi], a
 	ld hl, $48FC
-	ld de, $D0A9
+	ld de, wScreenTileMap + $A9
 	ld bc, $030A
 	ld a, $6A
 	farcall Tilemap_CopyRectAndAttrPtr
@@ -435,7 +435,7 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	ld a, h
 	ld [wHelpMenu_AttrSrcHi], a
 	ld hl, $491A
-	ld de, $D0E9
+	ld de, wScreenTileMap + $E9
 	ld bc, $040A
 	ld a, $6A
 	farcall Tilemap_CopyRectAndAttrPtr
@@ -513,7 +513,7 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	ld a, h
 	ld [wHelpMenu_AttrSrcHi], a
 	ld hl, $4A50
-	ld de, $D109
+	ld de, wScreenTileMap + $109
 	ld bc, $030A
 	ld a, $6A
 	farcall Tilemap_CopyRectAndAttrPtr
@@ -586,7 +586,7 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	ld a, h
 	ld [wHelpMenu_AttrSrcHi], a
 	ld hl, $4B04
-	ld de, $D109
+	ld de, wScreenTileMap + $109
 	ld bc, $030A
 	ld a, $6A
 	farcall Tilemap_CopyRectAndAttrPtr
@@ -679,7 +679,7 @@ Function_6C_453D::
 	ld a, h
 	ld [wHelpMenu_AttrSrcHi], a
 	ld hl, $4C08
-	ld de, $D0A9
+	ld de, wScreenTileMap + $A9
 	ld bc, $030A
 	ld a, $6A
 	farcall Tilemap_CopyRectAndAttrPtr
@@ -708,7 +708,7 @@ Function_6C_453D::
 	ld a, h
 	ld [wHelpMenu_AttrSrcHi], a
 	ld hl, $4C26
-	ld de, $D0E9
+	ld de, wScreenTileMap + $E9
 	ld bc, $040A
 	ld a, $6A
 	farcall Tilemap_CopyRectAndAttrPtr
@@ -786,7 +786,7 @@ Function_6C_453D::
 	ld a, h
 	ld [wHelpMenu_AttrSrcHi], a
 	ld hl, $4D5C
-	ld de, $D109
+	ld de, wScreenTileMap + $109
 	ld bc, $030A
 	ld a, $6A
 	farcall Tilemap_CopyRectAndAttrPtr
@@ -859,7 +859,7 @@ Function_6C_453D::
 	ld a, h
 	ld [wHelpMenu_AttrSrcHi], a
 	ld hl, $4E10
-	ld de, $D109
+	ld de, wScreenTileMap + $109
 	ld bc, $030A
 	ld a, $6A
 	farcall Tilemap_CopyRectAndAttrPtr

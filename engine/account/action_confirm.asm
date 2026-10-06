@@ -58,14 +58,14 @@ Account_ActionConfirmPage_Setup:: ; 68:6E39
 	or a, a
 	jr z, .l6EC3
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_Account_ActionConfirmPage
 	ld a, $5E
 	farcall Tilemap_CopyRectAndAttr
 	jr .l6ED4
 .l6EC3 ; 68:6EC3
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, $7300
 	ld a, $5E
 	farcall Tilemap_CopyRectAndAttr
@@ -179,7 +179,7 @@ Account_ActionConfirmPage_BuildTextMap:: ; 68:6F9B
 Function_68_6F9B::
 	; [CONFIRMED] 46 insn(s); 46 executed (in up to 6/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld hl, $D121
+	ld hl, wScreenTileMap + $121
 	ld de, $0000
 	ld bc, $0612
 	farcall Tilemap_FillAscendingWithAttr

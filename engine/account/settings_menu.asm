@@ -334,7 +334,7 @@ SettingsMenu_DrawItems:: ; 68:522C
 	or a, a
 	jr nz, .l5245
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, $51D0
 	ld a, $4A
 	farcall Tilemap_CopyRectAndAttr
@@ -344,7 +344,7 @@ SettingsMenu_DrawItems:: ; 68:522C
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1;
 	; entered by jrcc from 68:5230 (executed) [executed in 2 scenarios]
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_SettingsMenu
 	ld a, $4A
 	farcall Tilemap_CopyRectAndAttr

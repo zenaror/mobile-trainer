@@ -202,7 +202,7 @@ MailView_SenderPage_InitScreen:: ; 2B:65AB
 	farcall Gfx_StartHDMA
 	call VBlank_Wait
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Data_MailView_TilemapAttr
 	ld a, $2B
 	farcall Tilemap_CopyRectAndAttr

@@ -43,7 +43,7 @@ bank may be another one (311 of the executed `needs = -` sites run with the call
 
 **The bank proof** (`needs = switch`, and the `wSpriteSlots + N` expressions).  The tool scans the straight line backwards from the site, at most 60 lines.  The nearest write of the bank register must be the idiom `ld a, $0N / ldh [hWRAMBank], a / ldh [rSVBK], a`, or a call to a routine that
 *sets* the bank.  The scan gives up at a global label; at an unconditional `ret`, `jp` or `jr` (what follows is another path, a fragment with its own entry); at a call to a routine that is not known to *keep* the bank, a conditional call, `rst`, a macro or a data line; and at a local label unless it
-heads a loop whose body writes no bank register and calls only routines that keep it.  The routines it knows are in `analysis/naming2/wramx_calls.tsv` (27 rows: `keeps` = writes no bank register, or saves the shadow at entry and restores it at exit; `sets W7` = selects bank 7 and
+heads a loop whose body writes no bank register and calls only routines that keep it.  The routines it knows are in `analysis/naming2/wramx_calls.tsv` (27 rows at this pass, more in the later ones: `keeps` = writes no bank register, or saves the shadow at entry and restores it at exit; `sets W7` = selects bank 7 and
 does not restore: `Palette_LoadToBuffer`, `Tilemap_CopyRectAndAttr` and its two siblings, `Gfx_UploadBgMapBuffers(Di)`); an unlisted routine is unknown.  The first version of the tool ignored calls and fragments; the independent reader found the false accepts (section 6) and the table is the answer.
 
 **The bank proof for expressions** (`--elements wSpriteSlots --observed`): the generator wrote the byte `$DA11` as `wSpriteSlots + 17` wherever it saw it, without knowing the bank.  An expression is re-expressed as `wSpriteSlot1 + $01` when the bank 7 is shown by the scan above (392
@@ -66,12 +66,12 @@ dominates every path, or the sole caller runs under bank 7) and are written by h
   buffers used by the fade code (`PalFade_*`); they stay numeric until that code is read as a whole.
 * `Palette_LoadToBuffer` leaves bank 7 selected, so a later `Palette_UploadBuffer` or `CopyBytes` without its own bank switch (`connect_dialog_screen.asm:451`) is in bank 7: the table `wramx_calls.tsv` lets the tool use that.
 
-## 5. Left numeric: 1,793 operands
+## 5. Left numeric after this pass: 1,793 operands (the next pass, [`naming2_ramop8.md`](naming2_ramop8.md), names the two screen buffers: 1,490 are left)
 
 | family | sites | what is needed |
 |---|---|---|
 | no consumer found in the straight line (the register is used directly, a loop or a branch comes first) | 608 | per-site reading; the observed bank at the load is available for part of them |
-| `Tilemap_*` (`CopyRectAndAttr` 163, `FillAscendingWithAttr` 43, ...) | 248 | all select bank 7 themselves: the buffers are the two screen buffers `$D000-$D3FF` (tile numbers) and `$D400-$D7FF` (attributes) of bank 7, which have no name yet (`Tilemap_ClearBuffers`, `Gfx_UploadBgMapBuffersDi`) |
+| `Tilemap_*` (`CopyRectAndAttr` 163, `FillAscendingWithAttr` 43, ...) | 248 | five select bank 7 themselves, `Tilemap_ApplyMaskRect` takes the bank in A: the buffers are the two screen buffers `$D000-$D3FF` (tile numbers) and `$D400-$D7FF` (attributes) of bank 7, which have no name yet (named in the next pass, `naming2_ramop8.md`) |
 | `Gfx_*` HDMA / GDMA sources (`Gfx_StartHDMAWithService` 121, ...) | 192 | the bank is the A argument (`BankSwitch_H`: A = 0 keeps the bank in force) or the idiom; then a name for the tile staging buffers |
 | `TextTiles_*` (`RenderLine` 145, `RenderGrid` 23) | 175 | the bank is the value stored in `hTextTiles_DestBank` just before (a second idiom); the buffers of banks 2 and 3 are unnamed |
 | generic memory routines (`CopyBytes`, `FillBytes`, `CopyString`, ...) | 123 | the bank in force: by the idiom, then a name for the object |
@@ -93,5 +93,5 @@ scan above, the family column, 8 new tests that reproduce them); the reader's at
 ## 7. Reproduce
 
 `python3 tools/apply_ram_operands.py --areas wramx --dry-run` lists what the rules would rewrite and, by consumer, what has no rule; without `--dry-run` it rewrites, builds, checks the SHA-256 and `sym_check`, and restores every file on failure; `--check` lists the operands a rule proves that are still numeric.
-`python3 tools/apply_ram_operands.py --elements wSpriteSlots --observed [--dry-run|--check]` does the same for the expressions (it builds a marked copy of the tree for the address mapping, about five seconds).  `python3 tools/test_ram_operands.py` runs the 30 tests.
+`python3 tools/apply_ram_operands.py --elements wSpriteSlots --observed [--dry-run|--check]` does the same for the expressions (it builds a marked copy of the tree for the address mapping, about five seconds).  `python3 tools/test_ram_operands.py` runs the tool tests.
 `python3 tools/line_addresses.py file.asm:LINE ...` prints the bank and address of source lines.

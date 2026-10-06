@@ -287,7 +287,7 @@ Function_26_5168::
 	ld a, $27
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_CommProgress_Screen
 	ld a, $22
 	farcall Tilemap_CopyRectAndAttr

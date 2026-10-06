@@ -903,7 +903,7 @@ AbookList_SetupScreen:: ; 2F:4572
 	ld c, $20
 	farcall Gfx_StartHDMA
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_Abook_List
 	ld a, $2F
 	farcall Tilemap_CopyRectAndAttr

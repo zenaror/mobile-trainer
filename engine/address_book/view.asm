@@ -226,7 +226,7 @@ AbookView_SetupScreen:: ; 2F:51C1
 	ld c, $0B
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Data_AddrBookEntry_TilemapAttr
 	ld a, $2C
 	farcall Tilemap_CopyRectAndAttr

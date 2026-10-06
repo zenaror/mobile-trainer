@@ -571,7 +571,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 	pop de
 	pop bc
 	ld bc, $0514
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, MailConnect_WinMsg_Connected
 	ld a, $27
 	farcall Tilemap_CopyRectAndAttr
@@ -663,7 +663,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 .l44E1 ; 27:44E1
 	call VBlank_Wait
 	ld bc, $0514
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, MailConnect_WinMsg_Cancelling
 	ld a, $27
 	farcall Tilemap_CopyRectAndAttr
@@ -810,7 +810,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 	ld hl, wSpriteSlot8
 	call Sprite_SetPosition
 	ld bc, $0514
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, MailConnect_WinMsg_Cancelled
 	ld a, $27
 	farcall Tilemap_CopyRectAndAttr
@@ -1012,7 +1012,7 @@ Function_27_4768::
 	ldh [rSVBK], a
 	pop bc
 	ld bc, $0514
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, MailDisconnect_WinMsg_Ending
 	ld a, $27
 	farcall Tilemap_CopyRectAndAttr
@@ -1204,7 +1204,7 @@ Function_27_4768::
 	ld hl, wSpriteSlot8
 	call Sprite_SetPosition
 	ld bc, $0514
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, MailDisconnect_WinMsg_Ended
 	ld a, $27
 	farcall Tilemap_CopyRectAndAttr
@@ -1299,7 +1299,7 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	ldh [rSVBK], a
 	pop bc
 	ld bc, $0514
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, MailDisconnect_WinMsg_Ending
 	ld a, $27
 	farcall Tilemap_CopyRectAndAttr
@@ -1443,7 +1443,7 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	ld hl, wSpriteSlot8
 	call Sprite_SetPosition
 	ld bc, $0514
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, MailDisconnect_WinMsg_Ended
 	ld a, $27
 	farcall Tilemap_CopyRectAndAttr
@@ -1566,7 +1566,7 @@ Function_27_4B95::
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1220
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, MailConnect_Tilemap
 	ld a, $27
 	farcall Tilemap_CopyRectAndAttr
@@ -1581,14 +1581,14 @@ Function_27_4B95::
 	dec a
 	jr z, .l4CAF
 	ld bc, $0514
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, MailConnect_WinMsg_Connecting
 	ld a, $27
 	farcall Tilemap_CopyRectAndAttr
 	jr .l4CC0
 .l4CAF ; 27:4CAF
 	ld bc, $0514
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, MailDisconnect_WinMsg_Ending
 	ld a, $27
 	farcall Tilemap_CopyRectAndAttr
@@ -1722,7 +1722,7 @@ CommTime_DrawHMSScreen:: ; 27:4D81
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_CommTimeHMS_Screen
 	ld a, $29
 	farcall Tilemap_CopyRectAndAttr
@@ -1897,7 +1897,7 @@ Label_27_4EEB:: ; 27:4EEB
 	ld a, $51
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_CommTime_SummaryB
 	ld a, $51
 	farcall Tilemap_CopyRectAndAttr

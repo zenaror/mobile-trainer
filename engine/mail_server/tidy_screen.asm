@@ -64,14 +64,14 @@ Function_2E_4B2E::
 	ld c, $16
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_MailServerMgr_Main
 	ld a, $2E
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	ld bc, $0614
-	ld de, $D0A0
+	ld de, wScreenTileMap + $A0
 	ld hl, Tilemap_MailServerMgr_Footer
 	ld a, $2E
 	farcall Tilemap_CopyRectAndAttr
@@ -170,14 +170,14 @@ MailServerMgr_RedrawScreen:: ; 2E:4C58
 	ld c, $16
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_MailServerMgr_Main
 	ld a, $2E
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	ld bc, $0614
-	ld de, $D0A0
+	ld de, wScreenTileMap + $A0
 	ld hl, Tilemap_MailServerMgr_Footer
 	ld a, $2E
 	farcall Tilemap_CopyRectAndAttr
@@ -283,7 +283,7 @@ MailServerMgr_DrawMailInfo:: ; 2E:4DBF
 	jr nz, .l4DDD
 	call MailServerMgr_UploadTextTiles
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_MailServerMgr_Main
 	ld a, $2E
 	farcall Tilemap_CopyRectAndAttr
@@ -311,7 +311,7 @@ MailServerMgr_DrawMailInfo:: ; 2E:4DBF
 	jr nz, .l4E14
 	call MailServerMgr_UploadTextTiles
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_MailServerMgr_InfoB
 	ld a, $2E
 	farcall Tilemap_CopyRectAndAttr
@@ -345,7 +345,7 @@ MailServerMgr_DrawMailInfo:: ; 2E:4DBF
 	jr nz, .l4E4F
 	call MailServerMgr_UploadTextTiles
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_MailServerMgr_InfoC
 	ld a, $2E
 	farcall Tilemap_CopyRectAndAttr
@@ -373,7 +373,7 @@ MailServerMgr_DrawMailInfo:: ; 2E:4DBF
 	jr nz, .l4E86
 	call MailServerMgr_UploadTextTiles
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_MailServerMgr_InfoD
 	ld a, $2E
 	farcall Tilemap_CopyRectAndAttr

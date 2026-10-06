@@ -507,7 +507,7 @@ Function_2D_68A9::
 	ld c, $2D
 	farcall Gfx_StartHDMA
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_MailAddr
 	ld a, $2D
 	farcall Tilemap_CopyRectAndAttr

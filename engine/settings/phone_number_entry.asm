@@ -494,14 +494,14 @@ PhoneKeypad_Setup:: ; 67:431F
 	or a, a
 	jr nz, .l43D6
 	ld bc, $0514
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_PhoneKeypad_4A_7120
 	ld a, $4A
 	farcall Tilemap_CopyRectAndAttr
 	jr .l43E7
 .l43D6 ; 67:43D6
 	ld bc, $0514
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_PhoneKeypad_4A_71E8
 	ld a, $4A
 	farcall Tilemap_CopyRectAndAttr
@@ -751,7 +751,7 @@ PhoneKeypad_UpdateNonEmptyFlag:: ; 67:45AB
 	ret
 
 PhoneKeypad_BuildTextMap:: ; 67:45C4
-	ld hl, $D044
+	ld hl, wScreenTileMap + $44
 	ld de, $0000
 	ld bc, $020C
 	farcall Tilemap_FillAscendingWithAttr

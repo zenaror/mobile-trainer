@@ -48,7 +48,7 @@ ConnectDialog_Draw_ConnectConfirm:: ; 57:47D1
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_ConnectDialog_ConnectConfirm_56_4F9A
 	ld a, $56
 	farcall Tilemap_CopyRectAndAttr
@@ -68,12 +68,12 @@ ConnectDialog_Draw_ConnectConfirm:: ; 57:47D1
 	ld a, $00
 	ld bc, $0410
 	ld de, $0000
-	ld hl, $D0A2
+	ld hl, wScreenTileMap + $A2
 	farcall Tilemap_FillRectSequential
 	ld a, $40
 	ld bc, $0210
 	ld de, $0000
-	ld hl, $D142
+	ld hl, wScreenTileMap + $142
 	farcall Tilemap_FillRectSequential
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -146,7 +146,7 @@ ConnectDialog_Draw_ConnectConfirm:: ; 57:47D1
 	ld a, $52
 	ld [wConnectDialog_AttrSrcHi], a
 	ld bc, $0214
-	ld de, $D200
+	ld de, wScreenTileMap + $200
 	ld hl, Tilemap_ConnectDialog_ConnectConfirm_56_526A
 	ld a, $56
 	farcall Tilemap_CopyRectAndAttrPtr
@@ -215,7 +215,7 @@ ConnectDialog_Draw_PasswordEntry:: ; 57:4951
 	farcall Gfx_StartHDMAWithService
 	call ConnectDialog_RenderTypedChars
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_ConnectDialog_56_418A
 	ld a, $56
 	farcall Tilemap_CopyRectAndAttr
@@ -351,14 +351,14 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	farcall Gfx_StartHDMAWithService
 	call ConnectDialog_RenderTypedChars
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_ConnectDialog_56_418A
 	ld a, $56
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $00
 	ld bc, $0610
 	ld de, $0000
-	ld hl, $D122
+	ld hl, wScreenTileMap + $122
 	farcall Tilemap_FillRectSequential
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -435,7 +435,7 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	call ConnectDialog_DrawPasswordField
 .l4BF3 ; 57:4BF3
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_ConnectDialog_56_49FA
 	ld a, $56
 	farcall Tilemap_CopyRectAndAttr
@@ -456,7 +456,7 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	ld a, $80
 	ld bc, $0610
 	ld de, $F00E
-	ld hl, $D102
+	ld hl, wScreenTileMap + $102
 	farcall Tilemap_FillRectSequential
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -575,7 +575,7 @@ ConnectDialog_Draw_PasswordSaved:: ; 57:4D40
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_ConnectDialog_56_4CCA
 	ld a, $56
 	farcall Tilemap_CopyRectAndAttr
@@ -588,7 +588,7 @@ ConnectDialog_Draw_PasswordSaved:: ; 57:4D40
 	ld a, $00
 	ld bc, $0610
 	ld de, $0000
-	ld hl, $D122
+	ld hl, wScreenTileMap + $122
 	farcall Tilemap_FillRectSequential
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -683,7 +683,7 @@ ConnectDialog_Draw_StoredPassword:: ; 57:4E4C
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_ConnectDialog_56_445A
 	ld a, $56
 	farcall Tilemap_CopyRectAndAttr
@@ -769,7 +769,7 @@ ConnectDialog_Draw_ForgetConfirm:: ; 57:4F59
 	; [CONFIRMED] 106 insn(s) reached by static flow only; seeds: exec x106; min discovery hops 1;
 	; entered by jpcc from 57:47CD (PROBABLE code) [executed in 4 scenarios]
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_ConnectDialog_56_472A
 	ld a, $56
 	farcall Tilemap_CopyRectAndAttr
@@ -781,7 +781,7 @@ ConnectDialog_Draw_ForgetConfirm:: ; 57:4F59
 	ld a, $80
 	ld bc, $0610
 	ld de, $F00E
-	ld hl, $D102
+	ld hl, wScreenTileMap + $102
 	farcall Tilemap_FillRectSequential
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -977,26 +977,26 @@ Function_57_510F::
 	; [CONFIRMED] 23 insn(s) executed; cut out of the PROBABLE region 5136-5187 by apply_coverage
 	; --split [executed in 3 scenarios]
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_ConnectDialog_56_418A
 	ld a, $56
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $00
 	ld bc, $0610
 	ld de, $0000
-	ld hl, $D122
+	ld hl, wScreenTileMap + $122
 	farcall Tilemap_FillRectSequential
 	jp .l520D
 .l5160 ; 57:5160
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_ConnectDialog_56_49FA
 	ld a, $56
 	farcall Tilemap_CopyRectAndAttr
 	jp .l520D
 .l5174 ; 57:5174
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_ConnectDialog_56_4CCA
 	ld a, $56
 	farcall Tilemap_CopyRectAndAttr
@@ -1005,14 +1005,14 @@ Function_57_510F::
 .l5187 ; 57:5187
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 5/18 scenarios)
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_ConnectDialog_56_445A
 	ld a, $56
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $00
 	ld bc, $0610
 	ld de, $0000
-	ld hl, $D122
+	ld hl, wScreenTileMap + $122
 	farcall Tilemap_FillRectSequential
 	jr .l51BC
 
@@ -1020,7 +1020,7 @@ Function_57_510F::
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1;
 	; entered by jpcc from 57:5136 (PROBABLE code) [executed in 4 scenarios]
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_ConnectDialog_56_472A
 	ld a, $56
 	farcall Tilemap_CopyRectAndAttr

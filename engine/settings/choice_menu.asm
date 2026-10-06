@@ -98,7 +98,7 @@ SettingsPhone_ChoiceMenu_Setup:: ; 67:4688
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, $5540
 	ld a, $4D
 	farcall Tilemap_CopyRectAndAttr
@@ -129,7 +129,7 @@ SettingsPhone_ChoiceMenu_Setup:: ; 67:4688
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_SettingsPhone_ChoiceMenu
 	ld a, $4D
 	farcall Tilemap_CopyRectAndAttr
@@ -251,7 +251,7 @@ Data_67_486D::
 SettingsPhone_ChoiceMenu_BuildTextMap:: ; 67:4871
 	; [CONFIRMED] 74 insn(s) reached by static flow only; seeds: exec x74; min discovery hops 6;
 	; entered by call from 67:47BA (PROBABLE code) [executed in 2 scenarios]
-	ld hl, $D121
+	ld hl, wScreenTileMap + $121
 	ld de, $0000
 	ld bc, $0612
 	farcall Tilemap_FillAscendingWithAttr
@@ -320,7 +320,7 @@ SettingsPhone_ChoiceMenu_LoadTilemap:: ; 67:48F0
 	ld a, $02
 .l48FF ; 67:48FF
 	add a, c
-	ld de, $D063
+	ld de, wScreenTileMap + $63
 	ld bc, $050E
 	ld hl, SettingsPhone_ChoiceMenu_TilemapTable
 	add a, a

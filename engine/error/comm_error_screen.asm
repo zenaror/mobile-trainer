@@ -158,7 +158,7 @@ CommErr_FindRecord:: ; 5C:527D
 	jr nz, CommErr_DrawMessage_TimerVariant
 	push hl
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, CommErr_Tilemap_Comm
 	ld a, $5C
 	farcall Tilemap_CopyRectAndAttr
@@ -168,7 +168,7 @@ CommErr_FindRecord:: ; 5C:527D
 CommErr_DrawMessage_TimerVariant:: ; 5C:52AB
 	push hl
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, CommErr_Tilemap_CommTimer
 	ld a, $5C
 	farcall Tilemap_CopyRectAndAttr
@@ -193,7 +193,7 @@ CommErr_DrawMessage_TimerVariant:: ; 5C:52AB
 CommErr_DrawMessage_PlainVariant:: ; 5C:52EF
 	push hl
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, CommErr_Tilemap_Plain
 	ld a, $5C
 	farcall Tilemap_CopyRectAndAttr
@@ -270,11 +270,11 @@ CommErr_PrintMessage:: ; 5C:531E
 	ld hl, $0A01
 	ld bc, $0512
 	farcall TileCanvas_UploadRect
-	ld hl, $D061
+	ld hl, wScreenTileMap + $61
 	ld bc, $0712
 	ld de, $0000
 	farcall Tilemap_FillAscendingWithAttr
-	ld hl, $D141
+	ld hl, wScreenTileMap + $141
 	ld bc, $0512
 	ld de, $0080
 	farcall Tilemap_FillAscendingWithAttr
@@ -286,7 +286,7 @@ Label_5C_53A1::
 	; entered by jpcc from 5C:5280 (executed) | forced execution: 6/6 instruction starts ran in
 	; forced_debug (traces/forced/, not natural evidence; status unchanged)
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, CommErr_Tilemap_Plain
 	ld a, $5C
 	farcall Tilemap_CopyRectAndAttr
@@ -367,7 +367,7 @@ Function_5C_53B3::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
-	ld hl, $D40C
+	ld hl, wScreenAttrMap + $0C
 	ld bc, $0208
 	ld de, $F008
 	ld a, $07
@@ -421,7 +421,7 @@ Function_5C_546F::
 	ld a, $57
 	ld [wCommErr_AttrSrcHi], a
 	ld bc, $0214
-	ld de, $D200
+	ld de, wScreenTileMap + $200
 	ld hl, $5656
 	ld a, $5C
 	farcall Tilemap_CopyRectAndAttrPtr

@@ -58,14 +58,14 @@ Function_65_487C::
 	cp a, $04
 	jr z, .l4908
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_Notice_58_7B78
 	ld a, $58
 	farcall Tilemap_CopyRectAndAttr
 	jr .l4919
 .l4908 ; 65:4908
 	ld bc, $1214
-	ld de, $D000
+	ld de, wScreenTileMap
 	ld hl, Tilemap_Notice_4B_4000
 	ld a, $4B
 	farcall Tilemap_CopyRectAndAttr
@@ -201,11 +201,11 @@ Notice_DrawBodyText:: ; 65:49A2
 	ld hl, $0A01
 	ld bc, $0512
 	farcall TileCanvas_UploadRect
-	ld hl, $D061
+	ld hl, wScreenTileMap + $61
 	ld bc, $0712
 	ld de, $0000
 	farcall Tilemap_FillAscendingWithAttr
-	ld hl, $D141
+	ld hl, wScreenTileMap + $141
 	ld bc, $0512
 	ld de, $0080
 	farcall Tilemap_FillAscendingWithAttr
@@ -318,7 +318,7 @@ Function_65_4AD7::
 	ld h, [hl]
 	ld l, a
 	ld bc, $0201
-	ld de, $D210
+	ld de, wScreenTileMap + $210
 	ld a, $58
 	farcall Tilemap_CopyRectAndAttr
 	pop hl
@@ -346,7 +346,7 @@ Function_65_4AD7::
 	ld h, [hl]
 	ld l, a
 	ld bc, $0201
-	ld de, $D212
+	ld de, wScreenTileMap + $212
 	ld a, $58
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $0A
@@ -373,7 +373,7 @@ Function_65_4AD7::
 	ld h, [hl]
 	ld l, a
 	ld bc, $0201
-	ld de, $D211
+	ld de, wScreenTileMap + $211
 	ld a, $58
 	farcall Tilemap_CopyRectAndAttr
 	ret
