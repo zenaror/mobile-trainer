@@ -55,7 +55,7 @@ Registration_DeleteConfirmPage:: ; 68:799A
 Function_68_799A::
 	; [CONFIRMED] 105 insn(s); 105 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld [wRam_C27C], a
+	ld [wDeleteConfirm_Variant], a
 	call Registration_DeleteConfirm_Setup
 	farcall Palette_FadeInFromWhite
 	call Registration_DeleteConfirm_InputLoop
@@ -71,8 +71,8 @@ Registration_DeleteConfirm_Setup:: ; 68:79B8
 	farcall Joypad_SetRepeatTiming
 	farcall Sprite_ResetAll
 	ld a, $01
-	ld [wRam_C27D], a
-	ld a, [wRam_C27C]
+	ld [wDeleteConfirm_Cursor], a
+	ld a, [wDeleteConfirm_Variant]
 	or a, a
 	jr nz, .l7A0A
 	ld de, $9001
@@ -155,7 +155,7 @@ Registration_DeleteConfirm_InputLoop:: ; 68:7A8F
 	jr Registration_DeleteConfirm_InputLoop
 .l7AB2 ; 68:7AB2
 	play_sfx SFX_CONFIRM
-	ld a, [wRam_C27D]
+	ld a, [wDeleteConfirm_Cursor]
 	or a, a
 	jr nz, .l7ACB
 	ld a, $01
@@ -174,17 +174,17 @@ Registration_DeleteConfirm_InputLoop:: ; 68:7A8F
 .l7AE0 ; 68:7AE0
 	; [CONFIRMED] 30 insn(s); 30 executed (in up to 1/18 scenarios)
 	play_sfx SFX_CURSOR_MOVE
-	ld a, [wRam_C27D]
+	ld a, [wDeleteConfirm_Cursor]
 	ld b, $01
 	xor a, b
-	ld [wRam_C27D], a
+	ld [wDeleteConfirm_Cursor], a
 	call Registration_DeleteConfirm_UpdateCursor
 	jr .l7AFE
 .l7AFE ; 68:7AFE
 	jp Registration_DeleteConfirm_InputLoop
 
 Registration_DeleteConfirm_UpdateCursor:: ; 68:7B01
-	ld a, [wRam_C27D]
+	ld a, [wDeleteConfirm_Cursor]
 	add a, a
 	ld hl, Registration_DeleteCursorPositions
 	add a, l
@@ -240,7 +240,7 @@ Function_68_7B1D::
 	ldh [hTextBox_LineAdvance], a
 	ld a, $0C
 	ldh [hRam_FFC7], a
-	ld a, [wRam_C27C]
+	ld a, [wDeleteConfirm_Variant]
 	or a, a
 	jr nz, .l7B70
 	ld a, $06
@@ -266,7 +266,7 @@ Registration_DeleteExecute:: ; 68:7B9A
 	farcall Palette_FadeInFromWhite
 	call Registration_DeleteExecute_RunState
 	farcall Palette_FadeOutToWhite
-	ld a, [wRam_C27C]
+	ld a, [wDeleteExecute_Result]
 	ret
 
 Registration_DeleteExecute_Setup:: ; 68:7BB0
@@ -275,8 +275,8 @@ Registration_DeleteExecute_Setup:: ; 68:7BB0
 	farcall Joypad_SetRepeatTiming
 	farcall Sprite_ResetAll
 	xor a, a
-	ld [wRam_C27C], a
-	ld [wRam_C27D], a
+	ld [wDeleteExecute_Result], a
+	ld [wDeleteExecute_State], a
 	ld de, $8801
 	ld hl, $6180
 	ld a, $71
@@ -326,7 +326,7 @@ Registration_DeleteExecute_Setup:: ; 68:7BB0
 Registration_DeleteExecute_RunState:: ; 68:7C52
 	farcall Sprite_UpdateAll
 	call VBlank_WaitAndService
-	ld a, [wRam_C27D]
+	ld a, [wDeleteExecute_State]
 	add a, a
 	add a, $6B
 	ld l, a
@@ -351,7 +351,7 @@ Table_68_7C6B::
 	ld a, $02
 	call MobileAPI
 	ld a, $01
-	ld [wRam_C27D], a
+	ld [wDeleteExecute_State], a
 	jr Registration_DeleteExecute_RunState
 
 	ld a, [wTimerEnable]
@@ -375,7 +375,7 @@ Table_68_7C6B::
 	ld a, $04
 	call MobileAPI
 	ld a, $02
-	ld [wRam_C27D], a
+	ld [wDeleteExecute_State], a
 	jp Registration_DeleteExecute_RunState
 
 	ld a, [wTimerEnable]
@@ -395,7 +395,7 @@ Table_68_7C6B::
 	call MobileAPI
 	call Sram_WipeAllBanks
 	ld a, $01
-	ld [wRam_C27C], a
+	ld [wDeleteExecute_Result], a
 	ret
 
 .l7CE8 ; 68:7CE8
@@ -417,7 +417,7 @@ Table_68_7C6B::
 	ld a, $0A
 	farcall Notice_ShowPage
 	xor a, a
-	ld [wRam_C27C], a
+	ld [wDeleteExecute_Result], a
 	ret
 
 Registration_DeleteExecute_PrintMessage:: ; 68:7D1C

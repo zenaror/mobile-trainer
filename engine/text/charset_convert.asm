@@ -424,7 +424,7 @@ Function_7E_7D19::
 .l7D5A ; 7E:7D5A
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ld a, $01
-	ld [wRam_C282], a
+	ld [wCharsetConvert_PageResultFlag], a
 	jp Charset_Iso2022JpToSjis_Init
 
 Charset_Iso2022JpToSjis:: ; 7E:7D62
@@ -432,7 +432,7 @@ Charset_Iso2022JpToSjis:: ; 7E:7D62
 	; entered by far from 54:4A73 (PROBABLE code) [upgraded PROBABLE->CONFIRMED by the classify_g1
 	; pass: every instruction start of the region appears in analysis/coverage_union.tsv]
 	xor a, a
-	ld [wRam_C282], a
+	ld [wCharsetConvert_PageResultFlag], a
 
 Charset_Iso2022JpToSjis_Init:: ; 7E:7D66
 Label_7E_7D66::
@@ -609,7 +609,7 @@ Table_7E_7D8F::
 Charset_Iso2022JpToSjis_Finish:: ; 7E:7E37
 Label_7E_7E37::
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
-	ld a, [wRam_C282]
+	ld a, [wCharsetConvert_PageResultFlag]
 	or a, a
 	jr nz, .l7E4C
 

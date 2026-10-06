@@ -501,9 +501,9 @@ Browser_LoadPage_Request:: ; 4C:43CD
 	ld bc, $0100
 	call CopyBytes
 	call Sound_FrameService
-	ld a, [wRam_C2C5]
+	ld a, [wBrowserLoginPostFlagLo]
 	ld c, a
-	ld a, [wRam_C2C6]
+	ld a, [wBrowserLoginPostFlagHi]
 	or a, c
 	jr z, .l4467
 	ld a, c
@@ -524,7 +524,7 @@ Browser_LoadPage_Request:: ; 4C:43CD
 	call Sound_FrameService
 	farcall Net_BuildLoginPostBody
 	ld a, c
-	ld [wRam_C242], a
+	ld [wBrowserPost_BodyLengthLo], a
 	ld a, b
 	ld [wRam_C243], a
 	ld a, $05

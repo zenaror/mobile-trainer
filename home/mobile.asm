@@ -14,9 +14,9 @@ MobileAPI:: ; 00:0150
 	cp a, $02
 	ld [wMobileAPIIndex], a
 	ld a, l
-	ld [wRam_C823], a
+	ld [wMobileCall_ArgHlLo], a
 	ld a, h
-	ld [wRam_C824], a
+	ld [wMobileCall_ArgHlHi], a
 	jr nz, .l016B
 	ldh [hROMBankHi], a
 	ld a, l
@@ -49,9 +49,9 @@ ReturnMobileAPI:: ; 00:018D
 	; [CONFIRMED] return path of MobileAPI: 75:4054-4057 pushes $018D before dispatching; saves A/HL
 	; to C823-C825, pops saved ROM bank -> FF8A/FF8B + MBC, res 6,[C6C1], reloads HL/A, ret
 	; [candidate; no static referrer] [executed in 41 scenarios]
-	ld [wRam_C823], a
+	ld [wMobileReturn_A], a
 	ld a, l
-	ld [wRam_C824], a
+	ld [wMobileReturn_HlLo], a
 	ld a, h
 	ld [wMobileAPIIndex], a
 	pop de
@@ -66,11 +66,11 @@ ReturnMobileAPI:: ; 00:018D
 	ld [rROMB1], a
 	ld hl, wMobileFlags
 	res 6, [hl]
-	ld hl, wRam_C824
+	ld hl, wMobileReturn_HlLo
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ld a, [wRam_C823]
+	ld a, [wMobileReturn_A]
 	ret
 
 Int_Serial:: ; 00:01B7

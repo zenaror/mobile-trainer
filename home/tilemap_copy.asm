@@ -18,9 +18,9 @@ Function_00_16A2::
 	call Tilemap_CopyRect
 	pop de
 	pop bc
-	ld a, [wRam_C10E]
+	ld a, [wTilemapCopy_AttrSrcLo]
 	ld l, a
-	ld a, [wRam_C10F]
+	ld a, [wTilemapCopy_AttrSrcHi]
 	ld h, a
 	ld a, d
 	add a, $04

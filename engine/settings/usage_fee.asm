@@ -40,7 +40,7 @@ Function_67_626F::
 	farcall Notice_ShowPage
 	ret
 .l62B2 ; 67:62B2
-	ld a, [wRam_C28E]
+	ld a, [wUsageQuery_NoFlag]
 	or a, a
 	jr z, .loop
 

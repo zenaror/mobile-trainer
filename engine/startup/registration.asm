@@ -839,17 +839,17 @@ Registration_SavePassword:: ; 65:47EA
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, wAcctPassword
-	ld de, wRam_C28F
+	ld de, wRegistrationSave_PasswordBuf
 	call CopyString
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
-	ld hl, wRam_C28F
+	ld hl, wRegistrationSave_PasswordBuf
 	call StringLength
 	ld a, c
-	ld de, wRam_C28F
+	ld de, wRegistrationSave_PasswordBuf
 	farcall SavedPassword_Store
 	ret
 

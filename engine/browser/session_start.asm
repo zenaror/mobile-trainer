@@ -7,9 +7,9 @@ SECTION "engine/browser/session_start", ROMX
 Browser_LoadUrlFromSramBank3:: ; 4E:488D
 	; [CONFIRMED] 48 insn(s); 48 executed (in up to 3/18 scenarios) (part of region $4886-$4904)
 	ld a, c
-	ld [wRam_C2C5], a
+	ld [wBrowserLoginPostFlagLo], a
 	ld a, b
-	ld [wRam_C2C6], a
+	ld [wBrowserLoginPostFlagHi], a
 	ld a, d
 	ld [wBrowserDialSlotPlus1], a
 	ld a, $01
@@ -41,8 +41,8 @@ Browser_LoadHomePage:: ; 4E:48CB
 	inc a
 	ld [wBrowserDialSlotPlus1], a
 	xor a, a
-	ld [wRam_C2C5], a
-	ld [wRam_C2C6], a
+	ld [wBrowserLoginPostFlagLo], a
+	ld [wBrowserLoginPostFlagHi], a
 	ld a, $01
 	ld [wBrowserFrameStyle], a
 	ld a, $FF
@@ -73,8 +73,8 @@ Browser_LoadStagedUrl:: ; 4E:493B
 	inc a
 	ld [wBrowserDialSlotPlus1], a
 	xor a, a
-	ld [wRam_C2C5], a
-	ld [wRam_C2C6], a
+	ld [wBrowserLoginPostFlagLo], a
+	ld [wBrowserLoginPostFlagHi], a
 	ld a, $01
 	ld [wBrowserFrameStyle], a
 	ld a, $FF

@@ -1,8 +1,8 @@
 # Neutral RAM uses with proven roles (ram12) (ROM unchanged)
 
-> Status: **reference (current)**. First area of ram12: all 34 SRAM bases and 107 explicit use sites of the 152-base worklist. One proposer read every site and indirect reader; a fresh-context skeptic independently checked every proposal, bank proof and natural coverage entry. The HRAM area is now also complete (section 5); the 97 WRAM bases remain pending.
+> Status: **reference (current)**. Ram12 is complete: all 152 bases / 1,059 explicit use sites were accounted for (560 named, 499 kept neutral). The first area covered 34 SRAM bases / 107 sites. One proposer read every site and indirect reader; a fresh-context skeptic independently checked every proposal, bank proof and natural coverage entry. HRAM and WRAM are complete in sections 5 and 6.
 
-## 1. Result
+## 1. SRAM result
 
 * Seven new bank-1 names: six CONFIRMED, one PROBABLE (table below).
 * 26 bases reuse existing bank-qualified containers or fields with exact offsets; this does not invent a semantic role for each byte.
@@ -59,3 +59,27 @@ Two evidence corrections are explicit: preview reveal termination tests H=0, not
 The coordinator applied the strict tools and the two guarded FFC2 replacements, then audited all 176 exact operand changes against the published SRAM checkpoint. Instruction line counts, the 227 keep sites and prior SRAM changes are preserved. The combined source passes make (SHA-256 OK, RESULT: IDENTICAL), sym-check and palette-check. Combined totals: 221 banked names (125 CONFIRMED/96 PROBABLE), 307 aliases (241/66). No new natural scenario, PPU capture or hardware validation was added.
 
 The full main suite has 36 rc=0 entries and the known ramop7 obsolete-format exception (37 total). Three context records in ramop9/ramop10 were independently rechecked after adjacent HRAM operands were renamed; only their `ctx` fields changed. Their operands, W7 banks and proofs remain intact. Focused dry-runs restore the previous totals (150/6, 285/15); the SRAM record remains 106 already written / zero skips. A historical mail proof line number is stale (1914 versus current 1872), but its ROM address 27:4F6F and bank selection remain correct.
+
+## 6. WRAM areas and complete census
+
+Communication covers all 55 bases / 376 sites: 13 global names and 33 local aliases name 179 sites; 197 remain neutral. The fresh reviewer upheld 69 of 75 proposal rows and rejected six parser aliases. Residual browser/help/keyboard/account/mail areas cover 42 bases / 173 sites: six global names and 24 local aliases name 99 sites; 74 remain neutral. All 57 residual rows were upheld with evidence corrections. The four manifests are `ram12_comm_renames.tsv`, `ram12_comm_overlays.tsv`, `ram12_residual_renames.tsv` and `ram12_residual_overlays.tsv`.
+
+The 19 global WRAM names (16 CONFIRMED/3 PROBABLE) are true across every direct and derived use checked: HTTP path length, credentials pointer, saved POST body pointer/length, receive sync miss count, response timeout count, config-read state argument, POST result pointer, cached OpenTCP packet, browser login POST flag, BMP row-aligned height/top-down flag, keyboard slide target Y and high target palette color byte. Global DEF comments now contain the reviewed status and evidence rather than obsolete HYPOTHESIS descriptions. The 57 WRAM aliases are 45 CONFIRMED/12 PROBABLE; SMTP C241/C242 use the consistent HeaderWritePtr/Hi family, distinct from the browser BodyLengthLo phase at C242.
+
+The six numeric-parser aliases of C711/C712/C713 would falsely name initial saves and final restoration of the caller's HTTP capacity/pointer state. Their 20 sites stay neutral; existing global-function ranges cannot isolate that mixed phase, and no labels were invented to force aliases. C591/C592 date-offset copies are write-only and remain neutral. HTML C331/C332 are not a consistent pointer pair: a tags path writes both E and D to C331. That contradiction is preserved. Keyboard fragment C2B0/C2B1 has incomplete evidence, and D525 remains neutral in WRAM1's store-only phase (other bank phases have other scratch uses).
+
+Evidence corrections: ticker offset $16 means 22 decimal; IRQ subtraction $28 means 40 decimal. The BMP validation-failure clear at 51:715C has zero natural hits. Bmp_Validate first restricts height to 1..96, so ceil(height/12)*12 cannot overflow in this phase. Naturally demonstrated roles are CONFIRMED; cache resend, first/later timeout recovery, parser/dead debug phases and other unexecuted interpretations retain PROBABLE or neutral status.
+
+The coordinator applied both strict tools, performed 19 exact guarded DEF-evidence updates, and audited all 549 WRAM sites against the independent maps. Exactly 278 reviewed operand changes were made, 271 keep sites remain neutral, and all 307 pre-existing alias DEF/scope pairs remain identical. Previous SRAM/HRAM edits are retained. There are no instruction-line insertions/deletions or ROM-byte changes. No new natural run, PPU or hardware evidence.
+
+| area | bases | sites | named | neutral |
+|---|---:|---:|---:|---:|
+| SRAM | 34 | 107 | 106 | 1 |
+| HRAM | 21 | 403 | 176 | 227 |
+| WRAM communication | 55 | 376 | 179 | 197 |
+| WRAM residual | 42 | 173 | 99 | 74 |
+| total | 152 | 1,059 | 560 | 499 |
+
+Complete-pass totals: seven new SRAM banked fields, 20 global renames, 106 new local aliases and one prior FFC2 alias scope extension. Banked names total 221 (125 CONFIRMED/96 PROBABLE); aliases total 364 on 104 bytes (62 WRAM0/42 HRAM), 286 CONFIRMED/78 PROBABLE. Neutral names remain available wherever a role was not proved; completion means the worklist was reviewed, not that every byte acquired a role name.
+
+Final main validation: 37 suite entries, 36 rc=0 and only the inherited ramop7 obsolete-format rc=2. make/compare report SHA-256 OK and RESULT: IDENTICAL; sym-check, PNG/palette/graphics and invariants pass. Manual SRAM is 106 already written / zero skips; ramop11 remains 138 / zero, and ramop9/10 retain the documented 150/6 and 285/15 totals.

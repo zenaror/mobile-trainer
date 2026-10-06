@@ -1111,7 +1111,7 @@ Function_55_6318::
 	call Sound_FrameService
 	play_sfx SFX_POPUP_OPEN
 	call Kbd_GetSlideTargetY
-	ld [wRam_C2A2], a
+	ld [wKbdSlideTargetY], a
 	ld a, [wKbdType]
 	cp a, $06
 	jr nz, .l6348
@@ -1203,7 +1203,7 @@ Function_55_6318::
 	sub a, $08
 	ld [hl], a
 	push af
-	ld a, [wRam_C2A2]
+	ld a, [wKbdSlideTargetY]
 	ld b, a
 	pop af
 	cp a, b
