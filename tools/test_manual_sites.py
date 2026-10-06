@@ -120,6 +120,41 @@ class ManualSites(unittest.TestCase):
         rc, out = self.run_tool()
         self.assertIn('0 row(s) written, 3 already written, 1 skipped', out)
 
+    def test_sram_neutral_rows_check_bank_and_survive_neighbour_rewrites(self):
+        put(os.path.join(self.dir, 'ram/sram.asm'), 'DEF sSram_A000 EQU $A000 ; neutral\nDEF sSram_A001 EQU $A001 ; neutral\n')
+        put(os.path.join(self.dir, 'ram/banked.asm'), 'DEF sConfigImage EQU $A000 ; bank S2 size 192 struct\nDEF sOtherImage EQU $A000 ; bank S0 size 192 struct\n')
+        code = 'S::\n\tld a, [sSram_A000]\n\tld a, [sSram_A001]\n\tld hl, $A000\n\tret\n'
+        put(os.path.join(self.dir, 'engine/s.asm'), code)
+        self.record(('engine/s.asm', '2', 'sSram_A000', 'S2', 'sConfigImage', 'g', 'manual', 'proof', 'S:: | ld a, [*] | ld a, [*]'),
+                    ('engine/s.asm', '3', 'sSram_A001', 'S2', 'sConfigImage + $01', 'g', 'manual', 'proof', 'ld a, [*] | ld a, [*] | ld hl, *'),
+                    ('engine/s.asm', '4', '$A000', 'S2', 'sOtherImage', 'g', 'manual', 'proof', ''))
+        rc, out = self.run_tool()
+        self.assertEqual(rc, 0, out)
+        self.assertIn('2 row(s) written, 0 already written, 1 skipped', out)
+        self.assertIn('bank differs (S0 against S2)', out)
+        expected = code.replace('sSram_A000', 'sConfigImage').replace('sSram_A001', 'sConfigImage + $01')
+        self.assertEqual(get(os.path.join(self.dir, 'engine/s.asm')), expected)
+        rc, out = self.run_tool()
+        self.assertEqual(rc, 0, out)
+        self.assertIn('0 row(s) written, 2 already written, 1 skipped', out)
+        self.assertEqual(get(os.path.join(self.dir, 'engine/s.asm')), expected)
+
+    def test_already_written_rows_still_validate_bank_value_and_context(self):
+        put(os.path.join(self.dir, 'ram/banked.asm'), 'DEF sConfigImage EQU $A000 ; bank S2 size 192 struct\n')
+        code = 'S::\n\tld hl, sConfigImage\n\tld hl, sConfigImage\n\tld hl, sConfigImage\n\tld hl, sConfigImage\n\tret\n'
+        put(os.path.join(self.dir, 'engine/s.asm'), code)
+        self.record(('engine/s.asm', '2', '$A000', 'S0', 'sConfigImage', 'g', 'manual', 'proof', ''),
+                    ('engine/s.asm', '3', '$A001', 'S2', 'sConfigImage', 'g', 'manual', 'proof', ''),
+                    ('engine/s.asm', '4', '$A000', 'S2', 'sConfigImage', 'g', 'manual', 'proof', 'ret | ld hl, * | ret'),
+                    ('engine/s.asm', '5', '$A000', 'S2', 'sConfigImage', 'g', 'manual', 'proof', 'ld hl, * | ld hl, * | ret'))
+        rc, out = self.run_tool('--dry-run')
+        self.assertEqual(rc, 0, out)
+        self.assertIn('0 row(s) to write, 1 already written, 3 skipped', out)
+        self.assertIn('bank differs (S2 against S0)', out)
+        self.assertIn('value differs', out)
+        self.assertIn('context differs', out)
+        self.assertEqual(get(os.path.join(self.dir, 'engine/s.asm')), code)
+
     def test_dry_run_and_bad_record(self):
         self.record(('engine/a.asm', '2', '$D000', 'W2', 'wTileStage2', 'g', 'manual', 'proof', ''))
         rc, out = self.run_tool('--dry-run')
