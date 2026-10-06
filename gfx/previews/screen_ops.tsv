@@ -87,10 +87,10 @@ Account_ResultPage	engine/account/result_page.asm:47	palette	Palette_Account_Res
 Account_ResultPage	engine/account/result_page.asm:52	tilemap	Tilemap_Account_ResultPage	4B	rows=18 cols=20 dest=$D000
 Account_ResultPage_LoadBanner	engine/account/result_page.asm:216	UNRESOLVED	tiles	--	bank (a) not an immediate
 Account_ResultPage_LoadBanner	engine/account/result_page.asm:251	UNRESOLVED	tiles	--	bank (a) not an immediate
-Account_ResultPage_DrawTimeDigits	engine/account/result_page.asm:311	UNRESOLVED	tilemap	--	source (hl) not an immediate/label
-Account_ResultPage_DrawTimeDigits	engine/account/result_page.asm:327	UNRESOLVED	tilemap	--	source (hl) not an immediate/label
-Account_ResultPage_DrawTimeDigits	engine/account/result_page.asm:368	UNRESOLVED	tilemap	--	source (hl) not an immediate/label
-Account_ResultPage_DrawTimeDigits	engine/account/result_page.asm:384	UNRESOLVED	tilemap	--	source (hl) not an immediate/label
+Account_ResultPage_DrawTimeDigits	engine/account/result_page.asm:326	UNRESOLVED	tilemap	--	source (hl) not an immediate/label
+Account_ResultPage_DrawTimeDigits	engine/account/result_page.asm:342	UNRESOLVED	tilemap	--	source (hl) not an immediate/label
+Account_ResultPage_DrawTimeDigits	engine/account/result_page.asm:383	UNRESOLVED	tilemap	--	source (hl) not an immediate/label
+Account_ResultPage_DrawTimeDigits	engine/account/result_page.asm:399	UNRESOLVED	tilemap	--	source (hl) not an immediate/label
 SettingsMenu_StateInit	engine/account/settings_menu.asm:161	tiles	Gfx_SettingsMenu_Tiles8800Vb1	4A	n=64 vram=$8800 vbank=1
 SettingsMenu_StateInit	engine/account/settings_menu.asm:167	tiles	Gfx_SettingsMenu_Tiles8C00Vb1	4A	n=64 vram=$8C00 vbank=1
 SettingsMenu_StateInit	engine/account/settings_menu.asm:173	tiles	Gfx_SettingsMenu_Tiles9000Vb1	4A	n=64 vram=$9000 vbank=1

@@ -153,14 +153,20 @@ Tilemap_Registration_WriteConfig_5D_7048:: ; 5D:7048
 	INCBIN "gfx/account/screens_bank5d/registration_write_config_5d_7048.tilemap"
 	INCBIN "gfx/account/screens_bank5d/registration_write_config_5d_7048.attrmap"
 
-; ---- zero $7318-$731C (4 bytes) [PROBABLE] 4 x 00 (all bytes zero) between two read-data blocks
-Table_5D_7318:: ; 5D:7318
+; ---- zero $7318-$731C (4 bytes) [PROBABLE] unread zero-pointer entry 0 of the
+; object-table base; the known B=$81 caller selects entry 1 at $731C.
+; No safe-sentinel claim: a zero script pointer is not validated by InitSlot.
+Objects_Registration_WriteConfig:: ; 5D:7318
+Table_5D_7318::
 	ds $4, $00
 
-; ---- data $731C-$735D (65 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
-
+; ---- data $731C-$735D (65 bytes) [CONFIRMED] selected object entry 1 and frame/script
+; chain: pointers $7320/$7354, four frames with 2/2/6/0 OAM pieces, four script
+; pairs (frames 0..3, delay 20). All 65 bytes naturally read in eight scenarios.
+; Source bank $5D is saved by Sprite_InitSlot and reselected for frame/script reads.
 Data_5D_731C:: ; 5D:731C
 	sprite_object_entry SpriteFrameTable_5D_7320, SpriteScript_5D_7354 ; entry 1
+
 SpriteFrameTable_5D_7320:: ; 5D:7320
 	sprite_frame_table SpriteFrame_5D_7328, SpriteFrame_5D_7331, SpriteFrame_5D_733A, SpriteFrame_5D_7353
 SpriteFrame_5D_7328:: ; 5D:7328
