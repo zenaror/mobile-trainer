@@ -179,7 +179,7 @@ Function_74_532A::
 	ldh a, [hHtml_ImageDataHi]
 	ld d, a
 	ld a, $04
-	ldh [hRam_FFB0], a
+	ldh [hHtmlRecord_Kind], a
 	ldh a, [hHtml_ImageBank]
 	call Html_Layout_AppendRecord
 	pop bc
@@ -377,15 +377,15 @@ Html_Layout_WrapRun:: ; 74:5440
 	ldh a, [hHtmlLayout_RightLimit]
 	sub a, c
 	ld c, a
-	ldh [hRam_FFC0], a
+	ldh [hHtmlRun_FreeWidth], a
 	ldh a, [hHtmlLayout_RightLimitHi]
 	sbc a, b
 	ld b, a
-	ldh [hRam_FFC1], a
+	ldh [hHtmlRun_FreeWidthHi], a
 	ld a, l
 	ldh [hRam_FFB0], a
 	ld a, h
-	ldh [hRam_FFB1], a
+	ldh [hHtmlRun_RecordPtrHi], a
 	ldh a, [hHtml_RunStartLo]
 	ld l, a
 	ldh a, [hTextY]
@@ -550,24 +550,24 @@ Function_74_5528::
 	ldh [hTextY], a
 	ldh a, [hRam_FFB0]
 	ld l, a
-	ldh a, [hRam_FFB1]
+	ldh a, [hHtmlRun_RecordPtrHi]
 	ld h, a
 	push hl
 	ld de, $0004
 	add hl, de
 	ldh a, [hHtml_PageBank]
 	call BankSwitch_H
-	ldh a, [hRam_FFC0]
+	ldh a, [hHtmlRun_FreeWidth]
 	sub a, c
 	ld [hli], a
-	ldh a, [hRam_FFC1]
+	ldh a, [hHtmlRun_FreeWidthHi]
 	sbc a, b
 	ld [hli], a
 	pop hl
 	ret
 
 Html_Layout_AppendRecord:: ; 74:5548
-	ldh [hRam_FFB1], a
+	ldh [hHtmlRecord_DataBank], a
 	ldh a, [hHtmlLayout_NextRecord]
 	ld l, a
 	add a, $10
@@ -616,7 +616,7 @@ Html_Layout_AppendRecord:: ; 74:5548
 	ld [hli], a
 	xor a, a
 	ld [hli], a
-	ldh a, [hRam_FFB0]
+	ldh a, [hHtmlRecord_Kind]
 	ld [hli], a
 	ldh a, [hHtml_RecordFlags]
 	or a, $80
@@ -630,7 +630,7 @@ Html_Layout_AppendRecord:: ; 74:5548
 	ld [hli], a
 	ld a, d
 	ld [hli], a
-	ldh a, [hRam_FFB1]
+	ldh a, [hHtmlRecord_DataBank]
 	ld [hli], a
 	ldh a, [hHtml_RecordFlags]
 	and a, $01

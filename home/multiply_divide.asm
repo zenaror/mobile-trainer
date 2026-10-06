@@ -106,7 +106,7 @@ Divide32by15:: ; 00:0D92
 	ld a, $10
 	or a, a
 .loop ; 00:0D95
-	ldh [hRam_FFF7], a
+	ldh [hDivide32by15_BitsLeft], a
 	rl e
 	rl d
 	rl c
@@ -127,7 +127,7 @@ Divide32by15:: ; 00:0D92
 	scf
 .l0DAE ; 00:0DAE
 	ccf
-	ldh a, [hRam_FFF7]
+	ldh a, [hDivide32by15_BitsLeft]
 	dec a
 	jr nz, .loop
 	rl e

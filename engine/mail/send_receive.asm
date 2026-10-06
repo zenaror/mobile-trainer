@@ -1862,26 +1862,26 @@ Label_27_4EEB:: ; 27:4EEB
 	ld a, [wTimerAFrames]
 	ldh [hRam_FFB0], a
 	ld a, [wTimerASeconds]
-	ldh [hRam_FFB1], a
+	ldh [hMailCommTime_DisplaySeconds], a
 	ld a, [wTimerAMinutes]
-	ldh [hRam_FFB2], a
+	ldh [hMailCommTime_DisplayMinutes], a
 	ld a, [wTimerAExtra]
 	ldh [hRam_FFB3], a
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, wScreenTileMap + $164
-	ldh a, [hRam_FFB2]
+	ldh a, [hMailCommTime_DisplayMinutes]
 	ld l, a
 	ld h, $00
 	sub a, $3C
 	jr c, .skip
 	ld hl, $003B
 	ld a, $3B
-	ldh [hRam_FFB1], a
+	ldh [hMailCommTime_DisplaySeconds], a
 .skip ; 27:4F84
 	xor a, a
-	ldh [hRam_FFB4], a
+	ldh [hCommTime_DigitStarted], a
 	ld bc, $FF9C
 	call CommTime_DrawNumber_27_4FFB
 	ld bc, $FFF6
@@ -1889,11 +1889,11 @@ Label_27_4EEB:: ; 27:4EEB
 	ld a, l
 	call CommTime_PutDigit_27_5021
 	ld de, wScreenTileMap + $169
-	ldh a, [hRam_FFB1]
+	ldh a, [hMailCommTime_DisplaySeconds]
 	ld l, a
 	ld h, $00
 	xor a, a
-	ldh [hRam_FFB4], a
+	ldh [hCommTime_DigitStarted], a
 	ld bc, $FFF6
 	call CommTime_DrawNumber_27_4FFB
 	ld a, l
@@ -1954,7 +1954,7 @@ Function_27_4FFB::
 	jr z, CommTime_DrawNumber_27_4FFB
 	dec a
 	jr nz, .l500B
-	ldh a, [hRam_FFB4]
+	ldh a, [hCommTime_DigitStarted]
 	or a, a
 	jr z, .l5016
 	ld a, $00
@@ -1965,7 +1965,7 @@ Function_27_4FFB::
 	pop hl
 	pop bc
 	ld a, $FF
-	ldh [hRam_FFB4], a
+	ldh [hCommTime_DigitStarted], a
 .l5016 ; 27:5016
 	inc de
 	dec bc

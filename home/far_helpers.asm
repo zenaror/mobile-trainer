@@ -26,9 +26,9 @@ CopyBytesFarToFar:: ; 00:172D
 Function_00_172D::
 	; [PROBABLE] far-to-far copy of BC bytes: source (bank A, HL), destination bank in [C10E], DE;
 	; staged through a 16-byte buffer at C10E [candidate; raw refs 7]
-	ldh [hRam_FFB1], a
+	ldh [hFarBlockCopy_SourceBank], a
 	ld a, [wRam_C10E]
-	ldh [hRam_FFB0], a
+	ldh [hFarBlockCopy_DestBank], a
 	inc c
 	dec c
 	jr z, .l1739
@@ -38,7 +38,7 @@ Function_00_172D::
 	push de
 	ld de, $C10E ; raw: base of a 16-byte buffer
 	ld c, $10
-	ldh a, [hRam_FFB1]
+	ldh a, [hFarBlockCopy_SourceBank]
 	call BankSwitch_H
 .l1745 ; 00:1745
 	ld a, [hli]
@@ -49,7 +49,7 @@ Function_00_172D::
 	pop de
 	push hl
 	ld hl, $C10E ; raw: base of a 16-byte buffer
-	ldh a, [hRam_FFB0]
+	ldh a, [hFarBlockCopy_DestBank]
 	call BankSwitch_D
 	ld c, $10
 .l1757 ; 00:1757

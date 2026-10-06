@@ -1730,7 +1730,7 @@ Joypad_ClearAndResetRepeat:: ; 2D:70F4
 	xor a, a
 	ldh [hJoyHeld], a
 	ldh [hJoyPressed], a
-	ldh [hRam_FFA7], a
+	ldh [hJoyDispatchExtraMask], a
 	ldh [hJoyPressedRepeat], a
 	ld [wJoyIdleFrames], a
 	ld b, $14

@@ -353,8 +353,9 @@ DEF hTextBox_ColorSelB EQU hRam_FFBA ; [CONFIRMED] B argument of Canvas_BlitGlyp
 DEF hTextBox_ColorSelC EQU hRam_FFBB ; [CONFIRMED] C argument of Canvas_BlitGlyph, second colour selector (see hTextBox_ColorSelB): loaded as ldh a,[FFBB] ; ld c,a right after FFBA before each farcall Canvas_BlitGlyph (00:1067, 00:1097, 00:10C9; 185150/185149/40698 hits); never written in home/text.asm. All 33 box setup sequences of the UI screens store $03 (all executed, 1-8022 hits), so the usual pair is B=0, C=3 (handler Canvas_Remap_B0C3 at 7F:4275, 353835 hits, 34 scenarios). The browser title code (engine/browser/page_render.asm, not in this scope) stores B=3, C=0.
 DEF hTextBox_LineStartX EQU hRam_FFC1 ; [CONFIRMED] x at which every line of the box starts, low byte of the 16-bit left margin (high byte FFC2): TextEngine_LineWrap (00:0F69, entered by control byte $0D and by the right-limit wrap of TextEngine_AfterChar) copies it into the cursor hTextX (ldh a,[FFC1] ; ldh [hTextX],a, 00:0F69-0F6B; 12555 hits, 36 scenarios). 32 of the 33 setup sequences store the same value as the start x in hTextX ($08/$20/$30/$38/$40); the exception, slot_menu.asm 67:5019-501D (second field), stores FFC0=$38 and FFC1=$58 while hTextX starts at $38 (67:5011): FFC0/FFC1 look transposed there, so a second line of that field would start at x=$58.
 
+; ---- home/text.asm,engine/account/*,engine/error/*,engine/settings/*,engine/startup/*,engine/browser/page_render.asm@Browser_DrawTitleBar..Browser_MakeShortTitle,engine/browser/page_render.asm@Browser_DrawElement_Text..Browser_DrawElement_Bitmap
+DEF hTextBox_LineStartXHi EQU hRam_FFC2 ; [CONFIRMED] high byte of the 16-bit x at which every line starts: TextEngine_LineWrap copies it into hTextX+1 (ldh a,[FFC2] ; ldh [hTextX+1],a, 00:0F6D-0F6F; 12555 hits, 36 scenarios), the low byte FFC1 goes into hTextX. All 33 setup sequences store $00 (comm_error_screen.asm 5C:5349 after an xor a), so the left margin is below 256 on every one of these screens. Browser extension: FFC2 is read before the single-line early return; only the two title/text ranges are added.
 ; ---- home/text.asm,engine/account/*,engine/error/*,engine/settings/*,engine/startup/*
-DEF hTextBox_LineStartXHi EQU hRam_FFC2 ; [CONFIRMED] high byte of the 16-bit x at which every line starts: TextEngine_LineWrap copies it into hTextX+1 (ldh a,[FFC2] ; ldh [hTextX+1],a, 00:0F6D-0F6F; 12555 hits, 36 scenarios), the low byte FFC1 goes into hTextX. All 33 setup sequences store $00 (comm_error_screen.asm 5C:5349 after an xor a), so the left margin is below 256 on every one of these screens.
 DEF hTextBox_MaxLineY EQU hRam_FFC3 ; [CONFIRMED] largest y at which another line may start: after TextEngine_LineWrap added the line advance to hTextY (00:0F76-0F7B), ldh a,[FFC3] ; cp c ; jp nc,TextEngine_ReloadBank (00:0F7C-0F7F) goes on with the text only while the new y <= FFC3, otherwise the engine returns (00:0F82); 12470 hits, 34 scenarios, always continued in the traces (the ret at 00:0F82 never ran). The 33 setup sequences store $20-$88 next to the start y and advance $0C (e.g. y $48, limit $78: five lines).
 
 ; ---- home/text.asm,engine/account/*,engine/error/*,engine/settings/*,engine/startup/*,engine/browser/page_render.asm
@@ -425,3 +426,118 @@ DEF hResultPage_TotalMinutes EQU hRam_FFB2 ; [PROBABLE] minutes part of the resu
 
 ; ---- engine/keyboard/keyboard.asm
 DEF hKbd_LoadPageArg EQU hRam_FFB0 ; [CONFIRMED] entry argument (A) of Kbd_LoadPageGraphics (55:66C6): stored first (1788 hits, 35 scenarios), tested at the common tails of the type 6 and type 7/8 page loaders (55:6952 and 55:6A65: ldh a,[FFB0] ; or a ; ret z, both outcomes executed): non-zero also copies Tilemap_Kbd_T6And78_PageTail ($0B14 rectangle to $D240) and calls Kbd_UploadPanelMap11Rows. Callers: Kbd_Open passes 1 (55:5C71-5C73, 1676 hits), the page-switch branch of Kbd_Run_Loop passes 0 (55:5E38-5E39, 112 hits).
+
+; ---- home/multiply_divide.asm@Divide32by15..
+DEF hDivide32by15_BitsLeft EQU hRam_FFF7 ; [CONFIRMED] Iteration counter A=16 saved at 00:0D95 and restored/decremented at 00:0DAF in Divide32by15. The decimal-parser use of this byte is outside this range. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 00:0D95, 00:0DAF.
+
+; ---- engine/browser/comm_disconnect.asm
+DEF hCommProgress_Argument EQU hRam_FFB0 ; [CONFIRMED] Init/Step A argument preserved across the scene/panel dispatch and reloaded immediately before the corresponding farcall; all six accesses retain this meaning. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4C:46B8, 4C:46C4, 4C:46CD, 4C:46D6, 4C:46E2, 4C:46EB.
+
+; ---- engine/browser/frame_graphics.asm
+DEF hBrowserFrame_TilesBank EQU hRam_FFB0 ; [CONFIRMED] Third byte (bank) of the tiles pointer in the frame descriptor, saved across the first HDMA window and restored for the second window at +$400. The naturally executed loader demonstrates the role; preview windows are static only. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4E:61ED, 4E:6201, 4E:62E7, 4E:62FB, 4E:63EA, 4E:63FE.
+
+; ---- engine/gfx/palette_fade_masked.asm
+DEF hMaskedFade_PaletteMask EQU hRam_FFB0 ; [CONFIRMED] A palette-selection mask saved by both fade wrappers. AND with the current palette bit selects which four-color palettes receive the target; bits do not select individual colors. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 48:44E0, 48:4540, 48:45D4.
+DEF hMaskedFade_PaletteBit EQU hRam_FFB1 ; [CONFIRMED] Current palette bit starts at 1, is ANDed with the selection mask and shifted left once per four colors. The ld hl operand addresses the same byte for SLA [HL]. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 48:45D1, 48:45D6, 48:45EA, 48:460C.
+
+; ---- engine/gfx/palette.asm@PalFade_BlendColor..PalFade_ScaledDelta
+DEF hPalFade_FromBlue EQU hRam_FFB2 ; [CONFIRMED] Five-bit source blue component extracted as (RGB555 second byte & $7C) >> 2, passed to the blue delta and used in subtraction. Repacking does not overwrite this byte. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4F:40B2, 4F:4106, 4F:410B.
+DEF hPalFade_ToRed EQU hRam_FFB3 ; [CONFIRMED] Five-bit target red component extracted from the first RGB555 byte with AND $1F and passed as B to the red delta; not a packed output byte. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4F:40BB, 4F:40D5.
+DEF hPalFade_ToGreen EQU hRam_FFB4 ; [CONFIRMED] Five-bit target green assembled from three bits of the first RGB555 byte and two of the second, then passed as B to the green delta. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4F:40CB, 4F:40E4.
+DEF hPalFade_ToBlue EQU hRam_FFB5 ; [CONFIRMED] Five-bit target blue extracted as (RGB555 second byte & $7C) >> 2 and passed as B to the blue delta. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4F:40D2, 4F:4103.
+
+; ---- home/text_measure.asm
+DEF hTextMeasure_RightLimitX EQU hRam_FFB0 ; [CONFIRMED] Low byte of the input right-X limit BC, saved before BC becomes the byte counter and compared with DE after glyph/tab advances. The saved limit is not updated. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 00:140C, 00:143B, 00:1445, 00:1474, 00:147E, 00:1493, 00:149D.
+DEF hTextMeasure_RightLimitXHi EQU hRam_FFB1 ; [CONFIRMED] High byte of the input right-X limit BC; saved with the low byte and preserved through all four comparisons. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 00:140F, 00:143E, 00:1477, 00:1496.
+
+; ---- engine/settings/http_redirect.asm@HttpRedirect_NormalizePath..
+DEF hHttpRedirect_BufferStart EQU hRam_FFB0 ; [CONFIRMED] Low byte of initial buffer HL, saved without later updates. It limits backward DE traversal and the final cleanup test. The /../ backward branches remain static only. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 67:5FFA, 67:6059, 67:6066, 67:609D.
+DEF hHttpRedirect_BufferStartHi EQU hRam_FFB1 ; [CONFIRMED] High byte of initial buffer HL, preserved with the low byte and consumed by the backward-limit and final cleanup comparisons; backward branches remain static only. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 67:5FFD, 67:605C, 67:6069, 67:60A0.
+
+; ---- home/far_helpers.asm@Function_00_172D..
+DEF hFarBlockCopy_DestBank EQU hRam_FFB0 ; [PROBABLE] Destination-bank byte from C10E, saved before the 16-byte copy overwrites that buffer and passed to BankSwitch_D. No natural execution in the existing coverage. Sites: 00:1732, 00:1750.
+DEF hFarBlockCopy_SourceBank EQU hRam_FFB1 ; [PROBABLE] Source-bank input A saved and passed to BankSwitch_H before the HL read. Zero means keep the selected bank. No natural execution in the existing coverage. Sites: 00:172D, 00:1740.
+
+; ---- home/gfx_upload.asm@Tilemap_CopyRectAndAttrSplitSrc..Tilemap_ClearBuffers,home/tilemap_copy.asm
+DEF hTilemapRect_Width EQU hRam_FFB0 ; [CONFIRMED] Rectangle width C saved by the wrappers and restored between rows; row advance is (32-C)&31. Tilemap_ApplyMaskRect uses the same width role. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 00:08D3, 00:08F3, 00:090A, 00:0920, 00:0929, 00:16AB.
+
+; ---- engine/gfx/tile_canvas.asm
+DEF hTileCanvas_SourceBank EQU hRam_FFB0 ; [CONFIRMED] Canvas source selector B (2 or 3, selected by H), saved while B is reused for HDMA control and restored as A for Gfx_StartHDMAWithService. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4F:45AA, 4F:45AF.
+DEF hTileCanvas_HdmaControl EQU hRam_FFB1 ; [CONFIRMED] HDMA control value $99-ceil(C/10), saved before the row loop and restored as B for Gfx_StartHDMAWithService. This is control, not a byte-width claim. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4F:4580, 4F:45AC.
+
+; ---- engine/browser/status_sprites.asm@Browser_OamPutNumber..Browser_OamPutDigit
+DEF hBrowserOam_UnitsDigit EQU hRam_FFB0 ; [CONFIRMED] Units remainder 0-9 after repeated subtraction of 10, saved while the tens digit C is emitted and restored as C for Browser_OamPutDigit. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4E:602C, 4E:6031.
+
+; ---- home/sprites.asm@Sprite_SetHook..Sprite_SetPosition
+DEF hSpriteHook_Bank EQU hRam_FFB0 ; [CONFIRMED] Hook-bank input A saved while WRAM7 is selected, then written as the third byte of the slot hook triple [address low, address high, bank]. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 00:0A45, 00:0A58.
+
+; ---- home/sprites.asm@Sprite_StepAndDrawSlot..Tilemap_OffsetToPixelXY
+DEF hSpriteDraw_AttrOrMask EQU hRam_FFB0 ; [CONFIRMED] Slot+$09 OR mask preserved for each OAM object; output attribute is (attribute & AndMask) | OrMask. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 00:0B7A, 00:0BAA.
+DEF hSpriteDraw_AttrAndMask EQU hRam_FFB1 ; [CONFIRMED] Slot+$0A AND mask preserved for each OAM object; output attribute is (attribute & AndMask) | OrMask. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 00:0B7D, 00:0BAD.
+
+; ---- engine/tutorial/gates.asm@Function_48_4A8C..
+DEF hTileMaskRect_Width EQU hRam_FFB0 ; [PROBABLE] Rectangle width C saved, decremented to the end of each row, restored between rows and used for (32-C)&31 advancement. No natural execution in the existing coverage. Sites: 48:4A90, 48:4A99.
+
+; ---- engine/browser/history_cache.asm@Sram_CopyLongBlock..PageCache_Pop
+DEF hPageCache_SourceBank EQU hRam_FFB0 ; [CONFIRMED] Source SRAM bank passed to BankSwitch_H and incremented at the $BFFF->$A000 wrap; Push initializes it to 3. Scope ends before Pop reuses the byte as a cache index. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4C:4C0F, 4C:4C33, 4C:4C36, 4C:4C9D.
+
+; ---- engine/browser/history_cache.asm
+DEF hPageCache_DestBank EQU hRam_FFB1 ; [CONFIRMED] Destination bank passed to BankSwitch_D and incremented at wrap. Pop preserves its input A bank for clearing and copying the destination; no index use in this byte. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4C:4C1E, 4C:4C40, 4C:4C43, 4C:4CBF, 4C:4CF6, 4C:4D23.
+
+; ---- engine/comm/time_summary.asm@CommTime_ShowSummary..CommTime_DrawSummaryScreen,engine/comm/time_summary.asm@CommTime_AddTimerA..
+DEF hCommTime_TotalFrames EQU hRam_FFB0 ; [CONFIRMED] Frames of the timer-A plus accumulated-time sum, carrying at 60 into seconds. ShowSummary stores the result back. The timer source was rederived from Int_VBlank. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 51:4006, 51:4266, 51:426C.
+
+; ---- engine/comm/time_summary.asm@CommTime_ShowSummary..CommTime_DrawSummaryScreen,engine/comm/time_summary.asm@CommTime_AddTimerA..,engine/browser/status_sprites.asm@Browser_DrawCommTimer..Browser_OamPutNumber
+DEF hCommTime_TotalSeconds EQU hRam_FFB1 ; [CONFIRMED] Seconds of the timer-A plus accumulated-time sum, including frame carry, reduced at 60 or saturated to 59. Browser status sprites consume this sum. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4E:5FC3, 4E:5FD0, 4E:600D, 4E:6020, 51:400B, 51:4275, 51:427B, 51:4290, 51:4297.
+DEF hCommTime_TotalMinutes EQU hRam_FFB2 ; [CONFIRMED] Minutes of the timer-A plus accumulated-time sum, including seconds carry and capped at 59. Browser status sprites consume these minutes; the clamp branch is static only. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4E:6001, 4E:6014, 51:4010, 51:4284, 51:428E, 51:4292.
+
+; ---- engine/comm/time_summary.asm@CommTime_DrawSummaryScreen..CommTime_Summary_FrameLoop
+DEF hCommTime_DisplaySeconds EQU hRam_FFB1 ; [CONFIRMED] Timer-A seconds preserved while minutes are formatted, with a 59-second clamp applied before storage. This is the isolated timer display, not the accumulated sum. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 51:4117, 51:414A.
+
+; ---- engine/comm/time_summary.asm,engine/mail/send_receive.asm
+DEF hCommTime_DigitStarted EQU hRam_FFB4 ; [CONFIRMED] Leading-digit flag: zero before formatting, tested to omit leading zeroes and set to $FF after emitting a digit. Bank 51 demonstrates the role naturally; the bank-27 copy is static only. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 51:4129, 51:4150, 51:41E1, 51:41F1, 27:4F85, 27:4FA0, 27:5004, 27:5014.
+
+; ---- engine/mail/send_receive.asm
+DEF hMailCommTime_DisplaySeconds EQU hRam_FFB1 ; [PROBABLE] Timer-A seconds saved for formatting or replaced with 59 after the minutes clamp in the bank-27 copy. No natural execution in the existing coverage. Sites: 27:4F5F, 27:4F82, 27:4F9A.
+DEF hMailCommTime_DisplayMinutes EQU hRam_FFB2 ; [PROBABLE] Timer-A minutes saved and reloaded into HL before the local clamp to 59 in the bank-27 copy. No natural execution in the existing coverage. Sites: 27:4F64, 27:4F74.
+
+; ---- engine/browser/page_render.asm@Browser_FindVisibleLink..Browser_SelectPrevLink
+DEF hPageRender_OffscreenLinkId EQU hRam_FFB3 ; [CONFIRMED] Last link ID rejected by the viewport tests, compared against subsequent IDs to exclude fragments of the same link. Shift-X high-byte stores are outside this range. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4E:561B, 4E:5693, 4E:56C1.
+
+; ---- engine/browser/page_render.asm@Browser_FindAnchor..Browser_ScrollUpLine
+DEF hPageRender_AnchorStart EQU hRam_FFB0 ; [CONFIRMED] Low byte of the initial anchor-search HL key, saved before table traversal and restored after mismatch to compare the next candidate. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4E:534C, 4E:5392.
+DEF hPageRender_AnchorStartHi EQU hRam_FFB1 ; [CONFIRMED] High byte of the initial anchor-search HL key, restored with the low byte after mismatch. The later wanted-link phase is outside this range. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4E:534F, 4E:5395.
+
+; ---- engine/browser/page_render.asm@Browser_DrawElement_Bitmap..
+DEF hPageRender_BitmapColors EQU hRam_FFC2 ; [PROBABLE] Color selector passed as A to Image_BlitToTileCanvas: $03 plain, $02 link, $20 selected link, $01 bold. Only the plain path executed naturally; the complete selection stays PROBABLE. Sites: 4E:5A94, 4E:5AA4, 4E:5AAC, 4E:5AB4, 4E:5B5A.
+
+; ---- engine/browser/frame_style_chooser.asm
+DEF hFramePreview_WipePtr EQU hRam_FFD0 ; [PROBABLE] Low byte L of the preview reveal-list pointer initially 4E:41E0, restored for RevealStep and updated with its returned HL. Termination tests H=0, not HL=0. No natural execution in the existing coverage. Sites: 4E:4096, 4E:409C, 4E:40AC.
+DEF hFramePreview_WipePtrHi EQU hRam_FFD1 ; [PROBABLE] High byte H of the preview reveal-list pointer, restored and updated with the low byte. This high byte is tested for termination (H=0); no whole-pointer-zero requirement. No natural execution in the existing coverage. Sites: 4E:409A, 4E:409F, 4E:40AF.
+
+; ---- engine/browser/frame_style_chooser.asm,engine/browser/frame_graphics.asm@Browser_FrameStylePreview_LoadGraphics..Data_4E_6543
+DEF hFramePreview_Style EQU hRam_FFD2 ; [PROBABLE] Preview style input A, masked with $7F for the frame descriptors, copied to current style and ORed with $80 on acceptance for SRAM1. Scope excludes descriptor data. No natural execution in the existing coverage. Sites: 4E:62C2, 4E:6332, 4E:6368, 4E:4000, 4E:40C8, 4E:4120, 4E:418A.
+
+; ---- engine/browser/inline_image_blit.asm@Bmp_ConvertToTiles..Table_Bmp_RowEndMask
+DEF hBmpConvert_RowStride EQU hRam_FFD4 ; [CONFIRMED] Converted-output row stride: round width to a multiple of 12, ceil-divide by 8 and round to a multiple of 4. Multiplied by height/height-1 and subtracted per bottom-up row; not the input stride in WRAM. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 51:7200, 51:720F, 51:7243, 51:7290.
+
+; ---- engine/browser/inline_image_blit.asm@Image_BlitToTileCanvas..
+DEF hImageBlit_DestColumns EQU hRam_FFD4 ; [CONFIRMED] Number of eight-pixel destination columns, including partial edges from unaligned X. Tested against 2 and used as C after edge subtraction; unaligned cases remain static only. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 51:743D, 51:7517.
+
+; ---- engine/html/layout.asm@Html_Layout_WrapRun..Html_Layout_AppendRecord
+DEF hHtmlRun_FreeWidth EQU hRam_FFC0 ; [CONFIRMED] Low byte of free run width RightLimit-CursorX before consuming the run. CloseRunRecord subtracts remaining BC and stores consumed width at record+$04. Other layout phases are excluded. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 74:546D, 74:553E.
+DEF hHtmlRun_FreeWidthHi EQU hRam_FFC1 ; [CONFIRMED] High byte of free run width, subtracted with SBC B when closing the record. PlaceLine and BeginLineAndPlaceFloats are outside this range. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 74:5473, 74:5542.
+DEF hHtmlRun_RecordPtrHi EQU hRam_FFB1 ; [CONFIRMED] High byte H of the newly appended run record, restored by CloseRunRecord to rebuild HL. The bank role in AppendRecord is outside this range. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 74:5479, 74:5531.
+
+; ---- engine/html/layout.asm@Html_Layout_AppendRecord..Html_Layout_AddRecordToLine
+DEF hHtmlRecord_DataBank EQU hRam_FFB1 ; [CONFIRMED] Data-bank argument A saved while selecting the page bank and written at record+$0D with the DE address at +$0B/+$0C. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 74:5548, 74:55A1.
+
+; ---- engine/html/layout.asm@Html_Layout_AppendImageRecord..Html_Layout_SkipPastFloats,engine/html/layout.asm@Html_Layout_AppendRecord..Html_Layout_AddRecordToLine
+DEF hHtmlRecord_Kind EQU hRam_FFB0 ; [CONFIRMED] Record kind: AppendImageRecord stores 4 and AppendRecord writes it at record+$08. Separate scopes exclude the mixed kind/pointer role in WrapRun. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 74:533F, 74:558E.
+
+; ---- engine/html/parser.asm@Html_MetaResultToError..Html_ParsePage
+DEF hHtmlMeta_HexByte3 EQU hRam_FFB3 ; [PROBABLE] Most significant byte of the four-byte d_code accumulator, initialized to zero and shifted by four with carry from byte 2. Alphabetic A-F/a-f subtract their base without +10, yielding 0-5; no claim of correct hexadecimal conversion. No natural execution. Sites: 74:418E, 74:41E2, 74:41EA.
+
+; ---- engine/html/parser.asm@Html_MetaResultToError_HexLoop..Html_ParsePage
+DEF hHtmlMeta_HexByte0 EQU hRam_FFB0 ; [PROBABLE] Least significant byte of the four-byte d_code accumulator in HexLoop/SetError; the low two bytes become the returned detail. Prologue MatchRestart pointer use is excluded. Alphabetic A-F/a-f yield 0-5 without +10. No natural execution. Sites: 74:41B8, 74:41C0, 74:41FC.
+DEF hHtmlMeta_HexByte1 EQU hRam_FFB1 ; [PROBABLE] Second byte of the four-byte d_code accumulator, receiving the high nibble from byte 0 and propagating to byte 2; SetError copies it into detail high. Prologue pointer use is excluded. Alphabetic A-F/a-f yield 0-5 without +10. No natural execution. Sites: 74:41C6, 74:41CE, 74:4201.

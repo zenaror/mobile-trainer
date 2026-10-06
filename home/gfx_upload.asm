@@ -280,7 +280,7 @@ Function_00_08CA::
 	ld a, $07
 	call BankSwitch_D
 	ld a, c
-	ldh [hRam_FFB0], a
+	ldh [hTilemapRect_Width], a
 	push bc
 	push de
 	push hl
@@ -304,7 +304,7 @@ Function_00_08EA::
 	ld a, $07
 	call BankSwitch_D
 	ld a, c
-	ldh [hRam_FFB0], a
+	ldh [hTilemapRect_Width], a
 	push bc
 	push de
 	call Tilemap_CopyRect
@@ -325,7 +325,7 @@ Function_00_0904::
 	inc de
 	dec c
 	jr nz, Tilemap_CopyRect
-	ldh a, [hRam_FFB0]
+	ldh a, [hTilemapRect_Width]
 	ld c, a
 	xor a, $1F
 	inc a
@@ -345,7 +345,7 @@ Function_00_091C::
 	; (bank A) [reached via inferred links; raw refs 1] [executed in 36 scenarios]
 	call BankSwitch_H
 	ld a, c
-	ldh [hRam_FFB0], a
+	ldh [hTilemapRect_Width], a
 .loop ; 00:0922
 	ld a, [hl]
 	and a, d
@@ -353,7 +353,7 @@ Function_00_091C::
 	ld [hli], a
 	dec c
 	jr nz, .loop
-	ldh a, [hRam_FFB0]
+	ldh a, [hTilemapRect_Width]
 	ld c, a
 	xor a, $1F
 	inc a

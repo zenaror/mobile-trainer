@@ -116,9 +116,9 @@ HttpRedirect_JoinRelative:: ; 67:5FB5
 
 HttpRedirect_NormalizePath:: ; 67:5FF9
 	ld a, l
-	ldh [hRam_FFB0], a
+	ldh [hHttpRedirect_BufferStart], a
 	ld a, h
-	ldh [hRam_FFB1], a
+	ldh [hHttpRedirect_BufferStartHi], a
 	ld d, h
 	ld e, l
 .l6001 ; 67:6001
@@ -194,9 +194,9 @@ HttpRedirect_NormalizePath:: ; 67:5FF9
 	cp a, $5C
 	jr nz, .l608B
 .l6059 ; 67:6059
-	ldh a, [hRam_FFB0]
+	ldh a, [hHttpRedirect_BufferStart]
 	ld c, a
-	ldh a, [hRam_FFB1]
+	ldh a, [hHttpRedirect_BufferStartHi]
 	ld b, a
 	ld a, d
 	sub a, b
@@ -205,9 +205,9 @@ HttpRedirect_NormalizePath:: ; 67:5FF9
 	jr z, .l6066
 	dec de
 .l6066 ; 67:6066
-	ldh a, [hRam_FFB0]
+	ldh a, [hHttpRedirect_BufferStart]
 	ld c, a
-	ldh a, [hRam_FFB1]
+	ldh a, [hHttpRedirect_BufferStartHi]
 	ld b, a
 .l606C ; 67:606C
 	ld a, [de]
@@ -261,9 +261,9 @@ HttpRedirect_NormalizePath:: ; 67:5FF9
 	; --split [executed in 1 scenarios]
 	xor a, a
 	ld [de], a
-	ldh a, [hRam_FFB0]
+	ldh a, [hHttpRedirect_BufferStart]
 	ld c, a
-	ldh a, [hRam_FFB1]
+	ldh a, [hHttpRedirect_BufferStartHi]
 	ld b, a
 	inc bc
 	ld a, b
