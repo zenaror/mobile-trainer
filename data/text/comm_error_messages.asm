@@ -18,75 +18,98 @@ String_5C_4000::
 	db 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 CommErr_Msg_DialFailedOrBusy:: ; 5C:4069
-	db "電話がうまくかけられない", $0D
-	db "か、回線が混んでいるため", $0D
-	db "通信できません。　　　　", $0D
-	db "しばらく待って通信し直し", $0D
-	db "て下さい。くわしくは取扱", $0D
-	db "説明書をごらん下さい。", 0
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+	db "Could not connect", $0D
+	db "because the line", $0D
+	db "is busy.", $0D
+	db "Please try again", $0D
+	db "later.", 0
+	ds 80, 0
 
 CommErr_Msg_LineBusy:: ; 5C:40FD
-	db "回線が混んでいるため通信", $0D
-	db "できません。しばらく待っ", $0D
-	db "て通信し直して下さい。", 0
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+	db "Could not connect", $0D
+	db "due to a high", $0D
+	db "volume of calls.", $0D
+	db "Please try again", $0D
+	db "later.", 0
 
 CommErr_Msg_AdapterError:: ; 5C:4146
-	db "モバイルアダプタのエラー", $0D
-	db "です。しばらく待って通信", $0D
-	db "し直して下さい。直らない", $0D
-	db "場合は、取扱説明書をごら", $0D
-	db "んのうえモバイルサポート", $0D
-	db "センターへお問い合わせ下", $0D
-	db "さい。", 0
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+	db "Mobile Adapter", $0D
+	db "error.", $0D
+	db "Please try again.", $0D
+	db "If the problem", $0D
+	db "persists, please", $0D
+	db "contact support.", 0
+	ds 68, 0
 
 CommErr_Msg_GenericCommError:: ; 5C:41E3
-	db "通信エラーです。　　　　", $0D
-	db "しばらく待って通信し直し", $0D
-	db "て下さい。", $0D
-	db "直らない場合は、取扱説明", $0D
-	db "書をごらんのうえモバイル", $0D
-	db "サポートセンターへお問い", $0D
-	db "合わせ下さい。", 0
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+	db "Communication", $0D
+	db "error.", $0D
+	db "Please try again.", $0D
+	db "If the problem", $0D
+	db "persists, please", $0D
+	db "contact support.", 0
+	ds 63, 0
 
 CommErr_Msg_BadPasswordOrLoginId:: ; 5C:427A
-	db "パスワードかログインＩＤ", $0D
-	db "にまちがいがあります。パ", $0D
-	db "スワードをご確認のうえ、", $0D
-	db "しばらく待ってから通信し", $0D
-	db "直してください。くわしく", $0D
-	db "は取扱説明書をごらん下さ", $0D
-	db "い。", 0
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+	db "Invalid Log-in", $0D
+	db "ID or Password.", $0D
+	db "Please confirm", $0D
+	db "your Log-in", $0D
+	db "information", $0D
+	db "and try again.", 0
+	ds 70, 0
 
 CommErr_Msg_Disconnected:: ; 5C:4315
-	db "通信が切断されました。取", $0D
-	db "扱説明書をごらんの上、し", $0D
-	db "ばらく待って通信し直して", $0D
-	db "ください。", 0
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+	db "The phone was", $0D
+	db "disconnected.", $0D
+	db "Please check the", $0D
+	db "manual and try", $0D
+	db "again later.", 0
+	ds 13, 0
 
 CommErr_Msg_ServerCommError:: ; 5C:436B
-	db "サーバの通信エラーです。", $0D
-	db "しばらく待って接続し直し", $0D
-	db "て下さい。くわしくは取扱", $0D
-	db "説明書をごらん下さい。", 0
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+	db "Error connecting", $0D
+	db "to the", $0D
+	db "Mobile Center.", $0D
+	db "Please try again", $0D
+	db "later.", 0
+	ds 35, 0
 
 CommErr_Msg_AdapterRegistrationInvalid:: ; 5C:43CD
-	db "モバイルアダプタに登録さ", $0D
-	db "れた情報が正しくありませ", $0D
-	db "ん。モバイルトレーナーで", $0D
-	db "初期登録をして下さい。", 0
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+	db "The Mobile Adapter", $0D
+	db "is not configured", $0D
+	db "properly.", $0D
+	db "Please run factory", $0D
+	db "reset through", $0D
+	db "Mobile Trainer.", 0
+	ds 2, 0
 
 CommErr_Msg_ServerBusy:: ; 5C:442F
-	db "サーバが混んでいるため接", $0D
-	db "続できません。　　　　　", $0D
-	db "しばらく待って接続し直し", $0D
-	db "て下さい。くわしくは取扱", $0D
-	db "説明書をごらん下さい。", 0
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+	db "The Mobile Center", $0D
+	db "is busy.", $0D
+	db "Please check the", $0D
+	db "manual and try", $0D
+	db "calling again", $0D
+	db "later.", 0
+	ds 43, 0
 
 CommErr_Msg_BadDestinationAddress:: ; 5C:44AA
-	db "あて先メールアドレスにま", $0D
-	db "ちがいがあります。正しい", $0D
-	db "メールアドレスを入力して", $0D
-	db "下さい。", 0
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+	db "The email address", $0D
+	db "is incorrect.", $0D
+	db "Please re-enter", $0D
+	db "the email", $0D
+	db "address.", 0
+	ds 17, 0
 
 CommErr_Msg_BadOwnMailAddress:: ; 5C:44FE
 	db "メールアドレスにまちがい", $0D
@@ -96,65 +119,88 @@ CommErr_Msg_BadOwnMailAddress:: ; 5C:44FE
 	db "登録をして下さい。", 0
 
 CommErr_Msg_BadPasswordOrServerError:: ; 5C:4575
-	db "入力したパスワードにまち", $0D
-	db "がいがあるか、サーバのエ", $0D
-	db "ラーです。パスワードをご", $0D
-	db "確認のうえ、しばらく待っ", $0D
-	db "てから通信し直してくださ", $0D
-	db "い。", 0
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+	db "Incorrect Log-in", $0D
+	db "Password or", $0D
+	db "Mobile Center", $0D
+	db "error.", $0D
+	db "Please try again", $0D
+	db "later.", 0
+	ds 56, 0
 
 CommErr_Msg_ContentDownloadRetry:: ; 5C:45F7
-	db "コンテンツダウンロードが", $0D
-	db "できません。しばらく待っ", $0D
-	db "て通信し直して下さい。直", $0D
-	db "らない場合は、取扱説明書", $0D
-	db "をごらんのうえモバイルサ", $0D
-	db "ポートセンターへお問い合", $0D
-	db "わせ下さい。", 0
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+	db "Unable to read", $0D
+	db "the data.", $0D
+	db "Please try again.", $0D
+	db "If the problem", $0D
+	db "persists, please", $0D
+	db "contact support.", 0
+	ds 71, 0
 
 CommErr_Msg_Timeout:: ; 5C:469A
-	db "タイムアウトにより通信が", $0D
-	db "切断されました。通信し直", $0D
-	db "して下さい。くわしくは取", $0D
-	db "扱説明書をごらん下さい。", 0
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+	db "Time's up!", $0D
+	db "The call has ended.", $0D
+	db "Please check the", $0D
+	db "manual and try", $0D
+	db "again later.", 0
+	ds 24, 0
 
 CommErr_Msg_FeePaymentOverdue:: ; 5C:46FE
-	db "ご利用料金のお支払いが遅", $0D
-	db "れた場合には、ご利用がで", $0D
-	db "きなくなります。くわしく", $0D
-	db "は取扱説明書をごらん下さ", $0D
-	db "い。", 0
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+	db "The service is", $0D
+	db "unavailable due to", $0D
+	db "a missed payment.", $0D
+	db "Please check the", $0D
+	db "manual.", 0
+	ds 28, 0
 
 CommErr_Msg_UnavailableCustomerReason:: ; 5C:4767
-	db "お客様の都合により、利用", $0D
-	db "できません。くわしくは取", $0D
-	db "扱説明書をごらん下さい。", 0
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+	db "The service is", $0D
+	db "unavailable at", $0D
+	db "this time.", $0D
+	db "Please check the", $0D
+	db "manual.", 0
+	ds 9, 0
 
 CommErr_Msg_LineBusyOrServerError:: ; 5C:47B2
-	db "回線が混んでいるか、サー", $0D
-	db "バのエラーのため通信がで", $0D
-	db "きません。しばらく待って", $0D
-	db "通信し直して下さい。くわ", $0D
-	db "しくは取扱説明書をごらん", $0D
-	db "下さい。", 0
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+	db "There was an error", $0D
+	db "with the phone or", $0D
+	db "the Mobile Center.", $0D
+	db "Please try again", $0D
+	db "later.", 0
+	ds 54, 0
 
 CommErr_Msg_FeeLimitExceeded:: ; 5C:4838
-	db "ご利用料金が上限をこえて", $0D
-	db "いるため、今月はご利用で", $0D
-	db "きません。くわしくは取扱", $0D
-	db "説明書をごらん下さい。", 0
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+	db "You have reached", $0D
+	db "the monthly", $0D
+	db "spending limit.", $0D
+	db "Please check the", $0D
+	db "manual for", $0D
+	db "details.", 0
+	ds 16, 0
 
 CommErr_Msg_Maintenance:: ; 5C:489A
-	db "現在メンテナンス中のため", $0D
-	db "利用できません。しばらく", $0D
-	db "待っておかけ直し下さい。", $0D
-	db "くわしくは取扱説明書をご", $0D
-	db "らん下さい。", 0
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+	db "The Mobile Center", $0D
+	db "is undergoing", $0D
+	db "maintenance.", $0D
+	db "Please try again", $0D
+	db "later.", 0
+	ds 44, 0
 
 CommErr_Msg_ContentDownloadFailed:: ; 5C:490B
-	db "コンテンツダウンロードが", $0D
-	db "できません。くわしくは取", $0D
-	db "扱説明書をごらん下さい。", 0
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+	db "Unable to read", $0D
+	db "the data.", $0D
+	db "Please check the", $0D
+	db "manual for", $0D
+	db "details.", 0
+	ds 13, 0
 
 CommErr_Msg_BadLoginId:: ; 5C:4956
 	db "ログインＩＤにまちがいが", $0D
@@ -163,13 +209,16 @@ CommErr_Msg_BadLoginId:: ; 5C:4956
 	db "登録し直して下さい。", 0
 
 CommErr_Msg_LoginIdSuspended:: ; 5C:49B6
-	db "このログインＩＤは利用中", $0D
-	db "断の手続きがされているた", $0D
-	db "め、利用できません。　　", $0D
-	db "取扱説明書をごらんの上、", $0D
-	db "ＤＤＩカスタマサービスセ", $0D
-	db "ンターにお問い合わせ下さ", $0D
-	db "い。", 0
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+	db "Your Log-in ID has", $0D
+	db "been restricted and", $0D
+	db "can no longer access", $0D
+	db "the service.", $0D
+	db "Please refer to the", $0D
+	db "instruction booklet and", $0D
+	db "contact KDDI customer", $0D
+	db "service.", 0
+	ds 7, 0
 
 CommErr_Msg_LoginIdCancelled:: ; 5C:4A51
 	db "このログインＩＤは解約さ", $0D
@@ -180,25 +229,32 @@ CommErr_Msg_LoginIdCancelled:: ; 5C:4A51
 	db "せ下さい。", 0
 
 CommErr_Msg_LoginIdUnavailable:: ; 5C:4AD9
-	db "このログインＩＤは現在利", $0D
-	db "利用できません。取扱説明", $0D
-	db "書をごらんの上、ＤＤＩカ", $0D
-	db "スタマサービスセンターに", $0D
-	db "お問い合わせ下さい。", 0
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+	db "Your Log-in ID is", $0D
+	db "currently unavailable.", $0D
+	db "Please refer to the", $0D
+	db "instruction booklet and", $0D
+	db "contact KDDI customer", $0D
+	db "service.", 0
+	ds 5, 0
 
 CommErr_Msg_NewPasswordEmpty:: ; 5C:4B52
-	db "新しいパスワードが入力さ", $0D
-	db "れていません。　　　　　", $0D
-	db "アルファベットと数字を組", $0D
-	db "み合わせた４～８文字を入", $0D
-	db "力して下さい。", 0
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+	db "The new password was", $0D
+	db "not entered correctly.", $0D
+	db "Please enter 4 to 8", $0D
+	db "alphanumeric characters", $0D
+	db "for your password.", 0
+	ds 8, 0
 
 CommErr_Msg_NewPasswordLength:: ; 5C:4BC5
-	db "新しいパスワードが長すぎ", $0D
-	db "るか、短すぎます。　　　", $0D
-	db "アルファベットと数字を組", $0D
-	db "み合わせた４～８文字を入", $0D
-	db "力して下さい。", 0
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+	db "The new password is", $0D
+	db "too long or too short.", $0D
+	db "Please enter 4 to 8", $0D
+	db "alphanumeric characters", $0D
+	db "for your password.", 0
+	ds 9, 0
 
 CommErr_Msg_NewPasswordBadChars:: ; 5C:4C38
 	db "この新しいパスワードには", $0D
