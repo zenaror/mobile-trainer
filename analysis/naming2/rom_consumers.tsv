@@ -1,0 +1,33 @@
+# analysis/naming2/rom_consumers.tsv -- consumer rules of tools/apply_rom_operands.py (docs/research/naming2_romop1.md)
+# A raw `ld hl|de|bc, $XXXX` with an address below $8000 is a pointer into the ROM or a number that lies in that range: it is written as a label only when the routine that receives the register (the first
+# call/farcall/tail jp of the straight line after the load, plain instructions that do not touch the register in between) reads it as a pointer into the ROM.
+# bank: `A` the routine takes the ROM bank of the pointer in A (the constant `ld a, $NN` that is the nearest write of A before the call; a pointer below $4000 is in bank 0 whatever A is);
+#       `mapped` the routine reads the pointer in the ROM bank that is mapped while it runs and selects none (the bank of the routine after a farcall, else the bank of the code that loads it);
+#       A = 0 is never `bank 0` for a pointer of $4000 and above: BankSwitch_H (00:0622: `or a, a / ret z`) then switches nothing and the pointer is read in the bank that is mapped at the call; the tool asks for 1..$7F.
+#       `TextTiles_RenderGrid` also takes WRAM strings (HL >= $C000, A = a WRAM bank: 5 sites of the debug screens pass `ld hl, $D000`); the rules only speak of immediates below $8000.
+#       a two-digit hex number (`75`): the routine reads the pointer in that fixed ROM bank whoever calls it.
+#       the target must be a label of that bank or the start of a `sprite_object_entry` line (a new label `<table>_Entry<N>` is written there); an address below $0150 is a number.
+# consumer	register	bank	proof
+Sprite_InitSlot	de	A	00:0A82 stores A as the ROM bank of the slot (slot+$0E), selects it (`ld [$2100], a`) and fills the slot from the 4-byte object entry at DE + 4 * (B & $3F) (Sprite_LoadObjectEntry 00:0AB8-0AC4 keeps (B & $7F) * 4 in 8 bits: the carry is lost; bit 7 of B is the loop flag kept at slot+$0F): DE is the object table, A its ROM bank; replayed in 21 natural scenarios (33,739 executions of 435 sites): DE = the label address, A = its bank, the slot holds the entry read at that address; the 6-byte `ld de, $5A47 / call Sprite_SetPosition` pairs are Y,X values and have no rule
+Palette_LoadToBuffer	hl	A	4F:4000 stores A in hFarBank and farcalls CopyBytes (00:050C: BC bytes from [HL++] to [DE++]) through FarCall_Inline16: HL is the palette source, read in ROM bank A (FarCall_Inline16 00:06BC reads hFarBank at 00:06CB and FarCall_Common switches with H = the high byte of the target $050C at 00:06F4-06F9; A = 0 would keep bank 4F) (DE is the WRAM buffer, BC the byte count: numbers)
+Gfx_StartHDMA	hl	A	00:0749: `A=source bank (region by H), HL=source, DE=dest (E bit0 = VRAM bank), C=number of 16-byte blocks`: HL is read by the HDMA in ROM bank A when H < $80 (`call BankSwitch_H`)
+Gfx_StartHDMAWithService	hl	A	00:0787 is 00:0749 that calls the frame service while it waits: HL is the source in bank A
+TextTiles_RenderLine	hl	A	48:403E stores A in hTextTiles_StringBank and reads the string at HL with `ReadByteFar` of that bank (a ROM string when H < $80): HL = the string, A = its bank
+TextTiles_RenderGrid	hl	A	48:40A9 takes the bank of the source string in A (wTextGridStrBank, read with ReadByteFar): HL = the string, A = its bank (a ROM string when H < $80)
+Tilemap_CopyRectAndAttr	hl	A	00:08EA: `call BankSwitch_H` (A = bank of the source, region by H) then Tilemap_CopyRect copies B rows x C bytes from [HL] to [DE]: HL = the tilemap source in bank A
+Tilemap_CopyRectAndAttrPtr	hl	A	00:16A2 starts like 00:08EA (`call BankSwitch_H`, rectangle copy from [HL]): HL = the first tilemap source in bank A (the second source comes from wRam_C10E/C10F)
+Sprite_SetHook	de	A	00:0A45 stores E, D and A at [HL..HL+2] of the slot (WRAM bank 7): the hook of the slot is the function at DE in ROM bank A (a far function pointer; Sprite_StepAndDrawSlot 00:0B3C-0B4A: bank byte $FF = no hook, bank byte 0 with DE = 0 = no hook, so `ld de, $0000 / ld a, $00` clears it)
+CopyBytes	hl	mapped	00:050C copies BC bytes from [HL++] to [DE++] in the ROM bank that is mapped (it selects none): HL is the source
+CopyString	hl	mapped	CopyString copies the NUL-terminated string at [HL] to [DE] in the ROM bank that is mapped (it selects none): HL is the source
+SampleData_CopyString	hl	mapped	2D:42AA is `ld a, [hli] / ld [de], a / inc de / cp a, $00 / jr nz`: a string copy whose source HL is read in the ROM bank that is mapped (bank 2D, the sample records of the mail screens: only the label is written, never the text)
+MobileSDK_CopyString	hl	mapped	75:4007 is `ld a, [hli] / ld [de], a / or a, a / ret z / inc de / inc bc`: a string copy whose source HL is read in the mapped ROM bank (bank 75)
+MobileSDK_CopyBytes	hl	mapped	75:4000 copies B bytes from [HL++] to [DE++] in the mapped ROM bank (bank 75): HL is the source
+StringAppend	hl	mapped	00:14F3 finds the first byte equal to A in the string at DE and copies the string at HL there (A = 0: strcat), in ROM0, so the ROM bank is the caller's: HL is the source
+MobileSDK_MatchPrefix	de	mapped	75:72AB compares the NUL-terminated prefix at [DE++] with the text at [HL++] (`ld a, [de] / inc de / or a, a / ret z / xor a, [hl]`): DE is the prefix, read in the mapped ROM bank (bank 75)
+Mobile_PacketSendBytes	hl	75	75:5F10 stores HL in wMobileSDK_TxPointer; the bytes are read by MobileSDK_TxNextByte (75:5B2B, `ld a, [de]`), reached only through MobileSDK_TimerTick (75:58EA, `jp z, MobileSDK_TxNextByte`, lib/mobile/main.asm:4099) from Int_Timer (00:01ED), which selects ROM bank 75 first: HL is a packet of bank 75 whoever calls (all callers are in bank 75 anyway)
+Mobile_PacketSendExpect	hl	75	75:5F0B falls into 75:5F10 (`ld b, $05` first): HL = the packet template of bank 75, read by the timer interrupt (see Mobile_PacketSendBytes)
+Mobile_PacketSendEmptyBody	hl	75	75:5F08 loads DE = $000A and falls into 75:5F0B: HL = the packet template of bank 75, read by the timer interrupt (see Mobile_PacketSendBytes)
+Mobile_PacketSendReadConfig	hl	75	75:6371 loads A = $99, DE = $000C and jumps to 75:5F0B: HL = the packet template of bank 75, read by the timer interrupt (see Mobile_PacketSendBytes)
+Mail_FindKeywordValue	hl	mapped	0F:4AD3 compares [HL++] with the text at DE (`ld a, [hl]` / `ld a, [hli]`) and selects no ROM bank: HL is a keyword string of the library's own bank (0F)
+Mail_EmitStringAndSuffix	hl	mapped	0F:521B copies `ld a, [hli]` up to the NUL to the output stream and selects no ROM bank: HL is a string of the library's own bank (0F)
+Html_ScanAttributes	bc	mapped	00:1119 hands BC to Html_MatchKeyword (00:10E9: `ld a, [bc] / inc bc` word pointers, then `ld a, [de]`) in ROM0 and selects no bank: BC is a table of string pointers in the caller's ROM bank

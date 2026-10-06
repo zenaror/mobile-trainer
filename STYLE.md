@@ -242,6 +242,20 @@ The address decides the name, so a name that is true only in some flows is prote
 A site that no rule can prove but that was proven by reading (a computed destination, a clear loop, a base register, a use of a neutral `wRam_Dxxx` that a dominating bank idiom shows, a word of an address table) goes into a record of `analysis/naming2/` (`ramop9_manual.tsv`, `ramop10_manual.tsv`) with its proof and is written by `python3 tools/apply_manual_sites.py`, which checks the context of the line and that the proposed name has the value and the bank of the row (`$D0A3 x2` names a number that occurs twice on a `dw` line).  Everything else stays numeric and is counted by consumer,
 which says which rule to write next.  The generated `wSpriteSlots + 17` and the neutral `wRam_D1A6` are held to the same proof: `--elements wSpriteSlots --observed` and `--neutral --observed` write them `wSpriteSlot1 + $01` and `wScreenTileMap + $1A6` where the bank is shown by the scan or by the replays.  `python3 tools/apply_ram_operands.py --areas wramx --observed --check` lists the operands a rule proves that are still numeric.  Two places are the exception to "the caller selects the bank": the mail library of bank 0F runs only under WRAM bank 5 (L5) and the sound driver of bank 04 only under bank 1 (S1), and rows and respelled names rest on that: `python3 tools/invariants_check.py` re-derives both from the source, the ROM bytes and the replays.
 
+**ROM pointer operands.**  An immediate `ld hl|de|bc, $XXXX` with a value below `$8000` is a pointer into the ROM or a number that happens to lie in that range (the Y,X pair `$5A47`, a length `$0040`, a divisor),
+so the number proves nothing.  `python3 tools/apply_rom_operands.py` writes it as a label only when a *consumer rule* of `analysis/naming2/rom_consumers.tsv` (consumer, register, bank kind, proof read in the routine)
+says that the routine which receives the register (the first `call`, `farcall` or tail `jp Label` of the straight line after the load, plain instructions that do not touch the register in between) reads it as a pointer
+into the ROM, and the bank of the pointer is shown: kind `A` is the constant of the nearest `ld a, $NN` (the routine takes the bank in A: `Sprite_InitSlot`, `Palette_LoadToBuffer`, `Gfx_StartHDMA*`, `TextTiles_Render*`,
+`Tilemap_CopyRectAndAttr*`, `Sprite_SetHook`; A = 0 is never bank 0 for a pointer of `$4000` and above), kind `mapped` is the ROM bank in force while the routine runs (`CopyBytes`, `CopyString`, `StringAppend` and the
+string and table helpers of banks 0F, 2D, 74 and 75: the bank of the code that loads the pointer after a plain `call` or a `farcall` to a ROM0 label, the bank of the routine after a `farcall` to a ROMX label, and no
+write of a ROM bank register in between), and a two-digit bank (`75`) is a routine that reads the pointer in that bank whoever calls it.  A pointer below `$0150` (a restart or interrupt vector, the cartridge header,
+`$0000` for no hook) is always a number.  The target must be a label of that bank at exactly that address, or the start of a `sprite_object_entry` line (then a new global label `<Table>_Entry<N>`, N counted from the
+label of the table, is written in front of that line: it is the address of entry N, used as the base DE of a call, and the call starts entry N + (B & $3F), not entry N; the suffix `_Entry<N>` belongs to these labels
+and `tools/sprite_chain_check.py` checks every one at Table + 4 N); a pointer into the middle of a block, or to a line that no label starts, stays numeric and is counted.  The nearest `ld a, $NN` that is the live write of A,
+whose value is the bank of the target and that nothing but the call reads, becomes `ld a, BANK(Label)` (also next to a pointer that already was a label), so that the pointer and its bank are one fact in the source:
+`ld de, Table_MailDraftMenu_Anims_Entry16 / ld a, BANK(Table_MailDraftMenu_Anims_Entry16)`.  `xor a`, a bank that is not a constant, an unusual spelling of the load and every line marked `; raw` stay as they are.
+`python3 tools/apply_rom_operands.py --check` lists the operands that a rule still proves.
+
 ### Constants and numbers
 
 * **Constants** are `UPPER_CASE` (`MAILREC_OFS_TIME`, `ABOOK_SLOT_COUNT`), written `DEF NAME EQU $xxxx ; STATUS note` followed by `EXPORT NAME` in `consts.asm` (so they are in the `.sym` file).
@@ -408,6 +422,8 @@ are edited directly or through `tools/screen_png.py import`. After adding or rem
 | `python3 tools/apply_ram_operands.py --neutral --observed --check` | no use of a neutral banked name `wRam_Dxxx` is left where the idiom or the replays show the bank and a banked name covers the address |
 | `python3 tools/apply_manual_sites.py --dry-run` | every row of `analysis/naming2/ramop9_manual.tsv` is written or already written, none skipped (the line, the context and the value and bank of the name still agree) |
 | `python3 tools/apply_ram_operands.py --elements wSpriteSlots --observed --check` | no `wSpriteSlots + N` is left where bank 7 is shown (needs rgbasm: it builds a marked copy of the tree) |
+| `python3 tools/apply_rom_operands.py --check` | no `ld hl\|de\|bc, $XXXX` that a consumer rule of `analysis/naming2/rom_consumers.tsv` proves (a ROM pointer with its bank) is left numeric, and no `ld a, $NN` beside a label that it is the bank of is left numeric (needs rgbasm: it builds a marked copy of the tree) |
+| `python3 tools/sprite_chain_check.py` | every `Sprite_InitSlot` site (`ld de, X` with `ld a, $NN` or `ld a, BANK(X)`) resolves to an object table of its bank, the walk reaches the frame tables, records and scripts, and the names `*_Anim<N>*`, `*_ObjAnimData*`, `*_ObjTable` agree with what it reaches (needs the built tree) |
 
 **Applying renames.** Names are changed with `python3 tools/apply_renames.py --manifest FILE` (manifest: TAB-separated `old_name new_name kind status evidence`; HYPOTHESIS rows are never applied).
 It renames the definition (`New:: ; BB:AAAA`; the neutral old name stays below it as an alias without comment) and every reference in all `.asm`/`.inc` files, refuses unsafe rows (collisions,
@@ -430,6 +446,11 @@ failure.  Use `--dry-run` first.  The manifests are `analysis/naming2/sram4_*.ts
 `analysis/naming2/ramop6_names.tsv`.  `--areas wramx` (banked WRAM, rules in `analysis/naming2/wramx_consumers.tsv`, bank effects of routines in `analysis/naming2/wramx_calls.tsv`) and `--elements NAME [--observed]` (an array's `NAME + N` expressions as element names) work the same way;
 `python3 tools/apply_manual_sites.py [--sites FILE]` writes the by-hand rows of `analysis/naming2/ramop10_manual.tsv` (or another record with the same columns): an operand or a neutral name use becomes the proposed name after a check of the context of the line and of the value and bank of the name, builds, compares the SHA-256 and restores on failure; it is idempotent.
 `python3 tools/line_addresses.py file.asm:LINE ...` prints the bank and the address of a source line (it builds a marked copy of the tree and never touches the repository).  Tests: `python3 tools/test_ram_operands.py`, `python3 tools/test_manual_sites.py`; the invariants: `python3 tools/invariants_check.py`.
+
+**Applying ROM operands.** `python3 tools/apply_rom_operands.py [--dry-run] [--check] [--report FILE]` rewrites the ROM pointer operands described in section 4 (ROM pointer operands) from the rules of `analysis/naming2/rom_consumers.tsv`
+(consumer, register `hl`/`de`/`bc`, bank kind `A` or `mapped`, proof), builds one marked copy of the tree to map every source line to its ROM address, writes the operands, the `ld a, BANK(Label)` loads and the `<Table>_Entry<N>` labels,
+runs `make`, checks the SHA-256 and `sym_check`, and restores every file on failure; it is idempotent.  `--report` writes one row per candidate operand with the outcome (`apply`, `bank only`, `no rule`, `bank not shown`, `no label`,
+`not a table entry`, `vector or null`, `name taken`), which says which rule or label to write next.  Tests: `python3 tools/test_rom_operands.py` (47 tests, no build needed).
 
 ## 11. Git and commits
 

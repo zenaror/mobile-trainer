@@ -26,54 +26,67 @@ Table_26_7B00::
 	sprite_object_entry Mailbox_ObjAnimData, SpriteScript_26_7C06 ; entry 1
 	sprite_object_entry Mailbox_ObjAnimData, SpriteScript_26_7C06 ; entry 2
 	sprite_object_entry Mailbox_ObjAnimData, SpriteScript_26_7C06 ; entry 3
+Mailbox_ObjTable_Entry4:: ; 26:7B10
 	sprite_object_entry SpriteFrameTable_26_7C0B, SpriteScript_26_7C1A ; entry 4
 	sprite_object_entry SpriteFrameTable_26_7C0B, SpriteScript_26_7C1A ; entry 5
 	sprite_object_entry SpriteFrameTable_26_7C0B, SpriteScript_26_7C1A ; entry 6
 	sprite_object_entry SpriteFrameTable_26_7C0B, SpriteScript_26_7C1A ; entry 7
+Mailbox_ObjTable_Entry8:: ; 26:7B20
 	sprite_object_entry SpriteFrameTable_26_7C1D, SpriteScript_26_7C2C ; entry 8
 	sprite_object_entry SpriteFrameTable_26_7C1D, SpriteScript_26_7C2C ; entry 9
 	sprite_object_entry SpriteFrameTable_26_7C1D, SpriteScript_26_7C2C ; entry 10
 	sprite_object_entry SpriteFrameTable_26_7C1D, SpriteScript_26_7C2C ; entry 11
+Mailbox_ObjTable_Entry12:: ; 26:7B30
 	sprite_object_entry SpriteFrameTable_26_7C2F, SpriteScript_26_7C3E ; entry 12
 	sprite_object_entry SpriteFrameTable_26_7C2F, SpriteScript_26_7C3E ; entry 13
 	sprite_object_entry SpriteFrameTable_26_7C2F, SpriteScript_26_7C3E ; entry 14
 	sprite_object_entry SpriteFrameTable_26_7C2F, SpriteScript_26_7C3E ; entry 15
+Mailbox_ObjTable_Entry16:: ; 26:7B40
 	sprite_object_entry SpriteFrameTable_26_7C41, SpriteScript_26_7C67 ; entry 16
 	sprite_object_entry SpriteFrameTable_26_7C41, SpriteScript_26_7C67 ; entry 17
 	sprite_object_entry SpriteFrameTable_26_7C41, SpriteScript_26_7C67 ; entry 18
 	sprite_object_entry SpriteFrameTable_26_7C41, SpriteScript_26_7C67 ; entry 19
+Mailbox_ObjTable_Entry20:: ; 26:7B50
 	sprite_object_entry SpriteFrameTable_26_7C6C, SpriteScript_26_7C92 ; entry 20
 	sprite_object_entry SpriteFrameTable_26_7C6C, SpriteScript_26_7C92 ; entry 21
 	sprite_object_entry SpriteFrameTable_26_7C6C, SpriteScript_26_7C92 ; entry 22
 	sprite_object_entry SpriteFrameTable_26_7C6C, SpriteScript_26_7C92 ; entry 23
+Mailbox_ObjTable_Entry24:: ; 26:7B60
 	sprite_object_entry SpriteFrameTable_26_7C97, SpriteScript_26_7C9E ; entry 24
 	sprite_object_entry SpriteFrameTable_26_7C97, SpriteScript_26_7C9E ; entry 25
 	sprite_object_entry SpriteFrameTable_26_7C97, SpriteScript_26_7C9E ; entry 26
 	sprite_object_entry SpriteFrameTable_26_7C97, SpriteScript_26_7C9E ; entry 27
+Mailbox_ObjTable_Entry28:: ; 26:7B70
 	sprite_object_entry SpriteFrameTable_26_7CA1, SpriteScript_26_7CA8 ; entry 28
 	sprite_object_entry SpriteFrameTable_26_7CA1, SpriteScript_26_7CA8 ; entry 29
 	sprite_object_entry SpriteFrameTable_26_7CA1, SpriteScript_26_7CA8 ; entry 30
 	sprite_object_entry SpriteFrameTable_26_7CA1, SpriteScript_26_7CA8 ; entry 31
+Mailbox_ObjTable_Entry32:: ; 26:7B80
 	sprite_object_entry SpriteFrameTable_26_7CAB, SpriteScript_26_7CB2 ; entry 32
 	sprite_object_entry SpriteFrameTable_26_7CAB, SpriteScript_26_7CB2 ; entry 33
 	sprite_object_entry SpriteFrameTable_26_7CAB, SpriteScript_26_7CB2 ; entry 34
 	sprite_object_entry SpriteFrameTable_26_7CAB, SpriteScript_26_7CB2 ; entry 35
+Mailbox_ObjTable_Entry36:: ; 26:7B90
 	sprite_object_entry SpriteFrameTable_26_7CB5, SpriteScript_26_7CBC ; entry 36
 	sprite_object_entry SpriteFrameTable_26_7CB5, SpriteScript_26_7CBC ; entry 37
 	sprite_object_entry SpriteFrameTable_26_7CB5, SpriteScript_26_7CBC ; entry 38
 	sprite_object_entry SpriteFrameTable_26_7CB5, SpriteScript_26_7CBC ; entry 39
+Mailbox_ObjTable_Entry40:: ; 26:7BA0
 	sprite_object_entry SpriteFrameTable_26_7CBF, SpriteScript_26_7CD2 ; entry 40
 	sprite_object_entry SpriteFrameTable_26_7CBF, SpriteScript_26_7CD2 ; entry 41
 	sprite_object_entry SpriteFrameTable_26_7CBF, SpriteScript_26_7CD2 ; entry 42
 	sprite_object_entry SpriteFrameTable_26_7CBF, SpriteScript_26_7CD2 ; entry 43
+Mailbox_ObjTable_Entry44:: ; 26:7BB0
 	sprite_object_entry SpriteFrameTable_26_7CD5, SpriteScript_26_7CE8 ; entry 44
 	sprite_object_entry SpriteFrameTable_26_7CD5, SpriteScript_26_7CE8 ; entry 45
 	sprite_object_entry SpriteFrameTable_26_7CD5, SpriteScript_26_7CE8 ; entry 46
 	sprite_object_entry SpriteFrameTable_26_7CD5, SpriteScript_26_7CE8 ; entry 47
+Mailbox_ObjTable_Entry48:: ; 26:7BC0
 	sprite_object_entry SpriteFrameTable_26_7CEB, SpriteScript_26_7D11 ; entry 48
 	sprite_object_entry SpriteFrameTable_26_7CEB, SpriteScript_26_7D11 ; entry 49
 	sprite_object_entry SpriteFrameTable_26_7CEB, SpriteScript_26_7D11 ; entry 50
 	sprite_object_entry SpriteFrameTable_26_7CEB, SpriteScript_26_7D11 ; entry 51
+Mailbox_ObjTable_Entry52:: ; 26:7BD0
 	sprite_object_entry SpriteFrameTable_26_7D16, SpriteScript_26_7D3C ; entry 52
 	sprite_object_entry SpriteFrameTable_26_7D16, SpriteScript_26_7D3C ; entry 53
 	sprite_object_entry SpriteFrameTable_26_7D16, SpriteScript_26_7D3C ; entry 54

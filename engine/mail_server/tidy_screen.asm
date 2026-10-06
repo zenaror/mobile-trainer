@@ -20,60 +20,60 @@ Function_2E_4B2E::
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_MailServerMgr_Bg
-	ld a, $2E
+	ld a, BANK(Palette_MailServerMgr_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, wPaletteBufObj
-	ld hl, $75D0
-	ld a, $2E
+	ld hl, Palette_MailServerMgr_Obj
+	ld a, BANK(Palette_MailServerMgr_Obj)
 	farcall Palette_LoadToBuffer
 	ld de, $9001
 	ld hl, Gfx_MailServerMgr_Tiles0
-	ld a, $2E
+	ld a, BANK(Gfx_MailServerMgr_Tiles0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_MailServerMgr_Tiles1
-	ld a, $2E
+	ld a, BANK(Gfx_MailServerMgr_Tiles1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8801
 	ld hl, Gfx_MailServerMgr_Tiles2
-	ld a, $2E
+	ld a, BANK(Gfx_MailServerMgr_Tiles2)
 	ld b, $97
 	ld c, $12
 	farcall Gfx_StartHDMAWithService
 	ld de, $8000
 	ld hl, Gfx_MailServerMgr_Tiles5
-	ld a, $2E
+	ld a, BANK(Gfx_MailServerMgr_Tiles5)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8A80
 	ld hl, Gfx_MailServerMgr_Tiles3
-	ld a, $2E
+	ld a, BANK(Gfx_MailServerMgr_Tiles3)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8E80
 	ld hl, Gfx_MailServerMgr_Tiles4
-	ld a, $2E
+	ld a, BANK(Gfx_MailServerMgr_Tiles4)
 	ld b, $96
 	ld c, $16
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_MailServerMgr_Main
-	ld a, $2E
+	ld a, BANK(Tilemap_MailServerMgr_Main)
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	ld bc, $0614
 	ld de, wScreenTileMap + $A0
 	ld hl, Tilemap_MailServerMgr_Footer
-	ld a, $2E
+	ld a, BANK(Tilemap_MailServerMgr_Footer)
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
@@ -126,60 +126,60 @@ MailServerMgr_RedrawScreen:: ; 2E:4C58
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_MailServerMgr_Bg
-	ld a, $2E
+	ld a, BANK(Palette_MailServerMgr_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, wPaletteBufObj
-	ld hl, $75D0
-	ld a, $2E
+	ld hl, Palette_MailServerMgr_Obj
+	ld a, BANK(Palette_MailServerMgr_Obj)
 	farcall Palette_LoadToBuffer
 	ld de, $9001
 	ld hl, Gfx_MailServerMgr_Tiles0
-	ld a, $2E
+	ld a, BANK(Gfx_MailServerMgr_Tiles0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_MailServerMgr_Tiles1
-	ld a, $2E
+	ld a, BANK(Gfx_MailServerMgr_Tiles1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8801
 	ld hl, Gfx_MailServerMgr_Tiles2
-	ld a, $2E
+	ld a, BANK(Gfx_MailServerMgr_Tiles2)
 	ld b, $97
 	ld c, $12
 	farcall Gfx_StartHDMAWithService
 	ld de, $8000
 	ld hl, Gfx_MailServerMgr_Tiles5
-	ld a, $2E
+	ld a, BANK(Gfx_MailServerMgr_Tiles5)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8A80
 	ld hl, Gfx_MailServerMgr_Tiles3
-	ld a, $2E
+	ld a, BANK(Gfx_MailServerMgr_Tiles3)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8E80
 	ld hl, Gfx_MailServerMgr_Tiles4
-	ld a, $2E
+	ld a, BANK(Gfx_MailServerMgr_Tiles4)
 	ld b, $96
 	ld c, $16
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_MailServerMgr_Main
-	ld a, $2E
+	ld a, BANK(Tilemap_MailServerMgr_Main)
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	ld bc, $0614
 	ld de, wScreenTileMap + $A0
 	ld hl, Tilemap_MailServerMgr_Footer
-	ld a, $2E
+	ld a, BANK(Tilemap_MailServerMgr_Footer)
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
@@ -285,7 +285,7 @@ MailServerMgr_DrawMailInfo:: ; 2E:4DBF
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_MailServerMgr_Main
-	ld a, $2E
+	ld a, BANK(Tilemap_MailServerMgr_Main)
 	farcall Tilemap_CopyRectAndAttr
 	call MailServerMgr_DrawTimer
 	di
@@ -313,7 +313,7 @@ MailServerMgr_DrawMailInfo:: ; 2E:4DBF
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_MailServerMgr_InfoB
-	ld a, $2E
+	ld a, BANK(Tilemap_MailServerMgr_InfoB)
 	farcall Tilemap_CopyRectAndAttr
 	call MailServerMgr_DrawTimer
 	di
@@ -347,7 +347,7 @@ MailServerMgr_DrawMailInfo:: ; 2E:4DBF
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_MailServerMgr_InfoC
-	ld a, $2E
+	ld a, BANK(Tilemap_MailServerMgr_InfoC)
 	farcall Tilemap_CopyRectAndAttr
 	call MailServerMgr_DrawTimer
 	di
@@ -375,7 +375,7 @@ MailServerMgr_DrawMailInfo:: ; 2E:4DBF
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_MailServerMgr_InfoD
-	ld a, $2E
+	ld a, BANK(Tilemap_MailServerMgr_InfoD)
 	farcall Tilemap_CopyRectAndAttr
 	call MailServerMgr_DrawTimer
 	di
@@ -1173,7 +1173,7 @@ MailServerMgr_ShowLoadingMsg:: ; 2E:538B
 	push hl
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $2E
+	ld a, BANK(String_MailServerMgr_LoadingMail)
 	ld bc, wTileStage2
 	ld de, wTileStage2 + $C0
 	ld hl, String_MailServerMgr_LoadingMail
@@ -1207,10 +1207,10 @@ MailServerMgr_ShowNoMailMsg:: ; 2E:53DA
 	push hl
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $2E
+	ld a, BANK(String_MailServerMgr_NoMail)
 	ld bc, wTileStage2
 	ld de, wTileStage2 + $C0
-	ld hl, $53F7
+	ld hl, String_MailServerMgr_NoMail
 
 	; [PROBABLE] 5 insn(s) reached by static flow only; seeds: site x5; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
@@ -1242,7 +1242,7 @@ MailServerMgr_ShowDeletingMsg:: ; 2E:5429
 	push hl
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $2E
+	ld a, BANK(String_MailServerMgr_DeletingMail)
 	ld bc, wTileStage2
 	ld de, wTileStage2 + $C0
 	ld hl, String_MailServerMgr_DeletingMail

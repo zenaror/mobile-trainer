@@ -52,24 +52,24 @@ Dialog_Open:: ; 72:402A
 	farcall Dialog_InitWindowRegs
 	ld de, $8801
 	ld hl, Dialog_WindowTiles
-	ld a, $72
+	ld a, BANK(Dialog_WindowTiles)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0010
 	ld de, wPaletteBufBg + $30
 	ld hl, Dialog_Palette
-	ld a, $72
+	ld a, BANK(Dialog_Palette)
 	farcall Palette_LoadToBuffer
 	ld bc, $0914
 	ld de, wScreenTileMap + $180
 	ld hl, Dialog_WindowMap
-	ld a, $72
+	ld a, BANK(Dialog_WindowMap)
 	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0008
 	ld de, wPaletteBufObj + $20
-	ld hl, $4E38
-	ld a, $72
+	ld hl, Dialog_ObjPalette
+	ld a, BANK(Dialog_ObjPalette)
 	farcall Palette_LoadToBuffer
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -90,11 +90,11 @@ Dialog_Open:: ; 72:402A
 	ldh a, [hScratchA]
 	ld hl, wSpriteSlot12
 	ld de, Dialog_CursorObjTable
-	ld a, $72
+	ld a, BANK(Dialog_CursorObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld hl, wSpriteSlot12 + $0B
-	ld de, $0A1A
+	ld de, Sprite_HookAddSlideOffset
 	ld a, $00
 	call Sprite_SetHook
 	ld a, $07
@@ -201,24 +201,24 @@ Dialog_OpenTall:: ; 72:41D8
 	farcall Dialog_InitWindowRegs
 	ld de, $8801
 	ld hl, Dialog_WindowTiles
-	ld a, $72
+	ld a, BANK(Dialog_WindowTiles)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0010
 	ld de, wPaletteBufBg + $30
 	ld hl, Dialog_Palette
-	ld a, $72
+	ld a, BANK(Dialog_Palette)
 	farcall Palette_LoadToBuffer
 	ld bc, $0B14
 	ld de, wScreenTileMap + $140
 	ld hl, Dialog_WindowMapTall
-	ld a, $72
+	ld a, BANK(Dialog_WindowMapTall)
 	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0008
 	ld de, wPaletteBufObj + $20
-	ld hl, $4E38
-	ld a, $72
+	ld hl, Dialog_ObjPalette
+	ld a, BANK(Dialog_ObjPalette)
 	farcall Palette_LoadToBuffer
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -239,11 +239,11 @@ Dialog_OpenTall:: ; 72:41D8
 	ldh a, [hScratchA]
 	ld hl, wSpriteSlot12
 	ld de, Dialog_CursorObjTable
-	ld a, $72
+	ld a, BANK(Dialog_CursorObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld hl, wSpriteSlot12 + $0B
-	ld de, $0A1A
+	ld de, Sprite_HookAddSlideOffset
 	ld a, $00
 	call Sprite_SetHook
 	ld a, $07
@@ -529,7 +529,7 @@ Dialog_Close:: ; 72:444F
 	ldh a, [rLCDC]
 	farcall Dialog_UploadWindowMap
 	ld hl, wSpriteSlot12 + $0B
-	ld de, $0A1A
+	ld de, Sprite_HookAddSlideOffset
 	ld a, $00
 	call Sprite_SetHook
 	call VBlank_WaitStartDI
@@ -587,7 +587,7 @@ Dialog_CloseTall:: ; 72:44E6
 	ldh a, [rLCDC]
 	farcall Dialog_UploadWindowMapTall
 	ld hl, wSpriteSlot12 + $0B
-	ld de, $0A1A
+	ld de, Sprite_HookAddSlideOffset
 	ld a, $00
 	call Sprite_SetHook
 	call VBlank_WaitStartDI

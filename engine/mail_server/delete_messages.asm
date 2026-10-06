@@ -45,7 +45,7 @@ MailSrvDel_MsgNoMail:: ; 23:6D8C
 	push bc
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $23
+	ld a, BANK(String_MailSrvDel_MsgNoMail)
 	ld bc, wTileStage2
 	ld de, wTileStage2 + $140
 	ld hl, String_MailSrvDel_MsgNoMail
@@ -68,7 +68,7 @@ MailSrvDel_MsgAllDeleted:: ; 23:6DD0
 	push bc
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $23
+	ld a, BANK(String_MailSrvDel_MsgAllDeleted)
 	ld bc, wTileStage2
 	ld de, wTileStage2 + $140
 	ld hl, String_MailSrvDel_MsgAllDeleted
@@ -91,7 +91,7 @@ MailSrvDel_MsgBlank:: ; 23:6E14
 	push bc
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $23
+	ld a, BANK(String_MailSrvDel_MsgBlank)
 	ld bc, wTileStage2
 	ld de, wTileStage2 + $140
 	ld hl, String_MailSrvDel_MsgBlank
@@ -118,10 +118,10 @@ Function_23_6E58::
 	push bc
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $23
+	ld a, BANK(String_MailSrvDel_MsgCancelled)
 	ld bc, wTileStage2
 	ld de, wTileStage2 + $140
-	ld hl, $6E73
+	ld hl, String_MailSrvDel_MsgCancelled
 
 	; [PROBABLE] 4 insn(s) reached by static flow only; seeds: site x4; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
@@ -144,7 +144,7 @@ MailSrvDel_MsgReading:: ; 23:6E9C
 	push bc
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $23
+	ld a, BANK(String_MailSrvDel_MsgReading)
 	ld bc, wTileStage2
 	ld de, wTileStage2 + $140
 	ld hl, String_MailSrvDel_MsgReading

@@ -415,8 +415,8 @@ MailSrvDel_DeleteAllRun:: ; 23:4C94
 	ld [hli], a
 	ld [hli], a
 	ld hl, wSpriteSlot11
-	ld de, $7AD0
-	ld a, $23
+	ld de, Table_MailSrvDel_ProgressObject
+	ld a, BANK(Table_MailSrvDel_ProgressObject)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0000
@@ -667,8 +667,8 @@ MailSrvDel_DeleteAllRun_CheckDone:: ; 23:4DFB
 	call SpriteCounter_StubB
 	call MailSrvDel_MsgNoMail
 	ld hl, wSpriteSlot11
-	ld de, $7AD0
-	ld a, $23
+	ld de, Table_MailSrvDel_ProgressObject
+	ld a, BANK(Table_MailSrvDel_ProgressObject)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld de, $0000
@@ -1021,8 +1021,8 @@ MailSrvDel_DeleteAllRun_NextMail:: ; 23:5063
 	farcall Sprite_UpdateAll
 	call MailSrvDel_MsgAllDeleted
 	ld hl, wSpriteSlot11
-	ld de, $7AD0
-	ld a, $23
+	ld de, Table_MailSrvDel_ProgressObject
+	ld a, BANK(Table_MailSrvDel_ProgressObject)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld de, $0000
@@ -1214,8 +1214,8 @@ MailSrvDel_DeleteCompletelyRun:: ; 23:51C7
 	ld [hli], a
 	ld [hli], a
 	ld hl, wSpriteSlot11
-	ld de, $7AD0
-	ld a, $23
+	ld de, Table_MailSrvDel_ProgressObject
+	ld a, BANK(Table_MailSrvDel_ProgressObject)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0000
@@ -1329,8 +1329,8 @@ MailSrvDel_DeleteCompletelyRun_GotMailCount:: ; 23:525E
 	call SpriteCounter_StubB
 	call MailSrvDel_MsgNoMail
 	ld hl, wSpriteSlot11
-	ld de, $7AD0
-	ld a, $23
+	ld de, Table_MailSrvDel_ProgressObject
+	ld a, BANK(Table_MailSrvDel_ProgressObject)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld de, $0000
@@ -1577,8 +1577,8 @@ MailSrvDel_DeleteCompletelyRun_NextMail:: ; 23:5424
 	farcall Sprite_UpdateAll
 	call MailSrvDel_MsgAllDeleted
 	ld hl, wSpriteSlot11
-	ld de, $7AD0
-	ld a, $23
+	ld de, Table_MailSrvDel_ProgressObject
+	ld a, BANK(Table_MailSrvDel_ProgressObject)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld de, $0000
@@ -1718,8 +1718,8 @@ MailSrvDel_Cancelled:: ; 23:553D
 	pop hl
 	call MailSrvDel_MsgBlank
 	ld hl, wSpriteSlot11
-	ld de, $7AD0
-	ld a, $23
+	ld de, Table_MailSrvDel_ProgressObject
+	ld a, BANK(Table_MailSrvDel_ProgressObject)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld de, $0000

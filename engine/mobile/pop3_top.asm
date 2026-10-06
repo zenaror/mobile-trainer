@@ -210,7 +210,7 @@ Pop3_TopPoll:: ; 54:4969
 	ld de, wMailInfo + $06
 	ld bc, $0010
 	farcall CopyBytes
-	ld hl, $4A01
+	ld hl, String_Mail_PleaseDelete
 	ld de, wMailInfo + $1B
 	farcall CopyString
 	ld hl, $49F0

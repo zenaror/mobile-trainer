@@ -25,32 +25,32 @@ Account_ConfirmScreen_Setup:: ; 68:6213
 	ld [wAccountConfirm_Cursor], a
 	ld de, $8801
 	ld hl, Gfx_Account_ConfirmScreens_Tiles8800Vb1
-	ld a, $5D
+	ld a, BANK(Gfx_Account_ConfirmScreens_Tiles8800Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Gfx_Account_ConfirmScreens_Tiles8C00Vb1
-	ld a, $5D
+	ld a, BANK(Gfx_Account_ConfirmScreens_Tiles8C00Vb1)
 	ld b, $95
 	ld c, $20
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Gfx_Account_ConfirmScreen_Tiles9000Vb1
-	ld a, $5D
+	ld a, BANK(Gfx_Account_ConfirmScreen_Tiles9000Vb1)
 	ld b, $95
 	ld c, $20
 	farcall Gfx_StartHDMAWithService
 	ld de, $8001
 	ld hl, Data_5F_49D0
-	ld a, $5F
+	ld a, BANK(Data_5F_49D0)
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_Account_ConfirmScreen_Bg
-	ld a, $5D
+	ld a, BANK(Palette_Account_ConfirmScreen_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $0018
 	ld de, wPaletteBufObj + $28
@@ -60,7 +60,7 @@ Account_ConfirmScreen_Setup:: ; 68:6213
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_Account_ConfirmScreen
-	ld a, $5D
+	ld a, BANK(Tilemap_Account_ConfirmScreen)
 	farcall Tilemap_CopyRectAndAttr
 	call Account_ConfirmScreen_PrintAccount
 	call Account_ConfirmScreen_UploadTextTiles
@@ -69,7 +69,7 @@ Account_ConfirmScreen_Setup:: ; 68:6213
 	call Gfx_UploadBgMapBuffers
 	ld hl, wSpriteSlot0
 	ld de, ConfirmPages_ObjTable
-	ld a, $4A
+	ld a, BANK(ConfirmPages_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	call Account_ConfirmScreen_UpdateCursor
@@ -283,32 +283,32 @@ Account_ConfirmManualScreen_Setup:: ; 68:6451
 	ld [wAccountConfirm_Cursor], a
 	ld de, $8801
 	ld hl, Gfx_Account_ConfirmScreens_Tiles8800Vb1
-	ld a, $5D
+	ld a, BANK(Gfx_Account_ConfirmScreens_Tiles8800Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Gfx_Account_ConfirmScreens_Tiles8C00Vb1
-	ld a, $5D
+	ld a, BANK(Gfx_Account_ConfirmScreens_Tiles8C00Vb1)
 	ld b, $95
 	ld c, $20
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Gfx_Account_ConfirmManualScreen_Tiles9000Vb1
-	ld a, $4A
+	ld a, BANK(Gfx_Account_ConfirmManualScreen_Tiles9000Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8001
 	ld hl, Data_5F_49D0
-	ld a, $5F
+	ld a, BANK(Data_5F_49D0)
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_Account_ConfirmManualScreen_Bg
-	ld a, $4A
+	ld a, BANK(Palette_Account_ConfirmManualScreen_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $0018
 	ld de, wPaletteBufObj + $28
@@ -318,7 +318,7 @@ Account_ConfirmManualScreen_Setup:: ; 68:6451
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_Account_ConfirmManualScreen
-	ld a, $4A
+	ld a, BANK(Tilemap_Account_ConfirmManualScreen)
 	farcall Tilemap_CopyRectAndAttr
 	call Account_ConfirmManualScreen_PrintAccount
 	call Account_ConfirmManualScreen_UploadTextTiles
@@ -327,7 +327,7 @@ Account_ConfirmManualScreen_Setup:: ; 68:6451
 	call Gfx_UploadBgMapBuffers
 	ld hl, wSpriteSlot0
 	ld de, ConfirmPages_ObjTable
-	ld a, $4A
+	ld a, BANK(ConfirmPages_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	call Account_ConfirmManualScreen_UpdateCursor

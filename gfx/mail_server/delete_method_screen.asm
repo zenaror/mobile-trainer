@@ -59,6 +59,7 @@ Table_28_6E80::
 	sprite_object_entry MailServerDeleteMethod_ObjAnimData, SpriteScript_28_6EC6 ; entry 1
 	sprite_object_entry MailServerDeleteMethod_ObjAnimData, SpriteScript_28_6EC6 ; entry 2
 	sprite_object_entry MailServerDeleteMethod_ObjAnimData, SpriteScript_28_6EC6 ; entry 3
+MailServerDeleteMethod_ObjTable_Entry4:: ; 28:6E90
 	sprite_object_entry SpriteFrameTable_28_6ECB, SpriteScript_28_6F09 ; entry 4
 	sprite_object_entry SpriteFrameTable_28_6ECB, SpriteScript_28_6F09 ; entry 5
 	sprite_object_entry SpriteFrameTable_28_6ECB, SpriteScript_28_6F09 ; entry 6

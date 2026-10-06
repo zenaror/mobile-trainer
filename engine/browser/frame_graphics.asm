@@ -23,7 +23,7 @@ Function_4E_6196::
 	call LCDOn
 	ld de, $8801
 	ld hl, BrowserMenu3_Tiles0
-	ld a, $72
+	ld a, BANK(BrowserMenu3_Tiles0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
@@ -147,7 +147,7 @@ Function_4E_6291::
 	call LCDOn
 	ld de, $8801
 	ld hl, BrowserMenu3_Tiles0
-	ld a, $72
+	ld a, BANK(BrowserMenu3_Tiles0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService

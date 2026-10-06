@@ -27,19 +27,19 @@ SettingsPhone_ContinuePrompt_Setup:: ; 67:5728
 	ld [wContinuePrompt_Cursor], a
 	ld de, $9001
 	ld hl, Gfx_SettingsPhone_ContinuePrompt_Tiles9000Vb1
-	ld a, $4B
+	ld a, BANK(Gfx_SettingsPhone_ContinuePrompt_Tiles9000Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_SettingsPhone_ContinuePrompt_Tiles9400Vb1
-	ld a, $4B
+	ld a, BANK(Gfx_SettingsPhone_ContinuePrompt_Tiles9400Vb1)
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
 	ld de, $8001
 	ld hl, Data_5F_49D0
-	ld a, $5F
+	ld a, BANK(Data_5F_49D0)
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
@@ -65,7 +65,7 @@ SettingsPhone_ContinuePrompt_Setup:: ; 67:5728
 	call Gfx_UploadBgMapBuffers
 	ld hl, wSpriteSlot0
 	ld de, ConfirmPages_ObjTable
-	ld a, $4A
+	ld a, BANK(ConfirmPages_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	call SettingsPhone_ContinuePrompt_PlaceCursor

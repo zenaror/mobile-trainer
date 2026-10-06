@@ -24,54 +24,54 @@ NoAdapter_DrawScreen:: ; 63:7342
 	ld [wRam_C27D], a
 	ld de, $8000
 	ld hl, NoAdapter_Gfx_8000
-	ld a, $63
+	ld a, BANK(NoAdapter_Gfx_8000)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8801
-	ld hl, $60C0
-	ld a, $63
+	ld hl, NoAdapter_Gfx_8800
+	ld a, BANK(NoAdapter_Gfx_8800)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, NoAdapter_Gfx_8C00
-	ld a, $63
+	ld a, BANK(NoAdapter_Gfx_8C00)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, NoAdapter_Gfx_9000
-	ld a, $63
+	ld a, BANK(NoAdapter_Gfx_9000)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, NoAdapter_Gfx_9400
-	ld a, $63
+	ld a, BANK(NoAdapter_Gfx_9400)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, NoAdapter_Palette_Bg
-	ld a, $63
+	ld a, BANK(NoAdapter_Palette_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, wPaletteBufObj
-	ld hl, $72D0
-	ld a, $63
+	ld hl, NoAdapter_Palette_Obj
+	ld a, BANK(NoAdapter_Palette_Obj)
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap
-	ld hl, $6FC0
-	ld a, $63
+	ld hl, NoAdapter_Tilemap
+	ld a, BANK(NoAdapter_Tilemap)
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	ld hl, wSpriteSlot0
 	ld de, NoAdapter_ObjTable
-	ld a, $63
+	ld a, BANK(NoAdapter_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2040

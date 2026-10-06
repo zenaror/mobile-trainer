@@ -255,8 +255,8 @@ Function_55_6FCD::
 	; [CONFIRMED] 19 insn(s); 19 executed (in up to 7/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, wSpriteSlot13
-	ld de, $4D38
-	ld a, $5F
+	ld de, Kbd_ObjTable_Entry16
+	ld a, BANK(Kbd_ObjTable_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, [wKbdType]

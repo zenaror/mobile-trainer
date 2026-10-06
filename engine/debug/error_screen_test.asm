@@ -118,7 +118,7 @@ Label_19_4990::
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_DebugScreens
-	ld a, $19
+	ld a, BANK(Palette_DebugScreens)
 	farcall Palette_LoadToBuffer
 	ld a, $80
 	ld bc, $0400
@@ -270,12 +270,12 @@ DebugErrorTest_HandleDpad:: ; 19:4B4A
 	ret
 
 DebugErrorTest_LoadHelpText:: ; 19:4BCF
-	ld hl, $4C1F
+	ld hl, String_DebugErrorTest_Help
 	ld de, wTileStage3
 	ld bc, $0010
 	ld a, $03
 	ldh [hTextTiles_DestBank], a
-	ld a, $19
+	ld a, BANK(String_DebugErrorTest_Help)
 	farcall TextTiles_RenderGrid
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]

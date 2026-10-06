@@ -462,48 +462,48 @@ Function_2D_499E::
 	farcall LCDOff
 	ld de, $9301
 	ld hl, Gfx_MailBody_Tiles
-	ld a, $2D
+	ld a, BANK(Gfx_MailBody_Tiles)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMA
 	ld de, $9701
-	ld hl, $5EC0
-	ld a, $2D
+	ld hl, Gfx_MailBody_Tiles2
+	ld a, BANK(Gfx_MailBody_Tiles2)
 	ld b, $97
 	ld c, $10
 	farcall Gfx_StartHDMA
 	ld de, $8000
 	ld hl, Gfx_MailBody_ObjTiles
-	ld a, $2D
+	ld a, BANK(Gfx_MailBody_ObjTiles)
 	ld b, $94
 	ld c, $2A
 	farcall Gfx_StartHDMA
 	ld bc, $0040
 	ld de, wPaletteBufObj
 	ld hl, Palette_MailBody_Obj
-	ld a, $2D
+	ld a, BANK(Palette_MailBody_Obj)
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_MailBody_Bg
-	ld a, $2D
+	ld a, BANK(Palette_MailBody_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_MailBody
-	ld a, $2D
+	ld a, BANK(Tilemap_MailBody)
 	farcall Tilemap_CopyRectAndAttr
 	ld hl, wSpriteSlot1
-	ld de, $7B60
-	ld a, $7F
+	ld de, Table_TextCursor_ObjTables_Entry8
+	ld a, BANK(Table_TextCursor_ObjTables_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1414
 	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot2
-	ld de, $7B50
-	ld a, $7F
+	ld de, Table_TextCursor_ObjTables_Entry4
+	ld a, BANK(Table_TextCursor_ObjTables_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1414
@@ -619,42 +619,42 @@ Function_2D_499E::
 	farcall LCDOff
 	ld de, $9301
 	ld hl, Gfx_MailBody_Tiles
-	ld a, $2D
+	ld a, BANK(Gfx_MailBody_Tiles)
 	ld b, $93
 	ld c, $3C
 	farcall Gfx_StartHDMAWithService
 	ld de, $8000
 	ld hl, Gfx_MailBody_ObjTiles
-	ld a, $2D
+	ld a, BANK(Gfx_MailBody_ObjTiles)
 	ld b, $94
 	ld c, $2A
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufObj
 	ld hl, Palette_MailBody_Obj
-	ld a, $2D
+	ld a, BANK(Palette_MailBody_Obj)
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_MailBody_Bg
-	ld a, $2D
+	ld a, BANK(Palette_MailBody_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_MailBody
-	ld a, $2D
+	ld a, BANK(Tilemap_MailBody)
 	farcall Tilemap_CopyRectAndAttr
 	ld hl, wSpriteSlot1
-	ld de, $7B60
-	ld a, $7F
+	ld de, Table_TextCursor_ObjTables_Entry8
+	ld a, BANK(Table_TextCursor_ObjTables_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1414
 	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot2
-	ld de, $7B50
-	ld a, $7F
+	ld de, Table_TextCursor_ObjTables_Entry4
+	ld a, BANK(Table_TextCursor_ObjTables_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1414
@@ -821,8 +821,8 @@ Function_2D_4CA5::
 	jp z, .l4DE4
 .l4D04 ; 2D:4D04
 	ld hl, wSpriteSlot4
-	ld de, $6350
-	ld a, $29
+	ld de, Table_MailBody_ObjectEntries
+	ld a, BANK(Table_MailBody_ObjectEntries)
 	ld b, $81
 
 	; [PROBABLE] 10 insn(s) reached by static flow only; seeds: site x10; min discovery hops 0; run
@@ -842,8 +842,8 @@ Function_2D_4CA5::
 	; [PROBABLE] block target of the jp z chain at 2D:4CDA (ld hl,$DA40 ; ld de,$63x0 ; ld a,$29 ;
 	; ld b,$81) that falls into the far-call site (call 00:0A82, init_object_from_table) right after
 	ld hl, wSpriteSlot4
-	ld de, $6360
-	ld a, $29
+	ld de, Table_MailBody_ObjectEntries_Entry4
+	ld a, BANK(Table_MailBody_ObjectEntries_Entry4)
 	ld b, $81
 
 	; [PROBABLE] 10 insn(s) reached by static flow only; seeds: site x10; min discovery hops 0; run
@@ -863,8 +863,8 @@ Function_2D_4CA5::
 	; [PROBABLE] block target of the jp z chain at 2D:4CDA (ld hl,$DA40 ; ld de,$63x0 ; ld a,$29 ;
 	; ld b,$81) that falls into the far-call site (call 00:0A82, init_object_from_table) right after
 	ld hl, wSpriteSlot4
-	ld de, $6370
-	ld a, $29
+	ld de, Table_MailBody_ObjectEntries_Entry8
+	ld a, BANK(Table_MailBody_ObjectEntries_Entry8)
 	ld b, $81
 
 	; [PROBABLE] 10 insn(s) reached by static flow only; seeds: site x10; min discovery hops 0; run
@@ -884,8 +884,8 @@ Function_2D_4CA5::
 	; [PROBABLE] block target of the jp z chain at 2D:4CDA (ld hl,$DA40 ; ld de,$63x0 ; ld a,$29 ;
 	; ld b,$81) that falls into the far-call site (call 00:0A82, init_object_from_table) right after
 	ld hl, wSpriteSlot4
-	ld de, $6380
-	ld a, $29
+	ld de, Table_MailBody_ObjectEntries_Entry12
+	ld a, BANK(Table_MailBody_ObjectEntries_Entry12)
 	ld b, $81
 
 	; [PROBABLE] 10 insn(s) reached by static flow only; seeds: site x10; min discovery hops 0; run
@@ -905,8 +905,8 @@ Function_2D_4CA5::
 	; [PROBABLE] block target of the jp z chain at 2D:4CDA (ld hl,$DA40 ; ld de,$63x0 ; ld a,$29 ;
 	; ld b,$81) that falls into the far-call site (call 00:0A82, init_object_from_table) right after
 	ld hl, wSpriteSlot4
-	ld de, $6390
-	ld a, $29
+	ld de, Table_MailBody_ObjectEntries_Entry16
+	ld a, BANK(Table_MailBody_ObjectEntries_Entry16)
 	ld b, $81
 
 	; [PROBABLE] 10 insn(s) reached by static flow only; seeds: site x10; min discovery hops 0; run
@@ -926,8 +926,8 @@ Function_2D_4CA5::
 	; [PROBABLE] block target of the jp z chain at 2D:4CDA (ld hl,$DA40 ; ld de,$63x0 ; ld a,$29 ;
 	; ld b,$81) that falls into the far-call site (call 00:0A82, init_object_from_table) right after
 	ld hl, wSpriteSlot4
-	ld de, $63A0
-	ld a, $29
+	ld de, Table_MailBody_ObjectEntries_Entry20
+	ld a, BANK(Table_MailBody_ObjectEntries_Entry20)
 	ld b, $81
 
 	; [PROBABLE] 10 insn(s) reached by static flow only; seeds: site x10; min discovery hops 0; run
@@ -947,8 +947,8 @@ Function_2D_4CA5::
 	; [PROBABLE] block target of the jp z chain at 2D:4CDA (ld hl,$DA40 ; ld de,$63x0 ; ld a,$29 ;
 	; ld b,$81) that falls into the far-call site (call 00:0A82, init_object_from_table) right after
 	ld hl, wSpriteSlot4
-	ld de, $63B0
-	ld a, $29
+	ld de, Table_MailBody_ObjectEntries_Entry24
+	ld a, BANK(Table_MailBody_ObjectEntries_Entry24)
 	ld b, $81
 
 	; [PROBABLE] 10 insn(s) reached by static flow only; seeds: site x10; min discovery hops 0; run
@@ -968,8 +968,8 @@ Function_2D_4CA5::
 	; [PROBABLE] block target of the jp z chain at 2D:4CDA (ld hl,$DA40 ; ld de,$63x0 ; ld a,$29 ;
 	; ld b,$81) that falls into the far-call site (call 00:0A82, init_object_from_table) right after
 	ld hl, wSpriteSlot4
-	ld de, $63C0
-	ld a, $29
+	ld de, Table_MailBody_ObjectEntries_Entry28
+	ld a, BANK(Table_MailBody_ObjectEntries_Entry28)
 	ld b, $81
 
 	; [PROBABLE] 10 insn(s) reached by static flow only; seeds: site x10; min discovery hops 0; run
@@ -1581,8 +1581,8 @@ Function_2D_50B8::
 	push bc
 	push bc
 	ld hl, wSpriteSlot1
-	ld de, $7B70
-	ld a, $7F
+	ld de, Table_TextCursor_ObjTables_Entry12
+	ld a, BANK(Table_TextCursor_ObjTables_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 	pop bc
@@ -1608,8 +1608,8 @@ Function_2D_50B8::
 .l5155 ; 2D:5155
 	farcall Joypad_ClearAndResetRepeat
 	ld hl, wSpriteSlot1
-	ld de, $7B60
-	ld a, $7F
+	ld de, Table_TextCursor_ObjTables_Entry8
+	ld a, BANK(Table_TextCursor_ObjTables_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	pop bc
@@ -1989,8 +1989,8 @@ Function_2D_535C::
 	pop bc
 	push bc
 	ld hl, wSpriteSlot1
-	ld de, $7B80
-	ld a, $7F
+	ld de, Table_TextCursor_ObjTables_Entry16
+	ld a, BANK(Table_TextCursor_ObjTables_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	pop bc
@@ -2040,8 +2040,8 @@ Function_2D_535C::
 .l53C4 ; 2D:53C4
 	farcall Joypad_ClearAndResetRepeat
 	ld hl, wSpriteSlot1
-	ld de, $7B60
-	ld a, $7F
+	ld de, Table_TextCursor_ObjTables_Entry8
+	ld a, BANK(Table_TextCursor_ObjTables_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	pop bc
@@ -3226,7 +3226,7 @@ Function_2D_5A98::
 	; executed call/far call
 	ld de, $9301
 	ld hl, Gfx_MailBody_Tiles
-	ld a, $2D
+	ld a, BANK(Gfx_MailBody_Tiles)
 	ld b, $95
 	ld c, $20
 	farcall Gfx_StartHDMA

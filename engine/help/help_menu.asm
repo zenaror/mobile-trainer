@@ -41,44 +41,44 @@ Label_6C_401D::
 	farcall Sprite_ResetAll
 	ld de, $8000
 	ld hl, Gfx_HelpMenu_Tiles8000
-	ld a, $6A
+	ld a, BANK(Gfx_HelpMenu_Tiles8000)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8800
 	ld hl, Gfx_HelpMenu_Tiles8800
-	ld a, $6A
+	ld a, BANK(Gfx_HelpMenu_Tiles8800)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C00
 	ld hl, Gfx_HelpMenu_Tiles8C00
-	ld a, $6A
+	ld a, BANK(Gfx_HelpMenu_Tiles8C00)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9000
 	ld hl, Gfx_HelpMenu_Tiles9000
-	ld a, $6A
+	ld a, BANK(Gfx_HelpMenu_Tiles9000)
 	ld b, $98
 	ld c, $02
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Gfx_HelpMenu_Tiles9000Vb1
-	ld a, $6A
+	ld a, BANK(Gfx_HelpMenu_Tiles9000Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_HelpMenu_Tiles9400Vb1
-	ld a, $6A
+	ld a, BANK(Gfx_HelpMenu_Tiles9400Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_HelpMenu_Bg
-	ld a, $6A
+	ld a, BANK(Palette_HelpMenu_Bg)
 	farcall Palette_LoadToBuffer
 	ld a, [wHelpMenu_Page]
 	cp a, $02
@@ -88,7 +88,7 @@ Label_6C_401D::
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_HelpMenu_6A_4000
-	ld a, $6A
+	ld a, BANK(Tilemap_HelpMenu_6A_4000)
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $02
 	ld [wHelpMenu_NormalItem], a
@@ -101,7 +101,7 @@ Label_6C_401D::
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_HelpMenu_6A_42D0
-	ld a, $6A
+	ld a, BANK(Tilemap_HelpMenu_6A_42D0)
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $02
 	ld [wHelpMenu_NormalItem], a
@@ -114,7 +114,7 @@ Label_6C_401D::
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_HelpMenu_6A_45A0
-	ld a, $6A
+	ld a, BANK(Tilemap_HelpMenu_6A_45A0)
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $02
 	ld [wHelpMenu_NormalItem], a
@@ -125,8 +125,8 @@ Label_6C_401D::
 	ld a, $01
 	ld [wHelpMenu_NormalItem], a
 	ld hl, wSpriteSlot1
-	ld de, $64AE
-	ld a, $6A
+	ld de, Table_6A_64AE
+	ld a, BANK(Table_6A_64AE)
 	ld b, $80
 	farcall Sprite_InitSlot
 	ld de, $371F

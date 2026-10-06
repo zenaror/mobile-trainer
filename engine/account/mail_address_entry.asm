@@ -109,37 +109,37 @@ Function_68_57B6::
 	call Account_MailAddressEntry_CheckDomainLen
 	ld de, $8801
 	ld hl, Data_5E_4000
-	ld a, $5E
+	ld a, BANK(Data_5E_4000)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Data_5E_4400
-	ld a, $5E
+	ld a, BANK(Data_5E_4400)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Gfx_Account_MailAddressEntry_Tiles9000Vb1
-	ld a, $5E
+	ld a, BANK(Gfx_Account_MailAddressEntry_Tiles9000Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_Account_MailAddressEntry_Tiles9400Vb1
-	ld a, $5E
+	ld a, BANK(Gfx_Account_MailAddressEntry_Tiles9400Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Data_5E_4D00
-	ld a, $5E
+	ld a, BANK(Data_5E_4D00)
 	farcall Palette_LoadToBuffer
 	ld bc, $0514
 	ld de, wScreenTileMap
 	ld hl, Tilemap_Account_MailAddressEntry
-	ld a, $5E
+	ld a, BANK(Tilemap_Account_MailAddressEntry)
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $03
 	ld hl, wTextEntryBuf + $03
@@ -156,8 +156,8 @@ Function_68_57B6::
 	ld b, $02
 	farcall Kbd_Open
 	ld hl, wSpriteSlot0
-	ld de, $4D30
-	ld a, $5F
+	ld de, Kbd_ObjTable_Entry14
+	ld a, BANK(Kbd_ObjTable_Entry14)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld hl, wTextEntryBuf2
@@ -585,25 +585,25 @@ Account_MailIntro_Draw:: ; 68:5C12
 	farcall Sprite_ResetAll
 	ld de, $9001
 	ld hl, Gfx_Account_MailIntro_Tiles9000Vb1
-	ld a, $5E
+	ld a, BANK(Gfx_Account_MailIntro_Tiles9000Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_Account_MailIntro_Tiles9400Vb1
-	ld a, $5E
+	ld a, BANK(Gfx_Account_MailIntro_Tiles9400Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Data_5E_4D00
-	ld a, $5E
+	ld a, BANK(Data_5E_4D00)
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_Account_MailIntro
-	ld a, $5E
+	ld a, BANK(Tilemap_Account_MailIntro)
 	farcall Tilemap_CopyRectAndAttr
 	call Account_MailIntro_PrintMessage
 	ldh a, [rLCDC]

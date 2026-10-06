@@ -153,31 +153,31 @@ SettingsMenu_StateInit:: ; 68:5066
 	ld [wSettingsMenu_Cursor], a
 	ld de, $8801
 	ld hl, Gfx_SettingsMenu_Tiles8800Vb1
-	ld a, $4A
+	ld a, BANK(Gfx_SettingsMenu_Tiles8800Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Gfx_SettingsMenu_Tiles8C00Vb1
-	ld a, $4A
+	ld a, BANK(Gfx_SettingsMenu_Tiles8C00Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Gfx_SettingsMenu_Tiles9000Vb1
-	ld a, $4A
+	ld a, BANK(Gfx_SettingsMenu_Tiles9000Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_SettingsMenu_Tiles9400Vb1
-	ld a, $4A
+	ld a, BANK(Gfx_SettingsMenu_Tiles9400Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8001
 	ld hl, Gfx_SettingsMenu_Tiles8000Vb1
-	ld a, $4A
+	ld a, BANK(Gfx_SettingsMenu_Tiles8000Vb1)
 	ld b, $95
 	ld c, $20
 	farcall Gfx_StartHDMAWithService
@@ -196,7 +196,7 @@ SettingsMenu_StateInit:: ; 68:5066
 	call Gfx_UploadBgMapBuffers
 	ld hl, wSpriteSlot1
 	ld de, SettingsMenu_ObjTable
-	ld a, $4A
+	ld a, BANK(SettingsMenu_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	call SettingsMenu_UpdateCursorSprite
@@ -346,7 +346,7 @@ SettingsMenu_DrawItems:: ; 68:522C
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_SettingsMenu
-	ld a, $4A
+	ld a, BANK(Tilemap_SettingsMenu)
 	farcall Tilemap_CopyRectAndAttr
 
 .l5256 ; 68:5256

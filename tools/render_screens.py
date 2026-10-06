@@ -246,7 +246,11 @@ def extract_ops(sym):
                     p.pop(dst[1], None)
                     p[dst] = parse_val(src)
                 elif dst in REG8:
-                    v = None if src.startswith('[') else parse_val(src)
+                    mb = re.match(r'^BANK\((\w+)\)$', src)                  # `ld a, BANK(Label)` (tools/apply_rom_operands.py): the ROM bank of the label
+                    if mb:
+                        v = sym[mb.group(1)][0] if mb.group(1) in sym else None
+                    else:
+                        v = None if src.startswith('[') else parse_val(src)
                     p[dst] = None if isinstance(v, tuple) else v
                     for r16 in REG16:
                         if dst in r16:

@@ -36,56 +36,56 @@ Function_73_5F17::
 	ld [wBrowserStart_AnimCounter], a
 	ld de, $8000
 	ld hl, BrowserStart_Tiles0
-	ld a, $73
+	ld a, BANK(BrowserStart_Tiles0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8800
 	ld hl, BrowserStart_Tiles1
-	ld a, $73
+	ld a, BANK(BrowserStart_Tiles1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C00
 	ld hl, BrowserStart_Tiles2
-	ld a, $73
+	ld a, BANK(BrowserStart_Tiles2)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, BrowserStart_Tiles3
-	ld a, $73
+	ld a, BANK(BrowserStart_Tiles3)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, BrowserStart_Tiles4
-	ld a, $73
+	ld a, BANK(BrowserStart_Tiles4)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, BrowserStart_Palettes
-	ld a, $73
+	ld a, BANK(BrowserStart_Palettes)
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, BrowserStart_Map
-	ld a, $73
+	ld a, BANK(BrowserStart_Map)
 	farcall Tilemap_CopyRectAndAttr
 	call BrowserStart_DrawButtons
 	ld hl, wSpriteSlot1
-	ld de, $5F0F
-	ld a, $73
+	ld de, BrowserStart_ObjTable
+	ld a, BANK(BrowserStart_ObjTable)
 	ld b, $80
 	farcall Sprite_InitSlot
 	ld de, $3D2C
 	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot2
-	ld de, $5F0F
-	ld a, $73
+	ld de, BrowserStart_ObjTable
+	ld a, BANK(BrowserStart_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $4122
@@ -93,8 +93,8 @@ Function_73_5F17::
 	call Sprite_SetPosition
 	ld bc, $0040
 	ld de, wPaletteBufObj
-	ld hl, $5E20
-	ld a, $73
+	ld hl, BrowserStart_ObjPalettes
+	ld a, BANK(BrowserStart_ObjPalettes)
 	farcall Palette_LoadToBuffer
 	ld a, $40
 	ld bc, $0220
@@ -345,7 +345,7 @@ Function_73_61D5::
 	ld bc, $030A
 	ld de, wScreenTileMap + $129
 	ld hl, BrowserStart_BottomMapNormal
-	ld a, $73
+	ld a, BANK(BrowserStart_BottomMapNormal)
 	farcall Tilemap_CopyRectAndAttrPtr
 	ld a, $39
 	ld [wBrowserStart_AttrSrcLo], a
@@ -353,8 +353,8 @@ Function_73_61D5::
 	ld [wBrowserStart_AttrSrcHi], a
 	ld bc, $040A
 	ld de, wScreenTileMap + $89
-	ld hl, $43F3
-	ld a, $73
+	ld hl, BrowserStart_TopMapSelected
+	ld a, BANK(BrowserStart_TopMapSelected)
 	farcall Tilemap_CopyRectAndAttrPtr
 	farcall Sprite_UpdateAll
 	call BrowserStart_AnimateFrame
@@ -372,7 +372,7 @@ Function_73_61D5::
 	ld bc, $040A
 	ld de, wScreenTileMap + $89
 	ld hl, BrowserStart_TopMapNormal
-	ld a, $73
+	ld a, BANK(BrowserStart_TopMapNormal)
 	farcall Tilemap_CopyRectAndAttrPtr
 	ld a, $61
 	ld [wBrowserStart_AttrSrcLo], a
@@ -381,7 +381,7 @@ Function_73_61D5::
 	ld bc, $030A
 	ld de, wScreenTileMap + $129
 	ld hl, BrowserStart_BottomMapSelected
-	ld a, $73
+	ld a, BANK(BrowserStart_BottomMapSelected)
 	farcall Tilemap_CopyRectAndAttrPtr
 	farcall Sprite_UpdateAll
 	call BrowserStart_AnimateFrame

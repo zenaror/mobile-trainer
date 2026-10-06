@@ -77,20 +77,20 @@ Registration_DeleteConfirm_Setup:: ; 68:79B8
 	jr nz, .l7A0A
 	ld de, $9001
 	ld hl, Gfx_Registration_DeleteConfirm_Tiles9000Vb1
-	ld a, $71
+	ld a, BANK(Gfx_Registration_DeleteConfirm_Tiles9000Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_Registration_DeleteConfirm_Tiles9400Vb1
-	ld a, $71
+	ld a, BANK(Gfx_Registration_DeleteConfirm_Tiles9400Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_Registration_DeleteConfirm_71_66C8
-	ld a, $71
+	ld a, BANK(Tilemap_Registration_DeleteConfirm_71_66C8)
 	farcall Tilemap_CopyRectAndAttr
 	jr .l7A3F
 .l7A0A ; 68:7A0A
@@ -102,26 +102,26 @@ Registration_DeleteConfirm_Setup:: ; 68:79B8
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_Registration_Delete_Tiles9400Vb1
-	ld a, $71
+	ld a, BANK(Gfx_Registration_Delete_Tiles9400Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_Registration_DeleteConfirm_71_6998
-	ld a, $71
+	ld a, BANK(Tilemap_Registration_DeleteConfirm_71_6998)
 	farcall Tilemap_CopyRectAndAttr
 .l7A3F ; 68:7A3F
 	ld de, $8001
 	ld hl, Data_5F_49D0
-	ld a, $5F
+	ld a, BANK(Data_5F_49D0)
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_Registration_Delete_Bg
-	ld a, $71
+	ld a, BANK(Palette_Registration_Delete_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $0018
 	ld de, wPaletteBufObj + $28
@@ -133,7 +133,7 @@ Registration_DeleteConfirm_Setup:: ; 68:79B8
 	call Gfx_UploadBgMapBuffers
 	ld hl, wSpriteSlot0
 	ld de, ConfirmPages_ObjTable
-	ld a, $4A
+	ld a, BANK(ConfirmPages_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	call Registration_DeleteConfirm_UpdateCursor
@@ -306,7 +306,7 @@ Registration_DeleteExecute_Setup:: ; 68:7BB0
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Gfx_Registration_DeleteExecute_Tiles9000Vb1
-	ld a, $71
+	ld a, BANK(Gfx_Registration_DeleteExecute_Tiles9000Vb1)
 	ld b, $97
 	ld c, $10
 	farcall Gfx_StartHDMAWithService
@@ -319,7 +319,7 @@ Registration_DeleteExecute_Setup:: ; 68:7BB0
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_Registration_Delete_Bg
-	ld a, $71
+	ld a, BANK(Palette_Registration_Delete_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $0008
 	ld de, wPaletteBufObj
@@ -329,14 +329,14 @@ Registration_DeleteExecute_Setup:: ; 68:7BB0
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_Registration_DeleteExecute
-	ld a, $71
+	ld a, BANK(Tilemap_Registration_DeleteExecute)
 	farcall Tilemap_CopyRectAndAttr
 	call Registration_DeleteExecute_PrintMessage
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	ld hl, wSpriteSlot0
 	ld de, Registration_DeleteExecute_ObjTable
-	ld a, $71
+	ld a, BANK(Registration_DeleteExecute_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1C44

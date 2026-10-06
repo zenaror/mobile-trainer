@@ -324,13 +324,13 @@ Function_0E_4215::
 	farcall Sprite_ResetAll
 	ld de, $8000
 	ld hl, Gfx_Title_Tiles0
-	ld a, $0E
+	ld a, BANK(Gfx_Title_Tiles0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8800
 	ld hl, Gfx_Title_Tiles1
-	ld a, $0E
+	ld a, BANK(Gfx_Title_Tiles1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
@@ -342,55 +342,55 @@ Function_0E_4215::
 	farcall Gfx_StartHDMAWithService
 	ld de, $8801
 	ld hl, Gfx_Title_Tiles2
-	ld a, $0E
+	ld a, BANK(Gfx_Title_Tiles2)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Gfx_Title_Tiles4
-	ld a, $0E
+	ld a, BANK(Gfx_Title_Tiles4)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Gfx_Title_Tiles5
-	ld a, $0E
+	ld a, BANK(Gfx_Title_Tiles5)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_Title_Tiles6
-	ld a, $0E
+	ld a, BANK(Gfx_Title_Tiles6)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_Title_Bg
-	ld a, $0E
+	ld a, BANK(Palette_Title_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, wPaletteBufObj
-	ld hl, $5F70
-	ld a, $0E
+	ld hl, Palette_Title_Obj
+	ld a, BANK(Palette_Title_Obj)
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_Title_Screen
-	ld a, $0E
+	ld a, BANK(Tilemap_Title_Screen)
 	farcall Tilemap_CopyRectAndAttr
 	call Title_DrawMenuHighlight
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffersDi
 	ld hl, wSpriteSlot1
-	ld de, $5FB0
-	ld a, $0E
+	ld de, Objects_Title
+	ld a, BANK(Objects_Title)
 	ld b, $81
 	farcall Sprite_InitSlot
 	call Title_PlaceCursor
 	ld hl, wSpriteSlot2
-	ld de, $5FB0
-	ld a, $0E
+	ld de, Objects_Title
+	ld a, BANK(Objects_Title)
 	ld b, $82
 	farcall Sprite_InitSlot
 	ld de, $0000
@@ -460,25 +460,25 @@ Function_0E_434F::
 	farcall Sprite_ResetAll
 	ld de, $9001
 	ld hl, Gfx_TitleLogo_Tiles0
-	ld a, $0E
+	ld a, BANK(Gfx_TitleLogo_Tiles0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_TitleLogo_Tiles1
-	ld a, $0E
+	ld a, BANK(Gfx_TitleLogo_Tiles1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_TitleLogo
-	ld a, $0E
+	ld a, BANK(Palette_TitleLogo)
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_TitleLogo_Screen
-	ld a, $0E
+	ld a, BANK(Tilemap_TitleLogo_Screen)
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffersDi

@@ -237,51 +237,51 @@ AbookName_SetupScreen:: ; 2F:593B
 	farcall LCDOff
 	ld de, $9301
 	ld hl, Gfx_AbookName_Tiles9300Vb1
-	ld a, $2F
+	ld a, BANK(Gfx_AbookName_Tiles9300Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMA
 	ld de, $9701
 	ld hl, Gfx_AbookName_Tiles9700Vb1
-	ld a, $2F
+	ld a, BANK(Gfx_AbookName_Tiles9700Vb1)
 	ld b, $97
 	ld c, $10
 	farcall Gfx_StartHDMA
 	ld de, $8800
 	ld hl, Gfx_AbookName_Tiles8800
-	ld a, $2F
+	ld a, BANK(Gfx_AbookName_Tiles8800)
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMA
 	ld de, $8000
 	ld hl, Gfx_AbookEdit_Tiles8000
-	ld a, $29
+	ld a, BANK(Gfx_AbookEdit_Tiles8000)
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMA
 	ld bc, $0040
 	ld de, wPaletteBufObj
 	ld hl, Palette_AbookEdit_Obj
-	ld a, $29
+	ld a, BANK(Palette_AbookEdit_Obj)
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_AbookName_Bg
-	ld a, $2F
+	ld a, BANK(Palette_AbookName_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_AbookName
-	ld a, $2F
+	ld a, BANK(Tilemap_AbookName)
 	farcall Tilemap_CopyRectAndAttr
 	ld hl, wSpriteSlot1
-	ld de, $7B60
-	ld a, $7F
+	ld de, Table_TextCursor_ObjTables_Entry8
+	ld a, BANK(Table_TextCursor_ObjTables_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld hl, wSpriteSlot2
-	ld de, $7B50
-	ld a, $7F
+	ld de, Table_TextCursor_ObjTables_Entry4
+	ld a, BANK(Table_TextCursor_ObjTables_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ldh a, [rLCDC]
@@ -818,8 +818,8 @@ Label_2F_5CF4::
 	push bc
 	push bc
 	ld hl, wSpriteSlot1
-	ld de, $7B70
-	ld a, $7F
+	ld de, Table_TextCursor_ObjTables_Entry12
+	ld a, BANK(Table_TextCursor_ObjTables_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 	pop bc
@@ -844,8 +844,8 @@ Label_2F_5CF4::
 .l5D45 ; 2F:5D45
 	farcall Joypad_ClearAndResetRepeat
 	ld hl, wSpriteSlot1
-	ld de, $7B60
-	ld a, $7F
+	ld de, Table_TextCursor_ObjTables_Entry8
+	ld a, BANK(Table_TextCursor_ObjTables_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	pop bc
@@ -967,8 +967,8 @@ AbookName_Backspace:: ; 2F:5DDC
 	pop bc
 	push bc
 	ld hl, wSpriteSlot1
-	ld de, $7B80
-	ld a, $7F
+	ld de, Table_TextCursor_ObjTables_Entry16
+	ld a, BANK(Table_TextCursor_ObjTables_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	pop bc
@@ -1018,8 +1018,8 @@ AbookName_Backspace:: ; 2F:5DDC
 .l5E42 ; 2F:5E42
 	farcall Joypad_ClearAndResetRepeat
 	ld hl, wSpriteSlot1
-	ld de, $7B60
-	ld a, $7F
+	ld de, Table_TextCursor_ObjTables_Entry8
+	ld a, BANK(Table_TextCursor_ObjTables_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	pop bc

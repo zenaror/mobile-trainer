@@ -88,13 +88,13 @@ SettingsPhone_SlotMenu_Setup:: ; 67:4CCB
 	jr z, .l4D68
 	ld de, $8801
 	ld hl, Gfx_SettingsPhone_SlotMenu_Tiles8800Vb1
-	ld a, $4D
+	ld a, BANK(Gfx_SettingsPhone_SlotMenu_Tiles8800Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Gfx_SettingsPhone_SlotMenu_Tiles8C00Vb1_4D_6170
-	ld a, $4D
+	ld a, BANK(Gfx_SettingsPhone_SlotMenu_Tiles8C00Vb1_4D_6170)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
@@ -106,7 +106,7 @@ SettingsPhone_SlotMenu_Setup:: ; 67:4CCB
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_SettingsPhone_SlotMenu_Tiles9400Vb1_4D_6870
-	ld a, $4D
+	ld a, BANK(Gfx_SettingsPhone_SlotMenu_Tiles9400Vb1_4D_6870)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
@@ -120,7 +120,7 @@ SettingsPhone_SlotMenu_Setup:: ; 67:4CCB
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Gfx_SettingsPhone_SlotMenu_Tiles8C00Vb1_4D_6D70
-	ld a, $4D
+	ld a, BANK(Gfx_SettingsPhone_SlotMenu_Tiles8C00Vb1_4D_6D70)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
@@ -132,14 +132,14 @@ SettingsPhone_SlotMenu_Setup:: ; 67:4CCB
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_SettingsPhone_SlotMenu_Tiles9400Vb1_4D_7470
-	ld a, $4D
+	ld a, BANK(Gfx_SettingsPhone_SlotMenu_Tiles9400Vb1_4D_7470)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 .l4DB0 ; 67:4DB0
 	ld de, $8001
 	ld hl, Gfx_SettingsPhone_SlotMenu_Tiles8000Vb1
-	ld a, $4D
+	ld a, BANK(Gfx_SettingsPhone_SlotMenu_Tiles8000Vb1)
 	ld b, $98
 	ld c, $02
 	farcall Gfx_StartHDMAWithService
@@ -166,7 +166,7 @@ SettingsPhone_SlotMenu_Setup:: ; 67:4CCB
 	call Gfx_UploadBgMapBuffers
 	ld hl, wSpriteSlot0
 	ld de, SettingsPhone_SlotMenu_ObjTable
-	ld a, $4D
+	ld a, BANK(SettingsPhone_SlotMenu_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	call SettingsPhone_SlotMenu_PlaceCursor

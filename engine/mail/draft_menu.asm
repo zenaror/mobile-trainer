@@ -280,59 +280,59 @@ MailDraft_Menu_InitScreen:: ; 2B:420C
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_MailDraftMenu_Bg
-	ld a, $2B
+	ld a, BANK(Palette_MailDraftMenu_Bg)
 	farcall Palette_LoadToBuffer
 	ld de, $8000
 	ld hl, Gfx_MailDraftMenu_Tiles8000
-	ld a, $2B
+	ld a, BANK(Gfx_MailDraftMenu_Tiles8000)
 	ld b, $93
 	ld c, $33
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufObj
 	ld hl, Palette_MailDraftMenu_Obj
-	ld a, $2B
+	ld a, BANK(Palette_MailDraftMenu_Obj)
 	farcall Palette_LoadToBuffer
 	ld de, $9301
 	ld hl, Gfx_MailDraftMenu_Tiles9300Vb1
-	ld a, $2B
+	ld a, BANK(Gfx_MailDraftMenu_Tiles9300Vb1)
 	ld b, $94
 	ld c, $2D
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Data_MailDraftMenu_TilemapAttr
-	ld a, $2B
+	ld a, BANK(Data_MailDraftMenu_TilemapAttr)
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	ld hl, wSpriteSlot3
 	ld de, Table_MailDraftMenu_Anims
-	ld a, $2B
+	ld a, BANK(Table_MailDraftMenu_Anims)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1008
 	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot4
-	ld de, $51E0
-	ld a, $2B
+	ld de, Table_MailDraftMenu_Anims_Entry4
+	ld a, BANK(Table_MailDraftMenu_Anims_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3008
 	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot1
-	ld de, $51F0
-	ld a, $2B
+	ld de, Table_MailDraftMenu_Anims_Entry8
+	ld a, BANK(Table_MailDraftMenu_Anims_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $68D0
 	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot2
-	ld de, $5200
-	ld a, $2B
+	ld de, Table_MailDraftMenu_Anims_Entry12
+	ld a, BANK(Table_MailDraftMenu_Anims_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $68D0
@@ -349,8 +349,8 @@ MailDraft_Menu_InitScreen:: ; 2B:420C
 	; [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0;
 	; fall-through of the jrcc at 2B:42F1 (executed) [executed in 2 scenarios]
 	ld hl, wSpriteSlot6
-	ld de, $5230
-	ld a, $2B
+	ld de, Table_MailDraftMenu_Anims_Entry24
+	ld a, BANK(Table_MailDraftMenu_Anims_Entry24)
 	ld b, $00
 	farcall Sprite_InitSlot
 	ld de, $0068
@@ -432,8 +432,8 @@ MailDraft_Menu_MoveCursorSprites:: ; 2B:43A5
 	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot2
-	ld de, $5200
-	ld a, $2B
+	ld de, Table_MailDraftMenu_Anims_Entry12
+	ld a, BANK(Table_MailDraftMenu_Anims_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6810
@@ -448,8 +448,8 @@ MailDraft_Menu_MoveCursorSprites:: ; 2B:43A5
 	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot2
-	ld de, $5210
-	ld a, $2B
+	ld de, Table_MailDraftMenu_Anims_Entry16
+	ld a, BANK(Table_MailDraftMenu_Anims_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6840
@@ -464,8 +464,8 @@ MailDraft_Menu_MoveCursorSprites:: ; 2B:43A5
 	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot2
-	ld de, $5220
-	ld a, $2B
+	ld de, Table_MailDraftMenu_Anims_Entry20
+	ld a, BANK(Table_MailDraftMenu_Anims_Entry20)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6870

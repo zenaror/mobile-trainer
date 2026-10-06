@@ -19,32 +19,32 @@ Function_25_4B0D::
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Mailbox_BgPalette
-	ld a, $25
+	ld a, BANK(Mailbox_BgPalette)
 	farcall Palette_LoadToBuffer
 	call VBlank_Wait
 	ld bc, $0040
 	ld de, wPaletteBufObj
-	ld hl, $6EF0
-	ld a, $25
+	ld hl, Mailbox_ObjPalette
+	ld a, BANK(Mailbox_ObjPalette)
 	farcall Palette_LoadToBuffer
 	call VBlank_Wait
 	ld de, $9301
 	ld hl, Mailbox_Tiles_5A10
-	ld a, $25
+	ld a, BANK(Mailbox_Tiles_5A10)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMA
 	call VBlank_Wait
 	ld de, $9701
 	ld hl, Mailbox_Tiles_5E10
-	ld a, $25
+	ld a, BANK(Mailbox_Tiles_5E10)
 	ld b, $97
 	ld c, $10
 	farcall Gfx_StartHDMA
 	call VBlank_Wait
 	ld de, $8000
-	ld hl, $69F0
-	ld a, $25
+	ld hl, Mailbox_Tiles_69F0
+	ld a, BANK(Mailbox_Tiles_69F0)
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMA
@@ -57,8 +57,8 @@ Function_25_4B0D::
 	farcall Gfx_StartHDMA
 	call VBlank_Wait
 	ld de, $8D00
-	ld hl, $6CF0
-	ld a, $25
+	ld hl, Mailbox_Tiles_6CF0
+	ld a, BANK(Mailbox_Tiles_6CF0)
 	ld b, $95
 	ld c, $20
 	farcall Gfx_StartHDMA
@@ -66,7 +66,7 @@ Function_25_4B0D::
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Mailbox_Tilemap_Normal
-	ld a, $25
+	ld a, BANK(Mailbox_Tilemap_Normal)
 	farcall Tilemap_CopyRectAndAttr
 	call VBlank_Wait
 	jp .l4C75
@@ -77,32 +77,32 @@ Function_25_4B0D::
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Mailbox_BgPalette
-	ld a, $25
+	ld a, BANK(Mailbox_BgPalette)
 	farcall Palette_LoadToBuffer
 	call VBlank_Wait
 	ld bc, $0040
 	ld de, wPaletteBufObj
-	ld hl, $6EF0
-	ld a, $25
+	ld hl, Mailbox_ObjPalette
+	ld a, BANK(Mailbox_ObjPalette)
 	farcall Palette_LoadToBuffer
 	call VBlank_Wait
 	ld de, $9301
 	ld hl, Mailbox_Tiles_5F10
-	ld a, $25
+	ld a, BANK(Mailbox_Tiles_5F10)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMA
 	call VBlank_Wait
 	ld de, $9701
 	ld hl, Mailbox_Tiles_6310
-	ld a, $25
+	ld a, BANK(Mailbox_Tiles_6310)
 	ld b, $97
 	ld c, $10
 	farcall Gfx_StartHDMA
 	call VBlank_Wait
 	ld de, $8000
-	ld hl, $69F0
-	ld a, $25
+	ld hl, Mailbox_Tiles_69F0
+	ld a, BANK(Mailbox_Tiles_69F0)
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMA
@@ -115,8 +115,8 @@ Function_25_4B0D::
 	farcall Gfx_StartHDMA
 	call VBlank_Wait
 	ld de, $8D00
-	ld hl, $6CF0
-	ld a, $25
+	ld hl, Mailbox_Tiles_6CF0
+	ld a, BANK(Mailbox_Tiles_6CF0)
 	ld b, $95
 	ld c, $20
 	farcall Gfx_StartHDMA
@@ -124,7 +124,7 @@ Function_25_4B0D::
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Mailbox_Tilemap_DeleteSelect
-	ld a, $25
+	ld a, BANK(Mailbox_Tilemap_DeleteSelect)
 	farcall Tilemap_CopyRectAndAttr
 	call VBlank_Wait
 
@@ -133,13 +133,13 @@ Function_25_4B0D::
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Mailbox_BgPalette
-	ld a, $25
+	ld a, BANK(Mailbox_BgPalette)
 	farcall Palette_LoadToBuffer
 	call VBlank_Wait
 	ld bc, $0040
 	ld de, wPaletteBufObj
-	ld hl, $6EF0
-	ld a, $25
+	ld hl, Mailbox_ObjPalette
+	ld a, BANK(Mailbox_ObjPalette)
 	farcall Palette_LoadToBuffer
 	call VBlank_Wait
 	ldh a, [rLCDC]
@@ -248,8 +248,8 @@ Function_25_4B0D::
 	jr .l4D4C
 .l4D33 ; 25:4D33
 	ld hl, wSpriteSlot3
-	ld de, $7B40
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry16
+	ld a, BANK(Mailbox_ObjTable_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3048
@@ -313,16 +313,16 @@ Mailbox_UpdateScrollArrows_B:: ; 25:4D99
 	cp a, $04
 	jr z, .l4DE8
 	ld hl, wSpriteSlot4
-	ld de, $7B50
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry20
+	ld a, BANK(Mailbox_ObjTable_Entry20)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6848
 	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot3
-	ld de, $7B40
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry16
+	ld a, BANK(Mailbox_ObjTable_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3048
@@ -1518,8 +1518,8 @@ Mailbox_ShowRowNumbers:: ; 25:5581
 	cp a, $03
 	jr z, .l55F3
 	ld hl, wSpriteSlot8
-	ld de, $7B90
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry36
+	ld a, BANK(Mailbox_ObjTable_Entry36)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5C08
@@ -1527,8 +1527,8 @@ Mailbox_ShowRowNumbers:: ; 25:5581
 	call Sprite_SetPosition
 .l55F3 ; 25:55F3
 	ld hl, wSpriteSlot7
-	ld de, $7B80
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry32
+	ld a, BANK(Mailbox_ObjTable_Entry32)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5008
@@ -1536,8 +1536,8 @@ Mailbox_ShowRowNumbers:: ; 25:5581
 	call Sprite_SetPosition
 .l560C ; 25:560C
 	ld hl, wSpriteSlot6
-	ld de, $7B70
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry28
+	ld a, BANK(Mailbox_ObjTable_Entry28)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $4408
@@ -1545,8 +1545,8 @@ Mailbox_ShowRowNumbers:: ; 25:5581
 	call Sprite_SetPosition
 .l5625 ; 25:5625
 	ld hl, wSpriteSlot5
-	ld de, $7B60
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry24
+	ld a, BANK(Mailbox_ObjTable_Entry24)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3808
@@ -1586,8 +1586,8 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 	jp z, .l56B6
 	push bc
 	ld hl, wSpriteSlot12
-	ld de, $7BB0
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry44
+	ld a, BANK(Mailbox_ObjTable_Entry44)
 	ld b, $81
 	farcall Sprite_InitSlot
 	pop bc
@@ -1597,8 +1597,8 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 	inc a
 	jr nz, .l56AC
 	ld hl, wSpriteSlot12
-	ld de, $7BA0
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry40
+	ld a, BANK(Mailbox_ObjTable_Entry40)
 	ld b, $81
 	farcall Sprite_InitSlot
 .l56AC ; 25:56AC
@@ -1609,8 +1609,8 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 .l56B6 ; 25:56B6
 	push bc
 	ld hl, wSpriteSlot10
-	ld de, $7BB0
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry44
+	ld a, BANK(Mailbox_ObjTable_Entry44)
 	ld b, $81
 	farcall Sprite_InitSlot
 	pop bc
@@ -1620,8 +1620,8 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 	inc a
 	jr nz, .l56E1
 	ld hl, wSpriteSlot10
-	ld de, $7BA0
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry40
+	ld a, BANK(Mailbox_ObjTable_Entry40)
 	ld b, $81
 	farcall Sprite_InitSlot
 .l56E1 ; 25:56E1
@@ -1632,8 +1632,8 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 .l56EB ; 25:56EB
 	push bc
 	ld hl, wSpriteSlot11
-	ld de, $7BB0
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry44
+	ld a, BANK(Mailbox_ObjTable_Entry44)
 	ld b, $81
 	farcall Sprite_InitSlot
 	pop bc
@@ -1643,8 +1643,8 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 	inc a
 	jr nz, .l5716
 	ld hl, wSpriteSlot11
-	ld de, $7BA0
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry40
+	ld a, BANK(Mailbox_ObjTable_Entry40)
 	ld b, $81
 	farcall Sprite_InitSlot
 .l5716 ; 25:5716
@@ -1655,8 +1655,8 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 .l5720 ; 25:5720
 	push bc
 	ld hl, wSpriteSlot9
-	ld de, $7BB0
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry44
+	ld a, BANK(Mailbox_ObjTable_Entry44)
 	ld b, $81
 	farcall Sprite_InitSlot
 	pop bc
@@ -1666,8 +1666,8 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 	inc a
 	jr nz, .l574B
 	ld hl, wSpriteSlot9
-	ld de, $7BA0
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry40
+	ld a, BANK(Mailbox_ObjTable_Entry40)
 	ld b, $81
 	farcall Sprite_InitSlot
 .l574B ; 25:574B
@@ -1685,8 +1685,8 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 	jp z, .l579D
 	push bc
 	ld hl, wSpriteSlot12
-	ld de, $7BD0
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry52
+	ld a, BANK(Mailbox_ObjTable_Entry52)
 	ld b, $81
 	farcall Sprite_InitSlot
 	pop bc
@@ -1696,8 +1696,8 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 	inc a
 	jr nz, .l5790
 	ld hl, wSpriteSlot12
-	ld de, $7BC0
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry48
+	ld a, BANK(Mailbox_ObjTable_Entry48)
 	ld b, $81
 	farcall Sprite_InitSlot
 .l5790 ; 25:5790
@@ -1709,8 +1709,8 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 .l579D ; 25:579D
 	push bc
 	ld hl, wSpriteSlot10
-	ld de, $7BD0
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry52
+	ld a, BANK(Mailbox_ObjTable_Entry52)
 	ld b, $81
 	farcall Sprite_InitSlot
 	pop bc
@@ -1720,8 +1720,8 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 	inc a
 	jr nz, .l57C8
 	ld hl, wSpriteSlot10
-	ld de, $7BC0
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry48
+	ld a, BANK(Mailbox_ObjTable_Entry48)
 	ld b, $81
 	farcall Sprite_InitSlot
 .l57C8 ; 25:57C8
@@ -1733,8 +1733,8 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 .l57D5 ; 25:57D5
 	push bc
 	ld hl, wSpriteSlot11
-	ld de, $7BD0
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry52
+	ld a, BANK(Mailbox_ObjTable_Entry52)
 	ld b, $81
 	farcall Sprite_InitSlot
 	pop bc
@@ -1744,8 +1744,8 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 	inc a
 	jr nz, .l5800
 	ld hl, wSpriteSlot11
-	ld de, $7BC0
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry48
+	ld a, BANK(Mailbox_ObjTable_Entry48)
 	ld b, $81
 	farcall Sprite_InitSlot
 .l5800 ; 25:5800
@@ -1757,8 +1757,8 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 .l580D ; 25:580D
 	push bc
 	ld hl, wSpriteSlot9
-	ld de, $7BD0
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry52
+	ld a, BANK(Mailbox_ObjTable_Entry52)
 	ld b, $81
 	farcall Sprite_InitSlot
 	pop bc
@@ -1768,8 +1768,8 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 	inc a
 	jr nz, .l5838
 	ld hl, wSpriteSlot9
-	ld de, $7BC0
-	ld a, $26
+	ld de, Mailbox_ObjTable_Entry48
+	ld a, BANK(Mailbox_ObjTable_Entry48)
 	ld b, $81
 	farcall Sprite_InitSlot
 .l5838 ; 25:5838

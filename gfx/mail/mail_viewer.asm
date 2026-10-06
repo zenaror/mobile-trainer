@@ -41,7 +41,7 @@ Palette_MailView_Obj:: ; 2B:7860
 Palette_2B_7860::
 	INCLUDE "gfx/mail/mail_viewer/mail_view_obj.pal"
 
-; ---- words $78A0-$7920 (128 bytes) [PROBABLE] animation entry table: 32 entries of 4 bytes (frame-table pointer, script pointer), each animation repeated 4x; format of the sprite-slot initialiser 00:0A82/0AB8 (entry at DE+4*(A&$7F) -> slot[2..3] frame table, slot[6..7] script)
+; ---- words $78A0-$7920 (128 bytes) [PROBABLE] animation entry table: 32 entries of 4 bytes (frame-table pointer, script pointer), each animation repeated 4x; format of the sprite-slot initialiser 00:0A82/0AB8 (entry at DE+4*(A&$3F) -> slot[2..3] frame table, slot[6..7] script)
 
 Table_MailView_Anims:: ; 2B:78A0
 Table_2B_78A0::
@@ -53,26 +53,32 @@ Table_2B_78A0::
 	sprite_object_entry MailView_Anim4Frames, MailView_Anim4Script ; entry 5
 	sprite_object_entry MailView_Anim4Frames, MailView_Anim4Script ; entry 6
 	sprite_object_entry MailView_Anim4Frames, MailView_Anim4Script ; entry 7
+Table_MailView_Anims_Entry8:: ; 2B:78C0
 	sprite_object_entry MailView_Anim8Frames, MailView_Anim8Script ; entry 8
 	sprite_object_entry MailView_Anim8Frames, MailView_Anim8Script ; entry 9
 	sprite_object_entry MailView_Anim8Frames, MailView_Anim8Script ; entry 10
 	sprite_object_entry MailView_Anim8Frames, MailView_Anim8Script ; entry 11
+Table_MailView_Anims_Entry12:: ; 2B:78D0
 	sprite_object_entry MailView_Anim12Frames, MailView_Anim12Script ; entry 12
 	sprite_object_entry MailView_Anim12Frames, MailView_Anim12Script ; entry 13
 	sprite_object_entry MailView_Anim12Frames, MailView_Anim12Script ; entry 14
 	sprite_object_entry MailView_Anim12Frames, MailView_Anim12Script ; entry 15
+Table_MailView_Anims_Entry16:: ; 2B:78E0
 	sprite_object_entry MailView_Anim16Frames, MailView_Anim16Script ; entry 16
 	sprite_object_entry MailView_Anim16Frames, MailView_Anim16Script ; entry 17
 	sprite_object_entry MailView_Anim16Frames, MailView_Anim16Script ; entry 18
 	sprite_object_entry MailView_Anim16Frames, MailView_Anim16Script ; entry 19
+Table_MailView_Anims_Entry20:: ; 2B:78F0
 	sprite_object_entry MailView_Anim20Frames, MailView_Anim20Script ; entry 20
 	sprite_object_entry MailView_Anim20Frames, MailView_Anim20Script ; entry 21
 	sprite_object_entry MailView_Anim20Frames, MailView_Anim20Script ; entry 22
 	sprite_object_entry MailView_Anim20Frames, MailView_Anim20Script ; entry 23
+Table_MailView_Anims_Entry24:: ; 2B:7900
 	sprite_object_entry MailView_Anim24Frames, MailView_Anim24Script ; entry 24
 	sprite_object_entry MailView_Anim24Frames, MailView_Anim24Script ; entry 25
 	sprite_object_entry MailView_Anim24Frames, MailView_Anim24Script ; entry 26
 	sprite_object_entry MailView_Anim24Frames, MailView_Anim24Script ; entry 27
+Table_MailView_Anims_Entry28:: ; 2B:7910
 	sprite_object_entry MailView_Anim28Frames, MailView_Anim28Script ; entry 28
 	sprite_object_entry MailView_Anim28Frames, MailView_Anim28Script ; entry 29
 	sprite_object_entry MailView_Anim28Frames, MailView_Anim28Script ; entry 30

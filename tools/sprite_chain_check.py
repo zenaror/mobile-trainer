@@ -5,15 +5,15 @@ Independent of tools/data_consumers.py.  Formats used (re-derived from home/spri
 Sprite_LoadObjectEntry 00:0AB8, Sprite_StepAndDrawSlot 00:0AE8; all pointers are 16-bit, in the ROM bank given as A to Sprite_InitSlot
 [slot+0E], there is no bank byte in the table):
 
-  object table  : 4-byte entries  dw frame_table, dw script          entry = DE + 4*(B & $7F)
+  object table  : 4-byte entries  dw frame_table, dw script          entry = DE + 4*(B & $3F)   [00:0ABB-0AC4: (B & $7F) * 4 in 8 bits, the carry is lost]
   frame table   : array of dw, one record pointer per frame index (no count byte: its length is not stored anywhere)
   frame record  : db n ; n x (db y, x, tile, attribute)                 (1 + 4n bytes)
   script        : db n ; n x (db frame_index, delay)                    (1 + 2n bytes)
 
 Procedure
   1. roots: every `call|farcall Sprite_InitSlot` of the source (712, the same number as the `CD xx xx 82 0A 00` byte patterns of the ROM) is
-     resolved to (bank, address) from its `ld de,X` and `ld a,$BB` of the preceding straight-line window; the bank of a label operand must equal
-     A (otherwise reported); every root must also be a possible `ld de,imm16`/`ld a,imm8` pair in the ROM bytes before a far call.
+     resolved to (bank, address) from its `ld de,X` and `ld a,$BB` (or `ld a, BANK(X)`: then X must be the label that DE names) of the preceding
+     straight-line window; the bank of a label operand must equal A (otherwise reported); every root must also be a possible `ld de,imm16`/`ld a,imm8` pair in the ROM bytes before a far call.
   2. walk: root -> entries (the run of plausible 4-byte entries from the label, NOT limited to the label's extent because a table may continue in the
      next label; cut at the next root of the bank and at the lowest pointer target after the table start) -> frame table -> records; script.
      Frame-table length: distance to its first record (tables are directly followed by their first record); cross-checked against the highest frame
@@ -58,11 +58,12 @@ class Rom:
 # labels that tools/sprite_to_macros.py adds (one per pointer target that had no label): they are role labels inside the groups that the
 # names cover, so they must not cut the extent of a group (`ObjAnimData` blocks, `Frame<k>To<m>` records); the walk ignores them
 GENERATED_LABEL = re.compile(r'^Sprite(FrameTable|Frame|Script)_[0-9A-F]{2}_[0-9A-F]{4}$')
+ENTRY_LABEL = re.compile(r'_Entry[0-9]+$')    # `<table>_Entry<N>`: a label that tools/apply_rom_operands.py writes in front of entry N of a table that a Sprite_InitSlot site loads: it names a root, it does not start a group
+ENTRY_NAME = re.compile(r'^(.+)_Entry([0-9]+)$')
 
 
 def load_sym(path):
-    names = collections.defaultdict(list)     # (bank, addr) -> [names]
-    by_name = {}
+    records = []
     for line in open(path):
         m = re.match(r'^([0-9a-f]{2}):([0-9a-f]{4}) (\S+)$', line.strip())
         if not m:
@@ -70,8 +71,16 @@ def load_sym(path):
         bank, addr, nm = int(m.group(1), 16), int(m.group(2), 16), m.group(3)
         if '.' in nm or addr >= 0x8000 or GENERATED_LABEL.match(nm):
             continue
-        names[(bank, addr)].append(nm)
+        records.append((bank, addr, nm))
+    known = {nm for _, _, nm in records}
+    names = collections.defaultdict(list)     # (bank, addr) -> [names]
+    by_name = {}
+    for bank, addr, nm in records:
         by_name[nm] = (bank, addr)
+        me = ENTRY_LABEL.search(nm)
+        if me and nm[:me.start()] in known:
+            continue                          # resolves a `ld de, Table_Entry4` operand, but the group (extent, entry numbers) is that of the table label above it; a semantic label that merely ends in `_Entry<N>` (its stem is no label) is a real table label and stays
+        names[(bank, addr)].append(nm)
     per_bank = collections.defaultdict(list)
     for (bank, addr) in names:
         per_bank[bank].append(addr)
@@ -130,10 +139,19 @@ def find_sites(syms):
             if de is None or a is None:
                 problems.append('%s:%d no ld de / ld a in window' % (rel, i + 1))
                 continue
-            if not a.startswith('$'):
+            bank_label = None
+            mb = re.match(r'^BANK\(([A-Za-z_][A-Za-z0-9_]*)\)$', a)
+            if mb:                                           # `ld a, BANK(Label)`: the bank is the one of the label (and the label must be the table that DE names)
+                bank_label = mb.group(1)
+                if bank_label not in syms.by_name:
+                    problems.append('%s:%d BANK() of the unknown label %s' % (rel, i + 1, bank_label))
+                    continue
+                bank = syms.by_name[bank_label][0]
+            elif not a.startswith('$'):
                 problems.append('%s:%d bank operand %r is not an immediate' % (rel, i + 1, a))
                 continue
-            bank = int(a[1:], 16)
+            else:
+                bank = int(a[1:], 16)
             off = 0
             mm = re.match(r'^(.*?)\s*\+\s*(\$?[0-9A-Fa-f]+)$', de)
             base = de
@@ -149,6 +167,8 @@ def find_sites(syms):
             else:
                 problems.append('%s:%d unresolved operand %r' % (rel, i + 1, de))
                 continue
+            if bank_label is not None and base != bank_label:
+                problems.append('%s:%d BANK(%s) does not name the table %s that DE points to' % (rel, i + 1, bank_label, base))
             addr += off
             bimm = int(b[1:], 16) if b and re.match(r'^\$[0-9A-Fa-f]{1,2}$', b) else None
             sites.append((rel, i + 1, fn, bank, (bank, addr), de, bimm))
@@ -355,6 +375,20 @@ def main(argv=None):
             hard += 1
     roots = sorted(root_sites)
     print('roots (distinct object-table groups): %d' % len(roots))
+    # `<Table>_Entry<N>` is entry N of the object table `Table` (a position, nothing else): nothing but this check reads N, so it must sit at Table + 4 * N in the same bank
+    # (labels whose parent is not an object table that a site loads, such as the four `Tilemap_SettingsPhone_ChoiceMenu_Entry<N>` tilemaps, are not entries of a table here)
+    root_names = {n for r in roots for n in syms.names.get(r, [])}
+    n_entry = 0
+    for nm, (eb, ea) in sorted(syms.by_name.items()):
+        me = ENTRY_NAME.match(nm)
+        if not me or me.group(1) not in root_names:
+            continue
+        n_entry += 1
+        pb, pa = syms.by_name[me.group(1)]
+        if (eb, ea) != (pb, pa + 4 * int(me.group(2))):
+            print('  MISMATCH %s %02X:%04X is not entry %s of %s (%02X:%04X + 4 * %s = %04X)' % (nm, eb, ea, me.group(2), me.group(1), pb, pa, me.group(2), pa + 4 * int(me.group(2))))
+            hard += 1
+    print('entry labels `<Table>_Entry<N>` of the object tables: %d, each at Table + 4 * N' % n_entry)
     W = Walk(rom, syms)
     W.run(roots)
 

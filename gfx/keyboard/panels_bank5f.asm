@@ -49,21 +49,26 @@ Table_5F_4CF8::
 	sprite_object_entry 0, 0 ; entry 0
 	sprite_object_entry Kbd_Anim1Frames, Kbd_Anim1Script ; entry 1
 	sprite_object_entry Kbd_Anim2Frames, Kbd_Anim2Script ; entry 2
+Kbd_ObjTable_Entry3:: ; 5F:4D04
 	sprite_object_entry 0, 0 ; entry 3
 	sprite_object_entry Kbd_Anim4Frames, Kbd_Anim4Script ; entry 4
 	sprite_object_entry Kbd_Anim5Frames, Kbd_Anim5Script ; entry 5
 	sprite_object_entry Kbd_Anim6Frames, Kbd_Anim6Script ; entry 6
 	sprite_object_entry Kbd_Anim7Frames, Kbd_Anim7Script ; entry 7
+Kbd_ObjTable_Entry8:: ; 5F:4D18
 	sprite_object_entry 0, 0 ; entry 8
 	sprite_object_entry Kbd_Anim9Frames, Kbd_Anim9Script ; entry 9
 	sprite_object_entry Kbd_Anim10Frames, Kbd_Anim10Script ; entry 10
 	sprite_object_entry Kbd_Anim11Frames, Kbd_Anim11Script ; entry 11
 	sprite_object_entry Kbd_Anim12Frames, Kbd_Anim12Script ; entry 12
 	sprite_object_entry Kbd_Anim13Frames, Kbd_Anim13Script ; entry 13
+Kbd_ObjTable_Entry14:: ; 5F:4D30
 	sprite_object_entry 0, 0 ; entry 14
 	sprite_object_entry Kbd_Anim15Frames, Kbd_Anim15Script ; entry 15
+Kbd_ObjTable_Entry16:: ; 5F:4D38
 	sprite_object_entry 0, 0 ; entry 16
 	sprite_object_entry Kbd_Anim17Frames, Kbd_Anim17Script ; entry 17
+Kbd_ObjTable_Entry18:: ; 5F:4D40
 	sprite_object_entry 0, 0 ; entry 18
 	sprite_object_entry Kbd_Anim19Frames, Kbd_Anim19Script ; entry 19
 

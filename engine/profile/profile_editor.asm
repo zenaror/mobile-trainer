@@ -511,28 +511,28 @@ Function_2A_57BD::
 	farcall TextTiles_ClearBuffers
 	ld de, $9301
 	ld hl, Gfx_Profile_Tiles9300Vb1
-	ld a, $2A
+	ld a, BANK(Gfx_Profile_Tiles9300Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMA
 	call VBlank_Wait
 	ld de, $9701
-	ld hl, $6700
-	ld a, $2A
+	ld hl, Gfx_Profile_Tiles9700
+	ld a, BANK(Gfx_Profile_Tiles9700)
 	ld b, $97
 	ld c, $10
 	farcall Gfx_StartHDMA
 	call VBlank_Wait
 	ld de, $8800
-	ld hl, $6800
-	ld a, $2A
+	ld hl, Gfx_Profile_Tiles8800
+	ld a, BANK(Gfx_Profile_Tiles8800)
 	ld b, $93
 	ld c, $34
 	farcall Gfx_StartHDMA
 	call VBlank_Wait
 	ld de, $8000
 	ld hl, Gfx_Profile_Tiles8000
-	ld a, $26
+	ld a, BANK(Gfx_Profile_Tiles8000)
 	ld b, $94
 	ld c, $2A
 	farcall Gfx_StartHDMA
@@ -540,42 +540,42 @@ Function_2A_57BD::
 	ld bc, $0040
 	ld de, wPaletteBufObj
 	ld hl, Palette_Profile_Obj
-	ld a, $26
+	ld a, BANK(Palette_Profile_Obj)
 	farcall Palette_LoadToBuffer
 	call VBlank_Wait
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_Profile_Bg
-	ld a, $2A
+	ld a, BANK(Palette_Profile_Bg)
 	farcall Palette_LoadToBuffer
 	call VBlank_Wait
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Data_Profile_TilemapAttr
-	ld a, $2A
+	ld a, BANK(Data_Profile_TilemapAttr)
 	farcall Tilemap_CopyRectAndAttr
 	call VBlank_Wait
 	ld hl, wSpriteSlot1
-	ld de, $7B60
-	ld a, $7F
+	ld de, Table_TextCursor_ObjTables_Entry8
+	ld a, BANK(Table_TextCursor_ObjTables_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld hl, wSpriteSlot2
-	ld de, $7B50
-	ld a, $7F
+	ld de, Table_TextCursor_ObjTables_Entry4
+	ld a, BANK(Table_TextCursor_ObjTables_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld hl, wSpriteSlot3
-	ld de, $6E70
-	ld a, $2A
+	ld de, Table_Profile_Anims_Entry8
+	ld a, BANK(Table_Profile_Anims_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2000
 	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot6
-	ld de, $6E80
-	ld a, $2A
+	ld de, Table_Profile_Anims_Entry12
+	ld a, BANK(Table_Profile_Anims_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $4000
@@ -1301,8 +1301,8 @@ Profile_InsertChar:: ; 2A:5CD2
 	pop bc
 	push bc
 	ld hl, wSpriteSlot1
-	ld de, $7B70
-	ld a, $7F
+	ld de, Table_TextCursor_ObjTables_Entry12
+	ld a, BANK(Table_TextCursor_ObjTables_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 	pop bc
@@ -1324,8 +1324,8 @@ Profile_InsertChar:: ; 2A:5CD2
 .l5D3E ; 2A:5D3E
 	farcall Joypad_ClearAndResetRepeat
 	ld hl, wSpriteSlot1
-	ld de, $7B60
-	ld a, $7F
+	ld de, Table_TextCursor_ObjTables_Entry8
+	ld a, BANK(Table_TextCursor_ObjTables_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	pop bc
@@ -1510,8 +1510,8 @@ Profile_DeleteChar:: ; 2A:5E23
 	pop bc
 	push bc
 	ld hl, wSpriteSlot1
-	ld de, $7B80
-	ld a, $7F
+	ld de, Table_TextCursor_ObjTables_Entry16
+	ld a, BANK(Table_TextCursor_ObjTables_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	pop bc
@@ -1561,8 +1561,8 @@ Profile_DeleteChar:: ; 2A:5E23
 .l5E83 ; 2A:5E83
 	farcall Joypad_ClearAndResetRepeat
 	ld hl, wSpriteSlot1
-	ld de, $7B60
-	ld a, $7F
+	ld de, Table_TextCursor_ObjTables_Entry8
+	ld a, BANK(Table_TextCursor_ObjTables_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	pop bc
@@ -2194,8 +2194,8 @@ Profile_KeyboardLoop_Poll:: ; 2A:617B
 	ldh [rSCY], a
 	ld [wSplitScrollY], a
 	ld hl, wSpriteSlot3
-	ld de, $6E70
-	ld a, $2A
+	ld de, Table_Profile_Anims_Entry8
+	ld a, BANK(Table_Profile_Anims_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2000

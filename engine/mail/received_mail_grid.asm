@@ -95,35 +95,35 @@ MailGrid_InitScreen:: ; 2B:5448
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_MailGrid_Bg
-	ld a, $2B
+	ld a, BANK(Palette_MailGrid_Bg)
 	farcall Palette_LoadToBuffer
 	ld de, $9001
 	ld hl, Gfx_MailGrid_Tiles9000Vb1
-	ld a, $2B
+	ld a, BANK(Gfx_MailGrid_Tiles9000Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_MailGrid_Tiles9400Vb1
-	ld a, $2B
+	ld a, BANK(Gfx_MailGrid_Tiles9400Vb1)
 	ld b, $95
 	ld c, $23
 	farcall Gfx_StartHDMAWithService
 	ld de, $8000
 	ld hl, Gfx_MailGrid_Tiles8000
-	ld a, $2B
+	ld a, BANK(Gfx_MailGrid_Tiles8000)
 	ld b, $97
 	ld c, $0F
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufObj
 	ld hl, Palette_MailGrid_Obj
-	ld a, $2B
+	ld a, BANK(Palette_MailGrid_Obj)
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Data_MailGrid_TilemapAttr
-	ld a, $2B
+	ld a, BANK(Data_MailGrid_TilemapAttr)
 	farcall Tilemap_CopyRectAndAttr
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -146,7 +146,7 @@ MailGrid_InitScreen:: ; 2B:5448
 	call Gfx_UploadBgMapBuffers
 	ld hl, wSpriteSlot1
 	ld de, Table_MailGrid_Anims
-	ld a, $2B
+	ld a, BANK(Table_MailGrid_Anims)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1404

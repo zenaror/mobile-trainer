@@ -12,10 +12,12 @@ Table_28_6F20::
 	sprite_object_entry MailSession_6F20_ObjAnimData, SpriteScript_28_7066 ; entry 1
 	sprite_object_entry MailSession_6F20_ObjAnimData, SpriteScript_28_7066 ; entry 2
 	sprite_object_entry MailSession_6F20_ObjAnimData, SpriteScript_28_7066 ; entry 3
+MailSession_ObjTable_6F20_Entry4:: ; 28:6F30
 	sprite_object_entry SpriteFrameTable_28_72AF, SpriteScript_28_72D5 ; entry 4
 	sprite_object_entry SpriteFrameTable_28_72AF, SpriteScript_28_72D5 ; entry 5
 	sprite_object_entry SpriteFrameTable_28_72AF, SpriteScript_28_72D5 ; entry 6
 	sprite_object_entry SpriteFrameTable_28_72AF, SpriteScript_28_72D5 ; entry 7
+MailSession_ObjTable_6F20_Entry8:: ; 28:6F40
 	sprite_object_entry SpriteFrameTable_28_706B, SpriteScript_28_70A4 ; entry 8
 	sprite_object_entry SpriteFrameTable_28_706B, SpriteScript_28_70A4 ; entry 9
 	sprite_object_entry SpriteFrameTable_28_706B, SpriteScript_28_70A4 ; entry 10
@@ -28,18 +30,22 @@ Table_28_6F20::
 	sprite_object_entry SpriteFrameTable_28_71FE, SpriteScript_28_7234 ; entry 17
 	sprite_object_entry SpriteFrameTable_28_71FE, SpriteScript_28_7234 ; entry 18
 	sprite_object_entry SpriteFrameTable_28_71FE, SpriteScript_28_7234 ; entry 19
+MailSession_ObjTable_6F20_Entry20:: ; 28:6F70
 	sprite_object_entry SpriteFrameTable_28_70AB, SpriteScript_28_70D1 ; entry 20
 	sprite_object_entry SpriteFrameTable_28_70AB, SpriteScript_28_70D1 ; entry 21
 	sprite_object_entry SpriteFrameTable_28_70AB, SpriteScript_28_70D1 ; entry 22
 	sprite_object_entry SpriteFrameTable_28_70AB, SpriteScript_28_70D1 ; entry 23
+MailSession_ObjTable_6F20_Entry24:: ; 28:6F80
 	sprite_object_entry SpriteFrameTable_28_70D6, SpriteScript_28_710F ; entry 24
 	sprite_object_entry SpriteFrameTable_28_70D6, SpriteScript_28_710F ; entry 25
 	sprite_object_entry SpriteFrameTable_28_70D6, SpriteScript_28_710F ; entry 26
 	sprite_object_entry SpriteFrameTable_28_70D6, SpriteScript_28_710F ; entry 27
+MailSession_ObjTable_6F20_Entry28:: ; 28:6F90
 	sprite_object_entry SpriteFrameTable_28_7116, SpriteScript_28_7129 ; entry 28
 	sprite_object_entry SpriteFrameTable_28_7116, SpriteScript_28_7129 ; entry 29
 	sprite_object_entry SpriteFrameTable_28_7116, SpriteScript_28_7129 ; entry 30
 	sprite_object_entry SpriteFrameTable_28_7116, SpriteScript_28_7129 ; entry 31
+MailSession_ObjTable_6F20_Entry32:: ; 28:6FA0
 	sprite_object_entry SpriteFrameTable_28_713A, SpriteScript_28_7173 ; entry 32
 	sprite_object_entry SpriteFrameTable_28_713A, SpriteScript_28_7173 ; entry 33
 	sprite_object_entry SpriteFrameTable_28_713A, SpriteScript_28_7173 ; entry 34
@@ -52,6 +58,7 @@ Table_28_6F20::
 	sprite_object_entry SpriteFrameTable_28_7274, SpriteScript_28_72AA ; entry 41
 	sprite_object_entry SpriteFrameTable_28_7274, SpriteScript_28_72AA ; entry 42
 	sprite_object_entry SpriteFrameTable_28_7274, SpriteScript_28_72AA ; entry 43
+MailSession_ObjTable_6F20_Entry44:: ; 28:6FD0
 	sprite_object_entry SpriteFrameTable_28_712C, SpriteScript_28_7137 ; entry 44
 	sprite_object_entry SpriteFrameTable_28_712C, SpriteScript_28_7137 ; entry 45
 	sprite_object_entry SpriteFrameTable_28_712C, SpriteScript_28_7137 ; entry 46
@@ -72,10 +79,12 @@ Table_28_6F20::
 	sprite_object_entry SpriteFrameTable_28_71AC, SpriteScript_28_71BB ; entry 61
 	sprite_object_entry SpriteFrameTable_28_71AC, SpriteScript_28_71BB ; entry 62
 	sprite_object_entry SpriteFrameTable_28_71AC, SpriteScript_28_71BB ; entry 63
+MailSession_ObjTable_6F20_Entry64:: ; 28:7020
 	sprite_object_entry SpriteFrameTable_28_72DA, SpriteScript_28_72E5 ; entry 64
 	sprite_object_entry SpriteFrameTable_28_72DA, SpriteScript_28_72E5 ; entry 65
 	sprite_object_entry SpriteFrameTable_28_72DA, SpriteScript_28_72E5 ; entry 66
 	sprite_object_entry SpriteFrameTable_28_72DA, SpriteScript_28_72E5 ; entry 67
+MailSession_ObjTable_6F20_Entry68:: ; 28:7030
 	sprite_object_entry SpriteFrameTable_28_72E8, SpriteScript_28_72F6 ; entry 68
 	sprite_object_entry SpriteFrameTable_28_72E8, SpriteScript_28_72F6 ; entry 69
 	sprite_object_entry SpriteFrameTable_28_72E8, SpriteScript_28_72F6 ; entry 70
@@ -401,154 +410,192 @@ Table_28_72FB::
 	sprite_object_entry SpriteFrameTable_28_75B7, SpriteScript_28_75DD ; entry 9
 	sprite_object_entry SpriteFrameTable_28_75B7, SpriteScript_28_75DD ; entry 10
 	sprite_object_entry SpriteFrameTable_28_75B7, SpriteScript_28_75DD ; entry 11
+MailSession_ObjTable_72FB_Entry12:: ; 28:732B
 	sprite_object_entry SpriteFrameTable_28_75E2, SpriteScript_28_7608 ; entry 12
 	sprite_object_entry SpriteFrameTable_28_75E2, SpriteScript_28_7608 ; entry 13
 	sprite_object_entry SpriteFrameTable_28_75E2, SpriteScript_28_7608 ; entry 14
 	sprite_object_entry SpriteFrameTable_28_75E2, SpriteScript_28_7608 ; entry 15
+MailSession_ObjTable_72FB_Entry16:: ; 28:733B
 	sprite_object_entry SpriteFrameTable_28_760D, SpriteScript_28_7633 ; entry 16
 	sprite_object_entry SpriteFrameTable_28_760D, SpriteScript_28_7633 ; entry 17
 	sprite_object_entry SpriteFrameTable_28_760D, SpriteScript_28_7633 ; entry 18
 	sprite_object_entry SpriteFrameTable_28_760D, SpriteScript_28_7633 ; entry 19
+MailSession_ObjTable_72FB_Entry20:: ; 28:734B
 	sprite_object_entry SpriteFrameTable_28_7638, SpriteScript_28_7671 ; entry 20
 	sprite_object_entry SpriteFrameTable_28_7638, SpriteScript_28_7671 ; entry 21
 	sprite_object_entry SpriteFrameTable_28_7638, SpriteScript_28_7671 ; entry 22
 	sprite_object_entry SpriteFrameTable_28_7638, SpriteScript_28_7671 ; entry 23
+MailSession_ObjTable_72FB_Entry24:: ; 28:735B
 	sprite_object_entry SpriteFrameTable_28_7678, SpriteScript_28_76C9 ; entry 24
 	sprite_object_entry SpriteFrameTable_28_7678, SpriteScript_28_76C9 ; entry 25
 	sprite_object_entry SpriteFrameTable_28_7678, SpriteScript_28_76C9 ; entry 26
 	sprite_object_entry SpriteFrameTable_28_7678, SpriteScript_28_76C9 ; entry 27
+MailSession_ObjTable_72FB_Entry28:: ; 28:736B
 	sprite_object_entry SpriteFrameTable_28_76D0, SpriteScript_28_76EB ; entry 28
 	sprite_object_entry SpriteFrameTable_28_76D0, SpriteScript_28_76EB ; entry 29
 	sprite_object_entry SpriteFrameTable_28_76D0, SpriteScript_28_76EB ; entry 30
 	sprite_object_entry SpriteFrameTable_28_76D0, SpriteScript_28_76EB ; entry 31
+MailSession_ObjTable_72FB_Entry32:: ; 28:737B
 	sprite_object_entry SpriteFrameTable_28_76EE, SpriteScript_28_773F ; entry 32
 	sprite_object_entry SpriteFrameTable_28_76EE, SpriteScript_28_773F ; entry 33
 	sprite_object_entry SpriteFrameTable_28_76EE, SpriteScript_28_773F ; entry 34
 	sprite_object_entry SpriteFrameTable_28_76EE, SpriteScript_28_773F ; entry 35
+MailSession_ObjTable_72FB_Entry36:: ; 28:738B
 	sprite_object_entry SpriteFrameTable_28_7746, SpriteScript_28_778C ; entry 36
 	sprite_object_entry SpriteFrameTable_28_7746, SpriteScript_28_778C ; entry 37
 	sprite_object_entry SpriteFrameTable_28_7746, SpriteScript_28_778C ; entry 38
 	sprite_object_entry SpriteFrameTable_28_7746, SpriteScript_28_778C ; entry 39
+MailSession_ObjTable_72FB_Entry40:: ; 28:739B
 	sprite_object_entry SpriteFrameTable_28_7791, SpriteScript_28_77C7 ; entry 40
 	sprite_object_entry SpriteFrameTable_28_7791, SpriteScript_28_77C7 ; entry 41
 	sprite_object_entry SpriteFrameTable_28_7791, SpriteScript_28_77C7 ; entry 42
 	sprite_object_entry SpriteFrameTable_28_7791, SpriteScript_28_77C7 ; entry 43
+MailSession_ObjTable_72FB_Entry44:: ; 28:73AB
 	sprite_object_entry SpriteFrameTable_28_77CC, SpriteScript_28_7802 ; entry 44
 	sprite_object_entry SpriteFrameTable_28_77CC, SpriteScript_28_7802 ; entry 45
 	sprite_object_entry SpriteFrameTable_28_77CC, SpriteScript_28_7802 ; entry 46
 	sprite_object_entry SpriteFrameTable_28_77CC, SpriteScript_28_7802 ; entry 47
+MailSession_ObjTable_72FB_Entry48:: ; 28:73BB
 	sprite_object_entry SpriteFrameTable_28_7807, SpriteScript_28_7812 ; entry 48
 	sprite_object_entry SpriteFrameTable_28_7807, SpriteScript_28_7812 ; entry 49
 	sprite_object_entry SpriteFrameTable_28_7807, SpriteScript_28_7812 ; entry 50
 	sprite_object_entry SpriteFrameTable_28_7807, SpriteScript_28_7812 ; entry 51
+MailSession_ObjTable_72FB_Entry52:: ; 28:73CB
 	sprite_object_entry SpriteFrameTable_28_7815, SpriteScript_28_7820 ; entry 52
 	sprite_object_entry SpriteFrameTable_28_7815, SpriteScript_28_7820 ; entry 53
 	sprite_object_entry SpriteFrameTable_28_7815, SpriteScript_28_7820 ; entry 54
 	sprite_object_entry SpriteFrameTable_28_7815, SpriteScript_28_7820 ; entry 55
+MailSession_ObjTable_72FB_Entry56:: ; 28:73DB
 	sprite_object_entry SpriteFrameTable_28_7823, SpriteScript_28_782E ; entry 56
 	sprite_object_entry SpriteFrameTable_28_7823, SpriteScript_28_782E ; entry 57
 	sprite_object_entry SpriteFrameTable_28_7823, SpriteScript_28_782E ; entry 58
 	sprite_object_entry SpriteFrameTable_28_7823, SpriteScript_28_782E ; entry 59
+MailSession_ObjTable_72FB_Entry60:: ; 28:73EB
 	sprite_object_entry SpriteFrameTable_28_7831, SpriteScript_28_783C ; entry 60
 	sprite_object_entry SpriteFrameTable_28_7831, SpriteScript_28_783C ; entry 61
 	sprite_object_entry SpriteFrameTable_28_7831, SpriteScript_28_783C ; entry 62
 	sprite_object_entry SpriteFrameTable_28_7831, SpriteScript_28_783C ; entry 63
+MailSession_ObjTable_72FB_Entry64:: ; 28:73FB
 	sprite_object_entry SpriteFrameTable_28_783F, SpriteScript_28_784A ; entry 64
 	sprite_object_entry SpriteFrameTable_28_783F, SpriteScript_28_784A ; entry 65
 	sprite_object_entry SpriteFrameTable_28_783F, SpriteScript_28_784A ; entry 66
 	sprite_object_entry SpriteFrameTable_28_783F, SpriteScript_28_784A ; entry 67
+MailSession_ObjTable_72FB_Entry68:: ; 28:740B
 	sprite_object_entry SpriteFrameTable_28_784D, SpriteScript_28_7864 ; entry 68
 	sprite_object_entry SpriteFrameTable_28_784D, SpriteScript_28_7864 ; entry 69
 	sprite_object_entry SpriteFrameTable_28_784D, SpriteScript_28_7864 ; entry 70
 	sprite_object_entry SpriteFrameTable_28_784D, SpriteScript_28_7864 ; entry 71
+MailSession_ObjTable_72FB_Entry72:: ; 28:741B
 	sprite_object_entry SpriteFrameTable_28_7867, SpriteScript_28_787E ; entry 72
 	sprite_object_entry SpriteFrameTable_28_7867, SpriteScript_28_787E ; entry 73
 	sprite_object_entry SpriteFrameTable_28_7867, SpriteScript_28_787E ; entry 74
 	sprite_object_entry SpriteFrameTable_28_7867, SpriteScript_28_787E ; entry 75
+MailSession_ObjTable_72FB_Entry76:: ; 28:742B
 	sprite_object_entry SpriteFrameTable_28_7881, SpriteScript_28_7898 ; entry 76
 	sprite_object_entry SpriteFrameTable_28_7881, SpriteScript_28_7898 ; entry 77
 	sprite_object_entry SpriteFrameTable_28_7881, SpriteScript_28_7898 ; entry 78
 	sprite_object_entry SpriteFrameTable_28_7881, SpriteScript_28_7898 ; entry 79
+MailSession_ObjTable_72FB_Entry80:: ; 28:743B
 	sprite_object_entry SpriteFrameTable_28_789B, SpriteScript_28_78B2 ; entry 80
 	sprite_object_entry SpriteFrameTable_28_789B, SpriteScript_28_78B2 ; entry 81
 	sprite_object_entry SpriteFrameTable_28_789B, SpriteScript_28_78B2 ; entry 82
 	sprite_object_entry SpriteFrameTable_28_789B, SpriteScript_28_78B2 ; entry 83
+MailSession_ObjTable_72FB_Entry84:: ; 28:744B
 	sprite_object_entry SpriteFrameTable_28_78B5, SpriteScript_28_78CC ; entry 84
 	sprite_object_entry SpriteFrameTable_28_78B5, SpriteScript_28_78CC ; entry 85
 	sprite_object_entry SpriteFrameTable_28_78B5, SpriteScript_28_78CC ; entry 86
 	sprite_object_entry SpriteFrameTable_28_78B5, SpriteScript_28_78CC ; entry 87
+MailSession_ObjTable_72FB_Entry88:: ; 28:745B
 	sprite_object_entry SpriteFrameTable_28_78CF, SpriteScript_28_78E6 ; entry 88
 	sprite_object_entry SpriteFrameTable_28_78CF, SpriteScript_28_78E6 ; entry 89
 	sprite_object_entry SpriteFrameTable_28_78CF, SpriteScript_28_78E6 ; entry 90
 	sprite_object_entry SpriteFrameTable_28_78CF, SpriteScript_28_78E6 ; entry 91
+MailSession_ObjTable_72FB_Entry92:: ; 28:746B
 	sprite_object_entry SpriteFrameTable_28_78E9, SpriteScript_28_7900 ; entry 92
 	sprite_object_entry SpriteFrameTable_28_78E9, SpriteScript_28_7900 ; entry 93
 	sprite_object_entry SpriteFrameTable_28_78E9, SpriteScript_28_7900 ; entry 94
 	sprite_object_entry SpriteFrameTable_28_78E9, SpriteScript_28_7900 ; entry 95
+MailSession_ObjTable_72FB_Entry96:: ; 28:747B
 	sprite_object_entry SpriteFrameTable_28_7903, SpriteScript_28_791A ; entry 96
 	sprite_object_entry SpriteFrameTable_28_7903, SpriteScript_28_791A ; entry 97
 	sprite_object_entry SpriteFrameTable_28_7903, SpriteScript_28_791A ; entry 98
 	sprite_object_entry SpriteFrameTable_28_7903, SpriteScript_28_791A ; entry 99
+MailSession_ObjTable_72FB_Entry100:: ; 28:748B
 	sprite_object_entry SpriteFrameTable_28_791D, SpriteScript_28_7934 ; entry 100
 	sprite_object_entry SpriteFrameTable_28_791D, SpriteScript_28_7934 ; entry 101
 	sprite_object_entry SpriteFrameTable_28_791D, SpriteScript_28_7934 ; entry 102
 	sprite_object_entry SpriteFrameTable_28_791D, SpriteScript_28_7934 ; entry 103
+MailSession_ObjTable_72FB_Entry104:: ; 28:749B
 	sprite_object_entry SpriteFrameTable_28_7937, SpriteScript_28_794E ; entry 104
 	sprite_object_entry SpriteFrameTable_28_7937, SpriteScript_28_794E ; entry 105
 	sprite_object_entry SpriteFrameTable_28_7937, SpriteScript_28_794E ; entry 106
 	sprite_object_entry SpriteFrameTable_28_7937, SpriteScript_28_794E ; entry 107
+MailSession_ObjTable_72FB_Entry108:: ; 28:74AB
 	sprite_object_entry SpriteFrameTable_28_7951, SpriteScript_28_7968 ; entry 108
 	sprite_object_entry SpriteFrameTable_28_7951, SpriteScript_28_7968 ; entry 109
 	sprite_object_entry SpriteFrameTable_28_7951, SpriteScript_28_7968 ; entry 110
 	sprite_object_entry SpriteFrameTable_28_7951, SpriteScript_28_7968 ; entry 111
+MailSession_ObjTable_72FB_Entry112:: ; 28:74BB
 	sprite_object_entry SpriteFrameTable_28_796B, SpriteScript_28_7982 ; entry 112
 	sprite_object_entry SpriteFrameTable_28_796B, SpriteScript_28_7982 ; entry 113
 	sprite_object_entry SpriteFrameTable_28_796B, SpriteScript_28_7982 ; entry 114
 	sprite_object_entry SpriteFrameTable_28_796B, SpriteScript_28_7982 ; entry 115
+MailSession_ObjTable_72FB_Entry116:: ; 28:74CB
 	sprite_object_entry SpriteFrameTable_28_7985, SpriteScript_28_7994 ; entry 116
 	sprite_object_entry SpriteFrameTable_28_7985, SpriteScript_28_7994 ; entry 117
 	sprite_object_entry SpriteFrameTable_28_7985, SpriteScript_28_7994 ; entry 118
 	sprite_object_entry SpriteFrameTable_28_7985, SpriteScript_28_7994 ; entry 119
+MailSession_ObjTable_72FB_Entry120:: ; 28:74DB
 	sprite_object_entry SpriteFrameTable_28_7997, SpriteScript_28_79A6 ; entry 120
 	sprite_object_entry SpriteFrameTable_28_7997, SpriteScript_28_79A6 ; entry 121
 	sprite_object_entry SpriteFrameTable_28_7997, SpriteScript_28_79A6 ; entry 122
 	sprite_object_entry SpriteFrameTable_28_7997, SpriteScript_28_79A6 ; entry 123
+MailSession_ObjTable_72FB_Entry124:: ; 28:74EB
 	sprite_object_entry SpriteFrameTable_28_79A9, SpriteScript_28_79B8 ; entry 124
 	sprite_object_entry SpriteFrameTable_28_79A9, SpriteScript_28_79B8 ; entry 125
 	sprite_object_entry SpriteFrameTable_28_79A9, SpriteScript_28_79B8 ; entry 126
 	sprite_object_entry SpriteFrameTable_28_79A9, SpriteScript_28_79B8 ; entry 127
+MailSession_ObjTable_72FB_Entry128:: ; 28:74FB
 	sprite_object_entry SpriteFrameTable_28_79BB, SpriteScript_28_79CA ; entry 128
 	sprite_object_entry SpriteFrameTable_28_79BB, SpriteScript_28_79CA ; entry 129
 	sprite_object_entry SpriteFrameTable_28_79BB, SpriteScript_28_79CA ; entry 130
 	sprite_object_entry SpriteFrameTable_28_79BB, SpriteScript_28_79CA ; entry 131
+MailSession_ObjTable_72FB_Entry132:: ; 28:750B
 	sprite_object_entry SpriteFrameTable_28_79CD, SpriteScript_28_79DC ; entry 132
 	sprite_object_entry SpriteFrameTable_28_79CD, SpriteScript_28_79DC ; entry 133
 	sprite_object_entry SpriteFrameTable_28_79CD, SpriteScript_28_79DC ; entry 134
 	sprite_object_entry SpriteFrameTable_28_79CD, SpriteScript_28_79DC ; entry 135
+MailSession_ObjTable_72FB_Entry136:: ; 28:751B
 	sprite_object_entry SpriteFrameTable_28_79DF, SpriteScript_28_79EE ; entry 136
 	sprite_object_entry SpriteFrameTable_28_79DF, SpriteScript_28_79EE ; entry 137
 	sprite_object_entry SpriteFrameTable_28_79DF, SpriteScript_28_79EE ; entry 138
 	sprite_object_entry SpriteFrameTable_28_79DF, SpriteScript_28_79EE ; entry 139
+MailSession_ObjTable_72FB_Entry140:: ; 28:752B
 	sprite_object_entry SpriteFrameTable_28_79F1, SpriteScript_28_7A00 ; entry 140
 	sprite_object_entry SpriteFrameTable_28_79F1, SpriteScript_28_7A00 ; entry 141
 	sprite_object_entry SpriteFrameTable_28_79F1, SpriteScript_28_7A00 ; entry 142
 	sprite_object_entry SpriteFrameTable_28_79F1, SpriteScript_28_7A00 ; entry 143
+MailSession_ObjTable_72FB_Entry144:: ; 28:753B
 	sprite_object_entry SpriteFrameTable_28_7A03, SpriteScript_28_7A12 ; entry 144
 	sprite_object_entry SpriteFrameTable_28_7A03, SpriteScript_28_7A12 ; entry 145
 	sprite_object_entry SpriteFrameTable_28_7A03, SpriteScript_28_7A12 ; entry 146
 	sprite_object_entry SpriteFrameTable_28_7A03, SpriteScript_28_7A12 ; entry 147
+MailSession_ObjTable_72FB_Entry148:: ; 28:754B
 	sprite_object_entry SpriteFrameTable_28_7A15, SpriteScript_28_7A24 ; entry 148
 	sprite_object_entry SpriteFrameTable_28_7A15, SpriteScript_28_7A24 ; entry 149
 	sprite_object_entry SpriteFrameTable_28_7A15, SpriteScript_28_7A24 ; entry 150
 	sprite_object_entry SpriteFrameTable_28_7A15, SpriteScript_28_7A24 ; entry 151
+MailSession_ObjTable_72FB_Entry152:: ; 28:755B
 	sprite_object_entry SpriteFrameTable_28_7A27, SpriteScript_28_7A36 ; entry 152
 	sprite_object_entry SpriteFrameTable_28_7A27, SpriteScript_28_7A36 ; entry 153
 	sprite_object_entry SpriteFrameTable_28_7A27, SpriteScript_28_7A36 ; entry 154
 	sprite_object_entry SpriteFrameTable_28_7A27, SpriteScript_28_7A36 ; entry 155
+MailSession_ObjTable_72FB_Entry156:: ; 28:756B
 	sprite_object_entry SpriteFrameTable_28_7A39, SpriteScript_28_7A48 ; entry 156
 	sprite_object_entry SpriteFrameTable_28_7A39, SpriteScript_28_7A48 ; entry 157
 	sprite_object_entry SpriteFrameTable_28_7A39, SpriteScript_28_7A48 ; entry 158
 	sprite_object_entry SpriteFrameTable_28_7A39, SpriteScript_28_7A48 ; entry 159
+MailSession_ObjTable_72FB_Entry160:: ; 28:757B
 	sprite_object_entry SpriteFrameTable_28_7A4B, SpriteScript_28_7A5A ; entry 160
 	sprite_object_entry SpriteFrameTable_28_7A4B, SpriteScript_28_7A5A ; entry 161
 	sprite_object_entry SpriteFrameTable_28_7A4B, SpriteScript_28_7A5A ; entry 162

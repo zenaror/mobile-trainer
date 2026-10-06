@@ -171,7 +171,7 @@ Function_67_6205::
 	ld hl, wMobileLoginId
 	ld de, sNetWorkPage
 	call StringAppend
-	ld hl, $624E
+	ld hl, Net_PasswdKeyDup
 	ld de, sNetWorkPage
 	call StringAppend
 	ld hl, wAcctPasswordConfirm

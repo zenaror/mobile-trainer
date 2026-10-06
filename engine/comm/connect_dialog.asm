@@ -380,12 +380,12 @@ ConnectDialog_Keyboard_AppendChar:: ; 57:4299
 	ldh [rSVBK], a
 	ld hl, wSpriteSlot2
 	ld de, ConnectDialog_ObjTable
-	ld a, $56
+	ld a, BANK(ConnectDialog_ObjTable)
 	ld b, $03
 	farcall Sprite_InitSlot
 	ld hl, wSpriteSlot2 + $0B
-	ld de, $52D8
-	ld a, $57
+	ld de, ConnectDialog_ObjHook_Caret
+	ld a, BANK(ConnectDialog_ObjHook_Caret)
 	call Sprite_SetHook
 	call ConnectDialog_PlaceCaretSprites
 	call ConnectDialog_DrawPasswordField
@@ -481,12 +481,12 @@ ConnectDialog_Keyboard_EraseChar:: ; 57:433F
 	ld [wConnectDialogTextLen], a
 	ld hl, wSpriteSlot2
 	ld de, ConnectDialog_ObjTable
-	ld a, $56
+	ld a, BANK(ConnectDialog_ObjTable)
 	ld b, $02
 	farcall Sprite_InitSlot
 	ld hl, wSpriteSlot2 + $0B
-	ld de, $52D8
-	ld a, $57
+	ld de, ConnectDialog_ObjHook_Caret
+	ld a, BANK(ConnectDialog_ObjHook_Caret)
 	call Sprite_SetHook
 	call ConnectDialog_PlaceCaretSprites
 	ld hl, wConnectDialogGlyphs
@@ -506,12 +506,12 @@ ConnectDialog_Keyboard_EraseChar:: ; 57:433F
 	ld [wConnectDialog_FieldDirty], a
 	ld hl, wSpriteSlot2
 	ld de, ConnectDialog_ObjTable
-	ld a, $56
+	ld a, BANK(ConnectDialog_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld hl, wSpriteSlot2 + $0B
-	ld de, $531E
-	ld a, $57
+	ld de, ConnectDialog_ObjHook_FollowRaster
+	ld a, BANK(ConnectDialog_ObjHook_FollowRaster)
 	call Sprite_SetHook
 	call ConnectDialog_PlaceCaretSprites
 	farcall Kbd_Hide
@@ -758,8 +758,8 @@ ConnectDialog_Enter_Keyboard:: ; 57:4517
 	ldh [rIF], a
 	ei
 	ld hl, wSpriteSlot2 + $0B
-	ld de, $531E
-	ld a, $57
+	ld de, ConnectDialog_ObjHook_FollowRaster
+	ld a, BANK(ConnectDialog_ObjHook_FollowRaster)
 	call Sprite_SetHook
 	ld a, $05
 	ld b, $00
@@ -770,7 +770,7 @@ ConnectDialog_Enter_SaveConfirm:: ; 57:4566
 Label_57_4566::
 	ld hl, wSpriteSlot4
 	ld de, ConnectDialog_ObjTable
-	ld a, $56
+	ld a, BANK(ConnectDialog_ObjTable)
 	ld b, $85
 	farcall Sprite_InitSlot
 	ld de, $7828
@@ -818,7 +818,7 @@ Label_57_45BC::
 	; entered by jpcc from 57:450B (PROBABLE code) [executed in 4 scenarios]
 	ld hl, wSpriteSlot4
 	ld de, ConnectDialog_ObjTable
-	ld a, $56
+	ld a, BANK(ConnectDialog_ObjTable)
 	ld b, $85
 	farcall Sprite_InitSlot
 	ld de, $7828

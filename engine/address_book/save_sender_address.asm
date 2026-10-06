@@ -154,35 +154,35 @@ SaveSenderAddr_InitScreen:: ; 2A:4105
 	ld bc, $0040
 	ld de, wPaletteBufObj
 	ld hl, Palette_AddrBook_Obj
-	ld a, $2C
+	ld a, BANK(Palette_AddrBook_Obj)
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_SaveSenderAddr_Bg
-	ld a, $2A
+	ld a, BANK(Palette_SaveSenderAddr_Bg)
 	farcall Palette_LoadToBuffer
 	ld de, $9301
 	ld hl, Gfx_SaveSenderAddr_Tiles9300Vb1
-	ld a, $2A
+	ld a, BANK(Gfx_SaveSenderAddr_Tiles9300Vb1)
 	ld b, $95
 	ld c, $23
 	farcall Gfx_StartHDMA
 	ld de, $8000
 	ld hl, Gfx_AddrBookShared_Tiles8000
-	ld a, $28
+	ld a, BANK(Gfx_AddrBookShared_Tiles8000)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMA
 	ld de, $8400
 	ld hl, Gfx_AddrBookShared_Tiles8400
-	ld a, $28
+	ld a, BANK(Gfx_AddrBookShared_Tiles8400)
 	ld b, $95
 	ld c, $20
 	farcall Gfx_StartHDMA
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Data_SaveSenderAddr_TilemapAttr
-	ld a, $2A
+	ld a, BANK(Data_SaveSenderAddr_TilemapAttr)
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
@@ -783,8 +783,8 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	push bc
 	push bc
 	ld hl, wSpriteSlot7
-	ld de, $5220
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry4
+	ld a, BANK(AddrBookShared_ObjTable_Entry4)
 	ld b, $01
 	farcall Sprite_InitSlot
 	pop bc
@@ -794,16 +794,16 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	inc a
 	jr z, .l45A7
 	ld hl, wSpriteSlot7
-	ld de, $5230
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry8
+	ld a, BANK(AddrBookShared_ObjTable_Entry8)
 	ld b, $01
 	farcall Sprite_InitSlot
 .l45A7 ; 2A:45A7
 	pop bc
 	push bc
 	ld hl, wSpriteSlot6
-	ld de, $5220
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry4
+	ld a, BANK(AddrBookShared_ObjTable_Entry4)
 	ld b, $01
 	farcall Sprite_InitSlot
 	pop bc
@@ -813,16 +813,16 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	inc a
 	jr z, .l45D3
 	ld hl, wSpriteSlot6
-	ld de, $5230
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry8
+	ld a, BANK(AddrBookShared_ObjTable_Entry8)
 	ld b, $01
 	farcall Sprite_InitSlot
 .l45D3 ; 2A:45D3
 	pop bc
 	push bc
 	ld hl, wSpriteSlot5
-	ld de, $5220
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry4
+	ld a, BANK(AddrBookShared_ObjTable_Entry4)
 	ld b, $01
 	farcall Sprite_InitSlot
 	pop bc
@@ -832,16 +832,16 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	inc a
 	jr z, .l45FF
 	ld hl, wSpriteSlot5
-	ld de, $5230
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry8
+	ld a, BANK(AddrBookShared_ObjTable_Entry8)
 	ld b, $01
 	farcall Sprite_InitSlot
 .l45FF ; 2A:45FF
 	pop bc
 	push bc
 	ld hl, wSpriteSlot4
-	ld de, $5220
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry4
+	ld a, BANK(AddrBookShared_ObjTable_Entry4)
 	ld b, $01
 	farcall Sprite_InitSlot
 	pop bc
@@ -851,16 +851,16 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	inc a
 	jr z, .l462B
 	ld hl, wSpriteSlot4
-	ld de, $5230
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry8
+	ld a, BANK(AddrBookShared_ObjTable_Entry8)
 	ld b, $01
 	farcall Sprite_InitSlot
 .l462B ; 2A:462B
 	pop bc
 	push bc
 	ld hl, wSpriteSlot3
-	ld de, $5220
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry4
+	ld a, BANK(AddrBookShared_ObjTable_Entry4)
 	ld b, $01
 	farcall Sprite_InitSlot
 	pop bc
@@ -870,16 +870,16 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	inc a
 	jr z, .l4657
 	ld hl, wSpriteSlot3
-	ld de, $5230
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry8
+	ld a, BANK(AddrBookShared_ObjTable_Entry8)
 	ld b, $01
 	farcall Sprite_InitSlot
 .l4657 ; 2A:4657
 	pop bc
 	push bc
 	ld hl, wSpriteSlot2
-	ld de, $5220
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry4
+	ld a, BANK(AddrBookShared_ObjTable_Entry4)
 	ld b, $01
 	farcall Sprite_InitSlot
 	pop bc
@@ -889,8 +889,8 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	inc a
 	jr z, .l4683
 	ld hl, wSpriteSlot2
-	ld de, $5230
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry8
+	ld a, BANK(AddrBookShared_ObjTable_Entry8)
 	ld b, $01
 	farcall Sprite_InitSlot
 .l4683 ; 2A:4683
@@ -914,8 +914,8 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 .l46A3 ; 2A:46A3
 	push bc
 	ld hl, wSpriteSlot7
-	ld de, $7240
-	ld a, $2C
+	ld de, Table_AddrSlotIcon_Anims_Entry12
+	ld a, BANK(Table_AddrSlotIcon_Anims_Entry12)
 	ld b, $01
 	farcall Sprite_InitSlot
 	pop bc
@@ -925,8 +925,8 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	inc a
 	jr z, .l46CE
 	ld hl, wSpriteSlot7
-	ld de, $7250
-	ld a, $2C
+	ld de, Table_AddrSlotIcon_Anims_Entry16
+	ld a, BANK(Table_AddrSlotIcon_Anims_Entry16)
 	ld b, $01
 	farcall Sprite_InitSlot
 .l46CE ; 2A:46CE
@@ -935,8 +935,8 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 .l46D2 ; 2A:46D2
 	push bc
 	ld hl, wSpriteSlot6
-	ld de, $7240
-	ld a, $2C
+	ld de, Table_AddrSlotIcon_Anims_Entry12
+	ld a, BANK(Table_AddrSlotIcon_Anims_Entry12)
 	ld b, $01
 	farcall Sprite_InitSlot
 	pop bc
@@ -946,8 +946,8 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	inc a
 	jr z, .l46FD
 	ld hl, wSpriteSlot6
-	ld de, $7250
-	ld a, $2C
+	ld de, Table_AddrSlotIcon_Anims_Entry16
+	ld a, BANK(Table_AddrSlotIcon_Anims_Entry16)
 	ld b, $01
 	farcall Sprite_InitSlot
 .l46FD ; 2A:46FD
@@ -956,8 +956,8 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 .l4701 ; 2A:4701
 	push bc
 	ld hl, wSpriteSlot5
-	ld de, $7240
-	ld a, $2C
+	ld de, Table_AddrSlotIcon_Anims_Entry12
+	ld a, BANK(Table_AddrSlotIcon_Anims_Entry12)
 	ld b, $01
 	farcall Sprite_InitSlot
 	pop bc
@@ -967,8 +967,8 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	inc a
 	jr z, .l472C
 	ld hl, wSpriteSlot5
-	ld de, $7250
-	ld a, $2C
+	ld de, Table_AddrSlotIcon_Anims_Entry16
+	ld a, BANK(Table_AddrSlotIcon_Anims_Entry16)
 	ld b, $01
 	farcall Sprite_InitSlot
 .l472C ; 2A:472C
@@ -977,8 +977,8 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 .l4730 ; 2A:4730
 	push bc
 	ld hl, wSpriteSlot4
-	ld de, $7240
-	ld a, $2C
+	ld de, Table_AddrSlotIcon_Anims_Entry12
+	ld a, BANK(Table_AddrSlotIcon_Anims_Entry12)
 	ld b, $01
 	farcall Sprite_InitSlot
 	pop bc
@@ -988,8 +988,8 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	inc a
 	jr z, .l475B
 	ld hl, wSpriteSlot4
-	ld de, $7250
-	ld a, $2C
+	ld de, Table_AddrSlotIcon_Anims_Entry16
+	ld a, BANK(Table_AddrSlotIcon_Anims_Entry16)
 	ld b, $01
 	farcall Sprite_InitSlot
 .l475B ; 2A:475B
@@ -998,8 +998,8 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 .l475F ; 2A:475F
 	push bc
 	ld hl, wSpriteSlot3
-	ld de, $7240
-	ld a, $2C
+	ld de, Table_AddrSlotIcon_Anims_Entry12
+	ld a, BANK(Table_AddrSlotIcon_Anims_Entry12)
 	ld b, $01
 	farcall Sprite_InitSlot
 	pop bc
@@ -1009,8 +1009,8 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	inc a
 	jr z, .l478A
 	ld hl, wSpriteSlot3
-	ld de, $7250
-	ld a, $2C
+	ld de, Table_AddrSlotIcon_Anims_Entry16
+	ld a, BANK(Table_AddrSlotIcon_Anims_Entry16)
 	ld b, $01
 	farcall Sprite_InitSlot
 .l478A ; 2A:478A
@@ -1019,8 +1019,8 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 .l478E ; 2A:478E
 	push bc
 	ld hl, wSpriteSlot2
-	ld de, $7240
-	ld a, $2C
+	ld de, Table_AddrSlotIcon_Anims_Entry12
+	ld a, BANK(Table_AddrSlotIcon_Anims_Entry12)
 	ld b, $01
 	farcall Sprite_InitSlot
 	pop bc
@@ -1030,8 +1030,8 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	inc a
 	jr z, .l47B9
 	ld hl, wSpriteSlot2
-	ld de, $7250
-	ld a, $2C
+	ld de, Table_AddrSlotIcon_Anims_Entry16
+	ld a, BANK(Table_AddrSlotIcon_Anims_Entry16)
 	ld b, $01
 	farcall Sprite_InitSlot
 .l47B9 ; 2A:47B9
@@ -1130,8 +1130,8 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	jp z, .l4970
 .l4867 ; 2A:4867
 	ld hl, wSpriteSlot7
-	ld de, $5240
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry12
+	ld a, BANK(AddrBookShared_ObjTable_Entry12)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $00
@@ -1139,8 +1139,8 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	inc a
 	jr z, .l488F
 	ld hl, wSpriteSlot7
-	ld de, $5250
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry16
+	ld a, BANK(AddrBookShared_ObjTable_Entry16)
 	ld b, $01
 	farcall Sprite_InitSlot
 .l488F ; 2A:488F
@@ -1151,8 +1151,8 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	jp .l49A5
 .l489C ; 2A:489C
 	ld hl, wSpriteSlot6
-	ld de, $5240
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry12
+	ld a, BANK(AddrBookShared_ObjTable_Entry12)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $01
@@ -1160,8 +1160,8 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	inc a
 	jr z, .l48C4
 	ld hl, wSpriteSlot6
-	ld de, $5250
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry16
+	ld a, BANK(AddrBookShared_ObjTable_Entry16)
 	ld b, $01
 	farcall Sprite_InitSlot
 .l48C4 ; 2A:48C4
@@ -1172,8 +1172,8 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	jp .l49A5
 .l48D1 ; 2A:48D1
 	ld hl, wSpriteSlot5
-	ld de, $5240
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry12
+	ld a, BANK(AddrBookShared_ObjTable_Entry12)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $02
@@ -1181,8 +1181,8 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	inc a
 	jr z, .l48F9
 	ld hl, wSpriteSlot5
-	ld de, $5250
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry16
+	ld a, BANK(AddrBookShared_ObjTable_Entry16)
 	ld b, $01
 	farcall Sprite_InitSlot
 .l48F9 ; 2A:48F9
@@ -1193,8 +1193,8 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	jp .l49A5
 .l4906 ; 2A:4906
 	ld hl, wSpriteSlot4
-	ld de, $5240
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry12
+	ld a, BANK(AddrBookShared_ObjTable_Entry12)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $03
@@ -1202,8 +1202,8 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	inc a
 	jr z, .l492E
 	ld hl, wSpriteSlot4
-	ld de, $5250
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry16
+	ld a, BANK(AddrBookShared_ObjTable_Entry16)
 	ld b, $01
 	farcall Sprite_InitSlot
 .l492E ; 2A:492E
@@ -1214,8 +1214,8 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	jp .l49A5
 .l493B ; 2A:493B
 	ld hl, wSpriteSlot3
-	ld de, $5240
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry12
+	ld a, BANK(AddrBookShared_ObjTable_Entry12)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $04
@@ -1223,8 +1223,8 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	inc a
 	jr z, .l4963
 	ld hl, wSpriteSlot3
-	ld de, $5250
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry16
+	ld a, BANK(AddrBookShared_ObjTable_Entry16)
 	ld b, $01
 	farcall Sprite_InitSlot
 .l4963 ; 2A:4963
@@ -1235,8 +1235,8 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	jp .l49A5
 .l4970 ; 2A:4970
 	ld hl, wSpriteSlot2
-	ld de, $5240
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry12
+	ld a, BANK(AddrBookShared_ObjTable_Entry12)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld a, $05
@@ -1247,8 +1247,8 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	; [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4847-4A3D by apply_coverage --split
 	ld hl, wSpriteSlot2
-	ld de, $5250
-	ld a, $28
+	ld de, AddrBookShared_ObjTable_Entry16
+	ld a, BANK(AddrBookShared_ObjTable_Entry16)
 	ld b, $01
 	farcall Sprite_InitSlot
 
@@ -1285,7 +1285,7 @@ SaveSenderAddr_LoadCaption:: ; 2A:49C5
 	ld a, $02
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
-	ld a, $2A
+	ld a, BANK(String_SaveSenderAddr_Caption)
 	ld bc, wTileStage2 + $280
 	ld de, wTileStage2 + $3C0
 	farcall TextTiles_RenderLine

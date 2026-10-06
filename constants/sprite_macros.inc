@@ -9,7 +9,8 @@
 ; Sprite_InitSlot (stored at slot+0E before the table is read), so `dw Label` is correct only for a label of that same bank.
 ;
 ;   object table one entry per object id:  sprite_object_entry FrameTable, Script        (4 bytes: dw, dw)
-;                  the entry used is DE + 4 * (id & $7F); bit 7 of the id is stored in the slot and decides what happens when the
+;                  the entry used is DE + 4 * (id & $3F) (Sprite_LoadObjectEntry keeps (id & $7F) * 4 in 8 bits: the carry is lost, an id of 64-127 reads
+;                  the entry of id - 64; no site uses one, so a table of more than 64 entries is reached through bases that start at an entry N); bit 7 of the id is stored in the slot and decides what happens when the
 ;                  script ends (set: start again, clear: stop stepping, the last frame stays drawn); an id of 0 (bit 7 clear) is a
 ;                  slot that is never stepped.  35 of the 49 tables have a real entry 0 (reachable as id $80), 14 a null one,
 ;                  written `sprite_object_entry 0, 0`

@@ -332,13 +332,13 @@ Account_BuildMailAddress:: ; 68:419C
 	ld hl, wAcctMailLocalPart
 	ld de, wAcctMailAddress
 	call CopyString
-	ld hl, $41DB
+	ld hl, Account_MailAtSign
 	ld de, wAcctMailAddress
 	call StringAppend
 	ld hl, wAcctMailSubdomain
 	ld de, wAcctMailAddress
 	call StringAppend
-	ld hl, $41DD
+	ld hl, Account_MailDomainSuffix
 	ld de, wAcctMailAddress
 	call StringAppend
 	ldh [hScratchA], a

@@ -14,19 +14,19 @@ Function_67_6369::
 	farcall Sprite_ResetAll
 	ld de, $8000
 	ld hl, Gfx_AdapterCheck_Tiles8000
-	ld a, $4A
+	ld a, BANK(Gfx_AdapterCheck_Tiles8000)
 	ld b, $97
 	ld c, $10
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Gfx_AdapterCheck_Tiles9000Vb1
-	ld a, $4A
+	ld a, BANK(Gfx_AdapterCheck_Tiles9000Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_AdapterCheck_Tiles9400Vb1
-	ld a, $4A
+	ld a, BANK(Gfx_AdapterCheck_Tiles9400Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
@@ -47,7 +47,7 @@ Function_67_6369::
 	farcall Tilemap_CopyRectAndAttr
 	ld hl, wSpriteSlot0
 	ld de, AdapterCheck_ObjTableAndAnimData
-	ld a, $4A
+	ld a, BANK(AdapterCheck_ObjTableAndAnimData)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2838

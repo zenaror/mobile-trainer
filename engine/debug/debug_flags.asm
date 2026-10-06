@@ -125,7 +125,7 @@ DebugFlags_Run:: ; 19:4000
 	ld [wPaletteBufBg + $07], a
 	ld hl, wSpriteSlot1
 	ld de, Table_DebugFlags_Objects
-	ld a, $19
+	ld a, BANK(Table_DebugFlags_Objects)
 	ld b, $00
 	farcall Sprite_InitSlot
 	ld de, $80A0
@@ -502,12 +502,12 @@ DebugFlags_LoadHelpText:: ; 19:43E9
 	ld bc, $0C00
 	xor a, a
 	call FillBytes
-	ld hl, $447C
+	ld hl, String_DebugFlags_Help
 	ld de, wTileStage3
 	ld bc, $0010
 	ld a, $03
 	ldh [hTextTiles_DestBank], a
-	ld a, $19
+	ld a, BANK(String_DebugFlags_Help)
 	farcall TextTiles_RenderGrid
 	ld de, $8800
 	ld hl, wTileStage3
@@ -527,12 +527,12 @@ DebugFlags_LoadHelpText:: ; 19:43E9
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
-	ld hl, $452F
+	ld hl, String_19_452F
 	ld de, wTileStage3
 	ld bc, $0010
 	ld a, $03
 	ldh [hTextTiles_DestBank], a
-	ld a, $19
+	ld a, BANK(String_19_452F)
 	farcall TextTiles_RenderGrid
 	ld de, $8000
 	ld hl, wTileStage3

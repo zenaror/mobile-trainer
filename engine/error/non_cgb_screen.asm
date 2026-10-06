@@ -30,11 +30,11 @@ NonCgb_ErrorScreen:: ; 6B:4C80
 	ldh [rVBK], a
 	ld bc, $0800
 	ld de, $8800
-	ld hl, $4480
+	ld hl, NonCgb_Tiles
 	call CopyBytes
 	ld bc, $0240
 	ld de, $9800
-	ld hl, $4000
+	ld hl, NonCgb_Tilemap
 	call CopyBytes
 	ld a, $00
 	ldh [rBGP], a

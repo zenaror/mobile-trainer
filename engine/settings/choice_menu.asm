@@ -81,19 +81,19 @@ SettingsPhone_ChoiceMenu_Setup:: ; 67:4688
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Gfx_SettingsPhone_ChoiceMenu_Tiles8C00Vb1_4D_4510
-	ld a, $4D
+	ld a, BANK(Gfx_SettingsPhone_ChoiceMenu_Tiles8C00Vb1_4D_4510)
 	ld b, $97
 	ld c, $10
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Gfx_SettingsPhone_ChoiceMenu_Tiles9000Vb1_4D_4610
-	ld a, $4D
+	ld a, BANK(Gfx_SettingsPhone_ChoiceMenu_Tiles9000Vb1_4D_4610)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_SettingsPhone_ChoiceMenu_Tiles9400Vb1
-	ld a, $4D
+	ld a, BANK(Gfx_SettingsPhone_ChoiceMenu_Tiles9400Vb1)
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
@@ -112,38 +112,38 @@ SettingsPhone_ChoiceMenu_Setup:: ; 67:4688
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Gfx_SettingsPhone_ChoiceMenu_Tiles8C00Vb1_4D_5010
-	ld a, $4D
+	ld a, BANK(Gfx_SettingsPhone_ChoiceMenu_Tiles8C00Vb1_4D_5010)
 	ld b, $97
 	ld c, $10
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Gfx_SettingsPhone_ChoiceMenu_Tiles9000Vb1_4D_5110
-	ld a, $4D
+	ld a, BANK(Gfx_SettingsPhone_ChoiceMenu_Tiles9000Vb1_4D_5110)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Data_4D_5510
-	ld a, $4D
+	ld a, BANK(Data_4D_5510)
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_SettingsPhone_ChoiceMenu
-	ld a, $4D
+	ld a, BANK(Tilemap_SettingsPhone_ChoiceMenu)
 	farcall Tilemap_CopyRectAndAttr
 .l477D ; 67:477D
 	ld de, $8001
 	ld hl, Gfx_SettingsPhone_ChoiceMenu_Tiles8000Vb1
-	ld a, $4D
+	ld a, BANK(Gfx_SettingsPhone_ChoiceMenu_Tiles8000Vb1)
 	ld b, $95
 	ld c, $20
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Data_4D_5510
-	ld a, $4D
+	ld a, BANK(Data_4D_5510)
 	farcall Palette_LoadToBuffer
 	ld bc, $0008
 	ld de, wPaletteBufObj
@@ -158,7 +158,7 @@ SettingsPhone_ChoiceMenu_Setup:: ; 67:4688
 	call Gfx_UploadBgMapBuffers
 	ld hl, wSpriteSlot0
 	ld de, SettingsPhone_ChoiceMenu_ObjTable
-	ld a, $4D
+	ld a, BANK(SettingsPhone_ChoiceMenu_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	call SettingsPhone_ChoiceMenu_PlaceCursor

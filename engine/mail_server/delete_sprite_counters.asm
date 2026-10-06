@@ -165,7 +165,7 @@ Function_23_59DA::
 	jr nz, .l59F8
 	ld hl, wSpriteSlot1
 	ld de, Table_SpriteCounter_Digits
-	ld a, $23
+	ld a, BANK(Table_SpriteCounter_Digits)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A2F
@@ -176,8 +176,8 @@ Function_23_59DA::
 	cp a, $01
 	jr nz, .l5A16
 	ld hl, wSpriteSlot1
-	ld de, $79A0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry4
+	ld a, BANK(Table_SpriteCounter_Digits_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A2F
@@ -188,8 +188,8 @@ Function_23_59DA::
 	cp a, $02
 	jr nz, .l5A34
 	ld hl, wSpriteSlot1
-	ld de, $79B0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry8
+	ld a, BANK(Table_SpriteCounter_Digits_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A2F
@@ -200,8 +200,8 @@ Function_23_59DA::
 	cp a, $03
 	jr nz, .l5A52
 	ld hl, wSpriteSlot1
-	ld de, $79C0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry12
+	ld a, BANK(Table_SpriteCounter_Digits_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A2F
@@ -212,8 +212,8 @@ Function_23_59DA::
 	cp a, $04
 	jr nz, .l5A70
 	ld hl, wSpriteSlot1
-	ld de, $79D0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry16
+	ld a, BANK(Table_SpriteCounter_Digits_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A2F
@@ -224,8 +224,8 @@ Function_23_59DA::
 	cp a, $05
 	jr nz, .l5A8E
 	ld hl, wSpriteSlot1
-	ld de, $79E0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry20
+	ld a, BANK(Table_SpriteCounter_Digits_Entry20)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A2F
@@ -236,8 +236,8 @@ Function_23_59DA::
 	cp a, $06
 	jr nz, .l5AAC
 	ld hl, wSpriteSlot1
-	ld de, $79F0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry24
+	ld a, BANK(Table_SpriteCounter_Digits_Entry24)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A2F
@@ -248,8 +248,8 @@ Function_23_59DA::
 	cp a, $07
 	jr nz, .l5ACA
 	ld hl, wSpriteSlot1
-	ld de, $7A00
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry28
+	ld a, BANK(Table_SpriteCounter_Digits_Entry28)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A2F
@@ -260,8 +260,8 @@ Function_23_59DA::
 	cp a, $08
 	jr nz, .l5AE8
 	ld hl, wSpriteSlot1
-	ld de, $7A10
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry32
+	ld a, BANK(Table_SpriteCounter_Digits_Entry32)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A2F
@@ -270,8 +270,8 @@ Function_23_59DA::
 	ret
 .l5AE8 ; 23:5AE8
 	ld hl, wSpriteSlot1
-	ld de, $7A20
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry36
+	ld a, BANK(Table_SpriteCounter_Digits_Entry36)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A2F
@@ -285,7 +285,7 @@ Function_23_5B02::
 	jr nz, .l5B20
 	ld hl, wSpriteSlot2
 	ld de, Table_SpriteCounter_Digits
-	ld a, $23
+	ld a, BANK(Table_SpriteCounter_Digits)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A35
@@ -296,8 +296,8 @@ Function_23_5B02::
 	cp a, $01
 	jr nz, .l5B3E
 	ld hl, wSpriteSlot2
-	ld de, $79A0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry4
+	ld a, BANK(Table_SpriteCounter_Digits_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A35
@@ -308,8 +308,8 @@ Function_23_5B02::
 	cp a, $02
 	jr nz, .l5B5C
 	ld hl, wSpriteSlot2
-	ld de, $79B0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry8
+	ld a, BANK(Table_SpriteCounter_Digits_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A35
@@ -320,8 +320,8 @@ Function_23_5B02::
 	cp a, $03
 	jr nz, .l5B7A
 	ld hl, wSpriteSlot2
-	ld de, $79C0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry12
+	ld a, BANK(Table_SpriteCounter_Digits_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A35
@@ -332,8 +332,8 @@ Function_23_5B02::
 	cp a, $04
 	jr nz, .l5B98
 	ld hl, wSpriteSlot2
-	ld de, $79D0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry16
+	ld a, BANK(Table_SpriteCounter_Digits_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A35
@@ -344,8 +344,8 @@ Function_23_5B02::
 	cp a, $05
 	jr nz, .l5BB6
 	ld hl, wSpriteSlot2
-	ld de, $79E0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry20
+	ld a, BANK(Table_SpriteCounter_Digits_Entry20)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A35
@@ -356,8 +356,8 @@ Function_23_5B02::
 	cp a, $06
 	jr nz, .l5BD4
 	ld hl, wSpriteSlot2
-	ld de, $79F0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry24
+	ld a, BANK(Table_SpriteCounter_Digits_Entry24)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A35
@@ -368,8 +368,8 @@ Function_23_5B02::
 	cp a, $07
 	jr nz, .l5BF2
 	ld hl, wSpriteSlot2
-	ld de, $7A00
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry28
+	ld a, BANK(Table_SpriteCounter_Digits_Entry28)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A35
@@ -380,8 +380,8 @@ Function_23_5B02::
 	cp a, $08
 	jr nz, .l5C10
 	ld hl, wSpriteSlot2
-	ld de, $7A10
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry32
+	ld a, BANK(Table_SpriteCounter_Digits_Entry32)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A35
@@ -390,8 +390,8 @@ Function_23_5B02::
 	ret
 .l5C10 ; 23:5C10
 	ld hl, wSpriteSlot2
-	ld de, $7A20
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry36
+	ld a, BANK(Table_SpriteCounter_Digits_Entry36)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A35
@@ -405,7 +405,7 @@ Function_23_5C2A::
 	jr nz, .l5C48
 	ld hl, wSpriteSlot3
 	ld de, Table_SpriteCounter_Digits
-	ld a, $23
+	ld a, BANK(Table_SpriteCounter_Digits)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A3B
@@ -416,8 +416,8 @@ Function_23_5C2A::
 	cp a, $01
 	jr nz, .l5C66
 	ld hl, wSpriteSlot3
-	ld de, $79A0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry4
+	ld a, BANK(Table_SpriteCounter_Digits_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A3B
@@ -428,8 +428,8 @@ Function_23_5C2A::
 	cp a, $02
 	jr nz, .l5C84
 	ld hl, wSpriteSlot3
-	ld de, $79B0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry8
+	ld a, BANK(Table_SpriteCounter_Digits_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A3B
@@ -440,8 +440,8 @@ Function_23_5C2A::
 	cp a, $03
 	jr nz, .l5CA2
 	ld hl, wSpriteSlot3
-	ld de, $79C0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry12
+	ld a, BANK(Table_SpriteCounter_Digits_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A3B
@@ -452,8 +452,8 @@ Function_23_5C2A::
 	cp a, $04
 	jr nz, .l5CC0
 	ld hl, wSpriteSlot3
-	ld de, $79D0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry16
+	ld a, BANK(Table_SpriteCounter_Digits_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A3B
@@ -464,8 +464,8 @@ Function_23_5C2A::
 	cp a, $05
 	jr nz, .l5CDE
 	ld hl, wSpriteSlot3
-	ld de, $79E0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry20
+	ld a, BANK(Table_SpriteCounter_Digits_Entry20)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A3B
@@ -476,8 +476,8 @@ Function_23_5C2A::
 	cp a, $06
 	jr nz, .l5CFC
 	ld hl, wSpriteSlot3
-	ld de, $79F0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry24
+	ld a, BANK(Table_SpriteCounter_Digits_Entry24)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A3B
@@ -488,8 +488,8 @@ Function_23_5C2A::
 	cp a, $07
 	jr nz, .l5D1A
 	ld hl, wSpriteSlot3
-	ld de, $7A00
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry28
+	ld a, BANK(Table_SpriteCounter_Digits_Entry28)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A3B
@@ -500,8 +500,8 @@ Function_23_5C2A::
 	cp a, $08
 	jr nz, .l5D38
 	ld hl, wSpriteSlot3
-	ld de, $7A10
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry32
+	ld a, BANK(Table_SpriteCounter_Digits_Entry32)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A3B
@@ -510,8 +510,8 @@ Function_23_5C2A::
 	ret
 .l5D38 ; 23:5D38
 	ld hl, wSpriteSlot3
-	ld de, $7A20
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry36
+	ld a, BANK(Table_SpriteCounter_Digits_Entry36)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A3B
@@ -525,7 +525,7 @@ Function_23_5D52::
 	jr nz, .l5D70
 	ld hl, wSpriteSlot4
 	ld de, Table_SpriteCounter_Digits
-	ld a, $23
+	ld a, BANK(Table_SpriteCounter_Digits)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A41
@@ -536,8 +536,8 @@ Function_23_5D52::
 	cp a, $01
 	jr nz, .l5D8E
 	ld hl, wSpriteSlot4
-	ld de, $79A0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry4
+	ld a, BANK(Table_SpriteCounter_Digits_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A41
@@ -548,8 +548,8 @@ Function_23_5D52::
 	cp a, $02
 	jr nz, .l5DAC
 	ld hl, wSpriteSlot4
-	ld de, $79B0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry8
+	ld a, BANK(Table_SpriteCounter_Digits_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A41
@@ -560,8 +560,8 @@ Function_23_5D52::
 	cp a, $03
 	jr nz, .l5DCA
 	ld hl, wSpriteSlot4
-	ld de, $79C0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry12
+	ld a, BANK(Table_SpriteCounter_Digits_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A41
@@ -572,8 +572,8 @@ Function_23_5D52::
 	cp a, $04
 	jr nz, .l5DE8
 	ld hl, wSpriteSlot4
-	ld de, $79D0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry16
+	ld a, BANK(Table_SpriteCounter_Digits_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A41
@@ -584,8 +584,8 @@ Function_23_5D52::
 	cp a, $05
 	jr nz, .l5E06
 	ld hl, wSpriteSlot4
-	ld de, $79E0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry20
+	ld a, BANK(Table_SpriteCounter_Digits_Entry20)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A41
@@ -596,8 +596,8 @@ Function_23_5D52::
 	cp a, $06
 	jr nz, .l5E24
 	ld hl, wSpriteSlot4
-	ld de, $79F0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry24
+	ld a, BANK(Table_SpriteCounter_Digits_Entry24)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A41
@@ -608,8 +608,8 @@ Function_23_5D52::
 	cp a, $07
 	jr nz, .l5E42
 	ld hl, wSpriteSlot4
-	ld de, $7A00
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry28
+	ld a, BANK(Table_SpriteCounter_Digits_Entry28)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A41
@@ -620,8 +620,8 @@ Function_23_5D52::
 	cp a, $08
 	jr nz, .l5E60
 	ld hl, wSpriteSlot4
-	ld de, $7A10
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry32
+	ld a, BANK(Table_SpriteCounter_Digits_Entry32)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A41
@@ -630,8 +630,8 @@ Function_23_5D52::
 	ret
 .l5E60 ; 23:5E60
 	ld hl, wSpriteSlot4
-	ld de, $7A20
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry36
+	ld a, BANK(Table_SpriteCounter_Digits_Entry36)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A41
@@ -645,7 +645,7 @@ Function_23_5E7A::
 	jr nz, .l5E98
 	ld hl, wSpriteSlot5
 	ld de, Table_SpriteCounter_Digits
-	ld a, $23
+	ld a, BANK(Table_SpriteCounter_Digits)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A47
@@ -656,8 +656,8 @@ Function_23_5E7A::
 	cp a, $01
 	jr nz, .l5EB6
 	ld hl, wSpriteSlot5
-	ld de, $79A0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry4
+	ld a, BANK(Table_SpriteCounter_Digits_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A47
@@ -668,8 +668,8 @@ Function_23_5E7A::
 	cp a, $02
 	jr nz, .l5ED4
 	ld hl, wSpriteSlot5
-	ld de, $79B0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry8
+	ld a, BANK(Table_SpriteCounter_Digits_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A47
@@ -680,8 +680,8 @@ Function_23_5E7A::
 	cp a, $03
 	jr nz, .l5EF2
 	ld hl, wSpriteSlot5
-	ld de, $79C0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry12
+	ld a, BANK(Table_SpriteCounter_Digits_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A47
@@ -692,8 +692,8 @@ Function_23_5E7A::
 	cp a, $04
 	jr nz, .l5F10
 	ld hl, wSpriteSlot5
-	ld de, $79D0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry16
+	ld a, BANK(Table_SpriteCounter_Digits_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A47
@@ -704,8 +704,8 @@ Function_23_5E7A::
 	cp a, $05
 	jr nz, .l5F2E
 	ld hl, wSpriteSlot5
-	ld de, $79E0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry20
+	ld a, BANK(Table_SpriteCounter_Digits_Entry20)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A47
@@ -716,8 +716,8 @@ Function_23_5E7A::
 	cp a, $06
 	jr nz, .l5F4C
 	ld hl, wSpriteSlot5
-	ld de, $79F0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry24
+	ld a, BANK(Table_SpriteCounter_Digits_Entry24)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A47
@@ -728,8 +728,8 @@ Function_23_5E7A::
 	cp a, $07
 	jr nz, .l5F6A
 	ld hl, wSpriteSlot5
-	ld de, $7A00
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry28
+	ld a, BANK(Table_SpriteCounter_Digits_Entry28)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A47
@@ -740,8 +740,8 @@ Function_23_5E7A::
 	cp a, $08
 	jr nz, .l5F88
 	ld hl, wSpriteSlot5
-	ld de, $7A10
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry32
+	ld a, BANK(Table_SpriteCounter_Digits_Entry32)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A47
@@ -750,8 +750,8 @@ Function_23_5E7A::
 	ret
 .l5F88 ; 23:5F88
 	ld hl, wSpriteSlot5
-	ld de, $7A20
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry36
+	ld a, BANK(Table_SpriteCounter_Digits_Entry36)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A47
@@ -923,7 +923,7 @@ Function_23_60D1::
 	jr nz, .l60EF
 	ld hl, wSpriteSlot6
 	ld de, Table_SpriteCounter_Digits
-	ld a, $23
+	ld a, BANK(Table_SpriteCounter_Digits)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $642F
@@ -934,8 +934,8 @@ Function_23_60D1::
 	cp a, $01
 	jr nz, .l610D
 	ld hl, wSpriteSlot6
-	ld de, $79A0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry4
+	ld a, BANK(Table_SpriteCounter_Digits_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $642F
@@ -946,8 +946,8 @@ Function_23_60D1::
 	cp a, $02
 	jr nz, .l612B
 	ld hl, wSpriteSlot6
-	ld de, $79B0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry8
+	ld a, BANK(Table_SpriteCounter_Digits_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $642F
@@ -958,8 +958,8 @@ Function_23_60D1::
 	cp a, $03
 	jr nz, .l6149
 	ld hl, wSpriteSlot6
-	ld de, $79C0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry12
+	ld a, BANK(Table_SpriteCounter_Digits_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $642F
@@ -970,8 +970,8 @@ Function_23_60D1::
 	cp a, $04
 	jr nz, .l6167
 	ld hl, wSpriteSlot6
-	ld de, $79D0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry16
+	ld a, BANK(Table_SpriteCounter_Digits_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $642F
@@ -982,8 +982,8 @@ Function_23_60D1::
 	cp a, $05
 	jr nz, .l6185
 	ld hl, wSpriteSlot6
-	ld de, $79E0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry20
+	ld a, BANK(Table_SpriteCounter_Digits_Entry20)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $642F
@@ -994,8 +994,8 @@ Function_23_60D1::
 	cp a, $06
 	jr nz, .l61A3
 	ld hl, wSpriteSlot6
-	ld de, $79F0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry24
+	ld a, BANK(Table_SpriteCounter_Digits_Entry24)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $642F
@@ -1006,8 +1006,8 @@ Function_23_60D1::
 	cp a, $07
 	jr nz, .l61C1
 	ld hl, wSpriteSlot6
-	ld de, $7A00
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry28
+	ld a, BANK(Table_SpriteCounter_Digits_Entry28)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $642F
@@ -1018,8 +1018,8 @@ Function_23_60D1::
 	cp a, $08
 	jr nz, .l61DF
 	ld hl, wSpriteSlot6
-	ld de, $7A10
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry32
+	ld a, BANK(Table_SpriteCounter_Digits_Entry32)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $642F
@@ -1028,8 +1028,8 @@ Function_23_60D1::
 	ret
 .l61DF ; 23:61DF
 	ld hl, wSpriteSlot6
-	ld de, $7A20
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry36
+	ld a, BANK(Table_SpriteCounter_Digits_Entry36)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $642F
@@ -1043,7 +1043,7 @@ Function_23_61F9::
 	jr nz, .l6217
 	ld hl, wSpriteSlot7
 	ld de, Table_SpriteCounter_Digits
-	ld a, $23
+	ld a, BANK(Table_SpriteCounter_Digits)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6435
@@ -1054,8 +1054,8 @@ Function_23_61F9::
 	cp a, $01
 	jr nz, .l6235
 	ld hl, wSpriteSlot7
-	ld de, $79A0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry4
+	ld a, BANK(Table_SpriteCounter_Digits_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6435
@@ -1066,8 +1066,8 @@ Function_23_61F9::
 	cp a, $02
 	jr nz, .l6253
 	ld hl, wSpriteSlot7
-	ld de, $79B0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry8
+	ld a, BANK(Table_SpriteCounter_Digits_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6435
@@ -1078,8 +1078,8 @@ Function_23_61F9::
 	cp a, $03
 	jr nz, .l6271
 	ld hl, wSpriteSlot7
-	ld de, $79C0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry12
+	ld a, BANK(Table_SpriteCounter_Digits_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6435
@@ -1090,8 +1090,8 @@ Function_23_61F9::
 	cp a, $04
 	jr nz, .l628F
 	ld hl, wSpriteSlot7
-	ld de, $79D0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry16
+	ld a, BANK(Table_SpriteCounter_Digits_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6435
@@ -1102,8 +1102,8 @@ Function_23_61F9::
 	cp a, $05
 	jr nz, .l62AD
 	ld hl, wSpriteSlot7
-	ld de, $79E0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry20
+	ld a, BANK(Table_SpriteCounter_Digits_Entry20)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6435
@@ -1114,8 +1114,8 @@ Function_23_61F9::
 	cp a, $06
 	jr nz, .l62CB
 	ld hl, wSpriteSlot7
-	ld de, $79F0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry24
+	ld a, BANK(Table_SpriteCounter_Digits_Entry24)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6435
@@ -1126,8 +1126,8 @@ Function_23_61F9::
 	cp a, $07
 	jr nz, .l62E9
 	ld hl, wSpriteSlot7
-	ld de, $7A00
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry28
+	ld a, BANK(Table_SpriteCounter_Digits_Entry28)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6435
@@ -1138,8 +1138,8 @@ Function_23_61F9::
 	cp a, $08
 	jr nz, .l6307
 	ld hl, wSpriteSlot7
-	ld de, $7A10
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry32
+	ld a, BANK(Table_SpriteCounter_Digits_Entry32)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6435
@@ -1148,8 +1148,8 @@ Function_23_61F9::
 	ret
 .l6307 ; 23:6307
 	ld hl, wSpriteSlot7
-	ld de, $7A20
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry36
+	ld a, BANK(Table_SpriteCounter_Digits_Entry36)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6435
@@ -1163,7 +1163,7 @@ Function_23_6321::
 	jr nz, .l633F
 	ld hl, wSpriteSlot8
 	ld de, Table_SpriteCounter_Digits
-	ld a, $23
+	ld a, BANK(Table_SpriteCounter_Digits)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $643B
@@ -1174,8 +1174,8 @@ Function_23_6321::
 	cp a, $01
 	jr nz, .l635D
 	ld hl, wSpriteSlot8
-	ld de, $79A0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry4
+	ld a, BANK(Table_SpriteCounter_Digits_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $643B
@@ -1186,8 +1186,8 @@ Function_23_6321::
 	cp a, $02
 	jr nz, .l637B
 	ld hl, wSpriteSlot8
-	ld de, $79B0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry8
+	ld a, BANK(Table_SpriteCounter_Digits_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $643B
@@ -1198,8 +1198,8 @@ Function_23_6321::
 	cp a, $03
 	jr nz, .l6399
 	ld hl, wSpriteSlot8
-	ld de, $79C0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry12
+	ld a, BANK(Table_SpriteCounter_Digits_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $643B
@@ -1210,8 +1210,8 @@ Function_23_6321::
 	cp a, $04
 	jr nz, .l63B7
 	ld hl, wSpriteSlot8
-	ld de, $79D0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry16
+	ld a, BANK(Table_SpriteCounter_Digits_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $643B
@@ -1222,8 +1222,8 @@ Function_23_6321::
 	cp a, $05
 	jr nz, .l63D5
 	ld hl, wSpriteSlot8
-	ld de, $79E0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry20
+	ld a, BANK(Table_SpriteCounter_Digits_Entry20)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $643B
@@ -1234,8 +1234,8 @@ Function_23_6321::
 	cp a, $06
 	jr nz, .l63F3
 	ld hl, wSpriteSlot8
-	ld de, $79F0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry24
+	ld a, BANK(Table_SpriteCounter_Digits_Entry24)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $643B
@@ -1246,8 +1246,8 @@ Function_23_6321::
 	cp a, $07
 	jr nz, .l6411
 	ld hl, wSpriteSlot8
-	ld de, $7A00
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry28
+	ld a, BANK(Table_SpriteCounter_Digits_Entry28)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $643B
@@ -1258,8 +1258,8 @@ Function_23_6321::
 	cp a, $08
 	jr nz, .l642F
 	ld hl, wSpriteSlot8
-	ld de, $7A10
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry32
+	ld a, BANK(Table_SpriteCounter_Digits_Entry32)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $643B
@@ -1268,8 +1268,8 @@ Function_23_6321::
 	ret
 .l642F ; 23:642F
 	ld hl, wSpriteSlot8
-	ld de, $7A20
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry36
+	ld a, BANK(Table_SpriteCounter_Digits_Entry36)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $643B
@@ -1283,7 +1283,7 @@ Function_23_6449::
 	jr nz, .l6467
 	ld hl, wSpriteSlot9
 	ld de, Table_SpriteCounter_Digits
-	ld a, $23
+	ld a, BANK(Table_SpriteCounter_Digits)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6441
@@ -1294,8 +1294,8 @@ Function_23_6449::
 	cp a, $01
 	jr nz, .l6485
 	ld hl, wSpriteSlot9
-	ld de, $79A0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry4
+	ld a, BANK(Table_SpriteCounter_Digits_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6441
@@ -1306,8 +1306,8 @@ Function_23_6449::
 	cp a, $02
 	jr nz, .l64A3
 	ld hl, wSpriteSlot9
-	ld de, $79B0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry8
+	ld a, BANK(Table_SpriteCounter_Digits_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6441
@@ -1318,8 +1318,8 @@ Function_23_6449::
 	cp a, $03
 	jr nz, .l64C1
 	ld hl, wSpriteSlot9
-	ld de, $79C0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry12
+	ld a, BANK(Table_SpriteCounter_Digits_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6441
@@ -1330,8 +1330,8 @@ Function_23_6449::
 	cp a, $04
 	jr nz, .l64DF
 	ld hl, wSpriteSlot9
-	ld de, $79D0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry16
+	ld a, BANK(Table_SpriteCounter_Digits_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6441
@@ -1342,8 +1342,8 @@ Function_23_6449::
 	cp a, $05
 	jr nz, .l64FD
 	ld hl, wSpriteSlot9
-	ld de, $79E0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry20
+	ld a, BANK(Table_SpriteCounter_Digits_Entry20)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6441
@@ -1354,8 +1354,8 @@ Function_23_6449::
 	cp a, $06
 	jr nz, .l651B
 	ld hl, wSpriteSlot9
-	ld de, $79F0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry24
+	ld a, BANK(Table_SpriteCounter_Digits_Entry24)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6441
@@ -1366,8 +1366,8 @@ Function_23_6449::
 	cp a, $07
 	jr nz, .l6539
 	ld hl, wSpriteSlot9
-	ld de, $7A00
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry28
+	ld a, BANK(Table_SpriteCounter_Digits_Entry28)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6441
@@ -1378,8 +1378,8 @@ Function_23_6449::
 	cp a, $08
 	jr nz, .l6557
 	ld hl, wSpriteSlot9
-	ld de, $7A10
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry32
+	ld a, BANK(Table_SpriteCounter_Digits_Entry32)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6441
@@ -1388,8 +1388,8 @@ Function_23_6449::
 	ret
 .l6557 ; 23:6557
 	ld hl, wSpriteSlot9
-	ld de, $7A20
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry36
+	ld a, BANK(Table_SpriteCounter_Digits_Entry36)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6441
@@ -1403,7 +1403,7 @@ Function_23_6571::
 	jr nz, .l658F
 	ld hl, wSpriteSlot10
 	ld de, Table_SpriteCounter_Digits
-	ld a, $23
+	ld a, BANK(Table_SpriteCounter_Digits)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6447
@@ -1414,8 +1414,8 @@ Function_23_6571::
 	cp a, $01
 	jr nz, .l65AD
 	ld hl, wSpriteSlot10
-	ld de, $79A0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry4
+	ld a, BANK(Table_SpriteCounter_Digits_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6447
@@ -1426,8 +1426,8 @@ Function_23_6571::
 	cp a, $02
 	jr nz, .l65CB
 	ld hl, wSpriteSlot10
-	ld de, $79B0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry8
+	ld a, BANK(Table_SpriteCounter_Digits_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6447
@@ -1438,8 +1438,8 @@ Function_23_6571::
 	cp a, $03
 	jr nz, .l65E9
 	ld hl, wSpriteSlot10
-	ld de, $79C0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry12
+	ld a, BANK(Table_SpriteCounter_Digits_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6447
@@ -1450,8 +1450,8 @@ Function_23_6571::
 	cp a, $04
 	jr nz, .l6607
 	ld hl, wSpriteSlot10
-	ld de, $79D0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry16
+	ld a, BANK(Table_SpriteCounter_Digits_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6447
@@ -1462,8 +1462,8 @@ Function_23_6571::
 	cp a, $05
 	jr nz, .l6625
 	ld hl, wSpriteSlot10
-	ld de, $79E0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry20
+	ld a, BANK(Table_SpriteCounter_Digits_Entry20)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6447
@@ -1474,8 +1474,8 @@ Function_23_6571::
 	cp a, $06
 	jr nz, .l6643
 	ld hl, wSpriteSlot10
-	ld de, $79F0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry24
+	ld a, BANK(Table_SpriteCounter_Digits_Entry24)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6447
@@ -1486,8 +1486,8 @@ Function_23_6571::
 	cp a, $07
 	jr nz, .l6661
 	ld hl, wSpriteSlot10
-	ld de, $7A00
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry28
+	ld a, BANK(Table_SpriteCounter_Digits_Entry28)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6447
@@ -1498,8 +1498,8 @@ Function_23_6571::
 	cp a, $08
 	jr nz, .l667F
 	ld hl, wSpriteSlot10
-	ld de, $7A10
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry32
+	ld a, BANK(Table_SpriteCounter_Digits_Entry32)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6447
@@ -1508,8 +1508,8 @@ Function_23_6571::
 	ret
 .l667F ; 23:667F
 	ld hl, wSpriteSlot10
-	ld de, $7A20
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry36
+	ld a, BANK(Table_SpriteCounter_Digits_Entry36)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6447
@@ -1660,7 +1660,7 @@ Function_23_6799::
 	jr nz, .l67B7
 	ld hl, wSpriteSlot1
 	ld de, Table_SpriteCounter_Digits
-	ld a, $23
+	ld a, BANK(Table_SpriteCounter_Digits)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A2F
@@ -1671,8 +1671,8 @@ Function_23_6799::
 	cp a, $01
 	jr nz, .l67D5
 	ld hl, wSpriteSlot1
-	ld de, $79A0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry4
+	ld a, BANK(Table_SpriteCounter_Digits_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A2F
@@ -1683,8 +1683,8 @@ Function_23_6799::
 	cp a, $02
 	jr nz, .l67F3
 	ld hl, wSpriteSlot1
-	ld de, $79B0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry8
+	ld a, BANK(Table_SpriteCounter_Digits_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A2F
@@ -1695,8 +1695,8 @@ Function_23_6799::
 	cp a, $03
 	jr nz, .l6811
 	ld hl, wSpriteSlot1
-	ld de, $79C0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry12
+	ld a, BANK(Table_SpriteCounter_Digits_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A2F
@@ -1707,8 +1707,8 @@ Function_23_6799::
 	cp a, $04
 	jr nz, .l682F
 	ld hl, wSpriteSlot1
-	ld de, $79D0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry16
+	ld a, BANK(Table_SpriteCounter_Digits_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A2F
@@ -1719,8 +1719,8 @@ Function_23_6799::
 	cp a, $05
 	jr nz, .l684D
 	ld hl, wSpriteSlot1
-	ld de, $79E0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry20
+	ld a, BANK(Table_SpriteCounter_Digits_Entry20)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A2F
@@ -1731,8 +1731,8 @@ Function_23_6799::
 	cp a, $06
 	jr nz, .l686B
 	ld hl, wSpriteSlot1
-	ld de, $79F0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry24
+	ld a, BANK(Table_SpriteCounter_Digits_Entry24)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A2F
@@ -1743,8 +1743,8 @@ Function_23_6799::
 	cp a, $07
 	jr nz, .l6889
 	ld hl, wSpriteSlot1
-	ld de, $7A00
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry28
+	ld a, BANK(Table_SpriteCounter_Digits_Entry28)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A2F
@@ -1755,8 +1755,8 @@ Function_23_6799::
 	cp a, $08
 	jr nz, .l68A7
 	ld hl, wSpriteSlot1
-	ld de, $7A10
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry32
+	ld a, BANK(Table_SpriteCounter_Digits_Entry32)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A2F
@@ -1765,8 +1765,8 @@ Function_23_6799::
 	ret
 .l68A7 ; 23:68A7
 	ld hl, wSpriteSlot1
-	ld de, $7A20
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry36
+	ld a, BANK(Table_SpriteCounter_Digits_Entry36)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A2F
@@ -1780,7 +1780,7 @@ Function_23_68C1::
 	jr nz, .l68DF
 	ld hl, wSpriteSlot2
 	ld de, Table_SpriteCounter_Digits
-	ld a, $23
+	ld a, BANK(Table_SpriteCounter_Digits)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A35
@@ -1791,8 +1791,8 @@ Function_23_68C1::
 	cp a, $01
 	jr nz, .l68FD
 	ld hl, wSpriteSlot2
-	ld de, $79A0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry4
+	ld a, BANK(Table_SpriteCounter_Digits_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A35
@@ -1803,8 +1803,8 @@ Function_23_68C1::
 	cp a, $02
 	jr nz, .l691B
 	ld hl, wSpriteSlot2
-	ld de, $79B0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry8
+	ld a, BANK(Table_SpriteCounter_Digits_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A35
@@ -1815,8 +1815,8 @@ Function_23_68C1::
 	cp a, $03
 	jr nz, .l6939
 	ld hl, wSpriteSlot2
-	ld de, $79C0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry12
+	ld a, BANK(Table_SpriteCounter_Digits_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A35
@@ -1827,8 +1827,8 @@ Function_23_68C1::
 	cp a, $04
 	jr nz, .l6957
 	ld hl, wSpriteSlot2
-	ld de, $79D0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry16
+	ld a, BANK(Table_SpriteCounter_Digits_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A35
@@ -1839,8 +1839,8 @@ Function_23_68C1::
 	cp a, $05
 	jr nz, .l6975
 	ld hl, wSpriteSlot2
-	ld de, $79E0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry20
+	ld a, BANK(Table_SpriteCounter_Digits_Entry20)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A35
@@ -1851,8 +1851,8 @@ Function_23_68C1::
 	cp a, $06
 	jr nz, .l6993
 	ld hl, wSpriteSlot2
-	ld de, $79F0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry24
+	ld a, BANK(Table_SpriteCounter_Digits_Entry24)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A35
@@ -1863,8 +1863,8 @@ Function_23_68C1::
 	cp a, $07
 	jr nz, .l69B1
 	ld hl, wSpriteSlot2
-	ld de, $7A00
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry28
+	ld a, BANK(Table_SpriteCounter_Digits_Entry28)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A35
@@ -1875,8 +1875,8 @@ Function_23_68C1::
 	cp a, $08
 	jr nz, .l69CF
 	ld hl, wSpriteSlot2
-	ld de, $7A10
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry32
+	ld a, BANK(Table_SpriteCounter_Digits_Entry32)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A35
@@ -1885,8 +1885,8 @@ Function_23_68C1::
 	ret
 .l69CF ; 23:69CF
 	ld hl, wSpriteSlot2
-	ld de, $7A20
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry36
+	ld a, BANK(Table_SpriteCounter_Digits_Entry36)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A35
@@ -1900,7 +1900,7 @@ Function_23_69E9::
 	jr nz, .l6A07
 	ld hl, wSpriteSlot3
 	ld de, Table_SpriteCounter_Digits
-	ld a, $23
+	ld a, BANK(Table_SpriteCounter_Digits)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A3B
@@ -1911,8 +1911,8 @@ Function_23_69E9::
 	cp a, $01
 	jr nz, .l6A25
 	ld hl, wSpriteSlot3
-	ld de, $79A0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry4
+	ld a, BANK(Table_SpriteCounter_Digits_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A3B
@@ -1923,8 +1923,8 @@ Function_23_69E9::
 	cp a, $02
 	jr nz, .l6A43
 	ld hl, wSpriteSlot3
-	ld de, $79B0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry8
+	ld a, BANK(Table_SpriteCounter_Digits_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A3B
@@ -1935,8 +1935,8 @@ Function_23_69E9::
 	cp a, $03
 	jr nz, .l6A61
 	ld hl, wSpriteSlot3
-	ld de, $79C0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry12
+	ld a, BANK(Table_SpriteCounter_Digits_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A3B
@@ -1947,8 +1947,8 @@ Function_23_69E9::
 	cp a, $04
 	jr nz, .l6A7F
 	ld hl, wSpriteSlot3
-	ld de, $79D0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry16
+	ld a, BANK(Table_SpriteCounter_Digits_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A3B
@@ -1959,8 +1959,8 @@ Function_23_69E9::
 	cp a, $05
 	jr nz, .l6A9D
 	ld hl, wSpriteSlot3
-	ld de, $79E0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry20
+	ld a, BANK(Table_SpriteCounter_Digits_Entry20)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A3B
@@ -1971,8 +1971,8 @@ Function_23_69E9::
 	cp a, $06
 	jr nz, .l6ABB
 	ld hl, wSpriteSlot3
-	ld de, $79F0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry24
+	ld a, BANK(Table_SpriteCounter_Digits_Entry24)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A3B
@@ -1983,8 +1983,8 @@ Function_23_69E9::
 	cp a, $07
 	jr nz, .l6AD9
 	ld hl, wSpriteSlot3
-	ld de, $7A00
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry28
+	ld a, BANK(Table_SpriteCounter_Digits_Entry28)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A3B
@@ -1995,8 +1995,8 @@ Function_23_69E9::
 	cp a, $08
 	jr nz, .l6AF7
 	ld hl, wSpriteSlot3
-	ld de, $7A10
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry32
+	ld a, BANK(Table_SpriteCounter_Digits_Entry32)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A3B
@@ -2005,8 +2005,8 @@ Function_23_69E9::
 	ret
 .l6AF7 ; 23:6AF7
 	ld hl, wSpriteSlot3
-	ld de, $7A20
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry36
+	ld a, BANK(Table_SpriteCounter_Digits_Entry36)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A3B
@@ -2020,7 +2020,7 @@ Function_23_6B11::
 	jr nz, .l6B2F
 	ld hl, wSpriteSlot4
 	ld de, Table_SpriteCounter_Digits
-	ld a, $23
+	ld a, BANK(Table_SpriteCounter_Digits)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A41
@@ -2031,8 +2031,8 @@ Function_23_6B11::
 	cp a, $01
 	jr nz, .l6B4D
 	ld hl, wSpriteSlot4
-	ld de, $79A0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry4
+	ld a, BANK(Table_SpriteCounter_Digits_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A41
@@ -2043,8 +2043,8 @@ Function_23_6B11::
 	cp a, $02
 	jr nz, .l6B6B
 	ld hl, wSpriteSlot4
-	ld de, $79B0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry8
+	ld a, BANK(Table_SpriteCounter_Digits_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A41
@@ -2055,8 +2055,8 @@ Function_23_6B11::
 	cp a, $03
 	jr nz, .l6B89
 	ld hl, wSpriteSlot4
-	ld de, $79C0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry12
+	ld a, BANK(Table_SpriteCounter_Digits_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A41
@@ -2067,8 +2067,8 @@ Function_23_6B11::
 	cp a, $04
 	jr nz, .l6BA7
 	ld hl, wSpriteSlot4
-	ld de, $79D0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry16
+	ld a, BANK(Table_SpriteCounter_Digits_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A41
@@ -2079,8 +2079,8 @@ Function_23_6B11::
 	cp a, $05
 	jr nz, .l6BC5
 	ld hl, wSpriteSlot4
-	ld de, $79E0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry20
+	ld a, BANK(Table_SpriteCounter_Digits_Entry20)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A41
@@ -2091,8 +2091,8 @@ Function_23_6B11::
 	cp a, $06
 	jr nz, .l6BE3
 	ld hl, wSpriteSlot4
-	ld de, $79F0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry24
+	ld a, BANK(Table_SpriteCounter_Digits_Entry24)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A41
@@ -2103,8 +2103,8 @@ Function_23_6B11::
 	cp a, $07
 	jr nz, .l6C01
 	ld hl, wSpriteSlot4
-	ld de, $7A00
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry28
+	ld a, BANK(Table_SpriteCounter_Digits_Entry28)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A41
@@ -2115,8 +2115,8 @@ Function_23_6B11::
 	cp a, $08
 	jr nz, .l6C1F
 	ld hl, wSpriteSlot4
-	ld de, $7A10
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry32
+	ld a, BANK(Table_SpriteCounter_Digits_Entry32)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A41
@@ -2125,8 +2125,8 @@ Function_23_6B11::
 	ret
 .l6C1F ; 23:6C1F
 	ld hl, wSpriteSlot4
-	ld de, $7A20
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry36
+	ld a, BANK(Table_SpriteCounter_Digits_Entry36)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A41
@@ -2140,7 +2140,7 @@ Function_23_6C39::
 	jr nz, .l6C57
 	ld hl, wSpriteSlot5
 	ld de, Table_SpriteCounter_Digits
-	ld a, $23
+	ld a, BANK(Table_SpriteCounter_Digits)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A47
@@ -2151,8 +2151,8 @@ Function_23_6C39::
 	cp a, $01
 	jr nz, .l6C75
 	ld hl, wSpriteSlot5
-	ld de, $79A0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry4
+	ld a, BANK(Table_SpriteCounter_Digits_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A47
@@ -2163,8 +2163,8 @@ Function_23_6C39::
 	cp a, $02
 	jr nz, .l6C93
 	ld hl, wSpriteSlot5
-	ld de, $79B0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry8
+	ld a, BANK(Table_SpriteCounter_Digits_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A47
@@ -2175,8 +2175,8 @@ Function_23_6C39::
 	cp a, $03
 	jr nz, .l6CB1
 	ld hl, wSpriteSlot5
-	ld de, $79C0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry12
+	ld a, BANK(Table_SpriteCounter_Digits_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A47
@@ -2187,8 +2187,8 @@ Function_23_6C39::
 	cp a, $04
 	jr nz, .l6CCF
 	ld hl, wSpriteSlot5
-	ld de, $79D0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry16
+	ld a, BANK(Table_SpriteCounter_Digits_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A47
@@ -2199,8 +2199,8 @@ Function_23_6C39::
 	cp a, $05
 	jr nz, .l6CED
 	ld hl, wSpriteSlot5
-	ld de, $79E0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry20
+	ld a, BANK(Table_SpriteCounter_Digits_Entry20)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A47
@@ -2211,8 +2211,8 @@ Function_23_6C39::
 	cp a, $06
 	jr nz, .l6D0B
 	ld hl, wSpriteSlot5
-	ld de, $79F0
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry24
+	ld a, BANK(Table_SpriteCounter_Digits_Entry24)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A47
@@ -2223,8 +2223,8 @@ Function_23_6C39::
 	cp a, $07
 	jr nz, .l6D29
 	ld hl, wSpriteSlot5
-	ld de, $7A00
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry28
+	ld a, BANK(Table_SpriteCounter_Digits_Entry28)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A47
@@ -2235,8 +2235,8 @@ Function_23_6C39::
 	cp a, $08
 	jr nz, .l6D47
 	ld hl, wSpriteSlot5
-	ld de, $7A10
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry32
+	ld a, BANK(Table_SpriteCounter_Digits_Entry32)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A47
@@ -2245,8 +2245,8 @@ Function_23_6C39::
 	ret
 .l6D47 ; 23:6D47
 	ld hl, wSpriteSlot5
-	ld de, $7A20
-	ld a, $23
+	ld de, Table_SpriteCounter_Digits_Entry36
+	ld a, BANK(Table_SpriteCounter_Digits_Entry36)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $5A47

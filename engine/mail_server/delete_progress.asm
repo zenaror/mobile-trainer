@@ -19,35 +19,35 @@ MailSrvDel_ProgressInit:: ; 23:55C3
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_MailSrvDelProgress_Bg
-	ld a, $23
+	ld a, BANK(Palette_MailSrvDelProgress_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, wPaletteBufObj
 	ld hl, Palette_MailSrvDelProgress_Obj
-	ld a, $23
+	ld a, BANK(Palette_MailSrvDelProgress_Obj)
 	farcall Palette_LoadToBuffer
 	ld de, $9001
 	ld hl, Gfx_MailSrvDelProgress_Tiles0
-	ld a, $23
+	ld a, BANK(Gfx_MailSrvDelProgress_Tiles0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_MailSrvDelProgress_Tiles1
-	ld a, $23
+	ld a, BANK(Gfx_MailSrvDelProgress_Tiles1)
 	ld b, $97
 	ld c, $10
 	farcall Gfx_StartHDMAWithService
 	ld de, $8000
 	ld hl, Gfx_MailSrvDelProgress_Tiles2
-	ld a, $23
+	ld a, BANK(Gfx_MailSrvDelProgress_Tiles2)
 	ld b, $96
 	ld c, $16
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_MailSrvDelProgress_Screen
-	ld a, $23
+	ld a, BANK(Tilemap_MailSrvDelProgress_Screen)
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
@@ -121,7 +121,7 @@ MailSrvDel_DrawProgressText:: ; 23:56A1
 	pop hl
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $23
+	ld a, BANK(String_MailSrvDel_ProgressText)
 	ld hl, $0140
 	add hl, bc
 	ld d, h

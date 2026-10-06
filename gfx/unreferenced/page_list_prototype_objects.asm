@@ -23,18 +23,22 @@ Table_7F_7B40::
 	sprite_object_entry Data_TextCursor_ObjAnimData, SpriteScript_7F_7BA6 ; entry 1
 	sprite_object_entry Data_TextCursor_ObjAnimData, SpriteScript_7F_7BA6 ; entry 2
 	sprite_object_entry Data_TextCursor_ObjAnimData, SpriteScript_7F_7BA6 ; entry 3
+Table_TextCursor_ObjTables_Entry4:: ; 7F:7B50
 	sprite_object_entry SpriteFrameTable_7F_7BB0, SpriteScript_7F_7BC2 ; entry 4
 	sprite_object_entry SpriteFrameTable_7F_7BB0, SpriteScript_7F_7BC2 ; entry 5
 	sprite_object_entry SpriteFrameTable_7F_7BB0, SpriteScript_7F_7BC2 ; entry 6
 	sprite_object_entry SpriteFrameTable_7F_7BB0, SpriteScript_7F_7BC2 ; entry 7
+Table_TextCursor_ObjTables_Entry8:: ; 7F:7B60
 	sprite_object_entry SpriteFrameTable_7F_7BCF, SpriteScript_7F_7C1B ; entry 8
 	sprite_object_entry SpriteFrameTable_7F_7BCF, SpriteScript_7F_7C1B ; entry 9
 	sprite_object_entry SpriteFrameTable_7F_7BCF, SpriteScript_7F_7C1B ; entry 10
 	sprite_object_entry SpriteFrameTable_7F_7BCF, SpriteScript_7F_7C1B ; entry 11
+Table_TextCursor_ObjTables_Entry12:: ; 7F:7B70
 	sprite_object_entry SpriteFrameTable_7F_7C24, SpriteScript_7F_7C5D ; entry 12
 	sprite_object_entry SpriteFrameTable_7F_7C24, SpriteScript_7F_7C5D ; entry 13
 	sprite_object_entry SpriteFrameTable_7F_7C24, SpriteScript_7F_7C5D ; entry 14
 	sprite_object_entry SpriteFrameTable_7F_7C24, SpriteScript_7F_7C5D ; entry 15
+Table_TextCursor_ObjTables_Entry16:: ; 7F:7B80
 	sprite_object_entry SpriteFrameTable_7F_7C64, SpriteScript_7F_7CBC ; entry 16
 	sprite_object_entry SpriteFrameTable_7F_7C64, SpriteScript_7F_7CBC ; entry 17
 	sprite_object_entry SpriteFrameTable_7F_7C64, SpriteScript_7F_7CBC ; entry 18

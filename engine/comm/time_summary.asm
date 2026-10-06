@@ -65,25 +65,25 @@ Function_51_404A::
 	jr z, .l40BF
 	ld de, $9001
 	ld hl, Gfx_CommTime_SummaryB_Tiles9000Vb1
-	ld a, $51
+	ld a, BANK(Gfx_CommTime_SummaryB_Tiles9000Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_CommTime_SummaryB_Tiles9400Vb1
-	ld a, $51
+	ld a, BANK(Gfx_CommTime_SummaryB_Tiles9400Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_CommTime_SummaryB
-	ld a, $51
+	ld a, BANK(Palette_CommTime_SummaryB)
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_CommTime_SummaryB
-	ld a, $51
+	ld a, BANK(Tilemap_CommTime_SummaryB)
 	farcall Tilemap_CopyRectAndAttr
 	jr .l4105
 
@@ -92,25 +92,25 @@ Function_51_404A::
 	; entered by jrcc from 51:4075 (executed) [executed in 1 scenarios]
 	ld de, $9001
 	ld hl, Gfx_CommTime_SummaryA_Tiles9000Vb1
-	ld a, $51
+	ld a, BANK(Gfx_CommTime_SummaryA_Tiles9000Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_CommTime_SummaryA_Tiles9400Vb1
-	ld a, $51
+	ld a, BANK(Gfx_CommTime_SummaryA_Tiles9400Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_CommTime_SummaryA
-	ld a, $51
+	ld a, BANK(Palette_CommTime_SummaryA)
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_CommTime_SummaryA
-	ld a, $51
+	ld a, BANK(Tilemap_CommTime_SummaryA)
 	farcall Tilemap_CopyRectAndAttr
 
 .l4105 ; 51:4105

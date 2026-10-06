@@ -94,37 +94,37 @@ Function_68_531A::
 	call Account_LoginIdEntry_UpdateOkState
 	ld de, $8801
 	ld hl, Data_5E_4000
-	ld a, $5E
+	ld a, BANK(Data_5E_4000)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Data_5E_4400
-	ld a, $5E
+	ld a, BANK(Data_5E_4400)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Gfx_Account_LoginIdEntry_Tiles9000Vb1
-	ld a, $5E
+	ld a, BANK(Gfx_Account_LoginIdEntry_Tiles9000Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_Account_LoginIdEntry_Tiles9400Vb1
-	ld a, $5E
+	ld a, BANK(Gfx_Account_LoginIdEntry_Tiles9400Vb1)
 	ld b, $97
 	ld c, $10
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Data_5E_4D00
-	ld a, $5E
+	ld a, BANK(Data_5E_4D00)
 	farcall Palette_LoadToBuffer
 	ld bc, $0514
 	ld de, wScreenTileMap
 	ld hl, Tilemap_Account_LoginIdEntry
-	ld a, $5E
+	ld a, BANK(Tilemap_Account_LoginIdEntry)
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $03
 	ld hl, wTextEntryBuf + $03
@@ -137,8 +137,8 @@ Function_68_531A::
 	ld b, $02
 	farcall Kbd_Open
 	ld hl, wSpriteSlot0
-	ld de, $4D30
-	ld a, $5F
+	ld de, Kbd_ObjTable_Entry14
+	ld a, BANK(Kbd_ObjTable_Entry14)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld d, $38
@@ -441,20 +441,20 @@ Account_LoginIdIntro_Draw:: ; 68:562F
 	farcall Sprite_ResetAll
 	ld de, $9001
 	ld hl, Gfx_Account_LoginIdIntro_Tiles9000Vb1
-	ld a, $5E
+	ld a, BANK(Gfx_Account_LoginIdIntro_Tiles9000Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_Account_LoginIdIntro_Tiles9400Vb1
-	ld a, $5E
+	ld a, BANK(Gfx_Account_LoginIdIntro_Tiles9400Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Data_5E_4D00
-	ld a, $5E
+	ld a, BANK(Data_5E_4D00)
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap

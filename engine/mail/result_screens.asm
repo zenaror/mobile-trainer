@@ -26,7 +26,7 @@ Function_29_4000::
 	call MailResult_InitScreen
 	ld hl, wSpriteSlot2
 	ld de, MailResult_ObjTable
-	ld a, $24
+	ld a, BANK(MailResult_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3038
@@ -77,48 +77,48 @@ MailResult_InitScreen:: ; 29:407A
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, MailResult_BgPalette
-	ld a, $24
+	ld a, BANK(MailResult_BgPalette)
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, wPaletteBufObj
 	ld hl, MailResult_ObjPalette
-	ld a, $24
+	ld a, BANK(MailResult_ObjPalette)
 	farcall Palette_LoadToBuffer
 	ld de, $8801
 	ld hl, MailResult_Tiles_6BF0
-	ld a, $24
+	ld a, BANK(MailResult_Tiles_6BF0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, MailResult_Tiles_6FF0
-	ld a, $24
+	ld a, BANK(MailResult_Tiles_6FF0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, MailResult_Tiles_73F0
-	ld a, $24
+	ld a, BANK(MailResult_Tiles_73F0)
 	ld b, $98
 	ld c, $0A
 	farcall Gfx_StartHDMAWithService
 	ld de, $8000
 	ld hl, MailResult_Tiles_7490
-	ld a, $24
+	ld a, BANK(MailResult_Tiles_7490)
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, MailResult_Tilemap
-	ld a, $24
+	ld a, BANK(MailResult_Tilemap)
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	farcall LCDOn
 	ld hl, wSpriteSlot1
-	ld de, $7B30
-	ld a, $24
+	ld de, MailResult_ObjTable_Entry4
+	ld a, BANK(MailResult_ObjTable_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3038
@@ -370,8 +370,8 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	cp a, $01
 	jr nz, .l4399
 	ld hl, wSpriteSlot3
-	ld de, $7B40
-	ld a, $24
+	ld de, MailResult_ObjTable_Entry8
+	ld a, BANK(MailResult_ObjTable_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3035
@@ -385,8 +385,8 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4374-44F6 by apply_coverage --split
 	ld hl, wSpriteSlot3
-	ld de, $7B50
-	ld a, $24
+	ld de, MailResult_ObjTable_Entry12
+	ld a, BANK(MailResult_ObjTable_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3035
@@ -400,8 +400,8 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	cp a, $03
 	jr nz, .l43D9
 	ld hl, wSpriteSlot3
-	ld de, $7B60
-	ld a, $24
+	ld de, MailResult_ObjTable_Entry16
+	ld a, BANK(MailResult_ObjTable_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3035
@@ -412,8 +412,8 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	cp a, $04
 	jr nz, .l43F9
 	ld hl, wSpriteSlot3
-	ld de, $7B70
-	ld a, $24
+	ld de, MailResult_ObjTable_Entry20
+	ld a, BANK(MailResult_ObjTable_Entry20)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3035
@@ -427,8 +427,8 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4374-44F6 by apply_coverage --split
 	ld hl, wSpriteSlot3
-	ld de, $7B80
-	ld a, $24
+	ld de, MailResult_ObjTable_Entry24
+	ld a, BANK(MailResult_ObjTable_Entry24)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3035
@@ -445,8 +445,8 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4374-44F6 by apply_coverage --split
 	ld hl, wSpriteSlot3
-	ld de, $7B90
-	ld a, $24
+	ld de, MailResult_ObjTable_Entry28
+	ld a, BANK(MailResult_ObjTable_Entry28)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3035
@@ -463,8 +463,8 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4374-44F6 by apply_coverage --split
 	ld hl, wSpriteSlot3
-	ld de, $7BA0
-	ld a, $24
+	ld de, MailResult_ObjTable_Entry32
+	ld a, BANK(MailResult_ObjTable_Entry32)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3035
@@ -478,8 +478,8 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	cp a, $08
 	jr nz, .l4479
 	ld hl, wSpriteSlot3
-	ld de, $7BB0
-	ld a, $24
+	ld de, MailResult_ObjTable_Entry36
+	ld a, BANK(MailResult_ObjTable_Entry36)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3035
@@ -493,8 +493,8 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4374-44F6 by apply_coverage --split
 	ld hl, wSpriteSlot3
-	ld de, $7BC0
-	ld a, $24
+	ld de, MailResult_ObjTable_Entry40
+	ld a, BANK(MailResult_ObjTable_Entry40)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3035
@@ -511,8 +511,8 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4374-44F6 by apply_coverage --split
 	ld hl, wSpriteSlot3
-	ld de, $7BD0
-	ld a, $24
+	ld de, MailResult_ObjTable_Entry44
+	ld a, BANK(MailResult_ObjTable_Entry44)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3037
@@ -529,8 +529,8 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4374-44F6 by apply_coverage --split
 	ld hl, wSpriteSlot3
-	ld de, $7BE0
-	ld a, $24
+	ld de, MailResult_ObjTable_Entry48
+	ld a, BANK(MailResult_ObjTable_Entry48)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3037
@@ -542,8 +542,8 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	; [CONFIRMED] 12 insn(s) executed; cut out of the PROBABLE region 4374-44F6 by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld hl, wSpriteSlot3
-	ld de, $7BF0
-	ld a, $24
+	ld de, MailResult_ObjTable_Entry52
+	ld a, BANK(MailResult_ObjTable_Entry52)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $3037
@@ -750,29 +750,29 @@ MailServerStatus_InitScreen:: ; 29:4608
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, MailServerStatus_BgPalette
-	ld a, $24
+	ld a, BANK(MailServerStatus_BgPalette)
 	farcall Palette_LoadToBuffer
 	ld de, $9400
 	ld hl, MailServerStatus_Tiles_7420
-	ld a, $26
+	ld a, BANK(MailServerStatus_Tiles_7420)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8800
 	ld hl, MailServerStatus_Tiles_6F30
-	ld a, $25
+	ld a, BANK(MailServerStatus_Tiles_6F30)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C00
 	ld hl, MailServerStatus_Tiles_7330
-	ld a, $25
+	ld a, BANK(MailServerStatus_Tiles_7330)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9301
 	ld hl, MailServerStatus_Tiles_5060
-	ld a, $29
+	ld a, BANK(MailServerStatus_Tiles_5060)
 	ld b, $98
 	ld c, $03
 	farcall Gfx_StartHDMAWithService
@@ -794,7 +794,7 @@ MailServerStatus_InitScreen:: ; 29:4608
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, MailServerStatus_Tilemap_Received
-	ld a, $25
+	ld a, BANK(MailServerStatus_Tilemap_Received)
 	farcall Tilemap_CopyRectAndAttr
 	jp .l46DE
 
@@ -803,14 +803,14 @@ MailServerStatus_InitScreen:: ; 29:4608
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, MailServerStatus_Tilemap_NoneReceived
-	ld a, $25
+	ld a, BANK(MailServerStatus_Tilemap_NoneReceived)
 	farcall Tilemap_CopyRectAndAttr
 	jp .l46DE
 .l46CD ; 29:46CD
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, MailServerStatus_Tilemap_ServerMgmt
-	ld a, $25
+	ld a, BANK(MailServerStatus_Tilemap_ServerMgmt)
 	farcall Tilemap_CopyRectAndAttr
 .l46DE ; 29:46DE
 	ldh a, [rLCDC]
@@ -898,21 +898,21 @@ Label_29_476B::
 	; entered by jrcc from 29:4755 (executed) [executed in 4 scenarios]
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $29
+	ld a, BANK(MailServerStatus_Txt_Unknown)
 	ld bc, wTileStage2
 	ld de, wTileStage2 + $50
 	ld hl, MailServerStatus_Txt_Unknown
 	farcall TextTiles_RenderLine
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $29
+	ld a, BANK(MailServerStatus_Txt_Unknown)
 	ld bc, wTileStage2 + $A0
 	ld de, wTileStage2 + $F0
 	ld hl, MailServerStatus_Txt_Unknown
 	farcall TextTiles_RenderLine
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $29
+	ld a, BANK(MailServerStatus_Txt_Unknown)
 	ld bc, wTileStage2 + $140
 	ld de, wTileStage2 + $190
 	ld hl, MailServerStatus_Txt_Unknown
@@ -1435,21 +1435,21 @@ Label_29_4A7D::
 	; 4A65-4AC4 by apply_coverage --split
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $29
+	ld a, BANK(MailServerStatus_Txt_Unknown_M1)
 	ld bc, wTileStage2
 	ld de, wTileStage2 + $50
 	ld hl, MailServerStatus_Txt_Unknown_M1
 	farcall TextTiles_RenderLine
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $29
+	ld a, BANK(MailServerStatus_Txt_Unknown_M1)
 	ld bc, wTileStage2 + $A0
 	ld de, wTileStage2 + $F0
 	ld hl, MailServerStatus_Txt_Unknown_M1
 	farcall TextTiles_RenderLine
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $29
+	ld a, BANK(MailServerStatus_Txt_Unknown_M1)
 	ld bc, wTileStage2 + $140
 	ld de, wTileStage2 + $190
 	ld hl, MailServerStatus_Txt_Unknown_M1
@@ -1921,21 +1921,21 @@ Label_29_4D39::
 	; fall-through of the jpcc at 29:4D36 (executed) [executed in 2 scenarios]
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $29
+	ld a, BANK(MailServerStatus_Txt_Unknown_M2)
 	ld bc, wTileStage2
 	ld de, wTileStage2 + $50
 	ld hl, MailServerStatus_Txt_Unknown_M2
 	farcall TextTiles_RenderLine
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $29
+	ld a, BANK(MailServerStatus_Txt_Unknown_M2)
 	ld bc, wTileStage2 + $A0
 	ld de, wTileStage2 + $F0
 	ld hl, MailServerStatus_Txt_Unknown_M2
 	farcall TextTiles_RenderLine
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, $29
+	ld a, BANK(MailServerStatus_Txt_Unknown_M2)
 	ld bc, wTileStage2 + $140
 	ld de, wTileStage2 + $190
 	ld hl, MailServerStatus_Txt_Unknown_M2

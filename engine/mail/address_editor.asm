@@ -484,41 +484,41 @@ Function_2D_68A9::
 	call TextTiles_UploadBuffersShort
 	ld de, $9301
 	ld hl, Gfx_MailAddr_Tiles
-	ld a, $2D
+	ld a, BANK(Gfx_MailAddr_Tiles)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMA
 	ld de, $9701
-	ld hl, $7520
-	ld a, $2D
+	ld hl, Gfx_MailAddr_Tiles2
+	ld a, BANK(Gfx_MailAddr_Tiles2)
 	ld b, $97
 	ld c, $0B
 	farcall Gfx_StartHDMA
 	ld de, $8800
-	ld hl, $75D0
-	ld a, $2D
+	ld hl, Gfx_MailAddr_Tiles3
+	ld a, BANK(Gfx_MailAddr_Tiles3)
 	ld b, $94
 	ld c, $2B
 	farcall Gfx_StartHDMA
 	ld de, $8000
-	ld hl, $7880
-	ld a, $2D
+	ld hl, Gfx_MailAddr_ObjTiles
+	ld a, BANK(Gfx_MailAddr_ObjTiles)
 	ld b, $94
 	ld c, $2D
 	farcall Gfx_StartHDMA
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_MailAddr
-	ld a, $2D
+	ld a, BANK(Tilemap_MailAddr)
 	farcall Tilemap_CopyRectAndAttr
 	ld hl, wSpriteSlot1
-	ld de, $7B60
-	ld a, $7F
+	ld de, Table_TextCursor_ObjTables_Entry8
+	ld a, BANK(Table_TextCursor_ObjTables_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld hl, wSpriteSlot2
-	ld de, $7B50
-	ld a, $7F
+	ld de, Table_TextCursor_ObjTables_Entry4
+	ld a, BANK(Table_TextCursor_ObjTables_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ldh a, [rLCDC]
@@ -584,12 +584,12 @@ Function_2D_68A9::
 	ld bc, $0028
 	ld de, wPaletteBufObj
 	ld hl, Palette_TextCursor_Obj
-	ld a, $7F
+	ld a, BANK(Palette_TextCursor_Obj)
 	farcall Palette_LoadToBuffer
 	ld bc, $0030
 	ld de, wPaletteBufBg
 	ld hl, Palette_MailAddr_Bg
-	ld a, $2D
+	ld a, BANK(Palette_MailAddr_Bg)
 	farcall Palette_LoadToBuffer
 	farcall LCDOn
 	pop af
@@ -1211,8 +1211,8 @@ MailAddr_InsertChar:: ; 2D:6D21
 	pop bc
 	push bc
 	ld hl, wSpriteSlot1
-	ld de, $7B70
-	ld a, $7F
+	ld de, Table_TextCursor_ObjTables_Entry12
+	ld a, BANK(Table_TextCursor_ObjTables_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 	pop bc
@@ -1240,8 +1240,8 @@ MailAddr_InsertChar:: ; 2D:6D21
 .l6D98 ; 2D:6D98
 	farcall Joypad_ClearAndResetRepeat
 	ld hl, wSpriteSlot1
-	ld de, $7B60
-	ld a, $7F
+	ld de, Table_TextCursor_ObjTables_Entry8
+	ld a, BANK(Table_TextCursor_ObjTables_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	pop bc
@@ -1322,8 +1322,8 @@ MailAddr_Backspace:: ; 2D:6E03
 	pop bc
 	push bc
 	ld hl, wSpriteSlot1
-	ld de, $7B80
-	ld a, $7F
+	ld de, Table_TextCursor_ObjTables_Entry16
+	ld a, BANK(Table_TextCursor_ObjTables_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	pop bc
@@ -1373,8 +1373,8 @@ MailAddr_Backspace:: ; 2D:6E03
 .l6E6B ; 2D:6E6B
 	farcall Joypad_ClearAndResetRepeat
 	ld hl, wSpriteSlot1
-	ld de, $7B60
-	ld a, $7F
+	ld de, Table_TextCursor_ObjTables_Entry8
+	ld a, BANK(Table_TextCursor_ObjTables_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	pop bc

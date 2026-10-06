@@ -41,14 +41,14 @@ Function_65_487C::
 	ld [wNotice_FooterKind], a
 	ld de, $9001
 	ld hl, Gfx_Notice_Tiles9000Vb1
-	ld a, $58
+	ld a, BANK(Gfx_Notice_Tiles9000Vb1)
 	ld b, $96
 	ld c, $1D
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0028
 	ld de, wPaletteBufBg
 	ld hl, Palette_Notice_Bg
-	ld a, $58
+	ld a, BANK(Palette_Notice_Bg)
 	farcall Palette_LoadToBuffer
 	ld a, [wNotice_RecordPtr]
 	ld l, a
@@ -60,14 +60,14 @@ Function_65_487C::
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_Notice_58_7B78
-	ld a, $58
+	ld a, BANK(Tilemap_Notice_58_7B78)
 	farcall Tilemap_CopyRectAndAttr
 	jr .l4919
 .l4908 ; 65:4908
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_Notice_4B_4000
-	ld a, $4B
+	ld a, BANK(Tilemap_Notice_4B_4000)
 	farcall Tilemap_CopyRectAndAttr
 .l4919 ; 65:4919
 	ldh a, [rLCDC]

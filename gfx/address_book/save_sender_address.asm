@@ -33,7 +33,7 @@ Tiles_2A_4FE0:: ; 2A:4FE0
 Palette_2A_51E0:: ; 2A:51E0
 	INCLUDE "gfx/address_book/save_sender_address/palette_51e0.pal"
 
-; ---- words $5220-$5290 (112 bytes) [PROBABLE] animation entry table: 28 entries of 4 bytes (frame-table pointer, script pointer), each animation repeated 4x; format of the sprite-slot initialiser 00:0A82/0AB8 (entry at DE+4*(A&$7F) -> slot[2..3] frame table, slot[6..7] script)
+; ---- words $5220-$5290 (112 bytes) [PROBABLE] animation entry table: 28 entries of 4 bytes (frame-table pointer, script pointer), each animation repeated 4x; format of the sprite-slot initialiser 00:0A82/0AB8 (entry at DE+4*(A&$3F) -> slot[2..3] frame table, slot[6..7] script)
 
 Table_2A_5220:: ; 2A:5220
 	dw Table_2A_5290, Data_2A_52BE, Table_2A_5290, Data_2A_52BE, Table_2A_5290, Data_2A_52BE, Table_2A_5290, Data_2A_52BE

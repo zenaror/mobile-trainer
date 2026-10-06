@@ -36,7 +36,7 @@ MailRecord_InstallSampleMails:: ; 2D:4195
 	ld hl, MailSample0_Subject
 	ld de, sSram_MailRecords + $D9
 	call SampleData_CopyString
-	ld hl, $42E6
+	ld hl, MailSample0_Address
 	ld de, sSram_MailRecords + $ED
 	call SampleData_CopyString
 	ld hl, MailSample1_Header
@@ -51,13 +51,13 @@ MailRecord_InstallSampleMails:: ; 2D:4195
 	ld hl, MailSample1_Body
 	ld de, sMailRecord1 + $09
 	call SampleData_CopyString
-	ld hl, $433A
+	ld hl, MailSample1_Name
 	ld de, sMailRecord1 + $C9
 	call SampleData_CopyString
-	ld hl, $4349
+	ld hl, MailSample1_Subject
 	ld de, sMailRecord1 + $D9
 	call SampleData_CopyString
-	ld hl, $4358
+	ld hl, MailSample1_Address
 	ld de, sMailRecord1 + $ED
 	call SampleData_CopyString
 	ld hl, MailSample2_Header
@@ -72,13 +72,13 @@ MailRecord_InstallSampleMails:: ; 2D:4195
 	ld hl, MailSample2_Body
 	ld de, sMailRecord2 + $09
 	call SampleData_CopyString
-	ld hl, $43E8
+	ld hl, MailSample2_Name
 	ld de, sMailRecord2 + $C9
 	call SampleData_CopyString
-	ld hl, $43F9
+	ld hl, MailSample2_Subject
 	ld de, sMailRecord2 + $D9
 	call SampleData_CopyString
-	ld hl, $4406
+	ld hl, MailSample2_Address
 	ld de, sMailRecord2 + $ED
 	call SampleData_CopyString
 	ld hl, MailSample3_Header
@@ -93,13 +93,13 @@ MailRecord_InstallSampleMails:: ; 2D:4195
 	ld hl, MailSample3_Body
 	ld de, sMailRecord3 + $09
 	call SampleData_CopyString
-	ld hl, $44A3
+	ld hl, MailSample3_Name
 	ld de, sMailRecord3 + $C9
 	call SampleData_CopyString
-	ld hl, $44B0
+	ld hl, MailSample3_Subject
 	ld de, sMailRecord3 + $D9
 	call SampleData_CopyString
-	ld hl, $44C1
+	ld hl, MailSample3_Address
 	ld de, sMailRecord3 + $ED
 	call SampleData_CopyString
 	ld hl, MailSample4_Header
@@ -114,13 +114,13 @@ MailRecord_InstallSampleMails:: ; 2D:4195
 	ld hl, MailSample4_Body
 	ld de, sMailRecord4 + $09
 	call SampleData_CopyString
-	ld hl, $44E9
+	ld hl, MailSample4_Name
 	ld de, sMailRecord4 + $C9
 	call SampleData_CopyString
-	ld hl, $44EA
+	ld hl, MailSample4_Subject
 	ld de, sMailRecord4 + $D9
 	call SampleData_CopyString
-	ld hl, $44F1
+	ld hl, MailSample4_Address
 	ld de, sMailRecord4 + $ED
 	call SampleData_CopyString
 	xor a, a

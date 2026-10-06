@@ -48,16 +48,16 @@ Function_26_4000::
 	call MailSession_ShowMsgReceiving
 .l4048 ; 26:4048
 	ld hl, wSpriteSlot8
-	ld de, $7030
-	ld a, $28
+	ld de, MailSession_ObjTable_6F20_Entry68
+	ld a, BANK(MailSession_ObjTable_6F20_Entry68)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $7100
 	ld hl, wSpriteSlot8
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot3
-	ld de, $7A30
-	ld a, $27
+	ld de, MailConnect_ObjTable_Entry8
+	ld a, BANK(MailConnect_ObjTable_Entry8)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $28E0
@@ -67,8 +67,8 @@ Function_26_4000::
 	inc a
 	jr nz, .l4095
 	ld hl, wSpriteSlot4
-	ld de, $7A40
-	ld a, $27
+	ld de, MailConnect_ObjTable_Entry12
+	ld a, BANK(MailConnect_ObjTable_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 	jr .l40A5
@@ -77,8 +77,8 @@ Function_26_4000::
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1;
 	; entered by jrcc from 26:4081 (executed) [executed in 5 scenarios]
 	ld hl, wSpriteSlot4
-	ld de, $7A50
-	ld a, $27
+	ld de, MailConnect_ObjTable_Entry16
+	ld a, BANK(MailConnect_ObjTable_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 
@@ -127,7 +127,7 @@ Function_26_4000::
 	push bc
 	ld hl, wSpriteSlot3
 	ld de, MailSession_ObjTable_6F20
-	ld a, $28
+	ld a, BANK(MailSession_ObjTable_6F20)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2840
@@ -169,8 +169,8 @@ MailSession_SendPhase:: ; 26:412C
 	jr nz, .l4163
 .l4163 ; 26:4163
 	ld hl, wSpriteSlot5
-	ld de, $6F70
-	ld a, $28
+	ld de, MailSession_ObjTable_6F20_Entry20
+	ld a, BANK(MailSession_ObjTable_6F20_Entry20)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $28D0
@@ -201,8 +201,8 @@ MailSession_SendPhase:: ; 26:412C
 	jr nz, .l417C
 .l41B1 ; 26:41B1
 	ld hl, wSpriteSlot5
-	ld de, $6F90
-	ld a, $28
+	ld de, MailSession_ObjTable_6F20_Entry28
+	ld a, BANK(MailSession_ObjTable_6F20_Entry28)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2857
@@ -224,24 +224,24 @@ MailSession_SendPhase:: ; 26:412C
 	dec c
 	jr nz, .l41CC
 	ld hl, wSpriteSlot3
-	ld de, $6F40
-	ld a, $28
+	ld de, MailSession_ObjTable_6F20_Entry8
+	ld a, BANK(MailSession_ObjTable_6F20_Entry8)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld de, $2840
 	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot5
-	ld de, $6F80
-	ld a, $28
+	ld de, MailSession_ObjTable_6F20_Entry24
+	ld a, BANK(MailSession_ObjTable_6F20_Entry24)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld de, $2857
 	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot4
-	ld de, $7A40
-	ld a, $27
+	ld de, MailConnect_ObjTable_Entry12
+	ld a, BANK(MailConnect_ObjTable_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2830
@@ -263,8 +263,8 @@ MailSession_SendPhase:: ; 26:412C
 	dec c
 	jr nz, .l4239
 	ld hl, wSpriteSlot6
-	ld de, $6FD0
-	ld a, $28
+	ld de, MailSession_ObjTable_6F20_Entry44
+	ld a, BANK(MailSession_ObjTable_6F20_Entry44)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $234B
@@ -378,23 +378,23 @@ MailSession_SendPhase:: ; 26:412C
 	jr nz, .l434F
 	ld hl, wSpriteSlot3
 	ld de, MailSession_ObjTable_6F20
-	ld a, $28
+	ld a, BANK(MailSession_ObjTable_6F20)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2840
 	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot5
-	ld de, $6FA0
-	ld a, $28
+	ld de, MailSession_ObjTable_6F20_Entry32
+	ld a, BANK(MailSession_ObjTable_6F20_Entry32)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld de, $2857
 	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot6
-	ld de, $6FD0
-	ld a, $28
+	ld de, MailSession_ObjTable_6F20_Entry44
+	ld a, BANK(MailSession_ObjTable_6F20_Entry44)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2257
@@ -416,8 +416,8 @@ MailSession_SendPhase:: ; 26:412C
 	dec c
 	jr nz, .l43BC
 	ld hl, wSpriteSlot5
-	ld de, $7AE0
-	ld a, $27
+	ld de, MailConnect_ObjTable_Entry52
+	ld a, BANK(MailConnect_ObjTable_Entry52)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2857
@@ -463,8 +463,8 @@ MailSession_SendPhase:: ; 26:412C
 	; inline 0A82:00 = init_object_from_table); previous byte is a ret; entry unproven (no
 	; call/jp/far-pointer/word reference found)
 	ld hl, wSpriteSlot5
-	ld de, $7A70
-	ld a, $27
+	ld de, MailConnect_ObjTable_Entry24
+	ld a, BANK(MailConnect_ObjTable_Entry24)
 	ld b, $81
 
 	; [PROBABLE] 67 insn(s) reached by static flow only; seeds: site x67; min discovery hops 0; run
@@ -488,8 +488,8 @@ MailSession_SendPhase:: ; 26:412C
 	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot4
-	ld de, $7A40
-	ld a, $27
+	ld de, MailConnect_ObjTable_Entry12
+	ld a, BANK(MailConnect_ObjTable_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2857
@@ -544,8 +544,8 @@ MailSession_ReceivePhase:: ; 26:44F5
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios)
 	call MailSession_ClearMsg
 	ld hl, wSpriteSlot3
-	ld de, $733B
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry16
+	ld a, BANK(MailSession_ObjTable_72FB_Entry16)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0000
@@ -558,8 +558,8 @@ MailSession_ReceivePhase:: ; 26:44F5
 	; [CONFIRMED] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0;
 	; fall-through of the jpcc at 26:4518 (executed) [executed in 1 scenarios]
 	ld hl, wSpriteSlot4
-	ld de, $73DB
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry56
+	ld a, BANK(MailSession_ObjTable_72FB_Entry56)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2700
@@ -570,8 +570,8 @@ MailSession_ReceivePhase:: ; 26:44F5
 .l4536 ; 26:4536
 	; [CONFIRMED] 33 insn(s); 33 executed (in up to 1/18 scenarios)
 	ld hl, wSpriteSlot4
-	ld de, $73BB
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry48
+	ld a, BANK(MailSession_ObjTable_72FB_Entry48)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0000
@@ -579,8 +579,8 @@ MailSession_ReceivePhase:: ; 26:44F5
 	call Sprite_SetPosition
 .l454F ; 26:454F
 	ld hl, wSpriteSlot5
-	ld de, $73AB
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry44
+	ld a, BANK(MailSession_ObjTable_72FB_Entry44)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0050
@@ -781,8 +781,8 @@ Label_26_4636::
 	jr nz, .l465E
 .l4699 ; 26:4699
 	ld hl, wSpriteSlot5
-	ld de, $739B
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry40
+	ld a, BANK(MailSession_ObjTable_72FB_Entry40)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0100
@@ -882,7 +882,7 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	push hl
 	ld hl, wSpriteSlot3
 	ld de, MailSession_ObjTable_72FB
-	ld a, $28
+	ld a, BANK(MailSession_ObjTable_72FB)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0100
@@ -893,8 +893,8 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot5
-	ld de, $739B
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry40
+	ld a, BANK(MailSession_ObjTable_72FB_Entry40)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0100
@@ -1016,16 +1016,16 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	pop af
 	ldh [rSVBK], a
 	ld hl, wSpriteSlot3
-	ld de, $734B
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry20
+	ld a, BANK(MailSession_ObjTable_72FB_Entry20)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld de, $0000
 	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot5
-	ld de, $737B
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry32
+	ld a, BANK(MailSession_ObjTable_72FB_Entry32)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld de, $0000
@@ -1290,8 +1290,8 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 .l4A1E ; 26:4A1E
 	call MailSession_ShowMsgReceived
 	ld hl, wSpriteSlot3
-	ld de, $735B
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry24
+	ld a, BANK(MailSession_ObjTable_72FB_Entry24)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld de, $0000
@@ -1302,8 +1302,8 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot5
-	ld de, $736B
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry28
+	ld a, BANK(MailSession_ObjTable_72FB_Entry28)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0000
@@ -1361,24 +1361,24 @@ MailSession_NoMailOrFull:: ; 26:4A8A
 	pop de
 	pop bc
 	ld hl, wSpriteSlot3
-	ld de, $734B
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry20
+	ld a, BANK(MailSession_ObjTable_72FB_Entry20)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld de, $0000
 	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot5
-	ld de, $737B
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry32
+	ld a, BANK(MailSession_ObjTable_72FB_Entry32)
 	ld b, $01
 	farcall Sprite_InitSlot
 	ld de, $0000
 	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot6
-	ld de, $73FB
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry64
+	ld a, BANK(MailSession_ObjTable_72FB_Entry64)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1000
@@ -1433,16 +1433,16 @@ MailSession_Finish:: ; 26:4B54
 	pop de
 	pop bc
 	ld hl, wSpriteSlot3
-	ld de, $732B
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry12
+	ld a, BANK(MailSession_ObjTable_72FB_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0000
 	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot5
-	ld de, $738B
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry36
+	ld a, BANK(MailSession_ObjTable_72FB_Entry36)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0000
@@ -1481,8 +1481,8 @@ MailSession_Finish:: ; 26:4B54
 	; [CONFIRMED] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0;
 	; fall-through of the jpcc at 26:4BDC (executed) [executed in 1 scenarios]
 	ld hl, wSpriteSlot4
-	ld de, $73EB
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry60
+	ld a, BANK(MailSession_ObjTable_72FB_Entry60)
 	ld b, $81
 	farcall Sprite_InitSlot
 	jr .l4C01
@@ -1490,8 +1490,8 @@ MailSession_Finish:: ; 26:4B54
 .l4BF1 ; 26:4BF1
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios)
 	ld hl, wSpriteSlot4
-	ld de, $73CB
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry52
+	ld a, BANK(MailSession_ObjTable_72FB_Entry52)
 	ld b, $81
 	farcall Sprite_InitSlot
 .l4C01 ; 26:4C01
@@ -1506,8 +1506,8 @@ MailSession_Finish:: ; 26:4B54
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 26:4C0D (executed) [executed in 2 scenarios]
 	ld hl, wSpriteSlot4
-	ld de, $73EB
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry60
+	ld a, BANK(MailSession_ObjTable_72FB_Entry60)
 	ld b, $81
 	farcall Sprite_InitSlot
 
@@ -1517,8 +1517,8 @@ MailSession_Finish:: ; 26:4B54
 	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	ld hl, wSpriteSlot5
-	ld de, $738B
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry36
+	ld a, BANK(MailSession_ObjTable_72FB_Entry36)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $0000
@@ -1572,8 +1572,8 @@ Function_26_4C94::
 	cp a, $00
 	jr nz, .l4CB3
 	ld hl, wSpriteSlot4
-	ld de, $73BB
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry48
+	ld a, BANK(MailSession_ObjTable_72FB_Entry48)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ret
@@ -1581,8 +1581,8 @@ Function_26_4C94::
 	cp a, $01
 	jr nz, .l4CC8
 	ld hl, wSpriteSlot4
-	ld de, $74CB
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry116
+	ld a, BANK(MailSession_ObjTable_72FB_Entry116)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ret
@@ -1590,8 +1590,8 @@ Function_26_4C94::
 	cp a, $02
 	jr nz, .l4CDD
 	ld hl, wSpriteSlot4
-	ld de, $74DB
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry120
+	ld a, BANK(MailSession_ObjTable_72FB_Entry120)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ret
@@ -1599,8 +1599,8 @@ Function_26_4C94::
 	cp a, $03
 	jr nz, .l4CF2
 	ld hl, wSpriteSlot4
-	ld de, $74EB
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry124
+	ld a, BANK(MailSession_ObjTable_72FB_Entry124)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ret
@@ -1608,8 +1608,8 @@ Function_26_4C94::
 	cp a, $04
 	jr nz, .l4D07
 	ld hl, wSpriteSlot4
-	ld de, $74FB
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry128
+	ld a, BANK(MailSession_ObjTable_72FB_Entry128)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ret
@@ -1617,8 +1617,8 @@ Function_26_4C94::
 	cp a, $05
 	jr nz, .l4D1C
 	ld hl, wSpriteSlot4
-	ld de, $750B
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry132
+	ld a, BANK(MailSession_ObjTable_72FB_Entry132)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ret
@@ -1626,8 +1626,8 @@ Function_26_4C94::
 	cp a, $06
 	jr nz, .l4D31
 	ld hl, wSpriteSlot4
-	ld de, $751B
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry136
+	ld a, BANK(MailSession_ObjTable_72FB_Entry136)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ret
@@ -1635,8 +1635,8 @@ Function_26_4C94::
 	cp a, $07
 	jr nz, .l4D46
 	ld hl, wSpriteSlot4
-	ld de, $752B
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry140
+	ld a, BANK(MailSession_ObjTable_72FB_Entry140)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ret
@@ -1644,8 +1644,8 @@ Function_26_4C94::
 	cp a, $08
 	jr nz, .l4D5B
 	ld hl, wSpriteSlot4
-	ld de, $753B
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry144
+	ld a, BANK(MailSession_ObjTable_72FB_Entry144)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ret
@@ -1653,8 +1653,8 @@ Function_26_4C94::
 	cp a, $09
 	jr nz, .l4D70
 	ld hl, wSpriteSlot4
-	ld de, $754B
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry148
+	ld a, BANK(MailSession_ObjTable_72FB_Entry148)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ret
@@ -1662,8 +1662,8 @@ Function_26_4C94::
 	cp a, $0A
 	jr nz, .l4D85
 	ld hl, wSpriteSlot4
-	ld de, $755B
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry152
+	ld a, BANK(MailSession_ObjTable_72FB_Entry152)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ret
@@ -1671,15 +1671,15 @@ Function_26_4C94::
 	cp a, $0B
 	jr nz, .l4D9A
 	ld hl, wSpriteSlot4
-	ld de, $756B
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry156
+	ld a, BANK(MailSession_ObjTable_72FB_Entry156)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ret
 .l4D9A ; 26:4D9A
 	ld hl, wSpriteSlot4
-	ld de, $757B
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry160
+	ld a, BANK(MailSession_ObjTable_72FB_Entry160)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ret
@@ -1698,8 +1698,8 @@ Function_26_4DAB::
 	; [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4C94-4EC3 by apply_coverage --split
 	ld hl, wSpriteSlot6
-	ld de, $73FB
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry64
+	ld a, BANK(MailSession_ObjTable_72FB_Entry64)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ret
@@ -1710,8 +1710,8 @@ Function_26_4DAB::
 	cp a, $01
 	jr nz, .l4DE0
 	ld hl, wSpriteSlot6
-	ld de, $740B
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry68
+	ld a, BANK(MailSession_ObjTable_72FB_Entry68)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ret
@@ -1719,8 +1719,8 @@ Function_26_4DAB::
 	cp a, $02
 	jr nz, .l4DF5
 	ld hl, wSpriteSlot6
-	ld de, $741B
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry72
+	ld a, BANK(MailSession_ObjTable_72FB_Entry72)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ret
@@ -1728,8 +1728,8 @@ Function_26_4DAB::
 	cp a, $03
 	jr nz, .l4E0A
 	ld hl, wSpriteSlot6
-	ld de, $742B
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry76
+	ld a, BANK(MailSession_ObjTable_72FB_Entry76)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ret
@@ -1737,8 +1737,8 @@ Function_26_4DAB::
 	cp a, $04
 	jr nz, .l4E1F
 	ld hl, wSpriteSlot6
-	ld de, $743B
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry80
+	ld a, BANK(MailSession_ObjTable_72FB_Entry80)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ret
@@ -1746,8 +1746,8 @@ Function_26_4DAB::
 	cp a, $05
 	jr nz, .l4E34
 	ld hl, wSpriteSlot6
-	ld de, $744B
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry84
+	ld a, BANK(MailSession_ObjTable_72FB_Entry84)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ret
@@ -1755,8 +1755,8 @@ Function_26_4DAB::
 	cp a, $06
 	jr nz, .l4E49
 	ld hl, wSpriteSlot6
-	ld de, $745B
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry88
+	ld a, BANK(MailSession_ObjTable_72FB_Entry88)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ret
@@ -1764,8 +1764,8 @@ Function_26_4DAB::
 	cp a, $07
 	jr nz, .l4E5E
 	ld hl, wSpriteSlot6
-	ld de, $746B
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry92
+	ld a, BANK(MailSession_ObjTable_72FB_Entry92)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ret
@@ -1773,8 +1773,8 @@ Function_26_4DAB::
 	cp a, $08
 	jr nz, .l4E73
 	ld hl, wSpriteSlot6
-	ld de, $747B
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry96
+	ld a, BANK(MailSession_ObjTable_72FB_Entry96)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ret
@@ -1782,8 +1782,8 @@ Function_26_4DAB::
 	cp a, $09
 	jr nz, .l4E88
 	ld hl, wSpriteSlot6
-	ld de, $748B
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry100
+	ld a, BANK(MailSession_ObjTable_72FB_Entry100)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ret
@@ -1791,8 +1791,8 @@ Function_26_4DAB::
 	cp a, $0A
 	jr nz, .l4E9D
 	ld hl, wSpriteSlot6
-	ld de, $749B
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry104
+	ld a, BANK(MailSession_ObjTable_72FB_Entry104)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ret
@@ -1800,15 +1800,15 @@ Function_26_4DAB::
 	cp a, $0B
 	jr nz, .l4EB2
 	ld hl, wSpriteSlot6
-	ld de, $74AB
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry108
+	ld a, BANK(MailSession_ObjTable_72FB_Entry108)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ret
 .l4EB2 ; 26:4EB2
 	ld hl, wSpriteSlot6
-	ld de, $74BB
-	ld a, $28
+	ld de, MailSession_ObjTable_72FB_Entry112
+	ld a, BANK(MailSession_ObjTable_72FB_Entry112)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ret

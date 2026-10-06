@@ -469,7 +469,7 @@ Html_Tag_Div_ParseAlign:: ; 74:4761
 Label_74_4761::
 	; [CONFIRMED] 20 insn(s) reached by static flow only; seeds: site x20; min discovery hops 1;
 	; entered by jrcc from 74:473E (PROBABLE code) [executed in 1 scenarios]
-	ld bc, $406D
+	ld bc, Html_AlignAttrPtrs
 	call Html_ScanAttributes
 	or a, a
 	jp z, Html_ParseSource_Tag_Done
@@ -1593,7 +1593,7 @@ Html_Tag_Img:: ; 74:4DF9
 	ldh [hBmp_Width], a
 	ldh [hBmp_Height], a
 .l4E14 ; 74:4E14
-	ld bc, $408A
+	ld bc, Html_ImgAttrPtrs
 	call Html_ScanAttributes
 	cp a, $01
 	jp z, .l4E6B
@@ -1758,7 +1758,7 @@ Html_Tag_Img:: ; 74:4DF9
 	cp a, $2F
 	jp z, Html_ParseSource_Tag_Done
 .l4F10 ; 74:4F10
-	ld bc, $408A
+	ld bc, Html_ImgAttrPtrs
 	call Html_ScanAttributes
 	or a, a
 	jp z, Html_ParseSource_Tag_Done

@@ -217,9 +217,10 @@ Data_50_6D11::
 	sprite_anim_step 0, 46
 	sprite_anim_step 1, 8
 
-; ---- words $6D16-$6D1E (8 bytes) [PROBABLE] animation table of 2 four-byte entries (frame-table ptr, script ptr): $6CC0,$6CE6 / $6CEB,$6D11; used as DE of 00:0A82 (sprite slot init: 4*(A&7F) indexed) at 50:4150 (ld de,$6D16 with b=$80) [00:0AB8 layout verified from ROM0 disassembly]
+; ---- words $6D16-$6D1E (8 bytes) [PROBABLE] animation table of 2 four-byte entries (frame-table ptr, script ptr): $6CC0,$6CE6 / $6CEB,$6D11; used as DE of 00:0A82 (sprite slot init: 4*(A&$3F) indexed) at 50:4150 (ld de,$6D16 with b=$80) [00:0AB8 layout verified from ROM0 disassembly]
 
 CommNotice_ObjTable:: ; 50:6D16
 Table_50_6D16::
 	sprite_object_entry CommNotice_Anim0Frames, CommNotice_Anim0Script ; entry 0
+CommNotice_ObjTable_Entry1:: ; 50:6D1A
 	sprite_object_entry CommNotice_Anim1Frames, CommNotice_Anim1Script ; entry 1

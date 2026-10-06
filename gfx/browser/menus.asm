@@ -83,6 +83,7 @@ Table_72_7828::
 	sprite_object_entry SpriteFrameTable_72_78AF, SpriteScript_72_78C5 ; entry 9
 	sprite_object_entry SpriteFrameTable_72_79E9, SpriteScript_72_79FF ; entry 10
 	sprite_object_entry BrowserShared_ObjAnimData_72_7A04, SpriteScript_72_7A1A ; entry 11
+BrowserShared_ObjTable_Entry12:: ; 72:7858
 	sprite_object_entry BrowserShared_Anim12Frames, SpriteScript_72_7873 ; entry 12
 	sprite_object_entry BrowserShared_Anim12Frames, SpriteScript_72_7873 ; entry 13
 	sprite_object_entry SpriteFrameTable_72_7876, SpriteScript_72_787D ; entry 14

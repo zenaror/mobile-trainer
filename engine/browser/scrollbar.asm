@@ -293,38 +293,38 @@ Function_4E_5CB6::
 	jr z, .l5CFB
 	ld de, $8FF0
 	ld hl, Gfx_BrowserScrollbar_Tiles8FF0_47_4080
-	ld a, $47
+	ld a, BANK(Gfx_BrowserScrollbar_Tiles8FF0_47_4080)
 	ld b, $98
 	ld c, $01
 	farcall Gfx_StartHDMAWithService
 	ld de, $97D0
 	ld hl, Gfx_BrowserScrollbar_Tiles97D0_47_4090
-	ld a, $47
+	ld a, BANK(Gfx_BrowserScrollbar_Tiles97D0_47_4090)
 	ld b, $98
 	ld c, $03
 	farcall Gfx_StartHDMAWithService
 	ld hl, wSpriteSlot9
-	ld de, $7858
-	ld a, $72
+	ld de, BrowserShared_ObjTable_Entry12
+	ld a, BANK(BrowserShared_ObjTable_Entry12)
 	ld b, $83
 	farcall Sprite_InitSlot
 	jp .l5D66
 .l5CFB ; 4E:5CFB
 	ld de, $8FF0
 	ld hl, Gfx_BrowserScrollbar_Tiles8FF0_47_40C0
-	ld a, $47
+	ld a, BANK(Gfx_BrowserScrollbar_Tiles8FF0_47_40C0)
 	ld b, $98
 	ld c, $01
 	farcall Gfx_StartHDMAWithService
 	ld de, $97D0
 	ld hl, Gfx_BrowserScrollbar_Tiles97D0_47_40D0
-	ld a, $47
+	ld a, BANK(Gfx_BrowserScrollbar_Tiles97D0_47_40D0)
 	ld b, $98
 	ld c, $03
 	farcall Gfx_StartHDMAWithService
 	ld hl, wSpriteSlot9
-	ld de, $7858
-	ld a, $72
+	ld de, BrowserShared_ObjTable_Entry12
+	ld a, BANK(BrowserShared_ObjTable_Entry12)
 	ld b, $84
 	farcall Sprite_InitSlot
 	jp .l5D66
@@ -334,19 +334,19 @@ Function_4E_5CB6::
 	; entered by jrcc from 4E:5CBB (executed) [executed in 2 scenarios]
 	ld de, $8FF0
 	ld hl, Gfx_BrowserScrollbar_Tiles8FF0_47_4000
-	ld a, $47
+	ld a, BANK(Gfx_BrowserScrollbar_Tiles8FF0_47_4000)
 	ld b, $98
 	ld c, $01
 	farcall Gfx_StartHDMAWithService
 	ld de, $97D0
 	ld hl, Gfx_BrowserScrollbar_Tiles97D0_47_4010
-	ld a, $47
+	ld a, BANK(Gfx_BrowserScrollbar_Tiles97D0_47_4010)
 	ld b, $98
 	ld c, $03
 	farcall Gfx_StartHDMAWithService
 	ld hl, wSpriteSlot9
-	ld de, $7858
-	ld a, $72
+	ld de, BrowserShared_ObjTable_Entry12
+	ld a, BANK(BrowserShared_ObjTable_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
 
@@ -614,7 +614,7 @@ Browser_DrawScrollIndicators:: ; 4E:5EC0
 	jr z, .l5F46
 	ld hl, wSpriteSlot11
 	ld de, BrowserShared_ObjTable
-	ld a, $72
+	ld a, BANK(BrowserShared_ObjTable)
 	ld b, $86
 	farcall Sprite_InitSlot
 .loop ; 4E:5F15
@@ -643,7 +643,7 @@ Browser_DrawScrollIndicators:: ; 4E:5EC0
 	; entered by jrcc from 4E:5EFC (executed) [executed in 1 scenarios]
 	ld hl, wSpriteSlot11
 	ld de, BrowserShared_ObjTable
-	ld a, $72
+	ld a, BANK(BrowserShared_ObjTable)
 	ld b, $89
 	farcall Sprite_InitSlot
 	jr .loop
@@ -652,7 +652,7 @@ Browser_DrawScrollIndicators:: ; 4E:5EC0
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
 	ld hl, wSpriteSlot11
 	ld de, BrowserShared_ObjTable
-	ld a, $72
+	ld a, BANK(BrowserShared_ObjTable)
 	ld b, $8B
 	farcall Sprite_InitSlot
 	jr .loop
@@ -668,7 +668,7 @@ Browser_ShowUpArrow:: ; 4E:5F58
 	jr z, .l5FA7
 	ld hl, wSpriteSlot10
 	ld de, BrowserShared_ObjTable
-	ld a, $72
+	ld a, BANK(BrowserShared_ObjTable)
 	ld b, $85
 	farcall Sprite_InitSlot
 .loop ; 4E:5F76
@@ -694,14 +694,14 @@ Browser_ShowUpArrow:: ; 4E:5F58
 .l5F95 ; 4E:5F95
 	ld hl, wSpriteSlot10
 	ld de, BrowserShared_ObjTable
-	ld a, $72
+	ld a, BANK(BrowserShared_ObjTable)
 	ld b, $88
 	farcall Sprite_InitSlot
 	jr .loop
 .l5FA7 ; 4E:5FA7
 	ld hl, wSpriteSlot10
 	ld de, BrowserShared_ObjTable
-	ld a, $72
+	ld a, BANK(BrowserShared_ObjTable)
 	ld b, $8A
 	farcall Sprite_InitSlot
 	jr .loop

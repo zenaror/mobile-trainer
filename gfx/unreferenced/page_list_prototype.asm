@@ -49,38 +49,47 @@ Table_7F_6DB0::
 	sprite_object_entry PageListProto_ObjAnimData, SpriteScript_7F_6E76 ; entry 1
 	sprite_object_entry PageListProto_ObjAnimData, SpriteScript_7F_6E76 ; entry 2
 	sprite_object_entry PageListProto_ObjAnimData, SpriteScript_7F_6E76 ; entry 3
+PageListProto_ObjTable_Entry4:: ; 7F:6DC0
 	sprite_object_entry SpriteFrameTable_7F_6E7B, SpriteScript_7F_6EC7 ; entry 4
 	sprite_object_entry SpriteFrameTable_7F_6E7B, SpriteScript_7F_6EC7 ; entry 5
 	sprite_object_entry SpriteFrameTable_7F_6E7B, SpriteScript_7F_6EC7 ; entry 6
 	sprite_object_entry SpriteFrameTable_7F_6E7B, SpriteScript_7F_6EC7 ; entry 7
+PageListProto_ObjTable_Entry8:: ; 7F:6DD0
 	sprite_object_entry SpriteFrameTable_7F_6ED0, SpriteScript_7F_6EF6 ; entry 8
 	sprite_object_entry SpriteFrameTable_7F_6ED0, SpriteScript_7F_6EF6 ; entry 9
 	sprite_object_entry SpriteFrameTable_7F_6ED0, SpriteScript_7F_6EF6 ; entry 10
 	sprite_object_entry SpriteFrameTable_7F_6ED0, SpriteScript_7F_6EF6 ; entry 11
+PageListProto_ObjTable_Entry12:: ; 7F:6DE0
 	sprite_object_entry SpriteFrameTable_7F_6EFB, SpriteScript_7F_6F0E ; entry 12
 	sprite_object_entry SpriteFrameTable_7F_6EFB, SpriteScript_7F_6F0E ; entry 13
 	sprite_object_entry SpriteFrameTable_7F_6EFB, SpriteScript_7F_6F0E ; entry 14
 	sprite_object_entry SpriteFrameTable_7F_6EFB, SpriteScript_7F_6F0E ; entry 15
+PageListProto_ObjTable_Entry16:: ; 7F:6DF0
 	sprite_object_entry SpriteFrameTable_7F_6F11, SpriteScript_7F_6F24 ; entry 16
 	sprite_object_entry SpriteFrameTable_7F_6F11, SpriteScript_7F_6F24 ; entry 17
 	sprite_object_entry SpriteFrameTable_7F_6F11, SpriteScript_7F_6F24 ; entry 18
 	sprite_object_entry SpriteFrameTable_7F_6F11, SpriteScript_7F_6F24 ; entry 19
+PageListProto_ObjTable_Entry20:: ; 7F:6E00
 	sprite_object_entry SpriteFrameTable_7F_6F27, SpriteScript_7F_6F5D ; entry 20
 	sprite_object_entry SpriteFrameTable_7F_6F27, SpriteScript_7F_6F5D ; entry 21
 	sprite_object_entry SpriteFrameTable_7F_6F27, SpriteScript_7F_6F5D ; entry 22
 	sprite_object_entry SpriteFrameTable_7F_6F27, SpriteScript_7F_6F5D ; entry 23
+PageListProto_ObjTable_Entry24:: ; 7F:6E10
 	sprite_object_entry SpriteFrameTable_7F_6F62, SpriteScript_7F_6F98 ; entry 24
 	sprite_object_entry SpriteFrameTable_7F_6F62, SpriteScript_7F_6F98 ; entry 25
 	sprite_object_entry SpriteFrameTable_7F_6F62, SpriteScript_7F_6F98 ; entry 26
 	sprite_object_entry SpriteFrameTable_7F_6F62, SpriteScript_7F_6F98 ; entry 27
+PageListProto_ObjTable_Entry28:: ; 7F:6E20
 	sprite_object_entry SpriteFrameTable_7F_6F9D, SpriteScript_7F_6FC3 ; entry 28
 	sprite_object_entry SpriteFrameTable_7F_6F9D, SpriteScript_7F_6FC3 ; entry 29
 	sprite_object_entry SpriteFrameTable_7F_6F9D, SpriteScript_7F_6FC3 ; entry 30
 	sprite_object_entry SpriteFrameTable_7F_6F9D, SpriteScript_7F_6FC3 ; entry 31
+PageListProto_ObjTable_Entry32:: ; 7F:6E30
 	sprite_object_entry SpriteFrameTable_7F_6FC8, SpriteScript_7F_704D ; entry 32
 	sprite_object_entry SpriteFrameTable_7F_6FC8, SpriteScript_7F_704D ; entry 33
 	sprite_object_entry SpriteFrameTable_7F_6FC8, SpriteScript_7F_704D ; entry 34
 	sprite_object_entry SpriteFrameTable_7F_6FC8, SpriteScript_7F_704D ; entry 35
+PageListProto_ObjTable_Entry36:: ; 7F:6E40
 	sprite_object_entry SpriteFrameTable_7F_705C, SpriteScript_7F_70E1 ; entry 36
 	sprite_object_entry SpriteFrameTable_7F_705C, SpriteScript_7F_70E1 ; entry 37
 	sprite_object_entry SpriteFrameTable_7F_705C, SpriteScript_7F_70E1 ; entry 38

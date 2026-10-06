@@ -392,7 +392,7 @@ WRAM1: `D000-D004`, `D026/D027` (bank-04 gateway), `D724/D824` (STAT handler var
 | `0A45-0A64` | `Function_00_0A45` | code | PROBABLE | stores E,D,A at [HL..HL+2] in WRAM bank 7 [reached via inferred links; raw refs 28] |
 | `0A65-0A81` | `Function_00_0A65` | code | CONFIRMED | stores D,E (big-endian) at [HL],[HL+1] in WRAM bank 7; most referenced helper of the sprite code (520 raw call sites) |
 | `0A82-0AB7` | `Function_00_0A82` | code | CONFIRMED | initialise sprite slot HL: zero 16 bytes, slot+0E=A(bank), then fill the fields from the animation table at DE via 0AB8 |
-| `0AB8-0AE7` | `Function_00_0AB8` | code | CONFIRMED | fills slot fields from the 4-byte table entry at DE+4*(A&$7F) (used by 0A82) |
+| `0AB8-0AE7` | `Function_00_0AB8` | code | CONFIRMED | fills slot fields from the 4-byte table entry at DE+4*(A&$3F) (used by 0A82; the shifted index is 8 bits wide, see sprite_format.md) |
 | `0AE8-0BBC` | `Function_00_0AE8` | code | CONFIRMED | per-slot animation step + OAM writer (layout inferred, HYPOTHESIS): slot [0]=Y [1]=X [2..3]=frame table ptr [4]=frame index ($FF none) [5]=delay [6..7]=script ptr [8]=script index [9..A]=OR/AND attr masks [B..D]=hook (addr16, b... |
 | `0BBD-0BD3` | `Function_00_0BBD` | code | PROBABLE | HL = BG map offset -> C = (L&31)*8 (x pixel), B = ((HL>>5)&31)*8 (y pixel); verified on interpreter [candidate; raw refs 5] |
 | `0BD4-0BDD` | `Function_00_0BD4` | code | PROBABLE | HL = A*E (calls 0BFC with D=0), preserves AF and DE [candidate; no static referrer] |

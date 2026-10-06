@@ -174,13 +174,13 @@ CommPanel_StateDraw:: ; 68:744C
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_CommPanel_Tiles9400Vb1
-	ld a, $71
+	ld a, BANK(Gfx_CommPanel_Tiles9400Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8000
 	ld hl, Gfx_CommPanel_Tiles8000
-	ld a, $71
+	ld a, BANK(Gfx_CommPanel_Tiles8000)
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
@@ -192,12 +192,12 @@ CommPanel_StateDraw:: ; 68:744C
 	ld bc, $0008
 	ld de, wPaletteBufObj
 	ld hl, Palette_CommPanel_Obj
-	ld a, $71
+	ld a, BANK(Palette_CommPanel_Obj)
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_CommPanel_71_4C98
-	ld a, $71
+	ld a, BANK(Tilemap_CommPanel_71_4C98)
 	farcall Tilemap_CopyRectAndAttr
 	ld a, [wCommPanelPhase]
 	call CommPanel_DrawCaption
@@ -211,7 +211,7 @@ CommPanel_StateDraw:: ; 68:744C
 	ld bc, $0214
 	ld de, wScreenTileMap + $200
 	ld hl, Tilemap_CommPanel_71_4F68
-	ld a, $71
+	ld a, BANK(Tilemap_CommPanel_71_4F68)
 	farcall Tilemap_CopyRectAndAttr
 .l74FB ; 68:74FB
 	call CommPanel_PrintWarningText
@@ -219,7 +219,7 @@ CommPanel_StateDraw:: ; 68:744C
 	call Gfx_UploadBgMapBuffers
 	ld hl, wSpriteSlot0
 	ld de, CommPanel_ObjTable
-	ld a, $71
+	ld a, BANK(CommPanel_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1C14

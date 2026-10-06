@@ -17,25 +17,25 @@ BrowserMenu_OpenTwoItem:: ; 72:63D8
 	farcall Dialog_InitWindowRegs
 	ld de, $8F01
 	ld hl, BrowserMenu2_Tiles1
-	ld a, $72
+	ld a, BANK(BrowserMenu2_Tiles1)
 	ld b, $97
 	ld c, $10
 	farcall Gfx_StartHDMAWithService
 	ld de, $8801
 	ld hl, BrowserMenu2_Tiles0
-	ld a, $72
+	ld a, BANK(BrowserMenu2_Tiles0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0010
 	ld de, wPaletteBufBg + $30
 	ld hl, BrowserMenu2_Palette
-	ld a, $72
+	ld a, BANK(BrowserMenu2_Palette)
 	farcall Palette_LoadToBuffer
 	ld bc, $0614
 	ld de, wScreenTileMap + $180
 	ld hl, BrowserMenu2_Map
-	ld a, $72
+	ld a, BANK(BrowserMenu2_Map)
 	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0008
 	ld de, wPaletteBufObj + $20
@@ -105,11 +105,11 @@ BrowserMenu_OpenTwoItem:: ; 72:63D8
 	farcall Dialog_UploadWindowMap
 	ld hl, wSpriteSlot12
 	ld de, BrowserShared_ObjTable
-	ld a, $72
+	ld a, BANK(BrowserShared_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld hl, wSpriteSlot12 + $0B
-	ld de, $0A1A
+	ld de, Sprite_HookAddSlideOffset
 	ld a, $00
 	call Sprite_SetHook
 	ldh a, [hDialogResult]
@@ -415,7 +415,7 @@ BrowserMenu_DrawItemTwo:: ; 72:669F
 	push hl
 	ld hl, wSpriteSlot13
 	ld de, BrowserShared_ObjTable
-	ld a, $72
+	ld a, BANK(BrowserShared_ObjTable)
 	farcall Sprite_InitSlot
 	pop hl
 	ld a, [hli]
@@ -469,25 +469,25 @@ Function_72_6712::
 	farcall Dialog_InitWindowRegs
 	ld de, $8801
 	ld hl, BrowserMenu3_Tiles0
-	ld a, $72
+	ld a, BANK(BrowserMenu3_Tiles0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8F01
 	ld hl, BrowserMenu3_Tiles1
-	ld a, $72
+	ld a, BANK(BrowserMenu3_Tiles1)
 	ld b, $97
 	ld c, $10
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0010
 	ld de, wPaletteBufBg + $30
 	ld hl, Palette_BrowserMenu_Bg6
-	ld a, $72
+	ld a, BANK(Palette_BrowserMenu_Bg6)
 	farcall Palette_LoadToBuffer
 	ld bc, $0614
 	ld de, wScreenTileMap + $180
 	ld hl, BrowserMenu3_Map
-	ld a, $72
+	ld a, BANK(BrowserMenu3_Map)
 	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0008
 	ld de, wPaletteBufObj + $20
@@ -557,11 +557,11 @@ Function_72_6712::
 	farcall Dialog_UploadWindowMap
 	ld hl, wSpriteSlot12
 	ld de, BrowserShared_ObjTable
-	ld a, $72
+	ld a, BANK(BrowserShared_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld hl, wSpriteSlot12 + $0B
-	ld de, $0A1A
+	ld de, Sprite_HookAddSlideOffset
 	ld a, $00
 	call Sprite_SetHook
 	ldh a, [hDialogResult]
@@ -883,7 +883,7 @@ Function_72_69F3::
 	push hl
 	ld hl, wSpriteSlot13
 	ld de, BrowserShared_ObjTable
-	ld a, $72
+	ld a, BANK(BrowserShared_ObjTable)
 	farcall Sprite_InitSlot
 	pop hl
 	ld a, [hli]
@@ -931,7 +931,7 @@ BrowserMenu_Close:: ; 72:6A6B
 	ld hl, wSpriteSlot13
 	call Sprite_ClearSlot
 	ld hl, wSpriteSlot12 + $0B
-	ld de, $0A1A
+	ld de, Sprite_HookAddSlideOffset
 	ld a, $00
 	call Sprite_SetHook
 	call VBlank_WaitStartDI

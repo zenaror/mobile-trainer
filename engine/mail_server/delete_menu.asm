@@ -232,13 +232,13 @@ MailSrvDel_MenuSelect:: ; 23:4161
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, MailServerDeleteMethod_Tilemap_First
-	ld a, $28
+	ld a, BANK(MailServerDeleteMethod_Tilemap_First)
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffersNoService
 	ld hl, wSpriteSlot1
-	ld de, $6E90
-	ld a, $28
+	ld de, MailServerDeleteMethod_ObjTable_Entry4
+	ld a, BANK(MailServerDeleteMethod_ObjTable_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $FC00
@@ -253,13 +253,13 @@ MailSrvDel_MenuSelect:: ; 23:4161
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, MailServerDeleteMethod_Tilemap_Second
-	ld a, $28
+	ld a, BANK(MailServerDeleteMethod_Tilemap_Second)
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffersNoService
 	ld hl, wSpriteSlot1
-	ld de, $6E90
-	ld a, $28
+	ld de, MailServerDeleteMethod_ObjTable_Entry4
+	ld a, BANK(MailServerDeleteMethod_ObjTable_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1800
@@ -282,39 +282,39 @@ Function_23_41DC::
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, MailServerDeleteMethod_BgPalette
-	ld a, $28
+	ld a, BANK(MailServerDeleteMethod_BgPalette)
 	farcall Palette_LoadToBuffer
 	call VBlank_Wait
 	ld bc, $0040
 	ld de, wPaletteBufObj
-	ld hl, $6E40
-	ld a, $28
+	ld hl, MailServerDeleteMethod_ObjPalette
+	ld a, BANK(MailServerDeleteMethod_ObjPalette)
 	farcall Palette_LoadToBuffer
 	call VBlank_Wait
 	ld de, $9301
 	ld hl, MailServerDeleteMethod_Tiles_5F20
-	ld a, $28
+	ld a, BANK(MailServerDeleteMethod_Tiles_5F20)
 	ld b, $95
 	ld c, $23
 	farcall Gfx_StartHDMAWithService
 	call VBlank_Wait
 	ld de, $8800
 	ld hl, MailServerDeleteMethod_Tiles_6150
-	ld a, $28
+	ld a, BANK(MailServerDeleteMethod_Tiles_6150)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	call VBlank_Wait
 	ld de, $8C00
 	ld hl, MailServerDeleteMethod_Tiles_6550
-	ld a, $28
+	ld a, BANK(MailServerDeleteMethod_Tiles_6550)
 	ld b, $94
 	ld c, $29
 	farcall Gfx_StartHDMAWithService
 	call VBlank_Wait
 	ld de, $8000
 	ld hl, MailServerDeleteMethod_Tiles_67E0
-	ld a, $28
+	ld a, BANK(MailServerDeleteMethod_Tiles_67E0)
 	ld b, $98
 	ld c, $08
 	farcall Gfx_StartHDMAWithService
@@ -322,7 +322,7 @@ Function_23_41DC::
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, MailServerDeleteMethod_Tilemap_First
-	ld a, $28
+	ld a, BANK(MailServerDeleteMethod_Tilemap_First)
 	farcall Tilemap_CopyRectAndAttr
 	call VBlank_Wait
 	ldh a, [rLCDC]
@@ -347,8 +347,8 @@ Function_23_41DC::
 	jr z, .l42C2
 	call MailSrvDel_ShowDescCheck
 	ld hl, wSpriteSlot1
-	ld de, $6E90
-	ld a, $28
+	ld de, MailServerDeleteMethod_ObjTable_Entry4
+	ld a, BANK(MailServerDeleteMethod_ObjTable_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $FC00
@@ -363,13 +363,13 @@ Function_23_41DC::
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, MailServerDeleteMethod_Tilemap_Second
-	ld a, $28
+	ld a, BANK(MailServerDeleteMethod_Tilemap_Second)
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	ld hl, wSpriteSlot1
-	ld de, $6E90
-	ld a, $28
+	ld de, MailServerDeleteMethod_ObjTable_Entry4
+	ld a, BANK(MailServerDeleteMethod_ObjTable_Entry4)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1800
@@ -419,7 +419,7 @@ MailSrvDel_ShowDescDeleteAll:: ; 23:433C
 	ld a, $02
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
-	ld a, $23
+	ld a, BANK(String_MailSrvDel_DescDeleteAll)
 	ld bc, wTileStage2
 	ld de, wTileStage2 + $360
 	farcall TextTiles_RenderLine
@@ -442,7 +442,7 @@ Function_23_43C4::
 	ld a, $02
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
-	ld a, $23
+	ld a, BANK(String_MailSrvDel_DescCheck)
 	ld bc, wTileStage2
 	ld de, wTileStage2 + $360
 	farcall TextTiles_RenderLine
@@ -489,32 +489,32 @@ MailSrvDel_Confirm:: ; 23:4471
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, MailServerDeleteAll_BgPalette
-	ld a, $28
+	ld a, BANK(MailServerDeleteAll_BgPalette)
 	farcall Palette_LoadToBuffer
 	call VBlank_Wait
 	ld bc, $0040
 	ld de, wPaletteBufObj
-	ld hl, $5EE0
-	ld a, $28
+	ld hl, MailServerDeleteAll_ObjPalette
+	ld a, BANK(MailServerDeleteAll_ObjPalette)
 	farcall Palette_LoadToBuffer
 	call VBlank_Wait
 	ld de, $9301
 	ld hl, MailServerDeleteAll_Tiles_54B0
-	ld a, $28
+	ld a, BANK(MailServerDeleteAll_Tiles_54B0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	call VBlank_Wait
 	ld de, $9701
 	ld hl, MailServerDeleteAll_Tiles_58B0
-	ld a, $28
+	ld a, BANK(MailServerDeleteAll_Tiles_58B0)
 	ld b, $94
 	ld c, $2A
 	farcall Gfx_StartHDMAWithService
 	call VBlank_Wait
 	ld de, $8000
 	ld hl, MailServerDeleteAll_Tiles_5B50
-	ld a, $28
+	ld a, BANK(MailServerDeleteAll_Tiles_5B50)
 	ld b, $98
 	ld c, $08
 	farcall Gfx_StartHDMAWithService
@@ -522,7 +522,7 @@ MailSrvDel_Confirm:: ; 23:4471
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, MailServerDeleteAll_Tilemap
-	ld a, $28
+	ld a, BANK(MailServerDeleteAll_Tilemap)
 	farcall Tilemap_CopyRectAndAttr
 	call VBlank_Wait
 	ldh a, [rLCDC]
@@ -542,7 +542,7 @@ MailSrvDel_Confirm:: ; 23:4471
 	jr nz, .l4535
 	ld hl, wSpriteSlot1
 	ld de, MailServerDeleteMethod_ObjTable
-	ld a, $28
+	ld a, BANK(MailServerDeleteMethod_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6858
@@ -552,7 +552,7 @@ MailSrvDel_Confirm:: ; 23:4471
 	ld a, $02
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
-	ld a, $23
+	ld a, BANK(String_MailSrvDel_Confirm)
 	ld bc, wTileStage2
 	ld de, wTileStage2 + $100
 	farcall TextTiles_RenderLine
@@ -731,7 +731,7 @@ MailSrvDel_ConfirmSelect:: ; 23:46CD
 	push bc
 	ld hl, wSpriteSlot1
 	ld de, MailServerDeleteMethod_ObjTable
-	ld a, $28
+	ld a, BANK(MailServerDeleteMethod_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6828
@@ -743,7 +743,7 @@ MailSrvDel_ConfirmSelect:: ; 23:46CD
 	push bc
 	ld hl, wSpriteSlot1
 	ld de, MailServerDeleteMethod_ObjTable
-	ld a, $28
+	ld a, BANK(MailServerDeleteMethod_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $6858

@@ -35,26 +35,26 @@ PwSaveConfirm_Setup:: ; 67:6565
 	ld [wPwSaveConfirm_Cursor], a
 	ld de, $9001
 	ld hl, Gfx_PwSaveConfirm_Tiles9000Vb1
-	ld a, $5D
+	ld a, BANK(Gfx_PwSaveConfirm_Tiles9000Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_PwSaveConfirm_Tiles9400Vb1
-	ld a, $5D
+	ld a, BANK(Gfx_PwSaveConfirm_Tiles9400Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8001
 	ld hl, Data_5F_49D0
-	ld a, $5F
+	ld a, BANK(Data_5F_49D0)
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
 	ld hl, Palette_PwSaveConfirm_Bg
-	ld a, $5D
+	ld a, BANK(Palette_PwSaveConfirm_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $0018
 	ld de, wPaletteBufObj + $28
@@ -67,7 +67,7 @@ PwSaveConfirm_Setup:: ; 67:6565
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_PwSaveConfirm_5D_7BA0
-	ld a, $5D
+	ld a, BANK(Tilemap_PwSaveConfirm_5D_7BA0)
 	farcall Tilemap_CopyRectAndAttr
 	jr .l6603
 
@@ -77,7 +77,7 @@ PwSaveConfirm_Setup:: ; 67:6565
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_PwSaveConfirm_71_6F6F
-	ld a, $71
+	ld a, BANK(Tilemap_PwSaveConfirm_71_6F6F)
 	farcall Tilemap_CopyRectAndAttr
 
 .l6603 ; 67:6603
@@ -89,7 +89,7 @@ PwSaveConfirm_Setup:: ; 67:6565
 	call Gfx_UploadBgMapBuffers
 	ld hl, wSpriteSlot0
 	ld de, ConfirmPages_ObjTable
-	ld a, $4A
+	ld a, BANK(ConfirmPages_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	call PwSaveConfirm_PlaceCursor
