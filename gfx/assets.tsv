@@ -51,8 +51,8 @@ gfx/account/screens_bank4a/tiles_4a40.2bpp	tiles	1024	gfx/account/screens_bank4a
 gfx/account/screens_bank4a/tiles_4e40.2bpp	tiles	832	gfx/account/screens_bank4a.asm	4A	4E40	CONFIRMED	exact	0		Data_4A_4E40
 gfx/account/screens_bank4a/settings_menu_bg.pal	palette	40	gfx/account/screens_bank4a.asm	4A	5180	CONFIRMED	-	0		Palette_SettingsMenu_Bg
 gfx/account/screens_bank4a/settings_menu_obj.pal	palette	8	gfx/account/screens_bank4a.asm	4A	51A8	CONFIRMED	-	0		Palette_SettingsMenu_Obj
-gfx/account/screens_bank4a/settings_menu_4a_51d0.tilemap	tilemap	360	gfx/account/screens_bank4a.asm	4A	51D0	CONFIRMED	-	0	20x18	Tilemap_SettingsMenu_4A_51D0
-gfx/account/screens_bank4a/settings_menu_4a_51d0.attrmap	attrmap	360	gfx/account/screens_bank4a.asm	4A	5338	CONFIRMED	-	0	20x18	Tilemap_SettingsMenu_4A_51D0
+gfx/account/screens_bank4a/settings_menu_4a_51d0.tilemap	tilemap	360	gfx/account/screens_bank4a.asm	4A	51D0	CONFIRMED	-	0	20x18	Tilemap_SettingsMenu_FlagClear
+gfx/account/screens_bank4a/settings_menu_4a_51d0.attrmap	attrmap	360	gfx/account/screens_bank4a.asm	4A	5338	CONFIRMED	-	0	20x18	Tilemap_SettingsMenu_FlagClear
 gfx/account/screens_bank4a/tilemap_54a0.tilemap	tilemap	360	gfx/account/screens_bank4a.asm	4A	54A0	CONFIRMED	-	0	20x18	Data_4A_54A0
 gfx/account/screens_bank4a/tilemap_54a0.attrmap	attrmap	360	gfx/account/screens_bank4a.asm	4A	5608	CONFIRMED	-	0	20x18	Data_4A_54A0
 gfx/account/screens_bank4a/tiles_5860.2bpp	tiles	16	gfx/account/screens_bank4a.asm	4A	5860	PROBABLE	exact	0		Data_4A_5860
@@ -107,8 +107,8 @@ gfx/account/screens_bank5e/tilemap_68d0.attrmap	attrmap	360	gfx/account/screens_
 gfx/account/screens_bank5e/tiles_6ba0.2bpp	tiles	1024	gfx/account/screens_bank5e.asm	5E	6BA0	CONFIRMED	exact	0		Data_5E_6BA0
 gfx/account/screens_bank5e/tiles_6fa0.2bpp	tiles	800	gfx/account/screens_bank5e.asm	5E	6FA0	CONFIRMED	exact	0		Data_5E_6FA0
 gfx/account/screens_bank5e/account_action_confirm_page_bg.pal	palette	64	gfx/account/screens_bank5e.asm	5E	72C0	CONFIRMED	-	0		Palette_Account_ActionConfirmPage_Bg
-gfx/account/screens_bank5e/account_action_confirm_page_5e_7300.tilemap	tilemap	360	gfx/account/screens_bank5e.asm	5E	7300	CONFIRMED	-	0	20x18	Tilemap_Account_ActionConfirmPage_5E_7300
-gfx/account/screens_bank5e/account_action_confirm_page_5e_7300.attrmap	attrmap	360	gfx/account/screens_bank5e.asm	5E	7468	CONFIRMED	-	0	20x18	Tilemap_Account_ActionConfirmPage_5E_7300
+gfx/account/screens_bank5e/account_action_confirm_page_5e_7300.tilemap	tilemap	360	gfx/account/screens_bank5e.asm	5E	7300	CONFIRMED	-	0	20x18	Tilemap_Account_ActionConfirmPage_Variant0
+gfx/account/screens_bank5e/account_action_confirm_page_5e_7300.attrmap	attrmap	360	gfx/account/screens_bank5e.asm	5E	7468	CONFIRMED	-	0	20x18	Tilemap_Account_ActionConfirmPage_Variant0
 gfx/account/screens_bank5e/tilemap_75d0.tilemap	tilemap	360	gfx/account/screens_bank5e.asm	5E	75D0	CONFIRMED	-	0	20x18	Data_5E_75D0
 gfx/account/screens_bank5e/tilemap_75d0.attrmap	attrmap	360	gfx/account/screens_bank5e.asm	5E	7738	CONFIRMED	-	0	20x18	Data_5E_75D0
 gfx/account/screens_bank71/tiles_4000.2bpp	tiles	768	gfx/account/screens_bank71.asm	71	4000	CONFIRMED	exact	0		Data_71_4000

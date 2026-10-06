@@ -5,8 +5,8 @@ Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:40	tiles	Gfx_A
 Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:46	tiles	Data_5F_49D0	5F	n=48 vram=$8000 vbank=1
 Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:51	palette	Palette_Account_ActionConfirmPage_Bg	5E	n=64 dest=$D800
 Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:56	palette	Palette_5F_4CD0 + $10	5F	n=24 dest=$D868
-Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:64	tilemap	Tilemap_Account_ActionConfirmPage	5E	rows=18 cols=20 dest=$D000
-Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:71	tilemap	Tilemap_Account_ActionConfirmPage_5E_7300	5E	rows=18 cols=20 dest=$D000
+Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:64	tilemap	Tilemap_Account_ActionConfirmPage_NonzeroVariant	5E	rows=18 cols=20 dest=$D000
+Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:71	tilemap	Tilemap_Account_ActionConfirmPage_Variant0	5E	rows=18 cols=20 dest=$D000
 CommPanel_StateDraw	engine/account/comm_panel.asm:168	tiles	$4200	71	n=48 vram=$8800 vbank=1
 CommPanel_StateDraw	engine/account/comm_panel.asm:174	tiles	Data_71_4300 + $190	71	n=64 vram=$9000 vbank=1
 CommPanel_StateDraw	engine/account/comm_panel.asm:180	tiles	Gfx_CommPanel_Tiles9400Vb1	71	n=64 vram=$9400 vbank=1
@@ -98,8 +98,8 @@ SettingsMenu_StateInit	engine/account/settings_menu.asm:179	tiles	Gfx_SettingsMe
 SettingsMenu_StateInit	engine/account/settings_menu.asm:185	tiles	Gfx_SettingsMenu_Tiles8000Vb1	4A	n=32 vram=$8000 vbank=1
 SettingsMenu_StateInit	engine/account/settings_menu.asm:190	palette	Palette_SettingsMenu_Bg	4A	n=40 dest=$D800
 SettingsMenu_StateInit	engine/account/settings_menu.asm:195	palette	Palette_SettingsMenu_Obj	4A	n=8 dest=$D840
-SettingsMenu_DrawItems	engine/account/settings_menu.asm:321	tilemap	Tilemap_SettingsMenu_4A_51D0	4A	rows=18 cols=20 dest=$D000
-SettingsMenu_DrawItems	engine/account/settings_menu.asm:331	tilemap	Tilemap_SettingsMenu	4A	rows=18 cols=20 dest=$D000
+SettingsMenu_DrawItems	engine/account/settings_menu.asm:321	tilemap	Tilemap_SettingsMenu_FlagClear	4A	rows=18 cols=20 dest=$D000
+SettingsMenu_DrawItems	engine/account/settings_menu.asm:331	tilemap	Tilemap_SettingsMenu_FlagSet	4A	rows=18 cols=20 dest=$D000
 SettingsMenu_DrawItems	engine/account/settings_menu.asm:367	UNRESOLVED	tilemap	--	source (hl) not an immediate/label
 AbookAddr_SetupScreen	engine/address_book/address_editor.asm:418	tiles	Gfx_AddrBook_TilesBank22 + $500	22	n=64 vram=$9300 vbank=1
 AbookAddr_SetupScreen	engine/address_book/address_editor.asm:424	tiles	Gfx_AddrBook_TilesBank22 + $900	22	n=16 vram=$9700 vbank=1

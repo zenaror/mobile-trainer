@@ -59,15 +59,15 @@ Account_ActionConfirmPage_Setup:: ; 68:6E39
 	jr z, .l6EC3
 	ld bc, $1214
 	ld de, wScreenTileMap
-	ld hl, Tilemap_Account_ActionConfirmPage
-	ld a, BANK(Tilemap_Account_ActionConfirmPage)
+	ld hl, Tilemap_Account_ActionConfirmPage_NonzeroVariant
+	ld a, BANK(Tilemap_Account_ActionConfirmPage_NonzeroVariant)
 	farcall Tilemap_CopyRectAndAttr
 	jr .l6ED4
 .l6EC3 ; 68:6EC3
 	ld bc, $1214
 	ld de, wScreenTileMap
-	ld hl, Tilemap_Account_ActionConfirmPage_5E_7300
-	ld a, BANK(Tilemap_Account_ActionConfirmPage_5E_7300)
+	ld hl, Tilemap_Account_ActionConfirmPage_Variant0
+	ld a, BANK(Tilemap_Account_ActionConfirmPage_Variant0)
 	farcall Tilemap_CopyRectAndAttr
 .l6ED4 ; 68:6ED4
 	call Account_ActionConfirmPage_PrintMessage
