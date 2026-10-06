@@ -113,8 +113,8 @@ Registration_DeleteConfirm_Setup:: ; 68:79B8
 	farcall Tilemap_CopyRectAndAttr
 .l7A3F ; 68:7A3F
 	ld de, $8001
-	ld hl, Data_5F_49D0
-	ld a, BANK(Data_5F_49D0)
+	ld hl, Gfx_SharedPanels_Vram8000Vb1
+	ld a, BANK(Gfx_SharedPanels_Vram8000Vb1)
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
@@ -125,8 +125,8 @@ Registration_DeleteConfirm_Setup:: ; 68:79B8
 	farcall Palette_LoadToBuffer
 	ld bc, $0018
 	ld de, wPaletteBufObj + $28
-	ld hl, Palette_5F_4CD0 + $10 ; 5F:4CE0
-	ld a, BANK(Palette_5F_4CD0)
+	ld hl, Palette_SharedPanels_BgObj + $10 ; 5F:4CE0
+	ld a, BANK(Palette_SharedPanels_BgObj)
 	farcall Palette_LoadToBuffer
 	call Registration_DeleteConfirm_PrintMessage
 	ldh a, [rLCDC]

@@ -112,7 +112,7 @@ gfx/account/screens_bank5e/account_action_confirm_page_5e_7300.attrmap	attrmap	3
 gfx/account/screens_bank5e/tilemap_75d0.tilemap	tilemap	360	gfx/account/screens_bank5e.asm	5E	75D0	CONFIRMED	-	0	20x18	Data_5E_75D0
 gfx/account/screens_bank5e/tilemap_75d0.attrmap	attrmap	360	gfx/account/screens_bank5e.asm	5E	7738	CONFIRMED	-	0	20x18	Data_5E_75D0
 gfx/account/screens_bank71/tiles_4000.2bpp	tiles	768	gfx/account/screens_bank71.asm	71	4000	CONFIRMED	exact	0		Data_71_4000
-gfx/account/screens_bank71/tiles_4300.2bpp	tiles	512	gfx/account/screens_bank71.asm	71	4300	CONFIRMED	exact	0		Data_71_4300
+gfx/account/screens_bank71/tiles_4300.2bpp	tiles	512	gfx/account/screens_bank71.asm	71	4300	CONFIRMED	exact	0		Gfx_CommPanel_SharedVramSource
 gfx/account/screens_bank71/tiles_4500.2bpp	tiles	912	gfx/account/screens_bank71.asm	71	4500	CONFIRMED	exact	7		Data_71_4500
 gfx/account/screens_bank71/tiles_4890.2bpp	tiles	960	gfx/account/screens_bank71.asm	71	4890	CONFIRMED	exact	0		Data_71_4890
 gfx/account/screens_bank71/comm_panel_bg.pal	palette	64	gfx/account/screens_bank71.asm	71	4C50	CONFIRMED	-	0		Palette_CommPanel_Bg
@@ -563,8 +563,8 @@ gfx/keyboard/panels_bank5f/tiles_4400.2bpp	tiles	1024	gfx/keyboard/panels_bank5f
 gfx/keyboard/panels_bank5f/tiles_4800.2bpp	tiles	16	gfx/keyboard/panels_bank5f.asm	5F	4800	CONFIRMED	exact	0		Data_5F_4800
 gfx/keyboard/panels_bank5f/tilemap_4810.tilemap	tilemap	220	gfx/keyboard/panels_bank5f.asm	5F	4810	CONFIRMED	-	0	20x11	Data_5F_4810
 gfx/keyboard/panels_bank5f/tilemap_4810.attrmap	attrmap	220	gfx/keyboard/panels_bank5f.asm	5F	48EC	CONFIRMED	-	0	20x11	Data_5F_4810
-gfx/keyboard/panels_bank5f/tiles_49d0.2bpp	tiles	768	gfx/keyboard/panels_bank5f.asm	5F	49D0	CONFIRMED	exact	0		Data_5F_49D0
-gfx/keyboard/panels_bank5f/palette_4cd0.pal	palette	40	gfx/keyboard/panels_bank5f.asm	5F	4CD0	PROBABLE	-	0		Palette_5F_4CD0
+gfx/keyboard/panels_bank5f/tiles_49d0.2bpp	tiles	768	gfx/keyboard/panels_bank5f.asm	5F	49D0	CONFIRMED	exact	0		Gfx_SharedPanels_Vram8000Vb1
+gfx/keyboard/panels_bank5f/palette_4cd0.pal	palette	40	gfx/keyboard/panels_bank5f.asm	5F	4CD0	CONFIRMED	-	0		Palette_SharedPanels_BgObj
 gfx/keyboard/panels_bank5f/tilemap_4ecb.tilemap	tilemap	260	gfx/keyboard/panels_bank5f.asm	5F	4ECB	CONFIRMED	-	0	20x13	Data_5F_4ECB
 gfx/keyboard/panels_bank5f/tilemap_4ecb.attrmap	attrmap	260	gfx/keyboard/panels_bank5f.asm	5F	4FCF	CONFIRMED	-	0	20x13	Data_5F_4ECB
 gfx/keyboard/panels_bank5f/tilemap_50d3.tilemap	tilemap	260	gfx/keyboard/panels_bank5f.asm	5F	50D3	CONFIRMED	-	0	20x13	Data_5F_50D3

@@ -34,12 +34,16 @@ Data_5F_4810::
 
 ; ---- gfx $49D0-$4CD0 (768 bytes) [CONFIRMED] tiles-vram: 8 call site(s) (55:5C00 67:5184 67:5771 67:65B1); first: hdma_rom_to_vram at 55:5C00: hl=$49D0 a=$5F c=$30 de=$8001 (dest VRAM $8000, vbank=1)
 
-Data_5F_49D0:: ; 5F:49D0
+Gfx_SharedPanels_Vram8000Vb1:: ; 5F:49D0
+Data_5F_49D0::
 	INCBIN "gfx/keyboard/panels_bank5f/tiles_49d0.2bpp"
 
-; ---- data $4CD0-$4CF8 (40 bytes) [PROBABLE] 40 bytes RGB555: two palette blocks copied by Function_4F_4000, hl=$4CD0 bc=$0010 de=$D830 and hl=$4CE0 bc=$0018 de=$D868 (loader calls at 55:5C2C, 55:5C11, 67:51A6 ...); replaces the mapper guess 4CD0-4D1C which overlapped the sprite tables
+; ---- data $4CD0-$4CF8 (40 bytes) [CONFIRMED] RGB555 block: BG6..7 at +0 (16 bytes) and OBJ5..7 at
+; +$10 (24 bytes). All nine bank-aware palette consumers ran naturally; the object table begins at
+; $4CF8 without overlap. Exact ROM words and RGB source agree; no final-display or hardware claim.
 
-Palette_5F_4CD0:: ; 5F:4CD0
+Palette_SharedPanels_BgObj:: ; 5F:4CD0
+Palette_5F_4CD0::
 	INCLUDE "gfx/keyboard/panels_bank5f/palette_4cd0.pal"
 
 ; ---- words $4CF8-$4D48 (80 bytes) [PROBABLE] sprite object table: 4-byte entries (frame-table ptr, animation-script ptr) indexed by B&7F, the layout read by init_object_from_table 00:0A82/00:0AB8; rows of 16 bytes = the same entry repeated 4 times; base $4CF8 is passed as de with a=$5F at call sites listed in analysis/gfx_candidates.tsv (object-table); entries 0000/0000 4D48/4D7E 4D9A/4DC0 0000/0000 4DE3/4DFE 4E01/4E20 4E23/4E42 4DC5/4DE0 0000/0000 4E45/4E54 4E57/4E66 4E69/4E78 4E7B/4E8A 4E8D/4E9C 0000/0000 4D83/4D95 0000/0000 4E9F/4EB2 0000/0000 4EB5/4EC8
