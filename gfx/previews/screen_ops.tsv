@@ -224,10 +224,10 @@ CommScene_LoadGraphics	engine/comm/comm_scene.asm:684	tiles	Gfx_CommScene_Tiles8
 CommScene_LoadGraphics	engine/comm/comm_scene.asm:690	tiles	Gfx_CommScene_Tiles8400	70	n=64 vram=$8400 vbank=0
 CommScene_LoadGraphics	engine/comm/comm_scene.asm:696	tiles	Gfx_CommScene_Tiles8800	70	n=64 vram=$8800 vbank=0
 CommScene_LoadGraphics	engine/comm/comm_scene.asm:702	tiles	Gfx_CommScene_Tiles8C00	70	n=64 vram=$8C00 vbank=0
-CommScene_LoadGraphics	engine/comm/comm_scene.asm:708	tiles	Data_70_6490	70	n=32 vram=$9000 vbank=0
-CommScene_LoadGraphics	engine/comm/comm_scene.asm:714	tiles	Data_70_6490	70	n=64 vram=$8000 vbank=1
-CommScene_LoadGraphics	engine/comm/comm_scene.asm:720	tiles	Data_70_6890	70	n=32 vram=$8400 vbank=1
-CommScene_LoadGraphics	engine/comm/comm_scene.asm:726	tiles	Data_70_6690	70	n=64 vram=$9000 vbank=1
+CommScene_LoadGraphics	engine/comm/comm_scene.asm:708	tiles	Gfx_CommScene_SharedVramSource0	70	n=32 vram=$9000 vbank=0
+CommScene_LoadGraphics	engine/comm/comm_scene.asm:714	tiles	Gfx_CommScene_SharedVramSource0	70	n=64 vram=$8000 vbank=1
+CommScene_LoadGraphics	engine/comm/comm_scene.asm:720	tiles	Gfx_CommScene_SharedVramSource2	70	n=32 vram=$8400 vbank=1
+CommScene_LoadGraphics	engine/comm/comm_scene.asm:726	tiles	Gfx_CommScene_SharedVramSource1	70	n=64 vram=$9000 vbank=1
 CommScene_LoadGraphics	engine/comm/comm_scene.asm:732	tiles	Gfx_CommScene_Tiles9400Vb1	70	n=64 vram=$9400 vbank=1
 CommScene_LoadGraphics	engine/comm/comm_scene.asm:737	palette	Palette_CommScene_Bg	70	n=64 dest=$D800
 CommScene_LoadGraphics	engine/comm/comm_scene.asm:742	palette	Palette_CommScene_Obj	70	n=64 dest=$D840

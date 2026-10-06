@@ -1,0 +1,4 @@
+old_name	new_name	kind	status	evidence
+Data_70_6490	Gfx_CommScene_SharedVramSource0	data	CONFIRMED	Shared source unit70:6490..6690 contributes512bytes to9000/VB0(call452A,C20) and8000/VB1(call453C,C40 starts6490,extends6890). Both160hits/18natural. ExistinggfxCONF512byteasset ROMexact; no new type/visual inference.
+Data_70_6890	Gfx_CommScene_SharedVramSource2	data	CONFIRMED	Shared source unit70:6890..6A90 contributes512bytes to8400/VB1(directload4545,call454E,C20) and9200/VB1(secondhalf6690..6A90,call4560,C40). Both160hits/18natural. ExistinggfxCONFasset ROMexact; fixes missingdirectconsumer inheader.
+Data_70_6690	Gfx_CommScene_SharedVramSource1	data	CONFIRMED	Shared source unit70:6690..6890 contributes512bytes to8200/VB1(secondhalf6490..6890,call453C) and9000/VB1(firsthalf6690..6A90,call4560). Both160hits/18natural. ExistinggfxCONFasset ROMexact; no wholewindow/destination-only name.
