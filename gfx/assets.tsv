@@ -88,7 +88,7 @@ gfx/account/screens_bank5d/registration_write_config_5d_7048.tilemap	tilemap	360
 gfx/account/screens_bank5d/registration_write_config_5d_7048.attrmap	attrmap	360	gfx/account/screens_bank5d.asm	5D	71B0	CONFIRMED	-	0	20x18	Tilemap_Registration_WriteConfig_5D_7048
 gfx/account/screens_bank5e/tiles_4800.2bpp	tiles	1024	gfx/account/screens_bank5e.asm	5E	4800	CONFIRMED	exact	0		Data_5E_4800
 gfx/account/screens_bank5e/tiles_4c00.2bpp	tiles	256	gfx/account/screens_bank5e.asm	5E	4C00	CONFIRMED	exact	0		Data_5E_4C00
-gfx/account/screens_bank5e/palette_4d00.pal	palette	64	gfx/account/screens_bank5e.asm	5E	4D00	CONFIRMED	-	0		Data_5E_4D00
+gfx/account/screens_bank5e/palette_4d00.pal	palette	64	gfx/account/screens_bank5e.asm	5E	4D00	CONFIRMED	-	0		Palette_SharedEntryUi_Bg
 gfx/account/screens_bank5e/tilemap_4d40.tilemap	tilemap	100	gfx/account/screens_bank5e.asm	5E	4D40	CONFIRMED	-	0	20x5	Data_5E_4D40
 gfx/account/screens_bank5e/tilemap_4d40.attrmap	attrmap	100	gfx/account/screens_bank5e.asm	5E	4DA4	CONFIRMED	-	0	20x5	Data_5E_4D40
 gfx/account/screens_bank5e/tiles_4e10.2bpp	tiles	1024	gfx/account/screens_bank5e.asm	5E	4E10	CONFIRMED	exact	0		Data_5E_4E10
@@ -906,8 +906,8 @@ gfx/settings/screens_bank5d/tiles_7760.2bpp	tiles	1024	gfx/settings/screens_bank
 gfx/settings/screens_bank5d/pw_save_confirm_bg.pal	palette	64	gfx/settings/screens_bank5d.asm	5D	7B60	CONFIRMED	-	0		Palette_PwSaveConfirm_Bg
 gfx/settings/screens_bank5d/tilemap_7ba0.tilemap	tilemap	360	gfx/settings/screens_bank5d.asm	5D	7BA0	CONFIRMED	-	0	20x18	Data_5D_7BA0
 gfx/settings/screens_bank5d/tilemap_7ba0.attrmap	attrmap	360	gfx/settings/screens_bank5d.asm	5D	7D08	CONFIRMED	-	0	20x18	Data_5D_7BA0
-gfx/settings/screens_bank5e/tiles_4000.2bpp	tiles	1024	gfx/settings/screens_bank5e.asm	5E	4000	CONFIRMED	exact	0		Data_5E_4000
-gfx/settings/screens_bank5e/tiles_4400.2bpp	tiles	1024	gfx/settings/screens_bank5e.asm	5E	4400	CONFIRMED	exact	0		Data_5E_4400
+gfx/settings/screens_bank5e/tiles_4000.2bpp	tiles	1024	gfx/settings/screens_bank5e.asm	5E	4000	CONFIRMED	exact	0		Gfx_SharedTextEntry_Vram8800Vb1
+gfx/settings/screens_bank5e/tiles_4400.2bpp	tiles	1024	gfx/settings/screens_bank5e.asm	5E	4400	CONFIRMED	exact	0		Gfx_SharedTextEntry_Vram8C00Vb1
 gfx/settings/screens_bank71/tilemap_6f6f.tilemap	tilemap	360	gfx/settings/screens_bank71.asm	71	6F6F	PROBABLE	-	0	20x18	Data_71_6F6F
 gfx/settings/screens_bank71/tilemap_6f6f.attrmap	attrmap	360	gfx/settings/screens_bank71.asm	71	70D7	PROBABLE	-	0	20x18	Data_71_6F6F
 gfx/title/logo/title_logo_tiles0.2bpp	tiles	1024	gfx/title/logo.asm	0E	60A0	CONFIRMED	exact	0		Gfx_TitleLogo_Tiles0

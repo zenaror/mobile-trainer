@@ -131,8 +131,8 @@ Function_68_5D9C::
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
-	ld hl, Data_5E_4D00
-	ld a, BANK(Data_5E_4D00)
+	ld hl, Palette_SharedEntryUi_Bg
+	ld a, BANK(Palette_SharedEntryUi_Bg)
 	farcall Palette_LoadToBuffer
 	ld a, [wPasswordEntry_Variant]
 	ld hl, Account_PasswordEntryMaps
@@ -472,8 +472,8 @@ Account_PasswordIntro_Draw:: ; 68:6109
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
-	ld hl, Data_5E_4D00
-	ld a, BANK(Data_5E_4D00)
+	ld hl, Palette_SharedEntryUi_Bg
+	ld a, BANK(Palette_SharedEntryUi_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap

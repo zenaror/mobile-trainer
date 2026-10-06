@@ -1711,8 +1711,8 @@ Label_55_6755::
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0018
 	ld de, wPaletteBufBg + $28
-	ld hl, Data_5E_4D00 + $28 ; 5E:4D28
-	ld a, BANK(Data_5E_4D00)
+	ld hl, Palette_SharedEntryUi_Bg + $28 ; 5E:4D28
+	ld a, BANK(Palette_SharedEntryUi_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $0D14
 	ld de, wScreenTileMap + $240
