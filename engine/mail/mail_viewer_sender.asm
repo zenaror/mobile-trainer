@@ -1290,7 +1290,7 @@ Function_2B_6CF5:: ; 2B:6CF5
 	ld a, b
 	ld [wRam_D525], a
 	ld a, b
-	ld [wRam_D526], a
+	ld [wMailReplyRecord], a
 	xor a, a
 	jr .l6D6D
 
@@ -1323,14 +1323,14 @@ Function_2B_6CF5:: ; 2B:6CF5
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_D526]
+	ld a, [wMailReplyRecord]
 	ld c, a
 	ret
 .l6DA3 ; 2B:6DA3
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_D526]
+	ld a, [wMailReplyRecord]
 	ld c, a
 	ld a, $FF
 	ret

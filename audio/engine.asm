@@ -855,7 +855,7 @@ SoundDrv_SetTrackFieldByte:: ; 04:44CF
 	jr nc, .l44E6
 	bit 7, [hl]
 	jr z, .l44E6
-	ld a, [wRam_D03C]
+	ld a, [wSoundDrv_ParamDirtyMask]
 	or a, [hl]
 	ld [hl], a
 	push hl
@@ -875,7 +875,7 @@ SoundDrv_SetTrackFieldWord:: ; 04:44EC
 	jr nc, .l4507
 	bit 7, [hl]
 	jr z, .l4507
-	ld a, [wRam_D03C]
+	ld a, [wSoundDrv_ParamDirtyMask]
 	or a, [hl]
 	ld [hl], a
 	push hl
@@ -1069,14 +1069,14 @@ Label_04_45E6::
 	jr nc, .skip
 	cpl
 .skip ; 04:4603
-	ld [wRam_D01E], a
+	ld [wSoundDrv_VibratoTri], a
 	ld bc, $0001
 	add hl, bc
 	ld a, [hli]
 	add a, [hl]
 	jr z, .l4623
 	ld c, a
-	ld a, [wRam_D01E]
+	ld a, [wSoundDrv_VibratoTri]
 	ld b, a
 	push hl
 	push bc
@@ -1488,9 +1488,9 @@ SoundDrv_ParamPitchOffset:: ; 04:4840
 Label_04_4840::
 	; [PROBABLE] validated entry 4840 of jump table Table_04_44A3 (index 1); clean decode to a
 	; terminator
-	ld a, [wRam_D03C]
+	ld a, [wSoundDrv_ParamDirtyMask]
 	set 2, a
-	ld [wRam_D03C], a
+	ld [wSoundDrv_ParamDirtyMask], a
 	ld bc, $0013
 	jp SoundDrv_SetTrackFieldWord
 
@@ -1674,9 +1674,9 @@ SoundDrv_CmdSetVolume:: ; 04:492A
 
 SoundDrv_ParamVolumeScale:: ; 04:4947
 	; [PROBABLE] validated entry 4947 of jump table Table_04_44A3; clean decode to a terminator
-	ld a, [wRam_D03C]
+	ld a, [wSoundDrv_ParamDirtyMask]
 	set 1, a
-	ld [wRam_D03C], a
+	ld [wSoundDrv_ParamDirtyMask], a
 	ld bc, $0016
 	jp SoundDrv_SetTrackFieldByte
 
@@ -1693,9 +1693,9 @@ Label_04_4955::
 SoundDrv_ParamPanOffset:: ; 04:4962
 Label_04_4962::
 	; [PROBABLE] validated entry 4962 of jump table Table_04_44A3; clean decode to a terminator
-	ld a, [wRam_D03C]
+	ld a, [wSoundDrv_ParamDirtyMask]
 	set 0, a
-	ld [wRam_D03C], a
+	ld [wSoundDrv_ParamDirtyMask], a
 	ld bc, $0018
 	jp SoundDrv_SetTrackFieldByte
 
