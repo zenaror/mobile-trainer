@@ -165,8 +165,8 @@ CommNotice_RunDialog:: ; 50:4061
 	farcall Sprite_InitSlot
 	ld bc, $0040
 	ld de, wPaletteBufObj
-	ld hl, $6C40
-	ld a, $50
+	ld hl, Palette_CommNotice + $80 ; 50:6C40
+	ld a, BANK(Palette_CommNotice)
 	farcall Palette_LoadToBuffer
 	jp CommNotice_DrawScreenAndLoop
 
@@ -199,8 +199,8 @@ CommNotice_RunDialog:: ; 50:4061
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
-	ld hl, $6C00
-	ld a, $50
+	ld hl, Palette_CommNotice + $40 ; 50:6C00
+	ld a, BANK(Palette_CommNotice)
 	farcall Palette_LoadToBuffer
 	ld a, [wCommNotice_ModeArg]
 	or a, a
@@ -248,8 +248,8 @@ CommNotice_RunDialog:: ; 50:4061
 	farcall Sprite_InitSlot
 	ld bc, $0040
 	ld de, wPaletteBufObj
-	ld hl, $6C80
-	ld a, $50
+	ld hl, Palette_CommNotice + $C0 ; 50:6C80
+	ld a, BANK(Palette_CommNotice)
 	farcall Palette_LoadToBuffer
 	jp CommNotice_DrawScreenAndLoop
 

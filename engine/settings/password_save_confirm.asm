@@ -58,8 +58,8 @@ PwSaveConfirm_Setup:: ; 67:6565
 	farcall Palette_LoadToBuffer
 	ld bc, $0018
 	ld de, wPaletteBufObj + $28
-	ld hl, $4CE0
-	ld a, $5F
+	ld hl, Palette_5F_4CD0 + $10 ; 5F:4CE0
+	ld a, BANK(Palette_5F_4CD0)
 	farcall Palette_LoadToBuffer
 	ld a, [wPwSaveConfirm_Variant]
 	or a, a

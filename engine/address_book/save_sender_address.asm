@@ -1261,35 +1261,35 @@ SaveSenderAddr_LoadCaption:: ; 2A:49C5
 	ld bc, wTileStage2 + $280
 	ld de, wTileStage2 + $3C0
 	farcall TextTiles_RenderLine
-	ld hl, $4A6F
+	ld hl, String_2A_4A6F
 	ld a, $02
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
-	ld a, $2A
+	ld a, BANK(String_2A_4A6F)
 	ld bc, wTileStage2 + $500
 	ld de, wTileStage2 + $640
 	farcall TextTiles_RenderLine
-	ld hl, $4A78
+	ld hl, String_2A_4A78
 	ld a, $02
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
-	ld a, $2A
+	ld a, BANK(String_2A_4A78)
 	ld bc, wTileStage2 + $780
 	ld de, wTileStage2 + $8C0
 	farcall TextTiles_RenderLine
-	ld hl, $4A81
+	ld hl, String_2A_4A81
 	ld a, $02
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
-	ld a, $2A
+	ld a, BANK(String_2A_4A81)
 	ld bc, wTileStage2 + $A00
 	ld de, wTileStage2 + $B40
 	farcall TextTiles_RenderLine
-	ld hl, $4A8A
+	ld hl, String_2A_4A8A
 	ld a, $02
 	ldh [rVBK], a
 	ldh [hTextTiles_DestBank], a
-	ld a, $2A
+	ld a, BANK(String_2A_4A8A)
 	ld bc, wTileStage2 + $C80
 	ld de, wTileStage2 + $DC0
 	farcall TextTiles_RenderLine
@@ -1312,9 +1312,13 @@ PUSHC sjis
 String_SaveSenderAddr_Caption:: ; 2A:4A66
 Table_2A_4A66::
 	db "　セーブ", 0
+String_2A_4A6F:: ; 2A:4A6F
 	db "するばし", 0
+String_2A_4A78:: ; 2A:4A78
 	db "ょを　え", 0
+String_2A_4A81:: ; 2A:4A81
 	db "らんでく", 0
+String_2A_4A8A:: ; 2A:4A8A
 	db "ださい　", 0
 POPC
 

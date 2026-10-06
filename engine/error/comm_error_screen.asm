@@ -415,8 +415,8 @@ Function_5C_546F::
 	ld [wCommErr_AttrSrcHi], a
 	ld bc, $0214
 	ld de, wScreenTileMap + $200
-	ld hl, $5656
-	ld a, $5C
+	ld hl, CommErr_Tilemap_Comm + $140 ; 5C:5656
+	ld a, BANK(CommErr_Tilemap_Comm)
 	farcall Tilemap_CopyRectAndAttrPtr
 	ld de, $80A0
 	ld hl, wSpriteSlot1

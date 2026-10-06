@@ -125,8 +125,8 @@ Registration_DeleteConfirm_Setup:: ; 68:79B8
 	farcall Palette_LoadToBuffer
 	ld bc, $0018
 	ld de, wPaletteBufObj + $28
-	ld hl, $4CE0
-	ld a, $5F
+	ld hl, Palette_5F_4CD0 + $10 ; 5F:4CE0
+	ld a, BANK(Palette_5F_4CD0)
 	farcall Palette_LoadToBuffer
 	call Registration_DeleteConfirm_PrintMessage
 	ldh a, [rLCDC]
@@ -302,8 +302,8 @@ Registration_DeleteExecute_Setup:: ; 68:7BB0
 	farcall Palette_LoadToBuffer
 	ld bc, $0008
 	ld de, wPaletteBufObj
-	ld hl, $66C0
-	ld a, $71
+	ld hl, Palette_71_66C0
+	ld a, BANK(Palette_71_66C0)
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap

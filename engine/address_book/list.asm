@@ -773,8 +773,8 @@ AbookList_SetupScreen:: ; 2F:4572
 	ld c, $40
 	farcall Gfx_StartHDMA
 	ld de, $9701
-	ld hl, $60D0
-	ld a, $22
+	ld hl, Gfx_AddrBook_TilesBank22 + $400 ; 22:60D0
+	ld a, BANK(Gfx_AddrBook_TilesBank22)
 	ld b, $97
 	ld c, $10
 	farcall Gfx_StartHDMA

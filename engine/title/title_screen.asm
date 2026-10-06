@@ -321,8 +321,8 @@ Function_0E_4215::
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8001
-	ld hl, $49C0
-	ld a, $0E
+	ld hl, Gfx_Title_Tiles1 + $200 ; 0E:49C0
+	ld a, BANK(Gfx_Title_Tiles1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService

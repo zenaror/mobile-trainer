@@ -411,14 +411,14 @@ Function_2F_6F8C::
 	farcall TextTiles_UploadBuffers
 	farcall LCDOff
 	ld de, $9301
-	ld hl, $61D0
-	ld a, $22
+	ld hl, Gfx_AddrBook_TilesBank22 + $500 ; 22:61D0
+	ld a, BANK(Gfx_AddrBook_TilesBank22)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMA
 	ld de, $9701
-	ld hl, $65D0
-	ld a, $22
+	ld hl, Gfx_AddrBook_TilesBank22 + $900 ; 22:65D0
+	ld a, BANK(Gfx_AddrBook_TilesBank22)
 	ld b, $97
 	ld c, $10
 	farcall Gfx_StartHDMA

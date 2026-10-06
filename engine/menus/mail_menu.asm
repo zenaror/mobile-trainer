@@ -61,8 +61,8 @@ Function_1D_4000::
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
-	ld hl, $5A30
-	ld a, $1D
+	ld hl, Gfx_MailMenu_Tiles3 + $380 ; 1D:5A30
+	ld a, BANK(Gfx_MailMenu_Tiles3)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
@@ -462,8 +462,8 @@ Function_1D_439B::
 	ld [wMailMenu_AttrSrcHi], a
 	ld bc, $0608
 	ld de, wScreenTileMap + $C1
-	ld hl, $4C81
-	ld a, $1D
+	ld hl, Tilemap_MailMenu_IconFrames + $30 ; 1D:4C81
+	ld a, BANK(Tilemap_MailMenu_IconFrames)
 	farcall Tilemap_CopyRectAndAttrPtr
 	farcall Sprite_UpdateAll
 	ldh a, [rLCDC]

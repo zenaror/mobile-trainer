@@ -39,8 +39,8 @@ BrowserMenu_OpenTwoItem:: ; 72:63D8
 	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0008
 	ld de, wPaletteBufObj + $20
-	ld hl, $7820
-	ld a, $72
+	ld hl, BrowserMenu2_Palette + $10 ; 72:7820
+	ld a, BANK(BrowserMenu2_Palette)
 	farcall Palette_LoadToBuffer
 	call Sound_FrameService
 	ld a, $07
@@ -456,8 +456,8 @@ Function_72_6712::
 	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0008
 	ld de, wPaletteBufObj + $20
-	ld hl, $7210
-	ld a, $72
+	ld hl, Palette_BrowserMenu_Bg6 + $10 ; 72:7210
+	ld a, BANK(Palette_BrowserMenu_Bg6)
 	farcall Palette_LoadToBuffer
 	call Sound_FrameService
 	ld a, $07
