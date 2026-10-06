@@ -60,8 +60,8 @@ Registration_WriteConfig_Setup:: ; 68:6AF6
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	ld hl, wSpriteSlot0
-	ld de, Table_5D_7318
-	ld a, BANK(Table_5D_7318)
+	ld de, Objects_Registration_WriteConfig
+	ld a, BANK(Objects_Registration_WriteConfig)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1838

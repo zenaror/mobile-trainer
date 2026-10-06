@@ -13,7 +13,7 @@ engine/mail/result_screens.asm	$4357	MailResult_Txt_CannotReceive	1	symbolized	s
 engine/mail/send_receive.asm	$7520	MailScreens_ObjPalette_7520	3	symbolized	HL = palette in bank 27 (`ld a, $27 ; farcall Palette_LoadToBuffer` follows; bank 27 is the file bank)
 engine/settings/adapter_config.asm	$5706	SettingsPhone_ConfigCommentAddrs	1	symbolized	word table indexed by wRam_C27E * 2 (add a, a ; add a, l), same bank
 engine/settings/adapter_config.asm	$5700	SettingsPhone_SramSelfPageAddrs	1	symbolized	word table indexed by wRam_C27E * 2, same bank
-engine/account/result_page.asm	$7831	Data_68_7831	1	symbolized	3-byte-entry table indexed by wRam_C27C * 3, same bank 68
+engine/account/result_page.asm	$7831	Data_Account_ResultPage_BannerTables	1	symbolized	Aggregate of5first-banner source16/bank8 descriptors,3second-banner descriptors,5index bytes; first list indexed by wResultPage_Kind*3 in restored ROMbank68. Storage29bytesPROBABLE,22read7unread; naming2_neutral_account.
 engine/browser/page_list.asm	$5800	PageList_Tiles_5800	1	symbolized	tile block for Gfx_StartHDMA with `ld a, $24` (the file bank)
 lib/mobile/main.asm	$6059	MobilePacket_WriteConfigurationData	1	symbolized	packet template copied by MobileSDK_CopyBytes from the library bank 75
 lib/mobile/main.asm	$6041	MobilePacket_ReadConfigurationDataPart1	3	symbolized	packet header for MobileSDK_CopyBytes / Mobile_PacketSendReadConfig
@@ -31,3 +31,5 @@ engine/comm/connect_dialog_screen.asm	$4000	ConnectDialog_Run	1	kept raw	NOT the
 engine/sram/integrity_check.asm	$0684	Bank_InitState	2	kept raw	NOT a pointer: byte count of the checksummed block A000-A683
 engine/sram/save_block_check.asm	$0684	Bank_InitState	3	kept raw	NOT a pointer: byte count of the checksummed block A000-A683
 engine/unreferenced/page_list_prototype.asm	$1018	Function_00_1018	1	kept raw	NOT a pointer: coordinate pair
+engine/account/result_page.asm	$7840	Account_ResultPage_SecondBannerSources	1	symbolized	Known three-record second-banner source16/bank8 list; reads68:781C/781F/7822 under restored bank68; indices1/2 natural,0unread,storagePROBABLE.
+engine/account/result_page.asm	$7849	Account_ResultPage_SecondBannerIndexByKind	1	symbolized	Known five-byte kind-to-second-banner-index list;68:780B natural6hits/4scenarios,only first byte read; no arbitrary-input clamp,storagePROBABLE.
