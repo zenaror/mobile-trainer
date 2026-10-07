@@ -462,7 +462,7 @@ CommErr_Triples_F0:: ; 5C:50F5
 Data_5C_50F5::
 	db $00, $00, $21, $00, $10, $22, $01, $00, $23, $01, $10, $24, $01, $11, $25
 
-; ---- ptrtable $5104-$5144 (64 bytes) [PROBABLE] 32 x dw string pointers (slots 0-31; the same index space continues through slot 32 = 5C:5144 and slots 33-37 = the table 5C:5146, see there) indexed by the message index from the lists (ld hl,$5104 ; add a,a ; add a,l ... ld a,[hli] ; ld h,[hl] ; ld l,a at 5C:5320-532C); entry 0 is $0000 (null, kept numeric), entries 1-31 = 4000..4DCF strings (100% of targets on string starts)
+; ---- ptrtable $5104-$5144 (64 bytes) [PROBABLE] 32 x dw string pointers (slots 0-31; the same index space continues through slot 32 = 5C:5144 and slots 33-37 = the table 5C:5146, see there) indexed by the message index from the lists (ld hl,$5104 ; add a,a ; add a,l ... ld a,[hli] ; ld h,[hl] ; ld l,a at 5C:5320-532C); entry 0 is $0000 (null, kept numeric), entries 1-30 = 4000..4D3F strings; entry 31 = 7D96 English string (100% of targets on string starts)
 
 CommErr_MessagePointers:: ; 5C:5104
 Table_5C_5104::
@@ -497,7 +497,7 @@ Table_5C_5104::
 	dw CommErr_Msg_NewPasswordBadChars
 	dw CommErr_Msg_NewPasswordNeedsMix
 	dw CommErr_Msg_NewPasswordSameAsOld
-	dw CommErr_Msg_RegistrationPending
+	dw CommErr_Msg_RegistrationPending_English
 
 ; ---- words $5144-$5146 (2 bytes) [PROBABLE] slot 32 of the message-pointer index space (5C:5104 + 2*32 = 5144): the word $0020 is not a string pointer (below $4000) and no triple list selects index 32 (verifier: the lists of the records 5C:4F53 use indices 1-31 and, for the mode-2 record $F0 at 50F5, 33-37); meaning of the value $0020 unknown
 
