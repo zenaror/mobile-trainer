@@ -1114,8 +1114,8 @@ Function_26_5873::
 	pop bc
 	ret
 
-; ---- data $588E-$58B7 (41 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
-; kept as raw bytes: the bytes read as Shift-JIS/ASCII text, but the header does not say `text` (executed-read data of unknown content class, or unclassified), so not provably a string
+; ---- text $588E-$58B7 (41 bytes) [CONFIRMED] 20 Shift-JIS full-width spaces ($8140) plus NUL; original ROM26 passed to TextTiles_RenderLine48:403E by MailSession_ClearMsg; all41 bytes read in15 whole natural scenarios.
+; Raw representation and both existing labels retained; bank48 glyph $8140 is16 zero bytes, emitted to two WRAM2 tile buffers. Original JP evidence only; no new runtime, visual or hardware result.
 
 MailSession_Msg_Blank:: ; 26:588E
 Data_26_588E::
