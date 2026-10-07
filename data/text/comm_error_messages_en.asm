@@ -29,4 +29,14 @@ CommErr_Msg_LoginIdCancelled_English:: ; 5C:7E84
 	db "instruction booklet and", $0D
 	db "contact KDDI customer", $0D
 	db "service.", 0
+
+; [PROBABLE] Static six-row login-ID layout; supplied words and punctuation retained.
+; Five space/CR substitutions; no new runtime evidence.
+CommErr_Msg_BadLoginId_English:: ; 5C:7F20
+	db "Your Log-in ID is", $0D
+	db "incorrect. Please", $0D
+	db "refer to the", $0D
+	db "instruction booklet", $0D
+	db "and register your", $0D
+	db "Log-in ID again.", 0
 POPC
