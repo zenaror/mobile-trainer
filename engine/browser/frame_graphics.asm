@@ -526,12 +526,28 @@ Data_4E_6581::
 	db $00, $41, $47, $D0, $4D, $47, $00, $4B, $47, $00, $49, $47, $10, $4E, $47, $61
 	db $D0, $04, $D0, $48, $10, $48, $78, $70, $80, $08, $00, $73, $D0, $98, $18
 
-; ---- data $65A0-$65BF (31 bytes) [PROBABLE] screen descriptor of the table 4E:654B (31 bytes = 5 far pointers `dw addr ; db bank` (15 bytes) + 16 bytes of parameters): the far pointers name tile block, palette, tilemap, tile piece and OBJ palette inside bank 47 blocks (e.g. 47:4100 tiles, 47:4DD0 palettes, 47:4B00 tilemap, 47:4E10 = 4DD0+$40) exactly as laid out in config/regions/bank47.tsv
+; ---- data $65A0-$65BF (31 bytes) [CONFIRMED] frame descriptor: five far pointers and 16 parameters
 
 Data_Browser_FrameDesc1:: ; 4E:65A0
 Data_4E_65A0::
-	db $50, $4E, $47, $20, $5B, $47, $50, $58, $47, $50, $56, $47, $60, $5B, $47, $61
-	db $D0, $04, $D0, $48, $10, $48, $78, $70, $80, $08, $00, $73, $D0, $98, $18
+	dw Tiles_47_4E50 ; +00: two $400-byte BG tile transfers from ROM47
+	db BANK(Tiles_47_4E50)
+	dw Palette_47_5B20 ; +03: BG palette source
+	db BANK(Palette_47_5B20)
+	dw Tilemap_47_5850 ; +06: 20x18 tilemap followed by attributes
+	db BANK(Tilemap_47_5850)
+	dw Tiles_47_4E50 + $0800 ; +09: $200-byte sprite tile source
+	db BANK(Tiles_47_4E50)
+	dw Palette_47_5B20 + $40 ; +0C: OBJ palette source
+	db BANK(Palette_47_5B20)
+	dw wScreenTileMap + $61 ; +0F: body map destination in WRAM7
+	dw wScreenTileMap + $04 ; +11: title map destination in WRAM7
+	db $48, $10 ; +13: up-arrow X, Y
+	db $48, $78 ; +15: down-arrow X, Y
+	db $70, $80 ; +17: timer X, Y before the reader's +08/+10 offsets
+	db $08, $00 ; +19: connection-icon X, Y
+	dw wScreenTileMap + $73 ; +1B: scrollbar map destination in WRAM7
+	db $98, $18 ; +1D: scroll-thumb X, Y
 
 ; ---- data $65BF-$65DE (31 bytes) [PROBABLE] screen descriptor of the table 4E:654B (31 bytes = 5 far pointers `dw addr ; db bank` (15 bytes) + 16 bytes of parameters): the far pointers name tile block, palette, tilemap, tile piece and OBJ palette inside bank 47 blocks (e.g. 47:4100 tiles, 47:4DD0 palettes, 47:4B00 tilemap, 47:4E10 = 4DD0+$40) exactly as laid out in config/regions/bank47.tsv
 
