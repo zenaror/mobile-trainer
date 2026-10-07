@@ -21,8 +21,8 @@ Table_73_4001::
 	dw $4065
 	dw $4072
 
-; ---- text $4009-$4097 (142 bytes) [PROBABLE] text: 4 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-
+; ---- text $4009-$4097 (142 bytes) [CONFIRMED] four original JP Shift-JIS strings, NUL terminated
+; Original JP: sizes 13/79/13/37 including NUL; reads: 8 whole / 19 union scenarios.
 BrowserStart_Strings:: ; 73:4009
 String_73_4009::
 	db "ホームページ", 0
