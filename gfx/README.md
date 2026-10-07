@@ -41,11 +41,11 @@ gfx/assets.tsv                                 one line per asset: kind, size, b
 | JIS 12x12 glyph bits (`.bin`) | 10 | 131966 |
 | 6x12 glyph rows (`.bin`) | 1 | 1152 |
 | 1bpp 8x16 glyphs (`.1bpp`) | 27 | 4848 |
-| RGB palette (`.pal`) | 144 | 11600 |
+| RGB palette (`.pal`) | 143 | 11504 |
 | validity bitmap (`.bin`) | 1 | 8198 |
 | tile-index map (`.tilemap`) | 180 | 51618 |
 | 2bpp tiles (`.2bpp`) | 406 | 346848 |
-| **all** | **949** | **607848** |
+| **all** | **948** | **607752** |
 
 PNGs: 406 exact rgbgfx sources (`.png`), 38 font binaries with an editable sheet PNG (`.png`), 1 view-only picture (`_view.png`).
 
@@ -604,7 +604,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `browser_start_tiles4.2bpp` | 2bpp tiles | 1024 | 73:59E0 | CONFIRMED | exact | - | `gfx/browser/start_choice.asm` |
 | `browser_start_palettes.pal` | RGB palette | 64 | 73:5DE0 | CONFIRMED | - | - | `gfx/browser/start_choice.asm` |
 | `browser_start_obj_palettes.pal` | RGB palette | 64 | 73:5E20 | CONFIRMED | - | - | `gfx/browser/start_choice.asm` |
-| `palette_5e60.pal` | RGB palette | 96 | 73:5E60 | PROBABLE | - | - | `gfx/browser/start_choice.asm` |
+Retired historical file: `palette_5e60.pal` preserves the former 96-byte RGB555 interpretation of 73:5E60. Original sprite consumers prove a table, two OAM frames and a script prefix instead; maintained macros now emit these bytes. The file remains unchanged for historical comparison, while its exact catalogue/rules rows are commented out and excluded from active totals. See `docs/research/typing_73_browser_sprite99.md`.
 
 ### `gfx/comm/comm_scene/`
 
@@ -1479,7 +1479,7 @@ make png-export       (maintainers) PNGs regenerated from the binaries; never ov
 | 8x16 font runs | `data/fonts/font_8x16_*.png`, 16 glyphs per row | 27 sheets | |
 | 6x12 Latin font | `data/fonts/ascii_6x12.png` | 1 sheet | 6 pixel wide cells (the two unused bits of each byte stay 0) |
 | whole screens | `name.screen.png` next to `name.tilemap` (`gfx/screens.tsv`) | 92 | edit view: tilemap + attribute map + tiles + palettes composed in real colours; import writes the edit into the tile sheets, see below |
-| palettes | `name.pal` (text, `RGB r, g, b`) | 144 | already an editable text form; a screen PNG can write colours back (`screen_png.py import --palette`). No separate swatch PNG |
+| palettes | `name.pal` (text, `RGB r, g, b`) | 143 | already an editable text form; a screen PNG can write colours back (`screen_png.py import --palette`). No separate swatch PNG |
 
 Not PNG-editable (binary only): the 180 `.tilemap` and 180 `.attrmap` files (the layout of a screen: which tile in which cell, flips, palette
 numbers), the Shift-JIS validity bitmap (data, not an image; `sjis_valid_bitmap_view.png` is a picture of it), and the graphics blocks that are still `db`
