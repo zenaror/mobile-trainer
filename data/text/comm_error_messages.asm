@@ -462,7 +462,7 @@ CommErr_Triples_F0:: ; 5C:50F5
 Data_5C_50F5::
 	db $00, $00, $21, $00, $10, $22, $01, $00, $23, $01, $10, $24, $01, $11, $25
 
-; ---- ptrtable $5104-$5144 (64 bytes) [PROBABLE] 32 x dw string pointers (slots 0-31; the same index space continues through slot 32 = 5C:5144 and slots 33-37 = the table 5C:5146, see there) indexed by the message index from the lists (ld hl,$5104 ; add a,a ; add a,l ... ld a,[hli] ; ld h,[hl] ; ld l,a at 5C:5320-532C); entry 0 is $0000 (null, kept numeric), entries 1-23, 25-27 and 29-30 = 4000..4D3F strings; entry 24 = 7E84 English string; entry 28 = 7E06 English string; entry 31 = 7D96 English string (100% of targets on string starts)
+; ---- ptrtable $5104-$5144 (64 bytes) [PROBABLE] 32 x dw string pointers (slots 0-31; the same index space continues through slot 32 = 5C:5144 and slots 33-37 = the table 5C:5146, see there) indexed by the message index from the lists (ld hl,$5104 ; add a,a ; add a,l ... ld a,[hli] ; ld h,[hl] ; ld l,a at 5C:5320-532C); entry 0 is $0000 (null, kept numeric), entries 1-21, 23, 25-27 and 29-30 = 4000..4D3F strings; entry 22 = 7F20 English string; entry 24 = 7E84 English string; entry 28 = 7E06 English string; entry 31 = 7D96 English string (100% of targets on string starts)
 
 CommErr_MessagePointers:: ; 5C:5104
 Table_5C_5104::
@@ -488,7 +488,7 @@ Table_5C_5104::
 	dw CommErr_Msg_FeeLimitExceeded
 	dw CommErr_Msg_Maintenance
 	dw CommErr_Msg_ContentDownloadFailed
-	dw CommErr_Msg_BadLoginId
+	dw CommErr_Msg_BadLoginId_English
 	dw CommErr_Msg_LoginIdSuspended
 	dw CommErr_Msg_LoginIdCancelled_English
 	dw CommErr_Msg_LoginIdUnavailable
