@@ -1819,9 +1819,9 @@ Table_25_5871::
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
 Mailbox_SetIconBarAttrs:: ; 25:5889
-	; [CONFIRMED] 62 insn(s) reached by static flow only; seeds: exec x62; min discovery hops 3;
-	; entered by call from 25:40C5 (PROBABLE code) | upgraded by classifier 6: all 62 instruction
-	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
+	; [CONFIRMED] A=0..2 selects a pointer in 25:58E7; copies two 20-byte rows at a 24-byte stride.
+	; VRAM1 $99C0/$99E0 receive row0/row1; WRAM7 $D5C0/$D5E0 receive row1/row0 (reversed).
+	; BC/DE/HL restored; leaves VRAM bank 1 / WRAM bank 7. All 62 starts ran in 9 natural scenarios. ; original JP natural-read evidence; English runtime UNVALIDATED.
 	push bc
 	push de
 	push hl
@@ -1890,7 +1890,7 @@ Mailbox_SetIconBarAttrs:: ; 25:5889
 	pop bc
 	ret
 
-; ---- ptrtable $58E7-$58ED (6 bytes) [PROBABLE] 3 pointers to the 48-byte attribute blocks at 25:58ED/591D/594D; read by 25:5891 (sla a; ld c,a; ld hl,$58E7; add hl,bc; ld a,[hli]; ld c,a; ld h,[hl]; ld l,c)
+; ---- ptrtable $58E7-$58ED (6 bytes) [CONFIRMED] 3 little-endian pointers to 48-byte records at 25:58ED/591D/594D; selected by A=0..2 in Mailbox_SetIconBarAttrs (ld hl at 25:5891, word reads at 5895/5897); per-word whole natural cohorts 6/7/5, all 6 bytes read in 3 common scenarios (69-scenario coverage/dataaccess) ; original JP natural-read evidence; English runtime UNVALIDATED.
 
 Mailbox_IconBarAttrTable:: ; 25:58E7
 Table_25_58E7::
@@ -1898,7 +1898,7 @@ Table_25_58E7::
 	dw $591D
 	dw $594D
 
-; ---- data $58ED-$5A0D (288 bytes) [PROBABLE] 12 rows of 24 bytes (20 used + 4 zero pad): BG attribute bytes ($09/$0B/$0C/$29 = palette+VRAM-bank-1 flags; values as in the attribute half of the rect-copy maps); 25:5889 copies 20 bytes per row to VRAM bank 1 $99C0/$99E0 and WRAM7 $D5C0/$D5E0; blocks 58ED/591D/594D are addressed through Table_25_58E7, 597D..59F5 have no table entry (unreferenced HYPOTHESIS). Replaces the mapper heuristic gfx region 58F0-5C40 (the real tile load starts at 5A10)
+; ---- data $58ED-$5A0D (288 bytes) [PROBABLE] 6 records of 2 x 24-byte rows: each row has 20 BG attributes plus 4 zero bytes. Table 25:58E7 reaches only the first 3 records; their 120 attribute bytes are naturally read (whole per-record cohorts 6/7/5), while 24 zero spacing bytes and the 144-byte tail at $597D-$5A0D have no observed data read. Consumer 25:5889 copies row0/row1 to VRAM1 $99C0/$99E0 but row1/row0 to WRAM7 $D5C0/$D5E0. Tail meaning remains HYPOTHESIS; no export or typing as tiles. ; original JP natural-read evidence; English runtime UNVALIDATED.
 
 Mailbox_IconBarAttrs:: ; 25:58ED
 Data_25_58ED::
