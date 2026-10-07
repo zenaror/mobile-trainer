@@ -1,0 +1,11 @@
+# Independent verification of original mail-library templates
+
+Independent derivations were sealed before the complete six-case package was compared. The final proposal review upheld all seventeen checks: five role aliases, one KEEP, all 43 original bytes and seven direct loads, selector contracts, header seeds and overrides, six guarded one-line source headers and 22 exact metadata rows. The literal keyword at0F:4200 is X-GAME-CODE:. The immutable RETR From seed is distinct from its later Subject-mutated C240 copy. Historical corrections are preserved separately.
+
+The six storage units retain PROBABLE, with their exact db representation, boundaries and physical duplicates unchanged. The overwritten TOP copy is not given a ParseBody role. No library branch, RAM alias, neighboring padding or unobserved path is promoted.
+
+Five alias lines move sources by RETR+2, TOP+2 and SMTP+1. Eight overlay evidence rows and eight matching proof-comment rows account for 46 proof occurrences at23 unique sites. Every proof keeps its bank/address, instruction, confidence and natural counts. Six worklist decisions complete the22 metadata rows. The rebased tree contains289 TSV files. The baseline15529 symbols retain their exact bank/address; five aliases produce15534 final labels. Private make reports SHA-256 OK and RESULT: IDENTICAL; sym-check and palette-check pass. Final independent integration checks are recorded after their complete audit.
+
+No new execution, PPU or hardware evidence is asserted.
+
+The final independent integration review upheld all six cases and eleven files, five new aliases and six renamed operands, unchanged bytes, source bounds and classifications, 22 guarded metadata rows and every scoped physical locator. Main source and metadata match the reviewed private hashes. The full37-check suite passed36 checks; the historical ramop7 dry-run alone retains exit2 for its obsolete schema. make and compare report SHA-256 OK and RESULT: IDENTICAL; sym-check and palette-check pass. The managed-record baseline comparison covers649 rows, with no movement pending or lost record. The actual strict instruction census is16 names/19 operands,15 KEEP and one PARTIAL_ALIAS, with one structured-data macro reference separate. No new execution or hardware evidence was generated.
