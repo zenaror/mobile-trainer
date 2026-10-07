@@ -1,0 +1,11 @@
+# Independent verification of page-cache record typing
+
+The executable packet was compared in full against a separately sealed independent derivation: 1,821 checks passed, with zero required corrections. All 26 packet files and four private validation artifacts were guarded. The independently repeated six synthetic index probes demonstrate bounded lookup behavior without elevating natural evidence. A temporary reference comparator depended on filesystem traversal order; comparison by unique keyed sets established exact equality, with no missing or extra reference.
+
+Twelve bytes, both table aliases and all 295 owner instructions retain literal bytes and bank/address. Only two naturally read address words are exposed; whole PROBABLE status and six unread bytes remain. The ring has three initialized positions, while the storage contains four physical records. No corrupted-index clamp or universal copy-length contract is claimed.
+
+All 43 matching metadata rows and 31 active locators were reviewed. Twelve rows of ram12_sram_manual.tsv change only their source-line number by eight; 19 remain stable. The existing proofs, contexts, bank qualifiers and operands stay intact. The original full packet and independent seals are immutable. The integration receipt separately guards the disjoint published page_loader.asm change from e4ddc9c.
+
+The private/main full-ROM comparison, complete symbol-file identity, 649 managed-record gate, twelve exact SRAM locators and full suites are checked before publication. No new natural execution, PPU or hardware evidence is claimed.
+
+The final independent integration review accepted the complete guarded source and documentation scope. Main matches every reviewed private hash. Full37 checks passed36; the historical ramop7 dry-run alone retains exit2 for its obsolete schema. make/compare report SHA-256 OK and RESULT: IDENTICAL; sym-check and palette-check pass. All649 managed source-line records retain valid locations with no loss. Original symbols are byte-identical. Twelve active SRAM records have exact line-only remaps and all other fields are unchanged. The SRAM manual dry-run reports zero pending writes, 106 already applied and zero skipped records in both private and main copies. No new runtime, PPU or hardware evidence was generated.

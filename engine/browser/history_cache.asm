@@ -250,11 +250,19 @@ PageCache_Push:: ; 4C:4C95
 	ld [rRAMG], a
 	ret
 
-; ---- data $4CEA-$4CF6 (12 bytes) [PROBABLE] 4 triples (addr lo, addr hi, SRAM bank number) = $A000/2, $B000/2, $A000/3, $B000/3 (SRAM window addresses with bank numbers 2 and 3); the first triple is read by executed code at 4CEA, the extent 12 bytes is inferred from the exact 3-byte spacing and the identical bank/address pattern
+; ---- data $4CEA-$4CF6 (12 bytes) [PROBABLE] bounded page-cache record storage
+; Push and Pop read address lo/hi, then SRAM bank, after adding slot*3 to this base.
+; The reset-maintained ring uses slots 0..2; the fourth physical triple is outside that ring.
+; Natural reads: +0..2 in 14/69 scenarios, +3..5 in 2/69; +6..11 remain unread.
 
 Table_PageCache_Slots:: ; 4C:4CEA
 Table_4C_4CEA::
-	db $00, $A0, $02, $00, $B0, $02, $00, $A0, $03, $00, $B0, $03
+	dw $A000 ; first demonstrated destination/source address
+	db $02 ; SRAM bank for the first record
+	dw $B000 ; second demonstrated destination/source address
+	db $02 ; SRAM bank for the second record
+	db $00, $A0, $03 ; slot 2 is statically selectable; these three bytes remain unread
+	db $00, $B0, $03 ; fourth physical triple, outside the normal ring; unread
 
 PageCache_Pop:: ; 4C:4CF6
 Function_4C_4CF6::
