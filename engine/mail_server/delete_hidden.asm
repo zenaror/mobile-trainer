@@ -442,7 +442,7 @@ MailSrvDelHidden_ShowDescDeleteAll:: ; 22:43C5
 	call MailSrvDelHidden_UploadTextTiles
 	ret
 
-; ---- text $43E0-$444D (109 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+; ---- text $43E0-$444D (109 bytes) [CONFIRMED] NUL-terminated original Shift-JIS text109 (54 double-byte glyph codes + NUL); original ROM22 source passed to TextTiles_RenderLine48:403E via bank-qualified ReadByteFar; 3 whole/3 union natural scenarios; bytes and labels preserved ; original JP natural-read evidence; English runtime UNVALIDATED.
 
 PUSHC sjis
 String_MailSrvDelHidden_DescDeleteAll:: ; 22:43E0
@@ -493,7 +493,7 @@ MailSrvDelHidden_ShowDescDeleteCompletely:: ; 22:44FA
 	call MailSrvDelHidden_UploadTextTiles
 	ret
 
-; ---- text $4515-$4582 (109 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+; ---- text $4515-$4582 (109 bytes) [CONFIRMED] NUL-terminated original Shift-JIS text109 (54 double-byte glyph codes + NUL); original ROM22 source passed to TextTiles_RenderLine48:403E via bank-qualified ReadByteFar; 1 whole/1 union natural scenarios; bytes and labels preserved ; original JP natural-read evidence; English runtime UNVALIDATED.
 
 PUSHC sjis
 String_MailSrvDelHidden_DescDeleteCompletely:: ; 22:4515
@@ -1377,7 +1377,7 @@ MailSrvDelHidden_DeleteAll_Confirm:: ; 22:4B2F
 	farcall Palette_FadeOutToWhite
 	ret
 
-; ---- data $4C5B-$4C62 (7 bytes) [PROBABLE] 7-byte template (03 00 00 01 24 d5 00) copied by the loop 'ld hl,$D624 ; ld de,$4C5B ; ld b,$07' at 22:4B3D-4B4A
+; ---- data $4C5B-$4C62 (7 bytes) [CONFIRMED] opaque7-byte session-block template copied by original bank22 loop to WRAMbank1 wMailSessionBlock ($D624); 2 whole/2 union natural scenarios; no protocol-field meaning inferred; bytes and labels preserved ; original JP natural-read evidence; English runtime UNVALIDATED.
 
 Data_MailSrvDelHidden_DeleteAll_Confirm_SessionBlockTemplate:: ; 22:4C5B
 Data_22_4C5B::
@@ -1566,7 +1566,7 @@ MailSrvDelHidden_DeleteCompletely_Confirm:: ; 22:4C7A
 	farcall Palette_FadeOutToWhite
 	ret
 
-; ---- data $4DA6-$4DAD (7 bytes) [PROBABLE] 7-byte template (03 00 00 01 24 d5 00) copied to $D624 by the 'ld de,$4DA6 ; ld b,$07' loop at 22:4C8B
+; ---- data $4DA6-$4DAD (7 bytes) [CONFIRMED] opaque7-byte session-block template copied by original bank22 loop to WRAMbank1 wMailSessionBlock ($D624); 1 whole/1 union natural scenarios; no protocol-field meaning inferred; bytes and labels preserved ; original JP natural-read evidence; English runtime UNVALIDATED.
 
 Data_MailSrvDelHidden_DeleteCompletely_Confirm_SessionBlockTemplate:: ; 22:4DA6
 Data_22_4DA6::
@@ -1748,7 +1748,7 @@ MailSrvDelHidden_CheckAndDelete:: ; 22:4DAD
 	farcall Palette_FadeOutToWhite
 	ret
 
-; ---- data $4EE9-$4EF0 (7 bytes) [PROBABLE] 7-byte template (03 00 00 01 24 d5 00) copied to $D624 by the 'ld de,$4EE9 ; ld b,$07' loop at 22:4DCD
+; ---- data $4EE9-$4EF0 (7 bytes) [CONFIRMED] opaque7-byte session-block template copied by original bank22 loop to WRAMbank1 wMailSessionBlock ($D624); 1 whole/1 union natural scenarios; no protocol-field meaning inferred; bytes and labels preserved ; original JP natural-read evidence; English runtime UNVALIDATED.
 
 Data_MailSrvDelHidden_CheckAndDelete_SessionBlockTemplate:: ; 22:4EE9
 Data_22_4EE9::
