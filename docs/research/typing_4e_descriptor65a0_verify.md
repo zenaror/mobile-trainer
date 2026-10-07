@@ -1,0 +1,13 @@
+# Original descriptor 1 verification
+
+Immutable baseline: 1782ec88d510ec4c2f4ce54748d5340f12d7011a. Exact scope is engine/browser/frame_graphics.asm, REVERSE_ENGINEERING.md, docs/README.md and these two new research notes. Whole original unit: 4E:65A0–65BF, 31 bytes, SHA-256 049b8544f79c9454553a59f04fc95a386cdc1b88bf601d5361c868c11db866ab. Exact guarded old/new fragments and file hashes accompany the private packet.
+
+Private make and compare must reconstruct the original 2 MiB ROM with RESULT: IDENTICAL and SHA-256 6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570. Symbol bytes remain identical: 15535 banked labels (10070 global, 5465 local), plus 51 constants, 15586 total entries. This Japanese namespace is distinct from the published English Registration namespace.
+
+The canonical 37 checks are reported explicitly as 36 rc0 checks and the unchanged historical ramop7 manual schema rejection rc2, independently reproduced on baseline. Parser and old record bytes remain exact. Complete actual outcomes are recorded in verification.json; a runner's outer rc0 alone does not establish that every check passed.
+
+The private source and scripts are frozen before execution. All 289 maintained TSVs remain exact. Every generic active locator retains its line and literal source instruction; source labels after the descriptor have an explicit old/new map. Five screen tile_ops context fields remain untouched. All other descriptors, table words, asset bytes/statuses, frozen configuration and generator remain unchanged. No global macro or new symbol is added.
+
+Independent full executable review and coordinator main/fresh-clone gates remain pending. Original natural-read confidence supports only this exact unit and field representation; it does not establish arbitrary selector safety, English runtime or hardware behavior. Any later documentation checkpoint requires an explicit immutable rebase receipt, preserving the original derivation seal.
+
+Coordinator verification: the independent final review accepted all 33 guarded artifacts and five files with 38 checks and six fresh private gates. The separate immutable rebase from 1782ec88 to 783c8ec changes only translation publication documentation outside this patch. Main reconstructed the original ROM and preserved symbol bytes; its complete canonical37 run reports 36 rc0 and the unchanged historical ramop7 schema rejection rc2. All 649 generic records, 156 genuine bank-4E locators and five context counts remain exact. Publication and fresh remote-clone verification are recorded separately; no new runtime or hardware evidence is claimed.
