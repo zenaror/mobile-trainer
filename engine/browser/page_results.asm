@@ -40,7 +40,11 @@ Function_4C_4DB2::
 	ld a, $84
 	ret
 
-; ---- data $4DD6-$4DFB (37 bytes) [PROBABLE] 37-byte lookup table indexed by (a - $10): the routine at 4DC7 does sub $10 / add $D6 / adc $4D and ld a,[hl] (base $4DD6); values $84/$03/$05...; last bytes read by executed code at 4DF8
+; ---- data $4DD6-$4DFB (37 bytes) [PROBABLE] physical error-to-result lookup bytes
+; Browser_MapErrorToResult forms this base after admitting A=$10..$33: indices 0..35.
+; Physical index 36 at $4DFA is outside that guard; A=$26 also bypasses when session kind is 1.
+; Natural reads cover $4DD6, $4DEA and $4DF8 only; the other 34 bytes remain unread.
+; Existing db syntax and the whole-storage PROBABLE status are preserved.
 
 Table_Browser_ErrorResult:: ; 4C:4DD6
 Table_4C_4DD6::
@@ -224,7 +228,8 @@ Function_4C_4DFB::
 	xor a, a
 	ret
 
-; ---- text $4F11-$4F25 (20 bytes) [PROBABLE] ASCII "<html><head><title>" NUL, loaded by ld hl,$4F11 at 4C:4E63 (HTML page template pieces)
+; ---- text $4F11-$4F25 (20 bytes) [CONFIRMED] NUL-terminated ASCII HTML template fragment
+; CopyString at 4C:4E66 copies all 20 bytes including NUL; all read naturally in 1/69 scenarios.
 
 PUSHC sjis
 String_Html_PageHead:: ; 4C:4F11
@@ -232,7 +237,8 @@ String_4C_4F11::
 	db "<html><head><title>", 0
 POPC
 
-; ---- text $4F25-$4F45 (32 bytes) [PROBABLE] ASCII "</title></head><body><img src=\"" NUL, loaded by ld hl,$4F25 at 4C:4E75
+; ---- text $4F25-$4F45 (32 bytes) [CONFIRMED] NUL-terminated ASCII HTML template fragment
+; CopyString at 4C:4E78 copies all 32 bytes including NUL; all read naturally in 1/69 scenarios.
 
 PUSHC sjis
 String_Html_TitleToImg:: ; 4C:4F25
@@ -240,7 +246,8 @@ String_4C_4F25::
 	db "</title></head><body><img src=\"", 0
 POPC
 
-; ---- text $4F45-$4F56 (17 bytes) [PROBABLE] ASCII "\"></body></html>" NUL, loaded by ld hl,$4F45 at 4C:4E89
+; ---- text $4F45-$4F56 (17 bytes) [CONFIRMED] NUL-terminated ASCII HTML template fragment
+; CopyString at 4C:4E8C copies all 17 bytes including NUL; all read naturally in 1/69 scenarios.
 
 PUSHC sjis
 String_Html_ImgTail:: ; 4C:4F45

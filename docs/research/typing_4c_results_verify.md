@@ -1,0 +1,11 @@
+# Independent verification of bank 4C result and string headers
+
+A fresh independent derivation was sealed before opening the executable proposal. Full packet review then passed 2,303 checks, with zero failures or packet corrections. All 26 packet files and three private validation artifacts were guarded. Four exact header replacements account for seven added comment lines; noncomment source and all 169 owner instruction sites retain their original text and bank/address.
+
+The complete table remains PROBABLE with 37 physical bytes, 36 guarded indices, three naturally read bytes and 34 unread bytes. Only the three already represented strings, 20/32/17 bytes including NUL, receive CONFIRMED headers. Seven consumer inputs, all eleven unit references, the selected bank, terminators and natural reads were independently checked. All 512 mapper cases and three string-copy probes were independently repeated as SYNTHETIC fixtures; they do not promote table storage or natural coverage.
+
+Nine TSV matches and zero active source-line updates are distinct from five historical basename-coordinate prose lines. Those completed lines remain unchanged. The review's separate errata corrects its original summary about the second wrapper caller; both were already present in the complete sealed census. Their observed counts are 84 plus 200, matching 284 entries without claiming universal closure.
+
+Integration uses published 405965f. All seven scoped consumer-source guards match the original packet: the preceding page-cache source and twelve SRAM line updates are disjoint. The original seals remain immutable, with a separate integration receipt. Full-ROM, complete symbol-file identity, the 649 managed-record gate, final independent scope review and complete private/main suites precede publication. No new natural execution, PPU or hardware evidence is claimed.
+
+The final independent integration review accepted the complete guarded source and documentation scope. Main matches every reviewed private hash. Full37 checks passed36; the historical ramop7 dry-run alone retains exit2 for its obsolete schema. make/compare report SHA-256 OK and RESULT: IDENTICAL; sym-check and palette-check pass. All649 managed source-line records retain valid locations with no loss. Original symbols are byte-identical. No new runtime, PPU or hardware evidence was generated.
