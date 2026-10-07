@@ -158,3 +158,5 @@ Naming passes (names with evidence, HYPOTHESES kept under neutral names, open qu
 * A memória compartilhada do projeto (decisões, descobertas, handoff) fica na OMM, escopo `mobile-trainer`; veja a seção de memória do `AGENTS.md`.
 
 Bank 28 execution acceptance (2026-10-07): the two prepared notes now include separate verified appendices. Executor, independent and coordinator canonical checks completed with 36 rc 0 plus the historical ordinal-27 schema rc 2; the coordinator rebuilt the original ROM byte for byte and retained the original SYM. Remote publication/fresh validation is recorded separately after it occurs.
+
+Published bank-28 provenance (2026-10-07): original `236072d` has a verified fresh three-command build, complete 4,178-file/Git-blob comparison and unchanged original ROM/SYM. [Palette evidence](research/typing_28_palettes.md) and [verification chronology](research/typing_28_verify_palettes.md) retain the prepared stages and separate completed appendices. English `de315cf` is separately published/fresh-six verified; its next update is parity with the final bank-28 documentation baseline.
