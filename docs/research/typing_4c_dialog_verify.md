@@ -1,0 +1,11 @@
+# Independent verification of the bank 4C dialog argument
+
+The complete 4C–4E inventory received an independently sealed 1,453-check review. That verdict approves the inventory, not an executable patch. This pass separately reviews the exact guarded source representation, original eight bytes, every located consumer, selected bank, natural read limits and affected source-line metadata before application.
+
+The whole argument retains PROBABLE status, its neutral symbol and four unread bytes. Only the demonstrated little-endian destination is represented as a word. The `$F0` argument is ignored by the fixed-WRAM branch; no sentinel, bank policy, capacity or universal dialog contract is inferred. Full-ROM equivalence is established only by the private and main build/comparison gates.
+
+The fresh integration reviewer corrected the symbol decomposition in the draft status document: 15,535 banked labels are 10,070 globals plus 5,465 locals; the 51 exported constants are separate. The initial draft incorrectly subtracted the constants from the global-label count. The corrected count is derived from the linked symbol file, with no new or removed symbol in this pass.
+
+The executable packet received a full independent 1,286-check review with zero failures or corrections. All 22 packet files and three private validation artifacts match their sealed hashes. All 646 owner instructions retain literal source and bank/address. The metadata union is 25 rows: 24 owner-path matches and one label-only mapper row. Twenty historical rows with 37 coordinates remain unchanged; no active locator requires rewriting. Nine focused original-CPU probes were independently repeated as SYNTHETIC checks and do not increase natural confidence.
+
+The final independent integration review accepted the complete guarded source and documentation scope. Main matches every reviewed private hash. Full37 checks passed36; the historical ramop7 dry-run alone retains exit2 for its obsolete schema. make/compare report SHA-256 OK and RESULT: IDENTICAL; sym-check and palette-check pass. All649 managed source-line records retain valid locations with no loss. Original symbols are byte-identical. No new runtime, PPU or hardware evidence was generated.
