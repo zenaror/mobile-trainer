@@ -53,15 +53,15 @@ Browser_LoadHomePage:: ; 4E:48CB
 	farcall CopyString
 	jp Browser_LoadAndDispatch
 
-; ---- data $4904-$493B (55 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
-
+; ---- text $4904-$493B (55 bytes) [CONFIRMED] ASCII URL with NUL; CopyString at 4E:48FB
+	PUSHC sjis
 String_Browser_HomeUrl:: ; 4E:4904
 Data_4E_4904::
-	db $68, $74, $74, $70, $3A, $2F, $2F, $67, $61, $6D, $65, $62, $6F, $79, $2E, $64
-	db $61, $74, $61, $63, $65, $6E, $74, $65, $72, $2E, $6E, $65, $2E, $6A, $70, $2F
-	db $30, $31, $2F, $43, $47, $42, $2D, $42, $39, $41, $4A, $2F, $69, $6E, $64, $65
-	db $78, $2E, $68, $74, $6D, $6C, $00
-
+	db "http://gameboy.d"
+	db "atacenter.ne.jp/"
+	db "01/CGB-B9AJ/inde"
+	db "x.html", 0
+	POPC
 Browser_LoadStagedUrl:: ; 4E:493B
 	; [CONFIRMED] 15 insn(s) reached by static flow only; seeds: exec x15; min discovery hops 2;
 	; entered by far from 4F:470E (PROBABLE code) [executed in 1 scenarios]
