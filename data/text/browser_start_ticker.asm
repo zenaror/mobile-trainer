@@ -21,8 +21,8 @@ Table_73_4001::
 	dw $4065
 	dw $4072
 
-; ---- text $4009-$4097 (142 bytes) [PROBABLE] text: 4 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-
+; ---- text $4009-$4097 (142 bytes) [PROBABLE] English layout: original 13-byte title slot padding and three JP strings; relocated title at 73:7FED.
+; Original JP four NUL strings (13/79/13/37), 69 glyphs: 8 whole / 19 union natural reads [CONFIRMED]; English runtime UNVALIDATED.
 	; Original 13-byte title slot retained after relocation.
 	ds 13, 0
 	db "インターネットをつかって　にんてんどうモバイルホームページをみることができます", 0
