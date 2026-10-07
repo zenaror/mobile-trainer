@@ -127,3 +127,9 @@ Where evidence lives now:
 4. Keep the address comments honest after edits (`tools/sym_check.py --fix`) and record new evidence at the code.
 
 Every claim above has an evidence trail in the linked documents; anything not listed there is not established.
+
+## Published original bank 27 verification (2026-10-07)
+
+Original bank 27 was published as `f2ee01f93dc7a605da664b86e8c7603be2361cae` after separate canonical batteries of 37 commands by the executor, independent reviewer and coordinator. Each returned 36 rc 0 plus the separately retained historical ramop7 schema rc 2; none is reported as 37 PASS. The coordinator then checked a fresh GitHub clone with make, sym-check and palette-check, all rc 0: all 4,176 tracked files match the published tree and the complete ROM/SYM remain byte-exact. The source changes only the two existing comments at 2013/2020; the ten-pair interpretation stays PROBABLE, including the two exceptions to +$10, the unchecked reader input and the lack of natural execution. The four zeros remain zero/PROBABLE. No new emulator, English, visual or hardware observation is claimed.
+
+English is published and fresh-verified at `ff8b79b247d0112d242a05e02295b9d0d737b6f7`, with original bank 26 parity and 540 localized regions preserved; parity with this original bank 27 pass is next. ZIP bank 25 has 85 proposed byte differences in 273 raw bytes, still unadopted; full ZIP parity remains 5,182 pending offsets plus FullHelp. The conditional language-patch build target therefore remains unimplemented. Next original unit: independently verify the seven 64-byte bank 28 palettes and their thirteen loaders against the existing 69 original scenarios; retain the unrelated unclassified function and object-table hypotheses. Bank 29 research is prepared, with its own rebase and independent review still required.
