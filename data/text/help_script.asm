@@ -19,7 +19,7 @@ Data_6C_4809::
 ; written with the sjis_hw charmap: single bytes A1-DF appear as half-width katakana (JIS X 0201 order), other single bytes as $xx; glyphs unproven (text_encoding.md section 6)
 
 String_6C_4845:: ; 6C:4845
-	db "　モバイルトレーナー", 0
+	db "Ｍ．Ｔｒａｉｎｅｒ　", 0
 
 ; ---- data $485A-$4899 (63 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown [clipped from 483E-5175 by higher-priority evidence]
 ; kept as raw bytes: text-like bytes mixed with header/control bytes, executed-read data of unknown content class, so not provably a string
@@ -114,7 +114,7 @@ Data_6C_4B92:: ; 6C:4B92
 ; written with the sjis_hw charmap: single bytes A1-DF appear as half-width katakana (JIS X 0201 order), other single bytes as $xx; glyphs unproven (text_encoding.md section 6)
 
 String_6C_4BC9:: ; 6C:4BC9
-	db "　　　　メール", 0
+	db "　Ｅｍａｉｌ　", 0
 	db $F9, "ｰ", $FA, "ｦﾊ", $E6, "ﾒﾙﾏｴﾆ､", $F9, "ｰ", $FA, "ｯ", $10, "ﾃﾅﾝﾅﾉｶ､ｾﾂﾒｲｽﾙﾖ｡", 0
 	db $06, $A5, $05, $03, $04, $06, $F9, "ｰ", $FA, "ﾄｲｳﾉﾊ､ﾃ", $E0, "ﾐﾉﾖｳﾅ", $10, "ﾓﾉ", $ED, "､", $F9, "ｰ", $FA, "アドレ", $FD, "ｦﾓｯﾃｲ", $10, "ﾙﾄﾓ", $EA, "ﾁﾆｵｸﾚﾙﾝ", $EA, "ﾖ｡", 0
 	db $06, $8F, $FF, $03, $02, $06, $F9, "ｰ", $FA, "アドレ", $FD, "ﾊ､", $F9, "ｰ", $FA, "ﾉｾｶｲ", $10, $ED, "ﾉ", $21, $E6, "ｭｳｼｮ", $20, "ﾉｺﾄﾅﾝ", $EA, "ﾖ｡", 0
@@ -219,7 +219,7 @@ Data_6C_519E:: ; 6C:519E
 ; written with the sjis_hw charmap: single bytes A1-DF appear as half-width katakana (JIS X 0201 order), other single bytes as $xx; glyphs unproven (text_encoding.md section 6)
 
 String_6C_51B1:: ; 6C:51B1
-	db "　　アドレスちょう", 0
+	db "Ａｄｄｒ．Ｂｏｏｋ", 0
 	db "アドレ", $FD, "ﾁｮｳﾆﾂｲﾃ､ｾﾂﾒｲ", $10, "ｽﾙﾖ｡", 0
 	db $06, $4A, $02, $03, $02, $10, $F9, "ｰ", $FA, "アドレ", $FD, $E0, "､ﾄﾓ", $EA, "ﾁﾉ", $E6, "ｭ", $10, "ｳｼｮﾉﾖｳﾅﾓﾉ", $EA, "ﾄｲｳｺﾄﾊ", $10, "ﾏｴﾆﾊﾅｼﾀﾖﾈ｡", 0
 
@@ -279,7 +279,7 @@ Data_6C_5427:: ; 6C:5427
 ; written with the sjis_hw charmap: single bytes A1-DF appear as half-width katakana (JIS X 0201 order), other single bytes as $xx; glyphs unproven (text_encoding.md section 6)
 
 String_6C_543A:: ; 6C:543A
-	db "　　　ホームページ", 0
+	db "Ｈｏｍｅ　Ｐａｇｅ", 0
 	db "ホｰムペｰジ", $ED, "ｱｿ", $F1, "ﾏｴﾆ､ｽｺ", $10, "ｼ", $EA, "ｹ､ｾﾂﾒｲｽﾙﾖ｡", 0
 	db $06, $79, $02, $03, $01, $15, "ホｰムペｰジﾊ､ｴﾔﾓ", $E6, "ｦﾂｶｯ", $10, "ﾀｲﾛﾝﾅ", $E6, "ｮｳﾎｳｦﾐﾙｺﾄ", $E0, $10, $ED, "ｷﾙﾝ", $EA, "｡", 0
 	db $06, $91, $FF, $03, $03, $15, "ホｰムペｰジﾊｾｶｲ", $E6, "ｭｳﾆﾀｸ", $10, "ｻﾝｱｯﾃ､ﾐﾝﾅﾂﾅ", $E0, "ｯﾃｲﾙ", $10, "ﾝ", $EA, "ﾖ｡", 0
@@ -325,7 +325,7 @@ Data_6C_56E8:: ; 6C:56E8
 ; written with the sjis_hw charmap: single bytes A1-DF appear as half-width katakana (JIS X 0201 order), other single bytes as $xx; glyphs unproven (text_encoding.md section 6)
 
 String_6C_56FB:: ; 6C:56FB
-	db "　　　ページリスト", 0
+	db "Ｂｏｏｋｍａｒｋｓ", 0
 	db "ペｰジリ", $FD, "トﾆﾂｲﾃ､ｾﾂﾒｲｽ", $10, "ﾙﾖ｡", 0
 	db $06, $93, $01, $03, $01, $1B, "ｵｷﾆｲﾘﾉホｰムペｰジｦ､ﾐﾙ", $10, "ﾄｷﾆ､ﾀｸｻﾝリ", $FF, "クｦジ", $FC, $FF, "プ", $10, "ｽﾙﾉﾊﾒﾝ", $EE, "ｳ", $EA, "ﾖﾈ｡", 0
 	db $06, $90, $FF, $03, $03, $1B, "ｿﾝﾅﾄｷﾊ､", $21, "ペｰジリ", $FD, "トﾆセｰ", $10, "ブｼﾃｵｸﾄ", $F2, "ﾝﾘ", $20, "ﾅﾝ", $EA, "｡", 0
