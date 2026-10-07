@@ -402,10 +402,18 @@ Label_4C_42F7::
 	jp nz, Browser_LoadPage_ExitCancelled
 	jp Browser_LoadPage_Connect
 
-; ---- data $430A-$4312 (8 bytes) [PROBABLE] contiguous data block 430A-4312: 4 bytes were read as data by executed code in mGBA traces (2 separate read ranges, e.g. 430A-430B,430D-4310) and 4 bytes between/around those reads were never read; the whole run is one table/buffer read by index (gaps unread in the traces); content class not decoded [merged from 4 regions by classify_g2]
+; ---- data $430A-$4312 (8 bytes) [PROBABLE] bounded ConnectDialog_Run argument storage
+; Passed as D=$4C, BC=$430A at 4C:42F7; the far call is at 4C:42FC.
+; Mode +0 read in 19/69 scenarios; destination +3..5 read in 18/69, via ReadByteFar.
+; Bytes +1..2 and +6..7 remain unread; generic mode4's +6 input is unentered for this object.
+; WriteByteFar ignores the bank argument for this fixed-WRAM destination (H=$C2); no sentinel.
 
 Data_4C_430A:: ; 4C:430A
-	db $03, $00, $00, $F0, $20, $C2, $00, $00
+	db $03 ; initial dialog mode
+	db $00, $00 ; uninterpreted, unread bytes +1..2
+	db $F0 ; destination bank argument; ignored on the fixed-WRAM write path
+	dw $C220 ; little-endian destination consumed by ConnectDialog_Run_Accept
+	db $00, $00 ; unread +6..7; the generic mode4 input at +6 is not entered here
 
 Browser_LoadPage_AskPassword:: ; 4C:4312
 Label_4C_4312::
