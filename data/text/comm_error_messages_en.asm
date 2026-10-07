@@ -39,4 +39,16 @@ CommErr_Msg_BadLoginId_English:: ; 5C:7F20
 	db "instruction booklet", $0D
 	db "and register your", $0D
 	db "Log-in ID again.", 0
+
+; [PROBABLE] Static eight-row own-email layout; supplied words and punctuation retained.
+; One space-to-CR substitution; no new runtime evidence.
+CommErr_Msg_BadOwnMailAddress_English:: ; 5C:7F88
+	db "Your email address", $0D
+	db "is incorrect.", $0D
+	db "Please check the", $0D
+	db "manual and", $0D
+	db "re-initialize", $0D
+	db "the Mobile Trainer", $0D
+	db "registration", $0D
+	db "information.", 0
 POPC
