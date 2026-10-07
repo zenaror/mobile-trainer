@@ -257,7 +257,7 @@ Label_54_4A12::
 	ld bc, $0008
 	farcall CopyBytes
 	ld de, wRam_C240
-	ld hl, Data_54_4C3D
+	ld hl, Data_Pop3Top_DecodeHeaderArgs
 	ld bc, $0007
 	farcall CopyBytes
 	ld a, $05
@@ -479,7 +479,7 @@ Label_54_4BE8::
 Pop3_TopPoll_CheckGameCode:: ; 54:4BEC
 Label_54_4BEC::
 	ld de, wRam_C240
-	ld hl, Data_54_4C3D
+	ld hl, Data_Pop3Top_DecodeHeaderArgs
 	ld bc, $0007
 	farcall CopyBytes
 	ld a, $0B
@@ -517,17 +517,19 @@ String_54_4C2A::
 	db "CGB-BXTJ-00"
 POPC
 
-; ---- data $4C35-$4C3D (8 bytes) [PROBABLE] 8-byte blob (03 02 a0 03 00 b0 00 08, same bytes as 54:4FC3) read via ld hl,$4C35 at 54:4A35
+; ---- data $4C35-$4C3D (8 bytes) [PROBABLE] temporary TOP copy overwritten by selector6 args
 
 Data_54_4C35:: ; 54:4C35
 	db $03, $02, $A0, $03, $00, $B0, $00, $08
 
-; ---- data $4C3D-$4C44 (7 bytes) [PROBABLE] 7-byte blob (same bytes as 54:4FCB) read via ld hl,$4C3D at 54:4A44 and 54:4BEF
+; ---- data $4C3D-$4C44 (7 bytes) [PROBABLE] TOP selector6 arguments; header index overridden
 
-Data_54_4C3D:: ; 54:4C3D
+Data_Pop3Top_DecodeHeaderArgs:: ; 54:4C3D
+Data_54_4C3D::
 	db $00, $03, $02, $A0, $03, $80, $C4
 
-; ---- data $4C44-$4C47 (3 bytes) [PROBABLE] 3-byte blob (03 02 a0) read via ld hl,$4C44 at 54:5124
+; ---- data $4C44-$4C47 (3 bytes) [PROBABLE] mail scan/check input prefix (S3:A002)
 
-Data_54_4C44:: ; 54:4C44
+Data_MailScan_InputPrefix:: ; 54:4C44
+Data_54_4C44::
 	db $03, $02, $A0
