@@ -12,8 +12,8 @@ Data_BrowserStart_StringIndexBank:: ; 73:4000
 Data_73_4000::
 	db $73
 
-; ---- ptrtable $4001-$4009 (8 bytes) [PROBABLE] 4 pointers, every target is the first byte of one of the 4 NUL-terminated Shift-JIS strings of String_73_4009; byte 4000 = $73 (own bank number) precedes the table; caller 73:62C6 ld hl,$4000 ; ld a,$73
-
+; ---- ptrtable $4001-$4009 (8 bytes) [CONFIRMED] original-ROM format: two title/body pointer pairs in ROM bank 73
+; Original natural reads: 73:62C6 -> 48:42D4, stride 4; 8 whole / 19 union scenarios; no universal index clamp. English first title: 73:7FED, same format/bank; English runtime UNVALIDATED.
 BrowserStart_StringTable:: ; 73:4001
 Table_73_4001::
 	dw BrowserStart_Strings
