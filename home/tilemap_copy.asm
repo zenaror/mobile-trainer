@@ -12,15 +12,15 @@ Function_00_16A2::
 	ld a, $07
 	call BankSwitch_D
 	ld a, c
-	ldh [hRam_FFB0], a
+	ldh [hTilemapRect_Width], a
 	push bc
 	push de
 	call Tilemap_CopyRect
 	pop de
 	pop bc
-	ld a, [wRam_C10E]
+	ld a, [wTilemapCopy_AttrSrcLo]
 	ld l, a
-	ld a, [wRam_C10F]
+	ld a, [wTilemapCopy_AttrSrcHi]
 	ld h, a
 	ld a, d
 	add a, $04

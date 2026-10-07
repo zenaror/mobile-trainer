@@ -14,7 +14,7 @@ Palette_FadeOutWithTicker:: ; 48:46C6
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $04
-	ld [wRam_C10E], a
+	ld [wPaletteTicker_StepFrames], a
 	ld bc, $0080
 	ld de, wPaletteFadeFrom
 	ld hl, wPaletteBufBg
@@ -32,7 +32,7 @@ Palette_FadeOutWithTicker:: ; 48:46C6
 	ei
 	call Sound_FrameService
 	call Ticker_Update
-	ld hl, wRam_C10E
+	ld hl, wPaletteTicker_StepFrames
 	dec [hl]
 	jr nz, .loop
 	ld [hl], $04

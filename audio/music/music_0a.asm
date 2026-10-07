@@ -362,4 +362,6 @@ Data_04_7990::
 	sound_stream_header 3, 2
 	dw SoundSong0A_Track0, SoundSong0A_Track1, SoundSong0A_Track2 ; track stream pointers (read by the driver)
 	dw SoundSong0A_Track0_Loop, SoundSong0A_Track1_Loop, SoundSong0A_Track2_Loop ; not read by the driver: target of each track's final sound_jump
-	dw SoundSong0A_Track0_AfterJump, SoundSong0A_Track1_AfterJump, SoundSong0A_Track2_AfterJump ; not read by the driver: address after each track's final sound_jump
+	; not read by the driver: address after each track's final sound_jump
+	dw SoundSong0A_Track0_AfterJump, SoundSong0A_Track1_AfterJump
+	dw SoundSong0A_Track2_AfterJump

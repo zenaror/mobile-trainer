@@ -9,11 +9,11 @@ CommTime_ShowSummary:: ; 51:4000
 	; entered by far from 24:4168 (PROBABLE code) [executed in 4 scenarios]
 	call CommTime_DrawSummaryScreen
 	call CommTime_AddTimerA
-	ldh a, [hRam_FFB0]
+	ldh a, [hCommTime_TotalFrames]
 	ld [wCommTimeTotal], a
-	ldh a, [hRam_FFB1]
+	ldh a, [hCommTime_TotalSeconds]
 	ld [wCommTimeTotal + 1], a
-	ldh a, [hRam_FFB2]
+	ldh a, [hCommTime_TotalMinutes]
 	ld [wCommTimeTotal + 2], a
 	xor a, a
 	ld [wTimerAFrames], a
@@ -129,7 +129,7 @@ Function_51_404A::
 
 .skip ; 51:4117
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios)
-	ldh [hRam_FFB1], a
+	ldh [hCommTime_DisplaySeconds], a
 	ld a, [wCommSessionKind]
 	cp a, $01
 	jr z, .l4125
@@ -144,7 +144,7 @@ Function_51_404A::
 .l4128 ; 51:4128
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
 	xor a, a
-	ldh [hRam_FFB4], a
+	ldh [hCommTime_DigitStarted], a
 	ld bc, $FF9C
 	call CommTime_DrawNumber
 	ld bc, $FFF6
@@ -164,11 +164,11 @@ Function_51_404A::
 
 .l414A ; 51:414A
 	; [CONFIRMED] 25 insn(s); 25 executed (in up to 2/18 scenarios)
-	ldh a, [hRam_FFB1]
+	ldh a, [hCommTime_DisplaySeconds]
 	ld l, a
 	ld h, $00
 	xor a, a
-	ldh [hRam_FFB4], a
+	ldh [hCommTime_DigitStarted], a
 	ld bc, $FFF6
 	call CommTime_DrawNumber
 	ld a, l
@@ -252,7 +252,7 @@ Label_51_41C7::
 
 CommTime_Summary_Exit:: ; 51:41D3
 Label_51_41D3::
-	ldh [hRam_FFA7], a
+	ldh [hJoyDispatchExtraMask], a
 	ldh a, [hDialogResult]
 	ret
 
@@ -263,7 +263,7 @@ CommTime_DrawNumber:: ; 51:41D8
 	jr z, CommTime_DrawNumber
 	dec a
 	jr nz, .l41E8
-	ldh a, [hRam_FFB4]
+	ldh a, [hCommTime_DigitStarted]
 	or a, a
 	jr z, .l41F3
 
@@ -281,7 +281,7 @@ CommTime_DrawNumber:: ; 51:41D8
 	pop hl
 	pop bc
 	ld a, $FF
-	ldh [hRam_FFB4], a
+	ldh [hCommTime_DigitStarted], a
 
 .l41F3 ; 51:41F3
 	; [CONFIRMED] 39 insn(s); 39 executed (in up to 2/18 scenarios)
@@ -365,13 +365,13 @@ CommTime_AddTimerA:: ; 51:425F
 	ld hl, wCommTimeTotal
 	ld a, [wTimerAFrames]
 	add a, [hl]
-	ldh [hRam_FFB0], a
+	ldh [hCommTime_TotalFrames], a
 	sub a, $3C
 	jr c, .l426F
 
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 51:426A (executed)
-	ldh [hRam_FFB0], a
+	ldh [hCommTime_TotalFrames], a
 	xor a, a
 
 .l426F ; 51:426F
@@ -380,13 +380,13 @@ CommTime_AddTimerA:: ; 51:425F
 	inc hl
 	ld a, [wTimerASeconds]
 	adc a, [hl]
-	ldh [hRam_FFB1], a
+	ldh [hCommTime_TotalSeconds], a
 	sub a, $3C
 	jr c, .l427E
 
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 51:4279 (executed)
-	ldh [hRam_FFB1], a
+	ldh [hCommTime_TotalSeconds], a
 	xor a, a
 
 .l427E ; 51:427E
@@ -395,7 +395,7 @@ CommTime_AddTimerA:: ; 51:425F
 	inc hl
 	ld a, [wTimerAMinutes]
 	adc a, [hl]
-	ldh [hRam_FFB2], a
+	ldh [hCommTime_TotalMinutes], a
 	jr c, .l428C
 	cp a, $3C
 	jr c, .l4292
@@ -404,15 +404,15 @@ CommTime_AddTimerA:: ; 51:425F
 	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
 	; entered by jrcc from 51:4286 (executed)
 	ld a, $3B
-	ldh [hRam_FFB2], a
-	ldh [hRam_FFB1], a
+	ldh [hCommTime_TotalMinutes], a
+	ldh [hCommTime_TotalSeconds], a
 
 .l4292 ; 51:4292
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 5/18 scenarios)
-	ldh a, [hRam_FFB2]
+	ldh a, [hCommTime_TotalMinutes]
 	ld l, a
 	ld h, $00
-	ldh a, [hRam_FFB1]
+	ldh a, [hCommTime_TotalSeconds]
 	ret
 
 ; ---- zero $429A-$42A0 (6 bytes) [PROBABLE] 6 x 00 between the code ending at 429A (ret at 4299) and the tile block at 51:42A0 (alignment)

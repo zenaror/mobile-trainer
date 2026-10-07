@@ -788,7 +788,7 @@ Browser_Leave_Return:: ; 4E:5009
 	farcall Sprite_ResetAll
 	xor a, a
 	ld [wBrowserNavigating], a
-	ldh [hRam_FFA7], a
+	ldh [hJoyDispatchExtraMask], a
 	ldh a, [hDialogResult]
 	ret
 

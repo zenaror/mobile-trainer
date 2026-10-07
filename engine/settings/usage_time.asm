@@ -39,7 +39,7 @@ Function_67_60BA::
 	farcall Notice_ShowPage
 	ret
 .l60F9 ; 67:60F9
-	ld a, [wRam_C28E]
+	ld a, [wUsageQuery_NoFlag]
 	or a, a
 	jr z, UsageTime_Run
 .l60FF ; 67:60FF

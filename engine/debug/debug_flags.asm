@@ -201,7 +201,7 @@ DebugFlags_OnA:: ; 19:41CB
 	dec a
 	jr nz, .l41E1
 .l41E8 ; 19:41E8
-	ld a, [wRam_C0E5]
+	ld a, [wDebugFlags_EntryIndex]
 	ld hl, Table_DebugFlags_Entries
 	add a, a
 	inc a
@@ -224,7 +224,7 @@ DebugFlags_OnA:: ; 19:41CB
 	ld a, $01
 	farcall WriteByteFar
 .l420D ; 19:420D
-	ld a, [wRam_C0E5]
+	ld a, [wDebugFlags_EntryIndex]
 	ld hl, Table_DebugFlags_Entries
 	add a, a
 	add a, a
@@ -369,7 +369,7 @@ DebugFlags_OnStart:: ; 19:42B7
 	jp DebugFlags_Loop
 
 DebugFlags_EntryHasHighByte:: ; 19:4321
-	ld a, [wRam_C0E5]
+	ld a, [wDebugFlags_EntryIndex]
 	ld hl, Table_DebugFlags_Entries
 	add a, a
 	inc a
@@ -401,19 +401,19 @@ DebugFlags_HandleDpad:: ; 19:4333
 	jp nz, .l4385
 	ret
 .l4354 ; 19:4354
-	ld a, [wRam_C0E5]
+	ld a, [wDebugFlags_EntryIndex]
 	inc a
 	cp a, $01
 	ret z
-	ld [wRam_C0E5], a
+	ld [wDebugFlags_EntryIndex], a
 	call DebugFlags_DrawEntryName
 	jr .l436F
 .l4363 ; 19:4363
-	ld a, [wRam_C0E5]
+	ld a, [wDebugFlags_EntryIndex]
 	or a, a
 	ret z
 	dec a
-	ld [wRam_C0E5], a
+	ld [wDebugFlags_EntryIndex], a
 	call DebugFlags_DrawEntryName
 .l436F ; 19:436F
 	call DebugFlags_EntryHasHighByte2
@@ -476,7 +476,7 @@ DebugFlags_HandleDpad:: ; 19:4333
 	ret
 
 DebugFlags_EntryHasHighByte2:: ; 19:43D7
-	ld a, [wRam_C0E5]
+	ld a, [wDebugFlags_EntryIndex]
 	ld hl, Table_DebugFlags_Entries
 	add a, a
 	inc a
@@ -579,7 +579,7 @@ DebugFlags_DrawEntryName:: ; 19:4532
 	ld bc, $0400
 	xor a, a
 	call FillBytes
-	ld a, [wRam_C0E5]
+	ld a, [wDebugFlags_EntryIndex]
 	ld hl, $4912
 	add a, a
 	add a, l
@@ -643,7 +643,7 @@ DebugFlags_DrawValue:: ; 19:458A
 	ld a, $90
 	ld [de], a
 	inc de
-	ld a, [wRam_C0E5]
+	ld a, [wDebugFlags_EntryIndex]
 	ld hl, Table_DebugFlags_Entries
 	add a, a
 	inc a
@@ -693,7 +693,7 @@ DebugFlags_DrawValue:: ; 19:458A
 	ld a, [hli]
 	ld [de], a
 	inc de
-	ld a, [wRam_C0E5]
+	ld a, [wDebugFlags_EntryIndex]
 	ld hl, Table_DebugFlags_Entries
 	add a, a
 	add a, a
@@ -774,7 +774,7 @@ DebugFlags_DrawValue:: ; 19:458A
 	ret
 .l468F ; 19:468F
 	ld de, $D000 ; raw: string scratch of bank 2 (Shift-JIS text built here, rendered by TextTiles_RenderGrid with A = 2), not tile staging
-	ld a, [wRam_C0E5]
+	ld a, [wDebugFlags_EntryIndex]
 	ld hl, Table_DebugFlags_Entries
 	add a, a
 	inc a
@@ -823,7 +823,7 @@ DebugFlags_DrawValue:: ; 19:458A
 	dec c
 	jr nz, .l46CE
 .l46D4 ; 19:46D4
-	ld a, [wRam_C0E5]
+	ld a, [wDebugFlags_EntryIndex]
 	ld hl, Table_DebugFlags_Entries
 	add a, a
 	add a, a
@@ -1011,7 +1011,7 @@ DebugFlags_SlideIn:: ; 19:482B
 	; entered by call from 19:4196 (PROBABLE code) | forced execution: 115/121 instruction starts
 	; ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
 	ld a, $99
-	ld [wRam_C0E5], a
+	ld [wDebugFlags_SlideY], a
 	ld a, $11
 	ld [wDebugFlags_SlideStep], a
 .loop ; 19:4835
@@ -1024,9 +1024,9 @@ DebugFlags_SlideIn:: ; 19:482B
 	ld [wDebugFlags_SlideStep], a
 	ld b, a
 .skip ; 19:484A
-	ld a, [wRam_C0E5]
+	ld a, [wDebugFlags_SlideY]
 	sub a, b
-	ld [wRam_C0E5], a
+	ld [wDebugFlags_SlideY], a
 	ldh [rWY], a
 	cp a, $00
 	jr nz, .loop
@@ -1034,7 +1034,7 @@ DebugFlags_SlideIn:: ; 19:482B
 
 DebugFlags_SlideOut:: ; 19:4858
 	ld a, $00
-	ld [wRam_C0E5], a
+	ld [wDebugFlags_SlideY], a
 	ld a, $11
 	ld [wDebugFlags_SlideStep], a
 .loop ; 19:4862
@@ -1047,9 +1047,9 @@ DebugFlags_SlideOut:: ; 19:4858
 	ld [wDebugFlags_SlideStep], a
 	ld b, a
 .skip ; 19:4877
-	ld a, [wRam_C0E5]
+	ld a, [wDebugFlags_SlideY]
 	add a, b
-	ld [wRam_C0E5], a
+	ld [wDebugFlags_SlideY], a
 	ldh [rWY], a
 	cp a, $99
 	jr nz, .loop
@@ -1073,7 +1073,7 @@ DebugFlags_UpdateHoldTimer:: ; 19:4885
 	ret
 
 DebugFlags_ReadValue:: ; 19:48A0
-	ld a, [wRam_C0E5]
+	ld a, [wDebugFlags_EntryIndex]
 	ld hl, Table_DebugFlags_Entries
 	add a, a
 	inc a
@@ -1093,7 +1093,7 @@ DebugFlags_ReadValue:: ; 19:48A0
 	call ReadByteFar
 	ld b, a
 .l48BD ; 19:48BD
-	ld a, [wRam_C0E5]
+	ld a, [wDebugFlags_EntryIndex]
 	ld hl, Table_DebugFlags_Entries
 	add a, a
 	add a, a
@@ -1111,7 +1111,7 @@ DebugFlags_ReadValue:: ; 19:48A0
 	ret
 
 DebugFlags_WriteValue:: ; 19:48D5
-	ld a, [wRam_C0E5]
+	ld a, [wDebugFlags_EntryIndex]
 	ld hl, Table_DebugFlags_Entries
 	add a, a
 	inc a
@@ -1130,7 +1130,7 @@ DebugFlags_WriteValue:: ; 19:48D5
 	ld b, d
 	farcall WriteByteFar
 .l48F3 ; 19:48F3
-	ld a, [wRam_C0E5]
+	ld a, [wDebugFlags_EntryIndex]
 	ld hl, Table_DebugFlags_Entries
 	add a, a
 	add a, a

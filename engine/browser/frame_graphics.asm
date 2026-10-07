@@ -53,7 +53,7 @@ Function_4E_6196::
 	ld de, $9001
 	ld b, $92
 	ld c, $40
-	ldh [hRam_FFB0], a
+	ldh [hBrowserFrame_TilesBank], a
 	farcall Gfx_StartHDMAWithService
 	pop hl
 	ld bc, $0400
@@ -61,7 +61,7 @@ Function_4E_6196::
 	ld de, $9401
 	ld b, $92
 	ld c, $40
-	ldh a, [hRam_FFB0]
+	ldh a, [hBrowserFrame_TilesBank]
 	farcall Gfx_StartHDMAWithService
 	pop hl
 	ld a, [hli]
@@ -151,7 +151,7 @@ Function_4E_6291::
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
-	ldh a, [hRam_FFD2]
+	ldh a, [hFramePreview_Style]
 	push bc
 	and a, $7F
 	ld c, a
@@ -177,7 +177,7 @@ Function_4E_6291::
 	ld de, $9001
 	ld b, $92
 	ld c, $40
-	ldh [hRam_FFB0], a
+	ldh [hBrowserFrame_TilesBank], a
 	farcall Gfx_StartHDMAWithService
 	pop hl
 	ld bc, $0400
@@ -185,7 +185,7 @@ Function_4E_6291::
 	ld de, $9401
 	ld b, $92
 	ld c, $40
-	ldh a, [hRam_FFB0]
+	ldh a, [hBrowserFrame_TilesBank]
 	farcall Gfx_StartHDMAWithService
 	pop hl
 	ld a, [hli]
@@ -214,7 +214,7 @@ Function_4E_6291::
 	ld de, wScreenTileMap
 	farcall Tilemap_CopyRectAndAttr
 	pop hl
-	ldh a, [hRam_FFD2]
+	ldh a, [hFramePreview_Style]
 	push bc
 	and a, $7F
 	ld c, a
@@ -241,7 +241,7 @@ Function_4E_6291::
 	ld bc, $0712
 	ld de, $0480
 	farcall Tilemap_FillAscendingWithAttr
-	ldh a, [hRam_FFD2]
+	ldh a, [hFramePreview_Style]
 	push bc
 	and a, $7F
 	ld c, a
@@ -311,7 +311,7 @@ Function_4E_6291::
 	ld de, $8801
 	ld b, $92
 	ld c, $40
-	ldh [hRam_FFB0], a
+	ldh [hBrowserFrame_TilesBank], a
 	farcall Gfx_StartHDMAWithService
 	pop hl
 	ld bc, $0400
@@ -319,7 +319,7 @@ Function_4E_6291::
 	ld de, $8C01
 	ld b, $92
 	ld c, $40
-	ldh a, [hRam_FFB0]
+	ldh a, [hBrowserFrame_TilesBank]
 	farcall Gfx_StartHDMAWithService
 	pop hl
 	ld a, [hli]

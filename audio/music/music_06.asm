@@ -476,5 +476,9 @@ SoundSong06_Header:: ; 04:6B3A
 Data_04_6B3A::
 	sound_stream_header 4, 2
 	dw SoundSong06_Track0, SoundSong06_Track1, SoundSong06_Track2, SoundSong06_Track3 ; track stream pointers (read by the driver)
-	dw SoundSong06_Track0_Loop, SoundSong06_Track1_Loop, SoundSong06_Track2_Loop, SoundSong06_Track3_Loop ; not read by the driver: target of each track's final sound_jump
-	dw SoundSong06_Track0_AfterJump, SoundSong06_Track1_AfterJump, SoundSong06_Track2_AfterJump, SoundSong06_Track3_AfterJump ; not read by the driver: address after each track's final sound_jump
+	; not read by the driver: target of each track's final sound_jump
+	dw SoundSong06_Track0_Loop, SoundSong06_Track1_Loop
+	dw SoundSong06_Track2_Loop, SoundSong06_Track3_Loop
+	; not read by the driver: address after each track's final sound_jump
+	dw SoundSong06_Track0_AfterJump, SoundSong06_Track1_AfterJump
+	dw SoundSong06_Track2_AfterJump, SoundSong06_Track3_AfterJump

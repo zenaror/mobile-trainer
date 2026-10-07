@@ -12,9 +12,9 @@ Function_00_1408::
 	; --split [executed in 1 scenarios]
 	call BankSwitch_H
 	ld a, c
-	ldh [hRam_FFB0], a
+	ldh [hTextMeasure_RightLimitX], a
 	ld a, b
-	ldh [hRam_FFB1], a
+	ldh [hTextMeasure_RightLimitXHi], a
 	ld bc, $0000
 .loop ; 00:1414
 	ld a, [hli]
@@ -45,13 +45,13 @@ Function_00_1408::
 	ld d, a
 	bit 7, a
 	jr nz, .loop
-	ldh a, [hRam_FFB0]
+	ldh a, [hTextMeasure_RightLimitX]
 	sub a, e
-	ldh a, [hRam_FFB1]
+	ldh a, [hTextMeasure_RightLimitXHi]
 	sbc a, d
 	jr c, .l14AA
 	jr nz, .l144A
-	ldh a, [hRam_FFB0]
+	ldh a, [hTextMeasure_RightLimitX]
 	sub a, e
 	jr z, .l14A8
 .l144A ; 00:144A
@@ -88,13 +88,13 @@ Function_00_1408::
 	ld d, a
 	bit 7, a
 	jr nz, .loop
-	ldh a, [hRam_FFB0]
+	ldh a, [hTextMeasure_RightLimitX]
 	sub a, e
-	ldh a, [hRam_FFB1]
+	ldh a, [hTextMeasure_RightLimitXHi]
 	sbc a, d
 	jr c, .l14AA
 	jr nz, .l1483
-	ldh a, [hRam_FFB0]
+	ldh a, [hTextMeasure_RightLimitX]
 	sub a, e
 	jr z, .l14A8
 .l1483 ; 00:1483
@@ -110,13 +110,13 @@ Function_00_1408::
 	ld d, a
 	bit 7, a
 	jr nz, .loop
-	ldh a, [hRam_FFB0]
+	ldh a, [hTextMeasure_RightLimitX]
 	sub a, e
-	ldh a, [hRam_FFB1]
+	ldh a, [hTextMeasure_RightLimitXHi]
 	sbc a, d
 	jr c, .l14B4
 	jr nz, .l14A2
-	ldh a, [hRam_FFB0]
+	ldh a, [hTextMeasure_RightLimitX]
 	sub a, e
 	jr z, .l14A7
 .l14A2 ; 00:14A2

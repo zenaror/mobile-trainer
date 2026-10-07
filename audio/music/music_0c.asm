@@ -295,5 +295,9 @@ SoundSong0C_Header:: ; 04:7DA2
 Data_04_7DA2::
 	sound_stream_header 4, 2
 	dw SoundSong0C_Track0, SoundSong0C_Track1, SoundSong0C_Track2, SoundSong0C_Track3 ; track stream pointers (read by the driver)
-	dw SoundSong0C_Track0_Loop, SoundSong0C_Track1_Loop, SoundSong0C_Track2_Loop, SoundSong0C_Track3_Loop ; not read by the driver: target of each track's final sound_jump
-	dw SoundSong0C_Track0_AfterJump, SoundSong0C_Track1_AfterJump, SoundSong0C_Track2_AfterJump, SoundSong0C_Track3_AfterJump ; not read by the driver: address after each track's final sound_jump
+	; not read by the driver: target of each track's final sound_jump
+	dw SoundSong0C_Track0_Loop, SoundSong0C_Track1_Loop
+	dw SoundSong0C_Track2_Loop, SoundSong0C_Track3_Loop
+	; not read by the driver: address after each track's final sound_jump
+	dw SoundSong0C_Track0_AfterJump, SoundSong0C_Track1_AfterJump
+	dw SoundSong0C_Track2_AfterJump, SoundSong0C_Track3_AfterJump

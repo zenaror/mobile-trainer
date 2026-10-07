@@ -91,7 +91,7 @@ Smtp_StartMailFrom:: ; 54:4575
 	ld a, $05
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, Data_54_475A
+	ld hl, Data_Smtp_HeaderComposeArgs
 	ld de, wRam_C240
 	ld bc, $000A
 	farcall CopyBytes
@@ -122,10 +122,10 @@ Smtp_StartMailFrom:: ; 54:4575
 	farcall CopyString
 .l45DB ; 54:45DB
 	ld hl, wRam_C580
-	ld de, wRam_C480
+	ld de, wSmtp_EncodedText
 	ld bc, $0100
 	farcall Charset_SjisToIso2022Jp
-	ld hl, wRam_C480
+	ld hl, wSmtp_EncodedText
 	call Smtp_MeasureField
 	ld c, $01
 	ld de, wRam_C240
@@ -169,10 +169,10 @@ Smtp_StartMailFrom:: ; 54:4575
 	farcall CopyString
 .l464D ; 54:464D
 	ld hl, wRam_C580
-	ld de, wRam_C480
+	ld de, wSmtp_EncodedText
 	ld bc, $0100
 	farcall Charset_SjisToIso2022Jp
-	ld hl, wRam_C480
+	ld hl, wSmtp_EncodedText
 	call Smtp_MeasureField
 	ld c, $01
 	ld de, wRam_C240
@@ -185,16 +185,16 @@ Smtp_StartMailFrom:: ; 54:4575
 	ld a, [hl]
 	or a, a
 	jr z, .l46A9
-	ld de, wRam_C500
+	ld de, wSmtp_SubjectScratch
 	ld bc, $0014
 	farcall CopyBytes
 	xor a, a
 	ld [wRam_C514], a
-	ld hl, wRam_C500
-	ld de, wRam_C480
+	ld hl, wSmtp_SubjectScratch
+	ld de, wSmtp_EncodedText
 	ld bc, $0080
 	farcall Charset_SjisToIso2022Jp
-	ld hl, wRam_C480
+	ld hl, wSmtp_EncodedText
 	call Smtp_MeasureField
 	ld c, $01
 	ld de, wRam_C240
@@ -202,7 +202,7 @@ Smtp_StartMailFrom:: ; 54:4575
 	call Mail_BuildHeaderField
 .l46A9 ; 54:46A9
 	xor a, a
-	ld [wRam_C245], a
+	ld [wSmtp_FieldLength], a
 	ld c, $01
 	ld de, wRam_C240
 	ld b, $07
@@ -240,15 +240,15 @@ Mail_BuildHeaderField:: ; 54:46E8
 	jr z, Mail_BuildHeaderField
 	ld c, l
 	ld b, h
-	ld hl, wRam_C241
+	ld hl, wSmtp_HeaderWritePtr
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
 	add hl, bc
 	ld a, l
-	ld [wRam_C241], a
+	ld [wSmtp_HeaderWritePtr], a
 	ld a, h
-	ld [wRam_C242], a
+	ld [wSmtp_HeaderWritePtrHi], a
 	ld a, $FF
 	xor a, c
 	ld c, a
@@ -256,15 +256,15 @@ Mail_BuildHeaderField:: ; 54:46E8
 	xor a, b
 	ld b, a
 	inc bc
-	ld hl, wRam_C243
+	ld hl, wSmtp_HeaderBytesFree
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
 	add hl, bc
 	ld a, l
-	ld [wRam_C243], a
+	ld [wSmtp_HeaderBytesFree], a
 	ld a, h
-	ld [wRam_C244], a
+	ld [wSmtp_HeaderBytesFreeHi], a
 	ret
 
 Smtp_MeasureField:: ; 54:4726
@@ -280,7 +280,7 @@ Function_54_4726::
 	jr nz, .loop
 .l4731 ; 54:4731
 	ld a, b
-	ld [wRam_C245], a
+	ld [wSmtp_FieldLength], a
 	ret
 
 Smtp_CopyFieldToWork:: ; 54:4736
@@ -325,9 +325,10 @@ Function_54_4748::
 	inc b
 	ret
 
-; ---- data $475A-$4764 (10 bytes) [PROBABLE] 10-byte blob copied to WRAM $C240 by CopyBytes 00:050C (FarCall 0C 05 00, bc=$000A) at 54:4593 (ld hl,$475A ; ld de,$C240)
+; ---- data $475A-$4764 (10 bytes) [PROBABLE] SMTP selector8 stream/item argument seed
 
-Data_54_475A:: ; 54:475A
+Data_Smtp_HeaderComposeArgs:: ; 54:475A
+Data_54_475A::
 	db $03, $00, $A1, $00, $0F, $00, $00, $80, $C4, $00
 
 ; ---- data $4764-$4770 (12 bytes) [HYPOTHESIS] 12 bytes between the $C240 blob and the string at 4770; use not found (content unresolved)
@@ -383,7 +384,7 @@ Smtp_DataPoll:: ; 54:4772
 .l47A6 ; 54:47A6
 	; [CONFIRMED] 66 insn(s) executed; cut out of the PROBABLE region 4772-4856 by apply_coverage
 	; --split [executed in 5 scenarios]
-	ld hl, wRam_C241
+	ld hl, wSmtp_HeaderWritePtr
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -419,7 +420,7 @@ Smtp_DataPoll:: ; 54:4772
 	add hl, bc
 	xor a, a
 	ld [hl], a
-	ld de, wRam_C480
+	ld de, wSmtp_EncodedText
 	ld a, $0D
 	ld [de], a
 	inc de
@@ -429,21 +430,21 @@ Smtp_DataPoll:: ; 54:4772
 	ld hl, wRam_C580
 	ld bc, $0200
 	farcall Charset_SjisToIso2022Jp
-	ld hl, wRam_C482
+	ld hl, wSmtp_EncodedBodyText
 	add hl, bc
 	ld e, l
 	ld d, h
 	ld hl, String_Smtp_EndOfData
 	farcall CopyString
 .l4812 ; 54:4812
-	ld hl, wRam_C480
+	ld hl, wSmtp_EncodedText
 	ld bc, $FFFF
 .l4818 ; 54:4818
 	inc bc
 	ld a, [hli]
 	or a, a
 	jr nz, .l4818
-	ld hl, wRam_C480
+	ld hl, wSmtp_EncodedText
 	ld a, $18
 	ld d, $01
 	farcall MobileAPI
@@ -458,7 +459,7 @@ Smtp_DataPoll:: ; 54:4772
 .l4834 ; 54:4834
 	; [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4772-4856 by apply_coverage --split
-	ld de, wRam_C480
+	ld de, wSmtp_EncodedText
 	ld a, $0D
 	ld [de], a
 	inc de

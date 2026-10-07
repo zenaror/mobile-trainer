@@ -194,7 +194,7 @@ Function_68_77D6::
 	; [CONFIRMED] 55 insn(s); 55 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wResultPage_Kind]
-	ld hl, Data_68_7831
+	ld hl, Data_Account_ResultPage_BannerTables
 	ld b, a
 	add a, a
 	add a, b
@@ -218,7 +218,7 @@ Function_68_77D6::
 	or a, a
 	jr nz, .l780E
 	ld a, [wResultPage_Kind]
-	ld hl, $7849
+	ld hl, Account_ResultPage_SecondBannerIndexByKind
 	add a, l
 	ld l, a
 	ld a, $00
@@ -229,7 +229,7 @@ Function_68_77D6::
 .l780E ; 68:780E
 	ld a, $01
 .l7810 ; 68:7810
-	ld hl, $7840
+	ld hl, Account_ResultPage_SecondBannerSources
 	ld b, a
 	add a, a
 	add a, b
@@ -251,11 +251,26 @@ Function_68_77D6::
 	farcall Gfx_StartHDMAWithService
 	ret
 
-; ---- data $7831-$784E (29 bytes) [PROBABLE] contiguous data block 7831-784E: 22 bytes were read as data by executed code in mGBA traces (2 separate read ranges, e.g. 7831-7840,7843-784A) and 7 bytes between/around those reads were never read; the whole run is one table/buffer read by index (gaps unread in the traces); content class not decoded [merged from 4 regions by classify_g2]
+; ---- data $7831-$784E (29 bytes) [PROBABLE] aggregate of three scoped tables:
+; five source16/bank8 records, three source16/bank8 records, five index bytes.
+; Exactly 22 bytes naturally read; unread: $7840-$7843 and $784A-$784E.
+; CONFIRMED consumer roles do not promote those seven unread storage bytes.
+Data_Account_ResultPage_BannerTables:: ; 68:7831
+Data_68_7831::
+	db $F0, $46, $4B, $70, $49, $4B, $70, $4E, $4B, $F0, $4B, $4B, $F0, $46, $4B
 
-Data_68_7831:: ; 68:7831
-	db $F0, $46, $4B, $70, $49, $4B, $70, $4E, $4B, $F0, $4B, $4B, $F0, $46, $4B, $F0
-	db $50, $4B, $70, $53, $4B, $F0, $55, $4B, $02, $01, $00, $00, $01
+; Second source list $7840-$7849: indices 1/2 read, index 0 unread [PROBABLE storage].
+; Both transfers request C=$28 blocks: $280 bytes (640), to VRAM bank 1.
+Account_ResultPage_SecondBannerSources:: ; 68:7840
+Table_68_7840::
+	db $F0, $50, $4B, $70, $53, $4B, $F0, $55, $4B
+
+; Second index by kind $7849-$784E: only first byte naturally read [PROBABLE storage].
+; Static known kinds 0..4; lookup values 0..2. Entry routine has no bounds clamp.
+Account_ResultPage_SecondBannerIndexByKind:: ; 68:7849
+Data_68_7849::
+	db $02, $01, $00, $00, $01
+
 
 Account_ResultPage_DrawTimeDigits:: ; 68:784E
 Function_68_784E::

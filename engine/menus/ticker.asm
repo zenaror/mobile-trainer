@@ -36,7 +36,7 @@ Ticker_Update:: ; 48:4223
 	dec a
 	and a, $07
 	ret nz
-	ld a, [wRam_C0F6]
+	ld a, [wTicker_DestColumn]
 	add a, $16
 	and a, $1F
 	swap a
@@ -88,10 +88,10 @@ Ticker_Update:: ; 48:4223
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
-	ld a, [wRam_C0F6]
+	ld a, [wTicker_DestColumn]
 	inc a
 	and a, $1F
-	ld [wRam_C0F6], a
+	ld [wTicker_DestColumn], a
 	ld a, [wTickerSrcColumn]
 	inc a
 	ld [wTickerSrcColumn], a
@@ -239,7 +239,7 @@ Ticker_Start:: ; 48:42D4
 	and a, $02
 	call z, Ticker_InstallRasterIrq
 	xor a, a
-	ld [wRam_C0F6], a
+	ld [wTicker_DestColumn], a
 	call Sound_FrameService
 	ld de, $9400
 	ld hl, wTileStage2

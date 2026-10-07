@@ -2,13 +2,13 @@
 # routine	file:line	kind	label_or_addr	bank	details   (UNRESOLVED rows: a loader call whose arguments are not all immediates)
 Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:34	tiles	Gfx_Account_ActionConfirmPage_Tiles9000Vb1	5E	n=64 vram=$9000 vbank=1
 Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:40	tiles	Gfx_Account_ActionConfirmPage_Tiles9400Vb1	5E	n=64 vram=$9400 vbank=1
-Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:46	tiles	Data_5F_49D0	5F	n=48 vram=$8000 vbank=1
+Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:46	tiles	Gfx_SharedPanels_Vram8000Vb1	5F	n=48 vram=$8000 vbank=1
 Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:51	palette	Palette_Account_ActionConfirmPage_Bg	5E	n=64 dest=$D800
-Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:56	palette	Palette_5F_4CD0 + $10	5F	n=24 dest=$D868
-Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:64	tilemap	Tilemap_Account_ActionConfirmPage	5E	rows=18 cols=20 dest=$D000
-Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:71	tilemap	Tilemap_Account_ActionConfirmPage_5E_7300	5E	rows=18 cols=20 dest=$D000
+Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:56	palette	Palette_SharedPanels_BgObj + $10	5F	n=24 dest=$D868
+Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:64	tilemap	Tilemap_Account_ActionConfirmPage_NonzeroVariant	5E	rows=18 cols=20 dest=$D000
+Account_ActionConfirmPage_Setup	engine/account/action_confirm.asm:71	tilemap	Tilemap_Account_ActionConfirmPage_Variant0	5E	rows=18 cols=20 dest=$D000
 CommPanel_StateDraw	engine/account/comm_panel.asm:168	tiles	$4200	71	n=48 vram=$8800 vbank=1
-CommPanel_StateDraw	engine/account/comm_panel.asm:174	tiles	Data_71_4300 + $190	71	n=64 vram=$9000 vbank=1
+CommPanel_StateDraw	engine/account/comm_panel.asm:174	tiles	Gfx_CommPanel_SharedVramSource + $190	71	n=64 vram=$9000 vbank=1
 CommPanel_StateDraw	engine/account/comm_panel.asm:180	tiles	Gfx_CommPanel_Tiles9400Vb1	71	n=64 vram=$9400 vbank=1
 CommPanel_StateDraw	engine/account/comm_panel.asm:186	tiles	Gfx_CommPanel_Tiles8000	71	n=48 vram=$8000 vbank=0
 CommPanel_StateDraw	engine/account/comm_panel.asm:191	palette	Palette_CommPanel_Bg	71	n=64 dest=$D800
@@ -19,16 +19,16 @@ CommPanel_DrawCaption	engine/account/comm_panel.asm:380	UNRESOLVED	tilemap	--	so
 Account_ConfirmScreen_Setup	engine/account/confirm_screens.asm:31	tiles	Gfx_Account_ConfirmScreens_Tiles8800Vb1	5D	n=64 vram=$8800 vbank=1
 Account_ConfirmScreen_Setup	engine/account/confirm_screens.asm:37	tiles	Gfx_Account_ConfirmScreens_Tiles8C00Vb1	5D	n=32 vram=$8C00 vbank=1
 Account_ConfirmScreen_Setup	engine/account/confirm_screens.asm:43	tiles	Gfx_Account_ConfirmScreen_Tiles9000Vb1	5D	n=32 vram=$9000 vbank=1
-Account_ConfirmScreen_Setup	engine/account/confirm_screens.asm:49	tiles	Data_5F_49D0	5F	n=48 vram=$8000 vbank=1
+Account_ConfirmScreen_Setup	engine/account/confirm_screens.asm:49	tiles	Gfx_SharedPanels_Vram8000Vb1	5F	n=48 vram=$8000 vbank=1
 Account_ConfirmScreen_Setup	engine/account/confirm_screens.asm:54	palette	Palette_Account_ConfirmScreen_Bg	5D	n=64 dest=$D800
-Account_ConfirmScreen_Setup	engine/account/confirm_screens.asm:59	palette	Palette_5F_4CD0 + $10	5F	n=24 dest=$D868
+Account_ConfirmScreen_Setup	engine/account/confirm_screens.asm:59	palette	Palette_SharedPanels_BgObj + $10	5F	n=24 dest=$D868
 Account_ConfirmScreen_Setup	engine/account/confirm_screens.asm:64	tilemap	Tilemap_Account_ConfirmScreen	5D	rows=18 cols=20 dest=$D000
 Account_ConfirmManualScreen_Setup	engine/account/confirm_screens.asm:268	tiles	Gfx_Account_ConfirmScreens_Tiles8800Vb1	5D	n=64 vram=$8800 vbank=1
 Account_ConfirmManualScreen_Setup	engine/account/confirm_screens.asm:274	tiles	Gfx_Account_ConfirmScreens_Tiles8C00Vb1	5D	n=32 vram=$8C00 vbank=1
 Account_ConfirmManualScreen_Setup	engine/account/confirm_screens.asm:280	tiles	Gfx_Account_ConfirmManualScreen_Tiles9000Vb1	4A	n=64 vram=$9000 vbank=1
-Account_ConfirmManualScreen_Setup	engine/account/confirm_screens.asm:286	tiles	Data_5F_49D0	5F	n=48 vram=$8000 vbank=1
+Account_ConfirmManualScreen_Setup	engine/account/confirm_screens.asm:286	tiles	Gfx_SharedPanels_Vram8000Vb1	5F	n=48 vram=$8000 vbank=1
 Account_ConfirmManualScreen_Setup	engine/account/confirm_screens.asm:291	palette	Palette_Account_ConfirmManualScreen_Bg	4A	n=64 dest=$D800
-Account_ConfirmManualScreen_Setup	engine/account/confirm_screens.asm:296	palette	Palette_5F_4CD0 + $10	5F	n=24 dest=$D868
+Account_ConfirmManualScreen_Setup	engine/account/confirm_screens.asm:296	palette	Palette_SharedPanels_BgObj + $10	5F	n=24 dest=$D868
 Account_ConfirmManualScreen_Setup	engine/account/confirm_screens.asm:301	tilemap	Tilemap_Account_ConfirmManualScreen	4A	rows=18 cols=20 dest=$D000
 Registration_DeleteConfirm_Setup	engine/account/delete_registration.asm:83	tiles	Gfx_Registration_DeleteConfirm_Tiles9000Vb1	71	n=64 vram=$9000 vbank=1
 Registration_DeleteConfirm_Setup	engine/account/delete_registration.asm:89	tiles	Gfx_Registration_DeleteConfirm_Tiles9400Vb1	71	n=64 vram=$9400 vbank=1
@@ -36,44 +36,44 @@ Registration_DeleteConfirm_Setup	engine/account/delete_registration.asm:94	tilem
 Registration_DeleteConfirm_Setup	engine/account/delete_registration.asm:102	tiles	$59C0	71	n=64 vram=$9000 vbank=1
 Registration_DeleteConfirm_Setup	engine/account/delete_registration.asm:108	tiles	Gfx_Registration_Delete_Tiles9400Vb1	71	n=64 vram=$9400 vbank=1
 Registration_DeleteConfirm_Setup	engine/account/delete_registration.asm:113	tilemap	Tilemap_Registration_DeleteConfirm_71_6998	71	rows=18 cols=20 dest=$D000
-Registration_DeleteConfirm_Setup	engine/account/delete_registration.asm:120	tiles	Data_5F_49D0	5F	n=48 vram=$8000 vbank=1
+Registration_DeleteConfirm_Setup	engine/account/delete_registration.asm:120	tiles	Gfx_SharedPanels_Vram8000Vb1	5F	n=48 vram=$8000 vbank=1
 Registration_DeleteConfirm_Setup	engine/account/delete_registration.asm:125	palette	Palette_Registration_Delete_Bg	71	n=64 dest=$D800
-Registration_DeleteConfirm_Setup	engine/account/delete_registration.asm:130	palette	Palette_5F_4CD0 + $10	5F	n=24 dest=$D868
+Registration_DeleteConfirm_Setup	engine/account/delete_registration.asm:130	palette	Palette_SharedPanels_BgObj + $10	5F	n=24 dest=$D868
 Registration_DeleteExecute_Setup	engine/account/delete_registration.asm:285	tiles	$6180	71	n=64 vram=$8800 vbank=1
 Registration_DeleteExecute_Setup	engine/account/delete_registration.asm:291	tiles	Gfx_Registration_DeleteExecute_Tiles9000Vb1	71	n=16 vram=$9000 vbank=1
 Registration_DeleteExecute_Setup	engine/account/delete_registration.asm:297	tiles	$6140	71	n=48 vram=$8000 vbank=0
 Registration_DeleteExecute_Setup	engine/account/delete_registration.asm:302	palette	Palette_Registration_Delete_Bg	71	n=64 dest=$D800
 Registration_DeleteExecute_Setup	engine/account/delete_registration.asm:307	palette	Palette_Registration_Delete_Obj	71	n=8 dest=$D840
 Registration_DeleteExecute_Setup	engine/account/delete_registration.asm:312	tilemap	Tilemap_Registration_DeleteExecute	71	rows=18 cols=20 dest=$D000
-Account_LoginIdEntry_Setup	engine/account/login_id_entry.asm:100	tiles	Data_5E_4000	5E	n=64 vram=$8800 vbank=1
-Account_LoginIdEntry_Setup	engine/account/login_id_entry.asm:106	tiles	Data_5E_4400	5E	n=64 vram=$8C00 vbank=1
+Account_LoginIdEntry_Setup	engine/account/login_id_entry.asm:100	tiles	Gfx_SharedTextEntry_Vram8800Vb1	5E	n=64 vram=$8800 vbank=1
+Account_LoginIdEntry_Setup	engine/account/login_id_entry.asm:106	tiles	Gfx_SharedTextEntry_Vram8C00Vb1	5E	n=64 vram=$8C00 vbank=1
 Account_LoginIdEntry_Setup	engine/account/login_id_entry.asm:112	tiles	Gfx_Account_LoginIdEntry_Tiles9000Vb1	5E	n=64 vram=$9000 vbank=1
 Account_LoginIdEntry_Setup	engine/account/login_id_entry.asm:118	tiles	Gfx_Account_LoginIdEntry_Tiles9400Vb1	5E	n=16 vram=$9400 vbank=1
-Account_LoginIdEntry_Setup	engine/account/login_id_entry.asm:123	palette	Data_5E_4D00	5E	n=64 dest=$D800
+Account_LoginIdEntry_Setup	engine/account/login_id_entry.asm:123	palette	Palette_SharedEntryUi_Bg	5E	n=64 dest=$D800
 Account_LoginIdEntry_Setup	engine/account/login_id_entry.asm:128	tilemap	Tilemap_Account_LoginIdEntry	5E	rows=5 cols=20 dest=$D000
 Account_LoginIdIntro_Draw	engine/account/login_id_entry.asm:391	tiles	Gfx_Account_LoginIdIntro_Tiles9000Vb1	5E	n=64 vram=$9000 vbank=1
 Account_LoginIdIntro_Draw	engine/account/login_id_entry.asm:397	tiles	Gfx_Account_LoginIdIntro_Tiles9400Vb1	5E	n=64 vram=$9400 vbank=1
-Account_LoginIdIntro_Draw	engine/account/login_id_entry.asm:402	palette	Data_5E_4D00	5E	n=64 dest=$D800
+Account_LoginIdIntro_Draw	engine/account/login_id_entry.asm:402	palette	Palette_SharedEntryUi_Bg	5E	n=64 dest=$D800
 Account_LoginIdIntro_Draw	engine/account/login_id_entry.asm:407	tilemap	Tilemap_Account_LoginIdIntro_5E_5510	5E	rows=18 cols=20 dest=$D000
-Account_MailAddressEntry_Setup	engine/account/mail_address_entry.asm:115	tiles	Data_5E_4000	5E	n=64 vram=$8800 vbank=1
-Account_MailAddressEntry_Setup	engine/account/mail_address_entry.asm:121	tiles	Data_5E_4400	5E	n=64 vram=$8C00 vbank=1
+Account_MailAddressEntry_Setup	engine/account/mail_address_entry.asm:115	tiles	Gfx_SharedTextEntry_Vram8800Vb1	5E	n=64 vram=$8800 vbank=1
+Account_MailAddressEntry_Setup	engine/account/mail_address_entry.asm:121	tiles	Gfx_SharedTextEntry_Vram8C00Vb1	5E	n=64 vram=$8C00 vbank=1
 Account_MailAddressEntry_Setup	engine/account/mail_address_entry.asm:127	tiles	Gfx_Account_MailAddressEntry_Tiles9000Vb1	5E	n=64 vram=$9000 vbank=1
 Account_MailAddressEntry_Setup	engine/account/mail_address_entry.asm:133	tiles	Gfx_Account_MailAddressEntry_Tiles9400Vb1	5E	n=64 vram=$9400 vbank=1
-Account_MailAddressEntry_Setup	engine/account/mail_address_entry.asm:138	palette	Data_5E_4D00	5E	n=64 dest=$D800
+Account_MailAddressEntry_Setup	engine/account/mail_address_entry.asm:138	palette	Palette_SharedEntryUi_Bg	5E	n=64 dest=$D800
 Account_MailAddressEntry_Setup	engine/account/mail_address_entry.asm:143	tilemap	Tilemap_Account_MailAddressEntry	5E	rows=5 cols=20 dest=$D000
 Account_MailIntro_Draw	engine/account/mail_address_entry.asm:521	tiles	Gfx_Account_MailIntro_Tiles9000Vb1	5E	n=64 vram=$9000 vbank=1
 Account_MailIntro_Draw	engine/account/mail_address_entry.asm:527	tiles	Gfx_Account_MailIntro_Tiles9400Vb1	5E	n=64 vram=$9400 vbank=1
-Account_MailIntro_Draw	engine/account/mail_address_entry.asm:532	palette	Data_5E_4D00	5E	n=64 dest=$D800
+Account_MailIntro_Draw	engine/account/mail_address_entry.asm:532	palette	Palette_SharedEntryUi_Bg	5E	n=64 dest=$D800
 Account_MailIntro_Draw	engine/account/mail_address_entry.asm:537	tilemap	Tilemap_Account_MailIntro	5E	rows=18 cols=20 dest=$D000
 Account_PasswordEntry_Setup	engine/account/password_entry.asm:113	tiles	Gfx_Kbd_T4_Tiles8800Vb1	5D	n=64 vram=$8800 vbank=1
 Account_PasswordEntry_Setup	engine/account/password_entry.asm:119	tiles	Gfx_Kbd_T4_Tiles8C00Vb1	5D	n=64 vram=$8C00 vbank=1
 Account_PasswordEntry_Setup	engine/account/password_entry.asm:125	tiles	Gfx_Account_PasswordEntry_Tiles9000Vb1	5D	n=64 vram=$9000 vbank=1
 Account_PasswordEntry_Setup	engine/account/password_entry.asm:131	tiles	Gfx_Account_PasswordEntry_Tiles9400Vb1	5D	n=64 vram=$9400 vbank=1
-Account_PasswordEntry_Setup	engine/account/password_entry.asm:136	palette	Data_5E_4D00	5E	n=64 dest=$D800
+Account_PasswordEntry_Setup	engine/account/password_entry.asm:136	palette	Palette_SharedEntryUi_Bg	5E	n=64 dest=$D800
 Account_PasswordEntry_Setup	engine/account/password_entry.asm:151	UNRESOLVED	tilemap	--	source (hl) not an immediate/label
 Account_PasswordIntro_Draw	engine/account/password_entry.asm:466	tiles	Gfx_Account_PasswordIntro_Tiles9000Vb1	5D	n=64 vram=$9000 vbank=1
 Account_PasswordIntro_Draw	engine/account/password_entry.asm:472	tiles	Gfx_Account_PasswordIntro_Tiles9400Vb1	5D	n=64 vram=$9400 vbank=1
-Account_PasswordIntro_Draw	engine/account/password_entry.asm:477	palette	Data_5E_4D00	5E	n=64 dest=$D800
+Account_PasswordIntro_Draw	engine/account/password_entry.asm:477	palette	Palette_SharedEntryUi_Bg	5E	n=64 dest=$D800
 Account_PasswordIntro_Draw	engine/account/password_entry.asm:482	tilemap	Tilemap_Account_PasswordIntro	5D	rows=18 cols=20 dest=$D000
 Registration_WriteConfig_Setup	engine/account/register_config.asm:31	tiles	$6A00	5D	n=64 vram=$8800 vbank=1
 Registration_WriteConfig_Setup	engine/account/register_config.asm:37	tiles	Gfx_Registration_WriteConfig_Tiles9000Vb1	5D	n=64 vram=$9000 vbank=1
@@ -87,10 +87,10 @@ Account_ResultPage	engine/account/result_page.asm:47	palette	Palette_Account_Res
 Account_ResultPage	engine/account/result_page.asm:52	tilemap	Tilemap_Account_ResultPage	4B	rows=18 cols=20 dest=$D000
 Account_ResultPage_LoadBanner	engine/account/result_page.asm:216	UNRESOLVED	tiles	--	bank (a) not an immediate
 Account_ResultPage_LoadBanner	engine/account/result_page.asm:251	UNRESOLVED	tiles	--	bank (a) not an immediate
-Account_ResultPage_DrawTimeDigits	engine/account/result_page.asm:311	UNRESOLVED	tilemap	--	source (hl) not an immediate/label
-Account_ResultPage_DrawTimeDigits	engine/account/result_page.asm:327	UNRESOLVED	tilemap	--	source (hl) not an immediate/label
-Account_ResultPage_DrawTimeDigits	engine/account/result_page.asm:368	UNRESOLVED	tilemap	--	source (hl) not an immediate/label
-Account_ResultPage_DrawTimeDigits	engine/account/result_page.asm:384	UNRESOLVED	tilemap	--	source (hl) not an immediate/label
+Account_ResultPage_DrawTimeDigits	engine/account/result_page.asm:326	UNRESOLVED	tilemap	--	source (hl) not an immediate/label
+Account_ResultPage_DrawTimeDigits	engine/account/result_page.asm:342	UNRESOLVED	tilemap	--	source (hl) not an immediate/label
+Account_ResultPage_DrawTimeDigits	engine/account/result_page.asm:383	UNRESOLVED	tilemap	--	source (hl) not an immediate/label
+Account_ResultPage_DrawTimeDigits	engine/account/result_page.asm:399	UNRESOLVED	tilemap	--	source (hl) not an immediate/label
 SettingsMenu_StateInit	engine/account/settings_menu.asm:161	tiles	Gfx_SettingsMenu_Tiles8800Vb1	4A	n=64 vram=$8800 vbank=1
 SettingsMenu_StateInit	engine/account/settings_menu.asm:167	tiles	Gfx_SettingsMenu_Tiles8C00Vb1	4A	n=64 vram=$8C00 vbank=1
 SettingsMenu_StateInit	engine/account/settings_menu.asm:173	tiles	Gfx_SettingsMenu_Tiles9000Vb1	4A	n=64 vram=$9000 vbank=1
@@ -98,8 +98,8 @@ SettingsMenu_StateInit	engine/account/settings_menu.asm:179	tiles	Gfx_SettingsMe
 SettingsMenu_StateInit	engine/account/settings_menu.asm:185	tiles	Gfx_SettingsMenu_Tiles8000Vb1	4A	n=32 vram=$8000 vbank=1
 SettingsMenu_StateInit	engine/account/settings_menu.asm:190	palette	Palette_SettingsMenu_Bg	4A	n=40 dest=$D800
 SettingsMenu_StateInit	engine/account/settings_menu.asm:195	palette	Palette_SettingsMenu_Obj	4A	n=8 dest=$D840
-SettingsMenu_DrawItems	engine/account/settings_menu.asm:321	tilemap	Tilemap_SettingsMenu_4A_51D0	4A	rows=18 cols=20 dest=$D000
-SettingsMenu_DrawItems	engine/account/settings_menu.asm:331	tilemap	Tilemap_SettingsMenu	4A	rows=18 cols=20 dest=$D000
+SettingsMenu_DrawItems	engine/account/settings_menu.asm:321	tilemap	Tilemap_SettingsMenu_FlagClear	4A	rows=18 cols=20 dest=$D000
+SettingsMenu_DrawItems	engine/account/settings_menu.asm:331	tilemap	Tilemap_SettingsMenu_FlagSet	4A	rows=18 cols=20 dest=$D000
 SettingsMenu_DrawItems	engine/account/settings_menu.asm:367	UNRESOLVED	tilemap	--	source (hl) not an immediate/label
 AbookAddr_SetupScreen	engine/address_book/address_editor.asm:418	tiles	Gfx_AddrBook_TilesBank22 + $500	22	n=64 vram=$9300 vbank=1
 AbookAddr_SetupScreen	engine/address_book/address_editor.asm:424	tiles	Gfx_AddrBook_TilesBank22 + $900	22	n=16 vram=$9700 vbank=1
@@ -224,10 +224,10 @@ CommScene_LoadGraphics	engine/comm/comm_scene.asm:684	tiles	Gfx_CommScene_Tiles8
 CommScene_LoadGraphics	engine/comm/comm_scene.asm:690	tiles	Gfx_CommScene_Tiles8400	70	n=64 vram=$8400 vbank=0
 CommScene_LoadGraphics	engine/comm/comm_scene.asm:696	tiles	Gfx_CommScene_Tiles8800	70	n=64 vram=$8800 vbank=0
 CommScene_LoadGraphics	engine/comm/comm_scene.asm:702	tiles	Gfx_CommScene_Tiles8C00	70	n=64 vram=$8C00 vbank=0
-CommScene_LoadGraphics	engine/comm/comm_scene.asm:708	tiles	Data_70_6490	70	n=32 vram=$9000 vbank=0
-CommScene_LoadGraphics	engine/comm/comm_scene.asm:714	tiles	Data_70_6490	70	n=64 vram=$8000 vbank=1
-CommScene_LoadGraphics	engine/comm/comm_scene.asm:720	tiles	Data_70_6890	70	n=32 vram=$8400 vbank=1
-CommScene_LoadGraphics	engine/comm/comm_scene.asm:726	tiles	Data_70_6690	70	n=64 vram=$9000 vbank=1
+CommScene_LoadGraphics	engine/comm/comm_scene.asm:708	tiles	Gfx_CommScene_SharedVramSource0	70	n=32 vram=$9000 vbank=0
+CommScene_LoadGraphics	engine/comm/comm_scene.asm:714	tiles	Gfx_CommScene_SharedVramSource0	70	n=64 vram=$8000 vbank=1
+CommScene_LoadGraphics	engine/comm/comm_scene.asm:720	tiles	Gfx_CommScene_SharedVramSource2	70	n=32 vram=$8400 vbank=1
+CommScene_LoadGraphics	engine/comm/comm_scene.asm:726	tiles	Gfx_CommScene_SharedVramSource1	70	n=64 vram=$9000 vbank=1
 CommScene_LoadGraphics	engine/comm/comm_scene.asm:732	tiles	Gfx_CommScene_Tiles9400Vb1	70	n=64 vram=$9400 vbank=1
 CommScene_LoadGraphics	engine/comm/comm_scene.asm:737	palette	Palette_CommScene_Bg	70	n=64 dest=$D800
 CommScene_LoadGraphics	engine/comm/comm_scene.asm:742	palette	Palette_CommScene_Obj	70	n=64 dest=$D840
@@ -502,68 +502,68 @@ MobileDict_Redraw	engine/help/mobile_dictionary.asm:110	tiles	$D000	00	n=32 vram
 MobileDict_LoadPage	engine/help/mobile_dictionary.asm:479	tiles	$D000	00	n=64 vram=$9000 vbank=0
 MobileDict_LoadPage	engine/help/mobile_dictionary.asm:485	tiles	$D400	00	n=64 vram=$9400 vbank=0
 MobileDict_LoadPage	engine/help/mobile_dictionary.asm:491	tiles	$D800	00	n=32 vram=$8800 vbank=0
-Kbd_Open	engine/keyboard/keyboard.asm:57	tiles	Data_5F_49D0	5F	n=48 vram=$8000 vbank=1
-Kbd_Open	engine/keyboard/keyboard.asm:62	palette	Palette_5F_4CD0 + $10	5F	n=24 dest=$D868
-Kbd_Open	engine/keyboard/keyboard.asm:71	palette	Palette_5F_4CD0	5F	n=16 dest=$D830
-Kbd_LoadPageGraphics_T0	engine/keyboard/keyboard.asm:1652	tilemap	Tilemap_Kbd_T0	5F	rows=13 cols=20 dest=$D240
-Kbd_LoadPageGraphics_T1	engine/keyboard/keyboard.asm:1663	tiles	Gfx_Kbd_T1_Tiles8800	5E	n=2 vram=$8800 vbank=0
-Kbd_LoadPageGraphics_T1	engine/keyboard/keyboard.asm:1668	tilemap	Tilemap_Kbd_T1	5F	rows=13 cols=20 dest=$D240
-Kbd_LoadPageGraphics_T2	engine/keyboard/keyboard.asm:1680	tilemap	Tilemap_Kbd_T2	5F	rows=13 cols=20 dest=$D240
-Kbd_LoadPageGraphics_T3	engine/keyboard/keyboard.asm:1690	tilemap	Tilemap_Kbd_T3	5F	rows=13 cols=20 dest=$D240
-Kbd_LoadPageGraphics_T4	engine/keyboard/keyboard.asm:1702	tiles	Gfx_Kbd_T4_Tiles8800Vb1	5D	n=64 vram=$8800 vbank=1
-Kbd_LoadPageGraphics_T4	engine/keyboard/keyboard.asm:1708	tiles	Gfx_Kbd_T4_Tiles8C00Vb1	5D	n=64 vram=$8C00 vbank=1
-Kbd_LoadPageGraphics_T4	engine/keyboard/keyboard.asm:1713	palette	Data_5E_4D00 + $28	5E	n=24 dest=$D828
-Kbd_LoadPageGraphics_T4	engine/keyboard/keyboard.asm:1718	tilemap	Tilemap_Kbd_T4	5F	rows=13 cols=20 dest=$D240
-Kbd_LoadPageGraphics_T5	engine/keyboard/keyboard.asm:1731	tiles	Gfx_Kbd_T5_Tiles8800Vb1	5F	n=64 vram=$8800 vbank=1
-Kbd_LoadPageGraphics_T5	engine/keyboard/keyboard.asm:1737	tiles	Gfx_Kbd_T5_Tiles8C00Vb1	5F	n=64 vram=$8C00 vbank=1
-Kbd_LoadPageGraphics_T5	engine/keyboard/keyboard.asm:1743	tiles	Gfx_Kbd_T5_Tiles9000Vb1	5F	n=16 vram=$9000 vbank=1
-Kbd_LoadPageGraphics_T5	engine/keyboard/keyboard.asm:1748	palette	Palette_Kbd_T5_Bg1	5F	n=8 dest=$D808
-Kbd_LoadPageGraphics_T5	engine/keyboard/keyboard.asm:1753	palette	Palette_Kbd_T5_Bg1 + $8	5F	n=16 dest=$D830
-Kbd_LoadPageGraphics_T5	engine/keyboard/keyboard.asm:1792	tilemap	Tilemap_Kbd_T5	5F	rows=13 cols=20 dest=$D240
-Kbd_LoadPageGraphics_T6_Page0	engine/keyboard/keyboard.asm:1834	tiles	Gfx_Kbd_T6_Page0_Tiles8800Vb1	66	n=64 vram=$8800 vbank=1
-Kbd_LoadPageGraphics_T6_Page0	engine/keyboard/keyboard.asm:1840	tiles	Gfx_Kbd_T6_Page0_Tiles8C00Vb1	66	n=64 vram=$8C00 vbank=1
-Kbd_LoadPageGraphics_T6_Page0	engine/keyboard/keyboard.asm:1846	tiles	Gfx_Kbd_T6_Page0_Tiles9000Vb1	66	n=36 vram=$9000 vbank=1
-Kbd_LoadPageGraphics_T6_Page1	engine/keyboard/keyboard.asm:1856	tiles	Gfx_Kbd_T6_Page1_Tiles8800Vb1	66	n=64 vram=$8800 vbank=1
-Kbd_LoadPageGraphics_T6_Page1	engine/keyboard/keyboard.asm:1862	tiles	Gfx_Kbd_T6_Page1_Tiles8C00Vb1	66	n=64 vram=$8C00 vbank=1
-Kbd_LoadPageGraphics_T6_Page1	engine/keyboard/keyboard.asm:1868	tiles	Gfx_Kbd_T6_Page1_Tiles9000Vb1	66	n=36 vram=$9000 vbank=1
-Kbd_LoadPageGraphics_T6_Page2	engine/keyboard/keyboard.asm:1878	tiles	Gfx_Kbd_T6_Page2_Tiles8800Vb1	66	n=64 vram=$8800 vbank=1
-Kbd_LoadPageGraphics_T6_Page2	engine/keyboard/keyboard.asm:1884	tiles	Gfx_Kbd_T6_Page2_Tiles8C00Vb1	66	n=64 vram=$8C00 vbank=1
-Kbd_LoadPageGraphics_T6_Page2	engine/keyboard/keyboard.asm:1890	tiles	Gfx_Kbd_T6_Page2_Tiles9000Vb1	66	n=36 vram=$9000 vbank=1
-Kbd_LoadPageGraphics_T6_Page3	engine/keyboard/keyboard.asm:1907	tiles	Gfx_Kbd_T6_Page3_Tiles8800Vb1	66	n=64 vram=$8800 vbank=1
-Kbd_LoadPageGraphics_T6_Page3	engine/keyboard/keyboard.asm:1913	tiles	Gfx_Kbd_T6_Page3_Tiles8C00Vb1	66	n=64 vram=$8C00 vbank=1
-Kbd_LoadPageGraphics_T6_Page3	engine/keyboard/keyboard.asm:1919	tiles	Gfx_Kbd_T6_Page3_Tiles9000Vb1	66	n=36 vram=$9000 vbank=1
-Kbd_LoadPageGraphics_T6_Tail	engine/keyboard/keyboard.asm:1931	tilemap	Tilemap_Kbd_T6And78_PageTail	66	rows=11 cols=20 dest=$D240
-Kbd_LoadPageGraphics_T78_Page0	engine/keyboard/keyboard.asm:1972	tiles	Gfx_Kbd_T78_Page0_Tiles8800Vb1	62	n=64 vram=$8800 vbank=1
-Kbd_LoadPageGraphics_T78_Page0	engine/keyboard/keyboard.asm:1978	tiles	Gfx_Kbd_T78_Page0_Tiles8C00Vb1	62	n=64 vram=$8C00 vbank=1
-Kbd_LoadPageGraphics_T78_Page0	engine/keyboard/keyboard.asm:1984	tiles	Gfx_Kbd_T78_Page0_Tiles9000Vb1	62	n=36 vram=$9000 vbank=1
-Kbd_LoadPageGraphics_T78_Page1	engine/keyboard/keyboard.asm:1994	tiles	Gfx_Kbd_T78_Page1_Tiles8800Vb1	62	n=64 vram=$8800 vbank=1
-Kbd_LoadPageGraphics_T78_Page1	engine/keyboard/keyboard.asm:2000	tiles	Gfx_Kbd_T78_Page1_Tiles8C00Vb1	62	n=64 vram=$8C00 vbank=1
-Kbd_LoadPageGraphics_T78_Page1	engine/keyboard/keyboard.asm:2006	tiles	Gfx_Kbd_T78_Page1_Tiles9000Vb1	62	n=36 vram=$9000 vbank=1
-Kbd_LoadPageGraphics_T78_Page2	engine/keyboard/keyboard.asm:2016	tiles	Gfx_Kbd_T78_Page2_Tiles8800Vb1	62	n=64 vram=$8800 vbank=1
-Kbd_LoadPageGraphics_T78_Page2	engine/keyboard/keyboard.asm:2022	tiles	Gfx_Kbd_T78_Page2_Tiles8C00Vb1	62	n=64 vram=$8C00 vbank=1
-Kbd_LoadPageGraphics_T78_Page2	engine/keyboard/keyboard.asm:2028	tiles	Gfx_Kbd_T78_Page2_Tiles9000Vb1	62	n=36 vram=$9000 vbank=1
-Kbd_LoadPageGraphics_T78_Page3	engine/keyboard/keyboard.asm:2045	tiles	Gfx_Kbd_T78_Page3_Tiles8800Vb1	62	n=64 vram=$8800 vbank=1
-Kbd_LoadPageGraphics_T78_Page3	engine/keyboard/keyboard.asm:2051	tiles	Gfx_Kbd_T78_Page3_Tiles8C00Vb1	62	n=64 vram=$8C00 vbank=1
-Kbd_LoadPageGraphics_T78_Page3	engine/keyboard/keyboard.asm:2057	tiles	Gfx_Kbd_T78_Page3_Tiles9000Vb1	62	n=36 vram=$9000 vbank=1
-Kbd_LoadPageGraphics_T78_Tail	engine/keyboard/keyboard.asm:2069	tilemap	Tilemap_Kbd_T6And78_PageTail	66	rows=11 cols=20 dest=$D240
-Kbd_LoadPageGraphics_T9	engine/keyboard/keyboard.asm:2080	tiles	Gfx_Kbd_T9_Tiles8800Vb1	5F	n=64 vram=$8800 vbank=1
-Kbd_LoadPageGraphics_T9	engine/keyboard/keyboard.asm:2086	tiles	Gfx_Kbd_T9_Tiles8C00Vb1	5F	n=64 vram=$8C00 vbank=1
-Kbd_LoadPageGraphics_T9	engine/keyboard/keyboard.asm:2092	tiles	Gfx_Kbd_T9_Tiles9000Vb1	5F	n=1 vram=$9000 vbank=1
-Kbd_LoadPageGraphics_T9	engine/keyboard/keyboard.asm:2097	tilemap	Tilemap_Kbd_T9	5F	rows=11 cols=20 dest=$D240
-Kbd_LoadPageGraphics_T10	engine/keyboard/keyboard.asm:2108	tiles	Gfx_Kbd_T10_Tiles8A80Vb1	66	n=25 vram=$8A80 vbank=1
-Kbd_LoadPageGraphics_T10	engine/keyboard/keyboard.asm:2113	tilemap	Tilemap_Kbd_T10	66	rows=6 cols=20 dest=$D240
-Kbd_UploadPanelMap11Rows	engine/keyboard/keyboard.asm:2142	UNRESOLVED	tiles	--	source (hl) not an immediate/label
-Kbd_UploadPanelMap11Rows	engine/keyboard/keyboard.asm:2147	UNRESOLVED	tiles	--	bank (a) not an immediate
-Kbd_UploadPanelMap11Rows	engine/keyboard/keyboard.asm:2161	UNRESOLVED	tiles	--	source (hl) not an immediate/label
-Kbd_UploadPanelMap11Rows	engine/keyboard/keyboard.asm:2166	UNRESOLVED	tiles	--	bank (a) not an immediate
-Kbd_UploadPanelMap13Rows	engine/keyboard/keyboard.asm:2197	UNRESOLVED	tiles	--	source (hl) not an immediate/label
-Kbd_UploadPanelMap13Rows	engine/keyboard/keyboard.asm:2203	UNRESOLVED	tiles	--	bank (a) not an immediate
-Kbd_UploadPanelMap13Rows	engine/keyboard/keyboard.asm:2216	UNRESOLVED	tiles	--	source (hl) not an immediate/label
-Kbd_UploadPanelMap13Rows	engine/keyboard/keyboard.asm:2222	UNRESOLVED	tiles	--	bank (a) not an immediate
-Kbd_LoadPickerTabTiles	engine/keyboard/keyboard.asm:2273	UNRESOLVED	tiles	--	source (hl) not an immediate/label
-Kbd_LoadPickerTabTiles	engine/keyboard/keyboard.asm:2279	UNRESOLVED	tiles	--	source (hl) not an immediate/label
-Kbd_DrawGlyphPreview	engine/keyboard/keyboard.asm:2381	UNRESOLVED	tiles	--	source (hl) not an immediate/label
-Kbd_DrawGlyphPreview	engine/keyboard/keyboard.asm:2384	UNRESOLVED	tiles	--	bank (a) not an immediate
+Kbd_Open	engine/keyboard/keyboard.asm:57	tiles	Gfx_SharedPanels_Vram8000Vb1	5F	n=48 vram=$8000 vbank=1
+Kbd_Open	engine/keyboard/keyboard.asm:62	palette	Palette_SharedPanels_BgObj + $10	5F	n=24 dest=$D868
+Kbd_Open	engine/keyboard/keyboard.asm:71	palette	Palette_SharedPanels_BgObj	5F	n=16 dest=$D830
+Kbd_LoadPageGraphics_T0	engine/keyboard/keyboard.asm:1655	tilemap	Tilemap_Kbd_T0	5F	rows=13 cols=20 dest=$D240
+Kbd_LoadPageGraphics_T1	engine/keyboard/keyboard.asm:1666	tiles	Gfx_Kbd_T1_Tiles8800	5E	n=2 vram=$8800 vbank=0
+Kbd_LoadPageGraphics_T1	engine/keyboard/keyboard.asm:1671	tilemap	Tilemap_Kbd_T1	5F	rows=13 cols=20 dest=$D240
+Kbd_LoadPageGraphics_T2	engine/keyboard/keyboard.asm:1683	tilemap	Tilemap_Kbd_T2	5F	rows=13 cols=20 dest=$D240
+Kbd_LoadPageGraphics_T3	engine/keyboard/keyboard.asm:1693	tilemap	Tilemap_Kbd_T3	5F	rows=13 cols=20 dest=$D240
+Kbd_LoadPageGraphics_T4	engine/keyboard/keyboard.asm:1705	tiles	Gfx_Kbd_T4_Tiles8800Vb1	5D	n=64 vram=$8800 vbank=1
+Kbd_LoadPageGraphics_T4	engine/keyboard/keyboard.asm:1711	tiles	Gfx_Kbd_T4_Tiles8C00Vb1	5D	n=64 vram=$8C00 vbank=1
+Kbd_LoadPageGraphics_T4	engine/keyboard/keyboard.asm:1716	palette	Palette_SharedEntryUi_Bg + $28	5E	n=24 dest=$D828
+Kbd_LoadPageGraphics_T4	engine/keyboard/keyboard.asm:1721	tilemap	Tilemap_Kbd_T4	5F	rows=13 cols=20 dest=$D240
+Kbd_LoadPageGraphics_T5	engine/keyboard/keyboard.asm:1734	tiles	Gfx_Kbd_T5_Tiles8800Vb1	5F	n=64 vram=$8800 vbank=1
+Kbd_LoadPageGraphics_T5	engine/keyboard/keyboard.asm:1740	tiles	Gfx_Kbd_T5_Tiles8C00Vb1	5F	n=64 vram=$8C00 vbank=1
+Kbd_LoadPageGraphics_T5	engine/keyboard/keyboard.asm:1746	tiles	Gfx_Kbd_T5_Tiles9000Vb1	5F	n=16 vram=$9000 vbank=1
+Kbd_LoadPageGraphics_T5	engine/keyboard/keyboard.asm:1751	palette	Palette_Kbd_T5_Bg1	5F	n=8 dest=$D808
+Kbd_LoadPageGraphics_T5	engine/keyboard/keyboard.asm:1756	palette	Palette_Kbd_T5_Bg1 + $8	5F	n=16 dest=$D830
+Kbd_LoadPageGraphics_T5	engine/keyboard/keyboard.asm:1795	tilemap	Tilemap_Kbd_T5	5F	rows=13 cols=20 dest=$D240
+Kbd_LoadPageGraphics_T6_Page0	engine/keyboard/keyboard.asm:1837	tiles	Gfx_Kbd_T6_Page0_Tiles8800Vb1	66	n=64 vram=$8800 vbank=1
+Kbd_LoadPageGraphics_T6_Page0	engine/keyboard/keyboard.asm:1843	tiles	Gfx_Kbd_T6_Page0_Tiles8C00Vb1	66	n=64 vram=$8C00 vbank=1
+Kbd_LoadPageGraphics_T6_Page0	engine/keyboard/keyboard.asm:1849	tiles	Gfx_Kbd_T6_Page0_Tiles9000Vb1	66	n=36 vram=$9000 vbank=1
+Kbd_LoadPageGraphics_T6_Page1	engine/keyboard/keyboard.asm:1859	tiles	Gfx_Kbd_T6_Page1_Tiles8800Vb1	66	n=64 vram=$8800 vbank=1
+Kbd_LoadPageGraphics_T6_Page1	engine/keyboard/keyboard.asm:1865	tiles	Gfx_Kbd_T6_Page1_Tiles8C00Vb1	66	n=64 vram=$8C00 vbank=1
+Kbd_LoadPageGraphics_T6_Page1	engine/keyboard/keyboard.asm:1871	tiles	Gfx_Kbd_T6_Page1_Tiles9000Vb1	66	n=36 vram=$9000 vbank=1
+Kbd_LoadPageGraphics_T6_Page2	engine/keyboard/keyboard.asm:1881	tiles	Gfx_Kbd_T6_Page2_Tiles8800Vb1	66	n=64 vram=$8800 vbank=1
+Kbd_LoadPageGraphics_T6_Page2	engine/keyboard/keyboard.asm:1887	tiles	Gfx_Kbd_T6_Page2_Tiles8C00Vb1	66	n=64 vram=$8C00 vbank=1
+Kbd_LoadPageGraphics_T6_Page2	engine/keyboard/keyboard.asm:1893	tiles	Gfx_Kbd_T6_Page2_Tiles9000Vb1	66	n=36 vram=$9000 vbank=1
+Kbd_LoadPageGraphics_T6_Page3	engine/keyboard/keyboard.asm:1910	tiles	Gfx_Kbd_T6_Page3_Tiles8800Vb1	66	n=64 vram=$8800 vbank=1
+Kbd_LoadPageGraphics_T6_Page3	engine/keyboard/keyboard.asm:1916	tiles	Gfx_Kbd_T6_Page3_Tiles8C00Vb1	66	n=64 vram=$8C00 vbank=1
+Kbd_LoadPageGraphics_T6_Page3	engine/keyboard/keyboard.asm:1922	tiles	Gfx_Kbd_T6_Page3_Tiles9000Vb1	66	n=36 vram=$9000 vbank=1
+Kbd_LoadPageGraphics_T6_Tail	engine/keyboard/keyboard.asm:1934	tilemap	Tilemap_Kbd_T6And78_PageTail	66	rows=11 cols=20 dest=$D240
+Kbd_LoadPageGraphics_T78_Page0	engine/keyboard/keyboard.asm:1975	tiles	Gfx_Kbd_T78_Page0_Tiles8800Vb1	62	n=64 vram=$8800 vbank=1
+Kbd_LoadPageGraphics_T78_Page0	engine/keyboard/keyboard.asm:1981	tiles	Gfx_Kbd_T78_Page0_Tiles8C00Vb1	62	n=64 vram=$8C00 vbank=1
+Kbd_LoadPageGraphics_T78_Page0	engine/keyboard/keyboard.asm:1987	tiles	Gfx_Kbd_T78_Page0_Tiles9000Vb1	62	n=36 vram=$9000 vbank=1
+Kbd_LoadPageGraphics_T78_Page1	engine/keyboard/keyboard.asm:1997	tiles	Gfx_Kbd_T78_Page1_Tiles8800Vb1	62	n=64 vram=$8800 vbank=1
+Kbd_LoadPageGraphics_T78_Page1	engine/keyboard/keyboard.asm:2003	tiles	Gfx_Kbd_T78_Page1_Tiles8C00Vb1	62	n=64 vram=$8C00 vbank=1
+Kbd_LoadPageGraphics_T78_Page1	engine/keyboard/keyboard.asm:2009	tiles	Gfx_Kbd_T78_Page1_Tiles9000Vb1	62	n=36 vram=$9000 vbank=1
+Kbd_LoadPageGraphics_T78_Page2	engine/keyboard/keyboard.asm:2019	tiles	Gfx_Kbd_T78_Page2_Tiles8800Vb1	62	n=64 vram=$8800 vbank=1
+Kbd_LoadPageGraphics_T78_Page2	engine/keyboard/keyboard.asm:2025	tiles	Gfx_Kbd_T78_Page2_Tiles8C00Vb1	62	n=64 vram=$8C00 vbank=1
+Kbd_LoadPageGraphics_T78_Page2	engine/keyboard/keyboard.asm:2031	tiles	Gfx_Kbd_T78_Page2_Tiles9000Vb1	62	n=36 vram=$9000 vbank=1
+Kbd_LoadPageGraphics_T78_Page3	engine/keyboard/keyboard.asm:2048	tiles	Gfx_Kbd_T78_Page3_Tiles8800Vb1	62	n=64 vram=$8800 vbank=1
+Kbd_LoadPageGraphics_T78_Page3	engine/keyboard/keyboard.asm:2054	tiles	Gfx_Kbd_T78_Page3_Tiles8C00Vb1	62	n=64 vram=$8C00 vbank=1
+Kbd_LoadPageGraphics_T78_Page3	engine/keyboard/keyboard.asm:2060	tiles	Gfx_Kbd_T78_Page3_Tiles9000Vb1	62	n=36 vram=$9000 vbank=1
+Kbd_LoadPageGraphics_T78_Tail	engine/keyboard/keyboard.asm:2072	tilemap	Tilemap_Kbd_T6And78_PageTail	66	rows=11 cols=20 dest=$D240
+Kbd_LoadPageGraphics_T9	engine/keyboard/keyboard.asm:2083	tiles	Gfx_Kbd_T9_Tiles8800Vb1	5F	n=64 vram=$8800 vbank=1
+Kbd_LoadPageGraphics_T9	engine/keyboard/keyboard.asm:2089	tiles	Gfx_Kbd_T9_Tiles8C00Vb1	5F	n=64 vram=$8C00 vbank=1
+Kbd_LoadPageGraphics_T9	engine/keyboard/keyboard.asm:2095	tiles	Gfx_Kbd_T9_Tiles9000Vb1	5F	n=1 vram=$9000 vbank=1
+Kbd_LoadPageGraphics_T9	engine/keyboard/keyboard.asm:2100	tilemap	Tilemap_Kbd_T9	5F	rows=11 cols=20 dest=$D240
+Kbd_LoadPageGraphics_T10	engine/keyboard/keyboard.asm:2111	tiles	Gfx_Kbd_T10_Tiles8A80Vb1	66	n=25 vram=$8A80 vbank=1
+Kbd_LoadPageGraphics_T10	engine/keyboard/keyboard.asm:2116	tilemap	Tilemap_Kbd_T10	66	rows=6 cols=20 dest=$D240
+Kbd_UploadPanelMap11Rows	engine/keyboard/keyboard.asm:2145	UNRESOLVED	tiles	--	source (hl) not an immediate/label
+Kbd_UploadPanelMap11Rows	engine/keyboard/keyboard.asm:2150	UNRESOLVED	tiles	--	bank (a) not an immediate
+Kbd_UploadPanelMap11Rows	engine/keyboard/keyboard.asm:2164	UNRESOLVED	tiles	--	source (hl) not an immediate/label
+Kbd_UploadPanelMap11Rows	engine/keyboard/keyboard.asm:2169	UNRESOLVED	tiles	--	bank (a) not an immediate
+Kbd_UploadPanelMap13Rows	engine/keyboard/keyboard.asm:2200	UNRESOLVED	tiles	--	source (hl) not an immediate/label
+Kbd_UploadPanelMap13Rows	engine/keyboard/keyboard.asm:2206	UNRESOLVED	tiles	--	bank (a) not an immediate
+Kbd_UploadPanelMap13Rows	engine/keyboard/keyboard.asm:2219	UNRESOLVED	tiles	--	source (hl) not an immediate/label
+Kbd_UploadPanelMap13Rows	engine/keyboard/keyboard.asm:2225	UNRESOLVED	tiles	--	bank (a) not an immediate
+Kbd_LoadPickerTabTiles	engine/keyboard/keyboard.asm:2276	UNRESOLVED	tiles	--	source (hl) not an immediate/label
+Kbd_LoadPickerTabTiles	engine/keyboard/keyboard.asm:2282	UNRESOLVED	tiles	--	source (hl) not an immediate/label
+Kbd_DrawGlyphPreview	engine/keyboard/keyboard.asm:2384	UNRESOLVED	tiles	--	source (hl) not an immediate/label
+Kbd_DrawGlyphPreview	engine/keyboard/keyboard.asm:2387	UNRESOLVED	tiles	--	bank (a) not an immediate
 MailAddr_SetupScreen	engine/mail/address_editor.asm:469	tiles	Gfx_MailAddr_Tiles	2D	n=64 vram=$9300 vbank=1
 MailAddr_SetupScreen	engine/mail/address_editor.asm:475	tiles	Gfx_MailAddr_Tiles2	2D	n=11 vram=$9700 vbank=1
 MailAddr_SetupScreen	engine/mail/address_editor.asm:481	tiles	Gfx_MailAddr_Tiles3	2D	n=43 vram=$8800 vbank=0
@@ -582,8 +582,8 @@ MailBody_SetupScreen	engine/mail/body_editor.asm:596	tiles	Gfx_MailBody_ObjTiles
 MailBody_SetupScreen	engine/mail/body_editor.asm:601	palette	Palette_MailBody_Obj	2D	n=64 dest=$D840
 MailBody_SetupScreen	engine/mail/body_editor.asm:606	palette	Palette_MailBody_Bg	2D	n=64 dest=$D800
 MailBody_SetupScreen	engine/mail/body_editor.asm:611	tilemap	Tilemap_MailBody	2D	rows=18 cols=20 dest=$D000
-MailBody_ReloadTiles	engine/mail/body_editor.asm:3106	tiles	Gfx_MailBody_Tiles	2D	n=32 vram=$9300 vbank=1
-MailBody_ReloadTiles	engine/mail/body_editor.asm:3112	tiles	Gfx_MailBody_Tiles + $200	2D	n=48 vram=$9500 vbank=1
+MailBody_ReloadTiles	engine/mail/body_editor.asm:3109	tiles	Gfx_MailBody_Tiles	2D	n=32 vram=$9300 vbank=1
+MailBody_ReloadTiles	engine/mail/body_editor.asm:3115	tiles	Gfx_MailBody_Tiles + $200	2D	n=48 vram=$9500 vbank=1
 MailBody_InitScreen	engine/mail/body_view.asm:50	palette	MailBody_BgPalette	28	n=64 dest=$D800
 MailBody_InitScreen	engine/mail/body_view.asm:55	palette	MailBody_ObjPalette	28	n=64 dest=$D840
 MailBody_InitScreen	engine/mail/body_view.asm:61	tiles	MailBody_Tiles_42C0	28	n=33 vram=$9300 vbank=1
@@ -829,35 +829,35 @@ SettingsPhone_ChoiceMenu_LoadTilemap	engine/settings/choice_menu.asm:315	UNRESOL
 SettingsPhone_ConfirmScreen_Setup	engine/settings/confirm_screen.asm:34	tiles	Gfx_SettingsPhone_ConfirmScreen_Tiles8800Vb1	4B	n=64 vram=$8800 vbank=1
 SettingsPhone_ConfirmScreen_Setup	engine/settings/confirm_screen.asm:40	tiles	Gfx_SettingsPhone_ConfirmScreen_Tiles8C00Vb1	4B	n=34 vram=$8C00 vbank=1
 SettingsPhone_ConfirmScreen_Setup	engine/settings/confirm_screen.asm:46	tiles	$7090	4B	n=64 vram=$9000 vbank=1
-SettingsPhone_ConfirmScreen_Setup	engine/settings/confirm_screen.asm:52	tiles	Data_5F_49D0	5F	n=48 vram=$8000 vbank=1
+SettingsPhone_ConfirmScreen_Setup	engine/settings/confirm_screen.asm:52	tiles	Gfx_SharedPanels_Vram8000Vb1	5F	n=48 vram=$8000 vbank=1
 SettingsPhone_ConfirmScreen_Setup	engine/settings/confirm_screen.asm:57	palette	Palette_SettingsPhone_ConfirmScreen_Bg	4B	n=64 dest=$D800
-SettingsPhone_ConfirmScreen_Setup	engine/settings/confirm_screen.asm:62	palette	Palette_5F_4CD0 + $10	5F	n=24 dest=$D868
+SettingsPhone_ConfirmScreen_Setup	engine/settings/confirm_screen.asm:62	palette	Palette_SharedPanels_BgObj + $10	5F	n=24 dest=$D868
 SettingsPhone_ConfirmScreen_Setup	engine/settings/confirm_screen.asm:67	tilemap	Tilemap_SettingsPhone_ConfirmScreen_4B_73F0	4B	rows=18 cols=20 dest=$D000
 SettingsPhone_ConfirmScreen_LoadSlotTilemap	engine/settings/confirm_screen.asm:301	UNRESOLVED	tilemap	--	source (hl) not an immediate/label
 SettingsPhone_ContinuePrompt_Setup	engine/settings/continue_prompt.asm:33	tiles	Gfx_SettingsPhone_ContinuePrompt_Tiles9000Vb1	4B	n=64 vram=$9000 vbank=1
 SettingsPhone_ContinuePrompt_Setup	engine/settings/continue_prompt.asm:39	tiles	Gfx_SettingsPhone_ContinuePrompt_Tiles9400Vb1	4B	n=48 vram=$9400 vbank=1
-SettingsPhone_ContinuePrompt_Setup	engine/settings/continue_prompt.asm:45	tiles	Data_5F_49D0	5F	n=48 vram=$8000 vbank=1
+SettingsPhone_ContinuePrompt_Setup	engine/settings/continue_prompt.asm:45	tiles	Gfx_SharedPanels_Vram8000Vb1	5F	n=48 vram=$8000 vbank=1
 SettingsPhone_ContinuePrompt_Setup	engine/settings/continue_prompt.asm:50	palette	Palette_SettingsPhone_ContinuePrompt_Bg	4B	n=64 dest=$D800
-SettingsPhone_ContinuePrompt_Setup	engine/settings/continue_prompt.asm:55	palette	Palette_5F_4CD0 + $10	5F	n=24 dest=$D868
+SettingsPhone_ContinuePrompt_Setup	engine/settings/continue_prompt.asm:55	palette	Palette_SharedPanels_BgObj + $10	5F	n=24 dest=$D868
 SettingsPhone_ContinuePrompt_Setup	engine/settings/continue_prompt.asm:60	tilemap	Tilemap_SettingsPhone_ContinuePrompt_4B_7D10	4B	rows=18 cols=20 dest=$D000
 PwSaveConfirm_Setup	engine/settings/password_save_confirm.asm:41	tiles	Gfx_PwSaveConfirm_Tiles9000Vb1	5D	n=64 vram=$9000 vbank=1
 PwSaveConfirm_Setup	engine/settings/password_save_confirm.asm:47	tiles	Gfx_PwSaveConfirm_Tiles9400Vb1	5D	n=64 vram=$9400 vbank=1
-PwSaveConfirm_Setup	engine/settings/password_save_confirm.asm:53	tiles	Data_5F_49D0	5F	n=48 vram=$8000 vbank=1
+PwSaveConfirm_Setup	engine/settings/password_save_confirm.asm:53	tiles	Gfx_SharedPanels_Vram8000Vb1	5F	n=48 vram=$8000 vbank=1
 PwSaveConfirm_Setup	engine/settings/password_save_confirm.asm:58	palette	Palette_PwSaveConfirm_Bg	5D	n=64 dest=$D800
-PwSaveConfirm_Setup	engine/settings/password_save_confirm.asm:63	palette	Palette_5F_4CD0 + $10	5F	n=24 dest=$D868
+PwSaveConfirm_Setup	engine/settings/password_save_confirm.asm:63	palette	Palette_SharedPanels_BgObj + $10	5F	n=24 dest=$D868
 PwSaveConfirm_Setup	engine/settings/password_save_confirm.asm:71	tilemap	Tilemap_PwSaveConfirm_5D_7BA0	5D	rows=18 cols=20 dest=$D000
 PwSaveConfirm_Setup	engine/settings/password_save_confirm.asm:81	tilemap	Tilemap_PwSaveConfirm_71_6F6F	71	rows=18 cols=20 dest=$D000
-PhoneComment_KeyboardSetup	engine/settings/phone_comment_entry.asm:100	tiles	Data_5E_4000	5E	n=64 vram=$8800 vbank=1
-PhoneComment_KeyboardSetup	engine/settings/phone_comment_entry.asm:106	tiles	Data_5E_4400	5E	n=64 vram=$8C00 vbank=1
+PhoneComment_KeyboardSetup	engine/settings/phone_comment_entry.asm:100	tiles	Gfx_SharedTextEntry_Vram8800Vb1	5E	n=64 vram=$8800 vbank=1
+PhoneComment_KeyboardSetup	engine/settings/phone_comment_entry.asm:106	tiles	Gfx_SharedTextEntry_Vram8C00Vb1	5E	n=64 vram=$8C00 vbank=1
 PhoneComment_KeyboardSetup	engine/settings/phone_comment_entry.asm:112	tiles	Gfx_PhoneKeypadAndComment_Tiles9000Vb1	4A	n=64 vram=$9000 vbank=1
 PhoneComment_KeyboardSetup	engine/settings/phone_comment_entry.asm:118	tiles	Gfx_PhoneKeypadAndComment_Tiles9400Vb1	4A	n=64 vram=$9400 vbank=1
-PhoneComment_KeyboardSetup	engine/settings/phone_comment_entry.asm:123	palette	Data_5E_4D00	5E	n=64 dest=$D800
+PhoneComment_KeyboardSetup	engine/settings/phone_comment_entry.asm:123	palette	Palette_SharedEntryUi_Bg	5E	n=64 dest=$D800
 PhoneComment_KeyboardSetup	engine/settings/phone_comment_entry.asm:128	tilemap	Tilemap_PhoneComment	4A	rows=5 cols=20 dest=$D000
-PhoneKeypad_Setup	engine/settings/phone_number_entry.asm:469	tiles	Data_5E_4000	5E	n=64 vram=$8800 vbank=1
-PhoneKeypad_Setup	engine/settings/phone_number_entry.asm:475	tiles	Data_5E_4400	5E	n=64 vram=$8C00 vbank=1
+PhoneKeypad_Setup	engine/settings/phone_number_entry.asm:469	tiles	Gfx_SharedTextEntry_Vram8800Vb1	5E	n=64 vram=$8800 vbank=1
+PhoneKeypad_Setup	engine/settings/phone_number_entry.asm:475	tiles	Gfx_SharedTextEntry_Vram8C00Vb1	5E	n=64 vram=$8C00 vbank=1
 PhoneKeypad_Setup	engine/settings/phone_number_entry.asm:481	tiles	Gfx_PhoneKeypadAndComment_Tiles9000Vb1	4A	n=64 vram=$9000 vbank=1
 PhoneKeypad_Setup	engine/settings/phone_number_entry.asm:487	tiles	Gfx_PhoneKeypadAndComment_Tiles9400Vb1	4A	n=64 vram=$9400 vbank=1
-PhoneKeypad_Setup	engine/settings/phone_number_entry.asm:492	palette	Data_5E_4D00	5E	n=64 dest=$D800
+PhoneKeypad_Setup	engine/settings/phone_number_entry.asm:492	palette	Palette_SharedEntryUi_Bg	5E	n=64 dest=$D800
 PhoneKeypad_Setup	engine/settings/phone_number_entry.asm:500	tilemap	Tilemap_PhoneKeypad_4A_7120	4A	rows=5 cols=20 dest=$D000
 PhoneKeypad_Setup	engine/settings/phone_number_entry.asm:507	tilemap	Tilemap_PhoneKeypad_4A_71E8	4A	rows=5 cols=20 dest=$D000
 SettingsPhone_SlotMenu_Setup	engine/settings/slot_menu.asm:94	tiles	Gfx_SettingsPhone_SlotMenu_Tiles8800Vb1	4D	n=64 vram=$8800 vbank=1

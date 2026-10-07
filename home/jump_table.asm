@@ -60,10 +60,10 @@ JoypadDispatch:: ; 00:056A
 	; in scenarios whose input script presses that button (501 site/word/scenario triples, 0 violations; B is fixed by the hJoyHeld tests of
 	; dynamic_tracing 9.3, B+Select+Right and Select+Left); hits 804,050 = 5,231 A (word 0) + 1,654 B + 767 Select + 950 Start + 795,448 none.  FFA7 writers store 0,
 	; except 51:41D3, which stores the A returned by a farcall [executed in 61 scenarios]
-	ldh a, [hRam_FFA7]
+	ldh a, [hJoyDispatchExtraMask]
 	ld l, a
 	xor a, a
-	ldh [hRam_FFA7], a
+	ldh [hJoyDispatchExtraMask], a
 	ldh a, [hJoyPressed]
 	or a, l
 	bit 0, a

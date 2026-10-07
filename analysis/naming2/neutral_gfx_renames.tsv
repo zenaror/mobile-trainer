@@ -1,0 +1,4 @@
+old_name	new_name	kind	status	evidence
+Data_5F_49D0	Gfx_SharedPanels_Vram8000Vb1	data	CONFIRMED	Shared 768-byte VRAM source block, eight natural callers across keyboard and confirmation panels; all select ROM5F and copy49D0..4CD0 to8000/VB1. Describes source/load role; no new tile classification.
+Palette_5F_4CD0	Palette_SharedPanels_BgObj	data	CONFIRMED	Exactly40 RGB555 bytes verified against ROM; +0/16bytes loads BG6..7 in keyboard, +$10/24bytes loads OBJ5..7 in eight keyboard/confirmation callers. All nine consumers natural; adjacent object table starts4CF8.
+Data_71_4300	Gfx_CommPanel_SharedVramSource	data	CONFIRMED	Source block4300..4500 is shared by CommPanel windows4200..4500→8800/VB1 and4490..4890→9000/VB1. Explicit operand remains +$190; latter read is $70 bytes here plus $390 bytes in next block4500. Describes source role without assigning one destination/type to whole block.

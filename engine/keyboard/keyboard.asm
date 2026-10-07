@@ -50,15 +50,15 @@ Function_55_5BA2::
 	ld a, $90
 	ldh [rWY], a
 	ld de, $8001
-	ld hl, Data_5F_49D0
-	ld a, BANK(Data_5F_49D0)
+	ld hl, Gfx_SharedPanels_Vram8000Vb1
+	ld a, BANK(Gfx_SharedPanels_Vram8000Vb1)
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0018
 	ld de, wPaletteBufObj + $28
-	ld hl, Palette_5F_4CD0 + $10 ; 5F:4CE0
-	ld a, BANK(Palette_5F_4CD0)
+	ld hl, Palette_SharedPanels_BgObj + $10 ; 5F:4CE0
+	ld a, BANK(Palette_SharedPanels_BgObj)
 	farcall Palette_LoadToBuffer
 	ld a, [wKbdType]
 	call Kbd_TypeNeedsExtraPalette
@@ -66,8 +66,8 @@ Function_55_5BA2::
 	jp z, .l5C5A
 	ld bc, $0010
 	ld de, wPaletteBufBg + $30
-	ld hl, Palette_5F_4CD0
-	ld a, BANK(Palette_5F_4CD0)
+	ld hl, Palette_SharedPanels_BgObj
+	ld a, BANK(Palette_SharedPanels_BgObj)
 	farcall Palette_LoadToBuffer
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -140,7 +140,7 @@ Kbd_Run:: ; 55:5C8F
 	jr .l5CE0
 .l5CBC ; 55:5CBC
 	ld a, [wKbdType]
-	call Function_55_6EAA
+	call Kbd_TypeMode2DefaultCursorFlag
 	or a, a
 	jr z, .l5CE0
 	ld a, [wKbdType]
@@ -159,7 +159,7 @@ Kbd_Run:: ; 55:5C8F
 	call Kbd_SlideIn
 .l5CE0 ; 55:5CE0
 	ld a, [wKbdType]
-	call Function_55_6EC0
+	call Kbd_TypeArgCDefaultCursorFlag
 	or a, a
 	jr z, .l5D05
 	ld a, [wKbdRunArgC]
@@ -1111,7 +1111,7 @@ Function_55_6318::
 	call Sound_FrameService
 	play_sfx SFX_POPUP_OPEN
 	call Kbd_GetSlideTargetY
-	ld [wRam_C2A2], a
+	ld [wKbdSlideTargetY], a
 	ld a, [wKbdType]
 	cp a, $06
 	jr nz, .l6348
@@ -1203,7 +1203,7 @@ Function_55_6318::
 	sub a, $08
 	ld [hl], a
 	push af
-	ld a, [wRam_C2A2]
+	ld a, [wKbdSlideTargetY]
 	ld b, a
 	pop af
 	cp a, b
@@ -1467,7 +1467,7 @@ Label_55_6563::
 	ret
 .l65C9 ; 55:65C9
 	ld a, [wKbdInputMode]
-	ld hl, Data_55_65D7
+	ld hl, Table_Kbd_InputModeReturnCodes
 	add a, l
 	ld l, a
 	ld a, $00
@@ -1476,9 +1476,12 @@ Label_55_6563::
 	ld a, [hl]
 	ret
 
-; ---- data $65D7-$65DA (3 bytes) [PROBABLE] zero/short bytes of the keyboard page tables between text rows; part of the run 65D7-65DA that executed code reads piecewise [split by classify_g2]
+; ---- data $65D7-$65DA (3 bytes) [CONFIRMED] input-mode return codes $04, $05, $06. The keyboard
+; reads the indexed byte at 55:65D5 using wKbdInputMode and returns it in A; the lookup ran
+; naturally. The index is not bounds-checked here.
 
-Data_55_65D7:: ; 55:65D7
+Table_Kbd_InputModeReturnCodes:: ; 55:65D7
+Data_55_65D7::
 	db $04, $05, $06
 
 Kbd_TypePickerLoop:: ; 55:65DA
@@ -1708,8 +1711,8 @@ Label_55_6755::
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0018
 	ld de, wPaletteBufBg + $28
-	ld hl, Data_5E_4D00 + $28 ; 5E:4D28
-	ld a, BANK(Data_5E_4D00)
+	ld hl, Palette_SharedEntryUi_Bg + $28 ; 5E:4D28
+	ld a, BANK(Palette_SharedEntryUi_Bg)
 	farcall Palette_LoadToBuffer
 	ld bc, $0D14
 	ld de, wScreenTileMap + $240

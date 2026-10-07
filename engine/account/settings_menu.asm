@@ -316,8 +316,8 @@ SettingsMenu_DrawItems:: ; 68:522C
 	jr nz, .l5245
 	ld bc, $1214
 	ld de, wScreenTileMap
-	ld hl, Tilemap_SettingsMenu_4A_51D0
-	ld a, BANK(Tilemap_SettingsMenu_4A_51D0)
+	ld hl, Tilemap_SettingsMenu_FlagClear
+	ld a, BANK(Tilemap_SettingsMenu_FlagClear)
 	farcall Tilemap_CopyRectAndAttr
 	jr .l5256
 
@@ -326,8 +326,8 @@ SettingsMenu_DrawItems:: ; 68:522C
 	; entered by jrcc from 68:5230 (executed) [executed in 2 scenarios]
 	ld bc, $1214
 	ld de, wScreenTileMap
-	ld hl, Tilemap_SettingsMenu
-	ld a, BANK(Tilemap_SettingsMenu)
+	ld hl, Tilemap_SettingsMenu_FlagSet
+	ld a, BANK(Tilemap_SettingsMenu_FlagSet)
 	farcall Tilemap_CopyRectAndAttr
 
 .l5256 ; 68:5256

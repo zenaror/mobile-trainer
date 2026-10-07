@@ -11,6 +11,14 @@ Companion documents:
 * [`gfx/previews/README.md`](../gfx/previews/README.md): composed screens and sprite sheets, with the numbers that check them against an emulator.
 * [`docs/research/text_encoding.md`](research/text_encoding.md): the text encoding and the font banks; [`STYLE.md`](../STYLE.md) section 7: how strings are written in the source.
 
+## Public English checkpoint (2026-10-06)
+
+The experimental [English branch](https://github.com/zenaror/mobile-trainer/tree/codex/translation-en-reflow) is published at [commit `2fffc579`](https://github.com/zenaror/mobile-trainer/commit/2fffc579cb8550196689f6c30dadc3fc7a640065). Rafael authorized publication of this separate branch; the earlier local-only restriction has been superseded. The Japanese reconstruction on `main` remains byte-identical to the original ROM. Original ROMs and the translation ZIP are never tracked in Git.
+
+This checkpoint reuses 252 bounded graphics assets from the supplied English material, two public UI text samples, and 24 communication-message slots after the initial graphics checkpoint. The adapter-not-connected message was already included in that initial checkpoint. The latest change reflows the new-password-equals-old-password message inside its original 144-byte slot, preserving its English words and pointer. Fresh build, symbol, palette, PNG and graphics checks reproduce the reviewed English ROM SHA-256 `fdc65cb5fa1254107fdcf83a903b46689ee759c1c4226423fde076e894d1462d`; this modified ROM is distinct from the Japanese reconstruction.
+
+Five relocated communication messages and the password-needs-a-mix message remain pending, along with the Help script, registration/HTML text and other unintegrated changes. Static layout arithmetic is PROBABLE; this checkpoint does not establish runtime appearance or translation fidelity. Supplied personal example records are excluded from translation reuse and publication.
+
 ## 1. The two kinds of text
 
 | | text in pictures | text drawn at run time |

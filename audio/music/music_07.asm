@@ -811,5 +811,9 @@ SoundSong07_Header:: ; 04:7079
 Data_04_7079::
 	sound_stream_header 4, 2
 	dw SoundSong07_Track0, SoundSong07_Track1, SoundSong07_Track2, SoundSong07_Track3 ; track stream pointers (read by the driver)
-	dw SoundSong07_Track0_Loop, SoundSong07_Track1_Loop, SoundSong07_Track2_Loop, SoundSong07_Track3_Loop ; not read by the driver: target of each track's final sound_jump
-	dw SoundSong07_Track0_AfterJump, SoundSong07_Track1_AfterJump, SoundSong07_Track2_AfterJump, SoundSong07_Track3_AfterJump ; not read by the driver: address after each track's final sound_jump
+	; not read by the driver: target of each track's final sound_jump
+	dw SoundSong07_Track0_Loop, SoundSong07_Track1_Loop
+	dw SoundSong07_Track2_Loop, SoundSong07_Track3_Loop
+	; not read by the driver: address after each track's final sound_jump
+	dw SoundSong07_Track0_AfterJump, SoundSong07_Track1_AfterJump
+	dw SoundSong07_Track2_AfterJump, SoundSong07_Track3_AfterJump

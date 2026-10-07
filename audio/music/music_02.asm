@@ -726,5 +726,9 @@ SoundSong02_Header:: ; 04:5CBF
 Data_04_5CBF::
 	sound_stream_header 4, 2
 	dw SoundSong02_Track0, SoundSong02_Track1, SoundSong02_Track2, SoundSong02_Track3 ; track stream pointers (read by the driver)
-	dw SoundSong02_Track0_Loop, SoundSong02_Track1_Loop, SoundSong02_Track2_Loop, SoundSong02_Track3_Loop ; not read by the driver: target of each track's final sound_jump
-	dw SoundSong02_Track0_AfterJump, SoundSong02_Track1_AfterJump, SoundSong02_Track2_AfterJump, SoundSong02_Track3_AfterJump ; not read by the driver: address after each track's final sound_jump
+	; not read by the driver: target of each track's final sound_jump
+	dw SoundSong02_Track0_Loop, SoundSong02_Track1_Loop
+	dw SoundSong02_Track2_Loop, SoundSong02_Track3_Loop
+	; not read by the driver: address after each track's final sound_jump
+	dw SoundSong02_Track0_AfterJump, SoundSong02_Track1_AfterJump
+	dw SoundSong02_Track2_AfterJump, SoundSong02_Track3_AfterJump

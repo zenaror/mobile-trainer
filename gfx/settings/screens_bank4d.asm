@@ -74,28 +74,44 @@ Data_4D_5810::
 	INCBIN "gfx/settings/screens_bank4d/tilemap_5810.tilemap"
 	INCBIN "gfx/settings/screens_bank4d/tilemap_5810.attrmap"
 
-; ---- data $5AE0-$5B6C (140 bytes) [PROBABLE] 14x5 tilemap: 70 tile indices then 70 attribute bytes (0x8C); one of 4 words {5AE0,5B6C,5BF8,5C84} of the pointer table at 67:491C (`ld hl,$491C` at 67:4906, bc=$050E = 5 rows x 14 cols) (bank 67 bytes at 491C: e0 5a 6c 5b f8 5b 84 5c); rows visible in the bytes (00 0b 01 02..); the mapper ptrtable guesses at 5B0A/5B18 were tile indices
+; ---- data $5AE0-$5B6C (140 bytes) [CONFIRMED] 14x5 tilemap/attribute pair
+; Bank67 table $491C selects this bank4D source; Tilemap_CopyRectAndAttr at 67:4915
+; copies 70 tile indices then 70 attribute bytes (BC=$050E; 5 rows x 14 columns).
+; All 140 bytes are naturally read in 3/69 scenarios (traces/detail/*/dataaccess.tsv).
+; See docs/research/typing_4d_choice_maps.md; no arbitrary cursor-range safety is inferred.
 
 Tilemap_SettingsPhone_ChoiceMenu_Entry0:: ; 4D:5AE0
 Tilemap_4D_5AE0::
 	INCBIN "gfx/settings/screens_bank4d/tilemap_5ae0.tilemap"
 	INCBIN "gfx/settings/screens_bank4d/tilemap_5ae0.attrmap"
 
-; ---- data $5B6C-$5BF8 (140 bytes) [PROBABLE] 14x5 tilemap: 70 tile indices then 70 attribute bytes (0x8C); one of 4 words {5AE0,5B6C,5BF8,5C84} of the pointer table at 67:491C (`ld hl,$491C` at 67:4906, bc=$050E = 5 rows x 14 cols) (bank 67 bytes at 491C: e0 5a 6c 5b f8 5b 84 5c); rows visible in the bytes (00 0b 01 02..); the mapper ptrtable guesses at 5B0A/5B18 were tile indices
+; ---- data $5B6C-$5BF8 (140 bytes) [CONFIRMED] 14x5 tilemap/attribute pair
+; Bank67 table $491C selects this bank4D source; Tilemap_CopyRectAndAttr at 67:4915
+; copies 70 tile indices then 70 attribute bytes (BC=$050E; 5 rows x 14 columns).
+; All 140 bytes are naturally read in 2/69 scenarios (traces/detail/*/dataaccess.tsv).
+; See docs/research/typing_4d_choice_maps.md; no arbitrary cursor-range safety is inferred.
 
 Tilemap_SettingsPhone_ChoiceMenu_Entry1:: ; 4D:5B6C
 Tilemap_4D_5B6C::
 	INCBIN "gfx/settings/screens_bank4d/tilemap_5b6c.tilemap"
 	INCBIN "gfx/settings/screens_bank4d/tilemap_5b6c.attrmap"
 
-; ---- data $5BF8-$5C84 (140 bytes) [PROBABLE] 14x5 tilemap: 70 tile indices then 70 attribute bytes (0x8C); one of 4 words {5AE0,5B6C,5BF8,5C84} of the pointer table at 67:491C (`ld hl,$491C` at 67:4906, bc=$050E = 5 rows x 14 cols) (bank 67 bytes at 491C: e0 5a 6c 5b f8 5b 84 5c); rows visible in the bytes (00 0b 01 02..); the mapper ptrtable guesses at 5B0A/5B18 were tile indices
+; ---- data $5BF8-$5C84 (140 bytes) [CONFIRMED] 14x5 tilemap/attribute pair
+; Bank67 table $491C selects this bank4D source; Tilemap_CopyRectAndAttr at 67:4915
+; copies 70 tile indices then 70 attribute bytes (BC=$050E; 5 rows x 14 columns).
+; All 140 bytes are naturally read in 5/69 scenarios (traces/detail/*/dataaccess.tsv).
+; See docs/research/typing_4d_choice_maps.md; no arbitrary cursor-range safety is inferred.
 
 Tilemap_SettingsPhone_ChoiceMenu_Entry2:: ; 4D:5BF8
 Tilemap_4D_5BF8::
 	INCBIN "gfx/settings/screens_bank4d/tilemap_5bf8.tilemap"
 	INCBIN "gfx/settings/screens_bank4d/tilemap_5bf8.attrmap"
 
-; ---- data $5C84-$5D10 (140 bytes) [PROBABLE] 14x5 tilemap: 70 tile indices then 70 attribute bytes (0x8C); one of 4 words {5AE0,5B6C,5BF8,5C84} of the pointer table at 67:491C (`ld hl,$491C` at 67:4906, bc=$050E = 5 rows x 14 cols) (bank 67 bytes at 491C: e0 5a 6c 5b f8 5b 84 5c); rows visible in the bytes (00 0b 01 02..); the mapper ptrtable guesses at 5B0A/5B18 were tile indices
+; ---- data $5C84-$5D10 (140 bytes) [CONFIRMED] 14x5 tilemap/attribute pair
+; Bank67 table $491C selects this bank4D source; Tilemap_CopyRectAndAttr at 67:4915
+; copies 70 tile indices then 70 attribute bytes (BC=$050E; 5 rows x 14 columns).
+; All 140 bytes are naturally read in 3/69 scenarios (traces/detail/*/dataaccess.tsv).
+; See docs/research/typing_4d_choice_maps.md; no arbitrary cursor-range safety is inferred.
 
 Tilemap_SettingsPhone_ChoiceMenu_Entry3:: ; 4D:5C84
 Tilemap_4D_5C84::

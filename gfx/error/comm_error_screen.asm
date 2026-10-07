@@ -52,33 +52,71 @@ CommErr_Gfx_Bg9400:: ; 5C:61D0
 Data_5C_61D0::
 	INCBIN "gfx/error/comm_error_screen/comm_err_gfx_bg9400.2bpp"
 
-; ---- gfx $6350-$6420 (208 bytes) [PROBABLE] tiles-2bpp: heuristic: 40 coherent tiles (hsim2=0.719 vsim2=0.738, 8 blank) parity 0; 576/784 bytes also covered by call-site blocks [clipped from 6110-6420 by higher-priority evidence]
+; ---- gfx $6350-$6390 (64 bytes) [CONFIRMED] 32 RGB555 words for the timer BG palette
+; Palette_LoadToBuffer at 5C:52E1 copies all 64 bytes; naturally read in 14/69 scenarios.
 
 CommErr_Palette_BgTimer:: ; 5C:6350
 Data_5C_6350::
-	; kind (palette) from the label name / config/symbols note; the region header above describes the block differently
 	INCLUDE "gfx/error/comm_error_screen/comm_err_palette_bg_timer.pal"
 
+; ---- gfx $6390-$63D0 (64 bytes) [CONFIRMED] 32 RGB555 words for the BG palette
+; Palette_LoadToBuffer at 5C:51DB copies all 64 bytes; naturally read in 23/69 scenarios.
+
 CommErr_Palette_Bg:: ; 5C:6390
-	; kind (palette) from the label name / config/symbols note; the region header above describes the block differently
 	INCLUDE "gfx/error/comm_error_screen/comm_err_palette_bg.pal"
 
+; ---- gfx $63D0-$6410 (64 bytes) [CONFIRMED] 32 RGB555 words for the OBJ palette
+; Palette_LoadToBuffer at 5C:51EC copies all 64 bytes; naturally read in 23/69 scenarios.
+
 CommErr_Palette_Obj:: ; 5C:63D0
-	; kind (palette) from the label name / config/symbols note; the region header above describes the block differently
 	INCLUDE "gfx/error/comm_error_screen/comm_err_palette_obj.pal"
 
+; One OAM piece has a label on its attribute byte. Emit its prefix, then that byte separately.
+; This helper consumes one piece of sprite_frame's counter; its sole use supplies the fourth byte.
+MACRO commerr_sprite_oam_prefix
+	ASSERT _NARG == 3, "commerr_sprite_oam_prefix takes y, x, tile"
+	ASSERT _sprite_oam_left > 0, "commerr_sprite_oam_prefix requires an OAM piece"
+	DEF _sprite_oam_left -= 1
+	db (\1), (\2), (\3)
+ENDM
+
+; ---- ptrtable $6410-$6414 (4 bytes) [CONFIRMED] two frame pointers for CommErr_ObjTable
+; The two-step script selects frames 0 and 1; all four bytes naturally read in 14/69 scenarios.
+
 CommErr_ObjAnim:: ; 5C:6410
-	db $14, $64, $25, $64, $04, $00, $00, $00, $08, $00, $08, $01, $08, $08, $00, $10
+	sprite_frame_table SpriteFrame_5C_6414, SpriteFrame_5C_6425
 
-; ---- data $6420-$642F (15 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown [clipped from 5D90-642F by higher-priority evidence]
+; ---- data $6414-$6425 (17 bytes) [CONFIRMED] count 4 followed by four OAM pieces
+; Sprite_StepAndDrawSlot at 00:0AE8 consumes this frame; all 17 bytes read in 14/69 scenarios.
 
+SpriteFrame_5C_6414:: ; 5C:6414
+	sprite_frame 4
+	sprite_oam $00, $00, $00, $08
+	sprite_oam $00, $08, $01, $08
+	commerr_sprite_oam_prefix $08, $00, $10
 Data_5C_6420:: ; 5C:6420
-	db $08, $08, $08, $11, $08 ; not reached by any walked sprite chain
+	db $08 ; attribute of the third OAM piece, consumed by the same frame
+	sprite_oam $08, $08, $11, $08
+	ASSERT _sprite_oam_left == 0, "communication-error frame must contain four OAM pieces"
+	ASSERT Data_5C_6420 - SpriteFrame_5C_6414 == 12, "attribute label must keep its byte offset"
+PURGE commerr_sprite_oam_prefix
+
+; ---- data $6425-$6426 (1 bytes) [CONFIRMED] empty second frame, count 0
+; Frame index 1 selects this count byte; naturally read in 14/69 scenarios.
+
 SpriteFrame_5C_6425:: ; 5C:6425
 	sprite_frame 0
+
+; ---- data $6426-$642B (5 bytes) [CONFIRMED] two frame-index/delay steps: (0,12), (1,12)
+; Sprite_StepAndDrawSlot at 00:0AE8 consumes both steps; all five bytes read in 14/69 scenarios.
+
 SpriteScript_5C_6426:: ; 5C:6426
 	sprite_anim 2
 	sprite_anim_step 0, 12
 	sprite_anim_step 1, 12
+
+; ---- data $642B-$642F (4 bytes) [CONFIRMED] one frame-table/script-pointer object entry
+; Sprite_InitSlot at 5C:52C7 selects entry 0 with B=$80; all four bytes read in 14/69 scenarios.
+
 CommErr_ObjTable:: ; 5C:642B
 	sprite_object_entry CommErr_ObjAnim, SpriteScript_5C_6426 ; entry 0

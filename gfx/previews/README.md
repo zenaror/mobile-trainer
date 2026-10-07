@@ -180,7 +180,7 @@ Generated pictures (not ROM data, not needed by `make`): what the game draws, co
 | Kbd_ObjTable | 5F:4CF8 | 14 | 17 | assets | 8x8 (LCDC bit 2 clear in 140/140 captures) | 14 / 12 | 24 / 40 | 24 / 24 | [png](sprites/Kbd_ObjTable_5F_4CF8.png) |
 | NoAdapter_ObjTable | 63:7310 | 1 | 2 | assets | 8x8 (LCDC bit 2 clear in 164/168 captures) | 2 / 2 | 0 / 40 | 0 / 0 | [png](sprites/NoAdapter_ObjTable_63_7310.png) |
 | ConnIcon_ObjTable | 69:4778 | 7 | 26 | emulator | 8x8 (LCDC bit 2 clear in 219/219 captures) | 17 / 0 | 0 / 40 | 0 / 0 | [png](sprites/ConnIcon_ObjTable_69_4778.png) |
-| Table_6A_72BB | 6A:72BB | 1 | 2 | assets | 8x8 (LCDC bit 2 clear in 92/96 captures) | 2 / 2 | 6 / 33 | 6 / 6 | [png](sprites/Table_6A_72BB_6A_72BB.png) |
+| Objects_HelpScript_Slot2 | 6A:72BB | 1 | 2 | assets | 8x8 (LCDC bit 2 clear in 92/96 captures) | 2 / 2 | 6 / 33 | 6 / 6 | [png](sprites/Table_6A_72BB_6A_72BB.png) |
 | CommScene_ObjTable | 70:534C | 3 | 4 | assets | 8x16 (LCDC bit 2 set in 17/17 captures) | 3 / 3 | 17 / 17 | 13 / 13 | [png](sprites/CommScene_ObjTable_70_534C.png) |
 | CommScene_SpriteObjTable | 70:53EB | 5 | 7 | assets | 8x16 (LCDC bit 2 set in 3/3 captures) | 1 / 1 | 3 / 3 | 3 / 3 | [png](sprites/CommScene_SpriteObjTable_70_53EB.png) |
 | CommPanel_ObjTable | 71:4FB8 | 1 | 3 | assets | 8x8 (LCDC bit 2 clear in 1/1 captures) | 1 / 1 | 1 / 1 | 1 / 1 | [png](sprites/CommPanel_ObjTable_71_4FB8.png) |

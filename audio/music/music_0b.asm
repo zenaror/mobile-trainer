@@ -376,5 +376,9 @@ SoundSong0B_Header:: ; 04:7BD9
 Data_04_7BD9::
 	sound_stream_header 4, 2
 	dw SoundSong0B_Track0, SoundSong0B_Track1, SoundSong0B_Track2, SoundSong0B_Track3 ; track stream pointers (read by the driver)
-	dw SoundSong0B_Track0_Loop, SoundSong0B_Track1_Loop, SoundSong0B_Track2_Loop, SoundSong0B_Track3_Loop ; not read by the driver: target of each track's final sound_jump
-	dw SoundSong0B_Track0_AfterJump, SoundSong0B_Track1_AfterJump, SoundSong0B_Track2_AfterJump, SoundSong0B_Track3_AfterJump ; not read by the driver: address after each track's final sound_jump
+	; not read by the driver: target of each track's final sound_jump
+	dw SoundSong0B_Track0_Loop, SoundSong0B_Track1_Loop
+	dw SoundSong0B_Track2_Loop, SoundSong0B_Track3_Loop
+	; not read by the driver: address after each track's final sound_jump
+	dw SoundSong0B_Track0_AfterJump, SoundSong0B_Track1_AfterJump
+	dw SoundSong0B_Track2_AfterJump, SoundSong0B_Track3_AfterJump

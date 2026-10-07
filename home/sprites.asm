@@ -187,7 +187,7 @@ Sprite_SetHook:: ; 00:0A45
 Function_00_0A45::
 	; [CONFIRMED] stores E,D,A at [HL..HL+2] in WRAM bank 7 [reached via inferred links; raw refs
 	; 28] [executed in 18 scenarios]
-	ldh [hRam_FFB0], a
+	ldh [hSpriteHook_Bank], a
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -199,7 +199,7 @@ Function_00_0A45::
 	ld [hli], a
 	ld a, d
 	ld [hli], a
-	ldh a, [hRam_FFB0]
+	ldh a, [hSpriteHook_Bank]
 	ld [hli], a
 	ldh [hScratchA], a
 	pop af
@@ -432,9 +432,9 @@ Function_00_0AE8::
 	ld de, $0009
 	add hl, de
 	ld a, [hli]
-	ldh [hRam_FFB0], a
+	ldh [hSpriteDraw_AttrOrMask], a
 	ld a, [hli]
-	ldh [hRam_FFB1], a
+	ldh [hSpriteDraw_AttrAndMask], a
 	pop hl
 	ld a, [hli]
 	add a, $10
@@ -474,9 +474,9 @@ Function_00_0AE8::
 	ld [de], a
 	inc de
 	push bc
-	ldh a, [hRam_FFB0]
+	ldh a, [hSpriteDraw_AttrOrMask]
 	ld b, a
-	ldh a, [hRam_FFB1]
+	ldh a, [hSpriteDraw_AttrAndMask]
 	ld c, a
 	ld a, [hli]
 	and a, c

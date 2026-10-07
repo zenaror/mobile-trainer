@@ -176,7 +176,7 @@ Label_4C_50E3::
 	farcall Sprite_ResetAll
 	xor a, a
 	ld [wBrowserNavigating], a
-	ldh [hRam_FFA7], a
+	ldh [hJoyDispatchExtraMask], a
 	ldh a, [hDialogResult]
 	ret
 

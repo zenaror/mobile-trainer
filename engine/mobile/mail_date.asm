@@ -9,18 +9,18 @@ Mail_ParseDate:: ; 54:5168
 	; entered by call from 54:49A2 (PROBABLE code) | 79 insn(s) executed; cut out of the PROBABLE
 	; region 511D-5343 by apply_coverage --split [executed in 3 scenarios] (part of region
 	; $511D-$51B9)
-	ld hl, wRam_C480
+	ld hl, wMailDate_InputText
 	add hl, bc
 	xor a, a
 	ld [hl], a
-	ld hl, wRam_C580
+	ld hl, wMailDate_YearHi
 	ld bc, $0600
 	xor a, a
 .l5175 ; 54:5175
 	ld [hli], a
 	dec b
 	jr nz, .l5175
-	ld hl, wRam_C480
+	ld hl, wMailDate_InputText
 	call Mail_SkipToDigit
 	call Mail_CountDigits
 	ld a, $01
@@ -34,7 +34,7 @@ Mail_ParseDate:: ; 54:5168
 	ld a, [hli]
 	and a, $0F
 	or a, c
-	ld [wRam_C583], a
+	ld [wMailDate_Day], a
 	call Mail_SkipSpaces
 	ld a, [hli]
 	or a, $20
@@ -78,7 +78,7 @@ Mail_ParseDate:: ; 54:5168
 	ld hl, Table_Mail_MonthBcd
 	add hl, de
 	ld a, [hl]
-	ld [wRam_C582], a
+	ld [wMailDate_Month], a
 .l51CA ; 54:51CA
 	pop hl
 	call Mail_SkipToDigit
@@ -108,7 +108,7 @@ Mail_ParseDate:: ; 54:5168
 	ld a, [hli]
 	and a, $0F
 	or a, c
-	ld [wRam_C580], a
+	ld [wMailDate_YearHi], a
 .l51EE ; 54:51EE
 	ld a, [hli]
 	and a, $0F
@@ -117,7 +117,7 @@ Mail_ParseDate:: ; 54:5168
 	ld a, [hli]
 	and a, $0F
 	or a, c
-	ld [wRam_C581], a
+	ld [wMailDate_YearLo], a
 .l51FB ; 54:51FB
 	call Mail_SkipToDigit
 	ld a, [hli]
@@ -127,7 +127,7 @@ Mail_ParseDate:: ; 54:5168
 	ld a, [hli]
 	and a, $0F
 	or a, c
-	ld [wRam_C584], a
+	ld [wMailDate_Hour], a
 	call Mail_SkipToDigit
 	ld a, [hli]
 	and a, $0F
@@ -136,7 +136,7 @@ Mail_ParseDate:: ; 54:5168
 	ld a, [hli]
 	and a, $0F
 	or a, c
-	ld [wRam_C585], a
+	ld [wMailDate_Minute], a
 	call Mail_ApplyTimezoneOffset
 	ret
 
@@ -191,7 +191,7 @@ Function_54_5240::
 .l524E ; 54:524E
 	; [CONFIRMED] 39 insn(s) executed; cut out of the PROBABLE region 511D-5343 by apply_coverage
 	; --split [executed in 12 scenarios]
-	ld [wRam_C590], a
+	ld [wMailDate_ZoneSign], a
 	ld a, [hli]
 	and a, $0F
 	swap a
@@ -210,25 +210,25 @@ Function_54_5240::
 	or a, c
 	ld [wRam_C592], a
 	ld c, a
-	ld a, [wRam_C590]
+	ld a, [wMailDate_ZoneSign]
 	cp a, $2D
 	jp z, .l532E
-	ld a, [wRam_C585]
+	ld a, [wMailDate_Minute]
 	sub a, c
 	daa
 	ld c, a
-	ld [wRam_C585], a
-	ld a, [wRam_C584]
+	ld [wMailDate_Minute], a
+	ld a, [wMailDate_Hour]
 	sbc a, b
 	daa
 	ld b, a
-	ld [wRam_C584], a
+	ld [wMailDate_Hour], a
 .l5287 ; 54:5287
-	ld a, [wRam_C584]
+	ld a, [wMailDate_Hour]
 	add a, $09
 	daa
 	ld b, a
-	ld [wRam_C584], a
+	ld [wMailDate_Hour], a
 	cp a, $24
 	ret c
 
@@ -238,14 +238,14 @@ Function_54_5240::
 	jr nc, .l52E6
 	sub a, $24
 	daa
-	ld [wRam_C584], a
-	ld hl, wRam_C583
+	ld [wMailDate_Hour], a
+	ld hl, wMailDate_Day
 	ld a, [hl]
 	ld c, a
 	add a, $01
 	daa
 	ld [hl], a
-	ld a, [wRam_C582]
+	ld a, [wMailDate_Month]
 	cp a, $02
 	jr z, .l52DA
 	ld e, a
@@ -257,13 +257,13 @@ Function_54_5240::
 	cp a, c
 	ret nz
 	ld a, $01
-	ld [wRam_C583], a
-	ld a, [wRam_C582]
+	ld [wMailDate_Day], a
+	ld a, [wMailDate_Month]
 	add a, $01
 	daa
 	cp a, $13
 	jr nz, .l52D6
-	ld hl, wRam_C581
+	ld hl, wMailDate_YearLo
 	ld a, [hl]
 	add a, $01
 	daa
@@ -274,10 +274,10 @@ Function_54_5240::
 	ld [hl], a
 	ld a, $01
 .l52D6 ; 54:52D6
-	ld [wRam_C582], a
+	ld [wMailDate_Month], a
 	ret
 .l52DA ; 54:52DA
-	ld a, [wRam_C581]
+	ld a, [wMailDate_YearLo]
 	and a, $03
 	ld a, $1C
 	jr nz, .l52B6
@@ -286,20 +286,20 @@ Function_54_5240::
 .l52E6 ; 54:52E6
 	add a, $24
 	daa
-	ld [wRam_C584], a
-	ld hl, wRam_C583
+	ld [wMailDate_Hour], a
+	ld hl, wMailDate_Day
 	ld a, [hl]
 	sub a, $01
 	daa
 	ld [hl], a
 	or a, a
 	ret nz
-	ld a, [wRam_C582]
+	ld a, [wMailDate_Month]
 	sub a, $01
 	daa
 	cp a, $00
 	jr nz, .l530F
-	ld hl, wRam_C581
+	ld hl, wMailDate_YearLo
 	ld a, [hl]
 	sub a, $01
 	daa
@@ -310,7 +310,7 @@ Function_54_5240::
 	ld [hl], a
 	ld a, $12
 .l530F ; 54:530F
-	ld [wRam_C582], a
+	ld [wMailDate_Month], a
 	cp a, $02
 	jr z, .l5322
 	ld e, a
@@ -319,26 +319,26 @@ Function_54_5240::
 	add hl, de
 	ld a, [hl]
 .l531E ; 54:531E
-	ld [wRam_C583], a
+	ld [wMailDate_Day], a
 	ret
 .l5322 ; 54:5322
-	ld a, [wRam_C581]
+	ld a, [wMailDate_YearLo]
 	and a, $03
 	ld a, $1C
 	jr nz, .l531E
 	inc a
 	jr .l531E
 .l532E ; 54:532E
-	ld a, [wRam_C585]
+	ld a, [wMailDate_Minute]
 	add a, c
 	daa
 	ld c, a
-	ld [wRam_C585], a
-	ld a, [wRam_C584]
+	ld [wMailDate_Minute], a
+	ld a, [wMailDate_Hour]
 	adc a, b
 	daa
 	ld b, a
-	ld [wRam_C584], a
+	ld [wMailDate_Hour], a
 	jp .l5287
 
 ; ---- text $5343-$5368 (37 bytes) [PROBABLE] ASCII month abbreviations "jan" "feb" ... "dec" (12 x 3) + NUL; walked by 54:51A6 (ld hl,$5343 ; inc e ; ld a,[hli] ; or a ; jr z ...) to turn a 3-letter month into an index
