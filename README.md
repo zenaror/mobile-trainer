@@ -143,3 +143,5 @@ Graphics are built from their PNGs: edit the PNG (tile sheets `gfx/**/*.png`, fo
 ## Translation
 
 See `docs/TRANSLATION.md` (text, images, fonts, limits) and `gfx/previews/README.md` (what each screen/sprite preview shows and how it was checked against the emulator).
+
+A future language build is planned after the remaining ZIP reuse has been completed and verified. The normal `make` will continue to reconstruct the original Japanese ROM byte for byte. The planned `make english` will build separate English outputs from file overrides under `language-patches/en/`, falling back to the original source or asset whenever an English override is absent. Overrides will cover text, sprites, tiles, box layouts, tilemaps, attribute maps, palettes and editable PNGs. This target and override directory are not yet available in the main build; see `docs/TRANSLATION.md` for the current English branch and its validation limits.

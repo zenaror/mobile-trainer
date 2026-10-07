@@ -4,13 +4,13 @@
 
 SECTION "gfx/address_book/list_tiles_bank22", ROMX
 
-; ---- data $5CD0-$5CEA (26 bytes) [PROBABLE] palette-rgb555: heuristic: 76 RGB555 words as 19 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance) (part of region $5C52-$5CEA)
+; ---- data $5CD0-$5CEA (26 bytes) [CONFIRMED] first26 bytes of original 160-tile family $5CD0-$66D0 (2560 bytes), read by 2F:45A3 -> Gfx_StartHDMA from ROM22 to VRAMbank1; physical26=one tile16 + first10 bytes of next tile; 10 whole/10 union natural scenarios; preserve raw split ; original JP natural-read evidence; English runtime UNVALIDATED.
 
 Gfx_AddrBook_TilesBank22:: ; 22:5CD0
 	db $3F, $50, $3F, $50, $3F, $50, $3F, $50, $3F, $50, $3F, $50, $3F, $50, $3F, $50
 	db $FF, $00, $C0, $00, $BF, $3F, $40, $7F, $40, $7F
 
-; ---- data $5CEA-$66D0 (2534 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 5980-66D0 by higher-priority evidence]
+; ---- data $5CEA-$66D0 (2534 bytes) [CONFIRMED] continuation of original 160-tile family $5CD0-$66D0: first6 bytes finish the split tile, followed by158 complete16-byte tiles; four ROM22 transfers1024/256/1024/256 to VRAMbank1 $9300/$9700; full2534 read in9 whole/10 union natural scenarios; physical boundary is phase10, not an independent tile sheet ; original JP natural-read evidence; English runtime UNVALIDATED.
 
 Data_22_5CEA:: ; 22:5CEA
 	db $39, $BF, $88, $4F, $E8, $0F, $FF, $00, $1E, $20, $CD, $D1, $22, $EB, $22, $EB
