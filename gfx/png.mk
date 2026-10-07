@@ -178,7 +178,6 @@ PNG_TILE_OUTS := \
 	gfx/browser/start_choice/browser_start_tiles2.2bpp \
 	gfx/browser/start_choice/browser_start_tiles3.2bpp \
 	gfx/browser/start_choice/browser_start_tiles4.2bpp \
-	gfx/browser/start_choice/tiles_4530.2bpp \
 	gfx/browser/start_choice/tiles_49e0.2bpp \
 	gfx/comm/comm_scene/tiles_5490.2bpp \
 	gfx/comm/comm_scene/tiles_5890.2bpp \
@@ -606,7 +605,6 @@ gfx/browser/start_choice/browser_start_tiles1.2bpp: PNG_SIZE := 1024
 gfx/browser/start_choice/browser_start_tiles2.2bpp: PNG_SIZE := 1024
 gfx/browser/start_choice/browser_start_tiles3.2bpp: PNG_SIZE := 1024
 gfx/browser/start_choice/browser_start_tiles4.2bpp: PNG_SIZE := 1024
-gfx/browser/start_choice/tiles_4530.2bpp: PNG_SIZE := 176
 gfx/browser/start_choice/tiles_49e0.2bpp: PNG_SIZE := 1024
 gfx/comm/comm_scene/tiles_5490.2bpp: PNG_SIZE := 1024
 gfx/comm/comm_scene/tiles_5890.2bpp: PNG_SIZE := 1024
