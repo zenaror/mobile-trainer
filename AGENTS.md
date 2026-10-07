@@ -15,7 +15,7 @@ O objetivo é um código-fonte RGBDS legível que reconstrói a ROM original **b
 - Considere o banco selecionado ao interpretar um endereço. Não trate todo byte como código. Confira o que o Ghidra ou outra ferramenta disser.
 - O fonte na raiz (`home/`, `engine/`, `data/`, `gfx/`, `audio/`, `lib/`) é mantido à mão. O gerador `tools/gen_asm.py` e as tabelas
   `config/` estão congelados como histórico: não rode `make regen`.
-- Faça commits pequenos e coerentes. Commit e push só quando Rafael pedir ou já tiver combinado para a tarefa. Não reescreva histórico publicado.
+- Faça commits pequenos e coerentes. Commit e push só quando o Operador pedir ou já tiver combinado para a tarefa. Não reescreva histórico publicado.
 
 ## Onde encontrar
 
@@ -23,7 +23,7 @@ O objetivo é um código-fonte RGBDS legível que reconstrói a ROM original **b
 - Estado atual e perguntas em aberto: `REVERSE_ENGINEERING.md`. Índice das notas de pesquisa: `docs/README.md`.
 - Regras completas de engenharia reversa (o texto integral que antes ficava neste arquivo): `docs/REVERSE_ENGINEERING_RULES.md`.
   Leia antes de um trabalho de análise.
-- Editar imagens: `docs/EDITING_IMAGES.md`. Tradução de idioma: `docs/TRANSLATION.md` (só começa quando Rafael pedir).
+- Editar imagens: `docs/EDITING_IMAGES.md`. Tradução de idioma: `docs/TRANSLATION.md` (só começa quando o Operador pedir).
 
 ## Memória: interna e OMM
 
