@@ -377,7 +377,7 @@ gfx/browser/start_choice/browser_start_top_map_normal.tilemap	tilemap	40	gfx/bro
 gfx/browser/start_choice/browser_start_top_attr_normal.attrmap	attrmap	40	gfx/browser/start_choice.asm	73	43AD	PROBABLE	-	0		BrowserStart_TopAttrNormal
 gfx/browser/start_choice/browser_start_bottom_map_selected.tilemap	tilemap	30	gfx/browser/start_choice.asm	73	441B	PROBABLE	-	0	10x3	BrowserStart_BottomMapSelected
 gfx/browser/start_choice/browser_start_bottom_attr_selected.attrmap	attrmap	30	gfx/browser/start_choice.asm	73	4461	PROBABLE	-	0		BrowserStart_BottomAttrSelected
-gfx/browser/start_choice/tiles_4530.2bpp	tiles	176	gfx/browser/start_choice.asm	73	4530	PROBABLE	exact	0		Data_73_4530
+# gfx/browser/start_choice/tiles_4530.2bpp	tiles	176	gfx/browser/start_choice.asm	73	4530	PROBABLE	exact	0		Data_73_4530
 gfx/browser/start_choice/browser_start_tiles0.2bpp	tiles	1024	gfx/browser/start_choice.asm	73	45E0	CONFIRMED	exact	0		BrowserStart_Tiles0
 gfx/browser/start_choice/tiles_49e0.2bpp	tiles	1024	gfx/browser/start_choice.asm	73	49E0	PROBABLE	exact	0		Data_73_49E0
 gfx/browser/start_choice/browser_start_tiles1.2bpp	tiles	1024	gfx/browser/start_choice.asm	73	4DE0	CONFIRMED	exact	0		BrowserStart_Tiles1

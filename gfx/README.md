@@ -44,8 +44,8 @@ gfx/assets.tsv                                 one line per asset: kind, size, b
 | RGB palette (`.pal`) | 143 | 11504 |
 | validity bitmap (`.bin`) | 1 | 8198 |
 | tile-index map (`.tilemap`) | 180 | 51618 |
-| 2bpp tiles (`.2bpp`) | 406 | 346848 |
-| **all** | **948** | **607752** |
+| 2bpp tiles (`.2bpp`) | 405 | 346672 |
+| **all** | **947** | **607576** |
 
 PNGs: 406 exact rgbgfx sources (`.png`), 38 font binaries with an editable sheet PNG (`.png`), 1 view-only picture (`_view.png`).
 
@@ -595,7 +595,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `browser_start_top_attr_normal.attrmap` | attribute map | 40 | 73:43AD | PROBABLE | - | - | `gfx/browser/start_choice.asm` |
 | `browser_start_bottom_map_selected.tilemap` | tile-index map | 30 | 73:441B | PROBABLE | - | 10x3 | `gfx/browser/start_choice.asm` |
 | `browser_start_bottom_attr_selected.attrmap` | attribute map | 30 | 73:4461 | PROBABLE | - | - | `gfx/browser/start_choice.asm` |
-| `tiles_4530.2bpp` | 2bpp tiles | 176 | 73:4530 | PROBABLE | exact | - | `gfx/browser/start_choice.asm` |
+Retired historical files: `tiles_4530.2bpp` and its PNG preserve the old 176-byte tile heuristic at73:4530. Original animation consumers instead read an attribute suffix173; the last3 bytes remain raw and their purpose HYPOTHESIS. Maintained db statements preserve all176 bytes. Exact active catalogue/rules rows are commented out; the two generated target/size lines are removed from `gfx/png.mk`. These files stay unchanged outside active totals. See `docs/research/typing_73_browser_animation.md`.
 | `browser_start_tiles0.2bpp` | 2bpp tiles | 1024 | 73:45E0 | CONFIRMED | exact | - | `gfx/browser/start_choice.asm` |
 | `tiles_49e0.2bpp` | 2bpp tiles | 1024 | 73:49E0 | PROBABLE | exact | - | `gfx/browser/start_choice.asm` |
 | `browser_start_tiles1.2bpp` | 2bpp tiles | 1024 | 73:4DE0 | CONFIRMED | exact | - | `gfx/browser/start_choice.asm` |
@@ -1474,7 +1474,7 @@ make png-export       (maintainers) PNGs regenerated from the binaries; never ov
 
 | kind | PNG source | files | notes |
 |---|---|---:|---|
-| 2bpp tile blocks | `name.png` (exact `rgbgfx` source of `name.2bpp`) | 406 | 100% of the `.2bpp` files; shades 0-3 are grey indices, not the game's colours (the game colours come from palettes and tile attributes; see screens) |
+| 2bpp tile blocks | `name.png` (exact `rgbgfx` source of `name.2bpp`) | 405 | all active catalogue `.2bpp` files; shades 0-3 are grey indices, not the game's colours (the game colours come from palettes and tile attributes; see screens) |
 | JIS 12x12 glyphs (10 binaries) | `data/fonts/jis12x12_rows_*.png`, 94 glyphs per sheet row | 9 sheets | bank 7C's two binaries share one sheet |
 | 8x16 font runs | `data/fonts/font_8x16_*.png`, 16 glyphs per row | 27 sheets | |
 | 6x12 Latin font | `data/fonts/ascii_6x12.png` | 1 sheet | 6 pixel wide cells (the two unused bits of each byte stay 0) |
