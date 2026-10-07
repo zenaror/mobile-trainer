@@ -264,12 +264,14 @@ CommErr_Msg_NewPasswordBadChars:: ; 5C:4C38
 	db "文字を入力して下さい。", 0
 
 CommErr_Msg_NewPasswordNeedsMix:: ; 5C:4CB3
-	db "この新しいパスワードはア", $0D
-	db "ルファベットだけか、数字", $0D
-	db "だけです。　　　　　　　", $0D
-	db "アルファベットと数字を組", $0D
-	db "み合わせた４～８文字を入", $0D
-	db "力して下さい。", 0
+	db "The new password", $0D
+	db "consists of only", $0D
+	db "alphabetic characters", $0D
+	db "or only digits.", $0D
+	db "Please enter 4 to 8", $0D
+	db "alphanumeric characters", $0D
+	db "for your password.", 0
+	ds 5, 0
 
 CommErr_Msg_NewPasswordSameAsOld:: ; 5C:4D3F
 	db "The new password", $0D
