@@ -6,11 +6,11 @@ SECTION "data/text/browser_start_ticker", ROMX
 
 PUSHC sjis
 
-; ---- data $4000-$4001 (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+; ---- data $4000-$4001 (1 bytes) [CONFIRMED] text-ROM bank field: 73:62CB -> Ticker_Start 48:42D4 -> ReadByteFar; stored in wTickerTextBank ($C0EB); byte read in 19 whole/19 union natural scenarios (typing_73_browser_remaining.md)
 
 Data_BrowserStart_StringIndexBank:: ; 73:4000
 Data_73_4000::
-	db $73
+	db BANK(BrowserStart_Strings)
 
 ; ---- ptrtable $4001-$4009 (8 bytes) [CONFIRMED] two title/body pointer pairs in ROM bank 73
 ; 73:62C6 -> 48:42D4, stride 4; reads: 8 whole / 19 union scenarios; no universal index clamp.
