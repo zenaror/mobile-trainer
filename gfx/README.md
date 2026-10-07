@@ -965,7 +965,7 @@ Retired historical file: `palette_5e60.pal` preserves the former 96-byte RGB555 
 | `comm_progress_screen.tilemap` | tile-index map | 360 | 22:5980 | CONFIRMED | - | 20x18 | `gfx/mail/comm_progress_scene.asm` |
 | `comm_progress_screen.attrmap` | attribute map | 360 | 22:5AE8 | CONFIRMED | - | 20x18 | `gfx/mail/comm_progress_scene.asm` |
 | `comm_progress_bg.pal` | RGB palette | 64 | 22:5C50 | CONFIRMED | - | - | `gfx/mail/comm_progress_scene.asm` |
-| `comm_progress_obj.pal` | RGB palette | 64 | 22:5C90 | PROBABLE | - | - | `gfx/mail/comm_progress_scene.asm` |
+| `comm_progress_obj.pal` | RGB palette | 64 | 22:5C90 | CONFIRMED | - | - | `gfx/mail/comm_progress_scene.asm` |
 
 ### `gfx/mail/comm_result/`
 
