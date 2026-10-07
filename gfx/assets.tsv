@@ -895,10 +895,10 @@ gfx/settings/screens_bank4d/settings_phone_slot_menu_bg.pal	palette	40	gfx/setti
 gfx/settings/screens_bank4d/settings_phone_slot_menu_obj.pal	palette	8	gfx/settings/screens_bank4d.asm	4D	7598	CONFIRMED	-	0		Palette_SettingsPhone_SlotMenu_Obj
 gfx/settings/screens_bank4d/settings_phone_slot_menu_4d_75a0.tilemap	tilemap	360	gfx/settings/screens_bank4d.asm	4D	75A0	CONFIRMED	-	0	20x18	Tilemap_SettingsPhone_SlotMenu_4D_75A0
 gfx/settings/screens_bank4d/settings_phone_slot_menu_4d_75a0.attrmap	attrmap	360	gfx/settings/screens_bank4d.asm	4D	7708	CONFIRMED	-	0	20x18	Tilemap_SettingsPhone_SlotMenu_4D_75A0
-gfx/settings/screens_bank4d/tilemap_7870.tilemap	tilemap	40	gfx/settings/screens_bank4d.asm	4D	7870	PROBABLE	-	0	20x2	Tilemap_4D_7870
-gfx/settings/screens_bank4d/tilemap_7870.attrmap	attrmap	40	gfx/settings/screens_bank4d.asm	4D	7898	PROBABLE	-	0	20x2	Tilemap_4D_7870
-gfx/settings/screens_bank4d/tilemap_78c0.tilemap	tilemap	40	gfx/settings/screens_bank4d.asm	4D	78C0	PROBABLE	-	0	20x2	Tilemap_4D_78C0
-gfx/settings/screens_bank4d/tilemap_78c0.attrmap	attrmap	40	gfx/settings/screens_bank4d.asm	4D	78E8	PROBABLE	-	0	20x2	Tilemap_4D_78C0
+gfx/settings/screens_bank4d/tilemap_7870.tilemap	tilemap	40	gfx/settings/screens_bank4d.asm	4D	7870	CONFIRMED	-	0	20x2	Tilemap_4D_7870
+gfx/settings/screens_bank4d/tilemap_7870.attrmap	attrmap	40	gfx/settings/screens_bank4d.asm	4D	7898	CONFIRMED	-	0	20x2	Tilemap_4D_7870
+gfx/settings/screens_bank4d/tilemap_78c0.tilemap	tilemap	40	gfx/settings/screens_bank4d.asm	4D	78C0	CONFIRMED	-	0	20x2	Tilemap_4D_78C0
+gfx/settings/screens_bank4d/tilemap_78c0.attrmap	attrmap	40	gfx/settings/screens_bank4d.asm	4D	78E8	CONFIRMED	-	0	20x2	Tilemap_4D_78C0
 gfx/settings/screens_bank4d/tilemap_7910.tilemap	tilemap	40	gfx/settings/screens_bank4d.asm	4D	7910	PROBABLE	-	0	20x2	Tilemap_4D_7910
 gfx/settings/screens_bank4d/tilemap_7910.attrmap	attrmap	40	gfx/settings/screens_bank4d.asm	4D	7938	PROBABLE	-	0	20x2	Tilemap_4D_7910
 gfx/settings/screens_bank5d/tiles_7360.2bpp	tiles	1024	gfx/settings/screens_bank5d.asm	5D	7360	CONFIRMED	exact	0		Data_5D_7360
