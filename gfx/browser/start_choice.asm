@@ -17,7 +17,7 @@ BrowserStart_TopMapNormal:: ; 73:4367
 Tilemap_73_4367::
 	INCBIN "gfx/browser/start_choice/browser_start_top_map_normal.tilemap"
 
-; ---- data $438F-$43AD (30 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+; ---- data $438F-$43AD (30 bytes) [CONFIRMED] tile-index rectangle: 3 rows x 10 columns; ROM73 -> WRAM7 $D129, row stride 32; paired consumer 73:61F0 -> 00:16A2; all 30 bytes read in 19 whole/19 union natural scenarios (typing_73_browser_remaining.md)
 
 BrowserStart_BottomMapNormal:: ; 73:438F
 Data_73_438F::
@@ -30,7 +30,7 @@ BrowserStart_TopAttrNormal:: ; 73:43AD
 Data_73_43AD::
 	INCBIN "gfx/browser/start_choice/browser_start_top_attr_normal.attrmap"
 
-; ---- data $43D5-$441B (70 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+; ---- data $43D5-$441B (70 bytes) [CONFIRMED] mixed rectangles: BG attributes $43D5-$43F3 (30 bytes, 3x10, WRAM7 $D529, consumer 73:61F0); tile indices $43F3-$441B (40 bytes, 4x10, WRAM7 $D089, consumer 73:620B); row stride 32; all 70 bytes read in 19 whole/19 union natural scenarios (typing_73_browser_remaining.md)
 
 BrowserStart_BottomAttrNormal:: ; 73:43D5
 Data_73_43D5::
@@ -48,7 +48,7 @@ BrowserStart_BottomMapSelected:: ; 73:441B
 Tilemap_73_441B::
 	INCBIN "gfx/browser/start_choice/browser_start_bottom_map_selected.tilemap"
 
-; ---- data $4439-$4461 (40 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+; ---- data $4439-$4461 (40 bytes) [CONFIRMED] BG attribute rectangle: 4 rows x 10 columns; ROM73 -> WRAM7 $D489, row stride 32; paired consumer 73:620B -> 00:16A2; all 40 bytes read in 19 whole/19 union natural scenarios (typing_73_browser_remaining.md)
 
 BrowserStart_TopAttrSelected:: ; 73:4439
 Data_73_4439::
