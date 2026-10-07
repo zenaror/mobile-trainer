@@ -874,14 +874,14 @@ gfx/settings/screens_bank4d/settings_phone_choice_menu_4d_5540.tilemap	tilemap	3
 gfx/settings/screens_bank4d/settings_phone_choice_menu_4d_5540.attrmap	attrmap	360	gfx/settings/screens_bank4d.asm	4D	56A8	CONFIRMED	-	0	20x18	Tilemap_SettingsPhone_ChoiceMenu_4D_5540
 gfx/settings/screens_bank4d/tilemap_5810.tilemap	tilemap	360	gfx/settings/screens_bank4d.asm	4D	5810	CONFIRMED	-	0	20x18	Data_4D_5810
 gfx/settings/screens_bank4d/tilemap_5810.attrmap	attrmap	360	gfx/settings/screens_bank4d.asm	4D	5978	CONFIRMED	-	0	20x18	Data_4D_5810
-gfx/settings/screens_bank4d/tilemap_5ae0.tilemap	tilemap	70	gfx/settings/screens_bank4d.asm	4D	5AE0	PROBABLE	-	0	14x5	Tilemap_4D_5AE0
-gfx/settings/screens_bank4d/tilemap_5ae0.attrmap	attrmap	70	gfx/settings/screens_bank4d.asm	4D	5B26	PROBABLE	-	0	14x5	Tilemap_4D_5AE0
-gfx/settings/screens_bank4d/tilemap_5b6c.tilemap	tilemap	70	gfx/settings/screens_bank4d.asm	4D	5B6C	PROBABLE	-	0	14x5	Tilemap_4D_5B6C
-gfx/settings/screens_bank4d/tilemap_5b6c.attrmap	attrmap	70	gfx/settings/screens_bank4d.asm	4D	5BB2	PROBABLE	-	0	14x5	Tilemap_4D_5B6C
-gfx/settings/screens_bank4d/tilemap_5bf8.tilemap	tilemap	70	gfx/settings/screens_bank4d.asm	4D	5BF8	PROBABLE	-	0	14x5	Tilemap_4D_5BF8
-gfx/settings/screens_bank4d/tilemap_5bf8.attrmap	attrmap	70	gfx/settings/screens_bank4d.asm	4D	5C3E	PROBABLE	-	0	14x5	Tilemap_4D_5BF8
-gfx/settings/screens_bank4d/tilemap_5c84.tilemap	tilemap	70	gfx/settings/screens_bank4d.asm	4D	5C84	PROBABLE	-	0	14x5	Tilemap_4D_5C84
-gfx/settings/screens_bank4d/tilemap_5c84.attrmap	attrmap	70	gfx/settings/screens_bank4d.asm	4D	5CCA	PROBABLE	-	0	14x5	Tilemap_4D_5C84
+gfx/settings/screens_bank4d/tilemap_5ae0.tilemap	tilemap	70	gfx/settings/screens_bank4d.asm	4D	5AE0	CONFIRMED	-	0	14x5	Tilemap_4D_5AE0
+gfx/settings/screens_bank4d/tilemap_5ae0.attrmap	attrmap	70	gfx/settings/screens_bank4d.asm	4D	5B26	CONFIRMED	-	0	14x5	Tilemap_4D_5AE0
+gfx/settings/screens_bank4d/tilemap_5b6c.tilemap	tilemap	70	gfx/settings/screens_bank4d.asm	4D	5B6C	CONFIRMED	-	0	14x5	Tilemap_4D_5B6C
+gfx/settings/screens_bank4d/tilemap_5b6c.attrmap	attrmap	70	gfx/settings/screens_bank4d.asm	4D	5BB2	CONFIRMED	-	0	14x5	Tilemap_4D_5B6C
+gfx/settings/screens_bank4d/tilemap_5bf8.tilemap	tilemap	70	gfx/settings/screens_bank4d.asm	4D	5BF8	CONFIRMED	-	0	14x5	Tilemap_4D_5BF8
+gfx/settings/screens_bank4d/tilemap_5bf8.attrmap	attrmap	70	gfx/settings/screens_bank4d.asm	4D	5C3E	CONFIRMED	-	0	14x5	Tilemap_4D_5BF8
+gfx/settings/screens_bank4d/tilemap_5c84.tilemap	tilemap	70	gfx/settings/screens_bank4d.asm	4D	5C84	CONFIRMED	-	0	14x5	Tilemap_4D_5C84
+gfx/settings/screens_bank4d/tilemap_5c84.attrmap	attrmap	70	gfx/settings/screens_bank4d.asm	4D	5CCA	CONFIRMED	-	0	14x5	Tilemap_4D_5C84
 gfx/settings/screens_bank4d/tiles_5d50.2bpp	tiles	32	gfx/settings/screens_bank4d.asm	4D	5D50	CONFIRMED	exact	0		Data_4D_5D50
 gfx/settings/screens_bank4d/tiles_5d70.2bpp	tiles	1024	gfx/settings/screens_bank4d.asm	4D	5D70	CONFIRMED	exact	0		Data_4D_5D70
 gfx/settings/screens_bank4d/tiles_6170.2bpp	tiles	1024	gfx/settings/screens_bank4d.asm	4D	6170	CONFIRMED	exact	0		Data_4D_6170
