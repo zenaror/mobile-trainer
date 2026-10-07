@@ -42,8 +42,8 @@ Account_ConfirmScreen_Setup:: ; 68:6213
 	ld c, $20
 	farcall Gfx_StartHDMAWithService
 	ld de, $8001
-	ld hl, Data_5F_49D0
-	ld a, BANK(Data_5F_49D0)
+	ld hl, Gfx_SharedPanels_Vram8000Vb1
+	ld a, BANK(Gfx_SharedPanels_Vram8000Vb1)
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
@@ -54,8 +54,8 @@ Account_ConfirmScreen_Setup:: ; 68:6213
 	farcall Palette_LoadToBuffer
 	ld bc, $0018
 	ld de, wPaletteBufObj + $28
-	ld hl, Palette_5F_4CD0 + $10 ; 5F:4CE0
-	ld a, BANK(Palette_5F_4CD0)
+	ld hl, Palette_SharedPanels_BgObj + $10 ; 5F:4CE0
+	ld a, BANK(Palette_SharedPanels_BgObj)
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap
@@ -279,8 +279,8 @@ Account_ConfirmManualScreen_Setup:: ; 68:6451
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8001
-	ld hl, Data_5F_49D0
-	ld a, BANK(Data_5F_49D0)
+	ld hl, Gfx_SharedPanels_Vram8000Vb1
+	ld a, BANK(Gfx_SharedPanels_Vram8000Vb1)
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
@@ -291,8 +291,8 @@ Account_ConfirmManualScreen_Setup:: ; 68:6451
 	farcall Palette_LoadToBuffer
 	ld bc, $0018
 	ld de, wPaletteBufObj + $28
-	ld hl, Palette_5F_4CD0 + $10 ; 5F:4CE0
-	ld a, BANK(Palette_5F_4CD0)
+	ld hl, Palette_SharedPanels_BgObj + $10 ; 5F:4CE0
+	ld a, BANK(Palette_SharedPanels_BgObj)
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, wScreenTileMap

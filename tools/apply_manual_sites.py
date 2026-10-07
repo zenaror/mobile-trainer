@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
-"""Write by hand-proven rows: replace a raw `ld hl|de|bc, $XXXX` operand, or a use of a neutral banked name (`wRam_D1A6`), by the proposed name at the lines of a TSV record, with a context check.
+"""Write by hand-proven rows: replace a raw `ld hl|de|bc, $XXXX` operand, or a use of a neutral banked name (`wRam_D1A6` or `sSram_A9EC`), by the proposed name at the lines of a TSV record, with a context check.
 
     python3 tools/apply_manual_sites.py [--sites analysis/naming2/ramop9_manual.tsv] [--root DIR] [--dry-run] [--no-build]
 
 The record (TSV with a header) has the columns `file`, `line` (1-based), `operand` (`$XXXX`, or the text of the neutral name use, `wRam_D1A6` or `wRam_D1A6 + $02`), `bank`, `proposed text` (the name, or `name + $XX`), `group`,
 `disposition`, `proof` and `ctx`.  Only the rows whose disposition starts with `manual` are written; the others are the sites that were looked at and stay numeric (the proof column says why).  A `$XXXX` row is the instruction
 `ld hl|de|bc, $XXXX` with that operand, or a data line (`dw $DF10, $DF43`) where the number occurs once, or `$XXXX xN` where it occurs exactly N times (2-9, a table that repeats a word: every
-occurrence becomes the name); any other operand is a token that must occur exactly once in the code of the line (not in the comment or a string, not as the start of a longer expression).  Before it writes, the tool evaluates the proposed text with the `DEF` lines of `ram/banked.asm` and `ram/wram.asm`: the name must exist, `name + offset` must equal
+occurrence becomes the name); any other operand is a token that must occur exactly once in the code of the line (not in the comment or a string, not as the start of a longer expression).  Before it writes, the tool evaluates the proposed text with the `DEF` lines of `ram/banked.asm`, `ram/wram.asm` and `ram/sram.asm`: the name must exist, `name + offset` must equal
 the operand (the SHA-256 gate cannot see a name of another bank with the same number) and, when the row gives a bank, it must be the bank of the name.  The operand becomes the proposed
 text (the same value, so no byte of the ROM changes); the row is skipped, never moved, when the line is no longer that code or when `ctx` (the previous, the own and the next code line, comments removed, the operand of an
-`ld hl|de|bc` written `*`, a memory operand that is a name or an address written `[*]`; the physical lines, a comment-only line is empty) no longer matches; a line that already holds the proposed text is `already written`, so the tool is idempotent.  Afterwards the tool builds (`make`, or $RENAME_BUILD_CMD), compares the SHA-256 with
+`ld hl|de|bc` written `*`, a memory operand that is a name or an address written `[*]`; the physical lines, a comment-only line is empty) no longer matches; a line that already holds the proposed text is `already written` only after the same value, bank and context checks, so the tool is idempotent.  Afterwards the tool builds (`make`, or $RENAME_BUILD_CMD), compares the SHA-256 with
 roms.sha256 and runs tools/sym_check.py, and restores every touched file when that fails (exit 1); `--no-build` skips the verification.  Exit status: 0 ok, 1 verification failed and everything restored, 2 usage or input error.
 """
 import argparse
@@ -35,7 +35,7 @@ def norm(line):
     return 'ld %s, *' % m.group(1) if m else code
 
 
-BRACKET = re.compile(r'\[(?:w[A-Za-z0-9_]+|\$[0-9A-Fa-f]{4})(?:\s*\+\s*[^\]|]+)?\]')
+BRACKET = re.compile(r'\[(?:[ws][A-Za-z0-9_]+|\$[0-9A-Fa-f]{4})(?:\s*\+\s*[^\]|]+)?\]')
 
 
 def loose(ctx):
@@ -49,9 +49,9 @@ EXPR = re.compile(r'^([A-Za-z_][A-Za-z0-9_]*)(?:\s*\+\s*(\$[0-9A-Fa-f]+|\d+))?$'
 
 
 def read_defs(root):
-    """{name: (value, bank or None)} of the `DEF name EQU $addr` lines of ram/banked.asm and ram/wram.asm."""
+    """{name: (value, bank or None)} of the `DEF name EQU $addr` lines of ram/banked.asm, ram/wram.asm and ram/sram.asm."""
     defs = {}
-    for rel in ('ram/banked.asm', 'ram/wram.asm'):
+    for rel in ('ram/banked.asm', 'ram/wram.asm', 'ram/sram.asm'):
         try:
             with open(os.path.join(root, rel), encoding='utf-8') as fh:
                 for line in fh:
@@ -84,7 +84,7 @@ def check_row(row, defs):
         return 'operand cannot be evaluated'
     if new[0] != old[0]:
         return 'value differs (%04X against %04X)' % (new[0], old[0])
-    if row.get('bank', '').startswith('W') and new[1] and new[1] != row['bank']:
+    if row.get('bank', '').startswith(('W', 'S')) and new[1] and new[1] != row['bank']:
         return 'bank differs (%s against %s)' % (new[1], row['bank'])
     return None
 
@@ -156,11 +156,9 @@ def plan(root, rows):
                 changed = (m.group(1) + r['proposed text'] + m.group(3)) if count == 1 and '$' + m.group(2) == r['operand'] else None
             else:
                 changed = replace_token(text[i], r['operand'], r['proposed text'], count)      # a data line (`dw $DF10`) or the use of a neutral name
-            if changed is None:
-                if already_written(orig[i], r, count):
-                    already.append((f, r['line']))
-                else:
-                    skipped.append((f, r['line'], 'not that code any more'))
+            is_already = changed is None and already_written(orig[i], r, count)
+            if changed is None and not is_already:
+                skipped.append((f, r['line'], 'not that code any more'))
                 continue
             why = check_row(r, defs)
             if why:
@@ -170,8 +168,11 @@ def plan(root, rows):
             if r.get('ctx') and loose(ctx) != loose(r['ctx']):
                 skipped.append((f, r['line'], 'context differs'))
                 continue
-            text[i] = changed
-            done.append((f, r['line']))
+            if is_already:
+                already.append((f, r['line']))
+            else:
+                text[i] = changed
+                done.append((f, r['line']))
         if text != orig:
             new[f] = '\n'.join(text)
     return new, done, skipped, already

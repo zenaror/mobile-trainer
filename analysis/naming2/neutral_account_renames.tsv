@@ -1,0 +1,5 @@
+old_name	new_name	kind	status	evidence
+Table_5D_7318	Objects_Registration_WriteConfig	table	CONFIRMED	Role of bank5D object-table base: B=$81 selects entry1 at731C, frame table7320/script7354. InitSlot68:6B88 natural23hits/8scenarios. Four zero entry0 bytes remain unread PROBABLE; not a safe sentinel.
+Data_68_7831	Data_Account_ResultPage_BannerTables	data	CONFIRMED	Aggregate29bytes = five3byte descriptors + three3byte descriptors + five lookup indices. Natural primary and second HDMA31hits/8scenarios, each $280 bytes (640). Whole storage remains PROBABLE:22read/7unread.
+Table_68_7840	Account_ResultPage_SecondBannerSources	table	CONFIRMED	Scoped second descriptor list7840..7849, not whole aggregate; indices1/2 natural, index0 unread. Reads781C/781F/7822 and transfer782A31hits/8scenarios, $280 bytes (640) to9280/VB1. Storage PROBABLE.
+Data_68_7849	Account_ResultPage_SecondBannerIndexByKind	table	CONFIRMED	Scoped five-byte index lookup7849..784E. Read780B6hits/4scenarios, only7849 natural; remaining four bytes unread. Known callers kind0..4, no arbitrary-input bounds guarantee. Storage PROBABLE.

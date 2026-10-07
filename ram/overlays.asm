@@ -138,8 +138,8 @@ DEF wTilemapFill_StartTile EQU wRam_C10F ; [CONFIRMED] value of A on entry, the 
 ; ---- engine/account/action_confirm.asm
 DEF wActionConfirmPage_Result EQU wRam_C27C ; [CONFIRMED] value returned in A by Account_ActionConfirmPage (68:6E35, 213x/19): cleared in Account_ActionConfirmPage_Setup (68:6E4A), 1 when A is pressed on the first entry (68:6F31, 131x/18), 2 on the second entry (68:6F37, 20x/8), 0 on B (68:6F57, 62x/8, only when the variant is non-zero); callers: Registration_Communicate (65:4678, 21x/7, 1 = go on), PasswordChange_Run (67:5988, 15x/3, 0 = back, 2 = 67:59E7), PasswordPrompt_Ask (67:6127, 177x/11, 0 or 2 = refuse)
 DEF wActionConfirmPage_Cursor EQU wRam_C27D ; [CONFIRMED] highlighted entry 0-1 (first = result 1, second = result 2): 0 in Account_ActionConfirmPage_Setup (68:6E4F, 213x/19), toggled by left/right (xor 1, 68:6F74, 77x/9), indexes Account_ActionConfirmCursorPositions (2 entries, 68:6F7F, 290x/19), tested by the A handler (68:6F29, 151x/18)
-DEF wActionConfirmPage_Variant EQU wRam_C27E ; [CONFIRMED] entry argument 0-3 (A of Account_ActionConfirmPage, stored at 68:6E1A, 213x/19): indexes Account_ActionMessageIds (4 prompt-text ids $04,$0B,$0C,$0D, 68:6FEE, 213x/19), picks the tilemap in Setup (68:6EAA: 0 = map at $7300, else Tilemap_Account_ActionConfirmPage) and lets B cancel only when non-zero (68:6F40, 65x/9); callers pass 0 (Registration_Communicate 65:4671), 1 (PasswordChange_Run 67:5980), wManualNumbersFlag + 2 = 2/3 (PasswordPrompt_Ask 67:611C)
-DEF wActionConfirmPage_NoFlag EQU wRam_C28E ; [PROBABLE] written only by the exit handlers of this page: 1 together with result 2 (second entry chosen, 68:6F3C, 20x/8; the second button of the rendered Tilemap_Account_ActionConfirmPage 5E:75D0 is iie (No), the first hai (Yes); the variant-0 map 5E:7300 was not rendered) and 0 together with result 0 (B, 68:6F5A, 62x/8), left alone when the first entry is chosen; not read in this file: UsageTime_Run (67:60F9, 52x/8) and UsageFee_Run (67:62B2, 41x/6) test it after the browser fetch returned cancel (wBrowserFetchResult = 2) and restart their flow on 0, end it otherwise; PROBABLE because the reader is reached through the browser/PasswordPrompt_Ask flow, not by a direct call
+DEF wActionConfirmPage_Variant EQU wRam_C27E ; [CONFIRMED] entry argument 0-3 (A of Account_ActionConfirmPage, stored at 68:6E1A, 213x/19): indexes Account_ActionMessageIds (4 prompt-text ids $04,$0B,$0C,$0D, 68:6FEE, 213x/19), picks the tilemap in Setup (68:6EAA: 0 = map at $7300, else Tilemap_Account_ActionConfirmPage_NonzeroVariant) and lets B cancel only when non-zero (68:6F40, 65x/9); callers pass 0 (Registration_Communicate 65:4671), 1 (PasswordChange_Run 67:5980), wManualNumbersFlag + 2 = 2/3 (PasswordPrompt_Ask 67:611C)
+DEF wActionConfirmPage_NoFlag EQU wRam_C28E ; [PROBABLE] written only by the exit handlers of this page: 1 together with result 2 (second entry chosen, 68:6F3C, 20x/8; the second button of the rendered Tilemap_Account_ActionConfirmPage_NonzeroVariant 5E:75D0 is iie (No), the first hai (Yes); the variant-0 map 5E:7300 was not rendered) and 0 together with result 0 (B, 68:6F5A, 62x/8), left alone when the first entry is chosen; not read in this file: UsageTime_Run (67:60F9, 52x/8) and UsageFee_Run (67:62B2, 41x/6) test it after the browser fetch returned cancel (wBrowserFetchResult = 2) and restart their flow on 0, end it otherwise; PROBABLE because the reader is reached through the browser/PasswordPrompt_Ask flow, not by a direct call
 
 ; ---- engine/account/confirm_screens.asm
 DEF wAccountConfirm_Result EQU wRam_C27C ; [CONFIRMED] value returned in A by Account_ConfirmScreen (68:620F, 14x/5) and Account_ConfirmManualScreen (68:644D, 10x/2): cleared in both Setup routines (68:6224, 14x/5; 68:6462, 10x/2), 1 when A is pressed on the first entry (68:6304, 14x/5; 68:6542, 7x/2), 2 on the second (68:630A never; 68:6548, 1x/1), 0 on B (68:631F never; 68:655D, 2x/1); callers (65:4435, 65:462C): 0 = back, 2 = redo the entry pages, else go on to Registration_Communicate
@@ -353,8 +353,9 @@ DEF hTextBox_ColorSelB EQU hRam_FFBA ; [CONFIRMED] B argument of Canvas_BlitGlyp
 DEF hTextBox_ColorSelC EQU hRam_FFBB ; [CONFIRMED] C argument of Canvas_BlitGlyph, second colour selector (see hTextBox_ColorSelB): loaded as ldh a,[FFBB] ; ld c,a right after FFBA before each farcall Canvas_BlitGlyph (00:1067, 00:1097, 00:10C9; 185150/185149/40698 hits); never written in home/text.asm. All 33 box setup sequences of the UI screens store $03 (all executed, 1-8022 hits), so the usual pair is B=0, C=3 (handler Canvas_Remap_B0C3 at 7F:4275, 353835 hits, 34 scenarios). The browser title code (engine/browser/page_render.asm, not in this scope) stores B=3, C=0.
 DEF hTextBox_LineStartX EQU hRam_FFC1 ; [CONFIRMED] x at which every line of the box starts, low byte of the 16-bit left margin (high byte FFC2): TextEngine_LineWrap (00:0F69, entered by control byte $0D and by the right-limit wrap of TextEngine_AfterChar) copies it into the cursor hTextX (ldh a,[FFC1] ; ldh [hTextX],a, 00:0F69-0F6B; 12555 hits, 36 scenarios). 32 of the 33 setup sequences store the same value as the start x in hTextX ($08/$20/$30/$38/$40); the exception, slot_menu.asm 67:5019-501D (second field), stores FFC0=$38 and FFC1=$58 while hTextX starts at $38 (67:5011): FFC0/FFC1 look transposed there, so a second line of that field would start at x=$58.
 
+; ---- home/text.asm,engine/account/*,engine/error/*,engine/settings/*,engine/startup/*,engine/browser/page_render.asm@Browser_DrawTitleBar..Browser_MakeShortTitle,engine/browser/page_render.asm@Browser_DrawElement_Text..Browser_DrawElement_Bitmap
+DEF hTextBox_LineStartXHi EQU hRam_FFC2 ; [CONFIRMED] high byte of the 16-bit x at which every line starts: TextEngine_LineWrap copies it into hTextX+1 (ldh a,[FFC2] ; ldh [hTextX+1],a, 00:0F6D-0F6F; 12555 hits, 36 scenarios), the low byte FFC1 goes into hTextX. All 33 setup sequences store $00 (comm_error_screen.asm 5C:5349 after an xor a), so the left margin is below 256 on every one of these screens. Browser extension: FFC2 is read before the single-line early return; only the two title/text ranges are added.
 ; ---- home/text.asm,engine/account/*,engine/error/*,engine/settings/*,engine/startup/*
-DEF hTextBox_LineStartXHi EQU hRam_FFC2 ; [CONFIRMED] high byte of the 16-bit x at which every line starts: TextEngine_LineWrap copies it into hTextX+1 (ldh a,[FFC2] ; ldh [hTextX+1],a, 00:0F6D-0F6F; 12555 hits, 36 scenarios), the low byte FFC1 goes into hTextX. All 33 setup sequences store $00 (comm_error_screen.asm 5C:5349 after an xor a), so the left margin is below 256 on every one of these screens.
 DEF hTextBox_MaxLineY EQU hRam_FFC3 ; [CONFIRMED] largest y at which another line may start: after TextEngine_LineWrap added the line advance to hTextY (00:0F76-0F7B), ldh a,[FFC3] ; cp c ; jp nc,TextEngine_ReloadBank (00:0F7C-0F7F) goes on with the text only while the new y <= FFC3, otherwise the engine returns (00:0F82); 12470 hits, 34 scenarios, always continued in the traces (the ret at 00:0F82 never ran). The 33 setup sequences store $20-$88 next to the start y and advance $0C (e.g. y $48, limit $78: five lines).
 
 ; ---- home/text.asm,engine/account/*,engine/error/*,engine/settings/*,engine/startup/*,engine/browser/page_render.asm
@@ -425,3 +426,251 @@ DEF hResultPage_TotalMinutes EQU hRam_FFB2 ; [PROBABLE] minutes part of the resu
 
 ; ---- engine/keyboard/keyboard.asm
 DEF hKbd_LoadPageArg EQU hRam_FFB0 ; [CONFIRMED] entry argument (A) of Kbd_LoadPageGraphics (55:66C6): stored first (1788 hits, 35 scenarios), tested at the common tails of the type 6 and type 7/8 page loaders (55:6952 and 55:6A65: ldh a,[FFB0] ; or a ; ret z, both outcomes executed): non-zero also copies Tilemap_Kbd_T6And78_PageTail ($0B14 rectangle to $D240) and calls Kbd_UploadPanelMap11Rows. Callers: Kbd_Open passes 1 (55:5C71-5C73, 1676 hits), the page-switch branch of Kbd_Run_Loop passes 0 (55:5E38-5E39, 112 hits).
+
+; ---- home/multiply_divide.asm@Divide32by15..
+DEF hDivide32by15_BitsLeft EQU hRam_FFF7 ; [CONFIRMED] Iteration counter A=16 saved at 00:0D95 and restored/decremented at 00:0DAF in Divide32by15. The decimal-parser use of this byte is outside this range. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 00:0D95, 00:0DAF.
+
+; ---- engine/browser/comm_disconnect.asm
+DEF hCommProgress_Argument EQU hRam_FFB0 ; [CONFIRMED] Init/Step A argument preserved across the scene/panel dispatch and reloaded immediately before the corresponding farcall; all six accesses retain this meaning. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4C:46B8, 4C:46C4, 4C:46CD, 4C:46D6, 4C:46E2, 4C:46EB.
+
+; ---- engine/browser/frame_graphics.asm
+DEF hBrowserFrame_TilesBank EQU hRam_FFB0 ; [CONFIRMED] Third byte (bank) of the tiles pointer in the frame descriptor, saved across the first HDMA window and restored for the second window at +$400. The naturally executed loader demonstrates the role; preview windows are static only. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4E:61ED, 4E:6201, 4E:62E7, 4E:62FB, 4E:63EA, 4E:63FE.
+
+; ---- engine/gfx/palette_fade_masked.asm
+DEF hMaskedFade_PaletteMask EQU hRam_FFB0 ; [CONFIRMED] A palette-selection mask saved by both fade wrappers. AND with the current palette bit selects which four-color palettes receive the target; bits do not select individual colors. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 48:44E0, 48:4540, 48:45D4.
+DEF hMaskedFade_PaletteBit EQU hRam_FFB1 ; [CONFIRMED] Current palette bit starts at 1, is ANDed with the selection mask and shifted left once per four colors. The ld hl operand addresses the same byte for SLA [HL]. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 48:45D1, 48:45D6, 48:45EA, 48:460C.
+
+; ---- engine/gfx/palette.asm@PalFade_BlendColor..PalFade_ScaledDelta
+DEF hPalFade_FromBlue EQU hRam_FFB2 ; [CONFIRMED] Five-bit source blue component extracted as (RGB555 second byte & $7C) >> 2, passed to the blue delta and used in subtraction. Repacking does not overwrite this byte. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4F:40B2, 4F:4106, 4F:410B.
+DEF hPalFade_ToRed EQU hRam_FFB3 ; [CONFIRMED] Five-bit target red component extracted from the first RGB555 byte with AND $1F and passed as B to the red delta; not a packed output byte. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4F:40BB, 4F:40D5.
+DEF hPalFade_ToGreen EQU hRam_FFB4 ; [CONFIRMED] Five-bit target green assembled from three bits of the first RGB555 byte and two of the second, then passed as B to the green delta. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4F:40CB, 4F:40E4.
+DEF hPalFade_ToBlue EQU hRam_FFB5 ; [CONFIRMED] Five-bit target blue extracted as (RGB555 second byte & $7C) >> 2 and passed as B to the blue delta. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4F:40D2, 4F:4103.
+
+; ---- home/text_measure.asm
+DEF hTextMeasure_RightLimitX EQU hRam_FFB0 ; [CONFIRMED] Low byte of the input right-X limit BC, saved before BC becomes the byte counter and compared with DE after glyph/tab advances. The saved limit is not updated. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 00:140C, 00:143B, 00:1445, 00:1474, 00:147E, 00:1493, 00:149D.
+DEF hTextMeasure_RightLimitXHi EQU hRam_FFB1 ; [CONFIRMED] High byte of the input right-X limit BC; saved with the low byte and preserved through all four comparisons. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 00:140F, 00:143E, 00:1477, 00:1496.
+
+; ---- engine/settings/http_redirect.asm@HttpRedirect_NormalizePath..
+DEF hHttpRedirect_BufferStart EQU hRam_FFB0 ; [CONFIRMED] Low byte of initial buffer HL, saved without later updates. It limits backward DE traversal and the final cleanup test. The /../ backward branches remain static only. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 67:5FFA, 67:6059, 67:6066, 67:609D.
+DEF hHttpRedirect_BufferStartHi EQU hRam_FFB1 ; [CONFIRMED] High byte of initial buffer HL, preserved with the low byte and consumed by the backward-limit and final cleanup comparisons; backward branches remain static only. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 67:5FFD, 67:605C, 67:6069, 67:60A0.
+
+; ---- home/far_helpers.asm@Function_00_172D..
+DEF hFarBlockCopy_DestBank EQU hRam_FFB0 ; [PROBABLE] Destination-bank byte from C10E, saved before the 16-byte copy overwrites that buffer and passed to BankSwitch_D. No natural execution in the existing coverage. Sites: 00:1732, 00:1750.
+DEF hFarBlockCopy_SourceBank EQU hRam_FFB1 ; [PROBABLE] Source-bank input A saved and passed to BankSwitch_H before the HL read. Zero means keep the selected bank. No natural execution in the existing coverage. Sites: 00:172D, 00:1740.
+
+; ---- home/gfx_upload.asm@Tilemap_CopyRectAndAttrSplitSrc..Tilemap_ClearBuffers,home/tilemap_copy.asm
+DEF hTilemapRect_Width EQU hRam_FFB0 ; [CONFIRMED] Rectangle width C saved by the wrappers and restored between rows; row advance is (32-C)&31. Tilemap_ApplyMaskRect uses the same width role. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 00:08D3, 00:08F3, 00:090A, 00:0920, 00:0929, 00:16AB.
+
+; ---- engine/gfx/tile_canvas.asm
+DEF hTileCanvas_SourceBank EQU hRam_FFB0 ; [CONFIRMED] Canvas source selector B (2 or 3, selected by H), saved while B is reused for HDMA control and restored as A for Gfx_StartHDMAWithService. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4F:45AA, 4F:45AF.
+DEF hTileCanvas_HdmaControl EQU hRam_FFB1 ; [CONFIRMED] HDMA control value $99-ceil(C/10), saved before the row loop and restored as B for Gfx_StartHDMAWithService. This is control, not a byte-width claim. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4F:4580, 4F:45AC.
+
+; ---- engine/browser/status_sprites.asm@Browser_OamPutNumber..Browser_OamPutDigit
+DEF hBrowserOam_UnitsDigit EQU hRam_FFB0 ; [CONFIRMED] Units remainder 0-9 after repeated subtraction of 10, saved while the tens digit C is emitted and restored as C for Browser_OamPutDigit. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4E:602C, 4E:6031.
+
+; ---- home/sprites.asm@Sprite_SetHook..Sprite_SetPosition
+DEF hSpriteHook_Bank EQU hRam_FFB0 ; [CONFIRMED] Hook-bank input A saved while WRAM7 is selected, then written as the third byte of the slot hook triple [address low, address high, bank]. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 00:0A45, 00:0A58.
+
+; ---- home/sprites.asm@Sprite_StepAndDrawSlot..Tilemap_OffsetToPixelXY
+DEF hSpriteDraw_AttrOrMask EQU hRam_FFB0 ; [CONFIRMED] Slot+$09 OR mask preserved for each OAM object; output attribute is (attribute & AndMask) | OrMask. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 00:0B7A, 00:0BAA.
+DEF hSpriteDraw_AttrAndMask EQU hRam_FFB1 ; [CONFIRMED] Slot+$0A AND mask preserved for each OAM object; output attribute is (attribute & AndMask) | OrMask. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 00:0B7D, 00:0BAD.
+
+; ---- engine/tutorial/gates.asm@Function_48_4A8C..
+DEF hTileMaskRect_Width EQU hRam_FFB0 ; [PROBABLE] Rectangle width C saved, decremented to the end of each row, restored between rows and used for (32-C)&31 advancement. No natural execution in the existing coverage. Sites: 48:4A90, 48:4A99.
+
+; ---- engine/browser/history_cache.asm@Sram_CopyLongBlock..PageCache_Pop
+DEF hPageCache_SourceBank EQU hRam_FFB0 ; [CONFIRMED] Source SRAM bank passed to BankSwitch_H and incremented at the $BFFF->$A000 wrap; Push initializes it to 3. Scope ends before Pop reuses the byte as a cache index. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4C:4C0F, 4C:4C33, 4C:4C36, 4C:4C9D.
+
+; ---- engine/browser/history_cache.asm
+DEF hPageCache_DestBank EQU hRam_FFB1 ; [CONFIRMED] Destination bank passed to BankSwitch_D and incremented at wrap. Pop preserves its input A bank for clearing and copying the destination; no index use in this byte. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4C:4C1E, 4C:4C40, 4C:4C43, 4C:4CBF, 4C:4CF6, 4C:4D23.
+
+; ---- engine/comm/time_summary.asm@CommTime_ShowSummary..CommTime_DrawSummaryScreen,engine/comm/time_summary.asm@CommTime_AddTimerA..
+DEF hCommTime_TotalFrames EQU hRam_FFB0 ; [CONFIRMED] Frames of the timer-A plus accumulated-time sum, carrying at 60 into seconds. ShowSummary stores the result back. The timer source was rederived from Int_VBlank. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 51:4006, 51:4266, 51:426C.
+
+; ---- engine/comm/time_summary.asm@CommTime_ShowSummary..CommTime_DrawSummaryScreen,engine/comm/time_summary.asm@CommTime_AddTimerA..,engine/browser/status_sprites.asm@Browser_DrawCommTimer..Browser_OamPutNumber
+DEF hCommTime_TotalSeconds EQU hRam_FFB1 ; [CONFIRMED] Seconds of the timer-A plus accumulated-time sum, including frame carry, reduced at 60 or saturated to 59. Browser status sprites consume this sum. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4E:5FC3, 4E:5FD0, 4E:600D, 4E:6020, 51:400B, 51:4275, 51:427B, 51:4290, 51:4297.
+DEF hCommTime_TotalMinutes EQU hRam_FFB2 ; [CONFIRMED] Minutes of the timer-A plus accumulated-time sum, including seconds carry and capped at 59. Browser status sprites consume these minutes; the clamp branch is static only. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4E:6001, 4E:6014, 51:4010, 51:4284, 51:428E, 51:4292.
+
+; ---- engine/comm/time_summary.asm@CommTime_DrawSummaryScreen..CommTime_Summary_FrameLoop
+DEF hCommTime_DisplaySeconds EQU hRam_FFB1 ; [CONFIRMED] Timer-A seconds preserved while minutes are formatted, with a 59-second clamp applied before storage. This is the isolated timer display, not the accumulated sum. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 51:4117, 51:414A.
+
+; ---- engine/comm/time_summary.asm,engine/mail/send_receive.asm
+DEF hCommTime_DigitStarted EQU hRam_FFB4 ; [CONFIRMED] Leading-digit flag: zero before formatting, tested to omit leading zeroes and set to $FF after emitting a digit. Bank 51 demonstrates the role naturally; the bank-27 copy is static only. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 51:4129, 51:4150, 51:41E1, 51:41F1, 27:4F85, 27:4FA0, 27:5004, 27:5014.
+
+; ---- engine/mail/send_receive.asm
+DEF hMailCommTime_DisplaySeconds EQU hRam_FFB1 ; [PROBABLE] Timer-A seconds saved for formatting or replaced with 59 after the minutes clamp in the bank-27 copy. No natural execution in the existing coverage. Sites: 27:4F5F, 27:4F82, 27:4F9A.
+DEF hMailCommTime_DisplayMinutes EQU hRam_FFB2 ; [PROBABLE] Timer-A minutes saved and reloaded into HL before the local clamp to 59 in the bank-27 copy. No natural execution in the existing coverage. Sites: 27:4F64, 27:4F74.
+
+; ---- engine/browser/page_render.asm@Browser_FindVisibleLink..Browser_SelectPrevLink
+DEF hPageRender_OffscreenLinkId EQU hRam_FFB3 ; [CONFIRMED] Last link ID rejected by the viewport tests, compared against subsequent IDs to exclude fragments of the same link. Shift-X high-byte stores are outside this range. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4E:561B, 4E:5693, 4E:56C1.
+
+; ---- engine/browser/page_render.asm@Browser_FindAnchor..Browser_ScrollUpLine
+DEF hPageRender_AnchorStart EQU hRam_FFB0 ; [CONFIRMED] Low byte of the initial anchor-search HL key, saved before table traversal and restored after mismatch to compare the next candidate. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4E:534C, 4E:5392.
+DEF hPageRender_AnchorStartHi EQU hRam_FFB1 ; [CONFIRMED] High byte of the initial anchor-search HL key, restored with the low byte after mismatch. The later wanted-link phase is outside this range. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4E:534F, 4E:5395.
+
+; ---- engine/browser/page_render.asm@Browser_DrawElement_Bitmap..
+DEF hPageRender_BitmapColors EQU hRam_FFC2 ; [PROBABLE] Color selector passed as A to Image_BlitToTileCanvas: $03 plain, $02 link, $20 selected link, $01 bold. Only the plain path executed naturally; the complete selection stays PROBABLE. Sites: 4E:5A94, 4E:5AA4, 4E:5AAC, 4E:5AB4, 4E:5B5A.
+
+; ---- engine/browser/frame_style_chooser.asm
+DEF hFramePreview_WipePtr EQU hRam_FFD0 ; [PROBABLE] Low byte L of the preview reveal-list pointer initially 4E:41E0, restored for RevealStep and updated with its returned HL. Termination tests H=0, not HL=0. No natural execution in the existing coverage. Sites: 4E:4096, 4E:409C, 4E:40AC.
+DEF hFramePreview_WipePtrHi EQU hRam_FFD1 ; [PROBABLE] High byte H of the preview reveal-list pointer, restored and updated with the low byte. This high byte is tested for termination (H=0); no whole-pointer-zero requirement. No natural execution in the existing coverage. Sites: 4E:409A, 4E:409F, 4E:40AF.
+
+; ---- engine/browser/frame_style_chooser.asm,engine/browser/frame_graphics.asm@Browser_FrameStylePreview_LoadGraphics..Data_4E_6543
+DEF hFramePreview_Style EQU hRam_FFD2 ; [PROBABLE] Preview style input A, masked with $7F for the frame descriptors, copied to current style and ORed with $80 on acceptance for SRAM1. Scope excludes descriptor data. No natural execution in the existing coverage. Sites: 4E:62C2, 4E:6332, 4E:6368, 4E:4000, 4E:40C8, 4E:4120, 4E:418A.
+
+; ---- engine/browser/inline_image_blit.asm@Bmp_ConvertToTiles..Table_Bmp_RowEndMask
+DEF hBmpConvert_RowStride EQU hRam_FFD4 ; [CONFIRMED] Converted-output row stride: round width to a multiple of 12, ceil-divide by 8 and round to a multiple of 4. Multiplied by height/height-1 and subtracted per bottom-up row; not the input stride in WRAM. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 51:7200, 51:720F, 51:7243, 51:7290.
+
+; ---- engine/browser/inline_image_blit.asm@Image_BlitToTileCanvas..
+DEF hImageBlit_DestColumns EQU hRam_FFD4 ; [CONFIRMED] Number of eight-pixel destination columns, including partial edges from unaligned X. Tested against 2 and used as C after edge subtraction; unaligned cases remain static only. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 51:743D, 51:7517.
+
+; ---- engine/html/layout.asm@Html_Layout_WrapRun..Html_Layout_AppendRecord
+DEF hHtmlRun_FreeWidth EQU hRam_FFC0 ; [CONFIRMED] Low byte of free run width RightLimit-CursorX before consuming the run. CloseRunRecord subtracts remaining BC and stores consumed width at record+$04. Other layout phases are excluded. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 74:546D, 74:553E.
+DEF hHtmlRun_FreeWidthHi EQU hRam_FFC1 ; [CONFIRMED] High byte of free run width, subtracted with SBC B when closing the record. PlaceLine and BeginLineAndPlaceFloats are outside this range. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 74:5473, 74:5542.
+DEF hHtmlRun_RecordPtrHi EQU hRam_FFB1 ; [CONFIRMED] High byte H of the newly appended run record, restored by CloseRunRecord to rebuild HL. The bank role in AppendRecord is outside this range. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 74:5479, 74:5531.
+
+; ---- engine/html/layout.asm@Html_Layout_AppendRecord..Html_Layout_AddRecordToLine
+DEF hHtmlRecord_DataBank EQU hRam_FFB1 ; [CONFIRMED] Data-bank argument A saved while selecting the page bank and written at record+$0D with the DE address at +$0B/+$0C. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 74:5548, 74:55A1.
+
+; ---- engine/html/layout.asm@Html_Layout_AppendImageRecord..Html_Layout_SkipPastFloats,engine/html/layout.asm@Html_Layout_AppendRecord..Html_Layout_AddRecordToLine
+DEF hHtmlRecord_Kind EQU hRam_FFB0 ; [CONFIRMED] Record kind: AppendImageRecord stores 4 and AppendRecord writes it at record+$08. Separate scopes exclude the mixed kind/pointer role in WrapRun. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 74:533F, 74:558E.
+
+; ---- engine/html/parser.asm@Html_MetaResultToError..Html_ParsePage
+DEF hHtmlMeta_HexByte3 EQU hRam_FFB3 ; [PROBABLE] Most significant byte of the four-byte d_code accumulator, initialized to zero and shifted by four with carry from byte 2. Alphabetic A-F/a-f subtract their base without +10, yielding 0-5; no claim of correct hexadecimal conversion. No natural execution. Sites: 74:418E, 74:41E2, 74:41EA.
+
+; ---- engine/html/parser.asm@Html_MetaResultToError_HexLoop..Html_ParsePage
+DEF hHtmlMeta_HexByte0 EQU hRam_FFB0 ; [PROBABLE] Least significant byte of the four-byte d_code accumulator in HexLoop/SetError; the low two bytes become the returned detail. Prologue MatchRestart pointer use is excluded. Alphabetic A-F/a-f yield 0-5 without +10. No natural execution. Sites: 74:41B8, 74:41C0, 74:41FC.
+DEF hHtmlMeta_HexByte1 EQU hRam_FFB1 ; [PROBABLE] Second byte of the four-byte d_code accumulator, receiving the high nibble from byte 0 and propagating to byte 2; SetError copies it into detail high. Prologue pointer use is excluded. Alphabetic A-F/a-f yield 0-5 without +10. No natural execution. Sites: 74:41C6, 74:41CE, 74:4201.
+
+; ---- engine/mobile/smtp.asm
+DEF wSmtp_HeaderWritePtr EQU wRam_C241 ; [CONFIRMED] Mail_BuildHeaderField reloads C241:C242, adds emitted BC, writes L/H; DataPoll derives payload size by subtracting A100. These sites consistently hold the next header output pointer. All explicit sites checked: engine/mobile/smtp.asm:243=54:46FE natural 105 hits/6 scenarios; engine/mobile/smtp.asm:249=54:4706 natural 105 hits/6 scenarios; engine/mobile/smtp.asm:387=54:47A6 natural 9 hits/5 scenarios
+DEF wSmtp_HeaderBytesFree EQU wRam_C243 ; [CONFIRMED] C243:C244 starts at 0F00 in the copied descriptor and is decreased by each emitted header size using two-complement BC; it is remaining header capacity. All explicit sites checked: engine/mobile/smtp.asm:259=54:4716 natural 105 hits/6 scenarios; engine/mobile/smtp.asm:265=54:471E natural 105 hits/6 scenarios
+DEF wSmtp_HeaderBytesFreeHi EQU wRam_C244 ; [CONFIRMED] The store is H of the same decremented capacity pair C243:C244. HTTP/POP3 uses are outside this file. All explicit sites checked: engine/mobile/smtp.asm:267=54:4722 natural 105 hits/6 scenarios
+DEF wSmtp_FieldLength EQU wRam_C245 ; [CONFIRMED] Smtp_MeasureField stores counted B; zero denotes no variable item for fixed headers. Mail_ComposeInit advances DE from C240 by five, saves C245 as ItemListPointer; FetchComposeItem reads its length into ComposeItem, and EmitAddressListItem consumes C. This is an indirect reader, not write-only. All explicit sites checked: engine/mobile/smtp.asm:205=54:46AA natural 15 hits/6 scenarios; engine/mobile/smtp.asm:283=54:4732 natural 45 hits/6 scenarios
+
+; ---- engine/mobile/pop3_retr.asm@Mail_SplitFromHeader..Mail_CopyClampedEllipsis
+DEF wMailFrom_NameDest EQU wRam_C250 ; [CONFIRMED] SplitFromHeader saves incoming DE in C250:C251 and reloads it for short-name copies and normalization. No-angle, angle and parenthesis alternatives preserve this destination role. All explicit sites checked: engine/mobile/pop3_retr.asm:482=54:4FD3 natural 67 hits/12 scenarios; engine/mobile/pop3_retr.asm:507=54:5005 natural 37 hits/11 scenarios; engine/mobile/pop3_retr.asm:527=54:5020 natural 0 hits/0 scenarios; engine/mobile/pop3_retr.asm:582=54:5073 natural 30 hits/12 scenarios; engine/mobile/pop3_retr.asm:590=54:5081 natural 67 hits/12 scenarios
+DEF wMailFrom_NameDestHi EQU wRam_C251 ; [CONFIRMED] Stores and reloads of D are the high byte of the same short-name destination; pointer reads via C250 also consume C251. All explicit sites checked: engine/mobile/pop3_retr.asm:484=54:4FD7 natural 67 hits/12 scenarios; engine/mobile/pop3_retr.asm:529=54:5024 natural 0 hits/0 scenarios; engine/mobile/pop3_retr.asm:584=54:5077 natural 30 hits/12 scenarios
+
+; ---- engine/mobile/pop3_retr.asm@Mail_SplitFromHeader..Mail_CopyClampedEllipsis,engine/mobile/pop3_retr.asm@Pop3_RetrPoll..Data_54_4FC3
+DEF wMailFrom_AddressDest EQU wRam_C252 ; [CONFIRMED] SplitFromHeader saves HL in C252:C253 and reloads it as DE for the long address copy; RetrPoll reloads that pair to truncate the address at a space. Both listed ranges are required. All explicit sites checked: engine/mobile/pop3_retr.asm:155=54:4DC4 natural 33 hits/6 scenarios; engine/mobile/pop3_retr.asm:486=54:4FDB natural 67 hits/12 scenarios; engine/mobile/pop3_retr.asm:500=54:4FF5 natural 37 hits/11 scenarios; engine/mobile/pop3_retr.asm:546=54:503F natural 0 hits/0 scenarios; engine/mobile/pop3_retr.asm:563=54:5054 natural 30 hits/12 scenarios
+
+; ---- engine/mobile/pop3_retr.asm@Mail_SplitFromHeader..Mail_CopyClampedEllipsis
+DEF wMailFrom_AddressDestHi EQU wRam_C253 ; [CONFIRMED] H store and D reloads consistently denote the upper byte of the address destination. The RetrPoll read is indirect from C252, rather than an omitted explicit C253 site. All explicit sites checked: engine/mobile/pop3_retr.asm:488=54:4FDF natural 67 hits/12 scenarios; engine/mobile/pop3_retr.asm:502=54:4FF9 natural 37 hits/11 scenarios; engine/mobile/pop3_retr.asm:548=54:5043 natural 0 hits/0 scenarios; engine/mobile/pop3_retr.asm:565=54:5058 natural 30 hits/12 scenarios
+
+; ---- engine/mobile/pop3_retr.asm
+DEF wPop3_BodyIncomplete EQU wRam_C25F ; [PROBABLE] ScanHeaders success returns B=0 for dot-line completion and B=1 for body exhaustion; RETR truncation independently sets 1. Record +1/+2 gets this byte. Body-incomplete is defensible, but PROBABLE preserves unverified broader record-flag interpretation. All explicit sites checked: engine/mobile/pop3_retr.asm:324=54:4EF0 natural 33 hits/6 scenarios; engine/mobile/pop3_retr.asm:425=54:4F7B natural 4 hits/4 scenarios; engine/mobile/pop3_retr.asm:753=54:5151 natural 260 hits/16 scenarios
+
+; ---- engine/mobile/mail_date.asm
+DEF wMailDate_InputText EQU wRam_C480 ; [CONFIRMED] ParseDate terminates C480+BC and scans its digits/month name. Both loads denote the input date text; differing connection/POP3 phases are excluded. All explicit sites checked: engine/mobile/mail_date.asm:12=54:5168 natural 67 hits/12 scenarios; engine/mobile/mail_date.asm:23=54:5179 natural 67 hits/12 scenarios
+
+; ---- engine/mobile/smtp.asm
+DEF wSmtp_EncodedText EQU wRam_C480 ; [CONFIRMED] All C480 sites in smtp concern conversion output or DATA wire text; initial CRLF and trailing end marker are part of that output text. C500/C580 source overlap does not turn an explicit C480 load into input text. All explicit sites checked: engine/mobile/smtp.asm:125=54:45DE natural 15 hits/6 scenarios; engine/mobile/smtp.asm:128=54:45EA natural 15 hits/6 scenarios; engine/mobile/smtp.asm:172=54:4650 natural 15 hits/6 scenarios; engine/mobile/smtp.asm:175=54:465C natural 15 hits/6 scenarios; engine/mobile/smtp.asm:194=54:468D natural 15 hits/6 scenarios; engine/mobile/smtp.asm:197=54:4699 natural 15 hits/6 scenarios; engine/mobile/smtp.asm:423=54:47EC natural 8 hits/5 scenarios; engine/mobile/smtp.asm:440=54:4812 natural 8 hits/5 scenarios; engine/mobile/smtp.asm:447=54:481D natural 8 hits/5 scenarios; engine/mobile/smtp.asm:462=54:4834 natural 0 hits/0 scenarios
+DEF wSmtp_EncodedBodyText EQU wRam_C482 ; [CONFIRMED] DE becomes C482 after writing CRLF at C480/C481. The later C482+BC points to the end of converted body for the SMTP terminator. It is a view into the C480 output area. All explicit sites checked: engine/mobile/smtp.asm:433=54:4803 natural 8 hits/5 scenarios
+DEF wSmtp_SubjectScratch EQU wRam_C500 ; [CONFIRMED] The only C500 accesses stage exactly 20 subject bytes and pass them to the character converter. C514 stores the added NUL. No second C500 role occurs in smtp. All explicit sites checked: engine/mobile/smtp.asm:188=54:467A natural 15 hits/6 scenarios; engine/mobile/smtp.asm:193=54:468A natural 15 hits/6 scenarios
+
+; ---- engine/mobile/mail_date.asm
+DEF wMailDate_YearHi EQU wRam_C580 ; [CONFIRMED] The first two digits of a four-digit year are packed BCD at C580; six-byte initialization starts there, and caller copies exactly six date bytes. Calendar adjustment reaches it by decrementing C581. All explicit sites checked: engine/mobile/mail_date.asm:16=54:516E natural 67 hits/12 scenarios; engine/mobile/mail_date.asm:111=54:51EB natural 67 hits/12 scenarios
+DEF wMailDate_YearLo EQU wRam_C581 ; [CONFIRMED] Last two year digits become packed BCD at C581; subsequent leap test and year carry/borrow operate on that field. Rollover remains static, while natural parse and caller output copy demonstrate its role. All explicit sites checked: engine/mobile/mail_date.asm:120=54:51F8 natural 67 hits/12 scenarios; engine/mobile/mail_date.asm:266=54:52C7 natural 0 hits/0 scenarios; engine/mobile/mail_date.asm:280=54:52DA natural 0 hits/0 scenarios; engine/mobile/mail_date.asm:302=54:5300 natural 0 hits/0 scenarios; engine/mobile/mail_date.asm:325=54:5322 natural 0 hits/0 scenarios
+DEF wMailDate_Month EQU wRam_C582 ; [CONFIRMED] Matched month index selects BCD Table_Mail_MonthBcd then stores C582. Adjustments compare February and wrap month; those unexecuted alternatives preserve the same role. All explicit sites checked: engine/mobile/mail_date.asm:81=54:51C7 natural 67 hits/12 scenarios; engine/mobile/mail_date.asm:248=54:52A7 natural 0 hits/0 scenarios; engine/mobile/mail_date.asm:261=54:52BD natural 0 hits/0 scenarios; engine/mobile/mail_date.asm:277=54:52D6 natural 0 hits/0 scenarios; engine/mobile/mail_date.asm:297=54:52F6 natural 0 hits/0 scenarios; engine/mobile/mail_date.asm:313=54:530F natural 0 hits/0 scenarios
+DEF wMailDate_Day EQU wRam_C583 ; [CONFIRMED] The first numeric field becomes packed day-of-month at C583; timezone overflow increments/decrements day and checks month lengths. Natural parse plus the six-byte output copy is adequate demonstration. All explicit sites checked: engine/mobile/mail_date.asm:37=54:5191 natural 67 hits/12 scenarios; engine/mobile/mail_date.asm:242=54:529E natural 0 hits/0 scenarios; engine/mobile/mail_date.asm:260=54:52BA natural 0 hits/0 scenarios; engine/mobile/mail_date.asm:290=54:52EC natural 0 hits/0 scenarios; engine/mobile/mail_date.asm:322=54:531E natural 0 hits/0 scenarios
+DEF wMailDate_Hour EQU wRam_C584 ; [CONFIRMED] C584 stores packed hour; timezone code subtracts/adds parsed hours, adds 09 and handles 24-hour rollover. All explicit uses retain hour semantics. All explicit sites checked: engine/mobile/mail_date.asm:130=54:5208 natural 67 hits/12 scenarios; engine/mobile/mail_date.asm:221=54:527E natural 67 hits/12 scenarios; engine/mobile/mail_date.asm:225=54:5284 natural 67 hits/12 scenarios; engine/mobile/mail_date.asm:227=54:5287 natural 67 hits/12 scenarios; engine/mobile/mail_date.asm:231=54:528E natural 67 hits/12 scenarios; engine/mobile/mail_date.asm:241=54:529B natural 0 hits/0 scenarios; engine/mobile/mail_date.asm:289=54:52E9 natural 0 hits/0 scenarios; engine/mobile/mail_date.asm:337=54:5337 natural 0 hits/0 scenarios; engine/mobile/mail_date.asm:341=54:533D natural 0 hits/0 scenarios
+DEF wMailDate_Minute EQU wRam_C585 ; [CONFIRMED] C585 stores packed minute; offset arithmetic and carry/borrow into hour retain minute semantics, including the statically-only opposite-sign branch. All explicit sites checked: engine/mobile/mail_date.asm:139=54:5218 natural 67 hits/12 scenarios; engine/mobile/mail_date.asm:216=54:5275 natural 67 hits/12 scenarios; engine/mobile/mail_date.asm:220=54:527B natural 67 hits/12 scenarios; engine/mobile/mail_date.asm:332=54:532E natural 0 hits/0 scenarios; engine/mobile/mail_date.asm:336=54:5334 natural 0 hits/0 scenarios
+DEF wMailDate_ZoneSign EQU wRam_C590 ; [CONFIRMED] C590 stores the accepted offset sign and reads it to choose addition for 2D versus subtraction. Both memory accesses execute naturally; this does not assert natural execution of both signs. All explicit sites checked: engine/mobile/mail_date.asm:194=54:524E natural 67 hits/12 scenarios; engine/mobile/mail_date.asm:213=54:526D natural 67 hits/12 scenarios
+
+; ---- lib/mobile/main.asm@MobileAPI_HttpGet..MobileSDK_HttpConnect,lib/mobile/main.asm@MobileAPI_HttpPost..MobileSDK_FormatContentLength,lib/mobile/main.asm@MobileSDK_HttpPrepareRequestPackets..MobileSDK_SmtpOpened,lib/mobile/main.asm@MobileSDK_HttpBodyStart..MobileSDK_HttpHdrUriHeader,lib/mobile/main.asm@MobileSDK_HttpBodyStart_WindowBodyExceedsBuffer..MobileSDK_FindLineEnd
+DEF wMobileHttp_ReceiveCapacity EQU wRam_C711 ; [CONFIRMED] GET/POST store caller BC through C711; PrepareRequestPackets reloads that capacity and reserves two length bytes; BodyStart checks and subtracts two. The exact HTTP ranges exclude numeric/error/config use. All explicit sites checked: lib/mobile/main.asm:2384=75:4EFB natural 331 hits/19 scenarios; lib/mobile/main.asm:3011=75:5303 natural 19 hits/3 scenarios; lib/mobile/main.asm:6134=75:65CD natural 324 hits/18 scenarios; lib/mobile/main.asm:8066=75:70CF natural 314 hits/18 scenarios; lib/mobile/main.asm:8114=75:711E natural 95 hits/16 scenarios
+DEF wMobileHttp_ReceiveCapacityHi EQU wRam_C712 ; [CONFIRMED] BodyStart checks high capacity and forms DE from C712:C711. Its writers are indirect via C711+1 in GET/POST. HTTP scopes remain separate from parser preservation and ISP error phases. All explicit sites checked: lib/mobile/main.asm:8068=75:70D3 natural 314 hits/18 scenarios; lib/mobile/main.asm:8112=75:711A natural 95 hits/16 scenarios
+DEF wMobileHttp_ReceiveBuffer EQU wRam_C713 ; [CONFIRMED] Caller DE saved through C711+2/+3 is reloaded from C713:C714 before body copying, then advanced by two for returned-length prefix. Both direct loads, including overflow, share the same output-buffer origin. All explicit sites checked: lib/mobile/main.asm:8136=75:7138 natural 95 hits/16 scenarios; lib/mobile/main.asm:8351=75:7251 natural 0 hits/0 scenarios
+DEF wMobileHttp_ReceiveBufferHi EQU wRam_C714 ; [CONFIRMED] Both direct high-pointer reads pair with C713 and originate at C711+3; those scope ranges do not include numeric scratch save/restore. Keeping an overlay, rather than global rename, is conservative. All explicit sites checked: lib/mobile/main.asm:8138=75:713C natural 95 hits/16 scenarios; lib/mobile/main.asm:8353=75:7255 natural 0 hits/0 scenarios
+
+; ---- lib/mobile/main.asm@MobileAPI_SmtpMailFrom..MobileAPI_SmtpQuit,lib/mobile/main.asm@MobileState_SmtpGreeting..Mobile_PacketSendTransferData,lib/mobile/main.asm@MobileState_SmtpRecipients..MobileSDK_AppendCrLf
+DEF wMobileSmtp_DataPhase EQU wRam_C827 ; [CONFIRMED] SMTP greeting clears C827; recipient exhaustion sets1; API Data checks nonzero, uses parity and increments, and final250 reply clears. All six SMTP explicit sites agree with a DATA phase counter. All explicit sites checked: lib/mobile/main.asm:1218=75:476C natural 11 hits/5 scenarios; lib/mobile/main.asm:1306=75:4814 natural 17 hits/5 scenarios; lib/mobile/main.asm:1324=75:4836 natural 17 hits/5 scenarios; lib/mobile/main.asm:6460=75:67C9 natural 13 hits/6 scenarios; lib/mobile/main.asm:6640=75:68BD natural 9 hits/5 scenarios; lib/mobile/main.asm:6732=75:694F natural 7 hits/5 scenarios
+
+; ---- lib/mobile/main.asm@MobileAPI_HttpGet..MobileSDK_HttpConnect,lib/mobile/main.asm@MobileAPI_HttpPost..MobileSDK_FormatContentLength,lib/mobile/main.asm@MobileState_OpenTcp..MobileSDK_SmtpOpened,lib/mobile/main.asm@MobileState_HttpExchange_Substep2_PollResponse..MobileSDK_HttpBodyStart,lib/mobile/main.asm@MobileSDK_HttpBuildRequest..MobileSDK_HttpAddContentLength
+DEF wMobileHttp_ServiceKind EQU wRam_C827 ; [PROBABLE] HTTP clears C827, Utility GET sets1 and Ranking POST sets2; opened/exchange/request handling interprets these service categories. Ranking path is static-only, hence PROBABLE remains appropriate. All explicit sites checked: lib/mobile/main.asm:2225=75:4E28 natural 331 hits/19 scenarios; lib/mobile/main.asm:2324=75:4EA0 natural 1 hits/1 scenarios; lib/mobile/main.asm:2843=75:5226 natural 19 hits/3 scenarios; lib/mobile/main.asm:2931=75:5296 natural 0 hits/0 scenarios; lib/mobile/main.asm:6041=75:652C natural 0 hits/0 scenarios; lib/mobile/main.asm:6085=75:6577 natural 0 hits/0 scenarios; lib/mobile/main.asm:7622=75:6E67 natural 311 hits/18 scenarios; lib/mobile/main.asm:8523=75:7373 natural 0 hits/0 scenarios
+
+; ---- lib/mobile/main.asm@MobileState_HttpExchange_Substep2_PollResponse..MobileSDK_HttpBodyStart
+DEF wMobileHttp_ResponseFlags EQU wRam_C82D ; [CONFIRMED] HTTP response status stores 0/1, nonzero Gb-Status stores2, incomplete-line handling uses bit2, and exchange paths read the combined byte. Other phases use C82D as pointer high via C82C, outside this scope. All explicit sites checked: lib/mobile/main.asm:7549=75:6E05 natural 0 hits/0 scenarios; lib/mobile/main.asm:7631=75:6E7B natural 311 hits/18 scenarios; lib/mobile/main.asm:7658=75:6E9F natural 218 hits/6 scenarios; lib/mobile/main.asm:7785=75:6F5C natural 0 hits/0 scenarios; lib/mobile/main.asm:7822=75:6F94 natural 314 hits/18 scenarios; lib/mobile/main.asm:7842=75:6FB3 natural 0 hits/0 scenarios; lib/mobile/main.asm:7864=75:6FDA natural 314 hits/18 scenarios; lib/mobile/main.asm:7879=75:6FEE natural 0 hits/0 scenarios; lib/mobile/main.asm:7889=75:7001 natural 0 hits/0 scenarios; lib/mobile/main.asm:7895=75:7009 natural 314 hits/18 scenarios; lib/mobile/main.asm:7967=75:705A natural 2 hits/1 scenarios; lib/mobile/main.asm:8047=75:70B9 natural 0 hits/0 scenarios
+
+; ---- lib/mobile/main.asm@MobileAPI_PeerReceive..MobileAPI_TelephoneStatusAlias,lib/mobile/main.asm@MobileSDK_RxTransferData..MobileSDK_RxCopyToDest
+DEF wMobilePeer_MessageLength EQU wRam_C82E ; [PROBABLE] PeerReceive and peer branch of RxTransferData keep normalized full record/message size, with 0 or >=81h normalized to80h. Partial fragment count is at C82F. No peer execution: PROBABLE. All explicit sites checked: lib/mobile/main.asm:3364=75:54F1 natural 0 hits/0 scenarios; lib/mobile/main.asm:3387=75:5516 natural 0 hits/0 scenarios; lib/mobile/main.asm:3391=75:551E natural 0 hits/0 scenarios; lib/mobile/main.asm:3412=75:5541 natural 0 hits/0 scenarios; lib/mobile/main.asm:4604=75:5C96 natural 0 hits/0 scenarios; lib/mobile/main.asm:4615=75:5CA6 natural 0 hits/0 scenarios
+DEF wMobilePeer_FragmentBytes EQU wRam_C82F ; [PROBABLE] Peer mode uses C82F as accumulated fragment count and FF sentinel for pending message with zero accumulated payload. It is cleared after assembly. FragmentBytes is valid with explicit sentinel caveat; no natural peer execution. All explicit sites checked: lib/mobile/main.asm:3317=75:54AC natural 0 hits/0 scenarios; lib/mobile/main.asm:3369=75:54F9 natural 0 hits/0 scenarios; lib/mobile/main.asm:3379=75:550B natural 0 hits/0 scenarios; lib/mobile/main.asm:4558=75:5C49 natural 0 hits/0 scenarios; lib/mobile/main.asm:4586=75:5C77 natural 0 hits/0 scenarios; lib/mobile/main.asm:4628=75:5CBA natural 0 hits/0 scenarios
+DEF wMobilePeer_PacketOffset EQU wRam_C830 ; [PROBABLE] PeerReceive loads and advances C830 as an index into ReceivePacketBuffer+4, and peer RxTransferData initializes1. All four sites fit packet offset. No peer natural coverage. All explicit sites checked: lib/mobile/main.asm:3320=75:54B2 natural 0 hits/0 scenarios; lib/mobile/main.asm:3336=75:54C9 natural 0 hits/0 scenarios; lib/mobile/main.asm:3405=75:5534 natural 0 hits/0 scenarios; lib/mobile/main.asm:4578=75:5C69 natural 0 hits/0 scenarios
+DEF wMobilePeer_PacketBytesLeft EQU wRam_C831 ; [PROBABLE] PeerReceive subtracts length header and payload from C831; RxTransferData initializes the same byte indirectly through C830+1. Static proof of packet bytes remaining; no natural peer coverage. All explicit sites checked: lib/mobile/main.asm:3337=75:54CC natural 0 hits/0 scenarios; lib/mobile/main.asm:3341=75:54D2 natural 0 hits/0 scenarios; lib/mobile/main.asm:3409=75:553C natural 0 hits/0 scenarios
+
+; ---- lib/mobile/main.asm@MobileAPI_HttpGet..MobileSDK_HttpConnect,lib/mobile/main.asm@MobileAPI_HttpPost..MobileSDK_FormatContentLength,lib/mobile/main.asm@Label_75_64E0..Function_75_653A,lib/mobile/main.asm@Label_75_656C..MobileSDK_SmtpOpened,lib/mobile/main.asm@MobileSDK_HttpCopyMethod..MobileSDK_HttpSelectPost,lib/mobile/main.asm@Label_75_73BE..MobileSDK_HttpAddContentLength
+DEF wMobileHttp_IsPost EQU wRam_C831 ; [CONFIRMED] GET stores0, POST stores C82C xor1, and retry/service paths store1. HttpCopyMethod chooses POST for nonzero, while body/header state handling reads the same method flag. Name means emitted method, not original API method during authentication. All explicit sites checked: lib/mobile/main.asm:2396=75:4F09 natural 331 hits/19 scenarios; lib/mobile/main.asm:3047=75:533C natural 19 hits/3 scenarios; lib/mobile/main.asm:6029=75:6511 natural 0 hits/0 scenarios; lib/mobile/main.asm:6089=75:6580 natural 0 hits/0 scenarios; lib/mobile/main.asm:6113=75:65AF natural 324 hits/18 scenarios; lib/mobile/main.asm:6142=75:65D7 natural 324 hits/18 scenarios; lib/mobile/main.asm:6259=75:66A7 natural 324 hits/18 scenarios; lib/mobile/main.asm:8587=75:73FC natural 315 hits/18 scenarios
+
+; ---- lib/mobile/main.asm@MobileSDK_HttpHdrGbAuthId..MobileSDK_HttpFindHeaderEnd,lib/mobile/main.asm@MobileSDK_HttpBuildRequest..Label_75_73BE
+DEF wMobileHttp_AuthHeaderText EQU wRam_C852 ; [PROBABLE] GbAuthId builds NUL-terminated header text at C852; WWWAuthenticate sends C852 as output DE to AuthBuildResponse; HttpBuildRequest copies that string. Request-struct pointer saves are separately kept. Downstream copy has no natural coverage, so PROBABLE. All explicit sites checked: lib/mobile/main.asm:7999=75:7080 natural 0 hits/0 scenarios; lib/mobile/main.asm:8023=75:7098 natural 4 hits/1 scenarios; lib/mobile/main.asm:8536=75:7389 natural 0 hits/0 scenarios
+
+; ---- engine/browser/start_choice.asm
+DEF wBrowserStart_AcceptCountdown EQU wRam_C0E4 ; [PROBABLE] BrowserStart_Idle decrements C0E4 through HL and reloads 1, then waits for sprite byte before returning the selected menu entry. Zero test natural; decrement/expiry branch has 0 natural hits. PROBABLE only; no nonzero initializer found.
+
+; ---- engine/browser/page_loader.asm
+DEF wBrowserPost_BodyLengthLo EQU wRam_C242 ; [CONFIRMED] Browser_LoadPage_Request stores C after Net_BuildLoginPostBody returns StringLength BC. Http_StartPost appends request descriptor and passes C240 onward; SDK HTTP POST consumes body pointer and following little-endian length. Store natural 4 hits/2 scenarios; does not overlap SMTP alias.
+
+; ---- engine/mobile/smtp.asm
+DEF wSmtp_HeaderWritePtrHi EQU wRam_C242 ; [CONFIRMED] Mail_BuildHeaderField reads C241:C242 via HL, adds emitted length returned by mail selector 8, stores H at 54:470A. Smtp_DataPoll reads pair and subtracts A100 for send length. Natural update 105/6. Same pair as comm proposal wSmtp_HeaderWritePtr; entirely distinct from browser C242 body length.
+
+; ---- engine/browser/inline_image_blit.asm
+DEF wBmp_ColorDiffHi EQU wRam_C331 ; [CONFIRMED] Bmp_ColorSum returns twice the sum of the first three palette-entry bytes. Following two calls, dec/cpl of first result plus second result computes second minus first. C331 stores high byte; natural bit7 reader governs conditional inversion. Inversion branch itself unexecuted; neither luminance weighting nor full palette equivalence asserted.
+
+; ---- engine/help/help_script.asm@HelpScript_Run_NextCommand..Function_6C_61AC
+DEF wHelpScript_DeferredTextSfx EQU wRam_C0D9 ; [CONFIRMED] Skip advance path 6C:5E1F sets 1; next text opcode tests 5C4A, plays 0041 and clears 5C63. Scope excludes Function_6C_61AC. Three explicit sites natural 292/650/104; aliases disjoint.
+
+; ---- engine/debug/debug_flags.asm@DebugFlags_Run..DebugFlags_SlideIn,engine/debug/debug_flags.asm@DebugFlags_ReadValue..
+DEF wDebugFlags_EntryIndex EQU wRam_C0E5 ; [PROBABLE] All 17 scoped uses index entry-word table by 4*A or 4*A+2 and name-pointer table by 2*A, with increment/decrement in Dpad handler. Six slide uses excluded. No natural execution; table extent itself uncertain. Static index role supports PROBABLE without count claim.
+
+; ---- engine/debug/debug_flags.asm@DebugFlags_SlideIn..DebugFlags_UpdateHoldTimer
+DEF wDebugFlags_SlideY EQU wRam_C0E5 ; [PROBABLE] All 6 scoped stores/reads initialize 99h or 0, subtract/add step, copy A to WY, stop at opposite endpoint. Disjoint from entry-index scope. Never natural; PROBABLE.
+
+; ---- engine/text/charset_convert.asm
+DEF wCharsetConvert_PageResultFlag EQU wRam_C282 ; [CONFIRMED] Page wrapper sets1; streaming entry sets0. Finish on1 appends two NULs, returns adjusted BC and writes length at sBrowserPageBuf (SRAM A000); on0 only returns stream length BC. All demonstrating branches natural. Existing CommScene timer alias is disjoint.
+
+; ---- engine/account/delete_registration.asm@Registration_DeleteConfirmPage..Registration_DeleteExecute
+DEF wDeleteConfirm_Variant EQU wRam_C27C ; [CONFIRMED] DeleteFlow supplies A=0 then1; confirmation saves it and selects graphics and prompt6/7. All 3 sites70 hits/8 scenarios, function-range scope excludes execute-result phase.
+
+; ---- engine/account/delete_registration.asm@Registration_DeleteExecute..
+DEF wDeleteExecute_Result EQU wRam_C27C ; [CONFIRMED] Setup zero, success after SRAM wipe1, static failure0, wrapper returns saved byte after palette fade.3 live sites1 hit/1 scenario; failure not natural. Four sites scoped to execute phase; confirmation excluded.
+
+; ---- engine/account/delete_registration.asm@Registration_DeleteConfirmPage..Registration_DeleteExecute
+DEF wDeleteConfirm_Cursor EQU wRam_C27D ; [CONFIRMED] Setup1, xor1 for left/right, two-entry position lookup and A result1/2. All5 explicit sites naturally executed; range excludes execute-state phase.
+
+; ---- engine/account/delete_registration.asm@Registration_DeleteExecute..
+DEF wDeleteExecute_State EQU wRam_C27D ; [CONFIRMED] Setup0; three-state dispatch table uses index; post API-init and config-write set1 then2. Four sites natural;265 dispatches/1 scenario. Confirmation cursor excluded.
+
+; ---- engine/settings/usage_time.asm,engine/settings/usage_fee.asm
+DEF wUsageQuery_NoFlag EQU wRam_C28E ; [PROBABLE] On browser cancel result2 both usage flows test byte:0 retries,nonzero exits. Browser password path calls PasswordPrompt_Ask -> Account_ActionConfirmPage, which sets existing NoFlag1 on second choice,0 on B, unchanged on first. Existing alias PROBABLE and relationship across chain preserved as PROBABLE.
+
+; ---- engine/startup/registration.asm@Registration_SavePassword..Startup_VerifySaveDataDeadVariant
+DEF wRegistrationSave_PasswordBuf EQU wRam_C28F ; [CONFIRMED] Copies W3 account password to bank-independent staging, measures StringLength, passes length and DE to SavedPassword_Store, whose loop reads DE and XOR5A encodes bytes. All3 sites21 hits/7 scenarios. Scope isolates this from comparison/dial scratch; no extent asserted.
+
+; ---- engine/settings/password_change.asm@PasswordChange_SaveNewPassword..PasswordChange_Communicate
+DEF wPasswordChangeSave_PasswordBuf EQU wRam_C28F ; [PROBABLE] Same source-to-staging StringLength and SavedPassword_Store flow for accepted new password in static routine. All3 sites0 natural hits, PROBABLE; exact function range before communication phase.
+
+; ---- engine/gfx/palette_fade_ticker.asm
+DEF wPaletteTicker_StepFrames EQU wRam_C10E ; [CONFIRMED] FadeWithTicker initializes4; Vblank/upload/service/ticker loop decrements through HL, reloads4 and calls PalFade_Step on zero.2 symbolic sites natural2151/51584 in52 scenarios. Scope excludes attr-source, saved pointers/direction and far-copy staging.
+
+; ---- home/tilemap_copy.asm
+DEF wTilemapCopy_AttrSrcLo EQU wRam_C10E ; [CONFIRMED] Home helper first copies tile rectangle then loads C10E:C10F into HL and copies at DE+0400. Existing caller aliases store attribute-source pointers. Natural helper read10113/51; scope disjoint from all caller/local roles.
+DEF wTilemapCopy_AttrSrcHi EQU wRam_C10F ; [CONFIRMED] High byte of helper C10E:C10F second/attribute source. Natural10113/51. Raw far staging uses same physical byte, so screen/helper overlay is required.
+
+; ---- home/mobile.asm@MobileAPI..ReturnMobileAPI,lib/mobile/main.asm@MobileSDK_ApiDispatch..MobileSDK_ApiTable
+DEF wMobileCall_ArgHlLo EQU wRam_C823 ; [CONFIRMED] MobileAPI saves L; SDK dispatch restores HL indirectly from C823:C824 after constructing call target/return stack. Both explicit sites4829/68. Exact scopes exclude ReturnMobileAPI A phase.
+
+; ---- home/mobile.asm@ReturnMobileAPI..Int_Serial
+DEF wMobileReturn_A EQU wRam_C823 ; [CONFIRMED] ReturnMobileAPI saves A at C823 before bank restoration and reloads it before ret. Both4829/68. Scope excludes original incoming-HL phase.
+
+; ---- home/mobile.asm@MobileAPI..ReturnMobileAPI
+DEF wMobileCall_ArgHlHi EQU wRam_C824 ; [CONFIRMED] MobileAPI saves H; SDK indirect pair load at4069 reads following C824. Store4829/68. Other phase uses C824 as returned L, excluded.
+
+; ---- home/mobile.asm@ReturnMobileAPI..Int_Serial
+DEF wMobileReturn_HlLo EQU wRam_C824 ; [CONFIRMED] ReturnMobileAPI saves L into C824; restores returned HL through C824:C825 pair. Both4829/68. Scope excludes input-H high-byte phase.
+
+; ---- engine/menus/ticker.asm
+DEF wTicker_DestColumn EQU wRam_C0F6 ; [CONFIRMED] Ticker_Start zeroes byte; Ticker_Update forms VRAM destination from (byte+$16)&$1F, then increments and masks byte. Four natural sites48-52 scenarios. Index is unoffset destination column counter; existing ConnectDialog role separate. Destination formula is (destColumn+$16)&$1F; $16 is 22 decimal.
+
+; ---- home/interrupt_handlers.asm
+DEF wConnectDialogIrq_PreviousRow EQU wRam_C0F6 ; [CONFIRMED] STAT handler computes current (WY-$28)>>3, uses previous byte in SCY=9-byte, then stores current row. Both41287/4 natural. Existing screen RasterOffset alias supplies same cross-function state in separate scope. Current row is (WY-$28)>>3; $28 is 40 decimal.

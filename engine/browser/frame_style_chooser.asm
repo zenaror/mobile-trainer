@@ -11,7 +11,7 @@ Function_4E_4000::
 	; caller/pointer to 4E:4000 found (whole-ROM search), so the entry is unproven | forced
 	; execution: 1/1 instruction starts ran in forced_screens (traces/forced/, not natural evidence;
 	; status unchanged)
-	ldh [hRam_FFD2], a
+	ldh [hFramePreview_Style], a
 
 	; [PROBABLE] 160 insn(s) reached by static flow only; seeds: site x160; min discovery hops 0;
 	; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code |
@@ -81,21 +81,21 @@ Function_4E_4000::
 	call VBlank_WaitAndService
 	farcall Palette_FadeInFromWhite
 	ld a, $E0
-	ldh [hRam_FFD0], a
+	ldh [hFramePreview_WipePtr], a
 	ld a, $41
-	ldh [hRam_FFD1], a
+	ldh [hFramePreview_WipePtrHi], a
 .loop ; 4E:409C
-	ldh a, [hRam_FFD0]
+	ldh a, [hFramePreview_WipePtr]
 	ld l, a
-	ldh a, [hRam_FFD1]
+	ldh a, [hFramePreview_WipePtrHi]
 	ld h, a
 	or a, a
 	jr z, .l40C8
 	farcall Browser_FrameStylePreview_RevealStep
 	ld a, l
-	ldh [hRam_FFD0], a
+	ldh [hFramePreview_WipePtr], a
 	ld a, h
-	ldh [hRam_FFD1], a
+	ldh [hFramePreview_WipePtrHi], a
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffersDi
 	farcall Sprite_UpdateAll
@@ -103,7 +103,7 @@ Function_4E_4000::
 	call VBlank_WaitAndService
 	jp .loop
 .l40C8 ; 4E:40C8
-	ldh a, [hRam_FFD2]
+	ldh a, [hFramePreview_Style]
 	push bc
 	and a, $7F
 	ld c, a
@@ -151,7 +151,7 @@ Function_4E_4000::
 	ld [wBrowserTimerSecToggle], a
 	dec a
 	ld [wBrowserTimerLastSec], a
-	ldh a, [hRam_FFD2]
+	ldh a, [hFramePreview_Style]
 	ld [wBrowserFrameStyle], a
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -203,10 +203,10 @@ Label_4E_417C::
 	ld a, $01
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ldh a, [hRam_FFD2]
+	ldh a, [hFramePreview_Style]
 	or a, $80
 	ld [wBrowserFrameStyle], a
-	ld [sSram_A9EF], a
+	ld [sBrowserFrameStyle], a
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -222,7 +222,7 @@ Label_4E_41A1::
 	ld a, $01
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld a, [sSram_A9EF]
+	ld a, [sBrowserFrameStyle]
 	ld [wBrowserFrameStyle], a
 	xor a, a
 	ldh [hSRAMEnable], a
@@ -245,7 +245,7 @@ Label_4E_41C8::
 	farcall Palette_FadeOutToWhite
 	farcall Sprite_ResetAll
 	xor a, a
-	ldh [hRam_FFA7], a
+	ldh [hJoyDispatchExtraMask], a
 	ldh a, [hDialogResult]
 	ret
 

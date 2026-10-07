@@ -24,7 +24,7 @@ Function_2D_4722::
 	pop af
 	farcall Stat_EnableScrollSplit
 	call MailBody_SetupScreen
-	call Function_2D_4F03
+	call MailBody_ProbeLastRow
 	ld d, $07
 .l474A ; 2D:474A
 	push de
@@ -1170,7 +1170,10 @@ Function_2D_4EC0::
 	pop bc
 	ret
 
-Function_2D_4F03:: ; 2D:4F03
+MailBody_ProbeLastRow:: ; 2D:4F03
+Function_2D_4F03::
+	; [CONFIRMED] Entry/missing-row path probes row7: 45 natural hits in 10 scenarios.
+	; A=1 when absent; remaining results stay PROBABLE below. Both callers ignore A.
 	push bc
 	ld b, $07
 	call MailBody_GetRowPtr
@@ -2916,7 +2919,7 @@ Function_2D_5691::
 	ldh [rSVBK], a
 	ei
 	pop bc
-	call Function_2D_4F03
+	call MailBody_ProbeLastRow
 	pop bc
 	jp .l591B
 

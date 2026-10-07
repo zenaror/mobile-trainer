@@ -462,14 +462,14 @@ PhoneKeypad_Setup:: ; 67:431F
 .l4361 ; 67:4361
 	call PhoneKeypad_UpdateNonEmptyFlag
 	ld de, $8801
-	ld hl, Data_5E_4000
-	ld a, BANK(Data_5E_4000)
+	ld hl, Gfx_SharedTextEntry_Vram8800Vb1
+	ld a, BANK(Gfx_SharedTextEntry_Vram8800Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
-	ld hl, Data_5E_4400
-	ld a, BANK(Data_5E_4400)
+	ld hl, Gfx_SharedTextEntry_Vram8C00Vb1
+	ld a, BANK(Gfx_SharedTextEntry_Vram8C00Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
@@ -487,8 +487,8 @@ PhoneKeypad_Setup:: ; 67:431F
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, wPaletteBufBg
-	ld hl, Data_5E_4D00
-	ld a, BANK(Data_5E_4D00)
+	ld hl, Palette_SharedEntryUi_Bg
+	ld a, BANK(Palette_SharedEntryUi_Bg)
 	farcall Palette_LoadToBuffer
 	ld a, [wPhoneKeypad_Kind]
 	or a, a

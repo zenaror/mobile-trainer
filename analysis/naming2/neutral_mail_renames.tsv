@@ -1,0 +1,2 @@
+old_name	new_name	kind	status	evidence
+Function_2D_4F03	MailBody_ProbeLastRow	function	CONFIRMED	Probes row7 of eight12-cell rows in W1 body buffer. Both calls2D:4745 (40/10) and59A6 (5/2) are natural and ignore A. Only entry/missing-row A=1 path is observed45/10;19-instruction result tail remains PROBABLE. Static other returns0/FF are documented, not promoted; no buffer-full/accept claim.

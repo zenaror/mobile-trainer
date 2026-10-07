@@ -911,19 +911,31 @@ Gfx_CommScene_Tiles8C00:: ; 70:6090
 Data_70_6090::
 	INCBIN "gfx/comm/comm_scene/tiles_6090.2bpp"
 
-; ---- gfx $6490-$6690 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 70:452A: hl=$6490 a=$70 c=$20 de=$9000 (dest VRAM $9000, vbank=0)
+; ---- gfx $6490-$6690 (512 bytes) [CONFIRMED] existing graphics slice; shared source:
+; 70:452A transfers $6490-$6690 to VRAM $9000-$9200 bank 0 (C=$20, $200 bytes).
+; 70:453C transfers $6490-$6890 to VRAM $8000-$8400 bank 1 (C=$40, $400 bytes);
+; this slice is its first $200 bytes. Both calls: 160 hits in 18 natural scenarios.
 
-Data_70_6490:: ; 70:6490
+Gfx_CommScene_SharedVramSource0:: ; 70:6490
+Data_70_6490::
 	INCBIN "gfx/comm/comm_scene/tiles_6490.2bpp"
 
-; ---- gfx $6690-$6890 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 70:453C: hl=$6490 a=$70 c=$40 de=$8001 (dest VRAM $8000, vbank=1) [clipped from 6490-6890 by higher-priority evidence]
+; ---- gfx $6690-$6890 (512 bytes) [CONFIRMED] existing graphics slice; shared source:
+; second $200 bytes of 70:453C's $6490-$6890 window -> VRAM $8200-$8400 bank 1;
+; first $200 bytes of 70:4560's $6690-$6A90 window -> VRAM $9000-$9200 bank 1.
+; Both use C=$40 ($400 bytes total); 160 hits in 18 natural scenarios each.
 
-Data_70_6690:: ; 70:6690
+Gfx_CommScene_SharedVramSource1:: ; 70:6690
+Data_70_6690::
 	INCBIN "gfx/comm/comm_scene/tiles_6690.2bpp"
 
-; ---- gfx $6890-$6A90 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 70:4560: hl=$6690 a=$70 c=$40 de=$9001 (dest VRAM $9000, vbank=1) [clipped from 6690-6A90 by higher-priority evidence]
+; ---- gfx $6890-$6A90 (512 bytes) [CONFIRMED] existing graphics slice; shared source:
+; direct load at 70:4545 -> call 70:454E (C=$20, $200 bytes) to $8400-$8600 bank 1;
+; second $200 bytes of 70:4560's $6690-$6A90 window -> VRAM $9200-$9400 bank 1.
+; The latter uses C=$40 ($400 bytes total); both calls 160 hits/18 natural scenarios.
 
-Data_70_6890:: ; 70:6890
+Gfx_CommScene_SharedVramSource2:: ; 70:6890
+Data_70_6890::
 	INCBIN "gfx/comm/comm_scene/tiles_6890.2bpp"
 
 ; ---- gfx $6A90-$6C90 (512 bytes) [CONFIRMED] tiles-vram: hdma_rom_to_vram at 70:4572 hl=$6A90 c=$40 de=$9401 (recovered arguments). NOTE: the HDMA length $400 would run to 6E90, but 6C90-6D10 are palettes (copied by 4F:4000 calls) and 6D10-7090 the tilemap (copy_tilemap_rect_pair), so only the first $200 bytes (32 tiles) are tile data by content; the rest of the DMA window is over-read

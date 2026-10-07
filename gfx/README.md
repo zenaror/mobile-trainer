@@ -759,9 +759,9 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `comm_err_gfx_obj8100.2bpp` | 2bpp tiles | 32 | 5C:5DB0 | CONFIRMED | exact | - | `gfx/error/comm_error_screen.asm` |
 | `comm_err_gfx_bg9000.2bpp` | 2bpp tiles | 1024 | 5C:5DD0 | CONFIRMED | exact | - | `gfx/error/comm_error_screen.asm` |
 | `comm_err_gfx_bg9400.2bpp` | 2bpp tiles | 384 | 5C:61D0 | CONFIRMED | exact | - | `gfx/error/comm_error_screen.asm` |
-| `comm_err_palette_bg_timer.pal` | RGB palette | 64 | 5C:6350 | PROBABLE | - | - | `gfx/error/comm_error_screen.asm` |
-| `comm_err_palette_bg.pal` | RGB palette | 64 | 5C:6390 | PROBABLE | - | - | `gfx/error/comm_error_screen.asm` |
-| `comm_err_palette_obj.pal` | RGB palette | 64 | 5C:63D0 | PROBABLE | - | - | `gfx/error/comm_error_screen.asm` |
+| `comm_err_palette_bg_timer.pal` | RGB palette | 64 | 5C:6350 | CONFIRMED | - | - | `gfx/error/comm_error_screen.asm` |
+| `comm_err_palette_bg.pal` | RGB palette | 64 | 5C:6390 | CONFIRMED | - | - | `gfx/error/comm_error_screen.asm` |
+| `comm_err_palette_obj.pal` | RGB palette | 64 | 5C:63D0 | CONFIRMED | - | - | `gfx/error/comm_error_screen.asm` |
 
 ### `gfx/error/no_adapter/`
 

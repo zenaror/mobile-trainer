@@ -159,13 +159,13 @@ Table_73_6096::
 BrowserStart_Idle:: ; 73:60A0
 Label_73_60A0::
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
-	ld a, [wRam_C0E4]
+	ld a, [wBrowserStart_AcceptCountdown]
 	or a, a
 	jr z, .l60D7
 
 	; [PROBABLE] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 0;
 	; fall-through of the jrcc at 73:60A4 (executed)
-	ld hl, wRam_C0E4
+	ld hl, wBrowserStart_AcceptCountdown
 	ld a, [hl]
 	dec a
 	ld [hl], a

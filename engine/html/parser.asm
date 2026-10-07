@@ -30,7 +30,7 @@ Function_74_4165::
 	ldh [hRam_FFB0], a
 	ldh [hRam_FFB1], a
 	ldh [hHtmlMeta_HexByte2], a
-	ldh [hRam_FFB3], a
+	ldh [hHtmlMeta_HexByte3], a
 
 Html_MetaResultToError_HexLoop:: ; 74:4190
 	ld a, [hli]
@@ -57,21 +57,21 @@ Html_MetaResultToError_HexLoop:: ; 74:4190
 	sub a, $30
 .l41B7 ; 74:41B7
 	ld c, a
-	ldh a, [hRam_FFB0]
+	ldh a, [hHtmlMeta_HexByte0]
 	swap a
 	ld b, a
 	and a, $F0
 	or a, c
-	ldh [hRam_FFB0], a
+	ldh [hHtmlMeta_HexByte0], a
 	ld a, b
 	and a, $0F
 	ld c, a
-	ldh a, [hRam_FFB1]
+	ldh a, [hHtmlMeta_HexByte1]
 	swap a
 	ld b, a
 	and a, $F0
 	or a, c
-	ldh [hRam_FFB1], a
+	ldh [hHtmlMeta_HexByte1], a
 	ld a, b
 	and a, $0F
 	ld c, a
@@ -84,12 +84,12 @@ Html_MetaResultToError_HexLoop:: ; 74:4190
 	ld a, b
 	and a, $0F
 	ld c, a
-	ldh a, [hRam_FFB3]
+	ldh a, [hHtmlMeta_HexByte3]
 	swap a
 	ld b, a
 	and a, $F0
 	or a, c
-	ldh [hRam_FFB3], a
+	ldh [hHtmlMeta_HexByte3], a
 	jp Html_MetaResultToError_HexLoop
 
 Html_MetaResultToError_NoError:: ; 74:41EF
@@ -106,9 +106,9 @@ Label_74_41F2::
 	ld [wBrowserFetchResult], a
 	ld a, $40
 	ld [wMobileResultCode], a
-	ldh a, [hRam_FFB0]
+	ldh a, [hHtmlMeta_HexByte0]
 	ld [wMobileResultDetail], a
-	ldh a, [hRam_FFB1]
+	ldh a, [hHtmlMeta_HexByte1]
 	ld [wMobileResultDetail + 1], a
 	ret
 

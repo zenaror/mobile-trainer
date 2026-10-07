@@ -48,13 +48,13 @@ Function_00_16DC::
 	srl a
 	srl a
 	ld b, a
-	ld a, [wRam_C0F6]
+	ld a, [wConnectDialogIrq_PreviousRow]
 	xor a, $FF
 	inc a
 	add a, $09
 	ldh [rSCY], a
 	ld a, b
-	ld [wRam_C0F6], a
+	ld [wConnectDialogIrq_PreviousRow], a
 	ld a, $8E
 	ldh [rLYC], a
 	pop bc

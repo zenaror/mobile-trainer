@@ -39,8 +39,8 @@ Account_ActionConfirmPage_Setup:: ; 68:6E39
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8001
-	ld hl, Data_5F_49D0
-	ld a, BANK(Data_5F_49D0)
+	ld hl, Gfx_SharedPanels_Vram8000Vb1
+	ld a, BANK(Gfx_SharedPanels_Vram8000Vb1)
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
@@ -51,23 +51,23 @@ Account_ActionConfirmPage_Setup:: ; 68:6E39
 	farcall Palette_LoadToBuffer
 	ld bc, $0018
 	ld de, wPaletteBufObj + $28
-	ld hl, Palette_5F_4CD0 + $10 ; 5F:4CE0
-	ld a, BANK(Palette_5F_4CD0)
+	ld hl, Palette_SharedPanels_BgObj + $10 ; 5F:4CE0
+	ld a, BANK(Palette_SharedPanels_BgObj)
 	farcall Palette_LoadToBuffer
 	ld a, [wActionConfirmPage_Variant]
 	or a, a
 	jr z, .l6EC3
 	ld bc, $1214
 	ld de, wScreenTileMap
-	ld hl, Tilemap_Account_ActionConfirmPage
-	ld a, BANK(Tilemap_Account_ActionConfirmPage)
+	ld hl, Tilemap_Account_ActionConfirmPage_NonzeroVariant
+	ld a, BANK(Tilemap_Account_ActionConfirmPage_NonzeroVariant)
 	farcall Tilemap_CopyRectAndAttr
 	jr .l6ED4
 .l6EC3 ; 68:6EC3
 	ld bc, $1214
 	ld de, wScreenTileMap
-	ld hl, Tilemap_Account_ActionConfirmPage_5E_7300
-	ld a, BANK(Tilemap_Account_ActionConfirmPage_5E_7300)
+	ld hl, Tilemap_Account_ActionConfirmPage_Variant0
+	ld a, BANK(Tilemap_Account_ActionConfirmPage_Variant0)
 	farcall Tilemap_CopyRectAndAttr
 .l6ED4 ; 68:6ED4
 	call Account_ActionConfirmPage_PrintMessage

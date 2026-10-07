@@ -110,7 +110,7 @@ Function_4E_6172:: ; 4E:6172
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ld b, $1A
-	ld a, [sSram_A9ED]
+	ld a, [sSaveCheckStateBlock + $05]
 	bit 7, a
 	jr z, .skip
 	ld b, $19

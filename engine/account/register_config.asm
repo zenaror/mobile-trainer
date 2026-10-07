@@ -60,8 +60,8 @@ Registration_WriteConfig_Setup:: ; 68:6AF6
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	ld hl, wSpriteSlot0
-	ld de, Table_5D_7318
-	ld a, BANK(Table_5D_7318)
+	ld de, Objects_Registration_WriteConfig
+	ld a, BANK(Objects_Registration_WriteConfig)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $1838
@@ -235,7 +235,7 @@ Function_68_6C7F::
 	ret
 
 Config_BuildImageFromAccount:: ; 68:6CF0
-	ld a, [sSram_A003]
+	ld a, [sConfigImage + $03]
 	push af
 	ld a, [wMobileAdapterType]
 	ld hl, Config_DefaultImageTable
@@ -256,7 +256,7 @@ Config_BuildImageFromAccount:: ; 68:6CF0
 	ld hl, sConfigImagePad
 	call FillBytes
 	pop af
-	ld [sSram_A003], a
+	ld [sConfigImage + $03], a
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af

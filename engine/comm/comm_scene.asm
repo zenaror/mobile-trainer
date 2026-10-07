@@ -701,26 +701,26 @@ Function_70_44B0::
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9000
-	ld hl, Data_70_6490
-	ld a, BANK(Data_70_6490)
+	ld hl, Gfx_CommScene_SharedVramSource0
+	ld a, BANK(Gfx_CommScene_SharedVramSource0)
 	ld b, $95
 	ld c, $20
 	farcall Gfx_StartHDMAWithService
 	ld de, $8001
-	ld hl, Data_70_6490
-	ld a, BANK(Data_70_6490)
+	ld hl, Gfx_CommScene_SharedVramSource0
+	ld a, BANK(Gfx_CommScene_SharedVramSource0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8401
-	ld hl, Data_70_6890
-	ld a, BANK(Data_70_6890)
+	ld hl, Gfx_CommScene_SharedVramSource2
+	ld a, BANK(Gfx_CommScene_SharedVramSource2)
 	ld b, $95
 	ld c, $20
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
-	ld hl, Data_70_6690
-	ld a, BANK(Data_70_6690)
+	ld hl, Gfx_CommScene_SharedVramSource1
+	ld a, BANK(Gfx_CommScene_SharedVramSource1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
@@ -887,16 +887,16 @@ Function_70_46A6:: ; 70:46A6
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld a, [sSram_A9ED]
+	ld a, [sSaveCheckStateBlock + $05]
 	bit 6, a
 	jr z, .l472A
 	and a, $30
 	or a, a
 	jr z, .l472A
-	ld a, [sSram_A9EE]
+	ld a, [sSaveCheckStateBlock + $06]
 	or a, a
 	jr nz, .l472A
-	ld a, [sSram_A9ED]
+	ld a, [sSaveCheckStateBlock + $05]
 	bit 7, a
 	jr nz, .l4704
 	call Random16
@@ -905,7 +905,7 @@ Function_70_46A6:: ; 70:46A6
 	call Divide16
 	ld a, $02
 	add a, e
-	ld [sSram_A9EE], a
+	ld [sSaveCheckStateBlock + $06], a
 	ldh [hScratchA], a
 	pop af
 	ldh [hSRAMBank], a
@@ -930,7 +930,7 @@ Function_70_46A6:: ; 70:46A6
 	call Divide16
 	ld a, $0A
 	add a, e
-	ld [sSram_A9EE], a
+	ld [sSaveCheckStateBlock + $06], a
 	ldh [hScratchA], a
 	pop af
 	ldh [hSRAMBank], a
@@ -982,7 +982,7 @@ Function_70_46A6:: ; 70:46A6
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld a, [sSram_A9ED]
+	ld a, [sSaveCheckStateBlock + $05]
 	bit 7, a
 	jr nz, .l4767
 	ld b, $00

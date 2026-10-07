@@ -1,0 +1,4 @@
+file	line	old	new	evidence
+engine/settings/choice_menu.asm	145	ld hl, Data_4D_5510	ld hl, Palette_SettingsPhone_ChoiceMenu_Bg	40-byte palette block; existing bc=$40 load reads24bytes beyond block; retain reviewed exception and PROBABLE adjacency geometry. Existing aliases have identical bank/address, original operand checked.
+engine/settings/choice_menu.asm	146	ld a, BANK(Data_4D_5510)	ld a, BANK(Palette_SettingsPhone_ChoiceMenu_Bg)	40-byte palette block; existing bc=$40 load reads24bytes beyond block; retain reviewed exception and PROBABLE adjacency geometry. Existing aliases have identical bank/address, original operand checked.
+lib/mobile/main.asm	5819	ld hl, Data_75_6063	ld hl, MobilePacket_WaitForTelephoneCall	PROBABLE template has no natural reader; no semantic promotion. Existing aliases have identical bank/address, original operand checked.

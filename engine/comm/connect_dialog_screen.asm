@@ -264,12 +264,12 @@ ConnectDialog_Draw_PasswordEntry:: ; 57:4951
 	ld bc, $0400
 	ld hl, wTileStage2
 	call FillBytes
-	ld hl, String_56_4047
+	ld hl, String_ConnectDialog_PasswordEntryPrompt
 	ld bc, $0010
 	ld de, wTileStage2
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, BANK(String_56_4047)
+	ld a, BANK(String_ConnectDialog_PasswordEntryPrompt)
 	farcall TextTiles_RenderGrid
 	ld de, $9000
 	ld hl, wTileStage2
@@ -399,12 +399,12 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	ld bc, $0400
 	ld hl, wTileStage2
 	call FillBytes
-	ld hl, String_56_4047
+	ld hl, String_ConnectDialog_PasswordEntryPrompt
 	ld bc, $0010
 	ld de, wTileStage2
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, BANK(String_56_4047)
+	ld a, BANK(String_ConnectDialog_PasswordEntryPrompt)
 	farcall TextTiles_RenderGrid
 	ld de, $9000
 	ld hl, wTileStage2
@@ -497,12 +497,12 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	ld bc, $0400
 	ld hl, wTileStage2
 	call FillBytes
-	ld hl, String_56_406A
+	ld hl, String_ConnectDialog_SavePasswordConfirm
 	ld bc, $0010
 	ld de, wTileStage2
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, BANK(String_56_406A)
+	ld a, BANK(String_ConnectDialog_SavePasswordConfirm)
 	farcall TextTiles_RenderGrid
 	ld de, $8801
 	ld hl, wTileStage2
@@ -629,12 +629,12 @@ ConnectDialog_Draw_PasswordSaved:: ; 57:4D40
 	ld bc, $0400
 	ld hl, wTileStage2
 	call FillBytes
-	ld hl, String_56_40BF
+	ld hl, String_ConnectDialog_PasswordSavedNotice
 	ld bc, $0010
 	ld de, wTileStage2
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, BANK(String_56_40BF)
+	ld a, BANK(String_ConnectDialog_PasswordSavedNotice)
 	farcall TextTiles_RenderGrid
 	ld de, $9000
 	ld hl, wTileStage2
@@ -732,12 +732,12 @@ ConnectDialog_Draw_StoredPassword:: ; 57:4E4C
 	ld bc, $0400
 	ld hl, wTileStage2
 	call FillBytes
-	ld hl, String_56_410A
+	ld hl, String_ConnectDialog_StoredPasswordNotice
 	ld bc, $0010
 	ld de, wTileStage2
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, BANK(String_56_410A)
+	ld a, BANK(String_ConnectDialog_StoredPasswordNotice)
 	farcall TextTiles_RenderGrid
 	ld de, $9000
 	ld hl, wTileStage2
@@ -822,12 +822,12 @@ ConnectDialog_Draw_ForgetConfirm:: ; 57:4F59
 	ld bc, $0400
 	ld hl, wTileStage2
 	call FillBytes
-	ld hl, String_56_4159
+	ld hl, String_ConnectDialog_CancelPasswordStorageConfirm
 	ld bc, $0010
 	ld de, wTileStage2
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, BANK(String_56_4159)
+	ld a, BANK(String_ConnectDialog_CancelPasswordStorageConfirm)
 	farcall TextTiles_RenderGrid
 	ld de, $8801
 	ld hl, wTileStage2

@@ -1,6 +1,6 @@
 ; gfx/account/screens_bank5e.asm
 ; bank 5E, $4800-$78A0 (12448 bytes); pinned by layout.link
-; account screens art loaded by bank 68 (includes 32 bytes read by bank 55)
+; account art; bank 55 reads 32 keyboard tile bytes and 24 palette bytes; bank 67 shares the palette
 
 SECTION "gfx/account/screens_bank5e", ROMX
 
@@ -18,7 +18,8 @@ Data_5E_4C00::
 
 ; ---- data $4D00-$4D40 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/account/login_id_entry.asm:123, call 68:5398 executed 129 hits in 8 scenarios (analysis/coverage_union.tsv)); +$00 bc=$40 into wPaletteBufBg (engine/account/login_id_entry.asm:402, call 68:566E executed 155 hits in 8 scenarios (analysis/coverage_union.tsv)); +$00 bc=$40 into wPaletteBufBg (engine/account/mail_address_entry.asm:138, call 68:584B executed 88 hits in 8 scenarios (analysis/coverage_union.tsv)); and 6 more load(s)
 
-Data_5E_4D00:: ; 5E:4D00
+Palette_SharedEntryUi_Bg:: ; 5E:4D00
+Data_5E_4D00::
 	INCLUDE "gfx/account/screens_bank5e/palette_4d00.pal"
 
 ; ---- data $4D40-$4E08 (200 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:53A9: hl=$4D40 a=$5E b=5 rows c=20 cols (tiles then attrs) de=$D000
@@ -115,13 +116,13 @@ Palette_Account_ActionConfirmPage_Bg:: ; 5E:72C0
 
 ; ---- data $7300-$75D0 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:6ECE: hl=$7300 a=$5E b=18 rows c=20 cols (tiles then attrs) de=$D000
 
-Tilemap_Account_ActionConfirmPage_5E_7300:: ; 5E:7300
+Tilemap_Account_ActionConfirmPage_Variant0:: ; 5E:7300
 	INCBIN "gfx/account/screens_bank5e/account_action_confirm_page_5e_7300.tilemap"
 	INCBIN "gfx/account/screens_bank5e/account_action_confirm_page_5e_7300.attrmap"
 
 ; ---- data $75D0-$78A0 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:6EBB: hl=$75D0 a=$5E b=18 rows c=20 cols (tiles then attrs) de=$D000
 
-Tilemap_Account_ActionConfirmPage:: ; 5E:75D0
+Tilemap_Account_ActionConfirmPage_NonzeroVariant:: ; 5E:75D0
 Data_5E_75D0::
 	INCBIN "gfx/account/screens_bank5e/tilemap_75d0.tilemap"
 	INCBIN "gfx/account/screens_bank5e/tilemap_75d0.attrmap"

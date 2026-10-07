@@ -6,7 +6,7 @@ SECTION "engine/gfx/palette_fade_masked", ROMX
 
 Palette_FadeInMasked:: ; 48:44E0
 	; [CONFIRMED] 481 insn(s); 481 executed (in up to 12/18 scenarios) (part of region $4222-$4615)
-	ldh [hRam_FFB0], a
+	ldh [hMaskedFade_PaletteMask], a
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -46,7 +46,7 @@ Palette_FadeInMasked:: ; 48:44E0
 	ret
 
 Palette_FadeOutMasked:: ; 48:4540
-	ldh [hRam_FFB0], a
+	ldh [hMaskedFade_PaletteMask], a
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -91,7 +91,7 @@ Palette_SetFadeTargetMasked:: ; 48:459D
 	ld a, c
 	ld [wTextCellsLeft], a
 	ld a, b
-	ld [wRam_C2EF], a
+	ld [wPalFadeTargetColorHi], a
 	xor a, a
 	ld [wPalFadeProgress], a
 	ld [wPalFadeProgress + 1], a
@@ -100,7 +100,7 @@ Palette_SetFadeTargetMasked:: ; 48:459D
 	ld a, c
 	ld [wTextCellsLeft], a
 	ld a, b
-	ld [wRam_C2EF], a
+	ld [wPalFadeTargetColorHi], a
 	xor a, a
 	ld [wPalFadeProgress], a
 	inc a
@@ -111,11 +111,11 @@ Palette_SetFadeTargetMasked:: ; 48:459D
 	ld b, $40
 	ld c, $04
 	ld a, $01
-	ldh [hRam_FFB1], a
+	ldh [hMaskedFade_PaletteBit], a
 .loop ; 48:45D3
 	push hl
-	ldh a, [hRam_FFB0]
-	ld hl, hRam_FFB1
+	ldh a, [hMaskedFade_PaletteMask]
+	ld hl, hMaskedFade_PaletteBit
 	and a, [hl]
 	pop hl
 	jr nz, .l45F4
@@ -130,7 +130,7 @@ Palette_SetFadeTargetMasked:: ; 48:459D
 	jr nz, .l45F0
 	push hl
 	ld c, $04
-	ld hl, hRam_FFB1
+	ld hl, hMaskedFade_PaletteBit
 	sla [hl]
 	pop hl
 .l45F0 ; 48:45F0
@@ -140,7 +140,7 @@ Palette_SetFadeTargetMasked:: ; 48:459D
 .l45F4 ; 48:45F4
 	ld a, [wTextCellsLeft]
 	ld [hli], a
-	ld a, [wRam_C2EF]
+	ld a, [wPalFadeTargetColorHi]
 	ld [hli], a
 	ld a, [wPalFadeProgress]
 	ld [de], a
@@ -152,7 +152,7 @@ Palette_SetFadeTargetMasked:: ; 48:459D
 	jr nz, .l4612
 	push hl
 	ld c, $04
-	ld hl, hRam_FFB1
+	ld hl, hMaskedFade_PaletteBit
 	sla [hl]
 	pop hl
 .l4612 ; 48:4612

@@ -313,5 +313,9 @@ SoundSong04_Header:: ; 04:60E8
 Data_04_60E8::
 	sound_stream_header 4, 2
 	dw SoundSong04_Track0, SoundSong04_Track1, SoundSong04_Track2, SoundSong04_Track3 ; track stream pointers (read by the driver)
-	dw SoundSong04_Track0_Loop, SoundSong04_Track1_Loop, SoundSong04_Track2_Loop, SoundSong04_Track3_Loop ; not read by the driver: target of each track's final sound_jump
-	dw SoundSong04_Track0_AfterJump, SoundSong04_Track1_AfterJump, SoundSong04_Track2_AfterJump, SoundSong04_Track3_AfterJump ; not read by the driver: address after each track's final sound_jump
+	; not read by the driver: target of each track's final sound_jump
+	dw SoundSong04_Track0_Loop, SoundSong04_Track1_Loop
+	dw SoundSong04_Track2_Loop, SoundSong04_Track3_Loop
+	; not read by the driver: address after each track's final sound_jump
+	dw SoundSong04_Track0_AfterJump, SoundSong04_Track1_AfterJump
+	dw SoundSong04_Track2_AfterJump, SoundSong04_Track3_AfterJump

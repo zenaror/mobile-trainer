@@ -142,7 +142,7 @@ Function_48_4A8C::
 	; scan), follows the ret at 4A8B, ends with ret at 4AAA
 	call BankSwitch_H
 	ld a, c
-	ldh [hRam_FFB0], a
+	ldh [hTileMaskRect_Width], a
 .loop ; 48:4A92
 	ld a, [hl]
 	and a, d
@@ -150,7 +150,7 @@ Function_48_4A8C::
 	ld [hli], a
 	dec c
 	jr nz, .loop
-	ldh a, [hRam_FFB0]
+	ldh a, [hTileMaskRect_Width]
 	ld c, a
 	xor a, $1F
 	inc a

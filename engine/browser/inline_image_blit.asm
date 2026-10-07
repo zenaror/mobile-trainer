@@ -59,11 +59,11 @@ Bmp_ParseHeader:: ; 51:70F4
 	jr z, .l712E
 	cp a, $FF
 	jr nz, .l7157
-	ld [wRam_C33F], a
+	ld [wBmpTopDownFlag], a
 	jr .l7132
 .l712E ; 51:712E
 	xor a, a
-	ld [wRam_C33F], a
+	ld [wBmpTopDownFlag], a
 .l7132 ; 51:7132
 	ld a, [hli]
 	dec a
@@ -102,7 +102,7 @@ Bmp_ParseHeader:: ; 51:70F4
 	xor a, a
 	ldh [hBmp_Width], a
 	ldh [hBmp_Height], a
-	ld [wRam_C33F], a
+	ld [wBmpTopDownFlag], a
 	pop hl
 	ret
 
@@ -139,7 +139,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	dec hl
 	dec hl
 	dec hl
-	ld a, [wRam_C33F]
+	ld a, [wBmpTopDownFlag]
 	or a, a
 	jp nz, .l73CB
 	push hl
@@ -167,7 +167,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	ld a, l
 	ld [wHtmlBrClear], a
 	ld a, h
-	ld [wRam_C331], a
+	ld [wBmp_ColorDiffHi], a
 	ld hl, $0017
 	add hl, de
 	ld a, $FF
@@ -191,7 +191,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	ld [wHtmlScanOnly], a
 	ldh a, [hBmp_Height]
 	call Bmp_RoundUpToTextRow
-	ld [wRam_C333], a
+	ld [wBmpRowAlignedHeight], a
 	ld e, a
 	ldh a, [hBmp_Width]
 	call Bmp_RoundUpToTextRow
@@ -205,7 +205,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	add a, $03
 	jp c, .l73CE
 	and a, $FC
-	ldh [hRam_FFD4], a
+	ldh [hBmpConvert_RowStride], a
 	ld d, $00
 	call Multiply8x16
 	ld c, l
@@ -216,14 +216,14 @@ Bmp_ConvertToTiles:: ; 51:7177
 	ld [hli], a
 	ld a, b
 	ld [hli], a
-	ldh a, [hRam_FFD4]
+	ldh a, [hBmpConvert_RowStride]
 	and a, $1F
 	rlca
 	rlca
 	rlca
 	ld [wHtmlLinkHeapPtr], a
 	ld [hli], a
-	ld a, [wRam_C333]
+	ld a, [wBmpRowAlignedHeight]
 	ld [hli], a
 	push bc
 	push hl
@@ -247,7 +247,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	ldh a, [hBmp_Height]
 	dec a
 	ld e, a
-	ldh a, [hRam_FFD4]
+	ldh a, [hBmpConvert_RowStride]
 	ld d, $00
 	call Multiply8x16
 	ld de, wTileStage3
@@ -265,7 +265,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	push de
 	call CopyBytes
 	pop hl
-	ld a, [wRam_C331]
+	ld a, [wBmp_ColorDiffHi]
 	bit 7, a
 	jr z, .l7276
 
@@ -309,7 +309,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	ld c, a
 	ld b, $00
 	add hl, bc
-	ldh a, [hRam_FFD4]
+	ldh a, [hBmpConvert_RowStride]
 	ld c, a
 	ld a, e
 	sub a, c
@@ -549,7 +549,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	ld [de], a
 	inc de
 	ld [de], a
-	ld a, [wRam_C333]
+	ld a, [wBmpRowAlignedHeight]
 	ldh [hBmp_Height], a
 	ld a, [wHtmlLinkHeapPtr]
 	ldh [hBmp_Width], a
@@ -624,7 +624,8 @@ Bmp_RoundUpToTextRow:: ; 51:73F2
 ; ---- data $740C-$740D (1 bytes) [PROBABLE] single $FF byte between the ret at 740B and the function at 740D (ldh [$FFD0],a ...); read as an all-ones mask by the edge-strip blit code at 51:75A0 and 51:765B
 ; (ld a, [Data_51_740C] ; and a, d: the edge mask passes unchanged); both reads are in code that never ran naturally, so the role is PROBABLE (earlier text: "probably padding, not referenced")
 
-Data_51_740C:: ; 51:740C
+ImageBlit_AllBitsMask:: ; 51:740C
+Data_51_740C::
 	db $FF
 
 Image_BlitToTileCanvas:: ; 51:740D
@@ -667,7 +668,7 @@ Image_BlitToTileCanvas:: ; 51:740D
 	rrca
 	rrca
 	add a, b
-	ldh [hRam_FFD4], a
+	ldh [hImageBlit_DestColumns], a
 	pop bc
 	inc hl
 	inc hl
@@ -870,7 +871,7 @@ Image_MakeEdgeMasks:: ; 51:74E6
 	ret
 
 Image_BlitEdgeStrip:: ; 51:7517
-	ldh a, [hRam_FFD4]
+	ldh a, [hImageBlit_DestColumns]
 	ld c, a
 	cp a, $02
 	jr nc, .l7584
@@ -987,7 +988,7 @@ Image_BlitEdgeStrip:: ; 51:7517
 	push de
 	ldh a, [hImageBlit_LeftMask]
 	ld d, a
-	ld a, [Data_51_740C]
+	ld a, [ImageBlit_AllBitsMask]
 	and a, d
 	ld d, a
 	cpl
@@ -1137,7 +1138,7 @@ Image_BlitEdgeStrip:: ; 51:7517
 	push de
 	ldh a, [hImageBlit_RightMask]
 	ld d, a
-	ld a, [Data_51_740C]
+	ld a, [ImageBlit_AllBitsMask]
 	and a, d
 	ld d, a
 	cpl

@@ -51,7 +51,7 @@ Function_4E_5204::
 	ldh [hTextBox_LineStartX], a
 	ld a, $00
 	ldh [hTextX + 1], a
-	ldh [hRam_FFC2], a
+	ldh [hTextBox_LineStartXHi], a
 	ldh [hRam_FFC5], a
 	ld a, $FF
 	ldh [hTextBox_LineAdvance], a
@@ -243,9 +243,9 @@ Browser_FindAnchor:: ; 4E:534B
 	; entered by call from 4E:5316 (PROBABLE code) | 26 insn(s) executed; cut out of the PROBABLE
 	; region 534B-5390 by apply_coverage --split [executed in 1 scenarios]
 	ld a, l
-	ldh [hRam_FFB0], a
+	ldh [hPageRender_AnchorStart], a
 	ld a, h
-	ldh [hRam_FFB1], a
+	ldh [hPageRender_AnchorStartHi], a
 	ld de, $FFFF
 
 Browser_FindAnchor_NextEntry:: ; 4E:5354
@@ -322,9 +322,9 @@ Label_4E_5391::
 	; entered by jrcc from 4E:5367 (PROBABLE code) | 6 insn(s) executed; cut out of the PROBABLE
 	; region 5391-53A1 by apply_coverage --split [executed in 1 scenarios]
 	pop de
-	ldh a, [hRam_FFB0]
+	ldh a, [hPageRender_AnchorStart]
 	ld l, a
-	ldh a, [hRam_FFB1]
+	ldh a, [hPageRender_AnchorStartHi]
 	ld h, a
 	jr Browser_FindAnchor_NextEntry
 
@@ -764,7 +764,7 @@ Function_4E_55E8::
 	add hl, de
 	xor a, a
 	ldh [hRam_FFB0], a
-	ldh [hRam_FFB3], a
+	ldh [hPageRender_OffscreenLinkId], a
 .loop ; 4E:561D
 	call Sound_FrameService
 	push bc
@@ -840,7 +840,7 @@ Function_4E_55E8::
 	ldh a, [hViewY + 1]
 	sbc a, b
 	jp nc, .l56BC
-	ldh a, [hRam_FFB3]
+	ldh a, [hPageRender_OffscreenLinkId]
 	ld b, a
 	ldh a, [hPageRender_SearchLinkId]
 	cp a, b
@@ -874,7 +874,7 @@ Function_4E_55E8::
 	ldh a, [hPageRender_SearchLinkId]
 	or a, a
 	jr z, .l56CC
-	ldh [hRam_FFB3], a
+	ldh [hPageRender_OffscreenLinkId], a
 	ld b, a
 	ldh a, [hRam_FFB0]
 	cp a, b
@@ -1491,7 +1491,7 @@ Browser_DrawElement_Text:: ; 4E:58AC
 	ldh a, [hPageRender_ElemXHi]
 	adc a, $00
 	ldh [hTextX + 1], a
-	ldh [hRam_FFC2], a
+	ldh [hTextBox_LineStartXHi], a
 	ldh a, [hBrowserDrawYOffset]
 	ld c, a
 	ldh a, [hPageRender_ElemY]
@@ -1558,7 +1558,7 @@ Browser_DrawElement_Bitmap:: ; 4E:5A6D
 	cp a, $02
 	jr z, .l5AB2
 	ld a, $03
-	ldh [hRam_FFC2], a
+	ldh [hPageRender_BitmapColors], a
 	ldh [hRam_FFC3], a
 	jr .l5AB8
 
@@ -1571,17 +1571,17 @@ Browser_DrawElement_Bitmap:: ; 4E:5A6D
 	cp a, b
 	jr z, .l5AAA
 	ld a, $02
-	ldh [hRam_FFC2], a
+	ldh [hPageRender_BitmapColors], a
 	ldh [hRam_FFC3], a
 	jr .l5AB8
 .l5AAA ; 4E:5AAA
 	ld a, $20
-	ldh [hRam_FFC2], a
+	ldh [hPageRender_BitmapColors], a
 	ldh [hRam_FFC3], a
 	jr .l5AB8
 .l5AB2 ; 4E:5AB2
 	ld a, $01
-	ldh [hRam_FFC2], a
+	ldh [hPageRender_BitmapColors], a
 	ldh [hRam_FFC3], a
 
 .l5AB8 ; 4E:5AB8
@@ -1714,7 +1714,7 @@ Browser_DrawElement_Bitmap:: ; 4E:5A6D
 	; [CONFIRMED] 272 insn(s) executed; cut out of the PROBABLE region 5A6D-5CB6 by apply_coverage
 	; --split [executed in 1 scenarios] (part of region $5B59-$5CB6)
 	pop hl
-	ldh a, [hRam_FFC2]
+	ldh a, [hPageRender_BitmapColors]
 	farcall Image_BlitToTileCanvas
 	xor a, a
 	ldh [hSRAMEnable], a

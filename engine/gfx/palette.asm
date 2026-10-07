@@ -136,12 +136,12 @@ PalFade_BlendColor:: ; 4F:4083
 	and a, $7C
 	rra
 	rra
-	ldh [hRam_FFB2], a
+	ldh [hPalFade_FromBlue], a
 	ld hl, wPaletteFadeTo
 	add hl, de
 	ld a, [hl]
 	and a, $1F
-	ldh [hRam_FFB3], a
+	ldh [hPalFade_ToRed], a
 	ld a, [hli]
 	and a, $E0
 	swap a
@@ -152,14 +152,14 @@ PalFade_BlendColor:: ; 4F:4083
 	swap a
 	rra
 	or a, b
-	ldh [hRam_FFB4], a
+	ldh [hPalFade_ToGreen], a
 	ld a, [hli]
 	and a, $7C
 	rra
 	rra
-	ldh [hRam_FFB5], a
+	ldh [hPalFade_ToBlue], a
 	push de
-	ldh a, [hRam_FFB3]
+	ldh a, [hPalFade_ToRed]
 	ld b, a
 	ldh a, [hRam_FFB0]
 	call PalFade_ScaledDelta
@@ -167,7 +167,7 @@ PalFade_BlendColor:: ; 4F:4083
 	sub a, h
 	and a, $1F
 	ldh [hRam_FFB0], a
-	ldh a, [hRam_FFB4]
+	ldh a, [hPalFade_ToGreen]
 	ld b, a
 	ldh a, [hRam_FFB1]
 	call PalFade_ScaledDelta
@@ -186,11 +186,11 @@ PalFade_BlendColor:: ; 4F:4083
 	rla
 	swap a
 	ldh [hRam_FFB1], a
-	ldh a, [hRam_FFB5]
+	ldh a, [hPalFade_ToBlue]
 	ld b, a
-	ldh a, [hRam_FFB2]
+	ldh a, [hPalFade_FromBlue]
 	call PalFade_ScaledDelta
-	ldh a, [hRam_FFB2]
+	ldh a, [hPalFade_FromBlue]
 	sub a, h
 	and a, $1F
 	rla
@@ -267,7 +267,7 @@ PalFade_Start:: ; 4F:4166
 	ld a, c
 	ld [wTextCellsLeft], a
 	ld a, b
-	ld [wRam_C2EF], a
+	ld [wPalFadeTargetColorHi], a
 	xor a, a
 	ld [wPalFadeProgress], a
 	ld [wPalFadeProgress + 1], a
@@ -276,7 +276,7 @@ PalFade_Start:: ; 4F:4166
 	ld a, c
 	ld [wTextCellsLeft], a
 	ld a, b
-	ld [wRam_C2EF], a
+	ld [wPalFadeTargetColorHi], a
 	xor a, a
 	ld [wPalFadeProgress], a
 	inc a
@@ -332,7 +332,7 @@ PalFade_Start_FillLoop:: ; 4F:41CA
 Label_4F_41CA::
 	ld a, [wTextCellsLeft]
 	ld [hli], a
-	ld a, [wRam_C2EF]
+	ld a, [wPalFadeTargetColorHi]
 	ld [hli], a
 	ld a, [wPalFadeProgress]
 	ld [de], a

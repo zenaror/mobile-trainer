@@ -1,0 +1,3 @@
+# old_name	new_name	kind	status	evidence
+# ram12 HRAM: independently reviewed against f0b978a; const rename only, no alias.
+hRam_FFA7	hJoyDispatchExtraMask	const	CONFIRMED	One-shot mask ORed with hJoyPressed by JoypadDispatch (00:056A-0572), cleared before dispatch. Six producers store zero; 51:41D3 stores the returned A. This describes the consumer, without claiming physical or injected button events. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 4E:41DB, 4E:5013, 51:41D3, 4C:510C, 7D:7BF5, 2D:70FD, 00:056A, 00:056E.
