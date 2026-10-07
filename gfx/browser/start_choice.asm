@@ -11,7 +11,7 @@ Data_73_4097::
 	INCBIN "gfx/browser/start_choice/browser_start_map.tilemap"
 	INCBIN "gfx/browser/start_choice/browser_start_map.attrmap"
 
-; ---- data $4367-$438F (40 bytes) [PROBABLE] tile-index rectangle 4 rows x 10 columns (40 bytes): 73:6230 ld bc,$040A ; ld de,$D089 ; ld hl,$4367 ; ld a,$73 ; FarCall 00:16A2 (rect copy from ROM bank a to WRAM)
+; ---- data $4367-$438F (40 bytes) [CONFIRMED] tile-index rectangle: 4 rows x 10 columns; ROM73 -> WRAM7 $D089, row stride 32; paired consumer 73:6235 -> 00:16A2; all 40 bytes read in 8 whole/8 union natural scenarios (typing_73_browser_rectangles.md)
 
 BrowserStart_TopMapNormal:: ; 73:4367
 Tilemap_73_4367::
@@ -24,7 +24,7 @@ Data_73_438F::
 	db $0A, $30, $31, $31, $31, $31, $31, $31, $30, $0A, $0A, $2F, $35, $36, $37, $38
 	db $39, $3A, $34, $0A, $0A, $33, $32, $32, $32, $32, $32, $32, $33, $0A
 
-; ---- data $43AD-$43D5 (40 bytes) [PROBABLE] 40 bytes of BG attribute values (all $09): same 4 x 10 geometry as the tilemap at 4367; attribute source pointer: 73:6220 (ld a,$AD ; ld [$C10E],a ; ld a,$43 ; ld [$C10F],a) sets $C10E/$C10F = $43AD right before the FarCall 00:16A2 rect copy of the tilemap at 4367 (00:16A2 reads [$C10E/$C10F] as the source of its second copy, dest +$0400); the site is static-reached, not executed (verifier: earlier note said "no direct reference")
+; ---- data $43AD-$43D5 (40 bytes) [CONFIRMED] BG attribute rectangle: 4 rows x 10 columns; ROM73 -> WRAM7 $D489, row stride 32; paired consumer 73:6235 -> 00:16A2; all 40 bytes read in 8 whole/8 union natural scenarios (typing_73_browser_rectangles.md)
 
 BrowserStart_TopAttrNormal:: ; 73:43AD
 Data_73_43AD::
@@ -42,7 +42,7 @@ BrowserStart_TopMapSelected:: ; 73:43F3
 	db $60, $61, $62, $1D, $2D, $63, $64, $65, $66, $67, $68, $69, $6A, $2D, $0F, $1E
 	db $1E, $1E, $1E, $1E, $1E, $1E, $1E, $0F
 
-; ---- data $441B-$4439 (30 bytes) [PROBABLE] tile-index rectangle 3 rows x 10 columns (30 bytes): 73:624B ld bc,$030A ; ld de,$D129 ; ld hl,$441B ; ld a,$73 ; FarCall 00:16A2
+; ---- data $441B-$4439 (30 bytes) [CONFIRMED] tile-index rectangle: 3 rows x 10 columns; ROM73 -> WRAM7 $D129, row stride 32; paired consumer 73:6250 -> 00:16A2; all 30 bytes read in 8 whole/8 union natural scenarios (typing_73_browser_rectangles.md)
 
 BrowserStart_BottomMapSelected:: ; 73:441B
 Tilemap_73_441B::
@@ -56,7 +56,7 @@ Data_73_4439::
 	db $0A, $0A, $0A, $29, $09, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $29, $09, $09
 	db $09, $09, $09, $09, $09, $09, $09, $29
 
-; ---- data $4461-$447F (30 bytes) [PROBABLE] 30 bytes of BG attribute values ($09/$0A/$29): same 3 x 10 geometry as the tilemap at 441B; attribute source pointer: 73:623B (ld a,$61 ; ld [$C10E],a ; ld a,$44 ; ld [$C10F],a) sets $C10E/$C10F = $4461 before the rect copy of 441B at 73:6250 (static-reached, not executed; verifier: earlier note said "no direct reference")
+; ---- data $4461-$447F (30 bytes) [CONFIRMED] BG attribute rectangle: 3 rows x 10 columns; ROM73 -> WRAM7 $D529, row stride 32; paired consumer 73:6250 -> 00:16A2; all 30 bytes read in 8 whole/8 union natural scenarios (typing_73_browser_rectangles.md)
 
 BrowserStart_BottomAttrSelected:: ; 73:4461
 Data_73_4461::
