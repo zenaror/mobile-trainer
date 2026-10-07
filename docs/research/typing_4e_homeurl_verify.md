@@ -1,0 +1,11 @@
+# Original HomeURL verification
+
+Baseline: a39a8da97a8bb2c8088f18651665057f35924750. Scope: engine/browser/session_start.asm, REVERSE_ENGINEERING.md, docs/README.md, this note and typing_4e_homeurl.md. Exact old/new file guards and source fragments accompany the private executable packet. The source preserves every line number, including aliases at lines 58 and 59 and the next function at line 65.
+
+Private make, compare and sym-check must reconstruct the original 2 MiB ROM: SHA-256 6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570, with RESULT: IDENTICAL. Symbol output must remain byte-identical: 15535 banked labels (10070 global and 5465 local), plus 51 exported constants, 15586 entries total.
+
+The canonical 37-check harness is reported as 36 checks with rc=0 and one preexisting ramop7 manual dry-run schema rejection with rc=2, reproduced against the unchanged baseline records and parser. This historical failure is preserved; it does not count as a passing check. The packet verification records actual completed outcomes rather than assuming harness success.
+
+The scripts and private proposed inputs are frozen before checks. Audits retain all 289 maintained TSV blobs and all 649 generic source locators without movement or changed instruction text. Original and private ROM slices, complete symbol output, full baseline guards, exact five-file scope and privacy patterns are checked. Independent executable review and coordinator publication/fresh-clone gates remain pending; private checks do not establish English runtime or hardware behavior.
+
+Coordinator verification: the final independent review accepted all 28 guarded artifacts and five files with 27 checks and six fresh build/asset gates. Main reconstructed the original ROM and preserved symbols byte for byte; canonical37 outcomes were 36 rc0 and the unchanged historical ramop7 schema rejection rc2. All source lines and aliases remain unchanged. An initial coordinator preapply guard compared a hash-plus-metadata review map to plain hashes and stopped before writes; its prematurely launched baseline runner was interrupted. The corrected guard normalized the recorded SHA fields, then applied the exact five reviewed files before this complete run. Fresh remote-clone verification follows publication. No new runtime or hardware evidence is claimed.
