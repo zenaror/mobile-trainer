@@ -215,14 +215,22 @@ Tilemap_SettingsPhone_SlotMenu_4D_75A0:: ; 4D:75A0
 	INCBIN "gfx/settings/screens_bank4d/settings_phone_slot_menu_4d_75a0.tilemap"
 	INCBIN "gfx/settings/screens_bank4d/settings_phone_slot_menu_4d_75a0.attrmap"
 
-; ---- data $7870-$78C0 (80 bytes) [PROBABLE] 20x2 tilemap: 40 tile indices (2 rows of 20) then 40 attribute bytes (+0x28); dims from `ld bc,$0214` at 67:50E8, the table is indexed by [$C27D] at `ld hl,$5104` (67:50EE) (v4 correction: earlier text said 8x5 and table 67:510B); word of the pointer table at 67:5104 (70 78 c0 78 10 79)
+; ---- data $7870-$78C0 (80 bytes) [CONFIRMED] 20x2 tilemap/attribute pair
+; Bank67 table $5104 selects this bank4D source; farcall Tilemap_CopyRectAndAttr at 67:50FD
+; copies 40 tile indices then 40 attribute bytes (BC=$0214; 2 rows x 20 columns).
+; All 80 bytes are naturally read in 3/69 scenarios (traces/detail/*/dataaccess.tsv).
+; See docs/research/typing_4d_slot_maps.md; no arbitrary cursor-range safety is inferred.
 
 Tilemap_SettingsPhone_SlotMenu_Tab0:: ; 4D:7870
 Tilemap_4D_7870::
 	INCBIN "gfx/settings/screens_bank4d/tilemap_7870.tilemap"
 	INCBIN "gfx/settings/screens_bank4d/tilemap_7870.attrmap"
 
-; ---- data $78C0-$7910 (80 bytes) [PROBABLE] 20x2 tilemap: 40 tile indices (2 rows of 20) then 40 attribute bytes (+0x28); dims from `ld bc,$0214` at 67:50E8, the table is indexed by [$C27D] at `ld hl,$5104` (67:50EE) (v4 correction: earlier text said 8x5 and table 67:510B); word of the pointer table at 67:5104 (70 78 c0 78 10 79)
+; ---- data $78C0-$7910 (80 bytes) [CONFIRMED] 20x2 tilemap/attribute pair
+; Bank67 table $5104 selects this bank4D source; farcall Tilemap_CopyRectAndAttr at 67:50FD
+; copies 40 tile indices then 40 attribute bytes (BC=$0214; 2 rows x 20 columns).
+; All 80 bytes are naturally read in 1/69 scenarios (traces/detail/*/dataaccess.tsv).
+; See docs/research/typing_4d_slot_maps.md; no arbitrary cursor-range safety is inferred.
 
 Tilemap_SettingsPhone_SlotMenu_Tab1:: ; 4D:78C0
 Tilemap_4D_78C0::
