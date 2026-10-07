@@ -386,7 +386,7 @@ gfx/browser/start_choice/browser_start_tiles3.2bpp	tiles	1024	gfx/browser/start_
 gfx/browser/start_choice/browser_start_tiles4.2bpp	tiles	1024	gfx/browser/start_choice.asm	73	59E0	CONFIRMED	exact	0		BrowserStart_Tiles4
 gfx/browser/start_choice/browser_start_palettes.pal	palette	64	gfx/browser/start_choice.asm	73	5DE0	CONFIRMED	-	0		BrowserStart_Palettes
 gfx/browser/start_choice/browser_start_obj_palettes.pal	palette	64	gfx/browser/start_choice.asm	73	5E20	CONFIRMED	-	0		BrowserStart_ObjPalettes
-gfx/browser/start_choice/palette_5e60.pal	palette	96	gfx/browser/start_choice.asm	73	5E60	PROBABLE	-	0		Data_73_5E60
+# gfx/browser/start_choice/palette_5e60.pal	palette	96	gfx/browser/start_choice.asm	73	5E60	PROBABLE	-	0		Data_73_5E60
 gfx/comm/comm_scene/tiles_5490.2bpp	tiles	1024	gfx/comm/comm_scene.asm	70	5490	CONFIRMED	exact	0		Data_70_5490
 gfx/comm/comm_scene/tiles_5890.2bpp	tiles	1024	gfx/comm/comm_scene.asm	70	5890	CONFIRMED	exact	0		Data_70_5890
 gfx/comm/comm_scene/tiles_5c90.2bpp	tiles	1024	gfx/comm/comm_scene.asm	70	5C90	CONFIRMED	exact	0		Data_70_5C90

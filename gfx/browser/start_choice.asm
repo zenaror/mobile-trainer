@@ -130,15 +130,40 @@ Data_73_5DE0::
 BrowserStart_ObjPalettes:: ; 73:5E20
 	INCLUDE "gfx/browser/start_choice/browser_start_obj_palettes.pal"
 
-; ---- data $5E60-$5EC0 (96 bytes) [PROBABLE] palette-rgb555: heuristic: 48 RGB555 words as 12 palette group(s) of 4 (the rest of a heuristic block; the palette array(s) that the code reads were cut out of it)
+; ---- data $5E60-$5EC0 (96 bytes) [CONFIRMED] sprite table (4), two OAM frames (45 each), script prefix (2); original consumers read the full 99-byte chain through $5EC3 in 19 whole/19 union natural scenarios (typing_73_browser_sprite99.md)
 
 Data_73_5E60:: ; 73:5E60
-	INCLUDE "gfx/browser/start_choice/palette_5e60.pal"
+	sprite_frame_table $5E64, $5E91
+	sprite_frame 11 ; original 73:5E64
+	sprite_oam 0, 0, $00, $00
+	sprite_oam 0, 8, $01, $00
+	sprite_oam 0, 16, $02, $00
+	sprite_oam 0, 24, $03, $00
+	sprite_oam 8, 0, $04, $00
+	sprite_oam 8, 8, $05, $00
+	sprite_oam 8, 16, $06, $00
+	sprite_oam 8, 24, $07, $00
+	sprite_oam 16, 8, $08, $00
+	sprite_oam 16, 16, $09, $00
+	sprite_oam 16, 24, $0A, $00
+	sprite_frame 11 ; original 73:5E91
+	sprite_oam -1, 0, $00, $00
+	sprite_oam -1, 8, $01, $00
+	sprite_oam -1, 16, $02, $00
+	sprite_oam -1, 24, $03, $00
+	sprite_oam 7, 0, $04, $00
+	sprite_oam 7, 8, $05, $00
+	sprite_oam 7, 16, $06, $00
+	sprite_oam 7, 24, $07, $00
+	sprite_oam 15, 8, $08, $00
+	sprite_oam 15, 16, $09, $00
+	sprite_oam 15, 24, $0A, $00
+	db $02, $00 ; script 73:5EBE: count 2, first frame 0; split preserves Data_73_5EC0
 
-; ---- data $5EC0-$5F17 (87 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 4DE0-5F17 by higher-priority evidence]
+; ---- data $5EC0-$5F17 (87 bytes) [CONFIRMED] mixed sprite data: first script tail (3), second chain (76), object root (8); physical interval read in 18 whole/19 union natural scenarios; semantic bounds differ (typing_73_browser_sprite99.md)
 
 Data_73_5EC0:: ; 73:5EC0
-	db $14, $01, $14 ; not reached by any walked sprite chain
+	db $14, $01, $14 ; script tail: frame 0 waits 20, then frame 1 waits 20 (count 2 at 73:5EBE)
 SpriteFrameTable_73_5EC3:: ; 73:5EC3
 	sprite_frame_table SpriteFrame_73_5ED1, SpriteFrame_73_5EDA, SpriteFrame_73_5EE3, SpriteFrame_73_5EE8
 	sprite_frame_table SpriteFrame_73_5EF5, SpriteFrame_73_5EFA, SpriteFrame_73_5EFF
@@ -176,5 +201,5 @@ SpriteScript_73_5F00:: ; 73:5F00
 	sprite_anim_step 5, 6
 	sprite_anim_step 6, 30
 BrowserStart_ObjTable:: ; 73:5F0F
-	db $60, $5E, $BE, $5E ; sprite object-table entry kept as db: pointer target 73:5E60 has no label
+	sprite_object_entry Data_73_5E60, $5EBE ; entry 0; original bank 73, existing alias preserved
 	sprite_object_entry SpriteFrameTable_73_5EC3, SpriteScript_73_5F00 ; entry 1

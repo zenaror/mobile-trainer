@@ -381,7 +381,7 @@ gfx/browser/start_choice/browser_start_tiles3.2bpp	gfx/browser/start_choice/brow
 gfx/browser/start_choice/browser_start_tiles4.2bpp	gfx/browser/start_choice/browser_start_tiles4.png	tiles			0	1024	4e2edf28f409148d783fec38876bd08324ca653b441fbe0eca6160e69d316de6
 gfx/browser/start_choice/browser_start_top_attr_normal.attrmap	-	attrmap				40	098e6841b64c6dd50bb6e2b5f25139b6ed9b443982ef1304254970a9e59a1f13
 gfx/browser/start_choice/browser_start_top_map_normal.tilemap	-	tilemap				40	44253f4e2bf055fc23fc592590918706c42be32fe35ed79054fc95b9260e931b
-gfx/browser/start_choice/palette_5e60.pal	-	palette				779	cbcf05f2dae1837e4dc40b33abf33d303cd42b39feb58b9fde4eed63a8e95435
+# gfx/browser/start_choice/palette_5e60.pal	-	palette				779	cbcf05f2dae1837e4dc40b33abf33d303cd42b39feb58b9fde4eed63a8e95435
 gfx/browser/start_choice/tiles_4530.2bpp	gfx/browser/start_choice/tiles_4530.png	tiles			0	176	251a29bfb7d2e5de3af5d95df00b5510789b4b15063e5e3e66b241a6e6d847c1
 gfx/browser/start_choice/tiles_49e0.2bpp	gfx/browser/start_choice/tiles_49e0.png	tiles			0	1024	5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
 gfx/comm/comm_scene/palette_6c90.pal	-	palette				519	5db0ace1c5619034ecb29bac28abb219a9d1fd1d1ef246bc2e92ecf554ed755c
