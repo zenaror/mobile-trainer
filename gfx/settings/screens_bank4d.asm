@@ -215,14 +215,22 @@ Tilemap_SettingsPhone_SlotMenu_4D_75A0:: ; 4D:75A0
 	INCBIN "gfx/settings/screens_bank4d/settings_phone_slot_menu_4d_75a0.tilemap"
 	INCBIN "gfx/settings/screens_bank4d/settings_phone_slot_menu_4d_75a0.attrmap"
 
-; ---- data $7870-$78C0 (80 bytes) [PROBABLE] 20x2 tilemap: 40 tile indices (2 rows of 20) then 40 attribute bytes (+0x28); dims from `ld bc,$0214` at 67:50E8, the table is indexed by [$C27D] at `ld hl,$5104` (67:50EE) (v4 correction: earlier text said 8x5 and table 67:510B); word of the pointer table at 67:5104 (70 78 c0 78 10 79)
+; ---- data $7870-$78C0 (80 bytes) [CONFIRMED] 20x2 tilemap/attribute pair
+; Bank67 table $5104 selects this bank4D source; farcall Tilemap_CopyRectAndAttr at 67:50FD
+; copies 40 tile indices then 40 attribute bytes (BC=$0214; 2 rows x 20 columns).
+; All 80 bytes are naturally read in 3/69 scenarios (traces/detail/*/dataaccess.tsv).
+; See docs/research/typing_4d_slot_maps.md; no arbitrary cursor-range safety is inferred.
 
 Tilemap_SettingsPhone_SlotMenu_Tab0:: ; 4D:7870
 Tilemap_4D_7870::
 	INCBIN "gfx/settings/screens_bank4d/tilemap_7870.tilemap"
 	INCBIN "gfx/settings/screens_bank4d/tilemap_7870.attrmap"
 
-; ---- data $78C0-$7910 (80 bytes) [PROBABLE] 20x2 tilemap: 40 tile indices (2 rows of 20) then 40 attribute bytes (+0x28); dims from `ld bc,$0214` at 67:50E8, the table is indexed by [$C27D] at `ld hl,$5104` (67:50EE) (v4 correction: earlier text said 8x5 and table 67:510B); word of the pointer table at 67:5104 (70 78 c0 78 10 79)
+; ---- data $78C0-$7910 (80 bytes) [CONFIRMED] 20x2 tilemap/attribute pair
+; Bank67 table $5104 selects this bank4D source; farcall Tilemap_CopyRectAndAttr at 67:50FD
+; copies 40 tile indices then 40 attribute bytes (BC=$0214; 2 rows x 20 columns).
+; All 80 bytes are naturally read in 1/69 scenarios (traces/detail/*/dataaccess.tsv).
+; See docs/research/typing_4d_slot_maps.md; no arbitrary cursor-range safety is inferred.
 
 Tilemap_SettingsPhone_SlotMenu_Tab1:: ; 4D:78C0
 Tilemap_4D_78C0::
@@ -236,14 +244,22 @@ Tilemap_4D_7910::
 	INCBIN "gfx/settings/screens_bank4d/tilemap_7910.tilemap"
 	INCBIN "gfx/settings/screens_bank4d/tilemap_7910.attrmap"
 
-; ---- words $7960-$7968 (8 bytes) [PROBABLE] 2 object-table entries of 4 bytes (ptr to frame table, ptr to script; 0000 = unused); de=$7960 a=$4D at 67:4E0A (entry 0 unused, entry 1 = 7968/797E); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs
+; ---- words $7960-$7968 (8 bytes) [PROBABLE] two 4-byte object-table entries
+; DE=$7960 at 67:4E09, A=$4D, B=$81; farcall Sprite_InitSlot at 67:4E10 selects entry 1.
+; Entry 0 is four unread zero bytes; entry 1 points to frame table $7968 and script $797E.
+; Sprite_InitSlot/LoadObjectEntry (00:0A82/0AB8) consume the two little-endian pointers.
+; The old 67:4E0A locator named an operand byte; see typing_4d_slot_chain.md.
 
 SettingsPhone_SlotMenu_ObjTable:: ; 4D:7960
 Table_4D_7960::
 	sprite_object_entry 0, 0 ; entry 0
 	sprite_object_entry SettingsPhone_SlotMenu_ObjAnimData, SpriteScript_4D_797E ; entry 1
 
-; ---- data $7968-$7983 (27 bytes) [PROBABLE] 1 object record(s): 1 frame tables, 2 frames, 1 scripts, tiled exactly (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 4D:7968-7983
+; ---- data $7968-$7983 (27 bytes) [CONFIRMED] frame table, two frames and one script
+; Entry 1 of bank4D object table $7960 selects this chain through 67:4E10 Sprite_InitSlot.
+; Four frame-pointer bytes, two 9-byte frames (count 2 and dy/dx/tile/attr tuples),
+; and one 5-byte script (count 2 and frame/delay pairs); consumed by 00:0A82/0AE8.
+; All 27 bytes are naturally read in 3/69 scenarios; see typing_4d_slot_chain.md.
 
 SettingsPhone_SlotMenu_ObjAnimData:: ; 4D:7968
 Data_4D_7968::
