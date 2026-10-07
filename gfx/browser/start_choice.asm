@@ -62,7 +62,7 @@ BrowserStart_BottomAttrSelected:: ; 73:4461
 Data_73_4461::
 	INCBIN "gfx/browser/start_choice/browser_start_bottom_attr_selected.attrmap"
 
-; ---- data $447F-$4530 (177 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 447F-45DD by higher-priority evidence]
+; ---- data $447F-$4530 (177 bytes) [CONFIRMED] mixed animation data: five 5x7 tile-index frames (175 bytes), first BG attribute bytes (2); paired consumer73:6290 -> 00:16A2, 18 whole/19 union natural scenarios (typing_73_browser_animation.md); original JP natural-read evidence; English runtime UNVALIDATED.
 
 BrowserStart_AnimFrames:: ; 73:447F
 Data_73_447F::
@@ -79,10 +79,35 @@ Data_73_447F::
 	db $0A, $A6, $DD, $DE, $DF, $E0, $0A, $0A, $D0, $AC, $AD, $AE, $98, $0A, $0A, $03
 	db $03
 
-; ---- gfx $4530-$45E0 (176 bytes) [PROBABLE] tile data: heuristic: 61 coherent tiles (hsim2=0.744 vsim2=0.679, 107 blank) parity 0; 1536/2736 bytes also covered by call-site blocks [clipped from 4530-4FE0 by higher-priority proposals]
+; ---- data $4530-$45E0 (176 bytes) [PROBABLE] mixed data: CONFIRMED BG attribute suffix173 (offset2 of five 5x7 frames, consumer73:6290, 18 whole/19 union); last3 raw bytes unread in all69 natural traces, purpose HYPOTHESIS; whole176 never promoted; original JP natural-read evidence; English runtime UNVALIDATED.
 
 Data_73_4530:: ; 73:4530
-	INCBIN "gfx/browser/start_choice/tiles_4530.2bpp"
+	db $03, $03, $03, $01, $01
+	db $03, $03, $03, $03, $03, $01, $01
+	db $03, $03, $03, $03, $03, $09, $09
+	db $03, $03, $03, $03, $03, $09, $09
+	db $03, $03, $03, $03, $03, $09, $09
+	db $03, $03, $03, $03, $03, $01, $01
+	db $03, $03, $03, $03, $03, $01, $01
+	db $03, $03, $03, $03, $03, $09, $09
+	db $03, $03, $03, $03, $03, $09, $09
+	db $03, $03, $03, $03, $03, $09, $09
+	db $03, $03, $03, $03, $03, $01, $01
+	db $03, $03, $03, $03, $03, $01, $01
+	db $03, $03, $03, $03, $03, $09, $09
+	db $03, $03, $03, $03, $03, $09, $09
+	db $03, $03, $03, $03, $03, $09, $09
+	db $03, $03, $03, $03, $03, $01, $01
+	db $03, $03, $03, $03, $03, $01, $01
+	db $03, $03, $03, $03, $03, $09, $09
+	db $03, $03, $03, $03, $03, $09, $09
+	db $03, $03, $03, $03, $03, $09, $09
+	db $03, $03, $03, $03, $03, $01, $01
+	db $03, $03, $03, $03, $03, $01, $01
+	db $03, $03, $03, $03, $03, $09, $09
+	db $03, $03, $03, $03, $03, $09, $09
+	db $03, $03, $03, $03, $03, $09, $09
+	db $00, $00, $00 ; unread tail3 retained raw; purpose HYPOTHESIS
 
 ; ---- gfx $45E0-$49E0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 73:5F5E: hl=$45E0 a=$73 c=$40 de=$8000 (dest VRAM $8000, vbank=0)
 
