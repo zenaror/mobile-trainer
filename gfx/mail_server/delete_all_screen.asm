@@ -29,11 +29,11 @@ Data_28_5BD0::
 	INCBIN "gfx/mail_server/delete_all_screen/mail_server_delete_all_tilemap.tilemap"
 	INCBIN "gfx/mail_server/delete_all_screen/mail_server_delete_all_tilemap.attrmap"
 
-; ---- data $5EA0-$5F20 (128 bytes) [PROBABLE] 16 palettes x 4 RGB555 words (0x80 bytes, all bit15 clear; 5EC0-5ED0 are two all-zero palettes) directly after the tilemap 5BD0-5EA0
+; ---- data $5EA0-$5EE0 (64 bytes) [CONFIRMED] BG palette: 8 x 4 RGB555 words (all bit15 clear), original-exact; 2 literal loader site(s) (22:45C2 23:44B1) pass bank $28, BC=$0040 and DE=$D800 to 4F:4000 Palette_LoadToBuffer, selecting WRAM bank 7 and copying through 00:050C; all 64 bytes read in each of 11/69 existing original-ROM scenarios, with all five loader instruction starts observed; no new visual or hardware observation
 
 MailServerDeleteAll_BgPalette:: ; 28:5EA0
 Palette_28_5EA0::
 	INCLUDE "gfx/mail_server/delete_all_screen/mail_server_delete_all_bg_palette.pal"
-
+; ---- data $5EE0-$5F20 (64 bytes) [CONFIRMED] OBJ palette: 8 x 4 RGB555 words (all bit15 clear), original-exact; 2 literal loader site(s) (22:45D6 23:44C5) pass bank $28, BC=$0040 and DE=$D840 to 4F:4000 Palette_LoadToBuffer, selecting WRAM bank 7 and copying through 00:050C; all 64 bytes read in each of 11/69 existing original-ROM scenarios, with all five loader instruction starts observed; no new visual or hardware observation
 MailServerDeleteAll_ObjPalette:: ; 28:5EE0
 	INCLUDE "gfx/mail_server/delete_all_screen/mail_server_delete_all_obj_palette.pal"
