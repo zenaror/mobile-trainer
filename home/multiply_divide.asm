@@ -5,10 +5,10 @@
 SECTION "home/multiply_divide", ROM0
 
 Function_00_0D34:: ; 00:0D34
-	; [PROBABLE] push af; ld d,$C2; writes ROM bank $F0 (FF8A/[2100]); ld a,[de] = the WRAM byte at
-	; $C200+E (NOT a ROM read: $C2xx is WRAM, so the ROM bank write has no effect on the load; $F0
-	; would wrap to bank $70 on a 128-bank cart); DE = sign-extended byte; restores the ROM bank
-	; from the A given at entry. No static caller found
+	; [PROBABLE] normal nonaliasing flow: DE = signed byte at WRAM0[$C200+entry E]; restores AF.
+	; Writes hROMBankLo/[$2100]: $F0, then entry A; no explicit high-bank write.
+	; Entry A supplies the intended low bank; physical $F0-to-$70 wrap is unvalidated.
+	; Purpose/caller and stack/IRQ contract unresolved; no maintained symbol caller found.
 	push af
 	ld d, $C2
 	ld a, $F0
