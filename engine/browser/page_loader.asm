@@ -21,7 +21,7 @@ Table_4C_4010::
 	dw Browser_LoadPage_Fail
 	dw Browser_LoadPage_Http
 	dw Label_4C_4016
-
+Browser_LoadPage_ReturnOnly:: ; [PROBABLE] table-target operation: RET only; entry unobserved.
 Label_4C_4016:: ; 4C:4016
 	; [PROBABLE] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 1;
 	; entered by table from 4C:400D (executed)

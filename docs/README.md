@@ -229,3 +229,7 @@ The [semantic note](research/typing_26_compare_word_deltas_alias.md) and [verifi
 
 
 - [Published 2C/4F header limits](research/typing_2c_4f_verify_header_limits.md): SOURCE `f19d9c6`, separate accepted canonical37 batteries (36 rc0 + historical schema rc2), clean GitHub rebuild IDENTICAL and 671 output files unchanged; confidence limits and direct-validator provenance are retained. The unused-frame/assets/Pokemon audit remains required for completion.
+
+
+- [Browser dispatch return leaves](research/naming_browser_return_only.md) -- portable prospective PROBABLE aliases at 4C:4016/4E:58AB, neutral labels retained and bank-qualified limits.
+- [Prepared verification: browser ReturnOnly aliases](research/naming_browser_verify_return_only.md) -- two added globals, existing instructions/comments/LOC preserved; future output bindings and validation pending.
