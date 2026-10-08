@@ -243,3 +243,13 @@ The [semantic note](research/typing_26_compare_word_deltas_alias.md) and [verifi
 * [Prepared verification](research/naming_keyboard_55_verify_lookup.md)
   — six comment rows, exact 359-line owner and noncomment vectors, historical
   baseline only and unassigned future parent; builds and adoption remain pending.
+
+
+## Prepared original 6C:61AC contract limits (2026-10-08)
+
+* [Counter, bitfield and qualified sprite helper](research/naming_6c_61ac.md)
+  — neutral PROBABLE entry, modulo counter, no assumed boolean domain and
+  software-shadow bank restoration; finite entry/purpose limits.
+* [Prepared verification](research/naming_6c_verify_61ac.md)
+  — three comments with exact 1,019-line owner/noncomment vectors, historical
+  aa61 baseline only; future parent and actual 37 results remain null.
