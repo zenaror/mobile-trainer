@@ -80,3 +80,8 @@ Actual integration, current owner/native/environment closure, fresh validation, 
 ## Original integration verified (2026-10-08)
 
 The bank55 lookup comment pass was rebased on published original a609e88. ROOT executed one canonical37, with36rc0 and the expected ordinal27 rc2/97-byte historical schema diagnostic. make reported SHA-256 OK and RESULT: IDENTICAL; symbols/palettes passed and all671 outputs remain byte-exact to the private pass. Neutral labels, emitting source and metadata remain unchanged. Independent verification is a composite: its first1–5 succeeded, ordinal6 stopped because private source0444 made a copied PNG read-only, then the failed PNG test and remaining tests/ordinals7–37 completed in a writable private copy. The successful commands were not replayed; this is not a single independent37 all-pass result. Domain/entry remain HYPOTHESIS. Fresh validation follows publication.
+
+
+## Fresh bank55 publication verified (2026-10-08)
+
+A new GitHub clone of original b91d60c43bd55c1d62f7704db570753062a74e58 passed make, make compare, make sym-check and make palette-check once each. ROM SHA-256 OK and RESULT: IDENTICAL; all4194 tracked sources match their published Git blobs and all671 outputs match the accepted pass. Source modes were measured0664, separate from Git100644. No new natural execution or hardware claim follows.

@@ -273,3 +273,29 @@ Original `a609e884bff63f4bcc56d034a597eeecc9ac6e6c` rebuilt in a new GitHub clon
 ## Original integration verified (2026-10-08)
 
 The bank55 lookup comment pass was rebased on published original a609e88. ROOT executed one canonical37, with36rc0 and the expected ordinal27 rc2/97-byte historical schema diagnostic. make reported SHA-256 OK and RESULT: IDENTICAL; symbols/palettes passed and all671 outputs remain byte-exact to the private pass. Neutral labels, emitting source and metadata remain unchanged. Independent verification is a composite: its first1–5 succeeded, ordinal6 stopped because private source0444 made a copied PNG read-only, then the failed PNG test and remaining tests/ordinals7–37 completed in a writable private copy. The successful commands were not replayed; this is not a single independent37 all-pass result. Domain/entry remain HYPOTHESIS. Fresh validation follows publication.
+
+
+## Prepared original 6C:61AC header limits (2026-10-08)
+
+A private five-path proposal on historical aa61d893 replaces three existing
+comments, retaining neutral PROBABLE `Function_6C_61AC`. The 31-byte block
+decrements C0DA modulo 256: old 0 returns after becoming $FF; old 1 reloads 35,
+toggles only C0D9 bit 0 and prepares D=($78+new byte)mod 256,E=$80,HL=$DA20 for
+the sprite helper. Its WRAM7 writes and SVBK restoration from the software
+shadow remain qualified. Input domain, entry and purpose are unproved;
+universal A/F and unrelated deferred-text-sound semantics are not adopted.
+[Analysis](docs/research/naming_6c_61ac.md) and
+[prepared verification](docs/research/naming_6c_verify_61ac.md) preserve the
+bounded natural absence and unchanged source vectors/1,019 lines. Future
+parent and actual 37 results remain unassigned; no adoption or equivalence
+result is claimed.
+
+
+## Fresh bank55 publication verified (2026-10-08)
+
+A new GitHub clone of original b91d60c43bd55c1d62f7704db570753062a74e58 passed make, make compare, make sym-check and make palette-check once each. ROM SHA-256 OK and RESULT: IDENTICAL; all4194 tracked sources match their published Git blobs and all671 outputs match the accepted pass. Source modes were measured0664, separate from Git100644. No new natural execution or hardware claim follows.
+
+
+## Original bank6C integration verified (2026-10-08)
+
+Three comment rows in help_script.asm qualify the unobserved31-byte fragment at6C:61AC. The counter address is C0DA; conventional local behavior decrements it, reloads35 on expiry, toggles C0D9 and calls the bank7 sprite-position helper with HL=DA20. Entry, purpose and broader register/bank contracts remain HYPOTHESIS. Neutral symbols, all emitting rows and metadata locators stay unchanged. Executor, independent reviewer and ROOT each completed a new canonical37,36rc0 and expected ordinal27 rc2/exact97-byte schema diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols and palettes pass, and all671 actual outputs are byte-exact to the accepted private implementation. This validates reconstruction, not natural reachability. Fresh GitHub checks follow publication.
