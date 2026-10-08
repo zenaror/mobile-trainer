@@ -279,3 +279,32 @@ See [translation status](TRANSLATION.md#english-publication-checkpoint-and-condi
 ## English parity through original bank55 verified (2026-10-08)
 
 Normal merge of original b91d60c preserves the English resources and verification chronology, adds the two published browser ReturnOnly aliases and carries the original55 comment corrections. Private and actual English make mobile_trainer.gbc, sym-check, palette-check, png-check, gfx-export check and sprite-chain check all returned0 once each. The ROM remains51a808c52a7f6bc587f27cc0d75fc875e87e78102c9189764b301620979c5e22; SYM has15543 labels and51 constants. All675 actual outputs match the accepted private parity candidate. Text rendering, layout and hardware fidelity are not established by these checks. The later original6C/7C passes and makeenglish integration remain parallel follow-ups.
+
+
+## Prepared original 6C:61AC contract limits (2026-10-08)
+
+* [Counter, bitfield and qualified sprite helper](research/naming_6c_61ac.md)
+  — neutral PROBABLE entry, modulo counter, no assumed boolean domain and
+  software-shadow bank restoration; finite entry/purpose limits.
+* [Prepared verification](research/naming_6c_verify_61ac.md)
+  — three comments with exact 1,019-line owner/noncomment vectors, historical
+  aa61 baseline only; future parent and actual 37 results remain null.
+
+
+## Prepared bank 7C:7D8D neutral header (2026-10-08)
+
+- [Static choreography and entry limits](research/typing_7c_7d8d_choreography.md): incoming-A distinction, exact bound, polling/far-call contracts and finite natural-zero evidence; entry/purpose remain HYPOTHESIS.
+- [Prepared verification](research/typing_7c_verify_7d8d_choreography.md): two comment rows, unchanged LOC/emitters/locators, portable proof provenance and pending gates; future parent/integration NULL, English UNVALIDATED.
+
+- [Neutral 2D:4E42/4E54 scan and early-RET stack contracts](research/typing_2d_4e42_4e54_stack_scan.md) - PROBABLE static width12-cell scan, local flags and WRAM/RAMG effects; saved-BC transfer does not establish intended bug/error behavior or natural entry.
+- [Verification of the 2D neutral comment proposal](research/typing_2d_verify_4e42_4e54_stack_scan.md) - original74-byte witness, independent-before-foreign provenance, finite189 evidence and nonemitting/prefix checks; future owner/parent/gates NULL.
+
+- [68:5D2F RET boundary](research/naming_68_5d2f_ret_boundary.md) — PROBABLE static
+  partition of the neutral entry and the adjacent 108-byte candidate; no alias.
+- [68:5D2F verification limits](research/naming_68_verify_5d2f_ret_boundary.md) —
+  bounded source/ROM comparison; entry and purpose remain HYPOTHESIS.
+
+
+## English parity through bank68 (2026-10-08)
+
+The English branch incorporates original MAIN470fb7716433eccf585896a1d0019b82ac380bbc by a normal merge, retaining all552 translated resource overrides and the existing English documentation chronology. Fifteen source paths incorporate original6C/7C/2D/68 comment qualifications and eight notes; no translated payload changes. Private and actual English make, symbol, palette, PNG, graphics-export and sprite-chain checks each completed rc0 once. All675 actual outputs equal the accepted private pass; ROM SHA-256 remains51a808c52a7f6bc587f27cc0d75fc875e87e78102c9189764b301620979c5e22, with15543 labels/51 constants. Original MAIN470fb also passed a fresh GitHub build/compare/symbol/palette verification with4202 source files and671 exact outputs. This validates byte parity; rendering, layout, natural menu execution and hardware remain UNVALIDATED. The separate MAIN makeenglish integration and scanner exclusions are still under review.

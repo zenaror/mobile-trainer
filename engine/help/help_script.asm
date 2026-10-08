@@ -997,9 +997,9 @@ Function_6C_6009::
 	jp .l601B
 
 Function_6C_61AC:: ; 6C:61AC
-	; [PROBABLE] coherent 24-byte routine (ld hl,$C0DA ; dec [hl] ; ret nz ; ld [hl],$23 ; toggle
-	; [C0D9] ; ld d,$78 ; ... ld hl,$DA20) that falls exactly into the raw far-call site at 61C4
-	; (call 00:0A65); previous region ends with jp; entry not located
+	; [PROBABLE] ROM6C DEC [C0DA] mod256; old0->$FF returns, old1 reloads $23/XORs C0D9 bit0.
+	; Expiry D=($78+new C0D9)mod256,E=$80,HL=$DA20; farcall Sprite_SetPosition writes WRAM7.
+	; SVBK restored from shadow; domain/entry/purpose unproved. See docs/research/naming_6c_61ac.md.
 	ld hl, wRam_C0DA
 	dec [hl]
 	ret nz
