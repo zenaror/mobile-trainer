@@ -10102,10 +10102,10 @@ MobileSDK_ResumeIdlePolling:: ; 75:7E7A
 	jp MobileSDK_PollAdapterStatus
 
 Function_75_7E89:: ; 75:7E89
-	; [PROBABLE] 27 insn(s): complete routine (ld hl,$C6C1 ; ld a,[hl] ; push af ; res 3,[hl] ; res
-	; 0,[hl] ... bit 0,a ; ret z ; ld hl,$C6C1 ; set 0,[hl] ; ret) falling into the code at 7EB4;
-	; well-formed instruction chain (clean decode, all direct targets land on instruction starts,
-	; lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS
+	; [PROBABLE] 27 instruction starts/43 bytes in bank75 [7E89,7EB4); RET Z7EAD/RET7EB3,
+	; no ordinary fall-through to7EB4. Calls same-bank Mobile_PacketSendBytes (75:5F10).
+	; Uses C6BA..C6BE/C6C1 and saved AF; pointer +/-2 wraps modulo16bit (see research note).
+	; Neutral entry/purpose HYPOTHESIS; finite caller search does not exclude computed entry.
 	ld hl, wMobileFlags
 	ld a, [hl]
 	push af

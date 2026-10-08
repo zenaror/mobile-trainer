@@ -31,3 +31,8 @@ These two notes receive this documentation-only appendix after37; code/outputs s
 ## Original bank70 integration verified (2026-10-08)
 
 Twenty-five comments qualify the217-byte/107-start region at70:46A6 and the unlabelled segment at4740. It saves the FFF5/FF8C SRAM shadows and uses FFF2 as scratch, with no WRAM selector. The three first-region RETs and final477E RET delimit ordinary paths. Random16/division produce bounded2..4 or0A..0F values without a probability claim; hardware restoration depends on coherent shadows and a stable stack. Entry and purpose remain HYPOTHESIS; neutral symbols and all emitted bytes remain unchanged. Executor, independent reviewer and ROOT each completed a new canonical37:36rc0 plus expected ordinal27rc2 with its exact97-byte diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols and palettes pass, and all671 actual outputs equal the accepted private pass. Fresh published validation follows. ROOT guarded source hashes each command; no fresh native or actual English-owner closure is claimed.
+
+
+## Fresh published bank70 verification
+
+Published MAINfb79c005557684f0b59ba6130ad46db18eaf3fe3 was cloned from GitHub into a new private checkout. With the original reference supplied privately, make, compare, sym-check and palette-check each completed rc0 once. All4206 tracked source files equal their Git blobs and all671 outputs equal the accepted private70 pass. The checkout is clean; fresh source modes are0664. This does not add natural execution, visual or hardware evidence.
