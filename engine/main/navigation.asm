@@ -299,8 +299,8 @@ Nav_MobileSettings_UsageFee:: ; 7C:7D82
 	ld a, $00
 
 Function_7C_7D8D:: ; 7C:7D8D
-	; [PROBABLE] 39 insn(s) reached by static flow only; seeds: site x39; min discovery hops 0; run
-	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+	; [PROBABLE] Init(A/1/2); Step(0) tests 2/FFA6 bit0, Step(1) tests 0; JR 7D82; no RET.
+	; [HYPOTHESIS] entry/purpose; prefix A=0 unproved. See typing_7c_7d8d_choreography.md.
 	farcall CommScene_Init
 .l7D93 ; 7C:7D93
 	ld a, $00

@@ -24,9 +24,9 @@ Account_PasswordEntryScreen:: ; 68:5D00
 	ret
 
 Function_68_5D2F:: ; 68:5D2F
-	; [HYPOTHESIS] complete ret-terminated function (54 insn) between proven code; entry not proven
-	; [verifier: no entry proven (no caller, no valid table word, never executed): decode chain
-	; alone is not proof -> HYPOTHESIS]
+	; [PROBABLE] $5D2F is RET; following [5D30,5D9C) is a separate 108-byte candidate.
+	; No fall-through from RET; the candidate SRAM/WRAM comparison has no proven entry.
+	; Purpose HYPOTHESIS. See docs/research/naming_68_5d2f_ret_boundary.md; label unchanged.
 	ret
 
 	ldh [hScratchA], a

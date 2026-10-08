@@ -1001,10 +1001,10 @@ MailBody_ClearBuffer:: ; 2D:4E2D
 	ret
 
 Function_2D_4E42:: ; 2D:4E42
-	; [PROBABLE] two small routines: 4E42 (push bc ; WRAM bank 1 ; call $4E54 ; ... pop bc ; ret)
-	; and 4E54 (scan of the $D400 buffer in 2-byte units for $0D / $00 terminators returning
-	; A,E,HL); the call 4E42->4E54 targets an instruction boundary inside the hole and both end in
-	; ret; between two executed functions; entry not located
+	; [PROBABLE] WRAM1; ordinary completion clears RAMG, preserves helper AF/input BC; WRAM1 stays.
+	; [PROBABLE] D400 two-byte cells; prior rows end at CR/12 cells; width precedes NUL.
+	; [PROBABLE] RET4E72 skips POP BC: PC=saved entry BC; SP=entry SP, real return stays.
+	; [HYPOTHESIS] Entry/purpose/early-RET intent unproved; normal exit restores BC, yields A/E/HL.
 	push bc
 	ld a, $01
 	ldh [hWRAMBank], a

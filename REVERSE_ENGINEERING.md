@@ -317,3 +317,76 @@ The bank55 lookup comment pass was rebased on published original a609e88. ROOT e
 ## English parity through original bank55 verified (2026-10-08)
 
 Normal merge of original b91d60c preserves the English resources and verification chronology, adds the two published browser ReturnOnly aliases and carries the original55 comment corrections. Private and actual English make mobile_trainer.gbc, sym-check, palette-check, png-check, gfx-export check and sprite-chain check all returned0 once each. The ROM remains51a808c52a7f6bc587f27cc0d75fc875e87e78102c9189764b301620979c5e22; SYM has15543 labels and51 constants. All675 actual outputs match the accepted private parity candidate. Text rendering, layout and hardware fidelity are not established by these checks. The later original6C/7C passes and makeenglish integration remain parallel follow-ups.
+
+
+## Prepared original 6C:61AC header limits (2026-10-08)
+
+A private five-path proposal on historical aa61d893 replaces three existing
+comments, retaining neutral PROBABLE `Function_6C_61AC`. The 31-byte block
+decrements C0DA modulo 256: old 0 returns after becoming $FF; old 1 reloads 35,
+toggles only C0D9 bit 0 and prepares D=($78+new byte)mod 256,E=$80,HL=$DA20 for
+the sprite helper. Its WRAM7 writes and SVBK restoration from the software
+shadow remain qualified. Input domain, entry and purpose are unproved;
+universal A/F and unrelated deferred-text-sound semantics are not adopted.
+[Analysis](docs/research/naming_6c_61ac.md) and
+[prepared verification](docs/research/naming_6c_verify_61ac.md) preserve the
+bounded natural absence and unchanged source vectors/1,019 lines. Future
+parent and actual 37 results remain unassigned; no adoption or equivalence
+result is claimed.
+
+
+## Fresh bank55 publication verified (2026-10-08)
+
+A new GitHub clone of original b91d60c43bd55c1d62f7704db570753062a74e58 passed make, make compare, make sym-check and make palette-check once each. ROM SHA-256 OK and RESULT: IDENTICAL; all4194 tracked sources match their published Git blobs and all671 outputs match the accepted pass. Source modes were measured0664, separate from Git100644. No new natural execution or hardware claim follows.
+
+
+## Original bank6C integration verified (2026-10-08)
+
+Three comment rows in help_script.asm qualify the unobserved31-byte fragment at6C:61AC. The counter address is C0DA; conventional local behavior decrements it, reloads35 on expiry, toggles C0D9 and calls the bank7 sprite-position helper with HL=DA20. Entry, purpose and broader register/bank contracts remain HYPOTHESIS. Neutral symbols, all emitting rows and metadata locators stay unchanged. Executor, independent reviewer and ROOT each completed a new canonical37,36rc0 and expected ordinal27 rc2/exact97-byte schema diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols and palettes pass, and all671 actual outputs are byte-exact to the accepted private implementation. This validates reconstruction, not natural reachability. Fresh GitHub checks follow publication.
+
+
+## Prepared bank 7C:7D8D choreography header (2026-10-08)
+
+The neutral `Function_7C_7D8D` retains PROBABLE static polling and HYPOTHESIS entry/purpose. Direct entry passes incoming A; prefix 7D8B(A=0) remains unproved. Exact 111-byte/39-start/nine-far-triple scope, final JR7D82 and finite natural-zero evidence are preserved. [Analysis](docs/research/typing_7c_7d8d_choreography.md) and [prepared verification](docs/research/typing_7c_verify_7d8d_choreography.md) record a comment-only historical aa61 proposal; future parent/integration and gates are NULL. English is UNVALIDATED.
+
+
+## Fresh bank6C publication verified (2026-10-08)
+
+A new GitHub clone of135019cdc384ebf17a6d4f1a1773b74a9d6fd75c passed make, compare, sym-check and palette-check once each. The original ROM is byte-identical, all4196 tracked sources equal published Git blobs, and all671 outputs equal the accepted pass. Source filesystem0664 and Git100644 remain distinct. This adds reconstruction evidence only.
+
+
+## Original bank7C integration verified (2026-10-08)
+
+Two existing comments qualify the111-byte fragment at7C:7D8D:84 CPU bytes plus27 inline farcall data bytes,39 starts and nine farcalls. Direct entry leaves the first argument A unspecified; the final JR at7DFA targets7D82, and there is no RET in this bounded interval. No routine purpose or natural entry is established. Neutral symbols, emitted bytes and metadata positions remain unchanged. Executor, independent reviewer and ROOT each completed one new canonical37 with36rc0 plus expected ordinal27 rc2/exact97-byte diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols and palettes pass, and all671 actual outputs equal the independently accepted private pass. Fresh published validation follows.
+
+- **2D:4E42/4E54, neutral static scan/stack contracts (PROBABLE; entry/purpose HYPOTHESIS):** historical aa61 bytes show prior-row width12 cells, NUL after width, and early RET4E72 consuming saved entry BC after PUSH BC4E54; PC=BC, SP=helper-entry SP, caller return unconsumed. Ordinary return and wrapper WRAM1/RAMG effects are qualified separately. The finite canonical189 set records no observed scoped entry. See `docs/research/typing_2d_4e42_4e54_stack_scan.md` and `docs/research/typing_2d_verify_4e42_4e54_stack_scan.md`; future parent/owner/gates NULL.
+
+
+## Fresh bank7C publication verified (2026-10-08)
+
+Original d16493abbdfd68ed1321fb0dbda533fbe369d945 passed make, compare, sym-check and palette-check once each in a new GitHub clone. All4198 tracked sources match published Git blobs and all671 outputs match the accepted pass. SHA-256 OK and RESULT: IDENTICAL establish original-ROM reconstruction; no new natural entry or hardware evidence is inferred.
+
+
+## Original bank2D integration verified (2026-10-08)
+
+Four existing comments qualify the74-byte/49-start wrapper and helper at2D:4E42/4E54. Under the conventional stack interpretation, the early RET at4E72 consumes saved BC as PC rather than the real return address; it lacks the balancing POP BC. This behavior is preserved. The12-cell bound applies to the width before the NUL case; the selected scan phase has separate bounds and the FF counter represents255 units. WRAM1 selection and mapper disable on ordinary wrapper return do not establish a universal bank/ABI contract. Entry and purpose remain HYPOTHESIS. All emitted rows, neutral labels and metadata locators stay unchanged. Executor, independent reviewer and ROOT each completed one canonical37:36rc0 plus expected ordinal27 rc2/exact97-byte schema diagnostic. Actual make reports SHA-256 OK/RESULT: IDENTICAL; symbols/palettes pass and all671 outputs match the accepted private implementation. Fresh publication checks follow.
+
+### Static boundary at 68:5D2F
+
+PROBABLE: `Function_68_5D2F` is a one-byte `RET`; the adjacent unlabelled sequence
+`[68:5D30,68:5D9C)` is 108 bytes and cannot be entered by fall-through from that RET.
+Its SRAM/WRAM comparison shape is statically supported; entry, purpose and natural
+reachability remain HYPOTHESIS. The historical 54-instruction decode spans both
+parts and does not establish a single function. No label or operand changes.
+See [boundary note](docs/research/naming_68_5d2f_ret_boundary.md) and
+[verification limits](docs/research/naming_68_verify_5d2f_ret_boundary.md).
+
+
+## Original bank68 integration verified (2026-10-08)
+
+Three comments separate the RET at68:5D2F from the108-byte/53-start comparison candidate. The candidate selects SRAM1 and WRAM3; unequal strings clear bit2 of C278, so A is not a general Boolean result. Hardware restoration depends on synchronized shadows and a stable stack/scratch context. Entry and purpose remain HYPOTHESIS; neutral symbols and all emitted bytes remain unchanged. Executor, independent reviewer and ROOT each completed a new canonical37:36rc0 plus expected ordinal27rc2 with its exact97-byte diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols and palettes pass, and all671 actual outputs equal the accepted private pass. Fresh published validation follows. ROOT guarded source hashes each command; no fresh native or actual English-owner closure is claimed.
+
+
+## English parity through bank68 (2026-10-08)
+
+The English branch incorporates original MAIN470fb7716433eccf585896a1d0019b82ac380bbc by a normal merge, retaining all552 translated resource overrides and the existing English documentation chronology. Fifteen source paths incorporate original6C/7C/2D/68 comment qualifications and eight notes; no translated payload changes. Private and actual English make, symbol, palette, PNG, graphics-export and sprite-chain checks each completed rc0 once. All675 actual outputs equal the accepted private pass; ROM SHA-256 remains51a808c52a7f6bc587f27cc0d75fc875e87e78102c9189764b301620979c5e22, with15543 labels/51 constants. Original MAIN470fb also passed a fresh GitHub build/compare/symbol/palette verification with4202 source files and671 exact outputs. This validates byte parity; rendering, layout, natural menu execution and hardware remain UNVALIDATED. The separate MAIN makeenglish integration and scanner exclusions are still under review.
