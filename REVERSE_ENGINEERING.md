@@ -380,3 +380,20 @@ A bounded prospective proposal preserves Function_54_41C5 and corrects six heade
 ## Original bank54 integration verified (2026-10-08)
 
 The bounded bank54:41C5 fragment has seven instruction starts and15 bytes through RET41D3. It initializes C1DB=3, C1D8=1 and C1D9=0; the polling body at41D4 is outside that bounded path. Local return and register effects assume a valid nonaliasing stack and no intervening interrupt. Entry and purpose remain HYPOTHESIS; neutral symbols and all emitted bytes remain unchanged. Executor, independent reviewer and ROOT each completed a new canonical37:36rc0 plus expected ordinal27rc2 with its exact97-byte diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols and palettes pass, and all671 actual outputs equal the accepted private pass. Fresh published validation follows. ROOT guarded source hashes each command; no fresh native or actual English-owner closure is claimed.
+
+
+### Bounded neutral entries after54: banks27,2E,29
+
+Entry/purpose remain HYPOTHESIS. Bank27 full prefix ends in WRAM7 via00:082C; direct4EEB tail only LCDOn/BC0/RET. Bank2E15-byte candidate preserves18F0 toRET4F99, a one-step path rather than its looping siblings. Bank29 leaves separate LCDC.bit2 and conditional LY waits from the742-byte library/mapper/padding limits. No aliases or emitted changes; historical natural data and missing19 graphs do not establish unreachability.
+
+- [typing_27_palette_map_tail](docs/research/typing_27_palette_map_tail.md)
+- [typing_27_verify_palette_map_tail](docs/research/typing_27_verify_palette_map_tail.md)
+- [typing_2e_wait_glyph_tail](docs/research/typing_2e_wait_glyph_tail.md)
+- [typing_2e_verify_wait_glyph_tail](docs/research/typing_2e_verify_wait_glyph_tail.md)
+- [typing_29_leaf_lcdc_ly_limits](docs/research/typing_29_leaf_lcdc_ly_limits.md)
+- [typing_29_verify_leaf_lcdc_ly_limits](docs/research/typing_29_verify_leaf_lcdc_ly_limits.md)
+
+
+## Original bank27/2E/29 integration verified (2026-10-08)
+
+Twenty-two comments qualify six bounded entries without changing labels or emitted bytes. The bank27 prefix temporarily restores the saved WRAM shadow before Gfx_UploadBgMapBuffers selects WRAM7; direct4EEB enters only the LCDOn/BC0/RET tail. Bank2E4EB2 makes60 calls conditional on ordinary helper returns, with no universal60-frame duration;4F9A decrements once and its18F0 branch reaches the preceding RET. Bank29 clears LCDC.bit2 at5090 and calls selected-bank7BB7 before potentially unbounded LY polling at511E. Physicalbank29 padding is distinct from7D Joypad_Update. Stack, mapping, IRQ, callee and buffer prerequisites remain qualified; purpose and unproved entries remain HYPOTHESIS. Executor, independent reviewer and ROOT each ran one new canonical37:36rc0 plus expected ordinal27rc2/exact97-byte diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols/palettes pass and all671 actual outputs equal the accepted private version. Source hashes were held for every ROOT command; no fresh native or actual English-owner per-command closure, new runtime, visual or hardware evidence is claimed. Fresh publication validation follows.
