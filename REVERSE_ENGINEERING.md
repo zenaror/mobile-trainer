@@ -314,3 +314,15 @@ A new GitHub clone of135019cdc384ebf17a6d4f1a1773b74a9d6fd75c passed make, compa
 ## Original bank7C integration verified (2026-10-08)
 
 Two existing comments qualify the111-byte fragment at7C:7D8D:84 CPU bytes plus27 inline farcall data bytes,39 starts and nine farcalls. Direct entry leaves the first argument A unspecified; the final JR at7DFA targets7D82, and there is no RET in this bounded interval. No routine purpose or natural entry is established. Neutral symbols, emitted bytes and metadata positions remain unchanged. Executor, independent reviewer and ROOT each completed one new canonical37 with36rc0 plus expected ordinal27 rc2/exact97-byte diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols and palettes pass, and all671 actual outputs equal the independently accepted private pass. Fresh published validation follows.
+
+- **2D:4E42/4E54, neutral static scan/stack contracts (PROBABLE; entry/purpose HYPOTHESIS):** historical aa61 bytes show prior-row width12 cells, NUL after width, and early RET4E72 consuming saved entry BC after PUSH BC4E54; PC=BC, SP=helper-entry SP, caller return unconsumed. Ordinary return and wrapper WRAM1/RAMG effects are qualified separately. The finite canonical189 set records no observed scoped entry. See `docs/research/typing_2d_4e42_4e54_stack_scan.md` and `docs/research/typing_2d_verify_4e42_4e54_stack_scan.md`; future parent/owner/gates NULL.
+
+
+## Fresh bank7C publication verified (2026-10-08)
+
+Original d16493abbdfd68ed1321fb0dbda533fbe369d945 passed make, compare, sym-check and palette-check once each in a new GitHub clone. All4198 tracked sources match published Git blobs and all671 outputs match the accepted pass. SHA-256 OK and RESULT: IDENTICAL establish original-ROM reconstruction; no new natural entry or hardware evidence is inferred.
+
+
+## Original bank2D integration verified (2026-10-08)
+
+Four existing comments qualify the74-byte/49-start wrapper and helper at2D:4E42/4E54. Under the conventional stack interpretation, the early RET at4E72 consumes saved BC as PC rather than the real return address; it lacks the balancing POP BC. This behavior is preserved. The12-cell bound applies to the width before the NUL case; the selected scan phase has separate bounds and the FF counter represents255 units. WRAM1 selection and mapper disable on ordinary wrapper return do not establish a universal bank/ABI contract. Entry and purpose remain HYPOTHESIS. All emitted rows, neutral labels and metadata locators stay unchanged. Executor, independent reviewer and ROOT each completed one canonical37:36rc0 plus expected ordinal27 rc2/exact97-byte schema diagnostic. Actual make reports SHA-256 OK/RESULT: IDENTICAL; symbols/palettes pass and all671 outputs match the accepted private implementation. Fresh publication checks follow.
