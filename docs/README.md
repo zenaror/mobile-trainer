@@ -308,3 +308,16 @@ Normal merge of original b91d60c preserves the English resources and verificatio
 ## English parity through bank68 (2026-10-08)
 
 The English branch incorporates original MAIN470fb7716433eccf585896a1d0019b82ac380bbc by a normal merge, retaining all552 translated resource overrides and the existing English documentation chronology. Fifteen source paths incorporate original6C/7C/2D/68 comment qualifications and eight notes; no translated payload changes. Private and actual English make, symbol, palette, PNG, graphics-export and sprite-chain checks each completed rc0 once. All675 actual outputs equal the accepted private pass; ROM SHA-256 remains51a808c52a7f6bc587f27cc0d75fc875e87e78102c9189764b301620979c5e22, with15543 labels/51 constants. Original MAIN470fb also passed a fresh GitHub build/compare/symbol/palette verification with4202 source files and671 exact outputs. This validates byte parity; rendering, layout, natural menu execution and hardware remain UNVALIDATED. The separate MAIN makeenglish integration and scanner exclusions are still under review.
+
+
+- [73:6143 split returns](research/naming_73_6143_split_returns.md) — bounded two six-byte LOAD/XOR1/RET segments; entry/domain/purpose HYPOTHESIS.
+- [73:6143 verification limits](research/naming_73_verify_6143_split_returns.md) — byte/source, finite table/caller context and separate private validation.
+
+
+- [70:46A6 SRAM boundaries](research/naming_70_46a6_sram_boundaries.md) — separate returning paths, SRAM shadows and bounded arithmetic; purpose/entry HYPOTHESIS.
+- [70:46A6 verification limits](research/naming_70_verify_46a6_sram_boundaries.md) — current private scope, finite contexts and independent byte validation.
+
+
+## English parity through bank70 (2026-10-08)
+
+The English branch incorporates original MAINfb79c005557684f0b59ba6130ad46db18eaf3fe3 by a normal merge, preserving the552 translated resources and its documentation chronology. Nine paths incorporate the73/70 comment qualifications and four new notes. Private and actual English make, symbol, palette, PNG, graphics-export and sprite-chain checks each completed rc0 once; all675 actual outputs equal the accepted private pass. English ROM SHA-256 remains51a808c52a7f6bc587f27cc0d75fc875e87e78102c9189764b301620979c5e22, with15543 labels/51 constants. Original MAINfb79c00 also passed a fresh GitHub make/compare/symbol/palette verification with4206 source files and671 exact outputs. Separate new makeenglish/scanner private executor and independent37+English-check proofs are accepted; actual MAIN feature integration follows the75/54 original passes. Rendering, layout, natural menus and hardware remain UNVALIDATED.

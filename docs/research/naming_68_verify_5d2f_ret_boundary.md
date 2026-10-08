@@ -58,3 +58,8 @@ This documentation-only appendix is added to the two new notes after37; code/out
 ## Original bank68 integration verified (2026-10-08)
 
 Three comments separate the RET at68:5D2F from the108-byte/53-start comparison candidate. The candidate selects SRAM1 and WRAM3; unequal strings clear bit2 of C278, so A is not a general Boolean result. Hardware restoration depends on synchronized shadows and a stable stack/scratch context. Entry and purpose remain HYPOTHESIS; neutral symbols and all emitted bytes remain unchanged. Executor, independent reviewer and ROOT each completed a new canonical37:36rc0 plus expected ordinal27rc2 with its exact97-byte diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols and palettes pass, and all671 actual outputs equal the accepted private pass. Fresh published validation follows. ROOT guarded source hashes each command; no fresh native or actual English-owner closure is claimed.
+
+
+## Fresh published bank68 verification
+
+Published MAIN470fb7716433eccf585896a1d0019b82ac380bbc was cloned from GitHub into a new private checkout. With the original reference supplied privately, make, compare, sym-check and palette-check each completed rc0 once. All4202 tracked source files equal their Git blobs and all671 outputs equal the accepted private68 pass. The checkout is clean; fresh source modes are0664. This does not add natural execution, visual or hardware evidence.
