@@ -189,3 +189,8 @@ Deferred user-requested final audit: after the original disassembly passes are c
 
 - [Candidate-library header evidence limits](research/typing_29_palette_library_evidence_limits.md): bounded raw/natural facts; bank/entry/padding/mapper/buffer contracts remain HYPOTHESIS.
 - [Prepared verification record](research/typing_29_verify_palette_library_header.md): 15 comment lines, unchanged source vectors/labels/metadata, and pending build/byte comparison.
+
+
+## Published original bank 29 library header correction (2026-10-08)
+
+[Evidence limits](research/typing_29_palette_library_evidence_limits.md) retain all HYPOTHESIS entries and bounded raw/natural claims. [Verification](research/typing_29_verify_palette_library_header.md) records published source `f450f1b6c9be703e6632d1d679689e7cba38f826`, separate 36 rc0 + historical ordinal 27 schema rc2 batteries, ROOT logs 142,297 bytes / 1,104 lines and accepted fresh3 (13,487 bytes / 358 lines; 4,182 sources and 671 fresh outputs versus 674 actual). Prepared history is preserved; DOC3 inherits the verified source without a build replay. English `7e5e4b13` is separately published/fresh-six accepted, with its clone-closure limitation retained; English bank29 remains separate.
