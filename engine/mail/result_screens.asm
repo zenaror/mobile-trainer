@@ -1298,13 +1298,13 @@ MailServerStatus_FormatNumber_M0:: ; 29:48C3
 	pop bc
 	ret
 
-; ---- data $49DA-$49E5 (11 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
-; kept as raw bytes: the bytes read as Shift-JIS/ASCII text, but the header does not say `text` (executed-read data of unknown content class, or unclassified), so not provably a string
+; ---- text $49DA-$49E5 (11 bytes) [CONFIRMED] Shift-JIS number template: five full-width zeros (82 4F) + NUL; 29:48C3 selects WRAM bank 1 and copies through the NUL to $D524, then formats the decimal digits there; callers render that buffer with A=$01/HL=$D524 through 48:403E TextTiles_RenderLine; all 11 template bytes read in each of 8/69 existing original-ROM scenarios
 
+PUSHC sjis
 Data_MailServerStatus_NumberTemplate_M0:: ; 29:49DA
 Data_29_49DA::
-	db $82, $4F, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $00
-
+	db "０００００", 0
+POPC
 MailServerStatus_NumberOffset_M0:: ; 29:49E5
 Function_29_49E5::
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios); entry proven: target of an
@@ -1779,7 +1779,7 @@ MailServerStatus_FormatNumber_M1:: ; 29:4B7F
 	pop bc
 	ret
 
-; ---- text $4C96-$4CA1 (11 bytes) [PROBABLE] Shift-JIS NUL-terminated string: 5 x full-width '０' (82 4f) + NUL; address loaded by 'ld hl,$4C96' as a text argument (hl=string, ld a,$29, then a far call to 48:403E follows) - placeholder/mask string
+; ---- text $4C96-$4CA1 (11 bytes) [CONFIRMED] Shift-JIS number template: five full-width zeros (82 4F) + NUL; 29:4B7F selects WRAM bank 1 and copies through the NUL to $D524, then formats the decimal digits there; callers render that buffer with A=$01/HL=$D524 through 48:403E TextTiles_RenderLine; all 11 template bytes read in each of 4/69 existing original-ROM scenarios
 
 PUSHC sjis
 String_MailServerStatus_NumberTemplate_M1:: ; 29:4C96
@@ -2275,13 +2275,13 @@ MailServerStatus_FormatNumber_M2:: ; 29:4E55
 	pop bc
 	ret
 
-; ---- data $4F6C-$4F77 (11 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
-; kept as raw bytes: the bytes read as Shift-JIS/ASCII text, but the header does not say `text` (executed-read data of unknown content class, or unclassified), so not provably a string
+; ---- text $4F6C-$4F77 (11 bytes) [CONFIRMED] Shift-JIS number template: five full-width zeros (82 4F) + NUL; 29:4E55 selects WRAM bank 1 and copies through the NUL to $D524, then formats the decimal digits there; callers render that buffer with A=$01/HL=$D524 through 48:403E TextTiles_RenderLine; all 11 template bytes read in each of 7/69 existing original-ROM scenarios
 
+PUSHC sjis
 Data_MailServerStatus_NumberTemplate_M2:: ; 29:4F6C
 Data_29_4F6C::
-	db $82, $4F, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $00
-
+	db "０００００", 0
+POPC
 MailServerStatus_NumberOffset_M2:: ; 29:4F77
 Function_29_4F77::
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios); entry proven: target of an
