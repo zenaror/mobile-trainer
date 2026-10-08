@@ -1226,7 +1226,7 @@ Table_4E_589B::
 	dw Browser_DrawElement_Bitmap
 	dw Label_4E_58AB
 	dw Label_4E_58AB
-
+Browser_DrawElement_ReturnOnly:: ; [PROBABLE] table-target operation: RET only; entry unobserved.
 Label_4E_58AB:: ; 4E:58AB
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: table x1; min discovery hops 0; run
 	; starts at an entry of the code-pointer table at 4E:589B
