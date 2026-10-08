@@ -244,7 +244,7 @@ Original SOURCE `f19d9c6c094b7fa4b49a9a746235615347327c0d` (parent `29c29142`) i
 
 Separate executor, independent reviewer and ROOT canonical37 batteries each completed 36 rc0 plus ordinal27's exact historical 97-byte schema diagnostic at rc2. The original ROM remains byte-identical. ROOT accepted all five publication logs, ten before/after owner records, raw Git transitions, current owners and 674 outputs, then confirmed the remote HEAD. Source publication acceptance SHA-256: `0a08d2eaf4a4072feb941ea3a33fb97de61ac928beae3c8f4ba1b233dab53993`.
 
-A new HTTPS GitHub clone at that HEAD contains 4,190 source files. Fresh `make`, `make compare`, `make sym-check` and `make palette-check` returned zero; all 13,597 bytes / 359 lines of these four logs were read. The rebuilt ROM reports SHA-256 OK and RESULT: IDENTICAL (`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`); symbols retain 15,536 labels and 51 constants. Palette checking reports 162 loads, 116 arrays, two documented over-reads and zero errors. All 671 fresh outputs match the accepted original pass. Fresh acceptance SHA-256: `42800a8b5b5ac9a1dd12542287a49c3254b8b4e200bc309a61995a495855e449`. Actual filesystem0777, fresh0644, Git100644 and private references0444 are separate.
+A new HTTPS GitHub clone at that HEAD contains 4,190 source files. Fresh `make`, `make compare`, `make sym-check` and `make palette-check` returned zero; all 13,597 bytes / 359 lines of these four logs were read. The rebuilt ROM reports SHA-256 OK and RESULT: IDENTICAL (`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`); symbols retain 15,536 labels and 51 constants. Palette checking reports 162 loads, 116 arrays, two documented over-reads and zero errors. All 671 fresh outputs match the accepted original pass. Fresh acceptance SHA-256: `42800a8b5b5ac9a1dd12542287a49c3254b8b4e200bc309a61995a495855e449`. Actual filesystem0777, measured fresh0664, Git100644 and private references0444 are separate. The earlier fresh0644 assertion was incorrect; a later direct measurement found all 4190 source files and 671 outputs at0664, without chmod or changes to bytes/check outcomes.
 
 The direct fresh validator does not claim per-command snapshots of actual owners or the complete native closure. Its first invocation stopped before builds on a missing script key; a later textual assertion incorrectly expected comparison wording from successful sym-check. The same clone was continued, and no completed build/check was repeated. This documentation append inherits the verified source without another canonical37 run. No new runtime, English, visual or hardware evidence follows. English ZIP102/parity remains a parallel workstream. The unused-frame, asset and bank53 Pokémon-name audit is required before declaring the original disassembly complete.
 
@@ -275,3 +275,45 @@ The private source-only proposal carries nine ASM updates, eight original resear
 The original bank29 library and bank00 contracts keep their HYPOTHESIS/PROBABLE limits. The bank26 same-address PROBABLE alias `MailSession_CompareWordDeltas` retains neutral `Function_26_5106` and every local scope. The remaining seven ASM owners change comment rows only. Future parity checks must independently rebind all nine primary source hashes and review dependencies, object metadata and the sole additional SYM/MAP alias; future SYM, MAP and object hashes are unknown. ROM identity to the selected ZIP English source is expected, using the verified ZIP ROM `51a808c52a7f6bc587f27cc0d75fc875e87e78102c9189764b301620979c5e22` as an expectation. This parity source proposal has not been built or compared.
 
 The original banks23/24/27/1A prepared chronology above is followed by its accepted source and fresh-checkout record. Original SOURCE `4e868038ea664d364b09fd626f1a3dfb0c27246d` and final DOC publication `29c29142eeac7976caf5f9a5c84f5a0e83a174a3` contain 4,188 source files. The original fresh-three verification and documentation publication are closed; they establish the original reconstruction results recorded in the verification note, without supplying an English parity build. This private source proposal is rebased on those published original documents. Selection and publication of the ZIP English parent and the future English parity checks remain pending. Complete current MAIN parity and documentation parity are not claimed. English build-target implementation follows completed parity and accepted ZIP reuse publication. Runtime, English layout, rendering fidelity and hardware remain UNVALIDATED.
+
+
+## Prospective browser ReturnOnly aliases
+
+A portable private proposal adds PROBABLE ReturnOnly aliases at 4C:4016 and 4E:58AB, retains both neutral labels and existing comments, and rebinds only against private parent29c provenance. The future adopted parent/count and execution/publication authority remain NULL. It remains after the 2C/4F pass; no queue completion is claimed. The 4C eighteen-instruction header is inherited regional attribution, not the one-byte RET leaf length. SYM/MAP/object symbol records require new bound expectations. See [bounded proof](docs/research/naming_browser_return_only.md) and [prepared verification](docs/research/naming_browser_verify_return_only.md).
+
+
+## Original integration validated (2026-10-08)
+
+ROOT integrated the two non-emitting aliases on published parent `734dc4f`, preserving the neutral labels. Executor, independent reviewer and ROOT each completed one canonical37: 36 commands returned zero, and ordinal27 retained its exact historical 97-byte schema diagnostic at rc2. Actual `make` reports SHA-256 OK and RESULT: IDENTICAL; sym-check and palette-check passed. All 671 actual outputs match the independently accepted private implementation. SYM has 15,538 labels and 51 constants, with only the two expected aliases added. This establishes original-ROM equivalence, not natural entry coverage or a domain purpose. Fresh GitHub validation follows publication.
+
+
+## Prepared original bank 55 lookup comments (2026-10-08)
+
+A private five-path comment-only proposal on historical original `aa61d893`
+retains neutral `Function_55_6EEC`/`Data_55_6EF7` and their PROBABLE status.
+The bounded static contract returns ROM55[$6EF7+unsigned A], preserves
+BC/DE and leaves ADC-derived F=$00; indices 0–5 yield zero and 6–10 one,
+with no bounds check. Caller/handler entry, natural input domain and purpose
+remain HYPOTHESIS. The correction distinguishes conditional selection of
+55:5F29 from its unconditional CALL at 55:5F2A. Only six ASM comment rows
+change. [Analysis](docs/research/naming_keyboard_55_lookup.md) and
+[prepared verification](docs/research/naming_keyboard_55_verify_lookup.md)
+record the zero candidate observations in the bounded original corpus and
+the unchanged source vectors. Future parent is unassigned; it is queued after
+23→24→27→1A, 2C→4F and the browser return duo. Build/canonical37, rebinding,
+integration and byte comparison remain pending; this is not an adoption result.
+
+
+## Fresh published RET validation (2026-10-08)
+
+Original `a609e884bff63f4bcc56d034a597eeecc9ac6e6c` rebuilt in a new GitHub clone. Fresh make returned0 and SHA-256 OK; the reference was absent at that first build. After adding the private original reference, make compare, make sym-check and make palette-check each returned0; comparison was IDENTICAL. The make command was not repeated after a textual assertion incorrectly required comparison wording. All4192 tracked sources match the publication and all671 outputs match the accepted pass. Source/output filesystem modes were measured0664, independently of Git100644. Runtime and purpose remain qualified.
+
+
+## Original integration verified (2026-10-08)
+
+The bank55 lookup comment pass was rebased on published original a609e88. ROOT executed one canonical37, with36rc0 and the expected ordinal27 rc2/97-byte historical schema diagnostic. make reported SHA-256 OK and RESULT: IDENTICAL; symbols/palettes passed and all671 outputs remain byte-exact to the private pass. Neutral labels, emitting source and metadata remain unchanged. Independent verification is a composite: its first1–5 succeeded, ordinal6 stopped because private source0444 made a copied PNG read-only, then the failed PNG test and remaining tests/ordinals7–37 completed in a writable private copy. The successful commands were not replayed; this is not a single independent37 all-pass result. Domain/entry remain HYPOTHESIS. Fresh validation follows publication.
+
+
+## English parity through original bank55 verified (2026-10-08)
+
+Normal merge of original b91d60c preserves the English resources and verification chronology, adds the two published browser ReturnOnly aliases and carries the original55 comment corrections. Private and actual English make mobile_trainer.gbc, sym-check, palette-check, png-check, gfx-export check and sprite-chain check all returned0 once each. The ROM remains51a808c52a7f6bc587f27cc0d75fc875e87e78102c9189764b301620979c5e22; SYM has15543 labels and51 constants. All675 actual outputs match the accepted private parity candidate. Text rendering, layout and hardware fidelity are not established by these checks. The later original6C/7C passes and makeenglish integration remain parallel follow-ups.

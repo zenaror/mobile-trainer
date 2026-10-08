@@ -260,3 +260,22 @@ The [decimal-template notes](research/typing_29_number_templates.md) and [verifi
 Published English `ac4ac955b346b434f85440d4e82e5f03a8fabdf8` contains 4,184 source files and has accepted fresh-checkout six-check verification through original `7fb572c0c58a996d508d3b4bd5f91219a90bf13f`. The English prepared/integration paragraphs above remain dated history.
 
 See [translation status](TRANSLATION.md#english-publication-checkpoint-and-conditional-parity-proposal-2026-10-08) for the conditional nine-ASM/eight-note/three-document source proposal rebased on accepted original DOC `29c29142eeac7976caf5f9a5c84f5a0e83a174a3`; selection of the published ZIP English parent and future alias/output checks remain pending. The published ledger remains 5,182 pending offsets; the 102 ZIP bytes are not adopted or published. Complete current MAIN/documentation parity and runtime, English layout, rendering fidelity or hardware validation are not claimed.
+
+
+- [Browser dispatch return leaves](research/naming_browser_return_only.md) -- portable prospective PROBABLE aliases at 4C:4016/4E:58AB, neutral labels retained and bank-qualified limits.
+- [Prepared verification: browser ReturnOnly aliases](research/naming_browser_verify_return_only.md) -- two added globals, existing instructions/comments/LOC preserved; future output bindings and validation pending.
+
+
+## Prepared original bank 55 lookup evidence limits (2026-10-08)
+
+* [Bounded lookup contract and purpose limits](research/naming_keyboard_55_lookup.md)
+  — neutral PROBABLE lookup/data, zero candidate observations in the original
+  bounded corpus, and conditional handler selection versus unconditional CALL.
+* [Prepared verification](research/naming_keyboard_55_verify_lookup.md)
+  — six comment rows, exact 359-line owner and noncomment vectors, historical
+  baseline only and unassigned future parent; builds and adoption remain pending.
+
+
+## English parity through original bank55 verified (2026-10-08)
+
+Normal merge of original b91d60c preserves the English resources and verification chronology, adds the two published browser ReturnOnly aliases and carries the original55 comment corrections. Private and actual English make mobile_trainer.gbc, sym-check, palette-check, png-check, gfx-export check and sprite-chain check all returned0 once each. The ROM remains51a808c52a7f6bc587f27cc0d75fc875e87e78102c9189764b301620979c5e22; SYM has15543 labels and51 constants. All675 actual outputs match the accepted private parity candidate. Text rendering, layout and hardware fidelity are not established by these checks. The later original6C/7C passes and makeenglish integration remain parallel follow-ups.
