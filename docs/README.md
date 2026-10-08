@@ -183,3 +183,9 @@ The next original scope is the separate29:5090–5376 library-header correction,
 A separate coordinator readback checked all 12,540 Git blobs across actual JP, actual EN and the fresh JP checkout (198,013,136 bytes), with current complete regular rawGit file snapshots before and after equal; receipt SHA-256 1b21b2b1f9ae9a67a591c86f6f8543c2fcb97f93003eff4245aaf0cec0b8d1ba. This separate readback does not retrospectively supply per-command JP/fresh rawGit snapshots absent from the first fresh-check helper; that helper guarded their source, output, HEAD and status each command and the full EN owner. The successful three checks were not replayed.
 
 Deferred user-requested final audit: after the original disassembly passes are completed, cross-check data/text/pokemon_names_bank53.asm against Pokémon frames, tile resources and exported PNGs. No missing resource or absence of callers is established by the user observation; separately verify extraction completeness and direct/computed references with bank context. This audit is queued, not performed in the decimal-template pass.
+
+
+## Prepared original bank 29 library evidence limits (2026-10-07)
+
+- [Candidate-library header evidence limits](research/typing_29_palette_library_evidence_limits.md): bounded raw/natural facts; bank/entry/padding/mapper/buffer contracts remain HYPOTHESIS.
+- [Prepared verification record](research/typing_29_verify_palette_library_header.md): 15 comment lines, unchanged source vectors/labels/metadata, and pending build/byte comparison.
