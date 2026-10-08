@@ -1171,9 +1171,9 @@ MailTitle_ApplyDakuten:: ; 2C:46EB
 	; ret), identical bytes to 2F:5F28/6007/60B8; follows an unconditional jr; well-formed
 	; instruction chain (clean decode, all direct targets land on instruction starts, lands exactly
 	; on the next code region); no direct caller/table entry found: entry HYPOTHESIS | verifier:
-	; downgraded to HYPOTHESIS, no direct/far/table reference to this address exists anywhere in the
-	; ROM (all-bank search for the address word) and it is not a fall-through of proven code, so it
-	; is only bytes that decode cleanly
+	; downgraded to HYPOTHESIS: no established direct/far/table reference to this entry; raw
+	; address-word matches elsewhere in ROM do not establish callers, and the preceding JR
+	; does not fall through here. This clean five-instruction decode alone does not prove entry.
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -1203,7 +1203,7 @@ MailTitle_ApplyDakuten:: ; 2C:46EB
 	pop bc
 	ret
 
-; ---- text $4779-$47CA (81 bytes) [PROBABLE] NUL-terminated Shift-JIS string of 40 kana (rows that can take dakuten: かきくけこ さしすせそ たちつてと はひふへほ, then the katakana カ..ホ; 81 bytes + NUL at 47C9); ld de,$4779 at 2C:4702; identical bytes at 2F:5F41. Verified by decoding all 40 double-byte characters with cp932. Verifier fix: the former ptrtable Table_2C_47AF (47AF-47BD, "7/7 words hit code starts") was the katakana スセソタチツテト bytes 83 58 83 5A ... read as little-endian words, not pointers
+; ---- text $4779-$47CA (81 bytes) [PROBABLE] NUL-terminated Shift-JIS string of 40 kana (rows that can take dakuten: かきくけこ さしすせそ たちつてと はひふへほ, then the katakana カ..ホ; 80 bytes + NUL at 47C9); ld de,$4779 at 2C:4702; identical bytes at 2F:5F41. Verified by decoding all 40 double-byte characters with cp932. Verifier fix: the former ptrtable Table_2C_47AF (47AF-47BD, "7/7 words hit code starts") was the katakana スセソタチツテト bytes 83 58 83 5A ... read as little-endian words, not pointers
 
 PUSHC sjis
 String_MailTitle_DakutenKana:: ; 2C:4779

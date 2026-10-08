@@ -1,24 +1,24 @@
 ; engine/gfx/unreferenced_palette_library.asm
 ; bank 29, $5090-$5376 (742 bytes); pinned by layout.link
-; self-contained routine library with no caller (palette/OAM/PRNG idioms)
+; candidate library image; entry and live bank context remain unestablished
 
 SECTION "engine/gfx/unreferenced_palette_library", ROMX
 
 Function_29_5090:: ; 29:5090
-	; [HYPOTHESIS] self-contained routine library that decodes cleanly (460 legal instructions,
-	; internal calls/jumps all land on instruction starts inside the span, idioms: LCDC bit2 toggles
-	; 5090/5097, OAM copy/clear, PRNG hl=hl*5+$3711 mixed with LY at 50DA, wait LY=$90 at 5117, ROM
-	; bank write $2000/$3000 at 510F, CGB palette fade routines through rBCPS/BCPD $FF68-6B with the
-	; $DBD0 buffer at 520D-52xx). NO caller/pointer/far pointer to any address inside was found in
-	; the ROM (top-level entries 5159 and 517D are uncalled), and 'call $7BB7' at 5120 lands in this
-	; bank's zero padding (so it cannot be running in place in bank 29). Kept as code HYPOTHESIS;
-	; could be dead code or an image meant for another bank/RAM [verifier: additional evidence
-	; against a live routine in place: the PRNG uses ld a,[$0C0E]/ld [$0C0E],a (a ROM address, an
-	; MBC RAM-enable write area) and the internal 'call $7BB7' lands in this bank's zero padding;
-	; the library is unique in the ROM (no 24-byte window of it appears elsewhere); no
-	; word/call/jp/ld r16/far pointer to any of its 460 instruction starts exists outside it; stays
-	; HYPOTHESIS] | forced execution: 187/460 instruction starts ran in forced_dead (traces/forced/,
-	; not natural evidence; status unchanged)
+	; [HYPOTHESIS] candidate library image; 742 bytes admit a conditional 460-start decode.
+	; Internal direct targets land on those starts; calls $044B and $7BB7 leave the span.
+	; No span execution/read overlap/transfer appears in the existing 69 natural coverage,
+	; 69 data-access and 50 callgraph files. No external tracked ASM global-symbol reference was found.
+	; Outside-span ROM bytes contain 4,001 raw little-endian start-address matches and 189
+	; CALL/JP opcode-plus-target patterns (none in physical bank 29); these are not caller proofs.
+	; $7BB7 is zero padding in physical bank 29; entry/copy/relocation and selected bank are unknown.
+	; Writes to $2000/$3000 at $510F can change later fetches; padding cannot exclude every leaf.
+	; The PRNG-like sequence reads ROM $0C0E/$0C0F and writes mapper space, not WRAM seed storage.
+	; Standalone $DBD0 entries need a bank precondition; $520D explicitly sets real SVBK=1.
+	; At $526D BG uses B=$40 zero writes; OBJ uses B=$00, DEC/JR NZ and [DE], not a 64-byte clear.
+	; No 24-byte window occurs outside this span; these raw/static facts do not establish live use.
+	; Historical forced_dead: 187/460 starts (traces/forced/), inherited evidence only;
+	; not natural evidence or full-path proof; HYPOTHESIS status and aliases unchanged.
 	ldh a, [rLCDC]
 	and a, $FB
 	ldh [rLCDC], a

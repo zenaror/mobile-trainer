@@ -50,8 +50,8 @@ Palette_24_5EA0::
 
 PageList_Tiles_5EE0:: ; 24:5EE0
 Tiles_24_5EE0::
-	db $FF, $FF, $FF, $8A, $FF, $FF, $FF, $8B, $FF, $FA, $FB, $F7, $F5, $8D, $F8, $F8
-	db $BE
+	db $7F, $7F, $7F, $42, $7F, $76, $1F, $16, $1F, $16, $7F, $76, $7F, $4F, $79, $79
+	db $FD
 
 ; ---- gfx $5EF1-$6301 (1040 bytes) [PROBABLE] tiles-2bpp: heuristic: 45 coherent tiles (hsim2=0.655 vsim2=0.638, 7 blank) parity 1
 

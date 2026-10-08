@@ -945,7 +945,7 @@ String_1A_4763::
 	db "ＤＩＯＮモバイルＧＢコース", 0
 POPC
 
-; ---- text $477E-$47A4 (38 bytes) [PROBABLE] 7 NUL-terminated strings "ＩＤＳＰ" "ＰＤＣ" "ＰＨＳ" "Ｗｅｂ" "ＷＷＷ" "※" (targets of the pointers 477E 4785 478C 4793 479A .. of Table_1A_4737)
+; ---- text $477E-$47A4 (38 bytes) [PROBABLE] 6 NUL-terminated strings "ＩＳＰ" "ＰＤＣ" "ＰＨＳ" "Ｗｅｂ" "ＷＷＷ" "＠" (targets of the pointers 477E 4785 478C 4793 479A .. of Table_1A_4737)
 
 PUSHC sjis
 String_MobileDict_Cat11Entry03:: ; 1A:477E

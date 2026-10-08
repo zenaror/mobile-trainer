@@ -164,7 +164,7 @@ Function_00_0A1A::
 	ret
 
 Function_00_0A2A:: ; 00:0A2A
-	; [PROBABLE] stores DE at [HL],[HL+1] in WRAM bank 7 (preserves A) [candidate; raw refs 4]
+	; [PROBABLE] stores E,D at [HL..HL+1]; selects SVBK7; normal A=D [candidate; raw refs 4]
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af

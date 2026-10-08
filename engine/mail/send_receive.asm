@@ -1818,7 +1818,7 @@ Label_27_4EEB:: ; 27:4EEB
 	ret
 
 	; [PROBABLE] 11 insn(s) (call $05BD ; ldh a,[rLCDC] ; and $9F ; ldh [rLCDC],a ; xor a ; ldh
-	; [rSCX],a ; ldh [rSCY],a ; ld a,7 ; ldh [rOBP...],a ; ld a,$90 ; ldh [rWY],a) falling into the
+	; [rSCX],a ; ldh [rSCY],a ; ld a,7 ; ldh [rWX],a ; ld a,$90 ; ldh [rWY],a) falling into the
 	; code at 4F0B; well-formed instruction chain (clean decode, all direct targets land on
 	; instruction starts, lands exactly on the next code region); no direct caller/table entry
 	; found: entry HYPOTHESIS

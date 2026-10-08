@@ -404,9 +404,9 @@ Table_4F_4233::
 
 PalFade_Step_FourColors:: ; 4F:4243
 Label_4F_4243::
-	; [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1;
-	; entered by table from 4F:4230 (executed)
-	; static reading, the mode never runs: PalFade_Start_FourColors (4F:41A4) fills the end colours and the progress words at offset $70,
+	; [PROBABLE] 4 instruction starts in this 10-byte block; ordinary static flow only;
+	; mode 3 target of the inline table at 4F:4230; this handler was not observed in the natural corpus
+	; PalFade_Start_FourColors (4F:41A4) fills the end colours and the progress words at offset $70,
 	; and this routine writes the progress words at offset $70 too, but blends the colours at offset $60 (DE): the two disagree
 	; (docs/research/naming2_ramop9.md)
 	ld de, $0060
