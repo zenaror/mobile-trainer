@@ -232,13 +232,13 @@ Label_73_6114::
 	ret
 
 Function_73_6143:: ; 73:6143
-	; [HYPOTHESIS] 6 insn(s): two consecutive tiny functions (ld a,[$C0F8] ; xor $01 ; ret) and (ld
-	; a,[$C0F9] ; xor $01 ; ret) falling into the code at 614F; well-formed instruction chain (clean
-	; decode, all direct targets land on instruction starts, lands exactly on the next code region);
-	; no direct caller/table entry found: entry HYPOTHESIS | verifier: downgraded to HYPOTHESIS, no
-	; direct/far/table reference to this address exists anywhere in the ROM (all-bank search for the
-	; address word) and it is not a fall-through of proven code, so it is only bytes that decode
-	; cleanly
+	; [HYPOTHESIS] entry/domain unestablished; [6143,6149) and [6149,614F) each decode
+	; as LD A,[C0F8/C0F9]; XOR $01; RET: 6 bytes and 3 instruction starts per segment.
+	; RET at 6148 and 614E ends each ordinary path; neither falls through to 614F.
+	; BrowserStart_OnA ends with RET at 6142; the inline table at 6096 targets
+	; 6114/614F/617A/617D/60A0. Raw address-word matches do not establish bank73 callers;
+	; computed or overlapping entries remain open. A = read byte XOR 1, not generic Boolean
+	; negation; see docs/research/naming_73_6143_split_returns.md. No alias is added.
 	ld a, [wRam_C0F8]
 	xor a, $01
 	ret

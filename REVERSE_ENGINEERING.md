@@ -390,3 +390,28 @@ Three comments separate the RET at68:5D2F from the108-byte/53-start comparison c
 ## English parity through bank68 (2026-10-08)
 
 The English branch incorporates original MAIN470fb7716433eccf585896a1d0019b82ac380bbc by a normal merge, retaining all552 translated resource overrides and the existing English documentation chronology. Fifteen source paths incorporate original6C/7C/2D/68 comment qualifications and eight notes; no translated payload changes. Private and actual English make, symbol, palette, PNG, graphics-export and sprite-chain checks each completed rc0 once. All675 actual outputs equal the accepted private pass; ROM SHA-256 remains51a808c52a7f6bc587f27cc0d75fc875e87e78102c9189764b301620979c5e22, with15543 labels/51 constants. Original MAIN470fb also passed a fresh GitHub build/compare/symbol/palette verification with4202 source files and671 exact outputs. This validates byte parity; rendering, layout, natural menu execution and hardware remain UNVALIDATED. The separate MAIN makeenglish integration and scanner exclusions are still under review.
+
+
+### Static split returns at 73:6143
+
+PROBABLE conditional mechanics: [73:6143,6149) and [73:6149,614F) are two six-byte/three-start segments, each LD A,[C0F8/C0F9], XOR1, RET. Neither ordinary path falls through. XOR1 toggles only bit0; no Boolean domain, purpose or entry is established. The bounded dispatch table excludes these entries; an indexed FillBytes clear elsewhere includes both fields. Entry/purpose remain HYPOTHESIS; no alias or emitted byte changes. See [split-return note](docs/research/naming_73_6143_split_returns.md) and [verification limits](docs/research/naming_73_verify_6143_split_returns.md).
+
+
+## Original bank73 integration verified (2026-10-08)
+
+Seven comments describe two independent6-byte/3-start fragments at73:6143 and6149. Each reads C0F8 or C0F9, performs XOR1 and returns without a store or bank selection. The RETs at6148/614E prevent ordinary fallthrough into614F; arbitrary byte inputs do not make XOR1 a general Boolean negation. Entry and purpose remain HYPOTHESIS; neutral symbols and all emitted bytes remain unchanged. Executor, independent reviewer and ROOT each completed a new canonical37:36rc0 plus expected ordinal27rc2 with its exact97-byte diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols and palettes pass, and all671 actual outputs equal the accepted private pass. Fresh published validation follows. ROOT guarded source hashes each command; no fresh native or actual English-owner closure is claimed.
+
+
+### Static SRAM boundaries at 70:46A6
+
+PROBABLE bounded mechanics: [70:46A6,4740) has three returning paths and [70:4740,477F) is a separate unlabelled candidate. Both save FFF5/FF8C, use FFF2 scratch and select SRAM1; no WRAM shadow access occurs. Shadow-based restoration and flags have path-specific stack/bank prerequisites. Tested field purpose, entry and natural reachability remain HYPOTHESIS; no alias or emitted byte changes. See [boundary note](docs/research/naming_70_46a6_sram_boundaries.md) and [verification limits](docs/research/naming_70_verify_46a6_sram_boundaries.md).
+
+
+## Original bank70 integration verified (2026-10-08)
+
+Twenty-five comments qualify the217-byte/107-start region at70:46A6 and the unlabelled segment at4740. It saves the FFF5/FF8C SRAM shadows and uses FFF2 as scratch, with no WRAM selector. The three first-region RETs and final477E RET delimit ordinary paths. Random16/division produce bounded2..4 or0A..0F values without a probability claim; hardware restoration depends on coherent shadows and a stable stack. Entry and purpose remain HYPOTHESIS; neutral symbols and all emitted bytes remain unchanged. Executor, independent reviewer and ROOT each completed a new canonical37:36rc0 plus expected ordinal27rc2 with its exact97-byte diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols and palettes pass, and all671 actual outputs equal the accepted private pass. Fresh published validation follows. ROOT guarded source hashes each command; no fresh native or actual English-owner closure is claimed.
+
+
+## English parity through bank70 (2026-10-08)
+
+The English branch incorporates original MAINfb79c005557684f0b59ba6130ad46db18eaf3fe3 by a normal merge, preserving the552 translated resources and its documentation chronology. Nine paths incorporate the73/70 comment qualifications and four new notes. Private and actual English make, symbol, palette, PNG, graphics-export and sprite-chain checks each completed rc0 once; all675 actual outputs equal the accepted private pass. English ROM SHA-256 remains51a808c52a7f6bc587f27cc0d75fc875e87e78102c9189764b301620979c5e22, with15543 labels/51 constants. Original MAINfb79c00 also passed a fresh GitHub make/compare/symbol/palette verification with4206 source files and671 exact outputs. Separate new makeenglish/scanner private executor and independent37+English-check proofs are accepted; actual MAIN feature integration follows the75/54 original passes. Rendering, layout, natural menus and hardware remain UNVALIDATED.
