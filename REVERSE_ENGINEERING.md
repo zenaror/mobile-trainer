@@ -361,3 +361,13 @@ PROBABLE bounded mechanics: [70:46A6,4740) has three returning paths and [70:474
 ## Original bank70 integration verified (2026-10-08)
 
 Twenty-five comments qualify the217-byte/107-start region at70:46A6 and the unlabelled segment at4740. It saves the FFF5/FF8C SRAM shadows and uses FFF2 as scratch, with no WRAM selector. The three first-region RETs and final477E RET delimit ordinary paths. Random16/division produce bounded2..4 or0A..0F values without a probability claim; hardware restoration depends on coherent shadows and a stable stack. Entry and purpose remain HYPOTHESIS; neutral symbols and all emitted bytes remain unchanged. Executor, independent reviewer and ROOT each completed a new canonical37:36rc0 plus expected ordinal27rc2 with its exact97-byte diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols and palettes pass, and all671 actual outputs equal the accepted private pass. Fresh published validation follows. ROOT guarded source hashes each command; no fresh native or actual English-owner closure is claimed.
+
+
+### Static return boundaries at 75:7E89
+
+PROBABLE43-byte/27-start sequence returns at7EAD/7EB3 rather than falling into7EB4. Saved oldC6C1 byte/flags and same-bank75:5F10 call require balanced stack, stable bank and ordinary callee return; pointer arithmetic wraps, no success/ABI/domain guarantee. Entry/purpose HYPOTHESIS. See [boundary note](docs/research/naming_75_7e89_return_boundaries.md) and [verification limits](docs/research/naming_75_verify_7e89_return_boundaries.md).
+
+
+## Original bank75 integration verified (2026-10-08)
+
+Four comments qualify the43-byte/27-start fragment at75:7E89. Its command byte is read from(P+2)mod65536 and XOR80 toggles bit7, rather than guaranteeing that bit is set. RET Z7EAD and RET7EB3 end ordinary paths before7EB4. The same-bank packet-send callee can loop or change fields; POP AF discards its carry result, and later local bit0 handling does not restore the entire saved flags byte. No unconditional completion, preservation or caller ABI is claimed. Entry and purpose remain HYPOTHESIS; neutral symbols and all emitted bytes remain unchanged. Executor, independent reviewer and ROOT each completed a new canonical37:36rc0 plus expected ordinal27rc2 with its exact97-byte diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols and palettes pass, and all671 actual outputs equal the accepted private pass. Fresh published validation follows. ROOT guarded source hashes each command; no fresh native or actual English-owner closure is claimed.

@@ -275,3 +275,7 @@ The [semantic note](research/typing_26_compare_word_deltas_alias.md) and [verifi
 
 - [70:46A6 SRAM boundaries](research/naming_70_46a6_sram_boundaries.md) — separate returning paths, SRAM shadows and bounded arithmetic; purpose/entry HYPOTHESIS.
 - [70:46A6 verification limits](research/naming_70_verify_46a6_sram_boundaries.md) — current private scope, finite contexts and independent byte validation.
+
+
+- [75:7E89 return boundaries](research/naming_75_7e89_return_boundaries.md) — saved flags, same-bank callee and finite computed-entry limits.
+- [75:7E89 verification limits](research/naming_75_verify_7e89_return_boundaries.md) — current private scope and byte/output confrontation.
