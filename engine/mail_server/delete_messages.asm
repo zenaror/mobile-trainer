@@ -5,10 +5,10 @@
 SECTION "engine/mail_server/delete_messages", ROMX
 
 Function_23_6D61:: ; 23:6D61
-	; [HYPOTHESIS] complete function (28 insn, push af/bc/de/hl ... pop ... ret): fills $D1E0.. with
-	; $14 words; starts after the ret at 6D60; no caller found (entry unproven) [verifier: no entry
-	; proven (no caller, no valid table word, never executed): decode chain alone is not proof ->
-	; HYPOTHESIS]
+	; [HYPOTHESIS] 28-insn decode (push af/bc/de/hl ... pop ... ret): writes 20 bytes $14..$27
+	; to WRAM7:$D1E0..$D1F3; follows ret at 6D60. Entry unproven: no established caller/table
+	; entry and no execution recorded in the existing natural corpus; a clean decode alone
+	; does not prove entry.
 	push af
 	push bc
 	push de
