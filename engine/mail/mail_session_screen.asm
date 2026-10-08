@@ -89,7 +89,7 @@ MailSession_ShowCommErrorNoWindow:: ; 26:50C6
 	farcall Mobile_ShowLastError
 	ld a, $80
 	ret
-
+MailSession_CompareWordDeltas:: ; 26:5106 [PROBABLE] word-delta predicate
 Function_26_5106:: ; 26:5106
 	push bc
 	push de
