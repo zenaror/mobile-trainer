@@ -269,12 +269,12 @@ Mobile_DisconnectPoll:: ; 54:41A3
 	ret
 
 Function_54_41C5:: ; 54:41C5
-	; [PROBABLE] 25 insn(s): start of the function that ends in the FarCall sites at 54:41FB-4274
-	; (writes WRAM $C1D8/$C1D9/$C1DB, tests bits of $C69F, register setup ld de,$C480 ; ld bc,0 ; ld
-	; a,$28 for the FarCall at 41FB); contains the branches to 4204/4215/422E classified below;
-	; follows the ret at 41C4; well-formed instruction chain (clean decode, all direct targets land
-	; on instruction starts, lands exactly on the next code region); no direct caller/table entry
-	; found: entry HYPOTHESIS
+	; [PROBABLE] 7 insn(s), 15 bytes at 54:41C5-41D4: C1DB=3, C1D8=1, C1D9=0, then ret at 41D3.
+	; No call/API operation occurs on this sequential entry path; BC/DE/HL are preserved.
+	; Ordinary return leaves A=0, Z set and N/H/C clear. The following poll starts at 41D4;
+	; no fall-through crosses this ret. The old 25-insn header combined the prefix and poll setup.
+	; No direct caller/table entry was found in the bounded static inventory; entry and purpose
+	; remain HYPOTHESIS. No new runtime, interrupt or stack-validity evidence is claimed.
 	ld a, $03
 	ld [wMobileRetriesLeft], a
 	ld a, $01
