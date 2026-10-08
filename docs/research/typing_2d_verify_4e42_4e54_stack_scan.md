@@ -59,3 +59,8 @@ These private checks provide byte verification without adding natural runtime, v
 ## Original bank2D integration verified (2026-10-08)
 
 Four existing comments qualify the74-byte/49-start wrapper and helper at2D:4E42/4E54. Under the conventional stack interpretation, the early RET at4E72 consumes saved BC as PC rather than the real return address; it lacks the balancing POP BC. This behavior is preserved. The12-cell bound applies to the width before the NUL case; the selected scan phase has separate bounds and the FF counter represents255 units. WRAM1 selection and mapper disable on ordinary wrapper return do not establish a universal bank/ABI contract. Entry and purpose remain HYPOTHESIS. All emitted rows, neutral labels and metadata locators stay unchanged. Executor, independent reviewer and ROOT each completed one canonical37:36rc0 plus expected ordinal27 rc2/exact97-byte schema diagnostic. Actual make reports SHA-256 OK/RESULT: IDENTICAL; symbols/palettes pass and all671 outputs match the accepted private implementation. Fresh publication checks follow.
+
+
+## Fresh published bank2D verification
+
+Published MAIN5b43a44808247e7a02e55935ab68030e1b2e3b32 was cloned from GitHub into a new private checkout. With the original reference supplied privately, make, compare, sym-check and palette-check each completed rc0 once. All4200 tracked source files equal their Git blobs and all671 outputs equal the accepted private2D pass. The checkout is clean; fresh source modes are0664. This does not add natural execution, visual or hardware evidence.

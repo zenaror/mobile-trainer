@@ -326,3 +326,18 @@ Original d16493abbdfd68ed1321fb0dbda533fbe369d945 passed make, compare, sym-chec
 ## Original bank2D integration verified (2026-10-08)
 
 Four existing comments qualify the74-byte/49-start wrapper and helper at2D:4E42/4E54. Under the conventional stack interpretation, the early RET at4E72 consumes saved BC as PC rather than the real return address; it lacks the balancing POP BC. This behavior is preserved. The12-cell bound applies to the width before the NUL case; the selected scan phase has separate bounds and the FF counter represents255 units. WRAM1 selection and mapper disable on ordinary wrapper return do not establish a universal bank/ABI contract. Entry and purpose remain HYPOTHESIS. All emitted rows, neutral labels and metadata locators stay unchanged. Executor, independent reviewer and ROOT each completed one canonical37:36rc0 plus expected ordinal27 rc2/exact97-byte schema diagnostic. Actual make reports SHA-256 OK/RESULT: IDENTICAL; symbols/palettes pass and all671 outputs match the accepted private implementation. Fresh publication checks follow.
+
+### Static boundary at 68:5D2F
+
+PROBABLE: `Function_68_5D2F` is a one-byte `RET`; the adjacent unlabelled sequence
+`[68:5D30,68:5D9C)` is 108 bytes and cannot be entered by fall-through from that RET.
+Its SRAM/WRAM comparison shape is statically supported; entry, purpose and natural
+reachability remain HYPOTHESIS. The historical 54-instruction decode spans both
+parts and does not establish a single function. No label or operand changes.
+See [boundary note](docs/research/naming_68_5d2f_ret_boundary.md) and
+[verification limits](docs/research/naming_68_verify_5d2f_ret_boundary.md).
+
+
+## Original bank68 integration verified (2026-10-08)
+
+Three comments separate the RET at68:5D2F from the108-byte/53-start comparison candidate. The candidate selects SRAM1 and WRAM3; unequal strings clear bit2 of C278, so A is not a general Boolean result. Hardware restoration depends on synchronized shadows and a stable stack/scratch context. Entry and purpose remain HYPOTHESIS; neutral symbols and all emitted bytes remain unchanged. Executor, independent reviewer and ROOT each completed a new canonical37:36rc0 plus expected ordinal27rc2 with its exact97-byte diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols and palettes pass, and all671 actual outputs equal the accepted private pass. Fresh published validation follows. ROOT guarded source hashes each command; no fresh native or actual English-owner closure is claimed.
