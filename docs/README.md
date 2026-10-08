@@ -289,3 +289,7 @@ The [semantic note](research/typing_26_compare_word_deltas_alias.md) and [verifi
 - [typing_2e_verify_wait_glyph_tail](research/typing_2e_verify_wait_glyph_tail.md) — bounded current private verification; entry/purpose HYPOTHESIS.
 - [typing_29_leaf_lcdc_ly_limits](research/typing_29_leaf_lcdc_ly_limits.md) — bounded current private verification; entry/purpose HYPOTHESIS.
 - [typing_29_verify_leaf_lcdc_ly_limits](research/typing_29_verify_leaf_lcdc_ly_limits.md) — bounded current private verification; entry/purpose HYPOTHESIS.
+
+
+- [Remaining neutral headers](research/typing_neutral_remaining_headers.md) — bounded effects, KEEP28 and explicit contradictions.
+- [Remaining neutral verification](research/typing_neutral_verify_remaining_headers.md) — scope/blank-row exceptions, static/runtime limits.
