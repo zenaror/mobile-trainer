@@ -864,7 +864,7 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	pop hl
 	pop de
 	pop bc
-	call Function_26_5106
+	call MailSession_CompareWordDeltas
 	dec a
 	jp z, .l49FF
 	call MailSession_CheckTimeWarning
