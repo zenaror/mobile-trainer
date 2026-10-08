@@ -1785,10 +1785,10 @@ CommTime_DrawHMSScreen:: ; 27:4D81
 	jp Label_27_4EEB
 
 Function_27_4EC0:: ; 27:4EC0
-	; [PROBABLE] 9 insn(s): same prologue as 27:4D06 (WRAM7 switch, call $047A, ld hl,$D800) falling
-	; into the code at 4ED3; well-formed instruction chain (clean decode, all direct targets land on
-	; instruction starts, lands exactly on the next code region); no direct caller/table entry
-	; found: entry HYPOTHESIS
+	; [PROBABLE] 53 bytes/22 logical starts [4EC0,4EF5); farcall inline bytes are data.
+	; WRAM7 palette upload, saved-shadow restore, then 00:082C forces WRAM7 before RET4EF4.
+	; Entry/purpose HYPOTHESIS; JP4EBD->4EEB skips the prologue and reaches LCDOn/BC0/RET.
+	; Stack/trampoline/IRQ/mapping/buffer prerequisites; no global dead-code or restore ABI.
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -1799,8 +1799,8 @@ Function_27_4EC0:: ; 27:4EC0
 	call VBlank_WaitStartDI
 	ld hl, wPaletteBufBg
 
-	; [PROBABLE] 13 insn(s) reached by static flow only; seeds: site x13; min discovery hops 0; run
-	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+	; [PROBABLE] Farcall 4F:404B uploads palettes; EI/audio then restores the saved WRAM shadow.
+	; 00:082C selects WRAM7; direct tail4EEB only LCDOn00:05B6/BC0/RET, no WRAM selection.
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService

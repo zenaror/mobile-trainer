@@ -281,3 +281,11 @@ The [semantic note](research/typing_26_compare_word_deltas_alias.md) and [verifi
 - [75:7E89 verification limits](research/naming_75_verify_7e89_return_boundaries.md) — current private scope and byte/output confrontation.
 
 * `research/typing_54_41c5_entry_limits.md` — prospective bounded bank54 neutral entry, seven instructions/15 original bytes and firstRET; body PROBABLE, entry/purpose HYPOTHESIS. `research/typing_54_verify_41c5_entry_limits.md` — prepared static checks and explicit pending independent/ROOT/integration validation.
+
+
+- [typing_27_palette_map_tail](research/typing_27_palette_map_tail.md) — bounded current private verification; entry/purpose HYPOTHESIS.
+- [typing_27_verify_palette_map_tail](research/typing_27_verify_palette_map_tail.md) — bounded current private verification; entry/purpose HYPOTHESIS.
+- [typing_2e_wait_glyph_tail](research/typing_2e_wait_glyph_tail.md) — bounded current private verification; entry/purpose HYPOTHESIS.
+- [typing_2e_verify_wait_glyph_tail](research/typing_2e_verify_wait_glyph_tail.md) — bounded current private verification; entry/purpose HYPOTHESIS.
+- [typing_29_leaf_lcdc_ly_limits](research/typing_29_leaf_lcdc_ly_limits.md) — bounded current private verification; entry/purpose HYPOTHESIS.
+- [typing_29_verify_leaf_lcdc_ly_limits](research/typing_29_verify_leaf_lcdc_ly_limits.md) — bounded current private verification; entry/purpose HYPOTHESIS.

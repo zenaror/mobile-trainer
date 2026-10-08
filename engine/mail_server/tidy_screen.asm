@@ -394,11 +394,11 @@ Function_2E_4EB1::
 	ret
 
 Function_2E_4EB2:: ; 2E:4EB2
-	; [HYPOTHESIS] complete 11-byte function (ld b,$3C ; loop: push bc ; call $0464 ; pop bc ; dec b
-	; ; jr nz ; ret): waits 60 x the 00:0464 routine (executed 21685 times, 13 scenarios); jr lands
-	; on its own instruction start; no caller found (entry unproven) [verifier: downgraded
-	; PROBABLE->HYPOTHESIS: complete-looking function with no caller, no table entry and no flow
-	; from/into proven code; "decodes cleanly" is not an entry]
+	; [HYPOTHESIS] Entry/purpose unproved; 11 bytes/7 starts [4EB2,4EBD), RET4EBC.
+	; B=3C; pushBC/call00:0464/popBC/DEC/JRNZ4EB4: 60 normal calls, not always 60 frames.
+	; LCD-off helper skips waiting; LCD-on needs IRQ progress. Valid stack protects C; B ends0.
+	; No explicit WRAM switch; historical helper execution does not establish this entry.
+	; Computed/coded entries remain open in finite inventories; no natural/hardware promotion.
 	ld b, $3C
 .loop ; 2E:4EB4
 	push bc
@@ -533,11 +533,11 @@ Label_2E_4F99::
 	ret
 
 Function_2E_4F9A:: ; 2E:4F9A
-	; [HYPOTHESIS] complete function (ld a,[C2EE] ; cp 0 ; ret z ; dec a ; ld [C2EE],a ; call $4FA9
-	; ; jr -> ret at 4F99): counted loop around the function 2E:4FA9, which is a PROBABLE entry
-	; (called from 2E:4F42); the jr target 4F99 is a ret inside the previous code region; no caller
-	; of 4F9A found [verifier: downgraded PROBABLE->HYPOTHESIS: complete-looking function with no
-	; caller, no table entry and no flow from/into proven code; "decodes cleanly" is not an entry]
+	; [HYPOTHESIS] 15 bytes/7 starts [4F9A,4FA9): C2EE=0 RETZ, else decrement once/CALL4FA9.
+	; JR4FA7=18F0 targets RET4F99, not4F9A; the 33 siblings with18F1 are distinct paths.
+	; Glyph wrapper farcalls7F:42C3, restores BC/DE/HL then E+=6 without carry; no space load.
+	; Blitter can remap C0A0 and select WRAM2/3; nonzero path does not restore prior WRAM bank.
+	; Stack/trampoline/coords/colours/buffer prerequisites; entry/purpose and absence stay finite.
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
