@@ -43,3 +43,8 @@ These results add no natural entry, visual, hardware or English evidence and sup
 ## Original bank7C integration verified (2026-10-08)
 
 Two existing comments qualify the111-byte fragment at7C:7D8D:84 CPU bytes plus27 inline farcall data bytes,39 starts and nine farcalls. Direct entry leaves the first argument A unspecified; the final JR at7DFA targets7D82, and there is no RET in this bounded interval. No routine purpose or natural entry is established. Neutral symbols, emitted bytes and metadata positions remain unchanged. Executor, independent reviewer and ROOT each completed one new canonical37 with36rc0 plus expected ordinal27 rc2/exact97-byte diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols and palettes pass, and all671 actual outputs equal the independently accepted private pass. Fresh published validation follows.
+
+
+## Fresh bank7C publication verified (2026-10-08)
+
+Original d16493abbdfd68ed1321fb0dbda533fbe369d945 passed make, compare, sym-check and palette-check once each in a new GitHub clone. All4198 tracked sources match published Git blobs and all671 outputs match the accepted pass. SHA-256 OK and RESULT: IDENTICAL establish original-ROM reconstruction; no new natural entry or hardware evidence is inferred.

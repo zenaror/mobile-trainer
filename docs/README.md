@@ -259,3 +259,6 @@ The [semantic note](research/typing_26_compare_word_deltas_alias.md) and [verifi
 
 - [Static choreography and entry limits](research/typing_7c_7d8d_choreography.md): incoming-A distinction, exact bound, polling/far-call contracts and finite natural-zero evidence; entry/purpose remain HYPOTHESIS.
 - [Prepared verification](research/typing_7c_verify_7d8d_choreography.md): two comment rows, unchanged LOC/emitters/locators, portable proof provenance and pending gates; future parent/integration NULL, English UNVALIDATED.
+
+- [Neutral 2D:4E42/4E54 scan and early-RET stack contracts](research/typing_2d_4e42_4e54_stack_scan.md) - PROBABLE static width12-cell scan, local flags and WRAM/RAMG effects; saved-BC transfer does not establish intended bug/error behavior or natural entry.
+- [Verification of the 2D neutral comment proposal](research/typing_2d_verify_4e42_4e54_stack_scan.md) - original74-byte witness, independent-before-foreign provenance, finite189 evidence and nonemitting/prefix checks; future owner/parent/gates NULL.
