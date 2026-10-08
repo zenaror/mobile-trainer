@@ -351,3 +351,13 @@ PROBABLE conditional mechanics: [73:6143,6149) and [73:6149,614F) are two six-by
 ## Original bank73 integration verified (2026-10-08)
 
 Seven comments describe two independent6-byte/3-start fragments at73:6143 and6149. Each reads C0F8 or C0F9, performs XOR1 and returns without a store or bank selection. The RETs at6148/614E prevent ordinary fallthrough into614F; arbitrary byte inputs do not make XOR1 a general Boolean negation. Entry and purpose remain HYPOTHESIS; neutral symbols and all emitted bytes remain unchanged. Executor, independent reviewer and ROOT each completed a new canonical37:36rc0 plus expected ordinal27rc2 with its exact97-byte diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols and palettes pass, and all671 actual outputs equal the accepted private pass. Fresh published validation follows. ROOT guarded source hashes each command; no fresh native or actual English-owner closure is claimed.
+
+
+### Static SRAM boundaries at 70:46A6
+
+PROBABLE bounded mechanics: [70:46A6,4740) has three returning paths and [70:4740,477F) is a separate unlabelled candidate. Both save FFF5/FF8C, use FFF2 scratch and select SRAM1; no WRAM shadow access occurs. Shadow-based restoration and flags have path-specific stack/bank prerequisites. Tested field purpose, entry and natural reachability remain HYPOTHESIS; no alias or emitted byte changes. See [boundary note](docs/research/naming_70_46a6_sram_boundaries.md) and [verification limits](docs/research/naming_70_verify_46a6_sram_boundaries.md).
+
+
+## Original bank70 integration verified (2026-10-08)
+
+Twenty-five comments qualify the217-byte/107-start region at70:46A6 and the unlabelled segment at4740. It saves the FFF5/FF8C SRAM shadows and uses FFF2 as scratch, with no WRAM selector. The three first-region RETs and final477E RET delimit ordinary paths. Random16/division produce bounded2..4 or0A..0F values without a probability claim; hardware restoration depends on coherent shadows and a stable stack. Entry and purpose remain HYPOTHESIS; neutral symbols and all emitted bytes remain unchanged. Executor, independent reviewer and ROOT each completed a new canonical37:36rc0 plus expected ordinal27rc2 with its exact97-byte diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols and palettes pass, and all671 actual outputs equal the accepted private pass. Fresh published validation follows. ROOT guarded source hashes each command; no fresh native or actual English-owner closure is claimed.

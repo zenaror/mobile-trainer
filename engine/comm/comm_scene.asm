@@ -868,11 +868,11 @@ CommScene_UploadTextBox:: ; 70:466B
 	ret
 
 Function_70_46A6:: ; 70:46A6
-	; [HYPOTHESIS] SRAM-access helper of the shape shared by many executed routines (save FFF2/FF8D,
-	; select SRAM bank via [$4000], enable via $0A -> [$0000], the first 20 bytes also occur at
-	; 00:15BE, 0E:4028, 55:7011, 65:4126, 67:4051, 68:43C1 ...); clean linear decode to ret, ends
-	; exactly at the executed Function_70_477F; no caller, table word or far-call site references it
-	; anywhere in the ROM (raw scan), so entry unproven
+	; [HYPOTHESIS] Bank70 [46A6,4740): 75 instruction starts across three returning paths.
+	; Saves SRAM shadows FFF5/FF8C; FFF2 is scratch. Selects SRAM bank1 and enables via 0A.
+	; Tests A9ED bit6/mask30 and A9EE zero; eligible paths write A9EE using ROM0 math.
+	; RET4703/4729/473F terminate paths; the unlabelled [4740,477F) prologue is separate.
+	; No maintained symbol caller established by bounded static search; computed entries stay open.
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
 	push af
@@ -920,11 +920,11 @@ Function_70_46A6:: ; 70:46A6
 	ret
 
 .l4704 ; 70:4704
-	; [HYPOTHESIS] SRAM-access helper of the shape shared by many executed routines (save FFF2/FF8D,
-	; select SRAM bank via [$4000], enable via $0A -> [$0000], the first 20 bytes also occur at
-	; 00:15BE, 0E:4028, 55:7011, 65:4126, 67:4051, 68:43C1 ...); clean linear decode to ret, ends
-	; exactly at the executed Function_70_477F; no caller, table word or far-call site references it
-	; anywhere in the ROM (raw scan), so entry unproven
+	; [HYPOTHESIS] Internal JR NZ target from 70:46D9, using the two AF saves at 46A6.
+	; ROM0 Random16/Divide16 provide remainder modulo6; writes A9EE = 0A + remainder.
+	; Restores FF8C/[$4000] and FFF5/[$0000] from saved shadows, then returns A=1 at4729.
+	; Ordinary valid-stack/stable-bank contract required; restored shadows are not hardware reads.
+	; No routine-purpose or natural-entry promotion; this path does not fall through to477F.
 	call Random16
 	ld de, $0006
 	call Divide16
@@ -945,11 +945,11 @@ Function_70_46A6:: ; 70:46A6
 	ret
 
 .l472A ; 70:472A
-	; [HYPOTHESIS] SRAM-access helper of the shape shared by many executed routines (save FFF2/FF8D,
-	; select SRAM bank via [$4000], enable via $0A -> [$0000], the first 20 bytes also occur at
-	; 00:15BE, 0E:4028, 55:7011, 65:4126, 67:4051, 68:43C1 ...); clean linear decode to ret, ends
-	; exactly at the executed Function_70_477F; no caller, table word or far-call site references it
-	; anywhere in the ROM (raw scan), so entry unproven
+	; [HYPOTHESIS] Shared tail of 46A6, reached by JRs at46C7/46CC/46D2 on failed tests.
+	; FFF2 carries scratch A; two POP AF restore SRAM shadows FF8C and FFF5 and their registers.
+	; XOR A returns A=0, Z=1/N=H=C=0 under the ordinary valid-stack/stable-bank contract.
+	; RET473F prevents fall-through into the following unlabelled candidate prologue at4740.
+	; Direct entry here would require compatible saved-stack context; standalone entry unproven.
 	ldh [hScratchA], a
 	pop af
 	ldh [hSRAMBank], a
@@ -963,11 +963,11 @@ Function_70_46A6:: ; 70:46A6
 	xor a, a
 	ret
 
-	; [HYPOTHESIS] SRAM-access helper of the shape shared by many executed routines (save FFF2/FF8D,
-	; select SRAM bank via [$4000], enable via $0A -> [$0000], the first 20 bytes also occur at
-	; 00:15BE, 0E:4028, 55:7011, 65:4126, 67:4051, 68:43C1 ...); clean linear decode to ret, ends
-	; exactly at the executed Function_70_477F; no caller, table word or far-call site references it
-	; anywhere in the ROM (raw scan), so entry unproven
+	; [HYPOTHESIS] Unlabelled candidate entry70:4740, [4740,477F): 63 bytes/32 instruction starts.
+	; Saves FFF5/FF8C, uses FFF2 scratch, selects SRAM1; A9ED bit7 chooses returned B/A=0 or1.
+	; Restores SRAM shadows/registers from saved values; incoming mirror consistency is assumed.
+	; RET477E ends before477F; neither RET473F nor RET477E ordinarily falls through.
+	; Entry/purpose unproven; no label added. Computed or overlapping entries are not excluded.
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
 	push af
@@ -989,11 +989,11 @@ Function_70_46A6:: ; 70:46A6
 	jr .l4769
 
 .l4767 ; 70:4767
-	; [HYPOTHESIS] SRAM-access helper of the shape shared by many executed routines (save FFF2/FF8D,
-	; select SRAM bank via [$4000], enable via $0A -> [$0000], the first 20 bytes also occur at
-	; 00:15BE, 0E:4028, 55:7011, 65:4126, 67:4051, 68:43C1 ...); clean linear decode to ret, ends
-	; exactly at the executed Function_70_477F; no caller, table word or far-call site references it
-	; anywhere in the ROM (raw scan), so entry unproven
+	; [HYPOTHESIS] Internal JR NZ target from70:4761 in the candidate segment at4740.
+	; This path sets B=1; the other sets B=0 at4763. Both join the restore tail at4769.
+	; The two saved AF values restore FF8C/[$4000] and FFF5/[$0000], with FFF2 scratch.
+	; LD A,B returns the bit7-derived value at RET477E under the ordinary stack/bank contract.
+	; This static bit read proves neither the field domain nor a caller/natural entry.
 	ld b, $01
 .l4769 ; 70:4769
 	ldh [hScratchA], a

@@ -29,3 +29,8 @@ The two new notes receive this documentation-only appendix after37; code/outputs
 ## Original bank73 integration verified (2026-10-08)
 
 Seven comments describe two independent6-byte/3-start fragments at73:6143 and6149. Each reads C0F8 or C0F9, performs XOR1 and returns without a store or bank selection. The RETs at6148/614E prevent ordinary fallthrough into614F; arbitrary byte inputs do not make XOR1 a general Boolean negation. Entry and purpose remain HYPOTHESIS; neutral symbols and all emitted bytes remain unchanged. Executor, independent reviewer and ROOT each completed a new canonical37:36rc0 plus expected ordinal27rc2 with its exact97-byte diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols and palettes pass, and all671 actual outputs equal the accepted private pass. Fresh published validation follows. ROOT guarded source hashes each command; no fresh native or actual English-owner closure is claimed.
+
+
+## Fresh published bank73 verification
+
+Published MAIN67d95d4ae6a6e5eb9d48092d9264e6d110bcbef2 was cloned from GitHub into a new private checkout. With the original reference supplied privately, make, compare, sym-check and palette-check each completed rc0 once. All4204 tracked source files equal their Git blobs and all671 outputs equal the accepted private73 pass. The checkout is clean; fresh source modes are0664. This does not add natural execution, visual or hardware evidence.

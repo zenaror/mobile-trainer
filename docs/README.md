@@ -271,3 +271,7 @@ The [semantic note](research/typing_26_compare_word_deltas_alias.md) and [verifi
 
 - [73:6143 split returns](research/naming_73_6143_split_returns.md) — bounded two six-byte LOAD/XOR1/RET segments; entry/domain/purpose HYPOTHESIS.
 - [73:6143 verification limits](research/naming_73_verify_6143_split_returns.md) — byte/source, finite table/caller context and separate private validation.
+
+
+- [70:46A6 SRAM boundaries](research/naming_70_46a6_sram_boundaries.md) — separate returning paths, SRAM shadows and bounded arithmetic; purpose/entry HYPOTHESIS.
+- [70:46A6 verification limits](research/naming_70_verify_46a6_sram_boundaries.md) — current private scope, finite contexts and independent byte validation.
