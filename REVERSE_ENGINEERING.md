@@ -299,3 +299,18 @@ A new GitHub clone of original b91d60c43bd55c1d62f7704db570753062a74e58 passed m
 ## Original bank6C integration verified (2026-10-08)
 
 Three comment rows in help_script.asm qualify the unobserved31-byte fragment at6C:61AC. The counter address is C0DA; conventional local behavior decrements it, reloads35 on expiry, toggles C0D9 and calls the bank7 sprite-position helper with HL=DA20. Entry, purpose and broader register/bank contracts remain HYPOTHESIS. Neutral symbols, all emitting rows and metadata locators stay unchanged. Executor, independent reviewer and ROOT each completed a new canonical37,36rc0 and expected ordinal27 rc2/exact97-byte schema diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols and palettes pass, and all671 actual outputs are byte-exact to the accepted private implementation. This validates reconstruction, not natural reachability. Fresh GitHub checks follow publication.
+
+
+## Prepared bank 7C:7D8D choreography header (2026-10-08)
+
+The neutral `Function_7C_7D8D` retains PROBABLE static polling and HYPOTHESIS entry/purpose. Direct entry passes incoming A; prefix 7D8B(A=0) remains unproved. Exact 111-byte/39-start/nine-far-triple scope, final JR7D82 and finite natural-zero evidence are preserved. [Analysis](docs/research/typing_7c_7d8d_choreography.md) and [prepared verification](docs/research/typing_7c_verify_7d8d_choreography.md) record a comment-only historical aa61 proposal; future parent/integration and gates are NULL. English is UNVALIDATED.
+
+
+## Fresh bank6C publication verified (2026-10-08)
+
+A new GitHub clone of135019cdc384ebf17a6d4f1a1773b74a9d6fd75c passed make, compare, sym-check and palette-check once each. The original ROM is byte-identical, all4196 tracked sources equal published Git blobs, and all671 outputs equal the accepted pass. Source filesystem0664 and Git100644 remain distinct. This adds reconstruction evidence only.
+
+
+## Original bank7C integration verified (2026-10-08)
+
+Two existing comments qualify the111-byte fragment at7C:7D8D:84 CPU bytes plus27 inline farcall data bytes,39 starts and nine farcalls. Direct entry leaves the first argument A unspecified; the final JR at7DFA targets7D82, and there is no RET in this bounded interval. No routine purpose or natural entry is established. Neutral symbols, emitted bytes and metadata positions remain unchanged. Executor, independent reviewer and ROOT each completed one new canonical37 with36rc0 plus expected ordinal27 rc2/exact97-byte diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols and palettes pass, and all671 actual outputs equal the independently accepted private pass. Fresh published validation follows.

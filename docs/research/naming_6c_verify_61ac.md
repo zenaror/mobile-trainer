@@ -78,3 +78,8 @@ The 147 frozen .py source byte hashes, sizes and timestamps were preserved after
 ## Original bank6C integration verified (2026-10-08)
 
 Three comment rows in help_script.asm qualify the unobserved31-byte fragment at6C:61AC. The counter address is C0DA; conventional local behavior decrements it, reloads35 on expiry, toggles C0D9 and calls the bank7 sprite-position helper with HL=DA20. Entry, purpose and broader register/bank contracts remain HYPOTHESIS. Neutral symbols, all emitting rows and metadata locators stay unchanged. Executor, independent reviewer and ROOT each completed a new canonical37,36rc0 and expected ordinal27 rc2/exact97-byte schema diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols and palettes pass, and all671 actual outputs are byte-exact to the accepted private implementation. This validates reconstruction, not natural reachability. Fresh GitHub checks follow publication.
+
+
+## Fresh bank6C publication verified (2026-10-08)
+
+A new GitHub clone of135019cdc384ebf17a6d4f1a1773b74a9d6fd75c passed make, compare, sym-check and palette-check once each. The original ROM is byte-identical, all4196 tracked sources equal published Git blobs, and all671 outputs equal the accepted pass. Source filesystem0664 and Git100644 remain distinct. This adds reconstruction evidence only.
