@@ -30,12 +30,12 @@ Data_28_4820::
 	INCBIN "gfx/mail/body_view/mail_body_tilemap.tilemap"
 	INCBIN "gfx/mail/body_view/mail_body_tilemap.attrmap"
 
-; ---- data $4AF0-$4B70 (128 bytes) [PROBABLE] 16 palettes x 4 RGB555 words (0x80 bytes, all bit15 clear) directly after the tilemap 4820-4AF0; read by executed code in 1/18 scenarios
+; ---- data $4AF0-$4B30 (64 bytes) [CONFIRMED] BG palette: 8 x 4 RGB555 words (all bit15 clear), original-exact; 2 literal loader site(s) (28:4065 2B:7BBC) pass bank $28, BC=$0040 and DE=$D800 to 4F:4000 Palette_LoadToBuffer, selecting WRAM bank 7 and copying through 00:050C; all 64 bytes read in each of 14/69 existing original-ROM scenarios, with all five loader instruction starts observed; no new visual or hardware observation Original JP source/static/natural evidence only; English runtime/layout/visual/fidelity/hardware UNVALIDATED.
 
 MailBody_BgPalette:: ; 28:4AF0
 Palette_28_4AF0::
 	INCLUDE "gfx/mail/body_view/mail_body_bg_palette.pal"
-
+; ---- data $4B30-$4B70 (64 bytes) [CONFIRMED] OBJ palette: 8 x 4 RGB555 words (all bit15 clear), original-exact; 2 literal loader site(s) (28:4076 2B:7BCD) pass bank $28, BC=$0040 and DE=$D840 to 4F:4000 Palette_LoadToBuffer, selecting WRAM bank 7 and copying through 00:050C; all 64 bytes read in each of 14/69 existing original-ROM scenarios, with all five loader instruction starts observed; no new visual or hardware observation Original JP source/static/natural evidence only; English runtime/layout/visual/fidelity/hardware UNVALIDATED.
 MailBody_ObjPalette:: ; 28:4B30
 	INCLUDE "gfx/mail/body_view/mail_body_obj_palette.pal"
 
