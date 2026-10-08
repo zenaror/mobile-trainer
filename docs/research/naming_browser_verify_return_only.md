@@ -29,3 +29,8 @@ Actual source changes, ROOT/independent adoption, DOC suffix rebasing, fresh val
 ## Original integration validated (2026-10-08)
 
 ROOT integrated the two non-emitting aliases on published parent `734dc4f`, preserving the neutral labels. Executor, independent reviewer and ROOT each completed one canonical37: 36 commands returned zero, and ordinal27 retained its exact historical 97-byte schema diagnostic at rc2. Actual `make` reports SHA-256 OK and RESULT: IDENTICAL; sym-check and palette-check passed. All 671 actual outputs match the independently accepted private implementation. SYM has 15,538 labels and 51 constants, with only the two expected aliases added. This establishes original-ROM equivalence, not natural entry coverage or a domain purpose. Fresh GitHub validation follows publication.
+
+
+## Fresh published RET validation (2026-10-08)
+
+Original `a609e884bff63f4bcc56d034a597eeecc9ac6e6c` rebuilt in a new GitHub clone. Fresh make returned0 and SHA-256 OK; the reference was absent at that first build. After adding the private original reference, make compare, make sym-check and make palette-check each returned0; comparison was IDENTICAL. The make command was not repeated after a textual assertion incorrectly required comparison wording. All4192 tracked sources match the publication and all671 outputs match the accepted pass. Source/output filesystem modes were measured0664, independently of Git100644. Runtime and purpose remain qualified.

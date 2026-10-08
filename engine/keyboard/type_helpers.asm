@@ -85,12 +85,12 @@ Data_55_6EE1::
 	db $00, $00, $00, $00, $00, $01, $01, $01, $01, $01, $01
 
 Function_55_6EEC:: ; 55:6EEC
-	; [PROBABLE] lookup routine ld hl,$6EF7 ; add a,l ; ld l,a ; ld a,0 ; adc a,h ; ld h,a ; ld
-	; a,[hl] ; ret: byte-exact sibling of the executed routines at 6E94/6EAA/6EC0/6ED6/6F02/6F18
-	; (each followed by its 11-byte table); called by call $6EEC at 55:5DF8 [verifier: entry
-	; evidence = fixed-stride periodicity: the executed siblings 6ED6 and 6F02 sit exactly $16 bytes
-	; (8-insn routine + 11-byte table) either side of 6EEC, all with identical code bytes except the
-	; base operand; the caller 55:5DF8 is itself HYPOTHESIS]
+	; [PROBABLE] branchless ROM55 byte lookup: HL=$6EF7+entry A; A=[HL]; BC/DE unchanged.
+	; Ordinary stable-bank/valid-stack flow leaves F=$00; RET consumes the caller return only.
+	; A=0..10 returns 0 for 0..5 and 1 for 6..10; no bounds check protects later code/data.
+	; Code/data and the sole symbol CALL at 55:5DF8 are unobserved in the 69 natural runs;
+	; caller 5DF5/target 5F29 remain HYPOTHESIS. Its return-9 policy is not established live.
+	; Observed 6ED6/6F02 siblings lie +/-$16 bytes away; periodicity does not prove this entry.
 	ld hl, Data_55_6EF7
 	add a, l
 	ld l, a

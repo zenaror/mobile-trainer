@@ -246,3 +246,30 @@ A portable private proposal adds PROBABLE ReturnOnly aliases at 4C:4016 and 4E:5
 ## Original integration validated (2026-10-08)
 
 ROOT integrated the two non-emitting aliases on published parent `734dc4f`, preserving the neutral labels. Executor, independent reviewer and ROOT each completed one canonical37: 36 commands returned zero, and ordinal27 retained its exact historical 97-byte schema diagnostic at rc2. Actual `make` reports SHA-256 OK and RESULT: IDENTICAL; sym-check and palette-check passed. All 671 actual outputs match the independently accepted private implementation. SYM has 15,538 labels and 51 constants, with only the two expected aliases added. This establishes original-ROM equivalence, not natural entry coverage or a domain purpose. Fresh GitHub validation follows publication.
+
+
+## Prepared original bank 55 lookup comments (2026-10-08)
+
+A private five-path comment-only proposal on historical original `aa61d893`
+retains neutral `Function_55_6EEC`/`Data_55_6EF7` and their PROBABLE status.
+The bounded static contract returns ROM55[$6EF7+unsigned A], preserves
+BC/DE and leaves ADC-derived F=$00; indices 0–5 yield zero and 6–10 one,
+with no bounds check. Caller/handler entry, natural input domain and purpose
+remain HYPOTHESIS. The correction distinguishes conditional selection of
+55:5F29 from its unconditional CALL at 55:5F2A. Only six ASM comment rows
+change. [Analysis](docs/research/naming_keyboard_55_lookup.md) and
+[prepared verification](docs/research/naming_keyboard_55_verify_lookup.md)
+record the zero candidate observations in the bounded original corpus and
+the unchanged source vectors. Future parent is unassigned; it is queued after
+23→24→27→1A, 2C→4F and the browser return duo. Build/canonical37, rebinding,
+integration and byte comparison remain pending; this is not an adoption result.
+
+
+## Fresh published RET validation (2026-10-08)
+
+Original `a609e884bff63f4bcc56d034a597eeecc9ac6e6c` rebuilt in a new GitHub clone. Fresh make returned0 and SHA-256 OK; the reference was absent at that first build. After adding the private original reference, make compare, make sym-check and make palette-check each returned0; comparison was IDENTICAL. The make command was not repeated after a textual assertion incorrectly required comparison wording. All4192 tracked sources match the publication and all671 outputs match the accepted pass. Source/output filesystem modes were measured0664, independently of Git100644. Runtime and purpose remain qualified.
+
+
+## Original integration verified (2026-10-08)
+
+The bank55 lookup comment pass was rebased on published original a609e88. ROOT executed one canonical37, with36rc0 and the expected ordinal27 rc2/97-byte historical schema diagnostic. make reported SHA-256 OK and RESULT: IDENTICAL; symbols/palettes passed and all671 outputs remain byte-exact to the private pass. Neutral labels, emitting source and metadata remain unchanged. Independent verification is a composite: its first1–5 succeeded, ordinal6 stopped because private source0444 made a copied PNG read-only, then the failed PNG test and remaining tests/ordinals7–37 completed in a writable private copy. The successful commands were not replayed; this is not a single independent37 all-pass result. Domain/entry remain HYPOTHESIS. Fresh validation follows publication.
