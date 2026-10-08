@@ -415,3 +415,27 @@ Twenty-five comments qualify the217-byte/107-start region at70:46A6 and the unla
 ## English parity through bank70 (2026-10-08)
 
 The English branch incorporates original MAINfb79c005557684f0b59ba6130ad46db18eaf3fe3 by a normal merge, preserving the552 translated resources and its documentation chronology. Nine paths incorporate the73/70 comment qualifications and four new notes. Private and actual English make, symbol, palette, PNG, graphics-export and sprite-chain checks each completed rc0 once; all675 actual outputs equal the accepted private pass. English ROM SHA-256 remains51a808c52a7f6bc587f27cc0d75fc875e87e78102c9189764b301620979c5e22, with15543 labels/51 constants. Original MAINfb79c00 also passed a fresh GitHub make/compare/symbol/palette verification with4206 source files and671 exact outputs. Separate new makeenglish/scanner private executor and independent37+English-check proofs are accepted; actual MAIN feature integration follows the75/54 original passes. Rendering, layout, natural menus and hardware remain UNVALIDATED.
+
+
+### Static return boundaries at 75:7E89
+
+PROBABLE43-byte/27-start sequence returns at7EAD/7EB3 rather than falling into7EB4. Saved oldC6C1 byte/flags and same-bank75:5F10 call require balanced stack, stable bank and ordinary callee return; pointer arithmetic wraps, no success/ABI/domain guarantee. Entry/purpose HYPOTHESIS. See [boundary note](docs/research/naming_75_7e89_return_boundaries.md) and [verification limits](docs/research/naming_75_verify_7e89_return_boundaries.md).
+
+
+## Original bank75 integration verified (2026-10-08)
+
+Four comments qualify the43-byte/27-start fragment at75:7E89. Its command byte is read from(P+2)mod65536 and XOR80 toggles bit7, rather than guaranteeing that bit is set. RET Z7EAD and RET7EB3 end ordinary paths before7EB4. The same-bank packet-send callee can loop or change fields; POP AF discards its carry result, and later local bit0 handling does not restore the entire saved flags byte. No unconditional completion, preservation or caller ABI is claimed. Entry and purpose remain HYPOTHESIS; neutral symbols and all emitted bytes remain unchanged. Executor, independent reviewer and ROOT each completed a new canonical37:36rc0 plus expected ordinal27rc2 with its exact97-byte diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols and palettes pass, and all671 actual outputs equal the accepted private pass. Fresh published validation follows. ROOT guarded source hashes each command; no fresh native or actual English-owner closure is claimed.
+
+### Prospective ORIGINAL bank54 entry limits
+
+A bounded prospective proposal preserves Function_54_41C5 and corrects six header comment rows: the ordinary entry54:41C5-41D4 ends at its firstRET after seven instructions/15 original-ROM bytes; the following poll is separate. Body PROBABLE; entry/purpose HYPOTHESIS. Analysis and prepared verification: docs/research/typing_54_41c5_entry_limits.md and docs/research/typing_54_verify_41c5_entry_limits.md. No runtime/build/publication or queue-completion claim is added.
+
+
+## Original bank54 integration verified (2026-10-08)
+
+The bounded bank54:41C5 fragment has seven instruction starts and15 bytes through RET41D3. It initializes C1DB=3, C1D8=1 and C1D9=0; the polling body at41D4 is outside that bounded path. Local return and register effects assume a valid nonaliasing stack and no intervening interrupt. Entry and purpose remain HYPOTHESIS; neutral symbols and all emitted bytes remain unchanged. Executor, independent reviewer and ROOT each completed a new canonical37:36rc0 plus expected ordinal27rc2 with its exact97-byte diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols and palettes pass, and all671 actual outputs equal the accepted private pass. Fresh published validation follows. ROOT guarded source hashes each command; no fresh native or actual English-owner closure is claimed.
+
+
+## English parity with original bank75 and54 verified (2026-10-08)
+
+The combined parity merge preserves all552 language resources and the complete prior English documentation chronology. Private executor and ROOT each ran one six-check pipeline; all checks returned zero. ROOT held4214 source hashes throughout the six commands, compared all675 outputs with the accepted private version and retained English ROM SHA-25651a808c52a7f6bc587f27cc0d75fc875e87e78102c9189764b301620979c5e22. SYM15543 labels/51 constants and MAP remain exact; no new English rendering, layout, fidelity, natural execution or hardware evidence is claimed. Fresh publication verification follows.
