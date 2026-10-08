@@ -482,11 +482,11 @@ Table_2B_6863::
 	ret
 
 Function_2B_687C:: ; 2B:687C
-	; [HYPOTHESIS] part of a switch-like function at 2B:687C-6909 (push bc; ld a,c; cp n; jr nz
-	; next; ld de,$68xx ; ld hl,$DA10 ; call $0A65 ; ld hl,$DA20 ; ld de,$78xx ; ld a,$2B ; ld b,$81
-	; ; far call 00:0A82). Block 687C is entered by the 'jr nz' of the previous block (in-span
-	; targets) and continues into the PROBABLE far-call site that follows; the function entry 687C
-	; has no caller/pointer in the ROM
+	; [HYPOTHESIS] 158B/60 CPU starts [687C,691A), four cases; 12 farcall data bytes separate.
+	; Prior24B table6863..687B plus RET687B; previous-JR entry wording was contradicted.
+	; C dispatches internal branches; each normal path balances PUSH/POP BC and returns.
+	; Sprite helpers require coherent stack/mapping/bank/buffers; no arbitrary-entry ABI.
+	; Purpose/entry remain unproved; executed helper/tail and raw words do not prove entry.
 	push bc
 	ld a, c
 	cp a, $00
