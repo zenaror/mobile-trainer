@@ -253,3 +253,9 @@ The [semantic note](research/typing_26_compare_word_deltas_alias.md) and [verifi
 * [Prepared verification](research/naming_6c_verify_61ac.md)
   — three comments with exact 1,019-line owner/noncomment vectors, historical
   aa61 baseline only; future parent and actual 37 results remain null.
+
+
+## Prepared bank 7C:7D8D neutral header (2026-10-08)
+
+- [Static choreography and entry limits](research/typing_7c_7d8d_choreography.md): incoming-A distinction, exact bound, polling/far-call contracts and finite natural-zero evidence; entry/purpose remain HYPOTHESIS.
+- [Prepared verification](research/typing_7c_verify_7d8d_choreography.md): two comment rows, unchanged LOC/emitters/locators, portable proof provenance and pending gates; future parent/integration NULL, English UNVALIDATED.
