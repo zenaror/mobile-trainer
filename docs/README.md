@@ -226,3 +226,6 @@ The [semantic note](research/typing_26_compare_word_deltas_alias.md) and [verifi
 
 - [Banks 2C and 4F: bounded header corrections](research/typing_2c_4f_header_limits.md) -- prospective combined comment-only pass; historical aa61 base, future parent and validation pending.
 - [Prepared static verification: 2C/4F header limits](research/typing_2c_4f_verify_header_limits.md) -- seven comment rows, preserved vectors/locators and qualified natural absence; no gate or publication claim.
+
+
+- [Published 2C/4F header limits](research/typing_2c_4f_verify_header_limits.md): SOURCE `f19d9c6`, separate accepted canonical37 batteries (36 rc0 + historical schema rc2), clean GitHub rebuild IDENTICAL and 671 output files unchanged; confidence limits and direct-validator provenance are retained. The unused-frame/assets/Pokemon audit remains required for completion.
