@@ -16,7 +16,7 @@ Gfx_AddrBookShared_Tiles8400:: ; 28:4FD0
 Data_28_4FD0::
 	INCBIN "gfx/address_book/shared_tiles_bank28/tiles_4fd0.2bpp"
 
-; ---- data $51D0-$5210 (64 bytes) [PROBABLE] 8 palettes x 4 RGB555 words (0x40 bytes, all bit15 clear; partly read by executed code) right before the object tables at 5210
+; ---- data $51D0-$5210 (64 bytes) [CONFIRMED] BG palette: 8 x 4 RGB555 words (all bit15 clear), original-exact; 1 literal loader site(s) (2F:460C) pass bank $28, BC=$0040 and DE=$D800 to 4F:4000 Palette_LoadToBuffer, selecting WRAM bank 7 and copying through 00:050C; all 64 bytes read in each of 10/69 existing original-ROM scenarios, with all five loader instruction starts observed; no new visual or hardware observation Original JP source/static/natural evidence only; English runtime/layout/visual/fidelity/hardware UNVALIDATED.
 
 Palette_AbookList_Bg:: ; 28:51D0
 Palette_28_51D0::
