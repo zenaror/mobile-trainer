@@ -1,0 +1,11 @@
+# Prepared static verification: header limits in banks 2C and 4F
+
+This is a preparation record, not a completed gate or publication receipt. The base aa61 is historical and the future parent, updated owner bindings, ENV/native captures, runner, preseal and ROOT authorization remain NULL until the current header-family publication and a new explicit OWN/rebase.
+
+Independent 2C OWN 4fff64dc and 4F OWN 52a67b87 were sealed before their specific foreign comparisons. The shared executor packet had already been byte-read during the 2C review; the 4F fields were first interpreted after the separate 4F OWN. ROOT briefs and existing source comments were disclosed as prior context. Comparisons 95bc249b and c33ba8bc agree on the bounded raw facts and qualified natural absence.
+
+The private preparation checks all 348 ASM/inc vectors with comments removed and blank rows retained, including complete globals/local scopes and 15,536 namespace entries. They remain unchanged. All 289 metadata TSV byte hashes remain unchanged; the existing four active tables retain 649 locators and the historical literal path:line references retain 1,947 occurrences. No remapping is needed. Seven existing comment rows change, four in mail_title_entry.asm and three in palette.asm. No emitting body, data literal, label or alias changes.
+
+The evidence corpus is the existing 69 natural coverage files, 69 merged data-access files, 50 available callgraphs and coverage union. It contains no matching mode-3 init/step/driver rows or reads of the two table words at 419A–419C and 4239–423B. General Start/Step/fill/blend helpers execute in 68 scenarios; that does not promote the unobserved case. Full-ROM overlapping address-word occurrences are not caller evidence. No forced scenario, emulator or hardware test was run.
+
+The original OWN/proofs and their preparation negatives remain immutable. A private 4F producer initially selected 343 ASM files while asserting 348; it stopped before output and was corrected in a new version to include the five INC files. This is not a gate or source divergence. No build, sym-check, ROM equality, new ABI audit, ONE37 completion or fresh clone is claimed for this proposal. A future combined validation requires an explicitly approved new protocol; no replay of unrelated accepted gates is proposed.
