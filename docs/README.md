@@ -233,3 +233,13 @@ The [semantic note](research/typing_26_compare_word_deltas_alias.md) and [verifi
 
 - [Browser dispatch return leaves](research/naming_browser_return_only.md) -- portable prospective PROBABLE aliases at 4C:4016/4E:58AB, neutral labels retained and bank-qualified limits.
 - [Prepared verification: browser ReturnOnly aliases](research/naming_browser_verify_return_only.md) -- two added globals, existing instructions/comments/LOC preserved; future output bindings and validation pending.
+
+
+## Prepared original bank 55 lookup evidence limits (2026-10-08)
+
+* [Bounded lookup contract and purpose limits](research/naming_keyboard_55_lookup.md)
+  — neutral PROBABLE lookup/data, zero candidate observations in the original
+  bounded corpus, and conditional handler selection versus unconditional CALL.
+* [Prepared verification](research/naming_keyboard_55_verify_lookup.md)
+  — six comment rows, exact 359-line owner and noncomment vectors, historical
+  baseline only and unassigned future parent; builds and adoption remain pending.
