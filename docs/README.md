@@ -220,3 +220,5 @@ The [semantic note](research/typing_26_compare_word_deltas_alias.md) and [verifi
 
 - [Banks23/24/27/1A header facts](research/typing_23_24_27_1a_header_facts.md): prepared byte-width, literal, IO register and six-string corrections, with entry/evidence limits preserved.
 - [Prepared header-family verification](research/typing_23_24_27_1a_verify_header_facts.md): fresh final26DOC base, unchanged emitters/locators, pending coherent validation.
+
+- Verified publication of [header facts 23/24/27/1A](research/typing_23_24_27_1a_verify_header_facts.md): source `4e868038ea664d364b09fd626f1a3dfb0c27246d`, new GitHub clone, original ROM byte-identical and symbol checks OK; 671 output files unchanged.
