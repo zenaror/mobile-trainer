@@ -371,3 +371,12 @@ PROBABLE43-byte/27-start sequence returns at7EAD/7EB3 rather than falling into7E
 ## Original bank75 integration verified (2026-10-08)
 
 Four comments qualify the43-byte/27-start fragment at75:7E89. Its command byte is read from(P+2)mod65536 and XOR80 toggles bit7, rather than guaranteeing that bit is set. RET Z7EAD and RET7EB3 end ordinary paths before7EB4. The same-bank packet-send callee can loop or change fields; POP AF discards its carry result, and later local bit0 handling does not restore the entire saved flags byte. No unconditional completion, preservation or caller ABI is claimed. Entry and purpose remain HYPOTHESIS; neutral symbols and all emitted bytes remain unchanged. Executor, independent reviewer and ROOT each completed a new canonical37:36rc0 plus expected ordinal27rc2 with its exact97-byte diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols and palettes pass, and all671 actual outputs equal the accepted private pass. Fresh published validation follows. ROOT guarded source hashes each command; no fresh native or actual English-owner closure is claimed.
+
+### Prospective ORIGINAL bank54 entry limits
+
+A bounded prospective proposal preserves Function_54_41C5 and corrects six header comment rows: the ordinary entry54:41C5-41D4 ends at its firstRET after seven instructions/15 original-ROM bytes; the following poll is separate. Body PROBABLE; entry/purpose HYPOTHESIS. Analysis and prepared verification: docs/research/typing_54_41c5_entry_limits.md and docs/research/typing_54_verify_41c5_entry_limits.md. No runtime/build/publication or queue-completion claim is added.
+
+
+## Original bank54 integration verified (2026-10-08)
+
+The bounded bank54:41C5 fragment has seven instruction starts and15 bytes through RET41D3. It initializes C1DB=3, C1D8=1 and C1D9=0; the polling body at41D4 is outside that bounded path. Local return and register effects assume a valid nonaliasing stack and no intervening interrupt. Entry and purpose remain HYPOTHESIS; neutral symbols and all emitted bytes remain unchanged. Executor, independent reviewer and ROOT each completed a new canonical37:36rc0 plus expected ordinal27rc2 with its exact97-byte diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols and palettes pass, and all671 actual outputs equal the accepted private pass. Fresh published validation follows. ROOT guarded source hashes each command; no fresh native or actual English-owner closure is claimed.

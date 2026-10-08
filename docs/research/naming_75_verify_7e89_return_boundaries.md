@@ -25,3 +25,8 @@ Ownnegative: attempted prep-generatorAST unmatched parenthesis before any script
 ## Original bank75 integration verified (2026-10-08)
 
 Four comments qualify the43-byte/27-start fragment at75:7E89. Its command byte is read from(P+2)mod65536 and XOR80 toggles bit7, rather than guaranteeing that bit is set. RET Z7EAD and RET7EB3 end ordinary paths before7EB4. The same-bank packet-send callee can loop or change fields; POP AF discards its carry result, and later local bit0 handling does not restore the entire saved flags byte. No unconditional completion, preservation or caller ABI is claimed. Entry and purpose remain HYPOTHESIS; neutral symbols and all emitted bytes remain unchanged. Executor, independent reviewer and ROOT each completed a new canonical37:36rc0 plus expected ordinal27rc2 with its exact97-byte diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols and palettes pass, and all671 actual outputs equal the accepted private pass. Fresh published validation follows. ROOT guarded source hashes each command; no fresh native or actual English-owner closure is claimed.
+
+
+## Fresh published bank75 verification
+
+Published MAINcfb507de9c8f8ee06291cf37d489c702c39ffbfc was cloned from GitHub into a new private checkout. With the original reference supplied privately, make, compare, sym-check and palette-check each completed rc0 once. All4208 tracked source files equal their Git blobs and all671 outputs equal the accepted private75 pass. The checkout is clean; fresh source modes are0664. This does not add natural execution, visual or hardware evidence.

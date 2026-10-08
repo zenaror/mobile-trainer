@@ -279,3 +279,5 @@ The [semantic note](research/typing_26_compare_word_deltas_alias.md) and [verifi
 
 - [75:7E89 return boundaries](research/naming_75_7e89_return_boundaries.md) — saved flags, same-bank callee and finite computed-entry limits.
 - [75:7E89 verification limits](research/naming_75_verify_7e89_return_boundaries.md) — current private scope and byte/output confrontation.
+
+* `research/typing_54_41c5_entry_limits.md` — prospective bounded bank54 neutral entry, seven instructions/15 original bytes and firstRET; body PROBABLE, entry/purpose HYPOTHESIS. `research/typing_54_verify_41c5_entry_limits.md` — prepared static checks and explicit pending independent/ROOT/integration validation.
