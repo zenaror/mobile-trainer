@@ -341,3 +341,13 @@ See [boundary note](docs/research/naming_68_5d2f_ret_boundary.md) and
 ## Original bank68 integration verified (2026-10-08)
 
 Three comments separate the RET at68:5D2F from the108-byte/53-start comparison candidate. The candidate selects SRAM1 and WRAM3; unequal strings clear bit2 of C278, so A is not a general Boolean result. Hardware restoration depends on synchronized shadows and a stable stack/scratch context. Entry and purpose remain HYPOTHESIS; neutral symbols and all emitted bytes remain unchanged. Executor, independent reviewer and ROOT each completed a new canonical37:36rc0 plus expected ordinal27rc2 with its exact97-byte diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols and palettes pass, and all671 actual outputs equal the accepted private pass. Fresh published validation follows. ROOT guarded source hashes each command; no fresh native or actual English-owner closure is claimed.
+
+
+### Static split returns at 73:6143
+
+PROBABLE conditional mechanics: [73:6143,6149) and [73:6149,614F) are two six-byte/three-start segments, each LD A,[C0F8/C0F9], XOR1, RET. Neither ordinary path falls through. XOR1 toggles only bit0; no Boolean domain, purpose or entry is established. The bounded dispatch table excludes these entries; an indexed FillBytes clear elsewhere includes both fields. Entry/purpose remain HYPOTHESIS; no alias or emitted byte changes. See [split-return note](docs/research/naming_73_6143_split_returns.md) and [verification limits](docs/research/naming_73_verify_6143_split_returns.md).
+
+
+## Original bank73 integration verified (2026-10-08)
+
+Seven comments describe two independent6-byte/3-start fragments at73:6143 and6149. Each reads C0F8 or C0F9, performs XOR1 and returns without a store or bank selection. The RETs at6148/614E prevent ordinary fallthrough into614F; arbitrary byte inputs do not make XOR1 a general Boolean negation. Entry and purpose remain HYPOTHESIS; neutral symbols and all emitted bytes remain unchanged. Executor, independent reviewer and ROOT each completed a new canonical37:36rc0 plus expected ordinal27rc2 with its exact97-byte diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols and palettes pass, and all671 actual outputs equal the accepted private pass. Fresh published validation follows. ROOT guarded source hashes each command; no fresh native or actual English-owner closure is claimed.

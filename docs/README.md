@@ -267,3 +267,7 @@ The [semantic note](research/typing_26_compare_word_deltas_alias.md) and [verifi
   partition of the neutral entry and the adjacent 108-byte candidate; no alias.
 - [68:5D2F verification limits](research/naming_68_verify_5d2f_ret_boundary.md) —
   bounded source/ROM comparison; entry and purpose remain HYPOTHESIS.
+
+
+- [73:6143 split returns](research/naming_73_6143_split_returns.md) — bounded two six-byte LOAD/XOR1/RET segments; entry/domain/purpose HYPOTHESIS.
+- [73:6143 verification limits](research/naming_73_verify_6143_split_returns.md) — byte/source, finite table/caller context and separate private validation.
