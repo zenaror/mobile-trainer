@@ -148,7 +148,6 @@ What happens when a string is longer than the space the game gives it was not in
 * The bank 6C help script: encoding of the single bytes `E0-FF` and the reading routine are unresolved (`text_encoding.md` section 9).
 * Unreferenced data (banks 41-46, bank-47 record 3, `gfx/unreferenced/`, `Font_GlyphRun_83BF` placeholders): translating it changes nothing visible unless something uses it.
 
-
 ## ZIP address-book tile family checkpoint (2026-10-07)
 
 This bounded English pass reuses the supplied donor's whole 2,560-byte, 160-tile 2bpp family at bank 22:$5CD0–$66CF, with published English parity parent `dc3951153437c89e6c3fb632ae8d8882cab543eb` and Japanese checkpoint `13107655b2f37dcbe836d30ada4a76fd89d82265`. The original source aliases and physical 26/2,534-byte split remain in place; the second alias is at tile phase 10 and is not a separate tile-sheet boundary. Exactly 1,019 ROM bytes differ from the English parent, all within this family. The four unchanged consumer transfers cover 1,024/256/1,024/256 bytes and contain 336/0/468/215 donor differences respectively; no map, attribute, palette, box or companion asset changes are included. This is donor graphics reuse, not proof that a particular field or screen has been translated correctly.
@@ -156,6 +155,8 @@ This bounded English pass reuses the supplied donor's whole 2,560-byte, 160-tile
 All 539 earlier localized source files, the 252 previously localized catalogue assets, the 31 logical English communication slots, all 38 pointer words, five relocated payloads totaling 618 bytes, the original Japanese physical message slots and the 303-glyph font remain unchanged. The new source owner was outside that earlier 539-file set; the bounded maintained source set becomes 540, while the catalogue remains unchanged. The historical 23-unit, 6,201-offset graphics backlog is preserved as historical evidence. Recomputing precisely those pending offsets after this family reuse leaves 5,182 offsets in 21 nonempty physical units. The separate 291 donor differences in four bank-22 hidden-menu text blocks remain KEEP pending their own consumer, format and boundary proof; they are outside that historical graphics inventory.
 
 Original Japanese natural-read observations and static transfer bounds do not establish English appearance, runtime behavior, hardware behavior or translation fidelity. Donor compatibility remains PROBABLE and English visual/runtime behavior remains UNVALIDATED. Full Help-script reuse and other unresolved ZIP work remain pending; the planned language-build target is not implemented by this pass. See [the bounded reuse evidence](research/translation_zip_bank22_tiles.md) and [its private verification record](research/translation_zip_bank22_tiles_verify.md).
+
+
 
 ## Published ZIP reuse and original-source parity
 
@@ -177,7 +178,6 @@ Original bank 28 is now published/fresh-three verified at `236072d374593dadea8b3
 
 Next original pass: the three bank-29 numeric templates, with fresh OWN/rebase from this published documentation baseline before executor/independent/coordinator checks. A parallel review of 29:5090–5376 retains HYPOTHESIS and all labels: zero observations in the existing natural corpus is bounded evidence; 4,001 unbanked raw word matches refute the old literal word-absence claim but do not establish callers. That header correction is a separate pending scope. English parity with bank 28 follows through private agents before new ZIP work. ZIP reuse still has 5,182 pending offsets / 21 units / 11 owners; the proposed bank-25 delta of 85 bytes and FullHelp relocation are not adopted. The requested make english / language-patches/en design includes text, sprites, tiles, editable PNGs, maps, attributes, palettes, box/layout redraws and ASM with original fallback; implementation remains conditional on complete verified ZIP parity.
 
-
 ## Coordinator EN28 integration checks (2026-10-07)
 
 The normal integration uses content parents EN `de315cf05796f14a5ba31473b7a6d8b488ed19ab` and JP `0bb401b59b54e14b8d31b8109125ae4cfd6b461e`. Published JP `7fb572c0c58a996d508d3b4bd5f91219a90bf13f` was checked as the frozen current owner; its template29 changes are not imported in this pass. The nine-path merge preserved all 4,182 candidate files, native scope modes, retained English assets/messages and four palette-owner physical line counts. Prepared notes above remain a record of their earlier stage.
@@ -185,6 +185,8 @@ The normal integration uses content parents EN `de315cf05796f14a5ba31473b7a6d8b4
 All six coordinator checks completed once with return code zero: build, sym-check, palette-check, png-check, gfx export check and sprite-chain check. All six UTF-8 logs were read in full (9,189 bytes, 75 lines), with no Traceback. The complete 675-output set, RGBDS object headers, all 336 dependency files with 5,651 source bindings, source/index/raw Git/typed ignored state and frozen JP owner were guarded; 6,192 immutable tool/helper/reference/source records were checked with an empty isolated Python cache prefix. The build compiled the four changed ASM owners; unchanged existing outputs were verified rather than claimed freshly rebuilt.
 
 Rebuilt English ROM SHA-256 is `a75d58bf4e6fd0817d9993b851ae4735f32ca77f0bb043727aa2a83bbc4b7f04`, and SYM is `072f531941cce39056ac6028a32d9351a700cf0fb90f0357c291154b9974eebc`, both whole-byte identical to the sealed English references. ROOT6 result SHA-256 `de9165f011a6e930250009cc799b629e49d2e6604a9f728c08f70a3d409d28b6`; whole-read acceptance `3b1aa7eb44dd2966cf35d126be0b80fd61f27bc120ffaf7340ce63d2fa71b37e`. These documentation appendices inherit compiled-source/output evidence; no successful gate was replayed. Publication and a separately sealed fresh GitHub six-check build are pending at this append stage. English runtime, layout, rendering, ZIP fidelity and hardware remain UNVALIDATED. Complete ZIP parity and the later language-build target remain pending.
+
+
 
 ## Published original bank 29 provenance (2026-10-07)
 
@@ -198,6 +200,9 @@ A separate coordinator readback checked all 12,540 Git blobs across actual JP, a
 
 Deferred user-requested final audit: after the original disassembly passes are completed, cross-check data/text/pokemon_names_bank53.asm against Pokémon frames, tile resources and exported PNGs. No missing resource or absence of callers is established by the user observation; separately verify extraction completeness and direct/computed references with bank context. This audit is queued, not performed in the decimal-template pass.
 
+## English verification chronology retained from the published branch
+
+The following original English paragraphs are retained as dated prepared and integration records. Their pending phrases describe those earlier stages; the publication checkpoint below gives the accepted later English state. The original reconstruction sections above describe Japanese evidence.
 
 ## English parity29 scope — prepared only
 
@@ -213,3 +218,14 @@ The six integration checks completed once with return code zero: build, sym-chec
 The 540 localized source paths, 252 localized catalogue assets, 303-glyph font and 947-asset inventory are preserved. The existing communication-message and pointer records, including the five relocated payloads, remain intact. ZIP parity still has 5,182 pending offsets across 21 units and 11 owners. The 85 proposed bank-25 byte differences and FullHelp relocation remain unadopted; the separate hints and hidden-menu KEEP boundaries are retained. `make english` remains conditional on complete verified ZIP parity.
 
 The earlier prepared statements remain historical. Runtime English layout, rendering, translation fidelity and hardware remain UNVALIDATED. Publication and verification in a fresh checkout are separate pending steps.
+
+
+## English publication checkpoint and conditional parity proposal (2026-10-08)
+
+The preceding English prepared/integration records describe their dated stages. Published English `ac4ac955b346b434f85440d4e82e5f03a8fabdf8` contains 4,184 source files and was checked in a fresh checkout with six return-code-zero checks. Its functional original anchor is `7fb572c0c58a996d508d3b4bd5f91219a90bf13f`; those accepted checks retained the English ROM `a75d58bf4e6fd0817d9993b851ae4735f32ca77f0bb043727aa2a83bbc4b7f04` and SYM `072f531941cce39056ac6028a32d9351a700cf0fb90f0357c291154b9974eebc`. These results resolve the earlier bank29 publication/fresh-check pending stage, without extending it to later MAIN changes.
+
+The private source-only proposal carries nine ASM updates, eight original research notes and three reconciled root documents. Its union contains 4,192 files, with all existing English text, graphics, fonts, sprite data and four English-only paths retained. The two ZIP owners preserve the separately verified 85-mailbox/17-browser source proposal; those 102 bytes have not been adopted or published. The published pending ledger therefore remains 5,182 offsets across 21 units and 11 owners. Earlier page changes, hidden-menu KEEP boundaries and unknown selectors remain preserved.
+
+The original bank29 library and bank00 contracts keep their HYPOTHESIS/PROBABLE limits. The bank26 same-address PROBABLE alias `MailSession_CompareWordDeltas` retains neutral `Function_26_5106` and every local scope. The remaining seven ASM owners change comment rows only. Future parity checks must independently rebind all nine primary source hashes and review dependencies, object metadata and the sole additional SYM/MAP alias; future SYM, MAP and object hashes are unknown. ROM identity to the selected ZIP English source is expected, using the verified ZIP ROM `51a808c52a7f6bc587f27cc0d75fc875e87e78102c9189764b301620979c5e22` as an expectation. This parity source proposal has not been built or compared.
+
+The original banks23/24/27/1A prepared chronology above is followed by its accepted source and fresh-checkout record. Original SOURCE `4e868038ea664d364b09fd626f1a3dfb0c27246d` and final DOC publication `29c29142eeac7976caf5f9a5c84f5a0e83a174a3` contain 4,188 source files. The original fresh-three verification and documentation publication are closed; they establish the original reconstruction results recorded in the verification note, without supplying an English parity build. This private source proposal is rebased on those published original documents. Selection and publication of the ZIP English parent and the future English parity checks remain pending. Complete current MAIN parity and documentation parity are not claimed. English build-target implementation follows completed parity and accepted ZIP reuse publication. Runtime, English layout, rendering fidelity and hardware remain UNVALIDATED.

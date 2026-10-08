@@ -161,7 +161,6 @@ Bank 28 execution acceptance (2026-10-07): the two prepared notes now include se
 
 Published bank-28 provenance (2026-10-07): original `236072d` has a verified fresh three-command build, complete 4,178-file/Git-blob comparison and unchanged original ROM/SYM. [Palette evidence](research/typing_28_palettes.md) and [verification chronology](research/typing_28_verify_palettes.md) retain the prepared stages and separate completed appendices. English `de315cf` is separately published/fresh-six verified; its next update is parity with the final bank-28 documentation baseline.
 
-
 ## Coordinator EN28 integration checks (2026-10-07)
 
 The normal integration uses content parents EN `de315cf05796f14a5ba31473b7a6d8b488ed19ab` and JP `0bb401b59b54e14b8d31b8109125ae4cfd6b461e`. Published JP `7fb572c0c58a996d508d3b4bd5f91219a90bf13f` was checked as the frozen current owner; its template29 changes are not imported in this pass. The nine-path merge preserved all 4,182 candidate files, native scope modes, retained English assets/messages and four palette-owner physical line counts. Prepared notes above remain a record of their earlier stage.
@@ -169,6 +168,8 @@ The normal integration uses content parents EN `de315cf05796f14a5ba31473b7a6d8b4
 All six coordinator checks completed once with return code zero: build, sym-check, palette-check, png-check, gfx export check and sprite-chain check. All six UTF-8 logs were read in full (9,189 bytes, 75 lines), with no Traceback. The complete 675-output set, RGBDS object headers, all 336 dependency files with 5,651 source bindings, source/index/raw Git/typed ignored state and frozen JP owner were guarded; 6,192 immutable tool/helper/reference/source records were checked with an empty isolated Python cache prefix. The build compiled the four changed ASM owners; unchanged existing outputs were verified rather than claimed freshly rebuilt.
 
 Rebuilt English ROM SHA-256 is `a75d58bf4e6fd0817d9993b851ae4735f32ca77f0bb043727aa2a83bbc4b7f04`, and SYM is `072f531941cce39056ac6028a32d9351a700cf0fb90f0357c291154b9974eebc`, both whole-byte identical to the sealed English references. ROOT6 result SHA-256 `de9165f011a6e930250009cc799b629e49d2e6604a9f728c08f70a3d409d28b6`; whole-read acceptance `3b1aa7eb44dd2966cf35d126be0b80fd61f27bc120ffaf7340ce63d2fa71b37e`. These documentation appendices inherit compiled-source/output evidence; no successful gate was replayed. Publication and a separately sealed fresh GitHub six-check build are pending at this append stage. English runtime, layout, rendering, ZIP fidelity and hardware remain UNVALIDATED. Complete ZIP parity and the later language-build target remain pending.
+
+
 
 ## Fresh prepared original bank 29 proposal (2026-10-07)
 
@@ -194,6 +195,56 @@ A separate coordinator readback checked all 12,540 Git blobs across actual JP, a
 Deferred user-requested final audit: after the original disassembly passes are completed, cross-check data/text/pokemon_names_bank53.asm against Pokémon frames, tile resources and exported PNGs. No missing resource or absence of callers is established by the user observation; separately verify extraction completeness and direct/computed references with bank context. This audit is queued, not performed in the decimal-template pass.
 
 
+## Prepared original bank 29 library evidence limits (2026-10-07)
+
+- [Candidate-library header evidence limits](research/typing_29_palette_library_evidence_limits.md): bounded raw/natural facts; bank/entry/padding/mapper/buffer contracts remain HYPOTHESIS.
+- [Prepared verification record](research/typing_29_verify_palette_library_header.md): 15 comment lines, unchanged source vectors/labels/metadata, and pending build/byte comparison.
+
+
+## Published original bank 29 library header correction (2026-10-08)
+
+[Evidence limits](research/typing_29_palette_library_evidence_limits.md) retain all HYPOTHESIS entries and bounded raw/natural claims. [Verification](research/typing_29_verify_palette_library_header.md) records published source `f450f1b6c9be703e6632d1d679689e7cba38f826`, separate 36 rc0 + historical ordinal 27 schema rc2 batteries, ROOT logs 142,297 bytes / 1,104 lines and accepted fresh3 (13,487 bytes / 358 lines; 4,182 sources and 671 fresh outputs versus 674 actual). Prepared history is preserved; DOC3 inherits the verified source without a build replay. English `7e5e4b13` is separately published/fresh-six accepted, with its clone-closure limitation retained; English bank29 remains separate.
+
+
+## Prepared original bank 00 contracts (2026-10-08)
+
+* [A2A/D34 contract corrections](research/typing_00_a2a_d34_contract_corrections.md) — ordinary return/register effects and bank-shadow/high-bank, stack/alias, interrupt and caller limits; both routines stay PROBABLE.
+* [Prepared verification](research/typing_00_verify_a2a_d34_contract_corrections.md) — fresh OWN010c, five comment rows with exact 517/135-line bodies/vectors and bounded natural-zero evidence; guarded canonical37 and rebuilt-ROM comparison pending.
+
+
+## Published original bank 00 contracts (2026-10-08)
+
+[A2A/D34 analysis](research/typing_00_a2a_d34_contract_corrections.md) retains both neutral PROBABLE entries and bounded entry/bank/stack limits. [Verification](research/typing_00_verify_a2a_d34_contract_corrections.md) records source `9466d8def5d4cc4a186dcf00bbdbf2a42fc61361`, separate accepted executor/independent V2/ROOT batteries (36 rc0 plus ordinal 27's exact 97-byte schema rc2), the preserved independent V1 negative, and ROOT logs of 140,092 bytes / 1,105 lines. Earlier prepared statements remain historical. Fresh GitHub make, sym-check and palette-check each returned zero. ROOT accepted all 13,729 bytes / 363 lines of the three logs, 4,184 source files/Git blobs and 671 fresh outputs. The complete native/tool closure and whole current owners were guarded immediately before clone and every command; the original ROM remains IDENTICAL. Fresh source/output mode0644, actual mode0777, Git100644 and references0444 remain separate. Fresh result SHA-256 `6ab9817734003fffbbef8b14c65bc93ef7e39afbe15b5776528e4112700811b5` and ROOT fresh acceptance SHA-256 `b43d4450ef8b3b2a9f295a1b95700a8677e15fa6e31e74da7fc275200d875a8d` record this completed source stage. This documentation-only follow-up inherits the verified source without replaying builds; its final publication receipt is recorded separately. No English, runtime or hardware claim is added.
+
+
+## Fresh prepared original bank26 alias (2026-10-08)
+
+* [Word-delta alias](research/typing_26_compare_word_deltas_alias.md): narrow PROBABLE arithmetic operation, stable neutral label and unobserved equality/field-role limits.
+* [Prepared verification](research/typing_26_verify_compare_word_deltas_alias.md): explicit010c→9466→1004 rebase, current4184→candidate4186, two lexical deltas and +1SYM/finiteOBJ/MAP expectations; new37 gates remain pending ROOT review.
+
+
+### Bank 26 word-delta alias: source-stage verification (2026-10-08)
+
+The [semantic note](research/typing_26_compare_word_deltas_alias.md) and [verification note](research/typing_26_verify_compare_word_deltas_alias.md) record the neutral entry, restricted PROBABLE alias and unobserved equality path. Published SOURCE `b884275d35117609657fcadb72bc8baaf73c2511` has 4,186 tracked files. Separate EX, IND and ROOT runs each completed 36 rc0 results plus the known ordinal-27 exact 97-byte schema rc2 diagnostic; ROM identity and the bounded alias metadata changes were accepted. Fresh GitHub make, sym-check and palette-check each returned zero. ROOT accepted all 13,903 bytes / 367 lines of the three logs, 4,186 source files/Git blobs and 671 fresh outputs. The complete native/tool closure and whole current owners were guarded immediately before clone and every command; the original ROM remains IDENTICAL. Fresh source/output mode0644, actual mode0777, Git100644 and references0444 remain separate. Fresh result SHA-256 `bdf3d4f3278827bb1858e5d0012b6f1421cfd83103c58508046672c9a6242101` and ROOT fresh acceptance SHA-256 `c587369a7cfc8365bdc0a6b9438a416fdace6ad63ff21f346b3647079aac0de5` record this completed source stage. This documentation-only follow-up inherits the verified source without replaying builds; its final publication receipt is recorded separately. No English, runtime or hardware claim is added.
+
+
+- [Banks23/24/27/1A header facts](research/typing_23_24_27_1a_header_facts.md): prepared byte-width, literal, IO register and six-string corrections, with entry/evidence limits preserved.
+- [Prepared header-family verification](research/typing_23_24_27_1a_verify_header_facts.md): fresh final26DOC base, unchanged emitters/locators, pending coherent validation.
+
+
+- Verified publication of [header facts 23/24/27/1A](research/typing_23_24_27_1a_verify_header_facts.md): source `4e868038ea664d364b09fd626f1a3dfb0c27246d`, new GitHub clone, original ROM byte-identical and symbol checks OK; 671 output files unchanged.
+
+
+- [Banks 2C and 4F: bounded header corrections](research/typing_2c_4f_header_limits.md) -- prospective combined comment-only pass; historical aa61 base, future parent and validation pending.
+- [Prepared static verification: 2C/4F header limits](research/typing_2c_4f_verify_header_limits.md) -- seven comment rows, preserved vectors/locators and qualified natural absence; no gate or publication claim.
+
+
+- [Published 2C/4F header limits](research/typing_2c_4f_verify_header_limits.md): SOURCE `f19d9c6`, separate accepted canonical37 batteries (36 rc0 + historical schema rc2), clean GitHub rebuild IDENTICAL and 671 output files unchanged; confidence limits and direct-validator provenance are retained. The unused-frame/assets/Pokemon audit remains required for completion.
+
+## English verification chronology retained from the published branch
+
+The following original English paragraphs are retained as dated prepared and integration records. Their pending phrases describe those earlier stages; the publication checkpoint below gives the accepted later English state. The original reconstruction sections above describe Japanese evidence.
+
 ## English parity29 scope — prepared only
 
 The copied bank29 statements and original 8/4/7 trace cohorts describe the original Japan ROM. Their pending stages and publication snapshots remain historical. EN28 is separately published at 7e5e4b13aa7bc01cb977716899c1099074dae002. This EN29 candidate has not run its six checks. English runtime, rendering, layout, ZIP fidelity and hardware remain UNVALIDATED. No new English or original runtime observation is supplied. ZIP85/FullHelp remain pending; make english requires complete verified ZIP parity.
@@ -202,3 +253,10 @@ The copied bank29 statements and original 8/4/7 trace cohorts describe the origi
 ## English bank 29 integration checks (2026-10-08)
 
 The [decimal-template notes](research/typing_29_number_templates.md) and [verification chronology](research/typing_29_verify_number_templates.md) retain their original Japan-ROM evidence and earlier prepared stages. The English integration through original `7fb572c` has separate accepted six-check results; all 4,184 candidate files and 675 generated outputs preserve the English ROM/SYM references. The earlier prepared statements remain historical. Runtime English layout, rendering, translation fidelity and hardware remain UNVALIDATED. Publication and verification in a fresh checkout are separate pending steps.
+
+
+## English publication checkpoint and conditional parity proposal (2026-10-08)
+
+Published English `ac4ac955b346b434f85440d4e82e5f03a8fabdf8` contains 4,184 source files and has accepted fresh-checkout six-check verification through original `7fb572c0c58a996d508d3b4bd5f91219a90bf13f`. The English prepared/integration paragraphs above remain dated history.
+
+See [translation status](TRANSLATION.md#english-publication-checkpoint-and-conditional-parity-proposal-2026-10-08) for the conditional nine-ASM/eight-note/three-document source proposal rebased on accepted original DOC `29c29142eeac7976caf5f9a5c84f5a0e83a174a3`; selection of the published ZIP English parent and future alias/output checks remain pending. The published ledger remains 5,182 pending offsets; the 102 ZIP bytes are not adopted or published. Complete current MAIN/documentation parity and runtime, English layout, rendering fidelity or hardware validation are not claimed.

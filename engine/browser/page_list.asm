@@ -369,7 +369,7 @@ String_24_42D1::
 	db "http://www.goo.ne.jp/", 0
 POPC
 
-; ---- text $42E7-$42F0 (9 bytes) [PROBABLE] Shift-JIS NUL-terminated string (ぐーぐー), addressed by ld hl,$42E7 at 24:42C6
+; ---- text $42E7-$42F0 (9 bytes) [PROBABLE] Shift-JIS NUL-terminated string (くーくー), addressed by ld hl,$42E7 at 24:42C6
 
 PUSHC sjis
 String_24_42E7:: ; 24:42E7
