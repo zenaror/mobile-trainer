@@ -27,10 +27,10 @@ edit a PNG   ->   make            ->   open mobile_trainer.gbc
 
 | what | file | how | count |
 |---|---|---|---:|
-| tile blocks (2bpp art: screens, text baked into tiles, buttons, logos) | `gfx/**/name.png` next to `name.2bpp` | exact `rgbgfx` source: 4 greys in a fixed order (index 0 white ... 3 black); 16 tiles per row (8-15 when 16 does not divide the count; the last row padded, padding tiles are ignored) | 406 |
+| tile blocks (2bpp art: screens, text baked into tiles, buttons, logos) | `gfx/**/name.png` next to `name.2bpp` | exact `rgbgfx` source: 4 greys in a fixed order (index 0 white ... 3 black); 16 tiles per row (8-15 when 16 does not divide the count; the last row padded, padding tiles are ignored) | 405 |
 | JIS 12x12 font banks, 8x16 font runs, 6x12 Latin font | `data/fonts/name.png` next to `name.bin` / `name.1bpp` | glyph sheet, see section 4; `tools/font_png.py` | 37 sheets (38 binaries) |
-| whole screens (tilemap + attributes + tiles + palettes composed, in real colours) | `gfx/**/name.screen.png` next to `name.tilemap` | see section 3; an *editing view*: import writes the edit back into the tile sheets | 83 screens |
-| palettes | `gfx/**/name.pal` | text, one `RGB r, g, b` line per colour (0-31 per channel), four colours per palette; hand-editable; screen PNGs can write colours back (`--palette`) | 144 files |
+| whole screens (tilemap + attributes + tiles + palettes composed, in real colours) | `gfx/**/name.screen.png` next to `name.tilemap` | see section 3; an *editing view*: import writes the edit back into the tile sheets | 92 screens |
+| palettes | `gfx/**/name.pal` | text, one `RGB r, g, b` line per colour (0-31 per channel), four colours per palette; hand-editable; screen PNGs can write colours back (`--palette`) | 143 files |
 
 Stay binary: `.tilemap` / `.attrmap` (which tile sits in which cell, flips, palette numbers; 180 + 180 files; the layout of a screen is fixed, see
 section 3 for what you can change), the Shift-JIS validity bitmap (`data/fonts/sjis_valid_bitmap.bin`, data rather than an image; a view-only picture
@@ -38,8 +38,9 @@ section 3 for what you can change), the Shift-JIS validity bitmap (`data/fonts/s
 
 ## 3. Screens
 
-`gfx/screens.tsv` lists the 83 screens whose composition could be derived (the tile blocks, palettes and VRAM addressing come from the loader routine
-of the screen, `evidence` column; `status` PROBABLE = every cell resolved, HYPOTHESIS = partly resolved or layout-only).  The other 86 tilemaps
+`gfx/screens.tsv` lists the 92 screens whose composition could be derived (the tile blocks, palettes and VRAM addressing come from the loader routine
+of the screen or an explicit layout hypothesis, `evidence` column; 20 PROBABLE screens have every cell resolved,
+and 72 HYPOTHESIS screens are partly resolved, ambiguous in addressing, or layout-only).  The other 88 tilemaps
 have no screen PNG because the code that draws them is table-driven or loads their tiles elsewhere (reasons in `gfx/README.md`); edit their tile
 sheets directly.
 
@@ -56,6 +57,8 @@ make
   show must look the same in all of them: editing one of them alone is refused ("tile N is shared ...") because the tilemap cannot give it another
   tile.  Edit a cell that uses its tile once, or all sharing cells identically.  Other screens that show the same tile change too (import tells you).
 * Unedited screen PNG -> import = no change, for all 92 screens (`make png-check` proves it on every run).
+
+The bank41–46 record views are conditional compositions. Eleven of their tilemaps lack an editing view: eight resolve less than half of the cells under the assumed160-tile layout, and three bank42 records have fragmented tile sources that the current derivation does not combine. Two other bank47 maps also lack editing views. Their original bytes are present; this is a limitation of editing-view derivation, not proof of missing ROM art. See [catalogue/layout audit](research/assets_original_catalogue_and_layout_audit.md) and [frame/name limits](research/assets_pokemon_frames_and_name_limits.md).
 
 ## 4. Font sheets
 
