@@ -313,3 +313,22 @@ One newly authorized private canonical37 completed36 rc0 results and the expecte
 ROOT adopted the qualified executor and independent reviews and ran one actual canonical 37-check pipeline: 36 zero return codes and the expected ordinal 27 return code 2 with its exact 97-byte schema diagnostic. All 4,224 source hashes held before and after each command; all 671 output hashes equal both private builds and the original parent fresh build. The ROM is byte-identical to the original, SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. Symbols retain 15,538 labels and 51 constants; palettes pass. ROOT performed a programmatic whole-byte scan of all logs and exact diagnostic/hash checks; this is not a blind or human full-log-read claim. ResourceWarning diagnostics are retained in the receipts, not described as warning-free results.
 
 This four-document result appendix was added after the successful checks; only documentation changes and the successful pipeline is not replayed. The two source owners retain all emitted lines, labels and physical line counts. Tail-record use remains PROBABLE, and no new natural-menu, visual or hardware evidence is claimed. Publication and fresh reconstruction are subsequent stages.
+
+
+## Residual local-case comment bounds
+
+- [2B:687C residual local cases](research/typing_2b_687c_residual_localcase_bounds.md): seven existing comments;158-byte returning boundary, finite348-file reference qualification and preserved classification history. Verification of this new private pass remains pending.
+
+
+## Current private local-case validation
+
+One newly authorized private canonical 37-command pipeline completed: 36 return codes 0 and the expected ordinal 27 return code 2 with the exact 97-byte historical schema diagnostic. Make reports SHA-256 OK; compare reports RESULT: IDENTICAL. All 671 output files match the published 7986 fresh parent in whole bytes, sizes and SHA-256, including the original ROM, SYM and MAP. The symbol table retains 15,538 labels and 51 constants. D334 retains 10,912 raw rules and 5,623 bindings; current source/dependency hashes rebind only engine/mail/mail_viewer_sender.asm, with explicit published SOURCE4224 BEFORE and tested SOURCE4225 AFTER phases. All 4,225 frozen source guards, two original references and the six resolved executable guards held before and after every command. This is an executable inventory, not a full native/library closure or new native capture. Whole logs and diagnostic/warning lines are preserved; success is not described as warning-free.
+
+These three documentation result appends follow the completed terminal and output measurements; no command is replayed and all 671 outputs remain unchanged. The seven ASM comment changes retain all emitted lines, physical positions, labels and evidence levels. Independent verification, ROOT adoption, actual integration and publication remain pending. No new natural-menu, graph capture, purpose proof or hardware evidence is claimed.
+
+
+## ROOT local2B original integration verification (2026-10-08)
+
+ROOT adopted the qualified executor and independent reviews and ran one actual canonical 37-check pipeline: 36 zero return codes and the expected ordinal 27 return code 2 with its exact 97-byte schema diagnostic. All 4,225 source hashes held before and after each command; all 671 output hashes equal both private builds and the original parent fresh build. The ROM is byte-identical to the original, SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. Symbols retain 15,538 labels and 51 constants; palettes pass. ROOT performed a programmatic whole-byte scan of all logs and exact diagnostic/hash checks; this is not a blind or human full-log-read claim. ResourceWarning diagnostics are retained in the receipts, not described as warning-free results.
+
+This three-document result appendix was added after the successful checks; only documentation changes and the successful pipeline is not replayed. The single source owner retains all emitted lines, labels, levels and physical line counts. The complete family ends at691A; entry and purpose remain HYPOTHESIS, and no new natural-menu, visual or hardware evidence is claimed. Publication and fresh reconstruction are subsequent stages.
