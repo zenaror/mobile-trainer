@@ -329,6 +329,36 @@ The English branch incorporates original MAINfb79c005557684f0b59ba6130ad46db18ea
 * `research/typing_54_41c5_entry_limits.md` — prospective bounded bank54 neutral entry, seven instructions/15 original bytes and firstRET; body PROBABLE, entry/purpose HYPOTHESIS. `research/typing_54_verify_41c5_entry_limits.md` — prepared static checks and explicit pending independent/ROOT/integration validation.
 
 
+- [typing_27_palette_map_tail](research/typing_27_palette_map_tail.md) — bounded current private verification; entry/purpose HYPOTHESIS.
+- [typing_27_verify_palette_map_tail](research/typing_27_verify_palette_map_tail.md) — bounded current private verification; entry/purpose HYPOTHESIS.
+- [typing_2e_wait_glyph_tail](research/typing_2e_wait_glyph_tail.md) — bounded current private verification; entry/purpose HYPOTHESIS.
+- [typing_2e_verify_wait_glyph_tail](research/typing_2e_verify_wait_glyph_tail.md) — bounded current private verification; entry/purpose HYPOTHESIS.
+- [typing_29_leaf_lcdc_ly_limits](research/typing_29_leaf_lcdc_ly_limits.md) — bounded current private verification; entry/purpose HYPOTHESIS.
+- [typing_29_verify_leaf_lcdc_ly_limits](research/typing_29_verify_leaf_lcdc_ly_limits.md) — bounded current private verification; entry/purpose HYPOTHESIS.
+
+
+- [Remaining neutral headers](research/typing_neutral_remaining_headers.md) — bounded effects, KEEP28 and explicit contradictions.
+- [Remaining neutral verification](research/typing_neutral_verify_remaining_headers.md) — scope/blank-row exceptions, static/runtime limits.
+
+
 ## English parity with original bank75 and54 verified (2026-10-08)
 
 The combined parity merge preserves all552 language resources and the complete prior English documentation chronology. Private executor and ROOT each ran one six-check pipeline; all checks returned zero. ROOT held4214 source hashes throughout the six commands, compared all675 outputs with the accepted private version and retained English ROM SHA-25651a808c52a7f6bc587f27cc0d75fc875e87e78102c9189764b301620979c5e22. SYM15543 labels/51 constants and MAP remain exact; no new English rendering, layout, fidelity, natural execution or hardware evidence is claimed. Fresh publication verification follows.
+
+## Bounded English graphics follow-up
+
+[Two supplied-graphics corrections](research/translation_zip_roi25_4a4b.md): 16 tile indices in the settings highlight and9 bytes of one result-page tile; static consumers and dependencies bounded, validation pending, English runtime/visual/hardwareUNVALIDATED.
+
+
+## Private English parity and bounded ZIP reuse verified (2026-10-08)
+
+One private six-check pipeline completed once with all six return codes zero on the frozen source based on published original `88b4bca2665b96b77b941b18c19f802fc499276c` and English `f7c12ad7c82e2b8967378d608d95ed75d8d127ef`. The measured English ROM SHA-256 is `a3d97ff42adb6350ac443cc7215333f8ea006678342867a5599ff3a88d92daa0`. It differs from the preceding English ROM in exactly the 25 authorized donor bytes and zero bytes elsewhere. Of 675 outputs, only the ROM and the two graphics objects change; the other 672 outputs, including SYM, MAP and all 336 dependency files, remain byte-exact. All 15,543 label records and 51 constants remain unchanged. Complete dependency parsing retains 10,966 rules and 5,651 source bindings, rebound to all eleven changed ASM owners.
+
+The private pass held all 4,223 source files throughout the six commands, preserving the prior 552 English emitting resources and the complete English documentation chronology. Copy timestamps caused regeneration of 405 graphics files and 36 font files, followed by 336 assembly jobs; no timestamps were normalized and generated source bytes stayed exact. Source files were physically 0644 and build outputs 0664, separately from Git mode 100644. The following appendices record this finished private pass and resolve the preceding validation-pending wording for this version. ROOT adoption, actual integration, publication and fresh-checkout verification remain separate pending steps. Runtime rendering, menu navigation, translation fidelity and hardware remain UNVALIDATED.
+
+
+## ROOT English integration verification (2026-10-08)
+
+ROOT adopted the independently reviewed 24-path pass and resolved the normal merge of published English `f7c12ad` with original `88b4bca`. One actual six-check pipeline returned six zero codes; all 4,223 source hashes held for each command and all 675 outputs equal the executor and independent private builds. ROM SHA-256 is `a3d97ff42adb6350ac443cc7215333f8ea006678342867a5599ff3a88d92daa0`: exactly 25 donor byte changes, with zero other changes from the preceding English ROM. SYM retains 15,543 labels and 51 constants; MAP and 336 dependency files remain byte-exact. Both private reviews were qualified with known prior context, without a blind-review claim. The six complete actual logs were read. This appended result changes documentation only; no successful checks were replayed.
+
+The later original asset-documentation commit `198cdf2` is outside this frozen merge and requires subsequent documentation parity. Whole-ROM English/ZIP differences remain 58,169 bytes; this is bounded reuse, not complete ZIP equivalence. Publication and fresh reconstruction follow this result. Menu flow, rendering, translation fidelity and hardware remain UNVALIDATED.

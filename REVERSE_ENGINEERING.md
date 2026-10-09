@@ -436,6 +436,47 @@ A bounded prospective proposal preserves Function_54_41C5 and corrects six heade
 The bounded bank54:41C5 fragment has seven instruction starts and15 bytes through RET41D3. It initializes C1DB=3, C1D8=1 and C1D9=0; the polling body at41D4 is outside that bounded path. Local return and register effects assume a valid nonaliasing stack and no intervening interrupt. Entry and purpose remain HYPOTHESIS; neutral symbols and all emitted bytes remain unchanged. Executor, independent reviewer and ROOT each completed a new canonical37:36rc0 plus expected ordinal27rc2 with its exact97-byte diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols and palettes pass, and all671 actual outputs equal the accepted private pass. Fresh published validation follows. ROOT guarded source hashes each command; no fresh native or actual English-owner closure is claimed.
 
 
+### Bounded neutral entries after54: banks27,2E,29
+
+Entry/purpose remain HYPOTHESIS. Bank27 full prefix ends in WRAM7 via00:082C; direct4EEB tail only LCDOn/BC0/RET. Bank2E15-byte candidate preserves18F0 toRET4F99, a one-step path rather than its looping siblings. Bank29 leaves separate LCDC.bit2 and conditional LY waits from the742-byte library/mapper/padding limits. No aliases or emitted changes; historical natural data and missing19 graphs do not establish unreachability.
+
+- [typing_27_palette_map_tail](docs/research/typing_27_palette_map_tail.md)
+- [typing_27_verify_palette_map_tail](docs/research/typing_27_verify_palette_map_tail.md)
+- [typing_2e_wait_glyph_tail](docs/research/typing_2e_wait_glyph_tail.md)
+- [typing_2e_verify_wait_glyph_tail](docs/research/typing_2e_verify_wait_glyph_tail.md)
+- [typing_29_leaf_lcdc_ly_limits](docs/research/typing_29_leaf_lcdc_ly_limits.md)
+- [typing_29_verify_leaf_lcdc_ly_limits](docs/research/typing_29_verify_leaf_lcdc_ly_limits.md)
+
+
+## Original bank27/2E/29 integration verified (2026-10-08)
+
+Twenty-two comments qualify six bounded entries without changing labels or emitted bytes. The bank27 prefix temporarily restores the saved WRAM shadow before Gfx_UploadBgMapBuffers selects WRAM7; direct4EEB enters only the LCDOn/BC0/RET tail. Bank2E4EB2 makes60 calls conditional on ordinary helper returns, with no universal60-frame duration;4F9A decrements once and its18F0 branch reaches the preceding RET. Bank29 clears LCDC.bit2 at5090 and calls selected-bank7BB7 before potentially unbounded LY polling at511E. Physicalbank29 padding is distinct from7D Joypad_Update. Stack, mapping, IRQ, callee and buffer prerequisites remain qualified; purpose and unproved entries remain HYPOTHESIS. Executor, independent reviewer and ROOT each ran one new canonical37:36rc0 plus expected ordinal27rc2/exact97-byte diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols/palettes pass and all671 actual outputs equal the accepted private version. Source hashes were held for every ROOT command; no fresh native or actual English-owner per-command closure, new runtime, visual or hardware evidence is claimed. Fresh publication validation follows.
+
+
+### Remaining neutral headers: bounded effects without aliases
+
+All28 neutral-only groups remain KEEP. Five owners gain15 bounded comment rows for audio offsets, WRAM6 static copies, the full2B687C family, explicit4E6172 SRAM1 and hypothetical55interior5F2A. Entry/purpose and stack/mapping/IRQ remain qualified; no natural/forced or absent-entry promotion. See [bounded mechanics](docs/research/typing_neutral_remaining_headers.md) and [verification limits](docs/research/typing_neutral_verify_remaining_headers.md).
+
+
+## Original remaining neutral headers integration verified (2026-10-08)
+
+Five source owners receive fifteen bounded comments: twelve existing comment rows and three explicit blank-to-comment rows. No emitted bytes, physical line counts, symbols or aliases change. Six spans contain258 bytes and109 CPU starts, separately from12 inline farcall bytes. Audio table471A/index25 points to49B6 and44AF/index6 to49CD; names remain neutral and driver-state prerequisites qualified. WRAM6 copies include terminating zeros. The2B687C family extends through RET6919, rather than ending at6909, and its predecessor is a table plus RET rather than a previous JR. Routine4E6172 explicitly selects SRAM1 and disables RAMG on ordinary exit without restoring prior configuration. The hypothetical keyboard interior5F2A skips the XOR; no observed entry is claimed. All28 neutral-only groups remain KEEP and are not a completion or reachability measure. The old local2B case headers retain inherited141-byte prefix metadata; the corrected complete158-byte family boundary above and research note qualify them. Executor, independent reviewer and ROOT each ran one new canonical37:36rc0 plus expected ordinal27rc2/exact97-byte diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL, symbols and palettes pass, and all671 outputs equal EX and the coherent parent. ROOT source hashes held for each command. Independent raw/emitter proof preceded EX facts, but a candidate note exposed an EX summary after independent ordinal25 before terminal; the remaining fixed protocol, source and expectations stayed unchanged. No blind review, full result isolation, fresh native or English-owner closure, new natural execution, visual or hardware proof is claimed. Fresh publication verification follows.
+
+
 ## English parity with original bank75 and54 verified (2026-10-08)
 
 The combined parity merge preserves all552 language resources and the complete prior English documentation chronology. Private executor and ROOT each ran one six-check pipeline; all checks returned zero. ROOT held4214 source hashes throughout the six commands, compared all675 outputs with the accepted private version and retained English ROM SHA-25651a808c52a7f6bc587f27cc0d75fc875e87e78102c9189764b301620979c5e22. SYM15543 labels/51 constants and MAP remain exact; no new English rendering, layout, fidelity, natural execution or hardware evidence is claimed. Fresh publication verification follows.
+
+
+## Private English parity and bounded ZIP reuse verified (2026-10-08)
+
+One private six-check pipeline completed once with all six return codes zero on the frozen source based on published original `88b4bca2665b96b77b941b18c19f802fc499276c` and English `f7c12ad7c82e2b8967378d608d95ed75d8d127ef`. The measured English ROM SHA-256 is `a3d97ff42adb6350ac443cc7215333f8ea006678342867a5599ff3a88d92daa0`. It differs from the preceding English ROM in exactly the 25 authorized donor bytes and zero bytes elsewhere. Of 675 outputs, only the ROM and the two graphics objects change; the other 672 outputs, including SYM, MAP and all 336 dependency files, remain byte-exact. All 15,543 label records and 51 constants remain unchanged. Complete dependency parsing retains 10,966 rules and 5,651 source bindings, rebound to all eleven changed ASM owners.
+
+The private pass held all 4,223 source files throughout the six commands, preserving the prior 552 English emitting resources and the complete English documentation chronology. Copy timestamps caused regeneration of 405 graphics files and 36 font files, followed by 336 assembly jobs; no timestamps were normalized and generated source bytes stayed exact. Source files were physically 0644 and build outputs 0664, separately from Git mode 100644. The following appendices record this finished private pass and resolve the preceding validation-pending wording for this version. ROOT adoption, actual integration, publication and fresh-checkout verification remain separate pending steps. Runtime rendering, menu navigation, translation fidelity and hardware remain UNVALIDATED.
+
+
+## ROOT English integration verification (2026-10-08)
+
+ROOT adopted the independently reviewed 24-path pass and resolved the normal merge of published English `f7c12ad` with original `88b4bca`. One actual six-check pipeline returned six zero codes; all 4,223 source hashes held for each command and all 675 outputs equal the executor and independent private builds. ROM SHA-256 is `a3d97ff42adb6350ac443cc7215333f8ea006678342867a5599ff3a88d92daa0`: exactly 25 donor byte changes, with zero other changes from the preceding English ROM. SYM retains 15,543 labels and 51 constants; MAP and 336 dependency files remain byte-exact. Both private reviews were qualified with known prior context, without a blind-review claim. The six complete actual logs were read. This appended result changes documentation only; no successful checks were replayed.
+
+The later original asset-documentation commit `198cdf2` is outside this frozen merge and requires subsequent documentation parity. Whole-ROM English/ZIP differences remain 58,169 bytes; this is bounded reuse, not complete ZIP equivalence. Publication and fresh reconstruction follow this result. Menu flow, rendering, translation fidelity and hardware remain UNVALIDATED.

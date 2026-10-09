@@ -98,9 +98,9 @@ Browser_ClearBodyArea:: ; 4E:612B
 	ret
 
 Function_4E_6172:: ; 4E:6172
-	; [HYPOTHESIS] function: cp a,1 ; ret nz ; SRAM enable, reads [A9ED] bit 7, returns b=$19/$1A in
-	; a, SRAM disable, ret; 18 insn, ends exactly where the executed function 4E:6196 starts; no
-	; caller/pointer found, entry unproven
+	; [HYPOTHESIS] 36B/18 starts [6172,6196); A!=1 RETNZ, else RAMG0A/select SRAM1.
+	; A9ED.bit7 selects19/1A; normal exit clears RAMG, retains SRAM1, no prior-state restore.
+	; RET6195 blocks next owner frame_graphics6196; caller/purpose and IRQ/stack remain open.
 	cp a, $01
 	ret nz
 	ld a, $0A

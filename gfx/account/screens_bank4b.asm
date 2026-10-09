@@ -120,7 +120,7 @@ Data_4B_5080:: ; 4B:5080
 
 Data_4B_5400:: ; 4B:5400
 	db $00, $00, $00, $FF, $FF, $00, $F7, $F8, $9B, $0C, $6F, $64, $67, $64, $67, $64
-	db $00, $00, $00, $FF, $FF, $00, $FF, $20, $FF, $BE, $63, $62, $BF, $2A, $FD, $28
+	db $00, $00, $00, $FF, $FF, $00, $FF, $97, $FC, $94, $FF, $94, $FF, $D4, $BF, $B4
 
 ; ---- gfx $5420-$5870 (1104 bytes) [PROBABLE] tile data: heuristic: 69 coherent tiles (hsim2=0.852 vsim2=0.752, 0 blank) parity 0; 40/1184 bytes also covered by call-site blocks [clipped from 5420-58C0 by higher-priority proposals]; the 8 bytes behind the INCBIN and the next block ($5878-$5898, 32 bytes) were palette bytes: the palette array below is what engine/account/result_page.asm reads
 

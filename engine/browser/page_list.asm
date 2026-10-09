@@ -338,7 +338,7 @@ PageList_Main_Loop:: ; 24:4083
 	; [verifier: no entry proven (no caller, no valid table word, never executed): decode chain
 	; alone is not proof -> HYPOTHESIS]
 	ret
-
+	; [PROBABLE] WRAM6 copies static NUL URL/title; stack/buffers required, entry/purpose HYP.
 Function_24_42B0:: ; 24:42B0
 	ld a, $06
 	ldh [hWRAMBank], a

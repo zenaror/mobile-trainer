@@ -95,7 +95,7 @@ Data_4A_54A0::
 	INCBIN "gfx/account/screens_bank4a/tilemap_54a0.tilemap"
 	INCBIN "gfx/account/screens_bank4a/tilemap_54a0.attrmap"
 
-; ---- data $5770-$5810 (160 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
+; ---- data $5770-$5810 (160 bytes) [CONFIRMED] four consecutive 2x10 tile+attribute pairs; SettingsMenu_ItemHighlightMaps indices 0..3 select BANK 4A via 68:5285 -> 00:08EA with BC=$020A; read coverage remains bounded to the historical scenarios
 
 Data_4A_5770:: ; 4A:5770
 	db $80, $81, $82, $83, $84, $85, $86, $87, $88, $89, $90, $91, $92, $93, $94, $95
@@ -103,13 +103,13 @@ Data_4A_5770:: ; 4A:5770
 	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $8A, $8B, $8C, $8D, $8E, $8F, $A0, $A1
 	db $A2, $A3, $9A, $9B, $9C, $9D, $9E, $9F, $B0, $B1, $B2, $B3, $0A, $0A, $0A, $0A
 	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
-	db $8A, $A4, $A5, $A6, $A7, $A8, $A9, $AA, $AB, $A3, $9A, $B4, $B5, $B6, $B7, $B8
-	db $B9, $BA, $BB, $B3, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
+	db $8A, $A4, $A3, $A5, $A6, $A7, $A8, $A9, $AA, $AB, $9A, $B4, $B3, $B5, $B6, $B7
+	db $B8, $B9, $BA, $BB, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
 	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $AC, $AD, $AE, $AF, $C0, $C1, $C2, $C3
 	db $C4, $C5, $BC, $BD, $BE, $BF, $D0, $D1, $D2, $D3, $D4, $D5, $0A, $0A, $0A, $0A
 	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
 
-; ---- data $5810-$5838 (40 bytes) [PROBABLE] tail of the 10-row x 20-column block of tile numbers 4A:5770-5838 (rows of 20: 80..99 / $0A filler / 8A.. ; the first 160 bytes are CONFIRMED read data): two more rows, 40 bytes
+; ---- data $5810-$5838 (40 bytes) [PROBABLE] fifth 2x10 tile+attribute pair (20 tiles, then 20 attributes); BANK 4A pointer $5810 is selected by SettingsMenu_ItemHighlightMaps index 4 with BC=$020A; static consumer format does not prove natural reads of the whole tail
 
 Data_4A_5810:: ; 4A:5810
 	db $C6, $C7, $C8, $C9, $CA, $CB, $CC, $CD, $CE, $89, $D6, $D7, $D8, $D9, $DA, $DB
