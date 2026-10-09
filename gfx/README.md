@@ -47,7 +47,8 @@ gfx/assets.tsv                                 one line per asset: kind, size, b
 | 2bpp tiles (`.2bpp`) | 405 | 346672 |
 | **all** | **947** | **607576** |
 
-PNGs: 406 exact rgbgfx sources (`.png`), 38 font binaries with an editable sheet PNG (`.png`), 1 view-only picture (`_view.png`).
+PNGs: 405 active exact rgbgfx sources (`.png`), 38 font binaries in 37 editable sheet PNGs (`.png`), 1 view-only picture (`_view.png`).
+The old count406 included the retired bank73 tile interpretation; its historical file remains outside the active catalogue.
 
 ## Still `db`
 
@@ -1499,9 +1500,9 @@ JIS column c+1.  The packing (12x12: two 12-bit rows in 3 bytes; 8x16 / 6x12: on
 
 A screen = a tilemap + attribute map and the tile blocks and palettes that the *same loader routine* puts into VRAM (found statically from the far calls
 to the HDMA, tilemap-copy and palette-buffer routines; `evidence` column).  The tile-number addressing mode (LCDC bit 4) is chosen by which mode resolves
-more cells.  Status: PROBABLE = every cell resolves and the mode does not matter or is decided by coverage (18 screens); HYPOTHESIS = part of the cells
+more cells.  Status: PROBABLE = every cell resolves and the mode does not matter or is decided by coverage (20 screens); HYPOTHESIS = part of the cells
 resolve (the rest are drawn pink) or the mode is a tie or the screen is one of the bank 41-46 scene records (layout-only assumption: tile k = record tile k,
-VRAM bank 1) (65 screens).  Visual check (2 x zoom contact sheet, title, mail menu, top menu, logo, keyboard, scenery screens): the composed images read as the
+VRAM bank 1) (72 screens).  Visual check (2 x zoom contact sheet, title, mail menu, top menu, logo, keyboard, scenery screens): the composed images read as the
 real screens.  `export` writes the PNGs, `import` reads them back:
 
 ```
@@ -1511,12 +1512,18 @@ python3 tools/screen_png.py check                                # render -> imp
 ```
 
 Pixel value = `4 * palette + shade` (palette = the cell's attribute bits 0-2, shade 0-3), PLTE = the eight palettes of the screen in their real colours (greys
-tinted per palette where the palette load is not known: 25 screens), entry 32 (pink) = a cell whose tile the routine does not load.  Import **keeps the
+tinted per palette where some palette words have no known load: 22 screens (14 with no palette words and8 with partial loads)), entry 32 (pink) = a cell whose tile the routine does not load.  Import **keeps the
 tilemap and attribute map**: each cell is written back into the tile it shows (flips undone), and the result lands in the tile sheet PNG (the source), then
 `make`.  Errors in plain words: a cell may use only the colours of its own palette; a tile shown by several cells must look the same in all of them (editing
 one of them alone is refused, because the tilemap cannot give it another tile); other screens showing an edited tile change too (import lists them).  Re-laying out
 a screen needs the tilemap / attribute bytes, which stay binary.  The unedited screen PNG imports to "no change" for every screen, and the tile bytes
 reached through every cell are exactly the `.2bpp` bytes (proved by `make png-check`).
+
+### Audit limits and frame models
+
+The92 editing views are20 PROBABLE and72 HYPOTHESIS. The24 existing previews of bank41–46 records have no capture match in their metadata; loaded pixels agree with their conditional model. These facts do not demonstrate natural reachability, faithful runtime layout or resource completeness. The editing-view model loads160 record tiles into VRAM1:$8000 (unsigned); the preview model loads128 BG tiles into VRAM1:$9000/$9400,32 OBJ tiles into VRAM0:$8000 and the menu preload atVRAM1:$8800. Keep these models distinct.
+
+Eleven bank41–46 tilemaps lack editing views (eight partial-model cases plus three fragmented bank42 tile sources); two additional bank47 tilemaps lack them. Record47:68F0 already has an editing view and is outside the24-window loop. Twenty-five names in bank53 do not establish an image order or a missing25th asset. Details and locator-only contact sheets: [catalogue/layout audit](../docs/research/assets_original_catalogue_and_layout_audit.md), [frame/name limits](../docs/research/assets_pokemon_frames_and_name_limits.md).
 
 ### Tools
 
