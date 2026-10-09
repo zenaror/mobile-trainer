@@ -2470,7 +2470,7 @@ Data_2C_6702::
 PUSHC sjis
 String_AddrPick_Caption:: ; 2C:6704
 String_2C_6704::
-	db "　　アドレスを　せんたくしてください　　", 0
+	db "　　　Ｃｈｏｏｓｅ　ｃｏｎｔａｃｔ　　　", 0
 POPC
 
 ; ---- zero $672D-$6730 (3 bytes) [PROBABLE] all-zero padding before an aligned tile/data block (mapper hint: padding-like)

@@ -1,67 +1,126 @@
 ; data/text/pokemon_names_bank53.asm
-; bank 53, $4000-$4171 (369 bytes); pinned by layout.link
-; 25 katakana names (pointer table + strings); no reader found
+; bank 53, $4000-$8000 (16384 bytes); pinned by layout.link
+; English donor name records; typed Shift-JIS bytes, reader and rendering remain unproved.
 
 SECTION "data/text/pokemon_names_bank53", ROMX
 
 PUSHC sjis
 
-; ---- ptrtable $4000-$4032 (50 bytes) [PROBABLE] little-endian word table, 25 entries, monotone=1.00, 100% of targets on string start/after NUL, targets $4032..$4164; regular record stride between targets; verifier: truncated from 28 to 25 entries: entry 0 = 4032 is where the table ends
+; ---- ptrtable $4000-$4032 (50 bytes) [PROBABLE] 25 words: ten original offsets and fifteen
+; bank-53 tail targets. Raw donor pointers and NUL string extents checked; no reader is established.
 
 Table_53_4000:: ; 53:4000
-	dw String_53_4032
-	dw $403F
+	dw String_53_7FF1
+	dw String_53_7FE2
 	dw $404C
 	dw $4059
 	dw $4066
-	dw $4071
-	dw $407C
+	dw String_53_7FCD
+	dw String_53_7FBC
 	dw $4089
 	dw $4096
-	dw $40A3
-	dw $40B0
-	dw $40BD
-	dw $40C8
-	dw $40D5
-	dw $40E2
+	dw String_53_7FAD
+	dw String_53_7F9E
+	dw String_53_7F91
+	dw String_53_7F7E
+	dw String_53_7F6B
+	dw String_53_7F58
 	dw $40EF
 	dw $40FC
-	dw $4109
+	dw String_53_7F45
 	dw $4116
 	dw $4123
-	dw $4130
-	dw $413D
-	dw $414A
+	dw String_53_7F32
+	dw String_53_7F23
+	dw String_53_7F12
 	dw $4157
-	dw $4164
+	dw String_53_7F01
 
-; ---- text $4032-$4171 (319 bytes) [PROBABLE] text: 25 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+; ---- data $4032-$4171 (319 bytes) [PROBABLE] ten typed donor strings at original offsets,
+; with fifteen zero-filled former slots and six trailing zero bytes. No consumer claim.
 
 String_53_4032:: ; 53:4032
-	db "　　ポリゴン", 0
-	db "　ピカチュウ", 0
-	db "　　トゲピー", 0
-	db "　　ニャース", 0
-	db "　　ルギア", 0
-	db "　　プリン", 0
-	db "　　ワニノコ", 0
-	db "　　エンテイ", 0
-	db "　　ハッサム", 0
-	db "　　コダック", 0
-	db "　ブラッキー", 0
-	db "　　マリル", 0
-	db "　バンギラス", 0
-	db "　ハクリュー", 0
-	db "　ウソッキー", 0
-	db "　　ピチュー", 0
-	db "　　レディバ", 0
-	db "　キレイハナ", 0
-	db "　ミュウツー", 0
-	db "　　ホウオウ", 0
-	db "　ソーナンス", 0
-	db "　　ディグダ", 0
-	db "　フシギバナ", 0
-	db "　　エーフィ", 0
-	db "　ポリゴン２", 0
+	; [CONFIRMED] Historical neutral label retained at its original address. This former slot
+	; is now thirteen zero bytes; the donor table points to $7FF1 instead. Reader remains unproved.
+	ds $0D, $00
+	ds $0D, $00
+	db "ＴＯＧＥＰＩ", 0
+	db "ＭＥＯＷＴＨ", 0
+	db "ＬＵＧＩＡ", 0
+	ds $0B, $00
+	ds $0D, $00
+	db "ＥＮＴＥＩ", 0
+	ds $02, $00
+	db "ＳＣＩＺＯＲ", 0
+	ds $0D, $00
+	ds $0D, $00
+	ds $0B, $00
+	ds $0D, $00
+	ds $0D, $00
+	ds $0D, $00
+	db "ＰＩＣＨＵ", 0
+	ds $02, $00
+	db "ＬＥＤＹＢＡ", 0
+	ds $0D, $00
+	db "ＭＥＷＴＷＯ", 0
+	db "ＨＯーＯＨ", 0
+	ds $02, $00
+	ds $0D, $00
+	ds $0D, $00
+	ds $0D, $00
+	db "ＥＳＰＥＯＮ", 0
+	ds $0D, $00
+
+; ---- zero $4171-$7F01 (15760 bytes) [CONFIRMED] Explicit bytes of the existing linker padding;
+; published English and both Japanese controls are zero throughout this bounded interval.
+	ds $3D90, $00
+
+; ---- text $7F01-$8000 (255 bytes) [PROBABLE] Fifteen contiguous fullwidth Shift-JIS donor names,
+; NUL terminated. Encoding and lengths match the donor; reader, font choice and layout are unproved.
+
+String_53_7F01:: ; 53:7F01
+	db "ＰＯＲＹＧＯＮ２", 0
+
+String_53_7F12:: ; 53:7F12
+	db "ＶＥＮＵＳＡＵＲ", 0
+
+String_53_7F23:: ; 53:7F23
+	db "ＤＩＧＬＥＴＴ", 0
+
+String_53_7F32:: ; 53:7F32
+	db "ＷＯＢＢＵＦＦＥＴ", 0
+
+String_53_7F45:: ; 53:7F45
+	db "ＢＥＬＬＯＳＳＯＭ", 0
+
+String_53_7F58:: ; 53:7F58
+	db "ＳＵＤＯＷＯＯＤＯ", 0
+
+String_53_7F6B:: ; 53:7F6B
+	db "ＤＲＡＧＯＮＡＩＲ", 0
+
+String_53_7F7E:: ; 53:7F7E
+	db "ＴＹＲＡＮＩＴＡＲ", 0
+
+String_53_7F91:: ; 53:7F91
+	db "ＭＡＲＩＬＬ", 0
+
+String_53_7F9E:: ; 53:7F9E
+	db "ＵＭＢＲＥＯＮ", 0
+
+String_53_7FAD:: ; 53:7FAD
+	db "ＰＳＹＤＵＣＫ", 0
+
+String_53_7FBC:: ; 53:7FBC
+	db "ＴＯＴＯＤＩＬＥ", 0
+
+String_53_7FCD:: ; 53:7FCD
+	db "ＪＩＧＧＬＹＰＵＦＦ", 0
+
+String_53_7FE2:: ; 53:7FE2
+	db "ＰＩＫＡＣＨＵ", 0
+
+String_53_7FF1:: ; 53:7FF1
+	db "ＰＯＲＹＧＯＮ", 0
 
 POPC
