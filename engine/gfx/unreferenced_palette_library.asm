@@ -5,12 +5,12 @@
 SECTION "engine/gfx/unreferenced_palette_library", ROMX
 
 Function_29_5090:: ; 29:5090
-	; [HYPOTHESIS] candidate library image; 742 bytes admit a conditional 460-start decode.
-	; Internal direct targets land on those starts; calls $044B and $7BB7 leave the span.
-	; No span execution/read overlap/transfer appears in the existing 69 natural coverage,
-	; 69 data-access and 50 callgraph files. No external tracked ASM global-symbol reference was found.
-	; Outside-span ROM bytes contain 4,001 raw little-endian start-address matches and 189
-	; CALL/JP opcode-plus-target patterns (none in physical bank 29); these are not caller proofs.
+	; [HYPOTHESIS] 742-byte library admits460 conditional starts; entry/purpose/live bank unproved.
+	; Leaf5090:7B/4 starts clears LCDC.bit2, RET; finite internal CALL509E, no live-entry proof.
+	; Leaf511E:39B/24 starts saves BC/DE, CALL7BB7; balanced return required, HL not saved.
+	; FFA4.bit0 selects unbounded LY poll24/48/6C/90 or48/90; no explicit WRAM store in leaf.
+	; Natural69 coverage/69 data/50 graphs have no span exec/read/edge;19 graphs missing.
+	; Outside-span4001 words/189 opcode patterns, no physical29 CALL/JP; not caller proofs.
 	; $7BB7 is zero padding in physical bank 29; entry/copy/relocation and selected bank are unknown.
 	; Writes to $2000/$3000 at $510F can change later fetches; padding cannot exclude every leaf.
 	; The PRNG-like sequence reads ROM $0C0E/$0C0F and writes mapper space, not WRAM seed storage.

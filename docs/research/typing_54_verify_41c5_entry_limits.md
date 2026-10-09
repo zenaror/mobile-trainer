@@ -25,3 +25,8 @@ One new private literal37 completed36rc0 plus ordinal27 historicalschema rc2/exa
 ## Original bank54 integration verified (2026-10-08)
 
 The bounded bank54:41C5 fragment has seven instruction starts and15 bytes through RET41D3. It initializes C1DB=3, C1D8=1 and C1D9=0; the polling body at41D4 is outside that bounded path. Local return and register effects assume a valid nonaliasing stack and no intervening interrupt. Entry and purpose remain HYPOTHESIS; neutral symbols and all emitted bytes remain unchanged. Executor, independent reviewer and ROOT each completed a new canonical37:36rc0 plus expected ordinal27rc2 with its exact97-byte diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols and palettes pass, and all671 actual outputs equal the accepted private pass. Fresh published validation follows. ROOT guarded source hashes each command; no fresh native or actual English-owner closure is claimed.
+
+
+## Fresh published bank54 verification
+
+Published MAINc9bd14e1a3b6793c038c418588e44b699a8093c2 was cloned from GitHub into a new private checkout. With the original reference supplied privately, make, compare, sym-check and palette-check each completed rc0 once. All4210 tracked source files equal their Git blobs and all671 outputs equal the accepted private54 pass. The checkout is clean; fresh source modes are0664. This adds no natural execution, visual or hardware evidence.

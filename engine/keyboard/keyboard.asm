@@ -514,10 +514,10 @@ Label_55_5F26::
 	ret
 
 Label_55_5F29:: ; 55:5F29
-	; [HYPOTHESIS] xor a ; call $6427 ; ld a,0 ; ld [$C2AF],a ; ld a,9 ; ret - target of the jp
-	; $5F29 at 55:5DFF, sibling of the "ld a,N ; ret" handlers at 5F1D/5F20 [verifier: no entry
-	; proven (no caller, no valid table word, never executed): decode chain alone is not proof ->
-	; HYPOTHESIS; its only jumper is the HYPOTHESIS routine 5DF5]
+	; [HYPOTHESIS] 12B/6 starts [5F29,5F35): XOR sets A0 before unconditional CALL6427.
+	; Normal callee return clears C2AF then A9/RET; caller stack/mapping/IRQ prerequisites.
+	; JP5DFF is a bounded static reference; no new natural entry or whole-caller ABI proof.
+	; Hypothetical interior5F2A skips XOR and may supply another A; no observed caller claimed.
 	xor a, a
 	call Kbd_SlideOut
 	ld a, $00

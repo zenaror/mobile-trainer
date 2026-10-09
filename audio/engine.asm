@@ -1754,7 +1754,7 @@ Label_04_49A2::
 	sub a, $80
 	ld [hl], a
 	jp SoundDrv_ReadNextCommand
-
+	; [PROBABLE] Table46E8 word471A: sets update.bit2 then stores stream byte at track+1E.
 Label_04_49B6:: ; 04:49B6
 	ld a, [wSoundDrv_UpdateFlags]
 	set 2, a
@@ -1775,7 +1775,7 @@ Label_04_49C8::
 	; $CD 7 (never used by the data): +$28 = length of the note-end tail, (256 - value) * 15 ticks (PROBABLE, demonstrated (synthetic): see .l4D54)
 	ld bc, $0028
 	jr SoundDrv_CmdStoreTrackByte
-
+	; [PROBABLE] Table44A3 word44AF: BC27/JP44EC word-field setter; pointer/mask state required.
 Label_04_49CD:: ; 04:49CD
 	ld bc, $0027
 	jp SoundDrv_SetTrackFieldWord
