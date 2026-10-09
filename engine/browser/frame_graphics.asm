@@ -482,7 +482,7 @@ Function_4E_6291::
 	ld [wBrowserTimerLastSec], a
 	ret
 
-; ---- data $6543-$654B (8 bytes) [HYPOTHESIS] UNCLASSIFIED 10 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) | observed: 8 bytes 08 08 0D 0E 0F 08 08 08 right before the descriptor pointer table 4E:654B and after the ret at 6542; no code word/immediate references them; left unclassified
+; ---- data $6543-$654B (8 bytes) [HYPOTHESIS] existing storage/entry level retained; computed attribute lookup at 4E:6486-649D forms DE=$6543+(attribute & $07), reads one of these eight bytes and combines it with (attribute & $E0); mapping requires ROM4E selected and valid WRAM7 screen buffers. The inherited literal-word note did not establish absence of computed readers; no new natural/forced observation, semantic alias or hardware proof is asserted.
 
 Data_4E_6543:: ; 4E:6543
 	db $08, $08, $0D, $0E, $0F, $08, $08, $08
