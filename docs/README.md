@@ -423,3 +423,50 @@ This five-document result appendix is added only after the completed pipeline; t
 ROOT adopted the qualified executor and independent reviews and resolved the normal merge of published English `3883e68` with original `7986b2b`. One actual six-check pipeline returned six zero codes; all 4,231 source hashes held for each command and all 675 outputs equal both private builds. ROM SHA-256 is `178fbb2522debb97216eee8aeb60f1b7a1d8ac32707a13339f185263c2aa741b`: exactly 587 changed bytes from the preceding English ROM (564 names-table bytes and 23 address-picker caption bytes), with zero other byte changes. The two donor banks 2C and 53 match ZIP English in their entirety; this is not whole-ROM ZIP parity. Symbols retain all old addresses and add 15 neutral tail labels, totaling 15,558 labels and 51 constants. There are five changed outputs and 670 unchanged outputs; the 336 dependency files retain their raw bytes while four owner source-hash bindings change.
 
 ROOT scanned all six log byte streams programmatically and checked their exact hashes and diagnostics, without claiming a blind review or human full-log reading. Five documentation appendices follow successful checks and no checks are replayed. Whole-ROM ZIP English differences remain 57,582 bytes. The historical residual ledger remains 5,055 bytes in its own bounded scope; these 587 bytes were outside that ledger. The later original local2B commit requires subsequent parity. Reader dispatch, names-to-frame association, natural menu flow, rendering, font selection, timing, translation fidelity and hardware remain UNVALIDATED. Publication and fresh reconstruction follow.
+
+
+## Residual local-case comment bounds
+
+- [2B:687C residual local cases](research/typing_2b_687c_residual_localcase_bounds.md): seven existing comments;158-byte returning boundary, finite348-file reference qualification and preserved classification history. Verification of this new private pass remains pending.
+
+
+## Current private local-case validation
+
+One newly authorized private canonical 37-command pipeline completed: 36 return codes 0 and the expected ordinal 27 return code 2 with the exact 97-byte historical schema diagnostic. Make reports SHA-256 OK; compare reports RESULT: IDENTICAL. All 671 output files match the published 7986 fresh parent in whole bytes, sizes and SHA-256, including the original ROM, SYM and MAP. The symbol table retains 15,538 labels and 51 constants. D334 retains 10,912 raw rules and 5,623 bindings; current source/dependency hashes rebind only engine/mail/mail_viewer_sender.asm, with explicit published SOURCE4224 BEFORE and tested SOURCE4225 AFTER phases. All 4,225 frozen source guards, two original references and the six resolved executable guards held before and after every command. This is an executable inventory, not a full native/library closure or new native capture. Whole logs and diagnostic/warning lines are preserved; success is not described as warning-free.
+
+These three documentation result appends follow the completed terminal and output measurements; no command is replayed and all 671 outputs remain unchanged. The seven ASM comment changes retain all emitted lines, physical positions, labels and evidence levels. Independent verification, ROOT adoption, actual integration and publication remain pending. No new natural-menu, graph capture, purpose proof or hardware evidence is claimed.
+
+
+## ROOT local2B original integration verification (2026-10-08)
+
+ROOT adopted the qualified executor and independent reviews and ran one actual canonical 37-check pipeline: 36 zero return codes and the expected ordinal 27 return code 2 with its exact 97-byte schema diagnostic. All 4,225 source hashes held before and after each command; all 671 output hashes equal both private builds and the original parent fresh build. The ROM is byte-identical to the original, SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. Symbols retain 15,538 labels and 51 constants; palettes pass. ROOT performed a programmatic whole-byte scan of all logs and exact diagnostic/hash checks; this is not a blind or human full-log-read claim. ResourceWarning diagnostics are retained in the receipts, not described as warning-free results.
+
+This three-document result appendix was added after the successful checks; only documentation changes and the successful pipeline is not replayed. The single source owner retains all emitted lines, labels, levels and physical line counts. The complete family ends at691A; entry and purpose remain HYPOTHESIS, and no new natural-menu, visual or hardware evidence is claimed. Publication and fresh reconstruction are subsequent stages.
+
+
+## Archived lite callgraphs — current private candidate
+
+- [Historical lite graph archive](research/historical_lite_callgraph_archive_adoption.md): 19 restored files / 61,742 rows plus 50 preserved files / 80,700 rows; candidate natural corpus 69 coverage / 69 dataaccess / 69 callgraphs. Provenance14+5, finite zero targets for the28 neutral-only groups, unchanged code/outputs, separate mapper/driver consumer policy and pending ROOT/independent review. Dated prior corpus notes remain intact.
+
+
+## ROOT archival adoption verification (2026-10-08)
+
+ROOT and the independent reviewer accepted the frozen 22-path archival scope on published/fresh `8eab941`. The actual tree now contains 69 natural callgraphs (142,442 scenario-aggregate rows); all 19 restored files reproduce the guarded historical bytes. All 4,223 parent files outside the two documentation appendices remain byte-identical, and all 671 verified parent outputs remain byte-identical. The source inventory is 4,245 paths. Code, metadata, tools, assets, config, scenarios, the old 50 graphs and natural coverage/dataaccess are preserved. ROOT checked all current source/payload/output hashes and the qualified independent review; these are static preservation checks, not a new build, ROM execution or blind/human full-log review.
+
+No canonical37, mapper, generator or trace capture was replayed. The closed parent reconstruction and finite dependency audit justify carrying forward the unchanged emitted-output proof for this archival-only change. The separate mapper consumer and destructive lite-republication risk remain documented above. Restored19 zero targets for28 neutral-only groups establish only that bounded result; no semantic level, unreachable claim, names/frame mapping or hardware evidence changes. Earlier private/pending wording remains chronological history. Publication and post-publication Git-blob preservation checks follow this adoption.
+
+
+## Private English parity with local2B and archived DOC22 (2026-10-08)
+
+One separately authorized private six-check pipeline completed with six return codes 0 on a frozen 4,252-file source tree. The measured ROM SHA-256 is `178fbb2522debb97216eee8aeb60f1b7a1d8ac32707a13339f185263c2aa741b`; all 675 outputs are byte-identical to published English parent `8512e24a4fc44df07179d0f5df5fd09111cf0a44`, including SYM and MAP. Symbols retain 15,558 labels and 51 constants. All 336 dependency files retain 10,966 raw rules and 5,651 bindings; current source hashes rebind only `engine/mail/mail_viewer_sender.asm`. All source bytes, modes and link counts held before and after every command. The 556 English resources and 22 ASM overrides remain unchanged.
+
+The new scope contains seven existing comment-row corrections, two English-preserving documentation appendices, the published local2B and archive provenance notes, and 19 published historical callgraphs. The 19 archived graph files are byte-identical to published Japanese parent `fe5238f6112cc71b7c97abb4c05c6591a4912f54`; they remain historical scenario aggregates, not new captures or completeness evidence. Whole logs are preserved and programmatically checked: 162 palette loads in 116 arrays with two documented over-reads, 405 tile sheets, 37 distinct font sheets, 92 screen PNGs, 947 asset records, and zero hard sprite mismatches with 338 informational notes retained. No PNG/font conversion was needed in this private build; copied source timestamps were preserved.
+
+This two-document result appendix follows observed terminal closure; the other 4,250 source paths and all 675 output files remain unchanged. No successful check is replayed. Prior context was known; this is not a blind or human full-log-read claim. No new native capture, natural-menu, visual, font appearance or hardware proof is established. The published archive provenance note and translation notes remain unchanged. ROOT adoption, actual integration and publication are subsequent stages.
+
+
+## ROOT English parity verification (2026-10-08)
+
+ROOT adopted the qualified private executor and independent reviews and resolved a normal merge of published English `8512e24` with original `fe5238f`. One actual six-check pipeline returned six zero codes. All 4,252 source hashes held before and after each command; all 675 outputs remain byte-identical to the preceding English build and both private builds. ROM SHA-256 remains `178fbb2522debb97216eee8aeb60f1b7a1d8ac32707a13339f185263c2aa741b`, with 15,558 labels and 51 constants and an unchanged symbol map. The local2B comments and 19 historical callgraphs are carried forward; no trace was recaptured and no mapper was executed. The 336 dependency files preserve raw bytes and only the mail-viewer owner source-hash binding changes.
+
+ROOT checked exact hashes and scanned the six whole log byte streams programmatically, without claiming blind review or human full-log reading. Two documentation appendices follow the successful checks, without replay. ZIP residual ledger remains 5,055 bytes in its bounded scope and whole-ROM ZIP English differences remain 57,582 bytes. Reader dispatch, names-to-frame association, natural menu flow, rendering, timing, translation fidelity and hardware remain UNVALIDATED. Optional language build support remains pending. Publication and fresh reconstruction follow.
