@@ -293,3 +293,7 @@ The [semantic note](research/typing_26_compare_word_deltas_alias.md) and [verifi
 
 - [Remaining neutral headers](research/typing_neutral_remaining_headers.md) — bounded effects, KEEP28 and explicit contradictions.
 - [Remaining neutral verification](research/typing_neutral_verify_remaining_headers.md) — scope/blank-row exceptions, static/runtime limits.
+
+
+- [Original asset catalogue and layout audit](research/assets_original_catalogue_and_layout_audit.md) — active947 ROM-byte identity, PNG readback,11+2 editing-view gaps, distinct hypothetical models and preserved negatives.
+- [Pokémon frames and name limits](research/assets_pokemon_frames_and_name_limits.md) —25SJIS names,24+1 physical windows, locator-only contacts and finite reader/visual/reachability limits.
