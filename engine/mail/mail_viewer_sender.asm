@@ -478,7 +478,7 @@ Table_2B_6863::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
-	; [HYPOTHESIS] lone 'ret' (c9) between the table and the next function; nothing branches to it
+	; [HYPOTHESIS] lone 'ret' (c9) after the table at 6863..687B; entry and purpose remain unproved
 	ret
 
 Function_2B_687C:: ; 2B:687C
@@ -509,11 +509,11 @@ Function_2B_687C:: ; 2B:687C
 	ret
 
 .l68A6 ; 2B:68A6
-	; [HYPOTHESIS] part of a switch-like function at 2B:687C-6909 (push bc; ld a,c; cp n; jr nz
+	; [HYPOTHESIS] part of a switch-like function at 2B:687C-691A (push bc; ld a,c; cp n; jr nz
 	; next; ld de,$68xx ; ld hl,$DA10 ; call $0A65 ; ld hl,$DA20 ; ld de,$78xx ; ld a,$2B ; ld b,$81
 	; ; far call 00:0A82). Block 68A6 is entered by the 'jr nz' of the previous block (in-span
 	; targets) and continues into the PROBABLE far-call site that follows; the function entry 687C
-	; has no caller/pointer in the ROM
+	; has no named caller established by the finite source inventory; indirect/raw/computed entries remain possible
 	cp a, $01
 	jr nz, .l68CE
 	ld de, $6830
@@ -534,11 +534,11 @@ Function_2B_687C:: ; 2B:687C
 	ret
 
 .l68CE ; 2B:68CE
-	; [HYPOTHESIS] part of a switch-like function at 2B:687C-6909 (push bc; ld a,c; cp n; jr nz
+	; [HYPOTHESIS] part of a switch-like function at 2B:687C-691A (push bc; ld a,c; cp n; jr nz
 	; next; ld de,$68xx ; ld hl,$DA10 ; call $0A65 ; ld hl,$DA20 ; ld de,$78xx ; ld a,$2B ; ld b,$81
 	; ; far call 00:0A82). Block 68CE is entered by the 'jr nz' of the previous block (in-span
 	; targets) and continues into the PROBABLE far-call site that follows; the function entry 687C
-	; has no caller/pointer in the ROM
+	; has no named caller established by the finite source inventory; indirect/raw/computed entries remain possible
 	cp a, $02
 	jr nz, .l68F6
 	ld de, $6850
@@ -559,11 +559,11 @@ Function_2B_687C:: ; 2B:687C
 	ret
 
 .l68F6 ; 2B:68F6
-	; [HYPOTHESIS] part of a switch-like function at 2B:687C-6909 (push bc; ld a,c; cp n; jr nz
+	; [HYPOTHESIS] part of a switch-like function at 2B:687C-691A (push bc; ld a,c; cp n; jr nz
 	; next; ld de,$68xx ; ld hl,$DA10 ; call $0A65 ; ld hl,$DA20 ; ld de,$78xx ; ld a,$2B ; ld b,$81
 	; ; far call 00:0A82). Block 68F6 is entered by the 'jr nz' of the previous block (in-span
 	; targets) and continues into the PROBABLE far-call site that follows; the function entry 687C
-	; has no caller/pointer in the ROM
+	; has no named caller established by the finite source inventory; indirect/raw/computed entries remain possible
 	ld de, $6870
 	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
