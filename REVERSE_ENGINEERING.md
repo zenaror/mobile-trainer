@@ -416,3 +416,20 @@ The current947 active assets reemit607576 original-ROM bytes. All405 tile-sheet 
 Twenty-five Shift-JIS names in53:4000 and24 physical record windows41–46 do not imply a missing25th image. A further graphic window47:68F0 already has an editable PNG; its visual identity remains unproved, and no species name is assigned. The27-style table points to bank47 descriptors, not the name table or the24 windows. Image/name order, computed readers and natural reachability remain unproved. The24 existing preview metadata rows have no matching capture, and their loaded pixels agree with the explicit model chosen by coverage; accidental capture selection is not supported for those rows.
 
 See [catalogue/layout methods](docs/research/assets_original_catalogue_and_layout_audit.md) and [Pokémon frame/name limits](docs/research/assets_pokemon_frames_and_name_limits.md). No assets, rules, tools, assembly, frozen classification or new runtime/build evidence changes in this documentation pass.
+
+
+### Settings menu highlight record format
+
+Three existing headers correct BC=$020A at68:5270 and the farcall site68:5285, separating the bank load at5283. The five words68:528C–5296 address five40-byte bank4A records:20 tile numbers (2×10) followed by20 attributes$0A. The first160 bytes remain CONFIRMED read data and the final40 remain PROBABLE; no aliases or emitted bytes change. Historical natural69 READ intervals are finite and do not promote the tail or prove per-call/visual behavior. Cursor bounds, stack/bank/IRQ and ordinary helper returns remain qualified. See [bounded format facts](docs/research/settings_menu_highlight_pair_records.md) and [prepared verification](docs/research/settings_menu_highlight_pair_records_verification.md). New private gates, independent review and integration remain pending.
+
+
+## Current private settings highlight validation
+
+One newly authorized private canonical37 completed36 rc0 results and the expected ordinal27 rc2 with its exact97-byte historical schema diagnostic. Make reports SHA-256 OK and compare reports RESULT: IDENTICAL. All671 freshly measured output sizes/SHA values, whole SYM/MAP and original ROM bytes equal the guarded parent88 fresh envelope;15538 labels and51 constants remain unchanged. D334 contains10912 unchanged rules and5623 current dependency bindings; only the two comment-owner source hashes change, with explicit published198cdf BEFORE and current4224 AFTER bindings. All4224 frozen source guards plus two original references held before and after every command. This four-document result appendix is appended only after the completed pipeline, with no build replay or emitted changes. Independent verification, ROOT adoption, actual integration and publication remain pending; no new natural/native/visual/hardware evidence or fresh native closure is claimed.
+
+
+## ROOT original integration verification (2026-10-08)
+
+ROOT adopted the qualified executor and independent reviews and ran one actual canonical 37-check pipeline: 36 zero return codes and the expected ordinal 27 return code 2 with its exact 97-byte schema diagnostic. All 4,224 source hashes held before and after each command; all 671 output hashes equal both private builds and the original parent fresh build. The ROM is byte-identical to the original, SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. Symbols retain 15,538 labels and 51 constants; palettes pass. ROOT performed a programmatic whole-byte scan of all logs and exact diagnostic/hash checks; this is not a blind or human full-log-read claim. ResourceWarning diagnostics are retained in the receipts, not described as warning-free results.
+
+This four-document result appendix was added after the successful checks; only documentation changes and the successful pipeline is not replayed. The two source owners retain all emitted lines, labels and physical line counts. Tail-record use remains PROBABLE, and no new natural-menu, visual or hardware evidence is claimed. Publication and fresh reconstruction are subsequent stages.

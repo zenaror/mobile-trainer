@@ -95,7 +95,7 @@ Data_4A_54A0::
 	INCBIN "gfx/account/screens_bank4a/tilemap_54a0.tilemap"
 	INCBIN "gfx/account/screens_bank4a/tilemap_54a0.attrmap"
 
-; ---- data $5770-$5810 (160 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
+; ---- data $5770-$5810 (160 bytes) [CONFIRMED] first four $28-byte records of the five-pointer family at 68:528C: each has 20 tile numbers (2 rows x 10 columns), then 20 attributes ($0A: palette 2, VRAM bank 1); copied by 00:08EA via 68:5285 with A=$4A and BC=$020A. Historical read-data classification retained; this does not extend CONFIRMED to the following 40 bytes
 
 Data_4A_5770:: ; 4A:5770
 	db $80, $81, $82, $83, $84, $85, $86, $87, $88, $89, $90, $91, $92, $93, $94, $95
@@ -109,7 +109,7 @@ Data_4A_5770:: ; 4A:5770
 	db $C4, $C5, $BC, $BD, $BE, $BF, $D0, $D1, $D2, $D3, $D4, $D5, $0A, $0A, $0A, $0A
 	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
 
-; ---- data $5810-$5838 (40 bytes) [PROBABLE] tail of the 10-row x 20-column block of tile numbers 4A:5770-5838 (rows of 20: 80..99 / $0A filler / 8A.. ; the first 160 bytes are CONFIRMED read data): two more rows, 40 bytes
+; ---- data $5810-$5838 (40 bytes) [PROBABLE] fifth $28-byte record, pointed to by the word at 68:5294: 20 tile numbers at $5810-$5824 (2 rows x 10 columns), then 20 attributes at $5824-$5838 (all $0A). The full $5770-$5838 family is five tile/attribute pairs, not ten tile-only rows; the first 160 bytes retain their separate CONFIRMED read-data classification
 
 Data_4A_5810:: ; 4A:5810
 	db $C6, $C7, $C8, $C9, $CA, $CB, $CC, $CD, $CE, $89, $D6, $D7, $D8, $D9, $DA, $DB

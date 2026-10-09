@@ -297,3 +297,19 @@ The [semantic note](research/typing_26_compare_word_deltas_alias.md) and [verifi
 
 - [Original asset catalogue and layout audit](research/assets_original_catalogue_and_layout_audit.md) — active947 ROM-byte identity, PNG readback,11+2 editing-view gaps, distinct hypothetical models and preserved negatives.
 - [Pokémon frames and name limits](research/assets_pokemon_frames_and_name_limits.md) —25SJIS names,24+1 physical windows, locator-only contacts and finite reader/visual/reachability limits.
+
+
+- [Settings menu highlight pair records](research/settings_menu_highlight_pair_records.md) — corrected2×10 geometry and call site, five40-byte pairs, inherited physical levels and finite natural READ limits.
+- [Prepared settings highlight verification](research/settings_menu_highlight_pair_records_verification.md) — three comment substitutions, six-file private scope, unchanged LOC/emission and pending new validation.
+
+
+## Current private settings highlight validation
+
+One newly authorized private canonical37 completed36 rc0 results and the expected ordinal27 rc2 with its exact97-byte historical schema diagnostic. Make reports SHA-256 OK and compare reports RESULT: IDENTICAL. All671 freshly measured output sizes/SHA values, whole SYM/MAP and original ROM bytes equal the guarded parent88 fresh envelope;15538 labels and51 constants remain unchanged. D334 contains10912 unchanged rules and5623 current dependency bindings; only the two comment-owner source hashes change, with explicit published198cdf BEFORE and current4224 AFTER bindings. All4224 frozen source guards plus two original references held before and after every command. This four-document result appendix is appended only after the completed pipeline, with no build replay or emitted changes. Independent verification, ROOT adoption, actual integration and publication remain pending; no new natural/native/visual/hardware evidence or fresh native closure is claimed.
+
+
+## ROOT original integration verification (2026-10-08)
+
+ROOT adopted the qualified executor and independent reviews and ran one actual canonical 37-check pipeline: 36 zero return codes and the expected ordinal 27 return code 2 with its exact 97-byte schema diagnostic. All 4,224 source hashes held before and after each command; all 671 output hashes equal both private builds and the original parent fresh build. The ROM is byte-identical to the original, SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. Symbols retain 15,538 labels and 51 constants; palettes pass. ROOT performed a programmatic whole-byte scan of all logs and exact diagnostic/hash checks; this is not a blind or human full-log-read claim. ResourceWarning diagnostics are retained in the receipts, not described as warning-free results.
+
+This four-document result appendix was added after the successful checks; only documentation changes and the successful pipeline is not replayed. The two source owners retain all emitted lines, labels and physical line counts. Tail-record use remains PROBABLE, and no new natural-menu, visual or hardware evidence is claimed. Publication and fresh reconstruction are subsequent stages.
