@@ -630,6 +630,50 @@ def derive_rows(rom_path, sym_path):
     return out, stats, dropped, len(best)
 
 
+def derive_fragmented_record(assets, bank, addr, tmp, pal, amp):
+    """Conditional record made from complete contiguous tile assets; no original loader is inferred."""
+    base = addr - 0xA00
+    if base < 0x4000 or base % 16 or addr + 0x350 > 0x8000:
+        return None
+    if not (pal and pal[1] == 0 and amp and int(assets.rows[pal[0]]['size']) == 128
+            and int(assets.rows[amp]['size']) == 360):
+        return None
+    loads = []
+    for k in range(160):
+        physical = base + 16 * k
+        key = assets.tile_key(bank, physical)
+        if key is None:
+            return None
+        path, first = key
+        row = assets.rows[path]
+        size, source = int(row['size']), int(row['addr'], 16)
+        if (row['type'] != 'tiles' or int(row['bank'], 16) != bank or size <= 0 or size % 16
+                or source % 16 or first < 0 or (first + 1) * 16 > size
+                or source + first * 16 != physical or len(assets.read_bin(path)) != size):
+            return None
+        if loads and loads[-1][1] == path and loads[-1][2] + loads[-1][3] == first:
+            loads[-1][3] += 1
+        else:
+            loads.append([0x8001 + 16 * k, path, first, 1])
+    if any(first != 0 or count * 16 != int(assets.rows[path]['size'])
+           for dest, path, first, count in loads):
+        return None
+    tm, am = assets.read_bin(tmp), assets.read_bin(amp)
+    if len(tm) != 360 or len(am) != 360:
+        return None
+    resolved = sum(1 for t, x in zip(tm, am) if (x & 8) and t < 160)
+    if resolved < MIN_COVER * 360:
+        return None
+    stem = os.path.splitext(tmp)[0]
+    sources = ', '.join(os.path.basename(x[1]) for x in loads)
+    return dict(name=stem[len('gfx/'):], png=stem + '.screen.png', tilemap=tmp, attrmap=amp, cols='20', rows='18', addressing='unsigned',
+                tiles=';'.join('%04X:%s:%d:%d' % tuple(x) for x in loads), palettes='0:%s:0:32' % pal[0], cells='360', resolved=str(resolved), status='HYPOTHESIS',
+                evidence='layout only: contiguous complete tile assets %s fill the 160-tile physical window before this tilemap, attributes and palettes '
+                         '(bank %02X); no loader found in the code, so "tile k = record tile k in VRAM bank 1, palettes 0-7 = first 8 groups" is an assumption; '
+                         'cells that use VRAM bank 0 or a tile number >= 160 (%d here) are shown as unknown'
+                         % (sources, bank, 360 - resolved))
+
+
 def derive_records(assets):
     """Self-contained scene records (banks 41-46: 160 tiles + 20x18 tilemap + attribute map + 16 palettes, no loader found in the code).
     Model (HYPOTHESIS): tile number k of the map is tile k of the record, in VRAM bank 1 (every cell's attribute selects bank 1 and every tile number
@@ -641,6 +685,11 @@ def derive_records(assets):
         tiles = assets.tile_key(bank, addr - 0xA00)
         pal = assets.word_key(bank, addr + 0x2D0)
         amp = assets.maps.get((bank, addr + 360, 'attrmap'))
+        if not (tiles and tiles[1] == 0 and int(assets.rows[tiles[0]]['size']) == 0xA00):
+            row = derive_fragmented_record(assets, bank, addr, tmp, pal, amp)
+            if row is not None:
+                out.append(row)
+            continue
         if not (tiles and tiles[1] == 0 and int(assets.rows[tiles[0]]['size']) == 0xA00 and pal and pal[1] == 0 and amp):
             continue
         if int(assets.rows[pal[0]]['size']) != 128:
