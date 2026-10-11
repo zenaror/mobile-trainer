@@ -94,10 +94,10 @@ Data_66_7190:: ; 66:7190
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+	db $C3, $C3, $FD, $FD, $C1, $C1, $BD, $BD, $BD, $BD, $C1, $C1, $FF, $FF, $FF, $FF
+	db $CF, $CF, $FF, $FF, $CF, $CF, $EF, $EF, $EF, $EF, $83, $83, $FF, $FF, $FF, $FF
+	db $CF, $CF, $EF, $EF, $EF, $EF, $EF, $EF, $EF, $EF, $EF, $EF, $FF, $FF, $FF, $FF
+	db $FF, $FF, $C1, $C1, $BF, $BF, $C1, $C1, $FD, $FD, $83, $83, $FF, $FF, $FF, $FF
 
 ; ---- data $7210-$73C8 (440 bytes) [CONFIRMED] tilemap+attr: 2 call site(s) (55:6961 55:6A74); first: copy_tilemap_rect_pair at 55:6961: hl=$7210 a=$66 b=11 rows c=20 cols (tiles then attrs) de=$D240
 
