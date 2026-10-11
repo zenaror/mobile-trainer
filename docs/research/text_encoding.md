@@ -104,15 +104,50 @@ Banks 3D and 3E: back-to-back records `name (ASCII) 00 | u16 LE length | body (l
 Files: saport, saver, security, syokitou, title, translat, tu_error, cdmaone, user, website, www (3D; `website.htm`/`www.htm` occur twice, at 4ABE/4C38 and again at 4E25/4F9F, with byte-identical bodies), and a_mark, account, add_tyou, address, atesaki, browser, connect, contents, data_cen, dion, download, email, facemark, gbcorse, hensin, homepage, internet, jump, link, loginid, m_friend, m_home, m_sys, m_tre, ma, mail_sav, mailsoft, marklist, mente, mobile, netiquet, netsurf, nickname, ninsyou, offline, online, pagelist, password, phs, pdc, provider, receive (3E).
 Bodies use `<HTML> <TITLE> <B> <HR> <A HREF="../di/address.htm"> <BR>` etc. with CR LF line ends and Shift-JIS kana text, e.g. `3E:4000 a_mark.htm`: `<TITLE>＠</TITLE> <B>【あっとまーく】</B> ... <A HREF="../di/address.htm">メールアドレス</A>にかならずはいっているマーク。` (decoded in `analysis/strings.tsv`, one row per file, status CONFIRMED). The relative link `../di/address.htm` agrees with the `file://di/` prefix in bank 3F.
 
-## 6. Second text convention (bank 6C) - PROBABLE
+## 6. Help-script text convention (bank 6C)
 
-Bank 6C has 65 NUL-terminated strings that decode as sensible Japanese only if
-* single bytes `A1-DF` follow the JIS X 0201 half-width-katakana code order (`ﾖｳｺｿ｡` reads ヨウコソ。 / ようこそ。); whether the glyphs are katakana or hiragana is unresolved (HYPOTHESIS: hiragana, because katakana loanwords in the same strings use SJIS pairs),
-* `81-9F` + trail bytes are SJIS pairs (mostly full-width katakana: `モバイル`, `トレーナー`, `ＧＢ`),
-* `E0-FF` single bytes are extra kana (gaiji) - inferred from context (HYPOTHESIS): `F9` = メ and `FA` = ル (`{F9}ｰ{FA}` = メール, `モバイ{FA}` = モバイル), `FD` = ス (`シ{FD}テム` = システム), `FE` = ッ (`カｰトリ{FE}ジ` = カートリッジ), `ED` = で (HYPOTHESIS; the earlier reading `ED` = は is contradicted by the text: は already occurs as single byte CA, e.g. `ｺﾉカｰトリ{FE}ジ{ED}ﾊ` = このカートリッジでは and `GB{ED}ｱｿ{F1}ﾀﾒﾆ` = GBであそぶために, so `F1` would be ぶ),
-* `< 0x20` control bytes, `10` used where a space would be, and a per-string header like `06 xx FF 03 ss ss` (unknown).
+The reader is located: `HelpScript_Run_FrameLoop` calls `HelpScript_StepText` at `6C:6009`. Its high-bit branch at `6C:60AF` selects two paths. Bytes `80..9F` retain the lead byte in B and consume a second byte into C. Bytes `A0..FF` index the 192-byte `HelpScript_SingleByteToSjis` table at `6C:58C7` with `2*(byte-A0)`, loading the high glyph-code byte into B and the low byte into C. The whole lookup equals the original ROM; this numeric mapping is CONFIRMED by the primary consumer and table bytes. It supersedes the earlier claim that the second reader was not located.
 
-The main engine draws all single bytes `>= 0x80` as `?`, so this convention is handled by different code (not yet located). The strings are listed in `analysis/strings.tsv` with `{XX}` for undecoded bytes and status PROBABLE/HYPOTHESIS; they are *not* part of `charmap.asm`.
+The 96 entries map the apparent JIS X0201-order source bytes chiefly to full-width hiragana and punctuation. Examples are A1→8142 (。), A6→82F0 (を), CA→82CD (は), ED→82C5 (で) and F1→82D4 (ぶ). A0 and A5 contain 0000; they are not evidence of a printable blank glyph. The source charmap's half-width spellings describe the stored byte values, not the final glyph identity. E0..FF are explicit lookup entries rather than context-only gaiji guesses:
+
+| Stored byte | Numeric glyph code | CP932 interpretation |
+|---|---|---|
+| E0 | 82AA | が |
+| E1 | 82AC | ぎ |
+| E2 | 82AE | ぐ |
+| E3 | 82B0 | げ |
+| E4 | 82B2 | ご |
+| E5 | 82B4 | ざ |
+| E6 | 82B6 | じ |
+| E7 | 82B8 | ず |
+| E8 | 82BA | ぜ |
+| E9 | 82BC | ぞ |
+| EA | 82BE | だ |
+| EB | 82C0 | ぢ |
+| EC | 82C3 | づ |
+| ED | 82C5 | で |
+| EE | 82C7 | ど |
+| EF | 82CE | ば |
+| F0 | 82D1 | び |
+| F1 | 82D4 | ぶ |
+| F2 | 82D7 | べ |
+| F3 | 82DA | ぼ |
+| F4 | 82CF | ぱ |
+| F5 | 82D2 | ぴ |
+| F6 | 82D5 | ぷ |
+| F7 | 82D8 | ぺ |
+| F8 | 82DB | ぽ |
+| F9 | 8381 | メ |
+| FA | 838B | ル |
+| FB | 836A | ニ |
+| FC | 8383 | ャ |
+| FD | 8358 | ス |
+| FE | 8362 | ッ |
+| FF | 8393 | ン |
+
+At `6C:60EB`, the reader pushes BC and destination/bank arguments before calling `Font_BlitGlyph8x16` (`48:4748`); the callee reads low/high bytes from the stack at sp+6. Its descending 27-record `Font_GlyphRunTable` at `48:4810` selects a bank/address and a 16-byte glyph offset by subtracting the low-byte run key. Independent numeric evaluation locates original 16-byte source ranges for all 94 nonzero lookup entries; the two zero entries reach the FFFF sentinel without a glyph copy. This establishes the source selection, not newly rendered characters, natural invocation attribution, timing or hardware behavior.
+
+Bytes below80 enter the reader's control dispatcher (`swap` then `AND07`), so this is a script convention, not an ordinary NUL-terminated string decoder. The historical 65-entry strings.tsv corpus and its PROBABLE/HYPOTHESIS classifications are not regenerated or universally promoted here. The prefix `06 xx FF 03 ss ss`, mixed record boundaries and each complete stream's control meaning require separate primary-reader analysis. The thirteen bytes before the lookup at `6C:58BA..58C7` retain their mixed/unknown classification; the previous claim that the table was a text-entry grid is unsupported by this consumer.
 
 ## 7. charmap.asm - what is and is not justified
 
@@ -123,17 +158,17 @@ The main engine draws all single bytes `>= 0x80` as `?`, so this convention is h
 * **Kanji only if observed**: level-1 kanji seen in an accepted string (each entry carries its count); level-2 kanji only if seen >= 2 times. About 156 kanji occur, mostly in banks 5C and 65 (error messages and help text, e.g. 通信, 接続, 初期登録).
 * Control codes as `DEF CONST_TXT_* EQU` (section 4).
 
-Not included: half-width katakana / gaiji of the second convention (HYPOTHESIS), NEC row 13 and IBM extension rows (font bank 7E has row 13 slots but no observed use).
+Not included in the generic charmap: the bank6C source-specific one-byte lookup (numeric mapping established in section6), NEC row13 and IBM extension rows (font bank7E has row13 slots but no observed use).
 
 Statistics of the decoded corpus after the adversarial review (`analysis/strings.tsv`, 707 entries): SJIS 200 CONFIRMED + 259 PROBABLE + 70 HYPOTHESIS, 65 hybrid (bank 6C, PROBABLE), 55 html (CONFIRMED, decode re-checked independently), 58 ASCII (55 PROBABLE + 3 HYPOTHESIS) (mail headers `Sender:`/`Subject:`/`MIME-Version: 1.0`/`X-Game-title: MOBILE TRAINER` in bank 0F, SMTP/HTTP keywords in bank 75, host names such as `pop.d6.dion.ne.jp` in bank 68, sample URLs in 7F). Densest text banks: 72 (dialog records), 6C (second convention), 55 (kana tables and menus), 1A (menu labels), 65 (help pages with CR line breaks), 3E/3D (html), 5C (error messages).
 
 ## 8. Font glyphs vs. graphics text
 
-Many screens (banks 4A, 4B, 4D, 50, 51, 56, 58, 5B-63, 66, 6A ...) use **pre-rendered text tile graphics** (the kanji/kana are baked into 2bpp tiles: "電話番号入力", "モバイルシステムGB" ...), loaded straight to VRAM by the HDMA loader. Those never go through the text engine; decoding them needs glyph OCR, not a charmap. Banks 5F, 62 and 66 also hold plain 8x8 2bpp kana/Latin tile fonts ("あいうえお...", "ABCDEFGHIJKLMNOP..."). For example `62:4000-43FF` (64 tiles of hiragana in gojuon order) is DMA'd to VRAM by a call-site-proven load (`docs/research/img/tiles-vram_62_4000_400.png`, CONFIRMED as tile data). No byte-to-tile table for them has been found yet; HYPOTHESIS that they belong to tile-based text such as the second convention above.
+Many screens (banks 4A, 4B, 4D, 50, 51, 56, 58, 5B-63, 66, 6A ...) use **pre-rendered text tile graphics** (the kanji/kana are baked into 2bpp tiles: "電話番号入力", "モバイルシステムGB" ...), loaded straight to VRAM by the HDMA loader. Those never go through the text engine; decoding them needs glyph OCR, not a charmap. Banks 5F, 62 and 66 also hold plain 8x8 2bpp kana/Latin tile fonts ("あいうえお...", "ABCDEFGHIJKLMNOP..."). For example `62:4000-43FF` (64 tiles of hiragana in gojuon order) is DMA'd to VRAM by a call-site-proven load (`docs/research/img/tiles-vram_62_4000_400.png`, CONFIRMED as tile data). These are tile graphics; their other uses are outside this audit. The located help-script reader uses Font_BlitGlyph8x16 and the bank48 glyph runs (section6). The earlier conjecture associating the 5F/62/66 fonts with this byte convention is not established by that consumer.
 
 ## 9. Open questions
 
-1. Which routine reads bank 6C's single-byte kana strings, and what is the byte-to-glyph mapping of E0-FF? (find the caller of `ld hl, $4899`-style pointers into bank 6C; check the 8x8 kana fonts of banks 5F/62/66.)
+1. Complete bank6C mixed-script record boundaries, header/control semantics and natural glyph invocations; the numeric A0..FF mapping and reader are now located (section6).
 2. Meaning of the `86 aa bb` record header (bank 72) and of the `06 xx FF 03 ss ss` prefix (bank 6C).
 3. HTML tag scanner semantics (`00:1119-12xx`).
 4. Whether the stray `0A` after `0D` in some strings (e.g. `19:447C`) is handled by the interpreter (table maps `0A` to the terminating handler).
@@ -142,3 +177,13 @@ Many screens (banks 4A, 4B, 4D, 50, 51, 56, 58, 5B-63, 66, 6A ...) use **pre-ren
 
 Independently re-derived from the ROM bytes: lead-byte chain (00:0F31), control table and all handler addresses (00:0EF0-1030), the SJIS-to-JIS conversion and glyph address arithmetic (7F:4072/40B9/41D0; glyphs for あいうえお/モバイルトレーナー/通信正差 rendered and read correctly, Latin font `MAIL FROM:<abc> Content-Length: 123 \~` rendered correctly), the 55 HTML records and the 55-entry index (3F:4012), and every non-bank-6C string decode (own cp932 decode with 5C=yen, 7E=overline matched all strings byte for byte). Not verified: the meaning of the text-engine cursor variable names, the tag scanner at 00:1119.
 Corrections made: see section 9 of `bank_survey.md` (72:502B structure, bank 6C `ED`, string trimming and status caps).
+
+### Verified original bank6C reader integration (2026-10-11)
+
+The five-file pass replaces one literal lookup operand with the existing HelpScript_SingleByteToSjis symbol and corrects bounded reader/table comments. Private and ROOT canonical checks each completed 36 zero returns plus ordinal 27 with the expected return 2 and exact 97-byte diagnostic. ROOT make reports SHA-256 OK and RESULT: IDENTICAL; symbol and palette checks pass. All 670 other outputs equal the published 12bd70d parent. The sole changed engine object adds one import and one word relocation; independent complete RGB9 parsing, unchanged old normalized expressions and bindings, linked SYM/MAP addresses, raw section restoration and whole-ROM comparison preserve the 2116-byte section. This is not a fresh numerical evaluation of all 262 old expressions. Both canonical runs recorded 444 ResourceWarnings; the verification does not promote historical streams, natural invocation, rendering or hardware evidence.
+
+English bank6C parity qualification (published parents ENb38fa0e and MAIN4ec9ad3): the original verification sections above refer to the Japanese reconstruction and its canonical37 runs; they are not inherited English tests or runtime evidence. Own DATA on the current English parent fully parsed RGB9 and numerically resolved its262 patches against the current linker SYM bindings, comparing the complete2116-byte reader section to the English ROM. The same192-byte numeric lookup and bank48 font bytes were measured equal to the original, and own96-case run selection identifies94 original16-byte glyph-source spans plus two zero codes ending at the FFFF sentinel. This is static source selection, not newly rendered glyphs or natural invocation. The earlier historical65-entry corpus and mixed-stream classifications remain original-JP observations. All English help-stream DB rows, adapted firstpage63, its previously bounded112 control edges, fonts and language-specific name targets are preserved; wholeHelp is not adopted and KEEP1851 remains inconclusive. At preparation, this English symbolic/comment parity had not yet run new versions or build checks; its expected one reader-object change requires separate measured validation.
+
+### Verified English bank6C reader parity (2026-10-11)
+
+This normal merge carries original 4ec9ad3 reader comments and its existing lookup symbol into the English branch while preserving all English history and payload. The English private staged six checks and ROOT six checks each return zero; the English ROM remains 824305546e27f489c16c189876d7100ab3b701f7cd16c6977dc81c1d13b52665 with checksum BFCD, 15583 labels and 51 constants. Of 675 outputs, only engine/help/help_script.o changes from the published b38fa0e parent. Complete independent primary RGB9 review numerically evaluates the old 262 and new 263 expressions, including JR PC+2, and confirms the whole 2116-byte section. ROOT independently verifies unchanged normalized expressions, bindings and metadata, restores the raw operand and carries verified parent numeric values; ROOT does not claim a separate full numerical interpreter. All 336 dependency files remain byte-identical; 10966 rules and 5651 bindings have only the engine/help and data/text/help source hashes rebound. The other 674 outputs and the full linked English ROM, SYM and MAP stay unchanged. No new runtime, rendering, natural-menu, hardware or translation-quality result is claimed.
