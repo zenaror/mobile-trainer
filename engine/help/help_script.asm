@@ -844,7 +844,7 @@ Function_6C_6009::
 	cp a, $A0
 	jr c, .l60C6
 	push hl
-	ld hl, $58C7
+	ld hl, HelpScript_SingleByteToSjis
 	sub a, $A0
 	add a, a
 	add a, l

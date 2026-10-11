@@ -397,3 +397,7 @@ One private and one ROOT integration canonical37 each completed with36 zero retu
 - [Bank26 twelve-byte reader limits](research/boot_and_home.md#bank26-the-remaining-twelve-zero-bytes) — original zeros, eleven historical read cohorts, the Profile HDMA interval and the qualified sprite-overread attribution; neutral data classification and boundaries preserved.
 
 - [Bank42 complete-asset conditional composition](research/assets_pokemon_frames_and_name_limits.md#bank42-conditional-composition-from-four-complete-tile-assets) — one additional editing catalogue row from four existing physical tile assets; old rows, padding exclusions and HYPOTHESIS limits retained.
+
+- [Located bank6C help-script reader](research/text_encoding.md#6-help-script-text-convention-bank-6c) — exact96-entry numeric lookup, separate control and pair paths, bounded bank48 glyph-source selection and retained mixed-stream limits.
+
+- [Verified original bank6C reader integration](research/text_encoding.md#verified-original-bank6c-reader-integration-2026-10-11) — one measured object relocation change, original ROM identity and qualified verification results.
