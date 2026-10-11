@@ -1,5 +1,7 @@
 # Mail last-row probe and three bounded KEEP decisions
 
+The decisions below are the historical mail naming pass. The current26:5106 operation alias and its preserved neutral label are recorded in the current ledger correction appended below.
+
 > Status: **reference (current)**. Four original candidates were derived independently and reviewed in full. One role alias is confirmed; three cases remain neutral, with unexecuted paths and a stack anomaly explicit.
 
 ## Decisions and physical definitions
@@ -46,3 +48,9 @@ The original24 bytes decode to A124,A251,A37E,A4AB,A5D8,A705,A832,A95F,AA8C,ABB9
 The sole source load2B:6D2A sits in unreferenced HYPOTHESIS6CF5. Before the reads it explicitly selects SRAM bank0 and enables SRAM with0A; W1 is selected for output. It forms C=B, B=0, SLA C, then adds BC to table HL, so the index is2*originalB modulo256 with carry discarded; there is no0..11 check. Valid record inputs0..11 are a static precondition, not naturally established bounds. It reads the pointed record at+ED for40 bytes into W1 D4C0 and at+C9 for10 bytes into W1 D514. ED+40=012D reaches exactly the record end. SRAM bank0/enabled remains the selected state during both copy loops; later editor farcalls occur after these reads. No field-purpose claim is required from historical names of destination buffers.
 
 The table's24 bytes have zero natural data-read scenarios, and the load/consumer has zero natural instruction evidence. Existing forced_dead annotations are diagnostic only. Other equal physical record-address tables do not supply evidence for this unentered consumer or justify alias merging. KEEP leaves the table's PROBABLE storage header, values and physical neutral name intact.
+
+## Later existing-alias reconciliation (2026-10-11)
+
+The historical KEEP decision for `Function_26_5106` above predates the published narrow PROBABLE alias `MailSession_CompareWordDeltas`. Both labels remain at26:5106; the maintained CALL at26:4737 already uses the alias. This ledger correction records APPLIED_ALIAS and preserves the original one-site cohort count, old KEEP reasoning and legacy HYPOTHESIS decision-row status. The original arithmetic, unobserved equality arm and unresolved field meanings remain qualified. See `typing_26_compare_word_deltas_alias.md` and `naming2_neutral_code.md`; no new routine rename, execution or confidence promotion occurs here.
+
+English cumulative ledger/6A parity qualification: the archived neutral-census, natural READ cohorts and canonical37/671/444-warning results above are Japanese-ROM evidence from MAIN457244b and MAINef41bff. English3a31 keeps its translated assets and complete prior history. Own current English DATA resolves the four owner words against the English2985-byte section; this does not assert equality of that graphics section to Japanese bytes, natural English invocation, rendering, hardware or a name/frame association. The prospective English build has not run; only ownerOBJ/SYM/MAP are expected to change, with672 other outputs and ROM824/BFCD held, to be measured under separate authorization.
