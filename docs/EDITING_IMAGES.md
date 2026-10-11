@@ -76,3 +76,9 @@ black and pure white inside glyph cells.  Cell = glyph + 1 pixel grid.
 `gfx/png_rules.tsv` (generated: `python3 tools/png_rules.py rules`) is the manifest of every PNG -> binary rule with per-asset parameters (`rgbgfx -x`
 padding, font type, glyph counts) and the hash of each binary in the original ROM state; `gfx/png.mk` is generated from it and included by the
 `Makefile`.  Without `rgbgfx` or `python3` the rules are skipped and the committed binaries are used.  Tests: `python3 tools/test_png.py`.
+
+## 6. Bank42 fragmented conditional composition
+
+The additional `bank42/tilemap_5750` catalogue entry combines four existing tile sheets: 27 tiles at42:4D50,60 at42:4F00,2 at42:52C0 and71 at42:52E0. Its editing-view path is `gfx/bank42/tilemap_5750.screen.png`. The composition uses unsigned tile numbers, VRAM bank1 and the first32 words of `palette_5a20.pal`; all360 map cells resolve under those assumptions. Its status remains HYPOTHESIS: this layout supplies no original loader, LCDC.bit4 or species/name association.
+
+This entry updates the earlier catalogue counts to93 rows:20 PROBABLE and73 HYPOTHESIS. All92 earlier rows and their PNGs are retained. It addresses one of the eleven bank41–46 omissions described above; ten remain, and87 of the180 tilemaps still have no catalogue entry. Import uses the existing four sheets and preserves the map, attributes and physical asset sizes. The last sheet contains71 physical tiles; its nine padding tiles cannot become source tiles. Export or import only this view with `python3 tools/screen_png.py export bank42/tilemap_5750` or `python3 tools/screen_png.py import --dry-run --palette bank42/tilemap_5750`.
