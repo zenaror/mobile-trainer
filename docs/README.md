@@ -409,3 +409,7 @@ One private and one ROOT integration canonical37 each completed with36 zero retu
 The bounded FFA7 producer correction in research/ram_map.md and research/boot_and_home.md records six explicit zero producers and the conditional two-route returned-A proof at51:41D3, retaining its mapping/stack/scratch and entry limitations.
 
 - [Verified bounded FFA7 producer correction](research/ram_map.md#verified-bounded-ffa7-producer-correction-2026-10-11) — conditional producer semantics, preserved ASM lines and unchanged 671 build outputs.
+
+The current ledger correction in `research/naming2_neutral_code.md` distinguishes28 global neutral-only Function/Label address groups from15 names/18 strict instruction operands (14 KEEP plus one PARTIAL_ALIAS). The initial65-row worklist reconciles the existing26:5106 alias, preserving historical KEEP reasoning and confidence limits; `research/naming2_neutral_mail.md` keeps the earlier decision as history. Data_6A_72A0 remains pending and separate.
+
+- [Verified current neutral ledger reconciliation](research/naming2_neutral_code.md#verified-current-neutral-ledger-reconciliation-2026-10-11) — corrected current counters, retained historical decisions and unchanged original build.
