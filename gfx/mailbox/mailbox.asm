@@ -55,7 +55,7 @@ Mailbox_Tiles_69F0:: ; 25:69F0
 	INCBIN "gfx/mailbox/mailbox/mailbox_tiles_69f0.2bpp"
 	db $3F, $00, $3F, $1E, $BF, $12, $FF, $12
 
-; ---- data $6AC8-$6BD1 (265 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 69B0-7730 by higher-priority evidence]
+; ---- data $6AC8-$6BD1 (265 bytes) [CONFIRMED] all 265 bytes occur in merged rom_read ranges in 12 of 69 historical scenarios; inside requests at 25:4B86/4C2E, with 56 bytes repeated at 4B9B/4C43; physical 16-byte phase 8 to 1; content class unknown; see docs/research/boot_and_home.md
 
 Data_25_6AC8:: ; 25:6AC8
 	db $FF, $42, $FD, $46, $FA, $8C, $DC, $00, $00, $00, $00, $00, $00, $00, $00, $00
@@ -86,7 +86,7 @@ Mailbox_Tiles_6CF0:: ; 25:6CF0
 	INCBIN "gfx/mailbox/mailbox/mailbox_tiles_6cf0.2bpp"
 	db $00
 
-; ---- data $6E71-$6EF0 (127 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown (the rest of a block from which a palette array was cut; this fragment is not valid RGB555; inherited read evidence does not establish each byte of this fragment)
+; ---- data $6E71-$6EF0 (127 bytes) [CONFIRMED] all 127 bytes occur in merged rom_read ranges in 12 of 69 historical scenarios; inside requests at 25:4BB0/4C58; physical 16-byte phase 1 to 0; content class unknown, not an independent aligned tile asset; see docs/research/boot_and_home.md
 
 Data_25_6E71:: ; 25:6E71
 	db $00, $38, $7D, $6C, $6D, $38, $7D, $6C, $6D, $6C, $6D, $38, $7D, $00, $00, $00
