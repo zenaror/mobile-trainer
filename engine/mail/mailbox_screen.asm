@@ -47,21 +47,21 @@ Function_25_4B0D::
 	ld a, BANK(Mailbox_Tiles_69F0)
 	ld b, $94
 	ld c, $30
-	farcall Gfx_StartHDMA
+	farcall Gfx_StartHDMA ; 25:4B86: 25:$69F0 + $300 -> VRAM0:$8000 (static 00:0749 contract)
 	call VBlank_Wait
 	ld de, $8700
 	ld hl, Mailbox_Tiles_69F0 + $10 ; 25:6A00
 	ld a, BANK(Mailbox_Tiles_69F0)
 	ld b, $97
 	ld c, $10
-	farcall Gfx_StartHDMA
+	farcall Gfx_StartHDMA ; 25:4B9B: 25:$6A00 + $100 -> VRAM0:$8700 (static 00:0749 contract)
 	call VBlank_Wait
 	ld de, $8D00
 	ld hl, Mailbox_Tiles_6CF0
 	ld a, BANK(Mailbox_Tiles_6CF0)
 	ld b, $95
 	ld c, $20
-	farcall Gfx_StartHDMA
+	farcall Gfx_StartHDMA ; 25:4BB0: 25:$6CF0 + $200 -> VRAM0:$8D00 (static 00:0749 contract)
 	call VBlank_Wait
 	ld bc, $1214
 	ld de, wScreenTileMap
@@ -105,21 +105,21 @@ Function_25_4B0D::
 	ld a, BANK(Mailbox_Tiles_69F0)
 	ld b, $94
 	ld c, $30
-	farcall Gfx_StartHDMA
+	farcall Gfx_StartHDMA ; 25:4C2E: 25:$69F0 + $300 -> VRAM0:$8000 (static 00:0749 contract)
 	call VBlank_Wait
 	ld de, $8700
 	ld hl, Mailbox_Tiles_69F0 + $10 ; 25:6A00
 	ld a, BANK(Mailbox_Tiles_69F0)
 	ld b, $97
 	ld c, $10
-	farcall Gfx_StartHDMA
+	farcall Gfx_StartHDMA ; 25:4C43: 25:$6A00 + $100 -> VRAM0:$8700 (static 00:0749 contract)
 	call VBlank_Wait
 	ld de, $8D00
 	ld hl, Mailbox_Tiles_6CF0
 	ld a, BANK(Mailbox_Tiles_6CF0)
 	ld b, $95
 	ld c, $20
-	farcall Gfx_StartHDMA
+	farcall Gfx_StartHDMA ; 25:4C58: 25:$6CF0 + $200 -> VRAM0:$8D00 (static 00:0749 contract)
 	call VBlank_Wait
 	ld bc, $1214
 	ld de, wScreenTileMap
