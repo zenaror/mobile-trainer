@@ -15,7 +15,7 @@ Coordinates are `bank:addr` CPU addresses. Everything below is reproducible with
 | Glyphs come from a **12x12 1bpp JIS X 0208 font** stored *uncompressed* in banks 76-7E (18 bytes/glyph) and a **6x12 Latin font** at `76:67A8`. | CONFIRMED | disassembly `7F:400E-40B9`, tables `7F:40F9`/`7F:4150`; rendered sheets in `docs/research/img/` show correct hiragana/katakana/Latin/Greek/Cyrillic/box rows |
 | Control codes are the bytes `< 0x20`, dispatched through the table at `00:0EF0`; `00` ends a string, `01` calls a far sub-string, `0D` is newline. | CONFIRMED | disassembly `00:0EDD-1030` (section 4) |
 | Banks 3D/3E contain **55 HTML pages** (ASCII tags + Shift-JIS), indexed from bank 3F. | CONFIRMED | section 5 |
-| A **second convention** (single bytes A1-DF in JIS X 0201 kana order, gaiji singles E0-FF, SJIS katakana pairs) is used by the text in bank 6C. The strings read as Japanese under it, but whether A1-DF are half-width katakana or hiragana glyphs is unresolved (hiragana is likelier: `ｺﾉカｰトリ{FE}ジ` = このカートリッジ mixes them with full-width katakana loanwords). | PROBABLE (convention exists) / HYPOTHESIS (glyph mapping) | section 6 |
+| The located bank6C help-script reader maps stored bytes A0..FF through an exact96-entry big-endian numeric lookup;80..9F consume a second byte. Bank48 run selection locates original16-byte source ranges for94 nonzero codes; the two zero codes reach a sentinel. | CONFIRMED (bounded numeric lookup and source selection); historical mixed streams retain PROBABLE/HYPOTHESIS | reader6C:60AF, table6C:58C7, Font_BlitGlyph8x16 at48:4748 and section6; no new rendered, natural or hardware glyph result |
 | Relationship to Pokemon Crystal's charmap (`$50` terminator, `$4E`/`$4F` line controls ...): none found for the main text; the Trainer's strings are SJIS with NUL terminators and `0x0D` newlines, not Crystal tile-index text. | PROBABLE (negative) | 700 strings decode as SJIS with NUL terminators; no `$50`-terminated tile-index text was found in the areas surveyed (Crystal's `charmap.asm` was consulted only to compare conventions) |
 
 ## 2. How the encoding was found
@@ -92,10 +92,15 @@ Entry `00:0ED3` (a = bank, HL = string); loop at `00:0EDD` reads a byte; `>= 0x2
 
 `constants/charmap.asm` exports these as `CONST_TXT_*`. The HTML pages (banks 3D/3E) are not run through this interpreter but through a separate tag scanner at `00:1119` that recognises `>` (0x3E), `=` (0x3D), `"` (0x22), `'` (0x27) and NUL (PROBABLE, only skimmed).
 
-### 4.1 Message records in bank 72 (PROBABLE)
+### 4.1 Message records in bank 72: located list and record reader
 
-`72:502B-50BD` is a table of 73 words (PROBABLE; a verifier re-read corrected the first description). Entries 0-3 (5033, 5035, 5063, 50BB) point into the table itself, so the table most likely starts with 4 list pointers (lists of 1, 23, 44 and 1 entries, HYPOTHESIS) followed by 69 pointers to message records starting at `72:50BD` (entry 72 = 50BD repeats the first record). Consecutive record pointers are 69 (0x45) bytes apart, except entries 60, 63 and 65-68 which are 102 bytes apart (records with a third 32-byte line: e.g. 72:5F90 `86 05 00` + `メールボックスがいっぱいで` / `メールをうけとれません。` / `セーブしたメールをけ...`). A 69-byte record is
-`86 aa bb` (3 header bytes), 32 bytes of line 1 (16 full-width characters, padded with `81 40`), `00`, 32 bytes of line 2, `00`; e.g. the record at `72:5147` (`86 ..` header) has `ホームページをみます。` as its second line at `72:516B` (verifier correction: 516B is the start of line 2, not of a record). Header bytes seen: `86 02 01`, `86 00 01`, `86 04 01`, `86 02 00`, `86 00 00`, `86 05 00`... (meaning unknown; 0x86 is a legal SJIS lead byte, so these three bytes are *not* processed by the generic double-byte path - a different reader is used). The list-header reading above is a HYPOTHESIS.
+**CONFIRMED static structure:** the original146 bytes at72:502B..50BD hold73 little-endian words. The first four point to5033,5035,5063 and50BB, respectively; those lists contain1,23,44 and1 record references. Thus there are69 references to68 distinct records:50BD is repeated. Whole source reemission equals the original bytes. The unique records occupy4890 bytes at50BD..63D7:62 records have a three-byte header followed by two33-byte lines, and six have three33-byte lines (69 and102 bytes per record). Each stored line has32 text bytes followed byNUL. The separate byte$AF at63D7 retains HYPOTHESIS/unclassified status before the existing code at63D8; it is not part of the last record.
+
+The primary Dialog_Open at72:402A uses D to index the four list pointers and E to index the selected list, reading both words little-endian. At404A it reads and discards the first header byte (the observed$86 is not validated) and compares the second with3 to choose the layout. After preserving and restoring HL, the two branches at40EA and4271 store the second byte in wDialogType and initialize hDialogResult from the third. The second byte selects two-line layout when below3 and three-line layout otherwise. The six-entry cursor table at43AA selects NoButton for types0 and3, which overrides the initial result with0; the other cursor paths require their own semantics. These facts replace the earlier unknown-reader/header description. They do not prove a generic bound on D/E or on all possible header values.
+
+TextTiles_RenderLine at48:403E reads bytes through ReadByteFar, stopping if either the first or second byte isNUL. It passes the numeric pair to Font_BlitGlyph8x16 at48:4748. The stored32-byte line extent is a property of these records; no32-byte clamp in this paired reader is claimed.
+
+Whole-file inspection of the existing69 historical dataaccess/coverage/callgraph sets finds merged reads in39 scenarios, covering62 of the146 list-table bytes and2100 of the4890 record bytes. The separate$AF byte is not read in this finite set. This is historical read coverage, not evidence that every record was executed/rendered or that an unread byte is unreachable. No new runtime, natural-menu, glyph rendering or hardware result is claimed.
 
 ## 5. HTML store (CONFIRMED)
 
@@ -169,7 +174,7 @@ Many screens (banks 4A, 4B, 4D, 50, 51, 56, 58, 5B-63, 66, 6A ...) use **pre-ren
 ## 9. Open questions
 
 1. Complete bank6C mixed-script record boundaries, header/control semantics and natural glyph invocations; the numeric A0..FF mapping and reader are now located (section6).
-2. Meaning of the `86 aa bb` record header (bank 72) and of the `06 xx FF 03 ss ss` prefix (bank 6C).
+2. The unvalidated first header byte `$86` and remaining cursor-path semantics in bank72; the second byte's layout selection and the third byte's initial result are located in section4.1. The thirteen-byte bank6C mixed prefix before the lookup, including `06 xx FF 03 ss ss`, still has an unknown format (section6).
 3. HTML tag scanner semantics (`00:1119-12xx`).
 4. Whether the stray `0A` after `0D` in some strings (e.g. `19:447C`) is handled by the interpreter (table maps `0A` to the terminating handler).
 
@@ -181,3 +186,7 @@ Corrections made: see section 9 of `bank_survey.md` (72:502B structure, bank 6C 
 ### Verified original bank6C reader integration (2026-10-11)
 
 The five-file pass replaces one literal lookup operand with the existing HelpScript_SingleByteToSjis symbol and corrects bounded reader/table comments. Private and ROOT canonical checks each completed 36 zero returns plus ordinal 27 with the expected return 2 and exact 97-byte diagnostic. ROOT make reports SHA-256 OK and RESULT: IDENTICAL; symbol and palette checks pass. All 670 other outputs equal the published 12bd70d parent. The sole changed engine object adds one import and one word relocation; independent complete RGB9 parsing, unchanged old normalized expressions and bindings, linked SYM/MAP addresses, raw section restoration and whole-ROM comparison preserve the 2116-byte section. This is not a fresh numerical evaluation of all 262 old expressions. Both canonical runs recorded 444 ResourceWarnings; the verification does not promote historical streams, natural invocation, rendering or hardware evidence.
+
+### Verified original bank72 dialog-reader documentation (2026-10-11)
+
+The three-document pass locates the list and record readers and replaces stale header and glyph-mapping descriptions. Private and ROOT canonical checks each completed 36 zero returns plus ordinal 27 with the expected return 2 and exact 97-byte diagnostic. All 671 build outputs equal the published 4ec9ad3 parent, including every object, dependency file, SYM, MAP and original ROM. ROOT make reports SHA-256 OK and RESULT: IDENTICAL; symbol and palette checks pass. Both canonical runs recorded 444 ResourceWarnings. This documentation and static-byte verification does not establish general index bounds, complete record execution, rendered glyphs, natural-menu behavior or hardware execution.

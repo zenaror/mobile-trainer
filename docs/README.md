@@ -401,3 +401,7 @@ One private and one ROOT integration canonical37 each completed with36 zero retu
 - [Located bank6C help-script reader](research/text_encoding.md#6-help-script-text-convention-bank-6c) — exact96-entry numeric lookup, separate control and pair paths, bounded bank48 glyph-source selection and retained mixed-stream limits.
 
 - [Verified original bank6C reader integration](research/text_encoding.md#verified-original-bank6c-reader-integration-2026-10-11) — one measured object relocation change, original ROM identity and qualified verification results.
+
+- [Located bank72 dialog lists and record reader](research/text_encoding.md#41-message-records-in-bank-72-located-list-and-record-reader) — four lists,69 references to68 distinct records, separate unclassified$AF byte, static header roles and bounded historical read coverage.
+
+- [Verified original bank72 dialog-reader documentation](research/text_encoding.md#verified-original-bank72-dialog-reader-documentation-2026-10-11) — static reader/header roles, unchanged 671 build outputs and bounded historical coverage.
