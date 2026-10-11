@@ -25,10 +25,10 @@ String_6C_4845:: ; 6C:4845
 ; kept as raw bytes: text-like bytes mixed with header/control bytes, executed-read data of unknown content class, so not provably a string
 
 Data_6C_485A:: ; 6C:485A
-	db $83, $82, $83, $6F, $83, $43, $FA, $83, $67, $83, $8C, $B0, $83, $69, $B0, $CD
-	db $D6, $B3, $BA, $BF, $A1, $40, $3C, $10, $BA, $DA, $ED, $83, $4C, $83, $7E, $D3
-	db $A4, $83, $82, $83, $6F, $83, $43, $FA, $83, $56, $FD, $83, $65, $83, $80, $82
-	db $66, $10, $82, $61, $A6, $C0, $C9, $BC, $D2, $D9, $DD, $EA, $81, $49, $00
+	db "Ｗｅｌｃｏｍｅ　ｔｏ", $40, $3C, $10
+	db "Ｍｏｂｉｌｅ　Ｔｒａｉｎｅｒ！", $10
+	db "　　　　"
+	db 0
 
 ; ---- text $4899-$493B (162 bytes) [PROBABLE] text: 3 string(s) of analysis/strings.tsv (bank 6C uses the second, only PROBABLE text convention of docs/research/text_encoding.md, NUL terminated)
 ; written with the sjis_hw charmap: single bytes A1-DF appear as half-width katakana (JIS X 0201 order), other single bytes as $xx; glyphs unproven (text_encoding.md section 6)
