@@ -8,39 +8,39 @@ SECTION "gfx/bank61", ROMX
 
 Data_61_4000:: ; 61:4000
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FE, $FF, $FF, $FE, $FE, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $3F, $DD, $3E, $F7, $18, $FF, $00, $7D, $83, $F6, $8F
-	db $FF, $FF, $FF, $FE, $FF, $BE, $7F, $DE, $DF, $5F, $5F, $DF, $9E, $DF, $3B, $1C
-	db $FF, $FF, $BF, $7F, $FF, $03, $FE, $02, $DE, $E2, $FF, $FE, $FB, $07, $FE, $01
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FD, $FE, $FB, $FC, $7F, $38, $3A, $BD, $BF, $9F
-	db $FF, $FF, $FF, $FF, $7B, $87, $FE, $01, $FF, $00, $7F, $FC, $DB, $CC, $BE, $91
-	db $FF, $FF, $FF, $FF, $FF, $FE, $FF, $FC, $7F, $FC, $DD, $5E, $5F, $DF, $9F, $DF
-	db $FF, $FF, $FF, $FF, $85, $6E, $EB, $3C, $F7, $38, $AE, $71, $DD, $E3, $7F, $80
-	db $FF, $FF, $FF, $FF, $7F, $FF, $FF, $7F, $5F, $DF, $DF, $DF, $DF, $9F, $DE, $5F
+	db $FF, $FF, $FF, $FF, $FF, $FF, $D7, $EF, $FF, $C7, $FF, $C7, $DF, $E7, $FE, $E2
+	db $FF, $FF, $FF, $FF, $FF, $FF, $4B, $7B, $7B, $4B, $7B, $4B, $7B, $4B, $7B, $4B
+	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $76, $8E
+	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $D7, $B7, $F7, $97, $F7, $97, $F6, $97
+	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $1F
+	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $76, $8E
+	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $AD, $F6
+	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $BD, $9E
+	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $DE, $3F
 	db $FF, $FF, $FF, $FF, $BF, $C7, $FD, $85, $75, $8D, $F9, $0D, $EB, $19, $F3, $1B
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FF, $FF, $FF, $FF, $F8, $FD, $FA, $FA, $FB, $FA, $FF, $F9, $F9, $FD, $FF, $FC
-	db $FF, $FF, $FE, $FF, $FB, $FC, $77, $F8, $FF, $70, $3F, $70, $F7, $38, $9B, $BC
-	db $F8, $8C, $F7, $0F, $FB, $07, $FE, $01, $FF, $C0, $FF, $C0, $F5, $0E, $EF, $1F
-	db $F7, $78, $FE, $F1, $F5, $FB, $FE, $FF, $5C, $DC, $DF, $5F, $9F, $DE, $3F, $9E
-	db $FF, $00, $FB, $FC, $0F, $8C, $7F, $3C, $FB, $7C, $EF, $F0, $FE, $01, $FD, $03
-	db $9C, $DC, $5F, $DF, $DF, $5F, $DF, $5F, $5E, $D9, $9F, $D8, $BB, $9C, $1D, $BE
-	db $75, $3B, $FF, $FF, $FF, $FF, $FF, $FF, $FE, $FF, $7D, $FE, $FF, $00, $FF, $00
-	db $3F, $98, $7F, $38, $FF, $F8, $FF, $FE, $FF, $3E, $EF, $2E, $AE, $6F, $4F, $EF
-	db $FF, $00, $FF, $00, $F7, $0F, $F8, $1C, $F7, $1B, $FD, $1E, $FF, $00, $7F, $80
-	db $DF, $5E, $DF, $5E, $DF, $DE, $1F, $1F, $DF, $DF, $DF, $5C, $DF, $5C, $DF, $5F
+	db $FF, $E3, $FE, $E3, $FF, $E2, $6F, $F0, $FF, $70, $3F, $70, $F6, $39, $9F, $BF
+	db $FA, $CB, $FB, $4A, $FB, $0A, $FB, $0A, $FB, $0A, $EA, $9B, $DB, $BB, $F7, $F7
+	db $FA, $66, $FE, $62, $FA, $06, $F6, $0E, $FD, $7D, $FD, $05, $75, $8D, $FD, $FD
+	db $F5, $96, $F7, $94, $F7, $94, $F7, $94, $F7, $94, $F5, $96, $D6, $B7, $F7, $F7
+	db $FA, $0B, $EB, $DA, $FB, $FA, $FB, $FA, $FB, $CA, $EA, $1B, $DB, $3B, $F7, $F7
+	db $FA, $06, $FE, $22, $FE, $72, $FE, $72, $FE, $22, $FA, $06, $76, $8E, $FD, $FC
+	db $FF, $80, $FF, $92, $FF, $92, $FF, $92, $FF, $92, $FF, $92, $DB, $B6, $FF, $FF
+	db $DB, $5D, $DF, $59, $DF, $58, $DF, $58, $DF, $59, $DB, $5C, $5D, $DE, $DF, $DF
+	db $EB, $9A, $FB, $8A, $EB, $1A, $DB, $3B, $F7, $F7, $F7, $14, $D7, $34, $F7, $F7
 	db $D7, $33, $E7, $37, $AF, $67, $CF, $EF, $DF, $CF, $DF, $5F, $DF, $5F, $FF, $FF
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FC, $FE, $FE, $FF, $FC, $FE, $F1, $F8, $E5, $E2, $F0, $CF, $C0, $DE, $D0, $CD
-	db $8D, $DE, $43, $07, $49, $33, $85, $79, $44, $A1, $A0, $1A, $BA, $78, $F8, $FD
-	db $D0, $38, $E7, $F3, $0F, $07, $FF, $FF, $FF, $FF, $FF, $FF, $7F, $FF, $7F, $7F
-	db $7E, $3F, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $F6, $0F, $F8, $FC, $83, $81, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FE, $FF
-	db $7F, $3F, $FF, $7F, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $00, $FF
-	db $39, $C7, $FE, $FF, $C0, $80, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $00, $FF
-	db $9F, $CF, $3F, $1F, $FF, $7F, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $3F, $FF
-	db $DD, $E3, $FE, $FF, $C0, $C0, $FF, $FF, $FF, $FF, $FF, $FF, $FC, $FE, $F8, $FC
-	db $9C, $DC, $30, $1B, $F0, $77, $E0, $F4, $E4, $E8, $C1, $E9, $0B, $11, $01, $13
+	db $8C, $DC, $43, $07, $49, $33, $85, $79, $44, $A1, $A0, $1A, $BA, $78, $F8, $FD
+	db $8E, $86, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $7F, $FF, $7F, $7F
+	db $03, $01, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+	db $8C, $84, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FE, $FF
+	db $0F, $07, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $00, $FF
+	db $03, $01, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $00, $FF
+	db $80, $80, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $3F, $FF
+	db $30, $10, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FC, $FE, $F8, $FC
+	db $0C, $04, $F0, $FB, $F0, $F7, $E0, $F4, $E4, $E8, $C1, $E9, $0B, $11, $01, $13
 	db $5F, $3F, $4B, $87, $09, $F0, $41, $3E, $08, $07, $41, $80, $E8, $F0, $FD, $FE
 	db $FF, $FF, $FF, $FF, $7F, $FF, $2F, $1F, $23, $C7, $19, $E3, $0D, $31, $0D, $31
 	db $D0, $CD, $DB, $C4, $C8, $E6, $ED, $E2, $E4, $F3, $F6, $F1, $F0, $F9, $F1, $F8
@@ -115,42 +115,42 @@ Data_61_4000:: ; 61:4000
 	db $AA, $FF, $FF, $FF, $57, $FE, $A9, $FC, $5B, $F8, $FF, $F0, $A4, $F3, $7D, $E2
 	db $FF, $FF, $42, $81, $00, $7E, $87, $78, $DF, $20, $1F, $E0, $0F, $F0, $07, $F8
 	db $FC, $FF, $FF, $FF, $FE, $7F, $9F, $3F, $DE, $1F, $DF, $2F, $C7, $2F, $8F, $77
-	db $F9, $FD, $FD, $FB, $F3, $FB, $7B, $F7, $E7, $F7, $77, $EF, $EF, $EF, $23, $F3
-	db $3F, $BF, $93, $D3, $CD, $E1, $EC, $E0, $F0, $F3, $FF, $FF, $FF, $FF, $E0, $F0
-	db $FF, $FE, $FF, $FF, $FE, $FE, $01, $00, $00, $FD, $FF, $FD, $FB, $FB, $7E, $FB
-	db $7C, $7F, $E3, $7F, $1F, $FF, $3D, $FC, $F4, $F3, $D4, $CF, $FF, $FF, $00, $01
-	db $FB, $F7, $D4, $CF, $43, $3F, $0F, $FF, $3D, $FC, $F4, $F3, $D3, $CF, $CF, $BF
-	db $33, $F6, $FA, $F7, $D3, $CF, $4F, $3F, $3F, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $18, $F3, $0C, $78, $06, $BC, $83, $DF, $C1, $EF, $E0, $F7, $FE, $FF, $03, $87
-	db $97, $0F, $5F, $3F, $56, $FE, $93, $C6, $EF, $C7, $93, $C7, $5F, $FF, $F8, $FC
-	db $26, $2F, $73, $37, $F9, $7B, $FB, $7D, $99, $DD, $91, $BD, $FF, $FF, $10, $38
-	db $AB, $E4, $E8, $E7, $E8, $E7, $24, $2B, $FF, $FF, $81, $C3, $3C, $BD, $6E, $76
-	db $01, $FE, $00, $FF, $01, $FE, $01, $FE, $0F, $FF, $D8, $AC, $FB, $FB, $82, $C3
-	db $07, $F7, $E7, $17, $F7, $07, $F6, $07, $FF, $FF, $06, $0F, $F7, $F7, $B4, $57
-	db $FE, $FF, $0E, $FE, $FE, $FE, $02, $FE, $FE, $FE, $02, $FF, $FE, $FF, $04, $FE
-	db $1F, $0F, $FB, $FD, $9B, $FD, $CB, $BD, $E3, $DD, $77, $6B, $63, $7D, $C9, $F6
-	db $72, $76, $7E, $7E, $02, $06, $F8, $F8, $8F, $FF, $E7, $9B, $FF, $E3, $FF, $FF
-	db $FE, $FE, $B6, $DA, $B6, $DA, $B6, $DA, $B6, $DA, $B7, $DB, $B6, $DB, $B6, $DB
-	db $BF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $1F, $3F, $DF, $DF, $DF, $5F, $DF, $5F
-	db $FC, $FE, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD
-	db $78, $78, $DF, $EF, $03, $FD, $DF, $21, $DF, $EF, $5B, $AD, $5B, $AD, $5B, $AD
-	db $5B, $FB, $4A, $7B, $7A, $7B, $02, $0B, $F6, $F7, $1C, $FF, $CD, $36, $FD, $C6
-	db $C7, $C7, $FC, $7F, $FB, $7C, $FB, $7D, $FB, $7D, $DB, $6D, $DF, $E9, $CF, $F7
-	db $D6, $EA, $56, $AA, $6A, $96, $7F, $8F, $3F, $DF, $B8, $DF, $BE, $D9, $9F, $EE
-	db $BE, $BF, $A6, $BB, $3F, $22, $FF, $FF, $E7, $FB, $FF, $E3, $7F, $BF, $FF, $3F
-	db $B7, $57, $B4, $57, $F7, $17, $F4, $F7, $E7, $EF, $6C, $AF, $6F, $AF, $68, $AF
-	db $FD, $FD, $05, $FD, $FD, $FD, $05, $FD, $FC, $FE, $07, $FF, $FF, $FF, $00, $FF
-	db $9F, $E0, $3F, $CF, $F8, $18, $F3, $F7, $07, $0F, $F8, $FF, $FF, $FF, $00, $FF
-	db $9F, $9F, $82, $A3, $3B, $7A, $FB, $FB, $F8, $FC, $0F, $FF, $FF, $FF, $00, $FF
-	db $34, $DB, $71, $9E, $FF, $30, $FF, $FF, $00, $00, $FF, $FF, $FF, $FF, $00, $FF
-	db $DF, $5F, $DF, $5F, $DF, $DF, $9F, $FF, $3F, $7F, $FF, $FF, $FF, $FF, $03, $FF
-	db $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FC, $FE, $FF, $FF, $FF, $FF, $FF, $FF
-	db $5B, $AD, $5B, $AD, $FF, $09, $FF, $FF, $00, $00, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FD, $FE, $3C, $3F, $07, $44, $77, $77, $70, $F8, $FF, $FF, $FF, $FF, $C0, $FF
-	db $EF, $F7, $0C, $F4, $F5, $0D, $F9, $FB, $03, $07, $FF, $FF, $FF, $FF, $00, $FF
-	db $DF, $EF, $59, $E9, $78, $4A, $7B, $7B, $03, $87, $FE, $FF, $FF, $FF, $00, $FF
-	db $FE, $FF, $E1, $FE, $3F, $20, $BF, $BF, $80, $C0, $FF, $FF, $FF, $FF, $00, $FF
-	db $EF, $2F, $E8, $6F, $CF, $DF, $98, $BF, $3F, $7F, $E0, $FF, $FF, $FF, $00, $FF
+	db $F9, $FD, $FD, $FB, $F3, $FB, $7B, $F7, $E7, $F7, $70, $E0, $EF, $EF, $28, $EF
+	db $3F, $BF, $93, $D3, $CD, $E1, $EC, $E0, $F0, $F3, $13, $13, $EC, $EC, $37, $DB
+	db $FF, $FE, $FF, $FF, $FE, $FE, $01, $00, $00, $FD, $CC, $CC, $33, $33, $DC, $EF
+	db $7C, $7F, $E3, $7F, $1F, $FF, $3D, $FC, $F4, $F3, $18, $18, $E7, $E7, $38, $DF
+	db $FB, $F7, $D4, $CF, $43, $3F, $0F, $FF, $3D, $FC, $10, $13, $ED, $ED, $36, $DA
+	db $33, $F6, $FA, $F7, $D3, $CF, $4F, $3F, $3F, $FF, $FE, $FE, $FD, $FD, $FA, $FB
+	db $18, $F3, $0C, $78, $06, $BC, $83, $DF, $C1, $EF, $40, $44, $B3, $B3, $DC, $6F
+	db $97, $0F, $5F, $3F, $56, $FE, $93, $C6, $EF, $C7, $06, $46, $99, $99, $EE, $77
+	db $26, $2F, $73, $37, $F9, $7B, $FB, $7D, $99, $DD, $42, $42, $BD, $BD, $C6, $7B
+	db $AB, $E4, $E8, $E7, $E8, $E7, $24, $2B, $E7, $EF, $3C, $3C, $C3, $C3, $3C, $FF
+	db $01, $FE, $00, $FF, $01, $FE, $01, $FE, $8F, $FE, $71, $71, $8E, $8E, $F3, $7D
+	db $07, $F7, $E7, $17, $F7, $07, $F6, $07, $FF, $7F, $87, $87, $7B, $7B, $8D, $F5
+	db $EB, $EC, $2B, $ED, $EB, $ED, $2B, $ED, $E8, $EF, $2B, $EC, $EB, $ED, $2B, $ED
+	db $F3, $1D, $F1, $FE, $F4, $FB, $F6, $F9, $37, $DA, $F7, $1B, $F6, $FA, $F6, $FA
+	db $9B, $EC, $1B, $ED, $5B, $AD, $DB, $6D, $D8, $EF, $DB, $EC, $5B, $6D, $5B, $6D
+	db $DE, $29, $DE, $EF, $DE, $EF, $DE, $EF, $1E, $EF, $DE, $2F, $DE, $EF, $5E, $6F
+	db $F6, $1A, $F6, $7A, $F6, $7A, $F6, $7A, $F6, $7A, $F6, $7A, $F6, $7A, $F6, $7A
+	db $FA, $FB, $FA, $FB, $FA, $FB, $FA, $FB, $FA, $FB, $FA, $FB, $FA, $FB, $1A, $1B
+	db $DB, $6C, $DB, $6D, $DB, $6D, $DB, $6D, $1B, $ED, $DB, $2D, $DB, $6D, $DB, $6D
+	db $64, $BB, $60, $BF, $6A, $B5, $6E, $B1, $6E, $B7, $6E, $B7, $6E, $B7, $6E, $B7
+	db $DE, $63, $DE, $6F, $DE, $6F, $DE, $6F, $C6, $7B, $DE, $63, $DE, $6F, $DE, $6F
+	db $DB, $2C, $DB, $6D, $DB, $6D, $DB, $6D, $38, $DF, $FB, $3C, $FB, $7D, $FB, $7D
+	db $6D, $B2, $6F, $B4, $6F, $B7, $6F, $B7, $6F, $B7, $69, $B6, $6D, $B2, $6D, $B6
+	db $BD, $C5, $BB, $DB, $BB, $DB, $BB, $DB, $8D, $F5, $BD, $C5, $BB, $DB, $BA, $DB
+	db $EB, $ED, $28, $EF, $EF, $E8, $2F, $EF, $E0, $F0, $3F, $FF, $FF, $FF, $00, $FF
+	db $F6, $FA, $36, $DA, $FE, $12, $ED, $ED, $13, $13, $FF, $FF, $FF, $FF, $00, $FF
+	db $5B, $6D, $5B, $6D, $7F, $49, $B6, $B6, $C9, $C9, $FF, $FF, $FF, $FF, $00, $FF
+	db $5E, $6F, $58, $6F, $7F, $48, $B7, $B7, $C8, $C8, $FF, $FF, $FF, $FF, $00, $FF
+	db $F7, $7B, $30, $DF, $FF, $10, $EF, $EF, $10, $10, $FF, $FF, $FF, $FF, $03, $FF
+	db $EA, $EB, $6A, $AB, $EB, $2A, $ED, $ED, $0E, $1E, $FF, $FF, $FF, $FF, $FF, $FF
+	db $DB, $6D, $DC, $6B, $FF, $4C, $B3, $B3, $4C, $4C, $FF, $FF, $FF, $FF, $FF, $FF
+	db $6E, $B7, $EE, $37, $FF, $66, $99, $99, $66, $66, $FF, $FF, $FF, $FF, $C0, $FF
+	db $DE, $6F, $C6, $7B, $FF, $42, $BD, $BD, $42, $42, $FF, $FF, $FF, $FF, $00, $FF
+	db $FB, $7D, $FB, $7D, $FF, $79, $86, $86, $79, $79, $FF, $FF, $FF, $FF, $00, $FF
+	db $6D, $B6, $71, $AE, $FF, $30, $CF, $CF, $30, $30, $FF, $FF, $FF, $FF, $00, $FF
+	db $BB, $DB, $8D, $F5, $FD, $85, $7B, $7B, $87, $87, $FC, $FF, $FF, $FF, $00, $FF
 	db $00, $00, $00, $FF, $48, $D0, $03, $97, $F2, $07, $D1, $47, $92, $07, $F1, $07
 	db $0F, $07, $00, $F0, $40, $3B, $80, $B8, $83, $AB, $83, $BB, $A3, $9B, $A3, $8B
 	db $FE, $FF, $3F, $1F, $1F, $DF, $3F, $1F, $FF, $F8, $FD, $FE, $FE, $FF, $FF, $FF
@@ -190,11 +190,11 @@ Data_61_4000:: ; 61:4000
 	db $00, $FC, $00, $FC, $00, $9C, $00, $9C, $00, $FC, $02, $CC, $02, $CC, $01, $FE
 	db $2D, $7F, $35, $7F, $25, $7F, $2D, $7F, $35, $7F, $7F, $7F, $00, $00, $00, $00
 	db $2F, $2F, $2F, $2F, $2F, $2F, $2F, $2F, $2F, $2F, $0F, $2F, $0F, $2F, $4F, $2F
-	db $FF, $CF, $F0, $CF, $FF, $CF, $F0, $CF, $FF, $CF, $F0, $CE, $FE, $CE, $F0, $CE
-	db $FE, $FC, $04, $02, $72, $7A, $08, $08, $D9, $D1, $01, $01, $83, $C2, $7A, $7A
-	db $BF, $7F, $20, $10, $A5, $85, $84, $B4, $34, $34, $84, $84, $54, $54, $75, $25
-	db $B0, $F0, $24, $04, $DF, $DF, $08, $08, $1F, $16, $19, $19, $01, $01, $CF, $CE
-	db $B1, $71, $84, $04, $5E, $5E, $44, $44, $45, $45, $5D, $4C, $56, $54, $5E, $4A
+	db $FF, $CF, $F0, $CF, $FF, $CF, $F0, $CF, $FF, $CF, $F0, $CF, $FF, $CF, $F0, $CF
+	db $FE, $FC, $00, $80, $A5, $A5, $25, $A5, $A5, $A5, $3D, $BD, $A5, $A5, $25, $A5
+	db $BF, $7F, $00, $03, $EB, $EB, $08, $0B, $CB, $CB, $08, $0B, $08, $08, $EF, $EF
+	db $B0, $F0, $00, $1C, $59, $59, $42, $5A, $5A, $5A, $42, $5A, $42, $42, $79, $79
+	db $BF, $7F, $00, $11, $C5, $C5, $24, $25, $25, $25, $24, $25, $21, $21, $C4, $C5
 	db $FF, $F3, $0F, $F3, $FF, $F3, $0F, $F3, $FF, $F3, $0F, $F3, $FF, $F3, $0F, $F3
 	db $F0, $F4, $F0, $F4, $F4, $F0, $F4, $F0, $F4, $F0, $F6, $F0, $F7, $F0, $F8, $F0
 	db $AC, $FE, $B4, $FE, $AC, $FE, $FE, $FE, $00, $00, $00, $00, $FF, $00, $00, $00
@@ -202,11 +202,11 @@ Data_61_4000:: ; 61:4000
 	db $00, $FF, $00, $00, $FF, $FF, $FF, $FF, $FF, $FF, $55, $FF, $FF, $FF, $55, $FF
 	db $00, $FF, $00, $00, $FF, $FF, $FF, $FF, $FF, $FF, $55, $FF, $FF, $FF, $55, $FF
 	db $0F, $EF, $1F, $0F, $FF, $FF, $FF, $FF, $FF, $FF, $5F, $FF, $FF, $FF, $55, $FF
-	db $F7, $CE, $F8, $C7, $DB, $E7, $FC, $E3, $EF, $F0, $F7, $F8, $FD, $FE, $FF, $FF
-	db $04, $00, $00, $FF, $FF, $FF, $00, $FF, $7F, $FF, $FF, $00, $FF, $00, $FF, $FF
-	db $88, $00, $00, $FF, $FF, $FF, $00, $FF, $FF, $FF, $FF, $00, $FF, $00, $FF, $FF
-	db $30, $00, $00, $FF, $FF, $FF, $00, $FF, $FF, $FF, $FF, $00, $FF, $00, $FF, $FF
-	db $80, $00, $00, $FF, $FF, $FF, $00, $FF, $FE, $FF, $FF, $00, $FF, $00, $FF, $FF
+	db $F7, $CF, $F8, $C7, $DB, $E7, $FC, $E3, $EF, $F0, $F7, $F8, $FD, $FE, $FF, $FF
+	db $80, $80, $00, $FF, $FF, $FF, $00, $FF, $7F, $FF, $FF, $00, $FF, $00, $FF, $FF
+	db $00, $00, $00, $FF, $FF, $FF, $00, $FF, $FF, $FF, $FF, $00, $FF, $00, $FF, $FF
+	db $00, $00, $00, $FF, $FF, $FF, $00, $FF, $FF, $FF, $FF, $00, $FF, $00, $FF, $FF
+	db $11, $11, $00, $FF, $FF, $FF, $00, $FF, $FE, $FF, $FF, $00, $FF, $00, $FF, $FF
 	db $EF, $F3, $1F, $E3, $DB, $E7, $3F, $C7, $FF, $07, $FB, $07, $FF, $03, $BD, $C3
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $C7, $C7, $EF, $C7, $F0, $E0, $FF, $FF, $E0, $F0, $C7, $EF, $CC, $DE, $DD, $DD
@@ -222,7 +222,7 @@ Data_61_4CC0:: ; 61:4CC0
 
 Data_61_4F63:: ; 61:4F63
 	INCBIN "gfx/bank61/tiles_4f63.2bpp"
-	db $8F, $FF, $FF, $FF, $FF, $E7, $FF, $EF, $F3, $FF, $F3, $FF, $FF
+	db $16, $FF, $FF, $FF, $FF, $E7, $FF, $EF, $F3, $FF, $F3, $FF, $FF
 
 ; ---- data $5200-$58B0 (1712 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown [clipped from 4000-7AE8 by higher-priority evidence]
 
@@ -323,11 +323,11 @@ Data_61_5200:: ; 61:5200
 	db $7C, $FD, $FC, $FE, $FE, $FE, $FC, $FD, $F9, $FB, $F3, $F7, $E7, $EF, $FF, $FF
 	db $FF, $FF, $00, $00, $7F, $FF, $3F, $7F, $3F, $7F, $1C, $BC, $91, $B3, $87, $CF
 	db $FF, $FF, $07, $0F, $E7, $EF, $F7, $CF, $0F, $1F, $4F, $DF, $EF, $9F, $9F, $BF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $F0, $FF, $F0, $F0, $F0, $FE, $FE
-	db $FB, $E3, $FB, $E2, $FB, $E2, $FB, $E2, $FB, $62, $FB, $02, $FB, $02, $3F, $03
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $E0, $FF, $E0
-	db $FF, $FC, $FF, $FC, $FF, $FC, $FF, $FC, $FF, $FC, $FF, $FC, $FF, $FC, $FF, $7C
-	db $77, $47, $77, $45, $77, $45, $77, $45, $77, $45, $77, $45, $77, $45, $77, $45
+	db $FD, $81, $FD, $81, $E1, $81, $EF, $8F, $EF, $8F, $EF, $8F, $FD, $81, $FD, $81
+	db $DF, $1C, $EF, $08, $FF, $00, $FF, $00, $DB, $00, $C3, $00, $DF, $1C, $DF, $1C
+	db $7E, $60, $7F, $40, $73, $40, $77, $44, $77, $44, $77, $44, $7F, $40, $7F, $40
+	db $FF, $C0, $7F, $40, $4C, $40, $7D, $71, $7D, $71, $7D, $71, $7D, $71, $7D, $71
+	db $77, $47, $77, $45, $77, $45, $F7, $C5, $F7, $C5, $F7, $C5, $F7, $C5, $F7, $C5
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FE, $FF, $F8, $FC
 	db $FF, $FF, $FF, $FF, $FE, $FF, $F8, $FC, $E1, $F3, $87, $CF, $1F, $3F, $7C, $FF
 	db $91, $B3, $87, $CF, $1F, $3F, $7C, $FF, $F3, $FF, $CF, $FF, $3F, $FF, $FF, $FF
@@ -351,12 +351,12 @@ Data_61_5B40:: ; 61:5B40
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $BF, $80, $BF, $BF, $84, $B9, $9C, $A1, $86, $A0, $8C, $B0, $80, $A3, $BF, $80
-	db $FF, $00, $FF, $FF, $0A, $F0, $0A, $F0, $CA, $30, $6A, $10, $13, $84, $FF, $00
-	db $FF, $07, $F3, $FB, $0B, $E3, $0B, $F3, $0B, $F3, $8B, $33, $0B, $63, $FB, $03
-	db $FC, $FC, $FB, $F8, $F7, $F1, $F4, $F3, $F5, $F2, $F4, $F3, $F5, $F2, $F7, $F1
-	db $00, $00, $FF, $00, $FF, $FF, $4A, $B5, $4A, $B5, $BA, $45, $53, $AC, $FF, $FF
-	db $00, $00, $FF, $00, $FF, $FF, $41, $BE, $C3, $04, $48, $91, $46, $AC, $F3, $F7
+	db $BF, $80, $BF, $BF, $9E, $A0, $9B, $A0, $93, $A0, $9E, $A0, $80, $A1, $BF, $80
+	db $FF, $00, $FF, $FF, $97, $00, $AA, $00, $BA, $00, $AF, $00, $00, $00, $FF, $00
+	db $FF, $07, $F3, $FB, $8B, $23, $8B, $33, $8B, $13, $CB, $13, $0B, $03, $FB, $03
+	db $FC, $FC, $FB, $F8, $F7, $F1, $F5, $F2, $F5, $F2, $F4, $F3, $F6, $F1, $F7, $F1
+	db $00, $00, $FF, $00, $FF, $FF, $53, $AC, $50, $AF, $AD, $52, $A9, $56, $FF, $FF
+	db $00, $00, $FF, $00, $FF, $FF, $20, $DF, $46, $81, $08, $D1, $26, $CC, $F3, $F7
 	db $3D, $3D, $DD, $1D, $ED, $8D, $2D, $CD, $2D, $CD, $2D, $CD, $6D, $0D, $8D, $1D
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
@@ -393,12 +393,12 @@ Data_61_5B40:: ; 61:5B40
 	db $78, $7B, $79, $7A, $F9, $FA, $F8, $FB, $FC, $FC, $FF, $FF, $FC, $FC, $F8, $03
 	db $00, $FF, $FF, $00, $FF, $00, $00, $FF, $00, $00, $FF, $FF, $00, $00, $00, $FF
 	db $78, $7D, $79, $7A, $79, $7A, $79, $7A, $79, $7A, $79, $7A, $79, $7A, $79, $7A
-	db $80, $00, $7F, $7F, $04, $79, $1C, $61, $06, $60, $0C, $70, $38, $43, $00, $47
-	db $00, $00, $FF, $FF, $00, $FF, $60, $9F, $10, $8F, $08, $E3, $01, $F2, $00, $FE
-	db $00, $00, $FF, $FF, $A3, $0C, $A1, $0C, $A3, $0C, $A0, $0C, $B1, $06, $00, $46
-	db $00, $00, $BF, $3F, $E2, $0C, $47, $08, $E2, $08, $82, $0C, $E5, $08, $00, $0A
-	db $00, $00, $FF, $FF, $41, $9E, $A2, $0C, $A4, $09, $86, $08, $83, $3C, $00, $3E
-	db $13, $27, $CB, $D3, $0B, $53, $0B, $D3, $0B, $D3, $0B, $D3, $0B, $53, $0B, $53
+	db $80, $00, $7F, $7F, $00, $7F, $00, $7F, $00, $7F, $00, $7F, $00, $7F, $00, $7F
+	db $00, $00, $FF, $FF, $82, $7D, $82, $7D, $92, $6D, $AA, $45, $44, $11, $00, $BB
+	db $00, $00, $FF, $FF, $03, $FC, $B0, $4C, $CB, $04, $81, $36, $83, $3C, $00, $7C
+	db $00, $00, $FF, $FF, $08, $F7, $1C, $E3, $08, $E3, $08, $F7, $88, $77, $00, $77
+	db $00, $00, $FF, $FF, $00, $FF, $F0, $0F, $F0, $0F, $80, $0F, $70, $0F, $00, $0F
+	db $13, $27, $CB, $D3, $0B, $D3, $0B, $D3, $0B, $D3, $0B, $D3, $0B, $D3, $0B, $D3
 	db $80, $BF, $80, $BF, $80, $BF, $80, $BF, $80, $80, $80, $80, $80, $C0, $FF, $FF
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00, $00, $00, $00, $00, $FF, $FF
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00, $00, $00, $00, $00, $FF, $FF
@@ -431,9 +431,9 @@ Data_61_5B40:: ; 61:5B40
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $7F, $FE, $3E, $7E, $9E, $BE, $4E, $DE
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $00, $00, $FF, $FF, $F1, $F3, $FC, $FC
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $05, $03, $FF, $FF, $FF, $FF, $7F, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $80, $80, $BE, $BE, $82, $82, $EE, $EC, $C8, $C8
-	db $8F, $9F, $FF, $FF, $83, $83, $28, $28, $AA, $AA, $82, $82, $F2, $F2, $82, $82
-	db $FF, $FF, $FF, $FF, $FF, $FF, $C0, $C0, $DE, $DE, $02, $02, $45, $44, $CE, $8C
+	db $FF, $FF, $FF, $FF, $FF, $FF, $F0, $F0, $E6, $E6, $E9, $E9, $EF, $EF, $E9, $E9
+	db $8F, $9F, $FF, $FF, $FF, $FF, $00, $00, $73, $73, $4A, $4A, $4A, $4A, $4A, $4A
+	db $FF, $FF, $FF, $FF, $FF, $FF, $01, $01, $9C, $9C, $52, $52, $5C, $5C, $52, $52
 	db $FF, $FF, $FF, $FF, $FE, $FF, $FA, $FC, $D3, $E1, $FF, $FF, $C0, $FF, $FF, $FF
 	db $FF, $FF, $00, $FF, $FF, $FF, $00, $FF, $FF, $FF, $00, $FF, $FF, $FF, $00, $FF
 	db $FF, $FF, $00, $FF, $FF, $FF, $00, $FF, $FF, $FF, $00, $FF, $FF, $FF, $00, $FF
@@ -443,13 +443,13 @@ Data_61_5B40:: ; 61:5B40
 	db $26, $EE, $72, $96, $F8, $3A, $FC, $FC, $FB, $FF, $E3, $FF, $8F, $FF, $3F, $FF
 	db $FF, $FF, $E3, $FF, $8F, $FF, $BF, $FF, $FF, $FF, $FC, $FF, $F0, $FF, $C0, $FF
 	db $1F, $3F, $C7, $CF, $F1, $F3, $FC, $FC, $0F, $FF, $03, $FF, $38, $FF, $E0, $FF
-	db $DA, $D2, $C2, $C6, $FF, $FF, $7F, $FF, $1F, $3F, $C7, $CF, $F1, $F3, $3C, $FC
-	db $BB, $BB, $38, $38, $FF, $FF, $FF, $FF, $00, $FF, $FF, $FF, $F8, $FF, $7F, $FF
-	db $92, $12, $00, $40, $FF, $FF, $FF, $FF, $00, $FF, $FF, $FF, $00, $FF, $FF, $FF
+	db $E9, $E9, $E0, $E0, $FF, $FF, $7F, $FF, $1F, $3F, $C7, $CF, $F1, $F3, $3C, $FC
+	db $73, $73, $00, $00, $FF, $FF, $FF, $FF, $00, $FF, $FF, $FF, $F8, $FF, $7F, $FF
+	db $92, $92, $00, $00, $FF, $FF, $FF, $FF, $00, $FF, $FF, $FF, $00, $FF, $FF, $FF
 	db $C0, $FF, $FF, $FF, $C0, $FF, $FF, $FF, $00, $FF, $FF, $FF, $00, $FF, $FF, $FF
 	db $FF, $FF, $00, $FF, $FF, $FF, $00, $FF, $FF, $FF, $0F, $FF, $F8, $F8, $1B, $FB
-	db $FF, $FF, $00, $FF, $FF, $FF, $00, $FF, $FF, $FF, $FF, $FF, $18, $18, $D3, $D1
-	db $F8, $FB, $38, $FC, $FE, $FF, $0F, $FF, $FF, $FF, $FF, $FF, $18, $18, $5A, $5A
+	db $FF, $FF, $00, $FF, $FF, $FF, $00, $FF, $FF, $FF, $FF, $FF, $00, $00, $BB, $BB
+	db $F8, $FB, $38, $FC, $FE, $FF, $0F, $FF, $FF, $FF, $FF, $FF, $08, $08, $AB, $AB
 	db $1F, $E3, $7E, $8F, $3F, $3C, $8E, $CF, $E3, $F3, $F8, $FC, $3E, $3F, $BF, $BF
 	db $B7, $CF, $FD, $03, $FF, $00, $FD, $03, $B7, $CF, $FC, $FF, $3C, $3F, $8F, $CF
 	db $FF, $FF, $FC, $FF, $F0, $FF, $C0, $FF, $03, $FF, $0E, $FF, $38, $FF, $01, $FF
@@ -459,25 +459,25 @@ Data_61_5B40:: ; 61:5B40
 	db $1C, $3F, $0F, $DF, $BC, $1F, $BF, $7F, $F0, $FF, $FF, $FF, $00, $FF, $FF, $FF
 	db $00, $FF, $FF, $FF, $00, $FF, $FF, $FF, $00, $FF, $FF, $FF, $00, $FF, $FF, $FF
 	db $00, $FF, $FF, $FF, $00, $FF, $FF, $FF, $00, $FF, $FF, $FF, $00, $FF, $FF, $FF
-	db $F2, $F2, $17, $F5, $F0, $F0, $CB, $9B, $78, $38, $7F, $FF, $FF, $FF, $FF, $FF
-	db $46, $46, $DC, $DC, $45, $45, $D5, $95, $11, $31, $FF, $FF, $FF, $FF, $7B, $7B
-	db $42, $42, $7A, $7A, $42, $42, $56, $54, $10, $10, $FF, $FF, $FF, $FF, $FB, $FB
-	db $BF, $BF, $8F, $8F, $AF, $AF, $EA, $CC, $0F, $1F, $FF, $FF, $FF, $FF, $FB, $FB
-	db $E3, $F3, $F8, $FC, $FF, $FF, $00, $00, $FF, $FF, $FF, $FF, $FF, $FF, $E1, $E1
-	db $C7, $FF, $F2, $FE, $FC, $FD, $01, $03, $FF, $FF, $FA, $FA, $FA, $FA, $FF, $FF
-	db $3A, $7B, $7A, $FB, $FB, $FB, $FC, $F8, $FF, $FF, $FF, $FF, $FF, $FF, $C7, $C7
+	db $F9, $F9, $1D, $FD, $FD, $FD, $CD, $9D, $7C, $3C, $7F, $FF, $FF, $FF, $F7, $F7
+	db $11, $11, $11, $11, $11, $11, $39, $39, $00, $00, $FF, $FF, $FF, $FF, $FF, $FF
+	db $2A, $2A, $2B, $2B, $22, $22, $3B, $3B, $00, $00, $FF, $FF, $FF, $FF, $EE, $EE
+	db $3F, $3F, $BF, $BF, $3F, $3F, $BA, $BC, $3F, $3F, $FF, $FF, $FF, $FF, $FE, $FE
+	db $E3, $F3, $F8, $FC, $FF, $FF, $00, $00, $FF, $FF, $FF, $FF, $FF, $FF, $1D, $1D
+	db $C7, $FF, $F2, $FE, $FC, $FD, $01, $03, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+	db $3A, $7B, $7A, $FB, $FB, $FB, $FC, $F8, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $0A, $F1, $2B, $C7, $FF, $FF, $02, $01, $FE, $FC, $FF, $FF, $FF, $FF, $CF, $CF
 	db $E0, $FF, $FF, $FF, $C0, $FF, $FF, $FF, $70, $7F, $3F, $BF, $98, $BF, $FF, $9F
 	db $00, $FF, $FF, $FF, $00, $FF, $FF, $FF, $00, $FF, $FF, $FF, $00, $FF, $FF, $FF
 	db $00, $FF, $FF, $FF, $00, $FF, $FF, $FF, $00, $FF, $FF, $FF, $00, $FF, $FF, $FF
 	db $00, $FF, $FF, $FF, $00, $FF, $FF, $FF, $00, $FF, $FF, $FF, $00, $FF, $FF, $FF
-	db $F8, $F8, $FE, $FE, $FC, $FE, $F8, $FC, $FA, $FA, $FB, $FB, $FC, $FC, $FF, $FF
-	db $0B, $0B, $FB, $FB, $2B, $2B, $8B, $DB, $AB, $AB, $6B, $6B, $CC, $DC, $FF, $FF
-	db $FB, $FB, $E0, $E0, $F7, $F7, $E4, $F4, $AF, $AF, $AD, $AD, $6C, $6E, $FF, $FF
-	db $C0, $C0, $F7, $F7, $E1, $F1, $44, $66, $D5, $D5, $DB, $DB, $66, $66, $FF, $FF
-	db $79, $7B, $F7, $F7, $40, $40, $73, $FB, $77, $77, $73, $77, $79, $F9, $FF, $FF
-	db $A0, $A0, $BD, $BD, $A0, $A0, $BD, $BD, $B1, $B1, $AC, $AC, $B1, $B3, $FF, $FF
-	db $FF, $FF, $C3, $C3, $99, $BD, $FD, $FD, $FD, $FD, $F9, $FB, $E3, $E7, $FF, $FF
+	db $F7, $F7, $F7, $F7, $F7, $F7, $F7, $F7, $F7, $F7, $F7, $F7, $F0, $F0, $FF, $FF
+	db $FF, $FF, $E1, $E1, $DE, $DE, $C0, $C0, $DF, $DF, $DE, $DE, $61, $61, $FF, $FF
+	db $EE, $EE, $83, $83, $EF, $EF, $EF, $EF, $EF, $EF, $EF, $EF, $EF, $EF, $FF, $FF
+	db $FE, $FE, $86, $86, $7E, $7E, $8E, $8E, $F6, $F6, $F6, $F6, $0E, $0E, $FF, $FF
+	db $ED, $ED, $ED, $ED, $ED, $ED, $1D, $1D, $FD, $FD, $FD, $FD, $FD, $FD, $FF, $FF
+	db $FF, $FF, $C3, $C3, $FD, $FD, $C1, $C1, $BD, $BD, $BD, $BD, $C1, $C1, $FF, $FF
+	db $FF, $FF, $BD, $BD, $BD, $BD, $BD, $BD, $BD, $BD, $C1, $C1, $FD, $FD, $C3, $C3
 	db $CF, $CF, $CF, $CF, $CF, $DF, $DF, $DF, $FF, $FF, $9F, $9F, $9F, $9F, $FF, $FF
 	db $D8, $DF, $DF, $DF, $D8, $DF, $DF, $DF, $D8, $DF, $DF, $DF, $D8, $DF, $DF, $DF
 	db $00, $FF, $FF, $FF, $00, $FF, $FF, $FF, $00, $FF, $FF, $FF, $00, $FF, $FF, $FF
@@ -485,9 +485,9 @@ Data_61_5B40:: ; 61:5B40
 	db $00, $FF, $FF, $FF, $00, $FF, $FF, $FF, $00, $FF, $FF, $FF, $00, $FF, $FF, $FF
 	db $FF, $FF, $80, $C0, $80, $BF, $88, $A7, $80, $BF, $80, $9F, $A0, $80, $B7, $87
 	db $FF, $FF, $00, $00, $00, $FF, $01, $FF, $01, $FF, $00, $FF, $00, $00, $FF, $FF
-	db $FF, $FF, $00, $00, $FF, $EE, $FF, $AE, $FF, $D0, $FF, $AD, $00, $00, $FF, $FF
-	db $FF, $FF, $00, $00, $FF, $41, $FF, $55, $FF, $44, $FF, $00, $00, $00, $FF, $FF
-	db $FF, $FF, $00, $00, $FF, $AF, $FF, $EF, $FF, $27, $FF, $A3, $00, $00, $FF, $FF
+	db $FF, $FF, $00, $00, $FF, $FA, $FF, $F9, $FF, $FA, $FF, $F8, $00, $00, $FF, $FF
+	db $FF, $FF, $00, $00, $FF, $FE, $FF, $88, $FF, $AA, $FF, $88, $00, $00, $FF, $FF
+	db $FF, $FF, $00, $00, $FF, $FF, $FF, $AF, $FF, $8F, $FF, $CF, $00, $00, $FF, $FF
 	db $FF, $FF, $00, $00, $00, $FF, $80, $FF, $80, $FF, $00, $FF, $00, $00, $FF, $FF
 	db $FF, $FF, $01, $03, $01, $FD, $09, $E5, $01, $FD, $01, $F9, $05, $01, $ED, $E1
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
@@ -521,15 +521,15 @@ Data_61_65C0:: ; 61:65C0
 
 Data_61_68E0:: ; 61:68E0
 	db $FF, $FF, $00, $00, $00, $FF, $01, $FF, $01, $FF, $00, $FF, $00, $00, $FF, $FF
-	db $FF, $FF, $00, $00, $FF, $EE, $FF, $AE, $FF, $D0, $FF, $AD, $00, $00, $FF, $FF
-	db $FF, $FF, $00, $00, $FF, $41, $FF, $55, $FF, $44, $FF, $00, $00, $00, $FF, $FF
-	db $FF, $FF, $00, $00, $FF, $AF, $FF, $EF, $FF, $27, $FF, $A3, $00, $00, $FF, $FF
+	db $FF, $FF, $00, $00, $FF, $FA, $FF, $F9, $FF, $FA, $FF, $F8, $00, $00, $FF, $FF
+	db $FF, $FF, $00, $00, $FF, $FE, $FF, $88, $FF, $AA, $FF, $88, $00, $00, $FF, $FF
+	db $FF, $FF, $00, $00, $FF, $FF, $FF, $AF, $FF, $8F, $FF, $CF, $00, $00, $FF, $FF
 	db $FF, $FF, $00, $00, $00, $FF, $80, $FF, $80, $FF, $00, $FF, $00, $00, $FF, $FF
 	db $FF, $FF, $01, $03, $01, $FD, $09, $E5, $01, $FD, $01, $F9, $05, $01, $ED, $E1
 	db $F8, $F0, $E7, $E7, $DC, $CF, $D0, $9F, $B0, $BF, $A0, $BF, $A0, $BF, $A0, $BE
-	db $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $1F, $40, $41
-	db $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $E0
-	db $00, $00, $FF, $FF, $01, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $07, $50, $57
+	db $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00, $73, $73
+	db $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $08, $22, $2A
+	db $00, $00, $FF, $FF, $01, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $07, $F0, $F7
 	db $FF, $7F, $3F, $3F, $DF, $9F, $5F, $CF, $6F, $EF, $2F, $EF, $2F, $EF, $2F, $EF
 	db $B6, $86, $B4, $94, $B5, $95, $B0, $87, $B5, $85, $B6, $96, $B4, $94, $B0, $87
 	db $09, $8D, $21, $21, $08, $08, $00, $FF, $A0, $A4, $A6, $B6, $80, $80, $00, $FF
@@ -538,10 +538,10 @@ Data_61_68E0:: ; 61:68E0
 	db $30, $78, $01, $25, $80, $CA, $00, $FF, $E8, $EC, $F0, $F2, $D2, $DA, $00, $FF
 	db $10, $34, $00, $91, $41, $69, $00, $FF, $8E, $AE, $00, $99, $24, $66, $00, $FF
 	db $AD, $A1, $2D, $21, $2D, $A1, $0D, $E1, $ED, $E1, $2D, $21, $AD, $A1, $0D, $E1
-	db $A0, $BE, $A0, $BE, $A0, $BF, $A0, $BF, $A0, $BF, $A0, $BF, $A0, $BF, $A0, $BF
-	db $FC, $FD, $44, $44, $49, $49, $40, $40, $7C, $3D, $00, $81, $00, $FF, $00, $07
-	db $0F, $EF, $00, $00, $F0, $F0, $00, $00, $07, $F7, $00, $F0, $00, $FF, $00, $FE
-	db $D0, $57, $80, $87, $80, $BF, $80, $BF, $80, $3F, $00, $7F, $00, $FF, $00, $0F
+	db $A0, $BE, $A0, $BE, $A0, $BF, $A0, $BE, $A0, $BE, $A0, $BE, $A0, $BF, $A0, $BF
+	db $84, $84, $64, $64, $17, $17, $14, $14, $E4, $E4, $00, $00, $00, $FF, $00, $07
+	db $A2, $AA, $A2, $A2, $94, $94, $94, $94, $88, $88, $00, $22, $00, $FF, $00, $FE
+	db $80, $87, $E0, $EF, $80, $8F, $80, $87, $F0, $F7, $00, $07, $00, $FF, $00, $0F
 	db $2F, $EF, $2F, $EF, $2F, $EF, $2F, $EF, $2F, $EF, $2F, $EF, $2F, $EF, $2F, $EF
 	db $B4, $84, $B4, $94, $B4, $96, $B0, $87, $B6, $86, $B4, $94, $B5, $95, $B0, $87
 	db $01, $E1, $01, $95, $01, $A5, $00, $FE, $09, $8D, $21, $21, $08, $08, $00, $FF
@@ -589,18 +589,18 @@ Data_61_68E0:: ; 61:68E0
 	db $FF, $FF, $80, $C0, $80, $BF, $80, $BF, $80, $BF, $83, $BC, $87, $BB, $8F, $B7
 	db $FF, $FF, $00, $00, $00, $FF, $00, $FF, $00, $FF, $FF, $00, $FF, $FF, $FF, $FF
 	db $FF, $FF, $00, $00, $00, $FF, $00, $FF, $00, $FF, $FF, $00, $FF, $FF, $FF, $FF
-	db $FF, $FF, $00, $00, $03, $F8, $07, $F1, $04, $F3, $F5, $02, $F4, $F3, $F4, $F3
-	db $FF, $FF, $00, $00, $FF, $00, $FF, $FF, $2A, $D5, $EA, $15, $5A, $A5, $AD, $52
-	db $FF, $FF, $00, $00, $FF, $00, $FF, $FF, $50, $AF, $7D, $82, $D3, $20, $60, $95
-	db $FF, $FF, $01, $03, $C1, $1D, $E1, $8D, $21, $CD, $AD, $41, $2D, $CD, $AD, $4D
+	db $FF, $FF, $00, $00, $03, $F8, $07, $F1, $05, $F2, $F5, $02, $F4, $F3, $F5, $F2
+	db $FF, $FF, $00, $00, $FF, $00, $FF, $FF, $81, $7E, $7B, $84, $FF, $00, $EF, $10
+	db $FF, $FF, $00, $00, $FF, $00, $FF, $FF, $C0, $3F, $FF, $00, $B1, $42, $F0, $05
+	db $FF, $FF, $01, $03, $C1, $1D, $E1, $8D, $21, $CD, $AD, $41, $AD, $4D, $AD, $4D
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $BF, $80, $BF, $BF, $84, $B9, $9C, $A1, $86, $A0, $8C, $B0, $80, $A3, $BF, $80
-	db $FF, $00, $FF, $FF, $0A, $F0, $0A, $F0, $CA, $30, $6A, $10, $13, $84, $FF, $00
-	db $FF, $07, $F3, $FB, $0B, $E3, $0B, $F3, $0B, $F3, $8B, $33, $0B, $63, $FB, $03
+	db $BF, $80, $BF, $BF, $9E, $A0, $9B, $A0, $93, $A0, $9E, $A0, $80, $A1, $BF, $80
+	db $FF, $00, $FF, $FF, $97, $00, $AA, $00, $BA, $00, $AF, $00, $00, $00, $FF, $00
+	db $FF, $07, $F3, $FB, $8B, $23, $8B, $33, $8B, $13, $CB, $13, $0B, $03, $FB, $03
 	db $F7, $F1, $FB, $F8, $FC, $FC, $F8, $FB, $F9, $FA, $F9, $FA, $F8, $FB, $FC, $FC
 	db $FF, $FF, $FF, $00, $00, $00, $00, $FF, $FF, $00, $FF, $00, $00, $FF, $00, $00
 	db $F4, $F2, $FA, $03, $03, $01, $01, $FD, $FD, $00, $FE, $00, $00, $FE, $00, $00
@@ -640,12 +640,12 @@ Data_61_68E0:: ; 61:68E0
 	db $78, $7B, $79, $7A, $F9, $FA, $F8, $FB, $FC, $FC, $FF, $FF, $FC, $FC, $F8, $03
 	db $00, $FF, $FF, $00, $FF, $00, $00, $FF, $00, $00, $FF, $FF, $00, $00, $00, $FF
 	db $78, $7D, $79, $7A, $79, $7A, $79, $7A, $79, $7A, $79, $7A, $79, $7A, $79, $7A
-	db $80, $00, $7F, $7F, $70, $07, $28, $03, $35, $40, $69, $00, $68, $03, $00, $03
-	db $00, $00, $FF, $FF, $5E, $80, $8C, $20, $12, $60, $8D, $20, $CA, $10, $00, $90
-	db $00, $00, $FF, $FF, $12, $E4, $16, $E0, $21, $C8, $01, $4E, $42, $1C, $00, $9C
-	db $00, $00, $FF, $FF, $5D, $80, $49, $80, $48, $12, $49, $12, $51, $02, $00, $86
-	db $00, $00, $FF, $FF, $2F, $40, $46, $10, $89, $30, $06, $70, $E5, $08, $00, $08
-	db $13, $27, $CB, $D3, $0B, $53, $0B, $53, $0B, $53, $8B, $13, $0B, $13, $0B, $53
+	db $80, $00, $7F, $7F, $38, $43, $23, $40, $3B, $40, $0A, $40, $3B, $40, $00, $40
+	db $00, $00, $FF, $FF, $00, $FF, $BB, $00, $AA, $00, $2A, $00, $AB, $00, $00, $00
+	db $00, $00, $FF, $FF, $84, $39, $84, $39, $88, $33, $80, $33, $90, $27, $00, $27
+	db $00, $00, $FF, $FF, $E0, $1F, $AE, $00, $CE, $00, $A8, $00, $AE, $00, $00, $00
+	db $00, $00, $FF, $FF, $00, $FF, $EA, $00, $8A, $00, $8A, $00, $E4, $00, $00, $11
+	db $13, $27, $CB, $D3, $0B, $D3, $0B, $D3, $0B, $D3, $0B, $D3, $0B, $D3, $0B, $D3
 	db $80, $BF, $80, $BF, $80, $BF, $80, $BF, $80, $80, $80, $80, $80, $C0, $FF, $FF
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00, $00, $00, $00, $00, $FF, $FF
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00, $00, $00, $00, $00, $FF, $FF
@@ -662,10 +662,10 @@ Data_61_68E0:: ; 61:68E0
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $00, $00
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $01, $03
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FF, $FF, $FE, $FC, $FD, $F9, $FB, $FB, $F8, $F8, $FE, $FE, $F8, $F8, $FB, $FB
-	db $FF, $FF, $3F, $1F, $DF, $CF, $6F, $6F, $68, $68, $CB, $DB, $68, $68, $6F, $6F
-	db $FF, $FF, $FF, $FF, $FF, $FF, $F8, $F8, $3B, $1B, $D0, $C0, $67, $67, $60, $60
-	db $FF, $FF, $FF, $FF, $FF, $FF, $3F, $3F, $BF, $BF, $3F, $1F, $DF, $CF, $6F, $6F
+	db $FF, $FF, $3F, $1F, $DF, $CF, $6F, $6F, $6F, $6F, $CF, $DF, $6F, $6F, $6F, $6F
+	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $F0, $E0, $EF, $EF
@@ -674,10 +674,10 @@ Data_61_68E0:: ; 61:68E0
 	db $00, $FF, $00, $FF, $00, $2A, $08, $E2, $00, $76, $08, $E2, $00, $2A, $00, $FF
 	db $05, $F9, $05, $F9, $05, $89, $05, $D9, $05, $D9, $05, $D9, $05, $D9, $05, $F9
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FB, $FB, $FD, $F9, $FE, $FC, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $6C, $6C, $DD, $CD, $3C, $1C, $FF, $FF, $FF, $FF, $00, $00, $7F, $7F, $79, $49
-	db $68, $68, $DB, $CB, $38, $18, $FF, $FF, $FF, $FF, $00, $00, $FE, $FE, $2A, $2A
-	db $6F, $6F, $DF, $CF, $3F, $1F, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+	db $FB, $FB, $FD, $F9, $FE, $FC, $FF, $FF, $FF, $FF, $00, $00, $7F, $7F, $79, $49
+	db $6F, $6F, $DF, $CF, $3F, $1F, $FF, $FF, $FF, $FF, $00, $00, $FE, $FE, $2A, $2A
+	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FF, $FF, $FF, $FF, $FE, $FC, $FC, $FC, $FC, $FC, $FC, $FC, $FC, $FC, $FC, $FC
 	db $EA, $EA, $E9, $E9, $0F, $0F, $00, $00, $00, $FF, $00, $FF, $00, $C0, $3F, $BF
@@ -742,9 +742,9 @@ Data_61_68E0:: ; 61:68E0
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $BF, $80, $BF, $BF, $84, $B9, $9C, $A1, $86, $A0, $8C, $B0, $80, $A3, $BF, $80
-	db $FF, $00, $FF, $FF, $0A, $F0, $0A, $F0, $CA, $30, $6A, $10, $13, $84, $FF, $00
-	db $FF, $07, $F3, $FB, $0B, $E3, $0B, $F3, $0B, $F3, $8B, $33, $0B, $63, $FB, $03
+	db $BF, $80, $BF, $BF, $9E, $A0, $9B, $A0, $93, $A0, $9E, $A0, $80, $A1, $BF, $80
+	db $FF, $00, $FF, $FF, $97, $00, $AA, $00, $BA, $00, $AF, $00, $00, $00, $FF, $00
+	db $FF, $07, $F3, $FB, $8B, $23, $8B, $33, $8B, $13, $CB, $13, $0B, $03, $FB, $03
 	db $F8, $F8, $FF, $FF, $F8, $F8, $F0, $F7, $F3, $F4, $F3, $F4, $F0, $F7, $F8, $F8
 	db $00, $00, $FF, $FF, $00, $00, $00, $FF, $FF, $00, $FF, $00, $00, $FF, $00, $00
 	db $00, $00, $FF, $FF, $00, $00, $00, $FF, $FF, $00, $FF, $00, $00, $FF, $00, $00
@@ -757,9 +757,9 @@ Data_61_68E0:: ; 61:68E0
 	db $80, $80, $8F, $B7, $8F, $B7, $8F, $B7, $8F, $B7, $8F, $B7, $8E, $B4, $8D, $B4
 	db $00, $00, $FF, $FF, $FC, $FC, $F2, $F1, $C8, $C7, $20, $17, $80, $7B, $00, $F0
 	db $03, $07, $FF, $FF, $7F, $7F, $3F, $BF, $1F, $DE, $2D, $CC, $8B, $0B, $0E, $13
-	db $F7, $F0, $EF, $E3, $E8, $E7, $EB, $E4, $09, $06, $EA, $E5, $8F, $E3, $17, $90
-	db $FF, $00, $FF, $FF, $86, $79, $06, $F9, $B6, $49, $0B, $F4, $FF, $FF, $FF, $00
-	db $FF, $00, $FF, $FF, $5D, $A2, $60, $91, $C4, $36, $E3, $1B, $FD, $FD, $FE, $00
+	db $F7, $F0, $EF, $E3, $EA, $E5, $EB, $E4, $0A, $05, $EA, $E5, $8F, $E3, $17, $90
+	db $FF, $00, $FF, $FF, $85, $7A, $81, $7E, $B5, $4A, $B5, $4A, $FF, $FF, $FF, $00
+	db $FF, $00, $FF, $FF, $40, $BF, $40, $B1, $64, $96, $6B, $93, $FD, $FD, $FE, $00
 	db $BD, $3D, $DD, $1D, $5D, $9D, $5D, $9D, $5D, $1D, $1D, $9D, $C5, $E5, $F1, $F9
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
@@ -784,11 +784,11 @@ Data_61_68E0:: ; 61:68E0
 	db $70, $77, $73, $74, $F3, $F4, $F0, $F7, $F8, $F8, $FF, $FF, $F8, $F8, $F0, $07
 	db $00, $FF, $FF, $00, $FF, $00, $00, $FF, $00, $00, $FF, $FF, $00, $00, $00, $FF
 	db $7E, $7C, $78, $7D, $79, $7A, $79, $7A, $79, $7A, $79, $7A, $79, $7A, $79, $7A
-	db $00, $FF, $80, $00, $7F, $7F, $04, $79, $1C, $61, $06, $60, $0C, $70, $30, $43
-	db $00, $FF, $00, $00, $FF, $FF, $02, $FC, $C2, $3C, $22, $1C, $12, $C4, $06, $E0
-	db $00, $FF, $00, $00, $FF, $FF, $9D, $20, $84, $20, $95, $20, $95, $20, $D5, $00
-	db $00, $FF, $00, $00, $FF, $BF, $81, $3E, $31, $06, $35, $40, $04, $40, $38, $41
-	db $00, $FF, $00, $00, $FF, $FF, $EF, $00, $21, $00, $22, $4C, $25, $48, $C8, $00
+	db $00, $FF, $80, $00, $7F, $7F, $01, $7E, $01, $7E, $01, $7E, $01, $7E, $01, $7E
+	db $00, $FF, $00, $00, $FF, $FF, $10, $E1, $B0, $40, $57, $00, $13, $00, $17, $00
+	db $00, $FF, $00, $00, $FF, $FF, $34, $C1, $54, $81, $17, $00, $55, $00, $57, $00
+	db $00, $FF, $00, $00, $FF, $FF, $00, $FF, $00, $FF, $77, $00, $52, $00, $77, $00
+	db $00, $FF, $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $7F, $00, $7F, $00, $7F
 	db $2F, $C7, $13, $27, $CB, $D3, $8B, $53, $0B, $53, $0B, $D3, $0B, $D3, $8B, $53
 	db $80, $BF, $80, $BF, $80, $BF, $80, $BF, $80, $80, $80, $80, $80, $C0, $FF, $FF
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00, $00, $00, $00, $00, $FF, $FF
@@ -796,11 +796,11 @@ Data_61_68E0:: ; 61:68E0
 	db $03, $F4, $03, $F4, $00, $F7, $00, $F8, $00, $00, $00, $00, $00, $00, $FF, $FF
 	db $FF, $00, $FF, $00, $00, $FF, $00, $00, $00, $00, $00, $00, $00, $00, $FF, $FF
 	db $79, $7A, $79, $7A, $78, $7D, $7E, $7C, $3E, $7F, $3F, $7F, $7F, $3F, $BF, $9F
-	db $00, $47, $7F, $7F, $80, $00, $00, $FF, $00, $00, $FF, $FF, $FF, $FF, $FF, $FF
-	db $04, $F9, $FF, $FF, $00, $00, $00, $FF, $00, $00, $FF, $FF, $FF, $FF, $FF, $FF
+	db $00, $7E, $7F, $7F, $80, $00, $00, $FF, $00, $00, $FF, $FF, $FF, $FF, $FF, $FF
 	db $00, $00, $FF, $FF, $00, $00, $00, $FF, $00, $00, $FF, $FF, $FF, $FF, $FF, $FF
-	db $00, $43, $FF, $FF, $00, $00, $00, $FF, $00, $00, $FF, $FF, $FF, $FF, $FF, $FF
-	db $00, $12, $FF, $FF, $00, $00, $00, $FF, $00, $00, $FF, $FF, $FF, $FF, $FF, $FF
+	db $00, $00, $FF, $FF, $00, $00, $00, $FF, $00, $00, $FF, $FF, $FF, $FF, $FF, $FF
+	db $00, $00, $FF, $FF, $00, $00, $00, $FF, $00, $00, $FF, $FF, $FF, $FF, $FF, $FF
+	db $00, $7F, $FF, $FF, $00, $00, $00, $FF, $00, $00, $FF, $FF, $FF, $FF, $FF, $FF
 	db $0B, $53, $CB, $D3, $13, $27, $2F, $C7, $0F, $1F, $FF, $FF, $FF, $FF, $FF, $FF
 
 ; ---- data $7A80-$7AE8 (104 bytes) [PROBABLE] palette-rgb555: heuristic: 52 RGB555 words as 13 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
