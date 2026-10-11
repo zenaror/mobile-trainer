@@ -370,3 +370,11 @@ Three documentation appendices follow the successful ROOT checks without replay.
 - [Descriptor suffix consumers and composition limits](research/assets_pokemon_frames_and_name_limits.md#descriptor-suffix-consumers-and-composition-limits) — offsets0F–1D, ROM4E consumers, four preview phases and conditional pixel-model limits; static PROBABLE derivation with existing descriptor1 natural evidence kept separate.
 
 Verification, 2026-10-11: the private candidate and the actual MAIN checkout each completed the canonical37 profile (36 checks rc0; the documented ordinal27 negative case rc2 with its exact97-byte diagnostic). All4246 source files held during each run, and all671 build outputs matched the newly reconstructed d6a01a0 baseline byte for byte. `make` reported SHA-256 OK / RESULT: IDENTICAL; symbol and palette checks passed. This pass changes documentation only. No new runtime capture, species association, natural-reachability or hardware claim is made.
+
+
+- [Sibling descriptor representation](research/assets_pokemon_frames_and_name_limits.md#representation-of-the-four-remaining-descriptors) — four PROBABLE units, 124-byte symbolic identity, unchanged manual/overlay locators and pending parent-relative validation.
+- [Bounded inventory of 25 physical frame windows](research/assets_pokemon_frames_and_name_limits.md#bounded-inventory-of-25-physical-frame-windows) — exact tile PNG sources and map/attribute/palette assets; missing editing views distinguished from legacy-preview omissions and source/catalog gaps.
+
+### Typed descriptor integration and asset/name limits
+
+The frame descriptor and asset/name note now accompanies explicit fields for four existing 31-byte descriptor bodies. Private and ROOT canonical37 checks close with the expected results; the original ROM, SYM/MAP and670 parent outputs are preserved, while the owner object's40 new relocations are independently resolved. See docs/research/assets_pokemon_frames_and_name_limits.md for the finite25-frame raw-asset audit, composition-model limits and unresolved name association. The source status levels are unchanged.
