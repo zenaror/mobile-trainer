@@ -140,3 +140,40 @@ The original-ROM bank53 statements above retain their Japanese addresses and his
 ### Verified English bank53 ordinal parity with MAINa4 (2026-10-11)
 
 One private and one ROOT integration six-check battery passed. All675 integration outputs equal the reviewed private candidate;672 equal English0537683, including the entire ROM and336 dependency files. Only bank53 object, SYM and MAP change. Complete independent decoding of the English RGB9 objects verifies25 new aliases at current English table targets,15 existing word-relocation semantics preserved and10 additional word relocations; both full16384-byte sections resolve to the parent bank. Existing symbols, nodes, section headers and assertions remain exact after source-line normalization. Removing only25 ordinal aliases restores the literal parent SYM and MAP; symbol checking reports15583 labels and51 constants. ROM SHA-256 remains824305546e27f489c16c189876d7100ab3b701f7cd16c6977dc81c1d13b52665 with checksumBFCD. The normal merge preserves English text,15 tail strings, former zero slots and original classifications. Initial DATA assertions about the EN research history, JP versus EN DW line numbers and SYM constant formatting were preserved and corrected before final receipts, without source or gate replay. This representation establishes no reader, frame/species association, natural rendering or hardware behavior.
+
+
+### Original MAINe659 unselected-frame audit — inherited Japanese-parent evidence
+
+The following append is inherited verbatim from original MAINe65927b relative to MAINa4d374c. Its original asset bytes,24 pixel-model comparisons and canonical37 validation refer to the Japanese parent; this documentation parity does not recompute those pixel results on English assets or establish an English loader, LCDC mode, rendering or species association. Current English text/assets, language-specific PokemonName00..24 targets, firstHelp page63 and retainedKEEP1851 remain unchanged.
+
+### Unselected frame windows: editing views and legacy models
+
+The following eleven physical windows have no declared editing PNG. All of their 360-byte tilemaps, 360-byte attribute maps and 128-byte palettes are preserved as exact original assets. The cell counts below describe the conditional model that places 160 physical tiles at VRAM1:8000 with unsigned addressing and uses the first64 palette bytes for BG colours. No loader of these windows has been established by this finite audit. Unknown cells need an unprovided VRAM-bank0 source or a tile index outside the assumed 160-tile window; they are not missing ROM bytes.
+
+| Window base | Tilemap | Conditional known / unknown cells | Tile bytes in catalogue / outside catalogue | Current omission |
+|---|---|---:|---:|---|
+| 41:5AA0 | 41:64A0 | 144 / 216 | 2560 / 0 | Below the 180-cell threshold |
+| 41:67F0 | 41:71F0 | 144 / 216 | 2560 / 0 | Below the 180-cell threshold |
+| 42:4000 | 42:4A00 | 360 / 0 | 1680 / 880 | No single 2560-byte asset |
+| 42:4D50 | 42:5750 | 360 / 0 | 2560 / 0 | No single 2560-byte asset |
+| 42:5AA0 | 42:64A0 | 114 / 246 | 1984 / 576 | Fragmented sources and below 180 cells |
+| 42:67F0 | 42:71F0 | 360 / 0 | 1520 / 1040 | No single 2560-byte asset |
+| 43:4D50 | 43:5750 | 144 / 216 | 2560 / 0 | Below the 180-cell threshold |
+| 43:67F0 | 43:71F0 | 144 / 216 | 2560 / 0 | Below the 180-cell threshold |
+| 44:4D50 | 44:5750 | 114 / 246 | 2560 / 0 | Below the 180-cell threshold |
+| 45:4D50 | 45:5750 | 144 / 216 | 2560 / 0 | Below the 180-cell threshold |
+| 46:67F0 | 46:71F0 | 114 / 246 | 2560 / 0 | Below the 180-cell threshold |
+
+The eight partial cases remain below the current 50% inclusion threshold. Bank42 also has fragmented tile sources in all four physical windows. The three full-cell cases are omitted because derive_records requires one2560-byte tile asset at the window base. In 42:4D50, however, four existing aligned assets cover all 2560 bytes (27 + 60 + 2 + 71 tiles), and the existing view/import model can map the parts separately. That is a bounded future conditional-view opportunity, not a new editing PNG, a proved loader or a change of content classification. Other bank42 gaps remain exact maintained db/ds/unclassified bytes; no retyping or extraction follows from this pixel model.
+
+All 24 existing legacy unused-preview PNGs reproduce the own browser-style model in all 23,040 RGB pixels each. That model places 128 BG tiles at VRAM1:9000/9400, loads 64 shared browser-menu tiles from 72:6C10 at VRAM1:8800 and places the record's 32-tile piece at VRAM0:8000. Its addressing is selected by unsigned/signed loaded-slot coverage when there is no capture; that heuristic does not establish LCDC.bit4. The loader 4E:6196 preserves bit4 with AND9F. The legacy unresolved=0 field counts unresolved operations, not whether every displayed cell has a supplied tile slot. The legacy model and the160-unsigned editing model therefore have different meanings.
+
+The legacy family loop covers banks 41–46 only. The separate unselected physical window begins 47:68F0; its tilemap is 47:72F0 and its existing editing PNG is gfx/browser/frames_2_3/tilemap_72f0.screen.png. Those two addresses name the window base and its map respectively. The maintained 27-word descriptor table selects only three bank 47 resource bases and does not select this fourth window. No new species/name association, natural execution, confidence promotion or claim of whole-ROM graphics completeness is made.
+
+### Verified finite audit of unselected frame views (2026-10-11)
+
+One private and one ROOT integration canonical37 each completed with36 zero return codes and the known ordinal27 rc2/exact97-byte diagnostic. All671 rebuilt outputs equal published MAINa4d374c, including every object, SYM, MAP and the original ROM; all4246 frozen sources remained as reviewed during testing. The private43 complete logs contain444 ResourceWarning occurrences; these warnings are recorded. Independent DATA decoder assertions about palette/attribute-map representation and an invented readonly-log mode were preserved and corrected before final receipts, without source changes or gate replay. This DOC3 pass records the eleven editing-view omissions,24 complete legacy pixel-model comparisons and the distinction between window47:68F0 and tilemap47:72F0. It adds no PNG, loader, LCDC, species/name association, natural-flow or hardware evidence. A separately reviewed future view can combine the four existing aligned assets of42:4D50; no ROM bytes are missing there.
+
+### Verified English documentation parity with MAINe659 (2026-10-11)
+
+One private and one ROOT integration six-check battery completed with six zero return codes. All675 outputs remain literally equal to published English d36411c, including every object,336 dependency files, SYM, MAP and ROM; the English ROM retains SHA-256824305546e27f489c16c189876d7100ab3b701f7cd16c6977dc81c1d13b52665 and checksumBFCD, with15583 labels and51 constants. All4253 frozen source bytes and source filesystem guards were held during testing. The private six logs contain21150 bytes and zero ResourceWarnings. V1 of the prospective runner was preserved unexecuted; V2 bound the current675-output oracle and the explicit source/runner authorization hashes. This normal merge retains the complete English history and appends the original Japanese audit with an explicit parent qualifier. Original pixel models and historical counters are inherited evidence; no English rendering, natural invocation, species association or hardware behavior is newly established.
