@@ -126,3 +126,31 @@ The ordinals describe this text table only. They do not establish an association
 ### ROOT integration of bank53 ordinal pointer labels (2026-10-11)
 
 The original bank53 name table now uses25 ordinal PokemonName00..24 aliases and symbolic word pointers. Existing aliases, the319-byte Shift-JIS/NUL text block, table order and all369 bytes remain unchanged; source classifications remain PROBABLE. A reader or a name-to-frame association has not been established. One private staged canonical37 and one ROOT actual canonical37 each completed with36 rc0 results plus the documented ordinal27 rc2/exact97-byte diagnostic. The initial private post-check5 measurement assumed ascending object-patch serialization and failed; actual serialization is48 down to0. Its failed terminal was preserved, an independently reviewed DATA-only finalizer associated patches by their unique offsets, and the same37-check BEGIN resumed at6 without replaying versions or checks1–5. Independent complete RGB9 decoding verifies25 new exports,24 additional word relocations and all symbol/patch metadata, resolving the entire369-byte section to the original. All671 actual outputs equal the reviewed private candidate;668 equal MAIN454e0fe, while the owner object, SYM and MAP change only as measured. Removing the25 aliases from SYM/MAP recovers their literal parent files. Make reports SHA-256 OK and RESULT: IDENTICAL; symbol checking reports15563 labels and51 constants, and palette checking passes. The private43 logs contain444 ResourceWarning occurrences; expected check results are unchanged. These documentation appends follow the completed ROOT terminal without replay. Publication and fresh verification follow, without new natural-flow, LCDC, species, rendered or hardware evidence.
+
+### Unselected frame windows: editing views and legacy models
+
+The following eleven physical windows have no declared editing PNG. All of their 360-byte tilemaps, 360-byte attribute maps and 128-byte palettes are preserved as exact original assets. The cell counts below describe the conditional model that places 160 physical tiles at VRAM1:8000 with unsigned addressing and uses the first64 palette bytes for BG colours. No loader of these windows has been established by this finite audit. Unknown cells need an unprovided VRAM-bank0 source or a tile index outside the assumed 160-tile window; they are not missing ROM bytes.
+
+| Window base | Tilemap | Conditional known / unknown cells | Tile bytes in catalogue / outside catalogue | Current omission |
+|---|---|---:|---:|---|
+| 41:5AA0 | 41:64A0 | 144 / 216 | 2560 / 0 | Below the 180-cell threshold |
+| 41:67F0 | 41:71F0 | 144 / 216 | 2560 / 0 | Below the 180-cell threshold |
+| 42:4000 | 42:4A00 | 360 / 0 | 1680 / 880 | No single 2560-byte asset |
+| 42:4D50 | 42:5750 | 360 / 0 | 2560 / 0 | No single 2560-byte asset |
+| 42:5AA0 | 42:64A0 | 114 / 246 | 1984 / 576 | Fragmented sources and below 180 cells |
+| 42:67F0 | 42:71F0 | 360 / 0 | 1520 / 1040 | No single 2560-byte asset |
+| 43:4D50 | 43:5750 | 144 / 216 | 2560 / 0 | Below the 180-cell threshold |
+| 43:67F0 | 43:71F0 | 144 / 216 | 2560 / 0 | Below the 180-cell threshold |
+| 44:4D50 | 44:5750 | 114 / 246 | 2560 / 0 | Below the 180-cell threshold |
+| 45:4D50 | 45:5750 | 144 / 216 | 2560 / 0 | Below the 180-cell threshold |
+| 46:67F0 | 46:71F0 | 114 / 246 | 2560 / 0 | Below the 180-cell threshold |
+
+The eight partial cases remain below the current 50% inclusion threshold. Bank42 also has fragmented tile sources in all four physical windows. The three full-cell cases are omitted because derive_records requires one2560-byte tile asset at the window base. In 42:4D50, however, four existing aligned assets cover all 2560 bytes (27 + 60 + 2 + 71 tiles), and the existing view/import model can map the parts separately. That is a bounded future conditional-view opportunity, not a new editing PNG, a proved loader or a change of content classification. Other bank42 gaps remain exact maintained db/ds/unclassified bytes; no retyping or extraction follows from this pixel model.
+
+All 24 existing legacy unused-preview PNGs reproduce the own browser-style model in all 23,040 RGB pixels each. That model places 128 BG tiles at VRAM1:9000/9400, loads 64 shared browser-menu tiles from 72:6C10 at VRAM1:8800 and places the record's 32-tile piece at VRAM0:8000. Its addressing is selected by unsigned/signed loaded-slot coverage when there is no capture; that heuristic does not establish LCDC.bit4. The loader 4E:6196 preserves bit4 with AND9F. The legacy unresolved=0 field counts unresolved operations, not whether every displayed cell has a supplied tile slot. The legacy model and the160-unsigned editing model therefore have different meanings.
+
+The legacy family loop covers banks 41–46 only. The separate unselected physical window begins 47:68F0; its tilemap is 47:72F0 and its existing editing PNG is gfx/browser/frames_2_3/tilemap_72f0.screen.png. Those two addresses name the window base and its map respectively. The maintained 27-word descriptor table selects only three bank 47 resource bases and does not select this fourth window. No new species/name association, natural execution, confidence promotion or claim of whole-ROM graphics completeness is made.
+
+### Verified finite audit of unselected frame views (2026-10-11)
+
+One private and one ROOT integration canonical37 each completed with36 zero return codes and the known ordinal27 rc2/exact97-byte diagnostic. All671 rebuilt outputs equal published MAINa4d374c, including every object, SYM, MAP and the original ROM; all4246 frozen sources remained as reviewed during testing. The private43 complete logs contain444 ResourceWarning occurrences; these warnings are recorded. Independent DATA decoder assertions about palette/attribute-map representation and an invented readonly-log mode were preserved and corrected before final receipts, without source changes or gate replay. This DOC3 pass records the eleven editing-view omissions,24 complete legacy pixel-model comparisons and the distinction between window47:68F0 and tilemap47:72F0. It adds no PNG, loader, LCDC, species/name association, natural-flow or hardware evidence. A separately reviewed future view can combine the four existing aligned assets of42:4D50; no ROM bytes are missing there.
