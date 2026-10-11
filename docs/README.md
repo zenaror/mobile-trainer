@@ -405,3 +405,7 @@ One private and one ROOT integration canonical37 each completed with36 zero retu
 - [Located bank72 dialog lists and record reader](research/text_encoding.md#41-message-records-in-bank-72-located-list-and-record-reader) — four lists,69 references to68 distinct records, separate unclassified$AF byte, static header roles and bounded historical read coverage.
 
 - [Verified original bank72 dialog-reader documentation](research/text_encoding.md#verified-original-bank72-dialog-reader-documentation-2026-10-11) — static reader/header roles, unchanged 671 build outputs and bounded historical coverage.
+
+The bounded FFA7 producer correction in research/ram_map.md and research/boot_and_home.md records six explicit zero producers and the conditional two-route returned-A proof at51:41D3, retaining its mapping/stack/scratch and entry limitations.
+
+- [Verified bounded FFA7 producer correction](research/ram_map.md#verified-bounded-ffa7-producer-correction-2026-10-11) — conditional producer semantics, preserved ASM lines and unchanged 671 build outputs.
