@@ -59,7 +59,7 @@ JoypadDispatch:: ; 00:056A
 	; high), so index 0 = A, 1 = B, 2 = Select, 3 = Start, 4 = none of them.  Confirmed by execution: in the natural scenarios the handler of a word ran only
 	; in scenarios whose input script presses that button (501 site/word/scenario triples, 0 violations; B is fixed by the hJoyHeld tests of
 	; dynamic_tracing 9.3, B+Select+Right and Select+Left); hits 804,050 = 5,231 A (word 0) + 1,654 B + 767 Select + 950 Start + 795,448 none.  FFA7 writers store 0,
-	; except 51:41D3, which stores the A returned by a farcall [executed in 61 scenarios]
+	; except 51:41D3, which stores returned A [executed in 61 scenarios]. Both ordinary routes conditionally yield A=0; ram_map.md records stack/mapping/scratch prerequisites and excluded IRQ/reentrancy/interior/computed entries, without a universal zero-write proof.
 	ldh a, [hJoyDispatchExtraMask]
 	ld l, a
 	xor a, a

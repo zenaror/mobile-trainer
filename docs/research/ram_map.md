@@ -204,8 +204,10 @@ Anomalies reported by the tier-1 walk: overlap x2.
 8. **HRAM code.** `FF80` = OAM-DMA routine (rDMA <- $C0, 40 iterations of wait), `FFA8` = farcall stub.
 9. **Joypad.** `7D:7B7C-7BF0` polls rP1, computes held (FFA4), newly pressed (FFA5), pressed+repeat (FFA6) (all CONFIRMED
    by the disassembly). `FFA7` is read and cleared by `00:056A` and its bits are OR-ed with the FFA5 value in a register
-   (not stored back); no code was found that writes a non-zero button value into it, so its role is not established
-   (HYPOTHESIS: an injected-press byte).
+   (not stored back). The current hJoyDispatchExtraMask alias names this one-shot consumer mechanism.
+   Six producers explicitly store zero; 51:41D3 stores returned A. Its two ordinary routes conditionally
+   yield A=0, with the static prerequisites and excluded entries recorded in the correction below.
+   No physical or injected-button meaning is established.
 10. **Serial/timer.** Only banks 00 and 75 touch rSB/rSC/rTIMA/rTMA/rTAC/rKEY1; the timer/serial ISRs at
    `00:01ED` / `00:01B7` are reached through the RAM trampolines above. (Bank 75 is therefore the serial-link
    driver, HYPOTHESIS: this is the Mobile Adapter GB transport.)
@@ -229,7 +231,7 @@ constants, not pointers: e.g. `ld de,$FFFF` = -1 sentinel), `banks` = number of 
 | FFA4 | hJoyHeld | 57 | 3 | 2 | 17 | CONFIRMED |
 | FFA5 | hJoyPressed | 94 | 13 | 0 | 20 | CONFIRMED |
 | FFA6 | hJoyPressedRepeat | 101 | 3 | 0 | 30 | PROBABLE |
-| FFA7 | hRam_FFA7 | 1 | 7 | 0 | 6 |  |
+| FFA7 | hJoyDispatchExtraMask | 1 | 7 | 0 | 6 | one-shot consumer mask; see bounded producer qualification below |
 | FFA8 | hFarCallTrampoline | 0 | 1 | 0 | 1 | CONFIRMED |
 | FFA9 | hRam_FFA9 | 0 | 6 | 0 | 1 |  |
 | FFAA | hRam_FFAA | 0 | 1 | 0 | 1 |  |
@@ -762,8 +764,15 @@ rejected by the tier-2 filter; none occur in tier-1 code.)
   and `$F800/$F801/$F803/$F8F8` echo-RAM immediates. Now rejected by the dynamic veto (section 1); bank 73 no longer
   appears in the audio-register rows.
 * CORRECTED: `FFA7` was named `hJoyInjected` and listed as a CONFIRMED role of the joypad code. The read/clear/OR
-  mechanism is confirmed, the name is not (all writers found store 0): now the neutral `hRam_FFA7` with a note.
-  Also, the OR in `00:056A` is done in a register and is not stored back to `FFA5`.
+  mechanism is confirmed; the injected-button interpretation was unsupported. The current alias
+  `hJoyDispatchExtraMask` names the one-shot consumer mechanism. Six source producers explicitly store zero;
+  `51:41D3` stores returned A. Its two ordinary source routes conditionally yield A=0: the early
+  call at `51:4069`, OR test at `51:406C` and JP Z at `51:406D` branch only with A=0; ordinary close at `51:41C7` exits
+  FadeOutToWhite through PalFade_Step with A=0 before Sprite_ResetAll preserves AF. This assumes
+  coherent stack/mapping and shared scratch without intervening IRQ/reentrancy corruption; interior,
+  computed and malformed-state entries are outside the proof. No universal zero-write, physical/injected
+  button, new natural execution or hardware claim follows. The OR at `00:056A` remains in a register
+  and is not stored back to `FFA5`. The usage columns above retain their historical census.
 * CORRECTED: `C2E0` `wJoyHeldFrames` counts frames since a button was last held (reset while held), not frames held:
   renamed `wJoyIdleFrames`.
 * CORRECTED: "every SRAM access is bracketed by save/enable/restore/disable" (false, see `sram_layout.md` section 1).
@@ -774,3 +783,13 @@ rejected by the tier-2 filter; none occur in tier-1 code.)
 * DOWNGRADED: `D000-D004` bank qualifier ("WRAM bank 1") is verified for two callers only; the two thunk claims that the
   flags live in WRAM bank 1 are PROBABLE, the instruction sequences are CONFIRMED.
 
+
+### Verified bounded FFA7 producer correction (2026-10-11)
+
+The five-file pass qualifies the returned-A producer and the existing one-shot OR/clear consumer, preserving the physical lines of home/jump_table.asm. Private and ROOT canonical checks each completed 36 zero returns plus ordinal 27 with the expected return 2 and exact 97-byte diagnostic. All 671 build outputs equal the published 87b0753 parent, including the home object, every dependency file, SYM, MAP and original ROM. ROOT make reports SHA-256 OK and RESULT: IDENTICAL; symbol and palette checks pass. Both canonical runs recorded 444 ResourceWarnings. The two ordinary source routes conditionally yield A=0 under the recorded stack/mapping/shared-scratch prerequisites; this does not establish universal zero writes, a physical or injected-button purpose, new natural execution or hardware behavior.
+
+English FFA7 parity qualification (published parents ENb98a486 and MAIN0d713c7): the original canonical37,444 ResourceWarnings and cited natural/input scenario counts remain Japanese reconstruction observations, not inherited English tests or fresh English natural evidence. The current English home consumer source is common with the original parent; this pass preserves its one-shot OR/clear code and changes only one physical comment row. The six explicit-zero producers and returned-A two-route argument remain the bounded original static study under its stack/mapping/shared-scratch and IRQ/reentrancy/interior/computed-entry limitations. This parity does not establish universal zero writes or physical/injected-button purpose. All English emitting lines, streams, adapted first63, fonts, names and all prior6C/72 history stay unchanged; wholeHelp is not adopted and KEEP1851 remains inconclusive. At preparation, the private parity had not run versions/checks; new verification requires separate authorization.
+
+### Verified English FFA7 documentation parity (2026-10-11)
+
+This English branch carries the bounded original FFA7 producer correction from Japanese commit `0d713c7`, preserving the source lines of `home/jump_table.asm` and prior English research. Private and ROOT integration runs each passed all six build, symbol, palette, PNG, graphics-export and sprite-chain checks. All 675 build outputs remain identical to published English parent `b98a486`, including the ROM (SHA-256 `824305546e27f489c16c189876d7100ab3b701f7cd16c6977dc81c1d13b52665`, checksum `BFCD`), OBJ, dependency files, SYM and MAP. Rebinding the changed home source SHA affects dependency provenance only. No new English runtime, rendering, natural execution or hardware evidence is claimed; historical Japanese canonical37 results and scenario counts remain Japanese evidence. The producer proof retains its entry, stack, mapping and shared-scratch prerequisites and does not establish universal zero writes or physical/injected-button intent.
