@@ -17,6 +17,10 @@ original ROM is **not** needed to build; it is only used, if you have it, to com
 that the `.asm` files `INCBIN`; Shift-JIS text is written as readable strings (`db "メール", 0`) through a charmap; jump targets inside a function are local labels (`.loop`, `.l04E1`);
 every function has a `[CONFIRMED]`/`[PROBABLE]`/`[HYPOTHESIS]` note under its label.  The conventions are in [STYLE.md](STYLE.md).
 
+## AI assistance
+
+Parts of this project were developed with assistance from AI tools, including code generation. This note describes work on this repository and does not attribute AI use to the upstream projects credited here.
+
 ## Building
 
 Requirements: [RGBDS](https://rgbds.gbdev.io/) **1.0.3** (`rgbasm`, `rgblink`) and GNU make.  Python 3 and `rgbgfx` (part of RGBDS) are **optional**: `rgbgfx` is only used to
