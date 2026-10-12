@@ -166,3 +166,49 @@ Ten earlier bank41–46 editing-view omissions remain. The other bank42 fragment
 ### Verified conditional bank42 editing view (2026-10-11)
 
 One private and one ROOT integration canonical37 completed with36 zero return codes and the expected ordinal27 rc2/exact97-byte diagnostic. All671 outputs equal published MAINb833350, including every object, SYM, MAP and the original ROM; all4247 candidate sources held during testing. The unique targeted derive/export/import dry-run added one2340-byte indexed PNG and reported zero tile/palette changes. Its complete23040 indices and RGB pixels match an independent original-ROM model. The private43 logs contain444 ResourceWarning occurrences; ROOT37 logs contain444 occurrences. These observational warnings are recorded. Readonly receipt assertions about PNG mode, post-seal artifact writes and the pre-latch ordinal1 flag were corrected without source changes or gate replay. The view remains HYPOTHESIS under the declared addressing/palette assumptions; no loader, LCDC, species/name association, natural rendering or hardware proof is added.
+
+
+## Bounded selection, LCDC inheritance and canvas availability
+
+The following source/ROM audit uses published ef41bff as its fixed reference. It adds no runtime capture or preview. The 27 original words at4E:654B select6581 for index0,65A0 for1,65BF for2,65DE for3–22 and65FD for23–26. Each of the five far fields in each selected descriptor uses bank47. Thus this bounded table selects only the4100/4E50/5BA0 resource families, including their palette/map/OBJ fields; it supplies no bank41–46 window or47:68F0. This does not rule out another computed consumer outside that selection chain.
+
+The three located MAIN call sites are4E:49A7 (PageView_Enter),4E:4E95 (PageList_BackToMenu) and4C:4F8F (MobileDictView_Show). The home-page and staged-URL starters store style1, the SRAM-URL starter stores0, and the dictionary viewer stores2 before MAIN. SaveCheck_Verify rejects a persisted low-seven-bit style of0 or at least1B after its other checks. Browser_BeginSession masks7F and substitutes1 only for0; that body supplies no upper bound. MAIN likewise masks7F without a local upper bound. The preview site4E:4002 reaches PREVIEW, which masks its external hFramePreview_Style input without a local upper bound: values27–127 are outside this documented table. Validation must follow the actual caller chain. The preview entry remains HYPOTHESIS and PREVIEW retains its existing PROBABLE/forced-only evidence.
+
+LCDC addressing is a reaching-state question. Boot_ClearAndInit and Boot_ReinitRuntime explicitly write83 at4F:4798 and47A7, establishing bit4=0. The direct loader mask9F, LCDOff's direct mask7F, LCDOn's OR80, and the inspected menu/window transforms preserve entering bit4. The keyboard/dialog transform that copies inverted bit3 into bit6 also preserves bit4; all256 byte inputs satisfy these six inspected transformations. A path established by boot83 and confined to the preserving writes and valid callback/vector state therefore has signed BG addressing. This conditional static result is not a freshly observed loader-entry state. Gfx_StartHDMAWithService can call Sound_FrameService, while interrupt handlers can chain through saved RAM stubs; those state/provenance prerequisites remain outside a complete reaching-path proof. Forced preview entry alone establishes neither its inherited LCDC state nor selection of any omitted window.
+
+MAIN's transfer prefix is also smaller than its canvas effects. Browser_ClearBodyArea and Browser_ClearTitleArea fill their staging rectangles with DE0000 through4F:4604. Upload arguments decoded from4E:60A6/60C5 select VRAM bank0 and supply zeroed canvas tiles in half-open ranges9000–91E0,9200–97A0 and8800–8FE0. The body map fills replace rows3–14, columns1–18, with attribute00 and tile IDs20–79 then80–FD. Title fills replace rows0–1, fifteen columns beginning at2 or4, with attribute01 and IDs00–1D. These coordinates come from the existing valid descriptor geometry; substituting one of the omitted physical windows is hypothetical.
+
+An independent coordinate census considers only original cells that are unknown under the signed transfer-prefix availability model, then accounts for this map-clear/zero-canvas subset. “Replaced” counts cells whose original map entry is overwritten; “supplied” counts unchanged original cells whose requested bank0 slot receives a zero canvas tile. Both title-column positions are evaluated. Counts are not a procedure renderer or recovered frame art.
+
+| Physical window | Prefix unknown | Replaced, title2 / title4 | Original slot supplied, title2 / title4 | Still unknown, either position |
+|---|---:|---:|---:|---:|
+|41:5AA0|216|216 /216|0 /0|0|
+|41:67F0|216|216 /216|0 /0|0|
+|42:4000|0|0 /0|0 /0|0|
+|42:5AA0|246|234 /230|0 /4|12|
+|42:67F0|0|0 /0|0 /0|0|
+|43:4D50|216|216 /216|0 /0|0|
+|43:67F0|216|216 /216|0 /0|0|
+|44:4D50|246|244 /244|2 /2|0|
+|45:4D50|216|204 /204|12 /12|0|
+|46:67F0|246|244 /244|2 /2|0|
+
+For42:5AA0 the remaining twelve original cells are rows3–14,column0, requesting VRAM1:8E70. The subset does not supply that slot. Nine windows have no remaining original prefix-unknown cells after these conditional operations; this does not establish a full procedure output, scrollbar/text/IRQ/PPU closure, a natural rendering result or an original selector for these windows. In particular, prefix unknown counts cannot be reused as whole-procedure unknown counts, and a supplied zero canvas is different from recovering omitted graphic content.
+
+## Bank42 physical source gaps and editable boundaries
+
+Own literal emission of gfx/bank42.asm, including INCBIN assets, RGB palette includes and raw db/ds, reproduces all13632 original bytes at42:4000–7540. All30 emitted asset extents have matching active catalogue rows and physical sizes; the directory's binary/palette files are exactly those30 assets. No omitted emitted INCBIN or forgotten existing binary asset was found in this finite inventory. The three gap-bearing2560-byte physical windows partition as follows; “outside catalogue” describes representation, not missing ROM bytes.
+
+| Window | Declared tile-asset bytes | Outside catalogue | Explicit source partition |
+|---|---:|---:|---|
+|42:4000|1680|880|871 ds zero bytes +9 db bytes in a partial gfx tail|
+|42:5AA0|1984|576|538 ds zero bytes +38 db bytes in partial gfx tails|
+|42:67F0|1520|1040|1000 ds zero bytes +24 partial-tail db bytes +16 separate unclassified FF bytes|
+
+The remaining42:4D50 window has all2560 bytes in four aligned complete assets and already has its separately qualified editing view. Across the three other windows,2496 bytes remain explicitly represented as2409 ds zero bytes,71 partial gfx-tail db bytes and16 unclassified FF bytes. Their existing HYPOTHESIS/PROBABLE headers and raw classifications are retained; zeros or FF patterns alone do not establish tiles or padding semantics.
+
+Assets beginning at4802,5F92 and6FF2 start two bytes into their physical window's16-byte grid. Their whole local tile chunks cannot simply become window tilek without accounting for neighbouring bytes and rephasing. Existing tile sheets also contain sheet-only padding: nine cells for the71-tile52E0 asset, five for59 tiles at5AA0, seven for25 at6810 and fifteen for49 at69B0. Catalogue/rule sizes, padding counts, file hashes and all18 bank42 tile-PNG headers/CRCs agree; this header/extent audit is not a PNG pixel reemit. Those padding cells are outside the declared ROM asset extents and cannot fill any physical gap.
+
+The current fragmented-record derivation requires all160 physical tile starts to belong to aligned declared whole-tile assets and each coalesced load to cover exactly one complete asset. The three gap-bearing windows fail those requirements. Their raw source bytes could support a separately qualified read-only numeric composition, but current editing imports write existing tile sheets rather than db/ds or cross-boundary chunks. A future editable view needs exact byte/VRAM placement, tile alignment, backing for every edited tile, bounds excluding sheet padding, palette/attribute rules and unknown-cell handling. It must not acquire a loader, LCDC mode or classification merely from a successful composition.
+
+This audit closes the finite missing-source/forgotten-binary question for bank42, the documented27-entry selector partition, direct bit4-preservation mechanics and the twenty conditional canvas subsets. The ten missing editing views, complete caller/vector/LCDC reaching proof, unresolved42:5AA0 slot, raw-byte semantic roles and all25-name/frame/species associations remain open. The25 bank53 ordinals,27 descriptor rows, five descriptors and25 physical windows still do not establish a bijection. No source or asset retyping, PNG generation, new natural observation or confidence promotion accompanies this documentation proposal.

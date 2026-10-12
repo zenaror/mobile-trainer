@@ -3410,8 +3410,8 @@
       "sha256": "ebf304d6901d7d8c50f494f650541e24fd621a9e3bf5236b3e23d796b5fe74c2"
     },
     "REVERSE_ENGINEERING.md": {
-      "size": 133278,
-      "sha256": "79f04b5bba3c13170a7878377624f90b50c3ceb4cda8930b501b8023a3064d7f"
+      "size": 134122,
+      "sha256": "ba42195bf8d682cffebf2e1df6085b391b62a762d183ec5c56ec2349551940e2"
     },
     "STYLE.md": {
       "size": 57010,
@@ -6262,8 +6262,8 @@
       "sha256": "2a81b21c5620247e1ba2a3e144067e00ccf095f618692ed2541c10e8e761633b"
     },
     "docs/README.md": {
-      "size": 63188,
-      "sha256": "b83fd211a71ce61d16dc5048c1c036c2f014135e0e524e3237e653bfea14d6b4"
+      "size": 63593,
+      "sha256": "e4956eb77a8bee1037de98b59f028f6836baf1771fe0f83f2c56eee1bee619b3"
     },
     "docs/REVERSE_ENGINEERING_RULES.md": {
       "size": 17815,
@@ -6290,8 +6290,8 @@
       "sha256": "f41e27372e381312767177cb8b05570aec60d23d4984559c2d1b7f6470295ede"
     },
     "docs/research/assets_pokemon_frames_and_name_limits.md": {
-      "size": 24782,
-      "sha256": "c096e369cfcec0859f44eb059dd7b0601597b6642d68b6703dbbc83ffec5b875"
+      "size": 32635,
+      "sha256": "246a4ca248a157de5b2226492180b5b9ca8446788bdea3cebca90811117babfd"
     },
     "docs/research/audio2_verify_dynamic.md": {
       "size": 47981,
@@ -6310,8 +6310,8 @@
       "sha256": "6b94eb989727cddcc7d6e130537eab11c91e5f5c898752490e67aa0e9c22433f"
     },
     "docs/research/boot_and_home.md": {
-      "size": 82624,
-      "sha256": "d5e1fead24cde9337089bed305019d80f2a77d5af20b8b93277453b9c1718930"
+      "size": 93058,
+      "sha256": "b71317e6c0a9da4ba93c5b6ac60a634840c4e9700e5bebde2a7cc32d59f81b32"
     },
     "docs/research/classify_g1.md": {
       "size": 16334,

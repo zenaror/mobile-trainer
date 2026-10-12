@@ -417,3 +417,6 @@ The current ledger correction in `research/naming2_neutral_code.md` distinguishe
 The mechanical6A:72A0 frame-table alias in research/naming2_neutral_help.md reuses blank line52, keeps Data_6A_72A0 and75LOC, and reconciles only the pending structured-data ledger row. The ledger counts become47 APPLIED/14 KEEP/3 APPLIED_ALIAS/1 PARTIAL_ALIAS/0 PENDING; strict15 names/18 operands and28 global neutral-only groups remain distinct. 73:5E60 stays outside this unit.
 
 - [Verified mechanical 6A frame-table alias](research/naming2_neutral_help.md#verified-mechanical-6a-frame-table-alias-2026-10-11) — preserved physical source positions, original ROM and measured OBJ/SYM/MAP alias changes.
+
+
+The loader10/bank42 audit in research/assets_pokemon_frames_and_name_limits.md records the bounded descriptor selection, conditional LCDC inheritance, twenty canvas availability subsets and exact13632-byte bank42 source inventory. The ten editing-view omissions and name/frame associations remain open; raw bytes and sheet padding are kept distinct from missing resources and recovered graphic meaning.
