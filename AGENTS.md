@@ -17,6 +17,8 @@ O objetivo é um código-fonte RGBDS legível que reconstrói a ROM original **b
   `config/` estão congelados como histórico: não rode `make regen`.
 - Faça commits pequenos e coerentes. Commit e push só quando o Operador pedir ou já tiver combinado para a tarefa. Não reescreva histórico publicado.
 
+- Não acrescente automaticamente trailers `Co-authored-by` de Claude/Anthropic ou de outras ferramentas de IA aos commits. Preserve autores, coautores humanos e créditos legítimos existentes; o uso de IA é informado no README.
+
 ## Onde encontrar
 
 - Como compilar: `README.md` e `INSTALL.md`. Convenções do código: `STYLE.md`.
