@@ -193,3 +193,11 @@ regen verify tree tree-build tree-rom tree-verify tree-check tree-compare:
 	@exit 1
 
 -include $(OBJS:.o=.d)
+
+# Finite English locale overlay; default Japanese all/checkhash targets remain unchanged.
+.PHONY: english english-check
+english:
+	$(PYTHON) tools/build_english.py --debug "$(if $(DEBUG),$(DEBUG),0)" --rgbds "$(RGBDS)" --rgbasm "$(RGBASM)" --rgblink "$(RGBLINK)" --rgbgfx "$(RGBGFX)" --python "$(PYTHON)" --rgbasmflags="$(RGBASMFLAGS)" --rgblinkflags="$(RGBLINKFLAGS)"
+
+english-check:
+	$(PYTHON) tools/build_english.py --debug "$(if $(DEBUG),$(DEBUG),0)" --rgbds "$(RGBDS)" --rgbasm "$(RGBASM)" --rgblink "$(RGBLINK)" --rgbgfx "$(RGBGFX)" --python "$(PYTHON)" --rgbasmflags="$(RGBASMFLAGS)" --rgblinkflags="$(RGBLINKFLAGS)" --check

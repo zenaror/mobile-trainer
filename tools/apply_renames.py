@@ -70,7 +70,7 @@ import subprocess
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SKIP_DIRS = {'.git', 'build', 'traces', 'tools', 'docs', 'analysis', 'config', '__pycache__'}
+SKIP_DIRS = {'.git', 'build', 'languages', 'traces', 'tools', 'docs', 'analysis', 'config', '__pycache__'}
 KINDS = ('function', 'data', 'table', 'string', 'label', 'const')
 STATUS_RANK = {'CONFIRMED': 2, 'PROBABLE': 1, 'HYPOTHESIS': 0}
 WIDTH, TAB = 100, 4                       # comment wrap: 100 columns, a tab counting 4 (as tools/tidy_comments.py)

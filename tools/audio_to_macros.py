@@ -508,7 +508,7 @@ def mentions(root, name):
     own = re.compile(r'^%s::' % re.escape(name))
     n = 0
     for dp, dn, fn in os.walk(root):
-        dn[:] = [d for d in dn if d not in ('build', '.git', 'traces', 'scratch')]
+        dn[:] = [d for d in dn if d not in ('build', 'languages', '.git', 'traces', 'scratch')]
         for f in fn:
             if f.endswith(('.asm', '.inc')):
                 with open(os.path.join(dp, f), encoding='utf-8', errors='replace') as fh:

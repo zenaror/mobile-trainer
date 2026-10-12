@@ -89,7 +89,7 @@ KBD_HOSTS = {'Account_LoginIdEntry', 'Account_MailAddressEntry', 'Account_Passwo
 
 def asm_files(root):
     for d, dirs, files in os.walk(root):
-        dirs[:] = sorted(x for x in dirs if x not in ('.git', 'build', 'traces', 'tools', 'docs'))
+        dirs[:] = sorted(x for x in dirs if x not in ('.git', 'build', 'languages', 'traces', 'tools', 'docs'))
         rel = os.path.relpath(d, root)
         if rel == 'ram' or rel.startswith('ram' + os.sep):
             continue
