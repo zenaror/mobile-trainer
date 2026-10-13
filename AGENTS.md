@@ -46,3 +46,15 @@ O objetivo é um código-fonte RGBDS legível que reconstrói a ROM original **b
 
 Para tarefas simples, trabalhe sozinho. Se dividir o trabalho, consulte `get_agent_topology`, use só os papéis que existirem e siga a
 anotação da OMM "Mobile Trainer: delegação com cópia privada e escopo de arquivos". A OMM guarda o mapa; quem chama ajudantes é o seu aplicativo.
+
+## Cleanup e retenção
+
+Ao fechar tarefa, checkpoint ou pausa, classifique os artefatos da própria tarefa e confira se algum processo ou revisão ainda depende deles. Arquivo ignorado ou não rastreado não é automaticamente descartável. Não remova trabalho de outra sessão, caminhos de origem incerta ou arquivos usados por operações ativas.
+
+- `build/` e `mobile_trainer.gbc` são saídas reproduzíveis de `make`; `build/en/` também contém a visão de fontes, o cache e as saídas de `make english`. Preserve os outputs enquanto forem referência de comparação, revisão ou release aceita. Antes de limpar, conserve em armazenamento durável os comandos, ambiente, hashes, resultados, falhas e arquivos mínimos necessários para reproduzir e conferir o passe.
+- Logs, relatórios e resultados intermediários em diretórios privados são temporários apenas depois dessa conferência. `/tmp` não é armazenamento permanente: preserve as evidências necessárias no material de apoio durável e registre sua origem e hashes na OMM. Retenha falhas não explicadas e propostas pendentes até seu fechamento; depois remova duplicatas comprovadas da própria tarefa. Não use prazo universal nem exclusão por idade.
+- ROM original, cópias de referência, ZIP do Operador, saves, fixtures, evidências de console/hardware, releases aceitas e backups/mapas da reescrita Git continuam protegidos enquanto necessários. Fontes e assets editáveis, inclusive PNGs e seus binários, paletas e mapas mantidos no Git, não são resíduos de build.
+
+O `make clean` existente (igual a `make tidy`), com os valores padrão, remove somente `mobile_trainer.gbc` e `build/`, incluindo o cache inglês. Inspecione primeiro com `make -n clean` e confira o checkout, os caminhos reais, links e qualquer override de `ROM`, `BUILD` ou `RM`; um override pode mudar o alcance. Use esse comando somente depois de fechar as operações e preservar as referências necessárias. Para outros temporários, prefira uma lista explícita de arquivos conhecidos da própria tarefa, com inspeção antes da remoção. Não use `git clean -xfd`, globs amplos ou limpeza global.
+
+Registre no handoff o que foi removido, o que foi preservado e onde, e as pendências de origem ou retenção duvidosa; informe quantidade/tamanho quando a medição for simples. Não execute novos testes apenas para cleanup, não faça `make regen` e não sincronize o backup global da OMM como parte da limpeza.

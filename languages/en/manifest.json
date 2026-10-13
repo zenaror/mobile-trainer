@@ -3398,8 +3398,8 @@
       "sha256": "687de2dfb896c1f629ded78ac25b19584401eb20c5f78dadf3be5b86bdfca3fc"
     },
     "AGENTS.md": {
-      "size": 3767,
-      "sha256": "96f8142ab7a801279d0d7016c4dcf4a3ab9d170ff8928ed3df1a4406604ef064"
+      "size": 6244,
+      "sha256": "cdf56d1414802aa5b9a7b3db8aa2798cf8aaa6b52d0e01917a9ee27939769e6b"
     },
     "INSTALL.md": {
       "size": 6291,
@@ -6310,8 +6310,8 @@
       "sha256": "6b94eb989727cddcc7d6e130537eab11c91e5f5c898752490e67aa0e9c22433f"
     },
     "docs/research/boot_and_home.md": {
-      "size": 93058,
-      "sha256": "b71317e6c0a9da4ba93c5b6ac60a634840c4e9700e5bebde2a7cc32d59f81b32"
+      "size": 106987,
+      "sha256": "e2715c7f92c650fb8cdf89b077c257ec656ca12b27e654146a20d4b2c0c4ef79"
     },
     "docs/research/classify_g1.md": {
       "size": 16334,
