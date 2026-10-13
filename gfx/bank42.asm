@@ -10,7 +10,9 @@ Tiles_42_4000:: ; 42:4000
 	INCBIN "gfx/bank42/tiles_4000.2bpp"
 
 ; ---- zero $4540-$4802 (706 bytes) [HYPOTHESIS] 0x00 run of 706 bytes
-	ds $2C2, $00
+	; Raw byte backing for a conditional 2bpp editing view only; original purpose and HYPOTHESIS level retained.
+	INCBIN "gfx/bank42/raw_4540_4560.bin"
+	ds $2A2, $00
 
 ; ---- gfx $4802-$48AB (169 bytes) [HYPOTHESIS] 2bpp tiles by coherence: 10 non-blank tiles, mean adjacent-pixel similarity h=0.52 v=0.62 (random data ~0.25-0.35);
 
@@ -133,7 +135,8 @@ Data_42_67F0:: ; 42:67F0
 	INCBIN "gfx/bank42/tiles_67f0.2bpp"
 
 ; ---- zero $6800-$6810 (16 bytes) [HYPOTHESIS] padding? run of 16 x $00 in unclassified bytes
-	ds $10, $00
+	; Raw byte backing for a conditional 2bpp editing view only; original purpose and HYPOTHESIS level retained.
+	INCBIN "gfx/bank42/raw_6800_6810.bin"
 
 ; ---- gfx $6810-$69A0 (400 bytes) [PROBABLE] 2bpp tiles by coherence: 25 non-blank tiles, mean adjacent-pixel similarity h=0.60 v=0.60 (random data ~0.25-0.35);
 
@@ -143,7 +146,8 @@ Tiles_42_6810:: ; 42:6810
 ; ---- data $69A0-$69B0 (16 bytes) [HYPOTHESIS] run of 16 x $FF (padding?) in unclassified bytes
 
 Data_42_69A0:: ; 42:69A0
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+	; Raw byte backing for a conditional 2bpp editing view only; original purpose and HYPOTHESIS level retained.
+	INCBIN "gfx/bank42/raw_69a0_69b0.bin"
 
 ; ---- gfx $69B0-$6CC0 (784 bytes) [HYPOTHESIS] 2bpp tiles by coherence: 49 non-blank tiles, mean adjacent-pixel similarity h=0.56 v=0.47 (random data ~0.25-0.35);
 
@@ -151,7 +155,9 @@ Data_42_69B0:: ; 42:69B0
 	INCBIN "gfx/bank42/tiles_69b0.2bpp"
 
 ; ---- zero $6CC0-$6FF2 (818 bytes) [HYPOTHESIS] 0x00 run of 818 bytes
-	ds $332, $00
+	; Raw byte backing for a conditional 2bpp editing view only; original purpose and HYPOTHESIS level retained.
+	INCBIN "gfx/bank42/raw_6cc0_6cd0.bin"
+	ds $322, $00
 
 ; ---- gfx $6FF2-$709E (172 bytes) [HYPOTHESIS] 2bpp tiles by coherence: 10 non-blank tiles, mean adjacent-pixel similarity h=0.49 v=0.61 (random data ~0.25-0.35);
 

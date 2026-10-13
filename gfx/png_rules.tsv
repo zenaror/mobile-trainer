@@ -3,6 +3,8 @@
 # cells = glyph slots of the sheet, start = bank address of the first byte of out).  size = bytes of out (must not change),
 # sha256 = hash of out in the original, byte-identical ROM state (edited = differs).  See docs/EDITING_IMAGES.md.
 out	png	kind	cells	start	pad	size	sha256
+# gfx/browser/start_choice/palette_5e60.pal	-	palette				779	cbcf05f2dae1837e4dc40b33abf33d303cd42b39feb58b9fde4eed63a8e95435
+# gfx/browser/start_choice/tiles_4530.2bpp	gfx/browser/start_choice/tiles_4530.png	tiles			0	176	251a29bfb7d2e5de3af5d95df00b5510789b4b15063e5e3e66b241a6e6d847c1
 data/fonts/ascii_6x12.bin	data/fonts/ascii_6x12.png	font6x12	96	67a8		1152	44ff3289fa27d36e02b767a9f987853e513e98d3fc0bd5f2f3ab95579d2f74ed
 data/fonts/font_8x16_4adb.1bpp	data/fonts/font_8x16_4adb.png	font8x16	10	4adb		160	d5d168c65a48436c2a886760c486dbab5f358302d3b1638ee0bc7b54773e8bfa
 data/fonts/font_8x16_4b7b.1bpp	data/fonts/font_8x16_4b7b.png	font8x16	26	4b7b		416	2fef6e78cd3f5155a3bf9b42f6cd5df5d662943a29196ea39ae59acbfcc207e6
@@ -203,6 +205,10 @@ gfx/bank42/palette_4cd0.pal	-	palette				1039	714bd59e40bdc1a793ed4ea28d82c5f9a5
 gfx/bank42/palette_5a20.pal	-	palette				1039	9411b59674f8b358e3302672d22ca947827ed4ad8ad08be5a151c44a072c9e0e
 gfx/bank42/palette_6770.pal	-	palette				1039	379385be3d4bb47047ece0029105cf2263dd53c317c22317ec351b2037d35ac4
 gfx/bank42/palette_74c0.pal	-	palette				1039	47d01808a0dc8c35042aee8af939cd99df2a90ec1a689c45b0c3af78845cc9a6
+gfx/bank42/raw_4540_4560.bin	gfx/bank42/raw_4540_4560.png	raw2bpp			0	32	66687aadf862bd776c8fc18b8e9f8e20089714856ee233b3902a591d0d5f2925
+gfx/bank42/raw_6800_6810.bin	gfx/bank42/raw_6800_6810.png	raw2bpp			0	16	374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb
+gfx/bank42/raw_69a0_69b0.bin	gfx/bank42/raw_69a0_69b0.png	raw2bpp			0	16	5ac6a5945f16500911219129984ba8b387a06f24fe383ce4e81a73294065461b
+gfx/bank42/raw_6cc0_6cd0.bin	gfx/bank42/raw_6cc0_6cd0.png	raw2bpp			0	16	374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb
 gfx/bank42/tilemap_4a00.attrmap	-	attrmap				360	ae0ec72eb6a00284c2fb65718bd9295aab798c4776ad90eb50e9196628468c36
 gfx/bank42/tilemap_4a00.tilemap	-	tilemap				360	6c4dca9d71310f32fc997b5632490e5e60a72ab2276a99ae7a0e0a8c7f14d6c9
 gfx/bank42/tilemap_5750.attrmap	-	attrmap				360	31bdba391378725be68094e8c04f0336a2ae29b070761636be076d2879a50643
@@ -381,8 +387,6 @@ gfx/browser/start_choice/browser_start_tiles3.2bpp	gfx/browser/start_choice/brow
 gfx/browser/start_choice/browser_start_tiles4.2bpp	gfx/browser/start_choice/browser_start_tiles4.png	tiles			0	1024	4e2edf28f409148d783fec38876bd08324ca653b441fbe0eca6160e69d316de6
 gfx/browser/start_choice/browser_start_top_attr_normal.attrmap	-	attrmap				40	098e6841b64c6dd50bb6e2b5f25139b6ed9b443982ef1304254970a9e59a1f13
 gfx/browser/start_choice/browser_start_top_map_normal.tilemap	-	tilemap				40	44253f4e2bf055fc23fc592590918706c42be32fe35ed79054fc95b9260e931b
-# gfx/browser/start_choice/palette_5e60.pal	-	palette				779	cbcf05f2dae1837e4dc40b33abf33d303cd42b39feb58b9fde4eed63a8e95435
-# gfx/browser/start_choice/tiles_4530.2bpp	gfx/browser/start_choice/tiles_4530.png	tiles			0	176	251a29bfb7d2e5de3af5d95df00b5510789b4b15063e5e3e66b241a6e6d847c1
 gfx/browser/start_choice/tiles_49e0.2bpp	gfx/browser/start_choice/tiles_49e0.png	tiles			0	1024	5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
 gfx/comm/comm_scene/palette_6c90.pal	-	palette				519	5db0ace1c5619034ecb29bac28abb219a9d1fd1d1ef246bc2e92ecf554ed755c
 gfx/comm/comm_scene/palette_6cd0.pal	-	palette				519	b488c8d03ed09b14b745774412e7cb11ebde39ca6f18bfa98227b03c7c87cb79

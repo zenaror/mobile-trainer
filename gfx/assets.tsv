@@ -3,6 +3,8 @@
 # png: exact = rgbgfx source of path (rgbgfx -c embedded -x pad); sheet = font glyph sheet (tools/font_png.py), editable; view = picture for reading only (*_view.png); - = none
 # bank / addr: original ROM position of the first byte (hex); status: evidence status of the block header; dims: width x height in tiles as stated in the note
 path	type	size	asm	bank	addr	status	png	pad	dims	label
+# gfx/browser/start_choice/tiles_4530.2bpp	tiles	176	gfx/browser/start_choice.asm	73	4530	PROBABLE	exact	0		Data_73_4530
+# gfx/browser/start_choice/palette_5e60.pal	palette	96	gfx/browser/start_choice.asm	73	5E60	PROBABLE	-	0		Data_73_5E60
 data/fonts/ascii_6x12.bin	font6x12	1152	data/fonts/ascii_6x12.asm	76	67A8	PROBABLE	sheet	0		Data_76_67A8
 data/fonts/font_8x16_4adb.1bpp	font8x16	160	data/fonts/font_8x16.asm	48	4ADB	PROBABLE	sheet	0		Font_48_4ADB
 data/fonts/font_8x16_4b7b.1bpp	font8x16	416	data/fonts/font_8x16.asm	48	4B7B	PROBABLE	sheet	0		Font_48_4B7B
@@ -203,6 +205,7 @@ gfx/bank41/tilemap_71f0.tilemap	tilemap	360	gfx/bank41.asm	41	71F0	PROBABLE	-	0	
 gfx/bank41/tilemap_71f0.attrmap	attrmap	360	gfx/bank41.asm	41	7358	PROBABLE	-	0	20x18	Tilemap_41_71F0
 gfx/bank41/palette_74c0.pal	palette	128	gfx/bank41.asm	41	74C0	PROBABLE	-	0		Palette_41_74C0
 gfx/bank42/tiles_4000.2bpp	tiles	1344	gfx/bank42.asm	42	4000	PROBABLE	exact	0		Tiles_42_4000
+gfx/bank42/raw_4540_4560.bin	raw	32	gfx/bank42.asm	42	4540	HYPOTHESIS	exact	0		
 gfx/bank42/tiles_4802.2bpp	tiles	160	gfx/bank42.asm	42	4802	HYPOTHESIS	exact	0		Data_42_4802
 gfx/bank42/tiles_4900.2bpp	tiles	176	gfx/bank42.asm	42	4900	HYPOTHESIS	exact	0		Data_42_4900
 gfx/bank42/tilemap_4a00.tilemap	tilemap	360	gfx/bank42.asm	42	4A00	PROBABLE	-	0	20x18	Tilemap_42_4A00
@@ -225,8 +228,11 @@ gfx/bank42/tilemap_64a0.tilemap	tilemap	360	gfx/bank42.asm	42	64A0	PROBABLE	-	0	
 gfx/bank42/tilemap_64a0.attrmap	attrmap	360	gfx/bank42.asm	42	6608	PROBABLE	-	0	20x18	Tilemap_42_64A0
 gfx/bank42/palette_6770.pal	palette	128	gfx/bank42.asm	42	6770	PROBABLE	-	0		Palette_42_6770
 gfx/bank42/tiles_67f0.2bpp	tiles	16	gfx/bank42.asm	42	67F0	HYPOTHESIS	exact	0		Data_42_67F0
+gfx/bank42/raw_6800_6810.bin	raw	16	gfx/bank42.asm	42	6800	HYPOTHESIS	exact	0		
 gfx/bank42/tiles_6810.2bpp	tiles	400	gfx/bank42.asm	42	6810	PROBABLE	exact	7		Tiles_42_6810
+gfx/bank42/raw_69a0_69b0.bin	raw	16	gfx/bank42.asm	42	69A0	HYPOTHESIS	exact	0		Data_42_69A0
 gfx/bank42/tiles_69b0.2bpp	tiles	784	gfx/bank42.asm	42	69B0	HYPOTHESIS	exact	15		Data_42_69B0
+gfx/bank42/raw_6cc0_6cd0.bin	raw	16	gfx/bank42.asm	42	6CC0	HYPOTHESIS	exact	0		
 gfx/bank42/tiles_6ff2.2bpp	tiles	160	gfx/bank42.asm	42	6FF2	HYPOTHESIS	exact	0		Data_42_6FF2
 gfx/bank42/tiles_70f0.2bpp	tiles	160	gfx/bank42.asm	42	70F0	HYPOTHESIS	exact	0		Data_42_70F0
 gfx/bank42/tilemap_71f0.tilemap	tilemap	360	gfx/bank42.asm	42	71F0	PROBABLE	-	0	20x18	Tilemap_42_71F0
@@ -377,7 +383,6 @@ gfx/browser/start_choice/browser_start_top_map_normal.tilemap	tilemap	40	gfx/bro
 gfx/browser/start_choice/browser_start_top_attr_normal.attrmap	attrmap	40	gfx/browser/start_choice.asm	73	43AD	PROBABLE	-	0		BrowserStart_TopAttrNormal
 gfx/browser/start_choice/browser_start_bottom_map_selected.tilemap	tilemap	30	gfx/browser/start_choice.asm	73	441B	PROBABLE	-	0	10x3	BrowserStart_BottomMapSelected
 gfx/browser/start_choice/browser_start_bottom_attr_selected.attrmap	attrmap	30	gfx/browser/start_choice.asm	73	4461	PROBABLE	-	0		BrowserStart_BottomAttrSelected
-# gfx/browser/start_choice/tiles_4530.2bpp	tiles	176	gfx/browser/start_choice.asm	73	4530	PROBABLE	exact	0		Data_73_4530
 gfx/browser/start_choice/browser_start_tiles0.2bpp	tiles	1024	gfx/browser/start_choice.asm	73	45E0	CONFIRMED	exact	0		BrowserStart_Tiles0
 gfx/browser/start_choice/tiles_49e0.2bpp	tiles	1024	gfx/browser/start_choice.asm	73	49E0	PROBABLE	exact	0		Data_73_49E0
 gfx/browser/start_choice/browser_start_tiles1.2bpp	tiles	1024	gfx/browser/start_choice.asm	73	4DE0	CONFIRMED	exact	0		BrowserStart_Tiles1
@@ -386,7 +391,6 @@ gfx/browser/start_choice/browser_start_tiles3.2bpp	tiles	1024	gfx/browser/start_
 gfx/browser/start_choice/browser_start_tiles4.2bpp	tiles	1024	gfx/browser/start_choice.asm	73	59E0	CONFIRMED	exact	0		BrowserStart_Tiles4
 gfx/browser/start_choice/browser_start_palettes.pal	palette	64	gfx/browser/start_choice.asm	73	5DE0	CONFIRMED	-	0		BrowserStart_Palettes
 gfx/browser/start_choice/browser_start_obj_palettes.pal	palette	64	gfx/browser/start_choice.asm	73	5E20	CONFIRMED	-	0		BrowserStart_ObjPalettes
-# gfx/browser/start_choice/palette_5e60.pal	palette	96	gfx/browser/start_choice.asm	73	5E60	PROBABLE	-	0		Data_73_5E60
 gfx/comm/comm_scene/tiles_5490.2bpp	tiles	1024	gfx/comm/comm_scene.asm	70	5490	CONFIRMED	exact	0		Data_70_5490
 gfx/comm/comm_scene/tiles_5890.2bpp	tiles	1024	gfx/comm/comm_scene.asm	70	5890	CONFIRMED	exact	0		Data_70_5890
 gfx/comm/comm_scene/tiles_5c90.2bpp	tiles	1024	gfx/comm/comm_scene.asm	70	5C90	CONFIRMED	exact	0		Data_70_5C90

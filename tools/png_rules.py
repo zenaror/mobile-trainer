@@ -10,7 +10,8 @@
 
 One line of png_rules.tsv per generated binary:  out  png  kind  cells  start  pad  size  sha256
     out      binary that the .asm INCBINs (.2bpp / .1bpp / .bin)            png    its editable PNG source
-    kind     tiles (rgbgfx)  font12 | font8x16 | font6x12 (tools/font_png.py)
+    kind     tiles (rgbgfx)  raw2bpp (explicit tools/raw_png.py byte view, storage raw/HYPOTHESIS)
+             font12 | font8x16 | font6x12 (tools/font_png.py)
     cells    font sheets: glyph slots of the sheet       start  font sheets: bank address (hex) of the first byte of `out`
     pad      tiles: blank tiles that complete the last PNG row (rgbgfx -x pad)
     size     bytes of `out` (the ROM layout needs exactly this many)        sha256  hash of `out` in the byte-identical (original) state
@@ -27,6 +28,7 @@ sys.path.insert(0, HERE)
 import gfx_export as G  # noqa: E402
 import font_png  # noqa: E402
 import pnglib  # noqa: E402
+import raw_png as RAW  # noqa: E402
 
 RULES = 'gfx/png_rules.tsv'
 MK = 'gfx/png.mk'
@@ -70,7 +72,11 @@ def build_rules(keep_hash=True):
     out = []
     for path, r in sorted(rows.items()):
         t = r['type']
-        if t == 'tiles' and r['png'] == 'exact':
+        if t == 'raw':
+            RAW.definition(path, r)
+            RAW.provenance(ROOT, path)
+            rule = dict(out=path, png=G.png_path_of(path, 'exact'), kind='raw2bpp', cells='', start='', pad='0')
+        elif t == 'tiles' and r['png'] == 'exact':
             rule = dict(out=path, png=G.png_path_of(path, 'exact'), kind='tiles', cells='', start='', pad=r['pad'])
         elif t in FONT_TYPES and r['png'] in ('sheet', 'view'):
             png = G.png_path_of(path, 'sheet')
@@ -89,7 +95,7 @@ def build_rules(keep_hash=True):
 
 def rules_text(rules):
     lines = ['# gfx/png_rules.tsv -- written by tools/png_rules.py (do not edit by hand); read by gfx/png.mk, tools/png_check.py, `make png-export`',
-             '# out = binary the .asm INCBINs, png = its editable source ("-" = no PNG rule: tilemap / attrmap / palette rows only make an edit an explained ROM difference), kind = tiles (rgbgfx, `pad` = -x) | font12 | font8x16 | font6x12 (tools/font_png.py;',
+             '# out = binary the .asm INCBINs, png = its editable source ("-" = no PNG rule: tilemap / attrmap / palette rows only make an edit an explained ROM difference), kind = tiles (rgbgfx, `pad` = -x) | raw2bpp (explicit raw byte-view codec) | font12 | font8x16 | font6x12 (tools/font_png.py;',
              '# cells = glyph slots of the sheet, start = bank address of the first byte of out).  size = bytes of out (must not change),',
              '# sha256 = hash of out in the original, byte-identical ROM state (edited = differs).  See docs/EDITING_IMAGES.md.',
              '\t'.join(COLS)]
@@ -135,6 +141,7 @@ def wrap_list(name, items):
 def mk_text(rules):
     tiles = [r for r in rules if r['kind'] == 'tiles']
     fonts = [r for r in rules if r['kind'] in FONT_TYPES]
+    raw = [r for r in rules if r['kind'] == 'raw2bpp']
     o = [MK_HEAD]
     if tiles:
         o.append('ifneq ($(RGBGFX_VERSION),)')
@@ -163,7 +170,19 @@ def mk_text(rules):
             o.append('')
         o.append('endif')
         o.append('')
-    o.append('PNG_OUTS := $(PNG_TILE_OUTS) $(PNG_FONT_OUTS)')
+    if raw:
+        o.append('ifneq ($(PYTHON_OK),)')
+        o.append(wrap_list('PNG_RAW_OUTS', [r['out'] for r in raw]))
+        for r in raw:
+            RAW.validate_rule(r)
+            o.append('%s: PNG_SIZE := %s' % (r['out'], r['size']))
+            o.append('%s: %s tools/raw_png.py tools/pnglib.py' % (r['out'], r['png']))
+            o.append('\t@echo "raw_png $<"')
+            o.append('\t$(Q)$(PYTHON) tools/raw_png.py --asset %s $< $@' % r['out'])
+            o.append('')
+        o.append('endif')
+        o.append('')
+    o.append('PNG_OUTS := $(PNG_TILE_OUTS) $(PNG_FONT_OUTS) $(PNG_RAW_OUTS)')
     o.append('')
     return '\n'.join(o)
 
@@ -236,6 +255,10 @@ def png_holds_unbuilt_edits(rules_of_png):
         png = pnglib.read_png(png_path)
     except pnglib.PngError:
         return True
+    if r0['kind'] == 'raw2bpp':
+        RAW.validate_rule(r0)
+        got, errs = RAW.decode(r0['out'], png)
+        return bool(errs) or got != open(os.path.join(ROOT, r0['out']), 'rb').read()
     if r0['kind'] == 'tiles':
         return None                  # decided by the caller through rgbgfx (see cmd_export)
     for r in rules_of_png:
@@ -259,7 +282,12 @@ def cmd_export(a):
     for png, rs in sorted(by_png.items()):
         r0 = rs[0]
         full = os.path.join(ROOT, png)
-        new = tiles_png_bytes(open(os.path.join(ROOT, r0['out']), 'rb').read()) if r0['kind'] == 'tiles' else font_png_bytes(rs)
+        if r0['kind'] == 'raw2bpp':
+            RAW.validate_rule(r0)
+            RAW.provenance(ROOT, r0['out'])
+            new = RAW.png_bytes(r0['out'], open(os.path.join(ROOT, r0['out']), 'rb').read())
+        else:
+            new = tiles_png_bytes(open(os.path.join(ROOT, r0['out']), 'rb').read()) if r0['kind'] == 'tiles' else font_png_bytes(rs)
         if os.path.exists(full) and open(full, 'rb').read() == new:
             same += 1
             continue

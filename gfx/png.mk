@@ -1153,4 +1153,34 @@ data/fonts/jis12x12_rows_79_84.bin: data/fonts/jis12x12_rows_79_84.png
 
 endif
 
-PNG_OUTS := $(PNG_TILE_OUTS) $(PNG_FONT_OUTS)
+ifneq ($(PYTHON_OK),)
+PNG_RAW_OUTS := \
+	gfx/bank42/raw_4540_4560.bin \
+	gfx/bank42/raw_6800_6810.bin \
+	gfx/bank42/raw_69a0_69b0.bin \
+	gfx/bank42/raw_6cc0_6cd0.bin \
+
+
+gfx/bank42/raw_4540_4560.bin: PNG_SIZE := 32
+gfx/bank42/raw_4540_4560.bin: gfx/bank42/raw_4540_4560.png tools/raw_png.py tools/pnglib.py
+	@echo "raw_png $<"
+	$(Q)$(PYTHON) tools/raw_png.py --asset gfx/bank42/raw_4540_4560.bin $< $@
+
+gfx/bank42/raw_6800_6810.bin: PNG_SIZE := 16
+gfx/bank42/raw_6800_6810.bin: gfx/bank42/raw_6800_6810.png tools/raw_png.py tools/pnglib.py
+	@echo "raw_png $<"
+	$(Q)$(PYTHON) tools/raw_png.py --asset gfx/bank42/raw_6800_6810.bin $< $@
+
+gfx/bank42/raw_69a0_69b0.bin: PNG_SIZE := 16
+gfx/bank42/raw_69a0_69b0.bin: gfx/bank42/raw_69a0_69b0.png tools/raw_png.py tools/pnglib.py
+	@echo "raw_png $<"
+	$(Q)$(PYTHON) tools/raw_png.py --asset gfx/bank42/raw_69a0_69b0.bin $< $@
+
+gfx/bank42/raw_6cc0_6cd0.bin: PNG_SIZE := 16
+gfx/bank42/raw_6cc0_6cd0.bin: gfx/bank42/raw_6cc0_6cd0.png tools/raw_png.py tools/pnglib.py
+	@echo "raw_png $<"
+	$(Q)$(PYTHON) tools/raw_png.py --asset gfx/bank42/raw_6cc0_6cd0.bin $< $@
+
+endif
+
+PNG_OUTS := $(PNG_TILE_OUTS) $(PNG_FONT_OUTS) $(PNG_RAW_OUTS)

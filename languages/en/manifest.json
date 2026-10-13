@@ -3412,12 +3412,12 @@
       "sha256": "e8cdc1afadec12a9b00c380d3525ae78b6dfa4d465a8e1df069fc270744b0191"
     },
     "README.md": {
-      "size": 14685,
-      "sha256": "89188e53e5fabf6486a13d880d42013d720fc25982f076722281e1ea70a308fb"
+      "size": 14881,
+      "sha256": "37a6751a209c8d25e51cf919800d769d1e50de38e3cad345027115d046b54567"
     },
     "REVERSE_ENGINEERING.md": {
-      "size": 134412,
-      "sha256": "29e022bd6cb3bcbe4a58a0af6cbae573b72c9e47d3167335ac6613293fa25a16"
+      "size": 137441,
+      "sha256": "55f9b29193effd814cf033d48c7bdb5bdfc862778b129162e2e5c4b9afdb2804"
     },
     "STYLE.md": {
       "size": 57010,
@@ -6280,8 +6280,8 @@
       "sha256": "d519fd3d8c383f9e09b34a7cf00816ad6f628fac22e3a3c62eef2ae46fde9e55"
     },
     "docs/TRANSLATION.md": {
-      "size": 50097,
-      "sha256": "0b6f28641a0a107af397b597ea15986e7183fc822b93deaf4af48813f83ec5d0"
+      "size": 53174,
+      "sha256": "0f2ef7cf6ef88a073efeda4b7e8562b504bc179c0717af093e96156869653a3e"
     },
     "docs/research/assets/browser_frame_records47.png": {
       "size": 4853,
@@ -6296,8 +6296,8 @@
       "sha256": "f41e27372e381312767177cb8b05570aec60d23d4984559c2d1b7f6470295ede"
     },
     "docs/research/assets_pokemon_frames_and_name_limits.md": {
-      "size": 32635,
-      "sha256": "246a4ca248a157de5b2226492180b5b9ca8446788bdea3cebca90811117babfd"
+      "size": 39095,
+      "sha256": "e387d0f98616811f5ec552b8060de26eaceb45b6da493374dfe5d6533d2bafb8"
     },
     "docs/research/audio2_verify_dynamic.md": {
       "size": 47981,
@@ -8668,8 +8668,8 @@
       "sha256": "de5f079159f87387883876d446d821e2d9ccc18e328949a146ca0de4bf67b4c9"
     },
     "gfx/assets.tsv": {
-      "size": 124255,
-      "sha256": "85b0d986b1ace2c79d2cd1c1619111170b8169acd7b85ecb031948faf3e72ee3"
+      "size": 124587,
+      "sha256": "07494f655a0159a26abbd42e65ee1056e283e32b0b85f34a281a05670f812f2f"
     },
     "gfx/bank41.asm": {
       "size": 5505,
@@ -8764,8 +8764,8 @@
       "sha256": "79d6224cb981cf021a12ce84e1164c60098599f7b286f10eeaf172c29ebaa7b5"
     },
     "gfx/bank42.asm": {
-      "size": 9716,
-      "sha256": "1c61958d06e4939ea17502fc07a3d5460bf8e8c9e0a9fc2f7914a9f1efbbe8db"
+      "size": 10216,
+      "sha256": "af635d0675c721f6e006c067d98365e36a8c4ddd8f090d227739fae0dd688f21"
     },
     "gfx/bank42/palette_4cd0.pal": {
       "size": 1039,
@@ -8783,9 +8783,45 @@
       "size": 1039,
       "sha256": "73a478de237ca1cb195057ce8a7d9cba0242184a0b86e84003fedd8aa2381fa8"
     },
+    "gfx/bank42/raw_4540_4560.bin": {
+      "size": 32,
+      "sha256": "66687aadf862bd776c8fc18b8e9f8e20089714856ee233b3902a591d0d5f2925"
+    },
+    "gfx/bank42/raw_4540_4560.png": {
+      "size": 93,
+      "sha256": "b4eedf04b9d5388f73db7d661808a5233257e63fe5af1b1dae023d30f947f6df"
+    },
+    "gfx/bank42/raw_6800_6810.bin": {
+      "size": 16,
+      "sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb"
+    },
+    "gfx/bank42/raw_6800_6810.png": {
+      "size": 93,
+      "sha256": "82d74beae51024cb07424d8f320d91f21bdc6535b776f5b35683945d82d71b1f"
+    },
+    "gfx/bank42/raw_69a0_69b0.bin": {
+      "size": 16,
+      "sha256": "5ac6a5945f16500911219129984ba8b387a06f24fe383ce4e81a73294065461b"
+    },
+    "gfx/bank42/raw_69a0_69b0.png": {
+      "size": 95,
+      "sha256": "2e03949ec03800fcf05a645819162f5ee5dce3d4dd9c7f39d15cf0d4dad65763"
+    },
+    "gfx/bank42/raw_6cc0_6cd0.bin": {
+      "size": 16,
+      "sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb"
+    },
+    "gfx/bank42/raw_6cc0_6cd0.png": {
+      "size": 93,
+      "sha256": "82d74beae51024cb07424d8f320d91f21bdc6535b776f5b35683945d82d71b1f"
+    },
     "gfx/bank42/tilemap_4a00.attrmap": {
       "size": 360,
       "sha256": "ae0ec72eb6a00284c2fb65718bd9295aab798c4776ad90eb50e9196628468c36"
+    },
+    "gfx/bank42/tilemap_4a00.screen.png": {
+      "size": 1664,
+      "sha256": "635a3e20c938c51baac5b1bf4451fde0c5b9cd4b249eb63e1aa003572f925a9b"
     },
     "gfx/bank42/tilemap_4a00.tilemap": {
       "size": 360,
@@ -8814,6 +8850,10 @@
     "gfx/bank42/tilemap_71f0.attrmap": {
       "size": 360,
       "sha256": "978dfe308dbe657a06866f41eac768e6ebabf59c7696d39ecfb984310cc8212f"
+    },
+    "gfx/bank42/tilemap_71f0.screen.png": {
+      "size": 1722,
+      "sha256": "f29f4456c3170b8d6c0f60eb63b84cfe7c5ddb93f87faef28e3fc130f9f639bc"
     },
     "gfx/bank42/tilemap_71f0.tilemap": {
       "size": 360,
@@ -12728,12 +12768,12 @@
       "sha256": "01793537e000047a5437a4f8d99e74b24618df76e30444c244f4e30fc64f079d"
     },
     "gfx/png.mk": {
-      "size": 59666,
-      "sha256": "d3436d5e83dafa60fe15e1f629f48382c05aa10484a00594e4662802fa0d5101"
+      "size": 60791,
+      "sha256": "fd2c8f6156cbe84adb5b55e32cf8a6db4d012955ce4d3bf6f77d36258af16a2c"
     },
     "gfx/png_rules.tsv": {
-      "size": 139454,
-      "sha256": "263be85e110ba1e27ca3f3714785172648c792d22d89658702d4f2258ed4accc"
+      "size": 140006,
+      "sha256": "68b2b2a6f63634f5eeb0e454e812fe3f3c42685053469ee679820dae3c43c94e"
     },
     "gfx/previews/README.md": {
       "size": 34968,
@@ -14152,8 +14192,8 @@
       "sha256": "b96f246c7c7fcf9c36a9f00bb2e5a5dd47919045c3e6a62a164342a1b068b4d9"
     },
     "gfx/screens.tsv": {
-      "size": 77115,
-      "sha256": "f72b70bf6a785ebbb4cb849a850fa7c1df64fb5c9a80f45bd042c416516fa162"
+      "size": 78352,
+      "sha256": "524f578d9dd0a23da3a3e0697c3cdfa3d8f5bdc326ee09007f39c815c1a344f9"
     },
     "gfx/settings/screens_bank4a.asm": {
       "size": 4755,
@@ -15176,8 +15216,8 @@
       "sha256": "f0fd0ce855736d583a99bd82b0fd22758e11ab18f6b273782b6e4544c8fa22dc"
     },
     "tools/gfx_export.py": {
-      "size": 63680,
-      "sha256": "68c17e7b98f3afd897ed810d973b1f22ed5403e7294ebdac5648a10a5b65b9d7"
+      "size": 66035,
+      "sha256": "e45ceced61e02dbef66e453a0c674a6acc21829d45230f174e7e181f0f4cb6fb"
     },
     "tools/ghidra/check_language.py": {
       "size": 3732,
@@ -15244,8 +15284,8 @@
       "sha256": "8a07a3b7311c8e6a65ed30e27b8a0906c39ba4d9d178da305b909542aa326483"
     },
     "tools/line_addresses.py": {
-      "size": 6588,
-      "sha256": "ccd6385390aacb6babd38bf8909917a43c53eccf99c3a4deb4f2443ec1f1d5bf"
+      "size": 6602,
+      "sha256": "f72d0ae3f10a94425ef2a846d5bf5d26b8eb13e8702d0d38ffcd6b3643b6b311"
     },
     "tools/mapper.py": {
       "size": 111570,
@@ -15260,12 +15300,12 @@
       "sha256": "f1e69aa7829ea15a5c5eed1cf2a9b6acc19e5e33a5da611f7e20ae8cb4c57a8c"
     },
     "tools/png_check.py": {
-      "size": 10023,
-      "sha256": "11fffa7a25eb0bf283f6d351a1da03db4319fdf4f7fc1144e38937638341a72a"
+      "size": 11054,
+      "sha256": "52bed5464acd61b01229febb72e1b18f410cc5bc3e1aee6612088c0e5a156579"
     },
     "tools/png_rules.py": {
-      "size": 13359,
-      "sha256": "a9cbc28964ca7063573528010f4c4ecc2be6d170ed531c1d72084b86339f29f9"
+      "size": 14756,
+      "sha256": "91d180a8ad325e6708e1b2cf6e19db5273eebffd65efe26c1ac8faa9051fcdab"
     },
     "tools/pnglib.py": {
       "size": 6179,
@@ -15290,6 +15330,10 @@
     "tools/ramcensus.py": {
       "size": 143809,
       "sha256": "45b0ca2e7b99d206cf2deaeca8a66218709611cf18e42141e6a67a3b7f278cc2"
+    },
+    "tools/raw_png.py": {
+      "size": 13482,
+      "sha256": "e3043c5db24735c111cecf9552b34f1a151004c5111e958ef8b5d3c799686a18"
     },
     "tools/remap_record_lines.py": {
       "size": 4577,
@@ -15316,8 +15360,8 @@
       "sha256": "738c68ba29d0c472942aadf22c6c70d66c79fc5cf2a08dd91e838abe42700f96"
     },
     "tools/screen_png.py": {
-      "size": 39409,
-      "sha256": "d79918a3d62e021db88f518797bfa31c4c328d9d145d7f3fd20160a41940a4d6"
+      "size": 43131,
+      "sha256": "01c5528537b441cb97708f3db2608075c596730dd12a603d397ca8047f980fd4"
     },
     "tools/selftest_gen.py": {
       "size": 155582,
@@ -20358,8 +20402,8 @@
       "sha256": "9ed64719c7a4ec6a3321ff9ca49cb94ba480143e69dee504994ccdece0917508"
     },
     "docs/LANGUAGE_BUILDS.md": {
-      "size": 4520,
-      "sha256": "eeadb88dd1a23a2070405528ef666102224ebeadfbd76153aba3a1dc0aebdcf6"
+      "size": 8972,
+      "sha256": "aef62dda6d413efc5a336e08a99433146857302f306b41a99cd44b32a6d5f716"
     },
     "tools/apply_renames.py": {
       "size": 32156,
@@ -20399,5 +20443,5 @@
     }
   },
   "overrides_count": 563,
-  "fallback_count": 4238
+  "fallback_count": 4249
 }

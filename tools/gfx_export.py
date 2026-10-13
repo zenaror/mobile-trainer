@@ -27,6 +27,8 @@ INCBINs / INCLUDEs.  A `.png` next to a `.2bpp` is an *exact source*: `rgbgfx -c
 A block is converted only when its region header note, its label name or the frozen symbol table (config/symbols) says what it is
 *and* the bytes fit that kind (palette: even size, every word < $8000; tilemap: size = width x height stated in the note; ...).
 Everything else stays `db`.  Nothing is guessed here; the evidence status of the block is copied to gfx/assets.tsv.
+The four explicitly declared bank42 raw/HYPOTHESIS backings use tools/raw_png.py:
+their exact PNG is a reversible byte view, without claiming an original tile purpose.
 """
 import argparse
 import concurrent.futures
@@ -42,6 +44,8 @@ import zlib
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
+sys.path.insert(0, HERE)
+import raw_png as RAW  # explicit byte-view codec, not a graphics classification
 
 SCAN_DIRS = ('gfx', 'data/fonts')
 # code files (engine/, lib/, home/, audio/) are scanned only for their `; ---- gfx` regions (a graphics block that sits between code);
@@ -62,7 +66,7 @@ COLS = ['path', 'type', 'size', 'asm', 'bank', 'addr', 'status', 'png', 'pad', '
 FONT_TYPES = ('font12', 'font8x16', 'font6x12')
 
 EXT = {'tiles': '.2bpp', 'font8x16': '.1bpp', 'tilemap': '.tilemap', 'attrmap': '.attrmap', 'palette': '.pal',
-       'font12': '.bin', 'font6x12': '.bin', 'sjisbitmap': '.bin'}
+       'font12': '.bin', 'font6x12': '.bin', 'sjisbitmap': '.bin', 'raw': '.bin'}
 
 
 # ------------------------------------------------------------------------------------------------ PNG (indexed, 8 bit)
@@ -647,8 +651,8 @@ def write_manifest(rows):
         return (r['asm'], int(r['addr'], 16), r['path'])
     with open(os.path.join(ROOT, MANIFEST), 'w', encoding='utf-8') as f:
         f.write('# gfx/assets.tsv -- written by tools/gfx_export.py (do not edit by hand)\n')
-        f.write('# path: asset the .asm INCBINs / INCLUDEs.  type: tiles (2bpp) font8x16 (1bpp glyphs) font12 font6x12 sjisbitmap tilemap attrmap palette\n')
-        f.write('# png: exact = rgbgfx source of path (rgbgfx -c embedded -x pad); sheet = font glyph sheet (tools/font_png.py), editable; view = picture for reading only (*_view.png); - = none\n')
+        f.write('# path: asset the .asm INCBINs / INCLUDEs.  type: tiles (2bpp) font8x16 (1bpp glyphs) font12 font6x12 sjisbitmap tilemap attrmap palette raw (explicit conditional byte codec only)\n')
+        f.write('# png: exact = reversible PNG source (rgbgfx for tiles; raw_png for explicit raw byte views); sheet = font glyph sheet (tools/font_png.py), editable; view = picture for reading only (*_view.png); - = none\n')
         f.write('# bank / addr: original ROM position of the first byte (hex); status: evidence status of the block header; dims: width x height in tiles as stated in the note\n')
         f.write('\t'.join(COLS) + '\n')
         for r in sorted(rows.values(), key=key):
@@ -827,7 +831,16 @@ def do_png(manifest_rows=None):
         if typ in ('tilemap', 'attrmap', 'palette'):
             continue
         data = open(os.path.join(ROOT, path), 'rb').read()
-        if typ == 'tiles':
+        if typ == 'raw':
+            _, size, _, _ = RAW.definition(path, r)
+            if len(data) != size:
+                raise ValueError('%s: raw backing size differs from declared extent' % path)
+            RAW.provenance(ROOT, path)
+            png_full = os.path.join(ROOT, png_path_of(path, 'exact'))
+            if not os.path.exists(png_full):
+                with open(png_full, 'wb') as f:
+                    f.write(RAW.png_bytes(path, data))
+        elif typ == 'tiles':
             n = len(data) // 16
             per_row, pad = tiles_geometry(n)
             r['png'], r['pad'] = 'exact', str(pad)
@@ -846,6 +859,16 @@ def do_png(manifest_rows=None):
 def _rt_one(item):
     path, r = item
     png = os.path.join(ROOT, png_path_of(path, 'exact'))
+    if r['type'] == 'raw':
+        import pnglib
+        try:
+            RAW.definition(path, r)
+            RAW.provenance(ROOT, path)
+            got, errs = RAW.decode(path, pnglib.read_png(png))
+            want = open(os.path.join(ROOT, path), 'rb').read()
+            return path, '; '.join(errs) if errs else ('' if got == want else 'raw byte-view PNG differs from backing bytes')
+        except (OSError, ValueError, pnglib.PngError) as e:
+            return path, str(e)
     with tempfile.TemporaryDirectory() as td:
         out = os.path.join(td, 'o.2bpp')
         p = subprocess.run(rgbgfx_cmd(png, out, int(r['pad'])), capture_output=True, text=True)
@@ -867,6 +890,9 @@ def check_rgbgfx_roundtrip(rows, fix=False):
     if fix:
         for path, err in bad.items():
             r = rows[path]
+            if r['type'] == 'raw':
+                print('  raw byte-view codec refused: %s (%s); raw/HYPOTHESIS metadata retained' % (path, err))
+                continue
             print('  round trip not exact, demoted to view-only: %s (%s)' % (path, err))
             exact = os.path.join(ROOT, png_path_of(path, 'exact'))
             view = os.path.join(ROOT, png_path_of(path, 'view'))
@@ -881,6 +907,19 @@ def do_bin(rows):
         if r['png'] != 'exact':
             continue
         png = os.path.join(ROOT, png_path_of(path, 'exact'))
+        if r['type'] == 'raw':
+            import pnglib
+            try:
+                RAW.definition(path, r)
+                RAW.provenance(ROOT, path)
+                got, errs = RAW.decode(path, pnglib.read_png(png))
+                if errs:
+                    raise ValueError('; '.join(errs))
+                RAW.write_backing(ROOT, path, got)
+            except (OSError, ValueError, pnglib.PngError) as e:
+                print('raw_png failed for', png, str(e))
+                return 1
+            continue
         p = subprocess.run(rgbgfx_cmd(png, os.path.join(ROOT, path), int(r['pad'])), capture_output=True, text=True)
         if p.returncode:
             print('rgbgfx failed for', png, p.stderr.strip())
@@ -981,7 +1020,8 @@ def do_check():
     ex = sum(1 for r in rows.values() if r['png'] == 'exact')
     vw = sum(1 for r in rows.values() if r['png'] == 'view')
     sh = sum(1 for r in rows.values() if r['png'] == 'sheet')
-    print('%d assets (%d exact tile PNG sources, %d font sheets, %d view-only PNGs, %d without PNG)' % (len(rows), ex, sh, vw, len(rows) - ex - sh - vw))
+    raw = sum(1 for r in rows.values() if r['type'] == 'raw' and r['png'] == 'exact')
+    print('%d assets (%d exact tile PNG sources, %d raw byte-view PNG sources, %d font sheets, %d view-only PNGs, %d without PNG)' % (len(rows), ex - raw, raw, sh, vw, len(rows) - ex - sh - vw))
     for e in errors:
         print('ERROR', e)
     print('gfx_export check:', 'FAILED (%d)' % len(errors) if errors else 'OK')
@@ -991,7 +1031,7 @@ def do_check():
 # ------------------------------------------------------------------------------------------------ README
 
 TYPE_NAME = {'tiles': '2bpp tiles', 'font8x16': '1bpp 8x16 glyphs', 'font12': 'JIS 12x12 glyph bits', 'font6x12': '6x12 glyph rows',
-             'sjisbitmap': 'validity bitmap', 'tilemap': 'tile-index map', 'attrmap': 'attribute map', 'palette': 'RGB palette'}
+             'raw': 'raw bytes (conditional byte-view codec; purpose unknown)', 'sjisbitmap': 'validity bitmap', 'tilemap': 'tile-index map', 'attrmap': 'attribute map', 'palette': 'RGB palette'}
 
 
 README_HEAD = """# Graphics assets
@@ -1172,7 +1212,8 @@ def do_readme():
     ex = sum(1 for r in rows.values() if r['png'] == 'exact')
     vw = sum(1 for r in rows.values() if r['png'] == 'view')
     sh = sum(1 for r in rows.values() if r['png'] == 'sheet')
-    out += ['', 'PNGs: %d exact rgbgfx sources (`.png`), %d font binaries with an editable sheet PNG (`.png`), %d view-only picture (`_view.png`).' % (ex, sh, vw), '',
+    raw = sum(1 for r in rows.values() if r['type'] == 'raw' and r['png'] == 'exact')
+    out += ['', 'PNGs: %d exact rgbgfx sources (`.png`), %d explicit raw byte-view codec sources (`.png`, purpose unknown), %d font binaries with an editable sheet PNG (`.png`), %d view-only picture (`_view.png`).' % (ex - raw, raw, sh, vw), '',
             '## Still `db`', '',
             'Blocks of the graphics regions that are not converted (the note / label does not say they are palettes, maps or tile data, or they are too small to be tiles):', '',
             '| what | blocks | bytes |', '|---|---:|---:|']

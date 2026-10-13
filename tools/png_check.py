@@ -10,6 +10,7 @@ Checks, each explained in plain words when it fails:
                 their original order (rgbgfx reads the palette POSITION as the colour number); no pixel uses an index >= 4; rgbgfx converts it to
                 exactly the size of the ROM binary; which tiles differ from the binary that is built now
   font sheets   exact sheet size; only pure black / pure white inside glyph cells; which glyphs differ from the binary
+  raw views     four explicit bank42 byte codecs: indexed 8-bit, fixed geometry/palette, no padding; purpose remains unknown
   screen PNGs   see tools/screen_png.py (same exactness rules, plus the palette-group rule)
   manifests     gfx/png_rules.tsv and gfx/png.mk are in sync with gfx/assets.tsv and the files on disk
 
@@ -29,6 +30,7 @@ import gfx_export as G  # noqa: E402
 import font_png  # noqa: E402
 import pnglib  # noqa: E402
 import png_rules as R  # noqa: E402
+import raw_png as RAW  # noqa: E402
 
 
 def tile_geometry_px(size_bytes, pad):
@@ -130,11 +132,27 @@ def check_font(rule):
     return errs, notes
 
 
+def check_raw(rule):
+    """Explicit raw byte codec; no tile-purpose classification and no native converter."""
+    try:
+        RAW.validate_rule(rule)
+        RAW.provenance(ROOT, rule['out'])
+        got, errs = RAW.decode(rule['out'], pnglib.read_png(os.path.join(ROOT, rule['png'])))
+        if errs:
+            return errs, []
+        want = open(os.path.join(ROOT, rule['out']), 'rb').read()
+        if len(want) != int(rule['size']):
+            return ['raw backing size differs from declared extent'], []
+        return [], [] if got == want else ['edited vs built binary: raw byte-view differs (make rebuilds %s)' % rule['out']]
+    except (OSError, ValueError, pnglib.PngError) as e:
+        return [str(e)], []
+
+
 def run(rules, quiet=False):
     results = {}
 
     def one(r):
-        return (check_tiles(r) if r['kind'] == 'tiles' else check_font(r))
+        return check_raw(r) if r['kind'] == 'raw2bpp' else (check_tiles(r) if r['kind'] == 'tiles' else check_font(r))
     with concurrent.futures.ThreadPoolExecutor(max_workers=8) as ex:
         for r, res in zip(rules, ex.map(one, rules)):
             results[r['out']] = res
@@ -175,7 +193,8 @@ def main(argv):
         errs, notes = results[r['out']]
         if r['png'] not in seen:
             seen.add(r['png'])
-            kinds[r['kind'] == 'tiles'] = kinds.get(r['kind'] == 'tiles', 0) + 1
+            group = r['kind'] if r['kind'] in ('tiles', 'raw2bpp') else 'fonts'
+            kinds[group] = kinds.get(group, 0) + 1
         for e in errs:
             print('ERROR %s: %s' % (r['png'], e))
         nerr += len(errs)
@@ -194,8 +213,8 @@ def main(argv):
     for e in R_mk_errors():
         print('ERROR', e)
         nerr += 1
-    print('png_check: %d tile sheets, %d font sheets%s checked; %s' % (
-        kinds.get(True, 0), kinds.get(False, 0), (', %d screen PNGs' % ns) if ns else '',
+    print('png_check: %d tile sheets, %d raw byte views, %d font sheets%s checked; %s' % (
+        kinds.get('tiles', 0), kinds.get('raw2bpp', 0), kinds.get('fonts', 0), (', %d screen PNGs' % ns) if ns else '',
         ('FAILED (%d error(s))' % nerr) if nerr else 'OK' + (' (%d PNG(s) differ from the built binaries: make rebuilds them)' % edited if edited else '')))
     return 1 if nerr else 0
 
