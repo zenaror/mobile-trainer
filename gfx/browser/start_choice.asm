@@ -156,7 +156,7 @@ BrowserStart_ObjPalettes:: ; 73:5E20
 	INCLUDE "gfx/browser/start_choice/browser_start_obj_palettes.pal"
 
 ; ---- data $5E60-$5EC0 (96 bytes) [CONFIRMED] sprite table (4), two OAM frames (45 each), script prefix (2); original consumers read the full 99-byte chain through $5EC3 in 19 whole/19 union natural scenarios (typing_73_browser_sprite99.md)
-
+SpriteFrameTable_73_5E60:: ; 73:5E60
 Data_73_5E60:: ; 73:5E60
 	sprite_frame_table $5E64, $5E91
 	sprite_frame 11 ; original 73:5E64
@@ -226,5 +226,5 @@ SpriteScript_73_5F00:: ; 73:5F00
 	sprite_anim_step 5, 6
 	sprite_anim_step 6, 30
 BrowserStart_ObjTable:: ; 73:5F0F
-	sprite_object_entry Data_73_5E60, $5EBE ; entry 0; original bank 73, existing alias preserved
+	sprite_object_entry SpriteFrameTable_73_5E60, $5EBE ; entry 0; original bank 73, existing alias preserved
 	sprite_object_entry SpriteFrameTable_73_5EC3, SpriteScript_73_5F00 ; entry 1

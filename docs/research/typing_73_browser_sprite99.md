@@ -11,3 +11,7 @@ The former palette_5e60.pal remains unchanged as historical evidence. It contain
 A fresh actual baseline follows publication of the four browser rectangles. Full original owners, macros, evidence traces and prior correction seals precede this bounded format pass. All 289 metadata TSVs, 649 active file/line records and 1947 broad colon locators are audited. None of the locators targets this source, so its 25 extra lines require no locator update. Existing labels and all symbol bytes must remain exact.
 
 This is original reconstruction evidence, not a new runtime or hardware observation. Arbitrary selector safety, whole-bank semantic closure, the unread tile/tail blocks and English translation remain outside these format claims.
+
+## Mechanical first-frame-table alias
+
+The neutral mechanical alias SpriteFrameTable_73_5E60 reuses the blank physical line159 before existing Data_73_5E60 at line160. Object-root entry0 at73:5F0F names that table alias while retaining the literal script pointer5EBE. The owner stays230 lines; the existing table pointers, two frames, split script and Data_73_5EC0 remain unchanged. Existing CONFIRMED storage and finite historical natural-read evidence are retained. This alias provides no new visual identity, species, reachability or runtime evidence. This owner is outside the initial65-row naming ledger, whose counters are unchanged.

@@ -1235,7 +1235,7 @@
       "payload_path": "languages/en/gfx/browser/page_list/tiles_5ef1.png"
     },
     "gfx/browser/start_choice.asm": {
-      "base_sha256": "6b38d662ded2d841f4e985d9e4ef5de3b27d638384a38082398a22f558d3c6e3",
+      "base_sha256": "2df711d27d8115ea3290733d4b519a6fdeb2bf30cc6f7dab59a375ea0802d3f9",
       "payload_sha256": "f2168b77d44a88e5afcd7b229f4fe5590b54d899cde8d9eae6bf675d8a8b8b06",
       "bytes": 12224,
       "payload_path": "languages/en/gfx/browser/start_choice.asm"
@@ -3410,8 +3410,8 @@
       "sha256": "89188e53e5fabf6486a13d880d42013d720fc25982f076722281e1ea70a308fb"
     },
     "REVERSE_ENGINEERING.md": {
-      "size": 134122,
-      "sha256": "ba42195bf8d682cffebf2e1df6085b391b62a762d183ec5c56ec2349551940e2"
+      "size": 134412,
+      "sha256": "29e022bd6cb3bcbe4a58a0af6cbae573b72c9e47d3167335ac6613293fa25a16"
     },
     "STYLE.md": {
       "size": 57010,
@@ -6262,8 +6262,8 @@
       "sha256": "2a81b21c5620247e1ba2a3e144067e00ccf095f618692ed2541c10e8e761633b"
     },
     "docs/README.md": {
-      "size": 63593,
-      "sha256": "e4956eb77a8bee1037de98b59f028f6836baf1771fe0f83f2c56eee1bee619b3"
+      "size": 63861,
+      "sha256": "0c928dd6134fc932f81eef72ef8c0d9a1c5805e8b7d7876620fbed4d0176b854"
     },
     "docs/REVERSE_ENGINEERING_RULES.md": {
       "size": 17815,
@@ -7046,8 +7046,8 @@
       "sha256": "ef8b0c33d2711590ef2e7b14cfa76ee0ef0a7cbf07cf0abf479e695ef103e266"
     },
     "docs/research/typing_73_browser_sprite99.md": {
-      "size": 2886,
-      "sha256": "f5c13bcea3853d0139e56911590ae9129aad304c152ec2753919ce11cb58a8ce"
+      "size": 3527,
+      "sha256": "c6bf1f6a6252b8a0c58b87b15609f7f280c5a8685cbdf9baab7eb014a58e00d6"
     },
     "docs/research/typing_73_browser_sprite99_verify.md": {
       "size": 3224,
@@ -9874,8 +9874,8 @@
       "sha256": "33667e040fae80281de7caf9811b06ec6f76054aa9b9b78d59618bcdded6aa63"
     },
     "gfx/browser/start_choice.asm": {
-      "size": 11509,
-      "sha256": "6b38d662ded2d841f4e985d9e4ef5de3b27d638384a38082398a22f558d3c6e3"
+      "size": 11557,
+      "sha256": "2df711d27d8115ea3290733d4b519a6fdeb2bf30cc6f7dab59a375ea0802d3f9"
     },
     "gfx/browser/start_choice/browser_start_bottom_attr_selected.attrmap": {
       "size": 30,

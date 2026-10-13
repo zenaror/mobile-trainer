@@ -420,3 +420,5 @@ The mechanical6A:72A0 frame-table alias in research/naming2_neutral_help.md reus
 
 
 The loader10/bank42 audit in research/assets_pokemon_frames_and_name_limits.md records the bounded descriptor selection, conditional LCDC inheritance, twenty canvas availability subsets and exact13632-byte bank42 source inventory. The ten editing-view omissions and name/frame associations remain open; raw bytes and sheet padding are kept distinct from missing resources and recovered graphic meaning.
+
+The first73:5E60 frame-table alias in research/typing_73_browser_sprite99.md reuses blank line159 and retains the Data alias and230-line owner. This separate mechanical unit does not alter the initial65-row ledger, its confidence levels or historical runtime bounds.
