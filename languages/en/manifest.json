@@ -3,8 +3,8 @@
   "language": "en",
   "base_commit": "ef41bff1fb24f2239661c230a48500f92bff4559",
   "english_commit": "d0ef9a448d078e6697e2a226ba0f5eab42c16409",
-  "expected_ROM": "824305546e27f489c16c189876d7100ab3b701f7cd16c6977dc81c1d13b52665",
-  "global_checksum": "BFCD",
+  "expected_ROM": "1f1c28855ef560e9da4b2f2a3d4d8d9fc74162dff51381f9efc562025c9023a1",
+  "global_checksum": "E0FC",
   "expected_symbols_DEBUG0": {
     "labels": 15584,
     "constants": 51
@@ -2896,6 +2896,12 @@
       "bytes": 349,
       "payload_path": "languages/en/gfx/settings/screens_bank4a/tiles_6d20.png"
     },
+    "gfx/settings/screens_bank4b.asm": {
+      "base_sha256": "848179f44c3616f7d213cb29489038f813d2bb23fed136d288b596fab2eecba2",
+      "payload_sha256": "736151c88e62b96051b701a775026d5acfcc0048d7727672e4318d2113a3af22",
+      "bytes": 11834,
+      "payload_path": "languages/en/gfx/settings/screens_bank4b.asm"
+    },
     "gfx/settings/screens_bank4b/settings_phone_confirm_screen_4b_73f0.screen.png": {
       "base_sha256": "ed7242c7c227f69cc5f68f1ce24652d4c4ed8c028913b4713eed7440ff4dfe56",
       "payload_sha256": "586bda52faf94d72447b0a9db1b0ecf696da5749eba9a87fbb47ab7a5530afe8",
@@ -3378,7 +3384,7 @@
     },
     "home/header.asm": {
       "base_sha256": "5fda60c901ace35b75aa897a2ef5d6d3fb7846cbbee624f14fe6cdf3ca647ebd",
-      "payload_sha256": "86127a010d83a03283fbe54e47130d49340a09744ba10cd22b025c014226cbf7",
+      "payload_sha256": "bf7e379f5b1c33ef8b8be27b8c22d779d70fc50339a5edcea783d57a71bbd795",
       "bytes": 3145,
       "payload_path": "languages/en/home/header.asm"
     }
@@ -6274,8 +6280,8 @@
       "sha256": "d519fd3d8c383f9e09b34a7cf00816ad6f628fac22e3a3c62eef2ae46fde9e55"
     },
     "docs/TRANSLATION.md": {
-      "size": 47175,
-      "sha256": "b0e26d146c71c3a5f548c25b31f706a06377630f4cba36e38847aa96213a304e"
+      "size": 50097,
+      "sha256": "0b6f28641a0a107af397b597ea15986e7183fc822b93deaf4af48813f83ec5d0"
     },
     "docs/research/assets/browser_frame_records47.png": {
       "size": 4853,
@@ -20352,8 +20358,8 @@
       "sha256": "9ed64719c7a4ec6a3321ff9ca49cb94ba480143e69dee504994ccdece0917508"
     },
     "docs/LANGUAGE_BUILDS.md": {
-      "size": 3605,
-      "sha256": "cfc5fabd4cf316993256615d117ebb30ebe7e102c148996d1be7c49bcc895316"
+      "size": 4520,
+      "sha256": "eeadb88dd1a23a2070405528ef666102224ebeadfbd76153aba3a1dc0aebdcf6"
     },
     "tools/apply_renames.py": {
       "size": 32156,
@@ -20392,6 +20398,6 @@
       "sha256": "e389cc2b272e63d2c2d38bb24130e8874f7a46ad17156fe4678c11a89d1ce81a"
     }
   },
-  "overrides_count": 562,
+  "overrides_count": 563,
   "fallback_count": 4238
 }
