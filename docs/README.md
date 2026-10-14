@@ -13,6 +13,23 @@ Evidence lives in these places, from the source outwards:
 | `config/symbols/*.tsv`, `config/regions/*.tsv`, `config/ram/*.tsv`, `config/xrefs.tsv` | frozen per-symbol / per-region evidence text (bootstrap tables, `config/README.md`) |
 | `analysis/`, `traces/` | machine-readable analysis output and emulator coverage (dynamic evidence) |
 
+## Project responsibilities
+
+The common project base maps to the existing RGBDS organization below. Sources stay at the repository root to preserve bank, include and linker relationships; a `src/` directory is not required. This specialization follows the OMM common-base organization rule (`e5a27e0e-7b46-455f-a84e-60925116bad9`); shared rules remain in OMM rather than being copied into this repository.
+
+| responsibility | canonical location |
+|---|---|
+| Agent entry and local restrictions | [`AGENTS.md`](../AGENTS.md); OMM scope `mobile-trainer`, common role `project-base` |
+| Purpose, installation and build | [`README.md`](../README.md), [`INSTALL.md`](../INSTALL.md) |
+| Maintained code and layout | `home/`, `engine/`, `data/`, `gfx/`, `audio/`, `lib/`, `ram/`, `constants/` and `layout.link`; directory map in [`README.md`](../README.md#directory-layout) |
+| Architecture, formats and decisions | [`STYLE.md`](../STYLE.md), [`ROM_INFO.md`](ROM_INFO.md), `research/` notes indexed below; historical layout rationale in [`analysis/layout/README.md`](../analysis/layout/README.md) |
+| Status, open questions and continuity | [`REVERSE_ENGINEERING.md`](../REVERSE_ENGINEERING.md) and topic notes; operational handoff in OMM, without a second repository roadmap |
+| Validation and reproducible tools | `Makefile` and `tools/`; [`README.md`](../README.md#how-to-verify) documents the existing commands and limits |
+| Language overlays | `languages/en/`; [`LANGUAGE_BUILDS.md`](LANGUAGE_BUILDS.md) and [`TRANSLATION.md`](TRANSLATION.md); default `make` retains the Japanese reconstruction |
+| Cleanup and evidence retention | [`AGENTS.md`](../AGENTS.md#cleanup-e-retenção); preserve unique evidence and reference artifacts before any scoped cleanup |
+
+Only this repository's maintained tree is covered by this map. Upstream projects and reference copies are evidence, not trees to reorganize. Repository code, documents and measured build results decide technical claims; OMM supplies shared guidance and continuity. No client-specific adapter directory is required.
+
 ## Status of the documents
 
 * **reference (current)**: still describes the ROM or the source as it is.
