@@ -1259,8 +1259,8 @@ Mail_ParseMultipart:: ; 0F:46FE
 	; [HYPOTHESIS] 10 insn (ld hl,$D003 ; ld a,[hli] ; ld [$D000],a ; ldh [$FF8C],a ; ld [$4000],a ;
 	; call $4A7E ; and a ; jr z,$47CF ; xor a ; ld [$D016],a) flowing straight into the PROBABLE
 	; code at 47BB; call target 4A7E is called elsewhere (0F:46D8) and the jr target is a valid
-	; start; it directly follows the unconditional jr $47CF at 47A3, so it must be a
-	; branch/jump-table target that was not found; entry unproven
+	; start; JR47A3->47CF bypasses47A5 sequentially; independent entry remains unproved;
+	; preceding termination alone does not imply a missing branch/jump-table caller
 	ld hl, wMail_Work + $03
 	ld a, [hli]
 	ld [wMail_InputBank], a

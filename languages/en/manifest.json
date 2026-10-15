@@ -3422,8 +3422,8 @@
       "sha256": "37a6751a209c8d25e51cf919800d769d1e50de38e3cad345027115d046b54567"
     },
     "REVERSE_ENGINEERING.md": {
-      "size": 141175,
-      "sha256": "63fb73ba39e4182259e7c38a155c5cbaf32fc1140217f82b1aa2fc913f79938e"
+      "size": 141815,
+      "sha256": "a7621be8dd83211f31c9b0923774160ef485ec95f86f3072af03a702d188d77b"
     },
     "STYLE.md": {
       "size": 57010,
@@ -6086,8 +6086,8 @@
       "sha256": "e7ed85b3cc66b2c81ea7de52858536588a22a5dffecac6d41ee2a7e4a894e7ba"
     },
     "data/fonts/jis12x12_rows_25_33.asm": {
-      "size": 1345,
-      "sha256": "64cd545ffc41b1b1d1b90d714c661d2989a069b1f5af23d0bc6bf8d7f80473bf"
+      "size": 1326,
+      "sha256": "0bf5ec80a80fdad8242ba980b814cda65f5b19e43766aa7640a434449ca974dc"
     },
     "data/fonts/jis12x12_rows_25_33.png": {
       "size": 17836,
@@ -6346,8 +6346,8 @@
       "sha256": "7600dcdfa06fa703ad9ca1a8e41b9bd57ea49a549fcb84086b2311501cd117a5"
     },
     "docs/research/classify_g6.md": {
-      "size": 20559,
-      "sha256": "d4af6463c8f20771b370adc98cc7fd8a2ff491eceaf0ef6ff10b580be4189cfe"
+      "size": 21999,
+      "sha256": "9bfecd59abb8d15699153cd2fd9c2802633dc5fbdc69261e48aaa9d10ea56a63"
     },
     "docs/research/code_map.md": {
       "size": 25179,
@@ -6482,8 +6482,8 @@
       "sha256": "5e19167a817686b9eeaa1301123b4544bba72fa1e19d168aa4c32d92632205af"
     },
     "docs/research/naming2_neutral_code.md": {
-      "size": 27423,
-      "sha256": "8dc4db3415a805f626825c9cba189576b82be0c74b7dc00fefa2b362605aa8d9"
+      "size": 29068,
+      "sha256": "ea974de47a01273f0d8f26703a308318125c71d28331da6c43f88dd367b92752"
     },
     "docs/research/naming2_neutral_gfx.md": {
       "size": 3733,
@@ -6582,8 +6582,8 @@
       "sha256": "38413e9282cb2def15a05df662099daa84b39798e98c92ed0c058ee4182f7701"
     },
     "docs/research/naming2_verify_fn4.md": {
-      "size": 34815,
-      "sha256": "ffae031f6b514e02a2ef687678a5ccb5bd0a5abc244ce83101d498d55a7612fb"
+      "size": 55392,
+      "sha256": "b39333575b8d8a6d48542c4cf6ad90e16fef756a11e789b381cc356349485b5f"
     },
     "docs/research/naming2_verify_g1_home.md": {
       "size": 18202,
@@ -6782,8 +6782,8 @@
       "sha256": "96544ebd69c9606dd14a0aceea8a94150b15fb20174f15d605a3524d54c8840e"
     },
     "docs/research/naming_g8.md": {
-      "size": 77769,
-      "sha256": "020ce0543963f160a34b52c7b82ff5db42232a5a59e826d159514960323d84a4"
+      "size": 80594,
+      "sha256": "ef13004556eafb0a8ed11d613e66eed7363a34618b2a543ff34e8bcde89ccff8"
     },
     "docs/research/naming_keyboard_55_lookup.md": {
       "size": 7395,
@@ -7230,8 +7230,8 @@
       "sha256": "d4aa95f840a6e493b86efc2a92c4411aa99a3a48d3be06918350c7a08c55b36c"
     },
     "engine/browser/page_list.asm": {
-      "size": 49066,
-      "sha256": "b4441b029e9418db8578d721047bb033bc21b6705919874a718cc1c80b990346"
+      "size": 49064,
+      "sha256": "215c4cd1d54bb3c4a3d62e1882a90a827ed7913b06f9edd5ca0e6f2471eec8bb"
     },
     "engine/browser/page_loader.asm": {
       "size": 20983,
@@ -7374,12 +7374,12 @@
       "sha256": "82d0731f711ee0c53a93df8bc0e91d9cb8b1cdbcbbdc81c7f59103b504b483de"
     },
     "engine/html/link_tables.asm": {
-      "size": 8616,
-      "sha256": "f5704f5eae2897098871692d9f725408485a098fce95dfe59fce515baf6dd9bc"
+      "size": 8631,
+      "sha256": "2e568950ca5e4a704a78957abcfe109c5d3d10529a4f2314ecd2a3c2e8f8ecb8"
     },
     "engine/html/parser.asm": {
-      "size": 10511,
-      "sha256": "2ea7d7c30b363bfb32c5762d2f3a7ffff0a94c894c2c8e99419445ad5176c622"
+      "size": 10552,
+      "sha256": "7ce37a9a41147ce9517d6a5cfde2c59917768887ca37096b353ea0092b6dca14"
     },
     "engine/html/tags.asm": {
       "size": 38122,
@@ -7474,12 +7474,12 @@
       "sha256": "b09143a3b5cb2c374068bccbd0934d9add65efde739e4661dff57c88bb0a417f"
     },
     "engine/mail_server/delete_flows.asm": {
-      "size": 34743,
-      "sha256": "bb8bf3a0740c3036d8f129525ddb57e1940fc9bbb4f83801a95509366cbffb70"
+      "size": 34830,
+      "sha256": "8c1bdfc155ff8867788e6706ad463015fbaf355e847a096c74633187c364ff73"
     },
     "engine/mail_server/delete_hidden.asm": {
-      "size": 39476,
-      "sha256": "e032e184aff6ab27e8d28acd1a668a102403df2e64f83d6c22567d17d3fddf46"
+      "size": 39523,
+      "sha256": "012e52ace473ff23c30c22cb8d18044a2f0b3efeac460aa61c63c1974f5cce25"
     },
     "engine/mail_server/delete_menu.asm": {
       "size": 23455,
@@ -7498,8 +7498,8 @@
       "sha256": "ff7aa6b81d26c968d172eda60f12f2e07d348e62d01a1eb69e23c25659e5f68c"
     },
     "engine/mail_server/tidy.asm": {
-      "size": 27162,
-      "sha256": "082f704078d8be22fcd9de82071028bf451b635acc129aad2e37a35aa6e451a4"
+      "size": 27209,
+      "sha256": "70e5d05eb907ed7ac82d7a12aef31af4c85dfe23ad06c40254302a1ad38755b3"
     },
     "engine/mail_server/tidy_screen.asm": {
       "size": 31000,
@@ -7510,8 +7510,8 @@
       "sha256": "496f1360e09ec1224610d11cad70b4ee8a11a2c1902516a69867b67b468cd882"
     },
     "engine/main/navigation.asm": {
-      "size": 9543,
-      "sha256": "0c0e5e0e38ad291404a3c0234c61e4783446fb3cb372b90a469eef8365e2060b"
+      "size": 9561,
+      "sha256": "999aaf5fc5f0fdc7b312c292d9f3c9bf6b463554be67ca16ad76baa965fe6915"
     },
     "engine/menus/mail_menu.asm": {
       "size": 12745,
@@ -7554,12 +7554,12 @@
       "sha256": "9f55d63265f2a258fe6566b7f3700f7bb14449abc6f47a71c76ce52de46405bf"
     },
     "engine/mobile/text_truncate.asm": {
-      "size": 2701,
-      "sha256": "947bfafbb4dcc40877bda304542fe36e0fc0cbd26e87b47d375a491ac5065258"
+      "size": 2542,
+      "sha256": "52b45ec95be7d73fc3e2d9b6c23f369842a43f982b8ff90cc8f7f4d81b17e26f"
     },
     "engine/profile/profile_editor.asm": {
       "size": 44202,
-      "sha256": "82047554841f2fb348ae5aa3fbbf7733cd1ce91447e0b73fccf85131cecfcf01"
+      "sha256": "e33f9cbfce0a1b9e01b0b047abb581b8e3d420e040b2415230e9fbe9d156597a"
     },
     "engine/settings/adapter_check.asm": {
       "size": 4360,
@@ -15118,8 +15118,8 @@
       "sha256": "3c8116c23fd12ba7454fc70731b6a3260a49b5e3e0bdaf2afe11859eb6325cf1"
     },
     "lib/mobile/mail.asm": {
-      "size": 93489,
-      "sha256": "8fe9777fc6aee2945df2fec0f476f17d427342fcefbbf663c7df5b03f3a4bf35"
+      "size": 93511,
+      "sha256": "8cc17d5b484b8f4ab48e6820c15ecc0a312cd65b743012fdae67ddc7e555dbfe"
     },
     "lib/mobile/main.asm": {
       "size": 214527,

@@ -295,7 +295,7 @@ Nav_MobileSettings_UsageFee:: ; 7C:7D82
 	jp Nav_MobileSettingsLoop
 
 	; [HYPOTHESIS] ld a,$00 falling into the raw far-call site at 7D8D (PROBABLE); the previous
-	; region ends with jp $7D57 so no path enters here; no reference found
+	; region ends with JP7D57, so no sequential path enters here; independent entry unproved
 	ld a, $00
 InitStep70_EntryAThen1Then2_Jump7D82:: ; 7C:7D8D [PROBABLE] operation; entry/purpose HYPOTHESIS
 Function_7C_7D8D:: ; 7C:7D8D

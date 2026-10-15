@@ -97,8 +97,8 @@ Text_TruncateSjis:: ; 54:4C47
 	farcall CopyBytes
 	ret
 
-; ---- data $4CAD-$4CB0 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-; kept as raw bytes: the bytes read as Shift-JIS/ASCII text, but the header does not say `text` (executed-read data of unknown content class, or unclassified), so not provably a string
+; ---- text $4CAD-$4CB0 (3 bytes) [CONFIRMED] Shift-JIS ellipsis $81 $63 plus NUL.
+; Text_TruncateSjis loads String_Text_Ellipsis for CopyString or CopyBytes (BC=$0002).
 
 String_Text_Ellipsis:: ; 54:4CAD
 Data_54_4CAD::

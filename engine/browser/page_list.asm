@@ -1573,7 +1573,7 @@ String_24_4BC3:: ; 24:4BC3
 	db "い　　　", 0
 POPC
 
-; ---- data $4BCC-$4BCD (1 bytes) [HYPOTHESIS] UNCLASSIFIED 10 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) [range trimmed from 4BC3-4BCD by classify_g2]
+; ---- data $4BCC-$4BCD (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 byte: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) [range trimmed from 4BC3-4BCD by classify_g2]
 
 Data_24_4BCC:: ; 24:4BCC
 	db $C9

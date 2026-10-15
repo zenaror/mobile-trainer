@@ -1281,8 +1281,8 @@ MailSrvDelHidden_DeleteAll_Confirm:: ; 22:4B2F
 	jp z, .l4BB7
 	jp .l4BD1
 
-	; [HYPOTHESIS] jr $4C2B (18 74) after the unconditional 'jp $4BD1' at 22:4BB2: unreachable by
-	; flow and never referenced; target 4C2B is a code instruction start
+	; [HYPOTHESIS] JR4BB5->4C2B (1874) is bypassed sequentially by JP4BB2->4BD1;
+	; target is a code start; independent entry remains unproved, not universally unreachable
 	jr .l4C2B
 
 .l4BB7 ; 22:4BB7
@@ -1470,8 +1470,8 @@ MailSrvDelHidden_DeleteCompletely_Confirm:: ; 22:4C7A
 	jp z, .l4D02
 	jp .l4D1C
 
-	; [HYPOTHESIS] jr $4D76 (18 74) after the unconditional 'jp $4D1C' at 22:4CFD: unreachable, same
-	; pattern as 4BB5; target is a code instruction start
+	; [HYPOTHESIS] JR4D00->4D76 (1874) is bypassed sequentially by JP4CFD->4D1C;
+	; target is a code start; independent entry remains unproved, not universally unreachable
 	jr .l4D76
 
 .l4D02 ; 22:4D02
@@ -1651,8 +1651,8 @@ MailSrvDelHidden_CheckAndDelete:: ; 22:4DAD
 	jp z, .l4E43
 	jp .l4E5D
 
-	; [HYPOTHESIS] jr $4EB9 (18 76) after the unconditional 'jp $4E5D': unreachable, same pattern as
-	; 4BB5; target is a code instruction start
+	; [HYPOTHESIS] JR4E41->4EB9 (1876) is bypassed sequentially by JP4E3E->4E5D;
+	; target is a code start; independent entry remains unproved, not universally unreachable
 	jr .l4EB9
 
 .l4E43 ; 22:4E43

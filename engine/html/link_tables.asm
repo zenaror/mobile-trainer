@@ -171,8 +171,8 @@ Function_74_5AF8::
 	; 5B38-5B3E by apply_coverage --split
 	jr .l5B3F
 
-	; [HYPOTHESIS] single 'pop bc' (c1) after the unconditional 'jr $5B3F' at 74:5B3C; nothing
-	; targets 5B3E (tgt scan), so unreachable; falls into 5B3F (target of 3 jr)
+	; [HYPOTHESIS] POP BC5B3E (C1) is bypassed by JR5B3C->5B3F; independent entry unproved;
+	; hypothetical POP advances SP2 before tail5B3F; valid frame required, not proved unreachable
 	pop bc
 
 .l5B3F ; 74:5B3F

@@ -361,9 +361,9 @@ Html_ParseSource_Entity:: ; 74:4392
 	ld h, a
 	jp Html_ParseSource_Loop
 
-	; [HYPOTHESIS] single 'pop hl' (e1) after the unconditional 'jp $4307' at 74:43C0; no
-	; branch/pointer targets 43C3 (tgt scan of all code regions + word scan), so unreachable; falls
-	; into the executed 43C4 (target of 13 jz/jp)
+	; [HYPOTHESIS] POP HL43C3 (E1) follows JP43C0->4307, which bypasses it sequentially;
+	; prior finite scans did not establish an entry, not universal unreachability; hypothetical POP
+	; falls into43C4, whose tail/frame requirements still apply (13 existing jz/jp targets)
 	pop hl
 
 Html_ParseSource_End:: ; 74:43C4

@@ -90,9 +90,9 @@ MailSrvDel_DeleteAll_Confirm:: ; 23:4A1E
 	jp z, .l4AA6
 	jp .l4AC0
 
-	; [HYPOTHESIS] unreachable jr $4B1A (target is an instruction start of the code region
-	; 4AA6-4B4A) after the jp at 4AA1; twin of 4BE5-4BE7 (jr $4C5D) in the parallel routine; nothing
-	; branches here
+	; [HYPOTHESIS] JR4AA4->4B1A (1874) has a code target; JP4AA1->4AC0 bypasses it sequentially.
+	; Variant4BE5->4C5D uses displacement76 instead of74; this is not an exact byte twin.
+	; Independent entry/frame remains unproved; the preceding JP does not prove unreachability.
 	jr .l4B1A
 
 .l4AA6 ; 23:4AA6
@@ -272,7 +272,7 @@ Function_23_4B51::
 	jp z, .l4BE7
 	jp .l4C01
 
-	; [HYPOTHESIS] unreachable jr $4C5D after the jp at 4BE2, twin of 4AA4-4AA6
+	; [HYPOTHESIS] JR4BE5->4C5D (1876) is bypassed by JP4BE2->4C01; independent entry unproved.
 	jr .l4C5D
 
 .l4BE7 ; 23:4BE7

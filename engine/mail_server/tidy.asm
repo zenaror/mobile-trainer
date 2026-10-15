@@ -1205,9 +1205,9 @@ Label_2E_4298::
 .l4887 ; 2E:4887
 	jp MailServerMgr_Run_MailLoop
 
-	; [HYPOTHESIS] function prologue push af/bc/de/hl right after the unconditional jp $4298 at 4887
-	; and directly before the far-call site region at 488E; the matching pop sequence was not
-	; proven, no caller/pointer found, entry unproven
+	; [HYPOTHESIS] Entry/purpose at488A unproved; PUSH AF/BC/DE/HL precedes farcall488E, after JP4887.
+	; [PROBABLE] Balanced callees: POP HL/DE/BC/AF48E9..EC and RET48ED restore four local saves.
+	; Alternate48EE..F4 restores four then pops three external words; RET48F7 needs that frame.
 	push af
 	push bc
 	push de

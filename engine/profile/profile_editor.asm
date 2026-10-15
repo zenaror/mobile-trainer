@@ -325,7 +325,7 @@ Label_2A_552A::
 	; [HYPOTHESIS] no branch/call/pointer to any address in $56CB-$56EC was found (tgt scan of all
 	; code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen
 	; code; linear decode is legal and continues exactly into the next region: call chain (call
-	; $6257, 9 x call $577F, jp $54FD, call $62C5): all call targets are known code; directly after
+	; $6257, 8 x call $577F, jp $54FD, call $62C5): all call targets are known code; directly after
 	; the unconditional 'jp $54FD' at 2A:56C8
 	call Profile_LoadAndDraw
 	call Profile_MoveCursorRight
