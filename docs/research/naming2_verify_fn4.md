@@ -71,7 +71,7 @@ Yes for all nine.  Every body is the single byte `$C9` (`ret`), touches no flag 
    Ten of the 13 sites follow `FillBytes $C0D4, $FC`.  The `checksum3.asm` header says "patched-out 48BB hook", but "(its first byte was replaced by this ret)" contradicts the bytes:
    `48BC` starts with its own `cd e1 48`, the same as `Sram_VerifyChecksum3`, so the `ret` is an extra byte before it.  Nothing shows what was patched.
 6. `Function_26_5343`: **UPHELD** (CONFIRMED).  `26:5343 = c9`.  Only caller: `call` at `26:58E0` (`mail_session_screen.asm:1153`), after four pushes at the top of
-   `MailSession_UpdateTimerDisplay`.  171,411 hits / 22 scenarios, equal to the callee.  The 56 bytes after it (`5344-537B`) are a separate, complete, unreferenced function.
+   `MailSession_UpdateTimerDisplay`.  171,411 hits / 22 scenarios, equal to the callee.  Correction dated 2026-10-15: the earlier description of the following 56 bytes (`5344-537B`) as a "separate, complete, unreferenced function" overstated the evidence. They are now a PROBABLE code fragment; an independent entry and its intended role remain HYPOTHESIS. See the dated storage analysis below.
 7. `Function_2E_4EB1`: **UPHELD** (CONFIRMED).  `2E:4EB1 = c9`.  Raw callers: `2E:4E02` (29 runs), `4E39` (5), `4E74` (0), `4EAB` (0), each `di ; ldh a, [rLCDC] ; call $082C
    (Gfx_UploadBgMapBuffers) ; ei ; call $4EB1`.  34 hits / 7 scenarios, equal to the callee.
 8. `Function_7F_61E6`: **CORRECTED** (evidence; name and PROBABLE kept).  `7F:61E6 = c9`.  Only caller: `call nz` at `7F:5ADB` (`page_list_prototype.asm:1852`), the same flag-less pattern
@@ -421,3 +421,61 @@ As correções de comentários qualificam bypass sequencial, contagens e frames;
 |01–24 V2|`f2de4e2d5cc8940b13aae89e6210d61c88ed3878a8f29aeb22ec02c72a13b08b`|`0676abad1fd94994fed56cc428fa9fc3687529bb65a71a502187a89f9c98c43e`|`4c3f6ca2e547355116e1e38fa72299dab4487d368c3b129aa4ffa691faaff4b4`|
 |25–48|`a1fc7b9db1d89b42b9e5733ca39883acfc522c668f36a4fe32a8bf8dc36b74e5`|`c671cd8f184a1ec977515778e67ea10faa8bb21d03918bc562df7dc40e159772`|`4f09aa737047bb5882df1d91afdcfebbeab648da3e9e44b27cdf73ed2848040c`|
 |49–72 V3|`05f54a6114bd558fceb07e37613ee9bd95c53ff78da83be49e7fad388014fb0f`|`670cf6a3b11253cab869daa6f6fa7b4fff912a444fa347509ea3950fc1eb19a9`|`a043c98fc70808bab1d8062f49e788ec20a1cd47c125741ace90568caeb39a74`|
+
+
+### 2026-10-15: positive classification of the 26:5344 fragment
+
+This dated correction updates the earlier storage snapshot above: **31 intervals / 119 bytes** became
+**30 intervals / 63 bytes** of remaining UNCLASSIFIED storage after classifying only `26:5344-537C`
+(56 bytes) as **PROBABLE code fragment**. The other 30 spans and their confidence levels are unchanged.
+No new independent function entry, callable function name or execution result was established.
+`Data_26_5344` keeps its historical global address label. The inactive `Function_26_5343` alias had no
+active assembly reference and was removed; `Stub_Nop_26_5343` remains the known single-RET no-op.
+The call at `26:58E0` targets that RET at `5343`, so it returns before this fragment.
+
+The positive classification evidence is a concrete buffer relationship, in addition to the internally
+consistent 37-instruction body. Under ordinary CGB mappings, the fragment selects WRAM bank 7 at `26:535D-5363`; the
+loop at `26:5363-536E` addresses `$D160-$D19F`, writing `$00..$3F`. This is `wScreenTileMap+$160`: two complete
+32-byte rows, 11 and 12. The live `MailSession_InitScreen` sequence at `26:52D8-52E6` selects VRAM
+bank 0 and fills `$9960-$999F` with the same 64-byte sequence. The screen-map buffer starts at
+WRAM7 `$D000`, corresponding to VRAM `$9800`; both ranges therefore have offset `$160`.
+This matching address/data relationship supports **PROBABLE code content**, not an independent entry
+or author intent. A disabled helper, test routine or other original role remains **HYPOTHESIS**.
+
+The fragment's static, conditional contracts are:
+
+- Entry `5344` pushes AF/BC/DE/HL, samples the value read from `rSVBK` into E and sets D to `$32`
+  (50 iterations). `.repeatFills` is at `534D`, `.fillTileFF` at `5357` and `.fillScreenRows` at `5369`.
+- Each iteration issues 16 `$FF` stores to VRAM bank 1 `$9010-$901F`, then selects WRAM bank 7 and
+  issues 64 ascending stores `$00..$3F` to `$D160-$D19F`. The loop count is 50 iterations, not frames:
+  there is no VBlank wait, DI or LCD disable. Totals are 800 VRAM store attempts and 3,200 WRAM stores
+  if entered and completed with stable mapping and no interfering execution. VRAM acceptance is
+  conditional on writable VRAM; this static analysis is not evidence of hardware-accepted fills.
+- The outer save of DE is paired on every pass. A valid, non-overlapping stack requires at most
+  10 additional bytes: eight for AF/BC/DE/HL and two for the per-iteration DE save. These four register
+  pairs are restored before RET only if that stack remains physically bank-invariant as SVBK
+  changes (for example, WRAM0/HRAM). Non-overlap alone is insufficient: saves at WRAM1
+  D7F6..D7FF would be read back from WRAM7 after selection7, corrupting the frame.
+- The sampled `rSVBK` read is written to both `hWRAMBank` and `rSVBK` at exit. The original shadow
+  is preserved only if it agreed with that sampled read; this is not an independent shadow save.
+  `rVBK` remains 1 and `hVRAMBank` is not updated, so an earlier different VRAM shadow stays stale. These effects assume ordinary IO, stable ROM bank 26 and no IRQ or other execution
+  that changes the relevant mapping/stack during the fragment.
+- The three relative branches are `535B -> 5357` (`FA`), `536C -> 5369` (`FB`) and
+  `5370 -> 534D` (`DB`). They stay inside the 56-byte fragment, ending in RET at `537B`.
+
+The original 56 bytes are:
+
+```text
+F5C5D5E5F0705F1632D53E01E04F21109006103EFF220520FA3E07E08DE0702160D10640AF223C0520FBD11520DB7BE08DE070E1D1C1F1C9
+```
+
+Input identity: accepted private source snapshot corresponding to root revision
+`245961f64363a27e57c99b3fbad906bf8d400ca2`; original ROM SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. The bounded readset is pinned by
+`READSET.json` SHA-256 `4130c3f5da57d8e2a026b397d4f8cd3903ae2028b39828a8702b6799a933602e` and
+`MEASUREMENTS.json` SHA-256 `b917ed674218be088b39b46769050c265101986b81dc56781f4f146ac770c520` from the `mt-jp-raw31-remaining-20261015/DATA`
+analysis. The new proposal's DATA readset also records the two edited-file baselines and the hardware,
+HRAM and banked-RAM definitions used to resolve operands. Exact bytes, labels and source changes are
+available in that proposal's DATA reports. No build, gates, emulator, hardware, Git mutation, OMM
+write or English work was performed by this private proposal; reconstruction comparison remains a
+separate required integration check.

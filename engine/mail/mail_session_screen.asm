@@ -378,16 +378,60 @@ Function_26_5168::
 	ret
 
 Stub_Nop_26_5343:: ; 26:5343
-Function_26_5343::
+	; [CONFIRMED] Single RET called at 26:58E0 by MailSession_UpdateTimerDisplay; that call
+	; returns before Data_26_5344 and does not fall through into the following fragment.
 	ret
 
-; ---- data $5344-$537C (56 bytes) [HYPOTHESIS] UNCLASSIFIED 56 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) [g4: complete self-contained decode ending in ret with no caller/table/far-pointer reference found, so left unclassified]
-
 Data_26_5344:: ; 26:5344
-	db $F5, $C5, $D5, $E5, $F0, $70, $5F, $16, $32, $D5, $3E, $01, $E0, $4F, $21, $10
-	db $90, $06, $10, $3E, $FF, $22, $05, $20, $FA, $3E, $07, $E0, $8D, $E0, $70, $21
-	db $60, $D1, $06, $40, $AF, $22, $3C, $05, $20, $FB, $D1, $15, $20, $DB, $7B, $E0
-	db $8D, $E0, $70, $E1, $D1, $C1, $F1, $C9
+	; [PROBABLE] Code fragment: the WRAM7 $D160-$D19F ascending stores correspond to the
+	; live InitScreen VRAM0 $9960-$999F fill at 26:52D8-52E6 (screen-map offset $160).
+	; Entry and intended role remain HYPOTHESIS; the called RET at 26:5343 bypasses it.
+	; If entered, 50 iterations issue 16 $FF stores to VRAM1 $9010-$901F and 64 ascending
+	; $00-$3F stores to WRAM7 wScreenTileMap+$160. There is no DI, LCD disable or VBlank
+	; wait here: VRAM acceptance and uninterrupted mapping are preconditions, not observed facts.
+	; With a non-overlapping, physically bank-invariant stack, AF/BC/DE/HL restore; rSVBK
+	; is written to both hWRAMBank and rSVBK; an initially different shadow is not preserved.
+	; rVBK stays 1 without updating hVRAMBank. See naming2_verify_fn4.md (2026-10-15).
+	push af
+	push bc
+	push de
+	push hl
+	ldh a, [rSVBK]
+	ld e, a
+	ld d, $32
+.repeatFills ; 26:534D
+	push de
+	ld a, $01
+	ldh [rVBK], a
+	ld hl, $9010
+	ld b, $10
+.fillTileFF ; 26:5357
+	ld a, $FF
+	ld [hli], a
+	dec b
+	jr nz, .fillTileFF
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld hl, wScreenTileMap + $160
+	ld b, $40
+	xor a, a
+.fillScreenRows ; 26:5369
+	ld [hli], a
+	inc a
+	dec b
+	jr nz, .fillScreenRows
+	pop de
+	dec d
+	jr nz, .repeatFills
+	ld a, e
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	pop hl
+	pop de
+	pop bc
+	pop af
+	ret
 
 MailSession_DrawMailCounts:: ; 26:537C
 	; [CONFIRMED] 318 insn(s) reached by static flow only; seeds: exec x318; min discovery hops 5;

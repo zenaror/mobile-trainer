@@ -2528,7 +2528,7 @@ SoundDrv_UpdateChannel:: ; 04:4C14
 	jp SoundDrv_WriteChannelVolume
 
 SoundDrv_LoadSustainField:: ; 04:4DD3
-Function_04_4DD3::
+	; [CONFIRMED] A=[HL-5]&$F0; restore HL, BC=5; channel sustain nibble (audio_format section 13).
 	ld bc, $FFFB
 	add hl, bc
 	ld a, [hl]
@@ -2538,7 +2538,7 @@ Function_04_4DD3::
 	ret
 
 SoundDrv_ComputeTargetVolume:: ; 04:4DDF
-Function_04_4DDF::
+	; [CONFIRMED] Rounded track/note target -> [HL+$10], A; restore HL; audio_format section 13.
 	push hl
 	ld bc, $0006
 	add hl, bc
@@ -2562,7 +2562,7 @@ Function_04_4DDF::
 	ret
 
 SoundDrv_ComputeSustainVolume:: ; 04:4E04
-Function_04_4E04::
+	; [CONFIRMED] Two rounded sustain/note/track products -> [HL+$10], A; restore HL; section 13.
 	push hl
 	ld bc, $000C
 	add hl, bc
@@ -2592,7 +2592,7 @@ Function_04_4E04::
 	ret
 
 SoundDrv_WaveLevelChanged:: ; 04:4E34
-Function_04_4E34::
+	; [CONFIRMED] Wave level bits7-6 change sets update bit1; restore A, B=A; section 13 ABI.
 	ld b, a
 	ld a, [wSoundDrv_ChannelReg]
 	cp a, $1C

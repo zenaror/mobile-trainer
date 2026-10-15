@@ -431,3 +431,133 @@ The hash of the ROM changes, so work on a copy of the tree/branch and keep the r
   * Status words: `$B5`, `$C0`, `$C6`, `$C9`, `$CD`, note adjust bytes, instrument byte 1 and the `Param` entries were "CONFIRMED" from the interpreter's runs; they are PROBABLE now (demonstrated (synthetic)), by the rule at the top.  The wave level (NR32),
     the noise pitch (NR43) and the priority rule moved from "not simulated" / open to measured.
   * Names: `Label_04_4BEB` is `SoundDrv_ServiceChannelGate`, `Function_04_4E34` is `SoundDrv_WaveLevelChanged`, `SoundDrv_CmdRest` is `SoundDrv_CmdWait`; the effects carry `SoundSfx` instead of `SoundSong`.
+
+
+## 13. Contracts of four named envelope helpers (2026-10-15)
+
+These four routines already had the semantic names below. Their missing adjacent contract
+comments were a documentation gap, not four newly discovered functions. The four unused
+`Function_04_*` definitions are replaced by comments on their existing physical lines;
+the semantic definitions and every instruction row stay in place. This follows the current
+operator instruction to remove generic function aliases. The older alias-retention convention
+and historical naming tables do not require retaining these four active definitions.
+
+| Original neutral definition | Maintained name | Original extent | CPU starts |
+|---|---|---|---|
+| `Function_04_4DD3` | `SoundDrv_LoadSustainField` | 04:4DD3..4DDF | 7 |
+| `Function_04_4DDF` | `SoundDrv_ComputeTargetVolume` | 04:4DDF..4E04 | 21 |
+| `Function_04_4E04` | `SoundDrv_ComputeSustainVolume` | 04:4E04..4E34 | 27 |
+| `Function_04_4E34` | `SoundDrv_WaveLevelChanged` | 04:4E34..4E4B | 13 |
+
+**Evidence and limits.** These operation roles are **CONFIRMED** by their original instructions,
+their actual channel-update consumers and existing execution evidence. The current historical
+`analysis/coverage_union.tsv` entry rows4044/4051/4072/4099 record respectively474377,903228,
+903216 and2763107 instruction hits, each in67 scenarios. All seven/21/27 starts of the first
+three routines have the corresponding whole-path counts. Those finite observations do not
+show every byte value, every channel state, or arbitrary pointer/mapper inputs. General formulas
+and flag cases below are static contracts under the stated assumptions, not new runtime results.
+No new interpreter, mGBA, rendering or hardware test was run for this documentation change.
+
+Existing independent verification remains separately classified: [audio2_verify_dynamic.md](audio2_verify_dynamic.md)
+V1.2 reports the original-stream NRx2 values and synthetic volume/envelope sweeps; V1.4 reports
+the synthetic wave-level measurements. These establish the previously documented envelope roles
+in their admitted cases. The historical `audio2_renames.tsv` rows for LoadSustainField and
+WaveLevelChanged began as PROBABLE; V1.4 already superseded the latter's "wave not simulated"
+limitation. Here the LoadSustainField comment confirms the narrow nibble read and its zero test,
+with both actual callsites and complete existing instruction coverage; it does not promote
+unobserved instrument inputs or general hardware behavior.
+
+### Inputs, mapping and shared arithmetic
+
+All four entries require coherent ROM bank04 execution and a valid, nonaliasing CALL/RET stack.
+For the sound-driver interpretation, WRAM1 must already be mapped: D010/D011 hold the current
+track pointer, D015 the current channel register selector, and D019 the working update flags.
+None of these four routines selects/restores a bank, writes a mapper or APU register, validates
+a record pointer, or restores an earlier WRAM selection. `Bank4_SaveAndSelect`00:20EE selects
+ROM04 but does not select WRAM1; its guard state itself uses the mapped WRAM bank. Caller-side
+WRAM selection and coherent pointers remain requirements, not effects inherited from that stub.
+Ordinary records are channels Q=D220+n*18h (n0..3) and tracks T=D040+n*3Ch (n0..7).
+All address arithmetic is modulo65536. Stack overlap, live memory changes and IRQ interference
+are excluded from the register/flags contracts below.
+
+Write `hi(x)=(x & F0h)>>4` and `ceil16(p)=(p+15)>>4`. Original
+`SoundDrv_MulNibbles`04:502B..5044 first narrows C to `hi(C)`, takes the high nibble of B,
+then uses four shift/add stages to return A=`hi(Binput)*hi(Cinput)` (0..225).
+It preserves B, DE and HL, but **C becomes the numeric nibble0..15**, not its original
+byte and not a high-positioned F0h nibble. The low nibble of either multiplicand is ignored.
+In the callers, ADD0Fh followed by ANDF0h therefore rounds that product upward to a
+multiple of16 without overflow; the result is16*ceil16(product), in00h..F0h.
+
+### Sustain-field read at04:4DD3
+
+Input HL=P is the channel mirror address Q+11h at both callers04:4CF4 and04:4D2A.
+The read at4DD7 uses P-5=Q+0Ch, the copied instrument byte4, whose high nibble is the
+sustain field. The two callers test Z immediately to route a zero sustain field to the
+note-end path4D54. They do not use this helper as a computed scaled-volume result.
+
+Output A=`byte[P-5]&F0h`, HL=P, BC=0005h; DE is unchanged. Flags are from ANDF0h:
+Z iff A=0, N0,H1,C0. There is one data read and no data write; the balanced return
+consumes the ordinary caller return word. An arbitrary mapped P still describes that numeric
+read, but is not automatically an instrument/channel pointer.
+
+### Rounded target at04:4DDF
+
+Input HL=Q is the channel base. Let N=`byte[Q+6]` be the copied note-volume byte and
+V=`byte[T+2Fh]` the current track-volume output, where T is the little-endian word read from
+D010/D011. The helper computes `p=hi(V)*hi(N)`, returns A=`16*ceil16(p)`, and stores
+that same byte atQ+10h (the channel envelope target). It restores HL=Q; DE=FFF0h,
+B=V,C=hi(N). Only that channel field and the transient stack words are written.
+PUSHHL plus the nested multiplier CALL need at most four extra stack bytes beyond the
+helper-entry SP; both are balanced before the final RET.
+
+The unconditional caller04:4C73 prepares the attack target on note initialization;
+04:4CB3 is a conditional volume-update call. A coverage row for the latter's CALLNZ
+instruction reports visits to the instruction, not the number of taken calls. In particular,
+its204 visits in5 scenarios must not be presented as204 observed recomputations.
+
+### Twice-rounded sustain target at04:4E04
+
+Input HL=Q and T/V/N are as above; let S=`byte[Q+0Ch]` be instrument byte4.
+The first multiplier uses S,N. ADD0Fh4E12 gives `p1+15`, with `p1=hi(S)*hi(N)`;
+LDC,A4E14 does not itself mask that intermediate. The second multiplier explicitly
+narrows C again to `K=hi(p1+15)=ceil16(p1)`. It multiplies hi(V) by K, then
+ADD0Fh/ANDF0h gives A=`16*ceil16(hi(V)*K)`, stored atQ+10h. This is two rounded
+stages, not a single rounded three-factor product. Output HL=Q,DE=FFF0h,B=V,C=K
+(numeric0..15). Writes and maximum extra stack use match ComputeTargetVolume.
+The callers04:4CE4 and04:4D07 select this sustain target on the decay transition and
+conditionally on volume updates; the latter's6098511 CALLNZ instruction visits do not
+establish6098511 taken calls.
+
+For **both** target helpers, Z survives the final ANDF0h and means returned/stored A=0.
+N=0, but H/C come from the last ADDHL,DE (4E02 or4E32), **not** from that AND.
+With U=(Q+10h) mod65536 immediately before addingFFF0h, H is set iff
+`(U & 0FFFh)>=10h`, and C iff `U>=10h`. At the ordinary four channel bases above,
+H=C=1: F=B0h when A=0 and F=30h otherwise. For other pointers the formulas apply;
+neither helper preserves incoming flags or promises the AND instruction's C0 on return.
+
+### Wave-level change marking at04:4E34
+
+Input A=X is a proposed mirror byte and HL=P points to the previous mirror byte, normally
+Q+11h. Callers04:4CC8/4D1E/4D4D supply attack/decay/release steps and perform the mirror
+store themselves after the call. The helper saves X in B and reads selector R atD015.
+If R!=1Ch it returns without reading[HL] or writingD019. Otherwise it computes
+`delta=(X xor byte[P])&C0h`; only delta!=0 reads/modifies D019 to set bit1, preserving
+the other flag bits. This marks a volume update when wave output-level bits7-6 change;
+it does not write NR32 or update the mirror itself.
+
+Every path returns A=X,B=X, with C/DE/HL unchanged and no local stack save. Nonwave
+flags remain those of `CP1Ch` (Z0,N1,H iff the selector low nibble is belowCh,C iff R<1Ch).
+For wave R=1Ch, flags remain those of ANDC0h: Z iff delta=0,N0,H1,C0, even when the
+dirty-bit path loads a different A before restoring X. Thus nonwave NZ is not a returned
+boolean meaning "level changed". Existing coverage records447722 wave-path visits in66
+scenarios at4E3C/4E49, and93971 dirty-mark stores in66 scenarios at4E46; entry2763107
+does not mean that many changes. These are finite historical path observations.
+
+The only local symbol scope affected by removing these aliases is4E49:
+`Function_04_4E34.skip` becomes `SoundDrv_WaveLevelChanged.skip`. Its local branch stays
+`.skip` at4E3F and its address is unchanged. A scan of maintained ASM/inc code found no
+qualified reference to the old local symbol and no active operand use of any of these four
+neutral names; the four definitions were their only code occurrences. Historical research
+and metadata retain their old spellings as provenance. Reconstruction equivalence is not
+claimed by these static checks; the required make, original-ROM comparison and symbol check
+belong to the later independently reviewed integration.

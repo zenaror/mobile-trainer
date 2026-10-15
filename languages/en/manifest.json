@@ -3422,12 +3422,12 @@
       "sha256": "37a6751a209c8d25e51cf919800d769d1e50de38e3cad345027115d046b54567"
     },
     "REVERSE_ENGINEERING.md": {
-      "size": 145143,
-      "sha256": "374342c3748348c256235878875d3b44ccfcf1ef10703525b833578c98c9a74c"
+      "size": 146581,
+      "sha256": "e5066310d0c5dfabef0dd54c7d78943bcbaa112364f89a1d5b9b0dba5268362e"
     },
     "STYLE.md": {
-      "size": 57010,
-      "sha256": "36e3830e3410742d69c5768c57be7295857df93b2d6cb8845bb0c8f6e6a135a5"
+      "size": 57634,
+      "sha256": "85720ba0f319e6af09e7026292bf68a67b71f13224f7f9879ae2ac57ed0363f4"
     },
     "analysis/audio2_verify/bend_formula.py": {
       "size": 2074,
@@ -4359,7 +4359,7 @@
     },
     "analysis/naming2/ramop10_manual.tsv": {
       "size": 258655,
-      "sha256": "117fca96025c9625664706145aa6d8de7de5dfb85ca909dbd4533a26813d6699"
+      "sha256": "6453e3d0643dd4485951fc2f265084320a02b94ca91e74912fa259dc56772cfb"
     },
     "analysis/naming2/ramop10_respell.tsv": {
       "size": 26995,
@@ -4383,7 +4383,7 @@
     },
     "analysis/naming2/ramop9_manual.tsv": {
       "size": 64644,
-      "sha256": "4248a3e793c1cd1c17b07f82bced273855d7d598ed9c1dd3181bcee5b50f6330"
+      "sha256": "96e00b4cac2f1549c6b1e20d3da45d7bf90b92491d00398e6da377afb430af45"
     },
     "analysis/naming2/rawptr1_sites.tsv": {
       "size": 4659,
@@ -4894,8 +4894,8 @@
       "sha256": "4acea468adc6af945bb96561b44dbb5bb67f204850f9d63d38859c34bc53ea78"
     },
     "audio/engine.asm": {
-      "size": 58059,
-      "sha256": "7c7e294443983ca748bb3bb5e1545e01933e1c695ffc17c656a14c27f6c4753d"
+      "size": 58360,
+      "sha256": "ff658ac01126b64503a72dff4b927c3a5b6dff6f11296f707f7f75f674ebd877"
     },
     "audio/instruments.asm": {
       "size": 11375,
@@ -6318,8 +6318,8 @@
       "sha256": "c1a00732c8ef9bb667cea6c2b20b341165d74ffb9c61b0fd1719df54d50794a6"
     },
     "docs/research/audio_format.md": {
-      "size": 61547,
-      "sha256": "28804f8fe67ce36f5358d283a03af7292952944e66d7d489c3b09b1c039477f4"
+      "size": 70367,
+      "sha256": "b5a16c40fcaca2309d3e637632c0fa6cecb56ca6281e29aec7aa94c3c98da4bd"
     },
     "docs/research/bank_survey.md": {
       "size": 30922,
@@ -6586,8 +6586,8 @@
       "sha256": "38413e9282cb2def15a05df662099daa84b39798e98c92ed0c058ee4182f7701"
     },
     "docs/research/naming2_verify_fn4.md": {
-      "size": 55392,
-      "sha256": "b39333575b8d8a6d48542c4cf6ad90e16fef756a11e789b381cc356349485b5f"
+      "size": 60084,
+      "sha256": "27185e72c14bf60f7a1601b52e8a3b5d9aabdd75017d59c36bb5da897fa9b886"
     },
     "docs/research/naming2_verify_g1_home.md": {
       "size": 18202,
@@ -6946,8 +6946,8 @@
       "sha256": "d19d248c6c581c53c302c9839a0600f4f57c89af15d69b24bda02fbe45e9b964"
     },
     "docs/research/typing_2d_4e42_4e54_stack_scan.md": {
-      "size": 17849,
-      "sha256": "1a22b4047d91fe7ef8e94690a0eea7e7aebc9f63b5298e5c44a7b6383fd5c9dc"
+      "size": 21905,
+      "sha256": "056cf8e5841253bab55411e1f30f2f1ea9514960d1885309406bf1c26158360f"
     },
     "docs/research/typing_2d_verify_4e42_4e54_stack_scan.md": {
       "size": 9584,
@@ -7414,8 +7414,8 @@
       "sha256": "413a3b3e8ca9a22373f087e5ed9cde387797b91a2586811a859880bf82c375ec"
     },
     "engine/mail/body_editor.asm": {
-      "size": 63145,
-      "sha256": "8bd1c2cf635f6dd2055f0c5bf9a96944b70a6ab2b109a6e07844602a16072441"
+      "size": 63274,
+      "sha256": "aa9d7e0c3d2fcb2d736390128ec3967721c510cd4f392b852e921e69843be12b"
     },
     "engine/mail/body_view.asm": {
       "size": 5900,
@@ -7434,8 +7434,8 @@
       "sha256": "fd1e480198ad3e1b22a04999019fcccdd854e6a02abbe5a6a52d76c4a42a67c8"
     },
     "engine/mail/mail_session_screen.asm": {
-      "size": 27625,
-      "sha256": "507d5b854cdba408fca62ebe8fbb2dbe3b22a05587ff3132633b1c6c6239b8ef"
+      "size": 28526,
+      "sha256": "7f97a926c19fdbdf2890f2fe3c275f143f022adaa44254682a35b65df427f1f9"
     },
     "engine/mail/mail_title_entry.asm": {
       "size": 34906,

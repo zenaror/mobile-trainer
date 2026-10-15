@@ -999,25 +999,25 @@ MailBody_ClearBuffer:: ; 2D:4E2D
 	xor a, a
 	ld [rRAMG], a
 	ret
-SelectWram1_Call4E54_IfBalancedReturnWriteRamGate0:: ; 2D:4E42 [PROBABLE] operation; entry unproved
-Function_2D_4E42:: ; 2D:4E42
+MailBody_LocateCell:: ; 2D:4E42 [PROBABLE] mail-body row/cell locator; entry unproved
+	; [PROBABLE] Domain role from pair editors; ABI in typing_2d_4e42_4e54_stack_scan.md.
 	; [PROBABLE] WRAM1; ordinary completion clears RAMG, preserves helper AF/input BC; WRAM1 stays.
 	; [PROBABLE] D400 two-byte cells; prior rows end at CR/12 cells; width precedes NUL.
 	; [PROBABLE] RET4E72 skips POP BC: PC=saved entry BC; SP=entry SP, real return stays.
-	; [HYPOTHESIS] Entry/purpose/early-RET intent unproved; normal exit restores BC, yields A/E/HL.
+	; [HYPOTHESIS] Entry/caller domain/early-RET intent unproved; normal exit yields A/E/HL and BC.
 	push bc
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	call Function_2D_4E54
+	call MailBody_LocateCellInMappedWram
 	push af
 	xor a, a
 	ld [rRAMG], a
 	pop af
 	pop bc
 	ret
-ScanD400RowCell_OrRetToSavedBCOnEarlyNul:: ; 2D:4E54 [PROBABLE] operation; entry unproved
-Function_2D_4E54:: ; 2D:4E54
+MailBody_LocateCellInMappedWram:: ; 2D:4E54 [PROBABLE] body locator; caller supplies WRAM mapping
+	; [PROBABLE] E=distance, not row length; early RET targets saved BC; no bounds guarantee.
 	push bc
 	ld hl, wEditBodyBuf
 	inc b
