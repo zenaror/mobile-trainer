@@ -50,7 +50,7 @@ MailView_SenderPage_Loop:: ; 2B:64A7
 	jp z, MailView_SenderPage
 	xor a, a
 	ret
-
+Show0206_CallDeleteRecordIf1_Else64A7:: ; 2B:64F1 [PROBABLE] operation; entry/purpose unproved
 Function_2B_64F1:: ; 2B:64F1
 	; [HYPOTHESIS] function prologue (push bc; ld a,7; ldh [$8D],a; ldh [$70],a; ld a,$E0; ld
 	; [$DA10],a; ld [$DA20],a) that falls into the far-call site at 2B:6500 (PROBABLE code), after
@@ -480,7 +480,7 @@ Table_2B_6863::
 
 	; [HYPOTHESIS] lone 'ret' (c9) after the table at 6863..687B; entry and purpose remain unproved
 	ret
-
+Sprite_SetSlots1And2Y68XByC_InitSlot2:: ; 2B:687C [PROBABLE] operation; entry/purpose unproved
 Function_2B_687C:: ; 2B:687C
 	; [HYPOTHESIS] 158B/60 CPU starts [687C,691A), four cases; 12 farcall data bytes separate.
 	; Prior24B table6863..687B plus RET687B; previous-JR entry wording was contradicted.
@@ -1215,13 +1215,13 @@ Gfx_StartHDMAAtVBlank_2B_6CD5:: ; 2B:6CD5
 	and a, $7F
 	ldh [rHDMA5], a
 	ret
-
+CopyRecordBFields_Edit_Pop4IfBodyNot0OrFF:: ; 2B:6CF5 [PROBABLE] operation; entry/purpose unproved
 Function_2B_6CF5:: ; 2B:6CF5
 	; [HYPOTHESIS] Entry/caller unproved. W1:$D400 wipe $24; SRAM0 record B -> edit buffers.
 	; Unlike 25:54A7: no B+C adjustment, wipe $24 vs $124, initial MailAddr_Edit A=0 vs 1.
 	; Nonzero/non-FF body result: four POP AF6D94..6D97; RET6DA2 uses entry stack word +8.
 	; Balanced callees/valid stack required; cancel RET6DAF uses entry return, unwind ABI unknown.
-	; Existing forced_dead 68/68 starts are diagnostic only; no natural entry or intent inferred.
+	; forced_dead: prefix68 + CALL6D6D =69/100 starts; no final POP/RET observed; not natural.
 	push bc
 	ld a, $01
 	ldh [hWRAMBank], a

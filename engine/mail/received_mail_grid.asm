@@ -594,7 +594,7 @@ String_2B_57B5:: ; 2B:57B5
 	db "そうしんしゃ", 0
 	db "あそぼう", 0
 POPC
-
+Fill99E1Pattern46_Draw5807TwiceAndUpload:: ; 2B:57CB [PROBABLE] operation; entry/purpose unproved
 Label_2B_57CB:: ; 2B:57CB
 	; [PROBABLE] 35 insn(s) reached by static flow only; seeds: site x35; min discovery hops 2;
 	; entered by jp from 2B:56EF (PROBABLE code) | forced execution: 35/35 instruction starts ran in

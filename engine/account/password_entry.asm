@@ -22,7 +22,7 @@ Account_PasswordEntryScreen:: ; 68:5D00
 	farcall Kbd_HideInstant
 	ld a, [wPasswordEntry_Result]
 	ret
-
+ReturnOnly_68_5D2F:: ; 68:5D2F [PROBABLE] operation; entry/purpose HYPOTHESIS
 Function_68_5D2F:: ; 68:5D2F
 	; [PROBABLE] $5D2F is RET; following [5D30,5D9C) is a separate 108-byte candidate.
 	; No fall-through from RET; the candidate SRAM/WRAM comparison has no proven entry.

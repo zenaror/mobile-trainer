@@ -3,7 +3,7 @@
 ; result messages, message tile upload, elapsed-time drawing
 
 SECTION "engine/mail_server/delete_messages", ROMX
-
+Wram7_Write14To27AtD1E0:: ; 23:6D61 [PROBABLE] operation; entry/purpose unproved
 Function_23_6D61:: ; 23:6D61
 	; [HYPOTHESIS] 28-insn decode (push af/bc/de/hl ... pop ... ret): writes 20 bytes $14..$27
 	; to WRAM7:$D1E0..$D1F3; follows ret at 6D60. Entry unproven: no established caller/table

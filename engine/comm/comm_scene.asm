@@ -866,7 +866,7 @@ CommScene_UploadTextBox:: ; 70:466B
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
 	ret
-
+TrySetA9EEFromRandom16_ByA9EDFlags:: ; 70:46A6 [PROBABLE] operation; entry/purpose HYPOTHESIS
 Function_70_46A6:: ; 70:46A6
 	; [HYPOTHESIS] Bank70 [46A6,4740): 75 instruction starts across three returning paths.
 	; Saves SRAM shadows FFF5/FF8C; FFF2 is scratch. Selects SRAM bank1 and enables via 0A.

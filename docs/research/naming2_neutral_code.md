@@ -111,3 +111,31 @@ The [selected-call contract](typing_29_leaf_lcdc_ly_limits.md#selected-address-c
 The accepted ops6 linked SYM has16 global neutral-only Function/Label ROM address groups:15 Function and one Label in12 banks. Adding these six aliases leaves **10 global neutral-only Function/Label address groups:9 Function and one Label in7 banks**. Banks00,29,2D,2E and4E leave this narrow census. The derivation groups global ROM symbols by bank/address, excludes locals and RAM domains, retains groups containing only Function_BB_AAAA/Label_BB_AAAA names, then adds these six aliases. It excludes unlabelled fragments and is not a measure of all unidentified functions, natural reachability or semantic completion. Historical counters remain dated checkpoints.
 
 The separate strict neutral instruction-reference cohort remains15 names/18 operands: no instruction operand changes. The neutral labels stay available, RAM-name confidence is unchanged, and no new runtime, natural entry, frame/name association, rendering or hardware evidence is supplied. KEEP assets, computed-caller questions and the requested final frames/names53/PNG/resource audit remain open. Reconstruction equivalence still requires the documented original-ROM build/comparison checks; static operation descriptions alone do not supply it.
+
+
+## Remaining labelled local operations and fragment boundaries (2026-10-15)
+
+Ten further PROBABLE local-operation aliases preserve the original neutral labels and instruction locators:
+
+|Address|Operation alias|
+|---|---|
+|23:6D61|`Wram7_Write14To27AtD1E0`|
+|24:42B0|`Wram6_CopyGooUrlAndTitleToPageBuffers`|
+|2B:57CB|`Fill99E1Pattern46_Draw5807TwiceAndUpload`|
+|2B:64F1|`Show0206_CallDeleteRecordIf1_Else64A7`|
+|2B:687C|`Sprite_SetSlots1And2Y68XByC_InitSlot2`|
+|2B:6CF5|`CopyRecordBFields_Edit_Pop4IfBodyNot0OrFF`|
+|68:5D2F|`ReturnOnly_68_5D2F`|
+|6C:61AC|`DecC0DA_OnZeroReload23ToggleC0D9AndSetDA20`|
+|70:46A6|`TrySetA9EEFromRandom16_ByA9EDFlags`|
+|7C:7D8D|`InitStep70_EntryAThen1Then2_Jump7D82`|
+
+The [mail operations](naming2_neutral_mail.md#operational-descriptions-of-2b57cb-and-64f1-2026-10-15) distinguish current-VBK pattern stores, two fixed-string draws and an upload from a result-dependent dialog/delete/loop transfer. The post-dialog DA10/DA20 stores use the then-selected WRAM bank; they are not a guaranteed sprite restoration. The [sprite operation](typing_2b_687c_residual_localcase_bounds.md#local-sprite-position-and-initialization-operation-alias-2026-10-15) includes the complete default suffix and only the documented slot/helper effects. The mail field-edit path discards four stack words only on its nonzero/non-FF body-result path; no caller or fourth-word unwind ABI is established. Its corrected complete partition is187 bytes/100 CPU starts, with68 prefix starts and69 existing forced observations; body farcall6D86 and copy counts0x40(64)/0x10(16) are explicit. Forced observations remain diagnostic, with no terminal POP/RET or natural-entry proof.
+
+The [WRAM operations](typing_23_24_27_1a_header_facts.md#wram7-ascending-bytes-and-wram6-urltitle-copies-2026-10-15) separate twenty ascending byte stores with shadow-based restoration and scratch28 from constant URL/title copies that leave WRAM6 selected. The copied22/9-byte strings include their NUL terminators; the page-field roles have consumer support without a caller of this entry. The literal ascending-byte name does not infer tile IDs.
+
+The [return-only entry](naming_68_5d2f_ret_boundary.md#return-only-operation-alias-and-separate-comparison-fragment-2026-10-15) covers only C9 at68:5D2F; the following108-byte decode/compare fragment remains separate and unlabelled. The [counter operation](naming_6c_61ac.md#countertogglewrite-operation-alias-2026-10-15) expires only from old1, reloads23 and toggles bit0 of an otherwise unproved byte domain. The [random-range operation](naming_70_46a6_sram_boundaries.md#conditional-random-range-write-alias-and-separate-bit-reader-fragment-2026-10-15) names the tested fields and conditional store, without a game purpose or uniformity claim; the following63-byte bit-reader remains unlabelled. The [init/step sequence](typing_7c_7d8d_choreography.md#entry-a12-init-step-sequence-operation-alias-2026-10-15) starts with incoming A, then1 and2, can fail to terminate and jumps7D82 without a localRET. Its prefix/trailer remain separate, with no new function labels. Stack, mapper/shadow, IRQ, helper-return and buffer preconditions remain part of every applicable contract. Entry/caller/application purpose remains HYPOTHESIS.
+
+The accepted conditions6 linked SYM has10 global neutral-only Function/Label ROM address groups:9 Function and one Label in7 banks. Adding these ten operation aliases leaves **zero global neutral-only Function/Label ROM address groups** under this exact naming census. The derivation groups global ROM symbols by bank/address, excludes local symbols and RAM domains, and keeps only groups whose global names are exclusively Function_BB_AAAA/Label_BB_AAAA before adding these names. The original neutral labels remain. A zero count states that these globally labelled groups now have descriptive aliases; it does not establish every code entry, natural reachability, arbitrary-state ABI, function purpose or whole-ROM semantic completion. It is not a claim that every unlabelled fragment is a function or that all disassembly work is finished. Historical counts remain dated checkpoints.
+
+The separate strict neutral instruction-reference cohort remains15 names/18 operands because no instruction operand changes. Its data/consumer gaps and the separate structured-data entry remain explicit. Reconciliation of the original labelled/unlabelled interval inventory and residual entry boundaries remains necessary before closing function identification. The requested frame/name53/PNG/resource audit also remains open, including KEEP8 and25 unassociated names. English remains suspended until original identification and those checks are complete. These aliases add no new natural, synthetic, visual or hardware execution; static operation descriptions alone do not establish original-ROM reconstruction equivalence.

@@ -39,3 +39,23 @@ These three documentation result appends follow the completed terminal and outpu
 ROOT adopted the qualified executor and independent reviews and ran one actual canonical 37-check pipeline: 36 zero return codes and the expected ordinal 27 return code 2 with its exact 97-byte schema diagnostic. All 4,225 source hashes held before and after each command; all 671 output hashes equal both private builds and the original parent fresh build. The ROM is byte-identical to the original, SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. Symbols retain 15,538 labels and 51 constants; palettes pass. ROOT performed a programmatic whole-byte scan of all logs and exact diagnostic/hash checks; this is not a blind or human full-log-read claim. ResourceWarning diagnostics are retained in the receipts, not described as warning-free results.
 
 This three-document result appendix was added after the successful checks; only documentation changes and the successful pipeline is not replayed. The single source owner retains all emitted lines, labels, levels and physical line counts. The complete family ends at691A; entry and purpose remain HYPOTHESIS, and no new natural-menu, visual or hardware evidence is claimed. Publication and fresh reconstruction are subsequent stages.
+
+
+## Local sprite-position and initialization operation alias (2026-10-15)
+
+`Sprite_SetSlots1And2Y68XByC_InitSlot2` is a PROBABLE operation alias for `Function_2B_687C`. It preserves the neutral definition and local-label scopes; entry, natural caller and application purpose remain HYPOTHESIS. The earlier no-alias decision is historical. The name describes explicit helper operations and coordinates, without assigning a menu/highlight/cursor meaning to their animation data.
+
+The complete original[2B:687C,691A) remains158 bytes/60 CPU starts, including four separate three-byte farcall operands. The prior twelve-word table6863..687B and lone RET687B do not supply ordinary entry. The default case includes farcall6909 and the suffix through RET6919; neither the older141-byte prefix nor the next entry691A replaces that full boundary. The internal JRs6880/68A8/68D0 target68A6/68CE/68F6.
+
+|Entry C|DE coordinate supplied to both position calls|DE base supplied to slot initialization|Normal return|
+|---|---|---|---|
+|0|6810 (Y68,X10)|78D0|68A5|
+|1|6830 (Y68,X30)|7910|68CD|
+|2|6850 (Y68,X50)|78E0|68F5|
+|3..FF|6870 (Y68,X70)|78F0|6919|
+
+Every case first supplies HLDA10 to Sprite_SetPosition00:0A65, then HLDA20 with A2B/B81 to Sprite_InitSlot00:0A82 through a farcall, then HLDA20 and the same coordinate to Sprite_SetPosition. These are validated helper effects, not conclusions drawn solely from existing names. `home/sprites.asm` shows SetPosition saving AF, explicitly selecting WRAM7, writing D/E at HL/HL+1, returning HL to its original position, and restoring the saved WRAM shadow selection. InitSlot explicitly selects WRAM7, zeroes sixteen slot bytes, records the table bank and invokes Sprite_LoadObjectEntry00:0AB8. With B81 the latter's masked/shifted index reads the entry at supplied DE+4, not necessarily the bytes exactly at the named base. No inferred meaning for those four animation bases is required.
+
+The root PUSH BC balances with each case's POP BC; under normal nonaliasing helper returns BC is entry BC, final DE is the selected coordinate and final HL isDA20. The last SetPosition preserves AF received after InitSlot, so no incoming AF or independently specified result flags are promised. Helper selection/restoration uses software shadows and the farcall machinery; a coherent shadow/mapper/trampoline context and no interfering IRQ/stack/slot/table aliases are prerequisites. No universal prior-bank preservation is inferred for inconsistent shadows or interrupt windows.
+
+Entry into an internal case skips the root PUSH BC/LD A,C and is not covered by the root contract. Valid sprite state, mapped bank2B table bytes and any object-entry pointer reads are required; descendant/helper execution does not prove entry687C. No new trace, natural/forced, visual or hardware result, semantic-completion or rebuilt-ROM equivalence claim is added.

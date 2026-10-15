@@ -995,7 +995,7 @@ Function_6C_6009::
 	ld [wHelpScriptColumn], a
 	pop hl
 	jp .l601B
-
+DecC0DA_OnZeroReload23ToggleC0D9AndSetDA20:: ; 6C:61AC [PROBABLE] operation; entry/purpose HYPOTHESIS
 Function_6C_61AC:: ; 6C:61AC
 	; [PROBABLE] ROM6C DEC [C0DA] mod256; old0->$FF returns, old1 reloads $23/XORs C0D9 bit0.
 	; Expiry D=($78+new C0D9)mod256,E=$80,HL=$DA20; farcall Sprite_SetPosition writes WRAM7.
