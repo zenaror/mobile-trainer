@@ -96,7 +96,7 @@ Browser_ClearBodyArea:: ; 4E:612B
 	ld bc, $0C14
 	farcall TileCanvas_FillRect
 	ret
-
+IfA1_MapSram1A9EDBit7To19Or1A_DisableRam:: ; 4E:6172 [PROBABLE] operation only
 Function_4E_6172:: ; 4E:6172
 	; [HYPOTHESIS] 36B/18 starts [6172,6196); A!=1 RETNZ, else RAMG0A/select SRAM1.
 	; A9ED.bit7 selects19/1A; normal exit clears RAMG, retains SRAM1, no prior-state restore.

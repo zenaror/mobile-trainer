@@ -51,3 +51,39 @@ The same word setter has a static relative at04:4840: it sets D03C.bit2, selects
 Under ordinary stable, nonaliasing flow49CD does not create a new frame before44EC; the setter uses balanced CALLs and PUSH/POP internally and returns through the existing caller return address. After eight normal records BC remains27, HL advances toD220, E=0 and D is the original constructed mask after eight rotations. Its final NextTrackRecord produces A=D2 and Z=1/N=1/H=0/C=0. These are conditional static deductions for the shown setter, not a universal ABI or a test of arbitrary state.
 
 Both operations require coherent ROM4 instruction fetching, WRAM1 selected for the D0xx driver state, valid current-track/request/stream state as appropriate, a valid nonaliasing stack and no relevant IRQ/mapper interference. Neither local entry selects WRAM1. The command continuation uses ROM0 stream-bank helpers, which select the configured stream bank and restore ROM4; this transitive mapping/context requirement is not erased by the short entry body. No new natural execution, visual, audio or hardware observation is claimed. All original instruction bytes are preserved; reconstruction equivalence requires the documented build, symbol check and comparison against the original ROM.
+
+
+## Conditional SRAM-bit mapping operation at 4E:6172 (2026-10-15)
+
+`IfA1_MapSram1A9EDBit7To19Or1A_DisableRam` is a PROBABLE description of the local operation at4E:6172, preserving `Function_4E_6172`. The alias occupies the former blank line99; neutral100, the existing comments, local .skip and all instruction/locator positions remain. Entry, natural caller and application purpose remain HYPOTHESIS. No meaning is assigned to the returned19/1A values or to the full A9ED field, and the name does not imply a conventional getter preserving mapper state. Earlier no-alias preparation remains historical.
+
+### Original bytes and mapping evidence
+
+The immutable original ROM is2097152 bytes, SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. With ROM4E selected, CPU[6172,6196) maps to physical[13A172,13A196), containing36 bytes/18 CPU starts:
+
+```text
+FE01 C0 3E0A E0F5 EA0000 3E01 E08C EA0040
+061A FAEDA9 CB7F 2802 0619 AF E0F5 EA0000 78 C9
+```
+
+The maintained emitters are `engine/browser/canvas.asm:104..122`, with local-label row117. RET6195 separates the operation from frame_graphics.asm at6196. The raw header has CGB flagC0, cartridge type1B, ROM-size06 and RAM-size03 at offsets143/147/148/149. `docs/ROM_INFO.md:15..20` identifies these as CGB-only, MBC5+RAM+BATTERY,2MiB ROM and32KiB/four SRAM banks. These identify the reconstruction's declared target; they are not a new hardware test. Under that MBC5 mapping, `constants/hardware.inc:95,98` identify write addresses0000 as RAM-enable and4000 as SRAM-bank selection. A CPU write to4000 here programs the mapper rather than modifying the selected ROMX bytes.
+
+`ram/hram.asm:6,77` identify FF8C/hSRAMBank and FFF5/hSRAMEnable as software mirrors. `ram/banked.asm:140` defines SRAM1:A9E8 as the sixteen-byte save-check block, making its+5 byte A9ED. No name for the field's complete domain or application meaning is inferred from that container. The operation explicitly selects SRAM1 before its only SRAM-data read.
+
+### Two distinct return contracts
+
+For incoming A!=1, CP1 followed by RET NZ returns without accessing SRAM/shadows/mapper. A,B,C,DE,HL are unchanged by the local instructions. F is overwritten by the comparison: Z=0,N=1,H=1 exactly when the incoming low nibble was0,C=1 exactly when incoming A was0. Incoming AF is therefore not preserved; even A0 returns with Z0 on this path.
+
+For incoming A=1, the operation writes0A to hSRAMEnable then rRAMG, writes1 to hSRAMBank then rRAMB, sets B=1A, reads SRAM1:A9ED and tests bit7. If that bit is set, B becomes19; if clear, B stays1A. XOR A then forces A0 and F80, and the following stores/LD A,B/RET do not change F. Thus ordinary final A=B=19 for a set bit or1A for a clear bit, with Z1/N0/H0/C0 regardless of that nonzero A result. C,DE,HL have no explicit modifications; B changes. No whole AF or BC preservation is claimed.
+
+The A1 path finishes with hSRAMEnable=0 and rRAMG=0 while hSRAMBank=1 and rRAMB=1 remain selected. Earlier SRAM-bank/enable state is not saved or restored. No data byte in SRAM is explicitly written. The local stores affect HRAM mirrors and MBC registers. No ROM-bank, SVBK or VBK register is written, no CALL/PUSH/POP occurs and no DI/EI is issued; each RET consumes the ordinary return word. There is no transitive callee contract to infer, although interrupt effects remain outside the uninterrupted local contract.
+
+### Transient state, stack and interrupt limits
+
+The ordering matters: RAM is enabled before SRAM1 is selected, so the previously selected SRAM bank can be temporarily enabled. Each software mirror is written before its corresponding hardware register, creating an interval during which an IRQ observer can see a new mirror with older hardware state. On exit the enable mirror becomes0 before the hardware disable store. No atomic update or interrupt-safe mapper protocol is established.
+
+The contract requires coherent ROM4E instruction mapping under the declared MBC5 register decode, SRAM1 readable after the explicit writes, and a valid nonaliasing return stack whose accessibility is not invalidated by enabling/selecting/disabling SRAM. A stack in SRAM, a stack overlapping the HRAM mirrors, or an incompatible switchable-WRAM stack context is not automatically safe. The local operation selects no CGB WRAM/VRAM bank; any bank-dependent stack mapping must remain stable. Relevant IRQ/mapper writes between selection and read, changes to the sampled byte, or interference with registers/stack can invalidate the ordinary result or final state.
+
+Initial mirror/hardware consistency is not restored by this operation. The A1 path explicitly overwrites both mirror/hardware pairs, so its stated final values do not require preservation of an incoming configuration, but the transient windows remain. A9ED.bit7 is sampled once; no stability/validation check for the larger save-check block is performed here. Existing bit7 readers in70/73 are neighboring field consumers, not consumers of this candidate's19/1A return and not evidence of its caller, purpose or entry. No new twin or caller is supplied or required to describe these explicit bytes.
+
+This adds no dynamic, natural-entry, rendering or hardware observation and no reconstruction-equivalence claim. Static source/byte correspondence describes the operation under its preconditions; the documented build, symbol check and comparison with the original ROM remain necessary for later integration validation.

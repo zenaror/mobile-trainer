@@ -531,7 +531,7 @@ MailServerMgr_DrawFieldText:: ; 2E:4F06
 MailServerMgr_DrawFieldText_Done:: ; 2E:4F99
 Label_2E_4F99::
 	ret
-
+BlitOneGlyphIfCellsLeft_JumpToRet4F99:: ; 2E:4F9A [PROBABLE] operation; entry unproved
 Function_2E_4F9A:: ; 2E:4F9A
 	; [HYPOTHESIS] 15 bytes/7 starts [4F9A,4FA9): C2EE=0 RETZ, else decrement once/CALL4FA9.
 	; JR4FA7=18F0 targets RET4F99, not4F9A; the 33 siblings with18F1 are distinct paths.

@@ -999,7 +999,7 @@ MailBody_ClearBuffer:: ; 2D:4E2D
 	xor a, a
 	ld [rRAMG], a
 	ret
-
+SelectWram1_Call4E54_IfBalancedReturnWriteRamGate0:: ; 2D:4E42 [PROBABLE] operation; entry unproved
 Function_2D_4E42:: ; 2D:4E42
 	; [PROBABLE] WRAM1; ordinary completion clears RAMG, preserves helper AF/input BC; WRAM1 stays.
 	; [PROBABLE] D400 two-byte cells; prior rows end at CR/12 cells; width precedes NUL.
@@ -1016,7 +1016,7 @@ Function_2D_4E42:: ; 2D:4E42
 	pop af
 	pop bc
 	ret
-
+ScanD400RowCell_OrRetToSavedBCOnEarlyNul:: ; 2D:4E54 [PROBABLE] operation; entry unproved
 Function_2D_4E54:: ; 2D:4E54
 	push bc
 	ld hl, wEditBodyBuf
