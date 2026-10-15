@@ -1783,7 +1783,7 @@ CommTime_DrawHMSScreen:: ; 27:4D81
 	ld [$990C], a
 	ld [$992C], a
 	jp Label_27_4EEB
-
+Gfx_UploadPalettesAndBgMaps_EnableLCD:: ; 27:4EC0 [PROBABLE] local operation
 Function_27_4EC0:: ; 27:4EC0
 	; [PROBABLE] 53 bytes/22 logical starts [4EC0,4EF5); farcall inline bytes are data.
 	; WRAM7 palette upload, saved-shadow restore, then 00:082C forces WRAM7 before RET4EF4.
@@ -1811,7 +1811,7 @@ Function_27_4EC0:: ; 27:4EC0
 	ldh a, [hScratchA]
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
-
+LCDOn_ReturnBCZero:: ; 27:4EEB [PROBABLE] local operation; entry unproved
 Label_27_4EEB:: ; 27:4EEB
 	farcall LCDOn
 	ld bc, $0000

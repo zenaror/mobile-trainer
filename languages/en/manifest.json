@@ -3422,8 +3422,8 @@
       "sha256": "37a6751a209c8d25e51cf919800d769d1e50de38e3cad345027115d046b54567"
     },
     "REVERSE_ENGINEERING.md": {
-      "size": 140641,
-      "sha256": "29b28c068df6f57de68daeed4528a48079d04d5ea81ce16e95240f20da693157"
+      "size": 140972,
+      "sha256": "b7909b43da5550b13be7a540d46afdc672ed079b70f5a254c9b030fd31828704"
     },
     "STYLE.md": {
       "size": 57010,
@@ -6482,8 +6482,8 @@
       "sha256": "5e19167a817686b9eeaa1301123b4544bba72fa1e19d168aa4c32d92632205af"
     },
     "docs/research/naming2_neutral_code.md": {
-      "size": 12803,
-      "sha256": "55abb9a342088715f26d598a41a6384975f0e5aa6a8685fd856c23368bbc648e"
+      "size": 15196,
+      "sha256": "e7f7b7975761973fb5ffef35aa6dfa2cf30f1602480c8c445ac80b757794f810"
     },
     "docs/research/naming2_neutral_gfx.md": {
       "size": 3733,
@@ -6886,8 +6886,8 @@
       "sha256": "0d482cb75bf940ae77d418d6015fe16944ec9fc95f3a166f7e2ec451f185974a"
     },
     "docs/research/typing_27_palette_map_tail.md": {
-      "size": 12572,
-      "sha256": "54f345500ef5639c3f3781b73d9b14776f26051816bf79f47684b088c36eb7fb"
+      "size": 18442,
+      "sha256": "0e4058143929a831184ae7ae128db2c4977188700647d3151f15403782fd5af7"
     },
     "docs/research/typing_27_verify_digit_pairs.md": {
       "size": 8903,
@@ -6906,8 +6906,8 @@
       "sha256": "1d0632bfdb98f6ecf1aa82ef56313d473ffbf14c957306eeb0e6764ec2a07b91"
     },
     "docs/research/typing_29_leaf_lcdc_ly_limits.md": {
-      "size": 9870,
-      "sha256": "d1ff561187d62db13aa5a173d6f5b6644c5dc3dd96ae6e631330cd42506f10fe"
+      "size": 13035,
+      "sha256": "9b1d0b91dcd1fd0755ee90f1b7d76e6ff799be68e7ff253331e22e922c785238"
     },
     "docs/research/typing_29_number_templates.md": {
       "size": 9212,
@@ -7346,8 +7346,8 @@
       "sha256": "0a44e90014ec1c653e7b657a431f0332c3cce4c97e5403e02ff52bee8d0c8acf"
     },
     "engine/gfx/unreferenced_palette_library.asm": {
-      "size": 9184,
-      "sha256": "06c8778f401c36766be1ec2d54b859b581e74c10158c2ecc2ea66eec40f47b19"
+      "size": 9197,
+      "sha256": "4648de2c7ff2dc0a92ad4d7988a8cf1b42a19f2acf85346987f12fa72903619c"
     },
     "engine/help/help_menu.asm": {
       "size": 20489,
@@ -7466,8 +7466,8 @@
       "sha256": "2d1684e7079262df2b4946fcd3f6fca570d0b37089f56602e405bbb9a6002ffc"
     },
     "engine/mail/send_receive.asm": {
-      "size": 44940,
-      "sha256": "2405fb5bf7695b665a11005150cc181269034dab3b33150cbc42d16184ceeb28"
+      "size": 45089,
+      "sha256": "b89a1ffbe70dc62577261a876887983b4c7e77c49c341275a3319b6d396ab780"
     },
     "engine/mail/staging.asm": {
       "size": 2759,

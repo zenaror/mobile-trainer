@@ -3,10 +3,10 @@
 ; candidate library image; entry and live bank context remain unestablished
 
 SECTION "engine/gfx/unreferenced_palette_library", ROMX
-
-Function_29_5090:: ; 29:5090
+ClearLcdcBit2:: ; 29:5090
+Function_29_5090::
 	; [HYPOTHESIS] 742-byte library admits460 conditional starts; entry/purpose/live bank unproved.
-	; Leaf5090:7B/4 starts clears LCDC.bit2, RET; finite internal CALL509E, no live-entry proof.
+	; [PROBABLE] ClearLcdcBit2:7B/4 starts; executed6B/3-start relatives at27:468B and50:400F.
 	; Leaf511E:39B/24 starts saves BC/DE, CALL7BB7; balanced return required, HL not saved.
 	; FFA4.bit0 selects unbounded LY poll24/48/6C/90 or48/90; no explicit WRAM store in leaf.
 	; Natural69 coverage/69 data/50 graphs have no span exec/read/edge;19 graphs missing.
