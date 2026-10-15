@@ -1217,11 +1217,11 @@ Gfx_StartHDMAAtVBlank_2B_6CD5:: ; 2B:6CD5
 	ret
 
 Function_2B_6CF5:: ; 2B:6CF5
-	; [HYPOTHESIS] function at 2B:6CF5 (push bc; ld a,1; ldh [$8D],a; ldh [$70],a; SRAM enable;
-	; clears $24 bytes at $D400; ld hl,$6DB0 table index; ...) that flows into the PROBABLE code at
-	; 6D6B; after the ret at 6CF4; no caller/pointer to 6CF5 found. Decode legal, all branch targets
-	; valid | forced execution: 68/68 instruction starts ran in forced_dead (traces/forced/, not
-	; natural evidence; status unchanged)
+	; [HYPOTHESIS] Entry/caller unproved. W1:$D400 wipe $24; SRAM0 record B -> edit buffers.
+	; Unlike 25:54A7: no B+C adjustment, wipe $24 vs $124, initial MailAddr_Edit A=0 vs 1.
+	; Nonzero/non-FF body result: four POP AF6D94..6D97; RET6DA2 uses entry stack word +8.
+	; Balanced callees/valid stack required; cancel RET6DAF uses entry return, unwind ABI unknown.
+	; Existing forced_dead 68/68 starts are diagnostic only; no natural entry or intent inferred.
 	push bc
 	ld a, $01
 	ldh [hWRAMBank], a

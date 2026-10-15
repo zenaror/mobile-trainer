@@ -6498,8 +6498,8 @@
       "sha256": "6c36948a31f6b78c914347138a4e06f7dcc0f3b7b35dd27d65c4afe8061c3cc5"
     },
     "docs/research/naming2_neutral_mail.md": {
-      "size": 8707,
-      "sha256": "3e428055d605059d5042e3b5fb6616825c149a9030c4838dd3ec629166563094"
+      "size": 10826,
+      "sha256": "6a8309fd455e508cb15e66f68531dfb415fd1caf88ebf93f187a3ad9d610dae0"
     },
     "docs/research/naming2_neutral_network.md": {
       "size": 9068,
@@ -7442,8 +7442,8 @@
       "sha256": "61fb9672ef62666f8e0f090cd1bf0b991f6d9f2cf4aae959fa5c778d91b26731"
     },
     "engine/mail/mail_viewer_sender.asm": {
-      "size": 26280,
-      "sha256": "c01093b8573a1adf2adbb465c6a36b39da8de2f71575dbd34fa1f4cee7fb8b7a"
+      "size": 26316,
+      "sha256": "a5226dc62ed9c8d5f334dde9c5798254dcf500fa36c1dd4c2c276633fc834286"
     },
     "engine/mail/mailbox.asm": {
       "size": 26808,
