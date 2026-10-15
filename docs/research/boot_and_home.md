@@ -194,6 +194,8 @@ Both `$2000` (interrupt shims, `20FF`) and `$2100` (everything else) are used fo
 | `FarJumpTable 0551` | A=bank, HL=table of `(addr16, bank)`, C=index | switch to table bank, then to the entry's bank, `jp` |
 | `JoypadDispatch 056A` | 5 inline words after the call | index = lowest set bit 0-3 of `(FFA5\|FFA7)`; `FFA7` is cleared |
 
+For `FarCall_Reg`, the exact entry `00:06E5–06EE` writes FFF2 and FFAE/FFAF, then pops the return address; it does not write FFA9 or FFAB/FFAC. **CONFIRMED static effects:** with the trampoline opcodes installed by `00:0684` intact, `call $FFA8` in the common path therefore loads its previously stored A/HL operands, not the incoming bank/target pair. The common return path stores the callee's A/HL there. This explains the table's “stale” operands. The register-entry convention remains **PROBABLE**, without an identified caller or observed execution of its six entry instructions; arbitrary HRAM/interrupt contexts are not covered.
+
 `FarCall` (`06D1-06E4`, common tail `FarCall_Common = 06EE`, exact sequence, verified by `rom0_selftest`):
 
 ```

@@ -3422,8 +3422,8 @@
       "sha256": "37a6751a209c8d25e51cf919800d769d1e50de38e3cad345027115d046b54567"
     },
     "REVERSE_ENGINEERING.md": {
-      "size": 137441,
-      "sha256": "55f9b29193effd814cf033d48c7bdb5bdfc862778b129162e2e5c4b9afdb2804"
+      "size": 140199,
+      "sha256": "7cc8e818cfa84f7d8c191c623ff5b7829785c806e8d0b9b4c770748968c73db4"
     },
     "STYLE.md": {
       "size": 57010,
@@ -6322,8 +6322,8 @@
       "sha256": "6b94eb989727cddcc7d6e130537eab11c91e5f5c898752490e67aa0e9c22433f"
     },
     "docs/research/boot_and_home.md": {
-      "size": 106987,
-      "sha256": "e2715c7f92c650fb8cdf89b077c257ec656ca12b27e654146a20d4b2c0c4ef79"
+      "size": 107631,
+      "sha256": "081c869b62cb81a573511a6e372b8c5066db3d1b608c0af33bc21b52c0a467c3"
     },
     "docs/research/classify_g1.md": {
       "size": 16334,
@@ -15026,8 +15026,8 @@
       "sha256": "1b8f8acecc107798c0c694a47cc492f724bff00f92b046e66fbd657042f93e03"
     },
     "home/farcall.asm": {
-      "size": 3445,
-      "sha256": "97b9ad5ff12aebe838d1eb81da03fd66c407aee1e1dc899bb6be2db80d138136"
+      "size": 3513,
+      "sha256": "c86b6c6208eca1d58635610e072a77dba8195552e998f0cb87c8623e15915301"
     },
     "home/gfx_upload.asm": {
       "size": 7894,

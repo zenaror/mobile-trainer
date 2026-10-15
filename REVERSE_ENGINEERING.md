@@ -5,6 +5,16 @@ Evidence levels: **CONFIRMED** (demonstrated), **PROBABLE** (strong evidence, no
 Numbers marked "frozen" describe `config/` at the freeze and are not updated any more; numbers marked "source" were counted in the `.asm` tree when this file was written
 (the tree is edited by hand, so recount with the command given).
 
+## Current original reconstruction and asset-audit limits
+
+The [definition of done](docs/REVERSE_ENGINEERING_RULES.md#23-definition-of-done) requires an explainable reconstruction as well as a reproducible ROM. `make`, symbol checks and a complete byte comparison establish reconstruction identity for the source actually checked; they do not establish complete semantics, natural execution or hardware behavior. Frozen `config/` and `docs/PROGRESS.md` counters, and dated counters below, are historical rather than a current completion census.
+
+The [frame audit](docs/research/assets_pokemon_frames_and_name_limits.md#remaining-eight-editing-views-bounded-placement-comparison) retains **eight KEEP editing views**: physical ROM bytes exist, but a justified selector and reaching LCDC/VBK/VRAM state are missing. Two other bank42 views have complete reversible backing only under their declared conditional model. The [bank53 name table](docs/research/assets_pokemon_frames_and_name_limits.md#name-table-order-no-image-assignment) contains 25 ordinal names without a proved name-to-image association; 25 names, 25 physical windows and 27 descriptor words remain distinct. The [help-frame audit and preview](docs/research/naming2_neutral_help.md#64ae-split-object-entry-and-classification-conflict) cover the selected nine-frame root under a conditional LCDC model, not every asset or an observed display.
+
+The [current neutral ledger](docs/research/naming2_neutral_code.md#current-ledger-correction-after-the-ffa7-checkpoint-2026-10-11) retains **28 global neutral-only Function/Label groups**. The existing 69-scenario [coverage union](analysis/coverage_union.tsv) has no instruction-entry row for those groups, and the corresponding [callgraphs and DATA-read records](traces/detail/) add no target entry, bank53 name-table read or read of the eight complete frame windows. These finite negatives do not prove unreachable code, absence of computed callers or unused assets. Their bounded effect descriptions and existing confidence levels remain; KEEP is an explicit evidence limit, not a completed semantic identification. The [FarCall_Reg contract clarification](docs/research/boot_and_home.md#73-far-calls-all-use-the-hram-trampoline) explains its saved trampoline operands without resolving one of those 28 groups.
+
+Remaining evidence needed for semantic closure is specific: a valid entry/caller for an unresolved function, a reader/index linking names to selected resources, or a justified complete VRAM state and reversible backing for a retained view. No missing association is supplied from counts, visual resemblance, sibling execution or hypothetical PNGs; no 100% semantic or universal-caller claim follows from passing reconstruction checks.
+
 ## Source state: hand-maintained tree, frozen bootstrap pipeline
 
 The source tree (`home/ engine/ data/ gfx/ audio/ lib/`, `ram.asm`, `ram/`, `consts.asm`, `zero_labels.asm`, `includes.asm`, `layout.link`, `constants/`) was produced once by the

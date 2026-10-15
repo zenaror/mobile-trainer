@@ -51,10 +51,10 @@ FarCall:: ; 00:06D1
 	jr FarCall_Common
 
 FarCall_Reg:: ; 00:06E5
-	; [PROBABLE] like FarCall but bank in A and target address in HL (no inline data); shares the
-	; common path at 06EE. No static caller found [candidate; raw refs 18] | 6 insn(s) never
-	; executed in the traced runs; cut out of the PROBABLE region 06E5-0716 by apply_coverage
-	; --split
+	; [PROBABLE] bank in A and target in HL, no inline bytes; common path at 06EE. Unlike FarCall,
+	; it does not save incoming A/HL to FFA9/FFAB-AC: with the initialized trampoline intact,
+	; the target receives the values already stored there. No static caller identified;
+	; the six entry instructions have no observed execution in the maintained traces.
 	ldh [hScratchA], a
 	ld a, l
 	ldh [hFarCallTarget], a
