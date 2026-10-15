@@ -3422,8 +3422,8 @@
       "sha256": "37a6751a209c8d25e51cf919800d769d1e50de38e3cad345027115d046b54567"
     },
     "REVERSE_ENGINEERING.md": {
-      "size": 140972,
-      "sha256": "b7909b43da5550b13be7a540d46afdc672ed079b70f5a254c9b030fd31828704"
+      "size": 141648,
+      "sha256": "63d2716df2599ccb306be768286ffb3f26373ac1d025a88e718c9305a3eed634"
     },
     "STYLE.md": {
       "size": 57010,
@@ -4894,8 +4894,8 @@
       "sha256": "4acea468adc6af945bb96561b44dbb5bb67f204850f9d63d38859c34bc53ea78"
     },
     "audio/engine.asm": {
-      "size": 58031,
-      "sha256": "a2d285253453ee8f64ac7739fbf292bca6235a19dfedcd1a412e2c0c2ddc36d1"
+      "size": 58059,
+      "sha256": "7c7e294443983ca748bb3bb5e1545e01933e1c695ffc17c656a14c27f6c4753d"
     },
     "audio/instruments.asm": {
       "size": 11375,
@@ -6482,8 +6482,8 @@
       "sha256": "5e19167a817686b9eeaa1301123b4544bba72fa1e19d168aa4c32d92632205af"
     },
     "docs/research/naming2_neutral_code.md": {
-      "size": 15196,
-      "sha256": "e7f7b7975761973fb5ffef35aa6dfa2cf30f1602480c8c445ac80b757794f810"
+      "size": 19307,
+      "sha256": "31aae21cc65106d1172d250403cceae59a117e3d4bdb6622306473e7cef1435d"
     },
     "docs/research/naming2_neutral_gfx.md": {
       "size": 3733,
@@ -6494,8 +6494,8 @@
       "sha256": "c8418a392989b86b39acd67a81657b7886aea44af435fe5d3e8cbd29daabca6d"
     },
     "docs/research/naming2_neutral_kbd.md": {
-      "size": 7428,
-      "sha256": "6c36948a31f6b78c914347138a4e06f7dcc0f3b7b35dd27d65c4afe8061c3cc5"
+      "size": 14419,
+      "sha256": "ca6090543530cf49f019649b97c2d8353b28da53c5ea1d9afd2bab6a87d827f2"
     },
     "docs/research/naming2_neutral_mail.md": {
       "size": 10826,
@@ -6730,16 +6730,16 @@
       "sha256": "c5d6900f23f90a42cf02c2075f379902d138dcd95efe0842f0060e745c904fb7"
     },
     "docs/research/naming_73_6143_split_returns.md": {
-      "size": 9223,
-      "sha256": "b747f4c922f044753fdd44bccd7b84c17cf85bc5cb9480de873271542d989fd9"
+      "size": 13210,
+      "sha256": "8c273883fae842af5d021a75a8c1696870f57fa258dab52d16a66fad89c85763"
     },
     "docs/research/naming_73_verify_6143_split_returns.md": {
       "size": 8132,
       "sha256": "8b17a56aade7f0e30422c02e13d5fe1e2894375d0e4be0c52779cded78d6284c"
     },
     "docs/research/naming_75_7e89_return_boundaries.md": {
-      "size": 9250,
-      "sha256": "9126790f07c2249b54cabfde1538bfaf9d8a9d43321b5d353716a3771eb9dd53"
+      "size": 14529,
+      "sha256": "068c56f056d585ec804be9961798196b658a7fcd30ea5720b05a9b7531a65085"
     },
     "docs/research/naming_75_verify_7e89_return_boundaries.md": {
       "size": 6576,
@@ -7094,8 +7094,8 @@
       "sha256": "449ea3012a392700b36c126a58d36939d89f8b818d045f453949215406a8de96"
     },
     "docs/research/typing_neutral_remaining_headers.md": {
-      "size": 6579,
-      "sha256": "8ccb851b15b6dcc9ce6d28485b0264d5197e5078d58815cf3d9104a0820479cc"
+      "size": 11700,
+      "sha256": "e9a18df66487001f31e78e38049d565e77d8db3670444188b125ac53e57e91a9"
     },
     "docs/research/typing_neutral_verify_remaining_headers.md": {
       "size": 5797,
@@ -7258,8 +7258,8 @@
       "sha256": "761a2a8c5eb016cd927d59badda742e4709bde6db9cef2b4f28721802fbf38d2"
     },
     "engine/browser/start_choice.asm": {
-      "size": 10605,
-      "sha256": "faaf079efcf1edda7bd2ea640b230c976fa135879330d0170d8d21545e589cc0"
+      "size": 10686,
+      "sha256": "b7628b1e4586e7dd7c19a226b5749125817a93fd803b78b5a033e7a29743ebbd"
     },
     "engine/browser/status_sprites.asm": {
       "size": 3048,
@@ -7394,16 +7394,16 @@
       "sha256": "3c758b79db8aca462dada47e02e1194e3521bc5bc507ccd52169ab7748677c58"
     },
     "engine/keyboard/keyboard.asm": {
-      "size": 52662,
-      "sha256": "ec33c3e2a5166a73941e0898191a0744749fac57a6ee927d2f74e031cef3886e"
+      "size": 52688,
+      "sha256": "62f60405dc40926fd70b8828a05692bb105a194ffbde490cadecad321e78cc73"
     },
     "engine/keyboard/slide_helpers.asm": {
       "size": 5510,
       "sha256": "1f05c50a570c776fd1059dce0d1f18db2d15f38a0d74e1ba8bc0f77f0cfa6c79"
     },
     "engine/keyboard/type_helpers.asm": {
-      "size": 10010,
-      "sha256": "17da7bdc8fae15105b6805185f04175ad4cbac2ffa07f4bb8b7923839dc83825"
+      "size": 10017,
+      "sha256": "e4328ff1cb5854547be9d2bf6dc4a57e65d8ad438966f7ac4f6655efb116fe4b"
     },
     "engine/mail/address_editor.asm": {
       "size": 34170,
@@ -15122,8 +15122,8 @@
       "sha256": "8fe9777fc6aee2945df2fec0f476f17d427342fcefbbf663c7df5b03f3a4bf35"
     },
     "lib/mobile/main.asm": {
-      "size": 214490,
-      "sha256": "8c885b7aaaad71256872dae4da3d7c83d0b065a28cbf575ac95f3e7eed42fd89"
+      "size": 214527,
+      "sha256": "4dcc861e0d92c09c82a82010667604f9c2e575d0e37062431a3768af1aa72ba9"
     },
     "ram.asm": {
       "size": 475,

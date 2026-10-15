@@ -83,14 +83,14 @@ Function_55_6ED6::
 Table_Kbd_TypeNeedsExtraPalette_ByType:: ; 55:6EE1
 Data_55_6EE1::
 	db $00, $00, $00, $00, $00, $01, $01, $01, $01, $01, $01
-
-Function_55_6EEC:: ; 55:6EEC
-	; [PROBABLE] branchless ROM55 byte lookup: HL=$6EF7+entry A; A=[HL]; BC/DE unchanged.
-	; Ordinary stable-bank/valid-stack flow leaves F=$00; RET consumes the caller return only.
-	; A=0..10 returns 0 for 0..5 and 1 for 6..10; no bounds check protects later code/data.
-	; Code/data and the sole symbol CALL at 55:5DF8 are unobserved in the 69 natural runs;
-	; caller 5DF5/target 5F29 remain HYPOTHESIS. Its return-9 policy is not established live.
-	; Observed 6ED6/6F02 siblings lie +/-$16 bytes away; periodicity does not prove this entry.
+Kbd_Type6To10Flag:: ; 55:6EEC
+Function_55_6EEC::
+	; [PROBABLE] Operation alias: for type A=0..10, returns 0 for 0..5 and 1 for 6..10.
+	; HL=$6EF7+entry A; A=[HL]; BC/DE unchanged; F=$00, so returned 0 does not itself set Z.
+	; Unchecked: A=11 reads opcode $21; A=11..255 reads neighbouring ROM through $6FF6.
+	; Requires stable ROM55, valid nonaliasing stack and no relevant IRQ interference.
+	; Entry/purpose HYPOTHESIS: static caller 5DF5 chooses 5E5A/5F29; no live return-9 proof.
+	; Full 6EAA twin differs only in table base; equal table bytes do not transfer cursor role.
 	ld hl, Data_55_6EF7
 	add a, l
 	ld l, a

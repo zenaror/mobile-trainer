@@ -230,7 +230,7 @@ Label_73_6114::
 	farcall WriteByteFar
 	ld a, [wBrowserStart_Cursor]
 	ret
-
+ReadC0F8_Xor1:: ; 73:6143 [PROBABLE] local operation; entry/domain unproved
 Function_73_6143:: ; 73:6143
 	; [HYPOTHESIS] entry/domain unestablished; [6143,6149) and [6149,614F) each decode
 	; as LD A,[C0F8/C0F9]; XOR $01; RET: 6 bytes and 3 instruction starts per segment.
@@ -238,7 +238,7 @@ Function_73_6143:: ; 73:6143
 	; BrowserStart_OnA ends with RET at 6142; the inline table at 6096 targets
 	; 6114/614F/617A/617D/60A0. Raw address-word matches do not establish bank73 callers;
 	; computed or overlapping entries remain open. A = read byte XOR 1, not generic Boolean
-	; negation; see docs/research/naming_73_6143_split_returns.md. No alias is added.
+	; negation; see docs/research/naming_73_6143_split_returns.md. Operation name PROBABLE.
 	ld a, [wRam_C0F8]
 	xor a, $01
 	ret

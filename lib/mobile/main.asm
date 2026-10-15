@@ -10100,12 +10100,12 @@ MobileSDK_ResumeIdlePolling:: ; 75:7E7A
 	res 5, [hl]
 	res 0, [hl]
 	jp MobileSDK_PollAdapterStatus
-
-Function_75_7E89:: ; 75:7E89
-	; [PROBABLE] 27 instruction starts/43 bytes in bank75 [7E89,7EB4); RET Z7EAD/RET7EB3,
-	; no ordinary fall-through to7EB4. Calls same-bank Mobile_PacketSendBytes (75:5F10).
-	; Uses C6BA..C6BE/C6C1 and saved AF; pointer +/-2 wraps modulo16bit (see research note).
-	; Neutral entry/purpose HYPOTHESIS; finite caller search does not exclude computed entry.
+MobileSDK_TryQueueSavedPacketWithXor80Ack:: ; 75:7E89
+Function_75_7E89::
+	; [PROBABLE] 43B/27 starts: try queue saved DE/HL, C6BE=[P+2] XOR80; B5 CALL75:5F10.
+	; Normal balanced return: A=oldC6C1; Z=!oldbit0,N0H1,C=entry; callee carry discarded.
+	; RET7EAD/7EB3; savedbit0one sets currentbit0 only; pointer/IRQ/callee limits in note.
+	; Entry/purpose HYPOTHESIS; ack consumer75:5734; no queue/success/whole-AF guarantee.
 	ld hl, wMobileFlags
 	ld a, [hl]
 	push af

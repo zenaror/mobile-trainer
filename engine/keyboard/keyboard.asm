@@ -512,11 +512,11 @@ Kbd_Run_ReturnSelect:: ; 55:5F26
 Label_55_5F26::
 	ld a, $0A
 	ret
-
-Label_55_5F29:: ; 55:5F29
+Kbd_HideAndReturn9:: ; 55:5F29
+Label_55_5F29::
 	; [HYPOTHESIS] 12B/6 starts [5F29,5F35): XOR sets A0 before unconditional CALL6427.
-	; Normal callee return clears C2AF then A9/RET; caller stack/mapping/IRQ prerequisites.
-	; JP5DFF is a bounded static reference; no new natural entry or whole-caller ABI proof.
+	; [PROBABLE] Exact9B prefix of Kbd_Hide6559; normal callee return clears C2AF, returns A9.
+	; JP5DFF is static only; callee effects require valid stack/bank/IRQ/state, no caller ABI.
 	; Hypothetical interior5F2A skips XOR and may supply another A; no observed caller claimed.
 	xor a, a
 	call Kbd_SlideOut
