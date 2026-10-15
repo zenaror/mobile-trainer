@@ -1215,8 +1215,8 @@ Gfx_StartHDMAAtVBlank_2B_6CD5:: ; 2B:6CD5
 	and a, $7F
 	ldh [rHDMA5], a
 	ret
-CopyRecordBFields_Edit_Pop4IfBodyNot0OrFF:: ; 2B:6CF5 [PROBABLE] operation; entry/purpose unproved
-Function_2B_6CF5:: ; 2B:6CF5
+MailReply_ComposeFromRecord:: ; 2B:6CF5 [PROBABLE] reply from record; entry unproved
+	; [PROBABLE] Sender fields -> recipient buffers; mode3 reply; see naming2_neutral_mail.md.
 	; [HYPOTHESIS] Entry/caller unproved. W1:$D400 wipe $24; SRAM0 record B -> edit buffers.
 	; Unlike 25:54A7: no B+C adjustment, wipe $24 vs $124, initial MailAddr_Edit A=0 vs 1.
 	; Nonzero/non-FF body result: four POP AF6D94..6D97; RET6DA2 uses entry stack word +8.

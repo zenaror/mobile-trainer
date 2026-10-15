@@ -219,7 +219,7 @@ Table_68_48D6::
 	dw $4880, $4880, $48D1, $48D4
 
 Settings_VerifyAndRepair:: ; 68:48DE
-Function_68_48DE::
+	; [CONFIRMED] Entry/operation; bank68_function_names row 48DE.
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 18/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, sSettingsPage

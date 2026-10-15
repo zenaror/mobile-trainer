@@ -68,7 +68,7 @@ Where a status is written in the source:
   palette files (section 8); asset paths resolve because the Makefile passes `-I .`.
 * Directories: `home/` (ROM0), `lib/mobile/` (SDK banks 75 and 0F), `engine/<subsystem>/` (code), `data/` (text, HTML store, fonts, tables), `gfx/<screen>/` (tiles, tilemaps,
   palettes and object tables named after the consumer), `audio/`.  Paths are lowercase, `[a-z0-9_]`, `.asm`.  A graphics block stored in a different bank than the code that loads
-  it is named after the consumer and carries `_bankNN` (`gfx/mail/connect_screen_bank29.asm`); blocks with no known consumer are `gfx/bankNN.asm`.  The reasoning behind the
+  it is named after the consumer and carries `_bankNN` (`gfx/mail/connect_screen_bank29.asm`); legacy `gfx/bankNN.asm` paths for blocks without a known consumer remain naming debt. Name resources from demonstrated content or structure, qualify uncertain interpretation, and retain bank/address provenance; do not invent an application role or species.  The reasoning behind the
   file split is in [`analysis/layout/README.md`](analysis/layout/README.md).
 * Data that only one routine uses stays in the routine's file, as in pokecrystal.
 * Special files: `ram.asm` + `ram/{sram,wram,hram,banked}.asm` (equates only, no bytes), `consts.asm` (numeric constants), `zero_labels.asm` (labels that point into all-zero padding,

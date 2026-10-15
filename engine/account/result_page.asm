@@ -5,7 +5,7 @@
 SECTION "engine/account/result_page", ROMX
 
 Account_ResultPage:: ; 68:766E
-Function_68_766E::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 766E.
 	; [CONFIRMED] 59 insn(s); 59 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld [wResultPage_Kind], a
@@ -113,7 +113,7 @@ Label_68_7743::
 	jr Account_ResultPage_InputLoop
 
 Account_ResultPage_PrintMessage:: ; 68:7745
-Function_68_7745::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 7745.
 	; [CONFIRMED] 39 insn(s); 39 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld de, $FFFF
@@ -190,7 +190,7 @@ Data_68_77D0::
 	db $05, $0E, $0F, $10, $11, $12
 
 Account_ResultPage_LoadBanner:: ; 68:77D6
-Function_68_77D6::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 77D6.
 	; [CONFIRMED] 55 insn(s); 55 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wResultPage_Kind]
@@ -273,7 +273,7 @@ Data_68_7849::
 
 
 Account_ResultPage_DrawTimeDigits:: ; 68:784E
-Function_68_784E::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 784E.
 	; [CONFIRMED] 130 insn(s); 130 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	farcall CommTime_AddTimerA

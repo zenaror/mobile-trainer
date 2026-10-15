@@ -211,7 +211,7 @@ SoundDrv_SelectMusicTracks:: ; 04:4153
 	jr SoundDrv_SetTrackIterator
 
 SoundDrv_SelectAllTracks:: ; 04:415A
-Function_04_415A::
+	; [HYPOTHESIS] Entry; operation name PROBABLE (8 tracks); audio_function_names section 2 ABI.
 	; [HYPOTHESIS] sibling of the executed entries 414C/4153 (ld de,imm ; ld a,imm ; shared tail
 	; 415F): decodes to ld de,$D040 ; ld a,$08 and lands exactly on the executed tail 415F; no
 	; caller or table entry found anywhere in the ROM, so entry unproven
@@ -504,7 +504,7 @@ SoundDrv_ResumeMusic:: ; 04:42EC
 	jp Bank4_GateLeave
 
 SoundDrv_LoadSongHeader:: ; 04:430A
-Function_04_430A::
+	; [CONFIRMED] Load BC record; invalid id unwinds via gate; audio_function_names section 3.
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 18/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, b
@@ -727,7 +727,7 @@ SoundDrv_FadeFinished:: ; 04:442F
 	ld [wSoundDrv_FadeSpeed], a
 
 SoundDrv_PauseMusicCore:: ; 04:4433
-Function_04_4433::
+	; [CONFIRMED] Pause music; preserve stream positions; audio_function_names section 4 ABI.
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 18/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $FF
@@ -921,7 +921,7 @@ SoundDrv_StartFadeOut:: ; 04:452C
 	jp Bank4_GateLeave
 
 SoundDrv_UpdateFade:: ; 04:453A
-Function_04_453A::
+	; [CONFIRMED] Entry; full fade PROBABLE (synthetic); audio_function_names section 5 ABI.
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 18/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wSoundDrv_MusicPaused]
@@ -947,7 +947,7 @@ Function_04_453A::
 	jp SoundDrv_SetTrackParamCore
 
 SoundDrv_ApplyTrackUpdates:: ; 04:455A
-Function_04_455A::
+	; [CONFIRMED] Apply track outputs for flags >= $C0; audio_function_names section 6 ABI.
 	; [CONFIRMED] 120 insn(s); 120 executed (in up to 18/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wSoundDrv_TrackPtr]
@@ -2155,7 +2155,7 @@ Label_04_4B66::
 	jp SoundDrv_ReadNextCommand
 
 SoundDrv_ServiceChannelSfx:: ; 04:4BC9
-Function_04_4BC9::
+	; [CONFIRMED] Service the active SFX-owned channel gate; audio_function_names section 7 ABI.
 	; [CONFIRMED] 90 insn(s); 90 executed (in up to 18/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wSoundDrv_ChannelPtr]

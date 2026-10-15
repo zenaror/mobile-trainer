@@ -5,7 +5,7 @@
 SECTION "engine/account/register_config", ROMX
 
 Registration_WriteConfigToAdapter:: ; 68:6AE0
-Function_68_6AE0::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 6AE0.
 	; [CONFIRMED] 106 insn(s); 106 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call Registration_WriteConfig_Setup
@@ -184,7 +184,7 @@ Label_68_6C5D::
 	ret
 
 Registration_DoNotUnplugMessage:: ; 68:6C7F
-Function_68_6C7F::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 6C7F.
 	; [CONFIRMED] 135 insn(s); 135 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $03

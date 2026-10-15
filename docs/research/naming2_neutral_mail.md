@@ -124,3 +124,77 @@ The preceding V1 operation appendix incorrectly described the full187-byte[2B:6C
 The original source header's “forced_dead68/68starts” describes that prefix, not whole-body closure. In the existing `traces/forced/coverage_forced_dead.tsv`,68 prefix starts plus the farcall start6D6D give69 of the100 complete-body starts; the6D6D row is line4159 with one hit at frame5002. The four POPs6D94..6D97 and final RETs6DA2/6DAF are not observed by those rows. Forced evidence remains diagnostic and supplies no natural caller, completed nonlocal return or unwind ABI. The header retains its physical line1224 while explicitly qualifying69/100 and the missing terminal paths. Historical frozen metadata and older research snapshots remain historical rather than silently promoted to full coverage.
 
 Copy units are also explicit here: LD B,40 encodes0x40=64 bytes after record offset0xED, and LD B,10 encodes0x10=16 bytes after offset0xC9. The V1 prose's unprefixed “40bytes”/“10bytes” was ambiguous and is corrected in the new operation appendix. Earlier historical text is preserved as written. No range, operand, callee, four-POP/S+8 contract or confidence conclusion is changed by these count/locator/unit corrections.
+
+
+## Reply composition from a received record: proper domain role (2026-10-15)
+
+`MailReply_ComposeFromRecord` is the current **PROBABLE** domain name at2B:6CF5,
+replacing the active labels `CopyRecordBFields_Edit_Pop4IfBodyNot0OrFF` and
+`Function_2B_6CF5`. The role means staging the recorded sender as recipient and
+running the address/subject/body editors in reply mode. It does not identify a
+natural caller or adopt a sibling's ABI. The earlier purpose-HYPOTHESIS decisions
+above are superseded for this narrow domain role only; natural entry, intended
+UI hook, valid caller domain and four-word unwind intent remain HYPOTHESIS.
+
+The positive evidence is independent of name similarity. Original2B:6D5D stores3
+at WRAM1:D524. Body-editor2D:4786/59E7 and address-editor66D3 distinguish mode1
+(new mail),2(revise) and other values including3(reply-discard dialog020F).
+`Dialog_Open`72:402A indexes list2 from502F->5063; its0F word at5081 points to
+72:5B40. The original69-byte record has header860201 and CP932 lines
+`　かきかけのへんじは　きえて　　` / `　しまいます。よろしいですか？　`
+(the unfinished reply will disappear; confirm?). SHA256:
+`9203f52b1b3bfc1ff4fad6759491bf9a78c7f29d96b43c43a60f78560b8ac78d`.
+This establishes a reply-domain discriminator, not a claim that3 is the only byte
+selecting that fallback or that this candidate displayed it. The extra mode tests
+at47D8/5A41 rejoin the same47E5/5A4E exit and add no distinct reply operation.
+
+The record fields have positive producers and consumers. POP3 receive54:4DB5
+forms record+C9h as the display-name destination DE;4DBD forms record+EDh as
+address destination HL;4DC1 calls Mail_SplitFromHeader4FD2. The splitter parses
+angle brackets/parentheses with16/64-byte copy bounds; its display-name field
+can also contain an unstructured-address fallback, not a validated human name.
+The candidate copies64bytes from+EDh toWRAM1:D4C0 and16bytes from+C9h toD514.
+The copies end at record+12Dh/+D9h and copy any existing padding/terminator;
+they neither trim nor validate encoding/NUL termination of a malformed record.
+MailDraft_SaveToSram2D:403C stages those into SRAM0:A000/A114. SMTP54:4601/4630
+uses them as recipient address/display name; header field3 points through
+0F:4017 to404E, literal `To: `. The copied received sender therefore becomes
+the outgoing recipient. No direct SMTP execution, Reply-To-header policy or
+network result is attributed to this candidate.
+
+Entry B is the direct record index; valid0..11 selects A124+i*012Dh from the
+twelve-word table6DB0. Doubled-C indexing is modulo256 with no bounds check.
+The candidate clears only24h=36bytes atD400..D423; it neither performs the used
+25:54A7 sibling's124h=292-byte staging wipe nor copies received body+9/subject+D9.
+Its prefix leaves the rest of the body and the subject buffer untouched. A0
+address entry goes to the ordinary cursor/input path; the sibling usesA1 for
+immediate keyboard entry. Both later use titleA0 initially, titleA1 after bodyFF,
+and the same body editor. A0 is not a clear-buffer promise: both address/title
+editors preserve the selector to their explicit1 tests at2D:65F9/2C:4031.
+The name does not imply a fresh subject, quoting, Re: prefix, full erase or send.
+
+The original four-POP transfer stays explicit. With S=entry SP, balanced callees,
+valid nonaliasing stack and coherent mapper/state, body result other than0/FF
+discards wordsS..S+6 and RET6DA2 consumesS+8, ending atS+10. F comes from the
+fourth popped word; the tail selectsWRAM1 and loads currentD526 intoA/C. Cancel
+RET6DAF instead usesS and ends atS+2 withA=FF,C=currentD526. D526 is set from
+entry B at6D65, but transitive editor/overlay behavior is not a universal promise
+to preserve it. The used sibling's three POPs and observed return do not explain
+the extra word here. The possible nested-viewer frame remains hypothetical.
+
+The complete original[6CF5,6DB0) is187bytes/100CPU starts plus9 inline far-pointer
+bytes, SHA256`e6c91d7430f7d9297da49ec0027b3c366100382b87692f72efd7e61490da534d`.
+All instruction/data rows stay physically fixed. The two replaced global-label
+rows keep the proper name then its domain-proof comment; the eight local labels
+are rescoped from Function_2B_6CF5 to MailReply_ComposeFromRecord. There are no
+active operand or qualified-local references to either retired global spelling
+in the maintained original ASM/inc tree. Old address/name mappings above retain
+provenance without generic active function aliases.
+
+This derivation used pinned original bytes and selected positive existing field
+consumers; it did not replay the69-scenario negatives, scan callers again, force
+entry, build or execute a runtime test. Existing sibling/producer/dialog coverage
+belongs only to those consumers. This private role proposal establishes no
+natural candidate entry, new hardware/visual evidence or reconstructed-ROM
+equivalence; independent review and the later canonical adoption gates remain
+separate requirements.

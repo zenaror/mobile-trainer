@@ -5,9 +5,9 @@
 SECTION "lib/mobile/main", ROMX
 
 MobileSDK_CopyBytes:: ; 75:4000
-Function_75_4000::
-	; [CONFIRMED] 76 insn(s); 76 executed (in up to 18/18 scenarios); entry proven: target of an
-	; executed call/far call
+	; [CONFIRMED] Copy operation; caller mapping; sdk_function_names row4000.
+	; [CONFIRMED] 7 bytes/6 starts: copy N bytes HL->DE; N=B if B!=0, else256.
+	; HL/DE+=N, B=0, A=last byte, C preserved; F=$C0|entryCarry. See sdk_function_names.
 	ld a, [hli]
 	ld [de], a
 	inc de
@@ -137,7 +137,7 @@ Table_75_4070::
 	dw MobileAPI_TelephoneStatusAlias
 
 MobileSDK_WaitStatusPoll:: ; 75:40B4
-Function_75_40B4::
+	; [CONFIRMED] Entry; role PROBABLE; sdk_function_names row40B4.
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 18/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -783,7 +783,7 @@ MobileAPI_Dial:: ; 75:443D
 	jr MobileSDK_SetBusy
 
 Mobile_DialTelephone:: ; 75:448A
-Function_75_448A::
+	; [CONFIRMED] Entry; role PROBABLE; sdk_function_names row448A.
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 7/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld de, wMobileSDK_PacketBuffer
@@ -878,7 +878,7 @@ MobileAPI_Disconnect:: ; 75:44CB
 
 .l452B ; 75:452B
 	; [CONFIRMED] 39 insn(s); 39 executed (in up to 7/18 scenarios)
-	call MobileSDK_ResetRxWindowAndResultPtr
+	call MobileSDK_ResetRxWindowAndSetResultLowFF
 	xor a, a
 	ld [wMobileSDK_Substep], a
 	ld de, wMobileSDK_PacketBuffer + $20
@@ -943,7 +943,7 @@ MobileAPI_ReadMailAddress:: ; 75:4591
 	ret
 
 MobileSDK_StartConfigRead:: ; 75:459B
-Function_75_459B::
+	; [CONFIRMED] Entry; role PROBABLE; sdk_function_names row459B.
 	; [CONFIRMED] 32 insn(s); 32 executed (in up to 8/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wTimerEnable]
@@ -1238,7 +1238,7 @@ MobileAPI_SmtpMailFrom:: ; 75:475C
 	xor a, a
 	cp a, [hl]
 	jr nz, .l4786
-	call MobileSDK_ResetRxWindowAndResultPtr
+	call MobileSDK_ResetRxWindowAndSetResultLowFF
 	xor a, a
 	ld [wMobileSDK_Substep], a
 	ld de, wMobileSDK_PacketBuffer
@@ -1320,7 +1320,7 @@ MobileAPI_SmtpData:: ; 75:4804
 	ld [hli], a
 	ld a, d
 	ld [wMobileSDK_ResultPointer + 1], a
-	call MobileSDK_ResetRxWindowAndResultPtr
+	call MobileSDK_ResetRxWindowAndSetResultLowFF
 	ld hl, wMobileSmtp_DataPhase
 	ld a, [hl]
 	and a, $01
@@ -1382,7 +1382,7 @@ MobileSDK_SendQuit:: ; 75:48B0
 	ld hl, wTimerEnable
 	bit 0, [hl]
 	jp nz, MobileSDK_ErrBusy
-	call MobileSDK_ResetRxWindowAndResultPtr
+	call MobileSDK_ResetRxWindowAndSetResultLowFF
 	xor a, a
 	ld [wMobileSDK_Substep], a
 	ld de, wMobileSDK_PacketBuffer + $20
@@ -2706,7 +2706,7 @@ MobileSDK_HttpReadBody:: ; 75:5049
 	ret
 
 MobileSDK_HttpFlushLeftover:: ; 75:5164
-Function_75_5164::
+	; [PROBABLE] Existing operation; no new execution; sdk_function_names row5164.
 	ld e, a
 	xor a, a
 	cp a, b
@@ -2791,7 +2791,7 @@ Label_75_51CF::
 	jp Mobile_CloseTcpConnection
 
 MobileSDK_UrlMeasurePath:: ; 75:51DC
-Function_75_51DC::
+	; [CONFIRMED] Entry; role PROBABLE; sdk_function_names row51DC.
 	; [CONFIRMED] 73 insn(s); 73 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push hl
@@ -3600,7 +3600,7 @@ MobileAPI_Reset:: ; 75:563A
 	ret
 
 MobileSDK_RearmResponseTimeout:: ; 75:565C
-Function_75_565C::
+	; [PROBABLE] Existing operation; no new execution; sdk_function_names row565C.
 	; [PROBABLE] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 3;
 	; entered by call from 75:55DC (PROBABLE code)
 	ld hl, wMobileSDK_TimeoutCounter
@@ -3618,7 +3618,7 @@ Function_75_565C::
 	ret
 
 MobileSDK_RxStoreByte:: ; 75:5671
-Function_75_5671::
+	; [CONFIRMED] Entry; role PROBABLE; sdk_function_names row5671.
 	; [CONFIRMED] 37 insn(s); 37 executed (in up to 18/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, wMobileSDK_ReceivedBytes
@@ -4872,7 +4872,7 @@ MobileSDK_MapTelephoneStatus:: ; 75:5DE2
 	ret
 
 MobileSDK_SetTelephoneStatusClass:: ; 75:5E1E
-Function_75_5E1E::
+	; [CONFIRMED] Entry; role PROBABLE; sdk_function_names row5E1E.
 	; [CONFIRMED] 29 insn(s); 29 executed (in up to 17/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, b
@@ -4890,7 +4890,7 @@ Function_75_5E1E::
 	ret
 
 MobileSDK_RxDispatch_ResetBufferOnReturn:: ; 75:5E31
-Function_75_5E31::
+	; [CONFIRMED] Existing operation; sdk_function_names row5E31.
 	jp Mobile_ResetReceivePacketBuffer
 
 Mobile_GetErrorCode:: ; 75:5E34
@@ -5152,7 +5152,7 @@ Mobile_PacketBuildFooter:: ; 75:5F6C
 	ret
 
 Mobile_PacketBuildFooter_SumByte:: ; 75:5F96
-Function_75_5F96::
+	; [CONFIRMED] Existing operation; sdk_function_names row5F96.
 	dec de
 	ld a, [de]
 	add a, l
@@ -5376,7 +5376,7 @@ String_75_6138::
 POPC
 
 MobileSDK_StateDispatch:: ; 75:6149
-Function_75_6149::
+	; [CONFIRMED] Entry; role PROBABLE; sdk_function_names row6149.
 	; [CONFIRMED] 32 insn(s); 32 executed (in up to 18/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wMobileFlags]
@@ -6047,7 +6047,7 @@ Label_75_64E0::
 	jp MobileSDK_HttpOpened_SetBusyTail
 
 MobileSDK_HttpSendRequestPacket:: ; 75:653A
-Function_75_653A::
+	; [CONFIRMED] Entry; role PROBABLE; sdk_function_names row653A.
 	; [CONFIRMED] 21 insn(s); 21 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld b, $FA
@@ -6195,7 +6195,7 @@ MobileSDK_SmtpOpened:: ; 75:6622
 	inc de
 	ld b, $01
 	call Mobile_PacketBuildFooter
-	call MobileSDK_ResetRxWindowAndResultPtr
+	call MobileSDK_ResetRxWindowAndSetResultLowFF
 	ld a, [wMobileSDK_PacketBuffer + 117]
 	ld b, a
 	ld de, wMobileSDK_PacketBuffer + $76
@@ -6228,7 +6228,7 @@ MobileSDK_Pop3Opened:: ; 75:665A
 	inc de
 	ld b, $01
 	call Mobile_PacketBuildFooter
-	call MobileSDK_ResetRxWindowAndResultPtr
+	call MobileSDK_ResetRxWindowAndSetResultLowFF
 	ld a, [wMobileSDK_PacketBuffer + 165]
 	ld b, a
 	ld de, wMobileSDK_PacketBuffer + $A6
@@ -6362,8 +6362,8 @@ MobileState_ReturnToConnected:: ; 75:672B
 	res 0, [hl]
 	ret
 
-MobileSDK_ResetRxWindowAndResultPtr:: ; 75:673A
-Function_75_673A::
+MobileSDK_ResetRxWindowAndSetResultLowFF:: ; 75:673A
+	; [CONFIRMED] Entry; operation PROBABLE; low byte only; sdk_function_names row673A.
 	; [CONFIRMED] 14 insn(s); 14 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $FF
@@ -6420,7 +6420,7 @@ MobileState_SmtpGreeting:: ; 75:6750
 	ld a, $20
 	cp a, e
 	jr nz, .l67CD
-	call MobileSDK_ResetRxWindowAndResultPtr
+	call MobileSDK_ResetRxWindowAndSetResultLowFF
 	ld a, [wMobileSDK_PacketBuffer + 117]
 	add a, $0A
 	ld e, a
@@ -6469,7 +6469,7 @@ MobileState_SmtpGreeting:: ; 75:6750
 	jp Mobile_CloseTcpConnection
 
 Mobile_PacketSendTransferData:: ; 75:67DB
-Function_75_67DB::
+	; [CONFIRMED] Entry; role PROBABLE; sdk_function_names row67DB.
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld de, $000B
@@ -6492,7 +6492,7 @@ MobileSDK_SmtpConnectionLost:: ; 75:67E3
 	ret
 
 MobileSDK_ReplyLineComplete:: ; 75:67F7
-Function_75_67F7::
+	; [CONFIRMED] Entry; role PROBABLE; sdk_function_names row67F7.
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call MobileSDK_TrackReplyTail
@@ -6528,7 +6528,7 @@ MobileSDK_ReplyEndOfMultiline:: ; 75:6809
 	jr MobileSDK_ReplyLineComplete_TestCrLf
 
 MobileSDK_TrackReplyTail:: ; 75:681D
-Function_75_681D::
+	; [CONFIRMED] Entry; role PROBABLE; sdk_function_names row681D.
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -6596,7 +6596,7 @@ MobileState_SmtpRecipients:: ; 75:6856
 	ld a, [hli]
 	cp a, $35
 	jr nz, MobileSDK_ServerReplyError
-	call MobileSDK_ResetRxWindowAndResultPtr
+	call MobileSDK_ResetRxWindowAndSetResultLowFF
 	ld hl, wMobileSDK_DataPointer
 	ld a, [hli]
 	ld h, [hl]
@@ -6662,7 +6662,7 @@ MobileSDK_ServerReplyError:: ; 75:68D3
 	ret
 
 MobileSDK_ClearBusyAndPending:: ; 75:68E9
-Function_75_68E9::
+	; [CONFIRMED] Entry; role PROBABLE; sdk_function_names row68E9.
 	; [CONFIRMED] 4 insn(s); 4 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, wTimerEnable
@@ -6702,7 +6702,7 @@ MobileState_SmtpData:: ; 75:68F1
 	res 0, [hl]
 	ret
 .l6917 ; 75:6917
-	call MobileSDK_ResetRxWindowAndResultPtr
+	call MobileSDK_ResetRxWindowAndSetResultLowFF
 	ld de, wMobileSDK_PacketBuffer + $05
 	ld a, $01
 	ld [de], a
@@ -6752,7 +6752,7 @@ MobileState_SmtpData:: ; 75:68F1
 	jp MobileSDK_ServerReplyError
 
 MobileSDK_AppendCrLf:: ; 75:6974
-Function_75_6974::
+	; [CONFIRMED] Entry; role PROBABLE; sdk_function_names row6974.
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 5/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $0D
@@ -6830,7 +6830,7 @@ MobileState_Pop3Login:: ; 75:69B2
 	ld a, [wMobileSDK_Window]
 	cp a, $2B
 	jr nz, .l6A25
-	call MobileSDK_ResetRxWindowAndResultPtr
+	call MobileSDK_ResetRxWindowAndSetResultLowFF
 	ld a, [wMobileSDK_PacketBuffer + 101]
 	add a, $0A
 	ld e, a
@@ -6845,7 +6845,7 @@ MobileState_Pop3Login:: ; 75:69B2
 	ld a, [wMobileSDK_Window]
 	cp a, $2B
 	jr nz, .l6A25
-	call MobileSDK_ResetRxWindowAndResultPtr
+	call MobileSDK_ResetRxWindowAndSetResultLowFF
 	ld a, [wMobileSDK_PacketBuffer + 165]
 	add a, $0A
 	ld e, a
@@ -6982,7 +6982,7 @@ MobileState_Pop3Stat:: ; 75:6A6C
 	jp MobileSDK_Pop3ReplyError
 
 MobileSDK_ParseDecimal:: ; 75:6AC2
-Function_75_6AC2::
+	; [CONFIRMED] Entry; role PROBABLE; sdk_function_names row6AC2.
 	; [CONFIRMED] 79 insn(s); 79 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wRam_C711]
@@ -7102,7 +7102,7 @@ MobileSDK_ParseReplyCode:: ; 75:6B27
 	ret
 
 MobileSDK_ParseReplyCodeDigit:: ; 75:6B76
-Function_75_6B76::
+	; [CONFIRMED] Existing operation; sdk_function_names row6B76.
 	ld a, [hli]
 	cp a, $30
 	jr c, .l6B85
@@ -7941,7 +7941,7 @@ String_75_7039::
 POPC
 
 MobileSDK_HttpHdrGbStatus:: ; 75:7040
-Function_75_7040::
+	; [CONFIRMED] Entry; role PROBABLE; sdk_function_names row7040.
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld de, MobileStr_HdrGbStatus
@@ -7968,7 +7968,7 @@ Function_75_7040::
 	ret
 
 MobileSDK_HttpHdrGbAuthId:: ; 75:705E
-Function_75_705E::
+	; [CONFIRMED] Entry; role PROBABLE; sdk_function_names row705E.
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld de, MobileStr_HdrGbAuthId
@@ -8006,7 +8006,7 @@ Function_75_705E::
 	ret
 
 MobileSDK_HttpHdrWwwAuthenticate:: ; 75:708C
-Function_75_708C::
+	; [CONFIRMED] Entry; role PROBABLE; sdk_function_names row708C.
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld de, MobileStr_HdrWwwAuthenticate
@@ -8028,7 +8028,7 @@ Function_75_708C::
 	ret
 
 MobileSDK_HttpFindHeaderEnd:: ; 75:70A3
-Function_75_70A3::
+	; [CONFIRMED] Entry; role PROBABLE; sdk_function_names row70A3.
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, wMobileSDK_Window
@@ -8228,7 +8228,7 @@ MobileSDK_HttpHdrUriHeader:: ; 75:719F
 	jr MobileSDK_HttpStoreHeaderValue
 
 MobileSDK_HttpHdrLocation:: ; 75:71B8
-Function_75_71B8::
+	; [CONFIRMED] Entry; role PROBABLE; sdk_function_names row71B8.
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld de, MobileStr_HdrLocation
@@ -8395,7 +8395,7 @@ Label_75_727D::
 	ret
 
 MobileSDK_FindLineEnd:: ; 75:72A0
-Function_75_72A0::
+	; [CONFIRMED] Entry; role PROBABLE; sdk_function_names row72A0.
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	dec b
@@ -8412,7 +8412,7 @@ Function_75_72A0::
 	ret
 
 MobileSDK_MatchPrefix:: ; 75:72AB
-Function_75_72AB::
+	; [CONFIRMED] Entry; role PROBABLE; sdk_function_names row72AB.
 	; [CONFIRMED] 41 insn(s); 41 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld c, $00
@@ -8623,7 +8623,7 @@ MobileSDK_HttpBuildRedirectUrl:: ; 75:7436
 	ret
 
 MobileSDK_HttpSendBodyChunk:: ; 75:7444
-Function_75_7444::
+	; [CONFIRMED] Entry; role PROBABLE; sdk_function_names row7444.
 	; [CONFIRMED] 23 insn(s); 23 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, wMobileSDK_DataLength + $01
@@ -8812,7 +8812,7 @@ MobileState_ReadConfigExport:: ; 75:74DB
 	jp MobileSDK_FinishWithError
 
 MobileSDK_ClearBuffer:: ; 75:7554
-Function_75_7554::
+	; [CONFIRMED] Entry; role PROBABLE; sdk_function_names row7554.
 	; [CONFIRMED] 73 insn(s); 73 executed (in up to 8/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push de
@@ -9946,7 +9946,7 @@ MobileSDK_Base64Decode:: ; 75:7D28
 	ret
 
 MobileSDK_Base64DecodeChar:: ; 75:7DBC
-Function_75_7DBC::
+	; [CONFIRMED] Entry; role PROBABLE; sdk_function_names row7DBC.
 	; [CONFIRMED] 28 insn(s) executed; cut out of the PROBABLE region 7C50-7E89 by apply_coverage
 	; --split [executed in 1 scenarios]
 	cp a, $2B
@@ -10101,7 +10101,7 @@ MobileSDK_ResumeIdlePolling:: ; 75:7E7A
 	res 0, [hl]
 	jp MobileSDK_PollAdapterStatus
 MobileSDK_TryQueueSavedPacketWithXor80Ack:: ; 75:7E89
-Function_75_7E89::
+	; [PROBABLE] Operation; entry/purpose HYPOTHESIS; sdk_function_names row7E89.
 	; [PROBABLE] 43B/27 starts: try queue saved DE/HL, C6BE=[P+2] XOR80; B5 CALL75:5F10.
 	; Normal balanced return: A=oldC6C1; Z=!oldbit0,N0H1,C=entry; callee carry discarded.
 	; RET7EAD/7EB3; savedbit0one sets currentbit0 only; pointer/IRQ/callee limits in note.

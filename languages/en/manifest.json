@@ -3422,12 +3422,12 @@
       "sha256": "37a6751a209c8d25e51cf919800d769d1e50de38e3cad345027115d046b54567"
     },
     "REVERSE_ENGINEERING.md": {
-      "size": 146581,
-      "sha256": "e5066310d0c5dfabef0dd54c7d78943bcbaa112364f89a1d5b9b0dba5268362e"
+      "size": 148410,
+      "sha256": "2756930eba67ac164e8a30ea0de3190e4979c54871621e7a187713d9e5ea788e"
     },
     "STYLE.md": {
-      "size": 57634,
-      "sha256": "85720ba0f319e6af09e7026292bf68a67b71f13224f7f9879ae2ac57ed0363f4"
+      "size": 57839,
+      "sha256": "6c39aa4e7adce046ea39b96e15792afb9bd98f1d8398276d63a63ce293b3ee3b"
     },
     "analysis/audio2_verify/bend_formula.py": {
       "size": 2074,
@@ -4322,8 +4322,8 @@
       "sha256": "e20e9edf63dc5cdd4b8653e8851dab75ca6a3d55f20778b65c338b3cec950b25"
     },
     "analysis/naming2/ram12_comm_overlays.tsv": {
-      "size": 21924,
-      "sha256": "63cea33192067c50b801cb48bf138eef22095ba45eb704a0fe9969d779588466"
+      "size": 21939,
+      "sha256": "3a7406d62d4e6afbd78f40028d39903f2e7d92895e366ad54ea591d540e6f374"
     },
     "analysis/naming2/ram12_comm_renames.tsv": {
       "size": 5737,
@@ -4894,8 +4894,8 @@
       "sha256": "4acea468adc6af945bb96561b44dbb5bb67f204850f9d63d38859c34bc53ea78"
     },
     "audio/engine.asm": {
-      "size": 58360,
-      "sha256": "ff658ac01126b64503a72dff4b927c3a5b6dff6f11296f707f7f75f674ebd877"
+      "size": 58797,
+      "sha256": "5472a78838e34e81430f47ccaee339ed11da3b09c28ecabc996527c099070732"
     },
     "audio/instruments.asm": {
       "size": 11375,
@@ -6278,8 +6278,8 @@
       "sha256": "2a81b21c5620247e1ba2a3e144067e00ccf095f618692ed2541c10e8e761633b"
     },
     "docs/README.md": {
-      "size": 66470,
-      "sha256": "e8dbd0b341a00f109a540311d7f86697430bdaace8eae46590d48cc419a59f0d"
+      "size": 66962,
+      "sha256": "d50de99393600f03f05b7a8e23551c812ef6e0b57e97574b42a42d2c87a3b5c4"
     },
     "docs/REVERSE_ENGINEERING_RULES.md": {
       "size": 17815,
@@ -6320,6 +6320,14 @@
     "docs/research/audio_format.md": {
       "size": 70367,
       "sha256": "b5a16c40fcaca2309d3e637632c0fa6cecb56ca6281e29aec7aa94c3c98da4bd"
+    },
+    "docs/research/audio_function_names.md": {
+      "size": 15930,
+      "sha256": "eb7f897a7b61f17eb09954ba87f995932379cbab5961363bf3c1df31ba1639f7"
+    },
+    "docs/research/bank68_function_names.md": {
+      "size": 42563,
+      "sha256": "107c429b5d4cce54143a6ceacea4bffcf95ef65bb688d1791e9ebad67e5308f0"
     },
     "docs/research/bank_survey.md": {
       "size": 30922,
@@ -6502,8 +6510,8 @@
       "sha256": "ca6090543530cf49f019649b97c2d8353b28da53c5ea1d9afd2bab6a87d827f2"
     },
     "docs/research/naming2_neutral_mail.md": {
-      "size": 21704,
-      "sha256": "018ec298ccb7140be7c2adfbd0cca69e543c5203b4ac2c1a26a484107099d90d"
+      "size": 26710,
+      "sha256": "3cb8e53c722795b2e15da724617c287b72d021baadb4f3bf371f280412fc2996"
     },
     "docs/research/naming2_neutral_network.md": {
       "size": 12783,
@@ -6809,6 +6817,10 @@
       "size": 73062,
       "sha256": "35fdcba65788f32eac319abe4023409d39511ee0a738af3f0e51a424c0666baf"
     },
+    "docs/research/sdk_function_names.md": {
+      "size": 22692,
+      "sha256": "fefaf2f705a6477821f1f33995abfc6b94e1f12c481a7579c4c88bdfde9ef9e5"
+    },
     "docs/research/settings_menu_highlight_pair_records.md": {
       "size": 6096,
       "sha256": "e673281dae46d9212d7e1c8444a82248f4e52e6bade0accab04f500ef9a0b8aa"
@@ -7106,60 +7118,60 @@
       "sha256": "349b6d31145c9975b0665b6f0a33511da013788374e8b428a3d97254e58cfaf1"
     },
     "engine/account/action_confirm.asm": {
-      "size": 5563,
-      "sha256": "543f8610f0e51b588e240d18b29355efd5ebe001fdab2cedbfde87d066b3b8c5"
+      "size": 5713,
+      "sha256": "d2a814c4091be892e5f04354bb6dd5df1271fe163960b4a7b3aea0c5e42c2854"
     },
     "engine/account/comm_panel.asm": {
-      "size": 9150,
-      "sha256": "99bcc92c650bc65fda32190afbdab7d6a5db5791efa89d95cd23644037277e5e"
+      "size": 9252,
+      "sha256": "8b356efdf08532a43ac057bfd55149ea61b07532b9f35b20d82e66dddddf958e"
     },
     "engine/account/confirm_screens.asm": {
-      "size": 14959,
-      "sha256": "93e4922d0ab92a79e160c3070a08524d81387fce8af2a67fa5dee02f050a2f12"
+      "size": 15161,
+      "sha256": "c41ee76934204ba6075fa04030b1a8a7c49a2c78f9fdde460345e8b3617148d7"
     },
     "engine/account/delete_registration.asm": {
-      "size": 10864,
-      "sha256": "d7046ae0d8fe8ff9f162268027c7e50b1592bfe93f9db47c859b12722c954fc1"
+      "size": 11064,
+      "sha256": "c55b52ae39bfd7da1695e5216b62c1dc3facdcfe0257a7661d99bc3654844965"
     },
     "engine/account/dev_test_config.asm": {
-      "size": 6611,
-      "sha256": "0f9f479b179a7d79c462ce25700d95d89ff4a38c2502536131548589baa6f523"
+      "size": 6661,
+      "sha256": "570340169e9a38cd2853b5498a2d07ffa55ba58aaa9dd6605d36b8601fd8cbef"
     },
     "engine/account/helpers.asm": {
-      "size": 24204,
-      "sha256": "9ffef85f1075222041b49fbed5cfa0e4998126a8edd6a2753acbb3317ec584a5"
+      "size": 25222,
+      "sha256": "737c7446e2c3b5362c7de4b5cf98382f3d79d04179b9366c8b06fc40a14f5756"
     },
     "engine/account/login_id_entry.asm": {
-      "size": 10281,
-      "sha256": "5e637ee16f52ae48004d2d921bc4f7c94d24c3da762d0ebf64c9859126589f14"
+      "size": 10543,
+      "sha256": "29075154b278f80ab74f21f469ede4096376e73dca985db9286a154626781f78"
     },
     "engine/account/mail_address_entry.asm": {
-      "size": 13080,
-      "sha256": "33d62902f164ee4079c2d6262c99fc53c46081de566014469ac4a8c7c290ee15"
+      "size": 13292,
+      "sha256": "1fcf9a84f678fde339a3c9380fd9be034a58dbc5c4d16b902e5c61795528a70c"
     },
     "engine/account/password_entry.asm": {
-      "size": 11976,
-      "sha256": "eaa53d3ec897c69ec380175fade94f7b83dc55a2882a4341b6570002733e7fd9"
+      "size": 12185,
+      "sha256": "cb32fe5e2f85f15a9e3468c5da95eb3415b60989886be1246fce9abe6a81453c"
     },
     "engine/account/register_config.asm": {
-      "size": 8714,
-      "sha256": "edfbb28f0ea8deb87e992db881d0a9113c6a1224a143c7c88c929c5389da1535"
+      "size": 8814,
+      "sha256": "5df39f7e705078779da7863340bbbe51f973eff7cbc7cfd6f804b1b573fd26e8"
     },
     "engine/account/registration_verify.asm": {
       "size": 9323,
       "sha256": "0bd5662950369330ac6fc850e5f217bada325e33f8ce43c0e5ffa9c08d60630b"
     },
     "engine/account/result_page.asm": {
-      "size": 10057,
-      "sha256": "851f2fbcf41cbd29280921c1cb4fc77de9a45e10445f680adf433cee264997c0"
+      "size": 10257,
+      "sha256": "59810546f126a3a093fef10627aeec81d0c0b89b484118108f0a960527287c04"
     },
     "engine/account/settings_menu.asm": {
       "size": 8919,
       "sha256": "10fb6bff95e56ce3ccb562d642c07cfcf29bf7d524c79c85d2d9b2d761b0ec50"
     },
     "engine/account/settings_page.asm": {
-      "size": 16701,
-      "sha256": "cc800cc223f70a72384e0ac40de49d40035af7b76950500113d56f7cee3b5755"
+      "size": 16746,
+      "sha256": "c3ac44630524e8264b242f751d2367f6aeb66a2b2b9b1ad67c427f9b22373a4f"
     },
     "engine/address_book/address_book.asm": {
       "size": 4833,
@@ -7446,8 +7458,8 @@
       "sha256": "61fb9672ef62666f8e0f090cd1bf0b991f6d9f2cf4aae959fa5c778d91b26731"
     },
     "engine/mail/mail_viewer_sender.asm": {
-      "size": 26599,
-      "sha256": "6957672e84ac7e11e23f10292230aec9c108564632d6ac91ea7eb36c8af51c7b"
+      "size": 26648,
+      "sha256": "6f0896e5cb320659234cbed5225cf9f0403923a879a93638ee87441d61a65b85"
     },
     "engine/mail/mailbox.asm": {
       "size": 26808,
@@ -15126,24 +15138,24 @@
       "sha256": "8cc17d5b484b8f4ab48e6820c15ecc0a312cd65b743012fdae67ddc7e555dbfe"
     },
     "lib/mobile/main.asm": {
-      "size": 214527,
-      "sha256": "4dcc861e0d92c09c82a82010667604f9c2e575d0e37062431a3768af1aa72ba9"
+      "size": 216169,
+      "sha256": "3579bba9d0d9776da1c6e9e1bb4c4ed6ba3d3048b135b778b2f3d67fa1e1d310"
     },
     "ram.asm": {
       "size": 475,
       "sha256": "63eccc547d6162f96717b11a126c11387d6ff5c05e224dc1aa6780d2b632193f"
     },
     "ram/banked.asm": {
-      "size": 164163,
-      "sha256": "a0c89f78aee1f01ca6cda74e7fa692a87457e5853b179b56b5f570159d9703d1"
+      "size": 164187,
+      "sha256": "ba2f9179bf7d6734de3753e5c30ad23537f87aab0e224b57580cb93f83829225"
     },
     "ram/hram.asm": {
       "size": 14247,
       "sha256": "6321adf398ebb62a3690cfeeded432ff67cb50e8741d325fa3b2988bae711317"
     },
     "ram/overlays.asm": {
-      "size": 184141,
-      "sha256": "dd9fa68fb29cb5f850f35884431e02f3f7ea1da9f3655983dc90aeefa5e7238c"
+      "size": 184156,
+      "sha256": "c7d37ea5dbd2d5d3f310310839dc7482cab9962e9bd57dde52f413e2787e8fe5"
     },
     "ram/sram.asm": {
       "size": 43760,
@@ -20461,5 +20473,5 @@
     }
   },
   "overrides_count": 564,
-  "fallback_count": 4252
+  "fallback_count": 4255
 }

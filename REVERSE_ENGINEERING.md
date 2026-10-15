@@ -15,8 +15,8 @@ groups* census counted descriptive aliases; it was not a census of identified fu
 maintained-source scan at245961f6 still found693 literal `Function_*` definitions in143 owners,
 four active instruction references to those names, and1618 local labels scoped under them. These
 are naming-migration counts, not693 unknown routines. Each retirement requires a defensible contract,
-reference/local-scope review and address-preserving reconstruction. The present pass retires seven
-aliases (686 remain): four already named audio helpers gain complete contracts, the two mail-body
+reference/local-scope review and address-preserving reconstruction. The c6236d06 pass retired seven
+aliases (686 remained before the follow-up cohort below): four already named audio helpers gain complete contracts, the two mail-body
 locators gain PROBABLE domain names, and the actual no-op at26:5343 retains its descriptive label.
 The original56-byte26:5344 fragment is now readable instructions, with its entry/intent still unknown;
 30 raw storage spans/63 bytes remain unclassified. Entries and abnormal stack transfer at2B:6CF5,
@@ -24,6 +24,26 @@ locator caller domains, eight frame contexts and25 name-to-image associations re
 The finite checks below remain valid within their limits; they do not establish100% completion.
 English implementation, ZIP parity, agents and builds remain suspended pending fresh explicit human
 confirmation, even after the original work is finished.
+
+The follow-up naming cohort retires93 more historical Function aliases (593 remain), with proper
+names and conditional roles documented in [audio helpers](docs/research/audio_function_names.md),
+[bank68 contracts](docs/research/bank68_function_names.md), [SDK75 contracts](docs/research/sdk_function_names.md)
+and the [received-record reply role](docs/research/naming2_neutral_mail.md#reply-composition-from-a-received-record-proper-domain-role-2026-10-15).
+This includes the Operator's Function_75_4000 example: MobileSDK_CopyBytes is the maintained
+six-instruction/seven-byte forward-copy routine (B0 means256), with the old generic alias retired.
+Settings_IsDecodedProgressNonzero and MobileSDK_ResetRxWindowAndSetResultLowFF replace broader
+claims: one accepts any nonzero XOR-A5 decoded marker without validation; the other writes only
+the result field's low byte. Original crossed SRAM unwind, nonlocal return paths and confidence
+limits are documented rather than repaired. These93 removals are migration counts, not93 newly
+identified functions or whole-ROM completion. All ROM bytes remain subject to the native identity gate.
+
+The naming requirement also covers original graphics paths. Ten gfx/bankNN.asm owners and225
+files inside their directories still need a validated migration to names based on demonstrated
+resource content or consumer. The current235-path inventory proposes visual border motifs and
+narrow UI fragments; it does not assign species, natural selection or bank53 names to images.
+Those path changes are pending, so the retained generic paths are explicit naming debt. The
+remaining home-function inventory also has count/copy contracts and historical confidence to
+correct before adoption. No English payload or build is supplied by this original-only pass.
 
 The [frame audit](docs/research/assets_pokemon_frames_and_name_limits.md#remaining-eight-editing-views-bounded-placement-comparison) retains **eight KEEP editing views**: physical ROM bytes exist, but a justified selector and reaching LCDC/VBK/VRAM state are missing. Two other bank42 views have complete reversible backing only under their declared conditional model. The [bank53 name table](docs/research/assets_pokemon_frames_and_name_limits.md#name-table-order-no-image-assignment) contains 25 ordinal names without a proved name-to-image association; 25 names, 25 physical windows and 27 descriptor words remain distinct. The [help-frame audit and preview](docs/research/naming2_neutral_help.md#64ae-split-object-entry-and-classification-conflict) cover the selected nine-frame root under a conditional LCDC model, not every asset or an observed display.
 

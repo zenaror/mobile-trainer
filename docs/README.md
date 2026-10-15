@@ -58,6 +58,9 @@ Reference documents (current):
 | [`mobile_trainer_product_notes.md`](research/mobile_trainer_product_notes.md) | product background, string and URL facts that help identify code, each with a source tag |
 | [`crystal_mobile_reference.md`](research/crystal_mobile_reference.md) | how Pokémon Crystal organises its Mobile Adapter code (a *different program*; names are the Crystal community's, documentation only) |
 | [`ghidra.md`](research/ghidra.md) | evaluation of Ghidra 12.1.3 + GhidraBoy for this ROM (verdict, trust rules, pipeline in `tools/ghidra/`) |
+| [`audio_function_names.md`](research/audio_function_names.md) | six original audio names, conditional contracts, confidence and local-scope retirement |
+| [`bank68_function_names.md`](research/bank68_function_names.md) | original account/settings names, decoded-progress correction, keyboard cursor arguments and crossed SRAM unwind |
+| [`sdk_function_names.md`](research/sdk_function_names.md) | original SDK75 names, bounded copy/result-field contracts and caller-provided stack frames |
 
 Analysis-stage documents (historical banner at the top):
 

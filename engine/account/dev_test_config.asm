@@ -181,7 +181,7 @@ Mobile_ReportLastError:: ; 68:4F67
 	ret
 
 Mobile_SaveLastResult:: ; 68:4F71
-Function_68_4F71::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 4F71.
 	; [CONFIRMED] 40 insn(s); 40 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call (part of region $4F71-$4FC8)
 	ld a, $00
