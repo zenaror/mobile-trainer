@@ -6238,8 +6238,8 @@
       "sha256": "abbb6e695b513e40e56c9d9e40a5f5c50f5beb8ce01a3857cc28861677b90a3c"
     },
     "data/text/help_menu_ticker.asm": {
-      "size": 5215,
-      "sha256": "9dbf2cdd9b029b517c784c91d837aeb7d2dc2eb0beb0e17509ebc7dfe74e583d"
+      "size": 5460,
+      "sha256": "a83e842922394458724be92fc05fd0f98f3b447406da89b81bcbb0caa7663027"
     },
     "data/text/help_script.asm": {
       "size": 35997,
@@ -6490,8 +6490,8 @@
       "sha256": "d45a844265086d057ed451e0d87b0950bdead5053fa45bde6f309e146d5fd634"
     },
     "docs/research/naming2_neutral_help.md": {
-      "size": 14022,
-      "sha256": "cc31a8c3671f3e9e8d3331643b49a890c9576266c84313dbe1233e0ca270636d"
+      "size": 14847,
+      "sha256": "d8993cb75f896a1d856a5689acbc209942a90a2eb48deb0989fa17c710a90403"
     },
     "docs/research/naming2_neutral_kbd.md": {
       "size": 7428,
