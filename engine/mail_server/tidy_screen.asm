@@ -392,10 +392,10 @@ Function_2E_4EB1::
 	; [CONFIRMED] 1 insn(s) executed; cut out of the PROBABLE region 4C58-4EB2 by apply_coverage
 	; --split [executed in 7 scenarios]
 	ret
-
-Function_2E_4EB2:: ; 2E:4EB2
+CallVBlankWait60Times:: ; 2E:4EB2
+Function_2E_4EB2::
 	; [HYPOTHESIS] Entry/purpose unproved; 11 bytes/7 starts [4EB2,4EBD), RET4EBC.
-	; B=3C; pushBC/call00:0464/popBC/DEC/JRNZ4EB4: 60 normal calls, not always 60 frames.
+	; [PROBABLE] Alias: 60 normal calls to 00:0464; parameterized loop sibling at 27:4691.
 	; LCD-off helper skips waiting; LCD-on needs IRQ progress. Valid stack protects C; B ends0.
 	; No explicit WRAM switch; historical helper execution does not establish this entry.
 	; Computed/coded entries remain open in finite inventories; no natural/hardware promotion.

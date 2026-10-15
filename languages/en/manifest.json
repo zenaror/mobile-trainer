@@ -3422,8 +3422,8 @@
       "sha256": "37a6751a209c8d25e51cf919800d769d1e50de38e3cad345027115d046b54567"
     },
     "REVERSE_ENGINEERING.md": {
-      "size": 140488,
-      "sha256": "db193f4a6563c7464d81778cf3e67fa2fe0523bfc2a3e17b259f6aeb7016cc53"
+      "size": 140641,
+      "sha256": "29b28c068df6f57de68daeed4528a48079d04d5ea81ce16e95240f20da693157"
     },
     "STYLE.md": {
       "size": 57010,
@@ -6482,8 +6482,8 @@
       "sha256": "5e19167a817686b9eeaa1301123b4544bba72fa1e19d168aa4c32d92632205af"
     },
     "docs/research/naming2_neutral_code.md": {
-      "size": 11171,
-      "sha256": "9dbbbee7cf2143f1fa5b374521c5cc4bc431a07f391dbc2c34a0d0827de08529"
+      "size": 12803,
+      "sha256": "55abb9a342088715f26d598a41a6384975f0e5aa6a8685fd856c23368bbc648e"
     },
     "docs/research/naming2_neutral_gfx.md": {
       "size": 3733,
@@ -6502,8 +6502,8 @@
       "sha256": "6a8309fd455e508cb15e66f68531dfb415fd1caf88ebf93f187a3ad9d610dae0"
     },
     "docs/research/naming2_neutral_network.md": {
-      "size": 9068,
-      "sha256": "bc6ef757e7389d429c0ecc6fb5e021a6b74634031e1368257b64fbedd18b93ba"
+      "size": 12783,
+      "sha256": "55249c65ed2af8e73aa98a80650a18a2ef83589a669be356d80197231a291d11"
     },
     "docs/research/naming2_pad1.md": {
       "size": 10084,
@@ -6954,8 +6954,8 @@
       "sha256": "98cabd3aa46ac6bca87f35a5e2ec6f45d032343b7b0c18fb04889257d5e9bbd4"
     },
     "docs/research/typing_2e_wait_glyph_tail.md": {
-      "size": 11647,
-      "sha256": "51c3fda252cf38b56ae735517787452371e2396a812cfd4c887ac16018b7a30a"
+      "size": 14844,
+      "sha256": "1edb99a8ffa19e97fdc969c5498ba69d404796fbaf7f1122e864397ff75799cb"
     },
     "docs/research/typing_4c_dialog.md": {
       "size": 2846,
@@ -7502,8 +7502,8 @@
       "sha256": "082f704078d8be22fcd9de82071028bf451b635acc129aad2e37a35aa6e451a4"
     },
     "engine/mail_server/tidy_screen.asm": {
-      "size": 30890,
-      "sha256": "c136b1eca5bcec544d41544ac1ad07b34d97dbadd0a0d162e2ff5f7623be774f"
+      "size": 30914,
+      "sha256": "955e24e8923e0355eb819388190a49774811f7427e85fd48809e94db6459b0be"
     },
     "engine/main/main_program.asm": {
       "size": 1557,
@@ -7526,8 +7526,8 @@
       "sha256": "c72b3fcac639b03b6d2f80583006eaf99938a54ef4e5a37a97bb54a4761b4959"
     },
     "engine/mobile/connection.asm": {
-      "size": 8879,
-      "sha256": "f3b1e8c7c99a5ce55e2368911227e7cdff3e5c27b1563ea8f5e2766f16809368"
+      "size": 8882,
+      "sha256": "70d09b010dad71e9befa0362e138fa3f905fa7fde7427378ffb5685fa8f6f55b"
     },
     "engine/mobile/http.asm": {
       "size": 8212,
