@@ -6490,8 +6490,8 @@
       "sha256": "d45a844265086d057ed451e0d87b0950bdead5053fa45bde6f309e146d5fd634"
     },
     "docs/research/naming2_neutral_help.md": {
-      "size": 14847,
-      "sha256": "d8993cb75f896a1d856a5689acbc209942a90a2eb48deb0989fa17c710a90403"
+      "size": 15785,
+      "sha256": "c8418a392989b86b39acd67a81657b7886aea44af435fe5d3e8cbd29daabca6d"
     },
     "docs/research/naming2_neutral_kbd.md": {
       "size": 7428,
@@ -13782,8 +13782,8 @@
       "sha256": "6d56a3e2a7fd5d5d473ca6b940cf26a172ca7b1a5b959b582c21c513c98cb916"
     },
     "gfx/previews/sprite_anims.tsv": {
-      "size": 49068,
-      "sha256": "92efb3d28fe130d87a2ead14b03ebc89e37d6fdb6f36c8f095e194f312b5d49a"
+      "size": 49145,
+      "sha256": "c5f197fca8e281c69f10c773ff35bb5ce0882b3957f64ee2e9edc55c77e9589a"
     },
     "gfx/previews/sprite_evidence/AddrBookShared_ObjTable_28_5210.png": {
       "size": 1086,
@@ -13842,8 +13842,8 @@
       "sha256": "d8cff6893392f23252317bd557e4ac673c9d64e074956692aff21e578d5ac8c0"
     },
     "gfx/previews/sprites.tsv": {
-      "size": 17058,
-      "sha256": "f4e783120ece26111d906f888645a1299f0a142bff2780c727fc4c4303b4d3ef"
+      "size": 17245,
+      "sha256": "05833462aaad2e9cdfffff6385fdbe9f2e92f1f68095bd2a254604944ae74f39"
     },
     "gfx/previews/sprites/AdapterCheck_ObjTableAndAnimData_4A_68D0.png": {
       "size": 1152,
@@ -13932,6 +13932,10 @@
     "gfx/previews/sprites/NoAdapter_ObjTable_63_7310.png": {
       "size": 670,
       "sha256": "453f0847c435ddfdfe36a010a69b4392be5e4a87c2b0c9e8788a213f2594baba"
+    },
+    "gfx/previews/sprites/Objects_HelpMenu_6A_64AE.png": {
+      "size": 3401,
+      "sha256": "6882632af30a002d26e2f83c99fc5b6ab11ec835c11f4cba2823de18e3fbb9d6"
     },
     "gfx/previews/sprites/Objects_MobileDict_1A_55A0.png": {
       "size": 5171,
@@ -15350,8 +15354,8 @@
       "sha256": "51e07f02b6ed3951ef03ebfa0c022c444f93b1b90d2741758b1e0a09ee14a65c"
     },
     "tools/render_sprites.py": {
-      "size": 19502,
-      "sha256": "ed47ab48bb8a4136836341e86747ab806c1da76f8abaf4fcf5412947e3699470"
+      "size": 23813,
+      "sha256": "8dbbd516f22ce43bc29b044c7ca7f99a11b9cc5616051269b425db3294d0f346"
     },
     "tools/retype_blobs.py": {
       "size": 22614,
@@ -15432,6 +15436,10 @@
     "tools/test_ram_operands.py": {
       "size": 72133,
       "sha256": "22e9b99cffb91b24af69ba82a33785e8b6b48058d7b1eee943919513660dd31e"
+    },
+    "tools/test_render_sprites.py": {
+      "size": 6788,
+      "sha256": "a3d913f80c00ab5f2c850af01f28904dc69a94d9a222e1d40ce0b25c2483efc1"
     },
     "tools/test_retype_parts.py": {
       "size": 2826,
@@ -20449,5 +20457,5 @@
     }
   },
   "overrides_count": 564,
-  "fallback_count": 4249
+  "fallback_count": 4251
 }

@@ -27,6 +27,9 @@ import collections
 import os
 import re
 import sys
+import io
+import stat
+import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -138,6 +141,100 @@ def asset_context(assets, routines_by_name, by_file, consumers, files):
         ops += [o for o in r['ops'] if o['kind'] in ('tiles', 'palette')]
     sc = rs.Scene(dict(name='ctx', ops=ops, unresolved=[]), assets)
     return sc
+
+
+def merge_index_text(old, new, entries=False):
+    """Replace generated roots by bank/address; keep other roots' rows and order verbatim."""
+    def parse(text):
+        lines = text.splitlines(keepends=True)
+        header = next((i for i, line in enumerate(lines) if line.strip() and not line.startswith('#')), None)
+        if header is None:
+            raise ValueError('sprite index has no header')
+        fields = lines[header].rstrip('\r\n').split('\t')
+        def key(line):
+            values = line.rstrip('\r\n').split('\t')
+            if len(values) != len(fields):
+                raise ValueError('sprite index row has wrong column count')
+            address = values[fields.index('bank:addr')]
+            if not re.fullmatch(r'[0-9A-Fa-f]{2}:[0-9A-Fa-f]{4}', address):
+                raise ValueError('sprite index has invalid bank/address')
+            root = tuple(int(x, 16) for x in address.split(':'))
+            return root, int(values[fields.index('entry')]) if entries else 0
+        records = []
+        seen = set()
+        for line in lines[header + 1:]:
+            if not line.strip() or line.startswith('#'):
+                records.append((None, line))
+                continue
+            k = key(line)
+            if k in seen:
+                raise ValueError('duplicate sprite index bank/address/entry')
+            seen.add(k)
+            records.append((k, line))
+        return lines[:header + 1], fields, records
+
+    prefix, fields, records = parse(new)
+    replacement = collections.defaultdict(list)
+    for k, line in records:
+        if k is not None:
+            replacement[k[0]].append((k[1], line))
+    if old is None:
+        old_prefix, old_fields, old_records = prefix, fields, []
+    else:
+        if old and not old.endswith('\n'):
+            raise ValueError('sprite index must end with a newline')
+        old_prefix, old_fields, old_records = parse(old)
+        if old_fields != fields:
+            raise ValueError('sprite index header differs from generated columns')
+    result = list(old_prefix)
+    emitted = set()
+    for k, line in old_records:
+        if k is None or k[0] not in replacement:
+            result.append(line)
+        elif k[0] not in emitted:
+            result.extend(line for _, line in sorted(replacement[k[0]]))
+            emitted.add(k[0])
+    for root in sorted(set(replacement) - emitted):
+        result.extend(line for _, line in sorted(replacement[root]))
+    return ''.join(result)
+
+
+def write_sprite_indices(outdir, sprites, anims, merge=False):
+    """Prepare both TSVs before writes; replace each atomically, skip unchanged files."""
+    prepared = []
+    for name, text, entries in (('sprites.tsv', sprites, False), ('sprite_anims.tsv', anims, True)):
+        path = os.path.join(outdir, name)
+        try:
+            with open(path, encoding='utf-8', newline='') as f:
+                old = f.read()
+                mode = stat.S_IMODE(os.fstat(f.fileno()).st_mode)
+        except FileNotFoundError:
+            old, mode = None, None
+        prepared.append((path, old, merge_index_text(old, text, entries) if merge else text, mode))
+    for path, old, text, mode in prepared:
+        if old == text:
+            continue
+        fd, tmp = tempfile.mkstemp(prefix='.' + os.path.basename(path) + '.', dir=outdir)
+        st = os.fstat(fd)
+        identity = (st.st_dev, st.st_ino)
+        try:
+            with os.fdopen(fd, 'w', encoding='utf-8', newline='') as f:
+                if mode is not None:
+                    os.fchmod(f.fileno(), mode)
+                f.write(text)
+            st = os.lstat(tmp)
+            if (st.st_dev, st.st_ino) != identity:
+                raise OSError('sprite index temporary file identity changed')
+            os.replace(tmp, path)
+            tmp = None                 # do not clean a path already transferred to the index
+        finally:
+            if tmp is not None:
+                try:
+                    st = os.lstat(tmp)
+                    if (st.st_dev, st.st_ino) == identity:
+                        os.unlink(tmp) # only this call's exclusive temporary file
+                except FileNotFoundError:
+                    pass
 
 
 def main():
@@ -340,7 +437,7 @@ def main():
         sys.stdout.write('.')
         sys.stdout.flush()
     print()
-    with open(os.path.join(outdir, 'sprites.tsv'), 'w') as f:
+    with io.StringIO() as f:
         f.write('# written by tools/render_sprites.py.  One sheet per object-table root (gfx/previews/sprites/<root>_<bank>_<addr>.png): rows = object entries, columns = frame indices.\n')
         f.write('# context = where tile data and OBJ palettes come from (assets / emulator / partial, see the tool docstring); size = sprite size evidence; records = distinct frame records;\n')
         f.write('# found = instances of the root\'s frames found in emulator OAM dumps / distinct records found / of those, records whose tile bytes and palette equal the context;\n')
@@ -349,11 +446,14 @@ def main():
         f.write('root\tbank:addr\tconsumers\tentries\trecords\tcontext\tcontext_note\tsize\tfound_instances\tfound_records\tidentical_records\tpix_compared\tpix_exact\tpix_ctx_identical\tpix_ctx_identical_exact\tsheet\tsource_files\n')
         for (nm, root, cons, ne, nrec, ctx, size_note, inst, rs_, ri, pi, pe, pid, pide, fn, files) in rows:
             f.write('\t'.join([nm, '%02X:%04X' % root, ','.join(cons), str(ne), str(nrec), ctx.kind, ctx.note, size_note, str(inst), str(rs_), str(ri), str(pi), str(pe), str(pid), str(pide), fn, files]) + '\n')
-    with open(os.path.join(outdir, 'sprite_anims.tsv'), 'w') as f:
+        sprites_text = f.getvalue()
+    with io.StringIO() as f:
         f.write('# written by tools/render_sprites.py.  Object entries of every root: frame table / script addresses (same bank as the root), number of frames, script steps as frame:delay.\n')
         f.write('root\tbank:addr\tentry\tframe_table\tscript\tframes\tsteps\n')
         for (nm, root, j, ft, sc_, nf, steps) in anims:
             f.write('%s\t%02X:%04X\t%d\t%04X\t%04X\t%d\t%s\n' % (nm, root[0], root[1], j, ft, sc_, nf, steps))
+        anims_text = f.getvalue()
+    write_sprite_indices(outdir, sprites_text, anims_text, merge=bool(a.only))
     print('wrote', os.path.join(a.out, 'sprites.tsv'), len(rows), 'sheets')
 
 
