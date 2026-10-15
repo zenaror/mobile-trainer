@@ -661,8 +661,8 @@ def write_manifest(rows):
 
 def png_path_of(path, mode):
     stem = os.path.splitext(path)[0]
-    if mode == 'sheet':                       # the two bank-7C font spans share one sheet
-        return re.sub(r'_(4000|57cd)$', '', stem) + '.png'
+    if mode == 'sheet':                       # the three contiguous bank-7C font spans share one sheet
+        return re.sub(r'_(4000|57c3|57cd)$', '', stem) + '.png'
     return stem + ('.png' if mode == 'exact' else '_view.png')
 
 
@@ -1103,7 +1103,7 @@ make png-export       (maintainers) PNGs regenerated from the binaries; never ov
 | kind | PNG source | files | notes |
 |---|---|---:|---|
 | 2bpp tile blocks | `name.png` (exact `rgbgfx` source of `name.2bpp`) | @TILE_SHEETS@ | 100% of the `.2bpp` files; shades 0-3 are grey indices, not the game's colours (the game colours come from palettes and tile attributes; see screens) |
-| JIS 12x12 glyphs (10 binaries) | `data/fonts/jis12x12_rows_*.png`, 94 glyphs per sheet row | 9 sheets | bank 7C's two binaries share one sheet |
+| JIS 12x12 glyphs (11 binaries) | `data/fonts/jis12x12_rows_*.png`, 94 glyphs per sheet row | 9 sheets | bank 7C's three contiguous binaries share one complete sheet |
 | 8x16 font runs | `data/fonts/font_8x16_*.png`, 16 glyphs per row | 27 sheets | |
 | 6x12 Latin font | `data/fonts/ascii_6x12.png` | 1 sheet | 6 pixel wide cells (the two unused bits of each byte stay 0) |
 | whole screens | `name.screen.png` next to `name.tilemap` (`gfx/screens.tsv`) | @SCREENS@ | edit view: tilemap + attribute map + tiles + palettes composed in real colours; import writes the edit into the tile sheets, see below |
@@ -1118,19 +1118,17 @@ still editable through the tile sheets.
 ### Font sheets (`tools/font_png.py`)
 
 Indexed PNG, 4 colours: white = paper, black = ink (draw only pure black / white inside glyph cells), light grey = the 1 px grid between cells, pink = a pixel
-whose byte is not stored in this file (only around the two glyphs cut by the gap of bank 7C; ignored).  Sheet cell = glyph + 1 px grid line; sheet row r of a
+whose byte is outside the supplied spans (ignored on span import). Bank 7C now supplies all three contiguous chunks, with no pink glyph pixels.  Sheet cell = glyph + 1 px grid line; sheet row r of a
 JIS sheet is glyph-slot row r of the bank (JIS rows: 7E 1-8 and 13, 7D 16-24, 7C 25-33, 7B 34-42, 7A 43-51, 79 52-60, 78 61-69, 77 70-78, 76 79-84), column c is
 JIS column c+1.  The packing (12x12: two 12-bit rows in 3 bytes; 8x16 / 6x12: one byte per row, MSB left) is in the docstring of `tools/font_png.py` and in
 `docs/research/text_encoding.md`; `check` proves for every sheet that the pixels decode to exactly the binary bytes.
 
 ### Screen PNGs (`tools/screen_png.py`, `gfx/screens.tsv`)
 
-A screen = a tilemap + attribute map and the tile blocks and palettes that the *same loader routine* puts into VRAM (found statically from the far calls
-to the HDMA, tilemap-copy and palette-buffer routines; `evidence` column).  The tile-number addressing mode (LCDC bit 4) is chosen by which mode resolves
-more cells.  Status: PROBABLE = every cell resolves and the mode does not matter or is decided by coverage (18 screens); HYPOTHESIS = part of the cells
+A screen combines a tilemap, attributes, tiles and palettes under either the same loader routine or an explicit conditional layout model (`evidence` column).  The tile-number addressing mode (LCDC bit 4) is chosen by which mode resolves
+more cells.  Status: PROBABLE = every cell resolves and the mode does not matter or is decided by coverage (current counts are in `gfx/README.md` and `gfx/screens.tsv`); HYPOTHESIS = part of the cells
 resolve (the rest are drawn pink) or the mode is a tie or the screen is one of the bank 41-46 scene records (layout-only assumption: tile k = record tile k,
-VRAM bank 1) (65 screens).  Visual check (2 x zoom contact sheet, title, mail menu, top menu, logo, keyboard, scenery screens): the composed images read as the
-real screens.  `export` writes the PNGs, `import` reads them back:
+VRAM bank 1).  The earlier visual contact-sheet review provides historical locators, not proof of natural display or name association.  `export` writes the PNGs, `import` reads them back:
 
 ```
 python3 tools/screen_png.py export [NAME]                       # from the current tile sheets and palettes (only needed when stale)
@@ -1139,7 +1137,7 @@ python3 tools/screen_png.py check                                # render -> imp
 ```
 
 Pixel value = `4 * palette + shade` (palette = the cell's attribute bits 0-2, shade 0-3), PLTE = the eight palettes of the screen in their real colours (greys
-tinted per palette where the palette load is not known: 25 screens), entry 32 (pink) = a cell whose tile the routine does not load.  Import **keeps the
+tinted per palette where the palette load is not known), entry 32 (pink) = a cell whose tile the routine does not load.  Import **keeps the
 tilemap and attribute map**: each cell is written back into the tile it shows (flips undone), and the result lands in the tile sheet PNG (the source), then
 `make`.  Errors in plain words: a cell may use only the colours of its own palette; a tile shown by several cells must look the same in all of them (editing
 one of them alone is refused, because the tilemap cannot give it another tile); other screens showing an edited tile change too (import lists them).  Re-laying out

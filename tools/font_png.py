@@ -18,8 +18,8 @@ Sheet PNG (8-bit indexed, 4 colours; the tools read *colours*, not indices, so a
 Cell pitch = glyph size + 1 (grid line).  Sheet size: font12 94 glyphs per row (1221 px wide), font8x16 and font6x12 16 per row.  Glyph slot
 n is at column n % per_row, row n // per_row.  Do not resize or crop the sheet; draw only black and white inside the cells (no anti-aliasing).
 
-The bank-7C font is split by other data into two files (7C:4000 and 7C:57CD) that share ONE sheet; the two glyphs cut by the gap show their
-missing bytes in pink.  Import of a span only reads the pixels whose bytes belong to that span.
+The continuous bank-7C font has three contiguous files (7C:4000, 7C:57C3 and 7C:57CD) sharing ONE complete sheet.
+Import of a span only reads the pixels whose bytes belong to that span; the bank-7C sheet has no unstored glyph pixels.
 
     font_png.py export --type font12 --cells 846 --span 4000:data/fonts/a.bin [--span ADDR:other.bin] OUT.png
     font_png.py import --type font12 --cells 846 --start 4000 --size 6083 SHEET.png OUT.bin

@@ -3422,8 +3422,8 @@
       "sha256": "37a6751a209c8d25e51cf919800d769d1e50de38e3cad345027115d046b54567"
     },
     "REVERSE_ENGINEERING.md": {
-      "size": 142588,
-      "sha256": "3b3f0cb9cf3f9c1e19dd98fcc544af933930fccf2362202dad100f0aeeadb07c"
+      "size": 145143,
+      "sha256": "374342c3748348c256235878875d3b44ccfcf1ef10703525b833578c98c9a74c"
     },
     "STYLE.md": {
       "size": 57010,
@@ -6086,16 +6086,20 @@
       "sha256": "e7ed85b3cc66b2c81ea7de52858536588a22a5dffecac6d41ee2a7e4a894e7ba"
     },
     "data/fonts/jis12x12_rows_25_33.asm": {
-      "size": 1326,
-      "sha256": "0bf5ec80a80fdad8242ba980b814cda65f5b19e43766aa7640a434449ca974dc"
+      "size": 1296,
+      "sha256": "c7b2d9191e33337987b1e4e97914cecfba1b9a9174d666e7fd37a76fda4d3c23"
     },
     "data/fonts/jis12x12_rows_25_33.png": {
-      "size": 17836,
-      "sha256": "5fefb05ed9496b08175755927550839575fe9bf27aee574c861d87b57308a137"
+      "size": 17827,
+      "sha256": "1067c808b92cd758c1549762310c5f1fc506f18829da51087b7290ba8c61ed81"
     },
     "data/fonts/jis12x12_rows_25_33_4000.bin": {
       "size": 6083,
       "sha256": "0df05d5daa8ddba8a305769725e4fa4ffdf0f457dc1fdf1957c0fad8ef36b34b"
+    },
+    "data/fonts/jis12x12_rows_25_33_57c3.bin": {
+      "size": 10,
+      "sha256": "4def0c4e69a481eeb19e06cf138d7c1e8de5d1959bc8881ae95a0b0b54bc5747"
     },
     "data/fonts/jis12x12_rows_25_33_57cd.bin": {
       "size": 9135,
@@ -6262,8 +6266,8 @@
       "sha256": "da2006b0bf6392e3e6ac32f0eaeb2b57be046fe90b2f0b1990d4e72c98a2d8eb"
     },
     "docs/EDITING_IMAGES.md": {
-      "size": 8036,
-      "sha256": "5459c8a9a195cb7e854d73f95f88ea1c33724b27a0e5e8943dc22b97c129db0d"
+      "size": 9468,
+      "sha256": "70c51117ef3e6c455dd7187813f9494385aa98ba7d25e467179dbdd47217158e"
     },
     "docs/FORMATS.md": {
       "size": 55222,
@@ -6274,8 +6278,8 @@
       "sha256": "2a81b21c5620247e1ba2a3e144067e00ccf095f618692ed2541c10e8e761633b"
     },
     "docs/README.md": {
-      "size": 65936,
-      "sha256": "2e21725362ee19f397f2e054398a7848a35aa9b142b61bf001e81cf8a3a4d6ed"
+      "size": 66470,
+      "sha256": "e8dbd0b341a00f109a540311d7f86697430bdaace8eae46590d48cc419a59f0d"
     },
     "docs/REVERSE_ENGINEERING_RULES.md": {
       "size": 17815,
@@ -6298,12 +6302,12 @@
       "sha256": "16e0d63e3fd40e003177f7f33e94a454990a2ee01bb11a26f23925bf2511f886"
     },
     "docs/research/assets_original_catalogue_and_layout_audit.md": {
-      "size": 4586,
-      "sha256": "f41e27372e381312767177cb8b05570aec60d23d4984559c2d1b7f6470295ede"
+      "size": 9491,
+      "sha256": "63de245241095970629d4a7e99ea1f81eba03c3656053dd16c8b8b9171b2686d"
     },
     "docs/research/assets_pokemon_frames_and_name_limits.md": {
-      "size": 47816,
-      "sha256": "fe12c71ffdc85d9cf5267fb36e4087d8284cdbe2a2594c1d7297069177583aaf"
+      "size": 59358,
+      "sha256": "bc20bab1207aeeca4c0d2f1b96172df56f5ea15be5f2e7ebf7b780bcd982274b"
     },
     "docs/research/audio2_verify_dynamic.md": {
       "size": 47981,
@@ -6782,8 +6786,8 @@
       "sha256": "96544ebd69c9606dd14a0aceea8a94150b15fb20174f15d605a3524d54c8840e"
     },
     "docs/research/naming_g8.md": {
-      "size": 80594,
-      "sha256": "ef13004556eafb0a8ed11d613e66eed7363a34618b2a543ff34e8bcde89ccff8"
+      "size": 82610,
+      "sha256": "dfa9f9d4e01d35566715f87cfc817fc147481d880ac0cb888fc506b0459de0a2"
     },
     "docs/research/naming_keyboard_55_lookup.md": {
       "size": 7395,
@@ -7706,8 +7710,8 @@
       "sha256": "def7c1b246dd294d018f7a4e18ae2de3a4c5838d3ef7946192efb6836da50f19"
     },
     "gfx/README.md": {
-      "size": 135355,
-      "sha256": "e34a3d7fe48cbef026efbc43dc6b8223b3de4ad4632005d4dd7566f2f93acaae"
+      "size": 136669,
+      "sha256": "9e012f0218d9c2758e46dbf09239b7b359943a7e3745addee2512182c66c9bd7"
     },
     "gfx/account/screens_bank4a.asm": {
       "size": 9810,
@@ -8674,8 +8678,8 @@
       "sha256": "de5f079159f87387883876d446d821e2d9ccc18e328949a146ca0de4bf67b4c9"
     },
     "gfx/assets.tsv": {
-      "size": 124587,
-      "sha256": "07494f655a0159a26abbd42e65ee1056e283e32b0b85f34a281a05670f812f2f"
+      "size": 124699,
+      "sha256": "13b146d0adb2459ed92013fdbefe461d3e1e941b9d5f81e5824dcb300f8b25bc"
     },
     "gfx/bank41.asm": {
       "size": 5505,
@@ -12774,12 +12778,12 @@
       "sha256": "01793537e000047a5437a4f8d99e74b24618df76e30444c244f4e30fc64f079d"
     },
     "gfx/png.mk": {
-      "size": 60791,
-      "sha256": "fd2c8f6156cbe84adb5b55e32cf8a6db4d012955ce4d3bf6f77d36258af16a2c"
+      "size": 61135,
+      "sha256": "08bfb7db566743c31cd273a623544b2b7711d2094ea9f2a8a308a6165d8a5e79"
     },
     "gfx/png_rules.tsv": {
-      "size": 140006,
-      "sha256": "68b2b2a6f63634f5eeb0e454e812fe3f3c42685053469ee679820dae3c43c94e"
+      "size": 139919,
+      "sha256": "81214b6148355f43a175942d938a35227813b2a6d1152c61b7c7a4f9661d4e5a"
     },
     "gfx/previews/README.md": {
       "size": 34968,
@@ -15214,8 +15218,8 @@
       "sha256": "9c3c16c335757a6cf501ec450efe818d177da14bcc611e29a52c5dc7d077c16b"
     },
     "tools/font_png.py": {
-      "size": 8482,
-      "sha256": "bad0278425c2bd87e7e197be61b581deee54fe9d4f07107c7657602770d91d1a"
+      "size": 8480,
+      "sha256": "af688b4b7e7adcba182657e0d8c993259dcbb6a624d9d345848b63145df2f28c"
     },
     "tools/gen_asm.py": {
       "size": 90428,
@@ -15226,8 +15230,8 @@
       "sha256": "f0fd0ce855736d583a99bd82b0fd22758e11ab18f6b273782b6e4544c8fa22dc"
     },
     "tools/gfx_export.py": {
-      "size": 66035,
-      "sha256": "e45ceced61e02dbef66e453a0c674a6acc21829d45230f174e7e181f0f4cb6fb"
+      "size": 66044,
+      "sha256": "262dc04cdf49d499c2d9f895d1450285dad543718a212c4498bbc887f6aa5e5d"
     },
     "tools/ghidra/check_language.py": {
       "size": 3732,
@@ -20457,5 +20461,5 @@
     }
   },
   "overrides_count": 564,
-  "fallback_count": 4251
+  "fallback_count": 4252
 }

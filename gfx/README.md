@@ -38,16 +38,17 @@ gfx/assets.tsv                                 one line per asset: kind, size, b
 | kind | files | bytes |
 |---|---:|---:|
 | attribute map (`.attrmap`) | 180 | 51618 |
-| JIS 12x12 glyph bits (`.bin`) | 10 | 131966 |
+| JIS 12x12 glyph bits (`.bin`) | 11 | 131976 |
 | 6x12 glyph rows (`.bin`) | 1 | 1152 |
 | 1bpp 8x16 glyphs (`.1bpp`) | 27 | 4848 |
 | RGB palette (`.pal`) | 143 | 11504 |
 | validity bitmap (`.bin`) | 1 | 8198 |
 | tile-index map (`.tilemap`) | 180 | 51618 |
 | 2bpp tiles (`.2bpp`) | 405 | 346672 |
-| **all** | **947** | **607576** |
+| raw bytes (`.bin`, conditional byte-view codec; purpose unknown) | 4 | 80 |
+| **all** | **952** | **607666** |
 
-PNGs: 405 active exact rgbgfx sources (`.png`), 38 font binaries in 37 editable sheet PNGs (`.png`), 1 view-only picture (`_view.png`).
+PNGs:405 active exact rgbgfx tile sources,4 explicit RAW byte-view PNGs (80B; purpose UNKNOWN/HYPOTHESIS), and39 font binaries in37 editable sheet PNGs:446 unique editable source PNG paths. The1 validity-bitmap view-only picture and95 screen compositions are separate. `gfx/png_rules.tsv` has951 active rules. The catalogue totals952 assets/607666 logical ROM bytes; its11 JIS12x12 binaries total131976B.
 The old count406 included the retired bank73 tile interpretation; its historical file remains outside the active catalogue.
 
 ## Still `db`
@@ -105,6 +106,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `jis12x12_rows_01_08_13.bin` | JIS 12x12 glyph bits | 15228 | 7E:4000 | PROBABLE | sheet | - | `data/fonts/jis12x12_rows_01_08_13.asm` |
 | `jis12x12_rows_16_24.bin` | JIS 12x12 glyph bits | 15228 | 7D:4000 | PROBABLE | sheet | - | `data/fonts/jis12x12_rows_16_24.asm` |
 | `jis12x12_rows_25_33_4000.bin` | JIS 12x12 glyph bits | 6083 | 7C:4000 | PROBABLE | sheet | - | `data/fonts/jis12x12_rows_25_33.asm` |
+| `jis12x12_rows_25_33_57c3.bin` | JIS 12x12 glyph bits | 10 | 7C:57C3 | PROBABLE | sheet | - | `data/fonts/jis12x12_rows_25_33.asm` |
 | `jis12x12_rows_25_33_57cd.bin` | JIS 12x12 glyph bits | 9135 | 7C:57CD | PROBABLE | sheet | - | `data/fonts/jis12x12_rows_25_33.asm` |
 | `jis12x12_rows_34_42.bin` | JIS 12x12 glyph bits | 15228 | 7B:4000 | PROBABLE | sheet | - | `data/fonts/jis12x12_rows_34_42.asm` |
 | `jis12x12_rows_43_51.bin` | JIS 12x12 glyph bits | 15228 | 7A:4000 | PROBABLE | sheet | - | `data/fonts/jis12x12_rows_43_51.asm` |
@@ -357,6 +359,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
 | `tiles_4000.2bpp` | 2bpp tiles | 1344 | 42:4000 | PROBABLE | exact | - | `gfx/bank42.asm` |
+| `raw_4540_4560.bin` | raw bytes (conditional byte-view codec; purpose unknown) | 32 | 42:4540 | HYPOTHESIS | exact | - | `gfx/bank42.asm` |
 | `tiles_4802.2bpp` | 2bpp tiles | 160 | 42:4802 | HYPOTHESIS | exact | - | `gfx/bank42.asm` |
 | `tiles_4900.2bpp` | 2bpp tiles | 176 | 42:4900 | HYPOTHESIS | exact | - | `gfx/bank42.asm` |
 | `tilemap_4a00.tilemap` | tile-index map | 360 | 42:4A00 | PROBABLE | - | 20x18 | `gfx/bank42.asm` |
@@ -379,8 +382,11 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `tilemap_64a0.attrmap` | attribute map | 360 | 42:6608 | PROBABLE | - | 20x18 | `gfx/bank42.asm` |
 | `palette_6770.pal` | RGB palette | 128 | 42:6770 | PROBABLE | - | - | `gfx/bank42.asm` |
 | `tiles_67f0.2bpp` | 2bpp tiles | 16 | 42:67F0 | HYPOTHESIS | exact | - | `gfx/bank42.asm` |
+| `raw_6800_6810.bin` | raw bytes (conditional byte-view codec; purpose unknown) | 16 | 42:6800 | HYPOTHESIS | exact | - | `gfx/bank42.asm` |
 | `tiles_6810.2bpp` | 2bpp tiles | 400 | 42:6810 | PROBABLE | exact | - | `gfx/bank42.asm` |
+| `raw_69a0_69b0.bin` | raw bytes (conditional byte-view codec; purpose unknown) | 16 | 42:69A0 | HYPOTHESIS | exact | - | `gfx/bank42.asm` |
 | `tiles_69b0.2bpp` | 2bpp tiles | 784 | 42:69B0 | HYPOTHESIS | exact | - | `gfx/bank42.asm` |
+| `raw_6cc0_6cd0.bin` | raw bytes (conditional byte-view codec; purpose unknown) | 16 | 42:6CC0 | HYPOTHESIS | exact | - | `gfx/bank42.asm` |
 | `tiles_6ff2.2bpp` | 2bpp tiles | 160 | 42:6FF2 | HYPOTHESIS | exact | - | `gfx/bank42.asm` |
 | `tiles_70f0.2bpp` | 2bpp tiles | 160 | 42:70F0 | HYPOTHESIS | exact | - | `gfx/bank42.asm` |
 | `tilemap_71f0.tilemap` | tile-index map | 360 | 42:71F0 | PROBABLE | - | 20x18 | `gfx/bank42.asm` |
@@ -1476,34 +1482,33 @@ make png-export       (maintainers) PNGs regenerated from the binaries; never ov
 | kind | PNG source | files | notes |
 |---|---|---:|---|
 | 2bpp tile blocks | `name.png` (exact `rgbgfx` source of `name.2bpp`) | 405 | all active catalogue `.2bpp` files; shades 0-3 are grey indices, not the game's colours (the game colours come from palettes and tile attributes; see screens) |
-| JIS 12x12 glyphs (10 binaries) | `data/fonts/jis12x12_rows_*.png`, 94 glyphs per sheet row | 9 sheets | bank 7C's two binaries share one sheet |
+| explicit RAW byte views | `gfx/bank42/raw_*.png` | 4 | 80B through raw2bpp; UNKNOWN purpose/HYPOTHESIS, without tile classification |
+| JIS 12x12 glyphs (11 binaries) | `data/fonts/jis12x12_rows_*.png`, 94 glyphs per sheet row | 9 sheets | bank 7C's three contiguous binaries share one complete sheet |
 | 8x16 font runs | `data/fonts/font_8x16_*.png`, 16 glyphs per row | 27 sheets | |
 | 6x12 Latin font | `data/fonts/ascii_6x12.png` | 1 sheet | 6 pixel wide cells (the two unused bits of each byte stay 0) |
-| whole screens | `name.screen.png` next to `name.tilemap` (`gfx/screens.tsv`) | 92 | edit view: tilemap + attribute map + tiles + palettes composed in real colours; import writes the edit into the tile sheets, see below |
+| whole screens | `name.screen.png` next to `name.tilemap` (`gfx/screens.tsv`) | 95 | edit view: tilemap + attribute map + tiles + palettes composed in real colours; import writes the edit into the tile sheets, see below |
 | palettes | `name.pal` (text, `RGB r, g, b`) | 143 | already an editable text form; a screen PNG can write colours back (`screen_png.py import --palette`). No separate swatch PNG |
 
 Not PNG-editable (binary only): the 180 `.tilemap` and 180 `.attrmap` files (the layout of a screen: which tile in which cell, flips, palette
 numbers), the Shift-JIS validity bitmap (data, not an image; `sjis_valid_bitmap_view.png` is a picture of it), and the graphics blocks that are still `db`
-in the `.asm` (see "Still `db`" above).  The 88 tilemaps without a screen PNG are unlisted because their screen cannot be composed from the code (`python3 tools/screen_png.py derive` prints the reasons): they have no loader call with an immediate address (loaded through a pointer / table or as sub-rectangles), or the routine of their loader call loads too few of their tiles (the tiles arrive by another routine),
+in the `.asm` (see "Still `db`" above).  The 85 tilemaps without a screen PNG are unlisted because their screen cannot be composed from the code (`python3 tools/screen_png.py derive` prints the reasons): they have no loader call with an immediate address (loaded through a pointer / table or as sub-rectangles), or the routine of their loader call loads too few of their tiles (the tiles arrive by another routine),
 or they belong to the bank 41-46 scene records whose layout assumption resolves less than half of the cells.  Their tiles are
 still editable through the tile sheets.
 
 ### Font sheets (`tools/font_png.py`)
 
 Indexed PNG, 4 colours: white = paper, black = ink (draw only pure black / white inside glyph cells), light grey = the 1 px grid between cells, pink = a pixel
-whose byte is not stored in this file (only around the two glyphs cut by the gap of bank 7C; ignored).  Sheet cell = glyph + 1 px grid line; sheet row r of a
+whose byte is outside the supplied spans (ignored on span import). Bank 7C now supplies all three contiguous chunks, with no pink glyph pixels.  Sheet cell = glyph + 1 px grid line; sheet row r of a
 JIS sheet is glyph-slot row r of the bank (JIS rows: 7E 1-8 and 13, 7D 16-24, 7C 25-33, 7B 34-42, 7A 43-51, 79 52-60, 78 61-69, 77 70-78, 76 79-84), column c is
 JIS column c+1.  The packing (12x12: two 12-bit rows in 3 bytes; 8x16 / 6x12: one byte per row, MSB left) is in the docstring of `tools/font_png.py` and in
 `docs/research/text_encoding.md`; `check` proves for every sheet that the pixels decode to exactly the binary bytes.
 
 ### Screen PNGs (`tools/screen_png.py`, `gfx/screens.tsv`)
 
-A screen = a tilemap + attribute map and the tile blocks and palettes that the *same loader routine* puts into VRAM (found statically from the far calls
-to the HDMA, tilemap-copy and palette-buffer routines; `evidence` column).  The tile-number addressing mode (LCDC bit 4) is chosen by which mode resolves
+A screen combines a tilemap, attributes, tiles and palettes under either the same loader routine or an explicit conditional layout model (`evidence` column).  The tile-number addressing mode (LCDC bit 4) is chosen by which mode resolves
 more cells.  Status: PROBABLE = every cell resolves and the mode does not matter or is decided by coverage (20 screens); HYPOTHESIS = part of the cells
 resolve (the rest are drawn pink) or the mode is a tie or the screen is one of the bank 41-46 scene records (layout-only assumption: tile k = record tile k,
-VRAM bank 1) (72 screens).  Visual check (2 x zoom contact sheet, title, mail menu, top menu, logo, keyboard, scenery screens): the composed images read as the
-real screens.  `export` writes the PNGs, `import` reads them back:
+VRAM bank 1) (75 screens). The earlier visual contact-sheet review is historical and provides locators, not proof of natural display or name association.  `export` writes the PNGs, `import` reads them back:
 
 ```
 python3 tools/screen_png.py export [NAME]                       # from the current tile sheets and palettes (only needed when stale)
@@ -1521,9 +1526,9 @@ reached through every cell are exactly the `.2bpp` bytes (proved by `make png-ch
 
 ### Audit limits and frame models
 
-The92 editing views are20 PROBABLE and72 HYPOTHESIS. The24 existing previews of bank41–46 records have no capture match in their metadata; loaded pixels agree with their conditional model. These facts do not demonstrate natural reachability, faithful runtime layout or resource completeness. The editing-view model loads160 record tiles into VRAM1:$8000 (unsigned); the preview model loads128 BG tiles into VRAM1:$9000/$9400,32 OBJ tiles into VRAM0:$8000 and the menu preload atVRAM1:$8800. Keep these models distinct.
+The95 current editing views are20 PROBABLE and75 HYPOTHESIS. The24 existing previews of bank41–46 records have no capture match in their metadata; loaded pixels agree with their conditional model. These facts do not demonstrate natural reachability, faithful runtime layout or resource completeness. The editing-view model loads160 record tiles into VRAM1:$8000 (unsigned); the preview model loads128 BG tiles into VRAM1:$9000/$9400,32 OBJ tiles into VRAM0:$8000 and the menu preload atVRAM1:$8800. Keep these models distinct.
 
-Eleven bank41–46 tilemaps lack editing views (eight partial-model cases plus three fragmented bank42 tile sources); two additional bank47 tilemaps lack them. Record47:68F0 already has an editing view and is outside the24-window loop. Twenty-five names in bank53 do not establish an image order or a missing25th asset. Details and locator-only contact sheets: [catalogue/layout audit](../docs/research/assets_original_catalogue_and_layout_audit.md), [frame/name limits](../docs/research/assets_pokemon_frames_and_name_limits.md).
+Eight bank41–46 tilemaps currently lack editing views (the documented KEEP set); the earlier eleven omissions were reduced by42:4D50,42:4000 and42:67F0. Two additional selected bank47 maps lack editing rows:47:4B00 and47:65A0, with existing descriptor previews. The47:5850 editing view is partial357/360. Record47:68F0 already has an editing view and is outside the24-window loop. Twenty-five names in bank53 do not establish an image order or a missing25th asset. Details and locator-only contact sheets: [catalogue/layout audit](../docs/research/assets_original_catalogue_and_layout_audit.md), [frame/name limits](../docs/research/assets_pokemon_frames_and_name_limits.md).
 
 ### Tools
 

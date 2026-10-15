@@ -1,10 +1,8 @@
 # gfx/png_rules.tsv -- written by tools/png_rules.py (do not edit by hand); read by gfx/png.mk, tools/png_check.py, `make png-export`
-# out = binary the .asm INCBINs, png = its editable source ("-" = no PNG rule: tilemap / attrmap / palette rows only make an edit an explained ROM difference), kind = tiles (rgbgfx, `pad` = -x) | font12 | font8x16 | font6x12 (tools/font_png.py;
+# out = binary the .asm INCBINs, png = its editable source ("-" = no PNG rule: tilemap / attrmap / palette rows only make an edit an explained ROM difference), kind = tiles (rgbgfx, `pad` = -x) | raw2bpp (explicit raw byte-view codec) | font12 | font8x16 | font6x12 (tools/font_png.py;
 # cells = glyph slots of the sheet, start = bank address of the first byte of out).  size = bytes of out (must not change),
 # sha256 = hash of out in the original, byte-identical ROM state (edited = differs).  See docs/EDITING_IMAGES.md.
 out	png	kind	cells	start	pad	size	sha256
-# gfx/browser/start_choice/palette_5e60.pal	-	palette				779	cbcf05f2dae1837e4dc40b33abf33d303cd42b39feb58b9fde4eed63a8e95435
-# gfx/browser/start_choice/tiles_4530.2bpp	gfx/browser/start_choice/tiles_4530.png	tiles			0	176	251a29bfb7d2e5de3af5d95df00b5510789b4b15063e5e3e66b241a6e6d847c1
 data/fonts/ascii_6x12.bin	data/fonts/ascii_6x12.png	font6x12	96	67a8		1152	44ff3289fa27d36e02b767a9f987853e513e98d3fc0bd5f2f3ab95579d2f74ed
 data/fonts/font_8x16_4adb.1bpp	data/fonts/font_8x16_4adb.png	font8x16	10	4adb		160	d5d168c65a48436c2a886760c486dbab5f358302d3b1638ee0bc7b54773e8bfa
 data/fonts/font_8x16_4b7b.1bpp	data/fonts/font_8x16_4b7b.png	font8x16	26	4b7b		416	2fef6e78cd3f5155a3bf9b42f6cd5df5d662943a29196ea39ae59acbfcc207e6
@@ -36,6 +34,7 @@ data/fonts/font_8x16_5d7b.1bpp	data/fonts/font_8x16_5d7b.png	font8x16	5	5d7b		80
 data/fonts/jis12x12_rows_01_08_13.bin	data/fonts/jis12x12_rows_01_08_13.png	font12	846	4000		15228	b209794245668009a61f7d113552e23a2532710508ec8a5ea4fd6948968a8e9c
 data/fonts/jis12x12_rows_16_24.bin	data/fonts/jis12x12_rows_16_24.png	font12	846	4000		15228	f5b1d08ada4aa426d1f5f0b65f4bdbed33d2062a89f113814a130f600d3fd0f8
 data/fonts/jis12x12_rows_25_33_4000.bin	data/fonts/jis12x12_rows_25_33.png	font12	846	4000		6083	0df05d5daa8ddba8a305769725e4fa4ffdf0f457dc1fdf1957c0fad8ef36b34b
+data/fonts/jis12x12_rows_25_33_57c3.bin	data/fonts/jis12x12_rows_25_33.png	font12	846	57c3		10	4def0c4e69a481eeb19e06cf138d7c1e8de5d1959bc8881ae95a0b0b54bc5747
 data/fonts/jis12x12_rows_25_33_57cd.bin	data/fonts/jis12x12_rows_25_33.png	font12	846	57cd		9135	e484eab9218e988639700747ad64f8c71a27032d7707c8fc3edb38300928ff47
 data/fonts/jis12x12_rows_34_42.bin	data/fonts/jis12x12_rows_34_42.png	font12	846	4000		15228	c4f781749dd6d8786035ad2e27edcd7d02207bcf06cb6301732b2ec4efb4999a
 data/fonts/jis12x12_rows_43_51.bin	data/fonts/jis12x12_rows_43_51.png	font12	846	4000		15228	f5f79cce7a92b9a83a47f90b55d171705e065abe676403d3ea9d80df8b6bcdb1

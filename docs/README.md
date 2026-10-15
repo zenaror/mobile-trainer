@@ -312,8 +312,8 @@ The [semantic note](research/typing_26_compare_word_deltas_alias.md) and [verifi
 - [Remaining neutral verification](research/typing_neutral_verify_remaining_headers.md) — scope/blank-row exceptions, static/runtime limits.
 
 
-- [Original asset catalogue and layout audit](research/assets_original_catalogue_and_layout_audit.md) — active947 ROM-byte identity, PNG readback,11+2 editing-view gaps, distinct hypothetical models and preserved negatives.
-- [Pokémon frames and name limits](research/assets_pokemon_frames_and_name_limits.md) —25SJIS names,24+1 physical windows, locator-only contacts and finite reader/visual/reachability limits.
+- [Original asset catalogue and layout audit](research/assets_original_catalogue_and_layout_audit.md) — historical947-asset baseline and current952-asset/607666B catalogue (including four RAW spans/80B and the complete bank7C font sheet);95 screen rows, eight KEEP candidate-window editing omissions plus two selected bank47 maps without editing rows. Finite byte/PNG correspondence does not establish natural selection or ALL asset completeness.
+- [Pokémon frames and name limits](research/assets_pokemon_frames_and_name_limits.md) —25 SJIS names/369B,25 physical windows/85200B,17 editing compositions and24 legacy previews; no window lacks every PNG representation, but eight editing views remain KEEP. Names, descriptors, windows and images are distinct; no name-to-image association follows from counts or visuals. See [current catalogue summary](EDITING_IMAGES.md#7-current-original-asset-catalogue) for952 assets/951 rules and95 screen rows.
 
 
 - [Settings menu highlight pair records](research/settings_menu_highlight_pair_records.md) — corrected2×10 geometry and call site, five40-byte pairs, inherited physical levels and finite natural READ limits.

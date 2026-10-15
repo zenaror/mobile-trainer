@@ -914,6 +914,7 @@ PNG_FONT_OUTS := \
 	data/fonts/jis12x12_rows_01_08_13.bin \
 	data/fonts/jis12x12_rows_16_24.bin \
 	data/fonts/jis12x12_rows_25_33_4000.bin \
+	data/fonts/jis12x12_rows_25_33_57c3.bin \
 	data/fonts/jis12x12_rows_25_33_57cd.bin \
 	data/fonts/jis12x12_rows_34_42.bin \
 	data/fonts/jis12x12_rows_43_51.bin \
@@ -1107,6 +1108,12 @@ data/fonts/jis12x12_rows_25_33_4000.bin: PNG_SIZE := 6083
 data/fonts/jis12x12_rows_25_33_4000.bin: data/fonts/jis12x12_rows_25_33.png
 	@echo "font_png $<"
 	$(Q)$(PYTHON) tools/font_png.py import --type font12 --cells 846 --start 4000 --size 6083 $< $@.tmp || { rm -f $@.tmp; exit 1; }
+	$(Q)$(png_finish)
+
+data/fonts/jis12x12_rows_25_33_57c3.bin: PNG_SIZE := 10
+data/fonts/jis12x12_rows_25_33_57c3.bin: data/fonts/jis12x12_rows_25_33.png
+	@echo "font_png $<"
+	$(Q)$(PYTHON) tools/font_png.py import --type font12 --cells 846 --start 57c3 --size 10 $< $@.tmp || { rm -f $@.tmp; exit 1; }
 	$(Q)$(png_finish)
 
 data/fonts/jis12x12_rows_25_33_57cd.bin: PNG_SIZE := 9135
