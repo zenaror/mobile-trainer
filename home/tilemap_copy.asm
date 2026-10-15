@@ -5,7 +5,7 @@
 SECTION "home/tilemap_copy", ROM0
 
 Tilemap_CopyRectAndAttrPtr:: ; 00:16A2
-Function_00_16A2::
+	; Historical address alias retired; proper operation name retained.
 	; [CONFIRMED] like 08CA but the second source pointer comes from C10E/C10F [reached via inferred
 	; links; raw refs 3] [executed in 27 scenarios]
 	call BankSwitch_H

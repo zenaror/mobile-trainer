@@ -5,11 +5,11 @@
 SECTION "home/gfx_upload", ROM0
 
 Gfx_StartHDMA:: ; 00:0749
-Function_00_0749::
-	; [CONFIRMED] general-purpose HDMA start (rHDMA5=C-1, bit7=0): A=source bank (region by H),
-	; HL=source, DE=dest (E bit0 = VRAM bank via rVBK/FFF4, E&$F0 = low dest byte), C=number of
-	; 16-byte blocks, B=LY limit: waits until LY>=$91 and LY<B, else waits for the next VBlank;
-	; returns A=bank
+	; Historical address alias retired; proper operation name retained.
+	; [CONFIRMED] rHDMA5=C-1; general-purpose mode only for C=$01..$80 (no bit7 mask).
+	; A=source bank by H; HL=source, DE=dest; E bit0 selects VRAM bank, E&$F0 low dest.
+	; LCD-on wait requires $91<=LY<B; LCD-off skips wait. C counts 16-byte blocks.
+	; Returns A=bank; arbitrary C/B values do not gain a general transfer guarantee.
 	ldh [hFarBank], a
 	call BankSwitch_H
 	ld a, h
@@ -50,8 +50,8 @@ Function_00_0749::
 	jr .loop
 
 Gfx_StartHDMAWithService:: ; 00:0787
-Function_00_0787::
-	; [CONFIRMED] variant of 0749 that calls the frame service (0392) while waiting
+	; Historical address alias retired; proper operation name retained.
+	; [CONFIRMED] 0749 domain (C=$01..$80; LCD-on $91<=LY<B), with frame service.
 	ldh [hFarBank], a
 	call BankSwitch_H
 	ld a, h
@@ -94,7 +94,7 @@ Function_00_0787::
 	jr .loop
 
 Gfx_UploadBgMapBuffersDi:: ; 00:07CB
-Function_00_07CB::
+	; Historical address alias retired; proper operation name retained.
 	; [CONFIRMED] uploads the first $240 bytes (18 rows) of each of the two 1 KiB screen buffers of
 	; WRAM bank 7 to VRAM with two HDMA transfers (0749, B=$95, C=$24 blocks of 16 bytes): D000 ->
 	; VRAM bank 0, D400 -> VRAM bank 1, map $9800 or $9C00 selected by A bit3; di before the wait, ei
@@ -127,7 +127,7 @@ Function_00_07CB::
 	ret
 
 Gfx_UploadWinMapBuffersDi:: ; 00:07FB
-Function_00_07FB::
+	; Historical address alias retired; proper operation name retained.
 	; [PROBABLE] uploads the first $240 bytes (18 rows) of each of the two 1 KiB screen buffers of
 	; WRAM bank 7 to VRAM with two HDMA transfers (0749, B=$95, C=$24 blocks of 16 bytes): D000 ->
 	; VRAM bank 0, D400 -> VRAM bank 1, map $9800 or $9C00 selected by A bit6; di before the wait, ei
@@ -160,7 +160,7 @@ Function_00_07FB::
 	ret
 
 Gfx_UploadBgMapBuffers:: ; 00:082C
-Function_00_082C::
+	; Historical address alias retired; proper operation name retained.
 	; [CONFIRMED] uploads the first $240 bytes (18 rows) of each of the two 1 KiB screen buffers of
 	; WRAM bank 7 to VRAM with two HDMA transfers (0749, B=$95, C=$24 blocks of 16 bytes): D000 ->
 	; VRAM bank 0, D400 -> VRAM bank 1, map $9800 or $9C00 selected by A bit3; no di, ei + frame
@@ -192,7 +192,7 @@ Function_00_082C::
 	ret
 
 Gfx_UploadBgMapBuffersNoService:: ; 00:085B
-Function_00_085B::
+	; Historical address alias retired; proper operation name retained.
 	; [CONFIRMED] uploads the first $240 bytes (18 rows) of each of the two 1 KiB screen buffers of
 	; WRAM bank 7 to VRAM with two HDMA transfers (0749, B=$95, C=$24 blocks of 16 bytes): D000 ->
 	; VRAM bank 0, D400 -> VRAM bank 1, map $9800 or $9C00 selected by A bit3; no di, ei + ret (no
@@ -223,7 +223,7 @@ Function_00_085B::
 	ret
 
 Gfx_UploadWinMapBuffers:: ; 00:0887
-Function_00_0887::
+	; Historical address alias retired; proper operation name retained.
 	; [CONFIRMED] uploads the first $240 bytes (18 rows) of each of the two 1 KiB screen buffers of
 	; WRAM bank 7 to VRAM with two HDMA transfers (0749, B=$95, C=$24 blocks of 16 bytes): D000 ->
 	; VRAM bank 0, D400 -> VRAM bank 1, map $9800 or $9C00 selected by A bit6; no di, ei + frame
@@ -255,7 +255,7 @@ Function_00_0887::
 	ret
 
 Gfx_WaitForFrameTop:: ; 00:08B7
-Function_00_08B7::
+	; Historical address alias retired; proper operation name retained.
 	; [CONFIRMED] if LCD on: waits until LY < $87 (i.e. rides out VBlank/late lines, ei while
 	; waiting) so an HDMA transfer started afterwards fits in VBlank
 	ldh a, [rLCDC]
@@ -273,7 +273,7 @@ Function_00_08B7::
 	jr .l08BC
 
 Tilemap_CopyRectAndAttrSplitSrc:: ; 00:08CA
-Function_00_08CA::
+	; Historical address alias retired; proper operation name retained.
 	; [PROBABLE] copy B rows of C bytes from [HL] (bank A) into the WRAM bank 7 buffer at DE (row
 	; stride 32), twice: second pass HL+=$400, DE+=$400 [candidate; raw refs 7]
 	call BankSwitch_H
@@ -298,7 +298,7 @@ Function_00_08CA::
 	ret
 
 Tilemap_CopyRectAndAttr:: ; 00:08EA
-Function_00_08EA::
+	; Historical address alias retired; proper operation name retained.
 	; [CONFIRMED] like 08CA but the second pass continues with the same source pointer
 	call BankSwitch_H
 	ld a, $07
@@ -317,7 +317,7 @@ Function_00_08EA::
 	ret
 
 Tilemap_CopyRect:: ; 00:0904
-Function_00_0904::
+	; Historical address alias retired; proper operation name retained.
 	; [CONFIRMED] rectangle copy: B rows x C bytes from [HL] to [DE], DE row stride 32 (uses FFB0 as
 	; row length)
 	ld a, [hli]
@@ -340,7 +340,7 @@ Function_00_0904::
 	ret
 
 Tilemap_ApplyMaskRect:: ; 00:091C
-Function_00_091C::
+	; Historical address alias retired; proper operation name retained.
 	; [CONFIRMED] rectangle AND/OR: for B rows x C bytes: [HL] = ([HL] & D) | E, HL row stride 32
 	; (bank A) [reached via inferred links; raw refs 1] [executed in 36 scenarios]
 	call BankSwitch_H
@@ -368,7 +368,7 @@ Function_00_091C::
 	ret
 
 Tilemap_ClearBuffers:: ; 00:093B
-Function_00_093B::
+	; Historical address alias retired; proper operation name retained.
 	; [PROBABLE] clears the two 1 KiB screen buffers D000-D3FF and D400-D7FF of WRAM bank 7
 	; [candidate; raw refs 6]
 	ld a, $07

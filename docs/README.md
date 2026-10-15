@@ -61,6 +61,7 @@ Reference documents (current):
 | [`audio_function_names.md`](research/audio_function_names.md) | six original audio names, conditional contracts, confidence and local-scope retirement |
 | [`bank68_function_names.md`](research/bank68_function_names.md) | original account/settings names, decoded-progress correction, keyboard cursor arguments and crossed SRAM unwind |
 | [`sdk_function_names.md`](research/sdk_function_names.md) | original SDK75 names, bounded copy/result-field contracts and caller-provided stack frames |
+| [`home_function_names.md`](research/home_function_names.md) | 110 original HOME alias retirements, bounded ABI/copy contracts, confidence and dated evidence errata |
 | [`gfx_resource_names.md`](research/gfx_resource_names.md) | descriptive original graphics paths, visual confidence and opaque-fragment limits |
 | [`gfx_resource_path_map.tsv`](research/gfx_resource_path_map.tsv) | 235 historical/current owner, asset and PNG paths with byte hashes |
 

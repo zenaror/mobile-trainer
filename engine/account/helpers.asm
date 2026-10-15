@@ -1064,15 +1064,15 @@ Config_LoadMirrorToWram:: ; 68:4608
 	ld hl, sConfigDial0Text
 	ld de, wDialEntries + $22
 	ld bc, $0010
-	call CopyStringMax_ZeroSrcOnEmpty
+	call CopyStringMax_ZeroSourceIfEntryCountZero
 	ld hl, sConfigDial1Text
 	ld de, wDialEntries + $55
 	ld bc, $0010
-	call CopyStringMax_ZeroSrcOnEmpty
+	call CopyStringMax_ZeroSourceIfEntryCountZero
 	ld hl, sConfigDial2Text
 	ld de, wDialEntries + $88
 	ld bc, $0010
-	call CopyStringMax_ZeroSrcOnEmpty
+	call CopyStringMax_ZeroSourceIfEntryCountZero
 	ld hl, sConfigDial0Number
 	ld de, wDialEntries
 	call PhoneNumber_UnpackBcd
@@ -1169,7 +1169,7 @@ Dial_LoadDefaultsForAdapterType:: ; 68:46C8
 	add hl, de
 	ld de, wAcctNumberComment
 	ld bc, $0010
-	farcall CopyStringMax_ZeroSrcOnEmpty
+	farcall CopyStringMax_ZeroSourceIfEntryCountZero
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a

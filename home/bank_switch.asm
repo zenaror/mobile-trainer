@@ -82,7 +82,7 @@ GetBank_H:: ; 00:0673
 	ret
 
 Bank_InitState:: ; 00:0684
-Function_00_0684::
+	; Historical address alias retired; proper operation name retained.
 	; [CONFIRMED] initialises HRAM bank state and the far-call trampoline: FFA8..FFAF = `ld a,0 ; ld
 	; hl,0 ; jp $06B7`; FF8D=rSVBK=1; FF8C=1,[4000]=1 (SRAM bank 1); FFF5=0,[0000]=0 (SRAM
 	; disabled); FFF4=0, rVBK=0 [reached via inferred links; raw refs 4] [executed in 41 scenarios]

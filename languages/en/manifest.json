@@ -3422,8 +3422,8 @@
       "sha256": "37a6751a209c8d25e51cf919800d769d1e50de38e3cad345027115d046b54567"
     },
     "REVERSE_ENGINEERING.md": {
-      "size": 149149,
-      "sha256": "211cf5c2c97ca24b61d95650f1c8a9908820f023398c64a4410053907273c21c"
+      "size": 149668,
+      "sha256": "0068765d5d569e2d76e247231e3671beb196ec51c4256335a093361c6518e368"
     },
     "STYLE.md": {
       "size": 57938,
@@ -4330,8 +4330,8 @@
       "sha256": "c287ff7009dabb2e9ea37e1be8c0da17a6c1c6a8acda893a376bc6d294c2cc2b"
     },
     "analysis/naming2/ram12_hram_overlays.tsv": {
-      "size": 18166,
-      "sha256": "0bd965fec0866d00e69122ca981484caa7a2f4f6ec78e0447fe686cbbcedd3ce"
+      "size": 18172,
+      "sha256": "78821ca8cf6bc39cdba8ccba619957ca0154bb6896f709b8b877146e80acef49"
     },
     "analysis/naming2/ram12_hram_renames.tsv": {
       "size": 564,
@@ -4394,12 +4394,12 @@
       "sha256": "0934b736c848e99d5e043c490c223bf3b5c59dbe10e8e89f9a1ca2126003b308"
     },
     "analysis/naming2/sram4_names.tsv": {
-      "size": 62331,
-      "sha256": "d14ac845efc4f70ba5993ca000db002f6dc226a081762d07ccfcab745e02e2c2"
+      "size": 62367,
+      "sha256": "25473a4245b997af0e2191854b2a52717e99fd70b523995d81f26154dbb26f53"
     },
     "analysis/naming2/sram4_sites.tsv": {
-      "size": 56286,
-      "sha256": "ad40026df06e447f97cb4ed4772cf32c689a9541990e0ded64e75b63911ed920"
+      "size": 56322,
+      "sha256": "c693d2ba0f7dceb15f6373bc732ab343f2074f9ca1ab70990a04300bf850b44e"
     },
     "analysis/naming2/vb1_renames.tsv": {
       "size": 5640,
@@ -4446,12 +4446,12 @@
       "sha256": "ca55c4b0fde49689ce73b7ae95f76b78a6547c9d82ea499c40267a1a43c3b518"
     },
     "analysis/naming2/wramx_calls.tsv": {
-      "size": 34802,
-      "sha256": "6b4371ed8da645f782cb9841471675938cf0e2f05c47466ba9f6355270be132b"
+      "size": 34814,
+      "sha256": "388f16429bf3e331c86268ea35d6599fa6c316a0c1710de2bbcf66c29cfcfdcd"
     },
     "analysis/naming2/wramx_consumers.tsv": {
-      "size": 47016,
-      "sha256": "c1fbfef5f55033fe6157cac985d1c3b2058aa22408b0883120792e24e9462df1"
+      "size": 47040,
+      "sha256": "a913eb2632f5e51bc909f76f6b7b580ef80ee5cd4d0ac6ffa0837922aa27a27a"
     },
     "analysis/proposals/bank00.tsv": {
       "size": 31029,
@@ -6278,8 +6278,8 @@
       "sha256": "2a81b21c5620247e1ba2a3e144067e00ccf095f618692ed2541c10e8e761633b"
     },
     "docs/README.md": {
-      "size": 67247,
-      "sha256": "59b41eb492a0c274273929beacd15de3c45ad5ea841ec01c7b37400985f6f619"
+      "size": 67415,
+      "sha256": "e027fef604b6df5528501fa4e76cc8ee96ba744e242311b6e29140e5a9023ba4"
     },
     "docs/REVERSE_ENGINEERING_RULES.md": {
       "size": 17815,
@@ -6396,6 +6396,10 @@
     "docs/research/historical_lite_callgraph_archive_adoption.md": {
       "size": 7154,
       "sha256": "babf8689e6ecd910f2b99b650884ceb8afe302bceea4cd1198c99d85ad55117d"
+    },
+    "docs/research/home_function_names.md": {
+      "size": 51381,
+      "sha256": "4f396a69cba5ffa47e7c6d82e9be1c61cff7abbe09c4cfdf81038b5d4ec8aa3b"
     },
     "docs/research/image_text_inventory.md": {
       "size": 112416,
@@ -7146,8 +7150,8 @@
       "sha256": "570340169e9a38cd2853b5498a2d07ffa55ba58aaa9dd6605d36b8601fd8cbef"
     },
     "engine/account/helpers.asm": {
-      "size": 25222,
-      "sha256": "737c7446e2c3b5362c7de4b5cf98382f3d79d04179b9366c8b06fc40a14f5756"
+      "size": 25270,
+      "sha256": "1273fff21f44279c29fe24ccd741bc293782f6d7509b1a8721bdcbf5e66e5019"
     },
     "engine/account/login_id_entry.asm": {
       "size": 10543,
@@ -7718,8 +7722,8 @@
       "sha256": "061b8ee0aa6901e96f028bee366dde5802cf8ed06fa0deebfe8aaced9915b41b"
     },
     "engine/tutorial/gates.asm": {
-      "size": 3134,
-      "sha256": "40d7f080417ce715322dea23925bb94a9aff15002baf4ada1cff46f3adab90a6"
+      "size": 3139,
+      "sha256": "e6db33b4d78c174cf0e45ef2492944c974beb6efcfcfa82026f4594d4a6e7516"
     },
     "engine/unreferenced/page_list_prototype.asm": {
       "size": 49692,
@@ -8926,8 +8930,8 @@
       "sha256": "852e5b548f66d085948966615dd0effd1a900fbeaaf4d5eac6a705d3bfc8f20c"
     },
     "gfx/browser/page_list.asm": {
-      "size": 42720,
-      "sha256": "6b4011bbadb2118e58d20af35f5e628f2af4a1b1539a452c64fecde1f65f2628"
+      "size": 42705,
+      "sha256": "eeb88b6c5d447193b55e0ccc34aa45d2fc03b5122cb2ea2ae706cb2bf91f244c"
     },
     "gfx/browser/page_list/page_list_bg_palette.pal": {
       "size": 519,
@@ -9478,8 +9482,8 @@
       "sha256": "e79fa139f98a4b1644a94e52c85f0dbbb8e0edfa3d149736d1e0ecf03d42135d"
     },
     "gfx/comm/notice_dialog.asm": {
-      "size": 14115,
-      "sha256": "53a3975b5c8e303fb83ac83f937e63fc83d1dcf18a7b761684ea5daa94558829"
+      "size": 14171,
+      "sha256": "a7a76a5f0bf11209121629eb6a9ce9c27f84502b942cfeb6d6b74844f6c50ff4"
     },
     "gfx/comm/notice_dialog/attrmap_4502.attrmap": {
       "size": 360,
@@ -10442,8 +10446,8 @@
       "sha256": "8311206b6dd6edff9e25fcf5f97a9a36d08acbab1037f1870154693c376add1f"
     },
     "gfx/frame_designs/plant_chevron_and_heart_borders_43.asm": {
-      "size": 13301,
-      "sha256": "e9a69c85ab9ebdb3ed6e7556055bfed7491bf616d986240392b0f4ca731c8494"
+      "size": 13329,
+      "sha256": "f217335eaa66e8ab1a6417f0e21fe35554587d4561084dd04b69876259c79e52"
     },
     "gfx/frame_designs/plant_chevron_and_heart_borders_43/blue_yellow_chevron_border_43_4d50_attributes.attrmap": {
       "size": 360,
@@ -12070,8 +12074,8 @@
       "sha256": "b883a3a7201b5b8ed805b0cec32ddd5e5971152388a4fff89f0ef5bcbe45aa8d"
     },
     "gfx/mail_menu/mail_menu.asm": {
-      "size": 7323,
-      "sha256": "052393402f0334c1ab4abccaf7c6622c39e8bf22bbde3a7263cac4bfc7c49fb2"
+      "size": 7333,
+      "sha256": "e1780080ed50b61d96d808486786b70bd72bbbd315c4a71ae4d45c276811d321"
     },
     "gfx/mail_menu/mail_menu/mail_menu_bg.pal": {
       "size": 519,
@@ -15022,12 +15026,12 @@
       "sha256": "0715380bd6b75fe63a3f9af99452b8ed4ceb8ae3fa270267c353d0fc97a12140"
     },
     "home/audio.asm": {
-      "size": 7014,
-      "sha256": "f8b453f74ff29fd9944d71684eacaecbdc6ffab9d81432b31aa0ada6a236511e"
+      "size": 8064,
+      "sha256": "5eeaf29c78a94a19b5987ba21ab2430000f3c6382b84d7338d662abae6ef1949"
     },
     "home/bank_switch.asm": {
-      "size": 2288,
-      "sha256": "d60bd28d6487d91b8bd0c7a061d449adcc6372483d2d8eebaf3e24542e68e1fa"
+      "size": 2338,
+      "sha256": "f37220f510b4da5cf927462648e8626a4fc43f5dc7978b07f4e5c23424d38a36"
     },
     "home/copy.asm": {
       "size": 2075,
@@ -15038,100 +15042,100 @@
       "sha256": "93a7908c11854edc67adb524f3f3afa2cbceb4431c332008d0900c2544983593"
     },
     "home/far_helpers.asm": {
-      "size": 1431,
-      "sha256": "fa304db07f308a9e1ab33b2d8002629031a4d09a1f5b565019036fde28cb0417"
+      "size": 1577,
+      "sha256": "e38a52562e98fce28bbc850d2c559774e90e035ddb157b2a2b11d0d35bde50d2"
     },
     "home/far_read.asm": {
-      "size": 1960,
-      "sha256": "5401d52143feab44b3fcd9b51d1a951823765cd71a76f6fe55d221548c909a19"
+      "size": 2010,
+      "sha256": "35ca8cad32c09121f2b1c41a76e9b9bcac5358e22bf6d3d27eecba1698c981d6"
     },
     "home/far_string.asm": {
-      "size": 3119,
-      "sha256": "1b8f8acecc107798c0c694a47cc492f724bff00f92b046e66fbd657042f93e03"
+      "size": 3269,
+      "sha256": "9fa6fcaae709fb6e02fdbf2ec1f35a9d031ede3c2c61489a54f80ad20bb3e140"
     },
     "home/farcall.asm": {
-      "size": 3513,
-      "sha256": "c86b6c6208eca1d58635610e072a77dba8195552e998f0cb87c8623e15915301"
+      "size": 3663,
+      "sha256": "0928fea4c2dc664946916709a1c78fb899a5290a76c5a77b900da8eeb9a88f36"
     },
     "home/gfx_upload.asm": {
-      "size": 7894,
-      "sha256": "84123532b7d3512a7be76f729a38857e10fa90e73275db8fe176714e107af3b8"
+      "size": 8576,
+      "sha256": "23bc258fcabcfcba991c5493fe6cc9e62e021a8b04147997e88dacf83c4d3b1d"
     },
     "home/glyph_data.asm": {
-      "size": 2971,
-      "sha256": "234ae8eeade7247e1714f52fd34b7a11fde07841679295e659af0eef7efb3d50"
+      "size": 3221,
+      "sha256": "a92267b142198cd578615e03d75143559bda2b98562a4a058972e185e772c559"
     },
     "home/header.asm": {
       "size": 3134,
       "sha256": "5fda60c901ace35b75aa897a2ef5d6d3fb7846cbbee624f14fe6cdf3ca647ebd"
     },
     "home/html_store.asm": {
-      "size": 3980,
-      "sha256": "b1c00971fcd3e994d5006adf4dbcb80ec1ec8a9782eb55061f1044b4f15ef62e"
+      "size": 4025,
+      "sha256": "d374156b69370ef4c79228c48d8a61bf3ccd9591be2fd7599ce2ea5818006865"
     },
     "home/init.asm": {
-      "size": 3324,
-      "sha256": "1b73209d8ab4efe5a090183b9b9332cf7eb17be7469d096540ea815e7cddbf9b"
+      "size": 3500,
+      "sha256": "282005a4036e5a318531d2525d1c9847451816313555ee98d9c9e33a508caf63"
     },
     "home/interrupt_handlers.asm": {
-      "size": 1510,
-      "sha256": "54e052bba462a44561d8c3f336979713ba1a73191c59330325b1f598db17a475"
+      "size": 1660,
+      "sha256": "c804081de8d2924e85d32ab019c2f42d30fc706d4db46799f555f7e799df9975"
     },
     "home/jump_table.asm": {
       "size": 2884,
       "sha256": "26cd4cbae9c88c7f5b10fb2da26f16b1db8ad19c94771877bbf90513843b30cc"
     },
     "home/keyword_scan.asm": {
-      "size": 8240,
-      "sha256": "b5b700438cac0dada6e81e4d0ef528fc0c418aaf0ceadec8aabdf217be608e49"
+      "size": 8354,
+      "sha256": "5210ceab4bc0d0614e7c709169640fe8649f55e1e4958f5517009c7dff8873ce"
     },
     "home/lcd.asm": {
-      "size": 1521,
-      "sha256": "93e4d73693dd4bcea5a7737c1310d1bc4730748ff99eb01ffc311c82e72da560"
+      "size": 1571,
+      "sha256": "a8bad1b8c73d6cb39c12d6a91d977fd9aa9ba359687f5e15654b60b6907aa50c"
     },
     "home/mobile.asm": {
-      "size": 4381,
-      "sha256": "245f55fc7749b7300e3f886dc5d9aecf79e5a73863fefd4e25d1072c4637d7df"
+      "size": 4431,
+      "sha256": "b8dc15fcdf9b91d28e2cd0e6e63e2c397a5ddcdc5232c3eede4f7a28a4a0b08f"
     },
     "home/multiply.asm": {
-      "size": 1152,
-      "sha256": "81d93f357301f914a9c3d82134a08c64bc08e7f13e2e84e091f2cece73ac85fd"
+      "size": 1252,
+      "sha256": "773c1911e91caccc3cc26bed385a668c44b6ab189fbfcfa05d3e3d51427aa6a1"
     },
     "home/multiply_divide.asm": {
-      "size": 2656,
-      "sha256": "65c1b1b64d132a0c4f13dda04cda7a436b6810f2dfcf5b26271368292126d469"
+      "size": 2730,
+      "sha256": "04108d7466b29d8f2d9967517abe4273da0da7ee1b6a8bddc2cc16ad7edfd502"
     },
     "home/random.asm": {
       "size": 2239,
       "sha256": "b0660af7ccd9f22ae9967da65137ded3049c4cd4020723aeeea36787ea5c6f8b"
     },
     "home/sprites.asm": {
-      "size": 8443,
-      "sha256": "c744363e152c59fd8ed9f25d0e42676b0212f3b94300ecbbab4021d70100749d"
+      "size": 8997,
+      "sha256": "243d9b8562f3b2001d2575ef68a7868740047f6cdec77ad1576aa8aecde6b4de"
     },
     "home/stat_handler.asm": {
-      "size": 1045,
-      "sha256": "5a76cc00bacd161db7d498f63eb74a2aba2f2fb877ca15f4dae499464d84a91c"
+      "size": 1095,
+      "sha256": "85426bb96d47e3591c2cbf819cac5489b320648c554e064702853cd38de3189b"
     },
     "home/string.asm": {
-      "size": 3362,
-      "sha256": "b8401cf6040dbc76368169b1da2941655930bc8fdf4318c537e680b55213702c"
+      "size": 3527,
+      "sha256": "f1853d7db30a39a709e4bed12a37890911413a8586287fad97d78d1d320e22f6"
     },
     "home/text.asm": {
-      "size": 9768,
-      "sha256": "f10c551015150e520286e256d985080a63dc4175405a96b1810064f8ebd071e3"
+      "size": 11035,
+      "sha256": "318c5f1578de7c5ea35401fd938ac65e21620756f2c76a6d53e6f4623281dd38"
     },
     "home/text_measure.asm": {
-      "size": 2901,
-      "sha256": "bdae60285574615e67363e857cfd567c087bdb8d8d0928d335e0ba073ab7aeec"
+      "size": 2951,
+      "sha256": "171c8a74a46edf2b96dcd0d45593c6252dd4e5cc2f3c4939da38100aae0661a8"
     },
     "home/tilemap_copy.asm": {
-      "size": 670,
-      "sha256": "211346e17abc72d33bba903e23f0b9fd506e070f9f3ffe07190567f2f3e3941b"
+      "size": 720,
+      "sha256": "dbb678c97f42b8020f5e5f6ab8c59f14b8273ad0fe5a92bb38824f023d8dcd73"
     },
     "home/vblank.asm": {
-      "size": 4985,
-      "sha256": "60162fcd29cc2ccb4e43761a324969fb4b03bd250c8a4a210f6f71a229ec77e9"
+      "size": 5226,
+      "sha256": "66bd6fd19eb1b5a0f8400aadcadf9b7d31ccae5c11e52c675b5d0700bfa0d6ba"
     },
     "includes.asm": {
       "size": 445,
@@ -15154,16 +15158,16 @@
       "sha256": "63eccc547d6162f96717b11a126c11387d6ff5c05e224dc1aa6780d2b632193f"
     },
     "ram/banked.asm": {
-      "size": 164187,
-      "sha256": "ba2f9179bf7d6734de3753e5c30ad23537f87aab0e224b57580cb93f83829225"
+      "size": 164235,
+      "sha256": "9526e512ef4dd16f8ff62dcf7da4cf58945fb855a33d82fc897b831ee1e8a45d"
     },
     "ram/hram.asm": {
       "size": 14247,
       "sha256": "6321adf398ebb62a3690cfeeded432ff67cb50e8741d325fa3b2988bae711317"
     },
     "ram/overlays.asm": {
-      "size": 184156,
-      "sha256": "c7d37ea5dbd2d5d3f310310839dc7482cab9962e9bd57dde52f413e2787e8fe5"
+      "size": 184159,
+      "sha256": "56e796c4fb0d68c9d5c71a8d90bd37cee56a0215ac659b44d08ad232c781755a"
     },
     "ram/sram.asm": {
       "size": 43760,
@@ -20481,5 +20485,5 @@
     }
   },
   "overrides_count": 564,
-  "fallback_count": 4257
+  "fallback_count": 4258
 }

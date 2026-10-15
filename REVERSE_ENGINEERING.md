@@ -25,7 +25,7 @@ The finite checks below remain valid within their limits; they do not establish1
 English implementation, ZIP parity, agents and builds remain suspended pending fresh explicit human
 confirmation, even after the original work is finished.
 
-The follow-up naming cohort retires93 more historical Function aliases (593 remain), with proper
+The follow-up naming cohort retires93 more historical Function aliases (593 remained at that stage), with proper
 names and conditional roles documented in [audio helpers](docs/research/audio_function_names.md),
 [bank68 contracts](docs/research/bank68_function_names.md), [SDK75 contracts](docs/research/sdk_function_names.md)
 and the [received-record reply role](docs/research/naming2_neutral_mail.md#reply-composition-from-a-received-record-proper-domain-role-2026-10-15).
@@ -47,9 +47,15 @@ locators. This does not establish species,
 natural frame selection, bank53 name/image associations or the purpose of opaque raw fragments.
 The native original identity gate applies to this source migration; path naming is not semantic closure.
 
-The remaining home-function inventory still has count/copy contracts and metadata references to
-correct before adoption. After the current passes and reviews, the Operator requires a wider audit
-of analogous generic names in the other original ASM files, paths, resources and name consumers.
+The HOME naming pass retires110 historical Function aliases (483 remain across the maintained
+original sources), preserves123 local-label addresses under descriptive scopes and narrows two
+copy-operation names. The [HOME contracts](docs/research/home_function_names.md) document entry
+registers, full counter domains, crossed frames, HTML header arithmetic and dated evidence errata;
+operational RAM scopes and consumer keys follow the retained names. Entry, purpose, mapper,
+stack and unobserved-input qualifications remain explicit. These are naming-migration counts,
+not110 new semantic discoveries or whole-ROM completion. After these reviewed integrations,
+the Operator requires a wider audit of analogous generic names in the other original ASM files,
+paths, resources and name consumers.
 English payloads, override targets and builds remain suspended pending fresh human confirmation.
 The original-path fallback inventory follows this migration; English override targets still using old
 graphics paths require a later authorized rebase. No English parity or build is claimed here.

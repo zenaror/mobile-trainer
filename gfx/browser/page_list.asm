@@ -4,7 +4,7 @@
 
 SECTION "gfx/browser/page_list", ROMX
 
-; ---- gfx $5400-$55D0 (464 bytes) [CONFIRMED] 2bpp tiles by coherence: 29 non-blank tiles, mean adjacent-pixel similarity h=0.67 v=0.50 (random data ~0.25-0.35); part of the 1024-byte block 5400-5800 uploaded by Function_00_0749 (general HDMA start: hl=$5400 a=$24 c=$40 de=$9301) at 24:432C; call site executed: 40 hits in 9 scenarios (analysis/coverage_union.tsv)
+; ---- gfx $5400-$55D0 (464 bytes) [CONFIRMED] 2bpp tiles by coherence: 29 non-blank tiles, mean adjacent-pixel similarity h=0.67 v=0.50 (random data ~0.25-0.35); part of the 1024-byte block 5400-5800 uploaded by Gfx_StartHDMA (general HDMA start: hl=$5400 a=$24 c=$40 de=$9301) at 24:432C; call site executed: 40 hits in 9 scenarios (analysis/coverage_union.tsv)
 
 PageList_Tiles_5400:: ; 24:5400
 Tiles_24_5400::
@@ -18,7 +18,7 @@ Data_24_55D0:: ; 24:55D0
 PageList_Tiles_5800:: ; 24:5800
 	INCBIN "gfx/browser/page_list/page_list_tiles_5800.2bpp"
 
-; ---- gfx $5810-$58B0 (160 bytes) [CONFIRMED] 2bpp tiles by coherence: 9 non-blank tiles, mean adjacent-pixel similarity h=0.72 v=0.79 (random data ~0.25-0.35); part of the 256-byte block 5800-5900 uploaded by Function_00_0749 (hl=$5800 a=$24 c=$10 de=$9701) at 24:4341; call site executed: 40 hits in 9 scenarios (analysis/coverage_union.tsv)
+; ---- gfx $5810-$58B0 (160 bytes) [CONFIRMED] 2bpp tiles by coherence: 9 non-blank tiles, mean adjacent-pixel similarity h=0.72 v=0.79 (random data ~0.25-0.35); part of the 256-byte block 5800-5900 uploaded by Gfx_StartHDMA (hl=$5800 a=$24 c=$10 de=$9701) at 24:4341; call site executed: 40 hits in 9 scenarios (analysis/coverage_union.tsv)
 
 Tiles_24_5810:: ; 24:5810
 	INCBIN "gfx/browser/page_list/tiles_5810.2bpp"
@@ -46,7 +46,7 @@ PageList_BgPalette:: ; 24:5EA0
 Palette_24_5EA0::
 	INCLUDE "gfx/browser/page_list/page_list_bg_palette.pal"
 
-; ---- gfx $5EE0-$5EF1 (17 bytes) [CONFIRMED] 2bpp tiles (too few non-blank tiles to score); first bytes of the 1024-byte block 5EE0-62E0 uploaded by Function_00_0749 (hl=$5EE0 a=$24 c=$40 de=$8000) at 24:4356; call site executed: 40 hits in 9 scenarios (analysis/coverage_union.tsv)
+; ---- gfx $5EE0-$5EF1 (17 bytes) [CONFIRMED] 2bpp tiles (too few non-blank tiles to score); first bytes of the 1024-byte block 5EE0-62E0 uploaded by Gfx_StartHDMA (hl=$5EE0 a=$24 c=$40 de=$8000) at 24:4356; call site executed: 40 hits in 9 scenarios (analysis/coverage_union.tsv)
 
 PageList_Tiles_5EE0:: ; 24:5EE0
 Tiles_24_5EE0::
@@ -64,7 +64,7 @@ PageList_Tiles_62E0:: ; 24:62E0
 	db $80, $FF, $80, $FF, $80, $FF, $80, $FF, $80, $FF, $B0, $FF, $B0, $DF, $80, $FF
 	db $50
 
-; ---- gfx $6301-$63D0 (207 bytes) [CONFIRMED] 2bpp tiles by coherence: 12 non-blank tiles, mean adjacent-pixel similarity h=0.49 v=0.75 (random data ~0.25-0.35); inside block 62E0-64E0 uploaded by Function_00_0749 (hl=$62E0 a=$24 c=$20 de=$8400) at 24:436B; call site executed: 40 hits in 9 scenarios (analysis/coverage_union.tsv)
+; ---- gfx $6301-$63D0 (207 bytes) [CONFIRMED] 2bpp tiles by coherence: 12 non-blank tiles, mean adjacent-pixel similarity h=0.49 v=0.75 (random data ~0.25-0.35); inside block 62E0-64E0 uploaded by Gfx_StartHDMA (hl=$62E0 a=$24 c=$20 de=$8400) at 24:436B; call site executed: 40 hits in 9 scenarios (analysis/coverage_union.tsv)
 
 Tiles_24_6301:: ; 24:6301
 	INCBIN "gfx/browser/page_list/tiles_6301.2bpp"
@@ -73,7 +73,7 @@ Tiles_24_6301:: ; 24:6301
 ; ---- zero $63D0-$63E0 (16 bytes) [HYPOTHESIS] padding? run of 16 x $00 in unclassified bytes
 	ds $10, $00
 
-; ---- gfx $63E0-$64E0 (256 bytes) [CONFIRMED] 2bpp tiles by coherence: 15 non-blank tiles, mean adjacent-pixel similarity h=0.61 v=0.72 (random data ~0.25-0.35); inside block 62E0-64E0 uploaded by Function_00_0749 (hl=$62E0 a=$24 c=$20 de=$8400) at 24:436B; call site executed: 40 hits in 9 scenarios (analysis/coverage_union.tsv)
+; ---- gfx $63E0-$64E0 (256 bytes) [CONFIRMED] 2bpp tiles by coherence: 15 non-blank tiles, mean adjacent-pixel similarity h=0.61 v=0.72 (random data ~0.25-0.35); inside block 62E0-64E0 uploaded by Gfx_StartHDMA (hl=$62E0 a=$24 c=$20 de=$8400) at 24:436B; call site executed: 40 hits in 9 scenarios (analysis/coverage_union.tsv)
 
 Tiles_24_63E0:: ; 24:63E0
 	INCBIN "gfx/browser/page_list/tiles_63e0.2bpp"

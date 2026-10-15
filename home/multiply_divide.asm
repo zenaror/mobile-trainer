@@ -4,7 +4,7 @@
 
 SECTION "home/multiply_divide", ROM0
 LoadSignedC200E_WriteRomLowF0ThenEntryA:: ; 00:0D34
-Function_00_0D34::
+	; Historical address alias retired; operation PROBABLE; independent entry/purpose unproved.
 	; [PROBABLE] normal nonaliasing flow: DE = signed byte at WRAM0[$C200+entry E]; restores AF.
 	; Writes hROMBankLo/[$2100]: $F0, then entry A; no explicit high-bank write.
 	; Read follows PUSH AF; stack aliases/IRQ may affect it; no physical-bank mapping asserted.

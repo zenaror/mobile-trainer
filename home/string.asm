@@ -28,11 +28,11 @@ CopyStringMax:: ; 00:14C6
 	jr nz, CopyStringMax
 	ret
 
-CopyStringMax_ZeroSrcOnEmpty:: ; 00:14D1
-Function_00_14D1::
-	; [CONFIRMED] like 14C6; when BC==0 writes a $00 at [HL] (source pointer) [reached via inferred
-	; links; raw refs 4] | 10 insn(s) executed; cut out of the PROBABLE region 14D1-14E0 by
-	; apply_coverage --split [executed in 2 scenarios]
+CopyStringMax_ZeroSourceIfEntryCountZero:: ; 00:14D1
+	; Historical address alias retired; entry/copy CONFIRMED; entry-zero store PROBABLE.
+	; [CONFIRMED] nonzero-entry copy; entry BC==0 source-zero branch is [PROBABLE] (see .l14DD).
+	; Later exhaustion joins CopyStringMax and returns without that explicit source store.
+	; Entry/copy path observed in 2 historical scenarios; no zero-entry caller is established.
 	ld a, c
 	or a, b
 	jr z, .l14DD
@@ -74,7 +74,7 @@ DecodeXorA5:: ; 00:14EA
 	ret
 
 StringAppend:: ; 00:14F3
-Function_00_14F3::
+	; Historical address alias retired; proper operation name retained.
 	; [CONFIRMED] string append: finds the first byte equal to A in the string at DE and copies the
 	; string at HL there (A=0: strcat) [reached via inferred links; raw refs 19] [executed in 10
 	; scenarios]

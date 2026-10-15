@@ -137,7 +137,7 @@ Tutorial_GateTopMenu:: ; 48:4A4E
 
 Tilemap_ApplyMaskRect_48_4A8C:: ; 48:4A8C
 Function_48_4A8C::
-	; [HYPOTHESIS] byte-identical to ROM0 Function_00_091C (rectangle AND/OR: call $0622;
+	; [HYPOTHESIS] byte-identical to ROM0 Tilemap_ApplyMaskRect (rectangle AND/OR: call $0622;
 	; [hl]=([hl]&d)|e, row stride 32) - a private copy; no caller/pointer to 48:4A8C found (words.py
 	; scan), follows the ret at 4A8B, ends with ret at 4AAA
 	call BankSwitch_H

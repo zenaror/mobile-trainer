@@ -5,8 +5,8 @@
 SECTION "home/far_helpers", ROM0
 
 Boot_ReinitRuntimeFar:: ; 00:1711
-Function_00_1711::
-	; [CONFIRMED] wrapper: preserves A, switches ROM bank to $4F, call 4F:47A5, restores
+	; Historical address alias retired; proper operation name retained.
+	; [CONFIRMED] call Boot_ReinitRuntime in $4F; restore low selector; return callee A.
 	ldh [hScratchA], a
 	ldh a, [hROMBankLo]
 	push af
@@ -22,10 +22,10 @@ Function_00_1711::
 	ldh a, [hScratchA]
 	ret
 
-CopyBytesFarToFar:: ; 00:172D
-Function_00_172D::
-	; [PROBABLE] far-to-far copy of BC bytes: source (bank A, HL), destination bank in [C10E], DE;
-	; staged through a 16-byte buffer at C10E [candidate; raw refs 7]
+CopyFar16ByteBlocks:: ; 00:172D
+	; Historical address alias retired; operation PROBABLE; independent entry/purpose unproved.
+	; [PROBABLE] full 16-byte stages: bank A/HL via C10E to saved [C10E]-bank/DE, without tail;
+	; peculiar full-BC counter and conditional mapping/stack domain: home_function_names.md.
 	ldh [hFarBlockCopy_SourceBank], a
 	ld a, [wRam_C10E]
 	ldh [hFarBlockCopy_DestBank], a

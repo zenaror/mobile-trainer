@@ -454,7 +454,7 @@ DEF hTextMeasure_RightLimitXHi EQU hRam_FFB1 ; [CONFIRMED] High byte of the inpu
 DEF hHttpRedirect_BufferStart EQU hRam_FFB0 ; [CONFIRMED] Low byte of initial buffer HL, saved without later updates. It limits backward DE traversal and the final cleanup test. The /../ backward branches remain static only. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 67:5FFA, 67:6059, 67:6066, 67:609D.
 DEF hHttpRedirect_BufferStartHi EQU hRam_FFB1 ; [CONFIRMED] High byte of initial buffer HL, preserved with the low byte and consumed by the backward-limit and final cleanup comparisons; backward branches remain static only. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 67:5FFD, 67:605C, 67:6069, 67:60A0.
 
-; ---- home/far_helpers.asm@Function_00_172D..
+; ---- home/far_helpers.asm@CopyFar16ByteBlocks..
 DEF hFarBlockCopy_DestBank EQU hRam_FFB0 ; [PROBABLE] Destination-bank byte from C10E, saved before the 16-byte copy overwrites that buffer and passed to BankSwitch_D. No natural execution in the existing coverage. Sites: 00:1732, 00:1750.
 DEF hFarBlockCopy_SourceBank EQU hRam_FFB1 ; [PROBABLE] Source-bank input A saved and passed to BankSwitch_H before the HL read. Zero means keep the selected bank. No natural execution in the existing coverage. Sites: 00:172D, 00:1740.
 

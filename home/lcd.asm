@@ -5,7 +5,7 @@
 SECTION "home/lcd", ROM0
 
 OAMDMA_CopyToHram:: ; 00:059F
-Function_00_059F::
+	; Historical address alias retired; proper operation name retained.
 	; [CONFIRMED] copies the 10-byte OAM DMA routine from 05AC to HRAM $FF80 (ld bc,$0A80: B=count,
 	; C=dest)
 	ld hl, $05AC
