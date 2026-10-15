@@ -3422,8 +3422,8 @@
       "sha256": "37a6751a209c8d25e51cf919800d769d1e50de38e3cad345027115d046b54567"
     },
     "REVERSE_ENGINEERING.md": {
-      "size": 141815,
-      "sha256": "a7621be8dd83211f31c9b0923774160ef485ec95f86f3072af03a702d188d77b"
+      "size": 142588,
+      "sha256": "3b3f0cb9cf3f9c1e19dd98fcc544af933930fccf2362202dad100f0aeeadb07c"
     },
     "STYLE.md": {
       "size": 57010,
@@ -6330,8 +6330,8 @@
       "sha256": "02f4a334b16c6821fedb7dff6a222658c8fc268d3da7c043132a3fe0c6d597b8"
     },
     "docs/research/classify_g2.md": {
-      "size": 20820,
-      "sha256": "95735f5b94773409a9e95f5b9419f8ceb05cc5fa6d029d8aca366bb73c7018a1"
+      "size": 25139,
+      "sha256": "30be8b64f89239efa89b0565c754dc93333d92d258c7e81d7418d0762a08b21f"
     },
     "docs/research/classify_g3.md": {
       "size": 21192,
@@ -6482,8 +6482,8 @@
       "sha256": "5e19167a817686b9eeaa1301123b4544bba72fa1e19d168aa4c32d92632205af"
     },
     "docs/research/naming2_neutral_code.md": {
-      "size": 29068,
-      "sha256": "ea974de47a01273f0d8f26703a308318125c71d28331da6c43f88dd367b92752"
+      "size": 30112,
+      "sha256": "90e13b4dadd782b4e529d55e2a15c937af52ce43a2c09e0fb0daeac9d05efb15"
     },
     "docs/research/naming2_neutral_gfx.md": {
       "size": 3733,
@@ -7403,7 +7403,7 @@
     },
     "engine/keyboard/type_helpers.asm": {
       "size": 10017,
-      "sha256": "e4328ff1cb5854547be9d2bf6dc4a57e65d8ad438966f7ac4f6655efb116fe4b"
+      "sha256": "f4856377aeafa8f3e0eb785609104d5ac93205331705baa7a87c47bcea69e4b9"
     },
     "engine/mail/address_editor.asm": {
       "size": 34170,

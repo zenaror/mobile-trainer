@@ -165,7 +165,7 @@ Data_55_6F3B::
 	db $01, $01, $01, $01, $01, $01, $00, $00, $00, $00, $00
 
 	; [HYPOTHESIS] ret-terminated routine (decodes cleanly through 6F94): decrements [$C2B1], else
-	; calls $047A, advances [$C2B0] mod 4 and writes two colour bytes to BCPD (ldh [$6A]=$B2 /
+	; calls $047A, advances [$C2B0] mod 4 and writes two colour bytes to OCPD (ldh [$6A]=$B2 /
 	; [c]=$6B) from the word table below; follows the 11-byte table of the previous routine like the
 	; other routines of this run [verifier: no entry proven (no caller, no valid table word, never
 	; executed): decode chain alone is not proof -> HYPOTHESIS]
@@ -218,7 +218,7 @@ Data_55_6F3B::
 	ld [de], a
 	ret
 
-; ---- data $6F95-$6FA1 (12 bytes) [HYPOTHESIS] 12 bytes: 4 RGB555 colours $7F54,$7FFF,$7F54,$7E12 at 6F95 (indexed by [$C2B0]*2 via `ld hl,$6F95`, written to BCPD) and 4 delay bytes $06,$0C,$06,$06 at 6F9D (`ld hl,$6F9D ; ld a,[hl]`); both operands land exactly on these addresses and the block ends at the executed code 6FA1, but the only reader is the HYPOTHESIS routine 6F46 [verifier: earlier note called all 12 bytes a colour table; status lowered]
+; ---- data $6F95-$6FA1 (12 bytes) [HYPOTHESIS] 12 bytes: 4 RGB555 colours $7F54,$7FFF,$7F54,$7E12 at 6F95 (indexed by [$C2B0]*2 via `ld hl,$6F95`, written to OCPD) and 4 delay bytes $06,$0C,$06,$06 at 6F9D (`ld hl,$6F9D ; ld a,[hl]`); both operands land exactly on these addresses and the block ends at the executed code 6FA1, but the only reader is the HYPOTHESIS routine 6F46 [verifier: earlier note called all 12 bytes a colour table; status lowered]
 
 Data_55_6F95:: ; 55:6F95
 	db $54, $7F, $FF, $7F, $54, $7F, $12, $7E, $06, $0C, $06, $06
