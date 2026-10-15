@@ -1,8 +1,8 @@
-; gfx/bank60.asm
+; gfx/ui_art/frame_glyph_fragments.asm
 ; bank 60, $4000-$7AE8 (15080 bytes); pinned by layout.link
 ; UI frames, glyph and sprite tiles; no loader found
 
-SECTION "gfx/bank60", ROMX
+SECTION "gfx/ui_art/frame_glyph_fragments", ROMX
 
 ; ---- data $4000-$4360 (864 bytes) [CONFIRMED] read as data by executed code (in up to 8/18 scenarios); content class unknown [clipped from 4000-4D80 by higher-priority evidence]
 
@@ -65,13 +65,13 @@ Data_60_4000:: ; 60:4000
 ; ---- gfx $4360-$4455 (245 bytes) [PROBABLE] tile data: heuristic: 79 coherent tiles (hsim2=0.719 vsim2=0.686, 3 blank) parity 0 [clipped from 4360-48D0 by higher-priority proposals]
 
 Data_60_4360:: ; 60:4360
-	INCBIN "gfx/bank60/tiles_4360.2bpp"
+	INCBIN "gfx/ui_art/frame_glyph_fragments/tile_fragment_4360.2bpp"
 	db $5E, $BF, $7F, $A7, $5E
 
 ; ---- gfx $4455-$48D0 (1147 bytes) [PROBABLE] tiles-2bpp: heuristic: 79 coherent tiles (hsim2=0.719 vsim2=0.686, 3 blank) parity 0 [clipped from 4360-48D0 by higher-priority evidence]
 
 Data_60_4455:: ; 60:4455
-	INCBIN "gfx/bank60/tiles_4455.2bpp"
+	INCBIN "gfx/ui_art/frame_glyph_fragments/tile_fragment_4455.2bpp"
 	db $FF, $FF, $FF, $FF, $FF, $D5, $FF, $FF, $FF, $55, $FF
 
 ; ---- data $48D0-$4B50 (640 bytes) [CONFIRMED] read as data by executed code (in up to 8/18 scenarios); content class unknown [clipped from 4000-4D80 by higher-priority evidence]
@@ -121,7 +121,7 @@ Data_60_48D0:: ; 60:48D0
 ; ---- gfx $4B50-$4D80 (560 bytes) [PROBABLE] tiles-2bpp: heuristic: 33 coherent tiles (hsim2=0.759 vsim2=0.729, 0 blank) parity 0
 
 Data_60_4B50:: ; 60:4B50
-	INCBIN "gfx/bank60/tiles_4b50.2bpp"
+	INCBIN "gfx/ui_art/frame_glyph_fragments/tile_fragment_4b50.2bpp"
 
 ; ---- data $4D80-$4DD0 (80 bytes) [HYPOTHESIS] run of 82 x $FF (padding?) in unclassified bytes
 
@@ -135,7 +135,7 @@ Data_60_4D80:: ; 60:4D80
 ; ---- gfx $4DD0-$5270 (1184 bytes) [PROBABLE] 74 tiles: 2bpp tile data (pixel coherence hsim=0.674 vsim=0.583); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 
 Tiles_60_4DD0:: ; 60:4DD0
-	INCBIN "gfx/bank60/tiles_4dd0.2bpp"
+	INCBIN "gfx/ui_art/frame_glyph_fragments/tile_fragment_4dd0.2bpp"
 
 ; ---- data $5270-$52C0 (80 bytes) [HYPOTHESIS] run of 80 x $FF (padding?) in unclassified bytes
 
@@ -149,17 +149,17 @@ Data_60_5270:: ; 60:5270
 ; ---- gfx $52C0-$52D0 (16 bytes) [HYPOTHESIS] 1 tiles: 2bpp tile data (pixel coherence hsim=0.357 vsim=0.786); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 
 Tiles_60_52C0:: ; 60:52C0
-	INCBIN "gfx/bank60/tiles_52c0.2bpp"
+	INCBIN "gfx/ui_art/frame_glyph_fragments/tile_fragment_52c0.2bpp"
 
 ; ---- gfx $52D0-$5640 (880 bytes) [PROBABLE] tiles-2bpp: heuristic: 48 coherent tiles (hsim2=0.661 vsim2=0.678, 0 blank) parity 0
 
 Data_60_52D0:: ; 60:52D0
-	INCBIN "gfx/bank60/tiles_52d0.2bpp"
+	INCBIN "gfx/ui_art/frame_glyph_fragments/tile_fragment_52d0.2bpp"
 
 ; ---- gfx $5640-$56F0 (176 bytes) [PROBABLE] 11 tiles: 2bpp tile data (pixel coherence hsim=0.769 vsim=0.438); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 
 Tiles_60_5640:: ; 60:5640
-	INCBIN "gfx/bank60/tiles_5640.2bpp"
+	INCBIN "gfx/ui_art/frame_glyph_fragments/tile_fragment_5640.2bpp"
 
 ; ---- data $56F0-$5740 (80 bytes) [HYPOTHESIS] run of 80 x $FF (padding?) in unclassified bytes
 
@@ -173,7 +173,7 @@ Data_60_56F0:: ; 60:56F0
 ; ---- gfx $5740-$57B0 (112 bytes) [HYPOTHESIS] 7 tiles: 2bpp tile data (pixel coherence hsim=0.658 vsim=0.607); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 
 Tiles_60_5740:: ; 60:5740
-	INCBIN "gfx/bank60/tiles_5740.2bpp"
+	INCBIN "gfx/ui_art/frame_glyph_fragments/tile_fragment_5740.2bpp"
 
 ; ---- data $57B0-$5800 (80 bytes) [HYPOTHESIS] run of 80 x $FF (padding?) in unclassified bytes
 
@@ -187,7 +187,7 @@ Data_60_57B0:: ; 60:57B0
 ; ---- gfx $5800-$5B00 (768 bytes) [PROBABLE] 48 tiles: 2bpp tile data (pixel coherence hsim=0.749 vsim=0.741); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 
 Tiles_60_5800:: ; 60:5800
-	INCBIN "gfx/bank60/tiles_5800.2bpp"
+	INCBIN "gfx/ui_art/frame_glyph_fragments/tile_fragment_5800.2bpp"
 
 ; ---- data $5B00-$5D50 (592 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 5B00-5F80 by higher-priority evidence]
 
@@ -233,22 +233,22 @@ Data_60_5B00:: ; 60:5B00
 ; ---- gfx $5D50-$6010 (704 bytes) [PROBABLE] tiles-2bpp: heuristic: 40 coherent tiles (hsim2=0.705 vsim2=0.757, 0 blank) parity 0
 
 Data_60_5D50:: ; 60:5D50
-	INCBIN "gfx/bank60/tiles_5d50.2bpp"
+	INCBIN "gfx/ui_art/frame_glyph_fragments/tile_fragment_5d50.2bpp"
 
 ; ---- gfx $6010-$6060 (80 bytes) [HYPOTHESIS] 5 tiles: 2bpp tile data (pixel coherence hsim=0.411 vsim=0.411); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 
 Tiles_60_6010:: ; 60:6010
-	INCBIN "gfx/bank60/tiles_6010.2bpp"
+	INCBIN "gfx/ui_art/frame_glyph_fragments/tile_fragment_6010.2bpp"
 
 ; ---- gfx $6060-$62B0 (592 bytes) [PROBABLE] tiles-2bpp: heuristic: 32 coherent tiles (hsim2=0.696 vsim2=0.706, 0 blank) parity 0
 
 Data_60_6060:: ; 60:6060
-	INCBIN "gfx/bank60/tiles_6060.2bpp"
+	INCBIN "gfx/ui_art/frame_glyph_fragments/tile_fragment_6060.2bpp"
 
 ; ---- gfx $62B0-$6470 (448 bytes) [PROBABLE] 28 tiles: 2bpp tile data (pixel coherence hsim=0.723 vsim=0.524); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 
 Tiles_60_62B0:: ; 60:62B0
-	INCBIN "gfx/bank60/tiles_62b0.2bpp"
+	INCBIN "gfx/ui_art/frame_glyph_fragments/tile_fragment_62b0.2bpp"
 
 ; ---- data $6470-$64C0 (80 bytes) [HYPOTHESIS] run of 80 x $FF (padding?) in unclassified bytes
 
@@ -262,7 +262,7 @@ Data_60_6470:: ; 60:6470
 ; ---- gfx $64C0-$6530 (112 bytes) [HYPOTHESIS] 7 tiles: 2bpp tile data (pixel coherence hsim=0.699 vsim=0.63); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 
 Tiles_60_64C0:: ; 60:64C0
-	INCBIN "gfx/bank60/tiles_64c0.2bpp"
+	INCBIN "gfx/ui_art/frame_glyph_fragments/tile_fragment_64c0.2bpp"
 
 ; ---- data $6530-$6580 (80 bytes) [HYPOTHESIS] run of 80 x $FF (padding?) in unclassified bytes
 
@@ -276,7 +276,7 @@ Data_60_6530:: ; 60:6530
 ; ---- gfx $6580-$6600 (128 bytes) [PROBABLE] 8 tiles: 2bpp tile data (pixel coherence hsim=0.636 vsim=0.576); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 
 Tiles_60_6580:: ; 60:6580
-	INCBIN "gfx/bank60/tiles_6580.2bpp"
+	INCBIN "gfx/ui_art/frame_glyph_fragments/tile_fragment_6580.2bpp"
 
 ; ---- data $6600-$6640 (64 bytes) [HYPOTHESIS] run of 64 x $FF (padding?) in unclassified bytes
 
@@ -289,19 +289,19 @@ Data_60_6600:: ; 60:6600
 ; ---- gfx $6640-$70A0 (2656 bytes) [PROBABLE] 166 tiles: 2bpp tile data (pixel coherence hsim=0.676 vsim=0.565); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 
 Tiles_60_6640:: ; 60:6640
-	INCBIN "gfx/bank60/tiles_6640.2bpp"
+	INCBIN "gfx/ui_art/frame_glyph_fragments/jump_button_and_frame_tiles.2bpp"
 
 ; ---- gfx $70A0-$76F0 (1616 bytes) [PROBABLE] tiles-2bpp: heuristic: 89 coherent tiles (hsim2=0.708 vsim2=0.660, 8 blank) parity 0
 
 Data_60_70A0:: ; 60:70A0
-	INCBIN "gfx/bank60/tiles_70a0.2bpp"
+	INCBIN "gfx/ui_art/frame_glyph_fragments/back_button_and_text_tiles.2bpp"
 
 ; ---- gfx $76F0-$7A80 (912 bytes) [PROBABLE] 57 tiles: 2bpp tile data (pixel coherence hsim=0.735 vsim=0.425); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 
 Tiles_60_76F0:: ; 60:76F0
-	INCBIN "gfx/bank60/tiles_76f0.2bpp"
+	INCBIN "gfx/ui_art/frame_glyph_fragments/tile_fragment_76f0.2bpp"
 
 ; ---- data $7A80-$7AE8 (104 bytes) [PROBABLE] palette-rgb555: heuristic: 52 RGB555 words as 13 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
 
 Data_60_7A80:: ; 60:7A80
-	INCLUDE "gfx/bank60/palette_7a80.pal"
+	INCLUDE "gfx/ui_art/frame_glyph_fragments/fragment_palettes.pal"

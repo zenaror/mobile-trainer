@@ -19,17 +19,17 @@ import pnglib
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SHADES = [(255, 255, 255), (170, 170, 170), (85, 85, 85), (0, 0, 0)]
 BACKINGS = {
-    'gfx/bank42/raw_4540_4560.bin': (0x4540, 32, 'bank42/tilemap_4a00',
+    'gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_raw_4540_4560.bin': (0x4540, 32, 'frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_tilemap',
         '66687aadf862bd776c8fc18b8e9f8e20089714856ee233b3902a591d0d5f2925'),
-    'gfx/bank42/raw_6800_6810.bin': (0x6800, 16, 'bank42/tilemap_71f0',
+    'gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_raw_6800_6810.bin': (0x6800, 16, 'frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tilemap',
         '374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb'),
-    'gfx/bank42/raw_69a0_69b0.bin': (0x69A0, 16, 'bank42/tilemap_71f0',
+    'gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_raw_69a0_69b0.bin': (0x69A0, 16, 'frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tilemap',
         '5ac6a5945f16500911219129984ba8b387a06f24fe383ce4e81a73294065461b'),
-    'gfx/bank42/raw_6cc0_6cd0.bin': (0x6CC0, 16, 'bank42/tilemap_71f0',
+    'gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_raw_6cc0_6cd0.bin': (0x6CC0, 16, 'frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tilemap',
         '374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb'),
 }
-MODELS = {'bank42/tilemap_4a00': (0x42, 0x4A00),
-          'bank42/tilemap_71f0': (0x42, 0x71F0)}
+MODELS = {'frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_tilemap': (0x42, 0x4A00),
+          'frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tilemap': (0x42, 0x71F0)}
 
 
 def definition(path, row=None):
@@ -38,7 +38,7 @@ def definition(path, row=None):
         raise ValueError('no explicit raw byte-view codec for %s' % path)
     addr, size, screen, initial_sha = BACKINGS[path]
     if row is not None:
-        want = dict(path=path, type='raw', size=str(size), asm='gfx/bank42.asm',
+        want = dict(path=path, type='raw', size=str(size), asm='gfx/frame_designs/metal_flame_and_creature_borders_42.asm',
                     bank='42', addr='%04X' % addr, status='HYPOTHESIS', png='exact', pad='0',
                     dims='', label='Data_42_69A0' if addr == 0x69A0 else '')
         if any(str(row.get(k, '')) != v for k, v in want.items()):
@@ -123,7 +123,7 @@ def provenance(root, path):
     if len(matches) != 1:
         raise ValueError('%s: exactly one raw catalogue row required' % path)
     definition(path, matches[0])
-    with open(os.path.join(root, 'gfx/bank42.asm'), encoding='utf-8') as f:
+    with open(os.path.join(root, 'gfx/frame_designs/metal_flame_and_creature_borders_42.asm'), encoding='utf-8') as f:
         source = f.read()
     if source.splitlines().count('\tINCBIN "%s"' % path) != 1:
         raise ValueError('%s: exactly one explicit source INCBIN required' % path)

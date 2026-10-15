@@ -3,8 +3,6 @@
 # png: exact = rgbgfx source of path (rgbgfx -c embedded -x pad); sheet = font glyph sheet (tools/font_png.py), editable; view = picture for reading only (*_view.png); - = none
 # bank / addr: original ROM position of the first byte (hex); status: evidence status of the block header; dims: width x height in tiles as stated in the note
 path	type	size	asm	bank	addr	status	png	pad	dims	label
-# gfx/browser/start_choice/tiles_4530.2bpp	tiles	176	gfx/browser/start_choice.asm	73	4530	PROBABLE	exact	0		Data_73_4530
-# gfx/browser/start_choice/palette_5e60.pal	palette	96	gfx/browser/start_choice.asm	73	5E60	PROBABLE	-	0		Data_73_5E60
 data/fonts/ascii_6x12.bin	font6x12	1152	data/fonts/ascii_6x12.asm	76	67A8	PROBABLE	sheet	0		Data_76_67A8
 data/fonts/font_8x16_4adb.1bpp	font8x16	160	data/fonts/font_8x16.asm	48	4ADB	PROBABLE	sheet	0		Font_48_4ADB
 data/fonts/font_8x16_4b7b.1bpp	font8x16	416	data/fonts/font_8x16.asm	48	4B7B	PROBABLE	sheet	0		Font_48_4B7B
@@ -189,148 +187,148 @@ gfx/address_book/unreferenced_confirm_screen/data_addr_book_entry_tilemap_attr.t
 gfx/address_book/unreferenced_confirm_screen/data_addr_book_entry_tilemap_attr.attrmap	attrmap	360	gfx/address_book/unreferenced_confirm_screen.asm	2C	7DE8	CONFIRMED	-	0	20x18	Data_AddrBookEntry_TilemapAttr
 gfx/address_book/unreferenced_confirm_screen/addr_book_entry_bg.pal	palette	64	gfx/address_book/unreferenced_confirm_screen.asm	2C	7F50	CONFIRMED	-	0		Palette_AddrBookEntry_Bg
 gfx/address_book/unreferenced_confirm_screen/addr_book_entry_obj.pal	palette	64	gfx/address_book/unreferenced_confirm_screen.asm	2C	7F90	CONFIRMED	-	0		Palette_AddrBookEntry_Obj
-gfx/bank41/tiles_4000.2bpp	tiles	2560	gfx/bank41.asm	41	4000	PROBABLE	exact	0		Tiles_41_4000
-gfx/bank41/tilemap_4a00.tilemap	tilemap	360	gfx/bank41.asm	41	4A00	PROBABLE	-	0	20x18	Tilemap_41_4A00
-gfx/bank41/tilemap_4a00.attrmap	attrmap	360	gfx/bank41.asm	41	4B68	PROBABLE	-	0	20x18	Tilemap_41_4A00
-gfx/bank41/palette_4cd0.pal	palette	128	gfx/bank41.asm	41	4CD0	PROBABLE	-	0		Palette_41_4CD0
-gfx/bank41/tiles_4d50.2bpp	tiles	2560	gfx/bank41.asm	41	4D50	PROBABLE	exact	0		Tiles_41_4D50
-gfx/bank41/tilemap_5750.tilemap	tilemap	360	gfx/bank41.asm	41	5750	PROBABLE	-	0	20x18	Tilemap_41_5750
-gfx/bank41/tilemap_5750.attrmap	attrmap	360	gfx/bank41.asm	41	58B8	PROBABLE	-	0	20x18	Tilemap_41_5750
-gfx/bank41/palette_5a20.pal	palette	128	gfx/bank41.asm	41	5A20	PROBABLE	-	0		Palette_41_5A20
-gfx/bank41/tiles_5aa0.2bpp	tiles	2560	gfx/bank41.asm	41	5AA0	PROBABLE	exact	0		Tiles_41_5AA0
-gfx/bank41/tilemap_64a0.tilemap	tilemap	360	gfx/bank41.asm	41	64A0	PROBABLE	-	0	20x18	Tilemap_41_64A0
-gfx/bank41/tilemap_64a0.attrmap	attrmap	360	gfx/bank41.asm	41	6608	PROBABLE	-	0	20x18	Tilemap_41_64A0
-gfx/bank41/palette_6770.pal	palette	128	gfx/bank41.asm	41	6770	PROBABLE	-	0		Palette_41_6770
-gfx/bank41/tiles_67f0.2bpp	tiles	2560	gfx/bank41.asm	41	67F0	PROBABLE	exact	0		Tiles_41_67F0
-gfx/bank41/tilemap_71f0.tilemap	tilemap	360	gfx/bank41.asm	41	71F0	PROBABLE	-	0	20x18	Tilemap_41_71F0
-gfx/bank41/tilemap_71f0.attrmap	attrmap	360	gfx/bank41.asm	41	7358	PROBABLE	-	0	20x18	Tilemap_41_71F0
-gfx/bank41/palette_74c0.pal	palette	128	gfx/bank41.asm	41	74C0	PROBABLE	-	0		Palette_41_74C0
-gfx/bank42/tiles_4000.2bpp	tiles	1344	gfx/bank42.asm	42	4000	PROBABLE	exact	0		Tiles_42_4000
-gfx/bank42/raw_4540_4560.bin	raw	32	gfx/bank42.asm	42	4540	HYPOTHESIS	exact	0		
-gfx/bank42/tiles_4802.2bpp	tiles	160	gfx/bank42.asm	42	4802	HYPOTHESIS	exact	0		Data_42_4802
-gfx/bank42/tiles_4900.2bpp	tiles	176	gfx/bank42.asm	42	4900	HYPOTHESIS	exact	0		Data_42_4900
-gfx/bank42/tilemap_4a00.tilemap	tilemap	360	gfx/bank42.asm	42	4A00	PROBABLE	-	0	20x18	Tilemap_42_4A00
-gfx/bank42/tilemap_4a00.attrmap	attrmap	360	gfx/bank42.asm	42	4B68	PROBABLE	-	0	20x18	Tilemap_42_4A00
-gfx/bank42/palette_4cd0.pal	palette	128	gfx/bank42.asm	42	4CD0	PROBABLE	-	0		Palette_42_4CD0
-gfx/bank42/tiles_4d50.2bpp	tiles	432	gfx/bank42.asm	42	4D50	PROBABLE	exact	0		Tiles_42_4D50
-gfx/bank42/tiles_4f00.2bpp	tiles	960	gfx/bank42.asm	42	4F00	PROBABLE	exact	0		Data_42_4F00
-gfx/bank42/tiles_52c0.2bpp	tiles	32	gfx/bank42.asm	42	52C0	HYPOTHESIS	exact	0		Data_42_52C0
-gfx/bank42/tiles_52e0.2bpp	tiles	1136	gfx/bank42.asm	42	52E0	PROBABLE	exact	9		Data_42_52E0
-gfx/bank42/tilemap_5750.tilemap	tilemap	360	gfx/bank42.asm	42	5750	PROBABLE	-	0	20x18	Tilemap_42_5750
-gfx/bank42/tilemap_5750.attrmap	attrmap	360	gfx/bank42.asm	42	58B8	PROBABLE	-	0	20x18	Tilemap_42_5750
-gfx/bank42/palette_5a20.pal	palette	128	gfx/bank42.asm	42	5A20	PROBABLE	-	0		Palette_42_5A20
-gfx/bank42/tiles_5aa0.2bpp	tiles	944	gfx/bank42.asm	42	5AA0	PROBABLE	exact	5		Tiles_42_5AA0
-gfx/bank42/tiles_5e90.2bpp	tiles	208	gfx/bank42.asm	42	5E90	HYPOTHESIS	exact	0		Data_42_5E90
-gfx/bank42/tiles_5f92.2bpp	tiles	416	gfx/bank42.asm	42	5F92	PROBABLE	exact	0		Tiles_42_5F92
-gfx/bank42/tiles_62a0.2bpp	tiles	160	gfx/bank42.asm	42	62A0	HYPOTHESIS	exact	0		Data_42_62A0
-gfx/bank42/tiles_63a0.2bpp	tiles	16	gfx/bank42.asm	42	63A0	HYPOTHESIS	exact	0		Data_42_63A0
-gfx/bank42/tiles_63b0.2bpp	tiles	240	gfx/bank42.asm	42	63B0	PROBABLE	exact	0		Data_42_63B0
-gfx/bank42/tilemap_64a0.tilemap	tilemap	360	gfx/bank42.asm	42	64A0	PROBABLE	-	0	20x18	Tilemap_42_64A0
-gfx/bank42/tilemap_64a0.attrmap	attrmap	360	gfx/bank42.asm	42	6608	PROBABLE	-	0	20x18	Tilemap_42_64A0
-gfx/bank42/palette_6770.pal	palette	128	gfx/bank42.asm	42	6770	PROBABLE	-	0		Palette_42_6770
-gfx/bank42/tiles_67f0.2bpp	tiles	16	gfx/bank42.asm	42	67F0	HYPOTHESIS	exact	0		Data_42_67F0
-gfx/bank42/raw_6800_6810.bin	raw	16	gfx/bank42.asm	42	6800	HYPOTHESIS	exact	0		
-gfx/bank42/tiles_6810.2bpp	tiles	400	gfx/bank42.asm	42	6810	PROBABLE	exact	7		Tiles_42_6810
-gfx/bank42/raw_69a0_69b0.bin	raw	16	gfx/bank42.asm	42	69A0	HYPOTHESIS	exact	0		Data_42_69A0
-gfx/bank42/tiles_69b0.2bpp	tiles	784	gfx/bank42.asm	42	69B0	HYPOTHESIS	exact	15		Data_42_69B0
-gfx/bank42/raw_6cc0_6cd0.bin	raw	16	gfx/bank42.asm	42	6CC0	HYPOTHESIS	exact	0		
-gfx/bank42/tiles_6ff2.2bpp	tiles	160	gfx/bank42.asm	42	6FF2	HYPOTHESIS	exact	0		Data_42_6FF2
-gfx/bank42/tiles_70f0.2bpp	tiles	160	gfx/bank42.asm	42	70F0	HYPOTHESIS	exact	0		Data_42_70F0
-gfx/bank42/tilemap_71f0.tilemap	tilemap	360	gfx/bank42.asm	42	71F0	PROBABLE	-	0	20x18	Tilemap_42_71F0
-gfx/bank42/tilemap_71f0.attrmap	attrmap	360	gfx/bank42.asm	42	7358	PROBABLE	-	0	20x18	Tilemap_42_71F0
-gfx/bank42/palette_74c0.pal	palette	128	gfx/bank42.asm	42	74C0	PROBABLE	-	0		Palette_42_74C0
-gfx/bank43/tiles_4000.2bpp	tiles	2560	gfx/bank43.asm	43	4000	PROBABLE	exact	0		Tiles_43_4000
-gfx/bank43/tilemap_4a00.tilemap	tilemap	360	gfx/bank43.asm	43	4A00	PROBABLE	-	0	20x18	Tilemap_43_4A00
-gfx/bank43/attrmap_4b68.attrmap	attrmap	360	gfx/bank43.asm	43	4B68	PROBABLE	-	0	20x18	Attrmap_43_4B68
-gfx/bank43/palette_4cd0.pal	palette	128	gfx/bank43.asm	43	4CD0	PROBABLE	-	0		Palette_43_4CD0
-gfx/bank43/tiles_4d50.2bpp	tiles	2560	gfx/bank43.asm	43	4D50	PROBABLE	exact	0		Tiles_43_4D50
-gfx/bank43/tilemap_5750.tilemap	tilemap	360	gfx/bank43.asm	43	5750	PROBABLE	-	0	20x18	Tilemap_43_5750
-gfx/bank43/attrmap_58b8.attrmap	attrmap	360	gfx/bank43.asm	43	58B8	PROBABLE	-	0	20x18	Attrmap_43_58B8
-gfx/bank43/palette_5a20.pal	palette	128	gfx/bank43.asm	43	5A20	PROBABLE	-	0		Palette_43_5A20
-gfx/bank43/tiles_5aa0.2bpp	tiles	2560	gfx/bank43.asm	43	5AA0	PROBABLE	exact	0		Tiles_43_5AA0
-gfx/bank43/tilemap_64a0.tilemap	tilemap	360	gfx/bank43.asm	43	64A0	PROBABLE	-	0	20x18	Tilemap_43_64A0
-gfx/bank43/attrmap_6608.attrmap	attrmap	360	gfx/bank43.asm	43	6608	PROBABLE	-	0	20x18	Attrmap_43_6608
-gfx/bank43/palette_6770.pal	palette	128	gfx/bank43.asm	43	6770	PROBABLE	-	0		Palette_43_6770
-gfx/bank43/tiles_67f0.2bpp	tiles	2560	gfx/bank43.asm	43	67F0	PROBABLE	exact	0		Tiles_43_67F0
-gfx/bank43/tilemap_71f0.tilemap	tilemap	360	gfx/bank43.asm	43	71F0	PROBABLE	-	0	20x18	Tilemap_43_71F0
-gfx/bank43/attrmap_7358.attrmap	attrmap	360	gfx/bank43.asm	43	7358	PROBABLE	-	0	20x18	Attrmap_43_7358
-gfx/bank43/palette_74c0.pal	palette	128	gfx/bank43.asm	43	74C0	PROBABLE	-	0		Palette_43_74C0
-gfx/bank44/tiles_4000.2bpp	tiles	2560	gfx/bank44.asm	44	4000	PROBABLE	exact	0		Tiles_44_4000
-gfx/bank44/tilemap_4a00.tilemap	tilemap	360	gfx/bank44.asm	44	4A00	PROBABLE	-	0	20x18	Tilemap_44_4A00
-gfx/bank44/attrmap_4b68.attrmap	attrmap	360	gfx/bank44.asm	44	4B68	PROBABLE	-	0	20x18	Data_44_4B68
-gfx/bank44/palette_4cd0.pal	palette	128	gfx/bank44.asm	44	4CD0	PROBABLE	-	0		Palette_44_4CD0
-gfx/bank44/tiles_4d50.2bpp	tiles	2560	gfx/bank44.asm	44	4D50	PROBABLE	exact	0		Tiles_44_4D50
-gfx/bank44/tilemap_5750.tilemap	tilemap	360	gfx/bank44.asm	44	5750	PROBABLE	-	0	20x18	Tilemap_44_5750
-gfx/bank44/attrmap_58b8.attrmap	attrmap	360	gfx/bank44.asm	44	58B8	PROBABLE	-	0	20x18	Data_44_58B8
-gfx/bank44/palette_5a20.pal	palette	128	gfx/bank44.asm	44	5A20	PROBABLE	-	0		Palette_44_5A20
-gfx/bank44/tiles_5aa0.2bpp	tiles	2560	gfx/bank44.asm	44	5AA0	PROBABLE	exact	0		Tiles_44_5AA0
-gfx/bank44/tilemap_64a0.tilemap	tilemap	360	gfx/bank44.asm	44	64A0	PROBABLE	-	0	20x18	Tilemap_44_64A0
-gfx/bank44/attrmap_6608.attrmap	attrmap	360	gfx/bank44.asm	44	6608	PROBABLE	-	0	20x18	Data_44_6608
-gfx/bank44/palette_6770.pal	palette	128	gfx/bank44.asm	44	6770	PROBABLE	-	0		Palette_44_6770
-gfx/bank44/tiles_67f0.2bpp	tiles	2560	gfx/bank44.asm	44	67F0	PROBABLE	exact	0		Tiles_44_67F0
-gfx/bank44/tilemap_71f0.tilemap	tilemap	360	gfx/bank44.asm	44	71F0	PROBABLE	-	0	20x18	Tilemap_44_71F0
-gfx/bank44/attrmap_7358.attrmap	attrmap	360	gfx/bank44.asm	44	7358	PROBABLE	-	0	20x18	Data_44_7358
-gfx/bank44/palette_74c0.pal	palette	128	gfx/bank44.asm	44	74C0	PROBABLE	-	0		Palette_44_74C0
-gfx/bank45/tiles_4000.2bpp	tiles	2560	gfx/bank45.asm	45	4000	PROBABLE	exact	0		Tiles_45_4000
-gfx/bank45/tilemap_4a00.tilemap	tilemap	360	gfx/bank45.asm	45	4A00	PROBABLE	-	0	20x18	Tilemap_45_4A00
-gfx/bank45/tilemap_4a00.attrmap	attrmap	360	gfx/bank45.asm	45	4B68	PROBABLE	-	0	20x18	Tilemap_45_4A00
-gfx/bank45/palette_4cd0.pal	palette	128	gfx/bank45.asm	45	4CD0	PROBABLE	-	0		Palette_45_4CD0
-gfx/bank45/tiles_4d50.2bpp	tiles	2560	gfx/bank45.asm	45	4D50	PROBABLE	exact	0		Tiles_45_4D50
-gfx/bank45/tilemap_5750.tilemap	tilemap	360	gfx/bank45.asm	45	5750	PROBABLE	-	0	20x18	Tilemap_45_5750
-gfx/bank45/tilemap_5750.attrmap	attrmap	360	gfx/bank45.asm	45	58B8	PROBABLE	-	0	20x18	Tilemap_45_5750
-gfx/bank45/palette_5a20.pal	palette	128	gfx/bank45.asm	45	5A20	PROBABLE	-	0		Palette_45_5A20
-gfx/bank45/tiles_5aa0.2bpp	tiles	2560	gfx/bank45.asm	45	5AA0	PROBABLE	exact	0		Tiles_45_5AA0
-gfx/bank45/tilemap_64a0.tilemap	tilemap	360	gfx/bank45.asm	45	64A0	PROBABLE	-	0	20x18	Tilemap_45_64A0
-gfx/bank45/tilemap_64a0.attrmap	attrmap	360	gfx/bank45.asm	45	6608	PROBABLE	-	0	20x18	Tilemap_45_64A0
-gfx/bank45/palette_6770.pal	palette	128	gfx/bank45.asm	45	6770	PROBABLE	-	0		Palette_45_6770
-gfx/bank45/tiles_67f0.2bpp	tiles	2560	gfx/bank45.asm	45	67F0	PROBABLE	exact	0		Tiles_45_67F0
-gfx/bank45/tilemap_71f0.tilemap	tilemap	360	gfx/bank45.asm	45	71F0	PROBABLE	-	0	20x18	Tilemap_45_71F0
-gfx/bank45/tilemap_71f0.attrmap	attrmap	360	gfx/bank45.asm	45	7358	PROBABLE	-	0	20x18	Tilemap_45_71F0
-gfx/bank45/palette_74c0.pal	palette	128	gfx/bank45.asm	45	74C0	PROBABLE	-	0		Palette_45_74C0
-gfx/bank46/tiles_4000.2bpp	tiles	2560	gfx/bank46.asm	46	4000	PROBABLE	exact	0		Tiles_46_4000
-gfx/bank46/tilemap_4a00.tilemap	tilemap	360	gfx/bank46.asm	46	4A00	PROBABLE	-	0	20x18	Tilemap_46_4A00
-gfx/bank46/tilemap_4a00.attrmap	attrmap	360	gfx/bank46.asm	46	4B68	PROBABLE	-	0	20x18	Tilemap_46_4A00
-gfx/bank46/palette_4cd0.pal	palette	128	gfx/bank46.asm	46	4CD0	PROBABLE	-	0		Palette_46_4CD0
-gfx/bank46/tiles_4d50.2bpp	tiles	2560	gfx/bank46.asm	46	4D50	PROBABLE	exact	0		Tiles_46_4D50
-gfx/bank46/tilemap_5750.tilemap	tilemap	360	gfx/bank46.asm	46	5750	PROBABLE	-	0	20x18	Tilemap_46_5750
-gfx/bank46/tilemap_5750.attrmap	attrmap	360	gfx/bank46.asm	46	58B8	PROBABLE	-	0	20x18	Tilemap_46_5750
-gfx/bank46/palette_5a20.pal	palette	128	gfx/bank46.asm	46	5A20	PROBABLE	-	0		Palette_46_5A20
-gfx/bank46/tiles_5aa0.2bpp	tiles	2560	gfx/bank46.asm	46	5AA0	PROBABLE	exact	0		Tiles_46_5AA0
-gfx/bank46/tilemap_64a0.tilemap	tilemap	360	gfx/bank46.asm	46	64A0	PROBABLE	-	0	20x18	Tilemap_46_64A0
-gfx/bank46/tilemap_64a0.attrmap	attrmap	360	gfx/bank46.asm	46	6608	PROBABLE	-	0	20x18	Tilemap_46_64A0
-gfx/bank46/palette_6770.pal	palette	128	gfx/bank46.asm	46	6770	PROBABLE	-	0		Palette_46_6770
-gfx/bank46/tiles_67f0.2bpp	tiles	2560	gfx/bank46.asm	46	67F0	PROBABLE	exact	0		Tiles_46_67F0
-gfx/bank46/tilemap_71f0.tilemap	tilemap	360	gfx/bank46.asm	46	71F0	PROBABLE	-	0	20x18	Tilemap_46_71F0
-gfx/bank46/tilemap_71f0.attrmap	attrmap	360	gfx/bank46.asm	46	7358	PROBABLE	-	0	20x18	Tilemap_46_71F0
-gfx/bank46/palette_74c0.pal	palette	128	gfx/bank46.asm	46	74C0	PROBABLE	-	0		Palette_46_74C0
-gfx/bank52/tiles_4080.2bpp	tiles	2944	gfx/bank52.asm	52	4080	PROBABLE	exact	0		Tiles_52_4080
-gfx/bank5b/tiles_4000.2bpp	tiles	4608	gfx/bank5b.asm	5B	4000	PROBABLE	exact	0		Tiles_5B_4000
-gfx/bank5b/tiles_5200.2bpp	tiles	1152	gfx/bank5b.asm	5B	5200	PROBABLE	exact	0		Tiles_5B_5200
-gfx/bank5b/palette_5680.pal	palette	96	gfx/bank5b.asm	5B	5680	PROBABLE	-	0		Palette_5B_5680
-gfx/bank60/tiles_4360.2bpp	tiles	240	gfx/bank60.asm	60	4360	PROBABLE	exact	0		Data_60_4360
-gfx/bank60/tiles_4455.2bpp	tiles	1136	gfx/bank60.asm	60	4455	PROBABLE	exact	9		Data_60_4455
-gfx/bank60/tiles_4b50.2bpp	tiles	560	gfx/bank60.asm	60	4B50	PROBABLE	exact	13		Data_60_4B50
-gfx/bank60/tiles_4dd0.2bpp	tiles	1184	gfx/bank60.asm	60	4DD0	PROBABLE	exact	6		Tiles_60_4DD0
-gfx/bank60/tiles_52c0.2bpp	tiles	16	gfx/bank60.asm	60	52C0	HYPOTHESIS	exact	0		Tiles_60_52C0
-gfx/bank60/tiles_52d0.2bpp	tiles	880	gfx/bank60.asm	60	52D0	PROBABLE	exact	0		Data_60_52D0
-gfx/bank60/tiles_5640.2bpp	tiles	176	gfx/bank60.asm	60	5640	PROBABLE	exact	0		Tiles_60_5640
-gfx/bank60/tiles_5740.2bpp	tiles	112	gfx/bank60.asm	60	5740	HYPOTHESIS	exact	0		Tiles_60_5740
-gfx/bank60/tiles_5800.2bpp	tiles	768	gfx/bank60.asm	60	5800	PROBABLE	exact	0		Tiles_60_5800
-gfx/bank60/tiles_5d50.2bpp	tiles	704	gfx/bank60.asm	60	5D50	PROBABLE	exact	0		Data_60_5D50
-gfx/bank60/tiles_6010.2bpp	tiles	80	gfx/bank60.asm	60	6010	HYPOTHESIS	exact	0		Tiles_60_6010
-gfx/bank60/tiles_6060.2bpp	tiles	592	gfx/bank60.asm	60	6060	PROBABLE	exact	11		Data_60_6060
-gfx/bank60/tiles_62b0.2bpp	tiles	448	gfx/bank60.asm	60	62B0	PROBABLE	exact	0		Tiles_60_62B0
-gfx/bank60/tiles_64c0.2bpp	tiles	112	gfx/bank60.asm	60	64C0	HYPOTHESIS	exact	0		Tiles_60_64C0
-gfx/bank60/tiles_6580.2bpp	tiles	128	gfx/bank60.asm	60	6580	PROBABLE	exact	0		Tiles_60_6580
-gfx/bank60/tiles_6640.2bpp	tiles	2656	gfx/bank60.asm	60	6640	PROBABLE	exact	10		Tiles_60_6640
-gfx/bank60/tiles_70a0.2bpp	tiles	1616	gfx/bank60.asm	60	70A0	PROBABLE	exact	11		Data_60_70A0
-gfx/bank60/tiles_76f0.2bpp	tiles	912	gfx/bank60.asm	60	76F0	PROBABLE	exact	7		Tiles_60_76F0
-gfx/bank60/palette_7a80.pal	palette	104	gfx/bank60.asm	60	7A80	PROBABLE	-	0		Data_60_7A80
-gfx/bank61/tiles_4cc0.2bpp	tiles	672	gfx/bank61.asm	61	4CC0	PROBABLE	exact	0		Data_61_4CC0
-gfx/bank61/tiles_4f63.2bpp	tiles	656	gfx/bank61.asm	61	4F63	PROBABLE	exact	7		Data_61_4F63
-gfx/bank61/tiles_58b0.2bpp	tiles	656	gfx/bank61.asm	61	58B0	PROBABLE	exact	7		Data_61_58B0
-gfx/bank61/tiles_65c0.2bpp	tiles	800	gfx/bank61.asm	61	65C0	PROBABLE	exact	0		Data_61_65C0
-gfx/bank61/palette_7a80.pal	palette	104	gfx/bank61.asm	61	7A80	PROBABLE	-	0		Data_61_7A80
+gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/leaf_vine_border_41_4000_tiles.2bpp	tiles	2560	gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm	41	4000	PROBABLE	exact	0		Tiles_41_4000
+gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/leaf_vine_border_41_4000_tilemap.tilemap	tilemap	360	gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm	41	4A00	PROBABLE	-	0	20x18	Tilemap_41_4A00
+gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/leaf_vine_border_41_4000_attributes.attrmap	attrmap	360	gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm	41	4B68	PROBABLE	-	0	20x18	Tilemap_41_4A00
+gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/leaf_vine_border_41_4000_palettes.pal	palette	128	gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm	41	4CD0	PROBABLE	-	0		Palette_41_4CD0
+gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/lavender_ribbon_border_41_4d50_tiles.2bpp	tiles	2560	gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm	41	4D50	PROBABLE	exact	0		Tiles_41_4D50
+gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/lavender_ribbon_border_41_4d50_tilemap.tilemap	tilemap	360	gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm	41	5750	PROBABLE	-	0	20x18	Tilemap_41_5750
+gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/lavender_ribbon_border_41_4d50_attributes.attrmap	attrmap	360	gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm	41	58B8	PROBABLE	-	0	20x18	Tilemap_41_5750
+gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/lavender_ribbon_border_41_4d50_palettes.pal	palette	128	gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm	41	5A20	PROBABLE	-	0		Palette_41_5A20
+gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/green_beveled_panel_41_5aa0_tiles.2bpp	tiles	2560	gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm	41	5AA0	PROBABLE	exact	0		Tiles_41_5AA0
+gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/green_beveled_panel_41_5aa0_tilemap.tilemap	tilemap	360	gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm	41	64A0	PROBABLE	-	0	20x18	Tilemap_41_64A0
+gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/green_beveled_panel_41_5aa0_attributes.attrmap	attrmap	360	gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm	41	6608	PROBABLE	-	0	20x18	Tilemap_41_64A0
+gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/green_beveled_panel_41_5aa0_palettes.pal	palette	128	gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm	41	6770	PROBABLE	-	0		Palette_41_6770
+gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/orange_beveled_panel_41_67f0_tiles.2bpp	tiles	2560	gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm	41	67F0	PROBABLE	exact	0		Tiles_41_67F0
+gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/orange_beveled_panel_41_67f0_tilemap.tilemap	tilemap	360	gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm	41	71F0	PROBABLE	-	0	20x18	Tilemap_41_71F0
+gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/orange_beveled_panel_41_67f0_attributes.attrmap	attrmap	360	gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm	41	7358	PROBABLE	-	0	20x18	Tilemap_41_71F0
+gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/orange_beveled_panel_41_67f0_palettes.pal	palette	128	gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm	41	74C0	PROBABLE	-	0		Palette_41_74C0
+gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_tile_fragment_0000.2bpp	tiles	1344	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	4000	PROBABLE	exact	0		Tiles_42_4000
+gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_raw_4540_4560.bin	raw	32	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	4540	HYPOTHESIS	exact	0		
+gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_tile_fragment_0802.2bpp	tiles	160	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	4802	HYPOTHESIS	exact	0		Data_42_4802
+gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_tile_fragment_0900.2bpp	tiles	176	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	4900	HYPOTHESIS	exact	0		Data_42_4900
+gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_tilemap.tilemap	tilemap	360	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	4A00	PROBABLE	-	0	20x18	Tilemap_42_4A00
+gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_attributes.attrmap	attrmap	360	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	4B68	PROBABLE	-	0	20x18	Tilemap_42_4A00
+gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_palettes.pal	palette	128	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	4CD0	PROBABLE	-	0		Palette_42_4CD0
+gfx/frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_tile_fragment_0000.2bpp	tiles	432	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	4D50	PROBABLE	exact	0		Tiles_42_4D50
+gfx/frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_tile_fragment_01b0.2bpp	tiles	960	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	4F00	PROBABLE	exact	0		Data_42_4F00
+gfx/frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_tile_fragment_0570.2bpp	tiles	32	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	52C0	HYPOTHESIS	exact	0		Data_42_52C0
+gfx/frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_tile_fragment_0590.2bpp	tiles	1136	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	52E0	PROBABLE	exact	9		Data_42_52E0
+gfx/frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_tilemap.tilemap	tilemap	360	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	5750	PROBABLE	-	0	20x18	Tilemap_42_5750
+gfx/frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_attributes.attrmap	attrmap	360	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	58B8	PROBABLE	-	0	20x18	Tilemap_42_5750
+gfx/frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_palettes.pal	palette	128	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	5A20	PROBABLE	-	0		Palette_42_5A20
+gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_0000.2bpp	tiles	944	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	5AA0	PROBABLE	exact	5		Tiles_42_5AA0
+gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_03f0.2bpp	tiles	208	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	5E90	HYPOTHESIS	exact	0		Data_42_5E90
+gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_04f2.2bpp	tiles	416	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	5F92	PROBABLE	exact	0		Tiles_42_5F92
+gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_0800.2bpp	tiles	160	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	62A0	HYPOTHESIS	exact	0		Data_42_62A0
+gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_0900.2bpp	tiles	16	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	63A0	HYPOTHESIS	exact	0		Data_42_63A0
+gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_0910.2bpp	tiles	240	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	63B0	PROBABLE	exact	0		Data_42_63B0
+gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tilemap.tilemap	tilemap	360	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	64A0	PROBABLE	-	0	20x18	Tilemap_42_64A0
+gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_attributes.attrmap	attrmap	360	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	6608	PROBABLE	-	0	20x18	Tilemap_42_64A0
+gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_palettes.pal	palette	128	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	6770	PROBABLE	-	0		Palette_42_6770
+gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tile_fragment_0000.2bpp	tiles	16	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	67F0	HYPOTHESIS	exact	0		Data_42_67F0
+gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_raw_6800_6810.bin	raw	16	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	6800	HYPOTHESIS	exact	0		
+gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tile_fragment_0020.2bpp	tiles	400	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	6810	PROBABLE	exact	7		Tiles_42_6810
+gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_raw_69a0_69b0.bin	raw	16	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	69A0	HYPOTHESIS	exact	0		Data_42_69A0
+gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tile_fragment_01c0.2bpp	tiles	784	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	69B0	HYPOTHESIS	exact	15		Data_42_69B0
+gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_raw_6cc0_6cd0.bin	raw	16	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	6CC0	HYPOTHESIS	exact	0		
+gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tile_fragment_0802.2bpp	tiles	160	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	6FF2	HYPOTHESIS	exact	0		Data_42_6FF2
+gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tile_fragment_0900.2bpp	tiles	160	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	70F0	HYPOTHESIS	exact	0		Data_42_70F0
+gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tilemap.tilemap	tilemap	360	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	71F0	PROBABLE	-	0	20x18	Tilemap_42_71F0
+gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_attributes.attrmap	attrmap	360	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	7358	PROBABLE	-	0	20x18	Tilemap_42_71F0
+gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_palettes.pal	palette	128	gfx/frame_designs/metal_flame_and_creature_borders_42.asm	42	74C0	PROBABLE	-	0		Palette_42_74C0
+gfx/frame_designs/plant_chevron_and_heart_borders_43/green_plant_motif_border_43_4000_tiles.2bpp	tiles	2560	gfx/frame_designs/plant_chevron_and_heart_borders_43.asm	43	4000	PROBABLE	exact	0		Tiles_43_4000
+gfx/frame_designs/plant_chevron_and_heart_borders_43/green_plant_motif_border_43_4000_tilemap.tilemap	tilemap	360	gfx/frame_designs/plant_chevron_and_heart_borders_43.asm	43	4A00	PROBABLE	-	0	20x18	Tilemap_43_4A00
+gfx/frame_designs/plant_chevron_and_heart_borders_43/green_plant_motif_border_43_4000_attributes.attrmap	attrmap	360	gfx/frame_designs/plant_chevron_and_heart_borders_43.asm	43	4B68	PROBABLE	-	0	20x18	Attrmap_43_4B68
+gfx/frame_designs/plant_chevron_and_heart_borders_43/green_plant_motif_border_43_4000_palettes.pal	palette	128	gfx/frame_designs/plant_chevron_and_heart_borders_43.asm	43	4CD0	PROBABLE	-	0		Palette_43_4CD0
+gfx/frame_designs/plant_chevron_and_heart_borders_43/blue_yellow_chevron_border_43_4d50_tiles.2bpp	tiles	2560	gfx/frame_designs/plant_chevron_and_heart_borders_43.asm	43	4D50	PROBABLE	exact	0		Tiles_43_4D50
+gfx/frame_designs/plant_chevron_and_heart_borders_43/blue_yellow_chevron_border_43_4d50_tilemap.tilemap	tilemap	360	gfx/frame_designs/plant_chevron_and_heart_borders_43.asm	43	5750	PROBABLE	-	0	20x18	Tilemap_43_5750
+gfx/frame_designs/plant_chevron_and_heart_borders_43/blue_yellow_chevron_border_43_4d50_attributes.attrmap	attrmap	360	gfx/frame_designs/plant_chevron_and_heart_borders_43.asm	43	58B8	PROBABLE	-	0	20x18	Attrmap_43_58B8
+gfx/frame_designs/plant_chevron_and_heart_borders_43/blue_yellow_chevron_border_43_4d50_palettes.pal	palette	128	gfx/frame_designs/plant_chevron_and_heart_borders_43.asm	43	5A20	PROBABLE	-	0		Palette_43_5A20
+gfx/frame_designs/plant_chevron_and_heart_borders_43/leaf_and_seed_border_43_5aa0_tiles.2bpp	tiles	2560	gfx/frame_designs/plant_chevron_and_heart_borders_43.asm	43	5AA0	PROBABLE	exact	0		Tiles_43_5AA0
+gfx/frame_designs/plant_chevron_and_heart_borders_43/leaf_and_seed_border_43_5aa0_tilemap.tilemap	tilemap	360	gfx/frame_designs/plant_chevron_and_heart_borders_43.asm	43	64A0	PROBABLE	-	0	20x18	Tilemap_43_64A0
+gfx/frame_designs/plant_chevron_and_heart_borders_43/leaf_and_seed_border_43_5aa0_attributes.attrmap	attrmap	360	gfx/frame_designs/plant_chevron_and_heart_borders_43.asm	43	6608	PROBABLE	-	0	20x18	Attrmap_43_6608
+gfx/frame_designs/plant_chevron_and_heart_borders_43/leaf_and_seed_border_43_5aa0_palettes.pal	palette	128	gfx/frame_designs/plant_chevron_and_heart_borders_43.asm	43	6770	PROBABLE	-	0		Palette_43_6770
+gfx/frame_designs/plant_chevron_and_heart_borders_43/heart_and_flower_border_43_67f0_tiles.2bpp	tiles	2560	gfx/frame_designs/plant_chevron_and_heart_borders_43.asm	43	67F0	PROBABLE	exact	0		Tiles_43_67F0
+gfx/frame_designs/plant_chevron_and_heart_borders_43/heart_and_flower_border_43_67f0_tilemap.tilemap	tilemap	360	gfx/frame_designs/plant_chevron_and_heart_borders_43.asm	43	71F0	PROBABLE	-	0	20x18	Tilemap_43_71F0
+gfx/frame_designs/plant_chevron_and_heart_borders_43/heart_and_flower_border_43_67f0_attributes.attrmap	attrmap	360	gfx/frame_designs/plant_chevron_and_heart_borders_43.asm	43	7358	PROBABLE	-	0	20x18	Attrmap_43_7358
+gfx/frame_designs/plant_chevron_and_heart_borders_43/heart_and_flower_border_43_67f0_palettes.pal	palette	128	gfx/frame_designs/plant_chevron_and_heart_borders_43.asm	43	74C0	PROBABLE	-	0		Palette_43_74C0
+gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/monochrome_arc_border_44_4000_tiles.2bpp	tiles	2560	gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm	44	4000	PROBABLE	exact	0		Tiles_44_4000
+gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/monochrome_arc_border_44_4000_tilemap.tilemap	tilemap	360	gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm	44	4A00	PROBABLE	-	0	20x18	Tilemap_44_4A00
+gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/monochrome_arc_border_44_4000_attributes.attrmap	attrmap	360	gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm	44	4B68	PROBABLE	-	0	20x18	Data_44_4B68
+gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/monochrome_arc_border_44_4000_palettes.pal	palette	128	gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm	44	4CD0	PROBABLE	-	0		Palette_44_4CD0
+gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/blue_bubble_border_44_4d50_tiles.2bpp	tiles	2560	gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm	44	4D50	PROBABLE	exact	0		Tiles_44_4D50
+gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/blue_bubble_border_44_4d50_tilemap.tilemap	tilemap	360	gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm	44	5750	PROBABLE	-	0	20x18	Tilemap_44_5750
+gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/blue_bubble_border_44_4d50_attributes.attrmap	attrmap	360	gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm	44	58B8	PROBABLE	-	0	20x18	Data_44_58B8
+gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/blue_bubble_border_44_4d50_palettes.pal	palette	128	gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm	44	5A20	PROBABLE	-	0		Palette_44_5A20
+gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/rock_border_44_5aa0_tiles.2bpp	tiles	2560	gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm	44	5AA0	PROBABLE	exact	0		Tiles_44_5AA0
+gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/rock_border_44_5aa0_tilemap.tilemap	tilemap	360	gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm	44	64A0	PROBABLE	-	0	20x18	Tilemap_44_64A0
+gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/rock_border_44_5aa0_attributes.attrmap	attrmap	360	gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm	44	6608	PROBABLE	-	0	20x18	Data_44_6608
+gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/rock_border_44_5aa0_palettes.pal	palette	128	gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm	44	6770	PROBABLE	-	0		Palette_44_6770
+gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/turquoise_scroll_border_44_67f0_tiles.2bpp	tiles	2560	gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm	44	67F0	PROBABLE	exact	0		Tiles_44_67F0
+gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/turquoise_scroll_border_44_67f0_tilemap.tilemap	tilemap	360	gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm	44	71F0	PROBABLE	-	0	20x18	Tilemap_44_71F0
+gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/turquoise_scroll_border_44_67f0_attributes.attrmap	attrmap	360	gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm	44	7358	PROBABLE	-	0	20x18	Data_44_7358
+gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/turquoise_scroll_border_44_67f0_palettes.pal	palette	128	gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm	44	74C0	PROBABLE	-	0		Palette_44_74C0
+gfx/frame_designs/ice_spike_curve_and_gold_borders_45/ice_crystal_border_45_4000_tiles.2bpp	tiles	2560	gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm	45	4000	PROBABLE	exact	0		Tiles_45_4000
+gfx/frame_designs/ice_spike_curve_and_gold_borders_45/ice_crystal_border_45_4000_tilemap.tilemap	tilemap	360	gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm	45	4A00	PROBABLE	-	0	20x18	Tilemap_45_4A00
+gfx/frame_designs/ice_spike_curve_and_gold_borders_45/ice_crystal_border_45_4000_attributes.attrmap	attrmap	360	gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm	45	4B68	PROBABLE	-	0	20x18	Tilemap_45_4A00
+gfx/frame_designs/ice_spike_curve_and_gold_borders_45/ice_crystal_border_45_4000_palettes.pal	palette	128	gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm	45	4CD0	PROBABLE	-	0		Palette_45_4CD0
+gfx/frame_designs/ice_spike_curve_and_gold_borders_45/violet_spike_border_45_4d50_tiles.2bpp	tiles	2560	gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm	45	4D50	PROBABLE	exact	0		Tiles_45_4D50
+gfx/frame_designs/ice_spike_curve_and_gold_borders_45/violet_spike_border_45_4d50_tilemap.tilemap	tilemap	360	gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm	45	5750	PROBABLE	-	0	20x18	Tilemap_45_5750
+gfx/frame_designs/ice_spike_curve_and_gold_borders_45/violet_spike_border_45_4d50_attributes.attrmap	attrmap	360	gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm	45	58B8	PROBABLE	-	0	20x18	Tilemap_45_5750
+gfx/frame_designs/ice_spike_curve_and_gold_borders_45/violet_spike_border_45_4d50_palettes.pal	palette	128	gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm	45	5A20	PROBABLE	-	0		Palette_45_5A20
+gfx/frame_designs/ice_spike_curve_and_gold_borders_45/red_curved_border_45_5aa0_tiles.2bpp	tiles	2560	gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm	45	5AA0	PROBABLE	exact	0		Tiles_45_5AA0
+gfx/frame_designs/ice_spike_curve_and_gold_borders_45/red_curved_border_45_5aa0_tilemap.tilemap	tilemap	360	gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm	45	64A0	PROBABLE	-	0	20x18	Tilemap_45_64A0
+gfx/frame_designs/ice_spike_curve_and_gold_borders_45/red_curved_border_45_5aa0_attributes.attrmap	attrmap	360	gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm	45	6608	PROBABLE	-	0	20x18	Tilemap_45_64A0
+gfx/frame_designs/ice_spike_curve_and_gold_borders_45/red_curved_border_45_5aa0_palettes.pal	palette	128	gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm	45	6770	PROBABLE	-	0		Palette_45_6770
+gfx/frame_designs/ice_spike_curve_and_gold_borders_45/gold_geometric_border_45_67f0_tiles.2bpp	tiles	2560	gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm	45	67F0	PROBABLE	exact	0		Tiles_45_67F0
+gfx/frame_designs/ice_spike_curve_and_gold_borders_45/gold_geometric_border_45_67f0_tilemap.tilemap	tilemap	360	gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm	45	71F0	PROBABLE	-	0	20x18	Tilemap_45_71F0
+gfx/frame_designs/ice_spike_curve_and_gold_borders_45/gold_geometric_border_45_67f0_attributes.attrmap	attrmap	360	gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm	45	7358	PROBABLE	-	0	20x18	Tilemap_45_71F0
+gfx/frame_designs/ice_spike_curve_and_gold_borders_45/gold_geometric_border_45_67f0_palettes.pal	palette	128	gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm	45	74C0	PROBABLE	-	0		Palette_45_74C0
+gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/star_triangle_border_46_4000_tiles.2bpp	tiles	2560	gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm	46	4000	PROBABLE	exact	0		Tiles_46_4000
+gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/star_triangle_border_46_4000_tilemap.tilemap	tilemap	360	gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm	46	4A00	PROBABLE	-	0	20x18	Tilemap_46_4A00
+gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/star_triangle_border_46_4000_attributes.attrmap	attrmap	360	gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm	46	4B68	PROBABLE	-	0	20x18	Tilemap_46_4A00
+gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/star_triangle_border_46_4000_palettes.pal	palette	128	gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm	46	4CD0	PROBABLE	-	0		Palette_46_4CD0
+gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/orange_rivet_panel_46_4d50_tiles.2bpp	tiles	2560	gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm	46	4D50	PROBABLE	exact	0		Tiles_46_4D50
+gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/orange_rivet_panel_46_4d50_tilemap.tilemap	tilemap	360	gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm	46	5750	PROBABLE	-	0	20x18	Tilemap_46_5750
+gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/orange_rivet_panel_46_4d50_attributes.attrmap	attrmap	360	gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm	46	58B8	PROBABLE	-	0	20x18	Tilemap_46_5750
+gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/orange_rivet_panel_46_4d50_palettes.pal	palette	128	gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm	46	5A20	PROBABLE	-	0		Palette_46_5A20
+gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/blue_energy_border_46_5aa0_tiles.2bpp	tiles	2560	gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm	46	5AA0	PROBABLE	exact	0		Tiles_46_5AA0
+gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/blue_energy_border_46_5aa0_tilemap.tilemap	tilemap	360	gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm	46	64A0	PROBABLE	-	0	20x18	Tilemap_46_64A0
+gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/blue_energy_border_46_5aa0_attributes.attrmap	attrmap	360	gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm	46	6608	PROBABLE	-	0	20x18	Tilemap_46_64A0
+gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/blue_energy_border_46_5aa0_palettes.pal	palette	128	gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm	46	6770	PROBABLE	-	0		Palette_46_6770
+gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/pink_scallop_border_46_67f0_tiles.2bpp	tiles	2560	gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm	46	67F0	PROBABLE	exact	0		Tiles_46_67F0
+gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/pink_scallop_border_46_67f0_tilemap.tilemap	tilemap	360	gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm	46	71F0	PROBABLE	-	0	20x18	Tilemap_46_71F0
+gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/pink_scallop_border_46_67f0_attributes.attrmap	attrmap	360	gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm	46	7358	PROBABLE	-	0	20x18	Tilemap_46_71F0
+gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/pink_scallop_border_46_67f0_palettes.pal	palette	128	gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm	46	74C0	PROBABLE	-	0		Palette_46_74C0
+gfx/browser/page_list_prototype_messages/prototype_message_tiles.2bpp	tiles	2944	gfx/browser/page_list_prototype_messages.asm	52	4080	PROBABLE	exact	0		Tiles_52_4080
+gfx/ui_art/logo_and_window_tiles/logo_and_window_tiles.2bpp	tiles	4608	gfx/ui_art/logo_and_window_tiles.asm	5B	4000	PROBABLE	exact	0		Tiles_5B_4000
+gfx/ui_art/logo_and_window_tiles/mail_server_box_tiles.2bpp	tiles	1152	gfx/ui_art/logo_and_window_tiles.asm	5B	5200	PROBABLE	exact	0		Tiles_5B_5200
+gfx/ui_art/logo_and_window_tiles/art_palettes.pal	palette	96	gfx/ui_art/logo_and_window_tiles.asm	5B	5680	PROBABLE	-	0		Palette_5B_5680
+gfx/ui_art/frame_glyph_fragments/tile_fragment_4360.2bpp	tiles	240	gfx/ui_art/frame_glyph_fragments.asm	60	4360	PROBABLE	exact	0		Data_60_4360
+gfx/ui_art/frame_glyph_fragments/tile_fragment_4455.2bpp	tiles	1136	gfx/ui_art/frame_glyph_fragments.asm	60	4455	PROBABLE	exact	9		Data_60_4455
+gfx/ui_art/frame_glyph_fragments/tile_fragment_4b50.2bpp	tiles	560	gfx/ui_art/frame_glyph_fragments.asm	60	4B50	PROBABLE	exact	13		Data_60_4B50
+gfx/ui_art/frame_glyph_fragments/tile_fragment_4dd0.2bpp	tiles	1184	gfx/ui_art/frame_glyph_fragments.asm	60	4DD0	PROBABLE	exact	6		Tiles_60_4DD0
+gfx/ui_art/frame_glyph_fragments/tile_fragment_52c0.2bpp	tiles	16	gfx/ui_art/frame_glyph_fragments.asm	60	52C0	HYPOTHESIS	exact	0		Tiles_60_52C0
+gfx/ui_art/frame_glyph_fragments/tile_fragment_52d0.2bpp	tiles	880	gfx/ui_art/frame_glyph_fragments.asm	60	52D0	PROBABLE	exact	0		Data_60_52D0
+gfx/ui_art/frame_glyph_fragments/tile_fragment_5640.2bpp	tiles	176	gfx/ui_art/frame_glyph_fragments.asm	60	5640	PROBABLE	exact	0		Tiles_60_5640
+gfx/ui_art/frame_glyph_fragments/tile_fragment_5740.2bpp	tiles	112	gfx/ui_art/frame_glyph_fragments.asm	60	5740	HYPOTHESIS	exact	0		Tiles_60_5740
+gfx/ui_art/frame_glyph_fragments/tile_fragment_5800.2bpp	tiles	768	gfx/ui_art/frame_glyph_fragments.asm	60	5800	PROBABLE	exact	0		Tiles_60_5800
+gfx/ui_art/frame_glyph_fragments/tile_fragment_5d50.2bpp	tiles	704	gfx/ui_art/frame_glyph_fragments.asm	60	5D50	PROBABLE	exact	0		Data_60_5D50
+gfx/ui_art/frame_glyph_fragments/tile_fragment_6010.2bpp	tiles	80	gfx/ui_art/frame_glyph_fragments.asm	60	6010	HYPOTHESIS	exact	0		Tiles_60_6010
+gfx/ui_art/frame_glyph_fragments/tile_fragment_6060.2bpp	tiles	592	gfx/ui_art/frame_glyph_fragments.asm	60	6060	PROBABLE	exact	11		Data_60_6060
+gfx/ui_art/frame_glyph_fragments/tile_fragment_62b0.2bpp	tiles	448	gfx/ui_art/frame_glyph_fragments.asm	60	62B0	PROBABLE	exact	0		Tiles_60_62B0
+gfx/ui_art/frame_glyph_fragments/tile_fragment_64c0.2bpp	tiles	112	gfx/ui_art/frame_glyph_fragments.asm	60	64C0	HYPOTHESIS	exact	0		Tiles_60_64C0
+gfx/ui_art/frame_glyph_fragments/tile_fragment_6580.2bpp	tiles	128	gfx/ui_art/frame_glyph_fragments.asm	60	6580	PROBABLE	exact	0		Tiles_60_6580
+gfx/ui_art/frame_glyph_fragments/jump_button_and_frame_tiles.2bpp	tiles	2656	gfx/ui_art/frame_glyph_fragments.asm	60	6640	PROBABLE	exact	10		Tiles_60_6640
+gfx/ui_art/frame_glyph_fragments/back_button_and_text_tiles.2bpp	tiles	1616	gfx/ui_art/frame_glyph_fragments.asm	60	70A0	PROBABLE	exact	11		Data_60_70A0
+gfx/ui_art/frame_glyph_fragments/tile_fragment_76f0.2bpp	tiles	912	gfx/ui_art/frame_glyph_fragments.asm	60	76F0	PROBABLE	exact	7		Tiles_60_76F0
+gfx/ui_art/frame_glyph_fragments/fragment_palettes.pal	palette	104	gfx/ui_art/frame_glyph_fragments.asm	60	7A80	PROBABLE	-	0		Data_60_7A80
+gfx/ui_art/button_art_fragments/dpad_button_and_frame_tiles.2bpp	tiles	672	gfx/ui_art/button_art_fragments.asm	61	4CC0	PROBABLE	exact	0		Data_61_4CC0
+gfx/ui_art/button_art_fragments/tile_fragment_4f63.2bpp	tiles	656	gfx/ui_art/button_art_fragments.asm	61	4F63	PROBABLE	exact	7		Data_61_4F63
+gfx/ui_art/button_art_fragments/tile_fragment_58b0.2bpp	tiles	656	gfx/ui_art/button_art_fragments.asm	61	58B0	PROBABLE	exact	7		Data_61_58B0
+gfx/ui_art/button_art_fragments/tile_fragment_65c0.2bpp	tiles	800	gfx/ui_art/button_art_fragments.asm	61	65C0	PROBABLE	exact	0		Data_61_65C0
+gfx/ui_art/button_art_fragments/fragment_palettes.pal	palette	104	gfx/ui_art/button_art_fragments.asm	61	7A80	PROBABLE	-	0		Data_61_7A80
 gfx/browser/frames_0_1/tiles_4000.2bpp	tiles	16	gfx/browser/frames_0_1.asm	47	4000	CONFIRMED	exact	0		Data_47_4000
 gfx/browser/frames_0_1/tiles_4010.2bpp	tiles	48	gfx/browser/frames_0_1.asm	47	4010	CONFIRMED	exact	0		Data_47_4010
 gfx/browser/frames_0_1/tiles_4040.2bpp	tiles	64	gfx/browser/frames_0_1.asm	47	4040	PROBABLE	exact	0		Data_47_4040

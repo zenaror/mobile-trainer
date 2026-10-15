@@ -14,8 +14,8 @@ data/fonts/jis12x12_rows_01_08_13.bin          font bytes;  jis12x12_rows_01_08_
 gfx/assets.tsv                                 one line per asset: kind, size, bank:addr, status, PNG mode  (machine readable)
 ```
 
-* **Directory**: `gfx/<area>/<file>/` holds the assets of `gfx/<area>/<file>.asm` (`gfx/bank41.asm` -> `gfx/bank41/`); fonts are directly in `data/fonts/`.
-* **Names**: a block with a semantic label is named after it in `snake_case` (`Gfx_Title_Tiles0` -> `title_tiles0`, `Palette_Title_Bg` -> `title_bg.pal`);
+* **Directory**: `gfx/<area>/<file>/` holds the assets of `gfx/<area>/<file>.asm` (`gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm` -> `gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/`); fonts are directly in `data/fonts/`.
+* **Names**: descriptive resource paths can name a visible design or a demonstrated consumer without changing generic global aliases; see [the bounded path migration](../docs/research/gfx_resource_names.md). A filename does not promote a storage status or prove a natural loader, original display or species. A block with a semantic label is otherwise named after it in `snake_case` (`Gfx_Title_Tiles0` -> `title_tiles0`, `Palette_Title_Bg` -> `title_bg.pal`);
   a block with only a generic label is `<kind>_<addr>` with the address in the bank (`tiles_4000.2bpp`, `tilemap_5bc0.tilemap`).
   Names say what the label / header note says and no more: `tiles_...` means "the analysis typed this block as 2bpp tile data", see status below.
 * **Kinds**: `.2bpp` 2bpp tiles; `.tilemap` / `.attrmap` tile-index / CGB attribute bytes (a `tilemap+attr` pair that `copy_tilemap_rect_pair` loads is
@@ -333,197 +333,197 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `addr_book_entry_bg.pal` | RGB palette | 64 | 2C:7F50 | CONFIRMED | - | - | `gfx/address_book/unreferenced_confirm_screen.asm` |
 | `addr_book_entry_obj.pal` | RGB palette | 64 | 2C:7F90 | CONFIRMED | - | - | `gfx/address_book/unreferenced_confirm_screen.asm` |
 
-### `gfx/bank41/`
+### `gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/`
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_4000.2bpp` | 2bpp tiles | 2560 | 41:4000 | PROBABLE | exact | - | `gfx/bank41.asm` |
-| `tilemap_4a00.tilemap` | tile-index map | 360 | 41:4A00 | PROBABLE | - | 20x18 | `gfx/bank41.asm` |
-| `tilemap_4a00.attrmap` | attribute map | 360 | 41:4B68 | PROBABLE | - | 20x18 | `gfx/bank41.asm` |
-| `palette_4cd0.pal` | RGB palette | 128 | 41:4CD0 | PROBABLE | - | - | `gfx/bank41.asm` |
-| `tiles_4d50.2bpp` | 2bpp tiles | 2560 | 41:4D50 | PROBABLE | exact | - | `gfx/bank41.asm` |
-| `tilemap_5750.tilemap` | tile-index map | 360 | 41:5750 | PROBABLE | - | 20x18 | `gfx/bank41.asm` |
-| `tilemap_5750.attrmap` | attribute map | 360 | 41:58B8 | PROBABLE | - | 20x18 | `gfx/bank41.asm` |
-| `palette_5a20.pal` | RGB palette | 128 | 41:5A20 | PROBABLE | - | - | `gfx/bank41.asm` |
-| `tiles_5aa0.2bpp` | 2bpp tiles | 2560 | 41:5AA0 | PROBABLE | exact | - | `gfx/bank41.asm` |
-| `tilemap_64a0.tilemap` | tile-index map | 360 | 41:64A0 | PROBABLE | - | 20x18 | `gfx/bank41.asm` |
-| `tilemap_64a0.attrmap` | attribute map | 360 | 41:6608 | PROBABLE | - | 20x18 | `gfx/bank41.asm` |
-| `palette_6770.pal` | RGB palette | 128 | 41:6770 | PROBABLE | - | - | `gfx/bank41.asm` |
-| `tiles_67f0.2bpp` | 2bpp tiles | 2560 | 41:67F0 | PROBABLE | exact | - | `gfx/bank41.asm` |
-| `tilemap_71f0.tilemap` | tile-index map | 360 | 41:71F0 | PROBABLE | - | 20x18 | `gfx/bank41.asm` |
-| `tilemap_71f0.attrmap` | attribute map | 360 | 41:7358 | PROBABLE | - | 20x18 | `gfx/bank41.asm` |
-| `palette_74c0.pal` | RGB palette | 128 | 41:74C0 | PROBABLE | - | - | `gfx/bank41.asm` |
+| `leaf_vine_border_41_4000_tiles.2bpp` | 2bpp tiles | 2560 | 41:4000 | PROBABLE | exact | - | `gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm` |
+| `leaf_vine_border_41_4000_tilemap.tilemap` | tile-index map | 360 | 41:4A00 | PROBABLE | - | 20x18 | `gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm` |
+| `leaf_vine_border_41_4000_attributes.attrmap` | attribute map | 360 | 41:4B68 | PROBABLE | - | 20x18 | `gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm` |
+| `leaf_vine_border_41_4000_palettes.pal` | RGB palette | 128 | 41:4CD0 | PROBABLE | - | - | `gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm` |
+| `lavender_ribbon_border_41_4d50_tiles.2bpp` | 2bpp tiles | 2560 | 41:4D50 | PROBABLE | exact | - | `gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm` |
+| `lavender_ribbon_border_41_4d50_tilemap.tilemap` | tile-index map | 360 | 41:5750 | PROBABLE | - | 20x18 | `gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm` |
+| `lavender_ribbon_border_41_4d50_attributes.attrmap` | attribute map | 360 | 41:58B8 | PROBABLE | - | 20x18 | `gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm` |
+| `lavender_ribbon_border_41_4d50_palettes.pal` | RGB palette | 128 | 41:5A20 | PROBABLE | - | - | `gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm` |
+| `green_beveled_panel_41_5aa0_tiles.2bpp` | 2bpp tiles | 2560 | 41:5AA0 | PROBABLE | exact | - | `gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm` |
+| `green_beveled_panel_41_5aa0_tilemap.tilemap` | tile-index map | 360 | 41:64A0 | PROBABLE | - | 20x18 | `gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm` |
+| `green_beveled_panel_41_5aa0_attributes.attrmap` | attribute map | 360 | 41:6608 | PROBABLE | - | 20x18 | `gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm` |
+| `green_beveled_panel_41_5aa0_palettes.pal` | RGB palette | 128 | 41:6770 | PROBABLE | - | - | `gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm` |
+| `orange_beveled_panel_41_67f0_tiles.2bpp` | 2bpp tiles | 2560 | 41:67F0 | PROBABLE | exact | - | `gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm` |
+| `orange_beveled_panel_41_67f0_tilemap.tilemap` | tile-index map | 360 | 41:71F0 | PROBABLE | - | 20x18 | `gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm` |
+| `orange_beveled_panel_41_67f0_attributes.attrmap` | attribute map | 360 | 41:7358 | PROBABLE | - | 20x18 | `gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm` |
+| `orange_beveled_panel_41_67f0_palettes.pal` | RGB palette | 128 | 41:74C0 | PROBABLE | - | - | `gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm` |
 
-### `gfx/bank42/`
-
-| asset | kind | bytes | bank:addr | status | png | dims | source |
-|---|---|---:|---|---|---|---|---|
-| `tiles_4000.2bpp` | 2bpp tiles | 1344 | 42:4000 | PROBABLE | exact | - | `gfx/bank42.asm` |
-| `raw_4540_4560.bin` | raw bytes (conditional byte-view codec; purpose unknown) | 32 | 42:4540 | HYPOTHESIS | exact | - | `gfx/bank42.asm` |
-| `tiles_4802.2bpp` | 2bpp tiles | 160 | 42:4802 | HYPOTHESIS | exact | - | `gfx/bank42.asm` |
-| `tiles_4900.2bpp` | 2bpp tiles | 176 | 42:4900 | HYPOTHESIS | exact | - | `gfx/bank42.asm` |
-| `tilemap_4a00.tilemap` | tile-index map | 360 | 42:4A00 | PROBABLE | - | 20x18 | `gfx/bank42.asm` |
-| `tilemap_4a00.attrmap` | attribute map | 360 | 42:4B68 | PROBABLE | - | 20x18 | `gfx/bank42.asm` |
-| `palette_4cd0.pal` | RGB palette | 128 | 42:4CD0 | PROBABLE | - | - | `gfx/bank42.asm` |
-| `tiles_4d50.2bpp` | 2bpp tiles | 432 | 42:4D50 | PROBABLE | exact | - | `gfx/bank42.asm` |
-| `tiles_4f00.2bpp` | 2bpp tiles | 960 | 42:4F00 | PROBABLE | exact | - | `gfx/bank42.asm` |
-| `tiles_52c0.2bpp` | 2bpp tiles | 32 | 42:52C0 | HYPOTHESIS | exact | - | `gfx/bank42.asm` |
-| `tiles_52e0.2bpp` | 2bpp tiles | 1136 | 42:52E0 | PROBABLE | exact | - | `gfx/bank42.asm` |
-| `tilemap_5750.tilemap` | tile-index map | 360 | 42:5750 | PROBABLE | - | 20x18 | `gfx/bank42.asm` |
-| `tilemap_5750.attrmap` | attribute map | 360 | 42:58B8 | PROBABLE | - | 20x18 | `gfx/bank42.asm` |
-| `palette_5a20.pal` | RGB palette | 128 | 42:5A20 | PROBABLE | - | - | `gfx/bank42.asm` |
-| `tiles_5aa0.2bpp` | 2bpp tiles | 944 | 42:5AA0 | PROBABLE | exact | - | `gfx/bank42.asm` |
-| `tiles_5e90.2bpp` | 2bpp tiles | 208 | 42:5E90 | HYPOTHESIS | exact | - | `gfx/bank42.asm` |
-| `tiles_5f92.2bpp` | 2bpp tiles | 416 | 42:5F92 | PROBABLE | exact | - | `gfx/bank42.asm` |
-| `tiles_62a0.2bpp` | 2bpp tiles | 160 | 42:62A0 | HYPOTHESIS | exact | - | `gfx/bank42.asm` |
-| `tiles_63a0.2bpp` | 2bpp tiles | 16 | 42:63A0 | HYPOTHESIS | exact | - | `gfx/bank42.asm` |
-| `tiles_63b0.2bpp` | 2bpp tiles | 240 | 42:63B0 | PROBABLE | exact | - | `gfx/bank42.asm` |
-| `tilemap_64a0.tilemap` | tile-index map | 360 | 42:64A0 | PROBABLE | - | 20x18 | `gfx/bank42.asm` |
-| `tilemap_64a0.attrmap` | attribute map | 360 | 42:6608 | PROBABLE | - | 20x18 | `gfx/bank42.asm` |
-| `palette_6770.pal` | RGB palette | 128 | 42:6770 | PROBABLE | - | - | `gfx/bank42.asm` |
-| `tiles_67f0.2bpp` | 2bpp tiles | 16 | 42:67F0 | HYPOTHESIS | exact | - | `gfx/bank42.asm` |
-| `raw_6800_6810.bin` | raw bytes (conditional byte-view codec; purpose unknown) | 16 | 42:6800 | HYPOTHESIS | exact | - | `gfx/bank42.asm` |
-| `tiles_6810.2bpp` | 2bpp tiles | 400 | 42:6810 | PROBABLE | exact | - | `gfx/bank42.asm` |
-| `raw_69a0_69b0.bin` | raw bytes (conditional byte-view codec; purpose unknown) | 16 | 42:69A0 | HYPOTHESIS | exact | - | `gfx/bank42.asm` |
-| `tiles_69b0.2bpp` | 2bpp tiles | 784 | 42:69B0 | HYPOTHESIS | exact | - | `gfx/bank42.asm` |
-| `raw_6cc0_6cd0.bin` | raw bytes (conditional byte-view codec; purpose unknown) | 16 | 42:6CC0 | HYPOTHESIS | exact | - | `gfx/bank42.asm` |
-| `tiles_6ff2.2bpp` | 2bpp tiles | 160 | 42:6FF2 | HYPOTHESIS | exact | - | `gfx/bank42.asm` |
-| `tiles_70f0.2bpp` | 2bpp tiles | 160 | 42:70F0 | HYPOTHESIS | exact | - | `gfx/bank42.asm` |
-| `tilemap_71f0.tilemap` | tile-index map | 360 | 42:71F0 | PROBABLE | - | 20x18 | `gfx/bank42.asm` |
-| `tilemap_71f0.attrmap` | attribute map | 360 | 42:7358 | PROBABLE | - | 20x18 | `gfx/bank42.asm` |
-| `palette_74c0.pal` | RGB palette | 128 | 42:74C0 | PROBABLE | - | - | `gfx/bank42.asm` |
-
-### `gfx/bank43/`
+### `gfx/frame_designs/metal_flame_and_creature_borders_42/`
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_4000.2bpp` | 2bpp tiles | 2560 | 43:4000 | PROBABLE | exact | - | `gfx/bank43.asm` |
-| `tilemap_4a00.tilemap` | tile-index map | 360 | 43:4A00 | PROBABLE | - | 20x18 | `gfx/bank43.asm` |
-| `attrmap_4b68.attrmap` | attribute map | 360 | 43:4B68 | PROBABLE | - | 20x18 | `gfx/bank43.asm` |
-| `palette_4cd0.pal` | RGB palette | 128 | 43:4CD0 | PROBABLE | - | - | `gfx/bank43.asm` |
-| `tiles_4d50.2bpp` | 2bpp tiles | 2560 | 43:4D50 | PROBABLE | exact | - | `gfx/bank43.asm` |
-| `tilemap_5750.tilemap` | tile-index map | 360 | 43:5750 | PROBABLE | - | 20x18 | `gfx/bank43.asm` |
-| `attrmap_58b8.attrmap` | attribute map | 360 | 43:58B8 | PROBABLE | - | 20x18 | `gfx/bank43.asm` |
-| `palette_5a20.pal` | RGB palette | 128 | 43:5A20 | PROBABLE | - | - | `gfx/bank43.asm` |
-| `tiles_5aa0.2bpp` | 2bpp tiles | 2560 | 43:5AA0 | PROBABLE | exact | - | `gfx/bank43.asm` |
-| `tilemap_64a0.tilemap` | tile-index map | 360 | 43:64A0 | PROBABLE | - | 20x18 | `gfx/bank43.asm` |
-| `attrmap_6608.attrmap` | attribute map | 360 | 43:6608 | PROBABLE | - | 20x18 | `gfx/bank43.asm` |
-| `palette_6770.pal` | RGB palette | 128 | 43:6770 | PROBABLE | - | - | `gfx/bank43.asm` |
-| `tiles_67f0.2bpp` | 2bpp tiles | 2560 | 43:67F0 | PROBABLE | exact | - | `gfx/bank43.asm` |
-| `tilemap_71f0.tilemap` | tile-index map | 360 | 43:71F0 | PROBABLE | - | 20x18 | `gfx/bank43.asm` |
-| `attrmap_7358.attrmap` | attribute map | 360 | 43:7358 | PROBABLE | - | 20x18 | `gfx/bank43.asm` |
-| `palette_74c0.pal` | RGB palette | 128 | 43:74C0 | PROBABLE | - | - | `gfx/bank43.asm` |
+| `metal_screw_border_42_4000_tile_fragment_0000.2bpp` | 2bpp tiles | 1344 | 42:4000 | PROBABLE | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `metal_screw_border_42_4000_raw_4540_4560.bin` | raw bytes (conditional byte-view codec; purpose unknown) | 32 | 42:4540 | HYPOTHESIS | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `metal_screw_border_42_4000_tile_fragment_0802.2bpp` | 2bpp tiles | 160 | 42:4802 | HYPOTHESIS | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `metal_screw_border_42_4000_tile_fragment_0900.2bpp` | 2bpp tiles | 176 | 42:4900 | HYPOTHESIS | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `metal_screw_border_42_4000_tilemap.tilemap` | tile-index map | 360 | 42:4A00 | PROBABLE | - | 20x18 | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `metal_screw_border_42_4000_attributes.attrmap` | attribute map | 360 | 42:4B68 | PROBABLE | - | 20x18 | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `metal_screw_border_42_4000_palettes.pal` | RGB palette | 128 | 42:4CD0 | PROBABLE | - | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `flame_jagged_border_42_4d50_tile_fragment_0000.2bpp` | 2bpp tiles | 432 | 42:4D50 | PROBABLE | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `flame_jagged_border_42_4d50_tile_fragment_01b0.2bpp` | 2bpp tiles | 960 | 42:4F00 | PROBABLE | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `flame_jagged_border_42_4d50_tile_fragment_0570.2bpp` | 2bpp tiles | 32 | 42:52C0 | HYPOTHESIS | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `flame_jagged_border_42_4d50_tile_fragment_0590.2bpp` | 2bpp tiles | 1136 | 42:52E0 | PROBABLE | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `flame_jagged_border_42_4d50_tilemap.tilemap` | tile-index map | 360 | 42:5750 | PROBABLE | - | 20x18 | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `flame_jagged_border_42_4d50_attributes.attrmap` | attribute map | 360 | 42:58B8 | PROBABLE | - | 20x18 | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `flame_jagged_border_42_4d50_palettes.pal` | RGB palette | 128 | 42:5A20 | PROBABLE | - | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `blue_bubble_creature_border_42_5aa0_tile_fragment_0000.2bpp` | 2bpp tiles | 944 | 42:5AA0 | PROBABLE | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `blue_bubble_creature_border_42_5aa0_tile_fragment_03f0.2bpp` | 2bpp tiles | 208 | 42:5E90 | HYPOTHESIS | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `blue_bubble_creature_border_42_5aa0_tile_fragment_04f2.2bpp` | 2bpp tiles | 416 | 42:5F92 | PROBABLE | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `blue_bubble_creature_border_42_5aa0_tile_fragment_0800.2bpp` | 2bpp tiles | 160 | 42:62A0 | HYPOTHESIS | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `blue_bubble_creature_border_42_5aa0_tile_fragment_0900.2bpp` | 2bpp tiles | 16 | 42:63A0 | HYPOTHESIS | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `blue_bubble_creature_border_42_5aa0_tile_fragment_0910.2bpp` | 2bpp tiles | 240 | 42:63B0 | PROBABLE | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `blue_bubble_creature_border_42_5aa0_tilemap.tilemap` | tile-index map | 360 | 42:64A0 | PROBABLE | - | 20x18 | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `blue_bubble_creature_border_42_5aa0_attributes.attrmap` | attribute map | 360 | 42:6608 | PROBABLE | - | 20x18 | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `blue_bubble_creature_border_42_5aa0_palettes.pal` | RGB palette | 128 | 42:6770 | PROBABLE | - | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `orange_double_line_border_42_67f0_tile_fragment_0000.2bpp` | 2bpp tiles | 16 | 42:67F0 | HYPOTHESIS | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `orange_double_line_border_42_67f0_raw_6800_6810.bin` | raw bytes (conditional byte-view codec; purpose unknown) | 16 | 42:6800 | HYPOTHESIS | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `orange_double_line_border_42_67f0_tile_fragment_0020.2bpp` | 2bpp tiles | 400 | 42:6810 | PROBABLE | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `orange_double_line_border_42_67f0_raw_69a0_69b0.bin` | raw bytes (conditional byte-view codec; purpose unknown) | 16 | 42:69A0 | HYPOTHESIS | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `orange_double_line_border_42_67f0_tile_fragment_01c0.2bpp` | 2bpp tiles | 784 | 42:69B0 | HYPOTHESIS | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `orange_double_line_border_42_67f0_raw_6cc0_6cd0.bin` | raw bytes (conditional byte-view codec; purpose unknown) | 16 | 42:6CC0 | HYPOTHESIS | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `orange_double_line_border_42_67f0_tile_fragment_0802.2bpp` | 2bpp tiles | 160 | 42:6FF2 | HYPOTHESIS | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `orange_double_line_border_42_67f0_tile_fragment_0900.2bpp` | 2bpp tiles | 160 | 42:70F0 | HYPOTHESIS | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `orange_double_line_border_42_67f0_tilemap.tilemap` | tile-index map | 360 | 42:71F0 | PROBABLE | - | 20x18 | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `orange_double_line_border_42_67f0_attributes.attrmap` | attribute map | 360 | 42:7358 | PROBABLE | - | 20x18 | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `orange_double_line_border_42_67f0_palettes.pal` | RGB palette | 128 | 42:74C0 | PROBABLE | - | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
 
-### `gfx/bank44/`
-
-| asset | kind | bytes | bank:addr | status | png | dims | source |
-|---|---|---:|---|---|---|---|---|
-| `tiles_4000.2bpp` | 2bpp tiles | 2560 | 44:4000 | PROBABLE | exact | - | `gfx/bank44.asm` |
-| `tilemap_4a00.tilemap` | tile-index map | 360 | 44:4A00 | PROBABLE | - | 20x18 | `gfx/bank44.asm` |
-| `attrmap_4b68.attrmap` | attribute map | 360 | 44:4B68 | PROBABLE | - | 20x18 | `gfx/bank44.asm` |
-| `palette_4cd0.pal` | RGB palette | 128 | 44:4CD0 | PROBABLE | - | - | `gfx/bank44.asm` |
-| `tiles_4d50.2bpp` | 2bpp tiles | 2560 | 44:4D50 | PROBABLE | exact | - | `gfx/bank44.asm` |
-| `tilemap_5750.tilemap` | tile-index map | 360 | 44:5750 | PROBABLE | - | 20x18 | `gfx/bank44.asm` |
-| `attrmap_58b8.attrmap` | attribute map | 360 | 44:58B8 | PROBABLE | - | 20x18 | `gfx/bank44.asm` |
-| `palette_5a20.pal` | RGB palette | 128 | 44:5A20 | PROBABLE | - | - | `gfx/bank44.asm` |
-| `tiles_5aa0.2bpp` | 2bpp tiles | 2560 | 44:5AA0 | PROBABLE | exact | - | `gfx/bank44.asm` |
-| `tilemap_64a0.tilemap` | tile-index map | 360 | 44:64A0 | PROBABLE | - | 20x18 | `gfx/bank44.asm` |
-| `attrmap_6608.attrmap` | attribute map | 360 | 44:6608 | PROBABLE | - | 20x18 | `gfx/bank44.asm` |
-| `palette_6770.pal` | RGB palette | 128 | 44:6770 | PROBABLE | - | - | `gfx/bank44.asm` |
-| `tiles_67f0.2bpp` | 2bpp tiles | 2560 | 44:67F0 | PROBABLE | exact | - | `gfx/bank44.asm` |
-| `tilemap_71f0.tilemap` | tile-index map | 360 | 44:71F0 | PROBABLE | - | 20x18 | `gfx/bank44.asm` |
-| `attrmap_7358.attrmap` | attribute map | 360 | 44:7358 | PROBABLE | - | 20x18 | `gfx/bank44.asm` |
-| `palette_74c0.pal` | RGB palette | 128 | 44:74C0 | PROBABLE | - | - | `gfx/bank44.asm` |
-
-### `gfx/bank45/`
+### `gfx/frame_designs/plant_chevron_and_heart_borders_43/`
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_4000.2bpp` | 2bpp tiles | 2560 | 45:4000 | PROBABLE | exact | - | `gfx/bank45.asm` |
-| `tilemap_4a00.tilemap` | tile-index map | 360 | 45:4A00 | PROBABLE | - | 20x18 | `gfx/bank45.asm` |
-| `tilemap_4a00.attrmap` | attribute map | 360 | 45:4B68 | PROBABLE | - | 20x18 | `gfx/bank45.asm` |
-| `palette_4cd0.pal` | RGB palette | 128 | 45:4CD0 | PROBABLE | - | - | `gfx/bank45.asm` |
-| `tiles_4d50.2bpp` | 2bpp tiles | 2560 | 45:4D50 | PROBABLE | exact | - | `gfx/bank45.asm` |
-| `tilemap_5750.tilemap` | tile-index map | 360 | 45:5750 | PROBABLE | - | 20x18 | `gfx/bank45.asm` |
-| `tilemap_5750.attrmap` | attribute map | 360 | 45:58B8 | PROBABLE | - | 20x18 | `gfx/bank45.asm` |
-| `palette_5a20.pal` | RGB palette | 128 | 45:5A20 | PROBABLE | - | - | `gfx/bank45.asm` |
-| `tiles_5aa0.2bpp` | 2bpp tiles | 2560 | 45:5AA0 | PROBABLE | exact | - | `gfx/bank45.asm` |
-| `tilemap_64a0.tilemap` | tile-index map | 360 | 45:64A0 | PROBABLE | - | 20x18 | `gfx/bank45.asm` |
-| `tilemap_64a0.attrmap` | attribute map | 360 | 45:6608 | PROBABLE | - | 20x18 | `gfx/bank45.asm` |
-| `palette_6770.pal` | RGB palette | 128 | 45:6770 | PROBABLE | - | - | `gfx/bank45.asm` |
-| `tiles_67f0.2bpp` | 2bpp tiles | 2560 | 45:67F0 | PROBABLE | exact | - | `gfx/bank45.asm` |
-| `tilemap_71f0.tilemap` | tile-index map | 360 | 45:71F0 | PROBABLE | - | 20x18 | `gfx/bank45.asm` |
-| `tilemap_71f0.attrmap` | attribute map | 360 | 45:7358 | PROBABLE | - | 20x18 | `gfx/bank45.asm` |
-| `palette_74c0.pal` | RGB palette | 128 | 45:74C0 | PROBABLE | - | - | `gfx/bank45.asm` |
+| `green_plant_motif_border_43_4000_tiles.2bpp` | 2bpp tiles | 2560 | 43:4000 | PROBABLE | exact | - | `gfx/frame_designs/plant_chevron_and_heart_borders_43.asm` |
+| `green_plant_motif_border_43_4000_tilemap.tilemap` | tile-index map | 360 | 43:4A00 | PROBABLE | - | 20x18 | `gfx/frame_designs/plant_chevron_and_heart_borders_43.asm` |
+| `green_plant_motif_border_43_4000_attributes.attrmap` | attribute map | 360 | 43:4B68 | PROBABLE | - | 20x18 | `gfx/frame_designs/plant_chevron_and_heart_borders_43.asm` |
+| `green_plant_motif_border_43_4000_palettes.pal` | RGB palette | 128 | 43:4CD0 | PROBABLE | - | - | `gfx/frame_designs/plant_chevron_and_heart_borders_43.asm` |
+| `blue_yellow_chevron_border_43_4d50_tiles.2bpp` | 2bpp tiles | 2560 | 43:4D50 | PROBABLE | exact | - | `gfx/frame_designs/plant_chevron_and_heart_borders_43.asm` |
+| `blue_yellow_chevron_border_43_4d50_tilemap.tilemap` | tile-index map | 360 | 43:5750 | PROBABLE | - | 20x18 | `gfx/frame_designs/plant_chevron_and_heart_borders_43.asm` |
+| `blue_yellow_chevron_border_43_4d50_attributes.attrmap` | attribute map | 360 | 43:58B8 | PROBABLE | - | 20x18 | `gfx/frame_designs/plant_chevron_and_heart_borders_43.asm` |
+| `blue_yellow_chevron_border_43_4d50_palettes.pal` | RGB palette | 128 | 43:5A20 | PROBABLE | - | - | `gfx/frame_designs/plant_chevron_and_heart_borders_43.asm` |
+| `leaf_and_seed_border_43_5aa0_tiles.2bpp` | 2bpp tiles | 2560 | 43:5AA0 | PROBABLE | exact | - | `gfx/frame_designs/plant_chevron_and_heart_borders_43.asm` |
+| `leaf_and_seed_border_43_5aa0_tilemap.tilemap` | tile-index map | 360 | 43:64A0 | PROBABLE | - | 20x18 | `gfx/frame_designs/plant_chevron_and_heart_borders_43.asm` |
+| `leaf_and_seed_border_43_5aa0_attributes.attrmap` | attribute map | 360 | 43:6608 | PROBABLE | - | 20x18 | `gfx/frame_designs/plant_chevron_and_heart_borders_43.asm` |
+| `leaf_and_seed_border_43_5aa0_palettes.pal` | RGB palette | 128 | 43:6770 | PROBABLE | - | - | `gfx/frame_designs/plant_chevron_and_heart_borders_43.asm` |
+| `heart_and_flower_border_43_67f0_tiles.2bpp` | 2bpp tiles | 2560 | 43:67F0 | PROBABLE | exact | - | `gfx/frame_designs/plant_chevron_and_heart_borders_43.asm` |
+| `heart_and_flower_border_43_67f0_tilemap.tilemap` | tile-index map | 360 | 43:71F0 | PROBABLE | - | 20x18 | `gfx/frame_designs/plant_chevron_and_heart_borders_43.asm` |
+| `heart_and_flower_border_43_67f0_attributes.attrmap` | attribute map | 360 | 43:7358 | PROBABLE | - | 20x18 | `gfx/frame_designs/plant_chevron_and_heart_borders_43.asm` |
+| `heart_and_flower_border_43_67f0_palettes.pal` | RGB palette | 128 | 43:74C0 | PROBABLE | - | - | `gfx/frame_designs/plant_chevron_and_heart_borders_43.asm` |
 
-### `gfx/bank46/`
-
-| asset | kind | bytes | bank:addr | status | png | dims | source |
-|---|---|---:|---|---|---|---|---|
-| `tiles_4000.2bpp` | 2bpp tiles | 2560 | 46:4000 | PROBABLE | exact | - | `gfx/bank46.asm` |
-| `tilemap_4a00.tilemap` | tile-index map | 360 | 46:4A00 | PROBABLE | - | 20x18 | `gfx/bank46.asm` |
-| `tilemap_4a00.attrmap` | attribute map | 360 | 46:4B68 | PROBABLE | - | 20x18 | `gfx/bank46.asm` |
-| `palette_4cd0.pal` | RGB palette | 128 | 46:4CD0 | PROBABLE | - | - | `gfx/bank46.asm` |
-| `tiles_4d50.2bpp` | 2bpp tiles | 2560 | 46:4D50 | PROBABLE | exact | - | `gfx/bank46.asm` |
-| `tilemap_5750.tilemap` | tile-index map | 360 | 46:5750 | PROBABLE | - | 20x18 | `gfx/bank46.asm` |
-| `tilemap_5750.attrmap` | attribute map | 360 | 46:58B8 | PROBABLE | - | 20x18 | `gfx/bank46.asm` |
-| `palette_5a20.pal` | RGB palette | 128 | 46:5A20 | PROBABLE | - | - | `gfx/bank46.asm` |
-| `tiles_5aa0.2bpp` | 2bpp tiles | 2560 | 46:5AA0 | PROBABLE | exact | - | `gfx/bank46.asm` |
-| `tilemap_64a0.tilemap` | tile-index map | 360 | 46:64A0 | PROBABLE | - | 20x18 | `gfx/bank46.asm` |
-| `tilemap_64a0.attrmap` | attribute map | 360 | 46:6608 | PROBABLE | - | 20x18 | `gfx/bank46.asm` |
-| `palette_6770.pal` | RGB palette | 128 | 46:6770 | PROBABLE | - | - | `gfx/bank46.asm` |
-| `tiles_67f0.2bpp` | 2bpp tiles | 2560 | 46:67F0 | PROBABLE | exact | - | `gfx/bank46.asm` |
-| `tilemap_71f0.tilemap` | tile-index map | 360 | 46:71F0 | PROBABLE | - | 20x18 | `gfx/bank46.asm` |
-| `tilemap_71f0.attrmap` | attribute map | 360 | 46:7358 | PROBABLE | - | 20x18 | `gfx/bank46.asm` |
-| `palette_74c0.pal` | RGB palette | 128 | 46:74C0 | PROBABLE | - | - | `gfx/bank46.asm` |
-
-### `gfx/bank52/`
+### `gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/`
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_4080.2bpp` | 2bpp tiles | 2944 | 52:4080 | PROBABLE | exact | - | `gfx/bank52.asm` |
+| `monochrome_arc_border_44_4000_tiles.2bpp` | 2bpp tiles | 2560 | 44:4000 | PROBABLE | exact | - | `gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm` |
+| `monochrome_arc_border_44_4000_tilemap.tilemap` | tile-index map | 360 | 44:4A00 | PROBABLE | - | 20x18 | `gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm` |
+| `monochrome_arc_border_44_4000_attributes.attrmap` | attribute map | 360 | 44:4B68 | PROBABLE | - | 20x18 | `gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm` |
+| `monochrome_arc_border_44_4000_palettes.pal` | RGB palette | 128 | 44:4CD0 | PROBABLE | - | - | `gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm` |
+| `blue_bubble_border_44_4d50_tiles.2bpp` | 2bpp tiles | 2560 | 44:4D50 | PROBABLE | exact | - | `gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm` |
+| `blue_bubble_border_44_4d50_tilemap.tilemap` | tile-index map | 360 | 44:5750 | PROBABLE | - | 20x18 | `gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm` |
+| `blue_bubble_border_44_4d50_attributes.attrmap` | attribute map | 360 | 44:58B8 | PROBABLE | - | 20x18 | `gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm` |
+| `blue_bubble_border_44_4d50_palettes.pal` | RGB palette | 128 | 44:5A20 | PROBABLE | - | - | `gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm` |
+| `rock_border_44_5aa0_tiles.2bpp` | 2bpp tiles | 2560 | 44:5AA0 | PROBABLE | exact | - | `gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm` |
+| `rock_border_44_5aa0_tilemap.tilemap` | tile-index map | 360 | 44:64A0 | PROBABLE | - | 20x18 | `gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm` |
+| `rock_border_44_5aa0_attributes.attrmap` | attribute map | 360 | 44:6608 | PROBABLE | - | 20x18 | `gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm` |
+| `rock_border_44_5aa0_palettes.pal` | RGB palette | 128 | 44:6770 | PROBABLE | - | - | `gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm` |
+| `turquoise_scroll_border_44_67f0_tiles.2bpp` | 2bpp tiles | 2560 | 44:67F0 | PROBABLE | exact | - | `gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm` |
+| `turquoise_scroll_border_44_67f0_tilemap.tilemap` | tile-index map | 360 | 44:71F0 | PROBABLE | - | 20x18 | `gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm` |
+| `turquoise_scroll_border_44_67f0_attributes.attrmap` | attribute map | 360 | 44:7358 | PROBABLE | - | 20x18 | `gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm` |
+| `turquoise_scroll_border_44_67f0_palettes.pal` | RGB palette | 128 | 44:74C0 | PROBABLE | - | - | `gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm` |
 
-### `gfx/bank5b/`
-
-| asset | kind | bytes | bank:addr | status | png | dims | source |
-|---|---|---:|---|---|---|---|---|
-| `tiles_4000.2bpp` | 2bpp tiles | 4608 | 5B:4000 | PROBABLE | exact | - | `gfx/bank5b.asm` |
-| `tiles_5200.2bpp` | 2bpp tiles | 1152 | 5B:5200 | PROBABLE | exact | - | `gfx/bank5b.asm` |
-| `palette_5680.pal` | RGB palette | 96 | 5B:5680 | PROBABLE | - | - | `gfx/bank5b.asm` |
-
-### `gfx/bank60/`
-
-| asset | kind | bytes | bank:addr | status | png | dims | source |
-|---|---|---:|---|---|---|---|---|
-| `tiles_4360.2bpp` | 2bpp tiles | 240 | 60:4360 | PROBABLE | exact | - | `gfx/bank60.asm` |
-| `tiles_4455.2bpp` | 2bpp tiles | 1136 | 60:4455 | PROBABLE | exact | - | `gfx/bank60.asm` |
-| `tiles_4b50.2bpp` | 2bpp tiles | 560 | 60:4B50 | PROBABLE | exact | - | `gfx/bank60.asm` |
-| `tiles_4dd0.2bpp` | 2bpp tiles | 1184 | 60:4DD0 | PROBABLE | exact | - | `gfx/bank60.asm` |
-| `tiles_52c0.2bpp` | 2bpp tiles | 16 | 60:52C0 | HYPOTHESIS | exact | - | `gfx/bank60.asm` |
-| `tiles_52d0.2bpp` | 2bpp tiles | 880 | 60:52D0 | PROBABLE | exact | - | `gfx/bank60.asm` |
-| `tiles_5640.2bpp` | 2bpp tiles | 176 | 60:5640 | PROBABLE | exact | - | `gfx/bank60.asm` |
-| `tiles_5740.2bpp` | 2bpp tiles | 112 | 60:5740 | HYPOTHESIS | exact | - | `gfx/bank60.asm` |
-| `tiles_5800.2bpp` | 2bpp tiles | 768 | 60:5800 | PROBABLE | exact | - | `gfx/bank60.asm` |
-| `tiles_5d50.2bpp` | 2bpp tiles | 704 | 60:5D50 | PROBABLE | exact | - | `gfx/bank60.asm` |
-| `tiles_6010.2bpp` | 2bpp tiles | 80 | 60:6010 | HYPOTHESIS | exact | - | `gfx/bank60.asm` |
-| `tiles_6060.2bpp` | 2bpp tiles | 592 | 60:6060 | PROBABLE | exact | - | `gfx/bank60.asm` |
-| `tiles_62b0.2bpp` | 2bpp tiles | 448 | 60:62B0 | PROBABLE | exact | - | `gfx/bank60.asm` |
-| `tiles_64c0.2bpp` | 2bpp tiles | 112 | 60:64C0 | HYPOTHESIS | exact | - | `gfx/bank60.asm` |
-| `tiles_6580.2bpp` | 2bpp tiles | 128 | 60:6580 | PROBABLE | exact | - | `gfx/bank60.asm` |
-| `tiles_6640.2bpp` | 2bpp tiles | 2656 | 60:6640 | PROBABLE | exact | - | `gfx/bank60.asm` |
-| `tiles_70a0.2bpp` | 2bpp tiles | 1616 | 60:70A0 | PROBABLE | exact | - | `gfx/bank60.asm` |
-| `tiles_76f0.2bpp` | 2bpp tiles | 912 | 60:76F0 | PROBABLE | exact | - | `gfx/bank60.asm` |
-| `palette_7a80.pal` | RGB palette | 104 | 60:7A80 | PROBABLE | - | - | `gfx/bank60.asm` |
-
-### `gfx/bank61/`
+### `gfx/frame_designs/ice_spike_curve_and_gold_borders_45/`
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_4cc0.2bpp` | 2bpp tiles | 672 | 61:4CC0 | PROBABLE | exact | - | `gfx/bank61.asm` |
-| `tiles_4f63.2bpp` | 2bpp tiles | 656 | 61:4F63 | PROBABLE | exact | - | `gfx/bank61.asm` |
-| `tiles_58b0.2bpp` | 2bpp tiles | 656 | 61:58B0 | PROBABLE | exact | - | `gfx/bank61.asm` |
-| `tiles_65c0.2bpp` | 2bpp tiles | 800 | 61:65C0 | PROBABLE | exact | - | `gfx/bank61.asm` |
-| `palette_7a80.pal` | RGB palette | 104 | 61:7A80 | PROBABLE | - | - | `gfx/bank61.asm` |
+| `ice_crystal_border_45_4000_tiles.2bpp` | 2bpp tiles | 2560 | 45:4000 | PROBABLE | exact | - | `gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm` |
+| `ice_crystal_border_45_4000_tilemap.tilemap` | tile-index map | 360 | 45:4A00 | PROBABLE | - | 20x18 | `gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm` |
+| `ice_crystal_border_45_4000_attributes.attrmap` | attribute map | 360 | 45:4B68 | PROBABLE | - | 20x18 | `gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm` |
+| `ice_crystal_border_45_4000_palettes.pal` | RGB palette | 128 | 45:4CD0 | PROBABLE | - | - | `gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm` |
+| `violet_spike_border_45_4d50_tiles.2bpp` | 2bpp tiles | 2560 | 45:4D50 | PROBABLE | exact | - | `gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm` |
+| `violet_spike_border_45_4d50_tilemap.tilemap` | tile-index map | 360 | 45:5750 | PROBABLE | - | 20x18 | `gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm` |
+| `violet_spike_border_45_4d50_attributes.attrmap` | attribute map | 360 | 45:58B8 | PROBABLE | - | 20x18 | `gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm` |
+| `violet_spike_border_45_4d50_palettes.pal` | RGB palette | 128 | 45:5A20 | PROBABLE | - | - | `gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm` |
+| `red_curved_border_45_5aa0_tiles.2bpp` | 2bpp tiles | 2560 | 45:5AA0 | PROBABLE | exact | - | `gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm` |
+| `red_curved_border_45_5aa0_tilemap.tilemap` | tile-index map | 360 | 45:64A0 | PROBABLE | - | 20x18 | `gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm` |
+| `red_curved_border_45_5aa0_attributes.attrmap` | attribute map | 360 | 45:6608 | PROBABLE | - | 20x18 | `gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm` |
+| `red_curved_border_45_5aa0_palettes.pal` | RGB palette | 128 | 45:6770 | PROBABLE | - | - | `gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm` |
+| `gold_geometric_border_45_67f0_tiles.2bpp` | 2bpp tiles | 2560 | 45:67F0 | PROBABLE | exact | - | `gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm` |
+| `gold_geometric_border_45_67f0_tilemap.tilemap` | tile-index map | 360 | 45:71F0 | PROBABLE | - | 20x18 | `gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm` |
+| `gold_geometric_border_45_67f0_attributes.attrmap` | attribute map | 360 | 45:7358 | PROBABLE | - | 20x18 | `gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm` |
+| `gold_geometric_border_45_67f0_palettes.pal` | RGB palette | 128 | 45:74C0 | PROBABLE | - | - | `gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm` |
+
+### `gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/`
+
+| asset | kind | bytes | bank:addr | status | png | dims | source |
+|---|---|---:|---|---|---|---|---|
+| `star_triangle_border_46_4000_tiles.2bpp` | 2bpp tiles | 2560 | 46:4000 | PROBABLE | exact | - | `gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm` |
+| `star_triangle_border_46_4000_tilemap.tilemap` | tile-index map | 360 | 46:4A00 | PROBABLE | - | 20x18 | `gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm` |
+| `star_triangle_border_46_4000_attributes.attrmap` | attribute map | 360 | 46:4B68 | PROBABLE | - | 20x18 | `gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm` |
+| `star_triangle_border_46_4000_palettes.pal` | RGB palette | 128 | 46:4CD0 | PROBABLE | - | - | `gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm` |
+| `orange_rivet_panel_46_4d50_tiles.2bpp` | 2bpp tiles | 2560 | 46:4D50 | PROBABLE | exact | - | `gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm` |
+| `orange_rivet_panel_46_4d50_tilemap.tilemap` | tile-index map | 360 | 46:5750 | PROBABLE | - | 20x18 | `gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm` |
+| `orange_rivet_panel_46_4d50_attributes.attrmap` | attribute map | 360 | 46:58B8 | PROBABLE | - | 20x18 | `gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm` |
+| `orange_rivet_panel_46_4d50_palettes.pal` | RGB palette | 128 | 46:5A20 | PROBABLE | - | - | `gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm` |
+| `blue_energy_border_46_5aa0_tiles.2bpp` | 2bpp tiles | 2560 | 46:5AA0 | PROBABLE | exact | - | `gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm` |
+| `blue_energy_border_46_5aa0_tilemap.tilemap` | tile-index map | 360 | 46:64A0 | PROBABLE | - | 20x18 | `gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm` |
+| `blue_energy_border_46_5aa0_attributes.attrmap` | attribute map | 360 | 46:6608 | PROBABLE | - | 20x18 | `gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm` |
+| `blue_energy_border_46_5aa0_palettes.pal` | RGB palette | 128 | 46:6770 | PROBABLE | - | - | `gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm` |
+| `pink_scallop_border_46_67f0_tiles.2bpp` | 2bpp tiles | 2560 | 46:67F0 | PROBABLE | exact | - | `gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm` |
+| `pink_scallop_border_46_67f0_tilemap.tilemap` | tile-index map | 360 | 46:71F0 | PROBABLE | - | 20x18 | `gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm` |
+| `pink_scallop_border_46_67f0_attributes.attrmap` | attribute map | 360 | 46:7358 | PROBABLE | - | 20x18 | `gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm` |
+| `pink_scallop_border_46_67f0_palettes.pal` | RGB palette | 128 | 46:74C0 | PROBABLE | - | - | `gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm` |
+
+### `gfx/browser/page_list_prototype_messages/`
+
+| asset | kind | bytes | bank:addr | status | png | dims | source |
+|---|---|---:|---|---|---|---|---|
+| `prototype_message_tiles.2bpp` | 2bpp tiles | 2944 | 52:4080 | PROBABLE | exact | - | `gfx/browser/page_list_prototype_messages.asm` |
+
+### `gfx/ui_art/logo_and_window_tiles/`
+
+| asset | kind | bytes | bank:addr | status | png | dims | source |
+|---|---|---:|---|---|---|---|---|
+| `logo_and_window_tiles.2bpp` | 2bpp tiles | 4608 | 5B:4000 | PROBABLE | exact | - | `gfx/ui_art/logo_and_window_tiles.asm` |
+| `mail_server_box_tiles.2bpp` | 2bpp tiles | 1152 | 5B:5200 | PROBABLE | exact | - | `gfx/ui_art/logo_and_window_tiles.asm` |
+| `art_palettes.pal` | RGB palette | 96 | 5B:5680 | PROBABLE | - | - | `gfx/ui_art/logo_and_window_tiles.asm` |
+
+### `gfx/ui_art/frame_glyph_fragments/`
+
+| asset | kind | bytes | bank:addr | status | png | dims | source |
+|---|---|---:|---|---|---|---|---|
+| `tile_fragment_4360.2bpp` | 2bpp tiles | 240 | 60:4360 | PROBABLE | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
+| `tile_fragment_4455.2bpp` | 2bpp tiles | 1136 | 60:4455 | PROBABLE | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
+| `tile_fragment_4b50.2bpp` | 2bpp tiles | 560 | 60:4B50 | PROBABLE | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
+| `tile_fragment_4dd0.2bpp` | 2bpp tiles | 1184 | 60:4DD0 | PROBABLE | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
+| `tile_fragment_52c0.2bpp` | 2bpp tiles | 16 | 60:52C0 | HYPOTHESIS | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
+| `tile_fragment_52d0.2bpp` | 2bpp tiles | 880 | 60:52D0 | PROBABLE | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
+| `tile_fragment_5640.2bpp` | 2bpp tiles | 176 | 60:5640 | PROBABLE | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
+| `tile_fragment_5740.2bpp` | 2bpp tiles | 112 | 60:5740 | HYPOTHESIS | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
+| `tile_fragment_5800.2bpp` | 2bpp tiles | 768 | 60:5800 | PROBABLE | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
+| `tile_fragment_5d50.2bpp` | 2bpp tiles | 704 | 60:5D50 | PROBABLE | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
+| `tile_fragment_6010.2bpp` | 2bpp tiles | 80 | 60:6010 | HYPOTHESIS | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
+| `tile_fragment_6060.2bpp` | 2bpp tiles | 592 | 60:6060 | PROBABLE | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
+| `tile_fragment_62b0.2bpp` | 2bpp tiles | 448 | 60:62B0 | PROBABLE | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
+| `tile_fragment_64c0.2bpp` | 2bpp tiles | 112 | 60:64C0 | HYPOTHESIS | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
+| `tile_fragment_6580.2bpp` | 2bpp tiles | 128 | 60:6580 | PROBABLE | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
+| `jump_button_and_frame_tiles.2bpp` | 2bpp tiles | 2656 | 60:6640 | PROBABLE | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
+| `back_button_and_text_tiles.2bpp` | 2bpp tiles | 1616 | 60:70A0 | PROBABLE | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
+| `tile_fragment_76f0.2bpp` | 2bpp tiles | 912 | 60:76F0 | PROBABLE | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
+| `fragment_palettes.pal` | RGB palette | 104 | 60:7A80 | PROBABLE | - | - | `gfx/ui_art/frame_glyph_fragments.asm` |
+
+### `gfx/ui_art/button_art_fragments/`
+
+| asset | kind | bytes | bank:addr | status | png | dims | source |
+|---|---|---:|---|---|---|---|---|
+| `dpad_button_and_frame_tiles.2bpp` | 2bpp tiles | 672 | 61:4CC0 | PROBABLE | exact | - | `gfx/ui_art/button_art_fragments.asm` |
+| `tile_fragment_4f63.2bpp` | 2bpp tiles | 656 | 61:4F63 | PROBABLE | exact | - | `gfx/ui_art/button_art_fragments.asm` |
+| `tile_fragment_58b0.2bpp` | 2bpp tiles | 656 | 61:58B0 | PROBABLE | exact | - | `gfx/ui_art/button_art_fragments.asm` |
+| `tile_fragment_65c0.2bpp` | 2bpp tiles | 800 | 61:65C0 | PROBABLE | exact | - | `gfx/ui_art/button_art_fragments.asm` |
+| `fragment_palettes.pal` | RGB palette | 104 | 61:7A80 | PROBABLE | - | - | `gfx/ui_art/button_art_fragments.asm` |
 
 ### `gfx/browser/frames_0_1/`
 
@@ -1482,7 +1482,7 @@ make png-export       (maintainers) PNGs regenerated from the binaries; never ov
 | kind | PNG source | files | notes |
 |---|---|---:|---|
 | 2bpp tile blocks | `name.png` (exact `rgbgfx` source of `name.2bpp`) | 405 | all active catalogue `.2bpp` files; shades 0-3 are grey indices, not the game's colours (the game colours come from palettes and tile attributes; see screens) |
-| explicit RAW byte views | `gfx/bank42/raw_*.png` | 4 | 80B through raw2bpp; UNKNOWN purpose/HYPOTHESIS, without tile classification |
+| explicit RAW byte views | `gfx/frame_designs/metal_flame_and_creature_borders_42/raw_*.png` | 4 | 80B through raw2bpp; UNKNOWN purpose/HYPOTHESIS, without tile classification |
 | JIS 12x12 glyphs (11 binaries) | `data/fonts/jis12x12_rows_*.png`, 94 glyphs per sheet row | 9 sheets | bank 7C's three contiguous binaries share one complete sheet |
 | 8x16 font runs | `data/fonts/font_8x16_*.png`, 16 glyphs per row | 27 sheets | |
 | 6x12 Latin font | `data/fonts/ascii_6x12.png` | 1 sheet | 6 pixel wide cells (the two unused bits of each byte stay 0) |

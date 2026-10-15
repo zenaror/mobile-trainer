@@ -181,69 +181,69 @@ Columns: `#` = order of the listing (path order); `asset` = PNG under `gfx/` (th
 | 64 | `address_book/shared_tiles_bank28/tiles_4fd0` | 28:4FD0 | 32 (16x2) | AddrPick_InitScreen@8400 | TXT | one text strip, unreadable |
 | 65 | `address_book/unreferenced_confirm_screen/tiles_7740` | 2C:7740 | 18 (9x2) | AddrScreenUnused_InitScreen@9300b1 | TXT | labels "みる" "かく" "START" (unused confirm screen) |
 | 66 | `address_book/unreferenced_confirm_screen/tiles_7b70` | 2C:7B70 | 9 (9x1) | AddrScreenUnused_InitScreen@8000 | UNK | 9 tiles of the unused screen, not classified |
-| 67 | `bank41/tiles_4000` | 41:4000 | 160 (16x10) | - | FRM | unused frame record 41/0: katakana legend "スタート▶メニュー / B ▶モドル"; digits font 0-9 and ":" |
-| 68 | `bank41/tiles_4d50` | 41:4D50 | 160 (16x10) | - | FRM | unused frame record 41/1: Latin legend "START MENU / B BACK"; digits |
-| 69 | `bank41/tiles_5aa0` | 41:5AA0 | 160 (16x10) | - | FRM | unused frame record 41/2: legend "START メニュー B モドル"; digits |
-| 70 | `bank41/tiles_67f0` | 41:67F0 | 160 (16x10) | - | FRM | unused frame record 41/3: legend "START メニュー B モドル"; digits |
-| 71 | `bank42/tiles_4000` | 42:4000 | 84 (14x6) | - | FRM | unused frame block 42 (first, 1344 bytes): Latin legend "START MENU / B BACK" (Latin text seen at 42:4000) |
-| 72 | `bank42/tiles_4802` | 42:4802 | 10 (10x1) | - | UNK | tile pieces of bank 42 (HYPOTHESIS typing): digits-like strip |
-| 73 | `bank42/tiles_4900` | 42:4900 | 11 (11x1) | - | UNK | tile pieces of bank 42 (HYPOTHESIS typing): digits-like strip |
-| 74 | `bank42/tiles_4d50` | 42:4D50 | 27 (9x3) | - | FRM | unused frame record 42/1 (part): art and legend "スタート メニュー / Bボタンもどる" (reading of the preview) |
-| 75 | `bank42/tiles_4f00` | 42:4F00 | 60 (15x4) | - | FRM | unused frame record 42/1 (part) |
-| 76 | `bank42/tiles_52c0` | 42:52C0 | 2 (2x1) | - | UNK | 2 tiles (HYPOTHESIS typing) |
-| 77 | `bank42/tiles_52e0` | 42:52E0 | 71 (16x5) | - | FRM | unused frame record 42/1 (part): digits "012345678" + art |
-| 78 | `bank42/tiles_5aa0` | 42:5AA0 | 59 (16x4) | - | FRM | unused frame record 42/2: legend "スタート メニュー / B もどる" |
-| 79 | `bank42/tiles_5e90` | 42:5E90 | 13 (13x1) | - | UNK | tile pieces of bank 42 (HYPOTHESIS typing) |
-| 80 | `bank42/tiles_5f92` | 42:5F92 | 26 (13x2) | - | FRM | unused frame record 42/2 (part): "もどる" legend piece |
-| 81 | `bank42/tiles_62a0` | 42:62A0 | 10 (10x1) | - | UNK | tile pieces of bank 42 (HYPOTHESIS typing): digits-like strip |
-| 82 | `bank42/tiles_63a0` | 42:63A0 | 1 (1x1) | - | UNK | 1 tile (HYPOTHESIS typing) |
-| 83 | `bank42/tiles_63b0` | 42:63B0 | 15 (15x1) | - | FRM | unused frame record 42/3 (part) |
-| 84 | `bank42/tiles_67f0` | 42:67F0 | 1 (1x1) | - | UNK | 1 tile (HYPOTHESIS typing) |
-| 85 | `bank42/tiles_6810` | 42:6810 | 25 (16x2) | - | FRM | unused frame record 42/3 (part): art |
-| 86 | `bank42/tiles_69b0` | 42:69B0 | 49 (16x4) | - | FRM | unused frame record 42/3: legend "START メニュー B モドル" |
-| 87 | `bank42/tiles_6ff2` | 42:6FF2 | 10 (10x1) | - | UNK | tile pieces of bank 42 (HYPOTHESIS typing): digits-like strip |
-| 88 | `bank42/tiles_70f0` | 42:70F0 | 10 (10x1) | - | UNK | tile pieces of bank 42 (HYPOTHESIS typing): digits-like strip |
-| 89 | `bank43/tiles_4000` | 43:4000 | 160 (16x10) | - | FRM | unused frame record 43/0: legend "START メニュー B もどる"; digits |
-| 90 | `bank43/tiles_4d50` | 43:4D50 | 160 (16x10) | - | FRM | unused frame record 43/1: Latin legend "START MENU B BACK"; digits |
-| 91 | `bank43/tiles_5aa0` | 43:5AA0 | 160 (16x10) | - | FRM | unused frame record 43/2: legend "スタート メニュー B もどる"; digits |
-| 92 | `bank43/tiles_67f0` | 43:67F0 | 160 (16x10) | - | FRM | unused frame record 43/3: Latin legend "START MENU B BACK"; digits |
-| 93 | `bank44/tiles_4000` | 44:4000 | 160 (16x10) | - | FRM | unused frame record 44/0: Latin legend "START ▶MENU / B ▶BACK"; digits |
-| 94 | `bank44/tiles_4d50` | 44:4D50 | 160 (16x10) | - | FRM | unused frame record 44/1: katakana legend "メニュー / B モドル"; digits |
-| 95 | `bank44/tiles_5aa0` | 44:5AA0 | 160 (16x10) | - | FRM | unused frame record 44/2: legend "スタート▶メニュー / B ▶モドル"; digits |
-| 96 | `bank44/tiles_67f0` | 44:67F0 | 160 (16x10) | - | FRM | unused frame record 44/3: Latin legend "START MENU / B BACK"; digits |
-| 97 | `bank45/tiles_4000` | 45:4000 | 160 (16x10) | - | FRM | unused frame record 45/0: legend "スタート▶メニュー B▶モドル"; digits |
-| 98 | `bank45/tiles_4d50` | 45:4D50 | 160 (16x10) | - | FRM | unused frame record 45/1: mixed legend ("START" + "メニュー" "モドル"); digits |
-| 99 | `bank45/tiles_5aa0` | 45:5AA0 | 160 (16x10) | - | FRM | unused frame record 45/2: Latin legend "START MENU / B BACK"; digits |
-| 100 | `bank45/tiles_67f0` | 45:67F0 | 160 (16x10) | - | FRM | unused frame record 45/3: legend "スタート▶メニュー / B ▶モドル"; digits |
-| 101 | `bank46/tiles_4000` | 46:4000 | 160 (16x10) | - | FRM | unused frame record 46/0: legend "スタート▶メニュー B▶もどる"; digits |
-| 102 | `bank46/tiles_4d50` | 46:4D50 | 160 (16x10) | - | FRM | unused frame record 46/1: legend "スタート メニュー / B モドル"; digits |
-| 103 | `bank46/tiles_5aa0` | 46:5AA0 | 160 (16x10) | - | FRM | unused frame record 46/2: mixed legend ("メニュー" "START" "もどる" B); digits |
-| 104 | `bank46/tiles_67f0` | 46:67F0 | 160 (16x10) | - | FRM | unused frame record 46/3: Latin legend "START ▶MENU B ▶BACK"; digits |
-| 105 | `bank52/tiles_4080` | 52:4080 | 184 (8x23) | PageListProto_ShowMessage@9580b1 | TXT | four pre-rendered message images (40 tiles each + 8 padding tiles) copied by the unreferenced PageListProto_ShowMessage; kana fragments only, tile order inside an image not reconstructed (unreadable) |
-| 106 | `bank5b/tiles_4000` | 5B:4000 | 288 (16x18) | - | MIX | logo/credit-like sheet: the Latin word "GAMEFREAK" (small, repeated), katakana fragments ("モバイル…ム…"), window frames; no loader found |
-| 107 | `bank5b/tiles_5200` | 5B:5200 | 72 (12x6) | - | MIX | box labelled "メールサーバ" (PROBABLE) + frames; no loader found |
-| 108 | `bank60/tiles_4360` | 60:4360 | 15 (15x1) | - | UNK | strip, unreadable; no loader found |
-| 109 | `bank60/tiles_4455` | 60:4455 | 71 (16x5) | - | ART | scenery-like art with fragments; no loader found |
-| 110 | `bank60/tiles_4b50` | 60:4B50 | 35 (16x3) | - | UNK | unreadable; no loader found |
-| 111 | `bank60/tiles_4dd0` | 60:4DD0 | 74 (16x5) | - | UNK | frames + text fragments, unreadable; no loader found |
-| 112 | `bank60/tiles_52c0` | 60:52C0 | 1 (1x1) | - | UNK | 1 tile (HYPOTHESIS typing) |
-| 113 | `bank60/tiles_52d0` | 60:52D0 | 55 (11x5) | - | UNK | frames + text fragments, unreadable; no loader found |
-| 114 | `bank60/tiles_5640` | 60:5640 | 11 (11x1) | - | UNK | strip, unreadable; no loader found |
-| 115 | `bank60/tiles_5740` | 60:5740 | 7 (7x1) | - | UNK | HYPOTHESIS typing |
-| 116 | `bank60/tiles_5800` | 60:5800 | 48 (16x3) | - | UNK | text fragments, unreadable; no loader found |
-| 117 | `bank60/tiles_5d50` | 60:5D50 | 44 (11x4) | - | UNK | frames with text fragments, unreadable; no loader found |
-| 118 | `bank60/tiles_6010` | 60:6010 | 5 (5x1) | - | UNK | HYPOTHESIS typing |
-| 119 | `bank60/tiles_6060` | 60:6060 | 37 (16x3) | - | UNK | text fragments, unreadable; no loader found |
-| 120 | `bank60/tiles_62b0` | 60:62B0 | 28 (14x2) | - | UNK | art fragments, unreadable; no loader found |
-| 121 | `bank60/tiles_64c0` | 60:64C0 | 7 (7x1) | - | UNK | HYPOTHESIS typing |
-| 122 | `bank60/tiles_6580` | 60:6580 | 8 (8x1) | - | UNK | strip, unreadable; no loader found |
-| 123 | `bank60/tiles_6640` | 60:6640 | 166 (16x11) | - | MIX | help/tutorial-like sheet with the button label "A ジャンプ" (A jump), boxes and kana fragments; no loader found |
-| 124 | `bank60/tiles_70a0` | 60:70A0 | 101 (16x7) | - | MIX | sheet with the button label "B もどる" and "XXXさん" (placeholder-like name, PROBABLE reading) and kana fragments; no loader found |
-| 125 | `bank60/tiles_76f0` | 60:76F0 | 57 (16x4) | - | UNK | art, unreadable; no loader found |
-| 126 | `bank61/tiles_4cc0` | 61:4CC0 | 42 (14x3) | - | MIX | fragment "＋ボタン" (+ button) and frames; no loader found |
-| 127 | `bank61/tiles_4f63` | 61:4F63 | 41 (16x3) | - | UNK | art/text fragments, unreadable; no loader found |
-| 128 | `bank61/tiles_58b0` | 61:58B0 | 41 (16x3) | - | UNK | art/text fragments, unreadable; no loader found |
-| 129 | `bank61/tiles_65c0` | 61:65C0 | 50 (10x5) | - | UNK | frames with text fragments, unreadable; no loader found |
+| 67 | `frame_designs/foliage_ribbon_and_beveled_panels_41/tiles_4000` | 41:4000 | 160 (16x10) | - | FRM | unused frame record 41/0: katakana legend "スタート▶メニュー / B ▶モドル"; digits font 0-9 and ":" |
+| 68 | `frame_designs/foliage_ribbon_and_beveled_panels_41/tiles_4d50` | 41:4D50 | 160 (16x10) | - | FRM | unused frame record 41/1: Latin legend "START MENU / B BACK"; digits |
+| 69 | `frame_designs/foliage_ribbon_and_beveled_panels_41/tiles_5aa0` | 41:5AA0 | 160 (16x10) | - | FRM | unused frame record 41/2: legend "START メニュー B モドル"; digits |
+| 70 | `frame_designs/foliage_ribbon_and_beveled_panels_41/tiles_67f0` | 41:67F0 | 160 (16x10) | - | FRM | unused frame record 41/3: legend "START メニュー B モドル"; digits |
+| 71 | `frame_designs/metal_flame_and_creature_borders_42/tiles_4000` | 42:4000 | 84 (14x6) | - | FRM | unused frame block 42 (first, 1344 bytes): Latin legend "START MENU / B BACK" (Latin text seen at 42:4000) |
+| 72 | `frame_designs/metal_flame_and_creature_borders_42/tiles_4802` | 42:4802 | 10 (10x1) | - | UNK | tile pieces of bank 42 (HYPOTHESIS typing): digits-like strip |
+| 73 | `frame_designs/metal_flame_and_creature_borders_42/tiles_4900` | 42:4900 | 11 (11x1) | - | UNK | tile pieces of bank 42 (HYPOTHESIS typing): digits-like strip |
+| 74 | `frame_designs/metal_flame_and_creature_borders_42/tiles_4d50` | 42:4D50 | 27 (9x3) | - | FRM | unused frame record 42/1 (part): art and legend "スタート メニュー / Bボタンもどる" (reading of the preview) |
+| 75 | `frame_designs/metal_flame_and_creature_borders_42/tiles_4f00` | 42:4F00 | 60 (15x4) | - | FRM | unused frame record 42/1 (part) |
+| 76 | `frame_designs/metal_flame_and_creature_borders_42/tiles_52c0` | 42:52C0 | 2 (2x1) | - | UNK | 2 tiles (HYPOTHESIS typing) |
+| 77 | `frame_designs/metal_flame_and_creature_borders_42/tiles_52e0` | 42:52E0 | 71 (16x5) | - | FRM | unused frame record 42/1 (part): digits "012345678" + art |
+| 78 | `frame_designs/metal_flame_and_creature_borders_42/tiles_5aa0` | 42:5AA0 | 59 (16x4) | - | FRM | unused frame record 42/2: legend "スタート メニュー / B もどる" |
+| 79 | `frame_designs/metal_flame_and_creature_borders_42/tiles_5e90` | 42:5E90 | 13 (13x1) | - | UNK | tile pieces of bank 42 (HYPOTHESIS typing) |
+| 80 | `frame_designs/metal_flame_and_creature_borders_42/tiles_5f92` | 42:5F92 | 26 (13x2) | - | FRM | unused frame record 42/2 (part): "もどる" legend piece |
+| 81 | `frame_designs/metal_flame_and_creature_borders_42/tiles_62a0` | 42:62A0 | 10 (10x1) | - | UNK | tile pieces of bank 42 (HYPOTHESIS typing): digits-like strip |
+| 82 | `frame_designs/metal_flame_and_creature_borders_42/tiles_63a0` | 42:63A0 | 1 (1x1) | - | UNK | 1 tile (HYPOTHESIS typing) |
+| 83 | `frame_designs/metal_flame_and_creature_borders_42/tiles_63b0` | 42:63B0 | 15 (15x1) | - | FRM | unused frame record 42/3 (part) |
+| 84 | `frame_designs/metal_flame_and_creature_borders_42/tiles_67f0` | 42:67F0 | 1 (1x1) | - | UNK | 1 tile (HYPOTHESIS typing) |
+| 85 | `frame_designs/metal_flame_and_creature_borders_42/tiles_6810` | 42:6810 | 25 (16x2) | - | FRM | unused frame record 42/3 (part): art |
+| 86 | `frame_designs/metal_flame_and_creature_borders_42/tiles_69b0` | 42:69B0 | 49 (16x4) | - | FRM | unused frame record 42/3: legend "START メニュー B モドル" |
+| 87 | `frame_designs/metal_flame_and_creature_borders_42/tiles_6ff2` | 42:6FF2 | 10 (10x1) | - | UNK | tile pieces of bank 42 (HYPOTHESIS typing): digits-like strip |
+| 88 | `frame_designs/metal_flame_and_creature_borders_42/tiles_70f0` | 42:70F0 | 10 (10x1) | - | UNK | tile pieces of bank 42 (HYPOTHESIS typing): digits-like strip |
+| 89 | `frame_designs/plant_chevron_and_heart_borders_43/tiles_4000` | 43:4000 | 160 (16x10) | - | FRM | unused frame record 43/0: legend "START メニュー B もどる"; digits |
+| 90 | `frame_designs/plant_chevron_and_heart_borders_43/tiles_4d50` | 43:4D50 | 160 (16x10) | - | FRM | unused frame record 43/1: Latin legend "START MENU B BACK"; digits |
+| 91 | `frame_designs/plant_chevron_and_heart_borders_43/tiles_5aa0` | 43:5AA0 | 160 (16x10) | - | FRM | unused frame record 43/2: legend "スタート メニュー B もどる"; digits |
+| 92 | `frame_designs/plant_chevron_and_heart_borders_43/tiles_67f0` | 43:67F0 | 160 (16x10) | - | FRM | unused frame record 43/3: Latin legend "START MENU B BACK"; digits |
+| 93 | `frame_designs/arc_bubble_rock_and_scroll_borders_44/tiles_4000` | 44:4000 | 160 (16x10) | - | FRM | unused frame record 44/0: Latin legend "START ▶MENU / B ▶BACK"; digits |
+| 94 | `frame_designs/arc_bubble_rock_and_scroll_borders_44/tiles_4d50` | 44:4D50 | 160 (16x10) | - | FRM | unused frame record 44/1: katakana legend "メニュー / B モドル"; digits |
+| 95 | `frame_designs/arc_bubble_rock_and_scroll_borders_44/tiles_5aa0` | 44:5AA0 | 160 (16x10) | - | FRM | unused frame record 44/2: legend "スタート▶メニュー / B ▶モドル"; digits |
+| 96 | `frame_designs/arc_bubble_rock_and_scroll_borders_44/tiles_67f0` | 44:67F0 | 160 (16x10) | - | FRM | unused frame record 44/3: Latin legend "START MENU / B BACK"; digits |
+| 97 | `frame_designs/ice_spike_curve_and_gold_borders_45/tiles_4000` | 45:4000 | 160 (16x10) | - | FRM | unused frame record 45/0: legend "スタート▶メニュー B▶モドル"; digits |
+| 98 | `frame_designs/ice_spike_curve_and_gold_borders_45/tiles_4d50` | 45:4D50 | 160 (16x10) | - | FRM | unused frame record 45/1: mixed legend ("START" + "メニュー" "モドル"); digits |
+| 99 | `frame_designs/ice_spike_curve_and_gold_borders_45/tiles_5aa0` | 45:5AA0 | 160 (16x10) | - | FRM | unused frame record 45/2: Latin legend "START MENU / B BACK"; digits |
+| 100 | `frame_designs/ice_spike_curve_and_gold_borders_45/tiles_67f0` | 45:67F0 | 160 (16x10) | - | FRM | unused frame record 45/3: legend "スタート▶メニュー / B ▶モドル"; digits |
+| 101 | `frame_designs/star_rivet_energy_and_scallop_borders_46/tiles_4000` | 46:4000 | 160 (16x10) | - | FRM | unused frame record 46/0: legend "スタート▶メニュー B▶もどる"; digits |
+| 102 | `frame_designs/star_rivet_energy_and_scallop_borders_46/tiles_4d50` | 46:4D50 | 160 (16x10) | - | FRM | unused frame record 46/1: legend "スタート メニュー / B モドル"; digits |
+| 103 | `frame_designs/star_rivet_energy_and_scallop_borders_46/tiles_5aa0` | 46:5AA0 | 160 (16x10) | - | FRM | unused frame record 46/2: mixed legend ("メニュー" "START" "もどる" B); digits |
+| 104 | `frame_designs/star_rivet_energy_and_scallop_borders_46/tiles_67f0` | 46:67F0 | 160 (16x10) | - | FRM | unused frame record 46/3: Latin legend "START ▶MENU B ▶BACK"; digits |
+| 105 | `browser/page_list_prototype_messages/tiles_4080` | 52:4080 | 184 (8x23) | PageListProto_ShowMessage@9580b1 | TXT | four pre-rendered message images (40 tiles each + 8 padding tiles) copied by the unreferenced PageListProto_ShowMessage; kana fragments only, tile order inside an image not reconstructed (unreadable) |
+| 106 | `ui_art/logo_and_window_tiles/tiles_4000` | 5B:4000 | 288 (16x18) | - | MIX | logo/credit-like sheet: the Latin word "GAMEFREAK" (small, repeated), katakana fragments ("モバイル…ム…"), window frames; no loader found |
+| 107 | `ui_art/logo_and_window_tiles/tiles_5200` | 5B:5200 | 72 (12x6) | - | MIX | box labelled "メールサーバ" (PROBABLE) + frames; no loader found |
+| 108 | `ui_art/frame_glyph_fragments/tiles_4360` | 60:4360 | 15 (15x1) | - | UNK | strip, unreadable; no loader found |
+| 109 | `ui_art/frame_glyph_fragments/tiles_4455` | 60:4455 | 71 (16x5) | - | ART | scenery-like art with fragments; no loader found |
+| 110 | `ui_art/frame_glyph_fragments/tiles_4b50` | 60:4B50 | 35 (16x3) | - | UNK | unreadable; no loader found |
+| 111 | `ui_art/frame_glyph_fragments/tiles_4dd0` | 60:4DD0 | 74 (16x5) | - | UNK | frames + text fragments, unreadable; no loader found |
+| 112 | `ui_art/frame_glyph_fragments/tiles_52c0` | 60:52C0 | 1 (1x1) | - | UNK | 1 tile (HYPOTHESIS typing) |
+| 113 | `ui_art/frame_glyph_fragments/tiles_52d0` | 60:52D0 | 55 (11x5) | - | UNK | frames + text fragments, unreadable; no loader found |
+| 114 | `ui_art/frame_glyph_fragments/tiles_5640` | 60:5640 | 11 (11x1) | - | UNK | strip, unreadable; no loader found |
+| 115 | `ui_art/frame_glyph_fragments/tiles_5740` | 60:5740 | 7 (7x1) | - | UNK | HYPOTHESIS typing |
+| 116 | `ui_art/frame_glyph_fragments/tiles_5800` | 60:5800 | 48 (16x3) | - | UNK | text fragments, unreadable; no loader found |
+| 117 | `ui_art/frame_glyph_fragments/tiles_5d50` | 60:5D50 | 44 (11x4) | - | UNK | frames with text fragments, unreadable; no loader found |
+| 118 | `ui_art/frame_glyph_fragments/tiles_6010` | 60:6010 | 5 (5x1) | - | UNK | HYPOTHESIS typing |
+| 119 | `ui_art/frame_glyph_fragments/tiles_6060` | 60:6060 | 37 (16x3) | - | UNK | text fragments, unreadable; no loader found |
+| 120 | `ui_art/frame_glyph_fragments/tiles_62b0` | 60:62B0 | 28 (14x2) | - | UNK | art fragments, unreadable; no loader found |
+| 121 | `ui_art/frame_glyph_fragments/tiles_64c0` | 60:64C0 | 7 (7x1) | - | UNK | HYPOTHESIS typing |
+| 122 | `ui_art/frame_glyph_fragments/tiles_6580` | 60:6580 | 8 (8x1) | - | UNK | strip, unreadable; no loader found |
+| 123 | `ui_art/frame_glyph_fragments/tiles_6640` | 60:6640 | 166 (16x11) | - | MIX | help/tutorial-like sheet with the button label "A ジャンプ" (A jump), boxes and kana fragments; no loader found |
+| 124 | `ui_art/frame_glyph_fragments/tiles_70a0` | 60:70A0 | 101 (16x7) | - | MIX | sheet with the button label "B もどる" and "XXXさん" (placeholder-like name, PROBABLE reading) and kana fragments; no loader found |
+| 125 | `ui_art/frame_glyph_fragments/tiles_76f0` | 60:76F0 | 57 (16x4) | - | UNK | art, unreadable; no loader found |
+| 126 | `ui_art/button_art_fragments/tiles_4cc0` | 61:4CC0 | 42 (14x3) | - | MIX | fragment "＋ボタン" (+ button) and frames; no loader found |
+| 127 | `ui_art/button_art_fragments/tiles_4f63` | 61:4F63 | 41 (16x3) | - | UNK | art/text fragments, unreadable; no loader found |
+| 128 | `ui_art/button_art_fragments/tiles_58b0` | 61:58B0 | 41 (16x3) | - | UNK | art/text fragments, unreadable; no loader found |
+| 129 | `ui_art/button_art_fragments/tiles_65c0` | 61:65C0 | 50 (10x5) | - | UNK | frames with text fragments, unreadable; no loader found |
 | 130 | `browser/frames_0_1/tiles_4000` | 47:4000 | 1 (1x1) | Browser_LoadScrollbarGfx@8FF0 | ART | scrollbar piece |
 | 131 | `browser/frames_0_1/tiles_4010` | 47:4010 | 3 (3x1) | Browser_LoadScrollbarGfx@97D0 | ART | scrollbar piece |
 | 132 | `browser/frames_0_1/tiles_4040` | 47:4040 | 4 (4x1) | - | UNK | 4 tiles, not classified |

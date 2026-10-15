@@ -37,13 +37,22 @@ the result field's low byte. Original crossed SRAM unwind, nonlocal return paths
 limits are documented rather than repaired. These93 removals are migration counts, not93 newly
 identified functions or whole-ROM completion. All ROM bytes remain subject to the native identity gate.
 
-The naming requirement also covers original graphics paths. Ten gfx/bankNN.asm owners and225
-files inside their directories still need a validated migration to names based on demonstrated
-resource content or consumer. The current235-path inventory proposes visual border motifs and
-narrow UI fragments; it does not assign species, natural selection or bank53 names to images.
-Those path changes are pending, so the retained generic paths are explicit naming debt. The
-remaining home-function inventory also has count/copy contracts and historical confidence to
-correct before adoption. No English payload or build is supplied by this original-only pass.
+The naming requirement also covers original graphics paths. The graphics naming pass moves235
+paths (ten owners and225 asset/PNG files) to demonstrated border motifs and narrow UI fragments;
+see [resource names and limits](docs/research/gfx_resource_names.md) and the
+[historical/current path map](docs/research/gfx_resource_path_map.tsv). Banks and addresses remain
+provenance suffixes. All225 asset/PNG byte strings and source extents are retained. The142 catalogued
+asset classifications remain124 PROBABLE and18 HYPOTHESIS; visual motif names remain PROBABLE
+locators. This does not establish species,
+natural frame selection, bank53 name/image associations or the purpose of opaque raw fragments.
+The native original identity gate applies to this source migration; path naming is not semantic closure.
+
+The remaining home-function inventory still has count/copy contracts and metadata references to
+correct before adoption. After the current passes and reviews, the Operator requires a wider audit
+of analogous generic names in the other original ASM files, paths, resources and name consumers.
+English payloads, override targets and builds remain suspended pending fresh human confirmation.
+The original-path fallback inventory follows this migration; English override targets still using old
+graphics paths require a later authorized rebase. No English parity or build is claimed here.
 
 The [frame audit](docs/research/assets_pokemon_frames_and_name_limits.md#remaining-eight-editing-views-bounded-placement-comparison) retains **eight KEEP editing views**: physical ROM bytes exist, but a justified selector and reaching LCDC/VBK/VRAM state are missing. Two other bank42 views have complete reversible backing only under their declared conditional model. The [bank53 name table](docs/research/assets_pokemon_frames_and_name_limits.md#name-table-order-no-image-assignment) contains 25 ordinal names without a proved name-to-image association; 25 names, 25 physical windows and 27 descriptor words remain distinct. The [help-frame audit and preview](docs/research/naming2_neutral_help.md#64ae-split-object-entry-and-classification-conflict) cover the selected nine-frame root under a conditional LCDC model, not every asset or an observed display.
 

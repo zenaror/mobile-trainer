@@ -3422,12 +3422,12 @@
       "sha256": "37a6751a209c8d25e51cf919800d769d1e50de38e3cad345027115d046b54567"
     },
     "REVERSE_ENGINEERING.md": {
-      "size": 148410,
-      "sha256": "2756930eba67ac164e8a30ea0de3190e4979c54871621e7a187713d9e5ea788e"
+      "size": 149149,
+      "sha256": "211cf5c2c97ca24b61d95650f1c8a9908820f023398c64a4410053907273c21c"
     },
     "STYLE.md": {
-      "size": 57839,
-      "sha256": "6c39aa4e7adce046ea39b96e15792afb9bd98f1d8398276d63a63ce293b3ee3b"
+      "size": 57938,
+      "sha256": "1bb2e7ccaa0034b2235d66813dd6f1aca4fb256085b75b8791ba81d6d3f39ca4"
     },
     "analysis/audio2_verify/bend_formula.py": {
       "size": 2074,
@@ -6266,8 +6266,8 @@
       "sha256": "da2006b0bf6392e3e6ac32f0eaeb2b57be046fe90b2f0b1990d4e72c98a2d8eb"
     },
     "docs/EDITING_IMAGES.md": {
-      "size": 9468,
-      "sha256": "70c51117ef3e6c455dd7187813f9494385aa98ba7d25e467179dbdd47217158e"
+      "size": 9775,
+      "sha256": "82bcfa8dbfa2d6dd4c06550d79e89277ef36b4632c6a6e3652f3d123e736db2e"
     },
     "docs/FORMATS.md": {
       "size": 55222,
@@ -6278,8 +6278,8 @@
       "sha256": "2a81b21c5620247e1ba2a3e144067e00ccf095f618692ed2541c10e8e761633b"
     },
     "docs/README.md": {
-      "size": 66962,
-      "sha256": "d50de99393600f03f05b7a8e23551c812ef6e0b57e97574b42a42d2c87a3b5c4"
+      "size": 67247,
+      "sha256": "59b41eb492a0c274273929beacd15de3c45ad5ea841ec01c7b37400985f6f619"
     },
     "docs/REVERSE_ENGINEERING_RULES.md": {
       "size": 17815,
@@ -6381,6 +6381,14 @@
       "size": 8854,
       "sha256": "606996b14ca53d9f20dc1a86bcd9e29e0aa349c1a73b88bf1bf092f52b55bb2a"
     },
+    "docs/research/gfx_resource_names.md": {
+      "size": 3367,
+      "sha256": "1004e7a99819db502ccc53fbba19df5bc5fea20691e7f2c31b8402641ebf9d4e"
+    },
+    "docs/research/gfx_resource_path_map.tsv": {
+      "size": 27604,
+      "sha256": "2130500cb4126105c09bf19b9c96bdbf8734b6903a9b71f144c476533e4d1e73"
+    },
     "docs/research/ghidra.md": {
       "size": 25706,
       "sha256": "0d8c19fbafc235d3cac7aab02d2c55b3e55ae293d15e93bd317ae83dec855413"
@@ -6390,8 +6398,8 @@
       "sha256": "babf8689e6ecd910f2b99b650884ceb8afe302bceea4cd1198c99d85ad55117d"
     },
     "docs/research/image_text_inventory.md": {
-      "size": 110200,
-      "sha256": "d9286cd3b80972d64b203885214bb4cbc32aa99597f4b65b013b08d6af38af57"
+      "size": 112416,
+      "sha256": "9d05e222bf749c76349c3b31b5f09138389a4aa2402e1b41b7d19b88ded134e5"
     },
     "docs/research/img/bank_map.png": {
       "size": 28689,
@@ -7722,8 +7730,8 @@
       "sha256": "def7c1b246dd294d018f7a4e18ae2de3a4c5838d3ef7946192efb6836da50f19"
     },
     "gfx/README.md": {
-      "size": 136669,
-      "sha256": "9e012f0218d9c2758e46dbf09239b7b359943a7e3745addee2512182c66c9bd7"
+      "size": 146501,
+      "sha256": "759311ae49f25a804f62b4077392833a9deab9bcedfdab3f7d0276e01c6408bc"
     },
     "gfx/account/screens_bank4a.asm": {
       "size": 9810,
@@ -8690,948 +8698,8 @@
       "sha256": "de5f079159f87387883876d446d821e2d9ccc18e328949a146ca0de4bf67b4c9"
     },
     "gfx/assets.tsv": {
-      "size": 124699,
-      "sha256": "13b146d0adb2459ed92013fdbefe461d3e1e941b9d5f81e5824dcb300f8b25bc"
-    },
-    "gfx/bank41.asm": {
-      "size": 5505,
-      "sha256": "1ccc7e11cefe772084959915457c371cffe69ff069751392b5842059bf37a54e"
-    },
-    "gfx/bank41/palette_4cd0.pal": {
-      "size": 1039,
-      "sha256": "6cf7594cfd4ff71fd4543dbda2ff3d8127fa8526359ce6d257a377dc7ead375a"
-    },
-    "gfx/bank41/palette_5a20.pal": {
-      "size": 1039,
-      "sha256": "fb8522e9815b67acbb0f209ad3582cd62c2d2ad2b04f029452fac1a72f2668c1"
-    },
-    "gfx/bank41/palette_6770.pal": {
-      "size": 1039,
-      "sha256": "b4aae6d27cca87f07369523cf44d8bad18255f2ab5096a40b4882c8210b046da"
-    },
-    "gfx/bank41/palette_74c0.pal": {
-      "size": 1039,
-      "sha256": "3985ae7ad2c15950466d2e80f712d4cdd1da76c2a4f2211586467573c243dc92"
-    },
-    "gfx/bank41/tilemap_4a00.attrmap": {
-      "size": 360,
-      "sha256": "3edd69047a68a3274d6ae233fcf34d24672a6095456e78cd00c912eca9211c17"
-    },
-    "gfx/bank41/tilemap_4a00.screen.png": {
-      "size": 2112,
-      "sha256": "d32110d0d673b42638b4fdf9cf370ba73e4597176a7a8e8f8a2d443474118317"
-    },
-    "gfx/bank41/tilemap_4a00.tilemap": {
-      "size": 360,
-      "sha256": "9a20d3a556ec9b63eca04bf58be76fba31793411cba96b7b069b62f39af1493b"
-    },
-    "gfx/bank41/tilemap_5750.attrmap": {
-      "size": 360,
-      "sha256": "7062da7c3ac065bca3723c13cb4d17c7372d0da1aaef5a402ff3a45127d5a529"
-    },
-    "gfx/bank41/tilemap_5750.screen.png": {
-      "size": 1820,
-      "sha256": "40596cfeb959133cc58a008c9070950ae2684943614f9d362ce657716e6ec129"
-    },
-    "gfx/bank41/tilemap_5750.tilemap": {
-      "size": 360,
-      "sha256": "76389a2c333fa7f1f129dc49e27757b1c1871f655f9507afbaa2ce455dfa4533"
-    },
-    "gfx/bank41/tilemap_64a0.attrmap": {
-      "size": 360,
-      "sha256": "e55d820001778d3ed61755370cdc46a2ea7a97c36dd30a7a63667e448575b8e8"
-    },
-    "gfx/bank41/tilemap_64a0.tilemap": {
-      "size": 360,
-      "sha256": "b79c8e1005e3afcade68d373f9c099c22a57a49a536e99b72865c31cdd869cc7"
-    },
-    "gfx/bank41/tilemap_71f0.attrmap": {
-      "size": 360,
-      "sha256": "2974b6196c9da920e749e0ead9e090222e66a98c0c02d482052c346ec73024cb"
-    },
-    "gfx/bank41/tilemap_71f0.tilemap": {
-      "size": 360,
-      "sha256": "452f891fe39dca6bb28c464c3c9bf1bfec7ce6e0baef862a6716955dc5b7c9b4"
-    },
-    "gfx/bank41/tiles_4000.2bpp": {
-      "size": 2560,
-      "sha256": "045d1064bac65836baa83b1d8c7308505262d334ce78f0bbbbcf68e8b1be048d"
-    },
-    "gfx/bank41/tiles_4000.png": {
-      "size": 1894,
-      "sha256": "365d0b1bda144a8271f388485c7deadc4702ad2387ecbc10514667035372d4c2"
-    },
-    "gfx/bank41/tiles_4d50.2bpp": {
-      "size": 2560,
-      "sha256": "3020f164a483e77052f3c10067d04096c5f96c8f8875ce8a9cf2e486189a044b"
-    },
-    "gfx/bank41/tiles_4d50.png": {
-      "size": 1822,
-      "sha256": "ae0cd9babd469c5bcd88864285e47426ea409b218c53d9f7de92300c86ee0819"
-    },
-    "gfx/bank41/tiles_5aa0.2bpp": {
-      "size": 2560,
-      "sha256": "3b4df4bc5ae701482f05e76d6549e21bdba64e8d29f29d86436dac338f93ee65"
-    },
-    "gfx/bank41/tiles_5aa0.png": {
-      "size": 1133,
-      "sha256": "203402ee8432d32eea02cfeee20d58f50caceb2180d876016c106cf23317d7b6"
-    },
-    "gfx/bank41/tiles_67f0.2bpp": {
-      "size": 2560,
-      "sha256": "6441085a819f3a4447c54fd9be5def01c535c3662e4994f4b6d9569ca3237f95"
-    },
-    "gfx/bank41/tiles_67f0.png": {
-      "size": 1040,
-      "sha256": "79d6224cb981cf021a12ce84e1164c60098599f7b286f10eeaf172c29ebaa7b5"
-    },
-    "gfx/bank42.asm": {
-      "size": 10216,
-      "sha256": "af635d0675c721f6e006c067d98365e36a8c4ddd8f090d227739fae0dd688f21"
-    },
-    "gfx/bank42/palette_4cd0.pal": {
-      "size": 1039,
-      "sha256": "528c14f87560349911c7cd74b3ec6a8b2d2f867e8adc1ef4ac9ae2fa8694a89a"
-    },
-    "gfx/bank42/palette_5a20.pal": {
-      "size": 1039,
-      "sha256": "c5c234e26f9f5832c1ba6d4b6839b9b09adea27d8d42c7d8bc23c751ec265738"
-    },
-    "gfx/bank42/palette_6770.pal": {
-      "size": 1039,
-      "sha256": "54f911e3e3e293e2e3e11116d0c6c76a9f9c896d5fa66b19d9aabbea07619b38"
-    },
-    "gfx/bank42/palette_74c0.pal": {
-      "size": 1039,
-      "sha256": "73a478de237ca1cb195057ce8a7d9cba0242184a0b86e84003fedd8aa2381fa8"
-    },
-    "gfx/bank42/raw_4540_4560.bin": {
-      "size": 32,
-      "sha256": "66687aadf862bd776c8fc18b8e9f8e20089714856ee233b3902a591d0d5f2925"
-    },
-    "gfx/bank42/raw_4540_4560.png": {
-      "size": 93,
-      "sha256": "b4eedf04b9d5388f73db7d661808a5233257e63fe5af1b1dae023d30f947f6df"
-    },
-    "gfx/bank42/raw_6800_6810.bin": {
-      "size": 16,
-      "sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb"
-    },
-    "gfx/bank42/raw_6800_6810.png": {
-      "size": 93,
-      "sha256": "82d74beae51024cb07424d8f320d91f21bdc6535b776f5b35683945d82d71b1f"
-    },
-    "gfx/bank42/raw_69a0_69b0.bin": {
-      "size": 16,
-      "sha256": "5ac6a5945f16500911219129984ba8b387a06f24fe383ce4e81a73294065461b"
-    },
-    "gfx/bank42/raw_69a0_69b0.png": {
-      "size": 95,
-      "sha256": "2e03949ec03800fcf05a645819162f5ee5dce3d4dd9c7f39d15cf0d4dad65763"
-    },
-    "gfx/bank42/raw_6cc0_6cd0.bin": {
-      "size": 16,
-      "sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb"
-    },
-    "gfx/bank42/raw_6cc0_6cd0.png": {
-      "size": 93,
-      "sha256": "82d74beae51024cb07424d8f320d91f21bdc6535b776f5b35683945d82d71b1f"
-    },
-    "gfx/bank42/tilemap_4a00.attrmap": {
-      "size": 360,
-      "sha256": "ae0ec72eb6a00284c2fb65718bd9295aab798c4776ad90eb50e9196628468c36"
-    },
-    "gfx/bank42/tilemap_4a00.screen.png": {
-      "size": 1664,
-      "sha256": "635a3e20c938c51baac5b1bf4451fde0c5b9cd4b249eb63e1aa003572f925a9b"
-    },
-    "gfx/bank42/tilemap_4a00.tilemap": {
-      "size": 360,
-      "sha256": "6c4dca9d71310f32fc997b5632490e5e60a72ab2276a99ae7a0e0a8c7f14d6c9"
-    },
-    "gfx/bank42/tilemap_5750.attrmap": {
-      "size": 360,
-      "sha256": "31bdba391378725be68094e8c04f0336a2ae29b070761636be076d2879a50643"
-    },
-    "gfx/bank42/tilemap_5750.screen.png": {
-      "size": 2340,
-      "sha256": "4358898ade26680fb2eee4c796555975296515a63f7bdea9fefd1e86f331273a"
-    },
-    "gfx/bank42/tilemap_5750.tilemap": {
-      "size": 360,
-      "sha256": "e4be5edbdf54b2d10abf55fa6c43410e6164ba1bb37de458923c4f866c0e3bf0"
-    },
-    "gfx/bank42/tilemap_64a0.attrmap": {
-      "size": 360,
-      "sha256": "1819350a671dfb532664f8a8a7a7c703d5ac632c85220f38151eecaae7f6312b"
-    },
-    "gfx/bank42/tilemap_64a0.tilemap": {
-      "size": 360,
-      "sha256": "cfe7e525c7d33feb0497965d46f8d06a483a479dc0b52c83e83bb4eebeb20394"
-    },
-    "gfx/bank42/tilemap_71f0.attrmap": {
-      "size": 360,
-      "sha256": "978dfe308dbe657a06866f41eac768e6ebabf59c7696d39ecfb984310cc8212f"
-    },
-    "gfx/bank42/tilemap_71f0.screen.png": {
-      "size": 1722,
-      "sha256": "f29f4456c3170b8d6c0f60eb63b84cfe7c5ddb93f87faef28e3fc130f9f639bc"
-    },
-    "gfx/bank42/tilemap_71f0.tilemap": {
-      "size": 360,
-      "sha256": "8311206b6dd6edff9e25fcf5f97a9a36d08acbab1037f1870154693c376add1f"
-    },
-    "gfx/bank42/tiles_4000.2bpp": {
-      "size": 1344,
-      "sha256": "d821cefd0eb5b8562b5d1c990288bda1be5e037744573ab6a32cec83f5519912"
-    },
-    "gfx/bank42/tiles_4000.png": {
-      "size": 1255,
-      "sha256": "5da0c14bad6a8934db802d0ae6cd7c50325a87891ed0a14c7f23ddbfa8274ef7"
-    },
-    "gfx/bank42/tiles_4802.2bpp": {
-      "size": 160,
-      "sha256": "1a411e455a6d2ce89d84a0338d69dbbd12a95fba88110e916643ad081cb697fb"
-    },
-    "gfx/bank42/tiles_4802.png": {
-      "size": 227,
-      "sha256": "335aaa40cd5e20929f377badbb2e29e128bdc64c46a63e83edb532a32e04f104"
-    },
-    "gfx/bank42/tiles_4900.2bpp": {
-      "size": 176,
-      "sha256": "cf97ac758fe7bfb3183e4d4b605722377a4535ecc41b7a2a272dbb0e2aac08a0"
-    },
-    "gfx/bank42/tiles_4900.png": {
-      "size": 230,
-      "sha256": "2704239648b38ddf5ab36f778c3b01e64543601ab4fb5bc1966900d3c6324c54"
-    },
-    "gfx/bank42/tiles_4d50.2bpp": {
-      "size": 432,
-      "sha256": "c57322a72a9b8e5d814658bca1579802776b310e05279147375254abab6a5753"
-    },
-    "gfx/bank42/tiles_4d50.png": {
-      "size": 545,
-      "sha256": "9603d30f701e4a2fef0a423dd996295f110603a00fb3e5cfec44ef5ba13000e8"
-    },
-    "gfx/bank42/tiles_4f00.2bpp": {
-      "size": 960,
-      "sha256": "accf89b1df454c095539cc8d5926dbcafcd79540f5b15a3b065184099393a079"
-    },
-    "gfx/bank42/tiles_4f00.png": {
-      "size": 998,
-      "sha256": "8f2c5e61a5c1c732e70c94a6456a09599aecef3def6559058dbffc545aeff089"
-    },
-    "gfx/bank42/tiles_52c0.2bpp": {
-      "size": 32,
-      "sha256": "b827dd125b68ee4c1f0db6088234006b0dd2ffbf96d0e83d499d15f588f7a724"
-    },
-    "gfx/bank42/tiles_52c0.png": {
-      "size": 142,
-      "sha256": "f6d54fad1050f93a1e3c8ded7be9fb1af0877d9eaf3820490497587012f6d5c0"
-    },
-    "gfx/bank42/tiles_52e0.2bpp": {
-      "size": 1136,
-      "sha256": "1a671d16bace5737b1b47dc1728e797036224145de8e28feaef70b26b57a94cc"
-    },
-    "gfx/bank42/tiles_52e0.png": {
-      "size": 929,
-      "sha256": "3b87f61a2f87eda368fe83d55058e1b0141d27543294287ade3195be7094c0e7"
-    },
-    "gfx/bank42/tiles_5aa0.2bpp": {
-      "size": 944,
-      "sha256": "11010462f2c1428bc07a798d06f4d9d858f2ce2c1f112c5fede0f8812b376bd6"
-    },
-    "gfx/bank42/tiles_5aa0.png": {
-      "size": 688,
-      "sha256": "2d03c18cbc0875a4f0d570046207fb6cf7d5ee5085248f3d04c170cd075950a3"
-    },
-    "gfx/bank42/tiles_5e90.2bpp": {
-      "size": 208,
-      "sha256": "249178fbbeac030f180e63c82baed6fc084ae8309b40fe0fd892eb3ff5d3fa53"
-    },
-    "gfx/bank42/tiles_5e90.png": {
-      "size": 294,
-      "sha256": "362875fbd507dc09454b54ad7353bfa5f66ead1ae5e26934117fafddf4913d92"
-    },
-    "gfx/bank42/tiles_5f92.2bpp": {
-      "size": 416,
-      "sha256": "ff6a4a7a274b75a767f1212d997260f7073398491c3a75137bae05bf3acae372"
-    },
-    "gfx/bank42/tiles_5f92.png": {
-      "size": 428,
-      "sha256": "b73efc771170cde53d2e1368d4b0cd87207abcb1dee684ca203e27e99ad57a4c"
-    },
-    "gfx/bank42/tiles_62a0.2bpp": {
-      "size": 160,
-      "sha256": "6467fe7cc09520336369fd173b2bf5c3686ca8d5a2095ebf219b6257ee4eccec"
-    },
-    "gfx/bank42/tiles_62a0.png": {
-      "size": 224,
-      "sha256": "3dac0eb308b236f00a87937109b48f37604316f3b6c1f8866229ef52d5aca0fd"
-    },
-    "gfx/bank42/tiles_63a0.2bpp": {
-      "size": 16,
-      "sha256": "cf5745ff3347da9b0216aa57d23d569092f2fd5be17e383b05387433522529ef"
-    },
-    "gfx/bank42/tiles_63a0.png": {
-      "size": 111,
-      "sha256": "34868bc45ee47fbdce09f8b5e975c4bce3762494557291b1d3215e0d05810772"
-    },
-    "gfx/bank42/tiles_63b0.2bpp": {
-      "size": 240,
-      "sha256": "ef5a16234c6f4bf74e03d666305cf0d81280fe4344f51cb1d06be5ba66d56170"
-    },
-    "gfx/bank42/tiles_63b0.png": {
-      "size": 226,
-      "sha256": "abae10a43e9fbaacf8b166d2a2f3a52d647f3672e7427370f129c17b3d3efb45"
-    },
-    "gfx/bank42/tiles_67f0.2bpp": {
-      "size": 16,
-      "sha256": "0b0261922360928edbfbba07c1c5548aa2e71214f193d5c88bd8c840f4ddad3e"
-    },
-    "gfx/bank42/tiles_67f0.png": {
-      "size": 95,
-      "sha256": "e38a5acc8f179266edc309a0f3f32984ef81a22196dfa49f1c7eccb46a0637b4"
-    },
-    "gfx/bank42/tiles_6810.2bpp": {
-      "size": 400,
-      "sha256": "7040063564c4ec200b87556294bc1dc9a5bcf8434b47897ca3bf6698c7014fc9"
-    },
-    "gfx/bank42/tiles_6810.png": {
-      "size": 493,
-      "sha256": "9ddfc6b2999868bed090d21ced49aad03f9638f18c037de4f3395816dd0178c6"
-    },
-    "gfx/bank42/tiles_69b0.2bpp": {
-      "size": 784,
-      "sha256": "4635311d61ea3ad6c6c4161bfbaf8a56d76a02f525307fa4b29e15b7c7f13bb9"
-    },
-    "gfx/bank42/tiles_69b0.png": {
-      "size": 871,
-      "sha256": "4c76756bcf6897ec91176a53a5d8d035039ee8efe30b068744f9dbfcf9f6a062"
-    },
-    "gfx/bank42/tiles_6ff2.2bpp": {
-      "size": 160,
-      "sha256": "e977789e1f9c48789af337b70f6734427d6c54bcfa31cd55452b9a3ee5326877"
-    },
-    "gfx/bank42/tiles_6ff2.png": {
-      "size": 205,
-      "sha256": "47f3434c74e84a0d6d0af8241cc803a500404bc82f3f0dfc62589f64a9e2cc15"
-    },
-    "gfx/bank42/tiles_70f0.2bpp": {
-      "size": 160,
-      "sha256": "5ca868ce9824cd3c9248cedadfc36327ee6024345ed2b1229ffbf185cc7e40d4"
-    },
-    "gfx/bank42/tiles_70f0.png": {
-      "size": 215,
-      "sha256": "30e6702fd0baa0ba91a8d461eebbfa000580782edb888734d4705e172a4ee481"
-    },
-    "gfx/bank43.asm": {
-      "size": 12093,
-      "sha256": "ffedbbfd75010b43e5f9d476cbec62b31858248757087dd93b8981905ee417f9"
-    },
-    "gfx/bank43/attrmap_4b68.attrmap": {
-      "size": 360,
-      "sha256": "a3821dee05556b1025ef8f742fe5176ce8db99fb2f96f01036f93533e4d11834"
-    },
-    "gfx/bank43/attrmap_58b8.attrmap": {
-      "size": 360,
-      "sha256": "e7ba70e014a836adeaa67fc8b4b93ccf9e27d6c41c6e2e07caee6c99ee2ae14b"
-    },
-    "gfx/bank43/attrmap_6608.attrmap": {
-      "size": 360,
-      "sha256": "ea59ba58d4715971ae2b99c8a75ebc78ee615f133c6e837871680175c4051ec6"
-    },
-    "gfx/bank43/attrmap_7358.attrmap": {
-      "size": 360,
-      "sha256": "1fde979eaf7fe75ed62518dc4d651fdc4fe896f4f344dc5c8ff02b2e065a7fb0"
-    },
-    "gfx/bank43/palette_4cd0.pal": {
-      "size": 1039,
-      "sha256": "c84a121b6b674286ca7ff6a3dc8e19bf9fa4305e5d1888368df560434b9f5621"
-    },
-    "gfx/bank43/palette_5a20.pal": {
-      "size": 1039,
-      "sha256": "877e6ad63c5d0132efa5161b6fc6da4244489671c395ee3916f24a44972af0c5"
-    },
-    "gfx/bank43/palette_6770.pal": {
-      "size": 1039,
-      "sha256": "8ad20267be2137d5a8f822ca9319b3d2e01a5b09978a596ed21483a20ccffd8b"
-    },
-    "gfx/bank43/palette_74c0.pal": {
-      "size": 1039,
-      "sha256": "5199abfc36f1b5b2595c88d7d085a46685935edac21378e5780549316a5625f7"
-    },
-    "gfx/bank43/tilemap_4a00.screen.png": {
-      "size": 1028,
-      "sha256": "fc904f6f11b38a32f1c31f0e05bcf0c641dd9e367876f801a1b24c64a50cb5dc"
-    },
-    "gfx/bank43/tilemap_4a00.tilemap": {
-      "size": 360,
-      "sha256": "757a06841ca11d14b3908341fc4914c80015dacdb9b24648081e51ccaa091bf4"
-    },
-    "gfx/bank43/tilemap_5750.tilemap": {
-      "size": 360,
-      "sha256": "f4f53115f9906a9fa6e3c3e6acf139b60d44a7dea7cec55f4f46c17fa5e8e596"
-    },
-    "gfx/bank43/tilemap_64a0.screen.png": {
-      "size": 1947,
-      "sha256": "02582f04617d7c5501e9b999047afd7e109faba999e61f7fd6d782cce7876df4"
-    },
-    "gfx/bank43/tilemap_64a0.tilemap": {
-      "size": 360,
-      "sha256": "b985b859d4ce464664197b7c533d848698c5d5494017fef8d6c84156d8509a45"
-    },
-    "gfx/bank43/tilemap_71f0.tilemap": {
-      "size": 360,
-      "sha256": "157da48e899b544ceb7c6c350e8fbed478be3f0b47f877bc6692a0921d22954a"
-    },
-    "gfx/bank43/tiles_4000.2bpp": {
-      "size": 2560,
-      "sha256": "50bc7020374b800c82acefab1417f340880f5dbcd1328ca984be14ef3816dc7e"
-    },
-    "gfx/bank43/tiles_4000.png": {
-      "size": 993,
-      "sha256": "14f54644f918d66c18c2585730d1664c1c0bd20776eba3ce671d2752760172ec"
-    },
-    "gfx/bank43/tiles_4d50.2bpp": {
-      "size": 2560,
-      "sha256": "0e8fc7c1c75e31e434f561e91162b89c916ae2bac7a23b305d63752dfa46e357"
-    },
-    "gfx/bank43/tiles_4d50.png": {
-      "size": 1235,
-      "sha256": "4c0bbca1753b80992588edfea5e1c6193f14a8805f51ae45fad289b512447aab"
-    },
-    "gfx/bank43/tiles_5aa0.2bpp": {
-      "size": 2560,
-      "sha256": "01f7a503e86169b4ce4320c8f54b65f50fdad19cf13ce999015890939aec873e"
-    },
-    "gfx/bank43/tiles_5aa0.png": {
-      "size": 1828,
-      "sha256": "8591814915d041758994129be3e267cc68f71349ca2391487a4115f184f0f444"
-    },
-    "gfx/bank43/tiles_67f0.2bpp": {
-      "size": 2560,
-      "sha256": "f94cf265ca4d55bcae6517b68168912a7a097a00bf337ea9d62c6718e0318df2"
-    },
-    "gfx/bank43/tiles_67f0.png": {
-      "size": 1266,
-      "sha256": "4af8c27f9ea4a7fd8d9e8cf45cba0ad50024be504e9a158ef3450b1f361c1bac"
-    },
-    "gfx/bank44.asm": {
-      "size": 5857,
-      "sha256": "a14145fd9110739766383cc4f83715c2db2058011377d106a0cb80420081d5bc"
-    },
-    "gfx/bank44/attrmap_4b68.attrmap": {
-      "size": 360,
-      "sha256": "505025d093e49075633a1a7b065978bb8d081ea95d5a1742cf258be3cd57bd70"
-    },
-    "gfx/bank44/attrmap_58b8.attrmap": {
-      "size": 360,
-      "sha256": "dd20ad6c97c6c7a91f77109b3e2ba826acf044a01ce9dbdd4ac52b88d2852b6b"
-    },
-    "gfx/bank44/attrmap_6608.attrmap": {
-      "size": 360,
-      "sha256": "f8d89520be706fdb235b29eb04c14ab0eafbec2379588235a76a7fcd4dc61feb"
-    },
-    "gfx/bank44/attrmap_7358.attrmap": {
-      "size": 360,
-      "sha256": "cde5102699acc409ef4881062b933cc132f1e4504f33d8e8b0ae9c1fb1ca4cb4"
-    },
-    "gfx/bank44/palette_4cd0.pal": {
-      "size": 1039,
-      "sha256": "ff2dc344abb008eed51e72c525d4fa4aa2f26d5322a912d806a30fbfb9d8f7ec"
-    },
-    "gfx/bank44/palette_5a20.pal": {
-      "size": 1039,
-      "sha256": "18cabf948fe9834f7d7a00a9ba830795c68a1765374b65fe383718e604dbc756"
-    },
-    "gfx/bank44/palette_6770.pal": {
-      "size": 1039,
-      "sha256": "05b11b1c8b85381c5822db60f1133518e3bf35e5883ca766f8d8a4db10da9b20"
-    },
-    "gfx/bank44/palette_74c0.pal": {
-      "size": 1039,
-      "sha256": "831def62f8fba00952a90aca77b738ff723c1c616bd6896102815557140f37ec"
-    },
-    "gfx/bank44/tilemap_4a00.screen.png": {
-      "size": 1072,
-      "sha256": "700b93f083a27f2d2f21944ca32f145120898e5624d1d1572e81bd7f0fbb9e64"
-    },
-    "gfx/bank44/tilemap_4a00.tilemap": {
-      "size": 360,
-      "sha256": "f15c8b8ef580c517244ff652a05ca6fde0ebee6f50d9ec28804bcd847fff548b"
-    },
-    "gfx/bank44/tilemap_5750.tilemap": {
-      "size": 360,
-      "sha256": "90001ae6923fb1e940cfcb3e6fc39c84b9851c6a37383a6c6bd7629e681a1da1"
-    },
-    "gfx/bank44/tilemap_64a0.screen.png": {
-      "size": 2840,
-      "sha256": "8c3b2fbb877bdb70a6bdce47bf801baf2acfe32fa9de14a1030c70246d9ce07f"
-    },
-    "gfx/bank44/tilemap_64a0.tilemap": {
-      "size": 360,
-      "sha256": "219d5af36c998bd9aa1ce7a454c7238fdf09ec29ae0f778a713cefa872fb8c47"
-    },
-    "gfx/bank44/tilemap_71f0.screen.png": {
-      "size": 1563,
-      "sha256": "cfdfee42a856718dd4d85073aa403f44c8869f91701e9f06517cf90026bbbcf3"
-    },
-    "gfx/bank44/tilemap_71f0.tilemap": {
-      "size": 360,
-      "sha256": "eb9f0d8565f7475e666d9512a58e147d1288dcd5040a738058e7ae5918b44c6b"
-    },
-    "gfx/bank44/tiles_4000.2bpp": {
-      "size": 2560,
-      "sha256": "a281c78ce05c2339ff5e091ecabcd4d82146b5ae6d38eed4e1b894e5007a28f8"
-    },
-    "gfx/bank44/tiles_4000.png": {
-      "size": 988,
-      "sha256": "68e9c3126d0764c55353ef018ce250a575c283f8533b884d8097be8066795a30"
-    },
-    "gfx/bank44/tiles_4d50.2bpp": {
-      "size": 2560,
-      "sha256": "547a338b0a373d4f698ee009557d86cc0cfb3e170dd09c4ea7061e267c6000a0"
-    },
-    "gfx/bank44/tiles_4d50.png": {
-      "size": 1119,
-      "sha256": "cadbe6295a8a9438e70674d7d70ab46a8ff1a5f827c5197ba46a5cba77414229"
-    },
-    "gfx/bank44/tiles_5aa0.2bpp": {
-      "size": 2560,
-      "sha256": "74f3f9201c7dc6282ace045cb076a9e2f6504bf9ad18856b0e327959afc1c1e9"
-    },
-    "gfx/bank44/tiles_5aa0.png": {
-      "size": 2329,
-      "sha256": "aabff79263b087809630f42a1ee20ca40b631698bcb648affb2aca729f0ed04d"
-    },
-    "gfx/bank44/tiles_67f0.2bpp": {
-      "size": 2560,
-      "sha256": "b1e78de54b251eb088eace33787d3699c4f56c06375e73164a6e922b070e196e"
-    },
-    "gfx/bank44/tiles_67f0.png": {
-      "size": 1101,
-      "sha256": "adb9b433c2ec629c6b566fb25bf4fa6d843ef6e487d065e0809d5aa37ae915ad"
-    },
-    "gfx/bank45.asm": {
-      "size": 3985,
-      "sha256": "41c0a9aefbb8e59734942b1dd92dffd40aa2fb3bb03c1a039f19c34e42e20ed5"
-    },
-    "gfx/bank45/palette_4cd0.pal": {
-      "size": 1039,
-      "sha256": "5cbe4b46fccb63924c72c0fc5b038130bfdd32ca0d98111a4e3d811f18c60383"
-    },
-    "gfx/bank45/palette_5a20.pal": {
-      "size": 1039,
-      "sha256": "625b840e7185497338847f59002af2a0410f0fd4b513e1adca393c642ca52714"
-    },
-    "gfx/bank45/palette_6770.pal": {
-      "size": 1039,
-      "sha256": "2f889f6244c2ebfceaa9a0104b43b23afc482d728aecb412c3964d46f52b22af"
-    },
-    "gfx/bank45/palette_74c0.pal": {
-      "size": 1039,
-      "sha256": "bdbe6e25c044f64914a8c22f7e55f7b1bae295a0a219ca6d5c699bb1828d5162"
-    },
-    "gfx/bank45/tilemap_4a00.attrmap": {
-      "size": 360,
-      "sha256": "a33795fd311472b43e530667e946d2ca6e7008e1b9c55cbad4b25053054a303e"
-    },
-    "gfx/bank45/tilemap_4a00.screen.png": {
-      "size": 1746,
-      "sha256": "f5c4bad289d01e3f8f6ec2b7e27b51e96817a9253c07cde5e8eda47cf6924a86"
-    },
-    "gfx/bank45/tilemap_4a00.tilemap": {
-      "size": 360,
-      "sha256": "f4b3dbf1ad04abb1e6adfca07e1fb22155931fad1bbfd5f0f845ff3b788bb02e"
-    },
-    "gfx/bank45/tilemap_5750.attrmap": {
-      "size": 360,
-      "sha256": "ee3f21d37ab454213603373366308a89f9872f1b2e39c3c83301faf120e8e3f7"
-    },
-    "gfx/bank45/tilemap_5750.tilemap": {
-      "size": 360,
-      "sha256": "54ddac46491fd3ea9688df0a7f3cdd6b8ea4cd3e1fccc31352c4d391cd6c6760"
-    },
-    "gfx/bank45/tilemap_64a0.attrmap": {
-      "size": 360,
-      "sha256": "7eef94f740d65b9f713d196bd4986b9329f7ac61c05551bcd4897346d41eec34"
-    },
-    "gfx/bank45/tilemap_64a0.screen.png": {
-      "size": 1292,
-      "sha256": "47cb87ee5c7318945e4f75f646a3d9af5f40169fe03ddb39a7546e02f65e40e5"
-    },
-    "gfx/bank45/tilemap_64a0.tilemap": {
-      "size": 360,
-      "sha256": "bc5d004e6e61bb869881a651b01cd2a964e75359923bbac882fd32e805266ee5"
-    },
-    "gfx/bank45/tilemap_71f0.attrmap": {
-      "size": 360,
-      "sha256": "d43038493dcb8a465ed2aab20fd1126e99a3c54466378b476eb2b4dd12930c28"
-    },
-    "gfx/bank45/tilemap_71f0.screen.png": {
-      "size": 2336,
-      "sha256": "931d601cda5f0c77a05120dac23b5ebdb503ce3761d042f7c29f00d9076dd9f2"
-    },
-    "gfx/bank45/tilemap_71f0.tilemap": {
-      "size": 360,
-      "sha256": "fa7e5f2cf72caaee2eea07e5421c51834402acb0948752b71c0f3e9e0467e844"
-    },
-    "gfx/bank45/tiles_4000.2bpp": {
-      "size": 2560,
-      "sha256": "d1841944388b7f089efc47cc8c9a585b6a57460ac28e1e1f8193fca190b9fefd"
-    },
-    "gfx/bank45/tiles_4000.png": {
-      "size": 1603,
-      "sha256": "1d16e67c88c5f58bb32c954f0c504a56cf215093a575543da6ee862ffd3584e9"
-    },
-    "gfx/bank45/tiles_4d50.2bpp": {
-      "size": 2560,
-      "sha256": "1caa32e0c897c65e4ebee603d61a481dcac8496dba3e499b58b63bb1406de2da"
-    },
-    "gfx/bank45/tiles_4d50.png": {
-      "size": 1799,
-      "sha256": "7a1b0582fcfb074e7efcdc99a0e4c2dbab4810a746f0a05c146482ddcd11af71"
-    },
-    "gfx/bank45/tiles_5aa0.2bpp": {
-      "size": 2560,
-      "sha256": "cd4755f55c4f4cf7f4a8783d0132443c48ca2f5a2b7bb5fd2aebe41f10ad6ab6"
-    },
-    "gfx/bank45/tiles_5aa0.png": {
-      "size": 1282,
-      "sha256": "a99617051c9b46aff406cb546de7612a61dc012248a412fb5593d3e771c8dc02"
-    },
-    "gfx/bank45/tiles_67f0.2bpp": {
-      "size": 2560,
-      "sha256": "392f74b6b12410ca867a5b6d9d0d6824a642534cce00ff6089c17b75176339a5"
-    },
-    "gfx/bank45/tiles_67f0.png": {
-      "size": 1979,
-      "sha256": "550ac581ddda1947a4efb2c6900abd8df9617ac52fefdffa3946c53ee7436eb0"
-    },
-    "gfx/bank46.asm": {
-      "size": 6265,
-      "sha256": "57981b519fa59613c8def2cf650a1fce8aaf855e24b71b5e2e7a4e93d575e6f1"
-    },
-    "gfx/bank46/palette_4cd0.pal": {
-      "size": 1039,
-      "sha256": "10d6e9400a89b2eacaad4f5006c0bd26c4b74556df0629110f557188608588e5"
-    },
-    "gfx/bank46/palette_5a20.pal": {
-      "size": 1039,
-      "sha256": "a97c8ec94fc2e0566a0335d6bc82a781169e0fccab743a244dd880b1f9189749"
-    },
-    "gfx/bank46/palette_6770.pal": {
-      "size": 1039,
-      "sha256": "89ff2cc8fd5f2ee6ca57761d47afd6170a751c9705ff5b3e1b77efd22fe66ddc"
-    },
-    "gfx/bank46/palette_74c0.pal": {
-      "size": 1039,
-      "sha256": "08c782c08b8708635b6b79cae41f08dc1665a25b8a42e8299c5883b53af7c08f"
-    },
-    "gfx/bank46/tilemap_4a00.attrmap": {
-      "size": 360,
-      "sha256": "6aa2d9b1f40c368ec0678c4e4d4d4288fe239858f9635ca31abafd9baccb4b17"
-    },
-    "gfx/bank46/tilemap_4a00.screen.png": {
-      "size": 1561,
-      "sha256": "0fd867967534dd9013750402e79c114da1faf64ac215c86c7ee1189df5bacef6"
-    },
-    "gfx/bank46/tilemap_4a00.tilemap": {
-      "size": 360,
-      "sha256": "ee59c9e2173576afc15b7ce223dd6db70ff3fe6ef58ffd6fd633ac38dcc421ac"
-    },
-    "gfx/bank46/tilemap_5750.attrmap": {
-      "size": 360,
-      "sha256": "8b7c65d9e67c5db02707f00a5d059f244cc12eeb6f51c205e8a5e73ddf119d73"
-    },
-    "gfx/bank46/tilemap_5750.screen.png": {
-      "size": 1748,
-      "sha256": "89e162c495291ade579004aa4bf99f91a049bdb5897e40d88ac3a43c715075ed"
-    },
-    "gfx/bank46/tilemap_5750.tilemap": {
-      "size": 360,
-      "sha256": "30a5596a73770609d1b4dff4385e7a8d3ebef6816340db229a2a4b02a24ee994"
-    },
-    "gfx/bank46/tilemap_64a0.attrmap": {
-      "size": 360,
-      "sha256": "8d40979b3ee636d5dcfbd8b57b746b6b94a3ebf77826c54f5a43e4d2736380d4"
-    },
-    "gfx/bank46/tilemap_64a0.screen.png": {
-      "size": 1960,
-      "sha256": "7c78527471aa69051201629c299f165147ec186ab8153150afc2891d54a4f5dd"
-    },
-    "gfx/bank46/tilemap_64a0.tilemap": {
-      "size": 360,
-      "sha256": "fac7992d68955adeed25497ac9892d6964bb3f23d79223363a2857073f761448"
-    },
-    "gfx/bank46/tilemap_71f0.attrmap": {
-      "size": 360,
-      "sha256": "67edeb67b533301a9bbf44b02eea0a246a4d04a39fe0d6e7f330e931900398a5"
-    },
-    "gfx/bank46/tilemap_71f0.tilemap": {
-      "size": 360,
-      "sha256": "c67e8166cccdc8f2b084b268a55ea366dc581384b8cbe4125325659d23935dac"
-    },
-    "gfx/bank46/tiles_4000.2bpp": {
-      "size": 2560,
-      "sha256": "061cdfe17276f6171b6eac07df7703132138b480c07705c4e3c1bbd887873735"
-    },
-    "gfx/bank46/tiles_4000.png": {
-      "size": 1457,
-      "sha256": "7666cb2ce7c1e18fc0aac30fbaab52d677f55e73ec5ce647fc6d0632bbe7de6a"
-    },
-    "gfx/bank46/tiles_4d50.2bpp": {
-      "size": 2560,
-      "sha256": "111883ab507555fa718b36e4881167ad33679659e047e17df232ec6eb82f63d2"
-    },
-    "gfx/bank46/tiles_4d50.png": {
-      "size": 1798,
-      "sha256": "67309e1d423ea285e8beacd66c37324001b1365e91f34c7f31b3b71c03ca99a3"
-    },
-    "gfx/bank46/tiles_5aa0.2bpp": {
-      "size": 2560,
-      "sha256": "2a0f7237f338a09f9f84f812ed17dac38593d46650d02beeab71dd948ce1ca12"
-    },
-    "gfx/bank46/tiles_5aa0.png": {
-      "size": 1825,
-      "sha256": "0b3a1a9354eb70ca378548e0652401705db25813b1b1ac9f8f624929af25b40b"
-    },
-    "gfx/bank46/tiles_67f0.2bpp": {
-      "size": 2560,
-      "sha256": "7e2cf4f2820a4fd5f5236c2be54a9b1e1354d26917c8c86194d2379325228d3c"
-    },
-    "gfx/bank46/tiles_67f0.png": {
-      "size": 1122,
-      "sha256": "1828ceb7bf03e3a8f225517c4465a78e31e3ba151d179d2b32b8224685abceff"
-    },
-    "gfx/bank52.asm": {
-      "size": 805,
-      "sha256": "0d15891c591d9e2041b6484bf10aca21b8a1d8c4bd2cd0ec5db52afdbe077c31"
-    },
-    "gfx/bank52/tiles_4080.2bpp": {
-      "size": 2944,
-      "sha256": "9c4580b7ec3957fbded052b9b48d4f5999389844ca1ab4819e450e27acd98b81"
-    },
-    "gfx/bank52/tiles_4080.png": {
-      "size": 936,
-      "sha256": "40d90f8999554cd9c7bf7dbb87aec0a964e9e7c244b502f886f33abddd6ca376"
-    },
-    "gfx/bank5b.asm": {
-      "size": 1306,
-      "sha256": "938fa72f7febb652bed86fb89cec714a9273583f136d821459194f725023931b"
-    },
-    "gfx/bank5b/palette_5680.pal": {
-      "size": 779,
-      "sha256": "efec6f91fb39bc4f0c61dee7664acc3de4fb94a905345e1fba7eb8b903191f20"
-    },
-    "gfx/bank5b/tiles_4000.2bpp": {
-      "size": 4608,
-      "sha256": "3f3a3a44a5b87aca751360d559be3a16915ac9cd001bb4ae0fef33e51c8aa1da"
-    },
-    "gfx/bank5b/tiles_4000.png": {
-      "size": 2808,
-      "sha256": "86c68ac95a6556e1939f829d0ce1cb516b3deb67cf0a96be5484da0711d924f9"
-    },
-    "gfx/bank5b/tiles_5200.2bpp": {
-      "size": 1152,
-      "sha256": "884fbf738d2313e7abcd6a30ed85dc5c49ee680827666ce347449796f9454d08"
-    },
-    "gfx/bank5b/tiles_5200.png": {
-      "size": 628,
-      "sha256": "5634645565f3e3f680bc79245a334231f126e917b7dc75bac39d978dcdf6b582"
-    },
-    "gfx/bank60.asm": {
-      "size": 21087,
-      "sha256": "7a76514c7993b55195f023dde4aa779a55b86fc8e5ddce05f113b6548defa5e4"
-    },
-    "gfx/bank60/palette_7a80.pal": {
-      "size": 844,
-      "sha256": "79917cb14e5cb63928acfb6f7bd5aa5f701f53d5ccb84691e6160b583af5e1cb"
-    },
-    "gfx/bank60/tiles_4360.2bpp": {
-      "size": 240,
-      "sha256": "4caebcb548cbaa818bb1b41220fb8ae8ef52b372d48ce6274946ca5e86896611"
-    },
-    "gfx/bank60/tiles_4360.png": {
-      "size": 222,
-      "sha256": "770da249b68c4e0d7a50545db7aab5a7198d77947c9e83f1bd30132f94ebd7a9"
-    },
-    "gfx/bank60/tiles_4455.2bpp": {
-      "size": 1136,
-      "sha256": "6ea11f96391f59f2059f2352e0dd7140b3da7cfdfdbc4e6b656977a832b56f15"
-    },
-    "gfx/bank60/tiles_4455.png": {
-      "size": 932,
-      "sha256": "006df26c5b0d07649f6d07550f814e20f2123b3ea58e5abb20a93f1b3f031122"
-    },
-    "gfx/bank60/tiles_4b50.2bpp": {
-      "size": 560,
-      "sha256": "45d61ec09ee795e470f19e0f09f53eefa1d8eae2f6f17e88e36f11c4df05d562"
-    },
-    "gfx/bank60/tiles_4b50.png": {
-      "size": 411,
-      "sha256": "9071bc4d99be96b55f018b03d7b3696771c02f9a95e94b4cf029dad5370a8b93"
-    },
-    "gfx/bank60/tiles_4dd0.2bpp": {
-      "size": 1184,
-      "sha256": "18b922fcdf590c8bc3ea08dd0787db8fb12d07d8463ff4ec352ff22938395cd5"
-    },
-    "gfx/bank60/tiles_4dd0.png": {
-      "size": 850,
-      "sha256": "4321906eb7c0b18dd1b24437a1cdb89382eb69335f6c04dd8bfc1ec807c28773"
-    },
-    "gfx/bank60/tiles_52c0.2bpp": {
-      "size": 16,
-      "sha256": "d12f1727aa4355a125605e12ae8a9e496b4b0e5653410ed163d2a3491e7e3a12"
-    },
-    "gfx/bank60/tiles_52c0.png": {
-      "size": 120,
-      "sha256": "8dd10cfb873e3b1d01796ff36fbb3a6a704540b7b420ca52180573ef3af0e324"
-    },
-    "gfx/bank60/tiles_52d0.2bpp": {
-      "size": 880,
-      "sha256": "0b9ace5b6b50e07afe619532b3f897930e540042dbb20decf00971ddb1277d7f"
-    },
-    "gfx/bank60/tiles_52d0.png": {
-      "size": 627,
-      "sha256": "0e35b614636de13d11aa4d07b955cd5c15c2977c65022b0406ad005d1f408959"
-    },
-    "gfx/bank60/tiles_5640.2bpp": {
-      "size": 176,
-      "sha256": "cab406c04fa7897808dae64b197f5bafdd6ed90fa40a0684a7dec0d843c45c6c"
-    },
-    "gfx/bank60/tiles_5640.png": {
-      "size": 205,
-      "sha256": "d6fd25b340105b24081f7830585be34a5a58bb206eca03169578d7b25777e7f4"
-    },
-    "gfx/bank60/tiles_5740.2bpp": {
-      "size": 112,
-      "sha256": "c15648069723ecd5ad424c982aac432fd9406912ae72e2aabf6b85b1bda47cdb"
-    },
-    "gfx/bank60/tiles_5740.png": {
-      "size": 171,
-      "sha256": "dfbfc6369fd4f4296c94049c63df139546644c6af506417776e5f09b1aa777af"
-    },
-    "gfx/bank60/tiles_5800.2bpp": {
-      "size": 768,
-      "sha256": "4d19cc2034ed2086bb6e188b8881ddb09a9996489a91c801a678752f07ecbbef"
-    },
-    "gfx/bank60/tiles_5800.png": {
-      "size": 470,
-      "sha256": "c0f10366767797a245d26ec423fc18222b198211e50f3ada93ed0b4920a0f589"
-    },
-    "gfx/bank60/tiles_5d50.2bpp": {
-      "size": 704,
-      "sha256": "118f2d7cc10666af4cb65d464040df4fb707530c693e1c3554deebff8894c242"
-    },
-    "gfx/bank60/tiles_5d50.png": {
-      "size": 438,
-      "sha256": "373e7ca1275d27da46f2fc956d41b58802dcb46e244374df26b45caf606a981b"
-    },
-    "gfx/bank60/tiles_6010.2bpp": {
-      "size": 80,
-      "sha256": "df705e25174431a1757c9a94d4a81aa0213f8e516cdb81ff11572eb20e8eddcf"
-    },
-    "gfx/bank60/tiles_6010.png": {
-      "size": 183,
-      "sha256": "9489bf39d64948728f7b26ec515ea3895035800c5dc23a46fcef4afc89ec62b2"
-    },
-    "gfx/bank60/tiles_6060.2bpp": {
-      "size": 592,
-      "sha256": "05f8d2474d887a947b07dae0b5dba2483567dd8a4be652110cb6d51940ecb75a"
-    },
-    "gfx/bank60/tiles_6060.png": {
-      "size": 490,
-      "sha256": "f35d06452001c5bebb6de702ad66e9f4b31355dd35e245cde214034d0a4a9e01"
-    },
-    "gfx/bank60/tiles_62b0.2bpp": {
-      "size": 448,
-      "sha256": "0225a2096cc4f5e52406faaa0e216b13ef1d3f3bd923e45e1a8516a79121cc00"
-    },
-    "gfx/bank60/tiles_62b0.png": {
-      "size": 389,
-      "sha256": "1aed07a166cfb6c6a4921c9abfed8298a1f212fb8d9218521b583b3852f5107a"
-    },
-    "gfx/bank60/tiles_64c0.2bpp": {
-      "size": 112,
-      "sha256": "7d058aa8bc794179cfbe46d9ca89bdfc23cc6b3141655db642b9c3eeb0f412b6"
-    },
-    "gfx/bank60/tiles_64c0.png": {
-      "size": 164,
-      "sha256": "9ac2665db480c6529d3e67f85841c7acdc6a8c2377132c1dcc92e5214c0d9fa3"
-    },
-    "gfx/bank60/tiles_6580.2bpp": {
-      "size": 128,
-      "sha256": "79c0aa56d69418fafbe2709679fefec86dcf2fbedf684e8739d3efc304ed537b"
-    },
-    "gfx/bank60/tiles_6580.png": {
-      "size": 203,
-      "sha256": "727c41900ccf87e3078f51911f420ee6cfe2cef16911d200f03ec885b151513a"
-    },
-    "gfx/bank60/tiles_6640.2bpp": {
-      "size": 2656,
-      "sha256": "f87408457f85211591fb1d64035dd3e0acd1e3aa43630dc799597af72e343f6e"
-    },
-    "gfx/bank60/tiles_6640.png": {
-      "size": 1322,
-      "sha256": "903a8f9a18147786655af74ce9cf0e81daf66291e74ada39cc8c3721447ddee2"
-    },
-    "gfx/bank60/tiles_70a0.2bpp": {
-      "size": 1616,
-      "sha256": "0bb2ebff2317898043fd8b24e49788e1c3a2f15dd86beb9c453363d265df56ba"
-    },
-    "gfx/bank60/tiles_70a0.png": {
-      "size": 1066,
-      "sha256": "f58749573f1fe72cef623be6b61a7edb551825c802a4144f9c6df9b1b3e6194a"
-    },
-    "gfx/bank60/tiles_76f0.2bpp": {
-      "size": 912,
-      "sha256": "2437d4ffaf6a0eb51440112c5904c15bcf748fa90c1e9e26d536f31b11892175"
-    },
-    "gfx/bank60/tiles_76f0.png": {
-      "size": 752,
-      "sha256": "52610077eaf526bd217f5f38ce025684cb81868a6bdd94481c4e5b1aca62287f"
-    },
-    "gfx/bank61.asm": {
-      "size": 65343,
-      "sha256": "ddedf3c3cba90ce58b551af195852102194cfedbf0d4ba05ef9be8831a1f183c"
-    },
-    "gfx/bank61/palette_7a80.pal": {
-      "size": 844,
-      "sha256": "fdf9be5f35f2b7bd39509fde0595573450decc13334cdc07a1bcecf2a3d5caac"
-    },
-    "gfx/bank61/tiles_4cc0.2bpp": {
-      "size": 672,
-      "sha256": "36ef0482e120993d3eb27d83d0654689a0b6419c2db6e442373789fb140a4843"
-    },
-    "gfx/bank61/tiles_4cc0.png": {
-      "size": 401,
-      "sha256": "1f4b8d3cb0c1dd824618bbcb8869be923e30d1d326954d26269bf7ac46f92108"
-    },
-    "gfx/bank61/tiles_4f63.2bpp": {
-      "size": 656,
-      "sha256": "9f08855de0d94f60dd7441d8914918d517bf55bf76ba289620feebb21793adb3"
-    },
-    "gfx/bank61/tiles_4f63.png": {
-      "size": 615,
-      "sha256": "e21503fe15e88c23c9d1d963761faef4096fdddeb3420cc39721c6e0f0b89dfd"
-    },
-    "gfx/bank61/tiles_58b0.2bpp": {
-      "size": 656,
-      "sha256": "958275e40afc987a8bed2eec5cc2062e2041f62b4a70e814036a84f5b1b6c62c"
-    },
-    "gfx/bank61/tiles_58b0.png": {
-      "size": 482,
-      "sha256": "75c2e8d20bc775d1416205d0387b1e435063a0e85c2749fe278561acc723a12a"
-    },
-    "gfx/bank61/tiles_65c0.2bpp": {
-      "size": 800,
-      "sha256": "defc62ec00126567d852c51b55d1029f0adda621c728a854f8bf074e3e188577"
-    },
-    "gfx/bank61/tiles_65c0.png": {
-      "size": 525,
-      "sha256": "156c0c0552a6351b92fd1bb19ec39d02424353784e50a7fc5e2b43405597fe73"
+      "size": 139127,
+      "sha256": "ec3a8683d24b97dc4eefe28a9dd8f1596175c10f84164d1099d86f455608b0df"
     },
     "gfx/browser/frames_0_1.asm": {
       "size": 8054,
@@ -9940,6 +9008,18 @@
     "gfx/browser/page_list/tiles_63e0.png": {
       "size": 251,
       "sha256": "33667e040fae80281de7caf9811b06ec6f76054aa9b9b78d59618bcdded6aa63"
+    },
+    "gfx/browser/page_list_prototype_messages.asm": {
+      "size": 908,
+      "sha256": "724eb30d52e90aa9cc17e09e71608d558c42e7bc22b8ce080fe0b95333c9ad08"
+    },
+    "gfx/browser/page_list_prototype_messages/prototype_message_tiles.2bpp": {
+      "size": 2944,
+      "sha256": "9c4580b7ec3957fbded052b9b48d4f5999389844ca1ab4819e450e27acd98b81"
+    },
+    "gfx/browser/page_list_prototype_messages/prototype_message_tiles.png": {
+      "size": 936,
+      "sha256": "40d90f8999554cd9c7bf7dbb87aec0a964e9e7c244b502f886f33abddd6ca376"
     },
     "gfx/browser/start_choice.asm": {
       "size": 11557,
@@ -10836,6 +9916,718 @@
     "gfx/error/non_cgb_screen/tiles_4060.png": {
       "size": 380,
       "sha256": "9ed7b56698cb3058b2af29860cbbc4d12ec78b19c663b9914794fb1fdb533f53"
+    },
+    "gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm": {
+      "size": 7039,
+      "sha256": "345aff784b5df5af0457aee06c2e123ec9966cce4f8b941fdf3ee6e8bdf7ce74"
+    },
+    "gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/blue_bubble_border_44_4d50_attributes.attrmap": {
+      "size": 360,
+      "sha256": "dd20ad6c97c6c7a91f77109b3e2ba826acf044a01ce9dbdd4ac52b88d2852b6b"
+    },
+    "gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/blue_bubble_border_44_4d50_palettes.pal": {
+      "size": 1039,
+      "sha256": "18cabf948fe9834f7d7a00a9ba830795c68a1765374b65fe383718e604dbc756"
+    },
+    "gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/blue_bubble_border_44_4d50_tilemap.tilemap": {
+      "size": 360,
+      "sha256": "90001ae6923fb1e940cfcb3e6fc39c84b9851c6a37383a6c6bd7629e681a1da1"
+    },
+    "gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/blue_bubble_border_44_4d50_tiles.2bpp": {
+      "size": 2560,
+      "sha256": "547a338b0a373d4f698ee009557d86cc0cfb3e170dd09c4ea7061e267c6000a0"
+    },
+    "gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/blue_bubble_border_44_4d50_tiles.png": {
+      "size": 1119,
+      "sha256": "cadbe6295a8a9438e70674d7d70ab46a8ff1a5f827c5197ba46a5cba77414229"
+    },
+    "gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/monochrome_arc_border_44_4000_attributes.attrmap": {
+      "size": 360,
+      "sha256": "505025d093e49075633a1a7b065978bb8d081ea95d5a1742cf258be3cd57bd70"
+    },
+    "gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/monochrome_arc_border_44_4000_palettes.pal": {
+      "size": 1039,
+      "sha256": "ff2dc344abb008eed51e72c525d4fa4aa2f26d5322a912d806a30fbfb9d8f7ec"
+    },
+    "gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/monochrome_arc_border_44_4000_tilemap.screen.png": {
+      "size": 1072,
+      "sha256": "700b93f083a27f2d2f21944ca32f145120898e5624d1d1572e81bd7f0fbb9e64"
+    },
+    "gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/monochrome_arc_border_44_4000_tilemap.tilemap": {
+      "size": 360,
+      "sha256": "f15c8b8ef580c517244ff652a05ca6fde0ebee6f50d9ec28804bcd847fff548b"
+    },
+    "gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/monochrome_arc_border_44_4000_tiles.2bpp": {
+      "size": 2560,
+      "sha256": "a281c78ce05c2339ff5e091ecabcd4d82146b5ae6d38eed4e1b894e5007a28f8"
+    },
+    "gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/monochrome_arc_border_44_4000_tiles.png": {
+      "size": 988,
+      "sha256": "68e9c3126d0764c55353ef018ce250a575c283f8533b884d8097be8066795a30"
+    },
+    "gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/rock_border_44_5aa0_attributes.attrmap": {
+      "size": 360,
+      "sha256": "f8d89520be706fdb235b29eb04c14ab0eafbec2379588235a76a7fcd4dc61feb"
+    },
+    "gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/rock_border_44_5aa0_palettes.pal": {
+      "size": 1039,
+      "sha256": "05b11b1c8b85381c5822db60f1133518e3bf35e5883ca766f8d8a4db10da9b20"
+    },
+    "gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/rock_border_44_5aa0_tilemap.screen.png": {
+      "size": 2840,
+      "sha256": "8c3b2fbb877bdb70a6bdce47bf801baf2acfe32fa9de14a1030c70246d9ce07f"
+    },
+    "gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/rock_border_44_5aa0_tilemap.tilemap": {
+      "size": 360,
+      "sha256": "219d5af36c998bd9aa1ce7a454c7238fdf09ec29ae0f778a713cefa872fb8c47"
+    },
+    "gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/rock_border_44_5aa0_tiles.2bpp": {
+      "size": 2560,
+      "sha256": "74f3f9201c7dc6282ace045cb076a9e2f6504bf9ad18856b0e327959afc1c1e9"
+    },
+    "gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/rock_border_44_5aa0_tiles.png": {
+      "size": 2329,
+      "sha256": "aabff79263b087809630f42a1ee20ca40b631698bcb648affb2aca729f0ed04d"
+    },
+    "gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/turquoise_scroll_border_44_67f0_attributes.attrmap": {
+      "size": 360,
+      "sha256": "cde5102699acc409ef4881062b933cc132f1e4504f33d8e8b0ae9c1fb1ca4cb4"
+    },
+    "gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/turquoise_scroll_border_44_67f0_palettes.pal": {
+      "size": 1039,
+      "sha256": "831def62f8fba00952a90aca77b738ff723c1c616bd6896102815557140f37ec"
+    },
+    "gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/turquoise_scroll_border_44_67f0_tilemap.screen.png": {
+      "size": 1563,
+      "sha256": "cfdfee42a856718dd4d85073aa403f44c8869f91701e9f06517cf90026bbbcf3"
+    },
+    "gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/turquoise_scroll_border_44_67f0_tilemap.tilemap": {
+      "size": 360,
+      "sha256": "eb9f0d8565f7475e666d9512a58e147d1288dcd5040a738058e7ae5918b44c6b"
+    },
+    "gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/turquoise_scroll_border_44_67f0_tiles.2bpp": {
+      "size": 2560,
+      "sha256": "b1e78de54b251eb088eace33787d3699c4f56c06375e73164a6e922b070e196e"
+    },
+    "gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/turquoise_scroll_border_44_67f0_tiles.png": {
+      "size": 1101,
+      "sha256": "adb9b433c2ec629c6b566fb25bf4fa6d843ef6e487d065e0809d5aa37ae915ad"
+    },
+    "gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm": {
+      "size": 6685,
+      "sha256": "828ad41a6e13333d4843684ff1550551b2b67ddaa72d2ff2c603bf77149f3201"
+    },
+    "gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/green_beveled_panel_41_5aa0_attributes.attrmap": {
+      "size": 360,
+      "sha256": "e55d820001778d3ed61755370cdc46a2ea7a97c36dd30a7a63667e448575b8e8"
+    },
+    "gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/green_beveled_panel_41_5aa0_palettes.pal": {
+      "size": 1039,
+      "sha256": "b4aae6d27cca87f07369523cf44d8bad18255f2ab5096a40b4882c8210b046da"
+    },
+    "gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/green_beveled_panel_41_5aa0_tilemap.tilemap": {
+      "size": 360,
+      "sha256": "b79c8e1005e3afcade68d373f9c099c22a57a49a536e99b72865c31cdd869cc7"
+    },
+    "gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/green_beveled_panel_41_5aa0_tiles.2bpp": {
+      "size": 2560,
+      "sha256": "3b4df4bc5ae701482f05e76d6549e21bdba64e8d29f29d86436dac338f93ee65"
+    },
+    "gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/green_beveled_panel_41_5aa0_tiles.png": {
+      "size": 1133,
+      "sha256": "203402ee8432d32eea02cfeee20d58f50caceb2180d876016c106cf23317d7b6"
+    },
+    "gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/lavender_ribbon_border_41_4d50_attributes.attrmap": {
+      "size": 360,
+      "sha256": "7062da7c3ac065bca3723c13cb4d17c7372d0da1aaef5a402ff3a45127d5a529"
+    },
+    "gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/lavender_ribbon_border_41_4d50_palettes.pal": {
+      "size": 1039,
+      "sha256": "fb8522e9815b67acbb0f209ad3582cd62c2d2ad2b04f029452fac1a72f2668c1"
+    },
+    "gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/lavender_ribbon_border_41_4d50_tilemap.screen.png": {
+      "size": 1820,
+      "sha256": "40596cfeb959133cc58a008c9070950ae2684943614f9d362ce657716e6ec129"
+    },
+    "gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/lavender_ribbon_border_41_4d50_tilemap.tilemap": {
+      "size": 360,
+      "sha256": "76389a2c333fa7f1f129dc49e27757b1c1871f655f9507afbaa2ce455dfa4533"
+    },
+    "gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/lavender_ribbon_border_41_4d50_tiles.2bpp": {
+      "size": 2560,
+      "sha256": "3020f164a483e77052f3c10067d04096c5f96c8f8875ce8a9cf2e486189a044b"
+    },
+    "gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/lavender_ribbon_border_41_4d50_tiles.png": {
+      "size": 1822,
+      "sha256": "ae0cd9babd469c5bcd88864285e47426ea409b218c53d9f7de92300c86ee0819"
+    },
+    "gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/leaf_vine_border_41_4000_attributes.attrmap": {
+      "size": 360,
+      "sha256": "3edd69047a68a3274d6ae233fcf34d24672a6095456e78cd00c912eca9211c17"
+    },
+    "gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/leaf_vine_border_41_4000_palettes.pal": {
+      "size": 1039,
+      "sha256": "6cf7594cfd4ff71fd4543dbda2ff3d8127fa8526359ce6d257a377dc7ead375a"
+    },
+    "gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/leaf_vine_border_41_4000_tilemap.screen.png": {
+      "size": 2112,
+      "sha256": "d32110d0d673b42638b4fdf9cf370ba73e4597176a7a8e8f8a2d443474118317"
+    },
+    "gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/leaf_vine_border_41_4000_tilemap.tilemap": {
+      "size": 360,
+      "sha256": "9a20d3a556ec9b63eca04bf58be76fba31793411cba96b7b069b62f39af1493b"
+    },
+    "gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/leaf_vine_border_41_4000_tiles.2bpp": {
+      "size": 2560,
+      "sha256": "045d1064bac65836baa83b1d8c7308505262d334ce78f0bbbbcf68e8b1be048d"
+    },
+    "gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/leaf_vine_border_41_4000_tiles.png": {
+      "size": 1894,
+      "sha256": "365d0b1bda144a8271f388485c7deadc4702ad2387ecbc10514667035372d4c2"
+    },
+    "gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/orange_beveled_panel_41_67f0_attributes.attrmap": {
+      "size": 360,
+      "sha256": "2974b6196c9da920e749e0ead9e090222e66a98c0c02d482052c346ec73024cb"
+    },
+    "gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/orange_beveled_panel_41_67f0_palettes.pal": {
+      "size": 1039,
+      "sha256": "3985ae7ad2c15950466d2e80f712d4cdd1da76c2a4f2211586467573c243dc92"
+    },
+    "gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/orange_beveled_panel_41_67f0_tilemap.tilemap": {
+      "size": 360,
+      "sha256": "452f891fe39dca6bb28c464c3c9bf1bfec7ce6e0baef862a6716955dc5b7c9b4"
+    },
+    "gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/orange_beveled_panel_41_67f0_tiles.2bpp": {
+      "size": 2560,
+      "sha256": "6441085a819f3a4447c54fd9be5def01c535c3662e4994f4b6d9569ca3237f95"
+    },
+    "gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/orange_beveled_panel_41_67f0_tiles.png": {
+      "size": 1040,
+      "sha256": "79d6224cb981cf021a12ce84e1164c60098599f7b286f10eeaf172c29ebaa7b5"
+    },
+    "gfx/frame_designs/ice_spike_curve_and_gold_borders_45.asm": {
+      "size": 5139,
+      "sha256": "9a7a7d1b9e0c02a843626add33f498885d523f6ebd927869aac9b379a4afcfdc"
+    },
+    "gfx/frame_designs/ice_spike_curve_and_gold_borders_45/gold_geometric_border_45_67f0_attributes.attrmap": {
+      "size": 360,
+      "sha256": "d43038493dcb8a465ed2aab20fd1126e99a3c54466378b476eb2b4dd12930c28"
+    },
+    "gfx/frame_designs/ice_spike_curve_and_gold_borders_45/gold_geometric_border_45_67f0_palettes.pal": {
+      "size": 1039,
+      "sha256": "bdbe6e25c044f64914a8c22f7e55f7b1bae295a0a219ca6d5c699bb1828d5162"
+    },
+    "gfx/frame_designs/ice_spike_curve_and_gold_borders_45/gold_geometric_border_45_67f0_tilemap.screen.png": {
+      "size": 2336,
+      "sha256": "931d601cda5f0c77a05120dac23b5ebdb503ce3761d042f7c29f00d9076dd9f2"
+    },
+    "gfx/frame_designs/ice_spike_curve_and_gold_borders_45/gold_geometric_border_45_67f0_tilemap.tilemap": {
+      "size": 360,
+      "sha256": "fa7e5f2cf72caaee2eea07e5421c51834402acb0948752b71c0f3e9e0467e844"
+    },
+    "gfx/frame_designs/ice_spike_curve_and_gold_borders_45/gold_geometric_border_45_67f0_tiles.2bpp": {
+      "size": 2560,
+      "sha256": "392f74b6b12410ca867a5b6d9d0d6824a642534cce00ff6089c17b75176339a5"
+    },
+    "gfx/frame_designs/ice_spike_curve_and_gold_borders_45/gold_geometric_border_45_67f0_tiles.png": {
+      "size": 1979,
+      "sha256": "550ac581ddda1947a4efb2c6900abd8df9617ac52fefdffa3946c53ee7436eb0"
+    },
+    "gfx/frame_designs/ice_spike_curve_and_gold_borders_45/ice_crystal_border_45_4000_attributes.attrmap": {
+      "size": 360,
+      "sha256": "a33795fd311472b43e530667e946d2ca6e7008e1b9c55cbad4b25053054a303e"
+    },
+    "gfx/frame_designs/ice_spike_curve_and_gold_borders_45/ice_crystal_border_45_4000_palettes.pal": {
+      "size": 1039,
+      "sha256": "5cbe4b46fccb63924c72c0fc5b038130bfdd32ca0d98111a4e3d811f18c60383"
+    },
+    "gfx/frame_designs/ice_spike_curve_and_gold_borders_45/ice_crystal_border_45_4000_tilemap.screen.png": {
+      "size": 1746,
+      "sha256": "f5c4bad289d01e3f8f6ec2b7e27b51e96817a9253c07cde5e8eda47cf6924a86"
+    },
+    "gfx/frame_designs/ice_spike_curve_and_gold_borders_45/ice_crystal_border_45_4000_tilemap.tilemap": {
+      "size": 360,
+      "sha256": "f4b3dbf1ad04abb1e6adfca07e1fb22155931fad1bbfd5f0f845ff3b788bb02e"
+    },
+    "gfx/frame_designs/ice_spike_curve_and_gold_borders_45/ice_crystal_border_45_4000_tiles.2bpp": {
+      "size": 2560,
+      "sha256": "d1841944388b7f089efc47cc8c9a585b6a57460ac28e1e1f8193fca190b9fefd"
+    },
+    "gfx/frame_designs/ice_spike_curve_and_gold_borders_45/ice_crystal_border_45_4000_tiles.png": {
+      "size": 1603,
+      "sha256": "1d16e67c88c5f58bb32c954f0c504a56cf215093a575543da6ee862ffd3584e9"
+    },
+    "gfx/frame_designs/ice_spike_curve_and_gold_borders_45/red_curved_border_45_5aa0_attributes.attrmap": {
+      "size": 360,
+      "sha256": "7eef94f740d65b9f713d196bd4986b9329f7ac61c05551bcd4897346d41eec34"
+    },
+    "gfx/frame_designs/ice_spike_curve_and_gold_borders_45/red_curved_border_45_5aa0_palettes.pal": {
+      "size": 1039,
+      "sha256": "2f889f6244c2ebfceaa9a0104b43b23afc482d728aecb412c3964d46f52b22af"
+    },
+    "gfx/frame_designs/ice_spike_curve_and_gold_borders_45/red_curved_border_45_5aa0_tilemap.screen.png": {
+      "size": 1292,
+      "sha256": "47cb87ee5c7318945e4f75f646a3d9af5f40169fe03ddb39a7546e02f65e40e5"
+    },
+    "gfx/frame_designs/ice_spike_curve_and_gold_borders_45/red_curved_border_45_5aa0_tilemap.tilemap": {
+      "size": 360,
+      "sha256": "bc5d004e6e61bb869881a651b01cd2a964e75359923bbac882fd32e805266ee5"
+    },
+    "gfx/frame_designs/ice_spike_curve_and_gold_borders_45/red_curved_border_45_5aa0_tiles.2bpp": {
+      "size": 2560,
+      "sha256": "cd4755f55c4f4cf7f4a8783d0132443c48ca2f5a2b7bb5fd2aebe41f10ad6ab6"
+    },
+    "gfx/frame_designs/ice_spike_curve_and_gold_borders_45/red_curved_border_45_5aa0_tiles.png": {
+      "size": 1282,
+      "sha256": "a99617051c9b46aff406cb546de7612a61dc012248a412fb5593d3e771c8dc02"
+    },
+    "gfx/frame_designs/ice_spike_curve_and_gold_borders_45/violet_spike_border_45_4d50_attributes.attrmap": {
+      "size": 360,
+      "sha256": "ee3f21d37ab454213603373366308a89f9872f1b2e39c3c83301faf120e8e3f7"
+    },
+    "gfx/frame_designs/ice_spike_curve_and_gold_borders_45/violet_spike_border_45_4d50_palettes.pal": {
+      "size": 1039,
+      "sha256": "625b840e7185497338847f59002af2a0410f0fd4b513e1adca393c642ca52714"
+    },
+    "gfx/frame_designs/ice_spike_curve_and_gold_borders_45/violet_spike_border_45_4d50_tilemap.tilemap": {
+      "size": 360,
+      "sha256": "54ddac46491fd3ea9688df0a7f3cdd6b8ea4cd3e1fccc31352c4d391cd6c6760"
+    },
+    "gfx/frame_designs/ice_spike_curve_and_gold_borders_45/violet_spike_border_45_4d50_tiles.2bpp": {
+      "size": 2560,
+      "sha256": "1caa32e0c897c65e4ebee603d61a481dcac8496dba3e499b58b63bb1406de2da"
+    },
+    "gfx/frame_designs/ice_spike_curve_and_gold_borders_45/violet_spike_border_45_4d50_tiles.png": {
+      "size": 1799,
+      "sha256": "7a1b0582fcfb074e7efcdc99a0e4c2dbab4810a746f0a05c146482ddcd11af71"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42.asm": {
+      "size": 12947,
+      "sha256": "9289fe088ea57bafd03e8c55af1c9fe1e4fc64ec2e4522e6ad57a45a411b829b"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_attributes.attrmap": {
+      "size": 360,
+      "sha256": "1819350a671dfb532664f8a8a7a7c703d5ac632c85220f38151eecaae7f6312b"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_palettes.pal": {
+      "size": 1039,
+      "sha256": "54f911e3e3e293e2e3e11116d0c6c76a9f9c896d5fa66b19d9aabbea07619b38"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_0000.2bpp": {
+      "size": 944,
+      "sha256": "11010462f2c1428bc07a798d06f4d9d858f2ce2c1f112c5fede0f8812b376bd6"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_0000.png": {
+      "size": 688,
+      "sha256": "2d03c18cbc0875a4f0d570046207fb6cf7d5ee5085248f3d04c170cd075950a3"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_03f0.2bpp": {
+      "size": 208,
+      "sha256": "249178fbbeac030f180e63c82baed6fc084ae8309b40fe0fd892eb3ff5d3fa53"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_03f0.png": {
+      "size": 294,
+      "sha256": "362875fbd507dc09454b54ad7353bfa5f66ead1ae5e26934117fafddf4913d92"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_04f2.2bpp": {
+      "size": 416,
+      "sha256": "ff6a4a7a274b75a767f1212d997260f7073398491c3a75137bae05bf3acae372"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_04f2.png": {
+      "size": 428,
+      "sha256": "b73efc771170cde53d2e1368d4b0cd87207abcb1dee684ca203e27e99ad57a4c"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_0800.2bpp": {
+      "size": 160,
+      "sha256": "6467fe7cc09520336369fd173b2bf5c3686ca8d5a2095ebf219b6257ee4eccec"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_0800.png": {
+      "size": 224,
+      "sha256": "3dac0eb308b236f00a87937109b48f37604316f3b6c1f8866229ef52d5aca0fd"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_0900.2bpp": {
+      "size": 16,
+      "sha256": "cf5745ff3347da9b0216aa57d23d569092f2fd5be17e383b05387433522529ef"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_0900.png": {
+      "size": 111,
+      "sha256": "34868bc45ee47fbdce09f8b5e975c4bce3762494557291b1d3215e0d05810772"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_0910.2bpp": {
+      "size": 240,
+      "sha256": "ef5a16234c6f4bf74e03d666305cf0d81280fe4344f51cb1d06be5ba66d56170"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_0910.png": {
+      "size": 226,
+      "sha256": "abae10a43e9fbaacf8b166d2a2f3a52d647f3672e7427370f129c17b3d3efb45"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tilemap.tilemap": {
+      "size": 360,
+      "sha256": "cfe7e525c7d33feb0497965d46f8d06a483a479dc0b52c83e83bb4eebeb20394"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_attributes.attrmap": {
+      "size": 360,
+      "sha256": "31bdba391378725be68094e8c04f0336a2ae29b070761636be076d2879a50643"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_palettes.pal": {
+      "size": 1039,
+      "sha256": "c5c234e26f9f5832c1ba6d4b6839b9b09adea27d8d42c7d8bc23c751ec265738"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_tile_fragment_0000.2bpp": {
+      "size": 432,
+      "sha256": "c57322a72a9b8e5d814658bca1579802776b310e05279147375254abab6a5753"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_tile_fragment_0000.png": {
+      "size": 545,
+      "sha256": "9603d30f701e4a2fef0a423dd996295f110603a00fb3e5cfec44ef5ba13000e8"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_tile_fragment_01b0.2bpp": {
+      "size": 960,
+      "sha256": "accf89b1df454c095539cc8d5926dbcafcd79540f5b15a3b065184099393a079"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_tile_fragment_01b0.png": {
+      "size": 998,
+      "sha256": "8f2c5e61a5c1c732e70c94a6456a09599aecef3def6559058dbffc545aeff089"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_tile_fragment_0570.2bpp": {
+      "size": 32,
+      "sha256": "b827dd125b68ee4c1f0db6088234006b0dd2ffbf96d0e83d499d15f588f7a724"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_tile_fragment_0570.png": {
+      "size": 142,
+      "sha256": "f6d54fad1050f93a1e3c8ded7be9fb1af0877d9eaf3820490497587012f6d5c0"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_tile_fragment_0590.2bpp": {
+      "size": 1136,
+      "sha256": "1a671d16bace5737b1b47dc1728e797036224145de8e28feaef70b26b57a94cc"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_tile_fragment_0590.png": {
+      "size": 929,
+      "sha256": "3b87f61a2f87eda368fe83d55058e1b0141d27543294287ade3195be7094c0e7"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_tilemap.screen.png": {
+      "size": 2340,
+      "sha256": "4358898ade26680fb2eee4c796555975296515a63f7bdea9fefd1e86f331273a"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_tilemap.tilemap": {
+      "size": 360,
+      "sha256": "e4be5edbdf54b2d10abf55fa6c43410e6164ba1bb37de458923c4f866c0e3bf0"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_attributes.attrmap": {
+      "size": 360,
+      "sha256": "ae0ec72eb6a00284c2fb65718bd9295aab798c4776ad90eb50e9196628468c36"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_palettes.pal": {
+      "size": 1039,
+      "sha256": "528c14f87560349911c7cd74b3ec6a8b2d2f867e8adc1ef4ac9ae2fa8694a89a"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_raw_4540_4560.bin": {
+      "size": 32,
+      "sha256": "66687aadf862bd776c8fc18b8e9f8e20089714856ee233b3902a591d0d5f2925"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_raw_4540_4560.png": {
+      "size": 93,
+      "sha256": "b4eedf04b9d5388f73db7d661808a5233257e63fe5af1b1dae023d30f947f6df"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_tile_fragment_0000.2bpp": {
+      "size": 1344,
+      "sha256": "d821cefd0eb5b8562b5d1c990288bda1be5e037744573ab6a32cec83f5519912"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_tile_fragment_0000.png": {
+      "size": 1255,
+      "sha256": "5da0c14bad6a8934db802d0ae6cd7c50325a87891ed0a14c7f23ddbfa8274ef7"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_tile_fragment_0802.2bpp": {
+      "size": 160,
+      "sha256": "1a411e455a6d2ce89d84a0338d69dbbd12a95fba88110e916643ad081cb697fb"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_tile_fragment_0802.png": {
+      "size": 227,
+      "sha256": "335aaa40cd5e20929f377badbb2e29e128bdc64c46a63e83edb532a32e04f104"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_tile_fragment_0900.2bpp": {
+      "size": 176,
+      "sha256": "cf97ac758fe7bfb3183e4d4b605722377a4535ecc41b7a2a272dbb0e2aac08a0"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_tile_fragment_0900.png": {
+      "size": 230,
+      "sha256": "2704239648b38ddf5ab36f778c3b01e64543601ab4fb5bc1966900d3c6324c54"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_tilemap.screen.png": {
+      "size": 1664,
+      "sha256": "635a3e20c938c51baac5b1bf4451fde0c5b9cd4b249eb63e1aa003572f925a9b"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_tilemap.tilemap": {
+      "size": 360,
+      "sha256": "6c4dca9d71310f32fc997b5632490e5e60a72ab2276a99ae7a0e0a8c7f14d6c9"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_attributes.attrmap": {
+      "size": 360,
+      "sha256": "978dfe308dbe657a06866f41eac768e6ebabf59c7696d39ecfb984310cc8212f"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_palettes.pal": {
+      "size": 1039,
+      "sha256": "73a478de237ca1cb195057ce8a7d9cba0242184a0b86e84003fedd8aa2381fa8"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_raw_6800_6810.bin": {
+      "size": 16,
+      "sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_raw_6800_6810.png": {
+      "size": 93,
+      "sha256": "82d74beae51024cb07424d8f320d91f21bdc6535b776f5b35683945d82d71b1f"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_raw_69a0_69b0.bin": {
+      "size": 16,
+      "sha256": "5ac6a5945f16500911219129984ba8b387a06f24fe383ce4e81a73294065461b"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_raw_69a0_69b0.png": {
+      "size": 95,
+      "sha256": "2e03949ec03800fcf05a645819162f5ee5dce3d4dd9c7f39d15cf0d4dad65763"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_raw_6cc0_6cd0.bin": {
+      "size": 16,
+      "sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_raw_6cc0_6cd0.png": {
+      "size": 93,
+      "sha256": "82d74beae51024cb07424d8f320d91f21bdc6535b776f5b35683945d82d71b1f"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tile_fragment_0000.2bpp": {
+      "size": 16,
+      "sha256": "0b0261922360928edbfbba07c1c5548aa2e71214f193d5c88bd8c840f4ddad3e"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tile_fragment_0000.png": {
+      "size": 95,
+      "sha256": "e38a5acc8f179266edc309a0f3f32984ef81a22196dfa49f1c7eccb46a0637b4"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tile_fragment_0020.2bpp": {
+      "size": 400,
+      "sha256": "7040063564c4ec200b87556294bc1dc9a5bcf8434b47897ca3bf6698c7014fc9"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tile_fragment_0020.png": {
+      "size": 493,
+      "sha256": "9ddfc6b2999868bed090d21ced49aad03f9638f18c037de4f3395816dd0178c6"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tile_fragment_01c0.2bpp": {
+      "size": 784,
+      "sha256": "4635311d61ea3ad6c6c4161bfbaf8a56d76a02f525307fa4b29e15b7c7f13bb9"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tile_fragment_01c0.png": {
+      "size": 871,
+      "sha256": "4c76756bcf6897ec91176a53a5d8d035039ee8efe30b068744f9dbfcf9f6a062"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tile_fragment_0802.2bpp": {
+      "size": 160,
+      "sha256": "e977789e1f9c48789af337b70f6734427d6c54bcfa31cd55452b9a3ee5326877"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tile_fragment_0802.png": {
+      "size": 205,
+      "sha256": "47f3434c74e84a0d6d0af8241cc803a500404bc82f3f0dfc62589f64a9e2cc15"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tile_fragment_0900.2bpp": {
+      "size": 160,
+      "sha256": "5ca868ce9824cd3c9248cedadfc36327ee6024345ed2b1229ffbf185cc7e40d4"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tile_fragment_0900.png": {
+      "size": 215,
+      "sha256": "30e6702fd0baa0ba91a8d461eebbfa000580782edb888734d4705e172a4ee481"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tilemap.screen.png": {
+      "size": 1722,
+      "sha256": "f29f4456c3170b8d6c0f60eb63b84cfe7c5ddb93f87faef28e3fc130f9f639bc"
+    },
+    "gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tilemap.tilemap": {
+      "size": 360,
+      "sha256": "8311206b6dd6edff9e25fcf5f97a9a36d08acbab1037f1870154693c376add1f"
+    },
+    "gfx/frame_designs/plant_chevron_and_heart_borders_43.asm": {
+      "size": 13301,
+      "sha256": "e9a69c85ab9ebdb3ed6e7556055bfed7491bf616d986240392b0f4ca731c8494"
+    },
+    "gfx/frame_designs/plant_chevron_and_heart_borders_43/blue_yellow_chevron_border_43_4d50_attributes.attrmap": {
+      "size": 360,
+      "sha256": "e7ba70e014a836adeaa67fc8b4b93ccf9e27d6c41c6e2e07caee6c99ee2ae14b"
+    },
+    "gfx/frame_designs/plant_chevron_and_heart_borders_43/blue_yellow_chevron_border_43_4d50_palettes.pal": {
+      "size": 1039,
+      "sha256": "877e6ad63c5d0132efa5161b6fc6da4244489671c395ee3916f24a44972af0c5"
+    },
+    "gfx/frame_designs/plant_chevron_and_heart_borders_43/blue_yellow_chevron_border_43_4d50_tilemap.tilemap": {
+      "size": 360,
+      "sha256": "f4f53115f9906a9fa6e3c3e6acf139b60d44a7dea7cec55f4f46c17fa5e8e596"
+    },
+    "gfx/frame_designs/plant_chevron_and_heart_borders_43/blue_yellow_chevron_border_43_4d50_tiles.2bpp": {
+      "size": 2560,
+      "sha256": "0e8fc7c1c75e31e434f561e91162b89c916ae2bac7a23b305d63752dfa46e357"
+    },
+    "gfx/frame_designs/plant_chevron_and_heart_borders_43/blue_yellow_chevron_border_43_4d50_tiles.png": {
+      "size": 1235,
+      "sha256": "4c0bbca1753b80992588edfea5e1c6193f14a8805f51ae45fad289b512447aab"
+    },
+    "gfx/frame_designs/plant_chevron_and_heart_borders_43/green_plant_motif_border_43_4000_attributes.attrmap": {
+      "size": 360,
+      "sha256": "a3821dee05556b1025ef8f742fe5176ce8db99fb2f96f01036f93533e4d11834"
+    },
+    "gfx/frame_designs/plant_chevron_and_heart_borders_43/green_plant_motif_border_43_4000_palettes.pal": {
+      "size": 1039,
+      "sha256": "c84a121b6b674286ca7ff6a3dc8e19bf9fa4305e5d1888368df560434b9f5621"
+    },
+    "gfx/frame_designs/plant_chevron_and_heart_borders_43/green_plant_motif_border_43_4000_tilemap.screen.png": {
+      "size": 1028,
+      "sha256": "fc904f6f11b38a32f1c31f0e05bcf0c641dd9e367876f801a1b24c64a50cb5dc"
+    },
+    "gfx/frame_designs/plant_chevron_and_heart_borders_43/green_plant_motif_border_43_4000_tilemap.tilemap": {
+      "size": 360,
+      "sha256": "757a06841ca11d14b3908341fc4914c80015dacdb9b24648081e51ccaa091bf4"
+    },
+    "gfx/frame_designs/plant_chevron_and_heart_borders_43/green_plant_motif_border_43_4000_tiles.2bpp": {
+      "size": 2560,
+      "sha256": "50bc7020374b800c82acefab1417f340880f5dbcd1328ca984be14ef3816dc7e"
+    },
+    "gfx/frame_designs/plant_chevron_and_heart_borders_43/green_plant_motif_border_43_4000_tiles.png": {
+      "size": 993,
+      "sha256": "14f54644f918d66c18c2585730d1664c1c0bd20776eba3ce671d2752760172ec"
+    },
+    "gfx/frame_designs/plant_chevron_and_heart_borders_43/heart_and_flower_border_43_67f0_attributes.attrmap": {
+      "size": 360,
+      "sha256": "1fde979eaf7fe75ed62518dc4d651fdc4fe896f4f344dc5c8ff02b2e065a7fb0"
+    },
+    "gfx/frame_designs/plant_chevron_and_heart_borders_43/heart_and_flower_border_43_67f0_palettes.pal": {
+      "size": 1039,
+      "sha256": "5199abfc36f1b5b2595c88d7d085a46685935edac21378e5780549316a5625f7"
+    },
+    "gfx/frame_designs/plant_chevron_and_heart_borders_43/heart_and_flower_border_43_67f0_tilemap.tilemap": {
+      "size": 360,
+      "sha256": "157da48e899b544ceb7c6c350e8fbed478be3f0b47f877bc6692a0921d22954a"
+    },
+    "gfx/frame_designs/plant_chevron_and_heart_borders_43/heart_and_flower_border_43_67f0_tiles.2bpp": {
+      "size": 2560,
+      "sha256": "f94cf265ca4d55bcae6517b68168912a7a097a00bf337ea9d62c6718e0318df2"
+    },
+    "gfx/frame_designs/plant_chevron_and_heart_borders_43/heart_and_flower_border_43_67f0_tiles.png": {
+      "size": 1266,
+      "sha256": "4af8c27f9ea4a7fd8d9e8cf45cba0ad50024be504e9a158ef3450b1f361c1bac"
+    },
+    "gfx/frame_designs/plant_chevron_and_heart_borders_43/leaf_and_seed_border_43_5aa0_attributes.attrmap": {
+      "size": 360,
+      "sha256": "ea59ba58d4715971ae2b99c8a75ebc78ee615f133c6e837871680175c4051ec6"
+    },
+    "gfx/frame_designs/plant_chevron_and_heart_borders_43/leaf_and_seed_border_43_5aa0_palettes.pal": {
+      "size": 1039,
+      "sha256": "8ad20267be2137d5a8f822ca9319b3d2e01a5b09978a596ed21483a20ccffd8b"
+    },
+    "gfx/frame_designs/plant_chevron_and_heart_borders_43/leaf_and_seed_border_43_5aa0_tilemap.screen.png": {
+      "size": 1947,
+      "sha256": "02582f04617d7c5501e9b999047afd7e109faba999e61f7fd6d782cce7876df4"
+    },
+    "gfx/frame_designs/plant_chevron_and_heart_borders_43/leaf_and_seed_border_43_5aa0_tilemap.tilemap": {
+      "size": 360,
+      "sha256": "b985b859d4ce464664197b7c533d848698c5d5494017fef8d6c84156d8509a45"
+    },
+    "gfx/frame_designs/plant_chevron_and_heart_borders_43/leaf_and_seed_border_43_5aa0_tiles.2bpp": {
+      "size": 2560,
+      "sha256": "01f7a503e86169b4ce4320c8f54b65f50fdad19cf13ce999015890939aec873e"
+    },
+    "gfx/frame_designs/plant_chevron_and_heart_borders_43/leaf_and_seed_border_43_5aa0_tiles.png": {
+      "size": 1828,
+      "sha256": "8591814915d041758994129be3e267cc68f71349ca2391487a4115f184f0f444"
+    },
+    "gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm": {
+      "size": 7509,
+      "sha256": "8fef68b3e16a2a609bd82851ecba4a47d11d23753d237c71229e48d3cf891071"
+    },
+    "gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/blue_energy_border_46_5aa0_attributes.attrmap": {
+      "size": 360,
+      "sha256": "8d40979b3ee636d5dcfbd8b57b746b6b94a3ebf77826c54f5a43e4d2736380d4"
+    },
+    "gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/blue_energy_border_46_5aa0_palettes.pal": {
+      "size": 1039,
+      "sha256": "89ff2cc8fd5f2ee6ca57761d47afd6170a751c9705ff5b3e1b77efd22fe66ddc"
+    },
+    "gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/blue_energy_border_46_5aa0_tilemap.screen.png": {
+      "size": 1960,
+      "sha256": "7c78527471aa69051201629c299f165147ec186ab8153150afc2891d54a4f5dd"
+    },
+    "gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/blue_energy_border_46_5aa0_tilemap.tilemap": {
+      "size": 360,
+      "sha256": "fac7992d68955adeed25497ac9892d6964bb3f23d79223363a2857073f761448"
+    },
+    "gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/blue_energy_border_46_5aa0_tiles.2bpp": {
+      "size": 2560,
+      "sha256": "2a0f7237f338a09f9f84f812ed17dac38593d46650d02beeab71dd948ce1ca12"
+    },
+    "gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/blue_energy_border_46_5aa0_tiles.png": {
+      "size": 1825,
+      "sha256": "0b3a1a9354eb70ca378548e0652401705db25813b1b1ac9f8f624929af25b40b"
+    },
+    "gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/orange_rivet_panel_46_4d50_attributes.attrmap": {
+      "size": 360,
+      "sha256": "8b7c65d9e67c5db02707f00a5d059f244cc12eeb6f51c205e8a5e73ddf119d73"
+    },
+    "gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/orange_rivet_panel_46_4d50_palettes.pal": {
+      "size": 1039,
+      "sha256": "a97c8ec94fc2e0566a0335d6bc82a781169e0fccab743a244dd880b1f9189749"
+    },
+    "gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/orange_rivet_panel_46_4d50_tilemap.screen.png": {
+      "size": 1748,
+      "sha256": "89e162c495291ade579004aa4bf99f91a049bdb5897e40d88ac3a43c715075ed"
+    },
+    "gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/orange_rivet_panel_46_4d50_tilemap.tilemap": {
+      "size": 360,
+      "sha256": "30a5596a73770609d1b4dff4385e7a8d3ebef6816340db229a2a4b02a24ee994"
+    },
+    "gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/orange_rivet_panel_46_4d50_tiles.2bpp": {
+      "size": 2560,
+      "sha256": "111883ab507555fa718b36e4881167ad33679659e047e17df232ec6eb82f63d2"
+    },
+    "gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/orange_rivet_panel_46_4d50_tiles.png": {
+      "size": 1798,
+      "sha256": "67309e1d423ea285e8beacd66c37324001b1365e91f34c7f31b3b71c03ca99a3"
+    },
+    "gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/pink_scallop_border_46_67f0_attributes.attrmap": {
+      "size": 360,
+      "sha256": "67edeb67b533301a9bbf44b02eea0a246a4d04a39fe0d6e7f330e931900398a5"
+    },
+    "gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/pink_scallop_border_46_67f0_palettes.pal": {
+      "size": 1039,
+      "sha256": "08c782c08b8708635b6b79cae41f08dc1665a25b8a42e8299c5883b53af7c08f"
+    },
+    "gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/pink_scallop_border_46_67f0_tilemap.tilemap": {
+      "size": 360,
+      "sha256": "c67e8166cccdc8f2b084b268a55ea366dc581384b8cbe4125325659d23935dac"
+    },
+    "gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/pink_scallop_border_46_67f0_tiles.2bpp": {
+      "size": 2560,
+      "sha256": "7e2cf4f2820a4fd5f5236c2be54a9b1e1354d26917c8c86194d2379325228d3c"
+    },
+    "gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/pink_scallop_border_46_67f0_tiles.png": {
+      "size": 1122,
+      "sha256": "1828ceb7bf03e3a8f225517c4465a78e31e3ba151d179d2b32b8224685abceff"
+    },
+    "gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/star_triangle_border_46_4000_attributes.attrmap": {
+      "size": 360,
+      "sha256": "6aa2d9b1f40c368ec0678c4e4d4d4288fe239858f9635ca31abafd9baccb4b17"
+    },
+    "gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/star_triangle_border_46_4000_palettes.pal": {
+      "size": 1039,
+      "sha256": "10d6e9400a89b2eacaad4f5006c0bd26c4b74556df0629110f557188608588e5"
+    },
+    "gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/star_triangle_border_46_4000_tilemap.screen.png": {
+      "size": 1561,
+      "sha256": "0fd867967534dd9013750402e79c114da1faf64ac215c86c7ee1189df5bacef6"
+    },
+    "gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/star_triangle_border_46_4000_tilemap.tilemap": {
+      "size": 360,
+      "sha256": "ee59c9e2173576afc15b7ce223dd6db70ff3fe6ef58ffd6fd633ac38dcc421ac"
+    },
+    "gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/star_triangle_border_46_4000_tiles.2bpp": {
+      "size": 2560,
+      "sha256": "061cdfe17276f6171b6eac07df7703132138b480c07705c4e3c1bbd887873735"
+    },
+    "gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/star_triangle_border_46_4000_tiles.png": {
+      "size": 1457,
+      "sha256": "7666cb2ce7c1e18fc0aac30fbaab52d677f55e73ec5ce647fc6d0632bbe7de6a"
     },
     "gfx/help/help_screens_a.asm": {
       "size": 9437,
@@ -12790,12 +12582,12 @@
       "sha256": "01793537e000047a5437a4f8d99e74b24618df76e30444c244f4e30fc64f079d"
     },
     "gfx/png.mk": {
-      "size": 61135,
-      "sha256": "08bfb7db566743c31cd273a623544b2b7711d2094ea9f2a8a308a6165d8a5e79"
+      "size": 70559,
+      "sha256": "8dd3970c6762ed2055eb8dceec5018c7b99d84d9c330dd9581905e4e1e6eacb6"
     },
     "gfx/png_rules.tsv": {
-      "size": 139919,
-      "sha256": "81214b6148355f43a175942d938a35227813b2a6d1152c61b7c7a4f9661d4e5a"
+      "size": 152904,
+      "sha256": "c457ccec2f6c59f32f2aaaeae47af0583ee3f82c3ae4a0caf82c2c713bfc0d7b"
     },
     "gfx/previews/README.md": {
       "size": 34968,
@@ -14218,8 +14010,8 @@
       "sha256": "b96f246c7c7fcf9c36a9f00bb2e5a5dd47919045c3e6a62a164342a1b068b4d9"
     },
     "gfx/screens.tsv": {
-      "size": 78352,
-      "sha256": "524f578d9dd0a23da3a3e0697c3cdfa3d8f5bdc326ee09007f39c815c1a344f9"
+      "size": 86112,
+      "sha256": "1327effb92bb473259acf1e2e41e254ff93d63a2cb1195bc800ee3c493d5f47a"
     },
     "gfx/settings/screens_bank4a.asm": {
       "size": 4755,
@@ -14953,6 +14745,222 @@
       "size": 605,
       "sha256": "c9f634060afb0f211467726bc0166d5c530a1320cb576bdd24c2ed64b27ac823"
     },
+    "gfx/ui_art/button_art_fragments.asm": {
+      "size": 65536,
+      "sha256": "e357f98cfb3e89861eecad5759e58048aed493edeb05fcafbbb554957fd563b4"
+    },
+    "gfx/ui_art/button_art_fragments/dpad_button_and_frame_tiles.2bpp": {
+      "size": 672,
+      "sha256": "36ef0482e120993d3eb27d83d0654689a0b6419c2db6e442373789fb140a4843"
+    },
+    "gfx/ui_art/button_art_fragments/dpad_button_and_frame_tiles.png": {
+      "size": 401,
+      "sha256": "1f4b8d3cb0c1dd824618bbcb8869be923e30d1d326954d26269bf7ac46f92108"
+    },
+    "gfx/ui_art/button_art_fragments/fragment_palettes.pal": {
+      "size": 844,
+      "sha256": "fdf9be5f35f2b7bd39509fde0595573450decc13334cdc07a1bcecf2a3d5caac"
+    },
+    "gfx/ui_art/button_art_fragments/tile_fragment_4f63.2bpp": {
+      "size": 656,
+      "sha256": "9f08855de0d94f60dd7441d8914918d517bf55bf76ba289620feebb21793adb3"
+    },
+    "gfx/ui_art/button_art_fragments/tile_fragment_4f63.png": {
+      "size": 615,
+      "sha256": "e21503fe15e88c23c9d1d963761faef4096fdddeb3420cc39721c6e0f0b89dfd"
+    },
+    "gfx/ui_art/button_art_fragments/tile_fragment_58b0.2bpp": {
+      "size": 656,
+      "sha256": "958275e40afc987a8bed2eec5cc2062e2041f62b4a70e814036a84f5b1b6c62c"
+    },
+    "gfx/ui_art/button_art_fragments/tile_fragment_58b0.png": {
+      "size": 482,
+      "sha256": "75c2e8d20bc775d1416205d0387b1e435063a0e85c2749fe278561acc723a12a"
+    },
+    "gfx/ui_art/button_art_fragments/tile_fragment_65c0.2bpp": {
+      "size": 800,
+      "sha256": "defc62ec00126567d852c51b55d1029f0adda621c728a854f8bf074e3e188577"
+    },
+    "gfx/ui_art/button_art_fragments/tile_fragment_65c0.png": {
+      "size": 525,
+      "sha256": "156c0c0552a6351b92fd1bb19ec39d02424353784e50a7fc5e2b43405597fe73"
+    },
+    "gfx/ui_art/frame_glyph_fragments.asm": {
+      "size": 21715,
+      "sha256": "f9689a8fa3da218dd931beef9c2c14e5143264752c9a249627347728279886a3"
+    },
+    "gfx/ui_art/frame_glyph_fragments/back_button_and_text_tiles.2bpp": {
+      "size": 1616,
+      "sha256": "0bb2ebff2317898043fd8b24e49788e1c3a2f15dd86beb9c453363d265df56ba"
+    },
+    "gfx/ui_art/frame_glyph_fragments/back_button_and_text_tiles.png": {
+      "size": 1066,
+      "sha256": "f58749573f1fe72cef623be6b61a7edb551825c802a4144f9c6df9b1b3e6194a"
+    },
+    "gfx/ui_art/frame_glyph_fragments/fragment_palettes.pal": {
+      "size": 844,
+      "sha256": "79917cb14e5cb63928acfb6f7bd5aa5f701f53d5ccb84691e6160b583af5e1cb"
+    },
+    "gfx/ui_art/frame_glyph_fragments/jump_button_and_frame_tiles.2bpp": {
+      "size": 2656,
+      "sha256": "f87408457f85211591fb1d64035dd3e0acd1e3aa43630dc799597af72e343f6e"
+    },
+    "gfx/ui_art/frame_glyph_fragments/jump_button_and_frame_tiles.png": {
+      "size": 1322,
+      "sha256": "903a8f9a18147786655af74ce9cf0e81daf66291e74ada39cc8c3721447ddee2"
+    },
+    "gfx/ui_art/frame_glyph_fragments/tile_fragment_4360.2bpp": {
+      "size": 240,
+      "sha256": "4caebcb548cbaa818bb1b41220fb8ae8ef52b372d48ce6274946ca5e86896611"
+    },
+    "gfx/ui_art/frame_glyph_fragments/tile_fragment_4360.png": {
+      "size": 222,
+      "sha256": "770da249b68c4e0d7a50545db7aab5a7198d77947c9e83f1bd30132f94ebd7a9"
+    },
+    "gfx/ui_art/frame_glyph_fragments/tile_fragment_4455.2bpp": {
+      "size": 1136,
+      "sha256": "6ea11f96391f59f2059f2352e0dd7140b3da7cfdfdbc4e6b656977a832b56f15"
+    },
+    "gfx/ui_art/frame_glyph_fragments/tile_fragment_4455.png": {
+      "size": 932,
+      "sha256": "006df26c5b0d07649f6d07550f814e20f2123b3ea58e5abb20a93f1b3f031122"
+    },
+    "gfx/ui_art/frame_glyph_fragments/tile_fragment_4b50.2bpp": {
+      "size": 560,
+      "sha256": "45d61ec09ee795e470f19e0f09f53eefa1d8eae2f6f17e88e36f11c4df05d562"
+    },
+    "gfx/ui_art/frame_glyph_fragments/tile_fragment_4b50.png": {
+      "size": 411,
+      "sha256": "9071bc4d99be96b55f018b03d7b3696771c02f9a95e94b4cf029dad5370a8b93"
+    },
+    "gfx/ui_art/frame_glyph_fragments/tile_fragment_4dd0.2bpp": {
+      "size": 1184,
+      "sha256": "18b922fcdf590c8bc3ea08dd0787db8fb12d07d8463ff4ec352ff22938395cd5"
+    },
+    "gfx/ui_art/frame_glyph_fragments/tile_fragment_4dd0.png": {
+      "size": 850,
+      "sha256": "4321906eb7c0b18dd1b24437a1cdb89382eb69335f6c04dd8bfc1ec807c28773"
+    },
+    "gfx/ui_art/frame_glyph_fragments/tile_fragment_52c0.2bpp": {
+      "size": 16,
+      "sha256": "d12f1727aa4355a125605e12ae8a9e496b4b0e5653410ed163d2a3491e7e3a12"
+    },
+    "gfx/ui_art/frame_glyph_fragments/tile_fragment_52c0.png": {
+      "size": 120,
+      "sha256": "8dd10cfb873e3b1d01796ff36fbb3a6a704540b7b420ca52180573ef3af0e324"
+    },
+    "gfx/ui_art/frame_glyph_fragments/tile_fragment_52d0.2bpp": {
+      "size": 880,
+      "sha256": "0b9ace5b6b50e07afe619532b3f897930e540042dbb20decf00971ddb1277d7f"
+    },
+    "gfx/ui_art/frame_glyph_fragments/tile_fragment_52d0.png": {
+      "size": 627,
+      "sha256": "0e35b614636de13d11aa4d07b955cd5c15c2977c65022b0406ad005d1f408959"
+    },
+    "gfx/ui_art/frame_glyph_fragments/tile_fragment_5640.2bpp": {
+      "size": 176,
+      "sha256": "cab406c04fa7897808dae64b197f5bafdd6ed90fa40a0684a7dec0d843c45c6c"
+    },
+    "gfx/ui_art/frame_glyph_fragments/tile_fragment_5640.png": {
+      "size": 205,
+      "sha256": "d6fd25b340105b24081f7830585be34a5a58bb206eca03169578d7b25777e7f4"
+    },
+    "gfx/ui_art/frame_glyph_fragments/tile_fragment_5740.2bpp": {
+      "size": 112,
+      "sha256": "c15648069723ecd5ad424c982aac432fd9406912ae72e2aabf6b85b1bda47cdb"
+    },
+    "gfx/ui_art/frame_glyph_fragments/tile_fragment_5740.png": {
+      "size": 171,
+      "sha256": "dfbfc6369fd4f4296c94049c63df139546644c6af506417776e5f09b1aa777af"
+    },
+    "gfx/ui_art/frame_glyph_fragments/tile_fragment_5800.2bpp": {
+      "size": 768,
+      "sha256": "4d19cc2034ed2086bb6e188b8881ddb09a9996489a91c801a678752f07ecbbef"
+    },
+    "gfx/ui_art/frame_glyph_fragments/tile_fragment_5800.png": {
+      "size": 470,
+      "sha256": "c0f10366767797a245d26ec423fc18222b198211e50f3ada93ed0b4920a0f589"
+    },
+    "gfx/ui_art/frame_glyph_fragments/tile_fragment_5d50.2bpp": {
+      "size": 704,
+      "sha256": "118f2d7cc10666af4cb65d464040df4fb707530c693e1c3554deebff8894c242"
+    },
+    "gfx/ui_art/frame_glyph_fragments/tile_fragment_5d50.png": {
+      "size": 438,
+      "sha256": "373e7ca1275d27da46f2fc956d41b58802dcb46e244374df26b45caf606a981b"
+    },
+    "gfx/ui_art/frame_glyph_fragments/tile_fragment_6010.2bpp": {
+      "size": 80,
+      "sha256": "df705e25174431a1757c9a94d4a81aa0213f8e516cdb81ff11572eb20e8eddcf"
+    },
+    "gfx/ui_art/frame_glyph_fragments/tile_fragment_6010.png": {
+      "size": 183,
+      "sha256": "9489bf39d64948728f7b26ec515ea3895035800c5dc23a46fcef4afc89ec62b2"
+    },
+    "gfx/ui_art/frame_glyph_fragments/tile_fragment_6060.2bpp": {
+      "size": 592,
+      "sha256": "05f8d2474d887a947b07dae0b5dba2483567dd8a4be652110cb6d51940ecb75a"
+    },
+    "gfx/ui_art/frame_glyph_fragments/tile_fragment_6060.png": {
+      "size": 490,
+      "sha256": "f35d06452001c5bebb6de702ad66e9f4b31355dd35e245cde214034d0a4a9e01"
+    },
+    "gfx/ui_art/frame_glyph_fragments/tile_fragment_62b0.2bpp": {
+      "size": 448,
+      "sha256": "0225a2096cc4f5e52406faaa0e216b13ef1d3f3bd923e45e1a8516a79121cc00"
+    },
+    "gfx/ui_art/frame_glyph_fragments/tile_fragment_62b0.png": {
+      "size": 389,
+      "sha256": "1aed07a166cfb6c6a4921c9abfed8298a1f212fb8d9218521b583b3852f5107a"
+    },
+    "gfx/ui_art/frame_glyph_fragments/tile_fragment_64c0.2bpp": {
+      "size": 112,
+      "sha256": "7d058aa8bc794179cfbe46d9ca89bdfc23cc6b3141655db642b9c3eeb0f412b6"
+    },
+    "gfx/ui_art/frame_glyph_fragments/tile_fragment_64c0.png": {
+      "size": 164,
+      "sha256": "9ac2665db480c6529d3e67f85841c7acdc6a8c2377132c1dcc92e5214c0d9fa3"
+    },
+    "gfx/ui_art/frame_glyph_fragments/tile_fragment_6580.2bpp": {
+      "size": 128,
+      "sha256": "79c0aa56d69418fafbe2709679fefec86dcf2fbedf684e8739d3efc304ed537b"
+    },
+    "gfx/ui_art/frame_glyph_fragments/tile_fragment_6580.png": {
+      "size": 203,
+      "sha256": "727c41900ccf87e3078f51911f420ee6cfe2cef16911d200f03ec885b151513a"
+    },
+    "gfx/ui_art/frame_glyph_fragments/tile_fragment_76f0.2bpp": {
+      "size": 912,
+      "sha256": "2437d4ffaf6a0eb51440112c5904c15bcf748fa90c1e9e26d536f31b11892175"
+    },
+    "gfx/ui_art/frame_glyph_fragments/tile_fragment_76f0.png": {
+      "size": 752,
+      "sha256": "52610077eaf526bd217f5f38ce025684cb81868a6bdd94481c4e5b1aca62287f"
+    },
+    "gfx/ui_art/logo_and_window_tiles.asm": {
+      "size": 1438,
+      "sha256": "3a6067889ea7a9b6181f75be356a37b9b75b37c459fa337c55953a5fdf5dc5e5"
+    },
+    "gfx/ui_art/logo_and_window_tiles/art_palettes.pal": {
+      "size": 779,
+      "sha256": "efec6f91fb39bc4f0c61dee7664acc3de4fb94a905345e1fba7eb8b903191f20"
+    },
+    "gfx/ui_art/logo_and_window_tiles/logo_and_window_tiles.2bpp": {
+      "size": 4608,
+      "sha256": "3f3a3a44a5b87aca751360d559be3a16915ac9cd001bb4ae0fef33e51c8aa1da"
+    },
+    "gfx/ui_art/logo_and_window_tiles/logo_and_window_tiles.png": {
+      "size": 2808,
+      "sha256": "86c68ac95a6556e1939f829d0ce1cb516b3deb67cf0a96be5484da0711d924f9"
+    },
+    "gfx/ui_art/logo_and_window_tiles/mail_server_box_tiles.2bpp": {
+      "size": 1152,
+      "sha256": "884fbf738d2313e7abcd6a30ed85dc5c49ee680827666ce347449796f9454d08"
+    },
+    "gfx/ui_art/logo_and_window_tiles/mail_server_box_tiles.png": {
+      "size": 628,
+      "sha256": "5634645565f3e3f680bc79245a334231f126e917b7dc75bac39d978dcdf6b582"
+    },
     "gfx/unreferenced/page_list_prototype.asm": {
       "size": 14315,
       "sha256": "ac5e55304a40eddf3cefb5b3ab5af8d138f433364a33620579f647089a661c98"
@@ -15130,8 +15138,8 @@
       "sha256": "6009ddf1f3318589ebb329d9d9117b4095456fb1f6fd780c2478b95c8e94b304"
     },
     "layout.link": {
-      "size": 14243,
-      "sha256": "3c8116c23fd12ba7454fc70731b6a3260a49b5e3e0bdaf2afe11859eb6325cf1"
+      "size": 14603,
+      "sha256": "bbe0ed2989ce54c5172232f598a3ad3dde88385994eed5eb22ab1eb0b9d99d8b"
     },
     "lib/mobile/mail.asm": {
       "size": 93511,
@@ -15242,8 +15250,8 @@
       "sha256": "f0fd0ce855736d583a99bd82b0fd22758e11ab18f6b273782b6e4544c8fa22dc"
     },
     "tools/gfx_export.py": {
-      "size": 66044,
-      "sha256": "262dc04cdf49d499c2d9f895d1450285dad543718a212c4498bbc887f6aa5e5d"
+      "size": 66438,
+      "sha256": "636764e3c22ca2aa0aa2d80ff3a4fef7f13622eb12889142378eeaa0cb642d27"
     },
     "tools/ghidra/check_language.py": {
       "size": 3732,
@@ -15358,8 +15366,8 @@
       "sha256": "45b0ca2e7b99d206cf2deaeca8a66218709611cf18e42141e6a67a3b7f278cc2"
     },
     "tools/raw_png.py": {
-      "size": 13482,
-      "sha256": "e3043c5db24735c111cecf9552b34f1a151004c5111e958ef8b5d3c799686a18"
+      "size": 14287,
+      "sha256": "9a3cc91d3f2a34db5f844e2dea0a98060575b1d1c27256f266462dfc5af8b855"
     },
     "tools/remap_record_lines.py": {
       "size": 4577,
@@ -20473,5 +20481,5 @@
     }
   },
   "overrides_count": 564,
-  "fallback_count": 4255
+  "fallback_count": 4257
 }

@@ -88,69 +88,6 @@ PNG_TILE_OUTS := \
 	gfx/address_book/shared_tiles_bank28/tiles_4fd0.2bpp \
 	gfx/address_book/unreferenced_confirm_screen/tiles_7740.2bpp \
 	gfx/address_book/unreferenced_confirm_screen/tiles_7b70.2bpp \
-	gfx/bank41/tiles_4000.2bpp \
-	gfx/bank41/tiles_4d50.2bpp \
-	gfx/bank41/tiles_5aa0.2bpp \
-	gfx/bank41/tiles_67f0.2bpp \
-	gfx/bank42/tiles_4000.2bpp \
-	gfx/bank42/tiles_4802.2bpp \
-	gfx/bank42/tiles_4900.2bpp \
-	gfx/bank42/tiles_4d50.2bpp \
-	gfx/bank42/tiles_4f00.2bpp \
-	gfx/bank42/tiles_52c0.2bpp \
-	gfx/bank42/tiles_52e0.2bpp \
-	gfx/bank42/tiles_5aa0.2bpp \
-	gfx/bank42/tiles_5e90.2bpp \
-	gfx/bank42/tiles_5f92.2bpp \
-	gfx/bank42/tiles_62a0.2bpp \
-	gfx/bank42/tiles_63a0.2bpp \
-	gfx/bank42/tiles_63b0.2bpp \
-	gfx/bank42/tiles_67f0.2bpp \
-	gfx/bank42/tiles_6810.2bpp \
-	gfx/bank42/tiles_69b0.2bpp \
-	gfx/bank42/tiles_6ff2.2bpp \
-	gfx/bank42/tiles_70f0.2bpp \
-	gfx/bank43/tiles_4000.2bpp \
-	gfx/bank43/tiles_4d50.2bpp \
-	gfx/bank43/tiles_5aa0.2bpp \
-	gfx/bank43/tiles_67f0.2bpp \
-	gfx/bank44/tiles_4000.2bpp \
-	gfx/bank44/tiles_4d50.2bpp \
-	gfx/bank44/tiles_5aa0.2bpp \
-	gfx/bank44/tiles_67f0.2bpp \
-	gfx/bank45/tiles_4000.2bpp \
-	gfx/bank45/tiles_4d50.2bpp \
-	gfx/bank45/tiles_5aa0.2bpp \
-	gfx/bank45/tiles_67f0.2bpp \
-	gfx/bank46/tiles_4000.2bpp \
-	gfx/bank46/tiles_4d50.2bpp \
-	gfx/bank46/tiles_5aa0.2bpp \
-	gfx/bank46/tiles_67f0.2bpp \
-	gfx/bank52/tiles_4080.2bpp \
-	gfx/bank5b/tiles_4000.2bpp \
-	gfx/bank5b/tiles_5200.2bpp \
-	gfx/bank60/tiles_4360.2bpp \
-	gfx/bank60/tiles_4455.2bpp \
-	gfx/bank60/tiles_4b50.2bpp \
-	gfx/bank60/tiles_4dd0.2bpp \
-	gfx/bank60/tiles_52c0.2bpp \
-	gfx/bank60/tiles_52d0.2bpp \
-	gfx/bank60/tiles_5640.2bpp \
-	gfx/bank60/tiles_5740.2bpp \
-	gfx/bank60/tiles_5800.2bpp \
-	gfx/bank60/tiles_5d50.2bpp \
-	gfx/bank60/tiles_6010.2bpp \
-	gfx/bank60/tiles_6060.2bpp \
-	gfx/bank60/tiles_62b0.2bpp \
-	gfx/bank60/tiles_64c0.2bpp \
-	gfx/bank60/tiles_6580.2bpp \
-	gfx/bank60/tiles_6640.2bpp \
-	gfx/bank60/tiles_70a0.2bpp \
-	gfx/bank60/tiles_76f0.2bpp \
-	gfx/bank61/tiles_4cc0.2bpp \
-	gfx/bank61/tiles_4f63.2bpp \
-	gfx/bank61/tiles_58b0.2bpp \
-	gfx/bank61/tiles_65c0.2bpp \
 	gfx/browser/frames_0_1/tiles_4000.2bpp \
 	gfx/browser/frames_0_1/tiles_4010.2bpp \
 	gfx/browser/frames_0_1/tiles_4040.2bpp \
@@ -173,6 +110,7 @@ PNG_TILE_OUTS := \
 	gfx/browser/page_list/tiles_5ef1.2bpp \
 	gfx/browser/page_list/tiles_6301.2bpp \
 	gfx/browser/page_list/tiles_63e0.2bpp \
+	gfx/browser/page_list_prototype_messages/prototype_message_tiles.2bpp \
 	gfx/browser/start_choice/browser_start_tiles0.2bpp \
 	gfx/browser/start_choice/browser_start_tiles1.2bpp \
 	gfx/browser/start_choice/browser_start_tiles2.2bpp \
@@ -229,6 +167,44 @@ PNG_TILE_OUTS := \
 	gfx/error/no_adapter/tiles_6480.2bpp \
 	gfx/error/non_cgb_screen/non_cgb_tiles.2bpp \
 	gfx/error/non_cgb_screen/tiles_4060.2bpp \
+	gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/blue_bubble_border_44_4d50_tiles.2bpp \
+	gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/monochrome_arc_border_44_4000_tiles.2bpp \
+	gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/rock_border_44_5aa0_tiles.2bpp \
+	gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/turquoise_scroll_border_44_67f0_tiles.2bpp \
+	gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/green_beveled_panel_41_5aa0_tiles.2bpp \
+	gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/lavender_ribbon_border_41_4d50_tiles.2bpp \
+	gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/leaf_vine_border_41_4000_tiles.2bpp \
+	gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/orange_beveled_panel_41_67f0_tiles.2bpp \
+	gfx/frame_designs/ice_spike_curve_and_gold_borders_45/gold_geometric_border_45_67f0_tiles.2bpp \
+	gfx/frame_designs/ice_spike_curve_and_gold_borders_45/ice_crystal_border_45_4000_tiles.2bpp \
+	gfx/frame_designs/ice_spike_curve_and_gold_borders_45/red_curved_border_45_5aa0_tiles.2bpp \
+	gfx/frame_designs/ice_spike_curve_and_gold_borders_45/violet_spike_border_45_4d50_tiles.2bpp \
+	gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_0000.2bpp \
+	gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_03f0.2bpp \
+	gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_04f2.2bpp \
+	gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_0800.2bpp \
+	gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_0900.2bpp \
+	gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_0910.2bpp \
+	gfx/frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_tile_fragment_0000.2bpp \
+	gfx/frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_tile_fragment_01b0.2bpp \
+	gfx/frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_tile_fragment_0570.2bpp \
+	gfx/frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_tile_fragment_0590.2bpp \
+	gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_tile_fragment_0000.2bpp \
+	gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_tile_fragment_0802.2bpp \
+	gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_tile_fragment_0900.2bpp \
+	gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tile_fragment_0000.2bpp \
+	gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tile_fragment_0020.2bpp \
+	gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tile_fragment_01c0.2bpp \
+	gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tile_fragment_0802.2bpp \
+	gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tile_fragment_0900.2bpp \
+	gfx/frame_designs/plant_chevron_and_heart_borders_43/blue_yellow_chevron_border_43_4d50_tiles.2bpp \
+	gfx/frame_designs/plant_chevron_and_heart_borders_43/green_plant_motif_border_43_4000_tiles.2bpp \
+	gfx/frame_designs/plant_chevron_and_heart_borders_43/heart_and_flower_border_43_67f0_tiles.2bpp \
+	gfx/frame_designs/plant_chevron_and_heart_borders_43/leaf_and_seed_border_43_5aa0_tiles.2bpp \
+	gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/blue_energy_border_46_5aa0_tiles.2bpp \
+	gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/orange_rivet_panel_46_4d50_tiles.2bpp \
+	gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/pink_scallop_border_46_67f0_tiles.2bpp \
+	gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/star_triangle_border_46_4000_tiles.2bpp \
 	gfx/help/help_screens_a/tiles_4e90.2bpp \
 	gfx/help/help_screens_a/tiles_5290.2bpp \
 	gfx/help/help_screens_a/tiles_5690.2bpp \
@@ -425,6 +401,30 @@ PNG_TILE_OUTS := \
 	gfx/top_menu/top_menu/tiles_59a0.2bpp \
 	gfx/top_menu/top_menu/tiles_5ba0.2bpp \
 	gfx/top_menu/top_menu/tiles_5fa0.2bpp \
+	gfx/ui_art/button_art_fragments/dpad_button_and_frame_tiles.2bpp \
+	gfx/ui_art/button_art_fragments/tile_fragment_4f63.2bpp \
+	gfx/ui_art/button_art_fragments/tile_fragment_58b0.2bpp \
+	gfx/ui_art/button_art_fragments/tile_fragment_65c0.2bpp \
+	gfx/ui_art/frame_glyph_fragments/back_button_and_text_tiles.2bpp \
+	gfx/ui_art/frame_glyph_fragments/jump_button_and_frame_tiles.2bpp \
+	gfx/ui_art/frame_glyph_fragments/tile_fragment_4360.2bpp \
+	gfx/ui_art/frame_glyph_fragments/tile_fragment_4455.2bpp \
+	gfx/ui_art/frame_glyph_fragments/tile_fragment_4b50.2bpp \
+	gfx/ui_art/frame_glyph_fragments/tile_fragment_4dd0.2bpp \
+	gfx/ui_art/frame_glyph_fragments/tile_fragment_52c0.2bpp \
+	gfx/ui_art/frame_glyph_fragments/tile_fragment_52d0.2bpp \
+	gfx/ui_art/frame_glyph_fragments/tile_fragment_5640.2bpp \
+	gfx/ui_art/frame_glyph_fragments/tile_fragment_5740.2bpp \
+	gfx/ui_art/frame_glyph_fragments/tile_fragment_5800.2bpp \
+	gfx/ui_art/frame_glyph_fragments/tile_fragment_5d50.2bpp \
+	gfx/ui_art/frame_glyph_fragments/tile_fragment_6010.2bpp \
+	gfx/ui_art/frame_glyph_fragments/tile_fragment_6060.2bpp \
+	gfx/ui_art/frame_glyph_fragments/tile_fragment_62b0.2bpp \
+	gfx/ui_art/frame_glyph_fragments/tile_fragment_64c0.2bpp \
+	gfx/ui_art/frame_glyph_fragments/tile_fragment_6580.2bpp \
+	gfx/ui_art/frame_glyph_fragments/tile_fragment_76f0.2bpp \
+	gfx/ui_art/logo_and_window_tiles/logo_and_window_tiles.2bpp \
+	gfx/ui_art/logo_and_window_tiles/mail_server_box_tiles.2bpp \
 	gfx/unreferenced/page_list_prototype/tiles_62b0.2bpp \
 	gfx/unreferenced/page_list_prototype/tiles_66b0.2bpp \
 	gfx/unreferenced/page_list_prototype/tiles_6ae0.2bpp \
@@ -499,82 +499,6 @@ gfx/address_book/shared_tiles_bank28/tiles_4bd0.2bpp: PNG_SIZE := 1024
 gfx/address_book/shared_tiles_bank28/tiles_4fd0.2bpp: PNG_SIZE := 512
 gfx/address_book/unreferenced_confirm_screen/tiles_7740.2bpp: PNG_SIZE := 288
 gfx/address_book/unreferenced_confirm_screen/tiles_7b70.2bpp: PNG_SIZE := 144
-gfx/bank41/tiles_4000.2bpp: PNG_SIZE := 2560
-gfx/bank41/tiles_4d50.2bpp: PNG_SIZE := 2560
-gfx/bank41/tiles_5aa0.2bpp: PNG_SIZE := 2560
-gfx/bank41/tiles_67f0.2bpp: PNG_SIZE := 2560
-gfx/bank42/tiles_4000.2bpp: PNG_SIZE := 1344
-gfx/bank42/tiles_4802.2bpp: PNG_SIZE := 160
-gfx/bank42/tiles_4900.2bpp: PNG_SIZE := 176
-gfx/bank42/tiles_4d50.2bpp: PNG_SIZE := 432
-gfx/bank42/tiles_4f00.2bpp: PNG_SIZE := 960
-gfx/bank42/tiles_52c0.2bpp: PNG_SIZE := 32
-gfx/bank42/tiles_52e0.2bpp: PNG_SIZE := 1136
-gfx/bank42/tiles_52e0.2bpp: PNG_PAD := -x 9
-gfx/bank42/tiles_5aa0.2bpp: PNG_SIZE := 944
-gfx/bank42/tiles_5aa0.2bpp: PNG_PAD := -x 5
-gfx/bank42/tiles_5e90.2bpp: PNG_SIZE := 208
-gfx/bank42/tiles_5f92.2bpp: PNG_SIZE := 416
-gfx/bank42/tiles_62a0.2bpp: PNG_SIZE := 160
-gfx/bank42/tiles_63a0.2bpp: PNG_SIZE := 16
-gfx/bank42/tiles_63b0.2bpp: PNG_SIZE := 240
-gfx/bank42/tiles_67f0.2bpp: PNG_SIZE := 16
-gfx/bank42/tiles_6810.2bpp: PNG_SIZE := 400
-gfx/bank42/tiles_6810.2bpp: PNG_PAD := -x 7
-gfx/bank42/tiles_69b0.2bpp: PNG_SIZE := 784
-gfx/bank42/tiles_69b0.2bpp: PNG_PAD := -x 15
-gfx/bank42/tiles_6ff2.2bpp: PNG_SIZE := 160
-gfx/bank42/tiles_70f0.2bpp: PNG_SIZE := 160
-gfx/bank43/tiles_4000.2bpp: PNG_SIZE := 2560
-gfx/bank43/tiles_4d50.2bpp: PNG_SIZE := 2560
-gfx/bank43/tiles_5aa0.2bpp: PNG_SIZE := 2560
-gfx/bank43/tiles_67f0.2bpp: PNG_SIZE := 2560
-gfx/bank44/tiles_4000.2bpp: PNG_SIZE := 2560
-gfx/bank44/tiles_4d50.2bpp: PNG_SIZE := 2560
-gfx/bank44/tiles_5aa0.2bpp: PNG_SIZE := 2560
-gfx/bank44/tiles_67f0.2bpp: PNG_SIZE := 2560
-gfx/bank45/tiles_4000.2bpp: PNG_SIZE := 2560
-gfx/bank45/tiles_4d50.2bpp: PNG_SIZE := 2560
-gfx/bank45/tiles_5aa0.2bpp: PNG_SIZE := 2560
-gfx/bank45/tiles_67f0.2bpp: PNG_SIZE := 2560
-gfx/bank46/tiles_4000.2bpp: PNG_SIZE := 2560
-gfx/bank46/tiles_4d50.2bpp: PNG_SIZE := 2560
-gfx/bank46/tiles_5aa0.2bpp: PNG_SIZE := 2560
-gfx/bank46/tiles_67f0.2bpp: PNG_SIZE := 2560
-gfx/bank52/tiles_4080.2bpp: PNG_SIZE := 2944
-gfx/bank5b/tiles_4000.2bpp: PNG_SIZE := 4608
-gfx/bank5b/tiles_5200.2bpp: PNG_SIZE := 1152
-gfx/bank60/tiles_4360.2bpp: PNG_SIZE := 240
-gfx/bank60/tiles_4455.2bpp: PNG_SIZE := 1136
-gfx/bank60/tiles_4455.2bpp: PNG_PAD := -x 9
-gfx/bank60/tiles_4b50.2bpp: PNG_SIZE := 560
-gfx/bank60/tiles_4b50.2bpp: PNG_PAD := -x 13
-gfx/bank60/tiles_4dd0.2bpp: PNG_SIZE := 1184
-gfx/bank60/tiles_4dd0.2bpp: PNG_PAD := -x 6
-gfx/bank60/tiles_52c0.2bpp: PNG_SIZE := 16
-gfx/bank60/tiles_52d0.2bpp: PNG_SIZE := 880
-gfx/bank60/tiles_5640.2bpp: PNG_SIZE := 176
-gfx/bank60/tiles_5740.2bpp: PNG_SIZE := 112
-gfx/bank60/tiles_5800.2bpp: PNG_SIZE := 768
-gfx/bank60/tiles_5d50.2bpp: PNG_SIZE := 704
-gfx/bank60/tiles_6010.2bpp: PNG_SIZE := 80
-gfx/bank60/tiles_6060.2bpp: PNG_SIZE := 592
-gfx/bank60/tiles_6060.2bpp: PNG_PAD := -x 11
-gfx/bank60/tiles_62b0.2bpp: PNG_SIZE := 448
-gfx/bank60/tiles_64c0.2bpp: PNG_SIZE := 112
-gfx/bank60/tiles_6580.2bpp: PNG_SIZE := 128
-gfx/bank60/tiles_6640.2bpp: PNG_SIZE := 2656
-gfx/bank60/tiles_6640.2bpp: PNG_PAD := -x 10
-gfx/bank60/tiles_70a0.2bpp: PNG_SIZE := 1616
-gfx/bank60/tiles_70a0.2bpp: PNG_PAD := -x 11
-gfx/bank60/tiles_76f0.2bpp: PNG_SIZE := 912
-gfx/bank60/tiles_76f0.2bpp: PNG_PAD := -x 7
-gfx/bank61/tiles_4cc0.2bpp: PNG_SIZE := 672
-gfx/bank61/tiles_4f63.2bpp: PNG_SIZE := 656
-gfx/bank61/tiles_4f63.2bpp: PNG_PAD := -x 7
-gfx/bank61/tiles_58b0.2bpp: PNG_SIZE := 656
-gfx/bank61/tiles_58b0.2bpp: PNG_PAD := -x 7
-gfx/bank61/tiles_65c0.2bpp: PNG_SIZE := 800
 gfx/browser/frames_0_1/tiles_4000.2bpp: PNG_SIZE := 16
 gfx/browser/frames_0_1/tiles_4010.2bpp: PNG_SIZE := 48
 gfx/browser/frames_0_1/tiles_4040.2bpp: PNG_SIZE := 64
@@ -600,6 +524,7 @@ gfx/browser/page_list/tiles_5ef1.2bpp: PNG_SIZE := 992
 gfx/browser/page_list/tiles_5ef1.2bpp: PNG_PAD := -x 2
 gfx/browser/page_list/tiles_6301.2bpp: PNG_SIZE := 192
 gfx/browser/page_list/tiles_63e0.2bpp: PNG_SIZE := 256
+gfx/browser/page_list_prototype_messages/prototype_message_tiles.2bpp: PNG_SIZE := 2944
 gfx/browser/start_choice/browser_start_tiles0.2bpp: PNG_SIZE := 1024
 gfx/browser/start_choice/browser_start_tiles1.2bpp: PNG_SIZE := 1024
 gfx/browser/start_choice/browser_start_tiles2.2bpp: PNG_SIZE := 1024
@@ -658,6 +583,48 @@ gfx/error/no_adapter/tiles_6480.2bpp: PNG_SIZE := 64
 gfx/error/non_cgb_screen/non_cgb_tiles.2bpp: PNG_SIZE := 1968
 gfx/error/non_cgb_screen/non_cgb_tiles.2bpp: PNG_PAD := -x 5
 gfx/error/non_cgb_screen/tiles_4060.2bpp: PNG_SIZE := 1056
+gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/blue_bubble_border_44_4d50_tiles.2bpp: PNG_SIZE := 2560
+gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/monochrome_arc_border_44_4000_tiles.2bpp: PNG_SIZE := 2560
+gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/rock_border_44_5aa0_tiles.2bpp: PNG_SIZE := 2560
+gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/turquoise_scroll_border_44_67f0_tiles.2bpp: PNG_SIZE := 2560
+gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/green_beveled_panel_41_5aa0_tiles.2bpp: PNG_SIZE := 2560
+gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/lavender_ribbon_border_41_4d50_tiles.2bpp: PNG_SIZE := 2560
+gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/leaf_vine_border_41_4000_tiles.2bpp: PNG_SIZE := 2560
+gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/orange_beveled_panel_41_67f0_tiles.2bpp: PNG_SIZE := 2560
+gfx/frame_designs/ice_spike_curve_and_gold_borders_45/gold_geometric_border_45_67f0_tiles.2bpp: PNG_SIZE := 2560
+gfx/frame_designs/ice_spike_curve_and_gold_borders_45/ice_crystal_border_45_4000_tiles.2bpp: PNG_SIZE := 2560
+gfx/frame_designs/ice_spike_curve_and_gold_borders_45/red_curved_border_45_5aa0_tiles.2bpp: PNG_SIZE := 2560
+gfx/frame_designs/ice_spike_curve_and_gold_borders_45/violet_spike_border_45_4d50_tiles.2bpp: PNG_SIZE := 2560
+gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_0000.2bpp: PNG_SIZE := 944
+gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_0000.2bpp: PNG_PAD := -x 5
+gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_03f0.2bpp: PNG_SIZE := 208
+gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_04f2.2bpp: PNG_SIZE := 416
+gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_0800.2bpp: PNG_SIZE := 160
+gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_0900.2bpp: PNG_SIZE := 16
+gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_0910.2bpp: PNG_SIZE := 240
+gfx/frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_tile_fragment_0000.2bpp: PNG_SIZE := 432
+gfx/frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_tile_fragment_01b0.2bpp: PNG_SIZE := 960
+gfx/frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_tile_fragment_0570.2bpp: PNG_SIZE := 32
+gfx/frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_tile_fragment_0590.2bpp: PNG_SIZE := 1136
+gfx/frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_tile_fragment_0590.2bpp: PNG_PAD := -x 9
+gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_tile_fragment_0000.2bpp: PNG_SIZE := 1344
+gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_tile_fragment_0802.2bpp: PNG_SIZE := 160
+gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_tile_fragment_0900.2bpp: PNG_SIZE := 176
+gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tile_fragment_0000.2bpp: PNG_SIZE := 16
+gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tile_fragment_0020.2bpp: PNG_SIZE := 400
+gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tile_fragment_0020.2bpp: PNG_PAD := -x 7
+gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tile_fragment_01c0.2bpp: PNG_SIZE := 784
+gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tile_fragment_01c0.2bpp: PNG_PAD := -x 15
+gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tile_fragment_0802.2bpp: PNG_SIZE := 160
+gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tile_fragment_0900.2bpp: PNG_SIZE := 160
+gfx/frame_designs/plant_chevron_and_heart_borders_43/blue_yellow_chevron_border_43_4d50_tiles.2bpp: PNG_SIZE := 2560
+gfx/frame_designs/plant_chevron_and_heart_borders_43/green_plant_motif_border_43_4000_tiles.2bpp: PNG_SIZE := 2560
+gfx/frame_designs/plant_chevron_and_heart_borders_43/heart_and_flower_border_43_67f0_tiles.2bpp: PNG_SIZE := 2560
+gfx/frame_designs/plant_chevron_and_heart_borders_43/leaf_and_seed_border_43_5aa0_tiles.2bpp: PNG_SIZE := 2560
+gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/blue_energy_border_46_5aa0_tiles.2bpp: PNG_SIZE := 2560
+gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/orange_rivet_panel_46_4d50_tiles.2bpp: PNG_SIZE := 2560
+gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/pink_scallop_border_46_67f0_tiles.2bpp: PNG_SIZE := 2560
+gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/star_triangle_border_46_4000_tiles.2bpp: PNG_SIZE := 2560
 gfx/help/help_screens_a/tiles_4e90.2bpp: PNG_SIZE := 1024
 gfx/help/help_screens_a/tiles_5290.2bpp: PNG_SIZE := 1024
 gfx/help/help_screens_a/tiles_5690.2bpp: PNG_SIZE := 1024
@@ -869,6 +836,39 @@ gfx/top_menu/top_menu/tiles_55a0.2bpp: PNG_SIZE := 1024
 gfx/top_menu/top_menu/tiles_59a0.2bpp: PNG_SIZE := 512
 gfx/top_menu/top_menu/tiles_5ba0.2bpp: PNG_SIZE := 1024
 gfx/top_menu/top_menu/tiles_5fa0.2bpp: PNG_SIZE := 768
+gfx/ui_art/button_art_fragments/dpad_button_and_frame_tiles.2bpp: PNG_SIZE := 672
+gfx/ui_art/button_art_fragments/tile_fragment_4f63.2bpp: PNG_SIZE := 656
+gfx/ui_art/button_art_fragments/tile_fragment_4f63.2bpp: PNG_PAD := -x 7
+gfx/ui_art/button_art_fragments/tile_fragment_58b0.2bpp: PNG_SIZE := 656
+gfx/ui_art/button_art_fragments/tile_fragment_58b0.2bpp: PNG_PAD := -x 7
+gfx/ui_art/button_art_fragments/tile_fragment_65c0.2bpp: PNG_SIZE := 800
+gfx/ui_art/frame_glyph_fragments/back_button_and_text_tiles.2bpp: PNG_SIZE := 1616
+gfx/ui_art/frame_glyph_fragments/back_button_and_text_tiles.2bpp: PNG_PAD := -x 11
+gfx/ui_art/frame_glyph_fragments/jump_button_and_frame_tiles.2bpp: PNG_SIZE := 2656
+gfx/ui_art/frame_glyph_fragments/jump_button_and_frame_tiles.2bpp: PNG_PAD := -x 10
+gfx/ui_art/frame_glyph_fragments/tile_fragment_4360.2bpp: PNG_SIZE := 240
+gfx/ui_art/frame_glyph_fragments/tile_fragment_4455.2bpp: PNG_SIZE := 1136
+gfx/ui_art/frame_glyph_fragments/tile_fragment_4455.2bpp: PNG_PAD := -x 9
+gfx/ui_art/frame_glyph_fragments/tile_fragment_4b50.2bpp: PNG_SIZE := 560
+gfx/ui_art/frame_glyph_fragments/tile_fragment_4b50.2bpp: PNG_PAD := -x 13
+gfx/ui_art/frame_glyph_fragments/tile_fragment_4dd0.2bpp: PNG_SIZE := 1184
+gfx/ui_art/frame_glyph_fragments/tile_fragment_4dd0.2bpp: PNG_PAD := -x 6
+gfx/ui_art/frame_glyph_fragments/tile_fragment_52c0.2bpp: PNG_SIZE := 16
+gfx/ui_art/frame_glyph_fragments/tile_fragment_52d0.2bpp: PNG_SIZE := 880
+gfx/ui_art/frame_glyph_fragments/tile_fragment_5640.2bpp: PNG_SIZE := 176
+gfx/ui_art/frame_glyph_fragments/tile_fragment_5740.2bpp: PNG_SIZE := 112
+gfx/ui_art/frame_glyph_fragments/tile_fragment_5800.2bpp: PNG_SIZE := 768
+gfx/ui_art/frame_glyph_fragments/tile_fragment_5d50.2bpp: PNG_SIZE := 704
+gfx/ui_art/frame_glyph_fragments/tile_fragment_6010.2bpp: PNG_SIZE := 80
+gfx/ui_art/frame_glyph_fragments/tile_fragment_6060.2bpp: PNG_SIZE := 592
+gfx/ui_art/frame_glyph_fragments/tile_fragment_6060.2bpp: PNG_PAD := -x 11
+gfx/ui_art/frame_glyph_fragments/tile_fragment_62b0.2bpp: PNG_SIZE := 448
+gfx/ui_art/frame_glyph_fragments/tile_fragment_64c0.2bpp: PNG_SIZE := 112
+gfx/ui_art/frame_glyph_fragments/tile_fragment_6580.2bpp: PNG_SIZE := 128
+gfx/ui_art/frame_glyph_fragments/tile_fragment_76f0.2bpp: PNG_SIZE := 912
+gfx/ui_art/frame_glyph_fragments/tile_fragment_76f0.2bpp: PNG_PAD := -x 7
+gfx/ui_art/logo_and_window_tiles/logo_and_window_tiles.2bpp: PNG_SIZE := 4608
+gfx/ui_art/logo_and_window_tiles/mail_server_box_tiles.2bpp: PNG_SIZE := 1152
 gfx/unreferenced/page_list_prototype/tiles_62b0.2bpp: PNG_SIZE := 1024
 gfx/unreferenced/page_list_prototype/tiles_66b0.2bpp: PNG_SIZE := 288
 gfx/unreferenced/page_list_prototype/tiles_6ae0.2bpp: PNG_SIZE := 656
@@ -1162,31 +1162,31 @@ endif
 
 ifneq ($(PYTHON_OK),)
 PNG_RAW_OUTS := \
-	gfx/bank42/raw_4540_4560.bin \
-	gfx/bank42/raw_6800_6810.bin \
-	gfx/bank42/raw_69a0_69b0.bin \
-	gfx/bank42/raw_6cc0_6cd0.bin \
+	gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_raw_4540_4560.bin \
+	gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_raw_6800_6810.bin \
+	gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_raw_69a0_69b0.bin \
+	gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_raw_6cc0_6cd0.bin \
 
 
-gfx/bank42/raw_4540_4560.bin: PNG_SIZE := 32
-gfx/bank42/raw_4540_4560.bin: gfx/bank42/raw_4540_4560.png tools/raw_png.py tools/pnglib.py
+gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_raw_4540_4560.bin: PNG_SIZE := 32
+gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_raw_4540_4560.bin: gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_raw_4540_4560.png tools/raw_png.py tools/pnglib.py
 	@echo "raw_png $<"
-	$(Q)$(PYTHON) tools/raw_png.py --asset gfx/bank42/raw_4540_4560.bin $< $@
+	$(Q)$(PYTHON) tools/raw_png.py --asset gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_raw_4540_4560.bin $< $@
 
-gfx/bank42/raw_6800_6810.bin: PNG_SIZE := 16
-gfx/bank42/raw_6800_6810.bin: gfx/bank42/raw_6800_6810.png tools/raw_png.py tools/pnglib.py
+gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_raw_6800_6810.bin: PNG_SIZE := 16
+gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_raw_6800_6810.bin: gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_raw_6800_6810.png tools/raw_png.py tools/pnglib.py
 	@echo "raw_png $<"
-	$(Q)$(PYTHON) tools/raw_png.py --asset gfx/bank42/raw_6800_6810.bin $< $@
+	$(Q)$(PYTHON) tools/raw_png.py --asset gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_raw_6800_6810.bin $< $@
 
-gfx/bank42/raw_69a0_69b0.bin: PNG_SIZE := 16
-gfx/bank42/raw_69a0_69b0.bin: gfx/bank42/raw_69a0_69b0.png tools/raw_png.py tools/pnglib.py
+gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_raw_69a0_69b0.bin: PNG_SIZE := 16
+gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_raw_69a0_69b0.bin: gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_raw_69a0_69b0.png tools/raw_png.py tools/pnglib.py
 	@echo "raw_png $<"
-	$(Q)$(PYTHON) tools/raw_png.py --asset gfx/bank42/raw_69a0_69b0.bin $< $@
+	$(Q)$(PYTHON) tools/raw_png.py --asset gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_raw_69a0_69b0.bin $< $@
 
-gfx/bank42/raw_6cc0_6cd0.bin: PNG_SIZE := 16
-gfx/bank42/raw_6cc0_6cd0.bin: gfx/bank42/raw_6cc0_6cd0.png tools/raw_png.py tools/pnglib.py
+gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_raw_6cc0_6cd0.bin: PNG_SIZE := 16
+gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_raw_6cc0_6cd0.bin: gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_raw_6cc0_6cd0.png tools/raw_png.py tools/pnglib.py
 	@echo "raw_png $<"
-	$(Q)$(PYTHON) tools/raw_png.py --asset gfx/bank42/raw_6cc0_6cd0.bin $< $@
+	$(Q)$(PYTHON) tools/raw_png.py --asset gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_raw_6cc0_6cd0.bin $< $@
 
 endif
 

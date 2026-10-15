@@ -1,8 +1,8 @@
-; gfx/bank61.asm
+; gfx/ui_art/button_art_fragments.asm
 ; bank 61, $4000-$7AE8 (15080 bytes); pinned by layout.link
 ; tilemap/tile data; no loader found
 
-SECTION "gfx/bank61", ROMX
+SECTION "gfx/ui_art/button_art_fragments", ROMX
 
 ; ---- data $4000-$4CC0 (3264 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown [clipped from 4000-7AE8 by higher-priority evidence]
 
@@ -215,13 +215,13 @@ Data_61_4000:: ; 61:4000
 ; ---- gfx $4CC0-$4F63 (675 bytes) [PROBABLE] tile data: heuristic: 70 coherent tiles (hsim2=0.740 vsim2=0.711, 3 blank) parity 0 [clipped from 4CC0-5200 by higher-priority proposals]
 
 Data_61_4CC0:: ; 61:4CC0
-	INCBIN "gfx/bank61/tiles_4cc0.2bpp"
+	INCBIN "gfx/ui_art/button_art_fragments/dpad_button_and_frame_tiles.2bpp"
 	db $FF, $FF, $FF
 
 ; ---- gfx $4F63-$5200 (669 bytes) [PROBABLE] tiles-2bpp: heuristic: 70 coherent tiles (hsim2=0.740 vsim2=0.711, 3 blank) parity 0 [clipped from 4CC0-5200 by higher-priority evidence]
 
 Data_61_4F63:: ; 61:4F63
-	INCBIN "gfx/bank61/tiles_4f63.2bpp"
+	INCBIN "gfx/ui_art/button_art_fragments/tile_fragment_4f63.2bpp"
 	db $8F, $FF, $FF, $FF, $FF, $E7, $FF, $EF, $F3, $FF, $F3, $FF, $FF
 
 ; ---- data $5200-$58B0 (1712 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown [clipped from 4000-7AE8 by higher-priority evidence]
@@ -338,7 +338,7 @@ Data_61_5200:: ; 61:5200
 ; ---- gfx $58B0-$5B40 (656 bytes) [PROBABLE] tiles-2bpp: heuristic: 37 coherent tiles (hsim2=0.778 vsim2=0.672, 1 blank) parity 0
 
 Data_61_58B0:: ; 61:58B0
-	INCBIN "gfx/bank61/tiles_58b0.2bpp"
+	INCBIN "gfx/ui_art/button_art_fragments/tile_fragment_58b0.2bpp"
 
 ; ---- data $5B40-$65C0 (2688 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown [clipped from 4000-7AE8 by higher-priority evidence]
 
@@ -515,7 +515,7 @@ Data_61_5B40:: ; 61:5B40
 ; ---- gfx $65C0-$68E0 (800 bytes) [PROBABLE] tiles-2bpp: heuristic: 41 coherent tiles (hsim2=0.736 vsim2=0.713, 5 blank) parity 0
 
 Data_61_65C0:: ; 61:65C0
-	INCBIN "gfx/bank61/tiles_65c0.2bpp"
+	INCBIN "gfx/ui_art/button_art_fragments/tile_fragment_65c0.2bpp"
 
 ; ---- data $68E0-$7A80 (4512 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown [clipped from 4000-7AE8 by higher-priority evidence]
 
@@ -806,4 +806,4 @@ Data_61_68E0:: ; 61:68E0
 ; ---- data $7A80-$7AE8 (104 bytes) [PROBABLE] palette-rgb555: heuristic: 52 RGB555 words as 13 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
 
 Data_61_7A80:: ; 61:7A80
-	INCLUDE "gfx/bank61/palette_7a80.pal"
+	INCLUDE "gfx/ui_art/button_art_fragments/fragment_palettes.pal"

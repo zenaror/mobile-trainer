@@ -1,8 +1,8 @@
-; gfx/bank52.asm
+; gfx/browser/page_list_prototype_messages.asm
 ; bank 52, $4000-$4C00 (3072 bytes); pinned by layout.link
 ; 184 text-image tiles (only reference: bank 7F unreferenced prototype)
 
-SECTION "gfx/bank52", ROMX
+SECTION "gfx/browser/page_list_prototype_messages", ROMX
 
 ; ---- zero $4000-$4080 (128 bytes) [PROBABLE] 0x80 bytes of zero (8 blank tiles / padding) before the tile block
 	ds $80, $00
@@ -11,4 +11,4 @@ SECTION "gfx/bank52", ROMX
 
 Gfx_PageListProto_Tiles9580Vb1:: ; 52:4080
 Tiles_52_4080::
-	INCBIN "gfx/bank52/tiles_4080.2bpp"
+	INCBIN "gfx/browser/page_list_prototype_messages/prototype_message_tiles.2bpp"
