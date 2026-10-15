@@ -3,8 +3,8 @@
   "language": "en",
   "base_commit": "ef41bff1fb24f2239661c230a48500f92bff4559",
   "english_commit": "d0ef9a448d078e6697e2a226ba0f5eab42c16409",
-  "expected_ROM": "1f1c28855ef560e9da4b2f2a3d4d8d9fc74162dff51381f9efc562025c9023a1",
-  "global_checksum": "E0FC",
+  "expected_ROM": "6ff8c3a8d224dc13114aed3b0fdaf8fe89d7cbf97c1c82342707b1cb0338188d",
+  "global_checksum": "EEF8",
   "expected_symbols_DEBUG0": {
     "labels": 15584,
     "constants": 51
@@ -3384,9 +3384,15 @@
     },
     "home/header.asm": {
       "base_sha256": "5fda60c901ace35b75aa897a2ef5d6d3fb7846cbbee624f14fe6cdf3ca647ebd",
-      "payload_sha256": "bf7e379f5b1c33ef8b8be27b8c22d779d70fc50339a5edcea783d57a71bbd795",
+      "payload_sha256": "80843c0796b13e14fca2d4c5dc4423273be55f2d0d48b6c5b2f05bbd732a9e3e",
       "bytes": 3145,
       "payload_path": "languages/en/home/header.asm"
+    },
+    "gfx/settings/screens_bank71.asm": {
+      "base_sha256": "a98a7a056fd14cf0eb686473d48ba4a17f1d78ba3dc3fefcaea296c3282205de",
+      "payload_sha256": "7fcbe6eef3b7c31d3123a20c4fe2d3d0f1a5574742a0124bc3fc2d4536f43562",
+      "bytes": 9083,
+      "payload_path": "languages/en/gfx/settings/screens_bank71.asm"
     }
   },
   "deletions": [],
@@ -3404,8 +3410,8 @@
       "sha256": "687de2dfb896c1f629ded78ac25b19584401eb20c5f78dadf3be5b86bdfca3fc"
     },
     "AGENTS.md": {
-      "size": 6244,
-      "sha256": "cdf56d1414802aa5b9a7b3db8aa2798cf8aaa6b52d0e01917a9ee27939769e6b"
+      "size": 6534,
+      "sha256": "9ade8eaa582e1a9b5ec3cc181a1e6881e5cc2f028a222aea499b46c046bbd924"
     },
     "INSTALL.md": {
       "size": 6291,
@@ -6268,8 +6274,8 @@
       "sha256": "2a81b21c5620247e1ba2a3e144067e00ccf095f618692ed2541c10e8e761633b"
     },
     "docs/README.md": {
-      "size": 63861,
-      "sha256": "0c928dd6134fc932f81eef72ef8c0d9a1c5805e8b7d7876620fbed4d0176b854"
+      "size": 65936,
+      "sha256": "2e21725362ee19f397f2e054398a7848a35aa9b142b61bf001e81cf8a3a4d6ed"
     },
     "docs/REVERSE_ENGINEERING_RULES.md": {
       "size": 17815,
@@ -6280,8 +6286,8 @@
       "sha256": "d519fd3d8c383f9e09b34a7cf00816ad6f628fac22e3a3c62eef2ae46fde9e55"
     },
     "docs/TRANSLATION.md": {
-      "size": 53174,
-      "sha256": "0f2ef7cf6ef88a073efeda4b7e8562b504bc179c0717af093e96156869653a3e"
+      "size": 57900,
+      "sha256": "b03c5c8b75fff756bbb2be9eb6185ca17b1cc4df28bf5fe81401addc912fa447"
     },
     "docs/research/assets/browser_frame_records47.png": {
       "size": 4853,
@@ -20402,8 +20408,8 @@
       "sha256": "9ed64719c7a4ec6a3321ff9ca49cb94ba480143e69dee504994ccdece0917508"
     },
     "docs/LANGUAGE_BUILDS.md": {
-      "size": 8972,
-      "sha256": "aef62dda6d413efc5a336e08a99433146857302f306b41a99cd44b32a6d5f716"
+      "size": 13428,
+      "sha256": "b7e629380d585a9458cd157696742e0ca07f68d1cdd19629ded4a4638f79895b"
     },
     "tools/apply_renames.py": {
       "size": 32156,
@@ -20442,6 +20448,6 @@
       "sha256": "e389cc2b272e63d2c2d38bb24130e8874f7a46ad17156fe4678c11a89d1ce81a"
     }
   },
-  "overrides_count": 563,
+  "overrides_count": 564,
   "fallback_count": 4249
 }
