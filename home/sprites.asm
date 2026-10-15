@@ -162,9 +162,9 @@ Function_00_0A1A::
 	ld [hld], a
 	pop bc
 	ret
-
-Function_00_0A2A:: ; 00:0A2A
-	; [PROBABLE] stores E,D at [HL..HL+1]; selects SVBK7; normal A=D [candidate; raw refs 4]
+StoreDEAtHL_SelectWramBank7:: ; 00:0A2A
+Function_00_0A2A::
+	; [PROBABLE] E,D -> [HL..]; HL+2, normal A=D; selects WRAM7/restores shadow; caller unproved.
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af

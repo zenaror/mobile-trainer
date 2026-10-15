@@ -3422,8 +3422,8 @@
       "sha256": "37a6751a209c8d25e51cf919800d769d1e50de38e3cad345027115d046b54567"
     },
     "REVERSE_ENGINEERING.md": {
-      "size": 140199,
-      "sha256": "7cc8e818cfa84f7d8c191c623ff5b7829785c806e8d0b9b4c770748968c73db4"
+      "size": 140488,
+      "sha256": "db193f4a6563c7464d81778cf3e67fa2fe0523bfc2a3e17b259f6aeb7016cc53"
     },
     "STYLE.md": {
       "size": 57010,
@@ -6482,8 +6482,8 @@
       "sha256": "5e19167a817686b9eeaa1301123b4544bba72fa1e19d168aa4c32d92632205af"
     },
     "docs/research/naming2_neutral_code.md": {
-      "size": 9973,
-      "sha256": "26ac55aa0a694dc40f5639e6c7b286aaa794d8cfd53cf5a2bf82a9e6d1aa6906"
+      "size": 11171,
+      "sha256": "9dbbbee7cf2143f1fa5b374521c5cc4bc431a07f391dbc2c34a0d0827de08529"
     },
     "docs/research/naming2_neutral_gfx.md": {
       "size": 3733,
@@ -6826,8 +6826,8 @@
       "sha256": "0907099a526fedee04870465d626077a54b839f9f28b5164d61e55747eb03c56"
     },
     "docs/research/typing_00_a2a_d34_contract_corrections.md": {
-      "size": 4595,
-      "sha256": "4f5b3550874adb4bf4db8a8372c4205c6fcfd57e2d68e6f8fec0153447d5aaee"
+      "size": 6253,
+      "sha256": "4b332598fad85666636bce7a002dc6edba7982f1932925f3da3cb8a2ef0e8522"
     },
     "docs/research/typing_00_verify_a2a_d34_contract_corrections.md": {
       "size": 7252,
@@ -15082,8 +15082,8 @@
       "sha256": "b0660af7ccd9f22ae9967da65137ded3049c4cd4020723aeeea36787ea5c6f8b"
     },
     "home/sprites.asm": {
-      "size": 8409,
-      "sha256": "84a04c68e15bd4cd196cba5d7e93ec6b2d1418c15fd7cfe1f21dec3493e8fb67"
+      "size": 8443,
+      "sha256": "c744363e152c59fd8ed9f25d0e42676b0212f3b94300ecbbab4021d70100749d"
     },
     "home/stat_handler.asm": {
       "size": 1045,
