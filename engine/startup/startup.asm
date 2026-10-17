@@ -5,7 +5,7 @@
 SECTION "engine/startup/startup", ROMX
 
 Startup_Run:: ; 65:4000
-Function_65_4000::
+
 	; [CONFIRMED] 27 insn(s); 27 executed (in up to 18/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call Boot_ReinitRuntimeFar

@@ -5,7 +5,7 @@
 SECTION "engine/main/main_program", ROMX
 
 Main_Run:: ; 1C:4000
-Function_1C_4000::
+
 	; [CONFIRMED] 4 insn(s); 4 executed (in up to 18/18 scenarios); entry proven: target of an
 	; executed call/far call
 	farcall Startup_Run

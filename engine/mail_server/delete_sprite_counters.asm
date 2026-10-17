@@ -5,13 +5,13 @@
 SECTION "engine/mail_server/delete_sprite_counters", ROMX
 
 SpriteCounter_StubA:: ; 23:58C4
-Function_23_58C4::
+
 	; [CONFIRMED] 1 insn(s); 1 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ret
 
 SpriteCounter_A_DrawNumber:: ; 23:58C5
-Function_23_58C5::
+
 	; [HYPOTHESIS] function body starting after ret at 58C4; computes hl += -(word at $D631) (xor
 	; $FF / inc bc / add hl,bc) and falls into the far call at 58E0; decode chain lands exactly on
 	; the next region [verifier: no entry proven (no caller, no valid table word, never executed):
@@ -160,7 +160,7 @@ Function_23_58C5::
 	ret
 
 SpriteCounter_A_DrawDigit10000:: ; 23:59DA
-Function_23_59DA::
+
 	cp a, $00
 	jr nz, .l59F8
 	ld hl, wSpriteSlot1
@@ -280,7 +280,7 @@ Function_23_59DA::
 	ret
 
 SpriteCounter_A_DrawDigit1000:: ; 23:5B02
-Function_23_5B02::
+
 	cp a, $00
 	jr nz, .l5B20
 	ld hl, wSpriteSlot2
@@ -400,7 +400,7 @@ Function_23_5B02::
 	ret
 
 SpriteCounter_A_DrawDigit100:: ; 23:5C2A
-Function_23_5C2A::
+
 	cp a, $00
 	jr nz, .l5C48
 	ld hl, wSpriteSlot3
@@ -520,7 +520,7 @@ Function_23_5C2A::
 	ret
 
 SpriteCounter_A_DrawDigit10:: ; 23:5D52
-Function_23_5D52::
+
 	cp a, $00
 	jr nz, .l5D70
 	ld hl, wSpriteSlot4
@@ -640,7 +640,7 @@ Function_23_5D52::
 	ret
 
 SpriteCounter_A_DrawDigit1:: ; 23:5E7A
-Function_23_5E7A::
+
 	cp a, $00
 	jr nz, .l5E98
 	ld hl, wSpriteSlot5
@@ -760,13 +760,13 @@ Function_23_5E7A::
 	ret
 
 SpriteCounter_StubB:: ; 23:5FA2
-Function_23_5FA2::
+
 	; [CONFIRMED] 1 insn(s); 1 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ret
 
 SpriteCounter_B_DrawNumber:: ; 23:5FA3
-Function_23_5FA3::
+
 	; [HYPOTHESIS] function starting after the ret pair 5FA1/5FA2; 20 insn (5 x ld de,$D048 ; ld
 	; hl,$DAxx ; call $0A65 sprite-slot writes) falling through into the CONFIRMED far call at 5FD7
 	; [verifier: no entry proven (no caller, no valid table word, never executed): decode chain
@@ -918,7 +918,7 @@ Function_23_5FA3::
 	ret
 
 SpriteCounter_B_DrawDigit10000:: ; 23:60D1
-Function_23_60D1::
+
 	cp a, $00
 	jr nz, .l60EF
 	ld hl, wSpriteSlot6
@@ -1038,7 +1038,7 @@ Function_23_60D1::
 	ret
 
 SpriteCounter_B_DrawDigit1000:: ; 23:61F9
-Function_23_61F9::
+
 	cp a, $00
 	jr nz, .l6217
 	ld hl, wSpriteSlot7
@@ -1158,7 +1158,7 @@ Function_23_61F9::
 	ret
 
 SpriteCounter_B_DrawDigit100:: ; 23:6321
-Function_23_6321::
+
 	cp a, $00
 	jr nz, .l633F
 	ld hl, wSpriteSlot8
@@ -1278,7 +1278,7 @@ Function_23_6321::
 	ret
 
 SpriteCounter_B_DrawDigit10:: ; 23:6449
-Function_23_6449::
+
 	cp a, $00
 	jr nz, .l6467
 	ld hl, wSpriteSlot9
@@ -1398,7 +1398,7 @@ Function_23_6449::
 	ret
 
 SpriteCounter_B_DrawDigit1:: ; 23:6571
-Function_23_6571::
+
 	cp a, $00
 	jr nz, .l658F
 	ld hl, wSpriteSlot10
@@ -1523,7 +1523,7 @@ SpriteCounter_StubC:: ; 23:6699
 	ret
 
 SpriteCounter_C_DrawNumber:: ; 23:669A
-Function_23_669A::
+
 	; [HYPOTHESIS] push hl ; push af ; ld de,$2710 prologue after the ret pair 6698/6699, falls into
 	; the far call at 669F; twin of the longer 5FA3 function | forced execution: 3/3 instruction
 	; starts ran in forced_dead (traces/forced/, not natural evidence; status unchanged)
@@ -1655,7 +1655,7 @@ Function_23_669A::
 	ret
 
 SpriteCounter_C_DrawDigit10000:: ; 23:6799
-Function_23_6799::
+
 	cp a, $00
 	jr nz, .l67B7
 	ld hl, wSpriteSlot1
@@ -1775,7 +1775,7 @@ Function_23_6799::
 	ret
 
 SpriteCounter_C_DrawDigit1000:: ; 23:68C1
-Function_23_68C1::
+
 	cp a, $00
 	jr nz, .l68DF
 	ld hl, wSpriteSlot2
@@ -1895,7 +1895,7 @@ Function_23_68C1::
 	ret
 
 SpriteCounter_C_DrawDigit100:: ; 23:69E9
-Function_23_69E9::
+
 	cp a, $00
 	jr nz, .l6A07
 	ld hl, wSpriteSlot3
@@ -2015,7 +2015,7 @@ Function_23_69E9::
 	ret
 
 SpriteCounter_C_DrawDigit10:: ; 23:6B11
-Function_23_6B11::
+
 	cp a, $00
 	jr nz, .l6B2F
 	ld hl, wSpriteSlot4
@@ -2135,7 +2135,7 @@ Function_23_6B11::
 	ret
 
 SpriteCounter_C_DrawDigit1:: ; 23:6C39
-Function_23_6C39::
+
 	cp a, $00
 	jr nz, .l6C57
 	ld hl, wSpriteSlot5

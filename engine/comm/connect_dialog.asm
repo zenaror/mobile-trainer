@@ -5,7 +5,7 @@
 SECTION "engine/comm/connect_dialog", ROMX
 
 ConnectDialog_Run:: ; 57:4000
-Function_57_4000::
+
 	; [CONFIRMED] 124 insn(s); 124 executed (in up to 6/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -638,7 +638,7 @@ ConnectDialog_Input_ForgetConfirm:: ; 57:4481
 	ret
 
 ConnectDialog_EnterMode:: ; 57:44E4
-Function_57_44E4::
+
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 6/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wConnectDialog_Mode]
@@ -772,7 +772,7 @@ Label_57_45BC::
 	ret
 
 ConnectDialog_LeaveMode:: ; 57:45E6
-Function_57_45E6::
+
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 6/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wConnectDialog_Mode]

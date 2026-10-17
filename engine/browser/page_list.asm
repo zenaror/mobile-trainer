@@ -339,7 +339,7 @@ PageList_Main_Loop:: ; 24:4083
 	; alone is not proof -> HYPOTHESIS]
 	ret
 Wram6_CopyGooUrlAndTitleToPageBuffers:: ; 24:42B0 [PROBABLE] operation; entry/purpose unproved
-Function_24_42B0:: ; 24:42B0
+
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2658,13 +2658,13 @@ PageList_DeleteSlot:: ; 24:51CB
 	ret
 
 Stub_Nop_24_53FC:: ; 24:53FC
-Function_24_53FC::
+
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4BCD-53FE by apply_coverage --split
 	ret
 
 Stub_Nop_24_53FD:: ; 24:53FD
-Function_24_53FD::
+
 	; [CONFIRMED] 1 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage
 	; --split [executed in 8 scenarios]
 	ret

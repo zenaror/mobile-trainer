@@ -7,7 +7,7 @@ SECTION "data/account/default_config_images", ROMX
 ; ---- data $67E0-$68A0 (192 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
 
 Config_DefaultImage0:: ; 68:67E0
-Data_68_67E0::
+
 	db $4D, $41, $01, $00, $D2, $C4, $03, $B7, $D2, $8D, $70, $A3, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
@@ -24,7 +24,7 @@ Data_68_67E0::
 ; ---- data $68A0-$6960 (192 bytes) [PROBABLE] 192-byte ($00C0) record starting with the "MA 01 00 D2 C4 03 B7 D2 8D 70 A3" header, same layout as the record at 67E0 (read by executed code) and 4EA7; addressed by the word table at 67D8 (entry 1); contains zero padding runs, $FF runs and ASCII (DION ... strings); fields not decoded
 
 Config_DefaultImage1:: ; 68:68A0
-Data_68_68A0::
+
 	db $4D, $41, $01, $00, $D2, $C4, $03, $B7, $D2, $8D, $70, $A3, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
@@ -41,7 +41,7 @@ Data_68_68A0::
 ; ---- data $6960-$6A20 (192 bytes) [PROBABLE] 192-byte ($00C0) record starting with the "MA 01 00 D2 C4 03 B7 D2 8D 70 A3" header, same layout as the record at 67E0 (read by executed code) and 4EA7; addressed by the word table at 67D8 (entry 2); contains zero padding runs, $FF runs and ASCII (DION ... strings); fields not decoded
 
 Config_DefaultImage2:: ; 68:6960
-Data_68_6960::
+
 	db $4D, $41, $01, $00, $D2, $C4, $03, $B7, $D2, $8D, $70, $A3, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
@@ -58,7 +58,7 @@ Data_68_6960::
 ; ---- data $6A20-$6AE0 (192 bytes) [PROBABLE] 192-byte ($00C0) record starting with the "MA 01 00 D2 C4 03 B7 D2 8D 70 A3" header, same layout as the record at 67E0 (read by executed code) and 4EA7; addressed by the word table at 67D8 (entry 3); contains zero padding runs, $FF runs and ASCII (DION ... strings); fields not decoded
 
 Config_DefaultImage3:: ; 68:6A20
-Data_68_6A20::
+
 	db $4D, $41, $01, $00, $D2, $C4, $03, $B7, $D2, $8D, $70, $A3, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00

@@ -5,7 +5,7 @@
 SECTION "engine/browser/page_render", ROMX
 
 Browser_DrawTitleBar:: ; 4E:5204
-Function_4E_5204::
+
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh a, [hPageHeaderPtr]
@@ -178,7 +178,7 @@ Browser_MakeShortTitle:: ; 4E:5274
 	ret
 
 Browser_RenderPage:: ; 4E:52E7
-Function_4E_52E7::
+
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	farcall Browser_DrawTitleBar
@@ -349,7 +349,7 @@ Label_4E_539D::
 	ret
 
 Browser_ScrollUpLine:: ; 4E:53A1
-Function_4E_53A1::
+
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh a, [hViewY]
@@ -421,7 +421,7 @@ Browser_ScrollDownLine:: ; 4E:53D1
 	ret
 
 Browser_SetScroll:: ; 4E:5423
-Function_4E_5423::
+
 	; [CONFIRMED] 266 insn(s); 266 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, c
@@ -731,7 +731,7 @@ Browser_FindLinkElement:: ; 4E:5512
 	ret
 
 Browser_FindVisibleLink:: ; 4E:55E8
-Function_4E_55E8::
+
 	; [CONFIRMED] 125 insn(s); 125 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh [hPageRender_WantedLink], a

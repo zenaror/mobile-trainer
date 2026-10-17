@@ -5,7 +5,7 @@
 SECTION "engine/sram/integrity_check", ROMX
 
 SramCheck_Bank0PageSum:: ; 22:4EF0
-Function_22_4EF0::
+
 	; [CONFIRMED] 127 insn(s); 127 executed (in up to 17/18 scenarios); entry proven: target of an
 	; executed call/far call
 	and a, $01
@@ -300,7 +300,7 @@ SramCheck_Bank1StoreSum:: ; 22:5077
 	ret
 
 SramCheck_CompareDEHL2:: ; 22:5093
-Function_22_5093::
+
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 6/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, h

@@ -5,7 +5,7 @@
 SECTION "engine/browser/start_choice", ROMX
 
 Browser_StartChoiceScreen:: ; 73:5F17
-Function_73_5F17::
+
 	; [CONFIRMED] 133 insn(s); 133 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh a, [rLCDC]
@@ -231,7 +231,7 @@ Label_73_6114::
 	ld a, [wBrowserStart_Cursor]
 	ret
 ReadC0F8_Xor1:: ; 73:6143 [PROBABLE] local operation; entry/domain unproved
-Function_73_6143:: ; 73:6143
+
 	; [HYPOTHESIS] entry/domain unestablished; [6143,6149) and [6149,614F) each decode
 	; as LD A,[C0F8/C0F9]; XOR $01; RET: 6 bytes and 3 instruction starts per segment.
 	; RET at 6148 and 614E ends each ordinary path; neither falls through to 614F.
@@ -304,7 +304,7 @@ BrowserStart_HandleDpad:: ; 73:6180
 	ret
 
 BrowserStart_DrawButtons:: ; 73:61D5
-Function_73_61D5::
+
 	; [CONFIRMED] 26 insn(s); 26 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wBrowserStart_Cursor]
@@ -362,7 +362,7 @@ Function_73_61D5::
 	ret
 
 BrowserStart_AnimateFrame:: ; 73:6265
-Function_73_6265::
+
 	; [CONFIRMED] 50 insn(s); 50 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, wBrowserStart_AnimCounter
@@ -422,7 +422,7 @@ BrowserStart_ShowDescription:: ; 73:62AA
 	ret
 
 BrowserStart_DescIndex_AdjustItem1:: ; 73:62D2
-Function_73_62D2::
+
 	; [CONFIRMED] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 1;
 	; entered by callcc from 73:62B7 (executed) | 3 insn(s) executed; cut out of the PROBABLE region
 	; 62D2-62EF by apply_coverage --split [executed in 8 scenarios]
@@ -436,7 +436,7 @@ Function_73_62D2::
 	ret
 
 BrowserStart_DescIndex_AdjustItem2:: ; 73:62DA
-Function_73_62DA::
+
 	ld a, [wRam_C0F9]
 	or a, a
 	ret z
@@ -444,7 +444,7 @@ Function_73_62DA::
 	ret
 
 BrowserStart_DescIndex_AdjustItem3:: ; 73:62E2
-Function_73_62E2::
+
 	ld a, $01
 	ld hl, sSaveCheckStateBlock + $05
 	call ReadByteFar

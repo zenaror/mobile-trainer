@@ -5,7 +5,7 @@
 SECTION "engine/html/layout", ROMX
 
 Html_Layout_ClearAllFloats:: ; 74:5252
-Function_74_5252::
+
 	; [CONFIRMED] 35 insn(s); 35 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	; [CONFIRMED] never returns for a page that ends inside a list (scenario browser_ul: 96,318 retries of .l5293 in 5,407 frames, to the end of the run, the buttons pressed meanwhile do nothing, the screen
@@ -164,7 +164,7 @@ Html_Layout_PlaceImage:: ; 74:529F
 	ret
 
 Html_Layout_AppendImageRecord:: ; 74:532A
-Function_74_532A::
+
 	ldh a, [hHtmlLayout_NextRecord]
 	ld l, a
 	ldh a, [hHtmlLayout_NextRecordHi]
@@ -186,7 +186,7 @@ Function_74_532A::
 	ret
 
 Html_Layout_SkipPastFloats:: ; 74:5348
-Function_74_5348::
+
 	; [PROBABLE] 31 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5293-537D by apply_coverage --split
 	ldh a, [hViewX]
@@ -223,7 +223,7 @@ Function_74_5348::
 	jp Html_Layout_SkipPastFloats
 
 Html_LoadPageImages:: ; 74:537D
-Function_74_537D::
+
 	; [CONFIRMED] 23 insn(s); 23 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $0A
@@ -543,7 +543,7 @@ Html_Layout_WrapRun:: ; 74:5440
 	jp .l5447
 
 Html_Layout_CloseRunRecord:: ; 74:5528
-Function_74_5528::
+
 	ld a, l
 	ldh [hHtml_RunStartLo], a
 	ld a, h
@@ -650,7 +650,7 @@ Html_Layout_AppendRecord:: ; 74:5548
 	ret
 
 Html_Layout_AddRecordToLine:: ; 74:55BE
-Function_74_55BE::
+
 	ldh a, [hHtmlLayout_HeightAbove]
 	ld c, a
 	ldh a, [hHtmlLayout_HeightBelow]
@@ -782,7 +782,7 @@ Function_74_55BE::
 	jp Html_Layout_AddRecordToLine
 
 Html_Layout_PlaceLine:: ; 74:5663
-Function_74_5663::
+
 	; [CONFIRMED] 21 insn(s); 21 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh a, [hHtmlLayout_HeightAbove]
@@ -1030,7 +1030,7 @@ Function_74_5663::
 	ret
 
 Html_Layout_BeginLineAndPlaceFloats:: ; 74:57AD
-Function_74_57AD::
+
 	ldh a, [hHtmlLayout_LineY]
 	ld e, a
 	ldh a, [hHtmlLayout_LineYHi]

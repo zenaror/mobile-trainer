@@ -5,7 +5,7 @@
 SECTION "engine/help/mobile_dictionary_view", ROMX
 
 MobileDictView_Show:: ; 4C:4F56
-Function_4C_4F56::
+
 	; [CONFIRMED] 48 insn(s); 48 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld [wRam_C2DC], a
@@ -351,7 +351,7 @@ MobileDictView_LoadImages:: ; 4C:51A1
 	jp .l51D1
 
 MobileDictView_HistoryPush:: ; 4C:5274
-Function_4C_5274::
+
 	; [CONFIRMED] 22 insn(s); 22 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, wBrowserPageUrl

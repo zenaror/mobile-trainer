@@ -5,7 +5,7 @@
 SECTION "engine/profile/profile_editor", ROMX
 
 Profile_Edit:: ; 2A:5495
-Function_2A_5495::
+
 	; [CONFIRMED] 44 insn(s); 44 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld [wMailScreenMode], a
@@ -422,7 +422,7 @@ Profile_CursorRight:: ; 2A:576B
 	pop bc
 
 Profile_MoveCursorRight:: ; 2A:577F
-Function_2A_577F::
+
 	; [CONFIRMED] 1 insn(s); 1 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	jr .l578A
@@ -482,7 +482,7 @@ Function_2A_577F::
 	ret
 
 Profile_InitScreen:: ; 2A:57BD
-Function_2A_57BD::
+
 	; [CONFIRMED] 123 insn(s); 123 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	farcall Sprite_ResetAll
@@ -1181,7 +1181,7 @@ Profile_CharPtr:: ; 2A:5C5B
 	ret
 
 Profile_FindLine:: ; 2A:5C8F
-Function_2A_5C8F::
+
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -1954,7 +1954,7 @@ POPC
 	ret
 
 Profile_KeyboardLoop:: ; 2A:6148
-Function_2A_6148::
+
 	; [CONFIRMED] 78 insn(s); 78 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -2110,7 +2110,7 @@ Profile_KeyboardLoop_Poll:: ; 2A:617B
 	ret
 
 Profile_LoadAndDraw:: ; 2A:6257
-Function_2A_6257::
+
 	; [CONFIRMED] 81 insn(s); 81 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc

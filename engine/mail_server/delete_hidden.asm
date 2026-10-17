@@ -820,7 +820,7 @@ MailSrvDelHidden_UploadTextTiles:: ; 22:489F
 	ret
 
 MailSrvDelHidden_DrawTimerNumbers:: ; 22:48CD
-Function_22_48CD::
+
 	; [PROBABLE] function prologue (push af/bc/de/hl ... ld de,$C2D7 ... call $4975 / $4A97 ...)
 	; that falls straight into the far-call site at 22:48FE (PROBABLE code); it follows a ret at
 	; 48CC. No caller/pointer to 48CD found in the ROM (words.py scan), so the entry is unproven;
@@ -930,7 +930,7 @@ Function_22_48CD::
 	ret
 
 MailSrvDelHidden_FormatDecimalStr:: ; 22:4975
-Function_22_4975::
+
 	push hl
 	push bc
 	ld a, $01
@@ -1124,7 +1124,7 @@ String_22_4A8C::
 POPC
 
 MailSrvDelHidden_NumberOffset:: ; 22:4A97
-Function_22_4A97::
+
 	; [PROBABLE] 130 insn(s) reached by static flow only; seeds: exec x74, site x56; min discovery
 	; hops 0; entered by call from 22:491A (PROBABLE code) | 56 insn(s) never executed in the traced
 	; runs; cut out of the PROBABLE region 4A97-4BB5 by apply_coverage --split | forced execution:
@@ -1178,7 +1178,7 @@ Function_22_4A97::
 	ret
 
 MailSrvDelHidden_UploadDecimalTiles:: ; 22:4AF7
-Function_22_4AF7::
+
 	ldh a, [rSVBK]
 	push af
 	ld a, $02

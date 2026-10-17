@@ -1,13 +1,13 @@
 ; engine/comm/time_hooks.asm
 ; bank 7F, $61FC-$624F (83 bytes); pinned by layout.link
-; Stub_Nop, Timer_ResetClockB, time-warning dialog wrappers
+; Stack_PushPopAFAndReturn, Timer_ResetClockB, time-warning dialog wrappers
 
 SECTION "engine/comm/time_hooks", ROMX
 
-Stub_Nop_7F_61FC:: ; 7F:61FC
-Function_7F_61FC::
-	; [CONFIRMED] 10 insn(s); 10 executed (in up to 4/18 scenarios); entry proven: target of an
-	; executed call/far call
+Stack_PushPopAFAndReturn:: ; 7F:61FC
+
+	; [CONFIRMED] entry proven historically; exactly PUSH AF / POP AF / RET (7F:61FC-61FE).
+	; Writes SP-1/-2; AF restore needs visible writable stack. Old 10 insns include 61FF.
 	push af
 	pop af
 	ret
@@ -33,7 +33,7 @@ Timer_ResetClockB:: ; 7F:61FF
 	ret
 
 CommNotice_ShowDialogMode1:: ; 7F:6218
-Function_7F_6218::
+
 	; [CONFIRMED] 23 insn(s) reached by static flow only; seeds: exec x13, site x10; min discovery
 	; hops 0; entered by far from 23:50E5 (PROBABLE code) | 11 insn(s) executed; cut out of the
 	; PROBABLE region 6218-624F by apply_coverage --split [executed in 1 scenarios]
@@ -56,7 +56,7 @@ Function_7F_6218::
 	ret
 
 CommNotice_ShowDialogMode0:: ; 7F:6235
-Function_7F_6235::
+
 	ld hl, wTimerAWarnFlags
 	res 0, [hl]
 	ld a, $00
@@ -65,5 +65,5 @@ Function_7F_6235::
 	ld [wCommNoticeGfxSet], a
 	farcall CommNotice_ShowDialog
 	ld a, $FF
-	call Stub_Nop_7F_61FC
+	call Stack_PushPopAFAndReturn
 	ret

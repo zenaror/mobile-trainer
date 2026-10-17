@@ -422,7 +422,7 @@ Data_72_6711:: ; 72:6711
 	db $AF
 
 BrowserMenu_OpenThreeItem:: ; 72:6712
-Function_72_6712::
+
 	; [CONFIRMED] 56 insn(s); 56 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh [hDialogResult], a
@@ -584,7 +584,7 @@ Data_72_6892::
 	db $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $80
 
 BrowserMenu_RunThreeItem:: ; 72:689F
-Function_72_689F::
+
 	; [CONFIRMED] 23 insn(s); 23 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh a, [hDialogResult]
@@ -780,7 +780,7 @@ Label_72_69EE::
 	ret
 
 BrowserMenu_DrawItemThree:: ; 72:69F3
-Function_72_69F3::
+
 	; [CONFIRMED] 106 insn(s); 106 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld e, a

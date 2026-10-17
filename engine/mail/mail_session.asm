@@ -5,7 +5,7 @@
 SECTION "engine/mail/mail_session", ROMX
 
 MailSession_Run:: ; 26:4000
-Function_26_4000::
+
 	; [CONFIRMED] 27 insn(s); 27 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $01
@@ -1532,7 +1532,7 @@ MailSession_Finish:: ; 26:4B54
 	ret
 
 MailSession_SetReceivedCountSprite:: ; 26:4C94
-Function_26_4C94::
+
 	; [CONFIRMED] 215 insn(s) reached by static flow only; seeds: exec x215; min discovery hops 5;
 	; entered by call from 26:475F (PROBABLE code) | 115 insn(s) executed; cut out of the PROBABLE
 	; region 4C94-4EC3 by apply_coverage --split [executed in 1 scenarios]
@@ -1657,7 +1657,7 @@ Function_26_4C94::
 	ret
 
 MailSession_SetNextReceivedCountSprite:: ; 26:4DAB
-Function_26_4DAB::
+
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1786,7 +1786,7 @@ Function_26_4DAB::
 	ret
 
 MailSession_CheckTimeWarning:: ; 26:4EC3
-Function_26_4EC3::
+
 	; [CONFIRMED] 16 insn(s); 16 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af

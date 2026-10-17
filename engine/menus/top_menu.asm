@@ -5,7 +5,7 @@
 SECTION "engine/menus/top_menu", ROMX
 
 TopMenu_Run:: ; 1F:4000
-Function_1F_4000::
+
 	; [CONFIRMED] 170 insn(s); 170 executed (in up to 11/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call Sound_FrameService
@@ -337,7 +337,7 @@ Data_1F_434B::
 	db $28, $0B, $28, $51, $60, $2E
 
 TopMenu_LoadPanel:: ; 1F:4351
-Function_1F_4351::
+
 	; [CONFIRMED] 196 insn(s); 196 executed (in up to 11/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld bc, $1014
@@ -556,7 +556,7 @@ TopMenu_AnimatePanel:: ; 1F:44D5
 	ret
 
 TopMenu_UpdateCursorMove:: ; 1F:4561
-Function_1F_4561::
+
 	; [CONFIRMED] 82 insn(s); 82 executed (in up to 11/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wTopMenuCursorStepsLeft]

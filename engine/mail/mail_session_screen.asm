@@ -37,7 +37,7 @@ MailSession_ShowCommError:: ; 26:5067
 	ret
 
 MailSession_PollAdapterError:: ; 26:50AC
-Function_26_50AC::
+
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wTimerEnable]
@@ -90,7 +90,7 @@ MailSession_ShowCommErrorNoWindow:: ; 26:50C6
 	ld a, $80
 	ret
 MailSession_CompareWordDeltas:: ; 26:5106 [PROBABLE] word-delta predicate
-Function_26_5106:: ; 26:5106
+
 	push bc
 	push de
 	push hl
@@ -169,7 +169,7 @@ Function_26_5106:: ; 26:5106
 	ret
 
 MailSession_InitScreen:: ; 26:5168
-Function_26_5168::
+
 	; [CONFIRMED] 122 insn(s); 122 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -994,7 +994,7 @@ String_26_56B2::
 POPC
 
 MailSession_ShowMsgReceiving:: ; 26:56DB
-Function_26_56DB::
+
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -1018,7 +1018,7 @@ String_26_56F6::
 POPC
 
 MailSession_ShowMsgSent:: ; 26:571F
-Function_26_571F::
+
 	; [PROBABLE] push bc / ld a,$02 / ldh [$FFB0],a / ld a,$26 / ld bc,$D400 / ld de,$D600 / ld
 	; hl,$573A: loads the address of String_26_573A that follows the far call at 572F; chain falls
 	; through into that site-validated far call; entry unproven
@@ -1046,7 +1046,7 @@ String_26_573A::
 POPC
 
 MailSession_ShowMsgReceiveDone:: ; 26:5763
-Function_26_5763::
+
 	; [PROBABLE] same as 26:571F but ld hl,$577E (String_26_577E); chain falls through into the far
 	; call at 5773; entry unproven
 	push bc
@@ -1073,7 +1073,7 @@ String_26_577E::
 POPC
 
 MailSession_ShowMsgNoMail:: ; 26:57A7
-Function_26_57A7::
+
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -1143,7 +1143,7 @@ String_26_584A::
 POPC
 
 MailSession_ClearMsg:: ; 26:5873
-Function_26_5873::
+
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -1168,7 +1168,7 @@ Data_26_588E::
 	db $81, $40, $81, $40, $81, $40, $81, $40, $00
 
 MailSession_UploadMsgTiles:: ; 26:58B7
-Function_26_58B7::
+
 	; [CONFIRMED] 57 insn(s); 57 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh a, [rSVBK]

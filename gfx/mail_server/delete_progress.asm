@@ -32,13 +32,13 @@ Data_23_7640::
 	INCBIN "gfx/mail_server/delete_progress/mail_srv_del_progress_screen.tilemap"
 	INCBIN "gfx/mail_server/delete_progress/mail_srv_del_progress_screen.attrmap"
 
-; ---- data $7910-$7950 (64 bytes) [CONFIRMED] 64-byte RGB555 palette block copied by Function_4F_4000 (hl=$7910 a=$23 bc=$0040 de=$D800) at 23:55F3; call site executed: 6 hits in 5 scenarios (analysis/coverage_union.tsv); replaces the mapper palette guess 7910-7A3F which swallowed the object tables
+; ---- data $7910-$7950 (64 bytes) [CONFIRMED] 64-byte RGB555 palette block copied by Palette_LoadToBuffer (hl=$7910 a=$23 bc=$0040 de=$D800) at 23:55F3; call site executed: 6 hits in 5 scenarios (analysis/coverage_union.tsv); replaces the mapper palette guess 7910-7A3F which swallowed the object tables
 
 Palette_MailSrvDelProgress_Bg:: ; 23:7910
 Palette_23_7910::
 	INCLUDE "gfx/mail_server/delete_progress/mail_srv_del_progress_bg.pal"
 
-; ---- data $7950-$7990 (64 bytes) [CONFIRMED] 64-byte RGB555 palette block copied by Function_4F_4000 (hl=$7950 a=$23 bc=$0040 de=$D840) at 23:5604; call site executed: 6 hits in 5 scenarios (analysis/coverage_union.tsv)
+; ---- data $7950-$7990 (64 bytes) [CONFIRMED] 64-byte RGB555 palette block copied by Palette_LoadToBuffer (hl=$7950 a=$23 bc=$0040 de=$D840) at 23:5604; call site executed: 6 hits in 5 scenarios (analysis/coverage_union.tsv)
 
 Palette_MailSrvDelProgress_Obj:: ; 23:7950
 Palette_23_7950::

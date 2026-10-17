@@ -51,7 +51,7 @@ MailView_SenderPage_Loop:: ; 2B:64A7
 	xor a, a
 	ret
 Show0206_CallDeleteRecordIf1_Else64A7:: ; 2B:64F1 [PROBABLE] operation; entry/purpose unproved
-Function_2B_64F1:: ; 2B:64F1
+
 	; [HYPOTHESIS] function prologue (push bc; ld a,7; ldh [$8D],a; ldh [$70],a; ld a,$E0; ld
 	; [$DA10],a; ld [$DA20],a) that falls into the far-call site at 2B:6500 (PROBABLE code), after
 	; the ret at 64F0; no caller/pointer to 64F1 found
@@ -481,7 +481,7 @@ Table_2B_6863::
 	; [HYPOTHESIS] lone 'ret' (c9) after the table at 6863..687B; entry and purpose remain unproved
 	ret
 Sprite_SetSlots1And2Y68XByC_InitSlot2:: ; 2B:687C [PROBABLE] operation; entry/purpose unproved
-Function_2B_687C:: ; 2B:687C
+
 	; [HYPOTHESIS] 158B/60 CPU starts [687C,691A), four cases; 12 farcall data bytes separate.
 	; Prior24B table6863..687B plus RET687B; previous-JR entry wording was contradicted.
 	; C dispatches internal branches; each normal path balances PUSH/POP BC and returns.

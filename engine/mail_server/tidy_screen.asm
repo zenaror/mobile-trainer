@@ -5,7 +5,7 @@
 SECTION "engine/mail_server/tidy_screen", ROMX
 
 MailServerMgr_SetupScreen:: ; 2E:4B2E
-Function_2E_4B2E::
+
 	; [CONFIRMED] 100 insn(s); 100 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	farcall Sprite_ResetAll
@@ -388,12 +388,12 @@ MailServerMgr_DrawMailInfo:: ; 2E:4DBF
 	ret
 
 Stub_Nop_2E_4EB1:: ; 2E:4EB1
-Function_2E_4EB1::
+
 	; [CONFIRMED] 1 insn(s) executed; cut out of the PROBABLE region 4C58-4EB2 by apply_coverage
 	; --split [executed in 7 scenarios]
 	ret
 CallVBlankWait60Times:: ; 2E:4EB2
-Function_2E_4EB2::
+
 	; [HYPOTHESIS] Entry/purpose unproved; 11 bytes/7 starts [4EB2,4EBD), RET4EBC.
 	; [PROBABLE] Alias: 60 normal calls to 00:0464; parameterized loop sibling at 27:4691.
 	; LCD-off helper skips waiting; LCD-on needs IRQ progress. Valid stack protects C; B ends0.
@@ -532,7 +532,7 @@ MailServerMgr_DrawFieldText_Done:: ; 2E:4F99
 Label_2E_4F99::
 	ret
 BlitOneGlyphIfCellsLeft_JumpToRet4F99:: ; 2E:4F9A [PROBABLE] operation; entry unproved
-Function_2E_4F9A:: ; 2E:4F9A
+
 	; [HYPOTHESIS] 15 bytes/7 starts [4F9A,4FA9): C2EE=0 RETZ, else decrement once/CALL4FA9.
 	; JR4FA7=18F0 targets RET4F99, not4F9A; the 33 siblings with18F1 are distinct paths.
 	; Glyph wrapper farcalls7F:42C3, restores BC/DE/HL then E+=6 without carry; no space load.
@@ -1126,7 +1126,7 @@ MailServerMgr_DrawMailNumber:: ; 2E:5184
 	ret
 
 MailServerMgr_ClearTextTiles:: ; 2E:533C
-Function_2E_533C::
+
 	; [CONFIRMED] 50 insn(s); 50 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -1268,7 +1268,7 @@ String_2E_545F:: ; 2E:545F
 POPC
 
 MailServerMgr_UploadMessageTiles:: ; 2E:5478
-Function_2E_5478::
+
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh a, [rSVBK]
@@ -1393,7 +1393,7 @@ String_2E_55D1::
 POPC
 
 MailServerMgr_UpdateTimerDisplay:: ; 2E:55FA
-Function_2E_55FA::
+
 	; [CONFIRMED] 22 insn(s); 22 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af

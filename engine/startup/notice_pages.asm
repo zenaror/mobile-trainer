@@ -5,7 +5,7 @@
 SECTION "engine/startup/notice_pages", ROMX
 
 Notice_ShowPage:: ; 65:487C
-Function_65_487C::
+
 	; [CONFIRMED] 76 insn(s); 76 executed (in up to 9/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld [wNotice_PageArg], a
@@ -258,7 +258,7 @@ Notice_FooterGfxTable:: ; 65:4AC9
 	db $D0, $69, $50, $6C, $D0, $6E, $50, $71, $D0, $73, $50, $76, $D0, $78
 
 Notice_DrawPageCounter:: ; 65:4AD7
-Function_65_4AD7::
+
 	; [CONFIRMED] 100 insn(s); 100 executed (in up to 9/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wNotice_RecordPtr]
@@ -385,7 +385,7 @@ Table_65_4B92::
 	dw $7E94, $7E98, $7E9C
 
 Notice_RequestPageSound:: ; 65:4BA8
-Function_65_4BA8::
+
 	; [CONFIRMED] 18 insn(s); 18 executed (in up to 9/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, Notice_PageSoundTable

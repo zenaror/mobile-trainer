@@ -5,7 +5,7 @@
 SECTION "engine/browser/status_sprites", ROMX
 
 Browser_DrawCommTimer:: ; 4E:5FB9
-Function_4E_5FB9::
+
 	; [CONFIRMED] 111 insn(s); 111 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	farcall CommTime_AddTimerA
@@ -129,7 +129,7 @@ ConnIcon_StartSprite:: ; 4E:604C
 	jp Sprite_SetPosition
 
 ConnIcon_GetBrowserFramePos:: ; 4E:6087
-Function_4E_6087::
+
 	; [HYPOTHESIS] complete small function (push bc/hl ... ret): a = [C2C2] & $7F -> word of the
 	; screen-descriptor table 4E:654B -> hl+$19 -> de = word there; ret; same idiom as the executed
 	; 4E:5E11 area and the getter before it (4E:6060-6087 ends with jp $0A65); no caller/pointer

@@ -5,7 +5,7 @@
 SECTION "engine/browser/page_loader", ROMX
 
 Browser_LoadPage:: ; 4C:4000
-Function_4C_4000::
+
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, wAttrUrlBuf
@@ -882,7 +882,7 @@ Label_4C_460D::
 	ret
 
 Url_StripFragment:: ; 4C:46A6
-Function_4C_46A6::
+
 	; [CONFIRMED] 14 insn(s); 14 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call (part of region $46A6-$46C0)
 	call Sound_FrameService

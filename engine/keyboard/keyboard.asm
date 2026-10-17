@@ -5,7 +5,7 @@
 SECTION "engine/keyboard/keyboard", ROMX
 
 Kbd_Open:: ; 55:5BA2
-Function_55_5BA2::
+
 	; [CONFIRMED] 106 insn(s); 106 executed (in up to 11/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld [wKbdType], a
@@ -294,7 +294,7 @@ Kbd_Run_Loop:: ; 55:5D49
 	; (now classified) lookup routine 6EEC; no branch into it found [verifier: no entry proven (no
 	; caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
 	ld a, [wKbdType]
-	call Function_55_6EEC
+	call Kbd_Type6To10Flag
 	or a, a
 	jp z, Kbd_Run_ContinueLoop
 	jp Label_55_5F29
@@ -526,7 +526,7 @@ Label_55_5F29::
 	ret
 
 Kbd_FetchCell:: ; 55:5F35
-Function_55_5F35::
+
 	; [CONFIRMED] 98 insn(s); 98 executed (in up to 11/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wKbdType]
@@ -685,7 +685,7 @@ Table_55_5FC8::
 	ret
 
 Kbd_AdjustColRowForSticky:: ; 55:6041
-Function_55_6041::
+
 	ld a, [wKbdType]
 	cp a, $01
 	jr z, .l604D
@@ -719,7 +719,7 @@ Function_55_6041::
 	ret
 
 Kbd_UpdateSticky:: ; 55:6068
-Function_55_6068::
+
 	; [CONFIRMED] 17 insn(s); 17 executed (in up to 8/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wKeyboardCharHi]
@@ -780,13 +780,13 @@ Table_55_6087::
 	ret
 
 Kbd_StoreStickyCol:: ; 55:60D3
-Function_55_60D3::
+
 	ld a, [wKbdCursorCol]
 	ld [wKbdStickyCol], a
 	ret
 
 Kbd_StoreStickyRow:: ; 55:60DA
-Function_55_60DA::
+
 	ld a, [wKbdCursorRow]
 	ld [wKbdStickyRow], a
 	ret
@@ -845,13 +845,13 @@ Table_55_60F1::
 	ret
 
 Kbd_ClearStickyCol:: ; 55:613D
-Function_55_613D::
+
 	ld a, $FF
 	ld [wKbdStickyCol], a
 	ret
 
 Kbd_ClearStickyRow:: ; 55:6143
-Function_55_6143::
+
 	ld a, $FF
 	ld [wKbdStickyRow], a
 	ret
@@ -896,7 +896,7 @@ Kbd_ColRowToIndex:: ; 55:616D
 	ret
 
 Kbd_ClearSticky:: ; 55:617B
-Function_55_617B::
+
 	ld a, $FF
 	ld [wKbdStickyCol], a
 	ld [wKbdStickyRow], a
@@ -914,7 +914,7 @@ Function_55_617B::
 	ret
 
 Kbd_UpdateCursorSprite:: ; 55:6190
-Function_55_6190::
+
 	; [CONFIRMED] 103 insn(s); 103 executed (in up to 11/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call Kbd_SplitCursorIndex
@@ -1100,7 +1100,7 @@ Data_55_62C8:: ; 55:62C8
 	db $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA
 
 Kbd_SlideIn:: ; 55:6318
-Function_55_6318::
+
 	; [CONFIRMED] 32 insn(s); 32 executed (in up to 5/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call VBlank_WaitStartDI
@@ -1250,7 +1250,7 @@ Data_55_641C::
 	db $28, $28, $28, $28, $28, $28, $38, $38, $38, $38, $38
 
 Kbd_SlideOut:: ; 55:6427
-Function_55_6427::
+
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, wSpriteSlot10
@@ -1485,7 +1485,7 @@ Data_55_65D7::
 	db $04, $05, $06
 
 Kbd_TypePickerLoop:: ; 55:65DA
-Function_55_65DA::
+
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, wSpriteSlot11
@@ -1612,7 +1612,7 @@ Data_55_66C0::
 	db $1E, $46, $6E, $1C, $44, $6C
 
 Kbd_LoadPageGraphics:: ; 55:66C6
-Function_55_66C6::
+
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 11/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh [hKbd_LoadPageArg], a
@@ -2290,7 +2290,7 @@ Data_55_6C0A::
 	db $90, $6A, $10, $6D, $90, $6F
 
 Kbd_RequestGlyphRedraw:: ; 55:6C10
-Function_55_6C10::
+
 	; [CONFIRMED] 23 insn(s); 23 executed (in up to 11/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $01

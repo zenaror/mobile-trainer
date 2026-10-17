@@ -5,7 +5,7 @@
 SECTION "engine/settings/usage_time", ROMX
 
 UsageTime_Run:: ; 67:60BA
-Function_67_60BA::
+
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	xor a, a
@@ -58,7 +58,7 @@ Function_67_60BA::
 	ret
 
 PasswordPrompt_Ask:: ; 67:611C
-Function_67_611C::
+
 	; [CONFIRMED] 67 insn(s); 67 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wManualNumbersFlag]
@@ -155,7 +155,7 @@ Data_67_61D2::
 	db $67, $69, $00
 
 Net_BuildLoginPostBody:: ; 67:6205
-Function_67_6205::
+
 	; [CONFIRMED] 27 insn(s); 27 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh [hScratchA], a

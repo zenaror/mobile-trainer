@@ -5,7 +5,7 @@
 SECTION "engine/startup/registration", ROMX
 
 Registration_ReadStage:: ; 65:4123
-Function_65_4123::
+
 	; [CONFIRMED] 34 insn(s); 34 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, sSettingsRegistrationProgress
@@ -83,7 +83,7 @@ Startup_Return:: ; 65:41A9
 	ret
 
 Startup_VerifySaveDataSilent:: ; 65:41AA
-Function_65_41AA::
+
 	; [PROBABLE] 13 insn(s) reached by static flow only; seeds: site x13; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall SramCheck_Bank0Status
@@ -104,7 +104,7 @@ Function_65_41AA::
 	jr Startup_Return
 
 Registration_Run:: ; 65:41DA
-Function_65_41DA::
+
 	; [CONFIRMED] 65 insn(s); 65 executed (in up to 5/18 scenarios); entry proven: target of an
 	; executed call/far call
 	farcall Account_ClearWorkBuffers
@@ -690,8 +690,8 @@ Registration_Aborted:: ; 65:46CA
 	ret
 
 Password_CopyConfirmToPassword:: ; 65:46FF
-Function_65_46FF::
-	; [HYPOTHESIS] sibling of the executed Function_65_473F (same 32-byte shape: save FFF2/FF8D,
+
+	; [HYPOTHESIS] sibling of the executed Password_CompareEntries (same 32-byte shape: save FFF2/FF8D,
 	; switch WRAM bank 3, call $14BF with hl=$DECB de=$DEB9, restore); clean decode to ret; no
 	; caller or table entry found in the ROM (raw far-call/call/word scan), so entry unproven
 	ldh [hScratchA], a
@@ -712,8 +712,8 @@ Function_65_46FF::
 	ret
 
 Password_CopyConfirmToNew:: ; 65:471F
-Function_65_471F::
-	; [HYPOTHESIS] sibling of the executed Function_65_473F (same shape, de=$DEC2); clean decode to
+
+	; [HYPOTHESIS] sibling of the executed Password_CompareEntries (same shape, de=$DEC2); clean decode to
 	; ret; no caller or table entry found, entry unproven
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -733,7 +733,7 @@ Function_65_471F::
 	ret
 
 Password_CompareEntries:: ; 65:473F
-Function_65_473F::
+
 	; [CONFIRMED] 108 insn(s); 108 executed (in up to 6/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh [hScratchA], a
@@ -756,7 +756,7 @@ Function_65_473F::
 	ret
 
 Password_ClearConfirmIfEdited:: ; 65:4761
-Function_65_4761::
+
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -854,7 +854,7 @@ Registration_SavePassword:: ; 65:47EA
 	ret
 
 Startup_VerifySaveDataDeadVariant:: ; 65:481A
-Function_65_481A::
+
 	; [PROBABLE] 37 insn(s) reached by static flow only; seeds: site x37; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Settings_VerifyAndRepair

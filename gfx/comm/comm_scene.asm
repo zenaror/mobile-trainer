@@ -4,7 +4,7 @@
 
 SECTION "gfx/comm/comm_scene", ROMX
 
-; ---- ptrtable $4822-$4832 (16 bytes) [CONFIRMED] 8 word pointers to the 20x4 tilemap+attr blocks 7090..74F0 (stride $A0); indexed by A in Function_70_4803 (70:4803, executed) via ld hl,$4822 ; add a,a ... ; length 8 = 16 bytes to the next table at 4832; all 8 targets are block-aligned in 7090-7590
+; ---- ptrtable $4822-$4832 (16 bytes) [CONFIRMED] 8 word pointers to the 20x4 tilemap+attr blocks 7090..74F0 (stride $A0); indexed by A in CommScene_ShowTextBox (70:4803, executed) via ld hl,$4822 ; add a,a ... ; length 8 = 16 bytes to the next table at 4832; all 8 targets are block-aligned in 7090-7590
 
 CommScene_TextBoxMaps:: ; 70:4822
 Table_70_4822::
@@ -944,13 +944,13 @@ Gfx_CommScene_Tiles9400Vb1:: ; 70:6A90
 Tiles_70_6A90::
 	INCBIN "gfx/comm/comm_scene/tiles_6a90.2bpp"
 
-; ---- data $6C90-$6CD0 (64 bytes) [PROBABLE] 64 bytes = 8 CGB palettes, source of the Function_4F_4000 call (bc=$0040, de=$D800, hl=$6C90) in the loader sequence right before the executed copy_tilemap_rect_pair at 70:45A5; RGB555 words
+; ---- data $6C90-$6CD0 (64 bytes) [PROBABLE] 64 bytes = 8 CGB palettes, source of the Palette_LoadToBuffer call (bc=$0040, de=$D800, hl=$6C90) in the loader sequence right before the executed copy_tilemap_rect_pair at 70:45A5; RGB555 words
 
 Palette_CommScene_Bg:: ; 70:6C90
 Palette_70_6C90::
 	INCLUDE "gfx/comm/comm_scene/palette_6c90.pal"
 
-; ---- data $6CD0-$6D10 (64 bytes) [PROBABLE] 64 bytes = 8 CGB palettes, source of the Function_4F_4000 call (bc=$0040, de=$D840, hl=$6CD0); RGB555 words (00 00 4A 29 B5 56 FF 7F ends the block)
+; ---- data $6CD0-$6D10 (64 bytes) [PROBABLE] 64 bytes = 8 CGB palettes, source of the Palette_LoadToBuffer call (bc=$0040, de=$D840, hl=$6CD0); RGB555 words (00 00 4A 29 B5 56 FF 7F ends the block)
 
 Palette_CommScene_Obj:: ; 70:6CD0
 Palette_70_6CD0::
@@ -963,56 +963,56 @@ Tilemap_70_6D10::
 	INCBIN "gfx/comm/comm_scene/tilemap_6d10.tilemap"
 	INCBIN "gfx/comm/comm_scene/tilemap_6d10.attrmap"
 
-; ---- data $7090-$7130 (160 bytes) [CONFIRMED] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 0 of Table_70_4822: Function_70_4803 (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; bytes read in traces
+; ---- data $7090-$7130 (160 bytes) [CONFIRMED] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 0 of Table_70_4822: CommScene_ShowTextBox (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; bytes read in traces
 
 Tilemap_CommScene_TextBox0:: ; 70:7090
 Tilemap_70_7090::
 	INCBIN "gfx/comm/comm_scene/tilemap_7090.tilemap"
 	INCBIN "gfx/comm/comm_scene/tilemap_7090.attrmap"
 
-; ---- data $7130-$71D0 (160 bytes) [CONFIRMED] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 1 of Table_70_4822: Function_70_4803 (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; bytes read in traces
+; ---- data $7130-$71D0 (160 bytes) [CONFIRMED] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 1 of Table_70_4822: CommScene_ShowTextBox (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; bytes read in traces
 
 Tilemap_CommScene_TextBox1:: ; 70:7130
 Tilemap_70_7130::
 	INCBIN "gfx/comm/comm_scene/tilemap_7130.tilemap"
 	INCBIN "gfx/comm/comm_scene/tilemap_7130.attrmap"
 
-; ---- data $71D0-$7270 (160 bytes) [CONFIRMED] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 2 of Table_70_4822: Function_70_4803 (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; bytes read in traces
+; ---- data $71D0-$7270 (160 bytes) [CONFIRMED] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 2 of Table_70_4822: CommScene_ShowTextBox (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; bytes read in traces
 
 Tilemap_CommScene_TextBox2:: ; 70:71D0
 Tilemap_70_71D0::
 	INCBIN "gfx/comm/comm_scene/tilemap_71d0.tilemap"
 	INCBIN "gfx/comm/comm_scene/tilemap_71d0.attrmap"
 
-; ---- data $7270-$7310 (160 bytes) [CONFIRMED] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 3 of Table_70_4822: Function_70_4803 (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; bytes read in traces
+; ---- data $7270-$7310 (160 bytes) [CONFIRMED] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 3 of Table_70_4822: CommScene_ShowTextBox (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; bytes read in traces
 
 Tilemap_CommScene_TextBox3:: ; 70:7270
 Tilemap_70_7270::
 	INCBIN "gfx/comm/comm_scene/tilemap_7270.tilemap"
 	INCBIN "gfx/comm/comm_scene/tilemap_7270.attrmap"
 
-; ---- data $7310-$73B0 (160 bytes) [PROBABLE] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 4 of Table_70_4822: Function_70_4803 (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; not read in the 18 traces, same layout
+; ---- data $7310-$73B0 (160 bytes) [PROBABLE] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 4 of Table_70_4822: CommScene_ShowTextBox (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; not read in the 18 traces, same layout
 
 Tilemap_CommScene_TextBox4:: ; 70:7310
 Tilemap_70_7310::
 	INCBIN "gfx/comm/comm_scene/tilemap_7310.tilemap"
 	INCBIN "gfx/comm/comm_scene/tilemap_7310.attrmap"
 
-; ---- data $73B0-$7450 (160 bytes) [PROBABLE] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 5 of Table_70_4822: Function_70_4803 (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; not read in the 18 traces, same layout
+; ---- data $73B0-$7450 (160 bytes) [PROBABLE] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 5 of Table_70_4822: CommScene_ShowTextBox (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; not read in the 18 traces, same layout
 
 Tilemap_CommScene_TextBox5:: ; 70:73B0
 Tilemap_70_73B0::
 	INCBIN "gfx/comm/comm_scene/tilemap_73b0.tilemap"
 	INCBIN "gfx/comm/comm_scene/tilemap_73b0.attrmap"
 
-; ---- data $7450-$74F0 (160 bytes) [PROBABLE] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 6 of Table_70_4822: Function_70_4803 (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; not read in the 18 traces, same layout
+; ---- data $7450-$74F0 (160 bytes) [PROBABLE] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 6 of Table_70_4822: CommScene_ShowTextBox (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; not read in the 18 traces, same layout
 
 Tilemap_CommScene_TextBox6:: ; 70:7450
 Tilemap_70_7450::
 	INCBIN "gfx/comm/comm_scene/tilemap_7450.tilemap"
 	INCBIN "gfx/comm/comm_scene/tilemap_7450.attrmap"
 
-; ---- data $74F0-$7590 (160 bytes) [PROBABLE] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 7 of Table_70_4822: Function_70_4803 (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; not read in the 18 traces, same layout
+; ---- data $74F0-$7590 (160 bytes) [PROBABLE] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 7 of Table_70_4822: CommScene_ShowTextBox (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; not read in the 18 traces, same layout
 
 Tilemap_CommScene_TextBox7:: ; 70:74F0
 Tilemap_70_74F0::

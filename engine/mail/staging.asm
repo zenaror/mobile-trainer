@@ -30,7 +30,7 @@ Sram_ClearBank0Page0:: ; 2D:4686
 	ret
 
 MailStaging_Clear:: ; 2D:46A8
-Function_2D_46A8::
+
 	; [CONFIRMED] 37 insn(s); 37 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $01

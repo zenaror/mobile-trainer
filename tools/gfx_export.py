@@ -1050,13 +1050,13 @@ data/fonts/jis12x12_rows_01_08_13.bin          font bytes;  jis12x12_rows_01_08_
 gfx/assets.tsv                                 one line per asset: kind, size, bank:addr, status, PNG mode  (machine readable)
 ```
 
-* **Directory**: `gfx/<area>/<file>/` holds the assets of `gfx/<area>/<file>.asm` (`gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm` -> `gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/`); fonts are directly in `data/fonts/`.
+* **Directory**: `gfx/<area>/<file>/` holds the assets of `gfx/<area>/<file>.asm` (`gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm` -> `gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/`); fonts are under `data/fonts/`, including `glyph_runs_8x16/` (SJIS-keyed runs).
 * **Names**: descriptive resource paths can name a visible design or a demonstrated consumer without changing generic global aliases; see [the bounded path migration](../docs/research/gfx_resource_names.md). A filename does not promote a storage status or prove a natural loader, original display or species. A block with a semantic label is otherwise named after it in `snake_case` (`Gfx_Title_Tiles0` -> `title_tiles0`, `Palette_Title_Bg` -> `title_bg.pal`);
   a block with only a generic label is `<kind>_<addr>` with the address in the bank (`tiles_4000.2bpp`, `tilemap_5bc0.tilemap`).
   Names say what the label / header note says and no more: `tiles_...` means "the analysis typed this block as 2bpp tile data", see status below.
 * **Kinds**: `.2bpp` 2bpp tiles; `.tilemap` / `.attrmap` tile-index / CGB attribute bytes (a `tilemap+attr` pair that `copy_tilemap_rect_pair` loads is
   stored as two files, tile bytes then attribute bytes, INCBINed back to back); `.pal` `RGB` macro lines (four colours per block); `.1bpp` 8x16 glyph
-  runs (`data/fonts/font_8x16_*.1bpp`, 16 bytes per glyph); `.bin` JIS 12x12 glyph bits, the 6x12 Latin font and the Shift-JIS validity bitmap.
+  runs (`data/fonts/glyph_runs_8x16/sjis_*.1bpp`, 16 bytes per glyph); `.bin` JIS 12x12 glyph bits, the 6x12 Latin font and the Shift-JIS validity bitmap.
 * **Exact PNG** (`name.png`): 4-shade indexed PNG (index 0 white ... 3 black; these are tile *indices*, not the game's colours), 16 tiles per row
   (fewer when the block is smaller; a divisor of the tile count between 8 and 15 when 16 does not divide it, else the last row is padded and
   `pad` in `assets.tsv` blank tiles are trimmed).  `rgbgfx -c embedded [-x pad] -o name.2bpp name.png` gives back the `.2bpp` byte for byte
@@ -1104,7 +1104,7 @@ make png-export       (maintainers) PNGs regenerated from the binaries; never ov
 |---|---|---:|---|
 | 2bpp tile blocks | `name.png` (exact `rgbgfx` source of `name.2bpp`) | @TILE_SHEETS@ | 100% of the `.2bpp` files; shades 0-3 are grey indices, not the game's colours (the game colours come from palettes and tile attributes; see screens) |
 | JIS 12x12 glyphs (11 binaries) | `data/fonts/jis12x12_rows_*.png`, 94 glyphs per sheet row | 9 sheets | bank 7C's three contiguous binaries share one complete sheet |
-| 8x16 font runs | `data/fonts/font_8x16_*.png`, 16 glyphs per row | 27 sheets | |
+| 8x16 font runs | `data/fonts/glyph_runs_8x16/sjis_*.png`, 16 glyphs per row | 27 sheets | |
 | 6x12 Latin font | `data/fonts/ascii_6x12.png` | 1 sheet | 6 pixel wide cells (the two unused bits of each byte stay 0) |
 | whole screens | `name.screen.png` next to `name.tilemap` (`gfx/screens.tsv`) | @SCREENS@ | edit view: tilemap + attribute map + tiles + palettes composed in real colours; import writes the edit into the tile sheets, see below |
 | palettes | `name.pal` (text, `RGB r, g, b`) | @PALETTES@ | already an editable text form; a screen PNG can write colours back (`screen_png.py import --palette`). No separate swatch PNG |

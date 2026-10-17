@@ -5,7 +5,7 @@
 SECTION "engine/mail_server/tidy", ROMX
 
 MailServerMgr_Run:: ; 2E:4000
-Function_2E_4000::
+
 	; [CONFIRMED] 63 insn(s); 63 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af
@@ -1264,7 +1264,7 @@ Label_2E_4298::
 	ret
 
 MailServerMgr_TimeWarningPopup:: ; 2E:48F8
-Function_2E_48F8::
+
 	push af
 	push bc
 	push de
@@ -1461,7 +1461,7 @@ Label_2E_4A47::
 	ret
 
 MailServerMgr_TimeWarningPopupRedraw:: ; 2E:4A7D
-Function_2E_4A7D::
+
 	push af
 	push bc
 	push de

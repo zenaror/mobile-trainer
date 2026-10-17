@@ -5,7 +5,7 @@
 SECTION "engine/mail/result_screens", ROMX
 
 MailResult_Screen:: ; 29:4000
-Function_29_4000::
+
 	; [CONFIRMED] 167 insn(s); 167 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af
@@ -255,7 +255,7 @@ MailResult_Txt_SentUnsure:: ; 29:426B
 POPC
 
 MailResult_ShowReceivedMessage:: ; 29:4286
-Function_29_4286::
+
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, d
@@ -549,7 +549,7 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	ret
 
 MailServerStatus_Screen:: ; 29:44F6
-Function_29_44F6::
+
 	; [CONFIRMED] 41 insn(s); 41 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af
@@ -1306,7 +1306,7 @@ Data_29_49DA::
 	db "０００００", 0
 POPC
 MailServerStatus_NumberOffset_M0:: ; 29:49E5
-Function_29_49E5::
+
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push de
@@ -1880,7 +1880,7 @@ MailServerStatus_UploadNumberTiles_M1:: ; 29:4D01
 	ret
 
 MailServerStatus_DrawCounts_Mode2:: ; 29:4D21
-Function_29_4D21::
+
 	; [CONFIRMED] 17 insn(s); 17 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af
@@ -2283,7 +2283,7 @@ Data_29_4F6C::
 	db "０００００", 0
 POPC
 MailServerStatus_NumberOffset_M2:: ; 29:4F77
-Function_29_4F77::
+
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push de
@@ -2390,7 +2390,7 @@ MailServerStatus_UploadNumberTiles_Blank:: ; 29:4FF7
 	ret
 
 MailResult_UploadTextTiles:: ; 29:5017
-Function_29_5017::
+
 	; [CONFIRMED] 39 insn(s); 39 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh a, [rSVBK]

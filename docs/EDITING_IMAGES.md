@@ -29,7 +29,7 @@ edit a PNG   ->   make            ->   open mobile_trainer.gbc
 |---|---|---|---:|
 | tile blocks (2bpp art: screens, text baked into tiles, buttons, logos) | `gfx/**/name.png` next to `name.2bpp` | exact `rgbgfx` source: 4 greys in a fixed order (index 0 white ... 3 black); 16 tiles per row (8-15 when 16 does not divide the count; the last row padded, padding tiles are ignored) | 405 |
 | explicit RAW byte views | `gfx/frame_designs/metal_flame_and_creature_borders_42/raw_*.png` | reversible raw2bpp byte codec; purpose UNKNOWN/HYPOTHESIS, not a tile classification | 4 files /80B |
-| JIS 12x12 font banks, 8x16 font runs, 6x12 Latin font | `data/fonts/name.png` next to `name.bin` / `name.1bpp` | glyph sheet, see section 4; `tools/font_png.py` | 37 sheets (39 binaries) |
+| JIS 12x12 font banks, 8x16 font runs, 6x12 Latin font | `data/fonts/name.png` or `data/fonts/glyph_runs_8x16/sjis_key.png` next to its binary | glyph sheet, see section 4; `tools/font_png.py` | 37 sheets (39 binaries) |
 | whole screens (tilemap + attributes + tiles + palettes composed, in real colours) | `gfx/**/name.screen.png` next to `name.tilemap` | see section 3; an *editing view*: import writes the edit back into the tile sheets | 95 screens |
 | palettes | `gfx/**/name.pal` | text, one `RGB r, g, b` line per colour (0-31 per channel), four colours per palette; hand-editable; screen PNGs can write colours back (`--palette`) | 143 files |
 
@@ -69,7 +69,7 @@ black and pure white inside glyph cells.  Cell = glyph + 1 pixel grid.
 | font | cell | per sheet row | notes |
 |---|---|---|---|
 | `jis12x12_rows_*` (banks 76-7E) | 12x12 | 94 | sheet row = glyph slot row of the bank, column = JIS column 1-94; 7E: JIS rows 1-8, 13; 7D: 16-24; 7C: 25-33; 7B: 34-42; 7A: 43-51; 79: 52-60; 78: 61-69; 77: 70-78; 76: 79-84.  Bank 7C is three contiguous files (6083 +10 +9135 bytes) sharing one complete sheet; all846 glyph cells have their original bits |
-| `font_8x16_*` (bank 48, 27 runs) | 8x16 | 16 | one PNG per run |
+| `glyph_runs_8x16/sjis_*` (bank 48, 27 runs) | 8x16 | 16 | one PNG per run; filename key is SJIS, not the physical codec start address |
 | `ascii_6x12` (76:67A8) | 6x12 | 16 | 96 glyphs, ASCII 20-7F |
 
 ## 5. Maintainers

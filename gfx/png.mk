@@ -884,33 +884,33 @@ endif
 ifneq ($(PYTHON_OK),)
 PNG_FONT_OUTS := \
 	data/fonts/ascii_6x12.bin \
-	data/fonts/font_8x16_4adb.1bpp \
-	data/fonts/font_8x16_4b7b.1bpp \
-	data/fonts/font_8x16_4d1b.1bpp \
-	data/fonts/font_8x16_4ebb.1bpp \
-	data/fonts/font_8x16_53eb.1bpp \
-	data/fonts/font_8x16_593b.1bpp \
-	data/fonts/font_8x16_59fb.1bpp \
-	data/fonts/font_8x16_5a2b.1bpp \
-	data/fonts/font_8x16_5a3b.1bpp \
-	data/fonts/font_8x16_5a4b.1bpp \
-	data/fonts/font_8x16_5a6b.1bpp \
-	data/fonts/font_8x16_5a8b.1bpp \
-	data/fonts/font_8x16_5a9b.1bpp \
-	data/fonts/font_8x16_5abb.1bpp \
-	data/fonts/font_8x16_5afb.1bpp \
-	data/fonts/font_8x16_5b7b.1bpp \
-	data/fonts/font_8x16_5b8b.1bpp \
-	data/fonts/font_8x16_5bab.1bpp \
-	data/fonts/font_8x16_5bcb.1bpp \
-	data/fonts/font_8x16_5beb.1bpp \
-	data/fonts/font_8x16_5c0b.1bpp \
-	data/fonts/font_8x16_5c5b.1bpp \
-	data/fonts/font_8x16_5c9b.1bpp \
-	data/fonts/font_8x16_5cfb.1bpp \
-	data/fonts/font_8x16_5d5b.1bpp \
-	data/fonts/font_8x16_5d6b.1bpp \
-	data/fonts/font_8x16_5d7b.1bpp \
+	data/fonts/glyph_runs_8x16/sjis_8140.1bpp \
+	data/fonts/glyph_runs_8x16/sjis_814f.1bpp \
+	data/fonts/glyph_runs_8x16/sjis_815b.1bpp \
+	data/fonts/glyph_runs_8x16/sjis_815e.1bpp \
+	data/fonts/glyph_runs_8x16/sjis_8160.1bpp \
+	data/fonts/glyph_runs_8x16/sjis_8162.1bpp \
+	data/fonts/glyph_runs_8x16/sjis_8165.1bpp \
+	data/fonts/glyph_runs_8x16/sjis_8168.1bpp \
+	data/fonts/glyph_runs_8x16/sjis_8169.1bpp \
+	data/fonts/glyph_runs_8x16/sjis_816d.1bpp \
+	data/fonts/glyph_runs_8x16/sjis_8175.1bpp \
+	data/fonts/glyph_runs_8x16/sjis_817e.1bpp \
+	data/fonts/glyph_runs_8x16/sjis_8180.1bpp \
+	data/fonts/glyph_runs_8x16/sjis_8183.1bpp \
+	data/fonts/glyph_runs_8x16/sjis_8189.1bpp \
+	data/fonts/glyph_runs_8x16/sjis_818f.1bpp \
+	data/fonts/glyph_runs_8x16/sjis_8193.1bpp \
+	data/fonts/glyph_runs_8x16/sjis_8199.1bpp \
+	data/fonts/glyph_runs_8x16/sjis_819e.1bpp \
+	data/fonts/glyph_runs_8x16/sjis_81a6.1bpp \
+	data/fonts/glyph_runs_8x16/sjis_81f4.1bpp \
+	data/fonts/glyph_runs_8x16/sjis_824f.1bpp \
+	data/fonts/glyph_runs_8x16/sjis_8260.1bpp \
+	data/fonts/glyph_runs_8x16/sjis_8281.1bpp \
+	data/fonts/glyph_runs_8x16/sjis_829f.1bpp \
+	data/fonts/glyph_runs_8x16/sjis_8340.1bpp \
+	data/fonts/glyph_runs_8x16/sjis_83bf.1bpp \
 	data/fonts/jis12x12_rows_01_08_13.bin \
 	data/fonts/jis12x12_rows_16_24.bin \
 	data/fonts/jis12x12_rows_25_33_4000.bin \
@@ -930,164 +930,164 @@ data/fonts/ascii_6x12.bin: data/fonts/ascii_6x12.png
 	$(Q)$(PYTHON) tools/font_png.py import --type font6x12 --cells 96 --start 67a8 --size 1152 $< $@.tmp || { rm -f $@.tmp; exit 1; }
 	$(Q)$(png_finish)
 
-data/fonts/font_8x16_4adb.1bpp: PNG_SIZE := 160
-data/fonts/font_8x16_4adb.1bpp: data/fonts/font_8x16_4adb.png
-	@echo "font_png $<"
-	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 10 --start 4adb --size 160 $< $@.tmp || { rm -f $@.tmp; exit 1; }
-	$(Q)$(png_finish)
-
-data/fonts/font_8x16_4b7b.1bpp: PNG_SIZE := 416
-data/fonts/font_8x16_4b7b.1bpp: data/fonts/font_8x16_4b7b.png
-	@echo "font_png $<"
-	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 26 --start 4b7b --size 416 $< $@.tmp || { rm -f $@.tmp; exit 1; }
-	$(Q)$(png_finish)
-
-data/fonts/font_8x16_4d1b.1bpp: PNG_SIZE := 416
-data/fonts/font_8x16_4d1b.1bpp: data/fonts/font_8x16_4d1b.png
-	@echo "font_png $<"
-	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 26 --start 4d1b --size 416 $< $@.tmp || { rm -f $@.tmp; exit 1; }
-	$(Q)$(png_finish)
-
-data/fonts/font_8x16_4ebb.1bpp: PNG_SIZE := 1328
-data/fonts/font_8x16_4ebb.1bpp: data/fonts/font_8x16_4ebb.png
-	@echo "font_png $<"
-	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 83 --start 4ebb --size 1328 $< $@.tmp || { rm -f $@.tmp; exit 1; }
-	$(Q)$(png_finish)
-
-data/fonts/font_8x16_53eb.1bpp: PNG_SIZE := 1360
-data/fonts/font_8x16_53eb.1bpp: data/fonts/font_8x16_53eb.png
-	@echo "font_png $<"
-	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 85 --start 53eb --size 1360 $< $@.tmp || { rm -f $@.tmp; exit 1; }
-	$(Q)$(png_finish)
-
-data/fonts/font_8x16_593b.1bpp: PNG_SIZE := 192
-data/fonts/font_8x16_593b.1bpp: data/fonts/font_8x16_593b.png
+data/fonts/glyph_runs_8x16/sjis_8140.1bpp: PNG_SIZE := 192
+data/fonts/glyph_runs_8x16/sjis_8140.1bpp: data/fonts/glyph_runs_8x16/sjis_8140.png
 	@echo "font_png $<"
 	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 12 --start 593b --size 192 $< $@.tmp || { rm -f $@.tmp; exit 1; }
 	$(Q)$(png_finish)
 
-data/fonts/font_8x16_59fb.1bpp: PNG_SIZE := 48
-data/fonts/font_8x16_59fb.1bpp: data/fonts/font_8x16_59fb.png
+data/fonts/glyph_runs_8x16/sjis_814f.1bpp: PNG_SIZE := 48
+data/fonts/glyph_runs_8x16/sjis_814f.1bpp: data/fonts/glyph_runs_8x16/sjis_814f.png
 	@echo "font_png $<"
 	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 3 --start 59fb --size 48 $< $@.tmp || { rm -f $@.tmp; exit 1; }
 	$(Q)$(png_finish)
 
-data/fonts/font_8x16_5a2b.1bpp: PNG_SIZE := 16
-data/fonts/font_8x16_5a2b.1bpp: data/fonts/font_8x16_5a2b.png
-	@echo "font_png $<"
-	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 1 --start 5a2b --size 16 $< $@.tmp || { rm -f $@.tmp; exit 1; }
-	$(Q)$(png_finish)
-
-data/fonts/font_8x16_5a3b.1bpp: PNG_SIZE := 16
-data/fonts/font_8x16_5a3b.1bpp: data/fonts/font_8x16_5a3b.png
-	@echo "font_png $<"
-	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 1 --start 5a3b --size 16 $< $@.tmp || { rm -f $@.tmp; exit 1; }
-	$(Q)$(png_finish)
-
-data/fonts/font_8x16_5a4b.1bpp: PNG_SIZE := 32
-data/fonts/font_8x16_5a4b.1bpp: data/fonts/font_8x16_5a4b.png
-	@echo "font_png $<"
-	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 2 --start 5a4b --size 32 $< $@.tmp || { rm -f $@.tmp; exit 1; }
-	$(Q)$(png_finish)
-
-data/fonts/font_8x16_5a6b.1bpp: PNG_SIZE := 32
-data/fonts/font_8x16_5a6b.1bpp: data/fonts/font_8x16_5a6b.png
-	@echo "font_png $<"
-	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 2 --start 5a6b --size 32 $< $@.tmp || { rm -f $@.tmp; exit 1; }
-	$(Q)$(png_finish)
-
-data/fonts/font_8x16_5a8b.1bpp: PNG_SIZE := 16
-data/fonts/font_8x16_5a8b.1bpp: data/fonts/font_8x16_5a8b.png
-	@echo "font_png $<"
-	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 1 --start 5a8b --size 16 $< $@.tmp || { rm -f $@.tmp; exit 1; }
-	$(Q)$(png_finish)
-
-data/fonts/font_8x16_5a9b.1bpp: PNG_SIZE := 32
-data/fonts/font_8x16_5a9b.1bpp: data/fonts/font_8x16_5a9b.png
-	@echo "font_png $<"
-	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 2 --start 5a9b --size 32 $< $@.tmp || { rm -f $@.tmp; exit 1; }
-	$(Q)$(png_finish)
-
-data/fonts/font_8x16_5abb.1bpp: PNG_SIZE := 64
-data/fonts/font_8x16_5abb.1bpp: data/fonts/font_8x16_5abb.png
-	@echo "font_png $<"
-	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 4 --start 5abb --size 64 $< $@.tmp || { rm -f $@.tmp; exit 1; }
-	$(Q)$(png_finish)
-
-data/fonts/font_8x16_5afb.1bpp: PNG_SIZE := 128
-data/fonts/font_8x16_5afb.1bpp: data/fonts/font_8x16_5afb.png
-	@echo "font_png $<"
-	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 8 --start 5afb --size 128 $< $@.tmp || { rm -f $@.tmp; exit 1; }
-	$(Q)$(png_finish)
-
-data/fonts/font_8x16_5b7b.1bpp: PNG_SIZE := 16
-data/fonts/font_8x16_5b7b.1bpp: data/fonts/font_8x16_5b7b.png
-	@echo "font_png $<"
-	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 1 --start 5b7b --size 16 $< $@.tmp || { rm -f $@.tmp; exit 1; }
-	$(Q)$(png_finish)
-
-data/fonts/font_8x16_5b8b.1bpp: PNG_SIZE := 32
-data/fonts/font_8x16_5b8b.1bpp: data/fonts/font_8x16_5b8b.png
-	@echo "font_png $<"
-	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 2 --start 5b8b --size 32 $< $@.tmp || { rm -f $@.tmp; exit 1; }
-	$(Q)$(png_finish)
-
-data/fonts/font_8x16_5bab.1bpp: PNG_SIZE := 32
-data/fonts/font_8x16_5bab.1bpp: data/fonts/font_8x16_5bab.png
-	@echo "font_png $<"
-	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 2 --start 5bab --size 32 $< $@.tmp || { rm -f $@.tmp; exit 1; }
-	$(Q)$(png_finish)
-
-data/fonts/font_8x16_5bcb.1bpp: PNG_SIZE := 32
-data/fonts/font_8x16_5bcb.1bpp: data/fonts/font_8x16_5bcb.png
-	@echo "font_png $<"
-	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 2 --start 5bcb --size 32 $< $@.tmp || { rm -f $@.tmp; exit 1; }
-	$(Q)$(png_finish)
-
-data/fonts/font_8x16_5beb.1bpp: PNG_SIZE := 32
-data/fonts/font_8x16_5beb.1bpp: data/fonts/font_8x16_5beb.png
-	@echo "font_png $<"
-	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 2 --start 5beb --size 32 $< $@.tmp || { rm -f $@.tmp; exit 1; }
-	$(Q)$(png_finish)
-
-data/fonts/font_8x16_5c0b.1bpp: PNG_SIZE := 80
-data/fonts/font_8x16_5c0b.1bpp: data/fonts/font_8x16_5c0b.png
-	@echo "font_png $<"
-	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 5 --start 5c0b --size 80 $< $@.tmp || { rm -f $@.tmp; exit 1; }
-	$(Q)$(png_finish)
-
-data/fonts/font_8x16_5c5b.1bpp: PNG_SIZE := 64
-data/fonts/font_8x16_5c5b.1bpp: data/fonts/font_8x16_5c5b.png
-	@echo "font_png $<"
-	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 4 --start 5c5b --size 64 $< $@.tmp || { rm -f $@.tmp; exit 1; }
-	$(Q)$(png_finish)
-
-data/fonts/font_8x16_5c9b.1bpp: PNG_SIZE := 96
-data/fonts/font_8x16_5c9b.1bpp: data/fonts/font_8x16_5c9b.png
-	@echo "font_png $<"
-	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 6 --start 5c9b --size 96 $< $@.tmp || { rm -f $@.tmp; exit 1; }
-	$(Q)$(png_finish)
-
-data/fonts/font_8x16_5cfb.1bpp: PNG_SIZE := 96
-data/fonts/font_8x16_5cfb.1bpp: data/fonts/font_8x16_5cfb.png
-	@echo "font_png $<"
-	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 6 --start 5cfb --size 96 $< $@.tmp || { rm -f $@.tmp; exit 1; }
-	$(Q)$(png_finish)
-
-data/fonts/font_8x16_5d5b.1bpp: PNG_SIZE := 16
-data/fonts/font_8x16_5d5b.1bpp: data/fonts/font_8x16_5d5b.png
-	@echo "font_png $<"
-	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 1 --start 5d5b --size 16 $< $@.tmp || { rm -f $@.tmp; exit 1; }
-	$(Q)$(png_finish)
-
-data/fonts/font_8x16_5d6b.1bpp: PNG_SIZE := 16
-data/fonts/font_8x16_5d6b.1bpp: data/fonts/font_8x16_5d6b.png
+data/fonts/glyph_runs_8x16/sjis_815b.1bpp: PNG_SIZE := 16
+data/fonts/glyph_runs_8x16/sjis_815b.1bpp: data/fonts/glyph_runs_8x16/sjis_815b.png
 	@echo "font_png $<"
 	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 1 --start 5d6b --size 16 $< $@.tmp || { rm -f $@.tmp; exit 1; }
 	$(Q)$(png_finish)
 
-data/fonts/font_8x16_5d7b.1bpp: PNG_SIZE := 80
-data/fonts/font_8x16_5d7b.1bpp: data/fonts/font_8x16_5d7b.png
+data/fonts/glyph_runs_8x16/sjis_815e.1bpp: PNG_SIZE := 16
+data/fonts/glyph_runs_8x16/sjis_815e.1bpp: data/fonts/glyph_runs_8x16/sjis_815e.png
+	@echo "font_png $<"
+	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 1 --start 5a2b --size 16 $< $@.tmp || { rm -f $@.tmp; exit 1; }
+	$(Q)$(png_finish)
+
+data/fonts/glyph_runs_8x16/sjis_8160.1bpp: PNG_SIZE := 16
+data/fonts/glyph_runs_8x16/sjis_8160.1bpp: data/fonts/glyph_runs_8x16/sjis_8160.png
+	@echo "font_png $<"
+	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 1 --start 5a3b --size 16 $< $@.tmp || { rm -f $@.tmp; exit 1; }
+	$(Q)$(png_finish)
+
+data/fonts/glyph_runs_8x16/sjis_8162.1bpp: PNG_SIZE := 32
+data/fonts/glyph_runs_8x16/sjis_8162.1bpp: data/fonts/glyph_runs_8x16/sjis_8162.png
+	@echo "font_png $<"
+	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 2 --start 5a4b --size 32 $< $@.tmp || { rm -f $@.tmp; exit 1; }
+	$(Q)$(png_finish)
+
+data/fonts/glyph_runs_8x16/sjis_8165.1bpp: PNG_SIZE := 32
+data/fonts/glyph_runs_8x16/sjis_8165.1bpp: data/fonts/glyph_runs_8x16/sjis_8165.png
+	@echo "font_png $<"
+	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 2 --start 5a6b --size 32 $< $@.tmp || { rm -f $@.tmp; exit 1; }
+	$(Q)$(png_finish)
+
+data/fonts/glyph_runs_8x16/sjis_8168.1bpp: PNG_SIZE := 16
+data/fonts/glyph_runs_8x16/sjis_8168.1bpp: data/fonts/glyph_runs_8x16/sjis_8168.png
+	@echo "font_png $<"
+	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 1 --start 5a8b --size 16 $< $@.tmp || { rm -f $@.tmp; exit 1; }
+	$(Q)$(png_finish)
+
+data/fonts/glyph_runs_8x16/sjis_8169.1bpp: PNG_SIZE := 32
+data/fonts/glyph_runs_8x16/sjis_8169.1bpp: data/fonts/glyph_runs_8x16/sjis_8169.png
+	@echo "font_png $<"
+	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 2 --start 5a9b --size 32 $< $@.tmp || { rm -f $@.tmp; exit 1; }
+	$(Q)$(png_finish)
+
+data/fonts/glyph_runs_8x16/sjis_816d.1bpp: PNG_SIZE := 64
+data/fonts/glyph_runs_8x16/sjis_816d.1bpp: data/fonts/glyph_runs_8x16/sjis_816d.png
+	@echo "font_png $<"
+	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 4 --start 5abb --size 64 $< $@.tmp || { rm -f $@.tmp; exit 1; }
+	$(Q)$(png_finish)
+
+data/fonts/glyph_runs_8x16/sjis_8175.1bpp: PNG_SIZE := 128
+data/fonts/glyph_runs_8x16/sjis_8175.1bpp: data/fonts/glyph_runs_8x16/sjis_8175.png
+	@echo "font_png $<"
+	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 8 --start 5afb --size 128 $< $@.tmp || { rm -f $@.tmp; exit 1; }
+	$(Q)$(png_finish)
+
+data/fonts/glyph_runs_8x16/sjis_817e.1bpp: PNG_SIZE := 16
+data/fonts/glyph_runs_8x16/sjis_817e.1bpp: data/fonts/glyph_runs_8x16/sjis_817e.png
+	@echo "font_png $<"
+	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 1 --start 5b7b --size 16 $< $@.tmp || { rm -f $@.tmp; exit 1; }
+	$(Q)$(png_finish)
+
+data/fonts/glyph_runs_8x16/sjis_8180.1bpp: PNG_SIZE := 32
+data/fonts/glyph_runs_8x16/sjis_8180.1bpp: data/fonts/glyph_runs_8x16/sjis_8180.png
+	@echo "font_png $<"
+	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 2 --start 5b8b --size 32 $< $@.tmp || { rm -f $@.tmp; exit 1; }
+	$(Q)$(png_finish)
+
+data/fonts/glyph_runs_8x16/sjis_8183.1bpp: PNG_SIZE := 32
+data/fonts/glyph_runs_8x16/sjis_8183.1bpp: data/fonts/glyph_runs_8x16/sjis_8183.png
+	@echo "font_png $<"
+	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 2 --start 5bab --size 32 $< $@.tmp || { rm -f $@.tmp; exit 1; }
+	$(Q)$(png_finish)
+
+data/fonts/glyph_runs_8x16/sjis_8189.1bpp: PNG_SIZE := 32
+data/fonts/glyph_runs_8x16/sjis_8189.1bpp: data/fonts/glyph_runs_8x16/sjis_8189.png
+	@echo "font_png $<"
+	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 2 --start 5bcb --size 32 $< $@.tmp || { rm -f $@.tmp; exit 1; }
+	$(Q)$(png_finish)
+
+data/fonts/glyph_runs_8x16/sjis_818f.1bpp: PNG_SIZE := 32
+data/fonts/glyph_runs_8x16/sjis_818f.1bpp: data/fonts/glyph_runs_8x16/sjis_818f.png
+	@echo "font_png $<"
+	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 2 --start 5beb --size 32 $< $@.tmp || { rm -f $@.tmp; exit 1; }
+	$(Q)$(png_finish)
+
+data/fonts/glyph_runs_8x16/sjis_8193.1bpp: PNG_SIZE := 80
+data/fonts/glyph_runs_8x16/sjis_8193.1bpp: data/fonts/glyph_runs_8x16/sjis_8193.png
+	@echo "font_png $<"
+	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 5 --start 5c0b --size 80 $< $@.tmp || { rm -f $@.tmp; exit 1; }
+	$(Q)$(png_finish)
+
+data/fonts/glyph_runs_8x16/sjis_8199.1bpp: PNG_SIZE := 64
+data/fonts/glyph_runs_8x16/sjis_8199.1bpp: data/fonts/glyph_runs_8x16/sjis_8199.png
+	@echo "font_png $<"
+	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 4 --start 5c5b --size 64 $< $@.tmp || { rm -f $@.tmp; exit 1; }
+	$(Q)$(png_finish)
+
+data/fonts/glyph_runs_8x16/sjis_819e.1bpp: PNG_SIZE := 96
+data/fonts/glyph_runs_8x16/sjis_819e.1bpp: data/fonts/glyph_runs_8x16/sjis_819e.png
+	@echo "font_png $<"
+	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 6 --start 5c9b --size 96 $< $@.tmp || { rm -f $@.tmp; exit 1; }
+	$(Q)$(png_finish)
+
+data/fonts/glyph_runs_8x16/sjis_81a6.1bpp: PNG_SIZE := 96
+data/fonts/glyph_runs_8x16/sjis_81a6.1bpp: data/fonts/glyph_runs_8x16/sjis_81a6.png
+	@echo "font_png $<"
+	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 6 --start 5cfb --size 96 $< $@.tmp || { rm -f $@.tmp; exit 1; }
+	$(Q)$(png_finish)
+
+data/fonts/glyph_runs_8x16/sjis_81f4.1bpp: PNG_SIZE := 16
+data/fonts/glyph_runs_8x16/sjis_81f4.1bpp: data/fonts/glyph_runs_8x16/sjis_81f4.png
+	@echo "font_png $<"
+	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 1 --start 5d5b --size 16 $< $@.tmp || { rm -f $@.tmp; exit 1; }
+	$(Q)$(png_finish)
+
+data/fonts/glyph_runs_8x16/sjis_824f.1bpp: PNG_SIZE := 160
+data/fonts/glyph_runs_8x16/sjis_824f.1bpp: data/fonts/glyph_runs_8x16/sjis_824f.png
+	@echo "font_png $<"
+	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 10 --start 4adb --size 160 $< $@.tmp || { rm -f $@.tmp; exit 1; }
+	$(Q)$(png_finish)
+
+data/fonts/glyph_runs_8x16/sjis_8260.1bpp: PNG_SIZE := 416
+data/fonts/glyph_runs_8x16/sjis_8260.1bpp: data/fonts/glyph_runs_8x16/sjis_8260.png
+	@echo "font_png $<"
+	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 26 --start 4b7b --size 416 $< $@.tmp || { rm -f $@.tmp; exit 1; }
+	$(Q)$(png_finish)
+
+data/fonts/glyph_runs_8x16/sjis_8281.1bpp: PNG_SIZE := 416
+data/fonts/glyph_runs_8x16/sjis_8281.1bpp: data/fonts/glyph_runs_8x16/sjis_8281.png
+	@echo "font_png $<"
+	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 26 --start 4d1b --size 416 $< $@.tmp || { rm -f $@.tmp; exit 1; }
+	$(Q)$(png_finish)
+
+data/fonts/glyph_runs_8x16/sjis_829f.1bpp: PNG_SIZE := 1328
+data/fonts/glyph_runs_8x16/sjis_829f.1bpp: data/fonts/glyph_runs_8x16/sjis_829f.png
+	@echo "font_png $<"
+	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 83 --start 4ebb --size 1328 $< $@.tmp || { rm -f $@.tmp; exit 1; }
+	$(Q)$(png_finish)
+
+data/fonts/glyph_runs_8x16/sjis_8340.1bpp: PNG_SIZE := 1360
+data/fonts/glyph_runs_8x16/sjis_8340.1bpp: data/fonts/glyph_runs_8x16/sjis_8340.png
+	@echo "font_png $<"
+	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 85 --start 53eb --size 1360 $< $@.tmp || { rm -f $@.tmp; exit 1; }
+	$(Q)$(png_finish)
+
+data/fonts/glyph_runs_8x16/sjis_83bf.1bpp: PNG_SIZE := 80
+data/fonts/glyph_runs_8x16/sjis_83bf.1bpp: data/fonts/glyph_runs_8x16/sjis_83bf.png
 	@echo "font_png $<"
 	$(Q)$(PYTHON) tools/font_png.py import --type font8x16 --cells 5 --start 5d7b --size 80 $< $@.tmp || { rm -f $@.tmp; exit 1; }
 	$(Q)$(png_finish)

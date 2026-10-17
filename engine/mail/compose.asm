@@ -5,7 +5,7 @@
 SECTION "engine/mail/compose", ROMX
 
 MailCompose_Run:: ; 2D:4000
-Function_2D_4000::
+
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call MailStaging_Clear

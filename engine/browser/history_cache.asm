@@ -5,7 +5,7 @@
 SECTION "engine/browser/history_cache", ROMX
 
 Browser_HistoryReset:: ; 4C:4B54
-Function_4C_4B54::
+
 	; [CONFIRMED] 36 insn(s); 36 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $0A
@@ -31,7 +31,7 @@ Browser_HistoryPush:: ; 4C:4B7C
 	ld a, $06
 
 Browser_HistoryPushFrom:: ; 4C:4B81
-Function_4C_4B81::
+
 	call BankSwitch_H
 	ld a, $0A
 	ldh [hSRAMEnable], a
@@ -163,7 +163,7 @@ Sram_CopyLongBlock:: ; 4C:4C03
 	ret
 
 Browser_ClearCaches:: ; 4C:4C4E
-Function_4C_4C4E::
+
 	; [CONFIRMED] 63 insn(s); 63 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call Sound_FrameService
@@ -265,7 +265,7 @@ Table_4C_4CEA::
 	db $00, $B0, $03 ; fourth physical triple, outside the normal ring; unread
 
 PageCache_Pop:: ; 4C:4CF6
-Function_4C_4CF6::
+
 	; [CONFIRMED] 18 insn(s); 18 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh [hPageCache_DestBank], a
@@ -345,7 +345,7 @@ Function_4C_4CF6::
 	ret
 
 Browser_HistoryUndoPush:: ; 4C:4D6F
-Function_4C_4D6F::
+
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a

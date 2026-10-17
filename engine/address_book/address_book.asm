@@ -5,7 +5,7 @@
 SECTION "engine/address_book/address_book", ROMX
 
 Abook_Run:: ; 2F:7EBF
-Function_2F_7EBF::
+
 	; [CONFIRMED] 35 insn(s); 35 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $01
@@ -145,7 +145,7 @@ Label_2F_7F4E::
 	jp Abook_Run_List
 
 Abook_LoadSlotToBuffers:: ; 2F:7F5D
-Function_2F_7F5D::
+
 	; [CONFIRMED] 42 insn(s); 42 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af

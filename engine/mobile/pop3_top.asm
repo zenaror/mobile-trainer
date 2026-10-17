@@ -5,7 +5,7 @@
 SECTION "engine/mobile/pop3_top", ROMX
 
 Pop3_StartLogin:: ; 54:485C
-Function_54_485C::
+
 	; [CONFIRMED] 19 insn(s); 19 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call Mobile_ResetCommandTimer
@@ -36,7 +36,7 @@ Function_54_485C::
 	ret
 
 Pop3_LoginStatPoll:: ; 54:489B
-Function_54_489B::
+
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call Mobile_CheckTimeout

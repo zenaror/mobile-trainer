@@ -5,7 +5,7 @@
 SECTION "engine/mobile/connection", ROMX
 
 Mobile_ResetCommandTimer:: ; 54:4000
-Function_54_4000::
+
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $05
@@ -48,7 +48,7 @@ Mobile_FetchResult:: ; 54:4011
 	ret
 
 Mobile_SessionInit:: ; 54:403D
-Function_54_403D::
+
 	; [CONFIRMED] 21 insn(s); 21 executed (in up to 6/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $03
@@ -193,7 +193,7 @@ Data_54_413B::
 	db $67, $75, $65, $73, $74, $00
 
 Mobile_BeginConnect:: ; 54:4141
-Function_54_4141::
+
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, c
@@ -268,7 +268,7 @@ Mobile_DisconnectPoll:: ; 54:41A3
 	ld [hl], a
 	ret
 Mobile_InitTaskStateKind1:: ; 54:41C5
-Function_54_41C5:: ; 54:41C5
+
 	; [PROBABLE] C1DB=3, C1D8=1, C1D9=0; seven starts/15 bytes through RET at 41D3.
 	; The 14-byte prefix matches ten executed prefixes; see naming2_neutral_network.md.
 	; No call/API; BC/DE/HL preserved. Ordinary return: A=0, Z=1, N=H=C=0.
@@ -357,7 +357,7 @@ Function_54_41C5:: ; 54:41C5
 	ret
 
 Mobile_BeginCancel:: ; 54:423C
-Function_54_423C::
+
 	; [CONFIRMED] 25 insn(s); 25 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $03

@@ -141,7 +141,7 @@ Mail_ParseDate:: ; 54:5168
 	ret
 
 Mail_SkipToDigit:: ; 54:521F
-Function_54_521F::
+
 	ld a, [hli]
 	cp a, $30
 	jr c, Mail_SkipToDigit
@@ -151,7 +151,7 @@ Function_54_521F::
 	ret
 
 Mail_SkipSpaces:: ; 54:522A
-Function_54_522A::
+
 	ld a, [hli]
 	cp a, $20
 	jr z, Mail_SkipSpaces
@@ -159,7 +159,7 @@ Function_54_522A::
 	ret
 
 Mail_CountDigits:: ; 54:5231
-Function_54_5231::
+
 	push hl
 	ld b, $FF
 .loop ; 54:5234
@@ -174,7 +174,7 @@ Function_54_5231::
 	ret
 
 Mail_ApplyTimezoneOffset:: ; 54:5240
-Function_54_5240::
+
 	inc hl
 	inc hl
 	inc hl

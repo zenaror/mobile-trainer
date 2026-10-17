@@ -5,7 +5,7 @@
 SECTION "engine/mail/body_editor", ROMX
 
 MailBody_Edit:: ; 2D:4722
-Function_2D_4722::
+
 	; [CONFIRMED] 39 insn(s); 39 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af
@@ -255,7 +255,7 @@ MailBody_CursorLeft:: ; 2D:48B3
 	ret
 
 MailBody_CursorRight:: ; 2D:48DA
-Function_2D_48DA::
+
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -338,7 +338,7 @@ MailBody_CursorRightStep:: ; 2D:48EE
 	ret
 
 MailBody_CursorUp:: ; 2D:4942
-Function_2D_4942::
+
 	; [CONFIRMED] 16 insn(s); 16 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -372,7 +372,7 @@ Function_2D_4942::
 	ret
 
 MailBody_CursorDown:: ; 2D:4968
-Function_2D_4968::
+
 	; [CONFIRMED] 21 insn(s); 21 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -418,7 +418,7 @@ MailBody_CursorDownStep:: ; 2D:497C
 	ret
 
 MailBody_SetupScreen:: ; 2D:499E
-Function_2D_499E::
+
 	; [CONFIRMED] 148 insn(s); 148 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	farcall Sprite_ResetAll
@@ -718,7 +718,7 @@ Function_2D_499E::
 	ret
 
 MailBody_PlaceCursorSprites:: ; 2D:4CA5
-Function_2D_4CA5::
+
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -956,7 +956,7 @@ Function_2D_4CA5::
 	ret
 
 TextTiles_ClearBuffers:: ; 2D:4E06
-Function_2D_4E06::
+
 	; [CONFIRMED] 35 insn(s); 35 executed (in up to 7/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $02
@@ -1063,7 +1063,7 @@ MailBody_LocateCellInMappedWram:: ; 2D:4E54 [PROBABLE] body locator; caller supp
 	ret
 
 MailBody_GetCharPtr:: ; 2D:4E8C
-Function_2D_4E8C::
+
 	; [CONFIRMED] 21 insn(s); 21 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -1114,7 +1114,7 @@ Function_2D_4E8C::
 	ret
 
 MailBody_GetRowPtr:: ; 2D:4EC0
-Function_2D_4EC0::
+
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -1171,7 +1171,7 @@ Function_2D_4EC0::
 	ret
 
 MailBody_ProbeLastRow:: ; 2D:4F03
-Function_2D_4F03::
+
 	; [CONFIRMED] Entry/missing-row path probes row7: 45 natural hits in 10 scenarios.
 	; A=1 when absent; remaining results stay PROBABLE below. Both callers ignore A.
 	push bc
@@ -1210,7 +1210,7 @@ Function_2D_4F03::
 	ret
 
 MailBody_DrawRow:: ; 2D:4F2F
-Function_2D_4F2F::
+
 	; [CONFIRMED] 51 insn(s); 51 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $18
@@ -1463,7 +1463,7 @@ MailBody_GetRowFill:: ; 2D:508C
 	ret
 
 MailBody_InsertChar:: ; 2D:50B8
-Function_2D_50B8::
+
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push de
@@ -1910,7 +1910,7 @@ MailBody_InsertNewline:: ; 2D:522B
 	ret
 
 MailBody_Backspace:: ; 2D:535C
-Function_2D_535C::
+
 	; [CONFIRMED] 30 insn(s); 30 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push de
@@ -2210,7 +2210,7 @@ String_2D_54EB::
 	db "かきくけこさしすせそたちつてとはひふへほカキクケコサシスセソタチツテトハヒフヘホ", 0
 POPC
 
-	; [HYPOTHESIS] single ret between a text run and Function_2D_553D; no reference found
+	; [HYPOTHESIS] single ret between a text run and MailBody_ApplyDakutenU; no reference found
 	ret
 
 MailBody_ApplyDakutenU:: ; 2D:553D
@@ -2320,7 +2320,7 @@ MailBody_ApplyDakutenU:: ; 2D:553D
 	pop bc
 	ret
 
-; ---- data $55DA-$55DF (5 bytes) [PROBABLE] 2-byte entries terminated by $00: 82 A4 82 A4 00 (Shift-JIS lead/trail pairs); read by the loop of Function_2D_553D (ld de,$55DA ; ld a,[de] ; inc de ; cp $00 ; jr z ...)
+; ---- data $55DA-$55DF (5 bytes) [PROBABLE] 2-byte entries terminated by $00: 82 A4 82 A4 00 (Shift-JIS lead/trail pairs); read by the loop of MailBody_ApplyDakutenU (ld de,$55DA ; ld a,[de] ; inc de ; cp $00 ; jr z ...)
 ; kept as raw bytes: the bytes read as Shift-JIS/ASCII text, but the header does not say `text` (executed-read data of unknown content class, or unclassified), so not provably a string
 
 Table_MailBody_ApplyDakutenU_LoopPairs:: ; 2D:55DA
@@ -2449,11 +2449,11 @@ String_2D_567B::
 	db "はひふへほハヒフヘホ", 0
 POPC
 
-	; [HYPOTHESIS] single ret between a text run and Function_2D_5691; no reference found
+	; [HYPOTHESIS] single ret between a text run and MailBody_KeyboardLoop; no reference found
 	ret
 
 MailBody_KeyboardLoop:: ; 2D:5691
-Function_2D_5691::
+
 	; [CONFIRMED] 51 insn(s); 51 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -3070,7 +3070,7 @@ Function_2D_5691::
 	jr .l5A79
 
 MailBody_GetLength:: ; 2D:5A7B
-Function_2D_5A7B::
+
 	; [CONFIRMED] 18 insn(s); 18 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push hl
@@ -3098,7 +3098,7 @@ Function_2D_5A7B::
 	ret
 
 MailBody_ReloadTiles:: ; 2D:5A98
-Function_2D_5A98::
+
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld de, $9301

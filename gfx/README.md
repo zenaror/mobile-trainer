@@ -14,13 +14,13 @@ data/fonts/jis12x12_rows_01_08_13.bin          font bytes;  jis12x12_rows_01_08_
 gfx/assets.tsv                                 one line per asset: kind, size, bank:addr, status, PNG mode  (machine readable)
 ```
 
-* **Directory**: `gfx/<area>/<file>/` holds the assets of `gfx/<area>/<file>.asm` (`gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm` -> `gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/`); fonts are directly in `data/fonts/`.
+* **Directory**: `gfx/<area>/<file>/` holds the assets of `gfx/<area>/<file>.asm` (`gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm` -> `gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/`); fonts are under `data/fonts/`, including `glyph_runs_8x16/` (SJIS-keyed runs).
 * **Names**: descriptive resource paths can name a visible design or a demonstrated consumer without changing generic global aliases; see [the bounded path migration](../docs/research/gfx_resource_names.md). A filename does not promote a storage status or prove a natural loader, original display or species. A block with a semantic label is otherwise named after it in `snake_case` (`Gfx_Title_Tiles0` -> `title_tiles0`, `Palette_Title_Bg` -> `title_bg.pal`);
   a block with only a generic label is `<kind>_<addr>` with the address in the bank (`tiles_4000.2bpp`, `tilemap_5bc0.tilemap`).
   Names say what the label / header note says and no more: `tiles_...` means "the analysis typed this block as 2bpp tile data", see status below.
 * **Kinds**: `.2bpp` 2bpp tiles; `.tilemap` / `.attrmap` tile-index / CGB attribute bytes (a `tilemap+attr` pair that `copy_tilemap_rect_pair` loads is
   stored as two files, tile bytes then attribute bytes, INCBINed back to back); `.pal` `RGB` macro lines (four colours per block); `.1bpp` 8x16 glyph
-  runs (`data/fonts/font_8x16_*.1bpp`, 16 bytes per glyph); `.bin` JIS 12x12 glyph bits, the 6x12 Latin font and the Shift-JIS validity bitmap.
+  runs (`data/fonts/glyph_runs_8x16/sjis_*.1bpp`, 16 bytes per glyph); `.bin` JIS 12x12 glyph bits, the 6x12 Latin font and the Shift-JIS validity bitmap.
 * **Exact PNG** (`name.png`): 4-shade indexed PNG (index 0 white ... 3 black; these are tile *indices*, not the game's colours), 16 tiles per row
   (fewer when the block is smaller; a divisor of the tile count between 8 and 15 when 16 does not divide it, else the last row is padded and
   `pad` in `assets.tsv` blank tiles are trimmed).  `rgbgfx -c embedded [-x pad] -o name.2bpp name.png` gives back the `.2bpp` byte for byte
@@ -76,33 +76,6 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
 | `ascii_6x12.bin` | 6x12 glyph rows | 1152 | 76:67A8 | PROBABLE | sheet | - | `data/fonts/ascii_6x12.asm` |
-| `font_8x16_4adb.1bpp` | 1bpp 8x16 glyphs | 160 | 48:4ADB | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
-| `font_8x16_4b7b.1bpp` | 1bpp 8x16 glyphs | 416 | 48:4B7B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
-| `font_8x16_4d1b.1bpp` | 1bpp 8x16 glyphs | 416 | 48:4D1B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
-| `font_8x16_4ebb.1bpp` | 1bpp 8x16 glyphs | 1328 | 48:4EBB | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
-| `font_8x16_53eb.1bpp` | 1bpp 8x16 glyphs | 1360 | 48:53EB | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
-| `font_8x16_593b.1bpp` | 1bpp 8x16 glyphs | 192 | 48:593B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
-| `font_8x16_59fb.1bpp` | 1bpp 8x16 glyphs | 48 | 48:59FB | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
-| `font_8x16_5a2b.1bpp` | 1bpp 8x16 glyphs | 16 | 48:5A2B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
-| `font_8x16_5a3b.1bpp` | 1bpp 8x16 glyphs | 16 | 48:5A3B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
-| `font_8x16_5a4b.1bpp` | 1bpp 8x16 glyphs | 32 | 48:5A4B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
-| `font_8x16_5a6b.1bpp` | 1bpp 8x16 glyphs | 32 | 48:5A6B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
-| `font_8x16_5a8b.1bpp` | 1bpp 8x16 glyphs | 16 | 48:5A8B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
-| `font_8x16_5a9b.1bpp` | 1bpp 8x16 glyphs | 32 | 48:5A9B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
-| `font_8x16_5abb.1bpp` | 1bpp 8x16 glyphs | 64 | 48:5ABB | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
-| `font_8x16_5afb.1bpp` | 1bpp 8x16 glyphs | 128 | 48:5AFB | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
-| `font_8x16_5b7b.1bpp` | 1bpp 8x16 glyphs | 16 | 48:5B7B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
-| `font_8x16_5b8b.1bpp` | 1bpp 8x16 glyphs | 32 | 48:5B8B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
-| `font_8x16_5bab.1bpp` | 1bpp 8x16 glyphs | 32 | 48:5BAB | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
-| `font_8x16_5bcb.1bpp` | 1bpp 8x16 glyphs | 32 | 48:5BCB | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
-| `font_8x16_5beb.1bpp` | 1bpp 8x16 glyphs | 32 | 48:5BEB | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
-| `font_8x16_5c0b.1bpp` | 1bpp 8x16 glyphs | 80 | 48:5C0B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
-| `font_8x16_5c5b.1bpp` | 1bpp 8x16 glyphs | 64 | 48:5C5B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
-| `font_8x16_5c9b.1bpp` | 1bpp 8x16 glyphs | 96 | 48:5C9B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
-| `font_8x16_5cfb.1bpp` | 1bpp 8x16 glyphs | 96 | 48:5CFB | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
-| `font_8x16_5d5b.1bpp` | 1bpp 8x16 glyphs | 16 | 48:5D5B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
-| `font_8x16_5d6b.1bpp` | 1bpp 8x16 glyphs | 16 | 48:5D6B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
-| `font_8x16_5d7b.1bpp` | 1bpp 8x16 glyphs | 80 | 48:5D7B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
 | `jis12x12_rows_01_08_13.bin` | JIS 12x12 glyph bits | 15228 | 7E:4000 | PROBABLE | sheet | - | `data/fonts/jis12x12_rows_01_08_13.asm` |
 | `jis12x12_rows_16_24.bin` | JIS 12x12 glyph bits | 15228 | 7D:4000 | PROBABLE | sheet | - | `data/fonts/jis12x12_rows_16_24.asm` |
 | `jis12x12_rows_25_33_4000.bin` | JIS 12x12 glyph bits | 6083 | 7C:4000 | PROBABLE | sheet | - | `data/fonts/jis12x12_rows_25_33.asm` |
@@ -115,6 +88,38 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `jis12x12_rows_70_78.bin` | JIS 12x12 glyph bits | 15228 | 77:4000 | PROBABLE | sheet | - | `data/fonts/jis12x12_rows_70_78.asm` |
 | `jis12x12_rows_79_84.bin` | JIS 12x12 glyph bits | 10152 | 76:4000 | PROBABLE | sheet | - | `data/fonts/jis12x12_rows_79_84.asm` |
 | `sjis_valid_bitmap.bin` | validity bitmap | 8198 | 63:407A | PROBABLE | view | - | `data/fonts/sjis_valid_bitmap.asm` |
+
+### `data/fonts/glyph_runs_8x16/`
+
+| asset | kind | bytes | bank:addr | status | png | dims | source |
+|---|---|---:|---|---|---|---|---|
+| `sjis_8140.1bpp` | 1bpp 8x16 glyphs | 192 | 48:593B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
+| `sjis_814f.1bpp` | 1bpp 8x16 glyphs | 48 | 48:59FB | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
+| `sjis_815b.1bpp` | 1bpp 8x16 glyphs | 16 | 48:5D6B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
+| `sjis_815e.1bpp` | 1bpp 8x16 glyphs | 16 | 48:5A2B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
+| `sjis_8160.1bpp` | 1bpp 8x16 glyphs | 16 | 48:5A3B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
+| `sjis_8162.1bpp` | 1bpp 8x16 glyphs | 32 | 48:5A4B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
+| `sjis_8165.1bpp` | 1bpp 8x16 glyphs | 32 | 48:5A6B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
+| `sjis_8168.1bpp` | 1bpp 8x16 glyphs | 16 | 48:5A8B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
+| `sjis_8169.1bpp` | 1bpp 8x16 glyphs | 32 | 48:5A9B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
+| `sjis_816d.1bpp` | 1bpp 8x16 glyphs | 64 | 48:5ABB | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
+| `sjis_8175.1bpp` | 1bpp 8x16 glyphs | 128 | 48:5AFB | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
+| `sjis_817e.1bpp` | 1bpp 8x16 glyphs | 16 | 48:5B7B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
+| `sjis_8180.1bpp` | 1bpp 8x16 glyphs | 32 | 48:5B8B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
+| `sjis_8183.1bpp` | 1bpp 8x16 glyphs | 32 | 48:5BAB | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
+| `sjis_8189.1bpp` | 1bpp 8x16 glyphs | 32 | 48:5BCB | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
+| `sjis_818f.1bpp` | 1bpp 8x16 glyphs | 32 | 48:5BEB | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
+| `sjis_8193.1bpp` | 1bpp 8x16 glyphs | 80 | 48:5C0B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
+| `sjis_8199.1bpp` | 1bpp 8x16 glyphs | 64 | 48:5C5B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
+| `sjis_819e.1bpp` | 1bpp 8x16 glyphs | 96 | 48:5C9B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
+| `sjis_81a6.1bpp` | 1bpp 8x16 glyphs | 96 | 48:5CFB | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
+| `sjis_81f4.1bpp` | 1bpp 8x16 glyphs | 16 | 48:5D5B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
+| `sjis_824f.1bpp` | 1bpp 8x16 glyphs | 160 | 48:4ADB | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
+| `sjis_8260.1bpp` | 1bpp 8x16 glyphs | 416 | 48:4B7B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
+| `sjis_8281.1bpp` | 1bpp 8x16 glyphs | 416 | 48:4D1B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
+| `sjis_829f.1bpp` | 1bpp 8x16 glyphs | 1328 | 48:4EBB | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
+| `sjis_8340.1bpp` | 1bpp 8x16 glyphs | 1360 | 48:53EB | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
+| `sjis_83bf.1bpp` | 1bpp 8x16 glyphs | 80 | 48:5D7B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
 
 ### `gfx/account/screens_bank4a/`
 
@@ -1484,7 +1489,7 @@ make png-export       (maintainers) PNGs regenerated from the binaries; never ov
 | 2bpp tile blocks | `name.png` (exact `rgbgfx` source of `name.2bpp`) | 405 | all active catalogue `.2bpp` files; shades 0-3 are grey indices, not the game's colours (the game colours come from palettes and tile attributes; see screens) |
 | explicit RAW byte views | `gfx/frame_designs/metal_flame_and_creature_borders_42/raw_*.png` | 4 | 80B through raw2bpp; UNKNOWN purpose/HYPOTHESIS, without tile classification |
 | JIS 12x12 glyphs (11 binaries) | `data/fonts/jis12x12_rows_*.png`, 94 glyphs per sheet row | 9 sheets | bank 7C's three contiguous binaries share one complete sheet |
-| 8x16 font runs | `data/fonts/font_8x16_*.png`, 16 glyphs per row | 27 sheets | |
+| 8x16 font runs | `data/fonts/glyph_runs_8x16/sjis_*.png`, 16 glyphs per row | 27 sheets | |
 | 6x12 Latin font | `data/fonts/ascii_6x12.png` | 1 sheet | 6 pixel wide cells (the two unused bits of each byte stay 0) |
 | whole screens | `name.screen.png` next to `name.tilemap` (`gfx/screens.tsv`) | 95 | edit view: tilemap + attribute map + tiles + palettes composed in real colours; import writes the edit into the tile sheets, see below |
 | palettes | `name.pal` (text, `RGB r, g, b`) | 143 | already an editable text form; a screen PNG can write colours back (`screen_png.py import --palette`). No separate swatch PNG |

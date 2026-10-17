@@ -41,7 +41,7 @@ CommTime_ShowSummary:: ; 51:4000
 	ret
 
 CommTime_DrawSummaryScreen:: ; 51:404A
-Function_51_404A::
+
 	; [CONFIRMED] 42 insn(s); 42 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call LCDOff
@@ -335,7 +335,7 @@ Data_51_4225::
 	db $6E, $7E, $6E, $7F
 
 CommTime_TimerAIsNonZero:: ; 51:4239
-Function_51_4239::
+
 	; [CONFIRMED] 26 insn(s); 26 executed (in up to 7/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push hl

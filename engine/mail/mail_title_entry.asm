@@ -5,7 +5,7 @@
 SECTION "engine/mail/mail_title_entry", ROMX
 
 MailTitle_Entry:: ; 2C:4000
-Function_2C_4000::
+
 	; [CONFIRMED] 33 insn(s); 33 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af
@@ -154,7 +154,7 @@ MailTitle_CursorRight:: ; 2C:40FB
 	pop bc
 
 MailTitle_MoveCursorRight:: ; 2C:410F
-Function_2C_410F::
+
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, b
@@ -212,7 +212,7 @@ Function_2C_410F::
 	ret
 
 MailTitle_InitScreen:: ; 2C:414C
-Function_2C_414C::
+
 	; [CONFIRMED] 171 insn(s); 171 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af
@@ -653,7 +653,7 @@ Label_2C_446F::
 	ret
 
 MailTitle_FindLine:: ; 2C:4475
-Function_2C_4475::
+
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -1475,7 +1475,7 @@ Data_2C_493E:: ; 2C:493E
 	db $C9
 
 MailTitle_OpenKeyboard:: ; 2C:493F
-Function_2C_493F::
+
 	; [CONFIRMED] 49 insn(s); 49 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -1605,7 +1605,7 @@ Data_2C_4A01:: ; 2C:4A01
 	db $C3, $72, $49, $C9
 
 MailTitle_GetLength:: ; 2C:4A05
-Function_2C_4A05::
+
 	; [CONFIRMED] 18 insn(s); 18 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push hl

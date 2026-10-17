@@ -5,7 +5,7 @@
 SECTION "engine/text/sjis_validity", ROMX
 
 Font_ValidateSjisCode:: ; 63:4000
-Function_63_4000::
+
 	; [CONFIRMED] 33 insn(s); 33 executed (in up to 13/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af

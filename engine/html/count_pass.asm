@@ -5,7 +5,7 @@
 SECTION "engine/html/count_pass", ROMX
 
 Html_InitParser:: ; 74:4F4F
-Function_74_4F4F::
+
 	; [CONFIRMED] 41 insn(s); 41 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	xor a, a
@@ -42,7 +42,7 @@ Function_74_4F4F::
 	ret
 
 Html_Layout_FlushListItem:: ; 74:4F97
-Function_74_4F97::
+
 	ld a, [wRam_C331]
 	ld c, a
 	ld a, [wRam_C332]
@@ -70,7 +70,7 @@ Function_74_4F97::
 	ret
 
 Html_Layout_ListBlockBreak:: ; 74:4FBE
-Function_74_4FBE::
+
 	ldh a, [hHtml_RunStartLo]
 	ld c, a
 	ldh a, [hTextY]

@@ -5,7 +5,7 @@
 SECTION "engine/dialog/dialog", ROMX
 
 Dialog_ShowMonitored:: ; 72:4000
-Function_72_4000::
+
 	; [CONFIRMED] 351 insn(s); 351 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	farcall Dialog_Open
@@ -361,7 +361,7 @@ Data_72_43A1::
 	db $48, $00, $80, $58, $00, $80
 
 Dialog_SetupCursorByType:: ; 72:43A7
-Function_72_43A7::
+
 	; [CONFIRMED] 1 insn(s); 1 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call JumpTableInline
@@ -619,7 +619,7 @@ Data_72_4572::
 	db $48, $00, $80, $58, $00, $80
 
 Dialog_WaitInput:: ; 72:4578
-Function_72_4578::
+
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
 	farcall Sprite_UpdateAll
@@ -862,7 +862,7 @@ Label_72_4726::
 	ret
 
 Dialog_SaveBackground:: ; 72:472B
-Function_72_472B::
+
 	; [CONFIRMED] 123 insn(s); 123 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $07

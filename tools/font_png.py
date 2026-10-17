@@ -6,7 +6,7 @@ The game has three bitmap-font formats (docs/research/text_encoding.md; gfx/asse
     font12    JIS X 0208 12x12 glyphs, 18 bytes each: 12 rows of 12 bits, MSB = left pixel, two rows packed into 3 bytes
               (byte0 = row0 bits 11..4, byte1 = row0 bits 3..0 then row1 bits 11..8, byte2 = row1 bits 7..0).
               One font bank = glyph slot n at bank address $4000 + 18*n; 94 slots per JIS row.
-    font8x16  8x16 glyphs, 16 bytes each: one byte per pixel row, MSB = left pixel  (data/fonts/font_8x16_*.1bpp)
+    font8x16  8x16 glyphs, 16 bytes each: one byte per pixel row, MSB = left pixel  (data/fonts/glyph_runs_8x16/sjis_*.1bpp)
     font6x12  6x12 Latin glyphs, 12 bytes each: one byte per pixel row, bits 7..2 = the 6 pixels, bits 1..0 unused (always 0 in the ROM)
 
 Sheet PNG (8-bit indexed, 4 colours; the tools read *colours*, not indices, so an editor may re-order the palette):

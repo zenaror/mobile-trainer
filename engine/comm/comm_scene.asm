@@ -5,7 +5,7 @@
 SECTION "engine/comm/comm_scene", ROMX
 
 CommScene_Init:: ; 70:4000
-Function_70_4000::
+
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld [wCommScene_Kind], a
@@ -359,7 +359,7 @@ Label_70_425C::
 	ret
 
 CommScene_ResetScroll:: ; 70:4275
-Function_70_4275::
+
 	; [CONFIRMED] 8 insn(s); 8 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	xor a, a
@@ -652,7 +652,7 @@ Label_70_449D::
 	ret
 
 CommScene_LoadGraphics:: ; 70:44B0
-Function_70_44B0::
+
 	; [CONFIRMED] 203 insn(s); 203 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	farcall Sprite_ResetAll
@@ -867,7 +867,7 @@ CommScene_UploadTextBox:: ; 70:466B
 	ldh a, [hScratchA]
 	ret
 TrySetA9EEFromRandom16_ByA9EDFlags:: ; 70:46A6 [PROBABLE] operation; entry/purpose HYPOTHESIS
-Function_70_46A6:: ; 70:46A6
+
 	; [HYPOTHESIS] Bank70 [46A6,4740): 75 instruction starts across three returning paths.
 	; Saves SRAM shadows FFF5/FF8C; FFF2 is scratch. Selects SRAM bank1 and enables via 0A.
 	; Tests A9ED bit6/mask30 and A9EE zero; eligible paths write A9EE using ROM0 math.
@@ -1010,7 +1010,7 @@ Function_70_46A6:: ; 70:46A6
 	ret
 
 CommScene_PlaceSpritePair:: ; 70:477F
-Function_70_477F::
+
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wCommScene_SpritePairVariant]
@@ -1046,7 +1046,7 @@ Function_70_477F::
 	ret
 
 CommScene_SetSpritePair:: ; 70:47BB
-Function_70_47BB::
+
 	; [CONFIRMED] 14 insn(s); 14 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld [wCommScene_SpritePairVariant], a
@@ -1080,7 +1080,7 @@ Function_70_47BB::
 	ret
 
 CommScene_ShowTextBox:: ; 70:4803
-Function_70_4803::
+
 	; [CONFIRMED] 16 insn(s); 16 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, CommScene_TextBoxMaps

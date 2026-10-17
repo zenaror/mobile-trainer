@@ -5,7 +5,7 @@
 SECTION "engine/comm/connection_icon", ROMX
 
 ConnIcon_Init:: ; 69:4000
-Function_69_4000::
+
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wCommSessionKind]
@@ -148,7 +148,7 @@ Label_69_40C6::
 	ret
 
 ConnIcon_LoadGraphicsIfRequested:: ; 69:40D1
-Function_69_40D1::
+
 	; [CONFIRMED] 4 insn(s); 4 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wConnIconGfxRequest]

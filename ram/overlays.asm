@@ -475,7 +475,7 @@ DEF hSpriteHook_Bank EQU hRam_FFB0 ; [CONFIRMED] Hook-bank input A saved while W
 DEF hSpriteDraw_AttrOrMask EQU hRam_FFB0 ; [CONFIRMED] Slot+$09 OR mask preserved for each OAM object; output attribute is (attribute & AndMask) | OrMask. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 00:0B7A, 00:0BAA.
 DEF hSpriteDraw_AttrAndMask EQU hRam_FFB1 ; [CONFIRMED] Slot+$0A AND mask preserved for each OAM object; output attribute is (attribute & AndMask) | OrMask. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 00:0B7D, 00:0BAD.
 
-; ---- engine/tutorial/gates.asm@Function_48_4A8C..
+; ---- engine/tutorial/gates.asm@Tilemap_ApplyMaskRect_48_4A8C..
 DEF hTileMaskRect_Width EQU hRam_FFB0 ; [PROBABLE] Rectangle width C saved, decremented to the end of each row, restored between rows and used for (32-C)&31 advancement. No natural execution in the existing coverage. Sites: 48:4A90, 48:4A99.
 
 ; ---- engine/browser/history_cache.asm@Sram_CopyLongBlock..PageCache_Pop
@@ -617,8 +617,8 @@ DEF wSmtp_HeaderWritePtrHi EQU wRam_C242 ; [CONFIRMED] Mail_BuildHeaderField rea
 ; ---- engine/browser/inline_image_blit.asm
 DEF wBmp_ColorDiffHi EQU wRam_C331 ; [CONFIRMED] Bmp_ColorSum returns twice the sum of the first three palette-entry bytes. Following two calls, dec/cpl of first result plus second result computes second minus first. C331 stores high byte; natural bit7 reader governs conditional inversion. Inversion branch itself unexecuted; neither luminance weighting nor full palette equivalence asserted.
 
-; ---- engine/help/help_script.asm@HelpScript_Run_NextCommand..Function_6C_61AC
-DEF wHelpScript_DeferredTextSfx EQU wRam_C0D9 ; [CONFIRMED] Skip advance path 6C:5E1F sets 1; next text opcode tests 5C4A, plays 0041 and clears 5C63. Scope excludes Function_6C_61AC. Three explicit sites natural 292/650/104; aliases disjoint.
+; ---- engine/help/help_script.asm@HelpScript_Run_NextCommand..DecC0DA_OnZeroReload23ToggleC0D9AndSetDA20
+DEF wHelpScript_DeferredTextSfx EQU wRam_C0D9 ; [CONFIRMED] Skip advance path 6C:5E1F sets 1; next text opcode tests 5C4A, plays 0041 and clears 5C63. Scope excludes DecC0DA_OnZeroReload23ToggleC0D9AndSetDA20. Three explicit sites natural 292/650/104; aliases disjoint.
 
 ; ---- engine/debug/debug_flags.asm@DebugFlags_Run..DebugFlags_SlideIn,engine/debug/debug_flags.asm@DebugFlags_ReadValue..
 DEF wDebugFlags_EntryIndex EQU wRam_C0E5 ; [PROBABLE] All 17 scoped uses index entry-word table by 4*A or 4*A+2 and name-pointer table by 2*A, with increment/decrement in Dpad handler. Six slide uses excluded. No natural execution; table extent itself uncertain. Static index role supports PROBABLE without count claim.

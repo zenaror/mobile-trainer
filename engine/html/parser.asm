@@ -5,7 +5,7 @@
 SECTION "engine/html/parser", ROMX
 
 Html_MetaResultToError:: ; 74:4165
-Function_74_4165::
+
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $06
@@ -113,7 +113,7 @@ Label_74_41F2::
 	ret
 
 Html_ParsePage:: ; 74:4207
-Function_74_4207::
+
 	; [CONFIRMED] 114 insn(s); 114 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld bc, $0000

@@ -353,7 +353,7 @@ Charset_SjisToIso2022Jp:: ; 7E:7C34
 	ret
 
 Charset_ConvertPage:: ; 7E:7D19
-Function_7E_7D19::
+
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, b

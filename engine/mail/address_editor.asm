@@ -5,7 +5,7 @@
 SECTION "engine/mail/address_editor", ROMX
 
 MailAddr_Edit:: ; 2D:65B0
-Function_2D_65B0::
+
 	; [CONFIRMED] 41 insn(s); 41 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af
@@ -337,7 +337,7 @@ MailAddr_CursorLeft:: ; 2D:67E1
 	ret
 
 MailAddr_CursorRight:: ; 2D:6808
-Function_2D_6808::
+
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -451,7 +451,7 @@ MailCompose_ConfirmDiscard:: ; 2D:684F
 	ret
 
 MailAddr_SetupScreen:: ; 2D:68A9
-Function_2D_68A9::
+
 	; [CONFIRMED] 67 insn(s); 67 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af
@@ -980,7 +980,7 @@ MailAddr_DrawLine24_Glyph:: ; 2D:6C38
 	ret
 
 MailAddr_DrawLine24_Pad:: ; 2D:6C4C
-Function_2D_6C4C::
+
 	; [CONFIRMED] 73 insn(s); 73 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -1020,7 +1020,7 @@ TextTiles_UploadBuffersShort:: ; 2D:6C64
 	ret
 
 Gfx_StartHDMAAtVBlank_2D_6C8C:: ; 2D:6C8C
-Function_2D_6C8C::
+
 	ld a, h
 	ldh [rHDMA1], a
 	ld a, l
@@ -1092,7 +1092,7 @@ MailAddr_GetCharPtr:: ; 2D:6CAC
 	ret
 
 MailAddr_GetRowPtr:: ; 2D:6CDF
-Function_2D_6CDF::
+
 	; [CONFIRMED] 19 insn(s); 19 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -1517,7 +1517,7 @@ MailAddr_KeyboardLoop:: ; 2D:6F01
 	ret
 
 MailAddr_RedrawAfterInsert:: ; 2D:6F7B
-Function_2D_6F7B::
+
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc

@@ -636,5 +636,5 @@ POPC
 ; ---- words $67D8-$67E0 (8 bytes) [PROBABLE] 4 words $67E0,$68A0,$6960,$6A20 = the starts of the four 192-byte "MA" records (each word points exactly at a block that starts with "MA 01 00")
 
 Config_DefaultImageTable:: ; 68:67D8
-Table_68_67D8::
+
 	dw Config_DefaultImage0, Config_DefaultImage1, Config_DefaultImage2, Config_DefaultImage3

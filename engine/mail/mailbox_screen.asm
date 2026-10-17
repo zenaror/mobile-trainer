@@ -5,7 +5,7 @@
 SECTION "engine/mail/mailbox_screen", ROMX
 
 Mailbox_LoadScreen:: ; 25:4B0D
-Function_25_4B0D::
+
 	; [CONFIRMED] 62 insn(s); 62 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push de
@@ -786,7 +786,7 @@ Table_25_50AA::
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
 Mailbox_ClearTimestamp:: ; 25:50C2
-Function_25_50C2::
+
 	; [CONFIRMED] 251 insn(s); 251 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -1226,7 +1226,7 @@ Mailbox_DrawMailCount:: ; 25:52FE
 	ret
 
 Mailbox_UploadTextTiles:: ; 25:534C
-Function_25_534C::
+
 	; [CONFIRMED] 68 insn(s); 68 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh a, [rSVBK]
@@ -1784,7 +1784,7 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 	ret
 
 Mailbox_IsRecordClosedEnvelope:: ; 25:5848
-Function_25_5848::
+
 	add a, b
 	ld c, a
 	sla c

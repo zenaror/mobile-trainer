@@ -47,9 +47,9 @@ locators. This does not establish species,
 natural frame selection, bank53 name/image associations or the purpose of opaque raw fragments.
 The native original identity gate applies to this source migration; path naming is not semantic closure.
 
-The HOME naming pass retires110 historical Function aliases (483 remain across the maintained
-original sources), preserves123 local-label addresses under descriptive scopes and narrows two
-copy-operation names. The [HOME contracts](docs/research/home_function_names.md) document entry
+The HOME naming pass retired110 historical Function aliases (483 remained at that stage across the
+maintained original sources), preserved123 local-label addresses under descriptive scopes and narrowed
+two copy-operation names. The [HOME contracts](docs/research/home_function_names.md) document entry
 registers, full counter domains, crossed frames, HTML header arithmetic and dated evidence errata;
 operational RAM scopes and consumer keys follow the retained names. Entry, purpose, mapper,
 stack and unobserved-input qualifications remain explicit. These are naming-migration counts,
@@ -59,6 +59,34 @@ paths, resources and name consumers.
 English payloads, override targets and builds remain suspended pending fresh human confirmation.
 The original-path fallback inventory follows this migration; English override targets still using old
 graphics paths require a later authorized rebase. No English parity or build is claimed here.
+
+The wider naming pass retires the remaining 483 literal `Function_*` definitions and 33 original
+font/configuration aliases. It retains existing descriptive names and requalifies 1,391 local labels
+at their original addresses. [The function contracts](docs/research/function_alias_retirement.md)
+retain entry, stack, mapper and purpose limits: `Glyph_LoadContiguous12Bytes` narrows the conditional
+copy operation, and `Stack_PushPopAFAndReturn` explicitly describes its two stack writes. The
+[font/configuration contracts](docs/research/font_config_resource_names.md) identify 27 bank48 glyph
+runs by their table keys and four bank68 default images by their selected indices. The 54 existing
+PNG/1bpp files move to `data/fonts/glyph_runs_8x16/sjis_<key>` with their bytes preserved, as recorded
+in the [path map](docs/research/font_glyph_run_path_map.tsv). This retires the maintained aliases in
+the Operator's `Data_68_6960` and `Font_48_4ADB` examples. Historical records keep their old names as
+provenance. Native reconstruction checks apply to this migration; zero remaining literal Function
+definitions does not establish all possible entries, callers or semantic interpretations.
+
+Original source scanners now exclude the repository-local `.tmp/` support directory. The invariant,
+data-consumer and audio-mention walkers preserve their existing selection rules for other paths; a
+synthetic regression fixture distinguishes active source from archived copies. This is an original-tool
+correction. English method fingerprints remain historical pending separately authorized parity work.
+
+The initial wider lexical census at e958ff4f found 5,284 generic global definitions, including aliases
+and 786 neutral RAM coordinates; these are not counts of unknown functions. It also found 4,961
+address-based local labels, all present in the parent SYM, by recognizing colonless RGBDS declarations.
+An earlier parser requiring a colon omitted these locals. The 516 alias retirements form one finite
+part of the wider task: other data, graphics, local labels and paths still need evidence-based review.
+Shared RAM coordinates require screen/bank-specific roles. The conditional editing-model domain has
+18 HYPOTHESIS rows: 16 non-RAW models (15 single-sheet and one fragmented) plus two explicitly RAW
+models. The earlier count of 16 referred to the non-RAW subset. English remains suspended until fresh
+human confirmation.
 
 The [frame audit](docs/research/assets_pokemon_frames_and_name_limits.md#remaining-eight-editing-views-bounded-placement-comparison) retains **eight KEEP editing views**: physical ROM bytes exist, but a justified selector and reaching LCDC/VBK/VRAM state are missing. Two other bank42 views have complete reversible backing only under their declared conditional model. The [bank53 name table](docs/research/assets_pokemon_frames_and_name_limits.md#name-table-order-no-image-assignment) contains 25 ordinal names without a proved name-to-image association; 25 names, 25 physical windows and 27 descriptor words remain distinct. The [help-frame audit and preview](docs/research/naming2_neutral_help.md#64ae-split-object-entry-and-classification-conflict) cover the selected nine-frame root under a conditional LCDC model, not every asset or an observed display.
 

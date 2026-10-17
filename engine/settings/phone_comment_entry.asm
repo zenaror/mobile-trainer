@@ -16,7 +16,7 @@ PhoneComment_KeyboardRun:: ; 67:4924
 	ret
 
 PhoneComment_ClearStoredBitIfEdited:: ; 67:4940
-Function_67_4940::
+
 	; [HYPOTHESIS] function with no found entry (no call/jp/table word/far pointer/ld r16 to $4940
 	; anywhere in the ROM); linear decode is legal ($4940-$49A8), all direct targets are known code
 	; starts, sibling of the function at 424A: reads SRAM $B0AD via 14EA/1509, clears bit $20 of
@@ -268,7 +268,7 @@ PhoneComment_StoreResult:: ; 67:4BB5
 	ret
 
 PhoneComment_UpdateStoredFlag:: ; 67:4BC2
-Function_67_4BC2::
+
 	; [HYPOTHESIS] function with no found entry (no call/jp/table word/far pointer/ld r16 to $4BC2
 	; anywhere in the ROM); linear decode is legal ($4BC2-$4BD5), all direct targets are known code
 	; starts, tests bit $20 of [$C278] and sets [$C27D]=0/1; ends with ret. Sits after a ret between

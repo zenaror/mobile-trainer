@@ -5,7 +5,7 @@
 SECTION "engine/help/mobile_dictionary", ROMX
 
 MobileDict_Run:: ; 1A:4000
-Function_1A_4000::
+
 	; [CONFIRMED] 121 insn(s); 121 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	xor a, a
@@ -314,7 +314,7 @@ MobileDict_PrevCategory:: ; 1A:42B0
 	ret
 
 MobileDict_DrawRowHighlight:: ; 1A:42DE
-Function_1A_42DE::
+
 	; [CONFIRMED] 49 insn(s); 49 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, wScreenAttrMap + $A1
@@ -399,7 +399,7 @@ MobileDict_UpdateTabSprites:: ; 1A:4317
 .done ; 1A:437A
 	ret
 
-; ---- data $437B-$4391 (22 bytes) [PROBABLE] 11 pairs (index,value): 00 08 / 01 14 / 02 20 / 03 2C ... 0A 80 (value = 8 + 12*index), right after the ret of the preceding routine and before Function_1A_4391; first 4 bytes read in a trace; the 18-byte mapper hole is the rest of this table
+; ---- data $437B-$4391 (22 bytes) [PROBABLE] 11 pairs (index,value): 00 08 / 01 14 / 02 20 / 03 2C ... 0A 80 (value = 8 + 12*index), right after the ret of the preceding routine and before MobileDict_LoadPage; first 4 bytes read in a trace; the 18-byte mapper hole is the rest of this table
 
 Table_MobileDict_TabPositions:: ; 1A:437B
 Data_1A_437B::
@@ -407,7 +407,7 @@ Data_1A_437B::
 	db $08, $68, $09, $74, $0A, $80
 
 MobileDict_LoadPage:: ; 1A:4391
-Function_1A_4391::
+
 	; [CONFIRMED] 83 insn(s); 83 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh [hScratchA], a

@@ -5,7 +5,7 @@
 SECTION "engine/browser/canvas", ROMX
 
 Browser_UploadTitleCanvas:: ; 4E:60A6
-Function_4E_60A6::
+
 	; [CONFIRMED] 82 insn(s); 82 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld de, $9000
@@ -97,7 +97,7 @@ Browser_ClearBodyArea:: ; 4E:612B
 	farcall TileCanvas_FillRect
 	ret
 IfA1_MapSram1A9EDBit7To19Or1A_DisableRam:: ; 4E:6172 [PROBABLE] operation only
-Function_4E_6172:: ; 4E:6172
+
 	; [HYPOTHESIS] 36B/18 starts [6172,6196); A!=1 RETNZ, else RAMG0A/select SRAM1.
 	; A9ED.bit7 selects19/1A; normal exit clears RAMG, retains SRAM1, no prior-state restore.
 	; RET6195 blocks next owner frame_graphics6196; caller/purpose and IRQ/stack remain open.

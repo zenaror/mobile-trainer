@@ -533,7 +533,7 @@ AddrBook_SaveConfirm_DrawTextLine16_BlitBlankAdvance:: ; 2A:73A3
 	ret
 
 AddrBook_SaveConfirm_DrawTextLine17:: ; 2A:73BB
-Function_2A_73BB::
+
 	; [HYPOTHESIS] no branch/call/pointer to any address in $73BB-$73C0 was found (tgt scan of all
 	; code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen
 	; code; linear decode is legal and continues exactly into the next region: ld a,$11 ; ld
@@ -648,7 +648,7 @@ Function_2A_73BB::
 	jr .l746C
 
 AddrBook_SaveConfirm_DrawTextLine17_BlitGlyphAdvance:: ; 2A:747B
-Function_2A_747B::
+
 	push bc
 	push de
 	push hl
@@ -663,7 +663,7 @@ Function_2A_747B::
 	ret
 
 AddrBook_SaveConfirm_DrawTextLine17_BlitBlankAdvance:: ; 2A:748F
-Function_2A_748F::
+
 	push bc
 	push de
 	push hl
@@ -680,7 +680,7 @@ Function_2A_748F::
 	ret
 
 AddrBook_SaveConfirm_DrawTextLine25:: ; 2A:74A7
-Function_2A_74A7::
+
 	; [HYPOTHESIS] no branch/call/pointer to any address in $74A7-$74AC was found (tgt scan of all
 	; code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen
 	; code; linear decode is legal and continues exactly into the next region: ld a,$19 ; ld
@@ -795,7 +795,7 @@ Function_2A_74A7::
 	jr .l7558
 
 AddrBook_SaveConfirm_DrawTextLine25_BlitGlyphAdvance:: ; 2A:7567
-Function_2A_7567::
+
 	push bc
 	push de
 	push hl
@@ -810,7 +810,7 @@ Function_2A_7567::
 	ret
 
 AddrBook_SaveConfirm_DrawTextLine25_BlitBlankAdvance:: ; 2A:757B
-Function_2A_757B::
+
 	push bc
 	push de
 	push hl

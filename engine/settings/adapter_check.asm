@@ -5,7 +5,7 @@
 SECTION "engine/settings/adapter_check", ROMX
 
 AdapterCheck_DrawScreen:: ; 67:6369
-Function_67_6369::
+
 	; [CONFIRMED] 126 insn(s); 126 executed (in up to 18/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld b, $15

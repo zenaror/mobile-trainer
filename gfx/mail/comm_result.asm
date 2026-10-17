@@ -35,19 +35,19 @@ Data_24_7790::
 	INCBIN "gfx/mail/comm_result/mail_result_tilemap.tilemap"
 	INCBIN "gfx/mail/comm_result/mail_result_tilemap.attrmap"
 
-; ---- data $7A60-$7AA0 (64 bytes) [PROBABLE] 64-byte RGB555 palette block copied by Function_4F_4000 (hl=$7A60 a=$24 bc=$0040) from 29:40B0 / 29:40C1 / 29:463E; the call sites 29:40B0/29:40C1/29:463E ARE in analysis/coverage_union.tsv (executed; earlier 'never executed' used the old 18-scenario union) - status kept PROBABLE; the mapper palette guess 7A60-7C38 wrongly extended over the object tables
+; ---- data $7A60-$7AA0 (64 bytes) [PROBABLE] 64-byte RGB555 palette block copied by Palette_LoadToBuffer (hl=$7A60 a=$24 bc=$0040) from 29:40B0 / 29:40C1 / 29:463E; the call sites 29:40B0/29:40C1/29:463E ARE in analysis/coverage_union.tsv (executed; earlier 'never executed' used the old 18-scenario union) - status kept PROBABLE; the mapper palette guess 7A60-7C38 wrongly extended over the object tables
 
 MailResult_BgPalette:: ; 24:7A60
 Palette_24_7A60::
 	INCLUDE "gfx/mail/comm_result/mail_result_bg_palette.pal"
 
-; ---- data $7AA0-$7AE0 (64 bytes) [PROBABLE] 64-byte RGB555 palette block copied by Function_4F_4000 (hl=$7AA0 a=$24 bc=$0040) from 29:40B0 / 29:40C1 / 29:463E; the call sites 29:40B0/29:40C1/29:463E ARE in analysis/coverage_union.tsv (executed; earlier 'never executed' used the old 18-scenario union) - status kept PROBABLE; the mapper palette guess 7A60-7C38 wrongly extended over the object tables
+; ---- data $7AA0-$7AE0 (64 bytes) [PROBABLE] 64-byte RGB555 palette block copied by Palette_LoadToBuffer (hl=$7AA0 a=$24 bc=$0040) from 29:40B0 / 29:40C1 / 29:463E; the call sites 29:40B0/29:40C1/29:463E ARE in analysis/coverage_union.tsv (executed; earlier 'never executed' used the old 18-scenario union) - status kept PROBABLE; the mapper palette guess 7A60-7C38 wrongly extended over the object tables
 
 MailResult_ObjPalette:: ; 24:7AA0
 Palette_24_7AA0::
 	INCLUDE "gfx/mail/comm_result/mail_result_obj_palette.pal"
 
-; ---- data $7AE0-$7B20 (64 bytes) [PROBABLE] 64-byte RGB555 palette block copied by Function_4F_4000 (hl=$7AE0 a=$24 bc=$0040) from 29:40B0 / 29:40C1 / 29:463E; the call sites 29:40B0/29:40C1/29:463E ARE in analysis/coverage_union.tsv (executed) and traces/detail dataaccess records rom_read 24:7AE0-7B20 (this block read as data by executed code); earlier 'never executed' was stale - status kept PROBABLE; the mapper palette guess 7A60-7C38 wrongly extended over the object tables
+; ---- data $7AE0-$7B20 (64 bytes) [PROBABLE] 64-byte RGB555 palette block copied by Palette_LoadToBuffer (hl=$7AE0 a=$24 bc=$0040) from 29:40B0 / 29:40C1 / 29:463E; the call sites 29:40B0/29:40C1/29:463E ARE in analysis/coverage_union.tsv (executed) and traces/detail dataaccess records rom_read 24:7AE0-7B20 (this block read as data by executed code); earlier 'never executed' was stale - status kept PROBABLE; the mapper palette guess 7A60-7C38 wrongly extended over the object tables
 
 MailServerStatus_BgPalette:: ; 24:7AE0
 Palette_24_7AE0::

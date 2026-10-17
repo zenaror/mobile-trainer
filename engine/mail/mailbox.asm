@@ -5,7 +5,7 @@
 SECTION "engine/mail/mailbox", ROMX
 
 Mailbox_Main:: ; 25:4000
-Function_25_4000::
+
 	; [CONFIRMED] 24 insn(s); 24 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -1354,7 +1354,7 @@ Mailbox_ShowEmptyList:: ; 25:4A68
 	ret
 
 Mailbox_CountRecords:: ; 25:4A90
-Function_25_4A90::
+
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 5/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $00

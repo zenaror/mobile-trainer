@@ -40,7 +40,7 @@ Data_24_5BD0::
 	INCBIN "gfx/browser/page_list/page_list_tilemap_5bd0.tilemap"
 	INCBIN "gfx/browser/page_list/page_list_tilemap_5bd0.attrmap"
 
-; ---- data $5EA0-$5EE0 (64 bytes) [CONFIRMED] 64-byte RGB555 palette block copied by Function_4F_4000 (-> 00:050C copy; hl=$5EA0 a=$24 bc=$0040 de=$D800, WRAM7 BG palette buffer) at 24:4393; call site executed: 40 hits in 9 scenarios (analysis/coverage_union.tsv); replaces the mapper palette guess 5EC6-5EDE
+; ---- data $5EA0-$5EE0 (64 bytes) [CONFIRMED] 64-byte RGB555 palette block copied by Palette_LoadToBuffer (-> 00:050C copy; hl=$5EA0 a=$24 bc=$0040 de=$D800, WRAM7 BG palette buffer) at 24:4393; call site executed: 40 hits in 9 scenarios (analysis/coverage_union.tsv); replaces the mapper palette guess 5EC6-5EDE
 
 PageList_BgPalette:: ; 24:5EA0
 Palette_24_5EA0::
@@ -78,7 +78,7 @@ Tiles_24_6301:: ; 24:6301
 Tiles_24_63E0:: ; 24:63E0
 	INCBIN "gfx/browser/page_list/tiles_63e0.2bpp"
 
-; ---- data $64E0-$6520 (64 bytes) [CONFIRMED] 64-byte RGB555 palette block copied by Function_4F_4000 (hl=$64E0 a=$24 bc=$0040 de=$D840, WRAM7 OBJ palette buffer) at 24:437F; call site executed: 40 hits in 9 scenarios (analysis/coverage_union.tsv); replaces the mapper guess 64DC-65EC (136 words) which swallowed the sprite tables below
+; ---- data $64E0-$6520 (64 bytes) [CONFIRMED] 64-byte RGB555 palette block copied by Palette_LoadToBuffer (hl=$64E0 a=$24 bc=$0040 de=$D840, WRAM7 OBJ palette buffer) at 24:437F; call site executed: 40 hits in 9 scenarios (analysis/coverage_union.tsv); replaces the mapper guess 64DC-65EC (136 words) which swallowed the sprite tables below
 
 PageList_ObjPalette:: ; 24:64E0
 Palette_24_64E0::

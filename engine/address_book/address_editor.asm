@@ -5,7 +5,7 @@
 SECTION "engine/address_book/address_editor", ROMX
 
 AbookAddr_Edit:: ; 2F:6D00
-Function_2F_6D00::
+
 	; [CONFIRMED] 28 insn(s); 28 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af
@@ -327,7 +327,7 @@ AbookAddr_CursorRight:: ; 2F:6F2E
 	pop bc
 
 AbookAddr_CursorRightStep:: ; 2F:6F42
-Function_2F_6F42::
+
 	; [CONFIRMED] 1 insn(s); 1 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	jr .l6F4D
@@ -401,7 +401,7 @@ AbookAddr_BuffersEmpty:: ; 2F:6F73
 	ret
 
 AbookAddr_SetupScreen:: ; 2F:6F8C
-Function_2F_6F8C::
+
 	; [CONFIRMED] 61 insn(s); 61 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af
@@ -776,7 +776,7 @@ AbookAddr_DrawLine1_Glyph:: ; 2F:722A
 	ret
 
 AbookAddr_DrawLine1_Pad:: ; 2F:723E
-Function_2F_723E::
+
 	; [CONFIRMED] 22 insn(s); 22 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -931,7 +931,7 @@ AbookAddr_DrawLine_Glyph:: ; 2F:7311
 	ret
 
 AbookAddr_DrawLine_Pad:: ; 2F:7325
-Function_2F_7325::
+
 	; [CONFIRMED] 14 insn(s); 14 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -974,7 +974,7 @@ AbookAddr_UploadTextTiles:: ; 2F:733D
 	ret
 
 Gfx_StartHDMAAtVBlank_2F_7365:: ; 2F:7365
-Function_2F_7365::
+
 	ld a, h
 	ldh [rHDMA1], a
 	ld a, l
@@ -999,7 +999,7 @@ Function_2F_7365::
 	ret
 
 AbookAddr_GetCharPtr:: ; 2F:7385
-Function_2F_7385::
+
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -1061,7 +1061,7 @@ Label_2F_73B2::
 	ret
 
 AbookAddr_GetRowPtr:: ; 2F:73B8
-Function_2F_73B8::
+
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -1383,7 +1383,7 @@ AbookAddr_Backspace:: ; 2F:74D7
 	ret
 
 AbookAddr_OpenKeyboard:: ; 2F:75A0
-Function_2F_75A0::
+
 	; [CONFIRMED] 42 insn(s); 42 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -1503,7 +1503,7 @@ Data_2F_764C:: ; 2F:764C
 	db $C9
 
 AbookAddr_GetLength:: ; 2F:764D
-Function_2F_764D::
+
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push hl

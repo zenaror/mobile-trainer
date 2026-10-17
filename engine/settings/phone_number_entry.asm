@@ -179,7 +179,7 @@ SettingsPhone_Run:: ; 67:4000
 	ret
 
 SettingsPhone_ResetTopCursor:: ; 67:4156
-Function_67_4156::
+
 	; [CONFIRMED] 90 insn(s); 90 executed (in up to 5/18 scenarios); entry proven: target of an
 	; executed call/far call
 	xor a, a
@@ -315,7 +315,7 @@ PhoneKeypad_Run:: ; 67:422B
 	ret
 
 PhoneKeypad_ClearStoredBitsIfEdited:: ; 67:424A
-Function_67_424A::
+
 	; [HYPOTHESIS] function with no found entry (no call/jp/table word/far pointer/ld r16 to $424A
 	; anywhere in the ROM); linear decode is legal ($424A-$431F), all direct targets are known code
 	; starts, reads SRAM $B08B/$B09C via ROM0 helpers 14EA/1509 (bank/SRAM enable idiom ldh
@@ -649,7 +649,7 @@ PhoneKeypad_StoreResult:: ; 67:4559
 	ret
 
 PhoneKeypad_UpdateStoredFlag:: ; 67:4571
-Function_67_4571::
+
 	; [HYPOTHESIS] function with no found entry (no call/jp/table word/far pointer/ld r16 to $4571
 	; anywhere in the ROM); linear decode is legal ($4571-$4593), all direct targets are known code
 	; starts, tests [$C27D] and [$C278] bits $08/$10 and sets [$C27E]=0/1; ends with ret. Sits after

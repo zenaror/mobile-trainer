@@ -5,7 +5,7 @@
 SECTION "engine/text/text_tiles", ROMX
 
 Divide8:: ; 48:4000
-Function_48_4000::
+
 	; [CONFIRMED] 309 insn(s); 309 executed (in up to 12/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push de

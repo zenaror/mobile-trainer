@@ -5,7 +5,7 @@
 SECTION "engine/mail/send_receive", ROMX
 
 MailSendRecv_Main:: ; 27:4000
-Function_27_4000::
+
 	; [CONFIRMED] 61 insn(s); 61 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $01
@@ -254,7 +254,7 @@ Data_27_417A::
 	ret
 
 Mail_OutboxIsEmpty:: ; 27:41BC
-Function_27_41BC::
+
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $00
@@ -284,7 +284,7 @@ Function_27_41BC::
 	ret
 
 MailConnect_Screen:: ; 27:41E3
-Function_27_41E3::
+
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $00
@@ -408,7 +408,7 @@ Function_27_41E3::
 .l42CF ; 27:42CF
 	farcall Session_ResetCounters
 	farcall Timer_ResetClockB
-	farcall Stub_Nop_7F_61FC
+	farcall Stack_PushPopAFAndReturn
 	xor a, a
 	ld [wCommSessionActive], a
 	ld hl, wBrowserTimerLastSec
@@ -917,7 +917,7 @@ MailConnect_ShowError:: ; 27:46E5
 	ret
 
 MailConnect_PollAdapterError:: ; 27:4747
-Function_27_4747::
+
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wTimerEnable]
@@ -945,7 +945,7 @@ Function_27_4747::
 	ret
 
 MailDisconnect_Screen:: ; 27:4768
-Function_27_4768::
+
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $01
@@ -1447,7 +1447,7 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	ret
 
 MailConnect_InitScreen:: ; 27:4B95
-Function_27_4B95::
+
 	; [CONFIRMED] 122 insn(s); 122 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -1784,7 +1784,7 @@ CommTime_DrawHMSScreen:: ; 27:4D81
 	ld [$992C], a
 	jp Label_27_4EEB
 Gfx_UploadPalettesAndBgMaps_EnableLCD:: ; 27:4EC0 [PROBABLE] local operation
-Function_27_4EC0:: ; 27:4EC0
+
 	; [PROBABLE] 53 bytes/22 logical starts [4EC0,4EF5); farcall inline bytes are data.
 	; WRAM7 palette upload, saved-shadow restore, then 00:082C forces WRAM7 before RET4EF4.
 	; Entry/purpose HYPOTHESIS; JP4EBD->4EEB skips the prologue and reaches LCDOn/BC0/RET.
@@ -1947,7 +1947,7 @@ Label_27_4FEE::
 	ret
 
 CommTime_DrawNumber_27_4FFB:: ; 27:4FFB
-Function_27_4FFB::
+
 	inc a
 	add hl, bc
 	bit 7, h
@@ -1980,7 +1980,7 @@ Function_27_4FFB::
 	ret
 
 CommTime_PutDigit_27_5021:: ; 27:5021
-Function_27_5021::
+
 	push bc
 	push de
 	ld h, d

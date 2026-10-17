@@ -5,7 +5,7 @@
 SECTION "engine/gfx/tile_canvas", ROMX
 
 TileCanvas_UploadRect:: ; 4F:4572
-Function_4F_4572::
+
 	; [CONFIRMED] 184 insn(s); 184 executed (in up to 12/18 scenarios); entry proven: target of an
 	; executed call/far call (part of region $4572-$4671)
 	push bc

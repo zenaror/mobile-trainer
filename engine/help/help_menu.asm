@@ -5,7 +5,7 @@
 SECTION "engine/help/help_menu", ROMX
 
 HelpMenu_ShowPage:: ; 6C:4000
-Function_6C_4000::
+
 	; [CONFIRMED] 95 insn(s); 95 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -607,7 +607,7 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	farcall Sprite_UpdateAll
 	ret
 
-; ---- data $4525-$453D (24 bytes) [PROBABLE] 24-byte table 49 00 A9 00 E9 00 49 01 89 00 09 01 89 00 09 01 00 28 46 6E 00 1E 00 1E (12 words), read by executed code in up to 3 scenarios, directly after a ret and before Function_6C_453D; second identical copy at 4747; the 1-8 byte mapper holes inside this run are bytes not read in the traces; they sit between executed-read pieces of the same block and are not code (no branch enters them, bytes do not decode as a coherent routine)
+; ---- data $4525-$453D (24 bytes) [PROBABLE] 24-byte table 49 00 A9 00 E9 00 49 01 89 00 09 01 89 00 09 01 00 28 46 6E 00 1E 00 1E (12 words), read by executed code in up to 3 scenarios, directly after a ret and before HelpMenu_DrawItemSelected; second identical copy at 4747; the 1-8 byte mapper holes inside this run are bytes not read in the traces; they sit between executed-read pieces of the same block and are not code (no branch enters them, bytes do not decode as a coherent routine)
 
 HelpMenu_ItemDestOffsets:: ; 6C:4525
 Data_6C_4525::
@@ -615,7 +615,7 @@ Data_6C_4525::
 	db $00, $28, $46, $6E, $00, $1E, $00, $1E
 
 HelpMenu_DrawItemSelected:: ; 6C:453D
-Function_6C_453D::
+
 	; [CONFIRMED] 17 insn(s); 17 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wHelpMenu_Page]
@@ -880,7 +880,7 @@ Function_6C_453D::
 	farcall Sprite_UpdateAll
 	ret
 
-; ---- data $4747-$4763 (28 bytes) [PROBABLE] same 24-byte table as 4525 (49 00 A9 00 E9 00 49 01 ...) followed by 4 bytes 8C AA 3C 3C before Function_6C_4763; read in up to 3 scenarios; the 1-8 byte mapper holes inside this run are bytes not read in the traces; they sit between executed-read pieces of the same block and are not code (no branch enters them, bytes do not decode as a coherent routine)
+; ---- data $4747-$4763 (28 bytes) [PROBABLE] same 24-byte table as 4525 (49 00 A9 00 E9 00 49 01 ...) followed by 4 bytes 8C AA 3C 3C before HelpMenu_ShowItemText; read in up to 3 scenarios; the 1-8 byte mapper holes inside this run are bytes not read in the traces; they sit between executed-read pieces of the same block and are not code (no branch enters them, bytes do not decode as a coherent routine)
 
 HelpMenu_ItemDestOffsets2:: ; 6C:4747
 Data_6C_4747::
@@ -888,7 +888,7 @@ Data_6C_4747::
 	db $00, $28, $46, $6E, $00, $1E, $00, $1E, $8C, $AA, $3C, $3C
 
 HelpMenu_ShowItemText:: ; 6C:4763
-Function_6C_4763::
+
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wHelpMenu_Page]

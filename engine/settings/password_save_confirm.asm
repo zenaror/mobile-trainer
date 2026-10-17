@@ -144,7 +144,7 @@ PwSaveConfirm_Loop:: ; 67:6625
 	jp PwSaveConfirm_Loop
 
 PwSaveConfirm_PlaceCursor:: ; 67:66A6
-Function_67_66A6::
+
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wPwSaveConfirm_Cursor]
@@ -170,7 +170,7 @@ Data_67_66BE::
 	db $28, $30, $58, $30
 
 PwSaveConfirm_BuildTextMap:: ; 67:66C2
-Function_67_66C2::
+
 	; [CONFIRMED] 166 insn(s); 166 executed (in up to 7/18 scenarios); entry proven: target of an
 	; executed call/far call (part of region $66C2-$67DB)
 	ld hl, wScreenTileMap + $121

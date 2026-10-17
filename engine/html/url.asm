@@ -32,7 +32,7 @@ Data_74_591D::
 	db $00, $FF, $70, $72, $6F, $73, $70, $65, $72, $6F, $00, $FF
 
 HtmlUrl_GetSchemeId:: ; 74:5969
-Function_74_5969::
+
 	; [CONFIRMED] 22 insn(s); 22 executed (in up to 5/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push hl
@@ -259,7 +259,7 @@ Label_74_5A5A::
 	ret
 
 HtmlUrl_FindLastSegmentDelimiter:: ; 74:5A76
-Function_74_5A76::
+
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	xor a, a

@@ -148,7 +148,7 @@ Comm_EndOffline:: ; 4C:477E
 	ret
 
 Comm_DisconnectWithProgress:: ; 4C:47C4
-Function_4C_47C4::
+
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $02

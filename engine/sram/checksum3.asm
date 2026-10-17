@@ -5,7 +5,7 @@
 SECTION "engine/sram/checksum3", ROMX
 
 Sram_VerifyChecksum3:: ; 48:4899
-Function_48_4899::
+
 	; [CONFIRMED] 19 insn(s); 19 executed (in up to 12/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call Sram_ComputeChecksum3
@@ -34,15 +34,15 @@ Function_48_4899::
 	ret
 
 Stub_Nop_48_48BB:: ; 48:48BB
-Function_48_48BB::
+
 	; [CONFIRMED] 1 insn(s); 1 executed (in up to 15/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ret
 
 Sram_VerifyChecksum3ResetOnMismatch:: ; 48:48BC
-Function_48_48BC::
+
 	; [HYPOTHESIS] unreferenced function (no call/ptr to 48BC in the ROM) right after the executed
-	; one-instruction Function_48_48BB (ret); sibling of Function_48_4899: call $48E1; compare
+	; one-instruction Stub_Nop_48_48BB (ret); sibling of Sram_VerifyChecksum3: call $48E1; compare
 	; 16-bit value at $A8B5/$A8B6 via call $1620; extra call $4920; ld a,$FF; ret. All call targets
 	; (48E1, 1620, 4920) are known code starts
 	call Sram_ComputeChecksum3
@@ -69,7 +69,7 @@ Function_48_48BC::
 	ret
 
 Sram_ComputeChecksum3:: ; 48:48E1
-Function_48_48E1::
+
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 17/18 scenarios); entry proven: target of an
 	; executed call/far call
 	xor a, a

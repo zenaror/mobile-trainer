@@ -5,7 +5,7 @@
 SECTION "engine/help/help_script", ROMX
 
 HelpMenu_Run:: ; 6C:5987
-Function_6C_5987::
+
 	; [CONFIRMED] 185 insn(s); 185 executed (in up to 12/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld b, $01
@@ -729,7 +729,7 @@ Data_6C_5F6E::
 	db $56, $5B, $80, $4D, $98, $56, $5B, $00, $52, $A0, $56
 
 HelpScript_StepText:: ; 6C:6009
-Function_6C_6009::
+
 	; [CONFIRMED] 23 insn(s); 23 executed (in up to 12/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wHelpScriptDelayCounter]
@@ -996,7 +996,7 @@ Function_6C_6009::
 	pop hl
 	jp .l601B
 DecC0DA_OnZeroReload23ToggleC0D9AndSetDA20:: ; 6C:61AC [PROBABLE] operation; entry/purpose HYPOTHESIS
-Function_6C_61AC:: ; 6C:61AC
+
 	; [PROBABLE] ROM6C DEC [C0DA] mod256; old0->$FF returns, old1 reloads $23/XORs C0D9 bit0.
 	; Expiry D=($78+new C0D9)mod256,E=$80,HL=$DA20; farcall Sprite_SetPosition writes WRAM7.
 	; SVBK restored from shadow; domain/entry/purpose unproved. See docs/research/naming_6c_61ac.md.

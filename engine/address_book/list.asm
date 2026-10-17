@@ -5,7 +5,7 @@
 SECTION "engine/address_book/list", ROMX
 
 AbookList_Run:: ; 2F:4000
-Function_2F_4000::
+
 	; [CONFIRMED] 24 insn(s); 24 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af
@@ -154,7 +154,7 @@ AbookList_CursorDown:: ; 2F:40E1
 	ret
 
 AbookList_CursorUp:: ; 2F:4109
-Function_2F_4109::
+
 	; [CONFIRMED] 34 insn(s); 34 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -622,7 +622,7 @@ Abook_ClearSlot:: ; 2F:4455
 	ret
 
 Abook_Clear16AtHlAndEditAddressBuf:: ; 2F:4496
-Function_2F_4496::
+
 	; [CONFIRMED] 49 insn(s); 49 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af
@@ -686,7 +686,7 @@ Table_2F_44E6::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
 AbookList_PlaceButtonCursor:: ; 2F:44F2
-Function_2F_44F2::
+
 	; [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -1245,7 +1245,7 @@ Table_2F_4936::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
 AbookList_FlashSelectedMarker:: ; 2F:4942
-Function_2F_4942::
+
 	; [CONFIRMED] 23 insn(s); 23 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -1521,7 +1521,7 @@ Table_2F_4B42::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
 AbookList_DrawNames:: ; 2F:4B4E
-Function_2F_4B4E::
+
 	; [CONFIRMED] 51 insn(s); 51 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -1586,7 +1586,7 @@ Table_2F_4B9E::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
 AbookList_DrawHelpText:: ; 2F:4BAA
-Function_2F_4BAA::
+
 	; [CONFIRMED] 21 insn(s); 21 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -1642,7 +1642,7 @@ String_Abook_HelpDelete:: ; 2F:4C7E
 POPC
 
 AbookList_SetHelpBoxAttr:: ; 2F:4CA7
-Function_2F_4CA7::
+
 	; [CONFIRMED] 58 insn(s); 58 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc

@@ -245,7 +245,7 @@ Table_7F_42A3::
 	dw Canvas_Remap_B3C3
 
 Canvas_BlitGlyph:: ; 7F:42C3
-Function_7F_42C3::
+
 	; [CONFIRMED] 92 insn(s); 92 executed (in up to 14/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push hl
@@ -1653,7 +1653,7 @@ Table_7F_49A5::
 	db $FF, $FF, $FF, $7F, $3F, $1F, $0F, $07, $03
 
 Canvas_BlitGlyphLooped:: ; 7F:49AE
-Function_7F_49AE::
+
 	; [PROBABLE] two complete glyph-blit functions of the family of the executed 7F:4956: 49AE-4AAE
 	; and 4AAF-4BBB (both start with push hl ; push de ; call $41EA (executed helper) and end with
 	; ret; 343 insn, 32 direct targets all land on instruction starts, decoding ends exactly at the
@@ -1842,7 +1842,7 @@ Function_7F_49AE::
 	ret
 
 Canvas_BlitGlyphLoopedClipY:: ; 7F:4AAF
-Function_7F_4AAF::
+
 	push hl
 	push de
 	call Canvas_RemapGlyphColors
@@ -2109,7 +2109,7 @@ Gfx_GdmaAtVBlank:: ; 7F:4C20
 	ret
 
 Glyph_LoadDottedLine:: ; 7F:4C42
-Function_7F_4C42::
+
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 5/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc

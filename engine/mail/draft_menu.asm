@@ -5,7 +5,7 @@
 SECTION "engine/mail/draft_menu", ROMX
 
 MailDraft_Menu:: ; 2B:4000
-Function_2B_4000::
+
 	; [CONFIRMED] 52 insn(s); 52 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call VBlank_WaitAndService
@@ -440,7 +440,7 @@ MailDraft_Menu_MoveCursorSprites:: ; 2B:43A5
 	ret
 
 MailDraft_DrawTextLine21:: ; 2B:4421
-Function_2B_4421::
+
 	; [CONFIRMED] 70 insn(s); 70 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $15
@@ -721,7 +721,7 @@ MailDraft_DrawTextLine25_BlitGlyphAdvance:: ; 2B:45CD
 	ret
 
 MailDraft_DrawTextLine25_BlitBlankAdvance:: ; 2B:45E1
-Function_2B_45E1::
+
 	; [CONFIRMED] 22 insn(s); 22 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -871,7 +871,7 @@ MailDraft_DrawTextLine17_BlitGlyphAdvance:: ; 2B:46B9
 	ret
 
 MailDraft_DrawTextLine17_BlitBlankAdvance:: ; 2B:46CD
-Function_2B_46CD::
+
 	; [CONFIRMED] 61 insn(s); 61 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -980,7 +980,7 @@ MailDraft_Edit:: ; 2B:4743
 	ret
 
 MailDraft_Menu_SetCaption:: ; 2B:478B
-Function_2B_478B::
+
 	; [CONFIRMED] 35 insn(s); 35 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc

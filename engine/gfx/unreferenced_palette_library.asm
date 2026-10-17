@@ -4,7 +4,7 @@
 
 SECTION "engine/gfx/unreferenced_palette_library", ROMX
 ClearLcdcBit2:: ; 29:5090
-Function_29_5090::
+
 	; [HYPOTHESIS] 742-byte library admits460 conditional starts; entry/purpose/live bank unproved.
 	; [PROBABLE] ClearLcdcBit2:7B/4 starts; executed6B/3-start relatives at27:468B and50:400F.
 	; Leaf511E:39B/24 starts saves BC/DE, CALL7BB7; balanced return required, HL not saved.
@@ -29,7 +29,7 @@ Function_29_5090::
 	ldh [rLCDC], a
 	ret
 
-	call Function_29_5090
+	call ClearLcdcBit2
 	ld b, $C0
 .l50A3 ; 29:50A3
 	ld a, [hli]
@@ -70,7 +70,7 @@ Function_29_5090::
 	jr nz, .l50C7
 	ret
 
-	call Function_29_511E
+	call CallSelected7BB7_IfReturnsPollLyByFFA4Bit0
 	dec b
 	jr nz, .l50C7
 	ret
@@ -124,13 +124,13 @@ Function_29_5090::
 	ret
 
 PalLibUnused_WaitLY90:: ; 29:5117
-Function_29_5117::
+
 	ldh a, [rLY]
 	cp a, $90
 	jr nz, PalLibUnused_WaitLY90
 	ret
 CallSelected7BB7_IfReturnsPollLyByFFA4Bit0:: ; 29:511E [PROBABLE] operation; entry unproved
-Function_29_511E:: ; 29:511E
+
 	push bc
 	push de
 	call $7BB7
@@ -159,7 +159,7 @@ Function_29_511E:: ; 29:511E
 	ret
 
 PalLibUnused_DisableVBlankIrq:: ; 29:5145
-Function_29_5145::
+
 	xor a, a
 	ldh [rIF], a
 	ldh a, [rIE]
@@ -168,7 +168,7 @@ Function_29_5145::
 	ret
 
 PalLibUnused_EnableVBlankIrq:: ; 29:514F
-Function_29_514F::
+
 	xor a, a
 	ldh [rIF], a
 	ldh a, [rIE]
@@ -289,7 +289,7 @@ Function_29_514F::
 	ret
 
 PalLibUnused_ReadPalettesToBuffer:: ; 29:520D
-Function_29_520D::
+
 	ld a, $01
 	ldh [rSVBK], a
 	ld de, $DBD0 ; raw: unreferenced palette library (no caller, forced execution only): bank 1 is selected on the real register at 29:520D, but no name covers $DBD0 of bank 1
@@ -324,7 +324,7 @@ Function_29_520D::
 	ret
 
 PalLibUnused_WriteBufferToPalettes:: ; 29:523F
-Function_29_523F::
+
 	ld de, $DBD0 ; raw: unreferenced palette library (no caller, forced execution only), the bank in force is not shown
 	xor a, a
 	ldh [rBCPS], a
@@ -389,7 +389,7 @@ Function_29_523F::
 	ret
 
 PalLibUnused_FadeStepTowardWhite:: ; 29:529F
-Function_29_529F::
+
 	ld hl, $DBD0 ; raw: unreferenced palette library (no caller, forced execution only), the bank in force is not shown
 	ld b, $40
 .loop ; 29:52A4
@@ -450,7 +450,7 @@ Function_29_529F::
 	ret
 
 PalLibUnused_FadeStepTowardBlack:: ; 29:52ED
-Function_29_52ED::
+
 	ld hl, $DBD0 ; raw: unreferenced palette library (no caller, forced execution only), the bank in force is not shown
 	ld b, $40
 .loop ; 29:52F2
@@ -508,7 +508,7 @@ Function_29_52ED::
 	ret
 
 PalLibUnused_FillBufferFromBlock:: ; 29:5335
-Function_29_5335::
+
 	push bc
 	ld c, $02
 	ld de, $DBD0 ; raw: unreferenced palette library (no caller, forced execution only), the bank in force is not shown

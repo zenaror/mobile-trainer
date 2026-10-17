@@ -99,7 +99,7 @@ Html_ParseSource_TitleTag:: ; 74:44D4
 	jp .loop
 
 Html_StoreTitle:: ; 74:4530
-Function_74_4530::
+
 	; [CONFIRMED] 28 insn(s); 28 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh a, [hHtml_PageHeader]

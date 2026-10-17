@@ -11,7 +11,7 @@ Table_2C_56F2::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
 AddrPick_Menu:: ; 2C:56FE
-Function_2C_56FE::
+
 	; [CONFIRMED] 24 insn(s); 24 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af
@@ -257,7 +257,7 @@ AddrPick_LoadSelection:: ; 2C:57F1
 	ret
 
 AddrPick_InitScreen:: ; 2C:58AC
-Function_2C_58AC::
+
 	; [CONFIRMED] 129 insn(s); 129 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	farcall Sprite_ResetAll
@@ -391,7 +391,7 @@ Function_2C_58AC::
 	ret
 
 AddrPick_RefreshSlotIcons_2C_5A12:: ; 2C:5A12
-Function_2C_5A12::
+
 	; [PROBABLE] 10 insn(s): register setup (push bc; ld a,7; ldh [$FF8D]...; ld hl,$DA70; ld
 	; de,$7220; ld a,$2C; ld b,1) falling into the FarCall site at 2C:5A25; well-formed instruction
 	; chain (clean decode, all direct targets land on instruction starts, lands exactly on the next
@@ -694,7 +694,7 @@ Function_2C_5A12::
 	ret
 
 AddrPick_TestSlotEmpty_2C_5CA3:: ; 2C:5CA3
-Function_2C_5CA3::
+
 	push bc
 	push af
 	ld a, $01
@@ -727,7 +727,7 @@ Function_2C_5CA3::
 	ret
 
 AddrPick_SetListAreaAttrs:: ; 2C:5CD2
-Function_2C_5CD2::
+
 	push af
 	push bc
 	di
@@ -1058,7 +1058,7 @@ Function_2C_5CD2::
 	ret
 
 AddrPick_InitListAttrs:: ; 2C:5E51
-Function_2C_5E51::
+
 	; [CONFIRMED] 299 insn(s); 299 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af
@@ -1363,7 +1363,7 @@ Function_2C_5E51::
 	ret
 
 AddrPick_MoveNameHighlight_X28_2C_5FB1:: ; 2C:5FB1
-Function_2C_5FB1::
+
 	; [PROBABLE] 80 insn(s): complete SRAM-access routine (push af; ld a,1; ldh [$FF8C],a; ld
 	; [$4000],a; ld a,$0A ... xor a; ldh [$FFF5],a; ld [$0000],a; pop af; ret); well-formed
 	; instruction chain (clean decode, all direct targets land on instruction starts, lands exactly
@@ -1458,7 +1458,7 @@ Function_2C_5FB1::
 	ret
 
 AddrPick_MoveNameHighlight:: ; 2C:6032
-Function_2C_6032::
+
 	; [CONFIRMED] 40 insn(s); 40 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af
@@ -1566,7 +1566,7 @@ Function_2C_6032::
 	ret
 
 AddrPick_DrawSlotNames:: ; 2C:60B3
-Function_2C_60B3::
+
 	; [PROBABLE] 102 insn(s): complete SRAM-access routine (same prologue/epilogue as 2C:5FB1);
 	; well-formed instruction chain (clean decode, all direct targets land on instruction starts,
 	; lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS
@@ -1681,7 +1681,7 @@ Function_2C_60B3::
 	ret
 
 AddrBook_DrawSlotName:: ; 2C:614D
-Function_2C_614D::
+
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $10
@@ -2193,7 +2193,7 @@ Table_2C_64D4::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
 AddrPick_CursorMoveEffect:: ; 2C:64E0
-Function_2C_64E0::
+
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc

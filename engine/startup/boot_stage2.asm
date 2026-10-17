@@ -5,7 +5,7 @@
 SECTION "engine/startup/boot_stage2", ROMX
 
 Boot_ClearAndInit:: ; 4F:4717
-Function_4F_4717::
+
 	; [CONFIRMED] 108 insn(s); 108 executed (in up to 18/18 scenarios); entry proven: target of an
 	; executed call/far call
 	di

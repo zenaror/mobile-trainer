@@ -194,7 +194,7 @@ Data_23_4B4A::
 	db $03, $00, $00, $01, $24, $D5, $00
 
 MailSrvDel_CheckAndDelete:: ; 23:4B51
-Function_23_4B51::
+
 	; [CONFIRMED] 55 insn(s); 55 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	xor a, a
@@ -1060,7 +1060,7 @@ MailSrvDel_DeleteAllRun_NextMail:: ; 23:5063
 	ret
 
 MailSrvDel_DeleteAllRun_TimeWarningPopup:: ; 23:50CC
-Function_23_50CC::
+
 	; [PROBABLE] 104 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 503F-540D by apply_coverage --split
 	push af
@@ -1113,7 +1113,7 @@ Function_23_50CC::
 	ret
 
 MailSrvDel_DeleteAllRun_TimeWarningPopupReading:: ; 23:5137
-Function_23_5137::
+
 	push af
 	push bc
 	push de
@@ -1616,7 +1616,7 @@ MailSrvDel_DeleteCompletelyRun_NextMail:: ; 23:5424
 	ret
 
 MailSrvDel_DeleteCompletelyRun_TimeWarningPopup:: ; 23:54B1
-Function_23_54B1::
+
 	; [PROBABLE] 119 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5424-581E by apply_coverage --split
 	push af

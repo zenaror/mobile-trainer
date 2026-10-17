@@ -5,7 +5,7 @@
 SECTION "engine/settings/password_change", ROMX
 
 PasswordChange_Run:: ; 67:58CD
-Function_67_58CD::
+
 	; [CONFIRMED] 30 insn(s); 30 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	farcall Stub_Nop_68_4282
@@ -164,7 +164,7 @@ PasswordChange_SaveNewPassword:: ; 67:5A0E
 	ret
 
 PasswordChange_Communicate:: ; 67:5A3E
-Function_67_5A3E::
+
 	; [CONFIRMED] 42 insn(s); 42 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call PasswordChange_Communicate_Setup
@@ -523,7 +523,7 @@ PasswordChange_State_Finish:: ; 67:5CC2
 	ret
 
 PasswordChange_WaitCommPanelClose:: ; 67:5CF4
-Function_67_5CF4::
+
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $01
@@ -711,7 +711,7 @@ Net_GuestString:: ; 67:5E77
 	db $67, $75, $65, $73, $74, $00
 
 PasswordChange_BuildRequestBody:: ; 67:5E7D
-Function_67_5E7D::
+
 	; [CONFIRMED] 19 insn(s); 19 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, Net_PppIdKey
@@ -752,7 +752,7 @@ Net_NewPasswdKey:: ; 67:5EC5
 POPC
 
 AdapterCheck_RunInitOnly:: ; 67:5ED1
-Function_67_5ED1::
+
 	; [HYPOTHESIS] xor a; ld [$C27C],a; ld [$C27D],a - start of an unreferenced function that
 	; follows the strings at 5EB4-5ED1 and runs into the far-call site at 5ED8 (PROBABLE code); no
 	; entry found
@@ -770,7 +770,7 @@ Function_67_5ED1::
 	ret
 
 AdapterCheck_InitOnly_Poll:: ; 67:5EF1
-Function_67_5EF1::
+
 	farcall Sprite_UpdateAll
 	call VBlank_WaitAndService
 	ld a, [wPasswordChange_State]
@@ -831,7 +831,7 @@ Label_67_5F20::
 	ret
 
 Net_CopyDefaultDnsPair:: ; 67:5F54
-Function_67_5F54::
+
 	; [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, Net_DefaultDnsPair

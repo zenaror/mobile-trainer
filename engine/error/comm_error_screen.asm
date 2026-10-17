@@ -5,7 +5,7 @@
 SECTION "engine/error/comm_error_screen", ROMX
 
 CommErr_ShowScreen:: ; 5C:5150
-Function_5C_5150::
+
 	; [CONFIRMED] 78 insn(s); 78 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af
@@ -120,7 +120,7 @@ Label_5C_5264::
 	jr CommErr_ShowScreen_FrameLoop
 
 Stub_Nop_5C_5266:: ; 5C:5266
-Function_5C_5266::
+
 	ret
 
 CommErr_DrawMessage:: ; 5C:5267
@@ -286,7 +286,7 @@ Label_5C_53A1::
 	ret
 
 CommErr_DrawErrorNumber:: ; 5C:53B3
-Function_5C_53B3::
+
 	; [CONFIRMED] 43 insn(s); 43 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh [hScratchA], a
@@ -400,7 +400,7 @@ Table_5C_545B::
 	db $2F, $3F, $40, $50
 
 CommErr_UpdateCommFooter:: ; 5C:546F
-Function_5C_546F::
+
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wTimerEnable]
@@ -488,7 +488,7 @@ Function_5C_546F::
 	ret
 
 CommErr_DrawFCategoryGlyph:: ; 5C:5504
-Function_5C_5504::
+
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $40

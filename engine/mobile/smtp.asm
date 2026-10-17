@@ -268,7 +268,7 @@ Mail_BuildHeaderField:: ; 54:46E8
 	ret
 
 Smtp_MeasureField:: ; 54:4726
-Function_54_4726::
+
 	ld b, $00
 .loop ; 54:4728
 	ld a, [hli]
@@ -284,7 +284,7 @@ Function_54_4726::
 	ret
 
 Smtp_CopyFieldToWork:: ; 54:4736
-Function_54_4736::
+
 	ld b, $00
 	ld de, wRam_C580
 .loop ; 54:473B
@@ -305,7 +305,7 @@ Function_54_4736::
 	ret
 
 Smtp_CopyDisplayName:: ; 54:4748
-Function_54_4748::
+
 	; [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 44C3-475A by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld b, $00
@@ -471,7 +471,7 @@ Smtp_DataPoll:: ; 54:4772
 	jr .l4812
 
 Smtp_MeasureBody:: ; 54:484A
-Function_54_484A::
+
 	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 4772-4856 by apply_coverage
 	; --split [executed in 5 scenarios]
 	ld b, $00
