@@ -7,7 +7,7 @@ SECTION "audio/music_pointers", ROMX
 ; ---- data $551D-$574D (560 bytes) [PROBABLE] song table: 70 records x 8 bytes = word address (58BC 5CBF 5EF4 60E8 ...), word ROM bank (0004 or 0005; 9-bit bank number as read by 00:215E/216F from D026/D027, per docs/research/boot_and_home.md), then four single bytes read by the driver: priority ($C8, rarely $D2/$C9), flags ($FF), track count (1-4), and a spare $00 that nothing reads (decoded in docs/research/audio_format.md section 3.1); the 11 identical 58BC/0004 records and the bank-5 entries (4218 4540 46E6 ...) confirm the address+bank reading; 551D+560 = 574D = first sound bytecode
 
 Table_SoundDrv_Songs:: ; 04:551D
-Data_04_551D::
+
 	sound_song SoundSong01_Header, $C8, $FF, 4 ; id $01
 	sound_song SoundSong02_Header, $C8, $FF, 4 ; id $02
 	sound_song SoundSong03_Header, $C8, $FF, 4 ; id $03

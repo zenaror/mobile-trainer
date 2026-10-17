@@ -80,5 +80,5 @@ DEF hRam_FFF7 EQU $FFF7 ; size 1 byte HYPOTHESIS usage r=2 w=2 l=0 ptr-uses=0 ba
 DEF hRam_FFF8 EQU $FFF8 ; size 1 byte HYPOTHESIS usage r=1 w=1 l=2 ptr-uses=0 banks=2 (t1: r=0 w=0 l=2)
 DEF hRam_FFF9 EQU $FFF9 ; size 1 byte HYPOTHESIS usage r=1 w=1 l=1 ptr-uses=0 banks=2 (t1: r=0 w=0 l=1)
 DEF hFramesWithoutService EQU $FFFC ; size 1 byte PROBABLE Int_VBlank: incremented when C2BF==0 (service did not run this frame), reset to 0 otherwise (00:0435-0443)
-DEF hRandomIndex EQU $FFFD ; size 1 byte CONFIRMED index into Table_00_0C34, incremented by Random (00:0C18)
+DEF hRandomIndex EQU $FFFD ; size 1 byte CONFIRMED index into Table_Random_XorBytes, incremented by Random (00:0C18)
 DEF hRandomState EQU $FFFE ; size 1 byte CONFIRMED state of Random: new = (5*old+2) xor table[index] (00:0C18)

@@ -7,7 +7,7 @@ SECTION "home/text", ROM0
 TextEngine_Run:: ; 00:0ED3
 	; Historical address alias retired; proper operation name retained.
 	; [CONFIRMED] byte-stream (text) interpreter: A=bank of string, HL=pointer. Bytes <$20 dispatch
-	; through Table_00_0EF0 (handler entered with the string pointer on the stack), bytes >=$20 are
+	; through Table_TextEngine_CmdHandlers (handler entered with the string pointer on the stack), bytes >=$20 are
 	; characters (see 0F30). FFB9=current bank, FFBF=call depth [reached via inferred links; raw
 	; refs 43] [executed in 26 scenarios]
 	ldh [hTextEngine_StringBank], a
@@ -15,12 +15,12 @@ TextEngine_Run:: ; 00:0ED3
 	ldh [hTextEngine_CallDepth], a
 
 TextEngine_ReloadBank:: ; 00:0ED8
-Label_00_0ED8::
+
 	ldh a, [hTextEngine_StringBank]
 	call BankSwitch_H
 
 TextEngine_NextByte:: ; 00:0EDD
-Label_00_0EDD::
+
 	ld a, [hli]
 	cp a, $20
 	jr nc, TextEngine_PutChar
@@ -39,7 +39,7 @@ Label_00_0EDD::
 ; ---- words $0EF0-$0F30 (64 bytes) [CONFIRMED] 32 handler pointers for control bytes $00-$1F (indexed at 0EE3-0EEF)
 
 Table_TextEngine_CmdHandlers:: ; 00:0EF0
-Table_00_0EF0::
+
 	dw TextEngine_Cmd00_End, TextEngine_Cmd01_CallString, TextEngine_Cmd02_SetY, TextEngine_Cmd03_SetX, TextEngine_Cmd04_SetPos, TextEngine_Cmd05_SetPos, TextEngine_Cmd06_SetPos, TextEngine_Cmd07_SetPos
 	dw TextEngine_Cmd00_End, TextEngine_Cmd09_Tab, TextEngine_Cmd00_End, TextEngine_Cmd00_End, TextEngine_Cmd00_End, TextEngine_Cmd0D_NewLine, TextEngine_Cmd00_End, TextEngine_Cmd00_End
 	dw TextEngine_Cmd00_End, TextEngine_Cmd00_End, TextEngine_Cmd00_End, TextEngine_Cmd00_End, TextEngine_Cmd00_End, TextEngine_Cmd00_End, TextEngine_Cmd00_End, TextEngine_Cmd00_End
@@ -79,7 +79,7 @@ TextEngine_PutChar:: ; 00:0F30
 	pop hl
 
 TextEngine_AfterChar:: ; 00:0F5A
-Label_00_0F5A::
+
 	call Sound_FrameService
 	ldh a, [hTextX]
 	ld c, a
@@ -96,7 +96,7 @@ TextEngine_Cmd0D_NewLine:: ; 00:0F68
 	pop hl
 
 TextEngine_LineWrap:: ; 00:0F69
-Label_00_0F69::
+
 	ldh a, [hTextBox_LineStartX]
 	ldh [hTextX], a
 	ldh a, [hTextBox_LineStartXHi]

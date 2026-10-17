@@ -97,7 +97,7 @@ Boot:: ; 00:0278
 	ei
 
 Boot_MainLoop:: ; 00:0328
-Label_00_0328::
+
 	farcall Main_Run
 
 Boot_MainLoop_Repeat:: ; 00:032E
@@ -107,7 +107,7 @@ Boot_MainLoop_Repeat:: ; 00:032E
 
 Palette_SetAllWhite:: ; 00:0331
 	; Historical address alias retired; proper operation name retained.
-	; [CONFIRMED] writes 64 bytes of $7FFF x32 (Data_00_0352) into BG palette RAM (rBCPS=$80
+	; [CONFIRMED] writes 64 bytes of $7FFF x32 (Palette_AllWhite) into BG palette RAM (rBCPS=$80
 	; auto-inc) and OBJ palette RAM (rOCPS=$80): all 16 palettes white [reached via inferred links;
 	; raw refs 8] [executed in 41 scenarios]
 	ld a, $80
@@ -137,7 +137,7 @@ Palette_WritePort64:: ; 00:034A
 ; ---- data $0352-$0392 (64 bytes) [CONFIRMED] 32 x $7FFF (white) = 64 bytes, source for Palette_SetAllWhite (ld hl,$0352 at 0335/0341)
 
 Palette_AllWhite:: ; 00:0352
-Data_00_0352::
+
 	db $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F
 	db $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F
 	db $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F

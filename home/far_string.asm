@@ -53,7 +53,7 @@ PromptText_Load:: ; 00:153D
 Dial_CopySelectedNumber:: ; 00:1586
 	; Historical address alias retired; proper operation name retained.
 	; [CONFIRMED] far-calls 68:44FC; if it returns 0 copies string 68:67AE[C271] to DE, else decodes
-	; the SRAM string (bank 1, XOR $A5) selected by [B013] via Table_00_161A [reached via inferred
+	; the SRAM string (bank 1, XOR $A5) selected by [B013] via Table_Dial_SramEntryPtrs [reached via inferred
 	; links; raw refs 0] [executed in 8 scenarios] | inline far pointer: FarCall at 1587: dw $44FC ;
 	; db $68 -> 68:44FC
 	push de
@@ -146,5 +146,5 @@ Dial_CopySelectedNumber_AfterModeCheck:: ; 00:158D
 ; ---- words $161A-$1620 (6 bytes) [CONFIRMED] 3 pointers into SRAM bank 1 (B014, B025, B036) indexed by ([B013] xor $A5)
 
 Table_Dial_SramEntryPtrs:: ; 00:161A
-Table_00_161A::
+
 	dw sSettingsDialNumbers, sSettingsDialNumbers + $11, sSettingsDialNumbers + $22

@@ -78,6 +78,20 @@ data-consumer and audio-mention walkers preserve their existing selection rules 
 synthetic regression fixture distinguishes active source from archived copies. This is an original-tool
 correction. English method fingerprints remain historical pending separately authorized parity work.
 
+The next finite data/resource migration retires31 redundant aliases:11 HOME data/control
+aliases, nine audio-table aliases, four title-logo resource aliases and seven address-book
+save-screen resource aliases. Existing descriptive identities, physical ASM rows, instruction
+and data emission, asset paths/bytes and inherited evidence levels are preserved. The
+[HOME contracts](docs/research/home_data_names.md),
+[audio contracts](docs/research/audio_table_names.md),
+[title contracts](docs/research/title_logo_resource_names.md) and
+[address-book contracts](docs/research/address_book_save_resource_names.md) retain input,
+bank, stack, IRQ, destination and timing qualifications. These source-level retirements add
+no natural caller, independent entry, original display/sound observation or hardware evidence.
+The note-local symbol predictions describe isolated cohorts; the combined migration removes
+31 globals from the14921-name parent map, with all51 constants and surviving addresses held.
+English remains suspended pending fresh human confirmation.
+
 The initial wider lexical census at e958ff4f found 5,284 generic global definitions, including aliases
 and 786 neutral RAM coordinates; these are not counts of unknown functions. It also found 4,961
 address-based local labels, all present in the parent SYM, by recognizing colonless RGBDS declarations.
@@ -675,3 +689,32 @@ The private original-source extension based on published MAIN `2e0f3fff688f70a48
 One ROOT product-fixture run completed 21 PASS groups and 145 route receipts; group15 was then `DEFERRED_ROOT_NATIVE`. The product codec performed 20,480 inverses, both exports/imports preserved 46,080 indices, and 93 legacy screen roundtrips plus 947 asset identities held. Synthetic flip/UID/identity hooks retain fixture-only qualification. ROOT's two final private-source PNGs equal those accepted fixture bytes. Native parity was pending at that initial product stage. After `tools/line_addresses.py` copied `raw_png.py` into marked-build fixtures, the corrected private 27-path source completed its own Japanese37 plus English3 pass: 39 rc0 and the expected ordinal27 rc2/exact97-byte diagnostic, preserving original-ROM identity and the English ROM/checksum. The subsequent final documentation/manifest refresh still requires actual integration checks. See [the bounded inventory and RAW view limits](docs/research/assets_pokemon_frames_and_name_limits.md#product-checked-conditional-bank42-raw-byte-views-private-staging-2026-10-13). No source confidence, natural loader/LCDC/species association, general graphics completeness or hardware claim is promoted.
 
 Published MAIN `2e0f3fff688f70a48063ff72be496d570574fa51` already provides `make english` with 563 explicit overrides and verified English ROM `1f1c28855ef560e9da4b2f2a3d4d8d9fc74162dff51381f9efc562025c9023a1`/E0FC. Its actual Japanese37 plus English3 terminal completed 39 zero returns and the expected ordinal27 rc2/exact97-byte diagnostic, with original-ROM identity; those receipts remain tied to the published parent. A separate fresh8 profile also completed eight rc0 with original and English ROM identities and zero warnings; it does not repeat the full canonical37 or validate the staged RAW source. The staged shared-source parity refresh retains every override/payload and historical base identifier, adds 11 fallbacks for the RAW resources/codec/two PNGs, and refreshes existing source/documentation pins. The corrected private candidate reproduced that English ROM; its private acceptance is recorded in the current language-build note, and does not certify subsequent documentation/manifest bytes or publication. ZIP reuse, full WholeHelp, English natural execution/rendering/fidelity and hardware remain qualified in [the current language-build note](docs/LANGUAGE_BUILDS.md).
+
+### Errata operacional de replay: CTX17 (2026-10-17)
+
+A identidade de ROM publicada em72a3464b continua a evidência de reconstrução
+aceita naquela rodada; ela não detecta contexto quebrado em metadados de replay.
+O passe Function516 introduziu13 divergências de contexto de lib/mobile/mail.asm:
+ramop10 linhas3592,3973,3641,4228,4271,4353,4811,4869; ramop11 linhas4004,4047,
+4408,4753,4926. BEFORE516 tinha Function_0F_*:: imediatamente antes do ld e ctx
+correspondente. SOURCE516 retirou essas definições preservando a linha física
+vazia, mas ctx passou à properalias duas linhas acima. Não eram dívida do parent516.
+O predicado loose normaliza os operandos de memória antigos/atuais; esse detalhe
+não elimina a divergência real do primeiro componente de contexto.
+
+PRIVATE38 reteve292 already/8 skipped e133 already/5 skipped em29/30. Audio9
+acrescentou quatro divergências em audio/engine.asm:807: PRIVATE31 v1 relatou
+288 already/12 skipped e133 already/5 skipped. CTX12 anterior é parcial e fica
+preservado; CTX17 propõe17 células de ctx:13LIB+4Audio, só o primeiro componente
+passa a vazio. File/line/proof/status/operand/valor/banco/proposed text e os demais
+componentes não mudam. Nenhuma fonte ASM ou ferramenta é alterada.
+
+A auditoria estática finita cobre todas as tabelas9/10/11:156+300+138=594 manual
+(637rows totais), um ctx manual opcional vazio em ramop10 preservado. O cálculo
+usa exatamente split('\n'), incluindo a linha vazia de EOF: os quatro aparentes
+casos NOTICE causados por splitlines não são reparos e permanecem intactos.
+Previsão para28/29/30:0 to-write,156/300/138 already,0 skipped. A nova bateria
+ROOT deve exigir os três logs literais; RC0 sozinho não certifica replay completo.
+Mapas/SYM, ASM/OBJ e bytes previstos de31 não recebem delta por este reparo de
+metadados. Artefatos/aceites v1 permanecem evidência finita do protocolo anterior;
+sem adoção MAIN nessa versão. English e evidência natural/hardware não avançam.

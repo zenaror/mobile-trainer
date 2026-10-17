@@ -144,7 +144,7 @@ Bank4_GateEnter:: ; 00:2116
 	jr nz, Bank4_GateReturnBusy
 
 Bank4_GateSetBusy:: ; 00:211D
-Label_00_211D::
+
 	set 7, [hl]
 	push af
 	call Bank4_SaveAndSelect
@@ -152,7 +152,7 @@ Label_00_211D::
 	ret
 
 Bank4_GateReturnBusy:: ; 00:2125
-Label_00_2125::
+
 	pop hl
 	ld a, $FF
 	ret

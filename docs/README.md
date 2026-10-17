@@ -64,6 +64,10 @@ Reference documents (current):
 | [`home_function_names.md`](research/home_function_names.md) | 110 original HOME alias retirements, bounded ABI/copy contracts, confidence and dated evidence errata |
 | [`function_alias_retirement.md`](research/function_alias_retirement.md) | 483 original Function alias retirements, local scopes and two narrowed operation contracts |
 | [`font_config_resource_names.md`](research/font_config_resource_names.md) | bank48 glyph-run keys, bank68 default-image indices and unchanged editable assets |
+| [`address_book_save_resource_names.md`](research/address_book_save_resource_names.md) | Bounded original data/resource alias contracts; evidence and caller limits retained |
+| [`audio_table_names.md`](research/audio_table_names.md) | Bounded original data/resource alias contracts; evidence and caller limits retained |
+| [`home_data_names.md`](research/home_data_names.md) | Bounded original data/resource alias contracts; evidence and caller limits retained |
+| [`title_logo_resource_names.md`](research/title_logo_resource_names.md) | Bounded original data/resource alias contracts; evidence and caller limits retained |
 | [`font_glyph_run_path_map.tsv`](research/font_glyph_run_path_map.tsv) | original glyph-run binary and PNG path migration with byte hashes |
 | [`gfx_resource_names.md`](research/gfx_resource_names.md) | descriptive original graphics paths, visual confidence and opaque-fragment limits |
 | [`gfx_resource_path_map.tsv`](research/gfx_resource_path_map.tsv) | 235 historical/current owner, asset and PNG paths with byte hashes |

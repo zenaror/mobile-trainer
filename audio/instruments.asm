@@ -7,7 +7,7 @@ SECTION "audio/instruments", ROMX
 ; ---- data $51DD-$547D (672 bytes) [CONFIRMED] Table_SoundDrv_Instruments: 112 records of 6 bytes (layout and field evidence: docs/research/audio_format.md section 6); records $00-$63 are selected by sound_instrument, $64-$6F by the per-note mode (record = pitch + $40; the data plays pitches $24-$2F there) | superseded note: [PROBABLE] sound instrument/envelope table: 112 records x 6 bytes (first byte 0B/09/0A/00/01/02/11/14/... , 00, 00, NRx2-like byte FB/FD/..., 7F/6F/4F/FF..., last byte $3C constant (the unread byte of each record in traces) except the last 10 records); the 1-byte unread holes of the mapper were this constant; executed reads in up to 18/18 scenarios; 51DD+112*6 = 547D = start of the wave table
 
 Table_SoundDrv_Instruments:: ; 04:51DD
-Data_04_51DD::
+
 	sound_instr_pulse2 3, 0, $FB, $7F, $3C ; id $00: attack -, decay 2, sustain 7, release -
 	sound_instr_pulse2 1, 0, $FB, $6F, $3C ; id $01: attack -, decay 2, sustain 6, release -
 	sound_instr_pulse2 2, 0, $FD, $4F, $3C ; id $02: attack -, decay 1, sustain 4, release -

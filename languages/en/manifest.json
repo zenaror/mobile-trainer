@@ -3422,8 +3422,8 @@
       "sha256": "37a6751a209c8d25e51cf919800d769d1e50de38e3cad345027115d046b54567"
     },
     "REVERSE_ENGINEERING.md": {
-      "size": 152105,
-      "sha256": "20a35e17523411044c43a6099aa6eb84fc7e5fb8e2276eb5723c395d7ce4cd69"
+      "size": 155153,
+      "sha256": "90468dad97407ac3663a71e8a1af329e334697db307632939fac9412778ea510"
     },
     "STYLE.md": {
       "size": 57938,
@@ -4358,8 +4358,8 @@
       "sha256": "18967fb257bee96f785c06a213256ded7adf68be1e284a396d23d3217b99ef44"
     },
     "analysis/naming2/ramop10_manual.tsv": {
-      "size": 258856,
-      "sha256": "15642c9f8a75b7c827ab75bcef2e440c9a406221e17f6cc7e7aeccbebb6cb944"
+      "size": 258544,
+      "sha256": "ab2e8d996c6ea4bd30c35583659fb8417f8a91818d9c0e9dc039e200540963a4"
     },
     "analysis/naming2/ramop10_respell.tsv": {
       "size": 26995,
@@ -4370,8 +4370,8 @@
       "sha256": "8e8622eb32bf4543e946db4b21f13ed01d25ea1a9d8958396e2fc8ceb85be6b5"
     },
     "analysis/naming2/ramop11_manual.tsv": {
-      "size": 122111,
-      "sha256": "1b685b3d4a9b21f4de180e1295c1d2a6cc572b01b31234ee60ae14094d3d5fca"
+      "size": 121964,
+      "sha256": "b3436fb073799f144a6dbe38103a87f6ea76097c59abe6e252623b5fb11d86a2"
     },
     "analysis/naming2/ramop6_names.tsv": {
       "size": 8391,
@@ -4894,12 +4894,12 @@
       "sha256": "4acea468adc6af945bb96561b44dbb5bb67f204850f9d63d38859c34bc53ea78"
     },
     "audio/engine.asm": {
-      "size": 58797,
-      "sha256": "5472a78838e34e81430f47ccaee339ed11da3b09c28ecabc996527c099070732"
+      "size": 58708,
+      "sha256": "00a11276feccbdcab835329e60b59b8ae4ef9d81b6b0845af3e61a83fd1186f8"
     },
     "audio/instruments.asm": {
-      "size": 11375,
-      "sha256": "757a95f75474808c056c6c82e503b888b80f3f0b3ada180fbbc53a25e95eca5e"
+      "size": 11361,
+      "sha256": "47a7b361ed8d47913182ed752107e98f7064256a5b54c566b0ec45252ece6f64"
     },
     "audio/music/music_01.asm": {
       "size": 5474,
@@ -5018,20 +5018,20 @@
       "sha256": "58eafa4df3176ee263a543603eb79ef4d1ddbfa0663574b98b1021431abd2bea"
     },
     "audio/music_pointers.asm": {
-      "size": 4578,
-      "sha256": "f96b49494229c8f6cb68a38a515e2827da8279d5248bff59a91232a1359d3ed2"
+      "size": 4564,
+      "sha256": "d25bf97db1e841576b263d0f4239108b55716bef71a028419a49aec9fe46121f"
     },
     "audio/notes.asm": {
-      "size": 7576,
-      "sha256": "e4c584b1808b74d038fb2103eff88c5cae7ba6b215d34b0ce3335e27d72cbbdb"
+      "size": 7548,
+      "sha256": "2d696378030de9d20622f8b5262db216ed179c6587344d723053dea3cd65a792"
     },
     "audio/sfx.asm": {
       "size": 50445,
       "sha256": "3cab6d75d19a32ecdf1b94e76d860b55d7246ff28e467055d3427f5ca80b203b"
     },
     "audio/wave_samples.asm": {
-      "size": 2619,
-      "sha256": "3cdd34ee12490b92a39878411714f21b73b19ef7fe57087c66d40e0c3333d97f"
+      "size": 2605,
+      "sha256": "0579fb513a6cf87b1e667fd0d2a9bbb1041a07748722a4f6f7e694734bfb54e6"
     },
     "config/README.md": {
       "size": 2690,
@@ -6278,8 +6278,8 @@
       "sha256": "2a81b21c5620247e1ba2a3e144067e00ccf095f618692ed2541c10e8e761633b"
     },
     "docs/README.md": {
-      "size": 67888,
-      "sha256": "6f88f8032d5c33de453c5d657e014ffa0de3778af33b5ca29affdea4fe9f34f6"
+      "size": 68514,
+      "sha256": "f0f1d82322788377760a66933280a5266c71f09b2e0ca145fd6ed7f83a7066e7"
     },
     "docs/REVERSE_ENGINEERING_RULES.md": {
       "size": 17815,
@@ -6292,6 +6292,10 @@
     "docs/TRANSLATION.md": {
       "size": 57900,
       "sha256": "b03c5c8b75fff756bbb2be9eb6185ca17b1cc4df28bf5fe81401addc912fa447"
+    },
+    "docs/research/address_book_save_resource_names.md": {
+      "size": 4611,
+      "sha256": "8bfc2a2ed969ee91d96731b9e5ed1013323a2fd199df16aa07e8d61a8d3a8cc3"
     },
     "docs/research/assets/browser_frame_records47.png": {
       "size": 4853,
@@ -6324,6 +6328,10 @@
     "docs/research/audio_function_names.md": {
       "size": 15930,
       "sha256": "eb7f897a7b61f17eb09954ba87f995932379cbab5961363bf3c1df31ba1639f7"
+    },
+    "docs/research/audio_table_names.md": {
+      "size": 7881,
+      "sha256": "b9384429ded4a60f38677128c2f077100189337045c553d8ae8ed32980b6833a"
     },
     "docs/research/bank68_function_names.md": {
       "size": 42563,
@@ -6408,6 +6416,10 @@
     "docs/research/historical_lite_callgraph_archive_adoption.md": {
       "size": 7154,
       "sha256": "babf8689e6ecd910f2b99b650884ceb8afe302bceea4cd1198c99d85ad55117d"
+    },
+    "docs/research/home_data_names.md": {
+      "size": 7160,
+      "sha256": "526429f5e4bf5f9439045db61565b5769610abcde20fba9c0e2b325e39a7168d"
     },
     "docs/research/home_function_names.md": {
       "size": 51381,
@@ -6864,6 +6876,10 @@
     "docs/research/text_encoding.md": {
       "size": 21467,
       "sha256": "0907099a526fedee04870465d626077a54b839f9f28b5164d61e55747eb03c56"
+    },
+    "docs/research/title_logo_resource_names.md": {
+      "size": 3566,
+      "sha256": "8d6368f79f6c414d856af45b6ddef46db6e0e1e06388378d718bd2ee875b5321"
     },
     "docs/research/typing_00_a2a_d34_contract_corrections.md": {
       "size": 9703,
@@ -8558,8 +8574,8 @@
       "sha256": "8143cb95d9a84e819c83c0216d7b550135906c8d31d815d78189a8e03c3df210"
     },
     "gfx/address_book/save_confirm.asm": {
-      "size": 1797,
-      "sha256": "37cd941941de8337a5c1a775177846d7225f9a6ba100c351cd1d75436f5a0633"
+      "size": 1738,
+      "sha256": "4e103c425ddb5d6b31d53b5991f13a7a1a644101652b844d3deeff938238018f"
     },
     "gfx/address_book/save_confirm/addr_save_confirm_bg.pal": {
       "size": 519,
@@ -8594,8 +8610,8 @@
       "sha256": "69baa1b3d9a6cd7047e912311b8c14a6eb749e531654de7a2cb793b927c52af1"
     },
     "gfx/address_book/save_sender_address.asm": {
-      "size": 14115,
-      "sha256": "f0b92cd9c21e72d54ab781b349dd81da7fb7b8ce70610372016ffa406f0ffa0d"
+      "size": 14069,
+      "sha256": "5b55f5f6d7239feccac9f234e19d52c7c63358c92382f664d6357e3088c2984d"
     },
     "gfx/address_book/save_sender_address/data_save_sender_addr_tilemap_attr.attrmap": {
       "size": 360,
@@ -14542,8 +14558,8 @@
       "sha256": "bf23499cdedcce56ed0236ff1a23fe4c7de1eeadef9abd18a14e619d248ccfcf"
     },
     "gfx/title/logo.asm": {
-      "size": 1289,
-      "sha256": "0483792131ca900d341bb7ed909a7bd5ad7e88bb716ad0762d4154423df6ddf1"
+      "size": 1233,
+      "sha256": "4e975872242d2b039937f56392cdef8dbff364ddbdf941ed2383ec2bb79bb943"
     },
     "gfx/title/logo/title_logo.pal": {
       "size": 519,
@@ -15038,8 +15054,8 @@
       "sha256": "0715380bd6b75fe63a3f9af99452b8ed4ceb8ae3fa270267c353d0fc97a12140"
     },
     "home/audio.asm": {
-      "size": 8064,
-      "sha256": "5eeaf29c78a94a19b5987ba21ab2430000f3c6382b84d7338d662abae6ef1949"
+      "size": 8034,
+      "sha256": "7a702e34fdcb1d89a4b6001110107a278678517ad5b204d434b7d563f5a01ce2"
     },
     "home/bank_switch.asm": {
       "size": 2338,
@@ -15062,8 +15078,8 @@
       "sha256": "35ca8cad32c09121f2b1c41a76e9b9bcac5358e22bf6d3d27eecba1698c981d6"
     },
     "home/far_string.asm": {
-      "size": 3269,
-      "sha256": "9fa6fcaae709fb6e02fdbf2ec1f35a9d031ede3c2c61489a54f80ad20bb3e140"
+      "size": 3265,
+      "sha256": "78757dd43d68c61858266c6536324773cf9044547a442928e0c04af2bb2c1896"
     },
     "home/farcall.asm": {
       "size": 3663,
@@ -15086,8 +15102,8 @@
       "sha256": "d374156b69370ef4c79228c48d8a61bf3ccd9591be2fd7599ce2ea5818006865"
     },
     "home/init.asm": {
-      "size": 3500,
-      "sha256": "282005a4036e5a318531d2525d1c9847451816313555ee98d9c9e33a508caf63"
+      "size": 3475,
+      "sha256": "b1052c30432382b83e4b7284d5e61eedaa36e8fb4054834e66499286e09d7e14"
     },
     "home/interrupt_handlers.asm": {
       "size": 1660,
@@ -15118,8 +15134,8 @@
       "sha256": "04108d7466b29d8f2d9967517abe4273da0da7ee1b6a8bddc2cc16ad7edfd502"
     },
     "home/random.asm": {
-      "size": 2239,
-      "sha256": "b0660af7ccd9f22ae9967da65137ded3049c4cd4020723aeeea36787ea5c6f8b"
+      "size": 2232,
+      "sha256": "3f34772af287d7f5d3e1be1a523be419b2ae97a53755fd3405f461851927601c"
     },
     "home/sprites.asm": {
       "size": 8997,
@@ -15134,8 +15150,8 @@
       "sha256": "f1853d7db30a39a709e4bed12a37890911413a8586287fad97d78d1d320e22f6"
     },
     "home/text.asm": {
-      "size": 11035,
-      "sha256": "318c5f1578de7c5ea35401fd938ac65e21620756f2c76a6d53e6f4623281dd38"
+      "size": 10975,
+      "sha256": "cb130067cdd21a6c2f59923e6a4709e0ea1f6654c350c9e7636b03f488f04e95"
     },
     "home/text_measure.asm": {
       "size": 2951,
@@ -15174,8 +15190,8 @@
       "sha256": "d3819f8dea3ecc30ecad464c523b40687514efc2ca3050f76a6e9a61ad75447c"
     },
     "ram/hram.asm": {
-      "size": 14247,
-      "sha256": "6321adf398ebb62a3690cfeeded432ff67cb50e8741d325fa3b2988bae711317"
+      "size": 14255,
+      "sha256": "74bbd78134dd49ec1cde4c735d88943206bc179b8ff25f32749d1fa8c4ba58f5"
     },
     "ram/overlays.asm": {
       "size": 184224,
@@ -20501,5 +20517,5 @@
     }
   },
   "overrides_count": 564,
-  "fallback_count": 4262
+  "fallback_count": 4266
 }

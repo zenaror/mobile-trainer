@@ -803,13 +803,13 @@ SoundDrv_GetPlayingId:: ; 04:445C
 ; ---- words $449B-$44A3 (8 bytes) [PROBABLE] 4 WRAM record addresses D040,D07C,D0B8,D0F4 (stride $3C = the 8 x $3C-byte records cleared at D040 by 04:4000); read by the code at 4479 (ld bc,$4499 ; sla a ; add a,c ; ld a,[bc]) with index 1-4 (index 0 would be the operand of the jp $2141 at 4498)
 
 Table_SoundDrv_SfxTrackPtrs:: ; 04:449B
-Data_04_449B::
+
 	dw wSoundDrv_Tracks, wSoundDrv_Tracks + $3C, wSoundDrv_Tracks + $78, wSoundDrv_Tracks + $B4
 
 ; ---- ptrtable $44A3-$44B1 (14 bytes) [PROBABLE] 7 code pointers (4819 4840 4947 4962 4991 4908 49CD), base loaded by ld bc,$44A3 at 04:44C9 then jp 45CD (jump-table dispatcher: sla a ; add a,c ; ... ; jp hl); all 7 targets decode cleanly
 
 Table_SoundDrv_ParamHandlers:: ; 04:44A3
-Table_04_44A3::
+
 	dw SoundDrv_ParamTempoScale
 	dw SoundDrv_ParamPitchOffset
 	dw SoundDrv_ParamVolumeScale
@@ -1242,7 +1242,7 @@ SoundDrv_ComputeTrackOutput:: ; 04:4668
 ; ---- ptrtable $46E8-$4726 (62 bytes) [PROBABLE] 31 code pointers (jump table of the dispatcher 04:45CD, base ld bc,$46E8 at 04:45CA; executed reads cover 46E8-46F0 and 4708-4712); every word is a code entry that decodes cleanly (45DB 479B 4777 47A3 47C5 4A24 45DB 47E3 483A 484E 492A 4955 4896 48D5 48EC 4925 4970 4984 4997 49B6 ...); merged from mapper pieces 46E8/46F0/46F8/4706/4708/4712/4722
 
 Table_SoundDrv_Commands:: ; 04:46E8
-Table_04_46E8::
+
 	dw SoundDrv_CmdEnd
 	dw SoundDrv_CmdJump
 	dw SoundDrv_CmdCall
@@ -1278,7 +1278,7 @@ Table_04_46E8::
 ; ---- ptrtable $4726-$473E (24 bytes) [PROBABLE] 12 code pointers, base ld bc,$4726 at 04:4750 then jp 45CD; ends at the code region 473E; targets 45DB 49D3 49E2 49FF 4A1A 4A1F 49C3 49C8 4A24 4A24 49D8 49DD all decode cleanly
 
 Table_SoundDrv_ExtCommands:: ; 04:4726
-Table_04_4726::
+
 	dw SoundDrv_CmdEnd
 	dw SoundDrv_ExtSetInstrByte0
 	dw SoundDrv_ExtSetInstrByte3Hi
@@ -1458,7 +1458,7 @@ SoundDrv_UpdateTempoStep:: ; 04:47FB
 	ret
 
 SoundDrv_ParamTempoScale:: ; 04:4819
-	; [PROBABLE] validated entry 4819 of jump table Table_04_44A3 (index 0); clean decode to a
+	; [PROBABLE] table Table_SoundDrv_ParamHandlers, index 0 -> $4819; clean decode to a
 	; terminator
 	ld a, [wSoundDrv_ReqDE + $01]
 	and a, a
@@ -1486,7 +1486,7 @@ Label_04_483A::
 
 SoundDrv_ParamPitchOffset:: ; 04:4840
 Label_04_4840::
-	; [PROBABLE] validated entry 4840 of jump table Table_04_44A3 (index 1); clean decode to a
+	; [PROBABLE] table Table_SoundDrv_ParamHandlers, index 1 -> $4840; clean decode to a
 	; terminator
 	ld a, [wSoundDrv_ParamDirtyMask]
 	set 2, a
@@ -1635,7 +1635,7 @@ Label_04_48EC::
 
 SoundDrv_ParamVibratoRate:: ; 04:4908
 Label_04_4908::
-	; [PROBABLE] validated entry 4908 of jump table Table_04_44A3; clean decode to a terminator
+	; [PROBABLE] entry $4908 via Table_SoundDrv_ParamHandlers; clean decode to a terminator
 	ld a, [wSoundDrv_ReqBC + $01]
 	sla a
 	jr z, .l4915
@@ -1673,7 +1673,7 @@ SoundDrv_CmdSetVolume:: ; 04:492A
 	jp SoundDrv_ReadNextCommand
 
 SoundDrv_ParamVolumeScale:: ; 04:4947
-	; [PROBABLE] validated entry 4947 of jump table Table_04_44A3; clean decode to a terminator
+	; [PROBABLE] entry $4947 via Table_SoundDrv_ParamHandlers; clean decode to a terminator
 	ld a, [wSoundDrv_ParamDirtyMask]
 	set 1, a
 	ld [wSoundDrv_ParamDirtyMask], a
@@ -1692,7 +1692,7 @@ Label_04_4955::
 
 SoundDrv_ParamPanOffset:: ; 04:4962
 Label_04_4962::
-	; [PROBABLE] validated entry 4962 of jump table Table_04_44A3; clean decode to a terminator
+	; [PROBABLE] entry $4962 via Table_SoundDrv_ParamHandlers; clean decode to a terminator
 	ld a, [wSoundDrv_ParamDirtyMask]
 	set 0, a
 	ld [wSoundDrv_ParamDirtyMask], a
@@ -1728,7 +1728,7 @@ Label_04_4984::
 
 SoundDrv_ParamVibratoDepth:: ; 04:4991
 Label_04_4991::
-	; [PROBABLE] validated entry 4991 of jump table Table_04_44A3; clean decode to a terminator
+	; [PROBABLE] entry $4991 via Table_SoundDrv_ParamHandlers; clean decode to a terminator
 	ld bc, $0022
 	jp SoundDrv_SetTrackFieldByte
 
@@ -1766,7 +1766,7 @@ SoundDrv_ExtSetTrack27:: ; 04:49C3
 Label_04_49C3::
 	; $CD 6 (never used by the data): +$27 = level of the note-end tail, high nibble (PROBABLE, demonstrated (synthetic): see .l4D54)
 	; [PROBABLE] entries 49C3/49C8/49CD/49D3/49D8/49DD/49E2/49FF/4A1A/4A1F are words of the jump
-	; tables Table_04_44A3 and Table_04_46E8/4726; clean decode to a terminator at 4A24
+	; tables at 04:44A3, 04:46E8 and 04:4726; clean decode to a terminator at 04:4A24
 	ld bc, $0027
 	jr SoundDrv_CmdStoreTrackByte
 

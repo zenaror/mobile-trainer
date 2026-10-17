@@ -7,7 +7,7 @@ SECTION "audio/notes", ROMX
 ; ---- data $5044-$5075 (49 bytes) [CONFIRMED] Table_SoundDrv_Durations: 49 bytes, the ticks of a wait (index = opcode - $80) or the gate time of a note (index = opcode - $CF); read by the wait handler 04:4756 and by SoundDrv_CmdNote 04:4A2B; 00..18 step 1, then 1C 1E 20 24 28 2A 2C 30 34 36 38 3C 40 42 44 48 4C 4E 50 54 58 5A 5C 60 | superseded note: [PROBABLE] 49-byte lookup table: 00..18 step 1 (25 values) then 1C 1E 20 24 28 2A 2C 30 34 36 38 3C 40 42 44 48 4C 4E 50 54 58 5A 5C 60 (step pattern 2,2,4,4 repeating); the mapper had 5068-5074 as a word table (false positive) and 8 executed-read pieces with 1-byte unread holes; all were entries of this one table. Field meaning unknown
 
 Table_SoundDrv_Durations:: ; 04:5044
-Data_04_5044::
+
 	sound_durations 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ; index $00-$0F
 	sound_durations 16, 17, 18, 19, 20, 21, 22, 23, 24, 28, 30, 32, 36, 40, 42, 44 ; index $10-$1F
 	sound_durations 48, 52, 54, 56, 60, 64, 66, 68, 72, 76, 78, 80, 84, 88, 90, 92 ; index $20-$2F
@@ -16,7 +16,7 @@ Data_04_5044::
 ; ---- data $5075-$51DD (360 bytes) [CONFIRMED] Table_SoundDrv_NoteFreq: 120 records of 3 bytes (dw 11-bit period, db step), index = pitch byte - $24 (SoundDrv_NoteToIndex 04:4FEA), one semitone per record; SoundDrv_WriteChannelPitch 04:4ECA adds step * (fraction of the pitch offset) / 256 to the period; every period is within 1 of the equal-tempered value of MIDI note 36 + index (A4 = 440 Hz; $002C = 65.4 Hz = C2) and step is the next period minus this one, within 1 | superseded note: [PROBABLE] sound note table: 120 records x 3 bytes = little-endian 11-bit GB frequency (002C 009D 0107 016B 01C9 0223 0277 02C7 0312 0358 039B 03DA 0416 044E ... 07FE, non-decreasing over all 120 entries (strictly increasing up to entry 88, then the values 07F4-07FE repeat: the 11-bit period saturates), matches the equal-tempered GB period table: 002C = 65.4 Hz = C2, 12 entries per octave) followed by one byte (70 6A 64 5F 59 54 50 ... decreasing per note, meaning unknown); 5075+120*3 = 51DD = start of the next table; executed reads of 5074-51DD in up to 17/18 scenarios
 
 Table_SoundDrv_NoteFreq:: ; 04:5075
-Data_04_5075::
+
 	sound_note_freq $002C, $70 ; pitch $24 C2
 	sound_note_freq $009D, $6A ; pitch $25 C#2
 	sound_note_freq $0107, $64 ; pitch $26 D2

@@ -7,20 +7,20 @@ SECTION "gfx/address_book/save_sender_address", ROMX
 ; ---- gfx $4AA0-$4CD0 (560 bytes) [CONFIRMED] 35 tiles (560 bytes) 2bpp: 'ld de,$9301 ; ld hl,$4AA0 ; ld a,$2A ; ld c,$23 ; call FarCall -> 00:0749 (HDMA rom->vram)' at 2A:413A-4149 (c = tile count $23 = 35; ends exactly where the tilemap+attr at 4CD0 begins; blank/$FF stretches inside are tile content). Merges the former zero/$FF/UNCLASSIFIED fragments [every byte read as data in 6 scenario(s)]
 
 Gfx_SaveSenderAddr_Tiles9300Vb1:: ; 2A:4AA0
-Tiles_2A_4AA0::
+
 	INCBIN "gfx/address_book/save_sender_address/save_sender_addr_tiles9300.2bpp"
 
 ; ---- data $4CD0-$4FA0 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2A:417B: hl=$4CD0 a=$2A b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 19 hits in 6 scenarios (analysis/coverage_union.tsv)]
 
 Data_SaveSenderAddr_TilemapAttr:: ; 2A:4CD0
-Data_2A_4CD0::
+
 	INCBIN "gfx/address_book/save_sender_address/data_save_sender_addr_tilemap_attr.tilemap"
 	INCBIN "gfx/address_book/save_sender_address/data_save_sender_addr_tilemap_attr.attrmap"
 
 ; ---- data $4FA0-$4FE0 (64 bytes) [PROBABLE] 64 bytes = 32 RGB555 words (bit15 clear), 8 palette groups: loaded by 'ld bc,$0040 ; ld de,$D800 ; ld hl,$4FA0 ; ld a,$2A ; far call 4F:4000' at 2A:4129-4139
 
 Palette_SaveSenderAddr_Bg:: ; 2A:4FA0
-Palette_2A_4FA0::
+
 	INCLUDE "gfx/address_book/save_sender_address/save_sender_addr_bg.pal"
 
 ; ---- gfx $4FE0-$51E0 (512 bytes) [PROBABLE] 32 tiles (512 bytes) 2bpp: rendered as coherent sprite/tile art; no HDMA call site found (the block sits between the palette 4FA0-4FE0 that is loaded via 4F:4000 and the palette 51E0-5220); bounds fixed by the neighbouring palettes

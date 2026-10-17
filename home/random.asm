@@ -14,7 +14,7 @@ Random16:: ; 00:0C0E
 	ret
 
 Random:: ; 00:0C18
-	; [PROBABLE] A(hFFFE) = (5*hFFFE + 2) xor Table_00_0C34[++hFFFD] ; returns in hFFFE (index hFFFD
+	; [PROBABLE] A(hFFFE) = (5*hFFFE + 2) xor Table_Random_XorBytes[++hFFFD] ; returns in hFFFE (index hFFFD
 	; wraps at 256). No seeding code in ROM0 [candidate; raw refs 26]
 	push bc
 	ldh a, [hRandomIndex]
@@ -40,7 +40,7 @@ Random:: ; 00:0C18
 ; ---- data $0C34-$0D34 (256 bytes) [CONFIRMED] 256 bytes indexed by hFFFD, xor operand of Random (0C2F)
 
 Table_Random_XorBytes:: ; 00:0C34
-Table_00_0C34::
+
 	db $35, $4C, $34, $E4, $CA, $A8, $0C, $DC, $A5, $0F, $37, $7B, $AA, $9D, $F2, $5A
 	db $1A, $65, $94, $C6, $1F, $B5, $C1, $21, $A5, $9C, $E1, $86, $6C, $AA, $D0, $AC
 	db $5B, $F7, $D7, $0D, $18, $66, $DC, $47, $D5, $2B, $D5, $C2, $6D, $8B, $83, $93
