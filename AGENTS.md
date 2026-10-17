@@ -51,6 +51,8 @@ anotação da OMM "Mobile Trainer: delegação com cópia privada e escopo de ar
 
 ## Cleanup e retenção
 
+O material de apoio e os temporários deste projeto ficam em `.tmp/`, na raiz deste checkout, ignorada pelo Git. Não use mais `~/mobile-trainer-wip/`. O material anterior foi realocado para `.tmp/mobile-trainer-wip/`; referências históricas ao caminho antigo devem ser resolvidas nesse novo local, sem reescrever arquivos de evidência selados. Novos passes usam subpastas de `.tmp/`. Essa pasta pode conter evidências e propostas pendentes: estar em `.tmp/` não autoriza sua exclusão automática. A memória e o handoff atuais continuam na OMM; os arquivos históricos migrados não são sua fonte de autoridade.
+
 Ao fechar tarefa, checkpoint ou pausa, classifique os artefatos da própria tarefa e confira se algum processo ou revisão ainda depende deles. Arquivo ignorado ou não rastreado não é automaticamente descartável. Não remova trabalho de outra sessão, caminhos de origem incerta ou arquivos usados por operações ativas.
 
 - `build/` e `mobile_trainer.gbc` são saídas reproduzíveis de `make`; `build/en/` também contém a visão de fontes, o cache e as saídas de `make english`. Preserve os outputs enquanto forem referência de comparação, revisão ou release aceita. Antes de limpar, conserve em armazenamento durável os comandos, ambiente, hashes, resultados, falhas e arquivos mínimos necessários para reproduzir e conferir o passe.

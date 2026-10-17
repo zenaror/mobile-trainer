@@ -3406,12 +3406,12 @@
   },
   "fallback_files": {
     ".gitignore": {
-      "size": 621,
-      "sha256": "687de2dfb896c1f629ded78ac25b19584401eb20c5f78dadf3be5b86bdfca3fc"
+      "size": 627,
+      "sha256": "db45baa6a5d56d25938e39d2fa643ce60eafd6f004944f9ec8e83853e4d9a335"
     },
     "AGENTS.md": {
-      "size": 6534,
-      "sha256": "9ade8eaa582e1a9b5ec3cc181a1e6881e5cc2f028a222aea499b46c046bbd924"
+      "size": 7155,
+      "sha256": "eed9c7f223b5d1c303d87380e5548f9f8895f889bd468fb7c34acbe696e0bda5"
     },
     "INSTALL.md": {
       "size": 6291,
