@@ -3422,8 +3422,8 @@
       "sha256": "37a6751a209c8d25e51cf919800d769d1e50de38e3cad345027115d046b54567"
     },
     "REVERSE_ENGINEERING.md": {
-      "size": 155153,
-      "sha256": "90468dad97407ac3663a71e8a1af329e334697db307632939fac9412778ea510"
+      "size": 156338,
+      "sha256": "87c62380aadb6421c38cae696ef5a4c28225a6739ad3b4798e33b05725a49e13"
     },
     "STYLE.md": {
       "size": 57938,
@@ -6278,8 +6278,8 @@
       "sha256": "2a81b21c5620247e1ba2a3e144067e00ccf095f618692ed2541c10e8e761633b"
     },
     "docs/README.md": {
-      "size": 68514,
-      "sha256": "f0f1d82322788377760a66933280a5266c71f09b2e0ca145fd6ed7f83a7066e7"
+      "size": 68675,
+      "sha256": "0efd884ea1ee05cae72c32abdccab8438eb8d0529b489203ca3c7da5cbddfcc7"
     },
     "docs/REVERSE_ENGINEERING_RULES.md": {
       "size": 17815,
@@ -6306,12 +6306,12 @@
       "sha256": "16e0d63e3fd40e003177f7f33e94a454990a2ee01bb11a26f23925bf2511f886"
     },
     "docs/research/assets_original_catalogue_and_layout_audit.md": {
-      "size": 9491,
-      "sha256": "63de245241095970629d4a7e99ea1f81eba03c3656053dd16c8b8b9171b2686d"
+      "size": 10677,
+      "sha256": "3d085a435af1bf41acbf8fb905b83e295912e9d7d8715510d2808db14a62ea2d"
     },
     "docs/research/assets_pokemon_frames_and_name_limits.md": {
-      "size": 59358,
-      "sha256": "bc20bab1207aeeca4c0d2f1b96172df56f5ea15be5f2e7ebf7b780bcd982274b"
+      "size": 62987,
+      "sha256": "269beb05edd1f54812a09d73d19952610c3f28b2fce00ba1f732ffa97949ac7f"
     },
     "docs/research/audio2_verify_dynamic.md": {
       "size": 47981,
@@ -6464,6 +6464,10 @@
     "docs/research/img/tiles-vram_62_4000_400.png": {
       "size": 1198,
       "sha256": "3c9e7527d83fb141b09c4366120b8f0c1df09908acb0a056a41d236eeb0edc98"
+    },
+    "docs/research/mail_sdk_data_names.md": {
+      "size": 7014,
+      "sha256": "19cc75ffabe3e322288e09f686e97df94559cfa254c4253a7f0a54d13e5d6fd1"
     },
     "docs/research/mobile_protocol.md": {
       "size": 27077,
@@ -15174,8 +15178,8 @@
       "sha256": "bbe0ed2989ce54c5172232f598a3ad3dde88385994eed5eb22ab1eb0b9d99d8b"
     },
     "lib/mobile/mail.asm": {
-      "size": 93007,
-      "sha256": "7c1dabc05ffe0166b85c24c210e9bdf3a107122a7c6c455763433594977788c9"
+      "size": 92766,
+      "sha256": "afdd22d283d96f9fcb8182dcb9727ef33a4d2726b758f4cb859ed523f3f0f081"
     },
     "lib/mobile/main.asm": {
       "size": 216169,
@@ -20517,5 +20521,5 @@
     }
   },
   "overrides_count": 564,
-  "fallback_count": 4266
+  "fallback_count": 4267
 }

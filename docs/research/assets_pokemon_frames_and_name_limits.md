@@ -294,29 +294,29 @@ Paths are existing files relative to the repository root. A dash means no row in
 
 |Physical window|Map address|Existing editing PNG|Existing legacy PNG|
 |---|---|---|---|
-|41:4000–4D50|41:4A00|[gfx/bank41/tilemap_4a00.screen.png](../../gfx/bank41/tilemap_4a00.screen.png)|[gfx/previews/screens/BrowserFrameUnused_41_0.png](../../gfx/previews/screens/BrowserFrameUnused_41_0.png)|
-|41:4D50–5AA0|41:5750|[gfx/bank41/tilemap_5750.screen.png](../../gfx/bank41/tilemap_5750.screen.png)|[gfx/previews/screens/BrowserFrameUnused_41_1.png](../../gfx/previews/screens/BrowserFrameUnused_41_1.png)|
+|41:4000–4D50|41:4A00|[gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/leaf_vine_border_41_4000_tilemap.screen.png](../../gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/leaf_vine_border_41_4000_tilemap.screen.png)|[gfx/previews/screens/BrowserFrameUnused_41_0.png](../../gfx/previews/screens/BrowserFrameUnused_41_0.png)|
+|41:4D50–5AA0|41:5750|[gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/lavender_ribbon_border_41_4d50_tilemap.screen.png](../../gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/lavender_ribbon_border_41_4d50_tilemap.screen.png)|[gfx/previews/screens/BrowserFrameUnused_41_1.png](../../gfx/previews/screens/BrowserFrameUnused_41_1.png)|
 |41:5AA0–67F0|41:64A0|—|[gfx/previews/screens/BrowserFrameUnused_41_2.png](../../gfx/previews/screens/BrowserFrameUnused_41_2.png)|
 |41:67F0–7540|41:71F0|—|[gfx/previews/screens/BrowserFrameUnused_41_3.png](../../gfx/previews/screens/BrowserFrameUnused_41_3.png)|
-|42:4000–4D50|42:4A00|[gfx/bank42/tilemap_4a00.screen.png](../../gfx/bank42/tilemap_4a00.screen.png)|[gfx/previews/screens/BrowserFrameUnused_42_0.png](../../gfx/previews/screens/BrowserFrameUnused_42_0.png)|
-|42:4D50–5AA0|42:5750|[gfx/bank42/tilemap_5750.screen.png](../../gfx/bank42/tilemap_5750.screen.png)|[gfx/previews/screens/BrowserFrameUnused_42_1.png](../../gfx/previews/screens/BrowserFrameUnused_42_1.png)|
+|42:4000–4D50|42:4A00|[gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_tilemap.screen.png](../../gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_tilemap.screen.png)|[gfx/previews/screens/BrowserFrameUnused_42_0.png](../../gfx/previews/screens/BrowserFrameUnused_42_0.png)|
+|42:4D50–5AA0|42:5750|[gfx/frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_tilemap.screen.png](../../gfx/frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_tilemap.screen.png)|[gfx/previews/screens/BrowserFrameUnused_42_1.png](../../gfx/previews/screens/BrowserFrameUnused_42_1.png)|
 |42:5AA0–67F0|42:64A0|—|[gfx/previews/screens/BrowserFrameUnused_42_2.png](../../gfx/previews/screens/BrowserFrameUnused_42_2.png)|
-|42:67F0–7540|42:71F0|[gfx/bank42/tilemap_71f0.screen.png](../../gfx/bank42/tilemap_71f0.screen.png)|[gfx/previews/screens/BrowserFrameUnused_42_3.png](../../gfx/previews/screens/BrowserFrameUnused_42_3.png)|
-|43:4000–4D50|43:4A00|[gfx/bank43/tilemap_4a00.screen.png](../../gfx/bank43/tilemap_4a00.screen.png)|[gfx/previews/screens/BrowserFrameUnused_43_0.png](../../gfx/previews/screens/BrowserFrameUnused_43_0.png)|
+|42:67F0–7540|42:71F0|[gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tilemap.screen.png](../../gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tilemap.screen.png)|[gfx/previews/screens/BrowserFrameUnused_42_3.png](../../gfx/previews/screens/BrowserFrameUnused_42_3.png)|
+|43:4000–4D50|43:4A00|[gfx/frame_designs/plant_chevron_and_heart_borders_43/green_plant_motif_border_43_4000_tilemap.screen.png](../../gfx/frame_designs/plant_chevron_and_heart_borders_43/green_plant_motif_border_43_4000_tilemap.screen.png)|[gfx/previews/screens/BrowserFrameUnused_43_0.png](../../gfx/previews/screens/BrowserFrameUnused_43_0.png)|
 |43:4D50–5AA0|43:5750|—|[gfx/previews/screens/BrowserFrameUnused_43_1.png](../../gfx/previews/screens/BrowserFrameUnused_43_1.png)|
-|43:5AA0–67F0|43:64A0|[gfx/bank43/tilemap_64a0.screen.png](../../gfx/bank43/tilemap_64a0.screen.png)|[gfx/previews/screens/BrowserFrameUnused_43_2.png](../../gfx/previews/screens/BrowserFrameUnused_43_2.png)|
+|43:5AA0–67F0|43:64A0|[gfx/frame_designs/plant_chevron_and_heart_borders_43/leaf_and_seed_border_43_5aa0_tilemap.screen.png](../../gfx/frame_designs/plant_chevron_and_heart_borders_43/leaf_and_seed_border_43_5aa0_tilemap.screen.png)|[gfx/previews/screens/BrowserFrameUnused_43_2.png](../../gfx/previews/screens/BrowserFrameUnused_43_2.png)|
 |43:67F0–7540|43:71F0|—|[gfx/previews/screens/BrowserFrameUnused_43_3.png](../../gfx/previews/screens/BrowserFrameUnused_43_3.png)|
-|44:4000–4D50|44:4A00|[gfx/bank44/tilemap_4a00.screen.png](../../gfx/bank44/tilemap_4a00.screen.png)|[gfx/previews/screens/BrowserFrameUnused_44_0.png](../../gfx/previews/screens/BrowserFrameUnused_44_0.png)|
+|44:4000–4D50|44:4A00|[gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/monochrome_arc_border_44_4000_tilemap.screen.png](../../gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/monochrome_arc_border_44_4000_tilemap.screen.png)|[gfx/previews/screens/BrowserFrameUnused_44_0.png](../../gfx/previews/screens/BrowserFrameUnused_44_0.png)|
 |44:4D50–5AA0|44:5750|—|[gfx/previews/screens/BrowserFrameUnused_44_1.png](../../gfx/previews/screens/BrowserFrameUnused_44_1.png)|
-|44:5AA0–67F0|44:64A0|[gfx/bank44/tilemap_64a0.screen.png](../../gfx/bank44/tilemap_64a0.screen.png)|[gfx/previews/screens/BrowserFrameUnused_44_2.png](../../gfx/previews/screens/BrowserFrameUnused_44_2.png)|
-|44:67F0–7540|44:71F0|[gfx/bank44/tilemap_71f0.screen.png](../../gfx/bank44/tilemap_71f0.screen.png)|[gfx/previews/screens/BrowserFrameUnused_44_3.png](../../gfx/previews/screens/BrowserFrameUnused_44_3.png)|
-|45:4000–4D50|45:4A00|[gfx/bank45/tilemap_4a00.screen.png](../../gfx/bank45/tilemap_4a00.screen.png)|[gfx/previews/screens/BrowserFrameUnused_45_0.png](../../gfx/previews/screens/BrowserFrameUnused_45_0.png)|
+|44:5AA0–67F0|44:64A0|[gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/rock_border_44_5aa0_tilemap.screen.png](../../gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/rock_border_44_5aa0_tilemap.screen.png)|[gfx/previews/screens/BrowserFrameUnused_44_2.png](../../gfx/previews/screens/BrowserFrameUnused_44_2.png)|
+|44:67F0–7540|44:71F0|[gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/turquoise_scroll_border_44_67f0_tilemap.screen.png](../../gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/turquoise_scroll_border_44_67f0_tilemap.screen.png)|[gfx/previews/screens/BrowserFrameUnused_44_3.png](../../gfx/previews/screens/BrowserFrameUnused_44_3.png)|
+|45:4000–4D50|45:4A00|[gfx/frame_designs/ice_spike_curve_and_gold_borders_45/ice_crystal_border_45_4000_tilemap.screen.png](../../gfx/frame_designs/ice_spike_curve_and_gold_borders_45/ice_crystal_border_45_4000_tilemap.screen.png)|[gfx/previews/screens/BrowserFrameUnused_45_0.png](../../gfx/previews/screens/BrowserFrameUnused_45_0.png)|
 |45:4D50–5AA0|45:5750|—|[gfx/previews/screens/BrowserFrameUnused_45_1.png](../../gfx/previews/screens/BrowserFrameUnused_45_1.png)|
-|45:5AA0–67F0|45:64A0|[gfx/bank45/tilemap_64a0.screen.png](../../gfx/bank45/tilemap_64a0.screen.png)|[gfx/previews/screens/BrowserFrameUnused_45_2.png](../../gfx/previews/screens/BrowserFrameUnused_45_2.png)|
-|45:67F0–7540|45:71F0|[gfx/bank45/tilemap_71f0.screen.png](../../gfx/bank45/tilemap_71f0.screen.png)|[gfx/previews/screens/BrowserFrameUnused_45_3.png](../../gfx/previews/screens/BrowserFrameUnused_45_3.png)|
-|46:4000–4D50|46:4A00|[gfx/bank46/tilemap_4a00.screen.png](../../gfx/bank46/tilemap_4a00.screen.png)|[gfx/previews/screens/BrowserFrameUnused_46_0.png](../../gfx/previews/screens/BrowserFrameUnused_46_0.png)|
-|46:4D50–5AA0|46:5750|[gfx/bank46/tilemap_5750.screen.png](../../gfx/bank46/tilemap_5750.screen.png)|[gfx/previews/screens/BrowserFrameUnused_46_1.png](../../gfx/previews/screens/BrowserFrameUnused_46_1.png)|
-|46:5AA0–67F0|46:64A0|[gfx/bank46/tilemap_64a0.screen.png](../../gfx/bank46/tilemap_64a0.screen.png)|[gfx/previews/screens/BrowserFrameUnused_46_2.png](../../gfx/previews/screens/BrowserFrameUnused_46_2.png)|
+|45:5AA0–67F0|45:64A0|[gfx/frame_designs/ice_spike_curve_and_gold_borders_45/red_curved_border_45_5aa0_tilemap.screen.png](../../gfx/frame_designs/ice_spike_curve_and_gold_borders_45/red_curved_border_45_5aa0_tilemap.screen.png)|[gfx/previews/screens/BrowserFrameUnused_45_2.png](../../gfx/previews/screens/BrowserFrameUnused_45_2.png)|
+|45:67F0–7540|45:71F0|[gfx/frame_designs/ice_spike_curve_and_gold_borders_45/gold_geometric_border_45_67f0_tilemap.screen.png](../../gfx/frame_designs/ice_spike_curve_and_gold_borders_45/gold_geometric_border_45_67f0_tilemap.screen.png)|[gfx/previews/screens/BrowserFrameUnused_45_3.png](../../gfx/previews/screens/BrowserFrameUnused_45_3.png)|
+|46:4000–4D50|46:4A00|[gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/star_triangle_border_46_4000_tilemap.screen.png](../../gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/star_triangle_border_46_4000_tilemap.screen.png)|[gfx/previews/screens/BrowserFrameUnused_46_0.png](../../gfx/previews/screens/BrowserFrameUnused_46_0.png)|
+|46:4D50–5AA0|46:5750|[gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/orange_rivet_panel_46_4d50_tilemap.screen.png](../../gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/orange_rivet_panel_46_4d50_tilemap.screen.png)|[gfx/previews/screens/BrowserFrameUnused_46_1.png](../../gfx/previews/screens/BrowserFrameUnused_46_1.png)|
+|46:5AA0–67F0|46:64A0|[gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/blue_energy_border_46_5aa0_tilemap.screen.png](../../gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/blue_energy_border_46_5aa0_tilemap.screen.png)|[gfx/previews/screens/BrowserFrameUnused_46_2.png](../../gfx/previews/screens/BrowserFrameUnused_46_2.png)|
 |46:67F0–7540|46:71F0|—|[gfx/previews/screens/BrowserFrameUnused_46_3.png](../../gfx/previews/screens/BrowserFrameUnused_46_3.png)|
 |47:68F0–7640|47:72F0|[gfx/browser/frames_2_3/tilemap_72f0.screen.png](../../gfx/browser/frames_2_3/tilemap_72f0.screen.png)|—|
 
@@ -341,3 +341,24 @@ The separate positive font7C audit finds10 original font bytes at57C3–57CD out
 Reviewed receipt identities: final frame `REPORT.md` SHA-256 `faf8dab88ccbb5d9e42ec2a9e9c581c372edfa0f67aaf21c0a02d8ec192cf661`; bank53 V2 `REPORT.md` `0bf1d95a19d860f1ef2343c09c21635bdb3cd88a75ceca6469d5f2f6c8c0b5b2`; global `REPORT.json` `9acfb056aa30b01894e6b1a10e6ead7579e2210626e9e27585261c930c44fb1e`; separate font7C `REPORT.md` `abee5223b4ef7be54a3ccf7db8b32ea0c088ee3ae77532871f7295782023d547`. The V2 bank53 wording corrects the416B/576B set distinction while preserving its V1 receipt. The global reader's initial293-English-PNG assertion was corrected before sealing to282 English PNGs plus11 separate research illustrations; these two groups were counted only and remain outside the original-asset audit.
 
 CONFIRMED here covers the finite bytes/paths/partitions and stated coordinate/pixel comparisons. Conditional placement, effective LCDC/VBK/VRAM, caller/entry/purpose and species/name associations retain their earlier limits. KEEP applies to all eight omitted editing views. This reconciliation adds no caller-negative hunt, E7 transitive-survival proof, loader/runtime/forced/natural or hardware evidence, asset retyping, new PNG, build/gate or English result, and makes no ALL claim.
+
+## Dated follow-up: current paths and resolved bank7C span (2026-10-17)
+
+The finite current-source census on published72a3464b resolves the sixteen migrated
+bank41–46 editing-PNG links in the address-only table above through the maintained
+[resource path map](gfx_resource_path_map.tsv). Their current targets exist in
+`gfx/screens.tsv`; this update changes link text and targets only. The seventeen
+conditional editing views, twenty-four separate legacy previews and eight KEEP
+windows retain their previous interpretation. A path or visible resource name does
+not establish a bank53 name ordinal, species, selector association or natural entry.
+
+The positive bank7C gap described in the dated source8dee0a63 baseline above
+has since been resolved in maintained source and active registries: the shared
+846-cell `data/fonts/jis12x12_rows_25_33.png` sheet now has three contiguous original
+spans,6083 bytes at7C:4000,10 at7C:57C3 and9135 at7C:57CD, totalling15228 bytes.
+The current catalogue has952 assets/607666 emitted bytes and951 rules;448
+PNG-backed outputs share446 editable PNG paths. This adds one font span and no PNG
+path. The earlier951/607656 catalogue and separate10-byte/80-pixel finding remain
+facts of their named historical baseline; their receipts and evidence are preserved.
+The follow-up checks current span bytes, paths, hashes and registry coverage; it
+does not repeat a pixel-inverse conversion, render, build or runtime observation.

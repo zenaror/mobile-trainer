@@ -92,6 +92,22 @@ The note-local symbol predictions describe isolated cohorts; the combined migrat
 31 globals from the14921-name parent map, with all51 constants and surviving addresses held.
 English remains suspended pending fresh human confirmation.
 
+The finite Mail SDK follow-on retires20 redundant string/table aliases while retaining
+existing descriptive identities, all physical ASM rows, emitted data/instructions and
+inherited PROBABLE statuses. The [Mail contracts](docs/research/mail_sdk_data_names.md)
+separate the17-entry emission-string table from the two independent13-entry tables,
+retain finite index/bank/WRAM/stack/IRQ conditions and the selector0 saved-AF/bare-RET
+caveat. Correcting the inherited word "parallel" changes a comment only. This follow-on
+predicts14870 symbols from the published14890-name parent, with all surviving values
+and51 exported constants held; linked/native verification remains a separate gate.
+
+The frame/catalogue document follow-ups repair16 stale PNG links through the maintained
+path map and record the already resolved bank7C font gap. They change no image, palette,
+source interval or frame/name association. The finite952-asset inventory and25-window
+checks distinguish present editable backing from historical previews; eight KEEP contexts,
+Pokémon-name associations and runtime/display qualifications remain unresolved.
+English remains suspended pending fresh human confirmation.
+
 The initial wider lexical census at e958ff4f found 5,284 generic global definitions, including aliases
 and 786 neutral RAM coordinates; these are not counts of unknown functions. It also found 4,961
 address-based local labels, all present in the parent SYM, by recognizing colonless RGBDS declarations.

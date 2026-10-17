@@ -48,3 +48,21 @@ A separate positive audit identifies an editable font gap outside the951-row bas
 Reviewed provenance: global `REPORT.json` SHA-256 `9acfb056aa30b01894e6b1a10e6ead7579e2210626e9e27585261c930c44fb1e`; frame `REPORT.md` `faf8dab88ccbb5d9e42ec2a9e9c581c372edfa0f67aaf21c0a02d8ec192cf661`; bank53 V2 `REPORT.md` `0bf1d95a19d860f1ef2343c09c21635bdb3cd88a75ceca6469d5f2f6c8c0b5b2`; font7C `REPORT.md` `abee5223b4ef7be54a3ccf7db8b32ea0c088ee3ae77532871f7295782023d547`. The global reader's initial EN293 assertion was corrected before sealing to282 English plus11 research PNGs; bank53 V2 corrected the416B/576B wording without changing inventory evidence. These DATA-reader errata are not source/asset failures or gate replays.
 
 CONFIRMED covers finite bytes, paths and the scoped representation checks. Conditional composition and context remain qualified; no new natural loader, LCDC/VBK/VRAM reaching state, E7 full-path persistence, species association, rendering/hardware observation or ALL completeness follows. Historical dated findings remain intact. This documentation reconciliation runs no build/gate, regeneration, caller hunt, emulator, PNG export/import or English work.
+
+## Dated follow-up: font7C representation completed (2026-10-17)
+
+The separate positive font finding in the source8dee0a63 reconciliation above is
+historical. On published72a3464b, maintained source and the active catalogue/rules
+include the10-byte span7C:[57C3,57CD) between6083-byte and9135-byte spans, all sharing
+the existing846-cell `data/fonts/jis12x12_rows_25_33.png` sheet. The three original
+spans total15228 bytes. Current totals are952 assets/607666 emitted bytes,951
+rules,448 PNG-backed outputs and446 unique editable PNG paths. The additional
+font span introduces no PNG path; the older951-row baseline, its80-pixel finding
+and its reviewed receipts remain preserved above.
+
+The finite2026-10-17 census checks existing paths, byte ranges, source references,
+hashes, PNG structure and declared screen-resource bounds. It does not replay PNG
+pixel inverses or add build/runtime evidence. The eight KEEP frame editing views,
+conditional model limits, and unknown bank53 name/species associations remain.
+Current migrated editing-PNG links appear in the companion
+[address-only window table](assets_pokemon_frames_and_name_limits.md#address-only-inventory-of-the25-windows).

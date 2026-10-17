@@ -8,7 +8,7 @@ SECTION "lib/mobile/mail", ROMX
 
 PUSHC sjis
 MailStr_Boundary:: ; 0F:4000
-String_0F_4000::
+
 	db "---", 0
 POPC
 
@@ -16,17 +16,17 @@ POPC
 
 PUSHC sjis
 MailStr_GameCodeAllowList:: ; 0F:4004
-String_0F_4004::
+
 	db "CGB-AAAA-00", 0
 POPC
 
-; ---- zero $4010-$4011 (1 bytes) [PROBABLE] 1 x 00 pad byte between the string ending at 4010 (String_0F_4004 ends at its NUL 400F) and the table at 4011
+; ---- zero $4010-$4011 (1 bytes) [PROBABLE] 1 x 00 pad byte between the string ending at 4010 (MailStr_GameCodeAllowList ends at its NUL 400F) and the table at 4011
 	ds $1, $00
 
 ; ---- ptrtable $4011-$4033 (34 bytes) [PROBABLE] 17 x dw string pointers: 4033 "From: ", 403A "Sender: ", 4043 "Reply-To: ", 404E "To: ", 4053 "Cc: ", 4058 "Subject: ", ... 4164 "--", 4167 "."; every target is a NUL-terminated ASCII string start (mail header field names of the message composer/parser); table starts at an odd address
 
 Mail_HeaderStringTable:: ; 0F:4011
-Table_0F_4011::
+
 	dw MailStr_HdrFrom
 	dw MailStr_HdrSender
 	dw MailStr_HdrReplyTo
@@ -49,7 +49,7 @@ Table_0F_4011::
 
 PUSHC sjis
 MailStr_HdrFrom:: ; 0F:4033
-String_0F_4033::
+
 	db "From: ", 0
 POPC
 
@@ -57,7 +57,7 @@ POPC
 
 PUSHC sjis
 MailStr_HdrSender:: ; 0F:403A
-String_0F_403A::
+
 	db "Sender: ", 0
 
 MailStr_HdrReplyTo:: ; 0F:4043
@@ -68,7 +68,7 @@ POPC
 
 PUSHC sjis
 MailStr_HdrTo:: ; 0F:404E
-String_0F_404E::
+
 	db "To: ", 0
 
 MailStr_HdrCc:: ; 0F:4053
@@ -79,7 +79,7 @@ POPC
 
 PUSHC sjis
 MailStr_HdrSubject:: ; 0F:4058
-String_0F_4058::
+
 	db "Subject: ", 0
 
 MailStr_HdrMimeVersion:: ; 0F:4062
@@ -111,7 +111,7 @@ POPC
 
 PUSHC sjis
 MailStr_DashDash:: ; 0F:4164
-String_0F_4164::
+
 	db "--", 0
 POPC
 
@@ -119,21 +119,21 @@ POPC
 
 PUSHC sjis
 MailStr_Dot:: ; 0F:4167
-String_0F_4167::
+
 	db ".", 0
 POPC
 
 ; ---- words $4169-$4183 (26 bytes) [PROBABLE] 13-entry jump table: the dispatcher at 0F:4250-425F reads [D002]*2 + $4169 (ld hl,$4169 ; add hl,de ; ld a,[hli] ; ld h,[hl] ; ld l,a ; ... jp hl); all 13 targets (426C 426D 4340 43BB 44D5 4B59 4BC0 4CDD 4E66 52BC 54D8 56E1 5A10) are instruction starts of the PROBABLE code regions of this bank
 
 Mail_SelectorTable:: ; 0F:4169
-Table_0F_4169::
+
 	dw Mail_SelectorNop, Mail_ScanHeaders, Mail_CheckGameMail, Mail_LocateHeader, Mail_ParseBody, Mail_IndexHeaders, Mail_GetDecodedHeader, Mail_GetAddressList
 	dw Mail_ComposeNext, Mail_ComposeHeaderBlock, Mail_ComposeMimeBody, Mail_Base64EncodeStream, Mail_Base64DecodeStream
 
-; ---- ptrtable $4183-$419D (26 bytes) [PROBABLE] 13 x dw pointers to the ASCII header-name strings 419D "FROM:", 41A3 "SENDER:", 41AB "REPLY-TO:", 41B5 "TO:", 41B9 "CC:", 41BD "SUBJECT:", 41C6 "DATE:", 41CC "CONTENT-TYPE:", ... 420D "X-GBMAIL-TYPE:" (parallel to the 13-entry jump table 0F:4169; every target is a string start)
+; ---- ptrtable $4183-$419D (26 bytes) [PROBABLE] 13 x dw pointers to the ASCII header-name strings 419D "FROM:", 41A3 "SENDER:", 41AB "REPLY-TO:", 41B5 "TO:", 41B9 "CC:", 41BD "SUBJECT:", 41C6 "DATE:", 41CC "CONTENT-TYPE:", ... 420D "X-GBMAIL-TYPE:" (independent of the 13-entry selector table 0F:4169; B indexes these keywords in Mail_FindHeader_Scan 0F:4416; every target is a string start)
 
 Mail_HeaderKeywordTable:: ; 0F:4183
-Table_0F_4183::
+
 	dw MailStr_KwFrom
 	dw MailStr_KwSender
 	dw MailStr_KwReplyTo
@@ -152,7 +152,7 @@ Table_0F_4183::
 
 PUSHC sjis
 MailStr_KwFrom:: ; 0F:419D
-String_0F_419D::
+
 	db "FROM:", 0
 
 MailStr_KwSender:: ; 0F:41A3
@@ -163,7 +163,7 @@ POPC
 
 PUSHC sjis
 MailStr_KwReplyTo:: ; 0F:41AB
-String_0F_41AB::
+
 	db "REPLY-TO:", 0
 POPC
 
@@ -171,7 +171,7 @@ POPC
 
 PUSHC sjis
 MailStr_KwTo:: ; 0F:41B5
-String_0F_41B5::
+
 	db "TO:", 0
 
 MailStr_KwCc:: ; 0F:41B9
@@ -182,7 +182,7 @@ POPC
 
 PUSHC sjis
 MailStr_KwSubject:: ; 0F:41BD
-String_0F_41BD::
+
 	db "SUBJECT:", 0
 POPC
 
@@ -190,7 +190,7 @@ POPC
 
 PUSHC sjis
 MailStr_KwDate:: ; 0F:41C6
-String_0F_41C6::
+
 	db "DATE:", 0
 POPC
 
@@ -198,7 +198,7 @@ POPC
 
 PUSHC sjis
 MailStr_KwContentType:: ; 0F:41CC
-String_0F_41CC::
+
 	db "CONTENT-TYPE:", 0
 
 MailStr_KwMimeVersion:: ; 0F:41DA
@@ -221,7 +221,7 @@ POPC
 
 PUSHC sjis
 MailStr_KwName:: ; 0F:421C
-String_0F_421C::
+
 	db "NAME=", 0
 POPC
 
@@ -229,7 +229,7 @@ POPC
 
 PUSHC sjis
 MailStr_KwMultipart:: ; 0F:4222
-String_0F_4222::
+
 	db "MULTIPART", 0
 
 MailStr_KwBoundary:: ; 0F:422C
@@ -240,7 +240,7 @@ POPC
 
 PUSHC sjis
 MailStr_EncodedWordPrefix:: ; 0F:4236
-String_0F_4236::
+
 	db "=?ISO-2022-JP?B?", 0
 POPC
 
