@@ -877,11 +877,11 @@ gfx/settings/screens_bank4d/tiles_6c70.2bpp	tiles	256	gfx/settings/screens_bank4
 gfx/settings/screens_bank4d/tiles_6d70.2bpp	tiles	1024	gfx/settings/screens_bank4d.asm	4D	6D70	CONFIRMED	exact	0		Data_4D_6D70
 gfx/settings/screens_bank4d/tiles_7170.2bpp	tiles	768	gfx/settings/screens_bank4d.asm	4D	7170	CONFIRMED	exact	0		Data_4D_7170
 gfx/settings/screens_bank4d/tiles_7470.2bpp	tiles	256	gfx/settings/screens_bank4d.asm	4D	7470	CONFIRMED	exact	0		Data_4D_7470
-gfx/settings/screens_bank5d/pw_save_confirm_bg.pal	palette	64	gfx/settings/screens_bank5d.asm	5D	7B60	CONFIRMED	-	0		Palette_PwSaveConfirm_Bg
-gfx/settings/screens_bank5d/tilemap_7ba0.attrmap	attrmap	360	gfx/settings/screens_bank5d.asm	5D	7D08	CONFIRMED	-	0	20x18	Tilemap_PwSaveConfirm_5D_7BA0
-gfx/settings/screens_bank5d/tilemap_7ba0.tilemap	tilemap	360	gfx/settings/screens_bank5d.asm	5D	7BA0	CONFIRMED	-	0	20x18	Tilemap_PwSaveConfirm_5D_7BA0
-gfx/settings/screens_bank5d/tiles_7360.2bpp	tiles	1024	gfx/settings/screens_bank5d.asm	5D	7360	CONFIRMED	exact	0		Gfx_PwSaveConfirm_Tiles9000Vb1
-gfx/settings/screens_bank5d/tiles_7760.2bpp	tiles	1024	gfx/settings/screens_bank5d.asm	5D	7760	CONFIRMED	exact	0		Gfx_PwSaveConfirm_Tiles9400Vb1
+gfx/settings/password_save_confirmation_bank5d/pw_save_confirm_bg.pal	palette	64	gfx/settings/password_save_confirmation_bank5d.asm	5D	7B60	CONFIRMED	-	0		Palette_PwSaveConfirm_Bg
+gfx/settings/password_save_confirmation_bank5d/password_save_confirm_variant0.attrmap	attrmap	360	gfx/settings/password_save_confirmation_bank5d.asm	5D	7D08	CONFIRMED	-	0	20x18	Tilemap_PwSaveConfirm_5D_7BA0
+gfx/settings/password_save_confirmation_bank5d/password_save_confirm_variant0.tilemap	tilemap	360	gfx/settings/password_save_confirmation_bank5d.asm	5D	7BA0	CONFIRMED	-	0	20x18	Tilemap_PwSaveConfirm_5D_7BA0
+gfx/settings/password_save_confirmation_bank5d/password_save_confirm_vram9000_vb1.2bpp	tiles	1024	gfx/settings/password_save_confirmation_bank5d.asm	5D	7360	CONFIRMED	exact	0		Gfx_PwSaveConfirm_Tiles9000Vb1
+gfx/settings/password_save_confirmation_bank5d/password_save_confirm_vram9400_vb1.2bpp	tiles	1024	gfx/settings/password_save_confirmation_bank5d.asm	5D	7760	CONFIRMED	exact	0		Gfx_PwSaveConfirm_Tiles9400Vb1
 gfx/settings/shared_text_entry_tiles_bank5e/shared_text_entry_vram8800_vb1.2bpp	tiles	1024	gfx/settings/shared_text_entry_tiles_bank5e.asm	5E	4000	CONFIRMED	exact	0		Gfx_SharedTextEntry_Vram8800Vb1
 gfx/settings/shared_text_entry_tiles_bank5e/shared_text_entry_vram8c00_vb1.2bpp	tiles	1024	gfx/settings/shared_text_entry_tiles_bank5e.asm	5E	4400	CONFIRMED	exact	0		Gfx_SharedTextEntry_Vram8C00Vb1
 gfx/settings/screens_bank71/tilemap_6f6f.attrmap	attrmap	360	gfx/settings/screens_bank71.asm	71	70D7	PROBABLE	-	0	20x18	Tilemap_PwSaveConfirm_71_6F6F

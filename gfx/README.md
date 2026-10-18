@@ -1364,15 +1364,15 @@ Retired historical file: `palette_5e60.pal` preserves the former 96-byte RGB555 
 | `tilemap_7910.tilemap` | tile-index map | 40 | 4D:7910 | PROBABLE | - | 20x2 | `gfx/settings/screens_bank4d.asm` |
 | `tilemap_7910.attrmap` | attribute map | 40 | 4D:7938 | PROBABLE | - | 20x2 | `gfx/settings/screens_bank4d.asm` |
 
-### `gfx/settings/screens_bank5d/`
+### `gfx/settings/password_save_confirmation_bank5d/`
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_7360.2bpp` | 2bpp tiles | 1024 | 5D:7360 | CONFIRMED | exact | - | `gfx/settings/screens_bank5d.asm` |
-| `tiles_7760.2bpp` | 2bpp tiles | 1024 | 5D:7760 | CONFIRMED | exact | - | `gfx/settings/screens_bank5d.asm` |
-| `pw_save_confirm_bg.pal` | RGB palette | 64 | 5D:7B60 | CONFIRMED | - | - | `gfx/settings/screens_bank5d.asm` |
-| `tilemap_7ba0.tilemap` | tile-index map | 360 | 5D:7BA0 | CONFIRMED | - | 20x18 | `gfx/settings/screens_bank5d.asm` |
-| `tilemap_7ba0.attrmap` | attribute map | 360 | 5D:7D08 | CONFIRMED | - | 20x18 | `gfx/settings/screens_bank5d.asm` |
+| `password_save_confirm_vram9000_vb1.2bpp` | 2bpp tiles | 1024 | 5D:7360 | CONFIRMED | exact | - | `gfx/settings/password_save_confirmation_bank5d.asm` |
+| `password_save_confirm_vram9400_vb1.2bpp` | 2bpp tiles | 1024 | 5D:7760 | CONFIRMED | exact | - | `gfx/settings/password_save_confirmation_bank5d.asm` |
+| `pw_save_confirm_bg.pal` | RGB palette | 64 | 5D:7B60 | CONFIRMED | - | - | `gfx/settings/password_save_confirmation_bank5d.asm` |
+| `password_save_confirm_variant0.tilemap` | tile-index map | 360 | 5D:7BA0 | CONFIRMED | - | 20x18 | `gfx/settings/password_save_confirmation_bank5d.asm` |
+| `password_save_confirm_variant0.attrmap` | attribute map | 360 | 5D:7D08 | CONFIRMED | - | 20x18 | `gfx/settings/password_save_confirmation_bank5d.asm` |
 
 ### `gfx/settings/shared_text_entry_tiles_bank5e/`
 

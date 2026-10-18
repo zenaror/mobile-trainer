@@ -206,6 +206,17 @@ unchanged. The other 41 PROBABLE aliases in the owner remain outside this unit.
 No Request2, palette, animation ABI, natural display or complete-purpose claim
 is added. Asset paths, PNGs, metadata, helpers and English payloads stay held.
 
+The password-save confirmation resources at 5D:7360..7E70 use
+`gfx/settings/password_save_confirmation_bank5d` and qualified VRAM1 source names.
+Their [path contract](docs/research/password_save_confirmation_5d_resource_paths.md) preserves all 2832 original bytes
+and the three existing PNG byte streams. The map and its editing selector use
+`password_save_confirm_variant0`, reflecting the literal zero-variant branch;
+the old selector is not a CLI alias. Four CONFIRMED resource headers and both
+HYPOTHESIS editing models remain held, including the alternate bank71 model's
+empty palette cell and its unchanged identity. Collection naming stays PROBABLE.
+Nine historical/current mappings are appended. Shared5F tiles, bank4A objects,
+the alternate map, all symbols and English payloads remain outside this change.
+
 The initial wider lexical census at e958ff4f found 5,284 generic global definitions, including aliases
 and 786 neutral RAM coordinates; these are not counts of unknown functions. It also found 4,961
 address-based local labels, all present in the parent SYM, by recognizing colonless RGBDS declarations.

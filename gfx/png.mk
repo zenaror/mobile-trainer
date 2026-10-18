@@ -352,6 +352,8 @@ PNG_TILE_OUTS := \
 	gfx/registration/screens_bank58/tiles_7460.2bpp \
 	gfx/registration/screens_bank58/tiles_7650.2bpp \
 	gfx/registration/screens_bank58/tiles_7790.2bpp \
+	gfx/settings/password_save_confirmation_bank5d/password_save_confirm_vram9000_vb1.2bpp \
+	gfx/settings/password_save_confirmation_bank5d/password_save_confirm_vram9400_vb1.2bpp \
 	gfx/settings/screens_bank4a/tiles_5f80.2bpp \
 	gfx/settings/screens_bank4a/tiles_6080.2bpp \
 	gfx/settings/screens_bank4a/tiles_6480.2bpp \
@@ -381,8 +383,6 @@ PNG_TILE_OUTS := \
 	gfx/settings/screens_bank4d/tiles_6d70.2bpp \
 	gfx/settings/screens_bank4d/tiles_7170.2bpp \
 	gfx/settings/screens_bank4d/tiles_7470.2bpp \
-	gfx/settings/screens_bank5d/tiles_7360.2bpp \
-	gfx/settings/screens_bank5d/tiles_7760.2bpp \
 	gfx/settings/shared_text_entry_tiles_bank5e/shared_text_entry_vram8800_vb1.2bpp \
 	gfx/settings/shared_text_entry_tiles_bank5e/shared_text_entry_vram8c00_vb1.2bpp \
 	gfx/title/logo/title_logo_tiles0.2bpp \
@@ -785,6 +785,8 @@ gfx/registration/screens_bank58/tiles_7460.2bpp: PNG_SIZE := 496
 gfx/registration/screens_bank58/tiles_7460.2bpp: PNG_PAD := -x 1
 gfx/registration/screens_bank58/tiles_7650.2bpp: PNG_SIZE := 320
 gfx/registration/screens_bank58/tiles_7790.2bpp: PNG_SIZE := 960
+gfx/settings/password_save_confirmation_bank5d/password_save_confirm_vram9000_vb1.2bpp: PNG_SIZE := 1024
+gfx/settings/password_save_confirmation_bank5d/password_save_confirm_vram9400_vb1.2bpp: PNG_SIZE := 1024
 gfx/settings/screens_bank4a/tiles_5f80.2bpp: PNG_SIZE := 256
 gfx/settings/screens_bank4a/tiles_6080.2bpp: PNG_SIZE := 1024
 gfx/settings/screens_bank4a/tiles_6480.2bpp: PNG_SIZE := 256
@@ -816,8 +818,6 @@ gfx/settings/screens_bank4d/tiles_6c70.2bpp: PNG_SIZE := 256
 gfx/settings/screens_bank4d/tiles_6d70.2bpp: PNG_SIZE := 1024
 gfx/settings/screens_bank4d/tiles_7170.2bpp: PNG_SIZE := 768
 gfx/settings/screens_bank4d/tiles_7470.2bpp: PNG_SIZE := 256
-gfx/settings/screens_bank5d/tiles_7360.2bpp: PNG_SIZE := 1024
-gfx/settings/screens_bank5d/tiles_7760.2bpp: PNG_SIZE := 1024
 gfx/settings/shared_text_entry_tiles_bank5e/shared_text_entry_vram8800_vb1.2bpp: PNG_SIZE := 1024
 gfx/settings/shared_text_entry_tiles_bank5e/shared_text_entry_vram8c00_vb1.2bpp: PNG_SIZE := 1024
 gfx/title/logo/title_logo_tiles0.2bpp: PNG_SIZE := 1024
