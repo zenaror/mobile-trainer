@@ -196,6 +196,16 @@ their HYPOTHESIS qualifiers. Current path fields and build references move toget
 five appended historical/current mappings preserve prior entries, including Notice4B.
 No symbol, original instruction, image content or English payload changes.
 
+The connection-icon Request1 tile sources retain their existing names
+`ConnIcon_Tiles0` and `ConnIcon_Tiles1`; two redundant coordinate aliases are
+retired under their [bounded source contract](docs/research/connection_icon_request1_alias_retirement.md).
+The two original blocks remain 1024 and 512 bytes, read into VRAM0 at $8200
+and $8600 by the demonstrated bank69 setups. Their B parameters differ ($92
+and $95); both CONFIRMED headers, every emitted byte and all operands remain
+unchanged. The other 41 PROBABLE aliases in the owner remain outside this unit.
+No Request2, palette, animation ABI, natural display or complete-purpose claim
+is added. Asset paths, PNGs, metadata, helpers and English payloads stay held.
+
 The initial wider lexical census at e958ff4f found 5,284 generic global definitions, including aliases
 and 786 neutral RAM coordinates; these are not counts of unknown functions. It also found 4,961
 address-based local labels, all present in the parent SYM, by recognizing colonless RGBDS declarations.

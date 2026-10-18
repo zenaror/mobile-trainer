@@ -12,13 +12,13 @@ Data_69_4152:: ; 69:4152
 ; ---- gfx $4160-$4560 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 69:4124: hl=$4160 a=$69 c=$40 de=$8200 (dest VRAM $8200, vbank=0)
 
 ConnIcon_Tiles0:: ; 69:4160
-Data_69_4160::
+
 	INCBIN "gfx/comm/connection_icon/conn_icon_tiles0.2bpp"
 
 ; ---- gfx $4560-$4760 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 69:4136: hl=$4560 a=$69 c=$20 de=$8600 (dest VRAM $8600, vbank=0)
 
 ConnIcon_Tiles1:: ; 69:4560
-Data_69_4560::
+
 	INCBIN "gfx/comm/connection_icon/conn_icon_tiles1.2bpp"
 
 ; ---- data $4760-$4778 (24 bytes) [PROBABLE] 3 RGB555 palettes of 4 colours (00 00 4A 29 B5 56 FF 7F = grey ramp; bit15 clear). Previous 168-word palette claim for 4760-48B0 was wrong beyond 4778: the bytes from 4778 are the animation table below
