@@ -119,6 +119,15 @@ parent; the previous Mail SDK20 is already part of that parent. This does not id
 KEEP frame contexts or associate25 Pokemon names with25 windows and27 descriptor words.
 English remains suspended pending fresh human confirmation.
 
+The phone-choice resource follow-on retires seven redundant numeric aliases in one original
+settings owner, preserving the existing descriptive names, seven inherited CONFIRMED headers,
+all physical rows, operands and asset bytes. The [resource contracts](docs/research/settings_choice_resource_names.md)
+describe the six HDMA source slices and the18x20 tilemap/attribute pair. Mixed palette/map
+reads at4D:5510 and the interior-source crossings at4110/4C10 retain their explicit limits;
+no global palette substitution or new destination exclusivity is inferred. The symbol prediction
+is14843 names including51 constants from the GFX20 parent14850, with surviving values held.
+These seven retirements add no new natural rendering or hardware evidence. English remains suspended.
+
 The initial wider lexical census at e958ff4f found 5,284 generic global definitions, including aliases
 and 786 neutral RAM coordinates; these are not counts of unknown functions. It also found 4,961
 address-based local labels, all present in the parent SYM, by recognizing colonless RGBDS declarations.

@@ -7,7 +7,7 @@ SECTION "gfx/settings/screens_bank4d", ROMX
 ; ---- gfx $4000-$4200 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4789: hl=$4000 a=$4D c=$20 de=$8001 (dest VRAM $8000, vbank=1) [first call site executed: 46 hits in 6 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_SettingsPhone_ChoiceMenu_Tiles8000Vb1:: ; 4D:4000
-Data_4D_4000::
+
 	INCBIN "gfx/settings/screens_bank4d/tiles_4000.2bpp"
 
 ; ---- gfx $4200-$4510 (784 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:46D5: hl=$4110 a=$4D c=$40 de=$8801 (dest VRAM $8800, vbank=1) [first call site executed: 13 hits in 3 scenarios (analysis/coverage_union.tsv)] [clipped from 4110-4510 by higher-priority evidence]
@@ -18,19 +18,19 @@ Data_4D_4200:: ; 4D:4200
 ; ---- gfx $4510-$4610 (256 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:46E7: hl=$4510 a=$4D c=$10 de=$8C01 (dest VRAM $8C00, vbank=1) [first call site executed: 13 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_SettingsPhone_ChoiceMenu_Tiles8C00Vb1_4D_4510:: ; 4D:4510
-Data_4D_4510::
+
 	INCBIN "gfx/settings/screens_bank4d/tiles_4510.2bpp"
 
 ; ---- gfx $4610-$4A10 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:46F9: hl=$4610 a=$4D c=$40 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 13 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_SettingsPhone_ChoiceMenu_Tiles9000Vb1_4D_4610:: ; 4D:4610
-Data_4D_4610::
+
 	INCBIN "gfx/settings/screens_bank4d/tiles_4610.2bpp"
 
 ; ---- gfx $4A10-$4D10 (768 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:470B: hl=$4A10 a=$4D c=$30 de=$9401 (dest VRAM $9400, vbank=1) [first call site executed: 13 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_SettingsPhone_ChoiceMenu_Tiles9400Vb1:: ; 4D:4A10
-Data_4D_4A10::
+
 	INCBIN "gfx/settings/screens_bank4d/tiles_4a10.2bpp"
 
 ; ---- gfx $4D10-$5010 (768 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4730: hl=$4C10 a=$4D c=$40 de=$8801 (dest VRAM $8800, vbank=1) [first call site executed: 33 hits in 5 scenarios (analysis/coverage_union.tsv)] [clipped from 4C10-5010 by higher-priority evidence]
@@ -41,13 +41,13 @@ Data_4D_4D10:: ; 4D:4D10
 ; ---- gfx $5010-$5110 (256 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4742: hl=$5010 a=$4D c=$10 de=$8C01 (dest VRAM $8C00, vbank=1) [first call site executed: 33 hits in 5 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_SettingsPhone_ChoiceMenu_Tiles8C00Vb1_4D_5010:: ; 4D:5010
-Data_4D_5010::
+
 	INCBIN "gfx/settings/screens_bank4d/tiles_5010.2bpp"
 
 ; ---- gfx $5110-$5510 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4754: hl=$5110 a=$4D c=$40 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 33 hits in 5 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_SettingsPhone_ChoiceMenu_Tiles9000Vb1_4D_5110:: ; 4D:5110
-Data_4D_5110::
+
 	INCBIN "gfx/settings/screens_bank4d/tiles_5110.2bpp"
 
 ; ---- data $5510-$5538 (40 bytes) [PROBABLE] palette-rgb555: 20 colours (5 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/settings/choice_menu.asm:147, call 67:479A executed 46 hits in 6 scenarios (analysis/coverage_union.tsv)); the call takes 24 bytes past the end of this block (the palette at $5538 and the first 16 bytes of the tilemap pair at $5540 are copied into the buffer behind it); the length of 40 bytes is by adjacency, not by the call
@@ -70,7 +70,7 @@ Tilemap_SettingsPhone_ChoiceMenu_4D_5540:: ; 4D:5540
 ; ---- data $5810-$5AE0 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 67:4777: hl=$5810 a=$4D b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 33 hits in 5 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_SettingsPhone_ChoiceMenu:: ; 4D:5810
-Data_4D_5810::
+
 	INCBIN "gfx/settings/screens_bank4d/tilemap_5810.tilemap"
 	INCBIN "gfx/settings/screens_bank4d/tilemap_5810.attrmap"
 
