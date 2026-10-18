@@ -234,3 +234,6 @@ gfx/bank61/tiles_58b0.2bpp	gfx/ui_art/button_art_fragments/tile_fragment_58b0.2b
 gfx/bank61/tiles_58b0.png	gfx/ui_art/button_art_fragments/tile_fragment_58b0.png
 gfx/bank61/tiles_65c0.2bpp	gfx/ui_art/button_art_fragments/tile_fragment_65c0.2bpp
 gfx/bank61/tiles_65c0.png	gfx/ui_art/button_art_fragments/tile_fragment_65c0.png
+gfx/registration/screen_bank4b.asm	gfx/registration/notice_tilemap_bank4b.asm
+gfx/registration/screen_bank4b/tilemap_4000.tilemap	gfx/registration/notice_tilemap_bank4b/notice_page_type4.tilemap
+gfx/registration/screen_bank4b/tilemap_4000.attrmap	gfx/registration/notice_tilemap_bank4b/notice_page_type4.attrmap

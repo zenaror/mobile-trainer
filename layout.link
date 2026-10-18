@@ -444,7 +444,7 @@ ROMX $4A
 
 ROMX $4B
 	org $4000
-	"gfx/registration/screen_bank4b"
+	"gfx/registration/notice_tilemap_bank4b"
 	org $42D0
 	"gfx/account/screens_bank4b"
 	org $5B90

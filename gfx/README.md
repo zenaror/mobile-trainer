@@ -1253,12 +1253,12 @@ Retired historical file: `palette_5e60.pal` preserves the former 96-byte RGB555 
 | `data_profile_tilemap_attr.attrmap` | attribute map | 360 | 2A:6CA8 | CONFIRMED | - | 20x18 | `gfx/profile/profile_editor.asm` |
 | `profile_bg.pal` | RGB palette | 64 | 2A:6E10 | PROBABLE | - | - | `gfx/profile/profile_editor.asm` |
 
-### `gfx/registration/screen_bank4b/`
+### `gfx/registration/notice_tilemap_bank4b/`
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tilemap_4000.tilemap` | tile-index map | 360 | 4B:4000 | CONFIRMED | - | 20x18 | `gfx/registration/screen_bank4b.asm` |
-| `tilemap_4000.attrmap` | attribute map | 360 | 4B:4168 | CONFIRMED | - | 20x18 | `gfx/registration/screen_bank4b.asm` |
+| `notice_page_type4.tilemap` | tile-index map | 360 | 4B:4000 | CONFIRMED | - | 20x18 | `gfx/registration/notice_tilemap_bank4b.asm` |
+| `notice_page_type4.attrmap` | attribute map | 360 | 4B:4168 | CONFIRMED | - | 20x18 | `gfx/registration/notice_tilemap_bank4b.asm` |
 
 ### `gfx/registration/screens_bank58/`
 

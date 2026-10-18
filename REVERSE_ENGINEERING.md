@@ -176,6 +176,17 @@ meaning of the PROBABLE bitmap. Source rows and all operands remain unchanged.
 The isolated symbol delta is -8 with surviving values and 51 constants held.
 No natural-execution, hardware or English claim is added.
 
+The notice type4 map now uses descriptive owner and component paths under
+`gfx/registration/notice_tilemap_bank4b`. Its [path contract](docs/research/notice_type4_tilemap_paths.md)
+retains the same 360 tile indices and 360 attributes, selected when the first byte
+of the notice record equals $04. This does not mean page argument4 or establish
+natural display coverage. Labels, classifications, bank/address placement and
+all 720 original bytes remain unchanged; this unit changes paths only.
+The live catalog, output paths in the PNG rules, linker section identity and graphics index
+are reconciled together. Three historical/current path-map entries preserve
+navigation from frozen layouts and notes, which are retained without regeneration.
+No PNG, model, helper, original instruction or English payload is changed.
+
 The initial wider lexical census at e958ff4f found 5,284 generic global definitions, including aliases
 and 786 neutral RAM coordinates; these are not counts of unknown functions. It also found 4,961
 address-based local labels, all present in the parent SYM, by recognizing colonless RGBDS declarations.

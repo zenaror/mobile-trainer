@@ -791,8 +791,8 @@ gfx/profile/profile_editor/profile_bg.pal	palette	64	gfx/profile/profile_editor.
 gfx/profile/profile_editor/profile_tiles8800.2bpp	tiles	832	gfx/profile/profile_editor.asm	2A	6800	CONFIRMED	exact	0		Gfx_Profile_Tiles8800
 gfx/profile/profile_editor/profile_tiles9300.2bpp	tiles	1024	gfx/profile/profile_editor.asm	2A	6300	CONFIRMED	exact	0		Gfx_Profile_Tiles9300Vb1
 gfx/profile/profile_editor/profile_tiles9700.2bpp	tiles	256	gfx/profile/profile_editor.asm	2A	6700	CONFIRMED	exact	0		Gfx_Profile_Tiles9700
-gfx/registration/screen_bank4b/tilemap_4000.attrmap	attrmap	360	gfx/registration/screen_bank4b.asm	4B	4168	CONFIRMED	-	0	20x18	Data_4B_4000
-gfx/registration/screen_bank4b/tilemap_4000.tilemap	tilemap	360	gfx/registration/screen_bank4b.asm	4B	4000	CONFIRMED	-	0	20x18	Data_4B_4000
+gfx/registration/notice_tilemap_bank4b/notice_page_type4.attrmap	attrmap	360	gfx/registration/notice_tilemap_bank4b.asm	4B	4168	CONFIRMED	-	0	20x18	Data_4B_4000
+gfx/registration/notice_tilemap_bank4b/notice_page_type4.tilemap	tilemap	360	gfx/registration/notice_tilemap_bank4b.asm	4B	4000	CONFIRMED	-	0	20x18	Data_4B_4000
 gfx/registration/screens_bank58/palette_7b50.pal	palette	40	gfx/registration/screens_bank58.asm	58	7B50	PROBABLE	-	0		Palette_58_7B50
 gfx/registration/screens_bank58/tilemap_7b78.attrmap	attrmap	360	gfx/registration/screens_bank58.asm	58	7CE0	CONFIRMED	-	0	20x18	Data_58_7B78
 gfx/registration/screens_bank58/tilemap_7b78.tilemap	tilemap	360	gfx/registration/screens_bank58.asm	58	7B78	CONFIRMED	-	0	20x18	Data_58_7B78
