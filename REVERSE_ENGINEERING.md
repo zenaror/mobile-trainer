@@ -9,7 +9,7 @@ Numbers marked "frozen" describe `config/` at the freeze and are not updated any
 
 The [definition of done](docs/REVERSE_ENGINEERING_RULES.md#23-definition-of-done) requires an explainable reconstruction as well as a reproducible ROM. `make`, symbol checks and a complete byte comparison establish reconstruction identity for the source actually checked; they do not establish complete semantics, natural execution or hardware behavior. Frozen `config/` and `docs/PROGRESS.md` counters, and dated counters below, are historical rather than a current completion census.
 
-**Original-ROM work remains open (2026-10-15).** The Operator requires all real functions to be
+**Original-ROM work remains open (2026-10-18).** The Operator requires all real functions to be
 mapped and properly named before any English work can resume. The previous zero *neutral-only address
 groups* census counted descriptive aliases; it was not a census of identified functions. A direct
 maintained-source scan at245961f6 still found693 literal `Function_*` definitions in143 owners,
@@ -127,6 +127,15 @@ reads at4D:5510 and the interior-source crossings at4110/4C10 retain their expli
 no global palette substitution or new destination exclusivity is inferred. The symbol prediction
 is14843 names including51 constants from the GFX20 parent14850, with surviving values held.
 These seven retirements add no new natural rendering or hardware evidence. English remains suspended.
+
+The palette metadata check rejects unresolved symbolic source names in its resolved-load
+records instead of silently dropping a consumer. The [metadata integrity contract](docs/research/palette_load_metadata_integrity.md)
+distinguishes162 resolved palette records from11 explicitly UNRESOLVED records outside this
+check. Existing offset/numeric resolution and documented over-read allowances remain unchanged.
+The regression models retiring an alias while leaving a stale palette record: that input must
+fail, while the correctly named consumer retains its load. No palette record, original source
+instruction, alias or asset is changed by this tool correction. This is validation of the recorded
+metadata, not proof that every possible ROM palette reader or bank state has been resolved.
 
 The initial wider lexical census at e958ff4f found 5,284 generic global definitions, including aliases
 and 786 neutral RAM coordinates; these are not counts of unknown functions. It also found 4,961

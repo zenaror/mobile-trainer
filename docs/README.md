@@ -69,6 +69,7 @@ Reference documents (current):
 | [`home_data_names.md`](research/home_data_names.md) | Bounded original data/resource alias contracts; evidence and caller limits retained |
 | [`mail_gfx_resource_aliases.md`](research/mail_gfx_resource_aliases.md) | Original Mail graphics aliases; load extents, backing and unresolved frame limits |
 | [`mail_sdk_data_names.md`](research/mail_sdk_data_names.md) | Mail strings and pointer tables; finite domains, independent indices and selector-stack caveat |
+| [`palette_load_metadata_integrity.md`](research/palette_load_metadata_integrity.md) | Resolved palette-load metadata, missing-symbol errors and regression scope |
 | [`settings_choice_resource_names.md`](research/settings_choice_resource_names.md) | Phone-choice graphics aliases, HDMA extents and mixed-source limits |
 | [`title_logo_resource_names.md`](research/title_logo_resource_names.md) | Bounded original data/resource alias contracts; evidence and caller limits retained |
 | [`font_glyph_run_path_map.tsv`](research/font_glyph_run_path_map.tsv) | original glyph-run binary and PNG path migration with byte hashes |

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Every palette that the code loads is typed as a palette, in ONE block.
+"""Resolved palette loads recorded in screen_ops.tsv are typed as ONE palette block.
 
     python3 tools/palette_reads_check.py          # also `make palette-check` (needs the build: build/mobile_trainer.sym)
 
@@ -125,32 +125,44 @@ def read_sym(root):
     return sym
 
 
+class PaletteMetadataError(ValueError):
+    """A declared palette source cannot be resolved in the symbol map."""
+
+
 def read_loads(root, sym):
     loads = []
-    for l in open(os.path.join(root, 'gfx', 'previews', 'screen_ops.tsv'), encoding='utf-8'):
-        if l.startswith('#') or not l.strip():
-            continue
-        c = l.rstrip('\n').split('\t')
-        if len(c) < 6 or c[2] != 'palette':
-            continue
-        n = int(re.search(r'n=(\d+)', c[5]).group(1))
-        m = re.match(r'^(\S+?)(?: \+ \$([0-9A-Fa-f]+))?$', c[3].strip())
-        name, off = m.group(1), (int(m.group(2), 16) if m.group(2) else 0)
-        if name in sym:
-            bank, addr = sym[name][0], sym[name][1] + off
-        else:
-            m2 = re.match(r'^\$([0-9A-Fa-f]{4})$', name)
-            if not m2:
+    path = os.path.join(root, 'gfx', 'previews', 'screen_ops.tsv')
+    with open(path, encoding='utf-8') as f:
+        for line_no, l in enumerate(f, 1):
+            if l.startswith('#') or not l.strip():
                 continue
-            bank, addr = int(c[4], 16), int(m2.group(1), 16) + off
-        loads.append((bank, addr, n))
+            c = l.rstrip('\n').split('\t')
+            if len(c) < 6 or c[2] != 'palette':
+                continue
+            n = int(re.search(r'n=(\d+)', c[5]).group(1))
+            m = re.match(r'^(\S+?)(?: \+ \$([0-9A-Fa-f]+))?$', c[3].strip())
+            name, off = m.group(1), (int(m.group(2), 16) if m.group(2) else 0)
+            if name in sym:
+                bank, addr = sym[name][0], sym[name][1] + off
+            else:
+                m2 = re.match(r'^\$([0-9A-Fa-f]{4})$', name)
+                if not m2:
+                    raise PaletteMetadataError(
+                        f"{path}:{line_no}: palette source label {name!r} is missing "
+                        f"from symbol map (consumer {c[1]})")
+                bank, addr = int(c[4], 16), int(m2.group(1), 16) + off
+            loads.append((bank, addr, n))
     return loads
 
 
 def main():
     root = ROOT
     sym = read_sym(root)
-    loads = read_loads(root, sym)
+    try:
+        loads = read_loads(root, sym)
+    except PaletteMetadataError as e:
+        print('ERROR palette_reads_check:', e, file=sys.stderr)
+        return 1
     regions = collections.defaultdict(list)
     for d in ('gfx', 'data', 'engine', 'lib', 'home', 'audio'):
         for f in sorted(glob.glob(os.path.join(root, d, '**', '*.asm'), recursive=True)):
