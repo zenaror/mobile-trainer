@@ -148,6 +148,16 @@ preserving all 162 ordered palette-load tuples. One generic symbol is replaced b
 one descriptive view, with no net symbol-count change; instructions, emitted bytes,
 assets and the existing confidence levels remain unchanged. English remains suspended.
 
+The settings and text-entry resource follow-on retires 17 redundant generic aliases
+in five original graphics owners, preserving 16 CONFIRMED and one PROBABLE classification.
+The [resource contracts](docs/research/settings_text_entry_and_confirm_resource_names.md)
+cover 11 tile sources, five map/attribute pairs and one palette, with 25 literal consumers.
+Nineteen catalog label cells are reconciled by their unique asset keys; all other fields,
+assets, physical rows and instruction operands remain unchanged. Shared bank5E tiles retain
+their four text-entry domains; the mixed 4A/4B windows and interior crossings remain qualified.
+The isolated symbol delta is -17, preserving all surviving values and 51 constants.
+This introduces no new natural rendering, hardware evidence or English work.
+
 The initial wider lexical census at e958ff4f found 5,284 generic global definitions, including aliases
 and 786 neutral RAM coordinates; these are not counts of unknown functions. It also found 4,961
 address-based local labels, all present in the parent SYM, by recognizing colonless RGBDS declarations.

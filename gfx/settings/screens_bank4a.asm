@@ -7,13 +7,13 @@ SECTION "gfx/settings/screens_bank4a", ROMX
 ; ---- gfx $5F80-$6080 (256 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:6385: hl=$5F80 a=$4A c=$10 de=$8000 (dest VRAM $8000, vbank=0)
 
 Gfx_AdapterCheck_Tiles8000:: ; 4A:5F80
-Data_4A_5F80::
+
 	INCBIN "gfx/settings/screens_bank4a/tiles_5f80.2bpp"
 
 ; ---- gfx $6080-$6480 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:6397: hl=$6080 a=$4A c=$40 de=$9001 (dest VRAM $9000, vbank=1)
 
 Gfx_AdapterCheck_Tiles9000Vb1:: ; 4A:6080
-Data_4A_6080::
+
 	INCBIN "gfx/settings/screens_bank4a/tiles_6080.2bpp"
 
 ; ---- gfx $6480-$6580 (256 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:63A9: hl=$6480 a=$4A c=$40 de=$9401 (dest VRAM $9400, vbank=1); the last $300 bytes of the old blob hold 2 palettes and the head of a tilemap pair; the blocks below type them by what the code reads, and the HDMA request that copies the tiles copies them into VRAM as well
@@ -47,32 +47,32 @@ Data_4A_68D0::
 ; ---- gfx $6920-$6D20 (1024 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (67:4394 67:4A09); first: hdma_rom_to_vram at 67:4394: hl=$6920 a=$4A c=$40 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 63 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_PhoneKeypadAndComment_Tiles9000Vb1:: ; 4A:6920
-Data_4A_6920::
+
 	INCBIN "gfx/settings/screens_bank4a/tiles_6920.2bpp"
 
 ; ---- gfx $6D20-$7120 (1024 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (67:43A6 67:4A1B); first: hdma_rom_to_vram at 67:43A6: hl=$6D20 a=$4A c=$40 de=$9401 (dest VRAM $9400, vbank=1) [first call site executed: 63 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_PhoneKeypadAndComment_Tiles9400Vb1:: ; 4A:6D20
-Data_4A_6D20::
+
 	INCBIN "gfx/settings/screens_bank4a/tiles_6d20.2bpp"
 
 ; ---- data $7120-$71E8 (200 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 67:43CE: hl=$7120 a=$4A b=5 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 38 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_PhoneKeypad_4A_7120:: ; 4A:7120
-Data_4A_7120::
+
 	INCBIN "gfx/settings/screens_bank4a/tilemap_7120.tilemap"
 	INCBIN "gfx/settings/screens_bank4a/tilemap_7120.attrmap"
 
 ; ---- data $71E8-$72B0 (200 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 67:43E1: hl=$71E8 a=$4A b=5 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 25 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_PhoneKeypad_4A_71E8:: ; 4A:71E8
-Data_4A_71E8::
+
 	INCBIN "gfx/settings/screens_bank4a/tilemap_71e8.tilemap"
 	INCBIN "gfx/settings/screens_bank4a/tilemap_71e8.attrmap"
 
 ; ---- data $72B0-$7378 (200 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 67:4A3D: hl=$72B0 a=$4A b=5 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 13 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_PhoneComment:: ; 4A:72B0
-Data_4A_72B0::
+
 	INCBIN "gfx/settings/screens_bank4a/tilemap_72b0.tilemap"
 	INCBIN "gfx/settings/screens_bank4a/tilemap_72b0.attrmap"

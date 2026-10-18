@@ -96,13 +96,13 @@ Data_4B_6590:: ; 4B:6590
 ; ---- gfx $6A90-$6E90 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:514E: hl=$6A90 a=$4B c=$40 de=$8801 (dest VRAM $8800, vbank=1) [first call site executed: 4 hits in 2 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_SettingsPhone_ConfirmScreen_Tiles8800Vb1:: ; 4B:6A90
-Data_4B_6A90::
+
 	INCBIN "gfx/settings/screens_bank4b/tiles_6a90.2bpp"
 
 ; ---- gfx $6E90-$70B0 (544 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:5160: hl=$6E90 a=$4B c=$22 de=$8C01 (dest VRAM $8C00, vbank=1) [first call site executed: 4 hits in 2 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_SettingsPhone_ConfirmScreen_Tiles8C00Vb1:: ; 4B:6E90
-Data_4B_6E90::
+
 	INCBIN "gfx/settings/screens_bank4b/tiles_6e90.2bpp"
 
 ; ---- gfx $70B0-$73B0 (768 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:5172: hl=$7090 a=$4B c=$40 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 4 hits in 2 scenarios (analysis/coverage_union.tsv)] [clipped from 7090-7490 by higher-priority evidence]; the last $E0 bytes of the old blob hold a palette and the head of a tilemap pair; the blocks below type them by what the code reads, and the HDMA request that copies the tiles copies them into VRAM as well
@@ -129,7 +129,7 @@ Table_4B_76C0:: ; 4B:76C0
 ; ---- gfx $76D0-$7AD0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:574D: hl=$76D0 a=$4B c=$40 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 2 hits in 1 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_SettingsPhone_ContinuePrompt_Tiles9000Vb1:: ; 4B:76D0
-Data_4B_76D0::
+
 	INCBIN "gfx/settings/screens_bank4b/tiles_76d0.2bpp"
 
 ; ---- gfx $7AD0-$7CD0 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:575F: hl=$7AD0 a=$4B c=$30 de=$9401 (dest VRAM $9400, vbank=1) [first call site executed: 2 hits in 1 scenarios (analysis/coverage_union.tsv)]; the last $100 bytes of the old blob hold a palette and the head of a tilemap pair; the blocks below type them by what the code reads, and the HDMA request that copies the tiles copies them into VRAM as well
