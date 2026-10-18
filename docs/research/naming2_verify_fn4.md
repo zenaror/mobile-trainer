@@ -479,3 +479,8 @@ HRAM and banked-RAM definitions used to resolve operands. Exact bytes, labels an
 available in that proposal's DATA reports. No build, gates, emulator, hardware, Git mutation, OMM
 write or English work was performed by this private proposal; reconstruction comparison remains a
 separate required integration check.
+
+
+### 2026-10-17: scope of the30-interval storage counter
+
+The30 intervals/63 bytes quoted above do not enumerate the six maintained source roots. A current literal-header census finds32 HYPOTHESIS intervals/92 bytes; the additional owners are28 bytes at28:4BA6-4BC2 in `gfx/mail/body_view.asm` and one byte at75:6D62-6D63 in `lib/mobile/main.asm`. The separate already-CONFIRMED ellipsis bytes at54:511B-511D had a stale UNCLASSIFIED header, now corrected as text. See [the full scope correction](classify_g6.md#8-six-root-unclassified-header-scope-correction-2026-10-17). The earlier positive classification of26:5344-537C and its conditional contract remain unchanged. These counts describe annotation coverage and do not close function discovery or all unknown ROM data.

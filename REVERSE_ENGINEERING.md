@@ -19,7 +19,7 @@ reference/local-scope review and address-preserving reconstruction. The c6236d06
 aliases (686 remained before the follow-up cohort below): four already named audio helpers gain complete contracts, the two mail-body
 locators gain PROBABLE domain names, and the actual no-op at26:5343 retains its descriptive label.
 The original56-byte26:5344 fragment is now readable instructions, with its entry/intent still unknown;
-30 raw storage spans/63 bytes remain unclassified. Entries and abnormal stack transfer at2B:6CF5,
+The earlier30-span/63-byte count matches the current home/engine/data subset only. A six-root census now finds32 HYPOTHESIS spans/92 bytes under leading UNCLASSIFIED data headers, including28 bytes in gfx/mail/body_view.asm and one byte in lib/mobile/main.asm; see the [scope correction](docs/research/classify_g6.md#8-six-root-unclassified-header-scope-correction-2026-10-17). This is an annotation census, not the total amount of unexplained ROM data. Entries and abnormal stack transfer at2B:6CF5,
 locator caller domains, eight frame contexts and25 name-to-image associations remain unresolved.
 The finite checks below remain valid within their limits; they do not establish100% completion.
 English implementation, ZIP parity, agents and builds remain suspended pending fresh explicit human

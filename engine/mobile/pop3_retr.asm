@@ -717,7 +717,7 @@ Mail_CopyClampedEllipsis:: ; 54:50FC
 	ld [wMailFetchStatus], a
 	ret
 
-; ---- data $511B-$511D (2 bytes) [CONFIRMED] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) [every byte read as data in 6 scenario(s)]
+; ---- text $511B-$511D (2 bytes) [CONFIRMED] Shift-JIS ellipsis bytes ($81, $63), copied by Mail_CopyClampedEllipsis with BC=$0002; this two-byte span has no terminator [every byte read as data in 6 retained scenarios]
 
 Data_Text_Ellipsis2:: ; 54:511B
 Data_54_511B::
