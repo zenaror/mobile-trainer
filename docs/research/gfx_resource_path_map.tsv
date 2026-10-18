@@ -237,3 +237,8 @@ gfx/bank61/tiles_65c0.png	gfx/ui_art/button_art_fragments/tile_fragment_65c0.png
 gfx/registration/screen_bank4b.asm	gfx/registration/notice_tilemap_bank4b.asm
 gfx/registration/screen_bank4b/tilemap_4000.tilemap	gfx/registration/notice_tilemap_bank4b/notice_page_type4.tilemap
 gfx/registration/screen_bank4b/tilemap_4000.attrmap	gfx/registration/notice_tilemap_bank4b/notice_page_type4.attrmap
+gfx/settings/screens_bank5e.asm	gfx/settings/shared_text_entry_tiles_bank5e.asm
+gfx/settings/screens_bank5e/tiles_4000.2bpp	gfx/settings/shared_text_entry_tiles_bank5e/shared_text_entry_vram8800_vb1.2bpp
+gfx/settings/screens_bank5e/tiles_4000.png	gfx/settings/shared_text_entry_tiles_bank5e/shared_text_entry_vram8800_vb1.png
+gfx/settings/screens_bank5e/tiles_4400.2bpp	gfx/settings/shared_text_entry_tiles_bank5e/shared_text_entry_vram8c00_vb1.2bpp
+gfx/settings/screens_bank5e/tiles_4400.png	gfx/settings/shared_text_entry_tiles_bank5e/shared_text_entry_vram8c00_vb1.png

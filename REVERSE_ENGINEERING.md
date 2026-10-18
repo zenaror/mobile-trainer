@@ -187,6 +187,15 @@ are reconciled together. Three historical/current path-map entries preserve
 navigation from frozen layouts and notes, which are retained without regeneration.
 No PNG, model, helper, original instruction or English payload is changed.
 
+The shared text-entry sources at 5E:4000 and 5E:4400 now use paths under
+`gfx/settings/shared_text_entry_tiles_bank5e`. Their [path contract](docs/research/shared_text_entry_5e_resource_paths.md)
+preserves both 1024-byte original blocks and their existing editable PNG bytes.
+Four demonstrated setup contexts share these sources; the collection name remains
+PROBABLE and both source headers remain CONFIRMED. Five editing models retain
+their HYPOTHESIS qualifiers. Current path fields and build references move together;
+five appended historical/current mappings preserve prior entries, including Notice4B.
+No symbol, original instruction, image content or English payload changes.
+
 The initial wider lexical census at e958ff4f found 5,284 generic global definitions, including aliases
 and 786 neutral RAM coordinates; these are not counts of unknown functions. It also found 4,961
 address-based local labels, all present in the parent SYM, by recognizing colonless RGBDS declarations.

@@ -1374,12 +1374,12 @@ Retired historical file: `palette_5e60.pal` preserves the former 96-byte RGB555 
 | `tilemap_7ba0.tilemap` | tile-index map | 360 | 5D:7BA0 | CONFIRMED | - | 20x18 | `gfx/settings/screens_bank5d.asm` |
 | `tilemap_7ba0.attrmap` | attribute map | 360 | 5D:7D08 | CONFIRMED | - | 20x18 | `gfx/settings/screens_bank5d.asm` |
 
-### `gfx/settings/screens_bank5e/`
+### `gfx/settings/shared_text_entry_tiles_bank5e/`
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_4000.2bpp` | 2bpp tiles | 1024 | 5E:4000 | CONFIRMED | exact | - | `gfx/settings/screens_bank5e.asm` |
-| `tiles_4400.2bpp` | 2bpp tiles | 1024 | 5E:4400 | CONFIRMED | exact | - | `gfx/settings/screens_bank5e.asm` |
+| `shared_text_entry_vram8800_vb1.2bpp` | 2bpp tiles | 1024 | 5E:4000 | CONFIRMED | exact | - | `gfx/settings/shared_text_entry_tiles_bank5e.asm` |
+| `shared_text_entry_vram8c00_vb1.2bpp` | 2bpp tiles | 1024 | 5E:4400 | CONFIRMED | exact | - | `gfx/settings/shared_text_entry_tiles_bank5e.asm` |
 
 ### `gfx/settings/screens_bank71/`
 
