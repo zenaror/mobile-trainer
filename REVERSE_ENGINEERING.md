@@ -158,6 +158,15 @@ their four text-entry domains; the mixed 4A/4B windows and interior crossings re
 The isolated symbol delta is -17, preserving all surviving values and 51 constants.
 This introduces no new natural rendering, hardware evidence or English work.
 
+The error-screen resource follow-on retires ten redundant aliases in two graphics
+owners, preserving the ten inherited CONFIRMED classifications, physical source rows,
+assets and operands. The [resource contracts](docs/research/error_screen_basic_resource_names.md)
+cover six tile sources, two palettes and two map/attribute pairs with eleven literal
+consumers. Seven mixed, neutral or ABI-dependent views remain explicitly deferred.
+Catalog and operational metadata already use descriptive labels and remain unchanged.
+The isolated symbol delta is -10 with surviving values and 51 constants held.
+No new natural rendering, hardware evidence or English work is introduced.
+
 The initial wider lexical census at e958ff4f found 5,284 generic global definitions, including aliases
 and 786 neutral RAM coordinates; these are not counts of unknown functions. It also found 4,961
 address-based local labels, all present in the parent SYM, by recognizing colonless RGBDS declarations.

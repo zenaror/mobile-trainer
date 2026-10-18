@@ -14,14 +14,14 @@ Data_5C_5516::
 ; ---- data $57E6-$5AB6 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 5C:52B7: hl=$57E6 a=$5C b=18 rows c=20 cols (tiles then attrs) de=$D000
 
 CommErr_Tilemap_CommTimer:: ; 5C:57E6
-Data_5C_57E6::
+
 	INCBIN "gfx/error/comm_error_screen/comm_err_tilemap_comm_timer.tilemap"
 	INCBIN "gfx/error/comm_error_screen/comm_err_tilemap_comm_timer.attrmap"
 
 ; ---- data $5AB6-$5D86 (720 bytes) [CONFIRMED] tilemap+attr: 2 call site(s) (5C:52FB 5C:53AC); first: copy_tilemap_rect_pair at 5C:52FB: hl=$5AB6 a=$5C b=18 rows c=20 cols (tiles then attrs) de=$D000
 
 CommErr_Tilemap_Plain:: ; 5C:5AB6
-Data_5C_5AB6::
+
 	INCBIN "gfx/error/comm_error_screen/comm_err_tilemap_plain.tilemap"
 	INCBIN "gfx/error/comm_error_screen/comm_err_tilemap_plain.attrmap"
 
@@ -31,32 +31,32 @@ Data_5C_5AB6::
 ; ---- gfx $5D90-$5DB0 (32 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 5C:5194: hl=$5D90 a=$5C c=$02 de=$8001 (dest VRAM $8000, vbank=1)
 
 CommErr_Gfx_Obj8000:: ; 5C:5D90
-Data_5C_5D90::
+
 	INCBIN "gfx/error/comm_error_screen/comm_err_gfx_obj8000.2bpp"
 
 ; ---- gfx $5DB0-$5DD0 (32 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 5C:51A6: hl=$5DB0 a=$5C c=$02 de=$8101 (dest VRAM $8100, vbank=1)
 
 CommErr_Gfx_Obj8100:: ; 5C:5DB0
-Data_5C_5DB0::
+
 	INCBIN "gfx/error/comm_error_screen/comm_err_gfx_obj8100.2bpp"
 
 ; ---- gfx $5DD0-$61D0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 5C:51B8: hl=$5DD0 a=$5C c=$40 de=$9001 (dest VRAM $9000, vbank=1)
 
 CommErr_Gfx_Bg9000:: ; 5C:5DD0
-Data_5C_5DD0::
+
 	INCBIN "gfx/error/comm_error_screen/comm_err_gfx_bg9000.2bpp"
 
 ; ---- gfx $61D0-$6350 (384 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 5C:51CA: hl=$61D0 a=$5C c=$18 de=$9401 (dest VRAM $9400, vbank=1)
 
 CommErr_Gfx_Bg9400:: ; 5C:61D0
-Data_5C_61D0::
+
 	INCBIN "gfx/error/comm_error_screen/comm_err_gfx_bg9400.2bpp"
 
 ; ---- gfx $6350-$6390 (64 bytes) [CONFIRMED] 32 RGB555 words for the timer BG palette
 ; Palette_LoadToBuffer at 5C:52E1 copies all 64 bytes; naturally read in 14/69 scenarios.
 
 CommErr_Palette_BgTimer:: ; 5C:6350
-Data_5C_6350::
+
 	INCLUDE "gfx/error/comm_error_screen/comm_err_palette_bg_timer.pal"
 
 ; ---- gfx $6390-$63D0 (64 bytes) [CONFIRMED] 32 RGB555 words for the BG palette
