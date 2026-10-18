@@ -27,7 +27,7 @@ edit a PNG   ->   make            ->   open mobile_trainer.gbc
 
 | what | file | how | count |
 |---|---|---|---:|
-| tile blocks (2bpp art: screens, text baked into tiles, buttons, logos) | `gfx/**/name.png` next to `name.2bpp` | exact `rgbgfx` source: 4 greys in a fixed order (index 0 white ... 3 black); 16 tiles per row (8-15 when 16 does not divide the count; the last row padded, padding tiles are ignored) | 405 |
+| tile blocks (2bpp art: screens, text baked into tiles, buttons, logos) | `gfx/**/name.png` next to `name.2bpp` | exact `rgbgfx` source: 4 greys in a fixed order (index 0 white ... 3 black); 16 tiles per row (8-15 when 16 does not divide the count; the last row padded, padding tiles are ignored) | 404 |
 | explicit RAW byte views | `gfx/frame_designs/metal_flame_and_creature_borders_42/raw_*.png` | reversible raw2bpp byte codec; purpose UNKNOWN/HYPOTHESIS, not a tile classification | 4 files /80B |
 | JIS 12x12 font banks, 8x16 font runs, 6x12 Latin font | `data/fonts/name.png` or `data/fonts/glyph_runs_8x16/sjis_key.png` next to its binary | glyph sheet, see section 4; `tools/font_png.py` | 37 sheets (39 binaries) |
 | whole screens (tilemap + attributes + tiles + palettes composed, in real colours) | `gfx/**/name.screen.png` next to `name.tilemap` | see section 3; an *editing view*: import writes the edit back into the tile sheets | 95 screens |
@@ -86,6 +86,11 @@ This entry updates the earlier catalogue counts to93 rows:20 PROBABLE and73 HYPO
 
 ## 7. Current original-asset catalogue
 
-The current catalogue has952 assets/607666 logical ROM bytes and951 active PNG rules. Its11 JIS12x12 binaries total131976B; all font formats together have39 binaries in37 sheets. The405 tile-sheet PNGs,4 RAW byte-view PNGs (80B) and37 font sheets are446 unique editable source PNG paths. The validity bitmap is a separate view-only picture. The RAW files preserve HYPOTHESIS/UNKNOWN purpose and use an explicit reversible byte codec; a byte-view is not a new tile classification.
+The current catalogue has951 assets/607586 logical ROM bytes and950 active PNG rules. Its11 JIS12x12 binaries total131976B; all font formats together have39 binaries in37 sheets. The404 tile-sheet PNGs,4 RAW byte-view PNGs (80B) and37 font sheets are445 unique editable source PNG paths. The validity bitmap is a separate view-only picture. The RAW files preserve HYPOTHESIS/UNKNOWN purpose and use an explicit reversible byte codec; a byte-view is not a new tile classification.
 
 The current95 screen rows are20 PROBABLE and75 HYPOTHESIS;85 of180 tilemaps have no screen row. The preceding92/93 counts describe earlier stages, not current omissions. Among the25 finite candidate physical windows,17 editing compositions and24 legacy previews exist: every window has some existing PNG representation. Eight editing views remain KEEP; this is not missing ROM art or proof of natural loading. The completed bank7C sheet shares three contiguous spans6083+10+9135B without a new PNG path. No species/name-to-image association or ALL asset-completeness claim follows.
+
+
+### AdapterCheck object-data legacy view (2026-10-18)
+
+`gfx/settings/screens_bank4a/tiles_68d0.2bpp` and its unchanged40x8PNG are retained as legacy evidence, outside the active asset/rule catalogue. They no longer feed4A:68D0 through INCBIN: edit the PROBABLE object table/frame list/frames/script in ASM/macros instead. The final11zero bytes have UNKNOWN purpose; neither tile art nor unused/padding follows from their old byte view. Paths/hashes and the original80B layout are recorded in [the typing/provenance note](research/adapter_check_object_data_80b.md). Removing one false active tile interpretation changes catalogue counters, not the ROM bytes or the number of preserved physical files.

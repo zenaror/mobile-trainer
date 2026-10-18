@@ -38,11 +38,47 @@ Tilemap_AdapterCheck_4A_6600:: ; 4A:6600
 	INCBIN "gfx/settings/screens_bank4a/adapter_check_4a_6600.tilemap"
 	INCBIN "gfx/settings/screens_bank4a/adapter_check_4a_6600.attrmap"
 
-; ---- gfx $68D0-$6920 (80 bytes) [PROBABLE] tiles-2bpp: heuristic: 52 coherent tiles (hsim2=0.623 vsim2=0.877, 2 blank) parity 1; 832/912 bytes also covered by call-site blocks [clipped from 65C1-6951 by higher-priority evidence]
+; ---- data $68D0-$6920 (80 bytes) [PROBABLE] sprite-object container: null entry0; B=$81 selects entry1 (frame list $68D8, script $690C) at 67:63EC; 4 frame pointers, records count 2/2/6/0, 4 script steps; 11 final zero bytes at $6915-$6920 have UNKNOWN purpose (see docs/research/adapter_check_object_data_80b.md)
 
-AdapterCheck_ObjTableAndAnimData:: ; 4A:68D0
-Data_4A_68D0::
-	INCBIN "gfx/settings/screens_bank4a/tiles_68d0.2bpp"
+AdapterCheck_ObjTable:: ; 4A:68D0
+
+	sprite_object_entry 0, 0 ; null entry 0; not a positive caller
+	sprite_object_entry AdapterCheck_Anim1Frames, AdapterCheck_Anim1Script ; entry 1, B=$81
+
+AdapterCheck_Anim1Frames:: ; 4A:68D8
+	sprite_frame_table AdapterCheck_Anim1Frame0, AdapterCheck_Anim1Frame1, AdapterCheck_Anim1Frame2, AdapterCheck_Anim1Frame3
+
+AdapterCheck_Anim1Frame0:: ; 4A:68E0
+	sprite_frame 2
+	sprite_oam 5, 12, $00, $00
+	sprite_oam 6, 30, $01, $00
+
+AdapterCheck_Anim1Frame1:: ; 4A:68E9
+	sprite_frame 2
+	sprite_oam 5, 5, $02, $00
+	sprite_oam 6, 30, $03, $00
+
+AdapterCheck_Anim1Frame2:: ; 4A:68F2
+	sprite_frame 6
+	sprite_oam 19, 5, $04, $40
+	sprite_oam 19, 13, $05, $40
+	sprite_oam 6, 30, $09, $00
+	sprite_oam 11, 5, $06, $40
+	sprite_oam 11, 13, $07, $40
+	sprite_oam 3, 5, $08, $40
+
+AdapterCheck_Anim1Frame3:: ; 4A:690B
+	sprite_frame 0
+
+AdapterCheck_Anim1Script:: ; 4A:690C
+	sprite_anim 4
+	sprite_anim_step 0, 20
+	sprite_anim_step 1, 20
+	sprite_anim_step 2, 20
+	sprite_anim_step 3, 20
+
+	; $6915-$6920: 11 original zero bytes, purpose UNKNOWN; not padding/unused proof.
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
 ; ---- gfx $6920-$6D20 (1024 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (67:4394 67:4A09); first: hdma_rom_to_vram at 67:4394: hl=$6920 a=$4A c=$40 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 63 hits in 3 scenarios (analysis/coverage_union.tsv)]
 

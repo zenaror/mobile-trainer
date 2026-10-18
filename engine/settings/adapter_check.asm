@@ -46,8 +46,8 @@ AdapterCheck_DrawScreen:: ; 67:6369
 	ld a, BANK(Tilemap_AdapterCheck_4A_6600)
 	farcall Tilemap_CopyRectAndAttr
 	ld hl, wSpriteSlot0
-	ld de, AdapterCheck_ObjTableAndAnimData
-	ld a, BANK(AdapterCheck_ObjTableAndAnimData)
+	ld de, AdapterCheck_ObjTable
+	ld a, BANK(AdapterCheck_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2838

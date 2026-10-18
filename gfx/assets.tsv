@@ -821,7 +821,6 @@ gfx/settings/screens_bank4a/tilemap_72b0.tilemap	tilemap	100	gfx/settings/screen
 gfx/settings/screens_bank4a/tiles_5f80.2bpp	tiles	256	gfx/settings/screens_bank4a.asm	4A	5F80	CONFIRMED	exact	0		Gfx_AdapterCheck_Tiles8000
 gfx/settings/screens_bank4a/tiles_6080.2bpp	tiles	1024	gfx/settings/screens_bank4a.asm	4A	6080	CONFIRMED	exact	0		Gfx_AdapterCheck_Tiles9000Vb1
 gfx/settings/screens_bank4a/tiles_6480.2bpp	tiles	256	gfx/settings/screens_bank4a.asm	4A	6480	CONFIRMED	exact	0		Data_4A_6480
-gfx/settings/screens_bank4a/tiles_68d0.2bpp	tiles	80	gfx/settings/screens_bank4a.asm	4A	68D0	PROBABLE	exact	0		Data_4A_68D0
 gfx/settings/screens_bank4a/tiles_6920.2bpp	tiles	1024	gfx/settings/screens_bank4a.asm	4A	6920	CONFIRMED	exact	0		Gfx_PhoneKeypadAndComment_Tiles9000Vb1
 gfx/settings/screens_bank4a/tiles_6d20.2bpp	tiles	1024	gfx/settings/screens_bank4a.asm	4A	6D20	CONFIRMED	exact	0		Gfx_PhoneKeypadAndComment_Tiles9400Vb1
 gfx/settings/screens_bank4b/settings_phone_confirm_screen_4b_73f0.attrmap	attrmap	360	gfx/settings/screens_bank4b.asm	4B	7558	CONFIRMED	-	0	20x18	Tilemap_SettingsPhone_ConfirmScreen_4B_73F0

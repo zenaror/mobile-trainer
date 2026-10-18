@@ -44,14 +44,16 @@ gfx/assets.tsv                                 one line per asset: kind, size, b
 | RGB palette (`.pal`) | 143 | 11504 |
 | validity bitmap (`.bin`) | 1 | 8198 |
 | tile-index map (`.tilemap`) | 180 | 51618 |
-| 2bpp tiles (`.2bpp`) | 405 | 346672 |
+| 2bpp tiles (`.2bpp`) | 404 | 346592 |
 | raw bytes (`.bin`, conditional byte-view codec; purpose unknown) | 4 | 80 |
-| **all** | **952** | **607666** |
+| **all** | **951** | **607586** |
 
-PNGs:405 active exact rgbgfx tile sources,4 explicit RAW byte-view PNGs (80B; purpose UNKNOWN/HYPOTHESIS), and39 font binaries in37 editable sheet PNGs:446 unique editable source PNG paths. The1 validity-bitmap view-only picture and95 screen compositions are separate. `gfx/png_rules.tsv` has951 active rules. The catalogue totals952 assets/607666 logical ROM bytes; its11 JIS12x12 binaries total131976B.
+PNGs:404 active exact rgbgfx tile sources,4 explicit RAW byte-view PNGs (80B; purpose UNKNOWN/HYPOTHESIS), and39 font binaries in37 editable sheet PNGs:445 unique editable source PNG paths. The1 validity-bitmap view-only picture and95 screen compositions are separate. `gfx/png_rules.tsv` has950 active rules. The catalogue totals951 assets/607586 logical ROM bytes; its11 JIS12x12 binaries total131976B.
 The old count406 included the retired bank73 tile interpretation; its historical file remains outside the active catalogue.
 
 ## Still `db`
+
+The table counts the parser's remaining literal `db` segments, not all structured macro bytes. AdapterCheck4A contributes11UNKNOWN tail bytes grouped by its object label; its69macro bytes are separate. This grouping does not identify the tail's purpose.
 
 Blocks of the graphics regions that are not converted (the note / label does not say they are palettes, maps or tile data, or they are too small to be tiles):
 
@@ -60,7 +62,7 @@ Blocks of the graphics regions that are not converted (the note / label does not
 | bytes read as data by executed code, content class unknown | 28 | 25244 |
 | sprite / OAM frame records, animation scripts, object tables (not tile art) | 109 | 3800 |
 | HYPOTHESIS data (mostly runs of $FF / $00 padding candidates) | 33 | 1628 |
-| object / animation tables (by label name) | 8 | 453 |
+| object / animation tables (by label name) | 9 | 464 |
 | tilemap+attr blocks clipped by the analysis (size differs from 2 x rows x cols) and 4-byte tile/attr record lists | 4 | 184 |
 | tail (less than 16 bytes) after a converted tile block | 17 | 184 |
 | gfx fragments of fewer than 4 whole tiles | 9 | 166 |
@@ -1291,7 +1293,6 @@ Retired historical file: `palette_5e60.pal` preserves the former 96-byte RGB555 
 | `adapter_check_obj.pal` | RGB palette | 64 | 4A:65C0 | CONFIRMED | - | - | `gfx/settings/screens_bank4a.asm` |
 | `adapter_check_4a_6600.tilemap` | tile-index map | 360 | 4A:6600 | CONFIRMED | - | 20x18 | `gfx/settings/screens_bank4a.asm` |
 | `adapter_check_4a_6600.attrmap` | attribute map | 360 | 4A:6768 | CONFIRMED | - | 20x18 | `gfx/settings/screens_bank4a.asm` |
-| `tiles_68d0.2bpp` | 2bpp tiles | 80 | 4A:68D0 | PROBABLE | exact | - | `gfx/settings/screens_bank4a.asm` |
 | `tiles_6920.2bpp` | 2bpp tiles | 1024 | 4A:6920 | CONFIRMED | exact | - | `gfx/settings/screens_bank4a.asm` |
 | `tiles_6d20.2bpp` | 2bpp tiles | 1024 | 4A:6D20 | CONFIRMED | exact | - | `gfx/settings/screens_bank4a.asm` |
 | `tilemap_7120.tilemap` | tile-index map | 100 | 4A:7120 | CONFIRMED | - | 20x5 | `gfx/settings/screens_bank4a.asm` |
@@ -1300,6 +1301,9 @@ Retired historical file: `palette_5e60.pal` preserves the former 96-byte RGB555 
 | `tilemap_71e8.attrmap` | attribute map | 100 | 4A:724C | CONFIRMED | - | 20x5 | `gfx/settings/screens_bank4a.asm` |
 | `tilemap_72b0.tilemap` | tile-index map | 100 | 4A:72B0 | CONFIRMED | - | 20x5 | `gfx/settings/screens_bank4a.asm` |
 | `tilemap_72b0.attrmap` | attribute map | 100 | 4A:7314 | CONFIRMED | - | 20x5 | `gfx/settings/screens_bank4a.asm` |
+
+Legacy evidence retained: `tiles_68d0.2bpp` (80B) and `tiles_68d0.png` (40x8, unchanged bytes) are no longer an active tile/PNG source for the ROM. The PROBABLE sprite-object container is maintained as ASM/macros at4A:68D0; its final11zero bytes remain UNKNOWN. See [typing and provenance](../docs/research/adapter_check_object_data_80b.md).
+
 
 ### `gfx/settings/screens_bank4b/`
 
@@ -1486,7 +1490,7 @@ make png-export       (maintainers) PNGs regenerated from the binaries; never ov
 
 | kind | PNG source | files | notes |
 |---|---|---:|---|
-| 2bpp tile blocks | `name.png` (exact `rgbgfx` source of `name.2bpp`) | 405 | all active catalogue `.2bpp` files; shades 0-3 are grey indices, not the game's colours (the game colours come from palettes and tile attributes; see screens) |
+| 2bpp tile blocks | `name.png` (exact `rgbgfx` source of `name.2bpp`) | 404 | All tile blocks in the active catalogue; shades 0-3 are grey indices, not the game's colours (the game colours come from palettes and tile attributes; see screens) |
 | explicit RAW byte views | `gfx/frame_designs/metal_flame_and_creature_borders_42/raw_*.png` | 4 | 80B through raw2bpp; UNKNOWN purpose/HYPOTHESIS, without tile classification |
 | JIS 12x12 glyphs (11 binaries) | `data/fonts/jis12x12_rows_*.png`, 94 glyphs per sheet row | 9 sheets | bank 7C's three contiguous binaries share one complete sheet |
 | 8x16 font runs | `data/fonts/glyph_runs_8x16/sjis_*.png`, 16 glyphs per row | 27 sheets | |

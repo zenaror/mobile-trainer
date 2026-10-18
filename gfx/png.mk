@@ -357,7 +357,6 @@ PNG_TILE_OUTS := \
 	gfx/settings/screens_bank4a/tiles_5f80.2bpp \
 	gfx/settings/screens_bank4a/tiles_6080.2bpp \
 	gfx/settings/screens_bank4a/tiles_6480.2bpp \
-	gfx/settings/screens_bank4a/tiles_68d0.2bpp \
 	gfx/settings/screens_bank4a/tiles_6920.2bpp \
 	gfx/settings/screens_bank4a/tiles_6d20.2bpp \
 	gfx/settings/screens_bank4b/tiles_5b90.2bpp \
@@ -790,7 +789,6 @@ gfx/settings/password_save_confirmation_bank5d/password_save_confirm_vram9400_vb
 gfx/settings/screens_bank4a/tiles_5f80.2bpp: PNG_SIZE := 256
 gfx/settings/screens_bank4a/tiles_6080.2bpp: PNG_SIZE := 1024
 gfx/settings/screens_bank4a/tiles_6480.2bpp: PNG_SIZE := 256
-gfx/settings/screens_bank4a/tiles_68d0.2bpp: PNG_SIZE := 80
 gfx/settings/screens_bank4a/tiles_6920.2bpp: PNG_SIZE := 1024
 gfx/settings/screens_bank4a/tiles_6d20.2bpp: PNG_SIZE := 1024
 gfx/settings/screens_bank4b/tiles_5b90.2bpp: PNG_SIZE := 2560

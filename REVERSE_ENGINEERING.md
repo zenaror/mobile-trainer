@@ -229,6 +229,16 @@ do not prove that any resource is unused. All emitted bytes, operands, proper
 labels, assets and metadata remain unchanged. No new natural-display, hardware,
 whole-purpose or English result is claimed.
 
+The [AdapterCheck object-data representation](docs/research/adapter_check_object_data_80b.md)
+describes 80 original bytes: 69 bytes form an object table, frame list, four
+frames and an animation script; eleven final zero bytes have unknown purpose. The structure
+retains PROBABLE status. Its former tile binary and PNG remain unchanged as legacy
+references, outside the active catalogue; the maintained source is now ASM/macros.
+The root name is refined to AdapterCheck_ObjTable, six internal records gain proper
+global names, and the redundant coordinate alias is retired. The four screen models,
+historical captures and name/image association limits remain unchanged. This is no
+new natural-display, hardware or English result.
+
 The initial wider lexical census at e958ff4f found 5,284 generic global definitions, including aliases
 and 786 neutral RAM coordinates; these are not counts of unknown functions. It also found 4,961
 address-based local labels, all present in the parent SYM, by recognizing colonless RGBDS declarations.

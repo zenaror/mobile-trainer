@@ -825,7 +825,6 @@ gfx/settings/screens_bank4a/tilemap_72b0.tilemap	-	tilemap				100	36f58798ff962a
 gfx/settings/screens_bank4a/tiles_5f80.2bpp	gfx/settings/screens_bank4a/tiles_5f80.png	tiles			0	256	3392fd28a6d5bc1c2b79b5b1d8e26cae06b06e5d46a9f0d7b1ea409867f2fdea
 gfx/settings/screens_bank4a/tiles_6080.2bpp	gfx/settings/screens_bank4a/tiles_6080.png	tiles			0	1024	69de21039d65ba045ab2f4168a31d14be89f43a36abf747396f4c0a7d06fe56e
 gfx/settings/screens_bank4a/tiles_6480.2bpp	gfx/settings/screens_bank4a/tiles_6480.png	tiles			0	256	4a35a2abf285cc9a05ba8ff357caf9b7b7cd894991eae4e652e49486ccac780a
-gfx/settings/screens_bank4a/tiles_68d0.2bpp	gfx/settings/screens_bank4a/tiles_68d0.png	tiles			0	80	fd7e2e1950b98b4f5ac150a61f9c6db23cd927af6d184796aca47bc550ace9e3
 gfx/settings/screens_bank4a/tiles_6920.2bpp	gfx/settings/screens_bank4a/tiles_6920.png	tiles			0	1024	7a5964027f57988deb384d1268f405de7a092d4379be5a5fa5f3298fff68706e
 gfx/settings/screens_bank4a/tiles_6d20.2bpp	gfx/settings/screens_bank4a/tiles_6d20.png	tiles			0	1024	98c31d2876dfe2bf0ebdc8844a1b7452d0831911a0c1d56d8f67dff4170824d8
 gfx/settings/screens_bank4b/settings_phone_confirm_screen_4b_73f0.attrmap	-	attrmap				360	c82bdc5e9c51bbb6685245f5c00a24edc6ed20257a6859faadbaedc587c61484
