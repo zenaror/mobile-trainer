@@ -7,38 +7,38 @@ SECTION "gfx/mail/received_mail_grid", ROMX
 ; ---- gfx $59C0-$5DC0 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2B:547D: hl=$59C0 a=$2B c=$40 de=$9001 (dest VRAM $9000, vbank=1) [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv); executed only by the forced run forced_screens (traces/forced/, not natural evidence)]
 
 Gfx_MailGrid_Tiles9000Vb1:: ; 2B:59C0
-Data_2B_59C0::
+
 	INCBIN "gfx/mail/received_mail_grid/mail_grid_tiles9000.2bpp"
 
 ; ---- gfx $5DC0-$5FF0 (560 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2B:548F: hl=$5DC0 a=$2B c=$23 de=$9401 (dest VRAM $9400, vbank=1) [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv); executed only by the forced run forced_screens (traces/forced/, not natural evidence)]
 
 Gfx_MailGrid_Tiles9400Vb1:: ; 2B:5DC0
-Data_2B_5DC0::
+
 	INCBIN "gfx/mail/received_mail_grid/mail_grid_tiles9400.2bpp"
 
 ; ---- data $5FF0-$62C0 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2B:54C3: hl=$5FF0 a=$2B b=18 rows c=20 cols (tiles then attrs) de=$D000 [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv); executed only by the forced run forced_screens (traces/forced/, not natural evidence)]
 
 Data_MailGrid_TilemapAttr:: ; 2B:5FF0
-Data_2B_5FF0::
+
 	INCBIN "gfx/mail/received_mail_grid/data_mail_grid_tilemap_attr.tilemap"
 	INCBIN "gfx/mail/received_mail_grid/data_mail_grid_tilemap_attr.attrmap"
 
 ; ---- data $62C0-$6300 (64 bytes) [PROBABLE] CGB palette data (RGB555 words): heuristic: 40 RGB555 words as 10 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance) [clipped from 62C0-6310 by higher-priority proposals]
 
 Palette_MailGrid_Bg:: ; 2B:62C0
-Data_2B_62C0::
+
 	INCLUDE "gfx/mail/received_mail_grid/mail_grid_bg.pal"
 
 ; ---- gfx $6300-$63F0 (240 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2B:54A1: hl=$6300 a=$2B c=$0F de=$8000 (dest VRAM $8000, vbank=0) [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv); executed only by the forced run forced_screens (traces/forced/, not natural evidence)]
 
 Gfx_MailGrid_Tiles8000:: ; 2B:6300
-Data_2B_6300::
+
 	INCBIN "gfx/mail/received_mail_grid/mail_grid_tiles8000.2bpp"
 
 ; ---- data $63F0-$6430 (64 bytes) [PROBABLE] 64 bytes = 32 RGB555 words (bit15 clear), loaded by 'ld hl,$63F0' at 2B:54AD (a=$2B); replaces the clipped 72-word heuristic region
 
 Palette_MailGrid_Obj:: ; 2B:63F0
-Palette_2B_63F0::
+
 	INCLUDE "gfx/mail/received_mail_grid/mail_grid_obj.pal"
 
 ; ---- words $6430-$6440 (16 bytes) [PROBABLE] animation entry table: 4 entries of 4 bytes (frame-table pointer, script pointer), each animation repeated 4x; format of the sprite-slot initialiser 00:0A82/0AB8 (entry at DE+4*(A&$3F) -> slot[2..3] frame table, slot[6..7] script)

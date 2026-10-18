@@ -7,38 +7,38 @@ SECTION "gfx/mail/mail_viewer", ROMX
 ; ---- gfx $6DD0-$71D0 (1024 bytes) [CONFIRMED] 64 tiles: 'ld de,$9001 ; ld hl,$6DD0 ; ld a,$2B ; ld c,$40 ; call FarCall -> 00:0749 (HDMA rom->vram)' at 2B:6620-6631; merges the former zero-run / UNCLASSIFIED fragments (blank rows are tile content) [every byte read as data in 9 scenario(s)]
 
 Gfx_MailView_Tiles9000Vb1:: ; 2B:6DD0
-Tiles_2B_6DD0::
+
 	INCBIN "gfx/mail/mail_viewer/mail_view_tiles9000.2bpp"
 
 ; ---- gfx $71D0-$73D0 (512 bytes) [PROBABLE] 32 tiles: 'ld de,$9401 ; ld hl,$71D0 ; ld a,$2B ; ld c,$20 ; HDMA' at 2B:6635-6646; ends where the tilemap+attr block at 73D0 begins
 
 Gfx_MailView_Tiles9400Vb1:: ; 2B:71D0
-Tiles_2B_71D0::
+
 	INCBIN "gfx/mail/mail_viewer/mail_view_tiles9400.2bpp"
 
 ; ---- data $73D0-$76A0 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2B:6655: hl=$73D0 a=$2B b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 101 hits in 9 scenarios (analysis/coverage_union.tsv)]
 
 Data_MailView_TilemapAttr:: ; 2B:73D0
-Data_2B_73D0::
+
 	INCBIN "gfx/mail/mail_viewer/data_mail_view_tilemap_attr.tilemap"
 	INCBIN "gfx/mail/mail_viewer/data_mail_view_tilemap_attr.attrmap"
 
 ; ---- data $76A0-$76E0 (64 bytes) [PROBABLE] 64 bytes = 32 RGB555 words (bit15 clear): 'ld bc,$0040 ; ld de,$D800 ; ld hl,$76A0 ; ld a,$2B ; far call 4F:4000' at 2B:65E3-65F3; the old heuristic region ran into tile data
 
 Palette_MailView_Bg:: ; 2B:76A0
-Palette_2B_76A0::
+
 	INCLUDE "gfx/mail/mail_viewer/mail_view_bg.pal"
 
 ; ---- gfx $76E0-$7860 (384 bytes) [PROBABLE] 24 tiles: 'ld de,$8000 ; ld hl,$76E0 ; ld a,$2B ; ld c,$18 ; HDMA' at 2B:65F7-6608; includes the zero run at 7840-7860 (blank tiles)
 
 Gfx_MailView_Tiles8000:: ; 2B:76E0
-Tiles_2B_76E0::
+
 	INCBIN "gfx/mail/mail_viewer/mail_view_tiles8000.2bpp"
 
 ; ---- data $7860-$78A0 (64 bytes) [PROBABLE] 64 bytes = 32 RGB555 words (bit15 clear): 'ld bc,$0040 ; ld de,$D840 ; ld hl,$7860 ; ld a,$2B ; far call 4F:4000' at 2B:660C-661C
 
 Palette_MailView_Obj:: ; 2B:7860
-Palette_2B_7860::
+
 	INCLUDE "gfx/mail/mail_viewer/mail_view_obj.pal"
 
 ; ---- words $78A0-$7920 (128 bytes) [PROBABLE] animation entry table: 32 entries of 4 bytes (frame-table pointer, script pointer), each animation repeated 4x; format of the sprite-slot initialiser 00:0A82/0AB8 (entry at DE+4*(A&$3F) -> slot[2..3] frame table, slot[6..7] script)

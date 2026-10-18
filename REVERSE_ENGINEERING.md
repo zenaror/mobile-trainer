@@ -108,6 +108,17 @@ checks distinguish present editable backing from historical previews; eight KEEP
 Pokémon-name associations and runtime/display qualifications remain unresolved.
 English remains suspended pending fresh human confirmation.
 
+The Mail graphics follow-on retires20 redundant resource aliases in four original owners,
+retaining the existing descriptive names, six CONFIRMED and14 PROBABLE classifications,
+all physical ASM rows and asset bytes. The [resource contracts](docs/research/mail_gfx_resource_aliases.md)
+preserve the neutral64/528-byte spans,692 bytes of animation tails and37 animation aliases.
+The reload at5CC0 uses C=$30:48 blocks/768 bytes, comprising448 bytes of the main backing,
+64 adjacent neutral bytes and256 bytes of Tiles2. No source instruction or load extent changes.
+The isolated symbol prediction is14850 names including51 exported constants from the14870-name
+parent; the previous Mail SDK20 is already part of that parent. This does not identify the eight
+KEEP frame contexts or associate25 Pokemon names with25 windows and27 descriptor words.
+English remains suspended pending fresh human confirmation.
+
 The initial wider lexical census at e958ff4f found 5,284 generic global definitions, including aliases
 and 786 neutral RAM coordinates; these are not counts of unknown functions. It also found 4,961
 address-based local labels, all present in the parent SYM, by recognizing colonless RGBDS declarations.

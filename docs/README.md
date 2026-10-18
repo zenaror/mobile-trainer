@@ -67,6 +67,7 @@ Reference documents (current):
 | [`address_book_save_resource_names.md`](research/address_book_save_resource_names.md) | Bounded original data/resource alias contracts; evidence and caller limits retained |
 | [`audio_table_names.md`](research/audio_table_names.md) | Bounded original data/resource alias contracts; evidence and caller limits retained |
 | [`home_data_names.md`](research/home_data_names.md) | Bounded original data/resource alias contracts; evidence and caller limits retained |
+| [`mail_gfx_resource_aliases.md`](research/mail_gfx_resource_aliases.md) | Original Mail graphics aliases; load extents, backing and unresolved frame limits |
 | [`mail_sdk_data_names.md`](research/mail_sdk_data_names.md) | Mail strings and pointer tables; finite domains, independent indices and selector-stack caveat |
 | [`title_logo_resource_names.md`](research/title_logo_resource_names.md) | Bounded original data/resource alias contracts; evidence and caller limits retained |
 | [`font_glyph_run_path_map.tsv`](research/font_glyph_run_path_map.tsv) | original glyph-run binary and PNG path migration with byte hashes |
