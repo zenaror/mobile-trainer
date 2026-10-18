@@ -53,7 +53,7 @@ Gfx_SettingsPhone_ChoiceMenu_Tiles9000Vb1_4D_5110:: ; 4D:5110
 ; ---- data $5510-$5538 (40 bytes) [PROBABLE] palette-rgb555: 20 colours (5 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/settings/choice_menu.asm:147, call 67:479A executed 46 hits in 6 scenarios (analysis/coverage_union.tsv)); the call takes 24 bytes past the end of this block (the palette at $5538 and the first 16 bytes of the tilemap pair at $5540 are copied into the buffer behind it); the length of 40 bytes is by adjacency, not by the call
 
 Palette_SettingsPhone_ChoiceMenu_Bg:: ; 4D:5510
-Data_4D_5510::
+Data_SettingsPhone_ChoiceMenu_ResourceWindow768::
 	INCLUDE "gfx/settings/screens_bank4d/settings_phone_choice_menu_bg.pal"
 
 ; ---- data $5538-$5540 (8 bytes) [CONFIRMED] palette-rgb555: 4 colours (1 palettes) read by Palette_LoadToBuffer: +$00 bc=$08 into wPaletteBufObj (engine/settings/choice_menu.asm:152, call 67:47AB executed 46 hits in 6 scenarios (analysis/coverage_union.tsv))

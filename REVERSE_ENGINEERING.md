@@ -130,12 +130,23 @@ These seven retirements add no new natural rendering or hardware evidence. Engli
 
 The palette metadata check rejects unresolved symbolic source names in its resolved-load
 records instead of silently dropping a consumer. The [metadata integrity contract](docs/research/palette_load_metadata_integrity.md)
-distinguishes162 resolved palette records from11 explicitly UNRESOLVED records outside this
+distinguishes 162 resolved palette records from 11 explicitly UNRESOLVED records outside this
 check. Existing offset/numeric resolution and documented over-read allowances remain unchanged.
 The regression models retiring an alias while leaving a stale palette record: that input must
 fail, while the correctly named consumer retains its load. No palette record, original source
 instruction, alias or asset is changed by this tool correction. This is validation of the recorded
 metadata, not proof that every possible ROM palette reader or bank state has been resolved.
+
+The phone-choice mixed source now has a structural view named
+`Data_SettingsPhone_ChoiceMenu_ResourceWindow768`, classified PROBABLE under its
+[consumer contract](docs/research/settings_choice_menu_resource_window.md).
+The original HDMA source covers 768 bytes: BG40, OBJ8, map360 and attributes360.
+The separate BG64 load retains `Palette_SettingsPhone_ChoiceMenu_Bg` and its
+reviewed 24-byte over-read; this does not reclassify the whole window as a palette.
+Two operational metadata cells now name the upload window and BG palette respectively,
+preserving all 162 ordered palette-load tuples. One generic symbol is replaced by
+one descriptive view, with no net symbol-count change; instructions, emitted bytes,
+assets and the existing confidence levels remain unchanged. English remains suspended.
 
 The initial wider lexical census at e958ff4f found 5,284 generic global definitions, including aliases
 and 786 neutral RAM coordinates; these are not counts of unknown functions. It also found 4,961
