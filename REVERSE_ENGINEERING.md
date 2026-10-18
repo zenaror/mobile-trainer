@@ -167,6 +167,15 @@ Catalog and operational metadata already use descriptive labels and remain uncha
 The isolated symbol delta is -10 with surviving values and 51 constants held.
 No new natural rendering, hardware evidence or English work is introduced.
 
+The SJIS bit-test follow-on retires eight redundant coordinate aliases, retaining
+`Font_ValidateSjisCode_TestBit0` through `TestBit7` and their existing classifications.
+The [handler contracts](docs/research/sjis_bit_test_coalias_names.md) preserve the
+48 handler bytes, 16 table bytes, eight descriptive DW references and the qualified
+stack/flags behavior. This does not establish a universal direct-entry ABI or the
+meaning of the PROBABLE bitmap. Source rows and all operands remain unchanged.
+The isolated symbol delta is -8 with surviving values and 51 constants held.
+No natural-execution, hardware or English claim is added.
+
 The initial wider lexical census at e958ff4f found 5,284 generic global definitions, including aliases
 and 786 neutral RAM coordinates; these are not counts of unknown functions. It also found 4,961
 address-based local labels, all present in the parent SYM, by recognizing colonless RGBDS declarations.

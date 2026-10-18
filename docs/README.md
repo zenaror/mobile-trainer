@@ -73,6 +73,7 @@ Reference documents (current):
 | [`settings_choice_menu_resource_window.md`](research/settings_choice_menu_resource_window.md) | Mixed phone-choice upload window, palette prefix and operational metadata |
 | [`settings_text_entry_and_confirm_resource_names.md`](research/settings_text_entry_and_confirm_resource_names.md) | Settings/text-entry resource names, shared consumers and catalog label reconciliation |
 | [`error_screen_basic_resource_names.md`](research/error_screen_basic_resource_names.md) | Original resource aliases and their bounded consumer contracts |
+| [`sjis_bit_test_coalias_names.md`](research/sjis_bit_test_coalias_names.md) | Original resource aliases and their bounded consumer contracts |
 | [`settings_choice_resource_names.md`](research/settings_choice_resource_names.md) | Phone-choice graphics aliases, HDMA extents and mixed-source limits |
 | [`title_logo_resource_names.md`](research/title_logo_resource_names.md) | Bounded original data/resource alias contracts; evidence and caller limits retained |
 | [`font_glyph_run_path_map.tsv`](research/font_glyph_run_path_map.tsv) | original glyph-run binary and PNG path migration with byte hashes |

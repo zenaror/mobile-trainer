@@ -56,50 +56,50 @@ Table_63_402D::
 	dw Font_ValidateSjisCode_TestBit7
 
 Font_ValidateSjisCode_TestBit0:: ; 63:403D
-Label_63_403D::
+
 	; [CONFIRMED] 29 insn(s); 29 executed (in up to 13/18 scenarios)
 	bit 0, c
 	jr z, Font_ValidateSjisCode_Invalid
 	jr Font_ValidateSjisCode_Valid
 
 Font_ValidateSjisCode_TestBit1:: ; 63:4043
-Label_63_4043::
+
 	bit 1, c
 	jr z, Font_ValidateSjisCode_Invalid
 	jr Font_ValidateSjisCode_Valid
 
 Font_ValidateSjisCode_TestBit2:: ; 63:4049
-Label_63_4049::
+
 	bit 2, c
 	jr z, Font_ValidateSjisCode_Invalid
 	jr Font_ValidateSjisCode_Valid
 
 Font_ValidateSjisCode_TestBit3:: ; 63:404F
-Label_63_404F::
+
 	bit 3, c
 	jr z, Font_ValidateSjisCode_Invalid
 	jr Font_ValidateSjisCode_Valid
 
 Font_ValidateSjisCode_TestBit4:: ; 63:4055
-Label_63_4055::
+
 	bit 4, c
 	jr z, Font_ValidateSjisCode_Invalid
 	jr Font_ValidateSjisCode_Valid
 
 Font_ValidateSjisCode_TestBit5:: ; 63:405B
-Label_63_405B::
+
 	bit 5, c
 	jr z, Font_ValidateSjisCode_Invalid
 	jr Font_ValidateSjisCode_Valid
 
 Font_ValidateSjisCode_TestBit6:: ; 63:4061
-Label_63_4061::
+
 	bit 6, c
 	jr z, Font_ValidateSjisCode_Invalid
 	jr Font_ValidateSjisCode_Valid
 
 Font_ValidateSjisCode_TestBit7:: ; 63:4067
-Label_63_4067::
+
 	bit 7, c
 	jr z, Font_ValidateSjisCode_Invalid
 	jr Font_ValidateSjisCode_Valid
