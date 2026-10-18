@@ -78,6 +78,7 @@ Reference documents (current):
 | [`shared_text_entry_5e_resource_paths.md`](research/shared_text_entry_5e_resource_paths.md) | Shared text-entry VRAM source paths and preserved editing qualifiers |
 | [`connection_icon_request1_alias_retirement.md`](research/connection_icon_request1_alias_retirement.md) | Two confirmed Request1 tile sources and retained connection-icon qualifications |
 | [`password_save_confirmation_5d_resource_paths.md`](research/password_save_confirmation_5d_resource_paths.md) | Password-save confirmation resource paths, VRAM sources and variant-zero editing model |
+| [`connection_icon_probable_alias_retirement.md`](research/connection_icon_probable_alias_retirement.md) | Connection-icon structural alias retirement, corrected object ABI and retained unknowns |
 | [`settings_choice_resource_names.md`](research/settings_choice_resource_names.md) | Phone-choice graphics aliases, HDMA extents and mixed-source limits |
 | [`title_logo_resource_names.md`](research/title_logo_resource_names.md) | Bounded original data/resource alias contracts; evidence and caller limits retained |
 | [`font_glyph_run_path_map.tsv`](research/font_glyph_run_path_map.tsv) | original glyph-run binary and PNG path migration with byte hashes |

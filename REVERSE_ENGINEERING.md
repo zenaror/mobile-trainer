@@ -217,6 +217,18 @@ empty palette cell and its unchanged identity. Collection naming stays PROBABLE.
 Nine historical/current mappings are appended. Shared5F tiles, bank4A objects,
 the alternate map, all symbols and English payloads remain outside this change.
 
+The connection-icon palette, object table, frame lists, frames and scripts
+retain their existing proper names under a [bounded structural contract](docs/research/connection_icon_probable_alias_retirement.md).
+Forty redundant coordinate aliases are retired; all 41 PROBABLE headers and both
+CONFIRMED tile headers keep their status. Two separate factual corrections in
+the object-table comment match the consumer: the script pointer goes to slot
++6/+7, and byte arithmetic selects DE+4*(B&$3F), without a table bounds check.
+The fourteen-byte neutral prefix, five frames not selected by their associated
+scripts and the one/three-byte unknown tails remain held; these finite findings
+do not prove that any resource is unused. All emitted bytes, operands, proper
+labels, assets and metadata remain unchanged. No new natural-display, hardware,
+whole-purpose or English result is claimed.
+
 The initial wider lexical census at e958ff4f found 5,284 generic global definitions, including aliases
 and 786 neutral RAM coordinates; these are not counts of unknown functions. It also found 4,961
 address-based local labels, all present in the parent SYM, by recognizing colonless RGBDS declarations.
