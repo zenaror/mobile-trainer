@@ -1083,3 +1083,5 @@ two sidecars changed only row order; all rule records, payload sizes and hashes
 remain the same, and the PNG check now passes.
 
 The mail connection-screen owner also had 23 redundant `Data_27_*` aliases under existing descriptive graphics and animation labels. They were removed after confirming same-address symbols and no generic references, tool/metadata mentions or local scopes; the byte-identical build and static checks pass. See the [generic data-label audit](docs/research/generic_data_name_audit_20261020.md).
+
+The communication-scene graphics owner also lost 22 redundant `Data_70_*` aliases under exact-address frame, animation-script and graphics labels. Current symbols and source scans confirmed no generic-name consumers; bytes and confidence are unchanged. The byte-identical build and symbol, palette and PNG checks pass. Details are in the [generic data-label audit](docs/research/generic_data_name_audit_20261020.md).

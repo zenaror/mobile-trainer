@@ -382,6 +382,25 @@ ledger SHA-256 is
 The build is byte-identical to the original; symbol, palette and PNG checks
 pass.
 
+## Retired communication-scene graphic aliases (2026-10-20)
+
+The owner `gfx/comm/comm_scene.asm` had 22 `Data_70_*` aliases at exact
+addresses already named by descriptive frame, animation-script and shared
+graphics labels. Its source hash matched the census parent; the current symbol
+file confirmed every alias and descriptive label at the same address. The
+candidates had no source, tool/metadata or local-scope consumers. Only the
+redundant declarations were removed; bytes and inherited confidence remain
+unchanged. See
+[`retired_comm_scene_data_aliases.tsv`](../../analysis/naming2/retired_comm_scene_data_aliases.tsv).
+
+Private receipt `.tmp/comm-scene-data-alias-pass-20261020/`: `PRECHECK.json`
+SHA-256 `3e8a4d72f5ef03c0ff12ace6838212b32c920de135985e115f95791155cb3114`,
+`RESULT.json` SHA-256
+`60eb024a43dd75adb6838ac900e7a4a3396bdf3ea2cc4de834ead4eb43d7d4f2`, and
+ledger SHA-256
+`d20bc73f6a241c5a07f543288f98c42788c28e925c694dd91fe37730eae09375`.
+The original-ROM identity, symbol, palette and PNG checks all pass.
+
 ## Remaining limits
 
 The other 75 labels from the original no-alias subset remain unchanged. The audit groups them into interior labels,

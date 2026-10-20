@@ -657,7 +657,6 @@ Table_70_535C::
 ; ---- data $535E-$5397 (57 bytes) [PROBABLE] sprite frame record: count=14 then 14 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_534C
 
 CommScene_Anim1Frame0:: ; 70:535E
-Data_70_535E::
 	sprite_frame 14
 	sprite_oam 0, 0, $00, OAMF_BANK1 | 3
 	sprite_oam -16, 0, $00, OAMF_BANK1 | 3
@@ -677,7 +676,6 @@ Data_70_535E::
 ; ---- data $5397-$539A (3 bytes) [PROBABLE] count=1 then 1 x 2-byte pairs; word1 of an entry of Table_70_534C (read by 00:0AB8 through [slot+8])
 
 CommScene_Anim1Script:: ; 70:5397
-Data_70_5397::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -690,7 +688,6 @@ Table_70_539A::
 ; ---- data $539C-$53D5 (57 bytes) [PROBABLE] sprite frame record: count=14 then 14 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_534C
 
 CommScene_Anim2Frame0:: ; 70:539C
-Data_70_539C::
 	sprite_frame 14
 	sprite_oam -16, 16, $00, OAMF_XFLIP | OAMF_BANK1 | 3
 	sprite_oam 0, 16, $00, OAMF_XFLIP | OAMF_BANK1 | 3
@@ -710,7 +707,6 @@ Data_70_539C::
 ; ---- data $53D5-$53D8 (3 bytes) [PROBABLE] count=1 then 1 x 2-byte pairs; word1 of an entry of Table_70_534C (read by 00:0AB8 through [slot+8])
 
 CommScene_Anim2Script:: ; 70:53D5
-Data_70_53D5::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -723,7 +719,6 @@ Table_70_53D8::
 ; ---- data $53DC-$53E5 (9 bytes) [PROBABLE] sprite frame record: count=2 then 2 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_534C
 
 CommScene_Anim3Frame0:: ; 70:53DC
-Data_70_53DC::
 	sprite_frame 2
 	sprite_oam 0, 0, $74, 5
 	sprite_oam 0, 8, $76, 5
@@ -731,13 +726,11 @@ Data_70_53DC::
 ; ---- data $53E5-$53E6 (1 bytes) [PROBABLE] sprite frame record: count=0 then 0 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_534C
 
 CommScene_Anim3Frame1:: ; 70:53E5
-Data_70_53E5::
 	sprite_frame 0
 
 ; ---- data $53E6-$53EB (5 bytes) [PROBABLE] count=2 then 2 x 2-byte pairs; word1 of an entry of Table_70_534C (read by 00:0AB8 through [slot+8])
 
 CommScene_Anim3Script:: ; 70:53E6
-Data_70_53E6::
 	sprite_anim 2
 	sprite_anim_step 0, 12
 	sprite_anim_step 1, 12
@@ -762,7 +755,6 @@ Table_70_5403::
 ; ---- data $5407-$5418 (17 bytes) [PROBABLE] sprite frame record: count=4 then 4 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_53EB
 
 CommScene_Sprite_Anim1Frame0:: ; 70:5407
-Data_70_5407::
 	sprite_frame 4
 	sprite_oam 3, 0, $00, 0
 	sprite_oam 3, 8, $02, 0
@@ -772,7 +764,6 @@ Data_70_5407::
 ; ---- data $5418-$5429 (17 bytes) [PROBABLE] sprite frame record: count=4 then 4 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_53EB
 
 CommScene_Sprite_Anim1Frame1:: ; 70:5418
-Data_70_5418::
 	sprite_frame 4
 	sprite_oam 3, 0, $04, 0
 	sprite_oam 3, 8, $06, 0
@@ -782,7 +773,6 @@ Data_70_5418::
 ; ---- data $5429-$542E (5 bytes) [PROBABLE] count=2 then 2 x 2-byte pairs; word1 of an entry of Table_70_53EB (read by 00:0AB8 through [slot+8])
 
 CommScene_Sprite_Anim1Script:: ; 70:5429
-Data_70_5429::
 	sprite_anim 2
 	sprite_anim_step 0, 8
 	sprite_anim_step 1, 8
@@ -796,7 +786,6 @@ Table_70_542E::
 ; ---- data $5432-$5443 (17 bytes) [PROBABLE] sprite frame record: count=4 then 4 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_53EB
 
 CommScene_Sprite_Anim2Frame0:: ; 70:5432
-Data_70_5432::
 	sprite_frame 4
 	sprite_oam 3, 8, $00, OAMF_XFLIP
 	sprite_oam 3, 0, $02, OAMF_XFLIP
@@ -806,7 +795,6 @@ Data_70_5432::
 ; ---- data $5443-$5454 (17 bytes) [PROBABLE] sprite frame record: count=4 then 4 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_53EB
 
 CommScene_Sprite_Anim2Frame1:: ; 70:5443
-Data_70_5443::
 	sprite_frame 4
 	sprite_oam 3, 8, $04, OAMF_XFLIP
 	sprite_oam 3, 0, $06, OAMF_XFLIP
@@ -816,7 +804,6 @@ Data_70_5443::
 ; ---- data $5454-$5459 (5 bytes) [PROBABLE] count=2 then 2 x 2-byte pairs; word1 of an entry of Table_70_53EB (read by 00:0AB8 through [slot+8])
 
 CommScene_Sprite_Anim2Script:: ; 70:5454
-Data_70_5454::
 	sprite_anim 2
 	sprite_anim_step 0, 8
 	sprite_anim_step 1, 8
@@ -830,7 +817,6 @@ Table_70_5459::
 ; ---- data $545B-$5464 (9 bytes) [PROBABLE] sprite frame record: count=2 then 2 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_53EB
 
 CommScene_Sprite_Anim3Frame0:: ; 70:545B
-Data_70_545B::
 	sprite_frame 2
 	sprite_oam 11, 0, $5C, 3
 	sprite_oam 11, 8, $5E, 3
@@ -838,7 +824,6 @@ Data_70_545B::
 ; ---- data $5464-$5467 (3 bytes) [PROBABLE] count=1 then 1 x 2-byte pairs; word1 of an entry of Table_70_53EB (read by 00:0AB8 through [slot+8])
 
 CommScene_Sprite_Anim3Script:: ; 70:5464
-Data_70_5464::
 	sprite_anim 1
 	sprite_anim_step 0, 8
 
@@ -851,7 +836,6 @@ Table_70_5467::
 ; ---- data $5469-$5472 (9 bytes) [PROBABLE] sprite frame record: count=2 then 2 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_53EB
 
 CommScene_Sprite_Anim4Frame0:: ; 70:5469
-Data_70_5469::
 	sprite_frame 2
 	sprite_oam 11, 8, $5C, OAMF_XFLIP | 3
 	sprite_oam 11, 0, $5E, OAMF_XFLIP | 3
@@ -859,7 +843,6 @@ Data_70_5469::
 ; ---- data $5472-$5475 (3 bytes) [PROBABLE] count=1 then 1 x 2-byte pairs; word1 of an entry of Table_70_53EB (read by 00:0AB8 through [slot+8])
 
 CommScene_Sprite_Anim4Script:: ; 70:5472
-Data_70_5472::
 	sprite_anim 1
 	sprite_anim_step 0, 8
 
@@ -872,7 +855,6 @@ Table_70_5475::
 ; ---- data $5477-$5480 (9 bytes) [PROBABLE] sprite frame record: count=2 then 2 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_53EB
 
 CommScene_Sprite_Anim5Frame0:: ; 70:5477
-Data_70_5477::
 	sprite_frame 2
 	sprite_oam -8, 0, $3C, 1
 	sprite_oam -8, 8, $3E, 1
@@ -880,7 +862,6 @@ Data_70_5477::
 ; ---- data $5480-$5483 (3 bytes) [PROBABLE] count=1 then 1 x 2-byte pairs; word1 of an entry of Table_70_53EB (read by 00:0AB8 through [slot+8])
 
 CommScene_Sprite_Anim5Script:: ; 70:5480
-Data_70_5480::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -917,7 +898,6 @@ Data_70_6090::
 ; this slice is its first $200 bytes. Both calls: 160 hits in 18 natural scenarios.
 
 Gfx_CommScene_SharedVramSource0:: ; 70:6490
-Data_70_6490::
 	INCBIN "gfx/comm/comm_scene/tiles_6490.2bpp"
 
 ; ---- gfx $6690-$6890 (512 bytes) [CONFIRMED] existing graphics slice; shared source:
@@ -926,7 +906,6 @@ Data_70_6490::
 ; Both use C=$40 ($400 bytes total); 160 hits in 18 natural scenarios each.
 
 Gfx_CommScene_SharedVramSource1:: ; 70:6690
-Data_70_6690::
 	INCBIN "gfx/comm/comm_scene/tiles_6690.2bpp"
 
 ; ---- gfx $6890-$6A90 (512 bytes) [CONFIRMED] existing graphics slice; shared source:
@@ -935,7 +914,6 @@ Data_70_6690::
 ; The latter uses C=$40 ($400 bytes total); both calls 160 hits/18 natural scenarios.
 
 Gfx_CommScene_SharedVramSource2:: ; 70:6890
-Data_70_6890::
 	INCBIN "gfx/comm/comm_scene/tiles_6890.2bpp"
 
 ; ---- gfx $6A90-$6C90 (512 bytes) [CONFIRMED] tiles-vram: hdma_rom_to_vram at 70:4572 hl=$6A90 c=$40 de=$9401 (recovered arguments). NOTE: the HDMA length $400 would run to 6E90, but 6C90-6D10 are palettes (copied by 4F:4000 calls) and 6D10-7090 the tilemap (copy_tilemap_rect_pair), so only the first $200 bytes (32 tiles) are tile data by content; the rest of the DMA window is over-read
