@@ -196,7 +196,7 @@ Many screens (banks 4A, 4B, 4D, 50, 51, 56, 58, 5B-63, 66, 6A ...) use **pre-ren
 
 ## 9. Open questions
 
-1. Establish natural bank6C topic/page reachability, variable-state values and rendered glyph output; primary command boundaries and static grammar are now mapped, but runtime paths and pixels remain unproven (section6 and `help_script_stream_map_20261020.md`).
+1. Expand the bounded bank6C `help` emulator sample: one ordinary-input route from the saved `tutorial_profile` state now has matching replayed coverage/data-access tables and inspected screen captures (including a fourth-entry capture with `??????`). Other topic/page routes, variable-state values, complete rendered glyph output, and physical-hardware behavior remain open (section6 and `help_script_stream_map_20261020.md`).
 2. The unvalidated first header byte `$86` and remaining cursor-path semantics in bank72; the second byte's layout selection and the third byte's initial result are located in section4.1. Bank6C runtime topic reachability and rendered output remain open (section6); its command boundaries and 13-byte final-topic tail are mapped separately.
 3. HTML tag scanner semantics (`00:1119-12xx`).
 4. Whether the stray `0A` after `0D` in some strings (e.g. `19:447C`) is handled by the interpreter (table maps `0A` to the terminating handler).

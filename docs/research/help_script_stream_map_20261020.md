@@ -19,11 +19,46 @@ the command widths and branch mechanics below. It does not prove that every
 branch is naturally taken, that every topic is reachable through ordinary
 menus, or what glyphs were displayed at runtime.
 
+## Bounded emulator scenario evidence
+
+The tracked `help` macro (`traces/inputs/help.macro`, resolved frames in
+`traces/inputs/help.txt`) starts from the saved state produced by
+`tutorial_profile`, with the Mobile Adapter emulated and the fake network
+selected. It uses ordinary button inputs through the title, top menu, help menu,
+first-use tutorial, and several help entries; it contains no `force` or
+`ramset` directives. A replay on 2026-10-20 against the original ROM reproduced
+`traces/coverage_help.tsv` and `traces/detail/help/dataaccess.tsv` byte for byte.
+The original ROM SHA-256 is
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
+The replayed tracked inputs and outputs have SHA-256 values:
+`help.macro` `0fabd869f55168defd3315ebd5d273493c19a3e8e45ec2fc7dd204b0ccd7ed88`,
+`help.txt` `26a5435a370be4eaa1cd4aaa8647dffa74459e3d7abc26d6f8faf12877a23160`,
+`coverage_help.tsv` `0014768a7ac05ea90af98553f2c7b37d3f1417603ae3563c059435d817e4b049`,
+and `dataaccess.tsv`
+`ebe9eff200807479b544674285aee3f4e62b16ba300c0ef35076f414a60eba73`.
+
+The replayed screen captures are retained under the ignored
+`.tmp/jp-help-runtime-review-20261020/shots/help/`: frames 2426 (help menu),
+3937 (first-use tutorial page), 5443/6711 (second entry), 8687 (third entry),
+10029/10663 (fourth entry), and 11931 (back at the title). The captures show
+Japanese text and graphics on these visited screens. At frame 10663 the fourth
+entry includes `??????` placeholders; this is recorded as rendered output, not
+interpreted as a successful or complete text page.
+
+The recorded bank-6C reads include `4809–4813`, `483E–48D6`, `4BB9–4BBC`,
+`4BC2–4C36`, `51A1–51A4`, `58C6–58C7`, and lookup accesses in `58C9–597D`.
+The trace also records instruction execution at `59B2`, `5B47`, `5C36`, `5CC5`,
+`5E25`, `607A`, `60AF`, and `60EB` in bank 6C. These are observations of
+this one seeded emulator scenario; they do not prove every topic, branch,
+variable value, screen, or menu route is naturally reachable, nor do they prove
+behavior on physical hardware. The trace tables and captures are emulator
+evidence, not ROM-source changes.
+
 ## Primary command grammar
 
 | Opcode | Width / observed behavior | Evidence limit |
 |---|---|---|
-| `$00` | One-byte terminal for the current HelpScript stream. | The terminal at `6C:58C6` ends the mapped stream; no natural invocation is claimed. |
+| `$00` | One-byte terminal for the current HelpScript stream. | The terminal byte at `6C:58C6` was read in the bounded `help` scenario; this does not establish all terminal paths. |
 | `$03 a b` | Three-byte page command. Prepares the text page, consumes two arguments, then reads text beginning at the following byte. The located reader ignores `a`; nonzero `b` selects a picture. | This describes the located consumer, not the intended meaning of the ignored argument. |
 | `$04 lo hi` | Three-byte unconditional relative jump; the little-endian displacement is added to the pointer after both operand bytes. | Static edge only. |
 | `$06 lo hi` | Three-byte relative conditional branch. The little-endian displacement is added to the post-command pointer only when advance mode equals 2; otherwise execution falls through. | Not a record header. A byte pattern resembling `$FF` is part of the signed/relative displacement, not a marker by itself. |
@@ -107,9 +142,11 @@ reader as a `$06` branch followed later by a `$03` page command. In particular,
 `58C7`. The `$533A` interval contains four, not five, branch/page pairs.
 
 The map is a static over-approximation from the maintained parser, not a trace
-of every runtime path. It does not establish natural menu reachability, all
-possible variable values, rendered pixels, final glyph appearance, or hardware
-behavior. Captions remain identified as parser inputs; text interpretation is
-PROBABLE where the existing source convention says so. Frozen `config/` and
+of every runtime path. The bounded `help` scenario establishes execution and
+rendered samples for only the recorded input/state; it does not establish all
+menu reachability, all possible variable values, every rendered page, final
+glyph appearance for every string, or hardware behavior. Captions remain
+identified as parser inputs; text interpretation is PROBABLE where the existing
+source convention says so. Frozen `config/` and
 `analysis/mapper` artifacts retain historical boundaries and names and are not
 rewritten by this source-level correction.
