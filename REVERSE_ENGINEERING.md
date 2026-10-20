@@ -90,6 +90,8 @@ frame and script names; those redundant labels were removed with the same byte a
 preservation.
 The communication-result graphics owner also lost 33 redundant `Data_24_*` aliases under the
 existing `MailResult_*` labels; the mapping and scope are in the generic-data audit.
+The keyboard-panel graphics owner had 32 more `Data_5F_*` aliases under existing panel/frame/script
+labels; those were retired after the same checks.
 
 The same audit renamed the positioned `$0020` word at `5C:5144` to
 `CommErr_MessageSlot32RawWord`. The slot is confirmed structurally; the value's purpose remains

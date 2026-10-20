@@ -292,6 +292,24 @@ ledger SHA-256 is
 The original ROM, symbols, palettes and PNG checks pass. No runtime claim is
 added.
 
+## Retired keyboard-panel graphic aliases (2026-10-20)
+
+The keyboard panel owner `gfx/keyboard/panels_bank5f.asm` had 32 redundant
+`Data_5F_*` aliases over existing descriptive panel, frame and script labels.
+The candidate census and current `.sym` confirmed every exact address and
+found no direct generic-name references, tool/metadata mentions or scoped
+locals. The aliases alone were removed; bytes and the existing confidence
+annotations remain. See
+[`retired_keyboard_panels_data_aliases.tsv`](../../analysis/naming2/retired_keyboard_panels_data_aliases.tsv).
+
+Receipt `.tmp/keyboard-panels-data-alias-pass-20261020/`: `PRECHECK.json`
+SHA-256 `379f931af1266d954b36380c7a5b3e4634b78f649ca199949e9b28ada06db02e`,
+`RESULT.json` SHA-256
+`fb4ddb837e908923c4624d6f6f7877086c94ea3cb7c67349018a9e894661bf70`, and
+ledger SHA-256
+`f4c1d2f3eb4a729fffb418f183c8bc6721989640565bfe2b2e93bab9e873a6b9`.
+All byte, symbol, palette and PNG checks pass.
+
 ## Remaining limits
 
 The other 75 labels from the original no-alias subset remain unchanged. The audit groups them into interior labels,
