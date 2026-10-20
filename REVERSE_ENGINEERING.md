@@ -59,6 +59,13 @@ locators. This does not establish species,
 natural frame selection, bank53 name/image associations or the purpose of opaque raw fragments.
 The native original identity gate applies to this source migration; path naming is not semantic closure.
 
+The HelpMenu item-map path pass renames twelve binary files for the six existing normal/selected
+page-map objects. The names follow the existing semantic aliases and retain all 1,560 original bytes,
+packed dimensions, addresses and reader limits. Page1-selected remains PROBABLE; the other five pairs
+retain their existing CONFIRMED source/catalogue status. Ten stale inventory cells in gfx/README are
+aligned to that already adopted status. The [path note](docs/research/help_menu_item_map_paths.md)
+and path map record the moves. No new PNG, screen composition or natural-render proof is introduced.
+
 The HOME naming pass retired110 historical Function aliases (483 remained at that stage across the
 maintained original sources), preserved123 local-label addresses under descriptive scopes and narrowed
 two copy-operation names. The [HOME contracts](docs/research/home_function_names.md) document entry

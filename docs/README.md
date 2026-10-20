@@ -85,7 +85,8 @@ Reference documents (current):
 | [`title_logo_resource_names.md`](research/title_logo_resource_names.md) | Bounded original data/resource alias contracts; evidence and caller limits retained |
 | [`font_glyph_run_path_map.tsv`](research/font_glyph_run_path_map.tsv) | original glyph-run binary and PNG path migration with byte hashes |
 | [`gfx_resource_names.md`](research/gfx_resource_names.md) | descriptive original graphics paths, visual confidence and opaque-fragment limits |
-| [`gfx_resource_path_map.tsv`](research/gfx_resource_path_map.tsv) | 300 historical/current owner, asset and PNG path mappings |
+| [`gfx_resource_path_map.tsv`](research/gfx_resource_path_map.tsv) | 312 historical/current owner, asset and PNG path mappings |
+| [`help_menu_item_map_paths.md`](research/help_menu_item_map_paths.md) | Six HelpMenu item-map pairs: semantic paths, original bytes and retained read limits |
 | [`generic_data_name_audit_20261020.md`](research/generic_data_name_audit_20261020.md) | 82-label neutral data-name audit; seven evidence-backed names and retained limits |
 
 Analysis-stage documents (historical banner at the top):
