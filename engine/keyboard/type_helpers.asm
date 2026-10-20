@@ -186,7 +186,7 @@ Table_Kbd_TypeWaitsWithService_ByType:: ; 55:6F3B
 	ld [wRam_C2B1], a
 	ld a, [wRam_C2B0]
 	add a, a
-	ld hl, Data_55_6F95
+	ld hl, Data_Kbd_BytesBeforeRejectSymbol
 	add a, l
 	ld l, a
 	ld a, h
@@ -215,7 +215,7 @@ Table_Kbd_TypeWaitsWithService_ByType:: ; 55:6F3B
 
 ; ---- data $6F95-$6FA1 (12 bytes) [HYPOTHESIS] 12 bytes: 4 RGB555 colours $7F54,$7FFF,$7F54,$7E12 at 6F95 (indexed by [$C2B0]*2 via `ld hl,$6F95`, written to OCPD) and 4 delay bytes $06,$0C,$06,$06 at 6F9D (`ld hl,$6F9D ; ld a,[hl]`); both operands land exactly on these addresses and the block ends at the executed code 6FA1, but the only reader is the HYPOTHESIS routine 6F46 [verifier: earlier note called all 12 bytes a colour table; status lowered]
 
-Data_55_6F95:: ; 55:6F95
+Data_Kbd_BytesBeforeRejectSymbol:: ; 55:6F95
 	db $54, $7F, $FF, $7F, $54, $7F, $12, $7E, $06, $0C, $06, $06
 
 Kbd_RejectSymbol:: ; 55:6FA1

@@ -646,12 +646,31 @@ It remains a separately labeled byte range; neither its contents nor adjacency
 to `Data_Smtp_HeaderComposeArgs` establishes a descriptor, arguments, padding,
 or runtime use.
 
-After both renames, the exact lexical count is 990 generic
-`Data_BB_AAAA::` definitions in the six maintained Japanese roots plus one in
-`zero_labels.asm` (991 total). This is a spelling count, not semantic closure.
-A fresh post-build `data_consumers.py --stats` run reports 574 neutral data
+## Positional keyboard data label (2026-10-20)
+
+`Data_55_6F95` is now `Data_Kbd_BytesBeforeRejectSymbol`, naming only the
+12-byte source interval before the confirmed `Kbd_RejectSymbol` boundary at
+`55:6FA1`. The HYPOTHESIS routine at `55:6F46` appears to index four words at
+`6F95` and four delay bytes at `6F9D`, but its entry is unproven and no natural
+consumer is established. The label therefore makes no claim that the values
+are used as animation colors or delays. The data bytes and HYPOTHESIS header
+are unchanged; `docs/research/classify_g2.md` retains the conditional static
+analysis and limits.
+
+After the browser-dialog and SMTP renames, before the keyboard rename, the
+exact lexical count was 990 generic `Data_BB_AAAA::` definitions in the six
+maintained Japanese roots plus one in `zero_labels.asm` (991 total). This is a
+spelling count, not semantic closure. A fresh post-build
+`data_consumers.py --stats` run at that checkpoint reported 574 neutral data
 groups, 150 rejected candidates, and zero manifest rows; its inventory and
 manifest are retained in
 `.tmp/generic-data-census-20261020-postbuild/` with SHA-256
 `9c25331539df774e29b792543a25321db68dae378c8205702d1d6d9cf393cbb6` and
+`1a5e0a79621043b8f81cfe9e0e31dbd8b2e0322a582f9aee1a472a0b8db0f605`.
+
+After the positional keyboard rename, a fresh post-build census reports 573
+neutral data groups, 148 rejected candidates, and zero manifest rows. The
+inventory and manifest are retained in
+`.tmp/generic-data-census-20261020-keyboard/` with SHA-256
+`42345fc1ac73d897c075ea892dffcf95383a4ae0206ebedf668d0d65d0a513a1` and
 `1a5e0a79621043b8f81cfe9e0e31dbd8b2e0322a582f9aee1a472a0b8db0f605`.
