@@ -44,5 +44,11 @@ The audio6 rename manifest remains a historical map. Commit `cf9b7a7e` later
 retired 76 redundant `Data_05_*` aliases from `audio/sfx.asm`; the corresponding
 `SoundSfx*` labels remain. In particular, `Data_05_68BF` no longer exists in
 maintained source. Its occurrence in the rename TSV is historical evidence,
-not a current alias. The pass preserves the original ROM bytes and does not
-change the prior audio classification or runtime limits.
+not a current alias. At commit `5f5af511`, `Data_05_4024` in
+`audio/music/music_0e.asm` was also replaced by
+`SoundSong0E_Track0_Continuation`, a 34-byte interior portion of the decoded
+track stream. The table above remains the original audio6 snapshot; its
+`left neutral` row is no longer a current-source inventory. This later name
+does not add a separate playback entry or new runtime evidence. These source
+labels preserve the original ROM bytes and do not change the prior audio
+classification or runtime limits.
