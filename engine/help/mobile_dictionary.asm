@@ -157,7 +157,7 @@ MobileDict_OnA:: ; 1A:4177
 	ld a, [wMobileDict_Category]
 	dec a
 	add a, a
-	ld hl, $40B9
+	ld hl, Table_MobileDict_CategoryPageLists
 	add a, l
 	ld l, a
 	ld a, h

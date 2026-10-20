@@ -920,3 +920,18 @@ The structural bounds are CONFIRMED by the source layout; the association with
 the address-book cursor is PROBABLE from the consumer and table names. This
 renames two generic labels without changing directives or data. Build and symbol
 checks pass; this does not establish runtime behavior.
+
+The bank 3F HTML/mobile-dictionary index now uses five consumer-supported
+semantic names: `Table_HtmlStore_KeywordPointers`, `String_HtmlStore_UrlPrefix`,
+`Table_HtmlStore_PageFarPointers`,
+`Table_MobileDict_CategoryPageLists`, and
+`Data_MobileDict_CategoryPageIndices`; the five redundant generic labels at
+these addresses were retired after searching maintained-source references.
+The corresponding consumers establish
+55 far pointers, 11 category-list pointers, and 61 page indexes as static
+contracts. `Data_3F_4011` remains neutral because the purpose of the `$02` value
+stored in `wRam_C2DC` is unresolved. `3F:40B7..40B9` is a zero-word terminator
+checked before a bank byte is read, not padding or a far pointer. No new runtime
+claim follows. The bounded 268-byte span matches the original ROM; full
+reconstruction equivalence remains determined by `make`. See
+[`docs/research/html_index_bank3f_naming.md`](docs/research/html_index_bank3f_naming.md).

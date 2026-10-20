@@ -158,6 +158,7 @@ Naming passes (names with evidence, HYPOTHESES kept under neutral names, open qu
 * `typing_4e_homeurl.md` - bounded original HomeURL ASCII representation and CopyString contract; `typing_4e_homeurl_verify.md` - immutable rebase, unchanged locators and original-ROM checks.
 * `typing_4d_slot_chain.md` - exact naturally read frame/script chain, partially unread root and bank tail; `typing_4d_slot_chain_verify.md` - guarded comment refinement, locators and original-ROM gates.
 * `typing_4d_slot_maps.md` - two exact naturally read slot-map pairs, unread third map/table word and cursor limits; `typing_4d_slot_maps_verify.md` - guarded confidence refinement, baseline rebase, locators and original-ROM gates.
+* `html_index_bank3f_naming.md` - static consumers and byte boundaries for the bank-3F HTML far-pointer and mobile-dictionary category indexes, including the neutral `$02` field and zero-word terminator limits.
 * `typing_4d_choice_maps.md` - four exact naturally read choice-map pairs and conservative bank 4D limits; `typing_4d_choice_maps_verify.md` - guarded header/asset confidence refinement, locators and original-ROM gates.
 * `typing_4c_results.md` - guarded result storage, complete string reads and remaining partial tables; `typing_4c_results_verify.md` - full independent header review, caller errata and original-ROM gates.
 * `typing_4c_page_cache.md` - bounded address/bank records, three-slot ring and unread tail; `typing_4c_page_cache_verify.md` - independent representation, locator updates and full-ROM checks.
