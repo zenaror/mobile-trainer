@@ -34,7 +34,7 @@ SoundSong0E_Track0_Loop:: ; 05:4004
 
 ; ---- data $4024-$4047 (35 bytes) [PROBABLE] interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md; read as data by executed code in up to 14 of 69 natural scenarios (34 of 35 bytes; traces/detail)
 
-Data_05_4024:: ; 05:4024
+SoundSong0E_Track0_Continuation:: ; 05:4024
 	sound_note 12, $46
 	sound_wait 12
 	sound_rs sound_note 12, $45

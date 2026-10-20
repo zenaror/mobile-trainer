@@ -706,3 +706,30 @@ and zero manifest rows; the inventory and manifest are in
 `.tmp/generic-data-census-20261020-helptext/` with SHA-256
 `e4ca8416a6232a1bcac1110f45738eb64d3ea42999f54746ad62a6064d32ad57` and
 `1a5e0a79621043b8f81cfe9e0e31dbd8b2e0322a582f9aee1a472a0b8db0f605`.
+
+## Song 0E track-0 continuation (2026-10-20)
+
+The `Data_05_4024` symbol is now `SoundSong0E_Track0_Continuation`. The
+source file is the 562-byte song-0E owner; the track table points to
+`SoundSong0E_Track0` at `05:4000`, and its loop label is at `05:4004`.
+`05:4024` follows that loop prefix in the same decoded command stream and
+reaches `sound_jump SoundSong0E_Track0_Loop` at `05:4043`. The next named
+label, `SoundSong0E_Track0_AfterJump`, begins at `05:4046`; therefore this
+symbol covers a 34-byte interior continuation, while the existing shared
+classification header spans 35 bytes through the one-byte `sound_end` at
+`05:4046`. The track membership and byte interval are **PROBABLE**; this name
+does not assert a separate entry point or a new playback path.
+
+The frozen `config/regions/bank05.tsv` and generated
+`analysis/mapper/bank05.tsv` still classify the 35-byte range as an
+unclassified interior stream; they were not changed. Current maintained
+source decodes the commands and the original-byte build preserves them. The
+bounded post-build `data_consumers.py --stats` census reports 571 neutral
+groups, 147 rejected immediate candidates and zero rename rows; its inventory
+and manifest are retained in
+`.tmp/jp-bank05-track-cont-pass-20261020/` with SHA-256
+`d354a7bb2a604bebe10b3b7b2901fd9cc8168152e0a9358cd803903f43861fba` and
+`1a5e0a79621043b8f81cfe9e0e31dbd8b2e0322a582f9aee1a472a0b8db0f605`.
+The generic `Data_BB_AAAA::` count is now 987 in the six maintained roots
+plus one in `zero_labels.asm` (988 total); this lexical result is not a
+measure of semantic completion.
