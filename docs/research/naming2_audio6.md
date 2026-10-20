@@ -48,7 +48,10 @@ not a current alias. At commit `5f5af511`, `Data_05_4024` in
 `audio/music/music_0e.asm` was also replaced by
 `SoundSong0E_Track0_Continuation`, a 34-byte interior portion of the decoded
 track stream. The table above remains the original audio6 snapshot; its
-`left neutral` row is no longer a current-source inventory. This later name
-does not add a separate playback entry or new runtime evidence. These source
-labels preserve the original ROM bytes and do not change the prior audio
+`left neutral` row is no longer a current-source inventory. The current source
+also replaces `Data_05_41D0` with
+`SoundSong0E_Track3_Continuation`, a 71-byte interior segment whose shared
+classification span includes the following `sound_end`. Neither name adds a
+separate playback entry or new runtime evidence. These source labels preserve
+the original ROM bytes and do not change the prior audio
 classification or runtime limits.

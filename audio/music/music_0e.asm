@@ -311,7 +311,7 @@ SoundSong0E_Track3_Sub1:: ; 05:419F
 
 ; ---- data $41D0-$4218 (72 bytes) [PROBABLE] interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md; read as data by executed code in up to 14 of 69 natural scenarios (71 of 72 bytes; traces/detail)
 
-Data_05_41D0:: ; 05:41D0
+SoundSong0E_Track3_Continuation:: ; 05:41D0
 	sound_wait 6
 	sound_ret
 	sound_call SoundSong0E_Track3_Sub1

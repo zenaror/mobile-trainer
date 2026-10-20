@@ -730,6 +730,31 @@ and manifest are retained in
 `.tmp/jp-bank05-track-cont-pass-20261020/` with SHA-256
 `d354a7bb2a604bebe10b3b7b2901fd9cc8168152e0a9358cd803903f43861fba` and
 `1a5e0a79621043b8f81cfe9e0e31dbd8b2e0322a582f9aee1a472a0b8db0f605`.
-The generic `Data_BB_AAAA::` count is now 987 in the six maintained roots
-plus one in `zero_labels.asm` (988 total); this lexical result is not a
+The generic `Data_BB_AAAA::` count at that checkpoint was 987 in the six
+maintained roots plus one in `zero_labels.asm` (988 total); this lexical result is not a
 measure of semantic completion.
+
+## Song 0E track-3 continuation (2026-10-20)
+
+The `Data_05_41D0` symbol is now `SoundSong0E_Track3_Continuation`. The
+label at `05:41D0` follows `SoundSong0E_Track3_Sub1` at `05:419F` and begins
+with its final `sound_wait` and `sound_ret`, then includes a `sound_call`
+to Sub1, the complete Sub2 body, the later Sub1/Sub2 calls, and the final
+`sound_jump` at `05:4214`, targeting `SoundSong0E_Track3_Loop` at `05:416B`.
+The next label,
+`SoundSong0E_Track3_AfterJump`, is at `05:4217`; consequently the symbol
+marks a 71-byte interior portion and the shared classification header spans
+72 bytes including `sound_end`. Track membership and this boundary reading
+are **PROBABLE**; the label does not imply a separate entry or playback path.
+
+The frozen bank05 region maps remain unchanged. The decoded source and
+original-byte comparison preserve the ROM. The post-build bounded
+`data_consumers.py --stats` census reports 570 neutral data groups, 147
+rejected candidates and zero rename rows. Its inventory and manifest are
+retained in `.tmp/jp-bank05-track3-cont-pass-20261020/`; inventory SHA-256 is
+`531ad6c5fd0a00c0b127fabd66e86c5477587a0fae743cb1d5d9134304686a17` and
+manifest SHA-256 is
+`1a5e0a79621043b8f81cfe9e0e31dbd8b2e0322a582f9aee1a472a0b8db0f605`. The
+generic symbol count is now 986 in
+the six maintained roots plus one in `zero_labels.asm` (987 total), a lexical
+count rather than a completion measure.
