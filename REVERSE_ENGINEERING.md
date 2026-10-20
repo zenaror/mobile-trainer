@@ -27,6 +27,13 @@ subsequent reviewed retirements. The current count is 976 definitions across the
 roots plus one in `zero_labels.asm` (977 total); this is only a lexical count, not a completion
 measure. The [generic data-label audit](docs/research/generic_data_name_audit_20261020.md) records
 the checkpoints.
+The 2026-10-20 bank6C HelpScript pass maps the static command stream from `6C:4809` through the
+terminal at `6C:58C6` (exclusive end `58C7`), corrects mixed command/text classifications and
+replaces address-only labels at command boundaries with structural names. An independent walk
+confirmed 4,286 bytes, 203 primary commands, 85 page commands, and branch targets on command
+boundaries. The original ROM builds byte-identically, and the symbol and palette checks pass.
+This does not prove natural topic reachability, rendered output, or complete Japanese-ROM closure;
+see [the stream map](docs/research/help_script_stream_map_20261020.md).
 The earlier30-span/63-byte count matches the current home/engine/data subset only. A six-root census now finds32 HYPOTHESIS spans/92 bytes under leading UNCLASSIFIED data headers, including28 bytes in gfx/mail/body_view.asm and one byte in lib/mobile/main.asm; see the [scope correction](docs/research/classify_g6.md#8-six-root-unclassified-header-scope-correction-2026-10-17). This is an annotation census, not the total amount of unexplained ROM data. Entries and abnormal stack transfer at2B:6CF5,
 locator caller domains, eight frame contexts and25 name-to-image associations remain unresolved.
 The finite checks below remain valid within their limits; they do not establish100% completion.

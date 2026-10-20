@@ -54,6 +54,8 @@ Reference documents (current):
 | document | covers |
 |---|---|
 | [`text_encoding.md`](research/text_encoding.md) | Shift-JIS text, control bytes, the second text convention of bank 6C, fonts, what the charmap does and does not justify (note at the top: the build charmap is `constants/sjis_charmap.asm`) |
+| [`help_script_stream_map_20261020.md`](research/help_script_stream_map_20261020.md) | Static bank 6C HelpScript command grammar, complete bounded stream map, label corrections and reachability limits |
+| [`help_script_stream_map_20261020.md`](research/help_script_stream_map_20261020.md) | Static bank 6C HelpScript command grammar, complete bounded stream map, label corrections and reachability limits |
 | [`mobile_protocol.md`](research/mobile_protocol.md) | Mobile Adapter GB link protocol from the adapter side (libmobile), the reference for the Trainer's packet code |
 | [`mobile_trainer_product_notes.md`](research/mobile_trainer_product_notes.md) | product background, string and URL facts that help identify code, each with a source tag |
 | [`crystal_mobile_reference.md`](research/crystal_mobile_reference.md) | how Pokémon Crystal organises its Mobile Adapter code (a *different program*; names are the Crystal community's, documentation only) |

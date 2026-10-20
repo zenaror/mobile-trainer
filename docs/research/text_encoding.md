@@ -113,7 +113,7 @@ Bodies use `<HTML> <TITLE> <B> <HR> <A HREF="../di/address.htm"> <BR>` etc. with
 
 The reader is located: `HelpScript_Run_FrameLoop` calls `HelpScript_StepText` at `6C:6009`. Its high-bit branch at `6C:60AF` selects two paths. Bytes `80..9F` retain the lead byte in B and consume a second byte into C. Bytes `A0..FF` index the 192-byte `HelpScript_SingleByteToSjis` table at `6C:58C7` with `2*(byte-A0)`, loading the high glyph-code byte into B and the low byte into C. The whole lookup equals the original ROM; this numeric mapping is CONFIRMED by the primary consumer and table bytes. It supersedes the earlier claim that the second reader was not located.
 
-The 96 entries map the apparent JIS X0201-order source bytes chiefly to full-width hiragana and punctuation. Examples are A1→8142 (。), A6→82F0 (を), CA→82CD (は), ED→82C5 (で) and F1→82D4 (ぶ). A0 and A5 contain 0000; they are not evidence of a printable blank glyph. The source charmap's half-width spellings describe the stored byte values, not the final glyph identity. E0..FF are explicit lookup entries rather than context-only gaiji guesses:
+The 96 entries map the apparent JIS X0201-order source bytes chiefly to full-width hiragana and punctuation. Examples are A1→8142 (。), A6→82F0 (を), CA→82CD (は), ED→82C5 (で) and F1→82D4 (ぶ). A0 and A5 contain 0000; they are not evidence of a printable blank glyph. The source charmap's half-width spellings describe the stored byte values, not the final glyph identity. E0..FF are explicit lookup entries rather than context-only gaiji guesses. The primary command grammar and complete bounded `6C:4809–58C6` static walk are recorded in [`help_script_stream_map_20261020.md`](help_script_stream_map_20261020.md).
 
 ### 6.1 Welcome stream at `6C:485A`
 
@@ -175,7 +175,7 @@ rendered-output claim.
 
 At `6C:60EB`, the reader pushes BC and destination/bank arguments before calling `Font_BlitGlyph8x16` (`48:4748`); the callee reads low/high bytes from the stack at sp+6. Its descending 27-record `Font_GlyphRunTable` at `48:4810` selects a bank/address and a 16-byte glyph offset by subtracting the low-byte run key. Independent numeric evaluation locates original 16-byte source ranges for all 94 nonzero lookup entries; the two zero entries reach the FFFF sentinel without a glyph copy. This establishes the source selection, not newly rendered characters, natural invocation attribution, timing or hardware behavior.
 
-Bytes below80 enter the reader's control dispatcher (`swap` then `AND07`), so this is a script convention, not an ordinary NUL-terminated string decoder. The historical 65-entry strings.tsv corpus and its PROBABLE/HYPOTHESIS classifications are not regenerated or universally promoted here. The prefix `06 xx FF 03 ss ss`, mixed record boundaries and each complete stream's control meaning require separate primary-reader analysis. The thirteen bytes before the lookup at `6C:58BA..58C7` retain their mixed/unknown classification; the previous claim that the table was a text-entry grid is unsupported by this consumer.
+Bytes below80 enter the reader's control dispatcher (`swap` then `AND07`), so this is a script convention, not an ordinary NUL-terminated string decoder. The historical 65-entry strings.tsv corpus and its PROBABLE/HYPOTHESIS classifications are not regenerated or universally promoted here. Primary-reader analysis shows that `$06 lo hi` is a three-byte relative conditional branch and `$03 a b` begins a page/text sequence; `06 xx FF 03 ss ss` is not a message-record header. The 13 bytes at `6C:58BA–58C6` are final-topic commands, and the lookup starts independently at `58C7`. Static graph limits and command boundaries are detailed in [`help_script_stream_map_20261020.md`](help_script_stream_map_20261020.md).
 
 ## 7. charmap.asm - what is and is not justified
 
@@ -196,8 +196,8 @@ Many screens (banks 4A, 4B, 4D, 50, 51, 56, 58, 5B-63, 66, 6A ...) use **pre-ren
 
 ## 9. Open questions
 
-1. Complete bank6C mixed-script record boundaries, header/control semantics and natural glyph invocations; the numeric A0..FF mapping and reader are now located (section6).
-2. The unvalidated first header byte `$86` and remaining cursor-path semantics in bank72; the second byte's layout selection and the third byte's initial result are located in section4.1. The thirteen-byte bank6C mixed prefix before the lookup, including `06 xx FF 03 ss ss`, still has an unknown format (section6).
+1. Establish natural bank6C topic/page reachability, variable-state values and rendered glyph output; primary command boundaries and static grammar are now mapped, but runtime paths and pixels remain unproven (section6 and `help_script_stream_map_20261020.md`).
+2. The unvalidated first header byte `$86` and remaining cursor-path semantics in bank72; the second byte's layout selection and the third byte's initial result are located in section4.1. Bank6C runtime topic reachability and rendered output remain open (section6); its command boundaries and 13-byte final-topic tail are mapped separately.
 3. HTML tag scanner semantics (`00:1119-12xx`).
 4. Whether the stray `0A` after `0D` in some strings (e.g. `19:447C`) is handled by the interpreter (table maps `0A` to the terminating handler).
 
