@@ -910,3 +910,13 @@ binaries among the 71 images in the reviewed frame/browser directories. The
 dispatcher and legacy preview names do not establish universal unused status.
 Full closure still requires investigating the remaining generic labels and
 address-only GFX basenames in evidence-backed units. English remains suspended.
+
+The address-book cursor animation block at bank 2F now names its frame and
+script `Abook_ViewCursor_Frame0` and `Abook_ViewCursor_Script`. The consumer
+passes `Table_Abook_ViewCursorAnims` to `Sprite_InitSlot`; its four entries
+share the script, and the frame table points to the frame. The macro boundaries
+remain table `$57C0..$57C2`, frame `$57C2..$57EF`, and script `$57EF..$57F2`.
+The structural bounds are CONFIRMED by the source layout; the association with
+the address-book cursor is PROBABLE from the consumer and table names. This
+renames two generic labels without changing directives or data. Build and symbol
+checks pass; this does not establish runtime behavior.
