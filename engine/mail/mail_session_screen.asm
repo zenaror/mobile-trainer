@@ -379,10 +379,11 @@ MailSession_InitScreen:: ; 26:5168
 
 Stub_Nop_26_5343:: ; 26:5343
 	; [CONFIRMED] Single RET called at 26:58E0 by MailSession_UpdateTimerDisplay; that call
-	; returns before Data_26_5344 and does not fall through into the following fragment.
+	; returns before MailSession_WriteVram1TileAndWram7ScreenRows and does not fall through
+	; into the following fragment.
 	ret
 
-Data_26_5344:: ; 26:5344
+MailSession_WriteVram1TileAndWram7ScreenRows:: ; 26:5344
 	; [PROBABLE] Code fragment: the WRAM7 $D160-$D19F ascending stores correspond to the
 	; live InitScreen VRAM0 $9960-$999F fill at 26:52D8-52E6 (screen-map offset $160).
 	; Entry and intended role remain HYPOTHESIS; the called RET at 26:5343 bypasses it.

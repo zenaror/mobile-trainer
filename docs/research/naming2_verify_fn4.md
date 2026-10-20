@@ -429,7 +429,8 @@ This dated correction updates the earlier storage snapshot above: **31 intervals
 **30 intervals / 63 bytes** of remaining UNCLASSIFIED storage after classifying only `26:5344-537C`
 (56 bytes) as **PROBABLE code fragment**. The other 30 spans and their confidence levels are unchanged.
 No new independent function entry, callable function name or execution result was established.
-`Data_26_5344` keeps its historical global address label. The inactive `Function_26_5343` alias had no
+At this 2026-10-15 snapshot, `Data_26_5344` kept its historical global address label. The
+inactive `Function_26_5343` alias had no
 active assembly reference and was removed; `Stub_Nop_26_5343` remains the known single-RET no-op.
 The call at `26:58E0` targets that RET at `5343`, so it returns before this fragment.
 
@@ -484,3 +485,20 @@ separate required integration check.
 ### 2026-10-17: scope of the30-interval storage counter
 
 The30 intervals/63 bytes quoted above do not enumerate the six maintained source roots. A current literal-header census finds32 HYPOTHESIS intervals/92 bytes; the additional owners are28 bytes at28:4BA6-4BC2 in `gfx/mail/body_view.asm` and one byte at75:6D62-6D63 in `lib/mobile/main.asm`. The separate already-CONFIRMED ellipsis bytes at54:511B-511D had a stale UNCLASSIFIED header, now corrected as text. See [the full scope correction](classify_g6.md#8-six-root-unclassified-header-scope-correction-2026-10-17). The earlier positive classification of26:5344-537C and its conditional contract remain unchanged. These counts describe annotation coverage and do not close function discovery or all unknown ROM data.
+
+### 2026-10-20: descriptive label for the 26:5344 code fragment
+
+The maintained source label is now `MailSession_WriteVram1TileAndWram7ScreenRows`. This mechanical
+name describes the two observed store sequences: the fragment attempts `$FF` writes to VRAM1
+`$9010-$901F`, then writes `$00-$3F` to the two screen-map rows at WRAM7 `$D160-$D19F`. “Write”
+does not claim the PPU accepted the VRAM writes. The source name replaces the generic `Data_26_5344`;
+the instruction bytes, addresses, local-label addresses and emitted bytes are unchanged.
+
+An independent read-only review accepted this name as a content description and rejected broader
+purpose words such as “Init”, “ClearScreen” or “Upload”. It independently confirmed the 56-byte
+extent, the WRAM7 map offset, and that the local labels remain at `534D`, `5357` and `5369`.
+No entry, caller, intended role, natural execution or hardware-accepted VRAM operation is established:
+the code-fragment classification remains **PROBABLE**, while entry and intended role remain
+**HYPOTHESIS**. The 69 existing natural trace scenarios and bounded source/ROM reference scans contain
+no entry into `[26:5344,26:537C)`; this finite absence does not prove unreachability. Frozen
+`config/regions/` and `analysis/mapper/` rows retain their historical `Data_26_5344` spelling.

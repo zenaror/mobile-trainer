@@ -89,12 +89,12 @@ and zero errors. No resource bytes, confidence levels, or runtime claims changed
 
 ## Reconciled maintained-source count
 
-The current exact-name count is 1,398 `Data_BB_AAAA::` definitions in the six
+At this audit snapshot, the exact-name count was 1,398 `Data_BB_AAAA::` definitions in the six
 maintained Japanese source roots `home/`, `engine/`, `data/`, `gfx/`, `audio/`,
 and `lib/`. The same `git grep` expression at parent `7923edc7` counted 1,445;
 the 47-definition difference is exactly the MailSrvDelProgress pass above. This
 reconciles the earlier handoff's 1,446 figure, which was high by one. The count
-excludes `languages/` and does not state how many resources are semantically
+dated count excludes `languages/` and does not state how many resources are semantically
 identified; it is only a reproducible lexical count of exact global definitions.
 
 ## Co-located `Label_*` aliases
@@ -530,3 +530,17 @@ or semantic completion. It adds no runtime, natural-execution, rendering, or
 hardware evidence. Source changes still require `make`, `make sym-check`,
 `make palette-check`, `make png-check`, byte comparison against the original,
 and independent review before publication.
+
+## Descriptive code-fragment label at 26:5344
+
+A separate bounded review found that `Data_26_5344` labels a PROBABLE 56-byte
+code fragment rather than a data object. The maintained Japanese source now uses
+`MailSession_WriteVram1TileAndWram7ScreenRows`, a mechanically reviewed name for
+the fragment's VRAM1 tile writes and WRAM7 screen-map row writes. No callable
+entry or intended role is established. This fragment was outside the original
+82-label no-alias candidate set, so its retirement is reported separately.
+Frozen `config/regions/` and `analysis/mapper/` snapshots retain the old spelling.
+
+The current exact-name count is 1,001 `Data_BB_AAAA::` definitions across the
+six Japanese source roots, plus two in `zero_labels.asm` (1,003 total). These
+are lexical label counts only, not a measure of unresolved semantic resources.
