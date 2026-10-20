@@ -124,7 +124,6 @@ Dev_WriteTestConfigImage:: ; 68:4E6A
 ; ---- data $4EA7-$4EB7 (16 bytes) [PROBABLE] part of the 192-byte ($00C0) block 4EA7-4F67 that the routine at 68:4E51 copies to $D000 (ld hl,$4EA7 ; ld de,$D000 ; ld bc,$00C0 ; call $050C); starts with the "MA" signature like the other 192-byte records (67E0, 68A0, 6960, 6A20); fields not decoded
 
 Dev_TestConfigImage:: ; 68:4EA7
-Data_68_4EA7::
 	db $4D, $41, $81, $00, $AC, $10, $13, $BA, $AC, $10, $13, $BA, $69, $74, $6F, $68
 
 ; ---- zero $4EB7-$4EF1 (58 bytes) [HYPOTHESIS] 0x00 run of 58 bytes

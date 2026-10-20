@@ -411,7 +411,6 @@ Notice_RequestPageSound:: ; 65:4BA8
 ; ---- data $4BC6-$4BE2 (28 bytes) [PROBABLE] 28 bytes read by the executed function 4BA8 (ld hl,$4BC6 ; indexed by [C27C]): 09 09 09 09 09 19 19 09 09 09 09 13 09 x12 then 00 00 00 00 (attribute-like/byte table); 1-byte unread holes at 4BD0 4BD2 4BD8 4BE1 merged
 
 Notice_PageSoundTable:: ; 65:4BC6
-Data_65_4BC6::
 	db $09, $09, $09, $09, $09, $19, $19, $09, $09, $09, $09, $13, $09, $09, $09, $09
 	db $09, $09, $09, $09, $09, $09, $09, $09
 

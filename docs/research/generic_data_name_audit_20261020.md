@@ -40,6 +40,18 @@ sources after checking that no active source/tool references them. Frozen
 `config/regions/` and `analysis/mapper/` tables retain historical labels as
 dated snapshots. The changes add no bytes or alter physical ranges.
 
+## Follow-on co-alias cleanup
+
+A broader static census at the `97d06d7d` snapshot found two additional neutral
+aliases outside the 82-label no-co-alias cohort: `Data_65_4BC6` duplicates the
+existing `Notice_PageSoundTable` symbol, and `Data_68_4EA7` duplicates
+`Dev_TestConfigImage`. Neither neutral spelling has a maintained source or tool
+consumer; the meaningful symbols remain in place. These aliases were removed
+without changing bytes, source ranges, or confidence. The first retains its
+existing table interpretation; the second retains its existing probable name
+for the test configuration image. The broad census and reference matrix are
+retained under `.tmp/agent-data-global-census-20261020/`.
+
 An independent source review accepted all four new retirements after correcting
 the parser wording to reflect its early stop at nibble `$F`. The reviewer also
 confirmed the source directives and byte ranges are unchanged, and found no

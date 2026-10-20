@@ -66,6 +66,11 @@ retain their existing CONFIRMED source/catalogue status. Ten stale inventory cel
 aligned to that already adopted status. The [path note](docs/research/help_menu_item_map_paths.md)
 and path map record the moves. No new PNG, screen composition or natural-render proof is introduced.
 
+A follow-on broad-census cleanup removed two unused neutral data aliases, `Data_65_4BC6` and
+`Data_68_4EA7`, while retaining the existing `Notice_PageSoundTable` and `Dev_TestConfigImage` names.
+No bytes, ranges or confidence levels changed; details are in the
+[generic data-label audit](docs/research/generic_data_name_audit_20261020.md).
+
 The HOME naming pass retired110 historical Function aliases (483 remained at that stage across the
 maintained original sources), preserved123 local-label addresses under descriptive scopes and narrowed
 two copy-operation names. The [HOME contracts](docs/research/home_function_names.md) document entry
