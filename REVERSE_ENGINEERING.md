@@ -82,6 +82,9 @@ One additional same-address alias, `Data_68_7B19`, was retired from
 `engine/account/delete_registration.asm` after the same reference/scope checks; its current name is
 `Registration_DeleteCursorPositions`.
 The account cleanup also retired `Data_68_6E03`, whose surviving label is `Config_HostPrefixStrings`.
+In the browser graphics owner, 46 `Data_24_*` aliases were also removed where same-address
+page-list frame, script and map names already existed; the byte identity and previous confidence
+annotations are preserved in the naming audit ledger.
 
 The same audit renamed the positioned `$0020` word at `5C:5144` to
 `CommErr_MessageSlot32RawWord`. The slot is confirmed structurally; the value's purpose remains

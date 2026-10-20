@@ -236,6 +236,26 @@ It had no generic-name references, metadata/tool mentions or local scope; the
 two NUL-terminated host-prefix strings and CONFIRMED annotation are unchanged.
 The mapping is included in the account alias ledger.
 
+## Retired page-list graphic aliases (2026-10-20)
+
+A bounded pass removed 46 `Data_24_*` globals from
+`gfx/browser/page_list.asm`. Each had an exact same-address descriptive
+co-alias (including the existing page-list tilemap, animation-frame and
+script names), with zero direct references, tool/metadata mentions or scoped
+locals. Only alias declarations were deleted; payloads and evidence annotations
+remain unchanged. The old/current names and prior confidence are recorded in
+[`retired_page_list_data_aliases.tsv`](../../analysis/naming2/retired_page_list_data_aliases.tsv).
+
+The private pass receipt is `.tmp/page-list-data-alias-pass-20261020/`:
+`PRECHECK.json` SHA-256
+`09c32f3fa1ec1918780d2cb3430131bde4bef5ae3248d26390fc7d15c98f6e11`,
+`RESULT.json` SHA-256
+`79dffb1b977f3c7210d216170dc42ac47c534237bbff85993196f4f088c299ea`, and
+the ledger SHA-256 is
+`53885a0fb87e8516db309b16b3e4fa42f6bb37701c190305b90752734fe1b993`.
+Build, symbol, palette and PNG gates all pass with original ROM identity.
+No graphic usage, runtime or semantic claim is added.
+
 ## Remaining limits
 
 The other 75 labels from the original no-alias subset remain unchanged. The audit groups them into interior labels,
