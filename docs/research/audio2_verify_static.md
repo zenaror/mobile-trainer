@@ -294,6 +294,25 @@ The traces list the ROM bytes read as data.  `trace_reads_check.py` and `trace_t
 python3 tools/apply_renames.py --manifest analysis/naming2/verify_audio2_fixes.tsv --strict      # 77 rows: block A lines 4-5, block B (effects) lines 7-81
 patch -p1 < analysis/audio2_verify/audio_to_macros_sfx.patch                                    # converter: also prefers SoundSfx*, writes SoundSfx names for ids >= $29
 python3 tools/audio_to_macros.py                                                                 # rewrites audio/music/music_01.asm (one token: dw Data_04_574D -> SoundSong01_Track0), rebuilds, SHA-256 + sym_check
+
+## Maintained-source follow-up (2026-10-20)
+
+The current source retains `SoundSong01_Track1`, `SoundSong01_Track2`,
+`SoundSong01_Track3` and `SoundSong01_Header` as the labels at 04:5788, 04:57F3,
+04:5832 and 04:58BC. The redundant exact-address `Data_04_*` aliases for those
+four labels were retired after the current-source census found zero active
+source, tool or metadata references and no scoped locals. The old spellings
+remain only in the historical rename map
+`analysis/naming2/audio2_renames.tsv:47-50`; the converter consumes the
+`SoundSong*` names. The separate historical `Data_04_574D` discussion above
+describes an earlier version and is unchanged by this follow-up. The four
+removals change no emitted
+bytes: `make` remains `RESULT: IDENTICAL` with ROM SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`,
+`make sym-check` reports 14,709 labels and 51 constants, and
+`make palette-check` reports 162 loads, 116 arrays, two documented over-reads
+and zero errors. This is redundancy cleanup, not new audio-command or runtime
+evidence.
 python3 tools/audio_to_macros.py --check                                                         # exit 0
 ```
 

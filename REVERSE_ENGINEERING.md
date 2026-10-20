@@ -941,6 +941,18 @@ dispatcher and legacy preview names do not establish universal unused status.
 Full closure still requires investigating the remaining generic labels and
 address-only GFX basenames in evidence-backed units. English remains suspended.
 
+Follow-up on the current main branch: commit `47830bec` retired the redundant
+local-scope data labels at `55:6F3B` and `27:417A`; `ac5db3ec` documented the
+bounded bank53/frame coverage and its eight KEEP editing-view gaps. The next
+source pass removed four exact-address aliases in `audio/music/music_01.asm`:
+`Data_04_5788`, `Data_04_57F3`, `Data_04_5832` and `Data_04_58BC`. Their
+descriptive same-address labels `SoundSong01_Track1..3` and
+`SoundSong01_Header` remain. This is label cleanup only; it does not establish
+new audio semantics or alter source bytes. Current main build and Japanese
+symbol/palette checks remain the publication gates. See
+[`audio2_verify_static.md`](docs/research/audio2_verify_static.md) for the
+bounded alias evidence and result.
+
 The address-book cursor animation block at bank 2F now names its frame and
 script `Abook_ViewCursor_Frame0` and `Abook_ViewCursor_Script`. The consumer
 passes `Table_Abook_ViewCursorAnims` to `Sprite_InitSlot`; its four entries

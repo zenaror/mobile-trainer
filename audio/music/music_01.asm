@@ -52,7 +52,6 @@ Data_04_574D::
 	sound_wait 8
 	sound_end
 SoundSong01_Track1:: ; 04:5788
-Data_04_5788::
 	sound_volume $7F
 	sound_pitch_add $00
 	sound_instrument $06
@@ -120,7 +119,6 @@ Data_04_5788::
 	sound_wait 8
 	sound_end
 SoundSong01_Track2:: ; 04:57F3
-Data_04_57F3::
 	sound_volume $7F
 	sound_pitch_add $00
 	sound_instrument $20
@@ -160,7 +158,6 @@ Data_04_57F3::
 	sound_wait 8
 	sound_end
 SoundSong01_Track3:: ; 04:5832
-Data_04_5832::
 	sound_volume $7F
 	sound_pitch_add $00
 	sound_instrument SOUND_INSTRUMENT_PER_NOTE
@@ -244,6 +241,5 @@ Data_04_5832::
 	sound_wait 6
 	sound_end
 SoundSong01_Header:: ; 04:58BC
-Data_04_58BC::
 	sound_stream_header 4, 0
 	dw SoundSong01_Track0, SoundSong01_Track1, SoundSong01_Track2, SoundSong01_Track3 ; track stream pointers (read by the driver)
