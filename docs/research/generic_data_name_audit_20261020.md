@@ -802,12 +802,14 @@ rename manifests and `config/regions/bank05.tsv`, retained as historical
 analysis evidence. The region map is unchanged. No addresses or emitted bytes
 changed.
 
-The four `Data_BB_AAAA::` removals reduce the exact count to 976 in the six
-maintained roots plus one in `zero_labels.asm` (977 total). The redundant
-`Table_05_6314` removal does not affect that Data-label count. The bounded
-post-build `data_consumers.py --stats` census remains 564 neutral groups,
-147 rejected candidates, and zero rename rows: all five aliases shared their
-addresses with semantic labels and were excluded from neutral groups. The
+At the `4c5143ec` checkpoint, four `Data_BB_AAAA::` removals reduced the exact
+count to 976 in the six maintained roots plus one in `zero_labels.asm` (977
+total). The redundant `Table_05_6314` removal did not affect that Data-label
+count. The bounded post-build `data_consumers.py --stats` census at this
+checkpoint reported 564 neutral groups, 147 rejected candidates, and zero
+rename rows: all five aliases shared their addresses with semantic labels and
+were excluded from neutral groups. These are historical checkpoint counts.
+The
 inventory SHA-256 is
 `9cc2534dd8f6b08da66397b32855db8476b683d25496500f7951b7e67d7fbab5`; manifest
 SHA-256 is
@@ -838,3 +840,16 @@ evidence; see [the bounded reader note](font_reader_69ab_bounds_20261020.md).
 The same current-source review corrected a stale `Function_2B_687C` token in
 `gfx/previews/sprites.tsv` to the existing operation name
 `Sprite_SetSlots1And2Y68XByC_InitSlot2`. It changed only the metadata token.
+
+## Current lexical count correction (2026-10-20)
+
+The `977 total` above is the historical count at the `4c5143ec` checkpoint, not
+the current tree. A fresh literal scan of the six maintained roots at
+`5a1171cde22b0cd017d4eb44312c9dd3834d529f` finds **959** definitions matching
+`Data_BB_AAAA::` in `.asm` files and none in `.inc`; `zero_labels.asm` adds one,
+for **960 total**. The `.asm` counts by root are: `engine` 132, `data` 54,
+`gfx` 553, `audio` 219, `lib` 1, and `home` 0. Comparing the same six roots
+and `zero_labels.asm` at `4c5143ec` with current `HEAD` yields 17 removed
+definitions and no additions. This reconciles the intervening structural
+renames and alias retirements; it is still a lexical inventory, not a count of
+unknown objects or proof of semantic completion.
