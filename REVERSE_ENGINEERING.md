@@ -935,3 +935,13 @@ checked before a bank byte is read, not padding or a far pointer. No new runtime
 claim follows. The bounded 268-byte span matches the original ROM; full
 reconstruction equivalence remains determined by `make`. See
 [`docs/research/html_index_bank3f_naming.md`](docs/research/html_index_bank3f_naming.md).
+
+The debug-flags screen's single object record now names its frame and script
+`DebugFlags_CursorFrame0` and `DebugFlags_CursorScript`; four redundant generic
+aliases at the table/data/frame/script addresses were retired after checking
+maintained-source references. The table links to `DebugFlags_ObjAnimData`, the
+frame contains one OAM entry, and the script selects frame 0 for four ticks.
+The structure is CONFIRMED; association with the cursor is PROBABLE. Existing
+traces label the debug path forced-only, so this does not establish natural
+execution. See
+[`docs/research/debug_flags_cursor_sprite.md`](docs/research/debug_flags_cursor_sprite.md).
