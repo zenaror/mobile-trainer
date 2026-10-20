@@ -161,7 +161,6 @@ Kbd_TypeWaitsWithService:: ; 55:6F2E
 ; ---- data $6F3B-$6F46 (11 bytes) [PROBABLE] zero/short bytes of the keyboard page tables between text rows; part of the run 6F3B-6F46 that executed code reads piecewise [split by classify_g2]
 
 Table_Kbd_TypeWaitsWithService_ByType:: ; 55:6F3B
-Data_55_6F3B::
 	db $01, $01, $01, $01, $01, $01, $00, $00, $00, $00, $00
 
 	; [HYPOTHESIS] ret-terminated routine (decodes cleanly through 6F94): decrements [$C2B1], else

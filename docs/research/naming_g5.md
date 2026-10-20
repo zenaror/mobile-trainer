@@ -657,3 +657,57 @@ Corrections made:
   `hImageWidth` / `hImageHeight` (FFD6/FFD7) are retracted (bank 74 list and layout code use them as small scratch counters); notes added that `wCommSessionActive` (C2D1) has no reader in the disassembly and that `wBrowserNavigating` (C334) is reused as scratch by `Bmp_ConvertToTiles`.
 
 No status was upgraded.  The row counts are unchanged (47 CONFIRMED, 240 PROBABLE, 16 HYPOTHESIS; 303 rows); the RAM file has 40 rows.
+
+## Local scopes after retiring two data aliases (2026-10-20)
+
+The maintained data identities at `55:6F3B` and `27:417A` are
+`Table_Kbd_TypeWaitsWithService_ByType` and `MailSendRecv_RequestTemplate`.
+Retiring the redundant globals `Data_55_6F3B` / `Data_27_417A` changes only the
+qualified identities of the following five local labels, with no new routine entry:
+
+| Old qualified symbol | Current qualified symbol | Address |
+|---|---|---|
+| `Data_55_6F3B.l6F51` | `Table_Kbd_TypeWaitsWithService_ByType.l6F51` | `55:6F51` |
+| `Data_27_417A.loop` | `MailSendRecv_RequestTemplate.loop` | `27:4187` |
+| `Data_27_417A.l4195` | `MailSendRecv_RequestTemplate.l4195` | `27:4195` |
+| `Data_27_417A.l41A2` | `MailSendRecv_RequestTemplate.l41A2` | `27:41A2` |
+| `Data_27_417A.l41B0` | `MailSendRecv_RequestTemplate.l41B0` | `27:41B0` |
+
+CONFIRMED from original-ROM bytes and the maintained consumers: the first table
+has 11 flags (`01` for types 0..5, `00` for 6..10), loaded by `55:6F2E` as
+`table[A]` while preserving HL. A must be in the type domain; there is no bounds
+check. The 14 callers all load `wKbdType`, test the returned byte and choose a
+variant with frame service for nonzero. The section 11 row's claim that all 14
+choose the VBlank helpers directly is withdrawn: eight choose
+`VBlank_WaitAndService` / `VBlank_Wait`, while six choose
+`Gfx_StartHDMAWithService` / `Gfx_StartHDMA` (the call sites currently at
+`engine/keyboard/keyboard.asm:2138,2157,2196,2215,2269,2380`). The HDMA wrappers
+are `00:0787` / `00:0749`; the former calls `Sound_FrameService` and the latter
+does not. The frozen `config/symbols/bank55.tsv` row preserves the older wording.
+The table's semantic classification remains PROBABLE; its 11 individual bytes
+are all read in the natural `traces/detail/*/dataaccess.tsv` corpus (3..21
+scenarios per byte). Read evidence alone does not establish every caller path.
+
+CONFIRMED `27:417A..4180` contains `04 00 00 01 24 D5 04`, copied by the loop
+`27:4017` to WRAM1 `D624..D62A` before `ConnectDialog_Run` with D=1 / BC=D624.
+The caller then overwrites +6 with `12-mail_count` and +7 with zero; this is a
+seven-byte initial template, not a complete final argument block. The far text
+pointer at +3..5 is `01:D524` (see the named bank-qualified `wMailSessionBlock`
+and `wMailTextScratch` notes in `ram/banked.asm`). All seven ROM bytes are read
+in 21 natural scenarios. `MailSendRecv_RequestTemplate` remains PROBABLE as an
+application name; copied data and boundaries are CONFIRMED.
+
+The following code has no proven independent entry: `55:6F46..6F94` remains
+HYPOTHESIS, and `27:4181..41BB` retains its PROBABLE decoded-code status with
+independent-entry/purpose HYPOTHESIS. The former has 47 CPU starts and conditional
+palette-port/staging writes documented in `classify_g2.md`; the latter has 24
+logical starts (four six-byte farcalls included), starts `Mobile_BeginCancel`,
+polls `Mobile_CancelPoll` while A=1, conditionally draws the timer summary and
+clears IE bits 2/3 before returning. Its `CP $FF / JR Z` targets the immediate
+fall-through `27:4195`, so the branch does not prove a distinct error path.
+Neither interval has a row in the 69-scenario `analysis/coverage_union.tsv` or a
+same-bank direct target/immediate or farcall target found in the frozen code
+regions. These absences do not prove unreachability. A local's inherited data-label
+namespace does not identify a function or assign the data consumer's purpose to
+this code. No new global label, function name, code/data boundary or confidence
+upgrade is introduced.

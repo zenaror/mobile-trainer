@@ -219,7 +219,6 @@ Label_27_40D7::
 ; ---- data $417A-$4181 (7 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
 
 MailSendRecv_RequestTemplate:: ; 27:417A
-Data_27_417A::
 	db $04, $00, $00, $01, $24, $D5, $04
 
 	; [PROBABLE] 24 insn(s) reached by static flow only; seeds: site x24; min discovery hops 0; run
