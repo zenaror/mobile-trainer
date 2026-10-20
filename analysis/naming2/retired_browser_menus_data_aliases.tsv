@@ -1,0 +1,17 @@
+old_name	current_name	bank	address	owner	status	confidence
+Data_72_6C10	BrowserMenu3_Tiles0	72	6C10	gfx/browser/menus.asm	retired_this_pass	CONFIRMED
+Data_72_7010	BrowserMenu3_Tiles1	72	7010	gfx/browser/menus.asm	retired_this_pass	CONFIRMED
+Data_72_7110	BrowserMenu3_Map	72	7110	gfx/browser/menus.asm	retired_this_pass	CONFIRMED
+Data_72_7200	Palette_BrowserMenu_Bg6	72	7200	gfx/browser/menus.asm	retired_this_pass	CONFIRMED
+Data_72_7220	BrowserMenu2_Tiles0	72	7220	gfx/browser/menus.asm	retired_this_pass	CONFIRMED
+Data_72_7620	BrowserMenu2_Tiles1	72	7620	gfx/browser/menus.asm	retired_this_pass	CONFIRMED
+Data_72_7720	BrowserMenu2_Map	72	7720	gfx/browser/menus.asm	retired_this_pass	CONFIRMED
+Data_72_786C	BrowserShared_Anim12Frames	72	786C	gfx/browser/menus.asm	retired_this_pass	PROBABLE
+Data_72_786E	BrowserShared_ObjAnimData_72_786E	72	786E	gfx/browser/menus.asm	retired_this_pass	PROBABLE
+Data_72_7880	BrowserShared_ObjAnimData_72_7880	72	7880	gfx/browser/menus.asm	retired_this_pass	CONFIRMED
+Data_72_7894	BrowserShared_ObjAnimData_72_7894	72	7894	gfx/browser/menus.asm	retired_this_pass	PROBABLE
+Data_72_78CA	BrowserMenu_Cursor_ObjAnimData_72_78CA	72	78CA	gfx/browser/menus.asm	retired_this_pass	CONFIRMED
+Data_72_78F5	BrowserShared_ObjAnimData_72_78F5	72	78F5	gfx/browser/menus.asm	retired_this_pass	PROBABLE
+Data_72_795B	BrowserShared_ObjAnimData_72_795B	72	795B	gfx/browser/menus.asm	retired_this_pass	CONFIRMED
+Data_72_79A0	BrowserShared_ObjAnimData_72_79A0	72	79A0	gfx/browser/menus.asm	retired_this_pass	PROBABLE
+Data_72_7A04	BrowserShared_ObjAnimData_72_7A04	72	7A04	gfx/browser/menus.asm	retired_this_pass	CONFIRMED

@@ -496,6 +496,25 @@ ledger SHA-256
 `a4792c8c92872dcd2d4f012375c63f823b21de87ee0e6de1b87c843a386339e4`.
 All original-ROM identity and static resource checks pass.
 
+## Retired shared-browser menu graphic aliases (2026-10-20)
+
+The owner `gfx/browser/menus.asm` had 16 `Data_72_*` declarations sharing
+exact addresses with existing descriptive menu-frame, script and tile labels.
+The source hash matched the census parent and the current symbol file confirmed
+all pairs. Exact-token scans found no generic consumer beyond each declaration;
+the census showed no other source, tool/metadata or local-scope uses. A substring
+inside a longer descriptive name was excluded as a separate reference. Only
+duplicate declarations were removed; bytes and confidence are unchanged. See
+[`retired_browser_menus_data_aliases.tsv`](../../analysis/naming2/retired_browser_menus_data_aliases.tsv).
+
+Receipt `.tmp/browser-menus-data-alias-pass-20261020/`: `PRECHECK.json`
+SHA-256 `47fdadb755b9a4130cb8f0eb43f76697bf68b34ed372054ccc112d4d6558214a`,
+`RESULT.json` SHA-256
+`ff52af20f2a0961d4431be8ffcdb6e1441e801bd6b4096f490375a9a8659c83c`, and
+ledger SHA-256
+`e223df1696e7232e41e0110e1ab2fa4114331d71516046fa24aa49e53d3fa47f`.
+All original-ROM and static resource checks pass.
+
 ## Remaining limits
 
 The other 75 labels from the original no-alias subset remain unchanged. The audit groups them into interior labels,
