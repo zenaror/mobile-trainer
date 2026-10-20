@@ -21,10 +21,10 @@ Data_6C_4809::
 String_6C_4845:: ; 6C:4845
 	db "　モバイルトレーナー", 0
 
-; ---- data $485A-$4899 (63 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown [clipped from 483E-5175 by higher-priority evidence]
-; 6C:60AF maps A0..FF to 96 big-endian numeric glyph codes at $58C7 + 2*(byte-$A0); 80..9F consumes a second byte; the original db bytes and mixed-region classification remain unchanged
+; ---- text $485A-$4899 (63 bytes) [PROBABLE] NUL-terminated HelpScript welcome text; $40 consumes a delay argument and $10 advances the line; decoded stream is recorded in docs/research/text_encoding.md
+; 6C:607A consumes the byte after $40, adding it to delay only when wHelpScriptAdvanceMode is zero; 6C:60AF maps A0..FF through the glyph table; rendering/display is not claimed
 
-Data_6C_485A:: ; 6C:485A
+String_HelpScript_MobileTrainerWelcome:: ; 6C:485A
 	db $83, $82, $83, $6F, $83, $43, $FA, $83, $67, $83, $8C, $B0, $83, $69, $B0, $CD
 	db $D6, $B3, $BA, $BF, $A1, $40, $3C, $10, $BA, $DA, $ED, $83, $4C, $83, $7E, $D3
 	db $A4, $83, $82, $83, $6F, $83, $43, $FA, $83, $56, $FD, $83, $65, $83, $80, $82

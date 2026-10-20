@@ -674,3 +674,35 @@ inventory and manifest are retained in
 `.tmp/generic-data-census-20261020-keyboard/` with SHA-256
 `42345fc1ac73d897c075ea892dffcf95383a4ae0206ebedf668d0d65d0a513a1` and
 `1a5e0a79621043b8f81cfe9e0e31dbd8b2e0322a582f9aee1a472a0b8db0f605`.
+
+## Decoded HelpScript welcome stream (2026-10-20)
+
+`Data_6C_485A` is now `String_HelpScript_MobileTrainerWelcome`. Its 63 bytes
+end in NUL at `6C:4898`; the next source boundary is `6C:4899`. The located
+reader `HelpScript_StepText` at `6C:6009` treats `$10` as a line advance,
+dispatches `$40` to the delay handler at `6C:607A`, and maps bytes `$A0..$FF`
+through the 96-word table at `6C:58C7`; `$80..$9F` consume a second byte. The
+`$40` handler consumes the following `$3C` argument, adding it to the delay
+counter only when `wHelpScriptAdvanceMode` is zero and otherwise skipping it.
+The mapping and complete source interval match the original ROM. The decoded
+text welcomes the reader to Mobile Trainer and invites them to enjoy Mobile
+System GB; `$40,$3C` is a control pair, not printable `@<`. Text identity and
+the label remain **PROBABLE** because this pass did not verify final glyph
+rendering or the natural menu/display path.
+
+The original-byte and table comparison receipt is
+`.tmp/bank6c-welcome-string-audit-20261020/RESULT.json`; the corrected receipt
+pins the source/table hashes and ROM hash, and records the decoding limits.
+Its SHA-256 is
+`9cd94528accc14eca141892474e663a3d900059066a473f1dfaeb5fdcdfe1ace`.
+The superseded pre-review receipt is retained as
+`RESULT.pre-review-incorrect.json` (SHA-256
+`7290208bce1822eb506a2369c4c755a49c207d74e4552ea8fc9eb1a0c22d2ab0`) so the
+review correction remains auditable.
+After this rename, the exact lexical count is 988 `Data_BB_AAAA::` definitions
+across the six maintained roots plus one in `zero_labels.asm` (989 total). A
+fresh post-build census reports 572 neutral groups, 147 rejected candidates,
+and zero manifest rows; the inventory and manifest are in
+`.tmp/generic-data-census-20261020-helptext/` with SHA-256
+`e4ca8416a6232a1bcac1110f45738eb64d3ea42999f54746ad62a6064d32ad57` and
+`1a5e0a79621043b8f81cfe9e0e31dbd8b2e0322a582f9aee1a472a0b8db0f605`.

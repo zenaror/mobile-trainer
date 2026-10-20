@@ -115,6 +115,29 @@ The reader is located: `HelpScript_Run_FrameLoop` calls `HelpScript_StepText` at
 
 The 96 entries map the apparent JIS X0201-order source bytes chiefly to full-width hiragana and punctuation. Examples are A1→8142 (。), A6→82F0 (を), CA→82CD (は), ED→82C5 (で) and F1→82D4 (ぶ). A0 and A5 contain 0000; they are not evidence of a printable blank glyph. The source charmap's half-width spellings describe the stored byte values, not the final glyph identity. E0..FF are explicit lookup entries rather than context-only gaiji guesses:
 
+### 6.1 Welcome stream at `6C:485A`
+
+The 63-byte source interval `6C:485A–4898` (next boundary `6C:4899`) is now named
+`String_HelpScript_MobileTrainerWelcome`. Its NUL-terminated bytes decode
+through the reader and lookup above to:
+
+> モバイルトレーナーへようこそ。<CONTROL $40,$3C>
+> これでキミも、モバイルシステムＧ
+> Ｂをたのしめるんだ！
+
+The stored `$10` bytes are line-advance controls. `$40` dispatches to the
+delay handler, which consumes `$3C` as an argument: it adds that value to the
+delay counter only when `wHelpScriptAdvanceMode` is zero, and skips it in the
+other modes. This pair is a control, not printable `@<`. The natural
+menu/display path and final glyph rendering are not established by this
+decode. The source bytes and lookup table match the original ROM; the bounded
+receipt is `.tmp/bank6c-welcome-string-audit-20261020/RESULT.json`. Its
+`source_sha256` is the pre-rename owner snapshot; the current symbol/comment
+edit preserves that audited byte interval. The superseded pre-review receipt
+is retained beside it to document the corrected parser interpretation.
+Text classification and the human-readable label remain **PROBABLE**, not a
+rendered-output claim.
+
 | Stored byte | Numeric glyph code | CP932 interpretation |
 |---|---|---|
 | E0 | 82AA | が |
