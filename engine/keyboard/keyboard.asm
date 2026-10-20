@@ -297,7 +297,7 @@ Kbd_Run_Loop:: ; 55:5D49
 	call Kbd_Type6To10Flag
 	or a, a
 	jp z, Kbd_Run_ContinueLoop
-	jp Label_55_5F29
+	jp Kbd_HideAndReturn9
 
 .l5E02 ; 55:5E02
 	; [CONFIRMED] 22 insn(s); 22 executed (in up to 4/18 scenarios)
@@ -513,7 +513,6 @@ Label_55_5F26::
 	ld a, $0A
 	ret
 Kbd_HideAndReturn9:: ; 55:5F29
-Label_55_5F29::
 	; [HYPOTHESIS] 12B/6 starts [5F29,5F35): XOR sets A0 before unconditional CALL6427.
 	; [PROBABLE] Exact9B prefix of Kbd_Hide6559; normal callee return clears C2AF, returns A9.
 	; JP5DFF is static only; callee effects require valid stack/bank/IRQ/state, no caller ABI.

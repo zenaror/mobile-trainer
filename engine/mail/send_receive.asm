@@ -1781,7 +1781,7 @@ CommTime_DrawHMSScreen:: ; 27:4D81
 	ld [$992B], a
 	ld [$990C], a
 	ld [$992C], a
-	jp Label_27_4EEB
+	jp LCDOn_ReturnBCZero
 Gfx_UploadPalettesAndBgMaps_EnableLCD:: ; 27:4EC0 [PROBABLE] local operation
 
 	; [PROBABLE] 53 bytes/22 logical starts [4EC0,4EF5); farcall inline bytes are data.
@@ -1811,7 +1811,6 @@ Gfx_UploadPalettesAndBgMaps_EnableLCD:: ; 27:4EC0 [PROBABLE] local operation
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 LCDOn_ReturnBCZero:: ; 27:4EEB [PROBABLE] local operation; entry unproved
-Label_27_4EEB:: ; 27:4EEB
 	farcall LCDOn
 	ld bc, $0000
 	ret

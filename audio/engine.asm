@@ -816,7 +816,7 @@ Table_SoundDrv_ParamHandlers:: ; 04:44A3
 	dw SoundDrv_ParamPanOffset
 	dw SoundDrv_ParamVibratoDepth
 	dw SoundDrv_ParamVibratoRate
-	dw Label_04_49CD
+	dw SoundDrv_ParamStoreTrackWord27
 
 SoundDrv_SetTrackParam:: ; 04:44B1
 	; [PROBABLE] entry: ROM0 stub 00:20D6 (call 2116 ; jp 04:44B1; no call/jp to $20D6 found in the
@@ -1268,7 +1268,7 @@ Table_SoundDrv_Commands:: ; 04:46E8
 	dw SoundDrv_CmdUnassigned
 	dw SoundDrv_CmdUnassigned
 	dw SoundDrv_CmdDetune
-	dw Label_04_49B6
+	dw SoundDrv_CmdStoreTrackByte1E
 	dw SoundDrv_CmdUnassigned
 	dw SoundDrv_CmdEnd
 	dw SoundDrv_CmdExtended
@@ -1754,8 +1754,7 @@ Label_04_49A2::
 	sub a, $80
 	ld [hl], a
 	jp SoundDrv_ReadNextCommand
-SoundDrv_CmdStoreTrackByte1E:: ; 04:49B6
-Label_04_49B6:: ; [PROBABLE] operation only; entry/musical purpose HYPOTHESIS; see note.
+SoundDrv_CmdStoreTrackByte1E:: ; 04:49B6 [PROBABLE] operation only; entry/musical purpose HYPOTHESIS; see note.
 	ld a, [wSoundDrv_UpdateFlags]
 	set 2, a
 	ld [wSoundDrv_UpdateFlags], a
@@ -1775,8 +1774,7 @@ Label_04_49C8::
 	; $CD 7 (never used by the data): +$28 = length of the note-end tail, (256 - value) * 15 ticks (PROBABLE, demonstrated (synthetic): see .l4D54)
 	ld bc, $0028
 	jr SoundDrv_CmdStoreTrackByte
-SoundDrv_ParamStoreTrackWord27:: ; 04:49CD
-Label_04_49CD:: ; [PROBABLE] operation only; entry/musical purpose HYPOTHESIS; see note.
+SoundDrv_ParamStoreTrackWord27:: ; 04:49CD [PROBABLE] operation only; entry/musical purpose HYPOTHESIS; see note.
 	ld bc, $0027
 	jp SoundDrv_SetTrackFieldWord
 

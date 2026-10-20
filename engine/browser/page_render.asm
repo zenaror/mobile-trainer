@@ -1218,16 +1218,15 @@ Browser_DrawElement:: ; 4E:57DC
 
 Table_Browser_ElementDrawHandlers:: ; 4E:589B
 Table_4E_589B::
-	dw Label_4E_58AB
+	dw Browser_DrawElement_ReturnOnly
 	dw Browser_DrawElement_Text
-	dw Label_4E_58AB
-	dw Label_4E_58AB
+	dw Browser_DrawElement_ReturnOnly
+	dw Browser_DrawElement_ReturnOnly
 	dw Browser_DrawElement_Bitmap
 	dw Browser_DrawElement_Bitmap
-	dw Label_4E_58AB
-	dw Label_4E_58AB
+	dw Browser_DrawElement_ReturnOnly
+	dw Browser_DrawElement_ReturnOnly
 Browser_DrawElement_ReturnOnly:: ; [PROBABLE] table-target operation: RET only; entry unobserved.
-Label_4E_58AB:: ; 4E:58AB
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: table x1; min discovery hops 0; run
 	; starts at an entry of the code-pointer table at 4E:589B
 	ret

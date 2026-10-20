@@ -97,6 +97,26 @@ reconciles the earlier handoff's 1,446 figure, which was high by one. The count
 excludes `languages/` and does not state how many resources are semantically
 identified; it is only a reproducible lexical count of exact global definitions.
 
+## Co-located `Label_*` aliases
+
+A separate read-only audit pinned to parent `7923edc7` inventoried 493 global
+`Label_BB_AAAA::` definitions in the same six roots. All 493 shared an address
+with another named label. This is not evidence that they are 493 functions, nor
+does it independently validate each descriptive name. The lexical inventory
+found 231 targets referenced by `dw`, 261 only by `jp`/`jr`, one fall-through
+target and no symbolic `call`/`farcall` references. Eleven active source
+operands still used the generic spelling for seven addresses.
+
+This follow-on retires those seven exact-address aliases and changes the eleven
+operands to their existing operation/resource names: `SoundDrv_CmdStoreTrackByte1E`,
+`SoundDrv_ParamStoreTrackWord27`, `Browser_LoadPage_ReturnOnly`,
+`Browser_DrawElement_ReturnOnly` (five entries), `Kbd_HideAndReturn9`,
+`Fill99E1Pattern46_Draw5807TwiceAndUpload`, and `LCDOn_ReturnBCZero`. Existing
+PROBABLE/HYPOTHESIS comments remain on the surviving names; this does not prove
+natural entry, callers, or application purpose. The other 486 `Label_*`
+definitions need continued scope/reference review. The pinned inventory and
+its limitations are retained at `.tmp/label-entry-audit-20261020-agent/`.
+
 ## Remaining limits
 
 The other 75 labels from the original no-alias subset remain unchanged. The audit groups them into interior labels,
