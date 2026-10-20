@@ -477,6 +477,25 @@ ledger SHA-256
 `8ee7f0b37ddc843686f6797cab93a52cf26949e04cfb9fb59de41da2997b1c06`.
 All original-ROM and static resource checks pass.
 
+## Retired profile-editor graphic aliases (2026-10-20)
+
+The owner `gfx/profile/profile_editor.asm` contained 17 `Data_66_*` aliases at
+addresses already represented by existing profile-editor graphic labels. The
+file hash matched the census parent; current symbols confirmed all address
+pairs, and searches of maintained sources found no generic-name consumer beyond
+each declaration. The census recorded zero tool/metadata mentions and local
+scopes. This removes redundant labels only and preserves the emitted data and
+inherited confidence. See
+[`retired_profile_editor_data_aliases.tsv`](../../analysis/naming2/retired_profile_editor_data_aliases.tsv).
+
+Receipt `.tmp/profile-editor-data-alias-pass-20261020/`: `PRECHECK.json`
+SHA-256 `ba160d94c109f78bc071add2a7150417d6cf1c8a7fbb7127b0004cc2f8167400`,
+`RESULT.json` SHA-256
+`e5fd200d0f1ddc3ca1677ec79100756000ad39aea5da160b8d229bbacb86add7`, and
+ledger SHA-256
+`a4792c8c92872dcd2d4f012375c63f823b21de87ee0e6de1b87c843a386339e4`.
+All original-ROM identity and static resource checks pass.
+
 ## Remaining limits
 
 The other 75 labels from the original no-alias subset remain unchanged. The audit groups them into interior labels,
