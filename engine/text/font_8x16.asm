@@ -28,7 +28,7 @@ Bcd_FromBinary8:: ; 48:4728
 	ret
 
 Font_BlitGlyph8x16:: ; 48:4748
-Function_48_4748::
+
 	; [CONFIRMED] 118 insn(s); 118 executed (in up to 15/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, sp+6
@@ -161,10 +161,10 @@ Function_48_4748::
 	; forced_screens (traces/forced/, not natural evidence; status unchanged)
 	ret
 
-; ---- data $4810-$4899 (137 bytes) [CONFIRMED] 27 five-byte records (key16 little-endian = SJIS code where a glyph run starts, bank byte $48, glyph-run pointer16) sorted by descending key + $FFFF terminator (ends 4899). Read by the executed glyph fetcher Function_48_4748 (loop at 48:4777: ld c,[hl]; ld b,[hli]; inc a; jp z end; stride 5 via 3 x inc hl); entry keys $83BF,$8340,$829F,$8281,$8260,$824F,$81F4,... $8140; pointers $5D7B,$53EB,$4EBB,$4D1B,$4B7B,$4ADB,... Unread 3-byte gaps folded in.
+; ---- data $4810-$4899 (137 bytes) [CONFIRMED] 27 five-byte records (key16 little-endian = SJIS code where a glyph run starts, bank byte $48, glyph-run pointer16) sorted by descending key + $FFFF terminator (ends 4899). Read by the executed glyph fetcher Font_BlitGlyph8x16 (loop at 48:4777: ld c,[hl]; ld b,[hli]; inc a; jp z end; stride 5 via 3 x inc hl); entry keys $83BF,$8340,$829F,$8281,$8260,$824F,$81F4,... $8140; pointers $5D7B,$53EB,$4EBB,$4D1B,$4B7B,$4ADB,... Unread 3-byte gaps folded in.
 
 Font_GlyphRunTable:: ; 48:4810
-Table_48_4810::
+
 	db $BF, $83, $48
 	dw Font_GlyphRun_83BF
 	db $40, $83, $48

@@ -36,7 +36,7 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SCOPE_DIRS = ('home', 'engine', 'lib', 'audio')
-SKIP_DIRS = {'.git', 'build', 'traces', 'tools', 'docs', 'analysis', 'config', '__pycache__'}
+SKIP_DIRS = {'.git', 'build', 'languages', 'traces', 'tools', 'docs', 'analysis', 'config', '__pycache__'}
 
 NAME = re.compile(r'(?<![A-Za-z0-9_.])(Label_([0-9A-F]{2})_([0-9A-F]{4}))(?![A-Za-z0-9_])')
 LOCAL_NAME = re.compile(r'^\.([A-Za-z0-9_]+)')

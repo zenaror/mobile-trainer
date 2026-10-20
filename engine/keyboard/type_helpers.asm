@@ -5,7 +5,7 @@
 SECTION "engine/keyboard/type_helpers", ROMX
 
 Kbd_TypeHasPages:: ; 55:6E94
-Function_55_6E94::
+
 	; [CONFIRMED] 8 insn(s); 8 executed (in up to 11/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, Table_Kbd_TypeHasPages_ByType
@@ -20,11 +20,10 @@ Function_55_6E94::
 ; ---- data $6E9F-$6EAA (11 bytes) [PROBABLE] zero/short bytes of the keyboard page tables between text rows; part of the run 6E9F-6EAA that executed code reads piecewise [split by classify_g2]
 
 Table_Kbd_TypeHasPages_ByType:: ; 55:6E9F
-Data_55_6E9F::
 	db $00, $00, $00, $00, $00, $00, $01, $01, $01, $00, $00
 
 Kbd_TypeMode2DefaultCursorFlag:: ; 55:6EAA
-Function_55_6EAA::
+
 	; [CONFIRMED] A=type0..10, returns the mode2 default-cursor flag (0/1); HL/flags clobbered.
 	; Sole Kbd_Run call executes 1,268/25 natural hits/scenarios; type10 exits before this test.
 	ld hl, Table_Kbd_Mode2DefaultCursorFlag_ByType
@@ -45,7 +44,7 @@ Data_55_6EB5::
 	db $00, $00, $00, $00, $00, $00, $01, $01, $01, $01, $01
 
 Kbd_TypeArgCDefaultCursorFlag:: ; 55:6EC0
-Function_55_6EC0::
+
 	; [CONFIRMED] A=type0..10, returns the argument-C default-cursor flag (0/1); HL/flags clobbered.
 	; Sole Kbd_Run call executes 14,425/35 natural hits/scenarios; type10 exits before this test.
 	ld hl, Table_Kbd_ArgCDefaultCursorFlag_ByType
@@ -66,7 +65,7 @@ Data_55_6ECB::
 	db $01, $01, $01, $01, $01, $01, $00, $00, $00, $00, $00
 
 Kbd_TypeNeedsExtraPalette:: ; 55:6ED6
-Function_55_6ED6::
+
 	; [CONFIRMED] 8 insn(s); 8 executed (in up to 11/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, Table_Kbd_TypeNeedsExtraPalette_ByType
@@ -81,16 +80,15 @@ Function_55_6ED6::
 ; ---- data $6EE1-$6EEC (11 bytes) [PROBABLE] zero/short bytes of the keyboard page tables between text rows; part of the run 6EE1-6EEC that executed code reads piecewise [split by classify_g2]
 
 Table_Kbd_TypeNeedsExtraPalette_ByType:: ; 55:6EE1
-Data_55_6EE1::
 	db $00, $00, $00, $00, $00, $01, $01, $01, $01, $01, $01
+Kbd_Type6To10Flag:: ; 55:6EEC
 
-Function_55_6EEC:: ; 55:6EEC
-	; [PROBABLE] branchless ROM55 byte lookup: HL=$6EF7+entry A; A=[HL]; BC/DE unchanged.
-	; Ordinary stable-bank/valid-stack flow leaves F=$00; RET consumes the caller return only.
-	; A=0..10 returns 0 for 0..5 and 1 for 6..10; no bounds check protects later code/data.
-	; Code/data and the sole symbol CALL at 55:5DF8 are unobserved in the 69 natural runs;
-	; caller 5DF5/target 5F29 remain HYPOTHESIS. Its return-9 policy is not established live.
-	; Observed 6ED6/6F02 siblings lie +/-$16 bytes away; periodicity does not prove this entry.
+	; [PROBABLE] Operation alias: for type A=0..10, returns 0 for 0..5 and 1 for 6..10.
+	; HL=$6EF7+entry A; A=[HL]; BC/DE unchanged; F=$00, so returned 0 does not itself set Z.
+	; Unchecked: A=11 reads opcode $21; A=11..255 reads neighbouring ROM through $6FF6.
+	; Requires stable ROM55, valid nonaliasing stack and no relevant IRQ interference.
+	; Entry/purpose HYPOTHESIS: static caller 5DF5 chooses 5E5A/5F29; no live return-9 proof.
+	; Full 6EAA twin differs only in table base; equal table bytes do not transfer cursor role.
 	ld hl, Data_55_6EF7
 	add a, l
 	ld l, a
@@ -106,7 +104,7 @@ Data_55_6EF7:: ; 55:6EF7
 	db $00, $00, $00, $00, $00, $00, $01, $01, $01, $01, $01
 
 Kbd_TypeHidesOnKey82:: ; 55:6F02
-Function_55_6F02::
+
 	; [CONFIRMED] 8 insn(s); 8 executed (in up to 9/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, Table_Kbd_TypeHidesOnKey82_ByType
@@ -121,11 +119,10 @@ Function_55_6F02::
 ; ---- data $6F0D-$6F18 (11 bytes) [PROBABLE] zero/short bytes of the keyboard page tables between text rows; part of the run 6F0D-6F18 that executed code reads piecewise [split by classify_g2]
 
 Table_Kbd_TypeHidesOnKey82_ByType:: ; 55:6F0D
-Data_55_6F0D::
 	db $00, $00, $00, $00, $00, $01, $01, $00, $01, $01, $00
 
 Kbd_TypeHidesOnKey83:: ; 55:6F18
-Function_55_6F18::
+
 	; [CONFIRMED] 8 insn(s); 8 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, Table_Kbd_TypeHidesOnKey83_ByType
@@ -140,11 +137,10 @@ Function_55_6F18::
 ; ---- data $6F23-$6F2E (11 bytes) [PROBABLE] zero/short bytes of the keyboard page tables between text rows; part of the run 6F23-6F2E that executed code reads piecewise [split by classify_g2]
 
 Table_Kbd_TypeHidesOnKey83_ByType:: ; 55:6F23
-Data_55_6F23::
 	db $00, $00, $00, $00, $00, $01, $01, $01, $01, $01, $00
 
 Kbd_TypeWaitsWithService:: ; 55:6F2E
-Function_55_6F2E::
+
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 12/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push hl
@@ -161,11 +157,10 @@ Function_55_6F2E::
 ; ---- data $6F3B-$6F46 (11 bytes) [PROBABLE] zero/short bytes of the keyboard page tables between text rows; part of the run 6F3B-6F46 that executed code reads piecewise [split by classify_g2]
 
 Table_Kbd_TypeWaitsWithService_ByType:: ; 55:6F3B
-Data_55_6F3B::
 	db $01, $01, $01, $01, $01, $01, $00, $00, $00, $00, $00
 
 	; [HYPOTHESIS] ret-terminated routine (decodes cleanly through 6F94): decrements [$C2B1], else
-	; calls $047A, advances [$C2B0] mod 4 and writes two colour bytes to BCPD (ldh [$6A]=$B2 /
+	; calls $047A, advances [$C2B0] mod 4 and writes two colour bytes to OCPD (ldh [$6A]=$B2 /
 	; [c]=$6B) from the word table below; follows the 11-byte table of the previous routine like the
 	; other routines of this run [verifier: no entry proven (no caller, no valid table word, never
 	; executed): decode chain alone is not proof -> HYPOTHESIS]
@@ -218,13 +213,13 @@ Data_55_6F3B::
 	ld [de], a
 	ret
 
-; ---- data $6F95-$6FA1 (12 bytes) [HYPOTHESIS] 12 bytes: 4 RGB555 colours $7F54,$7FFF,$7F54,$7E12 at 6F95 (indexed by [$C2B0]*2 via `ld hl,$6F95`, written to BCPD) and 4 delay bytes $06,$0C,$06,$06 at 6F9D (`ld hl,$6F9D ; ld a,[hl]`); both operands land exactly on these addresses and the block ends at the executed code 6FA1, but the only reader is the HYPOTHESIS routine 6F46 [verifier: earlier note called all 12 bytes a colour table; status lowered]
+; ---- data $6F95-$6FA1 (12 bytes) [HYPOTHESIS] 12 bytes: 4 RGB555 colours $7F54,$7FFF,$7F54,$7E12 at 6F95 (indexed by [$C2B0]*2 via `ld hl,$6F95`, written to OCPD) and 4 delay bytes $06,$0C,$06,$06 at 6F9D (`ld hl,$6F9D ; ld a,[hl]`); both operands land exactly on these addresses and the block ends at the executed code 6FA1, but the only reader is the HYPOTHESIS routine 6F46 [verifier: earlier note called all 12 bytes a colour table; status lowered]
 
 Data_55_6F95:: ; 55:6F95
 	db $54, $7F, $FF, $7F, $54, $7F, $12, $7E, $06, $0C, $06, $06
 
 Kbd_RejectSymbol:: ; 55:6FA1
-Function_55_6FA1::
+
 	; [CONFIRMED] 21 insn(s); 21 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wKeyboardCharLo]
@@ -252,7 +247,7 @@ Data_55_6FC7::
 	db $40, $2E, $2D, $5F, $2B, $00
 
 Kbd_ShowMarkerSprite:: ; 55:6FCD
-Function_55_6FCD::
+
 	; [CONFIRMED] 19 insn(s); 19 executed (in up to 7/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, wSpriteSlot13
@@ -282,7 +277,7 @@ Data_55_6FF4::
 	db $88, $50, $88, $60, $88, $60, $88, $68, $88, $68, $88, $68
 
 Kbd_HideMarkerSprite:: ; 55:7000
-Function_55_7000::
+
 	; [CONFIRMED] 67 insn(s); 67 executed (in up to 11/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, wSpriteSlot13

@@ -5,7 +5,7 @@
 SECTION "engine/help/help_script", ROMX
 
 HelpMenu_Run:: ; 6C:5987
-Function_6C_5987::
+
 	; [CONFIRMED] 185 insn(s); 185 executed (in up to 12/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld b, $01
@@ -176,7 +176,6 @@ HelpScript_Run:: ; 6C:59B2
 	ldh [rSVBK], a
 
 HelpScript_Run_NextCommand:: ; 6C:5B47
-Label_6C_5B47::
 	ld a, [wHelpScriptPtr]
 	ld l, a
 	ld a, [wHelpScriptPtr + 1]
@@ -397,7 +396,6 @@ Label_6C_5B47::
 	ld [wHelpScriptPtr + 1], a
 
 HelpScript_Run_FrameLoop:: ; 6C:5CC5
-Label_6C_5CC5::
 	farcall Sprite_UpdateAll
 	call VBlank_WaitAndService
 	ld a, [wHelpScript_PrintingFlag]
@@ -431,12 +429,10 @@ Table_6C_5CFD::
 	dw HelpScript_Idle
 
 HelpScript_Idle:: ; 6C:5D07
-Label_6C_5D07::
 	; [CONFIRMED] 264 insn(s); 264 executed (in up to 12/18 scenarios)
 	jr HelpScript_Run_FrameLoop
 
 HelpScript_OnA:: ; 6C:5D09
-Label_6C_5D09::
 	ld a, $01
 	ld [wHelpScriptAdvanceMode], a
 	ld a, [wHelpScript_PrintingFlag]
@@ -453,7 +449,6 @@ Label_6C_5D09::
 	jp HelpScript_Run_ResumeScript
 
 HelpScript_OnB:: ; 6C:5D30
-Label_6C_5D30::
 	ld a, $02
 	ld [wHelpScriptAdvanceMode], a
 	ld a, [wHelpScript_PrintingFlag]
@@ -472,7 +467,6 @@ Label_6C_5D30::
 	jp HelpScript_Run_FrameLoop
 
 HelpScript_OnSelect:: ; 6C:5D5A
-Label_6C_5D5A::
 	play_sfx SFX_CANCEL
 	push hl
 	ld a, $01
@@ -496,11 +490,9 @@ Label_6C_5D5A::
 	jp HelpScript_Run_NextCommand
 
 HelpScript_IgnoreStart:: ; 6C:5D9C
-Label_6C_5D9C::
 	jp HelpScript_Run_FrameLoop
 
 HelpScript_Run_TextFinished:: ; 6C:5D9F
-Label_6C_5D9F::
 	xor a, a
 	ld [wHelpScript_PrintingFlag], a
 	ld a, [wHelpScriptAdvanceMode]
@@ -543,7 +535,6 @@ Label_6C_5D9F::
 	jp HelpScript_OnB
 
 HelpScript_Run_ResumeScript:: ; 6C:5E03
-Label_6C_5E03::
 	ld a, [wHelpScriptAdvanceMode]
 	cp a, $02
 	jr z, .l5E1D
@@ -614,7 +605,7 @@ HelpScript_ShowPicture:: ; 6C:5E6E
 	sla a
 	sla a
 	add a, b
-	ld hl, $5F6E
+	ld hl, HelpScript_PictureTable
 	add a, l
 	ld l, a
 	ld a, h
@@ -713,23 +704,70 @@ HelpScript_ShowPicture:: ; 6C:5E6E
 	ld h, a
 	ret
 
-; ---- data $5F6E-$6009 (155 bytes) [PROBABLE] 31 records x 5 bytes (61 00 40 80 7A / 61 80 44 88 7A / 61 00 49 90 7A ...; pattern flag, x, y, 7A 61-style pointer tail), read in up to 8 scenarios; 155 bytes = 31 records; the 15 and 50 byte holes are unread records of the same table
+; ---- data $5F6E-$6009 (155 bytes) [PROBABLE] 31 five-byte records: bank byte, tile source word, palette source word; HelpScript_ShowPicture indexes finite IDs 1-31 and loads 1152 tile bytes plus 8 palette bytes; no arbitrary-ID bounds or natural-display claim
 
 HelpScript_PictureTable:: ; 6C:5F6E
-Data_6C_5F6E::
-	db $61, $00, $40, $80, $7A, $61, $80, $44, $88, $7A, $61, $00, $49, $90, $7A, $61
-	db $80, $4D, $98, $7A, $61, $00, $52, $A0, $7A, $61, $80, $56, $A8, $7A, $61, $00
-	db $5B, $B0, $7A, $61, $80, $5F, $B8, $7A, $61, $00, $64, $C0, $7A, $61, $80, $68
-	db $C8, $7A, $61, $00, $6D, $D0, $7A, $61, $80, $71, $D8, $7A, $61, $00, $76, $E0
-	db $7A, $60, $00, $40, $80, $7A, $60, $80, $44, $88, $7A, $60, $00, $49, $90, $7A
-	db $60, $80, $4D, $98, $7A, $60, $00, $52, $A0, $7A, $60, $80, $56, $A8, $7A, $60
-	db $00, $5B, $B0, $7A, $60, $80, $5F, $B8, $7A, $60, $00, $64, $C0, $7A, $60, $80
-	db $68, $C8, $7A, $60, $00, $6D, $D0, $7A, $60, $80, $71, $D8, $7A, $60, $00, $76
-	db $E0, $7A, $5B, $00, $40, $80, $56, $5B, $80, $44, $88, $56, $5B, $00, $49, $90
-	db $56, $5B, $80, $4D, $98, $56, $5B, $00, $52, $A0, $56
+	db BANK(Gfx_HelpScript_Picture01Tiles)
+	dw Gfx_HelpScript_Picture01Tiles, Palette_HelpScript_Picture01
+	db BANK(Gfx_HelpScript_Picture02Tiles)
+	dw Gfx_HelpScript_Picture02Tiles, Palette_HelpScript_Picture02
+	db BANK(Gfx_HelpScript_Picture03Tiles)
+	dw Gfx_HelpScript_Picture03Tiles, Palette_HelpScript_Picture03
+	db BANK(Gfx_HelpScript_Picture04Tiles)
+	dw Gfx_HelpScript_Picture04Tiles, Palette_HelpScript_Picture04
+	db BANK(Gfx_HelpScript_Picture05Tiles)
+	dw Gfx_HelpScript_Picture05Tiles, Palette_HelpScript_Picture05
+	db BANK(Gfx_HelpScript_Picture06Tiles)
+	dw Gfx_HelpScript_Picture06Tiles, Palette_HelpScript_Picture06
+	db BANK(Gfx_HelpScript_Picture07Tiles)
+	dw Gfx_HelpScript_Picture07Tiles, Palette_HelpScript_Picture07
+	db BANK(Gfx_HelpScript_Picture08Tiles)
+	dw Gfx_HelpScript_Picture08Tiles, Palette_HelpScript_Picture08
+	db BANK(Gfx_HelpScript_Picture09Tiles)
+	dw Gfx_HelpScript_Picture09Tiles, Palette_HelpScript_Picture09
+	db BANK(Gfx_HelpScript_Picture10Tiles)
+	dw Gfx_HelpScript_Picture10Tiles, Palette_HelpScript_Picture10
+	db BANK(Gfx_HelpScript_Picture11Tiles)
+	dw Gfx_HelpScript_Picture11Tiles, Palette_HelpScript_Picture11
+	db BANK(Gfx_HelpScript_Picture12Tiles)
+	dw Gfx_HelpScript_Picture12Tiles, Palette_HelpScript_Picture12
+	db BANK(Gfx_HelpScript_Picture13Tiles)
+	dw Gfx_HelpScript_Picture13Tiles, Palette_HelpScript_Picture13
+	db BANK(Gfx_HelpScript_Picture14Tiles)
+	dw Gfx_HelpScript_Picture14Tiles, Palette_HelpScript_Picture14
+	db BANK(Gfx_HelpScript_Picture15Tiles)
+	dw Gfx_HelpScript_Picture15Tiles, Palette_HelpScript_Picture15
+	db BANK(Gfx_HelpScript_Picture16Tiles)
+	dw Gfx_HelpScript_Picture16Tiles, Palette_HelpScript_Picture16
+	db BANK(Gfx_HelpScript_Picture17Tiles)
+	dw Gfx_HelpScript_Picture17Tiles, Palette_HelpScript_Picture17
+	db BANK(Gfx_HelpScript_Picture18Tiles)
+	dw Gfx_HelpScript_Picture18Tiles, Palette_HelpScript_Picture18
+	db BANK(Gfx_HelpScript_Picture19Tiles)
+	dw Gfx_HelpScript_Picture19Tiles, Palette_HelpScript_Picture19
+	db BANK(Gfx_HelpScript_Picture20Tiles)
+	dw Gfx_HelpScript_Picture20Tiles, Palette_HelpScript_Picture20
+	db BANK(Gfx_HelpScript_Picture21Tiles)
+	dw Gfx_HelpScript_Picture21Tiles, Palette_HelpScript_Picture21
+	db BANK(Gfx_HelpScript_Picture22Tiles)
+	dw Gfx_HelpScript_Picture22Tiles, Palette_HelpScript_Picture22
+	db BANK(Gfx_HelpScript_Picture23Tiles)
+	dw Gfx_HelpScript_Picture23Tiles, Palette_HelpScript_Picture23
+	db BANK(Gfx_HelpScript_Picture24Tiles)
+	dw Gfx_HelpScript_Picture24Tiles, Palette_HelpScript_Picture24
+	db BANK(Gfx_HelpScript_Picture25Tiles)
+	dw Gfx_HelpScript_Picture25Tiles, Palette_HelpScript_Picture25
+	db BANK(Gfx_HelpScript_Picture26Tiles)
+	dw Gfx_HelpScript_Picture26Tiles, Palette_HelpScript_Picture26
+	; IDs 27-31 retain the original bank-5B addresses; that owner is outside this asset unit.
+	db $5B, $00, $40, $80, $56
+	db $5B, $80, $44, $88, $56
+	db $5B, $00, $49, $90, $56
+	db $5B, $80, $4D, $98, $56
+	db $5B, $00, $52, $A0, $56
 
 HelpScript_StepText:: ; 6C:6009
-Function_6C_6009::
+
 	; [CONFIRMED] 23 insn(s); 23 executed (in up to 12/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wHelpScriptDelayCounter]
@@ -995,8 +1033,8 @@ Function_6C_6009::
 	ld [wHelpScriptColumn], a
 	pop hl
 	jp .l601B
+DecC0DA_OnZeroReload23ToggleC0D9AndSetDA20:: ; 6C:61AC [PROBABLE] operation; entry/purpose HYPOTHESIS
 
-Function_6C_61AC:: ; 6C:61AC
 	; [PROBABLE] ROM6C DEC [C0DA] mod256; old0->$FF returns, old1 reloads $23/XORs C0D9 bit0.
 	; Expiry D=($78+new C0D9)mod256,E=$80,HL=$DA20; farcall Sprite_SetPosition writes WRAM7.
 	; SVBK restored from shadow; domain/entry/purpose unproved. See docs/research/naming_6c_61ac.md.

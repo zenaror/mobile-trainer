@@ -53,12 +53,12 @@ Data_25_69B0::
 Mailbox_Tiles_69F0:: ; 25:69F0
 	; kind (tiles) from the label name / config/symbols note; the region header above describes the block differently
 	INCBIN "gfx/mailbox/mailbox/mailbox_tiles_69f0.2bpp"
-	db $F8, $00, $FC, $70, $FC, $48, $FC, $48
+	db $3F, $00, $3F, $1E, $BF, $12, $FF, $12
 
-; ---- data $6AC8-$6BD1 (265 bytes) [CONFIRMED] original-ROM historical coverage: all 265 bytes occur in merged rom_read ranges in 12 of 69 historical scenarios; inside requests at 25:4B86/4C2E, with 56 bytes repeated at 4B9B/4C43; physical 16-byte phase 8 to 1; content class unknown; see docs/research/boot_and_home.md; current English differs at 78 of these 265 bytes; no English runtime evidence inferred
+; ---- data $6AC8-$6BD1 (265 bytes) [CONFIRMED] all 265 bytes occur in merged rom_read ranges in 12 of 69 historical scenarios; inside requests at 25:4B86/4C2E, with 56 bytes repeated at 4B9B/4C43; physical 16-byte phase 8 to 1; content class unknown; see docs/research/boot_and_home.md
 
 Data_25_6AC8:: ; 25:6AC8
-	db $FC, $48, $FC, $48, $FC, $70, $F8, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $FF, $42, $FD, $46, $FA, $8C, $DC, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $3F, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $FF, $00, $FF, $00, $FF, $00, $FF
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00, $FF, $FF, $FF, $80, $FF, $BF
@@ -68,13 +68,13 @@ Data_25_6AC8:: ; 25:6AC8
 	db $FE, $9D, $FE, $AD, $FE, $B1, $FE, $B5, $FF, $FF, $FF, $01, $03, $FD, $FB, $FD
 	db $FB, $05, $FB, $FD, $FB, $05, $FB, $FD, $FE, $AD, $FE, $9D, $FE, $81, $FF, $FC
 	db $07, $07, $00, $00, $00, $00, $00, $00, $FB, $05, $FB, $FD, $03, $FD, $FF, $01
-	db $FF, $FF, $00, $00, $00, $00, $00, $00, $3F, $00, $3F, $1C, $3F, $12, $3F, $12
-	db $3F, $1C, $3F, $12, $3F, $12, $3F, $00, $FF, $00, $FF, $E6, $FF, $89, $FF, $E9
-	db $FF, $8F, $FF, $89, $FF, $E9, $FF, $00, $FF, $00, $FF, $73, $FF, $4A, $FF, $4B
-	db $FF, $72, $FF, $4A, $FF, $4B, $FF, $00, $FF, $00, $FF, $B9, $FF, $25, $FF, $A5
-	db $FF, $39, $FF, $21, $F3, $A1, $F3, $00, $F7, $00, $F7, $22, $FF, $22, $FF, $14
-	db $FE, $08, $FC, $08, $FC, $C8, $FC, $00, $7F, $00, $7F, $3B, $7F, $22, $7F, $3A
-	db $7F, $23, $7F, $22, $7F, $3A, $7F, $00, $FF
+	db $FF, $FF, $00, $00, $00, $00, $00, $00, $7E, $00, $7E, $3C, $FF, $08, $FE, $7F
+	db $FF, $08, $77, $18, $6B, $31, $73, $00, $00, $00, $00, $00, $FF, $00, $FF, $F5
+	db $FF, $45, $FF, $40, $FF, $F7, $FF, $00, $00, $00, $1E, $00, $3F, $0C, $7F, $12
+	db $7F, $21, $73, $00, $01, $00, $00, $00, $70, $00, $71, $20, $7F, $20, $F7, $3A
+	db $FF, $2A, $FF, $AA, $F5, $2E, $7E, $00, $F8, $00, $FC, $A8, $FC, $A8, $FC, $80
+	db $DC, $88, $FC, $88, $F8, $74, $F8, $00, $77, $00, $7F, $22, $7F, $2F, $7F, $22
+	db $77, $22, $7F, $22, $7D, $26, $7E, $00, $00
 
 ; ---- gfx $6BD1-$6E71 (672 bytes) [PROBABLE] tiles-2bpp: heuristic: 35 coherent tiles (hsim2=0.623 vsim2=0.562, 3 blank) parity 1
 
@@ -86,7 +86,7 @@ Mailbox_Tiles_6CF0:: ; 25:6CF0
 	INCBIN "gfx/mailbox/mailbox/mailbox_tiles_6cf0.2bpp"
 	db $00
 
-; ---- data $6E71-$6EF0 (127 bytes) [CONFIRMED] original-ROM historical coverage: all 127 bytes occur in merged rom_read ranges in 12 of 69 historical scenarios; inside requests at 25:4BB0/4C58; physical 16-byte phase 1 to 0; content class unknown, not an independent aligned tile asset; see docs/research/boot_and_home.md; current English 127 bytes match original; no English runtime evidence inferred
+; ---- data $6E71-$6EF0 (127 bytes) [CONFIRMED] all 127 bytes occur in merged rom_read ranges in 12 of 69 historical scenarios; inside requests at 25:4BB0/4C58; physical 16-byte phase 1 to 0; content class unknown, not an independent aligned tile asset; see docs/research/boot_and_home.md
 
 Data_25_6E71:: ; 25:6E71
 	db $00, $38, $7D, $6C, $6D, $38, $7D, $6C, $6D, $6C, $6D, $38, $7D, $00, $00, $00

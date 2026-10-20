@@ -382,27 +382,27 @@ ROMX $3F
 
 ROMX $41
 	org $4000
-	"gfx/bank41"
+	"gfx/frame_designs/foliage_ribbon_and_beveled_panels_41"
 
 ROMX $42
 	org $4000
-	"gfx/bank42"
+	"gfx/frame_designs/metal_flame_and_creature_borders_42"
 
 ROMX $43
 	org $4000
-	"gfx/bank43"
+	"gfx/frame_designs/plant_chevron_and_heart_borders_43"
 
 ROMX $44
 	org $4000
-	"gfx/bank44"
+	"gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44"
 
 ROMX $45
 	org $4000
-	"gfx/bank45"
+	"gfx/frame_designs/ice_spike_curve_and_gold_borders_45"
 
 ROMX $46
 	org $4000
-	"gfx/bank46"
+	"gfx/frame_designs/star_rivet_energy_and_scallop_borders_46"
 
 ROMX $47
 	org $4000
@@ -440,15 +440,15 @@ ROMX $4A
 	org $4000
 	"gfx/account/screens_bank4a"
 	org $5F80
-	"gfx/settings/screens_bank4a"
+	"gfx/settings/adapter_check_and_phone_entry_bank4a"
 
 ROMX $4B
 	org $4000
-	"gfx/registration/screen_bank4b"
+	"gfx/registration/notice_tilemap_bank4b"
 	org $42D0
 	"gfx/account/screens_bank4b"
 	org $5B90
-	"gfx/settings/screens_bank4b"
+	"gfx/settings/notice_headers_and_phone_confirm_continue_bank4b"
 
 ROMX $4C
 	org $4000
@@ -514,7 +514,7 @@ ROMX $51
 
 ROMX $52
 	org $4000
-	"gfx/bank52"
+	"gfx/browser/page_list_prototype_messages"
 
 ROMX $53
 	org $4000
@@ -566,7 +566,7 @@ ROMX $58
 
 ROMX $5B
 	org $4000
-	"gfx/bank5b"
+	"gfx/ui_art/logo_and_window_tiles"
 
 ROMX $5C
 	org $4000
@@ -582,11 +582,11 @@ ROMX $5D
 	org $4800
 	"gfx/account/screens_bank5d"
 	org $7360
-	"gfx/settings/screens_bank5d"
+	"gfx/settings/password_save_confirmation_bank5d"
 
 ROMX $5E
 	org $4000
-	"gfx/settings/screens_bank5e"
+	"gfx/settings/shared_text_entry_tiles_bank5e"
 	org $4800
 	"gfx/account/screens_bank5e"
 
@@ -596,11 +596,11 @@ ROMX $5F
 
 ROMX $60
 	org $4000
-	"gfx/bank60"
+	"gfx/help/script_illustrations_14_26"
 
 ROMX $61
 	org $4000
-	"gfx/bank61"
+	"gfx/help/script_illustrations_01_13"
 
 ROMX $62
 	org $4000

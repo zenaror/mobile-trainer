@@ -5,7 +5,7 @@
 SECTION "engine/account/login_id_entry", ROMX
 
 Account_LoginIdEntryScreen:: ; 68:5296
-Function_68_5296::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 5296.
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call Account_LoginIdEntry_Setup
@@ -17,7 +17,7 @@ Function_68_5296::
 	ret
 
 Account_LoginId_ClearFlagIfChanged:: ; 68:52B2
-Function_68_52B2::
+	; [HYPOTHESIS] Entry; operation PROBABLE; bank68_function_names row 52B2.
 	; [HYPOTHESIS] complete ret-terminated function (51 insn): SRAM enable/bank-1 select, copies
 	; with call $14EA / $1509 and clears a flag bit in [$C278] (xor $FF/and); the routine at 5739 is
 	; its twin; entry not proven [verifier: no entry proven (no caller, no valid table word, never
@@ -76,7 +76,7 @@ Function_68_52B2::
 	ret
 
 Account_LoginIdEntry_Setup:: ; 68:531A
-Function_68_531A::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 531A.
 	; [CONFIRMED] 74 insn(s); 74 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld b, $15
@@ -156,7 +156,7 @@ Function_68_531A::
 	ret
 
 Account_LoginIdEntry_OkStateFromMask:: ; 68:5404
-Function_68_5404::
+	; [HYPOTHESIS] Entry; operation PROBABLE; bank68_function_names row 5404.
 	; [HYPOTHESIS] complete function: [$C278] bit0 -> [$C27D] = 0/1, ret; twin of 58E8-58FB (bit1 ->
 	; [$C27E]); entry not proven [verifier: no entry proven (no caller, no valid table word, never
 	; executed): decode chain alone is not proof -> HYPOTHESIS]
@@ -172,7 +172,7 @@ Function_68_5404::
 	ret
 
 Account_LoginIdEntry_UpdateOkState:: ; 68:5417
-Function_68_5417::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 5417.
 	; [CONFIRMED] 22 insn(s); 22 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, wTextEntryBuf

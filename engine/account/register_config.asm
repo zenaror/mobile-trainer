@@ -5,7 +5,7 @@
 SECTION "engine/account/register_config", ROMX
 
 Registration_WriteConfigToAdapter:: ; 68:6AE0
-Function_68_6AE0::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 6AE0.
 	; [CONFIRMED] 106 insn(s); 106 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call Registration_WriteConfig_Setup
@@ -168,7 +168,6 @@ Registration_WriteConfig_StateFinish:: ; 68:6C3F
 	ret
 
 Registration_WriteConfig_OnAdapterError:: ; 68:6C5D
-Label_68_6C5D::
 	; [PROBABLE] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 1;
 	; entered by jpcc from 68:6C11 (executed)
 	farcall Mobile_SaveLastResult
@@ -184,7 +183,7 @@ Label_68_6C5D::
 	ret
 
 Registration_DoNotUnplugMessage:: ; 68:6C7F
-Function_68_6C7F::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 6C7F.
 	; [CONFIRMED] 135 insn(s); 135 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $03
@@ -363,7 +362,6 @@ Config_BuildImageFromAccount:: ; 68:6CF0
 ; ---- data $6E03-$6E0E (11 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown [clipped from 6E03-6E1A by higher-priority evidence]
 
 Config_HostPrefixStrings:: ; 68:6E03
-Data_68_6E03::
 	db $70, $6F, $70, $2E, $00, $6D, $61, $69, $6C, $2E, $00
 
 ; ---- text $6E0E-$6E1A (12 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)

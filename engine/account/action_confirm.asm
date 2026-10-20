@@ -5,7 +5,7 @@
 SECTION "engine/account/action_confirm", ROMX
 
 Account_ActionConfirmPage:: ; 68:6E1A
-Function_68_6E1A::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 6E1A.
 	; [CONFIRMED] 147 insn(s); 147 executed (in up to 6/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld [wActionConfirmPage_Variant], a
@@ -155,7 +155,7 @@ Data_68_6F97::
 	db $28, $30, $58, $30
 
 Account_ActionConfirmPage_BuildTextMap:: ; 68:6F9B
-Function_68_6F9B::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 6F9B.
 	; [CONFIRMED] 46 insn(s); 46 executed (in up to 6/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, wScreenTileMap + $121
@@ -214,7 +214,7 @@ Data_68_7005::
 	db $04, $0B, $0C, $0D
 
 Account_ActionConfirmPage_UploadTextTiles:: ; 68:7009
-Function_68_7009::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 7009.
 	; [CONFIRMED] 47 insn(s); 47 executed (in up to 6/18 scenarios); entry proven: target of an
 	; executed call/far call (part of region $7009-$7079)
 	ld de, $9000

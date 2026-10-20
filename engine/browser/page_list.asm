@@ -338,8 +338,8 @@ PageList_Main_Loop:: ; 24:4083
 	; [verifier: no entry proven (no caller, no valid table word, never executed): decode chain
 	; alone is not proof -> HYPOTHESIS]
 	ret
-	; [PROBABLE] WRAM6 copies static NUL URL/title; stack/buffers required, entry/purpose HYP.
-Function_24_42B0:: ; 24:42B0
+Wram6_CopyGooUrlAndTitleToPageBuffers:: ; 24:42B0 [PROBABLE] operation; entry/purpose unproved
+
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1573,7 +1573,7 @@ String_24_4BC3:: ; 24:4BC3
 	db "い　　　", 0
 POPC
 
-; ---- data $4BCC-$4BCD (1 bytes) [HYPOTHESIS] UNCLASSIFIED 10 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) [range trimmed from 4BC3-4BCD by classify_g2]
+; ---- data $4BCC-$4BCD (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 byte: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) [range trimmed from 4BC3-4BCD by classify_g2]
 
 Data_24_4BCC:: ; 24:4BCC
 	db $C9
@@ -2658,13 +2658,13 @@ PageList_DeleteSlot:: ; 24:51CB
 	ret
 
 Stub_Nop_24_53FC:: ; 24:53FC
-Function_24_53FC::
+
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4BCD-53FE by apply_coverage --split
 	ret
 
 Stub_Nop_24_53FD:: ; 24:53FD
-Function_24_53FD::
+
 	; [CONFIRMED] 1 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage
 	; --split [executed in 8 scenarios]
 	ret

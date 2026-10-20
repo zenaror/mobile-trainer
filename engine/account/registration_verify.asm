@@ -44,7 +44,6 @@ Registration_Verify_RunState:: ; 68:7050
 	ld [wTimerAWarnFlags], a
 
 Registration_Verify_RunState_Dispatch:: ; 68:7069
-Label_68_7069::
 	ld a, [wRegistrationVerify_State]
 	add a, a
 	add a, $79

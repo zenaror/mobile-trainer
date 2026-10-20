@@ -57,15 +57,3 @@ The owner retains 2,447 lines. Its nonblank noncomment text changes from 2,109 t
 The lexical vectors, including vectors that retain blank entries, are therefore different. The narrowly normalized emission vectors of all 343 tracked ASM files, and separately the 348 ASM/inc superset, are unchanged: comments, blanks and non-emitting charmap controls are omitted and only the two modified DB lines are compared as their encoded bytes. Every other token is retained. Charmap stacks are balanced and restored; no instruction lies within either new text block. This is a static byte-representation proof, not a rebuilt-ROM comparison.
 
 All 289 tracked analysis/gfx TSV files, the 649 active remapper anchors and 1,947 historical source-line references are preserved byte for byte. Labels, aliases and every file outside the proposed five-path source/document scope remain intact. The unrelated library `29:5090–5376` and object regions `29:6290–64F4` retain their existing HYPOTHESIS/PROBABLE status.
-
-
-## English parity29 scope — prepared only
-
-The copied bank29 statements and original 8/4/7 trace cohorts describe the original Japan ROM. Their pending stages and publication snapshots remain historical. EN28 is separately published at 7e5e4b13aa7bc01cb977716899c1099074dae002. This EN29 candidate has not run its six checks. English runtime, rendering, layout, ZIP fidelity and hardware remain UNVALIDATED. No new English or original runtime observation is supplied. ZIP85/FullHelp remain pending; make english requires complete verified ZIP parity.
-
-
-## English bank 29 integration checks (2026-10-08)
-
-The English candidate incorporates the two original eleven-byte DB representations and their non-emitting charmap controls while preserving its English overrides. The formatter owner retains 2,447 physical lines; the accepted narrow emission comparison keeps the English byte stream unchanged. The whole rebuilt English ROM and SYM remain byte-exact to the English references after the separate six integration checks.
-
-The 8/4/7 template read cohorts continue to describe existing original Japan-ROM traces. These integration checks add no English runtime observation and do not promote unobserved branches or the unrelated library hypotheses. The earlier prepared statements remain historical. Runtime English layout, rendering, translation fidelity and hardware remain UNVALIDATED. Publication and verification in a fresh checkout are separate pending steps.

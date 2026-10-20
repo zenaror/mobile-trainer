@@ -4,7 +4,7 @@
 
 SECTION "gfx/comm/comm_scene", ROMX
 
-; ---- ptrtable $4822-$4832 (16 bytes) [CONFIRMED] 8 word pointers to the 20x4 tilemap+attr blocks 7090..74F0 (stride $A0); indexed by A in Function_70_4803 (70:4803, executed) via ld hl,$4822 ; add a,a ... ; length 8 = 16 bytes to the next table at 4832; all 8 targets are block-aligned in 7090-7590
+; ---- ptrtable $4822-$4832 (16 bytes) [CONFIRMED] 8 word pointers to the 20x4 tilemap+attr blocks 7090..74F0 (stride $A0); indexed by A in CommScene_ShowTextBox (70:4803, executed) via ld hl,$4822 ; add a,a ... ; length 8 = 16 bytes to the next table at 4832; all 8 targets are block-aligned in 7090-7590
 
 CommScene_TextBoxMaps:: ; 70:4822
 Table_70_4822::
@@ -657,7 +657,6 @@ Table_70_535C::
 ; ---- data $535E-$5397 (57 bytes) [PROBABLE] sprite frame record: count=14 then 14 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_534C
 
 CommScene_Anim1Frame0:: ; 70:535E
-Data_70_535E::
 	sprite_frame 14
 	sprite_oam 0, 0, $00, OAMF_BANK1 | 3
 	sprite_oam -16, 0, $00, OAMF_BANK1 | 3
@@ -677,7 +676,6 @@ Data_70_535E::
 ; ---- data $5397-$539A (3 bytes) [PROBABLE] count=1 then 1 x 2-byte pairs; word1 of an entry of Table_70_534C (read by 00:0AB8 through [slot+8])
 
 CommScene_Anim1Script:: ; 70:5397
-Data_70_5397::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -690,7 +688,6 @@ Table_70_539A::
 ; ---- data $539C-$53D5 (57 bytes) [PROBABLE] sprite frame record: count=14 then 14 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_534C
 
 CommScene_Anim2Frame0:: ; 70:539C
-Data_70_539C::
 	sprite_frame 14
 	sprite_oam -16, 16, $00, OAMF_XFLIP | OAMF_BANK1 | 3
 	sprite_oam 0, 16, $00, OAMF_XFLIP | OAMF_BANK1 | 3
@@ -710,7 +707,6 @@ Data_70_539C::
 ; ---- data $53D5-$53D8 (3 bytes) [PROBABLE] count=1 then 1 x 2-byte pairs; word1 of an entry of Table_70_534C (read by 00:0AB8 through [slot+8])
 
 CommScene_Anim2Script:: ; 70:53D5
-Data_70_53D5::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -723,7 +719,6 @@ Table_70_53D8::
 ; ---- data $53DC-$53E5 (9 bytes) [PROBABLE] sprite frame record: count=2 then 2 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_534C
 
 CommScene_Anim3Frame0:: ; 70:53DC
-Data_70_53DC::
 	sprite_frame 2
 	sprite_oam 0, 0, $74, 5
 	sprite_oam 0, 8, $76, 5
@@ -731,13 +726,11 @@ Data_70_53DC::
 ; ---- data $53E5-$53E6 (1 bytes) [PROBABLE] sprite frame record: count=0 then 0 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_534C
 
 CommScene_Anim3Frame1:: ; 70:53E5
-Data_70_53E5::
 	sprite_frame 0
 
 ; ---- data $53E6-$53EB (5 bytes) [PROBABLE] count=2 then 2 x 2-byte pairs; word1 of an entry of Table_70_534C (read by 00:0AB8 through [slot+8])
 
 CommScene_Anim3Script:: ; 70:53E6
-Data_70_53E6::
 	sprite_anim 2
 	sprite_anim_step 0, 12
 	sprite_anim_step 1, 12
@@ -762,7 +755,6 @@ Table_70_5403::
 ; ---- data $5407-$5418 (17 bytes) [PROBABLE] sprite frame record: count=4 then 4 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_53EB
 
 CommScene_Sprite_Anim1Frame0:: ; 70:5407
-Data_70_5407::
 	sprite_frame 4
 	sprite_oam 3, 0, $00, 0
 	sprite_oam 3, 8, $02, 0
@@ -772,7 +764,6 @@ Data_70_5407::
 ; ---- data $5418-$5429 (17 bytes) [PROBABLE] sprite frame record: count=4 then 4 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_53EB
 
 CommScene_Sprite_Anim1Frame1:: ; 70:5418
-Data_70_5418::
 	sprite_frame 4
 	sprite_oam 3, 0, $04, 0
 	sprite_oam 3, 8, $06, 0
@@ -782,7 +773,6 @@ Data_70_5418::
 ; ---- data $5429-$542E (5 bytes) [PROBABLE] count=2 then 2 x 2-byte pairs; word1 of an entry of Table_70_53EB (read by 00:0AB8 through [slot+8])
 
 CommScene_Sprite_Anim1Script:: ; 70:5429
-Data_70_5429::
 	sprite_anim 2
 	sprite_anim_step 0, 8
 	sprite_anim_step 1, 8
@@ -796,7 +786,6 @@ Table_70_542E::
 ; ---- data $5432-$5443 (17 bytes) [PROBABLE] sprite frame record: count=4 then 4 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_53EB
 
 CommScene_Sprite_Anim2Frame0:: ; 70:5432
-Data_70_5432::
 	sprite_frame 4
 	sprite_oam 3, 8, $00, OAMF_XFLIP
 	sprite_oam 3, 0, $02, OAMF_XFLIP
@@ -806,7 +795,6 @@ Data_70_5432::
 ; ---- data $5443-$5454 (17 bytes) [PROBABLE] sprite frame record: count=4 then 4 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_53EB
 
 CommScene_Sprite_Anim2Frame1:: ; 70:5443
-Data_70_5443::
 	sprite_frame 4
 	sprite_oam 3, 8, $04, OAMF_XFLIP
 	sprite_oam 3, 0, $06, OAMF_XFLIP
@@ -816,7 +804,6 @@ Data_70_5443::
 ; ---- data $5454-$5459 (5 bytes) [PROBABLE] count=2 then 2 x 2-byte pairs; word1 of an entry of Table_70_53EB (read by 00:0AB8 through [slot+8])
 
 CommScene_Sprite_Anim2Script:: ; 70:5454
-Data_70_5454::
 	sprite_anim 2
 	sprite_anim_step 0, 8
 	sprite_anim_step 1, 8
@@ -830,7 +817,6 @@ Table_70_5459::
 ; ---- data $545B-$5464 (9 bytes) [PROBABLE] sprite frame record: count=2 then 2 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_53EB
 
 CommScene_Sprite_Anim3Frame0:: ; 70:545B
-Data_70_545B::
 	sprite_frame 2
 	sprite_oam 11, 0, $5C, 3
 	sprite_oam 11, 8, $5E, 3
@@ -838,7 +824,6 @@ Data_70_545B::
 ; ---- data $5464-$5467 (3 bytes) [PROBABLE] count=1 then 1 x 2-byte pairs; word1 of an entry of Table_70_53EB (read by 00:0AB8 through [slot+8])
 
 CommScene_Sprite_Anim3Script:: ; 70:5464
-Data_70_5464::
 	sprite_anim 1
 	sprite_anim_step 0, 8
 
@@ -851,7 +836,6 @@ Table_70_5467::
 ; ---- data $5469-$5472 (9 bytes) [PROBABLE] sprite frame record: count=2 then 2 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_53EB
 
 CommScene_Sprite_Anim4Frame0:: ; 70:5469
-Data_70_5469::
 	sprite_frame 2
 	sprite_oam 11, 8, $5C, OAMF_XFLIP | 3
 	sprite_oam 11, 0, $5E, OAMF_XFLIP | 3
@@ -859,7 +843,6 @@ Data_70_5469::
 ; ---- data $5472-$5475 (3 bytes) [PROBABLE] count=1 then 1 x 2-byte pairs; word1 of an entry of Table_70_53EB (read by 00:0AB8 through [slot+8])
 
 CommScene_Sprite_Anim4Script:: ; 70:5472
-Data_70_5472::
 	sprite_anim 1
 	sprite_anim_step 0, 8
 
@@ -872,7 +855,6 @@ Table_70_5475::
 ; ---- data $5477-$5480 (9 bytes) [PROBABLE] sprite frame record: count=2 then 2 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_53EB
 
 CommScene_Sprite_Anim5Frame0:: ; 70:5477
-Data_70_5477::
 	sprite_frame 2
 	sprite_oam -8, 0, $3C, 1
 	sprite_oam -8, 8, $3E, 1
@@ -880,7 +862,6 @@ Data_70_5477::
 ; ---- data $5480-$5483 (3 bytes) [PROBABLE] count=1 then 1 x 2-byte pairs; word1 of an entry of Table_70_53EB (read by 00:0AB8 through [slot+8])
 
 CommScene_Sprite_Anim5Script:: ; 70:5480
-Data_70_5480::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -917,7 +898,6 @@ Data_70_6090::
 ; this slice is its first $200 bytes. Both calls: 160 hits in 18 natural scenarios.
 
 Gfx_CommScene_SharedVramSource0:: ; 70:6490
-Data_70_6490::
 	INCBIN "gfx/comm/comm_scene/tiles_6490.2bpp"
 
 ; ---- gfx $6690-$6890 (512 bytes) [CONFIRMED] existing graphics slice; shared source:
@@ -926,7 +906,6 @@ Data_70_6490::
 ; Both use C=$40 ($400 bytes total); 160 hits in 18 natural scenarios each.
 
 Gfx_CommScene_SharedVramSource1:: ; 70:6690
-Data_70_6690::
 	INCBIN "gfx/comm/comm_scene/tiles_6690.2bpp"
 
 ; ---- gfx $6890-$6A90 (512 bytes) [CONFIRMED] existing graphics slice; shared source:
@@ -935,7 +914,6 @@ Data_70_6690::
 ; The latter uses C=$40 ($400 bytes total); both calls 160 hits/18 natural scenarios.
 
 Gfx_CommScene_SharedVramSource2:: ; 70:6890
-Data_70_6890::
 	INCBIN "gfx/comm/comm_scene/tiles_6890.2bpp"
 
 ; ---- gfx $6A90-$6C90 (512 bytes) [CONFIRMED] tiles-vram: hdma_rom_to_vram at 70:4572 hl=$6A90 c=$40 de=$9401 (recovered arguments). NOTE: the HDMA length $400 would run to 6E90, but 6C90-6D10 are palettes (copied by 4F:4000 calls) and 6D10-7090 the tilemap (copy_tilemap_rect_pair), so only the first $200 bytes (32 tiles) are tile data by content; the rest of the DMA window is over-read
@@ -944,13 +922,13 @@ Gfx_CommScene_Tiles9400Vb1:: ; 70:6A90
 Tiles_70_6A90::
 	INCBIN "gfx/comm/comm_scene/tiles_6a90.2bpp"
 
-; ---- data $6C90-$6CD0 (64 bytes) [PROBABLE] 64 bytes = 8 CGB palettes, source of the Function_4F_4000 call (bc=$0040, de=$D800, hl=$6C90) in the loader sequence right before the executed copy_tilemap_rect_pair at 70:45A5; RGB555 words
+; ---- data $6C90-$6CD0 (64 bytes) [PROBABLE] 64 bytes = 8 CGB palettes, source of the Palette_LoadToBuffer call (bc=$0040, de=$D800, hl=$6C90) in the loader sequence right before the executed copy_tilemap_rect_pair at 70:45A5; RGB555 words
 
 Palette_CommScene_Bg:: ; 70:6C90
 Palette_70_6C90::
 	INCLUDE "gfx/comm/comm_scene/palette_6c90.pal"
 
-; ---- data $6CD0-$6D10 (64 bytes) [PROBABLE] 64 bytes = 8 CGB palettes, source of the Function_4F_4000 call (bc=$0040, de=$D840, hl=$6CD0); RGB555 words (00 00 4A 29 B5 56 FF 7F ends the block)
+; ---- data $6CD0-$6D10 (64 bytes) [PROBABLE] 64 bytes = 8 CGB palettes, source of the Palette_LoadToBuffer call (bc=$0040, de=$D840, hl=$6CD0); RGB555 words (00 00 4A 29 B5 56 FF 7F ends the block)
 
 Palette_CommScene_Obj:: ; 70:6CD0
 Palette_70_6CD0::
@@ -963,56 +941,56 @@ Tilemap_70_6D10::
 	INCBIN "gfx/comm/comm_scene/tilemap_6d10.tilemap"
 	INCBIN "gfx/comm/comm_scene/tilemap_6d10.attrmap"
 
-; ---- data $7090-$7130 (160 bytes) [CONFIRMED] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 0 of Table_70_4822: Function_70_4803 (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; bytes read in traces
+; ---- data $7090-$7130 (160 bytes) [CONFIRMED] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 0 of Table_70_4822: CommScene_ShowTextBox (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; bytes read in traces
 
 Tilemap_CommScene_TextBox0:: ; 70:7090
 Tilemap_70_7090::
 	INCBIN "gfx/comm/comm_scene/tilemap_7090.tilemap"
 	INCBIN "gfx/comm/comm_scene/tilemap_7090.attrmap"
 
-; ---- data $7130-$71D0 (160 bytes) [CONFIRMED] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 1 of Table_70_4822: Function_70_4803 (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; bytes read in traces
+; ---- data $7130-$71D0 (160 bytes) [CONFIRMED] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 1 of Table_70_4822: CommScene_ShowTextBox (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; bytes read in traces
 
 Tilemap_CommScene_TextBox1:: ; 70:7130
 Tilemap_70_7130::
 	INCBIN "gfx/comm/comm_scene/tilemap_7130.tilemap"
 	INCBIN "gfx/comm/comm_scene/tilemap_7130.attrmap"
 
-; ---- data $71D0-$7270 (160 bytes) [CONFIRMED] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 2 of Table_70_4822: Function_70_4803 (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; bytes read in traces
+; ---- data $71D0-$7270 (160 bytes) [CONFIRMED] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 2 of Table_70_4822: CommScene_ShowTextBox (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; bytes read in traces
 
 Tilemap_CommScene_TextBox2:: ; 70:71D0
 Tilemap_70_71D0::
 	INCBIN "gfx/comm/comm_scene/tilemap_71d0.tilemap"
 	INCBIN "gfx/comm/comm_scene/tilemap_71d0.attrmap"
 
-; ---- data $7270-$7310 (160 bytes) [CONFIRMED] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 3 of Table_70_4822: Function_70_4803 (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; bytes read in traces
+; ---- data $7270-$7310 (160 bytes) [CONFIRMED] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 3 of Table_70_4822: CommScene_ShowTextBox (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; bytes read in traces
 
 Tilemap_CommScene_TextBox3:: ; 70:7270
 Tilemap_70_7270::
 	INCBIN "gfx/comm/comm_scene/tilemap_7270.tilemap"
 	INCBIN "gfx/comm/comm_scene/tilemap_7270.attrmap"
 
-; ---- data $7310-$73B0 (160 bytes) [PROBABLE] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 4 of Table_70_4822: Function_70_4803 (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; not read in the 18 traces, same layout
+; ---- data $7310-$73B0 (160 bytes) [PROBABLE] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 4 of Table_70_4822: CommScene_ShowTextBox (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; not read in the 18 traces, same layout
 
 Tilemap_CommScene_TextBox4:: ; 70:7310
 Tilemap_70_7310::
 	INCBIN "gfx/comm/comm_scene/tilemap_7310.tilemap"
 	INCBIN "gfx/comm/comm_scene/tilemap_7310.attrmap"
 
-; ---- data $73B0-$7450 (160 bytes) [PROBABLE] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 5 of Table_70_4822: Function_70_4803 (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; not read in the 18 traces, same layout
+; ---- data $73B0-$7450 (160 bytes) [PROBABLE] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 5 of Table_70_4822: CommScene_ShowTextBox (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; not read in the 18 traces, same layout
 
 Tilemap_CommScene_TextBox5:: ; 70:73B0
 Tilemap_70_73B0::
 	INCBIN "gfx/comm/comm_scene/tilemap_73b0.tilemap"
 	INCBIN "gfx/comm/comm_scene/tilemap_73b0.attrmap"
 
-; ---- data $7450-$74F0 (160 bytes) [PROBABLE] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 6 of Table_70_4822: Function_70_4803 (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; not read in the 18 traces, same layout
+; ---- data $7450-$74F0 (160 bytes) [PROBABLE] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 6 of Table_70_4822: CommScene_ShowTextBox (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; not read in the 18 traces, same layout
 
 Tilemap_CommScene_TextBox6:: ; 70:7450
 Tilemap_70_7450::
 	INCBIN "gfx/comm/comm_scene/tilemap_7450.tilemap"
 	INCBIN "gfx/comm/comm_scene/tilemap_7450.attrmap"
 
-; ---- data $74F0-$7590 (160 bytes) [PROBABLE] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 7 of Table_70_4822: Function_70_4803 (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; not read in the 18 traces, same layout
+; ---- data $74F0-$7590 (160 bytes) [PROBABLE] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 7 of Table_70_4822: CommScene_ShowTextBox (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; not read in the 18 traces, same layout
 
 Tilemap_CommScene_TextBox7:: ; 70:74F0
 Tilemap_70_74F0::

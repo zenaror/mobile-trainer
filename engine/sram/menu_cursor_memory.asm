@@ -5,7 +5,7 @@
 SECTION "engine/sram/menu_cursor_memory", ROMX
 
 Sram_ClearMenuCursorMemory:: ; 48:4AAB
-Function_48_4AAB::
+
 	; [CONFIRMED] 25 insn(s); 25 executed (in up to 18/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh [hScratchA], a

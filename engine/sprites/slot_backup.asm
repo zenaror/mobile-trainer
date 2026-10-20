@@ -5,7 +5,7 @@
 SECTION "engine/sprites/slot_backup", ROMX
 
 Sprites_SaveSlotsToBank3:: ; 7F:624F
-Function_7F_624F::
+
 	; [CONFIRMED] 60 insn(s); 60 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af

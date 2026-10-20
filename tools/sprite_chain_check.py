@@ -111,7 +111,7 @@ def find_sites(syms):
     """(file, line, function, bank_a, target (bank, addr), offset_inside, b_imm, raw_operand)"""
     sites, problems = [], []
     for f in sorted(glob.glob(os.path.join(ROOT, '**', '*.asm'), recursive=True)):
-        if '/build/' in f:
+        if os.path.relpath(f, ROOT).split(os.sep, 1)[0] in ('build', 'languages'):
             continue
         L = open(f).read().split('\n')
         fn = None

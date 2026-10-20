@@ -37,7 +37,7 @@ MailSession_ShowCommError:: ; 26:5067
 	ret
 
 MailSession_PollAdapterError:: ; 26:50AC
-Function_26_50AC::
+
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wTimerEnable]
@@ -90,7 +90,7 @@ MailSession_ShowCommErrorNoWindow:: ; 26:50C6
 	ld a, $80
 	ret
 MailSession_CompareWordDeltas:: ; 26:5106 [PROBABLE] word-delta predicate
-Function_26_5106:: ; 26:5106
+
 	push bc
 	push de
 	push hl
@@ -169,7 +169,7 @@ Function_26_5106:: ; 26:5106
 	ret
 
 MailSession_InitScreen:: ; 26:5168
-Function_26_5168::
+
 	; [CONFIRMED] 122 insn(s); 122 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -378,16 +378,60 @@ Function_26_5168::
 	ret
 
 Stub_Nop_26_5343:: ; 26:5343
-Function_26_5343::
+	; [CONFIRMED] Single RET called at 26:58E0 by MailSession_UpdateTimerDisplay; that call
+	; returns before Data_26_5344 and does not fall through into the following fragment.
 	ret
 
-; ---- data $5344-$537C (56 bytes) [HYPOTHESIS] UNCLASSIFIED 56 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) [g4: complete self-contained decode ending in ret with no caller/table/far-pointer reference found, so left unclassified]
-
 Data_26_5344:: ; 26:5344
-	db $F5, $C5, $D5, $E5, $F0, $70, $5F, $16, $32, $D5, $3E, $01, $E0, $4F, $21, $10
-	db $90, $06, $10, $3E, $FF, $22, $05, $20, $FA, $3E, $07, $E0, $8D, $E0, $70, $21
-	db $60, $D1, $06, $40, $AF, $22, $3C, $05, $20, $FB, $D1, $15, $20, $DB, $7B, $E0
-	db $8D, $E0, $70, $E1, $D1, $C1, $F1, $C9
+	; [PROBABLE] Code fragment: the WRAM7 $D160-$D19F ascending stores correspond to the
+	; live InitScreen VRAM0 $9960-$999F fill at 26:52D8-52E6 (screen-map offset $160).
+	; Entry and intended role remain HYPOTHESIS; the called RET at 26:5343 bypasses it.
+	; If entered, 50 iterations issue 16 $FF stores to VRAM1 $9010-$901F and 64 ascending
+	; $00-$3F stores to WRAM7 wScreenTileMap+$160. There is no DI, LCD disable or VBlank
+	; wait here: VRAM acceptance and uninterrupted mapping are preconditions, not observed facts.
+	; With a non-overlapping, physically bank-invariant stack, AF/BC/DE/HL restore; rSVBK
+	; is written to both hWRAMBank and rSVBK; an initially different shadow is not preserved.
+	; rVBK stays 1 without updating hVRAMBank. See naming2_verify_fn4.md (2026-10-15).
+	push af
+	push bc
+	push de
+	push hl
+	ldh a, [rSVBK]
+	ld e, a
+	ld d, $32
+.repeatFills ; 26:534D
+	push de
+	ld a, $01
+	ldh [rVBK], a
+	ld hl, $9010
+	ld b, $10
+.fillTileFF ; 26:5357
+	ld a, $FF
+	ld [hli], a
+	dec b
+	jr nz, .fillTileFF
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld hl, wScreenTileMap + $160
+	ld b, $40
+	xor a, a
+.fillScreenRows ; 26:5369
+	ld [hli], a
+	inc a
+	dec b
+	jr nz, .fillScreenRows
+	pop de
+	dec d
+	jr nz, .repeatFills
+	ld a, e
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	pop hl
+	pop de
+	pop bc
+	pop af
+	ret
 
 MailSession_DrawMailCounts:: ; 26:537C
 	; [CONFIRMED] 318 insn(s) reached by static flow only; seeds: exec x318; min discovery hops 5;
@@ -950,7 +994,7 @@ String_26_56B2::
 POPC
 
 MailSession_ShowMsgReceiving:: ; 26:56DB
-Function_26_56DB::
+
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -974,7 +1018,7 @@ String_26_56F6::
 POPC
 
 MailSession_ShowMsgSent:: ; 26:571F
-Function_26_571F::
+
 	; [PROBABLE] push bc / ld a,$02 / ldh [$FFB0],a / ld a,$26 / ld bc,$D400 / ld de,$D600 / ld
 	; hl,$573A: loads the address of String_26_573A that follows the far call at 572F; chain falls
 	; through into that site-validated far call; entry unproven
@@ -1002,7 +1046,7 @@ String_26_573A::
 POPC
 
 MailSession_ShowMsgReceiveDone:: ; 26:5763
-Function_26_5763::
+
 	; [PROBABLE] same as 26:571F but ld hl,$577E (String_26_577E); chain falls through into the far
 	; call at 5773; entry unproven
 	push bc
@@ -1029,7 +1073,7 @@ String_26_577E::
 POPC
 
 MailSession_ShowMsgNoMail:: ; 26:57A7
-Function_26_57A7::
+
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -1099,7 +1143,7 @@ String_26_584A::
 POPC
 
 MailSession_ClearMsg:: ; 26:5873
-Function_26_5873::
+
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -1115,7 +1159,7 @@ Function_26_5873::
 	ret
 
 ; ---- text $588E-$58B7 (41 bytes) [CONFIRMED] 20 Shift-JIS full-width spaces ($8140) plus NUL; original ROM26 passed to TextTiles_RenderLine48:403E by MailSession_ClearMsg; all41 bytes read in15 whole natural scenarios.
-; Raw representation and both existing labels retained; bank48 glyph $8140 is16 zero bytes, emitted to two WRAM2 tile buffers. Original JP evidence only; English runtime/visual/fidelity/hardware UNVALIDATED.
+; Raw representation and both existing labels retained; bank48 glyph $8140 is16 zero bytes, emitted to two WRAM2 tile buffers. Original JP evidence only; no new runtime, visual or hardware result.
 
 MailSession_Msg_Blank:: ; 26:588E
 Data_26_588E::
@@ -1124,7 +1168,7 @@ Data_26_588E::
 	db $81, $40, $81, $40, $81, $40, $81, $40, $00
 
 MailSession_UploadMsgTiles:: ; 26:58B7
-Function_26_58B7::
+
 	; [CONFIRMED] 57 insn(s); 57 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh a, [rSVBK]

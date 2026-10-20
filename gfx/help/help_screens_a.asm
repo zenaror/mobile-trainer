@@ -32,9 +32,8 @@ Data_6A_45A0::
 ; Item rows: 4/3/4/3, followed by locked-item variants of 3/4 rows.
 
 Tilemap_HelpMenu_Page1_NormalItems:: ; 6A:4870
-Tilemap_6A_4870::
-	INCBIN "gfx/help/help_screens_a/tilemap_4870.tilemap"
-	INCBIN "gfx/help/help_screens_a/tilemap_4870.attrmap"
+	INCBIN "gfx/help/help_screens_a/help_menu_page1_normal_items.tilemap"
+	INCBIN "gfx/help/help_screens_a/help_menu_page1_normal_items.attrmap"
 
 ; ---- data $4A14-$4AC8 (180 bytes) [CONFIRMED] HelpMenu page 2 normal
 ; item rectangles: 9 rows x 10 tile indices, then the same number of attribute bytes.
@@ -43,9 +42,8 @@ Tilemap_6A_4870::
 ; Item rows: 3/3, followed by the locked-item2 variant of 3 rows.
 
 Tilemap_HelpMenu_Page2_NormalItems:: ; 6A:4A14
-Tilemap_6A_4A14::
-	INCBIN "gfx/help/help_screens_a/tilemap_4a14.tilemap"
-	INCBIN "gfx/help/help_screens_a/tilemap_4a14.attrmap"
+	INCBIN "gfx/help/help_screens_a/help_menu_page2_normal_items.tilemap"
+	INCBIN "gfx/help/help_screens_a/help_menu_page2_normal_items.attrmap"
 
 ; ---- data $4AC8-$4B7C (180 bytes) [CONFIRMED] HelpMenu page 3 normal
 ; item rectangles: 9 rows x 10 tile indices, then the same number of attribute bytes.
@@ -54,9 +52,8 @@ Tilemap_6A_4A14::
 ; Item rows: 3/3, followed by the locked-item2 variant of 3 rows.
 
 Tilemap_HelpMenu_Page3_NormalItems:: ; 6A:4AC8
-Tilemap_6A_4AC8::
-	INCBIN "gfx/help/help_screens_a/tilemap_4ac8.tilemap"
-	INCBIN "gfx/help/help_screens_a/tilemap_4ac8.attrmap"
+	INCBIN "gfx/help/help_screens_a/help_menu_page3_normal_items.tilemap"
+	INCBIN "gfx/help/help_screens_a/help_menu_page3_normal_items.attrmap"
 
 ; ---- data $4B7C-$4D20 (420 bytes) [PROBABLE] HelpMenu page 1 selected
 ; item rectangles: 21 rows x 10 tile indices, then the same number of attribute bytes.
@@ -66,9 +63,8 @@ Tilemap_6A_4AC8::
 ; Unread: $4C08-$4C26 and $4CDA-$4CF8 (locked item2); its call never ran naturally.
 
 Tilemap_HelpMenu_Page1_SelectedItems:: ; 6A:4B7C
-Tilemap_6A_4B7C::
-	INCBIN "gfx/help/help_screens_a/tilemap_4b7c.tilemap"
-	INCBIN "gfx/help/help_screens_a/tilemap_4b7c.attrmap"
+	INCBIN "gfx/help/help_screens_a/help_menu_page1_selected_items.tilemap"
+	INCBIN "gfx/help/help_screens_a/help_menu_page1_selected_items.attrmap"
 
 ; ---- data $4D20-$4DD4 (180 bytes) [CONFIRMED] HelpMenu page 2 selected
 ; item rectangles: 9 rows x 10 tile indices, then the same number of attribute bytes.
@@ -77,9 +73,8 @@ Tilemap_6A_4B7C::
 ; Item rows: 3/3, followed by the locked-item2 variant of 3 rows.
 
 Tilemap_HelpMenu_Page2_SelectedItems:: ; 6A:4D20
-Tilemap_6A_4D20::
-	INCBIN "gfx/help/help_screens_a/tilemap_4d20.tilemap"
-	INCBIN "gfx/help/help_screens_a/tilemap_4d20.attrmap"
+	INCBIN "gfx/help/help_screens_a/help_menu_page2_selected_items.tilemap"
+	INCBIN "gfx/help/help_screens_a/help_menu_page2_selected_items.attrmap"
 
 ; ---- data $4DD4-$4E88 (180 bytes) [CONFIRMED] HelpMenu page 3 selected
 ; item rectangles: 9 rows x 10 tile indices, then the same number of attribute bytes.
@@ -88,9 +83,8 @@ Tilemap_6A_4D20::
 ; Item rows: 3/3, followed by the locked-item2 variant of 3 rows.
 
 Tilemap_HelpMenu_Page3_SelectedItems:: ; 6A:4DD4
-Tilemap_6A_4DD4::
-	INCBIN "gfx/help/help_screens_a/tilemap_4dd4.tilemap"
-	INCBIN "gfx/help/help_screens_a/tilemap_4dd4.attrmap"
+	INCBIN "gfx/help/help_screens_a/help_menu_page3_selected_items.tilemap"
+	INCBIN "gfx/help/help_screens_a/help_menu_page3_selected_items.attrmap"
 
 ; ---- zero $4E88-$4E90 (8 bytes) [PROBABLE] 8 zero bytes (padding before the tile block at 4E90)
 	ds $8, $00

@@ -83,7 +83,6 @@ Table_67_546C::
 	dw SettingsPhone_ReadAdapterConfig_State_Finish
 
 SettingsPhone_ReadAdapterConfig_State_Init:: ; 67:5472
-Label_67_5472::
 	; [CONFIRMED] entered through Table_67_546C (state handlers indexed by [$C27D]); decode chain
 	; legal, all 3 table targets are instruction starts, ends in known code region at 54DB; not
 	; executed in traces [executed in 2 scenarios]
@@ -96,7 +95,6 @@ Label_67_5472::
 	jr SettingsPhone_ReadAdapterConfig_Poll
 
 SettingsPhone_ReadAdapterConfig_State_ReadConfig:: ; 67:5484
-Label_67_5484::
 	ld a, [wTimerEnable]
 	bit 1, a
 	jp nz, SettingsPhone_ReadAdapterConfig_Abort
@@ -121,7 +119,6 @@ Label_67_5484::
 	jp SettingsPhone_ReadAdapterConfig_Poll
 
 SettingsPhone_ReadAdapterConfig_State_Finish:: ; 67:54B9
-Label_67_54B9::
 	ld a, [wTimerEnable]
 	bit 1, a
 	jp nz, SettingsPhone_ReadAdapterConfig_Abort
@@ -168,7 +165,6 @@ Label_67_54B9::
 	ret
 
 SettingsPhone_ReadAdapterConfig_Abort:: ; 67:5509
-Label_67_5509::
 	; [PROBABLE] 16 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 54DB-55B8 by apply_coverage --split
 	farcall Mobile_SaveLastResult
@@ -260,7 +256,6 @@ Table_67_55B8::
 	dw SettingsPhone_WriteAdapterConfig_State_Finish
 
 SettingsPhone_WriteAdapterConfig_State_Init:: ; 67:55BE
-Label_67_55BE::
 	; [CONFIRMED] entered through Table_67_55B8 (state handlers indexed by [$C27D]); decode chain
 	; legal, all 3 table targets are instruction starts, ends in known code region at 562C; not
 	; executed in traces [executed in 1 scenarios]
@@ -273,7 +268,6 @@ Label_67_55BE::
 	jr SettingsPhone_WriteAdapterConfig_Poll
 
 SettingsPhone_WriteAdapterConfig_State_PatchAndWrite:: ; 67:55D0
-Label_67_55D0::
 	ld a, [wTimerEnable]
 	bit 1, a
 	jp nz, SettingsPhone_WriteAdapterConfig_Abort
@@ -300,7 +294,6 @@ Label_67_55D0::
 	jp SettingsPhone_WriteAdapterConfig_Poll
 
 SettingsPhone_WriteAdapterConfig_State_Finish:: ; 67:560A
-Label_67_560A::
 	ld a, [wTimerEnable]
 	bit 1, a
 	jp nz, SettingsPhone_WriteAdapterConfig_Abort
@@ -327,7 +320,6 @@ Label_67_560A::
 	ret
 
 SettingsPhone_WriteAdapterConfig_Abort:: ; 67:5638
-Label_67_5638::
 	; [PROBABLE] 16 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 562C-5664 by apply_coverage --split
 	farcall Mobile_SaveLastResult

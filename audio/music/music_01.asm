@@ -7,7 +7,6 @@ SECTION "audio/music/music_01", ROMX
 ; ---- data $574D-$58C6 (377 bytes) [PROBABLE] sound bytecode streams of the bank-04 songs (addresses from the song table at 551D land in this range; commands like BF 7F BD 00 BC 3D, B3/B2/B1 + 16-bit stream pointer, DB xx, note bytes 83-8C..); merged from many mapper pieces incl. the false code-pointer tables at 78C8 and 797C (words inside the bytecode, e.g. B3 59 78 B2 59 78) and the 1-6 byte holes that were bytes never read in the traces; commands decoded (docs/research/audio_format.md) (part of region $574D-$7E8C)
 
 SoundSong01_Track0:: ; 04:574D
-Data_04_574D::
 	sound_volume $7F
 	sound_pitch_add $00
 	sound_tempo $3D
@@ -52,7 +51,6 @@ Data_04_574D::
 	sound_wait 8
 	sound_end
 SoundSong01_Track1:: ; 04:5788
-Data_04_5788::
 	sound_volume $7F
 	sound_pitch_add $00
 	sound_instrument $06
@@ -120,7 +118,6 @@ Data_04_5788::
 	sound_wait 8
 	sound_end
 SoundSong01_Track2:: ; 04:57F3
-Data_04_57F3::
 	sound_volume $7F
 	sound_pitch_add $00
 	sound_instrument $20
@@ -160,7 +157,6 @@ Data_04_57F3::
 	sound_wait 8
 	sound_end
 SoundSong01_Track3:: ; 04:5832
-Data_04_5832::
 	sound_volume $7F
 	sound_pitch_add $00
 	sound_instrument SOUND_INSTRUMENT_PER_NOTE
@@ -244,6 +240,5 @@ Data_04_5832::
 	sound_wait 6
 	sound_end
 SoundSong01_Header:: ; 04:58BC
-Data_04_58BC::
 	sound_stream_header 4, 0
 	dw SoundSong01_Track0, SoundSong01_Track1, SoundSong01_Track2, SoundSong01_Track3 ; track stream pointers (read by the driver)

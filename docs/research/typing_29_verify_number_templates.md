@@ -73,31 +73,3 @@ The next original scope is the separate29:5090–5376 library-header correction,
 A separate coordinator readback checked all 12,540 Git blobs across actual JP, actual EN and the fresh JP checkout (198,013,136 bytes), with current complete regular rawGit file snapshots before and after equal; receipt SHA-256 1b21b2b1f9ae9a67a591c86f6f8543c2fcb97f93003eff4245aaf0cec0b8d1ba. This separate readback does not retrospectively supply per-command JP/fresh rawGit snapshots absent from the first fresh-check helper; that helper guarded their source, output, HEAD and status each command and the full EN owner. The successful three checks were not replayed.
 
 Deferred user-requested final audit: after the original disassembly passes are completed, cross-check data/text/pokemon_names_bank53.asm against Pokémon frames, tile resources and exported PNGs. No missing resource or absence of callers is established by the user observation; separately verify extraction completeness and direct/computed references with bank context. This audit is queued, not performed in the decimal-template pass.
-
-
-## English parity29 scope — prepared only
-
-The copied bank29 statements and original 8/4/7 trace cohorts describe the original Japan ROM. Their pending stages and publication snapshots remain historical. EN28 is separately published at 7e5e4b13aa7bc01cb977716899c1099074dae002. This EN29 candidate has not run its six checks. English runtime, rendering, layout, ZIP fidelity and hardware remain UNVALIDATED. No new English or original runtime observation is supplied. ZIP85/FullHelp remain pending; make english requires complete verified ZIP parity.
-
-
-## English bank 29 integration checks (2026-10-08)
-
-The six integration checks completed once with return code zero: build, sym-check, palette-check, png-check, graphics export check and sprite-chain check. Their complete logs were read (9,056 bytes / 72 lines). The checks retained two documented palette overreads and 338 sprite notes; no hard error was reported. The 4,184 candidate files and complete 675-output set were checked, including 336 objects and 336 dependency files with 5,651 source bindings. The build recompiled only `engine/mail/result_screens.asm` and relinked the ROM; the existing outputs were verified without claiming that all 345 ASM files or 336 objects were recompiled.
-
-The rebuilt English ROM is `a75d58bf4e6fd0817d9993b851ae4735f32ca77f0bb043727aa2a83bbc4b7f04` and SYM `072f531941cce39056ac6028a32d9351a700cf0fb90f0357c291154b9974eebc`, byte-exact to their English references. The earlier executor and independent six-check acceptances remain separate evidence; no successful check was replayed. Later documentation appendices inherit this compiled-source evidence.
-
-The original 8/4/7 trace cohorts, representation proof and confidence levels are preserved. The functional integration target is original `7fb572c`, not full parity with the separately published `aa61d893` tree. The earlier prepared statements remain historical. Runtime English layout, rendering, translation fidelity and hardware remain UNVALIDATED. Publication and verification in a fresh checkout are separate pending steps.
-
-Integration result receipt SHA-256: `7a53a5dbeca48da2e2d0e393fe51ec73a06fd495c09002ac3a5b4188c52890be`; full-read acceptance SHA-256: `f60934974786ccff6a2386144da0a5e977bc005ed8e54b76c9d2aa7d3bab9440`.
-
-The accepted static-check summaries are:
-
-| Check | Observed result |
-|---|---|
-| sym-check | 336 sources, 15,540 banked labels and 51 constants; OK |
-| palette-check | 162 loads, 116 arrays, two documented overreads and zero errors |
-| png-check | 405 tile, 37 font and 92 screen checks; OK |
-| graphics export | 947 assets: 405 exact, 38 font, one view and 503 without PNG; OK |
-| sprite-chain check | 712 sites, 49 roots, 159 entries and 291 tables; zero hard mismatches and 338 retained notes |
-
-These counts describe static checks and do not establish English rendering or hardware behavior.

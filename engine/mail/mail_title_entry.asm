@@ -5,7 +5,7 @@
 SECTION "engine/mail/mail_title_entry", ROMX
 
 MailTitle_Entry:: ; 2C:4000
-Function_2C_4000::
+
 	; [CONFIRMED] 33 insn(s); 33 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af
@@ -41,7 +41,6 @@ Function_2C_4000::
 	jp MailTitle_Entry_AfterKeyboard
 
 MailTitle_Entry_ClampColumn:: ; 2C:403B
-Label_2C_403B::
 	ld a, c
 	cp a, $0B
 	jr nz, MailTitle_Entry_Loop
@@ -64,7 +63,6 @@ MailTitle_Entry_Loop:: ; 2C:4042
 	call MailTitle_OpenKeyboard
 
 MailTitle_Entry_AfterKeyboard:: ; 2C:405F
-Label_2C_405F::
 	cp a, $07
 	jr nz, MailTitle_Entry_CheckButtonB
 	farcall Stat_DisableScrollSplit
@@ -78,7 +76,6 @@ Label_2C_405F::
 	ret
 
 MailTitle_Entry_CheckButtonB:: ; 2C:407C
-Label_2C_407C::
 	ldh a, [hJoyPressed]
 	and a, PADF_B
 	jr z, .l40C1
@@ -154,7 +151,7 @@ MailTitle_CursorRight:: ; 2C:40FB
 	pop bc
 
 MailTitle_MoveCursorRight:: ; 2C:410F
-Function_2C_410F::
+
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, b
@@ -212,7 +209,7 @@ Function_2C_410F::
 	ret
 
 MailTitle_InitScreen:: ; 2C:414C
-Function_2C_414C::
+
 	; [CONFIRMED] 171 insn(s); 171 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af
@@ -631,20 +628,17 @@ MailTitle_CharPtr:: ; 2C:4441
 	jr nz, MailTitle_CharPtr_NoChar
 
 MailTitle_CharPtr_Found:: ; 2C:4467
-Label_2C_4467::
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios)
 	pop bc
 	ret
 
 MailTitle_CharPtr_NoChar:: ; 2C:4469
-Label_2C_4469::
 	ld a, $FF
 	ld d, $FF
 	pop bc
 	ret
 
 MailTitle_CharPtr_Newline:: ; 2C:446F
-Label_2C_446F::
 	; [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 1;
 	; entered by jrcc from 2C:445F (executed)
 	ld a, $0D
@@ -653,7 +647,7 @@ Label_2C_446F::
 	ret
 
 MailTitle_FindLine:: ; 2C:4475
-Function_2C_4475::
+
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -732,7 +726,6 @@ MailTitle_InsertChar:: ; 2C:44B8
 	ret nz
 
 MailTitle_InsertChar_Insert:: ; 2C:44DC
-Label_2C_44DC::
 	; [CONFIRMED] 58 insn(s); 58 executed (in up to 2/18 scenarios)
 	push de
 	push bc
@@ -795,7 +788,6 @@ Label_2C_44DC::
 	ld c, $0B
 
 MailTitle_InsertChar_CheckRow:: ; 2C:4560
-Label_2C_4560::
 	call MailTitle_CharPtr
 	inc d
 	jr nz, MailTitle_InsertChar_NextRow
@@ -816,7 +808,6 @@ Label_2C_4560::
 	jr z, MailTitle_InsertChar_ShiftAndStore
 
 MailTitle_InsertChar_NextRow:: ; 2C:457A
-Label_2C_457A::
 	; [PROBABLE] 22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 1;
 	; entered by jrcc from 2C:4564 (PROBABLE code)
 	ld a, $08
@@ -828,7 +819,6 @@ Label_2C_457A::
 	jr nz, MailTitle_InsertChar_CheckRow
 
 MailTitle_InsertChar_Reject:: ; 2C:4585
-Label_2C_4585::
 	push bc
 	push de
 	play_sfx SFX_REJECT
@@ -839,7 +829,6 @@ Label_2C_4585::
 	ret
 
 MailTitle_InsertChar_ShiftAndStore:: ; 2C:459C
-Label_2C_459C::
 	; [CONFIRMED] 49 insn(s); 49 executed (in up to 2/18 scenarios)
 	pop bc
 	pop de
@@ -1475,7 +1464,7 @@ Data_2C_493E:: ; 2C:493E
 	db $C9
 
 MailTitle_OpenKeyboard:: ; 2C:493F
-Function_2C_493F::
+
 	; [CONFIRMED] 49 insn(s); 49 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -1586,7 +1575,6 @@ Data_2C_49E8:: ; 2C:49E8
 	db $C9
 
 MailTitle_KeyboardLoop_HideKeyboard:: ; 2C:49E9
-Label_2C_49E9::
 	; [CONFIRMED] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1;
 	; entered by jrcc from 2C:4999 (executed) [executed in 2 scenarios]
 	push bc
@@ -1605,7 +1593,7 @@ Data_2C_4A01:: ; 2C:4A01
 	db $C3, $72, $49, $C9
 
 MailTitle_GetLength:: ; 2C:4A05
-Function_2C_4A05::
+
 	; [CONFIRMED] 18 insn(s); 18 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push hl

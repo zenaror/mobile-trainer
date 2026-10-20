@@ -7,7 +7,6 @@ SECTION "gfx/profile/profile_editor", ROMX
 ; ---- data $6300-$6B40 (2112 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); kind tiles from the label name [clipped from 6300-6E50 by higher-priority evidence]
 
 Gfx_Profile_Tiles9300Vb1:: ; 2A:6300
-Data_2A_6300::
 	; kind (tiles) from the label name / config/symbols note; the region header above describes the block differently
 	INCBIN "gfx/profile/profile_editor/profile_tiles9300.2bpp"
 
@@ -22,7 +21,6 @@ Gfx_Profile_Tiles8800:: ; 2A:6800
 ; ---- data $6B40-$6E10 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2A:5856: hl=$6B40 a=$2A b=18 rows c=20 cols (tiles then attrs) de=$D000
 
 Data_Profile_TilemapAttr:: ; 2A:6B40
-Data_2A_6B40::
 	INCBIN "gfx/profile/profile_editor/data_profile_tilemap_attr.tilemap"
 	INCBIN "gfx/profile/profile_editor/data_profile_tilemap_attr.attrmap"
 
@@ -68,7 +66,6 @@ Table_2A_6EA0::
 ; ---- data $6EA4-$6EB9 (21 bytes) [PROBABLE] OAM frame: count=5 then 5 x (y,x,tile,attr) = 21 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 Profile_Anim0Frame0:: ; 2A:6EA4
-Data_2A_6EA4::
 	sprite_frame 5
 	sprite_oam 6, 3, $04, 1
 	sprite_oam 7, 12, $02, 1
@@ -79,7 +76,6 @@ Data_2A_6EA4::
 ; ---- data $6EB9-$6ECE (21 bytes) [PROBABLE] OAM frame: count=5 then 5 x (y,x,tile,attr) = 21 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 Profile_Anim0Frame1:: ; 2A:6EB9
-Data_2A_6EB9::
 	sprite_frame 5
 	sprite_oam 6, 4, $04, 1
 	sprite_oam 8, 12, $02, 1
@@ -90,7 +86,6 @@ Data_2A_6EB9::
 ; ---- data $6ECE-$6ED3 (5 bytes) [HYPOTHESIS] animation script: count=2 then 2 x 2 bytes (00 2a 01 08), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
 
 Profile_Anim0Script:: ; 2A:6ECE
-Data_2A_6ECE::
 	sprite_anim 2
 	sprite_anim_step 0, 42
 	sprite_anim_step 1, 8
@@ -104,7 +99,6 @@ Table_2A_6ED3::
 ; ---- data $6ED7-$6EEC (21 bytes) [PROBABLE] OAM frame: count=5 then 5 x (y,x,tile,attr) = 21 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 Profile_Anim4Frame0:: ; 2A:6ED7
-Data_2A_6ED7::
 	sprite_frame 5
 	sprite_oam 6, 3, $04, 1
 	sprite_oam 7, 12, $00, 1
@@ -115,7 +109,6 @@ Data_2A_6ED7::
 ; ---- data $6EEC-$6F01 (21 bytes) [PROBABLE] OAM frame: count=5 then 5 x (y,x,tile,attr) = 21 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 Profile_Anim4Frame1:: ; 2A:6EEC
-Data_2A_6EEC::
 	sprite_frame 5
 	sprite_oam 6, 4, $04, 1
 	sprite_oam 8, 12, $00, 1
@@ -126,7 +119,6 @@ Data_2A_6EEC::
 ; ---- data $6F01-$6F06 (5 bytes) [HYPOTHESIS] animation script: count=2 then 2 x 2 bytes (00 2a 01 08), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
 
 Profile_Anim4Script:: ; 2A:6F01
-Data_2A_6F01::
 	sprite_anim 2
 	sprite_anim_step 0, 42
 	sprite_anim_step 1, 8
@@ -140,7 +132,6 @@ Table_2A_6F06::
 ; ---- data $6F0A-$6F23 (25 bytes) [PROBABLE] OAM frame: count=6 then 6 x (y,x,tile,attr) = 25 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 Profile_Anim8Frame0:: ; 2A:6F0A
-Data_2A_6F0A::
 	sprite_frame 6
 	sprite_oam -1, 5, $00, 2
 	sprite_oam -1, 13, $01, 2
@@ -152,7 +143,6 @@ Data_2A_6F0A::
 ; ---- data $6F23-$6F3C (25 bytes) [PROBABLE] OAM frame: count=6 then 6 x (y,x,tile,attr) = 25 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 Profile_Anim8Frame1:: ; 2A:6F23
-Data_2A_6F23::
 	sprite_frame 6
 	sprite_oam -2, 5, $00, 2
 	sprite_oam -2, 13, $01, 2
@@ -164,7 +154,6 @@ Data_2A_6F23::
 ; ---- data $6F3C-$6F41 (5 bytes) [HYPOTHESIS] animation script: count=2 then 2 x 2 bytes (00 08 01 23), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
 
 Profile_Anim8Script:: ; 2A:6F3C
-Data_2A_6F3C::
 	sprite_anim 2
 	sprite_anim_step 0, 8
 	sprite_anim_step 1, 35
@@ -178,7 +167,6 @@ Table_2A_6F41::
 ; ---- data $6F45-$6F5E (25 bytes) [PROBABLE] OAM frame: count=6 then 6 x (y,x,tile,attr) = 25 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 Profile_Anim12Frame0:: ; 2A:6F45
-Data_2A_6F45::
 	sprite_frame 6
 	sprite_oam -1, 5, $00, 2
 	sprite_oam -1, 13, $01, 2
@@ -190,7 +178,6 @@ Data_2A_6F45::
 ; ---- data $6F5E-$6F77 (25 bytes) [PROBABLE] OAM frame: count=6 then 6 x (y,x,tile,attr) = 25 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 Profile_Anim12Frame1:: ; 2A:6F5E
-Data_2A_6F5E::
 	sprite_frame 6
 	sprite_oam -2, 5, $00, 2
 	sprite_oam -2, 13, $01, 2
@@ -202,7 +189,6 @@ Data_2A_6F5E::
 ; ---- data $6F77-$6F7C (5 bytes) [HYPOTHESIS] animation script: count=2 then 2 x 2 bytes (00 08 01 23), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
 
 Profile_Anim12Script:: ; 2A:6F77
-Data_2A_6F77::
 	sprite_anim 2
 	sprite_anim_step 0, 8
 	sprite_anim_step 1, 35
@@ -216,7 +202,6 @@ Table_2A_6F7C::
 ; ---- data $6F80-$6F91 (17 bytes) [PROBABLE] OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 Profile_Anim16Frame0:: ; 2A:6F80
-Data_2A_6F80::
 	sprite_frame 4
 	sprite_oam -35, 64, $2C, OAMF_XFLIP | 3
 	sprite_oam 28, 64, $2C, OAMF_XFLIP | 3
@@ -226,12 +211,10 @@ Data_2A_6F80::
 ; ---- data $6F91-$6F92 (1 bytes) [PROBABLE] OAM frame: count=0 then 0 x (y,x,tile,attr) = 1 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 Profile_Anim16Frame1:: ; 2A:6F91
-Data_2A_6F91::
 	sprite_frame 0
 
 ; ---- data $6F92-$6F95 (3 bytes) [HYPOTHESIS] animation script: count=1 then 1 x 2 bytes (00 04), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
 
 Profile_Anim16Script:: ; 2A:6F92
-Data_2A_6F92::
 	sprite_anim 1
 	sprite_anim_step 0, 4

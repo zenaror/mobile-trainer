@@ -35,7 +35,6 @@ Data_5F_4810::
 ; ---- gfx $49D0-$4CD0 (768 bytes) [CONFIRMED] tiles-vram: 8 call site(s) (55:5C00 67:5184 67:5771 67:65B1); first: hdma_rom_to_vram at 55:5C00: hl=$49D0 a=$5F c=$30 de=$8001 (dest VRAM $8000, vbank=1)
 
 Gfx_SharedPanels_Vram8000Vb1:: ; 5F:49D0
-Data_5F_49D0::
 	INCBIN "gfx/keyboard/panels_bank5f/tiles_49d0.2bpp"
 
 ; ---- data $4CD0-$4CF8 (40 bytes) [CONFIRMED] RGB555 block: BG6..7 at +0 (16 bytes) and OBJ5..7 at
@@ -85,7 +84,6 @@ Table_5F_4D48::
 ; ---- data $4D4C-$4D65 (25 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 6 piece(s); length tiles exactly against the frame-table pointers
 
 Kbd_Anim1Frame0:: ; 5F:4D4C
-Data_5F_4D4C::
 	sprite_frame 6
 	sprite_oam -4, 1, $24, OAMF_BANK1 | 6
 	sprite_oam 4, 1, $25, OAMF_BANK1 | 6
@@ -97,7 +95,6 @@ Data_5F_4D4C::
 ; ---- data $4D65-$4D7E (25 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 6 piece(s); length tiles exactly against the frame-table pointers
 
 Kbd_Anim1Frame1:: ; 5F:4D65
-Data_5F_4D65::
 	sprite_frame 6
 	sprite_oam -5, 1, $24, OAMF_BANK1 | 6
 	sprite_oam 3, 1, $25, OAMF_BANK1 | 6
@@ -109,7 +106,6 @@ Data_5F_4D65::
 ; ---- data $4D7E-$4D83 (5 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 2 step(s), (frame,delay) pairs: 0:46 1:8
 
 Kbd_Anim1Script:: ; 5F:4D7E
-Data_5F_4D7E::
 	sprite_anim 2
 	sprite_anim_step 0, 46
 	sprite_anim_step 1, 8
@@ -123,7 +119,6 @@ Table_5F_4D83::
 ; ---- data $4D87-$4D90 (9 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 2 piece(s); length tiles exactly against the frame-table pointers
 
 Kbd_Anim15Frame0:: ; 5F:4D87
-Data_5F_4D87::
 	sprite_frame 2
 	sprite_oam 0, 0, $26, OAMF_BANK1 | 7
 	sprite_oam 8, 0, $27, OAMF_BANK1 | 7
@@ -131,14 +126,12 @@ Data_5F_4D87::
 ; ---- data $4D90-$4D95 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
 
 Kbd_Anim15Frame1:: ; 5F:4D90
-Data_5F_4D90::
 	sprite_frame 1
 	sprite_oam 0, 0, $28, OAMF_BANK1 | 7
 
 ; ---- data $4D95-$4D9A (5 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 2 step(s), (frame,delay) pairs: 0:20 1:20
 
 Kbd_Anim15Script:: ; 5F:4D95
-Data_5F_4D95::
 	sprite_anim 2
 	sprite_anim_step 0, 20
 	sprite_anim_step 1, 20
@@ -152,7 +145,6 @@ Table_5F_4D9A::
 ; ---- data $4D9E-$4DAF (17 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 4 piece(s); length tiles exactly against the frame-table pointers
 
 Kbd_Anim2Frame0:: ; 5F:4D9E
-Data_5F_4D9E::
 	sprite_frame 4
 	sprite_oam 0, 0, $00, OAMF_BANK1 | 7
 	sprite_oam 12, 0, $00, OAMF_YFLIP | OAMF_BANK1 | 7
@@ -162,7 +154,6 @@ Data_5F_4D9E::
 ; ---- data $4DAF-$4DC0 (17 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 4 piece(s); length tiles exactly against the frame-table pointers
 
 Kbd_Anim2Frame1:: ; 5F:4DAF
-Data_5F_4DAF::
 	sprite_frame 4
 	sprite_oam -1, -1, $00, OAMF_BANK1 | 7
 	sprite_oam 13, -1, $00, OAMF_YFLIP | OAMF_BANK1 | 7
@@ -172,7 +163,6 @@ Data_5F_4DAF::
 ; ---- data $4DC0-$4DC5 (5 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 2 step(s), (frame,delay) pairs: 0:46 1:8
 
 Kbd_Anim2Script:: ; 5F:4DC0
-Data_5F_4DC0::
 	sprite_anim 2
 	sprite_anim_step 0, 46
 	sprite_anim_step 1, 8
@@ -186,7 +176,6 @@ Table_5F_4DC5::
 ; ---- data $4DC7-$4DE0 (25 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 6 piece(s); length tiles exactly against the frame-table pointers
 
 Kbd_Anim7Frame0:: ; 5F:4DC7
-Data_5F_4DC7::
 	sprite_frame 6
 	sprite_oam 0, 0, $01, OAMF_BANK1 | 7
 	sprite_oam 0, 8, $02, OAMF_BANK1 | 7
@@ -198,7 +187,6 @@ Data_5F_4DC7::
 ; ---- data $4DE0-$4DE3 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 Kbd_Anim7Script:: ; 5F:4DE0
-Data_5F_4DE0::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -211,7 +199,6 @@ Table_5F_4DE3::
 ; ---- data $4DE5-$4DFE (25 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 6 piece(s); length tiles exactly against the frame-table pointers
 
 Kbd_Anim4Frame0:: ; 5F:4DE5
-Data_5F_4DE5::
 	sprite_frame 6
 	sprite_oam 0, 0, $01, OAMF_BANK1 | 7
 	sprite_oam 0, 8, $02, OAMF_BANK1 | 7
@@ -223,7 +210,6 @@ Data_5F_4DE5::
 ; ---- data $4DFE-$4E01 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 Kbd_Anim4Script:: ; 5F:4DFE
-Data_5F_4DFE::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -236,7 +222,6 @@ Table_5F_4E01::
 ; ---- data $4E03-$4E20 (29 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 7 piece(s); length tiles exactly against the frame-table pointers
 
 Kbd_Anim5Frame0:: ; 5F:4E03
-Data_5F_4E03::
 	sprite_frame 7
 	sprite_oam 0, 0, $01, OAMF_BANK1 | 7
 	sprite_oam 0, 8, $02, OAMF_BANK1 | 7
@@ -249,7 +234,6 @@ Data_5F_4E03::
 ; ---- data $4E20-$4E23 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 Kbd_Anim5Script:: ; 5F:4E20
-Data_5F_4E20::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -262,7 +246,6 @@ Table_5F_4E23::
 ; ---- data $4E25-$4E42 (29 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 7 piece(s); length tiles exactly against the frame-table pointers
 
 Kbd_Anim6Frame0:: ; 5F:4E25
-Data_5F_4E25::
 	sprite_frame 7
 	sprite_oam 0, 0, $01, OAMF_BANK1 | 7
 	sprite_oam 0, 8, $02, OAMF_BANK1 | 7
@@ -275,7 +258,6 @@ Data_5F_4E25::
 ; ---- data $4E42-$4E45 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 Kbd_Anim6Script:: ; 5F:4E42
-Data_5F_4E42::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -288,7 +270,6 @@ Table_5F_4E45::
 ; ---- data $4E47-$4E54 (13 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 3 piece(s); length tiles exactly against the frame-table pointers
 
 Kbd_Anim9Frame0:: ; 5F:4E47
-Data_5F_4E47::
 	sprite_frame 3
 	sprite_oam 0, 0, $15, OAMF_BANK1 | 7
 	sprite_oam 0, 8, $16, OAMF_BANK1 | 7
@@ -297,7 +278,6 @@ Data_5F_4E47::
 ; ---- data $4E54-$4E57 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:8
 
 Kbd_Anim9Script:: ; 5F:4E54
-Data_5F_4E54::
 	sprite_anim 1
 	sprite_anim_step 0, 8
 
@@ -310,7 +290,6 @@ Table_5F_4E57::
 ; ---- data $4E59-$4E66 (13 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 3 piece(s); length tiles exactly against the frame-table pointers
 
 Kbd_Anim10Frame0:: ; 5F:4E59
-Data_5F_4E59::
 	sprite_frame 3
 	sprite_oam 0, 0, $18, OAMF_BANK1 | 7
 	sprite_oam 0, 8, $19, OAMF_BANK1 | 7
@@ -319,7 +298,6 @@ Data_5F_4E59::
 ; ---- data $4E66-$4E69 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:8
 
 Kbd_Anim10Script:: ; 5F:4E66
-Data_5F_4E66::
 	sprite_anim 1
 	sprite_anim_step 0, 8
 
@@ -332,7 +310,6 @@ Table_5F_4E69::
 ; ---- data $4E6B-$4E78 (13 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 3 piece(s); length tiles exactly against the frame-table pointers
 
 Kbd_Anim11Frame0:: ; 5F:4E6B
-Data_5F_4E6B::
 	sprite_frame 3
 	sprite_oam 0, 0, $1B, OAMF_BANK1 | 7
 	sprite_oam 0, 8, $1C, OAMF_BANK1 | 7
@@ -341,7 +318,6 @@ Data_5F_4E6B::
 ; ---- data $4E78-$4E7B (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:8
 
 Kbd_Anim11Script:: ; 5F:4E78
-Data_5F_4E78::
 	sprite_anim 1
 	sprite_anim_step 0, 8
 
@@ -354,7 +330,6 @@ Table_5F_4E7B::
 ; ---- data $4E7D-$4E8A (13 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 3 piece(s); length tiles exactly against the frame-table pointers
 
 Kbd_Anim12Frame0:: ; 5F:4E7D
-Data_5F_4E7D::
 	sprite_frame 3
 	sprite_oam 0, 0, $0F, OAMF_BANK1 | 7
 	sprite_oam 0, 8, $10, OAMF_BANK1 | 7
@@ -363,7 +338,6 @@ Data_5F_4E7D::
 ; ---- data $4E8A-$4E8D (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 Kbd_Anim12Script:: ; 5F:4E8A
-Data_5F_4E8A::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -376,7 +350,6 @@ Table_5F_4E8D::
 ; ---- data $4E8F-$4E9C (13 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 3 piece(s); length tiles exactly against the frame-table pointers
 
 Kbd_Anim13Frame0:: ; 5F:4E8F
-Data_5F_4E8F::
 	sprite_frame 3
 	sprite_oam 0, 0, $12, OAMF_BANK1 | 7
 	sprite_oam 0, 8, $13, OAMF_BANK1 | 7
@@ -385,7 +358,6 @@ Data_5F_4E8F::
 ; ---- data $4E9C-$4E9F (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 Kbd_Anim13Script:: ; 5F:4E9C
-Data_5F_4E9C::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -398,7 +370,6 @@ Table_5F_4E9F::
 ; ---- data $4EA1-$4EB2 (17 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 4 piece(s); length tiles exactly against the frame-table pointers
 
 Kbd_Anim17Frame0:: ; 5F:4EA1
-Data_5F_4EA1::
 	sprite_frame 4
 	sprite_oam 0, 0, $29, OAMF_BANK1 | 5
 	sprite_oam 0, 8, $2A, OAMF_BANK1 | 5
@@ -408,7 +379,6 @@ Data_5F_4EA1::
 ; ---- data $4EB2-$4EB5 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 Kbd_Anim17Script:: ; 5F:4EB2
-Data_5F_4EB2::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -421,7 +391,6 @@ Table_5F_4EB5::
 ; ---- data $4EB7-$4EC8 (17 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 4 piece(s); length tiles exactly against the frame-table pointers
 
 Kbd_Anim19Frame0:: ; 5F:4EB7
-Data_5F_4EB7::
 	sprite_frame 4
 	sprite_oam 0, 0, $1E, OAMF_BANK1 | 5
 	sprite_oam 0, 8, $1F, OAMF_BANK1 | 5
@@ -431,7 +400,6 @@ Data_5F_4EB7::
 ; ---- data $4EC8-$4ECB (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 Kbd_Anim19Script:: ; 5F:4EC8
-Data_5F_4EC8::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 

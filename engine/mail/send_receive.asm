@@ -5,7 +5,7 @@
 SECTION "engine/mail/send_receive", ROMX
 
 MailSendRecv_Main:: ; 27:4000
-Function_27_4000::
+
 	; [CONFIRMED] 61 insn(s); 61 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $01
@@ -95,7 +95,6 @@ Data_27_409F:: ; 27:409F
 	db $18, $5E
 
 MailSendRecv_Main_ErrorDisconnect:: ; 27:40A1
-Label_27_40A1::
 	; [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1;
 	; entered by jpcc from 27:4080 (PROBABLE code)
 	ld a, [wTimerEnable]
@@ -109,7 +108,6 @@ Label_27_40A1::
 	farcall MailDisconnect_ScreenNoTimer
 
 MailSendRecv_Main_EndNoSession:: ; 27:40BB
-Label_27_40BB::
 	; [CONFIRMED] 21 insn(s); 21 executed (in up to 2/18 scenarios)
 	farcall CommTime_TimerAIsNonZero
 	or a, a
@@ -126,7 +124,6 @@ Label_27_40BB::
 	ret
 
 MailSendRecv_Main_RunSession:: ; 27:40D7
-Label_27_40D7::
 	farcall MailSession_Run
 	cp a, $80
 	cp a, $7F
@@ -219,7 +216,6 @@ Label_27_40D7::
 ; ---- data $417A-$4181 (7 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
 
 MailSendRecv_RequestTemplate:: ; 27:417A
-Data_27_417A::
 	db $04, $00, $00, $01, $24, $D5, $04
 
 	; [PROBABLE] 24 insn(s) reached by static flow only; seeds: site x24; min discovery hops 0; run
@@ -254,7 +250,7 @@ Data_27_417A::
 	ret
 
 Mail_OutboxIsEmpty:: ; 27:41BC
-Function_27_41BC::
+
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $00
@@ -284,7 +280,7 @@ Function_27_41BC::
 	ret
 
 MailConnect_Screen:: ; 27:41E3
-Function_27_41E3::
+
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $00
@@ -408,7 +404,7 @@ Function_27_41E3::
 .l42CF ; 27:42CF
 	farcall Session_ResetCounters
 	farcall Timer_ResetClockB
-	farcall Stub_Nop_7F_61FC
+	farcall Stack_PushPopAFAndReturn
 	xor a, a
 	ld [wCommSessionActive], a
 	ld hl, wBrowserTimerLastSec
@@ -917,7 +913,7 @@ MailConnect_ShowError:: ; 27:46E5
 	ret
 
 MailConnect_PollAdapterError:: ; 27:4747
-Function_27_4747::
+
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wTimerEnable]
@@ -945,7 +941,7 @@ Function_27_4747::
 	ret
 
 MailDisconnect_Screen:: ; 27:4768
-Function_27_4768::
+
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $01
@@ -1447,7 +1443,7 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	ret
 
 MailConnect_InitScreen:: ; 27:4B95
-Function_27_4B95::
+
 	; [CONFIRMED] 122 insn(s); 122 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -1782,9 +1778,9 @@ CommTime_DrawHMSScreen:: ; 27:4D81
 	ld [$992B], a
 	ld [$990C], a
 	ld [$992C], a
-	jp Label_27_4EEB
+	jp LCDOn_ReturnBCZero
+Gfx_UploadPalettesAndBgMaps_EnableLCD:: ; 27:4EC0 [PROBABLE] local operation
 
-Function_27_4EC0:: ; 27:4EC0
 	; [PROBABLE] 53 bytes/22 logical starts [4EC0,4EF5); farcall inline bytes are data.
 	; WRAM7 palette upload, saved-shadow restore, then 00:082C forces WRAM7 before RET4EF4.
 	; Entry/purpose HYPOTHESIS; JP4EBD->4EEB skips the prologue and reaches LCDOn/BC0/RET.
@@ -1811,8 +1807,7 @@ Function_27_4EC0:: ; 27:4EC0
 	ldh a, [hScratchA]
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
-
-Label_27_4EEB:: ; 27:4EEB
+LCDOn_ReturnBCZero:: ; 27:4EEB [PROBABLE] local operation; entry unproved
 	farcall LCDOn
 	ld bc, $0000
 	ret
@@ -1906,7 +1901,6 @@ Label_27_4EEB:: ; 27:4EEB
 	ldh [hDialogResult], a
 
 CommTime_Summary_FrameLoop_27_4FC0:: ; 27:4FC0
-Label_27_4FC0::
 	farcall Sprite_UpdateAll
 	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
@@ -1923,31 +1917,26 @@ Table_27_4FD8:: ; 27:4FD8
 	dw CommTime_Summary_FrameLoop_27_4FC0
 
 CommTime_SummaryInput_ButtonA_27_4FE2:: ; 27:4FE2
-Label_27_4FE2::
 	; [PROBABLE] 63 insn(s) reached by static flow only; seeds: site x63; min discovery hops 0;
 	; entered by table from 27:4FD5 (PROBABLE code)
 	jp CommTime_Summary_Close_27_4FEE
 
 CommTime_SummaryInput_IgnoreB_27_4FE5:: ; 27:4FE5
-Label_27_4FE5::
 	jp CommTime_Summary_FrameLoop_27_4FC0
 
 CommTime_SummaryInput_IgnoreSelect_27_4FE8:: ; 27:4FE8
-Label_27_4FE8::
 	jp CommTime_Summary_FrameLoop_27_4FC0
 
 CommTime_SummaryInput_IgnoreStart_27_4FEB:: ; 27:4FEB
-Label_27_4FEB::
 	jp CommTime_Summary_FrameLoop_27_4FC0
 
 CommTime_Summary_Close_27_4FEE:: ; 27:4FEE
-Label_27_4FEE::
 	farcall Palette_FadeOutToWhite
 	farcall Sprite_ResetAll
 	ret
 
 CommTime_DrawNumber_27_4FFB:: ; 27:4FFB
-Function_27_4FFB::
+
 	inc a
 	add hl, bc
 	bit 7, h
@@ -1980,7 +1969,7 @@ Function_27_4FFB::
 	ret
 
 CommTime_PutDigit_27_5021:: ; 27:5021
-Function_27_5021::
+
 	push bc
 	push de
 	ld h, d
@@ -2010,12 +1999,12 @@ Function_27_5021::
 	pop bc
 	ret
 
-; ---- data $5048-$505C (20 bytes) [PROBABLE] 10 pairs of tile indices read by CommTime_PutDigit_27_5021: DE=$5048+((2*A)&$FF), then bytes at DE/DE+1 are stored at the input destination and destination+$20; attribute bytes $08 go to destination+$400 and destination+$420. A=0..9 selects these 10 pairs; the routine does not clamp A. Entries 3 and 9 are $69,$6F and $6E,$7F (preserved); exactly 8 of 10 second bytes equal first+$10. In original JP evidence, the caller path and all 20 bytes are unexecuted/unread in the 69 natural scenarios; the former row/no-reference hypothesis is contradicted by this computed reader. No visual digit appearance is validated. Original JP evidence only; English runtime/visual/fidelity/hardware UNVALIDATED.
+; ---- data $5048-$505C (20 bytes) [PROBABLE] 10 pairs of tile indices read by CommTime_PutDigit_27_5021: DE=$5048+((2*A)&$FF), then bytes at DE/DE+1 are stored at the input destination and destination+$20; attribute bytes $08 go to destination+$400 and destination+$420. A=0..9 selects these 10 pairs; the routine does not clamp A. Entries 3 and 9 are $69,$6F and $6E,$7F (preserved); exactly 8 of 10 second bytes equal first+$10. The caller path and all 20 bytes are unexecuted/unread in the 69 natural scenarios; the former row/no-reference hypothesis is contradicted by this computed reader. No visual digit appearance is validated.
 
 Table_CommTime_DigitTiles_27_5048:: ; 27:5048
 Data_27_5048::
 	db $67, $77, $68, $78, $69, $79, $69, $6F, $6A, $7A, $6B, $7B, $6C, $7C, $6D, $7D
 	db $6E, $7E, $6E, $7F
 
-; ---- zero $505C-$5060 (4 bytes) [PROBABLE] 4 zero bytes between the 20-byte pair table at 27:5048 and the aligned tile block at 27:5060; no natural data read in the 69 original JP scenarios. The computed reader uses two bytes per index, so the former 20-column row-padding interpretation is not established. Original JP evidence only; English runtime/visual/fidelity/hardware UNVALIDATED.
+; ---- zero $505C-$5060 (4 bytes) [PROBABLE] 4 zero bytes between the 20-byte pair table at 27:5048 and the aligned tile block at 27:5060; no natural data read in the 69 scenarios. The computed reader uses two bytes per index, so the former 20-column row-padding interpretation is not established.
 	ds $4, $00

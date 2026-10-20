@@ -5,7 +5,7 @@
 SECTION "engine/unreferenced/page_list_prototype", ROMX
 
 Canvas_RunSampleDemo:: ; 7F:4C78
-Function_7F_4C78::
+
 	; [PROBABLE] 116 insn(s) reached by static flow only; seeds: site x116; min discovery hops 0;
 	; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code |
 	; forced execution: 115/116 instruction starts ran in forced_screens (traces/forced/, not
@@ -193,7 +193,7 @@ String_7F_4D88::
 POPC
 
 Canvas_DrawSampleRows:: ; 7F:4D95
-Function_7F_4D95::
+
 	; [PROBABLE] 56 insn(s) reached by static flow only; seeds: site x56; min discovery hops 0;
 	; entered by call from 7F:4C84 (PROBABLE code) | forced execution: 56/56 instruction starts ran
 	; in forced_screens (traces/forced/, not natural evidence; status unchanged)
@@ -265,7 +265,7 @@ String_7F_4DF2::
 POPC
 
 Canvas_DrawSampleRowsInverted:: ; 7F:4E0D
-Function_7F_4E0D::
+
 	; [PROBABLE] 56 insn(s) reached by static flow only; seeds: site x56; min discovery hops 0;
 	; entered by call from 7F:4C93 (PROBABLE code) | forced execution: 56/56 instruction starts ran
 	; in forced_screens (traces/forced/, not natural evidence; status unchanged)
@@ -337,7 +337,7 @@ String_7F_4E6A::
 POPC
 
 Canvas_UploadToVramWrapper:: ; 7F:4E85
-Function_7F_4E85::
+
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: site x2; min discovery hops 1;
 	; entered by call from 7F:4C81 (PROBABLE code) | forced execution: 2/2 instruction starts ran in
 	; forced_screens (traces/forced/, not natural evidence; status unchanged)
@@ -429,7 +429,7 @@ Table_7F_4FCF::
 	dw $A000, $A016, $A02C, $A042, $A058, $A06E
 
 PageListProto_Main:: ; 7F:4FDB
-Function_7F_4FDB::
+
 	; [PROBABLE] function head (push af ; ldh a,[$FF70] ; push af ; ld a,1 ; ... ld [$D724],a ; ld
 	; a,0 ; ld [$D725],a ; pop af ... pop af) flowing into the validated far-call site at 4FF5 (call
 	; 7F:7271, an executed function); starts right after the word table above; no caller found,
@@ -465,7 +465,7 @@ Function_7F_4FDB::
 	ld c, $00
 
 PageListProto_Main_Loop:: ; 7F:5011
-Function_7F_5011::
+
 	push bc
 	farcall Sprite_UpdateAll
 	ld a, [wDialogOnlineSnapshot]
@@ -669,7 +669,7 @@ Data_7F_51ED:: ; 7F:51ED
 	db $C9
 
 PageListProto_InitScreen:: ; 7F:51EE
-Function_7F_51EE::
+
 	; [PROBABLE] 1292 insn(s) reached by static flow only; seeds: site x1292; min discovery hops 0;
 	; entered by call from 7F:500C (PROBABLE code)
 	push bc
@@ -782,7 +782,7 @@ Function_7F_51EE::
 	ret
 
 PageListProto_UpdateRowSprites:: ; 7F:5306
-Function_7F_5306::
+
 	push bc
 	call PageListProto_InitRowSprites
 	call PageListProto_HighlightRowSprite
@@ -790,7 +790,7 @@ Function_7F_5306::
 	ret
 
 PageListProto_InitRowSprites:: ; 7F:530F
-Function_7F_530F::
+
 	push bc
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -945,7 +945,7 @@ Function_7F_530F::
 	ret
 
 PageListProto_HighlightRowSprite:: ; 7F:546A
-Function_7F_546A::
+
 	push bc
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -1165,7 +1165,7 @@ Function_7F_546A::
 	ret
 
 PageListProto_GetActionAvailability:: ; 7F:5647
-Function_7F_5647::
+
 	push bc
 	push af
 	ld a, $01
@@ -1233,7 +1233,7 @@ Function_7F_5647::
 	ret
 
 PageListProto_SetActionIcons:: ; 7F:56AE
-Function_7F_56AE::
+
 	push bc
 	di
 	ld b, a
@@ -1281,7 +1281,7 @@ Function_7F_56AE::
 	ret
 
 PageListProto_RedrawSelection:: ; 7F:56F1
-Function_7F_56F1::
+
 	push af
 	ld a, $01
 	ldh [hSRAMBank], a
@@ -1372,7 +1372,7 @@ Function_7F_56F1::
 	ret
 
 PageListProto_DrawAllTitles:: ; 7F:577D
-Function_7F_577D::
+
 	push bc
 	push af
 	ld a, $01
@@ -1459,7 +1459,7 @@ Function_7F_577D::
 	ret
 
 PageListProto_DrawTextLine:: ; 7F:5805
-Function_7F_5805::
+
 	ld a, $14
 	ld [wTextCellsLeft], a
 .l580A ; 7F:580A
@@ -1550,7 +1550,7 @@ Function_7F_5805::
 	jr .l5896
 
 PageListProto_BlitGlyphAdvance:: ; 7F:58A5
-Function_7F_58A5::
+
 	push bc
 	push de
 	push hl
@@ -1565,7 +1565,7 @@ Function_7F_58A5::
 	ret
 
 PageListProto_UploadTextTiles:: ; 7F:58B9
-Function_7F_58B9::
+
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1595,7 +1595,7 @@ Function_7F_58B9::
 	ret
 
 PageListProto_StartHDMAAtVBlank:: ; 7F:58F9
-Function_7F_58F9::
+
 	ld a, h
 	ldh [rHDMA1], a
 	ld a, l
@@ -1624,7 +1624,7 @@ Function_7F_58F9::
 	ret
 
 PageListProto_ShowMessage:: ; 7F:591E
-Function_7F_591E::
+
 	push bc
 	push de
 	push hl
@@ -1675,7 +1675,7 @@ Function_7F_591E::
 	ret
 
 PageListProto_ActionMenu:: ; 7F:5989
-Function_7F_5989::
+
 	call PageListProto_ActionMenuInit
 	call Stub_Nop_7F_61E7
 	ld b, $00
@@ -1922,7 +1922,7 @@ Function_7F_5989::
 	jp .loop
 
 PageListProto_ActionMenuInit:: ; 7F:5BB5
-Function_7F_5BB5::
+
 	push bc
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -1968,7 +1968,7 @@ Function_7F_5BB5::
 	ret
 
 PageListProto_HideActionCursor:: ; 7F:5C13
-Function_7F_5C13::
+
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1992,7 +1992,7 @@ Function_7F_5C13::
 	ret
 
 PageListProto_SetActionCursor:: ; 7F:5C39
-Function_7F_5C39::
+
 	push bc
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -2052,7 +2052,7 @@ Function_7F_5C39::
 	ret
 
 PageListProto_MoveActionCursor:: ; 7F:5CB4
-Function_7F_5CB4::
+
 	call PageListProto_SetActionCursor
 	ret
 
@@ -2118,7 +2118,7 @@ Function_7F_5CB4::
 	ret
 
 PageListProto_SaveCurrentPage:: ; 7F:5D0A
-Function_7F_5D0A::
+
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2419,7 +2419,7 @@ Function_7F_5D0A::
 	ret
 
 PageListProto_GoToSlot:: ; 7F:5F5D
-Function_7F_5F5D::
+
 	push bc
 	ld a, $06
 	ldh [hWRAMBank], a
@@ -2486,7 +2486,7 @@ Function_7F_5F5D::
 	ret
 
 PageListProto_DeleteSlot:: ; 7F:5FBC
-Function_7F_5FBC::
+
 	push af
 	ld a, $01
 	ldh [hSRAMBank], a
@@ -2767,11 +2767,11 @@ Function_7F_5FBC::
 	ret
 
 Stub_Nop_7F_61E6:: ; 7F:61E6
-Function_7F_61E6::
+
 	ret
 
 Stub_Nop_7F_61E7:: ; 7F:61E7
-Function_7F_61E7::
+
 	ret
 
 	; [HYPOTHESIS] complete small function (ld a,7 ; ldh [hFF8D],a ; ldh [hFF70],a ; xor a ; ld

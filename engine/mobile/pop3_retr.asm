@@ -474,7 +474,7 @@ Data_54_4FCB::
 	db $00, $03, $02, $A0, $03, $80, $C4
 
 Mail_SplitFromHeader:: ; 54:4FD2
-Function_54_4FD2::
+
 	; [CONFIRMED] 203 insn(s) reached by static flow only; seeds: exec x203; min discovery hops 14;
 	; entered by call from 54:4A7F (PROBABLE code) | 36 insn(s) executed; cut out of the PROBABLE
 	; region 4FD2-511B by apply_coverage --split [executed in 6 scenarios]
@@ -697,7 +697,7 @@ Function_54_4FD2::
 	ret
 
 Mail_CopyClampedEllipsis:: ; 54:50FC
-Function_54_50FC::
+
 	ld a, [hli]
 	ld [de], a
 	inc de
@@ -717,14 +717,14 @@ Function_54_50FC::
 	ld [wMailFetchStatus], a
 	ret
 
-; ---- data $511B-$511D (2 bytes) [CONFIRMED] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) [every byte read as data in 6 scenario(s)]
+; ---- text $511B-$511D (2 bytes) [CONFIRMED] Shift-JIS ellipsis bytes ($81, $63), copied by Mail_CopyClampedEllipsis with BC=$0002; this two-byte span has no terminator [every byte read as data in 6 retained scenarios]
 
 Data_Text_Ellipsis2:: ; 54:511B
 Data_54_511B::
 	db $81, $63
 
 Mail_ScanAndCheckGameMail:: ; 54:511D
-Function_54_511D::
+
 	; [CONFIRMED] 306 insn(s) reached by static flow only; seeds: exec x306; min discovery hops 12;
 	; entered by call from 54:49A2 (PROBABLE code) | 79 insn(s) executed; cut out of the PROBABLE
 	; region 511D-5343 by apply_coverage --split [executed in 3 scenarios] (part of region

@@ -5,7 +5,7 @@
 SECTION "engine/browser/page_render", ROMX
 
 Browser_DrawTitleBar:: ; 4E:5204
-Function_4E_5204::
+
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh a, [hPageHeaderPtr]
@@ -178,7 +178,7 @@ Browser_MakeShortTitle:: ; 4E:5274
 	ret
 
 Browser_RenderPage:: ; 4E:52E7
-Function_4E_52E7::
+
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	farcall Browser_DrawTitleBar
@@ -249,7 +249,6 @@ Browser_FindAnchor:: ; 4E:534B
 	ld de, $FFFF
 
 Browser_FindAnchor_NextEntry:: ; 4E:5354
-Label_4E_5354::
 	inc de
 	ld a, d
 	or a, a
@@ -317,7 +316,6 @@ Data_4E_5390:: ; 4E:5390
 	db $C1
 
 Browser_FindAnchor_Mismatch:: ; 4E:5391
-Label_4E_5391::
 	; [CONFIRMED] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 3;
 	; entered by jrcc from 4E:5367 (PROBABLE code) | 6 insn(s) executed; cut out of the PROBABLE
 	; region 5391-53A1 by apply_coverage --split [executed in 1 scenarios]
@@ -329,27 +327,24 @@ Label_4E_5391::
 	jr Browser_FindAnchor_NextEntry
 
 Browser_FindAnchor_Found:: ; 4E:539A
-Label_4E_539A::
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5391-53A1 by apply_coverage --split
 	inc a
 
 Browser_FindAnchor_Done:: ; 4E:539B
-Label_4E_539B::
 	; [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 5391-53A1 by apply_coverage
 	; --split [executed in 1 scenarios]
 	pop de
 	ret
 
 Browser_FindAnchor_Overflow:: ; 4E:539D
-Label_4E_539D::
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5391-53A1 by apply_coverage --split
 	ld de, $FFFF
 	ret
 
 Browser_ScrollUpLine:: ; 4E:53A1
-Function_4E_53A1::
+
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh a, [hViewY]
@@ -421,7 +416,7 @@ Browser_ScrollDownLine:: ; 4E:53D1
 	ret
 
 Browser_SetScroll:: ; 4E:5423
-Function_4E_5423::
+
 	; [CONFIRMED] 266 insn(s); 266 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, c
@@ -731,7 +726,7 @@ Browser_FindLinkElement:: ; 4E:5512
 	ret
 
 Browser_FindVisibleLink:: ; 4E:55E8
-Function_4E_55E8::
+
 	; [CONFIRMED] 125 insn(s); 125 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh [hPageRender_WantedLink], a
@@ -1218,16 +1213,15 @@ Browser_DrawElement:: ; 4E:57DC
 
 Table_Browser_ElementDrawHandlers:: ; 4E:589B
 Table_4E_589B::
-	dw Label_4E_58AB
+	dw Browser_DrawElement_ReturnOnly
 	dw Browser_DrawElement_Text
-	dw Label_4E_58AB
-	dw Label_4E_58AB
+	dw Browser_DrawElement_ReturnOnly
+	dw Browser_DrawElement_ReturnOnly
 	dw Browser_DrawElement_Bitmap
 	dw Browser_DrawElement_Bitmap
-	dw Label_4E_58AB
-	dw Label_4E_58AB
+	dw Browser_DrawElement_ReturnOnly
+	dw Browser_DrawElement_ReturnOnly
 Browser_DrawElement_ReturnOnly:: ; [PROBABLE] table-target operation: RET only; entry unobserved.
-Label_4E_58AB:: ; 4E:58AB
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: table x1; min discovery hops 0; run
 	; starts at an entry of the code-pointer table at 4E:589B
 	ret

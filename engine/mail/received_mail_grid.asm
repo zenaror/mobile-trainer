@@ -457,7 +457,7 @@ MailGrid_ShowCellDetails:: ; 2B:56CB
 	jr z, .l56F2
 	dec a
 	jr z, .l56F2
-	jp Label_2B_57CB
+	jp Fill99E1Pattern46_Draw5807TwiceAndUpload
 .l56F2 ; 2B:56F2
 	push bc
 	ld b, $00
@@ -594,8 +594,7 @@ String_2B_57B5:: ; 2B:57B5
 	db "そうしんしゃ", 0
 	db "あそぼう", 0
 POPC
-
-Label_2B_57CB:: ; 2B:57CB
+Fill99E1Pattern46_Draw5807TwiceAndUpload:: ; 2B:57CB [PROBABLE] operation; entry/purpose unproved
 	; [PROBABLE] 35 insn(s) reached by static flow only; seeds: site x35; min discovery hops 2;
 	; entered by jp from 2B:56EF (PROBABLE code) | forced execution: 35/35 instruction starts ran in
 	; forced_screens (traces/forced/, not natural evidence; status unchanged)

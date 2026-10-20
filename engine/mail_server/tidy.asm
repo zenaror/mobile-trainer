@@ -5,7 +5,7 @@
 SECTION "engine/mail_server/tidy", ROMX
 
 MailServerMgr_Run:: ; 2E:4000
-Function_2E_4000::
+
 	; [CONFIRMED] 63 insn(s); 63 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af
@@ -395,7 +395,6 @@ Function_2E_4000::
 	ld hl, $0000
 
 MailServerMgr_Run_MailLoop:: ; 2E:4298
-Label_2E_4298::
 	push bc
 	push hl
 	push hl
@@ -1205,9 +1204,9 @@ Label_2E_4298::
 .l4887 ; 2E:4887
 	jp MailServerMgr_Run_MailLoop
 
-	; [HYPOTHESIS] function prologue push af/bc/de/hl right after the unconditional jp $4298 at 4887
-	; and directly before the far-call site region at 488E; the matching pop sequence was not
-	; proven, no caller/pointer found, entry unproven
+	; [HYPOTHESIS] Entry/purpose at488A unproved; PUSH AF/BC/DE/HL precedes farcall488E, after JP4887.
+	; [PROBABLE] Balanced callees: POP HL/DE/BC/AF48E9..EC and RET48ED restore four local saves.
+	; Alternate48EE..F4 restores four then pops three external words; RET48F7 needs that frame.
 	push af
 	push bc
 	push de
@@ -1264,7 +1263,7 @@ Label_2E_4298::
 	ret
 
 MailServerMgr_TimeWarningPopup:: ; 2E:48F8
-Function_2E_48F8::
+
 	push af
 	push bc
 	push de
@@ -1426,7 +1425,6 @@ Function_2E_48F8::
 	ret
 
 MailServerMgr_Run_Cancel:: ; 2E:4A47
-Label_2E_4A47::
 	; [CONFIRMED] 47 insn(s) executed; cut out of the PROBABLE region 488E-4B2E by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld a, $04
@@ -1461,7 +1459,7 @@ Label_2E_4A47::
 	ret
 
 MailServerMgr_TimeWarningPopupRedraw:: ; 2E:4A7D
-Function_2E_4A7D::
+
 	push af
 	push bc
 	push de

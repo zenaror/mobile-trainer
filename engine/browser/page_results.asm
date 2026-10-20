@@ -5,7 +5,7 @@
 SECTION "engine/browser/page_results", ROMX
 
 Browser_MapErrorToResult:: ; 4C:4DB2
-Function_4C_4DB2::
+
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	cp a, $10
@@ -53,7 +53,7 @@ Table_4C_4DD6::
 	db $03, $03, $03, $03, $84
 
 Browser_WrapImageInHtml:: ; 4C:4DFB
-Function_4C_4DFB::
+
 	; [CONFIRMED] 18 insn(s); 18 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call Sound_FrameService

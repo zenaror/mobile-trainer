@@ -6,7 +6,7 @@ The game has three bitmap-font formats (docs/research/text_encoding.md; gfx/asse
     font12    JIS X 0208 12x12 glyphs, 18 bytes each: 12 rows of 12 bits, MSB = left pixel, two rows packed into 3 bytes
               (byte0 = row0 bits 11..4, byte1 = row0 bits 3..0 then row1 bits 11..8, byte2 = row1 bits 7..0).
               One font bank = glyph slot n at bank address $4000 + 18*n; 94 slots per JIS row.
-    font8x16  8x16 glyphs, 16 bytes each: one byte per pixel row, MSB = left pixel  (data/fonts/font_8x16_*.1bpp)
+    font8x16  8x16 glyphs, 16 bytes each: one byte per pixel row, MSB = left pixel  (data/fonts/glyph_runs_8x16/sjis_*.1bpp)
     font6x12  6x12 Latin glyphs, 12 bytes each: one byte per pixel row, bits 7..2 = the 6 pixels, bits 1..0 unused (always 0 in the ROM)
 
 Sheet PNG (8-bit indexed, 4 colours; the tools read *colours*, not indices, so an editor may re-order the palette):
@@ -18,8 +18,8 @@ Sheet PNG (8-bit indexed, 4 colours; the tools read *colours*, not indices, so a
 Cell pitch = glyph size + 1 (grid line).  Sheet size: font12 94 glyphs per row (1221 px wide), font8x16 and font6x12 16 per row.  Glyph slot
 n is at column n % per_row, row n // per_row.  Do not resize or crop the sheet; draw only black and white inside the cells (no anti-aliasing).
 
-The bank-7C font is split by other data into two files (7C:4000 and 7C:57CD) that share ONE sheet; the two glyphs cut by the gap show their
-missing bytes in pink.  Import of a span only reads the pixels whose bytes belong to that span.
+The continuous bank-7C font has three contiguous files (7C:4000, 7C:57C3 and 7C:57CD) sharing ONE complete sheet.
+Import of a span only reads the pixels whose bytes belong to that span; the bank-7C sheet has no unstored glyph pixels.
 
     font_png.py export --type font12 --cells 846 --span 4000:data/fonts/a.bin [--span ADDR:other.bin] OUT.png
     font_png.py import --type font12 --cells 846 --start 4000 --size 6083 SHEET.png OUT.bin

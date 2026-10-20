@@ -8,7 +8,7 @@ SECTION "lib/mobile/mail", ROMX
 
 PUSHC sjis
 MailStr_Boundary:: ; 0F:4000
-String_0F_4000::
+
 	db "---", 0
 POPC
 
@@ -16,17 +16,17 @@ POPC
 
 PUSHC sjis
 MailStr_GameCodeAllowList:: ; 0F:4004
-String_0F_4004::
+
 	db "CGB-AAAA-00", 0
 POPC
 
-; ---- zero $4010-$4011 (1 bytes) [PROBABLE] 1 x 00 pad byte between the string ending at 4010 (String_0F_4004 ends at its NUL 400F) and the table at 4011
+; ---- zero $4010-$4011 (1 bytes) [PROBABLE] 1 x 00 pad byte between the string ending at 4010 (MailStr_GameCodeAllowList ends at its NUL 400F) and the table at 4011
 	ds $1, $00
 
 ; ---- ptrtable $4011-$4033 (34 bytes) [PROBABLE] 17 x dw string pointers: 4033 "From: ", 403A "Sender: ", 4043 "Reply-To: ", 404E "To: ", 4053 "Cc: ", 4058 "Subject: ", ... 4164 "--", 4167 "."; every target is a NUL-terminated ASCII string start (mail header field names of the message composer/parser); table starts at an odd address
 
 Mail_HeaderStringTable:: ; 0F:4011
-Table_0F_4011::
+
 	dw MailStr_HdrFrom
 	dw MailStr_HdrSender
 	dw MailStr_HdrReplyTo
@@ -49,7 +49,7 @@ Table_0F_4011::
 
 PUSHC sjis
 MailStr_HdrFrom:: ; 0F:4033
-String_0F_4033::
+
 	db "From: ", 0
 POPC
 
@@ -57,7 +57,7 @@ POPC
 
 PUSHC sjis
 MailStr_HdrSender:: ; 0F:403A
-String_0F_403A::
+
 	db "Sender: ", 0
 
 MailStr_HdrReplyTo:: ; 0F:4043
@@ -68,7 +68,7 @@ POPC
 
 PUSHC sjis
 MailStr_HdrTo:: ; 0F:404E
-String_0F_404E::
+
 	db "To: ", 0
 
 MailStr_HdrCc:: ; 0F:4053
@@ -79,7 +79,7 @@ POPC
 
 PUSHC sjis
 MailStr_HdrSubject:: ; 0F:4058
-String_0F_4058::
+
 	db "Subject: ", 0
 
 MailStr_HdrMimeVersion:: ; 0F:4062
@@ -111,7 +111,7 @@ POPC
 
 PUSHC sjis
 MailStr_DashDash:: ; 0F:4164
-String_0F_4164::
+
 	db "--", 0
 POPC
 
@@ -119,21 +119,21 @@ POPC
 
 PUSHC sjis
 MailStr_Dot:: ; 0F:4167
-String_0F_4167::
+
 	db ".", 0
 POPC
 
 ; ---- words $4169-$4183 (26 bytes) [PROBABLE] 13-entry jump table: the dispatcher at 0F:4250-425F reads [D002]*2 + $4169 (ld hl,$4169 ; add hl,de ; ld a,[hli] ; ld h,[hl] ; ld l,a ; ... jp hl); all 13 targets (426C 426D 4340 43BB 44D5 4B59 4BC0 4CDD 4E66 52BC 54D8 56E1 5A10) are instruction starts of the PROBABLE code regions of this bank
 
 Mail_SelectorTable:: ; 0F:4169
-Table_0F_4169::
+
 	dw Mail_SelectorNop, Mail_ScanHeaders, Mail_CheckGameMail, Mail_LocateHeader, Mail_ParseBody, Mail_IndexHeaders, Mail_GetDecodedHeader, Mail_GetAddressList
 	dw Mail_ComposeNext, Mail_ComposeHeaderBlock, Mail_ComposeMimeBody, Mail_Base64EncodeStream, Mail_Base64DecodeStream
 
-; ---- ptrtable $4183-$419D (26 bytes) [PROBABLE] 13 x dw pointers to the ASCII header-name strings 419D "FROM:", 41A3 "SENDER:", 41AB "REPLY-TO:", 41B5 "TO:", 41B9 "CC:", 41BD "SUBJECT:", 41C6 "DATE:", 41CC "CONTENT-TYPE:", ... 420D "X-GBMAIL-TYPE:" (parallel to the 13-entry jump table 0F:4169; every target is a string start)
+; ---- ptrtable $4183-$419D (26 bytes) [PROBABLE] 13 x dw pointers to the ASCII header-name strings 419D "FROM:", 41A3 "SENDER:", 41AB "REPLY-TO:", 41B5 "TO:", 41B9 "CC:", 41BD "SUBJECT:", 41C6 "DATE:", 41CC "CONTENT-TYPE:", ... 420D "X-GBMAIL-TYPE:" (independent of the 13-entry selector table 0F:4169; B indexes these keywords in Mail_FindHeader_Scan 0F:4416; every target is a string start)
 
 Mail_HeaderKeywordTable:: ; 0F:4183
-Table_0F_4183::
+
 	dw MailStr_KwFrom
 	dw MailStr_KwSender
 	dw MailStr_KwReplyTo
@@ -152,7 +152,7 @@ Table_0F_4183::
 
 PUSHC sjis
 MailStr_KwFrom:: ; 0F:419D
-String_0F_419D::
+
 	db "FROM:", 0
 
 MailStr_KwSender:: ; 0F:41A3
@@ -163,7 +163,7 @@ POPC
 
 PUSHC sjis
 MailStr_KwReplyTo:: ; 0F:41AB
-String_0F_41AB::
+
 	db "REPLY-TO:", 0
 POPC
 
@@ -171,7 +171,7 @@ POPC
 
 PUSHC sjis
 MailStr_KwTo:: ; 0F:41B5
-String_0F_41B5::
+
 	db "TO:", 0
 
 MailStr_KwCc:: ; 0F:41B9
@@ -182,7 +182,7 @@ POPC
 
 PUSHC sjis
 MailStr_KwSubject:: ; 0F:41BD
-String_0F_41BD::
+
 	db "SUBJECT:", 0
 POPC
 
@@ -190,7 +190,7 @@ POPC
 
 PUSHC sjis
 MailStr_KwDate:: ; 0F:41C6
-String_0F_41C6::
+
 	db "DATE:", 0
 POPC
 
@@ -198,7 +198,7 @@ POPC
 
 PUSHC sjis
 MailStr_KwContentType:: ; 0F:41CC
-String_0F_41CC::
+
 	db "CONTENT-TYPE:", 0
 
 MailStr_KwMimeVersion:: ; 0F:41DA
@@ -221,7 +221,7 @@ POPC
 
 PUSHC sjis
 MailStr_KwName:: ; 0F:421C
-String_0F_421C::
+
 	db "NAME=", 0
 POPC
 
@@ -229,7 +229,7 @@ POPC
 
 PUSHC sjis
 MailStr_KwMultipart:: ; 0F:4222
-String_0F_4222::
+
 	db "MULTIPART", 0
 
 MailStr_KwBoundary:: ; 0F:422C
@@ -240,7 +240,7 @@ POPC
 
 PUSHC sjis
 MailStr_EncodedWordPrefix:: ; 0F:4236
-String_0F_4236::
+
 	db "=?ISO-2022-JP?B?", 0
 POPC
 
@@ -610,7 +610,7 @@ Mail_FindHeader:: ; 0F:43F7
 	ret
 
 Mail_FindHeader_Scan:: ; 0F:4416
-Function_0F_4416::
+
 	ld a, c
 	ld [wMail_InputBank], a
 	ldh [hSRAMBank], a
@@ -1259,8 +1259,8 @@ Mail_ParseMultipart:: ; 0F:46FE
 	; [HYPOTHESIS] 10 insn (ld hl,$D003 ; ld a,[hli] ; ld [$D000],a ; ldh [$FF8C],a ; ld [$4000],a ;
 	; call $4A7E ; and a ; jr z,$47CF ; xor a ; ld [$D016],a) flowing straight into the PROBABLE
 	; code at 47BB; call target 4A7E is called elsewhere (0F:46D8) and the jr target is a valid
-	; start; it directly follows the unconditional jr $47CF at 47A3, so it must be a
-	; branch/jump-table target that was not found; entry unproven
+	; start; JR47A3->47CF bypasses47A5 sequentially; independent entry remains unproved;
+	; preceding termination alone does not imply a missing branch/jump-table caller
 	ld hl, wMail_Work + $03
 	ld a, [hli]
 	ld [wMail_InputBank], a
@@ -1413,7 +1413,7 @@ Mail_FindPartName:: ; 0F:4847
 	ret
 
 Mail_PartRec_EmitHeaderBlock:: ; 0F:486B
-Function_0F_486B::
+
 	; [CONFIRMED] 51 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage
 	; --split [executed in 6 scenarios]
 	ld hl, wMail_OutputBankVar
@@ -1476,7 +1476,7 @@ Function_0F_486B::
 	ret
 
 Mail_PartRec_EmitHeaderBlock_NextPage:: ; 0F:48BD
-Function_0F_48BD::
+
 	push bc
 	ld bc, wMail_OutputBank
 	call Mail_NextSramPage
@@ -1484,7 +1484,7 @@ Function_0F_48BD::
 	ret
 
 Mail_PartRec_EmitLengthAndPart:: ; 0F:48C6
-Function_0F_48C6::
+
 	; [CONFIRMED] 22 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage
 	; --split [executed in 6 scenarios]
 	ld hl, wMail_OutputBankVar
@@ -1589,7 +1589,7 @@ Function_0F_48C6::
 	ret
 
 Mail_PartRec_EmitLengthAndPart_NextPage:: ; 0F:4948
-Function_0F_4948::
+
 	push bc
 	ld bc, wMail_OutputBank
 	call Mail_NextSramPage
@@ -1597,7 +1597,7 @@ Function_0F_4948::
 	ret
 
 Mail_PartRec_EmitPart:: ; 0F:4951
-Function_0F_4951::
+
 	; [CONFIRMED] 71 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage
 	; --split [executed in 4 scenarios]
 	ld hl, wMail_OutputBankVar
@@ -1682,7 +1682,7 @@ Function_0F_4951::
 	ret
 
 Mail_PartRec_EmitPart_NextPage:: ; 0F:49C7
-Function_0F_49C7::
+
 	push bc
 	ld bc, wMail_OutputBank
 	call Mail_NextSramPage
@@ -1690,7 +1690,7 @@ Function_0F_49C7::
 	ret
 
 Mail_PartRec_EmitLength:: ; 0F:49D0
-Function_0F_49D0::
+
 	; [CONFIRMED] 42 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage
 	; --split [executed in 6 scenarios]
 	ld hl, wMail_OutputBankVar
@@ -1744,7 +1744,7 @@ Function_0F_49D0::
 	ret
 
 Mail_PartRec_EmitLength_NextPage:: ; 0F:4A13
-Function_0F_4A13::
+
 	push bc
 	ld bc, wMail_OutputBank
 	call Mail_NextSramPage
@@ -3468,7 +3468,7 @@ Mail_CopyItemToBuffer_NextPage:: ; 0F:52B3
 	ret
 
 Mail_ComposeHeaderBlock:: ; 0F:52BC
-Function_0F_52BC::
+
 	push bc
 	call Mail_ComposeHeaderBlock_LoadArgs
 	push de
@@ -3588,7 +3588,7 @@ Function_0F_52BC::
 	jp Mail_Return
 
 Mail_ComposeHeaderBlock_LoadArgs:: ; 0F:5381
-Function_0F_5381::
+
 	ld hl, wMail_OutputBankVar
 	ld a, [de]
 	ld [hli], a
@@ -3637,7 +3637,7 @@ Function_0F_5381::
 	ret
 
 Mail_ComposeHeaderBlock_FetchItem:: ; 0F:53B9
-Function_0F_53B9::
+
 	ld hl, wMail_ItemListPointer
 	ld e, [hl]
 	inc hl
@@ -3663,7 +3663,7 @@ Function_0F_53B9::
 	ret
 
 Mail_ComposeHeaderBlock_BuildAddressList:: ; 0F:53D6
-Function_0F_53D6::
+
 	ld a, [wMail_Work + $03]
 	ld d, a
 	ld a, [wMail_Work + $04]
@@ -3839,7 +3839,7 @@ Function_0F_53D6::
 	ret
 
 Mail_ComposeMimeBody:: ; 0F:54D8
-Function_0F_54D8::
+
 	xor a, a
 	ld [wMail_ComposeState], a
 	call Mail_ComposeMimeBody_LoadArgs
@@ -3969,7 +3969,7 @@ Function_0F_54D8::
 	jr .l555C
 
 Mail_ComposeMimeBody_LoadArgs:: ; 0F:55C4
-Function_0F_55C4::
+
 	ld hl, wMail_OutputBankVar
 	ld a, [de]
 	ld [hli], a
@@ -4000,7 +4000,7 @@ Function_0F_55C4::
 	ret
 
 Mail_ComposeMimeBody_NextPart:: ; 0F:55E6
-Function_0F_55E6::
+
 	ld a, [wMail_ItemListPointer]
 	ld l, a
 	ld a, [wMail_ItemListPointer + $01]
@@ -4043,7 +4043,7 @@ Function_0F_55E6::
 	ret
 
 Mail_ComposeMimeBody_CopyData:: ; 0F:561F
-Function_0F_561F::
+
 	ld a, [wMail_OutputBankVar]
 	ld [wMail_OutputBank], a
 	ld a, [wMail_Work + $17]
@@ -4165,7 +4165,7 @@ Function_0F_561F::
 	jr .l566E
 
 Mail_Base64EncodeStream:: ; 0F:56E1
-Function_0F_56E1::
+
 	ld a, [wMail_ComposeState]
 	and a, a
 	jp z, Mail_Return
@@ -4224,7 +4224,7 @@ Function_0F_56E1::
 	jp Mail_Return
 
 Mail_Base64Stream_LoadArgs:: ; 0F:5747
-Function_0F_5747::
+
 	ld hl, wMail_Work + $02
 	ld a, [de]
 	ld [hli], a
@@ -4267,7 +4267,7 @@ Function_0F_5747::
 	ret
 
 Mail_CalcBase64EncodedSize:: ; 0F:5771
-Function_0F_5771::
+
 	ld hl, wMail_Work + $05
 	ld a, [hli]
 	ld h, [hl]
@@ -4349,7 +4349,7 @@ Function_0F_5771::
 	ret
 
 Mail_Base64EncodeStream_ClampChunk:: ; 0F:57E5
-Function_0F_57E5::
+
 	ld hl, wMail_Work + $05
 	ld a, [hli]
 	ld h, [hl]
@@ -4404,7 +4404,7 @@ Function_0F_57E5::
 	ret
 
 Mail_Base64EncodeStream_Step:: ; 0F:5833
-Function_0F_5833::
+
 	ld a, [wMail_ComposeState]
 	and a, a
 	ret z
@@ -4749,7 +4749,7 @@ Mail_Base64EncodeChar:: ; 0F:59F1
 	ret
 
 Mail_Base64DecodeStream:: ; 0F:5A10
-Function_0F_5A10::
+
 	ld a, [wMail_Work + $23]
 	and a, a
 	jp z, Mail_Return
@@ -4807,7 +4807,7 @@ Function_0F_5A10::
 	jp Mail_Return
 
 Mail_CalcBase64DecodedSize:: ; 0F:5A74
-Function_0F_5A74::
+
 	ld hl, wMail_Work + $05
 	ld a, [hli]
 	ld h, [hl]
@@ -4865,7 +4865,7 @@ Function_0F_5A74::
 	ret
 
 Mail_Base64DecodeStream_ClampChunk:: ; 0F:5AC5
-Function_0F_5AC5::
+
 	ld hl, wMail_Work + $05
 	ld a, [hli]
 	ld h, [hl]
@@ -4922,7 +4922,7 @@ Function_0F_5AC5::
 	ret
 
 Mail_Base64DecodeStream_Step:: ; 0F:5B15
-Function_0F_5B15::
+
 	ld a, [wMail_Work + $23]
 	and a, a
 	ret z
@@ -5047,7 +5047,7 @@ Function_0F_5B15::
 	ret
 
 Mail_CopyBase64StripLineBreaks:: ; 0F:5BDD
-Function_0F_5BDD::
+
 	xor a, a
 	ld [wMail_Work + $10], a
 .loop ; 0F:5BE1
@@ -5133,7 +5133,7 @@ Function_0F_5BDD::
 	ret
 
 Mail_CopyBase64StripLineBreaks_NextPage:: ; 0F:5C52
-Function_0F_5C52::
+
 	push bc
 	ld bc, wMail_InputBank
 	call Mail_NextSramPage
@@ -5141,7 +5141,6 @@ Function_0F_5C52::
 	ret
 
 Mail_CopyBase64StripLineBreaks_ErrorExit:: ; 0F:5C5B
-Label_0F_5C5B::
 	ld a, $02
 	ret
 

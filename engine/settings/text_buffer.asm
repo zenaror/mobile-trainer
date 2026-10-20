@@ -140,7 +140,7 @@ TextBuf_DeleteLast:: ; 67:6799
 	ret
 
 TextBuf_DecCount:: ; 67:67DB
-Function_67_67DB::
+
 	; [HYPOTHESIS] function with no found entry (no call/jp/table word/far pointer/ld r16 to $67DB
 	; anywhere in the ROM); linear decode is legal ($67DB-$6807), all direct targets are known code
 	; starts, saves ROMX/WRAM bank state, inc hl x2, decrements the byte at [hl+2] if non-zero,
@@ -177,7 +177,7 @@ Function_67_67DB::
 	ret
 
 TextBuf_GetCount:: ; 67:6807
-Function_67_6807::
+
 	; [CONFIRMED] 56 insn(s); 56 executed (in up to 7/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh [hScratchA], a

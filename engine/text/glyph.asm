@@ -4,20 +4,20 @@
 
 SECTION "engine/text/glyph", ROMX
 
-Glyph_LoadAsciiSinglePlane:: ; 7F:4000
-Function_7F_4000::
-	; [HYPOTHESIS] complete 3-insn function (call $400E ; call $0DCE ; ret): twin of the executed
-	; 7F:4007 (call $400E ; call $0DB9 ; ret); both callees are proven (400E executed 12/18; 00:0DCE
-	; = the non-duplicating variant of 00:0DB9); no caller/pointer to 7F:4000 found in the ROM
-	; (whole-ROM search of far calls, ld r16, words), entry unproven [verifier: downgraded
-	; PROBABLE->HYPOTHESIS: complete-looking function with no caller, no table entry and no flow
-	; from/into proven code; "decodes cleanly" is not an entry]
+Glyph_LoadContiguous12Bytes:: ; 7F:4000
+
+	; [HYPOTHESIS] entry 7F:4000: no caller/pointer in prior whole-ROM search; unproven.
+	; [PROBABLE] 7F:400E then 00:0DCE: conditional copy of 12 contiguous bytes.
+	; B=$20..$7F selects B, else $3F; source ROM76:$67A8+12*(effectiveB-$20).
+	; Input DE becomes destination HL; low-bank shadow/write selects $76 then $7F.
+	; Needs expected mapper/window and visible writable stack/destination; no IME guarantee.
+	; Entry is 3 instructions; twin/callee coverage does not establish this entry.
 	call Glyph_AsciiAddr
 	call Glyph_CopyAsciiRowsSingle
 	ret
 
 Glyph_LoadAscii:: ; 7F:4007
-Function_7F_4007::
+
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 12/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call Glyph_AsciiAddr
@@ -68,7 +68,7 @@ Glyph_AsciiAddr:: ; 7F:400E
 	ret
 
 Glyph_LoadWideSinglePlane:: ; 7F:4042
-Function_7F_4042::
+
 	; [PROBABLE] head of the function that contains the validated far-call site at 404C: push bc ;
 	; ld b,d ; ld c,e ; ld hl,$000C ; add hl,de ; ld d,h ; ld e,l ; pop hl (argument set-up),
 	; starting right after the ret at 4041 of the executed glyph routine; no caller found, entry
@@ -92,7 +92,7 @@ Function_7F_4042::
 	ret
 
 Glyph_LoadWide:: ; 7F:405F
-Function_7F_405F::
+
 	; [CONFIRMED] 16 insn(s); 16 executed (in up to 13/18 scenarios); entry proven: target of an
 	; executed call/far call
 	farcall Font_ValidateSjisCode
@@ -237,7 +237,7 @@ Data_7F_4150::
 	db $4F, $4F, $4F, $4F, $4F, $4F, $4F
 
 Glyph_IsSjisLeadByte:: ; 7F:41A7
-Function_7F_41A7::
+
 	; [CONFIRMED] 8 insn(s); 8 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc

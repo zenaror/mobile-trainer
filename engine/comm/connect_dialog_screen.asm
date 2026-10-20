@@ -5,7 +5,7 @@
 SECTION "engine/comm/connect_dialog_screen", ROMX
 
 ConnectDialog_DrawScreen:: ; 57:47A6
-Function_57_47A6::
+
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 6/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wConnectDialog_Mode]
@@ -921,7 +921,6 @@ ConnectDialog_Draw_Finish:: ; 57:5077
 	ret
 
 ConnectDialog_Draw_SaveForgetConfirm_Tail:: ; 57:50D8
-Label_57_50D8::
 	ld de, $8000
 	ld hl, Gfx_ConnectDialog_Finish_Tiles8000
 	ld a, BANK(Gfx_ConnectDialog_Finish_Tiles8000)
@@ -943,7 +942,7 @@ Label_57_50D8::
 	ret
 
 ConnectDialog_DrawPasswordField:: ; 57:510F
-Function_57_510F::
+
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 5/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wConnectDialog_Mode]
@@ -1423,7 +1422,7 @@ ConnectDialog_UploadMapRow:: ; 57:53C6
 	jr .loop
 
 SavedPassword_Store:: ; 57:541C
-Function_57_541C::
+
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
 	or a, a
@@ -1468,7 +1467,7 @@ ConnectDialog_RenderTypedChars:: ; 57:5444
 	ret
 
 ConnectDialog_PlayButtonSfx:: ; 57:546C
-Function_57_546C::
+
 	; [CONFIRMED] 16 insn(s); 16 executed (in up to 6/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld b, a

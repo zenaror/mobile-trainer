@@ -37,7 +37,7 @@ def check(ok, text):
 
 def src_files():
     for dp, dn, fn in os.walk(TREE):
-        dn[:] = [d for d in dn if d not in ('build', '.git', 'analysis', 'traces', 'docs', 'config', 'tools', '.cache', '__pycache__')]
+        dn[:] = [d for d in dn if d not in ('build', 'languages', '.git', 'analysis', 'traces', 'docs', 'config', 'tools', '.cache', '__pycache__', '.tmp')]
         for f in fn:
             if f.endswith('.asm'):
                 p = os.path.join(dp, f)

@@ -5,7 +5,7 @@
 SECTION "engine/menus/mail_menu", ROMX
 
 MailMenu_Run:: ; 1D:4000
-Function_1D_4000::
+
 	; [CONFIRMED] 145 insn(s); 145 executed (in up to 9/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call VBlank_WaitAndService
@@ -355,7 +355,7 @@ Data_1D_431D::
 	db $00, $28, $46, $6E, $8C, $B4, $00, $D2
 
 MailMenu_DrawItemSelected:: ; 1D:4325
-Function_1D_4325::
+
 	; [CONFIRMED] 57 insn(s); 57 executed (in up to 9/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wMailMenu_Cursor]
@@ -431,7 +431,7 @@ Data_1D_4393::
 	db $00, $28, $46, $6E, $8C, $B4, $00, $D2
 
 MailMenu_AnimateIcon:: ; 1D:439B
-Function_1D_439B::
+
 	; [CONFIRMED] 34 insn(s); 34 executed (in up to 9/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, wMailMenu_AnimCounter

@@ -75,7 +75,7 @@ Url_EnsurePath:: ; 54:42E4
 	ret
 
 Http_StartPost:: ; 54:42FB
-Function_54_42FB::
+
 	; [CONFIRMED] 60 insn(s); 60 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, l
@@ -362,7 +362,7 @@ Mobile_StopPoll:: ; 54:4492
 	ret
 
 Mobile_CheckTimeout:: ; 54:44AC
-Function_54_44AC::
+
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wMobileTimeoutIssued]

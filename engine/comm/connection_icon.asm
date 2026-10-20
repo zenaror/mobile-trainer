@@ -5,7 +5,7 @@
 SECTION "engine/comm/connection_icon", ROMX
 
 ConnIcon_Init:: ; 69:4000
-Function_69_4000::
+
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wCommSessionKind]
@@ -62,7 +62,6 @@ Table_69_4045::
 	dw ConnIcon_State5
 
 ConnIcon_State0_RequestGfx1:: ; 69:4051
-Label_69_4051::
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 1/18 scenarios)
 	ld a, [wConnIconGfxRequest]
 	inc a
@@ -74,14 +73,12 @@ Label_69_4051::
 	jr z, ConnIcon_EnterState2_Anim6
 
 ConnIcon_EnterState1_Anim1:: ; 69:4062
-Label_69_4062::
 	ld a, $01
 	ld b, $01
 	farcall ConnIcon_StartSprite
 	ret
 
 ConnIcon_State1:: ; 69:406D
-Label_69_406D::
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr nz, ConnIcon_EnterState1_Anim1
@@ -94,20 +91,17 @@ Label_69_406D::
 	ret
 
 ConnIcon_State2:: ; 69:407F
-Label_69_407F::
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr nz, ConnIcon_EnterState1_Anim1
 
 ConnIcon_EnterState2_Anim6:: ; 69:4086
-Label_69_4086::
 	ld a, $02
 	ld b, $06
 	farcall ConnIcon_StartSprite
 	ret
 
 ConnIcon_State3_RequestGfx2:: ; 69:4091
-Label_69_4091::
 	ld a, [wConnIconGfxRequest]
 	inc a
 	ret z
@@ -118,14 +112,12 @@ Label_69_4091::
 	jr z, ConnIcon_EnterState5_Anim5
 
 ConnIcon_EnterState4_Anim4:: ; 69:40A2
-Label_69_40A2::
 	ld a, $04
 	ld b, $04
 	farcall ConnIcon_StartSprite
 	ret
 
 ConnIcon_State4:: ; 69:40AD
-Label_69_40AD::
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr nz, ConnIcon_EnterState4_Anim4
@@ -135,20 +127,18 @@ Label_69_40AD::
 	ret
 
 ConnIcon_State5:: ; 69:40BF
-Label_69_40BF::
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr nz, ConnIcon_EnterState4_Anim4
 
 ConnIcon_EnterState5_Anim5:: ; 69:40C6
-Label_69_40C6::
 	ld a, $05
 	ld b, $05
 	farcall ConnIcon_StartSprite
 	ret
 
 ConnIcon_LoadGraphicsIfRequested:: ; 69:40D1
-Function_69_40D1::
+
 	; [CONFIRMED] 4 insn(s); 4 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wConnIconGfxRequest]
@@ -165,7 +155,6 @@ Table_69_40DA::
 	dw ConnIcon_LoadGraphics_Request2
 
 ConnIcon_LoadGraphics_Request2:: ; 69:40E0
-Label_69_40E0::
 	; [CONFIRMED] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 1;
 	; entered by table from 69:40D7 (executed) [executed in 1 scenarios]
 	ld de, $8200
@@ -188,7 +177,6 @@ Label_69_40E0::
 	jp ConnIcon_LoadGraphics_ClearRequest
 
 ConnIcon_LoadGraphics_Request1:: ; 69:4118
-Label_69_4118::
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 4/18 scenarios)
 	ld de, $8200
 	ld hl, ConnIcon_Tiles0
@@ -209,7 +197,6 @@ Label_69_4118::
 	farcall Palette_LoadToBuffer
 
 ConnIcon_LoadGraphics_ClearRequest:: ; 69:414D
-Label_69_414D::
 	xor a, a
 	ld [wConnIconGfxRequest], a
 	ret

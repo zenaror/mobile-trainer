@@ -68,7 +68,7 @@ Where a status is written in the source:
   palette files (section 8); asset paths resolve because the Makefile passes `-I .`.
 * Directories: `home/` (ROM0), `lib/mobile/` (SDK banks 75 and 0F), `engine/<subsystem>/` (code), `data/` (text, HTML store, fonts, tables), `gfx/<screen>/` (tiles, tilemaps,
   palettes and object tables named after the consumer), `audio/`.  Paths are lowercase, `[a-z0-9_]`, `.asm`.  A graphics block stored in a different bank than the code that loads
-  it is named after the consumer and carries `_bankNN` (`gfx/mail/connect_screen_bank29.asm`); blocks with no known consumer are `gfx/bankNN.asm`.  The reasoning behind the
+  it is named after the consumer and carries `_bankNN` (`gfx/mail/connect_screen_bank29.asm`); the original legacy `gfx/bankNN.asm` paths have a descriptive migration map in `docs/research/gfx_resource_path_map.tsv`. Other generic resource paths remain naming debt where present. Name resources from demonstrated content or structure, qualify uncertain interpretation, and retain bank/address provenance; do not invent an application role or species.  The reasoning behind the
   file split is in [`analysis/layout/README.md`](analysis/layout/README.md).
 * Data that only one routine uses stays in the routine's file, as in pokecrystal.
 * Special files: `ram.asm` + `ram/{sram,wram,hram,banked}.asm` (equates only, no bytes), `consts.asm` (numeric constants), `zero_labels.asm` (labels that point into all-zero padding,
@@ -147,14 +147,17 @@ has to stay global), `Data_BB_AAAA` (data), `Table_BB_AAAA` (word/pointer table)
 (`BB` the bank, `AAAA` the CPU address in upper-case hex).
 
 * When code is moved, the position in the name does not follow; that is acceptable: it is the historic (original ROM) address, useful for cross-reference with `docs/research/`.
-* When a symbol receives a semantic name, the neutral name stays as an **alias label** on the next line, without address comment, so that the historic name still resolves:
-
-  ```asm
-  SoundDrv_LoadSongHeader:: ; 04:430A
-  Function_04_430A::
-  	; [CONFIRMED] 5 insn(s); ...
-  ```
-  (1,022 such aliases at the time of writing.)  Note that a local label belongs to the last global label above it, so the `.sym` file lists `Function_04_430A.loop` there.
+* A mapped function should use its evidenced semantic name in maintained source. Retire a historical
+  `Function_BB_AAAA` alias only after checking the function contract, every active operand and qualified
+  local reference, and preserving the old-to-current address mapping in its research note. A descriptive
+  alias alone does not establish that the function has been identified. Unknown behavior remains neutral
+  and an explicit research task; never invent a name to make a counter reach zero.
+* This replaces the older rule that always retained neutral aliases. Retirement is staged: existing
+  aliases are historical migration debt, not a claim of complete semantic identification. The current
+  rename tool still preserves neutral aliases by default; review its result under this policy.
+* A local label belongs to the last preceding global label. Removing an alias therefore changes its
+  qualified symbol even when all bytes and addresses stay fixed. Record that mapping and compare the
+  linked symbols; update any qualified references before removing the alias.
 * Generic names are not invented for new code: name new code with a semantic name only when you can state the evidence, otherwise give it the neutral form of its position.
 
 ### Semantic names

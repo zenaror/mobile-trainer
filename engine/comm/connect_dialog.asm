@@ -5,7 +5,7 @@
 SECTION "engine/comm/connect_dialog", ROMX
 
 ConnectDialog_Run:: ; 57:4000
-Function_57_4000::
+
 	; [CONFIRMED] 124 insn(s); 124 executed (in up to 6/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -407,13 +407,11 @@ ConnectDialog_Keyboard_AppendChar:: ; 57:4299
 	ret
 
 ConnectDialog_Keyboard_EraseChar_ToPasswordPrompt:: ; 57:431F
-Label_57_431F::
 	ld a, $05
 	ld [wConnectDialog_NextMode], a
 	ret
 
 ConnectDialog_Keyboard_ToSaveConfirmIfValid:: ; 57:4325
-Label_57_4325::
 	call ConnectDialog_ValidatePassword
 	xor a, a
 	or a, b
@@ -424,13 +422,11 @@ Label_57_4325::
 	ret
 
 ConnectDialog_Keyboard_ToAccept:: ; 57:4333
-Label_57_4333::
 	ld a, $10
 	ld [wConnectDialog_NextMode], a
 	ret
 
 ConnectDialog_Keyboard_ToPasswordPrompt:: ; 57:4339
-Label_57_4339::
 	ld a, $05
 	ld [wConnectDialog_NextMode], a
 	ret
@@ -638,7 +634,7 @@ ConnectDialog_Input_ForgetConfirm:: ; 57:4481
 	ret
 
 ConnectDialog_EnterMode:: ; 57:44E4
-Function_57_44E4::
+
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 6/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wConnectDialog_Mode]
@@ -718,7 +714,6 @@ ConnectDialog_Enter_Keyboard:: ; 57:4517
 	ret
 
 ConnectDialog_Enter_SaveConfirm:: ; 57:4566
-Label_57_4566::
 	ld hl, wSpriteSlot4
 	ld de, ConnectDialog_ObjTable
 	ld a, BANK(ConnectDialog_ObjTable)
@@ -757,7 +752,6 @@ ConnectDialog_Enter_StoredPassword:: ; 57:459A
 	ret
 
 ConnectDialog_Enter_ForgetConfirm:: ; 57:45BC
-Label_57_45BC::
 	; [CONFIRMED] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 1;
 	; entered by jpcc from 57:450B (PROBABLE code) [executed in 4 scenarios]
 	ld hl, wSpriteSlot4
@@ -772,7 +766,7 @@ Label_57_45BC::
 	ret
 
 ConnectDialog_LeaveMode:: ; 57:45E6
-Function_57_45E6::
+
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 6/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wConnectDialog_Mode]
@@ -933,7 +927,6 @@ ConnectDialog_Leave_Keyboard:: ; 57:46E0
 	ret
 
 ConnectDialog_Leave_SaveConfirm:: ; 57:4738
-Label_57_4738::
 	ld de, $00B4
 	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
@@ -960,7 +953,6 @@ ConnectDialog_Leave_PasswordSaved:: ; 57:474F
 	ret
 
 ConnectDialog_Leave_StoredPassword:: ; 57:4771
-Label_57_4771::
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 5/18 scenarios)
 	ld a, [wConnectDialog_Mode]
 	cp a, $0A

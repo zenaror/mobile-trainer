@@ -3,12 +3,12 @@
 ; 32-bit multiply/divide (and the odd 0D34 routine)
 
 SECTION "home/multiply_divide", ROM0
-
-Function_00_0D34:: ; 00:0D34
+LoadSignedC200E_WriteRomLowF0ThenEntryA:: ; 00:0D34
+	; Historical address alias retired; operation PROBABLE; independent entry/purpose unproved.
 	; [PROBABLE] normal nonaliasing flow: DE = signed byte at WRAM0[$C200+entry E]; restores AF.
 	; Writes hROMBankLo/[$2100]: $F0, then entry A; no explicit high-bank write.
-	; Entry A supplies the intended low bank; physical $F0-to-$70 wrap is unvalidated.
-	; Purpose/caller and stack/IRQ contract unresolved; no maintained symbol caller found.
+	; Read follows PUSH AF; stack aliases/IRQ may affect it; no physical-bank mapping asserted.
+	; [HYPOTHESIS] Entry/purpose; valid nonaliasing stack and quiet relevant IRQ/state required.
 	push af
 	ld d, $C2
 	ld a, $F0

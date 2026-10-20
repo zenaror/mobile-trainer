@@ -5,10 +5,10 @@
 SECTION "home/keyword_scan", ROM0
 
 Html_MatchKeyword:: ; 00:10E9
-Function_00_10E9::
-	; [CONFIRMED] keyword lookup: BC = table of word pointers to strings (0 terminates); compares
-	; [HL] with each ignoring ASCII case; returns A = byte after the matched keyword [reached via
-	; inferred links; raw refs 30] [executed in 5 scenarios]
+	; Historical address alias retired; proper operation name retained.
+	; [CONFIRMED] compare HL text with BC keyword pointers; fold input-side ASCII case only.
+	; Return metadata after TABLE keyword; retry uses caller-saved start at FFB0/FFB1.
+	; A null table terminator alone does not supply a safe arbitrary direct-call contract.
 	call Sound_FrameService
 .l10EC ; 00:10EC
 	ld a, [bc]
@@ -51,7 +51,7 @@ Function_00_10E9::
 	ret
 
 Html_ScanAttributes:: ; 00:1119
-Function_00_1119::
+	; Historical address alias retired; proper operation name retained.
 	; [CONFIRMED] token/attribute scanner over an ASCII-like stream: stops at $00 or $3E (>),
 	; handles $3D (=), quotes $22/$27, skips bytes <$21; uses 10E9 for keywords, DE=$C380 output.
 	; HYPOTHESIS: HTML-like tag parser [reached via inferred links; raw refs 236] | 12 insn(s)

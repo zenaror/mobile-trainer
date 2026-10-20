@@ -124,7 +124,6 @@ Dev_WriteTestConfigImage:: ; 68:4E6A
 ; ---- data $4EA7-$4EB7 (16 bytes) [PROBABLE] part of the 192-byte ($00C0) block 4EA7-4F67 that the routine at 68:4E51 copies to $D000 (ld hl,$4EA7 ; ld de,$D000 ; ld bc,$00C0 ; call $050C); starts with the "MA" signature like the other 192-byte records (67E0, 68A0, 6960, 6A20); fields not decoded
 
 Dev_TestConfigImage:: ; 68:4EA7
-Data_68_4EA7::
 	db $4D, $41, $81, $00, $AC, $10, $13, $BA, $AC, $10, $13, $BA, $69, $74, $6F, $68
 
 ; ---- zero $4EB7-$4EF1 (58 bytes) [HYPOTHESIS] 0x00 run of 58 bytes
@@ -157,17 +156,17 @@ String_68_4F25:: ; 68:4F25
 	db "NINTENDO TEST  ", 0
 POPC
 
-; ---- data $4F35-$4F3D (8 bytes) [PROBABLE] 8 x $FF, part of the 192-byte ($00C0) block 4EA7-4F67 that the routine at 68:4E51 copies to $D000 (ld hl,$4EA7 ; ld de,$D000 ; ld bc,$00C0 ; call $050C); starts with the "MA" signature like the other 192-byte records (67E0, 68A0, 6960, 6A20); fields not decoded
+; ---- data $4F35-$4F3D (8 bytes) [PROBABLE] eight $FF bytes at offset $8E in the 192-byte Dev_TestConfigImage; this aligns with the SDK window's second dial-slot BCD field, but image-to-window correspondence is not proven; the parser has capacity 8 and stops at the first F nibble, so these bytes decode empty if connected
 
-Data_68_4F35:: ; 68:4F35
+Dev_TestConfigImage_DialSlot1Bcd:: ; 68:4F35
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 
 ; ---- zero $4F3D-$4F4D (16 bytes) [HYPOTHESIS] padding? run of 16 x $00 in unclassified bytes
 	ds $10, $00
 
-; ---- data $4F4D-$4F55 (8 bytes) [PROBABLE] 8 x $FF, part of the 192-byte ($00C0) block 4EA7-4F67 that the routine at 68:4E51 copies to $D000 (ld hl,$4EA7 ; ld de,$D000 ; ld bc,$00C0 ; call $050C); starts with the "MA" signature like the other 192-byte records (67E0, 68A0, 6960, 6A20); fields not decoded
+; ---- data $4F4D-$4F55 (8 bytes) [PROBABLE] eight $FF bytes at offset $A6 in the 192-byte Dev_TestConfigImage; this aligns with the SDK window's third dial-slot BCD field, but image-to-window correspondence is not proven; the parser has capacity 8 and stops at the first F nibble, so these bytes decode empty if connected
 
-Data_68_4F4D:: ; 68:4F4D
+Dev_TestConfigImage_DialSlot2Bcd:: ; 68:4F4D
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 
 ; ---- zero $4F55-$4F67 (18 bytes) [HYPOTHESIS] padding? run of 18 x $00 in unclassified bytes
@@ -181,7 +180,7 @@ Mobile_ReportLastError:: ; 68:4F67
 	ret
 
 Mobile_SaveLastResult:: ; 68:4F71
-Function_68_4F71::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 4F71.
 	; [CONFIRMED] 40 insn(s); 40 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call (part of region $4F71-$4FC8)
 	ld a, $00

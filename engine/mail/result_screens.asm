@@ -5,7 +5,7 @@
 SECTION "engine/mail/result_screens", ROMX
 
 MailResult_Screen:: ; 29:4000
-Function_29_4000::
+
 	; [CONFIRMED] 167 insn(s); 167 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af
@@ -255,7 +255,7 @@ MailResult_Txt_SentUnsure:: ; 29:426B
 POPC
 
 MailResult_ShowReceivedMessage:: ; 29:4286
-Function_29_4286::
+
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, d
@@ -549,7 +549,7 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	ret
 
 MailServerStatus_Screen:: ; 29:44F6
-Function_29_44F6::
+
 	; [CONFIRMED] 41 insn(s); 41 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af
@@ -879,7 +879,6 @@ MailServerStatus_DrawCounts_Mode0:: ; 29:4745
 	jp nz, MailServerStatus_DrawCounts_Mode0_Numbers
 
 MailServerStatus_DrawCounts_Mode0_Unknown:: ; 29:476B
-Label_29_476B::
 	; [CONFIRMED] 27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 0;
 	; entered by jrcc from 29:4755 (executed) [executed in 4 scenarios]
 	ld a, $02
@@ -919,7 +918,6 @@ String_29_47B2::
 POPC
 
 MailServerStatus_DrawCounts_Mode0_Numbers:: ; 29:47BD
-Label_29_47BD::
 	; [CONFIRMED] 116 insn(s); 116 executed (in up to 1/18 scenarios)
 	push bc
 	push de
@@ -1298,7 +1296,7 @@ MailServerStatus_FormatNumber_M0:: ; 29:48C3
 	pop bc
 	ret
 
-; ---- text $49DA-$49E5 (11 bytes) [CONFIRMED] Shift-JIS number template: five full-width zeros (82 4F) + NUL; 29:48C3 selects WRAM bank 1 and copies through the NUL to $D524, then formats the decimal digits there; callers render that buffer with A=$01/HL=$D524 through 48:403E TextTiles_RenderLine; all 11 template bytes read in each of 8/69 existing original-ROM scenarios; original Japan evidence only; English runtime/rendering/layout/fidelity/hardware UNVALIDATED
+; ---- text $49DA-$49E5 (11 bytes) [CONFIRMED] Shift-JIS number template: five full-width zeros (82 4F) + NUL; 29:48C3 selects WRAM bank 1 and copies through the NUL to $D524, then formats the decimal digits there; callers render that buffer with A=$01/HL=$D524 through 48:403E TextTiles_RenderLine; all 11 template bytes read in each of 8/69 existing original-ROM scenarios
 
 PUSHC sjis
 Data_MailServerStatus_NumberTemplate_M0:: ; 29:49DA
@@ -1306,7 +1304,7 @@ Data_29_49DA::
 	db "０００００", 0
 POPC
 MailServerStatus_NumberOffset_M0:: ; 29:49E5
-Function_29_49E5::
+
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push de
@@ -1416,7 +1414,6 @@ MailServerStatus_DrawCounts_Mode1:: ; 29:4A65
 	jp nz, MailServerStatus_DrawCounts_Mode1_Numbers
 
 MailServerStatus_DrawCounts_Mode1_Unknown:: ; 29:4A7D
-Label_29_4A7D::
 	; [PROBABLE] 27 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4A65-4AC4 by apply_coverage --split
 	ld a, $02
@@ -1456,7 +1453,6 @@ String_29_4AC4::
 POPC
 
 MailServerStatus_DrawCounts_Mode1_Numbers:: ; 29:4ACF
-Label_29_4ACF::
 	; [CONFIRMED] 279 insn(s) reached by static flow only; seeds: exec x279; min discovery hops 2;
 	; entered by jpcc from 29:4A7A (PROBABLE code) | 71 insn(s) executed; cut out of the PROBABLE
 	; region 4ACF-4C96 by apply_coverage --split [executed in 4 scenarios]
@@ -1779,7 +1775,7 @@ MailServerStatus_FormatNumber_M1:: ; 29:4B7F
 	pop bc
 	ret
 
-; ---- text $4C96-$4CA1 (11 bytes) [CONFIRMED] Shift-JIS number template: five full-width zeros (82 4F) + NUL; 29:4B7F selects WRAM bank 1 and copies through the NUL to $D524, then formats the decimal digits there; callers render that buffer with A=$01/HL=$D524 through 48:403E TextTiles_RenderLine; all 11 template bytes read in each of 4/69 existing original-ROM scenarios; original Japan evidence only; English runtime/rendering/layout/fidelity/hardware UNVALIDATED
+; ---- text $4C96-$4CA1 (11 bytes) [CONFIRMED] Shift-JIS number template: five full-width zeros (82 4F) + NUL; 29:4B7F selects WRAM bank 1 and copies through the NUL to $D524, then formats the decimal digits there; callers render that buffer with A=$01/HL=$D524 through 48:403E TextTiles_RenderLine; all 11 template bytes read in each of 4/69 existing original-ROM scenarios
 
 PUSHC sjis
 String_MailServerStatus_NumberTemplate_M1:: ; 29:4C96
@@ -1880,7 +1876,7 @@ MailServerStatus_UploadNumberTiles_M1:: ; 29:4D01
 	ret
 
 MailServerStatus_DrawCounts_Mode2:: ; 29:4D21
-Function_29_4D21::
+
 	; [CONFIRMED] 17 insn(s); 17 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af
@@ -1902,7 +1898,6 @@ Function_29_4D21::
 	jp nz, MailServerStatus_DrawCounts_Mode2_Numbers
 
 MailServerStatus_DrawCounts_Mode2_Unknown:: ; 29:4D39
-Label_29_4D39::
 	; [CONFIRMED] 27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 0;
 	; fall-through of the jpcc at 29:4D36 (executed) [executed in 2 scenarios]
 	ld a, $02
@@ -1942,7 +1937,6 @@ String_29_4D80::
 POPC
 
 MailServerStatus_DrawCounts_Mode2_Numbers:: ; 29:4D8B
-Label_29_4D8B::
 	; [CONFIRMED] 88 insn(s); 88 executed (in up to 1/18 scenarios)
 	dec hl
 	push bc
@@ -2275,7 +2269,7 @@ MailServerStatus_FormatNumber_M2:: ; 29:4E55
 	pop bc
 	ret
 
-; ---- text $4F6C-$4F77 (11 bytes) [CONFIRMED] Shift-JIS number template: five full-width zeros (82 4F) + NUL; 29:4E55 selects WRAM bank 1 and copies through the NUL to $D524, then formats the decimal digits there; callers render that buffer with A=$01/HL=$D524 through 48:403E TextTiles_RenderLine; all 11 template bytes read in each of 7/69 existing original-ROM scenarios; original Japan evidence only; English runtime/rendering/layout/fidelity/hardware UNVALIDATED
+; ---- text $4F6C-$4F77 (11 bytes) [CONFIRMED] Shift-JIS number template: five full-width zeros (82 4F) + NUL; 29:4E55 selects WRAM bank 1 and copies through the NUL to $D524, then formats the decimal digits there; callers render that buffer with A=$01/HL=$D524 through 48:403E TextTiles_RenderLine; all 11 template bytes read in each of 7/69 existing original-ROM scenarios
 
 PUSHC sjis
 Data_MailServerStatus_NumberTemplate_M2:: ; 29:4F6C
@@ -2283,7 +2277,7 @@ Data_29_4F6C::
 	db "０００００", 0
 POPC
 MailServerStatus_NumberOffset_M2:: ; 29:4F77
-Function_29_4F77::
+
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push de
@@ -2390,7 +2384,7 @@ MailServerStatus_UploadNumberTiles_Blank:: ; 29:4FF7
 	ret
 
 MailResult_UploadTextTiles:: ; 29:5017
-Function_29_5017::
+
 	; [CONFIRMED] 39 insn(s); 39 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh a, [rSVBK]

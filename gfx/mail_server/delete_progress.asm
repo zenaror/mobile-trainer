@@ -10,35 +10,31 @@ SECTION "gfx/mail_server/delete_progress", ROMX
 ; ---- gfx $6FE0-$73E0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 23:5616: hl=$6FE0 a=$23 c=$40 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 6 hits in 5 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_MailSrvDelProgress_Tiles0:: ; 23:6FE0
-Data_23_6FE0::
 	INCBIN "gfx/mail_server/delete_progress/mail_srv_del_progress_tiles0.2bpp"
 
 ; ---- gfx $73E0-$74E0 (256 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 23:5628: hl=$73E0 a=$23 c=$10 de=$9401 (dest VRAM $9400, vbank=1) [first call site executed: 6 hits in 5 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_MailSrvDelProgress_Tiles1:: ; 23:73E0
-Data_23_73E0::
 	INCBIN "gfx/mail_server/delete_progress/mail_srv_del_progress_tiles1.2bpp"
 
 ; ---- gfx $74E0-$7640 (352 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 23:563A: hl=$74E0 a=$23 c=$16 de=$8000 (dest VRAM $8000, vbank=0) [first call site executed: 6 hits in 5 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_MailSrvDelProgress_Tiles2:: ; 23:74E0
-Data_23_74E0::
 	INCBIN "gfx/mail_server/delete_progress/mail_srv_del_progress_tiles2.2bpp"
 
 ; ---- data $7640-$7910 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 23:564B: hl=$7640 a=$23 b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 6 hits in 5 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_MailSrvDelProgress_Screen:: ; 23:7640
-Data_23_7640::
 	INCBIN "gfx/mail_server/delete_progress/mail_srv_del_progress_screen.tilemap"
 	INCBIN "gfx/mail_server/delete_progress/mail_srv_del_progress_screen.attrmap"
 
-; ---- data $7910-$7950 (64 bytes) [CONFIRMED] 64-byte RGB555 palette block copied by Function_4F_4000 (hl=$7910 a=$23 bc=$0040 de=$D800) at 23:55F3; call site executed: 6 hits in 5 scenarios (analysis/coverage_union.tsv); replaces the mapper palette guess 7910-7A3F which swallowed the object tables
+; ---- data $7910-$7950 (64 bytes) [CONFIRMED] 64-byte RGB555 palette block copied by Palette_LoadToBuffer (hl=$7910 a=$23 bc=$0040 de=$D800) at 23:55F3; call site executed: 6 hits in 5 scenarios (analysis/coverage_union.tsv); replaces the mapper palette guess 7910-7A3F which swallowed the object tables
 
 Palette_MailSrvDelProgress_Bg:: ; 23:7910
 Palette_23_7910::
 	INCLUDE "gfx/mail_server/delete_progress/mail_srv_del_progress_bg.pal"
 
-; ---- data $7950-$7990 (64 bytes) [CONFIRMED] 64-byte RGB555 palette block copied by Function_4F_4000 (hl=$7950 a=$23 bc=$0040 de=$D840) at 23:5604; call site executed: 6 hits in 5 scenarios (analysis/coverage_union.tsv)
+; ---- data $7950-$7990 (64 bytes) [CONFIRMED] 64-byte RGB555 palette block copied by Palette_LoadToBuffer (hl=$7950 a=$23 bc=$0040 de=$D840) at 23:5604; call site executed: 6 hits in 5 scenarios (analysis/coverage_union.tsv)
 
 Palette_MailSrvDelProgress_Obj:: ; 23:7950
 Palette_23_7950::
@@ -152,14 +148,12 @@ Table_23_7AE0::
 ; ---- data $7AE2-$7AE7 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
 
 SpriteCounter_Digits_Anim0Frame0:: ; 23:7AE2
-Data_23_7AE2::
 	sprite_frame 1
 	sprite_oam -3, 13, $00, 0
 
 ; ---- data $7AE7-$7AEA (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 SpriteCounter_Digits_Anim0Script:: ; 23:7AE7
-Data_23_7AE7::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -172,14 +166,12 @@ Table_23_7AEA::
 ; ---- data $7AEC-$7AF1 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
 
 SpriteCounter_Digits_Anim4Frame0:: ; 23:7AEC
-Data_23_7AEC::
 	sprite_frame 1
 	sprite_oam -3, 13, $01, 0
 
 ; ---- data $7AF1-$7AF4 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 SpriteCounter_Digits_Anim4Script:: ; 23:7AF1
-Data_23_7AF1::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -192,14 +184,12 @@ Table_23_7AF4::
 ; ---- data $7AF6-$7AFB (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
 
 SpriteCounter_Digits_Anim8Frame0:: ; 23:7AF6
-Data_23_7AF6::
 	sprite_frame 1
 	sprite_oam -3, 13, $02, 0
 
 ; ---- data $7AFB-$7AFE (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 SpriteCounter_Digits_Anim8Script:: ; 23:7AFB
-Data_23_7AFB::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -212,14 +202,12 @@ Table_23_7AFE::
 ; ---- data $7B00-$7B05 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
 
 SpriteCounter_Digits_Anim12Frame0:: ; 23:7B00
-Data_23_7B00::
 	sprite_frame 1
 	sprite_oam -3, 13, $03, 0
 
 ; ---- data $7B05-$7B08 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 SpriteCounter_Digits_Anim12Script:: ; 23:7B05
-Data_23_7B05::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -232,14 +220,12 @@ Table_23_7B08::
 ; ---- data $7B0A-$7B0F (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
 
 SpriteCounter_Digits_Anim16Frame0:: ; 23:7B0A
-Data_23_7B0A::
 	sprite_frame 1
 	sprite_oam -3, 13, $04, 0
 
 ; ---- data $7B0F-$7B12 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 SpriteCounter_Digits_Anim16Script:: ; 23:7B0F
-Data_23_7B0F::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -252,14 +238,12 @@ Table_23_7B12::
 ; ---- data $7B14-$7B19 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
 
 SpriteCounter_Digits_Anim20Frame0:: ; 23:7B14
-Data_23_7B14::
 	sprite_frame 1
 	sprite_oam -3, 13, $05, 0
 
 ; ---- data $7B19-$7B1C (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 SpriteCounter_Digits_Anim20Script:: ; 23:7B19
-Data_23_7B19::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -272,14 +256,12 @@ Table_23_7B1C::
 ; ---- data $7B1E-$7B23 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
 
 SpriteCounter_Digits_Anim24Frame0:: ; 23:7B1E
-Data_23_7B1E::
 	sprite_frame 1
 	sprite_oam -3, 13, $06, 0
 
 ; ---- data $7B23-$7B26 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 SpriteCounter_Digits_Anim24Script:: ; 23:7B23
-Data_23_7B23::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -292,14 +274,12 @@ Table_23_7B26::
 ; ---- data $7B28-$7B2D (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
 
 SpriteCounter_Digits_Anim28Frame0:: ; 23:7B28
-Data_23_7B28::
 	sprite_frame 1
 	sprite_oam -3, 13, $07, 0
 
 ; ---- data $7B2D-$7B30 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 SpriteCounter_Digits_Anim28Script:: ; 23:7B2D
-Data_23_7B2D::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -312,14 +292,12 @@ Table_23_7B30::
 ; ---- data $7B32-$7B37 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
 
 SpriteCounter_Digits_Anim32Frame0:: ; 23:7B32
-Data_23_7B32::
 	sprite_frame 1
 	sprite_oam -3, 13, $08, 0
 
 ; ---- data $7B37-$7B3A (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 SpriteCounter_Digits_Anim32Script:: ; 23:7B37
-Data_23_7B37::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -332,14 +310,12 @@ Table_23_7B3A::
 ; ---- data $7B3C-$7B41 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
 
 SpriteCounter_Digits_Anim36Frame0:: ; 23:7B3C
-Data_23_7B3C::
 	sprite_frame 1
 	sprite_oam -3, 13, $09, 0
 
 ; ---- data $7B41-$7B44 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 SpriteCounter_Digits_Anim36Script:: ; 23:7B41
-Data_23_7B41::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -352,14 +328,12 @@ Table_23_7B44::
 ; ---- data $7B46-$7B4B (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
 
 SpriteCounter_Digits_Anim40Frame0:: ; 23:7B46
-Data_23_7B46::
 	sprite_frame 1
 	sprite_oam 5, 13, $00, 0
 
 ; ---- data $7B4B-$7B4E (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 SpriteCounter_Digits_Anim40Script:: ; 23:7B4B
-Data_23_7B4B::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -372,14 +346,12 @@ Table_23_7B4E::
 ; ---- data $7B50-$7B55 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
 
 SpriteCounter_Digits_Anim44Frame0:: ; 23:7B50
-Data_23_7B50::
 	sprite_frame 1
 	sprite_oam 5, 13, $01, 0
 
 ; ---- data $7B55-$7B58 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 SpriteCounter_Digits_Anim44Script:: ; 23:7B55
-Data_23_7B55::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -392,14 +364,12 @@ Table_23_7B58::
 ; ---- data $7B5A-$7B5F (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
 
 SpriteCounter_Digits_Anim48Frame0:: ; 23:7B5A
-Data_23_7B5A::
 	sprite_frame 1
 	sprite_oam 5, 13, $02, 0
 
 ; ---- data $7B5F-$7B62 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 SpriteCounter_Digits_Anim48Script:: ; 23:7B5F
-Data_23_7B5F::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -412,14 +382,12 @@ Table_23_7B62::
 ; ---- data $7B64-$7B69 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
 
 SpriteCounter_Digits_Anim52Frame0:: ; 23:7B64
-Data_23_7B64::
 	sprite_frame 1
 	sprite_oam 5, 13, $03, 0
 
 ; ---- data $7B69-$7B6C (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 SpriteCounter_Digits_Anim52Script:: ; 23:7B69
-Data_23_7B69::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -432,14 +400,12 @@ Table_23_7B6C::
 ; ---- data $7B6E-$7B73 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
 
 SpriteCounter_Digits_Anim56Frame0:: ; 23:7B6E
-Data_23_7B6E::
 	sprite_frame 1
 	sprite_oam 5, 13, $04, 0
 
 ; ---- data $7B73-$7B76 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 SpriteCounter_Digits_Anim56Script:: ; 23:7B73
-Data_23_7B73::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -452,14 +418,12 @@ Table_23_7B76::
 ; ---- data $7B78-$7B7D (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
 
 SpriteCounter_Digits_Anim60Frame0:: ; 23:7B78
-Data_23_7B78::
 	sprite_frame 1
 	sprite_oam 5, 13, $05, 0
 
 ; ---- data $7B7D-$7B80 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 SpriteCounter_Digits_Anim60Script:: ; 23:7B7D
-Data_23_7B7D::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -472,14 +436,12 @@ Table_23_7B80::
 ; ---- data $7B82-$7B87 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
 
 SpriteCounter_Digits_Anim64Frame0:: ; 23:7B82
-Data_23_7B82::
 	sprite_frame 1
 	sprite_oam 5, 13, $06, 0
 
 ; ---- data $7B87-$7B8A (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 SpriteCounter_Digits_Anim64Script:: ; 23:7B87
-Data_23_7B87::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -492,14 +454,12 @@ Table_23_7B8A::
 ; ---- data $7B8C-$7B91 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
 
 SpriteCounter_Digits_Anim68Frame0:: ; 23:7B8C
-Data_23_7B8C::
 	sprite_frame 1
 	sprite_oam 5, 13, $07, 0
 
 ; ---- data $7B91-$7B94 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 SpriteCounter_Digits_Anim68Script:: ; 23:7B91
-Data_23_7B91::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -512,14 +472,12 @@ Table_23_7B94::
 ; ---- data $7B96-$7B9B (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
 
 SpriteCounter_Digits_Anim72Frame0:: ; 23:7B96
-Data_23_7B96::
 	sprite_frame 1
 	sprite_oam 5, 13, $08, 0
 
 ; ---- data $7B9B-$7B9E (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 SpriteCounter_Digits_Anim72Script:: ; 23:7B9B
-Data_23_7B9B::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -532,14 +490,12 @@ Table_23_7B9E::
 ; ---- data $7BA0-$7BA5 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
 
 SpriteCounter_Digits_Anim76Frame0:: ; 23:7BA0
-Data_23_7BA0::
 	sprite_frame 1
 	sprite_oam 5, 13, $09, 0
 
 ; ---- data $7BA5-$7BA8 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 SpriteCounter_Digits_Anim76Script:: ; 23:7BA5
-Data_23_7BA5::
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
@@ -552,7 +508,6 @@ Table_23_7BA8::
 ; ---- data $7BAC-$7BD5 (41 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 10 piece(s); length tiles exactly against the frame-table pointers
 
 MailSrvDel_ProgressObject_Anim0Frame0:: ; 23:7BAC
-Data_23_7BAC::
 	sprite_frame 10
 	sprite_oam 50, 72, $0A, 1
 	sprite_oam 50, 80, $0B, 1
@@ -568,7 +523,6 @@ Data_23_7BAC::
 ; ---- data $7BD5-$7BFE (41 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 10 piece(s); length tiles exactly against the frame-table pointers
 
 MailSrvDel_ProgressObject_Anim0Frame1:: ; 23:7BD5
-Data_23_7BD5::
 	sprite_frame 10
 	sprite_oam 50, 72, $0A, 1
 	sprite_oam 50, 80, $0B, 1
@@ -584,7 +538,6 @@ Data_23_7BD5::
 ; ---- data $7BFE-$7C03 (5 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 2 step(s), (frame,delay) pairs: 0:20 1:29
 
 MailSrvDel_ProgressObject_Anim0Script:: ; 23:7BFE
-Data_23_7BFE::
 	sprite_anim 2
 	sprite_anim_step 0, 20
 	sprite_anim_step 1, 29

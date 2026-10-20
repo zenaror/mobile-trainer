@@ -123,8 +123,8 @@ SettingsPhone_ChoiceMenu_Setup:: ; 67:4688
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, Data_4D_5510
-	ld a, BANK(Data_4D_5510)
+	ld hl, Data_SettingsPhone_ChoiceMenu_ResourceWindow768
+	ld a, BANK(Data_SettingsPhone_ChoiceMenu_ResourceWindow768)
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMAWithService

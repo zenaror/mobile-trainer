@@ -1,0 +1,9 @@
+old_name	current_name	bank	address	owner	status	confidence
+Data_75_5FFB	MobilePacket_Idle	75	5FFB	lib/mobile/main.asm	retired_this_pass	CONFIRMED
+Data_75_6063	MobilePacket_WaitForTelephoneCall	75	6063	lib/mobile/main.asm	retired_this_pass	PROBABLE
+Data_75_606D	MobilePacket_TransferData	75	606D	lib/mobile/main.asm	retired_this_pass	CONFIRMED
+Data_75_6073	MobilePacket_TransferData_Tail	75	6073	lib/mobile/main.asm	retired_this_pass	PROBABLE
+Data_75_6078	MobilePacket_OpenTCPConnection	75	6078	lib/mobile/main.asm	retired_this_pass	CONFIRMED
+Data_75_6084	MobileSDK_TimingTable	75	6084	lib/mobile/main.asm	retired_this_pass	PROBABLE
+Data_75_612D	MobileStr_CrLfCrLf	75	612D	lib/mobile/main.asm	retired_this_pass	CONFIRMED
+Data_75_7B40	MobileSDK_Md5InitConstants	75	7B40	lib/mobile/main.asm	retired_this_pass	CONFIRMED

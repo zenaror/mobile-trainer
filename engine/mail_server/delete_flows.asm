@@ -90,9 +90,9 @@ MailSrvDel_DeleteAll_Confirm:: ; 23:4A1E
 	jp z, .l4AA6
 	jp .l4AC0
 
-	; [HYPOTHESIS] unreachable jr $4B1A (target is an instruction start of the code region
-	; 4AA6-4B4A) after the jp at 4AA1; twin of 4BE5-4BE7 (jr $4C5D) in the parallel routine; nothing
-	; branches here
+	; [HYPOTHESIS] JR4AA4->4B1A (1874) has a code target; JP4AA1->4AC0 bypasses it sequentially.
+	; Variant4BE5->4C5D uses displacement76 instead of74; this is not an exact byte twin.
+	; Independent entry/frame remains unproved; the preceding JP does not prove unreachability.
 	jr .l4B1A
 
 .l4AA6 ; 23:4AA6
@@ -194,7 +194,7 @@ Data_23_4B4A::
 	db $03, $00, $00, $01, $24, $D5, $00
 
 MailSrvDel_CheckAndDelete:: ; 23:4B51
-Function_23_4B51::
+
 	; [CONFIRMED] 55 insn(s); 55 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	xor a, a
@@ -272,7 +272,7 @@ Function_23_4B51::
 	jp z, .l4BE7
 	jp .l4C01
 
-	; [HYPOTHESIS] unreachable jr $4C5D after the jp at 4BE2, twin of 4AA4-4AA6
+	; [HYPOTHESIS] JR4BE5->4C5D (1876) is bypassed by JP4BE2->4C01; independent entry unproved.
 	jr .l4C5D
 
 .l4BE7 ; 23:4BE7
@@ -884,7 +884,6 @@ MailSrvDel_DeleteAllRun_DelePoll:: ; 23:4FBC
 	jr z, MailSrvDel_DeleteAllRun_DelePollResult
 
 MailSrvDel_DeleteAllRun_Cancel:: ; 23:4FD8
-Label_23_4FD8::
 	; [PROBABLE] 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4C94-5028 by apply_coverage --split
 	ld a, $01
@@ -906,7 +905,6 @@ Label_23_4FD8::
 	jp MailSrvDel_Cancelled
 
 MailSrvDel_DeleteAllRun_DelePollResult:: ; 23:4FF0
-Label_23_4FF0::
 	; [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 4C94-5028 by apply_coverage
 	; --split [executed in 4 scenarios]
 	push hl
@@ -973,7 +971,6 @@ MailSrvDel_DeleteAllRun_Error:: ; 23:5002
 	pop hl
 
 MailSrvDel_DeleteAllRun_CountDeleted:: ; 23:503F
-Label_23_503F::
 	; [CONFIRMED] 463 insn(s) reached by static flow only; seeds: exec x455, site x8; min discovery
 	; hops 0; entered by jrcc from 23:5000 (PROBABLE code) | 60 insn(s) executed; cut out of the
 	; PROBABLE region 503F-540D by apply_coverage --split [executed in 4 scenarios]
@@ -1060,7 +1057,7 @@ MailSrvDel_DeleteAllRun_NextMail:: ; 23:5063
 	ret
 
 MailSrvDel_DeleteAllRun_TimeWarningPopup:: ; 23:50CC
-Function_23_50CC::
+
 	; [PROBABLE] 104 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 503F-540D by apply_coverage --split
 	push af
@@ -1113,7 +1110,7 @@ Function_23_50CC::
 	ret
 
 MailSrvDel_DeleteAllRun_TimeWarningPopupReading:: ; 23:5137
-Function_23_5137::
+
 	push af
 	push bc
 	push de
@@ -1616,7 +1613,7 @@ MailSrvDel_DeleteCompletelyRun_NextMail:: ; 23:5424
 	ret
 
 MailSrvDel_DeleteCompletelyRun_TimeWarningPopup:: ; 23:54B1
-Function_23_54B1::
+
 	; [PROBABLE] 119 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5424-581E by apply_coverage --split
 	push af

@@ -99,7 +99,7 @@ Html_ParseSource_TitleTag:: ; 74:44D4
 	jp .loop
 
 Html_StoreTitle:: ; 74:4530
-Function_74_4530::
+
 	; [CONFIRMED] 28 insn(s); 28 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh a, [hHtml_PageHeader]
@@ -445,7 +445,6 @@ Html_Tag_Div:: ; 74:472E
 	jr nz, Html_Tag_Div_ParseAlign
 
 Html_AlignStack_Pop:: ; 74:4740
-Label_74_4740::
 	; [CONFIRMED] 17 insn(s); 17 executed (in up to 1/18 scenarios)
 	ld a, [wHtmlAlignSp]
 	ld [wHtmlAlign], a
@@ -466,7 +465,6 @@ Label_74_4740::
 	jp Html_ParseSource_Tag_Done
 
 Html_Tag_Div_ParseAlign:: ; 74:4761
-Label_74_4761::
 	; [CONFIRMED] 20 insn(s) reached by static flow only; seeds: site x20; min discovery hops 1;
 	; entered by jrcc from 74:473E (PROBABLE code) [executed in 1 scenarios]
 	ld bc, Html_AlignAttrPtrs
@@ -491,7 +489,6 @@ Label_74_4761::
 	ld b, a
 
 Html_AlignStack_Push:: ; 74:4788
-Label_74_4788::
 	; [CONFIRMED] 71 insn(s); 71 executed (in up to 1/18 scenarios)
 	ld a, [wHtmlAlignSp]
 	cp a, $FF
@@ -766,7 +763,6 @@ Html_Tag_Li:: ; 74:493F
 	jr nz, Html_Tag_Li_Number
 
 Html_Tag_Li_Bullet:: ; 74:4959
-Label_74_4959::
 	inc de
 	inc de
 	ld a, $E0
@@ -801,7 +797,6 @@ Label_74_4959::
 	jp Html_ParseSource_Tag_Done
 
 Html_Tag_Li_Close:: ; 74:4987
-Label_74_4987::
 	; [PROBABLE] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1;
 	; entered by jrcc from 74:4949 (executed)
 	ldh a, [hHtmlListIndent]
@@ -818,7 +813,6 @@ Data_74_4995::
 	db $81, $45
 
 Html_Tag_Li_Number:: ; 74:4997
-Label_74_4997::
 	; [CONFIRMED] 94 insn(s) reached by static flow only; seeds: exec x94; min discovery hops 1;
 	; entered by jrcc from 74:4957 (executed) | 38 insn(s) executed; cut out of the PROBABLE region
 	; 4997-4A32 by apply_coverage --split [executed in 5 scenarios]
@@ -1193,7 +1187,6 @@ Html_Tag_Br:: ; 74:4B98
 	farcall Html_Layout_WrapRun
 
 Html_Tag_Br_EndLine:: ; 74:4BDE
-Label_74_4BDE::
 	farcall Html_Layout_EndLine
 	push de
 	push hl
@@ -1210,7 +1203,6 @@ Table_74_4BEC::
 	dw Html_Tag_Br_ClearAll
 
 Html_Tag_Br_ClearLeft:: ; 74:4BF4
-Label_74_4BF4::
 	; [CONFIRMED] 31 insn(s) reached by static flow only; seeds: exec x31; min discovery hops 1;
 	; entered by table from 74:4BE9 (executed) [executed in 1 scenarios]
 	; [CONFIRMED] a <br clear=left> inside a list never ends (scenario browser_brl: 67,805 calls, 67,803 retries through Html_Tag_Br_ClearRetry, blank screen, buttons do nothing;
@@ -1234,7 +1226,6 @@ Label_74_4BF4::
 	jr Html_Tag_Br_Done
 
 Html_Tag_Br_ClearRight:: ; 74:4C12
-Label_74_4C12::
 	ldh a, [hHtmlLayout_LineY]
 	ld e, a
 	ldh a, [hHtmlLayout_LineYHi]
@@ -1252,14 +1243,12 @@ Label_74_4C12::
 	jr nz, Html_Tag_Br_ClearRetry
 
 Html_Tag_Br_Done:: ; 74:4C2E
-Label_74_4C2E::
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 2/18 scenarios)
 	pop hl
 	pop de
 	jp Html_ParseSource_Tag_Done
 
 Html_Tag_Br_ClearAll:: ; 74:4C33
-Label_74_4C33::
 	; [CONFIRMED] 63 insn(s) reached by static flow only; seeds: exec x63; min discovery hops 1;
 	; entered by table from 74:4BE9 (executed) | 25 insn(s) executed; cut out of the PROBABLE region
 	; 4C33-4CA6 by apply_coverage --split [executed in 1 scenarios]
@@ -1292,7 +1281,6 @@ Label_74_4C33::
 	jr z, Html_Tag_Br_Done
 
 Html_Tag_Br_ClearRetry:: ; 74:4C5F
-Label_74_4C5F::
 	; [CONFIRMED] 7 insn(s) executed (browser_brl, browser_bra: the retry of a <br clear=left|all> inside a list, over 67,000 times each); cut out of the PROBABLE region
 	; 4C33-4CA6 by apply_coverage --split
 	pop hl
@@ -1312,7 +1300,6 @@ Html_ParseSource_PreCR:: ; 74:4C6B
 	inc hl
 
 Html_ParseSource_PreLineBreak:: ; 74:4C71
-Label_74_4C71::
 	ld a, l
 	ldh [hHtml_MatchRestart], a
 	ld a, h

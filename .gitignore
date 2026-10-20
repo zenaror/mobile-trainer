@@ -12,6 +12,7 @@ build/
 *.pyc
 __pycache__/
 # local scratch / tool caches (Ghidra projects, downloaded extensions, traces)
+.tmp/
 .cache/
 scratch/
 traces/*.bin

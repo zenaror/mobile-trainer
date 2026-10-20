@@ -5,7 +5,7 @@
 SECTION "engine/address_book/unreferenced_confirm_screen", ROMX
 
 AddrScreenUnused_Run:: ; 2C:741C
-Function_2C_741C::
+
 	; [PROBABLE] 2 insn(s) (call $746F ; ld b,$3C) falling into the validated code region 7421;
 	; follows the frame data terminator 01 00 04; no direct entry found | forced execution: 2/2
 	; instruction starts ran in forced_dead (traces/forced/, not natural evidence; status unchanged)
@@ -70,7 +70,7 @@ Function_2C_741C::
 	jr .loop
 
 AddrScreenUnused_InitScreen:: ; 2C:746F
-Function_2C_746F::
+
 	; [PROBABLE] 325 insn(s) reached by static flow only; seeds: site x325; min discovery hops 0;
 	; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code |
 	; forced execution: 151/325 instruction starts ran in forced_dead (traces/forced/, not natural
@@ -152,7 +152,7 @@ Function_2C_746F::
 	ret
 
 AddrScreenUnused_DrawTextLine21:: ; 2C:755C
-Function_2C_755C::
+
 	ld a, $15
 	ld [wTextCellsLeft], a
 .l7561 ; 2C:7561
@@ -259,7 +259,7 @@ Function_2C_755C::
 	jr .l760D
 
 AddrScreenUnused_DrawTextLine21_BlitGlyphAdvance:: ; 2C:761C
-Function_2C_761C::
+
 	push bc
 	push de
 	push hl
@@ -274,7 +274,7 @@ Function_2C_761C::
 	ret
 
 AddrScreenUnused_DrawTextLine21_BlitBlankAdvance:: ; 2C:7630
-Function_2C_7630::
+
 	push bc
 	push de
 	push hl
@@ -291,7 +291,7 @@ Function_2C_7630::
 	ret
 
 AddrScreenUnused_DrawTextLine25:: ; 2C:7648
-Function_2C_7648::
+
 	ld a, $19
 	ld [wTextCellsLeft], a
 .l764D ; 2C:764D
@@ -398,7 +398,7 @@ Function_2C_7648::
 	jr .l76F9
 
 AddrScreenUnused_DrawTextLine25_BlitGlyphAdvance:: ; 2C:7708
-Function_2C_7708::
+
 	push bc
 	push de
 	push hl
@@ -413,7 +413,7 @@ Function_2C_7708::
 	ret
 
 AddrScreenUnused_DrawTextLine25_BlitBlankAdvance:: ; 2C:771C
-Function_2C_771C::
+
 	push bc
 	push de
 	push hl

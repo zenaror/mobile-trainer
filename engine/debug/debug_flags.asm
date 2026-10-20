@@ -991,18 +991,16 @@ DebugFlags_PlaceCursor:: ; 19:47ED
 ; ---- words $481D-$4821 (4 bytes) [PROBABLE] 1 object-table entries of 4 bytes (ptr to frame table, ptr to script; 0000 = unused); de=$481D a=$19 at 19:4136 (1 entry); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs
 
 Table_DebugFlags_Objects:: ; 19:481D
-Table_19_481D::
-	sprite_object_entry DebugFlags_ObjAnimData, SpriteScript_19_4828 ; entry 0
+	sprite_object_entry DebugFlags_ObjAnimData, DebugFlags_CursorScript ; entry 0
 
 ; ---- data $4821-$482B (10 bytes) [PROBABLE] 1 object record: frame table 4821 (word 4823), frame 4823 = 01 [00 00 00 01] (count 1, one OAM entry), script 4828 = 01 [00 04] (one pair); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs
 
 DebugFlags_ObjAnimData:: ; 19:4821
-Data_19_4821::
-	sprite_frame_table SpriteFrame_19_4823
-SpriteFrame_19_4823:: ; 19:4823
+	sprite_frame_table DebugFlags_CursorFrame0
+DebugFlags_CursorFrame0:: ; 19:4823
 	sprite_frame 1
 	sprite_oam 0, 0, $00, 1
-SpriteScript_19_4828:: ; 19:4828
+DebugFlags_CursorScript:: ; 19:4828
 	sprite_anim 1
 	sprite_anim_step 0, 4
 

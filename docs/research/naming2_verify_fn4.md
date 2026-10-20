@@ -71,7 +71,7 @@ Yes for all nine.  Every body is the single byte `$C9` (`ret`), touches no flag 
    Ten of the 13 sites follow `FillBytes $C0D4, $FC`.  The `checksum3.asm` header says "patched-out 48BB hook", but "(its first byte was replaced by this ret)" contradicts the bytes:
    `48BC` starts with its own `cd e1 48`, the same as `Sram_VerifyChecksum3`, so the `ret` is an extra byte before it.  Nothing shows what was patched.
 6. `Function_26_5343`: **UPHELD** (CONFIRMED).  `26:5343 = c9`.  Only caller: `call` at `26:58E0` (`mail_session_screen.asm:1153`), after four pushes at the top of
-   `MailSession_UpdateTimerDisplay`.  171,411 hits / 22 scenarios, equal to the callee.  The 56 bytes after it (`5344-537B`) are a separate, complete, unreferenced function.
+   `MailSession_UpdateTimerDisplay`.  171,411 hits / 22 scenarios, equal to the callee.  Correction dated 2026-10-15: the earlier description of the following 56 bytes (`5344-537B`) as a "separate, complete, unreferenced function" overstated the evidence. They are now a PROBABLE code fragment; an independent entry and its intended role remain HYPOTHESIS. See the dated storage analysis below.
 7. `Function_2E_4EB1`: **UPHELD** (CONFIRMED).  `2E:4EB1 = c9`.  Raw callers: `2E:4E02` (29 runs), `4E39` (5), `4E74` (0), `4EAB` (0), each `di ; ldh a, [rLCDC] ; call $082C
    (Gfx_UploadBgMapBuffers) ; ei ; call $4EB1`.  34 hits / 7 scenarios, equal to the callee.
 8. `Function_7F_61E6`: **CORRECTED** (evidence; name and PROBABLE kept).  `7F:61E6 = c9`.  Only caller: `call nz` at `7F:5ADB` (`page_list_prototype.asm:1852`), the same flag-less pattern
@@ -247,3 +247,240 @@ RAM role hints from the same reading (not applied here): `hRam_FFC4:FFC5` line c
 `FFCE:FFCF` record count, `FFBA` WRAM bank of the record list, `FFB0` record kind (1 text run, 4 image, 5 loaded image), `FFB2` style / alignment flags of the next record (bit 0 link, bit 1 bold, bits 2-5 as above).
 Limits: replays use synthetic records and an own interpreter (no PPU, no timing); the layout was not compared with rendered output; the never-executed paths (wrap, vertical alignment `$10/$20/$30`, float placing) are static plus replay only; the RAM names
 quoted come from `ram/hram.asm` as PROBABLE or HYPOTHESIS and were not re-derived.
+
+## Finite fragment-comment corrections and conditional stack contracts (2026-10-15)
+
+The current comments distinguish sequential bypass from a proof of universal unreachability. In each stack formula, S denotes SP at that specific fragment entry. In lib/mobile/mail.asm the old claim that47A5 must be a missing branch/jump-table target did not follow from JR47A3->47CF bypassing it. In parser/link_tables, POP HL74:43C3 and POP BC74:5B3E are bypassed by JP43C0->4307 and JR5B3C->5B3F; hypothetical entry changes SP by2 before the existing tail. Prior finite target/word searches are historical evidence, not proof excluding every computed/other entry. The retained confidence for entry/purpose is HYPOTHESIS; no new function, caller or label is introduced.
+
+The same qualification applies to the two delete_flows branches23:4AA4->4B1A and4BE5->4C5D, and the three delete_hidden branches22:4BB5->4C2B,4D00->4D76,4E41->4EB9. The earlier JP bypasses each fragment sequentially. These statements replace the overbroad unreachable wording without inventing a reaching path. The23 branch bytes are1874 and1876, so the old twin wording must not imply byte identity. The three22 fragments have1874/1874/1876; displacement and destination are explicit. These22 corrections originate in ROOT's finite49..72 inventory, the23 corrections in the independently read25..48 lot; they are not new natural coverage.
+
+At2E:[488A,48F8),110 original bytes contain four initial saves AF/BC/DE/HL. Under ordinary balanced callees, POP HL/DE/BC/AF48E9..48EC followed byRET48ED restores those four saves and returns through word[S] with SP=S+2. The branch at48BB can instead reach48EE: seven POPs at48EE..48F4 restore the four local saves, then consume three external words. RET48F7 takes PC=word[S+6] and leaves SP=S+8. In that alternate path finalA80 replaces the A popped from word[S]; F is the writable high nibble from that word's flag byte, HL=word[S+2],BC=word[S+4],DE is the restored entry DE. The old statement that matching POPs were not proven is superseded by this conditional walk, without supplying the external frame, intended unwind or a caller. Buffers/shadows/mapper/IRQ and stack nonaliasing must respect the existing helper contracts.
+
+Two further positive stack contracts from the bounded review are recorded without creating entry labels.2D:[4B2D,4CA5),376 bytes, has PUSH BC4B2D, the balanced AF pair4BD9/4BF4, POP BC4C10 and another POP BC4CA3 beforeRET4CA4. With balanced callees and safe saved words, the first POP restores entryBC, the second consumes word[S], and RET takes word[S+2] with SP=S+4. Thus the sequence does not have a general conventional preservedBC return.2D:[5A60,5A6F) instead has one PUSH/POP BC pair around its keyboard-hide/scroll-clear sequence, and is balanced under ordinary callee completion. No valid outer frame or natural entry is inferred for either.
+
+At0F:4D35, LD B82 falls into POP HL4D37, LD A1 and JP4260. The selected-bank tail writes selectorD002=1, POP AF4263 and its two FF8C stores plus4000 restore the saved SRAM-bank byte, thenRET426B. With S=entrySP and nonaliasing safe stack, HL=word[S], AF comes from word[S+2],PC=word[S+4],SP=S+6; finalA is the saved bank byte, not necessarily1. B remains82 through this literal tail. This explains the byteflow while leaving the external frame/entry/purpose HYPOTHESIS.
+
+At75:[5118,5149),49 bytes/22 CPU starts, the literal code writes the received length through the pointer atC6C6, incrementsC82C, setsC709=0F/C70A=1/C70D=C70C/C826=0, then tail-jumps5F0B with A=A3,DE0010,HLC832. The tail stores the command and enters5F10. Its status helper may wait or return carry; the sender can reject an occupied serial phase, pollSC.bit7 without a deadline, or install resend/transmit state and enable interrupts before returning. Pointer alias/wrap, memory/banks, stack, IRQ and callee progress remain conditions. A descriptive conditional operation does not establish a completed send, full protocol purpose or natural entry.
+
+Two ROOT-supplied literal corrections are also integrated. In2A:[56CB,56EC),33 bytes contain CALL6257, eight CALL577F sites56CE/56D1/56D4/56D7/56DA/56DD/56E0/56E3, JP54FD at56E6, and a separate CALL62C5 at56E9. The old count nine was wrong; the CALL after the unconditional JP is not its sequential continuation. In7C the JP7D88->7D57 bypasses the A0 prefix7D8B sequentially; independent entry remains HYPOTHESIS. The111B choreography at7D8D and its separate trailer keep their existing qualifications.
+
+CONFIRMED here are literal bytes, counts and the stated instruction/stack transformations under the explicit balanced/no-alias assumptions. Conditional contracts are PROBABLE; entry/caller/purpose/domain and external unwind intent remain HYPOTHESIS. All owner physical rows, instructions/operands, locators, neutral/semantic labels and local scopes are preserved. This note is an append to the historical verification, not a rewriting of its prior methods/results. No new trace, replay, hardware observation, image/frame/asset work or whole-ROM/function-completion claim follows. Static correspondence is not a new reconstruction equivalence result.
+
+## Contratos condicionais dos72 blocos anotados sem global — 2026-10-15
+
+Os72 itens são os registros1-based do catálogo `unlabelled_hypothesis_comment_blocks`, não72 funções nem todas as entradas da ROM. Os três lotes fechados descrevem987 bytes/497 inícios CPU condicionais nos cores selecionados, com42 bytes inline FarCall separados. Caudas compartilhadas adicionais se sobrepõem ao código e não entram novamente nesses totais. O item20 reúne dois stores independentes de6B, e itens33/35/65 incluem terminações alternativas sem fallthrough. Nenhum rótulo/função foi criado nem storage cru convertido a código por este inventário.
+
+CONFIRMED qualifica bytes, localizadores e partições dos lotes; PROBABLE qualifica a mecânica como execução condicional do decode mantido; entrada/caller/finalidade/domínio/frame sem demonstração continuam HYPOTHESIS. Um mecanismo local pode estar explicado sem um caller estabelecido. O nome de um parent/callee não prova ABI. O fechamento desses contratos não é ALL semântico, censo completo de funções, prova universal de reachability, execução natural ou hardware.
+
+Na tabela, S é SP na entrada específica do fragmento. `word[endereço]` é a memória no instante em que a instrução a lê, não necessariamente o conteúdo inicial: PUSHs posteriores podem reescrever slots. `SP+N` é relativo aS. Todo retorno supõe palavras legíveis, mapping/fetch esperado e stack sem alias com buffers/seletores. Os callees precisam retornar balanceados para atingir os sufixos descritos; IRQ/reentrada/shadows, memória e domínio de argumentos devem respeitar os contratos completos dos lotes. Esperas, loops, mapper writes ou retornos via palavras externas podem impedir a continuação esperada.
+
+### Owners
+
+Os identificadores servem apenas para compactar a tabela; caminhos são os owners mantidos, não funções.
+
+|Owner|Caminho|
+|---|---|
+|O01|`audio/engine.asm`|
+|O02|`engine/account/registration_verify.asm`|
+|O03|`engine/account/result_page.asm`|
+|O04|`engine/account/settings_page.asm`|
+|O05|`engine/address_book/address_editor.asm`|
+|O06|`engine/address_book/name_editor.asm`|
+|O07|`engine/browser/page_list.asm`|
+|O08|`engine/comm/comm_scene.asm`|
+|O09|`engine/comm/time_hooks.asm`|
+|O10|`engine/html/link_tables.asm`|
+|O11|`engine/html/parser.asm`|
+|O12|`engine/keyboard/keyboard.asm`|
+|O13|`engine/mail/address_editor.asm`|
+|O14|`engine/mail/body_editor.asm`|
+|O15|`engine/mail/mail_title_entry.asm`|
+|O16|`engine/mail/received_mail_grid.asm`|
+|O17|`engine/mail_server/delete_flows.asm`|
+|O18|`engine/mail_server/delete_hidden.asm`|
+|O19|`engine/mail_server/delete_messages.asm`|
+|O20|`engine/mail_server/tidy.asm`|
+|O21|`engine/main/navigation.asm`|
+|O22|`engine/profile/profile_editor.asm`|
+|O23|`engine/settings/continue_prompt.asm`|
+|O24|`engine/sram/integrity_check.asm`|
+|O25|`engine/text/charset_convert.asm`|
+|O26|`engine/unreferenced/page_list_prototype.asm`|
+|O27|`lib/mobile/mail.asm`|
+
+### 72 cores selecionados
+
+|ID|Owner:linha|Banco:[início,fim)|B/starts|Efeito e frame|Limites específicos|
+|---:|---|---|---:|---|---|
+|1|O01:2442|`04:[4D53,4D54)`|1/1|DEC HL; cai no driver|sem stack local; cauda/pointers/IO condicionados|
+|2|O02:398|`68:[7312,7313)`|1/1|RET;PC=word[S],SP+2|AFBCDEHL/seletores locais intactos|
+|3|O03:103|`68:[7740,7741)`|1/1|RET;PC=word[S],SP+2|separado dos JR vizinhos|
+|4|O04:188|`68:[48C6,48C8)`|2/2|XOR A/RET;A0,F80,SP+2|não herda ação do vizinho|
+|5|O05:342|`2F:[6F44,6F4D)`|9/6|B7/C0B→RET;senão cauda|goal41/C40 difere de21; buffers/helper|
+|6|O05:1034|`2F:[73A6,73AA)`|4/3|INC/DEC C;tailsPOPBC/RET|BC=word[S],PC=word[S+2],SP+4|
+|7|O06:44|`2F:[582D,5832)`|5/3|POPAF/CP1/JR5854 ou5832|SP+2;CP substitui F; loop pode não retornar|
+|8|O06:169|`2F:[590B,5914)`|9/6|Guard B7/C0B;cauda goal08/C08|mesmo core de5; consumidor diferente|
+|9|O06:605|`2F:[5C30,5C34)`|4/3|INC/DEC C;tailsPOPBC/RET|SP+4;BC externo, não argumento preservado|
+|10|O06:732|`2F:[5CC5,5CD2)`|13/7|WRAM1;CP0 substituiCP0D|caudas consomem2words;PC=word[S+4],SP+6|
+|11|O06:1134|`2F:[5F28,5F30)`|8/5|RAMG/FFF5=0;POPBC/RET|A0/F80;frame externoBC;SP+4|
+|12|O06:1256|`2F:[6007,600F)`|8/5|RAMG/FFF5=0;POPBC/RET|idêntico11;stack legível sem SRAM|
+|13|O06:1382|`2F:[60B8,60C0)`|8/5|RAMG/FFF5=0;POPBC/RET|idêntico11;sem restaurar enable anterior|
+|14|O07:340|`24:[42AF,42B0)`|1/1|RET;SP+2|não executa cópias de42B0|
+|15|O08:971|`70:[4740,477F)`|63/32|SRAM1:A9ED.bit7→B/A0/1|2AF salvos/restaurados;Fentrada;FFF2 amostra|
+|16|O09:26|`7F:[620C,6218)`|12/7|C26B<1E→A0;senãoAFF|F80 ouCP1E;SP+2;sem unidade temporal|
+|17|O10:176|`74:[5B3E,5B3F)`|1/1|POPBC,POPDE,scan com folding|SP+6−2k;word noRET pode ter sido reescrita|
+|18|O11:367|`74:[43C3,43C4)`|1/1|POPHL;cauda escreve header/scroll|SP+4;mapper porH e progressos condicionados|
+|19|O12:296|`55:[5DF5,5E02)`|13/5|LookupC2AB;OR;JP5E5A/5F29|sem RET;índice não limitado;tails próprias|
+|20|O12:908|`55:[6184,6190)`|12/6|Dois storesFF emC2BD/C2BE|6B cada;RETs separados;F intacto,SP+2|
+|21|O13:354|`2D:[681E,6827)`|9/6|Guard B7/C0B;cauda goal40/C40|core igual5/8;não copiar goal41 de5|
+|22|O13:1072|`2D:[6CCD,6CD1)`|4/3|INC/DEC C;tailsPOPBC/RET|SP+4;carry original,DEC regeZNH|
+|23|O13:1517|`2D:[6F7A,6F7B)`|1/1|RET;SP+2|JP anterior contorna;entrada não inferida|
+|24|O14:575|`2D:[4B2D,4CA5)`|376/141|Setup+13far+8drawrows|POPextra;PC=word[S+2],SP+4;helpers/IRQ|
+|25|O14:955|`2D:[4E04,4E06)`|2/2|POPBC/RET|PC=word[S+2],SP+4;AFDEHL intactos|
+|26|O14:1094|`2D:[4EAE,4EB2)`|4/3|INC/DEC C;tailsPOPBC/RET|C original controla;retorno substituiBC|
+|27|O14:2180|`2D:[54D2,54DA)`|8/5|RAMG/FFF5=0;POPBC/RET|A0/F80,SP+4;JR só prova bypass|
+|28|O14:2292|`2D:[55A1,55A9)`|8/5|Mesmo epílogo8B de27|SP+4;qualificar “nenhum caminho”|
+|29|O14:2413|`2D:[5642,564A)`|8/5|Mesmo epílogo8B de27|SP+4;qualificar “nenhum caminho”|
+|30|O14:2573|`2D:[574E,574F)`|1/1|RET;SP+2|separado doJP precedente|
+|31|O14:2614|`2D:[5799,579A)`|1/1|RET;SP+2|não entra na cauda seguinte|
+|32|O14:2802|`2D:[58D6,58D9)`|3/1|JP5691|sem mudança local de regs/F/SP;estado do loop|
+|33|O14:2927|`2D:[59AD,59B1)`|4/2|JP56C6;RET59B0 alternativo|JP não cai noRET;destino pode não retornar|
+|34|O14:3048|`2D:[5A60,5A6F)`|15/7|PUSHBC/farHide;SCY=C0D3=0|POPBC/RET balanceado secallees retornam|
+|35|O14:3068|`2D:[5A78,5A7B)`|3/2|RET5A78;JR5A79 autorreferente|entradas alternativas;loop sem deadline|
+|36|O14:3098|`2D:[5A97,5A98)`|1/1|RET;SP+2|separado doRET precedente|
+|37|O15:629|`2C:[4463,4467)`|4/3|INC/DEC C;mesmo core26|tails SP+4;dead não provado universalmente|
+|38|O15:732|`2C:[44DB,44DC)`|1/1|RETNZ;Z1 cai44DC|Z0 SP+2;predecessorRET44DA,nãoJP/JR|
+|39|O15:810|`2C:[456D,457A)`|13/7|WRAM1;CP0 substituiCP0D|NUL→459C;senão457A;sem stack no core|
+|40|O15:1177|`2C:[4760,4768)`|8/5|RAMG/FFF5=0;POPBC/RET|mesmos8B;PC=word[S+2],SP+4|
+|41|O15:1309|`2C:[483F,4847)`|8/5|Mesmo epílogo8B|entryHYP;busca histórica não écaller|
+|42|O15:1437|`2C:[48F0,48F8)`|8/5|Mesmo epílogo8B|entryHYP;stack legível apósRAMG0|
+|43|O16:640|`2B:[5806,5807)`|1/1|RET5806;SP+2|separado doRET5805|
+|44|O17:96|`23:[4AA4,4AA6)`|2/1|JR4B1A (1874)|JP anterior contorna;entrada/frame abertos|
+|45|O17:276|`23:[4BE5,4BE7)`|2/1|JR4C5D (1876)|template44,displacement diferente|
+|46|O17:956|`23:[5028,503F)`|23/18|WRAM1;incwordD629;fall503F|HL/SP/F preservados;BC D62A;tail decrementa|
+|47|O17:1515|`23:[540D,5424)`|23/18|Twin23B de46;fall5424|tail36B igual;sem copiar caller/purpose|
+|48|O18:744|`22:[47DD,47DE)`|1/1|RET47DD;SP+2|bypass sequencialJP47DA;sem função nova|
+|49|O18:1286|`22:[4BB5,4BB7)`|2/1|JR4C2B (1874)|JP anterior contorna;não prova inacessível|
+|50|O18:1475|`22:[4D00,4D02)`|2/1|JR4D76 (1874)|mesmos2B49,destino distinto|
+|51|O18:1656|`22:[4E41,4E43)`|2/1|JR4EB9 (1876)|displacement diferente;tail/frame separados|
+|52|O19:210|`23:[6F22,6F3C)`|26/15|PUSH4;WRAM7/1;renderizador tempo|POPs compartilhados;SP+2 normal;IRQ/bancos|
+|53|O19:256|`23:[6F60,6F6F)`|15/7|Minute+3C;CP64;tail render|sem saves;consome8B;PC=word[S+8],SP+10|
+|54|O20:1211|`2E:[488A,488E)`|4/4|PUSH4→cauda tidy|normalSP+2;alternativa POP7→SP+8,PCword[S+6]|
+|55|O21:299|`7C:[7D8B,7D8D)`|2/1|LD A0→7D8D|F/BCDEHL/SP intactos;JP7D88 contorna|
+|56|O21:354|`7C:[7DFC,7DFF)`|3/1|JP7D57|sem efeito local de stack;loop não garanteRET|
+|57|O22:330|`2A:[56CB,56EC)`|33/11|CALL6257+8CALL577F;JP54FD|CALL62C5 posterior éalternativo;callees|
+|58|O22:434|`2A:[5781,578A)`|9/6|Guard B7/C9→RET;senão578A|A9/FC0 noRET;core difereC9 dosguardsC0B|
+|59|O22:1161|`2A:[5C7D,5C81)`|4/3|INC/DEC C;tailsPOPBC/RET|mesmos4B;BC externo,PCword[S+2],SP+4|
+|60|O22:1329|`2A:[5D7E,5D8B)`|13/7|WRAM1;CP0 substituiCP0D|NUL→5DAD;tails precisam2words externas|
+|61|O22:1680|`2A:[5F69,5F71)`|8/5|RAMG/FFF5=0;POPBC/RET|mesmos8B;SP+4;semrestaurar enable|
+|62|O22:1797|`2A:[6048,6050)`|8/5|Mesmo epílogo8B|SP+4;stack fora deSRAM desabilitada|
+|63|O22:1915|`2A:[60F9,6101)`|8/5|Mesmo epílogo8B|bancoSRAM vigente permanece|
+|64|O22:2079|`2A:[6222,6223)`|1/1|RET;SP+2|JP anterior contorna;sem entry nova|
+|65|O22:2108|`2A:[6253,6257)`|4/2|JP617B;RET6256 alternativo|sem aresta sequencialJP→RET|
+|66|O23:106|`67:[580C,5821)`|21/11|SFX002E solicitado;C27C=0|A0/F80;SVBK←shadow amostrado;IRQ/gate|
+|67|O24:358|`22:[50CF,50FC)`|45/29|Duas wrapperschecksum/clear|primeiraAFBCDEHL;segundaAFF/A1;SRAM1 off|
+|68|O25:536|`7E:[7DDF,7DE5)`|6/3|A2;FFB1=2;JR7D75|estado persiste;semRET local|
+|69|O26:2780|`7F:[61E8,61FC)`|20/9|WRAM7;zeraC2D4..C2D7|A0/F80;SP+2;WRAM7 não restaurada|
+|70|O27:1264|`0F:[47A5,47BB)`|22/10|Banco←D003;scan4A7E;tails47BB/CF|DE/union/mapping/progresso condicionados|
+|71|O27:2202|`0F:[4C59,4C62)`|9/5|SaveBC;NextSramPage;restore/RET|D!=BF:INCD regeZNH,CdoCP;fronteiraBF troca banco|
+|72|O27:2369|`0F:[4D35,4D37)`|2/1|B82→POPHL/A1/JP4260|AF externo;PCword[S+4],SP+6;Afinal≠1 geral|
+
+### Irmãos e deltas com proveniência raw
+
+Igualdade abaixo é dos campos raw dos três lotes pinados, não de finalidade/caller nem de toda a função envolvente. Operandos relativos iguais podem alcançar destinos diferentes por posição. RET(C9) idêntico não identifica funções. Os hashes permitem conferir a igualdade sem nova varredura da ROM.
+
+|IDs|Raw core exato|SHA-256|
+|---|---|---|
+|2,3,14,23,30,31,36,43,48,64|`C9`|`4fb733bedb74fec8d65bedf056b935189a289e928b3302bec38a281814de523a`|
+|5,8,21|`78FE07200479FE0BC8`|`a234a5cf15e67e65be29ff65b93acba89c8d4f16413566d8de9ba25d6cd4e53a`|
+|6,9,22,26,37,59|`0C0D2002`|`56b9155725f250169cac2ba91d26a7e2b377a87b57a91565a38117894af069ce`|
+|10,39,60|`3E01E08DE0707EFE0DFE002822`|`b07837699484031ee1b6384cad8faba517602119e70c4eb5562cb8bfd230db70`|
+|11,12,13,27,28,29,40,41,42,61,62,63|`AFE0F5EA0000C1C9`|`62ee475f08a0addd61fd770dd25419cc58a6de13984bd41d4f8645b87919d8d2`|
+|44,49,50|`1874`|`58321b5cb4f79ed0eba0b0be440fc1f52058f2722b5e14f632a2f928ab937e81`|
+|45,51|`1876`|`1ebe1e4a0e2fee315b372d45e73e9729558deb204aa3a9eff6c201e69cabb81e`|
+|46,47|`E53E01E08DE0700129D60A5F030A570B137B02037A02E1`|`70442e25404fc212c9bae1aed732c58febe207ad63513cb3e146889cdd4090bd`|
+
+Os guards5/8/21 são idênticos, mas suas caudas diferem:5 deixa goal41/C40,21 goal40/C40 e8 goal08/C08.58 troca CP0B porCP09, sem herdar o consumidor dos outros. Os cores10/39/60 têm dois CP consecutivos: CP00 substitui as flags deCP0D, portanto somente NUL controla o branch seguinte. O item20 difere apenas no operandoC2BD/C2BE entre seus dois stores6B; o primeiro RET impede fallthrough.46/47 têm prefixes23B iguais e tails seguintes36B iguais, mas a continuação posterior é própria de cada fluxo.
+
+As caudas POPBC/RET consomem um word externo: PC=word[S+2],SP=S+4. Os12 epílogos de8B também desabilitam FFF5/RAMG e deixamA0/F80; SRAM bank não é restaurado por isso, e a stack deve permanecer legível sem SRAM. INC C/DEC C restaura o C testado e deixaZ iffC0,N1,H iffbaixo nibble originalF,carry original; o POP posterior substituiBC pelo word do frame. A identidade de core não remove essas precondições.
+
+Os casos de stack irregular permanecem explícitos.17 deixa baselineS+4 após POPBC/POPDE; cada wrapINC B5B14→5B3F pulaPOPBC e muda a recorrência em−2 bytes. Se vier umRET após k wraps, PC=word[S+4−2k] lida naquele instante eSP=S+6−2k; PUSHs podem ter reescrito esses slots, e oDE resultante altera o controle.10 pode consumir dois words externos antes dos RETs5CF3/5DDB.18 acrescentaPOPHL e um BankSwitch_H condicionado ao endereço do header: seguir os bytes físicos74 não prova continuidade após qualquer mudança deROMX.24 tem POPBC4C10 que consome o save inicial e POPBC4CA3 que consome word[S]; RET4CA4 usa word[S+2].53 entra sem os quatro saves esperados pelo epílogo compartilhado.54 normalmente restaura quatro saves, mas a alternativa48EE..48F7 consome mais três words externos e terminaSP=S+8.72 consomeHL eAF externos antes deRET; A final é o banco salvo, não necessariamente1. Nenhum desses fatos define por si um caller, bug, reparo ou intenção de unwind.
+
+No66, a macroSFX amostra o shadowWRAM de entrada, salva esse byte emAF, seleciona SVBK1 e depois recupera o byte peloPOP AF para escrever SVBK; não restaura um shadow corrente queIRQ possa ter alterado, nem garante som audível. No71, D!=BF passa porINC D: Z iffDoriginalFF,N0,H iffbaixo nibble originalF,carry doCPBF; no wrapBF oINC do byte de banco regeZNH. Essas precisões substituem versões anteriores dos lotes, preservadas como história.
+
+### Storage e alcance deste fechamento
+
+Os32 headers UNCLASSIFIED/storage pertencem a um escopo separado desses72 comentários. A auditoria finita dos32 emissores db conferiu122 bytes originais. O header54:4CAD foi corrigido para texto CONFIRMED:81 63 00 é elipse Shift-JIS maisNUL, consumida por Text_TruncateSjis/CopyString ou CopyBytes. O header24:4BCC agora descreve1B em vez de10. Os outros31 intervalos continuam storage UNCLASSIFIED; não foi demonstrada uma função viva com mecanismo local ausente nesses bytes. Decode legal e contrato hipotético não bastam para converterdb a código; ver classify_g6.md, seção7. As listas145/72/32 se sobrepõem e não se somam como funções. Outros intervalos sem comentário/callers computados/limites de entrada não foram cobertos universalmente.
+
+As correções de comentários qualificam bypass sequencial, contagens e frames; não inventam novos caminhos. Os nomes e níveis existentes não são prova suficiente sozinhos. Não foram feitos novos negativos de cenários, wordscans/callers, gates/build, replay/emulação, Git, OMM, tradução ou auditoria de assets/frames/PNGs. Nenhuma equivalência de reconstrução nova decorre deste fechamento estático.
+
+### Identidades dos lotes usados
+
+|Lote fechado|REPORT SHA-256|contracts SHA-256|Hashset SHA-256|
+|---|---|---|---|
+|01–24 V2|`f2de4e2d5cc8940b13aae89e6210d61c88ed3878a8f29aeb22ec02c72a13b08b`|`0676abad1fd94994fed56cc428fa9fc3687529bb65a71a502187a89f9c98c43e`|`4c3f6ca2e547355116e1e38fa72299dab4487d368c3b129aa4ffa691faaff4b4`|
+|25–48|`a1fc7b9db1d89b42b9e5733ca39883acfc522c668f36a4fe32a8bf8dc36b74e5`|`c671cd8f184a1ec977515778e67ea10faa8bb21d03918bc562df7dc40e159772`|`4f09aa737047bb5882df1d91afdcfebbeab648da3e9e44b27cdf73ed2848040c`|
+|49–72 V3|`05f54a6114bd558fceb07e37613ee9bd95c53ff78da83be49e7fad388014fb0f`|`670cf6a3b11253cab869daa6f6fa7b4fff912a444fa347509ea3950fc1eb19a9`|`a043c98fc70808bab1d8062f49e788ec20a1cd47c125741ace90568caeb39a74`|
+
+
+### 2026-10-15: positive classification of the 26:5344 fragment
+
+This dated correction updates the earlier storage snapshot above: **31 intervals / 119 bytes** became
+**30 intervals / 63 bytes** of remaining UNCLASSIFIED storage after classifying only `26:5344-537C`
+(56 bytes) as **PROBABLE code fragment**. The other 30 spans and their confidence levels are unchanged.
+No new independent function entry, callable function name or execution result was established.
+`Data_26_5344` keeps its historical global address label. The inactive `Function_26_5343` alias had no
+active assembly reference and was removed; `Stub_Nop_26_5343` remains the known single-RET no-op.
+The call at `26:58E0` targets that RET at `5343`, so it returns before this fragment.
+
+The positive classification evidence is a concrete buffer relationship, in addition to the internally
+consistent 37-instruction body. Under ordinary CGB mappings, the fragment selects WRAM bank 7 at `26:535D-5363`; the
+loop at `26:5363-536E` addresses `$D160-$D19F`, writing `$00..$3F`. This is `wScreenTileMap+$160`: two complete
+32-byte rows, 11 and 12. The live `MailSession_InitScreen` sequence at `26:52D8-52E6` selects VRAM
+bank 0 and fills `$9960-$999F` with the same 64-byte sequence. The screen-map buffer starts at
+WRAM7 `$D000`, corresponding to VRAM `$9800`; both ranges therefore have offset `$160`.
+This matching address/data relationship supports **PROBABLE code content**, not an independent entry
+or author intent. A disabled helper, test routine or other original role remains **HYPOTHESIS**.
+
+The fragment's static, conditional contracts are:
+
+- Entry `5344` pushes AF/BC/DE/HL, samples the value read from `rSVBK` into E and sets D to `$32`
+  (50 iterations). `.repeatFills` is at `534D`, `.fillTileFF` at `5357` and `.fillScreenRows` at `5369`.
+- Each iteration issues 16 `$FF` stores to VRAM bank 1 `$9010-$901F`, then selects WRAM bank 7 and
+  issues 64 ascending stores `$00..$3F` to `$D160-$D19F`. The loop count is 50 iterations, not frames:
+  there is no VBlank wait, DI or LCD disable. Totals are 800 VRAM store attempts and 3,200 WRAM stores
+  if entered and completed with stable mapping and no interfering execution. VRAM acceptance is
+  conditional on writable VRAM; this static analysis is not evidence of hardware-accepted fills.
+- The outer save of DE is paired on every pass. A valid, non-overlapping stack requires at most
+  10 additional bytes: eight for AF/BC/DE/HL and two for the per-iteration DE save. These four register
+  pairs are restored before RET only if that stack remains physically bank-invariant as SVBK
+  changes (for example, WRAM0/HRAM). Non-overlap alone is insufficient: saves at WRAM1
+  D7F6..D7FF would be read back from WRAM7 after selection7, corrupting the frame.
+- The sampled `rSVBK` read is written to both `hWRAMBank` and `rSVBK` at exit. The original shadow
+  is preserved only if it agreed with that sampled read; this is not an independent shadow save.
+  `rVBK` remains 1 and `hVRAMBank` is not updated, so an earlier different VRAM shadow stays stale. These effects assume ordinary IO, stable ROM bank 26 and no IRQ or other execution
+  that changes the relevant mapping/stack during the fragment.
+- The three relative branches are `535B -> 5357` (`FA`), `536C -> 5369` (`FB`) and
+  `5370 -> 534D` (`DB`). They stay inside the 56-byte fragment, ending in RET at `537B`.
+
+The original 56 bytes are:
+
+```text
+F5C5D5E5F0705F1632D53E01E04F21109006103EFF220520FA3E07E08DE0702160D10640AF223C0520FBD11520DB7BE08DE070E1D1C1F1C9
+```
+
+Input identity: accepted private source snapshot corresponding to root revision
+`245961f64363a27e57c99b3fbad906bf8d400ca2`; original ROM SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. The bounded readset is pinned by
+`READSET.json` SHA-256 `4130c3f5da57d8e2a026b397d4f8cd3903ae2028b39828a8702b6799a933602e` and
+`MEASUREMENTS.json` SHA-256 `b917ed674218be088b39b46769050c265101986b81dc56781f4f146ac770c520` from the `mt-jp-raw31-remaining-20261015/DATA`
+analysis. The new proposal's DATA readset also records the two edited-file baselines and the hardware,
+HRAM and banked-RAM definitions used to resolve operands. Exact bytes, labels and source changes are
+available in that proposal's DATA reports. No build, gates, emulator, hardware, Git mutation, OMM
+write or English work was performed by this private proposal; reconstruction comparison remains a
+separate required integration check.
+
+
+### 2026-10-17: scope of the30-interval storage counter
+
+The30 intervals/63 bytes quoted above do not enumerate the six maintained source roots. A current literal-header census finds32 HYPOTHESIS intervals/92 bytes; the additional owners are28 bytes at28:4BA6-4BC2 in `gfx/mail/body_view.asm` and one byte at75:6D62-6D63 in `lib/mobile/main.asm`. The separate already-CONFIRMED ellipsis bytes at54:511B-511D had a stale UNCLASSIFIED header, now corrected as text. See [the full scope correction](classify_g6.md#8-six-root-unclassified-header-scope-correction-2026-10-17). The earlier positive classification of26:5344-537C and its conditional contract remain unchanged. These counts describe annotation coverage and do not close function discovery or all unknown ROM data.

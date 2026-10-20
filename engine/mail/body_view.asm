@@ -5,7 +5,7 @@
 SECTION "engine/mail/body_view", ROMX
 
 MailBody_ViewScreen:: ; 28:4000
-Function_28_4000::
+
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	farcall Stat_EnableScrollSplit
@@ -299,7 +299,7 @@ MailBody_BlitGlyphAdvance:: ; 28:428B
 	ret
 
 MailBody_BlitBlankCellAdvance:: ; 28:429F
-Function_28_429F::
+
 	push bc
 	push de
 	push hl

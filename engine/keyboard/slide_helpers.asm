@@ -5,7 +5,7 @@
 SECTION "engine/keyboard/slide_helpers", ROMX
 
 KbdSlide_InPrepMode6:: ; 7F:70FD
-Function_7F_70FD::
+
 	; [CONFIRMED] 8 insn(s); 8 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af

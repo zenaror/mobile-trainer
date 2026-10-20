@@ -5,7 +5,7 @@
 SECTION "engine/address_book/address_editor", ROMX
 
 AbookAddr_Edit:: ; 2F:6D00
-Function_2F_6D00::
+
 	; [CONFIRMED] 28 insn(s); 28 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af
@@ -49,7 +49,6 @@ Data_2F_6D3B:: ; 2F:6D3B
 	db $F1, $FE, $01, $28, $1B
 
 AbookAddr_Edit_Loop:: ; 2F:6D40
-Label_2F_6D40::
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios)
 	push bc
 	farcall Sprite_UpdateAll
@@ -63,7 +62,6 @@ Label_2F_6D40::
 	call AbookAddr_OpenKeyboard
 
 AbookAddr_Edit_AfterKeyboard:: ; 2F:6D5E
-Label_2F_6D5E::
 	cp a, $07
 	jp nz, .l6DF1
 
@@ -143,7 +141,6 @@ Label_2F_6D5E::
 	pop bc
 
 AbookAddr_Edit_CheckButtonB:: ; 2F:6DF9
-Label_2F_6DF9::
 	ldh a, [hJoyPressed]
 	and a, PADF_B
 	jp z, .l6EF4
@@ -327,7 +324,7 @@ AbookAddr_CursorRight:: ; 2F:6F2E
 	pop bc
 
 AbookAddr_CursorRightStep:: ; 2F:6F42
-Function_2F_6F42::
+
 	; [CONFIRMED] 1 insn(s); 1 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	jr .l6F4D
@@ -401,7 +398,7 @@ AbookAddr_BuffersEmpty:: ; 2F:6F73
 	ret
 
 AbookAddr_SetupScreen:: ; 2F:6F8C
-Function_2F_6F8C::
+
 	; [CONFIRMED] 61 insn(s); 61 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af
@@ -776,7 +773,7 @@ AbookAddr_DrawLine1_Glyph:: ; 2F:722A
 	ret
 
 AbookAddr_DrawLine1_Pad:: ; 2F:723E
-Function_2F_723E::
+
 	; [CONFIRMED] 22 insn(s); 22 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -931,7 +928,7 @@ AbookAddr_DrawLine_Glyph:: ; 2F:7311
 	ret
 
 AbookAddr_DrawLine_Pad:: ; 2F:7325
-Function_2F_7325::
+
 	; [CONFIRMED] 14 insn(s); 14 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -974,7 +971,7 @@ AbookAddr_UploadTextTiles:: ; 2F:733D
 	ret
 
 Gfx_StartHDMAAtVBlank_2F_7365:: ; 2F:7365
-Function_2F_7365::
+
 	ld a, h
 	ldh [rHDMA1], a
 	ld a, l
@@ -999,7 +996,7 @@ Function_2F_7365::
 	ret
 
 AbookAddr_GetCharPtr:: ; 2F:7385
-Function_2F_7385::
+
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -1036,13 +1033,11 @@ Function_2F_7385::
 	jr nz, AbookAddr_GetCharPtr_NoChar
 
 AbookAddr_GetCharPtr_Found:: ; 2F:73AA
-Label_2F_73AA::
 	; [CONFIRMED] 2 insn(s); 2 executed (in up to 1/18 scenarios)
 	pop bc
 	ret
 
 AbookAddr_GetCharPtr_NoChar:: ; 2F:73AC
-Label_2F_73AC::
 	; [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1;
 	; entered by jrcc from 2F:7392 (executed) | 4 insn(s) executed; cut out of the PROBABLE region
 	; 73AC-73B8 by apply_coverage --split [executed in 6 scenarios]
@@ -1052,7 +1047,6 @@ Label_2F_73AC::
 	ret
 
 AbookAddr_GetCharPtr_Newline:: ; 2F:73B2
-Label_2F_73B2::
 	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 73AC-73B8 by apply_coverage --split
 	ld a, $0D
@@ -1061,7 +1055,7 @@ Label_2F_73B2::
 	ret
 
 AbookAddr_GetRowPtr:: ; 2F:73B8
-Function_2F_73B8::
+
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -1383,7 +1377,7 @@ AbookAddr_Backspace:: ; 2F:74D7
 	ret
 
 AbookAddr_OpenKeyboard:: ; 2F:75A0
-Function_2F_75A0::
+
 	; [CONFIRMED] 42 insn(s); 42 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -1503,7 +1497,7 @@ Data_2F_764C:: ; 2F:764C
 	db $C9
 
 AbookAddr_GetLength:: ; 2F:764D
-Function_2F_764D::
+
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push hl

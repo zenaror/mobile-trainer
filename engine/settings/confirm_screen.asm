@@ -301,7 +301,7 @@ SettingsPhone_ConfirmScreen_LoadSlotTilemap:: ; 67:53B7
 	farcall Tilemap_CopyRectAndAttr
 	ret
 
-; ---- words $53D6-$53DC (6 bytes) [PROBABLE] 3 words $76C0,$76C4,$76C8 indexed by (ld hl,$53D6 at 67:53BA); hl=[table], ld a,$4B, far call 00:08EA (tilemap loader) at 67:53CD-53D1: source addresses in bank 4B (dw kept numeric)
+; ---- words $53D6-$53DC (6 bytes) [PROBABLE] 3 words $76C0,$76C4,$76C8 indexed by the slot; the selected source in bank $4B is copied with BC=$0201 via Tilemap_CopyRectAndAttr (target $08EA), whose farcall begins at 67:53CF. The operands remain numeric in this pass.
 
 SettingsPhone_ConfirmScreen_SlotTilemapTable:: ; 67:53D6
 Table_67_53D6::

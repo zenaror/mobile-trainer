@@ -11,7 +11,7 @@ Data_68_4000::
 	db $4D, $4F, $42, $49, $4C, $45, $20, $54, $52, $41, $49, $4E, $45, $52, $30, $30
 
 Session_ResetCounters:: ; 68:4010
-Function_68_4010::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 4010.
 	; [CONFIRMED] 40 insn(s); 40 executed (in up to 7/18 scenarios); entry proven: target of an
 	; executed call/far call
 	xor a, a
@@ -171,7 +171,7 @@ PhoneNumber_PackBcd:: ; 68:409A
 	ret
 
 TextEntry_UpdateCursorSprite:: ; 68:40D8
-Function_68_40D8::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 40D8.
 	; [CONFIRMED] 72 insn(s); 72 executed (in up to 7/18 scenarios); entry proven: target of an
 	; executed call/far call
 	farcall TextBuf_GetCount
@@ -204,7 +204,7 @@ OnlineTimer_HasElapsed:: ; 68:40F1
 	ret
 
 Comm_ClearSessionActive:: ; 68:4101
-Function_68_4101::
+	; [PROBABLE] Existing operation name; bank68_function_names row 4101.
 	xor a, a
 	ld [wCommSessionActive], a
 	ret
@@ -259,7 +259,7 @@ TextEntry_InsertString:: ; 68:4127
 	ret
 
 TextEntry_InsertMaskedString:: ; 68:4152
-Function_68_4152::
+	; [HYPOTHESIS] Entry; operation PROBABLE; bank68_function_names row 4152.
 	; [HYPOTHESIS] function body after the ret at 4151 (ldh [$F2],a ; ldh a,[$8D] ; push af ; ... ld
 	; a,3 ; ldh [$8D],a ; ldh [$70],a ; ld b,d ; ld c,e) that falls into the code at 4161 [verifier:
 	; no entry proven (no caller, no valid table word, never executed): decode chain alone is not
@@ -298,7 +298,7 @@ Function_68_4152::
 	ret
 
 TextEntry_CopyText:: ; 68:417F
-Function_68_417F::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 417F.
 	; [CONFIRMED] 44 insn(s); 44 executed (in up to 7/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh [hScratchA], a
@@ -363,7 +363,7 @@ String_68_41DD::
 POPC
 
 Account_CopyMailAddressToFar:: ; 68:41E9
-Function_68_41E9::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 41E9.
 	; [CONFIRMED] 40 insn(s); 40 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld [wCopyMailAddressToFar_Bank], a
@@ -429,7 +429,7 @@ BankSwitch_H_Local:: ; 68:4239
 	ret
 
 Config_ClearSramMirror:: ; 68:4252
-Function_68_4252::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 4252.
 	; [CONFIRMED] 24 insn(s); 24 executed (in up to 6/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $0A
@@ -457,11 +457,11 @@ Function_68_4252::
 	ret
 
 Stub_Nop_68_4282:: ; 68:4282
-Function_68_4282::
+	; [CONFIRMED] Single RET; known caller; bank68_function_names row 4282.
 	ret
 
 Sram_WipeBanks2And3:: ; 68:4283
-Function_68_4283::
+	; [HYPOTHESIS] Entry; operation PROBABLE; bank68_function_names row 4283.
 	; [HYPOTHESIS] complete ret-terminated function (42 insn): enables SRAM ($0A to $0000 / hFFF5),
 	; selects SRAM bank 2 then 3 ($4000 register) and clears $A000-$AFFF and $B000-$BFFF with call
 	; $04D8 / $0392, then restores the banks; entry not proven [verifier: no entry proven (no
@@ -510,7 +510,7 @@ Function_68_4283::
 	ret
 
 Sram_WipeAllBanks:: ; 68:42E4
-Function_68_42E4::
+	; [CONFIRMED] Entry/operation; bank68_function_names row 42E4.
 	; [CONFIRMED] 70 insn(s); 70 executed (in up to 17/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $0A
@@ -588,10 +588,10 @@ Config_MirrorIsRegistered:: ; 68:431A
 	xor a, a
 	ret
 
-Settings_IsRegistrationStarted:: ; 68:4377
-Function_68_4377::
+Settings_IsDecodedProgressNonzero:: ; 68:4377
+	; [HYPOTHESIS] Entry; operation PROBABLE; bank68_function_names row 4377.
 	; [HYPOTHESIS] complete ret-terminated function (34 insn): enables SRAM, selects bank 1, reads
-	; [$B010] xor $A5 and returns 1 or 0 (SRAM validity check); entry not proven [verifier: no entry
+	; [$B010] xor $A5 and returns 1/0 (decoded nonzero test); entry not proven [verifier: no entry
 	; proven (no caller, no valid table word, never executed): decode chain alone is not proof ->
 	; HYPOTHESIS]
 	ld a, $0A
@@ -631,7 +631,7 @@ Function_68_4377::
 	ret
 
 Settings_SetProgressState3:: ; 68:43B9
-Function_68_43B9::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 43B9.
 	; [CONFIRMED] 62 insn(s); 62 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, sSettingsRegistrationProgress
@@ -700,7 +700,7 @@ Settings_StoreAdapterType:: ; 68:43F4
 	ret
 
 Settings_GetAdapterType:: ; 68:4430
-Function_68_4430::
+	; [HYPOTHESIS] Entry; operation PROBABLE; bank68_function_names row 4430.
 	; [HYPOTHESIS] complete ret-terminated function (30 insn): ld hl,$B011 ... reads one SRAM byte
 	; from bank 1 with the enable/bank save-restore sequence, returns b xor $A5; entry not proven
 	; [verifier: no entry proven (no caller, no valid table word, never executed): decode chain
@@ -737,7 +737,7 @@ Function_68_4430::
 	ret
 
 Dial_SelectEntryFromList:: ; 68:4469
-Function_68_4469::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 4469.
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld b, a
@@ -777,13 +777,13 @@ Function_68_4469::
 	ret
 
 Dial_SkipStringThenSetSelectedEntry:: ; 68:4495
-Function_68_4495::
+	; [PROBABLE] Existing operation name; bank68_function_names row 4495.
 	ld a, [hli]
 	or a, a
 	jr nz, Dial_SkipStringThenSetSelectedEntry
 
 Settings_SetSelectedDialEntry:: ; 68:4499
-Function_68_4499::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 4499.
 	; [CONFIRMED] 49 insn(s); 49 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh [hScratchA], a
@@ -845,7 +845,7 @@ Settings_GetSelectedDialEntry:: ; 68:44D0
 	ret
 
 Settings_GetHiddenModeFlag:: ; 68:44FC
-Function_68_44FC::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 44FC.
 	; [CONFIRMED] 30 insn(s); 30 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh [hScratchA], a
@@ -955,7 +955,7 @@ Table_68_4594::
 	dw wDialEntries, wDialEntries + $33, wDialEntries + $66
 
 Config_MirrorChecksumOk:: ; 68:459A
-Function_68_459A::
+	; [CONFIRMED] Entry/operation; bank68_function_names row 459A.
 	; [CONFIRMED] 40 insn(s); 40 executed (in up to 12/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $0A
@@ -1015,7 +1015,7 @@ Function_68_459A::
 	ret
 
 Config_MirrorUpdateChecksum:: ; 68:45F1
-Function_68_45F1::
+	; [CONFIRMED] Entry/operation; bank68_function_names row 45F1.
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, sConfigImage
@@ -1064,15 +1064,15 @@ Config_LoadMirrorToWram:: ; 68:4608
 	ld hl, sConfigDial0Text
 	ld de, wDialEntries + $22
 	ld bc, $0010
-	call CopyStringMax_ZeroSrcOnEmpty
+	call CopyStringMax_ZeroSourceIfEntryCountZero
 	ld hl, sConfigDial1Text
 	ld de, wDialEntries + $55
 	ld bc, $0010
-	call CopyStringMax_ZeroSrcOnEmpty
+	call CopyStringMax_ZeroSourceIfEntryCountZero
 	ld hl, sConfigDial2Text
 	ld de, wDialEntries + $88
 	ld bc, $0010
-	call CopyStringMax_ZeroSrcOnEmpty
+	call CopyStringMax_ZeroSourceIfEntryCountZero
 	ld hl, sConfigDial0Number
 	ld de, wDialEntries
 	call PhoneNumber_UnpackBcd
@@ -1169,7 +1169,7 @@ Dial_LoadDefaultsForAdapterType:: ; 68:46C8
 	add hl, de
 	ld de, wAcctNumberComment
 	ld bc, $0010
-	farcall CopyStringMax_ZeroSrcOnEmpty
+	farcall CopyStringMax_ZeroSourceIfEntryCountZero
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -1178,7 +1178,7 @@ Dial_LoadDefaultsForAdapterType:: ; 68:46C8
 	ret
 
 Settings_StoreMailAddress:: ; 68:4735
-Function_68_4735::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 4735.
 	; [CONFIRMED] 132 insn(s); 132 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call (part of region $4735-$4842)
 	ldh [hScratchA], a

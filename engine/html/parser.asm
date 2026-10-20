@@ -5,7 +5,7 @@
 SECTION "engine/html/parser", ROMX
 
 Html_MetaResultToError:: ; 74:4165
-Function_74_4165::
+
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $06
@@ -93,13 +93,11 @@ Html_MetaResultToError_HexLoop:: ; 74:4190
 	jp Html_MetaResultToError_HexLoop
 
 Html_MetaResultToError_NoError:: ; 74:41EF
-Label_74_41EF::
 	; [CONFIRMED] 2 insn(s); 2 executed (in up to 2/18 scenarios)
 	ld a, $00
 	ret
 
 Html_MetaResultToError_SetError:: ; 74:41F2
-Label_74_41F2::
 	; [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1;
 	; entered by jpcc from 74:4192 (PROBABLE code)
 	ld a, $04
@@ -113,7 +111,7 @@ Label_74_41F2::
 	ret
 
 Html_ParsePage:: ; 74:4207
-Function_74_4207::
+
 	; [CONFIRMED] 114 insn(s); 114 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld bc, $0000
@@ -361,9 +359,9 @@ Html_ParseSource_Entity:: ; 74:4392
 	ld h, a
 	jp Html_ParseSource_Loop
 
-	; [HYPOTHESIS] single 'pop hl' (e1) after the unconditional 'jp $4307' at 74:43C0; no
-	; branch/pointer targets 43C3 (tgt scan of all code regions + word scan), so unreachable; falls
-	; into the executed 43C4 (target of 13 jz/jp)
+	; [HYPOTHESIS] POP HL43C3 (E1) follows JP43C0->4307, which bypasses it sequentially;
+	; prior finite scans did not establish an entry, not universal unreachability; hypothetical POP
+	; falls into43C4, whose tail/frame requirements still apply (13 existing jz/jp targets)
 	pop hl
 
 Html_ParseSource_End:: ; 74:43C4
@@ -439,21 +437,18 @@ Html_ParseSource_Tag:: ; 74:4406
 	jr nz, Html_DispatchTag
 
 Html_ParseSource_Tag_Ignore:: ; 74:4439
-Label_74_4439::
 	ldh a, [hHtml_MatchRestart]
 	ld l, a
 	ldh a, [hHtml_MatchRestartHi]
 	ld h, a
 
 Html_ParseSource_Tag_Done:: ; 74:443F
-Label_74_443F::
 	ldh a, [hHtml_SourceBank]
 	call BankSwitch_H
 	ldh a, [hTextX]
 	call BankSwitch_D
 
 Html_ParseSource_Tag_SkipToEnd:: ; 74:4449
-Label_74_4449::
 	ld a, $20
 	ldh [hHtml_LastChar], a
 .loop ; 74:444D

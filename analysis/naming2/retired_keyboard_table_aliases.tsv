@@ -1,0 +1,8 @@
+old_name	current_name	bank	address	owner	status	local_scope_mapping
+Data_55_641C	Table_Kbd_GetSlideTargetY_ByType	55	641C	engine/keyboard/keyboard.asm	retired_this_pass	none
+Data_55_6E9F	Table_Kbd_TypeHasPages_ByType	55	6E9F	engine/keyboard/type_helpers.asm	retired_this_pass	none
+Data_55_6EE1	Table_Kbd_TypeNeedsExtraPalette_ByType	55	6EE1	engine/keyboard/type_helpers.asm	retired_this_pass	none
+Data_55_6F0D	Table_Kbd_TypeHidesOnKey82_ByType	55	6F0D	engine/keyboard/type_helpers.asm	retired_this_pass	none
+Data_55_6F23	Table_Kbd_TypeHidesOnKey83_ByType	55	6F23	engine/keyboard/type_helpers.asm	retired_this_pass	none
+Data_55_6F3B	Table_Kbd_TypeWaitsWithService_ByType	55	6F3B	engine/keyboard/type_helpers.asm	retired_previous; audited through current .sym	Data_55_6F3B.l6F51 => Table_Kbd_TypeWaitsWithService_ByType.l6F51
+Data_6A_6651	Table_HelpMenu_LockedItemTicker	6A	6651	data/text/help_menu_ticker.asm	retired_this_pass	none

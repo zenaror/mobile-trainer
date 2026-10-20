@@ -454,7 +454,7 @@ DEF hTextMeasure_RightLimitXHi EQU hRam_FFB1 ; [CONFIRMED] High byte of the inpu
 DEF hHttpRedirect_BufferStart EQU hRam_FFB0 ; [CONFIRMED] Low byte of initial buffer HL, saved without later updates. It limits backward DE traversal and the final cleanup test. The /../ backward branches remain static only. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 67:5FFA, 67:6059, 67:6066, 67:609D.
 DEF hHttpRedirect_BufferStartHi EQU hRam_FFB1 ; [CONFIRMED] High byte of initial buffer HL, preserved with the low byte and consumed by the backward-limit and final cleanup comparisons; backward branches remain static only. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 67:5FFD, 67:605C, 67:6069, 67:60A0.
 
-; ---- home/far_helpers.asm@Function_00_172D..
+; ---- home/far_helpers.asm@CopyFar16ByteBlocks..
 DEF hFarBlockCopy_DestBank EQU hRam_FFB0 ; [PROBABLE] Destination-bank byte from C10E, saved before the 16-byte copy overwrites that buffer and passed to BankSwitch_D. No natural execution in the existing coverage. Sites: 00:1732, 00:1750.
 DEF hFarBlockCopy_SourceBank EQU hRam_FFB1 ; [PROBABLE] Source-bank input A saved and passed to BankSwitch_H before the HL read. Zero means keep the selected bank. No natural execution in the existing coverage. Sites: 00:172D, 00:1740.
 
@@ -475,7 +475,7 @@ DEF hSpriteHook_Bank EQU hRam_FFB0 ; [CONFIRMED] Hook-bank input A saved while W
 DEF hSpriteDraw_AttrOrMask EQU hRam_FFB0 ; [CONFIRMED] Slot+$09 OR mask preserved for each OAM object; output attribute is (attribute & AndMask) | OrMask. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 00:0B7A, 00:0BAA.
 DEF hSpriteDraw_AttrAndMask EQU hRam_FFB1 ; [CONFIRMED] Slot+$0A AND mask preserved for each OAM object; output attribute is (attribute & AndMask) | OrMask. Existing natural coverage demonstrates this role; no new execution is claimed. Sites: 00:0B7D, 00:0BAD.
 
-; ---- engine/tutorial/gates.asm@Function_48_4A8C..
+; ---- engine/tutorial/gates.asm@Tilemap_ApplyMaskRect_48_4A8C..
 DEF hTileMaskRect_Width EQU hRam_FFB0 ; [PROBABLE] Rectangle width C saved, decremented to the end of each row, restored between rows and used for (32-C)&31 advancement. No natural execution in the existing coverage. Sites: 48:4A90, 48:4A99.
 
 ; ---- engine/browser/history_cache.asm@Sram_CopyLongBlock..PageCache_Pop
@@ -599,10 +599,10 @@ DEF wMobilePeer_FragmentBytes EQU wRam_C82F ; [PROBABLE] Peer mode uses C82F as 
 DEF wMobilePeer_PacketOffset EQU wRam_C830 ; [PROBABLE] PeerReceive loads and advances C830 as an index into ReceivePacketBuffer+4, and peer RxTransferData initializes1. All four sites fit packet offset. No peer natural coverage. All explicit sites checked: lib/mobile/main.asm:3320=75:54B2 natural 0 hits/0 scenarios; lib/mobile/main.asm:3336=75:54C9 natural 0 hits/0 scenarios; lib/mobile/main.asm:3405=75:5534 natural 0 hits/0 scenarios; lib/mobile/main.asm:4578=75:5C69 natural 0 hits/0 scenarios
 DEF wMobilePeer_PacketBytesLeft EQU wRam_C831 ; [PROBABLE] PeerReceive subtracts length header and payload from C831; RxTransferData initializes the same byte indirectly through C830+1. Static proof of packet bytes remaining; no natural peer coverage. All explicit sites checked: lib/mobile/main.asm:3337=75:54CC natural 0 hits/0 scenarios; lib/mobile/main.asm:3341=75:54D2 natural 0 hits/0 scenarios; lib/mobile/main.asm:3409=75:553C natural 0 hits/0 scenarios
 
-; ---- lib/mobile/main.asm@MobileAPI_HttpGet..MobileSDK_HttpConnect,lib/mobile/main.asm@MobileAPI_HttpPost..MobileSDK_FormatContentLength,lib/mobile/main.asm@Label_75_64E0..Function_75_653A,lib/mobile/main.asm@Label_75_656C..MobileSDK_SmtpOpened,lib/mobile/main.asm@MobileSDK_HttpCopyMethod..MobileSDK_HttpSelectPost,lib/mobile/main.asm@Label_75_73BE..MobileSDK_HttpAddContentLength
+; ---- lib/mobile/main.asm@MobileAPI_HttpGet..MobileSDK_HttpConnect,lib/mobile/main.asm@MobileAPI_HttpPost..MobileSDK_FormatContentLength,lib/mobile/main.asm@MobileState_OpenTcp_DispatchService..MobileSDK_HttpSendRequestPacket,lib/mobile/main.asm@MobileSDK_HttpOpened_Service3..MobileSDK_SmtpOpened,lib/mobile/main.asm@MobileSDK_HttpCopyMethod..MobileSDK_HttpSelectPost,lib/mobile/main.asm@MobileState_HttpExchange_Substep6_SendRequest..MobileSDK_HttpAddContentLength
 DEF wMobileHttp_IsPost EQU wRam_C831 ; [CONFIRMED] GET stores0, POST stores C82C xor1, and retry/service paths store1. HttpCopyMethod chooses POST for nonzero, while body/header state handling reads the same method flag. Name means emitted method, not original API method during authentication. All explicit sites checked: lib/mobile/main.asm:2396=75:4F09 natural 331 hits/19 scenarios; lib/mobile/main.asm:3047=75:533C natural 19 hits/3 scenarios; lib/mobile/main.asm:6029=75:6511 natural 0 hits/0 scenarios; lib/mobile/main.asm:6089=75:6580 natural 0 hits/0 scenarios; lib/mobile/main.asm:6113=75:65AF natural 324 hits/18 scenarios; lib/mobile/main.asm:6142=75:65D7 natural 324 hits/18 scenarios; lib/mobile/main.asm:6259=75:66A7 natural 324 hits/18 scenarios; lib/mobile/main.asm:8587=75:73FC natural 315 hits/18 scenarios
 
-; ---- lib/mobile/main.asm@MobileSDK_HttpHdrGbAuthId..MobileSDK_HttpFindHeaderEnd,lib/mobile/main.asm@MobileSDK_HttpBuildRequest..Label_75_73BE
+; ---- lib/mobile/main.asm@MobileSDK_HttpHdrGbAuthId..MobileSDK_HttpFindHeaderEnd,lib/mobile/main.asm@MobileSDK_HttpBuildRequest..MobileState_HttpExchange_Substep6_SendRequest
 DEF wMobileHttp_AuthHeaderText EQU wRam_C852 ; [PROBABLE] GbAuthId builds NUL-terminated header text at C852; WWWAuthenticate sends C852 as output DE to AuthBuildResponse; HttpBuildRequest copies that string. Request-struct pointer saves are separately kept. Downstream copy has no natural coverage, so PROBABLE. All explicit sites checked: lib/mobile/main.asm:7999=75:7080 natural 0 hits/0 scenarios; lib/mobile/main.asm:8023=75:7098 natural 4 hits/1 scenarios; lib/mobile/main.asm:8536=75:7389 natural 0 hits/0 scenarios
 
 ; ---- engine/browser/start_choice.asm
@@ -617,8 +617,8 @@ DEF wSmtp_HeaderWritePtrHi EQU wRam_C242 ; [CONFIRMED] Mail_BuildHeaderField rea
 ; ---- engine/browser/inline_image_blit.asm
 DEF wBmp_ColorDiffHi EQU wRam_C331 ; [CONFIRMED] Bmp_ColorSum returns twice the sum of the first three palette-entry bytes. Following two calls, dec/cpl of first result plus second result computes second minus first. C331 stores high byte; natural bit7 reader governs conditional inversion. Inversion branch itself unexecuted; neither luminance weighting nor full palette equivalence asserted.
 
-; ---- engine/help/help_script.asm@HelpScript_Run_NextCommand..Function_6C_61AC
-DEF wHelpScript_DeferredTextSfx EQU wRam_C0D9 ; [CONFIRMED] Skip advance path 6C:5E1F sets 1; next text opcode tests 5C4A, plays 0041 and clears 5C63. Scope excludes Function_6C_61AC. Three explicit sites natural 292/650/104; aliases disjoint.
+; ---- engine/help/help_script.asm@HelpScript_Run_NextCommand..DecC0DA_OnZeroReload23ToggleC0D9AndSetDA20
+DEF wHelpScript_DeferredTextSfx EQU wRam_C0D9 ; [CONFIRMED] Skip advance path 6C:5E1F sets 1; next text opcode tests 5C4A, plays 0041 and clears 5C63. Scope excludes DecC0DA_OnZeroReload23ToggleC0D9AndSetDA20. Three explicit sites natural 292/650/104; aliases disjoint.
 
 ; ---- engine/debug/debug_flags.asm@DebugFlags_Run..DebugFlags_SlideIn,engine/debug/debug_flags.asm@DebugFlags_ReadValue..
 DEF wDebugFlags_EntryIndex EQU wRam_C0E5 ; [PROBABLE] All 17 scoped uses index entry-word table by 4*A or 4*A+2 and name-pointer table by 2*A, with increment/decrement in Dpad handler. Six slide uses excluded. No natural execution; table extent itself uncertain. Static index role supports PROBABLE without count claim.

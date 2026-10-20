@@ -5,7 +5,7 @@
 SECTION "engine/settings/adapter_check", ROMX
 
 AdapterCheck_DrawScreen:: ; 67:6369
-Function_67_6369::
+
 	; [CONFIRMED] 126 insn(s); 126 executed (in up to 18/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld b, $15
@@ -46,8 +46,8 @@ Function_67_6369::
 	ld a, BANK(Tilemap_AdapterCheck_4A_6600)
 	farcall Tilemap_CopyRectAndAttr
 	ld hl, wSpriteSlot0
-	ld de, AdapterCheck_ObjTableAndAnimData
-	ld a, BANK(AdapterCheck_ObjTableAndAnimData)
+	ld de, AdapterCheck_ObjTable
+	ld a, BANK(AdapterCheck_ObjTable)
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld de, $2838
@@ -94,7 +94,6 @@ AdapterCheck_Poll:: ; 67:644E
 	ld [wAdapterCheck_SfxFlag], a
 
 AdapterCheck_Poll_Loop:: ; 67:6452
-Label_67_6452::
 	farcall Sprite_UpdateAll
 	call VBlank_WaitAndService
 	ldh [hScratchA], a

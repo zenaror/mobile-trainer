@@ -5,7 +5,7 @@
 SECTION "engine/browser/start_choice", ROMX
 
 Browser_StartChoiceScreen:: ; 73:5F17
-Function_73_5F17::
+
 	; [CONFIRMED] 133 insn(s); 133 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh a, [rLCDC]
@@ -139,7 +139,6 @@ Function_73_5F17::
 	ldh [rSVBK], a
 
 BrowserStart_InputLoop:: ; 73:607E
-Label_73_607E::
 	farcall Sprite_UpdateAll
 	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
@@ -157,7 +156,6 @@ Table_73_6096::
 	dw BrowserStart_Idle
 
 BrowserStart_Idle:: ; 73:60A0
-Label_73_60A0::
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ld a, [wBrowserStart_AcceptCountdown]
 	or a, a
@@ -218,7 +216,6 @@ Label_73_60A0::
 	ret
 
 BrowserStart_OnA:: ; 73:6114
-Label_73_6114::
 	; [CONFIRMED] 17 insn(s); 17 executed (in up to 1/18 scenarios)
 	play_sfx SFX_CONFIRM
 	farcall Palette_FadeOutWithTicker
@@ -230,15 +227,15 @@ Label_73_6114::
 	farcall WriteByteFar
 	ld a, [wBrowserStart_Cursor]
 	ret
+ReadC0F8_Xor1:: ; 73:6143 [PROBABLE] local operation; entry/domain unproved
 
-Function_73_6143:: ; 73:6143
 	; [HYPOTHESIS] entry/domain unestablished; [6143,6149) and [6149,614F) each decode
 	; as LD A,[C0F8/C0F9]; XOR $01; RET: 6 bytes and 3 instruction starts per segment.
 	; RET at 6148 and 614E ends each ordinary path; neither falls through to 614F.
 	; BrowserStart_OnA ends with RET at 6142; the inline table at 6096 targets
 	; 6114/614F/617A/617D/60A0. Raw address-word matches do not establish bank73 callers;
 	; computed or overlapping entries remain open. A = read byte XOR 1, not generic Boolean
-	; negation; see docs/research/naming_73_6143_split_returns.md. No alias is added.
+	; negation; see docs/research/naming_73_6143_split_returns.md. Operation name PROBABLE.
 	ld a, [wRam_C0F8]
 	xor a, $01
 	ret
@@ -248,7 +245,6 @@ Function_73_6143:: ; 73:6143
 	ret
 
 BrowserStart_OnB:: ; 73:614F
-Label_73_614F::
 	; [CONFIRMED] 61 insn(s) reached by static flow only; seeds: exec x61; min discovery hops 1;
 	; entered by table from 73:6093 (executed) [executed in 3 scenarios]
 	play_sfx SFX_CANCEL
@@ -262,11 +258,9 @@ Label_73_614F::
 	ret
 
 BrowserStart_IgnoreSelect:: ; 73:617A
-Label_73_617A::
 	jp BrowserStart_InputLoop
 
 BrowserStart_IgnoreStart:: ; 73:617D
-Label_73_617D::
 	jp BrowserStart_InputLoop
 
 BrowserStart_HandleDpad:: ; 73:6180
@@ -304,7 +298,7 @@ BrowserStart_HandleDpad:: ; 73:6180
 	ret
 
 BrowserStart_DrawButtons:: ; 73:61D5
-Function_73_61D5::
+
 	; [CONFIRMED] 26 insn(s); 26 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wBrowserStart_Cursor]
@@ -362,7 +356,7 @@ Function_73_61D5::
 	ret
 
 BrowserStart_AnimateFrame:: ; 73:6265
-Function_73_6265::
+
 	; [CONFIRMED] 50 insn(s); 50 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, wBrowserStart_AnimCounter
@@ -422,7 +416,7 @@ BrowserStart_ShowDescription:: ; 73:62AA
 	ret
 
 BrowserStart_DescIndex_AdjustItem1:: ; 73:62D2
-Function_73_62D2::
+
 	; [CONFIRMED] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 1;
 	; entered by callcc from 73:62B7 (executed) | 3 insn(s) executed; cut out of the PROBABLE region
 	; 62D2-62EF by apply_coverage --split [executed in 8 scenarios]
@@ -436,7 +430,7 @@ Function_73_62D2::
 	ret
 
 BrowserStart_DescIndex_AdjustItem2:: ; 73:62DA
-Function_73_62DA::
+
 	ld a, [wRam_C0F9]
 	or a, a
 	ret z
@@ -444,7 +438,7 @@ Function_73_62DA::
 	ret
 
 BrowserStart_DescIndex_AdjustItem3:: ; 73:62E2
-Function_73_62E2::
+
 	ld a, $01
 	ld hl, sSaveCheckStateBlock + $05
 	call ReadByteFar

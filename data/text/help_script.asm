@@ -19,16 +19,16 @@ Data_6C_4809::
 ; written with the sjis_hw charmap: single bytes A1-DF appear as half-width katakana (JIS X 0201 order), other single bytes as $xx; glyphs unproven (text_encoding.md section 6)
 
 String_6C_4845:: ; 6C:4845
-	db "Ｍ．Ｔｒａｉｎｅｒ　", 0
+	db "　モバイルトレーナー", 0
 
 ; ---- data $485A-$4899 (63 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown [clipped from 483E-5175 by higher-priority evidence]
-; 6C:60AF maps A0..FF to 96 big-endian numeric glyph codes at $58C7 + 2*(byte-$A0); 80..9F consumes a second byte; the current English db bytes and mixed-region classification remain unchanged by this parity pass
+; 6C:60AF maps A0..FF to 96 big-endian numeric glyph codes at $58C7 + 2*(byte-$A0); 80..9F consumes a second byte; the original db bytes and mixed-region classification remain unchanged
 
 Data_6C_485A:: ; 6C:485A
-	db "Ｗｅｌｃｏｍｅ　ｔｏ", $40, $3C, $10
-	db "Ｍｏｂｉｌｅ　Ｔｒａｉｎｅｒ！", $10
-	db "　　　　"
-	db 0
+	db $83, $82, $83, $6F, $83, $43, $FA, $83, $67, $83, $8C, $B0, $83, $69, $B0, $CD
+	db $D6, $B3, $BA, $BF, $A1, $40, $3C, $10, $BA, $DA, $ED, $83, $4C, $83, $7E, $D3
+	db $A4, $83, $82, $83, $6F, $83, $43, $FA, $83, $56, $FD, $83, $65, $83, $80, $82
+	db $66, $10, $82, $61, $A6, $C0, $C9, $BC, $D2, $D9, $DD, $EA, $81, $49, $00
 
 ; ---- text $4899-$493B (162 bytes) [PROBABLE] text: 3 string(s) of analysis/strings.tsv (bank 6C uses the second, only PROBABLE text convention of docs/research/text_encoding.md, NUL terminated)
 ; written with the sjis_hw charmap: single bytes A1-DF appear as half-width katakana (JIS X 0201 order), other single bytes as $xx; glyphs unproven (text_encoding.md section 6)
@@ -52,7 +52,7 @@ String_6C_4964:: ; 6C:4964
 	db $06, $94, $FF, $03, $03, $03, $F9, "ｰ", $FA, $ED, "ﾊ､ゲｰムボｰイカラｰｦ", $10, "ﾂｶｯﾃ､", $21, "ﾃ", $E0, "ﾐﾉﾔﾘﾄﾘ", $E0, "ﾀﾉ", $10, "ｼﾒﾙ", $20, "ﾝ", $EA, "｡", 0
 
 ; ---- data $499B-$4A09 (110 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown [clipped from 483E-5175 by higher-priority evidence]
-; 6C:60AF maps A0..FF to 96 big-endian numeric glyph codes at $58C7 + 2*(byte-$A0); 80..9F consumes a second byte; the current English db bytes and mixed-region classification remain unchanged by this parity pass
+; 6C:60AF maps A0..FF to 96 big-endian numeric glyph codes at $58C7 + 2*(byte-$A0); 80..9F consumes a second byte; the original db bytes and mixed-region classification remain unchanged
 
 Data_6C_499B:: ; 6C:499B
 	db $06, $A0, $FF, $03, $03, $03, $83, $7A, $B0, $83, $80, $83, $79, $B0, $83, $57
@@ -72,7 +72,7 @@ String_6C_4A09:: ; 6C:4A09
 	db $06, $B9, $FF, $03, $03, $04, "δ", $ED, "キ", $FC, $FF, "セ", $FA, "ﾔ､ﾏｴﾉ", $E0, "ﾒﾝﾆ", $10, "ﾓ", $EE, "ﾙｺﾄ", $E0, $ED, "ｷﾙﾝ", $EA, "ﾖ｡", 0
 
 ; ---- data $4A78-$4AA0 (40 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown [clipped from 483E-5175 by higher-priority evidence]
-; 6C:60AF maps A0..FF to 96 big-endian numeric glyph codes at $58C7 + 2*(byte-$A0); 80..9F consumes a second byte; the current English db bytes and mixed-region classification remain unchanged by this parity pass
+; 6C:60AF maps A0..FF to 96 big-endian numeric glyph codes at $58C7 + 2*(byte-$A0); 80..9F consumes a second byte; the original db bytes and mixed-region classification remain unchanged
 
 Data_6C_4A78:: ; 6C:4A78
 	db $06, $A9, $FF, $03, $02, $04, $FD, $83, $5E, $B0, $83, $67, $83, $7B, $83, $5E
@@ -88,7 +88,7 @@ String_6C_4AA0:: ; 6C:4AA0
 	db $06, $A1, $FF, $03, $02, $05, "ｿﾚﾄ､ｺﾉｾﾂﾒｲﾊ", $21, "【ヘ", $FA, "プ】", $20, $10, $ED, "ｲﾂ", $ED, "ﾓﾐﾙｺﾄ", $E0, $ED, "ｷﾙﾖ｡", 0
 
 ; ---- data $4B2C-$4B68 (60 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown [clipped from 483E-5175 by higher-priority evidence]
-; 6C:60AF maps A0..FF to 96 big-endian numeric glyph codes at $58C7 + 2*(byte-$A0); 80..9F consumes a second byte; the current English db bytes and mixed-region classification remain unchanged by this parity pass
+; 6C:60AF maps A0..FF to 96 big-endian numeric glyph codes at $58C7 + 2*(byte-$A0); 80..9F consumes a second byte; the original db bytes and mixed-region classification remain unchanged
 
 Data_6C_4B2C:: ; 6C:4B2C
 	db $06, $9C, $FF, $03, $02, $05, $DC, $B6, $D7, $C5, $B2, $BA, $C4, $EF, $E0, $ED
@@ -114,13 +114,13 @@ Data_6C_4B92:: ; 6C:4B92
 ; written with the sjis_hw charmap: single bytes A1-DF appear as half-width katakana (JIS X 0201 order), other single bytes as $xx; glyphs unproven (text_encoding.md section 6)
 
 String_6C_4BC9:: ; 6C:4BC9
-	db "　Ｅｍａｉｌ　", 0
+	db "　　　　メール", 0
 	db $F9, "ｰ", $FA, "ｦﾊ", $E6, "ﾒﾙﾏｴﾆ､", $F9, "ｰ", $FA, "ｯ", $10, "ﾃﾅﾝﾅﾉｶ､ｾﾂﾒｲｽﾙﾖ｡", 0
 	db $06, $A5, $05, $03, $04, $06, $F9, "ｰ", $FA, "ﾄｲｳﾉﾊ､ﾃ", $E0, "ﾐﾉﾖｳﾅ", $10, "ﾓﾉ", $ED, "､", $F9, "ｰ", $FA, "アドレ", $FD, "ｦﾓｯﾃｲ", $10, "ﾙﾄﾓ", $EA, "ﾁﾆｵｸﾚﾙﾝ", $EA, "ﾖ｡", 0
 	db $06, $8F, $FF, $03, $02, $06, $F9, "ｰ", $FA, "アドレ", $FD, "ﾊ､", $F9, "ｰ", $FA, "ﾉｾｶｲ", $10, $ED, "ﾉ", $21, $E6, "ｭｳｼｮ", $20, "ﾉｺﾄﾅﾝ", $EA, "ﾖ｡", 0
 
 ; ---- data $4C5F-$4C9D (62 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown [clipped from 483E-5175 by higher-priority evidence]
-; 6C:60AF maps A0..FF to 96 big-endian numeric glyph codes at $58C7 + 2*(byte-$A0); 80..9F consumes a second byte; the current English db bytes and mixed-region classification remain unchanged by this parity pass
+; 6C:60AF maps A0..FF to 96 big-endian numeric glyph codes at $58C7 + 2*(byte-$A0); 80..9F consumes a second byte; the original db bytes and mixed-region classification remain unchanged
 
 Data_6C_4C5F:: ; 6C:4C5F
 	db $06, $9A, $FF, $03, $03, $06, $F9, $B0, $FA, $83, $41, $83, $68, $83, $8C, $FD
@@ -136,7 +136,7 @@ String_6C_4C9D:: ; 6C:4C9D
 	db $06, $A2, $FF, $03, $05, $06, "ｿﾚ", $E6, "ｬｱ､", $F9, "ｰ", $FA, "ﾉｶｷｶﾀｦｾ", $10, "ﾂﾒｲｼﾃｲｸﾖ｡", 0
 
 ; ---- data $4CDE-$4D2E (80 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown [clipped from 483E-5175 by higher-priority evidence]
-; 6C:60AF maps A0..FF to 96 big-endian numeric glyph codes at $58C7 + 2*(byte-$A0); 80..9F consumes a second byte; the current English db bytes and mixed-region classification remain unchanged by this parity pass
+; 6C:60AF maps A0..FF to 96 big-endian numeric glyph codes at $58C7 + 2*(byte-$A0); 80..9F consumes a second byte; the original db bytes and mixed-region classification remain unchanged
 
 Data_6C_4CDE:: ; 6C:4CDE
 	db $06, $BF, $FF, $03, $05, $07, $CF, $E7, $CA, $21, $81, $79, $F9, $B0, $FA, $A6
@@ -155,7 +155,7 @@ String_6C_4D2E:: ; 6C:4D2E
 	db $06, $B6, $FF, $03, $03, $09, "ﾅｲﾖｳ", $E0, "ﾏﾁ", $E0, "ｯﾃｲﾙﾄ､ﾂﾀ", $10, "ｴﾀｲｺﾄﾓﾂﾀﾜﾗﾅｲﾖ｡", 0
 
 ; ---- data $4DDC-$4E03 (39 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown [clipped from 483E-5175 by higher-priority evidence]
-; 6C:60AF maps A0..FF to 96 big-endian numeric glyph codes at $58C7 + 2*(byte-$A0); 80..9F consumes a second byte; the current English db bytes and mixed-region classification remain unchanged by this parity pass
+; 6C:60AF maps A0..FF to 96 big-endian numeric glyph codes at $58C7 + 2*(byte-$A0); 80..9F consumes a second byte; the original db bytes and mixed-region classification remain unchanged
 
 Data_6C_4DDC:: ; 6C:4DDC
 	db $06, $B4, $FF, $03, $02, $0A, $F9, $B0, $FA, $E0, $B6, $B9, $C0, $D7, $A4, $81
@@ -173,7 +173,7 @@ String_6C_4E03:: ; 6C:4E03
 	db $06, $98, $FF, $03, $03, $0C, "ｿﾚｶﾗ【ｵｸﾙ／ｳｹﾄﾙ】ﾆﾊ", $10, $21, "ｵｶﾈ", $E0, "ｶｶﾙ", $20, "ｶﾗｷｦﾂｹﾃﾈ｡", $10, 0
 
 ; ---- data $4F12-$4F4C (58 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown [clipped from 483E-5175 by higher-priority evidence]
-; 6C:60AF maps A0..FF to 96 big-endian numeric glyph codes at $58C7 + 2*(byte-$A0); 80..9F consumes a second byte; the current English db bytes and mixed-region classification remain unchanged by this parity pass
+; 6C:60AF maps A0..FF to 96 big-endian numeric glyph codes at $58C7 + 2*(byte-$A0); 80..9F consumes a second byte; the original db bytes and mixed-region classification remain unchanged
 
 Data_6C_4F12:: ; 6C:4F12
 	db $06, $97, $FF, $03, $05, $0D, $83, $4C, $83, $7E, $B1, $C3, $C6, $C4, $EE, $B2
@@ -219,7 +219,7 @@ Data_6C_519E:: ; 6C:519E
 ; written with the sjis_hw charmap: single bytes A1-DF appear as half-width katakana (JIS X 0201 order), other single bytes as $xx; glyphs unproven (text_encoding.md section 6)
 
 String_6C_51B1:: ; 6C:51B1
-	db "Ａｄｄｒ．Ｂｏｏｋ", 0
+	db "　　アドレスちょう", 0
 	db "アドレ", $FD, "ﾁｮｳﾆﾂｲﾃ､ｾﾂﾒｲ", $10, "ｽﾙﾖ｡", 0
 	db $06, $4A, $02, $03, $02, $10, $F9, "ｰ", $FA, "アドレ", $FD, $E0, "､ﾄﾓ", $EA, "ﾁﾉ", $E6, "ｭ", $10, "ｳｼｮﾉﾖｳﾅﾓﾉ", $EA, "ﾄｲｳｺﾄﾊ", $10, "ﾏｴﾆﾊﾅｼﾀﾖﾈ｡", 0
 
@@ -279,7 +279,7 @@ Data_6C_5427:: ; 6C:5427
 ; written with the sjis_hw charmap: single bytes A1-DF appear as half-width katakana (JIS X 0201 order), other single bytes as $xx; glyphs unproven (text_encoding.md section 6)
 
 String_6C_543A:: ; 6C:543A
-	db "Ｈｏｍｅ　Ｐａｇｅ", 0
+	db "　　　ホームページ", 0
 	db "ホｰムペｰジ", $ED, "ｱｿ", $F1, "ﾏｴﾆ､ｽｺ", $10, "ｼ", $EA, "ｹ､ｾﾂﾒｲｽﾙﾖ｡", 0
 	db $06, $79, $02, $03, $01, $15, "ホｰムペｰジﾊ､ｴﾔﾓ", $E6, "ｦﾂｶｯ", $10, "ﾀｲﾛﾝﾅ", $E6, "ｮｳﾎｳｦﾐﾙｺﾄ", $E0, $10, $ED, "ｷﾙﾝ", $EA, "｡", 0
 	db $06, $91, $FF, $03, $03, $15, "ホｰムペｰジﾊｾｶｲ", $E6, "ｭｳﾆﾀｸ", $10, "ｻﾝｱｯﾃ､ﾐﾝﾅﾂﾅ", $E0, "ｯﾃｲﾙ", $10, "ﾝ", $EA, "ﾖ｡", 0
@@ -325,7 +325,7 @@ Data_6C_56E8:: ; 6C:56E8
 ; written with the sjis_hw charmap: single bytes A1-DF appear as half-width katakana (JIS X 0201 order), other single bytes as $xx; glyphs unproven (text_encoding.md section 6)
 
 String_6C_56FB:: ; 6C:56FB
-	db "Ｂｏｏｋｍａｒｋｓ", 0
+	db "　　　ページリスト", 0
 	db "ペｰジリ", $FD, "トﾆﾂｲﾃ､ｾﾂﾒｲｽ", $10, "ﾙﾖ｡", 0
 	db $06, $93, $01, $03, $01, $1B, "ｵｷﾆｲﾘﾉホｰムペｰジｦ､ﾐﾙ", $10, "ﾄｷﾆ､ﾀｸｻﾝリ", $FF, "クｦジ", $FC, $FF, "プ", $10, "ｽﾙﾉﾊﾒﾝ", $EE, "ｳ", $EA, "ﾖﾈ｡", 0
 	db $06, $90, $FF, $03, $03, $1B, "ｿﾝﾅﾄｷﾊ､", $21, "ペｰジリ", $FD, "トﾆセｰ", $10, "ブｼﾃｵｸﾄ", $F2, "ﾝﾘ", $20, "ﾅﾝ", $EA, "｡", 0
@@ -336,7 +336,7 @@ String_6C_56FB:: ; 6C:56FB
 	db $06, $80, $FF, $03, $05, $1E, "ペｰジリ", $FD, "トｦｳﾏｸﾂｶｯﾃホｰ", $10, "ムペｰジｦﾀﾉｼﾝ", $ED, "ﾈ｡", 0
 
 ; ---- data $58BA-$5987 (205 bytes) [PROBABLE] thirteen header/control bytes followed by the 192-byte HelpScript_SingleByteToSjis lookup; the preceding header retains its unknown format; no text-entry-grid purpose follows from these bytes
-; 6C:60AF maps A0..FF to 96 big-endian numeric glyph codes at $58C7 + 2*(byte-$A0); 80..9F consumes a second byte; the current English db bytes and mixed-region classification remain unchanged by this parity pass
+; 6C:60AF maps A0..FF to 96 big-endian numeric glyph codes at $58C7 + 2*(byte-$A0); 80..9F consumes a second byte; the original db bytes and mixed-region classification remain unchanged
 
 Data_6C_58BA:: ; 6C:58BA
 	db $06, $95, $FF, $06, $06, $00, $10, $05, $01, $04, $00, $00, $00

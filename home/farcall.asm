@@ -5,7 +5,7 @@
 SECTION "home/farcall", ROM0
 
 FarCall_IdleLoop:: ; 00:06B7
-Function_00_06B7::
+	; Historical address alias retired; proper operation name retained.
 	; [PROBABLE] default target of the trampoline (jp $06B7 written by 0684 to FFAD-FFAF): forever
 	; call 044B (wait for VBlank + frame service). Reached only if the trampoline is entered without
 	; a patched target; never executed in mGBA (20 M instructions)
@@ -13,7 +13,7 @@ Function_00_06B7::
 	jr FarCall_IdleLoop
 
 FarCall_Inline16:: ; 00:06BC
-Function_00_06BC::
+	; Historical address alias retired; proper operation name retained.
 	; [CONFIRMED] far call with inline 16-bit address (2 bytes after the call); bank comes from
 	; hFFF3. Entry to the common far-call path (06EE). One caller: `call $06BC` at 4F:4008 (inline
 	; word at 4F:400B = 00:050C CopyBytes, with hFFF3=A and WRAM bank 7 selected)
@@ -51,10 +51,10 @@ FarCall:: ; 00:06D1
 	jr FarCall_Common
 
 FarCall_Reg:: ; 00:06E5
-	; [PROBABLE] like FarCall but bank in A and target address in HL (no inline data); shares the
-	; common path at 06EE. No static caller found [candidate; raw refs 18] | 6 insn(s) never
-	; executed in the traced runs; cut out of the PROBABLE region 06E5-0716 by apply_coverage
-	; --split
+	; [PROBABLE] bank in A and target in HL, no inline bytes; common path at 06EE. Unlike FarCall,
+	; it does not save incoming A/HL to FFA9/FFAB-AC: with the initialized trampoline intact,
+	; the target receives the values already stored there. No static caller identified;
+	; the six entry instructions have no observed execution in the maintained traces.
 	ldh [hScratchA], a
 	ld a, l
 	ldh [hFarCallTarget], a
@@ -90,7 +90,7 @@ FarCall_Common:: ; 00:06EE
 	jp $FFA8
 
 FarJump_Inline16:: ; 00:0716
-Function_00_0716::
+	; Historical address alias retired; proper operation name retained.
 	; [PROBABLE] far JUMP (tail call, no return) with inline 16-bit address and bank from hFFF3; no
 	; static caller found [candidate; raw refs 6]
 	ldh [hFarCallA], a

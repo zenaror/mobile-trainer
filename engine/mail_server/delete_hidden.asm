@@ -442,7 +442,7 @@ MailSrvDelHidden_ShowDescDeleteAll:: ; 22:43C5
 	call MailSrvDelHidden_UploadTextTiles
 	ret
 
-; ---- text $43E0-$444D (109 bytes) [CONFIRMED] NUL-terminated original Shift-JIS text109 (54 double-byte glyph codes + NUL); original ROM22 source passed to TextTiles_RenderLine48:403E via bank-qualified ReadByteFar; 3 whole/3 union natural scenarios; bytes and labels preserved ; original JP natural-read evidence; English runtime UNVALIDATED.
+; ---- text $43E0-$444D (109 bytes) [CONFIRMED] NUL-terminated original Shift-JIS text109 (54 double-byte glyph codes + NUL); original ROM22 source passed to TextTiles_RenderLine48:403E via bank-qualified ReadByteFar; 3 whole/3 union natural scenarios; bytes and labels preserved
 
 PUSHC sjis
 String_MailSrvDelHidden_DescDeleteAll:: ; 22:43E0
@@ -493,7 +493,7 @@ MailSrvDelHidden_ShowDescDeleteCompletely:: ; 22:44FA
 	call MailSrvDelHidden_UploadTextTiles
 	ret
 
-; ---- text $4515-$4582 (109 bytes) [CONFIRMED] NUL-terminated original Shift-JIS text109 (54 double-byte glyph codes + NUL); original ROM22 source passed to TextTiles_RenderLine48:403E via bank-qualified ReadByteFar; 1 whole/1 union natural scenarios; bytes and labels preserved ; original JP natural-read evidence; English runtime UNVALIDATED.
+; ---- text $4515-$4582 (109 bytes) [CONFIRMED] NUL-terminated original Shift-JIS text109 (54 double-byte glyph codes + NUL); original ROM22 source passed to TextTiles_RenderLine48:403E via bank-qualified ReadByteFar; 1 whole/1 union natural scenarios; bytes and labels preserved
 
 PUSHC sjis
 String_MailSrvDelHidden_DescDeleteCompletely:: ; 22:4515
@@ -820,7 +820,7 @@ MailSrvDelHidden_UploadTextTiles:: ; 22:489F
 	ret
 
 MailSrvDelHidden_DrawTimerNumbers:: ; 22:48CD
-Function_22_48CD::
+
 	; [PROBABLE] function prologue (push af/bc/de/hl ... ld de,$C2D7 ... call $4975 / $4A97 ...)
 	; that falls straight into the far-call site at 22:48FE (PROBABLE code); it follows a ret at
 	; 48CC. No caller/pointer to 48CD found in the ROM (words.py scan), so the entry is unproven;
@@ -930,7 +930,7 @@ Function_22_48CD::
 	ret
 
 MailSrvDelHidden_FormatDecimalStr:: ; 22:4975
-Function_22_4975::
+
 	push hl
 	push bc
 	ld a, $01
@@ -1124,7 +1124,7 @@ String_22_4A8C::
 POPC
 
 MailSrvDelHidden_NumberOffset:: ; 22:4A97
-Function_22_4A97::
+
 	; [PROBABLE] 130 insn(s) reached by static flow only; seeds: exec x74, site x56; min discovery
 	; hops 0; entered by call from 22:491A (PROBABLE code) | 56 insn(s) never executed in the traced
 	; runs; cut out of the PROBABLE region 4A97-4BB5 by apply_coverage --split | forced execution:
@@ -1178,7 +1178,7 @@ Function_22_4A97::
 	ret
 
 MailSrvDelHidden_UploadDecimalTiles:: ; 22:4AF7
-Function_22_4AF7::
+
 	ldh a, [rSVBK]
 	push af
 	ld a, $02
@@ -1281,8 +1281,8 @@ MailSrvDelHidden_DeleteAll_Confirm:: ; 22:4B2F
 	jp z, .l4BB7
 	jp .l4BD1
 
-	; [HYPOTHESIS] jr $4C2B (18 74) after the unconditional 'jp $4BD1' at 22:4BB2: unreachable by
-	; flow and never referenced; target 4C2B is a code instruction start
+	; [HYPOTHESIS] JR4BB5->4C2B (1874) is bypassed sequentially by JP4BB2->4BD1;
+	; target is a code start; independent entry remains unproved, not universally unreachable
 	jr .l4C2B
 
 .l4BB7 ; 22:4BB7
@@ -1377,7 +1377,7 @@ MailSrvDelHidden_DeleteAll_Confirm:: ; 22:4B2F
 	farcall Palette_FadeOutToWhite
 	ret
 
-; ---- data $4C5B-$4C62 (7 bytes) [CONFIRMED] opaque7-byte session-block template copied by original bank22 loop to WRAMbank1 wMailSessionBlock ($D624); 2 whole/2 union natural scenarios; no protocol-field meaning inferred; bytes and labels preserved ; original JP natural-read evidence; English runtime UNVALIDATED.
+; ---- data $4C5B-$4C62 (7 bytes) [CONFIRMED] opaque7-byte session-block template copied by original bank22 loop to WRAMbank1 wMailSessionBlock ($D624); 2 whole/2 union natural scenarios; no protocol-field meaning inferred; bytes and labels preserved
 
 Data_MailSrvDelHidden_DeleteAll_Confirm_SessionBlockTemplate:: ; 22:4C5B
 Data_22_4C5B::
@@ -1470,8 +1470,8 @@ MailSrvDelHidden_DeleteCompletely_Confirm:: ; 22:4C7A
 	jp z, .l4D02
 	jp .l4D1C
 
-	; [HYPOTHESIS] jr $4D76 (18 74) after the unconditional 'jp $4D1C' at 22:4CFD: unreachable, same
-	; pattern as 4BB5; target is a code instruction start
+	; [HYPOTHESIS] JR4D00->4D76 (1874) is bypassed sequentially by JP4CFD->4D1C;
+	; target is a code start; independent entry remains unproved, not universally unreachable
 	jr .l4D76
 
 .l4D02 ; 22:4D02
@@ -1566,7 +1566,7 @@ MailSrvDelHidden_DeleteCompletely_Confirm:: ; 22:4C7A
 	farcall Palette_FadeOutToWhite
 	ret
 
-; ---- data $4DA6-$4DAD (7 bytes) [CONFIRMED] opaque7-byte session-block template copied by original bank22 loop to WRAMbank1 wMailSessionBlock ($D624); 1 whole/1 union natural scenarios; no protocol-field meaning inferred; bytes and labels preserved ; original JP natural-read evidence; English runtime UNVALIDATED.
+; ---- data $4DA6-$4DAD (7 bytes) [CONFIRMED] opaque7-byte session-block template copied by original bank22 loop to WRAMbank1 wMailSessionBlock ($D624); 1 whole/1 union natural scenarios; no protocol-field meaning inferred; bytes and labels preserved
 
 Data_MailSrvDelHidden_DeleteCompletely_Confirm_SessionBlockTemplate:: ; 22:4DA6
 Data_22_4DA6::
@@ -1651,8 +1651,8 @@ MailSrvDelHidden_CheckAndDelete:: ; 22:4DAD
 	jp z, .l4E43
 	jp .l4E5D
 
-	; [HYPOTHESIS] jr $4EB9 (18 76) after the unconditional 'jp $4E5D': unreachable, same pattern as
-	; 4BB5; target is a code instruction start
+	; [HYPOTHESIS] JR4E41->4EB9 (1876) is bypassed sequentially by JP4E3E->4E5D;
+	; target is a code start; independent entry remains unproved, not universally unreachable
 	jr .l4EB9
 
 .l4E43 ; 22:4E43
@@ -1748,7 +1748,7 @@ MailSrvDelHidden_CheckAndDelete:: ; 22:4DAD
 	farcall Palette_FadeOutToWhite
 	ret
 
-; ---- data $4EE9-$4EF0 (7 bytes) [CONFIRMED] opaque7-byte session-block template copied by original bank22 loop to WRAMbank1 wMailSessionBlock ($D624); 1 whole/1 union natural scenarios; no protocol-field meaning inferred; bytes and labels preserved ; original JP natural-read evidence; English runtime UNVALIDATED.
+; ---- data $4EE9-$4EF0 (7 bytes) [CONFIRMED] opaque7-byte session-block template copied by original bank22 loop to WRAMbank1 wMailSessionBlock ($D624); 1 whole/1 union natural scenarios; no protocol-field meaning inferred; bytes and labels preserved
 
 Data_MailSrvDelHidden_CheckAndDelete_SessionBlockTemplate:: ; 22:4EE9
 Data_22_4EE9::

@@ -42,12 +42,12 @@ Data_28_6B30::
 	INCBIN "gfx/mail_server/delete_method_screen/mail_server_delete_method_tilemap_second.tilemap"
 	INCBIN "gfx/mail_server/delete_method_screen/mail_server_delete_method_tilemap_second.attrmap"
 
-; ---- data $6E00-$6E40 (64 bytes) [CONFIRMED] BG palette: 8 x 4 RGB555 words (all bit15 clear), original-exact; 2 literal loader site(s) (22:424E 23:41FD) pass bank $28, BC=$0040 and DE=$D800 to 4F:4000 Palette_LoadToBuffer, selecting WRAM bank 7 and copying through 00:050C; all 64 bytes read in each of 15/69 existing original-ROM scenarios, with all five loader instruction starts observed; no new visual or hardware observation Original JP source/static/natural evidence only; English runtime/layout/visual/fidelity/hardware UNVALIDATED.
+; ---- data $6E00-$6E40 (64 bytes) [CONFIRMED] BG palette: 8 x 4 RGB555 words (all bit15 clear), original-exact; 2 literal loader site(s) (22:424E 23:41FD) pass bank $28, BC=$0040 and DE=$D800 to 4F:4000 Palette_LoadToBuffer, selecting WRAM bank 7 and copying through 00:050C; all 64 bytes read in each of 15/69 existing original-ROM scenarios, with all five loader instruction starts observed; no new visual or hardware observation
 
 MailServerDeleteMethod_BgPalette:: ; 28:6E00
 Palette_28_6E00::
 	INCLUDE "gfx/mail_server/delete_method_screen/mail_server_delete_method_bg_palette.pal"
-; ---- data $6E40-$6E80 (64 bytes) [CONFIRMED] OBJ palette: 8 x 4 RGB555 words (all bit15 clear), original-exact; 2 literal loader site(s) (22:4262 23:4211) pass bank $28, BC=$0040 and DE=$D840 to 4F:4000 Palette_LoadToBuffer, selecting WRAM bank 7 and copying through 00:050C; all 64 bytes read in each of 15/69 existing original-ROM scenarios, with all five loader instruction starts observed; no new visual or hardware observation Original JP source/static/natural evidence only; English runtime/layout/visual/fidelity/hardware UNVALIDATED.
+; ---- data $6E40-$6E80 (64 bytes) [CONFIRMED] OBJ palette: 8 x 4 RGB555 words (all bit15 clear), original-exact; 2 literal loader site(s) (22:4262 23:4211) pass bank $28, BC=$0040 and DE=$D840 to 4F:4000 Palette_LoadToBuffer, selecting WRAM bank 7 and copying through 00:050C; all 64 bytes read in each of 15/69 existing original-ROM scenarios, with all five loader instruction starts observed; no new visual or hardware observation
 MailServerDeleteMethod_ObjPalette:: ; 28:6E40
 	INCLUDE "gfx/mail_server/delete_method_screen/mail_server_delete_method_obj_palette.pal"
 

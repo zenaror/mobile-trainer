@@ -86,7 +86,7 @@ adjusters for flags C0F8/C0F9 that nothing writes; look like template residue), 
 
 `Password_ClearConfirmIfEdited` (4761, CONFIRMED: executed 148x in 8 scenarios after `Account_PasswordEntryScreen`), `Password_CopyConfirmToPassword` / `Password_CopyConfirmToNew` (46FF/471F, unreferenced siblings of
 `Password_CompareEntries`), `Startup_VerifySaveDataSilent` (41AA, same callees as `Startup_VerifySaveData` without the error screen; only a raw far-call site).  Neutral: `Function_65_481A` (dead variant with a stale
-`call $21A0`); `Data_65_4BE2`/`4C6C` are not tables of their own but the body and last word of `Notice_PageTable` (merging them is a source cleanup, not a rename).
+`call $21A0`); `Notice_PageTable_RegistrationStartTextPointer`/`Notice_PageTable_ResumeRegistrationTextPointer` name the first and last text-pointer fields inside `Notice_PageTable`; the two fields are selected at `table + 4 + 6 * page id`, while the intervening bytes hold the other records' metadata.
 **Correction:** the `config/symbols/bank65.tsv` row for `Function_65_4761` ("no caller") is stale; it is called at 65:43A1 and 65:4598.
 
 ## Bank 67 - settings / password change / adapter check

@@ -1,0 +1,3 @@
+old_name	current_name	bank	address	owner	status	confidence
+Data_68_7B19	Registration_DeleteCursorPositions	68	7B19	engine/account/delete_registration.asm	retired_this_pass	CONFIRMED
+Data_68_6E03	Config_HostPrefixStrings	68	6E03	engine/account/register_config.asm	retired_this_pass	CONFIRMED

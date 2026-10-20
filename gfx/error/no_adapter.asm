@@ -21,13 +21,13 @@ Data_63_6480:: ; 63:6480
 ; ---- gfx $64C0-$68C0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 63:7389: hl=$64C0 a=$63 c=$40 de=$8C01 (dest VRAM $8C00, vbank=1)
 
 NoAdapter_Gfx_8C00:: ; 63:64C0
-Data_63_64C0::
+
 	INCBIN "gfx/error/no_adapter/no_adapter_gfx_8c00.2bpp"
 
 ; ---- gfx $68C0-$6CC0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 63:739B: hl=$68C0 a=$63 c=$40 de=$9001 (dest VRAM $9000, vbank=1)
 
 NoAdapter_Gfx_9000:: ; 63:68C0
-Data_63_68C0::
+
 	INCBIN "gfx/error/no_adapter/no_adapter_gfx_9000.2bpp"
 
 ; ---- gfx $6CC0-$6FC0 (768 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 63:73AD: hl=$6CC0 a=$63 c=$40 de=$9401 (dest VRAM $9400, vbank=1); the last $100 bytes of the old blob hold the head of a tilemap pair; the blocks below type them by what the code reads, and the HDMA request that copies the tiles copies them into VRAM as well
@@ -45,7 +45,7 @@ NoAdapter_Tilemap:: ; 63:6FC0
 ; ---- data $7290-$72D0 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/error/no_adapter.asm:59, call 63:73BE executed 7 hits in 2 scenarios (analysis/coverage_union.tsv))
 
 NoAdapter_Palette_Bg:: ; 63:7290
-Data_63_7290::
+
 	INCLUDE "gfx/error/no_adapter/no_adapter_palette_bg.pal"
 
 ; ---- data $72D0-$7310 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufObj (engine/error/no_adapter.asm:64, call 63:73CF executed 7 hits in 2 scenarios (analysis/coverage_union.tsv))

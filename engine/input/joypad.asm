@@ -5,7 +5,7 @@
 SECTION "engine/input/joypad", ROMX
 
 Joypad_ReadRaw:: ; 7D:7B7C
-Function_7D_7B7C::
+
 	; [CONFIRMED] 57 insn(s); 57 executed (in up to 18/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $20

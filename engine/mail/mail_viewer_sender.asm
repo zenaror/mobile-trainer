@@ -50,8 +50,8 @@ MailView_SenderPage_Loop:: ; 2B:64A7
 	jp z, MailView_SenderPage
 	xor a, a
 	ret
+Show0206_CallDeleteRecordIf1_Else64A7:: ; 2B:64F1 [PROBABLE] operation; entry/purpose unproved
 
-Function_2B_64F1:: ; 2B:64F1
 	; [HYPOTHESIS] function prologue (push bc; ld a,7; ldh [$8D],a; ldh [$70],a; ld a,$E0; ld
 	; [$DA10],a; ld [$DA20],a) that falls into the far-call site at 2B:6500 (PROBABLE code), after
 	; the ret at 64F0; no caller/pointer to 64F1 found
@@ -92,7 +92,6 @@ Function_2B_64F1:: ; 2B:64F1
 	ret
 
 MailView_SenderPage_CheckBAndSelect:: ; 2B:6548
-Label_2B_6548::
 	; [CONFIRMED] 298 insn(s) executed; cut out of the PROBABLE region 6500-6863 by apply_coverage
 	; --split [executed in 3 scenarios]
 	ldh a, [hJoyPressed]
@@ -480,8 +479,8 @@ Table_2B_6863::
 
 	; [HYPOTHESIS] lone 'ret' (c9) after the table at 6863..687B; entry and purpose remain unproved
 	ret
+Sprite_SetSlots1And2Y68XByC_InitSlot2:: ; 2B:687C [PROBABLE] operation; entry/purpose unproved
 
-Function_2B_687C:: ; 2B:687C
 	; [HYPOTHESIS] 158B/60 CPU starts [687C,691A), four cases; 12 farcall data bytes separate.
 	; Prior24B table6863..687B plus RET687B; previous-JR entry wording was contradicted.
 	; C dispatches internal branches; each normal path balances PUSH/POP BC and returns.
@@ -1215,13 +1214,13 @@ Gfx_StartHDMAAtVBlank_2B_6CD5:: ; 2B:6CD5
 	and a, $7F
 	ldh [rHDMA5], a
 	ret
-
-Function_2B_6CF5:: ; 2B:6CF5
-	; [HYPOTHESIS] function at 2B:6CF5 (push bc; ld a,1; ldh [$8D],a; ldh [$70],a; SRAM enable;
-	; clears $24 bytes at $D400; ld hl,$6DB0 table index; ...) that flows into the PROBABLE code at
-	; 6D6B; after the ret at 6CF4; no caller/pointer to 6CF5 found. Decode legal, all branch targets
-	; valid | forced execution: 68/68 instruction starts ran in forced_dead (traces/forced/, not
-	; natural evidence; status unchanged)
+MailReply_ComposeFromRecord:: ; 2B:6CF5 [PROBABLE] reply from record; entry unproved
+	; [PROBABLE] Sender fields -> recipient buffers; mode3 reply; see naming2_neutral_mail.md.
+	; [HYPOTHESIS] Entry/caller unproved. W1:$D400 wipe $24; SRAM0 record B -> edit buffers.
+	; Unlike 25:54A7: no B+C adjustment, wipe $24 vs $124, initial MailAddr_Edit A=0 vs 1.
+	; Nonzero/non-FF body result: four POP AF6D94..6D97; RET6DA2 uses entry stack word +8.
+	; Balanced callees/valid stack required; cancel RET6DAF uses entry return, unwind ABI unknown.
+	; forced_dead: prefix68 + CALL6D6D =69/100 starts; no final POP/RET observed; not natural.
 	push bc
 	ld a, $01
 	ldh [hWRAMBank], a

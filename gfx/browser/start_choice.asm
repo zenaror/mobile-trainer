@@ -11,26 +11,26 @@ Data_73_4097::
 	INCBIN "gfx/browser/start_choice/browser_start_map.tilemap"
 	INCBIN "gfx/browser/start_choice/browser_start_map.attrmap"
 
-; ---- data $4367-$438F (40 bytes) [CONFIRMED] tile-index rectangle: 4 rows x 10 columns; ROM73 -> WRAM7 $D089, row stride 32; paired consumer 73:6235 -> 00:16A2; all 40 bytes read in 8 whole/8 union natural scenarios (typing_73_browser_rectangles.md); original JP natural-read evidence; English runtime UNVALIDATED.
+; ---- data $4367-$438F (40 bytes) [CONFIRMED] tile-index rectangle: 4 rows x 10 columns; ROM73 -> WRAM7 $D089, row stride 32; paired consumer 73:6235 -> 00:16A2; all 40 bytes read in 8 whole/8 union natural scenarios (typing_73_browser_rectangles.md)
 
 BrowserStart_TopMapNormal:: ; 73:4367
 Tilemap_73_4367::
 	INCBIN "gfx/browser/start_choice/browser_start_top_map_normal.tilemap"
 
-; ---- data $438F-$43AD (30 bytes) [CONFIRMED] tile-index rectangle: 3 rows x 10 columns; ROM73 -> WRAM7 $D129, row stride 32; paired consumer 73:61F0 -> 00:16A2; all 30 bytes read in 19 whole/19 union natural scenarios (typing_73_browser_remaining.md); original JP natural-read evidence; English runtime UNVALIDATED.
+; ---- data $438F-$43AD (30 bytes) [CONFIRMED] tile-index rectangle: 3 rows x 10 columns; ROM73 -> WRAM7 $D129, row stride 32; paired consumer 73:61F0 -> 00:16A2; all 30 bytes read in 19 whole/19 union natural scenarios (typing_73_browser_remaining.md)
 
 BrowserStart_BottomMapNormal:: ; 73:438F
 Data_73_438F::
 	db $0A, $30, $31, $31, $31, $31, $31, $31, $30, $0A, $0A, $2F, $35, $36, $37, $38
 	db $39, $3A, $34, $0A, $0A, $33, $32, $32, $32, $32, $32, $32, $33, $0A
 
-; ---- data $43AD-$43D5 (40 bytes) [CONFIRMED] BG attribute rectangle: 4 rows x 10 columns; ROM73 -> WRAM7 $D489, row stride 32; paired consumer 73:6235 -> 00:16A2; all 40 bytes read in 8 whole/8 union natural scenarios (typing_73_browser_rectangles.md); original JP natural-read evidence; English runtime UNVALIDATED.
+; ---- data $43AD-$43D5 (40 bytes) [CONFIRMED] BG attribute rectangle: 4 rows x 10 columns; ROM73 -> WRAM7 $D489, row stride 32; paired consumer 73:6235 -> 00:16A2; all 40 bytes read in 8 whole/8 union natural scenarios (typing_73_browser_rectangles.md)
 
 BrowserStart_TopAttrNormal:: ; 73:43AD
 Data_73_43AD::
 	INCBIN "gfx/browser/start_choice/browser_start_top_attr_normal.attrmap"
 
-; ---- data $43D5-$441B (70 bytes) [CONFIRMED] mixed rectangles: BG attributes $43D5-$43F3 (30 bytes, 3x10, WRAM7 $D529, consumer 73:61F0); tile indices $43F3-$441B (40 bytes, 4x10, WRAM7 $D089, consumer 73:620B); row stride 32; all 70 bytes read in 19 whole/19 union natural scenarios (typing_73_browser_remaining.md); original JP natural-read evidence; English runtime UNVALIDATED.
+; ---- data $43D5-$441B (70 bytes) [CONFIRMED] mixed rectangles: BG attributes $43D5-$43F3 (30 bytes, 3x10, WRAM7 $D529, consumer 73:61F0); tile indices $43F3-$441B (40 bytes, 4x10, WRAM7 $D089, consumer 73:620B); row stride 32; all 70 bytes read in 19 whole/19 union natural scenarios (typing_73_browser_remaining.md)
 
 BrowserStart_BottomAttrNormal:: ; 73:43D5
 Data_73_43D5::
@@ -42,13 +42,13 @@ BrowserStart_TopMapSelected:: ; 73:43F3
 	db $60, $61, $62, $1D, $2D, $63, $64, $65, $66, $67, $68, $69, $6A, $2D, $0F, $1E
 	db $1E, $1E, $1E, $1E, $1E, $1E, $1E, $0F
 
-; ---- data $441B-$4439 (30 bytes) [CONFIRMED] tile-index rectangle: 3 rows x 10 columns; ROM73 -> WRAM7 $D129, row stride 32; paired consumer 73:6250 -> 00:16A2; all 30 bytes read in 8 whole/8 union natural scenarios (typing_73_browser_rectangles.md); original JP natural-read evidence; English runtime UNVALIDATED.
+; ---- data $441B-$4439 (30 bytes) [CONFIRMED] tile-index rectangle: 3 rows x 10 columns; ROM73 -> WRAM7 $D129, row stride 32; paired consumer 73:6250 -> 00:16A2; all 30 bytes read in 8 whole/8 union natural scenarios (typing_73_browser_rectangles.md)
 
 BrowserStart_BottomMapSelected:: ; 73:441B
 Tilemap_73_441B::
 	INCBIN "gfx/browser/start_choice/browser_start_bottom_map_selected.tilemap"
 
-; ---- data $4439-$4461 (40 bytes) [CONFIRMED] BG attribute rectangle: 4 rows x 10 columns; ROM73 -> WRAM7 $D489, row stride 32; paired consumer 73:620B -> 00:16A2; all 40 bytes read in 19 whole/19 union natural scenarios (typing_73_browser_remaining.md); original JP natural-read evidence; English runtime UNVALIDATED.
+; ---- data $4439-$4461 (40 bytes) [CONFIRMED] BG attribute rectangle: 4 rows x 10 columns; ROM73 -> WRAM7 $D489, row stride 32; paired consumer 73:620B -> 00:16A2; all 40 bytes read in 19 whole/19 union natural scenarios (typing_73_browser_remaining.md)
 
 BrowserStart_TopAttrSelected:: ; 73:4439
 Data_73_4439::
@@ -56,13 +56,13 @@ Data_73_4439::
 	db $0A, $0A, $0A, $29, $09, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $29, $09, $09
 	db $09, $09, $09, $09, $09, $09, $09, $29
 
-; ---- data $4461-$447F (30 bytes) [CONFIRMED] BG attribute rectangle: 3 rows x 10 columns; ROM73 -> WRAM7 $D529, row stride 32; paired consumer 73:6250 -> 00:16A2; all 30 bytes read in 8 whole/8 union natural scenarios (typing_73_browser_rectangles.md); original JP natural-read evidence; English runtime UNVALIDATED.
+; ---- data $4461-$447F (30 bytes) [CONFIRMED] BG attribute rectangle: 3 rows x 10 columns; ROM73 -> WRAM7 $D529, row stride 32; paired consumer 73:6250 -> 00:16A2; all 30 bytes read in 8 whole/8 union natural scenarios (typing_73_browser_rectangles.md)
 
 BrowserStart_BottomAttrSelected:: ; 73:4461
 Data_73_4461::
 	INCBIN "gfx/browser/start_choice/browser_start_bottom_attr_selected.attrmap"
 
-; ---- data $447F-$4530 (177 bytes) [CONFIRMED] mixed animation data: five 5x7 tile-index frames (175 bytes), first BG attribute bytes (2); paired consumer73:6290 -> 00:16A2, 18 whole/19 union natural scenarios (typing_73_browser_animation.md); original JP natural-read evidence; English runtime UNVALIDATED.
+; ---- data $447F-$4530 (177 bytes) [CONFIRMED] mixed animation data: five 5x7 tile-index frames (175 bytes), first BG attribute bytes (2); paired consumer73:6290 -> 00:16A2, 18 whole/19 union natural scenarios (typing_73_browser_animation.md)
 
 BrowserStart_AnimFrames:: ; 73:447F
 Data_73_447F::
@@ -79,7 +79,7 @@ Data_73_447F::
 	db $0A, $A6, $DD, $DE, $DF, $E0, $0A, $0A, $D0, $AC, $AD, $AE, $98, $0A, $0A, $03
 	db $03
 
-; ---- data $4530-$45E0 (176 bytes) [PROBABLE] mixed data: CONFIRMED BG attribute suffix173 (offset2 of five 5x7 frames, consumer73:6290, 18 whole/19 union); last3 raw bytes unread in all69 natural traces, purpose HYPOTHESIS; whole176 never promoted; original JP natural-read evidence; English runtime UNVALIDATED.
+; ---- data $4530-$45E0 (176 bytes) [PROBABLE] mixed data: CONFIRMED BG attribute suffix173 (offset2 of five 5x7 frames, consumer73:6290, 18 whole/19 union); last3 raw bytes unread in all69 natural traces, purpose HYPOTHESIS; whole176 never promoted
 
 Data_73_4530:: ; 73:4530
 	db $03, $03, $03, $01, $01
@@ -155,8 +155,8 @@ Data_73_5DE0::
 BrowserStart_ObjPalettes:: ; 73:5E20
 	INCLUDE "gfx/browser/start_choice/browser_start_obj_palettes.pal"
 
-; ---- data $5E60-$5EC0 (96 bytes) [CONFIRMED] sprite table (4), two OAM frames (45 each), script prefix (2); original consumers read the full 99-byte chain through $5EC3 in 19 whole/19 union natural scenarios (typing_73_browser_sprite99.md); original JP natural-read evidence; English runtime UNVALIDATED.
-
+; ---- data $5E60-$5EC0 (96 bytes) [CONFIRMED] sprite table (4), two OAM frames (45 each), script prefix (2); original consumers read the full 99-byte chain through $5EC3 in 19 whole/19 union natural scenarios (typing_73_browser_sprite99.md)
+SpriteFrameTable_73_5E60:: ; 73:5E60
 Data_73_5E60:: ; 73:5E60
 	sprite_frame_table $5E64, $5E91
 	sprite_frame 11 ; original 73:5E64
@@ -185,7 +185,7 @@ Data_73_5E60:: ; 73:5E60
 	sprite_oam 15, 24, $0A, $00
 	db $02, $00 ; script 73:5EBE: count 2, first frame 0; split preserves Data_73_5EC0
 
-; ---- data $5EC0-$5F17 (87 bytes) [CONFIRMED] mixed sprite data: first script tail (3), second chain (76), object root (8); physical interval read in 18 whole/19 union natural scenarios; semantic bounds differ (typing_73_browser_sprite99.md); original JP natural-read evidence; English runtime UNVALIDATED.
+; ---- data $5EC0-$5F17 (87 bytes) [CONFIRMED] mixed sprite data: first script tail (3), second chain (76), object root (8); physical interval read in 18 whole/19 union natural scenarios; semantic bounds differ (typing_73_browser_sprite99.md)
 
 Data_73_5EC0:: ; 73:5EC0
 	db $14, $01, $14 ; script tail: frame 0 waits 20, then frame 1 waits 20 (count 2 at 73:5EBE)
@@ -226,5 +226,5 @@ SpriteScript_73_5F00:: ; 73:5F00
 	sprite_anim_step 5, 6
 	sprite_anim_step 6, 30
 BrowserStart_ObjTable:: ; 73:5F0F
-	sprite_object_entry Data_73_5E60, $5EBE ; entry 0; original bank 73, existing alias preserved
+	sprite_object_entry SpriteFrameTable_73_5E60, $5EBE ; entry 0; original bank 73, existing alias preserved
 	sprite_object_entry SpriteFrameTable_73_5EC3, SpriteScript_73_5F00 ; entry 1

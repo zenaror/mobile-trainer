@@ -87,7 +87,7 @@ Registration_Verify_Abort:: ; 68:737B
 	ret
 
 Screen_FadeOutAndResetObjWindow:: ; 68:73DD
-Function_68_73DD::
+	; [PROBABLE] Existing operation name; bank68_function_names row 73DD.
 	farcall Palette_FadeOutToWhite
 	farcall Sprite_ResetAll
 	call VBlank_WaitAndService
@@ -285,7 +285,6 @@ CommPanel_StateHide:: ; 68:7583
 	ret
 
 CommPanel_StateWaitCloseOnly:: ; 68:7594
-Label_68_7594::
 	; [CONFIRMED] 8 insn(s) reached by static flow only; seeds: table x8; min discovery hops 0; run
 	; starts at an entry of the code-pointer table at 68:7442 [executed in 4 scenarios]
 	ld a, [wCommPanelArg]
@@ -300,7 +299,7 @@ Label_68_7594::
 	ret
 
 CommPanel_PrintWarningText:: ; 68:75A4
-Function_68_75A4::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 75A4.
 	; [CONFIRMED] 77 insn(s); 77 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld de, $FFFF

@@ -27,6 +27,8 @@ INCBINs / INCLUDEs.  A `.png` next to a `.2bpp` is an *exact source*: `rgbgfx -c
 A block is converted only when its region header note, its label name or the frozen symbol table (config/symbols) says what it is
 *and* the bytes fit that kind (palette: even size, every word < $8000; tilemap: size = width x height stated in the note; ...).
 Everything else stays `db`.  Nothing is guessed here; the evidence status of the block is copied to gfx/assets.tsv.
+The four explicitly declared bank42 raw/HYPOTHESIS backings use tools/raw_png.py:
+their exact PNG is a reversible byte view, without claiming an original tile purpose.
 """
 import argparse
 import concurrent.futures
@@ -42,6 +44,8 @@ import zlib
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
+sys.path.insert(0, HERE)
+import raw_png as RAW  # explicit byte-view codec, not a graphics classification
 
 SCAN_DIRS = ('gfx', 'data/fonts')
 # code files (engine/, lib/, home/, audio/) are scanned only for their `; ---- gfx` regions (a graphics block that sits between code);
@@ -62,7 +66,7 @@ COLS = ['path', 'type', 'size', 'asm', 'bank', 'addr', 'status', 'png', 'pad', '
 FONT_TYPES = ('font12', 'font8x16', 'font6x12')
 
 EXT = {'tiles': '.2bpp', 'font8x16': '.1bpp', 'tilemap': '.tilemap', 'attrmap': '.attrmap', 'palette': '.pal',
-       'font12': '.bin', 'font6x12': '.bin', 'sjisbitmap': '.bin'}
+       'font12': '.bin', 'font6x12': '.bin', 'sjisbitmap': '.bin', 'raw': '.bin'}
 
 
 # ------------------------------------------------------------------------------------------------ PNG (indexed, 8 bit)
@@ -647,8 +651,8 @@ def write_manifest(rows):
         return (r['asm'], int(r['addr'], 16), r['path'])
     with open(os.path.join(ROOT, MANIFEST), 'w', encoding='utf-8') as f:
         f.write('# gfx/assets.tsv -- written by tools/gfx_export.py (do not edit by hand)\n')
-        f.write('# path: asset the .asm INCBINs / INCLUDEs.  type: tiles (2bpp) font8x16 (1bpp glyphs) font12 font6x12 sjisbitmap tilemap attrmap palette\n')
-        f.write('# png: exact = rgbgfx source of path (rgbgfx -c embedded -x pad); sheet = font glyph sheet (tools/font_png.py), editable; view = picture for reading only (*_view.png); - = none\n')
+        f.write('# path: asset the .asm INCBINs / INCLUDEs.  type: tiles (2bpp) font8x16 (1bpp glyphs) font12 font6x12 sjisbitmap tilemap attrmap palette raw (explicit conditional byte codec only)\n')
+        f.write('# png: exact = reversible PNG source (rgbgfx for tiles; raw_png for explicit raw byte views); sheet = font glyph sheet (tools/font_png.py), editable; view = picture for reading only (*_view.png); - = none\n')
         f.write('# bank / addr: original ROM position of the first byte (hex); status: evidence status of the block header; dims: width x height in tiles as stated in the note\n')
         f.write('\t'.join(COLS) + '\n')
         for r in sorted(rows.values(), key=key):
@@ -657,8 +661,8 @@ def write_manifest(rows):
 
 def png_path_of(path, mode):
     stem = os.path.splitext(path)[0]
-    if mode == 'sheet':                       # the two bank-7C font spans share one sheet
-        return re.sub(r'_(4000|57cd)$', '', stem) + '.png'
+    if mode == 'sheet':                       # the three contiguous bank-7C font spans share one sheet
+        return re.sub(r'_(4000|57c3|57cd)$', '', stem) + '.png'
     return stem + ('.png' if mode == 'exact' else '_view.png')
 
 
@@ -827,7 +831,16 @@ def do_png(manifest_rows=None):
         if typ in ('tilemap', 'attrmap', 'palette'):
             continue
         data = open(os.path.join(ROOT, path), 'rb').read()
-        if typ == 'tiles':
+        if typ == 'raw':
+            _, size, _, _ = RAW.definition(path, r)
+            if len(data) != size:
+                raise ValueError('%s: raw backing size differs from declared extent' % path)
+            RAW.provenance(ROOT, path)
+            png_full = os.path.join(ROOT, png_path_of(path, 'exact'))
+            if not os.path.exists(png_full):
+                with open(png_full, 'wb') as f:
+                    f.write(RAW.png_bytes(path, data))
+        elif typ == 'tiles':
             n = len(data) // 16
             per_row, pad = tiles_geometry(n)
             r['png'], r['pad'] = 'exact', str(pad)
@@ -846,6 +859,16 @@ def do_png(manifest_rows=None):
 def _rt_one(item):
     path, r = item
     png = os.path.join(ROOT, png_path_of(path, 'exact'))
+    if r['type'] == 'raw':
+        import pnglib
+        try:
+            RAW.definition(path, r)
+            RAW.provenance(ROOT, path)
+            got, errs = RAW.decode(path, pnglib.read_png(png))
+            want = open(os.path.join(ROOT, path), 'rb').read()
+            return path, '; '.join(errs) if errs else ('' if got == want else 'raw byte-view PNG differs from backing bytes')
+        except (OSError, ValueError, pnglib.PngError) as e:
+            return path, str(e)
     with tempfile.TemporaryDirectory() as td:
         out = os.path.join(td, 'o.2bpp')
         p = subprocess.run(rgbgfx_cmd(png, out, int(r['pad'])), capture_output=True, text=True)
@@ -867,6 +890,9 @@ def check_rgbgfx_roundtrip(rows, fix=False):
     if fix:
         for path, err in bad.items():
             r = rows[path]
+            if r['type'] == 'raw':
+                print('  raw byte-view codec refused: %s (%s); raw/HYPOTHESIS metadata retained' % (path, err))
+                continue
             print('  round trip not exact, demoted to view-only: %s (%s)' % (path, err))
             exact = os.path.join(ROOT, png_path_of(path, 'exact'))
             view = os.path.join(ROOT, png_path_of(path, 'view'))
@@ -881,6 +907,19 @@ def do_bin(rows):
         if r['png'] != 'exact':
             continue
         png = os.path.join(ROOT, png_path_of(path, 'exact'))
+        if r['type'] == 'raw':
+            import pnglib
+            try:
+                RAW.definition(path, r)
+                RAW.provenance(ROOT, path)
+                got, errs = RAW.decode(path, pnglib.read_png(png))
+                if errs:
+                    raise ValueError('; '.join(errs))
+                RAW.write_backing(ROOT, path, got)
+            except (OSError, ValueError, pnglib.PngError) as e:
+                print('raw_png failed for', png, str(e))
+                return 1
+            continue
         p = subprocess.run(rgbgfx_cmd(png, os.path.join(ROOT, path), int(r['pad'])), capture_output=True, text=True)
         if p.returncode:
             print('rgbgfx failed for', png, p.stderr.strip())
@@ -981,7 +1020,8 @@ def do_check():
     ex = sum(1 for r in rows.values() if r['png'] == 'exact')
     vw = sum(1 for r in rows.values() if r['png'] == 'view')
     sh = sum(1 for r in rows.values() if r['png'] == 'sheet')
-    print('%d assets (%d exact tile PNG sources, %d font sheets, %d view-only PNGs, %d without PNG)' % (len(rows), ex, sh, vw, len(rows) - ex - sh - vw))
+    raw = sum(1 for r in rows.values() if r['type'] == 'raw' and r['png'] == 'exact')
+    print('%d assets (%d exact tile PNG sources, %d raw byte-view PNG sources, %d font sheets, %d view-only PNGs, %d without PNG)' % (len(rows), ex - raw, raw, sh, vw, len(rows) - ex - sh - vw))
     for e in errors:
         print('ERROR', e)
     print('gfx_export check:', 'FAILED (%d)' % len(errors) if errors else 'OK')
@@ -991,7 +1031,7 @@ def do_check():
 # ------------------------------------------------------------------------------------------------ README
 
 TYPE_NAME = {'tiles': '2bpp tiles', 'font8x16': '1bpp 8x16 glyphs', 'font12': 'JIS 12x12 glyph bits', 'font6x12': '6x12 glyph rows',
-             'sjisbitmap': 'validity bitmap', 'tilemap': 'tile-index map', 'attrmap': 'attribute map', 'palette': 'RGB palette'}
+             'raw': 'raw bytes (conditional byte-view codec; purpose unknown)', 'sjisbitmap': 'validity bitmap', 'tilemap': 'tile-index map', 'attrmap': 'attribute map', 'palette': 'RGB palette'}
 
 
 README_HEAD = """# Graphics assets
@@ -1010,13 +1050,13 @@ data/fonts/jis12x12_rows_01_08_13.bin          font bytes;  jis12x12_rows_01_08_
 gfx/assets.tsv                                 one line per asset: kind, size, bank:addr, status, PNG mode  (machine readable)
 ```
 
-* **Directory**: `gfx/<area>/<file>/` holds the assets of `gfx/<area>/<file>.asm` (`gfx/bank41.asm` -> `gfx/bank41/`); fonts are directly in `data/fonts/`.
-* **Names**: a block with a semantic label is named after it in `snake_case` (`Gfx_Title_Tiles0` -> `title_tiles0`, `Palette_Title_Bg` -> `title_bg.pal`);
+* **Directory**: `gfx/<area>/<file>/` holds the assets of `gfx/<area>/<file>.asm` (`gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm` -> `gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/`); fonts are under `data/fonts/`, including `glyph_runs_8x16/` (SJIS-keyed runs).
+* **Names**: descriptive resource paths can name a visible design or a demonstrated consumer without changing generic global aliases; see [the bounded path migration](../docs/research/gfx_resource_names.md). A filename does not promote a storage status or prove a natural loader, original display or species. A block with a semantic label is otherwise named after it in `snake_case` (`Gfx_Title_Tiles0` -> `title_tiles0`, `Palette_Title_Bg` -> `title_bg.pal`);
   a block with only a generic label is `<kind>_<addr>` with the address in the bank (`tiles_4000.2bpp`, `tilemap_5bc0.tilemap`).
   Names say what the label / header note says and no more: `tiles_...` means "the analysis typed this block as 2bpp tile data", see status below.
 * **Kinds**: `.2bpp` 2bpp tiles; `.tilemap` / `.attrmap` tile-index / CGB attribute bytes (a `tilemap+attr` pair that `copy_tilemap_rect_pair` loads is
   stored as two files, tile bytes then attribute bytes, INCBINed back to back); `.pal` `RGB` macro lines (four colours per block); `.1bpp` 8x16 glyph
-  runs (`data/fonts/font_8x16_*.1bpp`, 16 bytes per glyph); `.bin` JIS 12x12 glyph bits, the 6x12 Latin font and the Shift-JIS validity bitmap.
+  runs (`data/fonts/glyph_runs_8x16/sjis_*.1bpp`, 16 bytes per glyph); `.bin` JIS 12x12 glyph bits, the 6x12 Latin font and the Shift-JIS validity bitmap.
 * **Exact PNG** (`name.png`): 4-shade indexed PNG (index 0 white ... 3 black; these are tile *indices*, not the game's colours), 16 tiles per row
   (fewer when the block is smaller; a divisor of the tile count between 8 and 15 when 16 does not divide it, else the last row is padded and
   `pad` in `assets.tsv` blank tiles are trimmed).  `rgbgfx -c embedded [-x pad] -o name.2bpp name.png` gives back the `.2bpp` byte for byte
@@ -1062,9 +1102,9 @@ make png-export       (maintainers) PNGs regenerated from the binaries; never ov
 
 | kind | PNG source | files | notes |
 |---|---|---:|---|
-| 2bpp tile blocks | `name.png` (exact `rgbgfx` source of `name.2bpp`) | @TILE_SHEETS@ | 100% of the `.2bpp` files; shades 0-3 are grey indices, not the game's colours (the game colours come from palettes and tile attributes; see screens) |
-| JIS 12x12 glyphs (10 binaries) | `data/fonts/jis12x12_rows_*.png`, 94 glyphs per sheet row | 9 sheets | bank 7C's two binaries share one sheet |
-| 8x16 font runs | `data/fonts/font_8x16_*.png`, 16 glyphs per row | 27 sheets | |
+| 2bpp tile blocks | `name.png` (exact `rgbgfx` source of `name.2bpp`) | @TILE_SHEETS@ | All tile blocks in the active catalogue; shades 0-3 are grey indices, not the game's colours (the game colours come from palettes and tile attributes; see screens) |
+| JIS 12x12 glyphs (11 binaries) | `data/fonts/jis12x12_rows_*.png`, 94 glyphs per sheet row | 9 sheets | bank 7C's three contiguous binaries share one complete sheet |
+| 8x16 font runs | `data/fonts/glyph_runs_8x16/sjis_*.png`, 16 glyphs per row | 27 sheets | |
 | 6x12 Latin font | `data/fonts/ascii_6x12.png` | 1 sheet | 6 pixel wide cells (the two unused bits of each byte stay 0) |
 | whole screens | `name.screen.png` next to `name.tilemap` (`gfx/screens.tsv`) | @SCREENS@ | edit view: tilemap + attribute map + tiles + palettes composed in real colours; import writes the edit into the tile sheets, see below |
 | palettes | `name.pal` (text, `RGB r, g, b`) | @PALETTES@ | already an editable text form; a screen PNG can write colours back (`screen_png.py import --palette`). No separate swatch PNG |
@@ -1078,19 +1118,17 @@ still editable through the tile sheets.
 ### Font sheets (`tools/font_png.py`)
 
 Indexed PNG, 4 colours: white = paper, black = ink (draw only pure black / white inside glyph cells), light grey = the 1 px grid between cells, pink = a pixel
-whose byte is not stored in this file (only around the two glyphs cut by the gap of bank 7C; ignored).  Sheet cell = glyph + 1 px grid line; sheet row r of a
+whose byte is outside the supplied spans (ignored on span import). Bank 7C now supplies all three contiguous chunks, with no pink glyph pixels.  Sheet cell = glyph + 1 px grid line; sheet row r of a
 JIS sheet is glyph-slot row r of the bank (JIS rows: 7E 1-8 and 13, 7D 16-24, 7C 25-33, 7B 34-42, 7A 43-51, 79 52-60, 78 61-69, 77 70-78, 76 79-84), column c is
 JIS column c+1.  The packing (12x12: two 12-bit rows in 3 bytes; 8x16 / 6x12: one byte per row, MSB left) is in the docstring of `tools/font_png.py` and in
 `docs/research/text_encoding.md`; `check` proves for every sheet that the pixels decode to exactly the binary bytes.
 
 ### Screen PNGs (`tools/screen_png.py`, `gfx/screens.tsv`)
 
-A screen = a tilemap + attribute map and the tile blocks and palettes that the *same loader routine* puts into VRAM (found statically from the far calls
-to the HDMA, tilemap-copy and palette-buffer routines; `evidence` column).  The tile-number addressing mode (LCDC bit 4) is chosen by which mode resolves
-more cells.  Status: PROBABLE = every cell resolves and the mode does not matter or is decided by coverage (18 screens); HYPOTHESIS = part of the cells
+A screen combines a tilemap, attributes, tiles and palettes under either the same loader routine or an explicit conditional layout model (`evidence` column).  The tile-number addressing mode (LCDC bit 4) is chosen by which mode resolves
+more cells.  Status: PROBABLE = every cell resolves and the mode does not matter or is decided by coverage (current counts are in `gfx/README.md` and `gfx/screens.tsv`); HYPOTHESIS = part of the cells
 resolve (the rest are drawn pink) or the mode is a tie or the screen is one of the bank 41-46 scene records (layout-only assumption: tile k = record tile k,
-VRAM bank 1) (65 screens).  Visual check (2 x zoom contact sheet, title, mail menu, top menu, logo, keyboard, scenery screens): the composed images read as the
-real screens.  `export` writes the PNGs, `import` reads them back:
+VRAM bank 1).  The earlier visual contact-sheet review provides historical locators, not proof of natural display or name association.  `export` writes the PNGs, `import` reads them back:
 
 ```
 python3 tools/screen_png.py export [NAME]                       # from the current tile sheets and palettes (only needed when stale)
@@ -1099,7 +1137,7 @@ python3 tools/screen_png.py check                                # render -> imp
 ```
 
 Pixel value = `4 * palette + shade` (palette = the cell's attribute bits 0-2, shade 0-3), PLTE = the eight palettes of the screen in their real colours (greys
-tinted per palette where the palette load is not known: 25 screens), entry 32 (pink) = a cell whose tile the routine does not load.  Import **keeps the
+tinted per palette where the palette load is not known), entry 32 (pink) = a cell whose tile the routine does not load.  Import **keeps the
 tilemap and attribute map**: each cell is written back into the tile it shows (flips undone), and the result lands in the tile sheet PNG (the source), then
 `make`.  Errors in plain words: a cell may use only the colours of its own palette; a tile shown by several cells must look the same in all of them (editing
 one of them alone is refused, because the tilemap cannot give it another tile); other screens showing an edited tile change too (import lists them).  Re-laying out
@@ -1172,7 +1210,8 @@ def do_readme():
     ex = sum(1 for r in rows.values() if r['png'] == 'exact')
     vw = sum(1 for r in rows.values() if r['png'] == 'view')
     sh = sum(1 for r in rows.values() if r['png'] == 'sheet')
-    out += ['', 'PNGs: %d exact rgbgfx sources (`.png`), %d font binaries with an editable sheet PNG (`.png`), %d view-only picture (`_view.png`).' % (ex, sh, vw), '',
+    raw = sum(1 for r in rows.values() if r['type'] == 'raw' and r['png'] == 'exact')
+    out += ['', 'PNGs: %d exact rgbgfx sources (`.png`), %d explicit raw byte-view codec sources (`.png`, purpose unknown), %d font binaries with an editable sheet PNG (`.png`), %d view-only picture (`_view.png`).' % (ex - raw, raw, sh, vw), '',
             '## Still `db`', '',
             'Blocks of the graphics regions that are not converted (the note / label does not say they are palettes, maps or tile data, or they are too small to be tiles):', '',
             '| what | blocks | bytes |', '|---|---:|---:|']

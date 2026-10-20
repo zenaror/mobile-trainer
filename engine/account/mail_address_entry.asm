@@ -15,7 +15,7 @@ Account_MailAddressEntryScreen:: ; 68:571D
 	ret
 
 Account_MailAddress_ClearFlagIfChanged:: ; 68:5739
-Function_68_5739::
+	; [HYPOTHESIS] Entry; operation PROBABLE; bank68_function_names row 5739.
 	; [HYPOTHESIS] complete ret-terminated function (59 insn), twin of 52B2-531A (same SRAM/[$C278]
 	; logic with $B071/$B07A); entry not proven. [verifier: retracted the earlier claim that the
 	; words $5770/$5798 of the table at 528C enter this range: that table is indexed and passed to a
@@ -84,7 +84,7 @@ Function_68_5739::
 	ret
 
 Account_MailAddressEntry_Setup:: ; 68:57B6
-Function_68_57B6::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 57B6.
 	; [CONFIRMED] 99 insn(s); 99 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld b, $15
@@ -191,7 +191,7 @@ Function_68_57B6::
 	ret
 
 Account_MailAddressEntry_OkStateFromMask:: ; 68:58E8
-Function_68_58E8::
+	; [HYPOTHESIS] Entry; operation PROBABLE; bank68_function_names row 58E8.
 	; [HYPOTHESIS] complete function: [$C278] bit1 -> [$C27E] = 0/1, ret; twin of 5404-5417; entry
 	; not proven [verifier: no entry proven (no caller, no valid table word, never executed): decode
 	; chain alone is not proof -> HYPOTHESIS]
@@ -207,7 +207,7 @@ Function_68_58E8::
 	ret
 
 Account_MailAddressEntry_UpdateOkState:: ; 68:58FB
-Function_68_58FB::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 58FB.
 	; [CONFIRMED] 68 insn(s); 68 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, wTextEntryBuf2

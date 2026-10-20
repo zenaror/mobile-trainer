@@ -5,7 +5,7 @@
 SECTION "engine/gfx/scroll_split", ROMX
 
 Stat_EnableScrollSplit:: ; 7F:7271
-Function_7F_7271::
+
 	; [CONFIRMED] 67 insn(s); 67 executed (in up to 7/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af
@@ -145,7 +145,7 @@ Gfx_GdmaAtVBlankNoDi:: ; 7F:72C2
 	ret
 
 ScrollSplit_StepUp3:: ; 7F:733A
-Function_7F_733A::
+
 	; [CONFIRMED] 35 insn(s); 35 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -206,7 +206,7 @@ Data_7F_7385::
 	db $05, $06, $05, $06, $05, $06, $05, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
 ScrollSplit_StepUp4:: ; 7F:7425
-Function_7F_7425::
+
 	; [CONFIRMED] 38 insn(s); 38 executed (in up to 5/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -287,7 +287,7 @@ Data_7F_747F::
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00
 
 ScrollSplit_StepDown3:: ; 7F:7578
-Function_7F_7578::
+
 	; [CONFIRMED] 35 insn(s); 35 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -365,7 +365,7 @@ Data_7F_75CB::
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00
 
 ScrollSplit_StepDown4:: ; 7F:76C4
-Function_7F_76C4::
+
 	; [CONFIRMED] 38 insn(s); 38 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -446,7 +446,7 @@ Data_7F_771E::
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00
 
 ScrollSplit_SetCursorSpritesY:: ; 7F:7817
-Function_7F_7817::
+
 	; [PROBABLE] 14 insn(s) reached by static flow only; seeds: site x14; min discovery hops 1;
 	; entered by far from 7F:7244 (PROBABLE code)
 	push bc

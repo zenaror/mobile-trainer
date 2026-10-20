@@ -5,6 +5,9 @@ A *screen* is what one loader routine of the game puts on the background: a tile
 bits 0-2 palette, bit 3 VRAM bank, bit 5 x flip, bit 6 y flip), the tile blocks that the same routine DMAs into VRAM (`.2bpp`, tile PNG sheets) and the
 background palettes it loads.  `gfx/screens.tsv` lists the screens for which the composition could be derived (see `derive`); everything else is
 only available as tile sheets.
+Two explicitly allowlisted bank42 records also use raw byte-view PNG backings.
+Their complete 360-cell coverage depends on the declared unsigned VRAM1 model;
+it does not establish an original loader or the semantic purpose of raw bytes.
 
     python3 tools/screen_png.py export [--force] [NAME ...]     # (re)write the screen PNGs from the tile sheets / palettes  (make png-export does too)
     python3 tools/screen_png.py import [--dry-run] [--palette] [NAME ...]
@@ -33,6 +36,7 @@ ROOT = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
 import gfx_export as G  # noqa: E402
 import pnglib  # noqa: E402
+import raw_png as RAW  # noqa: E402
 
 SCREENS = 'gfx/screens.tsv'
 COLS = ['name', 'png', 'tilemap', 'attrmap', 'cols', 'rows', 'addressing', 'tiles', 'palettes', 'cells', 'resolved', 'status', 'evidence']
@@ -81,12 +85,17 @@ class Assets:
     def __init__(self):
         self.rows = G.read_manifest()
         self.tiles = collections.defaultdict(list)        # bank -> [(addr, ntiles, path)]
+        self.raw_tiles = collections.defaultdict(list)    # explicit codec keys; never inferred as tiles
         self.maps = {}                                     # (bank, addr, kind) -> path
         self.pals = collections.defaultdict(list)          # bank -> [(addr, nwords, path)]
         for p, r in self.rows.items():
             b, a, n = int(r['bank'], 16), int(r['addr'], 16), int(r['size'])
             if r['type'] == 'tiles':
                 self.tiles[b].append((a, n // 16, p))
+            elif r['type'] == 'raw':
+                RAW.definition(p, r)
+                RAW.provenance(ROOT, p)
+                self.raw_tiles[b].append((a, n // 16, p))
             elif r['type'] in ('tilemap', 'attrmap'):
                 self.maps[(b, a, r['type'])] = p
             elif r['type'] == 'palette':
@@ -99,11 +108,16 @@ class Assets:
         self._bin = {}
 
     # tiles ---------------------------------------------------------------------------------
-    def tile_key(self, bank, addr):
+    def tile_key(self, bank, addr, conditional_screen=None):
         """(asset path, tile index) of the tile that starts at ROM (bank, addr), or None."""
         for a, n, p in self.tiles.get(bank, ()):
             if a <= addr < a + 16 * n and (addr - a) % 16 == 0:
                 return p, (addr - a) // 16
+        if conditional_screen is not None:
+            for a, n, p in self.raw_tiles.get(bank, ()):
+                if a <= addr < a + 16 * n and (addr - a) % 16 == 0:
+                    RAW.require_screen(p, conditional_screen)
+                    return p, (addr - a) // 16
         return None
 
     def sheet(self, path):
@@ -112,6 +126,11 @@ class Assets:
         if s is None:
             png = pnglib.read_png(os.path.join(ROOT, G.png_path_of(path, 'exact')))
             r = self.rows[path]
+            if r['type'] == 'raw':
+                RAW.definition(path, r)
+                _, errs = RAW.decode(path, png)
+                if errs:
+                    raise pnglib.PngError('%s: %s' % (path, '; '.join(errs)))
             n = int(r['size']) // 16
             per_row = G.tiles_geometry(n)[0]
             tiles = []
@@ -189,6 +208,11 @@ def vram_map(scr, assets):
     """{(vbank, slot): (asset path, tile index)}: later loads replace earlier ones, as the HDMA transfers do."""
     vm = {}
     for dest, path, first, count in scr.loads:
+        if assets.rows[path]['type'] == 'raw':
+            RAW.definition(path, assets.rows[path])
+            RAW.require_load(path, scr.name, dest, first, count)
+            if scr.addressing != 'unsigned' or (scr.cols, scr.rows) != (20, 18):
+                raise ValueError('%s: raw loads require the declared unsigned 20x18 conditional model' % path)
         vbank, base = dest & 1, ((dest & 0xFFF0) - 0x8000) >> 4
         for k in range(count):
             slot = base + k
@@ -389,7 +413,7 @@ def check_screen(scr, assets):
         return [str(e)], notes
     try:
         edits, e, n = plan_import(scr, assets, png)
-    except (KeyError, IndexError, OSError, pnglib.PngError) as ex:
+    except (KeyError, IndexError, OSError, ValueError, pnglib.PngError) as ex:
         return ['gfx/screens.tsv no longer matches the assets (%s: %s); python3 tools/screen_png.py derive' % (type(ex).__name__, ex)], notes
     errs += e
     notes += n
@@ -674,6 +698,43 @@ def derive_fragmented_record(assets, bank, addr, tmp, pal, amp):
                          % (sources, bank, 360 - resolved))
 
 
+def derive_raw_backed_record(assets, bank, addr, tmp, pal, amp):
+    """Two explicit complete referenced-key models; no admission change for other records."""
+    stem = os.path.splitext(tmp)[0]
+    name = stem[len('gfx/'):]
+    if RAW.MODELS.get(name) != (bank, addr):
+        return None
+    if not (pal and pal[1] == 0 and amp and int(assets.rows[pal[0]]['size']) == 128
+            and int(assets.rows[amp]['size']) == 360):
+        return None
+    tm, am = assets.read_bin(tmp), assets.read_bin(amp)
+    if len(tm) != 360 or len(am) != 360 or any(not x & 8 or t >= 160 for t, x in zip(tm, am)):
+        return None
+    loads = []
+    base = addr - 0xA00
+    for k in sorted(set(tm)):
+        physical = base + 16 * k
+        key = assets.tile_key(bank, physical, conditional_screen=name)
+        if key is None:
+            return None
+        path, first = key
+        r = assets.rows[path]
+        size, source = int(r['size']), int(r['addr'], 16)
+        if (r['type'] not in ('tiles', 'raw') or int(r['bank'], 16) != bank or size <= 0 or size % 16
+                or source % 16 or source + 16 * first != physical or (first + 1) * 16 > size
+                or len(assets.read_bin(path)) != size):
+            return None
+        dest = 0x8001 + 16 * k
+        if loads and loads[-1][1] == path and loads[-1][2] + loads[-1][3] == first and loads[-1][0] + loads[-1][3] * 16 == dest:
+            loads[-1][3] += 1
+        else:
+            loads.append([dest, path, first, 1])
+    return dict(name=name, png=stem + '.screen.png', tilemap=tmp, attrmap=amp, cols='20', rows='18', addressing='unsigned',
+                tiles=';'.join('%04X:%s:%d:%d' % tuple(x) for x in loads), palettes='0:%s:0:32' % pal[0],
+                cells='360', resolved='360', status='HYPOTHESIS',
+                evidence='layout only: all referenced byte positions have explicit reversible PNG-backed sources; unsigned record tile k = VRAM bank 1 tile k, palettes 0-7 = first 8 groups is a conditional model; raw backings retain HYPOTHESIS and UNKNOWN purpose; no natural loader/LCDC/name/species proof')
+
+
 def derive_records(assets):
     """Self-contained scene records (banks 41-46: 160 tiles + 20x18 tilemap + attribute map + 16 palettes, no loader found in the code).
     Model (HYPOTHESIS): tile number k of the map is tile k of the record, in VRAM bank 1 (every cell's attribute selects bank 1 and every tile number
@@ -686,7 +747,9 @@ def derive_records(assets):
         pal = assets.word_key(bank, addr + 0x2D0)
         amp = assets.maps.get((bank, addr + 360, 'attrmap'))
         if not (tiles and tiles[1] == 0 and int(assets.rows[tiles[0]]['size']) == 0xA00):
-            row = derive_fragmented_record(assets, bank, addr, tmp, pal, amp)
+            row = derive_raw_backed_record(assets, bank, addr, tmp, pal, amp)
+            if row is None:
+                row = derive_fragmented_record(assets, bank, addr, tmp, pal, amp)
             if row is not None:
                 out.append(row)
             continue
@@ -711,10 +774,10 @@ def derive_records(assets):
 def screens_text(rows):
     lines = ['# gfx/screens.tsv -- written by `python3 tools/screen_png.py derive` (do not edit by hand); read by tools/screen_png.py and tools/png_check.py',
              '# One screen = a tilemap + attribute map and the tile blocks / palettes the SAME loader routine puts into VRAM (static evidence, see tools/screen_png.py).',
-             '# tiles: dest:asset:first:count;...  dest = VRAM address of the first tile (bit 0 = VRAM bank 1), asset = 2bpp asset, first/count = tiles of it.',
+             '# tiles: dest:asset:first:count;...  dest = VRAM address of the first tile (bit 0 = VRAM bank 1), asset = tiles or explicitly allowlisted raw byte-view asset, first/count = 16-byte cells of it.',
              '# palettes: pidx:asset:firstword:nwords;...  pidx = 4 x BG palette + colour of the first word.  addressing: BG tile-number mode (LCDC bit 4) chosen by',
              '# which mode resolves more cells.  resolved/cells = cells whose tile belongs to the loaded blocks (the others show as pink "unknown" cells).',
-             '# status: PROBABLE = every cell resolved and the addressing mode does not matter or is decided by coverage; HYPOTHESIS = partly resolved / mode tie.',
+             '# status: PROBABLE = every cell resolved and the addressing mode does not matter or is decided by coverage; HYPOTHESIS = conditional record model / partly resolved / mode tie.',
              '\t'.join(COLS)]
     for r in rows:
         lines.append('\t'.join(r[c] for c in COLS))

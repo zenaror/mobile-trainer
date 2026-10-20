@@ -282,7 +282,7 @@ Browser_ShiftCanvasDown:: ; 4E:5C10
 	ret
 
 Browser_LoadScrollbarGfx:: ; 4E:5CB6
-Function_4E_5CB6::
+
 	; [CONFIRMED] 42 insn(s); 42 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wCommSessionKind]
@@ -358,7 +358,7 @@ Function_4E_5CB6::
 	ret
 
 Browser_ReloadFrameTilemap:: ; 4E:5D70
-Function_4E_5D70::
+
 	; [PROBABLE] function head whose 23 insn decode cleanly and end with ld bc,$1214 ; ld de,$D000
 	; right before the PROBABLE far-call site at 5D93 (call $06D1 -> 00:08EA copy_tilemap_rect_pair,
 	; b=18 rows c=20 cols); hl comes from the screen-descriptor table 4E:654B (+6), like the
@@ -450,7 +450,7 @@ Function_4E_5D70::
 	ret
 
 Browser_DrawScrollbarTrack:: ; 4E:5E11
-Function_4E_5E11::
+
 	; [CONFIRMED] 175 insn(s); 175 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wBrowserScrollbarEnable]

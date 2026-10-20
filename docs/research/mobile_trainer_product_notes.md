@@ -120,7 +120,7 @@ This matches the Dan Docs list (144x96, 16-bit offset, 8-bit dimensions, planes/
 |---|---|
 | `4E:4904` `String_4E_4904` -> "BrowserHomeURL" | full URL, confirmed by [DanDocs] |
 | `67:5E43`, `67:61D2`, `67:632D` `String_*` -> DION password change / jikan / summary URLs | strings quoted above |
-| `68:4EA7` `Data_68_4EA7` -> test adapter config image; `68:67E0/68A0/6960/6A20` default images | header magic, checksum layout, DNS values |
+| `68:4EA7` `Dev_TestConfigImage` -> test adapter config image; `68:67E0/68A0/6960/6A20` default images | header magic, checksum layout, DNS values |
 | `3D:4000`, `3E:4000` record chains -> help page file table | parsed to end, cross-checked with [Web7z] |
 | `74:4112` HTML tag table | ids listed above |
 | `0F:4004-4143`, `0F:419C-4235` mail header strings/keyword table | same layout as the Crystal SDK library |

@@ -597,14 +597,14 @@ Statuses and full evidence are also in the `config/symbols/bankNN.tsv` files.
 | `55:6C16` | `Kbd_DrawGlyphPreview` | PROBABLE | If C2B2: turns the current cell (C2AE/C2AD) into a Shift-JIS pair (ASCII via Text_HalfToFullWidth; $0D/$20 -> $83C0/$83BF), fetches its glyph with 48:4748 and uploads it to VRAM $8241, positions sprite slot 11 from C284/C285; clears C2B2 |
 | `55:6CC6` | `Text_HalfToFullWidth` | CONFIRMED | A=byte $20-$FF: returns BC = Shift-JIS pair from Table_Text_HalfToFullWidth[(A-$20)*2] (ASCII to full-width, half-width katakana to full-width katakana); callers 55:6C28, 54:50E5 (mail names), bank 57; 21 scenarios |
 | `55:6CD4` | `Table_Text_HalfToFullWidth` | CONFIRMED | 224 Shift-JIS pairs for the bytes $20..$FF: $20 -> 8140, $21 -> 8149 ... $41-$5A -> Ａ-Ｚ, $61-$7A -> ａ-ｚ, $A1-$DF -> 。「」、・ヲァ.. half-width katakana to full-width, blanks elsewhere; verified by decoding all pairs with cp932 |
-| `55:6E94` | `Kbd_TypeHasPages` | PROBABLE | A=keyboard type: returns the byte of Data_55_6E9F (1 for types 6,7,8): gates the Select page switch (handler 55:5E02) and Kbd_ShowPageIndicator; = the types that own 4 pages in Table_Kbd_PagePointers |
+| `55:6E94` | `Kbd_TypeHasPages` | PROBABLE | A=keyboard type: returns the byte of `Table_Kbd_TypeHasPages_ByType` (1 for types 6,7,8): gates the Select page switch (handler 55:5E02) and Kbd_ShowPageIndicator; = the types that own 4 pages in Table_Kbd_PagePointers |
 | `55:6EAA` | `Function_55_6EAA` | PROBABLE | A=keyboard type: returns Data_55_6EB5[A] (1 for types 6-10); when C2AF==2 Kbd_Run first places the cursor on the OK cell (Table_Kbd_OkCell) for those types (55:5CBC) |
 | `55:6EC0` | `Function_55_6EC0` | PROBABLE | A=keyboard type: returns Data_55_6ECB[A] (1 for types 0-5); with C2B4!=0 Kbd_Run places the cursor on the OK cell (Table_Kbd_OkCell) first (55:5CE0) |
-| `55:6ED6` | `Function_55_6ED6` | PROBABLE | A=keyboard type: returns Data_55_6EE1[A] (1 for types 5-10); when set Kbd_Open loads the extra palette 5F:4CD0 into $D830 and uploads it |
+| `55:6ED6` | `Function_55_6ED6` | PROBABLE | A=keyboard type: returns `Table_Kbd_TypeNeedsExtraPalette_ByType[A]` (1 for types 5-10); when set Kbd_Open loads the extra palette 5F:4CD0 into $D830 and uploads it |
 | `55:6EEC` | `Function_55_6EEC` | HYPOTHESIS | byte-exact sibling of the lookup routines (table Data_55_6EF7: 0 x6, 1 x5); only caller is the unreferenced 55:5DF5; not executed |
-| `55:6F02` | `Function_55_6F02` | PROBABLE | A=keyboard type: returns Data_55_6F0D[A] (1 for types 5,6,8,9); when set special key $82 closes the keyboard and Kbd_Run returns 7 |
-| `55:6F18` | `Function_55_6F18` | PROBABLE | A=keyboard type: returns Data_55_6F23[A] (1 for types 5-9); when set special key $83 closes the keyboard and Kbd_Run returns 8 |
-| `55:6F2E` | `Kbd_TypeWaitsWithService` | PROBABLE | A=keyboard type: returns Data_55_6F3B[A] (1 for types 0-5); all 14 callers choose 00:044B (VBlank wait + frame service) when it is non-zero, else 00:0464 (VBlank only) |
+| `55:6F02` | `Function_55_6F02` | PROBABLE | A=keyboard type: returns `Table_Kbd_TypeHidesOnKey82_ByType[A]` (1 for types 5,6,8,9); when set special key $82 closes the keyboard and Kbd_Run returns 7 |
+| `55:6F18` | `Function_55_6F18` | PROBABLE | A=keyboard type: returns `Table_Kbd_TypeHidesOnKey83_ByType[A]` (1 for types 5-9); when set special key $83 closes the keyboard and Kbd_Run returns 8 |
+| `55:6F2E` | `Kbd_TypeWaitsWithService` | PROBABLE | A=keyboard type: returns `Table_Kbd_TypeWaitsWithService_ByType[A]` (1 for types 0-5); all 14 callers choose 00:044B (VBlank wait + frame service) when it is non-zero, else 00:0464 (VBlank only) |
 | `55:6FA1` | `Kbd_RejectSymbol` | PROBABLE | Looks up C2AD in the list $6FC7 "@.-_+": on a hit plays sound $31 and returns 1 (Kbd_Run then ignores the key); called only for keyboard type 1 (55:5F09) |
 | `55:6FCD` | `Kbd_ShowMarkerSprite` | PROBABLE | Starts sprite slot DAD0 (anim 5F:4D38) at Data_55_6FF4[type]; banks 67/68 call it while the entered text is shorter than a threshold (TextBuf_GetLength < 1 or < 9), Kbd_Run for type 5; what the marker means is unproven |
 | `55:7000` | `Kbd_HideMarkerSprite` | PROBABLE | Clears sprite slot DAD0 (00:09E6), counterpart of Kbd_ShowMarkerSprite: banks 67/68 call it once the entered text reaches the threshold length (>= 1 or >= 9 characters), Kbd_Run for type 5 |
@@ -657,3 +657,57 @@ Corrections made:
   `hImageWidth` / `hImageHeight` (FFD6/FFD7) are retracted (bank 74 list and layout code use them as small scratch counters); notes added that `wCommSessionActive` (C2D1) has no reader in the disassembly and that `wBrowserNavigating` (C334) is reused as scratch by `Bmp_ConvertToTiles`.
 
 No status was upgraded.  The row counts are unchanged (47 CONFIRMED, 240 PROBABLE, 16 HYPOTHESIS; 303 rows); the RAM file has 40 rows.
+
+## Local scopes after retiring two data aliases (2026-10-20)
+
+The maintained data identities at `55:6F3B` and `27:417A` are
+`Table_Kbd_TypeWaitsWithService_ByType` and `MailSendRecv_RequestTemplate`.
+Retiring the redundant globals `Data_55_6F3B` / `Data_27_417A` changes only the
+qualified identities of the following five local labels, with no new routine entry:
+
+| Old qualified symbol | Current qualified symbol | Address |
+|---|---|---|
+| `Data_55_6F3B.l6F51` | `Table_Kbd_TypeWaitsWithService_ByType.l6F51` | `55:6F51` |
+| `Data_27_417A.loop` | `MailSendRecv_RequestTemplate.loop` | `27:4187` |
+| `Data_27_417A.l4195` | `MailSendRecv_RequestTemplate.l4195` | `27:4195` |
+| `Data_27_417A.l41A2` | `MailSendRecv_RequestTemplate.l41A2` | `27:41A2` |
+| `Data_27_417A.l41B0` | `MailSendRecv_RequestTemplate.l41B0` | `27:41B0` |
+
+CONFIRMED from original-ROM bytes and the maintained consumers: the first table
+has 11 flags (`01` for types 0..5, `00` for 6..10), loaded by `55:6F2E` as
+`table[A]` while preserving HL. A must be in the type domain; there is no bounds
+check. The 14 callers all load `wKbdType`, test the returned byte and choose a
+variant with frame service for nonzero. The section 11 row's claim that all 14
+choose the VBlank helpers directly is withdrawn: eight choose
+`VBlank_WaitAndService` / `VBlank_Wait`, while six choose
+`Gfx_StartHDMAWithService` / `Gfx_StartHDMA` (the call sites currently at
+`engine/keyboard/keyboard.asm:2138,2157,2196,2215,2269,2380`). The HDMA wrappers
+are `00:0787` / `00:0749`; the former calls `Sound_FrameService` and the latter
+does not. The frozen `config/symbols/bank55.tsv` row preserves the older wording.
+The table's semantic classification remains PROBABLE; its 11 individual bytes
+are all read in the natural `traces/detail/*/dataaccess.tsv` corpus (3..21
+scenarios per byte). Read evidence alone does not establish every caller path.
+
+CONFIRMED `27:417A..4180` contains `04 00 00 01 24 D5 04`, copied by the loop
+`27:4017` to WRAM1 `D624..D62A` before `ConnectDialog_Run` with D=1 / BC=D624.
+The caller then overwrites +6 with `12-mail_count` and +7 with zero; this is a
+seven-byte initial template, not a complete final argument block. The far text
+pointer at +3..5 is `01:D524` (see the named bank-qualified `wMailSessionBlock`
+and `wMailTextScratch` notes in `ram/banked.asm`). All seven ROM bytes are read
+in 21 natural scenarios. `MailSendRecv_RequestTemplate` remains PROBABLE as an
+application name; copied data and boundaries are CONFIRMED.
+
+The following code has no proven independent entry: `55:6F46..6F94` remains
+HYPOTHESIS, and `27:4181..41BB` retains its PROBABLE decoded-code status with
+independent-entry/purpose HYPOTHESIS. The former has 47 CPU starts and conditional
+palette-port/staging writes documented in `classify_g2.md`; the latter has 24
+logical starts (four six-byte farcalls included), starts `Mobile_BeginCancel`,
+polls `Mobile_CancelPoll` while A=1, conditionally draws the timer summary and
+clears IE bits 2/3 before returning. Its `CP $FF / JR Z` targets the immediate
+fall-through `27:4195`, so the branch does not prove a distinct error path.
+Neither interval has a row in the 69-scenario `analysis/coverage_union.tsv` or a
+same-bank direct target/immediate or farcall target found in the frozen code
+regions. These absences do not prove unreachability. A local's inherited data-label
+namespace does not identify a function or assign the data consumer's purpose to
+this code. No new global label, function name, code/data boundary or confidence
+upgrade is introduced.

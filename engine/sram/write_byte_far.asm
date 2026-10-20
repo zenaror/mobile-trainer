@@ -5,7 +5,7 @@
 SECTION "engine/sram/write_byte_far", ROMX
 
 WriteByteFar:: ; 48:4616
-Function_48_4616::
+
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 14/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld [wFarAccessTemp], a

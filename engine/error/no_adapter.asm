@@ -5,7 +5,7 @@
 SECTION "engine/error/no_adapter", ROMX
 
 NoAdapter_ShowScreen:: ; 63:732F
-Function_63_732F::
+
 	; [CONFIRMED] 83 insn(s); 83 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call NoAdapter_DrawScreen

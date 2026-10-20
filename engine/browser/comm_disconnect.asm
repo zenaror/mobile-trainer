@@ -19,14 +19,12 @@ Table_4C_46C0::
 	dw CommProgress_Init_Panel
 
 CommProgress_Init_Scene:: ; 4C:46C4
-Label_4C_46C4::
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 2/18 scenarios)
 	ldh a, [hCommProgress_Argument]
 	farcall CommScene_Init
 	ret
 
 CommProgress_Init_Panel:: ; 4C:46CD
-Label_4C_46CD::
 	ldh a, [hCommProgress_Argument]
 	farcall CommPanel_Init
 	ret
@@ -44,14 +42,12 @@ Table_4C_46DE::
 	dw CommProgress_Step_Panel
 
 CommProgress_Step_Scene:: ; 4C:46E2
-Label_4C_46E2::
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
 	ldh a, [hCommProgress_Argument]
 	farcall CommScene_Step
 	ret
 
 CommProgress_Step_Panel:: ; 4C:46EB
-Label_4C_46EB::
 	ldh a, [hCommProgress_Argument]
 	farcall CommPanel_Step
 	ret
@@ -148,7 +144,7 @@ Comm_EndOffline:: ; 4C:477E
 	ret
 
 Comm_DisconnectWithProgress:: ; 4C:47C4
-Function_4C_47C4::
+
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $02

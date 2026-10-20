@@ -820,10 +820,10 @@ SettingsPhone_ChoiceMenu_Setup	engine/settings/choice_menu.asm:104	tilemap	Tilem
 SettingsPhone_ChoiceMenu_Setup	engine/settings/choice_menu.asm:112	tiles	$4C10	4D	n=64 vram=$8800 vbank=1
 SettingsPhone_ChoiceMenu_Setup	engine/settings/choice_menu.asm:118	tiles	Gfx_SettingsPhone_ChoiceMenu_Tiles8C00Vb1_4D_5010	4D	n=16 vram=$8C00 vbank=1
 SettingsPhone_ChoiceMenu_Setup	engine/settings/choice_menu.asm:124	tiles	Gfx_SettingsPhone_ChoiceMenu_Tiles9000Vb1_4D_5110	4D	n=64 vram=$9000 vbank=1
-SettingsPhone_ChoiceMenu_Setup	engine/settings/choice_menu.asm:130	tiles	Data_4D_5510	4D	n=48 vram=$9400 vbank=1
+SettingsPhone_ChoiceMenu_Setup	engine/settings/choice_menu.asm:130	tiles	Data_SettingsPhone_ChoiceMenu_ResourceWindow768	4D	n=48 vram=$9400 vbank=1
 SettingsPhone_ChoiceMenu_Setup	engine/settings/choice_menu.asm:135	tilemap	Tilemap_SettingsPhone_ChoiceMenu	4D	rows=18 cols=20 dest=$D000
 SettingsPhone_ChoiceMenu_Setup	engine/settings/choice_menu.asm:142	tiles	Gfx_SettingsPhone_ChoiceMenu_Tiles8000Vb1	4D	n=32 vram=$8000 vbank=1
-SettingsPhone_ChoiceMenu_Setup	engine/settings/choice_menu.asm:147	palette	Data_4D_5510	4D	n=64 dest=$D800
+SettingsPhone_ChoiceMenu_Setup	engine/settings/choice_menu.asm:147	palette	Palette_SettingsPhone_ChoiceMenu_Bg	4D	n=64 dest=$D800
 SettingsPhone_ChoiceMenu_Setup	engine/settings/choice_menu.asm:152	palette	Palette_SettingsPhone_ChoiceMenu_Obj	4D	n=8 dest=$D840
 SettingsPhone_ChoiceMenu_LoadTilemap	engine/settings/choice_menu.asm:315	UNRESOLVED	tilemap	--	source (hl) not an immediate/label
 SettingsPhone_ConfirmScreen_Setup	engine/settings/confirm_screen.asm:34	tiles	Gfx_SettingsPhone_ConfirmScreen_Tiles8800Vb1	4B	n=64 vram=$8800 vbank=1

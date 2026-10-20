@@ -35,7 +35,7 @@ Attrmap_MailMenu_PlatesSelected:: ; 1D:4B61
 Attrmap_1D_4B61::
 	INCBIN "gfx/mail_menu/mail_menu/mail_menu_plates_selected.attrmap"
 
-; ---- data $4C51-$4CB1 (96 bytes) [PROBABLE] tile-id map half of a 96+96 byte pair loaded at 1D:43BC 'ld hl,$4C51' (with 'ld bc,$0608 ; ld de,$D0C1') then Function_00_16A2 (far); executed reads at 4C51-4D11 and second halves 4C81-4CB1 / 4CE1-4D11 (48 bytes each)
+; ---- data $4C51-$4CB1 (96 bytes) [PROBABLE] tile-id map half of a 96+96 byte pair loaded at 1D:43BC 'ld hl,$4C51' (with 'ld bc,$0608 ; ld de,$D0C1') then Tilemap_CopyRectAndAttrPtr (far); executed reads at 4C51-4D11 and second halves 4C81-4CB1 / 4CE1-4D11 (48 bytes each)
 
 Tilemap_MailMenu_IconFrames:: ; 1D:4C51
 Tilemap_1D_4C51::

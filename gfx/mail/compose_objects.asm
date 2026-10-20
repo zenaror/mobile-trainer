@@ -152,21 +152,18 @@ Table_29_6406::
 ; ---- data $640A-$640F (5 bytes) [PROBABLE] OAM frame: count=1 then 1 x (y,x,tile,attr) = 5 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
 
 MailBody_29_Anim0Frame0:: ; 29:640A
-Data_29_640A::
 	sprite_frame 1
 	sprite_oam 0, 0, $00, 1
 
 ; ---- data $640F-$6414 (5 bytes) [PROBABLE] OAM frame: count=1 then 1 x (y,x,tile,attr) = 5 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
 
 MailBody_29_Anim0Frame1:: ; 29:640F
-Data_29_640F::
 	sprite_frame 1
 	sprite_oam -1, 0, $00, 1
 
 ; ---- data $6414-$6419 (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
 
 MailBody_29_Anim0Script:: ; 29:6414
-Data_29_6414::
 	sprite_anim 2
 	sprite_anim_step 0, 46
 	sprite_anim_step 1, 8
@@ -180,21 +177,18 @@ Table_29_6419::
 ; ---- data $641D-$6422 (5 bytes) [PROBABLE] OAM frame: count=1 then 1 x (y,x,tile,attr) = 5 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
 
 MailBody_29_Anim4Frame0:: ; 29:641D
-Data_29_641D::
 	sprite_frame 1
 	sprite_oam 0, 0, $01, 1
 
 ; ---- data $6422-$6427 (5 bytes) [PROBABLE] OAM frame: count=1 then 1 x (y,x,tile,attr) = 5 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
 
 MailBody_29_Anim4Frame1:: ; 29:6422
-Data_29_6422::
 	sprite_frame 1
 	sprite_oam -1, 0, $01, 1
 
 ; ---- data $6427-$642C (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
 
 MailBody_29_Anim4Script:: ; 29:6427
-Data_29_6427::
 	sprite_anim 2
 	sprite_anim_step 0, 46
 	sprite_anim_step 1, 8
@@ -208,21 +202,18 @@ Table_29_642C::
 ; ---- data $6430-$6435 (5 bytes) [PROBABLE] OAM frame: count=1 then 1 x (y,x,tile,attr) = 5 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
 
 MailBody_29_Anim8Frame0:: ; 29:6430
-Data_29_6430::
 	sprite_frame 1
 	sprite_oam 0, 0, $02, 1
 
 ; ---- data $6435-$643A (5 bytes) [PROBABLE] OAM frame: count=1 then 1 x (y,x,tile,attr) = 5 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
 
 MailBody_29_Anim8Frame1:: ; 29:6435
-Data_29_6435::
 	sprite_frame 1
 	sprite_oam -1, 0, $02, 1
 
 ; ---- data $643A-$643F (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
 
 MailBody_29_Anim8Script:: ; 29:643A
-Data_29_643A::
 	sprite_anim 2
 	sprite_anim_step 0, 46
 	sprite_anim_step 1, 8
@@ -236,21 +227,18 @@ Table_29_643F::
 ; ---- data $6443-$6448 (5 bytes) [PROBABLE] OAM frame: count=1 then 1 x (y,x,tile,attr) = 5 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
 
 MailBody_29_Anim12Frame0:: ; 29:6443
-Data_29_6443::
 	sprite_frame 1
 	sprite_oam 0, 0, $03, 1
 
 ; ---- data $6448-$644D (5 bytes) [PROBABLE] OAM frame: count=1 then 1 x (y,x,tile,attr) = 5 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
 
 MailBody_29_Anim12Frame1:: ; 29:6448
-Data_29_6448::
 	sprite_frame 1
 	sprite_oam -1, 0, $03, 1
 
 ; ---- data $644D-$6452 (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
 
 MailBody_29_Anim12Script:: ; 29:644D
-Data_29_644D::
 	sprite_anim 2
 	sprite_anim_step 0, 46
 	sprite_anim_step 1, 8
@@ -264,21 +252,18 @@ Table_29_6452::
 ; ---- data $6456-$645B (5 bytes) [PROBABLE] OAM frame: count=1 then 1 x (y,x,tile,attr) = 5 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
 
 MailBody_29_Anim16Frame0:: ; 29:6456
-Data_29_6456::
 	sprite_frame 1
 	sprite_oam 0, 0, $04, 1
 
 ; ---- data $645B-$6460 (5 bytes) [PROBABLE] OAM frame: count=1 then 1 x (y,x,tile,attr) = 5 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
 
 MailBody_29_Anim16Frame1:: ; 29:645B
-Data_29_645B::
 	sprite_frame 1
 	sprite_oam -1, 0, $04, 1
 
 ; ---- data $6460-$6465 (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
 
 MailBody_29_Anim16Script:: ; 29:6460
-Data_29_6460::
 	sprite_anim 2
 	sprite_anim_step 0, 46
 	sprite_anim_step 1, 8
@@ -292,21 +277,18 @@ Table_29_6465::
 ; ---- data $6469-$646E (5 bytes) [PROBABLE] OAM frame: count=1 then 1 x (y,x,tile,attr) = 5 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
 
 MailBody_29_Anim20Frame0:: ; 29:6469
-Data_29_6469::
 	sprite_frame 1
 	sprite_oam 0, 0, $05, 1
 
 ; ---- data $646E-$6473 (5 bytes) [PROBABLE] OAM frame: count=1 then 1 x (y,x,tile,attr) = 5 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
 
 MailBody_29_Anim20Frame1:: ; 29:646E
-Data_29_646E::
 	sprite_frame 1
 	sprite_oam -1, 0, $05, 1
 
 ; ---- data $6473-$6478 (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
 
 MailBody_29_Anim20Script:: ; 29:6473
-Data_29_6473::
 	sprite_anim 2
 	sprite_anim_step 0, 46
 	sprite_anim_step 1, 8
@@ -320,21 +302,18 @@ Table_29_6478::
 ; ---- data $647C-$6481 (5 bytes) [PROBABLE] OAM frame: count=1 then 1 x (y,x,tile,attr) = 5 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
 
 MailBody_29_Anim24Frame0:: ; 29:647C
-Data_29_647C::
 	sprite_frame 1
 	sprite_oam 0, 0, $06, 1
 
 ; ---- data $6481-$6486 (5 bytes) [PROBABLE] OAM frame: count=1 then 1 x (y,x,tile,attr) = 5 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
 
 MailBody_29_Anim24Frame1:: ; 29:6481
-Data_29_6481::
 	sprite_frame 1
 	sprite_oam -1, 0, $06, 1
 
 ; ---- data $6486-$648B (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
 
 MailBody_29_Anim24Script:: ; 29:6486
-Data_29_6486::
 	sprite_anim 2
 	sprite_anim_step 0, 46
 	sprite_anim_step 1, 8
@@ -348,21 +327,18 @@ Table_29_648B::
 ; ---- data $648F-$6494 (5 bytes) [PROBABLE] OAM frame: count=1 then 1 x (y,x,tile,attr) = 5 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
 
 MailBody_29_Anim28Frame0:: ; 29:648F
-Data_29_648F::
 	sprite_frame 1
 	sprite_oam 0, 0, $07, 1
 
 ; ---- data $6494-$6499 (5 bytes) [PROBABLE] OAM frame: count=1 then 1 x (y,x,tile,attr) = 5 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
 
 MailBody_29_Anim28Frame1:: ; 29:6494
-Data_29_6494::
 	sprite_frame 1
 	sprite_oam -1, 0, $07, 1
 
 ; ---- data $6499-$649E (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
 
 MailBody_29_Anim28Script:: ; 29:6499
-Data_29_6499::
 	sprite_anim 2
 	sprite_anim_step 0, 46
 	sprite_anim_step 1, 8
@@ -376,7 +352,6 @@ Table_29_649E::
 ; ---- data $64A2-$64B3 (17 bytes) [PROBABLE] OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
 
 MailBody_29_Anim32Frame0:: ; 29:64A2
-Data_29_64A2::
 	sprite_frame 4
 	sprite_oam 0, 0, $08, 1
 	sprite_oam 0, 8, $09, 1
@@ -386,7 +361,6 @@ Data_29_64A2::
 ; ---- data $64B3-$64C4 (17 bytes) [PROBABLE] OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
 
 MailBody_29_Anim32Frame1:: ; 29:64B3
-Data_29_64B3::
 	sprite_frame 4
 	sprite_oam -1, 0, $08, 1
 	sprite_oam -1, 8, $09, 1
@@ -396,7 +370,6 @@ Data_29_64B3::
 ; ---- data $64C4-$64C9 (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
 
 MailBody_29_Anim32Script:: ; 29:64C4
-Data_29_64C4::
 	sprite_anim 2
 	sprite_anim_step 0, 46
 	sprite_anim_step 1, 8
@@ -410,7 +383,6 @@ Table_29_64C9::
 ; ---- data $64CD-$64DE (17 bytes) [PROBABLE] OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
 
 MailBody_29_Anim36Frame0:: ; 29:64CD
-Data_29_64CD::
 	sprite_frame 4
 	sprite_oam 0, 26, $08, 1
 	sprite_oam 0, 34, $09, 1
@@ -420,7 +392,6 @@ Data_29_64CD::
 ; ---- data $64DE-$64EF (17 bytes) [PROBABLE] OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
 
 MailBody_29_Anim36Frame1:: ; 29:64DE
-Data_29_64DE::
 	sprite_frame 4
 	sprite_oam 0, 26, $08, 1
 	sprite_oam 0, 34, $09, 1
@@ -430,7 +401,6 @@ Data_29_64DE::
 ; ---- data $64EF-$64F4 (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
 
 MailBody_29_Anim36Script:: ; 29:64EF
-Data_29_64EF::
 	sprite_anim 2
 	sprite_anim_step 0, 46
 	sprite_anim_step 1, 8

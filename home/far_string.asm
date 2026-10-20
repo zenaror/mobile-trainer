@@ -5,7 +5,7 @@
 SECTION "home/far_string", ROM0
 
 PromptText_Load:: ; 00:153D
-Function_00_153D::
+	; Historical address alias retired; proper operation name retained.
 	; [CONFIRMED] A=index: copies the string from 65:567F[A] (word table) to D000 (WRAM bank 5),
 	; returns HL=$D000, A=5 [reached via inferred links; raw refs 11] [executed in 17 scenarios]
 	ld b, a
@@ -51,16 +51,16 @@ Function_00_153D::
 	ret
 
 Dial_CopySelectedNumber:: ; 00:1586
-Function_00_1586::
+	; Historical address alias retired; proper operation name retained.
 	; [CONFIRMED] far-calls 68:44FC; if it returns 0 copies string 68:67AE[C271] to DE, else decodes
-	; the SRAM string (bank 1, XOR $A5) selected by [B013] via Table_00_161A [reached via inferred
+	; the SRAM string (bank 1, XOR $A5) selected by [B013] via Table_Dial_SramEntryPtrs [reached via inferred
 	; links; raw refs 0] [executed in 8 scenarios] | inline far pointer: FarCall at 1587: dw $44FC ;
 	; db $68 -> 68:44FC
 	push de
 	farcall Settings_GetHiddenModeFlag
 
 Dial_CopySelectedNumber_AfterModeCheck:: ; 00:158D
-Function_00_158D::
+	; Historical address alias retired; proper operation name retained.
 	; [CONFIRMED] continuation [reached via inferred links; raw refs 11] [executed in 1 scenarios]
 	or a, a
 	jr nz, .l15BD
@@ -146,5 +146,5 @@ Function_00_158D::
 ; ---- words $161A-$1620 (6 bytes) [CONFIRMED] 3 pointers into SRAM bank 1 (B014, B025, B036) indexed by ([B013] xor $A5)
 
 Table_Dial_SramEntryPtrs:: ; 00:161A
-Table_00_161A::
+
 	dw sSettingsDialNumbers, sSettingsDialNumbers + $11, sSettingsDialNumbers + $22

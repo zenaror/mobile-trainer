@@ -5,7 +5,7 @@
 SECTION "engine/html/link_tables", ROMX
 
 Html_LinkTable_Init:: ; 74:5A96
-Function_74_5A96::
+
 	; [CONFIRMED] 38 insn(s); 38 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $06
@@ -98,7 +98,7 @@ Html_StringTable_Add:: ; 74:5AAE
 	ret
 
 Html_StringTable_Find:: ; 74:5AF8
-Function_74_5AF8::
+
 	; [CONFIRMED] 29 insn(s); 29 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, l
@@ -171,8 +171,8 @@ Function_74_5AF8::
 	; 5B38-5B3E by apply_coverage --split
 	jr .l5B3F
 
-	; [HYPOTHESIS] single 'pop bc' (c1) after the unconditional 'jr $5B3F' at 74:5B3C; nothing
-	; targets 5B3E (tgt scan), so unreachable; falls into 5B3F (target of 3 jr)
+	; [HYPOTHESIS] POP BC5B3E (C1) is bypassed by JR5B3C->5B3F; independent entry unproved;
+	; hypothetical POP advances SP2 before tail5B3F; valid frame required, not proved unreachable
 	pop bc
 
 .l5B3F ; 74:5B3F
@@ -201,7 +201,7 @@ Function_74_5AF8::
 	ret
 
 Html_NextResourceRecord:: ; 74:5B4F
-Function_74_5B4F::
+
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call BankSwitch_H
@@ -265,7 +265,7 @@ Html_ParseDecimal:: ; 74:5B5C
 	jr .loop
 
 HtmlUrl_NormalizePath:: ; 74:5BA0
-Function_74_5BA0::
+
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, l

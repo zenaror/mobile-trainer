@@ -72,7 +72,7 @@ ReadByteFar:: ; 00:1620
 	ret
 
 ReadBytesFar:: ; 00:1686
-Function_00_1686::
+	; Historical address alias retired; proper operation name retained.
 	; [PROBABLE] copy E bytes from far HL (bank D, region by H) to [BC++]; restores only the ROM
 	; bank [candidate; raw refs 1]
 	ldh [hScratchA], a

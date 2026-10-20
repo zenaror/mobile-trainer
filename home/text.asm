@@ -5,9 +5,9 @@
 SECTION "home/text", ROM0
 
 TextEngine_Run:: ; 00:0ED3
-Function_00_0ED3::
+	; Historical address alias retired; proper operation name retained.
 	; [CONFIRMED] byte-stream (text) interpreter: A=bank of string, HL=pointer. Bytes <$20 dispatch
-	; through Table_00_0EF0 (handler entered with the string pointer on the stack), bytes >=$20 are
+	; through Table_TextEngine_CmdHandlers (handler entered with the string pointer on the stack), bytes >=$20 are
 	; characters (see 0F30). FFB9=current bank, FFBF=call depth [reached via inferred links; raw
 	; refs 43] [executed in 26 scenarios]
 	ldh [hTextEngine_StringBank], a
@@ -15,12 +15,12 @@ Function_00_0ED3::
 	ldh [hTextEngine_CallDepth], a
 
 TextEngine_ReloadBank:: ; 00:0ED8
-Label_00_0ED8::
+
 	ldh a, [hTextEngine_StringBank]
 	call BankSwitch_H
 
 TextEngine_NextByte:: ; 00:0EDD
-Label_00_0EDD::
+
 	ld a, [hli]
 	cp a, $20
 	jr nc, TextEngine_PutChar
@@ -39,17 +39,17 @@ Label_00_0EDD::
 ; ---- words $0EF0-$0F30 (64 bytes) [CONFIRMED] 32 handler pointers for control bytes $00-$1F (indexed at 0EE3-0EEF)
 
 Table_TextEngine_CmdHandlers:: ; 00:0EF0
-Table_00_0EF0::
+
 	dw TextEngine_Cmd00_End, TextEngine_Cmd01_CallString, TextEngine_Cmd02_SetY, TextEngine_Cmd03_SetX, TextEngine_Cmd04_SetPos, TextEngine_Cmd05_SetPos, TextEngine_Cmd06_SetPos, TextEngine_Cmd07_SetPos
 	dw TextEngine_Cmd00_End, TextEngine_Cmd09_Tab, TextEngine_Cmd00_End, TextEngine_Cmd00_End, TextEngine_Cmd00_End, TextEngine_Cmd0D_NewLine, TextEngine_Cmd00_End, TextEngine_Cmd00_End
 	dw TextEngine_Cmd00_End, TextEngine_Cmd00_End, TextEngine_Cmd00_End, TextEngine_Cmd00_End, TextEngine_Cmd00_End, TextEngine_Cmd00_End, TextEngine_Cmd00_End, TextEngine_Cmd00_End
 	dw TextEngine_Cmd00_End, TextEngine_Cmd00_End, TextEngine_Cmd00_End, TextEngine_Cmd00_End, TextEngine_Cmd1C_SetX16, TextEngine_Cmd1D_SetY, TextEngine_Cmd1E_AddX16, TextEngine_Cmd1F_AddY
 
 TextEngine_PutChar:: ; 00:0F30
-Function_00_0F30::
-	; [CONFIRMED] character output: C=byte; lead bytes $81-$9F,$E0-$EF,$F8-$F9 take a second byte
-	; and draw a double-byte glyph (1044), others a single glyph (10B1); then call 0392, wrap when
-	; x(FFBD) exceeds limit FFC4 (newline at 0F69)
+	; Historical address alias retired; proper operation name retained.
+	; [CONFIRMED] entry A=byte; LD C,A replaces C; HL is the remaining stream pointer.
+	; Lead bytes $81-$9F/$E0-$EF/$F8-$F9 take the next HL byte into B as trail for 1044;
+	; others use 10B1. Then frame service and wrap at x>limit; no entry-C byte ABI.
 	ld c, a
 	cp a, $81
 	jr c, .l0F49
@@ -79,7 +79,7 @@ Function_00_0F30::
 	pop hl
 
 TextEngine_AfterChar:: ; 00:0F5A
-Label_00_0F5A::
+
 	call Sound_FrameService
 	ldh a, [hTextX]
 	ld c, a
@@ -89,14 +89,14 @@ Label_00_0F5A::
 	jp TextEngine_ReloadBank
 
 TextEngine_Cmd0D_NewLine:: ; 00:0F68
-Function_00_0F68::
+	; Historical address alias retired; proper operation name retained.
 	; [CONFIRMED] control byte $0D (newline): X(FFBD/E)=FFC1/FFC2; if FFC6==$FF return (end of text,
 	; 0F73-0F75); else Y(FFBC)+=FFC6 and continue only while Y<=FFC3 (0F7E cp, jp nc,$0ED8),
 	; otherwise return
 	pop hl
 
 TextEngine_LineWrap:: ; 00:0F69
-Label_00_0F69::
+
 	ldh a, [hTextBox_LineStartX]
 	ldh [hTextX], a
 	ldh a, [hTextBox_LineStartXHi]
@@ -115,9 +115,9 @@ Label_00_0F69::
 	ret
 
 TextEngine_Cmd01_CallString:: ; 00:0F83
-Function_00_0F83::
-	; [CONFIRMED] control byte $01: call sub-string: reads addr16 + bank, pushes return pointer and
-	; bank, depth++ (FFBF), continues in the new string
+	; Address alias retired; static handler PROBABLE; see dated correction.
+	; [PROBABLE] control $01 enters a target string; saved words later unwind crossed;
+	; see home_function_names.md, dated original-contract erratum. No recursion guarantee.
 	pop hl
 	ld a, [hli]
 	ld c, a
@@ -138,9 +138,9 @@ Function_00_0F83::
 	jp TextEngine_ReloadBank
 
 TextEngine_Cmd00_End:: ; 00:0F9D
-Function_00_0F9D::
-	; [CONFIRMED] control byte $00/$08/$0A-$0C/$0E-$1B: end of string: at depth 0 return to caller,
-	; else pop the saved pointer/bank and continue
+	; Historical address alias retired; proper operation name retained.
+	; [CONFIRMED] depth0 returns; nonzero depth has a crossed unwind [PROBABLE], see dated note.
+	; Saved AF and pointer words are popped into opposite register pairs, not restored normally.
 	pop hl
 	ldh a, [hTextEngine_CallDepth]
 	or a, a
@@ -153,24 +153,24 @@ Function_00_0F9D::
 	jp TextEngine_ReloadBank
 
 TextEngine_Cmd02_SetY:: ; 00:0FAC
-Function_00_0FAC::
-	; [CONFIRMED] control byte $02: FFBC = next byte
+	; Address alias retired; static handler PROBABLE; see dated correction.
+	; [PROBABLE] control byte $02: FFBC = next byte
 	pop hl
 	ld a, [hli]
 	ldh [hTextY], a
 	jp TextEngine_NextByte
 
 TextEngine_Cmd03_SetX:: ; 00:0FB3
-Function_00_0FB3::
-	; [CONFIRMED] control byte $03: FFBD = next byte
+	; Address alias retired; static handler PROBABLE; see dated correction.
+	; [PROBABLE] control byte $03: FFBD = next byte
 	pop hl
 	ld a, [hli]
 	ldh [hTextX], a
 	jp TextEngine_NextByte
 
 TextEngine_Cmd04_SetPos:: ; 00:0FBA
-Function_00_0FBA::
-	; [CONFIRMED] control byte $04: FFBC=3, FFBD=0
+	; Address alias retired; static handler PROBABLE; see dated correction.
+	; [PROBABLE] control byte $04: FFBC=3, FFBD=0
 	pop hl
 	ld a, $03
 	ldh [hTextY], a
@@ -179,8 +179,8 @@ Function_00_0FBA::
 	jp TextEngine_NextByte
 
 TextEngine_Cmd05_SetPos:: ; 00:0FC6
-Function_00_0FC6::
-	; [CONFIRMED] control byte $05: FFBC=1, FFBD=0
+	; Address alias retired; static handler PROBABLE; see dated correction.
+	; [PROBABLE] control byte $05: FFBC=1, FFBD=0
 	pop hl
 	ld a, $01
 	ldh [hTextY], a
@@ -189,8 +189,8 @@ Function_00_0FC6::
 	jp TextEngine_NextByte
 
 TextEngine_Cmd06_SetPos:: ; 00:0FD2
-Function_00_0FD2::
-	; [CONFIRMED] control byte $06: FFBC=2, FFBD=0
+	; Address alias retired; static handler PROBABLE; see dated correction.
+	; [PROBABLE] control byte $06: FFBC=2, FFBD=0
 	pop hl
 	ld a, $02
 	ldh [hTextY], a
@@ -199,8 +199,8 @@ Function_00_0FD2::
 	jp TextEngine_NextByte
 
 TextEngine_Cmd07_SetPos:: ; 00:0FDE
-Function_00_0FDE::
-	; [CONFIRMED] control byte $07: FFBC=0, FFBD=2
+	; Address alias retired; static handler PROBABLE; see dated correction.
+	; [PROBABLE] control byte $07: FFBC=0, FFBD=2
 	pop hl
 	ld a, $00
 	ldh [hTextY], a
@@ -209,8 +209,8 @@ Function_00_0FDE::
 	jp TextEngine_NextByte
 
 TextEngine_Cmd1C_SetX16:: ; 00:0FEA
-Function_00_0FEA::
-	; [CONFIRMED] control byte $1C: FFBD/FFBE = next word
+	; Address alias retired; static handler PROBABLE; see dated correction.
+	; [PROBABLE] control byte $1C: FFBD/FFBE = next word
 	pop hl
 	ld a, [hli]
 	ldh [hTextX], a
@@ -219,16 +219,16 @@ Function_00_0FEA::
 	jp TextEngine_AfterChar
 
 TextEngine_Cmd1D_SetY:: ; 00:0FF4
-Function_00_0FF4::
-	; [CONFIRMED] control byte $1D: FFBC = next byte
+	; Address alias retired; static handler PROBABLE; see dated correction.
+	; [PROBABLE] control byte $1D: FFBC = next byte
 	pop hl
 	ld a, [hli]
 	ldh [hTextY], a
 	jp TextEngine_AfterChar
 
 TextEngine_Cmd1E_AddX16:: ; 00:0FFB
-Function_00_0FFB::
-	; [CONFIRMED] control byte $1E: FFBD/FFBE += next word
+	; Address alias retired; static handler PROBABLE; see dated correction.
+	; [PROBABLE] control byte $1E: FFBD/FFBE += next word
 	pop hl
 	ld a, [hli]
 	ld c, a
@@ -243,8 +243,8 @@ Function_00_0FFB::
 	jp TextEngine_AfterChar
 
 TextEngine_Cmd1F_AddY:: ; 00:100D
-Function_00_100D::
-	; [CONFIRMED] control byte $1F: FFBC += next byte
+	; Address alias retired; static handler PROBABLE; see dated correction.
+	; [PROBABLE] control byte $1F: FFBC += next byte
 	pop hl
 	ld a, [hli]
 	ld c, a
@@ -254,7 +254,7 @@ Function_00_100D::
 	jp TextEngine_AfterChar
 
 TextEngine_Cmd09_Tab:: ; 00:1018
-Function_00_1018::
+	; Historical address alias retired; proper operation name retained.
 	; [CONFIRMED] control byte $09: FFBD/FFBE += $30
 	pop hl
 	ldh a, [hTextX]
@@ -266,7 +266,7 @@ Function_00_1018::
 	jp TextEngine_AfterChar
 
 TextEngine_DrawChar:: ; 00:1028
-Function_00_1028::
+	; Historical address alias retired; proper operation name retained.
 	; [PROBABLE] draw character C: same lead-byte test as 0F30, then 10B1 (single) or 1044 (double:
 	; far calls into bank 7F glyph routines; y limit $90, x limit $A0) [candidate; raw refs 50] |
 	; inline far pointer: FarCall at 1053: dw $405F ; db $7F -> 7F:405F | 15 insn(s) never executed
@@ -290,7 +290,7 @@ Function_00_1028::
 	jr nc, TextEngine_DrawNarrowGlyph
 
 TextEngine_DrawWideGlyph:: ; 00:1044
-Function_00_1044::
+	; Historical address alias retired; proper operation name retained.
 	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 1028-1059 by apply_coverage
 	; --split [executed in 37 scenarios]
 	ld h, c
@@ -304,8 +304,8 @@ Function_00_1044::
 	farcall Glyph_LoadWide
 
 TextEngine_DrawWideGlyph_BlitLeft:: ; 00:1059
-Function_00_1059::
-	; [CONFIRMED] continuation of Function_00_1028 | inline far pointer: FarCall at 1073: dw $42C3 ;
+	; Historical address alias retired; proper operation name retained.
+	; [CONFIRMED] continuation of TextEngine_DrawChar | FarCall at 1073: dw $42C3 ;
 	; db $7F -> 7F:42C3
 	ldh a, [hTextX + 1]
 	or a, a
@@ -325,8 +325,8 @@ Function_00_1059::
 	farcall Canvas_BlitGlyph
 
 TextEngine_DrawWideGlyph_BlitRight:: ; 00:1079
-Function_00_1079::
-	; [CONFIRMED] continuation of Function_00_1028 | inline far pointer: FarCall at 109D: dw $42C3 ;
+	; Historical address alias retired; proper operation name retained.
+	; [CONFIRMED] continuation of TextEngine_DrawChar | FarCall at 109D: dw $42C3 ;
 	; db $7F -> 7F:42C3
 	ldh a, [hTextX]
 	add a, $06
@@ -351,7 +351,7 @@ Function_00_1079::
 	farcall Canvas_BlitGlyph
 
 TextEngine_DrawWideGlyph_AdvanceX:: ; 00:10A3
-Function_00_10A3::
+	; Historical address alias retired; proper operation name retained.
 	; [CONFIRMED] continuation
 	ldh a, [hTextX]
 	add a, $06
@@ -363,7 +363,7 @@ Function_00_10A3::
 	ret
 
 TextEngine_DrawNarrowGlyph:: ; 00:10B1
-Function_00_10B1::
+	; Historical address alias retired; proper operation name retained.
 	; [CONFIRMED] draw single-byte glyph (far calls into bank 7F: 7F:4007, 7F:42C3) | inline far
 	; pointer: FarCall at 10C0: dw $4007 ; db $7F -> 7F:4007
 	ld b, c
@@ -377,8 +377,8 @@ Function_00_10B1::
 	farcall Glyph_LoadAscii
 
 TextEngine_DrawNarrowGlyph_Blit:: ; 00:10C6
-Function_00_10C6::
-	; [CONFIRMED] continuation of Function_00_10B1 | inline far pointer: FarCall at 10D5: dw $42C3 ;
+	; Historical address alias retired; proper operation name retained.
+	; [CONFIRMED] continuation of TextEngine_DrawNarrowGlyph | FarCall at 10D5: dw $42C3 ;
 	; db $7F -> 7F:42C3
 	ldh a, [hTextBox_ColorSelB]
 	ld b, a
@@ -392,7 +392,7 @@ Function_00_10C6::
 	farcall Canvas_BlitGlyph
 
 TextEngine_DrawNarrowGlyph_AdvanceX:: ; 00:10DB
-Function_00_10DB::
+	; Historical address alias retired; proper operation name retained.
 	; [CONFIRMED] continuation
 	ldh a, [hTextX]
 	add a, $06

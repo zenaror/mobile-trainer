@@ -5,7 +5,7 @@
 SECTION "engine/gfx/palette", ROMX
 
 Palette_LoadToBuffer:: ; 4F:4000
-Function_4F_4000::
+
 	; [CONFIRMED] 247 insn(s); 247 executed (in up to 18/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh [hFarBank], a
@@ -299,7 +299,6 @@ Table_4F_4194::
 	dw PalFade_Start_AllColors
 
 PalFade_Start_FourColors:: ; 4F:41A4
-Label_4F_41A4::
 	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1;
 	; entered by table from 4F:4191 (executed)
 	ld de, wPaletteFadeLevels + $70
@@ -308,28 +307,24 @@ Label_4F_41A4::
 	jr PalFade_Start_FillLoop
 
 PalFade_Start_ObjColors:: ; 4F:41AE
-Label_4F_41AE::
 	ld de, wPaletteFadeLevels + $40
 	ld hl, wPaletteFadeTo + $40
 	ld b, $20
 	jr PalFade_Start_FillLoop
 
 PalFade_Start_BgColors:: ; 4F:41B8
-Label_4F_41B8::
 	ld de, wPaletteFadeLevels
 	ld hl, wPaletteFadeTo
 	ld b, $20
 	jr PalFade_Start_FillLoop
 
 PalFade_Start_AllColors:: ; 4F:41C2
-Label_4F_41C2::
 	; [CONFIRMED] 54 insn(s); 54 executed (in up to 18/18 scenarios)
 	ld de, wPaletteFadeLevels
 	ld hl, wPaletteFadeTo
 	ld b, $40
 
 PalFade_Start_FillLoop:: ; 4F:41CA
-Label_4F_41CA::
 	ld a, [wTextCellsLeft]
 	ld [hli], a
 	ld a, [wPalFadeTargetColorHi]
@@ -403,7 +398,6 @@ Table_4F_4233::
 	dw PalFade_Step_AllColors
 
 PalFade_Step_FourColors:: ; 4F:4243
-Label_4F_4243::
 	; [PROBABLE] 4 instruction starts in this 10-byte block; ordinary static flow only;
 	; mode 3 target of the inline table at 4F:4230; this handler was not observed in the natural corpus
 	; PalFade_Start_FourColors (4F:41A4) fills the end colours and the progress words at offset $70,
@@ -415,14 +409,12 @@ Label_4F_4243::
 	jr PalFade_Step_UpdateRange
 
 PalFade_Step_ObjColors:: ; 4F:424D
-Label_4F_424D::
 	ld de, $0040
 	ld hl, wPaletteFadeLevels + $40
 	ld b, $20
 	jr PalFade_Step_UpdateRange
 
 PalFade_Step_BgColors:: ; 4F:4257
-Label_4F_4257::
 	; [CONFIRMED] 31 insn(s); 31 executed (in up to 18/18 scenarios)
 	ld de, $0000
 	ld hl, wPaletteFadeLevels
@@ -430,13 +422,11 @@ Label_4F_4257::
 	jr PalFade_Step_UpdateRange
 
 PalFade_Step_AllColors:: ; 4F:4261
-Label_4F_4261::
 	ld de, $0000
 	ld hl, wPaletteFadeLevels
 	ld b, $40
 
 PalFade_Step_UpdateRange:: ; 4F:4269
-Label_4F_4269::
 	push bc
 	push de
 	ld a, [wPalFadeProgress]
@@ -465,7 +455,7 @@ Label_4F_4269::
 	ret
 
 Palette_CaptureAndFadeInFromWhite:: ; 4F:428E
-Function_4F_428E::
+
 	; [PROBABLE] function prologue (ldh [$FFF2],a / ldh a,[$FF8D] / push af / ... ld a,$07 / ldh
 	; [$FF8D],a / ldh [$FF70],a ...), identical to the executed functions 4F:42B4/4370/4572; the
 	; previous byte is a ret (function boundary) and the decode chain ends exactly at the next
@@ -493,7 +483,7 @@ Function_4F_428E::
 	ldh a, [hScratchA]
 
 Palette_FadeInFromWhite:: ; 4F:42B4
-Function_4F_42B4::
+
 	; [CONFIRMED] 62 insn(s); 62 executed (in up to 18/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh [hScratchA], a
@@ -564,7 +554,7 @@ Palette_FadeInFromWhiteSlow:: ; 4F:42FF
 	ret
 
 Palette_CaptureAndFadeOutToWhite:: ; 4F:434A
-Function_4F_434A::
+
 	; [PROBABLE] function prologue (ldh [$FFF2],a / ldh a,[$FF8D] / push af / ... ld a,$07 / ldh
 	; [$FF8D],a / ldh [$FF70],a ...), identical to the executed functions 4F:42B4/4370/4572; the
 	; previous byte is a ret (function boundary) and the decode chain ends exactly at the next
@@ -592,7 +582,7 @@ Function_4F_434A::
 	ldh a, [hScratchA]
 
 Palette_FadeOutToWhite:: ; 4F:4370
-Function_4F_4370::
+
 	; [CONFIRMED] 60 insn(s); 60 executed (in up to 18/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh [hScratchA], a
@@ -661,7 +651,7 @@ Palette_FadeOutToWhiteSlow:: ; 4F:43B8
 	ret
 
 Palette_CaptureAndFadeInFromBlackSlow:: ; 4F:4400
-Function_4F_4400::
+
 	; [PROBABLE] function prologue (ldh [$FFF2],a / ldh a,[$FF8D] / push af / ... ld a,$07 / ldh
 	; [$FF8D],a / ldh [$FF70],a ...), identical to the executed functions 4F:42B4/4370/4572; the
 	; previous byte is a ret (function boundary) and the decode chain ends exactly at the next
@@ -689,7 +679,7 @@ Function_4F_4400::
 	ldh a, [hScratchA]
 
 Palette_FadeInFromBlackSlow:: ; 4F:4426
-Function_4F_4426::
+
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -724,7 +714,7 @@ Function_4F_4426::
 	ret
 
 Palette_CaptureAndFadeOutToBlackSlow:: ; 4F:4471
-Function_4F_4471::
+
 	; [PROBABLE] function prologue (ldh [$FFF2],a / ldh a,[$FF8D] / push af / ... ld a,$07 / ldh
 	; [$FF8D],a / ldh [$FF70],a ...), identical to the executed functions 4F:42B4/4370/4572; the
 	; previous byte is a ret (function boundary) and the decode chain ends exactly at the next
@@ -752,7 +742,7 @@ Function_4F_4471::
 	ldh a, [hScratchA]
 
 Palette_FadeOutToBlackSlow:: ; 4F:4497
-Function_4F_4497::
+
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -786,7 +776,7 @@ Function_4F_4497::
 	ret
 
 Palette_FadeInFromWhiteObjPalSlow:: ; 4F:44DF
-Function_4F_44DF::
+
 	; [PROBABLE] function prologue (ldh [$FFF2],a / ldh a,[$FF8D] / push af / ... ld a,$07 / ldh
 	; [$FF8D],a / ldh [$FF70],a ...), identical to the executed functions 4F:42B4/4370/4572; the
 	; previous byte is a ret (function boundary) and the decode chain ends exactly at the next
@@ -829,7 +819,7 @@ Function_4F_44DF::
 	ret
 
 Palette_FadeOutToWhiteObjPalSlow:: ; 4F:452A
-Function_4F_452A::
+
 	; [PROBABLE] function prologue (ldh [$FFF2],a / ldh a,[$FF8D] / push af / ... ld a,$07 / ldh
 	; [$FF8D],a / ldh [$FF70],a ...), identical to the executed functions 4F:42B4/4370/4572; the
 	; previous byte is a ret (function boundary) and the decode chain ends exactly at the next

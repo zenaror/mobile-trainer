@@ -5,7 +5,7 @@
 SECTION "engine/mail_server/delete_menu", ROMX
 
 MailSrvDel_MenuRun:: ; 23:4000
-Function_23_4000::
+
 	; [CONFIRMED] 50 insn(s); 50 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call VBlank_WaitAndService
@@ -243,7 +243,7 @@ MailSrvDel_MenuSelect:: ; 23:4161
 	ret
 
 MailSrvDel_MenuInit:: ; 23:41DC
-Function_23_41DC::
+
 	; [CONFIRMED] 80 insn(s); 80 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -407,7 +407,7 @@ String_23_4357::
 POPC
 
 MailSrvDel_ShowDescCheck:: ; 23:43C4
-Function_23_43C4::
+
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, String_MailSrvDel_DescCheck
@@ -716,7 +716,7 @@ String_23_476D::
 POPC
 
 MailSrvDel_UploadTextTiles:: ; 23:478E
-Function_23_478E::
+
 	; [CONFIRMED] 19 insn(s); 19 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh a, [rSVBK]
@@ -740,7 +740,7 @@ Function_23_478E::
 	ret
 
 MailSrvDel_DrawTimerNumbers:: ; 23:47BC
-Function_23_47BC::
+
 	; [HYPOTHESIS] function body (push af/bc/de/hl prologue) that starts right after the ret at 47BB
 	; and falls through into the CONFIRMED far call at 47ED; 31 insn decode chain lands exactly on
 	; the next region start; no caller found (entry unproven) [verifier: no entry proven (no caller,
@@ -851,7 +851,7 @@ Function_23_47BC::
 	ret
 
 MailSrvDel_FormatDecimalStr:: ; 23:4864
-Function_23_4864::
+
 	push hl
 	push bc
 	ld a, $01
@@ -1045,7 +1045,7 @@ String_23_497B::
 POPC
 
 MailSrvDel_NumberOffset_23_4986:: ; 23:4986
-Function_23_4986::
+
 	; [PROBABLE] 130 insn(s) reached by static flow only; seeds: exec x74, site x56; min discovery
 	; hops 0; entered by call from 23:4809 (PROBABLE code) | 56 insn(s) never executed in the traced
 	; runs; cut out of the PROBABLE region 4986-4AA4 by apply_coverage --split | forced execution:
@@ -1099,7 +1099,7 @@ Function_23_4986::
 	ret
 
 MailSrvDel_UploadDecimalTiles:: ; 23:49E6
-Function_23_49E6::
+
 	ldh a, [rSVBK]
 	push af
 	ld a, $02

@@ -3,8 +3,8 @@
 ; result messages, message tile upload, elapsed-time drawing
 
 SECTION "engine/mail_server/delete_messages", ROMX
+Wram7_Write14To27AtD1E0:: ; 23:6D61 [PROBABLE] operation; entry/purpose unproved
 
-Function_23_6D61:: ; 23:6D61
 	; [HYPOTHESIS] 28-insn decode (push af/bc/de/hl ... pop ... ret): writes 20 bytes $14..$27
 	; to WRAM7:$D1E0..$D1F3; follows ret at 6D60. Entry unproven: no established caller/table
 	; entry and no execution recorded in the existing natural corpus; a clean decode alone
@@ -109,7 +109,7 @@ String_23_6E2F::
 POPC
 
 MailSrvDel_MsgCancelled:: ; 23:6E58
-Function_23_6E58::
+
 	; [HYPOTHESIS] first 16 bytes of the twin of the function 6E14-6E2F (push bc ; ld a,2 ; ldh
 	; [$B0],a ; ld a,$23 ; ld bc,$D000 ; ld de,$D140 ; ld hl,$6E73 ...) - falls into the
 	; CONFIRMED-flow tail at 6E68; its ld hl,$6E73 points at the next text string [verifier: no

@@ -39,7 +39,7 @@ def copy_tree(root, dst):
         elif not name.endswith(('.gbc', '.gb', '.sym', '.map')):
             shutil.copy2(src, os.path.join(dst, name))
     os.makedirs(os.path.join(dst, 'tools'), exist_ok=True)
-    for name in ('sym_check.py', 'font_png.py', 'pnglib.py'):
+    for name in ('sym_check.py', 'font_png.py', 'pnglib.py', 'raw_png.py'):
         if os.path.exists(os.path.join(root, 'tools', name)):
             shutil.copy2(os.path.join(root, 'tools', name), os.path.join(dst, 'tools', name))
 

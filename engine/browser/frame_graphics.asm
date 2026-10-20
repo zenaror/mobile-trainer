@@ -5,7 +5,7 @@
 SECTION "engine/browser/frame_graphics", ROMX
 
 Browser_LoadFrameGraphics:: ; 4E:6196
-Function_4E_6196::
+
 	; [CONFIRMED] 118 insn(s); 118 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call LCDOff
@@ -128,7 +128,7 @@ Function_4E_6196::
 	ret
 
 Browser_FrameStylePreview_LoadGraphics:: ; 4E:6291
-Function_4E_6291::
+
 	; [PROBABLE] 346 insn(s) reached by static flow only; seeds: site x346; min discovery hops 0;
 	; entered by far from 4E:4002 (PROBABLE code) | forced execution: 346/346 instruction starts ran
 	; in forced_screens (traces/forced/, not natural evidence; status unchanged)

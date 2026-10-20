@@ -48,7 +48,7 @@ CopyBytesBackward	keeps	00:0526 writes no bank register, calls nothing
 Tilemap_ApplyMaskRect	keeps if A=0	00:091C `call BankSwitch_H` (A = the bank of the region of HL, 0 = no change), then the AND/OR loop; no other bank register is written
 CopyString	keeps	00:14BF (home/string.asm:7) writes no bank register, calls nothing
 CopyStringMax	keeps	00:14C6 writes no bank register, calls nothing
-CopyStringMax_ZeroSrcOnEmpty	keeps	00:14D1 writes no bank register, calls nothing
+CopyStringMax_ZeroSourceIfEntryCountZero	keeps	00:14D1 writes no bank register, calls nothing
 EncodeXorA5	keeps	00:14E0 writes no bank register, calls nothing
 DecodeXorA5	keeps	00:14EA writes no bank register, calls nothing
 StringAppend	keeps	00:14F3 writes no bank register, calls nothing

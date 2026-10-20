@@ -7,26 +7,22 @@ SECTION "gfx/browser/menus", ROMX
 ; ---- gfx $6C10-$7010 (1024 bytes) [CONFIRMED] tiles-vram: 3 call site(s) (4E:61C1 4E:62BC 72:6733); first: hdma_rom_to_vram at 4E:61C1: hl=$6C10 a=$72 c=$40 de=$8801 (dest VRAM $8800, vbank=1)
 
 BrowserMenu3_Tiles0:: ; 72:6C10
-Data_72_6C10::
 	INCBIN "gfx/browser/menus/browser_menu3_tiles0.2bpp"
 
 ; ---- gfx $7010-$7110 (256 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 72:6745: hl=$7010 a=$72 c=$10 de=$8F01 (dest VRAM $8F00, vbank=1)
 
 BrowserMenu3_Tiles1:: ; 72:7010
-Data_72_7010::
 	INCBIN "gfx/browser/menus/browser_menu3_tiles1.2bpp"
 
 ; ---- data $7110-$7200 (240 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 72:6767: hl=$7110 a=$72 b=6 rows c=20 cols (tiles then attrs) de=$D180
 
 BrowserMenu3_Map:: ; 72:7110
-Data_72_7110::
 	INCBIN "gfx/browser/menus/browser_menu3_map.tilemap"
 	INCBIN "gfx/browser/menus/browser_menu3_map.attrmap"
 
 ; ---- data $7200-$7210 (16 bytes) [CONFIRMED] palette-rgb555: 8 colours (2 palettes) read by Palette_LoadToBuffer: +$00 bc=$10 into wPaletteBufBg + $30 (engine/browser/menus.asm:451, call 72:6756 executed 17 hits in 6 scenarios (analysis/coverage_union.tsv))
 
 Palette_BrowserMenu_Bg6:: ; 72:7200
-Data_72_7200::
 	INCLUDE "gfx/browser/menus/browser_menu_bg6.pal"
 
 ; ---- data $7210-$7218 (8 bytes) [CONFIRMED] palette-rgb555: 4 colours (1 palettes) read by Palette_LoadToBuffer: +$00 bc=$08 into wPaletteBufObj + $20 (engine/browser/menus.asm:461, call 72:6778 executed 17 hits in 6 scenarios (analysis/coverage_union.tsv))
@@ -40,19 +36,16 @@ Palette_BrowserMenu_Obj4:: ; 72:7210
 ; ---- gfx $7220-$7620 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 72:640B: hl=$7220 a=$72 c=$40 de=$8801 (dest VRAM $8800, vbank=1) [first call site executed: 1 hits in 1 scenarios (analysis/coverage_union.tsv)]
 
 BrowserMenu2_Tiles0:: ; 72:7220
-Data_72_7220::
 	INCBIN "gfx/browser/menus/browser_menu2_tiles0.2bpp"
 
 ; ---- gfx $7620-$7720 (256 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 72:63F9: hl=$7620 a=$72 c=$10 de=$8F01 (dest VRAM $8F00, vbank=1) [first call site executed: 1 hits in 1 scenarios (analysis/coverage_union.tsv)]
 
 BrowserMenu2_Tiles1:: ; 72:7620
-Data_72_7620::
 	INCBIN "gfx/browser/menus/browser_menu2_tiles1.2bpp"
 
 ; ---- data $7720-$7810 (240 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 72:642D: hl=$7720 a=$72 b=6 rows c=20 cols (tiles then attrs) de=$D180 [first call site executed: 1 hits in 1 scenarios (analysis/coverage_union.tsv)]
 
 BrowserMenu2_Map:: ; 72:7720
-Data_72_7720::
 	INCBIN "gfx/browser/menus/browser_menu2_map.tilemap"
 	INCBIN "gfx/browser/menus/browser_menu2_map.attrmap"
 
@@ -88,13 +81,11 @@ BrowserShared_ObjTable_Entry12:: ; 72:7858
 ; ---- data $786C-$786E (2 bytes) [PROBABLE] descriptor $786C = dw $786E (first word of the animation/sprite data block; target of table entry words)
 
 BrowserShared_Anim12Frames:: ; 72:786C
-Data_72_786C::
 	sprite_frame_table BrowserShared_ObjAnimData_72_786E
 
 ; ---- data $786E-$7880 (18 bytes) [PROBABLE] animation-descriptor / sprite-list block reached from the object table 72:7828: sprite lists = count + count*(y,x,tile,attr) (e.g. 72:78CE 04 fe fe 81 0c ...) and descriptors (01 00 04 dw / 02 00 2e 01 08 dw dw); the table words partition 786C-7A1F exactly at descriptor starts; other bytes of this block are CONFIRMED read by executed code (1/18)
 
 BrowserShared_ObjAnimData_72_786E:: ; 72:786E
-Data_72_786E::
 	sprite_frame 1
 	sprite_oam 0, 0, $FF, 7
 SpriteScript_72_7873:: ; 72:7873
@@ -112,7 +103,6 @@ SpriteScript_72_787D:: ; 72:787D
 ; ---- data $7880-$7894 (20 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
 BrowserShared_ObjAnimData_72_7880:: ; 72:7880
-Data_72_7880::
 	sprite_frame_table SpriteFrame_72_7882
 SpriteFrame_72_7882:: ; 72:7882
 	sprite_frame 1
@@ -132,7 +122,6 @@ SpriteScript_72_7891:: ; 72:7891
 ; ---- data $7894-$78CA (54 bytes) [PROBABLE] animation-descriptor / sprite-list block reached from the object table 72:7828: sprite lists = count + count*(y,x,tile,attr) (e.g. 72:78CE 04 fe fe 81 0c ...) and descriptors (01 00 04 dw / 02 00 2e 01 08 dw dw); the table words partition 786C-7A1F exactly at descriptor starts; other bytes of this block are CONFIRMED read by executed code (1/18)
 
 BrowserShared_ObjAnimData_72_7894:: ; 72:7894
-Data_72_7894::
 	sprite_frame_table SpriteFrame_72_7898, SpriteFrame_72_78A1
 SpriteFrame_72_7898:: ; 72:7898
 	sprite_frame 2
@@ -164,7 +153,6 @@ SpriteScript_72_78C5:: ; 72:78C5
 ; ---- data $78CA-$78F5 (43 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
 BrowserMenu_Cursor_ObjAnimData_72_78CA:: ; 72:78CA
-Data_72_78CA::
 	sprite_frame_table SpriteFrame_72_78CE, SpriteFrame_72_78DF
 SpriteFrame_72_78CE:: ; 72:78CE
 	sprite_frame 4
@@ -186,7 +174,6 @@ SpriteScript_72_78F0:: ; 72:78F0
 ; ---- data $78F5-$795B (102 bytes) [PROBABLE] animation-descriptor / sprite-list block reached from the object table 72:7828: sprite lists = count + count*(y,x,tile,attr) (e.g. 72:78CE 04 fe fe 81 0c ...) and descriptors (01 00 04 dw / 02 00 2e 01 08 dw dw); the table words partition 786C-7A1F exactly at descriptor starts; other bytes of this block are CONFIRMED read by executed code (1/18)
 
 BrowserShared_ObjAnimData_72_78F5:: ; 72:78F5
-Data_72_78F5::
 	sprite_frame_table SpriteFrame_72_78F9, SpriteFrame_72_791A
 SpriteFrame_72_78F9:: ; 72:78F9
 	sprite_frame 8
@@ -230,7 +217,6 @@ SpriteScript_72_7956:: ; 72:7956
 ; ---- data $795B-$79A0 (69 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
 BrowserShared_ObjAnimData_72_795B:: ; 72:795B
-Data_72_795B::
 	sprite_frame_table SpriteFrame_72_795F, SpriteFrame_72_7968
 SpriteFrame_72_795F:: ; 72:795F
 	sprite_frame 2
@@ -264,7 +250,6 @@ SpriteScript_72_799D:: ; 72:799D
 ; ---- data $79A0-$7A04 (100 bytes) [PROBABLE] animation-descriptor / sprite-list block reached from the object table 72:7828: sprite lists = count + count*(y,x,tile,attr) (e.g. 72:78CE 04 fe fe 81 0c ...) and descriptors (01 00 04 dw / 02 00 2e 01 08 dw dw); the table words partition 786C-7A1F exactly at descriptor starts; other bytes of this block are CONFIRMED read by executed code (1/18)
 
 BrowserShared_ObjAnimData_72_79A0:: ; 72:79A0
-Data_72_79A0::
 	sprite_frame_table SpriteFrame_72_79A2
 SpriteFrame_72_79A2:: ; 72:79A2
 	sprite_frame 7
@@ -312,7 +297,6 @@ SpriteScript_72_79FF:: ; 72:79FF
 ; ---- data $7A04-$7A1F (27 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
 BrowserShared_ObjAnimData_72_7A04:: ; 72:7A04
-Data_72_7A04::
 	sprite_frame_table SpriteFrame_72_7A08, SpriteFrame_72_7A11
 SpriteFrame_72_7A08:: ; 72:7A08
 	sprite_frame 2

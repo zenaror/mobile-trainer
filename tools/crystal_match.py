@@ -180,7 +180,7 @@ def scan_source_kinds(src_dir):
         return {}
     files = []
     for dp, dn, fn in os.walk(src_dir):
-        dn[:] = [d for d in dn if d not in ('.git', 'rgbds', 'tools', 'build', 'gfx', 'audio_')]
+        dn[:] = [d for d in dn if d not in ('.git', 'rgbds', 'tools', 'build', 'languages', 'gfx', 'audio_')]
         for f in fn:
             if f.endswith('.asm'):
                 files.append(os.path.join(dp, f))

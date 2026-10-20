@@ -121,7 +121,7 @@ Account_ConfirmScreen_InputLoop:: ; 68:62C9
 	jp Account_ConfirmScreen_InputLoop
 
 Account_ConfirmScreen_UpdateCursor:: ; 68:6344
-Function_68_6344::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 6344.
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wAccountConfirm_Cursor]
@@ -147,7 +147,7 @@ Table_68_635C::
 	dw $6828, $6858
 
 Account_ConfirmScreen_BuildTextMap:: ; 68:6360
-Function_68_6360::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 6360.
 	; [CONFIRMED] 85 insn(s); 85 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, wScreenTileMap + $A6
@@ -378,7 +378,7 @@ Table_68_659A::
 	dw $7058, $7080
 
 Account_ConfirmManualScreen_BuildTextMap:: ; 68:659E
-Function_68_659E::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 659E.
 	; [CONFIRMED] 208 insn(s) reached by static flow only; seeds: exec x208; min discovery hops 7;
 	; entered by call from 68:64EB (PROBABLE code) [executed in 2 scenarios]
 	ld hl, wScreenTileMap + $48
@@ -572,7 +572,7 @@ Account_ConfirmManualScreen_PrintAccount:: ; 68:65EA
 	ret
 
 Account_ConfirmManualScreen_UploadTextTiles:: ; 68:6762
-Function_68_6762::
+	; [PROBABLE] Existing operation name; bank68_function_names row 6762.
 	ld de, $9000
 	ld hl, $0208
 	ld bc, $0208
@@ -636,5 +636,5 @@ POPC
 ; ---- words $67D8-$67E0 (8 bytes) [PROBABLE] 4 words $67E0,$68A0,$6960,$6A20 = the starts of the four 192-byte "MA" records (each word points exactly at a block that starts with "MA 01 00")
 
 Config_DefaultImageTable:: ; 68:67D8
-Table_68_67D8::
+
 	dw Config_DefaultImage0, Config_DefaultImage1, Config_DefaultImage2, Config_DefaultImage3

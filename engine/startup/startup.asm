@@ -5,7 +5,7 @@
 SECTION "engine/startup/startup", ROMX
 
 Startup_Run:: ; 65:4000
-Function_65_4000::
+
 	; [CONFIRMED] 27 insn(s); 27 executed (in up to 18/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call Boot_ReinitRuntimeFar
@@ -57,14 +57,12 @@ Startup_NoAdapter:: ; 65:4042
 	jp hl
 
 Startup_NoAdapter_Continue:: ; 65:4055
-Label_65_4055::
 	; [PROBABLE] code entries 4055 (jp $416C) and 4058 (ld a,$F0 ; ld hl,$0110, falls into the
 	; far-call site 405D): both are words of Table_65_406E (word 4055 at 65:4076, 4058 at 65:4070);
 	; clean decode
 	jp Startup_VerifySaveData
 
 Startup_NoAdapter_ShowInfoError:: ; 65:4058
-Label_65_4058::
 	ld a, $F0
 	ld hl, $0110
 

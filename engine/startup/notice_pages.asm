@@ -5,7 +5,7 @@
 SECTION "engine/startup/notice_pages", ROMX
 
 Notice_ShowPage:: ; 65:487C
-Function_65_487C::
+
 	; [CONFIRMED] 76 insn(s); 76 executed (in up to 9/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld [wNotice_PageArg], a
@@ -100,7 +100,6 @@ Table_65_494E::
 	dw Notice_ShowPage_Idle
 
 Notice_ShowPage_Idle:: ; 65:4958
-Label_65_4958::
 	; [CONFIRMED] 138 insn(s); 138 executed (in up to 9/18 scenarios)
 	jp Notice_ShowPage_InputLoop
 
@@ -124,11 +123,9 @@ Notice_ShowPage_ButtonB:: ; 65:4974
 	ret
 
 Notice_ShowPage_IgnoreSelect:: ; 65:4999
-Label_65_4999::
 	jr Notice_ShowPage_InputLoop
 
 Notice_ShowPage_IgnoreStart:: ; 65:499B
-Label_65_499B::
 	jr Notice_ShowPage_InputLoop
 
 Notice_ShowPage_Locked:: ; 65:499D
@@ -244,21 +241,22 @@ Notice_LoadHeaderGfx:: ; 65:4A37
 	farcall Gfx_StartHDMAWithService
 	ret
 
-; ---- data $4A81-$4AD7 (86 bytes) [PROBABLE] descriptor table read by the executed code (up to 9 scenarios), 86 bytes: repeating groups of a flag byte (D0/50/90/10/40/C0) + 16-bit address (5841 5844 5846 ... = bank-58 tile sources; 4B5B 4B5E 4B60 ... and 7172 7174 = bank-65 / other addresses); exact record layout not decoded; the mapper 1-6 byte holes (4A84 4A90 4A9C 4AB1 4ACF) were unread bytes of this same table
+; ---- data $4A81-$4AC9 (72 bytes) [PROBABLE] 24 header descriptors read at 65:4A37: each is a little-endian source address followed by a ROM bank byte; selected by 3*A from the first byte of the notice record. The reader requests $28 blocks (640 bytes) into VRAM bank 1 at $9300. Static contract only; no new natural-render claim.
 
 Notice_HeaderGfxTable:: ; 65:4A81
-Data_65_4A81::
 	db $D0, $41, $58, $50, $44, $58, $D0, $46, $58, $50, $49, $58, $D0, $4B, $58, $50
 	db $4E, $58, $D0, $50, $58, $50, $53, $58, $D0, $55, $58, $50, $58, $58, $D0, $5A
 	db $58, $50, $5D, $58, $D0, $5F, $58, $50, $62, $58, $D0, $64, $58, $50, $67, $58
 	db $90, $5B, $4B, $10, $5E, $4B, $90, $60, $4B, $10, $63, $4B, $90, $65, $4B, $10
 	db $68, $4B, $40, $72, $71, $C0, $74, $71
 
+; ---- words $4AC9-$4AD7 (14 bytes) [PROBABLE] Seven little-endian source addresses read by Notice_LoadHeaderGfx; the reader selects fixed ROM bank $58 and requests 640 bytes into VRAM bank 1 at $9580. Purpose/display remains bounded to this static load path.
+
 Notice_FooterGfxTable:: ; 65:4AC9
 	db $D0, $69, $50, $6C, $D0, $6E, $50, $71, $D0, $73, $50, $76, $D0, $78
 
 Notice_DrawPageCounter:: ; 65:4AD7
-Function_65_4AD7::
+
 	; [CONFIRMED] 100 insn(s); 100 executed (in up to 9/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wNotice_RecordPtr]
@@ -385,7 +383,7 @@ Table_65_4B92::
 	dw $7E94, $7E98, $7E9C
 
 Notice_RequestPageSound:: ; 65:4BA8
-Function_65_4BA8::
+
 	; [CONFIRMED] 18 insn(s); 18 executed (in up to 9/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, Notice_PageSoundTable
@@ -410,16 +408,15 @@ Function_65_4BA8::
 ; ---- data $4BC6-$4BE2 (28 bytes) [PROBABLE] 28 bytes read by the executed function 4BA8 (ld hl,$4BC6 ; indexed by [C27C]): 09 09 09 09 09 19 19 09 09 09 09 13 09 x12 then 00 00 00 00 (attribute-like/byte table); 1-byte unread holes at 4BD0 4BD2 4BD8 4BE1 merged
 
 Notice_PageSoundTable:: ; 65:4BC6
-Data_65_4BC6::
 	db $09, $09, $09, $09, $09, $19, $19, $09, $09, $09, $09, $13, $09, $09, $09, $09
 	db $09, $09, $09, $09, $09, $09, $09, $09
+
+; ---- data $4BDE-$4C6E (144 bytes) [PROBABLE] 24 six-byte notice records: four header/mode/page bytes followed by a text pointer; Notice_ShowPage selects a record and Notice_DrawBodyText reads its pointer at record + 4
 
 Notice_PageTable:: ; 65:4BDE
 	db $00, $00, $00, $00
 
-; ---- data $4BE2-$4C6C (138 bytes) [PROBABLE] 23 records x 6 bytes: 16-bit pointer to a dialogue string (6E 4C -> 4C6E, FA 4C -> 4CFA, 50 4D -> 4D50 ... every pointer lands exactly on a string start of analysis/strings.tsv) + 4 bytes (id, 0/1/2 flags..., last byte unread in traces); the 1-byte and 6-byte mapper holes are the unread 6th bytes
-
-Data_65_4BE2:: ; 65:4BE2
+Notice_PageTable_RegistrationStartTextPointer:: ; 65:4BE2
 	dw NoticeText_RegistrationStart
 	db $02, $01, $01, $03
 	dw NoticeText_HaveManualReady
@@ -467,7 +464,5 @@ Data_65_4BE2:: ; 65:4BE2
 	dw NoticeText_UsageFeeCancelled
 	db $17, $00, $00, $00
 
-; ---- data $4C6C-$4C6E (2 bytes) [PROBABLE] 24 56 = word 5624, the 24th string pointer of Data_65_4BE2 (string at 5624 exists); the mapper included these two bytes in the text run
-
-Data_65_4C6C:: ; 65:4C6C
+Notice_PageTable_ResumeRegistrationTextPointer:: ; 65:4C6C
 	dw NoticeText_ResumeRegistration

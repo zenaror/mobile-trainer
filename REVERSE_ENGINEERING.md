@@ -5,13 +5,342 @@ Evidence levels: **CONFIRMED** (demonstrated), **PROBABLE** (strong evidence, no
 Numbers marked "frozen" describe `config/` at the freeze and are not updated any more; numbers marked "source" were counted in the `.asm` tree when this file was written
 (the tree is edited by hand, so recount with the command given).
 
+## Current original reconstruction and asset-audit limits
+
+The [definition of done](docs/REVERSE_ENGINEERING_RULES.md#23-definition-of-done) requires an explainable reconstruction as well as a reproducible ROM. `make`, symbol checks and a complete byte comparison establish reconstruction identity for the source actually checked; they do not establish complete semantics, natural execution or hardware behavior. Frozen `config/` and `docs/PROGRESS.md` counters, and dated counters below, are historical rather than a current completion census.
+
+**Original-ROM work remains open (2026-10-18).** The Operator requires all real functions to be
+mapped and properly named before any English work can resume. The previous zero *neutral-only address
+groups* census counted descriptive aliases; it was not a census of identified functions. A direct
+maintained-source scan at245961f6 still found693 literal `Function_*` definitions in143 owners,
+four active instruction references to those names, and1618 local labels scoped under them. These
+are naming-migration counts, not693 unknown routines. Each retirement requires a defensible contract,
+reference/local-scope review and address-preserving reconstruction. The c6236d06 pass retired seven
+aliases (686 remained before the follow-up cohort below): four already named audio helpers gain complete contracts, the two mail-body
+locators gain PROBABLE domain names, and the actual no-op at26:5343 retains its descriptive label.
+The original56-byte26:5344 fragment is now readable instructions, with its entry/intent still unknown;
+The earlier30-span/63-byte count matches the current home/engine/data subset only. A six-root census now finds32 HYPOTHESIS spans/92 bytes under leading UNCLASSIFIED data headers, including28 bytes in gfx/mail/body_view.asm and one byte in lib/mobile/main.asm; see the [scope correction](docs/research/classify_g6.md#8-six-root-unclassified-header-scope-correction-2026-10-17). This is an annotation census, not the total amount of unexplained ROM data. Entries and abnormal stack transfer at2B:6CF5,
+locator caller domains, eight frame contexts and25 name-to-image associations remain unresolved.
+The finite checks below remain valid within their limits; they do not establish100% completion.
+English implementation, ZIP parity, agents and builds remain suspended pending fresh explicit human
+confirmation, even after the original work is finished.
+
+The bounded audit of82 `Data_<bank>_<address>` labels without adjacent semantic aliases found
+three supported names and no basis to remove data. `String_HelpMenu_MailTitle` identifies the
+confirmed seven-byte ticker title at6A:65A1; `String_Dialog_Msg0113_Line2` marks the confirmed
+second line within a blank dialog record at72:5645; and the probable mechanical table
+`Table_Kbd_CursorSpriteCharOffsets` describes the pairs selected and applied by
+`Kbd_UpdateCursorSprite` at55:62C8. The two notice text-pointer fields at65:4BE2/4C6C and the two
+BCD dial-slot fields at68:4F35/4F4D now have descriptive labels, with the latter two kept PROBABLE.
+Seven old `Data_*` source labels are retired after reference checks; frozen region/mapper snapshots
+retain their historical spellings. The other75 labels retain their evidence limits, including interiors,
+positive entry proof. The [audit note](docs/research/generic_data_name_audit_20261020.md) records
+the exact scope and retained matrix; this is not an all-data or whole-ROM completion claim.
+
+The HelpScript picture pass recovers26 complete table-backed12×6 pictures from banks60/61 and their26 palettes. The positive `HelpScript_PictureTable` reader supersedes the old “no loader found” clip descriptions. The new whole-object catalogue adds14848 bytes already present inline, while retaining the original30160-byte owner spans and PROBABLE role qualifications. Structural IDs replace arbitrary clipped resources; source and table labels, path/range maps and PNG rules follow the actual objects. [The picture contracts](docs/research/help_script_picture_assets.md) separate finite static evidence from unproved natural display and leave bank5B outside this asset unit.
+
+The follow-up naming cohort retires93 more historical Function aliases (593 remained at that stage), with proper
+names and conditional roles documented in [audio helpers](docs/research/audio_function_names.md),
+[bank68 contracts](docs/research/bank68_function_names.md), [SDK75 contracts](docs/research/sdk_function_names.md)
+and the [received-record reply role](docs/research/naming2_neutral_mail.md#reply-composition-from-a-received-record-proper-domain-role-2026-10-15).
+This includes the Operator's Function_75_4000 example: MobileSDK_CopyBytes is the maintained
+six-instruction/seven-byte forward-copy routine (B0 means256), with the old generic alias retired.
+Settings_IsDecodedProgressNonzero and MobileSDK_ResetRxWindowAndSetResultLowFF replace broader
+claims: one accepts any nonzero XOR-A5 decoded marker without validation; the other writes only
+the result field's low byte. Original crossed SRAM unwind, nonlocal return paths and confidence
+limits are documented rather than repaired. These93 removals are migration counts, not93 newly
+identified functions or whole-ROM completion. All ROM bytes remain subject to the native identity gate.
+
+The naming requirement also covers original graphics paths. The graphics naming pass moves235
+paths (ten owners and225 asset/PNG files) to demonstrated border motifs and narrow UI fragments;
+see [resource names and limits](docs/research/gfx_resource_names.md) and the
+[historical/current path map](docs/research/gfx_resource_path_map.tsv). Banks and addresses remain
+provenance suffixes. All225 asset/PNG byte strings and source extents are retained. The142 catalogued
+asset classifications remain124 PROBABLE and18 HYPOTHESIS; visual motif names remain PROBABLE
+locators. This does not establish species,
+natural frame selection, bank53 name/image associations or the purpose of opaque raw fragments.
+The native original identity gate applies to this source migration; path naming is not semantic closure.
+
+The HelpMenu item-map path pass renames twelve binary files for the six existing normal/selected
+page-map objects. The names follow the existing semantic aliases and retain all 1,560 original bytes,
+packed dimensions, addresses and reader limits. Page1-selected remains PROBABLE; the other five pairs
+retain their existing CONFIRMED source/catalogue status. Ten stale inventory cells in gfx/README are
+aligned to that already adopted status. The [path note](docs/research/help_menu_item_map_paths.md)
+and path map record the moves. No new PNG, screen composition or natural-render proof is introduced.
+
+A follow-on broad-census cleanup removed two unused neutral data aliases, `Data_65_4BC6` and
+`Data_68_4EA7`, while retaining the existing `Notice_PageSoundTable` and `Dev_TestConfigImage` names.
+No bytes, ranges or confidence levels changed; details are in the
+[generic data-label audit](docs/research/generic_data_name_audit_20261020.md).
+
+The current original-source follow-up also retired eight redundant `Data_75_*` aliases from
+`lib/mobile/main.asm`; each had an exact same-address descriptive label and no generic-name
+consumer or local scope. Existing confidence annotations and bytes are unchanged. The mapping and
+current-head census receipt are recorded in the same audit note; this is one bounded alias cleanup,
+not closure of the remaining neutral data inventory.
+One additional same-address alias, `Data_68_7B19`, was retired from
+`engine/account/delete_registration.asm` after the same reference/scope checks; its current name is
+`Registration_DeleteCursorPositions`.
+The account cleanup also retired `Data_68_6E03`, whose surviving label is `Config_HostPrefixStrings`.
+In the browser graphics owner, 46 `Data_24_*` aliases were also removed where same-address
+page-list frame, script and map names already existed; the byte identity and previous confidence
+annotations are preserved in the naming audit ledger.
+The top-menu graphics owner had another 36 `Data_1E_*` aliases under existing tilemap, animation
+frame and script names; those redundant labels were removed with the same byte and confidence
+preservation.
+The communication-result graphics owner also lost 33 redundant `Data_24_*` aliases under the
+existing `MailResult_*` labels; the mapping and scope are in the generic-data audit.
+The keyboard-panel graphics owner had 32 more `Data_5F_*` aliases under existing panel/frame/script
+labels; those were retired after the same checks.
+The mail-compose object owner had 30 `Data_29_*` aliases under existing `MailBody_*` frame/script
+names; they were retired with the same byte and confidence preservation.
+The draft-menu graphic owner had 26 `Data_2B_*` aliases under existing descriptive graphic and
+animation labels; those were retired after the same address/reference checks.
+The mail-viewer owner also had 24 `Data_2B_*` aliases under existing `MailView_*` frames/scripts;
+those have been retired with the same byte and evidence preservation.
+
+The same audit renamed the positioned `$0020` word at `5C:5144` to
+`CommErr_MessageSlot32RawWord`. The slot is confirmed structurally; the value's purpose remains
+unknown and the name does not assert that the slot is unused.
+
+The HOME naming pass retired110 historical Function aliases (483 remained at that stage across the
+maintained original sources), preserved123 local-label addresses under descriptive scopes and narrowed
+two copy-operation names. The [HOME contracts](docs/research/home_function_names.md) document entry
+registers, full counter domains, crossed frames, HTML header arithmetic and dated evidence errata;
+operational RAM scopes and consumer keys follow the retained names. Entry, purpose, mapper,
+stack and unobserved-input qualifications remain explicit. These are naming-migration counts,
+not110 new semantic discoveries or whole-ROM completion. After these reviewed integrations,
+the Operator requires a wider audit of analogous generic names in the other original ASM files,
+paths, resources and name consumers.
+English payloads, override targets and builds remain suspended pending fresh human confirmation.
+The original-path fallback inventory follows this migration; English override targets still using old
+graphics paths require a later authorized rebase. No English parity or build is claimed here.
+
+The wider naming pass retires the remaining 483 literal `Function_*` definitions and 33 original
+font/configuration aliases. It retains existing descriptive names and requalifies 1,391 local labels
+at their original addresses. [The function contracts](docs/research/function_alias_retirement.md)
+retain entry, stack, mapper and purpose limits: `Glyph_LoadContiguous12Bytes` narrows the conditional
+copy operation, and `Stack_PushPopAFAndReturn` explicitly describes its two stack writes. The
+[font/configuration contracts](docs/research/font_config_resource_names.md) identify 27 bank48 glyph
+runs by their table keys and four bank68 default images by their selected indices. The 54 existing
+PNG/1bpp files move to `data/fonts/glyph_runs_8x16/sjis_<key>` with their bytes preserved, as recorded
+in the [path map](docs/research/font_glyph_run_path_map.tsv). This retires the maintained aliases in
+the Operator's `Data_68_6960` and `Font_48_4ADB` examples. Historical records keep their old names as
+provenance. Native reconstruction checks apply to this migration; zero remaining literal Function
+definitions does not establish all possible entries, callers or semantic interpretations.
+
+Original source scanners now exclude the repository-local `.tmp/` support directory. The invariant,
+data-consumer and audio-mention walkers preserve their existing selection rules for other paths; a
+synthetic regression fixture distinguishes active source from archived copies. This is an original-tool
+correction. English method fingerprints remain historical pending separately authorized parity work.
+
+The next finite data/resource migration retires31 redundant aliases:11 HOME data/control
+aliases, nine audio-table aliases, four title-logo resource aliases and seven address-book
+save-screen resource aliases. Existing descriptive identities, physical ASM rows, instruction
+and data emission, asset paths/bytes and inherited evidence levels are preserved. The
+[HOME contracts](docs/research/home_data_names.md),
+[audio contracts](docs/research/audio_table_names.md),
+[title contracts](docs/research/title_logo_resource_names.md) and
+[address-book contracts](docs/research/address_book_save_resource_names.md) retain input,
+bank, stack, IRQ, destination and timing qualifications. These source-level retirements add
+no natural caller, independent entry, original display/sound observation or hardware evidence.
+The note-local symbol predictions describe isolated cohorts; the combined migration removes
+31 globals from the14921-name parent map, with all51 constants and surviving addresses held.
+English remains suspended pending fresh human confirmation.
+
+The finite Mail SDK follow-on retires20 redundant string/table aliases while retaining
+existing descriptive identities, all physical ASM rows, emitted data/instructions and
+inherited PROBABLE statuses. The [Mail contracts](docs/research/mail_sdk_data_names.md)
+separate the17-entry emission-string table from the two independent13-entry tables,
+retain finite index/bank/WRAM/stack/IRQ conditions and the selector0 saved-AF/bare-RET
+caveat. Correcting the inherited word "parallel" changes a comment only. This follow-on
+predicts14870 symbols from the published14890-name parent, with all surviving values
+and51 exported constants held; linked/native verification remains a separate gate.
+
+The frame/catalogue document follow-ups repair16 stale PNG links through the maintained
+path map and record the already resolved bank7C font gap. They change no image, palette,
+source interval or frame/name association. The finite952-asset inventory and25-window
+checks distinguish present editable backing from historical previews; eight KEEP contexts,
+Pokémon-name associations and runtime/display qualifications remain unresolved.
+English remains suspended pending fresh human confirmation.
+
+The Mail graphics follow-on retires20 redundant resource aliases in four original owners,
+retaining the existing descriptive names, six CONFIRMED and14 PROBABLE classifications,
+all physical ASM rows and asset bytes. The [resource contracts](docs/research/mail_gfx_resource_aliases.md)
+preserve the neutral64/528-byte spans,692 bytes of animation tails and37 animation aliases.
+The reload at5CC0 uses C=$30:48 blocks/768 bytes, comprising448 bytes of the main backing,
+64 adjacent neutral bytes and256 bytes of Tiles2. No source instruction or load extent changes.
+The isolated symbol prediction is14850 names including51 exported constants from the14870-name
+parent; the previous Mail SDK20 is already part of that parent. This does not identify the eight
+KEEP frame contexts or associate25 Pokemon names with25 windows and27 descriptor words.
+English remains suspended pending fresh human confirmation.
+
+The phone-choice resource follow-on retires seven redundant numeric aliases in one original
+settings owner, preserving the existing descriptive names, seven inherited CONFIRMED headers,
+all physical rows, operands and asset bytes. The [resource contracts](docs/research/settings_choice_resource_names.md)
+describe the six HDMA source slices and the18x20 tilemap/attribute pair. Mixed palette/map
+reads at4D:5510 and the interior-source crossings at4110/4C10 retain their explicit limits;
+no global palette substitution or new destination exclusivity is inferred. The symbol prediction
+is14843 names including51 constants from the GFX20 parent14850, with surviving values held.
+These seven retirements add no new natural rendering or hardware evidence. English remains suspended.
+
+The palette metadata check rejects unresolved symbolic source names in its resolved-load
+records instead of silently dropping a consumer. The [metadata integrity contract](docs/research/palette_load_metadata_integrity.md)
+distinguishes 162 resolved palette records from 11 explicitly UNRESOLVED records outside this
+check. Existing offset/numeric resolution and documented over-read allowances remain unchanged.
+The regression models retiring an alias while leaving a stale palette record: that input must
+fail, while the correctly named consumer retains its load. No palette record, original source
+instruction, alias or asset is changed by this tool correction. This is validation of the recorded
+metadata, not proof that every possible ROM palette reader or bank state has been resolved.
+
+The phone-choice mixed source now has a structural view named
+`Data_SettingsPhone_ChoiceMenu_ResourceWindow768`, classified PROBABLE under its
+[consumer contract](docs/research/settings_choice_menu_resource_window.md).
+The original HDMA source covers 768 bytes: BG40, OBJ8, map360 and attributes360.
+The separate BG64 load retains `Palette_SettingsPhone_ChoiceMenu_Bg` and its
+reviewed 24-byte over-read; this does not reclassify the whole window as a palette.
+Two operational metadata cells now name the upload window and BG palette respectively,
+preserving all 162 ordered palette-load tuples. One generic symbol is replaced by
+one descriptive view, with no net symbol-count change; instructions, emitted bytes,
+assets and the existing confidence levels remain unchanged. English remains suspended.
+
+The settings and text-entry resource follow-on retires 17 redundant generic aliases
+in five original graphics owners, preserving 16 CONFIRMED and one PROBABLE classification.
+The [resource contracts](docs/research/settings_text_entry_and_confirm_resource_names.md)
+cover 11 tile sources, five map/attribute pairs and one palette, with 25 literal consumers.
+Nineteen catalog label cells are reconciled by their unique asset keys; all other fields,
+assets, physical rows and instruction operands remain unchanged. Shared bank5E tiles retain
+their four text-entry domains; the mixed 4A/4B windows and interior crossings remain qualified.
+The isolated symbol delta is -17, preserving all surviving values and 51 constants.
+This introduces no new natural rendering, hardware evidence or English work.
+
+The Japanese bank4B follow-on replaces four neutral/legacy names with bounded
+header-source, tile-slice and slot-record names, retires two redundant aliases, and
+moves 21 GFX paths. The 65:4A81 header table is 24 address+bank triples (72 bytes);
+the seven 16-bit footer addresses at 65:4AC9 are separate (14 bytes). The reader
+gives a static 640-byte VRAM1 load contract, while natural selection/rendering
+remains unclaimed. The 4B:6590 DB remains unclassified, the final four bytes of
+4B:76C0 remain unknown, and uploads crossing 4B:7090 and 4B:7AD0 remain mixed
+windows. The 54+3 metadata-cell composition passed independent candidate and staged
+reviews; ACTUAL `make` is `RESULT: IDENTICAL`, `sym-check` reports 14,717 labels and
+51 constants, and `palette-check` reports zero errors with two documented over-reads.
+The package is staged and awaits commit/push and FRESH verification; this adds no
+claim of natural rendering or hardware evidence.
+
+The error-screen resource follow-on retires ten redundant aliases in two graphics
+owners, preserving the ten inherited CONFIRMED classifications, physical source rows,
+assets and operands. The [resource contracts](docs/research/error_screen_basic_resource_names.md)
+cover six tile sources, two palettes and two map/attribute pairs with eleven literal
+consumers. Seven mixed, neutral or ABI-dependent views remain explicitly deferred.
+Catalog and operational metadata already use descriptive labels and remain unchanged.
+The isolated symbol delta is -10 with surviving values and 51 constants held.
+No new natural rendering, hardware evidence or English work is introduced.
+
+The SJIS bit-test follow-on retires eight redundant coordinate aliases, retaining
+`Font_ValidateSjisCode_TestBit0` through `TestBit7` and their existing classifications.
+The [handler contracts](docs/research/sjis_bit_test_coalias_names.md) preserve the
+48 handler bytes, 16 table bytes, eight descriptive DW references and the qualified
+stack/flags behavior. This does not establish a universal direct-entry ABI or the
+meaning of the PROBABLE bitmap. Source rows and all operands remain unchanged.
+The isolated symbol delta is -8 with surviving values and 51 constants held.
+No natural-execution, hardware or English claim is added.
+
+The notice type4 map now uses descriptive owner and component paths under
+`gfx/registration/notice_tilemap_bank4b`. Its [path contract](docs/research/notice_type4_tilemap_paths.md)
+retains the same 360 tile indices and 360 attributes, selected when the first byte
+of the notice record equals $04. This does not mean page argument4 or establish
+natural display coverage. Labels, classifications, bank/address placement and
+all 720 original bytes remain unchanged; this unit changes paths only.
+The live catalog, output paths in the PNG rules, linker section identity and graphics index
+are reconciled together. Three historical/current path-map entries preserve
+navigation from frozen layouts and notes, which are retained without regeneration.
+No PNG, model, helper, original instruction or English payload is changed.
+
+The shared text-entry sources at 5E:4000 and 5E:4400 now use paths under
+`gfx/settings/shared_text_entry_tiles_bank5e`. Their [path contract](docs/research/shared_text_entry_5e_resource_paths.md)
+preserves both 1024-byte original blocks and their existing editable PNG bytes.
+Four demonstrated setup contexts share these sources; the collection name remains
+PROBABLE and both source headers remain CONFIRMED. Five editing models retain
+their HYPOTHESIS qualifiers. Current path fields and build references move together;
+five appended historical/current mappings preserve prior entries, including Notice4B.
+No symbol, original instruction, image content or English payload changes.
+
+The connection-icon Request1 tile sources retain their existing names
+`ConnIcon_Tiles0` and `ConnIcon_Tiles1`; two redundant coordinate aliases are
+retired under their [bounded source contract](docs/research/connection_icon_request1_alias_retirement.md).
+The two original blocks remain 1024 and 512 bytes, read into VRAM0 at $8200
+and $8600 by the demonstrated bank69 setups. Their B parameters differ ($92
+and $95); both CONFIRMED headers, every emitted byte and all operands remain
+unchanged. The other 41 PROBABLE aliases in the owner remain outside this unit.
+No Request2, palette, animation ABI, natural display or complete-purpose claim
+is added. Asset paths, PNGs, metadata, helpers and English payloads stay held.
+
+The password-save confirmation resources at 5D:7360..7E70 use
+`gfx/settings/password_save_confirmation_bank5d` and qualified VRAM1 source names.
+Their [path contract](docs/research/password_save_confirmation_5d_resource_paths.md) preserves all 2832 original bytes
+and the three existing PNG byte streams. The map and its editing selector use
+`password_save_confirm_variant0`, reflecting the literal zero-variant branch;
+the old selector is not a CLI alias. Four CONFIRMED resource headers and both
+HYPOTHESIS editing models remain held, including the alternate bank71 model's
+empty palette cell and its unchanged identity. Collection naming stays PROBABLE.
+Nine historical/current mappings are appended. Shared5F tiles, bank4A objects,
+the alternate map, all symbols and English payloads remain outside this change.
+
+The connection-icon palette, object table, frame lists, frames and scripts
+retain their existing proper names under a [bounded structural contract](docs/research/connection_icon_probable_alias_retirement.md).
+Forty redundant coordinate aliases are retired; all 41 PROBABLE headers and both
+CONFIRMED tile headers keep their status. Two separate factual corrections in
+the object-table comment match the consumer: the script pointer goes to slot
++6/+7, and byte arithmetic selects DE+4*(B&$3F), without a table bounds check.
+The fourteen-byte neutral prefix, five frames not selected by their associated
+scripts and the one/three-byte unknown tails remain held; these finite findings
+do not prove that any resource is unused. All emitted bytes, operands, proper
+labels, assets and metadata remain unchanged. No new natural-display, hardware,
+whole-purpose or English result is claimed.
+
+The [AdapterCheck object-data representation](docs/research/adapter_check_object_data_80b.md)
+describes 80 original bytes: 69 bytes form an object table, frame list, four
+frames and an animation script; eleven final zero bytes have unknown purpose. The structure
+retains PROBABLE status. Its former tile binary and PNG remain unchanged as legacy
+references, outside the active catalogue; the maintained source is now ASM/macros.
+The root name is refined to AdapterCheck_ObjTable, six internal records gain proper
+global names, and the redundant coordinate alias is retired. The four screen models,
+historical captures and name/image association limits remain unchanged. This is no
+new natural-display, hardware or English result.
+
+The initial wider lexical census at e958ff4f found 5,284 generic global definitions, including aliases
+and 786 neutral RAM coordinates; these are not counts of unknown functions. It also found 4,961
+address-based local labels, all present in the parent SYM, by recognizing colonless RGBDS declarations.
+An earlier parser requiring a colon omitted these locals. The 516 alias retirements form one finite
+part of the wider task: other data, graphics, local labels and paths still need evidence-based review.
+Shared RAM coordinates require screen/bank-specific roles. The conditional editing-model domain has
+18 HYPOTHESIS rows: 16 non-RAW models (15 single-sheet and one fragmented) plus two explicitly RAW
+models. The earlier count of 16 referred to the non-RAW subset. English remains suspended until fresh
+human confirmation.
+
+The [frame audit](docs/research/assets_pokemon_frames_and_name_limits.md#remaining-eight-editing-views-bounded-placement-comparison) retains **eight KEEP editing views**: physical ROM bytes exist, but a justified selector and reaching LCDC/VBK/VRAM state are missing. Two other bank42 views have complete reversible backing only under their declared conditional model. The [bank53 name table](docs/research/assets_pokemon_frames_and_name_limits.md#name-table-order-no-image-assignment) contains 25 ordinal names without a proved name-to-image association; 25 names, 25 physical windows and 27 descriptor words remain distinct. The [help-frame audit and preview](docs/research/naming2_neutral_help.md#64ae-split-object-entry-and-classification-conflict) cover the selected nine-frame root under a conditional LCDC model, not every asset or an observed display.
+
+The [current neutral ledger](docs/research/naming2_neutral_code.md#remaining-labelled-local-operations-and-fragment-boundaries-2026-10-15) has **zero global neutral-only Function/Label ROM address groups under its exact naming census** after the ten [remaining labelled operation aliases](docs/research/naming2_neutral_code.md#remaining-labelled-local-operations-and-fragment-boundaries-2026-10-15). Original neutral labels and instruction locators remain, and the operation aliases are PROBABLE under their documented conditions. Entry/caller, application purpose, several field domains and the unusual stack-transfer ABI retain their HYPOTHESIS limits. This zero count means only that the previously counted global groups now have descriptive aliases; it excludes unlabelled fragments and proves neither all code entries nor whole-ROM semantic completion. The finite labelled/unlabelled reconciliation now covers334 ASM owners,47 hypothesis headers and72 unlabelled hypothesis blocks: their conditional local mechanics are documented in [the fragment contracts](docs/research/naming2_verify_fn4.md#contratos-condicionais-dos72-blocos-anotados-sem-global--2026-10-15). The32 UNCLASSIFIED headers were checked separately: one consumed text header was corrected and31 remain raw storage without positive code-entry evidence. Ten bytes wrongly written as instructions inside the bank7C font are now data with identical bytes. No local mechanism remains unexplained in these enumerated cohorts; uncertain entries, callers, purpose, mapper continuity and external frames remain explicitly HYPOTHESIS, so this is not universal semantic closure. The strict neutral instruction-reference cohort remains15 names/18 operands, including its explicit data/consumer limitations. The existing69-scenario coverage union and corresponding callgraphs/DATA-read records provide no new entry for these candidates, no bank53 name-table read and no read of the eight complete frame windows. These finite negatives do not prove unreachable code, missing computed callers or unused assets. The requested finite frames/names53/PNG/resource inventory has now been checked, as described below; the eight KEEP editing contexts and the25 name-to-image associations remain unresolved. No new natural execution, screenshot, hardware evidence or English work is supplied. The [FarCall_Reg contract](docs/research/boot_and_home.md#73-far-calls-all-use-the-hram-trampoline) and each operation note preserve mapping, trampoline, stack, IRQ and conditional-return requirements; an alias does not make an abnormal transfer a conventional function return.
+
+The two additional unlabelled spans on the reconciliation shortlist,55:[6F46,6F95) and2C:[6100,614D), now have [conditional local contracts](docs/research/classify_g2.md#two-conditional-unlabelled-mechanisms-and-obj-palette-ports-2026-10-15). Their156 bytes/98 CPU starts include OBJ palette-port writes and a six-iteration drawing wrapper; the only source correction is BCPD to OCPD in two comments. Known local mechanisms in the reconciled function/fragment inventory are described under their explicit mapping, frame and callee conditions. The final original-ROM asset inventory below closes the requested finite existence/byte/PNG verification; uncertain callers, purpose, storage boundaries and eight editing contexts remain qualified, with no universal semantic or natural-execution claim. English remains suspended.
+
+### Final finite original asset verification (2026-10-15)
+
+The requested [frames/name-table audit](docs/research/assets_pokemon_frames_and_name_limits.md) checks all25 physical windows selected for this audit (85,200 bytes), the25 bank53 pointers and319 bytes of NUL-terminated Shift-JIS strings, and the separate27-word descriptor selector. Every selected window has an existing PNG representation:17 have editing views and the eight retained KEEP views have legacy previews. The24 legacy preview files use their documented models and are not proof of an original loader, complete reaching VRAM or a name/species association. No selected frame bytes or PNG files were found missing. In bank42, the2,416 bytes outside the active asset catalogue are present in maintained raw/zero source;38 conditional map cells use416 bytes of rephased backing, comprising368 already-catalogued bytes and48 of those outside-catalogue bytes. Counts of names, windows and descriptors do not establish a bijection.
+
+The [global catalogue audit](docs/research/assets_original_catalogue_and_layout_audit.md) verified the baseline951 entries/607,656 bytes, all original-byte references and143 RGB555 palette files. The95 screen rows retain20 PROBABLE/75 HYPOTHESIS classifications;41 resolve completely and54 partially under their declared models. This is finite catalogue and codec coverage, not a claim that every ROM byte is a graphics asset or every image was displayed. Retired resources are retained explicitly rather than counted as unexplained omissions.
+
+A positive omission was found in the editable bank7C font: ten original bytes at7C:[57C3,57CD) had been left outside its two extracted binary spans, leaving80 pink glyph pixels. The [font correction](docs/research/naming_g8.md) supplies the missing10-byte span and restores exactly those80 pixels from the original bits, preserving all other pixels and the existing PNG path. Three contiguous chunks now represent the15228-byte/846-glyph body; independent inverse extraction recovers the original bits. The active catalogue becomes952 entries/607,666 bytes with951 PNG rules, while the number of unique editable PNG paths stays446. Classification remains PROBABLE and no new runtime, visual, hardware or name/frame relationship is asserted. Reconstruction checks accompany this source change; English work remains suspended until the original pass is closed.
+
+Remaining evidence needed for semantic closure is specific: a valid entry/caller for an unresolved function, a reader/index linking names to selected resources, or a justified complete VRAM state and reversible backing for a retained view. No missing association is supplied from counts, visual resemblance, sibling execution or hypothetical PNGs; no 100% semantic or universal-caller claim follows from passing reconstruction checks.
+
 ## Source state: hand-maintained tree, frozen bootstrap pipeline
 
 The source tree (`home/ engine/ data/ gfx/ audio/ lib/`, `ram.asm`, `ram/`, `consts.asm`, `zero_labels.asm`, `includes.asm`, `layout.link`, `constants/`) was produced once by the
 bootstrap generator (`tools/gen_asm.py`, tables `config/`, layout `analysis/layout/layout.tsv`, all kept unchanged as history) and is now the **maintained source of truth**: future
 work edits the `.asm` files directly.  `make` needs only RGBDS 1.0.3 and GNU make (no reference ROM, no generation step; `rgbgfx` and Python are optional); `make regen` refuses to run.
 The generated tree was then refined in place, keeping the ROM identical: a `[STATUS]` note under every function label, local labels for jump targets, Shift-JIS text as readable strings through
-a charmap, and 947 active graphics assets extracted to asset files that the `.asm` files `INCBIN`/`INCLUDE` (`gfx/README.md`).  How to work on it: `README.md`, `STYLE.md`, `INSTALL.md`.
+a charmap, and extracted graphics assets that the `.asm` files `INCBIN`/`INCLUDE` (the current catalogue has952 entries; `gfx/README.md`).  How to work on it: `README.md`, `STYLE.md`, `INSTALL.md`.
 
 Where evidence lives now:
 
@@ -152,16 +481,6 @@ English branch `codex/translation-en-reflow` is published at `de315cf05796f14a5b
 
 Next original pass: the three bank-29 numeric templates, with fresh OWN/rebase from this published documentation baseline before executor/independent/coordinator checks. A parallel review of 29:5090–5376 retains HYPOTHESIS and all labels: zero observations in the existing natural corpus is bounded evidence; 4,001 unbanked raw word matches refute the old literal word-absence claim but do not establish callers. That header correction is a separate pending scope. English parity with bank 28 follows through private agents before new ZIP work. ZIP reuse still has 5,182 pending offsets / 21 units / 11 owners; the proposed bank-25 delta of 85 bytes and FullHelp relocation are not adopted. The requested make english / language-patches/en design includes text, sprites, tiles, editable PNGs, maps, attributes, palettes, box/layout redraws and ASM with original fallback; implementation remains conditional on complete verified ZIP parity.
 
-## Coordinator EN28 integration checks (2026-10-07)
-
-The normal integration uses content parents EN `de315cf05796f14a5ba31473b7a6d8b488ed19ab` and JP `0bb401b59b54e14b8d31b8109125ae4cfd6b461e`. Published JP `7fb572c0c58a996d508d3b4bd5f91219a90bf13f` was checked as the frozen current owner; its template29 changes are not imported in this pass. The nine-path merge preserved all 4,182 candidate files, native scope modes, retained English assets/messages and four palette-owner physical line counts. Prepared notes above remain a record of their earlier stage.
-
-All six coordinator checks completed once with return code zero: build, sym-check, palette-check, png-check, gfx export check and sprite-chain check. All six UTF-8 logs were read in full (9,189 bytes, 75 lines), with no Traceback. The complete 675-output set, RGBDS object headers, all 336 dependency files with 5,651 source bindings, source/index/raw Git/typed ignored state and frozen JP owner were guarded; 6,192 immutable tool/helper/reference/source records were checked with an empty isolated Python cache prefix. The build compiled the four changed ASM owners; unchanged existing outputs were verified rather than claimed freshly rebuilt.
-
-Rebuilt English ROM SHA-256 is `a75d58bf4e6fd0817d9993b851ae4735f32ca77f0bb043727aa2a83bbc4b7f04`, and SYM is `072f531941cce39056ac6028a32d9351a700cf0fb90f0357c291154b9974eebc`, both whole-byte identical to the sealed English references. ROOT6 result SHA-256 `de9165f011a6e930250009cc799b629e49d2e6604a9f728c08f70a3d409d28b6`; whole-read acceptance `3b1aa7eb44dd2966cf35d126be0b80fd61f27bc120ffaf7340ce63d2fa71b37e`. These documentation appendices inherit compiled-source/output evidence; no successful gate was replayed. Publication and a separately sealed fresh GitHub six-check build are pending at this append stage. English runtime, layout, rendering, ZIP fidelity and hardware remain UNVALIDATED. Complete ZIP parity and the later language-build target remain pending.
-
-
-
 ## Fresh prepared original bank 29 proposal after bank 28 publication (2026-10-07)
 
 The bank-29 proposal now has a fresh OWN/base at published `0bb401b59b54e14b8d31b8109125ae4cfd6b461e`, following source bank28 `236072d374593dadea8b39509e0d11dab2d76716`. The explicit `0fee → 236072d → 0bb401b` rebase preserves all earlier prepared and published documentary text. The proposed source scope remains only `engine/mail/result_screens.asm`: three template headers, two raw-to-SJIS blocks (22 bytes), existing labels and aliases preserved. The owner retains 2,447 lines; raw significant lines change 2,109→2,113 because four charmap controls are added, so lexical vectors differ while the narrowly normalized emission vectors remain equal.
@@ -229,7 +548,6 @@ The restricted word-delta contract remains PROBABLE. Natural evidence covers 52 
 
 A private comment-only pass corrects twenty byte stores at23:6D61, “くーくー” at24:42E7, rWX at27:4EF5 and six strings at1A:477E. Entries/statuses remain qualified; emitting rows, labels, source lines and metadata locators stay unchanged. See [header facts](docs/research/typing_23_24_27_1a_header_facts.md) and [prepared verification](docs/research/typing_23_24_27_1a_verify_header_facts.md). Validation/publication of this family is pending independent/ROOT review.
 
-
 - **Header facts 23/24/27/1A verified (2026-10-08):** source `4e868038ea664d364b09fd626f1a3dfb0c27246d` was published and rebuilt from a new GitHub clone. `make`, `make compare` and `make sym-check` each returned 0; ROM SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`, `RESULT: IDENTICAL`, and all 671 output files match the accepted original pass. Seven comment rows changed; neutral labels, physical source rows and metadata locators remain intact. See `docs/research/typing_23_24_27_1a_verify_header_facts.md`. Entry/domain/purpose qualifications remain HYPOTHESIS.
 
 
@@ -247,34 +565,6 @@ Separate executor, independent reviewer and ROOT canonical37 batteries each comp
 A new HTTPS GitHub clone at that HEAD contains 4,190 source files. Fresh `make`, `make compare`, `make sym-check` and `make palette-check` returned zero; all 13,597 bytes / 359 lines of these four logs were read. The rebuilt ROM reports SHA-256 OK and RESULT: IDENTICAL (`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`); symbols retain 15,536 labels and 51 constants. Palette checking reports 162 loads, 116 arrays, two documented over-reads and zero errors. All 671 fresh outputs match the accepted original pass. Fresh acceptance SHA-256: `42800a8b5b5ac9a1dd12542287a49c3254b8b4e200bc309a61995a495855e449`. Actual filesystem0777, measured fresh0664, Git100644 and private references0444 are separate. The earlier fresh0644 assertion was incorrect; a later direct measurement found all 4190 source files and 671 outputs at0664, without chmod or changes to bytes/check outcomes.
 
 The direct fresh validator does not claim per-command snapshots of actual owners or the complete native closure. Its first invocation stopped before builds on a missing script key; a later textual assertion incorrectly expected comparison wording from successful sym-check. The same clone was continued, and no completed build/check was repeated. This documentation append inherits the verified source without another canonical37 run. No new runtime, English, visual or hardware evidence follows. English ZIP102/parity remains a parallel workstream. The unused-frame, asset and bank53 Pokémon-name audit is required before declaring the original disassembly complete.
-
-## English verification chronology retained from the published branch
-
-The following original English paragraphs are retained as dated prepared and integration records. Their pending phrases describe those earlier stages; the publication checkpoint below gives the accepted later English state. The original reconstruction sections above describe Japanese evidence.
-
-## English parity29 scope — prepared only
-
-The copied bank29 statements and original 8/4/7 trace cohorts describe the original Japan ROM. Their pending stages and publication snapshots remain historical. EN28 is separately published at 7e5e4b13aa7bc01cb977716899c1099074dae002. This EN29 candidate has not run its six checks. English runtime, rendering, layout, ZIP fidelity and hardware remain UNVALIDATED. No new English or original runtime observation is supplied. ZIP85/FullHelp remain pending; make english requires complete verified ZIP parity.
-
-
-## English bank 29 integration checks (2026-10-08)
-
-The English integration carries the original decimal-template representation through `7fb572c0c58a996d508d3b4bd5f91219a90bf13f`, from English `7e5e4b13aa7bc01cb977716899c1099074dae002`. The separately published original owner `aa61d89314329fccea3c4543b3fcfb23ec60444c` contains 4,186 tracked files; this pass does not establish parity with that later tree.
-
-The six integration checks completed once with return code zero: build, sym-check, palette-check, png-check, graphics export check and sprite-chain check. Their complete logs were read (9,056 bytes / 72 lines). The checks retained two documented palette overreads and 338 sprite notes; no hard error was reported. The complete 4,184-file candidate and 675 generated outputs were checked, including 336 object headers and 336 dependency files with 5,651 source bindings. The build recompiled only `engine/mail/result_screens.asm` and relinked the ROM; the existing outputs were verified without claiming that all 345 ASM files or 336 objects were recompiled.
-
-The rebuilt English ROM remains `a75d58bf4e6fd0817d9993b851ae4735f32ca77f0bb043727aa2a83bbc4b7f04` and SYM `072f531941cce39056ac6028a32d9351a700cf0fb90f0357c291154b9974eebc`, both byte-exact to the English references. Documentation appended after these checks inherits that compiled-source evidence; the successful checks are not replayed. The earlier prepared statements remain historical. Runtime English layout, rendering, translation fidelity and hardware remain UNVALIDATED. Publication and verification in a fresh checkout are separate pending steps.
-
-
-## English publication checkpoint and conditional parity proposal (2026-10-08)
-
-The preceding English prepared/integration records describe their dated stages. Published English `ac4ac955b346b434f85440d4e82e5f03a8fabdf8` contains 4,184 source files and was checked in a fresh checkout with six return-code-zero checks. Its functional original anchor is `7fb572c0c58a996d508d3b4bd5f91219a90bf13f`; those accepted checks retained the English ROM `a75d58bf4e6fd0817d9993b851ae4735f32ca77f0bb043727aa2a83bbc4b7f04` and SYM `072f531941cce39056ac6028a32d9351a700cf0fb90f0357c291154b9974eebc`. These results resolve the earlier bank29 publication/fresh-check pending stage, without extending it to later MAIN changes.
-
-The private source-only proposal carries nine ASM updates, eight original research notes and three reconciled root documents. Its union contains 4,192 files, with all existing English text, graphics, fonts, sprite data and four English-only paths retained. The two ZIP owners preserve the separately verified 85-mailbox/17-browser source proposal; those 102 bytes have not been adopted or published. The published pending ledger therefore remains 5,182 offsets across 21 units and 11 owners. Earlier page changes, hidden-menu KEEP boundaries and unknown selectors remain preserved.
-
-The original bank29 library and bank00 contracts keep their HYPOTHESIS/PROBABLE limits. The bank26 same-address PROBABLE alias `MailSession_CompareWordDeltas` retains neutral `Function_26_5106` and every local scope. The remaining seven ASM owners change comment rows only. Future parity checks must independently rebind all nine primary source hashes and review dependencies, object metadata and the sole additional SYM/MAP alias; future SYM, MAP and object hashes are unknown. ROM identity to the selected ZIP English source is expected, using the verified ZIP ROM `51a808c52a7f6bc587f27cc0d75fc875e87e78102c9189764b301620979c5e22` as an expectation. This parity source proposal has not been built or compared.
-
-The original banks23/24/27/1A prepared chronology above is followed by its accepted source and fresh-checkout record. Original SOURCE `4e868038ea664d364b09fd626f1a3dfb0c27246d` and final DOC publication `29c29142eeac7976caf5f9a5c84f5a0e83a174a3` contain 4,188 source files. The original fresh-three verification and documentation publication are closed; they establish the original reconstruction results recorded in the verification note, without supplying an English parity build. This private source proposal is rebased on those published original documents. Selection and publication of the ZIP English parent and the future English parity checks remain pending. Complete current MAIN parity and documentation parity are not claimed. English build-target implementation follows completed parity and accepted ZIP reuse publication. Runtime, English layout, rendering fidelity and hardware remain UNVALIDATED.
 
 
 ## Prospective browser ReturnOnly aliases
@@ -312,11 +602,6 @@ Original `a609e884bff63f4bcc56d034a597eeecc9ac6e6c` rebuilt in a new GitHub clon
 ## Original integration verified (2026-10-08)
 
 The bank55 lookup comment pass was rebased on published original a609e88. ROOT executed one canonical37, with36rc0 and the expected ordinal27 rc2/97-byte historical schema diagnostic. make reported SHA-256 OK and RESULT: IDENTICAL; symbols/palettes passed and all671 outputs remain byte-exact to the private pass. Neutral labels, emitting source and metadata remain unchanged. Independent verification is a composite: its first1–5 succeeded, ordinal6 stopped because private source0444 made a copied PNG read-only, then the failed PNG test and remaining tests/ordinals7–37 completed in a writable private copy. The successful commands were not replayed; this is not a single independent37 all-pass result. Domain/entry remain HYPOTHESIS. Fresh validation follows publication.
-
-
-## English parity through original bank55 verified (2026-10-08)
-
-Normal merge of original b91d60c preserves the English resources and verification chronology, adds the two published browser ReturnOnly aliases and carries the original55 comment corrections. Private and actual English make mobile_trainer.gbc, sym-check, palette-check, png-check, gfx-export check and sprite-chain check all returned0 once each. The ROM remains51a808c52a7f6bc587f27cc0d75fc875e87e78102c9189764b301620979c5e22; SYM has15543 labels and51 constants. All675 actual outputs match the accepted private parity candidate. Text rendering, layout and hardware fidelity are not established by these checks. The later original6C/7C passes and makeenglish integration remain parallel follow-ups.
 
 
 ## Prepared original 6C:61AC header limits (2026-10-08)
@@ -387,11 +672,6 @@ See [boundary note](docs/research/naming_68_5d2f_ret_boundary.md) and
 Three comments separate the RET at68:5D2F from the108-byte/53-start comparison candidate. The candidate selects SRAM1 and WRAM3; unequal strings clear bit2 of C278, so A is not a general Boolean result. Hardware restoration depends on synchronized shadows and a stable stack/scratch context. Entry and purpose remain HYPOTHESIS; neutral symbols and all emitted bytes remain unchanged. Executor, independent reviewer and ROOT each completed a new canonical37:36rc0 plus expected ordinal27rc2 with its exact97-byte diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols and palettes pass, and all671 actual outputs equal the accepted private pass. Fresh published validation follows. ROOT guarded source hashes each command; no fresh native or actual English-owner closure is claimed.
 
 
-## English parity through bank68 (2026-10-08)
-
-The English branch incorporates original MAIN470fb7716433eccf585896a1d0019b82ac380bbc by a normal merge, retaining all552 translated resource overrides and the existing English documentation chronology. Fifteen source paths incorporate original6C/7C/2D/68 comment qualifications and eight notes; no translated payload changes. Private and actual English make, symbol, palette, PNG, graphics-export and sprite-chain checks each completed rc0 once. All675 actual outputs equal the accepted private pass; ROM SHA-256 remains51a808c52a7f6bc587f27cc0d75fc875e87e78102c9189764b301620979c5e22, with15543 labels/51 constants. Original MAIN470fb also passed a fresh GitHub build/compare/symbol/palette verification with4202 source files and671 exact outputs. This validates byte parity; rendering, layout, natural menu execution and hardware remain UNVALIDATED. The separate MAIN makeenglish integration and scanner exclusions are still under review.
-
-
 ### Static split returns at 73:6143
 
 PROBABLE conditional mechanics: [73:6143,6149) and [73:6149,614F) are two six-byte/three-start segments, each LD A,[C0F8/C0F9], XOR1, RET. Neither ordinary path falls through. XOR1 toggles only bit0; no Boolean domain, purpose or entry is established. The bounded dispatch table excludes these entries; an indexed FillBytes clear elsewhere includes both fields. Entry/purpose remain HYPOTHESIS; no alias or emitted byte changes. See [split-return note](docs/research/naming_73_6143_split_returns.md) and [verification limits](docs/research/naming_73_verify_6143_split_returns.md).
@@ -410,11 +690,6 @@ PROBABLE bounded mechanics: [70:46A6,4740) has three returning paths and [70:474
 ## Original bank70 integration verified (2026-10-08)
 
 Twenty-five comments qualify the217-byte/107-start region at70:46A6 and the unlabelled segment at4740. It saves the FFF5/FF8C SRAM shadows and uses FFF2 as scratch, with no WRAM selector. The three first-region RETs and final477E RET delimit ordinary paths. Random16/division produce bounded2..4 or0A..0F values without a probability claim; hardware restoration depends on coherent shadows and a stable stack. Entry and purpose remain HYPOTHESIS; neutral symbols and all emitted bytes remain unchanged. Executor, independent reviewer and ROOT each completed a new canonical37:36rc0 plus expected ordinal27rc2 with its exact97-byte diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL; symbols and palettes pass, and all671 actual outputs equal the accepted private pass. Fresh published validation follows. ROOT guarded source hashes each command; no fresh native or actual English-owner closure is claimed.
-
-
-## English parity through bank70 (2026-10-08)
-
-The English branch incorporates original MAINfb79c005557684f0b59ba6130ad46db18eaf3fe3 by a normal merge, preserving the552 translated resources and its documentation chronology. Nine paths incorporate the73/70 comment qualifications and four new notes. Private and actual English make, symbol, palette, PNG, graphics-export and sprite-chain checks each completed rc0 once; all675 actual outputs equal the accepted private pass. English ROM SHA-256 remains51a808c52a7f6bc587f27cc0d75fc875e87e78102c9189764b301620979c5e22, with15543 labels/51 constants. Original MAINfb79c00 also passed a fresh GitHub make/compare/symbol/palette verification with4206 source files and671 exact outputs. Separate new makeenglish/scanner private executor and independent37+English-check proofs are accepted; actual MAIN feature integration follows the75/54 original passes. Rendering, layout, natural menus and hardware remain UNVALIDATED.
 
 
 ### Static return boundaries at 75:7E89
@@ -463,32 +738,6 @@ All28 neutral-only groups remain KEEP. Five owners gain15 bounded comment rows f
 Five source owners receive fifteen bounded comments: twelve existing comment rows and three explicit blank-to-comment rows. No emitted bytes, physical line counts, symbols or aliases change. Six spans contain258 bytes and109 CPU starts, separately from12 inline farcall bytes. Audio table471A/index25 points to49B6 and44AF/index6 to49CD; names remain neutral and driver-state prerequisites qualified. WRAM6 copies include terminating zeros. The2B687C family extends through RET6919, rather than ending at6909, and its predecessor is a table plus RET rather than a previous JR. Routine4E6172 explicitly selects SRAM1 and disables RAMG on ordinary exit without restoring prior configuration. The hypothetical keyboard interior5F2A skips the XOR; no observed entry is claimed. All28 neutral-only groups remain KEEP and are not a completion or reachability measure. The old local2B case headers retain inherited141-byte prefix metadata; the corrected complete158-byte family boundary above and research note qualify them. Executor, independent reviewer and ROOT each ran one new canonical37:36rc0 plus expected ordinal27rc2/exact97-byte diagnostic. ROOT make reports SHA-256 OK/RESULT: IDENTICAL, symbols and palettes pass, and all671 outputs equal EX and the coherent parent. ROOT source hashes held for each command. Independent raw/emitter proof preceded EX facts, but a candidate note exposed an EX summary after independent ordinal25 before terminal; the remaining fixed protocol, source and expectations stayed unchanged. No blind review, full result isolation, fresh native or English-owner closure, new natural execution, visual or hardware proof is claimed. Fresh publication verification follows.
 
 
-## English parity with original bank75 and54 verified (2026-10-08)
-
-The combined parity merge preserves all552 language resources and the complete prior English documentation chronology. Private executor and ROOT each ran one six-check pipeline; all checks returned zero. ROOT held4214 source hashes throughout the six commands, compared all675 outputs with the accepted private version and retained English ROM SHA-25651a808c52a7f6bc587f27cc0d75fc875e87e78102c9189764b301620979c5e22. SYM15543 labels/51 constants and MAP remain exact; no new English rendering, layout, fidelity, natural execution or hardware evidence is claimed. Fresh publication verification follows.
-
-
-## Private English parity and bounded ZIP reuse verified (2026-10-08)
-
-One private six-check pipeline completed once with all six return codes zero on the frozen source based on published original `88b4bca2665b96b77b941b18c19f802fc499276c` and English `f7c12ad7c82e2b8967378d608d95ed75d8d127ef`. The measured English ROM SHA-256 is `a3d97ff42adb6350ac443cc7215333f8ea006678342867a5599ff3a88d92daa0`. It differs from the preceding English ROM in exactly the 25 authorized donor bytes and zero bytes elsewhere. Of 675 outputs, only the ROM and the two graphics objects change; the other 672 outputs, including SYM, MAP and all 336 dependency files, remain byte-exact. All 15,543 label records and 51 constants remain unchanged. Complete dependency parsing retains 10,966 rules and 5,651 source bindings, rebound to all eleven changed ASM owners.
-
-The private pass held all 4,223 source files throughout the six commands, preserving the prior 552 English emitting resources and the complete English documentation chronology. Copy timestamps caused regeneration of 405 graphics files and 36 font files, followed by 336 assembly jobs; no timestamps were normalized and generated source bytes stayed exact. Source files were physically 0644 and build outputs 0664, separately from Git mode 100644. The following appendices record this finished private pass and resolve the preceding validation-pending wording for this version. ROOT adoption, actual integration, publication and fresh-checkout verification remain separate pending steps. Runtime rendering, menu navigation, translation fidelity and hardware remain UNVALIDATED.
-
-
-## ROOT English integration verification (2026-10-08)
-
-ROOT adopted the independently reviewed 24-path pass and resolved the normal merge of published English `f7c12ad` with original `88b4bca`. One actual six-check pipeline returned six zero codes; all 4,223 source hashes held for each command and all 675 outputs equal the executor and independent private builds. ROM SHA-256 is `a3d97ff42adb6350ac443cc7215333f8ea006678342867a5599ff3a88d92daa0`: exactly 25 donor byte changes, with zero other changes from the preceding English ROM. SYM retains 15,543 labels and 51 constants; MAP and 336 dependency files remain byte-exact. Both private reviews were qualified with known prior context, without a blind-review claim. The six complete actual logs were read. This appended result changes documentation only; no successful checks were replayed.
-
-The later original asset-documentation commit `198cdf2` is outside this frozen merge and requires subsequent documentation parity. Whole-ROM English/ZIP differences remain 58,169 bytes; this is bounded reuse, not complete ZIP equivalence. Publication and fresh reconstruction follow this result. Menu flow, rendering, translation fidelity and hardware remain UNVALIDATED.
-
-
-## Prepared bank53 typed donor names (private proposal, 2026-10-08)
-
-The proposal is based on published English `3883e688e30a89b39233888bc104e4f7abd2100f`, whose ROM is `a3d97ff42adb6350ac443cc7215333f8ea006678342867a5599ff3a88d92daa0`. It carries the supplied ZIP English names as readable fullwidth Shift-JIS: ten strings retain their original offsets and fifteen use the contiguous 255-byte tail at `53:7F01..8000`. The existing names section explicitly owns the bank through its end, with zero padding retained between the old slots and tail; `layout.link`, the charmap and all prior 554 language resources remain unchanged. The existing `String_53_4032` neutral label stays at its historical address and now points to zero bytes; fifteen new tail labels are neutral.
-
-An independent static emitter model matches all 16,384 donor bank bytes and predicts exactly 564 ROM-byte differences: 30 pointer bytes, 294 original string-slot bytes and 240 nonzero tail bytes. Its prospective in-memory full-ROM SHA-256 is `24fa0829c7093984ec526ec3191a001991c3d1e2bf27fcf92428ba953525fd68`; this is not a build or verification result. The table remains PROBABLE. No reader, sprite/name association, menu execution, font choice, visual fit, translation fidelity or hardware result is established. Source materialization is private; validation is pending a reviewed rebase onto the forthcoming published original headers and English documentation parity. No new gate has run. [The bounded proposal](docs/research/translation_zip_pokemon_names_bank53.md) records exact encoding, scope and limits.
-
-
 ### Asset catalogue and layout audit (2026-10-08)
 
 The current947 active assets reemit607576 original-ROM bytes. All405 tile-sheet and38 font-span PNG rules reproduce their bytes; the92 declared screen views reproduce their indices/resolved counts and final known palette colours. This verifies the declared models, not natural execution or whole-ROM semantic resource completeness. The88 tilemaps without screen views include11 bank41–46 cases (eight belowhalf coverage andthree fragmented bank42 sources) plus two separate bank47 cases.
@@ -513,40 +762,6 @@ One newly authorized private canonical37 completed36 rc0 results and the expecte
 ROOT adopted the qualified executor and independent reviews and ran one actual canonical 37-check pipeline: 36 zero return codes and the expected ordinal 27 return code 2 with its exact 97-byte schema diagnostic. All 4,224 source hashes held before and after each command; all 671 output hashes equal both private builds and the original parent fresh build. The ROM is byte-identical to the original, SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. Symbols retain 15,538 labels and 51 constants; palettes pass. ROOT performed a programmatic whole-byte scan of all logs and exact diagnostic/hash checks; this is not a blind or human full-log-read claim. ResourceWarning diagnostics are retained in the receipts, not described as warning-free results.
 
 This four-document result appendix was added after the successful checks; only documentation changes and the successful pipeline is not replayed. The two source owners retain all emitted lines, labels and physical line counts. Tail-record use remains PROBABLE, and no new natural-menu, visual or hardware evidence is claimed. Publication and fresh reconstruction are subsequent stages.
-
-
-## Prepared English parity with published original7986 and bank53 names (2026-10-08)
-
-This private candidate composes published English `3883e688e30a89b39233888bc104e4f7abd2100f` with the published original changes through `7986b2b7d825e0f87bb790cd16b8c5182f3db93b`. Six new original files carry the two asset-audit notes, two locator-only contact PNGs and two settings-highlight notes. Existing catalogue documentation receives the published numerical corrections. The original symbol-count statement above refers to Japanese15538 labels, while the accepted preceding English build has15543; the proposed names add fifteen neutral labels, conditionally15558/51 constants. Historical validation-pending paragraphs retain their original chronology; the later published original ROOT appendix records that version's completed integration, not a new English result.
-
-The two highlight owners receive exactly the published original comment rows, preserving their physical line counts and every English emitting line, including the previously accepted25 donor bytes. The bank53 proposal retains its reviewed126-line typed owner, ten original offsets, fifteen neutral tail labels and explicit zero spans. Its independent static emitter still matches the full16KiB ZIP bank and predicts564 additional ROM-byte changes, with prospective full-ROM SHA-256 `24fa0829c7093984ec526ec3191a001991c3d1e2bf27fcf92428ba953525fd68`. This is a static prediction, not a build or equivalence claim.
-
-The final private set has4230 source paths:4223 from published English plus six original additions and one names note. All prior552 language resources remain byte-exact; of the two later ROI resources,4B remains byte-exact and4A changes comments only. Tools, layouts, glyphs, charmap and language-source emitting bytes outside bank53 remain unchanged. A future feature manifest would select555 resources/21ASM owners with renewed base guards; no feature is materialized here. The fixed41-byte caption2C proposal is outside this scope. One new private six-check pipeline, independent review, ROOT adoption and publication remain pending. No helper, build, capture or gate ran during this composition. Rendering, names/frame association, font choice, natural flow and hardware remain UNVALIDATED.
-
-
-## Prepared combined bank53 names and fixed address-picker caption (2026-10-08)
-
-This final prospective private candidate extends the preceding4230-file parity proposal with one unchanged-width caption db literal and one short research note, yielding4231 source paths/scope17. Original parity remains based on published7986b2b, English chronology is retained and every source outside the finite scope remains exact. The caption preserves both existing aliases at2C:6704, its41-byte extent, NUL, pointer and padding. Its donor fullwidth literal changes23 bytes, independently derived before proposal confrontation. The typed bank53 names contribute564 different bytes. The combined memory-only oracle is `178fbb2522debb97216eee8aeb60f1b7a1d8ac32707a13339f185263c2aa741b`; this is not a build, whole-ZIP equivalence or runtime result.
-
-All prior552 resources and4B ROI source remain byte-exact;4A differs only by the explicitly inherited original comments. Bank53 and the previously untranslated caption are separate future additions, conditionally556 language resources/22ASM overrides. No manifest or feature is materialized. Expected675 outputs split five changed (ROM, names object, caption object, SYM, MAP) and670 unchanged, with336 raw dependency files retained and four current owner hashes rebound. Conditional symbols remain15558/51 constants. The preceding bank53-only oracle and scope figures describe that preserved earlier proposal; this appended preparation resolves the current combined expectations. No new gate ran; ROOT scope authorization and all validation/publication stages remain pending. Font choice, visual fit, menu flow, name/frame association, fidelity and hardware remain UNVALIDATED. See [caption byte limits](docs/research/translation_zip_address_picker_caption.md).
-
-
-## Private combined English donor reuse verified (2026-10-08)
-
-One newly authorized private six-check pipeline completed once with six zero return codes on the frozen source4231 version based on published English3883e688e30a89b39233888bc104e4f7abd2100f and original7986b2b7d825e0f87bb790cd16b8c5182f3db93b. The measured ROM SHA-256 is `178fbb2522debb97216eee8aeb60f1b7a1d8ac32707a13339f185263c2aa741b`. It differs from preceding Englisha3d97f in exactly587 authorized bytes:564 in bank53 and23 in the unchanged-width2C caption; zero other bytes change. Both entire banks2C and53 equal the supplied diagnostic ZIP English donor, while57,582 whole-ROM differences remain. This does not establish whole-ZIP equivalence or reinterpret historical offset-ledger membership.
-
-All675 outputs were freshly hashed and compared. Exactly five change: the ROM, existing names object, existing address-picker object, SYM and MAP; other670 remain byte-exact. SYM contains15,558 labels and51 constants: all15,543 prior label addresses and all constants stay exact, with only fifteen new neutral bank53 tail labels. MAP differs only in bank53 and the ROMX ownership summary: the existing section now explicitly owns the formerly zero linker-padding span, retaining every other bank's map. All336 dependency files are raw-byte exact, with10,966 rules and5,651 source bindings freshly checked against the frozen current sources, including four modified primary-owner hashes.
-
-The source4231 byte/mode/link guards held before and after every command. Copy timestamps caused405 graphics regenerations and36 font regenerations before336 assembly jobs; no timestamps were normalized and all generated source bytes stayed exact. Source copies are physically0644 and measured outputs0664, distinct from Git100644. Symbol, palette, PNG, graphics-export and sprite-chain checks pass; sprite output retains338 informational notes, not a warning-free or runtime proof claim. Six logs were read in full, with every make line classified. The terminal exited0; no successful gate was replayed.
-
-This five-document result appendix is added only after the completed pipeline; the other4226 sources and all675 build outputs remain exact. It resolves the preceding validation-pending/static-oracle wording for this frozen combined private version. The own caption raw proof preceded its proposal confrontation, with known ROOT locator/context disclosed; bank53 retains its independently sealed derivation. Independent validation, ROOT adoption, actual integration, publication and fresh reconstruction remain separate pending stages. Natural menus, font choice, visual fit, name/frame association, translation fidelity and hardware remain UNVALIDATED.
-
-
-## ROOT English integration verification (2026-10-08)
-
-ROOT adopted the qualified executor and independent reviews and resolved the normal merge of published English `3883e68` with original `7986b2b`. One actual six-check pipeline returned six zero codes; all 4,231 source hashes held for each command and all 675 outputs equal both private builds. ROM SHA-256 is `178fbb2522debb97216eee8aeb60f1b7a1d8ac32707a13339f185263c2aa741b`: exactly 587 changed bytes from the preceding English ROM (564 names-table bytes and 23 address-picker caption bytes), with zero other byte changes. The two donor banks 2C and 53 match ZIP English in their entirety; this is not whole-ROM ZIP parity. Symbols retain all old addresses and add 15 neutral tail labels, totaling 15,558 labels and 51 constants. There are five changed outputs and 670 unchanged outputs; the 336 dependency files retain their raw bytes while four owner source-hash bindings change.
-
-ROOT scanned all six log byte streams programmatically and checked their exact hashes and diagnostics, without claiming a blind review or human full-log reading. Five documentation appendices follow successful checks and no checks are replayed. Whole-ROM ZIP English differences remain 57,582 bytes. The historical residual ledger remains 5,055 bytes in its own bounded scope; these 587 bytes were outside that ledger. The later original local2B commit requires subsequent parity. Reader dispatch, names-to-frame association, natural menu flow, rendering, font selection, timing, translation fidelity and hardware remain UNVALIDATED. Publication and fresh reconstruction follow.
 
 
 ## Residual local cases at 2B:687C — bounded comment correction
@@ -580,22 +795,6 @@ ROOT and the independent reviewer accepted the frozen 22-path archival scope on 
 No canonical37, mapper, generator or trace capture was replayed. The closed parent reconstruction and finite dependency audit justify carrying forward the unchanged emitted-output proof for this archival-only change. The separate mapper consumer and destructive lite-republication risk remain documented above. Restored19 zero targets for28 neutral-only groups establish only that bounded result; no semantic level, unreachable claim, names/frame mapping or hardware evidence changes. Earlier private/pending wording remains chronological history. Publication and post-publication Git-blob preservation checks follow this adoption.
 
 
-## Private English parity with local2B and archived DOC22 (2026-10-08)
-
-One separately authorized private six-check pipeline completed with six return codes 0 on a frozen 4,252-file source tree. The measured ROM SHA-256 is `178fbb2522debb97216eee8aeb60f1b7a1d8ac32707a13339f185263c2aa741b`; all 675 outputs are byte-identical to published English parent `8512e24a4fc44df07179d0f5df5fd09111cf0a44`, including SYM and MAP. Symbols retain 15,558 labels and 51 constants. All 336 dependency files retain 10,966 raw rules and 5,651 bindings; current source hashes rebind only `engine/mail/mail_viewer_sender.asm`. All source bytes, modes and link counts held before and after every command. The 556 English resources and 22 ASM overrides remain unchanged.
-
-The new scope contains seven existing comment-row corrections, two English-preserving documentation appendices, the published local2B and archive provenance notes, and 19 published historical callgraphs. The 19 archived graph files are byte-identical to published Japanese parent `fe5238f6112cc71b7c97abb4c05c6591a4912f54`; they remain historical scenario aggregates, not new captures or completeness evidence. Whole logs are preserved and programmatically checked: 162 palette loads in 116 arrays with two documented over-reads, 405 tile sheets, 37 distinct font sheets, 92 screen PNGs, 947 asset records, and zero hard sprite mismatches with 338 informational notes retained. No PNG/font conversion was needed in this private build; copied source timestamps were preserved.
-
-This two-document result appendix follows observed terminal closure; the other 4,250 source paths and all 675 output files remain unchanged. No successful check is replayed. Prior context was known; this is not a blind or human full-log-read claim. No new native capture, natural-menu, visual, font appearance or hardware proof is established. The published archive provenance note and translation notes remain unchanged. ROOT adoption, actual integration and publication are subsequent stages.
-
-
-## ROOT English parity verification (2026-10-08)
-
-ROOT adopted the qualified private executor and independent reviews and resolved a normal merge of published English `8512e24` with original `fe5238f`. One actual six-check pipeline returned six zero codes. All 4,252 source hashes held before and after each command; all 675 outputs remain byte-identical to the preceding English build and both private builds. ROM SHA-256 remains `178fbb2522debb97216eee8aeb60f1b7a1d8ac32707a13339f185263c2aa741b`, with 15,558 labels and 51 constants and an unchanged symbol map. The local2B comments and 19 historical callgraphs are carried forward; no trace was recaptured and no mapper was executed. The 336 dependency files preserve raw bytes and only the mail-viewer owner source-hash binding changes.
-
-ROOT checked exact hashes and scanned the six whole log byte streams programmatically, without claiming blind review or human full-log reading. Two documentation appendices follow the successful checks, without replay. ZIP residual ledger remains 5,055 bytes in its bounded scope and whole-ROM ZIP English differences remain 57,582 bytes. Reader dispatch, names-to-frame association, natural menu flow, rendering, timing, translation fidelity and hardware remain UNVALIDATED. Optional language build support remains pending. Publication and fresh reconstruction follow.
-
-
 ## Private computed attribute lookup correction at 4E:6543
 
 The focused [lookup bounds note](docs/research/frame_4e_computed_attribute_lookup_bounds.md) records the eight-byte table and the computed reader at 4E:6486-649D. One existing HYPOTHESIS comment is replaced; the 571-line owner, all emitted source positions, labels and levels remain intact. The separate ADD $43 / ADC $65 address construction does not refute a bounded absence of a literal16-bit $6543 operand. All256 conditional arithmetic cases agree with the guarded bytes. The natural69 aggregates do not cover the body or READ the table within this finite corpus; no universal reader/entry absence, PNG/name mapping or new runtime evidence follows. Source4246/scope4 is a private candidate; new gates, ROOT adoption and publication remain pending.
@@ -617,29 +816,9 @@ The independent reviewer preserved an initial ordinal1 protocol failure: its chi
 Three documentation appendices follow the successful ROOT checks without replay. The sole ASM edit is the existing physical line485 comment in the 571-line owner; instructions, data, labels and levels are preserved. A computed ADD $43 / ADC $65 reader does not refute the narrower absence of a literal 16-bit $6543 operand. Arithmetic256 cases and natural69 zero observations remain finite static/corpus results; reader purpose, names/frame association, unobserved entry, natural rendering and hardware remain unproved. Publication and fresh reconstruction follow.
 
 
-## English parity with original d6a01a0 verified (2026-10-11)
-
-A normal merge carries the published original computed frame-attribute lookup correction into English bc6bc62, preserving its assets, text, instructions, labels and evidence levels. The four-path change includes one existing comment, the original research note and chronological documentation appends. Independent static review checked the entire patch and all source guards against both Git parents.
-
-The earlier temporary receipts and build copies were unavailable on resume. New evidence replaces that missing local validation: one explicit ROM build on the published English parent reconstructed the 675-output oracle, followed by one private six-check pipeline and one ROOT six-check pipeline, each with six zero return codes. All 4,253 source hashes held during ROOT checks and all 675 outputs equal the newly rebuilt parent in whole bytes. ROM SHA-256 remains `178fbb2522debb97216eee8aeb60f1b7a1d8ac32707a13339f185263c2aa741b`; SYM retains 15,558 labels and 51 constants, and MAP is unchanged. Full logs were scanned programmatically; documented palette overreads and sprite notes remain preserved. This is reconstruction and asset equality, without new natural, rendering, timing, hardware, frame/name association or translation-quality evidence. FullHelp reuse and optional language build support remain pending.
-
-
 Descriptor suffix qualification: the frame/name note now separates the direct6196–6291 first15-byte reads from called body/title/scrollbar helpers reading0F/11/1B/1D. Preview6291–6543 directly reads0F/11 in four phases with two selectors. This PROBABLE static derivation preserves descriptor1's separate CONFIRMED natural-read evidence and all sibling/asset statuses. MAIN placement and PREVIEW pair images remain conditional fixtures, with full helper map/canvas mutations outside their scope; record47:68F0 still has no descriptor-table selection, species assignment or new natural-reachability proof.
 
 Verification, 2026-10-11: the private candidate and the actual MAIN checkout each completed the canonical37 profile (36 checks rc0; the documented ordinal27 negative case rc2 with its exact97-byte diagnostic). All4246 source files held during each run, and all671 build outputs matched the newly reconstructed d6a01a0 baseline byte for byte. `make` reported SHA-256 OK / RESULT: IDENTICAL; symbol and palette checks passed. This pass changes documentation only. No new runtime capture, species association, natural-reachability or hardware claim is made.
-
-English parity verification, 2026-10-11: the DOC3 appendices from MAIN0eeb205 are now carried into the English branch. The private candidate and ROOT checkout each completed six checks with rc0; their 4253 source files held and all675 build outputs equal the newly reconstructed English parent. ROM178fbb25, SYM15558 labels/51 constants and MAP remain unchanged. MAIN canonical37 results quoted above remain original-only evidence. No FullHelp adaptation or graphics reuse is included in this merge.
-
-
-Prepared English FullHelp first-page reuse, 2026-10-11: the private proposal based on published English `6ddd89e` changes four existing db rows in the 63-byte `6C:485A` slot, repairs the two global-checksum bytes in the existing English header row, and appends translation preparation documentation. The preceding V2 had six zero child codes but outer code 1 because the Make target did not perform the assumed checksum update; that failed expectation remains preserved. This V3 source version has not run checks. It derives 59 slot differences from the diagnostic ZIP donor, plus two global-checksum bytes in its memory-only oracle `809c8d9c80d25a9f9524411c060e5d5999a254bccbbf24e0060602f986354dbb`. FullHelp as a whole is not adopted. The finite 112-edge model and local glyph/delay effects retain their explicit limits; no successful candidate check or natural/runtime result is claimed. The current gfx 5055 residual is disjoint and unchanged; static consumer 3160 / residual 1895 KEEP is not translation-quality evidence. See docs/TRANSLATION.md for exact scope and pending validation.
-
-ROOT integration verification, 2026-10-11: the reviewed V3 first-page adaptation and explicit English checksum repair completed private and actual six-check pipelines, each with six zero child return codes and successful final expectations. All4253 source files held. The actual675 outputs equal the reviewed private candidate: 672 match the published English parent; only help-script object, header object and ROM change. ROM SHA-256 is `809c8d9c80d25a9f9524411c060e5d5999a254bccbbf24e0060602f986354dbb`, with exactly59 slot bytes plus the two global-checksum bytes; computed and stored checksum both A71E. SYM15558 labels/51 constants, MAP and dependency-file bytes remain unchanged. The V2 six zero child codes and outer expectation failure remain preserved; this successful V3 has a different emitting header source. No checks were replayed on the V3 source. WholeHelp, font fit, rendering, natural menu flow, timing and hardware remain unvalidated; gfx5055 is separate and unchanged. Publication and fresh reconstruction follow.
-
-### English ZIP graphics reuse: prospective bounded source recipe
-
-The DATA-only English208d proposal selects 3,160 ZIP donor differences within 12 current units/five graphics ASM owners, using 304 existing numeric db rows. It retains labels, statuses, line positions, all other source bytes and all INCBIN/PNG resources. Conditional consumer proofs cover Help pictures, account banners, caption map/attribute pairs and four password map/attribute pairs; selector domains, natural flow and rendered equivalence remain unvalidated. The independently enumerated graphics residue keeps 1,895 of 5,055 bytes unchanged; the separate Help59 offsets do not overlap that membership. Prospective checksum C7B5 yields virtual SHA c00ab7a85c8a5c89ec86051d43f442dcc7f68b024fcf555cb1f56043420860cd, 3,162 ROM offsets. No candidate, gate, adoption or publication is established by this DATA recipe. See docs/TRANSLATION.md for the bounded proposal and retained KEEP disposition.
-
-ROOT integration verification, 2026-10-11: the bounded graphics reuse completed one private and one actual six-check pipeline, each with six zero child return codes and successful final expectations. All4253 sources held, and all675 actual outputs equal the reviewed private candidate:668 preserve the English208d parent and seven change (five graphics objects, header object and ROM). Stored/computed global checksum is C7B5; ROM SHA-256 is c00ab7a85c8a5c89ec86051d43f442dcc7f68b024fcf555cb1f56043420860cd, with exactly3160 selected donor bytes plus two checksum bytes. SYM15558 labels/51 constants, MAP and336 raw dependency files remain unchanged. Independent review restores all six complete serialized objects by unique bounded payload substitution; no general object-format semantic claim is made. The initial post-close proof helper used overly broad object payloads, failed before completing its report and was corrected using the selected literal units; the successful six gates were not replayed and source bytes stayed frozen. The remaining1895 graphics bytes and bounded Help page are preserved. Static conditional consumers do not establish natural flow, rendering, wholeHelp, translation quality or hardware equivalence. This result appendix follows the completed actual terminal without another build; publication and fresh verification follow.
 
 
 Sibling descriptor representation: four PROBABLE 31-byte units at 4E:6581/65BF/65DE/65FD use the existing dw/db layout of descriptor 1, retaining all 124 scoped bytes, headers and aliases. The owner grows 571→635 lines; the active manual/overlay locator census requires no metadata rebinding. New parent-relative ROM/SYM/MAP, relocation and canonical37 gates remain pending.
@@ -652,22 +831,6 @@ Four existing PROBABLE 31-byte descriptors at 4E:6581, 65BF, 65DE and 65FD now u
 
 One private staged canonical37 and one ROOT actual canonical37 each close with 36 rc0 results and the historical ordinal27 rc2/exact97-byte diagnostic. Make reports SHA-256 OK and RESULT: IDENTICAL; symbol and palette checks pass. All 671 ROOT outputs equal the measured private candidate; 670 are identical to the freshly verified parent0eeb, with only the owner object changed. Independent RGB9 decoding explains its 20 word and 20 bank relocations, recovering the full parent section after resolution. ROM, SYM and MAP are byte-identical to the parent; 15,538 labels and 51 constants remain. The private logs contain 444 ResourceWarning occurrences, which do not change the expected return codes; no warning-free claim is made. These documentation appends follow the completed ROOT terminal without replaying checks. Publication and fresh verification follow; no new natural, visual, species or hardware evidence is claimed.
 
-
-### English parity integration with MAIN454 (2026-10-11)
-
-The English branch incorporates the four typed frame descriptors and the bounded original asset audit through a normal merge with MAIN454e0fe. Existing English text, graphics, checksum and documentation history are preserved. One private and one ROOT actual six-check pipeline each completed with six zero return codes; all675 actual outputs equal the reviewed private candidate. Of those,674 equal English67d3907, including the ROM, SYM and MAP; only frame_graphics.o changes. Independent complete RGB9 decoding of the English parent and candidate accounts for six existing-resource imports and20 word/20 bank relocations, resolving the complete1158-byte section to its parent. Existing metadata and172 relocation expressions remain exact after source-line normalization. All336 raw dependency files remain unchanged. ROM SHA-256 stays c00ab7a85c8a5c89ec86051d43f442dcc7f68b024fcf555cb1f56043420860cd, with stored/computed checksumC7B5 and15558 labels/51 constants. These result appends follow the completed ROOT terminal without replaying checks. Publication and fresh verification follow; no new natural-flow, rendering, species association, translation-quality or hardware evidence is claimed.
-
-
-## Bounded English ZIP keyboard suffix reuse — prospective private pass
-
-English ZIP reuse, bounded keyboard suffix (DATA proposal, not applied): 44 differing donor bytes lie in bank66:7190..7210. For selector2, Kbd_LoadPickerTabTiles computes source6F90 and C28; under the 16-byte HDMA length model the 640-byte extent includes that128-byte suffix. Four existing db rows can encode the donor bytes; no labels, status headers, other graphics or instructions change. The prospective global checksum is BFCD. This establishes a conditional source extent, not natural navigation, rendered equivalence or the meaning of the donor glyphs. The remaining1851 differences retain KEEP:995 in bank4B and856 in bank71; finite static searches have not established a bounded reuse disposition for them. WholeHelp has not been adopted. No candidate or gates are authorized by this DATA note.
-
-Historical EN4a52 parity clarification: the primary RGB9 object comparison measured21 pre-existing import symbols retained and6 additional imports of already defined resource symbols, for27 total; patch records increased172 to212 through40 additional ROM fields(20 word pointers and20 BANK bytes). Two producer DATA closure helpers failed after the successful six-command terminal: the first treated SYM constant rows as bank:address rows; the next asserted incorrectly that6 was the parent import total. Both failed helpers remain preserved; corrected own helpers completed the serialized RGB9/675/D336 review. These were post-terminal analysis assertion failures, not command-gate failures: the six commands were not replayed and tested source was not changed. The independent review and ROOT actual/fresh checks remain separate evidence.
-
-### Verified ZIP keyboard-tail reuse (2026-10-11)
-
-A private six-check battery and a ROOT integration battery each passed. All 675 outputs match the reviewed candidate; 672 match the published English parent4a52f39. Only the keyboard bank66 object, header object and ROM differ. Independent complete RGB9 parsing explains both object differences solely by bounded literal payloads, restoring each parent object byte for byte. The ROM has exactly44 ZIP-donor graphic differences and two checksum differences; its SHA-256 is824305546e27f489c16c189876d7100ab3b701f7cd16c6977dc81c1d13b52665 and its stored/computed checksum isBFCD. Existing symbols, MAP, 336 dependency files and all4253 frozen sources remained as reviewed during testing. A ROOT DATA assertion initially treated an unresolved RGB9 section address as a linked address; the corrected analysis uses measured section offsets, with no source change or gate replay. The conditional input-mode2 loader evidence does not prove a natural screen, glyph purpose, rendered result or hardware behavior. The remaining1851 graphic differences remain KEEP; full Help63 is unchanged.
-
 ### Ordinal bank-53 pointers: representation prepared
 
 The existing bank-53 name table uses 25 ordinal labels and symbolic word pointers, preserving its 50 pointer bytes and 319 Shift-JIS string bytes. The two original aliases and PROBABLE headers remain; the owner gains 25 physical lines and no emitted bytes. The ordinals name text-table entries, with no name-to-frame association or newly established reader. See [the bounded asset/name note](docs/research/assets_pokemon_frames_and_name_limits.md#ordinal-presentation-of-the-bank-53-name-table). Active proof metadata requires no rebind in the finite audited scope. Executable validation is pending; the new SYM/MAP labels and owner relocations must be measured against the published typed-descriptor parent rather than assumed byte-identical.
@@ -677,31 +840,11 @@ The existing bank-53 name table uses 25 ordinal labels and symbolic word pointer
 
 The original bank53 name table now uses25 ordinal PokemonName00..24 aliases and symbolic word pointers. Existing aliases, the319-byte Shift-JIS/NUL text block, table order and all369 bytes remain unchanged; source classifications remain PROBABLE. A reader or a name-to-frame association has not been established. One private staged canonical37 and one ROOT actual canonical37 each completed with36 rc0 results plus the documented ordinal27 rc2/exact97-byte diagnostic. The initial private post-check5 measurement assumed ascending object-patch serialization and failed; actual serialization is48 down to0. Its failed terminal was preserved, an independently reviewed DATA-only finalizer associated patches by their unique offsets, and the same37-check BEGIN resumed at6 without replaying versions or checks1–5. Independent complete RGB9 decoding verifies25 new exports,24 additional word relocations and all symbol/patch metadata, resolving the entire369-byte section to the original. All671 actual outputs equal the reviewed private candidate;668 equal MAIN454e0fe, while the owner object, SYM and MAP change only as measured. Removing the25 aliases from SYM/MAP recovers their literal parent files. Make reports SHA-256 OK and RESULT: IDENTICAL; symbol checking reports15563 labels and51 constants, and palette checking passes. The private43 logs contain444 ResourceWarning occurrences; expected check results are unchanged. These documentation appends follow the completed ROOT terminal without replay. Publication and fresh verification follow, without new natural-flow, LCDC, species, rendered or hardware evidence.
 
-
-### English language-specific bank53 ordinal parity — prospective representation
-
-The original-ROM bank53 statements above retain their Japanese addresses and historical validation. English uses a language-specific25-word table:15 names occupy the existing7F01..8000 tail and10 remain at original slots. PokemonName00..24 are proposed at the current English table targets (ordinal0=7FF1 and ordinal1=7FE2), while historical String_53_4032 remains a zero-filled former slot, not ordinal0. All16384 existing English bank53 bytes, the50 pointer bytes, padding, names and NUL extents remain unchanged by ordinal representation; no Japanese whole-owner copy is used. English expects25 additional exports and10 additional word relocations (15 existing become25), with ROM/checksum unchanged and only owner object/SYM/MAP altered. These are DATA expectations pending materialization and an authorized six-check pass. No reader, species/frame association, rendering or natural-flow evidence follows.
-
-### Verified English bank53 ordinal parity with MAINa4 (2026-10-11)
-
-One private and one ROOT integration six-check battery passed. All675 integration outputs equal the reviewed private candidate;672 equal English0537683, including the entire ROM and336 dependency files. Only bank53 object, SYM and MAP change. Complete independent decoding of the English RGB9 objects verifies25 new aliases at current English table targets,15 existing word-relocation semantics preserved and10 additional word relocations; both full16384-byte sections resolve to the parent bank. Existing symbols, nodes, section headers and assertions remain exact after source-line normalization. Removing only25 ordinal aliases restores the literal parent SYM and MAP; symbol checking reports15583 labels and51 constants. ROM SHA-256 remains824305546e27f489c16c189876d7100ab3b701f7cd16c6977dc81c1d13b52665 with checksumBFCD. The normal merge preserves English text,15 tail strings, former zero slots and original classifications. Initial DATA assertions about the EN research history, JP versus EN DW line numbers and SYM constant formatting were preserved and corrected before final receipts, without source or gate replay. This representation establishes no reader, frame/species association, natural rendering or hardware behavior.
-
-
-### Original MAINe659 unselected-frame audit — inherited Japanese-parent evidence
-
-The following append is inherited verbatim from original MAINe65927b relative to MAINa4d374c. Its original asset bytes,24 pixel-model comparisons and canonical37 validation refer to the Japanese parent; this documentation parity does not recompute those pixel results on English assets or establish an English loader, LCDC mode, rendering or species association. Current English text/assets, language-specific PokemonName00..24 targets, firstHelp page63 and retainedKEEP1851 remain unchanged.
-
 The finite unselected-frame audit distinguishes eleven missing editing views from exact preserved source bytes. The 24 existing legacy unused previews reproduce their declared browser-style pixel model; the separate window 47:68F0 has tilemap 47:72F0 and an existing editing PNG. These conditional models establish no additional original loader, species/name association or whole-ROM graphics completeness. See [the per-window view limits](docs/research/assets_pokemon_frames_and_name_limits.md#unselected-frame-windows-editing-views-and-legacy-models).
 
 ### Verified finite audit of unselected frame views (2026-10-11)
 
 One private and one ROOT integration canonical37 each completed with36 zero return codes and the known ordinal27 rc2/exact97-byte diagnostic. All671 rebuilt outputs equal published MAINa4d374c, including every object, SYM, MAP and the original ROM; all4246 frozen sources remained as reviewed during testing. The private43 complete logs contain444 ResourceWarning occurrences; these warnings are recorded. Independent DATA decoder assertions about palette/attribute-map representation and an invented readonly-log mode were preserved and corrected before final receipts, without source changes or gate replay. This DOC3 pass records the eleven editing-view omissions,24 complete legacy pixel-model comparisons and the distinction between window47:68F0 and tilemap47:72F0. It adds no PNG, loader, LCDC, species/name association, natural-flow or hardware evidence. A separately reviewed future view can combine the four existing aligned assets of42:4D50; no ROM bytes are missing there.
-
-### Verified English documentation parity with MAINe659 (2026-10-11)
-
-One private and one ROOT integration six-check battery completed with six zero return codes. All675 outputs remain literally equal to published English d36411c, including every object,336 dependency files, SYM, MAP and ROM; the English ROM retains SHA-256824305546e27f489c16c189876d7100ab3b701f7cd16c6977dc81c1d13b52665 and checksumBFCD, with15583 labels and51 constants. All4253 frozen source bytes and source filesystem guards were held during testing. The private six logs contain21150 bytes and zero ResourceWarnings. V1 of the prospective runner was preserved unexecuted; V2 bound the current675-output oracle and the explicit source/runner authorization hashes. This normal merge retains the complete English history and appends the original Japanese audit with an explicit parent qualifier. Original pixel models and historical counters are inherited evidence; no English rendering, natural invocation, species association or hardware behavior is newly established.
-
-English parity qualification for the original bank26 audit: the appended original-ROM sequences, 69-scenario reads, execution cohorts and sprite/frame census describe Japanese-ROM evidence, not English execution, rendering or per-call attribution. Original canonical37/671 verification and its historical diagnostics below belong to published MAIN b833350. The English streams, assets, significant emitting lines and all existing English history remain preserved. Shared local bytes do not transfer Japanese cohorts into English evidence.
 
 The bounded bank26 twelve-byte audit preserves Data_26_7AB0 as CONFIRMED-read data of unknown class. Eleven historical read cohorts match the static Profile_InitScreen HDMA request, while the current named bank26 sprite database lies entirely after the fragment; the old sprite-overread attribution remains qualified. See [the reader and boundary limits](docs/research/boot_and_home.md#bank26-the-remaining-twelve-zero-bytes).
 
@@ -713,10 +856,6 @@ The `bank42/tilemap_5750` catalogue entry combines the four complete tile assets
 
 The scope7 pass adds one conditional indexed editing PNG and a complete-asset fallback in screen_png.py. Private and ROOT canonical37 completed36rc0 plus ordinal27rc2/exact97; make reports SHA-256 OK and RESULT: IDENTICAL, and all671 outputs equal published b833350. The candidate4247 sources held during verification. All92 prior screen rows and947 asset rows remain unchanged; the new row makes93, with20 PROBABLE and73 HYPOTHESIS views. The finite model and recorded warnings retain the [reader and rendering limits](docs/research/assets_pokemon_frames_and_name_limits.md#verified-conditional-bank42-editing-view-2026-10-11).
 
-English bank42 parity qualification (published parents EN00e98fb and MAIN12bd70d): the preceding new original bank42 catalogue, verification and warning observations refer to the original-JP pass. They do not constitute an English runtime, natural-menu, loader, LCDC, glyph rendering or hardware result. Own DATA rederived the current English2560 tile bytes,360 map bytes,360 attributes and128 palette bytes equal to the original within42:4D50..5AA0; the conditional unsigned/VRAM1/first32-palette-word model and independent full PNG decode yield identical23040 indices and RGB pixels. Thus the2340-byte editing PNG is common under that HYPOTHESIS model. The earlier DATA floor RGB conversion assertion failed and was preserved; bit-replication RGB555 correction passed without source changes or gate replay. All English text streams, adapted first Help page, language-specific name targets and reused graphics remain preserved. Remaining KEEP1851 and whole-Help limits are unchanged. This private parity has not yet run new gates or been adopted; no original verification receipt is inherited as new English proof.
-
-English bank42 verified integration (2026-10-11): the prospective status above records the preparation stage. Private and ROOT integration each completed exactly one six-check battery with all6rc0, source4254 held and all675 outputs equal the published EN00e parent, including ROM824305/BFCD and the complete SYM/MAP. All562 existing runtime overrides retain their bytes; the new conditional PNG is common with MAIN12bd70d. The earlier Japanese canonical37 observations remain Japanese evidence. This establishes build/assets parity only, without new English natural rendering, loader/LCDC, species association, hardware or whole-ZIP fidelity proof.
-
 ### Located bank6C help-script lookup and reader
 
 The primary reader at6C:60AF maps A0..FF through the192-byte HelpScript_SingleByteToSjis table to96 big-endian numeric glyph codes;80..9F consume a second byte, and bytes below80 enter the control dispatcher. The bounded numeric mapping is CONFIRMED; the65-entry historical stream corpus and the13-byte mixed prefix before the lookup retain their existing classifications and unresolved semantics. The bank48 font-run selection supplies original16-byte source ranges for94 nonzero codes; the two zero codes reach a sentinel without a glyph copy. This establishes source selection, without a new natural glyph, rendering, timing or hardware result. See [the located reader and limits](docs/research/text_encoding.md#6-help-script-text-convention-bank-6c).
@@ -725,12 +864,6 @@ The primary reader at6C:60AF maps A0..FF through the192-byte HelpScript_SingleBy
 
 The five-file pass replaces one literal lookup operand with the existing HelpScript_SingleByteToSjis symbol and corrects bounded reader/table comments. Private and ROOT canonical checks each completed 36 zero returns plus ordinal 27 with the expected return 2 and exact 97-byte diagnostic. ROOT make reports SHA-256 OK and RESULT: IDENTICAL; symbol and palette checks pass. All 670 other outputs equal the published 12bd70d parent. The sole changed engine object adds one import and one word relocation; independent complete RGB9 parsing, unchanged old normalized expressions and bindings, linked SYM/MAP addresses, raw section restoration and whole-ROM comparison preserve the 2116-byte section. This is not a fresh numerical evaluation of all 262 old expressions. Both canonical runs recorded 444 ResourceWarnings; the verification does not promote historical streams, natural invocation, rendering or hardware evidence.
 
-English bank6C parity qualification (published parents ENb38fa0e and MAIN4ec9ad3): the original verification sections above refer to the Japanese reconstruction and its canonical37 runs; they are not inherited English tests or runtime evidence. Own DATA on the current English parent fully parsed RGB9 and numerically resolved its262 patches against the current linker SYM bindings, comparing the complete2116-byte reader section to the English ROM. The same192-byte numeric lookup and bank48 font bytes were measured equal to the original, and own96-case run selection identifies94 original16-byte glyph-source spans plus two zero codes ending at the FFFF sentinel. This is static source selection, not newly rendered glyphs or natural invocation. The earlier historical65-entry corpus and mixed-stream classifications remain original-JP observations. All English help-stream DB rows, adapted firstpage63, its previously bounded112 control edges, fonts and language-specific name targets are preserved; wholeHelp is not adopted and KEEP1851 remains inconclusive. At preparation, this English symbolic/comment parity had not yet run new versions or build checks; its expected one reader-object change requires separate measured validation.
-
-### Verified English bank6C reader parity (2026-10-11)
-
-This normal merge carries original 4ec9ad3 reader comments and its existing lookup symbol into the English branch while preserving all English history and payload. The English private staged six checks and ROOT six checks each return zero; the English ROM remains 824305546e27f489c16c189876d7100ab3b701f7cd16c6977dc81c1d13b52665 with checksum BFCD, 15583 labels and 51 constants. Of 675 outputs, only engine/help/help_script.o changes from the published b38fa0e parent. Complete independent primary RGB9 review numerically evaluates the old 262 and new 263 expressions, including JR PC+2, and confirms the whole 2116-byte section. ROOT independently verifies unchanged normalized expressions, bindings and metadata, restores the raw operand and carries verified parent numeric values; ROOT does not claim a separate full numerical interpreter. All 336 dependency files remain byte-identical; 10966 rules and 5651 bindings have only the engine/help and data/text/help source hashes rebound. The other 674 outputs and the full linked English ROM, SYM and MAP stay unchanged. No new runtime, rendering, natural-menu, hardware or translation-quality result is claimed.
-
 ### Located bank72 dialog lists and record reader
 
 Static source and original-byte comparison establish four lists with69 references to68 distinct bank72 records. Dialog_Open at72:402A selects a list with D and a record with E; it skips the first header byte, uses the second for layout and dialog type, and initializes the result from the third. The separate byte$AF at63D7 remains HYPOTHESIS/unclassified. TextTiles_RenderLine at48:403E consumes paired bytes and stops on NUL; the records have32 text bytes per line, without a newly established reader clamp. The finite69 historical trace sets cover list/record reads in39 scenarios, without proving all records rendered, general index bounds, natural-menu behavior or hardware execution. See [the located record reader and remaining limits](docs/research/text_encoding.md#41-message-records-in-bank-72-located-list-and-record-reader).
@@ -738,12 +871,6 @@ Static source and original-byte comparison establish four lists with69 reference
 ### Verified original bank72 dialog-reader documentation (2026-10-11)
 
 The three-document pass locates the list and record readers and replaces stale header and glyph-mapping descriptions. Private and ROOT canonical checks each completed 36 zero returns plus ordinal 27 with the expected return 2 and exact 97-byte diagnostic. All 671 build outputs equal the published 4ec9ad3 parent, including every object, dependency file, SYM, MAP and original ROM. ROOT make reports SHA-256 OK and RESULT: IDENTICAL; symbol and palette checks pass. Both canonical runs recorded 444 ResourceWarnings. This documentation and static-byte verification does not establish general index bounds, complete record execution, rendered glyphs, natural-menu behavior or hardware execution.
-
-English bank72 parity qualification (published parents EN2ad5610 and MAIN87b0753): the original canonical37,444 ResourceWarnings and historical69 trace sets/39 scenarios/62 list-table bytes/2100 record bytes above remain Japanese reconstruction observations; they are not inherited English tests or natural/rendering evidence. Own English primary DATA established the same146-byte73-word table,69 references to68 records,4890-byte record extent and separate unclassified AF, along with the bounded Dialog/TextTiles/font reader windows. Current published4254 Git blobs and675 pins retain those five source owners and ROM bytes. This static equality does not establish generic D/E clamps, every record executing, glyph appearance or hardware behavior. All English help streams, adapted first63, fonts, names and prior6C history remain unchanged; wholeHelp is not adopted and KEEP1851 stays inconclusive. At preparation, this DOC3 parity had not run new versions or checks; new private verification requires separate authorization.
-
-### Verified English bank72 dialog-reader parity (2026-10-11)
-
-This documentation-only parity pass merges original 87b0753 into English 2ad5610, preserving the English bank6C history and payload. Private and ROOT build, symbol, palette, PNG, graphics-export and sprite-chain checks each return zero. All 675 build outputs remain identical to English 2ad5610, including 336 objects, 336 dependency files, SYM, MAP and the English ROM (SHA-256 824305546e27f489c16c189876d7100ab3b701f7cd16c6977dc81c1d13b52665; stored/computed checksum BFCD; 15583 symbols plus 51 constants). The dependency audit retains 10966 rules and 5651 bindings without source-SHA rebinding. The original canonical37 checks and historical 39 read scenarios remain original-ROM evidence; this pass adds no English runtime, rendering, natural-flow, hardware or translation-quality evidence.
 
 FFA7 producer audit: six maintained source producers explicitly store zero; 51:41D3 stores returned A. Its two ordinary source routes yield A=0 under coherent stack/mapping and uninterrupted shared scratch. Interior/computed entries, malformed state and IRQ/reentrancy are outside this bounded static proof. The current hJoyDispatchExtraMask alias describes the one-shot OR/clear consumer, without a physical or injected-button interpretation. See docs/research/ram_map.md and docs/research/boot_and_home.md; no new natural execution or hardware evidence is added.
 
@@ -765,19 +892,208 @@ The mechanical `SpriteFrameTable_6A_72A0` alias uses the existing blank line52, 
 
 The five-file pass adds `SpriteFrameTable_6A_72A0` in the former blank line 52 and updates the sole object-entry operand at line 75. `Data_6A_72A0` and every existing physical source position remain. Private and ROOT canonical37 each completed 36 zero returns and the expected ordinal27 return2 with its exact97-byte diagnostic; each recorded444 ResourceWarnings. All668 unaffected build outputs equal published parent `457244b`; the owner OBJ, SYM and MAP match the independently measured private candidate. Full RGB9 inspection preserves all68 nodes,1993 existing symbol records, the2985 raw section bytes and all four word-patch metadata records, adding one exported alias and changing only the offset2981 symbolic target. Fresh numeric resolution of all four words in both objects reproduces the complete original2985-byte section. Removing the single added alias line from SYM and MAP restores the parent bytes. The linked ROM remains original SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`; make reports SHA-256 OK and RESULT: IDENTICAL, with symbol and palette checks passing. Ledger dispositions become47 APPLIED,14 KEEP,three APPLIED_ALIAS,one PARTIAL_ALIAS and zero PENDING, with historical HYPOTHESIS row status and CONFIRMED storage evidence retained. No new natural execution, visual identity, hardware or semantic-completion claim is made.
 
-English FFA7 parity qualification (published parents ENb98a486 and MAIN0d713c7): the original canonical37,444 ResourceWarnings and cited natural/input scenario counts remain Japanese reconstruction observations, not inherited English tests or fresh English natural evidence. The current English home consumer source is common with the original parent; this pass preserves its one-shot OR/clear code and changes only one physical comment row. The six explicit-zero producers and returned-A two-route argument remain the bounded original static study under its stack/mapping/shared-scratch and IRQ/reentrancy/interior/computed-entry limitations. This parity does not establish universal zero writes or physical/injected-button purpose. All English emitting lines, streams, adapted first63, fonts, names and all prior6C/72 history stay unchanged; wholeHelp is not adopted and KEEP1851 remains inconclusive. At preparation, the private parity had not run versions/checks; new verification requires separate authorization.
 
-### Verified English FFA7 documentation parity (2026-10-11)
+The bounded loader10/bank42 audit in docs/research/assets_pokemon_frames_and_name_limits.md separates four results: the valid27-entry descriptor table selects only three bank47 families; direct LCDC transforms preserve bit4 and boot83 establishes signed mode only along a qualified reaching path; twenty hypothetical canvas subsets refine transfer-prefix unknown-cell counts without rendering a procedure; and all13632 bank42 source bytes, including2496 bytes outside the asset catalogue, are present and exact. All30 emitted bank42 assets are catalogued, while raw/zero fragments, two-byte tile-grid offsets and PNG padding explain the remaining editing boundaries. Ten editing views, complete selector/vector/LCDC provenance and name/frame/species associations remain open. No new source classification, runtime evidence or asset is added.
 
-This English branch carries the bounded original FFA7 producer correction from Japanese commit `0d713c7`, preserving the source lines of `home/jump_table.asm` and prior English research. Private and ROOT integration runs each passed all six build, symbol, palette, PNG, graphics-export and sprite-chain checks. All 675 build outputs remain identical to published English parent `b98a486`, including the ROM (SHA-256 `824305546e27f489c16c189876d7100ab3b701f7cd16c6977dc81c1d13b52665`, checksum `BFCD`), OBJ, dependency files, SYM and MAP. Rebinding the changed home source SHA affects dependency provenance only. No new English runtime, rendering, natural execution or hardware evidence is claimed; historical Japanese canonical37 results and scenario counts remain Japanese evidence. The producer proof retains its entry, stack, mapping and shared-scratch prerequisites and does not establish universal zero writes or physical/injected-button intent.
-
-English cumulative ledger/6A parity qualification: the archived neutral-census, natural READ cohorts and canonical37/671/444-warning results above are Japanese-ROM evidence from MAIN457244b and MAINef41bff. English3a31 keeps its translated assets and complete prior history. Own current English DATA resolves the four owner words against the English2985-byte section; this does not assert equality of that graphics section to Japanese bytes, natural English invocation, rendering, hardware or a name/frame association. The prospective English build has not run; only ownerOBJ/SYM/MAP are expected to change, with672 other outputs and ROM824/BFCD held, to be measured under separate authorization.
+The separate73:5E60 mechanical frame-table alias retains the existing Data alias,230 physical owner lines, literal first-chain frame/script pointers and all existing bytes/classifications. It does not change the initial65-row naming ledger or add natural-flow, visual or species evidence.
 
 
-### Verified English cumulative ledger and mechanical 6A parity (2026-10-11)
+### Product-checked conditional RAW editing views and private native parity (2026-10-13)
 
-This English pass integrates published Japanese MAIN `ef41bff` with English parent `3a31b71` in a seven-file scope, including the cumulative neutral ledger and its code/mail documentation. Existing English history and the prior ZIP-derived text, sprites, boxes and graphics are preserved. The Japanese canonical37 and natural-execution results retained in the documentation are Japanese evidence; they are not English test results. WholeHelp remains unadopted and the 1851-byte residue remains inconclusive KEEP. No complete-translation or whole-ZIP parity claim is made.
+The private original-source extension based on published MAIN `2e0f3fff688f70a48063ff72be496d570574fa51` adds conditional editing PNGs for 42:4000 and 42:67F0. Each resolves all 360 cells under the explicit unsigned/VRAM1/first32-palette-word HYPOTHESIS model. Four raw/HYPOTHESIS backings preserve exactly 80 original bytes, including the 16 `$FF` bytes at 42:69A0; original labels, headers and boundaries remain. The catalogue has 951 assets and 95 screens, preserving the prior 947 asset rows and 93 screen rows. Eight of the earlier ten editing-view omissions remain open.
 
-Private and ROOT integration each completed six checks with zero returns. All 672 unaffected outputs equal the English parent; the owner OBJ, SYM and MAP are the only three changed outputs and match the independently reviewed private candidate. Complete RGB9 parsing preserves all 68 nodes, 1993 existing symbol records, 2985 raw English section bytes and four word-patch metadata records. One exported alias is added at physical source line 52; only the symbolic target at offset 2981 changes. Numeric resolution of all four words reconstructs the complete English section, SHA-256 `f6e8edaabe36bfd3cccf9ffb85796ee3909a01ae4ff68b48e7204f28281012f3`. Removing the single added alias line restores the parent SYM and MAP bytes. All 336 dependency files remain byte-identical; their 10966 rules and 5651 bindings rebind only the owner source SHA.
+One ROOT product-fixture run completed 21 PASS groups and 145 route receipts; group15 was then `DEFERRED_ROOT_NATIVE`. The product codec performed 20,480 inverses, both exports/imports preserved 46,080 indices, and 93 legacy screen roundtrips plus 947 asset identities held. Synthetic flip/UID/identity hooks retain fixture-only qualification. ROOT's two final private-source PNGs equal those accepted fixture bytes. Native parity was pending at that initial product stage. After `tools/line_addresses.py` copied `raw_png.py` into marked-build fixtures, the corrected private 27-path source completed its own Japanese37 plus English3 pass: 39 rc0 and the expected ordinal27 rc2/exact97-byte diagnostic, preserving original-ROM identity and the English ROM/checksum. The subsequent final documentation/manifest refresh still requires actual integration checks. See [the bounded inventory and RAW view limits](docs/research/assets_pokemon_frames_and_name_limits.md#product-checked-conditional-bank42-raw-byte-views-private-staging-2026-10-13). No source confidence, natural loader/LCDC/species association, general graphics completeness or hardware claim is promoted.
 
-The English ROM stays SHA-256 `824305546e27f489c16c189876d7100ab3b701f7cd16c6977dc81c1d13b52665`, with stored and computed checksum BFCD. The private six version logs and six check logs contain no warning substring. These are English build and static-structure proofs, with no new natural English execution, rendering, visual identity, hardware, species/frame association or semantic-completion evidence. Per-child guards cover the 4254 listed source files; an independent current-fileset review does not turn them into a per-child census of additional unlisted files.
+Published MAIN `2e0f3fff688f70a48063ff72be496d570574fa51` already provides `make english` with 563 explicit overrides and verified English ROM `1f1c28855ef560e9da4b2f2a3d4d8d9fc74162dff51381f9efc562025c9023a1`/E0FC. Its actual Japanese37 plus English3 terminal completed 39 zero returns and the expected ordinal27 rc2/exact97-byte diagnostic, with original-ROM identity; those receipts remain tied to the published parent. A separate fresh8 profile also completed eight rc0 with original and English ROM identities and zero warnings; it does not repeat the full canonical37 or validate the staged RAW source. The staged shared-source parity refresh retains every override/payload and historical base identifier, adds 11 fallbacks for the RAW resources/codec/two PNGs, and refreshes existing source/documentation pins. The corrected private candidate reproduced that English ROM; its private acceptance is recorded in the current language-build note, and does not certify subsequent documentation/manifest bytes or publication. ZIP reuse, full WholeHelp, English natural execution/rendering/fidelity and hardware remain qualified in [the current language-build note](docs/LANGUAGE_BUILDS.md).
+
+### Errata operacional de replay: CTX17 (2026-10-17)
+
+A identidade de ROM publicada em72a3464b continua a evidência de reconstrução
+aceita naquela rodada; ela não detecta contexto quebrado em metadados de replay.
+O passe Function516 introduziu13 divergências de contexto de lib/mobile/mail.asm:
+ramop10 linhas3592,3973,3641,4228,4271,4353,4811,4869; ramop11 linhas4004,4047,
+4408,4753,4926. BEFORE516 tinha Function_0F_*:: imediatamente antes do ld e ctx
+correspondente. SOURCE516 retirou essas definições preservando a linha física
+vazia, mas ctx passou à properalias duas linhas acima. Não eram dívida do parent516.
+O predicado loose normaliza os operandos de memória antigos/atuais; esse detalhe
+não elimina a divergência real do primeiro componente de contexto.
+
+PRIVATE38 reteve292 already/8 skipped e133 already/5 skipped em29/30. Audio9
+acrescentou quatro divergências em audio/engine.asm:807: PRIVATE31 v1 relatou
+288 already/12 skipped e133 already/5 skipped. CTX12 anterior é parcial e fica
+preservado; CTX17 propõe17 células de ctx:13LIB+4Audio, só o primeiro componente
+passa a vazio. File/line/proof/status/operand/valor/banco/proposed text e os demais
+componentes não mudam. Nenhuma fonte ASM ou ferramenta é alterada.
+
+A auditoria estática finita cobre todas as tabelas9/10/11:156+300+138=594 manual
+(637rows totais), um ctx manual opcional vazio em ramop10 preservado. O cálculo
+usa exatamente split('\n'), incluindo a linha vazia de EOF: os quatro aparentes
+casos NOTICE causados por splitlines não são reparos e permanecem intactos.
+Previsão para28/29/30:0 to-write,156/300/138 already,0 skipped. A nova bateria
+ROOT deve exigir os três logs literais; RC0 sozinho não certifica replay completo.
+Mapas/SYM, ASM/OBJ e bytes previstos de31 não recebem delta por este reparo de
+metadados. Artefatos/aceites v1 permanecem evidência finita do protocolo anterior;
+sem adoção MAIN nessa versão. English e evidência natural/hardware não avançam.
+
+
+The AdapterCheck and phone-entry graphics owner has a descriptive Bank 4A path, with 26 resource files moved under the consumer-specific directory. The resource payloads, including the ten existing PNG views and two inactive legacy byte-views, are retained byte for byte. The mixed `$9400` upload keeps its tile-prefix qualifier; `Data_4A_6480` is retired as a redundant alias while `Gfx_AdapterCheck_Tiles9400Vb1` remains the catalog label. This source unit changes 27 paths and 72 metadata cells, predicts one fewer symbol, and preserves the existing confidence and rendering limits. The root integration gates are still required before claiming byte-identical rebuild. See [the path contract](docs/research/adapter_check_and_phone_entry_4a_resource_paths.md). English remains suspended.
+
+
+## Japanese global naming and asset audit (2026-10-20)
+
+The source census at base commit `55fad258` covered 243 non-GFX assembly files:
+it found no `Function_BB_AAAA` or `Font_BB_AAAA` definitions, but 1,893 generic
+ROM labels (1,660 adjacent to semantic aliases and 233 without one) plus 583
+`wRam_AAAA` definitions. In GFX, no owner or path component was a pure `bankNN`;
+618 physical files had type-and-address basenames and 1,906 generic labels. The
+ChoiceMenu pass below reduces those GFX counts to 610 paths and 1,902 labels.
+These are census categories, not automatic rename requests: aliases, interior
+data, and unknown regions require separate evidence.
+
+The first reviewed GFX unit renames the four ChoiceMenu map/attribute pairs in
+bank 4D to `settings_phone_choice_menu_entry0..3` paths, retains bank/address
+provenance, and removes four redundant `Tilemap_4D_*` aliases. Each binary stays
+70 bytes with its original hash. `make` returned `RESULT: IDENTICAL` for the
+2-MiB ROM (SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`);
+`make sym-check` passed with 14,713 labels and 51 constants; `make palette-check`
+reported 162 loads, 116 arrays, two documented overreads and zero errors.
+
+A later GFX cleanup in `gfx/mail_server/delete_progress.asm` retired 47
+`Data_23_*` aliases while retaining their exact-address tile, map, frame and
+animation-script names. `Data_23_7C03` remains because no descriptive co-alias
+was found. The pre-edit source hash matched the pinned census input; no other
+ASM/include consumers, tool/metadata mentions or local scopes were found for
+the retired names. Independent review accepted the exact diff. `make` returned
+`RESULT: IDENTICAL` against the original ROM; `make sym-check` reported 14,461
+labels and 51 constants; `make palette-check` reported 162 loads, 116 arrays,
+two documented over-reads and zero errors. No graphics bytes or semantic/runtime
+claims changed.
+
+The independent Pokémon/frame audit reconfirmed all 369 bank53 name bytes and
+found no established name-to-frame association. Within its bounded asset scope,
+17 editing views exist and eight remain KEEP; the expanded 137-asset bank41–47
+set and 53 source PNGs reproduce the declared bytes, with no orphan PNGs or
+binaries among the 71 images in the reviewed frame/browser directories. The
+dispatcher and legacy preview names do not establish universal unused status.
+Full closure still requires investigating the remaining generic labels and
+address-only GFX basenames in evidence-backed units. English remains suspended.
+
+Follow-up on the current main branch: commit `47830bec` retired the redundant
+local-scope data labels at `55:6F3B` and `27:417A`; `ac5db3ec` documented the
+bounded bank53/frame coverage and its eight KEEP editing-view gaps. The next
+source pass removed four exact-address aliases in `audio/music/music_01.asm`:
+`Data_04_5788`, `Data_04_57F3`, `Data_04_5832` and `Data_04_58BC`. Their
+descriptive same-address labels `SoundSong01_Track1..3` and
+`SoundSong01_Header` remain. This is label cleanup only; it does not establish
+new audio semantics or alter source bytes. Current main build and Japanese
+symbol/palette checks remain the publication gates. See
+[`audio2_verify_static.md`](docs/research/audio2_verify_static.md) for the
+bounded alias evidence and result.
+
+A follow-up retired the last generic label in that music owner,
+`Data_04_574D`, while retaining `SoundSong01_Track0` at 04:574D. Its remaining
+mentions in the older audio audit and rename ledgers describe historical state
+only; no bytes changed. The symbol count at that checkpoint was 14,632.
+
+The following audio SFX owner cleanup retired 76 exact-address `Data_05_*`
+aliases from `audio/sfx.asm`; each retains its existing `SoundSfx*` label.
+The census and independent review found no source/tool/metadata consumers or
+local scopes for the retired spellings. The original 2-MiB ROM remains
+`RESULT: IDENTICAL`; current symbol and palette checks report 14,633 labels / 51
+constants and 162 loads / 116 arrays / two documented over-reads / zero errors.
+This does not change the earlier PROBABLE classifications of headers or make
+new claims about natural playback. English remains suspended.
+
+The same bounded census supports retiring all 35 exact-address `Data_05_*`
+aliases in `audio/music/music_17.asm`, keeping their `SoundSong17_*` labels.
+Current maintained ASM/include files contain no consumers outside that owner;
+the old spellings remain in frozen analysis/configuration records as history.
+This label-only cleanup adds no audio interpretation or runtime claim. The
+build remains `RESULT: IDENTICAL` with the original SHA-256; the current
+symbol count at that checkpoint was 14,597 and `palette-check` reported zero
+errors.
+
+Another exact-address cohort of 31 redundant `Data_04_*` labels was retired
+from `audio/music/music_05.asm`, preserving the same-address `SoundSong05_*`
+labels. The current maintained ASM/include scan found no external consumers or
+local scopes; frozen ledgers keep the earlier spellings as history. The change
+adds no audio interpretation or playback claim. At this checkpoint the ROM
+still builds identically and the symbol count is 14,566.
+
+The next paired music-owner pass retired 20 `Data_05_*` aliases each from
+`audio/music/music_12.asm` and `audio/music/music_0e.asm`, preserving the
+same-address `SoundSong12_*` and `SoundSong0E_*` labels. The pre-edit owner
+hashes match the pinned census inputs; an updated ASM/include scan found no external
+consumers or local scopes. This removes generic aliases only and makes no new
+sound interpretation.
+
+The `music_14.asm` follow-on retired 18 exact-address `Data_05_*` aliases for
+existing `SoundSong14_*` names. Four positions without a same-file descriptive
+co-alias remain named `Data_05_*`; this pass does not infer their purpose.
+The pre-edit owner hash matched the pinned census input, and the pre-edit
+ASM/include scan found no outside consumers or local scopes. The ROM remains
+byte-identical and the symbol count is 14,508.
+
+The address-book cursor animation block at bank 2F now names its frame and
+script `Abook_ViewCursor_Frame0` and `Abook_ViewCursor_Script`. The consumer
+passes `Table_Abook_ViewCursorAnims` to `Sprite_InitSlot`; its four entries
+share the script, and the frame table points to the frame. The macro boundaries
+remain table `$57C0..$57C2`, frame `$57C2..$57EF`, and script `$57EF..$57F2`.
+The structural bounds are CONFIRMED by the source layout; the association with
+the address-book cursor is PROBABLE from the consumer and table names. This
+renames two generic labels without changing directives or data. Build and symbol
+checks pass; this does not establish runtime behavior.
+
+The bank 3F HTML/mobile-dictionary index now uses five consumer-supported
+semantic names: `Table_HtmlStore_KeywordPointers`, `String_HtmlStore_UrlPrefix`,
+`Table_HtmlStore_PageFarPointers`,
+`Table_MobileDict_CategoryPageLists`, and
+`Data_MobileDict_CategoryPageIndices`; the five redundant generic labels at
+these addresses were retired after searching maintained-source references.
+The corresponding consumers establish
+55 far pointers, 11 category-list pointers, and 61 page indexes as static
+contracts. `Data_3F_4011` remains neutral because the purpose of the `$02` value
+stored in `wRam_C2DC` is unresolved. `3F:40B7..40B9` is a zero-word terminator
+checked before a bank byte is read, not padding or a far pointer. No new runtime
+claim follows. The bounded 268-byte span matches the original ROM; full
+reconstruction equivalence remains determined by `make`. See
+[`docs/research/html_index_bank3f_naming.md`](docs/research/html_index_bank3f_naming.md).
+
+The debug-flags screen's single object record now names its frame and script
+`DebugFlags_CursorFrame0` and `DebugFlags_CursorScript`; four redundant generic
+aliases at the table/data/frame/script addresses were retired after checking
+maintained-source references. The table links to `DebugFlags_ObjAnimData`, the
+frame contains one OAM entry, and the script selects frame 0 for four ticks.
+The structure is CONFIRMED; association with the cursor is PROBABLE. Existing
+traces label the debug path forced-only, so this does not establish natural
+execution. See
+[`docs/research/debug_flags_cursor_sprite.md`](docs/research/debug_flags_cursor_sprite.md).
+
+The bank-4D graphics catalog now uses the current owner symbols for eight
+ChoiceMenu entries: the shared `$5810` tilemap/attribute-map base and six tile
+payloads. This is a metadata-only correction in the `label` column; the eight
+referenced payloads total 4,560 bytes and retain their recorded hashes. It
+does not add PNG round-trip evidence or change ROM data. The English fallback
+pin for `gfx/assets.tsv` was already stale before this pass and remains
+untouched; no English build or manifest update was performed. See
+[`docs/research/gfx_assets_bank4d_label_sync.md`](docs/research/gfx_assets_bank4d_label_sync.md).
+The required `make png-check` initially exposed a pre-existing ordering drift
+between the 950 generated PNG rules and the asset manifest. Regenerating the
+two sidecars changed only row order; all rule records, payload sizes and hashes
+remain the same, and the PNG check now passes.
+
+The mail connection-screen owner also had 23 redundant `Data_27_*` aliases under existing descriptive graphics and animation labels. They were removed after confirming same-address symbols and no generic references, tool/metadata mentions or local scopes; the byte-identical build and static checks pass. See the [generic data-label audit](docs/research/generic_data_name_audit_20261020.md).
+
+The communication-scene graphics owner also lost 22 redundant `Data_70_*` aliases under exact-address frame, animation-script and graphics labels. Current symbols and source scans confirmed no generic-name consumers; bytes and confidence are unchanged. The byte-identical build and symbol, palette and PNG checks pass. Details are in the [generic data-label audit](docs/research/generic_data_name_audit_20261020.md).
+
+The communication-error text owner also lost 21 redundant `Data_21_*` aliases under exact-address descriptive text-record labels. Current symbol and source scans found no generic-name consumers; emitted bytes and confidence are unchanged. The byte-identical build and symbol, palette and PNG checks pass. See the [generic data-label audit](docs/research/generic_data_name_audit_20261020.md).
+
+The `audio/music/music_04.asm` owner lost 18 `Data_05_*` aliases under the existing `SoundSong04_*` labels at the same addresses. Searches found no generic-name consumers; no stream interpretation or confidence changed. Build identity and symbol, palette and PNG checks pass. See the [generic data-label audit](docs/research/generic_data_name_audit_20261020.md).
+
+The `audio/music/music_0a.asm` owner lost 18 `Data_05_*` aliases under existing `SoundSong0A_*` labels at matching addresses. Current source searches found no generic-name consumers; no musical interpretation or confidence changed. The build remains identical and all symbol, palette and PNG checks pass. See the [generic data-label audit](docs/research/generic_data_name_audit_20261020.md).
+
+The `audio/music/music_11.asm` owner lost 18 `Data_05_*` aliases under existing `SoundSong11_*` labels at matching addresses. Current source searches found no generic-name consumers; no musical interpretation or confidence changed. The build remains identical and all symbol, palette and PNG checks pass. See the [generic data-label audit](docs/research/generic_data_name_audit_20261020.md).
+
+The profile-editor graphics owner lost 17 `Data_66_*` aliases under existing descriptive resource labels at matching addresses. Current source searches found no generic-name consumers; emitted bytes and confidence are unchanged. Build identity and symbol, palette and PNG checks pass. See the [generic data-label audit](docs/research/generic_data_name_audit_20261020.md).
+
+The shared-browser menu graphics owner lost 16 `Data_72_*` aliases under existing menu-frame, script and tile labels at matching addresses. Exact-token searches found no generic-name consumers; bytes and confidence are unchanged. Build identity and symbol, palette and PNG checks pass. See the [generic data-label audit](docs/research/generic_data_name_audit_20261020.md).

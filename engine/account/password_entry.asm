@@ -22,8 +22,8 @@ Account_PasswordEntryScreen:: ; 68:5D00
 	farcall Kbd_HideInstant
 	ld a, [wPasswordEntry_Result]
 	ret
-
-Function_68_5D2F:: ; 68:5D2F
+ReturnOnly_68_5D2F:: ; 68:5D2F [PROBABLE] operation; entry/purpose HYPOTHESIS
+	; [PROBABLE] RET only; entry/purpose HYPOTHESIS; bank68_function_names row 5D2F.
 	; [PROBABLE] $5D2F is RET; following [5D30,5D9C) is a separate 108-byte candidate.
 	; No fall-through from RET; the candidate SRAM/WRAM comparison has no proven entry.
 	; Purpose HYPOTHESIS. See docs/research/naming_68_5d2f_ret_boundary.md; label unchanged.
@@ -85,7 +85,7 @@ Function_68_5D2F:: ; 68:5D2F
 	ret
 
 Account_PasswordEntry_Setup:: ; 68:5D9C
-Function_68_5D9C::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 5D9C.
 	; [CONFIRMED] 86 insn(s); 86 executed (in up to 7/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld b, $15
@@ -184,7 +184,7 @@ Table_68_5E92::
 	dw $5000, $50C8, $5190, $5258
 
 Account_PasswordEntry_OkStateFromMask:: ; 68:5E9A
-Function_68_5E9A::
+	; [HYPOTHESIS] Entry; operation PROBABLE; bank68_function_names row 5E9A.
 	; [HYPOTHESIS] 8-insn routine ld a,[$C278] ; and 4 ; ... ld [$C27E],a ; ret ; call $5FE1 ; ld
 	; [$C27E],a ; ret; the operand bytes `fa 78 c2` at 5E9A show the mapper's 5th table word ($78FA)
 	; was never a word (the 4 real words 5E92-5E9A have stride $C8); entry not proven [verifier: no
@@ -201,7 +201,7 @@ Function_68_5E9A::
 	ret
 
 Account_PasswordEntry_UpdateOkState:: ; 68:5EAE
-Function_68_5EAE::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 5EAE.
 	; [CONFIRMED] 22 insn(s); 22 executed (in up to 7/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, wTextEntryBuf

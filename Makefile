@@ -7,7 +7,7 @@
 #   make test       tools tests (SM83 decoder, config loader, legacy generator self test, PNG toolchain)
 #   make clean      remove the ROM and build/        (make tidy: same; the reference ROM is never touched)
 #   make png-check  every editable PNG (tile sheets, font sheets, screen PNGs) still satisfies its constraints; explains errors (tools/png_check.py)
-#   make palette-check  every palette that the code loads is typed as ONE palette block (tools/palette_reads_check.py)
+#   make palette-check  resolved palette loads recorded in screen_ops.tsv are typed as ONE palette block (tools/palette_reads_check.py)
 #   make png-bins   rebuild the graphics binaries from their PNGs only (no ROM); `make` does this too whenever a PNG is newer
 #   make png-export (maintainers) regenerate the PNGs (tile sheets, font sheets, screen PNGs) from the binaries; never overwrites a PNG that holds
 #                   edits not built / imported yet (FORCE=1 does)
@@ -134,7 +134,7 @@ sym-check: $(ROM)
 png-check:
 	$(PYTHON) tools/png_check.py
 
-# every palette that the code loads (ld hl, X ; ... farcall Palette_LoadToBuffer) is typed as ONE palette block (gfx/previews/screen_ops.tsv lists the loads)
+# resolved palette loads recorded in gfx/previews/screen_ops.tsv are typed as ONE palette block
 palette-check: $(ROM)
 	$(PYTHON) tools/palette_reads_check.py
 
@@ -193,3 +193,11 @@ regen verify tree tree-build tree-rom tree-verify tree-check tree-compare:
 	@exit 1
 
 -include $(OBJS:.o=.d)
+
+# Finite English locale overlay; default Japanese all/checkhash targets remain unchanged.
+.PHONY: english english-check
+english:
+	$(PYTHON) tools/build_english.py --debug "$(if $(DEBUG),$(DEBUG),0)" --rgbds "$(RGBDS)" --rgbasm "$(RGBASM)" --rgblink "$(RGBLINK)" --rgbgfx "$(RGBGFX)" --python "$(PYTHON)" --rgbasmflags="$(RGBASMFLAGS)" --rgblinkflags="$(RGBLINKFLAGS)"
+
+english-check:
+	$(PYTHON) tools/build_english.py --debug "$(if $(DEBUG),$(DEBUG),0)" --rgbds "$(RGBDS)" --rgbasm "$(RGBASM)" --rgblink "$(RGBLINK)" --rgbgfx "$(RGBGFX)" --python "$(PYTHON)" --rgbasmflags="$(RGBASMFLAGS)" --rgblinkflags="$(RGBLINKFLAGS)" --check

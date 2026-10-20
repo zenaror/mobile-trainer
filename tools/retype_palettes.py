@@ -111,7 +111,7 @@ def parse_model(path, sizes):
 
 
 def all_files():
-    return sorted(f for f in glob.glob('**/*.asm', recursive=True) if not f.startswith(('build/', 'tools/', 'analysis/')))
+    return sorted(f for f in glob.glob('**/*.asm', recursive=True) if not f.startswith(('build/', 'languages/', 'tools/', 'analysis/')))
 
 
 def merged_loads(ctx):
@@ -157,7 +157,7 @@ def find_regions(ctx, regs_by_bank):
 
 
 def refs_of(label):
-    out = subprocess.run(['grep', '-rwn', '--exclude-dir=build', '--exclude-dir=analysis', '--exclude-dir=docs', '--include=*.asm', '--include=*.inc', label, '.'],
+    out = subprocess.run(['grep', '-rwn', '--exclude-dir=build', '--exclude-dir=languages', '--exclude-dir=analysis', '--exclude-dir=docs', '--include=*.asm', '--include=*.inc', label, '.'],
                          capture_output=True, text=True).stdout.split('\n')
     res = []
     for o in out:

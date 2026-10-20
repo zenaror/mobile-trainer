@@ -5,7 +5,7 @@
 SECTION "engine/title/title_screen", ROMX
 
 Title_Run:: ; 0E:4000
-Function_0E_4000::
+
 	; [CONFIRMED] 70 insn(s); 70 executed (in up to 14/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld [wTitle_Arg], a
@@ -281,7 +281,6 @@ Title_MenuConfirm:: ; 0E:41E6
 	ld [wTitle_State], a
 
 Title_StateMenu_Done:: ; 0E:41FD
-Label_0E_41FD::
 	ret
 
 Title_StateExit:: ; 0E:41FE
@@ -299,7 +298,7 @@ Title_StateTimeoutRestart:: ; 0E:420A
 	ret
 
 Title_LoadTitleScreen:: ; 0E:4215
-Function_0E_4215::
+
 	; [CONFIRMED] 98 insn(s); 98 executed (in up to 14/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call VBlank_WaitAndService
@@ -410,7 +409,7 @@ Data_0E_4330::
 	db $90, $5E, $E0, $5E
 
 Title_PlaceCursor:: ; 0E:4334
-Function_0E_4334::
+
 	; [CONFIRMED] 14 insn(s); 14 executed (in up to 14/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wTitle_Cursor]
@@ -435,7 +434,7 @@ Data_0E_434B::
 	db $18, $60, $18, $70
 
 Title_LoadLogoScreen:: ; 0E:434F
-Function_0E_434F::
+
 	; [CONFIRMED] 32 insn(s); 32 executed (in up to 14/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call VBlank_WaitAndService

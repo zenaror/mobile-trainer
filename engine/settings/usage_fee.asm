@@ -5,7 +5,7 @@
 SECTION "engine/settings/usage_fee", ROMX
 
 UsageFee_Run:: ; 67:626F
-Function_67_626F::
+
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $01
@@ -63,7 +63,7 @@ Function_67_626F::
 	ret
 
 UsageFee_Request:: ; 67:62D5
-Function_67_62D5::
+
 	; [CONFIRMED] 30 insn(s); 30 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	farcall Browser_BeginSession

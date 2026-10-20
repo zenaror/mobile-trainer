@@ -5,7 +5,7 @@
 SECTION "engine/error/comm_error_screen", ROMX
 
 CommErr_ShowScreen:: ; 5C:5150
-Function_5C_5150::
+
 	; [CONFIRMED] 78 insn(s); 78 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af
@@ -116,11 +116,10 @@ CommErr_ShowScreen_ButtonA:: ; 5C:524C
 	ret
 
 CommErr_ShowScreen_Ignore:: ; 5C:5264
-Label_5C_5264::
 	jr CommErr_ShowScreen_FrameLoop
 
 Stub_Nop_5C_5266:: ; 5C:5266
-Function_5C_5266::
+
 	ret
 
 CommErr_DrawMessage:: ; 5C:5267
@@ -274,7 +273,6 @@ CommErr_PrintMessage:: ; 5C:531E
 	ret
 
 CommErr_FindRecord_NotFound:: ; 5C:53A1
-Label_5C_53A1::
 	; [PROBABLE] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1;
 	; entered by jpcc from 5C:5280 (executed) | forced execution: 6/6 instruction starts ran in
 	; forced_debug (traces/forced/, not natural evidence; status unchanged)
@@ -286,7 +284,7 @@ Label_5C_53A1::
 	ret
 
 CommErr_DrawErrorNumber:: ; 5C:53B3
-Function_5C_53B3::
+
 	; [CONFIRMED] 43 insn(s); 43 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh [hScratchA], a
@@ -400,7 +398,7 @@ Table_5C_545B::
 	db $2F, $3F, $40, $50
 
 CommErr_UpdateCommFooter:: ; 5C:546F
-Function_5C_546F::
+
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wTimerEnable]
@@ -488,7 +486,7 @@ Function_5C_546F::
 	ret
 
 CommErr_DrawFCategoryGlyph:: ; 5C:5504
-Function_5C_5504::
+
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $40

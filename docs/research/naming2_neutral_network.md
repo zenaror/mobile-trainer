@@ -1,6 +1,6 @@
-# Original mail-library argument templates
+# Original mobile-library argument templates and task state
 
-> Status: **reference (current)**. Five bounded role aliases are confirmed, one physical copy remains neutral. Existing PROBABLE storage classifications are preserved.
+> Status: **reference (current)**. Five bounded argument-role aliases are confirmed, one physical copy remains neutral. A task-state operation alias is PROBABLE. Existing storage classifications and unresolved entries are preserved.
 
 ## Six decisions
 
@@ -54,3 +54,30 @@ Original475A is03 00 A1 00 0F 00 00 80 C4 00. The first five bytes describe SRAM
 Smtp_StartMailFrom copies all10 bytes459C,15/6, and calls Mail_BuildHeaderField45A9 with C1/B6. That helper46E8 selects W5 and invokes selector8 through Mail_DispatchFar. ComposeInit4EED loads the first five output bytes and saves a pointer to the remainder. FetchComposeItem4F3D consumes four-byte items until length0. Initial length0 produces the fixed B6 header without a variable item; later Smtp_MeasureField writes measured length into C245 for address/subject fields using the existing C480 pointer. Other fixed headers set the length back to0. The final list byte atC249 terminates after the one item. Smtp uses B0/3/5/7/8/0A for later fields and mutates output pointer/free-capacity bytes after each emitted field.
 
 HeaderBuild, ComposeNext, ComposeInit and FetchComposeItem each run105/6 across these field invocations. Existing source directly reads/writes C241:C242 and C243:C244, and the composer consumes the item-length/pointer tail; the role is a reusable header-compose argument seed, not SMTP network command bytes or tile data. C480 is fixed WRAM input, despite the supplied SRAM-bank field00. Existing RAM alias meanings/confidence remain unchanged; no new alias is created for C240.
+
+## Task-state operation alias at 54:41C5 (2026-10-15)
+
+`Mobile_InitTaskStateKind1` is a PROBABLE descriptive alias for `Function_54_41C5`, which is preserved. It names only the initialization C1DB=3, C1D8=1, C1D9=0. Entry, caller and specific operation purpose remain HYPOTHESIS. The global neutral-group count is a separate naming ledger, not a measure of semantic completion.
+
+Original ROM SHA-256 is `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570` (2097152 bytes). Original offset0x1501C5 / bank54:41C5..41D4 exclusive contains `3e03eadbc13e01ead8c1afead9c1c9`, seven instructions/15 bytes. The full15-byte sequence is unique in that ROM. Its first14 bytes/six instructions occur at eleven positions, all in bank54; ten siblings have existing natural instruction coverage:
+
+|14-byte prefix, end exclusive|Maintained source first instruction|Hits/scenarios for each of six starts|
+|---|---|---:|
+|54:403D..404B|`engine/mobile/connection.asm:54`|249/39|
+|54:418C..419A|`engine/mobile/connection.asm:236`|119/27|
+|54:423C..424A|`engine/mobile/connection.asm:363`|186/25|
+|54:42A0..42AE|`engine/mobile/http.asm:21`|134/18|
+|54:4501..450F|`engine/mobile/smtp.asm:11`|17/7|
+|54:453B..4549|`engine/mobile/smtp.asm:43`|14/6|
+|54:4578..4586|`engine/mobile/smtp.asm:81`|15/6|
+|54:485F..486D|`engine/mobile/pop3_top.asm:12`|65/21|
+|54:4CBD..4CCB|`engine/mobile/pop3_retr.asm:18`|34/7|
+|54:53A4..53B2|`engine/mobile/pop3_dele.asm:25`|37/8|
+
+These are partial twins, not complete-function twins: the candidate immediately returns at41D3, whereas the siblings continue into distinct argument setup, SDK calls or state-dependent work. No prefix match establishes the candidate's caller or a connection/disconnect/cancel/protocol purpose. The parameterized HTTP POST prefix at54:4313 differs only in the immediate value3 stored to C1D8; it is not an exact match.
+
+The consumers support a task-state interpretation independently of existing symbol names. Bank54:4071 increments C1D9 and branches by step (557 hits/38 scenarios);54:48B8 does the same in another poll (95/21). Bank54:409F..40A7 loads C1D8, clears bit0 and tests bit1 (130/37);54:4135 clears it (130/37), as do54:41BF (107/26) and54:4532 (12/6). Bank54:4393 tests C1DB against zero (10/2), then4399/439C select and decrement it when nonzero (9/2) before redirect processing. Kind1 is a numeric state value, not a unique operation identity. Existing RAM-name confidence is unchanged.
+
+The candidate's six prefix starts have no row in the existing natural69 union; this is a bounded existing-corpus observation, not a fresh negative sweep or proof of unreachability. The [earlier bounded entry note](typing_54_41c5_entry_limits.md) records caller/entry and forced-corpus limitations. No new caller inventory or runtime run is claimed here. The separate54:41D4..423C poll cannot be attached through ordinary fall-through across RET41D3. The old25-instruction header combined prefix and poll setup; the accepted seven-instruction boundary remains.
+
+The ordinary local contract preserves BC/DE/HL and leaves A0/Z1/NHC0, assuming bank54 fetch, writable WRAM0, a valid nonaliasing return stack and no intervening interrupt. A descriptive body alias does not prove natural entry. The source change replaces one blank owner line with an alias and revises six comment lines; instruction lines278..284 and every other owner row remain intact. It changes no source operand or intended ROM byte. Existing corpus observations do not supply a new runtime or hardware result. Reconstruction equivalence requires the original-ROM build, symbol check and complete byte comparison.

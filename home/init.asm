@@ -97,17 +97,17 @@ Boot:: ; 00:0278
 	ei
 
 Boot_MainLoop:: ; 00:0328
-Label_00_0328::
+
 	farcall Main_Run
 
 Boot_MainLoop_Repeat:: ; 00:032E
-Function_00_032E::
-	; [CONFIRMED] continuation
+	; Historical address alias retired; operation PROBABLE; independent entry/purpose unproved.
+	; [PROBABLE] continuation
 	jp Boot_MainLoop
 
 Palette_SetAllWhite:: ; 00:0331
-Function_00_0331::
-	; [CONFIRMED] writes 64 bytes of $7FFF x32 (Data_00_0352) into BG palette RAM (rBCPS=$80
+	; Historical address alias retired; proper operation name retained.
+	; [CONFIRMED] writes 64 bytes of $7FFF x32 (Palette_AllWhite) into BG palette RAM (rBCPS=$80
 	; auto-inc) and OBJ palette RAM (rOCPS=$80): all 16 palettes white [reached via inferred links;
 	; raw refs 8] [executed in 41 scenarios]
 	ld a, $80
@@ -123,7 +123,7 @@ Function_00_0331::
 	ret
 
 Palette_WritePort64:: ; 00:034A
-Function_00_034A::
+	; Historical address alias retired; proper operation name retained.
 	; [CONFIRMED] copies 64 bytes from [HL] to the I/O port at $FF00+C (palette data port helper)
 	; [reached via inferred links; raw refs 4] [executed in 41 scenarios]
 	ld b, $40
@@ -134,10 +134,10 @@ Function_00_034A::
 	jr nz, .loop
 	ret
 
-; ---- data $0352-$0392 (64 bytes) [CONFIRMED] 32 x $7FFF (white) = 64 bytes, source for Function_00_0331 (ld hl,$0352 at 0335/0341)
+; ---- data $0352-$0392 (64 bytes) [CONFIRMED] 32 x $7FFF (white) = 64 bytes, source for Palette_SetAllWhite (ld hl,$0352 at 0335/0341)
 
 Palette_AllWhite:: ; 00:0352
-Data_00_0352::
+
 	db $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F
 	db $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F
 	db $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F

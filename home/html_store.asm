@@ -5,10 +5,10 @@
 SECTION "home/html_store", ROM0
 
 HtmlStore_BuildPageUrl:: ; 00:131A
-Function_00_131A::
-	; [CONFIRMED] two-level string lookup in bank 3F: pointer table at 3F:4000 indexed by B -> copy
-	; string to HL; then 3-byte entries (addr,bank) indexed by BC -> copy second string [reached via
-	; inferred links; raw refs 43] [executed in 5 scenarios]
+	; Historical address alias retired; proper operation name retained.
+	; [CONFIRMED] bank3F index: B chooses prefix; C chooses a far filename (first3E:48A4).
+	; Copy prefix then that filename to HL, following the selected record bank byte.
+	; Existing entry observed in 5 historical scenarios; no arbitrary-index/buffer guarantee.
 	call BankSwitch_H
 	push hl
 	ld hl, Table_HtmlStore_KeywordPointers
@@ -56,13 +56,13 @@ Function_00_131A::
 	ret
 
 HtmlStore_LoadPage:: ; 00:1354
-Function_00_1354::
-	; [CONFIRMED] keyword search in bank 3F: walks the word-pointer list at 3F:4000 comparing each
-	; string with the text at HL; on a match stores the byte after it in C2DC, walks the entry list
-	; (addr16 + bank byte) and copies the matching payload with CopyBytes (limited by BC); writes
-	; the length words at [HL]; writes zeros when nothing matches [reached via inferred links; raw
-	; refs 23] | 40 insn(s) executed; cut out of the PROBABLE region 1354-1408 by apply_coverage
-	; --split [executed in 8 scenarios]
+	; Historical address alias retired; proper operation name retained.
+	; [CONFIRMED] bank3F prefix index, then far filename records (first3E:48A4).
+	; Entry capacity L; ordinary branch copies n=min(record_length,L-2) to output+2.
+	; Header=(n-2) mod65536, not n; no-match header0. See dated original-contract note.
+	; High(L-2)==$FF is an early reject, not a general checked-buffer guarantee.
+	; Existing entry/main-path coverage does not confirm all inputs or unobserved branches.
+	; [executed in 8 historical scenarios]
 	dec bc
 	dec bc
 	ld a, b

@@ -5,7 +5,7 @@
 SECTION "engine/account/delete_registration", ROMX
 
 Registration_DeleteFlow:: ; 68:7951
-Function_68_7951::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 7951.
 	; [CONFIRMED] 26 insn(s); 26 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $08
@@ -52,7 +52,7 @@ Function_68_7951::
 	ret
 
 Registration_DeleteConfirmPage:: ; 68:799A
-Function_68_799A::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 799A.
 	; [CONFIRMED] 105 insn(s); 105 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld [wDeleteConfirm_Variant], a
@@ -203,11 +203,10 @@ Registration_DeleteConfirm_UpdateCursor:: ; 68:7B01
 ; ---- data $7B19-$7B1D (4 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
 Registration_DeleteCursorPositions:: ; 68:7B19
-Data_68_7B19::
 	db $28, $30, $58, $30
 
 Registration_DeleteConfirm_PrintMessage:: ; 68:7B1D
-Function_68_7B1D::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 7B1D.
 	; [CONFIRMED] 119 insn(s); 119 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld de, $FFFF
@@ -421,7 +420,7 @@ Table_68_7C6B::
 	ret
 
 Registration_DeleteExecute_PrintMessage:: ; 68:7D1C
-Function_68_7D1C::
+	; [CONFIRMED] Entry; role PROBABLE; bank68_function_names row 7D1C.
 	; [CONFIRMED] 46 insn(s); 46 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $03

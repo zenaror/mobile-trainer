@@ -5,7 +5,7 @@
 SECTION "engine/profile/profile_editor", ROMX
 
 Profile_Edit:: ; 2A:5495
-Function_2A_5495::
+
 	; [CONFIRMED] 44 insn(s); 44 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld [wMailScreenMode], a
@@ -77,7 +77,6 @@ Profile_Edit_Loop:: ; 2A:54FD
 	jp z, Profile_Edit_CheckButtonB
 
 Profile_Edit_RunKeyboard:: ; 2A:552A
-Label_2A_552A::
 	push af
 	push bc
 	ld de, $40D0
@@ -325,7 +324,7 @@ Label_2A_552A::
 	; [HYPOTHESIS] no branch/call/pointer to any address in $56CB-$56EC was found (tgt scan of all
 	; code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen
 	; code; linear decode is legal and continues exactly into the next region: call chain (call
-	; $6257, 9 x call $577F, jp $54FD, call $62C5): all call targets are known code; directly after
+	; $6257, 8 x call $577F, jp $54FD, call $62C5): all call targets are known code; directly after
 	; the unconditional 'jp $54FD' at 2A:56C8
 	call Profile_LoadAndDraw
 	call Profile_MoveCursorRight
@@ -341,7 +340,6 @@ Label_2A_552A::
 	call Profile_SaveToSram
 
 Profile_Edit_CheckButtonB:: ; 2A:56EC
-Label_2A_56EC::
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressed]
 	and a, PADF_B
@@ -356,7 +354,6 @@ Label_2A_56EC::
 	pop bc
 
 Profile_Edit_Exit:: ; 2A:5706
-Label_2A_5706::
 	; [CONFIRMED] 21 insn(s); 21 executed (in up to 1/18 scenarios)
 	farcall Stat_DisableScrollSplit
 	call VBlank_Wait
@@ -373,7 +370,6 @@ Label_2A_5706::
 	ret
 
 Profile_Edit_DPad:: ; 2A:5731
-Label_2A_5731::
 	ldh a, [hJoyPressedRepeat]
 	and a, PADF_LEFT
 	call nz, Profile_CursorLeft
@@ -422,7 +418,7 @@ Profile_CursorRight:: ; 2A:576B
 	pop bc
 
 Profile_MoveCursorRight:: ; 2A:577F
-Function_2A_577F::
+
 	; [CONFIRMED] 1 insn(s); 1 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	jr .l578A
@@ -482,7 +478,7 @@ Function_2A_577F::
 	ret
 
 Profile_InitScreen:: ; 2A:57BD
-Function_2A_57BD::
+
 	; [CONFIRMED] 123 insn(s); 123 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	farcall Sprite_ResetAll
@@ -1181,7 +1177,7 @@ Profile_CharPtr:: ; 2A:5C5B
 	ret
 
 Profile_FindLine:: ; 2A:5C8F
-Function_2A_5C8F::
+
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -1954,7 +1950,7 @@ POPC
 	ret
 
 Profile_KeyboardLoop:: ; 2A:6148
-Function_2A_6148::
+
 	; [CONFIRMED] 78 insn(s); 78 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -2110,7 +2106,7 @@ Profile_KeyboardLoop_Poll:: ; 2A:617B
 	ret
 
 Profile_LoadAndDraw:: ; 2A:6257
-Function_2A_6257::
+
 	; [CONFIRMED] 81 insn(s); 81 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc

@@ -41,7 +41,7 @@ CommTime_ShowSummary:: ; 51:4000
 	ret
 
 CommTime_DrawSummaryScreen:: ; 51:404A
-Function_51_404A::
+
 	; [CONFIRMED] 42 insn(s); 42 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call LCDOff
@@ -208,7 +208,6 @@ Function_51_404A::
 	ldh [hDialogResult], a
 
 CommTime_Summary_FrameLoop:: ; 51:4199
-Label_51_4199::
 	farcall Sprite_UpdateAll
 	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
@@ -226,32 +225,26 @@ Table_51_41B1::
 	dw CommTime_Summary_FrameLoop
 
 CommTime_SummaryInput_ButtonA:: ; 51:41BB
-Label_51_41BB::
 	; [CONFIRMED] 1 insn(s); 1 executed (in up to 2/18 scenarios)
 	jp CommTime_Summary_Close
 
 CommTime_SummaryInput_IgnoreB:: ; 51:41BE
-Label_51_41BE::
 	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1;
 	; entered by table from 51:41AE (executed) [executed in 2 scenarios]
 	jp CommTime_Summary_FrameLoop
 
 CommTime_SummaryInput_IgnoreSelect:: ; 51:41C1
-Label_51_41C1::
 	jp CommTime_Summary_FrameLoop
 
 CommTime_SummaryInput_IgnoreStart:: ; 51:41C4
-Label_51_41C4::
 	jp CommTime_Summary_FrameLoop
 
 CommTime_Summary_Close:: ; 51:41C7
-Label_51_41C7::
 	; [CONFIRMED] 14 insn(s); 14 executed (in up to 4/18 scenarios)
 	farcall Palette_FadeOutToWhite
 	farcall Sprite_ResetAll
 
 CommTime_Summary_Exit:: ; 51:41D3
-Label_51_41D3::
 	ldh [hJoyDispatchExtraMask], a
 	ldh a, [hDialogResult]
 	ret
@@ -335,7 +328,7 @@ Data_51_4225::
 	db $6E, $7E, $6E, $7F
 
 CommTime_TimerAIsNonZero:: ; 51:4239
-Function_51_4239::
+
 	; [CONFIRMED] 26 insn(s); 26 executed (in up to 7/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push hl

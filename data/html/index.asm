@@ -1,6 +1,6 @@
 ; data/html/index.asm
 ; bank 3F, $4000-$410C (268 bytes); pinned by layout.link
-; far-pointer index of the 55 records, 'file://di/' prefix, topic lists (read by home/html_store.asm)
+; built-in HTML page pointers and URL prefix; Mobile Dictionary category-to-page lists
 
 SECTION "data/html/index", ROMX
 
@@ -11,22 +11,28 @@ PUSHC sjis
 ; HtmlStore_LoadPage walks and compares the pointed-to strings. Both consumers ran naturally.
 
 Table_HtmlStore_KeywordPointers:: ; 3F:4000
-Data_3F_4000::
 	db $06, $40, $06, $40, $00, $00
 
-; ---- text $4006-$4011 (11 bytes) [PROBABLE] html_url_prefix: "file://di/",0 (ASCII) (verified structure, layout from engine code)
+; ---- text $4006-$4011 (11 bytes) [CONFIRMED] NUL-terminated URL prefix pointed to twice by
+; Table_HtmlStore_KeywordPointers. HtmlStore_BuildPageUrl at 00:1334 copies it; HtmlStore_LoadPage
+; at 00:137E compares it, both with ROM bank $3F selected. Static bytes and consumers verified.
 
-String_3F_4006:: ; 3F:4006
+String_HtmlStore_UrlPrefix:: ; 3F:4006
 	db "file://di/", 0
 
-; ---- data $4011-$4012 (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 4006-403F by higher-priority evidence]
+; ---- data $4011-$4012 (1 bytes) [CONFIRMED] HtmlStore_LoadPage at 00:1390 reads this byte
+; after the matched prefix and stores it in wRam_C2DC, then advances to the page-pointer list.
+; The value is $02; no reader of wRam_C2DC is identified. Field meaning remains unknown.
 
 Data_3F_4011:: ; 3F:4011
 	db $02
 
-; ---- data $4012-$40B7 (165 bytes) [PROBABLE] html_index: 55 x 3-byte far pointers (addr16, bank) to the 55 html records; all targets match record starts (verified structure, layout from engine code)
+; ---- data $4012-$40B7 (165 bytes) [CONFIRMED] 55 page-record far pointers (addr16, bank).
+; HtmlStore_BuildPageUrl at 00:1334 advances past the prefix NUL and one byte, then indexes by
+; 3 * C; HtmlStore_LoadPage at 00:139A walks the same triples, selecting each record bank.
+; All 55 targets are unique filename/NUL/length/HTML records in banks $3D/$3E. Static proof.
 
-Data_3F_4012:: ; 3F:4012
+Table_HtmlStore_PageFarPointers:: ; 3F:4012
 	db $A4, $48, $3E, $CC, $40, $3E, $3B, $44, $3E, $F2, $42, $3E, $C6, $49, $3E, $D3
 	db $45, $3E, $00, $40, $3E, $E8, $6D, $3E, $A7, $46, $3E, $42, $4B, $3E, $A3, $47
 	db $3E, $26, $50, $3E, $4D, $4C, $3E, $27, $4D, $3E, $EC, $53, $3E, $4F, $4E, $3E
@@ -39,18 +45,25 @@ Data_3F_4012:: ; 3F:4012
 	db $7F, $46, $3D, $D1, $48, $3D, $E8, $49, $3D, $BE, $4A, $3D, $38, $4C, $3D, $25
 	db $4E, $3D, $9F, $4F, $3D
 
-; ---- zero $40B7-$40B9 (2 bytes) [PROBABLE] 0x00 pad (2 bytes) between the 55-entry (addr,bank) page table 4012-40B7 and the word table at 40B9
+; ---- zero $40B7-$40B9 (2 bytes) [CONFIRMED] zero-word terminator of the preceding page list:
+; HtmlStore_LoadPage at 00:139A tests the address word before reading the bank byte. Static proof;
+; no execution of this no-match terminator path is claimed.
 	ds $2, $00
 
-; ---- data $40B9-$40CF (22 bytes) [PROBABLE] html_topic_starts: 11 ascending words pointing into the byte lists that follow (verified structure, layout from engine code)
+; ---- data $40B9-$40CF (22 bytes) [CONFIRMED] 11 little-endian pointers to category page-index
+; lists in this bank. MobileDict_OnA at 1A:4192 indexes by 2 * (wMobileDict_Category - 1),
+; reads both bytes with ReadByteFar (bank $3F), then indexes the chosen list by scroll + row - 1.
 
-Data_3F_40B9:: ; 3F:40B9
+Table_MobileDict_CategoryPageLists:: ; 3F:40B9
 	db $CF, $40, $D8, $40, $DA, $40, $E2, $40, $E5, $40, $E9, $40, $F0, $40, $FE, $40
 	db $FF, $40, $01, $41, $02, $41
 
-; ---- data $40CF-$410C (61 bytes) [PROBABLE] html_topic_lists: 61 index bytes (all <= 0x36 = highest html file index) in 11 lists delimited by the word table; probably file index lists per topic (unverified) (verified structure, layout from engine code)
+; ---- data $40CF-$410C (61 bytes) [CONFIRMED] concatenated category page indices. The 11 list
+; lengths are 9,2,8,3,4,7,14,1,2,1,10, matching the counts at Table_MobileDict_Categories in bank
+; $1A. MobileDict_OnA reads one byte (bank $3F) into C and calls MobileDictView_Show with B=0;
+; the viewer passes B/C to HtmlStore_BuildPageUrl. Every index is in $00..$36. Static proof.
 
-Data_3F_40CF:: ; 3F:40CF
+Data_MobileDict_CategoryPageIndices:: ; 3F:40CF
 	db $01, $05, $02, $03, $0E, $36, $35, $24, $25, $0F, $00, $2E, $35, $17, $29, $2B
 	db $2A, $0A, $30, $2F, $0C, $2C, $22, $23, $20, $21, $26, $0F, $08, $28, $07, $10
 	db $12, $1C, $1B, $0D, $02, $19, $1C, $1A, $1E, $16, $2D, $14, $04, $15, $13, $32

@@ -333,3 +333,79 @@ for the effects; block A (lines 4-5) applies alone (dry run).  Without the conve
 * The `SoundSfx` prefix rests on caller classification (static immediates, 367 sites) and the sound-test text; per-id execution was not checked (ids `$29-$46` except `$37` have an immediate caller; `$37` was never played in the 64 scenarios and has none).
 * Nothing was written to the real repository, to the OMM, or to the network.
 
+## Maintained-source follow-up (2026-10-20)
+
+The current source retains `SoundSong01_Track1`, `SoundSong01_Track2`,
+`SoundSong01_Track3` and `SoundSong01_Header` at 04:5788, 04:57F3, 04:5832 and
+04:58BC. Four redundant exact-address `Data_04_*` aliases were retired after
+the current-source census found no active source/tool/metadata references or
+scoped locals. Their old spellings remain only in the historical rename map
+`analysis/naming2/audio2_renames.tsv:47-50`; the converter consumes the
+`SoundSong*` names. The separate historical `Data_04_574D` discussion above
+describes an earlier version. Current source now retains only
+`SoundSong01_Track0` at 04:574D; the redundant `Data_04_574D` alias was retired.
+
+The same current-source follow-up retired 35 redundant `Data_05_*` aliases in
+`audio/music/music_17.asm`. Each exact address retains its `SoundSong17_*`
+identity; a current maintained ASM/include scan found no other consumers.
+The old names in `analysis/naming2/audio6_renames.tsv`, mapper analysis and
+`config/` remain historical/frozen records, not current symbol definitions.
+After this pass, `make` still reports `RESULT: IDENTICAL` against the original
+ROM hash, `make sym-check` reports 14,597 labels and 51 constants, and
+`make palette-check` reports 162 loads, 116 arrays, two documented over-reads
+and zero errors. An independent snapshot review accepted the exact 35-line
+removal; it did not rerun the global census or build.
+
+At checkpoint `9c371690`, the preceding 35-alias `music_17.asm` cleanup was
+published and gates reported 14,597 labels. In the current `music_05.asm`
+pass, 31 exact-address `Data_04_*` aliases were retired in favor of the existing
+`SoundSong05_*` labels. The current maintained ASM/include scan found no
+outside consumers or local scopes; old spellings remain in frozen history.
+The independent snapshot review accepted the exact 31-line removal. At this
+pass, `make` reported `RESULT: IDENTICAL` against the original ROM hash,
+`make sym-check` reported 14,566 labels and 51 constants, and
+`make palette-check` reported 162 loads, 116 arrays, two documented over-reads
+and zero errors. The review did not repeat the full global census or build.
+
+The next paired pass removes 20 redundant `Data_05_*` aliases from each of
+`audio/music/music_12.asm` and `audio/music/music_0e.asm`. Their exact-address
+`SoundSong12_*` and `SoundSong0E_*` labels remain. Both pre-edit source hashes
+match the pinned census inputs; current ASM/include search finds no outside
+consumers or local scopes. The independent review covered the snapshots,
+matrix, and documentation; it did not rerun the global census or build.
+Coordinator-run gates for this edited tree: `make` reported
+`RESULT: IDENTICAL` (original SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`),
+`make sym-check` reported 14,526 labels and 51 constants, and
+`make palette-check` reported 162 loads, 116 arrays, two documented over-reads,
+and zero errors.
+
+The following `music_14.asm` pass retires 18 `Data_05_*` aliases with existing
+same-address `SoundSong14_*` labels. It keeps four positions that have no
+same-file descriptive co-alias. The pre-edit owner hash matches the pinned
+census input; a current pre-edit ASM/include scan found no outside consumers
+or local scopes. Independent review accepted the exact diff, preserved
+co-aliases/directives and zero emitted-byte delta; the reviewer did not rerun
+the census or build. Coordinator-run gates: `make` reported
+`RESULT: IDENTICAL` against the original SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`,
+`make sym-check` reported 14,508 labels and 51 constants, and
+`make palette-check` reported 162 loads, 116 arrays, two documented over-reads,
+and zero errors.
+
+The SFX owner `audio/sfx.asm` also retired its 76 redundant `Data_05_*` labels
+in favor of same-address `SoundSfx*` names. The base-pinned census reports no
+references, metadata mentions or scoped-local uses for these aliases; the
+76-line source diff preserves every remaining directive. The original ROM
+remains `RESULT: IDENTICAL` with SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
+`make sym-check` reports 14,633 labels and 51 constants, and
+`make palette-check` reports 162 loads, 116 arrays, two documented over-reads
+and zero errors. These are redundancy cleanups, not new audio semantics or
+runtime evidence; prior PROBABLE classifications remain unchanged.
+
+The optional whole-tree `python3 tools/audio_to_macros.py --check` exits 1 in
+this checkout because 26 other audio files are not yet in the form written by
+that converter; `audio/sfx.asm` is not among the listed files. This is outside
+the alias-only pass and is not treated as a gate result for it.
+

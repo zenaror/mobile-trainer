@@ -21,7 +21,6 @@ Debug_ErrorScreenTest:: ; 19:4980
 	farcall Stub_Nop_48_48BB
 
 DebugErrorTest_SetupScreen:: ; 19:4990
-Label_19_4990::
 	ldh a, [rLCDC]
 	and a, $9F
 	ldh [rLCDC], a
@@ -186,7 +185,6 @@ DebugErrorTest_OnA:: ; 19:4B12
 	jp DebugErrorTest_SetupScreen
 
 DebugErrorTest_IgnoreB:: ; 19:4B3B
-Label_19_4B3B::
 	jp DebugErrorTest_Loop
 
 DebugErrorTest_Exit:: ; 19:4B3E
@@ -195,7 +193,6 @@ DebugErrorTest_Exit:: ; 19:4B3E
 	ret
 
 DebugErrorTest_IgnoreStart:: ; 19:4B47
-Label_19_4B47::
 	jp DebugErrorTest_Loop
 
 DebugErrorTest_HandleDpad:: ; 19:4B4A

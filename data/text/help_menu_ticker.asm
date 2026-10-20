@@ -6,7 +6,7 @@ SECTION "data/text/help_menu_ticker", ROMX
 
 PUSHC sjis
 
-; ---- ptrtable $64B1-$64D3 (34 bytes) [PROBABLE] little-endian word table, 17 entries, monotone=0.94, 94% of targets on string start/after NUL, targets $6A64..$6630
+; ---- data $64B1-$64D3 (34 bytes) [PROBABLE] mixed physical span: $64 at $64B1 finishes Objects_HelpMenu; bank byte $6A at $64B2 plus eight title/body pointer pairs at $64B3-$64D3 feed Ticker_Start via HelpMenu_ShowItemText. Original dw spelling/boundaries retained; not 17 independent pointers.
 
 Table_6A_64B1:: ; 6A:64B1
 	dw $6A64
@@ -18,7 +18,7 @@ Table_6A_64B1:: ; 6A:64B1
 	dw $6546
 	dw $6567
 	dw $6576
-	dw Data_6A_65A1
+	dw String_HelpMenu_MailTitle
 	dw String_6A_65A8
 	dw $65C3
 	dw $65D2
@@ -39,9 +39,9 @@ String_6A_64D3:: ; 6A:64D3
 	db "モバイルじてん", 0
 	db "わからないことばを　しらべることができます", 0
 
-; ---- data $65A1-$65A8 (7 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 6567-65F5 by higher-priority evidence]
+; ---- text $65A1-$65A8 (7 bytes) [CONFIRMED] Shift-JIS/NUL title selected by zero-based ticker record 4 (page 2, item 1): three paired characters plus NUL. Source/ROM reader proof identifies the role; all 7 bytes have existing natural data reads, without temporal reader/render attribution.
 
-Data_6A_65A1:: ; 6A:65A1
+String_HelpMenu_MailTitle:: ; 6A:65A1
 	db "メール", 0
 
 ; ---- text $65A8-$6651 (169 bytes) [PROBABLE] text: 7 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -58,7 +58,6 @@ String_6A_65A8:: ; 6A:65A8
 ; ---- data $6651-$6652 (1 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
 
 Table_HelpMenu_LockedItemTicker:: ; 6A:6651
-Data_6A_6651::
 	db $6A
 
 ; ---- words $6652-$665E (12 bytes) [PROBABLE] 3 x 4-byte entries: [0000 0000] [6672 667B] [6696 669F]; entry = pair of pointers to two NUL-terminated Shift-JIS strings (title/label) in 6A:6672-66F5; 6651 byte 6A read separately

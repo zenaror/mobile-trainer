@@ -7,7 +7,7 @@ SECTION "audio/wave_samples", ROMX
 ; ---- data $547D-$551D (160 bytes) [CONFIRMED] Table_SoundDrv_WavePatterns: 10 patterns of 16 bytes = 32 4-bit samples (high nibble first in wave RAM), copied unchanged to $FF30-$FF3F by SoundDrv_WriteChannelParams 04:4EB3-4EC8 for a wave-channel instrument (byte 0 - $10 = pattern) | superseded note: [PROBABLE] 10 CGB wave-RAM patterns x 16 bytes (32 4-bit samples each: 00 11 23 56 89 AC DE EF FF EE DC A9 86 53 21 10 ; 01 23 45 ... ; FF FF 00.. pulse shapes ; ...); 547D+160 = 551D = start of the song table
 
 Table_SoundDrv_WavePatterns:: ; 04:547D
-Data_04_547D::
+
 	sound_wave_pattern \
 		$0, $0, $1, $1, $2, $3, $5, $6, $8, $9, $A, $C, $D, $E, $E, $F, \
 		$F, $F, $E, $E, $D, $C, $A, $9, $8, $6, $5, $3, $2, $1, $1, $0 ; wave 0 (instrument byte 0 = $10)
