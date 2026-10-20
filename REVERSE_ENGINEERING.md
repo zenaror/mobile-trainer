@@ -865,3 +865,6 @@ ROOT deve exigir os três logs literais; RC0 sozinho não certifica replay compl
 Mapas/SYM, ASM/OBJ e bytes previstos de31 não recebem delta por este reparo de
 metadados. Artefatos/aceites v1 permanecem evidência finita do protocolo anterior;
 sem adoção MAIN nessa versão. English e evidência natural/hardware não avançam.
+
+
+The AdapterCheck and phone-entry graphics owner has a descriptive Bank 4A path, with 26 resource files moved under the consumer-specific directory. The resource payloads, including the ten existing PNG views and two inactive legacy byte-views, are retained byte for byte. The mixed `$9400` upload keeps its tile-prefix qualifier; `Data_4A_6480` is retired as a redundant alias while `Gfx_AdapterCheck_Tiles9400Vb1` remains the catalog label. This source unit changes 27 paths and 72 metadata cells, predicts one fewer symbol, and preserves the existing confidence and rendering limits. The root integration gates are still required before claiming byte-identical rebuild. See [the path contract](docs/research/adapter_check_and_phone_entry_4a_resource_paths.md). English remains suspended.

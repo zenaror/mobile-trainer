@@ -135,3 +135,12 @@ de outros usos.
 Nenhum helper, teste, build, emulador, export ou render foi executado neste passe.
 Só ROOT, após revisão independente e composição no parent real, pode integrar
 e executar as verificações autorizadas para confirmar a ROM e o delta real SYM.
+
+
+## Localização atual e proveniência após a migração 4A (2026-10-18)
+
+A [tipagem dos 80 bytes foi publicada](https://github.com/zenaror/mobile-trainer/commit/0c02c5369e47597f022df0663a2749acb3bfb12c). A descrição anterior registra os paths retidos naquele passe; não é uma promessa de conservar esses paths em migrações posteriores.
+
+Os arquivos legados atuais são `gfx/settings/adapter_check_and_phone_entry_bank4a/legacy_byteviews/adapter_check_object_data_4a_68d0.2bpp` (80 B) e `gfx/settings/adapter_check_and_phone_entry_bank4a/legacy_byteviews/adapter_check_object_data_4a_68d0.png` (PNG 40×8, 184 B). Os bytes, pixels e hashes são os mesmos dos caminhos históricos `gfx/settings/screens_bank4a/tiles_68d0.2bpp` e `gfx/settings/screens_bank4a/tiles_68d0.png`. Eles ficam fora do catálogo e das regras ativas; a região PROBABLE em 4A:68D0 é editada em ASM/macros, e seus 11 zeros finais continuam UNKNOWN.
+
+O owner atual é `gfx/settings/adapter_check_and_phone_entry_bank4a.asm`. A raiz e seus seis nomes globais próprios mantêm os mesmos endereços, níveis e bytes. Os arquivos legados são referências preservadas, sem INCBIN, linha de catálogo ou regra PNG ativa para a região. O [mapa de paths](gfx_resource_path_map.tsv) e a [nota da migração](adapter_check_and_phone_entry_4a_resource_paths.md) ligam os nomes antigos aos atuais. A proposta de caminhos não altera os selos ou capturas da tipagem e não constitui um novo resultado natural ou de hardware.

@@ -80,6 +80,7 @@ Reference documents (current):
 | [`password_save_confirmation_5d_resource_paths.md`](research/password_save_confirmation_5d_resource_paths.md) | Password-save confirmation resource paths, VRAM sources and variant-zero editing model |
 | [`connection_icon_probable_alias_retirement.md`](research/connection_icon_probable_alias_retirement.md) | Connection-icon structural alias retirement, corrected object ABI and retained unknowns |
 | [`adapter_check_object_data_80b.md`](research/adapter_check_object_data_80b.md) | AdapterCheck object-data structure, retained unknown tail and legacy byte-view provenance |
+| [`adapter_check_and_phone_entry_4a_resource_paths.md`](research/adapter_check_and_phone_entry_4a_resource_paths.md) | Bank 4A AdapterCheck and phone-entry resource paths, byte-held assets and mixed-window limits |
 | [`settings_choice_resource_names.md`](research/settings_choice_resource_names.md) | Phone-choice graphics aliases, HDMA extents and mixed-source limits |
 | [`title_logo_resource_names.md`](research/title_logo_resource_names.md) | Bounded original data/resource alias contracts; evidence and caller limits retained |
 | [`font_glyph_run_path_map.tsv`](research/font_glyph_run_path_map.tsv) | original glyph-run binary and PNG path migration with byte hashes |

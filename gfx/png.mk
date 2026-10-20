@@ -352,13 +352,13 @@ PNG_TILE_OUTS := \
 	gfx/registration/screens_bank58/tiles_7460.2bpp \
 	gfx/registration/screens_bank58/tiles_7650.2bpp \
 	gfx/registration/screens_bank58/tiles_7790.2bpp \
+	gfx/settings/adapter_check_and_phone_entry_bank4a/adapter_check_vram8000_vb0.2bpp \
+	gfx/settings/adapter_check_and_phone_entry_bank4a/adapter_check_vram9000_vb1.2bpp \
+	gfx/settings/adapter_check_and_phone_entry_bank4a/adapter_check_vram9400_vb1_tile_prefix_256.2bpp \
+	gfx/settings/adapter_check_and_phone_entry_bank4a/phone_keypad_and_comment_vram9000_vb1.2bpp \
+	gfx/settings/adapter_check_and_phone_entry_bank4a/phone_keypad_and_comment_vram9400_vb1.2bpp \
 	gfx/settings/password_save_confirmation_bank5d/password_save_confirm_vram9000_vb1.2bpp \
 	gfx/settings/password_save_confirmation_bank5d/password_save_confirm_vram9400_vb1.2bpp \
-	gfx/settings/screens_bank4a/tiles_5f80.2bpp \
-	gfx/settings/screens_bank4a/tiles_6080.2bpp \
-	gfx/settings/screens_bank4a/tiles_6480.2bpp \
-	gfx/settings/screens_bank4a/tiles_6920.2bpp \
-	gfx/settings/screens_bank4a/tiles_6d20.2bpp \
 	gfx/settings/screens_bank4b/tiles_5b90.2bpp \
 	gfx/settings/screens_bank4b/tiles_6a90.2bpp \
 	gfx/settings/screens_bank4b/tiles_6e90.2bpp \
@@ -784,13 +784,13 @@ gfx/registration/screens_bank58/tiles_7460.2bpp: PNG_SIZE := 496
 gfx/registration/screens_bank58/tiles_7460.2bpp: PNG_PAD := -x 1
 gfx/registration/screens_bank58/tiles_7650.2bpp: PNG_SIZE := 320
 gfx/registration/screens_bank58/tiles_7790.2bpp: PNG_SIZE := 960
+gfx/settings/adapter_check_and_phone_entry_bank4a/adapter_check_vram8000_vb0.2bpp: PNG_SIZE := 256
+gfx/settings/adapter_check_and_phone_entry_bank4a/adapter_check_vram9000_vb1.2bpp: PNG_SIZE := 1024
+gfx/settings/adapter_check_and_phone_entry_bank4a/adapter_check_vram9400_vb1_tile_prefix_256.2bpp: PNG_SIZE := 256
+gfx/settings/adapter_check_and_phone_entry_bank4a/phone_keypad_and_comment_vram9000_vb1.2bpp: PNG_SIZE := 1024
+gfx/settings/adapter_check_and_phone_entry_bank4a/phone_keypad_and_comment_vram9400_vb1.2bpp: PNG_SIZE := 1024
 gfx/settings/password_save_confirmation_bank5d/password_save_confirm_vram9000_vb1.2bpp: PNG_SIZE := 1024
 gfx/settings/password_save_confirmation_bank5d/password_save_confirm_vram9400_vb1.2bpp: PNG_SIZE := 1024
-gfx/settings/screens_bank4a/tiles_5f80.2bpp: PNG_SIZE := 256
-gfx/settings/screens_bank4a/tiles_6080.2bpp: PNG_SIZE := 1024
-gfx/settings/screens_bank4a/tiles_6480.2bpp: PNG_SIZE := 256
-gfx/settings/screens_bank4a/tiles_6920.2bpp: PNG_SIZE := 1024
-gfx/settings/screens_bank4a/tiles_6d20.2bpp: PNG_SIZE := 1024
 gfx/settings/screens_bank4b/tiles_5b90.2bpp: PNG_SIZE := 2560
 gfx/settings/screens_bank4b/tiles_6a90.2bpp: PNG_SIZE := 1024
 gfx/settings/screens_bank4b/tiles_6e90.2bpp: PNG_SIZE := 544

@@ -144,3 +144,14 @@ Evidência privada durável: `.tmp/jp-settings17-proposal-20261018/DATA/` conté
 `METADATA_REFERENCE_SURVEY.json`, `CATALOG_CELL_EDIT_PLAN.json`, `ASSETS_HELD.json`,
 `SYMBOL_DELTA.json` e readset com hashes. O scout precedente permanece selado em
 `.tmp/jp-settings-resources-next-scout-20261017/`.
+
+
+## Adendo de escopo: coalias do prefixo AdapterCheck (2026-10-18)
+
+O KEEP anterior permanece como registro do escopo daquele passe. Nesta unidade de caminhos, `Data_4A_6480` é aposentado como grafia redundante de `Gfx_AdapterCheck_Tiles9400Vb1`, ambos em 4A:6480. A definição vira uma linha vazia e somente a célula label do asset de 256 B passa a usar o nome próprio; não há operandos antigos ou locais dependentes no censo finito do parent. A confiança CONFIRMED do prefixo e os bytes/pixels permanecem.
+
+A chamada continua com C=$40, DE=$9401 e 1.024 B em 4A:6480..6880: 256 B de tiles, 64 B BG, 64 B OBJ, 360 B de tilemap e 280 B de attrmap. A retirada do alias não reduz essa janela nem a torna homogênea ou exclusiva. `Data_4B_70B0` e `Data_4B_7AD0` ficam fora desta decisão e intactos.
+
+O outro KEEP histórico, `Data_4A_68D0`/`AdapterCheck_ObjTableAndAnimData`, foi resolvido na [tipagem publicada dos 80 bytes](https://github.com/zenaror/mobile-trainer/commit/0c02c5369e47597f022df0663a2749acb3bfb12c), descrita na [nota de estrutura e proveniência](adapter_check_object_data_80b.md). A raiz foi refinada para `AdapterCheck_ObjTable`, com seis globais próprios e 11 bytes finais UNKNOWN. Este adendo de caminhos retira apenas o alias de 6480; não repete o delta de símbolos daquele passe.
+
+O escopo combinado é 27 movimentos, 72 células ativas e delta previsto de -1 símbolo; os planos/aceites de 27/71 anteriores permanecem históricos e não substituem a revisão e QA deste candidato. Os [contratos e limites de caminhos](adapter_check_and_phone_entry_4a_resource_paths.md) não alegam nova exibição natural, hardware ou cobertura universal.

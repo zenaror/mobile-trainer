@@ -210,3 +210,10 @@ python3 tools/sprite_to_macros.py --check          # exit 0: the tree is in macr
 python3 tools/sprite_to_macros.py --dry-run -v     # what a run would change / keep as db
 python3 tools/sprite_chain_check.py                # 0 hard mismatches
 ```
+
+
+## Adendo: item AdapterCheck de 80 bytes tipado (2026-10-18)
+
+A lista e as contagens acima registram o passe original. O item em 4A:68D0..6920 foi posteriormente representado em ASM/macros na [tipagem publicada](https://github.com/zenaror/mobile-trainer/commit/0c02c5369e47597f022df0663a2749acb3bfb12c): 69 B de tabela, lista, quatro frames e script, mais 11 zeros de finalidade UNKNOWN, com PROBABLE preservado. O [owner atual](../../gfx/settings/adapter_check_and_phone_entry_bank4a.asm) contém `AdapterCheck_ObjTable` e seis nomes globais próprios internos.
+
+O antigo BIN/PNG deixou o catálogo e as regras ativas na tipagem, mas foi preservado como byte-view legada; nesta migração passa à subpasta legacy_byteviews sem mudança de bytes/pixels. A [nota de tipagem](adapter_check_object_data_80b.md) e o [mapa antigo→atual](gfx_resource_path_map.tsv) preservam a navegação. Isso fecha somente aquele item histórico, não os demais blocos listados, e não reescreve as contagens do passe original.

@@ -1282,27 +1282,27 @@ Retired historical file: `palette_5e60.pal` preserves the former 96-byte RGB555 
 | `tilemap_7b78.tilemap` | tile-index map | 360 | 58:7B78 | CONFIRMED | - | 20x18 | `gfx/registration/screens_bank58.asm` |
 | `tilemap_7b78.attrmap` | attribute map | 360 | 58:7CE0 | CONFIRMED | - | 20x18 | `gfx/registration/screens_bank58.asm` |
 
-### `gfx/settings/screens_bank4a/`
+### `gfx/settings/adapter_check_and_phone_entry_bank4a/`
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_5f80.2bpp` | 2bpp tiles | 256 | 4A:5F80 | CONFIRMED | exact | - | `gfx/settings/screens_bank4a.asm` |
-| `tiles_6080.2bpp` | 2bpp tiles | 1024 | 4A:6080 | CONFIRMED | exact | - | `gfx/settings/screens_bank4a.asm` |
-| `tiles_6480.2bpp` | 2bpp tiles | 256 | 4A:6480 | CONFIRMED | exact | - | `gfx/settings/screens_bank4a.asm` |
-| `adapter_check_bg.pal` | RGB palette | 64 | 4A:6580 | CONFIRMED | - | - | `gfx/settings/screens_bank4a.asm` |
-| `adapter_check_obj.pal` | RGB palette | 64 | 4A:65C0 | CONFIRMED | - | - | `gfx/settings/screens_bank4a.asm` |
-| `adapter_check_4a_6600.tilemap` | tile-index map | 360 | 4A:6600 | CONFIRMED | - | 20x18 | `gfx/settings/screens_bank4a.asm` |
-| `adapter_check_4a_6600.attrmap` | attribute map | 360 | 4A:6768 | CONFIRMED | - | 20x18 | `gfx/settings/screens_bank4a.asm` |
-| `tiles_6920.2bpp` | 2bpp tiles | 1024 | 4A:6920 | CONFIRMED | exact | - | `gfx/settings/screens_bank4a.asm` |
-| `tiles_6d20.2bpp` | 2bpp tiles | 1024 | 4A:6D20 | CONFIRMED | exact | - | `gfx/settings/screens_bank4a.asm` |
-| `tilemap_7120.tilemap` | tile-index map | 100 | 4A:7120 | CONFIRMED | - | 20x5 | `gfx/settings/screens_bank4a.asm` |
-| `tilemap_7120.attrmap` | attribute map | 100 | 4A:7184 | CONFIRMED | - | 20x5 | `gfx/settings/screens_bank4a.asm` |
-| `tilemap_71e8.tilemap` | tile-index map | 100 | 4A:71E8 | CONFIRMED | - | 20x5 | `gfx/settings/screens_bank4a.asm` |
-| `tilemap_71e8.attrmap` | attribute map | 100 | 4A:724C | CONFIRMED | - | 20x5 | `gfx/settings/screens_bank4a.asm` |
-| `tilemap_72b0.tilemap` | tile-index map | 100 | 4A:72B0 | CONFIRMED | - | 20x5 | `gfx/settings/screens_bank4a.asm` |
-| `tilemap_72b0.attrmap` | attribute map | 100 | 4A:7314 | CONFIRMED | - | 20x5 | `gfx/settings/screens_bank4a.asm` |
+| `adapter_check_vram8000_vb0.2bpp` | 2bpp tiles | 256 | 4A:5F80 | CONFIRMED | exact | - | `gfx/settings/adapter_check_and_phone_entry_bank4a.asm` |
+| `adapter_check_vram9000_vb1.2bpp` | 2bpp tiles | 1024 | 4A:6080 | CONFIRMED | exact | - | `gfx/settings/adapter_check_and_phone_entry_bank4a.asm` |
+| `adapter_check_vram9400_vb1_tile_prefix_256.2bpp` | 2bpp tiles | 256 | 4A:6480 | CONFIRMED | exact | - | `gfx/settings/adapter_check_and_phone_entry_bank4a.asm` |
+| `adapter_check_bg.pal` | RGB palette | 64 | 4A:6580 | CONFIRMED | - | - | `gfx/settings/adapter_check_and_phone_entry_bank4a.asm` |
+| `adapter_check_obj.pal` | RGB palette | 64 | 4A:65C0 | CONFIRMED | - | - | `gfx/settings/adapter_check_and_phone_entry_bank4a.asm` |
+| `adapter_check_4a_6600.tilemap` | tile-index map | 360 | 4A:6600 | CONFIRMED | - | 20x18 | `gfx/settings/adapter_check_and_phone_entry_bank4a.asm` |
+| `adapter_check_4a_6600.attrmap` | attribute map | 360 | 4A:6768 | CONFIRMED | - | 20x18 | `gfx/settings/adapter_check_and_phone_entry_bank4a.asm` |
+| `phone_keypad_and_comment_vram9000_vb1.2bpp` | 2bpp tiles | 1024 | 4A:6920 | CONFIRMED | exact | - | `gfx/settings/adapter_check_and_phone_entry_bank4a.asm` |
+| `phone_keypad_and_comment_vram9400_vb1.2bpp` | 2bpp tiles | 1024 | 4A:6D20 | CONFIRMED | exact | - | `gfx/settings/adapter_check_and_phone_entry_bank4a.asm` |
+| `phone_keypad_kind0.tilemap` | tile-index map | 100 | 4A:7120 | CONFIRMED | - | 20x5 | `gfx/settings/adapter_check_and_phone_entry_bank4a.asm` |
+| `phone_keypad_kind0.attrmap` | attribute map | 100 | 4A:7184 | CONFIRMED | - | 20x5 | `gfx/settings/adapter_check_and_phone_entry_bank4a.asm` |
+| `phone_keypad_kind_nonzero.tilemap` | tile-index map | 100 | 4A:71E8 | CONFIRMED | - | 20x5 | `gfx/settings/adapter_check_and_phone_entry_bank4a.asm` |
+| `phone_keypad_kind_nonzero.attrmap` | attribute map | 100 | 4A:724C | CONFIRMED | - | 20x5 | `gfx/settings/adapter_check_and_phone_entry_bank4a.asm` |
+| `phone_comment_entry.tilemap` | tile-index map | 100 | 4A:72B0 | CONFIRMED | - | 20x5 | `gfx/settings/adapter_check_and_phone_entry_bank4a.asm` |
+| `phone_comment_entry.attrmap` | attribute map | 100 | 4A:7314 | CONFIRMED | - | 20x5 | `gfx/settings/adapter_check_and_phone_entry_bank4a.asm` |
 
-Legacy evidence retained: `tiles_68d0.2bpp` (80B) and `tiles_68d0.png` (40x8, unchanged bytes) are no longer an active tile/PNG source for the ROM. The PROBABLE sprite-object container is maintained as ASM/macros at4A:68D0; its final11zero bytes remain UNKNOWN. See [typing and provenance](../docs/research/adapter_check_object_data_80b.md).
+Os arquivos legados atuais são `gfx/settings/adapter_check_and_phone_entry_bank4a/legacy_byteviews/adapter_check_object_data_4a_68d0.2bpp` (80 B) e `gfx/settings/adapter_check_and_phone_entry_bank4a/legacy_byteviews/adapter_check_object_data_4a_68d0.png` (PNG 40×8, 184 B). Os bytes, pixels e hashes são os mesmos dos caminhos históricos `gfx/settings/screens_bank4a/tiles_68d0.2bpp` e `gfx/settings/screens_bank4a/tiles_68d0.png`. Eles ficam fora do catálogo e das regras ativas; a região PROBABLE em 4A:68D0 é editada em ASM/macros, e seus 11 zeros finais continuam UNKNOWN. Consulte [caminhos e contratos](../docs/research/adapter_check_and_phone_entry_4a_resource_paths.md).
 
 
 ### `gfx/settings/screens_bank4b/`
