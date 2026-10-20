@@ -121,7 +121,7 @@ Dev_WriteTestConfigImage:: ; 68:4E6A
 	xor a, a
 	ret
 
-; ---- data $4EA7-$4EB7 (16 bytes) [PROBABLE] part of the 192-byte ($00C0) block 4EA7-4F67 that the routine at 68:4E51 copies to $D000 (ld hl,$4EA7 ; ld de,$D000 ; ld bc,$00C0 ; call $050C); starts with the "MA" signature like the other 192-byte records (67E0, 68A0, 6960, 6A20); fields not decoded
+; ---- data $4EA7-$4EB7 (16 bytes) [PROBABLE] part of the 192-byte ($00C0) block 4EA7-4F67 that the copy setup at 68:4E6A copies to $D000 (ld hl,$4EA7 ; ld de,$D000 ; ld bc,$00C0 ; call $050C); starts with the "MA" signature like the other 192-byte records (67E0, 68A0, 6960, 6A20); fields not decoded
 
 Dev_TestConfigImage:: ; 68:4EA7
 	db $4D, $41, $81, $00, $AC, $10, $13, $BA, $AC, $10, $13, $BA, $69, $74, $6F, $68
@@ -129,7 +129,7 @@ Dev_TestConfigImage:: ; 68:4EA7
 ; ---- zero $4EB7-$4EF1 (58 bytes) [HYPOTHESIS] 0x00 run of 58 bytes
 	ds $3A, $00
 
-; ---- text $4EF1-$4F05 (20 bytes) [PROBABLE] ASCII "211.005.001.117" NUL + NUL padding (IP address-like string) inside the 192-byte record 4EA7-4F67 copied to $D000 by 68:4E51
+; ---- text $4EF1-$4F05 (20 bytes) [PROBABLE] ASCII "211.005.001.117" NUL + NUL padding (IP address-like string) inside the 192-byte record 4EA7-4F67 copied to $D000 by 68:4E6A
 
 PUSHC sjis
 String_68_4EF1:: ; 68:4EF1
@@ -144,10 +144,20 @@ String_68_4F05:: ; 68:4F05
 	db "pop.d6.dion.ne.jp", 0
 POPC
 
-; ---- data $4F17-$4F25 (14 bytes) [PROBABLE] part of the 192-byte ($00C0) block 4EA7-4F67 that the routine at 68:4E51 copies to $D000 (ld hl,$4EA7 ; ld de,$D000 ; ld bc,$00C0 ; call $050C); starts with the "MA" signature like the other 192-byte records (67E0, 68A0, 6960, 6A20); fields not decoded
+; ---- data $4F17-$4F19 (2 bytes) [PROBABLE] zero padding at the end of the 20-byte POP-server field beginning at $4F05; the SDK image offset aligns these bytes with the field boundary
 
-Data_68_4F17:: ; 68:4F17
-	db $00, $00, $00, $00, $00, $00, $07, $55, $31, $19, $73, $F0, $00, $00
+Dev_TestConfigImage_PopServerFieldPadding:: ; 68:4F17
+	db $00, $00
+
+; ---- data $4F19-$4F1D (4 bytes) [PROBABLE] server IPv4 field at image offset $72; the $2C-byte copy from SDK Window+$4A to $C6DD places it at wMobileSDK_ServerIp ($C705-$C708), which is tested and copied into OpenTCP packets. Image-to-window correspondence and installer execution are not proven
+
+Dev_TestConfigImage_ServerIp:: ; 68:4F19
+	db $00, $00, $00, $00
+
+; ---- data $4F1D-$4F25 (8 bytes) [PROBABLE] first dial-slot BCD field at image offset $76; the SDK exports eight-byte dial slots and its BCD parser stops at the first $F nibble. Installer execution and persistence are not proven
+
+Dev_TestConfigImage_DialSlot0Bcd:: ; 68:4F1D
+	db $07, $55, $31, $19, $73, $F0, $00, $00
 
 ; ---- text $4F25-$4F35 (16 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 

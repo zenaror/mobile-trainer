@@ -813,3 +813,28 @@ inventory SHA-256 is
 SHA-256 is
 `1a5e0a79621043b8f81cfe9e0e31dbd8b2e0322a582f9aee1a472a0b8db0f605` in
 `.tmp/jp-audio1d-redundant-aliases-20261020/`.
+
+## Test configuration fields and current-reader review (2026-10-20)
+
+The former mixed `Data_68_4F17` span is now represented by three bounded
+fields in `engine/account/dev_test_config.asm`. `Dev_TestConfigImage_PopServerFieldPadding`
+at `68:4F17` covers the two zero bytes at the end of the 20-byte POP-server
+field; `Dev_TestConfigImage_ServerIp` at `68:4F19` covers four zero bytes; and
+`Dev_TestConfigImage_DialSlot0Bcd` at `68:4F1D` covers the eight-byte first
+dial-slot field. These roles are **PROBABLE**. The SDK copies `Window+$4A`
+through `$C6DD` and places the server field at `$C705–$C708`; slot export uses
+the image offsets and eight-byte BCD parser. The test image's correspondence
+to a connected adapter, installer execution, and persistence remain unproven.
+The comments identifying the copy setup now correctly point to `68:4E6A`.
+
+The exact `Data_48_69AB` investigation found a static, conditional reader path
+from keyboard-table pairs `$FF82/$FF83` through `Kbd_DrawGlyphPreview` to
+`Font_BlitGlyph8x16`. An independent reviewer rejected the proposed
+`ZeroGlyphFallback` names: the code's ordinary table arithmetic reads the two
+zero halves, but neither “glyph” nor “fallback” is established as the stored
+object's identity or intent. The neutral label remains pending further
+evidence; see [the bounded reader note](font_reader_69ab_bounds_20261020.md).
+
+The same current-source review corrected a stale `Function_2B_687C` token in
+`gfx/previews/sprites.tsv` to the existing operation name
+`Sprite_SetSlots1And2Y68XByC_InitSlot2`. It changed only the metadata token.

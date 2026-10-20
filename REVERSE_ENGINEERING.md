@@ -34,6 +34,14 @@ confirmed 4,286 bytes, 203 primary commands, 85 page commands, and branch target
 boundaries. The original ROM builds byte-identically, and the symbol and palette checks pass.
 This does not prove natural topic reachability, rendered output, or complete Japanese-ROM closure;
 see [the stream map](docs/research/help_script_stream_map_20261020.md).
+The follow-up reader review of `48:69AB–69CA` found a concrete conditional static path from
+keyboard values `$FF82/$FF83` through the glyph preview to two 16-byte zero ranges. Independent
+review rejected names that would call them a glyph or fallback; `Data_48_69AB` stays neutral
+pending object-purpose evidence. The test-image span at `68:4F17` is now split into probable POP
+padding, server-IP, and first BCD dial-slot fields. A stale `Function_2B_687C` token was also
+replaced by its existing operation name in the sprite preview index. These changes do not establish
+natural preview execution or close the remaining generic-data inventory; see the dated audit and
+[reader bounds note](docs/research/font_reader_69ab_bounds_20261020.md).
 The earlier30-span/63-byte count matches the current home/engine/data subset only. A six-root census now finds32 HYPOTHESIS spans/92 bytes under leading UNCLASSIFIED data headers, including28 bytes in gfx/mail/body_view.asm and one byte in lib/mobile/main.asm; see the [scope correction](docs/research/classify_g6.md#8-six-root-unclassified-header-scope-correction-2026-10-17). This is an annotation census, not the total amount of unexplained ROM data. Entries and abnormal stack transfer at2B:6CF5,
 locator caller domains, eight frame contexts and25 name-to-image associations remain unresolved.
 The finite checks below remain valid within their limits; they do not establish100% completion.

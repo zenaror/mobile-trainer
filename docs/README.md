@@ -373,6 +373,7 @@ This four-document result appendix was added after the successful checks; only d
 ## Residual local-case comment bounds
 
 - [2B:687C residual local cases](research/typing_2b_687c_residual_localcase_bounds.md): seven existing comments;158-byte returning boundary, finite348-file reference qualification and preserved classification history. Verification of this new private pass remains pending.
+- [Bank 48 glyph-reader bounds at 69AB](research/font_reader_69ab_bounds_20261020.md): static source selection, keyboard-table path, and why the 32-byte zero range retains a neutral label.
 
 
 ## Current private local-case validation
