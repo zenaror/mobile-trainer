@@ -551,6 +551,16 @@ After the bank22 continuation rename below, the current count is 993 across
 the six roots plus one in `zero_labels.asm` (994 total). These are
 lexical label counts only, not a measure of unresolved semantic resources.
 
+## Literal generic-name scan (2026-10-20)
+
+At source revision `c3b3db48`, a literal scan of the six maintained Japanese
+source roots found zero `Function_BB_AAAA` and zero `Font_BB_AAAA` tokens,
+including the previously cited `Function_75_4000` and `Font_48_4ADB`. A path
+scan found zero `gfx/` files or directories named `bankNN`. The current
+`Data_BB_AAAA` definition count is 993 in those roots plus one in
+`zero_labels.asm`, 994 total. These are exact spelling counts only; they do not
+establish that every function or resource has a known semantic role.
+
 ## Retired account and bitmap-mask aliases (2026-10-20)
 
 The account action-confirm source had two `Data_68_*` labels at the same
