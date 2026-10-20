@@ -18,7 +18,7 @@ Table_6A_64B1:: ; 6A:64B1
 	dw $6546
 	dw $6567
 	dw $6576
-	dw Data_6A_65A1
+	dw String_HelpMenu_MailTitle
 	dw String_6A_65A8
 	dw $65C3
 	dw $65D2
@@ -41,7 +41,8 @@ String_6A_64D3:: ; 6A:64D3
 
 ; ---- text $65A1-$65A8 (7 bytes) [CONFIRMED] Shift-JIS/NUL title selected by zero-based ticker record 4 (page 2, item 1): three paired characters plus NUL. Source/ROM reader proof identifies the role; all 7 bytes have existing natural data reads, without temporal reader/render attribution.
 
-Data_6A_65A1:: ; 6A:65A1
+String_HelpMenu_MailTitle:: ; 6A:65A1
+Data_6A_65A1::
 	db "メール", 0
 
 ; ---- text $65A8-$6651 (169 bytes) [PROBABLE] text: 7 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)

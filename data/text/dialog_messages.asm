@@ -271,9 +271,10 @@ String_72_5621::
 	db $86, $01, $01 ; record header
 	db "　もどれるページが　ありません。", 0
 
-; ---- data $5645-$5666 (33 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 5621-5666 by higher-priority evidence]
+; ---- text $5645-$5666 (33 bytes) [CONFIRMED] second NUL-terminated line in Dialog_Msg0113; 16 full-width spaces, with no UI meaning assigned to the blank content
 
-Data_72_5645:: ; 72:5645
+String_Dialog_Msg0113_Line2:: ; 72:5645
+Data_72_5645::
 	db "　　　　　　　　　　　　　　　　", 0
 
 ; ---- text $5666-$5669 (3 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record

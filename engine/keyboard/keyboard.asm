@@ -1079,7 +1079,7 @@ Data_55_62A0::
 
 Table_Kbd_CursorSpriteCharOffsetPtrs:: ; 55:62B4
 Table_55_62B4::
-	dw Data_55_62C8
+	dw Table_Kbd_CursorSpriteCharOffsets
 	dw $62D0
 	dw $62D8
 	dw $62E0
@@ -1090,9 +1090,10 @@ Table_55_62B4::
 	dw $6308
 	dw $6310
 
-; ---- data $62C8-$6318 (80 bytes) [PROBABLE] zero/short bytes of the keyboard page tables between text rows; part of the run 62C8-6318 that executed code reads piecewise [split by classify_g2]
+; ---- table $62C8-$6318 (80 bytes) [PROBABLE] ten eight-byte sets of four two-byte offset pairs; selected by wKbdType and indexed by (wKeyboardCharLo - $80) * 2 in Kbd_UpdateCursorSprite, then added to the sprite-slot 11 origin
 
-Data_55_62C8:: ; 55:62C8
+Table_Kbd_CursorSpriteCharOffsets:: ; 55:62C8
+Data_55_62C8::
 	db $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA
 	db $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA
 	db $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA
