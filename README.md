@@ -79,7 +79,7 @@ make png-export      # regenerate PNGs from the binaries (maintainers)
 | `engine/<subsystem>/` | application code by subsystem (`account/`, `address_book/`, `browser/`, `comm/`, `html/`, `keyboard/`, `mail/`, `mobile/`, `settings/`, `startup/`, ...); data used only by a routine stays in its file |
 | `lib/mobile/` | `main.asm` (bank 75, Mobile Adapter GB SDK), `mail.asm` (bank 0F, mail library) |
 | `data/` | Shift-JIS text as readable strings (`text/`), the built-in HTML store (`html/`), fonts (`fonts/`, assets `.bin`/`.1bpp`), keyboard tables, default adapter images |
-| `gfx/` | tiles, tilemaps, palettes and object tables, named after the screen that loads them; `gfx/<area>/<file>.asm` holds the labels, headers and `INCBIN` lines, the bytes are in `gfx/<area>/<file>/` (`.2bpp` + `.png`, `.tilemap`, `.attrmap`, `.pal`); `gfx/bankNN.asm` = blocks with no known consumer; index: [`gfx/README.md`](gfx/README.md), `gfx/assets.tsv` |
+| `gfx/` | tiles, tilemaps, palettes and object tables organized under screen, art and resource owners; `gfx/<area>/<file>.asm` holds labels, headers and `INCBIN` lines, with bytes under the matching resource directory (`.2bpp` + `.png`, `.tilemap`, `.attrmap`, `.pal`). Bank/address suffixes remain provenance; unresolved labels retain neutral names. Index: [`gfx/README.md`](gfx/README.md), `gfx/assets.tsv` |
 | `audio/` | sound driver (`engine.asm`), note/instrument tables, song headers and one file per song (`music/`), sound effects |
 | `ram.asm`, `ram/` | RAM names: `sram.asm`, `wram.asm`, `hram.asm`, `banked.asm` (equates only) |
 | `consts.asm` | numeric constants (record offsets, counts) |
