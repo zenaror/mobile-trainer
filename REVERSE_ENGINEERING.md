@@ -990,6 +990,13 @@ hashes match the pinned census inputs; an updated ASM/include scan found no exte
 consumers or local scopes. This removes generic aliases only and makes no new
 sound interpretation.
 
+The `music_14.asm` follow-on retired 18 exact-address `Data_05_*` aliases for
+existing `SoundSong14_*` names. Four positions without a same-file descriptive
+co-alias remain named `Data_05_*`; this pass does not infer their purpose.
+The pre-edit owner hash matched the pinned census input, and the pre-edit
+ASM/include scan found no outside consumers or local scopes. The ROM remains
+byte-identical and the symbol count is 14,508.
+
 The address-book cursor animation block at bank 2F now names its frame and
 script `Abook_ViewCursor_Frame0` and `Abook_ViewCursor_Script`. The consumer
 passes `Table_Abook_ViewCursorAnims` to `Sprite_InitSlot`; its four entries

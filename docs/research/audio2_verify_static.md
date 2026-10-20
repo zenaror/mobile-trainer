@@ -380,6 +380,19 @@ Coordinator-run gates for this edited tree: `make` reported
 `make palette-check` reported 162 loads, 116 arrays, two documented over-reads,
 and zero errors.
 
+The following `music_14.asm` pass retires 18 `Data_05_*` aliases with existing
+same-address `SoundSong14_*` labels. It keeps four positions that have no
+same-file descriptive co-alias. The pre-edit owner hash matches the pinned
+census input; a current pre-edit ASM/include scan found no outside consumers
+or local scopes. Independent review accepted the exact diff, preserved
+co-aliases/directives and zero emitted-byte delta; the reviewer did not rerun
+the census or build. Coordinator-run gates: `make` reported
+`RESULT: IDENTICAL` against the original SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`,
+`make sym-check` reported 14,508 labels and 51 constants, and
+`make palette-check` reported 162 loads, 116 arrays, two documented over-reads,
+and zero errors.
+
 The SFX owner `audio/sfx.asm` also retired its 76 redundant `Data_05_*` labels
 in favor of same-address `SoundSfx*` names. The base-pinned census reports no
 references, metadata mentions or scoped-local uses for these aliases; the
