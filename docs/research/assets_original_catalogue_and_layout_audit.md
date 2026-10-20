@@ -1,5 +1,7 @@
 # Original asset catalogue and layout audit
 
+**Later bounded delta (2026-10-20):** the [HelpScript picture recovery](help_script_picture_assets.md) adds14848 previously-inline image bytes to the editable catalogue by replacing arbitrary bank60/61 clips with26 whole table-backed objects. Its active totals are979 entries/622434 logical bytes and978 rules. The audit stages below retain their dated denominators; this delta adds static reader/representation evidence and no natural-display claim.
+
 ## Scope and evidence
 
 This documentation-only audit starts from published 88b4bca2665b96b77b941b18c19f802fc499276c. Its fresh clone already passed ROOT make/compare/symbol/palette validation; this pass runs no new build or gates. Own stdlib scripts read the private original ROM (SHA-256 6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570), active catalogues and PNG bytes without importing or executing repository helpers, native captures or the ROM. New image files below are explanatory outputs and are not build inputs. No new natural/forced/hardware evidence or semantic alias is added.

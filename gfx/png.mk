@@ -218,6 +218,32 @@ PNG_TILE_OUTS := \
 	gfx/help/mobile_dictionary/mobile_dict_tiles0.2bpp \
 	gfx/help/mobile_dictionary/mobile_dict_tiles1.2bpp \
 	gfx/help/mobile_dictionary/mobile_dict_tiles2.2bpp \
+	gfx/help/script_illustrations_01_13/picture_01_tiles.2bpp \
+	gfx/help/script_illustrations_01_13/picture_02_tiles.2bpp \
+	gfx/help/script_illustrations_01_13/picture_03_tiles.2bpp \
+	gfx/help/script_illustrations_01_13/picture_04_tiles.2bpp \
+	gfx/help/script_illustrations_01_13/picture_05_tiles.2bpp \
+	gfx/help/script_illustrations_01_13/picture_06_tiles.2bpp \
+	gfx/help/script_illustrations_01_13/picture_07_tiles.2bpp \
+	gfx/help/script_illustrations_01_13/picture_08_tiles.2bpp \
+	gfx/help/script_illustrations_01_13/picture_09_tiles.2bpp \
+	gfx/help/script_illustrations_01_13/picture_10_tiles.2bpp \
+	gfx/help/script_illustrations_01_13/picture_11_tiles.2bpp \
+	gfx/help/script_illustrations_01_13/picture_12_tiles.2bpp \
+	gfx/help/script_illustrations_01_13/picture_13_tiles.2bpp \
+	gfx/help/script_illustrations_14_26/picture_14_tiles.2bpp \
+	gfx/help/script_illustrations_14_26/picture_15_tiles.2bpp \
+	gfx/help/script_illustrations_14_26/picture_16_tiles.2bpp \
+	gfx/help/script_illustrations_14_26/picture_17_tiles.2bpp \
+	gfx/help/script_illustrations_14_26/picture_18_tiles.2bpp \
+	gfx/help/script_illustrations_14_26/picture_19_tiles.2bpp \
+	gfx/help/script_illustrations_14_26/picture_20_tiles.2bpp \
+	gfx/help/script_illustrations_14_26/picture_21_tiles.2bpp \
+	gfx/help/script_illustrations_14_26/picture_22_tiles.2bpp \
+	gfx/help/script_illustrations_14_26/picture_23_tiles.2bpp \
+	gfx/help/script_illustrations_14_26/picture_24_tiles.2bpp \
+	gfx/help/script_illustrations_14_26/picture_25_tiles.2bpp \
+	gfx/help/script_illustrations_14_26/picture_26_tiles.2bpp \
 	gfx/keyboard/panels_bank5d/tiles_4000.2bpp \
 	gfx/keyboard/panels_bank5d/tiles_4400.2bpp \
 	gfx/keyboard/panels_bank5f/tiles_4000.2bpp \
@@ -400,28 +426,6 @@ PNG_TILE_OUTS := \
 	gfx/top_menu/top_menu/tiles_59a0.2bpp \
 	gfx/top_menu/top_menu/tiles_5ba0.2bpp \
 	gfx/top_menu/top_menu/tiles_5fa0.2bpp \
-	gfx/ui_art/button_art_fragments/dpad_button_and_frame_tiles.2bpp \
-	gfx/ui_art/button_art_fragments/tile_fragment_4f63.2bpp \
-	gfx/ui_art/button_art_fragments/tile_fragment_58b0.2bpp \
-	gfx/ui_art/button_art_fragments/tile_fragment_65c0.2bpp \
-	gfx/ui_art/frame_glyph_fragments/back_button_and_text_tiles.2bpp \
-	gfx/ui_art/frame_glyph_fragments/jump_button_and_frame_tiles.2bpp \
-	gfx/ui_art/frame_glyph_fragments/tile_fragment_4360.2bpp \
-	gfx/ui_art/frame_glyph_fragments/tile_fragment_4455.2bpp \
-	gfx/ui_art/frame_glyph_fragments/tile_fragment_4b50.2bpp \
-	gfx/ui_art/frame_glyph_fragments/tile_fragment_4dd0.2bpp \
-	gfx/ui_art/frame_glyph_fragments/tile_fragment_52c0.2bpp \
-	gfx/ui_art/frame_glyph_fragments/tile_fragment_52d0.2bpp \
-	gfx/ui_art/frame_glyph_fragments/tile_fragment_5640.2bpp \
-	gfx/ui_art/frame_glyph_fragments/tile_fragment_5740.2bpp \
-	gfx/ui_art/frame_glyph_fragments/tile_fragment_5800.2bpp \
-	gfx/ui_art/frame_glyph_fragments/tile_fragment_5d50.2bpp \
-	gfx/ui_art/frame_glyph_fragments/tile_fragment_6010.2bpp \
-	gfx/ui_art/frame_glyph_fragments/tile_fragment_6060.2bpp \
-	gfx/ui_art/frame_glyph_fragments/tile_fragment_62b0.2bpp \
-	gfx/ui_art/frame_glyph_fragments/tile_fragment_64c0.2bpp \
-	gfx/ui_art/frame_glyph_fragments/tile_fragment_6580.2bpp \
-	gfx/ui_art/frame_glyph_fragments/tile_fragment_76f0.2bpp \
 	gfx/ui_art/logo_and_window_tiles/logo_and_window_tiles.2bpp \
 	gfx/ui_art/logo_and_window_tiles/mail_server_box_tiles.2bpp \
 	gfx/unreferenced/page_list_prototype/tiles_62b0.2bpp \
@@ -637,6 +641,32 @@ gfx/help/help_screens_b/tiles_6e20.2bpp: PNG_SIZE := 1024
 gfx/help/mobile_dictionary/mobile_dict_tiles0.2bpp: PNG_SIZE := 512
 gfx/help/mobile_dictionary/mobile_dict_tiles1.2bpp: PNG_SIZE := 1024
 gfx/help/mobile_dictionary/mobile_dict_tiles2.2bpp: PNG_SIZE := 768
+gfx/help/script_illustrations_01_13/picture_01_tiles.2bpp: PNG_SIZE := 1152
+gfx/help/script_illustrations_01_13/picture_02_tiles.2bpp: PNG_SIZE := 1152
+gfx/help/script_illustrations_01_13/picture_03_tiles.2bpp: PNG_SIZE := 1152
+gfx/help/script_illustrations_01_13/picture_04_tiles.2bpp: PNG_SIZE := 1152
+gfx/help/script_illustrations_01_13/picture_05_tiles.2bpp: PNG_SIZE := 1152
+gfx/help/script_illustrations_01_13/picture_06_tiles.2bpp: PNG_SIZE := 1152
+gfx/help/script_illustrations_01_13/picture_07_tiles.2bpp: PNG_SIZE := 1152
+gfx/help/script_illustrations_01_13/picture_08_tiles.2bpp: PNG_SIZE := 1152
+gfx/help/script_illustrations_01_13/picture_09_tiles.2bpp: PNG_SIZE := 1152
+gfx/help/script_illustrations_01_13/picture_10_tiles.2bpp: PNG_SIZE := 1152
+gfx/help/script_illustrations_01_13/picture_11_tiles.2bpp: PNG_SIZE := 1152
+gfx/help/script_illustrations_01_13/picture_12_tiles.2bpp: PNG_SIZE := 1152
+gfx/help/script_illustrations_01_13/picture_13_tiles.2bpp: PNG_SIZE := 1152
+gfx/help/script_illustrations_14_26/picture_14_tiles.2bpp: PNG_SIZE := 1152
+gfx/help/script_illustrations_14_26/picture_15_tiles.2bpp: PNG_SIZE := 1152
+gfx/help/script_illustrations_14_26/picture_16_tiles.2bpp: PNG_SIZE := 1152
+gfx/help/script_illustrations_14_26/picture_17_tiles.2bpp: PNG_SIZE := 1152
+gfx/help/script_illustrations_14_26/picture_18_tiles.2bpp: PNG_SIZE := 1152
+gfx/help/script_illustrations_14_26/picture_19_tiles.2bpp: PNG_SIZE := 1152
+gfx/help/script_illustrations_14_26/picture_20_tiles.2bpp: PNG_SIZE := 1152
+gfx/help/script_illustrations_14_26/picture_21_tiles.2bpp: PNG_SIZE := 1152
+gfx/help/script_illustrations_14_26/picture_22_tiles.2bpp: PNG_SIZE := 1152
+gfx/help/script_illustrations_14_26/picture_23_tiles.2bpp: PNG_SIZE := 1152
+gfx/help/script_illustrations_14_26/picture_24_tiles.2bpp: PNG_SIZE := 1152
+gfx/help/script_illustrations_14_26/picture_25_tiles.2bpp: PNG_SIZE := 1152
+gfx/help/script_illustrations_14_26/picture_26_tiles.2bpp: PNG_SIZE := 1152
 gfx/keyboard/panels_bank5d/tiles_4000.2bpp: PNG_SIZE := 1024
 gfx/keyboard/panels_bank5d/tiles_4400.2bpp: PNG_SIZE := 1024
 gfx/keyboard/panels_bank5f/tiles_4000.2bpp: PNG_SIZE := 1024
@@ -834,37 +864,6 @@ gfx/top_menu/top_menu/tiles_55a0.2bpp: PNG_SIZE := 1024
 gfx/top_menu/top_menu/tiles_59a0.2bpp: PNG_SIZE := 512
 gfx/top_menu/top_menu/tiles_5ba0.2bpp: PNG_SIZE := 1024
 gfx/top_menu/top_menu/tiles_5fa0.2bpp: PNG_SIZE := 768
-gfx/ui_art/button_art_fragments/dpad_button_and_frame_tiles.2bpp: PNG_SIZE := 672
-gfx/ui_art/button_art_fragments/tile_fragment_4f63.2bpp: PNG_SIZE := 656
-gfx/ui_art/button_art_fragments/tile_fragment_4f63.2bpp: PNG_PAD := -x 7
-gfx/ui_art/button_art_fragments/tile_fragment_58b0.2bpp: PNG_SIZE := 656
-gfx/ui_art/button_art_fragments/tile_fragment_58b0.2bpp: PNG_PAD := -x 7
-gfx/ui_art/button_art_fragments/tile_fragment_65c0.2bpp: PNG_SIZE := 800
-gfx/ui_art/frame_glyph_fragments/back_button_and_text_tiles.2bpp: PNG_SIZE := 1616
-gfx/ui_art/frame_glyph_fragments/back_button_and_text_tiles.2bpp: PNG_PAD := -x 11
-gfx/ui_art/frame_glyph_fragments/jump_button_and_frame_tiles.2bpp: PNG_SIZE := 2656
-gfx/ui_art/frame_glyph_fragments/jump_button_and_frame_tiles.2bpp: PNG_PAD := -x 10
-gfx/ui_art/frame_glyph_fragments/tile_fragment_4360.2bpp: PNG_SIZE := 240
-gfx/ui_art/frame_glyph_fragments/tile_fragment_4455.2bpp: PNG_SIZE := 1136
-gfx/ui_art/frame_glyph_fragments/tile_fragment_4455.2bpp: PNG_PAD := -x 9
-gfx/ui_art/frame_glyph_fragments/tile_fragment_4b50.2bpp: PNG_SIZE := 560
-gfx/ui_art/frame_glyph_fragments/tile_fragment_4b50.2bpp: PNG_PAD := -x 13
-gfx/ui_art/frame_glyph_fragments/tile_fragment_4dd0.2bpp: PNG_SIZE := 1184
-gfx/ui_art/frame_glyph_fragments/tile_fragment_4dd0.2bpp: PNG_PAD := -x 6
-gfx/ui_art/frame_glyph_fragments/tile_fragment_52c0.2bpp: PNG_SIZE := 16
-gfx/ui_art/frame_glyph_fragments/tile_fragment_52d0.2bpp: PNG_SIZE := 880
-gfx/ui_art/frame_glyph_fragments/tile_fragment_5640.2bpp: PNG_SIZE := 176
-gfx/ui_art/frame_glyph_fragments/tile_fragment_5740.2bpp: PNG_SIZE := 112
-gfx/ui_art/frame_glyph_fragments/tile_fragment_5800.2bpp: PNG_SIZE := 768
-gfx/ui_art/frame_glyph_fragments/tile_fragment_5d50.2bpp: PNG_SIZE := 704
-gfx/ui_art/frame_glyph_fragments/tile_fragment_6010.2bpp: PNG_SIZE := 80
-gfx/ui_art/frame_glyph_fragments/tile_fragment_6060.2bpp: PNG_SIZE := 592
-gfx/ui_art/frame_glyph_fragments/tile_fragment_6060.2bpp: PNG_PAD := -x 11
-gfx/ui_art/frame_glyph_fragments/tile_fragment_62b0.2bpp: PNG_SIZE := 448
-gfx/ui_art/frame_glyph_fragments/tile_fragment_64c0.2bpp: PNG_SIZE := 112
-gfx/ui_art/frame_glyph_fragments/tile_fragment_6580.2bpp: PNG_SIZE := 128
-gfx/ui_art/frame_glyph_fragments/tile_fragment_76f0.2bpp: PNG_SIZE := 912
-gfx/ui_art/frame_glyph_fragments/tile_fragment_76f0.2bpp: PNG_PAD := -x 7
 gfx/ui_art/logo_and_window_tiles/logo_and_window_tiles.2bpp: PNG_SIZE := 4608
 gfx/ui_art/logo_and_window_tiles/mail_server_box_tiles.2bpp: PNG_SIZE := 1152
 gfx/unreferenced/page_list_prototype/tiles_62b0.2bpp: PNG_SIZE := 1024

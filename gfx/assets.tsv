@@ -918,30 +918,58 @@ gfx/top_menu/top_menu/tiles_55a0.2bpp	tiles	1024	gfx/top_menu/top_menu.asm	1E	55
 gfx/top_menu/top_menu/tiles_59a0.2bpp	tiles	512	gfx/top_menu/top_menu.asm	1E	59A0	CONFIRMED	exact	0		Data_1E_59A0
 gfx/top_menu/top_menu/tiles_5ba0.2bpp	tiles	1024	gfx/top_menu/top_menu.asm	1E	5BA0	CONFIRMED	exact	0		Data_1E_5BA0
 gfx/top_menu/top_menu/tiles_5fa0.2bpp	tiles	768	gfx/top_menu/top_menu.asm	1E	5FA0	CONFIRMED	exact	0		Data_1E_5FA0
-gfx/ui_art/button_art_fragments/dpad_button_and_frame_tiles.2bpp	tiles	672	gfx/ui_art/button_art_fragments.asm	61	4CC0	PROBABLE	exact	0		Data_61_4CC0
-gfx/ui_art/button_art_fragments/fragment_palettes.pal	palette	104	gfx/ui_art/button_art_fragments.asm	61	7A80	PROBABLE	-	0		Data_61_7A80
-gfx/ui_art/button_art_fragments/tile_fragment_4f63.2bpp	tiles	656	gfx/ui_art/button_art_fragments.asm	61	4F63	PROBABLE	exact	7		Data_61_4F63
-gfx/ui_art/button_art_fragments/tile_fragment_58b0.2bpp	tiles	656	gfx/ui_art/button_art_fragments.asm	61	58B0	PROBABLE	exact	7		Data_61_58B0
-gfx/ui_art/button_art_fragments/tile_fragment_65c0.2bpp	tiles	800	gfx/ui_art/button_art_fragments.asm	61	65C0	PROBABLE	exact	0		Data_61_65C0
-gfx/ui_art/frame_glyph_fragments/back_button_and_text_tiles.2bpp	tiles	1616	gfx/ui_art/frame_glyph_fragments.asm	60	70A0	PROBABLE	exact	11		Data_60_70A0
-gfx/ui_art/frame_glyph_fragments/fragment_palettes.pal	palette	104	gfx/ui_art/frame_glyph_fragments.asm	60	7A80	PROBABLE	-	0		Data_60_7A80
-gfx/ui_art/frame_glyph_fragments/jump_button_and_frame_tiles.2bpp	tiles	2656	gfx/ui_art/frame_glyph_fragments.asm	60	6640	PROBABLE	exact	10		Tiles_60_6640
-gfx/ui_art/frame_glyph_fragments/tile_fragment_4360.2bpp	tiles	240	gfx/ui_art/frame_glyph_fragments.asm	60	4360	PROBABLE	exact	0		Data_60_4360
-gfx/ui_art/frame_glyph_fragments/tile_fragment_4455.2bpp	tiles	1136	gfx/ui_art/frame_glyph_fragments.asm	60	4455	PROBABLE	exact	9		Data_60_4455
-gfx/ui_art/frame_glyph_fragments/tile_fragment_4b50.2bpp	tiles	560	gfx/ui_art/frame_glyph_fragments.asm	60	4B50	PROBABLE	exact	13		Data_60_4B50
-gfx/ui_art/frame_glyph_fragments/tile_fragment_4dd0.2bpp	tiles	1184	gfx/ui_art/frame_glyph_fragments.asm	60	4DD0	PROBABLE	exact	6		Tiles_60_4DD0
-gfx/ui_art/frame_glyph_fragments/tile_fragment_52c0.2bpp	tiles	16	gfx/ui_art/frame_glyph_fragments.asm	60	52C0	HYPOTHESIS	exact	0		Tiles_60_52C0
-gfx/ui_art/frame_glyph_fragments/tile_fragment_52d0.2bpp	tiles	880	gfx/ui_art/frame_glyph_fragments.asm	60	52D0	PROBABLE	exact	0		Data_60_52D0
-gfx/ui_art/frame_glyph_fragments/tile_fragment_5640.2bpp	tiles	176	gfx/ui_art/frame_glyph_fragments.asm	60	5640	PROBABLE	exact	0		Tiles_60_5640
-gfx/ui_art/frame_glyph_fragments/tile_fragment_5740.2bpp	tiles	112	gfx/ui_art/frame_glyph_fragments.asm	60	5740	HYPOTHESIS	exact	0		Tiles_60_5740
-gfx/ui_art/frame_glyph_fragments/tile_fragment_5800.2bpp	tiles	768	gfx/ui_art/frame_glyph_fragments.asm	60	5800	PROBABLE	exact	0		Tiles_60_5800
-gfx/ui_art/frame_glyph_fragments/tile_fragment_5d50.2bpp	tiles	704	gfx/ui_art/frame_glyph_fragments.asm	60	5D50	PROBABLE	exact	0		Data_60_5D50
-gfx/ui_art/frame_glyph_fragments/tile_fragment_6010.2bpp	tiles	80	gfx/ui_art/frame_glyph_fragments.asm	60	6010	HYPOTHESIS	exact	0		Tiles_60_6010
-gfx/ui_art/frame_glyph_fragments/tile_fragment_6060.2bpp	tiles	592	gfx/ui_art/frame_glyph_fragments.asm	60	6060	PROBABLE	exact	11		Data_60_6060
-gfx/ui_art/frame_glyph_fragments/tile_fragment_62b0.2bpp	tiles	448	gfx/ui_art/frame_glyph_fragments.asm	60	62B0	PROBABLE	exact	0		Tiles_60_62B0
-gfx/ui_art/frame_glyph_fragments/tile_fragment_64c0.2bpp	tiles	112	gfx/ui_art/frame_glyph_fragments.asm	60	64C0	HYPOTHESIS	exact	0		Tiles_60_64C0
-gfx/ui_art/frame_glyph_fragments/tile_fragment_6580.2bpp	tiles	128	gfx/ui_art/frame_glyph_fragments.asm	60	6580	PROBABLE	exact	0		Tiles_60_6580
-gfx/ui_art/frame_glyph_fragments/tile_fragment_76f0.2bpp	tiles	912	gfx/ui_art/frame_glyph_fragments.asm	60	76F0	PROBABLE	exact	7		Tiles_60_76F0
+gfx/help/script_illustrations_01_13/picture_01_tiles.2bpp	tiles	1152	gfx/help/script_illustrations_01_13.asm	61	4000	PROBABLE	exact	0	12x6	Gfx_HelpScript_Picture01Tiles
+gfx/help/script_illustrations_01_13/picture_02_tiles.2bpp	tiles	1152	gfx/help/script_illustrations_01_13.asm	61	4480	PROBABLE	exact	0	12x6	Gfx_HelpScript_Picture02Tiles
+gfx/help/script_illustrations_01_13/picture_03_tiles.2bpp	tiles	1152	gfx/help/script_illustrations_01_13.asm	61	4900	PROBABLE	exact	0	12x6	Gfx_HelpScript_Picture03Tiles
+gfx/help/script_illustrations_01_13/picture_04_tiles.2bpp	tiles	1152	gfx/help/script_illustrations_01_13.asm	61	4D80	PROBABLE	exact	0	12x6	Gfx_HelpScript_Picture04Tiles
+gfx/help/script_illustrations_01_13/picture_05_tiles.2bpp	tiles	1152	gfx/help/script_illustrations_01_13.asm	61	5200	PROBABLE	exact	0	12x6	Gfx_HelpScript_Picture05Tiles
+gfx/help/script_illustrations_01_13/picture_06_tiles.2bpp	tiles	1152	gfx/help/script_illustrations_01_13.asm	61	5680	PROBABLE	exact	0	12x6	Gfx_HelpScript_Picture06Tiles
+gfx/help/script_illustrations_01_13/picture_07_tiles.2bpp	tiles	1152	gfx/help/script_illustrations_01_13.asm	61	5B00	PROBABLE	exact	0	12x6	Gfx_HelpScript_Picture07Tiles
+gfx/help/script_illustrations_01_13/picture_08_tiles.2bpp	tiles	1152	gfx/help/script_illustrations_01_13.asm	61	5F80	PROBABLE	exact	0	12x6	Gfx_HelpScript_Picture08Tiles
+gfx/help/script_illustrations_01_13/picture_09_tiles.2bpp	tiles	1152	gfx/help/script_illustrations_01_13.asm	61	6400	PROBABLE	exact	0	12x6	Gfx_HelpScript_Picture09Tiles
+gfx/help/script_illustrations_01_13/picture_10_tiles.2bpp	tiles	1152	gfx/help/script_illustrations_01_13.asm	61	6880	PROBABLE	exact	0	12x6	Gfx_HelpScript_Picture10Tiles
+gfx/help/script_illustrations_01_13/picture_11_tiles.2bpp	tiles	1152	gfx/help/script_illustrations_01_13.asm	61	6D00	PROBABLE	exact	0	12x6	Gfx_HelpScript_Picture11Tiles
+gfx/help/script_illustrations_01_13/picture_12_tiles.2bpp	tiles	1152	gfx/help/script_illustrations_01_13.asm	61	7180	PROBABLE	exact	0	12x6	Gfx_HelpScript_Picture12Tiles
+gfx/help/script_illustrations_01_13/picture_13_tiles.2bpp	tiles	1152	gfx/help/script_illustrations_01_13.asm	61	7600	PROBABLE	exact	0	12x6	Gfx_HelpScript_Picture13Tiles
+gfx/help/script_illustrations_01_13/picture_01_palette.pal	palette	8	gfx/help/script_illustrations_01_13.asm	61	7A80	PROBABLE	-	0		Palette_HelpScript_Picture01
+gfx/help/script_illustrations_01_13/picture_02_palette.pal	palette	8	gfx/help/script_illustrations_01_13.asm	61	7A88	PROBABLE	-	0		Palette_HelpScript_Picture02
+gfx/help/script_illustrations_01_13/picture_03_palette.pal	palette	8	gfx/help/script_illustrations_01_13.asm	61	7A90	PROBABLE	-	0		Palette_HelpScript_Picture03
+gfx/help/script_illustrations_01_13/picture_04_palette.pal	palette	8	gfx/help/script_illustrations_01_13.asm	61	7A98	PROBABLE	-	0		Palette_HelpScript_Picture04
+gfx/help/script_illustrations_01_13/picture_05_palette.pal	palette	8	gfx/help/script_illustrations_01_13.asm	61	7AA0	PROBABLE	-	0		Palette_HelpScript_Picture05
+gfx/help/script_illustrations_01_13/picture_06_palette.pal	palette	8	gfx/help/script_illustrations_01_13.asm	61	7AA8	PROBABLE	-	0		Palette_HelpScript_Picture06
+gfx/help/script_illustrations_01_13/picture_07_palette.pal	palette	8	gfx/help/script_illustrations_01_13.asm	61	7AB0	PROBABLE	-	0		Palette_HelpScript_Picture07
+gfx/help/script_illustrations_01_13/picture_08_palette.pal	palette	8	gfx/help/script_illustrations_01_13.asm	61	7AB8	PROBABLE	-	0		Palette_HelpScript_Picture08
+gfx/help/script_illustrations_01_13/picture_09_palette.pal	palette	8	gfx/help/script_illustrations_01_13.asm	61	7AC0	PROBABLE	-	0		Palette_HelpScript_Picture09
+gfx/help/script_illustrations_01_13/picture_10_palette.pal	palette	8	gfx/help/script_illustrations_01_13.asm	61	7AC8	PROBABLE	-	0		Palette_HelpScript_Picture10
+gfx/help/script_illustrations_01_13/picture_11_palette.pal	palette	8	gfx/help/script_illustrations_01_13.asm	61	7AD0	PROBABLE	-	0		Palette_HelpScript_Picture11
+gfx/help/script_illustrations_01_13/picture_12_palette.pal	palette	8	gfx/help/script_illustrations_01_13.asm	61	7AD8	PROBABLE	-	0		Palette_HelpScript_Picture12
+gfx/help/script_illustrations_01_13/picture_13_palette.pal	palette	8	gfx/help/script_illustrations_01_13.asm	61	7AE0	PROBABLE	-	0		Palette_HelpScript_Picture13
+gfx/help/script_illustrations_14_26/picture_14_tiles.2bpp	tiles	1152	gfx/help/script_illustrations_14_26.asm	60	4000	PROBABLE	exact	0	12x6	Gfx_HelpScript_Picture14Tiles
+gfx/help/script_illustrations_14_26/picture_15_tiles.2bpp	tiles	1152	gfx/help/script_illustrations_14_26.asm	60	4480	PROBABLE	exact	0	12x6	Gfx_HelpScript_Picture15Tiles
+gfx/help/script_illustrations_14_26/picture_16_tiles.2bpp	tiles	1152	gfx/help/script_illustrations_14_26.asm	60	4900	PROBABLE	exact	0	12x6	Gfx_HelpScript_Picture16Tiles
+gfx/help/script_illustrations_14_26/picture_17_tiles.2bpp	tiles	1152	gfx/help/script_illustrations_14_26.asm	60	4D80	PROBABLE	exact	0	12x6	Gfx_HelpScript_Picture17Tiles
+gfx/help/script_illustrations_14_26/picture_18_tiles.2bpp	tiles	1152	gfx/help/script_illustrations_14_26.asm	60	5200	PROBABLE	exact	0	12x6	Gfx_HelpScript_Picture18Tiles
+gfx/help/script_illustrations_14_26/picture_19_tiles.2bpp	tiles	1152	gfx/help/script_illustrations_14_26.asm	60	5680	PROBABLE	exact	0	12x6	Gfx_HelpScript_Picture19Tiles
+gfx/help/script_illustrations_14_26/picture_20_tiles.2bpp	tiles	1152	gfx/help/script_illustrations_14_26.asm	60	5B00	PROBABLE	exact	0	12x6	Gfx_HelpScript_Picture20Tiles
+gfx/help/script_illustrations_14_26/picture_21_tiles.2bpp	tiles	1152	gfx/help/script_illustrations_14_26.asm	60	5F80	PROBABLE	exact	0	12x6	Gfx_HelpScript_Picture21Tiles
+gfx/help/script_illustrations_14_26/picture_22_tiles.2bpp	tiles	1152	gfx/help/script_illustrations_14_26.asm	60	6400	PROBABLE	exact	0	12x6	Gfx_HelpScript_Picture22Tiles
+gfx/help/script_illustrations_14_26/picture_23_tiles.2bpp	tiles	1152	gfx/help/script_illustrations_14_26.asm	60	6880	PROBABLE	exact	0	12x6	Gfx_HelpScript_Picture23Tiles
+gfx/help/script_illustrations_14_26/picture_24_tiles.2bpp	tiles	1152	gfx/help/script_illustrations_14_26.asm	60	6D00	PROBABLE	exact	0	12x6	Gfx_HelpScript_Picture24Tiles
+gfx/help/script_illustrations_14_26/picture_25_tiles.2bpp	tiles	1152	gfx/help/script_illustrations_14_26.asm	60	7180	PROBABLE	exact	0	12x6	Gfx_HelpScript_Picture25Tiles
+gfx/help/script_illustrations_14_26/picture_26_tiles.2bpp	tiles	1152	gfx/help/script_illustrations_14_26.asm	60	7600	PROBABLE	exact	0	12x6	Gfx_HelpScript_Picture26Tiles
+gfx/help/script_illustrations_14_26/picture_14_palette.pal	palette	8	gfx/help/script_illustrations_14_26.asm	60	7A80	PROBABLE	-	0		Palette_HelpScript_Picture14
+gfx/help/script_illustrations_14_26/picture_15_palette.pal	palette	8	gfx/help/script_illustrations_14_26.asm	60	7A88	PROBABLE	-	0		Palette_HelpScript_Picture15
+gfx/help/script_illustrations_14_26/picture_16_palette.pal	palette	8	gfx/help/script_illustrations_14_26.asm	60	7A90	PROBABLE	-	0		Palette_HelpScript_Picture16
+gfx/help/script_illustrations_14_26/picture_17_palette.pal	palette	8	gfx/help/script_illustrations_14_26.asm	60	7A98	PROBABLE	-	0		Palette_HelpScript_Picture17
+gfx/help/script_illustrations_14_26/picture_18_palette.pal	palette	8	gfx/help/script_illustrations_14_26.asm	60	7AA0	PROBABLE	-	0		Palette_HelpScript_Picture18
+gfx/help/script_illustrations_14_26/picture_19_palette.pal	palette	8	gfx/help/script_illustrations_14_26.asm	60	7AA8	PROBABLE	-	0		Palette_HelpScript_Picture19
+gfx/help/script_illustrations_14_26/picture_20_palette.pal	palette	8	gfx/help/script_illustrations_14_26.asm	60	7AB0	PROBABLE	-	0		Palette_HelpScript_Picture20
+gfx/help/script_illustrations_14_26/picture_21_palette.pal	palette	8	gfx/help/script_illustrations_14_26.asm	60	7AB8	PROBABLE	-	0		Palette_HelpScript_Picture21
+gfx/help/script_illustrations_14_26/picture_22_palette.pal	palette	8	gfx/help/script_illustrations_14_26.asm	60	7AC0	PROBABLE	-	0		Palette_HelpScript_Picture22
+gfx/help/script_illustrations_14_26/picture_23_palette.pal	palette	8	gfx/help/script_illustrations_14_26.asm	60	7AC8	PROBABLE	-	0		Palette_HelpScript_Picture23
+gfx/help/script_illustrations_14_26/picture_24_palette.pal	palette	8	gfx/help/script_illustrations_14_26.asm	60	7AD0	PROBABLE	-	0		Palette_HelpScript_Picture24
+gfx/help/script_illustrations_14_26/picture_25_palette.pal	palette	8	gfx/help/script_illustrations_14_26.asm	60	7AD8	PROBABLE	-	0		Palette_HelpScript_Picture25
+gfx/help/script_illustrations_14_26/picture_26_palette.pal	palette	8	gfx/help/script_illustrations_14_26.asm	60	7AE0	PROBABLE	-	0		Palette_HelpScript_Picture26
 gfx/ui_art/logo_and_window_tiles/art_palettes.pal	palette	96	gfx/ui_art/logo_and_window_tiles.asm	5B	5680	PROBABLE	-	0		Palette_5B_5680
 gfx/ui_art/logo_and_window_tiles/logo_and_window_tiles.2bpp	tiles	4608	gfx/ui_art/logo_and_window_tiles.asm	5B	4000	PROBABLE	exact	0		Tiles_5B_4000
 gfx/ui_art/logo_and_window_tiles/mail_server_box_tiles.2bpp	tiles	1152	gfx/ui_art/logo_and_window_tiles.asm	5B	5200	PROBABLE	exact	0		Tiles_5B_5200

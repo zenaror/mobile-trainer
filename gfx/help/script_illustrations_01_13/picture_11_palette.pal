@@ -1,0 +1,6 @@
+; gfx/help/script_illustrations_01_13/picture_11_palette.pal
+; 61:7AD0; HelpScript picture ID 11, four RGB555 colours; PROBABLE role, static table-backed source
+	RGB  0,  0,  0
+	RGB 19,  9,  0
+	RGB 31, 22,  0
+	RGB 31, 31, 31

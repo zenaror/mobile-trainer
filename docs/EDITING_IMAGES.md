@@ -27,11 +27,11 @@ edit a PNG   ->   make            ->   open mobile_trainer.gbc
 
 | what | file | how | count |
 |---|---|---|---:|
-| tile blocks (2bpp art: screens, text baked into tiles, buttons, logos) | `gfx/**/name.png` next to `name.2bpp` | exact `rgbgfx` source: 4 greys in a fixed order (index 0 white ... 3 black); 16 tiles per row (8-15 when 16 does not divide the count; the last row padded, padding tiles are ignored) | 404 |
+| tile blocks (2bpp art: screens, text baked into tiles, buttons, logos) | `gfx/**/name.png` next to `name.2bpp` | exact `rgbgfx` source: 4 greys in a fixed order (index 0 white ... 3 black); 16 tiles per row (8-15 when 16 does not divide the count; the last row padded, padding tiles are ignored) | 408 |
 | explicit RAW byte views | `gfx/frame_designs/metal_flame_and_creature_borders_42/raw_*.png` | reversible raw2bpp byte codec; purpose UNKNOWN/HYPOTHESIS, not a tile classification | 4 files /80B |
 | JIS 12x12 font banks, 8x16 font runs, 6x12 Latin font | `data/fonts/name.png` or `data/fonts/glyph_runs_8x16/sjis_key.png` next to its binary | glyph sheet, see section 4; `tools/font_png.py` | 37 sheets (39 binaries) |
 | whole screens (tilemap + attributes + tiles + palettes composed, in real colours) | `gfx/**/name.screen.png` next to `name.tilemap` | see section 3; an *editing view*: import writes the edit back into the tile sheets | 95 screens |
-| palettes | `gfx/**/name.pal` | text, one `RGB r, g, b` line per colour (0-31 per channel), four colours per palette; hand-editable; screen PNGs can write colours back (`--palette`) | 143 files |
+| palettes | `gfx/**/name.pal` | text, one `RGB r, g, b` line per colour (0-31 per channel), four colours per palette; hand-editable; screen PNGs can write colours back (`--palette`) | 167 files |
 
 Stay binary: `.tilemap` / `.attrmap` (which tile sits in which cell, flips, palette numbers; 180 + 180 files; the layout of a screen is fixed, see
 section 3 for what you can change), the Shift-JIS validity bitmap (`data/fonts/sjis_valid_bitmap.bin`, data rather than an image; a view-only picture
@@ -86,7 +86,7 @@ This entry updates the earlier catalogue counts to93 rows:20 PROBABLE and73 HYPO
 
 ## 7. Current original-asset catalogue
 
-The current catalogue has951 assets/607586 logical ROM bytes and950 active PNG rules. Its11 JIS12x12 binaries total131976B; all font formats together have39 binaries in37 sheets. The404 tile-sheet PNGs,4 RAW byte-view PNGs (80B) and37 font sheets are445 unique editable source PNG paths. The validity bitmap is a separate view-only picture. The RAW files preserve HYPOTHESIS/UNKNOWN purpose and use an explicit reversible byte codec; a byte-view is not a new tile classification.
+The current catalogue has979 assets/622434 logical ROM bytes and978 active PNG rules. Its11 JIS12x12 binaries total131976B; all font formats together have39 binaries in37 sheets. The408 tile-sheet PNGs,4 RAW byte-view PNGs (80B) and37 font sheets are449 unique editable source PNG paths. The validity bitmap is a separate view-only picture. The RAW files preserve HYPOTHESIS/UNKNOWN purpose and use an explicit reversible byte codec; a byte-view is not a new tile classification.
 
 The current95 screen rows are20 PROBABLE and75 HYPOTHESIS;85 of180 tilemaps have no screen row. The preceding92/93 counts describe earlier stages, not current omissions. Among the25 finite candidate physical windows,17 editing compositions and24 legacy previews exist: every window has some existing PNG representation. Eight editing views remain KEEP; this is not missing ROM art or proof of natural loading. The completed bank7C sheet shares three contiguous spans6083+10+9135B without a new PNG path. No species/name-to-image association or ALL asset-completeness claim follows.
 
@@ -99,3 +99,7 @@ The current95 screen rows are20 PROBABLE and75 HYPOTHESIS;85 of180 tilemaps have
 ### Localização dos legados AdapterCheck após a migração 4A (2026-10-18)
 
 Os arquivos legados atuais são `gfx/settings/adapter_check_and_phone_entry_bank4a/legacy_byteviews/adapter_check_object_data_4a_68d0.2bpp` (80 B) e `gfx/settings/adapter_check_and_phone_entry_bank4a/legacy_byteviews/adapter_check_object_data_4a_68d0.png` (PNG 40×8, 184 B). Os bytes, pixels e hashes são os mesmos dos caminhos históricos `gfx/settings/screens_bank4a/tiles_68d0.2bpp` e `gfx/settings/screens_bank4a/tiles_68d0.png`. Eles ficam fora do catálogo e das regras ativas; a região PROBABLE em 4A:68D0 é editada em ASM/macros, e seus 11 zeros finais continuam UNKNOWN. O parágrafo datado anterior registra a localização no passe de tipagem, antes desta migração. O mapa [antigo→atual](research/gfx_resource_path_map.tsv) preserva essa proveniência; consulte [a unidade de caminhos](research/adapter_check_and_phone_entry_4a_resource_paths.md). Para os 15 componentes ativos, edite os PNGs/paletas/mapas da nova coleção; nenhum PNG novo é criado.
+
+## 8. HelpScript picture objects
+
+The26 table-backed HelpScript pictures use12×6-tile (96×48-pixel) editable grayscale PNGs, each backed by1152 bytes and an individual four-colour `.pal`. Their IDs and original-bank bounds come from the static picture table, not a natural-display claim. See [the resource contracts and range migration](research/help_script_picture_assets.md). Do not crop, resize or add tiles.

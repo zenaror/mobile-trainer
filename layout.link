@@ -596,11 +596,11 @@ ROMX $5F
 
 ROMX $60
 	org $4000
-	"gfx/ui_art/frame_glyph_fragments"
+	"gfx/help/script_illustrations_14_26"
 
 ROMX $61
 	org $4000
-	"gfx/ui_art/button_art_fragments"
+	"gfx/help/script_illustrations_01_13"
 
 ROMX $62
 	org $4000

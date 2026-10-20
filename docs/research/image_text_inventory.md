@@ -111,6 +111,8 @@ All of it is **HYPOTHESIS by analogy**: no code reads the 25 records, so what th
 
 ## 3. All tile assets
 
+**2026-10-20 correction:** rows108–129 below retain the historical clipped-sheet observations. Their “no loader found” results are superseded by `HelpScript_ShowPicture` and its finite picture table. Current editable sources are the26 whole12×6 objects in [the picture resource note](help_script_picture_assets.md); [the range map](help_script_picture_resource_map.tsv) identifies every former clip. This is static consumer evidence, not a natural-display trace.
+
 Columns: `#` = order of the listing (path order); `asset` = PNG under `gfx/` (the `.2bpp` next to it is what the ROM contains); `bank:addr` = original ROM position; `tiles` = tile count (PNG layout in tiles); `loaded` = loader routine, VRAM destination (`@8800b1` = VRAM $8800, bank 1; `src+N` = the block is read from an offset inside a larger loaded block), or `-` when no load site is known; `class` and `what it shows` as described in section 1.
 
 | # | asset | bank:addr | tiles (WxH) | loaded by | class | what it shows (reading; pieces unless stated) |
@@ -222,28 +224,28 @@ Columns: `#` = order of the listing (path order); `asset` = PNG under `gfx/` (th
 | 105 | `browser/page_list_prototype_messages/tiles_4080` | 52:4080 | 184 (8x23) | PageListProto_ShowMessage@9580b1 | TXT | four pre-rendered message images (40 tiles each + 8 padding tiles) copied by the unreferenced PageListProto_ShowMessage; kana fragments only, tile order inside an image not reconstructed (unreadable) |
 | 106 | `ui_art/logo_and_window_tiles/tiles_4000` | 5B:4000 | 288 (16x18) | - | MIX | logo/credit-like sheet: the Latin word "GAMEFREAK" (small, repeated), katakana fragments ("モバイル…ム…"), window frames; no loader found |
 | 107 | `ui_art/logo_and_window_tiles/tiles_5200` | 5B:5200 | 72 (12x6) | - | MIX | box labelled "メールサーバ" (PROBABLE) + frames; no loader found |
-| 108 | `ui_art/frame_glyph_fragments/tiles_4360` | 60:4360 | 15 (15x1) | - | UNK | strip, unreadable; no loader found |
-| 109 | `ui_art/frame_glyph_fragments/tiles_4455` | 60:4455 | 71 (16x5) | - | ART | scenery-like art with fragments; no loader found |
-| 110 | `ui_art/frame_glyph_fragments/tiles_4b50` | 60:4B50 | 35 (16x3) | - | UNK | unreadable; no loader found |
-| 111 | `ui_art/frame_glyph_fragments/tiles_4dd0` | 60:4DD0 | 74 (16x5) | - | UNK | frames + text fragments, unreadable; no loader found |
-| 112 | `ui_art/frame_glyph_fragments/tiles_52c0` | 60:52C0 | 1 (1x1) | - | UNK | 1 tile (HYPOTHESIS typing) |
-| 113 | `ui_art/frame_glyph_fragments/tiles_52d0` | 60:52D0 | 55 (11x5) | - | UNK | frames + text fragments, unreadable; no loader found |
-| 114 | `ui_art/frame_glyph_fragments/tiles_5640` | 60:5640 | 11 (11x1) | - | UNK | strip, unreadable; no loader found |
-| 115 | `ui_art/frame_glyph_fragments/tiles_5740` | 60:5740 | 7 (7x1) | - | UNK | HYPOTHESIS typing |
-| 116 | `ui_art/frame_glyph_fragments/tiles_5800` | 60:5800 | 48 (16x3) | - | UNK | text fragments, unreadable; no loader found |
-| 117 | `ui_art/frame_glyph_fragments/tiles_5d50` | 60:5D50 | 44 (11x4) | - | UNK | frames with text fragments, unreadable; no loader found |
-| 118 | `ui_art/frame_glyph_fragments/tiles_6010` | 60:6010 | 5 (5x1) | - | UNK | HYPOTHESIS typing |
-| 119 | `ui_art/frame_glyph_fragments/tiles_6060` | 60:6060 | 37 (16x3) | - | UNK | text fragments, unreadable; no loader found |
-| 120 | `ui_art/frame_glyph_fragments/tiles_62b0` | 60:62B0 | 28 (14x2) | - | UNK | art fragments, unreadable; no loader found |
-| 121 | `ui_art/frame_glyph_fragments/tiles_64c0` | 60:64C0 | 7 (7x1) | - | UNK | HYPOTHESIS typing |
-| 122 | `ui_art/frame_glyph_fragments/tiles_6580` | 60:6580 | 8 (8x1) | - | UNK | strip, unreadable; no loader found |
-| 123 | `ui_art/frame_glyph_fragments/tiles_6640` | 60:6640 | 166 (16x11) | - | MIX | help/tutorial-like sheet with the button label "A ジャンプ" (A jump), boxes and kana fragments; no loader found |
-| 124 | `ui_art/frame_glyph_fragments/tiles_70a0` | 60:70A0 | 101 (16x7) | - | MIX | sheet with the button label "B もどる" and "XXXさん" (placeholder-like name, PROBABLE reading) and kana fragments; no loader found |
-| 125 | `ui_art/frame_glyph_fragments/tiles_76f0` | 60:76F0 | 57 (16x4) | - | UNK | art, unreadable; no loader found |
-| 126 | `ui_art/button_art_fragments/tiles_4cc0` | 61:4CC0 | 42 (14x3) | - | MIX | fragment "＋ボタン" (+ button) and frames; no loader found |
-| 127 | `ui_art/button_art_fragments/tiles_4f63` | 61:4F63 | 41 (16x3) | - | UNK | art/text fragments, unreadable; no loader found |
-| 128 | `ui_art/button_art_fragments/tiles_58b0` | 61:58B0 | 41 (16x3) | - | UNK | art/text fragments, unreadable; no loader found |
-| 129 | `ui_art/button_art_fragments/tiles_65c0` | 61:65C0 | 50 (10x5) | - | UNK | frames with text fragments, unreadable; no loader found |
+| 108 | `ui_art/frame_glyph_fragments/tiles_4360` | 60:4360 | 15 (15x1) | HelpScript_ShowPicture (table) | UNK | strip, unreadable; retired clip of picture ID 14 (static table-backed source) |
+| 109 | `ui_art/frame_glyph_fragments/tiles_4455` | 60:4455 | 71 (16x5) | HelpScript_ShowPicture (table) | ART | scenery-like art with fragments; retired clip of picture IDs 14,15 (static table-backed source) |
+| 110 | `ui_art/frame_glyph_fragments/tiles_4b50` | 60:4B50 | 35 (16x3) | HelpScript_ShowPicture (table) | UNK | unreadable; retired clip of picture ID 16 (static table-backed source) |
+| 111 | `ui_art/frame_glyph_fragments/tiles_4dd0` | 60:4DD0 | 74 (16x5) | HelpScript_ShowPicture (table) | UNK | frames + text fragments, unreadable; retired clip of picture IDs 17,18 (static table-backed source) |
+| 112 | `ui_art/frame_glyph_fragments/tiles_52c0` | 60:52C0 | 1 (1x1) | HelpScript_ShowPicture (table) | UNK | 1 tile (HYPOTHESIS typing); retired clip of picture ID 18 (static table-backed source) |
+| 113 | `ui_art/frame_glyph_fragments/tiles_52d0` | 60:52D0 | 55 (11x5) | HelpScript_ShowPicture (table) | UNK | frames + text fragments, unreadable; retired clip of picture ID 18 (static table-backed source) |
+| 114 | `ui_art/frame_glyph_fragments/tiles_5640` | 60:5640 | 11 (11x1) | HelpScript_ShowPicture (table) | UNK | strip, unreadable; retired clip of picture IDs 18,19 (static table-backed source) |
+| 115 | `ui_art/frame_glyph_fragments/tiles_5740` | 60:5740 | 7 (7x1) | HelpScript_ShowPicture (table) | UNK | HYPOTHESIS typing; retired clip of picture ID 19 (static table-backed source) |
+| 116 | `ui_art/frame_glyph_fragments/tiles_5800` | 60:5800 | 48 (16x3) | HelpScript_ShowPicture (table) | UNK | text fragments, unreadable; retired clip of picture ID 19 (static table-backed source) |
+| 117 | `ui_art/frame_glyph_fragments/tiles_5d50` | 60:5D50 | 44 (11x4) | HelpScript_ShowPicture (table) | UNK | frames with text fragments, unreadable; retired clip of picture IDs 20,21 (static table-backed source) |
+| 118 | `ui_art/frame_glyph_fragments/tiles_6010` | 60:6010 | 5 (5x1) | HelpScript_ShowPicture (table) | UNK | HYPOTHESIS typing; retired clip of picture ID 21 (static table-backed source) |
+| 119 | `ui_art/frame_glyph_fragments/tiles_6060` | 60:6060 | 37 (16x3) | HelpScript_ShowPicture (table) | UNK | text fragments, unreadable; retired clip of picture ID 21 (static table-backed source) |
+| 120 | `ui_art/frame_glyph_fragments/tiles_62b0` | 60:62B0 | 28 (14x2) | HelpScript_ShowPicture (table) | UNK | art fragments, unreadable; retired clip of picture IDs 21,22 (static table-backed source) |
+| 121 | `ui_art/frame_glyph_fragments/tiles_64c0` | 60:64C0 | 7 (7x1) | HelpScript_ShowPicture (table) | UNK | HYPOTHESIS typing; retired clip of picture ID 22 (static table-backed source) |
+| 122 | `ui_art/frame_glyph_fragments/tiles_6580` | 60:6580 | 8 (8x1) | HelpScript_ShowPicture (table) | UNK | strip, unreadable; retired clip of picture ID 22 (static table-backed source) |
+| 123 | `ui_art/frame_glyph_fragments/tiles_6640` | 60:6640 | 166 (16x11) | HelpScript_ShowPicture (table) | MIX | help/tutorial-like sheet with the button label "A ジャンプ" (A jump), boxes and kana fragments; retired clip of picture IDs 22,23,24 (static table-backed source) |
+| 124 | `ui_art/frame_glyph_fragments/tiles_70a0` | 60:70A0 | 101 (16x7) | HelpScript_ShowPicture (table) | MIX | sheet with the button label "B もどる" and "XXXさん" (placeholder-like name, PROBABLE reading) and kana fragments; retired clip of picture IDs 24,25,26 (static table-backed source) |
+| 125 | `ui_art/frame_glyph_fragments/tiles_76f0` | 60:76F0 | 57 (16x4) | HelpScript_ShowPicture (table) | UNK | art, unreadable; retired clip of picture ID 26 (static table-backed source) |
+| 126 | `ui_art/button_art_fragments/tiles_4cc0` | 61:4CC0 | 42 (14x3) | HelpScript_ShowPicture (table) | MIX | fragment "＋ボタン" (+ button) and frames; retired clip of picture IDs 03,04 (static table-backed source) |
+| 127 | `ui_art/button_art_fragments/tiles_4f63` | 61:4F63 | 41 (16x3) | HelpScript_ShowPicture (table) | UNK | art/text fragments, unreadable; retired clip of picture ID 04 (static table-backed source) |
+| 128 | `ui_art/button_art_fragments/tiles_58b0` | 61:58B0 | 41 (16x3) | HelpScript_ShowPicture (table) | UNK | art/text fragments, unreadable; retired clip of picture IDs 06,07 (static table-backed source) |
+| 129 | `ui_art/button_art_fragments/tiles_65c0` | 61:65C0 | 50 (10x5) | HelpScript_ShowPicture (table) | UNK | frames with text fragments, unreadable; retired clip of picture IDs 09,10 (static table-backed source) |
 | 130 | `browser/frames_0_1/tiles_4000` | 47:4000 | 1 (1x1) | Browser_LoadScrollbarGfx@8FF0 | ART | scrollbar piece |
 | 131 | `browser/frames_0_1/tiles_4010` | 47:4010 | 3 (3x1) | Browser_LoadScrollbarGfx@97D0 | ART | scrollbar piece |
 | 132 | `browser/frames_0_1/tiles_4040` | 47:4040 | 4 (4x1) | - | UNK | 4 tiles, not classified |

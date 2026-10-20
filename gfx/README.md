@@ -41,14 +41,14 @@ gfx/assets.tsv                                 one line per asset: kind, size, b
 | JIS 12x12 glyph bits (`.bin`) | 11 | 131976 |
 | 6x12 glyph rows (`.bin`) | 1 | 1152 |
 | 1bpp 8x16 glyphs (`.1bpp`) | 27 | 4848 |
-| RGB palette (`.pal`) | 143 | 11504 |
+| RGB palette (`.pal`) | 167 | 11504 |
 | validity bitmap (`.bin`) | 1 | 8198 |
 | tile-index map (`.tilemap`) | 180 | 51618 |
-| 2bpp tiles (`.2bpp`) | 404 | 346592 |
+| 2bpp tiles (`.2bpp`) | 408 | 361440 |
 | raw bytes (`.bin`, conditional byte-view codec; purpose unknown) | 4 | 80 |
-| **all** | **951** | **607586** |
+| **all** | **979** | **622434** |
 
-PNGs:404 active exact rgbgfx tile sources,4 explicit RAW byte-view PNGs (80B; purpose UNKNOWN/HYPOTHESIS), and39 font binaries in37 editable sheet PNGs:445 unique editable source PNG paths. The1 validity-bitmap view-only picture and95 screen compositions are separate. `gfx/png_rules.tsv` has950 active rules. The catalogue totals951 assets/607586 logical ROM bytes; its11 JIS12x12 binaries total131976B.
+PNGs:408 active exact rgbgfx tile sources,4 explicit RAW byte-view PNGs (80B; purpose UNKNOWN/HYPOTHESIS), and39 font binaries in37 editable sheet PNGs:449 unique editable source PNG paths. The1 validity-bitmap view-only picture and95 screen compositions are separate. `gfx/png_rules.tsv` has978 active rules. The catalogue totals979 assets/622434 logical ROM bytes; its11 JIS12x12 binaries total131976B.
 The old count406 included the retired bank73 tile interpretation; its historical file remains outside the active catalogue.
 
 ## Still `db`
@@ -59,12 +59,12 @@ Blocks of the graphics regions that are not converted (the note / label does not
 
 | what | blocks | bytes |
 |---|---:|---:|
-| bytes read as data by executed code, content class unknown | 28 | 25244 |
+| bytes read as data by executed code, content class unknown | 21 | 10972 |
 | sprite / OAM frame records, animation scripts, object tables (not tile art) | 109 | 3800 |
-| HYPOTHESIS data (mostly runs of $FF / $00 padding candidates) | 33 | 1628 |
+| HYPOTHESIS data (mostly runs of $FF / $00 padding candidates) | 26 | 1084 |
 | object / animation tables (by label name) | 9 | 464 |
 | tilemap+attr blocks clipped by the analysis (size differs from 2 x rows x cols) and 4-byte tile/attr record lists | 4 | 184 |
-| tail (less than 16 bytes) after a converted tile block | 17 | 184 |
+| tail (less than 16 bytes) after a converted tile block | 13 | 152 |
 | gfx fragments of fewer than 4 whole tiles | 9 | 166 |
 | palette note but words >= $8000 / odd size | 1 | 127 |
 | label says tiles, note says palette | 1 | 26 |
@@ -498,39 +498,71 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `mail_server_box_tiles.2bpp` | 2bpp tiles | 1152 | 5B:5200 | PROBABLE | exact | - | `gfx/ui_art/logo_and_window_tiles.asm` |
 | `art_palettes.pal` | RGB palette | 96 | 5B:5680 | PROBABLE | - | - | `gfx/ui_art/logo_and_window_tiles.asm` |
 
-### `gfx/ui_art/frame_glyph_fragments/`
+### `gfx/help/script_illustrations_14_26/`
+
+PROBABLE whole-picture role; finite static HelpScript table windows, without a natural-display claim.
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tile_fragment_4360.2bpp` | 2bpp tiles | 240 | 60:4360 | PROBABLE | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
-| `tile_fragment_4455.2bpp` | 2bpp tiles | 1136 | 60:4455 | PROBABLE | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
-| `tile_fragment_4b50.2bpp` | 2bpp tiles | 560 | 60:4B50 | PROBABLE | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
-| `tile_fragment_4dd0.2bpp` | 2bpp tiles | 1184 | 60:4DD0 | PROBABLE | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
-| `tile_fragment_52c0.2bpp` | 2bpp tiles | 16 | 60:52C0 | HYPOTHESIS | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
-| `tile_fragment_52d0.2bpp` | 2bpp tiles | 880 | 60:52D0 | PROBABLE | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
-| `tile_fragment_5640.2bpp` | 2bpp tiles | 176 | 60:5640 | PROBABLE | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
-| `tile_fragment_5740.2bpp` | 2bpp tiles | 112 | 60:5740 | HYPOTHESIS | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
-| `tile_fragment_5800.2bpp` | 2bpp tiles | 768 | 60:5800 | PROBABLE | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
-| `tile_fragment_5d50.2bpp` | 2bpp tiles | 704 | 60:5D50 | PROBABLE | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
-| `tile_fragment_6010.2bpp` | 2bpp tiles | 80 | 60:6010 | HYPOTHESIS | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
-| `tile_fragment_6060.2bpp` | 2bpp tiles | 592 | 60:6060 | PROBABLE | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
-| `tile_fragment_62b0.2bpp` | 2bpp tiles | 448 | 60:62B0 | PROBABLE | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
-| `tile_fragment_64c0.2bpp` | 2bpp tiles | 112 | 60:64C0 | HYPOTHESIS | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
-| `tile_fragment_6580.2bpp` | 2bpp tiles | 128 | 60:6580 | PROBABLE | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
-| `jump_button_and_frame_tiles.2bpp` | 2bpp tiles | 2656 | 60:6640 | PROBABLE | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
-| `back_button_and_text_tiles.2bpp` | 2bpp tiles | 1616 | 60:70A0 | PROBABLE | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
-| `tile_fragment_76f0.2bpp` | 2bpp tiles | 912 | 60:76F0 | PROBABLE | exact | - | `gfx/ui_art/frame_glyph_fragments.asm` |
-| `fragment_palettes.pal` | RGB palette | 104 | 60:7A80 | PROBABLE | - | - | `gfx/ui_art/frame_glyph_fragments.asm` |
+| `picture_14_tiles.2bpp` | 2bpp tiles | 1152 | 60:4000 | PROBABLE | exact | 12x6 | `gfx/help/script_illustrations_14_26.asm` |
+| `picture_15_tiles.2bpp` | 2bpp tiles | 1152 | 60:4480 | PROBABLE | exact | 12x6 | `gfx/help/script_illustrations_14_26.asm` |
+| `picture_16_tiles.2bpp` | 2bpp tiles | 1152 | 60:4900 | PROBABLE | exact | 12x6 | `gfx/help/script_illustrations_14_26.asm` |
+| `picture_17_tiles.2bpp` | 2bpp tiles | 1152 | 60:4D80 | PROBABLE | exact | 12x6 | `gfx/help/script_illustrations_14_26.asm` |
+| `picture_18_tiles.2bpp` | 2bpp tiles | 1152 | 60:5200 | PROBABLE | exact | 12x6 | `gfx/help/script_illustrations_14_26.asm` |
+| `picture_19_tiles.2bpp` | 2bpp tiles | 1152 | 60:5680 | PROBABLE | exact | 12x6 | `gfx/help/script_illustrations_14_26.asm` |
+| `picture_20_tiles.2bpp` | 2bpp tiles | 1152 | 60:5B00 | PROBABLE | exact | 12x6 | `gfx/help/script_illustrations_14_26.asm` |
+| `picture_21_tiles.2bpp` | 2bpp tiles | 1152 | 60:5F80 | PROBABLE | exact | 12x6 | `gfx/help/script_illustrations_14_26.asm` |
+| `picture_22_tiles.2bpp` | 2bpp tiles | 1152 | 60:6400 | PROBABLE | exact | 12x6 | `gfx/help/script_illustrations_14_26.asm` |
+| `picture_23_tiles.2bpp` | 2bpp tiles | 1152 | 60:6880 | PROBABLE | exact | 12x6 | `gfx/help/script_illustrations_14_26.asm` |
+| `picture_24_tiles.2bpp` | 2bpp tiles | 1152 | 60:6D00 | PROBABLE | exact | 12x6 | `gfx/help/script_illustrations_14_26.asm` |
+| `picture_25_tiles.2bpp` | 2bpp tiles | 1152 | 60:7180 | PROBABLE | exact | 12x6 | `gfx/help/script_illustrations_14_26.asm` |
+| `picture_26_tiles.2bpp` | 2bpp tiles | 1152 | 60:7600 | PROBABLE | exact | 12x6 | `gfx/help/script_illustrations_14_26.asm` |
+| `picture_14_palette.pal` | RGB palette | 8 | 60:7A80 | PROBABLE | - | - | `gfx/help/script_illustrations_14_26.asm` |
+| `picture_15_palette.pal` | RGB palette | 8 | 60:7A88 | PROBABLE | - | - | `gfx/help/script_illustrations_14_26.asm` |
+| `picture_16_palette.pal` | RGB palette | 8 | 60:7A90 | PROBABLE | - | - | `gfx/help/script_illustrations_14_26.asm` |
+| `picture_17_palette.pal` | RGB palette | 8 | 60:7A98 | PROBABLE | - | - | `gfx/help/script_illustrations_14_26.asm` |
+| `picture_18_palette.pal` | RGB palette | 8 | 60:7AA0 | PROBABLE | - | - | `gfx/help/script_illustrations_14_26.asm` |
+| `picture_19_palette.pal` | RGB palette | 8 | 60:7AA8 | PROBABLE | - | - | `gfx/help/script_illustrations_14_26.asm` |
+| `picture_20_palette.pal` | RGB palette | 8 | 60:7AB0 | PROBABLE | - | - | `gfx/help/script_illustrations_14_26.asm` |
+| `picture_21_palette.pal` | RGB palette | 8 | 60:7AB8 | PROBABLE | - | - | `gfx/help/script_illustrations_14_26.asm` |
+| `picture_22_palette.pal` | RGB palette | 8 | 60:7AC0 | PROBABLE | - | - | `gfx/help/script_illustrations_14_26.asm` |
+| `picture_23_palette.pal` | RGB palette | 8 | 60:7AC8 | PROBABLE | - | - | `gfx/help/script_illustrations_14_26.asm` |
+| `picture_24_palette.pal` | RGB palette | 8 | 60:7AD0 | PROBABLE | - | - | `gfx/help/script_illustrations_14_26.asm` |
+| `picture_25_palette.pal` | RGB palette | 8 | 60:7AD8 | PROBABLE | - | - | `gfx/help/script_illustrations_14_26.asm` |
+| `picture_26_palette.pal` | RGB palette | 8 | 60:7AE0 | PROBABLE | - | - | `gfx/help/script_illustrations_14_26.asm` |
 
-### `gfx/ui_art/button_art_fragments/`
+### `gfx/help/script_illustrations_01_13/`
+
+PROBABLE whole-picture role; finite static HelpScript table windows, without a natural-display claim.
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `dpad_button_and_frame_tiles.2bpp` | 2bpp tiles | 672 | 61:4CC0 | PROBABLE | exact | - | `gfx/ui_art/button_art_fragments.asm` |
-| `tile_fragment_4f63.2bpp` | 2bpp tiles | 656 | 61:4F63 | PROBABLE | exact | - | `gfx/ui_art/button_art_fragments.asm` |
-| `tile_fragment_58b0.2bpp` | 2bpp tiles | 656 | 61:58B0 | PROBABLE | exact | - | `gfx/ui_art/button_art_fragments.asm` |
-| `tile_fragment_65c0.2bpp` | 2bpp tiles | 800 | 61:65C0 | PROBABLE | exact | - | `gfx/ui_art/button_art_fragments.asm` |
-| `fragment_palettes.pal` | RGB palette | 104 | 61:7A80 | PROBABLE | - | - | `gfx/ui_art/button_art_fragments.asm` |
+| `picture_01_tiles.2bpp` | 2bpp tiles | 1152 | 61:4000 | PROBABLE | exact | 12x6 | `gfx/help/script_illustrations_01_13.asm` |
+| `picture_02_tiles.2bpp` | 2bpp tiles | 1152 | 61:4480 | PROBABLE | exact | 12x6 | `gfx/help/script_illustrations_01_13.asm` |
+| `picture_03_tiles.2bpp` | 2bpp tiles | 1152 | 61:4900 | PROBABLE | exact | 12x6 | `gfx/help/script_illustrations_01_13.asm` |
+| `picture_04_tiles.2bpp` | 2bpp tiles | 1152 | 61:4D80 | PROBABLE | exact | 12x6 | `gfx/help/script_illustrations_01_13.asm` |
+| `picture_05_tiles.2bpp` | 2bpp tiles | 1152 | 61:5200 | PROBABLE | exact | 12x6 | `gfx/help/script_illustrations_01_13.asm` |
+| `picture_06_tiles.2bpp` | 2bpp tiles | 1152 | 61:5680 | PROBABLE | exact | 12x6 | `gfx/help/script_illustrations_01_13.asm` |
+| `picture_07_tiles.2bpp` | 2bpp tiles | 1152 | 61:5B00 | PROBABLE | exact | 12x6 | `gfx/help/script_illustrations_01_13.asm` |
+| `picture_08_tiles.2bpp` | 2bpp tiles | 1152 | 61:5F80 | PROBABLE | exact | 12x6 | `gfx/help/script_illustrations_01_13.asm` |
+| `picture_09_tiles.2bpp` | 2bpp tiles | 1152 | 61:6400 | PROBABLE | exact | 12x6 | `gfx/help/script_illustrations_01_13.asm` |
+| `picture_10_tiles.2bpp` | 2bpp tiles | 1152 | 61:6880 | PROBABLE | exact | 12x6 | `gfx/help/script_illustrations_01_13.asm` |
+| `picture_11_tiles.2bpp` | 2bpp tiles | 1152 | 61:6D00 | PROBABLE | exact | 12x6 | `gfx/help/script_illustrations_01_13.asm` |
+| `picture_12_tiles.2bpp` | 2bpp tiles | 1152 | 61:7180 | PROBABLE | exact | 12x6 | `gfx/help/script_illustrations_01_13.asm` |
+| `picture_13_tiles.2bpp` | 2bpp tiles | 1152 | 61:7600 | PROBABLE | exact | 12x6 | `gfx/help/script_illustrations_01_13.asm` |
+| `picture_01_palette.pal` | RGB palette | 8 | 61:7A80 | PROBABLE | - | - | `gfx/help/script_illustrations_01_13.asm` |
+| `picture_02_palette.pal` | RGB palette | 8 | 61:7A88 | PROBABLE | - | - | `gfx/help/script_illustrations_01_13.asm` |
+| `picture_03_palette.pal` | RGB palette | 8 | 61:7A90 | PROBABLE | - | - | `gfx/help/script_illustrations_01_13.asm` |
+| `picture_04_palette.pal` | RGB palette | 8 | 61:7A98 | PROBABLE | - | - | `gfx/help/script_illustrations_01_13.asm` |
+| `picture_05_palette.pal` | RGB palette | 8 | 61:7AA0 | PROBABLE | - | - | `gfx/help/script_illustrations_01_13.asm` |
+| `picture_06_palette.pal` | RGB palette | 8 | 61:7AA8 | PROBABLE | - | - | `gfx/help/script_illustrations_01_13.asm` |
+| `picture_07_palette.pal` | RGB palette | 8 | 61:7AB0 | PROBABLE | - | - | `gfx/help/script_illustrations_01_13.asm` |
+| `picture_08_palette.pal` | RGB palette | 8 | 61:7AB8 | PROBABLE | - | - | `gfx/help/script_illustrations_01_13.asm` |
+| `picture_09_palette.pal` | RGB palette | 8 | 61:7AC0 | PROBABLE | - | - | `gfx/help/script_illustrations_01_13.asm` |
+| `picture_10_palette.pal` | RGB palette | 8 | 61:7AC8 | PROBABLE | - | - | `gfx/help/script_illustrations_01_13.asm` |
+| `picture_11_palette.pal` | RGB palette | 8 | 61:7AD0 | PROBABLE | - | - | `gfx/help/script_illustrations_01_13.asm` |
+| `picture_12_palette.pal` | RGB palette | 8 | 61:7AD8 | PROBABLE | - | - | `gfx/help/script_illustrations_01_13.asm` |
+| `picture_13_palette.pal` | RGB palette | 8 | 61:7AE0 | PROBABLE | - | - | `gfx/help/script_illustrations_01_13.asm` |
 
 ### `gfx/browser/frames_0_1/`
 
@@ -1490,13 +1522,13 @@ make png-export       (maintainers) PNGs regenerated from the binaries; never ov
 
 | kind | PNG source | files | notes |
 |---|---|---:|---|
-| 2bpp tile blocks | `name.png` (exact `rgbgfx` source of `name.2bpp`) | 404 | All tile blocks in the active catalogue; shades 0-3 are grey indices, not the game's colours (the game colours come from palettes and tile attributes; see screens) |
+| 2bpp tile blocks | `name.png` (exact `rgbgfx` source of `name.2bpp`) | 408 | All tile blocks in the active catalogue; shades 0-3 are grey indices, not the game's colours (the game colours come from palettes and tile attributes; see screens) |
 | explicit RAW byte views | `gfx/frame_designs/metal_flame_and_creature_borders_42/raw_*.png` | 4 | 80B through raw2bpp; UNKNOWN purpose/HYPOTHESIS, without tile classification |
 | JIS 12x12 glyphs (11 binaries) | `data/fonts/jis12x12_rows_*.png`, 94 glyphs per sheet row | 9 sheets | bank 7C's three contiguous binaries share one complete sheet |
 | 8x16 font runs | `data/fonts/glyph_runs_8x16/sjis_*.png`, 16 glyphs per row | 27 sheets | |
 | 6x12 Latin font | `data/fonts/ascii_6x12.png` | 1 sheet | 6 pixel wide cells (the two unused bits of each byte stay 0) |
 | whole screens | `name.screen.png` next to `name.tilemap` (`gfx/screens.tsv`) | 95 | edit view: tilemap + attribute map + tiles + palettes composed in real colours; import writes the edit into the tile sheets, see below |
-| palettes | `name.pal` (text, `RGB r, g, b`) | 143 | already an editable text form; a screen PNG can write colours back (`screen_png.py import --palette`). No separate swatch PNG |
+| palettes | `name.pal` (text, `RGB r, g, b`) | 167 | already an editable text form; a screen PNG can write colours back (`screen_png.py import --palette`). No separate swatch PNG |
 
 Not PNG-editable (binary only): the 180 `.tilemap` and 180 `.attrmap` files (the layout of a screen: which tile in which cell, flips, palette
 numbers), the Shift-JIS validity bitmap (data, not an image; `sjis_valid_bitmap_view.png` is a picture of it), and the graphics blocks that are still `db`

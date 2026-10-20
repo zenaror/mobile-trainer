@@ -37,6 +37,8 @@ retain their historical spellings. The other75 labels retain their evidence limi
 positive entry proof. The [audit note](docs/research/generic_data_name_audit_20261020.md) records
 the exact scope and retained matrix; this is not an all-data or whole-ROM completion claim.
 
+The HelpScript picture pass recovers26 complete table-backed12×6 pictures from banks60/61 and their26 palettes. The positive `HelpScript_PictureTable` reader supersedes the old “no loader found” clip descriptions. The new whole-object catalogue adds14848 bytes already present inline, while retaining the original30160-byte owner spans and PROBABLE role qualifications. Structural IDs replace arbitrary clipped resources; source and table labels, path/range maps and PNG rules follow the actual objects. [The picture contracts](docs/research/help_script_picture_assets.md) separate finite static evidence from unproved natural display and leave bank5B outside this asset unit.
+
 The follow-up naming cohort retires93 more historical Function aliases (593 remained at that stage), with proper
 names and conditional roles documented in [audio helpers](docs/research/audio_function_names.md),
 [bank68 contracts](docs/research/bank68_function_names.md), [SDK75 contracts](docs/research/sdk_function_names.md)
