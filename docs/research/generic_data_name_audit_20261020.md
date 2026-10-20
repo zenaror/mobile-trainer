@@ -87,6 +87,16 @@ gates: `make` returned `RESULT: IDENTICAL` with the original ROM SHA-256
 `make palette-check` reported 162 loads, 116 arrays, two documented over-reads,
 and zero errors. No resource bytes, confidence levels, or runtime claims changed.
 
+## Reconciled maintained-source count
+
+The current exact-name count is 1,398 `Data_BB_AAAA::` definitions in the six
+maintained Japanese source roots `home/`, `engine/`, `data/`, `gfx/`, `audio/`,
+and `lib/`. The same `git grep` expression at parent `7923edc7` counted 1,445;
+the 47-definition difference is exactly the MailSrvDelProgress pass above. This
+reconciles the earlier handoff's 1,446 figure, which was high by one. The count
+excludes `languages/` and does not state how many resources are semantically
+identified; it is only a reproducible lexical count of exact global definitions.
+
 ## Remaining limits
 
 The other 75 labels from the original no-alias subset remain unchanged. The audit groups them into interior labels,
