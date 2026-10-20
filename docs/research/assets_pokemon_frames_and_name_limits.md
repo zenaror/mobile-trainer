@@ -377,3 +377,17 @@ orphan binary or PNG was found there. These finite checks do not prove universal
 reader absence, global unused status, natural selection, or a name/frame mapping.
 The independent reviewer accepted the audit with those limits; see the current
 Mobile Trainer handoff for the retained private receipt location.
+
+The retained follow-up receipt (`.tmp/agent-pokemon-frame-audit-20261020/REPORT.md`,
+SHA-256 `765297e74430bbd89783e8bc88c8219ed1025017e5ce64e601c57767e508c2ea`)
+measured the 25 windows as 85,200 original bytes and confirmed exact source
+reemission. Each of the eight KEEP windows lacks an editable screen row but has
+an existing legacy preview; this is an editing-view gap, not evidence that the
+ROM bytes or their graphics are absent. A further 2,416 tile bytes fall outside
+the active tile/raw sheets in this finite window set (848 at 42:4000, 576 at
+42:5AA0, 992 at 42:67F0); source `db`/`ds` spans or other assets still emit them
+exactly. At 42:5AA0, 416 bytes needed by a hypothetical U160 preview are already
+represented across a rephased sheet and `db`/`ds`; U160 remains an unobserved
+placement model. The report's claimed snapshot revision was not independently
+authenticated, so these figures are bounded to the listed windows and paths;
+they do not establish global asset completeness, natural use, or unused status.
