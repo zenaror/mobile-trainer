@@ -485,16 +485,16 @@ def kbd_tokens(w):
     for n, idxs in sorted(types.items()):
         res[n] = ('Kbd_T' + ''.join(map(str, idxs)),
                   'entry %s of Kbd_LoadPageGraphics_TypeTable (55:66D9, indexed by wKbdType in Kbd_LoadPageGraphics 55:66C6)' % '/'.join(map(str, idxs)))
-    for disp, tabs in (('Label_55_6858', ('Table_55_6869', 'Table_55_686F')), ('Label_55_696B', ('Table_55_697C', 'Table_55_6982'))):
+    for disp, tabs in (('Kbd_LoadPageGraphics_T6', ('Table_55_6869', 'Table_55_686F')), ('Kbd_LoadPageGraphics_T78', ('Table_55_697C', 'Table_55_6982'))):
         base = res[disp][0]
         pages = []
         for t in tabs:
             pages += w.info[w.by_name[t]]['words']
         for i, n in enumerate(pages):
             res[n] = ('%s_Page%d' % (base, i), 'page %d of the wKbdPage dispatch (%s...) of %s' % (i, tabs[0], disp))
-    # shared tails (`Label_55_6952` is entered by jp from the type 6 page loaders, `Label_55_6A65` by the type 7/8 ones)
-    res['Label_55_6952'] = (res['Label_55_6858'][0] + '_PageTail', 'shared tail of the type 6 page loaders (jp Label_55_6952 from 6871/68AA/68E3, fall-through of 691C)')
-    res['Label_55_6A65'] = (res['Label_55_696B'][0] + '_PageTail', 'shared tail of the type 7/8 page loaders (jp Label_55_6A65 from 6984/69BD/69F6, fall-through of 6A2F)')
+    # Legacy config/xrefs.tsv rows still spell these two shared-tail addresses as Label_*.
+    res['Label_55_6952'] = (res['Kbd_LoadPageGraphics_T6'][0] + '_PageTail', 'shared tail of the type 6 page loaders (jp Kbd_LoadPageGraphics_T6_Tail from pages 0-2, fall-through of page 3)')
+    res['Label_55_6A65'] = (res['Kbd_LoadPageGraphics_T78'][0] + '_PageTail', 'shared tail of the type 7/8 page loaders (jp Kbd_LoadPageGraphics_T78_Tail from pages 0-2, fall-through of page 3)')
     # the connection-icon graphics request dispatch: ConnIcon_LoadGraphicsIfRequested (69:40D1) = `ld a,[wConnIconGfxRequest] ; cp $FF ; ret z ; call JumpTableInline` + ConnIcon_GfxTable
     if 'ConnIcon_GfxTable' in w.by_name:
         for i, n in enumerate(w.info[w.by_name['ConnIcon_GfxTable']]['words']):
@@ -977,13 +977,13 @@ def rules_manual(w, man, sites):
     add('Data_55_6FF4', 'Table_Kbd_MarkerSpritePositions', 'table', 'PROBABLE',
         '12 bytes = 2 bytes per keyboard type for types 0..5: Kbd_ShowMarkerSprite (55:6FCD) does `ld a,[wKbdType] ; ld hl,<table> ; add a,a ; ... ld a,[hli] ; ld d,[hl] ; ld e,a ; call Sprite_SetPosition` for the marker object at $DAD0')
     add('Table_55_6869', 'Table_Kbd_T6_PageLoaders', 'table', 'PROBABLE',
-        'code-pointer table indexed by wKbdPage*2 in Label_55_6858 (`ld a,[wKbdPage] ; ld hl,<table> ; add a,a ; ... ld a,[hli] ; ld h,[hl] ; ld l,a ; jp hl`), reached as entry 6 of Kbd_LoadPageGraphics_TypeTable; words Label_55_6871 / 68AA / 68E3, the fourth page (691C) is the single word of the adjacent table Table_55_686F')
+        'code-pointer table indexed by wKbdPage*2 in Kbd_LoadPageGraphics_T6 (`ld a,[wKbdPage] ; ld hl,<table> ; add a,a ; ... ld a,[hli] ; ld h,[hl] ; ld l,a ; jp hl`), reached as entry 6 of Kbd_LoadPageGraphics_TypeTable; words Kbd_LoadPageGraphics_T6_Page0 / Page1 / Page2, the fourth page is the single word of adjacent table Table_55_686F')
     add('Table_55_686F', 'Table_Kbd_T6_PageLoaders_Page3', 'table', 'PROBABLE',
-        'one word (Label_55_691C) directly after the three words of Table_Kbd_T6_PageLoaders (55:6869+6 = 6 + 2 per page): page 3 of the wKbdPage dispatch of type 6; Label_55_691C has no other reference')
+        'one word directly after the three words of Table_Kbd_T6_PageLoaders (55:6869+6 = 6 + 2 per page): Kbd_LoadPageGraphics_T6_Page3, page 3 of the wKbdPage dispatch of type 6; no additional reference')
     add('Table_55_697C', 'Table_Kbd_T78_PageLoaders', 'table', 'PROBABLE',
-        'code-pointer table indexed by wKbdPage*2 in Label_55_696B (same idiom as Label_55_6858), reached as entries 7 and 8 of Kbd_LoadPageGraphics_TypeTable; words Label_55_6984 / 69BD / 69F6, the fourth page (6A2F) is the word of the adjacent table Table_55_6982')
+        'code-pointer table indexed by wKbdPage*2 in Kbd_LoadPageGraphics_T78 (same idiom as Kbd_LoadPageGraphics_T6), reached as entries 7 and 8 of Kbd_LoadPageGraphics_TypeTable; words Kbd_LoadPageGraphics_T78_Page0 / Page1 / Page2, the fourth page is the word of adjacent table Table_55_6982')
     add('Table_55_6982', 'Table_Kbd_T78_PageLoaders_Page3', 'table', 'PROBABLE',
-        'one word (Label_55_6A2F) directly after the three words of Table_Kbd_T78_PageLoaders: page 3 of the wKbdPage dispatch of types 7 and 8')
+        'one word directly after the three words of Table_Kbd_T78_PageLoaders: Kbd_LoadPageGraphics_T78_Page3, page 3 of the wKbdPage dispatch of types 7 and 8')
 
     # ---- dialog slide scripts
     for old, new, fn, callee, other in (

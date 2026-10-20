@@ -113,9 +113,23 @@ operands to their existing operation/resource names: `SoundDrv_CmdStoreTrackByte
 `Browser_DrawElement_ReturnOnly` (five entries), `Kbd_HideAndReturn9`,
 `Fill99E1Pattern46_Draw5807TwiceAndUpload`, and `LCDOn_ReturnBCZero`. Existing
 PROBABLE/HYPOTHESIS comments remain on the surviving names; this does not prove
-natural entry, callers, or application purpose. The other 486 `Label_*`
-definitions need continued scope/reference review. The pinned inventory and
-its limitations are retained at `.tmp/label-entry-audit-20261020-agent/`.
+natural entry, callers, or application purpose. The 486 `Label_*` definitions
+then remaining needed continued scope/reference review. The pinned inventory
+and its limitations are retained at `.tmp/label-entry-audit-20261020-agent/`.
+
+A follow-on keyboard pass retires 12 more co-located aliases in bank 55:
+`Kbd_LoadPageGraphics_T6`, its four page entries and tail, and
+`Kbd_LoadPageGraphics_T78`, its four page entries and tail. Existing naming
+evidence rates all 12 CONFIRMED from dispatch tables and natural trace counts.
+The current source contains their descriptive labels and table operands already
+use those spellings; `tools/data_consumers.py` now looks them up by those names.
+Its two `Label_55_6952`/`Label_55_6A65` keys remain only to interpret historical
+`config/xrefs.tsv` rows. A targeted `kbd_tokens()` run returns all 23 mappings,
+including the page entries. The full `data_consumers.py --stats` run advances
+past keyboard mapping but still stops at a stale manual rule for `Data_55_6E9F`,
+whose current source label is `Table_Kbd_TypeHasPages_ByType`; this limits that
+generator run and is unrelated to the ROM build. The 474 other `Label_*`
+definitions still require current scope/reference review.
 
 ## Remaining limits
 

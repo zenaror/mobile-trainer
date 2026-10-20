@@ -1796,7 +1796,6 @@ Label_55_679F::
 	ret
 
 Kbd_LoadPageGraphics_T6:: ; 55:6858
-Label_55_6858::
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 2/18 scenarios)
 	ld a, [wKbdPage]
 	ld hl, Table_Kbd_T6_PageLoaders
@@ -1826,7 +1825,6 @@ Table_55_686F::
 	dw Kbd_LoadPageGraphics_T6_Page3
 
 Kbd_LoadPageGraphics_T6_Page0:: ; 55:6871
-Label_55_6871::
 	; [CONFIRMED] 57 insn(s); 57 executed (in up to 2/18 scenarios)
 	ld de, $8801
 	ld hl, Gfx_Kbd_T6_Page0_Tiles8800Vb1
@@ -1849,7 +1847,6 @@ Label_55_6871::
 	jp Kbd_LoadPageGraphics_T6_Tail
 
 Kbd_LoadPageGraphics_T6_Page1:: ; 55:68AA
-Label_55_68AA::
 	ld de, $8801
 	ld hl, Gfx_Kbd_T6_Page1_Tiles8800Vb1
 	ld a, BANK(Gfx_Kbd_T6_Page1_Tiles8800Vb1)
@@ -1871,7 +1868,6 @@ Label_55_68AA::
 	jp Kbd_LoadPageGraphics_T6_Tail
 
 Kbd_LoadPageGraphics_T6_Page2:: ; 55:68E3
-Label_55_68E3::
 	ld de, $8801
 	ld hl, Gfx_Kbd_T6_Page2_Tiles8800Vb1
 	ld a, BANK(Gfx_Kbd_T6_Page2_Tiles8800Vb1)
@@ -1893,7 +1889,6 @@ Label_55_68E3::
 	jp Kbd_LoadPageGraphics_T6_Tail
 
 Kbd_LoadPageGraphics_T6_Page3:: ; 55:691C
-Label_55_691C::
 	; [CONFIRMED] ld de,$8801 ; ld hl,$5EC0 ; ld a,$66 ; ld b,$92 ; ld c,$40: argument set-up for
 	; the far call of the tile uploader that follows (region 6928); its address $691C is the last
 	; word of the code-pointer table before it (55:686F word $691C) [executed in 2 scenarios]
@@ -1921,7 +1916,6 @@ Label_55_691C::
 	farcall Gfx_StartHDMAWithService
 
 Kbd_LoadPageGraphics_T6_Tail:: ; 55:6952
-Label_55_6952::
 	; [CONFIRMED] 22 insn(s); 22 executed (in up to 4/18 scenarios)
 	ldh a, [hKbd_LoadPageArg]
 	or a, a
@@ -1935,7 +1929,6 @@ Label_55_6952::
 	ret
 
 Kbd_LoadPageGraphics_T78:: ; 55:696B
-Label_55_696B::
 	ld a, [wKbdPage]
 	ld hl, Table_Kbd_T78_PageLoaders
 	add a, a
@@ -1964,7 +1957,6 @@ Table_55_6982::
 	dw Kbd_LoadPageGraphics_T78_Page3
 
 Kbd_LoadPageGraphics_T78_Page0:: ; 55:6984
-Label_55_6984::
 	; [CONFIRMED] 57 insn(s); 57 executed (in up to 4/18 scenarios)
 	ld de, $8801
 	ld hl, Gfx_Kbd_T78_Page0_Tiles8800Vb1
@@ -1987,7 +1979,6 @@ Label_55_6984::
 	jp Kbd_LoadPageGraphics_T78_Tail
 
 Kbd_LoadPageGraphics_T78_Page1:: ; 55:69BD
-Label_55_69BD::
 	ld de, $8801
 	ld hl, Gfx_Kbd_T78_Page1_Tiles8800Vb1
 	ld a, BANK(Gfx_Kbd_T78_Page1_Tiles8800Vb1)
@@ -2009,7 +2000,6 @@ Label_55_69BD::
 	jp Kbd_LoadPageGraphics_T78_Tail
 
 Kbd_LoadPageGraphics_T78_Page2:: ; 55:69F6
-Label_55_69F6::
 	ld de, $8801
 	ld hl, Gfx_Kbd_T78_Page2_Tiles8800Vb1
 	ld a, BANK(Gfx_Kbd_T78_Page2_Tiles8800Vb1)
@@ -2031,7 +2021,6 @@ Label_55_69F6::
 	jp Kbd_LoadPageGraphics_T78_Tail
 
 Kbd_LoadPageGraphics_T78_Page3:: ; 55:6A2F
-Label_55_6A2F::
 	; [CONFIRMED] ld de,$8801 ; ld hl,$6100 ; ld a,$62 ; ld b,$92 ; ld c,$40: argument set-up for
 	; the tile uploader that follows at 6A3B; its address is the last word $6A2F of the table at
 	; 55:6982 [executed in 4 scenarios]
@@ -2059,7 +2048,6 @@ Label_55_6A2F::
 	farcall Gfx_StartHDMAWithService
 
 Kbd_LoadPageGraphics_T78_Tail:: ; 55:6A65
-Label_55_6A65::
 	; [CONFIRMED] 68 insn(s); 68 executed (in up to 5/18 scenarios)
 	ldh a, [hKbd_LoadPageArg]
 	or a, a
