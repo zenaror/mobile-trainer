@@ -983,6 +983,13 @@ local scopes; frozen ledgers keep the earlier spellings as history. The change
 adds no audio interpretation or playback claim. At this checkpoint the ROM
 still builds identically and the symbol count is 14,566.
 
+The next paired music-owner pass retired 20 `Data_05_*` aliases each from
+`audio/music/music_12.asm` and `audio/music/music_0e.asm`, preserving the
+same-address `SoundSong12_*` and `SoundSong0E_*` labels. The pre-edit owner
+hashes match the pinned census inputs; an updated ASM/include scan found no external
+consumers or local scopes. This removes generic aliases only and makes no new
+sound interpretation.
+
 The address-book cursor animation block at bank 2F now names its frame and
 script `Abook_ViewCursor_Frame0` and `Abook_ViewCursor_Script`. The consumer
 passes `Table_Abook_ViewCursorAnims` to `Sprite_InitSlot`; its four entries

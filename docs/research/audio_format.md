@@ -580,3 +580,6 @@ that the removed names are current source symbols.
 The following `music_05.asm` cleanup retired 31 redundant `Data_04_*` labels;
 the `SoundSong05_*` identities remain at those addresses. Older config and
 analysis ledgers retain their original spellings as frozen evidence.
+The paired music owners `music_12.asm` and `music_0e.asm` next retired 20
+redundant `Data_05_*` labels apiece, retaining existing `SoundSong12_*` and
+`SoundSong0E_*` names. No audio semantics or runtime claims changed.

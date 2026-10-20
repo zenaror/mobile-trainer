@@ -367,6 +367,19 @@ pass, `make` reported `RESULT: IDENTICAL` against the original ROM hash,
 `make palette-check` reported 162 loads, 116 arrays, two documented over-reads
 and zero errors. The review did not repeat the full global census or build.
 
+The next paired pass removes 20 redundant `Data_05_*` aliases from each of
+`audio/music/music_12.asm` and `audio/music/music_0e.asm`. Their exact-address
+`SoundSong12_*` and `SoundSong0E_*` labels remain. Both pre-edit source hashes
+match the pinned census inputs; current ASM/include search finds no outside
+consumers or local scopes. The independent review covered the snapshots,
+matrix, and documentation; it did not rerun the global census or build.
+Coordinator-run gates for this edited tree: `make` reported
+`RESULT: IDENTICAL` (original SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`),
+`make sym-check` reported 14,526 labels and 51 constants, and
+`make palette-check` reported 162 loads, 116 arrays, two documented over-reads,
+and zero errors.
+
 The SFX owner `audio/sfx.asm` also retired its 76 redundant `Data_05_*` labels
 in favor of same-address `SoundSfx*` names. The base-pinned census reports no
 references, metadata mentions or scoped-local uses for these aliases; the
