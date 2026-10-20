@@ -942,7 +942,18 @@ def rom_bytes(w, k, n):
 
 def rules_manual(w, man, sites):
     """Tables whose consumer routine and structure are read one by one (each entry cites the routine and the access pattern)."""
+    def already_named(old, new):
+        """Whether a historical neutral spelling already maps to its named address in this source tree."""
+        m = NEUTRAL.fullmatch(old)
+        target = w.by_name.get(new)
+        if not m or target != (int(m.group(2), 16), int(m.group(3), 16)):
+            return False
+        old_addr = w.by_name.get(old)
+        return old_addr is None or (old_addr == target and new in w.by_addr[target])
+
     def add(old, new, kind, status, ev):
+        if already_named(old, new):
+            return
         if old not in w.by_name or not w.is_neutral_group(w.by_name[old]):
             raise AssertionError('manual row for a label that is not a neutral group: ' + old)
         man.add(old, new, kind, status, ev)
@@ -955,9 +966,12 @@ def rules_manual(w, man, sites):
             ('Data_55_6F23', 'Kbd_TypeHidesOnKey83', 'flag byte'),
             ('Data_55_6F3B', 'Kbd_TypeWaitsWithService', 'flag byte'),
             ('Data_55_641C', 'Kbd_GetSlideTargetY', 'byte')):
+        new = 'Table_%s_ByType' % fn
+        if already_named(old, new):
+            continue
         k = w.by_name[old]
         b = rom_bytes(w, k, 11)
-        add(old, 'Table_%s_ByType' % fn, 'table', 'PROBABLE',
+        add(old, new, 'table', 'PROBABLE',
             '11 bytes [%s] read by %s as `ld hl,<table> ; add a,l ; ld l,a ; ld a,0 ; adc a,h ; ld h,a ; ld a,[hl] ; ret`, A = keyboard type index; '
             '11 entries = the 11 entries of Kbd_LoadPageGraphics_TypeTable (55:66D9) which wKbdType indexes; one %s per keyboard type' % (b.hex(' '), fn, what))
     k = w.by_name['Data_55_62A0']
@@ -986,13 +1000,15 @@ def rules_manual(w, man, sites):
         'one word directly after the three words of Table_Kbd_T78_PageLoaders: Kbd_LoadPageGraphics_T78_Page3, page 3 of the wKbdPage dispatch of types 7 and 8')
 
     # ---- dialog slide scripts
-    for old, new, fn, callee, other in (
-            ('Data_72_43A1', 'Data_Dialog_Open_SlideScripts', 'Dialog_Open', 'Dialog_SlideIn', '$43A4'),
-            ('Data_72_4572', 'Data_Dialog_Close_SlideScripts', 'Dialog_Close', 'Dialog_SlideOut', '$4575')):
+    for old, new, first_fn, second_fn, callee, other in (
+            ('Data_72_43A1', 'Data_Dialog_OpenAndOpenTall_SlideScripts', 'Dialog_Open', 'Dialog_OpenTall', 'Dialog_SlideIn', '$43A4'),
+            ('Data_72_4572', 'Data_Dialog_CloseAndCloseTall_SlideScripts', 'Dialog_Close', 'Dialog_CloseTall', 'Dialog_SlideOut', '$4575')):
+        if already_named(old, new):
+            continue
         k = w.by_name[old]
         add(old, new, 'data', 'CONFIRMED',
-            '6 bytes %s = two 3-byte scripts (48 00 80) (58 00 80): %s loads HL with the label and, through the raw immediate `ld hl,%s`, with the second script before `farcall %s`; '
-            'the reader loops `ld a,[hli] ; cp $80 ; jr z,done` (step byte per frame, $80 terminator); executed-read in up to 4 scenarios (region header CONFIRMED)' % (rom_bytes(w, k, 6).hex(' '), fn, other, callee))
+            '6 bytes %s = two 3-byte scripts (48 00 80) (58 00 80): %s loads HL with the first script through the label; %s loads the second from raw immediate `ld hl,%s`; both call %s, whose reader loops `ld a,[hli] ; cp $80 ; jr z,done` (step byte per frame, $80 terminator); all six bytes are executed-read (region header CONFIRMED)' %
+            (rom_bytes(w, k, 6).hex(' '), first_fn, second_fn, other, callee))
     for old, new, fn, callee in (
             ('Data_72_6556', 'Data_BrowserMenu_OpenTwoItem_SlideScript', 'BrowserMenu_OpenTwoItem', 'Dialog_SlideIn'),
             ('Data_72_6892', 'Data_BrowserMenu_OpenThreeItem_SlideScript', 'BrowserMenu_OpenThreeItem', 'Dialog_SlideIn'),
@@ -1017,10 +1033,13 @@ def rules_manual(w, man, sites):
     # ---- twins: 2-byte character list walked pair by pair until a 0 first byte
     for old, fn, bank in (('String_2A_6081', 'Profile_ApplyVu', 0x2A), ('String_2C_4878', 'MailTitle_ApplyVu', 0x2C),
                           ('Data_2D_55DA', 'MailBody_ApplyDakutenU', 0x2D), ('String_2F_6040', 'AbookName_ApplyDakutenU', 0x2F)):
+        new = 'Table_%s_LoopPairs' % fn
+        if already_named(old, new):
+            continue
         k = w.by_name[old]
         b = rom_bytes(w, k, 5)
         assert b == bytes.fromhex('82 a4 82 a4 00'), (old, b.hex())
-        add(old, 'Table_%s_CharPairs' % fn, 'table', 'PROBABLE',
+        add(old, new, 'table', 'PROBABLE',
             '5 bytes 82 A4 82 A4 00 (two Shift-JIS pairs, then 0): %s loads DE with the label (`ld de,<label>` with WRAM bank 1 selected) and loops `ld a,[de] ; inc de ; cp 0 ; jr z,end ; ld b,a ; ld a,[de] ; inc de ; ld c,a` = two bytes per entry until a first byte of 0; '
             'the four copies (banks 2A/2C/2D/2F) are byte-identical' % fn)
 
@@ -1072,8 +1091,8 @@ def rules_manual(w, man, sites):
                     ('s' if len(idx) > 1 else '', ' and '.join(map(str, idx)), 'ies' if len(idx) > 1 else '', ' and '.join(map(str, idx)), w.size(gk), w.size(gk) // 6))
     add('String_56_4000', 'String_ConnectDialog_Messages', 'string', 'PROBABLE',
         '394 bytes = 6 NUL-terminated Shift-JIS messages of the connect dialog (region header CONFIRMED text); ConnectDialog_Draw_ConnectConfirm renders the first one with `ld hl,<label> ; a=$56 ; bc=$0010 ; de=$D000 -> TextTiles_RenderGrid` (the charge warning "つうわりょうと せつぞくりょうがかかります"); the later strings are the other dialog states (password prompts)')
-    add('Data_6A_6651', 'Data_HelpMenu_ItemStringBank', 'data', 'PROBABLE',
-        'one byte $6A = the ROM bank of the item strings: HelpMenu_ShowItemText (6C) reads it with `ld hl,<label> ; ... ld a,[hl]` before farcall Ticker_Start (a=$6A); the 12-byte word table after it points into 6A:6672-66F5')
+    add('Data_6A_6651', 'Table_HelpMenu_LockedItemTicker', 'table', 'PROBABLE',
+        'one-byte bank field $6A at the base passed by HelpMenu_ShowItemText to Ticker_Start; ReadByteFar obtains the text bank, then the caller indexes the adjacent 4-byte string-pointer entries at 6A:6652-6672; selected for the locked-item ???? ticker')
 
     # ---- tilemaps reached through word tables in a code bank (the words are numeric, the bank comes from `ld a,$4D` before the loader)
     for tab, fn, bank, cols, rows, pat, desc in (
@@ -1086,18 +1105,18 @@ def rules_manual(w, man, sites):
         for i in range(n):
             a = w.word(tk[0], tk[1] + 2 * i)
             gk = (bank, a)
-            assert gk in w.by_addr and w.is_neutral_group(gk) and w.size(gk) == cols * rows * 2, (tab, i, hex(a))
-            add(w.by_addr[gk][0], pat % i, 'data', 'PROBABLE',
+            assert gk in w.by_addr and w.size(gk) == cols * rows * 2, (tab, i, hex(a))
+            new = pat % i
+            if w.by_name.get(new) == gk:
+                continue
+            assert w.is_neutral_group(gk), (tab, i, hex(a), w.by_addr[gk])
+            add(w.by_addr[gk][0], new, 'data', 'PROBABLE',
                 'tilemap+attribute block (%dx%d cells = %d bytes = the label extent) that is entry %d of %s (%02X:%04X, numeric words): %s loads `ld hl,<table> ; ... ld a,[hli] ; ld h,[hl] ; ld l,a ; ld a,$%02X ; farcall Tilemap_CopyRectAndAttr` with bc=$%02X%02X; %s' %
                 (cols, rows, cols * rows * 2, i, tab, tk[0], tk[1], fn, bank, rows, cols, desc))
-    # ---- the AdapterCheck object table sits inside a block that the region analysis typed as tiles by pixel coherence
-    k = w.by_name['Data_4A_68D0']
-    ents = [(w.word(0x4A, 0x68D0 + 4 * i), w.word(0x4A, 0x68D2 + 4 * i)) for i in range(4)]
-    assert ents[0] == (0, 0) and all(0x68D0 <= a < 0x6920 and 0x68D0 <= b < 0x6920 for a, b in ents[1:]), ents
-    add('Data_4A_68D0', 'AdapterCheck_ObjTableAndAnimData', 'data', 'PROBABLE',
-        '80-byte block passed as DE with A=$4A to Sprite_InitSlot by AdapterCheck_DrawScreen (`ld hl,$DA.. ; ld de,<label> ; ld a,$4A ; ld b,.. ; farcall Sprite_InitSlot`, xref %s): its first 16 bytes are the 4-byte entries (entry 0 zero, entries 1..3 = frame-table/script pointers '
-        '%s, all inside this block) followed by their frame tables, records and scripts.  CONTRADICTION with the region header, which types the block `tiles-2bpp: heuristic` by pixel coherence; the access pattern (object-table reader 00:0AB8) is the stronger evidence, the header is left as it is' %
-        ('the xrefs.tsv imm row for this label', ' '.join('%04X/%04X' % e for e in ents[1:])))
+    # Data_4A_68D0's old 80-byte hypothesis was superseded by the segmented
+    # AdapterCheck_ObjTable and its internal frame/script labels; see
+    # docs/research/adapter_check_object_data_80b.md. Do not regenerate the
+    # obsolete whole-block rename here.
     # ---- 12x12 JIS font banks and the 6x12 ASCII font: row -> bank through GlyphFont_RowBankTable (7F:40F9, read by the executed glyph loader 7F:40C0)
     rb = w.by_name.get('GlyphFont_RowBankTable')
     if rb:

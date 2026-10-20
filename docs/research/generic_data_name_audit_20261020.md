@@ -124,10 +124,17 @@ The current source contains their descriptive labels and table operands already
 use those spellings; `tools/data_consumers.py` now looks them up by those names.
 Its two `Label_55_6952`/`Label_55_6A65` keys remain only to interpret historical
 `config/xrefs.tsv` rows. A targeted `kbd_tokens()` run returns all 23 mappings,
-including the page entries. The full `data_consumers.py --stats` run advances
-past keyboard mapping but still stops at a stale manual rule for `Data_55_6E9F`,
-whose current source label is `Table_Kbd_TypeHasPages_ByType`; this limits that
-generator run and is unrelated to the ROM build.
+including the page entries. The full `data_consumers.py --stats` run now
+completes. Manual rules skip a candidate only when its surviving named target
+is present at the old bank/address; stale targets for the dialog scripts,
+character-pair tables and locked HelpMenu ticker were aligned with verifier
+corrections. The obsolete whole-block `Data_4A_68D0` AdapterCheck hypothesis
+was removed because the source now models the object table and internal
+structures separately. `--stats` reports 581 neutral data groups, 161 sites
+(158 rejected, 3 accepted), and one remaining HYPOTHESIS row. A private
+manifest and inventory from this working tree based on `3d5fe3af` are retained
+under `.tmp/data-consumers-working-tree-after-3d5fe3af/`; they do not update the historical
+`analysis/naming2/data2_renames.tsv`.
 
 ## Retirement of remaining co-located `Label_*` aliases
 
@@ -160,6 +167,21 @@ documented over-reads and zero errors; `make png-check` validated 408 tile
 sheets, four raw byte views, 37 font sheets and 95 screen PNGs. No ROM bytes
 changed. The current-snapshot inventory and reproduction script are retained
 under `.tmp/label-entry-audit-head-56840723/`.
+
+## Retired keyboard/help ticker data aliases
+
+A targeted current-source census found six neutral `Data_BB_AAAA::` aliases
+that shared an address with a named table and had no current source operand or
+local scope: `Data_55_641C`, `Data_55_6E9F`, `Data_55_6EE1`, `Data_55_6F0D`,
+`Data_55_6F23`, and `Data_6A_6651`. All six were retired in this checkpoint;
+`Data_55_6F3B` had already been retired with its one local scope
+mapped from `.l6F51` to the surviving table name. The old/current names,
+addresses and owner files are preserved in
+[`../../analysis/naming2/retired_keyboard_table_aliases.tsv`](../../analysis/naming2/retired_keyboard_table_aliases.tsv).
+The four keyboard predicate tables remain PROBABLE storage; confidence and
+consumer notes are unchanged. `Table_HelpMenu_LockedItemTicker` remains the
+one-byte bank field at `6A:6651`; adjacent pointer arrays remain separate
+blocks. The build remains byte-identical after these alias-line removals.
 
 ## Remaining limits
 

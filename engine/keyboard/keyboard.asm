@@ -1238,7 +1238,6 @@ Kbd_GetSlideTargetY:: ; 55:640E
 ; ---- data $641C-$6427 (11 bytes) [PROBABLE] zero/short bytes of the keyboard page tables between text rows; part of the run 641C-6427 that executed code reads piecewise [split by classify_g2]
 
 Table_Kbd_GetSlideTargetY_ByType:: ; 55:641C
-Data_55_641C::
 	db $28, $28, $28, $28, $28, $28, $38, $38, $38, $38, $38
 
 Kbd_SlideOut:: ; 55:6427

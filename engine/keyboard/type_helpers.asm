@@ -20,7 +20,6 @@ Kbd_TypeHasPages:: ; 55:6E94
 ; ---- data $6E9F-$6EAA (11 bytes) [PROBABLE] zero/short bytes of the keyboard page tables between text rows; part of the run 6E9F-6EAA that executed code reads piecewise [split by classify_g2]
 
 Table_Kbd_TypeHasPages_ByType:: ; 55:6E9F
-Data_55_6E9F::
 	db $00, $00, $00, $00, $00, $00, $01, $01, $01, $00, $00
 
 Kbd_TypeMode2DefaultCursorFlag:: ; 55:6EAA
@@ -81,7 +80,6 @@ Kbd_TypeNeedsExtraPalette:: ; 55:6ED6
 ; ---- data $6EE1-$6EEC (11 bytes) [PROBABLE] zero/short bytes of the keyboard page tables between text rows; part of the run 6EE1-6EEC that executed code reads piecewise [split by classify_g2]
 
 Table_Kbd_TypeNeedsExtraPalette_ByType:: ; 55:6EE1
-Data_55_6EE1::
 	db $00, $00, $00, $00, $00, $01, $01, $01, $01, $01, $01
 Kbd_Type6To10Flag:: ; 55:6EEC
 
@@ -121,7 +119,6 @@ Kbd_TypeHidesOnKey82:: ; 55:6F02
 ; ---- data $6F0D-$6F18 (11 bytes) [PROBABLE] zero/short bytes of the keyboard page tables between text rows; part of the run 6F0D-6F18 that executed code reads piecewise [split by classify_g2]
 
 Table_Kbd_TypeHidesOnKey82_ByType:: ; 55:6F0D
-Data_55_6F0D::
 	db $00, $00, $00, $00, $00, $01, $01, $00, $01, $01, $00
 
 Kbd_TypeHidesOnKey83:: ; 55:6F18
@@ -140,7 +137,6 @@ Kbd_TypeHidesOnKey83:: ; 55:6F18
 ; ---- data $6F23-$6F2E (11 bytes) [PROBABLE] zero/short bytes of the keyboard page tables between text rows; part of the run 6F23-6F2E that executed code reads piecewise [split by classify_g2]
 
 Table_Kbd_TypeHidesOnKey83_ByType:: ; 55:6F23
-Data_55_6F23::
 	db $00, $00, $00, $00, $00, $01, $01, $01, $01, $01, $00
 
 Kbd_TypeWaitsWithService:: ; 55:6F2E
