@@ -342,7 +342,8 @@ the current-source census found no active source/tool/metadata references or
 scoped locals. Their old spellings remain only in the historical rename map
 `analysis/naming2/audio2_renames.tsv:47-50`; the converter consumes the
 `SoundSong*` names. The separate historical `Data_04_574D` discussion above
-describes an earlier version.
+describes an earlier version. Current source now retains only
+`SoundSong01_Track0` at 04:574D; the redundant `Data_04_574D` alias was retired.
 
 The SFX owner `audio/sfx.asm` also retired its 76 redundant `Data_05_*` labels
 in favor of same-address `SoundSfx*` names. The base-pinned census reports no

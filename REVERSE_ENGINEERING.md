@@ -953,6 +953,11 @@ symbol/palette checks remain the publication gates. See
 [`audio2_verify_static.md`](docs/research/audio2_verify_static.md) for the
 bounded alias evidence and result.
 
+A follow-up retired the last generic label in that music owner,
+`Data_04_574D`, while retaining `SoundSong01_Track0` at 04:574D. Its remaining
+mentions in the older audio audit and rename ledgers describe historical state
+only; no bytes changed. The current Japanese symbol count is 14,632.
+
 The following audio SFX owner cleanup retired 76 exact-address `Data_05_*`
 aliases from `audio/sfx.asm`; each retains its existing `SoundSfx*` label.
 The census and independent review found no source/tool/metadata consumers or

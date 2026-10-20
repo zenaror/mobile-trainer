@@ -569,3 +569,7 @@ aliases records the original pass state. Since then, commit `cf9b7a7e` retired
 76 redundant `Data_05_*` aliases in `audio/sfx.asm`, including
 `Data_05_68BF`; their `SoundSfx*` labels remain, and the rename TSVs preserve
 historical spellings. No bytes or earlier confidence levels changed.
+The redundant `Data_04_574D` alias was also retired from
+`audio/music/music_01.asm`; `SoundSong01_Track0` is now the sole maintained
+label at 04:574D. Earlier audit prose and analysis ledgers preserve the old
+spelling as historical evidence.
