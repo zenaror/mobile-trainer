@@ -52,6 +52,11 @@ track stream. The table above remains the original audio6 snapshot; its
 also replaces `Data_05_41D0` with
 `SoundSong0E_Track3_Continuation`, a 71-byte interior segment whose shared
 classification span includes the following `sound_end`. Neither name adds a
-separate playback entry or new runtime evidence. These source labels preserve
-the original ROM bytes and do not change the prior audio
-classification or runtime limits.
+separate playback entry or new runtime evidence. Six other former neutral
+labels in this historical table now name interior track continuations:
+`SoundSong14_Track0_Continuation`, `SoundSong14_Track1_Continuation`,
+`SoundSong14_Track2_Continuation`, `SoundSong14_Track3_Continuation`,
+`SoundSong1A_Track0_Continuation`, and `SoundSong1A_Track3_Continuation`.
+Their extents and boundaries are documented in the dated generic data-name
+audit. These source labels preserve the original ROM bytes and do not change
+the prior audio classification or runtime limits.

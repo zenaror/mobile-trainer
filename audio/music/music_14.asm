@@ -117,7 +117,7 @@ SoundSong14_Track0_Sub2:: ; 05:4DDD
 
 ; ---- data $4E22-$4E5B (57 bytes) [PROBABLE] interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md; read as data by executed code in up to 10 of 69 natural scenarios (56 of 57 bytes; traces/detail)
 
-Data_05_4E22:: ; 05:4E22
+SoundSong14_Track0_Continuation:: ; 05:4E22
 	sound_call SoundSong14_Track0_Loop
 	sound_call SoundSong14_Track0_Sub1
 	sound_call SoundSong14_Track0_Sub2
@@ -314,7 +314,7 @@ SoundSong14_Track1_Sub2:: ; 05:4EF8
 
 ; ---- data $4F6A-$4F87 (29 bytes) [PROBABLE] interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md; read as data by executed code in up to 10 of 69 natural scenarios (28 of 29 bytes; traces/detail)
 
-Data_05_4F6A:: ; 05:4F6A
+SoundSong14_Track1_Continuation:: ; 05:4F6A
 	sound_call SoundSong14_Track1_Loop
 	sound_call SoundSong14_Track1_Sub1
 	sound_call SoundSong14_Track1_Sub2
@@ -370,7 +370,7 @@ SoundSong14_Track2_Loop:: ; 05:4F9A
 
 ; ---- data $4FD5-$5004 (47 bytes) [PROBABLE] interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md; read as data by executed code in up to 10 of 69 natural scenarios (46 of 47 bytes; traces/detail)
 
-Data_05_4FD5:: ; 05:4FD5
+SoundSong14_Track2_Continuation:: ; 05:4FD5
 	sound_call SoundSong14_Track2_Loop
 	sound_call SoundSong14_Track2_Loop
 	sound_call SoundSong14_Track2_Loop
@@ -470,7 +470,7 @@ SoundSong14_Track3_Loop:: ; 05:5031
 
 ; ---- data $5085-$50A2 (29 bytes) [PROBABLE] interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md; read as data by executed code in up to 10 of 69 natural scenarios (28 of 29 bytes; traces/detail)
 
-Data_05_5085:: ; 05:5085
+SoundSong14_Track3_Continuation:: ; 05:5085
 	sound_call SoundSong14_Track3_Loop
 	sound_call SoundSong14_Track3_Loop
 	sound_call SoundSong14_Track3_Loop

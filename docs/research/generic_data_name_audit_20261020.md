@@ -731,8 +731,8 @@ and manifest are retained in
 `d354a7bb2a604bebe10b3b7b2901fd9cc8168152e0a9358cd803903f43861fba` and
 `1a5e0a79621043b8f81cfe9e0e31dbd8b2e0322a582f9aee1a472a0b8db0f605`.
 The generic `Data_BB_AAAA::` count at that checkpoint was 987 in the six
-maintained roots plus one in `zero_labels.asm` (988 total); this lexical result is not a
-measure of semantic completion.
+maintained roots plus one in `zero_labels.asm` (988 total); this lexical result
+is not a measure of semantic completion.
 
 ## Song 0E track-3 continuation (2026-10-20)
 
@@ -754,7 +754,38 @@ rejected candidates and zero rename rows. Its inventory and manifest are
 retained in `.tmp/jp-bank05-track3-cont-pass-20261020/`; inventory SHA-256 is
 `531ad6c5fd0a00c0b127fabd66e86c5477587a0fae743cb1d5d9134304686a17` and
 manifest SHA-256 is
-`1a5e0a79621043b8f81cfe9e0e31dbd8b2e0322a582f9aee1a472a0b8db0f605`. The
-generic symbol count is now 986 in
+`1a5e0a79621043b8f81cfe9e0e31dbd8b2e0322a582f9aee1a472a0b8db0f605`.
+At that checkpoint, the generic symbol count was 986 in
 the six maintained roots plus one in `zero_labels.asm` (987 total), a lexical
 count rather than a completion measure.
+
+## Song 14 and Song 1A track continuations (2026-10-20)
+
+Six interior source labels were replaced after comparing each source start,
+track body, final jump, following `AfterJump` label, and decoded audio commands:
+
+| Former label | New label | Interior bytes | Final jump | Next `AfterJump` |
+|---|---|---:|---|---|
+| `Data_05_4E22` | `SoundSong14_Track0_Continuation` | 56 | `05:4E57` to loop `05:4DA3` | `05:4E5A` |
+| `Data_05_4F6A` | `SoundSong14_Track1_Continuation` | 28 | `05:4F83` to loop `05:4EAA` | `05:4F86` |
+| `Data_05_4FD5` | `SoundSong14_Track2_Continuation` | 46 | `05:5000` to loop `05:4F9A` | `05:5003` |
+| `Data_05_5085` | `SoundSong14_Track3_Continuation` | 28 | `05:509E` to loop `05:5031` | `05:50A1` |
+| `Data_05_5E23` | `SoundSong1A_Track0_Continuation` | 19 | `05:5E33` to loop `05:5DD3` | `05:5E36` |
+| `Data_05_609A` | `SoundSong1A_Track3_Continuation` | 52 | `05:60CB` to loop `05:602E` | `05:60CE` |
+
+Each shared source classification span is one byte longer than its interior
+portion because it includes the `sound_end` at the next `AfterJump` label.
+The names say which decoded stream each interior byte position continues;
+they do not claim independent entry points or playback paths. Track membership
+and this interpretation remain **PROBABLE**.
+
+The frozen bank05 region maps remain unchanged. The post-build bounded
+`data_consumers.py --stats` census reports 564 neutral groups, 147 rejected
+candidates, and zero rename rows. Inventory SHA-256 is
+`9cc2534dd8f6b08da66397b32855db8476b683d25496500f7951b7e67d7fbab5`; manifest
+SHA-256 is
+`1a5e0a79621043b8f81cfe9e0e31dbd8b2e0322a582f9aee1a472a0b8db0f605`. Both
+are retained in `.tmp/jp-bank05-neutral-song-continuations-20261020/`. The
+generic `Data_BB_AAAA::` count is 980 in the six maintained roots plus one in
+`zero_labels.asm` (981 total); this lexical count does not establish semantic
+completion.
