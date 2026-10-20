@@ -388,6 +388,17 @@ the active tile/raw sheets in this finite window set (848 at 42:4000, 576 at
 42:5AA0, 992 at 42:67F0); source `db`/`ds` spans or other assets still emit them
 exactly. At 42:5AA0, 416 bytes needed by a hypothetical U160 preview are already
 represented across a rephased sheet and `db`/`ds`; U160 remains an unobserved
-placement model. The report's claimed snapshot revision was not independently
-authenticated, so these figures are bounded to the listed windows and paths;
-they do not establish global asset completeness, natural use, or unused status.
+placement model. The earlier independent receipt did not authenticate its
+claimed snapshot revision. To close that provenance gap, the audit was rerun
+read-only against authenticated HEAD
+`16d461e1f23743842343b92fc78b66088bba6986` in
+`.tmp/bank53-frames-readonly-head-16d461e1/`. Its `RESULT.json` has SHA-256
+`cf0726b0d1486b7d124f6765efe1a3dc647e774ab3292e863a14f6f3f960922b`; the audit
+script is `53996cb1563208c1275ca49b8ce537f18e2b71c214b76f19c03d994c401dd8f6`.
+The fresh receipt confirms 25 name records (369 bytes, exact original bytes),
+25 candidate windows (85,200 bytes), 17 editing views, 24 legacy previews and
+eight KEEP omissions. All 25 name-to-image associations remain unproved. The
+fresh script did not invoke Git or runtime tools. This resolves the prior
+snapshot-authentication gap for these bounded checks; it does not establish
+global asset completeness, natural use, universal reader absence or unused
+status.
