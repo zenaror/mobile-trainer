@@ -573,3 +573,7 @@ The redundant `Data_04_574D` alias was also retired from
 `audio/music/music_01.asm`; `SoundSong01_Track0` is now the sole maintained
 label at 04:574D. Earlier audit prose and analysis ledgers preserve the old
 spelling as historical evidence.
+The same current-source cleanup retired 35 redundant `Data_05_*` aliases in
+`audio/music/music_17.asm`; the existing `SoundSong17_*` identities remain.
+The old spellings persist only in historical/frozen ledgers and do not assert
+that the removed names are current source symbols.

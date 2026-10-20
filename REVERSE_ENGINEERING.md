@@ -956,7 +956,7 @@ bounded alias evidence and result.
 A follow-up retired the last generic label in that music owner,
 `Data_04_574D`, while retaining `SoundSong01_Track0` at 04:574D. Its remaining
 mentions in the older audio audit and rename ledgers describe historical state
-only; no bytes changed. The current Japanese symbol count is 14,632.
+only; no bytes changed. The symbol count at that checkpoint was 14,632.
 
 The following audio SFX owner cleanup retired 76 exact-address `Data_05_*`
 aliases from `audio/sfx.asm`; each retains its existing `SoundSfx*` label.
@@ -966,6 +966,14 @@ local scopes for the retired spellings. The original 2-MiB ROM remains
 constants and 162 loads / 116 arrays / two documented over-reads / zero errors.
 This does not change the earlier PROBABLE classifications of headers or make
 new claims about natural playback. English remains suspended.
+
+The same bounded census supports retiring all 35 exact-address `Data_05_*`
+aliases in `audio/music/music_17.asm`, keeping their `SoundSong17_*` labels.
+Current maintained ASM/include files contain no consumers outside that owner;
+the old spellings remain in frozen analysis/configuration records as history.
+This label-only cleanup adds no audio interpretation or runtime claim. The
+build remains `RESULT: IDENTICAL` with the original SHA-256; the current
+symbol count is 14,597 and `palette-check` reports zero errors.
 
 The address-book cursor animation block at bank 2F now names its frame and
 script `Abook_ViewCursor_Frame0` and `Abook_ViewCursor_Script`. The consumer

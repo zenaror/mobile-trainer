@@ -345,6 +345,17 @@ scoped locals. Their old spellings remain only in the historical rename map
 describes an earlier version. Current source now retains only
 `SoundSong01_Track0` at 04:574D; the redundant `Data_04_574D` alias was retired.
 
+The same current-source follow-up retired 35 redundant `Data_05_*` aliases in
+`audio/music/music_17.asm`. Each exact address retains its `SoundSong17_*`
+identity; a current maintained ASM/include scan found no other consumers.
+The old names in `analysis/naming2/audio6_renames.tsv`, mapper analysis and
+`config/` remain historical/frozen records, not current symbol definitions.
+After this pass, `make` still reports `RESULT: IDENTICAL` against the original
+ROM hash, `make sym-check` reports 14,597 labels and 51 constants, and
+`make palette-check` reports 162 loads, 116 arrays, two documented over-reads
+and zero errors. An independent snapshot review accepted the exact 35-line
+removal; it did not rerun the global census or build.
+
 The SFX owner `audio/sfx.asm` also retired its 76 redundant `Data_05_*` labels
 in favor of same-address `SoundSfx*` names. The base-pinned census reports no
 references, metadata mentions or scoped-local uses for these aliases; the
