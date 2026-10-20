@@ -203,7 +203,6 @@ Registration_DeleteConfirm_UpdateCursor:: ; 68:7B01
 ; ---- data $7B19-$7B1D (4 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
 Registration_DeleteCursorPositions:: ; 68:7B19
-Data_68_7B19::
 	db $28, $30, $58, $30
 
 Registration_DeleteConfirm_PrintMessage:: ; 68:7B1D

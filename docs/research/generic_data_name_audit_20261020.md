@@ -218,6 +218,18 @@ The build remains `RESULT: IDENTICAL` to the original ROM, and symbol,
 palette and PNG checks pass. The change adds no new packet semantics or
 runtime evidence.
 
+## Retired registration cursor alias (2026-10-20)
+
+The same pinned census identified `Data_68_7B19` as a redundant alias of
+`Registration_DeleteCursorPositions` at `68:7B19` in
+`engine/account/delete_registration.asm`. The generic spelling had no direct
+references, metadata/tool mentions or local scope. Its declaration was
+removed; the four position bytes, descriptive label and CONFIRMED evidence
+annotation remain unchanged. The mapping is preserved in
+[`retired_account_data_aliases.tsv`](../../analysis/naming2/retired_account_data_aliases.tsv).
+The ROM remains `RESULT: IDENTICAL`; sym, palette and PNG checks pass. This
+does not identify any additional data semantics.
+
 ## Remaining limits
 
 The other 75 labels from the original no-alias subset remain unchanged. The audit groups them into interior labels,

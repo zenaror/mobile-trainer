@@ -78,6 +78,9 @@ The current original-source follow-up also retired eight redundant `Data_75_*` a
 consumer or local scope. Existing confidence annotations and bytes are unchanged. The mapping and
 current-head census receipt are recorded in the same audit note; this is one bounded alias cleanup,
 not closure of the remaining neutral data inventory.
+One additional same-address alias, `Data_68_7B19`, was retired from
+`engine/account/delete_registration.asm` after the same reference/scope checks; its current name is
+`Registration_DeleteCursorPositions`.
 
 The same audit renamed the positioned `$0020` word at `5C:5144` to
 `CommErr_MessageSlot32RawWord`. The slot is confirmed structurally; the value's purpose remains
