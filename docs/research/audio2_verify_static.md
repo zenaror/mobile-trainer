@@ -356,6 +356,17 @@ ROM hash, `make sym-check` reports 14,597 labels and 51 constants, and
 and zero errors. An independent snapshot review accepted the exact 35-line
 removal; it did not rerun the global census or build.
 
+At checkpoint `9c371690`, the preceding 35-alias `music_17.asm` cleanup was
+published and gates reported 14,597 labels. In the current `music_05.asm`
+pass, 31 exact-address `Data_04_*` aliases were retired in favor of the existing
+`SoundSong05_*` labels. The current maintained ASM/include scan found no
+outside consumers or local scopes; old spellings remain in frozen history.
+The independent snapshot review accepted the exact 31-line removal. At this
+pass, `make` reported `RESULT: IDENTICAL` against the original ROM hash,
+`make sym-check` reported 14,566 labels and 51 constants, and
+`make palette-check` reported 162 loads, 116 arrays, two documented over-reads
+and zero errors. The review did not repeat the full global census or build.
+
 The SFX owner `audio/sfx.asm` also retired its 76 redundant `Data_05_*` labels
 in favor of same-address `SoundSfx*` names. The base-pinned census reports no
 references, metadata mentions or scoped-local uses for these aliases; the

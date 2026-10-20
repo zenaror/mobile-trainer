@@ -577,3 +577,6 @@ The same current-source cleanup retired 35 redundant `Data_05_*` aliases in
 `audio/music/music_17.asm`; the existing `SoundSong17_*` identities remain.
 The old spellings persist only in historical/frozen ledgers and do not assert
 that the removed names are current source symbols.
+The following `music_05.asm` cleanup retired 31 redundant `Data_04_*` labels;
+the `SoundSong05_*` identities remain at those addresses. Older config and
+analysis ledgers retain their original spellings as frozen evidence.

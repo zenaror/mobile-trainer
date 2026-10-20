@@ -973,7 +973,15 @@ Current maintained ASM/include files contain no consumers outside that owner;
 the old spellings remain in frozen analysis/configuration records as history.
 This label-only cleanup adds no audio interpretation or runtime claim. The
 build remains `RESULT: IDENTICAL` with the original SHA-256; the current
-symbol count is 14,597 and `palette-check` reports zero errors.
+symbol count at that checkpoint was 14,597 and `palette-check` reported zero
+errors.
+
+Another exact-address cohort of 31 redundant `Data_04_*` labels was retired
+from `audio/music/music_05.asm`, preserving the same-address `SoundSong05_*`
+labels. The current maintained ASM/include scan found no external consumers or
+local scopes; frozen ledgers keep the earlier spellings as history. The change
+adds no audio interpretation or playback claim. At this checkpoint the ROM
+still builds identically and the symbol count is 14,566.
 
 The address-book cursor animation block at bank 2F now names its frame and
 script `Abook_ViewCursor_Frame0` and `Abook_ViewCursor_Script`. The consumer
