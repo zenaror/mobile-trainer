@@ -273,6 +273,25 @@ ledger SHA-256 is
 `845d95687ff95f6cadf9fe3cdaa27354bca964410410d256f2eb7b6f788375f1`.
 Build, symbol, palette and PNG gates pass with byte-identical original ROM.
 
+## Retired communication-result graphic aliases (2026-10-20)
+
+Another owner-level pass removed 33 redundant `Data_24_*` aliases from
+`gfx/mail/comm_result.asm`. Each had an exact same-address descriptive
+`MailResult_*` label; the fixed census and current symbol file confirmed the
+addresses, and found no generic-name source references, tool/metadata mentions
+or local scopes. The old/current names and preserved confidence values are in
+[`retired_comm_result_data_aliases.tsv`](../../analysis/naming2/retired_comm_result_data_aliases.tsv).
+
+Private receipt `.tmp/comm-result-data-alias-pass-20261020/` records
+`PRECHECK.json` SHA-256
+`a498ede7204f6b0472ff9e801d643e78156faee3e836d69cf31eea7377de4359` and
+`RESULT.json` SHA-256
+`e837451a974d29b67f4df983401306e07193357e8e73ab44cfabb26f888b266f`; the
+ledger SHA-256 is
+`a9f5d8e64eea2a939849c6518d7867b77c00d1b49ba91831e4340b2d61dfcc20`.
+The original ROM, symbols, palettes and PNG checks pass. No runtime claim is
+added.
+
 ## Remaining limits
 
 The other 75 labels from the original no-alias subset remain unchanged. The audit groups them into interior labels,

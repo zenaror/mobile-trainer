@@ -88,6 +88,8 @@ annotations are preserved in the naming audit ledger.
 The top-menu graphics owner had another 36 `Data_1E_*` aliases under existing tilemap, animation
 frame and script names; those redundant labels were removed with the same byte and confidence
 preservation.
+The communication-result graphics owner also lost 33 redundant `Data_24_*` aliases under the
+existing `MailResult_*` labels; the mapping and scope are in the generic-data audit.
 
 The same audit renamed the positioned `$0020` word at `5C:5144` to
 `CommErr_MessageSlot32RawWord`. The slot is confirmed structurally; the value's purpose remains
