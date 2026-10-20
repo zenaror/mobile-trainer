@@ -4,10 +4,10 @@
 
 SECTION "engine/account/helpers", ROMX
 
-; ---- data $4000-$4010 (16 bytes) [CONFIRMED] read as data by executed code (in up to 18/18 scenarios); content class unknown
+; ---- data $4000-$4010 (16 bytes) [CONFIRMED] fixed 16-byte ASCII magic text "MOBILE TRAINER00";
+; copied to SRAM and compared with length $10 by settings-page code.
 
 Settings_MagicString:: ; 68:4000
-Data_68_4000::
 	db $4D, $4F, $42, $49, $4C, $45, $20, $54, $52, $41, $49, $4E, $45, $52, $30, $30
 
 Session_ResetCounters:: ; 68:4010
@@ -348,10 +348,10 @@ Account_BuildMailAddress:: ; 68:419C
 	ldh a, [hScratchA]
 	ret
 
-; ---- data $41DB-$41DD (2 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown [clipped from 41DB-41E9 by higher-priority evidence]
+; ---- text $41DB-$41DD (2 bytes) [CONFIRMED] NUL-terminated ASCII email separator "@";
+; Account_BuildMailAddress appends it between the local part and subdomain.
 
 Account_MailAtSign:: ; 68:41DB
-Data_68_41DB::
 	db $40, $00
 
 ; ---- text $41DD-$41E9 (12 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)

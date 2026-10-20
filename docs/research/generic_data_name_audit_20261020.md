@@ -541,6 +541,32 @@ entry or intended role is established. This fragment was outside the original
 82-label no-alias candidate set, so its retirement is reported separately.
 Frozen `config/regions/` and `analysis/mapper/` snapshots retain the old spelling.
 
-The current exact-name count is 1,001 `Data_BB_AAAA::` definitions across the
-six Japanese source roots, plus two in `zero_labels.asm` (1,003 total). These
-are lexical label counts only, not a measure of unresolved semantic resources.
+The preceding checkpoint's exact-name count was 1,001 `Data_BB_AAAA::`
+definitions across the six Japanese source roots, plus two in `zero_labels.asm`
+(1,003 total). A re-count at `fd70bc46` found 1,000 definitions across the
+six roots and one in `zero_labels.asm` (1,001 total); the earlier `+2` count was
+incorrect. After the six co-alias retirements below, the current count is
+994 across the six roots plus one in `zero_labels.asm` (995 total). These are
+lexical label counts only, not a measure of unresolved semantic resources.
+
+## Retired account and bitmap-mask aliases (2026-10-20)
+
+The account action-confirm source had two `Data_68_*` labels at the same
+addresses as `Account_ActionConfirmCursorPositions` and
+`Account_ActionMessageIds`; owner and linked-symbol checks confirmed the
+co-location, and current source scans found no uses beyond each declaration.
+Both redundant aliases were removed. At `51:73D1`, `Data_51_73D1` duplicated
+`Table_Bmp_RowEndMask`. The values `$FF,$7F,$3F,$1F,$0F,$07,$03,$01,$00` are
+indexed by `width & 7`; the selected mask is ORed into the last bitmap byte for
+a non-aligned row. The source header incorrectly described RGB555 palette words
+and has been corrected to the static consumer. The non-aligned branch is not
+claimed as executed. The changes preserve emitted bytes and confidence levels.
+
+The same current-source review retired `Data_68_4000` under
+`Settings_MagicString`, a fixed 16-byte `MOBILE TRAINER00` sequence copied to
+SRAM and compared at length `$10`; `Data_68_41DB` under `Account_MailAtSign`,
+the NUL-terminated `@` separator appended between two address components; and
+`Data_51_740C` under `ImageBlit_AllBitsMask`. Its existing comment records the
+two PROBABLE edge-strip reads and unchanged `$FF` mask role; the stale comment
+operand now uses the descriptive label. These retirements change no bytes or
+confidence.

@@ -8,7 +8,7 @@ PUSHC sjis
 
 ; ---- ptrtable $4000-$4032 (50 bytes) [PROBABLE] little-endian word table, 25 entries, monotone=1.00, 100% of targets on string start/after NUL, targets $4032..$4164; regular record stride between targets; verifier: truncated from 28 to 25 entries: entry 0 = 4032 is where the table ends
 
-Table_53_4000:: ; 53:4000
+Table_PokemonNamePointers:: ; 53:4000
 	dw PokemonName00
 	dw PokemonName01
 	dw PokemonName02
@@ -37,7 +37,6 @@ Table_53_4000:: ; 53:4000
 
 ; ---- text $4032-$4171 (319 bytes) [PROBABLE] text: 25 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_53_4032:: ; 53:4032
 PokemonName00:: ; 53:4032
 	db "　　ポリゴン", 0
 PokemonName01:: ; 53:403F

@@ -151,7 +151,6 @@ Account_ActionConfirmPage_UpdateCursor:: ; 68:6F7F
 ; ---- data $6F97-$6F9B (4 bytes) [CONFIRMED] read as data by executed code (in up to 6/18 scenarios); content class unknown
 
 Account_ActionConfirmCursorPositions:: ; 68:6F97
-Data_68_6F97::
 	db $28, $30, $58, $30
 
 Account_ActionConfirmPage_BuildTextMap:: ; 68:6F9B
@@ -210,7 +209,6 @@ Account_ActionConfirmPage_PrintMessage:: ; 68:6FAB
 ; ---- data $7005-$7009 (4 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
 
 Account_ActionMessageIds:: ; 68:7005
-Data_68_7005::
 	db $04, $0B, $0C, $0D
 
 Account_ActionConfirmPage_UploadTextTiles:: ; 68:7009

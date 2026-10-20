@@ -565,10 +565,12 @@ Bmp_ConvertToTiles:: ; 51:7177
 	xor a, a
 	ret
 
-; ---- data $73D1-$73DA (9 bytes) [PROBABLE] CGB palette data (RGB555 words): heuristic: 12 RGB555 words as 3 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance) [boundary trimmed 73D1-73E9 -> 73D1-73DA against proven code]
+; ---- data $73D1-$73DA (9 bytes) [PROBABLE] row-end bit masks indexed by width modulo 8;
+; for remainders 1-7, the selected mask is ORed into the final byte of a bitmap row.
+; Remainder 0 skips the table; entries 0 and 8 are not selected by this consumer.
+; Static values and consumer agree; the non-aligned branch is not claimed as executed.
 
 Table_Bmp_RowEndMask:: ; 51:73D1
-Data_51_73D1::
 	db $FF, $7F, $3F, $1F, $0F, $07, $03, $01, $00
 
 Bmp_ColorSum:: ; 51:73DA
@@ -622,10 +624,9 @@ Bmp_RoundUpToTextRow:: ; 51:73F2
 	ret
 
 ; ---- data $740C-$740D (1 bytes) [PROBABLE] single $FF byte between the ret at 740B and the function at 740D (ldh [$FFD0],a ...); read as an all-ones mask by the edge-strip blit code at 51:75A0 and 51:765B
-; (ld a, [Data_51_740C] ; and a, d: the edge mask passes unchanged); both reads are in code that never ran naturally, so the role is PROBABLE (earlier text: "probably padding, not referenced")
+; (ld a, [ImageBlit_AllBitsMask] ; and a, d: the edge mask passes unchanged); both reads are in code that never ran naturally, so the role is PROBABLE (earlier text: "probably padding, not referenced")
 
 ImageBlit_AllBitsMask:: ; 51:740C
-Data_51_740C::
 	db $FF
 
 Image_BlitToTileCanvas:: ; 51:740D
