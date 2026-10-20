@@ -158,6 +158,19 @@ their four text-entry domains; the mixed 4A/4B windows and interior crossings re
 The isolated symbol delta is -17, preserving all surviving values and 51 constants.
 This introduces no new natural rendering, hardware evidence or English work.
 
+The Japanese bank4B follow-on replaces four neutral/legacy names with bounded
+header-source, tile-slice and slot-record names, retires two redundant aliases, and
+moves 21 GFX paths. The 65:4A81 header table is 24 address+bank triples (72 bytes);
+the seven 16-bit footer addresses at 65:4AC9 are separate (14 bytes). The reader
+gives a static 640-byte VRAM1 load contract, while natural selection/rendering
+remains unclaimed. The 4B:6590 DB remains unclassified, the final four bytes of
+4B:76C0 remain unknown, and uploads crossing 4B:7090 and 4B:7AD0 remain mixed
+windows. The 54+3 metadata-cell composition passed independent candidate and staged
+reviews; ACTUAL `make` is `RESULT: IDENTICAL`, `sym-check` reports 14,717 labels and
+51 constants, and `palette-check` reports zero errors with two documented over-reads.
+The package is staged and awaits commit/push and FRESH verification; this adds no
+claim of natural rendering or hardware evidence.
+
 The error-screen resource follow-on retires ten redundant aliases in two graphics
 owners, preserving the ten inherited CONFIRMED classifications, physical source rows,
 assets and operands. The [resource contracts](docs/research/error_screen_basic_resource_names.md)

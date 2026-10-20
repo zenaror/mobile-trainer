@@ -1,17 +1,17 @@
-; gfx/settings/screens_bank4b.asm
+; gfx/settings/notice_headers_and_phone_confirm_continue_bank4b.asm
 ; bank 4B, $5B90-$7FE0 (9296 bytes); pinned by layout.link
-; tiles/tilemaps loaded by bank 67 (5B90-6A90 assigned by adjacency)
+; Notice header graphics sources and settings phone confirm/continue resources
 
-SECTION "gfx/settings/screens_bank4b", ROMX
+SECTION "gfx/settings/notice_headers_and_phone_confirm_continue_bank4b", ROMX
 
-; ---- gfx $5B90-$6590 (2560 bytes) [PROBABLE] 2bpp tiles by coherence: 160 non-blank tiles, mean adjacent-pixel similarity h=0.62 v=0.57 (random data ~0.25-0.35); renders as Japanese text glyph tiles (電話番号入力説明, 変更終了, 新しいパスワードのご注意 ...) when viewed; no loader call found for this range
+; ---- gfx $5B90-$6590 (2560 bytes) [PROBABLE] Four 640-byte sources selected by Notice_LoadHeaderGfx indices $10-$13 through the table at 65:4A81; static copy contract targets VRAM bank 1 at $9300. The prior rendered Japanese text reading is visual analysis; selection in natural execution is not established.
 
-Tiles_4B_5B90:: ; 4B:5B90
-	INCBIN "gfx/settings/screens_bank4b/tiles_5b90.2bpp"
+Notice_HeaderGfxSources10To13:: ; 4B:5B90
+	INCBIN "gfx/settings/notice_headers_and_phone_confirm_continue_bank4b/notice_page_headers_4b_5b90.2bpp"
 
-; ---- data $6590-$6A90 (1280 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
+; ---- data $6590-$6A90 (1280 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown at the pixel/tile level: Notice_LoadHeaderGfx statically selects two contiguous 640-byte source windows for indices $14/$15 from 65:4A81 and requests copies to VRAM bank 1 at $9300; raw DB remains
 
-Data_4B_6590:: ; 4B:6590
+Notice_HeaderGfxSources14To15:: ; 4B:6590
 	db $00, $FF, $24, $C3, $5A, $99, $A4, $25, $AD, $24, $BD, $18, $83, $50, $96, $51
 	db $00, $FF, $00, $FF, $00, $80, $3F, $BF, $3F, $80, $01, $80, $3C, $C1, $01, $FD
 	db $00, $FF, $00, $FF, $00, $30, $A7, $97, $A7, $94, $24, $94, $A5, $14, $25, $14
@@ -97,54 +97,53 @@ Data_4B_6590:: ; 4B:6590
 
 Gfx_SettingsPhone_ConfirmScreen_Tiles8800Vb1:: ; 4B:6A90
 
-	INCBIN "gfx/settings/screens_bank4b/tiles_6a90.2bpp"
+	INCBIN "gfx/settings/notice_headers_and_phone_confirm_continue_bank4b/phone_confirm_vram8800_vb1.2bpp"
 
 ; ---- gfx $6E90-$70B0 (544 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:5160: hl=$6E90 a=$4B c=$22 de=$8C01 (dest VRAM $8C00, vbank=1) [first call site executed: 4 hits in 2 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_SettingsPhone_ConfirmScreen_Tiles8C00Vb1:: ; 4B:6E90
 
-	INCBIN "gfx/settings/screens_bank4b/tiles_6e90.2bpp"
+	INCBIN "gfx/settings/notice_headers_and_phone_confirm_continue_bank4b/phone_confirm_vram8c00_vb1.2bpp"
 
-; ---- gfx $70B0-$73B0 (768 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:5172: hl=$7090 a=$4B c=$40 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 4 hits in 2 scenarios (analysis/coverage_union.tsv)] [clipped from 7090-7490 by higher-priority evidence]; the last $E0 bytes of the old blob hold a palette and the head of a tilemap pair; the blocks below type them by what the code reads, and the HDMA request that copies the tiles copies them into VRAM as well
+; ---- gfx $70B0-$73B0 (768 bytes) [CONFIRMED] tile slice at source offset +$20 within the $400-byte HDMA request from 4B:$7090 to VRAM bank 1:$9000; this slice maps to VRAM $9020-$9320. The encompassing request also crosses following palette/tilemap data; no exclusive-asset claim.
 
-Data_4B_70B0:: ; 4B:70B0
-	INCBIN "gfx/settings/screens_bank4b/tiles_70b0.2bpp"
+Gfx_SettingsPhone_ConfirmScreen_TileSlice9020Vb1:: ; 4B:70B0
+	INCBIN "gfx/settings/notice_headers_and_phone_confirm_continue_bank4b/phone_confirm_vram9020_vb1_tile_slice_768.2bpp"
 
 ; ---- data $73B0-$73F0 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/settings/confirm_screen.asm:57, call 67:5195 executed 4 hits in 2 scenarios (analysis/coverage_union.tsv))
 
 Palette_SettingsPhone_ConfirmScreen_Bg:: ; 4B:73B0
-	INCLUDE "gfx/settings/screens_bank4b/settings_phone_confirm_screen_bg.pal"
+	INCLUDE "gfx/settings/notice_headers_and_phone_confirm_continue_bank4b/settings_phone_confirm_screen_bg.pal"
 
 ; ---- data $73F0-$76C0 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 67:51B7: hl=$73F0 a=$4B b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 4 hits in 2 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_SettingsPhone_ConfirmScreen_4B_73F0:: ; 4B:73F0
-	INCBIN "gfx/settings/screens_bank4b/settings_phone_confirm_screen_4b_73f0.tilemap"
-	INCBIN "gfx/settings/screens_bank4b/settings_phone_confirm_screen_4b_73f0.attrmap"
+	INCBIN "gfx/settings/notice_headers_and_phone_confirm_continue_bank4b/settings_phone_confirm_screen_4b_73f0.tilemap"
+	INCBIN "gfx/settings/notice_headers_and_phone_confirm_continue_bank4b/settings_phone_confirm_screen_4b_73f0.attrmap"
 
-; ---- data $76C0-$76D0 (16 bytes) [PROBABLE] 3 x 4-byte entries ($26/$2F,$27/$30,$28/$31 with attributes $09 $09) + a zero entry, placed right after the tilemap+attr block 73F0-76C0 exactly like the entries at 5B68; use not decoded
+; ---- data $76C0-$76D0 (16 bytes) [PROBABLE] 3 x 4-byte entries ($26/$2F, $27/$30, $28/$31 with attributes $09 $09) + a zero entry; the three selected slot-cell records are reached through pointers at 67:53D6 and copied with BC=$0201; the four-byte tail at $76CC-$76CF has no demonstrated consumer or purpose.
 
-Table_4B_76C0:: ; 4B:76C0
+SettingsPhone_ConfirmScreen_SlotCellRecords:: ; 4B:76C0
 	db $26, $2F, $09, $09, $27, $30, $09, $09, $28, $31, $09, $09, $00, $00, $00, $00
 
 ; ---- gfx $76D0-$7AD0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:574D: hl=$76D0 a=$4B c=$40 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 2 hits in 1 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_SettingsPhone_ContinuePrompt_Tiles9000Vb1:: ; 4B:76D0
 
-	INCBIN "gfx/settings/screens_bank4b/tiles_76d0.2bpp"
+	INCBIN "gfx/settings/notice_headers_and_phone_confirm_continue_bank4b/phone_continue_prompt_vram9000_vb1.2bpp"
 
 ; ---- gfx $7AD0-$7CD0 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:575F: hl=$7AD0 a=$4B c=$30 de=$9401 (dest VRAM $9400, vbank=1) [first call site executed: 2 hits in 1 scenarios (analysis/coverage_union.tsv)]; the last $100 bytes of the old blob hold a palette and the head of a tilemap pair; the blocks below type them by what the code reads, and the HDMA request that copies the tiles copies them into VRAM as well
 
 Gfx_SettingsPhone_ContinuePrompt_Tiles9400Vb1:: ; 4B:7AD0
-Data_4B_7AD0::
-	INCBIN "gfx/settings/screens_bank4b/tiles_7ad0.2bpp"
+	INCBIN "gfx/settings/notice_headers_and_phone_confirm_continue_bank4b/phone_continue_prompt_vram9400_vb1_tile_prefix_512.2bpp"
 
 ; ---- data $7CD0-$7D10 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/settings/continue_prompt.asm:50, call 67:5782 executed 2 hits in 1 scenarios (analysis/coverage_union.tsv))
 
 Palette_SettingsPhone_ContinuePrompt_Bg:: ; 4B:7CD0
-	INCLUDE "gfx/settings/screens_bank4b/settings_phone_continue_prompt_bg.pal"
+	INCLUDE "gfx/settings/notice_headers_and_phone_confirm_continue_bank4b/settings_phone_continue_prompt_bg.pal"
 
 ; ---- data $7D10-$7FE0 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 67:57A4: hl=$7D10 a=$4B b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 2 hits in 1 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_SettingsPhone_ContinuePrompt_4B_7D10:: ; 4B:7D10
-	INCBIN "gfx/settings/screens_bank4b/settings_phone_continue_prompt_4b_7d10.tilemap"
-	INCBIN "gfx/settings/screens_bank4b/settings_phone_continue_prompt_4b_7d10.attrmap"
+	INCBIN "gfx/settings/notice_headers_and_phone_confirm_continue_bank4b/settings_phone_continue_prompt_4b_7d10.tilemap"
+	INCBIN "gfx/settings/notice_headers_and_phone_confirm_continue_bank4b/settings_phone_continue_prompt_4b_7d10.attrmap"

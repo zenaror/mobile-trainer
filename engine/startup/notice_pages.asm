@@ -244,15 +244,16 @@ Notice_LoadHeaderGfx:: ; 65:4A37
 	farcall Gfx_StartHDMAWithService
 	ret
 
-; ---- data $4A81-$4AD7 (86 bytes) [PROBABLE] descriptor table read by the executed code (up to 9 scenarios), 86 bytes: repeating groups of a flag byte (D0/50/90/10/40/C0) + 16-bit address (5841 5844 5846 ... = bank-58 tile sources; 4B5B 4B5E 4B60 ... and 7172 7174 = bank-65 / other addresses); exact record layout not decoded; the mapper 1-6 byte holes (4A84 4A90 4A9C 4AB1 4ACF) were unread bytes of this same table
+; ---- data $4A81-$4AC9 (72 bytes) [PROBABLE] 24 header descriptors read at 65:4A37: each is a little-endian source address followed by a ROM bank byte; selected by 3*A from the first byte of the notice record. The reader requests $28 blocks (640 bytes) into VRAM bank 1 at $9300. Static contract only; no new natural-render claim.
 
 Notice_HeaderGfxTable:: ; 65:4A81
-Data_65_4A81::
 	db $D0, $41, $58, $50, $44, $58, $D0, $46, $58, $50, $49, $58, $D0, $4B, $58, $50
 	db $4E, $58, $D0, $50, $58, $50, $53, $58, $D0, $55, $58, $50, $58, $58, $D0, $5A
 	db $58, $50, $5D, $58, $D0, $5F, $58, $50, $62, $58, $D0, $64, $58, $50, $67, $58
 	db $90, $5B, $4B, $10, $5E, $4B, $90, $60, $4B, $10, $63, $4B, $90, $65, $4B, $10
 	db $68, $4B, $40, $72, $71, $C0, $74, $71
+
+; ---- words $4AC9-$4AD7 (14 bytes) [PROBABLE] Seven little-endian source addresses read by Notice_LoadHeaderGfx; the reader selects fixed ROM bank $58 and requests 640 bytes into VRAM bank 1 at $9580. Purpose/display remains bounded to this static load path.
 
 Notice_FooterGfxTable:: ; 65:4AC9
 	db $D0, $69, $50, $6C, $D0, $6E, $50, $71, $D0, $73, $50, $76, $D0, $78

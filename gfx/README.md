@@ -1305,22 +1305,22 @@ Retired historical file: `palette_5e60.pal` preserves the former 96-byte RGB555 
 Os arquivos legados atuais são `gfx/settings/adapter_check_and_phone_entry_bank4a/legacy_byteviews/adapter_check_object_data_4a_68d0.2bpp` (80 B) e `gfx/settings/adapter_check_and_phone_entry_bank4a/legacy_byteviews/adapter_check_object_data_4a_68d0.png` (PNG 40×8, 184 B). Os bytes, pixels e hashes são os mesmos dos caminhos históricos `gfx/settings/screens_bank4a/tiles_68d0.2bpp` e `gfx/settings/screens_bank4a/tiles_68d0.png`. Eles ficam fora do catálogo e das regras ativas; a região PROBABLE em 4A:68D0 é editada em ASM/macros, e seus 11 zeros finais continuam UNKNOWN. Consulte [caminhos e contratos](../docs/research/adapter_check_and_phone_entry_4a_resource_paths.md).
 
 
-### `gfx/settings/screens_bank4b/`
+### `gfx/settings/notice_headers_and_phone_confirm_continue_bank4b/`
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_5b90.2bpp` | 2bpp tiles | 2560 | 4B:5B90 | PROBABLE | exact | - | `gfx/settings/screens_bank4b.asm` |
-| `tiles_6a90.2bpp` | 2bpp tiles | 1024 | 4B:6A90 | CONFIRMED | exact | - | `gfx/settings/screens_bank4b.asm` |
-| `tiles_6e90.2bpp` | 2bpp tiles | 544 | 4B:6E90 | CONFIRMED | exact | - | `gfx/settings/screens_bank4b.asm` |
-| `tiles_70b0.2bpp` | 2bpp tiles | 768 | 4B:70B0 | CONFIRMED | exact | - | `gfx/settings/screens_bank4b.asm` |
-| `settings_phone_confirm_screen_bg.pal` | RGB palette | 64 | 4B:73B0 | CONFIRMED | - | - | `gfx/settings/screens_bank4b.asm` |
-| `settings_phone_confirm_screen_4b_73f0.tilemap` | tile-index map | 360 | 4B:73F0 | CONFIRMED | - | 20x18 | `gfx/settings/screens_bank4b.asm` |
-| `settings_phone_confirm_screen_4b_73f0.attrmap` | attribute map | 360 | 4B:7558 | CONFIRMED | - | 20x18 | `gfx/settings/screens_bank4b.asm` |
-| `tiles_76d0.2bpp` | 2bpp tiles | 1024 | 4B:76D0 | CONFIRMED | exact | - | `gfx/settings/screens_bank4b.asm` |
-| `tiles_7ad0.2bpp` | 2bpp tiles | 512 | 4B:7AD0 | CONFIRMED | exact | - | `gfx/settings/screens_bank4b.asm` |
-| `settings_phone_continue_prompt_bg.pal` | RGB palette | 64 | 4B:7CD0 | CONFIRMED | - | - | `gfx/settings/screens_bank4b.asm` |
-| `settings_phone_continue_prompt_4b_7d10.tilemap` | tile-index map | 360 | 4B:7D10 | CONFIRMED | - | 20x18 | `gfx/settings/screens_bank4b.asm` |
-| `settings_phone_continue_prompt_4b_7d10.attrmap` | attribute map | 360 | 4B:7E78 | CONFIRMED | - | 20x18 | `gfx/settings/screens_bank4b.asm` |
+| `notice_page_headers_4b_5b90.2bpp` | 2bpp tiles | 2560 | 4B:5B90 | PROBABLE | exact | - | `gfx/settings/notice_headers_and_phone_confirm_continue_bank4b.asm` |
+| `phone_confirm_vram8800_vb1.2bpp` | 2bpp tiles | 1024 | 4B:6A90 | CONFIRMED | exact | - | `gfx/settings/notice_headers_and_phone_confirm_continue_bank4b.asm` |
+| `phone_confirm_vram8c00_vb1.2bpp` | 2bpp tiles | 544 | 4B:6E90 | CONFIRMED | exact | - | `gfx/settings/notice_headers_and_phone_confirm_continue_bank4b.asm` |
+| `phone_confirm_vram9020_vb1_tile_slice_768.2bpp` | 2bpp tiles | 768 | 4B:70B0 | CONFIRMED | exact | - | `gfx/settings/notice_headers_and_phone_confirm_continue_bank4b.asm` |
+| `settings_phone_confirm_screen_bg.pal` | RGB palette | 64 | 4B:73B0 | CONFIRMED | - | - | `gfx/settings/notice_headers_and_phone_confirm_continue_bank4b.asm` |
+| `settings_phone_confirm_screen_4b_73f0.tilemap` | tile-index map | 360 | 4B:73F0 | CONFIRMED | - | 20x18 | `gfx/settings/notice_headers_and_phone_confirm_continue_bank4b.asm` |
+| `settings_phone_confirm_screen_4b_73f0.attrmap` | attribute map | 360 | 4B:7558 | CONFIRMED | - | 20x18 | `gfx/settings/notice_headers_and_phone_confirm_continue_bank4b.asm` |
+| `phone_continue_prompt_vram9000_vb1.2bpp` | 2bpp tiles | 1024 | 4B:76D0 | CONFIRMED | exact | - | `gfx/settings/notice_headers_and_phone_confirm_continue_bank4b.asm` |
+| `phone_continue_prompt_vram9400_vb1_tile_prefix_512.2bpp` | 2bpp tiles | 512 | 4B:7AD0 | CONFIRMED | exact | - | `gfx/settings/notice_headers_and_phone_confirm_continue_bank4b.asm` |
+| `settings_phone_continue_prompt_bg.pal` | RGB palette | 64 | 4B:7CD0 | CONFIRMED | - | - | `gfx/settings/notice_headers_and_phone_confirm_continue_bank4b.asm` |
+| `settings_phone_continue_prompt_4b_7d10.tilemap` | tile-index map | 360 | 4B:7D10 | CONFIRMED | - | 20x18 | `gfx/settings/notice_headers_and_phone_confirm_continue_bank4b.asm` |
+| `settings_phone_continue_prompt_4b_7d10.attrmap` | attribute map | 360 | 4B:7E78 | CONFIRMED | - | 20x18 | `gfx/settings/notice_headers_and_phone_confirm_continue_bank4b.asm` |
 
 ### `gfx/settings/screens_bank4d/`
 
