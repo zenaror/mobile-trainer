@@ -96,6 +96,8 @@ The mail-compose object owner had 30 `Data_29_*` aliases under existing `MailBod
 names; they were retired with the same byte and confidence preservation.
 The draft-menu graphic owner had 26 `Data_2B_*` aliases under existing descriptive graphic and
 animation labels; those were retired after the same address/reference checks.
+The mail-viewer owner also had 24 `Data_2B_*` aliases under existing `MailView_*` frames/scripts;
+those have been retired with the same byte and evidence preservation.
 
 The same audit renamed the positioned `$0020` word at `5C:5144` to
 `CommErr_MessageSlot32RawWord`. The slot is confirmed structurally; the value's purpose remains

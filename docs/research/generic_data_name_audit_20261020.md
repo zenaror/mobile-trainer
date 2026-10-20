@@ -345,6 +345,23 @@ ledger SHA-256
 `4788d954f08e265d5d6e293a26ebf8886513354eeafcf4d8b9c9e279eb2da2dc`.
 All original-ROM and static graphics checks pass.
 
+## Retired mail-viewer graphic aliases (2026-10-20)
+
+The mail-viewer owner `gfx/mail/mail_viewer.asm` contained 24 redundant
+`Data_2B_*` aliases for existing `MailView_*` frame and script labels. The
+owner was unchanged since the census parent; current `.sym` addresses match,
+and there are no generic-name references, tool/metadata mentions or scoped
+locals. Only the aliases were removed. The ledger is
+[`retired_mail_viewer_data_aliases.tsv`](../../analysis/naming2/retired_mail_viewer_data_aliases.tsv).
+
+Receipt `.tmp/mail-viewer-data-alias-pass-20261020/`: `PRECHECK.json` SHA-256
+`4dad5f0f63fd67f41fc3b88732c9bac6f305a917cf166bf5986f60324ad4cd40`,
+`RESULT.json` SHA-256
+`a6089eb16fca04d31c8f0630e4d102c76c056ccab2e0d18768602ffcffc3b316`, and
+ledger SHA-256
+`657b321558419b463d016fffaba26a2065cb55c141137a75115f3b91c5c66bc3`.
+Build, symbol, palette and PNG checks all pass.
+
 ## Remaining limits
 
 The other 75 labels from the original no-alias subset remain unchanged. The audit groups them into interior labels,

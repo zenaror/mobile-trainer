@@ -93,7 +93,6 @@ Table_2B_7920::
 ; ---- data $7924-$7955 (49 bytes) [PROBABLE] OAM frame: count=12 then 12 x (y,x,tile,attr) = 49 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 MailView_Anim0Frame0:: ; 2B:7924
-Data_2B_7924::
 	sprite_frame 12
 	sprite_oam 16, 0, $09, 2
 	sprite_oam 16, 8, $0A, 2
@@ -111,7 +110,6 @@ Data_2B_7924::
 ; ---- data $7955-$7986 (49 bytes) [PROBABLE] OAM frame: count=12 then 12 x (y,x,tile,attr) = 49 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 MailView_Anim0Frame1:: ; 2B:7955
-Data_2B_7955::
 	sprite_frame 12
 	sprite_oam 16, 0, $06, 2
 	sprite_oam 16, 8, $07, 2
@@ -129,7 +127,6 @@ Data_2B_7955::
 ; ---- data $7986-$7989 (3 bytes) [HYPOTHESIS] animation script: count=1 then 1 x 2 bytes (00 2e), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
 
 MailView_Anim0Script:: ; 2B:7986
-Data_2B_7986::
 	sprite_anim 1
 	sprite_anim_step 0, 46
 
@@ -142,7 +139,6 @@ Table_2B_7989::
 ; ---- data $798D-$799A (13 bytes) [PROBABLE] OAM frame: count=3 then 3 x (y,x,tile,attr) = 13 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 MailView_Anim4Frame0:: ; 2B:798D
-Data_2B_798D::
 	sprite_frame 3
 	sprite_oam 16, 0, $0C, 2
 	sprite_oam 16, 8, $0D, 2
@@ -151,7 +147,6 @@ Data_2B_798D::
 ; ---- data $799A-$79A7 (13 bytes) [PROBABLE] OAM frame: count=3 then 3 x (y,x,tile,attr) = 13 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 MailView_Anim4Frame1:: ; 2B:799A
-Data_2B_799A::
 	sprite_frame 3
 	sprite_oam 16, 0, $09, 2
 	sprite_oam 16, 8, $0A, 2
@@ -160,7 +155,6 @@ Data_2B_799A::
 ; ---- data $79A7-$79AA (3 bytes) [HYPOTHESIS] animation script: count=1 then 1 x 2 bytes (00 2e), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
 
 MailView_Anim4Script:: ; 2B:79A7
-Data_2B_79A7::
 	sprite_anim 1
 	sprite_anim_step 0, 46
 
@@ -173,7 +167,6 @@ Table_2B_79AA::
 ; ---- data $79AE-$79BF (17 bytes) [PROBABLE] OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 MailView_Anim12Frame0:: ; 2B:79AE
-Data_2B_79AE::
 	sprite_frame 4
 	sprite_oam -11, 8, $0C, 1
 	sprite_oam -11, 16, $0D, 1
@@ -183,7 +176,6 @@ Data_2B_79AE::
 ; ---- data $79BF-$79D0 (17 bytes) [PROBABLE] OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 MailView_Anim12Frame1:: ; 2B:79BF
-Data_2B_79BF::
 	sprite_frame 4
 	sprite_oam -12, 8, $0C, 1
 	sprite_oam -12, 16, $0D, 1
@@ -193,7 +185,6 @@ Data_2B_79BF::
 ; ---- data $79D0-$79D5 (5 bytes) [HYPOTHESIS] animation script: count=2 then 2 x 2 bytes (00 2e 01 08), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
 
 MailView_Anim12Script:: ; 2B:79D0
-Data_2B_79D0::
 	sprite_anim 2
 	sprite_anim_step 0, 46
 	sprite_anim_step 1, 8
@@ -207,7 +198,6 @@ Table_2B_79D5::
 ; ---- data $79D9-$79F2 (25 bytes) [PROBABLE] OAM frame: count=6 then 6 x (y,x,tile,attr) = 25 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 MailView_Anim16Frame0:: ; 2B:79D9
-Data_2B_79D9::
 	sprite_frame 6
 	sprite_oam -11, 4, $00, 1
 	sprite_oam -11, 12, $01, 1
@@ -219,7 +209,6 @@ Data_2B_79D9::
 ; ---- data $79F2-$7A0B (25 bytes) [PROBABLE] OAM frame: count=6 then 6 x (y,x,tile,attr) = 25 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 MailView_Anim16Frame1:: ; 2B:79F2
-Data_2B_79F2::
 	sprite_frame 6
 	sprite_oam -12, 4, $00, 1
 	sprite_oam -12, 12, $01, 1
@@ -231,7 +220,6 @@ Data_2B_79F2::
 ; ---- data $7A0B-$7A10 (5 bytes) [HYPOTHESIS] animation script: count=2 then 2 x 2 bytes (00 2e 01 08), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
 
 MailView_Anim16Script:: ; 2B:7A0B
-Data_2B_7A0B::
 	sprite_anim 2
 	sprite_anim_step 0, 46
 	sprite_anim_step 1, 8
@@ -245,7 +233,6 @@ Table_2B_7A10::
 ; ---- data $7A14-$7A2D (25 bytes) [PROBABLE] OAM frame: count=6 then 6 x (y,x,tile,attr) = 25 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 MailView_Anim20Frame0:: ; 2B:7A14
-Data_2B_7A14::
 	sprite_frame 6
 	sprite_oam -11, 5, $03, 1
 	sprite_oam -11, 13, $04, 1
@@ -257,7 +244,6 @@ Data_2B_7A14::
 ; ---- data $7A2D-$7A46 (25 bytes) [PROBABLE] OAM frame: count=6 then 6 x (y,x,tile,attr) = 25 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 MailView_Anim20Frame1:: ; 2B:7A2D
-Data_2B_7A2D::
 	sprite_frame 6
 	sprite_oam -12, 5, $03, 1
 	sprite_oam -12, 13, $04, 1
@@ -269,7 +255,6 @@ Data_2B_7A2D::
 ; ---- data $7A46-$7A4B (5 bytes) [HYPOTHESIS] animation script: count=2 then 2 x 2 bytes (00 2e 01 08), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
 
 MailView_Anim20Script:: ; 2B:7A46
-Data_2B_7A46::
 	sprite_anim 2
 	sprite_anim_step 0, 46
 	sprite_anim_step 1, 8
@@ -283,7 +268,6 @@ Table_2B_7A4B::
 ; ---- data $7A4F-$7A60 (17 bytes) [PROBABLE] OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 MailView_Anim8Frame0:: ; 2B:7A4F
-Data_2B_7A4F::
 	sprite_frame 4
 	sprite_oam 5, 5, $16, 2
 	sprite_oam 5, 19, $16, OAMF_XFLIP | 2
@@ -293,7 +277,6 @@ Data_2B_7A4F::
 ; ---- data $7A60-$7A71 (17 bytes) [PROBABLE] OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 MailView_Anim8Frame1:: ; 2B:7A60
-Data_2B_7A60::
 	sprite_frame 4
 	sprite_oam 4, 4, $16, 2
 	sprite_oam 4, 20, $16, OAMF_XFLIP | 2
@@ -303,7 +286,6 @@ Data_2B_7A60::
 ; ---- data $7A71-$7A76 (5 bytes) [HYPOTHESIS] animation script: count=2 then 2 x 2 bytes (00 2e 01 08), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
 
 MailView_Anim8Script:: ; 2B:7A71
-Data_2B_7A71::
 	sprite_anim 2
 	sprite_anim_step 0, 46
 	sprite_anim_step 1, 8
@@ -317,7 +299,6 @@ Table_2B_7A76::
 ; ---- data $7A7A-$7A93 (25 bytes) [PROBABLE] OAM frame: count=6 then 6 x (y,x,tile,attr) = 25 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 MailView_Anim24Frame0:: ; 2B:7A7A
-Data_2B_7A7A::
 	sprite_frame 6
 	sprite_oam 0, 0, $10, 3
 	sprite_oam 0, 8, $11, 3
@@ -329,13 +310,11 @@ Data_2B_7A7A::
 ; ---- data $7A93-$7A94 (1 bytes) [PROBABLE] OAM frame: count=0 then 0 x (y,x,tile,attr) = 1 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 MailView_Anim24Frame1:: ; 2B:7A93
-Data_2B_7A93::
 	sprite_frame 0
 
 ; ---- data $7A94-$7A97 (3 bytes) [HYPOTHESIS] animation script: count=1 then 1 x 2 bytes (00 2e), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
 
 MailView_Anim24Script:: ; 2B:7A94
-Data_2B_7A94::
 	sprite_anim 1
 	sprite_anim_step 0, 46
 
@@ -348,7 +327,6 @@ Table_2B_7A97::
 ; ---- data $7A9B-$7ACC (49 bytes) [PROBABLE] OAM frame: count=12 then 12 x (y,x,tile,attr) = 49 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 MailView_Anim28Frame0:: ; 2B:7A9B
-Data_2B_7A9B::
 	sprite_frame 12
 	sprite_oam -11, 13, $2D, 1
 	sprite_oam -11, 21, $2E, 1
@@ -366,7 +344,6 @@ Data_2B_7A9B::
 ; ---- data $7ACC-$7AFD (49 bytes) [PROBABLE] OAM frame: count=12 then 12 x (y,x,tile,attr) = 49 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 MailView_Anim28Frame1:: ; 2B:7ACC
-Data_2B_7ACC::
 	sprite_frame 12
 	sprite_oam -12, 13, $2D, 1
 	sprite_oam -12, 21, $2E, 1
@@ -384,7 +361,6 @@ Data_2B_7ACC::
 ; ---- data $7AFD-$7B02 (5 bytes) [HYPOTHESIS] animation script: count=2 then 2 x 2 bytes (00 2e 01 08), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
 
 MailView_Anim28Script:: ; 2B:7AFD
-Data_2B_7AFD::
 	sprite_anim 2
 	sprite_anim_step 0, 46
 	sprite_anim_step 1, 8
