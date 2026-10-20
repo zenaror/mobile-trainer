@@ -47,5 +47,5 @@ All 69 neutral `Function_` labels of the scope were examined: 55 named, 14 left 
 * **Bank 69 frame records** (`Data_69_*`, 33): OAM frames of `ConnIcon_Anim*Frames`; only the frame lists were named.
 * **Bank 72 messages**: the unlabelled records between the named message labels and the 35 `String_72_*` labels that are not a table target (second lines of a record) stay neutral; `Data_72_*` (22) not examined.
 * **Graphics tile blocks of banks 5D, 4A, 4B, 4D, 71, 5F, 58, 5B, 60-62, 66** (mostly `Data_*` of loaded tiles): the screen identity is settled for 50/51 only.
-* **Keyboard type predicates** `55:6EAA/6EC0/6EEC`, the `ld hl,...` blobs of bank 54 (`Data_54_4C35/4C3D/4C44/4FC3/4FCB/475A/4764`, mail-library argument blocks) and `Data_4C_430A`: structure not decoded.
+* **Keyboard type predicates** `55:6EAA/6EC0/6EEC`, the `ld hl,...` blobs of bank 54 (`Data_Pop3Top_BytesCopiedBeforeHeaderArgs`, `Data_Pop3Top_DecodeHeaderArgs`, `Data_MailScan_InputPrefix`, `Data_Pop3Retr_ParseBodyArgs`, `Data_Pop3Retr_DecodeFromHeaderArgs`, `Data_Smtp_HeaderComposeArgs`, and the unresolved `Data_54_4764`) and `Data_4C_430A`: argument fields not decoded. The TOP copy-order label is structural and does not identify its downstream purpose.
 * **`Label_BB_AAAA` globals** of the scope (jump-table targets and fall-through pieces, none is called): left alone.

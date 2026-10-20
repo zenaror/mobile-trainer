@@ -1,6 +1,6 @@
 # Original mobile-library argument templates and task state
 
-> Status: **reference (current)**. Five bounded argument-role aliases are confirmed, one physical copy remains neutral. A task-state operation alias is PROBABLE. Existing storage classifications and unresolved entries are preserved.
+> Status: **reference (current)**. Five bounded argument-role aliases are confirmed; the TOP copy at 54:4C35 now has a confirmed structural label while its downstream purpose remains HYPOTHESIS. A task-state operation alias is PROBABLE. Existing storage classifications and unresolved entries are preserved.
 
 ## Six decisions
 
@@ -9,7 +9,7 @@
 |54:4FC3-4FCB,8 bytes|CONFIRMED Data_Pop3Retr_ParseBodyArgs|4D4F,33 hits/6 scenarios|PROBABLE preserved|
 |54:4FCB-4FD2,7 bytes|CONFIRMED Data_Pop3Retr_DecodeFromHeaderArgs|4D73,33/6|PROBABLE preserved|
 |54:4C44-4C47,3 bytes|CONFIRMED Data_MailScan_InputPrefix|5124,262/16|PROBABLE preserved|
-|54:4C35-4C3D,8 bytes|KEEP Data_54_4C35; downstream role HYPOTHESIS|4A35,34/7|PROBABLE preserved|
+|54:4C35-4C3D,8 bytes|CONFIRMED Data_Pop3Top_BytesCopiedBeforeHeaderArgs; downstream role HYPOTHESIS|4A35,34/7|PROBABLE preserved|
 |54:4C3D-4C44,7 bytes|CONFIRMED Data_Pop3Top_DecodeHeaderArgs|4A44,34/7;4BEF,45/14|PROBABLE preserved|
 |54:475A-4764,10 bytes|CONFIRMED Data_Smtp_HeaderComposeArgs|4593,15/6|PROBABLE preserved|
 
@@ -41,11 +41,11 @@ Original4C44 is03 02 A0, representing SRAM3:A002. At512A its three-byte copy exe
 
 On scan success, selector2 at515F runs260/16 using the same first three bytes. CheckGameMail reads that bank/address prefix to find the game-code header. Both consumers establish the role shared by this one physical prefix. Names do not claim a full five-byte argument object or combine the prefix with the neighboring unrelated bytes4C47 onward.
 
-## TOP eight-byte temporary copy: KEEP and contradiction
+## TOP eight-byte pre-header-arguments copy: structural label; purpose unresolved
 
-Original4C35 equals4FC3's eight bytes, but the actual use differs. It is copied4A3B,34/7, to C240; immediately4C3D's seven bytes are copied4A4A to the same C240. There is no selector4 call between those copies. The first seven bytes from4C35 are overwritten before the selector6 consumer; only its eighth byte08 remains atC247, outside selector6's seven-byte argument. Copying all eight proves data reads, not a ParseBody argument role in this path.
+Original4C35 equals4FC3's eight bytes, but the actual use differs. It is copied4A3B, with 34 executions of that load/copy point across seven scenarios, to C240; immediately4C3D's seven bytes are copied4A4A to the same C240. There is no selector4 call between those copies. The first seven bytes from4C35 are overwritten before the selector6 consumer; only its eighth byte08 remains atC247, outside selector6's seven-byte argument. All eight bytes have read coverage in those scenarios. This confirms the structural name `Data_Pop3Top_BytesCopiedBeforeHeaderArgs`, but not a ParseBody argument role or any other downstream purpose.
 
-KEEP is preferable to inferring a shared global ParseBody-template name merely from equal bytes, historical comments or the containing TOP routine. The current header states the temporary/overwritten fact, and the worklist stops calling this a known graphical asset. No explanation for retaining that copy is invented.
+The earlier KEEP decision avoided inferring a shared global ParseBody-template name merely from equal bytes, historical comments or the containing TOP routine. The later structural rename records only the demonstrated copy order; the reason for the first copy and the surviving eighth byte remains HYPOTHESIS. The whole-storage classification stays PROBABLE.
 
 ## SMTP ten-byte compose seed and all content units
 

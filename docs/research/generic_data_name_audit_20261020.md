@@ -547,19 +547,22 @@ definitions across the six Japanese source roots, plus two in `zero_labels.asm`
 six roots and one in `zero_labels.asm` (1,001 total); the earlier `+2` count was
 incorrect. After the six co-alias retirements below, the `8303f049` checkpoint
 count was 994 across the six roots plus one in `zero_labels.asm` (995 total).
-After the bank22 continuation rename below, the current count is 993 across
-the six roots plus one in `zero_labels.asm` (994 total). These are
-lexical label counts only, not a measure of unresolved semantic resources.
+After the bank22 continuation rename, `b073197e` had 993 across the six roots
+plus one in `zero_labels.asm` (994 total). After the 54:4C35 rename below, the
+current count is 992 across the six roots plus one in `zero_labels.asm` (993
+total). These are lexical label counts only, not a measure of unresolved
+semantic resources.
 
 ## Literal generic-name scan (2026-10-20)
 
 At source revision `c3b3db48`, a literal scan of the six maintained Japanese
 source roots found zero `Function_BB_AAAA` and zero `Font_BB_AAAA` tokens,
 including the previously cited `Function_75_4000` and `Font_48_4ADB`. A path
-scan found zero `gfx/` files or directories named `bankNN`. The current
-`Data_BB_AAAA` definition count is 993 in those roots plus one in
-`zero_labels.asm`, 994 total. These are exact spelling counts only; they do not
-establish that every function or resource has a known semantic role.
+scan found zero `gfx/` files or directories named `bankNN`. At that revision,
+`Data_BB_AAAA` counted 993 definitions in those roots plus one in
+`zero_labels.asm`, 994 total. After the structural rename below, the current
+count is 992 plus one, 993 total. These are exact spelling counts only; they do
+not establish that every function or resource has a known semantic role.
 
 ## Retired account and bitmap-mask aliases (2026-10-20)
 
@@ -594,3 +597,29 @@ transfers use the same family base with offsets, so the label names the shared
 continuation without assigning a narrower visual role. The old name had no
 source consumer outside its declaration. No bytes, confidence levels or asset
 catalogue entries changed.
+
+## POP3 TOP pre-header-arguments copy (2026-10-20)
+
+`Data_54_4C35` at `54:4C35` is now
+`Data_Pop3Top_BytesCopiedBeforeHeaderArgs`. The TOP poll copies all eight bytes
+to `C240..C247`, then copies the seven-byte selector-6 header argument block
+over `C240..C246`. The remaining `$08` at `C247` is outside the seven-byte
+selector-6 structure. Existing traces show 34 executions of the load/copy
+point across seven scenarios, and interval coverage records reads of all eight
+bytes in those scenarios; the
+static byte sequence agrees with the original ROM. This supports the
+structural name only: the purpose of the first copy and surviving byte remains
+HYPOTHESIS, and the storage header remains PROBABLE. The byte-identical RETR
+template is not evidence that TOP invokes the RETR selector-4 parser. No data
+bytes or asset files changed.
+
+The read-only baseline at `b073197e` reported 577 neutral data groups and 152
+immediate-reference candidates, all rejected by its strict automatic
+load-shape checks. After the TOP structural rename, a fresh inventory reports
+576 groups and 151 rejected candidates, with no automatic rename rows. The
+current inventory and manifest are retained in
+`.tmp/generic-data-final-census-20261020/`; their SHA-256 values are
+`d541e13241bc6aed5fee8649a08ac09407d177687aaba5508d0b1bc57235cc1b` and
+`1a5e0a79621043b8f81cfe9e0e31dbd8b2e0322a582f9aee1a472a0b8db0f605`,
+respectively. A neutral group's presence or a rejected site does not establish
+its semantic role.

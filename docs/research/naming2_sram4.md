@@ -152,7 +152,7 @@ overlapping pair when no source file mentions both, when one is the container of
 
 * The tool replaces only `ld hl|de|bc, $XXXX` lines.  Direct accesses through the old neutral names (`ld a, [sSram_B010]`, 12 lines of five names) and the two `dw $B014, $B025, $B036` tables were converted by hand; the other `dw` tables of
   SRAM addresses (`adapter_config.asm` `$A076/$A07E`, `page_list.asm`, `page_list_prototype.asm`, the `$A124..$AE13` record tables in about 14 mail files) and the neutral `sSram_A9xx` direct accesses stay numeric.
-* Data that spells a bank and an address keeps its numbers: `Data_54_4C35` and `Data_54_4FC3` (the mail library output descriptor `B000`, `$800`), `Table_PageCache_Slots` (`4C:4CEA`).
+* Historical note: the former `Data_54_4C35` was later renamed `Data_Pop3Top_BytesCopiedBeforeHeaderArgs` from its confirmed copy order; its descriptor fields and downstream purpose remain unproved. The separate `Data_Pop3Retr_ParseBodyArgs` at `54:4FC3` retains its demonstrated selector-4 role. `Table_PageCache_Slots` remains `4C:4CEA`.
 * Not SRAM (found by the census, left numeric): `$AFFF` x2 in `page_results.asm` (`$B000 - 1` arithmetic for `CopyBytesBackward`), `$AAAA` in `top_menu.asm` and `$B000` in `tidy.asm` (off-screen sprite positions), `$BB44` in `audio/engine.asm`
   (an `rNR51` mask pair).  The bank-wide wipes (`helpers.asm`, `clear_all_banks.asm`, `history_cache.asm`) use the constant `_SRAM` (`$A000`).
 * Weak spots the readers listed: `sConfigImagePad` (inferred from the `$FF` fill and no reader), the Internet / self-page number labels (inferred from the screen print order), the sizes of `sPwdChg_ApiArgs`, `sPwdChg_PostBody`,

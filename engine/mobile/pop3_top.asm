@@ -252,7 +252,7 @@ Pop3_TopPoll_ScanCheckPassed:: ; 54:4A12
 	dec b
 	jr nz, .l4A2E
 	ld de, wRam_C240
-	ld hl, Data_54_4C35
+	ld hl, Data_Pop3Top_BytesCopiedBeforeHeaderArgs
 	ld bc, $0008
 	farcall CopyBytes
 	ld de, wRam_C240
@@ -511,9 +511,9 @@ String_54_4C2A::
 	db "CGB-BXTJ-00"
 POPC
 
-; ---- data $4C35-$4C3D (8 bytes) [PROBABLE] temporary TOP copy overwritten by selector6 args
+; ---- data $4C35-$4C3D (8 bytes) [PROBABLE] TOP copy before selector6 header args; only the first seven bytes are overwritten
 
-Data_54_4C35:: ; 54:4C35
+Data_Pop3Top_BytesCopiedBeforeHeaderArgs:: ; 54:4C35
 	db $03, $02, $A0, $03, $00, $B0, $00, $08
 
 ; ---- data $4C3D-$4C44 (7 bytes) [PROBABLE] TOP selector6 arguments; header index overridden

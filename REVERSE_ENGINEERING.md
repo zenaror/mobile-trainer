@@ -9,7 +9,7 @@ Numbers marked "frozen" describe `config/` at the freeze and are not updated any
 
 The [definition of done](docs/REVERSE_ENGINEERING_RULES.md#23-definition-of-done) requires an explainable reconstruction as well as a reproducible ROM. `make`, symbol checks and a complete byte comparison establish reconstruction identity for the source actually checked; they do not establish complete semantics, natural execution or hardware behavior. Frozen `config/` and `docs/PROGRESS.md` counters, and dated counters below, are historical rather than a current completion census.
 
-**Original-ROM work remains open (2026-10-18).** The Operator requires all real functions to be
+**Original-ROM work remains open (2026-10-20).** The Operator requires all real functions to be
 mapped and properly named before any English work can resume. The previous zero *neutral-only address
 groups* census counted descriptive aliases; it was not a census of identified functions. A direct
 maintained-source scan at245961f6 still found693 literal `Function_*` definitions in143 owners,
@@ -22,14 +22,19 @@ The original56-byte26:5344 fragment is named `MailSession_WriteVram1TileAndWram7
 observed stores; the code classification is PROBABLE, while independent entry and intended role remain
 HYPOTHESIS. This does not establish natural execution or accepted VRAM writes; see the dated review in
 [`naming2_verify_fn4.md`](docs/research/naming2_verify_fn4.md);
-the exact `Data_BB_AAAA::` census is now 1,001 definitions across the six maintained roots, plus two
-in `zero_labels.asm` (1,003 total); this is only a lexical count.
+the earlier `Data_BB_AAAA::` count of 1,003 definitions was reconciled against the source and
+subsequent reviewed retirements. The current count is 992 definitions across the six maintained
+roots plus one in `zero_labels.asm` (993 total); this is only a lexical count, not a completion
+measure. The [generic data-label audit](docs/research/generic_data_name_audit_20261020.md) records
+the checkpoints.
 The earlier30-span/63-byte count matches the current home/engine/data subset only. A six-root census now finds32 HYPOTHESIS spans/92 bytes under leading UNCLASSIFIED data headers, including28 bytes in gfx/mail/body_view.asm and one byte in lib/mobile/main.asm; see the [scope correction](docs/research/classify_g6.md#8-six-root-unclassified-header-scope-correction-2026-10-17). This is an annotation census, not the total amount of unexplained ROM data. Entries and abnormal stack transfer at2B:6CF5,
 locator caller domains, eight frame contexts and25 name-to-image associations remain unresolved.
 The finite checks below remain valid within their limits; they do not establish100% completion.
-The English implementation continues only on its separate translation branch under the Operator's
-standing instruction; the branch is not integrated into Japanese `main`. ZIP-derived graphic parity
-remains limited to catalogued records, not the whole ROM. English edits remain assigned to subagents.
+The English implementation is paused on its separate branch until Japanese function/resource
+identification and requested asset checks are complete and the Operator explicitly confirms a resume.
+Do not sync, build, commit or push English changes before that confirmation. The branch is not
+integrated into Japanese `main`. ZIP-derived graphic parity remains limited to catalogued records,
+not the whole ROM.
 
 The bounded audit of82 `Data_<bank>_<address>` labels without adjacent semantic aliases found
 three supported names and no basis to remove data. `String_HelpMenu_MailTitle` identifies the
@@ -1111,4 +1116,6 @@ The renewed bank53/frame inventory found no missing referenced file or orphan bi
 
 The bank22 address-book tile continuation at `22:5CEA` is now `AddrBook_ListAndAddressGraphicsContinuation`. It starts in the middle of a tile and completes the 160-tile family rooted at `22:5CD0`; the label does not imply a standalone tile sheet, and the exporter leaves it as raw data. See the follow-up in [the bank22 verification note](docs/research/typing_22_verify_address_book_tiles.md).
 
-A literal scan at `c3b3db48` found no generic `Function_BB_AAAA` or `Font_BB_AAAA` names in the maintained Japanese assembly roots, and no `bankNN` paths under `gfx/`. The `Data_BB_AAAA` count remains 994; this lexical result does not establish semantic completion. See the [generic data-label audit](docs/research/generic_data_name_audit_20261020.md).
+A literal scan at `c3b3db48` found no generic `Function_BB_AAAA` or `Font_BB_AAAA` names in the maintained Japanese assembly roots, and no `bankNN` paths under `gfx/`. At that revision, `Data_BB_AAAA` counted 994 definitions; after the TOP copy's structural rename, the current count is 993. This lexical result does not establish semantic completion. See the [generic data-label audit](docs/research/generic_data_name_audit_20261020.md).
+
+The TOP poll's eight-byte pre-header copy at `54:4C35` is now named `Data_Pop3Top_BytesCopiedBeforeHeaderArgs`. Static code and existing traces confirm the eight-byte copy followed by a seven-byte overwrite before selector 6; the remaining byte is outside that argument object. The copy's downstream purpose remains HYPOTHESIS, and its storage classification remains PROBABLE. The fresh `data_consumers.py --stats` inventory after this rename reports 576 neutral data groups, 151 rejected automatic candidates and no automatic rename rows; this bounded census does not prove that all remaining neutral data has been semantically identified.
