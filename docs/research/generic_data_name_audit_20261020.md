@@ -183,6 +183,41 @@ consumer notes are unchanged. `Table_HelpMenu_LockedItemTicker` remains the
 one-byte bank field at `6A:6651`; adjacent pointer arrays remain separate
 blocks. The build remains byte-identical after these alias-line removals.
 
+## Retired Mobile SDK packet/data aliases (2026-10-20)
+
+A current-source address census at published parent
+`153fbd7976485b7883f95332c416eca2164ae6ba` found eight redundant
+`Data_75_BB_AAAA` aliases in `lib/mobile/main.asm`. Each shared the exact
+`.sym` address with the descriptive label shown below, had no direct source
+references, metadata/tool mentions or scoped locals, and did not own bytes.
+The aliases were removed; the accepted names, comments, data declarations and
+their prior confidence levels remain unchanged. The durable old-to-current
+mapping is in [`retired_mobile_sdk_data_aliases.tsv`](../../analysis/naming2/retired_mobile_sdk_data_aliases.tsv).
+
+| Retired alias | Retained label | Address |
+|---|---|---|
+| `Data_75_5FFB` | `MobilePacket_Idle` | 75:5FFB |
+| `Data_75_6063` | `MobilePacket_WaitForTelephoneCall` | 75:6063 |
+| `Data_75_606D` | `MobilePacket_TransferData` | 75:606D |
+| `Data_75_6073` | `MobilePacket_TransferData_Tail` | 75:6073 |
+| `Data_75_6078` | `MobilePacket_OpenTCPConnection` | 75:6078 |
+| `Data_75_6084` | `MobileSDK_TimingTable` | 75:6084 |
+| `Data_75_612D` | `MobileStr_CrLfCrLf` | 75:612D |
+| `Data_75_7B40` | `MobileSDK_Md5InitConstants` | 75:7B40 |
+
+The pre-change census receipt is retained in
+`.tmp/data-global-census-head-153fbd79/`: `RESULT.json` SHA-256
+`84f742c088f9a5f8ac3f2e82879a456371372dddac15ee7ab9c9598d08d6f960`,
+`data_matrix.tsv` SHA-256
+`907e4e938d56df23ad6185302835fcea4b222cdfeb8bc4d6aceff8a684ee0af5`, and
+`census.py` SHA-256
+`a60418ffdadc8efc00944937240aa051609e6e6a7e10282d586d74ad38144142`.
+That census counted 1,393 generic Data definitions before this eight-alias
+retirement; it is a source-name inventory, not a count of unidentified data.
+The build remains `RESULT: IDENTICAL` to the original ROM, and symbol,
+palette and PNG checks pass. The change adds no new packet semantics or
+runtime evidence.
+
 ## Remaining limits
 
 The other 75 labels from the original no-alias subset remain unchanged. The audit groups them into interior labels,

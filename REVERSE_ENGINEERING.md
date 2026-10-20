@@ -73,6 +73,12 @@ A follow-on broad-census cleanup removed two unused neutral data aliases, `Data_
 No bytes, ranges or confidence levels changed; details are in the
 [generic data-label audit](docs/research/generic_data_name_audit_20261020.md).
 
+The current original-source follow-up also retired eight redundant `Data_75_*` aliases from
+`lib/mobile/main.asm`; each had an exact same-address descriptive label and no generic-name
+consumer or local scope. Existing confidence annotations and bytes are unchanged. The mapping and
+current-head census receipt are recorded in the same audit note; this is one bounded alias cleanup,
+not closure of the remaining neutral data inventory.
+
 The same audit renamed the positioned `$0020` word at `5C:5144` to
 `CommErr_MessageSlot32RawWord`. The slot is confirmed structurally; the value's purpose remains
 unknown and the name does not assert that the slot is unused.

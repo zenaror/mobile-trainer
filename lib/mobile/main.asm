@@ -5214,7 +5214,6 @@ MobileSDK_PollAdapterStatus:: ; 75:5FA0
 ; ---- data $5FFB-$6063 (104 bytes) [CONFIRMED] read as data by executed code (in up to 18/18 scenarios); content class unknown
 
 MobilePacket_Idle:: ; 75:5FFB
-Data_75_5FFB::
 	db $4B
 
 MobilePacket_BeginSession:: ; 75:5FFC
@@ -5254,25 +5253,21 @@ MobilePacket_DNSQuery:: ; 75:605E
 ; ---- data $6063-$606D (10 bytes) [PROBABLE] Mobile Adapter packet template: magic 99 66, command $14, len 0, checksum $0014 (= sum of cmd..payload, verified), device byte $80, $00; passed to 75:5F08 (ld a,$94 ; ld hl,$6063 ; jp $5F08) at 75:63C6 (static-reached, never executed) | verifier: downgraded from CONFIRMED, no trace reads any byte of 6063-606D (the reads stop at 6063 and resume at 606D); the packet structure and checksum are verified by hand but nothing was executed
 
 MobilePacket_WaitForTelephoneCall:: ; 75:6063
-Data_75_6063::
 	db $99, $66, $14, $00, $00, $00, $00, $14, $80, $00
 
 ; ---- data $606D-$6073 (6 bytes) [CONFIRMED] read as data by executed code (in 11 of the trace scenarios): first 6 bytes of the packet template that continues at 6073: magic 99 66, command $15, pad 00, length 00 01
 
 MobilePacket_TransferData:: ; 75:606D
-Data_75_606D::
 	db $99, $66, $15, $00, $00, $01
 
 ; ---- data $6073-$6078 (5 bytes) [PROBABLE] tail of the 11-byte Mobile Adapter packet template 606D-6078: payload $FF, checksum $0115 (= sum of cmd..payload, verified by hand), $80 $00; no trace reads these 5 bytes (verifier: split from the CONFIRMED-read head)
 
 MobilePacket_TransferData_Tail:: ; 75:6073
-Data_75_6073::
 	db $FF, $01, $15, $80, $00
 
 ; ---- data $6078-$6084 (12 bytes) [CONFIRMED] read as data by executed code (in up to 7/18 scenarios); content class unknown
 
 MobilePacket_OpenTCPConnection:: ; 75:6078
-Data_75_6078::
 	db $99, $66, $23, $00, $00, $06
 
 MobilePacket_CloseTCPConnection:: ; 75:607E
@@ -5281,7 +5276,6 @@ MobilePacket_CloseTCPConnection:: ; 75:607E
 ; ---- data $6084-$6099 (21 bytes) [PROBABLE] 21-byte byte table (7 triples ec 14 c9 / e4 0f 0e / e0 0c 53 / c4 07 94 / b0 05 ee / ec 10 b4 / e4 0c dd); indexed by bc via 75:40E1 (ld hl,$6084 ; add hl,bc ; ld c,[hl] ; inc hl ...); meaning unresolved
 
 MobileSDK_TimingTable:: ; 75:6084
-Data_75_6084::
 	db $EC, $14, $C9, $E4, $0F, $0E, $E0, $0C, $53, $C4, $07, $94, $B0, $05, $EE, $EC
 	db $10, $B4, $E4, $0C, $DD
 
@@ -5353,7 +5347,6 @@ POPC
 ; ---- data $612D-$6138 (11 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 610B-6149 by higher-priority evidence]
 
 MobileStr_CrLfCrLf:: ; 75:612D
-Data_75_612D::
 	db $0D, $0A, $0D, $0A, $00
 
 MobileStr_HttpPostMethod:: ; 75:6132
@@ -9616,7 +9609,6 @@ Table_75_7B32::
 ; ---- data $7B40-$7B50 (16 bytes) [CONFIRMED] MD5 initial state A,B,C,D = 67452301 EFCDAB89 98BADCFE 10325476 stored little-endian (byte-exact RFC 1321 constants); copied (16 bytes) to WRAM $CA84 by 75:76EE (ld de,$CA84 ; ld hl,$7B40 ; ld b,$10 ; call $4000)
 
 MobileSDK_Md5InitConstants:: ; 75:7B40
-Data_75_7B40::
 	db $01, $23, $45, $67, $89, $AB, $CD, $EF, $FE, $DC, $BA, $98, $76, $54, $32, $10
 
 ; ---- data $7B50-$7C50 (256 bytes) [CONFIRMED] MD5 constant table T[1..64] = floor(2^32 x abs(sin(i))) as 64 little-endian dwords (byte-exact match computed with Python math.sin; first entries D76AA478 E8C7B756 242070DB C1BDCEEE)
