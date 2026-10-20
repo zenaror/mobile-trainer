@@ -1,8 +1,7 @@
 # Structural names for the sound data (audio6): 316 neutral labels of the song and effect streams (ROM unchanged)
 
-> Status: **reference (current)**.  The song and effect streams (`audio/music/music_01..1d.asm`, `audio/sfx.asm`) still carried 316 neutral `Data_BB_AAAA` / `Table_BB_AAAA` labels: the loop point and the "address after the final jump" of every looping track, the patterns that `sound_call` enters, and the pointer
-> tables behind the headers.  They are named by **structure** now: what the label is in the stream (a loop target, a call target, a table), in which song and track.  The names claim no music: which song or effect is which is still unknown (open question 7).  213 rows are CONFIRMED, 103 PROBABLE.
-> Records: `analysis/naming2/audio6_renames.tsv` (applied by `tools/apply_renames.py`, the old neutral name stays below each renamed label as an alias); independent verification: [`naming2_verify_audio6.md`](naming2_verify_audio6.md).
+> Status: **historical pass record; see current-source follow-up below**. At the audio6 pass snapshot, the song and effect streams (`audio/music/music_01..1d.asm`, `audio/sfx.asm`) gained structural labels for 316 neutral `Data_BB_AAAA` / `Table_BB_AAAA` labels: loop points, post-jump positions, call targets and pointer tables. The structural names describe position and track, not the title or identity of a song/effect. The original pass retained the old neutral spellings below most renamed labels. A later source cleanup retired 76 redundant `Data_05_*` aliases from `audio/sfx.asm`.
+> Records: `analysis/naming2/audio6_renames.tsv` (historical spelling map); independent verification: [`naming2_verify_audio6.md`](naming2_verify_audio6.md).
 
 ## 1. Result
 
@@ -38,3 +37,12 @@ python3 tools/apply_renames.py --manifest analysis/naming2/audio6_renames.tsv --
 python3 tools/audio_driver_check.py
 make && make sym-check
 ```
+
+## Current-source follow-up (2026-10-20)
+
+The audio6 rename manifest remains a historical map. Commit `cf9b7a7e` later
+retired 76 redundant `Data_05_*` aliases from `audio/sfx.asm`; the corresponding
+`SoundSfx*` labels remain. In particular, `Data_05_68BF` no longer exists in
+maintained source. Its occurrence in the rename TSV is historical evidence,
+not a current alias. The pass preserves the original ROM bytes and does not
+change the prior audio classification or runtime limits.

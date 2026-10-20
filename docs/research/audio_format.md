@@ -561,3 +561,11 @@ neutral names; the four definitions were their only code occurrences. Historical
 and metadata retain their old spellings as provenance. Reconstruction equivalence is not
 claimed by these static checks; the required make, original-ROM comparison and symbol check
 belong to the later independently reviewed integration.
+
+## Current-source follow-up (2026-10-20)
+
+The audio6 description above that says a neutral name remains below structural
+aliases records the original pass state. Since then, commit `cf9b7a7e` retired
+76 redundant `Data_05_*` aliases in `audio/sfx.asm`, including
+`Data_05_68BF`; their `SoundSfx*` labels remain, and the rename TSVs preserve
+historical spellings. No bytes or earlier confidence levels changed.

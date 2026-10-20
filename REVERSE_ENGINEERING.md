@@ -953,6 +953,15 @@ symbol/palette checks remain the publication gates. See
 [`audio2_verify_static.md`](docs/research/audio2_verify_static.md) for the
 bounded alias evidence and result.
 
+The following audio SFX owner cleanup retired 76 exact-address `Data_05_*`
+aliases from `audio/sfx.asm`; each retains its existing `SoundSfx*` label.
+The census and independent review found no source/tool/metadata consumers or
+local scopes for the retired spellings. The original 2-MiB ROM remains
+`RESULT: IDENTICAL`; current symbol and palette checks report 14,633 labels / 51
+constants and 162 loads / 116 arrays / two documented over-reads / zero errors.
+This does not change the earlier PROBABLE classifications of headers or make
+new claims about natural playback. English remains suspended.
+
 The address-book cursor animation block at bank 2F now names its frame and
 script `Abook_ViewCursor_Frame0` and `Abook_ViewCursor_Script`. The consumer
 passes `Table_Abook_ViewCursorAnims` to `Sprite_InitSlot`; its four entries
