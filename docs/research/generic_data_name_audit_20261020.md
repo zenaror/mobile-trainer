@@ -328,6 +328,23 @@ ledger SHA-256 is
 `ef7402e57fb10fa1467e8db6ba8003d96034b4d5b05f89d7b36d4043cabf17cb`.
 The ROM, symbol, palette and PNG checks all pass.
 
+## Retired draft-menu graphic aliases (2026-10-20)
+
+In `gfx/mail/draft_menu.asm`, 26 `Data_2B_*` aliases shared exact addresses
+with existing descriptive graphics, palette, map and animation labels. The
+owner was unchanged from the census parent; the `.sym` and candidate matrix
+showed zero generic-name references, tool/metadata mentions or scoped locals.
+The aliases alone were removed, with bytes and confidence annotations kept.
+See [`retired_draft_menu_data_aliases.tsv`](../../analysis/naming2/retired_draft_menu_data_aliases.tsv).
+
+Receipt `.tmp/draft-menu-data-alias-pass-20261020/`: `PRECHECK.json` SHA-256
+`7914c8d1f7db9bbade7c62d704e04df98ec99f9bbf0bb22d5a10619878a5a8e4`,
+`RESULT.json` SHA-256
+`601650122636d2ccc5665d731a325141a7f3dc387b4f6d3a481a4d31e1753c4d`, and
+ledger SHA-256
+`4788d954f08e265d5d6e293a26ebf8886513354eeafcf4d8b9c9e279eb2da2dc`.
+All original-ROM and static graphics checks pass.
+
 ## Remaining limits
 
 The other 75 labels from the original no-alias subset remain unchanged. The audit groups them into interior labels,

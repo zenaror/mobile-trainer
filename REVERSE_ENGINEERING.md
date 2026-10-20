@@ -94,6 +94,8 @@ The keyboard-panel graphics owner had 32 more `Data_5F_*` aliases under existing
 labels; those were retired after the same checks.
 The mail-compose object owner had 30 `Data_29_*` aliases under existing `MailBody_*` frame/script
 names; they were retired with the same byte and confidence preservation.
+The draft-menu graphic owner had 26 `Data_2B_*` aliases under existing descriptive graphic and
+animation labels; those were retired after the same address/reference checks.
 
 The same audit renamed the positioned `$0020` word at `5C:5144` to
 `CommErr_MessageSlot32RawWord`. The slot is confirmed structurally; the value's purpose remains
