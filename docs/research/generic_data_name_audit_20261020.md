@@ -853,3 +853,25 @@ and `zero_labels.asm` at `4c5143ec` with current `HEAD` yields 17 removed
 definitions and no additions. This reconciles the intervening structural
 renames and alias retirements; it is still a lexical inventory, not a count of
 unknown objects or proof of semantic completion.
+
+## Song03 redundant-alias follow-up (2026-10-20)
+
+Commit `018d2470710c8ffaaa01c5b98690d0034d49bc49` removes the 17 remaining
+`Data_04_*` definitions from `audio/music/music_03.asm`. Each was a same-address
+alias of an existing `SoundSong03_*` label; exact-token scans found no current
+source/tool/metadata operand or local-scope dependency. Historical mapper and
+rename-ledger spellings remain unchanged. Independent review accepted the exact
+17-line removal, confirmed the 325 emitting directive rows are preserved, and
+kept the four `AfterJump` roles PROBABLE. No stream meaning, playback, natural
+entry, or hardware evidence was promoted.
+
+At `018d2470`, the six maintained roots contain **942** exact
+`Data_BB_AAAA::` definitions; `zero_labels.asm` adds one, for **943** total.
+`tools/data_consumers.py --stats` still reports **523** neutral groups, **123**
+rejected candidate sites, and zero manifest rows. These lexical/tool counts do
+not measure semantic completion. `make` is SHA-256 OK and `RESULT: IDENTICAL`
+to the Japanese original; `make sym-check` reports 13,544 labels and 51
+constants; `make palette-check` reports 162 loads/116 arrays, two documented
+overreads and zero errors. Full review is retained in the private
+`.tmp/parallel-jp-census-20261020/REPORT.md` and
+`.tmp/parallel-jp-function-audit-20261020/SONG03_REVIEW.md`.
