@@ -50,10 +50,8 @@ PTR_WORDS_NO = re.compile(r'not ROM pointer|SRAM|WRAM|BANK \d|other bank|far poi
 #   the note names (`far_bank`): written `dw Label` + `db BANK(Label)`.  `note` = regex the region header must still match;
 #   `tail` = trailing bytes that stay `db` (a terminator).
 RECORDS = [
-    dict(file='engine/startup/notice_pages.asm', start=0x4BE2, layout='pbbbb', note=r'23 records x 6 bytes: 16-bit pointer to a dialogue string',
-         why='23 records x 6 bytes: 16-bit pointer to a dialogue string + 4 bytes'),
-    dict(file='engine/startup/notice_pages.asm', start=0x4C6C, layout='p', note=r'the 24th string pointer of Data_65_4BE2',
-         why='"24 56 = word 5624, the 24th string pointer of Data_65_4BE2"'),
+    dict(file='engine/startup/notice_pages.asm', start=0x4BDE, layout='bbbbp', note=r'24 six-byte notice records: four header/mode/page bytes followed by a text pointer',
+         why='24 records indexed by Notice_ShowPage; text pointer at record + 4, stride 6'),
     dict(file='engine/text/font_8x16.asm', start=0x4810, layout='bbbp', note=r'27 five-byte records \(key16 little-endian = SJIS code where a glyph run starts, bank byte \$48, glyph-run pointer16\)',
          why='27 five-byte records (key16, bank byte $48, glyph-run pointer16) + $FFFF terminator', tail=2),
     dict(file='engine/browser/menus.asm', start=0x6AEC, layout='bbbbbp', note=r'2 records of 7 bytes \(dw, db, dw, dw\).*last word of each record points at the strings 72:6AFA',

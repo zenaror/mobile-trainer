@@ -415,12 +415,12 @@ Data_65_4BC6::
 	db $09, $09, $09, $09, $09, $19, $19, $09, $09, $09, $09, $13, $09, $09, $09, $09
 	db $09, $09, $09, $09, $09, $09, $09, $09
 
+; ---- data $4BDE-$4C6E (144 bytes) [PROBABLE] 24 six-byte notice records: four header/mode/page bytes followed by a text pointer; Notice_ShowPage selects a record and Notice_DrawBodyText reads its pointer at record + 4
+
 Notice_PageTable:: ; 65:4BDE
 	db $00, $00, $00, $00
 
-; ---- data $4BE2-$4C6C (138 bytes) [PROBABLE] 23 records x 6 bytes: 16-bit pointer to a dialogue string (6E 4C -> 4C6E, FA 4C -> 4CFA, 50 4D -> 4D50 ... every pointer lands exactly on a string start of analysis/strings.tsv) + 4 bytes (id, 0/1/2 flags..., last byte unread in traces); the 1-byte and 6-byte mapper holes are the unread 6th bytes
-
-Data_65_4BE2:: ; 65:4BE2
+Notice_PageTable_RegistrationStartTextPointer:: ; 65:4BE2
 	dw NoticeText_RegistrationStart
 	db $02, $01, $01, $03
 	dw NoticeText_HaveManualReady
@@ -468,7 +468,5 @@ Data_65_4BE2:: ; 65:4BE2
 	dw NoticeText_UsageFeeCancelled
 	db $17, $00, $00, $00
 
-; ---- data $4C6C-$4C6E (2 bytes) [PROBABLE] 24 56 = word 5624, the 24th string pointer of Data_65_4BE2 (string at 5624 exists); the mapper included these two bytes in the text run
-
-Data_65_4C6C:: ; 65:4C6C
+Notice_PageTable_ResumeRegistrationTextPointer:: ; 65:4C6C
 	dw NoticeText_ResumeRegistration

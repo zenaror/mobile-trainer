@@ -157,17 +157,17 @@ String_68_4F25:: ; 68:4F25
 	db "NINTENDO TEST  ", 0
 POPC
 
-; ---- data $4F35-$4F3D (8 bytes) [PROBABLE] 8 x $FF, part of the 192-byte ($00C0) block 4EA7-4F67 that the routine at 68:4E51 copies to $D000 (ld hl,$4EA7 ; ld de,$D000 ; ld bc,$00C0 ; call $050C); starts with the "MA" signature like the other 192-byte records (67E0, 68A0, 6960, 6A20); fields not decoded
+; ---- data $4F35-$4F3D (8 bytes) [PROBABLE] eight $FF bytes at offset $8E in the 192-byte Dev_TestConfigImage; this aligns with the SDK window's second dial-slot BCD field, but image-to-window correspondence is not proven; the parser has capacity 8 and stops at the first F nibble, so these bytes decode empty if connected
 
-Data_68_4F35:: ; 68:4F35
+Dev_TestConfigImage_DialSlot1Bcd:: ; 68:4F35
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 
 ; ---- zero $4F3D-$4F4D (16 bytes) [HYPOTHESIS] padding? run of 16 x $00 in unclassified bytes
 	ds $10, $00
 
-; ---- data $4F4D-$4F55 (8 bytes) [PROBABLE] 8 x $FF, part of the 192-byte ($00C0) block 4EA7-4F67 that the routine at 68:4E51 copies to $D000 (ld hl,$4EA7 ; ld de,$D000 ; ld bc,$00C0 ; call $050C); starts with the "MA" signature like the other 192-byte records (67E0, 68A0, 6960, 6A20); fields not decoded
+; ---- data $4F4D-$4F55 (8 bytes) [PROBABLE] eight $FF bytes at offset $A6 in the 192-byte Dev_TestConfigImage; this aligns with the SDK window's third dial-slot BCD field, but image-to-window correspondence is not proven; the parser has capacity 8 and stops at the first F nibble, so these bytes decode empty if connected
 
-Data_68_4F4D:: ; 68:4F4D
+Dev_TestConfigImage_DialSlot2Bcd:: ; 68:4F4D
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 
 ; ---- zero $4F55-$4F67 (18 bytes) [HYPOTHESIS] padding? run of 18 x $00 in unclassified bytes

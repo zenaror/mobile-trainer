@@ -86,7 +86,7 @@ Reference documents (current):
 | [`font_glyph_run_path_map.tsv`](research/font_glyph_run_path_map.tsv) | original glyph-run binary and PNG path migration with byte hashes |
 | [`gfx_resource_names.md`](research/gfx_resource_names.md) | descriptive original graphics paths, visual confidence and opaque-fragment limits |
 | [`gfx_resource_path_map.tsv`](research/gfx_resource_path_map.tsv) | 300 historical/current owner, asset and PNG path mappings |
-| [`generic_data_name_audit_20261020.md`](research/generic_data_name_audit_20261020.md) | 82-label neutral data-name audit; three evidence-backed aliases and retained limits |
+| [`generic_data_name_audit_20261020.md`](research/generic_data_name_audit_20261020.md) | 82-label neutral data-name audit; seven evidence-backed names and retained limits |
 
 Analysis-stage documents (historical banner at the top):
 
