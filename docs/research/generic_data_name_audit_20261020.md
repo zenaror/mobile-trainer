@@ -789,3 +789,27 @@ are retained in `.tmp/jp-bank05-neutral-song-continuations-20261020/`. The
 generic `Data_BB_AAAA::` count is 980 in the six maintained roots plus one in
 `zero_labels.asm` (981 total); this lexical count does not establish semantic
 completion.
+
+## Song 1D redundant generic aliases (2026-10-20)
+
+Five same-address aliases were removed from `audio/music/music_1d.asm`:
+`Data_05_62D0`, `Data_05_62E7`, and `Data_05_62FD` duplicated the existing
+`SoundSong1D_Track0..2` labels; `Data_05_6312` duplicated
+`SoundSong1D_Header`; and `Table_05_6314` duplicated
+`SoundSong1D_TrackPtrs`. A maintained-source search found no consumers of the
+old spellings; their remaining occurrences are in the frozen audio2/audio6
+rename manifests and `config/regions/bank05.tsv`, retained as historical
+analysis evidence. The region map is unchanged. No addresses or emitted bytes
+changed.
+
+The four `Data_BB_AAAA::` removals reduce the exact count to 976 in the six
+maintained roots plus one in `zero_labels.asm` (977 total). The redundant
+`Table_05_6314` removal does not affect that Data-label count. The bounded
+post-build `data_consumers.py --stats` census remains 564 neutral groups,
+147 rejected candidates, and zero rename rows: all five aliases shared their
+addresses with semantic labels and were excluded from neutral groups. The
+inventory SHA-256 is
+`9cc2534dd8f6b08da66397b32855db8476b683d25496500f7951b7e67d7fbab5`; manifest
+SHA-256 is
+`1a5e0a79621043b8f81cfe9e0e31dbd8b2e0322a582f9aee1a472a0b8db0f605` in
+`.tmp/jp-audio1d-redundant-aliases-20261020/`.

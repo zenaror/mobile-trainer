@@ -7,7 +7,6 @@ SECTION "audio/music/music_1d", ROMX
 ; ---- data $62D0-$6312 (66 bytes) [PROBABLE] interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md; read as data by executed code in up to 4 of 69 natural scenarios (66 of 66 bytes; traces/detail)
 
 SoundSong1D_Track0:: ; 05:62D0
-Data_05_62D0::
 	sound_volume $7F
 	sound_pitch_add $00
 	sound_tempo $46
@@ -26,7 +25,6 @@ Data_05_62D0::
 	sound_wait 2
 	sound_end
 SoundSong1D_Track1:: ; 05:62E7
-Data_05_62E7::
 	sound_volume $7F
 	sound_pitch_add $00
 	sound_instrument $05
@@ -45,7 +43,6 @@ Data_05_62E7::
 	sound_wait 2
 	sound_end
 SoundSong1D_Track2:: ; 05:62FD
-Data_05_62FD::
 	sound_volume $7F
 	sound_pitch_add $00
 	sound_instrument $08
@@ -66,11 +63,9 @@ Data_05_62FD::
 ; ---- data $6312-$6314 (2 bytes) [PROBABLE] header NN=03 KK=00 of the channel-pointer table at 6314 (3 words = NN*(KK+1)); the byte before (6311) is $B1
 
 SoundSong1D_Header:: ; 05:6312
-Data_05_6312::
 	sound_stream_header 3, 0
 
 ; ---- words $6314-$631A (6 bytes) [PROBABLE] 3 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 6312
 
 SoundSong1D_TrackPtrs:: ; 05:6314
-Table_05_6314::
 	dw SoundSong1D_Track0, SoundSong1D_Track1, SoundSong1D_Track2 ; track stream pointers (read by the driver)
