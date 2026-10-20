@@ -160,6 +160,7 @@ Naming passes (names with evidence, HYPOTHESES kept under neutral names, open qu
 * `typing_4d_slot_maps.md` - two exact naturally read slot-map pairs, unread third map/table word and cursor limits; `typing_4d_slot_maps_verify.md` - guarded confidence refinement, baseline rebase, locators and original-ROM gates.
 * `html_index_bank3f_naming.md` - static consumers and byte boundaries for the bank-3F HTML far-pointer and mobile-dictionary category indexes, including the neutral `$02` field and zero-word terminator limits.
 * `debug_flags_cursor_sprite.md` - static table/frame/script relation for the debug-flags cursor sprite, including its forced-only execution boundary and retired generic aliases.
+* `gfx_assets_bank4d_label_sync.md` - owner-verified metadata names for eight bank-4D ChoiceMenu assets; payload bytes and the pre-existing stale English fallback pin are recorded separately.
 * `typing_4d_choice_maps.md` - four exact naturally read choice-map pairs and conservative bank 4D limits; `typing_4d_choice_maps_verify.md` - guarded header/asset confidence refinement, locators and original-ROM gates.
 * `typing_4c_results.md` - guarded result storage, complete string reads and remaining partial tables; `typing_4c_results_verify.md` - full independent header review, caller errata and original-ROM gates.
 * `typing_4c_page_cache.md` - bounded address/bank records, three-slot ring and unread tail; `typing_4c_page_cache_verify.md` - independent representation, locator updates and full-ROM checks.

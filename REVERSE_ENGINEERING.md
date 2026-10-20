@@ -945,3 +945,12 @@ The structure is CONFIRMED; association with the cursor is PROBABLE. Existing
 traces label the debug path forced-only, so this does not establish natural
 execution. See
 [`docs/research/debug_flags_cursor_sprite.md`](docs/research/debug_flags_cursor_sprite.md).
+
+The bank-4D graphics catalog now uses the current owner symbols for eight
+ChoiceMenu entries: the shared `$5810` tilemap/attribute-map base and six tile
+payloads. This is a metadata-only correction in the `label` column; the eight
+referenced payloads total 4,560 bytes and retain their recorded hashes. It
+does not add PNG round-trip evidence or change ROM data. The English fallback
+pin for `gfx/assets.tsv` was already stale before this pass and remains
+untouched; no English build or manifest update was performed. See
+[`docs/research/gfx_assets_bank4d_label_sync.md`](docs/research/gfx_assets_bank4d_label_sync.md).
