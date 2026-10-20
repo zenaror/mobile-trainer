@@ -362,6 +362,26 @@ ledger SHA-256
 `657b321558419b463d016fffaba26a2065cb55c141137a75115f3b91c5c66bc3`.
 Build, symbol, palette and PNG checks all pass.
 
+## Retired connect-screen graphic aliases (2026-10-20)
+
+The owner `gfx/mail/connect_screen.asm` had 23 `Data_27_*` aliases at exact
+addresses already named by descriptive connection-screen graphics and
+animation labels. The owner hash matched the pinned census input, current
+symbols confirmed every address, and the candidates had no generic-name source
+references, tool/metadata mentions or scoped locals. Only the redundant
+declarations were removed; bytes and confidence annotations remain unchanged.
+See [the alias ledger](../../analysis/naming2/retired_connect_screen_data_aliases.tsv).
+
+The private receipt `.tmp/mail-connect-data-alias-pass-20261020/` records
+`PRECHECK.json` SHA-256
+`d5622383cc1bdb64fb51f4c154ea459d786c8530836ee91e56359c5d47bc4167` and
+`RESULT.json` SHA-256
+`dc88a1488d03bd2d9b6ed0b00fbdae325da181390162a4afc52c0aa203ecc1f0`; the
+ledger SHA-256 is
+`c5a50bd4cae30f1d178a4aa5281a2c4b56c662671b8fc12ccad7390c9f804ec0`.
+The build is byte-identical to the original; symbol, palette and PNG checks
+pass.
+
 ## Remaining limits
 
 The other 75 labels from the original no-alias subset remain unchanged. The audit groups them into interior labels,

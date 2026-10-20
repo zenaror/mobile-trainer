@@ -7,68 +7,57 @@ SECTION "gfx/mail/connect_screen", ROMX
 ; ---- gfx $5060-$5460 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 27:4BDB: hl=$5060 a=$27 c=$40 de=$8001 (dest VRAM $8000, vbank=1)
 
 MailConnect_Tiles_5060:: ; 27:5060
-Data_27_5060::
 	INCBIN "gfx/mail/connect_screen/mail_connect_tiles_5060.2bpp"
 
 ; ---- gfx $5460-$5860 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 27:4BED: hl=$5460 a=$27 c=$40 de=$8401 (dest VRAM $8400, vbank=1)
 
 MailConnect_Tiles_5460:: ; 27:5460
-Data_27_5460::
 	INCBIN "gfx/mail/connect_screen/mail_connect_tiles_5460.2bpp"
 
 ; ---- gfx $5860-$5C60 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 27:4C35: hl=$5860 a=$27 c=$40 de=$9001 (dest VRAM $9000, vbank=1)
 
 MailConnect_Tiles_5860:: ; 27:5860
-Data_27_5860::
 	INCBIN "gfx/mail/connect_screen/mail_connect_tiles_5860.2bpp"
 
 ; ---- gfx $5C60-$5E60 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 27:4C47: hl=$5C60 a=$27 c=$20 de=$9401 (dest VRAM $9400, vbank=1)
 
 MailConnect_Tiles_5C60:: ; 27:5C60
-Data_27_5C60::
 	INCBIN "gfx/mail/connect_screen/mail_connect_tiles_5c60.2bpp"
 
 ; ---- gfx $5E60-$6260 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 27:4BFF: hl=$5E60 a=$27 c=$40 de=$8800 (dest VRAM $8800, vbank=0)
 
 MailConnect_Tiles_5E60:: ; 27:5E60
-Data_27_5E60::
 	INCBIN "gfx/mail/connect_screen/mail_connect_tiles_5e60.2bpp"
 
 ; ---- gfx $6260-$6660 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 27:4C11: hl=$6260 a=$27 c=$40 de=$8C00 (dest VRAM $8C00, vbank=0)
 
 MailConnect_Tiles_6260:: ; 27:6260
-Data_27_6260::
 	INCBIN "gfx/mail/connect_screen/mail_connect_tiles_6260.2bpp"
 
 ; ---- gfx $6660-$6860 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 27:4C23: hl=$6660 a=$27 c=$20 de=$9000 (dest VRAM $9000, vbank=0)
 
 MailConnect_Tiles_6660:: ; 27:6660
-Data_27_6660::
 	INCBIN "gfx/mail/connect_screen/mail_connect_tiles_6660.2bpp"
 
 ; ---- gfx $6860-$6C60 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 27:4C59: hl=$6860 a=$27 c=$40 de=$8000 (dest VRAM $8000, vbank=0)
 
 MailConnect_Tiles_6860:: ; 27:6860
-Data_27_6860::
 	INCBIN "gfx/mail/connect_screen/mail_connect_tiles_6860.2bpp"
 
 ; ---- gfx $6C60-$7060 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 27:4C6B: hl=$6C60 a=$27 c=$40 de=$8400 (dest VRAM $8400, vbank=0)
 
 MailConnect_Tiles_6C60:: ; 27:6C60
-Data_27_6C60::
 	INCBIN "gfx/mail/connect_screen/mail_connect_tiles_6c60.2bpp"
 
 ; ---- data $7060-$74E0 (1152 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 27:4C7C: hl=$7060 a=$27 b=18 rows c=32 cols (tiles then attrs) de=$D000
 
 MailConnect_Tilemap:: ; 27:7060
-Data_27_7060::
 	INCBIN "gfx/mail/connect_screen/mail_connect_tilemap.tilemap"
 	INCBIN "gfx/mail/connect_screen/mail_connect_tilemap.attrmap"
 
 ; ---- data $74E0-$7520 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/mail/send_receive.asm:1471, call 27:4BC9 executed 252 hits in 25 scenarios (analysis/coverage_union.tsv))
 
 MailConnect_BgPalette:: ; 27:74E0
-Data_27_74E0::
 	INCLUDE "gfx/mail/connect_screen/mail_connect_bg_palette.pal"
 
 ; ---- data $7520-$7560 (64 bytes) [PROBABLE] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufObj (engine/mail/mail_session_screen.asm:288, call 26:5289 executed 57 hits in 16 scenarios (analysis/coverage_union.tsv)); +$00 bc=$40 into wPaletteBufObj (engine/mail/send_receive.asm:1466, call 27:4BB8 executed 252 hits in 25 scenarios (analysis/coverage_union.tsv)); +$00 bc=$40 into wPaletteBufObj (engine/mail/send_receive.asm:1535, call 27:4C8D executed 252 hits in 25 scenarios (analysis/coverage_union.tsv)); and 1 more load(s)
@@ -79,42 +68,36 @@ MailScreens_ObjPalette_7520:: ; 27:7520
 ; ---- data $7560-$7628 (200 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 27:44EF: hl=$7560 a=$27 b=5 rows c=20 cols (tiles then attrs) de=$D000
 
 MailConnect_WinMsg_Cancelling:: ; 27:7560
-Data_27_7560::
 	INCBIN "gfx/mail/connect_screen/mail_connect_win_msg_cancelling.tilemap"
 	INCBIN "gfx/mail/connect_screen/mail_connect_win_msg_cancelling.attrmap"
 
 ; ---- data $7628-$76F0 (200 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 27:4633: hl=$7628 a=$27 b=5 rows c=20 cols (tiles then attrs) de=$D000
 
 MailConnect_WinMsg_Cancelled:: ; 27:7628
-Data_27_7628::
 	INCBIN "gfx/mail/connect_screen/mail_connect_win_msg_cancelled.tilemap"
 	INCBIN "gfx/mail/connect_screen/mail_connect_win_msg_cancelled.attrmap"
 
 ; ---- data $76F0-$77B8 (200 bytes) [CONFIRMED] tilemap+attr: 3 call site(s) (27:47A7 27:49F7 27:4CBA); first: copy_tilemap_rect_pair at 27:47A7: hl=$76F0 a=$27 b=5 rows c=20 cols (tiles then attrs) de=$D000
 
 MailDisconnect_WinMsg_Ending:: ; 27:76F0
-Data_27_76F0::
 	INCBIN "gfx/mail/connect_screen/mail_disconnect_win_msg_ending.tilemap"
 	INCBIN "gfx/mail/connect_screen/mail_disconnect_win_msg_ending.attrmap"
 
 ; ---- data $77B8-$7880 (200 bytes) [CONFIRMED] tilemap+attr: 2 call site(s) (27:4950 27:4B35); first: copy_tilemap_rect_pair at 27:4950: hl=$77B8 a=$27 b=5 rows c=20 cols (tiles then attrs) de=$D000
 
 MailDisconnect_WinMsg_Ended:: ; 27:77B8
-Data_27_77B8::
 	INCBIN "gfx/mail/connect_screen/mail_disconnect_win_msg_ended.tilemap"
 	INCBIN "gfx/mail/connect_screen/mail_disconnect_win_msg_ended.attrmap"
 
 ; ---- data $7880-$7948 (200 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 27:4CA7: hl=$7880 a=$27 b=5 rows c=20 cols (tiles then attrs) de=$D000
 
 MailConnect_WinMsg_Connecting:: ; 27:7880
-Data_27_7880::
 	INCBIN "gfx/mail/connect_screen/mail_connect_win_msg_connecting.tilemap"
 	INCBIN "gfx/mail/connect_screen/mail_connect_win_msg_connecting.attrmap"
 
 ; ---- data $7948-$7A10 (200 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 27:4423: hl=$7948 a=$27 b=5 rows c=20 cols (tiles then attrs) de=$D000
 
 MailConnect_WinMsg_Connected:: ; 27:7948
-Data_27_7948::
 	INCBIN "gfx/mail/connect_screen/mail_connect_win_msg_connected.tilemap"
 	INCBIN "gfx/mail/connect_screen/mail_connect_win_msg_connected.attrmap"
 
@@ -193,7 +176,6 @@ MailConnect_ObjTable_Entry52:: ; 27:7AE0
 ; ---- data $7AF0-$7BA5 (181 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
 
 MailConnect_ObjAnimData_27_7AF0:: ; 27:7AF0
-Data_27_7AF0::
 	sprite_frame_table SpriteFrame_27_7AF2
 SpriteFrame_27_7AF2:: ; 27:7AF2
 	sprite_frame 14
@@ -266,7 +248,6 @@ SpriteScript_27_7BA2:: ; 27:7BA2
 ; ---- data $7BA5-$7BC1 (28 bytes) [PROBABLE] object animation frame records: [count][count x 4 bytes (y,x,tile,attr)] ... chained by pointer lists and terminated by 01 00 04/08 groups; format not fully decoded; reached through the pointer tables; span starts at a table target (7BA5) and lies between CONFIRMED-read frame data
 
 MailConnect_ObjAnimData_27_7BA5:: ; 27:7BA5
-Data_27_7BA5::
 	sprite_frame_table SpriteFrame_27_7BA7
 SpriteFrame_27_7BA7:: ; 27:7BA7
 	sprite_frame 2
@@ -288,7 +269,6 @@ SpriteScript_27_7BBE:: ; 27:7BBE
 ; ---- data $7BC1-$7BCF (14 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
 
 MailConnect_ObjAnimData_27_7BC1:: ; 27:7BC1
-Data_27_7BC1::
 	sprite_frame_table SpriteFrame_27_7BC3
 SpriteFrame_27_7BC3:: ; 27:7BC3
 	sprite_frame 2
@@ -301,7 +281,6 @@ SpriteScript_27_7BCC:: ; 27:7BCC
 ; ---- data $7BCF-$7C0F (64 bytes) [PROBABLE] object animation frame records: [count][count x 4 bytes (y,x,tile,attr)] ... chained by pointer lists and terminated by 01 00 04/08 groups; format not fully decoded; reached through the pointer tables; span starts at a table target (7BCF)
 
 MailConnect_ObjAnimData_27_7BCF:: ; 27:7BCF
-Data_27_7BCF::
 	sprite_frame_table SpriteFrame_27_7BD1
 SpriteFrame_27_7BD1:: ; 27:7BD1
 	sprite_frame 2
@@ -343,7 +322,6 @@ SpriteScript_27_7C0C:: ; 27:7C0C
 ; ---- data $7C0F-$7CB9 (170 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
 MailConnect_ObjAnimData_27_7C0F:: ; 27:7C0F
-Data_27_7C0F::
 	sprite_frame_table SpriteFrame_27_7C17, SpriteFrame_27_7C28, SpriteFrame_27_7C39, SpriteFrame_27_7C4A
 SpriteFrame_27_7C17:: ; 27:7C17
 	sprite_frame 4
@@ -411,7 +389,6 @@ SpriteScript_27_7CB0:: ; 27:7CB0
 ; ---- data $7CB9-$7CE4 (43 bytes) [PROBABLE] object animation frame records: [count][count x 4 bytes (y,x,tile,attr)] ... chained by pointer lists and terminated by 01 00 04/08 groups; format not fully decoded; reached through the pointer tables; span starts at a table target (7CB9); ends at the zero padding of the bank
 
 MailConnect_ObjAnimData_27_7CB9:: ; 27:7CB9
-Data_27_7CB9::
 	sprite_frame_table SpriteFrame_27_7CBD, SpriteFrame_27_7CCE
 SpriteFrame_27_7CBD:: ; 27:7CBD
 	sprite_frame 4
