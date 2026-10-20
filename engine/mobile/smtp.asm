@@ -333,7 +333,7 @@ Data_54_475A::
 
 ; ---- data $4764-$4770 (12 bytes) [HYPOTHESIS] 12 bytes between the $C240 blob and the string at 4770; use not found (content unresolved)
 
-Data_54_4764:: ; 54:4764
+Data_Smtp_BytesBeforeCloseParen:: ; 54:4764
 	db $00, $01, $C2, $00, $00, $00, $A0, $00, $00, $00, $A1, $00
 
 ; ---- text $4770-$4772 (2 bytes) [PROBABLE] NUL-terminated string ")" ($29 $00); passed in HL to CopyString 00:14BF at 54:45D2 and 54:4644

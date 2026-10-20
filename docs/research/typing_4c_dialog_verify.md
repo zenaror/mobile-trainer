@@ -2,7 +2,7 @@
 
 The complete 4C–4E inventory received an independently sealed 1,453-check review. That verdict approves the inventory, not an executable patch. This pass separately reviews the exact guarded source representation, original eight bytes, every located consumer, selected bank, natural read limits and affected source-line metadata before application.
 
-The whole argument retains PROBABLE status, its neutral symbol and four unread bytes. Only the demonstrated little-endian destination is represented as a word. The `$F0` argument is ignored by the fixed-WRAM branch; no sentinel, bank policy, capacity or universal dialog contract is inferred. Full-ROM equivalence is established only by the private and main build/comparison gates.
+The whole argument retains PROBABLE status and four unread bytes. A later source-only follow-up names the object `Data_BrowserLoadPage_ConnectDialogArgs` from its demonstrated call site; it retains the eight original bytes and does not claim a universal dialog contract. Only the demonstrated little-endian destination is represented as a word. The `$F0` argument is ignored by the fixed-WRAM branch; no sentinel, bank policy or capacity is inferred. Full-ROM equivalence is established only by the private and main build/comparison gates.
 
 The fresh integration reviewer corrected the symbol decomposition in the draft status document: 15,535 banked labels are 10,070 globals plus 5,465 locals; the 51 exported constants are separate. The initial draft incorrectly subtracted the constants from the global-label count. The corrected count is derived from the linked symbol file, with no new or removed symbol in this pass.
 

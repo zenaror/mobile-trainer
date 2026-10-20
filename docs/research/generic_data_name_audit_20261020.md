@@ -548,10 +548,11 @@ six roots and one in `zero_labels.asm` (1,001 total); the earlier `+2` count was
 incorrect. After the six co-alias retirements below, the `8303f049` checkpoint
 count was 994 across the six roots plus one in `zero_labels.asm` (995 total).
 After the bank22 continuation rename, `b073197e` had 993 across the six roots
-plus one in `zero_labels.asm` (994 total). After the 54:4C35 rename below, the
-current count is 992 across the six roots plus one in `zero_labels.asm` (993
-total). These are lexical label counts only, not a measure of unresolved
-semantic resources.
+plus one in `zero_labels.asm` (994 total). At the post-TOP `54:4C35` checkpoint,
+the count was 992 across the six roots plus one in `zero_labels.asm` (993
+total). The later browser-dialog and SMTP interval renames are recorded below.
+These are lexical label counts only, not a measure of unresolved semantic
+resources.
 
 ## Literal generic-name scan (2026-10-20)
 
@@ -560,9 +561,10 @@ source roots found zero `Function_BB_AAAA` and zero `Font_BB_AAAA` tokens,
 including the previously cited `Function_75_4000` and `Font_48_4ADB`. A path
 scan found zero `gfx/` files or directories named `bankNN`. At that revision,
 `Data_BB_AAAA` counted 993 definitions in those roots plus one in
-`zero_labels.asm`, 994 total. After the structural rename below, the current
-count is 992 plus one, 993 total. These are exact spelling counts only; they do
-not establish that every function or resource has a known semantic role.
+`zero_labels.asm`, 994 total. After the structural rename below, the count at
+that checkpoint was 992 plus one, 993 total. These are exact spelling counts
+only; they do not establish that every function or resource has a known
+semantic role.
 
 ## Retired account and bitmap-mask aliases (2026-10-20)
 
@@ -615,11 +617,41 @@ bytes or asset files changed.
 
 The read-only baseline at `b073197e` reported 577 neutral data groups and 152
 immediate-reference candidates, all rejected by its strict automatic
-load-shape checks. After the TOP structural rename, a fresh inventory reports
-576 groups and 151 rejected candidates, with no automatic rename rows. The
-current inventory and manifest are retained in
+load-shape checks. At the post-TOP checkpoint, the inventory reported 576
+groups and 151 rejected candidates, with no automatic rename rows. That
+checkpoint inventory and manifest are retained in
 `.tmp/generic-data-final-census-20261020/`; their SHA-256 values are
 `d541e13241bc6aed5fee8649a08ac09407d177687aaba5508d0b1bc57235cc1b` and
 `1a5e0a79621043b8f81cfe9e0e31dbd8b2e0322a582f9aee1a472a0b8db0f605`,
 respectively. A neutral group's presence or a rejected site does not establish
 its semantic role.
+
+## Browser dialog argument and SMTP interval labels (2026-10-20)
+
+`Data_4C_430A` is now `Data_BrowserLoadPage_ConnectDialogArgs`. The structural
+name follows the demonstrated caller `Browser_LoadPage_AskConnect`, which
+passes this bank-4C address to `ConnectDialog_Run`. The eight-byte extent and
+whole-unit **PROBABLE** status remain unchanged; four bytes have no natural read
+in the recorded scenarios, and this name does not establish a universal
+argument ABI. The bounded field evidence and read limits are in
+[`typing_4c_dialog.md`](typing_4c_dialog.md).
+
+`Data_54_4764` is now `Data_Smtp_BytesBeforeCloseParen`, a positional name for
+the 12 source bytes immediately before `String_Mail_CloseParen` at `54:4770`.
+The location and extent are established by the maintained source boundaries;
+the purpose remains **HYPOTHESIS**. The 69 available natural-scenario traces
+show no reads from this interval, and the maintained-source consumer search
+found no reader.
+It remains a separately labeled byte range; neither its contents nor adjacency
+to `Data_Smtp_HeaderComposeArgs` establishes a descriptor, arguments, padding,
+or runtime use.
+
+After both renames, the exact lexical count is 990 generic
+`Data_BB_AAAA::` definitions in the six maintained Japanese roots plus one in
+`zero_labels.asm` (991 total). This is a spelling count, not semantic closure.
+A fresh post-build `data_consumers.py --stats` run reports 574 neutral data
+groups, 150 rejected candidates, and zero manifest rows; its inventory and
+manifest are retained in
+`.tmp/generic-data-census-20261020-postbuild/` with SHA-256
+`9c25331539df774e29b792543a25321db68dae378c8205702d1d6d9cf393cbb6` and
+`1a5e0a79621043b8f81cfe9e0e31dbd8b2e0322a582f9aee1a472a0b8db0f605`.

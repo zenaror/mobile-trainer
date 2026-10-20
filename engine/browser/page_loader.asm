@@ -385,7 +385,7 @@ Table_4C_42F3::
 Browser_LoadPage_AskConnect:: ; 4C:42F7
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
 	ld d, $4C
-	ld bc, $430A
+	ld bc, Data_BrowserLoadPage_ConnectDialogArgs
 	farcall ConnectDialog_Run
 	ld a, b
 	or a, a
@@ -398,7 +398,7 @@ Browser_LoadPage_AskConnect:: ; 4C:42F7
 ; Bytes +1..2 and +6..7 remain unread; generic mode4's +6 input is unentered for this object.
 ; WriteByteFar ignores the bank argument for this fixed-WRAM destination (H=$C2); no sentinel.
 
-Data_4C_430A:: ; 4C:430A
+Data_BrowserLoadPage_ConnectDialogArgs:: ; 4C:430A
 	db $03 ; initial dialog mode
 	db $00, $00 ; uninterpreted, unread bytes +1..2
 	db $F0 ; destination bank argument; ignored on the fixed-WRAM write path

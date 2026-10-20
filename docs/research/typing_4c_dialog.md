@@ -1,6 +1,6 @@
 # Bounded typing of the original bank 4C dialog argument
 
-The physical unit `Data_4C_430A` occupies eight bytes, `4C:430A–4312`. It keeps its neutral name and whole-unit **PROBABLE** status. The representation exposes the naturally consumed little-endian destination as `dw $C220`; it preserves every byte, the next instruction at `4312`, and the original argument-loading instructions.
+The physical unit `Data_BrowserLoadPage_ConnectDialogArgs` occupies eight bytes, `4C:430A–4312`. Its structural name records that `Browser_LoadPage_AskConnect` passes bank `$4C` and pointer `$430A` directly to `ConnectDialog_Run`; it does not assert a universal eight-byte ABI. The whole-unit status remains **PROBABLE**. The representation exposes the naturally consumed little-endian destination as `dw $C220`; it preserves every byte, the next instruction at `4312`, and the original argument-loading instructions.
 
 | Offset | Original bytes | Interpretation | Natural evidence |
 | --- | --- | --- | --- |
