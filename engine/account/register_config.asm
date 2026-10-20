@@ -362,7 +362,6 @@ Config_BuildImageFromAccount:: ; 68:6CF0
 ; ---- data $6E03-$6E0E (11 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown [clipped from 6E03-6E1A by higher-priority evidence]
 
 Config_HostPrefixStrings:: ; 68:6E03
-Data_68_6E03::
 	db $70, $6F, $70, $2E, $00, $6D, $61, $69, $6C, $2E, $00
 
 ; ---- text $6E0E-$6E1A (12 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)

@@ -230,6 +230,12 @@ annotation remain unchanged. The mapping is preserved in
 The ROM remains `RESULT: IDENTICAL`; sym, palette and PNG checks pass. This
 does not identify any additional data semantics.
 
+The same evidence-backed cleanup retired `Data_68_6E03`, an exact same-address
+alias of `Config_HostPrefixStrings` in `engine/account/register_config.asm`.
+It had no generic-name references, metadata/tool mentions or local scope; the
+two NUL-terminated host-prefix strings and CONFIRMED annotation are unchanged.
+The mapping is included in the account alias ledger.
+
 ## Remaining limits
 
 The other 75 labels from the original no-alias subset remain unchanged. The audit groups them into interior labels,
