@@ -65,6 +65,28 @@ confirmed the source directives and byte ranges are unchanged, and found no
 active references to the retired labels. The `make` and symbol checks below
 verify the maintained build and label map.
 
+## Follow-on exact aliases in MailSrvDelProgress
+
+After the census baseline above, `gfx/mail_server/delete_progress.asm` had 48
+`Data_23_*` definitions. A separate owner-hash-pinned review retired 47 exact
+same-address aliases for existing tilemap, tile, frame, and animation-script
+names. `Data_23_7C03` remains because this census found no same-file descriptive
+co-alias; its meaning was not inferred. The 47 removed names had no other
+current ASM/include occurrence, tool/metadata mention, or local-label scope.
+The independent reviewer accepted the exact owner snapshots and candidate
+matrix; 705 source bytes were removed, with zero emitted bytes changed.
+
+The pass is outside the original 82-label no-co-alias set above. Its source
+hash before editing matched the pinned broad census input
+`f4d1086a2408893c072d92517e54d4ad3554f76fedfbe2620aac16d5c9bfdc73`;
+per-alias evidence is retained under
+`.tmp/jp-gfx-delete-progress-alias-pass-20261020/review/`. Coordinator-run
+gates: `make` returned `RESULT: IDENTICAL` with the original ROM SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`,
+`make sym-check` reported 14,461 labels and 51 constants, and
+`make palette-check` reported 162 loads, 116 arrays, two documented over-reads,
+and zero errors. No resource bytes, confidence levels, or runtime claims changed.
+
 ## Remaining limits
 
 The other 75 labels from the original no-alias subset remain unchanged. The audit groups them into interior labels,

@@ -932,6 +932,17 @@ provenance, and removes four redundant `Tilemap_4D_*` aliases. Each binary stays
 `make sym-check` passed with 14,713 labels and 51 constants; `make palette-check`
 reported 162 loads, 116 arrays, two documented overreads and zero errors.
 
+A later GFX cleanup in `gfx/mail_server/delete_progress.asm` retired 47
+`Data_23_*` aliases while retaining their exact-address tile, map, frame and
+animation-script names. `Data_23_7C03` remains because no descriptive co-alias
+was found. The pre-edit source hash matched the pinned census input; no other
+ASM/include consumers, tool/metadata mentions or local scopes were found for
+the retired names. Independent review accepted the exact diff. `make` returned
+`RESULT: IDENTICAL` against the original ROM; `make sym-check` reported 14,461
+labels and 51 constants; `make palette-check` reported 162 loads, 116 arrays,
+two documented over-reads and zero errors. No graphics bytes or semantic/runtime
+claims changed.
+
 The independent Pokémon/frame audit reconfirmed all 369 bank53 name bytes and
 found no established name-to-frame association. Within its bounded asset scope,
 17 editing views exist and eight remain KEEP; the expanded 137-asset bank41–47
