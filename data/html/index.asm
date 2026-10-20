@@ -24,7 +24,7 @@ String_HtmlStore_UrlPrefix:: ; 3F:4006
 ; after the matched prefix and stores it in wRam_C2DC, then advances to the page-pointer list.
 ; The value is $02; no reader of wRam_C2DC is identified. Field meaning remains unknown.
 
-Data_3F_4011:: ; 3F:4011
+Data_HtmlStore_ByteAfterUrlPrefix:: ; 3F:4011
 	db $02
 
 ; ---- data $4012-$40B7 (165 bytes) [CONFIRMED] 55 page-record far pointers (addr16, bank).

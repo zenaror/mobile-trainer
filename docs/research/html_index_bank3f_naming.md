@@ -20,10 +20,11 @@ rendered. An independent bounded parser reserialized the 268 emitted bytes for
 `3F:4000..410C`; they match the original ROM slice with SHA-256
 `2f47129765928f465b6b66de77156324eca38f1291223a28833f36650bfd6c2f`.
 
-`Data_3F_4011` remains neutral. `LoadPage` reads `$02` there into
-`wRam_C2DC`, but no direct assembly reader establishing the field's purpose was
-identified. `BuildPageUrl` advances past it to `4012`; indirect uses of the
-stored WRAM value have not been excluded.
+`Data_HtmlStore_ByteAfterUrlPrefix` names the byte by its confirmed structural
+position. `LoadPage` reads `$02` there into `wRam_C2DC`, but no direct assembly
+reader establishing the field's purpose was identified. `BuildPageUrl` advances
+past it to `4012`; indirect uses of the stored WRAM value have not been excluded.
+The name does not claim that `$02` is a type, mode, category, size, or count.
 
 The two zero bytes at `3F:40B7..40B9` are the address-zero terminator tested by
 `LoadPage` before it reads a bank byte. They are not a three-byte far pointer

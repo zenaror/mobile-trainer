@@ -1058,8 +1058,9 @@ semantic names: `Table_HtmlStore_KeywordPointers`, `String_HtmlStore_UrlPrefix`,
 these addresses were retired after searching maintained-source references.
 The corresponding consumers establish
 55 far pointers, 11 category-list pointers, and 61 page indexes as static
-contracts. `Data_3F_4011` remains neutral because the purpose of the `$02` value
-stored in `wRam_C2DC` is unresolved. `3F:40B7..40B9` is a zero-word terminator
+contracts. `Data_HtmlStore_ByteAfterUrlPrefix` names the byte structurally;
+the purpose of its `$02` value stored in `wRam_C2DC` remains unresolved.
+`3F:40B7..40B9` is a zero-word terminator
 checked before a bank byte is read, not padding or a far pointer. No new runtime
 claim follows. The bounded 268-byte span matches the original ROM; full
 reconstruction equivalence remains determined by `make`. See
