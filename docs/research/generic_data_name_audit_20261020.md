@@ -18,20 +18,28 @@ the source manifest is `87477919d8aac2572708badd4b9dc123f5ba8608d39baf5a711fa810
 The private snapshot is the audit input; this note records conclusions and does
 not replace it.
 
-## Aliases adopted in maintained sources
+## Descriptive names adopted in maintained sources
 
-Three candidates have direct structural or reader evidence and retain their
-original neutral symbols at the same addresses:
+Three candidates have direct structural or reader evidence. Their descriptive
+names replace the neutral source labels at the same addresses:
 
-| Address | Descriptive alias | Evidence and confidence |
+| Address | Descriptive name | Evidence and confidence |
 |---|---|---|
 | `6A:65A1` | `String_HelpMenu_MailTitle` | **CONFIRMED**: seven bytes encode `メール` plus NUL; the help ticker pointer table selects it for record 4, page 2, item 1. |
 | `72:5645` | `String_Dialog_Msg0113_Line2` | **CONFIRMED structural label**: 33 bytes form the second NUL-terminated line of the record beginning at `72:5621`; the line contains 16 full-width spaces. The name describes its position, not the UI meaning of blank text. |
 | `55:62C8` | `Table_Kbd_CursorSpriteCharOffsets` | **PROBABLE mechanical role**: ten eight-byte sets of four two-byte offset pairs. `Kbd_UpdateCursorSprite` selects a set by `wKbdType`, indexes by `(wKeyboardCharLo - $80) * 2`, and adds the pair to the sprite-slot 11 origin. The name does not assert an unrestricted input domain. |
 
-The old `Data_*` labels remain aliases so existing address references and
-historical mappings stay valid. The keyboard pointer now targets the descriptive
-alias. The changes add no bytes or alter the physical ranges.
+The ticker-title and keyboard-table operands now use descriptive names; the
+dialog line is not referenced by another maintained source label. The three old
+`Data_*` labels are retired from maintained sources after checking that no
+active source references them. Frozen `config/regions/` and `analysis/mapper/`
+tables retain the historical labels as dated snapshots. The changes add no
+bytes or alter the physical ranges.
+
+An independent source review accepted the retirement: no active ASM/tool
+references to the three old labels remain, and the three byte directives and
+their boundaries are unchanged. The `make` and symbol checks below verify the
+maintained build and label map.
 
 ## Remaining limits
 

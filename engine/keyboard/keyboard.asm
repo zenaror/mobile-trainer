@@ -1093,7 +1093,6 @@ Table_55_62B4::
 ; ---- table $62C8-$6318 (80 bytes) [PROBABLE] ten eight-byte sets of four two-byte offset pairs; selected by wKbdType and indexed by (wKeyboardCharLo - $80) * 2 in Kbd_UpdateCursorSprite, then added to the sprite-slot 11 origin
 
 Table_Kbd_CursorSpriteCharOffsets:: ; 55:62C8
-Data_55_62C8::
 	db $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA
 	db $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA
 	db $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA

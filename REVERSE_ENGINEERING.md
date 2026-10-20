@@ -30,7 +30,8 @@ three supported names and no basis to remove data. `String_HelpMenu_MailTitle` i
 confirmed seven-byte ticker title at6A:65A1; `String_Dialog_Msg0113_Line2` marks the confirmed
 second line within a blank dialog record at72:5645; and the probable mechanical table
 `Table_Kbd_CursorSpriteCharOffsets` describes the pairs selected and applied by
-`Kbd_UpdateCursorSprite` at55:62C8. Each keeps its original `Data_*` address alias. The other79
+`Kbd_UpdateCursorSprite` at55:62C8. The three old `Data_*` source labels are retired after
+reference checks; frozen region/mapper snapshots retain their historical spellings. The other79
 labels retain their evidence limits, including interiors, mixed streams, and fragments without
 positive entry proof. The [audit note](docs/research/generic_data_name_audit_20261020.md) records
 the exact scope and retained matrix; this is not an all-data or whole-ROM completion claim.
