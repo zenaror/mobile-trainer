@@ -256,6 +256,23 @@ the ledger SHA-256 is
 Build, symbol, palette and PNG gates all pass with original ROM identity.
 No graphic usage, runtime or semantic claim is added.
 
+## Retired top-menu graphic aliases (2026-10-20)
+
+The same bounded procedure retired 36 `Data_1E_*` aliases in
+`gfx/top_menu/top_menu.asm`, where each address already had a descriptive
+top-menu tilemap, animation-frame or script label. The census found no direct
+generic-name references, tool/metadata mentions or scoped locals. Payloads,
+existing names and confidence annotations are preserved; the mapping is in
+[`retired_top_menu_data_aliases.tsv`](../../analysis/naming2/retired_top_menu_data_aliases.tsv).
+
+Receipt: `.tmp/top-menu-data-alias-pass-20261020/` contains `PRECHECK.json`
+(SHA-256 `e982bedf35ccf80886b3b89120529a7515d5c7623b19a67e9eedd2355bddd50e`)
+and `RESULT.json` (SHA-256
+`7e7b8d6b84db1b4055e3ceace786bc85849a45683f20cdf65970c9076d7bbe73`); the
+ledger SHA-256 is
+`845d95687ff95f6cadf9fe3cdaa27354bca964410410d256f2eb7b6f788375f1`.
+Build, symbol, palette and PNG gates pass with byte-identical original ROM.
+
 ## Remaining limits
 
 The other 75 labels from the original no-alias subset remain unchanged. The audit groups them into interior labels,

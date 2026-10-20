@@ -85,6 +85,9 @@ The account cleanup also retired `Data_68_6E03`, whose surviving label is `Confi
 In the browser graphics owner, 46 `Data_24_*` aliases were also removed where same-address
 page-list frame, script and map names already existed; the byte identity and previous confidence
 annotations are preserved in the naming audit ledger.
+The top-menu graphics owner had another 36 `Data_1E_*` aliases under existing tilemap, animation
+frame and script names; those redundant labels were removed with the same byte and confidence
+preservation.
 
 The same audit renamed the positioned `$0020` word at `5C:5144` to
 `CommErr_MessageSlot32RawWord`. The slot is confirmed structurally; the value's purpose remains
