@@ -25,6 +25,14 @@ paths, types, statuses, or other catalog fields changed, and no PNG decoding,
 round-trip, loader, or natural-execution claim is added. An independent static
 review accepted the exact eight-cell diff and its owner mappings.
 
+The first `make png-check` also found that `gfx/png_rules.tsv` was out of sync
+with the manifest's generated row order. Running the documented generator on
+the byte-identical Japanese tree updated only ordering in `gfx/png_rules.tsv`
+and `gfx/png.mk`: all 950 records, asset paths, sizes, padding and original
+payload hashes are unchanged. Independent review accepted this two-file
+sidecar diff. With the regenerated sidecars, `make png-check` checks 404 tile
+sheets, four raw byte views, 37 font sheets and 95 screen PNGs successfully.
+
 The English `fallback_files` entry for `gfx/assets.tsv` was already stale
 before this pass: its pinned file is 139,586 bytes, while the pre-pass file
 was 142,558 bytes. The corrected Japanese catalog is 142,804 bytes. The

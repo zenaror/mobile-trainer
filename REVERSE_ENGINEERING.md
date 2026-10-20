@@ -954,3 +954,7 @@ does not add PNG round-trip evidence or change ROM data. The English fallback
 pin for `gfx/assets.tsv` was already stale before this pass and remains
 untouched; no English build or manifest update was performed. See
 [`docs/research/gfx_assets_bank4d_label_sync.md`](docs/research/gfx_assets_bank4d_label_sync.md).
+The required `make png-check` initially exposed a pre-existing ordering drift
+between the 950 generated PNG rules and the asset manifest. Regenerating the
+two sidecars changed only row order; all rule records, payload sizes and hashes
+remain the same, and the PNG check now passes.
