@@ -310,6 +310,24 @@ ledger SHA-256
 `f4c1d2f3eb4a729fffb418f183c8bc6721989640565bfe2b2e93bab9e873a6b9`.
 All byte, symbol, palette and PNG checks pass.
 
+## Retired compose-object graphic aliases (2026-10-20)
+
+In `gfx/mail/compose_objects.asm`, 30 `Data_29_*` aliases had exact
+same-address `MailBody_*` frame or script labels. The owner was unchanged
+since the census parent, and current symbols confirmed the same addresses;
+there were no generic-name source references, tool/metadata mentions or
+scoped locals. Only the redundant declarations were removed. The mapping is
+in [`retired_compose_objects_data_aliases.tsv`](../../analysis/naming2/retired_compose_objects_data_aliases.tsv).
+
+The private receipt `.tmp/compose-objects-data-alias-pass-20261020/` records
+`PRECHECK.json` SHA-256
+`f619436e895394867efcf2d94eae25d47cd019d641cc1df4aba0b0b41cb58c50` and
+`RESULT.json` SHA-256
+`7b97567f1033f5a85aeafd29283ac8f7e51282324332dd88fa210fa590411551`; the
+ledger SHA-256 is
+`ef7402e57fb10fa1467e8db6ba8003d96034b4d5b05f89d7b36d4043cabf17cb`.
+The ROM, symbol, palette and PNG checks all pass.
+
 ## Remaining limits
 
 The other 75 labels from the original no-alias subset remain unchanged. The audit groups them into interior labels,

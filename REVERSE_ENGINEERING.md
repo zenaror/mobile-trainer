@@ -92,6 +92,8 @@ The communication-result graphics owner also lost 33 redundant `Data_24_*` alias
 existing `MailResult_*` labels; the mapping and scope are in the generic-data audit.
 The keyboard-panel graphics owner had 32 more `Data_5F_*` aliases under existing panel/frame/script
 labels; those were retired after the same checks.
+The mail-compose object owner had 30 `Data_29_*` aliases under existing `MailBody_*` frame/script
+names; they were retired with the same byte and confidence preservation.
 
 The same audit renamed the positioned `$0020` word at `5C:5144` to
 `CommErr_MessageSlot32RawWord`. The slot is confirmed structurally; the value's purpose remains
