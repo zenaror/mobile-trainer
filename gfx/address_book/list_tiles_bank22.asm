@@ -12,7 +12,7 @@ Gfx_AddrBook_TilesBank22:: ; 22:5CD0
 
 ; ---- data $5CEA-$66D0 (2534 bytes) [CONFIRMED] continuation of original 160-tile family $5CD0-$66D0: first6 bytes finish the split tile, followed by158 complete16-byte tiles; four ROM22 transfers1024/256/1024/256 to VRAMbank1 $9300/$9700; full2534 read in9 whole/10 union natural scenarios; physical boundary is phase10, not an independent tile sheet
 
-Data_22_5CEA:: ; 22:5CEA
+AddrBook_ListAndAddressGraphicsContinuation:: ; 22:5CEA
 	db $39, $BF, $88, $4F, $E8, $0F, $FF, $00, $1E, $20, $CD, $D1, $22, $EB, $22, $EB
 	db $22, $EB, $22, $EB, $42, $CB, $FF, $00, $01, $42, $BC, $BD, $4A, $F6, $4A, $F6
 	db $4A, $F6, $7E, $FE, $02, $FE, $FF, $00, $C3, $04, $B9, $3A, $25, $BC, $25, $BC
