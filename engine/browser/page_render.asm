@@ -249,7 +249,6 @@ Browser_FindAnchor:: ; 4E:534B
 	ld de, $FFFF
 
 Browser_FindAnchor_NextEntry:: ; 4E:5354
-Label_4E_5354::
 	inc de
 	ld a, d
 	or a, a
@@ -317,7 +316,6 @@ Data_4E_5390:: ; 4E:5390
 	db $C1
 
 Browser_FindAnchor_Mismatch:: ; 4E:5391
-Label_4E_5391::
 	; [CONFIRMED] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 3;
 	; entered by jrcc from 4E:5367 (PROBABLE code) | 6 insn(s) executed; cut out of the PROBABLE
 	; region 5391-53A1 by apply_coverage --split [executed in 1 scenarios]
@@ -329,20 +327,17 @@ Label_4E_5391::
 	jr Browser_FindAnchor_NextEntry
 
 Browser_FindAnchor_Found:: ; 4E:539A
-Label_4E_539A::
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5391-53A1 by apply_coverage --split
 	inc a
 
 Browser_FindAnchor_Done:: ; 4E:539B
-Label_4E_539B::
 	; [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 5391-53A1 by apply_coverage
 	; --split [executed in 1 scenarios]
 	pop de
 	ret
 
 Browser_FindAnchor_Overflow:: ; 4E:539D
-Label_4E_539D::
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5391-53A1 by apply_coverage --split
 	ld de, $FFFF

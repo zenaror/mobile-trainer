@@ -884,7 +884,6 @@ MailSrvDel_DeleteAllRun_DelePoll:: ; 23:4FBC
 	jr z, MailSrvDel_DeleteAllRun_DelePollResult
 
 MailSrvDel_DeleteAllRun_Cancel:: ; 23:4FD8
-Label_23_4FD8::
 	; [PROBABLE] 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4C94-5028 by apply_coverage --split
 	ld a, $01
@@ -906,7 +905,6 @@ Label_23_4FD8::
 	jp MailSrvDel_Cancelled
 
 MailSrvDel_DeleteAllRun_DelePollResult:: ; 23:4FF0
-Label_23_4FF0::
 	; [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 4C94-5028 by apply_coverage
 	; --split [executed in 4 scenarios]
 	push hl
@@ -973,7 +971,6 @@ MailSrvDel_DeleteAllRun_Error:: ; 23:5002
 	pop hl
 
 MailSrvDel_DeleteAllRun_CountDeleted:: ; 23:503F
-Label_23_503F::
 	; [CONFIRMED] 463 insn(s) reached by static flow only; seeds: exec x455, site x8; min discovery
 	; hops 0; entered by jrcc from 23:5000 (PROBABLE code) | 60 insn(s) executed; cut out of the
 	; PROBABLE region 503F-540D by apply_coverage --split [executed in 4 scenarios]

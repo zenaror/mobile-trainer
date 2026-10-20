@@ -65,7 +65,6 @@ Account_ResultPage:: ; 68:766E
 	ldh [rSVBK], a
 
 Account_ResultPage_InputLoop:: ; 68:7708
-Label_68_7708::
 	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
 	farcall Joypad_UpdateUnsaved
@@ -82,18 +81,15 @@ Table_68_771A::
 	dw Account_ResultPage_Idle
 
 Account_ResultPage_Idle:: ; 68:7724
-Label_68_7724::
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 4/18 scenarios)
 	jp Account_ResultPage_InputLoop
 
 Account_ResultPage_OnA:: ; 68:7727
-Label_68_7727::
 	play_sfx SFX_CONFIRM
 	farcall Palette_FadeOutToWhite
 	ret
 
 Account_ResultPage_IgnoreB:: ; 68:773E
-Label_68_773E::
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;
 	; entered by table from 68:7717 (executed)
 	jr Account_ResultPage_InputLoop
@@ -103,13 +99,11 @@ Label_68_773E::
 	ret
 
 Account_ResultPage_IgnoreSelect:: ; 68:7741
-Label_68_7741::
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1;
 	; entered by table from 68:7717 (executed)
 	jr Account_ResultPage_InputLoop
 
 Account_ResultPage_IgnoreStart:: ; 68:7743
-Label_68_7743::
 	jr Account_ResultPage_InputLoop
 
 Account_ResultPage_PrintMessage:: ; 68:7745

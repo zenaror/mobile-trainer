@@ -196,7 +196,6 @@ MobileDict_OnB:: ; 1A:41CA
 	ret
 
 MobileDict_Ignore:: ; 1A:41E2
-Label_1A_41E2::
 	jp MobileDict_Loop
 
 MobileDict_HandleDpad:: ; 1A:41E5

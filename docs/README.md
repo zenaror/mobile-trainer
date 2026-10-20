@@ -90,7 +90,7 @@ Reference documents (current):
 | [`help_script_picture_assets.md`](research/help_script_picture_assets.md) | Table-backed whole HelpScript pictures01–26, static consumer limits and catalogue recovery |
 | [`help_script_picture_resource_map.tsv`](research/help_script_picture_resource_map.tsv) | Exact retired-clip to whole-picture byte intersections |
 | [`help_script_picture_label_map.tsv`](research/help_script_picture_label_map.tsv) | Retired generic owner labels and their new object-relative offsets |
-| [`generic_data_name_audit_20261020.md`](research/generic_data_name_audit_20261020.md) | 82-label neutral data-name audit; seven evidence-backed names and retained limits |
+| [`generic_data_name_audit_20261020.md`](research/generic_data_name_audit_20261020.md) | neutral data-name audit and co-located generic-label retirement ledger, with evidence limits |
 
 Analysis-stage documents (historical banner at the top):
 

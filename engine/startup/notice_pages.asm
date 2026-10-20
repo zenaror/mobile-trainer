@@ -100,7 +100,6 @@ Table_65_494E::
 	dw Notice_ShowPage_Idle
 
 Notice_ShowPage_Idle:: ; 65:4958
-Label_65_4958::
 	; [CONFIRMED] 138 insn(s); 138 executed (in up to 9/18 scenarios)
 	jp Notice_ShowPage_InputLoop
 
@@ -124,11 +123,9 @@ Notice_ShowPage_ButtonB:: ; 65:4974
 	ret
 
 Notice_ShowPage_IgnoreSelect:: ; 65:4999
-Label_65_4999::
 	jr Notice_ShowPage_InputLoop
 
 Notice_ShowPage_IgnoreStart:: ; 65:499B
-Label_65_499B::
 	jr Notice_ShowPage_InputLoop
 
 Notice_ShowPage_Locked:: ; 65:499D

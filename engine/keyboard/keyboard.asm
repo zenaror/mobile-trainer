@@ -350,7 +350,6 @@ Kbd_Run_Loop:: ; 55:5D49
 	jp Kbd_Run_ReturnSelect
 
 Kbd_Run_ContinueLoop:: ; 55:5E5A
-Label_55_5E5A::
 	jp Kbd_Run_Loop
 
 Kbd_Run_ButtonA:: ; 55:5E5D
@@ -486,30 +485,25 @@ Kbd_Run_ButtonA:: ; 55:5E5D
 	ret
 
 Kbd_Run_ReturnB:: ; 55:5F1A
-Label_55_5F1A::
 	ld a, $02
 	ret
 
 Kbd_Run_ReturnNewline:: ; 55:5F1D
-Label_55_5F1D::
 	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 2;
 	; entered by jp from 55:5E78 (PROBABLE code) [executed in 3 scenarios]
 	ld a, $03
 	ret
 
 Kbd_Run_ReturnKey83:: ; 55:5F20
-Label_55_5F20::
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 9/18 scenarios)
 	ld a, $08
 	ret
 
 Kbd_Run_ReturnKey82:: ; 55:5F23
-Label_55_5F23::
 	ld a, $07
 	ret
 
 Kbd_Run_ReturnSelect:: ; 55:5F26
-Label_55_5F26::
 	ld a, $0A
 	ret
 Kbd_HideAndReturn9:: ; 55:5F29
@@ -791,7 +785,6 @@ Kbd_StoreStickyRow:: ; 55:60DA
 	ret
 
 Kbd_UpdateSticky_SpecialKey:: ; 55:60E1
-Label_55_60E1::
 	ld a, [wKbdMoveDirection]
 	add a, a
 	add a, $F1
@@ -1414,7 +1407,6 @@ Kbd_Hide:: ; 55:6559
 	ret
 
 Kbd_Run_TypePicker:: ; 55:6563
-Label_55_6563::
 	call VBlank_WaitStartDI
 	ldh a, [rLCDC]
 	or a, $20
@@ -1645,7 +1637,6 @@ Table_55_66D9::
 	dw Kbd_LoadPageGraphics_T10
 
 Kbd_LoadPageGraphics_T0:: ; 55:66EF
-Label_55_66EF::
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 3/18 scenarios)
 	ld bc, $0D14
 	ld de, wScreenTileMap + $240
@@ -1656,7 +1647,6 @@ Label_55_66EF::
 	ret
 
 Kbd_LoadPageGraphics_T1:: ; 55:6704
-Label_55_6704::
 	ld de, $8800
 	ld hl, Gfx_Kbd_T1_Tiles8800
 	ld a, BANK(Gfx_Kbd_T1_Tiles8800)
@@ -1672,7 +1662,6 @@ Label_55_6704::
 	ret
 
 Kbd_LoadPageGraphics_T2:: ; 55:672B
-Label_55_672B::
 	; [CONFIRMED] 14 insn(s) reached by static flow only; seeds: site x6, table x8; min discovery
 	; hops 0; run starts at an entry of the code-pointer table at 55:66D9 [executed in 1 scenarios]
 	ld bc, $0D14
@@ -1684,7 +1673,6 @@ Label_55_672B::
 	ret
 
 Kbd_LoadPageGraphics_T3:: ; 55:6740
-Label_55_6740::
 	ld bc, $0D14
 	ld de, wScreenTileMap + $240
 	ld hl, Tilemap_Kbd_T3
@@ -1694,7 +1682,6 @@ Label_55_6740::
 	ret
 
 Kbd_LoadPageGraphics_T4:: ; 55:6755
-Label_55_6755::
 	; [CONFIRMED] 24 insn(s); 24 executed (in up to 7/18 scenarios)
 	ld de, $8801
 	ld hl, Gfx_Kbd_T4_Tiles8800Vb1
@@ -1722,7 +1709,6 @@ Label_55_6755::
 	ret
 
 Kbd_LoadPageGraphics_T5:: ; 55:679F
-Label_55_679F::
 	; [CONFIRMED] 69 insn(s) reached by static flow only; seeds: site x64, table x5; min discovery
 	; hops 0; run starts at an entry of the code-pointer table at 55:66D9 [executed in 4 scenarios]
 	ld de, $8801
@@ -2061,7 +2047,6 @@ Kbd_LoadPageGraphics_T78_Tail:: ; 55:6A65
 	ret
 
 Kbd_LoadPageGraphics_T9:: ; 55:6A7E
-Label_55_6A7E::
 	ld de, $8801
 	ld hl, Gfx_Kbd_T9_Tiles8800Vb1
 	ld a, BANK(Gfx_Kbd_T9_Tiles8800Vb1)
@@ -2089,7 +2074,6 @@ Label_55_6A7E::
 	ret
 
 Kbd_LoadPageGraphics_T10:: ; 55:6AC9
-Label_55_6AC9::
 	ld de, $8A81
 	ld hl, Gfx_Kbd_T10_Tiles8A80Vb1
 	ld a, BANK(Gfx_Kbd_T10_Tiles8A80Vb1)

@@ -92,7 +92,6 @@ Show0206_CallDeleteRecordIf1_Else64A7:: ; 2B:64F1 [PROBABLE] operation; entry/pu
 	ret
 
 MailView_SenderPage_CheckBAndSelect:: ; 2B:6548
-Label_2B_6548::
 	; [CONFIRMED] 298 insn(s) executed; cut out of the PROBABLE region 6500-6863 by apply_coverage
 	; --split [executed in 3 scenarios]
 	ldh a, [hJoyPressed]

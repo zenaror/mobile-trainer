@@ -27,11 +27,9 @@ Browser_LoadPage_ReturnOnly:: ; [PROBABLE] table-target operation: RET only; ent
 	ret
 
 Browser_LoadPage_OnAdapterError:: ; 4C:4017
-Label_4C_4017::
 	farcall Mobile_FetchResult
 
 Browser_LoadPage_FailNoDisconnect:: ; 4C:401D
-Label_4C_401D::
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -130,7 +128,6 @@ Browser_LoadPage_Fail:: ; 4C:404D
 	ld [wTimerAWarnFlags], a
 
 Browser_LoadPage_ShowError:: ; 4C:40E4
-Label_4C_40E4::
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios)
 	farcall Screen_FadeOutAndResetObjWindow
 	ld a, [wCommSessionKind]
@@ -173,7 +170,6 @@ Label_4C_40E4::
 	ret
 
 Browser_LoadPage_CancelConnect:: ; 4C:4138
-Label_4C_4138::
 	; [CONFIRMED] 55 insn(s) executed; cut out of the PROBABLE region 4132-4251 by apply_coverage
 	; --split [executed in 3 scenarios]
 	farcall Mobile_BeginCancel
@@ -204,7 +200,6 @@ Label_4C_4138::
 	ret
 
 Browser_LoadPage_StopRequest:: ; 4C:417D
-Label_4C_417D::
 	ld a, $05
 	ld [wCommTimeoutMinutes], a
 	ld hl, wTimerBFrames
@@ -313,7 +308,6 @@ Label_4C_417D::
 	jr nz, Browser_LoadPage_ExitConnectionNotice
 
 Browser_LoadPage_ExitCancelled:: ; 4C:4251
-Label_4C_4251::
 	; [CONFIRMED] 14 insn(s); 14 executed (in up to 2/18 scenarios)
 	ld a, [wTimerEnable]
 	bit 4, a
@@ -332,7 +326,6 @@ Label_4C_4251::
 	ret
 
 Browser_LoadPage_ExitConnectionNotice_FinishProgress:: ; 4C:4274
-Label_4C_4274::
 	; [PROBABLE] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 4;
 	; entered by jrcc from 4C:427D (PROBABLE code)
 	ld a, $01
@@ -341,7 +334,6 @@ Label_4C_4274::
 	jr nz, Browser_LoadPage_ExitConnectionNotice_FinishProgress
 
 Browser_LoadPage_ExitConnectionNotice:: ; 4C:427F
-Label_4C_427F::
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -391,7 +383,6 @@ Table_4C_42F3::
 	dw Browser_LoadPage_AskPassword
 
 Browser_LoadPage_AskConnect:: ; 4C:42F7
-Label_4C_42F7::
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
 	ld d, $4C
 	ld bc, $430A
@@ -415,7 +406,6 @@ Data_4C_430A:: ; 4C:430A
 	db $00, $00 ; unread +6..7; the generic mode4 input at +6 is not entered here
 
 Browser_LoadPage_AskPassword:: ; 4C:4312
-Label_4C_4312::
 	; [CONFIRMED] 181 insn(s); 181 executed (in up to 3/18 scenarios)
 	ld a, $0A
 	ldh [hSRAMEnable], a
@@ -622,7 +612,6 @@ Browser_LoadPage_WaitReply:: ; 4C:44BA
 	jp nz, Browser_LoadPage_WaitReply_TimeoutError
 
 Browser_LoadPage_WaitReply_CheckWarning:: ; 4C:44E8
-Label_4C_44E8::
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
@@ -676,7 +665,6 @@ Label_4C_44E8::
 	jp Browser_LoadPage_WaitReply
 
 Browser_LoadPage_WaitReply_ReplyComplete:: ; 4C:4537
-Label_4C_4537::
 	farcall Browser_WrapImageInHtml
 	or a, a
 	jr nz, .l4577
@@ -715,7 +703,6 @@ Table_4C_457D::
 	dw Browser_LoadPage_StopRequest
 
 Browser_LoadPage_WaitReply_TimeoutError:: ; 4C:458B
-Label_4C_458B::
 	; [PROBABLE] 55 insn(s) reached by static flow only; seeds: exec x55; min discovery hops 1;
 	; entered by jpcc from 4C:44E5 (executed)
 	ld a, [wTimerEnable]
@@ -781,7 +768,6 @@ Label_4C_458B::
 	jp Browser_LoadPage_Fail
 
 Browser_LoadPage_WaitReply_ResultOk:: ; 4C:460D
-Label_4C_460D::
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ld a, [wCommSessionKind]
 	cp a, $01

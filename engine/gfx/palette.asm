@@ -299,7 +299,6 @@ Table_4F_4194::
 	dw PalFade_Start_AllColors
 
 PalFade_Start_FourColors:: ; 4F:41A4
-Label_4F_41A4::
 	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1;
 	; entered by table from 4F:4191 (executed)
 	ld de, wPaletteFadeLevels + $70
@@ -308,28 +307,24 @@ Label_4F_41A4::
 	jr PalFade_Start_FillLoop
 
 PalFade_Start_ObjColors:: ; 4F:41AE
-Label_4F_41AE::
 	ld de, wPaletteFadeLevels + $40
 	ld hl, wPaletteFadeTo + $40
 	ld b, $20
 	jr PalFade_Start_FillLoop
 
 PalFade_Start_BgColors:: ; 4F:41B8
-Label_4F_41B8::
 	ld de, wPaletteFadeLevels
 	ld hl, wPaletteFadeTo
 	ld b, $20
 	jr PalFade_Start_FillLoop
 
 PalFade_Start_AllColors:: ; 4F:41C2
-Label_4F_41C2::
 	; [CONFIRMED] 54 insn(s); 54 executed (in up to 18/18 scenarios)
 	ld de, wPaletteFadeLevels
 	ld hl, wPaletteFadeTo
 	ld b, $40
 
 PalFade_Start_FillLoop:: ; 4F:41CA
-Label_4F_41CA::
 	ld a, [wTextCellsLeft]
 	ld [hli], a
 	ld a, [wPalFadeTargetColorHi]
@@ -403,7 +398,6 @@ Table_4F_4233::
 	dw PalFade_Step_AllColors
 
 PalFade_Step_FourColors:: ; 4F:4243
-Label_4F_4243::
 	; [PROBABLE] 4 instruction starts in this 10-byte block; ordinary static flow only;
 	; mode 3 target of the inline table at 4F:4230; this handler was not observed in the natural corpus
 	; PalFade_Start_FourColors (4F:41A4) fills the end colours and the progress words at offset $70,
@@ -415,14 +409,12 @@ Label_4F_4243::
 	jr PalFade_Step_UpdateRange
 
 PalFade_Step_ObjColors:: ; 4F:424D
-Label_4F_424D::
 	ld de, $0040
 	ld hl, wPaletteFadeLevels + $40
 	ld b, $20
 	jr PalFade_Step_UpdateRange
 
 PalFade_Step_BgColors:: ; 4F:4257
-Label_4F_4257::
 	; [CONFIRMED] 31 insn(s); 31 executed (in up to 18/18 scenarios)
 	ld de, $0000
 	ld hl, wPaletteFadeLevels
@@ -430,13 +422,11 @@ Label_4F_4257::
 	jr PalFade_Step_UpdateRange
 
 PalFade_Step_AllColors:: ; 4F:4261
-Label_4F_4261::
 	ld de, $0000
 	ld hl, wPaletteFadeLevels
 	ld b, $40
 
 PalFade_Step_UpdateRange:: ; 4F:4269
-Label_4F_4269::
 	push bc
 	push de
 	ld a, [wPalFadeProgress]

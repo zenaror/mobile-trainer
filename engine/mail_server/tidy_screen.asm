@@ -529,7 +529,6 @@ MailServerMgr_DrawFieldText:: ; 2E:4F06
 	pop bc
 
 MailServerMgr_DrawFieldText_Done:: ; 2E:4F99
-Label_2E_4F99::
 	ret
 BlitOneGlyphIfCellsLeft_JumpToRet4F99:: ; 2E:4F9A [PROBABLE] operation; entry unproved
 
@@ -1439,7 +1438,6 @@ MailServerMgr_DrawTimer:: ; 2E:561C
 	ld a, [wMailSessionBlock]
 
 MailServerMgr_DrawTimer_Redraw:: ; 2E:5636
-Label_2E_5636::
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
 	ld a, b
 	ld [wMailSessionBlock], a

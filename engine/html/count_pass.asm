@@ -108,7 +108,6 @@ Html_CountListItems:: ; 74:4FF2
 	ldh [hHtmlCount_ListDepth], a
 
 Html_CountListItems_Loop:: ; 74:4FFA
-Label_74_4FFA::
 	call Sound_FrameService
 	ld a, [hli]
 	or a, a
@@ -212,7 +211,6 @@ Label_74_4FFA::
 	jp Html_CountListItems_Loop
 
 Html_CountListItems_Done:: ; 74:508D
-Label_74_508D::
 	; [CONFIRMED] 41 insn(s) executed; cut out of the PROBABLE region 4FF2-511A by apply_coverage
 	; --split [executed in 4 scenarios]
 	pop hl
@@ -221,7 +219,6 @@ Label_74_508D::
 	ret
 
 Html_CountListItems_Tag:: ; 74:5091
-Label_74_5091::
 	ld a, [hl]
 	ldh [hHtml_TagFirstChar], a
 	cp a, $2F
@@ -245,21 +242,18 @@ Label_74_5091::
 	jr nz, Html_CountListItems_Dispatch
 
 Html_CountListItems_Tag_Ignore:: ; 74:50B3
-Label_74_50B3::
 	ldh a, [hHtml_MatchRestart]
 	ld l, a
 	ldh a, [hHtml_MatchRestartHi]
 	ld h, a
 
 Html_CountListItems_Tag_Done:: ; 74:50B9
-Label_74_50B9::
 	ldh a, [hHtml_SourceBank]
 	call BankSwitch_H
 	ldh a, [hTextX]
 	call BankSwitch_D
 
 Html_CountListItems_Tag_SkipToEnd:: ; 74:50C3
-Label_74_50C3::
 	ld a, $20
 	ldh [hHtml_LastChar], a
 .loop ; 74:50C7
@@ -305,7 +299,6 @@ Label_74_50C3::
 	jp .loop
 
 Html_CountListItems_Dispatch:: ; 74:50FB
-Label_74_50FB::
 	cp a, $0F
 	jr z, .l510A
 	ld b, a
@@ -355,7 +348,6 @@ Table_74_511A::
 	dw Html_CountListItems_Pre
 
 Html_CountListItems_Title:: ; 74:513E
-Label_74_513E::
 	; [PROBABLE] 86 insn(s) reached by static flow only; seeds: site x39, table x47; min discovery
 	; hops 0; run starts at an entry of the code-pointer table at 74:511A
 	ldh a, [hHtml_TagFirstChar]
@@ -368,7 +360,6 @@ Label_74_513E::
 	jp Html_CountListItems_Tag_Ignore
 
 Html_CountListItems_InTitle:: ; 74:514E
-Label_74_514E::
 	ld bc, Html_TitleTagPtrs
 	push de
 	call Html_MatchKeyword
@@ -414,7 +405,6 @@ Label_74_514E::
 	jp .loop
 
 Html_CountListItems_Comment:: ; 74:519A
-Label_74_519A::
 	ld a, [hli]
 .l519B ; 74:519B
 	or a, a
@@ -462,7 +452,6 @@ Label_74_519A::
 	jp Html_CountListItems_Loop
 
 Html_CountListItems_Pre:: ; 74:51E4
-Label_74_51E4::
 	; [PROBABLE] table entry 18 (last word) of Table_74_511A ($51E4) validated jump-table target;
 	; decode chain cp $2F / jr z / ld a,[$C2C1] / or $08 ... jp $50B9 ends in unconditional jumps to
 	; known code and lands exactly on the next code region 51FE (also a table target)
@@ -479,7 +468,6 @@ Label_74_51E4::
 	jp Html_CountListItems_Tag_Done
 
 Html_CountListItems_Ul:: ; 74:51FE
-Label_74_51FE::
 	; [CONFIRMED] 40 insn(s) reached by static flow only; seeds: table x40; min discovery hops 0;
 	; run starts at an entry of the code-pointer table at 74:511A [executed in 1 scenarios]
 	ldh a, [hHtml_TagFirstChar]
@@ -499,7 +487,6 @@ Label_74_51FE::
 	jp Html_CountListItems_Tag_Done
 
 Html_CountListItems_Ol:: ; 74:521B
-Label_74_521B::
 	ldh a, [hHtml_TagFirstChar]
 	cp a, $2F
 	jr z, .l522C
@@ -517,7 +504,6 @@ Label_74_521B::
 	jp Html_CountListItems_Tag_Done
 
 Html_CountListItems_Li:: ; 74:5238
-Label_74_5238::
 	ldh a, [hHtml_TagFirstChar]
 	cp a, $2F
 	jp z, Html_CountListItems_Tag_Done

@@ -301,7 +301,6 @@ CommNotice_DrawScreenAndLoop:: ; 50:4254
 	ldh [rSVBK], a
 
 CommNotice_FrameLoop:: ; 50:429A
-Label_50_429A::
 	farcall Sprite_UpdateAll
 	call VBlank_WaitAndService
 	farcall Joypad_UpdateUnsaved
@@ -318,7 +317,6 @@ Table_50_42AC::
 	dw CommNotice_Input_Idle
 
 CommNotice_Input_Idle:: ; 50:42B6
-Label_50_42B6::
 	; [CONFIRMED] 109 insn(s) reached by static flow only; seeds: exec x109; min discovery hops 4;
 	; entered by table from 50:42A9 (PROBABLE code) | 18 insn(s) executed; cut out of the PROBABLE
 	; region 42B6-438A by apply_coverage --split [executed in 4 scenarios]
@@ -355,25 +353,21 @@ Label_50_42B6::
 	jp CommNotice_FrameLoop
 
 CommNotice_Input_ButtonA:: ; 50:42EB
-Label_50_42EB::
 	play_sfx SFX_CONFIRM
 	ld a, [wCommNotice_ModeArg]
 	or a, a
 	jr nz, CommNotice_Exit_ByChoice
 
 CommNotice_Exit_Disconnect:: ; 50:4301
-Label_50_4301::
 	ld a, $00
 	ret
 
 CommNotice_Exit_ByChoice:: ; 50:4304
-Label_50_4304::
 	ld a, [wCommNotice_Cursor]
 	xor a, $01
 	ret
 
 CommNotice_Input_Ignore:: ; 50:430A
-Label_50_430A::
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 42B6-438A by apply_coverage --split
 	jr CommNotice_FrameLoop

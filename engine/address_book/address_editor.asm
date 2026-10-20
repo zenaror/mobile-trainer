@@ -49,7 +49,6 @@ Data_2F_6D3B:: ; 2F:6D3B
 	db $F1, $FE, $01, $28, $1B
 
 AbookAddr_Edit_Loop:: ; 2F:6D40
-Label_2F_6D40::
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios)
 	push bc
 	farcall Sprite_UpdateAll
@@ -63,7 +62,6 @@ Label_2F_6D40::
 	call AbookAddr_OpenKeyboard
 
 AbookAddr_Edit_AfterKeyboard:: ; 2F:6D5E
-Label_2F_6D5E::
 	cp a, $07
 	jp nz, .l6DF1
 
@@ -143,7 +141,6 @@ Label_2F_6D5E::
 	pop bc
 
 AbookAddr_Edit_CheckButtonB:: ; 2F:6DF9
-Label_2F_6DF9::
 	ldh a, [hJoyPressed]
 	and a, PADF_B
 	jp z, .l6EF4
@@ -1036,13 +1033,11 @@ AbookAddr_GetCharPtr:: ; 2F:7385
 	jr nz, AbookAddr_GetCharPtr_NoChar
 
 AbookAddr_GetCharPtr_Found:: ; 2F:73AA
-Label_2F_73AA::
 	; [CONFIRMED] 2 insn(s); 2 executed (in up to 1/18 scenarios)
 	pop bc
 	ret
 
 AbookAddr_GetCharPtr_NoChar:: ; 2F:73AC
-Label_2F_73AC::
 	; [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1;
 	; entered by jrcc from 2F:7392 (executed) | 4 insn(s) executed; cut out of the PROBABLE region
 	; 73AC-73B8 by apply_coverage --split [executed in 6 scenarios]
@@ -1052,7 +1047,6 @@ Label_2F_73AC::
 	ret
 
 AbookAddr_GetCharPtr_Newline:: ; 2F:73B2
-Label_2F_73B2::
 	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 73AC-73B8 by apply_coverage --split
 	ld a, $0D

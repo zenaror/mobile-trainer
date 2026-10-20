@@ -18,7 +18,6 @@ Abook_Run:: ; 2F:7EBF
 	ld [hl], a
 
 Abook_Run_List:: ; 2F:7ECC
-Label_2F_7ECC::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -66,13 +65,11 @@ Label_2F_7ECC::
 	jr Abook_Run_EditAddress
 
 Abook_Run_EditAddressA1:: ; 2F:7F0B
-Label_2F_7F0B::
 	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 2;
 	; entered by jrcc from 2F:7F24 (PROBABLE code) [executed in 2 scenarios]
 	ld a, $01
 
 Abook_Run_EditAddress:: ; 2F:7F0D
-Label_2F_7F0D::
 	; [CONFIRMED] 1 insn(s); 1 executed (in up to 1/18 scenarios)
 	farcall AbookAddr_Edit
 
@@ -84,11 +81,9 @@ Label_2F_7F0D::
 	jr Abook_Run_EditName
 
 Abook_Run_EditNameA1:: ; 2F:7F1A
-Label_2F_7F1A::
 	ld a, $01
 
 Abook_Run_EditName:: ; 2F:7F1C
-Label_2F_7F1C::
 	farcall AbookName_Edit
 	cp a, $FF
 	jr z, Abook_Run_EditAddressA1
@@ -109,7 +104,6 @@ Data_2F_7F3A:: ; 2F:7F3A
 	db $C9
 
 Abook_Run_View:: ; 2F:7F3B
-Label_2F_7F3B::
 	; [CONFIRMED] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1;
 	; entered by jrcc from 2F:7EFE (PROBABLE code) | 6 insn(s) executed; cut out of the PROBABLE
 	; region 7F3B-7F4D by apply_coverage --split [executed in 3 scenarios]
@@ -132,7 +126,6 @@ Data_2F_7F4D:: ; 2F:7F4D
 	db $C9
 
 Abook_Run_BackToList:: ; 2F:7F4E
-Label_2F_7F4E::
 	; [CONFIRMED] 7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 1;
 	; entered by jrcc from 2F:7F15 (PROBABLE code) | upgraded by classifier 6: all 7 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)

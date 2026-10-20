@@ -435,7 +435,6 @@ Charset_Iso2022JpToSjis:: ; 7E:7D62
 	ld [wCharsetConvert_PageResultFlag], a
 
 Charset_Iso2022JpToSjis_Init:: ; 7E:7D66
-Label_7E_7D66::
 	; [CONFIRMED] 26 insn(s); 26 executed (in up to 1/18 scenarios)
 	ld a, e
 	ldh [hIso2022JpToSjis_OutStartLo], a
@@ -448,7 +447,6 @@ Label_7E_7D66::
 	ldh [hIso2022JpToSjis_State], a
 
 Charset_Iso2022JpToSjis_Loop:: ; 7E:7D75
-Label_7E_7D75::
 	call Sound_FrameService
 	ld a, [hli]
 	or a, a
@@ -607,7 +605,6 @@ Table_7E_7D8F::
 	jp Charset_Iso2022JpToSjis_Loop
 
 Charset_Iso2022JpToSjis_Finish:: ; 7E:7E37
-Label_7E_7E37::
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ld a, [wCharsetConvert_PageResultFlag]
 	or a, a

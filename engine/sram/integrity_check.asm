@@ -164,7 +164,6 @@ SramCheck_MirrorPage0:: ; 22:4FD6
 	call SramCheck_Bank0CopyPage
 
 SramCheck_VerifyAndRepairAll_Bank1Check:: ; 22:4FDB
-Label_22_4FDB::
 	pop hl
 	pop de
 	pop bc

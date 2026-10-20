@@ -95,7 +95,6 @@ Data_27_409F:: ; 27:409F
 	db $18, $5E
 
 MailSendRecv_Main_ErrorDisconnect:: ; 27:40A1
-Label_27_40A1::
 	; [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1;
 	; entered by jpcc from 27:4080 (PROBABLE code)
 	ld a, [wTimerEnable]
@@ -109,7 +108,6 @@ Label_27_40A1::
 	farcall MailDisconnect_ScreenNoTimer
 
 MailSendRecv_Main_EndNoSession:: ; 27:40BB
-Label_27_40BB::
 	; [CONFIRMED] 21 insn(s); 21 executed (in up to 2/18 scenarios)
 	farcall CommTime_TimerAIsNonZero
 	or a, a
@@ -126,7 +124,6 @@ Label_27_40BB::
 	ret
 
 MailSendRecv_Main_RunSession:: ; 27:40D7
-Label_27_40D7::
 	farcall MailSession_Run
 	cp a, $80
 	cp a, $7F
@@ -1904,7 +1901,6 @@ LCDOn_ReturnBCZero:: ; 27:4EEB [PROBABLE] local operation; entry unproved
 	ldh [hDialogResult], a
 
 CommTime_Summary_FrameLoop_27_4FC0:: ; 27:4FC0
-Label_27_4FC0::
 	farcall Sprite_UpdateAll
 	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
@@ -1921,25 +1917,20 @@ Table_27_4FD8:: ; 27:4FD8
 	dw CommTime_Summary_FrameLoop_27_4FC0
 
 CommTime_SummaryInput_ButtonA_27_4FE2:: ; 27:4FE2
-Label_27_4FE2::
 	; [PROBABLE] 63 insn(s) reached by static flow only; seeds: site x63; min discovery hops 0;
 	; entered by table from 27:4FD5 (PROBABLE code)
 	jp CommTime_Summary_Close_27_4FEE
 
 CommTime_SummaryInput_IgnoreB_27_4FE5:: ; 27:4FE5
-Label_27_4FE5::
 	jp CommTime_Summary_FrameLoop_27_4FC0
 
 CommTime_SummaryInput_IgnoreSelect_27_4FE8:: ; 27:4FE8
-Label_27_4FE8::
 	jp CommTime_Summary_FrameLoop_27_4FC0
 
 CommTime_SummaryInput_IgnoreStart_27_4FEB:: ; 27:4FEB
-Label_27_4FEB::
 	jp CommTime_Summary_FrameLoop_27_4FC0
 
 CommTime_Summary_Close_27_4FEE:: ; 27:4FEE
-Label_27_4FEE::
 	farcall Palette_FadeOutToWhite
 	farcall Sprite_ResetAll
 	ret

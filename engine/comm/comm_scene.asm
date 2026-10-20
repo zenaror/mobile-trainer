@@ -161,7 +161,6 @@ CommScene_Kind2_StateTable:: ; 70:40D9
 	dw CommScene_Kind2_StateFinish
 
 CommScene_Kind0_StateSetup:: ; 70:40E3
-Label_70_40E3::
 	; [CONFIRMED] 64 insn(s); 64 executed (in up to 1/18 scenarios)
 	call CommScene_LoadGraphics
 	xor a, a
@@ -187,13 +186,11 @@ Label_70_40E3::
 	ret
 
 CommScene_Kind0_StateWaitOneFrame:: ; 70:411B
-Label_70_411B::
 	ld a, $02
 	ld [wCommScene_State], a
 	ret
 
 CommScene_Kind0_StateSlideSpritePairIn:: ; 70:4121
-Label_70_4121::
 	ld a, [wCommScene_SpritePairX]
 	inc a
 	ld [wCommScene_SpritePairX], a
@@ -206,7 +203,6 @@ Label_70_4121::
 	ret
 
 CommScene_Kind0_StateWaitCloseOrCancel:: ; 70:4135
-Label_70_4135::
 	ld a, [wCommScene_StepArg]
 	cp a, $01
 	jr z, .l4144
@@ -259,7 +255,6 @@ Label_70_4135::
 	ret
 
 CommScene_Kind0_StateCloseCountdown:: ; 70:41BF
-Label_70_41BF::
 	ld a, [wCommScene_Timer]
 	dec a
 	ld [wCommScene_Timer], a
@@ -275,7 +270,6 @@ Label_70_41BF::
 	ret
 
 CommScene_Kind0_StateCloseSlideSpritePairOut:: ; 70:41E8
-Label_70_41E8::
 	ld a, [wCommScene_SpritePairX]
 	add a, $02
 	ld [wCommScene_SpritePairX], a
@@ -290,7 +284,6 @@ Label_70_41E8::
 	ret
 
 CommScene_Kind0_StateFinish:: ; 70:4202
-Label_70_4202::
 	farcall Palette_FadeOutToWhite
 	call CommScene_Teardown
 	ld a, $FF
@@ -300,7 +293,6 @@ Label_70_4202::
 	ret
 
 CommScene_Kind0_StateCancelCountdown:: ; 70:4215
-Label_70_4215::
 	; [CONFIRMED] 44 insn(s) reached by static flow only; seeds: table x44; min discovery hops 0;
 	; run starts at an entry of the code-pointer table at 70:40B3 | 19 insn(s) executed; cut out of
 	; the PROBABLE region 4215-4275 by apply_coverage --split [executed in 5 scenarios]
@@ -321,7 +313,6 @@ Label_70_4215::
 	ret
 
 CommScene_Kind0_StateCancelWaitClose:: ; 70:4235
-Label_70_4235::
 	ld a, [wCommScene_StepArg]
 	or a, a
 	jr z, .l4258
@@ -344,7 +335,6 @@ Label_70_4235::
 	ret
 
 CommScene_Kind0_StateCancelSlideSpritePairOut:: ; 70:425C
-Label_70_425C::
 	ld a, [wCommScene_SpritePairX]
 	dec a
 	ld [wCommScene_SpritePairX], a
@@ -382,7 +372,6 @@ CommScene_ScrollDecrement:: ; 70:4285
 	ret
 
 CommScene_Kind1_StateSetup:: ; 70:428D
-Label_70_428D::
 	; [CONFIRMED] 55 insn(s); 55 executed (in up to 1/18 scenarios)
 	call CommScene_LoadGraphics
 	ld a, $02
@@ -408,13 +397,11 @@ Label_70_428D::
 	ret
 
 CommScene_Kind1_StateWaitOneFrame:: ; 70:42C7
-Label_70_42C7::
 	ld a, $02
 	ld [wCommScene_State], a
 	ret
 
 CommScene_Kind1_StateWaitCloseOrCancel:: ; 70:42CD
-Label_70_42CD::
 	ld a, [wCommScene_StepArg]
 	cp a, $01
 	jr z, .l42DC
@@ -467,7 +454,6 @@ Label_70_42CD::
 	ret
 
 CommScene_Kind1_StateCloseCountdown:: ; 70:4357
-Label_70_4357::
 	ld a, [wCommScene_Timer]
 	dec a
 	ld [wCommScene_Timer], a
@@ -483,7 +469,6 @@ Label_70_4357::
 	ret
 
 CommScene_Kind1_StateCloseSlideSpritePairOut:: ; 70:4380
-Label_70_4380::
 	ld a, [wCommScene_SpritePairX]
 	add a, $02
 	ld [wCommScene_SpritePairX], a
@@ -498,7 +483,6 @@ Label_70_4380::
 	ret
 
 CommScene_Kind1_StateFinish:: ; 70:439A
-Label_70_439A::
 	farcall Palette_FadeOutToWhite
 	call CommScene_Teardown
 	ld a, $FF
@@ -508,7 +492,6 @@ Label_70_439A::
 	ret
 
 CommScene_Kind1_StateCancelCountdown:: ; 70:43AD
-Label_70_43AD::
 	; [CONFIRMED] 112 insn(s) reached by static flow only; seeds: site x18, table x94; min discovery
 	; hops 0; run starts at an entry of the code-pointer table at 70:40B3 | 20 insn(s) executed; cut
 	; out of the PROBABLE region 43AD-44B0 by apply_coverage --split [executed in 2 scenarios]
@@ -530,7 +513,6 @@ Label_70_43AD::
 	ret
 
 CommScene_Kind1_StateCancelWaitClose:: ; 70:43D0
-Label_70_43D0::
 	ld a, [wCommScene_StepArg]
 	or a, a
 	jr z, .l43F8
@@ -556,7 +538,6 @@ Label_70_43D0::
 	ret
 
 CommScene_Kind1_StateCancelSlideSpritePairOut:: ; 70:43FF
-Label_70_43FF::
 	ld a, [wCommScene_SpritePairX]
 	dec a
 	ld [wCommScene_SpritePairX], a
@@ -571,7 +552,6 @@ Label_70_43FF::
 	ret
 
 CommScene_Kind2_StateSetup:: ; 70:4418
-Label_70_4418::
 	call CommScene_LoadGraphics
 	ld a, $04
 	call CommScene_ShowTextBox
@@ -596,13 +576,11 @@ Label_70_4418::
 	ret
 
 CommScene_Kind2_StateWaitOneFrame:: ; 70:4452
-Label_70_4452::
 	ld a, $02
 	ld [wCommScene_State], a
 	ret
 
 CommScene_Kind2_StateWaitClose:: ; 70:4458
-Label_70_4458::
 	ld a, [wCommScene_StepArg]
 	or a, a
 	jr z, .l4480
@@ -627,7 +605,6 @@ Label_70_4458::
 	ret
 
 CommScene_Kind2_StateSlideSpritePairOut:: ; 70:4484
-Label_70_4484::
 	ld a, [wCommScene_SpritePairX]
 	dec a
 	ld [wCommScene_SpritePairX], a
@@ -642,7 +619,6 @@ Label_70_4484::
 	ret
 
 CommScene_Kind2_StateFinish:: ; 70:449D
-Label_70_449D::
 	farcall Palette_FadeOutToWhite
 	call CommScene_Teardown
 	ld a, $FF

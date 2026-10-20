@@ -93,13 +93,11 @@ Html_MetaResultToError_HexLoop:: ; 74:4190
 	jp Html_MetaResultToError_HexLoop
 
 Html_MetaResultToError_NoError:: ; 74:41EF
-Label_74_41EF::
 	; [CONFIRMED] 2 insn(s); 2 executed (in up to 2/18 scenarios)
 	ld a, $00
 	ret
 
 Html_MetaResultToError_SetError:: ; 74:41F2
-Label_74_41F2::
 	; [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1;
 	; entered by jpcc from 74:4192 (PROBABLE code)
 	ld a, $04
@@ -439,21 +437,18 @@ Html_ParseSource_Tag:: ; 74:4406
 	jr nz, Html_DispatchTag
 
 Html_ParseSource_Tag_Ignore:: ; 74:4439
-Label_74_4439::
 	ldh a, [hHtml_MatchRestart]
 	ld l, a
 	ldh a, [hHtml_MatchRestartHi]
 	ld h, a
 
 Html_ParseSource_Tag_Done:: ; 74:443F
-Label_74_443F::
 	ldh a, [hHtml_SourceBank]
 	call BankSwitch_H
 	ldh a, [hTextX]
 	call BankSwitch_D
 
 Html_ParseSource_Tag_SkipToEnd:: ; 74:4449
-Label_74_4449::
 	ld a, $20
 	ldh [hHtml_LastChar], a
 .loop ; 74:444D

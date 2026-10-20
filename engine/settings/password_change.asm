@@ -204,7 +204,6 @@ PasswordChange_Communicate_Poll:: ; 67:5A75
 	ld [wTimerAWarnFlags], a
 
 PasswordChange_Communicate_Dispatch:: ; 67:5A8E
-Label_67_5A8E::
 	ld a, [wPasswordChange_State]
 	add a, a
 	add a, $9E
@@ -533,7 +532,6 @@ PasswordChange_WaitCommPanelClose:: ; 67:5CF4
 	ret
 
 PasswordChange_ConnectionNotice:: ; 67:5D00
-Label_67_5D00::
 	; [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 1;
 	; entered by jpcc from 67:5C2D (executed)
 	ld hl, wTimerAWarnFlags
@@ -546,7 +544,6 @@ Label_67_5D00::
 	jp PasswordChange_Cleanup
 
 PasswordChange_TimeoutError:: ; 67:5D18
-Label_67_5D18::
 	ld a, $26
 	ld [wMobileErrorCode], a
 	xor a, a
@@ -614,7 +611,6 @@ PasswordChange_FollowRedirect:: ; 67:5D45
 	jp PasswordChange_Communicate_Dispatch
 
 PasswordChange_OnAdapterError:: ; 67:5D8D
-Label_67_5D8D::
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5D3A-5D99 by apply_coverage --split
 	farcall Comm_ClearSessionActive
@@ -793,7 +789,6 @@ Table_67_5F0A::
 	dw AdapterCheck_InitOnly_State_Finish
 
 AdapterCheck_InitOnly_State_Init:: ; 67:5F0E
-Label_67_5F0E::
 	; [PROBABLE] entered through Table_67_5F0A (state handlers indexed by [$C27D]); decode chain
 	; legal, all 2 table targets are instruction starts, ends in known code region at 5F38; not
 	; executed in traces
@@ -806,7 +801,6 @@ Label_67_5F0E::
 	jr AdapterCheck_InitOnly_Poll
 
 AdapterCheck_InitOnly_State_Finish:: ; 67:5F20
-Label_67_5F20::
 	ld a, [wTimerEnable]
 	bit 1, a
 	jp nz, .l5F38

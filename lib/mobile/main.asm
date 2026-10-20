@@ -2781,7 +2781,6 @@ MobileSDK_HttpFlushLeftover:: ; 75:5164
 	ret
 
 MobileSDK_HttpReadBody_ZeroSizeClose:: ; 75:51CF
-Label_75_51CF::
 	; [CONFIRMED] 5 insn(s) executed; cut out of the PROBABLE region 5149-51DC by apply_coverage
 	; --split [executed in 2 scenarios]
 	ld hl, wTimerEnable
@@ -3198,7 +3197,6 @@ MobileSDK_FormatContentLength:: ; 75:5342
 	ret
 
 MobileAPI_HttpPost_ReadBodyOrBusy:: ; 75:53F7
-Label_75_53F7::
 	; [PROBABLE] 224 insn(s) reached by static flow only; seeds: exec x10, mobile x214; min
 	; discovery hops 0; entered by jpcc from 75:520B (executed)
 	cp a, $14
@@ -3208,11 +3206,9 @@ Label_75_53F7::
 	jp MobileSDK_ErrBusy
 
 MobileAPI_HttpPost_BadArgPop4:: ; 75:5404
-Label_75_5404::
 	pop hl
 
 MobileAPI_HttpPost_BadArgPop3:: ; 75:5405
-Label_75_5405::
 	pop hl
 	pop hl
 	pop hl
@@ -3514,7 +3510,6 @@ MobileAPI_Abort:: ; 75:559F
 	ret
 
 MobileSDK_EnterStateMaybeCloseTcp:: ; 75:55ED
-Label_75_55ED::
 	; [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios)
 	di
 	push af
@@ -3558,7 +3553,6 @@ Label_75_55ED::
 	jr .l5607
 
 MobileAPI_Cancel:: ; 75:561D
-Label_75_561D::
 	ld hl, wMobileSDK_State
 	ld a, [hl]
 	dec a
@@ -3808,7 +3802,6 @@ MobileSDK_SerialReceive:: ; 75:56D2
 	ld [wMobileSDK_SerialPhase], a
 
 MobileSDK_SerialReceive_LoadShortTimeout:: ; 75:5789
-Label_75_5789::
 	ld hl, wMobileSDK_TimeoutReload + $01
 	ld a, [hld]
 	ld e, a
@@ -3835,7 +3828,6 @@ MobileSDK_TxRetryLimit10:: ; 75:57A3
 	jr MobileSDK_TxRetryCheck
 
 MobileSDK_SerialReceive_AckMismatch:: ; 75:57A7
-Label_75_57A7::
 	; [CONFIRMED] 4 insn(s); 4 executed (in up to 2/18 scenarios)
 	xor a, a
 	ld [hli], a
@@ -5992,7 +5984,6 @@ MobileState_OpenTcp:: ; 75:6457
 	dec a
 
 MobileState_OpenTcp_DispatchService:: ; 75:64E0
-Label_75_64E0::
 	jp z, MobileSDK_SmtpOpened
 	dec a
 	jp z, MobileSDK_Pop3Opened
@@ -6074,7 +6065,6 @@ MobileSDK_HttpSendRequestPacket:: ; 75:653A
 	jp Mobile_PacketSendExpect
 
 MobileSDK_HttpOpened_Service3:: ; 75:656C
-Label_75_656C::
 	; [PROBABLE] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 1;
 	; entered by jpcc from 75:64EC (PROBABLE code)
 	call MobileSDK_HttpPrepareRequestPackets
@@ -6124,7 +6114,6 @@ MobileSDK_HttpOpened:: ; 75:659D
 	ld [wMobileSDK_State], a
 
 MobileSDK_HttpOpened_SetBusyTail:: ; 75:65C5
-Label_75_65C5::
 	ld hl, wTimerEnable
 	set 0, [hl]
 	res 2, [hl]
@@ -6211,7 +6200,6 @@ MobileSDK_SmtpOpened:: ; 75:6622
 	ld [wMobileSDK_State], a
 
 MobileSDK_SmtpOpened_SetBusyTail:: ; 75:6654
-Label_75_6654::
 	; [CONFIRMED] 61 insn(s); 61 executed (in up to 4/18 scenarios)
 	ld hl, wTimerEnable
 	set 0, [hl]
@@ -6499,7 +6487,6 @@ MobileSDK_ReplyLineComplete:: ; 75:67F7
 	ld hl, wMobileSDK_ReplyTail + $03
 
 MobileSDK_ReplyLineComplete_TestCrLf:: ; 75:67FD
-Label_75_67FD::
 	ld a, [hli]
 	cp a, $0D
 	ret nz
@@ -7441,7 +7428,6 @@ Data_75_6D62:: ; 75:6D62
 	db $C9
 
 MobileState_HttpExchange_Substep4:: ; 75:6D63
-Label_75_6D63::
 	; [CONFIRMED] 31 insn(s) reached by static flow only; seeds: exec x31; min discovery hops 1;
 	; entered by jrcc from 75:6D54 (executed) | 9 insn(s) executed; cut out of the PROBABLE region
 	; 6D63-6D9D by apply_coverage --split [executed in 2 scenarios]
@@ -7487,7 +7473,6 @@ Label_75_6D63::
 	ret
 
 MobileState_HttpExchange_Substep1_SendPostBody:: ; 75:6D9D
-Label_75_6D9D::
 	; [CONFIRMED] 44 insn(s); 44 executed (in up to 2/18 scenarios)
 	call MobileSDK_HttpSendBodyChunk
 	ld de, wMobileSDK_PacketBuffer
@@ -7501,7 +7486,6 @@ Label_75_6D9D::
 	call Mobile_PacketBuildFooter
 
 MobileState_HttpExchange_Substep2_PollResponse:: ; 75:6DB5
-Label_75_6DB5::
 	ld a, [wTimerEnable]
 	bit 2, a
 	jr z, .l6DC1
@@ -7612,7 +7596,6 @@ Label_75_6DB5::
 	jr MobileState_HttpExchange_LatchError
 
 MobileState_HttpExchange_Substep3_CheckStatus:: ; 75:6E5C
-Label_75_6E5C::
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 2/18 scenarios)
 	ld a, [wMobileSDK_State]
 	cp a, $1F
@@ -7633,7 +7616,6 @@ Label_75_6E5C::
 	jp z, MobileState_HttpExchange_Finish
 
 MobileState_HttpExchange_StatusErrorExit:: ; 75:6E82
-Label_75_6E82::
 	ld hl, wMobileSDK_HttpStatus + $01
 	ld a, [hld]
 	cp a, $03
@@ -7649,7 +7631,6 @@ Label_75_6E82::
 	call MobileSDK_HttpBuildRedirectUrl
 
 MobileState_HttpExchange_SetStatusErrorCode:: ; 75:6E95
-Label_75_6E95::
 	; [CONFIRMED] 8 insn(s); 8 executed (in up to 1/18 scenarios)
 	ld hl, wTimerEnable
 	set 1, [hl]
@@ -7667,7 +7648,6 @@ Label_75_6E95::
 	inc a
 
 MobileState_HttpExchange_LatchError:: ; 75:6EAB
-Label_75_6EAB::
 	; [CONFIRMED] 16 insn(s); 16 executed (in up to 1/18 scenarios)
 	ld [wMobileSDK_ErrorCode], a
 	ld hl, wMobileSDK_ErrorInfo
@@ -7681,7 +7661,6 @@ Label_75_6EAB::
 	ret
 
 MobileState_HttpExchange_Substep3_States1F_20:: ; 75:6EBC
-Label_75_6EBC::
 	ld hl, wMobileSDK_HttpStatus
 	ld a, [hli]
 	ld h, [hl]
@@ -7729,7 +7708,6 @@ Label_75_6EBC::
 	ret
 
 MobileState_HttpExchange_Substep3_States21_22:: ; 75:6F00
-Label_75_6F00::
 	ld hl, wMobileSDK_HttpStatus
 	ld a, [hli]
 	ld h, [hl]
@@ -7741,7 +7719,6 @@ Label_75_6F00::
 	jp nz, MobileState_HttpExchange_StatusErrorExit
 
 MobileState_HttpExchange_CheckGbStatusAndReconnect:: ; 75:6F11
-Label_75_6F11::
 	ld a, [wMobileSDK_GbStatus]
 	ld b, a
 	ld a, [wMobileSDK_GbStatus + 1]
@@ -7773,7 +7750,6 @@ Label_75_6F11::
 	jp Mobile_PacketSendExpect
 
 MobileState_HttpExchange_Finish:: ; 75:6F53
-Label_75_6F53::
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ld a, [wRam_C830]
 	cp a, $01
@@ -8270,7 +8246,6 @@ MobileSDK_HttpStoreHeaderValue:: ; 75:71CF
 	ret
 
 MobileSDK_HttpFindHeaderEnd_JoinPartialLine:: ; 75:71E1
-Label_75_71E1::
 	; [PROBABLE] 110 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 71C3-72A0 by apply_coverage --split
 	ld hl, wMobileSDK_Window + $F9
@@ -8335,7 +8310,6 @@ Label_75_71E1::
 	ret
 
 MobileSDK_HttpBodyStart_WindowBodyExceedsBuffer:: ; 75:723E
-Label_75_723E::
 	ld a, b
 	sub a, e
 	ld [wRam_C82E], a
@@ -8372,7 +8346,6 @@ Label_75_723E::
 	ret
 
 MobileSDK_HttpBodyStart_PacketDataExceedsBuffer:: ; 75:727D
-Label_75_727D::
 	ld a, b
 	sub a, e
 	ld [wRam_C82F], a
@@ -8557,7 +8530,6 @@ String_75_73AA::
 POPC
 
 MobileState_HttpExchange_Substep6_SendRequest:: ; 75:73BE
-Label_75_73BE::
 	; [CONFIRMED] 48 insn(s); 48 executed (in up to 2/18 scenarios)
 	call MobileSDK_HttpSendBodyChunk
 	ld a, $01
@@ -9975,7 +9947,6 @@ MobileSDK_Base64DecodeChar:: ; 75:7DBC
 	pop hl
 
 MobileSDK_Base64Decode_BadArg:: ; 75:7DE8
-Label_75_7DE8::
 	ld hl, wTimerEnable
 	set 1, [hl]
 	ld a, $20
@@ -9983,34 +9954,28 @@ Label_75_7DE8::
 	ret
 
 MobileSDK_Base64DecodeChar_Plus:: ; 75:7DF3
-Label_75_7DF3::
 	; [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 7C50-7E89 by apply_coverage --split
 	ld a, $3E
 	ret
 
 MobileSDK_Base64DecodeChar_Slash:: ; 75:7DF6
-Label_75_7DF6::
 	ld a, $3F
 	ret
 
 MobileSDK_Base64DecodeChar_Digit:: ; 75:7DF9
-Label_75_7DF9::
 	add a, $04
 	ret
 
 MobileSDK_Base64DecodeChar_Pad:: ; 75:7DFC
-Label_75_7DFC::
 	xor a, a
 	ret
 
 MobileSDK_Base64DecodeChar_Upper:: ; 75:7DFE
-Label_75_7DFE::
 	sub a, $41
 	ret
 
 MobileSDK_Base64DecodeChar_Lower:: ; 75:7E01
-Label_75_7E01::
 	; [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 7C50-7E89 by apply_coverage
 	; --split [executed in 1 scenarios]
 	sub a, $47

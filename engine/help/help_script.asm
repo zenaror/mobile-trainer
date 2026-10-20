@@ -176,7 +176,6 @@ HelpScript_Run:: ; 6C:59B2
 	ldh [rSVBK], a
 
 HelpScript_Run_NextCommand:: ; 6C:5B47
-Label_6C_5B47::
 	ld a, [wHelpScriptPtr]
 	ld l, a
 	ld a, [wHelpScriptPtr + 1]
@@ -397,7 +396,6 @@ Label_6C_5B47::
 	ld [wHelpScriptPtr + 1], a
 
 HelpScript_Run_FrameLoop:: ; 6C:5CC5
-Label_6C_5CC5::
 	farcall Sprite_UpdateAll
 	call VBlank_WaitAndService
 	ld a, [wHelpScript_PrintingFlag]
@@ -431,12 +429,10 @@ Table_6C_5CFD::
 	dw HelpScript_Idle
 
 HelpScript_Idle:: ; 6C:5D07
-Label_6C_5D07::
 	; [CONFIRMED] 264 insn(s); 264 executed (in up to 12/18 scenarios)
 	jr HelpScript_Run_FrameLoop
 
 HelpScript_OnA:: ; 6C:5D09
-Label_6C_5D09::
 	ld a, $01
 	ld [wHelpScriptAdvanceMode], a
 	ld a, [wHelpScript_PrintingFlag]
@@ -453,7 +449,6 @@ Label_6C_5D09::
 	jp HelpScript_Run_ResumeScript
 
 HelpScript_OnB:: ; 6C:5D30
-Label_6C_5D30::
 	ld a, $02
 	ld [wHelpScriptAdvanceMode], a
 	ld a, [wHelpScript_PrintingFlag]
@@ -472,7 +467,6 @@ Label_6C_5D30::
 	jp HelpScript_Run_FrameLoop
 
 HelpScript_OnSelect:: ; 6C:5D5A
-Label_6C_5D5A::
 	play_sfx SFX_CANCEL
 	push hl
 	ld a, $01
@@ -496,11 +490,9 @@ Label_6C_5D5A::
 	jp HelpScript_Run_NextCommand
 
 HelpScript_IgnoreStart:: ; 6C:5D9C
-Label_6C_5D9C::
 	jp HelpScript_Run_FrameLoop
 
 HelpScript_Run_TextFinished:: ; 6C:5D9F
-Label_6C_5D9F::
 	xor a, a
 	ld [wHelpScript_PrintingFlag], a
 	ld a, [wHelpScriptAdvanceMode]
@@ -543,7 +535,6 @@ Label_6C_5D9F::
 	jp HelpScript_OnB
 
 HelpScript_Run_ResumeScript:: ; 6C:5E03
-Label_6C_5E03::
 	ld a, [wHelpScriptAdvanceMode]
 	cp a, $02
 	jr z, .l5E1D

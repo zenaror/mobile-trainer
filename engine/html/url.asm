@@ -126,7 +126,6 @@ String_74_59D8::
 POPC
 
 HtmlUrl_Resolve_BaseNoScheme:: ; 74:59E0
-Label_74_59E0::
 	; [PROBABLE] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 1;
 	; entered by jrcc from 74:59B8 (executed)
 	push de
@@ -134,7 +133,6 @@ Label_74_59E0::
 	ld de, wAttrUrlBuf
 
 HtmlUrl_Resolve_CopyHttpPrefix:: ; 74:59E7
-Label_74_59E7::
 	ld hl, HtmlUrl_HttpPrefix
 .loop ; 74:59EA
 	ld a, [hli]
@@ -145,7 +143,6 @@ Label_74_59E7::
 	jr nz, .loop
 
 HtmlUrl_Resolve_JoinToBase:: ; 74:59F1
-Label_74_59F1::
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 2/18 scenarios)
 	pop hl
 	call CopyBytes
@@ -230,7 +227,6 @@ Label_74_59F1::
 	jr .l5A20
 
 HtmlUrl_Resolve_EnsureHostSlash:: ; 74:5A5A
-Label_74_5A5A::
 	; [CONFIRMED] 14 insn(s); 14 executed (in up to 2/18 scenarios)
 	ld a, [hli]
 	or a, a

@@ -94,7 +94,6 @@ AdapterCheck_Poll:: ; 67:644E
 	ld [wAdapterCheck_SfxFlag], a
 
 AdapterCheck_Poll_Loop:: ; 67:6452
-Label_67_6452::
 	farcall Sprite_UpdateAll
 	call VBlank_WaitAndService
 	ldh [hScratchA], a

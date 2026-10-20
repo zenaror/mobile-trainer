@@ -285,7 +285,6 @@ CommPanel_StateHide:: ; 68:7583
 	ret
 
 CommPanel_StateWaitCloseOnly:: ; 68:7594
-Label_68_7594::
 	; [CONFIRMED] 8 insn(s) reached by static flow only; seeds: table x8; min discovery hops 0; run
 	; starts at an entry of the code-pointer table at 68:7442 [executed in 4 scenarios]
 	ld a, [wCommPanelArg]

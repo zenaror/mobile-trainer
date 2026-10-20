@@ -46,7 +46,6 @@ AbookName_Edit:: ; 2F:57F2
 	jr z, AbookName_Edit_Loop + $22
 
 AbookName_Edit_Loop:: ; 2F:5832
-Label_2F_5832::
 	; [CONFIRMED] 102 insn(s) reached by static flow only; seeds: exec x102; min discovery hops 3;
 	; entered by jrcc from 2F:5825 (PROBABLE code) | 3 insn(s) executed; cut out of the PROBABLE
 	; region 5832-590B by apply_coverage --split [executed in 6 scenarios]
@@ -73,7 +72,6 @@ Label_2F_5832::
 	call AbookName_OpenKeyboard
 
 AbookName_Edit_AfterKeyboard:: ; 2F:5857
-Label_2F_5857::
 	cp a, $07
 	jr nz, AbookName_Edit_CheckButtonB
 	push bc
@@ -89,7 +87,6 @@ Label_2F_5857::
 	ret
 
 AbookName_Edit_CheckButtonB:: ; 2F:5876
-Label_2F_5876::
 	ldh a, [hJoyPressed]
 	and a, PADF_B
 	jr z, .l58BB
@@ -607,7 +604,6 @@ AbookName_GetCharPtr:: ; 2F:5C0E
 	jr nz, AbookName_GetCharPtr_NoChar
 
 AbookName_GetCharPtr_Found:: ; 2F:5C34
-Label_2F_5C34::
 	; [CONFIRMED] 88 insn(s) reached by static flow only; seeds: exec x88; min discovery hops 7;
 	; entered by jrcc from 2F:5C20 (PROBABLE code) | 6 insn(s) executed; cut out of the PROBABLE
 	; region 5C34-5CC5 by apply_coverage --split [executed in 4 scenarios]
@@ -615,14 +611,12 @@ Label_2F_5C34::
 	ret
 
 AbookName_GetCharPtr_NoChar:: ; 2F:5C36
-Label_2F_5C36::
 	ld a, $FF
 	ld d, $FF
 	pop bc
 	ret
 
 AbookName_GetCharPtr_Newline:: ; 2F:5C3C
-Label_2F_5C3C::
 	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5C34-5CC5 by apply_coverage --split
 	ld a, $0D
@@ -717,7 +711,6 @@ AbookName_InsertChar:: ; 2F:5C85
 	ld c, $0B
 
 AbookName_InsertChar_CheckRow:: ; 2F:5CB8
-Label_2F_5CB8::
 	call AbookName_GetCharPtr
 	inc d
 	jr nz, AbookName_InsertChar_NextRow
@@ -738,7 +731,6 @@ Label_2F_5CB8::
 	jr z, AbookName_InsertChar_Insert
 
 AbookName_InsertChar_NextRow:: ; 2F:5CD2
-Label_2F_5CD2::
 	; [PROBABLE] 334 insn(s) reached by static flow only; seeds: exec x334; min discovery hops 5;
 	; entered by jrcc from 2F:5CBC (PROBABLE code) | 22 insn(s) never executed in the traced runs;
 	; cut out of the PROBABLE region 5CD2-5F28 by apply_coverage --split
@@ -751,7 +743,6 @@ Label_2F_5CD2::
 	jr nz, AbookName_InsertChar_CheckRow
 
 AbookName_InsertChar_Reject:: ; 2F:5CDD
-Label_2F_5CDD::
 	push bc
 	push de
 	play_sfx SFX_REJECT
@@ -762,7 +753,6 @@ Label_2F_5CDD::
 	ret
 
 AbookName_InsertChar_Insert:: ; 2F:5CF4
-Label_2F_5CF4::
 	; [CONFIRMED] 99 insn(s) executed; cut out of the PROBABLE region 5CD2-5F28 by apply_coverage
 	; --split [executed in 3 scenarios]
 	push bc

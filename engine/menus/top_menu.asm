@@ -214,7 +214,6 @@ TopMenu_OnA:: ; 1F:4217
 	jr nz, TopMenu_OnA_QueueWhileMoving
 
 TopMenu_OnA_Accept:: ; 1F:421D
-Label_1F_421D::
 	play_sfx SFX_CONFIRM
 	farcall Palette_FadeOutWithTicker
 	farcall Ticker_Stop
@@ -230,7 +229,6 @@ Label_1F_421D::
 	ret
 
 TopMenu_OnA_QueueWhileMoving:: ; 1F:4252
-Label_1F_4252::
 	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1;
 	; entered by jrcc from 1F:421B (executed) [executed in 5 scenarios]
 	ld a, $01
@@ -253,11 +251,9 @@ TopMenu_OnB:: ; 1F:425A
 	ret
 
 TopMenu_IgnoreStart:: ; 1F:428B
-Label_1F_428B::
 	jp TopMenu_Loop
 
 TopMenu_IgnoreSelect:: ; 1F:428E
-Label_1F_428E::
 	jp TopMenu_Loop
 
 TopMenu_HandleDpad:: ; 1F:4291

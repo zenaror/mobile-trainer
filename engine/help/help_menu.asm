@@ -25,7 +25,6 @@ HelpMenu_ShowPage:: ; 6C:4000
 	ld [wHelpMenu_Cursor], a
 
 HelpMenu_ShowPage_Redraw:: ; 6C:401D
-Label_6C_401D::
 	ld a, $01
 	ld [wRam_C0E7], a
 	ldh a, [rLCDC]
@@ -180,7 +179,6 @@ Label_6C_401D::
 	ldh [rSVBK], a
 
 HelpMenu_ShowPage_InputLoop:: ; 6C:41B3
-Label_6C_41B3::
 	farcall Sprite_UpdateAll
 	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
@@ -198,7 +196,6 @@ Table_6C_41CB::
 	dw HelpMenu_Idle
 
 HelpMenu_Idle:: ; 6C:41D5
-Label_6C_41D5::
 	; [CONFIRMED] 35 insn(s); 35 executed (in up to 3/18 scenarios)
 	farcall Ticker_Update
 	ldh a, [hJoyPressedRepeat]
@@ -207,7 +204,6 @@ Label_6C_41D5::
 	jp HelpMenu_ShowPage_InputLoop
 
 HelpMenu_OnA:: ; 6C:41E5
-Label_6C_41E5::
 	ld a, [wHelpMenu_Cursor]
 	call HelpMenu_ItemIsLocked
 	or a, a
@@ -261,7 +257,6 @@ Label_6C_41E5::
 	jp HelpMenu_ShowPage_InputLoop
 
 HelpMenu_OnB:: ; 6C:425A
-Label_6C_425A::
 	play_sfx SFX_CANCEL
 	farcall Palette_FadeOutWithTicker
 	farcall Ticker_Stop
@@ -289,7 +284,6 @@ Label_6C_425A::
 	jp HelpMenu_ShowPage_Redraw
 
 HelpMenu_Ignore:: ; 6C:429C
-Label_6C_429C::
 	; [CONFIRMED] 75 insn(s); 75 executed (in up to 3/18 scenarios)
 	jp HelpMenu_ShowPage_InputLoop
 

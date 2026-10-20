@@ -378,7 +378,6 @@ Table_72_43AA::
 	dw Dialog_SetupCursorByType_TwoButtonsTall
 
 Dialog_SetupCursorByType_NoButton:: ; 72:43B6
-Label_72_43B6::
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
 	ld hl, wSpriteSlot12
 	call Sprite_ClearSlot
@@ -387,7 +386,6 @@ Label_72_43B6::
 	ret
 
 Dialog_SetupCursorByType_TwoButtonsTall:: ; 72:43C1
-Label_72_43C1::
 	; [CONFIRMED] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 1;
 	; entered by table from 72:43A7 (executed) | 3 insn(s) executed; cut out of the PROBABLE region
 	; 43C1-43DC by apply_coverage --split [executed in 3 scenarios]
@@ -411,7 +409,6 @@ Label_72_43C1::
 	jr Dialog_SetupCursorByType_DrawTwoButtons
 
 Dialog_SetupCursorByType_TwoButtons:: ; 72:43DC
-Label_72_43DC::
 	; [CONFIRMED] 177 insn(s); 177 executed (in up to 4/18 scenarios)
 	ldh a, [hDialogResult]
 	or a, a
@@ -427,7 +424,6 @@ Label_72_43DC::
 	jr Dialog_SetupCursorByType_DrawTwoButtons
 
 Dialog_SetupCursorByType_DrawTwoButtons:: ; 72:43F7
-Label_72_43F7::
 	ld hl, wScreenTileMap + $245
 	ld a, $88
 	call Dialog_DrawButtonTiles
@@ -436,20 +432,17 @@ Label_72_43F7::
 	jp Dialog_DrawButtonTiles
 
 Dialog_SetupCursorByType_OneButtonTall:: ; 72:4407
-Label_72_4407::
 	ld de, $D040
 	ld hl, wSpriteSlot12
 	call Sprite_SetPosition
 	jr Dialog_SetupCursorByType_DrawOneButton
 
 Dialog_SetupCursorByType_OneButton:: ; 72:4412
-Label_72_4412::
 	ld de, $C040
 	ld hl, wSpriteSlot12
 	call Sprite_SetPosition
 
 Dialog_SetupCursorByType_DrawOneButton:: ; 72:441B
-Label_72_441B::
 	ld a, $00
 	ldh [hDialogResult], a
 	ld hl, wScreenTileMap + $248
@@ -640,7 +633,6 @@ Table_72_4596::
 	dw Dialog_WaitInput_Idle
 
 Dialog_WaitInput_Idle:: ; 72:45A0
-Label_72_45A0::
 	; [CONFIRMED] 45 insn(s); 45 executed (in up to 3/18 scenarios)
 	ld a, [wDialogType]
 	cp a, $05
@@ -672,7 +664,6 @@ Label_72_45A0::
 	jp Dialog_WaitInput
 
 Dialog_WaitInput_OnA:: ; 72:45EA
-Label_72_45EA::
 	play_sfx SFX_DIALOG_CONFIRM
 	ldh a, [hDialogResult]
 	inc a
@@ -680,17 +671,14 @@ Label_72_45EA::
 	ret
 
 Dialog_WaitInput_IgnoreSelect:: ; 72:4600
-Label_72_4600::
 	jp Dialog_WaitInput
 
 Dialog_WaitInput_IgnoreStart:: ; 72:4603
-Label_72_4603::
 	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;
 	; entered by table from 72:4593 (executed) [executed in 4 scenarios]
 	jp Dialog_WaitInput
 
 Dialog_WaitInput_OnB:: ; 72:4606
-Label_72_4606::
 	; [CONFIRMED] 31 insn(s); 31 executed (in up to 1/18 scenarios)
 	play_sfx SFX_CANCEL
 	xor a, a
@@ -778,7 +766,6 @@ Table_72_4698::
 	dw Dialog_WaitInputMonitored_Idle
 
 Dialog_WaitInputMonitored_Idle:: ; 72:46A2
-Label_72_46A2::
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
 	ld a, [wDialogType]
 	cp a, $05
@@ -813,7 +800,6 @@ Label_72_46A2::
 	jp Dialog_WaitInputMonitored
 
 Dialog_WaitInputMonitored_OnA:: ; 72:46EC
-Label_72_46EC::
 	play_sfx SFX_DIALOG_CONFIRM
 	ldh a, [hDialogResult]
 	inc a
@@ -821,15 +807,12 @@ Label_72_46EC::
 	ret
 
 Dialog_WaitInputMonitored_IgnoreSelect:: ; 72:4702
-Label_72_4702::
 	jp Dialog_WaitInputMonitored
 
 Dialog_WaitInputMonitored_IgnoreStart:: ; 72:4705
-Label_72_4705::
 	jp Dialog_WaitInputMonitored
 
 Dialog_WaitInputMonitored_OnB:: ; 72:4708
-Label_72_4708::
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios)
 	play_sfx SFX_CANCEL
 	xor a, a
@@ -837,7 +820,6 @@ Label_72_4708::
 	ret
 
 Dialog_WaitInputMonitored_ExitLinkLost:: ; 72:471C
-Label_72_471C::
 	; [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1;
 	; entered by jpcc from 72:462B (executed) | 3 insn(s) never executed in the traced runs; cut out
 	; of the PROBABLE region 471C-472B by apply_coverage --split
@@ -846,7 +828,6 @@ Label_72_471C::
 	ret
 
 Dialog_WaitInputMonitored_ExitConnectionNotice:: ; 72:4721
-Label_72_4721::
 	; [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 471C-472B by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld a, $04
@@ -854,7 +835,6 @@ Label_72_4721::
 	ret
 
 Dialog_WaitInputMonitored_ExitAdapterError:: ; 72:4726
-Label_72_4726::
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 471C-472B by apply_coverage --split
 	ld a, $05

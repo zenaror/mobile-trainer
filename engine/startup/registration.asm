@@ -75,7 +75,6 @@ Startup_SaveDataError:: ; 65:418A
 	farcall SaveCheck_ResetBlock
 
 Startup_VerifySaveData_Done:: ; 65:41A7
-Label_65_41A7::
 	; [CONFIRMED] 2 insn(s); 2 executed (in up to 14/18 scenarios)
 	jr Startup_Return
 
@@ -208,7 +207,6 @@ Registration_IntroPage:: ; 65:42A3
 	jp Registration_NoticePages_Hidden
 
 Registration_IntroPage_Back:: ; 65:42C3
-Label_65_42C3::
 	ld a, $00
 	ld b, $01
 	farcall Notice_ShowPage
@@ -237,28 +235,24 @@ Registration_NoticePages:: ; 65:42E3
 	jr z, Registration_IntroPage_Back
 
 Registration_NoticePage2:: ; 65:42FC
-Label_65_42FC::
 	ld a, $02
 	farcall Notice_ShowPage
 	or a, a
 	jr z, Registration_NoticePages
 
 Registration_NoticePage3:: ; 65:4307
-Label_65_4307::
 	ld a, $03
 	farcall Notice_ShowPage
 	or a, a
 	jr z, Registration_NoticePage2
 
 Registration_NoticePage7:: ; 65:4312
-Label_65_4312::
 	ld a, $07
 	farcall Notice_ShowPage
 	or a, a
 	jr z, Registration_NoticePage3
 
 Registration_LoginIdIntro:: ; 65:431D
-Label_65_431D::
 	ld a, [wHiddenModeFlag]
 	or a, a
 	jp nz, Registration_LoginIdIntro_Hidden
@@ -294,7 +288,6 @@ Registration_MailAddressEntry:: ; 65:434D
 	farcall Settings_StoreStringField
 
 Registration_PasswordStep:: ; 65:4372
-Label_65_4372::
 	ld a, [wHiddenModeFlag]
 	or a, a
 	jr z, Registration_PasswordIntro
@@ -358,7 +351,6 @@ Registration_PasswordAccepted:: ; 65:4402
 	farcall Settings_StoreStringField
 
 Registration_PwSaveConfirm:: ; 65:4410
-Label_65_4410::
 	xor a, a
 	farcall PwSaveConfirm_Run
 	or a, a
@@ -392,7 +384,6 @@ Registration_SummaryStep:: ; 65:4435
 	jp Registration_Communicate
 
 Registration_IntroPage_Back_Hidden:: ; 65:444B
-Label_65_444B::
 	; [PROBABLE] 164 insn(s) reached by static flow only; seeds: exec x164; min discovery hops 1;
 	; entered by jrcc from 65:446C (PROBABLE code) | 3 insn(s) never executed in the traced runs;
 	; cut out of the PROBABLE region 444B-4642 by apply_coverage --split
@@ -413,34 +404,29 @@ Registration_NoticePages_Hidden:: ; 65:4455
 	jr z, Registration_IntroPage_Back_Hidden
 
 Registration_NoticePage2_Hidden:: ; 65:446E
-Label_65_446E::
 	ld a, $02
 	farcall Notice_ShowPage
 	or a, a
 	jr z, Registration_NoticePages_Hidden
 
 Registration_NoticePage3_Hidden:: ; 65:4479
-Label_65_4479::
 	ld a, $03
 	farcall Notice_ShowPage
 	or a, a
 	jr z, Registration_NoticePage2_Hidden
 
 Registration_NoticePage7_Hidden:: ; 65:4484
-Label_65_4484::
 	ld a, $07
 	farcall Notice_ShowPage
 	or a, a
 	jr z, Registration_NoticePage3_Hidden
 
 Registration_LoginIdIntro_Hidden:: ; 65:448F
-Label_65_448F::
 	farcall Account_LoginIdIntroPage
 	or a, a
 	jr z, Registration_NoticePage7_Hidden
 
 Registration_LoginIdEntry_Hidden:: ; 65:4498
-Label_65_4498::
 	farcall Account_LoginIdEntryScreen
 	or a, a
 	jr z, Registration_LoginIdIntro_Hidden
@@ -450,13 +436,11 @@ Label_65_4498::
 	farcall Settings_StoreStringField
 
 Registration_MailIntro_Hidden:: ; 65:44AF
-Label_65_44AF::
 	farcall Account_MailIntroPage
 	or a, a
 	jr z, Registration_LoginIdEntry_Hidden
 
 Registration_MailAddressEntry_Hidden:: ; 65:44B8
-Label_65_44B8::
 	farcall Account_MailAddressEntryScreen
 	or a, a
 	jr z, Registration_MailIntro_Hidden
@@ -503,7 +487,6 @@ Registration_ManualPhoneEntry:: ; 65:4526
 	jr z, Registration_PhoneMethodMenu
 
 Registration_PhoneKeypad0:: ; 65:4531
-Label_65_4531::
 	ld a, $00
 	farcall PhoneKeypad_Run
 	or a, a
@@ -514,7 +497,6 @@ Label_65_4531::
 	farcall Settings_StoreStringField
 
 Registration_PhoneKeypad1:: ; 65:454A
-Label_65_454A::
 	ld a, $01
 	farcall PhoneKeypad_Run
 	or a, a
@@ -525,7 +507,6 @@ Label_65_454A::
 	farcall Settings_StoreStringField
 
 Registration_PhoneComment:: ; 65:4563
-Label_65_4563::
 	farcall PhoneComment_KeyboardRun
 	or a, a
 	jr z, Registration_PhoneKeypad1
@@ -535,14 +516,12 @@ Label_65_4563::
 	farcall Settings_StoreStringField
 
 Registration_PasswordIntro_Hidden:: ; 65:457A
-Label_65_457A::
 	xor a, a
 	farcall Account_PasswordIntroPage
 	or a, a
 	jr z, Registration_PhoneComment
 
 Registration_PasswordEntry_Hidden:: ; 65:4584
-Label_65_4584::
 	ld hl, wAcctPassword
 	ld de, wAcctPasswordEntry
 	farcall Wram3_CopyString
@@ -587,7 +566,6 @@ Label_65_4584::
 	farcall Settings_StoreStringField
 
 Registration_PwSaveConfirm_Hidden:: ; 65:4607
-Label_65_4607::
 	xor a, a
 	farcall PwSaveConfirm_Run
 	or a, a
@@ -612,7 +590,6 @@ Label_65_4607::
 	farcall Settings_StoreByteField
 
 Registration_SummaryStep_Hidden:: ; 65:462C
-Label_65_462C::
 	farcall Account_ConfirmManualScreen
 	or a, a
 	jp z, Registration_PwSaveConfirm_Hidden

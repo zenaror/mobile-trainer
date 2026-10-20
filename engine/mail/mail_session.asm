@@ -716,7 +716,6 @@ MailSession_ScanMailsLoop:: ; 26:45BC
 	ld d, b
 
 MailSession_ReceivePhase_AfterScan:: ; 26:4636
-Label_26_4636::
 	; [CONFIRMED] 104 insn(s); 104 executed (in up to 1/18 scenarios)
 	ld a, $01
 	ldh [hWRAMBank], a

@@ -5141,7 +5141,6 @@ Mail_CopyBase64StripLineBreaks_NextPage:: ; 0F:5C52
 	ret
 
 Mail_CopyBase64StripLineBreaks_ErrorExit:: ; 0F:5C5B
-Label_0F_5C5B::
 	ld a, $02
 	ret
 

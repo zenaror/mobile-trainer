@@ -168,7 +168,6 @@ Registration_WriteConfig_StateFinish:: ; 68:6C3F
 	ret
 
 Registration_WriteConfig_OnAdapterError:: ; 68:6C5D
-Label_68_6C5D::
 	; [PROBABLE] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 1;
 	; entered by jpcc from 68:6C11 (executed)
 	farcall Mobile_SaveLastResult

@@ -1047,7 +1047,6 @@ SoundDrv_CmdEnd:: ; 04:45DB
 	ret
 
 SoundDrv_TickVibrato:: ; 04:45E6
-Label_04_45E6::
 	ld bc, $0029
 	add hl, bc
 	ld a, [hl]
@@ -1479,13 +1478,11 @@ SoundDrv_ParamTempoScale:: ; 04:4819
 	ret
 
 SoundDrv_CmdSetPitchAdd:: ; 04:483A
-Label_04_483A::
 	; [CONFIRMED] 2 insn(s); 2 executed (in up to 18/18 scenarios)
 	ld bc, $0012
 	jp SoundDrv_CmdStoreTrackByte
 
 SoundDrv_ParamPitchOffset:: ; 04:4840
-Label_04_4840::
 	; [PROBABLE] table Table_SoundDrv_ParamHandlers, index 1 -> $4840; clean decode to a
 	; terminator
 	ld a, [wSoundDrv_ParamDirtyMask]
@@ -1544,7 +1541,6 @@ SoundDrv_GetInstrumentPtr:: ; 04:4889
 	ret
 
 SoundDrv_CmdPitchBend:: ; 04:4896
-Label_04_4896::
 	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
 	ld a, [wSoundDrv_TrackPtr + 1]
@@ -1561,7 +1557,6 @@ Label_04_4896::
 	ld c, a
 
 SoundDrv_PitchBendProduct:: ; 04:48AD
-Label_04_48AD::
 	push hl
 	sla b
 	jr c, .l48B9
@@ -1592,7 +1587,6 @@ Label_04_48AD::
 	jp SoundDrv_ReadNextCommand
 
 SoundDrv_CmdPitchBendScale:: ; 04:48D5
-Label_04_48D5::
 	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
 	ld a, [wSoundDrv_TrackPtr + 1]
@@ -1609,7 +1603,6 @@ Label_04_48D5::
 	jr SoundDrv_PitchBendProduct
 
 SoundDrv_CmdVibratoRate:: ; 04:48EC
-Label_04_48EC::
 	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
 	ld a, [wSoundDrv_TrackPtr + 1]
@@ -1634,7 +1627,6 @@ Label_04_48EC::
 	jp SoundDrv_ReadNextCommand
 
 SoundDrv_ParamVibratoRate:: ; 04:4908
-Label_04_4908::
 	; [PROBABLE] entry $4908 via Table_SoundDrv_ParamHandlers; clean decode to a terminator
 	ld a, [wSoundDrv_ReqBC + $01]
 	sla a
@@ -1651,7 +1643,6 @@ Label_04_4908::
 	jp SoundDrv_SetTrackFieldWord
 
 SoundDrv_CmdVibratoDelay:: ; 04:4925
-Label_04_4925::
 	; [CONFIRMED] 16 insn(s); 16 executed (in up to 18/18 scenarios)
 	ld bc, $002A
 	jr SoundDrv_CmdStoreTrackByte
@@ -1681,7 +1672,6 @@ SoundDrv_ParamVolumeScale:: ; 04:4947
 	jp SoundDrv_SetTrackFieldByte
 
 SoundDrv_CmdPan:: ; 04:4955
-Label_04_4955::
 	; [PROBABLE] 5 insn(s) reached by static flow only; seeds: table x5; min discovery hops 0; run
 	; starts at an entry of the code-pointer table at 04:46E8
 	ld a, [wSoundDrv_UpdateFlags]
@@ -1691,7 +1681,6 @@ Label_04_4955::
 	jr SoundDrv_CmdStoreTrackSigned
 
 SoundDrv_ParamPanOffset:: ; 04:4962
-Label_04_4962::
 	; [PROBABLE] entry $4962 via Table_SoundDrv_ParamHandlers; clean decode to a terminator
 	ld a, [wSoundDrv_ParamDirtyMask]
 	set 0, a
@@ -1700,12 +1689,10 @@ Label_04_4962::
 	jp SoundDrv_SetTrackFieldByte
 
 SoundDrv_CmdVibratoDepth:: ; 04:4970
-Label_04_4970::
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 18/18 scenarios)
 	ld bc, $0021
 
 SoundDrv_CmdStoreTrackByte:: ; 04:4973
-Label_04_4973::
 	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
 	ld a, [wSoundDrv_TrackPtr + 1]
@@ -1717,7 +1704,6 @@ Label_04_4973::
 	jp SoundDrv_ReadNextCommand
 
 SoundDrv_CmdVibratoDisable:: ; 04:4984
-Label_04_4984::
 	; [PROBABLE] 5 insn(s) reached by static flow only; seeds: table x5; min discovery hops 0; run
 	; starts at an entry of the code-pointer table at 04:46E8
 	ld a, [wSoundDrv_UpdateFlags]
@@ -1727,13 +1713,11 @@ Label_04_4984::
 	jr SoundDrv_CmdStoreTrackByte
 
 SoundDrv_ParamVibratoDepth:: ; 04:4991
-Label_04_4991::
 	; [PROBABLE] entry $4991 via Table_SoundDrv_ParamHandlers; clean decode to a terminator
 	ld bc, $0022
 	jp SoundDrv_SetTrackFieldByte
 
 SoundDrv_CmdDetune:: ; 04:4997
-Label_04_4997::
 	; [PROBABLE] 20 insn(s) reached by static flow only; seeds: table x20; min discovery hops 0; run
 	; starts at an entry of the code-pointer table at 04:46E8
 	ld a, [wSoundDrv_UpdateFlags]
@@ -1742,7 +1726,6 @@ Label_04_4997::
 	ld bc, $001D
 
 SoundDrv_CmdStoreTrackSigned:: ; 04:49A2
-Label_04_49A2::
 	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
 	ld a, [wSoundDrv_TrackPtr + $01]
@@ -1762,7 +1745,6 @@ SoundDrv_CmdStoreTrackByte1E:: ; 04:49B6 [PROBABLE] operation only; entry/musica
 	jr SoundDrv_CmdStoreTrackByte
 
 SoundDrv_ExtSetTrack27:: ; 04:49C3
-Label_04_49C3::
 	; $CD 6 (never used by the data): +$27 = level of the note-end tail, high nibble (PROBABLE, demonstrated (synthetic): see .l4D54)
 	; [PROBABLE] entries 49C3/49C8/49CD/49D3/49D8/49DD/49E2/49FF/4A1A/4A1F are words of the jump
 	; tables at 04:44A3, 04:46E8 and 04:4726; clean decode to a terminator at 04:4A24
@@ -1770,7 +1752,6 @@ Label_04_49C3::
 	jr SoundDrv_CmdStoreTrackByte
 
 SoundDrv_ExtSetTrack28:: ; 04:49C8
-Label_04_49C8::
 	; $CD 7 (never used by the data): +$28 = length of the note-end tail, (256 - value) * 15 ticks (PROBABLE, demonstrated (synthetic): see .l4D54)
 	ld bc, $0028
 	jr SoundDrv_CmdStoreTrackByte
@@ -1779,26 +1760,21 @@ SoundDrv_ParamStoreTrackWord27:: ; 04:49CD [PROBABLE] operation only; entry/musi
 	jp SoundDrv_SetTrackFieldWord
 
 SoundDrv_ExtSetInstrByte0:: ; 04:49D3
-Label_04_49D3::
 	ld bc, $000C
 	jr SoundDrv_CmdStoreTrackByte
 
 SoundDrv_ExtSetInstrByte1:: ; 04:49D8
-Label_04_49D8::
 	ld bc, $000D
 	jr SoundDrv_CmdStoreTrackByte
 
 SoundDrv_ExtSetInstrByte2:: ; 04:49DD
-Label_04_49DD::
 	ld bc, $000E
 	jr SoundDrv_CmdStoreTrackByte
 
 SoundDrv_ExtSetInstrByte3Hi:: ; 04:49E2
-Label_04_49E2::
 	ld bc, $000F
 
 SoundDrv_StoreHighNibble:: ; 04:49E5
-Label_04_49E5::
 	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
 	ld a, [wSoundDrv_TrackPtr + $01]
@@ -1816,11 +1792,9 @@ Label_04_49E5::
 	jp SoundDrv_ReadNextCommand
 
 SoundDrv_ExtSetInstrByte3Lo:: ; 04:49FF
-Label_04_49FF::
 	ld bc, $000F
 
 SoundDrv_StoreLowNibble:: ; 04:4A02
-Label_04_4A02::
 	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
 	ld a, [wSoundDrv_TrackPtr + $01]
@@ -1837,23 +1811,19 @@ Label_04_4A02::
 	jp SoundDrv_ReadNextCommand
 
 SoundDrv_ExtSetInstrByte4Hi:: ; 04:4A1A
-Label_04_4A1A::
 	ld bc, $0010
 	jr SoundDrv_StoreHighNibble
 
 SoundDrv_ExtSetInstrByte4Lo:: ; 04:4A1F
-Label_04_4A1F::
 	ld bc, $0010
 	jr SoundDrv_StoreLowNibble
 
 SoundDrv_CmdUnassigned:: ; 04:4A24
-Label_04_4A24::
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: table x1; min discovery hops 0; run
 	; starts at an entry of the code-pointer table at 04:46E8
 	jp SoundDrv_CmdEnd
 
 SoundDrv_CmdNoteHeld:: ; 04:4A27
-Label_04_4A27::
 	; [CONFIRMED] 29 insn(s); 29 executed (in up to 18/18 scenarios)
 	ld b, $00
 	jr SoundDrv_ReadNoteBytes
@@ -1868,7 +1838,6 @@ SoundDrv_CmdNote:: ; 04:4A2B
 	ld b, [hl]
 
 SoundDrv_ReadNoteBytes:: ; 04:4A36
-Label_04_4A36::
 	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
 	ld a, [wSoundDrv_TrackPtr + 1]
@@ -2074,7 +2043,6 @@ SoundDrv_StartNote:: ; 04:4A81
 	jp SoundDrv_ReadNextCommand
 
 SoundDrv_CmdNoteOff:: ; 04:4B66
-Label_04_4B66::
 	; Hazard (demonstrated (synthetic) on mGBA, docs/research/audio_format.md section 5.1): a byte $00-$23 right after $CF takes
 	; the `jr c, .l4B7F` below without being consumed; running status then dispatches $CF again for the same byte, for ever, and
 	; the frame tick never returns.  Only a pitch byte ($24-$7F) or an opcode may follow $CF.
@@ -2181,7 +2149,6 @@ SoundDrv_ServiceChannelMusic:: ; 04:4BDB
 	ret nz
 
 SoundDrv_ServiceChannelGate:: ; 04:4BEB
-Label_04_4BEB::
 	inc hl
 	inc hl
 	ld a, [hli]
@@ -2210,12 +2177,10 @@ SoundDrv_NoteGateExpired:: ; 04:4BFC
 	ret
 
 SoundDrv_StopChannelTrackNotRunning:: ; 04:4C0B
-Label_04_4C0B::
 	ld bc, $FFFA
 	add hl, bc
 
 SoundDrv_StopChannel:: ; 04:4C0F
-Label_04_4C0F::
 	xor a, a
 	ld [hl], a
 	jp SoundDrv_SilenceChannel

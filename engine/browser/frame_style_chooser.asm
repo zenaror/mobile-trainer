@@ -175,7 +175,6 @@ Browser_FrameStylePreview_Run:: ; 4E:4000
 	call VBlank_WaitAndService
 
 Browser_FrameStylePreview_InputLoop:: ; 4E:4154
-Label_4E_4154::
 	farcall Sprite_UpdateAll
 	farcall Browser_DrawCommTimer
 	call VBlank_WaitAndService
@@ -193,7 +192,6 @@ Table_4E_4172:: ; 4E:4172
 	dw Browser_FrameStylePreview_InputLoop
 
 Browser_FrameStylePreview_OnA:: ; 4E:417C
-Label_4E_417C::
 	; [PROBABLE] 39 insn(s) reached by static flow only; seeds: site x39; min discovery hops 0;
 	; entered by table from 4E:416F (PROBABLE code) | forced execution: 23/39 instruction starts ran
 	; in forced_screens (traces/forced/, not natural evidence; status unchanged)
@@ -215,7 +213,6 @@ Label_4E_417C::
 	jp Browser_FrameStylePreview_Exit
 
 Browser_FrameStylePreview_OnB:: ; 4E:41A1
-Label_4E_41A1::
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -232,15 +229,12 @@ Label_4E_41A1::
 	jp Browser_FrameStylePreview_Exit
 
 Browser_FrameStylePreview_IgnoreSelect:: ; 4E:41C2
-Label_4E_41C2::
 	jp Browser_FrameStylePreview_InputLoop
 
 Browser_FrameStylePreview_IgnoreStart:: ; 4E:41C5
-Label_4E_41C5::
 	jp Browser_FrameStylePreview_InputLoop
 
 Browser_FrameStylePreview_Exit:: ; 4E:41C8
-Label_4E_41C8::
 	farcall SaveCheck_Update
 	farcall Palette_FadeOutToWhite
 	farcall Sprite_ResetAll

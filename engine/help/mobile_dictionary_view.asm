@@ -31,7 +31,6 @@ MobileDictView_Show:: ; 4C:4F56
 	farcall Browser_LoadFrameGraphics
 
 MobileDictView_Show_RenderPage:: ; 4C:4F95
-Label_4C_4F95::
 	ld bc, $0000
 	ld de, $0000
 	farcall Browser_SetScroll
@@ -56,7 +55,6 @@ Label_4C_4F95::
 	ldh [hDialogResult], a
 
 MobileDictView_Show_InputLoop:: ; 4C:4FDD
-Label_4C_4FDD::
 	farcall Sprite_UpdateAll
 	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
@@ -74,7 +72,6 @@ Table_4C_4FF5::
 	dw MobileDictView_Idle
 
 MobileDictView_Idle:: ; 4C:4FFF
-Label_4C_4FFF::
 	; [CONFIRMED] 215 insn(s); 215 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressedRepeat]
 	bit PADB_UP, a
@@ -90,7 +87,6 @@ Label_4C_4FFF::
 	jp MobileDictView_Show_InputLoop
 
 MobileDictView_OnA:: ; 4C:501E
-Label_4C_501E::
 	ldh a, [hBrowserSelectedLink]
 	or a, a
 	jp z, MobileDictView_Show_InputLoop
@@ -138,7 +134,6 @@ Label_4C_501E::
 	jp MobileDictView_Show_RenderPage
 
 MobileDictView_OnB:: ; 4C:509A
-Label_4C_509A::
 	ld de, wAttrUrlBuf
 	xor a, a
 	farcall MobileDictView_HistoryPop
@@ -159,16 +154,13 @@ Label_4C_509A::
 	jp MobileDictView_Show_RenderPage
 
 MobileDictView_IgnoreStart:: ; 4C:50DD
-Label_4C_50DD::
 	jp MobileDictView_Show_InputLoop
 
 MobileDictView_OnSelect:: ; 4C:50E0
-Label_4C_50E0::
 	xor a, a
 	ldh [hDialogResult], a
 
 MobileDictView_Show_Exit:: ; 4C:50E3
-Label_4C_50E3::
 	play_sfx SFX_CANCEL
 	ld bc, $000F
 	farcall Sprite_WaitFrames

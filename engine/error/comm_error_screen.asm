@@ -116,7 +116,6 @@ CommErr_ShowScreen_ButtonA:: ; 5C:524C
 	ret
 
 CommErr_ShowScreen_Ignore:: ; 5C:5264
-Label_5C_5264::
 	jr CommErr_ShowScreen_FrameLoop
 
 Stub_Nop_5C_5266:: ; 5C:5266
@@ -274,7 +273,6 @@ CommErr_PrintMessage:: ; 5C:531E
 	ret
 
 CommErr_FindRecord_NotFound:: ; 5C:53A1
-Label_5C_53A1::
 	; [PROBABLE] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1;
 	; entered by jpcc from 5C:5280 (executed) | forced execution: 6/6 instruction starts ran in
 	; forced_debug (traces/forced/, not natural evidence; status unchanged)

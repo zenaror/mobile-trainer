@@ -113,9 +113,8 @@ operands to their existing operation/resource names: `SoundDrv_CmdStoreTrackByte
 `Browser_DrawElement_ReturnOnly` (five entries), `Kbd_HideAndReturn9`,
 `Fill99E1Pattern46_Draw5807TwiceAndUpload`, and `LCDOn_ReturnBCZero`. Existing
 PROBABLE/HYPOTHESIS comments remain on the surviving names; this does not prove
-natural entry, callers, or application purpose. The 486 `Label_*` definitions
-then remaining needed continued scope/reference review. The pinned inventory
-and its limitations are retained at `.tmp/label-entry-audit-20261020-agent/`.
+natural entry, callers, or application purpose. The pinned inventory and its
+limitations are retained at `.tmp/label-entry-audit-20261020-agent/`.
 
 A follow-on keyboard pass retires 12 more co-located aliases in bank 55:
 `Kbd_LoadPageGraphics_T6`, its four page entries and tail, and
@@ -128,8 +127,39 @@ Its two `Label_55_6952`/`Label_55_6A65` keys remain only to interpret historical
 including the page entries. The full `data_consumers.py --stats` run advances
 past keyboard mapping but still stops at a stale manual rule for `Data_55_6E9F`,
 whose current source label is `Table_Kbd_TypeHasPages_ByType`; this limits that
-generator run and is unrelated to the ROM build. The 474 other `Label_*`
-definitions still require current scope/reference review.
+generator run and is unrelated to the ROM build.
+
+## Retirement of remaining co-located `Label_*` aliases
+
+A fresh read-only inventory pinned to `56840723776003175be999ba35bd9af943b53b9d`
+found the remaining 474 global `Label_BB_AAAA::` definitions in the six
+maintained Japanese roots. Every one shared its address with exactly one
+non-neutral global label; the audit found zero source operands using the generic
+spelling. The inventory counts 861 incoming `jp`, `jr` and `dw` operands through
+the surviving names. This pass deletes only the redundant `Label_*` definition
+lines. It does not rename the surviving labels or assert that their comments
+prove a natural entry or application-level meaning.
+
+The old-to-current name/address ledger is
+[`../../analysis/naming2/retired_coincident_label_aliases.tsv`](../../analysis/naming2/retired_coincident_label_aliases.tsv)
+(474 rows). All 474 old aliases were the final global label in their alias
+group; 392 following local labels consequently use the surviving semantic name
+as their qualified scope after the cleanup. A repository-wide search found no
+qualified references to the retired `Label_*.local` symbols in maintained code;
+the current `ram/overlays.asm` boundaries were changed to the mapped names.
+Historical `analysis/` and `config/` rows remain historical evidence. The two
+`Label_55_6952`/`Label_55_6A65` keys in `tools/data_consumers.py` remain only for
+reading old `config/xrefs.tsv` rows, not as source labels.
+
+The current exact-name count is zero `Label_BB_AAAA::` definitions in the six
+maintained roots. `make` returned `RESULT: IDENTICAL` at original SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
+`make sym-check` found 13,968 source labels and 51 constants with every address
+comment valid; `make palette-check` reported 162 loads, 116 arrays, two
+documented over-reads and zero errors; `make png-check` validated 408 tile
+sheets, four raw byte views, 37 font sheets and 95 screen PNGs. No ROM bytes
+changed. The current-snapshot inventory and reproduction script are retained
+under `.tmp/label-entry-audit-head-56840723/`.
 
 ## Remaining limits
 

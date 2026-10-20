@@ -281,7 +281,6 @@ Title_MenuConfirm:: ; 0E:41E6
 	ld [wTitle_State], a
 
 Title_StateMenu_Done:: ; 0E:41FD
-Label_0E_41FD::
 	ret
 
 Title_StateExit:: ; 0E:41FE

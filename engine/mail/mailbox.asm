@@ -140,7 +140,6 @@ Mailbox_Main_Loop:: ; 25:4043
 	jp Mailbox_Main_Loop
 
 Mailbox_IconMenu_Enter:: ; 25:411E
-Label_25_411E::
 	push bc
 	ld hl, wSpriteSlot1
 	ld de, Mailbox_ObjTable
@@ -1003,7 +1002,6 @@ Data_25_47F8:: ; 25:47F8
 	db $26, $01, $C3, $00, $40
 
 Mailbox_ReadMail_RestartList:: ; 25:47FD
-Label_25_47FD::
 	; [CONFIRMED] 262 insn(s) reached by static flow only; seeds: exec x262; min discovery hops 1;
 	; entered by jrcc from 25:4788 (PROBABLE code) | 138 insn(s) executed; cut out of the PROBABLE
 	; region 47FD-4A15 by apply_coverage --split [executed in 1 scenarios]

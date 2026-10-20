@@ -77,7 +77,6 @@ Profile_Edit_Loop:: ; 2A:54FD
 	jp z, Profile_Edit_CheckButtonB
 
 Profile_Edit_RunKeyboard:: ; 2A:552A
-Label_2A_552A::
 	push af
 	push bc
 	ld de, $40D0
@@ -341,7 +340,6 @@ Label_2A_552A::
 	call Profile_SaveToSram
 
 Profile_Edit_CheckButtonB:: ; 2A:56EC
-Label_2A_56EC::
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressed]
 	and a, PADF_B
@@ -356,7 +354,6 @@ Label_2A_56EC::
 	pop bc
 
 Profile_Edit_Exit:: ; 2A:5706
-Label_2A_5706::
 	; [CONFIRMED] 21 insn(s); 21 executed (in up to 1/18 scenarios)
 	farcall Stat_DisableScrollSplit
 	call VBlank_Wait
@@ -373,7 +370,6 @@ Label_2A_5706::
 	ret
 
 Profile_Edit_DPad:: ; 2A:5731
-Label_2A_5731::
 	ldh a, [hJoyPressedRepeat]
 	and a, PADF_LEFT
 	call nz, Profile_CursorLeft

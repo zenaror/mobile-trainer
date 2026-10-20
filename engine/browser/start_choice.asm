@@ -139,7 +139,6 @@ Browser_StartChoiceScreen:: ; 73:5F17
 	ldh [rSVBK], a
 
 BrowserStart_InputLoop:: ; 73:607E
-Label_73_607E::
 	farcall Sprite_UpdateAll
 	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
@@ -157,7 +156,6 @@ Table_73_6096::
 	dw BrowserStart_Idle
 
 BrowserStart_Idle:: ; 73:60A0
-Label_73_60A0::
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ld a, [wBrowserStart_AcceptCountdown]
 	or a, a
@@ -218,7 +216,6 @@ Label_73_60A0::
 	ret
 
 BrowserStart_OnA:: ; 73:6114
-Label_73_6114::
 	; [CONFIRMED] 17 insn(s); 17 executed (in up to 1/18 scenarios)
 	play_sfx SFX_CONFIRM
 	farcall Palette_FadeOutWithTicker
@@ -248,7 +245,6 @@ ReadC0F8_Xor1:: ; 73:6143 [PROBABLE] local operation; entry/domain unproved
 	ret
 
 BrowserStart_OnB:: ; 73:614F
-Label_73_614F::
 	; [CONFIRMED] 61 insn(s) reached by static flow only; seeds: exec x61; min discovery hops 1;
 	; entered by table from 73:6093 (executed) [executed in 3 scenarios]
 	play_sfx SFX_CANCEL
@@ -262,11 +258,9 @@ Label_73_614F::
 	ret
 
 BrowserStart_IgnoreSelect:: ; 73:617A
-Label_73_617A::
 	jp BrowserStart_InputLoop
 
 BrowserStart_IgnoreStart:: ; 73:617D
-Label_73_617D::
 	jp BrowserStart_InputLoop
 
 BrowserStart_HandleDpad:: ; 73:6180

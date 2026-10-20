@@ -230,7 +230,6 @@ String_Mail_PleaseDelete:: ; 54:4A01
 POPC
 
 Pop3_TopPoll_ScanCheckPassed:: ; 54:4A12
-Label_54_4A12::
 	; [CONFIRMED] 78 insn(s) reached by static flow only; seeds: exec x78; min discovery hops 12;
 	; entered by jrcc from 54:49A6 (PROBABLE code) | 74 insn(s) executed; cut out of the PROBABLE
 	; region 4A12-4AD0 by apply_coverage --split [executed in 5 scenarios]
@@ -337,7 +336,6 @@ String_54_4AD7::
 POPC
 
 Pop3_TopPoll_UseDefaultSource:: ; 54:4AE6
-Label_54_4AE6::
 	; [CONFIRMED] 133 insn(s) reached by static flow only; seeds: exec x133; min discovery hops 12;
 	; entered by jrcc from 54:4AA1 (PROBABLE code) | 76 insn(s) executed; cut out of the PROBABLE
 	; region 4AE6-4C2A by apply_coverage --split [executed in 2 scenarios]
@@ -346,7 +344,6 @@ Label_54_4AE6::
 	farcall CopyString
 
 Pop3_TopPoll_ReadDate:: ; 54:4AF2
-Label_54_4AF2::
 	ld a, $06
 	ld [wRam_C240], a
 	ld a, $05
@@ -451,7 +448,6 @@ Label_54_4AF2::
 	ld b, $00
 
 Pop3_TopPoll_Exit:: ; 54:4BC6
-Label_54_4BC6::
 	ld hl, wMobileTaskKind
 	xor a, a
 	ld [hl], a
@@ -472,12 +468,10 @@ Label_54_4BC6::
 	ret
 
 Pop3_TopPoll_ExitB1:: ; 54:4BE8
-Label_54_4BE8::
 	ld b, $01
 	jr Pop3_TopPoll_Exit
 
 Pop3_TopPoll_CheckGameCode:: ; 54:4BEC
-Label_54_4BEC::
 	ld de, wRam_C240
 	ld hl, Data_Pop3Top_DecodeHeaderArgs
 	ld bc, $0007

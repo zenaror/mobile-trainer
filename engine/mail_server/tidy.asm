@@ -395,7 +395,6 @@ MailServerMgr_Run:: ; 2E:4000
 	ld hl, $0000
 
 MailServerMgr_Run_MailLoop:: ; 2E:4298
-Label_2E_4298::
 	push bc
 	push hl
 	push hl
@@ -1426,7 +1425,6 @@ MailServerMgr_TimeWarningPopup:: ; 2E:48F8
 	ret
 
 MailServerMgr_Run_Cancel:: ; 2E:4A47
-Label_2E_4A47::
 	; [CONFIRMED] 47 insn(s) executed; cut out of the PROBABLE region 488E-4B2E by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld a, $04

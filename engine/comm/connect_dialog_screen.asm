@@ -921,7 +921,6 @@ ConnectDialog_Draw_Finish:: ; 57:5077
 	ret
 
 ConnectDialog_Draw_SaveForgetConfirm_Tail:: ; 57:50D8
-Label_57_50D8::
 	ld de, $8000
 	ld hl, Gfx_ConnectDialog_Finish_Tiles8000
 	ld a, BANK(Gfx_ConnectDialog_Finish_Tiles8000)

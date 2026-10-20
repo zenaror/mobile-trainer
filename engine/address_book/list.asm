@@ -51,7 +51,6 @@ AbookList_Run:: ; 2F:4000
 	jp AbookList_Run_ButtonRow
 
 AbookList_Run_Loop:: ; 2F:4049
-Label_2F_4049::
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
 	push bc
 	farcall Sprite_UpdateAll
@@ -96,7 +95,6 @@ Data_2F_4094:: ; 2F:4094
 	db $C3, $00, $40
 
 AbookList_Run_CheckButtonB:: ; 2F:4097
-Label_2F_4097::
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 2/18 scenarios)
 	ldh a, [hJoyPressed]
 	and a, PADF_B
@@ -175,7 +173,6 @@ AbookList_CursorUp:: ; 2F:4109
 	ret
 
 AbookList_Run_ButtonRow:: ; 2F:4131
-Label_2F_4131::
 	push bc
 	ld hl, wSpriteSlot8
 	ld de, AddrBookShared_ObjTable
