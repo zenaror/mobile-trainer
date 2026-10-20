@@ -71,6 +71,10 @@ A follow-on broad-census cleanup removed two unused neutral data aliases, `Data_
 No bytes, ranges or confidence levels changed; details are in the
 [generic data-label audit](docs/research/generic_data_name_audit_20261020.md).
 
+The same audit renamed the positioned `$0020` word at `5C:5144` to
+`CommErr_MessageSlot32RawWord`. The slot is confirmed structurally; the value's purpose remains
+unknown and the name does not assert that the slot is unused.
+
 The HOME naming pass retired110 historical Function aliases (483 remained at that stage across the
 maintained original sources), preserved123 local-label addresses under descriptive scopes and narrowed
 two copy-operation names. The [HOME contracts](docs/research/home_function_names.md) document entry

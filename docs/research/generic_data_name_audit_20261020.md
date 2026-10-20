@@ -52,6 +52,13 @@ existing table interpretation; the second retains its existing probable name
 for the test configuration image. The broad census and reference matrix are
 retained under `.tmp/agent-data-global-census-20261020/`.
 
+The same census confirmed the structural position of `Data_5C_5144` as slot 32
+in the message-pointer index space (`5C:5104 + 2*32`), between the 32-entry
+pointer block and slots 33–37. Its raw word is `$0020`, not a valid ROM pointer;
+no finite message triple selects slot 32. The label is now
+`CommErr_MessageSlot32RawWord`. Its position is CONFIRMED, while the purpose of
+`$0020` remains HYPOTHESIS/unknown; this is not an unused-slot claim.
+
 An independent source review accepted all four new retirements after correcting
 the parser wording to reflect its early stop at nibble `$F`. The reviewer also
 confirmed the source directives and byte ranges are unchanged, and found no
