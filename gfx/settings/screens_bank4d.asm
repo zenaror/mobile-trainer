@@ -81,9 +81,8 @@ Tilemap_SettingsPhone_ChoiceMenu:: ; 4D:5810
 ; See docs/research/typing_4d_choice_maps.md; no arbitrary cursor-range safety is inferred.
 
 Tilemap_SettingsPhone_ChoiceMenu_Entry0:: ; 4D:5AE0
-Tilemap_4D_5AE0::
-	INCBIN "gfx/settings/screens_bank4d/tilemap_5ae0.tilemap"
-	INCBIN "gfx/settings/screens_bank4d/tilemap_5ae0.attrmap"
+	INCBIN "gfx/settings/screens_bank4d/settings_phone_choice_menu_entry0_4d_5ae0.tilemap"
+	INCBIN "gfx/settings/screens_bank4d/settings_phone_choice_menu_entry0_4d_5ae0.attrmap"
 
 ; ---- data $5B6C-$5BF8 (140 bytes) [CONFIRMED] 14x5 tilemap/attribute pair
 ; Bank67 table $491C selects this bank4D source; Tilemap_CopyRectAndAttr at 67:4915
@@ -92,9 +91,8 @@ Tilemap_4D_5AE0::
 ; See docs/research/typing_4d_choice_maps.md; no arbitrary cursor-range safety is inferred.
 
 Tilemap_SettingsPhone_ChoiceMenu_Entry1:: ; 4D:5B6C
-Tilemap_4D_5B6C::
-	INCBIN "gfx/settings/screens_bank4d/tilemap_5b6c.tilemap"
-	INCBIN "gfx/settings/screens_bank4d/tilemap_5b6c.attrmap"
+	INCBIN "gfx/settings/screens_bank4d/settings_phone_choice_menu_entry1_4d_5b6c.tilemap"
+	INCBIN "gfx/settings/screens_bank4d/settings_phone_choice_menu_entry1_4d_5b6c.attrmap"
 
 ; ---- data $5BF8-$5C84 (140 bytes) [CONFIRMED] 14x5 tilemap/attribute pair
 ; Bank67 table $491C selects this bank4D source; Tilemap_CopyRectAndAttr at 67:4915
@@ -103,9 +101,8 @@ Tilemap_4D_5B6C::
 ; See docs/research/typing_4d_choice_maps.md; no arbitrary cursor-range safety is inferred.
 
 Tilemap_SettingsPhone_ChoiceMenu_Entry2:: ; 4D:5BF8
-Tilemap_4D_5BF8::
-	INCBIN "gfx/settings/screens_bank4d/tilemap_5bf8.tilemap"
-	INCBIN "gfx/settings/screens_bank4d/tilemap_5bf8.attrmap"
+	INCBIN "gfx/settings/screens_bank4d/settings_phone_choice_menu_entry2_4d_5bf8.tilemap"
+	INCBIN "gfx/settings/screens_bank4d/settings_phone_choice_menu_entry2_4d_5bf8.attrmap"
 
 ; ---- data $5C84-$5D10 (140 bytes) [CONFIRMED] 14x5 tilemap/attribute pair
 ; Bank67 table $491C selects this bank4D source; Tilemap_CopyRectAndAttr at 67:4915
@@ -114,9 +111,8 @@ Tilemap_4D_5BF8::
 ; See docs/research/typing_4d_choice_maps.md; no arbitrary cursor-range safety is inferred.
 
 Tilemap_SettingsPhone_ChoiceMenu_Entry3:: ; 4D:5C84
-Tilemap_4D_5C84::
-	INCBIN "gfx/settings/screens_bank4d/tilemap_5c84.tilemap"
-	INCBIN "gfx/settings/screens_bank4d/tilemap_5c84.attrmap"
+	INCBIN "gfx/settings/screens_bank4d/settings_phone_choice_menu_entry3_4d_5c84.tilemap"
+	INCBIN "gfx/settings/screens_bank4d/settings_phone_choice_menu_entry3_4d_5c84.attrmap"
 
 ; ---- words $5D10-$5D18 (8 bytes) [PROBABLE] 2 object-table entries of 4 bytes (ptr to frame table, ptr to script; 0000 = unused); de=$5D10 a=$4D at 67:47C6 (entry 0 unused, entry 1 = 5D18/5D3E); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs
 

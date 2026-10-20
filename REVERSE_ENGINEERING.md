@@ -881,3 +881,32 @@ sem adoção MAIN nessa versão. English e evidência natural/hardware não avan
 
 
 The AdapterCheck and phone-entry graphics owner has a descriptive Bank 4A path, with 26 resource files moved under the consumer-specific directory. The resource payloads, including the ten existing PNG views and two inactive legacy byte-views, are retained byte for byte. The mixed `$9400` upload keeps its tile-prefix qualifier; `Data_4A_6480` is retired as a redundant alias while `Gfx_AdapterCheck_Tiles9400Vb1` remains the catalog label. This source unit changes 27 paths and 72 metadata cells, predicts one fewer symbol, and preserves the existing confidence and rendering limits. The root integration gates are still required before claiming byte-identical rebuild. See [the path contract](docs/research/adapter_check_and_phone_entry_4a_resource_paths.md). English remains suspended.
+
+
+## Japanese global naming and asset audit (2026-10-20)
+
+The source census at base commit `55fad258` covered 243 non-GFX assembly files:
+it found no `Function_BB_AAAA` or `Font_BB_AAAA` definitions, but 1,893 generic
+ROM labels (1,660 adjacent to semantic aliases and 233 without one) plus 583
+`wRam_AAAA` definitions. In GFX, no owner or path component was a pure `bankNN`;
+618 physical files had type-and-address basenames and 1,906 generic labels. The
+ChoiceMenu pass below reduces those GFX counts to 610 paths and 1,902 labels.
+These are census categories, not automatic rename requests: aliases, interior
+data, and unknown regions require separate evidence.
+
+The first reviewed GFX unit renames the four ChoiceMenu map/attribute pairs in
+bank 4D to `settings_phone_choice_menu_entry0..3` paths, retains bank/address
+provenance, and removes four redundant `Tilemap_4D_*` aliases. Each binary stays
+70 bytes with its original hash. `make` returned `RESULT: IDENTICAL` for the
+2-MiB ROM (SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`);
+`make sym-check` passed with 14,713 labels and 51 constants; `make palette-check`
+reported 162 loads, 116 arrays, two documented overreads and zero errors.
+
+The independent Pokémon/frame audit reconfirmed all 369 bank53 name bytes and
+found no established name-to-frame association. Within its bounded asset scope,
+17 editing views exist and eight remain KEEP; the expanded 137-asset bank41–47
+set and 53 source PNGs reproduce the declared bytes, with no orphan PNGs or
+binaries among the 71 images in the reviewed frame/browser directories. The
+dispatcher and legacy preview names do not establish universal unused status.
+Full closure still requires investigating the remaining generic labels and
+address-only GFX basenames in evidence-backed units. English remains suspended.

@@ -320,7 +320,7 @@ Paths are existing files relative to the repository root. A dash means no row in
 |46:67F0–7540|46:71F0|—|[gfx/previews/screens/BrowserFrameUnused_46_3.png](../../gfx/previews/screens/BrowserFrameUnused_46_3.png)|
 |47:68F0–7640|47:72F0|[gfx/browser/frames_2_3/tilemap_72f0.screen.png](../../gfx/browser/frames_2_3/tilemap_72f0.screen.png)|—|
 
-The bank53 block is separately complete within53:[4000,4171):25 little-endian pointers/50B followed by25 strings/319B. Reemission using the maintained Shift-JIS charmap preserves all369 original bytes, fullwidth spacing and the fullwidth final digit. This is completeness of that block, not of every name/species in the ROM. The27 words at4E:654B plus five31B descriptors reemit209 original bytes; their five far fields select only three bank47 resource sets at4100/4E50/5BA0, none of the25 candidate windows above. They encode no bank53 name pointer or ordinal. The five descriptors' suffix consumers remain as qualified earlier; descriptor size must not be reduced to the first15 directly transferred bytes.
+The bank53 block is separately complete within53:[4000,4171):25 little-endian pointers/50B followed by25 strings/319B. Reemission using the maintained Shift-JIS charmap preserves all369 original bytes, fullwidth spacing and the fullwidth final digit. This is completeness of that block, not of every name/species in the ROM. The27 words at4E:654B plus five31B descriptors reemit209 original bytes; their five far fields select only three bank47 resource sets at4100/4E50/5BA0, none of the25 candidate windows above. No bank53-name pointer or `PokemonName` ordinal was identified in these descriptors. The five descriptors' suffix consumers remain as qualified earlier; descriptor size must not be reduced to the first15 directly transferred bytes.
 
 ### Eight KEEP views and distinct backing limits
 
@@ -362,3 +362,18 @@ path. The earlier951/607656 catalogue and separate10-byte/80-pixel finding remai
 facts of their named historical baseline; their receipts and evidence are preserved.
 The follow-up checks current span bytes, paths, hashes and registry coverage; it
 does not repeat a pixel-inverse conversion, render, build or runtime observation.
+
+## Dated follow-up: independent Pokémon and frame-asset audit (2026-10-20)
+
+An independent static audit of the current Japanese source reconfirmed the
+25-pointer/25-string bank53 block and its 369-byte ROM identity. It found no
+evidence tying those ordinal names to image frames. Across the 25 candidate
+windows, 17 declared editing PNGs and eight KEEP omissions remain; all source
+bytes are accounted for by catalogued assets plus the recorded `db`/`ds` spans.
+The expanded bank41–47 scope contains 137 active assets and 53 PNG-backed sources
+(tile sheets and raw byte views), all matching their declared ROM bytes. The 71 PNGs in the bounded frame
+design/browser directories are referenced by a current rule or screen row; no
+orphan binary or PNG was found there. These finite checks do not prove universal
+reader absence, global unused status, natural selection, or a name/frame mapping.
+The independent reviewer accepted the audit with those limits; see the current
+Mobile Trainer handoff for the retained private receipt location.

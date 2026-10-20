@@ -59,10 +59,13 @@ consumidor da backing use um único destino VRAM. Nenhum label novo é criado no
 interior, nenhum bloco é alargado e os operandos imediatos permanecem.
 
 As quatro unidades de escolha `Tilemap_4D_5AE0/5B6C/5BF8/5C84`, seus nomes
-`Entry0..3`, o loader indexado e as tabelas/frames/scripts de objetos ficam fora
-desta coorte. `typing_4d_choice_maps.md` já registra a evidência e os limites das
-quatro unidades. Não se amplia sua prova para cursores corrompidos ou outros
-recursos. O menu de slots e todos os grupos não selecionados permanecem.
+`Entry0..3`, o loader indexado e as tabelas/frames/scripts de objetos ficaram fora
+desta coorte histórica. O checkpoint de 2026-10-20 aplicou `Entry0..3` como os
+nomes ativos e renomeou os oito arquivos tilemap/attrmap correspondentes; a
+evidência e os limites constam em `typing_4d_choice_maps.md` e na seção japonesa
+global de `REVERSE_ENGINEERING.md`. Não se amplia sua prova para cursores
+corrompidos ou outros recursos. O menu de slots e todos os grupos não selecionados
+permanecem.
 
 ## Metadados, base e previsão
 
