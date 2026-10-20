@@ -458,6 +458,25 @@ ledger SHA-256
 `65871a0f4f2ed9bfbb717ceefd93d6e9239cb1cf15eb2caaf10ffcb8a37d5633`.
 All original-ROM and static resource checks pass.
 
+## Retired music 11 stream aliases (2026-10-20)
+
+The owner `audio/music/music_11.asm` contained 18 `Data_05_*` declarations
+at exact addresses already represented by `SoundSong11_*` labels. The owner
+hash matched the census parent, the current symbol map confirmed every pair,
+and source searches found no consumer beyond each generic declaration. The
+census also found no tool/metadata mention or local scope. Only redundant
+spellings were removed; this adds no audio interpretation and preserves all
+bytes and existing confidence. See
+[`retired_music11_data_aliases.tsv`](../../analysis/naming2/retired_music11_data_aliases.tsv).
+
+Receipt `.tmp/music11-data-alias-pass-20261020/`: `PRECHECK.json` SHA-256
+`b1651171f630b4d751244abf7b2692e4d10d8fe769c834b671a79c129cf15892`,
+`RESULT.json` SHA-256
+`7910f841cb8e37e78b4acc8f1a26e73f13f2201264dfddb1f3c0c9e10416a5ad`, and
+ledger SHA-256
+`8ee7f0b37ddc843686f6797cab93a52cf26949e04cfb9fb59de41da2997b1c06`.
+All original-ROM and static resource checks pass.
+
 ## Remaining limits
 
 The other 75 labels from the original no-alias subset remain unchanged. The audit groups them into interior labels,
