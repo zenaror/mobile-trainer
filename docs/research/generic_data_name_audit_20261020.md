@@ -401,6 +401,25 @@ ledger SHA-256
 `d20bc73f6a241c5a07f543288f98c42788c28e925c694dd91fe37730eae09375`.
 The original-ROM identity, symbol, palette and PNG checks all pass.
 
+## Retired communication-error text aliases (2026-10-20)
+
+In `data/text/comm_error_messages.asm`, 21 `Data_21_*` declarations shared
+exact addresses with existing descriptive text-record labels. The owner hash
+matched the census parent; the current `.sym` confirmed all pairs, and a
+maintained-source scan found only each generic declaration. The census recorded
+no other source, tool/metadata or local-scope consumers. The pass removes only
+the redundant declarations, preserving all emitted bytes and existing
+confidence levels. See
+[`retired_comm_error_data_aliases.tsv`](../../analysis/naming2/retired_comm_error_data_aliases.tsv).
+
+Receipt `.tmp/comm-error-data-alias-pass-20261020/`: `PRECHECK.json` SHA-256
+`0e424cd281b4db7df5107f9e8591e5f31d72a6c94604eca35483c95f818d93dd`,
+`RESULT.json` SHA-256
+`d1e928ea6468916c43ea1be77080558483e08b7ce2bf52115179e7f7793ceec8`, and
+ledger SHA-256
+`e5cb3b98e362e2019e16bf99e4de3960f46bd51ae6e771ea668200534bd1e136`.
+The original-ROM identity, symbol, palette and PNG checks all pass.
+
 ## Remaining limits
 
 The other 75 labels from the original no-alias subset remain unchanged. The audit groups them into interior labels,

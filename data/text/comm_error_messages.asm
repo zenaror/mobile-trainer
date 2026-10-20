@@ -266,97 +266,81 @@ Table_5C_4F53::
 ; ---- data $4FA8-$4FAE (6 bytes) [PROBABLE] list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
 
 CommErr_Triples_10:: ; 5C:4FA8
-Data_5C_4FA8::
 	db $00, $00, $01, $FF, $FF, $01
 
 ; ---- data $4FAE-$4FB4 (6 bytes) [PROBABLE] list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
 
 CommErr_Triples_11:: ; 5C:4FAE
-Data_5C_4FAE::
 	db $00, $00, $02, $FF, $FF, $02
 
 ; ---- data $4FB4-$4FBA (6 bytes) [PROBABLE] list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
 
 CommErr_Triples_12:: ; 5C:4FB4
-Data_5C_4FB4::
 	db $00, $00, $03, $FF, $FF, $03
 
 ; ---- data $4FBA-$4FC0 (6 bytes) [PROBABLE] list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
 
 CommErr_Triples_13:: ; 5C:4FBA
-Data_5C_4FBA::
 	db $00, $00, $02, $FF, $FF, $02
 
 ; ---- data $4FC0-$4FC6 (6 bytes) [PROBABLE] list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
 
 CommErr_Triples_14:: ; 5C:4FC0
-Data_5C_4FC0::
 	db $00, $00, $09, $FF, $FF, $09
 
 ; ---- data $4FC6-$4FD5 (15 bytes) [PROBABLE] list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
 
 CommErr_Triples_15:: ; 5C:4FC6
-Data_5C_4FC6::
 	db $00, $00, $04, $00, $01, $04, $00, $02, $04, $00, $03, $03, $FF, $FF, $04
 
 ; ---- data $4FD5-$4FDB (6 bytes) [PROBABLE] list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
 
 CommErr_Triples_16:: ; 5C:4FD5
-Data_5C_4FD5::
 	db $00, $00, $05, $FF, $FF, $05
 
 ; ---- data $4FDB-$4FE1 (6 bytes) [PROBABLE] list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
 
 CommErr_Triples_17:: ; 5C:4FDB
-Data_5C_4FDB::
 	db $00, $00, $05, $FF, $FF, $05
 
 ; ---- data $4FE1-$4FE7 (6 bytes) [PROBABLE] list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
 
 CommErr_Triples_20:: ; 5C:4FE1
-Data_5C_4FE1::
 	db $00, $00, $05, $FF, $FF, $05
 
 ; ---- data $4FE7-$4FED (6 bytes) [PROBABLE] list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
 
 CommErr_Triples_21:: ; 5C:4FE7
-Data_5C_4FE7::
 	db $00, $00, $05, $FF, $FF, $05
 
 ; ---- data $4FED-$4FF3 (6 bytes) [PROBABLE] list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
 
 CommErr_Triples_22:: ; 5C:4FED
-Data_5C_4FED::
 	db $00, $00, $06, $FF, $FF, $06
 
 ; ---- data $4FF3-$4FF9 (6 bytes) [PROBABLE] list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
 
 CommErr_Triples_23:: ; 5C:4FF3
-Data_5C_4FF3::
 	db $00, $00, $07, $FF, $FF, $07
 
 ; ---- data $4FF9-$4FFF (6 bytes) [PROBABLE] list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
 
 CommErr_Triples_24:: ; 5C:4FF9
-Data_5C_4FF9::
 	db $00, $00, $12, $FF, $FF, $12
 
 ; ---- data $4FFF-$5005 (6 bytes) [PROBABLE] list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
 
 CommErr_Triples_25:: ; 5C:4FFF
-Data_5C_4FFF::
 	db $00, $00, $09, $FF, $FF, $09
 
 ; ---- data $5005-$500B (6 bytes) [PROBABLE] list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
 
 CommErr_Triples_26:: ; 5C:5005
-Data_5C_5005::
 	db $00, $00, $0F, $FF, $FF, $0F
 
 ; ---- data $500B-$503E (51 bytes) [PROBABLE] list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
 
 CommErr_Triples_30:: ; 5C:500B
-Data_5C_500B::
 	db $00, $00, $05, $02, $21, $12, $04, $21, $12, $04, $50, $0B, $04, $51, $12, $04
 	db $52, $12, $05, $00, $05, $05, $01, $05, $05, $02, $05, $05, $03, $05, $05, $04
 	db $05, $05, $50, $0B, $05, $51, $0B, $05, $52, $12, $05, $53, $0B, $05, $54, $12
@@ -365,13 +349,11 @@ Data_5C_500B::
 ; ---- data $503E-$504D (15 bytes) [PROBABLE] list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
 
 CommErr_Triples_31:: ; 5C:503E
-Data_5C_503E::
 	db $00, $00, $05, $00, $02, $0C, $00, $03, $0D, $00, $04, $05, $FF, $FF, $12
 
 ; ---- data $504D-$5080 (51 bytes) [PROBABLE] list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
 
 CommErr_Triples_32:: ; 5C:504D
-Data_5C_504D::
 	db $03, $00, $05, $03, $01, $05, $03, $02, $05, $04, $00, $05, $04, $01, $05, $04
 	db $03, $0E, $04, $04, $0E, $04, $05, $05, $04, $06, $05, $04, $07, $05, $04, $08
 	db $0F, $05, $00, $08, $05, $01, $05, $05, $02, $08, $05, $03, $0A, $05, $04, $08
@@ -380,7 +362,6 @@ Data_5C_504D::
 ; ---- data $5080-$50B9 (57 bytes) [PROBABLE] list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
 
 CommErr_Triples_33:: ; 5C:5080
-Data_5C_5080::
 	db $01, $01, $10, $01, $02, $11, $01, $03, $13, $01, $04, $15, $01, $05, $15, $01
 	db $06, $14, $02, $01, $1F, $02, $02, $05, $02, $03, $15, $02, $04, $05, $02, $05
 	db $08, $02, $06, $15, $02, $99, $11, $03, $01, $08, $04, $01, $08, $04, $02, $08
@@ -389,7 +370,6 @@ Data_5C_5080::
 ; ---- data $50B9-$50F5 (60 bytes) [PROBABLE] list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
 
 CommErr_Triples_40:: ; 5C:50B9
-Data_5C_50B9::
 	db $00, $10, $15, $00, $20, $16, $00, $21, $16, $00, $30, $17, $00, $31, $18, $00
 	db $32, $18, $00, $40, $0D, $00, $41, $0D, $00, $42, $0D, $00, $43, $0D, $00, $44
 	db $0D, $00, $50, $19, $10, $01, $1A, $10, $02, $1B, $10, $03, $1C, $10, $04, $1D
@@ -398,7 +378,6 @@ Data_5C_50B9::
 ; ---- data $50F5-$5104 (15 bytes) [PROBABLE] 5 triples [00 00 21][00 10 22][01 00 23][01 10 24][01 11 25]: list of the mode-2 record (id $F0) of the table 5C:4F53 (pointer 50F5), same triple format without a $FF terminator; ends at the message-pointer table 5C:5104
 
 CommErr_Triples_F0:: ; 5C:50F5
-Data_5C_50F5::
 	db $00, $00, $21, $00, $10, $22, $01, $00, $23, $01, $10, $24, $01, $11, $25
 
 ; ---- ptrtable $5104-$5144 (64 bytes) [PROBABLE] 32 x dw string pointers (slots 0-31; the same index space continues through slot 32 = 5C:5144 and slots 33-37 = the table 5C:5146, see there) indexed by the message index from the lists (ld hl,$5104 ; add a,a ; add a,l ... ld a,[hli] ; ld h,[hl] ; ld l,a at 5C:5320-532C); entry 0 is $0000 (null, kept numeric), entries 1-31 = 4000..4DCF strings (100% of targets on string starts)
