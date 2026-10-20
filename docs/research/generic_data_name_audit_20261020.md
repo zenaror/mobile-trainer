@@ -420,6 +420,25 @@ ledger SHA-256
 `e5cb3b98e362e2019e16bf99e4de3960f46bd51ae6e771ea668200534bd1e136`.
 The original-ROM identity, symbol, palette and PNG checks all pass.
 
+## Retired music 04 stream aliases (2026-10-20)
+
+The owner `audio/music/music_04.asm` contained 18 `Data_05_*` declarations
+at exact addresses already named by `SoundSong04_*` stream/header labels.
+Its source hash matched the census parent, all current symbol addresses
+matched, and maintained-source searches found no use beyond each generic
+declaration. The census also recorded no tool/metadata mentions or scoped
+locals. Only duplicate names were removed; no stream interpretation, emitted
+bytes or confidence levels changed. See
+[`retired_music04_data_aliases.tsv`](../../analysis/naming2/retired_music04_data_aliases.tsv).
+
+Receipt `.tmp/music04-data-alias-pass-20261020/`: `PRECHECK.json` SHA-256
+`abdd950ebce0463b613763b9c0a4c0cbe377277ed3b4de66541fa7af21e211b8`,
+`RESULT.json` SHA-256
+`889a5a1063af607ba3d9ba73f4659e44477e1f1295bc8d4cc13437f44bb3b330`, and
+ledger SHA-256
+`a40649c8be27092bd60c84d1f83595d30356c674eec4d8ff609d0e7dcb475819`.
+All original-ROM and static resource checks pass.
+
 ## Remaining limits
 
 The other 75 labels from the original no-alias subset remain unchanged. The audit groups them into interior labels,
