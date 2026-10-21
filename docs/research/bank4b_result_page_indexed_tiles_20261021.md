@@ -8,6 +8,12 @@ Static caller code and descriptor records provide positive transfer evidence. `A
 
 The data class `tiles` and inclusion in the descriptor-derived VRAM transfer ranges are CONFIRMED. Their higher-level association with a result-page indexed banner is PROBABLE from the caller/table names. No natural on-screen composition, translated text, Pokémon species, or missing/unused-frame relation is established. No generated screenshot or palette claim is included. The nearby `Data_4B_5400` 32-byte interval is a separate follow-up.
 
+## Follow-up: `4B:5400–5420`
+
+The 32 bytes remain `Data_4B_5400` and are confirmed to be read as data by executed code in at most 4 of the 18 recorded scenarios (`gfx/account/screens_bank4b.asm`). A source search across the tracked assembly roots found no direct symbolic or numeric consumer for this exact interval; the established bank-68 banner descriptors end at `4B:5080`. The adjacent `4B:5420` span is separately classified as probable tile data. The 32 bytes can be divided into two 16-byte units that are compatible with 2bpp tile encoding, but this alone does not establish that they are graphics or that they are uploaded.
+
+No producer/consumer chain or stronger format evidence was recovered in this pass. Keep the content class unknown and the neutral label unchanged. The tile interpretation remains a hypothesis pending a positive source or transfer reference; no asset, PNG, or semantic name is warranted yet.
+
 ## Reproduction and retained evidence
 
 The independent audit compared each descriptor-derived intersection with original ROM bytes and the complete upload source; the extraction SHA-256 is also recorded by `gfx/png_rules.tsv`. Read-only reports are retained under `.tmp/agent-bank4b-positive-consumer-20261021/`: `REPORT.md` SHA-256 `076a1e1140d5a50064b200328d1f0e69b6cfd626d4a2be638d2cadb74b85c69a`; `ADDENDUM.md` SHA-256 `c3c1beef31a92f265b5a2718c6182d67ff870d112c5f8d6a8c72413981ef87b9`; `ADDENDUM_RESULT.json` SHA-256 `4b19a1635efd32d905566d562074b8033d44c42cfa587b41f6990a9bd8267908`. The audit base was `d1ad7596e84f04262e790d39e678a1b75e56e8ad`; subsequent checkout changes affected the same-address menu aliases and the graphics representation, not the bank 68 descriptors or ROM bytes.
