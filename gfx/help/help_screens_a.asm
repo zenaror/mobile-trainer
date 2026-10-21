@@ -136,43 +136,137 @@ Palette_HelpMenu_Bg:: ; 6A:62B0
 Palette_HelpMenu_Obj:: ; 6A:62F0
 	INCLUDE "gfx/help/help_screens_a/help_menu_obj.pal"
 
-; ---- data $6330-$6448 (280 bytes) [PROBABLE] existing RGB-word representation;
-; the selected object at $64AE reaches a nine-word frame table here and OAM frame
-; records, continuing across $6448. Every byte has natural read evidence.
-; The earlier palette heuristic conflicts with this demonstrated sprite use;
-; preserve the INCLUDE/RGB encoding and palette asset classification pending a
-; separate review of that classification. No new palette role is asserted.
+; ---- object animation data $6330-$64AE (382 bytes) [CONFIRMED]; nine frame pointers,
+; nine OAM records and their nine-step script. The object entry is split across owners.
 
-Data_6A_6330:: ; 6A:6330
-	INCLUDE "gfx/help/help_screens_a/palette_6330.pal"
+; Bank 6A: CONFIRMED help-menu object data, 6A:6330-64AE (382 bytes).
+; Object entry at 64AE points here and to the animation script at 649B.
+; Frame records use the shared sprite macros; all labels stay in bank 6A.
+SpriteFrameTable_HelpMenu:: ; 6A:6330
+	sprite_frame_table SpriteFrame_HelpMenu_00, SpriteFrame_HelpMenu_01, SpriteFrame_HelpMenu_02, SpriteFrame_HelpMenu_03, SpriteFrame_HelpMenu_04, SpriteFrame_HelpMenu_05, SpriteFrame_HelpMenu_06, SpriteFrame_HelpMenu_07, SpriteFrame_HelpMenu_08
 
-; ---- data $6448-$64B1 (105 bytes) [CONFIRMED] tail of the 12-piece frame at $6429,
-; frame8 at $645A, nine-step script at $649B, and first three entry bytes at $64AE.
-; Every byte is read in the natural data union. The fourth entry byte is $64 at
-; neighboring 6A:$64B1; representations and historical boundaries remain intact.
+; ---- OAM frame 00, 8 pieces, 6342-6363 [CONFIRMED]
+SpriteFrame_HelpMenu_00:: ; 6A:6342
+	sprite_frame 8
+	sprite_oam 0, 0, $00, $00
+	sprite_oam 0, 8, $01, $00
+	sprite_oam 8, 0, $10, $00
+	sprite_oam 8, 8, $11, $00
+	sprite_oam 16, 0, $20, $00
+	sprite_oam 16, 8, $21, $00
+	sprite_oam 24, 0, $30, $00
+	sprite_oam 24, 8, $31, $00
 
-Data_6A_6448:: ; 6A:6448
-	db $31, $00, $00, $F8, $0A, $00, $08, $F8, $1A, $00, $00, $10, $0A, $00, $08, $10
-	db $1A, $00
-SpriteFrame_6A_645A:: ; 6A:645A
+; ---- OAM frame 01, 8 pieces, 6363-6384 [CONFIRMED]
+SpriteFrame_HelpMenu_01:: ; 6A:6363
+	sprite_frame 8
+	sprite_oam 0, 0, $02, $00
+	sprite_oam 0, 8, $03, $00
+	sprite_oam 8, 0, $12, $00
+	sprite_oam 8, 8, $13, $00
+	sprite_oam 16, 0, $22, $00
+	sprite_oam 16, 8, $23, $00
+	sprite_oam 24, 0, $32, $00
+	sprite_oam 24, 8, $33, $00
+
+; ---- OAM frame 02, 8 pieces, 6384-63A5 [CONFIRMED]
+SpriteFrame_HelpMenu_02:: ; 6A:6384
+	sprite_frame 8
+	sprite_oam 0, 0, $04, $00
+	sprite_oam 0, 8, $05, $00
+	sprite_oam 8, 0, $14, $00
+	sprite_oam 8, 8, $15, $00
+	sprite_oam 16, 0, $24, $00
+	sprite_oam 16, 8, $25, $00
+	sprite_oam 24, 0, $34, $00
+	sprite_oam 24, 8, $35, $00
+
+; ---- OAM frame 03, 8 pieces, 63A5-63C6 [CONFIRMED]
+SpriteFrame_HelpMenu_03:: ; 6A:63A5
+	sprite_frame 8
+	sprite_oam 0, 0, $06, $00
+	sprite_oam 0, 8, $07, $00
+	sprite_oam 8, 0, $16, $00
+	sprite_oam 8, 8, $17, $00
+	sprite_oam 16, 0, $26, $00
+	sprite_oam 16, 8, $27, $00
+	sprite_oam 24, 0, $36, $00
+	sprite_oam 24, 8, $37, $00
+
+; ---- OAM frame 04, 8 pieces, 63C6-63E7 [CONFIRMED]
+SpriteFrame_HelpMenu_04:: ; 6A:63C6
+	sprite_frame 8
+	sprite_oam 0, 0, $02, $00
+	sprite_oam 0, 8, $03, $00
+	sprite_oam 8, 0, $12, $00
+	sprite_oam 8, 8, $13, $00
+	sprite_oam 16, 0, $22, $00
+	sprite_oam 16, 8, $23, $00
+	sprite_oam 24, 0, $32, $00
+	sprite_oam 24, 8, $33, $00
+
+; ---- OAM frame 05, 8 pieces, 63E7-6408 [CONFIRMED]
+SpriteFrame_HelpMenu_05:: ; 6A:63E7
+	sprite_frame 8
+	sprite_oam 0, 0, $08, $00
+	sprite_oam 0, 8, $09, $00
+	sprite_oam 8, 0, $18, $00
+	sprite_oam 8, 8, $19, $00
+	sprite_oam 16, 0, $28, $00
+	sprite_oam 16, 8, $29, $00
+	sprite_oam 24, 0, $38, $00
+	sprite_oam 24, 8, $39, $00
+
+; ---- OAM frame 06, 8 pieces, 6408-6429 [CONFIRMED]
+SpriteFrame_HelpMenu_06:: ; 6A:6408
+	sprite_frame 8
+	sprite_oam 0, 0, $00, $00
+	sprite_oam 0, 8, $01, $00
+	sprite_oam 8, 0, $10, $00
+	sprite_oam 8, 8, $11, $00
+	sprite_oam 16, 0, $20, $00
+	sprite_oam 16, 8, $21, $00
+	sprite_oam 24, 0, $30, $00
+	sprite_oam 24, 8, $31, $00
+
+; ---- OAM frame 07, 12 pieces, 6429-645A [CONFIRMED]
+SpriteFrame_HelpMenu_07:: ; 6A:6429
+	sprite_frame 12
+	sprite_oam 0, 0, $00, $00
+	sprite_oam 0, 8, $01, $00
+	sprite_oam 8, 0, $10, $00
+	sprite_oam 8, 8, $11, $00
+	sprite_oam 16, 0, $20, $00
+	sprite_oam 16, 8, $21, $00
+	sprite_oam 24, 0, $30, $00
+	sprite_oam 24, 8, $31, $00
+	sprite_oam 0, -8, $0A, $00
+	sprite_oam 8, -8, $1A, $00
+	sprite_oam 0, 16, $0A, $00
+	sprite_oam 8, 16, $1A, $00
+
+; ---- OAM frame 08, 16 pieces, 645A-649B [CONFIRMED]
+SpriteFrame_HelpMenu_08:: ; 6A:645A
 	sprite_frame 16
-	sprite_oam 0, 0, $00, 0
-	sprite_oam 0, 8, $01, 0
-	sprite_oam 8, 0, $10, 0
-	sprite_oam 8, 8, $11, 0
-	sprite_oam 16, 0, $20, 0
-	sprite_oam 16, 8, $21, 0
-	sprite_oam 24, 0, $30, 0
-	sprite_oam 24, 8, $31, 0
-	sprite_oam 0, -8, $0A, 0
-	sprite_oam 8, -8, $1A, 0
-	sprite_oam 0, 16, $0A, 0
-	sprite_oam 8, 16, $1A, 0
-	sprite_oam 4, -16, $0A, 0
-	sprite_oam 12, -16, $1A, 0
-	sprite_oam 4, 24, $0A, 0
-	sprite_oam 12, 24, $1A, 0
-SpriteScript_6A_649B:: ; 6A:649B
+	sprite_oam 0, 0, $00, $00
+	sprite_oam 0, 8, $01, $00
+	sprite_oam 8, 0, $10, $00
+	sprite_oam 8, 8, $11, $00
+	sprite_oam 16, 0, $20, $00
+	sprite_oam 16, 8, $21, $00
+	sprite_oam 24, 0, $30, $00
+	sprite_oam 24, 8, $31, $00
+	sprite_oam 0, -8, $0A, $00
+	sprite_oam 8, -8, $1A, $00
+	sprite_oam 0, 16, $0A, $00
+	sprite_oam 8, 16, $1A, $00
+	sprite_oam 4, -16, $0A, $00
+	sprite_oam 12, -16, $1A, $00
+	sprite_oam 4, 24, $0A, $00
+	sprite_oam 12, 24, $1A, $00
+
+; ---- animation script, nine indexed steps, 649B-64AE [CONFIRMED]
+SpriteScript_HelpMenu:: ; 6A:649B
 	sprite_anim 9
 	sprite_anim_step 0, 4
 	sprite_anim_step 1, 4
@@ -183,9 +277,9 @@ SpriteScript_6A_649B:: ; 6A:649B
 	sprite_anim_step 6, 6
 	sprite_anim_step 7, 12
 	sprite_anim_step 8, 12
-; [CONFIRMED] one logical four-byte object entry $6330/$649B at $64AE-$64B2.
-; All four bytes were naturally read in 12 scenarios. Its final $64 byte is emitted
-; by the first dw at 6A:$64B1 in help_menu_ticker.asm; actual ticker base is $64B2.
-; Keep the three-byte db and neighboring dw intact; no macro conversion.
+
+; [CONFIRMED] logical four-byte object entry $6330/$649B at $64AE-$64B2.
+; Its low three bytes are here; the script pointer high byte and ticker bank follow at
+; 6A:$64B1 in data/text/help_menu_ticker.asm. All four bytes are naturally read.
 Objects_HelpMenu:: ; 6A:64AE
-	db $30, $63, $9B ; sprite object-table entry kept as db: the item crosses the end of its block
+	db LOW(SpriteFrameTable_HelpMenu), HIGH(SpriteFrameTable_HelpMenu), LOW(SpriteScript_HelpMenu)

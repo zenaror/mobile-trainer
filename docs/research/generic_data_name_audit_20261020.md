@@ -3289,3 +3289,24 @@ are unchanged. Exact generic `Data_BB_AAAA` count drops from 37/32 definitions/
 owners to 36/32. The earlier decision to keep `Data_5D_5000` neutral records
 the evidence available at that historical checkpoint; `Data_5D_6C00` remains
 neutral because it is an interior fragment of a larger upload.
+
+## Current Japanese data inventory after HelpMenu object reclassification (2026-10-21)
+
+At the post-build source snapshot, `tools/data_consumers.py --stats` reports
+128 neutral groups: 34 `Data_`, 41 `Tiles_`, 24 `Tilemap_`, 25 `Palette_` and
+4 `Attrmap_`. Its 65 automatic immediate candidates are all rejected and the
+rename manifest has zero rows. These are bounded inventory/results, not proof
+that the remaining names have no readable structural identity. The source scan
+excludes `engine/mail/sample_data.asm`, `languages/`, build products, tools,
+docs and `.tmp/`.
+
+The earlier neutral decisions for `Data_6A_6330` and `Data_6A_6448` are
+superseded. The 6A:6330–64AE span is now `SpriteFrameTable_HelpMenu`, nine
+typed frame records, and `SpriteScript_HelpMenu`; the separate object entry is
+symbolically linked across the existing 64B1 source boundary. The false
+`palette_6330.pal` asset and its catalogue/rule rows were removed. The full
+recorded derivation and byte checks are in
+`docs/research/original_closure_followup_20261021.md` and the retained
+`.tmp/jp-bank6a-help-object-reclass-20261021/` evidence. The inventory is now
+128 groups, down from 130; the 34 remaining `Data_` groups still require
+individual evidence review.

@@ -730,3 +730,30 @@ remain UNKNOWN. Reproducible source guards and rows are retained in
 `fae135723363a995c71d85816d5442fdef454186a8b3c8773f6d8a0ed28a3075`,
 `SOURCE_GUARDS.json` SHA-256
 `fd0f3968f4121722debd9fa96f6782b53951698620c9150fa718b6ffcfaf1044`).
+
+## HelpMenu object data identified at bank 6A:6330 (2026-10-21)
+
+The original ROM (`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`)
+contains a 9-word frame table at 6A:6330. Its pointers are 6342, 6363, 6384,
+63A5, 63C6, 63E7, 6408, 6429 and 645A. The record counts are 8, 8, 8, 8, 8,
+8, 8, 12 and 16 OAM pieces, and each record ends exactly at the next pointer;
+the final one ends at 649B. The 9-step script at 649B ends at 64AE. The object
+entry at 64AE–64B2 contains pointers to 6330 and 649B and is loaded by the
+existing HelpMenu setup. The entry straddles the source-owner boundary at
+64B1; its low bytes remain in `gfx/help/help_screens_a.asm` and its high script
+pointer byte is now expressed symbolically in `data/text/help_menu_ticker.asm`.
+
+`Data_6A_6330`, `Data_6A_6448`, `SpriteFrame_6A_645A` and
+`SpriteScript_6A_649B` were replaced by `SpriteFrameTable_HelpMenu`, nine
+`SpriteFrame_HelpMenu_*` records and `SpriteScript_HelpMenu`, encoded with the
+existing checked sprite macros. The `.pal` file and its asset/rule rows were
+removed because the bytes are frame pointers and OAM/script data, not an RGB
+palette. An independent encoder checked all 382 bytes at 6A:6330–64AE against
+the original ROM before editing. `make` rebuilt 2,097,152 bytes with SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570` and
+`RESULT: IDENTICAL`; `make sym-check` passed with 12,176 labels and 51
+constants; `make palette-check` passed with 162 loads, 116 arrays, two
+documented over-reads and zero errors. `gfx_export.py check` and
+`png_rules.py mk-check` also passed. No rendering or hardware behavior is
+claimed. The previous 6A:6330/6448 neutral-label and palette-conflict notes are
+historical and superseded for the current source.

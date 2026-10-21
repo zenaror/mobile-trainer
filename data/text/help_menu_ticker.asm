@@ -6,10 +6,10 @@ SECTION "data/text/help_menu_ticker", ROMX
 
 PUSHC sjis
 
-; ---- data $64B1-$64D3 (34 bytes) [PROBABLE] mixed prefix and pointer table: $64 at $64B1 finishes Objects_HelpMenu; bank byte $6A at $64B2; eight title/body pointer pairs begin at $64B3 and feed Ticker_Start via HelpMenu_ShowItemText.
+; ---- data $64B1-$64D3 (34 bytes) [PROBABLE] mixed prefix and pointer table: high byte $64 at $64B1 completes Objects_HelpMenu's script pointer ($649B); bank byte $6A at $64B2; eight title/body pointer pairs begin at $64B3 and feed Ticker_Start via HelpMenu_ShowItemText.
 
 HelpMenu_ObjectEntryTailAndTickerBank:: ; 6A:64B1
-	dw $6A64
+	db HIGH(SpriteScript_HelpMenu), $6A
 
 HelpMenu_TickerTitleBodyPointerTable:: ; 6A:64B3
 	dw HelpMenu_TickerEntry0_Title

@@ -510,7 +510,6 @@ gfx/help/help_screens_a/help_menu_page3_normal_items.attrmap	-	attrmap				90	f35
 gfx/help/help_screens_a/help_menu_page3_normal_items.tilemap	-	tilemap				90	c0f6a18b1c0bf489ce0afdd33d881f58710595a3ab59a3e729d8593d707ecfad
 gfx/help/help_screens_a/help_menu_page3_selected_items.attrmap	-	attrmap				90	da7ed60e06bdbf560b9d02fab9b44eb975e9c8c0bb09e45531da9c286fbaf29f
 gfx/help/help_screens_a/help_menu_page3_selected_items.tilemap	-	tilemap				90	c61fd515851c4e027c3eacc48c6553fd2f4f5a89a8d0d09f8a7035cf9401a039
-gfx/help/help_screens_a/palette_6330.pal	-	palette				2274	f61db7015b885dea028d319aa66a93f2df00616b44e206b70b4ad481cd77dbe8
 gfx/help/help_screens_a/tilemap_4000.attrmap	-	attrmap				360	5ab3fece715ef329f4beb405877be7bb729388eb494869e001a709021ddff931
 gfx/help/help_screens_a/tilemap_4000.tilemap	-	tilemap				360	592759d0da5755fff1a2212d49cf644f44933572de09b9eb453a7cb197430192
 gfx/help/help_screens_a/tilemap_42d0.attrmap	-	attrmap				360	569ce60a89b018dcce6716bff955712836b97a11a37af6184ae5fa2a4c427cdd
