@@ -357,7 +357,7 @@ Dialog_OpenTall:: ; 72:41D8
 ; ---- data $43A1-$43A7 (6 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
 
 Data_Dialog_OpenAndOpenTall_SlideScripts:: ; 72:43A1
-Data_72_43A1::
+
 	db $48, $00, $80, $58, $00, $80
 
 Dialog_SetupCursorByType:: ; 72:43A7
@@ -369,7 +369,7 @@ Dialog_SetupCursorByType:: ; 72:43A7
 ; ---- ptrtable $43AA-$43B6 (12 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 72:43A7: 6 entries; end pinned by the executed instruction at 43B6
 
 Dialog_SetupCursorByType_TypeTable:: ; 72:43AA
-Table_72_43AA::
+
 	dw Dialog_SetupCursorByType_NoButton
 	dw Dialog_SetupCursorByType_OneButton
 	dw Dialog_SetupCursorByType_TwoButtons
@@ -608,7 +608,7 @@ Dialog_CloseTall:: ; 72:44E6
 ; ---- data $4572-$4578 (6 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
 
 Data_Dialog_CloseAndCloseTall_SlideScripts:: ; 72:4572
-Data_72_4572::
+
 	db $48, $00, $80, $58, $00, $80
 
 Dialog_WaitInput:: ; 72:4578
@@ -625,7 +625,7 @@ Dialog_WaitInput:: ; 72:4578
 ; ---- ptrtable $4596-$45A0 (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 72:4593: 5 entries; fixed length (5 words) by the routine
 
 Dialog_WaitInputTable:: ; 72:4596
-Table_72_4596::
+
 	dw Dialog_WaitInput_OnA
 	dw Dialog_WaitInput_OnB
 	dw Dialog_WaitInput_IgnoreSelect
@@ -758,7 +758,7 @@ Dialog_WaitInputMonitored:: ; 72:461A
 ; ---- ptrtable $4698-$46A2 (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 72:4695: 5 entries; fixed length (5 words) by the routine
 
 Dialog_WaitInputMonitoredTable:: ; 72:4698
-Table_72_4698::
+
 	dw Dialog_WaitInputMonitored_OnA
 	dw Dialog_WaitInputMonitored_OnB
 	dw Dialog_WaitInputMonitored_IgnoreSelect

@@ -993,16 +993,6 @@ def rules_manual(w, man, sites):
     add('Table_55_6982', 'Table_Kbd_T78_PageLoaders_Page3', 'table', 'PROBABLE',
         'one word directly after the three words of Table_Kbd_T78_PageLoaders: Kbd_LoadPageGraphics_T78_Page3, page 3 of the wKbdPage dispatch of types 7 and 8')
 
-    # ---- dialog slide scripts
-    for old, new, first_fn, second_fn, callee, other in (
-            ('Data_72_43A1', 'Data_Dialog_OpenAndOpenTall_SlideScripts', 'Dialog_Open', 'Dialog_OpenTall', 'Dialog_SlideIn', '$43A4'),
-            ('Data_72_4572', 'Data_Dialog_CloseAndCloseTall_SlideScripts', 'Dialog_Close', 'Dialog_CloseTall', 'Dialog_SlideOut', '$4575')):
-        if already_named(old, new):
-            continue
-        k = w.by_name[old]
-        add(old, new, 'data', 'CONFIRMED',
-            '6 bytes %s = two 3-byte scripts (48 00 80) (58 00 80): %s loads HL with the first script through the label; %s loads the second from raw immediate `ld hl,%s`; both call %s, whose reader loops `ld a,[hli] ; cp $80 ; jr z,done` (step byte per frame, $80 terminator); all six bytes are executed-read (region header CONFIRMED)' %
-            (rom_bytes(w, k, 6).hex(' '), first_fn, second_fn, other, callee))
     # ---- twins: 2-byte character list walked pair by pair until a 0 first byte
     for old, fn, bank in (('String_2A_6081', 'Profile_ApplyVu', 0x2A), ('String_2C_4878', 'MailTitle_ApplyVu', 0x2C),
                           ('Data_2D_55DA', 'MailBody_ApplyDakutenU', 0x2D), ('String_2F_6040', 'AbookName_ApplyDakutenU', 0x2F)):

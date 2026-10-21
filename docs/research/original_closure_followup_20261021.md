@@ -446,3 +446,14 @@ Removed `Data_22_5110`, `Data_22_53E0` and `Data_22_56B0` from
 no active assembly or tool references beyond the declarations. Tilemap and
 attrmap includes, extents, CONFIRMED loader evidence and bytes are unchanged;
 historical config/analysis records remain untouched.
+
+## Bank 72 dialog script and jump-table aliases (2026-10-21)
+
+Removed `Data_72_43A1` and `Data_72_4572` under the existing dialog slide-script
+labels, plus `Table_72_43AA`, `Table_72_4596` and `Table_72_4698` under the
+existing cursor-type, input-dispatch and monitored-input table labels in
+`engine/dialog/dialog.asm`. The two obsolete manual `data_consumers.py`
+mapping rows were removed as well. Exact-token searches found no other active
+assembly/tool consumers. Script bytes, pointer words, boundaries, and existing
+CONFIRMED/PROBABLE classifications are unchanged; frozen config/analysis names
+remain as historical evidence.
