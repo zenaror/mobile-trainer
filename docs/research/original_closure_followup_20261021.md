@@ -18,6 +18,23 @@ expanded 323-pattern scan before the owner was renamed. The current source
 header reflects the finite current corpus; neither count proves universal
 non-use.
 
+A new path-safe static reconciliation after checkpoint `fa58ee1e` rechecked
+the four still-UNKNOWN natural-entry cases: `2B:6CF5`, `2D:4E42/4E54` and
+`29:511E`. It confirmed only the internal CALL edges `2D:4E49 -> 4E54` and
+`29:50CE -> 511E`; these do not establish a natural root. The helper at
+`2D:4E54` starts with `SP=H`, but via its wrapper `SP=W-4`, leaving `4E4C`,
+saved BC and the outer return on the stack. The `2B:6CF5` success path uses
+`S+8` while cancellation uses `S`; `29:511E`'s selected call does not prove
+bank `7D`, and the bank29 padding window is zero-filled. Each entry remains
+**UNKNOWN** pending a real producer of its stack/bank state or caller. The
+scan reconciled 347 guarded source inputs to current `main` `2d73ecad`, with
+319 exact matches and 28 differences limited to comments, blank lines or
+global labels; 104,200 earlier indexed records still matched original bytes.
+No source, build, runtime or trace changed. The retained read-only report is
+`.tmp/agent-entry-return-reconcile-20261021/REPORT.md` (SHA-256
+`6f5f920ae3df5698496d799b9ca4e8516061e589f59b0075d9e3bfdb24a1e854`), with
+`RESULT.json` recording its input hashes.
+
 ## Current naming changes
 
 In `audio/music/music_07.asm`, 17 `Data_04_*` globals were removed where each
