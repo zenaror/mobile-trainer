@@ -3219,3 +3219,14 @@ heuristic and no consumer was found. `73:5EC0` is
 count-2 script; the following frame table and object records keep their own
 labels. No bytes or boundaries changed. Exact generic `Data_BB_AAAA` count
 drops from 51/38 definitions/owners to 48/37.
+
+## Send/receive opcode-shaped spans (2026-10-21)
+
+Three `Data_27_AAAA` labels in `engine/mail/send_receive.asm` now have
+candidate names based on their literal bytes: `$18,$5E` encodes a JR to
+`27:40FF`, `$C9` is a return opcode byte, and `$CD,$47,$47,$CA,$E5,$46`
+encodes CALL `27:4747` followed by JP Z to `27:46E5`. These addresses align
+with existing code labels, but do not prove entry into the spans. The source
+headers remain **HYPOTHESIS/UNCLASSIFIED**. No bytes or boundaries changed.
+Exact generic `Data_BB_AAAA` count drops from 48/37 definitions/owners to
+45/36.

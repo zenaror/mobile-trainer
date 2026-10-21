@@ -91,7 +91,7 @@ MailSendRecv_Main:: ; 27:4000
 
 ; ---- data $409F-$40A1 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
-Data_27_409F:: ; 27:409F
+MailSendRecv_CandidateJrToJoin_409F:: ; 27:409F
 	db $18, $5E
 
 MailSendRecv_Main_ErrorDisconnect:: ; 27:40A1
@@ -833,7 +833,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 
 ; ---- data $46A0-$46A1 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
-Data_27_46A0:: ; 27:46A0
+MailSendRecv_CandidateRetOpcode_46A0:: ; 27:46A0
 	db $C9
 
 .loop ; 27:46A1
@@ -870,7 +870,7 @@ Data_27_46A0:: ; 27:46A0
 
 ; ---- data $46DF-$46E5 (6 bytes) [HYPOTHESIS] UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
-Data_27_46DF:: ; 27:46DF
+MailConnect_CandidateCallPollAndJpZShowError_46DF:: ; 27:46DF
 	db $CD, $47, $47, $CA, $E5, $46
 
 MailConnect_ShowError:: ; 27:46E5
