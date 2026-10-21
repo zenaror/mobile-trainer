@@ -1835,3 +1835,8 @@ This pass's checked link used make overrides to reuse the existing object for
 the protected mail sample because the unqualified dry-run scheduled that file;
 see the note for the exact command and the interrupted invocation's unresolved
 reachability.
+
+The canvas remap and glyph blitter owners also lost four exact numeric aliases
+under the names already used by readers and current research. Evidence grades,
+table boundaries and coverage qualifications are unchanged; see the
+[canvas alias note](docs/research/canvas_data_aliases_20261021.md).

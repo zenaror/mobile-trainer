@@ -210,7 +210,6 @@ Canvas_Remap_B3C3:: ; 7F:42A1
 ; ---- ptrtable $42A3-$42C3 (32 bytes) [PROBABLE] little-endian word table, 16 entries, monotone=1.00, 0% of targets on string start/after NUL, targets $4202..$42A1; referenced by ld r16,$42A3 at 7F:41F8
 
 Canvas_RemapTable:: ; 7F:42A3
-Table_7F_42A3::
 	dw Canvas_Remap_B0C0
 	dw Canvas_Remap_B1C0
 	dw Canvas_Remap_B2C0
@@ -1627,13 +1626,11 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 ; ---- data $499C-$49A5 (9 bytes) [PROBABLE] 9-byte mask table 03 81 C0 E0 F0 F8 FC FE FF indexed with c: ld hl,$499C ; add hl,bc ; ld a,[hl] ; ld [$C0D0],a at 7F:4311 (executed; near-identical clones of this reader in the PROBABLE code at 7F:49FA and 7F:4B03 read the table too; entries 0,2,4,6 = bytes 499C,499E,49A0,49A2 read in 14/18 scenarios); extent 9 = distance to the second table
 
 Canvas_BlitMaskCur:: ; 7F:499C
-Table_7F_499C::
 	db $03, $81, $C0, $E0, $F0, $F8, $FC, $FE, $FF
 
-; ---- data $49A5-$49AE (9 bytes) [PROBABLE] 9-byte mask table FF FF FF 7F 3F 1F 0F 07 03 read as ld hl,$49A5 ; add hl,bc ; ld a,[hl] ; ld [$C0D1],a at 7F:4319 (executed; entries 0,2,4,6 read; clones at 7F:4A02 and 7F:4B0B); pairs with Table_7F_499C
+; ---- data $49A5-$49AE (9 bytes) [PROBABLE] 9-byte mask table FF FF FF 7F 3F 1F 0F 07 03 read as ld hl,$49A5 ; add hl,bc ; ld a,[hl] ; ld [$C0D1],a at 7F:4319 (executed; entries 0,2,4,6 read; clones at 7F:4A02 and 7F:4B0B); pairs with Canvas_BlitMaskCur
 
 Canvas_BlitMaskNext:: ; 7F:49A5
-Table_7F_49A5::
 	db $FF, $FF, $FF, $7F, $3F, $1F, $0F, $07, $03
 
 Canvas_BlitGlyphLooped:: ; 7F:49AE
@@ -2116,7 +2113,6 @@ Glyph_LoadDottedLine:: ; 7F:4C42
 ; ---- data $4C57-$4C77 (32 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown
 
 Glyph_DottedLineData:: ; 7F:4C57
-Data_7F_4C57::
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $33, $CC, $00, $00, $00, $00, $00, $00, $00, $00
 
