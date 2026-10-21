@@ -1988,6 +1988,39 @@ words; its emitted values are unchanged. The first four records retain their
 CONFIRMED bounded reader evidence; entry 4 remains PROBABLE with no observed
 natural read. `Data_4A_51B0` remains neutral because its suspected unread
 palette role is unproved, and `Data_4A_5860` remains neutral for its
-unclassified six-byte prefix. A fresh six-root lexical scan now finds 550
-`Data_BB_AAAA::` definitions in 140 owners, excluding the protected mail
-sample and `zero_labels.asm`; this is not a semantic-completion measure.
+unclassified six-byte prefix. The earlier note reported 550 definitions in
+140 owners. Re-running the exact
+`Data_BB_AAAA::` definition query against parent `1c6a6cc` gives 526 in 137
+owners, excluding the protected mail sample and `zero_labels.asm`; the earlier
+550 count was high by 24. This remains a lexical count, not a
+semantic-completion measure.
+
+## Bank 70 communication-scene object animation records (2026-10-21)
+
+`gfx/comm/comm_scene.asm` now names the probable object-animation structure at
+`70:4832` as `CommScene_ObjAnimTable`. Its four non-null entries point to
+frame-pointer lists and paired candidate scripts. The frame labels use entry
+and list position only; they do not identify the depicted object or action.
+The table has no confirmed executed caller, so its role remains **PROBABLE**.
+Each frame block has the observed count-prefixed 4-byte record shape; the
+meaning of the first two fields remains unknown.
+
+The 26 former `Data_70_*` labels were replaced as follows. Within each row,
+frame numbers follow pointer order, starting at zero:
+
+| Entry | Frame records (`old address` -> `new frame index`) | Frame-pointer list | Candidate script |
+|---|---|---|---|
+| 1 | `4852->0, 4857->1, 4868->2, 4881->3, 48B2->4, 4903->5` | `Table_70_4846` -> `CommScene_ObjAnimEntry1_FramePointers` | `Data_70_4904` -> `CommScene_ObjAnimEntry1_Script` |
+| 2 | `4919->0, 497E->1, 49E3->2, 4A50->3` | `Table_70_4911` -> `CommScene_ObjAnimEntry2_FramePointers` | `Data_70_4AB9` -> `CommScene_ObjAnimEntry2_Script` |
+| 3 | `4ACE->0, 4B1F->1, 4B48->2, 4B61->3, 4B72->4, 4B7B->5` | `Table_70_4AC2` -> `CommScene_ObjAnimEntry3_FramePointers` | `Data_70_4B84` -> `CommScene_ObjAnimEntry3_Script` |
+| 4 | `4B9D->0, 4BEE->1, 4C17->2, 4C30->3, 4C41->4, 4C4A->5` | `Table_70_4B91` -> `CommScene_ObjAnimEntry4_FramePointers` | `Data_70_4C4F` -> `CommScene_ObjAnimEntry4_Script` |
+
+The former master `Table_70_4832` is now `CommScene_ObjAnimTable`. The source
+labels and pointer operands changed; data directives and physical byte spans
+did not. A bounded maintained-source/tool search found no consumers outside
+this owner. Frozen `config/regions/bank70.tsv` and the historical
+`docs/research/naming2_data2.md` retain old spellings as snapshots and were not
+rewritten. No natural-use, sprite-subject, or global-unused claim follows from
+this pass. The exact six-root query now counts 500 `Data_BB_AAAA::`
+definitions in 137 owners after these 26 renames; `engine/mail/sample_data.asm`
+and `zero_labels.asm` remain excluded. This is only a lexical count.

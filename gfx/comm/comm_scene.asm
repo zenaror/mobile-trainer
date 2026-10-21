@@ -19,56 +19,56 @@ CommScene_TextBoxMaps:: ; 70:4822
 
 ; ---- ptrtable $4832-$4846 (20 bytes) [PROBABLE] animation table: 5 entries x 4 bytes (2 pointers each; entry 0 may be null), structurally matches Sprite_LoadObjectEntry (00:0AB8): word0 = list of frame pointers, word1 = candidate animation script. Sprite_InitSlot (00:0A82) passes B as A; the reader's AND $7F followed by two byte ADDs selects the low 6 bits. No executed caller found; same format as CONFIRMED tables 534C/53EB; every pointer lands on a record start
 
-Table_70_4832:: ; 70:4832
+CommScene_ObjAnimTable:: ; 70:4832
 	dw $0000
 	dw $0000
-	dw Table_70_4846
-	dw Data_70_4904
-	dw Table_70_4911
-	dw Data_70_4AB9
-	dw Table_70_4AC2
-	dw Data_70_4B84
-	dw Table_70_4B91
-	dw Data_70_4C4F
+	dw CommScene_ObjAnimEntry1_FramePointers
+	dw CommScene_ObjAnimEntry1_Script
+	dw CommScene_ObjAnimEntry2_FramePointers
+	dw CommScene_ObjAnimEntry2_Script
+	dw CommScene_ObjAnimEntry3_FramePointers
+	dw CommScene_ObjAnimEntry3_Script
+	dw CommScene_ObjAnimEntry4_FramePointers
+	dw CommScene_ObjAnimEntry4_Script
 
-; ---- ptrtable $4846-$4852 (12 bytes) [PROBABLE] list of 6 frame pointers (word0 of an entry of Table_70_4832); each target is a count-prefixed OAM record
+; ---- ptrtable $4846-$4852 (12 bytes) [PROBABLE] list of 6 frame pointers (word0 of an entry of CommScene_ObjAnimTable); each target is a count-prefixed OAM record
 
-Table_70_4846:: ; 70:4846
-	dw Data_70_4852
-	dw Data_70_4857
-	dw Data_70_4868
-	dw Data_70_4881
-	dw Data_70_48B2
-	dw Data_70_4903
+CommScene_ObjAnimEntry1_FramePointers:: ; 70:4846
+	dw CommScene_ObjAnimEntry1_Frame0
+	dw CommScene_ObjAnimEntry1_Frame1
+	dw CommScene_ObjAnimEntry1_Frame2
+	dw CommScene_ObjAnimEntry1_Frame3
+	dw CommScene_ObjAnimEntry1_Frame4
+	dw CommScene_ObjAnimEntry1_Frame5
 
-; ---- data $4852-$4857 (5 bytes) [PROBABLE] sprite frame record: count=1 then 1 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+; ---- data $4852-$4857 (5 bytes) [PROBABLE] sprite frame record: count=1 then 1 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of CommScene_ObjAnimTable
 
-Data_70_4852:: ; 70:4852
+CommScene_ObjAnimEntry1_Frame0:: ; 70:4852
 	db $01, $0D, $0C, $58, $00
 
-; ---- data $4857-$4868 (17 bytes) [PROBABLE] sprite frame record: count=4 then 4 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+; ---- data $4857-$4868 (17 bytes) [PROBABLE] sprite frame record: count=4 then 4 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of CommScene_ObjAnimTable
 
-Data_70_4857:: ; 70:4857
+CommScene_ObjAnimEntry1_Frame1:: ; 70:4857
 	db $04, $08, $18, $44, $20, $08, $10, $46, $20, $08, $00, $44, $00, $08, $08, $46
 	db $00
 
-; ---- data $4868-$4881 (25 bytes) [PROBABLE] sprite frame record: count=6 then 6 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+; ---- data $4868-$4881 (25 bytes) [PROBABLE] sprite frame record: count=6 then 6 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of CommScene_ObjAnimTable
 
-Data_70_4868:: ; 70:4868
+CommScene_ObjAnimEntry1_Frame2:: ; 70:4868
 	db $06, $00, $04, $30, $00, $00, $0C, $32, $00, $00, $14, $34, $00, $10, $04, $36
 	db $00, $10, $0C, $38, $00, $10, $14, $3A, $00
 
-; ---- data $4881-$48B2 (49 bytes) [PROBABLE] sprite frame record: count=12 then 12 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+; ---- data $4881-$48B2 (49 bytes) [PROBABLE] sprite frame record: count=12 then 12 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of CommScene_ObjAnimTable
 
-Data_70_4881:: ; 70:4881
+CommScene_ObjAnimEntry1_Frame3:: ; 70:4881
 	db $0C, $00, $00, $20, $00, $00, $08, $22, $00, $00, $10, $24, $00, $00, $18, $26
 	db $00, $10, $00, $28, $00, $10, $08, $2A, $00, $10, $10, $2C, $00, $10, $18, $2E
 	db $00, $20, $18, $4A, $00, $F4, $08, $4A, $00, $14, $F8, $4A, $00, $04, $1E, $4A
 	db $00
 
-; ---- data $48B2-$4903 (81 bytes) [PROBABLE] sprite frame record: count=20 then 20 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+; ---- data $48B2-$4903 (81 bytes) [PROBABLE] sprite frame record: count=20 then 20 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of CommScene_ObjAnimTable
 
-Data_70_48B2:: ; 70:48B2
+CommScene_ObjAnimEntry1_Frame4:: ; 70:48B2
 	db $14, $00, $00, $10, $06, $00, $08, $12, $06, $00, $10, $14, $06, $00, $18, $16
 	db $06, $10, $00, $18, $06, $10, $08, $1A, $06, $10, $10, $1C, $06, $10, $18, $1E
 	db $06, $00, $00, $00, $05, $00, $08, $02, $05, $00, $10, $04, $05, $00, $18, $06
@@ -76,27 +76,27 @@ Data_70_48B2:: ; 70:48B2
 	db $05, $1C, $18, $48, $00, $FC, $28, $48, $00, $10, $F4, $48, $00, $E8, $04, $48
 	db $00
 
-; ---- data $4903-$4904 (1 bytes) [PROBABLE] sprite frame record: count=0 then 0 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+; ---- data $4903-$4904 (1 bytes) [PROBABLE] sprite frame record: count=0 then 0 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of CommScene_ObjAnimTable
 
-Data_70_4903:: ; 70:4903
+CommScene_ObjAnimEntry1_Frame5:: ; 70:4903
 	db $00
 
-; ---- data $4904-$4911 (13 bytes) [PROBABLE] count=6 then 6 x 2-byte pairs; candidate script referenced by word1 of an entry of Table_70_4832 (Sprite_LoadObjectEntry copies the pointer to slot+6/+7; Sprite_StepAndDrawSlot reads the script index at slot+8)
+; ---- data $4904-$4911 (13 bytes) [PROBABLE] count=6 then 6 x 2-byte pairs; candidate script referenced by word1 of an entry of CommScene_ObjAnimTable (Sprite_LoadObjectEntry copies the pointer to slot+6/+7; Sprite_StepAndDrawSlot reads the script index at slot+8)
 
-Data_70_4904:: ; 70:4904
+CommScene_ObjAnimEntry1_Script:: ; 70:4904
 	db $06, $05, $07, $00, $05, $01, $07, $02, $04, $03, $07, $04, $0A
 
-; ---- ptrtable $4911-$4919 (8 bytes) [PROBABLE] list of 4 frame pointers (word0 of an entry of Table_70_4832); each target is a count-prefixed OAM record
+; ---- ptrtable $4911-$4919 (8 bytes) [PROBABLE] list of 4 frame pointers (word0 of an entry of CommScene_ObjAnimTable); each target is a count-prefixed OAM record
 
-Table_70_4911:: ; 70:4911
-	dw Data_70_4919
-	dw Data_70_497E
-	dw Data_70_49E3
-	dw Data_70_4A50
+CommScene_ObjAnimEntry2_FramePointers:: ; 70:4911
+	dw CommScene_ObjAnimEntry2_Frame0
+	dw CommScene_ObjAnimEntry2_Frame1
+	dw CommScene_ObjAnimEntry2_Frame2
+	dw CommScene_ObjAnimEntry2_Frame3
 
-; ---- data $4919-$497E (101 bytes) [PROBABLE] sprite frame record: count=25 then 25 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+; ---- data $4919-$497E (101 bytes) [PROBABLE] sprite frame record: count=25 then 25 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of CommScene_ObjAnimTable
 
-Data_70_4919:: ; 70:4919
+CommScene_ObjAnimEntry2_Frame0:: ; 70:4919
 	db $19, $04, $18, $3C, $00, $14, $18, $3E, $00, $00, $00, $10, $06, $00, $08, $12
 	db $06, $00, $10, $14, $06, $00, $18, $16, $06, $10, $00, $18, $06, $10, $08, $1A
 	db $06, $10, $10, $1C, $06, $10, $18, $1E, $06, $00, $00, $00, $05, $00, $08, $02
@@ -105,9 +105,9 @@ Data_70_4919:: ; 70:4919
 	db $00, $DC, $04, $3E, $00, $E4, $28, $50, $00, $F4, $28, $52, $00, $F4, $F4, $50
 	db $00, $04, $F4, $52, $00
 
-; ---- data $497E-$49E3 (101 bytes) [PROBABLE] sprite frame record: count=25 then 25 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+; ---- data $497E-$49E3 (101 bytes) [PROBABLE] sprite frame record: count=25 then 25 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of CommScene_ObjAnimTable
 
-Data_70_497E:: ; 70:497E
+CommScene_ObjAnimEntry2_Frame1:: ; 70:497E
 	db $19, $01, $00, $10, $06, $01, $08, $12, $06, $01, $10, $14, $06, $01, $18, $16
 	db $06, $11, $00, $18, $06, $11, $08, $1A, $06, $11, $10, $1C, $06, $11, $18, $1E
 	db $06, $01, $00, $00, $05, $01, $08, $02, $05, $01, $10, $04, $05, $01, $18, $06
@@ -116,9 +116,9 @@ Data_70_497E:: ; 70:497E
 	db $00, $D8, $F4, $50, $00, $E8, $F4, $52, $00, $C8, $28, $50, $00, $D8, $28, $52
 	db $00, $34, $28, $50, $00
 
-; ---- data $49E3-$4A50 (109 bytes) [PROBABLE] sprite frame record: count=27 then 27 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+; ---- data $49E3-$4A50 (109 bytes) [PROBABLE] sprite frame record: count=27 then 27 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of CommScene_ObjAnimTable
 
-Data_70_49E3:: ; 70:49E3
+CommScene_ObjAnimEntry2_Frame2:: ; 70:49E3
 	db $1B, $02, $00, $10, $06, $02, $08, $12, $06, $02, $10, $14, $06, $02, $18, $16
 	db $06, $12, $00, $18, $06, $12, $08, $1A, $06, $12, $10, $1C, $06, $12, $18, $1E
 	db $06, $02, $00, $00, $05, $02, $08, $02, $05, $02, $10, $04, $05, $02, $18, $06
@@ -127,9 +127,9 @@ Data_70_49E3:: ; 70:49E3
 	db $00, $DC, $18, $3E, $00, $BC, $F4, $50, $00, $CC, $F4, $52, $00, $1C, $28, $50
 	db $20, $2C, $28, $52, $20, $2C, $F4, $50, $00, $3C, $F4, $56, $00
 
-; ---- data $4A50-$4AB9 (105 bytes) [PROBABLE] sprite frame record: count=26 then 26 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+; ---- data $4A50-$4AB9 (105 bytes) [PROBABLE] sprite frame record: count=26 then 26 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of CommScene_ObjAnimTable
 
-Data_70_4A50:: ; 70:4A50
+CommScene_ObjAnimEntry2_Frame3:: ; 70:4A50
 	db $1A, $20, $18, $3C, $00, $30, $18, $3E, $00, $01, $00, $10, $06, $01, $08, $12
 	db $06, $01, $10, $14, $06, $01, $18, $16, $06, $11, $00, $18, $06, $11, $08, $1A
 	db $06, $11, $10, $1C, $06, $11, $18, $1E, $06, $01, $00, $00, $05, $01, $08, $02
@@ -138,24 +138,24 @@ Data_70_4A50:: ; 70:4A50
 	db $00, $10, $F4, $50, $00, $20, $F4, $52, $00, $00, $28, $50, $00, $10, $28, $52
 	db $00, $B4, $18, $3C, $00, $C4, $18, $3E, $00
 
-; ---- data $4AB9-$4AC2 (9 bytes) [PROBABLE] count=4 then 4 x 2-byte pairs; candidate script referenced by word1 of an entry of Table_70_4832 (Sprite_LoadObjectEntry copies the pointer to slot+6/+7; Sprite_StepAndDrawSlot reads the script index at slot+8)
+; ---- data $4AB9-$4AC2 (9 bytes) [PROBABLE] count=4 then 4 x 2-byte pairs; candidate script referenced by word1 of an entry of CommScene_ObjAnimTable (Sprite_LoadObjectEntry copies the pointer to slot+6/+7; Sprite_StepAndDrawSlot reads the script index at slot+8)
 
-Data_70_4AB9:: ; 70:4AB9
+CommScene_ObjAnimEntry2_Script:: ; 70:4AB9
 	db $04, $00, $0C, $01, $0C, $02, $0C, $03, $0C
 
-; ---- ptrtable $4AC2-$4ACE (12 bytes) [PROBABLE] list of 6 frame pointers (word0 of an entry of Table_70_4832); each target is a count-prefixed OAM record
+; ---- ptrtable $4AC2-$4ACE (12 bytes) [PROBABLE] list of 6 frame pointers (word0 of an entry of CommScene_ObjAnimTable); each target is a count-prefixed OAM record
 
-Table_70_4AC2:: ; 70:4AC2
-	dw Data_70_4ACE
-	dw Data_70_4B1F
-	dw Data_70_4B48
-	dw Data_70_4B61
-	dw Data_70_4B72
-	dw Data_70_4B7B
+CommScene_ObjAnimEntry3_FramePointers:: ; 70:4AC2
+	dw CommScene_ObjAnimEntry3_Frame0
+	dw CommScene_ObjAnimEntry3_Frame1
+	dw CommScene_ObjAnimEntry3_Frame2
+	dw CommScene_ObjAnimEntry3_Frame3
+	dw CommScene_ObjAnimEntry3_Frame4
+	dw CommScene_ObjAnimEntry3_Frame5
 
-; ---- data $4ACE-$4B1F (81 bytes) [PROBABLE] sprite frame record: count=20 then 20 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+; ---- data $4ACE-$4B1F (81 bytes) [PROBABLE] sprite frame record: count=20 then 20 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of CommScene_ObjAnimTable
 
-Data_70_4ACE:: ; 70:4ACE
+CommScene_ObjAnimEntry3_Frame0:: ; 70:4ACE
 	db $14, $18, $18, $48, $00, $00, $00, $10, $06, $00, $08, $12, $06, $00, $10, $14
 	db $06, $00, $18, $16, $06, $10, $00, $18, $06, $10, $08, $1A, $06, $10, $10, $1C
 	db $06, $10, $18, $1E, $06, $00, $00, $00, $05, $00, $08, $02, $05, $00, $10, $04
@@ -163,53 +163,53 @@ Data_70_4ACE:: ; 70:4ACE
 	db $05, $10, $18, $0E, $05, $F8, $28, $4A, $00, $E0, $04, $48, $00, $08, $F0, $4A
 	db $00
 
-; ---- data $4B1F-$4B48 (41 bytes) [PROBABLE] sprite frame record: count=10 then 10 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+; ---- data $4B1F-$4B48 (41 bytes) [PROBABLE] sprite frame record: count=10 then 10 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of CommScene_ObjAnimTable
 
-Data_70_4B1F:: ; 70:4B1F
+CommScene_ObjAnimEntry3_Frame1:: ; 70:4B1F
 	db $0A, $00, $00, $20, $00, $00, $08, $22, $00, $00, $10, $24, $00, $00, $18, $26
 	db $00, $10, $00, $28, $00, $10, $08, $2A, $00, $10, $10, $2C, $00, $10, $18, $2E
 	db $00, $E3, $04, $4A, $00, $20, $18, $4A, $00
 
-; ---- data $4B48-$4B61 (25 bytes) [PROBABLE] sprite frame record: count=6 then 6 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+; ---- data $4B48-$4B61 (25 bytes) [PROBABLE] sprite frame record: count=6 then 6 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of CommScene_ObjAnimTable
 
-Data_70_4B48:: ; 70:4B48
+CommScene_ObjAnimEntry3_Frame2:: ; 70:4B48
 	db $06, $00, $04, $30, $00, $00, $0C, $32, $00, $00, $14, $34, $00, $10, $04, $36
 	db $00, $10, $0C, $38, $00, $10, $14, $3A, $00
 
-; ---- data $4B61-$4B72 (17 bytes) [PROBABLE] sprite frame record: count=4 then 4 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+; ---- data $4B61-$4B72 (17 bytes) [PROBABLE] sprite frame record: count=4 then 4 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of CommScene_ObjAnimTable
 
-Data_70_4B61:: ; 70:4B61
+CommScene_ObjAnimEntry3_Frame3:: ; 70:4B61
 	db $04, $00, $08, $42, $00, $00, $10, $42, $20, $10, $08, $42, $40, $10, $10, $42
 	db $60
 
-; ---- data $4B72-$4B7B (9 bytes) [PROBABLE] sprite frame record: count=2 then 2 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+; ---- data $4B72-$4B7B (9 bytes) [PROBABLE] sprite frame record: count=2 then 2 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of CommScene_ObjAnimTable
 
-Data_70_4B72:: ; 70:4B72
+CommScene_ObjAnimEntry3_Frame4:: ; 70:4B72
 	db $02, $F0, $0C, $40, $00, $00, $0C, $40, $40
 
-; ---- data $4B7B-$4B84 (9 bytes) [PROBABLE] sprite frame record: count=2 then 2 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+; ---- data $4B7B-$4B84 (9 bytes) [PROBABLE] sprite frame record: count=2 then 2 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of CommScene_ObjAnimTable
 
-Data_70_4B7B:: ; 70:4B7B
+CommScene_ObjAnimEntry3_Frame5:: ; 70:4B7B
 	db $02, $C0, $0C, $40, $00, $D0, $0C, $40, $40
 
-; ---- data $4B84-$4B91 (13 bytes) [PROBABLE] count=6 then 6 x 2-byte pairs; candidate script referenced by word1 of an entry of Table_70_4832 (Sprite_LoadObjectEntry copies the pointer to slot+6/+7; Sprite_StepAndDrawSlot reads the script index at slot+8)
+; ---- data $4B84-$4B91 (13 bytes) [PROBABLE] count=6 then 6 x 2-byte pairs; candidate script referenced by word1 of an entry of CommScene_ObjAnimTable (Sprite_LoadObjectEntry copies the pointer to slot+6/+7; Sprite_StepAndDrawSlot reads the script index at slot+8)
 
-Data_70_4B84:: ; 70:4B84
+CommScene_ObjAnimEntry3_Script:: ; 70:4B84
 	db $06, $00, $0A, $01, $07, $02, $05, $03, $07, $04, $05, $05, $05
 
-; ---- ptrtable $4B91-$4B9D (12 bytes) [PROBABLE] list of 6 frame pointers (word0 of an entry of Table_70_4832); each target is a count-prefixed OAM record
+; ---- ptrtable $4B91-$4B9D (12 bytes) [PROBABLE] list of 6 frame pointers (word0 of an entry of CommScene_ObjAnimTable); each target is a count-prefixed OAM record
 
-Table_70_4B91:: ; 70:4B91
-	dw Data_70_4B9D
-	dw Data_70_4BEE
-	dw Data_70_4C17
-	dw Data_70_4C30
-	dw Data_70_4C41
-	dw Data_70_4C4A
+CommScene_ObjAnimEntry4_FramePointers:: ; 70:4B91
+	dw CommScene_ObjAnimEntry4_Frame0
+	dw CommScene_ObjAnimEntry4_Frame1
+	dw CommScene_ObjAnimEntry4_Frame2
+	dw CommScene_ObjAnimEntry4_Frame3
+	dw CommScene_ObjAnimEntry4_Frame4
+	dw CommScene_ObjAnimEntry4_Frame5
 
-; ---- data $4B9D-$4BEE (81 bytes) [PROBABLE] sprite frame record: count=20 then 20 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+; ---- data $4B9D-$4BEE (81 bytes) [PROBABLE] sprite frame record: count=20 then 20 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of CommScene_ObjAnimTable
 
-Data_70_4B9D:: ; 70:4B9D
+CommScene_ObjAnimEntry4_Frame0:: ; 70:4B9D
 	db $14, $18, $18, $48, $00, $00, $00, $10, $06, $00, $08, $12, $06, $00, $10, $14
 	db $06, $00, $18, $16, $06, $10, $00, $18, $06, $10, $08, $1A, $06, $10, $10, $1C
 	db $06, $10, $18, $1E, $06, $00, $00, $00, $05, $00, $08, $02, $05, $00, $10, $04
@@ -217,38 +217,38 @@ Data_70_4B9D:: ; 70:4B9D
 	db $05, $10, $18, $0E, $05, $F8, $28, $4A, $00, $E0, $04, $48, $00, $08, $F0, $4A
 	db $00
 
-; ---- data $4BEE-$4C17 (41 bytes) [PROBABLE] sprite frame record: count=10 then 10 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+; ---- data $4BEE-$4C17 (41 bytes) [PROBABLE] sprite frame record: count=10 then 10 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of CommScene_ObjAnimTable
 
-Data_70_4BEE:: ; 70:4BEE
+CommScene_ObjAnimEntry4_Frame1:: ; 70:4BEE
 	db $0A, $00, $00, $20, $00, $00, $08, $22, $00, $00, $10, $24, $00, $00, $18, $26
 	db $00, $10, $00, $28, $00, $10, $08, $2A, $00, $10, $10, $2C, $00, $10, $18, $2E
 	db $00, $E3, $04, $4A, $00, $20, $18, $4A, $00
 
-; ---- data $4C17-$4C30 (25 bytes) [PROBABLE] sprite frame record: count=6 then 6 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+; ---- data $4C17-$4C30 (25 bytes) [PROBABLE] sprite frame record: count=6 then 6 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of CommScene_ObjAnimTable
 
-Data_70_4C17:: ; 70:4C17
+CommScene_ObjAnimEntry4_Frame2:: ; 70:4C17
 	db $06, $00, $04, $30, $00, $00, $0C, $32, $00, $00, $14, $34, $00, $10, $04, $36
 	db $00, $10, $0C, $38, $00, $10, $14, $3A, $00
 
-; ---- data $4C30-$4C41 (17 bytes) [PROBABLE] sprite frame record: count=4 then 4 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+; ---- data $4C30-$4C41 (17 bytes) [PROBABLE] sprite frame record: count=4 then 4 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of CommScene_ObjAnimTable
 
-Data_70_4C30:: ; 70:4C30
+CommScene_ObjAnimEntry4_Frame3:: ; 70:4C30
 	db $04, $00, $08, $42, $00, $00, $10, $42, $20, $10, $08, $42, $40, $10, $10, $42
 	db $60
 
-; ---- data $4C41-$4C4A (9 bytes) [PROBABLE] sprite frame record: count=2 then 2 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+; ---- data $4C41-$4C4A (9 bytes) [PROBABLE] sprite frame record: count=2 then 2 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of CommScene_ObjAnimTable
 
-Data_70_4C41:: ; 70:4C41
+CommScene_ObjAnimEntry4_Frame4:: ; 70:4C41
 	db $02, $10, $0C, $40, $00, $20, $0C, $40, $40
 
-; ---- data $4C4A-$4C4F (5 bytes) [PROBABLE] sprite frame record: count=1 then 1 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+; ---- data $4C4A-$4C4F (5 bytes) [PROBABLE] sprite frame record: count=1 then 1 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of CommScene_ObjAnimTable
 
-Data_70_4C4A:: ; 70:4C4A
+CommScene_ObjAnimEntry4_Frame5:: ; 70:4C4A
 	db $01, $34, $0C, $40, $00
 
-; ---- data $4C4F-$4C5C (13 bytes) [PROBABLE] count=6 then 6 x 2-byte pairs; candidate script referenced by word1 of an entry of Table_70_4832 (Sprite_LoadObjectEntry copies the pointer to slot+6/+7; Sprite_StepAndDrawSlot reads the script index at slot+8)
+; ---- data $4C4F-$4C5C (13 bytes) [PROBABLE] count=6 then 6 x 2-byte pairs; candidate script referenced by word1 of an entry of CommScene_ObjAnimTable (Sprite_LoadObjectEntry copies the pointer to slot+6/+7; Sprite_StepAndDrawSlot reads the script index at slot+8)
 
-Data_70_4C4F:: ; 70:4C4F
+CommScene_ObjAnimEntry4_Script:: ; 70:4C4F
 	db $06, $00, $0A, $01, $07, $02, $05, $03, $07, $04, $05, $05, $05
 
 ; ---- ptrtable $4C5C-$4C64 (8 bytes) [PROBABLE] animation table: 2 entries x 4 bytes (2 pointers each; entry 0 may be null), structurally matches Sprite_LoadObjectEntry (00:0AB8): word0 = list of frame pointers, word1 = candidate animation script. Sprite_InitSlot (00:0A82) passes B as A; the reader's AND $7F followed by two byte ADDs selects the low 6 bits. No executed caller found; same format as CONFIRMED tables 534C/53EB; every pointer lands on a record start
