@@ -130,7 +130,7 @@ Dev_TestConfigImage:: ; 68:4EA7
 ; ---- text $4EF1-$4F05 (20 bytes) [PROBABLE] ASCII "211.005.001.117" NUL + NUL padding (IP address-like string) inside the 192-byte record 4EA7-4F67 copied to $D000 by 68:4E6A
 
 PUSHC sjis
-String_68_4EF1:: ; 68:4EF1
+String_DevTestConfigImage_IpAddressText:: ; 68:4EF1
 	db "211.005.001.117", 0
 POPC
 	ds $4, $00 ; padding
@@ -138,7 +138,7 @@ POPC
 ; ---- text $4F05-$4F17 (18 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
-String_68_4F05:: ; 68:4F05
+String_DevTestConfigImage_PopServerHostText:: ; 68:4F05
 	db "pop.d6.dion.ne.jp", 0
 POPC
 
@@ -160,7 +160,7 @@ Dev_TestConfigImage_DialSlot0Bcd:: ; 68:4F1D
 ; ---- text $4F25-$4F35 (16 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
-String_68_4F25:: ; 68:4F25
+String_DevTestConfigImage_VendorLabel:: ; 68:4F25
 	db "NINTENDO TEST  ", 0
 POPC
 

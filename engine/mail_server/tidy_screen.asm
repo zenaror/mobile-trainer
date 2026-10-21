@@ -1192,7 +1192,7 @@ POPC
 ; ---- text $53C1-$53DA (25 bytes) [PROBABLE] second line of the message record (12 full-width spaces $8140 + NUL), same layout as 2E:5410/545F/55A8: line 1 string, blank line, then the function that far-calls the text drawer
 
 PUSHC sjis
-String_2E_53C1:: ; 2E:53C1
+String_MailServerMgr_CandidateLoadingBlankLine:: ; 2E:53C1
 	db "　　　　　　　　　　　　", 0
 POPC
 
@@ -1228,7 +1228,7 @@ POPC
 ; ---- text $5410-$5429 (25 bytes) [PROBABLE] blank second line of a message record (12 full-width spaces $8140 + NUL) between the string before it and the message function after it (same as 2E:53C1); cp932-valid
 
 PUSHC sjis
-String_2E_5410:: ; 2E:5410
+String_MailServerMgr_CandidateNoMailBlankLine:: ; 2E:5410
 	db "　　　　　　　　　　　　", 0
 POPC
 
@@ -1259,7 +1259,7 @@ POPC
 ; ---- text $545F-$5478 (25 bytes) [PROBABLE] blank second line of a message record (12 full-width spaces $8140 + NUL) between the string before it and the message function after it (same as 2E:53C1); cp932-valid
 
 PUSHC sjis
-String_2E_545F:: ; 2E:545F
+String_MailServerMgr_CandidateDeletingBlankLine:: ; 2E:545F
 	db "　　　　　　　　　　　　", 0
 POPC
 

@@ -3091,7 +3091,7 @@ This establishes the static pointer relationship and message contents
 selection; this pass does not upgrade natural-execution evidence. Bytes and
 record extents are unchanged.
 
-The updated exact-prefix census is 63 Data labels in 41 owners, 80 String, 0
+The updated exact-prefix census is 63 Data labels in 41 owners, 33 String, 0
 Table, 41 Tiles, 24 Tilemap, 4 Attrmap and 25 Palette; exact Function, Font,
 and Label remain zero. The Japanese ROM build is `RESULT: IDENTICAL` with SHA
 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
@@ -3126,3 +3126,18 @@ T78 symbols (1). Page association comes from the existing page-pointer table;
 row boundaries are **PROBABLE** where they rely on NUL/blank separators. No
 bytes, directives, page pointers or existing confidence annotations changed.
 The empty leading segments are named as blank rows, not as proven padding.
+
+## Small text owners: test image, mail grid and server messages (2026-10-21)
+
+Eight further neutral strings now have content-oriented names. The three
+strings inside `Dev_TestConfigImage` identify the literal IPv4-like text,
+POP-host text and `NINTENDO TEST` vendor label; they do not prove installer
+execution or the full field mapping. `String_MailGrid_SenderAndPlayLabels`
+describes the two Japanese strings at `2B:57B5`; there is no demonstrated
+reader. `String_MailGrid_CandidateBlankText` describes the six full-width
+spaces loaded at `2B:5807`; a natural display role remains uncertain. Three
+all-space strings in `2E:53C1`, `5410`, and `545F` are now candidate blank lines
+named by their neighboring message groups; the comments retain that their
+individual consumption is not proven. The encoded data and boundaries are
+unchanged. These changes lower the exact generic `String_BB_AAAA` census by
+eight, from 41 to 33.

@@ -588,7 +588,7 @@ MailGrid_ShowCellDetails:: ; 2B:56CB
 ; ---- text $57B5-$57CB (22 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
-String_2B_57B5:: ; 2B:57B5
+String_MailGrid_SenderAndPlayLabels:: ; 2B:57B5
 	db "そうしんしゃ", 0
 	db "あそぼう", 0
 POPC
@@ -623,11 +623,11 @@ Fill99E1Pattern46_Draw5807TwiceAndUpload:: ; 2B:57CB [PROBABLE] operation; entry
 	push bc
 	ld bc, $0200
 	ld de, $0408
-	ld hl, String_2B_5807
+	ld hl, String_MailGrid_CandidateBlankText
 	call MailGrid_DrawTextLine12
 	ld bc, $0200
 	ld de, $0458
-	ld hl, String_2B_5807
+	ld hl, String_MailGrid_CandidateBlankText
 	call MailGrid_DrawTextLine12
 	call MailGrid_UploadTextTiles
 	pop bc
@@ -639,7 +639,7 @@ Fill99E1Pattern46_Draw5807TwiceAndUpload:: ; 2B:57CB [PROBABLE] operation; entry
 ; ---- text $5807-$5814 (13 bytes) [PROBABLE] Shift-JIS NUL-terminated string: 6 x 81 40 (full-width space) + NUL; loaded at 2B:57EF and 2B:57FB by Fill99E1Pattern46_Draw5807TwiceAndUpload, then read by MailGrid_DrawTextLine12; intended display role remains uncertain
 
 PUSHC sjis
-String_2B_5807:: ; 2B:5807
+String_MailGrid_CandidateBlankText:: ; 2B:5807
 	db "　　　　　　", 0
 POPC
 
