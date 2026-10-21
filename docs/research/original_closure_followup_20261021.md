@@ -162,3 +162,23 @@ comment. The frozen region table and dated history remain unchanged. That
 source edit is pending a safe validation route because the standard symbol
 check traverses the protected mail sample. These reviews made no tracked
 source changes and ran no builds.
+
+## Bank53 name-consumer trace and scope correction (2026-10-21)
+
+A Japanese-only static trace checked six literal `$53` contacts at `68:66E2`,
+`24:458F`, `24:4716`, `24:4733`, `24:50C8` and `24:5372`. In the examined
+flows `$53` supplies coordinates; bank and indirect pointer values come from
+separate fields. No bank53 consumer was demonstrated, and all 25
+name-to-frame associations remain HYPOTHESIS. The report and result are
+retained under `.tmp/agent-bank53-name-consumer-20261021/` (report SHA-256
+`abcfab2608126ff783fa2044d66ad2bea6c44e29b905c1a9f69a8a4ec514485f`);
+computed-pointer limits and two weak numeric candidates remain open.
+
+Scope incident: an initial private-copy filter failed to exclude `languages/`
+and transiently copied and hashed 565 files (1,863,145 bytes); one broad macro
+search may also have read them. The search output was discarded, no English
+content was semantically analyzed or used, and the task-created copies were
+removed with the receipt retained in the private report. The corrected
+Japanese source set explicitly excludes `languages/`. No translation files
+were changed, built or published. `engine/mail/sample_data.asm` was not copied
+or opened.
