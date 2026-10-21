@@ -7,7 +7,7 @@ SECTION "gfx/browser/page_list", ROMX
 ; ---- gfx $5400-$55D0 (464 bytes) [CONFIRMED] 2bpp tiles by coherence: 29 non-blank tiles, mean adjacent-pixel similarity h=0.67 v=0.50 (random data ~0.25-0.35); part of the 1024-byte block 5400-5800 uploaded by Gfx_StartHDMA (general HDMA start: hl=$5400 a=$24 c=$40 de=$9301) at 24:432C; call site executed: 40 hits in 9 scenarios (analysis/coverage_union.tsv)
 
 PageList_Tiles_5400:: ; 24:5400
-Tiles_24_5400::
+
 	INCBIN "gfx/browser/page_list/page_list_tiles_5400.2bpp"
 
 ; ---- gfx $55D0-$5810 (576 bytes) [PROBABLE] tiles-2bpp: heuristic: 33 coherent tiles (hsim2=0.738 vsim2=0.702, 1 blank) parity 0
@@ -41,13 +41,13 @@ PageList_Tilemap_5BD0:: ; 24:5BD0
 ; ---- data $5EA0-$5EE0 (64 bytes) [CONFIRMED] 64-byte RGB555 palette block copied by Palette_LoadToBuffer (-> 00:050C copy; hl=$5EA0 a=$24 bc=$0040 de=$D800, WRAM7 BG palette buffer) at 24:4393; call site executed: 40 hits in 9 scenarios (analysis/coverage_union.tsv); replaces the mapper palette guess 5EC6-5EDE
 
 PageList_BgPalette:: ; 24:5EA0
-Palette_24_5EA0::
+
 	INCLUDE "gfx/browser/page_list/page_list_bg_palette.pal"
 
 ; ---- gfx $5EE0-$5EF1 (17 bytes) [CONFIRMED] 2bpp tiles (too few non-blank tiles to score); first bytes of the 1024-byte block 5EE0-62E0 uploaded by Gfx_StartHDMA (hl=$5EE0 a=$24 c=$40 de=$8000) at 24:4356; call site executed: 40 hits in 9 scenarios (analysis/coverage_union.tsv)
 
 PageList_Tiles_5EE0:: ; 24:5EE0
-Tiles_24_5EE0::
+
 	db $FF, $FF, $FF, $8A, $FF, $FF, $FF, $8B, $FF, $FA, $FB, $F7, $F5, $8D, $F8, $F8
 	db $BE
 
@@ -79,7 +79,7 @@ Tiles_24_63E0:: ; 24:63E0
 ; ---- data $64E0-$6520 (64 bytes) [CONFIRMED] 64-byte RGB555 palette block copied by Palette_LoadToBuffer (hl=$64E0 a=$24 bc=$0040 de=$D840, WRAM7 OBJ palette buffer) at 24:437F; call site executed: 40 hits in 9 scenarios (analysis/coverage_union.tsv); replaces the mapper guess 64DC-65EC (136 words) which swallowed the sprite tables below
 
 PageList_ObjPalette:: ; 24:64E0
-Palette_24_64E0::
+
 	INCLUDE "gfx/browser/page_list/page_list_obj_palette.pal"
 
 ; ---- data $6520-$6530 (16 bytes) [HYPOTHESIS] 16 bytes = 4 x the pair $6E50/$6E76; same 4x-repeated row shape as the object-table rows at 6530+, but the targets fall inside tile data (6BF0-6FF0) so it is not one of them; meaning unknown
@@ -90,7 +90,7 @@ Data_24_6520:: ; 24:6520
 ; ---- words $6530-$65C0 (144 bytes) [PROBABLE] sprite object table: 4-byte entries (frame-table ptr, animation-script ptr) indexed by B&7F, the layout read by init_object_from_table 00:0A82/00:0AB8; rows of 16 bytes = the same entry repeated 4 times; base $6530 is passed as de with a=$24 at call sites listed in analysis/gfx_candidates.tsv (object-table); entries 65C0/667A 65C0/667A 65C0/667A 65C0/667A
 
 PageList_ObjTable:: ; 24:6530
-Table_24_6530::
+
 	sprite_object_entry PageList_Anim0Frames, PageList_Anim0Script ; entry 0
 	sprite_object_entry PageList_Anim0Frames, PageList_Anim0Script ; entry 1
 	sprite_object_entry PageList_Anim0Frames, PageList_Anim0Script ; entry 2
@@ -139,7 +139,7 @@ PageList_ObjTable_Entry32:: ; 24:65B0
 ; ---- words $65C0-$65CC (12 bytes) [PROBABLE] sprite frame table: 6 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 PageList_Anim0Frames:: ; 24:65C0
-Table_24_65C0::
+
 	sprite_frame_table PageList_Anim0Frame0, PageList_Anim0Frame1, PageList_Anim0Frame2, PageList_Anim0Frame3
 	sprite_frame_table PageList_Anim0Frame4, PageList_Anim0Frame5
 
@@ -231,7 +231,7 @@ PageList_Anim0Script:: ; 24:667A
 ; ---- words $6686-$6688 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 PageList_Anim8Frames:: ; 24:6686
-Table_24_6686::
+
 	sprite_frame_table PageList_Anim8Frame0
 
 ; ---- data $6688-$6695 (13 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 3 piece(s); length tiles exactly against the frame-table pointers
@@ -251,7 +251,7 @@ PageList_Anim8Script:: ; 24:6695
 ; ---- words $6698-$66A4 (12 bytes) [PROBABLE] sprite frame table: 6 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 PageList_Anim4Frames:: ; 24:6698
-Table_24_6698::
+
 	sprite_frame_table PageList_Anim4Frame0, PageList_Anim4Frame1, PageList_Anim4Frame2, PageList_Anim4Frame3
 	sprite_frame_table PageList_Anim4Frame4, PageList_Anim4Frame5
 
@@ -343,7 +343,7 @@ PageList_Anim4Script:: ; 24:6752
 ; ---- words $675E-$6760 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 PageList_Anim12Frames:: ; 24:675E
-Table_24_675E::
+
 	sprite_frame_table PageList_Anim12Frame0
 
 ; ---- data $6760-$676D (13 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 3 piece(s); length tiles exactly against the frame-table pointers
@@ -363,7 +363,7 @@ PageList_Anim12Script:: ; 24:676D
 ; ---- words $6770-$677E (14 bytes) [PROBABLE] sprite frame table: 7 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 PageList_Anim28Frames:: ; 24:6770
-Table_24_6770::
+
 	sprite_frame_table PageList_Anim28Frame0, PageList_Anim28Frame1, PageList_Anim28Frame2, PageList_Anim28Frame3
 	sprite_frame_table PageList_Anim28Frame4, PageList_Anim28Frame5, PageList_Anim28Frame6
 
@@ -474,7 +474,7 @@ PageList_Anim28Script:: ; 24:685D
 ; ---- words $686D-$687D (16 bytes) [PROBABLE] sprite frame table: 8 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 PageList_Anim32Frames:: ; 24:686D
-Table_24_686D::
+
 	sprite_frame_table PageList_Anim32Frame0, PageList_Anim32Frame1, PageList_Anim32Frame2, PageList_Anim32Frame3
 	sprite_frame_table PageList_Anim32Frame4, PageList_Anim32Frame5, PageList_Anim32Frame6, PageList_Anim32Frame7
 
@@ -701,7 +701,7 @@ Data_24_6B11:: ; 24:6B11
 ; ---- words $6B19-$6B1D (4 bytes) [PROBABLE] sprite frame table: 2 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 PageList_Anim16Frames:: ; 24:6B19
-Table_24_6B19::
+
 	sprite_frame_table PageList_Anim16Frame0, PageList_Anim16Frame1
 
 ; ---- data $6B1D-$6B3A (29 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 7 piece(s); length tiles exactly against the frame-table pointers
@@ -738,7 +738,7 @@ PageList_Anim16Script:: ; 24:6B57
 ; ---- words $6B5C-$6B60 (4 bytes) [PROBABLE] sprite frame table: 2 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 PageList_Anim20Frames:: ; 24:6B5C
-Table_24_6B5C::
+
 	sprite_frame_table PageList_Anim20Frame0, PageList_Anim20Frame1
 
 ; ---- data $6B60-$6B7D (29 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 7 piece(s); length tiles exactly against the frame-table pointers
@@ -775,7 +775,7 @@ PageList_Anim20Script:: ; 24:6B9A
 ; ---- words $6B9F-$6BA3 (4 bytes) [PROBABLE] sprite frame table: 2 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 PageList_Anim24Frames:: ; 24:6B9F
-Table_24_6B9F::
+
 	sprite_frame_table PageList_Anim24Frame0, PageList_Anim24Frame1
 
 ; ---- data $6BA3-$6BC0 (29 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 7 piece(s); length tiles exactly against the frame-table pointers

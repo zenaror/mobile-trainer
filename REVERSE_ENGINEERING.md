@@ -271,6 +271,9 @@ under its existing `SoundSong19_*` labels; the 455-line owner is unchanged.
 In the page-list prototype, 15 string/table aliases were retired under existing
 names; the palette alias anchoring the `.loop` local scope remains. See the
 [prototype alias audit](docs/research/page_list_prototype_aliases_20261021.md).
+The browser page-list graphics owner also lost 14 exact-address tile, palette
+and frame-table aliases under existing `PageList_*` names; source lines and
+assets remain in place.
 
 The same audit renamed the positioned `$0020` word at `5C:5144` to
 `CommErr_MessageSlot32RawWord`. The slot is confirmed structurally; the value's purpose remains
