@@ -1856,3 +1856,13 @@ rows, including tilemap attribute maps that share their tilemap's base label.
 Source bytes, graphics paths, bank/address ranges and confidence levels are
 unchanged. The heuristic-only `Data_66_6A90` span and the unknown-content data
 at `Data_66_7190` retain their neutral names.
+
+## Bank 62 keyboard resource aliases (2026-10-21)
+
+Retired 12 same-address `Data_62_*` exports from
+`gfx/keyboard/tiles_bank62.asm`. Each shared its address with an existing
+page/VRAM-specific `Gfx_Kbd_T78_*` label. The maintained-source and tool scan
+found active references only in the owner and `gfx/assets.tsv`; the 12 asset
+rows now use the retained source labels. No data bytes, paths, address ranges
+or confidence levels changed. Four heuristic partial-tile spans at `4A40`,
+`5540`, `6040` and `6B40` remain neutral.
