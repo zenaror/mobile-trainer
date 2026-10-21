@@ -172,6 +172,8 @@ immediate keyboard entry. Both later use titleA0 initially, titleA1 after bodyFF
 and the same body editor. A0 is not a clear-buffer promise: both address/title
 editors preserve the selector to their explicit1 tests at2D:65F9/2C:4031.
 The name does not imply a fresh subject, quoting, Re: prefix, full erase or send.
+The source comment on the `$D400` immediate now records only this measured
+36-byte WRAM1 wipe; its full role remains unproved.
 
 The original four-POP transfer stays explicit. With S=entry SP, balanced callees,
 valid nonaliasing stack and coherent mapper/state, body result other than0/FF

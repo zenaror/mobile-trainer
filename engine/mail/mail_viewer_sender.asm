@@ -1231,7 +1231,7 @@ MailReply_ComposeFromRecord:: ; 2B:6CF5 [PROBABLE] reply from record; entry unpr
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $D400 ; raw: unreferenced function (HYPOTHESIS) that clears $24 bytes at $D400 of bank 1: not shown to be the body buffer or the mail info record
+	ld hl, $D400 ; clears $24 bytes at WRAM1:$D400-$D423; the full purpose of this short wipe remains unproved
 	ld b, $24
 .l6D0F ; 2B:6D0F
 	xor a, a
