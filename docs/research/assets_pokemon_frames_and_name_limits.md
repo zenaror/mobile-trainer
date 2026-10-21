@@ -402,3 +402,24 @@ fresh script did not invoke Git or runtime tools. This resolves the prior
 snapshot-authentication gap for these bounded checks; it does not establish
 global asset completeness, natural use, universal reader absence or unused
 status.
+
+### Follow-up: bank53 name consumers and source completeness (2026-10-21)
+
+The Japanese bank53 block remains exactly 25 little-endian pointers plus 25
+strings (`53:4000-4171`, 369 bytes). Re-emission matches every byte of the
+original block. In the six maintained Japanese source roots, exact-symbol
+search found only the 25 pointer words themselves and no named external
+reference to `Table_PokemonNamePointers`; computed or indirect consumers remain
+possible, so this is not proof that the data is unread. No ordinal-to-frame
+association is supported: the inspected style producers and frame descriptor
+table do not select bank53, while one preview entry's natural caller remains
+unproved. Do not associate names and pictures by list order.
+
+For the bounded bank41–47 frame resources, all 137 active source assets remain
+present and reproduce their declared ROM bytes. All 24 legacy browser-frame
+preview PNGs and the separate `47:68F0` window's existing `47:72F0` editing
+view are present. The eight KEEP windows still lack editable PNG rows; they
+have their older legacy previews, so this is an editing-view omission rather
+than a missing ROM source asset or missing preview file. The 25 candidate
+windows have exact source-byte accounting; this finite scan does not establish
+that every screen asset in the ROM has been found or naturally selected.
