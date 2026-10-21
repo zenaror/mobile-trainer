@@ -1797,3 +1797,16 @@ physical line count is unchanged. `make` reports `SHA-256 OK` and
 `make sym-check` passes with 12,832 labels and 51 constants.
 `make palette-check` passes with 162 loads, 116 arrays, two documented
 over-reads and zero errors. No asset bytes or confidence labels changed.
+
+## Bank 4B account result page aliases (2026-10-21)
+
+Retired the unused same-address aliases `Data_4B_42D0`, `Data_4B_46D0`, and
+`Data_4B_5898` from `gfx/account/screens_bank4b.asm`. The corresponding
+descriptive labels already name the confirmed upload resources and tilemap;
+`engine/account/result_page.asm` uses those descriptive labels directly.
+The assembly-root reference scan found no other source consumers for the
+retired aliases. Updated the four affected `gfx/assets.tsv` rows, including
+the attribute map row that shares the tilemap's base label. No bytes, paths,
+or resource classifications changed. Other labels in the owner, including
+`Data_4B_5080`, `Data_4B_5400`, and `Data_4B_5420`, remain neutral because they
+do not have an equally strong descriptive co-label.

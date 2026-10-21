@@ -61,10 +61,10 @@ gfx/account/screens_bank4a/tiles_5860.2bpp	tiles	16	gfx/account/screens_bank4a.a
 gfx/account/screens_bank4a/tiles_5870.2bpp	tiles	1024	gfx/account/screens_bank4a.asm	4A	5870	CONFIRMED	exact	0		Data_4A_5870
 gfx/account/screens_bank4b/account_result_page_bg.pal	palette	40	gfx/account/screens_bank4b.asm	4B	5870	CONFIRMED	-	0		Palette_Account_ResultPage_Bg
 gfx/account/screens_bank4b/account_result_page_tiles4ad0.2bpp	tiles	1456	gfx/account/screens_bank4b.asm	4B	4AD0	CONFIRMED	exact	0		Gfx_Account_ResultPage_Tiles4AD0
-gfx/account/screens_bank4b/tilemap_5898.attrmap	attrmap	360	gfx/account/screens_bank4b.asm	4B	5A00	CONFIRMED	-	0	20x18	Data_4B_5898
-gfx/account/screens_bank4b/tilemap_5898.tilemap	tilemap	360	gfx/account/screens_bank4b.asm	4B	5898	CONFIRMED	-	0	20x18	Data_4B_5898
-gfx/account/screens_bank4b/tiles_42d0.2bpp	tiles	1024	gfx/account/screens_bank4b.asm	4B	42D0	CONFIRMED	exact	0		Data_4B_42D0
-gfx/account/screens_bank4b/tiles_46d0.2bpp	tiles	1024	gfx/account/screens_bank4b.asm	4B	46D0	CONFIRMED	exact	0		Data_4B_46D0
+gfx/account/screens_bank4b/tilemap_5898.attrmap	attrmap	360	gfx/account/screens_bank4b.asm	4B	5A00	CONFIRMED	-	0	20x18	Tilemap_Account_ResultPage
+gfx/account/screens_bank4b/tilemap_5898.tilemap	tilemap	360	gfx/account/screens_bank4b.asm	4B	5898	CONFIRMED	-	0	20x18	Tilemap_Account_ResultPage
+gfx/account/screens_bank4b/tiles_42d0.2bpp	tiles	1024	gfx/account/screens_bank4b.asm	4B	42D0	CONFIRMED	exact	0		Gfx_Account_ResultPage_Tiles8800Vb1
+gfx/account/screens_bank4b/tiles_46d0.2bpp	tiles	1024	gfx/account/screens_bank4b.asm	4B	46D0	CONFIRMED	exact	0		Gfx_Account_ResultPage_Tiles8C00Vb1
 gfx/account/screens_bank4b/tiles_5080.2bpp	tiles	896	gfx/account/screens_bank4b.asm	4B	5080	PROBABLE	exact	0		Data_4B_5080
 gfx/account/screens_bank4b/tiles_5420.2bpp	tiles	1104	gfx/account/screens_bank4b.asm	4B	5420	PROBABLE	exact	11		Data_4B_5420
 gfx/account/screens_bank5d/account_confirm_screen_bg.pal	palette	64	gfx/account/screens_bank5d.asm	5D	65F0	CONFIRMED	-	0		Palette_Account_ConfirmScreen_Bg
