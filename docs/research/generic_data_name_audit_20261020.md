@@ -2241,9 +2241,29 @@ owner, data extents, resource files and evidence grades. Frozen `config/` and
 historical `analysis/` indexes still contain their old symbol spellings as
 provenance; neither was regenerated or edited.
 
-The six-root `Data_BB_AAAA::` census is now 327 definitions in 132 owners,
-down from 337 after these ten exact aliases were retired. This lexical count is
-not a semantic-completion measure.
+The six-root `Data_BB_AAAA::` census is now 327 definitions in 131 owners,
+down from 337 definitions in 132 owners after these ten exact aliases were
+retired. This lexical count is not a semantic-completion measure.
+
+## Bank 29 compose-object candidate animation names (2026-10-21)
+
+The remaining ten generic `Data_29_*` labels in
+`gfx/mail/compose_objects.asm` described frame records and script records in
+the unselected `29:6290` animation-entry block and the adjacent unreferenced
+group at `29:63F0`. They now use `MailBodyCandidate_*` names tied to their
+frame/script structure and indices; the orphan group keeps an explicit
+`Orphan` qualifier. Existing HYPOTHESIS/PROBABLE comments remain unchanged, so
+these names do not claim a natural caller or selection. The table at `29:6350`
+continues under `Table_MailBody_ObjectEntries`; its duplicate
+`Table_29_6350` export was removed. Ten more `Table_29_*` declarations at
+`29:6406` through `29:64C9` were exact aliases under existing
+`MailBody_29_Anim*Frames` labels and were removed. Pointer expressions in the
+candidate block now use its descriptive names. No bytes, directives, data
+boundaries or confidence grades changed.
+
+The six-root `Data_BB_AAAA::` census is now 317 definitions in 130 owners,
+down from 327 definitions in 131 owners after these ten Data labels received
+structural names. This lexical count is not a semantic-completion measure.
 
 ## Bank 1D mail-menu exact-address aliases (2026-10-21)
 

@@ -1627,5 +1627,11 @@ audit](docs/research/generic_data_name_audit_20261020.md#bank-1d-mail-menu-exact
 
 The bank-0E title-screen owner no longer exports ten exact-address `Data_0E_*`
 aliases under its existing graphics, tilemap and palette labels. Its six-root
-generic Data census is now 327 definitions in 132 owners. See the [bank-0E
+generic Data census is now 327 definitions in 131 owners. See the [bank-0E
 audit](docs/research/generic_data_name_audit_20261020.md#bank-0e-title-screen-resource-aliases-2026-10-21).
+
+The bank-29 compose-object owner now names its unselected animation block and
+orphan frame/script group with candidate-qualified structural labels, and no
+longer exports eleven redundant `Table_29_*` aliases. The six-root generic
+Data census is now 317 definitions in 130 owners. See the [bank-29
+audit](docs/research/generic_data_name_audit_20261020.md#bank-29-compose-object-candidate-animation-names-2026-10-21).
