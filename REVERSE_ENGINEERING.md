@@ -1570,13 +1570,13 @@ The bank-4A settings and confirmation owner also lost nine redundant
 retained resource names. Five cursor-selected highlight map records have
 entry-specific labels and bank-68 uses those bank-4A labels instead of raw
 words. The selected settings object entry at `4A:583C` and its script target
-at `4A:5866` now have structural names; the 16-byte 2bpp picture remains a
-HYPOTHESIS visual byte view because it overlaps the script and padding. The
+at `4A:5866` now have structural names; the frame records and script are now
+expressed in macros. The old 16-byte 2bpp file is retained outside the active
+catalogue as byte-view evidence. The
 prior note's count of 550 `Data_BB_AAAA::` labels was high by 24: a
 whitespace-aware tracked-source census at `1c6a6ccb` counted 526 definitions
 in 137 owners, excluding the protected sample and `zero_labels.asm`. The
-suspected unread palette at `4A:51B0` and six-byte prefix at `4A:5860` remain
-neutral. See the [bank-4A audit](docs/research/generic_data_name_audit_20261020.md#bank-4a-settings-and-confirmation-resources-2026-10-21).
+suspected unread palette at `4A:51B0` remains neutral. See the [bank-4A audit](docs/research/generic_data_name_audit_20261020.md#bank-4a-settings-and-confirmation-resources-2026-10-21).
 
 The communication-scene table at `70:4832` and its four probable entry chains
 now use `CommScene_ObjAnim*` names. The labels distinguish four frame-pointer

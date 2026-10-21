@@ -120,14 +120,14 @@ Table_MailServerMgr_ObjAnims_Entry16:: ; 2E:7700
 	sprite_object_entry SpriteFrameTable_2E_7921, SpriteScript_2E_7957 ; entry 18
 	sprite_object_entry SpriteFrameTable_2E_7921, SpriteScript_2E_7957 ; entry 19
 
-; ---- data $7710-$7720 (16 bytes) [HYPOTHESIS] isolated data with a possible sprite-data shape; no pointer from Table_MailServerMgr_ObjAnims or known sprite chain reaches it; format and use unresolved
+; ---- data $7710-$77FA (234 bytes) [PROBABLE format / HYPOTHESIS use] candidate stream: 11 repeated local pointer, frame-shaped record and script groups; the active object tables at 76C0-7710 point only to the separate structures beginning at 77FA
 
-MailServerMgr_CandidateData_2E_7710:: ; 2E:7710
+MailServerMgr_CandidateSpriteData_2E_7710:: ; 2E:7710
 	db $12, $77, $02, $00, $00, $0A, $00, $08, $00, $1A, $00, $01, $00, $04, $20, $77
 
-; ---- data $7720-$7921 (513 bytes) [PROBABLE] animation descriptors / sprite lists reached from the object tables 2E:76C0-7710 (same format as bank 72:786C-7A1F); the table words (77FA..7957) point into this block
+; ---- data $7720-$7921 (513 bytes) [PROBABLE] candidate sprite-shaped data; local pointer/record/script pattern continues to 77FA, but the object tables at 76C0-7710 do not target this span
 
-MailServerMgr_ObjAnimData_2E_7720:: ; 2E:7720
+MailServerMgr_CandidateSpriteData_2E_7720:: ; 2E:7720
 
 	db $04, $E0, $D0, $0A, $00, $E8, $D0, $1A, $00, $00, $00, $0B, $00, $08, $00, $1B ; not reached by any walked sprite chain
 	db $00, $01, $00, $04, $36, $77, $04, $E0, $D0, $0A, $00, $E8, $D0, $1A, $00, $00 ; not reached by any walked sprite chain

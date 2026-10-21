@@ -165,13 +165,13 @@ Macro names say what the bytes are, not what a screen shows.
 
 Kept as `db` (listed by the tool's summary; `-v` lists every item):
 
-* 82 items in blocks that are `INCBIN` / `INCLUDE` assets, all of them blocks that an early heuristic typed as palette or tiles and that in fact hold sprite structures: `gfx/help/mobile_dictionary.asm`
+* 81 items in blocks that are `INCBIN` / `INCLUDE` assets, all of them blocks that an early heuristic typed as palette or tiles and that in fact hold sprite structures: `gfx/help/mobile_dictionary.asm`
   `$539A-$55A0` (41), `gfx/title/title_screen.asm` `$5F30-$60A0` (12), `gfx/help/help_screens_a.asm` `$6300-$6448` (9), `gfx/settings/screens_bank4a.asm` `$68D0-$6920` (8, the AdapterCheck object, see
   `naming2_verify_data2b.md` E1), `gfx/mail_menu/mail_menu.asm` `$62AC-$6320` (5), `gfx/browser/start_choice.asm` `$5E38-$5EC0` (4), `gfx/error/comm_error_screen.asm` `$6350-$6420` (2),
-  `gfx/account/screens_bank4a.asm` `$5860-$5870` (1).  Converting them means re-typing the block (removing the `.pal` / `.2bpp` asset and its row in `gfx/assets.tsv`), which this pass does not do.
+  `gfx/account/screens_bank4a.asm` `$5860-$5870` was converted in the 2026-10-21 follow-up below; 81 items remain in this historical census.
 * 1 null entry in a `zero` region (5D:7318, `ds 4`).
 * 16 object-table entries whose pointer targets lie inside those asset blocks (no label can be placed there without splitting the asset).
-* 5 items that cross a region boundary (2C:7354 script, 2E:7921 frame table, 2E:7957 script, 4A:5855 record, 6A:64AE entry): the header ranges of those regions were cut at read boundaries of
+* 4 items that cross a region boundary (2C:7354 script, 2E:7921 frame table, 2E:7957 script, 6A:64AE entry): the header ranges of those regions were cut at read boundaries of
   an old trace, so one structure is spread over two or three blocks, with a label inside.
 
 Verification in the private copy (and again in the repository copy, see the report): `make` = `SHA-256 OK 6d802e66...76570`, byte compare identical, no assembler warning; `tools/sym_check.py` OK;
@@ -192,13 +192,13 @@ too-short frame (both are assembly errors).
 ## 9. Open questions
 
 1. **Unreached sprite data.**  343 bytes in regenerated blocks and part of the 1,331 bytes above are not reached by any walked chain (for example `01 00 04` scripts that no entry points to,
-   the unreached part of `MailServerMgr_ObjAnimData_2E_7720`).  They are probably dead data; it was not tried to parse them as structures (no evidence).
+   the candidate-format stream `MailServerMgr_CandidateSpriteData_2E_7710` through `_7720`). The 2026-10-21 audit identifies repeated pointer/frame/script-shaped groups there, but does not establish a caller or natural use; see the bank-2E/2F follow-up in the generic-name audit.
 2. **Who changes slot+09 / +0A** (the attribute OR / AND masks) after initialisation: only `Sprite_LoadObjectEntry` was found in the sprite engine; the whole ROM was not searched, so a screen
    may still recolour or flip its sprites through them.
 3. **Bank-1 and flip bits** are PROBABLE (hardware meaning plus the corner patterns); an emulator trace that draws such a sprite would make them CONFIRMED.
 4. **Delay and pass counts** (section 6) were read, not measured; "one pass is one frame" is PROBABLE for the wait loops that call `Sprite_UpdateAll`.
 5. **Why four identical entries per row** in 23 of the 49 tables: the code always loads id `4r+1` (`B = $81`), never `4r`; a per-direction or per-state variant that was never filled in is a HYPOTHESIS without evidence.
-6. **The eight asset-typed blocks** of section 7 (82 items) should be re-typed from palette/tiles to data in a later pass (and then converted with the tool: it needs no change, only that the blocks become db).
+6. **The asset-typed blocks** of section 7 were counted as 82 items at the original checkpoint; one has since been retyped in the bank-4A follow-up, leaving 81 in the historical list. Continue reviewing the remaining blocks without assuming palette/tile semantics.
 7. **Frame-table length** has no field (section 4): any new table found later must be checked against its first record and its scripts before `sprite_frame_table` is used for it.
 8. **Hook** (slot+0B..0D): the callback of a slot is not part of the data format and was not analysed here.
 
@@ -210,6 +210,17 @@ python3 tools/sprite_to_macros.py --check          # exit 0: the tree is in macr
 python3 tools/sprite_to_macros.py --dry-run -v     # what a run would change / keep as db
 python3 tools/sprite_chain_check.py                # 0 hard mismatches
 ```
+
+## Bank 4A settings-menu sprite span retyped (2026-10-21)
+
+`4A:5855-5870` is now represented by source macros and zero bytes rather than
+three slices of a 16-byte 2bpp asset. The four OAM pieces at `4A:5855-5865`
+and two animation steps at `4A:5866-586A` are CONFIRMED by their structure and
+selected-entry pointer; the five trailing zero bytes at `4A:586B-586F` remain
+PROBABLE padding. This removes one historical asset-typed item and one
+cross-boundary frame from the counts above. The legacy `.2bpp` and PNG remain
+unchanged outside the active catalogue, as a byte-view record; their hashes
+are documented in `docs/EDITING_IMAGES.md`.
 
 
 ## Adendo: item AdapterCheck de 80 bytes tipado (2026-10-18)

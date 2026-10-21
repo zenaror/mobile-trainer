@@ -57,7 +57,6 @@ gfx/account/screens_bank4a/tiles_4240.2bpp	tiles	1024	gfx/account/screens_bank4a
 gfx/account/screens_bank4a/tiles_4640.2bpp	tiles	1024	gfx/account/screens_bank4a.asm	4A	4640	CONFIRMED	exact	0		Gfx_SettingsMenu_Tiles8C00Vb1
 gfx/account/screens_bank4a/tiles_4a40.2bpp	tiles	1024	gfx/account/screens_bank4a.asm	4A	4A40	CONFIRMED	exact	0		Gfx_SettingsMenu_Tiles9000Vb1
 gfx/account/screens_bank4a/tiles_4e40.2bpp	tiles	832	gfx/account/screens_bank4a.asm	4A	4E40	CONFIRMED	exact	0		Gfx_SettingsMenu_Tiles9400Vb1
-gfx/account/screens_bank4a/tiles_5860.2bpp	tiles	16	gfx/account/screens_bank4a.asm	4A	5860	HYPOTHESIS	exact	0		Data_4A_5860
 gfx/account/screens_bank4a/tiles_5870.2bpp	tiles	1024	gfx/account/screens_bank4a.asm	4A	5870	CONFIRMED	exact	0		Gfx_Account_ConfirmManualScreen_Tiles9000Vb1
 gfx/account/screens_bank4b/account_result_page_bg.pal	palette	40	gfx/account/screens_bank4b.asm	4B	5870	CONFIRMED	-	0		Palette_Account_ResultPage_Bg
 gfx/account/screens_bank4b/account_result_page_tiles4ad0.2bpp	tiles	1456	gfx/account/screens_bank4b.asm	4B	4AD0	CONFIRMED	exact	0		Gfx_Account_ResultPage_Tiles4AD0

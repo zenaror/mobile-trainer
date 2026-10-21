@@ -44,11 +44,11 @@ gfx/assets.tsv                                 one line per asset: kind, size, b
 | RGB palette (`.pal`) | 166 | 11392 |
 | validity bitmap (`.bin`) | 1 | 8198 |
 | tile-index map (`.tilemap`) | 180 | 51618 |
-| 2bpp tiles (`.2bpp`) | 409 | 363024 |
+| 2bpp tiles (`.2bpp`) | 408 | 363008 |
 | raw bytes (`.bin`, conditional byte-view codec; purpose unknown) | 4 | 80 |
-| **all** | **979** | **623906** |
+| **all** | **978** | **623890** |
 
-PNGs:409 active exact rgbgfx tile sources,4 explicit RAW byte-view PNGs (80B; purpose UNKNOWN/HYPOTHESIS), and39 font binaries in37 editable sheet PNGs:450 unique editable source PNG paths. The1 validity-bitmap view-only picture and95 screen compositions are separate. `gfx/png_rules.tsv` has978 active rules. The catalogue totals979 assets/623906 logical ROM bytes; its11 JIS12x12 binaries total131976B.
+PNGs:408 active exact rgbgfx tile sources,4 explicit RAW byte-view PNGs (80B; purpose UNKNOWN/HYPOTHESIS), and39 font binaries in37 editable sheet PNGs:449 unique editable source PNG paths. The1 validity-bitmap view-only picture and95 screen compositions are separate. `gfx/png_rules.tsv` has977 active rules. The catalogue totals978 assets/623890 logical ROM bytes; its11 JIS12x12 binaries total131976B.
 The old count406 included the retired bank73 tile interpretation; its historical file remains outside the active catalogue.
 
 ## Still `db`
@@ -138,7 +138,6 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `settings_menu_4a_51d0.attrmap` | attribute map | 360 | 4A:5338 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank4a.asm` |
 | `tilemap_54a0.tilemap` | tile-index map | 360 | 4A:54A0 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank4a.asm` |
 | `tilemap_54a0.attrmap` | attribute map | 360 | 4A:5608 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank4a.asm` |
-| `tiles_5860.2bpp` | 2bpp tiles | 16 | 4A:5860 | PROBABLE | exact | - | `gfx/account/screens_bank4a.asm` |
 | `tiles_5870.2bpp` | 2bpp tiles | 1024 | 4A:5870 | CONFIRMED | exact | - | `gfx/account/screens_bank4a.asm` |
 | `account_confirm_manual_screen_bg.pal` | RGB palette | 64 | 4A:5C70 | CONFIRMED | - | - | `gfx/account/screens_bank4a.asm` |
 | `tilemap_5cb0.tilemap` | tile-index map | 360 | 4A:5CB0 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank4a.asm` |

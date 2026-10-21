@@ -1977,11 +1977,11 @@ asset-catalog label cells now use those names. The same-address
 `Table_4A_5838` alias was removed under `SettingsMenu_ObjTable`, and the
 selected entry at `4A:583C` is now `SettingsMenu_ObjTable_Entry1`. Its frame
 table and two OAM records are source-labeled; the entry's second pointer at
-`4A:5866` is now `SpriteScript_SettingsMenu_ObjTable_Entry1`. The bytes at
-that target are represented by the same editable 16-byte source file using
-offset-limited `INCBIN`s; the file's existing one-tile 2bpp PNG is retained
-as a HYPOTHESIS visual byte view because the span also contains six bytes of
-unclassified prefix and five trailing zero bytes.
+`4A:5866` is now `SpriteScript_SettingsMenu_ObjTable_Entry1`. A follow-up
+retyped `4A:5855-586A` as two complete frames and the selected two-step
+animation script, all in RGBDS macros; `4A:586B-586F` is emitted as five zero
+bytes with PROBABLE padding purpose. The old 16-byte `.2bpp` and PNG are
+unchanged byte-view evidence outside the active asset catalog and PNG rules.
 
 The five 40-byte menu-highlight records at `4A:5770`, `5798`, `57C0`, `57E8`
 and `5810` now have entry-specific `Tilemap_SettingsMenu_ItemHighlightMap_*`
@@ -1989,8 +1989,7 @@ labels. The bank-68 cursor table uses these bank-4A symbols in place of raw
 words; its emitted values are unchanged. The first four records retain their
 CONFIRMED bounded reader evidence; entry 4 remains PROBABLE with no observed
 natural read. `Data_4A_51B0` remains neutral because its suspected unread
-palette role is unproved, and `Data_4A_5860` remains neutral for its
-unclassified six-byte prefix. The earlier note reported 550 definitions in
+palette role is unproved. The earlier note reported 550 definitions in
 140 owners. Re-running the whitespace-aware `Data_BB_AAAA::` definition query
 at `d09ead4f` gives 526 in 137 owners, excluding the protected mail sample and
 `zero_labels.asm`; the earlier 550 count was high by 24. At `1c6a6ccb` the
@@ -2579,7 +2578,7 @@ Three exact `Data_2F_*` aliases in `gfx/address_book/address_editor.asm`
 duplicated the existing tile, tilemap and palette labels and were removed.
 The pointer table at `2F:7DD0` and its 159-byte target at `2F:7E20` remain
 PROBABLE, with names `AbookAddr_CandidateObjAnimTable` and
-`AbookAddr_CandidateObjAnimData`. The repeated target pointers and record
+`AbookAddr_CandidateSpriteData` (renamed in the follow-up below). The repeated target pointers and record
 shape support the candidate classification, but no caller was located; these
 names do not assert natural use. No bytes/ranges or confidence changed. The
 restricted six-root `Data_BB_AAAA::` census is now 200 definitions in 113
@@ -2851,22 +2850,26 @@ Before the relabeling below, the sprite-chain audit reported `2E:7710` as 0/16
 bytes reached by any walked chain (10 nonzero bytes); it reported `2F:7E20` as
 0/159 (131 nonzero bytes). At
 `2E:7710`, the five object tables at `2E:76C0-7710` point to frame/script
-addresses from `2E:77FA` onward; none targets `2E:7710`. The earlier
+addresses from `2E:77FA` onward; none targets `2E:7710`. The former
 `MailServerMgr_ObjAnimData_2E_7710` name and its “reached” comment overstated
-the evidence, so the label is now `MailServerMgr_CandidateData_2E_7710` and
-its format/use stay HYPOTHESIS.
+the evidence. A follow-up boundary audit found 11 repeated local pointer,
+frame-shaped record and script groups across `2E:7710-77FA`. Both source
+labels now say `MailServerMgr_CandidateSpriteData_*`; this makes the probable
+format and hypothetical use explicit, while preserving the distinction from
+the table-reached structures beginning at `2E:77FA`.
 
 At `2F:7DD0-7E20`, the 40 words point into the adjacent `2F:7E20-7EBF` region,
 whose bytes contain internally consistent pointer, frame-shaped, and
 script-shaped structures. However, no root or caller for the candidate table
 was found, and no known `Sprite_InitSlot` chain reaches it. The existing
-`AbookAddr_CandidateObjAnimTable` and `AbookAddr_CandidateObjAnimData` names
-remain explicitly candidate-qualified; the region's format is PROBABLE while
-its use remains HYPOTHESIS. After removing the unsupported `ObjAnimData`
-classification at `2E:7710`, `sprite_chain_check.py` reports 12 hard
-mismatches: the one `2F:7E20` candidate plus 11 `MailBodyCandidate_*` labels.
-The candidate remains visible for review. No bytes changed and no
-unused/reachable claim follows from the bounded search.
+`AbookAddr_CandidateObjAnimTable` remains candidate-qualified. The data label
+is now `AbookAddr_CandidateSpriteData`: `sprite_chain_check.py` treats the
+token `ObjAnimData` as an asserted chain-owned block, which is unsupported
+here and produced a false hard mismatch. The region's format is PROBABLE while
+its use remains HYPOTHESIS. With the false classification removed, the checker
+reports 11 hard mismatches, all existing `MailBodyCandidate_*` labels. This
+does not change the candidate status or prove the region unused. No bytes
+changed.
 
 
 ## Bank 26 probable tile block with no located transfer (2026-10-21)
@@ -2880,9 +2883,10 @@ asset. Its filename and label now say `candidate_tiles_26_7840` /
 assigning a screen, owner behavior, or natural use. The old bank/address spelling
 remains in frozen region data as historical provenance. The 624-byte binary and
 PNG contents are unchanged. The build is `RESULT: IDENTICAL`; `sym-check`,
-`palette-check`, and `png-check` pass. `gfx_export.py check` still reports the
-pre-existing three-slice reference to the 16-byte visual-only `4A:5860` asset;
-this separate owner was not changed by this pass.
+`palette-check`, and `png-check` pass. At that historical checkpoint,
+`gfx_export.py check` reported three slices of the 16-byte visual byte-view at
+`4A:5860`; the later bank-4A follow-up retypes the span as sprite data and
+removes its active asset entry.
 
 A fresh exact-name scan of the same 334 tracked ASM/INC files (including
 `zero_labels.asm`, excluding `engine/mail/sample_data.asm` before reading)

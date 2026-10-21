@@ -128,7 +128,7 @@ Tilemap_SettingsMenu_ItemHighlightMap_Entry4:: ; 4A:5810
 SettingsMenu_ObjTable:: ; 4A:5838
 	sprite_object_entry 0, 0 ; entry 0
 
-; ---- data $583C-$5860 (36 bytes) [CONFIRMED] selected object entry, frame table and two OAM frame records; the animation-script pointer at 5866 is described separately below [clipped from 583C-586B by higher-priority evidence]
+; ---- sprite $583C-$5866 (42 bytes) [CONFIRMED] selected object entry, frame table, two complete OAM frame records
 
 SettingsMenu_ObjTable_Entry1:: ; 4A:583C
 	sprite_object_entry SpriteFrameTable_4A_5840, SpriteScript_SettingsMenu_ObjTable_Entry1 ; entry 1
@@ -141,20 +141,21 @@ SpriteFrame_4A_5844:: ; 4A:5844
 	sprite_oam 0, 89, $00, OAMF_XFLIP | OAMF_BANK1
 	sprite_oam 8, 89, $10, OAMF_XFLIP | OAMF_BANK1
 SpriteFrame_4A_5855:: ; 4A:5855
-	db $04, $00, $FE, $00, $08, $08, $FE, $10, $08, $00, $5A ; sprite frame record kept as db: the item crosses the end of its block
-
-; ---- data $5860-$5870 (16 bytes) [HYPOTHESIS] the existing 2bpp sheet is only a visual byte view: the interval contains a six-byte unclassified prefix, the selected five-byte animation script at $5866, and five trailing zero bytes
-
-Data_4A_5860:: ; 4A:5860
-	INCBIN "gfx/account/screens_bank4a/tiles_5860.2bpp", 0, 6
+	sprite_frame 4
+	sprite_oam 0, -2, $00, OAMF_BANK1
+	sprite_oam 8, -2, $10, OAMF_BANK1
+	sprite_oam 0, 90, $00, OAMF_XFLIP | OAMF_BANK1
+	sprite_oam 8, 90, $10, OAMF_XFLIP | OAMF_BANK1
 
 ; ---- sprite animation $5866-$586B (5 bytes) [CONFIRMED] entry 1's script pointer; two frame/delay pairs (0, 30) and (1, 5)
 
 SpriteScript_SettingsMenu_ObjTable_Entry1:: ; 4A:5866
-	INCBIN "gfx/account/screens_bank4a/tiles_5860.2bpp", 6, 5
+	sprite_anim 2
+	sprite_anim_step 0, $1E
+	sprite_anim_step 1, 5
 
 ; ---- zero $586B-$5870 (5 bytes) [PROBABLE] trailing zero bytes after the selected animation script
-	INCBIN "gfx/account/screens_bank4a/tiles_5860.2bpp", 11, 5
+	db $00, $00, $00, $00, $00
 
 ; ---- gfx $5870-$5C70 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:649A: hl=$5870 a=$4A c=$40 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 10 hits in 2 scenarios (analysis/coverage_union.tsv)]
 
