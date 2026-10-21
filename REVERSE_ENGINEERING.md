@@ -57,6 +57,18 @@ same lexical scan now finds 896 `Data_BB_AAAA::` definitions in tracked
 non-language ASM files, excluding `engine/mail/sample_data.asm`. These two
 alias retirements do not close the remaining semantic data audit.
 
+The 2026-10-21 CommScene follow-up retired four more same-address aliases
+(`Data_70_5490`, `Data_70_5890`, `Data_70_5C90`, `Data_70_6090`) in favor of
+their existing tile-resource labels. In the same tracked non-language ASM
+scan scope above, this brings the lexical count to 892. This is distinct from
+the six-root working census (which includes a different owner set); see the
+dated audit section in `generic_data_name_audit_20261020.md`. The other 68
+CommScene data labels and 27 SaveSender candidate labels remain neutral because
+their evidence does not support safer names. CommScene comments describing
+effective object-index and script-slot behavior were corrected against the
+maintained readers. Build identity and asset checks passed; no ROM
+bytes changed. This checkpoint does not close the Japanese naming work.
+
 The 2026-10-20 bank6C HelpScript pass maps the static command stream from `6C:4809` through the
 terminal at `6C:58C6` (exclusive end `58C7`), corrects mixed command/text classifications and
 replaces address-only labels at command boundaries with structural names. An independent walk
