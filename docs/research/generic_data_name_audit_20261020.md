@@ -2843,3 +2843,27 @@ A fresh exact-name scan of 334 tracked ASM/INC files (including
 before reading) finds 68 `Data_BB_AAAA` definitions in 42 owners and zero exact
 generic `Function_BB_AAAA`, `Font_BB_AAAA`, or `Label_BB_AAAA` definitions.
 These are lexical counts, not a claim that all data semantics are resolved.
+
+
+## Unreached sprite-data candidates in banks 2E and 2F (2026-10-21)
+
+Before the relabeling below, the sprite-chain audit reported `2E:7710` as 0/16
+bytes reached by any walked chain (10 nonzero bytes); it reported `2F:7E20` as
+0/159 (131 nonzero bytes). At
+`2E:7710`, the five object tables at `2E:76C0-7710` point to frame/script
+addresses from `2E:77FA` onward; none targets `2E:7710`. The earlier
+`MailServerMgr_ObjAnimData_2E_7710` name and its “reached” comment overstated
+the evidence, so the label is now `MailServerMgr_CandidateData_2E_7710` and
+its format/use stay HYPOTHESIS.
+
+At `2F:7DD0-7E20`, the 40 words point into the adjacent `2F:7E20-7EBF` region,
+whose bytes contain internally consistent pointer, frame-shaped, and
+script-shaped structures. However, no root or caller for the candidate table
+was found, and no known `Sprite_InitSlot` chain reaches it. The existing
+`AbookAddr_CandidateObjAnimTable` and `AbookAddr_CandidateObjAnimData` names
+remain explicitly candidate-qualified; the region's format is PROBABLE while
+its use remains HYPOTHESIS. After removing the unsupported `ObjAnimData`
+classification at `2E:7710`, `sprite_chain_check.py` reports 12 hard
+mismatches: the one `2F:7E20` candidate plus 11 `MailBodyCandidate_*` labels.
+The candidate remains visible for review. No bytes changed and no
+unused/reachable claim follows from the bounded search.

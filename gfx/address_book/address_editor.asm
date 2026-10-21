@@ -21,7 +21,7 @@ Tilemap_AbookAddr:: ; 2F:7AC0
 Palette_AbookAddr_Bg:: ; 2F:7D90
 	INCLUDE "gfx/address_book/address_editor/abook_addr_bg.pal"
 
-; ---- ptrtable $7DD0-$7E20 (80 bytes) [PROBABLE] 40 words, all inside 7E20-7EBF (frame data); tables of 4-byte entries (2 words) addressed by ld de,imm before FarCall 00:0A82 (init_object_from_table: reads the 4-byte entry number B&$7F of the table at DE); each 16-byte table = 4 identical-pair entries; no direct ld de,imm found (caller not located)
+; ---- ptrtable $7DD0-$7E20 (80 bytes) [PROBABLE] 40 words point inside the adjacent candidate sprite-data block; layout is consistent with 5 tables of 4 x 2-word entries, but no root or caller for these tables was found
 
 AbookAddr_CandidateObjAnimTable:: ; 2F:7DD0
 	dw AbookAddr_CandidateObjAnimData
@@ -65,7 +65,7 @@ AbookAddr_CandidateObjAnimTable:: ; 2F:7DD0
 	dw $7EA1
 	dw $7EBC
 
-; ---- data $7E20-$7EBF (159 bytes) [PROBABLE] object animation frame records: [count][count x 4 bytes (y,x,tile,attr)] ... chained by pointer lists and terminated by 01 00 04/08 groups; format not fully decoded; reached through the pointer tables; ends with the group 01 00 04 right before the code at 7EBF
+; ---- data $7E20-$7EBF (159 bytes) [PROBABLE] candidate sprite-data region containing internal pointers, frame-shaped records and script-shaped tails; internally pointed to by the candidate tables at 7DD0, but no known Sprite_InitSlot chain reaches those tables; use remains HYPOTHESIS
 
 AbookAddr_CandidateObjAnimData:: ; 2F:7E20
 	db $24, $7E, $35, $7E, $04, $00, $00, $08, $01, $00, $08, $09, $01, $00, $18, $0A

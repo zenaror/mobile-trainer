@@ -1716,7 +1716,7 @@ remain HYPOTHESIS. The six-root generic Data census is now 263 definitions in
 123 owners. See the [bank-28 body-view audit](docs/research/generic_data_name_audit_20261020.md#bank-28-mail-body-view-resources-2026-10-21).
 
 The bank-2E tidy-screen owner now names the split HDMA graphics source at
-`2E:5AF0`, the probable animation descriptor at `2E:7710`, and the two-frame
+`2E:5AF0`, the isolated HYPOTHESIS data at `2E:7710`, and the two-frame
 table plus its frame records and script at `2E:7921-795C`. Six trailing bytes
 fit a two-step script shape but have no target in the bounded object-table
 walk; that candidate remains HYPOTHESIS. See the [bank-2E tidy-screen audit](docs/research/generic_data_name_audit_20261020.md#bank-2e-mail-server-tidy-screen-data-structures-2026-10-21).

@@ -120,9 +120,9 @@ Table_MailServerMgr_ObjAnims_Entry16:: ; 2E:7700
 	sprite_object_entry SpriteFrameTable_2E_7921, SpriteScript_2E_7957 ; entry 18
 	sprite_object_entry SpriteFrameTable_2E_7921, SpriteScript_2E_7957 ; entry 19
 
-; ---- data $7710-$7720 (16 bytes) [PROBABLE] animation descriptors / sprite lists (same format as bank 72:786C-7A1F: count + count*(y,x,tile,attr) and descriptors 01 00 04 dw / 02 .. dw dw) reached from the object tables 2E:76C0
+; ---- data $7710-$7720 (16 bytes) [HYPOTHESIS] isolated data with a possible sprite-data shape; no pointer from Table_MailServerMgr_ObjAnims or known sprite chain reaches it; format and use unresolved
 
-MailServerMgr_ObjAnimData_2E_7710:: ; 2E:7710
+MailServerMgr_CandidateData_2E_7710:: ; 2E:7710
 	db $12, $77, $02, $00, $00, $0A, $00, $08, $00, $1A, $00, $01, $00, $04, $20, $77
 
 ; ---- data $7720-$7921 (513 bytes) [PROBABLE] animation descriptors / sprite lists reached from the object tables 2E:76C0-7710 (same format as bank 72:786C-7A1F); the table words (77FA..7957) point into this block
