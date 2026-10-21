@@ -1708,3 +1708,8 @@ excluded `engine/mail/sample_data.asm`. It matched only the generic-label
 pattern and did not inform semantic analysis, but violated the access boundary.
 The totals above were recomputed with an explicit Git pathspec exclusion; the
 research audit records the corrected commit-by-commit counts and method.
+
+The settings-screen sprite owner in bank 71 no longer exports three exact
+`Data_71_*` aliases under its named frame/script records. Standalone spans at
+`71:723F` and `71:7271` remain neutral pending stronger content evidence. The
+restricted six-root generic-data census is now 250 definitions in 122 owners.

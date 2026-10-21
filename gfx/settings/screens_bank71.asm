@@ -7,7 +7,6 @@ SECTION "gfx/settings/screens_bank71", ROMX
 ; ---- data $6F44-$6F69 (37 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 9 piece(s); length tiles exactly against the frame-table pointers
 
 Registration_DeleteExecute_Anim1Frame0:: ; 71:6F44
-Data_71_6F44::
 	sprite_frame 9
 	sprite_oam 0, 0, $00, 0
 	sprite_oam 0, 8, $01, 0
@@ -22,13 +21,11 @@ Data_71_6F44::
 ; ---- data $6F69-$6F6A (1 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces; 0 piece(s) = an empty frame (1 byte); length tiles exactly against the frame-table pointers
 
 Registration_DeleteExecute_Anim1Frame1:: ; 71:6F69
-Data_71_6F69::
 	sprite_frame 0
 
 ; ---- data $6F6A-$6F6F (5 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 2 step(s), (frame,delay) pairs: 0:30 1:30; ends exactly at the tilemap block 6F6F
 
 Registration_DeleteExecute_Anim1Script:: ; 71:6F6A
-Data_71_6F6A::
 	sprite_anim 2
 	sprite_anim_step 0, 30
 	sprite_anim_step 1, 30

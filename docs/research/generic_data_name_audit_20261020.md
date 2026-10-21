@@ -2480,6 +2480,22 @@ The six-root `Data_BB_AAAA::` census, excluding
 257 in 122 owners after three exact aliases were retired and the candidate tile
 asset received a qualified name. This remains a lexical count.
 
+## Bank 71 settings-screen sprite aliases (2026-10-21)
+
+`Data_71_6F44`, `Data_71_6F69` and `Data_71_6F6A` duplicated the same-address
+`Registration_DeleteExecute_Anim1Frame0`, `Registration_DeleteExecute_Anim1Frame1`
+and `Registration_DeleteExecute_Anim1Script` labels in
+`gfx/settings/screens_bank71.asm`. The retained sprite labels already describe
+the macro structures at those addresses. Only the redundant exports were
+removed; macro sequence, byte extents, evidence grades and resource files are
+unchanged. The two standalone spans at `71:723F` and `71:7271` remain neutral:
+the former is a clipped, probable tile-like span, and the latter is read data
+whose class is unknown.
+
+The six-root `Data_BB_AAAA::` census, excluding
+`engine/mail/sample_data.asm`, is now 250 definitions in 122 owners, down from
+253 in 122 owners. This remains a lexical count.
+
 ## Census scope correction (2026-10-21)
 
 The first post-edit lexical count for the bank-2E and bank-25 checkpoints used
