@@ -1566,3 +1566,31 @@ The five aliases are absent from the post-pass SYM. The 208-byte owner and its
 | `04:7E10` | `Data_04_7E10` | `SoundSong0D_Track2` |
 | `04:7E52` | `Data_04_7E52` | `SoundSong0D_Track3` |
 | `04:7E82` | `Data_04_7E82` | `SoundSong0D_Header` |
+
+## Bank 05 song 0F same-address aliases (2026-10-21)
+
+The pre-pass census and symbol map identified 14 declaration-only
+`Data_05_AAAA` aliases in `audio/music/music_0f.asm`, each sharing an address
+with an existing `SoundSong0F_*` stream, loop, after-jump, substream or header
+label. The 347-file tracked non-language ASM/INC scan explicitly excluded
+`engine/mail/sample_data.asm`; it found no references in other source files or
+tools and no local-label scope dependencies. The aliases are absent from the
+post-pass SYM. The owner remains 808 bytes and 536 physical lines. No audio
+playback behavior is inferred.
+
+| Address | Retired label | Retained label |
+|---|---|---|
+| `05:4232` | `Data_05_4232` | `SoundSong0F_Track0` |
+| `05:4236` | `Data_05_4236` | `SoundSong0F_Track0_Loop` |
+| `05:42E7` | `Data_05_42E7` | `SoundSong0F_Track0_AfterJump` |
+| `05:42E8` | `Data_05_42E8` | `SoundSong0F_Track1` |
+| `05:42EC` | `Data_05_42EC` | `SoundSong0F_Track1_Loop` |
+| `05:43AE` | `Data_05_43AE` | `SoundSong0F_Track1_AfterJump` |
+| `05:43AF` | `Data_05_43AF` | `SoundSong0F_Track2` |
+| `05:43B3` | `Data_05_43B3` | `SoundSong0F_Track2_Loop` |
+| `05:44BF` | `Data_05_44BF` | `SoundSong0F_Track2_AfterJump` |
+| `05:44C0` | `Data_05_44C0` | `SoundSong0F_Track3` |
+| `05:44C4` | `Data_05_44C4` | `SoundSong0F_Track3_Loop` |
+| `05:44F3` | `Data_05_44F3` | `SoundSong0F_Track3_Sub1` |
+| `05:4535` | `Data_05_4535` | `SoundSong0F_Track3_AfterJump` |
+| `05:4540` | `Data_05_4540` | `SoundSong0F_Header` |

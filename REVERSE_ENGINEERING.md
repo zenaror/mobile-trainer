@@ -1416,3 +1416,9 @@ Song `0D` lost five declaration-only `Data_04_*` aliases over same-address
 local-label consumer; the 208-byte owner and 163 lines are unchanged. Its
 address map is in
 [`docs/research/generic_data_name_audit_20261020.md`](docs/research/generic_data_name_audit_20261020.md#bank-04-song-0d-same-address-aliases-2026-10-21).
+
+Song `0F` in bank 05 lost 14 declaration-only `Data_05_*` aliases over
+same-address `SoundSong0F_*` labels. No consumer was found in the examined
+sources, tools or local-label scope; its 808-byte owner and 536 lines are
+unchanged. See the map in
+[`docs/research/generic_data_name_audit_20261020.md`](docs/research/generic_data_name_audit_20261020.md#bank-05-song-0f-same-address-aliases-2026-10-21).
