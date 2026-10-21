@@ -169,6 +169,14 @@ restricted six-root census is now 180 `Data_BB_AAAA`/`Font_BB_AAAA`
 definitions across 109 owners, excluding the protected mail sample and
 `languages/`.
 
+In `audio/music/music_18.asm`, the exact co-located aliases `Data_05_5AF6`
+and `Data_05_5B02` were retired under `SoundSong18_Track0` and
+`SoundSong18_Header`. Current consumers already use the semantic labels in
+`audio/music_pointers.asm` and the track-pointer word. The audio stream/header
+confidence and all emitted directives remain unchanged; frozen analysis
+locators retain the historical aliases. The restricted six-root census is
+now 178 generic `Data_BB_AAAA`/`Font_BB_AAAA` definitions in 108 owners.
+
 ## Broader name audit and remaining limits
 
 A maintained-source audit found 59 paths carrying `unused` or
