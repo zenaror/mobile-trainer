@@ -1427,3 +1427,37 @@ The 30 generic exports in `gfx/keyboard/panels_bank5f.asm` co-addressed one exis
 | 5F:6BB8 | `Data_5F_6BB8` | `Palette_Kbd_T5_Bg1` |
 
 The original build remains `RESULT: IDENTICAL` (ROM SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`); symbol, palette, PNG and data-consumer checks pass. The current safe generic-data count explicitly excludes `engine/mail/sample_data.asm`: 832 definitions in the six roots plus one in `zero_labels.asm` (833 total).
+
+## Bank 04 song 06 and song 08 same-address aliases (2026-10-21)
+
+The two maintained song owners lost 27 redundant `Data_04_AAAA` exports over existing `SoundSong06_*` and `SoundSong08_*` stream, loop, after-jump, substream and header labels. The current symbol map confirms each pair shares the exact address. A complete-token scan of each owner found only the declaration; the bounded census found no references in other tracked, non-language ASM/INC files or tools and no local labels whose qualification depended on an alias. Each declaration became a blank line; 792 bytes in song 06 and 972 bytes in song 08, comments, data, and confidence remain unchanged. The names describe existing stream boundaries; no audio playback claim is added.
+
+| Address | Retired label | Retained label |
+|---|---|---|
+| `04:683C` | `Data_04_683C` | `SoundSong06_Track0` |
+| `04:6840` | `Data_04_6840` | `SoundSong06_Track0_Loop` |
+| `04:6897` | `Data_04_6897` | `SoundSong06_Track0_AfterJump` |
+| `04:6898` | `Data_04_6898` | `SoundSong06_Track1` |
+| `04:689C` | `Data_04_689C` | `SoundSong06_Track1_Loop` |
+| `04:6931` | `Data_04_6931` | `SoundSong06_Track1_AfterJump` |
+| `04:6932` | `Data_04_6932` | `SoundSong06_Track2` |
+| `04:6936` | `Data_04_6936` | `SoundSong06_Track2_Loop` |
+| `04:69F3` | `Data_04_69F3` | `SoundSong06_Track2_AfterJump` |
+| `04:69F4` | `Data_04_69F4` | `SoundSong06_Track3` |
+| `04:69F8` | `Data_04_69F8` | `SoundSong06_Track3_Loop` |
+| `04:6B39` | `Data_04_6B39` | `SoundSong06_Track3_AfterJump` |
+| `04:6B3A` | `Data_04_6B3A` | `SoundSong06_Header` |
+| `04:7093` | `Data_04_7093` | `SoundSong08_Track0` |
+| `04:7097` | `Data_04_7097` | `SoundSong08_Track0_Loop` |
+| `04:7171` | `Data_04_7171` | `SoundSong08_Track0_AfterJump` |
+| `04:7172` | `Data_04_7172` | `SoundSong08_Track1` |
+| `04:7176` | `Data_04_7176` | `SoundSong08_Track1_Loop` |
+| `04:72D6` | `Data_04_72D6` | `SoundSong08_Track1_AfterJump` |
+| `04:72D7` | `Data_04_72D7` | `SoundSong08_Track2` |
+| `04:72DB` | `Data_04_72DB` | `SoundSong08_Track2_Loop` |
+| `04:739C` | `Data_04_739C` | `SoundSong08_Track2_AfterJump` |
+| `04:739D` | `Data_04_739D` | `SoundSong08_Track3` |
+| `04:73A1` | `Data_04_73A1` | `SoundSong08_Track3_Loop` |
+| `04:73CA` | `Data_04_73CA` | `SoundSong08_Track3_Sub1` |
+| `04:7444` | `Data_04_7444` | `SoundSong08_Track3_AfterJump` |
+| `04:7445` | `Data_04_7445` | `SoundSong08_Header` |

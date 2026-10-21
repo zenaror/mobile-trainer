@@ -1383,3 +1383,11 @@ build remains byte-identical with five address-preserving SYM substitutions.
 This does not name the object's depicted subject or resolve adjacent partial
 `SettingsMenu` data; see
 [`gfx_confirm_pages_animation_names_20261021.md`](docs/research/gfx_confirm_pages_animation_names_20261021.md).
+
+The two bank-04 music owners for songs 06 and 08 lost 27 unused generic
+`Data_04_*` aliases over their existing `SoundSong*` stream labels. The tokens
+occurred only at their declarations, with no external or tool references and
+no local-label scope changes. The 792- and 972-byte stream owners and all
+confidence annotations are unchanged. The ROM remains `RESULT: IDENTICAL`;
+details and the address map are in
+[`docs/research/generic_data_name_audit_20261020.md`](docs/research/generic_data_name_audit_20261020.md#bank-04-song-06-and-song-08-same-address-aliases-2026-10-21).
