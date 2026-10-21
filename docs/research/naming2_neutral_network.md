@@ -13,6 +13,13 @@
 |54:4C3D-4C44,7 bytes|CONFIRMED Data_Pop3Top_DecodeHeaderArgs|4A44,34/7;4BEF,45/14|PROBABLE preserved|
 |54:475A-4764,10 bytes|CONFIRMED Data_Smtp_HeaderComposeArgs|4593,15/6|PROBABLE preserved|
 
+The maintained source now exports only `Data_Pop3Top_DecodeHeaderArgs` at
+54:4C3D and `Data_MailScan_InputPrefix` at 54:4C44. The redundant
+address-only spellings `Data_54_4C3D` and `Data_54_4C44` were removed after
+checking that current assembly/tool consumers do not use them; their historical
+names remain in frozen `config/` and `analysis/` evidence. No bytes, extents,
+read evidence, or confidence levels changed.
+
 All43 original bytes have natural ROM-read evidence, with no unread byte. The exact six intervals are independently sized by fixed CopyBytes BC arguments8/7/3/8/7/10 and original source definitions. Neighboring strings, padding, code and unresolved SMTP4764..4770 remain outside scope. CONFIRMED role names arise from demonstrated consumers; all existing whole-storage PROBABLE headers are conservatively preserved. Their exact fully-read scope is eligible for a separately reviewed storage-status change, but this pass makes none. Equal contents at different physical addresses retain separate aliases and roles.
 
 ## All source uses, encoded banks and contracts

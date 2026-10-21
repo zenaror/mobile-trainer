@@ -1109,8 +1109,6 @@ def rules_hypotheses(w, man):
     """Skipped candidates worth recording: HYPOTHESIS rows (never applied) with the idea and why it is not supported yet."""
     ideas = {
         'Data_54_475A': 'ten-byte descriptor copied to WRAM $C240 by Smtp_StartMailFrom (CopyBytes, bc=$000A); the copy is a packet/command header but no field is decoded',
-        'Data_54_4C3D': 'seven-byte descriptor read at 54:4A44 and 54:4BEF (neutral jump targets); twin of Data_54_4FCB; consumer has no own name',
-        'Data_54_4C44': 'three-byte descriptor (03 02 A0) read by Mail_ScanAndCheckGameMail (54:5124); prefix of the 8-byte descriptors; fields not decoded',
     }
     for old, idea in sorted(ideas.items()):
         if old in w.by_name and w.is_neutral_group(w.by_name[old]) and not man.has(old):

@@ -519,11 +519,11 @@ Data_Pop3Top_BytesCopiedBeforeHeaderArgs:: ; 54:4C35
 ; ---- data $4C3D-$4C44 (7 bytes) [PROBABLE] TOP selector6 arguments; header index overridden
 
 Data_Pop3Top_DecodeHeaderArgs:: ; 54:4C3D
-Data_54_4C3D::
+
 	db $00, $03, $02, $A0, $03, $80, $C4
 
 ; ---- data $4C44-$4C47 (3 bytes) [PROBABLE] mail scan/check input prefix (S3:A002)
 
 Data_MailScan_InputPrefix:: ; 54:4C44
-Data_54_4C44::
+
 	db $03, $02, $A0
