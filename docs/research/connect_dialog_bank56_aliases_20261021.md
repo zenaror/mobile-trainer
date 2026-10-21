@@ -39,3 +39,17 @@ with source-set SHA-256
 `e8f5a54fd029b70ded630da26b7a1a96f87d2fb3832a2e7385f1f0e282303de2`.
 The census and independent review are retained under ignored
 `.tmp/generic-coalias-post-f4716767-20261021/` (`REVIEW_CONNECT_DIALOG.md`).
+
+## Follow-up: stored-password HDMA continuation (2026-10-21)
+
+The address-only label `Data_56_68C0` is now
+`Gfx_ConnectDialog_StoredPassword_Tiles9100Vb1_LoadContinuation`. The loader
+at `ConnectDialog_Draw_StoredPassword` starts at `56:67C0` for 768 bytes and
+targets VRAM bank 1 `$9100–$93FF`; `56:68C0–6AC0` contributes 512 bytes at
+`$9200–$93FF`. The preceding 256 bytes are within the already named
+`Gfx_ConnectDialog_StoredPassword_Tiles8800` block. The renamed INCBIN exactly
+matches original ROM physical offset `0x15A8C0` (SHA-256
+`ee9967c1d4805c4674707bf4d7bf4f923a4337acc39994c836dd219ea2a34d18`). The
+asset row now points at the descriptive label. The existing confirmed tile
+classification is retained; no claim about display or natural screen state
+is added.

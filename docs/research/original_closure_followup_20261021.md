@@ -793,3 +793,19 @@ remains byte-identical: SHA-256
 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
 `make sym-check` and `make palette-check` also pass. Evidence is static; no
 natural runtime, rendered display or hardware behavior is claimed.
+
+## Bank 56 stored-password load continuation (2026-10-21)
+
+`Data_56_68C0` is now `Gfx_ConnectDialog_StoredPassword_Tiles9100Vb1_LoadContinuation`.
+`ConnectDialog_Draw_StoredPassword` starts an HDMA at `56:67C0`, with a
+`$30` block count (768 bytes), destination VRAM bank 1 `$9100–$93FF`. The
+renamed 512-byte slice `56:68C0–6AC0` supplies the latter 512 bytes of that
+load, mapping to VRAM `$9200–$93FF`; the first 256 bytes begin inside the
+already named `Gfx_ConnectDialog_StoredPassword_Tiles8800` region. Its
+INCBIN matches the original ROM slice at physical offset `0x15A8C0`, SHA-256
+`ee9967c1d4805c4674707bf4d7bf4f923a4337acc39994c836dd219ea2a34d18`.
+`gfx/assets.tsv` now references the descriptive label; asset classification
+remains **CONFIRMED** as tile graphics. This names the transfer continuation
+and makes no extra screen-display claim. Build is `RESULT: IDENTICAL`,
+`sym-check` and `palette-check` pass, and the current neutral-data census is
+123 groups.

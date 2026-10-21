@@ -94,9 +94,9 @@ Gfx_ConnectDialog_StoredPassword_Tiles8800:: ; 56:64C0
 
 	INCBIN "gfx/comm/connect_dialog_bank56/tiles_64c0.2bpp"
 
-; ---- gfx $68C0-$6AC0 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 57:4E6A: hl=$67C0 a=$56 c=$30 de=$9101 (dest VRAM $9100, vbank=1) [clipped from 67C0-6AC0 by higher-priority evidence]
+; ---- gfx $68C0-$6AC0 (512 bytes) [CONFIRMED] continuation of the stored-password HDMA load from $67C0 to VRAM bank 1 $9100-$93FF; this slice supplies source $68C0-$6AC0 and destination $9200-$93FF
 
-Data_56_68C0:: ; 56:68C0
+Gfx_ConnectDialog_StoredPassword_Tiles9100Vb1_LoadContinuation:: ; 56:68C0
 	INCBIN "gfx/comm/connect_dialog_bank56/tiles_68c0.2bpp"
 
 ; ---- gfx $6AC0-$6EC0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 57:4E7C: hl=$6AC0 a=$56 c=$40 de=$9401 (dest VRAM $9400, vbank=1)
