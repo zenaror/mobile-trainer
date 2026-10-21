@@ -12,23 +12,23 @@ Table_4A_4000::
 
 ; ---- data $4004-$4033 (47 bytes) [CONFIRMED] read as data by executed code (in up to 6/18 scenarios); content class unknown
 
-Data_4A_4004:: ; 4A:4004
-	sprite_object_entry SpriteFrameTable_4A_4008, SpriteScript_4A_402E ; entry 1
-SpriteFrameTable_4A_4008:: ; 4A:4008
-	sprite_frame_table SpriteFrame_4A_400C, SpriteFrame_4A_401D
-SpriteFrame_4A_400C:: ; 4A:400C
+ConfirmPages_ObjTable_Entry1:: ; 4A:4004
+	sprite_object_entry ConfirmPages_Anim1Frames, ConfirmPages_Anim1Script ; entry 1
+ConfirmPages_Anim1Frames:: ; 4A:4008
+	sprite_frame_table ConfirmPages_Anim1Frame0, ConfirmPages_Anim1Frame1
+ConfirmPages_Anim1Frame0:: ; 4A:400C
 	sprite_frame 4
 	sprite_oam 0, 0, $00, OAMF_BANK1 | 7
 	sprite_oam 8, 0, $00, OAMF_YFLIP | OAMF_BANK1 | 7
 	sprite_oam 0, 24, $00, OAMF_XFLIP | OAMF_BANK1 | 7
 	sprite_oam 8, 24, $00, OAMF_YFLIP | OAMF_XFLIP | OAMF_BANK1 | 7
-SpriteFrame_4A_401D:: ; 4A:401D
+ConfirmPages_Anim1Frame1:: ; 4A:401D
 	sprite_frame 4
 	sprite_oam -1, -1, $00, OAMF_BANK1 | 7
 	sprite_oam 9, -1, $00, OAMF_YFLIP | OAMF_BANK1 | 7
 	sprite_oam -1, 25, $00, OAMF_XFLIP | OAMF_BANK1 | 7
 	sprite_oam 9, 25, $00, OAMF_YFLIP | OAMF_XFLIP | OAMF_BANK1 | 7
-SpriteScript_4A_402E:: ; 4A:402E
+ConfirmPages_Anim1Script:: ; 4A:402E
 	sprite_anim 2
 	sprite_anim_step 0, 46
 	sprite_anim_step 1, 8

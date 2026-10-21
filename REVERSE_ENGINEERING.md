@@ -1288,3 +1288,12 @@ windows and leaves 12 cells at `42:5AA0` unresolved. All eight remain `KEEP`,
 and the 25 name-to-image associations remain HYPOTHESIS. This is a finite
 negative result, not proof of global non-use; details and the retained matrix
 are in [`pokemon_names_bank53_asset_followup_20261020.md`](docs/research/pokemon_names_bank53_asset_followup_20261020.md#eight-keep-placement-recheck-2026-10-21).
+
+Five generic labels in the `ConfirmPages` animation object now identify its
+confirmed table entry and frame/script structure. Seven original consumers and
+an independent byte emitter support the addresses; the reviewer preferred
+`ConfirmPages_ObjTable_Entry1` over a broader compound name. The Japanese
+build remains byte-identical with five address-preserving SYM substitutions.
+This does not name the object's depicted subject or resolve adjacent partial
+`SettingsMenu` data; see
+[`gfx_confirm_pages_animation_names_20261021.md`](docs/research/gfx_confirm_pages_animation_names_20261021.md).

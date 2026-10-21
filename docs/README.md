@@ -72,6 +72,7 @@ Reference documents (current):
 | [`html_keyword_pointer_aliases_20261021.md`](research/html_keyword_pointer_aliases_20261021.md) | 12 redundant generic aliases retired under existing HTML pointer-list names |
 | [`gfx_generic_name_audit_20261021.md`](research/gfx_generic_name_audit_20261021.md) | Read-only inventory of GFX type/address labels, aliases, paths and remaining uncertainty |
 | [`gfx_dialog_no_adapter_animation_names_20261021.md`](research/gfx_dialog_no_adapter_animation_names_20261021.md) | Eight reviewed dialog-cursor and no-adapter animation labels with consumer and byte-identity evidence |
+| [`gfx_confirm_pages_animation_names_20261021.md`](research/gfx_confirm_pages_animation_names_20261021.md) | Five reviewed ConfirmPages entry/frame/script labels with independent ROM and consumer evidence |
 | [`mobile_dictionary_table_aliases_20261021.md`](research/mobile_dictionary_table_aliases_20261021.md) | 12 redundant generic aliases retired from the mobile-dictionary pointer lists |
 | [`browser_page_view_table_aliases_20261021.md`](research/browser_page_view_table_aliases_20261021.md) | Nine redundant generic aliases retired from existing browser page-view table names |
 | [`html_dispatch_table_aliases_20261021.md`](research/html_dispatch_table_aliases_20261021.md) | Four redundant generic aliases retired from HTML URL and dispatch tables |
