@@ -2456,10 +2456,11 @@ at `2E:795C` also fit a two-step script shape, but no pointer from the bounded
 object-table walk targets them; their candidate label and role remain
 HYPOTHESIS.
 
-No source payload or extent changed. The six-root `Data_BB_AAAA::` census is
-now 262 definitions in 123 owners, down from 268 definitions in 124 owners
-after these six generic declarations were given structural or owner-qualified
-names. This is a lexical count, not a semantic-completion measure.
+No source payload or extent changed. The six-root `Data_BB_AAAA::` census,
+excluding `engine/mail/sample_data.asm`, is now 257 definitions in 122 owners,
+down from 263 definitions in 123 owners after these six generic declarations
+were given structural or owner-qualified names. This is a lexical count, not a
+semantic-completion measure.
 
 ## Bank 25 mailbox resources (2026-10-21)
 
@@ -2474,6 +2475,19 @@ was established. `Data_25_6AC8` and `Data_25_6E71` remain neutral: their bytes
 are read in merged ranges, but no sufficiently specific content class was
 shown. The asset catalog now uses the candidate name.
 
-The six-root `Data_BB_AAAA::` census is now 258 definitions in 123 owners,
-down from 262 in 123 owners after three exact aliases were retired and the
-candidate tile asset received a qualified name. This remains a lexical count.
+The six-root `Data_BB_AAAA::` census, excluding
+`engine/mail/sample_data.asm`, is now 253 definitions in 122 owners, down from
+257 in 122 owners after three exact aliases were retired and the candidate tile
+asset received a qualified name. This remains a lexical count.
+
+## Census scope correction (2026-10-21)
+
+The first post-edit lexical count for the bank-2E and bank-25 checkpoints used
+a recursive ASM reader that did not explicitly exclude the protected
+`engine/mail/sample_data.asm`. It matched only the generic-label regex and no
+semantic conclusion was drawn from that file, but the counting method violated
+the repository's access boundary. The corrected counts above were computed
+with a Git pathspec explicitly excluding that path. At the three commits, the
+six-root restricted counts are 263/123, 257/122 and 253/122; the previously
+written bank-2E and bank-25 totals have been corrected here. Future census
+commands must explicitly exclude the protected path before opening files.

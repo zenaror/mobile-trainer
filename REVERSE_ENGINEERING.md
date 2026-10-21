@@ -1690,13 +1690,21 @@ The bank-2E tidy-screen owner now names the split HDMA graphics source at
 table plus its frame records and script at `2E:7921-795C`. Six trailing bytes
 fit a two-step script shape but have no target in the bounded object-table
 walk; that candidate remains HYPOTHESIS. See the [bank-2E tidy-screen audit](docs/research/generic_data_name_audit_20261020.md#bank-2e-mail-server-tidy-screen-data-structures-2026-10-21).
-The six-root generic-data census is now 262 definitions in 123 owners,
-down from 268 in 124 owners after this pass.
+Excluding the protected `engine/mail/sample_data.asm`, the six-root
+generic-data census is now 257 definitions in 122 owners, down from 263 in
+123 owners after this pass.
 
 In the bank-25 mailbox owner, three `Data_25_*` aliases under confirmed
 tilemap/palette labels were retired, and the 17-tile arrow/label resource at
 `25:6BD1` gained a candidate-qualified name with its PROBABLE grade retained.
 The two read spans at `25:6AC8` and `25:6E71` remain neutral. See the
 [bank-25 mailbox audit](docs/research/generic_data_name_audit_20261020.md#bank-25-mailbox-resources-2026-10-21).
-The six-root generic-data census is now 258 definitions in 123 owners,
-down from 262 after this pass.
+Excluding the protected `engine/mail/sample_data.asm`, the six-root
+generic-data census is now 253 definitions in 122 owners, down from 257 after
+this pass.
+
+A count-scope correction: the initial bank-2E/bank-25 census command had not
+excluded `engine/mail/sample_data.asm`. It matched only the generic-label
+pattern and did not inform semantic analysis, but violated the access boundary.
+The totals above were recomputed with an explicit Git pathspec exclusion; the
+research audit records the corrected commit-by-commit counts and method.
