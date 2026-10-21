@@ -25,9 +25,9 @@ Gfx_MailTitle_Tiles8000:: ; 2C:5140
 	; kind (tiles) from the label name / config/symbols note; the region header above describes the block differently
 	INCBIN "gfx/mail/mail_title_entry/mail_title_tiles8000.2bpp"
 
-; ---- data $5150-$566C (1308 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); kind tiles from the label name [clipped from 4A30-56B0 by higher-priority evidence]
+; ---- gfx $5150-$5410 (704 bytes) [CONFIRMED] continuation of the HDMA load beginning at Gfx_MailTitle_Tiles8000 ($5140); loaded to VRAM bank 0 at $8010-$82CF
 
-Data_2C_5150:: ; 2C:5150
+Gfx_MailTitle_Tiles8000Continuation:: ; 2C:5150
 	db $00, $00, $00, $00, $00, $00, $FF, $FF, $02, $02, $05, $54, $07, $AC, $0F, $08
 	db $00, $00, $3E, $3E, $C1, $C1, $3F, $01, $7F, $3E, $FC, $08, $FC, $F8, $EC, $68
 	db $00, $00, $00, $00, $00, $00, $01, $00, $06, $00, $08, $00, $0F, $00, $04, $00

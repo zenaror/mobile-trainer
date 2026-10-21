@@ -596,7 +596,7 @@ gfx/mail/address_editor/mail_addr_obj_tiles.2bpp	tiles	192	gfx/mail/address_edit
 gfx/mail/address_editor/mail_addr_tiles.2bpp	tiles	1024	gfx/mail/address_editor.asm	2D	7120	CONFIRMED	exact	0		Gfx_MailAddr_Tiles
 gfx/mail/address_editor/mail_addr_tiles2.2bpp	tiles	176	gfx/mail/address_editor.asm	2D	7520	CONFIRMED	exact	0		Gfx_MailAddr_Tiles2
 gfx/mail/address_editor/mail_addr_tiles3.2bpp	tiles	688	gfx/mail/address_editor.asm	2D	75D0	CONFIRMED	exact	5		Gfx_MailAddr_Tiles3
-gfx/mail/address_editor/tiles_7940.2bpp	tiles	528	gfx/mail/address_editor.asm	2D	7940	PROBABLE	exact	0		Data_2D_7940
+gfx/mail/address_editor/tiles_7940.2bpp	tiles	528	gfx/mail/address_editor.asm	2D	7940	PROBABLE	exact	0		Gfx_MailAddr_ObjHDMALoadTail
 gfx/mail/body_editor/mail_body.attrmap	attrmap	360	gfx/mail/body_editor.asm	2D	6128	CONFIRMED	-	0	20x18	Tilemap_MailBody
 gfx/mail/body_editor/mail_body.tilemap	tilemap	360	gfx/mail/body_editor.asm	2D	5FC0	CONFIRMED	-	0	20x18	Tilemap_MailBody
 gfx/mail/body_editor/mail_body_bg.pal	palette	64	gfx/mail/body_editor.asm	2D	6290	PROBABLE	-	0		Palette_MailBody_Bg

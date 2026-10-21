@@ -65,10 +65,10 @@ Table_AddrSlotIcon_Anims_Entry8:: ; 2C:7230
 	sprite_object_entry SpriteFrameTable_2C_72A7, SpriteScript_2C_72BA ; entry 10
 	sprite_object_entry SpriteFrameTable_2C_72A7, SpriteScript_2C_72BA ; entry 11
 Table_AddrSlotIcon_Anims_Entry12:: ; 2C:7240
-	sprite_object_entry SpriteFrameTable_2C_72BD, SpriteScript_2C_7354 ; entry 12
-	sprite_object_entry SpriteFrameTable_2C_72BD, SpriteScript_2C_7354 ; entry 13
-	sprite_object_entry SpriteFrameTable_2C_72BD, SpriteScript_2C_7354 ; entry 14
-	sprite_object_entry SpriteFrameTable_2C_72BD, SpriteScript_2C_7354 ; entry 15
+	sprite_object_entry SpriteFrameTable_2C_72BD, AddrSlotIcon_AnimScript ; entry 12
+	sprite_object_entry SpriteFrameTable_2C_72BD, AddrSlotIcon_AnimScript ; entry 13
+	sprite_object_entry SpriteFrameTable_2C_72BD, AddrSlotIcon_AnimScript ; entry 14
+	sprite_object_entry SpriteFrameTable_2C_72BD, AddrSlotIcon_AnimScript ; entry 15
 Table_AddrSlotIcon_Anims_Entry16:: ; 2C:7250
 	sprite_object_entry SpriteFrameTable_2C_735F, SpriteScript_2C_740E ; entry 16
 	sprite_object_entry SpriteFrameTable_2C_735F, SpriteScript_2C_740E ; entry 17
@@ -166,12 +166,12 @@ SpriteFrame_2C_733B:: ; 2C:733B
 	sprite_oam 5, 5, $1C, 2
 	sprite_oam 5, 13, $1D, 2
 	sprite_oam 5, 21, $1E, 2
-SpriteScript_2C_7354:: ; 2C:7354
+AddrSlotIcon_AnimScript:: ; 2C:7354
 	db $05 ; sprite script kept as db: the item crosses the end of its block
 
-; ---- data $7355-$7357 (2 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+; ---- sprite script step $7355-$7357 (2 bytes) [CONFIRMED] first frame/delay pair read by Sprite_LoadObjectEntry
 
-Data_2C_7355:: ; 2C:7355
+AddrSlotIcon_AnimScript_FirstStep:: ; 2C:7355
 	db $00, $05
 
 ; ---- data $7357-$741C (197 bytes) [PROBABLE] object animation frame records: [count][count x 4 bytes (y,x,tile,attr)] ... chained by pointer lists and terminated by 01 00 04/08 groups; format not fully decoded; reached through the pointer tables; ends with the group 01 00 04 right before the code at 741C

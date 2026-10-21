@@ -111,3 +111,16 @@ REVERSE_ENGINEERING.md is supplied. No confidence upgrade, new English build or
 translation, compiler, emulator, natural runtime, display or hardware claim is
 part of this private source-only rebase. Independent review and ROOT validation
 remain separate; retiring redundant aliases does not close all unknown units.
+
+## Follow-up: bank 2D MailAddr transfer tail (2026-10-21)
+
+The former neutral label `Data_2D_7940` is now
+`Gfx_MailAddr_ObjHDMALoadTail`. Its 528 bytes (`2D:7940–7B50`) are
+**CONFIRMED** as the tail of an OBJ-tile HDMA load from `2D:7880`, ending at
+VRAM0 `$82D0`. Static setup initializes object frames that associate 240 of
+those bytes with frame records. The other 288 bytes are only confirmed as
+transferred in this call chain; their display/use remains unknown. This
+supersedes the old neutral-label wording and the clipped `34 tiles` heuristic
+as a naming basis, without asserting that the whole interval is displayed.
+The exact 528-byte ROM slice hash is
+`c938b9927040205d4877aace6460753083534d28b0394e85a4a85d37c1f92744`.

@@ -23,9 +23,9 @@ Gfx_MailAddr_ObjTiles:: ; 2D:7880
 	; kind (tiles) from the label name / config/symbols note; the region header above describes the block differently
 	INCBIN "gfx/mail/address_editor/mail_addr_obj_tiles.2bpp"
 
-; ---- gfx $7940-$7B50 (528 bytes) [PROBABLE] tile data: heuristic: 34 coherent tiles (hsim2=0.755 vsim2=0.750, 1 blank) parity 0; 64/592 bytes also covered by call-site blocks [clipped from 7940-7B90 by higher-priority proposals]
+; ---- gfx $7940-$7B50 (528 bytes) [CONFIRMED] tail of MailAddr's OBJ-tile HDMA load from $7880 to VRAM bank 0 $80C0-$82CF; static setup associates 240 bytes with initialized frames, while 288 bytes are transfer-only in this call chain
 
-Data_2D_7940:: ; 2D:7940
+Gfx_MailAddr_ObjHDMALoadTail:: ; 2D:7940
 	INCBIN "gfx/mail/address_editor/tiles_7940.2bpp"
 
 ; ---- data $7B50-$7E20 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2D:6916: hl=$7B50 a=$2D b=18 rows c=20 cols (tiles then attrs) de=$D000

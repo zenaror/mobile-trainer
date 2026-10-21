@@ -757,3 +757,39 @@ documented over-reads and zero errors. `gfx_export.py check` and
 `png_rules.py mk-check` also passed. No rendering or hardware behavior is
 claimed. The previous 6A:6330/6448 neutral-label and palette-conflict notes are
 historical and superseded for the current source.
+
+## Three generic data labels retired (2026-10-21)
+
+Three bounded owner-local audits supplied positive consumer/transfer evidence
+for labels that previously retained address-only names:
+
+- `Data_2C_5150` is now `Gfx_MailTitle_Tiles8000Continuation`. The 704 bytes
+  at `2C:5150–5410` are the continuation of the HDMA source beginning at
+  `Gfx_MailTitle_Tiles8000` (`2C:5140`), loaded into VRAM bank 0 at
+  `$8010–$82CF`. The slice is byte-identical to ROM offset `0xB1150`, with
+  SHA-256 `4e206881ecf76156ee8b8f79c887788b36ebd3dda47d67aa15dfc4019bba4aba`.
+  The old 1308-byte header crossed the next named graphics block at `5410` and
+  was corrected to the actual 704-byte extent.
+- `SpriteScript_2C_7354` is now `AddrSlotIcon_AnimScript`, and
+  `Data_2C_7355` is now `AddrSlotIcon_AnimScript_FirstStep`. Entries 12–15
+  point to the script; `Sprite_LoadObjectEntry` reads the first pair `$00,$05`
+  as frame index 0 and delay 5. The two-byte slice at `2C:7355` has SHA-256
+  `9f1afa4dc124cba73134e82ff50f17c8f7164257c79fed9a13f5943a6acb8e3d`.
+- `Data_2D_7940` is now `Gfx_MailAddr_ObjHDMALoadTail`. The 528-byte slice is
+  the tail `[7940,7B50)` of the confirmed HDMA load from `2D:7880` to VRAM
+  bank 0 `$80C0–$82CF`; the slice SHA-256 is
+  `c938b9927040205d4877aace6460753083534d28b0394e85a4a85d37c1f92744`.
+  Static setup evidence associates 240 bytes with initialized object frames;
+  the remaining 288 bytes are transfer-only in this call chain. The name
+  describes the load boundary, not a claim that every tile is displayed.
+  `gfx/assets.tsv` now points to this symbol while retaining `PROBABLE` for
+  the asset's visual tile classification.
+
+`tools/data_consumers.py --stats` now reports 124 neutral groups, 38
+automatic candidates rejected, and zero manifest rows. The exact maintained
+source label scan still finds zero `Function_BB_AAAA` definitions; this does
+not close the remaining broad generic-name or asset/PNG audits. The build
+remains byte-identical: SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
+`make sym-check` and `make palette-check` also pass. Evidence is static; no
+natural runtime, rendered display or hardware behavior is claimed.
