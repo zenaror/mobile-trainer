@@ -59,7 +59,18 @@ The maintained348 ASM/inc files and the fixed published symbol table at `0d713c7
 
 The current strict instruction census is **15 neutral names /18 instruction operands**, comprising14 KEEP names and one PARTIAL_ALIAS. `Function_26_5106` has zero current neutral instruction operands: the maintained CALL at26:4737 uses the existing PROBABLE `MailSession_CompareWordDeltas` alias. The initial65-row worklist retains its original instruction-site counts and cohort membership. Only this stale row is reconciled to APPLIED_ALIAS, retaining its historical KEEP reasoning and legacy HYPOTHESIS decision-row status. The complete ledger now has47 APPLIED,14 KEEP,two APPLIED_ALIAS,one PARTIAL_ALIAS and one PENDING. These are ledger dispositions, not whole-ROM confidence counts.
 
-`Data_6A_72A0` remains the separate pending structured-data macro entry with zero instruction operands. `Data_73_5E60` is outside this initial65-row cohort. The15 bounded comment edits in five owners concern six spans of258 bytes/109 CPU starts, not15 neutral groups removed or completed. Earlier checkpoint and verifier counts remain dated history; the current correction above replaces their use as present-day counters without rewriting those results. No ASM, symbol, ROM byte, confidence level, natural trace, asset or name/frame association is changed by this ledger pass.
+### Current structured-data row follow-up
+
+The separate `Data_6A_72A0` structured-data row is now `APPLIED`: its
+redundant generic export has been removed, while the existing
+`SpriteFrameTable_6A_72A0` label names the same two-word table. The worklist
+retains the original `Data_6A_72A0` key for provenance and its legacy
+`HYPOTHESIS` decision-row confidence; neither means the generic symbol is
+still defined. The ledger now contains 48 APPLIED, 14 KEEP, two APPLIED_ALIAS,
+one PARTIAL_ALIAS and zero PENDING rows. The strict instruction cohort remains
+15 names / 18 operands, and the 28 global Function/Label groups are unchanged.
+
+At the original 2026-10-11 checkpoint, `Data_6A_72A0` was a separate pending structured-data entry with zero instruction operands; that state is superseded by the current row follow-up above. `Data_73_5E60` remains outside this initial65-row cohort. The15 bounded comment edits in five owners concern six spans of258 bytes/109 CPU starts, not15 neutral groups removed or completed. Earlier checkpoint and verifier counts remain dated history; the current corrections replace their use as present-day counters without rewriting those results. The 2026-10-11 ledger pass itself made no ASM, symbol, ROM byte, confidence, natural-trace, asset or name/frame-association changes.
 
 ### Verified current neutral ledger reconciliation (2026-10-11)
 

@@ -48,9 +48,9 @@ Palette_6A_7220::
 ; ---- data $72A0-$72BB (27 bytes) [CONFIRMED] selected slot2 object chain:
 ; two frame pointers, two count2 OAM records, and script pairs (0,46)/(1,8).
 ; All 27 bytes have natural read evidence; per-byte scenario counts range 28-30.
-; Existing Data alias and structured macros remain unchanged.
+; The retained frame-table name and structured macros preserve the byte layout.
 SpriteFrameTable_6A_72A0:: ; 6A:72A0
-Data_6A_72A0:: ; 6A:72A0
+
 	sprite_frame_table SpriteFrame_6A_72A4, SpriteFrame_6A_72AD
 SpriteFrame_6A_72A4:: ; 6A:72A4
 	sprite_frame 2

@@ -1,6 +1,11 @@
 # Help menu maps and selected object chains
 
-> Status: **reference (current)**. Role, complete-unit boundaries and natural read coverage were reconstructed independently before proposal review. Original aliases and byte representations are preserved.
+> Status: **reference (current)**. Role, complete-unit boundaries and natural read coverage were reconstructed independently before proposal review. The original byte representation is preserved; see the current source note below for a later symbol-export retirement.
+
+> Current source note (2026-10-21): the old `Data_6A_72A0` export has been
+> retired. Earlier statements below that the generic alias remained describe
+> the 2026-10-11 checkpoint and are historical; see the later retirement
+> record at the end of this file.
 
 ## Eight accepted roles
 
@@ -80,4 +85,17 @@ The original31-byte table/frames/script/root chain and existing finite69-scenari
 
 ### Verified mechanical 6A frame-table alias (2026-10-11)
 
-The five-file pass adds `SpriteFrameTable_6A_72A0` in the former blank line 52 and updates the sole object-entry operand at line 75. `Data_6A_72A0` and every existing physical source position remain. Private and ROOT canonical37 each completed 36 zero returns and the expected ordinal27 return2 with its exact97-byte diagnostic; each recorded444 ResourceWarnings. All668 unaffected build outputs equal published parent `457244b`; the owner OBJ, SYM and MAP match the independently measured private candidate. Full RGB9 inspection preserves all68 nodes,1993 existing symbol records, the2985 raw section bytes and all four word-patch metadata records, adding one exported alias and changing only the offset2981 symbolic target. Fresh numeric resolution of all four words in both objects reproduces the complete original2985-byte section. Removing the single added alias line from SYM and MAP restores the parent bytes. The linked ROM remains original SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`; make reports SHA-256 OK and RESULT: IDENTICAL, with symbol and palette checks passing. Ledger dispositions become47 APPLIED,14 KEEP,three APPLIED_ALIAS,one PARTIAL_ALIAS and zero PENDING, with historical HYPOTHESIS row status and CONFIRMED storage evidence retained. No new natural execution, visual identity, hardware or semantic-completion claim is made.
+At the time of the five-file pass, it added `SpriteFrameTable_6A_72A0` in the former blank line52 and updated the sole object-entry operand at line75. `Data_6A_72A0` and every existing physical source position then remained. Private and ROOT canonical37 each completed36 zero returns and the expected ordinal27 return2 with its exact97-byte diagnostic; each recorded444 ResourceWarnings. All668 unaffected build outputs equaled published parent457244b; the owner OBJ, SYM and MAP matched the independently measured private candidate. Full RGB9 inspection preserved all68 nodes,1993 existing symbol records, the2985 raw section bytes and all four word-patch metadata records, adding one exported alias and changing only the offset2981 symbolic target. Fresh numeric resolution of all four words in both objects reproduced the complete original2985-byte section. Removing the single added alias line from SYM and MAP restored the parent bytes. The linked ROM remained original SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`; make reported SHA-256 OK and RESULT: IDENTICAL, with symbol and palette checks passing. The then-current ledger dispositions were47 APPLIED,14 KEEP,three APPLIED_ALIAS,one PARTIAL_ALIAS and zero PENDING; its historical HYPOTHESIS row status and CONFIRMED storage evidence remain. No new natural execution, visual identity, hardware or semantic-completion claim was made.
+
+## Later retirement of the redundant generic export (2026-10-21)
+
+The redundant `Data_6A_72A0` global is now retired. `SpriteFrameTable_6A_72A0`
+remains at 6A:72A0, the former physical line is blank, and the following
+source line numbers, macro payload, object-entry operand and section bytes
+are preserved. The rebuilt SYM/MAP exports each lost exactly that generic
+name, and the linked ROM still matches the original byte for byte.
+`make sym-check` reports 334 source files, 13,396 labels and 51 constants;
+`make palette-check` reports 162 loads, 116 arrays, two documented
+over-reads and zero errors. The legacy worklist key remains for provenance
+with current disposition APPLIED and legacy HYPOTHESIS confidence. No visual
+purpose or new runtime behavior is inferred.

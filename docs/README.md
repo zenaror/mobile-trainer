@@ -477,11 +477,11 @@ The bounded FFA7 producer correction in research/ram_map.md and research/boot_an
 
 - [Verified bounded FFA7 producer correction](research/ram_map.md#verified-bounded-ffa7-producer-correction-2026-10-11) — conditional producer semantics, preserved ASM lines and unchanged 671 build outputs.
 
-The current ledger correction in `research/naming2_neutral_code.md` distinguishes28 global neutral-only Function/Label address groups from15 names/18 strict instruction operands (14 KEEP plus one PARTIAL_ALIAS). The initial65-row worklist reconciles the existing26:5106 alias, preserving historical KEEP reasoning and confidence limits; `research/naming2_neutral_mail.md` keeps the earlier decision as history. Data_6A_72A0 remains pending and separate.
+The current ledger correction in `research/naming2_neutral_code.md` distinguishes28 global neutral-only Function/Label address groups from15 names/18 strict instruction operands (14 KEEP plus one PARTIAL_ALIAS). The initial65-row worklist reconciles the existing26:5106 alias, preserving historical KEEP reasoning and confidence limits; `research/naming2_neutral_mail.md` keeps the earlier decision as history. The separate `Data_6A_72A0` row is now APPLIED: its generic export is retired and `SpriteFrameTable_6A_72A0` remains.
 
 - [Verified current neutral ledger reconciliation](research/naming2_neutral_code.md#verified-current-neutral-ledger-reconciliation-2026-10-11) — corrected current counters, retained historical decisions and unchanged original build.
 
-The mechanical6A:72A0 frame-table alias in research/naming2_neutral_help.md reuses blank line52, keeps Data_6A_72A0 and75LOC, and reconciles only the pending structured-data ledger row. The ledger counts become47 APPLIED/14 KEEP/3 APPLIED_ALIAS/1 PARTIAL_ALIAS/0 PENDING; strict15 names/18 operands and28 global neutral-only groups remain distinct. 73:5E60 stays outside this unit.
+The existing6A:72A0 frame-table name remains while its redundant `Data_6A_72A0` export is retired; the former physical line remains blank. The ledger now has48 APPLIED/14 KEEP/2 APPLIED_ALIAS/1 PARTIAL_ALIAS/0 PENDING; strict15 names/18 operands and28 global neutral-only groups remain distinct. 73:5E60 stays outside this unit. See the later follow-up in research/naming2_neutral_help.md.
 
 - [Verified mechanical 6A frame-table alias](research/naming2_neutral_help.md#verified-mechanical-6a-frame-table-alias-2026-10-11) — preserved physical source positions, original ROM and measured OBJ/SYM/MAP alias changes.
 

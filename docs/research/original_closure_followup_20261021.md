@@ -160,11 +160,11 @@ does not establish natural entry into the candidate routine. A separate
 independent review found the co-located `Data_6A_72A0` alias has no active
 assembly operands and shares its address with `SpriteFrameTable_6A_72A0`; it
 recommends retiring the generic alias while preserving its physical line as
-blank and updating the current worklist comment. The frozen region table and
-dated history remain unchanged. That alias edit is still pending a safe
-validation route because the standard symbol check traverses the protected
-mail sample. The prior reviews made no tracked source changes and ran no
-builds.
+blank and updating the current worklist comment. This recommendation has now
+been integrated: the generic export is retired, its physical line is blank,
+and the worklist explanation is current. The frozen region table and dated
+history remain unchanged. The prior reviews made no tracked source changes
+and ran no builds.
 
 ## Bank53 name-consumer trace and scope correction (2026-10-21)
 
