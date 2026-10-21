@@ -89,6 +89,7 @@ Reference documents (current):
 | [`browser_page_list_aliases_20261021.md`](research/browser_page_list_aliases_20261021.md) | 14 redundant tile, palette and frame-table aliases retired from browser page-list graphics |
 | [`account_screens_bank5e_aliases_20261021.md`](research/account_screens_bank5e_aliases_20261021.md) | 16 redundant generic aliases retired from account-screen graphics in bank 5E |
 | [`startup_jump_table_aliases_20261021.md`](research/startup_jump_table_aliases_20261021.md) | Four redundant generic aliases retired from the bank-65 startup jump tables |
+| [`palette_scroll_table_aliases_20261021.md`](research/palette_scroll_table_aliases_20261021.md) | Six redundant generic aliases retired from palette-fade and scroll-split pointer tables |
 | [`mail_server_tidy_screen_aliases_20261021.md`](research/mail_server_tidy_screen_aliases_20261021.md) | 16 redundant generic graphics and animation-data aliases retired from the mail-server tidy screen |
 | [`top_menu_aliases_20261021.md`](research/top_menu_aliases_20261021.md) | 16 redundant resource and animation-table aliases retired from the top menu |
 | [`home_data_names.md`](research/home_data_names.md) | Bounded original data/resource alias contracts; evidence and caller limits retained |

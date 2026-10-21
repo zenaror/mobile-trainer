@@ -1801,3 +1801,9 @@ refer to those retained labels. The source bytes and table extents are
 unchanged; `make` remains byte-identical, `sym-check` passes with 12,329
 labels, and `palette-check` reports zero errors. See the
 [startup table alias note](docs/research/startup_jump_table_aliases_20261021.md).
+
+The palette-fade handlers and scroll-split row-pointer tables also lost six
+exact generic aliases under existing labels. The paired scroll-data comments
+now cite those retained pointer-table names. The pass preserves all bytes,
+boundaries and probable grades; build, symbol and palette checks pass. See the
+[palette/scroll table note](docs/research/palette_scroll_table_aliases_20261021.md).

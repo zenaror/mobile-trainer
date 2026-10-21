@@ -288,7 +288,6 @@ PalFade_Start:: ; 4F:4166
 ; ---- ptrtable $4194-$41A4 (16 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4F:4191: 8 entries; end = first entry target
 
 PalFade_Start_ModeTable:: ; 4F:4194
-Table_4F_4194::
 	dw PalFade_Start_AllColors
 	dw PalFade_Start_BgColors
 	dw PalFade_Start_ObjColors
@@ -387,7 +386,6 @@ PalFade_Step:: ; 4F:41E0
 ; ---- ptrtable $4233-$4243 (16 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4F:4230: 8 entries; end = first entry target
 
 PalFade_Step_ModeTable:: ; 4F:4233
-Table_4F_4233::
 	dw PalFade_Step_AllColors
 	dw PalFade_Step_BgColors
 	dw PalFade_Step_ObjColors
