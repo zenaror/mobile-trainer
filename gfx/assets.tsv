@@ -3,7 +3,7 @@
 # png: exact = rgbgfx source of path (rgbgfx -c embedded -x pad); sheet = font glyph sheet (tools/font_png.py), editable; view = picture for reading only (*_view.png); - = none
 # bank / addr: original ROM position of the first byte (hex); status: evidence status of the block header; dims: width x height in tiles as stated in the note
 path	type	size	asm	bank	addr	status	png	pad	dims	label
-data/fonts/ascii_6x12.bin	font6x12	1152	data/fonts/ascii_6x12.asm	76	67A8	PROBABLE	sheet	0		Data_76_67A8
+data/fonts/ascii_6x12.bin	font6x12	1152	data/fonts/ascii_6x12.asm	76	67A8	PROBABLE	sheet	0		GlyphFont_Ascii6x12
 data/fonts/glyph_runs_8x16/sjis_8140.1bpp	font8x16	192	data/fonts/font_8x16.asm	48	593B	PROBABLE	sheet	0		Font_GlyphRun_8140
 data/fonts/glyph_runs_8x16/sjis_814f.1bpp	font8x16	48	data/fonts/font_8x16.asm	48	59FB	PROBABLE	sheet	0		Font_GlyphRun_814F
 data/fonts/glyph_runs_8x16/sjis_815b.1bpp	font8x16	16	data/fonts/font_8x16.asm	48	5D6B	PROBABLE	sheet	0		Font_GlyphRun_815B
@@ -36,12 +36,12 @@ data/fonts/jis12x12_rows_16_24.bin	font12	15228	data/fonts/jis12x12_rows_16_24.a
 data/fonts/jis12x12_rows_25_33_4000.bin	font12	6083	data/fonts/jis12x12_rows_25_33.asm	7C	4000	PROBABLE	sheet	0		GlyphFont_Jis12x12_7C
 data/fonts/jis12x12_rows_25_33_57c3.bin	font12	10	data/fonts/jis12x12_rows_25_33.asm	7C	57C3	PROBABLE	sheet	0		
 data/fonts/jis12x12_rows_25_33_57cd.bin	font12	9135	data/fonts/jis12x12_rows_25_33.asm	7C	57CD	PROBABLE	sheet	0		Data_7C_57CD
-data/fonts/jis12x12_rows_34_42.bin	font12	15228	data/fonts/jis12x12_rows_34_42.asm	7B	4000	PROBABLE	sheet	0		Data_7B_4000
-data/fonts/jis12x12_rows_43_51.bin	font12	15228	data/fonts/jis12x12_rows_43_51.asm	7A	4000	PROBABLE	sheet	0		Data_7A_4000
-data/fonts/jis12x12_rows_52_60.bin	font12	15228	data/fonts/jis12x12_rows_52_60.asm	79	4000	PROBABLE	sheet	0		Data_79_4000
-data/fonts/jis12x12_rows_61_69.bin	font12	15228	data/fonts/jis12x12_rows_61_69.asm	78	4000	PROBABLE	sheet	0		Data_78_4000
-data/fonts/jis12x12_rows_70_78.bin	font12	15228	data/fonts/jis12x12_rows_70_78.asm	77	4000	PROBABLE	sheet	0		Data_77_4000
-data/fonts/jis12x12_rows_79_84.bin	font12	10152	data/fonts/jis12x12_rows_79_84.asm	76	4000	PROBABLE	sheet	0		Data_76_4000
+data/fonts/jis12x12_rows_34_42.bin	font12	15228	data/fonts/jis12x12_rows_34_42.asm	7B	4000	PROBABLE	sheet	0		GlyphFont_Jis12x12_7B
+data/fonts/jis12x12_rows_43_51.bin	font12	15228	data/fonts/jis12x12_rows_43_51.asm	7A	4000	PROBABLE	sheet	0		GlyphFont_Jis12x12_7A
+data/fonts/jis12x12_rows_52_60.bin	font12	15228	data/fonts/jis12x12_rows_52_60.asm	79	4000	PROBABLE	sheet	0		GlyphFont_Jis12x12_79
+data/fonts/jis12x12_rows_61_69.bin	font12	15228	data/fonts/jis12x12_rows_61_69.asm	78	4000	PROBABLE	sheet	0		GlyphFont_Jis12x12_78
+data/fonts/jis12x12_rows_70_78.bin	font12	15228	data/fonts/jis12x12_rows_70_78.asm	77	4000	PROBABLE	sheet	0		GlyphFont_Jis12x12_77
+data/fonts/jis12x12_rows_79_84.bin	font12	10152	data/fonts/jis12x12_rows_79_84.asm	76	4000	PROBABLE	sheet	0		GlyphFont_Jis12x12_76
 data/fonts/sjis_valid_bitmap.bin	sjisbitmap	8198	data/fonts/sjis_valid_bitmap.asm	63	407A	PROBABLE	view	0		Font_SjisValidBitmap
 gfx/account/screens_bank4a/account_confirm_manual_screen_bg.pal	palette	64	gfx/account/screens_bank4a.asm	4A	5C70	CONFIRMED	-	0		Palette_Account_ConfirmManualScreen_Bg
 gfx/account/screens_bank4a/settings_menu_4a_51d0.attrmap	attrmap	360	gfx/account/screens_bank4a.asm	4A	5338	CONFIRMED	-	0	20x18	Tilemap_SettingsMenu_FlagClear

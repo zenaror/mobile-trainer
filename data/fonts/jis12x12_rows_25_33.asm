@@ -7,7 +7,6 @@ SECTION "data/fonts/jis12x12_rows_25_33", ROMX
 ; ---- gfx $4000-$57C3 (6083 bytes) [PROBABLE] font12x12: JIS X 0208 12x12 1bpp glyphs, 18 bytes/glyph (2 rows of 12 bits per 3 bytes), JIS rows 25,26,27,28,29,30,31,32,33, 94 cols/row; layout from 7F:400E/4072/40B9 + tables 7F:40F9/7F:4150 (verified structure, layout from engine code) [clipped from 4000-7B7C by higher-priority evidence]
 
 GlyphFont_Jis12x12_7C:: ; 7C:4000
-Data_7C_4000::
 	INCBIN "data/fonts/jis12x12_rows_25_33_4000.bin"
 
 ; ---- gfx $57C3-$57CD (10 bytes) [PROBABLE] font12x12 data within4000-7B7C; false seventh table word57C3 was C3 57 from JP7D57 at7D6C, not an entry; see naming_g8.md

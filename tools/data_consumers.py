@@ -1063,25 +1063,6 @@ def rules_manual(w, man, sites):
     # AdapterCheck_ObjTable and its internal frame/script labels; see
     # docs/research/adapter_check_object_data_80b.md. Do not regenerate the
     # obsolete whole-block rename here.
-    # ---- 12x12 JIS font banks and the 6x12 ASCII font: row -> bank through GlyphFont_RowBankTable (7F:40F9, read by the executed glyph loader 7F:40C0)
-    rb = w.by_name.get('GlyphFont_RowBankTable')
-    if rb:
-        bank_rows = collections.defaultdict(list)
-        for r in range(87):
-            bank_rows[w.byte(rb[0], rb[1] + r)].append(r + 1)
-        for old, bank in (('Data_7B_4000', 0x7B), ('Data_7A_4000', 0x7A), ('Data_79_4000', 0x79), ('Data_78_4000', 0x78), ('Data_77_4000', 0x77), ('Data_76_4000', 0x76)):
-            rows = bank_rows[bank]
-            k = w.by_name[old]
-            nrows = w.size(k) // (94 * 18)
-            extra = '' if nrows == len(rows) else ' (the table continues to row %d, the block holds only %d rows)' % (rows[-1], nrows)
-            add(old, 'GlyphFont_Jis12x12_%02X' % bank, 'data', 'PROBABLE',
-                '12x12 font of bank %02X: GlyphFont_RowBankTable (7F:40F9, `ld hl,$40F9 ; a=row-1 ; add a,l` at 7F:40C0-40C8) maps JIS rows %d-%d to bank $%02X%s; %d rows x 94 glyphs x 18 bytes = %d bytes = the block size (%d); same naming as the three banks already named GlyphFont_Jis12x12_7C/7D/7E' %
-                (bank, rows[0], rows[0] + nrows - 1, bank, extra, nrows, nrows * 94 * 18, w.size(k)))
-    k = w.by_name['Data_76_67A8']
-    add('Data_76_67A8', 'GlyphFont_Ascii6x12', 'data', 'CONFIRMED',
-        '6x12 half-width font: Glyph_AsciiAddr (7F:400E, executed in up to 12 scenarios) returns DE = $67A8 + (c-$20)*12 with A=$76 (`sub a,$20 ; ... ld de,$67A8 ; add hl,de ; ld a,$76`); 96 glyphs x 12 bytes = 1152 = the block size')
-
-
 def rules_hypotheses(w, man):
     """Skipped candidates worth recording: HYPOTHESIS rows (never applied) with the idea and why it is not supported yet."""
     ideas = {

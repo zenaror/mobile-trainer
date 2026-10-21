@@ -652,3 +652,14 @@ Existing names for the BGP fade table, joypad/digit tables, debug palette,
 debug flags, hex characters and sound-test palette/buttons remain. No active
 source/tool consumer used the retired spellings. Payloads and extents are
 unchanged; make is byte-identical and sym-check reports 12,387 labels.
+
+## JIS and ASCII font bank aliases (2026-10-21)
+
+Removed eleven `Data_BB_AAAA` aliases from the existing `GlyphFont_*` and
+`Font_SjisValidBitmap` resource roots in `data/fonts/`. Updated the seven
+affected font asset rows to use `GlyphFont_Ascii6x12` and the six bank-specific
+`GlyphFont_Jis12x12_*` symbols, and removed the obsolete neutral-to-font
+reclassification rule from `tools/data_consumers.py`. Glyph bytes, bank
+mapping, row ranges and PROBABLE/CONFIRMED grades are unchanged. make remains
+byte-identical; sym-check reports 12,349 labels; palette-check and data-consumer
+checks pass (162/116/0 and 287/93/0).
