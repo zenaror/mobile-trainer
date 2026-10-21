@@ -1757,3 +1757,43 @@ post-pass SYM.
 | `71:6C68` | `Data_71_6C68` | `Tilemap_Registration_DeleteExecute` |
 | `71:6F38` | `Table_71_6F38` | `Registration_DeleteExecute_ObjTable` |
 | `71:6F40` | `Table_71_6F40` | `Registration_DeleteExecute_Anim1Frames` |
+
+
+## Bank 73 browser-start co-located aliases (2026-10-21)
+
+The owner-local review of `gfx/browser/start_choice.asm` found 16 generic
+`Data_73_*` definitions. Thirteen were exact-address aliases of existing
+descriptive labels, with no other active source, asset-tool or metadata
+consumers after rerunning the reference scan with the protected
+`engine/mail/sample_data.asm` excluded. The alias declarations were retired;
+all 13 physical source lines remain blank, preserving owner line positions.
+The three labels without a descriptive co-label remain neutral: `Data_73_4530`
+covers mixed animation attributes plus a three-byte unread tail,
+`Data_73_49E0` identifies a tile sheet whose role remains PROBABLE, and
+`Data_73_5EC0` begins with a three-byte sprite-script tail before the next
+frame table. No safer full-span label is established for those ranges.
+
+| Address | Retired label | Retained label |
+|---|---|---|
+| `73:4097` | `Data_73_4097` | `BrowserStart_Map` |
+| `73:438F` | `Data_73_438F` | `BrowserStart_BottomMapNormal` |
+| `73:43AD` | `Data_73_43AD` | `BrowserStart_TopAttrNormal` |
+| `73:43D5` | `Data_73_43D5` | `BrowserStart_BottomAttrNormal` |
+| `73:4439` | `Data_73_4439` | `BrowserStart_TopAttrSelected` |
+| `73:4461` | `Data_73_4461` | `BrowserStart_BottomAttrSelected` |
+| `73:447F` | `Data_73_447F` | `BrowserStart_AnimFrames` |
+| `73:45E0` | `Data_73_45E0` | `BrowserStart_Tiles0` |
+| `73:4DE0` | `Data_73_4DE0` | `BrowserStart_Tiles1` |
+| `73:51E0` | `Data_73_51E0` | `BrowserStart_Tiles2` |
+| `73:55E0` | `Data_73_55E0` | `BrowserStart_Tiles3` |
+| `73:59E0` | `Data_73_59E0` | `BrowserStart_Tiles4` |
+| `73:5DE0` | `Data_73_5DE0` | `BrowserStart_Palettes` |
+
+The owner changed from SHA-256 `ae217a6052abd28e0b17f80e20b106a700119d3d644abbed9b381be3f9a65319`
+to `5194c2e6ca25ae69275235f8cfe16a56ddfdcc133989c60ee6f12922b5749093`; its
+physical line count is unchanged. `make` reports `SHA-256 OK` and
+`RESULT: IDENTICAL` for original ROM
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
+`make sym-check` passes with 12,832 labels and 51 constants.
+`make palette-check` passes with 162 loads, 116 arrays, two documented
+over-reads and zero errors. No asset bytes or confidence labels changed.

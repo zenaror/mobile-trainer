@@ -7,7 +7,7 @@ SECTION "gfx/browser/start_choice", ROMX
 ; ---- data $4097-$4367 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 73:5FC8: hl=$4097 a=$73 b=18 rows c=20 cols (tiles then attrs) de=$D000
 
 BrowserStart_Map:: ; 73:4097
-Data_73_4097::
+
 	INCBIN "gfx/browser/start_choice/browser_start_map.tilemap"
 	INCBIN "gfx/browser/start_choice/browser_start_map.attrmap"
 
@@ -20,20 +20,20 @@ Tilemap_73_4367::
 ; ---- data $438F-$43AD (30 bytes) [CONFIRMED] tile-index rectangle: 3 rows x 10 columns; ROM73 -> WRAM7 $D129, row stride 32; paired consumer 73:61F0 -> 00:16A2; all 30 bytes read in 19 whole/19 union natural scenarios (typing_73_browser_remaining.md)
 
 BrowserStart_BottomMapNormal:: ; 73:438F
-Data_73_438F::
+
 	db $0A, $30, $31, $31, $31, $31, $31, $31, $30, $0A, $0A, $2F, $35, $36, $37, $38
 	db $39, $3A, $34, $0A, $0A, $33, $32, $32, $32, $32, $32, $32, $33, $0A
 
 ; ---- data $43AD-$43D5 (40 bytes) [CONFIRMED] BG attribute rectangle: 4 rows x 10 columns; ROM73 -> WRAM7 $D489, row stride 32; paired consumer 73:6235 -> 00:16A2; all 40 bytes read in 8 whole/8 union natural scenarios (typing_73_browser_rectangles.md)
 
 BrowserStart_TopAttrNormal:: ; 73:43AD
-Data_73_43AD::
+
 	INCBIN "gfx/browser/start_choice/browser_start_top_attr_normal.attrmap"
 
 ; ---- data $43D5-$441B (70 bytes) [CONFIRMED] mixed rectangles: BG attributes $43D5-$43F3 (30 bytes, 3x10, WRAM7 $D529, consumer 73:61F0); tile indices $43F3-$441B (40 bytes, 4x10, WRAM7 $D089, consumer 73:620B); row stride 32; all 70 bytes read in 19 whole/19 union natural scenarios (typing_73_browser_remaining.md)
 
 BrowserStart_BottomAttrNormal:: ; 73:43D5
-Data_73_43D5::
+
 	db $09, $09, $09, $09, $09, $09, $09, $09, $29, $09, $09, $09, $09, $09, $09, $09
 	db $09, $09, $09, $09, $09, $29, $09, $09, $09, $09, $09, $09, $09, $09
 
@@ -51,7 +51,7 @@ Tilemap_73_441B::
 ; ---- data $4439-$4461 (40 bytes) [CONFIRMED] BG attribute rectangle: 4 rows x 10 columns; ROM73 -> WRAM7 $D489, row stride 32; paired consumer 73:620B -> 00:16A2; all 40 bytes read in 19 whole/19 union natural scenarios (typing_73_browser_remaining.md)
 
 BrowserStart_TopAttrSelected:: ; 73:4439
-Data_73_4439::
+
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $29, $09, $0A, $0A, $0A, $0A, $0A
 	db $0A, $0A, $0A, $29, $09, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $29, $09, $09
 	db $09, $09, $09, $09, $09, $09, $09, $29
@@ -59,13 +59,13 @@ Data_73_4439::
 ; ---- data $4461-$447F (30 bytes) [CONFIRMED] BG attribute rectangle: 3 rows x 10 columns; ROM73 -> WRAM7 $D529, row stride 32; paired consumer 73:6250 -> 00:16A2; all 30 bytes read in 8 whole/8 union natural scenarios (typing_73_browser_rectangles.md)
 
 BrowserStart_BottomAttrSelected:: ; 73:4461
-Data_73_4461::
+
 	INCBIN "gfx/browser/start_choice/browser_start_bottom_attr_selected.attrmap"
 
 ; ---- data $447F-$4530 (177 bytes) [CONFIRMED] mixed animation data: five 5x7 tile-index frames (175 bytes), first BG attribute bytes (2); paired consumer73:6290 -> 00:16A2, 18 whole/19 union natural scenarios (typing_73_browser_animation.md)
 
 BrowserStart_AnimFrames:: ; 73:447F
-Data_73_447F::
+
 	db $80, $81, $82, $83, $84, $E1, $E2, $85, $86, $87, $88, $89, $E3, $E4, $8A, $8B
 	db $8C, $8D, $8E, $0A, $0A, $8F, $90, $91, $92, $93, $0A, $0A, $94, $95, $96, $97
 	db $98, $0A, $0A, $99, $9A, $9B, $9C, $84, $E5, $E2, $85, $9D, $9E, $9F, $A0, $E6
@@ -112,7 +112,7 @@ Data_73_4530:: ; 73:4530
 ; ---- gfx $45E0-$49E0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 73:5F5E: hl=$45E0 a=$73 c=$40 de=$8000 (dest VRAM $8000, vbank=0)
 
 BrowserStart_Tiles0:: ; 73:45E0
-Data_73_45E0::
+
 	INCBIN "gfx/browser/start_choice/browser_start_tiles0.2bpp"
 
 ; ---- gfx $49E0-$4DE0 (1024 bytes) [PROBABLE] tiles-2bpp: heuristic: 61 coherent tiles (hsim2=0.744 vsim2=0.679, 107 blank) parity 0; 1536/2736 bytes also covered by call-site blocks [clipped from 4530-4FE0 by higher-priority evidence]
@@ -123,31 +123,31 @@ Data_73_49E0:: ; 73:49E0
 ; ---- gfx $4DE0-$51E0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 73:5F70: hl=$4DE0 a=$73 c=$40 de=$8800 (dest VRAM $8800, vbank=0)
 
 BrowserStart_Tiles1:: ; 73:4DE0
-Data_73_4DE0::
+
 	INCBIN "gfx/browser/start_choice/browser_start_tiles1.2bpp"
 
 ; ---- gfx $51E0-$55E0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 73:5F82: hl=$51E0 a=$73 c=$40 de=$8C00 (dest VRAM $8C00, vbank=0)
 
 BrowserStart_Tiles2:: ; 73:51E0
-Data_73_51E0::
+
 	INCBIN "gfx/browser/start_choice/browser_start_tiles2.2bpp"
 
 ; ---- gfx $55E0-$59E0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 73:5F94: hl=$55E0 a=$73 c=$40 de=$9001 (dest VRAM $9000, vbank=1)
 
 BrowserStart_Tiles3:: ; 73:55E0
-Data_73_55E0::
+
 	INCBIN "gfx/browser/start_choice/browser_start_tiles3.2bpp"
 
 ; ---- gfx $59E0-$5DE0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 73:5FA6: hl=$59E0 a=$73 c=$40 de=$9401 (dest VRAM $9400, vbank=1)
 
 BrowserStart_Tiles4:: ; 73:59E0
-Data_73_59E0::
+
 	INCBIN "gfx/browser/start_choice/browser_start_tiles4.2bpp"
 
 ; ---- data $5DE0-$5E20 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/browser/start_choice.asm:71, call 73:5FB7 executed 201 hits in 19 scenarios (analysis/coverage_union.tsv))
 
 BrowserStart_Palettes:: ; 73:5DE0
-Data_73_5DE0::
+
 	INCLUDE "gfx/browser/start_choice/browser_start_palettes.pal"
 
 ; ---- data $5E20-$5E60 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufObj (engine/browser/start_choice.asm:98, call 73:600E executed 201 hits in 19 scenarios (analysis/coverage_union.tsv))
