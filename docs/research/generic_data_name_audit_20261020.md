@@ -1058,7 +1058,7 @@ names. The 4,096 ROM bytes and all four HDMA loader references remain intact.
 Independent review accepted all four retirements. A before/after SYM and MAP
 comparison found exactly four removed symbol lines and no other changes.
 `make`, `make sym-check`, `make palette-check` and `make png-check` passed;
-the ROM remains `RESULT: IDENTICAL`. The six-root lexical census is now 908
+the ROM remains `RESULT: IDENTICAL`. The six-root lexical census is now 907
 generic `Data_BB_AAAA` definitions plus one separate `zero_labels` definition;
 this count does not imply semantic uncertainty for every label.
 
