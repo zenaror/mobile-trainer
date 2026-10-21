@@ -1063,3 +1063,22 @@ rule out computed reads. No payload, boundary, image, palette, loader, frozen
 config entry or ROM byte changed. Independent audits and the source references
 are preserved in this section's reviewed source owners and their neighboring
 loader tables; all claims remain static evidence.
+
+
+## Natural-entry status recheck for four descriptive code roots (2026-10-21)
+
+A fresh maintained-source reference search found no new natural caller for
+`MailReply_ComposeFromRecord` at `2B:6CF5`; the retained finite report records
+its bounded run only under `forced_dead`. `MailBody_LocateCell` at `2D:4E42`
+has no demonstrated external caller; its only static call is to
+`MailBody_LocateCellInMappedWram` at `2D:4E54`. The latter likewise has no
+external caller established. The operation `CallSelected7BB7_IfReturnsPollLyByFFA4Bit0`
+at `29:511E` is called only from its neighboring candidate library wrapper;
+the wrapper's natural root remains unresolved. Existing finite coverage records
+no natural entry for these roots.
+
+Disposition: keep the four operation names descriptive at **PROBABLE** for
+their bounded local mechanics, and record natural entry as **UNKNOWN /
+unproved**. This is not evidence that the code or containing resources are
+unused, nor does it establish a safe caller ABI. No function bytes or labels
+changed in this recheck.
