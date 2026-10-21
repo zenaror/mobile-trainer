@@ -371,4 +371,8 @@ SettingsMenu_DrawItems:: ; 68:522C
 
 SettingsMenu_ItemHighlightMaps:: ; 68:528C
 Table_68_528C::
-	dw $5770, $5798, $57C0, $57E8, $5810
+	dw Tilemap_SettingsMenu_ItemHighlightMap_Entry0
+	dw Tilemap_SettingsMenu_ItemHighlightMap_Entry1
+	dw Tilemap_SettingsMenu_ItemHighlightMap_Entry2
+	dw Tilemap_SettingsMenu_ItemHighlightMap_Entry3
+	dw Tilemap_SettingsMenu_ItemHighlightMap_Entry4

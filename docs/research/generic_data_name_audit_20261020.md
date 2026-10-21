@@ -1966,3 +1966,28 @@ annotations are unchanged. A fresh lexical scan over the six maintained ASM
 roots now counts 562 `Data_BB_AAAA::` definitions across 140 owners; the
 protected mail sample and `zero_labels.asm` are outside this count. This count
 tracks labels only and is not a semantic-completion measure.
+
+## Bank 4A settings and confirmation resources (2026-10-21)
+
+The bank-4A settings/confirmation owner lost nine same-address
+`Data_4A_*` aliases under retained graphics, tilemap and palette names; ten
+asset-catalog label cells now use those names. The same-address
+`Table_4A_5838` alias was removed under `SettingsMenu_ObjTable`, and the
+selected entry at `4A:583C` is now `SettingsMenu_ObjTable_Entry1`. Its frame
+table and two OAM records are source-labeled; the entry's second pointer at
+`4A:5866` is now `SpriteScript_SettingsMenu_ObjTable_Entry1`. The bytes at
+that target are represented by the same editable 16-byte source file using
+offset-limited `INCBIN`s; the file's existing one-tile 2bpp PNG is retained
+as a HYPOTHESIS visual byte view because the span also contains six bytes of
+unclassified prefix and five trailing zero bytes.
+
+The five 40-byte menu-highlight records at `4A:5770`, `5798`, `57C0`, `57E8`
+and `5810` now have entry-specific `Tilemap_SettingsMenu_ItemHighlightMap_*`
+labels. The bank-68 cursor table uses these bank-4A symbols in place of raw
+words; its emitted values are unchanged. The first four records retain their
+CONFIRMED bounded reader evidence; entry 4 remains PROBABLE with no observed
+natural read. `Data_4A_51B0` remains neutral because its suspected unread
+palette role is unproved, and `Data_4A_5860` remains neutral for its
+unclassified six-byte prefix. A fresh six-root lexical scan now finds 550
+`Data_BB_AAAA::` definitions in 140 owners, excluding the protected mail
+sample and `zero_labels.asm`; this is not a semantic-completion measure.

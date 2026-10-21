@@ -48,17 +48,17 @@ gfx/account/screens_bank4a/settings_menu_4a_51d0.attrmap	attrmap	360	gfx/account
 gfx/account/screens_bank4a/settings_menu_4a_51d0.tilemap	tilemap	360	gfx/account/screens_bank4a.asm	4A	51D0	CONFIRMED	-	0	20x18	Tilemap_SettingsMenu_FlagClear
 gfx/account/screens_bank4a/settings_menu_bg.pal	palette	40	gfx/account/screens_bank4a.asm	4A	5180	CONFIRMED	-	0		Palette_SettingsMenu_Bg
 gfx/account/screens_bank4a/settings_menu_obj.pal	palette	8	gfx/account/screens_bank4a.asm	4A	51A8	CONFIRMED	-	0		Palette_SettingsMenu_Obj
-gfx/account/screens_bank4a/tilemap_54a0.attrmap	attrmap	360	gfx/account/screens_bank4a.asm	4A	5608	CONFIRMED	-	0	20x18	Data_4A_54A0
-gfx/account/screens_bank4a/tilemap_54a0.tilemap	tilemap	360	gfx/account/screens_bank4a.asm	4A	54A0	CONFIRMED	-	0	20x18	Data_4A_54A0
-gfx/account/screens_bank4a/tilemap_5cb0.attrmap	attrmap	360	gfx/account/screens_bank4a.asm	4A	5E18	CONFIRMED	-	0	20x18	Data_4A_5CB0
-gfx/account/screens_bank4a/tilemap_5cb0.tilemap	tilemap	360	gfx/account/screens_bank4a.asm	4A	5CB0	CONFIRMED	-	0	20x18	Data_4A_5CB0
-gfx/account/screens_bank4a/tiles_4040.2bpp	tiles	512	gfx/account/screens_bank4a.asm	4A	4040	CONFIRMED	exact	0		Data_4A_4040
-gfx/account/screens_bank4a/tiles_4240.2bpp	tiles	1024	gfx/account/screens_bank4a.asm	4A	4240	CONFIRMED	exact	0		Data_4A_4240
-gfx/account/screens_bank4a/tiles_4640.2bpp	tiles	1024	gfx/account/screens_bank4a.asm	4A	4640	CONFIRMED	exact	0		Data_4A_4640
-gfx/account/screens_bank4a/tiles_4a40.2bpp	tiles	1024	gfx/account/screens_bank4a.asm	4A	4A40	CONFIRMED	exact	0		Data_4A_4A40
-gfx/account/screens_bank4a/tiles_4e40.2bpp	tiles	832	gfx/account/screens_bank4a.asm	4A	4E40	CONFIRMED	exact	0		Data_4A_4E40
-gfx/account/screens_bank4a/tiles_5860.2bpp	tiles	16	gfx/account/screens_bank4a.asm	4A	5860	PROBABLE	exact	0		Data_4A_5860
-gfx/account/screens_bank4a/tiles_5870.2bpp	tiles	1024	gfx/account/screens_bank4a.asm	4A	5870	CONFIRMED	exact	0		Data_4A_5870
+gfx/account/screens_bank4a/tilemap_54a0.attrmap	attrmap	360	gfx/account/screens_bank4a.asm	4A	5608	CONFIRMED	-	0	20x18	Tilemap_SettingsMenu_FlagSet
+gfx/account/screens_bank4a/tilemap_54a0.tilemap	tilemap	360	gfx/account/screens_bank4a.asm	4A	54A0	CONFIRMED	-	0	20x18	Tilemap_SettingsMenu_FlagSet
+gfx/account/screens_bank4a/tilemap_5cb0.attrmap	attrmap	360	gfx/account/screens_bank4a.asm	4A	5E18	CONFIRMED	-	0	20x18	Tilemap_Account_ConfirmManualScreen
+gfx/account/screens_bank4a/tilemap_5cb0.tilemap	tilemap	360	gfx/account/screens_bank4a.asm	4A	5CB0	CONFIRMED	-	0	20x18	Tilemap_Account_ConfirmManualScreen
+gfx/account/screens_bank4a/tiles_4040.2bpp	tiles	512	gfx/account/screens_bank4a.asm	4A	4040	CONFIRMED	exact	0		Gfx_SettingsMenu_Tiles8000Vb1
+gfx/account/screens_bank4a/tiles_4240.2bpp	tiles	1024	gfx/account/screens_bank4a.asm	4A	4240	CONFIRMED	exact	0		Gfx_SettingsMenu_Tiles8800Vb1
+gfx/account/screens_bank4a/tiles_4640.2bpp	tiles	1024	gfx/account/screens_bank4a.asm	4A	4640	CONFIRMED	exact	0		Gfx_SettingsMenu_Tiles8C00Vb1
+gfx/account/screens_bank4a/tiles_4a40.2bpp	tiles	1024	gfx/account/screens_bank4a.asm	4A	4A40	CONFIRMED	exact	0		Gfx_SettingsMenu_Tiles9000Vb1
+gfx/account/screens_bank4a/tiles_4e40.2bpp	tiles	832	gfx/account/screens_bank4a.asm	4A	4E40	CONFIRMED	exact	0		Gfx_SettingsMenu_Tiles9400Vb1
+gfx/account/screens_bank4a/tiles_5860.2bpp	tiles	16	gfx/account/screens_bank4a.asm	4A	5860	HYPOTHESIS	exact	0		Data_4A_5860
+gfx/account/screens_bank4a/tiles_5870.2bpp	tiles	1024	gfx/account/screens_bank4a.asm	4A	5870	CONFIRMED	exact	0		Gfx_Account_ConfirmManualScreen_Tiles9000Vb1
 gfx/account/screens_bank4b/account_result_page_bg.pal	palette	40	gfx/account/screens_bank4b.asm	4B	5870	CONFIRMED	-	0		Palette_Account_ResultPage_Bg
 gfx/account/screens_bank4b/account_result_page_tiles4ad0.2bpp	tiles	1456	gfx/account/screens_bank4b.asm	4B	4AD0	CONFIRMED	exact	0		Gfx_Account_ResultPage_Tiles4AD0
 gfx/account/screens_bank4b/tilemap_5898.attrmap	attrmap	360	gfx/account/screens_bank4b.asm	4B	5A00	CONFIRMED	-	0	20x18	Tilemap_Account_ResultPage

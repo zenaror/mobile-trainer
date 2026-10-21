@@ -39,31 +39,31 @@ ConfirmPages_Anim1Script:: ; 4A:402E
 ; ---- gfx $4040-$4240 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:5107: hl=$4040 a=$4A c=$20 de=$8001 (dest VRAM $8000, vbank=1)
 
 Gfx_SettingsMenu_Tiles8000Vb1:: ; 4A:4040
-Data_4A_4040::
+
 	INCBIN "gfx/account/screens_bank4a/tiles_4040.2bpp"
 
 ; ---- gfx $4240-$4640 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:50BF: hl=$4240 a=$4A c=$40 de=$8801 (dest VRAM $8800, vbank=1)
 
 Gfx_SettingsMenu_Tiles8800Vb1:: ; 4A:4240
-Data_4A_4240::
+
 	INCBIN "gfx/account/screens_bank4a/tiles_4240.2bpp"
 
 ; ---- gfx $4640-$4A40 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:50D1: hl=$4640 a=$4A c=$40 de=$8C01 (dest VRAM $8C00, vbank=1)
 
 Gfx_SettingsMenu_Tiles8C00Vb1:: ; 4A:4640
-Data_4A_4640::
+
 	INCBIN "gfx/account/screens_bank4a/tiles_4640.2bpp"
 
 ; ---- gfx $4A40-$4E40 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:50E3: hl=$4A40 a=$4A c=$40 de=$9001 (dest VRAM $9000, vbank=1)
 
 Gfx_SettingsMenu_Tiles9000Vb1:: ; 4A:4A40
-Data_4A_4A40::
+
 	INCBIN "gfx/account/screens_bank4a/tiles_4a40.2bpp"
 
 ; ---- gfx $4E40-$5180 (832 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:50F5: hl=$4E40 a=$4A c=$40 de=$9401 (dest VRAM $9400, vbank=1); the last $C0 bytes of the old blob hold 2 palettes, a 32-byte gap that no code reads and the head of a tilemap pair; the blocks below type them by what the code reads, and the HDMA request that copies the tiles copies them into VRAM as well
 
 Gfx_SettingsMenu_Tiles9400Vb1:: ; 4A:4E40
-Data_4A_4E40::
+
 	INCBIN "gfx/account/screens_bank4a/tiles_4e40.2bpp"
 
 ; ---- data $5180-$51A8 (40 bytes) [CONFIRMED] palette-rgb555: 20 colours (5 palettes) read by Palette_LoadToBuffer: +$00 bc=$28 into wPaletteBufBg (engine/account/settings_menu.asm:190, call 68:5118 executed 538 hits in 15 scenarios (analysis/coverage_union.tsv))
@@ -91,41 +91,48 @@ Tilemap_SettingsMenu_FlagClear:: ; 4A:51D0
 ; ---- data $54A0-$5770 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:5250: hl=$54A0 a=$4A b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 96 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_SettingsMenu_FlagSet:: ; 4A:54A0
-Data_4A_54A0::
+
 	INCBIN "gfx/account/screens_bank4a/tilemap_54a0.tilemap"
 	INCBIN "gfx/account/screens_bank4a/tilemap_54a0.attrmap"
 
-; ---- data $5770-$5810 (160 bytes) [CONFIRMED] first four $28-byte records of the five-pointer family at 68:528C: each has 20 tile numbers (2 rows x 10 columns), then 20 attributes ($0A: palette 2, VRAM bank 1); copied by 00:08EA via 68:5285 with A=$4A and BC=$020A. Historical read-data classification retained; this does not extend CONFIRMED to the following 40 bytes
+; ---- data $5770-$5810 (160 bytes) [CONFIRMED] four records indexed by wSettingsMenu_Cursor through 68:528C; each contains 20 tile numbers then 20 $0A attributes for a 2x10 tilemap/attrmap copied by Tilemap_CopyRectAndAttr with A=$4A and BC=$020A
 
-Data_4A_5770:: ; 4A:5770
+Tilemap_SettingsMenu_ItemHighlightMap_Entry0:: ; 4A:5770
 	db $80, $81, $82, $83, $84, $85, $86, $87, $88, $89, $90, $91, $92, $93, $94, $95
 	db $96, $97, $98, $99, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
-	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $8A, $8B, $8C, $8D, $8E, $8F, $A0, $A1
+	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
+
+Tilemap_SettingsMenu_ItemHighlightMap_Entry1:: ; 4A:5798
+	db $8A, $8B, $8C, $8D, $8E, $8F, $A0, $A1
 	db $A2, $A3, $9A, $9B, $9C, $9D, $9E, $9F, $B0, $B1, $B2, $B3, $0A, $0A, $0A, $0A
 	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
+
+Tilemap_SettingsMenu_ItemHighlightMap_Entry2:: ; 4A:57C0
 	db $8A, $A4, $A5, $A6, $A7, $A8, $A9, $AA, $AB, $A3, $9A, $B4, $B5, $B6, $B7, $B8
 	db $B9, $BA, $BB, $B3, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
-	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $AC, $AD, $AE, $AF, $C0, $C1, $C2, $C3
+	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
+
+Tilemap_SettingsMenu_ItemHighlightMap_Entry3:: ; 4A:57E8
+	db $AC, $AD, $AE, $AF, $C0, $C1, $C2, $C3
 	db $C4, $C5, $BC, $BD, $BE, $BF, $D0, $D1, $D2, $D3, $D4, $D5, $0A, $0A, $0A, $0A
 	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
 
-; ---- data $5810-$5838 (40 bytes) [PROBABLE] fifth $28-byte record, pointed to by the word at 68:5294: 20 tile numbers at $5810-$5824 (2 rows x 10 columns), then 20 attributes at $5824-$5838 (all $0A). The full $5770-$5838 family is five tile/attribute pairs, not ten tile-only rows; the first 160 bytes retain their separate CONFIRMED read-data classification
+; ---- data $5810-$5838 (40 bytes) [PROBABLE] fifth 2x10 tilemap/attrmap record, selected by cursor index 4 from the five-word table at 68:528C; no natural read was observed in the bounded corpus
 
-Data_4A_5810:: ; 4A:5810
+Tilemap_SettingsMenu_ItemHighlightMap_Entry4:: ; 4A:5810
 	db $C6, $C7, $C8, $C9, $CA, $CB, $CC, $CD, $CE, $89, $D6, $D7, $D8, $D9, $DA, $DB
 	db $DC, $DD, $DE, $99, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
 	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
 
-; ---- words $5838-$583C (4 bytes) [PROBABLE] entry 0 (4 x 00, unused) of the object table at 4A:5838: ld de,$5838 ; a=$4A ; b=$81 ; init_object_from_table (00:0A82) at 68:513A-5145; entry 1 (583C, CONFIRMED read) follows
+; ---- words $5838-$583C (4 bytes) [PROBABLE] zero-filled entry 0 of the object table; the B=$81 caller selects entry 1 at 583C. This empty entry is not a validated safe sentinel.
 
 SettingsMenu_ObjTable:: ; 4A:5838
-Table_4A_5838::
 	sprite_object_entry 0, 0 ; entry 0
 
-; ---- data $583C-$5860 (36 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown [clipped from 583C-586B by higher-priority evidence]
+; ---- data $583C-$5860 (36 bytes) [CONFIRMED] selected object entry, frame table and two OAM frame records; the animation-script pointer at 5866 is described separately below [clipped from 583C-586B by higher-priority evidence]
 
-Data_4A_583C:: ; 4A:583C
-	db $40, $58, $66, $58 ; sprite object-table entry kept as db: pointer target 4A:5866 has no label
+SettingsMenu_ObjTable_Entry1:: ; 4A:583C
+	sprite_object_entry SpriteFrameTable_4A_5840, SpriteScript_SettingsMenu_ObjTable_Entry1 ; entry 1
 SpriteFrameTable_4A_5840:: ; 4A:5840
 	sprite_frame_table SpriteFrame_4A_5844, SpriteFrame_4A_5855
 SpriteFrame_4A_5844:: ; 4A:5844
@@ -137,26 +144,34 @@ SpriteFrame_4A_5844:: ; 4A:5844
 SpriteFrame_4A_5855:: ; 4A:5855
 	db $04, $00, $FE, $00, $08, $08, $FE, $10, $08, $00, $5A ; sprite frame record kept as db: the item crosses the end of its block
 
-; ---- gfx $5860-$5870 (16 bytes) [PROBABLE] tiles-2bpp: heuristic: 56 coherent tiles (hsim2=0.705 vsim2=0.733, 10 blank) parity 0; 1024/1104 bytes also covered by call-site blocks [clipped from 5860-5CB0 by higher-priority evidence]
+; ---- data $5860-$5870 (16 bytes) [HYPOTHESIS] the existing 2bpp sheet is only a visual byte view: the interval contains a six-byte unclassified prefix, the selected five-byte animation script at $5866, and five trailing zero bytes
 
 Data_4A_5860:: ; 4A:5860
-	INCBIN "gfx/account/screens_bank4a/tiles_5860.2bpp"
+	INCBIN "gfx/account/screens_bank4a/tiles_5860.2bpp", 0, 6
+
+; ---- sprite animation $5866-$586B (5 bytes) [CONFIRMED] entry 1's script pointer; two frame/delay pairs (0, 30) and (1, 5)
+
+SpriteScript_SettingsMenu_ObjTable_Entry1:: ; 4A:5866
+	INCBIN "gfx/account/screens_bank4a/tiles_5860.2bpp", 6, 5
+
+; ---- zero $586B-$5870 (5 bytes) [PROBABLE] trailing zero bytes after the selected animation script
+	INCBIN "gfx/account/screens_bank4a/tiles_5860.2bpp", 11, 5
 
 ; ---- gfx $5870-$5C70 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:649A: hl=$5870 a=$4A c=$40 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 10 hits in 2 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_Account_ConfirmManualScreen_Tiles9000Vb1:: ; 4A:5870
-Data_4A_5870::
+
 	INCBIN "gfx/account/screens_bank4a/tiles_5870.2bpp"
 
 ; ---- data $5C70-$5CB0 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/account/confirm_screens.asm:291, call 68:64BD executed 10 hits in 2 scenarios (analysis/coverage_union.tsv))
 
 Palette_Account_ConfirmManualScreen_Bg:: ; 4A:5C70
-Data_4A_5C70::
+
 	INCLUDE "gfx/account/screens_bank4a/account_confirm_manual_screen_bg.pal"
 
 ; ---- data $5CB0-$5F80 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:64DF: hl=$5CB0 a=$4A b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 10 hits in 2 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_Account_ConfirmManualScreen:: ; 4A:5CB0
-Data_4A_5CB0::
+
 	INCBIN "gfx/account/screens_bank4a/tilemap_5cb0.tilemap"
 	INCBIN "gfx/account/screens_bank4a/tilemap_5cb0.attrmap"

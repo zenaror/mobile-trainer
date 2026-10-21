@@ -1536,3 +1536,15 @@ neutral. A fresh six-root ASM scan finds 562 `Data_BB_AAAA::` definitions in
 140 owners, excluding the protected mail sample and `zero_labels.asm`; this
 lexical count is not a semantic-completion measure. No screen depiction or broader runtime claim is added; see the
 [owner audit](docs/research/generic_data_name_audit_20261020.md#bank-5d-account-screen-aliases-and-object-entry-2026-10-21).
+
+The bank-4A settings and confirmation owner also lost nine redundant
+`Data_4A_*` aliases and `Table_4A_5838`; catalog cells now point to the
+retained resource names. Five cursor-selected highlight map records have
+entry-specific labels and bank-68 uses those bank-4A labels instead of raw
+words. The selected settings object entry at `4A:583C` and its script target
+at `4A:5866` now have structural names; the 16-byte 2bpp picture remains a
+HYPOTHESIS visual byte view because it overlaps the script and padding. The
+six-root ASM scan now counts 550 `Data_BB_AAAA::` labels in 140 owners,
+excluding the protected sample and `zero_labels.asm`. The suspected unread
+palette at `4A:51B0` and six-byte prefix at `4A:5860` remain neutral. See the
+[bank-4A audit](docs/research/generic_data_name_audit_20261020.md#bank-4a-settings-and-confirmation-resources-2026-10-21).
