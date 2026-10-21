@@ -423,3 +423,30 @@ have their older legacy previews, so this is an editing-view omission rather
 than a missing ROM source asset or missing preview file. The 25 candidate
 windows have exact source-byte accounting; this finite scan does not establish
 that every screen asset in the ROM has been found or naturally selected.
+
+### ROOT revalidation on published checkpoint `4ed33389` (2026-10-21)
+
+The authenticated read-only receipt above uses source revision
+`16d461e1f23743842343b92fc78b66088bba6986`. The current published checkpoint
+`4ed333898e26d529fa3d986b826129644dccd55d` was reconciled against it: the 137
+active asset rows in banks 41–47 have no added or removed paths and no changed
+field other than symbol names. The bank-42 and bank-44 owner edits in that
+interval change labels only; the bank-53 table's symbol cleanup also preserves
+the 369-byte block, as confirmed by the full byte-identical Japanese build.
+
+All 41 editing/preview images named by the authenticated receipt are still
+present with their recorded hashes: 17 editing views and 24 legacy previews.
+The preview records were requalified from `BrowserFrameUnused_*` to
+`BrowserFrameCandidate_*`; this changed the documented filenames, not image
+pixels. The separate editing PNG for `47:68F0` remains among the editing views.
+The eight KEEP windows still have no editable screen row, while each has its
+legacy preview; this is a bounded editing-view omission, not a missing ROM
+resource or preview image. Current `make png-check` also passes for 408 tile
+sheets, four raw-byte views, 37 font sheets and 95 screen PNGs.
+
+These checks close the requested finite inventory question: the bank-53
+names, 25 audited frame windows, corresponding bounded PNGs and exact source
+bytes have been reconciled, and no missing PNG was found in this scope. They
+do not connect any of the 25 Japanese bank-53 names to a frame, establish that
+the 24 bank-41–46 candidates are globally unused, or prove a natural loader
+for the unselected `47:68F0` window. Those semantic questions remain open.
