@@ -400,3 +400,13 @@ corresponding ROM byte range before searching. Full graphs and exceptions
 are in `.tmp/agent-computed-entry-slices-20261021/REPORT.md` (SHA-256
 `3852272b339e561de37611b56be4577e33aeb0da977c7eb78518b5f0f4d81275`).
 Static routes do not prove natural execution; no build or runtime test ran.
+
+## Bank 67 password-change data aliases (2026-10-21)
+
+Removed `Data_67_5E43`, `Data_67_5EB4` and `Data_67_5F5E` from
+`engine/settings/password_change.asm`. Each was an exact same-address alias of
+the retained `Net_PwdChgCgiUrl`, `Net_PppIdKey` or `Net_DefaultDnsPair` label;
+an exact-token search found no active assembly or tool consumer beyond the
+declarations. Existing CONFIRMED read evidence, content-class uncertainty,
+bytes and extents are unchanged. Frozen analysis/config records were not
+rewritten.

@@ -697,7 +697,7 @@ PasswordChange_Abort:: ; 67:5DFE
 ; ---- data $5E43-$5E7D (58 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
 Net_PwdChgCgiUrl:: ; 67:5E43
-Data_67_5E43::
+
 	db $68, $74, $74, $70, $3A, $2F, $2F, $6D, $67, $62, $2E, $64, $69, $6F, $6E, $2E
 	db $6E, $65, $2E, $6A, $70, $2F, $63, $67, $69, $2D, $62, $69, $6E, $2F, $6D, $67
 	db $62, $2F, $64, $61, $61, $5F, $67, $62, $5F, $70, $77, $64, $63, $68, $67, $2E
@@ -733,7 +733,7 @@ PasswordChange_BuildRequestBody:: ; 67:5E7D
 ; ---- data $5EB4-$5EBC (8 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 5EB4-5ED1 by higher-priority evidence]
 
 Net_PppIdKey:: ; 67:5EB4
-Data_67_5EB4::
+
 	db $50, $50, $50, $5F, $49, $44, $3D, $00
 
 ; ---- text $5EBC-$5ED1 (21 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -836,5 +836,5 @@ Net_CopyDefaultDnsPair:: ; 67:5F54
 ; ---- data $5F5E-$5F66 (8 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
 Net_DefaultDnsPair:: ; 67:5F5E
-Data_67_5F5E::
+
 	db $C0, $A8, $28, $02, $C0, $A8, $28, $02
