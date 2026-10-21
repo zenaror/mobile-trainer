@@ -873,14 +873,14 @@ BrowserMenu_TwoItemRecords:: ; 72:6AEC
 	db $30, $68, $83, $30, $68
 	dw BrowserMenu_TwoItemTexts
 	db $60, $68, $84, $60, $68
-	dw String_72_6B23
+	dw BrowserMenu_TwoItem_ReturnToTopMenu
 
 ; ---- text $6AFA-$6B4C (82 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
 BrowserMenu_TwoItemTexts:: ; 72:6AFA
 	db "　　　　　でんわを　きります　　　　　　", 0
-String_72_6B23:: ; 72:6B23
+BrowserMenu_TwoItem_ReturnToTopMenu:: ; 72:6B23
 	db "　　　トップメニューに　もどります　　　", 0
 POPC
 
@@ -890,9 +890,9 @@ BrowserMenu_ThreeItemRecords:: ; 72:6B4C
 	db $20, $68, $82, $20, $68
 	dw BrowserMenu_ThreeItemTexts
 	db $48, $68, $83, $48, $68
-	dw String_72_6B91
+	dw BrowserMenu_ThreeItem_DisconnectPhone
 	db $70, $68, $84, $70, $68
-	dw String_72_6BBA
+	dw BrowserMenu_ThreeItem_ExitHomepage
 	db $20, $68, $87, $20, $68
 	dw BrowserMenu_PlaceholderText
 
@@ -901,9 +901,9 @@ BrowserMenu_ThreeItemRecords:: ; 72:6B4C
 PUSHC sjis
 BrowserMenu_ThreeItemTexts:: ; 72:6B68
 	db "　ページリストへの　かきこみができます　", 0
-String_72_6B91:: ; 72:6B91
+BrowserMenu_ThreeItem_DisconnectPhone:: ; 72:6B91
 	db "　　　　　でんわを　きります　　　　　　", 0
-String_72_6BBA:: ; 72:6BBA
+BrowserMenu_ThreeItem_ExitHomepage:: ; 72:6BBA
 	db "　ホームページを　しゅうりょうします　　", 0
 POPC
 

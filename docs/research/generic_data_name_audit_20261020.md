@@ -3076,3 +3076,23 @@ Function, Font and Label exact patterns remain at zero. The build is
 `RESULT: IDENTICAL` with original SHA-256
 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
 `make sym-check` passes with 12,168 labels and 51 constants.
+
+
+## Bank 72 browser-menu action strings (2026-10-21)
+
+Three strings selected through `BrowserMenu_TwoItemRecords` and
+`BrowserMenu_ThreeItemRecords` now use action-oriented names:
+`BrowserMenu_TwoItem_ReturnToTopMenu` (`72:6B23`),
+`BrowserMenu_ThreeItem_DisconnectPhone` (`72:6B91`), and
+`BrowserMenu_ThreeItem_ExitHomepage` (`72:6BBA`). The record words point to
+these strings, while the nearby code indexes the record arrays by selection.
+This establishes the static pointer relationship and message contents
+(PROBABLE). The existing trace supports the first record read, not every
+selection; this pass does not upgrade natural-execution evidence. Bytes and
+record extents are unchanged.
+
+The updated exact-prefix census is 63 Data labels in 41 owners, 88 String, 0
+Table, 41 Tiles, 24 Tilemap, 4 Attrmap and 25 Palette; exact Function, Font,
+and Label remain zero. The Japanese ROM build is `RESULT: IDENTICAL` with SHA
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
+`make sym-check` passes with 12,168 labels and 51 constants.

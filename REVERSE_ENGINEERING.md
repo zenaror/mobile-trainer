@@ -1926,7 +1926,7 @@ A fresh path-bounded exact-name scan of the six maintained source roots plus
 `zero_labels.asm`, excluding the protected mail sample before reading, finds
 63 `Data_BB_AAAA` definitions in 41 owners and no exact generic `Function`,
 `Font`, or `Label` definitions. This is a lexical count, not semantic closure.
-The same scan now finds 91 `String_BB_AAAA`, no exact `Table_BB_AAAA`, 41
+The same scan now finds 88 `String_BB_AAAA`, no exact `Table_BB_AAAA`, 41
 `Tiles_BB_AAAA`, 24 `Tilemap_BB_AAAA`, 4 `Attrmap_BB_AAAA`, and 25
 `Palette_BB_AAAA` definitions; the remaining prefixes are an owner-by-owner
 evidence worklist. The four former generic table labels are described in the
@@ -1937,4 +1937,7 @@ no claim of browser load/display is added. A debug-screen triangle glyph and
 two candidate blank-line records now have content-oriented labels; the latter
 two remain HYPOTHESIS because no readers were found. The duplicate address
 selection prompt in bank 2A is also candidate-qualified, with an exact byte
-match to the named bank-2C prompt but no reader for the duplicate.
+match to the named bank-2C prompt but no reader for the duplicate. Three
+browser-menu strings are now labeled by their selected action text; table
+structure is static evidence and does not imply natural rendering of every
+entry.
