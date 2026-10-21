@@ -348,7 +348,7 @@ TopMenu_Anim3Script:: ; 1E:6436
 
 ; ---- data $6445-$6450 (11 bytes) [HYPOTHESIS] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 5 step(s), (frame,delay) pairs: 0:5 1:5 2:5 3:5 4:5; not named by a known object-table row: found because the gap between neighbours equals exactly this script (+ pad)
 
-Data_1E_6445:: ; 1E:6445
+TopMenu_CandidateSpriteScript_6445:: ; 1E:6445
 	db $05, $00, $05, $01, $05, $02, $05, $03, $05, $04, $05
 
 ; ---- words $6450-$6462 (18 bytes) [PROBABLE] sprite frame table: 9 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
@@ -491,12 +491,12 @@ TopMenu_Anim5Script:: ; 1E:654C
 
 ; ---- data $6551-$6554 (3 bytes) [HYPOTHESIS] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4; not named by a known object-table row: found because the gap between neighbours equals exactly this script (+ pad)
 
-Data_1E_6551:: ; 1E:6551
+TopMenu_CandidateSpriteScript_6551:: ; 1E:6551
 	db $01, $00, $04
 
 ; ---- data $6554-$6559 (5 bytes) [HYPOTHESIS] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 2 step(s), (frame,delay) pairs: 0:20 1:20; not named by a known object-table row: found because the gap between neighbours equals exactly this script (+ pad)
 
-Data_1E_6554:: ; 1E:6554
+TopMenu_CandidateSpriteScript_6554:: ; 1E:6554
 	db $02, $00, $14, $01, $14
 
 ; ---- words $6559-$655B (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2

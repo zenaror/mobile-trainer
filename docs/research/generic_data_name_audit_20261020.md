@@ -2824,3 +2824,22 @@ nine frames, script, and object entry now use sprite macros and descriptive
 labels. Build evidence: `make` returned `RESULT: IDENTICAL` and the original ROM
 SHA-256. This is a static structure classification plus an emulator preview,
 not evidence of physical hardware execution.
+
+
+## Bank 1E top-menu candidate script labels (2026-10-21)
+
+Three former `Data_1E_*` labels in `gfx/top_menu/top_menu.asm` now use
+`TopMenu_CandidateSpriteScript_*` names while retaining HYPOTHESIS status.
+Their bytes parse locally as scripts with 5 steps (`1E:6445`), 1 step
+(`1E:6551`), and 2 steps (`1E:6554`). None is named by a known object-table
+row. The known `TopMenu_ObjTable` entry 4 uses the separate
+`TopMenu_Anim4Script` at `1E:6513`; adjacency does not prove these scripts
+belong to the neighboring frame tables. A bounded search found no source
+consumer of the old labels and no little-endian word pointer to these addresses
+in bank 1E. This does not prove universal non-use or natural behavior. The
+labels and comments change only the source names; emitted bytes are unchanged.
+A fresh exact-name scan of 334 tracked ASM/INC files (including
+`zero_labels.asm`, excluding `engine/mail/sample_data.asm`
+before reading) finds 68 `Data_BB_AAAA` definitions in 42 owners and zero exact
+generic `Function_BB_AAAA`, `Font_BB_AAAA`, or `Label_BB_AAAA` definitions.
+These are lexical counts, not a claim that all data semantics are resolved.

@@ -1899,3 +1899,13 @@ The communication-error record and message-pointer tables now export only
 their existing semantic names; bytes and confirmed/probable boundaries are
 preserved. See the
 [communication-error alias note](docs/research/comm_error_table_aliases_20261021.md).
+
+
+Three HYPOTHESIS script-shaped blocks in the top-menu owner now use
+`TopMenu_CandidateSpriteScript_*` names instead of `Data_1E_*`. Their format is
+plausible, but no known object-table row selects them and neighboring frame
+tables do not establish an association. The bank-1E audit records the bounds.
+A fresh exact-name scan of 334 tracked ASM/INC files, excluding the protected
+mail sample before reading, finds 68 `Data_BB_AAAA` definitions in 42 owners
+and no exact generic `Function`, `Font`, or `Label` definitions. These lexical
+counts do not close data semantics.
