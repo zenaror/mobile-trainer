@@ -226,3 +226,28 @@ indirect transfers and unlabelled adjacent fragments remain open. The matrix
 is `.tmp/agent-neutral-routine-triage-20261021/REPORT.md` (SHA-256
 `9dd94553cea8c2ced6177a700cb75e408db39d05a6340de954648ca4e54e0f5d`). No
 trace or build ran, so this is not a whole-ROM closure claim.
+
+## Indirect data references and computed-entry slices (2026-10-21)
+
+The 217 indirect/component mentions were reviewed by context: 216 remain
+`UNKNOWN_INDIRECT_READ` and one belongs to an already known read. No new
+`READ` was established; the combined data ledger remains 4 `READ`, 162
+`UNKNOWN`, and 356 `UNRESOLVED`. The 25 paired `DW`/`DB BANK` fields are
+structurally coherent with candidate intervals but do not establish a
+consumer. Browser style selection masks to 0..127 for a 27-entry table, and
+the intervening frame service's C register preservation is unproven, so style
+2 remains unknown. Receipt:
+`.tmp/agent-indirect-bank-triage-20261021/REPORT.md` (SHA-256
+`6564982a3a8384e0e61311b4d4f16796cc1422fa7368d5160dc381b188db4248`).
+
+A separate finite byte/source slice for 28 historical routine addresses
+found three conditional static routes (two audio dispatches and one return
+continuation), four priority slices that remain `UNKNOWN`, and 21
+`NOT_FOUND_WITHIN_METHOD`. No natural root was established for any of the 28;
+the audio dispatches are internal table routes rather than new external
+roots. Computed, stack, RAM-copy, interrupt, and unsupported emitter paths
+remain outside this method. Evidence excludes the protected source and its
+corresponding ROM byte range before searching. Full graphs and exceptions
+are in `.tmp/agent-computed-entry-slices-20261021/REPORT.md` (SHA-256
+`3852272b339e561de37611b56be4577e33aeb0da977c7eb78518b5f0f4d81275`).
+Static routes do not prove natural execution; no build or runtime test ran.
