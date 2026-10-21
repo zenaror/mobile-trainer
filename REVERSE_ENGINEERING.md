@@ -1555,8 +1555,8 @@ now use `CommScene_ObjAnim*` names. The labels distinguish four frame-pointer
 lists, 26 list-ordered frame records and four paired candidate scripts; no
 executed caller, depicted subject or first-two-field meaning is claimed. The
 26 neutral `Data_70_*` labels became structural labels without changing data
-spans. The exact six-root `Data_BB_AAAA::` count is now 458 in 137 owners after
-this additional structural pass.
+spans. The exact six-root `Data_BB_AAAA::` count is now 447 in 136 owners after
+these alias retirements.
 `make` remains `RESULT: IDENTICAL`, and `make sym-check` passes 12,743 labels
 and 51 constants. See the [bank-70 naming audit](docs/research/generic_data_name_audit_20261020.md#bank-70-communication-scene-object-animation-records-2026-10-21).
 The second probable object-animation group at `70:4C5C` now uses
@@ -1568,3 +1568,8 @@ Two further probable groups at `70:4DBB` and `70:5272` now use entry-,
 frame-list- and frame-index names for 22 frame records and five candidate
 scripts. Callers, sprite subjects and the first two OAM field meanings remain
 unknown. See the [bank-70 naming audit](docs/research/generic_data_name_audit_20261020.md#bank-70-third-and-fourth-communication-scene-object-animation-groups-2026-10-21).
+
+Bank 51's communication-time graphics owner has also lost eleven generic
+same-address `Data_51_*` aliases under existing resource labels. Eight asset
+catalog entries now use those names, and the unknown tile-data tail remains
+neutral. See the [bank-51 alias audit](docs/research/generic_data_name_audit_20261020.md#bank-51-communication-time-graphics-aliases-2026-10-21).

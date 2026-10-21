@@ -2074,3 +2074,32 @@ found no consumers outside this owner; frozen `config/` and historical
 analysis retain old names. The six-root whitespace-aware lexical count is now
 458 `Data_BB_AAAA::` definitions in 137 owners after these 27 Data-label
 renames. This is not a semantic-completion measure.
+
+## Bank 51 communication-time graphics aliases (2026-10-21)
+
+Retired eleven same-address `Data_51_*` declarations from
+`gfx/comm/time_summary.asm` under existing descriptive graphics, tilemap and
+palette names. The `.sym` file confirms each old and retained name shared the
+same bank/address. Active source and tool scans found no uses of the old names
+outside their declarations; eight `gfx/assets.tsv` label cells were aligned
+to the retained names. `Data_51_5EE1` remains neutral because no same-address
+descriptive label exists and its wider tile-data association is only
+**PROBABLE**. Frozen `config/regions/bank51.tsv`, `config/xrefs.tsv` and
+historical `analysis/` retain prior names as evidence snapshots. Data spans,
+confidence comments and assets did not change. The whitespace-aware six-root
+lexical count is 447 `Data_BB_AAAA::` definitions in 136 owners after these
+eleven alias retirements; this is not a semantic-completion measure.
+
+| Retired alias | Retained name | Address |
+|---|---|---|
+| `Data_51_42A0` | `Gfx_CommTime_SummaryA_Tiles9000Vb1` | `51:42A0` |
+| `Data_51_46A0` | `Gfx_CommTime_SummaryA_Tiles9400Vb1` | `51:46A0` |
+| `Data_51_4AA0` | `Tilemap_CommTime_SummaryA` | `51:4AA0` |
+| `Data_51_4D70` | `Palette_CommTime_SummaryA` | `51:4D70` |
+| `Data_51_4DB0` | `Gfx_CommTime_SummaryB_Tiles9000Vb1` | `51:4DB0` |
+| `Data_51_51B0` | `Gfx_CommTime_SummaryB_Tiles9400Vb1` | `51:51B0` |
+| `Data_51_55B0` | `Tilemap_CommTime_SummaryB` | `51:55B0` |
+| `Data_51_5880` | `Palette_CommTime_SummaryB` | `51:5880` |
+| `Data_51_58C0` | `Gfx_ConnIcon_Request2_Tiles8200` | `51:58C0` |
+| `Data_51_5CC0` | `Gfx_ConnIcon_Request2_Tiles8600` | `51:5CC0` |
+| `Data_51_5EC0` | `Palette_ConnIcon_Request2_Obj4` | `51:5EC0` |

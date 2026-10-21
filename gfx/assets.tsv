@@ -336,14 +336,14 @@ gfx/comm/time_summary/comm_time_summary_a.tilemap	tilemap	360	gfx/comm/time_summ
 gfx/comm/time_summary/comm_time_summary_b.attrmap	attrmap	360	gfx/comm/time_summary.asm	51	5718	CONFIRMED	-	0	20x18	Tilemap_CommTime_SummaryB
 gfx/comm/time_summary/comm_time_summary_b.pal	palette	64	gfx/comm/time_summary.asm	51	5880	PROBABLE	-	0		Palette_CommTime_SummaryB
 gfx/comm/time_summary/comm_time_summary_b.tilemap	tilemap	360	gfx/comm/time_summary.asm	51	55B0	CONFIRMED	-	0	20x18	Tilemap_CommTime_SummaryB
-gfx/comm/time_summary/palette_4d70.pal	palette	64	gfx/comm/time_summary.asm	51	4D70	PROBABLE	-	0		Data_51_4D70
-gfx/comm/time_summary/palette_5ec0.pal	palette	32	gfx/comm/time_summary.asm	51	5EC0	PROBABLE	-	0		Data_51_5EC0
-gfx/comm/time_summary/tiles_42a0.2bpp	tiles	1024	gfx/comm/time_summary.asm	51	42A0	CONFIRMED	exact	0		Data_51_42A0
-gfx/comm/time_summary/tiles_46a0.2bpp	tiles	1024	gfx/comm/time_summary.asm	51	46A0	CONFIRMED	exact	0		Data_51_46A0
-gfx/comm/time_summary/tiles_4db0.2bpp	tiles	1024	gfx/comm/time_summary.asm	51	4DB0	CONFIRMED	exact	0		Data_51_4DB0
-gfx/comm/time_summary/tiles_51b0.2bpp	tiles	1024	gfx/comm/time_summary.asm	51	51B0	CONFIRMED	exact	0		Data_51_51B0
-gfx/comm/time_summary/tiles_58c0.2bpp	tiles	1024	gfx/comm/time_summary.asm	51	58C0	CONFIRMED	exact	0		Data_51_58C0
-gfx/comm/time_summary/tiles_5cc0.2bpp	tiles	512	gfx/comm/time_summary.asm	51	5CC0	CONFIRMED	exact	0		Data_51_5CC0
+gfx/comm/time_summary/palette_4d70.pal	palette	64	gfx/comm/time_summary.asm	51	4D70	PROBABLE	-	0		Palette_CommTime_SummaryA
+gfx/comm/time_summary/palette_5ec0.pal	palette	32	gfx/comm/time_summary.asm	51	5EC0	PROBABLE	-	0		Palette_ConnIcon_Request2_Obj4
+gfx/comm/time_summary/tiles_42a0.2bpp	tiles	1024	gfx/comm/time_summary.asm	51	42A0	CONFIRMED	exact	0		Gfx_CommTime_SummaryA_Tiles9000Vb1
+gfx/comm/time_summary/tiles_46a0.2bpp	tiles	1024	gfx/comm/time_summary.asm	51	46A0	CONFIRMED	exact	0		Gfx_CommTime_SummaryA_Tiles9400Vb1
+gfx/comm/time_summary/tiles_4db0.2bpp	tiles	1024	gfx/comm/time_summary.asm	51	4DB0	CONFIRMED	exact	0		Gfx_CommTime_SummaryB_Tiles9000Vb1
+gfx/comm/time_summary/tiles_51b0.2bpp	tiles	1024	gfx/comm/time_summary.asm	51	51B0	CONFIRMED	exact	0		Gfx_CommTime_SummaryB_Tiles9400Vb1
+gfx/comm/time_summary/tiles_58c0.2bpp	tiles	1024	gfx/comm/time_summary.asm	51	58C0	CONFIRMED	exact	0		Gfx_ConnIcon_Request2_Tiles8200
+gfx/comm/time_summary/tiles_5cc0.2bpp	tiles	512	gfx/comm/time_summary.asm	51	5CC0	CONFIRMED	exact	0		Gfx_ConnIcon_Request2_Tiles8600
 gfx/comm/time_summary/tiles_5ee1.2bpp	tiles	4592	gfx/comm/time_summary.asm	51	5EE1	PROBABLE	exact	1		Data_51_5EE1
 gfx/dialog/dialog_window/dialog_obj_palette.pal	palette	8	gfx/dialog/dialog_window.asm	72	4E38	CONFIRMED	-	0		Dialog_ObjPalette
 gfx/dialog/dialog_window/dialog_palette.pal	palette	16	gfx/dialog/dialog_window.asm	72	4E28	CONFIRMED	-	0		Dialog_Palette
