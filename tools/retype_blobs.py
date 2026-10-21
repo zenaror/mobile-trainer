@@ -281,15 +281,15 @@ def special():
     newblock = (['; ---- data $6680-$66C0 (64 bytes) [%s] %s; the old blocks cut it in four (8 + 24 + 33 bytes, heuristics)' % (sb, tb), '',
                  'Palette_Registration_Delete_Bg:: ; 71:6680'] + db_lines(bg) +
                 ['', '; ---- data $66C0-$66C8 (8 bytes) [%s] %s' % (so, to), '',
-                 'Palette_Registration_Delete_Obj:: ; 71:66C0', 'Palette_71_66C0::'] + db_lines(obj) + [''])
+                 'Palette_Registration_Delete_Obj:: ; 71:66C0'] + db_lines(obj) + [''])
     L = L[:a] + newblock + L[b:]
     open(asm, 'w', encoding='utf-8').write('\n'.join(L))
-    # the code that loads the OBJ palette uses the semantic name now (the old neutral label stays as an alias in the block)
+    # the code that loads the OBJ palette uses the semantic name; the old neutral label is not re-emitted
     f2 = 'engine/account/delete_registration.asm'
     s2 = open(f2, encoding='utf-8').read()
     assert s2.count('Palette_71_66C0') == 2, 'the load and its BANK()'
     open(f2, 'w', encoding='utf-8').write(s2.replace('Palette_71_66C0', 'Palette_Registration_Delete_Obj'))
-    log.append('71:6680 -> Palette_Registration_Delete_Bg 64 bytes [%s], Palette_Registration_Delete_Obj 8 bytes [%s] (Palette_71_66C0 stays as an alias; the code uses the new name)' % (sb, so))
+    log.append('71:6680 -> Palette_Registration_Delete_Bg 64 bytes [%s], Palette_Registration_Delete_Obj 8 bytes [%s] (generic alias removed; the code uses the semantic name)' % (sb, so))
     # (C) 56:526A: the 20 x 2 tilemap pair (40 + 40 bytes, the attribute half is read through the pointer $5292) typed as 5 tiles + 6 bytes
     asm = 'gfx/comm/connect_dialog_bank56.asm'
     L = open(asm, encoding='utf-8').read().split('\n')

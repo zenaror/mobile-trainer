@@ -1717,3 +1717,43 @@ confidence levels are unchanged.
 | `70:73B0` | `Tilemap_70_73B0` | `Tilemap_CommScene_TextBox5` |
 | `70:7450` | `Tilemap_70_7450` | `Tilemap_CommScene_TextBox6` |
 | `70:74F0` | `Tilemap_70_74F0` | `Tilemap_CommScene_TextBox7` |
+
+## Bank 71 account-screen address aliases (2026-10-21)
+
+The refreshed census at `2e47c34d` found 22 declaration-only address-named
+labels in `gfx/account/screens_bank71.asm`, each co-located with an existing
+named graphics, palette, tilemap, object-table, frame or animation-script
+label. The 347-file tracked non-language ASM/INC scan excluded
+`engine/mail/sample_data.asm`; it found no other-source references or local
+dependencies. It found one tool file, `tools/retype_blobs.py`. After the update,
+that file retains two textual occurrences of `Palette_71_66C0` to recognize
+and replace the one-shot historical input spelling, while no longer emitting
+the alias.
+The owner comments and code references are unchanged; no ROM data changed.
+The owner remains 263 physical lines and its aliases are absent from the
+post-pass SYM.
+
+| Address | Retired label | Retained label |
+|---|---|---|
+| `71:4000` | `Data_71_4000` | `Gfx_CommPanel_Tiles8000` |
+| `71:4300` | `Data_71_4300` | `Gfx_CommPanel_SharedVramSource` |
+| `71:4890` | `Data_71_4890` | `Gfx_CommPanel_Tiles9400Vb1` |
+| `71:4C90` | `Data_71_4C90` | `Palette_CommPanel_Obj` |
+| `71:4C98` | `Data_71_4C98` | `Tilemap_CommPanel_71_4C98` |
+| `71:4F68` | `Data_71_4F68` | `Tilemap_CommPanel_71_4F68` |
+| `71:4FB8` | `Table_71_4FB8` | `CommPanel_ObjTable` |
+| `71:4FC0` | `Table_71_4FC0` | `CommPanel_Anim1Frames` |
+| `71:4FC6` | `Data_71_4FC6` | `CommPanel_Anim1Frame0` |
+| `71:4FE7` | `Data_71_4FE7` | `CommPanel_Anim1Frame1` |
+| `71:500C` | `Data_71_500C` | `CommPanel_Anim1Frame2` |
+| `71:5031` | `Data_71_5031` | `CommPanel_Anim1Script` |
+| `71:5340` | `Data_71_5340` | `Gfx_Registration_DeleteConfirm_Tiles9000Vb1` |
+| `71:5740` | `Data_71_5740` | `Gfx_Registration_DeleteConfirm_Tiles9400Vb1` |
+| `71:5DC0` | `Data_71_5DC0` | `Gfx_Registration_Delete_Tiles9400Vb1` |
+| `71:6580` | `Data_71_6580` | `Gfx_Registration_DeleteExecute_Tiles9000Vb1` |
+| `71:66C0` | `Palette_71_66C0` | `Palette_Registration_Delete_Obj` |
+| `71:66C8` | `Data_71_66C8` | `Tilemap_Registration_DeleteConfirm_71_66C8` |
+| `71:6998` | `Data_71_6998` | `Tilemap_Registration_DeleteConfirm_71_6998` |
+| `71:6C68` | `Data_71_6C68` | `Tilemap_Registration_DeleteExecute` |
+| `71:6F38` | `Table_71_6F38` | `Registration_DeleteExecute_ObjTable` |
+| `71:6F40` | `Table_71_6F40` | `Registration_DeleteExecute_Anim1Frames` |

@@ -1442,3 +1442,10 @@ cross-file, tool or local-label consumers were found. Comment-only mentions
 were updated to the retained names; code and ROM data are unchanged. The exact
 map and census limits are in
 [`docs/research/generic_data_name_audit_20261020.md`](docs/research/generic_data_name_audit_20261020.md#bank-70-communication-scene-address-aliases-2026-10-21).
+
+Bank 71's account-screen data then lost 22 address aliases over existing named
+graphics, palettes, tilemaps, and sprite tables. The historical
+`retype_blobs.py` transformer no longer emits its old palette alias; it still
+recognizes the old input spelling. Its address map and that tool file are
+documented in
+[`docs/research/generic_data_name_audit_20261020.md`](docs/research/generic_data_name_audit_20261020.md#bank-71-account-screen-address-aliases-2026-10-21).
