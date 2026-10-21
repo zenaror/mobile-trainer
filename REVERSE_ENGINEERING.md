@@ -82,6 +82,12 @@ remains byte-identical; symbol, palette and PNG checks pass. Palette role
 confidence remains PROBABLE, and historical `config/`/`analysis/` spellings
 are preserved as snapshot evidence. Japanese naming work remains open.
 
+The nine redundant `String_72_AAAA` labels in the bank-72 dialog-message file
+have also been removed in favor of their existing `String_Dialog_Msg*` names.
+The historical source line positions, message bytes and table entries are
+preserved; the ROM remains byte-identical and all symbol, palette and PNG
+checks pass. See the dated generic-label audit for the nine-address mapping.
+
 The 2026-10-20 bank6C HelpScript pass maps the static command stream from `6C:4809` through the
 terminal at `6C:58C6` (exclusive end `58C7`), corrects mixed command/text classifications and
 replaces address-only labels at command boundaries with structural names. An independent walk

@@ -1116,3 +1116,29 @@ not current source exports.
 report 162 loads, 116 arrays, two documented over-reads and zero errors; PNG
 checks pass for 408 tile sheets, four raw byte views, 37 font sheets and 95
 screen PNGs. The two-label change removes no ROM bytes.
+
+## Dialog message address aliases retired (2026-10-21)
+
+Nine `String_72_AAAA` exports in `data/text/dialog_messages.asm` duplicated
+same-address semantic message labels and had no maintained ASM/INC references
+outside their declarations. They are retired in favor of the existing record
+names:
+
+| Retired alias | Retained label |
+|---|---|
+| `String_72_5483` | `String_Dialog_Msg010D` |
+| `String_72_5552` | `String_Dialog_Msg0110` |
+| `String_72_5621` | `String_Dialog_Msg0113` |
+| `String_72_5666` | `String_Dialog_Msg0114` |
+| `String_72_5735` | `String_Dialog_Msg0200` |
+| `String_72_5804` | `String_Dialog_Msg0203` |
+| `String_72_5918` | `String_Dialog_Msg0207` |
+| `String_72_6080` | `String_Dialog_Msg0222` |
+| `String_72_6392` | `String_Dialog_Msg022B` |
+
+The alias lines were replaced with blank lines to preserve source line numbers.
+String bytes, table entries, address comments, and confidence are unchanged.
+Historical `config/` and `analysis/` references remain snapshot evidence. The
+original ROM rebuild is byte-identical; `sym-check` reports 13,379 labels and
+51 constants, palette checks pass (162/116/2/0), and PNG checks pass
+(408/4/37/95).
