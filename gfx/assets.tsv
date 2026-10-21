@@ -573,23 +573,23 @@ gfx/keyboard/tiles_bank62/tiles_6100.2bpp	tiles	1024	gfx/keyboard/tiles_bank62.a
 gfx/keyboard/tiles_bank62/tiles_6500.2bpp	tiles	1024	gfx/keyboard/tiles_bank62.asm	62	6500	CONFIRMED	exact	0		Data_62_6500
 gfx/keyboard/tiles_bank62/tiles_6900.2bpp	tiles	576	gfx/keyboard/tiles_bank62.asm	62	6900	CONFIRMED	exact	0		Data_62_6900
 gfx/keyboard/tiles_bank62/tiles_6b40.2bpp	tiles	192	gfx/keyboard/tiles_bank62.asm	62	6B40	PROBABLE	exact	0		Data_62_6B40
-gfx/keyboard/tiles_bank66/tilemap_7210.attrmap	attrmap	220	gfx/keyboard/tiles_bank66.asm	66	72EC	CONFIRMED	-	0	20x11	Data_66_7210
-gfx/keyboard/tiles_bank66/tilemap_7210.tilemap	tilemap	220	gfx/keyboard/tiles_bank66.asm	66	7210	CONFIRMED	-	0	20x11	Data_66_7210
-gfx/keyboard/tiles_bank66/tilemap_73c8.attrmap	attrmap	120	gfx/keyboard/tiles_bank66.asm	66	7440	CONFIRMED	-	0	20x6	Data_66_73C8
-gfx/keyboard/tiles_bank66/tilemap_73c8.tilemap	tilemap	120	gfx/keyboard/tiles_bank66.asm	66	73C8	CONFIRMED	-	0	20x6	Data_66_73C8
-gfx/keyboard/tiles_bank66/tiles_4000.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	4000	CONFIRMED	exact	0		Data_66_4000
-gfx/keyboard/tiles_bank66/tiles_4400.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	4400	CONFIRMED	exact	0		Data_66_4400
-gfx/keyboard/tiles_bank66/tiles_4800.2bpp	tiles	576	gfx/keyboard/tiles_bank66.asm	66	4800	CONFIRMED	exact	0		Data_66_4800
-gfx/keyboard/tiles_bank66/tiles_4a40.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	4A40	CONFIRMED	exact	0		Data_66_4A40
-gfx/keyboard/tiles_bank66/tiles_4e40.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	4E40	CONFIRMED	exact	0		Data_66_4E40
-gfx/keyboard/tiles_bank66/tiles_5240.2bpp	tiles	576	gfx/keyboard/tiles_bank66.asm	66	5240	CONFIRMED	exact	0		Data_66_5240
-gfx/keyboard/tiles_bank66/tiles_5480.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	5480	CONFIRMED	exact	0		Data_66_5480
-gfx/keyboard/tiles_bank66/tiles_5880.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	5880	CONFIRMED	exact	0		Data_66_5880
-gfx/keyboard/tiles_bank66/tiles_5c80.2bpp	tiles	576	gfx/keyboard/tiles_bank66.asm	66	5C80	CONFIRMED	exact	0		Data_66_5C80
-gfx/keyboard/tiles_bank66/tiles_5ec0.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	5EC0	CONFIRMED	exact	0		Data_66_5EC0
-gfx/keyboard/tiles_bank66/tiles_62c0.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	62C0	CONFIRMED	exact	0		Data_66_62C0
-gfx/keyboard/tiles_bank66/tiles_66c0.2bpp	tiles	576	gfx/keyboard/tiles_bank66.asm	66	66C0	CONFIRMED	exact	0		Data_66_66C0
-gfx/keyboard/tiles_bank66/tiles_6900.2bpp	tiles	400	gfx/keyboard/tiles_bank66.asm	66	6900	CONFIRMED	exact	7		Data_66_6900
+gfx/keyboard/tiles_bank66/tilemap_7210.attrmap	attrmap	220	gfx/keyboard/tiles_bank66.asm	66	72EC	CONFIRMED	-	0	20x11	Tilemap_Kbd_T6And78_PageTail
+gfx/keyboard/tiles_bank66/tilemap_7210.tilemap	tilemap	220	gfx/keyboard/tiles_bank66.asm	66	7210	CONFIRMED	-	0	20x11	Tilemap_Kbd_T6And78_PageTail
+gfx/keyboard/tiles_bank66/tilemap_73c8.attrmap	attrmap	120	gfx/keyboard/tiles_bank66.asm	66	7440	CONFIRMED	-	0	20x6	Tilemap_Kbd_T10
+gfx/keyboard/tiles_bank66/tilemap_73c8.tilemap	tilemap	120	gfx/keyboard/tiles_bank66.asm	66	73C8	CONFIRMED	-	0	20x6	Tilemap_Kbd_T10
+gfx/keyboard/tiles_bank66/tiles_4000.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	4000	CONFIRMED	exact	0		Gfx_Kbd_T6_Page0_Tiles8800Vb1
+gfx/keyboard/tiles_bank66/tiles_4400.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	4400	CONFIRMED	exact	0		Gfx_Kbd_T6_Page0_Tiles8C00Vb1
+gfx/keyboard/tiles_bank66/tiles_4800.2bpp	tiles	576	gfx/keyboard/tiles_bank66.asm	66	4800	CONFIRMED	exact	0		Gfx_Kbd_T6_Page0_Tiles9000Vb1
+gfx/keyboard/tiles_bank66/tiles_4a40.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	4A40	CONFIRMED	exact	0		Gfx_Kbd_T6_Page1_Tiles8800Vb1
+gfx/keyboard/tiles_bank66/tiles_4e40.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	4E40	CONFIRMED	exact	0		Gfx_Kbd_T6_Page1_Tiles8C00Vb1
+gfx/keyboard/tiles_bank66/tiles_5240.2bpp	tiles	576	gfx/keyboard/tiles_bank66.asm	66	5240	CONFIRMED	exact	0		Gfx_Kbd_T6_Page1_Tiles9000Vb1
+gfx/keyboard/tiles_bank66/tiles_5480.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	5480	CONFIRMED	exact	0		Gfx_Kbd_T6_Page2_Tiles8800Vb1
+gfx/keyboard/tiles_bank66/tiles_5880.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	5880	CONFIRMED	exact	0		Gfx_Kbd_T6_Page2_Tiles8C00Vb1
+gfx/keyboard/tiles_bank66/tiles_5c80.2bpp	tiles	576	gfx/keyboard/tiles_bank66.asm	66	5C80	CONFIRMED	exact	0		Gfx_Kbd_T6_Page2_Tiles9000Vb1
+gfx/keyboard/tiles_bank66/tiles_5ec0.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	5EC0	CONFIRMED	exact	0		Gfx_Kbd_T6_Page3_Tiles8800Vb1
+gfx/keyboard/tiles_bank66/tiles_62c0.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	62C0	CONFIRMED	exact	0		Gfx_Kbd_T6_Page3_Tiles8C00Vb1
+gfx/keyboard/tiles_bank66/tiles_66c0.2bpp	tiles	576	gfx/keyboard/tiles_bank66.asm	66	66C0	CONFIRMED	exact	0		Gfx_Kbd_T6_Page3_Tiles9000Vb1
+gfx/keyboard/tiles_bank66/tiles_6900.2bpp	tiles	400	gfx/keyboard/tiles_bank66.asm	66	6900	CONFIRMED	exact	7		Gfx_Kbd_T10_Tiles8A80Vb1
 gfx/keyboard/tiles_bank66/tiles_6a90.2bpp	tiles	1792	gfx/keyboard/tiles_bank66.asm	66	6A90	PROBABLE	exact	0		Data_66_6A90
 gfx/mail/address_editor/mail_addr.attrmap	attrmap	360	gfx/mail/address_editor.asm	2D	7CB8	CONFIRMED	-	0	20x18	Tilemap_MailAddr
 gfx/mail/address_editor/mail_addr.tilemap	tilemap	360	gfx/mail/address_editor.asm	2D	7B50	CONFIRMED	-	0	20x18	Tilemap_MailAddr

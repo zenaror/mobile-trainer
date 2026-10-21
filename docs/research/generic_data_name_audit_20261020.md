@@ -1844,3 +1844,15 @@ were `4c948911f65712eee86bedd14c20b33a95aad14bdbd7d49e6287eb683b862adc`
 before and `f6d4a8290d7b84644e6fad923968ffeaa814ef6f2dcbb186f006ebd10bec0199`
 after the update. The remaining source `Data_<bank>_<address>` labels in these
 owners do not have a verified co-address semantic label and were left intact.
+
+## Bank 66 keyboard resource aliases (2026-10-21)
+
+Retired 15 same-address `Data_66_*` exports from
+`gfx/keyboard/tiles_bank66.asm`. Thirteen were co-located with existing
+page/VRAM-specific `Gfx_Kbd_*` names; two were co-located with existing
+confirmed tilemap names. The source/tool reference scan found no consumers
+outside this owner and `gfx/assets.tsv`. Updated the 17 corresponding catalog
+rows, including tilemap attribute maps that share their tilemap's base label.
+Source bytes, graphics paths, bank/address ranges and confidence levels are
+unchanged. The heuristic-only `Data_66_6A90` span and the unknown-content data
+at `Data_66_7190` retain their neutral names.
