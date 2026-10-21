@@ -809,3 +809,18 @@ remains **CONFIRMED** as tile graphics. This names the transfer continuation
 and makes no extra screen-display claim. Build is `RESULT: IDENTICAL`,
 `sym-check` and `palette-check` pass, and the current neutral-data census is
 123 groups.
+
+## Bank 5F keyboard map-to-graphics gap (2026-10-21)
+
+`Data_5F_58F3` is now `Padding_Kbd_T3ToT5_TileAlignment` with **PROBABLE**
+confidence. The source interval `5F:58F3–5900` is exactly 13 zero bytes
+(physical ROM offset `0x17D8F3`, SHA-256
+`dd46c3eebb1884ff3b5258c0a2fc9398e560a29e0780d4b53869b6254aa46a96`).
+`Tilemap_Kbd_T3` begins at `56EB` and spans 520 bytes (13 rows × 20 columns,
+tilemap then attributes), ending exactly at `58F3`. `Kbd_LoadPageGraphics_T5`
+loads its T5 tiles beginning at `5900`, a 16-byte-aligned source, in HDMA
+blocks; the 13 zero bytes fall between the two named resources. No named
+direct reader of the gap was found. The most economical interpretation is
+alignment padding, while reserved/unreferenced zero data cannot be excluded.
+The Japanese build remains byte-identical; `sym-check` and `palette-check`
+pass. The current neutral-data census is 122 groups.

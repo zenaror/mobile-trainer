@@ -438,9 +438,9 @@ Tilemap_Kbd_T3:: ; 5F:56EB
 	INCBIN "gfx/keyboard/panels_bank5f/tilemap_56eb.tilemap"
 	INCBIN "gfx/keyboard/panels_bank5f/tilemap_56eb.attrmap"
 
-; ---- gfx $58F3-$5900 (13 bytes) [PROBABLE] tiles-2bpp: heuristic: 139 coherent tiles (hsim2=0.738 vsim2=0.748, 0 blank) parity 0; 2259/2272 bytes also covered by call-site blocks [clipped from 5730-6010 by higher-priority evidence]
+; ---- zero $58F3-$5900 (13 bytes) [PROBABLE] 13 zero bytes fill the gap after Tilemap_Kbd_T3 and before the 16-byte-aligned T5 HDMA source at $5900; padding purpose is probable, with no named direct reader found
 
-Data_5F_58F3:: ; 5F:58F3
+Padding_Kbd_T3ToT5_TileAlignment:: ; 5F:58F3
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
 ; ---- gfx $5900-$5D00 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:67AB: hl=$5900 a=$5F c=$40 de=$8801 (dest VRAM $8800, vbank=1) [first call site executed: 110 hits in 4 scenarios (analysis/coverage_union.tsv)]
