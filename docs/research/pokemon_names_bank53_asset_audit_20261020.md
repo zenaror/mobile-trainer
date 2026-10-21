@@ -33,6 +33,17 @@ source or asset edit is justified by this audit.
 
 This read-only audit checked the source at Japanese `main` `fd70bc464b36dc982ae47775c87946c5bf789106`, with ROM SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. It refreshed the finite bank53, frame-window, PNG and asset-catalogue inventory. The source-only name changes at the end of this note do not alter those asset bytes.
 
+## Reconciliation to current main (2026-10-21)
+
+The sealed 577-path snapshot above is based on `086bed07d3b6fefbe51ab92dcdae5a4e0cbd941b`. At current `main` `c2b33d2f8de865da52ab877fa25005fec55de559`, all 549 unchanged tracked inputs retain the exact Git blob IDs from that snapshot. The other 27 tracked inputs are ASM owners; after excluding comments, blank lines and global label definitions, their assembler/directive line sequences are identical to the snapshot. No PNG or binary asset path changed. The ROM itself is intentionally untracked, and its current SHA-256 is still `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
+
+This reconciles the finite asset inventory to current main: it still finds no
+missing referenced file or orphan PNG/binary in the reviewed 208-file scope.
+It does not complete the eight KEEP screen compositions or establish any of
+the 25 Pokémon-name/frame associations, a universal reader search, natural
+selection or global unused status. Reconciliation counts and changed paths are
+preserved in `.tmp/root-bank53-head-reconcile-20261021/RESULT.json`.
+
 ## Bank53 name block
 
 `53:4000..4171` re-emits exactly 369 original bytes: 25 little-endian local pointers (50 bytes) followed by 25 Shift-JIS/NUL strings (319 bytes). Original spacing and the full-width final digit are preserved. The current source calls the pointer table `Table_PokemonNamePointers`; its 25 targets remain `PokemonName00` through `PokemonName24`. These names identify string order and content only. No reader of the table or bank53 name-to-frame association was established.

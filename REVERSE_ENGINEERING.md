@@ -1033,6 +1033,8 @@ dispatcher and legacy preview names do not establish universal unused status.
 Full closure still requires investigating the remaining generic labels and
 address-only GFX basenames in evidence-backed units. English remains suspended.
 
+The finite asset result was reconciled to current `main` `c2b33d2f8de865da52ab877fa25005fec55de559`: 549/576 tracked snapshot inputs retain their exact blob IDs, the remaining 27 ASM owners differ only in comments/global labels, and no PNG or binary resource changed. The original ROM's current SHA-256 remains `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. The eight KEEP compositions and all 25 name/frame associations remain open; see the current reconciliation in `docs/research/pokemon_names_bank53_asset_audit_20261020.md`.
+
 Follow-up on the current main branch: commit `47830bec` retired the redundant
 local-scope data labels at `55:6F3B` and `27:417A`; `ac5db3ec` documented the
 bounded bank53/frame coverage and its eight KEEP editing-view gaps. The next
