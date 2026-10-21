@@ -1422,3 +1422,9 @@ same-address `SoundSong0F_*` labels. No consumer was found in the examined
 sources, tools or local-label scope; its 808-byte owner and 536 lines are
 unchanged. See the map in
 [`docs/research/generic_data_name_audit_20261020.md`](docs/research/generic_data_name_audit_20261020.md#bank-05-song-0f-same-address-aliases-2026-10-21).
+
+The refreshed generic-name census also retired 28 declaration-only address
+aliases in bank 72's dialog-message list and records. No cross-file, tool or
+local-label consumers were found; `data/text/dialog_messages.asm` retains its
+623 physical lines and all ROM data. The address map and scan limits are in
+[`docs/research/generic_data_name_audit_20261020.md`](docs/research/generic_data_name_audit_20261020.md#bank-72-dialog-message-same-address-aliases-2026-10-21).

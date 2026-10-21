@@ -1594,3 +1594,48 @@ playback behavior is inferred.
 | `05:44F3` | `Data_05_44F3` | `SoundSong0F_Track3_Sub1` |
 | `05:4535` | `Data_05_4535` | `SoundSong0F_Track3_AfterJump` |
 | `05:4540` | `Data_05_4540` | `SoundSong0F_Header` |
+
+## Bank 72 dialog message same-address aliases (2026-10-21)
+
+The refreshed census at `a5727635` found 28 declaration-only generic labels
+in `data/text/dialog_messages.asm` sharing addresses with the existing
+`Dialog_ListTable` or `String_Dialog_Msg*` labels. In addition to the nine
+`String_72_AAAA` exports recorded above, this pass retires 26 address-named
+`String_72_AAAA` aliases, one `Table_72_AAAA` alias and one `Data_72_AAAA`
+alias. The scan covered 347 tracked non-language ASM/INC files and explicitly
+excluded `engine/mail/sample_data.asm`; it found no other-source or tool
+references and no dependent local labels. The declarations are absent from
+the post-pass SYM. The file retains its 623 physical lines; message bytes,
+table entries and confidence comments are unchanged. This removes duplicate
+exports only and makes no new claim about message meaning.
+
+| Address | Retired label | Retained label |
+|---|---|---|
+| `72:502B` | `Table_72_502B` | `Dialog_ListTable` |
+| `72:50BD` | `String_72_50BD` | `String_Dialog_Msg0000` |
+| `72:518C` | `String_72_518C` | `String_Dialog_Msg0102` |
+| `72:51D1` | `String_72_51D1` | `String_Dialog_Msg0103` |
+| `72:52A0` | `String_72_52A0` | `String_Dialog_Msg0106` |
+| `72:532A` | `String_72_532A` | `String_Dialog_Msg0108` |
+| `72:53F9` | `String_72_53F9` | `String_Dialog_Msg010B` |
+| `72:54C8` | `String_72_54C8` | `String_Dialog_Msg010E` |
+| `72:550D` | `String_72_550D` | `String_Dialog_Msg010F` |
+| `72:55DC` | `String_72_55DC` | `String_Dialog_Msg0112` |
+| `72:56AB` | `String_72_56AB` | `String_Dialog_Msg0115` |
+| `72:56F0` | `String_72_56F0` | `String_Dialog_Msg0116` |
+| `72:577A` | `String_72_577A` | `String_Dialog_Msg0201` |
+| `72:57BF` | `Data_72_57BF` | `String_Dialog_Msg0202` |
+| `72:58D3` | `String_72_58D3` | `String_Dialog_Msg0206` |
+| `72:59A2` | `String_72_59A2` | `String_Dialog_Msg0209` |
+| `72:59E7` | `String_72_59E7` | `String_Dialog_Msg020A` |
+| `72:5A71` | `String_72_5A71` | `String_Dialog_Msg020C` |
+| `72:5AFB` | `String_72_5AFB` | `String_Dialog_Msg020E` |
+| `72:5B85` | `String_72_5B85` | `String_Dialog_Msg0210` |
+| `72:5C0F` | `String_72_5C0F` | `String_Dialog_Msg0212` |
+| `72:5C99` | `String_72_5C99` | `String_Dialog_Msg0214` |
+| `72:5CDE` | `String_72_5CDE` | `String_Dialog_Msg0215` |
+| `72:5DAD` | `String_72_5DAD` | `String_Dialog_Msg0218` |
+| `72:5DF2` | `String_72_5DF2` | `String_Dialog_Msg0219` |
+| `72:5F90` | `String_72_5F90` | `String_Dialog_Msg021F` |
+| `72:5FF6` | `String_72_5FF6` | `String_Dialog_Msg0220` |
+| `72:612B` | `String_72_612B` | `String_Dialog_Msg0224` |

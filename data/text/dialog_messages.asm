@@ -9,7 +9,7 @@ PUSHC sjis
 ; ---- ptrtable $502B-$50BD (146 bytes) [PROBABLE] little-endian word table, 73 entries, monotone=0.99, 92% of targets on string start/after NUL, targets $5033..$50BD; referenced by ld r16,$502B at 72:402D
 
 Dialog_ListTable:: ; 72:502B
-Table_72_502B::
+
 	dw Dialog_List0
 	dw Dialog_List1_Browser
 	dw Dialog_List2_Mail
@@ -95,7 +95,7 @@ Dialog_List3:: ; 72:50BB
 ; ---- text $50BD-$514A (141 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_Dialog_Msg0000:: ; 72:50BD
-String_72_50BD::
+
 	db $86, $02, $01 ; record header
 	db "　　　　　　　　　　　　　　　　", 0
 	db "　　　　　　　　　　　　　　　　", 0
@@ -113,7 +113,7 @@ String_72_514A:: ; 72:514A
 ; ---- text $518C-$51B0 (36 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_Dialog_Msg0102:: ; 72:518C
-String_72_518C::
+
 	db $86, $00, $01 ; record header
 	db "　　　　　　　　　　　　　　　　", 0
 
@@ -125,7 +125,7 @@ String_72_51B0:: ; 72:51B0
 ; ---- text $51D1-$525E (141 bytes) [PROBABLE] text block: 7 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 51B0-52A0 by higher-priority evidence]
 
 String_Dialog_Msg0103:: ; 72:51D1
-String_72_51D1::
+
 	db $86, $02, $01 ; record header
 	db "　メモリーボールをからにします。", 0
 	db "　　　　よろしいですか？　　　　", 0
@@ -143,7 +143,7 @@ String_72_525E:: ; 72:525E
 ; ---- text $52A0-$52E8 (72 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_Dialog_Msg0106:: ; 72:52A0
-String_72_52A0::
+
 	db $86, $02, $01 ; record header
 	db "　　　　　　１０６　　　　　　　", 0
 	db "　　　　　　　　　　　　　　　　", 0
@@ -158,7 +158,7 @@ String_72_52E8:: ; 72:52E8
 ; ---- text $532A-$53C5 (155 bytes) [PROBABLE] text block: 7 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 52E8-53C5 by higher-priority evidence]
 
 String_Dialog_Msg0108:: ; 72:532A
-String_72_532A::
+
 	db $86, $02, $01 ; record header
 	db "　ページのないようをけします。　", 0
 	db "　　　　よろしいですか？　　　　", 0
@@ -181,7 +181,7 @@ String_72_53D8:: ; 72:53D8
 ; ---- text $53F9-$541D (36 bytes) [PROBABLE] text block: 2 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 53D8-541D by higher-priority evidence]
 
 String_Dialog_Msg010B:: ; 72:53F9
-String_72_53F9::
+
 	db $86, $01, $01 ; record header
 	db "　　　でんわをきりました。　　　", 0
 
@@ -212,7 +212,7 @@ String_72_54A7:: ; 72:54A7
 ; ---- text $54C8-$54EC (36 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_Dialog_Msg010E:: ; 72:54C8
-String_72_54C8::
+
 	db $86, $00, $01 ; record header
 	db "　　　　　　　　　　　　　　　　", 0
 
@@ -224,7 +224,7 @@ String_72_54EC:: ; 72:54EC
 ; ---- text $550D-$5531 (36 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_Dialog_Msg010F:: ; 72:550D
-String_72_550D::
+
 	db $86, $00, $01 ; record header
 	db "　　　　　　　　　　　　　　　　", 0
 
@@ -255,7 +255,7 @@ String_72_559A:: ; 72:559A
 ; ---- text $55DC-$5600 (36 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_Dialog_Msg0112:: ; 72:55DC
-String_72_55DC::
+
 	db $86, $00, $01 ; record header
 	db "　　　　　　　　　　　　　　　　", 0
 
@@ -291,7 +291,7 @@ String_72_5669:: ; 72:5669
 ; ---- text $56AB-$56AE (3 bytes) [PROBABLE] text block: 8 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 5669-577A by higher-priority evidence]
 
 String_Dialog_Msg0115:: ; 72:56AB
-String_72_56AB::
+
 	db $86, $00, $00 ; record header
 
 ; ---- text $56AE-$56F0 (66 bytes) [CONFIRMED] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -303,7 +303,7 @@ String_72_56AE:: ; 72:56AE
 ; ---- text $56F0-$56F3 (3 bytes) [PROBABLE] text block: 8 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 5669-577A by higher-priority evidence]
 
 String_Dialog_Msg0116:: ; 72:56F0
-String_72_56F0::
+
 	db $86, $01, $00 ; record header
 
 ; ---- text $56F3-$5735 (66 bytes) [CONFIRMED] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -323,7 +323,7 @@ String_Dialog_Msg0200:: ; 72:5735
 ; ---- text $577A-$57BF (69 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_Dialog_Msg0201:: ; 72:577A
-String_72_577A::
+
 	db $86, $02, $01 ; record header
 	db "　　　　　２０１　　　　　　　　", 0
 	db "　　　　　　　　　　　　　　　　", 0
@@ -331,7 +331,7 @@ String_72_577A::
 ; ---- data $57BF-$57C2 (3 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 57BF-5804 by higher-priority evidence]
 
 String_Dialog_Msg0202:: ; 72:57BF
-Data_72_57BF::
+
 	db $86, $02, $00
 
 ; ---- text $57C2-$5804 (66 bytes) [CONFIRMED] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -361,7 +361,7 @@ String_72_5891:: ; 72:5891
 ; ---- text $58D3-$5918 (69 bytes) [PROBABLE] text block: 4 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 5891-5918 by higher-priority evidence]
 
 String_Dialog_Msg0206:: ; 72:58D3
-String_72_58D3::
+
 	db $86, $02, $01 ; record header
 	db "　もらったメールを　けします。　", 0
 	db "　　　　よろしいですか？　　　　", 0
@@ -384,7 +384,7 @@ String_72_5960:: ; 72:5960
 ; ---- text $59A2-$59E7 (69 bytes) [PROBABLE] text block: 4 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 5960-59E7 by higher-priority evidence]
 
 String_Dialog_Msg0209:: ; 72:59A2
-String_72_59A2::
+
 	db $86, $02, $01 ; record header
 	db "　　かいたメールを　けします。　", 0
 	db "　　　　よろしいですか？　　　　", 0
@@ -392,7 +392,7 @@ String_72_59A2::
 ; ---- text $59E7-$5A2F (72 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_Dialog_Msg020A:: ; 72:59E7
-String_72_59E7::
+
 	db $86, $02, $01 ; record header
 	db "　　　　　２１０　　　　　　　　", 0
 	db "　　　　　　　　　　　　　　　　", 0
@@ -407,7 +407,7 @@ String_72_5A2F:: ; 72:5A2F
 ; ---- text $5A71-$5AB9 (72 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_Dialog_Msg020C:: ; 72:5A71
-String_72_5A71::
+
 	db $86, $02, $01 ; record header
 	db "　　　　　２０３　　　　　　　　", 0
 	db "　　　　　　　　　　　　　　　　", 0
@@ -422,7 +422,7 @@ String_72_5AB9:: ; 72:5AB9
 ; ---- text $5AFB-$5B43 (72 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_Dialog_Msg020E:: ; 72:5AFB
-String_72_5AFB::
+
 	db $86, $02, $01 ; record header
 	db "　　　　　２１４　　　　　　　　", 0
 	db "　　　　　　　　　　　　　　　　", 0
@@ -437,7 +437,7 @@ String_72_5B43:: ; 72:5B43
 ; ---- text $5B85-$5BCD (72 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_Dialog_Msg0210:: ; 72:5B85
-String_72_5B85::
+
 	db $86, $02, $01 ; record header
 	db "　　　　　２０６　　　　　　　　", 0
 	db "　　　　　　　　　　　　　　　　", 0
@@ -452,7 +452,7 @@ String_72_5BCD:: ; 72:5BCD
 ; ---- text $5C0F-$5C57 (72 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_Dialog_Msg0212:: ; 72:5C0F
-String_72_5C0F::
+
 	db $86, $02, $01 ; record header
 	db "　　　　　２１８　　　　　　　　", 0
 	db "　　　　　　　　　　　　　　　　", 0
@@ -467,7 +467,7 @@ String_72_5C57:: ; 72:5C57
 ; ---- text $5C99-$5CDE (69 bytes) [PROBABLE] text block: 4 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 5C57-5CDE by higher-priority evidence]
 
 String_Dialog_Msg0214:: ; 72:5C99
-String_72_5C99::
+
 	db $86, $01, $01 ; record header
 	db "　　　　ニックネームは　　　　　", 0
 	db "　　かならずかいてください。　　", 0
@@ -475,7 +475,7 @@ String_72_5C99::
 ; ---- text $5CDE-$5D6B (141 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_Dialog_Msg0215:: ; 72:5CDE
-String_72_5CDE::
+
 	db $86, $02, $01 ; record header
 	db "　　　　　２２１　　　　　　　　", 0
 	db "　　　　　　　　　　　　　　　　", 0
@@ -493,7 +493,7 @@ String_72_5D6B:: ; 72:5D6B
 ; ---- text $5DAD-$5DB0 (3 bytes) [PROBABLE] text block: 4 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 5D6B-5DF2 by higher-priority evidence]
 
 String_Dialog_Msg0218:: ; 72:5DAD
-String_72_5DAD::
+
 	db $86, $02, $00 ; record header
 
 ; ---- text $5DB0-$5DF2 (66 bytes) [CONFIRMED] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -505,7 +505,7 @@ String_72_5DB0:: ; 72:5DB0
 ; ---- text $5DF2-$5F4E (348 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_Dialog_Msg0219:: ; 72:5DF2
-String_72_5DF2::
+
 	db $86, $02, $01 ; record header
 	db "　　　　　２２５　　　　　　　　", 0
 	db "　　　　　　　　　　　　　　　　", 0
@@ -532,7 +532,7 @@ String_72_5F4E:: ; 72:5F4E
 ; ---- text $5F90-$5F93 (3 bytes) [PROBABLE] text block: 5 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 5F4E-5FF6 by higher-priority evidence]
 
 String_Dialog_Msg021F:: ; 72:5F90
-String_72_5F90::
+
 	db $86, $05, $00 ; record header
 
 ; ---- text $5F93-$5FF6 (99 bytes) [CONFIRMED] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -545,7 +545,7 @@ String_72_5F93:: ; 72:5F93
 ; ---- text $5FF6-$603E (72 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_Dialog_Msg0220:: ; 72:5FF6
-String_72_5FF6::
+
 	db $86, $02, $01 ; record header
 	db "　　　　　２３２　　　　　　　　", 0
 	db "　　　　　　　　　　　　　　　　", 0
@@ -576,7 +576,7 @@ String_72_60E9:: ; 72:60E9
 ; ---- text $612B-$6350 (549 bytes) [PROBABLE] text block: 22 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 60E9-63D7 by higher-priority evidence]
 
 String_Dialog_Msg0224:: ; 72:612B
-String_72_612B::
+
 	db $86, $04, $01 ; record header
 	db "ほかのソフトのメールがあります。", 0
 	db "　たまると　つうしんじかんが　　", 0
