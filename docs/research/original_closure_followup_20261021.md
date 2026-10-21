@@ -177,6 +177,16 @@ confidence and all emitted directives remain unchanged; frozen analysis
 locators retain the historical aliases. The restricted six-root census is
 now 178 generic `Data_BB_AAAA`/`Font_BB_AAAA` definitions in 108 owners.
 
+In `engine/mobile/pop3_retr.asm`, the exact co-located aliases `Data_54_4FC3`
+and `Data_54_4FCB` were removed under the existing POP3 RETR descriptor
+labels; the stale tool-only hypothesis rows for those aliases were deleted.
+`Data_54_511B` was removed under the existing two-byte
+`Data_Text_Ellipsis2` label. The descriptor-field interpretations remain
+unresolved, and the existing PROBABLE/CONFIRMED evidence levels and all bytes
+are unchanged. Frozen xref/config/analysis records keep the historic names.
+The restricted six-root census is now 172 generic definitions across 106
+owners.
+
 In `engine/mail/result_screens.asm`, exact co-located aliases `Data_29_49DA`,
 `Data_29_4F6C` and `Data_29_5060` were retired under
 `Data_MailServerStatus_NumberTemplate_M0`,
