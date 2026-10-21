@@ -187,6 +187,15 @@ are unchanged. Frozen xref/config/analysis records keep the historic names.
 The restricted six-root census is now 172 generic definitions across 106
 owners.
 
+In `data/text/top_menu_ticker.asm`, three exact co-located aliases
+`Data_1E_4000`, `Data_1E_400D` and `Data_1E_409F` were retired under
+`Data_TopMenu_StringIndexBank`, `String_TopMenu_Title0` and
+`String_TopMenu_Title2`. The code and pointer table already use the retained
+labels. Frozen xref/config/analysis records keep the old spellings; the bank
+byte, string bytes, addresses and existing CONFIRMED grades are unchanged.
+The restricted six-root census is now 169 generic definitions across 105
+owners.
+
 In `engine/mail/result_screens.asm`, exact co-located aliases `Data_29_49DA`,
 `Data_29_4F6C` and `Data_29_5060` were retired under
 `Data_MailServerStatus_NumberTemplate_M0`,
