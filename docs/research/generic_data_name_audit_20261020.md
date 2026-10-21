@@ -2546,6 +2546,18 @@ changed. The restricted six-root `Data_BB_AAAA::` census is now 237
 definitions in 121 owners, down from 241 in 121 owners. This remains a lexical
 count.
 
+## Bank 27 communication-time digit-pair table alias (2026-10-21)
+
+`Data_27_5048` duplicated the existing `Table_CommTime_DigitTiles_27_5048`
+label over the same 20-byte table of ten two-tile entries. The computed reader
+and its bounded index relation are already documented at the named table;
+source search found no other consumer of the generic alias. The duplicate
+export was removed, with table bytes, interpretation and PROBABLE confidence
+unchanged. Other unclassified spans in this owner remain neutral. The
+restricted six-root `Data_BB_AAAA::` census is now 195 definitions in 112
+owners, down from 196 definitions in 112 owners. This remains a lexical
+count.
+
 ## Bank 44 border attribute maps (2026-10-21)
 
 The four 360-byte `Data_44_*` blocks were identified by their bounded

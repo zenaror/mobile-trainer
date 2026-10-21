@@ -1786,3 +1786,9 @@ names, with matching catalog entries. The content class is probable, and the
 owner still has no demonstrated loader; this does not claim natural use. The
 restricted six-root generic-data census is now 196 definitions in 112 owners.
 See the [bank-44 attribute-map audit](docs/research/generic_data_name_audit_20261020.md#bank-44-border-attribute-maps-2026-10-21).
+
+The bank-27 communication-time digit-pair table no longer exports its exact
+duplicate `Data_27_5048` label; its existing computed-reader name remains.
+Other unknown spans in the owner stay neutral. The restricted six-root
+generic-data census is now 195 definitions in 112 owners. See the [bank-27
+table audit](docs/research/generic_data_name_audit_20261020.md#bank-27-communication-time-digit-pair-table-alias-2026-10-21).

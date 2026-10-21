@@ -2002,7 +2002,6 @@ CommTime_PutDigit_27_5021:: ; 27:5021
 ; ---- data $5048-$505C (20 bytes) [PROBABLE] 10 pairs of tile indices read by CommTime_PutDigit_27_5021: DE=$5048+((2*A)&$FF), then bytes at DE/DE+1 are stored at the input destination and destination+$20; attribute bytes $08 go to destination+$400 and destination+$420. A=0..9 selects these 10 pairs; the routine does not clamp A. Entries 3 and 9 are $69,$6F and $6E,$7F (preserved); exactly 8 of 10 second bytes equal first+$10. The caller path and all 20 bytes are unexecuted/unread in the 69 natural scenarios; the former row/no-reference hypothesis is contradicted by this computed reader. No visual digit appearance is validated.
 
 Table_CommTime_DigitTiles_27_5048:: ; 27:5048
-Data_27_5048::
 	db $67, $77, $68, $78, $69, $79, $69, $6F, $6A, $7A, $6B, $7B, $6C, $7C, $6D, $7D
 	db $6E, $7E, $6E, $7F
 
