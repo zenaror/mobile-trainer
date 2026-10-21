@@ -1090,9 +1090,10 @@ encoding. Existing traces read 990 bytes; the remaining 396 have no recorded
 read, and the loops do not prove a general bounds check. No display or universal
 frame-reachability claim is made. The independent report is retained at
 `.tmp/agent-top-menu-anim-review-20261021/REPORT.md` (SHA-256
-`ed07ba53f9a5ab9c8f5a7c0ac6108f60922ff9afd496b3a44fc1cde29488eadc`). The
-current safe scan finds 888 generic data labels in the six maintained roots
-and one separate `zero_labels` definition (889 total), excluding
+`ed07ba53f9a5ab9c8f5a7c0ac6108f60922ff9afd496b3a44fc1cde29488eadc`).
+The census pinned to `1485975350e230be41906fce14af44c1ef7b262a` found 888
+generic data labels in the six maintained roots and one separate
+`zero_labels` definition (889 total), excluding
 `languages/` and `engine/mail/sample_data.asm`. The script and receipt are
 retained in `.tmp/generic-data-current-safe-census-20261021/`; their SHA-256
 values are respectively `88de64d009ad50018f8fcb7d068448eec1d642b5b09d1b18d7846a3de2babae8`
@@ -1161,4 +1162,32 @@ same address and skips the removed alias. Frozen `config/` and historical
 The Japanese ROM rebuild is `RESULT: IDENTICAL` with SHA-256
 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
 `sym-check` reports 13,376 labels and 51 constants, palette checks pass
+(162/116/2/0), and PNG checks pass (408/4/37/95).
+
+## Browser-start ticker aliases and refreshed census (2026-10-21)
+
+`Data_73_4000`, `Table_73_4001` and `String_73_4009` were redundant
+same-address exports beside `Data_BrowserStart_StringIndexBank`,
+`BrowserStart_StringTable` and `BrowserStart_Strings`. An exact-token scan of
+the maintained Japanese ASM/INC, tools and gfx metadata found the generic
+spellings only at their declarations. Current browser code and the far ticker
+reader use the descriptive field and string labels. The alias lines are blank
+to preserve physical line numbers; the bank byte, four pointer words, strings,
+region boundaries and existing confidence are unchanged. Historical xref,
+region and naming ledgers retain the old spellings as snapshot evidence.
+
+The refreshed safe source census excludes `languages/` and
+`engine/mail/sample_data.asm`; it read 347 tracked ASM/INC files and confirms
+887 `Data_BB_AAAA::` definitions in the six maintained roots plus one in
+`zero_labels.asm` (888 total). The source-set SHA-256 is
+`7d43bf2a7de0ce52f8ca099b87ff8b8117bb7ceaf325dc7f3b93e9abc8757d3e`.
+Reproduction script SHA-256 is
+`88de64d009ad50018f8fcb7d068448eec1d642b5b09d1b18d7846a3de2babae8`; result
+receipt SHA-256 is
+`fc2b0d1eb12f9e8d6d10d6e74e177793eb69667dba7013769124730778064ef5` under
+`.tmp/generic-data-current-safe-census-20261021/`.
+
+The original build remains `RESULT: IDENTICAL` with ROM SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
+`sym-check` reports 13,373 labels and 51 constants, palette checks pass
 (162/116/2/0), and PNG checks pass (408/4/37/95).

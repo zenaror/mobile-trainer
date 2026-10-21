@@ -52,17 +52,18 @@ A current path-scoped review retired two redundant generic aliases. In
 `engine/mobile/text_truncate.asm`, `Data_54_4CAD` duplicated the CONFIRMED
 `String_Text_Ellipsis` at the same address; only historical docs and frozen
 `config/`/`analysis/` tables retain the generic spelling. Each source line is
-preserved blank. The frames, ellipsis bytes and ROM output are unchanged. The
-same lexical scan now finds 896 `Data_BB_AAAA::` definitions in tracked
+preserved blank. The frames, ellipsis bytes and ROM output are unchanged. That
+earlier lexical scan recorded 896 `Data_BB_AAAA::` definitions in tracked
 non-language ASM files, excluding `engine/mail/sample_data.asm`. These two
 alias retirements do not close the remaining semantic data audit.
 
 The 2026-10-21 CommScene follow-up retired four more same-address aliases
 (`Data_70_5490`, `Data_70_5890`, `Data_70_5C90`, `Data_70_6090`) in favor of
 their existing tile-resource labels. In the same tracked non-language ASM
-scan scope above, a fresh safe scan after the later TopMenu rename finds 889
-generic data definitions including `zero_labels.asm`, of which 888 are in the
-six maintained roots. See the dated audit section in
+scan scope above, the census pinned to `1485975350e230be41906fce14af44c1ef7b262a` found 889
+generic data definitions including `zero_labels.asm`, of which 888 were in the
+six maintained roots. The refreshed safe census after subsequent retirements
+finds 888 total, with 887 in the six roots. See the dated audit section in
 `generic_data_name_audit_20261020.md`; the reproducible scan and receipt are
 retained under `.tmp/generic-data-current-safe-census-20261021/`.
 The other 68
@@ -87,6 +88,14 @@ have also been removed in favor of their existing `String_Dialog_Msg*` names.
 The historical source line positions, message bytes and table entries are
 preserved; the ROM remains byte-identical and all symbol, palette and PNG
 checks pass. See the dated generic-label audit for the nine-address mapping.
+
+The browser-start ticker checkpoint retired its field, pointer-table and
+string aliases at
+`73:4000`, `73:4001` and `73:4009`; source line positions, field byte,
+pointers and strings remain intact. The latest safe census finds 888 generic
+`Data_BB_AAAA::` exports across the six maintained roots and `zero_labels.asm`
+(887 in the six roots), excluding the protected sample and language branch.
+The Japanese ROM remains byte-identical and all required checks pass.
 
 Three redundant address-only labels were also retired from the connect-dialog
 strings. Their semantic labels remain the names used by the active reader;
