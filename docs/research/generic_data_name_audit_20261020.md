@@ -3058,3 +3058,21 @@ Attrmap and 25 Palette; exact Function, Font and Label remain zero. The build
 returns `RESULT: IDENTICAL` with the original SHA-256
 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
 `make sym-check` passes with 12,168 labels and 51 constants.
+
+
+## Bank 2A duplicate address-selection prompt (2026-10-21)
+
+The string at `2A:4A3D` contains 41 bytes through NUL and matches the 41-byte
+string `String_AddrPick_Caption` at `2C:6704` exactly in the original ROM. A
+bounded search found no code reference to the `2A:4A3D` copy. Its label is now
+`AddrBook_CandidateAddressSelectPrompt_2A`, and the source header marks its
+relationship/use as HYPOTHESIS. The byte equality is CONFIRMED; whether the copy
+is stale, selected indirectly, or serves another purpose remains unknown. No
+claim of dead data is made. The bytes and extent are unchanged.
+
+After this symbol-only rename, the exact lexical census is 63 Data labels in
+41 owners, 91 String, 0 Table, 41 Tiles, 24 Tilemap, 4 Attrmap and 25 Palette;
+Function, Font and Label exact patterns remain at zero. The build is
+`RESULT: IDENTICAL` with original SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
+`make sym-check` passes with 12,168 labels and 51 constants.

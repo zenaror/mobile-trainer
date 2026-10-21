@@ -1291,10 +1291,10 @@ SaveSenderAddr_LoadCaption:: ; 2A:49C5
 	pop bc
 	ret
 
-; ---- text $4A3D-$4A66 (41 bytes) [PROBABLE] text: 6 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated) [clipped from 4A3D-4A93 by higher-priority evidence]
+; ---- text $4A3D-$4A66 (41 bytes) [HYPOTHESIS] duplicate of String_AddrPick_Caption at 2C:6704; no code reference to this copy found
 
 PUSHC sjis
-String_2A_4A3D:: ; 2A:4A3D
+AddrBook_CandidateAddressSelectPrompt_2A:: ; 2A:4A3D
 	db "　　アドレスを　せんたくしてください　　", 0
 POPC
 
