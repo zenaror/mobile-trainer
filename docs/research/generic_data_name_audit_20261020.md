@@ -2943,3 +2943,9 @@ zero exact `Function_BB_AAAA`, `Font_BB_AAAA` or `Label_BB_AAAA` definitions.
 It excludes `engine/mail/sample_data.asm` before reading. These counts track
 spellings, not semantic completion; neutral labels remain where evidence does
 not support a stronger role.
+
+The same source-bounded scan finds 107 `String_BB_AAAA`, 8 exact
+`Table_BB_AAAA`, 41 `Tiles_BB_AAAA`, 24 `Tilemap_BB_AAAA`, 4 `Attrmap_BB_AAAA`
+and 25 `Palette_BB_AAAA` definitions. These counts help locate residual
+neutral names; each needs an owner-level evidence review before changing its
+symbol or directory.

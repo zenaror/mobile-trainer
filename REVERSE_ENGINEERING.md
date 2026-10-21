@@ -1917,3 +1917,7 @@ A fresh path-bounded exact-name scan of the six maintained source roots plus
 `zero_labels.asm`, excluding the protected mail sample before reading, finds
 63 `Data_BB_AAAA` definitions in 41 owners and no exact generic `Function`,
 `Font`, or `Label` definitions. This is a lexical count, not semantic closure.
+The same scan finds 107 `String_BB_AAAA`, 8 `Table_BB_AAAA`, 41
+`Tiles_BB_AAAA`, 24 `Tilemap_BB_AAAA`, 4 `Attrmap_BB_AAAA`, and 25
+`Palette_BB_AAAA` definitions; these remain an owner-by-owner evidence
+worklist.
