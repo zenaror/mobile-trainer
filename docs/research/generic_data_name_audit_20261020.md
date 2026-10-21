@@ -2246,6 +2246,23 @@ The six-root `Data_BB_AAAA::` census is now 302 definitions in 129 owners,
 down from 310/130 after these eight labels received bounded structural names.
 This lexical count is not a semantic-completion measure.
 
+## Bank 47 browser-scrollbar tile names (2026-10-21)
+
+Six `Data_47_*` exports in `gfx/browser/frames_0_1.asm` duplicated existing
+same-address scrollbar tile labels, each backed by a confirmed DMA source and
+destination. Exact-token searches found no external maintained-source or
+active-tool consumers. The remaining isolated 64-byte block at `47:4040` is
+only PROBABLE from visual/tile heuristics and overlapping source coverage; it
+now uses `Gfx_BrowserScrollbar_CandidateTileSlice_4040`. The seven catalog
+rows point to the surviving or candidate-qualified names. The 78-line owner,
+payloads and evidence levels are unchanged; no screen-descriptor or natural
+loader claim is added for `47:4040`.
+
+The six-root `Data_BB_AAAA::` census is now 295 definitions in 128 owners,
+down from 302 definitions in 129 owners after these six aliases were retired
+and one generic label received a structural name. This lexical count is not a
+semantic-completion measure.
+
 ## Bank 2C address-picker resource names (2026-10-21)
 
 Seven `Data_2C_*` declarations in `gfx/address_book/address_picker.asm` were

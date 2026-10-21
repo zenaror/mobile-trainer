@@ -1646,3 +1646,9 @@ The bank-55 keyboard page tables now name eight previously address-only
 trailer spans by the preceding T6/T78 page they separate. The existing
 PROBABLE grade and byte layout remain unchanged. The six-root generic Data
 census is now 302 definitions in 129 owners. See the [bank-55 audit](docs/research/generic_data_name_audit_20261020.md#bank-55-keyboard-page-trailer-names-2026-10-21).
+
+The bank-47 scrollbar owner no longer exports six exact-address `Data_47_*`
+aliases. Its isolated 64-byte block at `47:4040` now has a candidate-qualified
+tile-slice name, with the existing PROBABLE evidence retained. The six-root
+generic Data census is now 295 definitions in 128 owners. See the [bank-47
+audit](docs/research/generic_data_name_audit_20261020.md#bank-47-browser-scrollbar-tile-names-2026-10-21).

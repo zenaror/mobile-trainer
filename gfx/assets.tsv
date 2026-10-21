@@ -192,13 +192,13 @@ gfx/browser/frames_0_1/tilemap_4b00.attrmap	attrmap	360	gfx/browser/frames_0_1.a
 gfx/browser/frames_0_1/tilemap_4b00.tilemap	tilemap	360	gfx/browser/frames_0_1.asm	47	4B00	PROBABLE	-	0	20x18	Tilemap_47_4B00
 gfx/browser/frames_0_1/tilemap_5850.attrmap	attrmap	360	gfx/browser/frames_0_1.asm	47	59B8	PROBABLE	-	0	20x18	Tilemap_47_5850
 gfx/browser/frames_0_1/tilemap_5850.tilemap	tilemap	360	gfx/browser/frames_0_1.asm	47	5850	PROBABLE	-	0	20x18	Tilemap_47_5850
-gfx/browser/frames_0_1/tiles_4000.2bpp	tiles	16	gfx/browser/frames_0_1.asm	47	4000	CONFIRMED	exact	0		Data_47_4000
-gfx/browser/frames_0_1/tiles_4010.2bpp	tiles	48	gfx/browser/frames_0_1.asm	47	4010	CONFIRMED	exact	0		Data_47_4010
-gfx/browser/frames_0_1/tiles_4040.2bpp	tiles	64	gfx/browser/frames_0_1.asm	47	4040	PROBABLE	exact	0		Data_47_4040
-gfx/browser/frames_0_1/tiles_4080.2bpp	tiles	16	gfx/browser/frames_0_1.asm	47	4080	CONFIRMED	exact	0		Data_47_4080
-gfx/browser/frames_0_1/tiles_4090.2bpp	tiles	48	gfx/browser/frames_0_1.asm	47	4090	CONFIRMED	exact	0		Data_47_4090
-gfx/browser/frames_0_1/tiles_40c0.2bpp	tiles	16	gfx/browser/frames_0_1.asm	47	40C0	CONFIRMED	exact	0		Data_47_40C0
-gfx/browser/frames_0_1/tiles_40d0.2bpp	tiles	48	gfx/browser/frames_0_1.asm	47	40D0	CONFIRMED	exact	0		Data_47_40D0
+gfx/browser/frames_0_1/tiles_4000.2bpp	tiles	16	gfx/browser/frames_0_1.asm	47	4000	CONFIRMED	exact	0		Gfx_BrowserScrollbar_Tiles8FF0_47_4000
+gfx/browser/frames_0_1/tiles_4010.2bpp	tiles	48	gfx/browser/frames_0_1.asm	47	4010	CONFIRMED	exact	0		Gfx_BrowserScrollbar_Tiles97D0_47_4010
+gfx/browser/frames_0_1/tiles_4040.2bpp	tiles	64	gfx/browser/frames_0_1.asm	47	4040	PROBABLE	exact	0		Gfx_BrowserScrollbar_CandidateTileSlice_4040
+gfx/browser/frames_0_1/tiles_4080.2bpp	tiles	16	gfx/browser/frames_0_1.asm	47	4080	CONFIRMED	exact	0		Gfx_BrowserScrollbar_Tiles8FF0_47_4080
+gfx/browser/frames_0_1/tiles_4090.2bpp	tiles	48	gfx/browser/frames_0_1.asm	47	4090	CONFIRMED	exact	0		Gfx_BrowserScrollbar_Tiles97D0_47_4090
+gfx/browser/frames_0_1/tiles_40c0.2bpp	tiles	16	gfx/browser/frames_0_1.asm	47	40C0	CONFIRMED	exact	0		Gfx_BrowserScrollbar_Tiles8FF0_47_40C0
+gfx/browser/frames_0_1/tiles_40d0.2bpp	tiles	48	gfx/browser/frames_0_1.asm	47	40D0	CONFIRMED	exact	0		Gfx_BrowserScrollbar_Tiles97D0_47_40D0
 gfx/browser/frames_0_1/tiles_4100.2bpp	tiles	2560	gfx/browser/frames_0_1.asm	47	4100	PROBABLE	exact	0		Tiles_47_4100
 gfx/browser/frames_0_1/tiles_4e50.2bpp	tiles	2560	gfx/browser/frames_0_1.asm	47	4E50	PROBABLE	exact	0		Tiles_47_4E50
 gfx/browser/frames_2_3/palette_6870.pal	palette	128	gfx/browser/frames_2_3.asm	47	6870	PROBABLE	-	0		Palette_47_6870
