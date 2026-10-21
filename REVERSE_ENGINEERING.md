@@ -1677,3 +1677,10 @@ slices in the account screens also received owner-qualified names, with the
 asset catalog updated. The eight zero bytes after the maps remain a separately
 labeled HYPOTHESIS. The six-root generic Data census is now 269 definitions
 in 124 owners. See the [bank-71 audit](docs/research/generic_data_name_audit_20261020.md#bank-71-communication-panel-and-account-screen-graphics-2026-10-21).
+
+The bank-28 mail-body owner no longer exports five exact-address `Data_28_*`
+aliases, its duplicate palette/table aliases, or the stale generic asset labels
+for the 4550 tilemap pair. The unreferenced code-shaped span at `28:4BA6` now
+has the bounded candidate name `WramClearCandidate_28_4BA6`; entry and purpose
+remain HYPOTHESIS. The six-root generic Data census is now 263 definitions in
+123 owners. See the [bank-28 body-view audit](docs/research/generic_data_name_audit_20261020.md#bank-28-mail-body-view-resources-2026-10-21).

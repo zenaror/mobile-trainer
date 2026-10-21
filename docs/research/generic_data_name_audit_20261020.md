@@ -2344,6 +2344,30 @@ The six-root `Data_BB_AAAA::` census is now 269 definitions in 124 owners,
 down from 275 definitions in 125 owners after all six generic labels in this
 owner were replaced. This lexical count is not a semantic-completion measure.
 
+## Bank 28 mail-body view resources (2026-10-21)
+
+Five `Data_28_*` declarations in `gfx/mail/body_view.asm` were exact-address
+aliases of the existing mail-body tile, tilemap and object-animation labels.
+`Palette_28_4AF0` and `Table_28_4B70` likewise duplicated
+`MailBody_BgPalette` and `MailBody_ObjTable`. Bounded exact-token searches
+found no maintained-source or active-tool consumers for these aliases. The two
+asset-catalog rows for the 4550 tilemap/attrmap pair now use
+`Tilemap_MailView_BodyPage`; bytes, paths and extents are unchanged.
+
+The 28-byte span at `28:4BA6`, previously `Data_28_4BA6`, is now
+`WramClearCandidate_28_4BA6`. Direct decoding of the original bytes describes
+the operation only conditionally: if entered at the first byte, it zeros
+`$C000-$C08F`, selects WRAM bank 7, fills `$DA00-$DAFF` with `$FF`, and returns.
+No call or pointer reference establishes that it is naturally entered or that
+this is its intended purpose. Code classification, entry and purpose remain
+**HYPOTHESIS**; this label records the bounded instruction pattern rather than
+claiming a live routine.
+
+The six-root `Data_BB_AAAA::` census is now 263 definitions in 123 owners,
+down from 269 definitions in 124 owners. Five exact aliases were retired and
+the sixth generic label was replaced by the code-candidate name. This lexical
+count is not a semantic-completion measure.
+
 ## Bank 2C address-picker resource names (2026-10-21)
 
 Seven `Data_2C_*` declarations in `gfx/address_book/address_picker.asm` were
