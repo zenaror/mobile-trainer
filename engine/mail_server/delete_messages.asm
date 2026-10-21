@@ -58,7 +58,6 @@ MailSrvDel_MsgNoMail:: ; 23:6D8C
 
 PUSHC sjis
 String_MailSrvDel_MsgNoMail:: ; 23:6DA7
-String_23_6DA7::
 	db "　　　　メールはありませんでした　　　　", 0
 POPC
 
@@ -81,7 +80,6 @@ MailSrvDel_MsgAllDeleted:: ; 23:6DD0
 
 PUSHC sjis
 String_MailSrvDel_MsgAllDeleted:: ; 23:6DEB
-String_23_6DEB::
 	db "　　　すべてのメールをけしました　　　　", 0
 POPC
 
@@ -104,7 +102,6 @@ MailSrvDel_MsgBlank:: ; 23:6E14
 
 PUSHC sjis
 String_MailSrvDel_MsgBlank:: ; 23:6E2F
-String_23_6E2F::
 	db "　　　　　　　　　　　　　　　　　　　　", 0
 POPC
 
@@ -134,7 +131,6 @@ MailSrvDel_MsgCancelled:: ; 23:6E58
 
 PUSHC sjis
 String_MailSrvDel_MsgCancelled:: ; 23:6E73
-String_23_6E73::
 	db "　　　　　キャンセルしました　　　　　　", 0
 POPC
 
@@ -157,7 +153,6 @@ MailSrvDel_MsgReading:: ; 23:6E9C
 
 PUSHC sjis
 String_MailSrvDel_MsgReading:: ; 23:6EB7
-String_23_6EB7::
 	db "　　　　メールをよみこんでいます　　　　", 0
 POPC
 

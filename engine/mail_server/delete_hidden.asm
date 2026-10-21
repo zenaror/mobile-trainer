@@ -446,7 +446,6 @@ MailSrvDelHidden_ShowDescDeleteAll:: ; 22:43C5
 
 PUSHC sjis
 String_MailSrvDelHidden_DescDeleteAll:: ; 22:43E0
-String_22_43E0::
 	db "メールサーバにのこっているすべての　メールを、じどうでぜんぶけします　　じょうほうはたしかめられません　　　", 0
 POPC
 
@@ -464,7 +463,7 @@ MailSrvDelHidden_ShowDescCheck:: ; 22:444D
 	call MailSrvDelHidden_UploadTextTiles
 	ret
 
-; ---- text $4468-$448D (37 bytes) [HYPOTHESIS] Shift-JIS text: 18 x 81 40 (full-width space) + NUL; no reference found (no ld/dw of $4468 in the ROM); sits between a ret and the referenced string String_22_448D (ld hl,$448D at 22:444D) - probably a blank-line string
+; ---- text $4468-$448D (37 bytes) [HYPOTHESIS] Shift-JIS text: 18 x 81 40 (full-width space) + NUL; no reference found (no ld/dw of $4468 in the ROM); sits between a ret and the referenced string String_MailSrvDelHidden_DescCheck (ld hl,$448D at 22:444D) - probably a blank-line string
 
 PUSHC sjis
 String_22_4468:: ; 22:4468
@@ -475,7 +474,6 @@ POPC
 
 PUSHC sjis
 String_MailSrvDelHidden_DescCheck:: ; 22:448D
-String_22_448D::
 	db "メールサーバにのこっているメールの　じょうほうをたしかめて、１つうずつ　じぶんでけすことができます　　　　　", 0
 POPC
 
@@ -497,7 +495,6 @@ MailSrvDelHidden_ShowDescDeleteCompletely:: ; 22:44FA
 
 PUSHC sjis
 String_MailSrvDelHidden_DescDeleteCompletely:: ; 22:4515
-String_22_4515::
 	db "もんだいのあるメールとメールサーバにのこっているすべてのメールをじどうでぜんぶけします　　　　　　　　　　　", 0
 POPC
 
@@ -783,16 +780,12 @@ MailSrvDelHidden_ConfirmSelect:: ; 22:47DE
 
 PUSHC sjis
 String_MailSrvDelHidden_Confirm:: ; 22:481B
-String_22_481B::
 	db "このしょりをおこなうと　　　　　", 0
 String_MailSrvDelHidden_DeleteAllWarningPart2:: ; 22:483C
-String_22_483C::
 	db "サーバにある　すべてのメールが　", 0
 String_MailSrvDelHidden_DeleteAllWarningPart3:: ; 22:485D
-String_22_485D::
 	db "きえてしまいます　　　　　　　　", 0
 String_MailSrvDelHidden_DeleteAllWarningPart4:: ; 22:487E
-String_22_487E::
 	db "　　　　よろしいですか？　　　　", 0
 POPC
 
@@ -1119,7 +1112,6 @@ MailSrvDelHidden_FormatDecimalStr:: ; 22:4975
 
 PUSHC sjis
 String_MailSrvDelHidden_NumberTemplate:: ; 22:4A8C
-String_22_4A8C::
 	db "０００００", 0
 POPC
 

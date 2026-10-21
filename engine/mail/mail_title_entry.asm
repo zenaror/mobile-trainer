@@ -1196,7 +1196,6 @@ MailTitle_ApplyDakuten:: ; 2C:46EB
 
 PUSHC sjis
 String_MailTitle_DakutenKana:: ; 2C:4779
-String_2C_4779::
 	db "かきくけこさしすせそたちつてとはひふへほカキクケコサシスセソタチツテトハヒフヘホ", 0
 POPC
 
@@ -1453,7 +1452,6 @@ MailTitle_ApplyHandakuten:: ; 2C:487E
 
 PUSHC sjis
 String_MailTitle_HandakutenKana:: ; 2C:4929
-String_2C_4929::
 	db "はひふへほハヒフヘホ", 0
 POPC
 

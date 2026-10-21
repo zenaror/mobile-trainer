@@ -1002,7 +1002,7 @@ def rules_manual(w, man, sites):
                 add(w.by_addr[kk][0], 'Tilemap_CommScene_TextBox%d' % i, 'data', 'CONFIRMED',
                     'entry %d of CommScene_TextBoxMaps (70:4822): CommScene_ShowTextBox (70:4803, executed) indexes the table with A and calls Tilemap_CopyRectAndAttr with bc=$0414 (4 rows x 20 cols), de=$D000, hl=entry; 160 bytes = 2 x 80 (tile bytes then attribute bytes)' % i)
     for old, new, i in (('String_2E_5504', 'String_MailServerMgr_HelpBlank0', 0), ('String_2E_55A8', 'String_MailServerMgr_HelpBlank4', 4), ('String_2E_55D1', 'String_MailServerMgr_HelpBlank5', 5)):
-        k = w.by_name[old]
+        # `add()` accepts a retired neutral spelling when its semantic symbol remains at the same address.
         add(old, new, 'string', 'PROBABLE',
             'string %d of Table_MailServerMgr_HelpStrings (2E:54F8, 6 x 41-byte strings indexed by 2*(a+1) at 2E:549A): 20 full-width spaces + NUL (verified in the source text and ROM bytes), i.e. the blank help line, next to the named HelpDeleteThis/HelpLoadNext/HelpStopTidy' % i)
     # font glyph runs: key16 of each 5-byte record of Font_GlyphRunTable names the run

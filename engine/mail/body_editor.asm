@@ -2206,7 +2206,6 @@ MailBody_ApplyDakuten:: ; 2D:546D
 
 PUSHC sjis
 MailBody_DakutenKanaList:: ; 2D:54EB
-String_2D_54EB::
 	db "かきくけこさしすせそたちつてとはひふへほカキクケコサシスセソタチツテトハヒフヘホ", 0
 POPC
 
@@ -2444,7 +2443,6 @@ MailBody_ApplyHandakuten:: ; 2D:55E0
 
 PUSHC sjis
 MailBody_HandakutenKanaList:: ; 2D:567B
-String_2D_567B::
 	db "はひふへほハヒフヘホ", 0
 POPC
 

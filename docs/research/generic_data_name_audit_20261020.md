@@ -2739,3 +2739,20 @@ The three-area census has 145 candidates in 347 tracked ASM/INC files, with
 `languages/` and `engine/mail/sample_data.asm` excluded before reads. The older
 handoff count of 42 used an unreconciled scope or method and must not be
 compared as the same metric.
+
+## Exact mail co-aliases retired (2026-10-21)
+
+The private owner review identified 52 neutral aliases across the two
+maintained mail source trees. Each shared the exact linked bank/address with a
+descriptive label, had no active source operand or local-label scope, and did
+not own bytes. The aliases were retired; six comments now point to the
+surviving labels. The old-to-current map is in
+[`analysis/naming2/retired_mail_coaliases_20261021.tsv`](../../analysis/naming2/retired_mail_coaliases_20261021.tsv).
+
+Three blank-help strings had a latent tool issue: `rules_manual()` performed an
+unused direct lookup of the neutral spelling before `add()` could accept its
+absence. Removing that lookup lets `data_consumers.py` resolve the existing
+semantic label at the same address. The fix is narrowly scoped; the targeted
+post-build `data_consumers.py --stats` run is the regression check. Existing
+PROBABLE grades on strings and call-entry hypotheses remain unchanged; no
+runtime claim is added.

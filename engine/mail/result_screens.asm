@@ -241,7 +241,6 @@ MailResult_ShowSentMessage:: ; 29:41AD
 
 PUSHC sjis
 MailResult_Txt_SendFailed:: ; 29:421E
-String_29_421E::
 	db "おくるのにしっぱいしました！", 0
 
 MailResult_Txt_NothingSent:: ; 29:423B
@@ -338,7 +337,6 @@ MailResult_ShowReceivedMessage:: ; 29:4286
 
 PUSHC sjis
 MailResult_Txt_ReceiveFailed:: ; 29:4306
-String_29_4306::
 	db "うけとりにしっぱいしました！", 0
 
 MailResult_Txt_NothingArrived:: ; 29:4323
@@ -913,7 +911,6 @@ MailServerStatus_DrawCounts_Mode0_Unknown:: ; 29:476B
 
 PUSHC sjis
 MailServerStatus_Txt_Unknown:: ; 29:47B2
-String_29_47B2::
 	db "？？？？？", 0
 POPC
 
@@ -1447,7 +1444,6 @@ MailServerStatus_DrawCounts_Mode1_Unknown:: ; 29:4A7D
 
 PUSHC sjis
 MailServerStatus_Txt_Unknown_M1:: ; 29:4AC4
-String_29_4AC4::
 	db "？？？？？", 0
 POPC
 
@@ -1778,7 +1774,6 @@ MailServerStatus_FormatNumber_M1:: ; 29:4B7F
 
 PUSHC sjis
 String_MailServerStatus_NumberTemplate_M1:: ; 29:4C96
-String_29_4C96::
 	db "０００００", 0
 POPC
 
@@ -1931,7 +1926,6 @@ MailServerStatus_DrawCounts_Mode2_Unknown:: ; 29:4D39
 
 PUSHC sjis
 MailServerStatus_Txt_Unknown_M2:: ; 29:4D80
-String_29_4D80::
 	db "？？？？？", 0
 POPC
 

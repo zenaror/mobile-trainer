@@ -1300,7 +1300,7 @@ Mailbox_ShowHint:: ; 25:53AA
 	pop bc
 	ret
 
-; ---- ptrtable $53D0-$53DA (10 bytes) [PROBABLE] 5 pointers, every target is the first byte of one of the 5 NUL-terminated strings of String_25_53DA; read by 25:53B2 (ld e,d; sla e; ld hl,$53D0; add hl,de)
+; ---- ptrtable $53D0-$53DA (10 bytes) [PROBABLE] 5 pointers, every target is the first byte of one of the 5 NUL-terminated strings beginning at Mailbox_Hint_SelectMail; read by 25:53B2 (ld e,d; sla e; ld hl,$53D0; add hl,de)
 
 Mailbox_HintTable:: ; 25:53D0
 	dw Mailbox_Hint_SelectMail
@@ -1313,7 +1313,6 @@ Mailbox_HintTable:: ; 25:53D0
 
 PUSHC sjis
 Mailbox_Hint_SelectMail:: ; 25:53DA
-String_25_53DA::
 	db "　　メールを　せんたくしてください　　　", 0
 
 Mailbox_Hint_Read:: ; 25:5403

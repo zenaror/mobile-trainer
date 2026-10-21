@@ -1186,7 +1186,6 @@ MailServerMgr_ShowLoadingMsg:: ; 2E:538B
 
 PUSHC sjis
 String_MailServerMgr_LoadingMail:: ; 2E:53A8
-String_2E_53A8::
 	db "メールをよみこんでいます", 0
 POPC
 
@@ -1223,7 +1222,6 @@ MailServerMgr_ShowNoMailMsg:: ; 2E:53DA
 
 PUSHC sjis
 String_MailServerMgr_NoMail:: ; 2E:53F7
-String_2E_53F7::
 	db "メールはありませんでした", 0
 POPC
 
@@ -1255,7 +1253,6 @@ MailServerMgr_ShowDeletingMsg:: ; 2E:5429
 
 PUSHC sjis
 String_MailServerMgr_DeletingMail:: ; 2E:5446
-String_2E_5446::
 	db "　メールをけしています　", 0
 POPC
 
@@ -1361,7 +1358,6 @@ Table_MailServerMgr_HelpStrings:: ; 2E:54F8
 
 PUSHC sjis
 String_MailServerMgr_HelpBlank0:: ; 2E:5504
-String_2E_5504::
 	db "　　　　　　　　　　　　　　　　　　　　", 0
 POPC
 
@@ -1369,7 +1365,6 @@ POPC
 
 PUSHC sjis
 String_MailServerMgr_HelpDeleteThis:: ; 2E:552D
-String_2E_552D::
 	db "　　　　このメールを　けします　　　　　", 0
 
 String_MailServerMgr_HelpLoadNext:: ; 2E:5556
@@ -1383,10 +1378,8 @@ POPC
 
 PUSHC sjis
 String_MailServerMgr_HelpBlank4:: ; 2E:55A8
-String_2E_55A8::
 	db "　　　　　　　　　　　　　　　　　　　　", 0
 String_MailServerMgr_HelpBlank5:: ; 2E:55D1
-String_2E_55D1::
 	db "　　　　　　　　　　　　　　　　　　　　", 0
 POPC
 

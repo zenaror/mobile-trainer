@@ -402,7 +402,6 @@ MailSrvDel_ShowDescDeleteAll:: ; 23:433C
 
 PUSHC sjis
 String_MailSrvDel_DescDeleteAll:: ; 23:4357
-String_23_4357::
 	db "メールサーバにのこっているすべての　メールを、じどうでぜんぶけします　　じょうほうはたしかめられません　　　", 0
 POPC
 
@@ -432,7 +431,6 @@ POPC
 
 PUSHC sjis
 String_MailSrvDel_DescCheck:: ; 23:4404
-String_23_4404::
 	db "メールサーバにのこっているメールの　じょうほうをたしかめて、１つうずつ　じぶんでけすことができます　　　　　", 0
 POPC
 
@@ -702,16 +700,12 @@ MailSrvDel_ConfirmSelect:: ; 23:46CD
 
 PUSHC sjis
 String_MailSrvDel_Confirm:: ; 23:470A
-String_23_470A::
 	db "このしょりをおこなうと　　　　　", 0
 String_MailSrvDel_DeleteAllWarningPart2:: ; 23:472B
-String_23_472B::
 	db "サーバにある　すべてのメールが　", 0
 String_MailSrvDel_DeleteAllWarningPart3:: ; 23:474C
-String_23_474C::
 	db "きえてしまいます　　　　　　　　", 0
 String_MailSrvDel_DeleteAllWarningPart4:: ; 23:476D
-String_23_476D::
 	db "　　　　よろしいですか？　　　　", 0
 POPC
 
@@ -1040,7 +1034,6 @@ MailSrvDel_FormatDecimalStr:: ; 23:4864
 
 PUSHC sjis
 String_MailSrvDel_NumberTemplate_23_497B:: ; 23:497B
-String_23_497B::
 	db "０００００", 0
 POPC
 

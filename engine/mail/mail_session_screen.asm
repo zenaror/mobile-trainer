@@ -787,7 +787,6 @@ MailSession_DrawNumber:: ; 26:5447
 
 PUSHC sjis
 MailSession_NumberTemplate:: ; 26:5575
-String_26_5575::
 	db "０００００", 0
 POPC
 
@@ -951,15 +950,13 @@ MailSession_UploadNumberTiles:: ; 26:5640
 
 PUSHC sjis
 MailSession_Txt_Total:: ; 26:566E
-String_26_566E::
 	db "ぜんぶで", 0
 POPC
 
-; ---- text $5677-$567C (5 bytes) [PROBABLE] Shift-JIS "つう" + NUL between String_26_566E chunks (566E holds ぜんぶで / つう / つうめをチェックしています as consecutive NUL-terminated strings)
+; ---- text $5677-$567C (5 bytes) [PROBABLE] Shift-JIS "つう" + NUL between MailSession_Txt_Total and MailSession_Txt_Checking (566E, 5677 and 567C are consecutive NUL-terminated strings)
 
 PUSHC sjis
 MailSession_Txt_Counter:: ; 26:5677
-String_26_5677::
 	db "つう", 0
 POPC
 
@@ -967,7 +964,6 @@ POPC
 
 PUSHC sjis
 MailSession_Txt_Checking:: ; 26:567C
-String_26_567C::
 	db "つうめをチェックしています", 0
 POPC
 
@@ -990,7 +986,6 @@ MailSession_ShowMsgSending:: ; 26:5697
 
 PUSHC sjis
 MailSession_Msg_Sending:: ; 26:56B2
-String_26_56B2::
 	db "　　　　メールをそうしんしています　　　", 0
 POPC
 
@@ -1014,14 +1009,13 @@ MailSession_ShowMsgReceiving:: ; 26:56DB
 
 PUSHC sjis
 MailSession_Msg_Receiving:: ; 26:56F6
-String_26_56F6::
 	db "　　　　メールをじゅしんしています　　　", 0
 POPC
 
 MailSession_ShowMsgSent:: ; 26:571F
 
 	; [PROBABLE] push bc / ld a,$02 / ldh [$FFB0],a / ld a,$26 / ld bc,$D400 / ld de,$D600 / ld
-	; hl,$573A: loads the address of String_26_573A that follows the far call at 572F; chain falls
+	; hl,$573A: loads the address of MailSession_Msg_Sent that follows the far call at 572F; chain falls
 	; through into that site-validated far call; entry unproven
 	push bc
 	ld a, $02
@@ -1042,13 +1036,12 @@ MailSession_ShowMsgSent:: ; 26:571F
 
 PUSHC sjis
 MailSession_Msg_Sent:: ; 26:573A
-String_26_573A::
 	db "　　　　メールをそうしんしました　　　　", 0
 POPC
 
 MailSession_ShowMsgReceiveDone:: ; 26:5763
 
-	; [PROBABLE] same as 26:571F but ld hl,$577E (String_26_577E); chain falls through into the far
+	; [PROBABLE] same as 26:571F but ld hl,MailSession_Msg_ReceiveDone (577E); chain falls through into the far
 	; call at 5773; entry unproven
 	push bc
 	ld a, $02
@@ -1069,7 +1062,6 @@ MailSession_ShowMsgReceiveDone:: ; 26:5763
 
 PUSHC sjis
 MailSession_Msg_ReceiveDone:: ; 26:577E
-String_26_577E::
 	db "　　　　メールじゅしんかんりょう　　　　", 0
 POPC
 
@@ -1093,7 +1085,6 @@ MailSession_ShowMsgNoMail:: ; 26:57A7
 
 PUSHC sjis
 MailSession_Msg_NoMail:: ; 26:57C2
-String_26_57C2::
 	db "　　　　メールはありませんでした　　　　", 0
 POPC
 
@@ -1116,7 +1107,6 @@ MailSession_ShowMsgCannotReceive:: ; 26:57EB
 
 PUSHC sjis
 MailSession_Msg_CannotReceive:: ; 26:5806
-String_26_5806::
 	db "　　　メールはうけとれませんでした　　　", 0
 POPC
 
@@ -1139,7 +1129,6 @@ MailSession_ShowMsgReceived:: ; 26:582F
 
 PUSHC sjis
 MailSession_Msg_Received:: ; 26:584A
-String_26_584A::
 	db "　　　　メールをうけとりました　　　　　", 0
 POPC
 

@@ -361,7 +361,6 @@ MailSrvDel_FormatNumber:: ; 23:56F0
 
 PUSHC sjis
 String_MailSrvDel_NumberTemplate:: ; 23:581E
-String_23_581E::
 	db "０００００", 0
 POPC
 
@@ -461,6 +460,5 @@ MailSrvDel_UploadNumberTiles:: ; 23:5889
 
 PUSHC sjis
 String_MailSrvDel_ProgressText:: ; 23:58A9
-String_23_58A9::
 	db "つうめをチェックしています", 0
 POPC
