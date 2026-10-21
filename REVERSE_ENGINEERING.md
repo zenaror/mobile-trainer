@@ -46,6 +46,16 @@ or proof of non-use. Semantic function/entrypoint identification and remaining
 data contracts are still open; the linked audit records method, hashes and
 exclusions.
 
+A fresh scope-controlled census at `301fb1f3` reads 334 tracked ASM/INC files
+from the maintained roots plus `zero_labels.asm`, excluding
+`engine/mail/sample_data.asm` before reads and omitting `languages/`,
+`analysis/`, and `build/`. It finds zero exact `Function_BB_AAAA`, `Font_BB_AAAA`,
+and `Label_BB_AAAA` definitions, 73 `Data_BB_AAAA` definitions across 44
+owners, and no `gfx/bankNN` directories. The data-consumer screen rejected all
+93 candidate immediates, so no names were inferred from those candidates.
+These lexical counts do not close semantic identification; method, manifest
+hashes, and retained evidence are in the dated generic-data audit.
+
 A current path-scoped review retired two redundant generic aliases. In
 `gfx/browser/start_choice.asm`, `Data_73_5E60` duplicated
 `SpriteFrameTable_73_5E60` and had no other tracked non-language consumer. In

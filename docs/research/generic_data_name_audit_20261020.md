@@ -2758,3 +2758,29 @@ semantic label at the same address. The fix is narrowly scoped; the targeted
 post-build `data_consumers.py --stats` run is the regression check. Existing
 PROBABLE grades on strings and call-entry hypotheses remain unchanged; no
 runtime claim is added.
+
+## Current maintained-source lexical census (2026-10-21)
+
+A path-bounded scan at `301fb1f33e4d710cd11559614531107591c9a013` read 334
+tracked ASM/include files from the six maintained roots plus `zero_labels.asm`.
+It explicitly excluded `engine/mail/sample_data.asm` before reading and did not
+scan `languages/`, `analysis/`, or `build/`. The exact neutral definitions were
+0 `Function_BB_AAAA`, 0 `Font_BB_AAAA`, 0 `Label_BB_AAAA`, and 73
+`Data_BB_AAAA` across 44 owners. Other exact prefixes remaining in that same
+scope were 8 `Table`, 107 `String`, 41 `Tiles`, 24 `Tilemap`, 4 `Attrmap`, and
+25 `Palette` definitions. No `gfx/bankNN` directories were present. These are
+lexical counts only; they do not establish semantic identification of all
+functions, data, or assets.
+
+The source-set SHA-256 is
+`a170880cc5eba44fc56abcac8ac4a8933e9bcc6e5d127f52b3848e9ed24a7d67`; the
+generic-label manifest SHA-256 is
+`4fbd76ef1342c9e5c835a99640dc1baf806368ce7a51fb4e6147b983a85c53e2`. The
+reproducible census receipt, manifest, and consumer screening are retained in
+`.tmp/jp-neutral-data-followup-301fb1f3/`. The current `data_consumers.py`
+screening found 93 immediate candidates and rejected all 93; it generated no
+rename rows. That result is not a consumer map or evidence that the remaining
+neutral data is unused. In particular, `Data_1D_62B0` remains neutral: the
+adjacent palette heuristic is explicitly clipped around the two confirmed
+mail-menu palettes, and no independently established consumer supports a
+more specific name.
