@@ -1794,3 +1794,10 @@ duplicate `Data_27_5048` label; its existing computed-reader name remains.
 Other unknown spans in the owner stay neutral. The restricted six-root
 generic-data census is now 195 definitions in 112 owners. See the [bank-27
 table audit](docs/research/generic_data_name_audit_20261020.md#bank-27-communication-time-digit-pair-table-alias-2026-10-21).
+
+Four exact generic aliases in the bank-65 startup dispatch data were retired
+under their existing status and configuration jump-table labels. Comments now
+refer to those retained labels. The source bytes and table extents are
+unchanged; `make` remains byte-identical, `sym-check` passes with 12,329
+labels, and `palette-check` reports zero errors. See the
+[startup table alias note](docs/research/startup_jump_table_aliases_20261021.md).
