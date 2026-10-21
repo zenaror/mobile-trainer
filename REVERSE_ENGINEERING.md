@@ -1205,3 +1205,9 @@ lexical evidence, 648 provenance/co-alias cases and 242 indeterminate cases;
 this is a prioritization aid, not a rename decision or completion claim. The
 asset inventory and provenance limits are recorded in
 [`docs/research/gfx_generic_name_audit_20261021.md`](docs/research/gfx_generic_name_audit_20261021.md).
+
+In `engine/help/mobile_dictionary.asm`, 12 `Table_1A_AAAA` aliases were
+retired under the existing `Table_MobileDict_*` names; exact-token searches
+found only their declarations and explanatory comments. References in the
+comments were updated, while table data and confidence remain unchanged. See
+[`docs/research/mobile_dictionary_table_aliases_20261021.md`](docs/research/mobile_dictionary_table_aliases_20261021.md).

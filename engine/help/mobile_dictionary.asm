@@ -137,7 +137,6 @@ MobileDict_Loop:: ; 1A:414B
 ; ---- ptrtable $4163-$416D (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 1A:4160: 5 entries; fixed length (5 words) by the routine
 
 Table_MobileDict_Buttons:: ; 1A:4163
-Table_1A_4163::
 	dw MobileDict_OnA
 	dw MobileDict_OnB
 	dw MobileDict_Ignore
@@ -498,7 +497,6 @@ MobileDict_LoadPage:: ; 1A:4391
 ; ---- ptrtable $4439-$444F (22 bytes) [PROBABLE] 11 pointers to the string-group headers 444F 44C7 44E0 453F 456B 45A8 4608 46F9 4705 471E 4736; every target is a count byte followed by count word pointers whose first target equals the end of the header (all 11 validated); first 4 bytes read by executed code
 
 Table_MobileDict_Categories:: ; 1A:4439
-Table_1A_4439::
 	dw Data_MobileDict_Cat01Count
 	dw Data_MobileDict_Cat02Count
 	dw Data_MobileDict_Cat03Count
@@ -520,7 +518,6 @@ Data_1A_444F::
 ; ---- ptrtable $4450-$4462 (18 bytes) [PROBABLE] little-endian word table, 12 entries, monotone=0.82, 75% of targets on string start/after NUL, targets $4462..$4583; regular record stride between targets [clipped from 4450-4468 by higher-priority proposals]
 
 Table_MobileDict_Cat01Strings:: ; 1A:4450
-Table_1A_4450::
 	dw String_MobileDict_Cat01Entry00
 	dw String_MobileDict_Cat01Entry01
 	dw String_MobileDict_Cat01Entry02
@@ -591,7 +588,7 @@ String_1A_44CC::
 	db "コンテンツ", 0
 POPC
 
-; ---- data $44E0-$44E1 (1 bytes) [PROBABLE] group count byte = 08 (group header, see Table_1A_4439)
+; ---- data $44E0-$44E1 (1 bytes) [PROBABLE] group count byte = 08 (group header, see Table_MobileDict_Categories)
 
 Data_MobileDict_Cat03Count:: ; 1A:44E0
 Data_1A_44E0::
@@ -600,7 +597,6 @@ Data_1A_44E0::
 ; ---- ptrtable $44E1-$44F1 (16 bytes) [PROBABLE] 8 string pointers 44F1 44F8 44FF 4508 4511 4520 452D 4536 (first = end of header)
 
 Table_MobileDict_Cat03Strings:: ; 1A:44E1
-Table_1A_44E1::
 	dw String_MobileDict_Cat03Entry00
 	dw String_MobileDict_Cat03Entry01
 	dw String_MobileDict_Cat03Entry02
@@ -653,7 +649,6 @@ Data_1A_453F::
 ; ---- ptrtable $4540-$4546 (6 bytes) [PROBABLE] 3 string pointers 4546 454F 455C (first = end of header)
 
 Table_MobileDict_Cat04Strings:: ; 1A:4540
-Table_1A_4540::
 	dw String_MobileDict_Cat04Entry00
 	dw String_MobileDict_Cat04Entry01
 	dw String_MobileDict_Cat04Entry02
@@ -672,7 +667,7 @@ String_1A_455C::
 	db "つうしんエラー", 0
 POPC
 
-; ---- data $456B-$456C (1 bytes) [PROBABLE] group count byte = 04 (group header of Table_1A_4439)
+; ---- data $456B-$456C (1 bytes) [PROBABLE] group count byte = 04 (group header of Table_MobileDict_Categories)
 
 Data_MobileDict_Cat05Count:: ; 1A:456B
 Data_1A_456B::
@@ -681,7 +676,6 @@ Data_1A_456B::
 ; ---- ptrtable $456C-$4574 (8 bytes) [PROBABLE] 4 string pointers, first = end of the header (4574); mapper had these header bytes inside the following text run
 
 Table_MobileDict_Cat05Strings:: ; 1A:456C
-Table_1A_456C::
 	dw String_MobileDict_Cat05Entry00
 	dw String_MobileDict_Cat05Entry01
 	dw String_MobileDict_Cat05Entry02
@@ -713,7 +707,6 @@ Data_1A_45A8::
 ; ---- ptrtable $45A9-$45B7 (14 bytes) [PROBABLE] 7 string pointers 45B7 45C2 45D1 45DA 45E5 45F2 45FB (first = end of header)
 
 Table_MobileDict_Cat06Strings:: ; 1A:45A9
-Table_1A_45A9::
 	dw String_MobileDict_Cat06Entry00
 	dw String_MobileDict_Cat06Entry01
 	dw String_MobileDict_Cat06Entry02
@@ -748,7 +741,7 @@ String_1A_45FB::
 	db "ホームページ", 0
 POPC
 
-; ---- data $4608-$4609 (1 bytes) [PROBABLE] group count byte = 0E, followed by Table_1A_4609 (14 pointers)
+; ---- data $4608-$4609 (1 bytes) [PROBABLE] group count byte = 0E, followed by Table_MobileDict_Cat07Strings (14 pointers)
 
 Data_MobileDict_Cat07Count:: ; 1A:4608
 Data_1A_4608::
@@ -757,7 +750,6 @@ Data_1A_4608::
 ; ---- ptrtable $4609-$4625 (28 bytes) [PROBABLE] little-endian word table, 14 entries, monotone=1.00, 100% of targets on string start/after NUL, targets $4625..$46E4
 
 Table_MobileDict_Cat07Strings:: ; 1A:4609
-Table_1A_4609::
 	dw String_MobileDict_Cat07Entry00
 	dw String_MobileDict_Cat07Entry01
 	dw String_MobileDict_Cat07Entry02
@@ -784,7 +776,7 @@ String_1A_462E::
 	db "メルとも", 0
 POPC
 
-; ---- text $4637-$463E (7 bytes) [PROBABLE] Shift-JIS "メール" NUL-terminated; target of a pointer of Table_1A_4609 (463E-.. list, 4637)
+; ---- text $4637-$463E (7 bytes) [PROBABLE] Shift-JIS "メール" NUL-terminated; target of a pointer of Table_MobileDict_Cat07Strings (463E-.. list, 4637)
 
 PUSHC sjis
 String_MobileDict_Cat07Entry02:: ; 1A:4637
@@ -830,7 +822,7 @@ String_1A_46E4::
 	db "モバイルホームページ", 0
 POPC
 
-; ---- data $46F9-$46FA (1 bytes) [PROBABLE] group count byte = 01 (group header of Table_1A_4439)
+; ---- data $46F9-$46FA (1 bytes) [PROBABLE] group count byte = 01 (group header of Table_MobileDict_Categories)
 
 Data_MobileDict_Cat08Count:: ; 1A:46F9
 Data_1A_46F9::
@@ -839,7 +831,6 @@ Data_1A_46F9::
 ; ---- ptrtable $46FA-$46FC (2 bytes) [PROBABLE] 1 string pointers, first = end of the header (46FC); mapper had these header bytes inside the following text run
 
 Table_MobileDict_Cat08Strings:: ; 1A:46FA
-Table_1A_46FA::
 	dw String_MobileDict_Cat08Entry00
 
 ; ---- text $46FC-$4705 (9 bytes) [PROBABLE] text block: 12 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 463E-4705 by higher-priority evidence]
@@ -859,7 +850,6 @@ Data_1A_4705::
 ; ---- ptrtable $4706-$470A (4 bytes) [PROBABLE] 2 string pointers 470A 4711 (first = end of header)
 
 Table_MobileDict_Cat09Strings:: ; 1A:4706
-Table_1A_4706::
 	dw String_MobileDict_Cat09Entry00
 	dw String_MobileDict_Cat09Entry01
 
@@ -879,7 +869,7 @@ String_1A_4711::
 	db "ログインＩＤ", 0
 POPC
 
-; ---- data $471E-$471F (1 bytes) [PROBABLE] group count byte = 01 (group header of Table_1A_4439)
+; ---- data $471E-$471F (1 bytes) [PROBABLE] group count byte = 01 (group header of Table_MobileDict_Categories)
 
 Data_MobileDict_Cat10Count:: ; 1A:471E
 Data_1A_471E::
@@ -888,7 +878,6 @@ Data_1A_471E::
 ; ---- ptrtable $471F-$4721 (2 bytes) [PROBABLE] 1 string pointers, first = end of the header (4721); mapper had these header bytes inside the following text run
 
 Table_MobileDict_Cat10Strings:: ; 1A:471F
-Table_1A_471F::
 	dw String_MobileDict_Cat10Entry00
 
 ; ---- text $4721-$4736 (21 bytes) [PROBABLE] text block: 2 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 4711-4736 by higher-priority evidence]
@@ -899,7 +888,7 @@ String_1A_4721::
 	db "ワールドワイドウェブ", 0
 POPC
 
-; ---- data $4736-$4737 (1 bytes) [PROBABLE] group count byte = 0A, followed by Table_1A_4737 (10 pointers)
+; ---- data $4736-$4737 (1 bytes) [PROBABLE] group count byte = 0A, followed by Table_MobileDict_Cat11Strings (10 pointers)
 
 Data_MobileDict_Cat11Count:: ; 1A:4736
 Data_1A_4736::
@@ -908,7 +897,6 @@ Data_1A_4736::
 ; ---- ptrtable $4737-$474B (20 bytes) [PROBABLE] little-endian word table, 10 entries, monotone=1.00, 100% of targets on string start/after NUL, targets $474B..$47A4; regular record stride between targets
 
 Table_MobileDict_Cat11Strings:: ; 1A:4737
-Table_1A_4737::
 	dw String_MobileDict_Cat11Entry00
 	dw String_MobileDict_Cat11Entry01
 	dw String_MobileDict_Cat11Entry02
@@ -944,7 +932,7 @@ String_1A_4763::
 	db "ＤＩＯＮモバイルＧＢコース", 0
 POPC
 
-; ---- text $477E-$47A4 (38 bytes) [PROBABLE] 6 NUL-terminated strings "ＩＳＰ" "ＰＤＣ" "ＰＨＳ" "Ｗｅｂ" "ＷＷＷ" "＠" (targets of the pointers 477E 4785 478C 4793 479A .. of Table_1A_4737)
+; ---- text $477E-$47A4 (38 bytes) [PROBABLE] 6 NUL-terminated strings "ＩＳＰ" "ＰＤＣ" "ＰＨＳ" "Ｗｅｂ" "ＷＷＷ" "＠" (targets of the pointers 477E 4785 478C 4793 479A .. of Table_MobileDict_Cat11Strings)
 
 PUSHC sjis
 String_MobileDict_Cat11Entry03:: ; 1A:477E
