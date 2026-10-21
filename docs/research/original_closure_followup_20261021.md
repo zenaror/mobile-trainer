@@ -44,6 +44,16 @@ review.
 
 ## Current naming changes
 
+In `gfx/comm/connect_dialog_bank56.asm`, the six zero bytes at `56:52BA–52C0`
+are now `Padding_ConnectDialog_Tiles52C0Alignment` (**PROBABLE**). The span
+follows the confirmed 80-byte 20×2 tilemap/attribute pair and precedes the
+next confirmed tile HDMA source at `56:52C0`, whose address is 16-byte
+aligned. A bounded search of maintained Japanese ASM/GFX owners found no
+direct reader of the gap. This supports an alignment-padding interpretation,
+but does not prove that no indirect or unmodeled reader exists. The six ROM
+bytes are unchanged; exact original slice SHA-256:
+`b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44`.
+
 The bounded owner-local review of `engine/mail/mail_title_entry.asm` kept
 `Data_2C_47CA`, `Data_2C_487D`, `Data_2C_493E` and `Data_2C_49E8` neutral:
 each is a single `$C9` byte at a text/code boundary, and the bounded source

@@ -53,9 +53,9 @@ Tilemap_ConnectDialog_ConnectConfirm_56_526A:: ; 56:526A
 	INCBIN "gfx/comm/connect_dialog_bank56/connect_dialog_connect_confirm_56_526a.tilemap"
 	INCBIN "gfx/comm/connect_dialog_bank56/connect_dialog_connect_confirm_56_526a.attrmap"
 
-; ---- data $52BA-$52C0 (6 bytes) [HYPOTHESIS] 6 bytes of $00 between the 20 x 2 tilemap pair and the next tile sheet (alignment padding); read by no code that was found
+; ---- zero $52BA-$52C0 (6 bytes) [PROBABLE] zero-filled gap after the confirmed 20 x 2 tilemap pair and before the 16-byte-aligned tile HDMA source at $52C0; no direct reader found in the maintained-source search
 
-Data_56_52BA:: ; 56:52BA
+Padding_ConnectDialog_Tiles52C0Alignment:: ; 56:52BA
 	db $00, $00, $00, $00, $00, $00
 
 ; ---- gfx $52C0-$56C0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 57:47DD: hl=$52C0 a=$56 c=$40 de=$9001 (dest VRAM $9000, vbank=1)
