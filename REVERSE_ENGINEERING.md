@@ -117,6 +117,11 @@ found no other token uses or dependent local labels, and all 540 source lines
 remain in place. See
 [`mail_menu_bank1d_aliases_20261021.md`](docs/research/mail_menu_bank1d_aliases_20261021.md).
 
+The bank-24 mail-result graphics pass also removes 18 same-address palette and
+frame-table aliases. The descriptive resource labels remain, and the owner’s
+data, confidence and physical line positions are unchanged. See
+[`mail_comm_result_bank24_aliases_20261021.md`](docs/research/mail_comm_result_bank24_aliases_20261021.md).
+
 At `50:4244`, the redundant `Table_50_4244` export has been retired in favor
 of `Table_CommNotice_Screens`, already used by the active reader. Eight
 CommNotice comments now use that retained name; the pointer list and its

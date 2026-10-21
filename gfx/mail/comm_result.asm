@@ -33,25 +33,25 @@ MailResult_Tilemap:: ; 24:7790
 ; ---- data $7A60-$7AA0 (64 bytes) [PROBABLE] 64-byte RGB555 palette block copied by Palette_LoadToBuffer (hl=$7A60 a=$24 bc=$0040) from 29:40B0 / 29:40C1 / 29:463E; the call sites 29:40B0/29:40C1/29:463E ARE in analysis/coverage_union.tsv (executed; earlier 'never executed' used the old 18-scenario union) - status kept PROBABLE; the mapper palette guess 7A60-7C38 wrongly extended over the object tables
 
 MailResult_BgPalette:: ; 24:7A60
-Palette_24_7A60::
+
 	INCLUDE "gfx/mail/comm_result/mail_result_bg_palette.pal"
 
 ; ---- data $7AA0-$7AE0 (64 bytes) [PROBABLE] 64-byte RGB555 palette block copied by Palette_LoadToBuffer (hl=$7AA0 a=$24 bc=$0040) from 29:40B0 / 29:40C1 / 29:463E; the call sites 29:40B0/29:40C1/29:463E ARE in analysis/coverage_union.tsv (executed; earlier 'never executed' used the old 18-scenario union) - status kept PROBABLE; the mapper palette guess 7A60-7C38 wrongly extended over the object tables
 
 MailResult_ObjPalette:: ; 24:7AA0
-Palette_24_7AA0::
+
 	INCLUDE "gfx/mail/comm_result/mail_result_obj_palette.pal"
 
 ; ---- data $7AE0-$7B20 (64 bytes) [PROBABLE] 64-byte RGB555 palette block copied by Palette_LoadToBuffer (hl=$7AE0 a=$24 bc=$0040) from 29:40B0 / 29:40C1 / 29:463E; the call sites 29:40B0/29:40C1/29:463E ARE in analysis/coverage_union.tsv (executed) and traces/detail dataaccess records rom_read 24:7AE0-7B20 (this block read as data by executed code); earlier 'never executed' was stale - status kept PROBABLE; the mapper palette guess 7A60-7C38 wrongly extended over the object tables
 
 MailServerStatus_BgPalette:: ; 24:7AE0
-Palette_24_7AE0::
+
 	INCLUDE "gfx/mail/comm_result/mail_server_status_bg_palette.pal"
 
 ; ---- words $7B20-$7C00 (224 bytes) [PROBABLE] sprite object table: 4-byte entries (frame-table ptr, animation-script ptr) indexed by B&7F, the layout read by init_object_from_table 00:0A82/00:0AB8; rows of 16 bytes = the same entry repeated 4 times; base $7B20 is passed as de with a=$24 at call sites listed in analysis/gfx_candidates.tsv (object-table); entries 7C00/7C33 7C00/7C33 7C00/7C33 7C00/7C33
 
 MailResult_ObjTable:: ; 24:7B20
-Table_24_7B20::
+
 	sprite_object_entry MailResult_Anim0Frames, MailResult_Anim0Script ; entry 0
 	sprite_object_entry MailResult_Anim0Frames, MailResult_Anim0Script ; entry 1
 	sprite_object_entry MailResult_Anim0Frames, MailResult_Anim0Script ; entry 2
@@ -125,7 +125,7 @@ MailResult_ObjTable_Entry52:: ; 24:7BF0
 ; ---- words $7C00-$7C02 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 MailResult_Anim0Frames:: ; 24:7C00
-Table_24_7C00::
+
 	sprite_frame_table MailResult_Anim0Frame0
 
 ; ---- data $7C02-$7C33 (49 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 12 piece(s); length tiles exactly against the frame-table pointers
@@ -154,7 +154,7 @@ MailResult_Anim0Script:: ; 24:7C33
 ; ---- words $7C36-$7C38 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 MailResult_Anim4Frames:: ; 24:7C36
-Table_24_7C36::
+
 	sprite_frame_table MailResult_Anim4Frame0
 
 ; ---- data $7C38-$7C85 (77 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 19 piece(s); length tiles exactly against the frame-table pointers
@@ -190,7 +190,7 @@ MailResult_Anim4Script:: ; 24:7C85
 ; ---- words $7C88-$7C8A (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 MailResult_Anim8Frames:: ; 24:7C88
-Table_24_7C88::
+
 	sprite_frame_table MailResult_Anim8Frame0
 
 ; ---- data $7C8A-$7C93 (9 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 2 piece(s); length tiles exactly against the frame-table pointers
@@ -209,7 +209,7 @@ MailResult_Anim8Script:: ; 24:7C93
 ; ---- words $7C96-$7C98 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 MailResult_Anim12Frames:: ; 24:7C96
-Table_24_7C96::
+
 	sprite_frame_table MailResult_Anim12Frame0
 
 ; ---- data $7C98-$7CA1 (9 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 2 piece(s); length tiles exactly against the frame-table pointers
@@ -228,7 +228,7 @@ MailResult_Anim12Script:: ; 24:7CA1
 ; ---- words $7CA4-$7CA6 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 MailResult_Anim16Frames:: ; 24:7CA4
-Table_24_7CA4::
+
 	sprite_frame_table MailResult_Anim16Frame0
 
 ; ---- data $7CA6-$7CAF (9 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 2 piece(s); length tiles exactly against the frame-table pointers
@@ -247,7 +247,7 @@ MailResult_Anim16Script:: ; 24:7CAF
 ; ---- words $7CB2-$7CB4 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 MailResult_Anim20Frames:: ; 24:7CB2
-Table_24_7CB2::
+
 	sprite_frame_table MailResult_Anim20Frame0
 
 ; ---- data $7CB4-$7CBD (9 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 2 piece(s); length tiles exactly against the frame-table pointers
@@ -266,7 +266,7 @@ MailResult_Anim20Script:: ; 24:7CBD
 ; ---- words $7CC0-$7CC2 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 MailResult_Anim24Frames:: ; 24:7CC0
-Table_24_7CC0::
+
 	sprite_frame_table MailResult_Anim24Frame0
 
 ; ---- data $7CC2-$7CCB (9 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 2 piece(s); length tiles exactly against the frame-table pointers
@@ -285,7 +285,7 @@ MailResult_Anim24Script:: ; 24:7CCB
 ; ---- words $7CCE-$7CD0 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 MailResult_Anim28Frames:: ; 24:7CCE
-Table_24_7CCE::
+
 	sprite_frame_table MailResult_Anim28Frame0
 
 ; ---- data $7CD0-$7CD9 (9 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 2 piece(s); length tiles exactly against the frame-table pointers
@@ -304,7 +304,7 @@ MailResult_Anim28Script:: ; 24:7CD9
 ; ---- words $7CDC-$7CDE (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 MailResult_Anim32Frames:: ; 24:7CDC
-Table_24_7CDC::
+
 	sprite_frame_table MailResult_Anim32Frame0
 
 ; ---- data $7CDE-$7CE7 (9 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 2 piece(s); length tiles exactly against the frame-table pointers
@@ -323,7 +323,7 @@ MailResult_Anim32Script:: ; 24:7CE7
 ; ---- words $7CEA-$7CEC (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 MailResult_Anim36Frames:: ; 24:7CEA
-Table_24_7CEA::
+
 	sprite_frame_table MailResult_Anim36Frame0
 
 ; ---- data $7CEC-$7CF5 (9 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 2 piece(s); length tiles exactly against the frame-table pointers
@@ -342,7 +342,7 @@ MailResult_Anim36Script:: ; 24:7CF5
 ; ---- words $7CF8-$7CFA (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 MailResult_Anim40Frames:: ; 24:7CF8
-Table_24_7CF8::
+
 	sprite_frame_table MailResult_Anim40Frame0
 
 ; ---- data $7CFA-$7D03 (9 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 2 piece(s); length tiles exactly against the frame-table pointers
@@ -361,7 +361,7 @@ MailResult_Anim40Script:: ; 24:7D03
 ; ---- words $7D06-$7D08 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 MailResult_Anim44Frames:: ; 24:7D06
-Table_24_7D06::
+
 	sprite_frame_table MailResult_Anim44Frame0
 
 ; ---- data $7D08-$7D19 (17 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 4 piece(s); length tiles exactly against the frame-table pointers
@@ -382,7 +382,7 @@ MailResult_Anim44Script:: ; 24:7D19
 ; ---- words $7D1C-$7D1E (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 MailResult_Anim48Frames:: ; 24:7D1C
-Table_24_7D1C::
+
 	sprite_frame_table MailResult_Anim48Frame0
 
 ; ---- data $7D1E-$7D2F (17 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 4 piece(s); length tiles exactly against the frame-table pointers
@@ -403,7 +403,7 @@ MailResult_Anim48Script:: ; 24:7D2F
 ; ---- words $7D32-$7D34 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 MailResult_Anim52Frames:: ; 24:7D32
-Table_24_7D32::
+
 	sprite_frame_table MailResult_Anim52Frame0
 
 ; ---- data $7D34-$7D45 (17 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 4 piece(s); length tiles exactly against the frame-table pointers

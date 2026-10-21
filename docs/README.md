@@ -81,6 +81,7 @@ Reference documents (current):
 | [`mobile_sdk_main_aliases_20261021.md`](research/mobile_sdk_main_aliases_20261021.md) | 21 redundant generic string/table exports retired from existing Mobile SDK labels |
 | [`connect_dialog_bank56_aliases_20261021.md`](research/connect_dialog_bank56_aliases_20261021.md) | 20 redundant generic tilemap, graphics, palette and object-table aliases retired |
 | [`mail_menu_bank1d_aliases_20261021.md`](research/mail_menu_bank1d_aliases_20261021.md) | 19 redundant generic tables, data and string labels retired from the mail-menu owner |
+| [`mail_comm_result_bank24_aliases_20261021.md`](research/mail_comm_result_bank24_aliases_20261021.md) | 18 redundant generic palette and frame-table exports retired from mail result graphics |
 | [`save_sender_address_table_aliases_20261021.md`](research/save_sender_address_table_aliases_20261021.md) | Seven redundant generic aliases retired from address-book save tables and caption |
 | [`home_data_names.md`](research/home_data_names.md) | Bounded original data/resource alias contracts; evidence and caller limits retained |
 | [`mail_gfx_resource_aliases.md`](research/mail_gfx_resource_aliases.md) | Original Mail graphics aliases; load extents, backing and unresolved frame limits |
