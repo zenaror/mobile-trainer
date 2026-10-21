@@ -83,7 +83,7 @@ gfx/account/screens_bank5d/tiles_5df0.2bpp	tiles	1024	gfx/account/screens_bank5d
 gfx/account/screens_bank5d/tiles_61f0.2bpp	tiles	512	gfx/account/screens_bank5d.asm	5D	61F0	CONFIRMED	exact	0		Gfx_Account_ConfirmScreens_Tiles8C00Vb1
 gfx/account/screens_bank5d/tiles_63f0.2bpp	tiles	512	gfx/account/screens_bank5d.asm	5D	63F0	CONFIRMED	exact	0		Gfx_Account_ConfirmScreen_Tiles9000Vb1
 gfx/account/screens_bank5d/tiles_6900.2bpp	tiles	768	gfx/account/screens_bank5d.asm	5D	6900	CONFIRMED	exact	0		Gfx_Registration_WriteConfig_Tiles8000
-gfx/account/screens_bank5d/tiles_6c00.2bpp	tiles	512	gfx/account/screens_bank5d.asm	5D	6C00	CONFIRMED	exact	0		Data_5D_6C00
+gfx/account/screens_bank5d/tiles_6c00.2bpp	tiles	512	gfx/account/screens_bank5d.asm	5D	6C00	CONFIRMED	exact	0		Gfx_Registration_WriteConfig_Tiles8A00Vb1
 gfx/account/screens_bank5d/tiles_6e00.2bpp	tiles	512	gfx/account/screens_bank5d.asm	5D	6E00	CONFIRMED	exact	0		Gfx_Registration_WriteConfig_Tiles9000Vb1
 gfx/account/screens_bank5e/account_action_confirm_page_5e_7300.attrmap	attrmap	360	gfx/account/screens_bank5e.asm	5E	7468	CONFIRMED	-	0	20x18	Tilemap_Account_ActionConfirmPage_Variant0
 gfx/account/screens_bank5e/account_action_confirm_page_5e_7300.tilemap	tilemap	360	gfx/account/screens_bank5e.asm	5E	7300	CONFIRMED	-	0	20x18	Tilemap_Account_ActionConfirmPage_Variant0

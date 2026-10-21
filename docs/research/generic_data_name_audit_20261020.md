@@ -1962,13 +1962,15 @@ at `5D:731C` now has the structural name
 `Objects_Registration_WriteConfig_Entry1`: `register_config.asm` passes the
 table base with `B=$81` to `Sprite_InitSlot`, and the current source records
 its 65-byte frame/script chain as naturally read in eight scenarios. This
-does not identify the depicted subject. The two remaining neutral labels in
-this owner, `Data_5D_5000` and `Data_5D_6C00`, retain their names because the
-former has unknown content class and the latter is only a clipped interior of
-a broader tile upload. Frozen `config/` and historical `analysis/` spellings
-remain as provenance. Payload bytes, source-line positions and confidence
-annotations are unchanged. A fresh lexical scan over the six maintained ASM
-roots now counts 562 `Data_BB_AAAA::` definitions across 140 owners; the
+does not identify the depicted subject. At this historical checkpoint,
+the two remaining neutral labels in this owner, `Data_5D_5000` and `Data_5D_6C00`, retained their names because the
+former had unknown content class and the latter was only a clipped interior of
+a broader tile upload. The latter decision is superseded by the follow-up
+`Gfx_Registration_WriteConfig_Tiles8A00Vb1` review recorded in
+`original_closure_followup_20261021.md`; `Data_5D_5000` remains neutral. Frozen
+`config/` and historical `analysis/` spellings remain as provenance. Payload
+bytes, source-line positions and confidence annotations are unchanged. A fresh
+lexical scan over the six maintained ASM roots now counts 562 `Data_BB_AAAA::` definitions across 140 owners; the
 protected mail sample and `zero_labels.asm` are outside this count. This count
 tracks labels only and is not a semantic-completion measure.
 
@@ -3287,8 +3289,9 @@ visual interpretation of each map are not claimed. The table words now use
 the semantic base label and explicit offsets; emitted bytes and data bounds
 are unchanged. Exact generic `Data_BB_AAAA` count drops from 37/32 definitions/
 owners to 36/32. The earlier decision to keep `Data_5D_5000` neutral records
-the evidence available at that historical checkpoint; `Data_5D_6C00` remains
-neutral because it is an interior fragment of a larger upload.
+the evidence available at that historical checkpoint. The sentence retaining
+`Data_5D_6C00` is historical and superseded by the named VRAM `$8A00` slice in
+`original_closure_followup_20261021.md`.
 
 ## Current Japanese data inventory after HelpMenu object reclassification (2026-10-21)
 

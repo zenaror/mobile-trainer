@@ -127,9 +127,9 @@ Gfx_Registration_WriteConfig_Tiles8000:: ; 5D:6900
 
 	INCBIN "gfx/account/screens_bank5d/tiles_6900.2bpp"
 
-; ---- gfx $6C00-$6E00 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:6B19: hl=$6A00 a=$5D c=$40 de=$8801 (dest VRAM $8800, vbank=1) [clipped from 6A00-6E00 by higher-priority evidence]
+; ---- gfx $6C00-$6E00 (512 bytes) [CONFIRMED] tiles-vram: second half of the 1024-byte HDMA at 68:6B19 (source 5D:6A00, dest VRAM $8800, vbank=1); this slice maps to VRAM $8A00-$8BFF
 
-Data_5D_6C00:: ; 5D:6C00
+Gfx_Registration_WriteConfig_Tiles8A00Vb1:: ; 5D:6C00
 	INCBIN "gfx/account/screens_bank5d/tiles_6c00.2bpp"
 
 ; ---- gfx $6E00-$7000 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:6B2B: hl=$6E00 a=$5D c=$40 de=$9001 (dest VRAM $9000, vbank=1); the last $200 bytes of the old blob hold 2 palettes and the head of a tilemap pair; the blocks below type them by what the code reads, and the HDMA request that copies the tiles copies them into VRAM as well

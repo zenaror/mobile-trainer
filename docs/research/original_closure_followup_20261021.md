@@ -44,6 +44,18 @@ review.
 
 ## Current naming changes
 
+The clipped 512-byte graphics slice at `5D:6C00–6DFF` is now named
+`Gfx_Registration_WriteConfig_Tiles8A00Vb1`. `Registration_WriteConfig_Setup`
+requests a 64-tile (`$400`-byte) HDMA at `68:6B19`, loading from `5D:6A00`
+to VRAM `$8800` with VBK 1. The slice begins `$200` bytes into that source,
+so it maps to VRAM `$8A00–$8BFF`; the screen resource catalog independently
+selects this source at `8A01` for 32 tiles. The previous address-only label
+was neutral despite confirmed graphics content and consumer. The source bytes,
+512-byte extent, bank and ROM layout are unchanged; the Japanese build and
+`make` returned `RESULT: IDENTICAL`; `sym-check` and `palette-check` also pass.
+The current neutral-data stats report 119 groups, with 38 automatic candidates
+rejected and no automatic rename rows.
+
 In `gfx/comm/connect_dialog_bank56.asm`, the six zero bytes at `56:52BA–52C0`
 are now `Padding_ConnectDialog_Tiles52C0Alignment` (**PROBABLE**). The span
 follows the confirmed 80-byte 20×2 tilemap/attribute pair and precedes the
