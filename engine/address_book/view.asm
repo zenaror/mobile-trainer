@@ -172,7 +172,6 @@ Abook_StoreEntryToSram:: ; 2F:5167
 ; ---- words $51B5-$51C1 (12 bytes) [PROBABLE] 6 SRAM record addresses $A69D..$A82D, constant stride $50 (80), verified arithmetic progression; indexed table read with 2F:5178 (sla c; ld hl,$51B5; add hl,bc)
 
 Abook_SlotAddrTable4:: ; 2F:51B5
-Table_2F_51B5::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
 AbookView_SetupScreen:: ; 2F:51C1
@@ -365,7 +364,6 @@ AbookView_LoadAndDraw:: ; 2F:52E9
 ; ---- words $5383-$538F (12 bytes) [PROBABLE] 6 SRAM record addresses $A69D..$A82D, constant stride $50 (80), verified arithmetic progression; indexed table read with 2F:52EE
 
 Abook_SlotAddrTable5:: ; 2F:5383
-Table_2F_5383::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
 AbookView_DrawFromBuffers:: ; 2F:538F
@@ -407,7 +405,6 @@ AbookView_DrawFromBuffers:: ; 2F:538F
 ; ---- words $53E9-$53F5 (12 bytes) [PROBABLE] 6 SRAM record addresses $A69D..$A82D, constant stride $50 (80), verified arithmetic progression; indexed table read with no direct ld hl,imm found
 
 Abook_SlotAddrTable6:: ; 2F:53E9
-Table_2F_53E9::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
 AbookView_DrawName:: ; 2F:53F5
@@ -1005,7 +1002,6 @@ AbookView_DrawAddrLine3_Pad:: ; 2F:578D
 ; ---- ptrtable $57B0-$57C0 (16 bytes) [PROBABLE] 8 words, all inside $57C0-$57F2 of the same bank (animation/OAM frame data); tables of 4-byte entries (2 words) addressed by ld de,imm before FarCall 00:0A82 (init_object_from_table: reads the 4-byte entry number B&$7F of the table at DE); each 16-byte table = 4 identical-pair entries; caller 2F:5263 ld de,$57B0 (a=$2F b=$81)
 
 Table_Abook_ViewCursorAnims:: ; 2F:57B0
-Table_2F_57B0::
 	sprite_object_entry Abook_ViewCursor_ObjAnimData, Abook_ViewCursor_Script ; entry 0
 	sprite_object_entry Abook_ViewCursor_ObjAnimData, Abook_ViewCursor_Script ; entry 1
 	sprite_object_entry Abook_ViewCursor_ObjAnimData, Abook_ViewCursor_Script ; entry 2
@@ -1014,7 +1010,6 @@ Table_2F_57B0::
 ; ---- data $57C0-$57F2 (50 bytes) [PROBABLE] object animation frame records: [count][count x 4 bytes (y,x,tile,attr)] ... chained by pointer lists and terminated by 01 00 04/08 groups; format not fully decoded; reached through the pointer tables; target of the 57B0 table (57C0, 57EF)
 
 Abook_ViewCursor_ObjAnimData:: ; 2F:57C0
-Data_2F_57C0::
 	sprite_frame_table Abook_ViewCursor_Frame0
 Abook_ViewCursor_Frame0:: ; 2F:57C2
 	sprite_frame 11

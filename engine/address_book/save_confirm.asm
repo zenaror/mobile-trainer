@@ -146,7 +146,6 @@ AddrBook_StoreEditBufferToSlot:: ; 2A:704B
 ; ---- words $709F-$70AB (12 bytes) [PROBABLE] SRAM address table (6 words $A69D..$A82D (step $50)): the code indexes it by 2*n and loads hl=[table+2n] as the base of a save/record slot in SRAM ($A000-$BFFF); ld hl,$709F at 2A:705B. Values are SRAM addresses, not ROM pointers
 
 Table_AddrBook_SlotAddrs_Store:: ; 2A:709F
-Table_2A_709F::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
 AddrBook_SaveConfirm_InitScreen:: ; 2A:70AB
@@ -318,7 +317,6 @@ AddrBook_SaveConfirm_DrawSlot:: ; 2A:7187
 ; ---- words $7221-$722D (12 bytes) [PROBABLE] SRAM address table (6 words $A69D..$A82D (step $50)): the code indexes it by 2*n and loads hl=[table+2n] as the base of a save/record slot in SRAM ($A000-$BFFF); ld hl,$7221 at 2A:718B. Values are SRAM addresses, not ROM pointers
 
 Table_AddrBook_SlotAddrs_SaveConfirm:: ; 2A:7221
-Table_2A_7221::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
 AddrBook_SaveConfirm_DrawEditBuffer:: ; 2A:722D

@@ -189,5 +189,4 @@ Abook_LoadSlotToBuffers:: ; 2F:7F5D
 ; ---- words $7FA0-$7FAC (12 bytes) [PROBABLE] 6 SRAM record addresses $A69D..$A82D, constant stride $50 (80), verified arithmetic progression; indexed table read with entry 0 read by executed code (Data_2F_7FA0 CONFIRMED)
 
 Abook_SlotAddrTable7:: ; 2F:7FA0
-Table_2F_7FA0::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D

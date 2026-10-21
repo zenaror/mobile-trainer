@@ -583,3 +583,12 @@ semantic `Dial_EntryNumberBuffers`, state/input tables, password maps, banner
 sources and digit tilemap table. Search found no current source/tool references
 to the retired spellings. Table bytes and extents are unchanged; make remains
 byte-identical and sym-check reports 12,433 labels.
+
+## Address-book slot, icon and animation aliases (2026-10-21)
+
+Removed eleven exact-address aliases across `engine/address_book/address_book.asm`,
+`address_picker.asm`, `save_confirm.asm` and `view.asm`: slot-address tables,
+the caption table, the view-cursor animation table and its frame table now
+export only their existing semantic names. Exact-token search found no active
+source/tool references to the retired spellings. Payloads and extents are
+unchanged; make is byte-identical and sym-check reports 12,422 labels.

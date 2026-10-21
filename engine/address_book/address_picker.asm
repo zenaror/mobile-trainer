@@ -7,7 +7,6 @@ SECTION "engine/address_book/address_picker", ROMX
 ; ---- words $56F2-$56FE (12 bytes) [CONFIRMED] 6 SRAM record addresses $A69D..$A82D, stride $50 (verified arithmetic progression); byte-identical to the tables of 2F:51B5 etc.; the region was already CONFIRMED as read by executed code
 
 Table_AddrPick_SlotAddrs:: ; 2C:56F2
-Table_2C_56F2::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
 AddrPick_Menu:: ; 2C:56FE
@@ -2189,7 +2188,6 @@ AddrPick_IsSlotUsed:: ; 2C:64A5
 ; ---- words $64D4-$64E0 (12 bytes) [CONFIRMED] 6 SRAM record addresses $A69D..$A82D, stride $50 (verified arithmetic progression); byte-identical to the tables of 2F:51B5 etc.; the region was already CONFIRMED as read by executed code
 
 Table_AddrPick_SlotAddrs_Icons:: ; 2C:64D4
-Table_2C_64D4::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
 AddrPick_CursorMoveEffect:: ; 2C:64E0
@@ -2462,7 +2460,6 @@ AddrPick_LoadCaption:: ; 2C:66BD
 ; ---- data $6702-$6704 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 6702-672D by higher-priority evidence]
 
 Table_AddrPick_Captions:: ; 2C:6702
-Data_2C_6702::
 	db $04, $67
 
 ; ---- text $6704-$672D (41 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
