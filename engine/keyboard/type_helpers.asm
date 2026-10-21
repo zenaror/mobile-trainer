@@ -40,7 +40,6 @@ Kbd_TypeMode2DefaultCursorFlag:: ; 55:6EAA
 ; Types 5,6,7,10 have no natural byte-read evidence; keep the whole storage PROBABLE.
 
 Table_Kbd_Mode2DefaultCursorFlag_ByType:: ; 55:6EB5
-Data_55_6EB5::
 	db $00, $00, $00, $00, $00, $00, $01, $01, $01, $01, $01
 
 Kbd_TypeArgCDefaultCursorFlag:: ; 55:6EC0
@@ -61,7 +60,6 @@ Kbd_TypeArgCDefaultCursorFlag:: ; 55:6EC0
 ; Type 10 has no natural byte-read evidence; keep the whole storage PROBABLE.
 
 Table_Kbd_ArgCDefaultCursorFlag_ByType:: ; 55:6ECB
-Data_55_6ECB::
 	db $01, $01, $01, $01, $01, $01, $00, $00, $00, $00, $00
 
 Kbd_TypeNeedsExtraPalette:: ; 55:6ED6
@@ -243,7 +241,6 @@ Kbd_RejectSymbol:: ; 55:6FA1
 ; ---- data $6FC7-$6FCD (6 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
 
 Table_Kbd_RejectSymbol_Chars:: ; 55:6FC7
-Data_55_6FC7::
 	db $40, $2E, $2D, $5F, $2B, $00
 
 Kbd_ShowMarkerSprite:: ; 55:6FCD
@@ -273,7 +270,6 @@ Kbd_ShowMarkerSprite:: ; 55:6FCD
 ; ---- data $6FF4-$7000 (12 bytes) [PROBABLE] zero/short bytes of the keyboard page tables between text rows; part of the run 6FF4-7000 that executed code reads piecewise [split by classify_g2]
 
 Table_Kbd_MarkerSpritePositions:: ; 55:6FF4
-Data_55_6FF4::
 	db $88, $50, $88, $60, $88, $60, $88, $68, $88, $68, $88, $68
 
 Kbd_HideMarkerSprite:: ; 55:7000

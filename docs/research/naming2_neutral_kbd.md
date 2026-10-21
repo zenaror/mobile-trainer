@@ -9,8 +9,8 @@
 |55:6EAA Function_55_6EAA|CONFIRMED Kbd_TypeMode2DefaultCursorFlag|Lookup consumed at55:5CBF under [$C2AF]==2, enabling restoration of [$400A+type] to cursor|Code already CONFIRMED|
 |55:6EC0 Function_55_6EC0|CONFIRMED Kbd_TypeArgCDefaultCursorFlag|Lookup consumed at55:5CE3; nonzero result followed by saved Kbd_Run argument C test enables the same restoration|Code already CONFIRMED|
 |55:6EEC Function_55_6EEC|KEEP neutral; semantic role HYPOTHESIS|Only caller55:5DF8 lies in unentered HYPOTHESIS55:5DF5|Lookup decoder remains PROBABLE|
-|55:6EB5 Data_55_6EB5|CONFIRMED Table_Kbd_Mode2DefaultCursorFlag_ByType|Sole indexed consumer6EAA, natural positive and negative branches|PROBABLE:7/11 bytes read|
-|55:6ECB Data_55_6ECB|CONFIRMED Table_Kbd_ArgCDefaultCursorFlag_ByType|Sole indexed consumer6EC0, natural argument-C restoration|PROBABLE:10/11 bytes read|
+|55:6EB5|Retired `Data_55_6EB5`; retained `Table_Kbd_Mode2DefaultCursorFlag_ByType`|Sole indexed consumer6EAA, natural positive and negative branches|PROBABLE:7/11 bytes read|
+|55:6ECB|Retired `Data_55_6ECB`; retained `Table_Kbd_ArgCDefaultCursorFlag_ByType`|Sole indexed consumer6EC0, natural argument-C restoration|PROBABLE:10/11 bytes read|
 |55:6EF7 Data_55_6EF7|KEEP neutral; semantic role HYPOTHESIS|No natural consumer; separate physical table, despite bytes equaling6EB5|PROBABLE:0/11 bytes read|
 
 The two flag names describe the tested conditions and effect in Kbd_Run. Mode2 means the literal comparison of fixed WRAM[$C2AF] with2; it does not promote the broader meaning or PROBABLE declaration of wKbdMode. Argument C is stored at fixed WRAM[$C2B4] by Kbd_Run entry55:5C8F/5C90, matching the existing CONFIRMED wKbdRunArgC alias. Cursor[$C2B5] and type[$C2AB] are fixed WRAM; no switchable-bank alias inference is involved. No new name says enabled, pressed, accepted, visual keyboard layout, or general mode meaning.
