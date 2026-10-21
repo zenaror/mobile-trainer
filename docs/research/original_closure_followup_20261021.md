@@ -140,6 +140,19 @@ were preserved by the path migration. An independent bounded encoding check
 confirmed the same 2,192 emitted bytes at 2C:7740–7FD0 after alias removal
 (SHA-256 `483390eebbe4a0b3f6e565312a20e2df32461a077368b97b97d4594bbe21efc1`).
 
+A bounded source-owner audit then searched maintained ASM under `engine/`,
+`home/`, `data/`, `lib/`, `audio/` and `gfx/`, excluding the protected mail
+sample; it did not inspect `languages/` or frozen `config/`. The remaining
+filename-matched candidate/prototype owners keep cross-owner references within
+their corresponding page-list or address-screen candidate code. The bank-29
+palette-library candidate exports had no external ASM symbol references in the
+scan. No further owner combining a positively evidenced natural consumer with
+a candidate/unreferenced region was established. This is a bounded source
+inventory, not proof against indirect/computed entry or universal non-use;
+prototype and candidate natural availability remains at its recorded
+evidence level. Inputs and scope are recorded in
+`.tmp/candidate-owner-audit-20261021/RESULT.json`.
+
 The bank-7F graphics owner is now `gfx/browser/page_list_candidate.asm` with
 assets under `gfx/browser/page_list_candidate/`. The linked engine owner
 `engine/unreferenced/page_list_prototype.asm`, all 74 `PageListProto_*` globals
