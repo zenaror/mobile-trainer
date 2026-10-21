@@ -33,7 +33,6 @@ Palette_MailDraftMenu_Obj:: ; 2B:5190
 ; ---- words $51D0-$5240 (112 bytes) [PROBABLE] animation entry table: 28 entries of 4 bytes (frame-table pointer, script pointer), each animation repeated 4x; format of the sprite-slot initialiser 00:0A82/0AB8 (entry at DE+4*(A&$3F) -> slot[2..3] frame table, slot[6..7] script)
 
 Table_MailDraftMenu_Anims:: ; 2B:51D0
-Table_2B_51D0::
 	sprite_object_entry MailDraftMenu_Anim0Frames, MailDraftMenu_Anim0Script ; entry 0
 	sprite_object_entry MailDraftMenu_Anim0Frames, MailDraftMenu_Anim0Script ; entry 1
 	sprite_object_entry MailDraftMenu_Anim0Frames, MailDraftMenu_Anim0Script ; entry 2
@@ -72,7 +71,6 @@ Table_MailDraftMenu_Anims_Entry24:: ; 2B:5230
 ; ---- words $5240-$5244 (4 bytes) [PROBABLE] frame table: 2 pointer(s) $5244, $5269 to OAM frames (extent = lowest target); referenced by an animation entry
 
 MailDraftMenu_Anim24Frames:: ; 2B:5240
-Table_2B_5240::
 	sprite_frame_table MailDraftMenu_Anim24Frame0, MailDraftMenu_Anim24Frame1
 
 ; ---- data $5244-$5269 (37 bytes) [PROBABLE] OAM frame: count=9 then 9 x (y,x,tile,attr) = 37 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
@@ -103,7 +101,6 @@ MailDraftMenu_Anim24Script:: ; 2B:526A
 ; ---- words $526D-$5271 (4 bytes) [PROBABLE] frame table: 2 pointer(s) $5271, $5282 to OAM frames (extent = lowest target); referenced by an animation entry
 
 MailDraftMenu_Anim8Frames:: ; 2B:526D
-Table_2B_526D::
 	sprite_frame_table MailDraftMenu_Anim8Frame0, MailDraftMenu_Anim8Frame1
 
 ; ---- data $5271-$5282 (17 bytes) [PROBABLE] OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
@@ -134,7 +131,6 @@ MailDraftMenu_Anim8Script:: ; 2B:5293
 ; ---- words $5298-$529C (4 bytes) [PROBABLE] frame table: 2 pointer(s) $529C, $52A9 to OAM frames (extent = lowest target); referenced by an animation entry
 
 MailDraftMenu_Anim12Frames:: ; 2B:5298
-Table_2B_5298::
 	sprite_frame_table MailDraftMenu_Anim12Frame0, MailDraftMenu_Anim12Frame1
 
 ; ---- data $529C-$52A9 (13 bytes) [PROBABLE] OAM frame: count=3 then 3 x (y,x,tile,attr) = 13 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
@@ -163,7 +159,6 @@ MailDraftMenu_Anim12Script:: ; 2B:52B6
 ; ---- words $52BB-$52BF (4 bytes) [PROBABLE] frame table: 2 pointer(s) $52BF, $52CC to OAM frames (extent = lowest target); referenced by an animation entry
 
 MailDraftMenu_Anim16Frames:: ; 2B:52BB
-Table_2B_52BB::
 	sprite_frame_table MailDraftMenu_Anim16Frame0, MailDraftMenu_Anim16Frame1
 
 ; ---- data $52BF-$52CC (13 bytes) [PROBABLE] OAM frame: count=3 then 3 x (y,x,tile,attr) = 13 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
@@ -192,7 +187,6 @@ MailDraftMenu_Anim16Script:: ; 2B:52D9
 ; ---- words $52DE-$52E2 (4 bytes) [PROBABLE] frame table: 2 pointer(s) $52E2, $52EF to OAM frames (extent = lowest target); referenced by an animation entry
 
 MailDraftMenu_Anim20Frames:: ; 2B:52DE
-Table_2B_52DE::
 	sprite_frame_table MailDraftMenu_Anim20Frame0, MailDraftMenu_Anim20Frame1
 
 ; ---- data $52E2-$52EF (13 bytes) [PROBABLE] OAM frame: count=3 then 3 x (y,x,tile,attr) = 13 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
@@ -221,7 +215,6 @@ MailDraftMenu_Anim20Script:: ; 2B:52FC
 ; ---- words $5301-$5305 (4 bytes) [PROBABLE] frame table: 2 pointer(s) $5305, $5336 to OAM frames (extent = lowest target); referenced by an animation entry
 
 MailDraftMenu_Anim0Frames:: ; 2B:5301
-Table_2B_5301::
 	sprite_frame_table MailDraftMenu_Anim0Frame0, MailDraftMenu_Anim0Frame1
 
 ; ---- data $5305-$5336 (49 bytes) [PROBABLE] OAM frame: count=12 then 12 x (y,x,tile,attr) = 49 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
@@ -267,7 +260,6 @@ MailDraftMenu_Anim0Script:: ; 2B:5367
 ; ---- words $536A-$536E (4 bytes) [PROBABLE] frame table: 2 pointer(s) $536E, $5397 to OAM frames (extent = lowest target); referenced by an animation entry
 
 MailDraftMenu_Anim4Frames:: ; 2B:536A
-Table_2B_536A::
 	sprite_frame_table MailDraftMenu_Anim4Frame0, MailDraftMenu_Anim4Frame1
 
 ; ---- data $536E-$5397 (41 bytes) [PROBABLE] OAM frame: count=10 then 10 x (y,x,tile,attr) = 41 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table

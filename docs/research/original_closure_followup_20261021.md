@@ -512,3 +512,13 @@ input-table, dialog-result-table or menu-record label. Current-source/tool
 search found no other use of the numeric spellings. Table words, menu record
 bytes, boundaries and existing evidence grades are unchanged; historical
 config/analysis data was not rewritten.
+
+## Bank 2B draft-menu animation aliases (2026-10-21)
+
+Removed eight `Table_2B_*` labels from `gfx/mail/draft_menu.asm`; each was an
+exact-address alias of the existing `Table_MailDraftMenu_Anims` or
+`MailDraftMenu_Anim*Frames` symbol. No active source/tool consumer used the
+numeric spellings; the test-only `tools/test_rom_operands.py` fixture still
+covers semantic-name preference when both spellings exist in a synthetic
+tree. Animation records, frame pointers, extents and confidence classifications
+are unchanged.
