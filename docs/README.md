@@ -118,6 +118,7 @@ Reference documents (current):
 | [`pokemon_names_bank53_asset_followup_20261020.md`](research/pokemon_names_bank53_asset_followup_20261020.md) | authenticated bank53 name/frame and PNG inventory follow-up; 25 associations and eight KEEP windows remain open |
 | [`bank4b_result_page_indexed_tiles_20261021.md`](research/bank4b_result_page_indexed_tiles_20261021.md) | positive bank68 consumers for the exact 4B:4AD0–5080 tile range; transfer provenance and limits |
 | [`original_closure_followup_20261021.md`](research/original_closure_followup_20261021.md) | current Japanese entry-candidate review, scoped alias cleanup, generic-name audit and remaining limits |
+| [`read48_observer_r4_20261021.md`](research/read48_observer_r4_20261021.md) | FIX2 capacity controls and six bounded Japanese-ROM observer replays; no general FULL or hardware claim |
 
 Analysis-stage documents (historical banner at the top):
 
