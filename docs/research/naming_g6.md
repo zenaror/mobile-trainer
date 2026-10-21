@@ -59,7 +59,7 @@ Evidence sources used (all reproducible from the repository):
 
 ### 1.2 Settings flows (bank 67)
 
-The settings dispatcher `7C:7D5D` (`Table_7C_7D60`) calls: 1 `PasswordChange_Run`, 2 `UsageTime_Run`, 3 `UsageFee_Run`, 4 `68:7951` (delete
+The settings dispatcher `7C:7D5D` (`Nav_MobileSettingsJumpTable`) calls: 1 `PasswordChange_Run`, 2 `UsageTime_Run`, 3 `UsageFee_Run`, 4 `68:7951` (delete
 registration, not in these banks), 5 (hidden, B+Select+Right) `SettingsPhone_Run`.  Each starts with a `Notice_ShowPage` page
 ($0F/$10, $13, $15, $0C) and ends with a result page ($11/$12, $14, $16, $0D/$0E).  The three network flows use kind ids 1/2/3
 for the bank-68 helpers `68:7401`/`68:766E`.

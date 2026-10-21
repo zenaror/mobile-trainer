@@ -1813,3 +1813,10 @@ digit-record tables; maintained source consumers use the retained names.
 Frozen `config/` and generated `analysis/` snapshots keep historic spellings.
 The alias map and bounded evidence are in the
 [notice-page table note](docs/research/notice_pages_table_aliases_20261021.md).
+
+Three address-only table aliases in the main navigation dispatchers have also
+been retired under their existing `Nav_*JumpTable` labels. The three original
+boundary grades remain probable, and the six-entry settings boundary remains
+bounded as documented. The active naming notes now use the retained labels;
+frozen mapper snapshots keep the old aliases. See the
+[navigation-table audit](docs/research/navigation_table_aliases_20261021.md).

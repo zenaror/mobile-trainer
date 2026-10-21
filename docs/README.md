@@ -91,6 +91,7 @@ Reference documents (current):
 | [`startup_jump_table_aliases_20261021.md`](research/startup_jump_table_aliases_20261021.md) | Four redundant generic aliases retired from the bank-65 startup jump tables |
 | [`palette_scroll_table_aliases_20261021.md`](research/palette_scroll_table_aliases_20261021.md) | Six redundant generic aliases retired from palette-fade and scroll-split pointer tables |
 | [`notice_pages_table_aliases_20261021.md`](research/notice_pages_table_aliases_20261021.md) | Four redundant generic aliases retired from bank-65 notice-page tables |
+| [`navigation_table_aliases_20261021.md`](research/navigation_table_aliases_20261021.md) | Three redundant generic aliases retired from bank-7C navigation tables |
 | [`mail_server_tidy_screen_aliases_20261021.md`](research/mail_server_tidy_screen_aliases_20261021.md) | 16 redundant generic graphics and animation-data aliases retired from the mail-server tidy screen |
 | [`top_menu_aliases_20261021.md`](research/top_menu_aliases_20261021.md) | 16 redundant resource and animation-table aliases retired from the top menu |
 | [`home_data_names.md`](research/home_data_names.md) | Bounded original data/resource alias contracts; evidence and caller limits retained |

@@ -72,7 +72,7 @@ delete registration), which is what fixes entries 1-4.  Unreferenced: `7C:7D8D-7
 **Region defect found in bank 7C (for the region owner).**  `config/regions/bank7C.tsv` has a 10-byte `code` region `57C3-57CD` in the middle of the font
 (`4000-57C3 gfx`, `57C3-57CD code`, `57CD-7B7C gfx`).  The 12x12 font of a bank is one contiguous block of 9 rows x 94 glyphs x 18 bytes = `$3B7C` bytes, i.e. exactly
 `4000-7B7B` (checked for 7C, 7D, 7E), so `57C3-57CD` is font data.  The "entry by table from 7C:7D5D" came from the mapper reading the operand bytes `C3 57 7D` of
-the `jp $7D57` at `7C:7D6C` as the word `$57C3` (already noted in the region note of `Table_7C_7D60`).  I only changed symbol names (no region edits are in my scope);
+the `jp $7D57` at `7C:7D6C` as the word `$57C3` (already noted in the region note of `Nav_MobileSettingsJumpTable`).  I only changed symbol names (no region edits are in my scope);
 the two gfx regions and the code region should be merged into one `gfx` region of `4000-7B7C`.
 
 | addr | name | type | status | evidence |

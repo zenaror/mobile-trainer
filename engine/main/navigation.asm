@@ -20,7 +20,6 @@ Nav_TopMenuLoop:: ; 7C:7B85
 ; ---- ptrtable $7B8E-$7B96 (8 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 7C:7B8B: 4 entries; end is a heuristic guess (words stay plausible code pointers); every byte read as data in a trace
 
 Nav_TopMenuJumpTable:: ; 7C:7B8E
-Table_7C_7B8E::
 	dw Nav_TopMenu_Back
 	dw Nav_TopMenu_Mail
 	dw Nav_TopMenu_Homepage
@@ -62,7 +61,6 @@ Nav_MailMenuLoop:: ; 7C:7BC0
 ; ---- ptrtable $7BC9-$7BD7 (14 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 7C:7BC6: 7 entries; end is a heuristic guess (words stay plausible code pointers); every byte read as data in a trace
 
 Nav_MailMenuJumpTable:: ; 7C:7BC9
-Table_7C_7BC9::
 	dw Nav_MailMenu_Back
 	dw Nav_MailMenu_SendReceive
 	dw Nav_MailMenu_WriteMail
@@ -264,7 +262,6 @@ Nav_MobileSettingsLoop:: ; 7C:7D57
 ; ---- ptrtable $7D60-$7D6C (12 bytes) [PROBABLE] inline table of `call $0545` at 7C:7D5D: 6 entries (7D6F 7D70 7D79 7D82 7DFF 7E08); the mapper counted 7 by reading the operand of the following jp (C3 57 7D) as a word 57C3, hence 7D6E was left as a 1-byte hole
 
 Nav_MobileSettingsJumpTable:: ; 7C:7D60
-Table_7C_7D60::
 	dw Nav_MobileSettings_Back
 	dw Nav_MobileSettings_ChangePassword
 	dw Nav_MobileSettings_UsageTime
