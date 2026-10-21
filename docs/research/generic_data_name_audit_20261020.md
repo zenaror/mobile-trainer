@@ -2546,6 +2546,18 @@ changed. The restricted six-root `Data_BB_AAAA::` census is now 237
 definitions in 121 owners, down from 241 in 121 owners. This remains a lexical
 count.
 
+## Bank 29 connection-time graphics aliases (2026-10-21)
+
+`Data_29_5400` and `Data_29_5800` duplicated the existing probable tile and
+tilemap resource labels in `gfx/mail/connect_screen_bank29.asm`; the loader
+sites in bank 27 use those descriptive names. `Palette_29_5AD0` likewise
+duplicated `Palette_CommTimeHMS_Bg`. These three exact aliases were removed,
+and the three affected asset-catalog rows now use the maintained names. The
+heuristic palette at `29:5376` and ten-byte partial-tile span at `29:53F6`
+remain neutral. Confidence and bytes are unchanged. The restricted six-root
+`Data_BB_AAAA::` census is now 212 definitions in 116 owners, down from 214
+definitions in 116 owners. This remains a lexical count.
+
 ## Bank 72 dialog-window resource aliases (2026-10-21)
 
 Four exact `Data_72_*` aliases in `gfx/dialog/dialog_window.asm` duplicated

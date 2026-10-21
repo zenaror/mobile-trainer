@@ -1754,3 +1754,10 @@ aliases under its confirmed tile, tilemap and palette resources. The catalog,
 bytes, ranges and confidence are unchanged. The restricted six-root
 generic-data census is now 214 definitions in 117 owners. See the [bank-72
 dialog-window audit](docs/research/generic_data_name_audit_20261020.md#bank-72-dialog-window-resource-aliases-2026-10-21).
+
+The bank-29 connection-time graphics owner no longer exports two exact
+`Data_29_*` aliases or the duplicate background-palette alias. The catalog now
+uses the descriptive resources reached by bank-27 loader sites. The probable
+palette at `29:5376` and ten-byte fragment at `29:53F6` remain neutral. The
+restricted six-root generic-data census is now 212 definitions in 116 owners.
+See the [bank-29 connection-time audit](docs/research/generic_data_name_audit_20261020.md#bank-29-connection-time-graphics-aliases-2026-10-21).
