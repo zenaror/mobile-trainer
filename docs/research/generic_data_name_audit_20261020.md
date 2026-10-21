@@ -1915,3 +1915,25 @@ commands, pointers, bytes, and confidence annotations are unchanged.
 | `05:605D` | `SoundSong1A_Track3_Sub1` |
 | `05:60CE` | `SoundSong1A_Track3_AfterJump` |
 | `05:60CF` | `SoundSong1A_Header` |
+
+## Bank 05 song 1C stream aliases (2026-10-21)
+
+Retired 11 same-address `Data_05_*` aliases from
+`audio/music/music_1c.asm`. Existing `SoundSong1C_*` names cover the three
+track entries and loops, two after-jump markers, one subroutine, and stream
+header. The maintained-source/tool search found no references outside this
+owner. Stream bytes, pointers, and confidence annotations are unchanged.
+
+| Address | Retained label |
+|---|---|
+| `05:60F9` | `SoundSong1C_Track0` |
+| `05:60FD` | `SoundSong1C_Track0_Loop` |
+| `05:6174` | `SoundSong1C_Track0_AfterJump` |
+| `05:6175` | `SoundSong1C_Track1` |
+| `05:6179` | `SoundSong1C_Track1_Loop` |
+| `05:625E` | `SoundSong1C_Track1_AfterJump` |
+| `05:625F` | `SoundSong1C_Track2` |
+| `05:6263` | `SoundSong1C_Track2_Loop` |
+| `05:628B` | `SoundSong1C_Track2_Sub1` |
+| `05:62BB` | `SoundSong1C_Track2_AfterJump` |
+| `05:62BC` | `SoundSong1C_Header` |
