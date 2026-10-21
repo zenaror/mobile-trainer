@@ -1499,7 +1499,7 @@ POPC
 ; ---- text $4B21-$4B3C (27 bytes) [PROBABLE] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
-String_24_4B21:: ; 24:4B21
+String_PageList_Msg_GoToPage_Lines2to4:: ; 24:4B21
 	db "のページ", 0
 	db "に　いど", 0
 	db "うします", 0
@@ -1508,7 +1508,7 @@ POPC
 ; ---- text $4B3C-$4B4E (18 bytes) [PROBABLE] Shift-JIS NUL-terminated line(s) of the message table at 24:4B10 (decodes cleanly with cp932; continues the neighbouring text regions of the same 45-byte messages)
 
 PUSHC sjis
-String_24_4B3C:: ; 24:4B3C
+String_PageList_Msg_GoToPage_TrailingLine:: ; 24:4B3C
 	db "　　　　", 0
 
 PageList_Msg_SavePage:: ; 24:4B45
@@ -1518,7 +1518,7 @@ POPC
 ; ---- text $4B4E-$4B69 (27 bytes) [PROBABLE] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
-String_24_4B4E:: ; 24:4B4E
+String_PageList_Msg_SavePage_Lines2to4:: ; 24:4B4E
 	db "まのペー", 0
 	db "ジを　セ", 0
 	db "ーブしま", 0
@@ -1527,7 +1527,7 @@ POPC
 ; ---- text $4B69-$4B7B (18 bytes) [PROBABLE] Shift-JIS NUL-terminated line(s) of the message table at 24:4B10 (decodes cleanly with cp932; continues the neighbouring text regions of the same 45-byte messages)
 
 PUSHC sjis
-String_24_4B69:: ; 24:4B69
+String_PageList_Msg_SavePage_TrailingLine:: ; 24:4B69
 	db "す　　　", 0
 
 PageList_Msg_DeletePage:: ; 24:4B72
@@ -1537,7 +1537,7 @@ POPC
 ; ---- text $4B7B-$4B96 (27 bytes) [PROBABLE] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
-String_24_4B7B:: ; 24:4B7B
+String_PageList_Msg_DeletePage_Lines2to4:: ; 24:4B7B
 	db "このペー", 0
 	db "ジを　け", 0
 	db "します　", 0
@@ -1546,7 +1546,7 @@ POPC
 ; ---- text $4B96-$4BA8 (18 bytes) [PROBABLE] Shift-JIS NUL-terminated line(s) of the message table at 24:4B10 (decodes cleanly with cp932; continues the neighbouring text regions of the same 45-byte messages)
 
 PUSHC sjis
-String_24_4B96:: ; 24:4B96
+String_PageList_Msg_DeletePage_TrailingLine:: ; 24:4B96
 	db "　　　　", 0
 
 PageList_Msg_SelectPage:: ; 24:4B9F
@@ -1556,7 +1556,7 @@ POPC
 ; ---- text $4BA8-$4BC3 (27 bytes) [PROBABLE] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
-String_24_4BA8:: ; 24:4BA8
+String_PageList_Msg_SelectPage_Lines2to4:: ; 24:4BA8
 	db "ジを　せ", 0
 	db "んたくし", 0
 	db "てくださ", 0
@@ -1565,7 +1565,7 @@ POPC
 ; ---- text $4BC3-$4BCC (9 bytes) [PROBABLE] Shift-JIS NUL-terminated line(s) of the message table at 24:4B10 (decodes cleanly with cp932; continues the neighbouring text regions of the same 45-byte messages)
 
 PUSHC sjis
-String_24_4BC3:: ; 24:4BC3
+String_PageList_Msg_SelectPage_TrailingLine:: ; 24:4BC3
 	db "い　　　", 0
 POPC
 

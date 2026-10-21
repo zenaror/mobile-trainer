@@ -3091,8 +3091,22 @@ This establishes the static pointer relationship and message contents
 selection; this pass does not upgrade natural-execution evidence. Bytes and
 record extents are unchanged.
 
-The updated exact-prefix census is 63 Data labels in 41 owners, 88 String, 0
+The updated exact-prefix census is 63 Data labels in 41 owners, 80 String, 0
 Table, 41 Tiles, 24 Tilemap, 4 Attrmap and 25 Palette; exact Function, Font,
 and Label remain zero. The Japanese ROM build is `RESULT: IDENTICAL` with SHA
 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
 `make sym-check` passes with 12,168 labels and 51 constants.
+
+# Browser page-list message fragments (2026-10-21)
+
+At `24:4B10`, `PageList_MessageTable` points to four consecutive 45-byte
+Shift-JIS message records. Each record consists of five NUL-terminated lines;
+the table entries and source extents place the records at `4B18`, `4B45`,
+`4B72`, and `4B9F`. Eight neutral `String_24_*` labels marked the continuation
+bytes after the first line and before the fifth. They are now named for their
+message and structural line range: lines 2–4, or the trailing fifth line.
+This is a structural interpretation (**PROBABLE**), not proof that each menu
+action is naturally displayed. The byte directives and addresses are
+unchanged. `String_24_42E7` remains neutral: static code copies it to the page
+title buffer, but the text `くーくー` does not establish a page identity or
+meaning. The eight retired spellings had no other active source consumers.
