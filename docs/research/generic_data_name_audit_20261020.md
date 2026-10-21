@@ -3015,3 +3015,21 @@ scan of the six maintained roots plus `zero_labels.asm`, excluding
 `engine/mail/sample_data.asm` before reading, reports 63 exact Data labels in
 41 owners, 97 String, 0 Table, 41 Tiles, 24 Tilemap, 4 Attrmap and 25 Palette;
 exact generic Function, Font and Label remain zero.
+
+
+## Bank 3D/3E HTML store first-record names (2026-10-21)
+
+The first record in each banked HTML store begins with a literal filename,
+followed by its body length and HTML body. `String_3E_4000` at `3E:4000` now
+uses `BrowserHtmlStore_RecordAmark`; its literal header is `a_mark.htm`.
+`String_3D_4000` at `3D:4000` now uses `BrowserHtmlStore_RecordSaport`; its
+literal header is `saport.htm`. This identifies the record from the bytes and
+the owner comments that enumerate the store ranges. No named consumer was found
+for either old symbol, so these names do not assert natural browser lookup or
+rendering. The bytes, length fields, and record boundaries are unchanged.
+
+After these two renames, the path-bounded census (six maintained roots plus
+`zero_labels.asm`, excluding `engine/mail/sample_data.asm` before reading) is
+63 exact Data labels in 41 owners, 95 String labels, no exact Table labels, 41
+Tiles, 24 Tilemap, 4 Attrmap, and 25 Palette labels; exact Function, Font, and
+Label remain zero. Counts are lexical, not a semantic-completion claim.

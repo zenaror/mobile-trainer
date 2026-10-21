@@ -8,7 +8,7 @@ PUSHC sjis
 
 ; ---- text $4000-$4D27 (3367 bytes) [CONFIRMED] text: 42 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated) (part of region $4000-$75D0)
 
-String_3E_4000:: ; 3E:4000
+BrowserHtmlStore_RecordAmark:: ; 3E:4000
 	db "a_mark.htm", 0
 	dw $00BF ; body length
 	db "<HTML>", $0D, $0A

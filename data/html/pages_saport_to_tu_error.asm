@@ -8,7 +8,7 @@ PUSHC sjis
 
 ; ---- text $4000-$48D1 (2257 bytes) [CONFIRMED] text: 13 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated) (part of region $4000-$518D)
 
-String_3D_4000:: ; 3D:4000
+BrowserHtmlStore_RecordSaport:: ; 3D:4000
 	db "saport.htm", 0
 	dw $0134 ; body length
 	db "<HTML>", $0D, $0A
