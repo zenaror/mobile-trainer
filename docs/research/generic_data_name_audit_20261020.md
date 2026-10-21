@@ -3205,3 +3205,17 @@ and `$26,$01,$C3,$00,$40` (LD/JP-shaped). The first two encode targets at
 headers retain **HYPOTHESIS/UNCLASSIFIED**; names do not claim code, dead code,
 padding or runtime behavior. No byte or boundary changed. Exact generic
 `Data_BB_AAAA` count drops from 54/39 definitions/owners to 51/38.
+
+## Browser-start mixed data labels (2026-10-21)
+
+Three neutral labels in `gfx/browser/start_choice.asm` now reflect their
+existing evidence. `73:4530` is
+`BrowserStart_CandidateBgAttributeSuffixAndUnreadTail_4530`: 173 bytes are
+confirmed as the suffix of five 5x7 animation frames, while the last three
+bytes remain unread and the whole 176-byte span is not promoted. `73:49E0` is
+`BrowserStart_CandidateTiles_49E0`; the 1024-byte 2bpp tile interpretation is
+heuristic and no consumer was found. `73:5EC0` is
+`BrowserStart_ObjAnimScriptTail_5EC0`, the three-byte tail of the preceding
+count-2 script; the following frame table and object records keep their own
+labels. No bytes or boundaries changed. Exact generic `Data_BB_AAAA` count
+drops from 51/38 definitions/owners to 48/37.

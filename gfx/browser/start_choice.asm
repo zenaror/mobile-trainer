@@ -79,7 +79,7 @@ BrowserStart_AnimFrames:: ; 73:447F
 
 ; ---- data $4530-$45E0 (176 bytes) [PROBABLE] mixed data: CONFIRMED BG attribute suffix173 (offset2 of five 5x7 frames, consumer73:6290, 18 whole/19 union); last3 raw bytes unread in all69 natural traces, purpose HYPOTHESIS; whole176 never promoted
 
-Data_73_4530:: ; 73:4530
+BrowserStart_CandidateBgAttributeSuffixAndUnreadTail_4530:: ; 73:4530
 	db $03, $03, $03, $01, $01
 	db $03, $03, $03, $03, $03, $01, $01
 	db $03, $03, $03, $03, $03, $09, $09
@@ -115,7 +115,7 @@ BrowserStart_Tiles0:: ; 73:45E0
 
 ; ---- gfx $49E0-$4DE0 (1024 bytes) [PROBABLE] tiles-2bpp: heuristic: 61 coherent tiles (hsim2=0.744 vsim2=0.679, 107 blank) parity 0; 1536/2736 bytes also covered by call-site blocks [clipped from 4530-4FE0 by higher-priority evidence]
 
-Data_73_49E0:: ; 73:49E0
+BrowserStart_CandidateTiles_49E0:: ; 73:49E0
 	INCBIN "gfx/browser/start_choice/tiles_49e0.2bpp"
 
 ; ---- gfx $4DE0-$51E0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 73:5F70: hl=$4DE0 a=$73 c=$40 de=$8800 (dest VRAM $8800, vbank=0)
@@ -181,11 +181,11 @@ SpriteFrameTable_73_5E60:: ; 73:5E60
 	sprite_oam 15, 8, $08, $00
 	sprite_oam 15, 16, $09, $00
 	sprite_oam 15, 24, $0A, $00
-	db $02, $00 ; script 73:5EBE: count 2, first frame 0; split preserves Data_73_5EC0
+	db $02, $00 ; script 73:5EBE: count 2, first frame 0; split preserves BrowserStart_ObjAnimScriptTail_5EC0
 
 ; ---- data $5EC0-$5F17 (87 bytes) [CONFIRMED] mixed sprite data: first script tail (3), second chain (76), object root (8); physical interval read in 18 whole/19 union natural scenarios; semantic bounds differ (typing_73_browser_sprite99.md)
 
-Data_73_5EC0:: ; 73:5EC0
+BrowserStart_ObjAnimScriptTail_5EC0:: ; 73:5EC0
 	db $14, $01, $14 ; script tail: frame 0 waits 20, then frame 1 waits 20 (count 2 at 73:5EBE)
 SpriteFrameTable_73_5EC3:: ; 73:5EC3
 	sprite_frame_table SpriteFrame_73_5ED1, SpriteFrame_73_5EDA, SpriteFrame_73_5EE3, SpriteFrame_73_5EE8
