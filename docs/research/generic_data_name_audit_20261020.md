@@ -2230,6 +2230,23 @@ The six-root `Data_BB_AAAA::` census is now 346 definitions in 132 owners,
 down from 373/133 after the 27 generic data labels received structural names.
 This lexical count is not a semantic-completion measure.
 
+## Bank 2C address-picker resource names (2026-10-21)
+
+Seven `Data_2C_*` declarations in `gfx/address_book/address_picker.asm` were
+same-address aliases under existing graphics, tilemap, palette or object-data
+labels; `Table_2C_7210` and `Palette_2C_71D0` likewise duplicated named
+symbols. Exact-token scans found no external maintained-source or active-tool
+consumers. The asset catalog's probable tile block at `2C:6FD0` had the generic
+type/address name `Tiles_2C_6FD0`; it is now `AddrPick_CandidateTiles_6FD0`,
+and its catalog row follows the new name. The existing PROBABLE evidence and
+lack of a loader remain. `Data_2C_7355` stays neutral because its two bytes
+have no identified content class. Source lines, payloads, extents and
+confidence comments are preserved.
+
+The six-root `Data_BB_AAAA::` census is now 310 definitions in 130 owners,
+down from 317 after seven exact aliases were retired. This lexical count is not
+a semantic-completion measure.
+
 ## Bank 0E title-screen resource aliases (2026-10-21)
 
 Ten `Data_0E_*` exports in `gfx/title/title_screen.asm` duplicated existing

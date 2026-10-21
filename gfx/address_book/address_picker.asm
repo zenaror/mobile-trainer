@@ -7,49 +7,49 @@ SECTION "gfx/address_book/address_picker", ROMX
 ; ---- gfx $6730-$6B30 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2C:5907: hl=$6730 a=$2C c=$40 de=$9301 (dest VRAM $9300, vbank=1)
 
 Gfx_AddrPick_Tiles9300Vb1:: ; 2C:6730
-Data_2C_6730::
+
 	INCBIN "gfx/address_book/address_picker/addr_pick_tiles9300.2bpp"
 
 ; ---- gfx $6B30-$6C30 (256 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2C:591C: hl=$6B30 a=$2C c=$10 de=$9701 (dest VRAM $9700, vbank=1)
 
 Gfx_AddrPick_Tiles9700Vb1:: ; 2C:6B30
-Data_2C_6B30::
+
 	INCBIN "gfx/address_book/address_picker/addr_pick_tiles9700.2bpp"
 
 ; ---- gfx $6C30-$6CC0 (144 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2C:58F2: hl=$6C30 a=$2C c=$09 de=$8F00 (dest VRAM $8F00, vbank=0)
 
 Gfx_AddrBook_Tiles8F00:: ; 2C:6C30
-Data_2C_6C30::
+
 	INCBIN "gfx/address_book/address_picker/addr_book_tiles8f00.2bpp"
 
 ; ---- data $6CC0-$6F90 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2C:595A: hl=$6CC0 a=$2C b=18 rows c=20 cols (tiles then attrs) de=$D000
 
 Data_AddrPick_TilemapAttr:: ; 2C:6CC0
-Data_2C_6CC0::
+
 	INCBIN "gfx/address_book/address_picker/data_addr_pick_tilemap_attr.tilemap"
 	INCBIN "gfx/address_book/address_picker/data_addr_pick_tilemap_attr.attrmap"
 
 ; ---- data $6F90-$6FD0 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/address_book/address_picker.asm:276, call 2C:58DD executed 12 hits in 7 scenarios (analysis/coverage_union.tsv))
 
 Palette_AddrPick_Bg:: ; 2C:6F90
-Data_2C_6F90::
+
 	INCLUDE "gfx/address_book/address_picker/addr_pick_bg.pal"
 
 ; ---- gfx $6FD0-$71D0 (512 bytes) [PROBABLE] 32 tiles (512 bytes) between the palette blocks 6F90 and 71D0; pixel coherence h=0.744 v=0.595; rendered and inspected (sprite/object art); no loader call found
 
-Tiles_2C_6FD0:: ; 2C:6FD0
+AddrPick_CandidateTiles_6FD0:: ; 2C:6FD0
 	INCBIN "gfx/address_book/address_picker/tiles_6fd0.2bpp"
 
 ; ---- data $71D0-$7210 (64 bytes) [CONFIRMED] 64-byte CGB palette block (8 x 4 RGB555 words, bit15 clear): copied by FarCall 4F:4000 (CopyBytes wrapper, bc=$40) to WRAM $D840 at 2C:58C9 (also 2A:4123, 2F:45FB). Replaces the mapper heuristic palette region 71EA-7262 (its tail is really the object table below)
 
 Palette_AddrBook_Obj:: ; 2C:71D0
-Palette_2C_71D0::
+
 	INCLUDE "gfx/address_book/address_picker/addr_book_obj.pal"
 
 ; ---- ptrtable $7210-$7260 (80 bytes) [PROBABLE] 40 words, all inside $7260-$7422 of the same bank (animation/OAM frame data); tables of 4-byte entries (2 words) addressed by ld de,imm before FarCall 00:0A82 (init_object_from_table: reads the 4-byte entry number B&$7F of the table at DE); each 16-byte table = 4 identical-pair entries; caller 2C:5A1E ld de,$7220 (a=$2C b=$01)
 
 Table_AddrSlotIcon_Anims:: ; 2C:7210
-Table_2C_7210::
+
 	sprite_object_entry AddrSlotIcon_ObjAnimData_2C_7260, SpriteScript_2C_728E ; entry 0
 	sprite_object_entry AddrSlotIcon_ObjAnimData_2C_7260, SpriteScript_2C_728E ; entry 1
 	sprite_object_entry AddrSlotIcon_ObjAnimData_2C_7260, SpriteScript_2C_728E ; entry 2
@@ -75,10 +75,10 @@ Table_AddrSlotIcon_Anims_Entry16:: ; 2C:7250
 	sprite_object_entry SpriteFrameTable_2C_735F, SpriteScript_2C_740E ; entry 18
 	sprite_object_entry SpriteFrameTable_2C_735F, SpriteScript_2C_740E ; entry 19
 
-; ---- data $7260-$7355 (245 bytes) [PROBABLE] object animation frame records: [count][count x 4 bytes (y,x,tile,attr)] ... chained by pointer lists and terminated by 01 00 04/08 groups; format not fully decoded; reached through the pointer tables; first target of Table_2C_7210 (7260: dw 7264, dw 7279, then the frames) up to the CONFIRMED-read data at 7355
+; ---- data $7260-$7355 (245 bytes) [PROBABLE] object animation frame records: [count][count x 4 bytes (y,x,tile,attr)] ... chained by pointer lists and terminated by 01 00 04/08 groups; format not fully decoded; reached through the pointer tables; first target of Table_AddrSlotIcon_Anims (7260: dw 7264, dw 7279, then the frames) up to the CONFIRMED-read data at 7355
 
 AddrSlotIcon_ObjAnimData_2C_7260:: ; 2C:7260
-Data_2C_7260::
+
 	sprite_frame_table SpriteFrame_2C_7264, SpriteFrame_2C_7279
 SpriteFrame_2C_7264:: ; 2C:7264
 	sprite_frame 5
@@ -177,7 +177,7 @@ Data_2C_7355:: ; 2C:7355
 ; ---- data $7357-$741C (197 bytes) [PROBABLE] object animation frame records: [count][count x 4 bytes (y,x,tile,attr)] ... chained by pointer lists and terminated by 01 00 04/08 groups; format not fully decoded; reached through the pointer tables; ends with the group 01 00 04 right before the code at 741C
 
 AddrSlotIcon_ObjAnimData_2C_7357:: ; 2C:7357
-Data_2C_7357::
+
 	db $01, $05, $02, $05, $03, $03, $04, $12 ; not reached by any walked sprite chain
 SpriteFrameTable_2C_735F:: ; 2C:735F
 	sprite_frame_table SpriteFrame_2C_7369, SpriteFrame_2C_737A, SpriteFrame_2C_739B, SpriteFrame_2C_73BC

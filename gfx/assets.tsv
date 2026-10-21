@@ -147,7 +147,7 @@ gfx/address_book/address_picker/addr_pick_tiles9300.2bpp	tiles	1024	gfx/address_
 gfx/address_book/address_picker/addr_pick_tiles9700.2bpp	tiles	256	gfx/address_book/address_picker.asm	2C	6B30	CONFIRMED	exact	0		Gfx_AddrPick_Tiles9700Vb1
 gfx/address_book/address_picker/data_addr_pick_tilemap_attr.attrmap	attrmap	360	gfx/address_book/address_picker.asm	2C	6E28	CONFIRMED	-	0	20x18	Data_AddrPick_TilemapAttr
 gfx/address_book/address_picker/data_addr_pick_tilemap_attr.tilemap	tilemap	360	gfx/address_book/address_picker.asm	2C	6CC0	CONFIRMED	-	0	20x18	Data_AddrPick_TilemapAttr
-gfx/address_book/address_picker/tiles_6fd0.2bpp	tiles	512	gfx/address_book/address_picker.asm	2C	6FD0	PROBABLE	exact	0		Tiles_2C_6FD0
+gfx/address_book/address_picker/tiles_6fd0.2bpp	tiles	512	gfx/address_book/address_picker.asm	2C	6FD0	PROBABLE	exact	0		AddrPick_CandidateTiles_6FD0
 gfx/address_book/entry_screen_bank29/palette_5e10.pal	palette	64	gfx/address_book/entry_screen_bank29.asm	29	5E10	CONFIRMED	-	0		Palette_29_5E10
 gfx/address_book/entry_screen_bank29/tiles_5b10.2bpp	tiles	768	gfx/address_book/entry_screen_bank29.asm	29	5B10	CONFIRMED	exact	0		Data_29_5B10
 gfx/address_book/entry_screen_bank29/tiles_5e50.2bpp	tiles	1024	gfx/address_book/entry_screen_bank29.asm	29	5E50	CONFIRMED	exact	0		Data_29_5E50

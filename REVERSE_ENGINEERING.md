@@ -1635,3 +1635,9 @@ orphan frame/script group with candidate-qualified structural labels, and no
 longer exports eleven redundant `Table_29_*` aliases. The six-root generic
 Data census is now 317 definitions in 130 owners. See the [bank-29
 audit](docs/research/generic_data_name_audit_20261020.md#bank-29-compose-object-candidate-animation-names-2026-10-21).
+
+The bank-2C address-picker owner no longer exports seven exact-address
+`Data_2C_*` aliases or duplicate table/palette labels. Its unobserved tile block
+at `2C:6FD0` now has a context-qualified candidate name; `Data_2C_7355` remains
+unresolved. The six-root generic Data census is now 310 definitions in 130
+owners. See the [bank-2C audit](docs/research/generic_data_name_audit_20261020.md#bank-2c-address-picker-resource-names-2026-10-21).
