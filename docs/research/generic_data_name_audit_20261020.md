@@ -1866,3 +1866,27 @@ found active references only in the owner and `gfx/assets.tsv`; the 12 asset
 rows now use the retained source labels. No data bytes, paths, address ranges
 or confidence levels changed. Four heuristic partial-tile spans at `4A40`,
 `5540`, `6040` and `6B40` remain neutral.
+
+## Bank 05 song 10 stream aliases (2026-10-21)
+
+Retired 13 co-addressed `Data_05_*` aliases from
+`audio/music/music_10.asm`. Each address already has an exact track, loop,
+after-jump marker, or stream-header name. The maintained-source and tool
+search found no consumers outside this owner. Stream commands, pointer words,
+line positions, and confidence annotations are unchanged.
+
+| Address | Retained label |
+|---|---|
+| `05:455A` | `SoundSong10_Track0` |
+| `05:455E` | `SoundSong10_Track0_Loop` |
+| `05:45A4` | `SoundSong10_Track0_AfterJump` |
+| `05:45A5` | `SoundSong10_Track1` |
+| `05:45A9` | `SoundSong10_Track1_Loop` |
+| `05:461A` | `SoundSong10_Track1_AfterJump` |
+| `05:461B` | `SoundSong10_Track2` |
+| `05:461F` | `SoundSong10_Track2_Loop` |
+| `05:466C` | `SoundSong10_Track2_AfterJump` |
+| `05:466D` | `SoundSong10_Track3` |
+| `05:4671` | `SoundSong10_Track3_Loop` |
+| `05:46E5` | `SoundSong10_Track3_AfterJump` |
+| `05:46E6` | `SoundSong10_Header` |
