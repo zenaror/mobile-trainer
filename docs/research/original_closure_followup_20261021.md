@@ -37,6 +37,16 @@ No source, build, runtime or trace changed. The retained read-only report is
 
 ## Current naming changes
 
+The bounded owner-local review of `engine/mail/mail_title_entry.asm` kept
+`Data_2C_47CA`, `Data_2C_487D`, `Data_2C_493E` and `Data_2C_49E8` neutral:
+each is a single `$C9` byte at a text/code boundary, and the bounded source
+search found no direct consumer. `Data_2C_4A01` begins `$C3,$72,$49,$C9` and
+decodes linearly as `JP $4972 ; RET`, targeting `MailTitle_KeyboardLoop`;
+the bounded source search found no direct entry to 4A01. This is not proof
+that the byte sequence is code or universally unreachable; the mapper's
+code-prefix-like classification is not enough to promote it. These labels
+remain **HYPOTHESIS** pending stronger entry evidence.
+
 In `engine/keyboard/keyboard.asm`, four exact co-located `Data_55_*` aliases
 at 55:62A0, 65D7, 66C0 and 6C0A were retired. Their retained labels
 `Table_Kbd_CursorSpriteOrigin`, `Table_Kbd_InputModeReturnCodes`,
@@ -132,6 +142,15 @@ HYPOTHESIS. The separate `page_list_prototype_objects` and bank-52
 `page_list_prototype_messages` owners are unchanged. Historical/frozen locators
 retain their earlier path, while current asset metadata and the image inventory
 point to the candidate owner.
+
+In `engine/gfx/scroll_split.asm`, four exact co-located `Data_7F_*` aliases at
+7F:7385, 747F, 75CB and 771E were retired. Their retained labels
+`ScrollSplit_StepUp3Deltas`, `ScrollSplit_StepUp4Deltas`,
+`ScrollSplit_StepDown3Deltas` and `ScrollSplit_StepDown4Deltas` already name
+the same storage. Historical mapper/config records keep their former names;
+no byte, extent or confidence changed. The restricted six-root
+`Data_BB_AAAA`/`Font_BB_AAAA` census is now 183 definitions across 109 owners,
+still excluding `engine/mail/sample_data.asm` and `languages/`.
 
 ## Broader name audit and remaining limits
 

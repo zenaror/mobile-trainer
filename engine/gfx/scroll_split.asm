@@ -193,7 +193,6 @@ Table_7F_7375::
 ; ---- data $7385-$7425 (160 bytes) [PROBABLE] 8 rows of 20 bytes (stride $14) of per-step values indexed [row d][column e] by the scroll-step function 7F:733A (ld hl,$7375 ; c=2*d ; ... ld a,[hli] ; ld c,a ; ld b,[hl] ; ld l,e ; ld h,0 ; add hl,bc ; ld a,[hl] ; b = value subtracted from [$DA10/DA20/DA30/DA40] and added to [$C0D3]); the 12/8 row pointers of the table partition the block exactly up to the next function; 8 x 20 = 160 bytes end exactly at the next function 7F:7425
 
 ScrollSplit_StepUp3Deltas:: ; 7F:7385
-Data_7F_7385::
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $01, $01, $01, $01, $01, $02, $01, $01
@@ -268,7 +267,6 @@ Table_7F_7467::
 ; ---- data $747F-$7578 (249 bytes) [PROBABLE] 12 rows of 20 bytes (stride $14) of per-step values indexed [row d][column e] by the scroll-step function 7F:7425 (ld hl,$7467 ; c=2*d ; ... ld a,[hli] ; ld c,a ; ld b,[hl] ; ld l,e ; ld h,0 ; add hl,bc ; ld a,[hl] ; b = value subtracted from [$DA10/DA20/DA30/DA40] and added to [$C0D3]); the 12/8 row pointers of the table partition the block exactly up to the next function (rows at 747F,7493,...,7533,7550,7564: the pointers of Table_7F_7467; 12 rows x 20 + a 9-byte gap between 7547 and 7550) ending exactly at the executed function 7F:7578
 
 ScrollSplit_StepUp4Deltas:: ; 7F:747F
-Data_7F_747F::
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $01, $01, $01, $01, $01, $02, $01, $01
@@ -346,7 +344,6 @@ Table_7F_75B3::
 ; ---- data $75CB-$76C4 (249 bytes) [PROBABLE] 12 rows of 20 bytes (stride $14) of per-step values indexed [row d][column e] by the scroll-step function 7F:7578 (ld hl,$75B3 ; c=2*d ; ... ld a,[hli] ; ld c,a ; ld b,[hl] ; ld l,e ; ld h,0 ; add hl,bc ; ld a,[hl] ; b = value subtracted from [$DA10/DA20/DA30/DA40] and added to [$C0D3]); the 12/8 row pointers of the table partition the block exactly up to the next function; rows end exactly at the next function 7F:76C4
 
 ScrollSplit_StepDown3Deltas:: ; 7F:75CB
-Data_7F_75CB::
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $01, $01, $01, $01, $01, $02, $01, $01
@@ -427,7 +424,6 @@ Table_7F_7706::
 ; ---- data $771E-$7817 (249 bytes) [PROBABLE] 12 rows of 20 bytes (stride $14) of per-step values indexed [row d][column e] by the scroll-step function 7F:76C4 (ld hl,$7706 ; c=2*d ; ... ld a,[hli] ; ld c,a ; ld b,[hl] ; ld l,e ; ld h,0 ; add hl,bc ; ld a,[hl] ; b = value subtracted from [$DA10/DA20/DA30/DA40] and added to [$C0D3]); the 12/8 row pointers of the table partition the block exactly up to the next function; the pointers of Table_7F_7706 (771E .. 77D2, 77EF, 7803) end exactly at the code region 7817
 
 ScrollSplit_StepDown4Deltas:: ; 7F:771E
-Data_7F_771E::
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $01, $01, $01, $01, $01, $02, $01, $01
