@@ -1820,3 +1820,8 @@ boundary grades remain probable, and the six-entry settings boundary remains
 bounded as documented. The active naming notes now use the retained labels;
 frozen mapper snapshots keep the old aliases. See the
 [navigation-table audit](docs/research/navigation_table_aliases_20261021.md).
+
+The top-menu input table and cursor target pairs now use their retained
+`Table_TopMenu_*` names without duplicate numeric aliases; readers and
+documented targets are unchanged. See the
+[top-menu table note](docs/research/top_menu_table_aliases_20261021.md).

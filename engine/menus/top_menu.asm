@@ -185,7 +185,6 @@ TopMenu_Loop:: ; 1F:41D1
 ; ---- ptrtable $41E9-$41F3 (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 1F:41E6: 5 entries; fixed length (5 words) by the routine; every byte read as data in a trace
 
 Table_TopMenu_Buttons:: ; 1F:41E9
-Table_1F_41E9::
 	dw TopMenu_OnA
 	dw TopMenu_OnB
 	dw TopMenu_IgnoreSelect
@@ -329,7 +328,6 @@ TopMenu_SelectItem:: ; 1F:4325
 ; ---- data $434B-$4351 (6 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
 
 Table_TopMenu_CursorTargets:: ; 1F:434B
-Data_1F_434B::
 	db $28, $0B, $28, $51, $60, $2E
 
 TopMenu_LoadPanel:: ; 1F:4351
