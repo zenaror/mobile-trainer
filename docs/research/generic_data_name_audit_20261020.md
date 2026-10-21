@@ -3141,3 +3141,25 @@ named by their neighboring message groups; the comments retain that their
 individual consumption is not proven. The encoded data and boundaries are
 unchanged. These changes lower the exact generic `String_BB_AAAA` census by
 eight, from 41 to 33.
+
+## Bank 72 dialog text anchors (2026-10-21)
+
+All 32 exact `String_72_AAAA` labels in `data/text/dialog_messages.asm` now
+have descriptive names. For 23 labels, a raw word in `Dialog_List1_Browser`
+or `Dialog_List2_Mail` points exactly three bytes before the labeled text,
+where the three bytes are the `$86` message header. The list index maps to
+IDs `0101`, `0105`, `0107`, `010C`, `0111`, `0114`–`0116`, and `0202`, `0205`,
+`0208`, `020B`, `020D`, `020F`, `0211`, `0213`, `0217`, `0218`, `021E`, `021F`,
+`0221`, `0223`, `022A`. Those labels now use `String_Dialog_Msg<ID>_Text`.
+The pointer arithmetic and index-to-ID mapping are **CONFIRMED** from the
+source table; interpretation as dialog IDs and natural selection/display stay
+**PROBABLE** because runtime coverage does not include every table index.
+
+The other nine labels have no direct pointer-entry-at-minus-three mapping.
+They now use `String_Dialog_Candidate*` names based only on the decoded
+characters or blank-line structure: phone disconnecting/disconnected text,
+the `$F9,$44`-pattern minute text, an exceeded-duration tail, two candidate
+blank records, and a no-previous-page message. Those content readings do not
+prove a caller or runtime use. Payload bytes, message headers and table words
+are unchanged. This removes 32 labels from the exact neutral
+`String_BB_AAAA` census.

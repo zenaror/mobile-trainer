@@ -1926,7 +1926,7 @@ A fresh path-bounded exact-name scan of the six maintained source roots plus
 `zero_labels.asm`, excluding the protected mail sample before reading, finds
 63 `Data_BB_AAAA` definitions in 41 owners and no exact generic `Function`,
 `Font`, or `Label` definitions. This is a lexical count, not semantic closure.
-The same scan now finds 33 `String_BB_AAAA`, no exact `Table_BB_AAAA`, 41
+The same scan now finds 1 `String_BB_AAAA`, no exact `Table_BB_AAAA`, 41
 `Tiles_BB_AAAA`, 24 `Tilemap_BB_AAAA`, 4 `Attrmap_BB_AAAA`, and 25
 `Palette_BB_AAAA` definitions; the remaining prefixes are an owner-by-owner
 evidence worklist. The four former generic table labels are described in the
@@ -1953,3 +1953,8 @@ message area now use content/candidate names. Their exact Japanese/ASCII bytes
 are retained; installer execution, independent mail-grid use and three blank
 line readers remain unproven. See the
 [small text-owner audit](docs/research/generic_data_name_audit_20261020.md#small-text-owners-test-image-mail-grid-and-server-messages-2026-10-21).
+The 32 address-only labels in the bank-72 dialog owner now identify 23 text
+payloads by their pointer-table index and nine remaining segments as
+candidates by literal content/blank structure. Table index mapping is static;
+natural selection and display remain unproven. See the
+[dialog-string audit](docs/research/generic_data_name_audit_20261020.md#bank-72-dialog-text-anchors-2026-10-21).

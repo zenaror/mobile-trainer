@@ -106,7 +106,7 @@ String_Dialog_Msg0000:: ; 72:50BD
 
 ; ---- text $514A-$518C (66 bytes) [CONFIRMED] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_72_514A:: ; 72:514A
+String_Dialog_Msg0101_Text:: ; 72:514A
 	db "　　　　でんわを　きって　　　　", 0
 	db "　　　ホームページをみます。　　", 0
 
@@ -119,7 +119,7 @@ String_Dialog_Msg0102:: ; 72:518C
 
 ; ---- text $51B0-$51D1 (33 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_72_51B0:: ; 72:51B0
+String_Dialog_CandidatePhoneDisconnectedText:: ; 72:51B0
 	db "　　　でんわをきりました。　　　", 0
 
 ; ---- text $51D1-$525E (141 bytes) [PROBABLE] text block: 7 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 51B0-52A0 by higher-priority evidence]
@@ -136,7 +136,7 @@ String_Dialog_Msg0103:: ; 72:51D1
 
 ; ---- text $525E-$52A0 (66 bytes) [CONFIRMED] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_72_525E:: ; 72:525E
+String_Dialog_Msg0105_Text:: ; 72:525E
 	db "　でんわをきってホームページを　", 0
 	db "　　　しゅうりょうします。　　　", 0
 
@@ -151,7 +151,7 @@ String_Dialog_Msg0106:: ; 72:52A0
 
 ; ---- text $52E8-$532A (66 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_72_52E8:: ; 72:52E8
+String_Dialog_Msg0107_Text:: ; 72:52E8
 	db "　ホームページがおおきすぎて　　", 0
 	db "すべてひょうじ　できませんでした", 0
 
@@ -170,12 +170,12 @@ String_Dialog_Msg0108:: ; 72:532A
 
 ; ---- text $53C5-$53D8 (19 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
-String_72_53C5:: ; 72:53C5
+String_Dialog_CandidateF9DMinuteText:: ; 72:53C5
 	db $F9, "D", $F9, "D", $F9, "D", $F9, "D", $F9, "Dふん　　", 0
 
 ; ---- text $53D8-$53F9 (33 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_72_53D8:: ; 72:53D8
+String_Dialog_CandidateCallDurationExceededTail:: ; 72:53D8
 	db "　　　　　をこえました。　　　　", 0
 
 ; ---- text $53F9-$541D (36 bytes) [PROBABLE] text block: 2 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 53D8-541D by higher-priority evidence]
@@ -187,13 +187,13 @@ String_Dialog_Msg010B:: ; 72:53F9
 
 ; ---- text $541D-$5441 (36 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
-String_72_541D:: ; 72:541D
+String_Dialog_CandidateBlankLineRecord_541D:: ; 72:541D
 	db "　　　　　　　　　　　　　　　　", 0
 	db $86, $01, $01 ; record header
 
 ; ---- text $5441-$5483 (66 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_72_5441:: ; 72:5441
+String_Dialog_Msg010C_Text:: ; 72:5441
 	db "　ホームページがおおきすぎて　　", 0
 	db "すべてひょうじ　できませんでした", 0
 
@@ -206,7 +206,7 @@ String_Dialog_Msg010D:: ; 72:5483
 
 ; ---- text $54A7-$54C8 (33 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_72_54A7:: ; 72:54A7
+String_Dialog_CandidatePhoneDisconnectingText:: ; 72:54A7
 	db "　　　でんわをきっています。　　", 0
 
 ; ---- text $54C8-$54EC (36 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
@@ -218,7 +218,7 @@ String_Dialog_Msg010E:: ; 72:54C8
 
 ; ---- text $54EC-$550D (33 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_72_54EC:: ; 72:54EC
+String_Dialog_CandidatePhoneDisconnectedText_Duplicate:: ; 72:54EC
 	db "　　　でんわがきれました。　　　", 0
 
 ; ---- text $550D-$5531 (36 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
@@ -230,7 +230,7 @@ String_Dialog_Msg010F:: ; 72:550D
 
 ; ---- text $5531-$5552 (33 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_72_5531:: ; 72:5531
+String_Dialog_CandidatePhoneDisconnectingText_Duplicate:: ; 72:5531
 	db "　　　でんわをきっています。　　", 0
 
 ; ---- text $5552-$5576 (36 bytes) [PROBABLE] text block: 2 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 5531-5576 by higher-priority evidence]
@@ -242,13 +242,13 @@ String_Dialog_Msg0110:: ; 72:5552
 
 ; ---- text $5576-$559A (36 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
-String_72_5576:: ; 72:5576
+String_Dialog_CandidateBlankLineRecord_5576:: ; 72:5576
 	db "　　　　　　　　　　　　　　　　", 0
 	db $86, $02, $00 ; record header
 
 ; ---- text $559A-$55DC (66 bytes) [CONFIRMED] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_72_559A:: ; 72:559A
+String_Dialog_Msg0111_Text:: ; 72:559A
 	db "つうしんせつぞくを　つづけます。", 0
 	db "　　　　よろしいですか？　　　　", 0
 
@@ -261,7 +261,7 @@ String_Dialog_Msg0112:: ; 72:55DC
 
 ; ---- text $5600-$5621 (33 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_72_5600:: ; 72:5600
+String_Dialog_CandidateNoPreviousPageText:: ; 72:5600
 	db "　もどれるページが　ありません。", 0
 
 ; ---- text $5621-$5645 (36 bytes) [PROBABLE] text block: 2 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 5600-5645 by higher-priority evidence]
@@ -284,7 +284,7 @@ String_Dialog_Msg0114:: ; 72:5666
 
 ; ---- text $5669-$56AB (66 bytes) [CONFIRMED] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_72_5669:: ; 72:5669
+String_Dialog_Msg0114_Text:: ; 72:5669
 	db "　　　　ホームページを　　　　　", 0
 	db "　　　しゅうりょうします。　　　", 0
 
@@ -296,7 +296,7 @@ String_Dialog_Msg0115:: ; 72:56AB
 
 ; ---- text $56AE-$56F0 (66 bytes) [CONFIRMED] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_72_56AE:: ; 72:56AE
+String_Dialog_Msg0115_Text:: ; 72:56AE
 	db "　　ホームページをただしく　　　", 0
 	db "　　ひょうじできませんでした。　", 0
 
@@ -308,7 +308,7 @@ String_Dialog_Msg0116:: ; 72:56F0
 
 ; ---- text $56F3-$5735 (66 bytes) [CONFIRMED] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_72_56F3:: ; 72:56F3
+String_Dialog_Msg0116_Text:: ; 72:56F3
 	db "　　ホームページをただしく　　　", 0
 	db "　　ひょうじできませんでした。　", 0
 
@@ -336,7 +336,7 @@ String_Dialog_Msg0202:: ; 72:57BF
 
 ; ---- text $57C2-$5804 (66 bytes) [CONFIRMED] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_72_57C2:: ; 72:57C2
+String_Dialog_Msg0202_Text:: ; 72:57C2
 	db "　かいたメールを　セーブします。", 0
 	db "　　　　よろしいですか？　　　　", 0
 
@@ -354,7 +354,7 @@ String_Dialog_Msg0203:: ; 72:5804
 
 ; ---- text $5891-$58D3 (66 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_72_5891:: ; 72:5891
+String_Dialog_Msg0205_Text:: ; 72:5891
 	db "　　　　メールアドレスは　　　　", 0
 	db "　　かならずかいてください。　　", 0
 
@@ -377,7 +377,7 @@ String_Dialog_Msg0207:: ; 72:5918
 
 ; ---- text $5960-$59A2 (66 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_72_5960:: ; 72:5960
+String_Dialog_Msg0208_Text:: ; 72:5960
 	db "　　　　メールアドレスを　　　　", 0
 	db "うわがきします　よろしいですか？", 0
 
@@ -400,7 +400,7 @@ String_Dialog_Msg020A:: ; 72:59E7
 
 ; ---- text $5A2F-$5A71 (66 bytes) [CONFIRMED] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_72_5A2F:: ; 72:5A2F
+String_Dialog_Msg020B_Text:: ; 72:5A2F
 	db "メールアドレスを　セーブします。", 0
 	db "　　　　よろしいですか？　　　　", 0
 
@@ -415,7 +415,7 @@ String_Dialog_Msg020C:: ; 72:5A71
 
 ; ---- text $5AB9-$5AFB (66 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_72_5AB9:: ; 72:5AB9
+String_Dialog_Msg020D_Text:: ; 72:5AB9
 	db "　メールアドレスを　けします。　", 0
 	db "　　　　よろしいですか？　　　　", 0
 
@@ -430,7 +430,7 @@ String_Dialog_Msg020E:: ; 72:5AFB
 
 ; ---- text $5B43-$5B85 (66 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_72_5B43:: ; 72:5B43
+String_Dialog_Msg020F_Text:: ; 72:5B43
 	db "　かきかけのへんじは　きえて　　", 0
 	db "　しまいます。よろしいですか？　", 0
 
@@ -445,7 +445,7 @@ String_Dialog_Msg0210:: ; 72:5B85
 
 ; ---- text $5BCD-$5C0F (66 bytes) [CONFIRMED] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_72_5BCD:: ; 72:5BCD
+String_Dialog_Msg0211_Text:: ; 72:5BCD
 	db "　メールのしゅうせいをやめます。", 0
 	db "　　　　よろしいですか？　　　　", 0
 
@@ -460,7 +460,7 @@ String_Dialog_Msg0212:: ; 72:5C0F
 
 ; ---- text $5C57-$5C99 (66 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_72_5C57:: ; 72:5C57
+String_Dialog_Msg0213_Text:: ; 72:5C57
 	db "おくっていないメールがあります。", 0
 	db "へんじをかくことが　できません。", 0
 
@@ -486,7 +486,7 @@ String_Dialog_Msg0215:: ; 72:5CDE
 
 ; ---- text $5D6B-$5DAD (66 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_72_5D6B:: ; 72:5D6B
+String_Dialog_Msg0217_Text:: ; 72:5D6B
 	db "　かきかけのデータは　きえて　　", 0
 	db "　しまいます。よろしいですか？　", 0
 
@@ -498,7 +498,7 @@ String_Dialog_Msg0218:: ; 72:5DAD
 
 ; ---- text $5DB0-$5DF2 (66 bytes) [CONFIRMED] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_72_5DB0:: ; 72:5DB0
+String_Dialog_Msg0218_Text:: ; 72:5DB0
 	db "アドレスのしゅうせいをやめます。", 0
 	db "　　　　よろしいですか？　　　　", 0
 
@@ -525,7 +525,7 @@ String_Dialog_Msg0219:: ; 72:5DF2
 
 ; ---- text $5F4E-$5F90 (66 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_72_5F4E:: ; 72:5F4E
+String_Dialog_Msg021E_Text:: ; 72:5F4E
 	db "もじすうのオーバーしたメールです", 0
 	db "すべてひょうじできませんでした。", 0
 
@@ -537,7 +537,7 @@ String_Dialog_Msg021F:: ; 72:5F90
 
 ; ---- text $5F93-$5FF6 (99 bytes) [CONFIRMED] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_72_5F93:: ; 72:5F93
+String_Dialog_Msg021F_Text:: ; 72:5F93
 	db "　メールボックスがいっぱいで　　", 0
 	db "　　メールをうけとれません。　　", 0
 	db "セーブしたメールをけしますか？　", 0
@@ -553,7 +553,7 @@ String_Dialog_Msg0220:: ; 72:5FF6
 
 ; ---- text $603E-$6080 (66 bytes) [CONFIRMED] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_72_603E:: ; 72:603E
+String_Dialog_Msg0221_Text:: ; 72:603E
 	db "　メールをけしました。つづけて　", 0
 	db "　ほかのメールもけしますか？　　", 0
 
@@ -569,7 +569,7 @@ String_Dialog_Msg0222:: ; 72:6080
 
 ; ---- text $60E9-$612B (66 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_72_60E9:: ; 72:60E9
+String_Dialog_Msg0223_Text:: ; 72:60E9
 	db "サーバにあるメールをけします。　", 0
 	db "　　　　よろしいですか？　　　　", 0
 
@@ -603,7 +603,7 @@ String_Dialog_Msg0224:: ; 72:612B
 
 ; ---- text $6350-$6392 (66 bytes) [CONFIRMED] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_72_6350:: ; 72:6350
+String_Dialog_Msg022A_Text:: ; 72:6350
 	db "　　サーバメールのさくじょを　　", 0
 	db "　　やめます。よろしいですか？　", 0
 
