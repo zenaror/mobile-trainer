@@ -1937,3 +1937,11 @@ owner. Stream bytes, pointers, and confidence annotations are unchanged.
 | `05:628B` | `SoundSong1C_Track2_Sub1` |
 | `05:62BB` | `SoundSong1C_Track2_AfterJump` |
 | `05:62BC` | `SoundSong1C_Header` |
+
+## Bank 05 song 1B stream aliases (2026-10-21)
+
+Retired two same-address `Data_05_*` aliases from
+`audio/music/music_1b.asm`: `05:60E9` remains `SoundSong1B_Track0`, and
+`05:60F5` remains `SoundSong1B_Header`. The maintained-source/tool search
+found no consumer outside the owner. Stream and pointer bytes, confidence,
+and physical source positions are unchanged.
