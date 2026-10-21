@@ -518,13 +518,13 @@ gfx/help/help_screens_a/tiles_5690.2bpp	tiles	1024	gfx/help/help_screens_a.asm	6
 gfx/help/help_screens_a/tiles_5a90.2bpp	tiles	32	gfx/help/help_screens_a.asm	6A	5A90	CONFIRMED	exact	0		Gfx_HelpMenu_Tiles9000
 gfx/help/help_screens_a/tiles_5ab0.2bpp	tiles	1024	gfx/help/help_screens_a.asm	6A	5AB0	CONFIRMED	exact	0		Gfx_HelpMenu_Tiles9000Vb1
 gfx/help/help_screens_a/tiles_5eb0.2bpp	tiles	1024	gfx/help/help_screens_a.asm	6A	5EB0	CONFIRMED	exact	0		Gfx_HelpMenu_Tiles9400Vb1
-gfx/help/help_screens_b/palette_7220.pal	palette	128	gfx/help/help_screens_b.asm	6A	7220	PROBABLE	-	0		Palette_6A_7220
-gfx/help/help_screens_b/tilemap_6716.attrmap	attrmap	360	gfx/help/help_screens_b.asm	6A	687E	CONFIRMED	-	0	20x18	Data_6A_6716
-gfx/help/help_screens_b/tilemap_6716.tilemap	tilemap	360	gfx/help/help_screens_b.asm	6A	6716	CONFIRMED	-	0	20x18	Data_6A_6716
-gfx/help/help_screens_b/tiles_69f0.2bpp	tiles	32	gfx/help/help_screens_b.asm	6A	69F0	CONFIRMED	exact	0		Data_6A_69F0
-gfx/help/help_screens_b/tiles_6a10.2bpp	tiles	16	gfx/help/help_screens_b.asm	6A	6A10	CONFIRMED	exact	0		Data_6A_6A10
-gfx/help/help_screens_b/tiles_6a20.2bpp	tiles	1024	gfx/help/help_screens_b.asm	6A	6A20	CONFIRMED	exact	0		Data_6A_6A20
-gfx/help/help_screens_b/tiles_6e20.2bpp	tiles	1024	gfx/help/help_screens_b.asm	6A	6E20	PROBABLE	exact	0		Tiles_6A_6E20
+gfx/help/help_screens_b/palette_7220.pal	palette	128	gfx/help/help_screens_b.asm	6A	7220	PROBABLE	-	0		Palette_HelpScript_Bg
+gfx/help/help_screens_b/tilemap_6716.attrmap	attrmap	360	gfx/help/help_screens_b.asm	6A	687E	CONFIRMED	-	0	20x18	Tilemap_HelpScript
+gfx/help/help_screens_b/tilemap_6716.tilemap	tilemap	360	gfx/help/help_screens_b.asm	6A	6716	CONFIRMED	-	0	20x18	Tilemap_HelpScript
+gfx/help/help_screens_b/tiles_69f0.2bpp	tiles	32	gfx/help/help_screens_b.asm	6A	69F0	CONFIRMED	exact	0		Gfx_HelpScript_Tiles8000
+gfx/help/help_screens_b/tiles_6a10.2bpp	tiles	16	gfx/help/help_screens_b.asm	6A	6A10	CONFIRMED	exact	0		Gfx_HelpScript_Tiles8AF0Vb1
+gfx/help/help_screens_b/tiles_6a20.2bpp	tiles	1024	gfx/help/help_screens_b.asm	6A	6A20	CONFIRMED	exact	0		Gfx_HelpScript_Tiles8B00Vb1
+gfx/help/help_screens_b/tiles_6e20.2bpp	tiles	1024	gfx/help/help_screens_b.asm	6A	6E20	PROBABLE	exact	0		HelpScript_CandidateTiles_6E20
 gfx/help/mobile_dictionary/mobile_dict_bg.pal	palette	64	gfx/help/mobile_dictionary.asm	1A	5390	CONFIRMED	-	0		Palette_MobileDict_Bg
 gfx/help/mobile_dictionary/mobile_dict_obj.pal	palette	464	gfx/help/mobile_dictionary.asm	1A	53D0	PROBABLE	-	0		Palette_MobileDict_Obj
 gfx/help/mobile_dictionary/mobile_dict_screen.attrmap	attrmap	360	gfx/help/mobile_dictionary.asm	1A	491D	CONFIRMED	-	0	20x18	Tilemap_MobileDict_Screen

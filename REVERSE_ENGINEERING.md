@@ -1717,3 +1717,9 @@ restricted six-root generic-data census is now 250 definitions in 122 owners.
 Five exact `Data_25_*` aliases under the named mail-server status tiles and
 tilemaps were retired; the catalog already used the retained labels. The
 restricted six-root generic-data census is now 245 definitions in 121 owners.
+
+Bank 6A's help-script owner no longer exports four `Data_6A_*` aliases or its
+duplicate palette/table names. Its unobserved 64-tile footer/frame span gained
+the candidate label `HelpScript_CandidateTiles_6E20`, preserving PROBABLE; the
+ten-byte span at `6A:69E6` remains neutral. The six-root generic-data census
+is now 241 definitions in 121 owners. See the [bank-6A help-script audit](docs/research/generic_data_name_audit_20261020.md#bank-6a-help-script-resources-and-object-table-2026-10-21).

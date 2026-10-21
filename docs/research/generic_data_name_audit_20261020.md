@@ -2511,6 +2511,23 @@ extents, offsets and confidence were unchanged.
 The restricted six-root `Data_BB_AAAA::` census is now 245 definitions in
 121 owners, down from 250 in 122 owners. This remains a lexical count.
 
+## Bank 6A help-script resources and object table (2026-10-21)
+
+Four `Data_6A_*` labels at `6A:6716`, `69F0`, `6A10` and `6A20` duplicated
+the existing help-script tilemap/tile labels. `Palette_6A_7220` and
+`Table_6A_72BB` likewise duplicated `Palette_HelpScript_Bg` and
+`Objects_HelpScript_Slot2`; those aliases were removed. The probable
+64-tile span at `6A:6E20`, listed in the image-text inventory as footer legend
+and frame pieces but with no demonstrated loader, is now
+`HelpScript_CandidateTiles_6E20`; its PROBABLE grade remains. The ten zero
+bytes at `6A:69E6` remain neutral. Asset metadata was reconciled to current
+labels. The preview sheet for the already named object-table root was renamed
+to `Objects_HelpScript_Slot2_6A_72BB.png`; its SHA-256 is unchanged
+(`ffcfa9d4fc2822a98626c17b783bb99e877074fb2a075d451cb83c5bd0e4d4d7`).
+
+The restricted six-root `Data_BB_AAAA::` census is now 241 definitions in
+121 owners, down from 245 in 121 owners. This remains a lexical count.
+
 ## Census scope correction (2026-10-21)
 
 The first post-edit lexical count for the bank-2E and bank-25 checkpoints used
