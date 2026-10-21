@@ -44,7 +44,6 @@ Palette_MailGrid_Obj:: ; 2B:63F0
 ; ---- words $6430-$6440 (16 bytes) [PROBABLE] animation entry table: 4 entries of 4 bytes (frame-table pointer, script pointer), each animation repeated 4x; format of the sprite-slot initialiser 00:0A82/0AB8 (entry at DE+4*(A&$3F) -> slot[2..3] frame table, slot[6..7] script)
 
 Table_MailGrid_Anims:: ; 2B:6430
-Table_2B_6430::
 	sprite_object_entry MailGrid_Anim0Frames, MailGrid_Anim0Script ; entry 0
 	sprite_object_entry MailGrid_Anim0Frames, MailGrid_Anim0Script ; entry 1
 	sprite_object_entry MailGrid_Anim0Frames, MailGrid_Anim0Script ; entry 2
@@ -53,13 +52,11 @@ Table_2B_6430::
 ; ---- words $6440-$6442 (2 bytes) [PROBABLE] frame table: 1 pointer(s) $6442 to OAM frames (extent = lowest target); referenced by an animation entry
 
 MailGrid_Anim0Frames:: ; 2B:6440
-Table_2B_6440::
 	sprite_frame_table MailGrid_Anim0Frame0
 
 ; ---- data $6442-$647F (61 bytes) [PROBABLE] OAM frame: count=15 then 15 x (y,x,tile,attr) = 61 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 MailGrid_Anim0Frame0:: ; 2B:6442
-Data_2B_6442::
 	sprite_frame 15
 	sprite_oam 2, 4, $00, 0
 	sprite_oam 2, 12, $01, 0
@@ -80,6 +77,5 @@ Data_2B_6442::
 ; ---- data $647F-$6482 (3 bytes) [HYPOTHESIS] animation script: count=1 then 1 x 2 bytes (00 04), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
 
 MailGrid_Anim0Script:: ; 2B:647F
-Data_2B_647F::
 	sprite_anim 1
 	sprite_anim_step 0, 4

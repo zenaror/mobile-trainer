@@ -543,3 +543,12 @@ Removed `Palette_2A_6E10` and six `Table_2A_*` labels from
 addresses. No active source/tool consumer referenced the numeric spellings.
 Palette contents, animation records, extents and evidence classifications are
 unchanged.
+
+## Bank 2B received-mail grid aliases (2026-10-21)
+
+Removed `Table_2B_6430`, `Table_2B_6440`, `Data_2B_6442` and
+`Data_2B_647F` from `gfx/mail/received_mail_grid.asm`; the co-addressed
+`Table_MailGrid_Anims`, `MailGrid_Anim0Frames`, `MailGrid_Anim0Frame0` and
+`MailGrid_Anim0Script` symbols remain. Exact-token search found no active
+source/tool consumers. Sprite records, frame pointers, animation bytes and
+extents are unchanged.
