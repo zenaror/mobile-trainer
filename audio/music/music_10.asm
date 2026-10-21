@@ -297,7 +297,6 @@ Data_05_46E6::
 ; ---- words $46E8-$4700 (24 bytes) [PROBABLE] 12 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 46E6 [v4: bytes 46E8-46F0 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 SoundSong10_TrackPtrs:: ; 05:46E8
-Table_05_46E8::
 	dw SoundSong10_Track0, SoundSong10_Track1, SoundSong10_Track2, SoundSong10_Track3 ; track stream pointers (read by the driver)
 	; not read by the driver: target of each track's final sound_jump
 	dw SoundSong10_Track0_Loop, SoundSong10_Track1_Loop

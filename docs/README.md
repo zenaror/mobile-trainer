@@ -68,6 +68,7 @@ Reference documents (current):
 | [`font_config_resource_names.md`](research/font_config_resource_names.md) | bank48 glyph-run keys, bank68 default-image indices and unchanged editable assets |
 | [`address_book_save_resource_names.md`](research/address_book_save_resource_names.md) | Bounded original data/resource alias contracts; evidence and caller limits retained |
 | [`audio_table_names.md`](research/audio_table_names.md) | Bounded original data/resource alias contracts; evidence and caller limits retained |
+| [`audio_track_pointer_aliases_20261021.md`](research/audio_track_pointer_aliases_20261021.md) | 44 redundant generic audio track-pointer aliases retired under existing song/effect labels |
 | [`home_data_names.md`](research/home_data_names.md) | Bounded original data/resource alias contracts; evidence and caller limits retained |
 | [`mail_gfx_resource_aliases.md`](research/mail_gfx_resource_aliases.md) | Original Mail graphics aliases; load extents, backing and unresolved frame limits |
 | [`mail_sdk_data_names.md`](research/mail_sdk_data_names.md) | Mail strings and pointer tables; finite domains, independent indices and selector-stack caveat |

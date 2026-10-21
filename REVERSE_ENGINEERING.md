@@ -1186,3 +1186,10 @@ reproduced the same 1,043 bytes before and after and matched ROM 04:58C6–5CD9;
 the full build, symbol check and quick audio-driver check also pass. The 18
 historical alias spellings in frozen rename and mapper records remain as
 provenance. This deletion does not change stream interpretation or confidence.
+
+The 2026-10-21 naming pass also retired 44 redundant `Table_05_AAAA` aliases
+in audio track-pointer tables (29 sound effects and 15 songs). Every removed
+symbol was an unreferenced same-address alias of an existing
+`SoundSfxNN_TrackPtrs` or `SoundSongNN_TrackPtrs` label; table contents and
+confidence are unchanged. See
+[`docs/research/audio_track_pointer_aliases_20261021.md`](docs/research/audio_track_pointer_aliases_20261021.md).

@@ -361,7 +361,6 @@ SoundSong0E_Header:: ; 05:4218
 ; ---- words $421A-$4232 (24 bytes) [PROBABLE] 12 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 4218 [v4: bytes 421A-4222 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 SoundSong0E_TrackPtrs:: ; 05:421A
-Table_05_421A::
 	dw SoundSong0E_Track0, SoundSong0E_Track1, SoundSong0E_Track2, SoundSong0E_Track3 ; track stream pointers (read by the driver)
 	; not read by the driver: target of each track's final sound_jump
 	dw SoundSong0E_Track0_Loop, SoundSong0E_Track1_Loop

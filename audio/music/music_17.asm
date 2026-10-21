@@ -1006,7 +1006,6 @@ SoundSong17_Header:: ; 05:5ADC
 ; ---- words $5ADE-$5AF6 (24 bytes) [PROBABLE] 12 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 5ADC [v4: bytes 5ADE-5AE6 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 SoundSong17_TrackPtrs:: ; 05:5ADE
-Table_05_5ADE::
 	dw SoundSong17_Track0, SoundSong17_Track1, SoundSong17_Track2, SoundSong17_Track3 ; track stream pointers (read by the driver)
 	; not read by the driver: target of each track's final sound_jump
 	dw SoundSong17_Track0_Loop, SoundSong17_Track1_Loop
