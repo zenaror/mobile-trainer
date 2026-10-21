@@ -2192,3 +2192,20 @@ remain a separate completed pass.
 The six-root `Data_BB_AAAA::` census is now 382 definitions in 133 owners,
 down from 393/134 after these eleven redundant exports were retired. This
 lexical count does not measure semantic closure.
+
+## Bank 26 mail-session tile aliases and clipped tile slice (2026-10-21)
+
+Eight `Data_26_*` labels in `gfx/mail/session_scenery.asm` duplicated existing
+`MailSession_Tiles_*` labels at identical addresses. Their lines were blanked
+in place, preserving the owner layout and tile payloads. The adjacent
+`Data_26_66F0` begins a 240-byte tile-data interval inside the larger confirmed
+transfer `26:66E0-67E0`; it is now `MailSession_Tiles_66F0_TileSlice` to retain
+that bounded scope. The matching asset catalog label was updated, while the
+generic asset path remains unchanged. `Data_26_59D8` and `Data_26_73E0` remain
+neutral because the former is an eight-byte pre-tile span and the latter has
+only a palette heuristic. No path, payload, confidence level or transfer
+boundary changed.
+
+The six-root `Data_BB_AAAA::` census is now 373 definitions in 133 owners,
+down from 382 after eight aliases were retired and one slice was renamed.
+This lexical count does not measure semantic closure.

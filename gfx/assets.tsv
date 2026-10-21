@@ -705,7 +705,7 @@ gfx/mail/session_scenery/mail_session_tiles_67e0.2bpp	tiles	1024	gfx/mail/sessio
 gfx/mail/session_scenery/mail_session_tiles_6be0.2bpp	tiles	1024	gfx/mail/session_scenery.asm	26	6BE0	CONFIRMED	exact	0		MailSession_Tiles_6BE0
 gfx/mail/session_scenery/mail_session_tiles_6fe0.2bpp	tiles	1024	gfx/mail/session_scenery.asm	26	6FE0	CONFIRMED	exact	0		MailSession_Tiles_6FE0
 gfx/mail/session_scenery/palette_73e0.pal	palette	64	gfx/mail/session_scenery.asm	26	73E0	PROBABLE	-	0		Data_26_73E0
-gfx/mail/session_scenery/tiles_66f0.2bpp	tiles	240	gfx/mail/session_scenery.asm	26	66F0	CONFIRMED	exact	0		Data_26_66F0
+gfx/mail/session_scenery/tiles_66f0.2bpp	tiles	240	gfx/mail/session_scenery.asm	26	66F0	CONFIRMED	exact	0		MailSession_Tiles_66F0_TileSlice
 gfx/mail_menu/mail_menu/mail_menu_bg.pal	palette	64	gfx/mail_menu/mail_menu.asm	1D	6230	CONFIRMED	-	0		Palette_MailMenu_Bg
 gfx/mail_menu/mail_menu/mail_menu_icon_frames.attrmap	attrmap	96	gfx/mail_menu/mail_menu.asm	1D	4CB1	PROBABLE	-	0		Attrmap_MailMenu_IconFrames
 gfx/mail_menu/mail_menu/mail_menu_icon_frames.tilemap	tilemap	96	gfx/mail_menu/mail_menu.asm	1D	4C51	PROBABLE	-	0		Tilemap_MailMenu_IconFrames

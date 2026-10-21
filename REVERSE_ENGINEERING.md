@@ -1605,3 +1605,9 @@ The bank-74 HTML keyword owner has also lost eleven redundant `Data_74_*`
 aliases under its existing `Html_*Names` labels. Pointer lists and string/value
 bytes are unchanged. The six-root generic count is now 382 in 133 owners. See
 the [bank-74 audit](docs/research/generic_data_name_audit_20261020.md#bank-74-html-keyword-name-aliases-2026-10-21).
+
+The mail-session graphics owner in bank 26 now uses a bounded tile-slice name
+for the internal `66F0-67E0` segment and no longer exports eight duplicate
+`Data_26_*` aliases. The two remaining standalone generic labels stay
+unresolved. The six-root count is now 373 in 133 owners. See the [bank-26
+audit](docs/research/generic_data_name_audit_20261020.md#bank-26-mail-session-tile-aliases-and-clipped-tile-slice-2026-10-21).
