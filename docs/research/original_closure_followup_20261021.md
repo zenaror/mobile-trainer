@@ -693,3 +693,25 @@ slot menu and usage-fee owners. Existing semantic state tables, cursor maps,
 slot/tilemap tables, config-address table and URL label remain. Updated evidence
 comments that referenced the retired state/config aliases. No bytes or extents
 changed. make is byte-identical and sym-check reports 12,333 labels.
+
+## Current routine-label reconciliation (2026-10-21)
+
+At published main commit `9587f18ff5cb8bae693dc824351ce08f402510bc`, an exact
+scan of current source definitions and the rebuilt `build/mobile_trainer.sym`
+finds zero literal `Function_BB_AAAA` or `Label_BB_AAAA` names. The 28
+historical neutral routine addresses in
+`.tmp/agent-neutral-routine-triage-20261021/MATRIX.tsv` still resolve to their
+recorded current operation names at the same bank/address in the rebuilt SYM
+(28/28). This reconciles the old `naming2_fn4.md` count of 27 neutrals against
+later source changes; that historical count must not be reported as the
+current number of generic function labels.
+
+The 28 local-operation descriptions remain PROBABLE, and natural roots and
+application purpose remain HYPOTHESIS for all 28. Four priority slices remain
+UNKNOWN (`2B:6CF5`, `2D:4E42/4E54`, `29:511E`); another unlabelled caller
+fragment at `55:5DF5–5E02` and other computed/stack/copy paths remain outside
+the closed census. The computed-entry report's 21
+`NOT_FOUND_WITHIN_METHOD` rows are bounded negative results, not 21 adjacent
+fragments or proof of absence. This reconciliation validates current names
+and addresses only; it does not establish complete routine entry mapping or
+semantic closure.

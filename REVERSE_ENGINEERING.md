@@ -1352,6 +1352,14 @@ generated provenance; it recommends scoped migrations rather than blanket
 renames. See
 [`docs/research/original_closure_followup_20261021.md`](docs/research/original_closure_followup_20261021.md).
 
+The latest routine-label reconciliation supersedes the older `naming2_fn4.md`
+count: the current source and rebuilt SYM have zero literal
+`Function_BB_AAAA`/`Label_BB_AAAA` labels, and all 28 historical routine
+addresses in the triage matrix resolve to their current operation names.
+Natural roots and application purpose remain unproved for those 28; four
+priority entry slices remain UNKNOWN. This is a naming census, not function or
+entry-point closure; see the current-status section in the linked follow-up.
+
 The `audio/music/music_02.asm` owner then lost 15 same-address `Data_04_*`
 aliases under retained `SoundSong02_*` labels. An independent scoped encoder
 reproduced the same 1,043 bytes before and after and matched ROM 04:58C6–5CD9;
