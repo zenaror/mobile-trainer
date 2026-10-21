@@ -6,7 +6,7 @@ SECTION "gfx/mail/connect_screen_bank29", ROMX
 
 ; ---- data $5376-$53F6 (128 bytes) [PROBABLE] palette-rgb555: heuristic: 64 RGB555 words as 16 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
 
-Data_29_5376:: ; 29:5376
+CandidatePalette_29_5376:: ; 29:5376
 	INCLUDE "gfx/mail/connect_screen_bank29/palette_5376.pal"
 
 ; ---- zero $53F6-$5400 (10 bytes) [PROBABLE] 10 zero bytes between the palette extent and the 16-byte-aligned CommTimeHMS tile HDMA source at $5400; alignment-padding role is probable, with no named direct reader found

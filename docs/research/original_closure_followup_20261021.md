@@ -988,3 +988,35 @@ After this rename, the current bounded source scan finds 18 exact
 `zero_labels.asm`), with zero exact `Function_`, `Label_` or `Font_` definitions.
 `data_consumers.py --stats` reports 112 neutral groups, 37 rejected
 candidates, and zero rename rows.
+
+## Bank 29 probable palette-content label (2026-10-21)
+
+`Data_29_5376` is now `CandidatePalette_29_5376`. The existing catalogue and
+mapper classify the 128-byte source as PROBABLE RGB555 palette content: sixteen
+groups of four 15-bit colors with palette-shaped ramps. The source scanner
+found no maintained-source loader reference to this address, and the named
+screen resources loaded by bank-27 code begin at `29:5400`, `29:5800` and
+`29:5AD0`. The candidate label therefore names only probable palette content;
+it does not claim that a screen uses this block. Its address, 128-byte extent,
+confidence and emitted bytes are unchanged.
+
+
+The current bounded source scan after this second rename finds 17 exact
+`Data_BB_AAAA` definitions; Function/Label/Font exact counts remain zero. The
+neutral-data tool reports 111 groups, 37 rejected candidates, and no automatic
+rename rows.
+
+## Bank 23 unconsumed map-like data candidate (2026-10-21)
+
+`Data_23_7C03` is now `CandidateMapData_23_7C03`. The 813-byte span contains
+small tile-index-like values and repeated row patterns, including likely
+attribute-like fills, but no maintained-source loader reference was found.
+The name marks only a map-data hypothesis; no tilemap/attribute split, screen
+association, or natural use is asserted. The source extent and emitted bytes
+are unchanged.
+
+
+The current bounded source scan after the bank-23 rename finds 16 exact
+`Data_BB_AAAA` definitions and zero exact Function/Label/Font forms. The
+neutral-data tool reports 110 groups and 37 rejected candidates, with no
+automatic rename rows.
