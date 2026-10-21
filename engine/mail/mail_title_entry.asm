@@ -1201,7 +1201,7 @@ POPC
 
 ; ---- data $47CA-$47CB (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
-Data_2C_47CA:: ; 2C:47CA
+Data_MailTitle_CandidateRetByte_47CA:: ; 2C:47CA
 	db $C9
 
 MailTitle_ApplyVu:: ; 2C:47CB
@@ -1330,7 +1330,7 @@ POPC
 
 ; ---- data $487D-$487E (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 byte $C9 (ret) between a string and code; no entry found
 
-Data_2C_487D:: ; 2C:487D
+Data_MailTitle_CandidateRetByte_487D:: ; 2C:487D
 	db $C9
 
 MailTitle_ApplyHandakuten:: ; 2C:487E
@@ -1457,7 +1457,7 @@ POPC
 
 ; ---- data $493E-$493F (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
-Data_2C_493E:: ; 2C:493E
+Data_MailTitle_CandidateRetByte_493E:: ; 2C:493E
 	db $C9
 
 MailTitle_OpenKeyboard:: ; 2C:493F
@@ -1568,7 +1568,7 @@ MailTitle_KeyboardLoop:: ; 2C:4972
 
 ; ---- data $49E8-$49E9 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
-Data_2C_49E8:: ; 2C:49E8
+Data_MailTitle_CandidateRetByte_49E8:: ; 2C:49E8
 	db $C9
 
 MailTitle_KeyboardLoop_HideKeyboard:: ; 2C:49E9
@@ -1586,7 +1586,7 @@ MailTitle_KeyboardLoop_HideKeyboard:: ; 2C:49E9
 
 ; ---- data $4A01-$4A05 (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
-Data_2C_4A01:: ; 2C:4A01
+Data_MailTitle_CandidateJumpAndRetBytes_4A01:: ; 2C:4A01
 	db $C3, $72, $49, $C9
 
 MailTitle_GetLength:: ; 2C:4A05

@@ -3174,3 +3174,14 @@ copying `Url_GooNeJp` into `wBrowserPageUrl`. The destination relationship and
 neighboring URL support the candidate page-title name; entry into the routine
 and the meaning of `くーくー` remain unproved. No bytes or addresses changed.
 The exact neutral `String_BB_AAAA` count is now zero.
+
+## Mail-title unclassified opcode-shaped bytes (2026-10-21)
+
+Five `Data_2C_AAAA` labels in `engine/mail/mail_title_entry.asm` now use
+candidate names based only on their literal byte sequences: four one-byte
+`$C9` spans and one `$C3,$72,$49,$C9` span. Existing source headers classify
+these as **HYPOTHESIS/UNCLASSIFIED** without code/data evidence. The names say
+what the bytes resemble and keep the candidate qualifier; they do not classify
+them as executed instructions, functions or padding. No byte or boundary
+changed. The exact generic `Data_BB_AAAA` count drops from 63/41 owners to
+58/40 owners.
