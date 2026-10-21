@@ -148,10 +148,10 @@ gfx/address_book/address_picker/addr_pick_tiles9700.2bpp	tiles	256	gfx/address_b
 gfx/address_book/address_picker/data_addr_pick_tilemap_attr.attrmap	attrmap	360	gfx/address_book/address_picker.asm	2C	6E28	CONFIRMED	-	0	20x18	Data_AddrPick_TilemapAttr
 gfx/address_book/address_picker/data_addr_pick_tilemap_attr.tilemap	tilemap	360	gfx/address_book/address_picker.asm	2C	6CC0	CONFIRMED	-	0	20x18	Data_AddrPick_TilemapAttr
 gfx/address_book/address_picker/tiles_6fd0.2bpp	tiles	512	gfx/address_book/address_picker.asm	2C	6FD0	PROBABLE	exact	0		AddrPick_CandidateTiles_6FD0
-gfx/address_book/entry_screen_bank29/palette_5e10.pal	palette	64	gfx/address_book/entry_screen_bank29.asm	29	5E10	CONFIRMED	-	0		Palette_29_5E10
-gfx/address_book/entry_screen_bank29/tiles_5b10.2bpp	tiles	768	gfx/address_book/entry_screen_bank29.asm	29	5B10	CONFIRMED	exact	0		Data_29_5B10
-gfx/address_book/entry_screen_bank29/tiles_5e50.2bpp	tiles	1024	gfx/address_book/entry_screen_bank29.asm	29	5E50	CONFIRMED	exact	0		Data_29_5E50
-gfx/address_book/entry_screen_bank29/tiles_6250.2bpp	tiles	64	gfx/address_book/entry_screen_bank29.asm	29	6250	CONFIRMED	exact	0		Data_29_6250
+gfx/address_book/entry_screen_bank29/palette_5e10.pal	palette	64	gfx/address_book/entry_screen_bank29.asm	29	5E10	CONFIRMED	-	0		Palette_AbookEdit_Obj
+gfx/address_book/entry_screen_bank29/tiles_5b10.2bpp	tiles	768	gfx/address_book/entry_screen_bank29.asm	29	5B10	CONFIRMED	exact	0		Gfx_AbookEdit_Tiles8000
+gfx/address_book/entry_screen_bank29/tiles_5e50.2bpp	tiles	1024	gfx/address_book/entry_screen_bank29.asm	29	5E50	CONFIRMED	exact	0		Gfx_AbookView_Tiles9300Vb1
+gfx/address_book/entry_screen_bank29/tiles_6250.2bpp	tiles	64	gfx/address_book/entry_screen_bank29.asm	29	6250	CONFIRMED	exact	0		Gfx_AbookView_Tiles9700Vb1
 gfx/address_book/entry_screen_bank2a/addr_book_entry_tiles8000.2bpp	tiles	176	gfx/address_book/entry_screen_bank2a.asm	2A	7DD0	CONFIRMED	exact	0		Gfx_AddrBookEntry_Tiles8000
 gfx/address_book/entry_screen_bank2a/addr_book_entry_tiles8f00.2bpp	tiles	224	gfx/address_book/entry_screen_bank2a.asm	2A	7CF0	CONFIRMED	exact	0		Gfx_AddrBookEntry_Tiles8F00
 gfx/address_book/list/abook_list.attrmap	attrmap	360	gfx/address_book/list.asm	2F	4EA8	CONFIRMED	-	0	20x18	Tilemap_Abook_List

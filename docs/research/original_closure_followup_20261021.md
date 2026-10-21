@@ -410,3 +410,15 @@ an exact-token search found no active assembly or tool consumer beyond the
 declarations. Existing CONFIRMED read evidence, content-class uncertainty,
 bytes and extents are unchanged. Frozen analysis/config records were not
 rewritten.
+
+## Bank 29 address-book entry graphics aliases (2026-10-21)
+
+Removed the four address-only aliases `Data_29_5B10`, `Palette_29_5E10`,
+`Data_29_5E50` and `Data_29_6250` from
+`gfx/address_book/entry_screen_bank29.asm`, retaining the exact same-address
+labels `Gfx_AbookEdit_Tiles8000`, `Palette_AbookEdit_Obj`,
+`Gfx_AbookView_Tiles9300Vb1` and `Gfx_AbookView_Tiles9700Vb1`. The four
+catalogue rows in `gfx/assets.tsv` now use those retained labels. Exact-token
+search found no active assembly/tool consumers of the retired spellings; the
+graphics load evidence and existing CONFIRMED grades remain unchanged. No
+payload, bank, address, length, or confidence changed.
