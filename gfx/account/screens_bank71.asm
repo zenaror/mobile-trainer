@@ -19,9 +19,9 @@ Gfx_CommPanel_SharedVramSource:: ; 71:4300
 
 	INCBIN "gfx/account/screens_bank71/tiles_4300.2bpp"
 
-; ---- gfx $4500-$4890 (912 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:747A: hl=$4490 a=$71 c=$40 de=$9001 (dest VRAM $9000, vbank=1) [clipped from 4490-4890 by higher-priority evidence]
+; ---- gfx $4500-$4890 (912 bytes) [CONFIRMED] tile-source slice in CommPanel_StateDraw HDMA at 68:747A: request $4490-$4890 maps to VRAM $9000-$9400 in VB1; this slice supplies $4500-$4890 ($9070-$9400)
 
-Data_71_4500:: ; 71:4500
+Gfx_CommPanel_TileSource_4500:: ; 71:4500
 	INCBIN "gfx/account/screens_bank71/tiles_4500.2bpp"
 
 ; ---- gfx $4890-$4C50 (960 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:748C: hl=$4890 a=$71 c=$40 de=$9401 (dest VRAM $9400, vbank=1); the last $40 bytes of the old blob hold a palette; the blocks below type them by what the code reads, and the HDMA request that copies the tiles copies them into VRAM as well
@@ -121,9 +121,9 @@ CommPanel_Anim1Script:: ; 71:5031
 	sprite_anim_step 1, 30
 	sprite_anim_step 2, 30
 
-; ---- data $5038-$5098 (96 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown [range trimmed from 4FBC-5098 by classify_g2]
+; ---- data $5038-$5098 (96 bytes) [CONFIRMED] 4x12 tilemap followed by 4x12 attrmap; CommPanel_DrawCaption (68:7611) selects this through CommPanel_CaptionMaps (68:765E), then calls Tilemap_CopyRectAndAttr with BC=$040C and bank $71
 
-Data_71_5038:: ; 71:5038
+CommPanel_CaptionMap0:: ; 71:5038
 	db $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $09, $0A, $0B, $0C
 	db $0D, $0E, $0F, $24, $25, $A0, $A0, $A0, $19, $1A, $1B, $1C, $1D, $1E, $1F, $34
 	db $35, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0
@@ -131,51 +131,66 @@ Data_71_5038:: ; 71:5038
 	db $09, $09, $09, $09, $09, $0A, $0A, $0A, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
 
-; ---- data $5098-$5340 (680 bytes) [PROBABLE] contiguous data block 5098-5340: 288 bytes were read as data by executed code in mGBA traces (2 separate read ranges, e.g. 50F8-5158,51B8-5278) and 392 bytes between/around those reads were never read; the whole run is one table/buffer read by index (gaps unread in the traces); content class not decoded [merged from 5 regions by classify_g2]
+; ---- data $5098-$5338 (672 bytes) [CONFIRMED] seven further 4x12 tilemap/attrmap pairs at 96-byte stride, indexed 1-7 by CommPanel_CaptionMaps; natural traces read only part of the set, and caption text/selection meanings remain unresolved
 
-Data_71_5098:: ; 71:5098
+CommPanel_CaptionMap1:: ; 71:5098
 	db $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $26, $27, $28, $29
 	db $2A, $2B, $2C, $2D, $2E, $25, $A0, $A0, $36, $37, $38, $39, $3A, $3B, $3C, $3D
 	db $3E, $35, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0
 	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $09, $09, $09, $09
 	db $09, $09, $09, $09, $09, $09, $0A, $0A, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $09, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
+
+CommPanel_CaptionMap2:: ; 71:50F8
 	db $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $2F, $40, $41, $42
 	db $43, $44, $0B, $45, $46, $2D, $2E, $25, $3F, $50, $51, $52, $53, $54, $1B, $55
 	db $56, $3D, $3E, $35, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0
 	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $09, $09, $09, $09
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $09, $09, $09, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
+
+CommPanel_CaptionMap3:: ; 71:5158
 	db $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $26, $27, $28, $29
 	db $0C, $47, $48, $49, $2D, $2E, $25, $A0, $36, $37, $38, $39, $1C, $57, $58, $59
 	db $3D, $3E, $35, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0
 	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $09, $09, $09, $09
 	db $09, $09, $09, $09, $09, $09, $09, $0A, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $09, $09, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
+
+CommPanel_CaptionMap4:: ; 71:51B8
 	db $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $77, $78, $0B, $4A
 	db $76, $41, $0E, $0F, $24, $25, $A0, $A0, $7A, $7B, $1B, $5A, $79, $51, $1E, $1F
 	db $34, $35, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0
 	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $09, $09, $09, $09
 	db $09, $09, $09, $09, $09, $09, $0A, $0A, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $09, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
+
+CommPanel_CaptionMap5:: ; 71:5218
 	db $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $4B, $4C, $4D, $4E
 	db $4F, $0B, $60, $61, $2D, $2E, $25, $A0, $5B, $5C, $5D, $5E, $5F, $1B, $70, $71
 	db $3D, $3E, $35, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0
 	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $09, $09, $09, $09
 	db $09, $09, $09, $09, $09, $09, $09, $0A, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $09, $09, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
+
+CommPanel_CaptionMap6:: ; 71:5278
 	db $62, $63, $64, $65, $43, $44, $0B, $A0, $A0, $A0, $A0, $A0, $72, $73, $74, $75
 	db $53, $54, $1B, $A0, $A0, $A0, $A0, $A0, $67, $68, $69, $6A, $4E, $4F, $2D, $2E
 	db $25, $A0, $A0, $A0, $6C, $6D, $6E, $6F, $5E, $5F, $3D, $3E, $35, $A0, $A0, $A0
 	db $09, $09, $09, $09, $09, $09, $09, $0A, $0A, $0A, $0A, $0A, $09, $09, $09, $09
 	db $09, $09, $09, $0A, $0A, $0A, $0A, $0A, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $0A, $0A, $0A, $09, $09, $09, $09, $09, $09, $09, $09, $09, $0A, $0A, $0A
+
+CommPanel_CaptionMap7:: ; 71:52D8
 	db $62, $63, $66, $43, $44, $0B, $A0, $A0, $A0, $A0, $A0, $A0, $72, $73, $6B, $53
 	db $54, $1B, $A0, $A0, $A0, $A0, $A0, $A0, $67, $68, $69, $6A, $4E, $4F, $2D, $2E
 	db $25, $A0, $A0, $A0, $6C, $6D, $6E, $6F, $5E, $5F, $3D, $3E, $35, $A0, $A0, $A0
 	db $09, $09, $09, $09, $09, $09, $0A, $0A, $0A, $0A, $0A, $0A, $09, $09, $09, $09
 	db $09, $09, $0A, $0A, $0A, $0A, $0A, $0A, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $0A, $0A, $0A, $09, $09, $09, $09, $09, $09, $09, $09, $09, $0A, $0A, $0A
+
+; ---- data $5338-$5340 (8 bytes) [HYPOTHESIS] all zero; role unknown, kept separate from the eight confirmed caption-map records
+ZeroByteSpan_71_5338:: ; 71:5338
 	db $00, $00, $00, $00, $00, $00, $00, $00
 
 ; ---- gfx $5340-$5740 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:79DF: hl=$5340 a=$71 c=$40 de=$9001 (dest VRAM $9000, vbank=1)
@@ -190,9 +205,9 @@ Gfx_Registration_DeleteConfirm_Tiles9400Vb1:: ; 71:5740
 
 	INCBIN "gfx/account/screens_bank71/tiles_5740.2bpp"
 
-; ---- gfx $5B40-$5DC0 (640 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:7A16: hl=$59C0 a=$71 c=$40 de=$9001 (dest VRAM $9000, vbank=1) [clipped from 59C0-5DC0 by higher-priority evidence]
+; ---- gfx $5B40-$5DC0 (640 bytes) [CONFIRMED] tile-source slice in Registration_DeleteConfirm_Setup at 68:7A16: request $59C0-$5DC0 maps to VRAM $9000-$9400 in VB1; this 40-tile slice supplies $5B40-$5DC0
 
-Data_71_5B40:: ; 71:5B40
+Gfx_Registration_DeleteConfirm_TileSource_5B40:: ; 71:5B40
 	INCBIN "gfx/account/screens_bank71/tiles_5b40.2bpp"
 
 ; ---- gfx $5DC0-$61C0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:7A28: hl=$5DC0 a=$71 c=$40 de=$9401 (dest VRAM $9400, vbank=1)
@@ -201,14 +216,14 @@ Gfx_Registration_Delete_Tiles9400Vb1:: ; 71:5DC0
 
 	INCBIN "gfx/account/screens_bank71/tiles_5dc0.2bpp"
 
-; ---- gfx $61C0-$6440 (640 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:7BF7: hl=$6140 a=$71 c=$30 de=$8000 (dest VRAM $8000, vbank=0) [clipped from 6140-6440 by higher-priority evidence]
+; ---- gfx $61C0-$6440 (640 bytes) [CONFIRMED] tile-source slice for Registration_DeleteExecute_Setup: included by HDMA at 68:7BF7 from $6140 to $6440 into VRAM $8000 VB0 and at 68:7BD3 from $6180-$6580 into VRAM $8800 VB1
 
-Data_71_61C0:: ; 71:61C0
+Gfx_Registration_DeleteExecute_TileSource_61C0:: ; 71:61C0
 	INCBIN "gfx/account/screens_bank71/tiles_61c0.2bpp"
 
-; ---- gfx $6440-$6580 (320 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:7BD3: hl=$6180 a=$71 c=$40 de=$8801 (dest VRAM $8800, vbank=1) [clipped from 6180-6580 by higher-priority evidence]
+; ---- gfx $6440-$6580 (320 bytes) [CONFIRMED] tile-source slice for Registration_DeleteExecute_Setup HDMA at 68:7BD3: request $6180-$6580 maps to VRAM $8800-$8C00 in VB1
 
-Data_71_6440:: ; 71:6440
+Gfx_Registration_DeleteExecute_TileSource_6440:: ; 71:6440
 	INCBIN "gfx/account/screens_bank71/tiles_6440.2bpp"
 
 ; ---- gfx $6580-$6680 (256 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:7BE5: hl=$6580 a=$71 c=$10 de=$9001 (dest VRAM $9000, vbank=1)

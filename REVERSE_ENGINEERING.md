@@ -1669,3 +1669,11 @@ lookup at `4E:6543`; five exact-address descriptor aliases and one duplicate
 frame-table alias were removed. Lookup mechanics are statically confirmed,
 while broader role and natural entry remain HYPOTHESIS. The six-root generic
 Data census is now 275 definitions in 125 owners. See the [bank-4E audit](docs/research/generic_data_name_audit_20261020.md#bank-4e-browser-frame-descriptors-2026-10-21).
+
+The bank-71 communication panel now has eight indexed 4x12 caption
+tilemap/attribute pairs (`CommPanel_CaptionMap0..7`); their captions and
+natural selection meanings remain unresolved. Four confirmed graphics source
+slices in the account screens also received owner-qualified names, with the
+asset catalog updated. The eight zero bytes after the maps remain a separately
+labeled HYPOTHESIS. The six-root generic Data census is now 269 definitions
+in 124 owners. See the [bank-71 audit](docs/research/generic_data_name_audit_20261020.md#bank-71-communication-panel-and-account-screen-graphics-2026-10-21).

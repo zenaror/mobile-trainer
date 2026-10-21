@@ -2315,6 +2315,35 @@ down from 281 definitions in 126 owners: five aliases were retired and one
 generic label was renamed. This lexical count is not a semantic-completion
 measure.
 
+## Bank 71 communication panel and account-screen graphics (2026-10-21)
+
+`Data_71_5038` and `Data_71_5098` are now the eight indexed
+`CommPanel_CaptionMap0..7` records at `71:5038, 5098, 50F8, 5158, 51B8,
+5218, 5278, 52D8`. `CommPanel_DrawCaption` at `68:7611` obtains an index from
+the phase/variant records, reads `CommPanel_CaptionMaps` at `68:765E`, and
+calls `Tilemap_CopyRectAndAttr` with `BC=$040C` and bank `$71`. The helper
+copies four rows of twelve bytes, then the following source bytes to the
+attribute buffer. Each map is therefore 48 tile bytes followed by 48
+attribute bytes. Map indices and record boundaries are CONFIRMED; actual
+caption text and the natural meaning/selection of each index remain unknown.
+The eight zero bytes at `71:5338` are separately labeled
+`ZeroByteSpan_71_5338`; their role remains HYPOTHESIS.
+
+Four generic graphics labels were also replaced with source-slice names.
+`Gfx_CommPanel_TileSource_4500` is within the `68:747A` transfer from
+`71:4490` to `71:4890`, mapped to VRAM `$9000-$9400` in VB1.
+`Gfx_Registration_DeleteConfirm_TileSource_5B40` is the final 40 tiles of
+the `68:7A16` transfer from `71:59C0` to `71:5DC0`, mapped to VRAM
+`$9000-$9400` in VB1. The delete-execute source slices at `71:61C0` and
+`71:6440` participate in the overlapping transfers at `68:7BF7` and
+`68:7BD3`; comments preserve both ranges and VRAM banks. Four matching
+`gfx/assets.tsv` labels were updated. Source payloads, paths, and byte extents
+are unchanged.
+
+The six-root `Data_BB_AAAA::` census is now 269 definitions in 124 owners,
+down from 275 definitions in 125 owners after all six generic labels in this
+owner were replaced. This lexical count is not a semantic-completion measure.
+
 ## Bank 2C address-picker resource names (2026-10-21)
 
 Seven `Data_2C_*` declarations in `gfx/address_book/address_picker.asm` were
