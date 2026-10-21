@@ -1461,3 +1461,32 @@ The two maintained song owners lost 27 redundant `Data_04_AAAA` exports over exi
 | `04:73CA` | `Data_04_73CA` | `SoundSong08_Track3_Sub1` |
 | `04:7444` | `Data_04_7444` | `SoundSong08_Track3_AfterJump` |
 | `04:7445` | `Data_04_7445` | `SoundSong08_Header` |
+
+## Bank 04 song 09 same-address aliases (2026-10-21)
+
+`audio/music/music_09.asm` lost 15 redundant `Data_04_AAAA` exports over
+existing `SoundSong09_*` stream, loop, after-jump, substream and header labels.
+The current symbol map confirms each address pair. Full-token scans found each
+old spelling only at its declaration, with no references in other tracked,
+non-language ASM/INC files or tools, and no local labels depending on the
+removed globals. The declarations became blank lines; the 906-byte owner,
+comments, data and confidence remain unchanged. This does not claim any new
+audio playback behavior.
+
+| Address | Retired label | Retained label |
+|---|---|---|
+| `04:745F` | `Data_04_745F` | `SoundSong09_Track0` |
+| `04:7463` | `Data_04_7463` | `SoundSong09_Track0_Loop` |
+| `04:74B6` | `Data_04_74B6` | `SoundSong09_Track0_AfterJump` |
+| `04:74B7` | `Data_04_74B7` | `SoundSong09_Track1` |
+| `04:74BB` | `Data_04_74BB` | `SoundSong09_Track1_Loop` |
+| `04:7568` | `Data_04_7568` | `SoundSong09_Track1_AfterJump` |
+| `04:7569` | `Data_04_7569` | `SoundSong09_Track2` |
+| `04:756D` | `Data_04_756D` | `SoundSong09_Track2_Loop` |
+| `04:76B5` | `Data_04_76B5` | `SoundSong09_Track2_AfterJump` |
+| `04:76B6` | `Data_04_76B6` | `SoundSong09_Track3` |
+| `04:76BA` | `Data_04_76BA` | `SoundSong09_Track3_Loop` |
+| `04:76F0` | `Data_04_76F0` | `SoundSong09_Track3_Sub1` |
+| `04:7723` | `Data_04_7723` | `SoundSong09_Track3_Sub2` |
+| `04:77CE` | `Data_04_77CE` | `SoundSong09_Track3_AfterJump` |
+| `04:77CF` | `Data_04_77CF` | `SoundSong09_Header` |

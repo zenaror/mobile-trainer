@@ -1391,3 +1391,10 @@ no local-label scope changes. The 792- and 972-byte stream owners and all
 confidence annotations are unchanged. The ROM remains `RESULT: IDENTICAL`;
 details and the address map are in
 [`docs/research/generic_data_name_audit_20261020.md`](docs/research/generic_data_name_audit_20261020.md#bank-04-song-06-and-song-08-same-address-aliases-2026-10-21).
+
+The same pass pattern then retired 15 unused same-address `Data_04_*` aliases
+from `audio/music/music_09.asm`. Its `SoundSong09_*` labels, 906-byte
+contents, comments and confidence are unchanged; no alias had a current token
+consumer or local-label child. The original build remains byte-identical. See
+the mapping and bounded scan in
+[`docs/research/generic_data_name_audit_20261020.md`](docs/research/generic_data_name_audit_20261020.md#bank-04-song-09-same-address-aliases-2026-10-21).
