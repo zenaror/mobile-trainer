@@ -1611,3 +1611,9 @@ for the internal `66F0-67E0` segment and no longer exports eight duplicate
 `Data_26_*` aliases. The two remaining standalone generic labels stay
 unresolved. The six-root count is now 373 in 133 owners. See the [bank-26
 audit](docs/research/generic_data_name_audit_20261020.md#bank-26-mail-session-tile-aliases-and-clipped-tile-slice-2026-10-21).
+
+The bank-2A save-sender owner now names its 19 frame records, eight animation
+scripts, one slot-animation entry table and seven frame-pointer tables by
+structure. Its orphan script and two unobserved graphics resources retain
+candidate/PROBABLE limits. The six-root generic `Data_BB_AAAA::` count is now
+346 in 132 owners. See the [bank-2A audit](docs/research/generic_data_name_audit_20261020.md#bank-2a-save-sender-animation-structures-2026-10-21).

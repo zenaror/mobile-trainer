@@ -2209,3 +2209,23 @@ boundary changed.
 The six-root `Data_BB_AAAA::` census is now 373 definitions in 133 owners,
 down from 382 after eight aliases were retired and one slice was renamed.
 This lexical count does not measure semantic closure.
+
+## Bank 2A save-sender animation structures (2026-10-21)
+
+The save-sender owner had 37 type/address-only exports: 27 `Data_2A_*` labels,
+eight `Table_2A_*` labels, `Tiles_2A_4FE0` and `Palette_2A_51E0`. Exact-symbol
+searches across maintained ASM/INC and active tools found no external
+consumers; all animation pointers are local to the owner, and only the two
+resource labels appeared in `gfx/assets.tsv`. The 27 data labels now describe
+19 frame records and eight scripts; the unreferenced script at `2A:545C` has a
+candidate-qualified name. The eight table labels now distinguish the
+slot-animation entry table from seven frame-pointer tables. The two remaining
+type/address-only graphics labels are qualified as candidate tiles/palette,
+preserving their existing PROBABLE evidence and lack of a demonstrated
+loader. Existing header statuses, record extents, pointer words, payloads and
+237-line owner layout are unchanged. These names describe bounded structures;
+they do not identify a depicted object or establish natural entry.
+
+The six-root `Data_BB_AAAA::` census is now 346 definitions in 132 owners,
+down from 373/133 after the 27 generic data labels received structural names.
+This lexical count is not a semantic-completion measure.
