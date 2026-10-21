@@ -45,7 +45,7 @@ AbookAddr_Edit:: ; 2F:6D00
 
 ; ---- data $6D3B-$6D40 (5 bytes) [HYPOTHESIS] UNCLASSIFIED 5 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
-Data_2F_6D3B:: ; 2F:6D3B
+AbookAddr_CandidatePopCompareAndJrSpan_6D3B:: ; 2F:6D3B
 	db $F1, $FE, $01, $28, $1B
 
 AbookAddr_Edit_Loop:: ; 2F:6D40
@@ -1493,7 +1493,7 @@ AbookAddr_KeyboardLoop:: ; 2F:75D3
 
 ; ---- data $764C-$764D (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
-Data_2F_764C:: ; 2F:764C
+AbookAddr_CandidateRetOpcode_764C:: ; 2F:764C
 	db $C9
 
 AbookAddr_GetLength:: ; 2F:764D

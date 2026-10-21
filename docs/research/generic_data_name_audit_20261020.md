@@ -3242,3 +3242,12 @@ code in up to 3 of 18 traced scenarios, now reflected in its label. No
 asset-purpose or natural-display claim is added, and no bytes/boundaries
 changed. Exact generic `Data_BB_AAAA` count drops from 45/36 definitions/owners
 to 43/35.
+
+## Address-editor opcode-shaped spans (2026-10-21)
+
+Two neutral labels in `engine/address_book/address_editor.asm` now use
+candidate byte-shape names. `2F:6D3B` contains `$F1,$FE,$01,$28,$1B` (POP AF,
+CP `$01`, JR-shaped displacement), and `2F:764C` contains `$C9` (RET opcode).
+The code/data headers remain **HYPOTHESIS/UNCLASSIFIED**; no entry or execution
+is claimed. No bytes or boundaries changed. Exact generic `Data_BB_AAAA` count
+drops from 43/35 definitions/owners to 41/34.
