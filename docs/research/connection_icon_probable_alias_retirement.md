@@ -9,9 +9,13 @@ Os quarenta cabeçalhos dessas estruturas continuam **PROBABLE**.
 
 O baseline lido já tem em branco os dois aliases CONFIRMED dos tiles retirados
 na unidade anterior. As duas regiões CONFIRMED, seus arquivos e leitores ficam
-intactos. Os 14 bytes de `Data_69_4152` também ficam intactos, com o nome neutro e
-o cabeçalho heurístico PROBABLE: nem zeros nem a ausência de um consumidor
-positivo neste estudo demonstram padding, inutilidade ou um papel gráfico.
+intactos. Naquele checkpoint, os 14 bytes de `Data_69_4152` ficaram intactos,
+com nome neutro e cabeçalho heurístico PROBABLE. A decisão foi supersedida pelo
+censo de alinhamento em `original_closure_followup_20261021.md`, que os nomeia
+`Padding_ConnIcon_Tiles4160Alignment` após correlacionar o fim do código em
+`69:4152`, o preenchimento zero e o início do HDMA em `69:4160`. A classificação
+continua PROBABLE; nenhum leitor direto foi encontrado, sem alegação de
+inutilidade universal.
 
 A derivação própria foi selada antes da consulta ao estudo peer. Houve exposição
 prévia à unidade ConnIcon2, aos resumos ROOT e à conclusão de um spot-check do

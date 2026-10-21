@@ -4,10 +4,10 @@
 
 SECTION "gfx/comm/connection_icon", ROMX
 
-; ---- gfx $4152-$4160 (14 bytes) [PROBABLE] tiles-2bpp: heuristic: 49 coherent tiles (hsim2=0.735 vsim2=0.659, 3 blank) parity 1; 993/1008 bytes also covered by call-site blocks [clipped from 4151-4541 by higher-priority evidence]
+; ---- zero $4152-$4160 (14 bytes) [PROBABLE] zero-filled alignment gap after ConnIcon_LoadGraphics_Request1 code and before the confirmed, 16-byte-aligned tile source at $4160; no direct reader found, universal non-use not proven
 
-Data_69_4152:: ; 69:4152
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+Padding_ConnIcon_Tiles4160Alignment:: ; 69:4152
+	ds $0E, $00
 
 ; ---- gfx $4160-$4560 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 69:4124: hl=$4160 a=$69 c=$40 de=$8200 (dest VRAM $8200, vbank=0)
 

@@ -44,6 +44,16 @@ review.
 
 ## Current naming changes
 
+The 14 zero bytes at `69:4152–415F` are now named
+`Padding_ConnIcon_Tiles4160Alignment` (**PROBABLE**). The connection-icon code
+section ends at `69:4152`; the next source is the confirmed 1024-byte tile HDMA
+source at `69:4160`, aligned to a 16-byte boundary. No direct reader of the
+14-byte gap was found. The original slice at physical ROM offset `0x1A4152` is
+14 zero bytes with SHA-256
+`e7ecebbc590bc88b3761fa6cd03d749f87463dabb67021a5c6768c25ec68b3f2`. This
+supports alignment padding but does not establish universal non-use or hardware
+behavior. The emitted bytes are unchanged.
+
 The clipped 512-byte graphics slice at `5D:6C00–6DFF` is now named
 `Gfx_Registration_WriteConfig_Tiles8A00Vb1`. `Registration_WriteConfig_Setup`
 requests a 64-tile (`$400`-byte) HDMA at `68:6B19`, loading from `5D:6A00`
