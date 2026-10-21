@@ -7,25 +7,21 @@ SECTION "gfx/mailbox/mailbox", ROMX
 ; ---- gfx $5A10-$5E10 (1024 bytes) [CONFIRMED] 64 tiles: executed 00:0749 HDMA load at 25:4B5C (hl=$5A10 a=$25 c=$40 de=$9301 = VRAM bank 1 $9300); loader semantic documented in boot_and_home.md
 
 Mailbox_Tiles_5A10:: ; 25:5A10
-Tiles_25_5A10::
 	INCBIN "gfx/mailbox/mailbox/mailbox_tiles_5a10.2bpp"
 
 ; ---- gfx $5E10-$5F10 (256 bytes) [CONFIRMED] 16 tiles: executed 00:0749 HDMA load at 25:4B71 (hl=$5E10 a=$25 c=$10 de=$9701 = VRAM bank 1 $9700)
 
 Mailbox_Tiles_5E10:: ; 25:5E10
-Tiles_25_5E10::
 	INCBIN "gfx/mailbox/mailbox/mailbox_tiles_5e10.2bpp"
 
 ; ---- gfx $5F10-$6310 (1024 bytes) [PROBABLE] 64 tiles: 00:0749 HDMA load at 25:4C04 (hl=$5F10 a=$25 c=$40 de=$9301, VRAM bank 1 $9300); the call site is static-reached code (PROBABLE), same layout as the executed 25:4B5C load; tile art coherence h=0.566 v=0.564 over 64 tiles
 
 Mailbox_Tiles_5F10:: ; 25:5F10
-Tiles_25_5F10::
 	INCBIN "gfx/mailbox/mailbox/mailbox_tiles_5f10.2bpp"
 
 ; ---- gfx $6310-$6410 (256 bytes) [PROBABLE] 16 tiles: 00:0749 HDMA load at 25:4C19 (hl=$6310 a=$25 c=$10 de=$9701, VRAM bank 1 $9700); static-reached site; ends exactly where the tilemap load 25:6410 starts
 
 Mailbox_Tiles_6310:: ; 25:6310
-Tiles_25_6310::
 	INCBIN "gfx/mailbox/mailbox/mailbox_tiles_6310.2bpp"
 
 ; ---- data $6410-$66E0 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 25:4BC4: hl=$6410 a=$25 b=18 rows c=20 cols (tiles then attrs) de=$D000

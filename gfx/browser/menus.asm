@@ -52,13 +52,11 @@ BrowserMenu2_Map:: ; 72:7720
 ; ---- data $7810-$7828 (24 bytes) [PROBABLE] 3 RGB555 palettes of 4 colours (bit15 clear, black/white ends); 7810 is loaded by ld hl,$7810 (bc=$0010 -> de=$D830, far call 4F:4000) at 72:6417; the third group (7820) follows the same format
 
 BrowserMenu2_Palette:: ; 72:7810
-Palette_72_7810::
 	INCLUDE "gfx/browser/menus/browser_menu2_palette.pal"
 
 ; ---- words $7828-$786C (68 bytes) [PROBABLE] object table for init_object_from_table (00:0A82, de=$7828 a=$72, 4-byte entries = 2 words; callers 4E:5F08.., 72:45D2, 72:46D4, 72:64C6, 72:66BE, 72:6802, 72:6A12); 17 entries, every word lands exactly on a descriptor start of the data block 72:786C-7A1F (partition check)
 
 BrowserShared_ObjTable:: ; 72:7828
-Table_72_7828::
 	sprite_object_entry BrowserMenu_Cursor_ObjAnimData_72_78CA, SpriteScript_72_78F0 ; entry 0
 	sprite_object_entry BrowserMenu_Cursor_ObjAnimData_72_78CA, SpriteScript_72_78F0 ; entry 1
 	sprite_object_entry SpriteFrameTable_72_7976, SpriteScript_72_799D ; entry 2

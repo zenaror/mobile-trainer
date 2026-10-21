@@ -218,7 +218,6 @@ Tilemap_SettingsPhone_SlotMenu_4D_75A0:: ; 4D:75A0
 ; See docs/research/typing_4d_slot_maps.md; no arbitrary cursor-range safety is inferred.
 
 Tilemap_SettingsPhone_SlotMenu_Tab0:: ; 4D:7870
-Tilemap_4D_7870::
 	INCBIN "gfx/settings/screens_bank4d/tilemap_7870.tilemap"
 	INCBIN "gfx/settings/screens_bank4d/tilemap_7870.attrmap"
 
@@ -229,14 +228,12 @@ Tilemap_4D_7870::
 ; See docs/research/typing_4d_slot_maps.md; no arbitrary cursor-range safety is inferred.
 
 Tilemap_SettingsPhone_SlotMenu_Tab1:: ; 4D:78C0
-Tilemap_4D_78C0::
 	INCBIN "gfx/settings/screens_bank4d/tilemap_78c0.tilemap"
 	INCBIN "gfx/settings/screens_bank4d/tilemap_78c0.attrmap"
 
 ; ---- data $7910-$7960 (80 bytes) [PROBABLE] 20x2 tilemap: 40 tile indices (2 rows of 20) then 40 attribute bytes (+0x28); dims from `ld bc,$0214` at 67:50E8, the table is indexed by [$C27D] at `ld hl,$5104` (67:50EE) (v4 correction: earlier text said 8x5 and table 67:510B); word of the pointer table at 67:5104 (70 78 c0 78 10 79)
 
 Tilemap_SettingsPhone_SlotMenu_Tab2:: ; 4D:7910
-Tilemap_4D_7910::
 	INCBIN "gfx/settings/screens_bank4d/tilemap_7910.tilemap"
 	INCBIN "gfx/settings/screens_bank4d/tilemap_7910.attrmap"
 

@@ -7,7 +7,6 @@ SECTION "gfx/account/screens_bank4a", ROMX
 ; ---- words $4000-$4004 (4 bytes) [PROBABLE] entry 0 (all zero, unused) of the 4-byte-entry object table at 4A:4000 read by init_object_from_table (00:0A82; entry 1 at 4004 = 4008,402E is the CONFIRMED read data right after); same family as 72:4E40/72:7828 [verifier: the original text said 4E:4E40, which is code; the sibling table is 72:4E40]
 
 ConfirmPages_ObjTable:: ; 4A:4000
-Table_4A_4000::
 	sprite_object_entry 0, 0 ; entry 0
 
 ; ---- data $4004-$4033 (47 bytes) [CONFIRMED] read as data by executed code (in up to 6/18 scenarios); content class unknown

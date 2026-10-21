@@ -104,7 +104,6 @@ MailConnect_WinMsg_Connected:: ; 27:7948
 ; ---- ptrtable $7A10-$7AF0 (224 bytes) [PROBABLE] 112 words, all inside $7AF0-$7CE4 of the same bank (animation/OAM frame data); tables of 4-byte entries (2 words) addressed by ld de,imm before FarCall 00:0A82 (init_object_from_table: reads the 4-byte entry number B&$7F of the table at DE); each 16-byte table = 4 identical-pair entries; callers e.g. 26:4064 ld de,$7A30, 27:4247, 27:4CCB ld de,$7A10 (a=$27 b=$81)
 
 MailConnect_ObjTable:: ; 27:7A10
-Table_27_7A10::
 	sprite_object_entry MailConnect_ObjAnimData_27_7AF0, SpriteScript_27_7B2B ; entry 0
 	sprite_object_entry MailConnect_ObjAnimData_27_7AF0, SpriteScript_27_7B2B ; entry 1
 	sprite_object_entry MailConnect_ObjAnimData_27_7AF0, SpriteScript_27_7B2B ; entry 2

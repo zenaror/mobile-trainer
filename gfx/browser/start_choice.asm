@@ -14,7 +14,6 @@ BrowserStart_Map:: ; 73:4097
 ; ---- data $4367-$438F (40 bytes) [CONFIRMED] tile-index rectangle: 4 rows x 10 columns; ROM73 -> WRAM7 $D089, row stride 32; paired consumer 73:6235 -> 00:16A2; all 40 bytes read in 8 whole/8 union natural scenarios (typing_73_browser_rectangles.md)
 
 BrowserStart_TopMapNormal:: ; 73:4367
-Tilemap_73_4367::
 	INCBIN "gfx/browser/start_choice/browser_start_top_map_normal.tilemap"
 
 ; ---- data $438F-$43AD (30 bytes) [CONFIRMED] tile-index rectangle: 3 rows x 10 columns; ROM73 -> WRAM7 $D129, row stride 32; paired consumer 73:61F0 -> 00:16A2; all 30 bytes read in 19 whole/19 union natural scenarios (typing_73_browser_remaining.md)
@@ -45,7 +44,6 @@ BrowserStart_TopMapSelected:: ; 73:43F3
 ; ---- data $441B-$4439 (30 bytes) [CONFIRMED] tile-index rectangle: 3 rows x 10 columns; ROM73 -> WRAM7 $D129, row stride 32; paired consumer 73:6250 -> 00:16A2; all 30 bytes read in 8 whole/8 union natural scenarios (typing_73_browser_rectangles.md)
 
 BrowserStart_BottomMapSelected:: ; 73:441B
-Tilemap_73_441B::
 	INCBIN "gfx/browser/start_choice/browser_start_bottom_map_selected.tilemap"
 
 ; ---- data $4439-$4461 (40 bytes) [CONFIRMED] BG attribute rectangle: 4 rows x 10 columns; ROM73 -> WRAM7 $D489, row stride 32; paired consumer 73:620B -> 00:16A2; all 40 bytes read in 19 whole/19 union natural scenarios (typing_73_browser_remaining.md)

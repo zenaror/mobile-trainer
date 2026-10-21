@@ -7,7 +7,6 @@ SECTION "gfx/error/comm_error_screen", ROMX
 ; ---- data $5516-$57E6 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 5C:52A2: hl=$5516 a=$5C b=18 rows c=20 cols (tiles then attrs) de=$D000
 
 CommErr_Tilemap_Comm:: ; 5C:5516
-Data_5C_5516::
 	INCBIN "gfx/error/comm_error_screen/comm_err_tilemap_comm.tilemap"
 	INCBIN "gfx/error/comm_error_screen/comm_err_tilemap_comm.attrmap"
 

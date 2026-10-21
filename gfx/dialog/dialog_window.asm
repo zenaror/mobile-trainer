@@ -26,7 +26,6 @@ Dialog_ObjPalette:: ; 72:4E38
 ; ---- words $4E40-$4E44 (4 bytes) [PROBABLE] object table entry 0 (2 words 4E48, 4E6E): table of 4-byte entries read by init_object_from_table (00:0A82, de=$4E40 a=$72 at 72:40CB and 72:4252, index B&7F = 1 executed); entry 1 (4E44, CONFIRMED read) holds the same two words; both words land on the sprite-list data at 72:4E48/4E6E
 
 Dialog_CursorObjTable:: ; 72:4E40
-Table_72_4E40::
 	sprite_object_entry Dialog_Cursor_Anim0Frames, Dialog_Cursor_Anim0Script ; entry 0
 
 ; ---- data $4E44-$4E73 (47 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown [clipped from 4E44-502B by higher-priority evidence]

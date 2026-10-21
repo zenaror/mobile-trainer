@@ -7,7 +7,6 @@ SECTION "gfx/mail/session_objects", ROMX
 ; ---- words $6F20-$7040 (288 bytes) [PROBABLE] 18 rows of 16 bytes = 4 identical 4-byte object-table entries (ptr to frame table, ptr to script); every pointer lands on a frame-table/script start found by the sequential sweep of 6E80-7A5D (28:6E80-7A5D); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs [v4: bytes 6F24-6F28, 6F34-6F38, 7024-7028, 7034-7038 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 MailSession_ObjTable_6F20:: ; 28:6F20
-Table_28_6F20::
 	sprite_object_entry MailSession_6F20_ObjAnimData, SpriteScript_28_7066 ; entry 0
 	sprite_object_entry MailSession_6F20_ObjAnimData, SpriteScript_28_7066 ; entry 1
 	sprite_object_entry MailSession_6F20_ObjAnimData, SpriteScript_28_7066 ; entry 2
@@ -93,7 +92,6 @@ MailSession_ObjTable_6F20_Entry68:: ; 28:7030
 ; ---- data $7040-$72FB (699 bytes) [PROBABLE] 18 object record(s): 18 frame tables, 33 frames, 18 scripts, tiled exactly (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 28:6E80-7A5D [v4: bytes 7040-7042, 7044-7055, 7067-7069, 72AF-72FB were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 MailSession_6F20_ObjAnimData:: ; 28:7040
-Data_28_7040::
 	sprite_frame_table SpriteFrame_28_7044, SpriteFrame_28_7055
 SpriteFrame_28_7044:: ; 28:7044
 	sprite_frame 4
@@ -397,7 +395,6 @@ SpriteScript_28_72F6:: ; 28:72F6
 ; ---- words $72FB-$758B (656 bytes) [PROBABLE] 41 rows of 16 bytes = 4 identical 4-byte object-table entries (ptr to frame table, ptr to script); every pointer lands on a frame-table/script start found by the sequential sweep of 6E80-7A5D (28:6E80-7A5D); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs [v4: bytes 732F-7333, 733F-7343, 734F-7353, 737F-7383, 738F-7393, 739F-73A3 ... were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 MailSession_ObjTable_72FB:: ; 28:72FB
-Table_28_72FB::
 	sprite_object_entry MailSession_72FB_ObjAnimData, SpriteScript_28_759E ; entry 0
 	sprite_object_entry MailSession_72FB_ObjAnimData, SpriteScript_28_759E ; entry 1
 	sprite_object_entry MailSession_72FB_ObjAnimData, SpriteScript_28_759E ; entry 2
@@ -604,7 +601,6 @@ MailSession_ObjTable_72FB_Entry160:: ; 28:757B
 ; ---- data $758B-$7A5D (1234 bytes) [PROBABLE] 41 object record(s): 41 frame tables, 53 frames, 41 scripts, tiled exactly (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 28:6E80-7A5D [v4: bytes 75E2-7678, 76EE-7823, 783F-784D were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 MailSession_72FB_ObjAnimData:: ; 28:758B
-Data_28_758B::
 	sprite_frame_table SpriteFrame_28_758D
 SpriteFrame_28_758D:: ; 28:758D
 	sprite_frame 4

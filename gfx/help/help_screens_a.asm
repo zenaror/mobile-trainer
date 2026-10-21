@@ -188,5 +188,4 @@ SpriteScript_6A_649B:: ; 6A:649B
 ; by the first dw at 6A:$64B1 in help_menu_ticker.asm; actual ticker base is $64B2.
 ; Keep the three-byte db and neighboring dw intact; no macro conversion.
 Objects_HelpMenu:: ; 6A:64AE
-Table_6A_64AE::
 	db $30, $63, $9B ; sprite object-table entry kept as db: the item crosses the end of its block

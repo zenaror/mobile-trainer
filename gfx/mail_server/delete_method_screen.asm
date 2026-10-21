@@ -45,7 +45,6 @@ MailServerDeleteMethod_Tilemap_Second:: ; 28:6B30
 ; ---- data $6E00-$6E40 (64 bytes) [CONFIRMED] BG palette: 8 x 4 RGB555 words (all bit15 clear), original-exact; 2 literal loader site(s) (22:424E 23:41FD) pass bank $28, BC=$0040 and DE=$D800 to 4F:4000 Palette_LoadToBuffer, selecting WRAM bank 7 and copying through 00:050C; all 64 bytes read in each of 15/69 existing original-ROM scenarios, with all five loader instruction starts observed; no new visual or hardware observation
 
 MailServerDeleteMethod_BgPalette:: ; 28:6E00
-Palette_28_6E00::
 	INCLUDE "gfx/mail_server/delete_method_screen/mail_server_delete_method_bg_palette.pal"
 ; ---- data $6E40-$6E80 (64 bytes) [CONFIRMED] OBJ palette: 8 x 4 RGB555 words (all bit15 clear), original-exact; 2 literal loader site(s) (22:4262 23:4211) pass bank $28, BC=$0040 and DE=$D840 to 4F:4000 Palette_LoadToBuffer, selecting WRAM bank 7 and copying through 00:050C; all 64 bytes read in each of 15/69 existing original-ROM scenarios, with all five loader instruction starts observed; no new visual or hardware observation
 MailServerDeleteMethod_ObjPalette:: ; 28:6E40
@@ -54,7 +53,6 @@ MailServerDeleteMethod_ObjPalette:: ; 28:6E40
 ; ---- words $6E80-$6EA0 (32 bytes) [PROBABLE] 2 rows of 16 bytes = 4 identical 4-byte object-table entries (ptr to frame table, ptr to script); every pointer lands on a frame-table/script start found by the sequential sweep of 6E80-7A5D (28:6E80-7A5D); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs
 
 MailServerDeleteMethod_ObjTable:: ; 28:6E80
-Table_28_6E80::
 	sprite_object_entry MailServerDeleteMethod_ObjAnimData, SpriteScript_28_6EC6 ; entry 0
 	sprite_object_entry MailServerDeleteMethod_ObjAnimData, SpriteScript_28_6EC6 ; entry 1
 	sprite_object_entry MailServerDeleteMethod_ObjAnimData, SpriteScript_28_6EC6 ; entry 2

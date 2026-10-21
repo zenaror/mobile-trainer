@@ -2681,3 +2681,24 @@ no claim beyond the exact upload. Bytes and confidence are unchanged. The
 restricted six-root `Data_BB_AAAA::` census is now 204 definitions in 114
 owners, down from 208 definitions in 115 owners. This remains a lexical
 count.
+
+## Exact gfx co-aliases retired (2026-10-21)
+
+A current-source census and owner-by-owner static review identified 37 neutral
+co-aliases across 17 `gfx/` owners. In each case, `.sym` put the neutral and
+descriptive labels at the same bank/address; the neutral spelling had no active
+source/tool operands and owned no local-label scope. The 37 redundant
+declarations were removed without changing directives, bytes, physical ranges,
+or confidence. `gfx/assets.tsv` now uses the surviving names in 18 navigation
+labels across 13 distinct old spellings; all other manifest fields are
+unchanged. The complete old-to-current map is in
+[`analysis/naming2/retired_gfx_coaliases_20261021.tsv`](../../analysis/naming2/retired_gfx_coaliases_20261021.tsv).
+
+The prototype message tiles at `52:4080` remain **PROBABLE**. The stale source
+comment now records the static reference from `PageListProto_ShowMessage` and
+explicitly leaves natural runtime use unconfirmed. The safe build returned
+`RESULT: IDENTICAL`; `sym-check` passed with 12,261 labels and 51 constants,
+`palette-check` passed with 162 loads/116 arrays/2 documented over-reads/0
+errors, and `png-check` passed (409 tile sheets, 4 raw views, 37 font sheets,
+95 screen PNGs). A dry-run check found no command compiling the protected
+`engine/mail/sample_data.asm`.

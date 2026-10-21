@@ -158,10 +158,10 @@ gfx/address_book/list/abook_list.attrmap	attrmap	360	gfx/address_book/list.asm	2
 gfx/address_book/list/abook_list.tilemap	tilemap	360	gfx/address_book/list.asm	2F	4D40	CONFIRMED	-	0	20x18	Tilemap_Abook_List
 gfx/address_book/name_editor/abook_name.attrmap	attrmap	360	gfx/address_book/name_editor.asm	2F	6B58	CONFIRMED	-	0	20x18	Tilemap_AbookName
 gfx/address_book/name_editor/abook_name.tilemap	tilemap	360	gfx/address_book/name_editor.asm	2F	69F0	CONFIRMED	-	0	20x18	Tilemap_AbookName
-gfx/address_book/name_editor/palette_6cc0.pal	palette	64	gfx/address_book/name_editor.asm	2F	6CC0	CONFIRMED	-	0		Palette_2F_6CC0
-gfx/address_book/name_editor/tiles_61f0.2bpp	tiles	1024	gfx/address_book/name_editor.asm	2F	61F0	CONFIRMED	exact	0		Tiles_2F_61F0
-gfx/address_book/name_editor/tiles_65f0.2bpp	tiles	256	gfx/address_book/name_editor.asm	2F	65F0	CONFIRMED	exact	0		Tiles_2F_65F0
-gfx/address_book/name_editor/tiles_66f0.2bpp	tiles	768	gfx/address_book/name_editor.asm	2F	66F0	CONFIRMED	exact	0		Tiles_2F_66F0
+gfx/address_book/name_editor/palette_6cc0.pal	palette	64	gfx/address_book/name_editor.asm	2F	6CC0	CONFIRMED	-	0		Palette_AbookName_Bg
+gfx/address_book/name_editor/tiles_61f0.2bpp	tiles	1024	gfx/address_book/name_editor.asm	2F	61F0	CONFIRMED	exact	0		Gfx_AbookName_Tiles9300Vb1
+gfx/address_book/name_editor/tiles_65f0.2bpp	tiles	256	gfx/address_book/name_editor.asm	2F	65F0	CONFIRMED	exact	0		Gfx_AbookName_Tiles9700Vb1
+gfx/address_book/name_editor/tiles_66f0.2bpp	tiles	768	gfx/address_book/name_editor.asm	2F	66F0	CONFIRMED	exact	0		Gfx_AbookName_Tiles8800
 gfx/address_book/save_confirm/addr_save_confirm_bg.pal	palette	64	gfx/address_book/save_confirm.asm	2A	75A0	PROBABLE	-	0		Palette_AddrSaveConfirm_Bg
 gfx/address_book/save_confirm/addr_save_confirm_tiles9300.2bpp	tiles	1024	gfx/address_book/save_confirm.asm	2A	75E0	CONFIRMED	exact	0		Gfx_AddrSaveConfirm_Tiles9300Vb1
 gfx/address_book/save_confirm/addr_save_confirm_tiles9700.2bpp	tiles	64	gfx/address_book/save_confirm.asm	2A	79E0	CONFIRMED	exact	0		Gfx_AddrSaveConfirm_Tiles9700Vb1
@@ -233,7 +233,7 @@ gfx/browser/page_list/tiles_5810.2bpp	tiles	160	gfx/browser/page_list.asm	24	581
 gfx/browser/page_list/tiles_5ef1.2bpp	tiles	992	gfx/browser/page_list.asm	24	5EF1	PROBABLE	exact	2		PageList_Tiles_5EF1
 gfx/browser/page_list/tiles_6301.2bpp	tiles	192	gfx/browser/page_list.asm	24	6301	CONFIRMED	exact	0		Tiles_24_6301
 gfx/browser/page_list/tiles_63e0.2bpp	tiles	256	gfx/browser/page_list.asm	24	63E0	CONFIRMED	exact	0		Tiles_24_63E0
-gfx/browser/page_list_prototype_messages/prototype_message_tiles.2bpp	tiles	2944	gfx/browser/page_list_prototype_messages.asm	52	4080	PROBABLE	exact	0		Tiles_52_4080
+gfx/browser/page_list_prototype_messages/prototype_message_tiles.2bpp	tiles	2944	gfx/browser/page_list_prototype_messages.asm	52	4080	PROBABLE	exact	0		Gfx_PageListProto_Tiles9580Vb1
 gfx/browser/start_choice/browser_start_bottom_attr_selected.attrmap	attrmap	30	gfx/browser/start_choice.asm	73	4461	PROBABLE	-	0		BrowserStart_BottomAttrSelected
 gfx/browser/start_choice/browser_start_bottom_map_selected.tilemap	tilemap	30	gfx/browser/start_choice.asm	73	441B	PROBABLE	-	0	10x3	BrowserStart_BottomMapSelected
 gfx/browser/start_choice/browser_start_map.attrmap	attrmap	360	gfx/browser/start_choice.asm	73	41FF	CONFIRMED	-	0	20x18	BrowserStart_Map
@@ -792,12 +792,12 @@ gfx/profile/profile_editor/profile_bg.pal	palette	64	gfx/profile/profile_editor.
 gfx/profile/profile_editor/profile_tiles8800.2bpp	tiles	832	gfx/profile/profile_editor.asm	2A	6800	CONFIRMED	exact	0		Gfx_Profile_Tiles8800
 gfx/profile/profile_editor/profile_tiles9300.2bpp	tiles	1024	gfx/profile/profile_editor.asm	2A	6300	CONFIRMED	exact	0		Gfx_Profile_Tiles9300Vb1
 gfx/profile/profile_editor/profile_tiles9700.2bpp	tiles	256	gfx/profile/profile_editor.asm	2A	6700	CONFIRMED	exact	0		Gfx_Profile_Tiles9700
-gfx/registration/notice_tilemap_bank4b/notice_page_type4.attrmap	attrmap	360	gfx/registration/notice_tilemap_bank4b.asm	4B	4168	CONFIRMED	-	0	20x18	Data_4B_4000
-gfx/registration/notice_tilemap_bank4b/notice_page_type4.tilemap	tilemap	360	gfx/registration/notice_tilemap_bank4b.asm	4B	4000	CONFIRMED	-	0	20x18	Data_4B_4000
-gfx/registration/screens_bank58/palette_7b50.pal	palette	40	gfx/registration/screens_bank58.asm	58	7B50	PROBABLE	-	0		Palette_58_7B50
-gfx/registration/screens_bank58/tilemap_7b78.attrmap	attrmap	360	gfx/registration/screens_bank58.asm	58	7CE0	CONFIRMED	-	0	20x18	Data_58_7B78
-gfx/registration/screens_bank58/tilemap_7b78.tilemap	tilemap	360	gfx/registration/screens_bank58.asm	58	7B78	CONFIRMED	-	0	20x18	Data_58_7B78
-gfx/registration/screens_bank58/tiles_4000.2bpp	tiles	464	gfx/registration/screens_bank58.asm	58	4000	CONFIRMED	exact	3		Tiles_58_4000
+gfx/registration/notice_tilemap_bank4b/notice_page_type4.attrmap	attrmap	360	gfx/registration/notice_tilemap_bank4b.asm	4B	4168	CONFIRMED	-	0	20x18	Tilemap_Notice_4B_4000
+gfx/registration/notice_tilemap_bank4b/notice_page_type4.tilemap	tilemap	360	gfx/registration/notice_tilemap_bank4b.asm	4B	4000	CONFIRMED	-	0	20x18	Tilemap_Notice_4B_4000
+gfx/registration/screens_bank58/palette_7b50.pal	palette	40	gfx/registration/screens_bank58.asm	58	7B50	PROBABLE	-	0		Palette_Notice_Bg
+gfx/registration/screens_bank58/tilemap_7b78.attrmap	attrmap	360	gfx/registration/screens_bank58.asm	58	7CE0	CONFIRMED	-	0	20x18	Tilemap_Notice_58_7B78
+gfx/registration/screens_bank58/tilemap_7b78.tilemap	tilemap	360	gfx/registration/screens_bank58.asm	58	7B78	CONFIRMED	-	0	20x18	Tilemap_Notice_58_7B78
+gfx/registration/screens_bank58/tiles_4000.2bpp	tiles	464	gfx/registration/screens_bank58.asm	58	4000	CONFIRMED	exact	3		Gfx_Notice_Tiles9000Vb1
 gfx/registration/screens_bank58/tiles_41d0.2bpp	tiles	640	gfx/registration/screens_bank58.asm	58	41D0	PROBABLE	exact	0		Tiles_58_41D0
 gfx/registration/screens_bank58/tiles_4450.2bpp	tiles	640	gfx/registration/screens_bank58.asm	58	4450	PROBABLE	exact	0		Tiles_58_4450
 gfx/registration/screens_bank58/tiles_46d0.2bpp	tiles	1920	gfx/registration/screens_bank58.asm	58	46D0	PROBABLE	exact	0		Tiles_58_46D0
@@ -854,12 +854,12 @@ gfx/settings/screens_bank4d/settings_phone_choice_menu_entry2_4d_5bf8.attrmap	at
 gfx/settings/screens_bank4d/settings_phone_choice_menu_entry2_4d_5bf8.tilemap	tilemap	70	gfx/settings/screens_bank4d.asm	4D	5BF8	CONFIRMED	-	0	14x5	Tilemap_SettingsPhone_ChoiceMenu_Entry2
 gfx/settings/screens_bank4d/settings_phone_choice_menu_entry3_4d_5c84.attrmap	attrmap	70	gfx/settings/screens_bank4d.asm	4D	5CCA	CONFIRMED	-	0	14x5	Tilemap_SettingsPhone_ChoiceMenu_Entry3
 gfx/settings/screens_bank4d/settings_phone_choice_menu_entry3_4d_5c84.tilemap	tilemap	70	gfx/settings/screens_bank4d.asm	4D	5C84	CONFIRMED	-	0	14x5	Tilemap_SettingsPhone_ChoiceMenu_Entry3
-gfx/settings/screens_bank4d/tilemap_7870.attrmap	attrmap	40	gfx/settings/screens_bank4d.asm	4D	7898	CONFIRMED	-	0	20x2	Tilemap_4D_7870
-gfx/settings/screens_bank4d/tilemap_7870.tilemap	tilemap	40	gfx/settings/screens_bank4d.asm	4D	7870	CONFIRMED	-	0	20x2	Tilemap_4D_7870
-gfx/settings/screens_bank4d/tilemap_78c0.attrmap	attrmap	40	gfx/settings/screens_bank4d.asm	4D	78E8	CONFIRMED	-	0	20x2	Tilemap_4D_78C0
-gfx/settings/screens_bank4d/tilemap_78c0.tilemap	tilemap	40	gfx/settings/screens_bank4d.asm	4D	78C0	CONFIRMED	-	0	20x2	Tilemap_4D_78C0
-gfx/settings/screens_bank4d/tilemap_7910.attrmap	attrmap	40	gfx/settings/screens_bank4d.asm	4D	7938	PROBABLE	-	0	20x2	Tilemap_4D_7910
-gfx/settings/screens_bank4d/tilemap_7910.tilemap	tilemap	40	gfx/settings/screens_bank4d.asm	4D	7910	PROBABLE	-	0	20x2	Tilemap_4D_7910
+gfx/settings/screens_bank4d/tilemap_7870.attrmap	attrmap	40	gfx/settings/screens_bank4d.asm	4D	7898	CONFIRMED	-	0	20x2	Tilemap_SettingsPhone_SlotMenu_Tab0
+gfx/settings/screens_bank4d/tilemap_7870.tilemap	tilemap	40	gfx/settings/screens_bank4d.asm	4D	7870	CONFIRMED	-	0	20x2	Tilemap_SettingsPhone_SlotMenu_Tab0
+gfx/settings/screens_bank4d/tilemap_78c0.attrmap	attrmap	40	gfx/settings/screens_bank4d.asm	4D	78E8	CONFIRMED	-	0	20x2	Tilemap_SettingsPhone_SlotMenu_Tab1
+gfx/settings/screens_bank4d/tilemap_78c0.tilemap	tilemap	40	gfx/settings/screens_bank4d.asm	4D	78C0	CONFIRMED	-	0	20x2	Tilemap_SettingsPhone_SlotMenu_Tab1
+gfx/settings/screens_bank4d/tilemap_7910.attrmap	attrmap	40	gfx/settings/screens_bank4d.asm	4D	7938	PROBABLE	-	0	20x2	Tilemap_SettingsPhone_SlotMenu_Tab2
+gfx/settings/screens_bank4d/tilemap_7910.tilemap	tilemap	40	gfx/settings/screens_bank4d.asm	4D	7910	PROBABLE	-	0	20x2	Tilemap_SettingsPhone_SlotMenu_Tab2
 gfx/settings/screens_bank4d/tiles_4000.2bpp	tiles	512	gfx/settings/screens_bank4d.asm	4D	4000	CONFIRMED	exact	0		Gfx_SettingsPhone_ChoiceMenu_Tiles8000Vb1
 gfx/settings/screens_bank4d/tiles_4200.2bpp	tiles	784	gfx/settings/screens_bank4d.asm	4D	4200	CONFIRMED	exact	15		Gfx_SettingsPhone_ChoiceMenu_TileSlice8800Vb1_4D_4200
 gfx/settings/screens_bank4d/tiles_4510.2bpp	tiles	256	gfx/settings/screens_bank4d.asm	4D	4510	CONFIRMED	exact	0		Gfx_SettingsPhone_ChoiceMenu_Tiles8C00Vb1_4D_4510
@@ -981,5 +981,5 @@ gfx/browser/page_list_candidate/tilemap_67d0.tilemap	tilemap	360	gfx/browser/pag
 gfx/browser/page_list_candidate/tiles_62b0.2bpp	tiles	1024	gfx/browser/page_list_candidate.asm	7F	62B0	PROBABLE	exact	0		PageListProto_Tiles_62B0
 gfx/browser/page_list_candidate/tiles_66b0.2bpp	tiles	288	gfx/browser/page_list_candidate.asm	7F	66B0	PROBABLE	exact	0		PageListProto_Tiles_66B0
 gfx/browser/page_list_candidate/tiles_6ae0.2bpp	tiles	656	gfx/browser/page_list_candidate.asm	7F	6AE0	PROBABLE	exact	7		PageListProto_Tiles_6AE0
-gfx/unreferenced/page_list_prototype_objects/palette_7b00.pal	palette	64	gfx/unreferenced/page_list_prototype_objects.asm	7F	7B00	PROBABLE	-	0		Palette_7F_7B00
+gfx/unreferenced/page_list_prototype_objects/palette_7b00.pal	palette	64	gfx/unreferenced/page_list_prototype_objects.asm	7F	7B00	PROBABLE	-	0		Palette_TextCursor_Obj
 gfx/unreferenced/page_list_prototype_objects/tiles_7830.2bpp	tiles	720	gfx/unreferenced/page_list_prototype_objects.asm	7F	7830	PROBABLE	exact	0		Tiles_7F_7830
