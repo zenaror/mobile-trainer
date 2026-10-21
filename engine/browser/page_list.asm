@@ -351,7 +351,7 @@ Wram6_CopyGooUrlAndTitleToPageBuffers:: ; 24:42B0 [PROBABLE] operation; entry/pu
 	cp a, $00
 	jr nz, .l42BC
 	ld de, wBrowserPageTitle
-	ld hl, String_24_42E7
+	ld hl, String_Browser_CandidateGooPageTitle
 .l42C9 ; 24:42C9
 	ld a, [hli]
 	ld [de], a
@@ -367,10 +367,10 @@ Url_GooNeJp:: ; 24:42D1
 	db "http://www.goo.ne.jp/", 0
 POPC
 
-; ---- text $42E7-$42F0 (9 bytes) [PROBABLE] Shift-JIS NUL-terminated string (くーくー), addressed by ld hl,$42E7 at 24:42C6
+; ---- text $42E7-$42F0 (9 bytes) [PROBABLE] Shift-JIS NUL-terminated candidate page-title text (くーくー), copied to wBrowserPageTitle by 24:42B0; routine entry/natural use unproved
 
 PUSHC sjis
-String_24_42E7:: ; 24:42E7
+String_Browser_CandidateGooPageTitle:: ; 24:42E7
 	db "くーくー", 0
 POPC
 

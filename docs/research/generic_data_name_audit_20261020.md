@@ -3107,9 +3107,10 @@ bytes after the first line and before the fifth. They are now named for their
 message and structural line range: lines 2–4, or the trailing fifth line.
 This is a structural interpretation (**PROBABLE**), not proof that each menu
 action is naturally displayed. The byte directives and addresses are
-unchanged. `String_24_42E7` remains neutral: static code copies it to the page
-title buffer, but the text `くーくー` does not establish a page identity or
-meaning. The eight retired spellings had no other active source consumers.
+unchanged. At this checkpoint `String_24_42E7` remained neutral: static code
+copies it to the page-title buffer, but the text `くーくー` did not establish a
+page identity or meaning. A later pass candidate-qualified it as described
+below. The eight retired spellings had no other active source consumers.
 
 ## Bank 55 keyboard text segments (2026-10-21)
 
@@ -3163,3 +3164,13 @@ blank records, and a no-previous-page message. Those content readings do not
 prove a caller or runtime use. Payload bytes, message headers and table words
 are unchanged. This removes 32 labels from the exact neutral
 `String_BB_AAAA` census.
+
+## Browser candidate page-title string (2026-10-21)
+
+The final exact `String_24_42E7` label is now
+`String_Browser_CandidateGooPageTitle`. `Wram6_CopyGooUrlAndTitleToPageBuffers`
+at `24:42B0` copies the bytes into `wBrowserPageTitle`, immediately after
+copying `Url_GooNeJp` into `wBrowserPageUrl`. The destination relationship and
+neighboring URL support the candidate page-title name; entry into the routine
+and the meaning of `くーくー` remain unproved. No bytes or addresses changed.
+The exact neutral `String_BB_AAAA` count is now zero.
