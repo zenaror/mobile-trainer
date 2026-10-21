@@ -313,7 +313,7 @@ def special():
     assert pad == bytes(6)
     newblock = (['; ---- data $526A-$52BA (80 bytes) [%s] tilemap+attr: 1 call site(s); first: Tilemap_CopyRectAndAttrPtr at %02X:%04X: hl=$526A a=$56 b=2 rows c=20 cols (tiles then attrs; the attribute half is read through the pointer wConnectDialog_AttrSrc = $5292) de=$D200%s'
                  % ('CONFIRMED' if ran else 'PROBABLE', ad[0], ad[1], clause), '',
-                 'Tilemap_ConnectDialog_ConnectConfirm_56_526A:: ; 56:526A', 'Data_56_526A::'] + db_lines(pair) +
+                 'Tilemap_ConnectDialog_ConnectConfirm_56_526A:: ; 56:526A', ''] + db_lines(pair) +
                 ['', '; ---- data $52BA-$52C0 (6 bytes) [HYPOTHESIS] 6 bytes of $00 between the 20 x 2 tilemap pair and the next tile sheet (alignment padding); read by no code that was found', '',
                  'Data_56_52BA:: ; 56:52BA'] + db_lines(pad) + [''])
     L = L[:hc] + newblock + L[nxt:]

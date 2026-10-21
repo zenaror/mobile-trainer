@@ -104,6 +104,13 @@ review found no other uses; this removes duplicate symbol names only and does
 not add new routine or execution claims. See
 [`mobile_sdk_main_aliases_20261021.md`](docs/research/mobile_sdk_main_aliases_20261021.md).
 
+The 2026-10-21 bank-56 connect-dialog pass retires 20 generic aliases under
+existing tilemap, graphics, palette, and object-table labels. Nineteen have no
+external source/tool references; the twentieth was removed from the output of
+the historical retyping helper as well. The owner keeps all 268 physical lines
+and the same resource bytes. See
+[`connect_dialog_bank56_aliases_20261021.md`](docs/research/connect_dialog_bank56_aliases_20261021.md).
+
 At `50:4244`, the redundant `Table_50_4244` export has been retired in favor
 of `Table_CommNotice_Screens`, already used by the active reader. Eight
 CommNotice comments now use that retained name; the pointer list and its

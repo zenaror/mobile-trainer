@@ -79,6 +79,7 @@ Reference documents (current):
 | [`keyboard_table_aliases_20261021.md`](research/keyboard_table_aliases_20261021.md) | Nine redundant generic aliases retired from existing keyboard table names |
 | [`mailbox_table_aliases_20261021.md`](research/mailbox_table_aliases_20261021.md) | Eight redundant generic aliases retired from existing mailbox tables |
 | [`mobile_sdk_main_aliases_20261021.md`](research/mobile_sdk_main_aliases_20261021.md) | 21 redundant generic string/table exports retired from existing Mobile SDK labels |
+| [`connect_dialog_bank56_aliases_20261021.md`](research/connect_dialog_bank56_aliases_20261021.md) | 20 redundant generic tilemap, graphics, palette and object-table aliases retired |
 | [`save_sender_address_table_aliases_20261021.md`](research/save_sender_address_table_aliases_20261021.md) | Seven redundant generic aliases retired from address-book save tables and caption |
 | [`home_data_names.md`](research/home_data_names.md) | Bounded original data/resource alias contracts; evidence and caller limits retained |
 | [`mail_gfx_resource_aliases.md`](research/mail_gfx_resource_aliases.md) | Original Mail graphics aliases; load extents, backing and unresolved frame limits |
