@@ -1807,3 +1807,9 @@ exact generic aliases under existing labels. The paired scroll-data comments
 now cite those retained pointer-table names. The pass preserves all bytes,
 boundaries and probable grades; build, symbol and palette checks pass. See the
 [palette/scroll table note](docs/research/palette_scroll_table_aliases_20261021.md).
+
+Four generic aliases were also removed from bank-65 notice-page input and
+digit-record tables; maintained source consumers use the retained names.
+Frozen `config/` and generated `analysis/` snapshots keep historic spellings.
+The alias map and bounded evidence are in the
+[notice-page table note](docs/research/notice_pages_table_aliases_20261021.md).

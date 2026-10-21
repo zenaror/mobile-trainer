@@ -92,7 +92,6 @@ Notice_ShowPage_InputLoop:: ; 65:493C
 ; ---- ptrtable $494E-$4958 (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 65:494B: 5 entries; fixed length (5 words) by the routine; every byte read as data in a trace
 
 Notice_JoypadTable:: ; 65:494E
-Table_65_494E::
 	dw Notice_ShowPage_ButtonA
 	dw Notice_ShowPage_ButtonB
 	dw Notice_ShowPage_IgnoreSelect
@@ -365,20 +364,17 @@ Notice_DrawPageCounter:: ; 65:4AD7
 ; ---- words $4B78-$4B7C (4 bytes) [PROBABLE] 2 pointers to the two lists below (4B7C, 4B92), read by the executed function 4AD7
 
 Notice_DigitRecordLists:: ; 65:4B78
-Table_65_4B78::
 	dw Notice_DigitRecords_Normal, Notice_DigitRecords_Variant
 
 ; ---- words $4B7C-$4B92 (22 bytes) [PROBABLE] 11 words 7E48 7E4C ... 7E70 = addresses of the first 11 four-byte digit-glyph records (top tile, bottom tile, attr, attr) at 58:7E48 (bank 58 table 7E48-7EA0, 22 records); bank-58 addresses, not bank 65
 
 Notice_DigitRecords_Normal:: ; 65:4B7C
-Table_65_4B7C::
 	dw $7E48, $7E4C, $7E50, $7E54, $7E58, $7E5C, $7E60, $7E64
 	dw $7E68, $7E6C, $7E70
 
 ; ---- words $4B92-$4BA8 (22 bytes) [PROBABLE] 11 words 7E74 7E78 ... 7E9C = addresses of the other 11 four-byte records (attr 0A variant) at 58:7E74-7E9C; bank-58 addresses, not bank 65
 
 Notice_DigitRecords_Variant:: ; 65:4B92
-Table_65_4B92::
 	dw $7E74, $7E78, $7E7C, $7E80, $7E84, $7E88, $7E8C, $7E90
 	dw $7E94, $7E98, $7E9C
 
