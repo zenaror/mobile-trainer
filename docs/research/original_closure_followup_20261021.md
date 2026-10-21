@@ -177,6 +177,15 @@ confidence and all emitted directives remain unchanged; frozen analysis
 locators retain the historical aliases. The restricted six-root census is
 now 178 generic `Data_BB_AAAA`/`Font_BB_AAAA` definitions in 108 owners.
 
+In `engine/mail/result_screens.asm`, exact co-located aliases `Data_29_49DA`,
+`Data_29_4F6C` and `Data_29_5060` were retired under
+`Data_MailServerStatus_NumberTemplate_M0`,
+`Data_MailServerStatus_NumberTemplate_M2` and `MailServerStatus_Tiles_5060`.
+Current source consumers already use the retained descriptive labels; frozen
+xref/config/analysis entries preserve historical spellings. Existing text
+and graphics confidence levels and payload bytes are unchanged. The
+restricted six-root census is now 175 generic definitions across 107 owners.
+
 ## Broader name audit and remaining limits
 
 A maintained-source audit found 59 paths carrying `unused` or

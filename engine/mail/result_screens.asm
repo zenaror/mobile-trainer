@@ -1300,7 +1300,6 @@ MailServerStatus_FormatNumber_M0:: ; 29:48C3
 
 PUSHC sjis
 Data_MailServerStatus_NumberTemplate_M0:: ; 29:49DA
-Data_29_49DA::
 	db "０００００", 0
 POPC
 MailServerStatus_NumberOffset_M0:: ; 29:49E5
@@ -2273,7 +2272,6 @@ MailServerStatus_FormatNumber_M2:: ; 29:4E55
 
 PUSHC sjis
 Data_MailServerStatus_NumberTemplate_M2:: ; 29:4F6C
-Data_29_4F6C::
 	db "０００００", 0
 POPC
 MailServerStatus_NumberOffset_M2:: ; 29:4F77
@@ -2437,5 +2435,4 @@ MailResult_StartHDMAAtVBlank:: ; 29:503F
 ; ---- gfx $5060-$5090 (48 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 29:4686: hl=$5060 a=$29 c=$03 de=$9301 (dest VRAM $9300, vbank=1)
 
 MailServerStatus_Tiles_5060:: ; 29:5060
-Data_29_5060::
 	INCBIN "gfx/mail/result_screens/mail_server_status_tiles_5060.2bpp"
