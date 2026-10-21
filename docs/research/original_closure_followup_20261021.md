@@ -187,6 +187,15 @@ are unchanged. Frozen xref/config/analysis records keep the historic names.
 The restricted six-root census is now 172 generic definitions across 106
 owners.
 
+In `engine/account/result_page.asm`, three exact co-located aliases
+`Data_68_77D0`, `Data_68_7831` and `Data_68_7849` were retired under
+`Account_ResultMessageIds`, `Data_Account_ResultPage_BannerTables` and
+`Account_ResultPage_SecondBannerIndexByKind`. The current function-name
+reference was updated; frozen symbol/xref/config/analysis records retain their
+historical address labels. Existing aggregate/table confidence limits and
+all bytes remain unchanged. The restricted six-root census is now 166 generic
+definitions across 104 owners.
+
 In `data/text/top_menu_ticker.asm`, three exact co-located aliases
 `Data_1E_4000`, `Data_1E_400D` and `Data_1E_409F` were retired under
 `Data_TopMenu_StringIndexBank`, `String_TopMenu_Title0` and

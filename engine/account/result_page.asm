@@ -180,7 +180,6 @@ Account_ResultPage_PrintMessage:: ; 68:7745
 ; ---- data $77D0-$77D6 (6 bytes) [PROBABLE] contiguous data block 77D0-77D6: 2 bytes were read as data by executed code in mGBA traces (2 separate read ranges, e.g. 77D0-77D1,77D4-77D5) and 4 bytes between/around those reads were never read; the whole run is one table/buffer read by index (gaps unread in the traces); content class not decoded [merged from 4 regions by classify_g2]
 
 Account_ResultMessageIds:: ; 68:77D0
-Data_68_77D0::
 	db $05, $0E, $0F, $10, $11, $12
 
 Account_ResultPage_LoadBanner:: ; 68:77D6
@@ -250,7 +249,6 @@ Account_ResultPage_LoadBanner:: ; 68:77D6
 ; Exactly 22 bytes naturally read; unread: $7840-$7843 and $784A-$784E.
 ; CONFIRMED consumer roles do not promote those seven unread storage bytes.
 Data_Account_ResultPage_BannerTables:: ; 68:7831
-Data_68_7831::
 	db $F0, $46, $4B, $70, $49, $4B, $70, $4E, $4B, $F0, $4B, $4B, $F0, $46, $4B
 
 ; Second source list $7840-$7849: indices 1/2 read, index 0 unread [PROBABLE storage].
@@ -262,7 +260,6 @@ Table_68_7840::
 ; Second index by kind $7849-$784E: only first byte naturally read [PROBABLE storage].
 ; Static known kinds 0..4; lookup values 0..2. Entry routine has no bounds clamp.
 Account_ResultPage_SecondBannerIndexByKind:: ; 68:7849
-Data_68_7849::
 	db $02, $01, $00, $00, $01
 
 
