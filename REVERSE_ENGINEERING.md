@@ -1589,3 +1589,9 @@ confirmed DMA-covered tile intervals, preserving cross-boundary upload
 limits. Eight same-address `Data_4D_*` aliases and two generic object-table
 aliases were retired under existing symbols. The updated six-root count is
 417 `Data_BB_AAAA::` definitions in 135 owners. See the [bank-4D audit](docs/research/generic_data_name_audit_20261020.md#bank-4d-settings-graphics-slices-and-object-table-aliases-2026-10-21).
+
+Bank 42's 27 type/address-only graphics labels now use
+`FrameDesignCandidate_*` names tied to the existing four filename-derived
+families. They remain candidate resources: no natural loader or screen
+composition has been established. The six-root generic `Data_BB_AAAA::`
+count is now 403 in 134 owners. See the [bank-42 naming audit](docs/research/gfx_generic_name_audit_20261021.md#bank-42-candidate-owner-names-2026-10-21).

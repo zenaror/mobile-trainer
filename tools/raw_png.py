@@ -40,7 +40,7 @@ def definition(path, row=None):
     if row is not None:
         want = dict(path=path, type='raw', size=str(size), asm='gfx/frame_designs/metal_flame_and_creature_borders_42.asm',
                     bank='42', addr='%04X' % addr, status='HYPOTHESIS', png='exact', pad='0',
-                    dims='', label='Data_42_69A0' if addr == 0x69A0 else '')
+                    dims='', label='FrameDesignCandidate_OrangeDoubleLineBorder_RawBacking_69A0' if addr == 0x69A0 else '')
         if any(str(row.get(k, '')) != v for k, v in want.items()):
             raise ValueError('%s: raw codec metadata must retain the explicit extent and raw/HYPOTHESIS status' % path)
     return addr, size, screen, initial_sha

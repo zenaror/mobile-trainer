@@ -29,3 +29,18 @@ The complete 625,149-byte private report is retained at
 `7b511ddde653b245b02623e8f0bf8fcb25d24b63728e9b4fa2887f65d68c576e`). Its
 85-source aggregate SHA-256 is
 `9ce4241d25bbff70fc454a9a3fdcb43814ab7b6c61bae6193fd60bde127e9c5c`.
+
+## Bank 42 candidate-owner names (2026-10-21)
+
+Follow-up inspection of `gfx/frame_designs/metal_flame_and_creature_borders_42.asm`
+revalidated the four filename-derived families in the source and catalog:
+metal screw, jagged flame, blue bubble creature, and orange double line. The
+27 bank/address-only `Tiles_42_*`, `Tilemap_42_*`, `Palette_42_*` and
+`Data_42_*` globals now use `FrameDesignCandidate_*` names keyed to those
+families and their bounded source ranges. The prefix is important: bank 42 has
+no demonstrated natural loader, and the edits do not assert that these assets
+form complete screens, are used by the game, or have a verified visual role.
+Existing CONFIRMED/PROBABLE/HYPOTHESIS comments and byte extents remain. The
+catalog labels were synchronized; the raw-image metadata guard for the
+`42:69A0` backing now expects its candidate raw-backing name. No asset bytes,
+directories, or binary views changed.

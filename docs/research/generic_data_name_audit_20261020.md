@@ -2147,3 +2147,14 @@ The whitespace-aware six-root census is now 417 `Data_BB_AAAA::` definitions
 in 135 owners, down from 430 in 136 owners after 13 Data labels were renamed
 or retired; bank 4D no longer owns a generic `Data_BB_AAAA` label.
 This lexical count does not measure semantic completion.
+
+## Bank 42 frame-design candidate labels (2026-10-21)
+
+In `gfx/frame_designs/metal_flame_and_creature_borders_42.asm`, 27 labels
+whose names exposed only bank, type and address were changed to
+`FrameDesignCandidate_*` names derived from the four existing asset-path
+families and their bounded extents. All prior evidence grades remain; this
+does not establish a natural loader or screen composition. The catalog and the
+`tools/raw_png.py` metadata check now use the updated names. The
+whitespace-aware six-root census is 403 `Data_BB_AAAA::` definitions in 134
+owners, down from 417/135; the change is lexical and not a completion metric.
