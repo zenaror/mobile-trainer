@@ -619,7 +619,6 @@ Kbd_MoveCursor:: ; 55:5F66
 ; ---- words $5FC8-$5FD0 (8 bytes) [CONFIRMED] read as data by executed code (in up to 7/18 scenarios); content class unknown [retyped data->words by classify_g2: every word is an instruction start of a code region of this bank (jump/dispatch table)]
 
 Kbd_MoveCursor_DirTable:: ; 55:5FC8
-Table_55_5FC8::
 	dw $5FD0, $5FF4, $5FFD, $6020
 
 	; [CONFIRMED] 51 insn(s); 51 executed (in up to 8/18 scenarios)
@@ -736,7 +735,6 @@ Kbd_UpdateSticky:: ; 55:6068
 ; ---- words $6087-$608F (8 bytes) [CONFIRMED] read as data by executed code (in up to 7/18 scenarios); content class unknown [retyped data->words by classify_g2: every word is an instruction start of a code region of this bank (jump/dispatch table)]
 
 Kbd_UpdateSticky_StoreDirTable:: ; 55:6087
-Table_55_6087::
 	dw $608F, $60A0, $60B1, $60C2
 
 	; [CONFIRMED] 45 insn(s); 45 executed (in up to 7/18 scenarios)
@@ -800,7 +798,6 @@ Kbd_UpdateSticky_SpecialKey:: ; 55:60E1
 ; ---- words $60F1-$60F9 (8 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown [retyped data->words by classify_g2: every word is an instruction start of a code region of this bank (jump/dispatch table)]
 
 Kbd_UpdateSticky_ClearDirTable:: ; 55:60F1
-Table_55_60F1::
 	dw $60F9, $610A, $611B, $612C
 
 	; [CONFIRMED] 67 insn(s); 67 executed (in up to 11/18 scenarios)
@@ -1070,7 +1067,6 @@ Data_55_62A0::
 ; ---- ptrtable $62B4-$62C8 (20 bytes) [PROBABLE] little-endian word table, 10 entries, monotone=1.00, 0% of targets on string start/after NUL, targets $62C8..$6310; referenced by ld r16,$62B4 at 55:61D4
 
 Table_Kbd_CursorSpriteCharOffsetPtrs:: ; 55:62B4
-Table_55_62B4::
 	dw Table_Kbd_CursorSpriteCharOffsets
 	dw $62D0
 	dw $62D8
@@ -1622,7 +1618,6 @@ Kbd_LoadPageGraphics:: ; 55:66C6
 ; ---- ptrtable $66D9-$66EF (22 bytes) [PROBABLE] code-pointer table, 11 entries: 8/11 words hit known code starts (dispatch idiom `ld a,[hli] ; ld h,[hl] ; ld l,a ; jp hl` at 55:66D8, base from `ld hl,$66D9`; end = cfg inline-table rule, HYPOTHESIS for the exact length); 8/11 targets executed
 
 Kbd_LoadPageGraphics_TypeTable:: ; 55:66D9
-Table_55_66D9::
 	dw Kbd_LoadPageGraphics_T0
 	dw Kbd_LoadPageGraphics_T1
 	dw Kbd_LoadPageGraphics_T2
@@ -1798,7 +1793,6 @@ Kbd_LoadPageGraphics_T6:: ; 55:6858
 ; ---- ptrtable $6869-$686F (6 bytes) [CONFIRMED] code-pointer table, 3 entries: 3/3 words hit own-bank code starts (start is the operand of ld r16); 3/3 targets executed; every byte read as data in a trace
 
 Table_Kbd_T6_PageLoaders:: ; 55:6869
-Table_55_6869::
 	dw Kbd_LoadPageGraphics_T6_Page0
 	dw Kbd_LoadPageGraphics_T6_Page1
 	dw Kbd_LoadPageGraphics_T6_Page2
@@ -1806,7 +1800,6 @@ Table_55_6869::
 ; ---- ptrtable $686F-$6871 (2 bytes) [PROBABLE] one more code pointer ($691C) at the end of the dispatch table that precedes it; target = the code classified at 691C
 
 Table_Kbd_T6_PageLoaders_Page3:: ; 55:686F
-Table_55_686F::
 	dw Kbd_LoadPageGraphics_T6_Page3
 
 Kbd_LoadPageGraphics_T6_Page0:: ; 55:6871
@@ -1930,7 +1923,6 @@ Kbd_LoadPageGraphics_T78:: ; 55:696B
 ; ---- ptrtable $697C-$6982 (6 bytes) [CONFIRMED] code-pointer table, 3 entries: 3/3 words hit own-bank code starts (start is the operand of ld r16); 3/3 targets executed; every byte read as data in a trace
 
 Table_Kbd_T78_PageLoaders:: ; 55:697C
-Table_55_697C::
 	dw Kbd_LoadPageGraphics_T78_Page0
 	dw Kbd_LoadPageGraphics_T78_Page1
 	dw Kbd_LoadPageGraphics_T78_Page2
@@ -1938,7 +1930,6 @@ Table_55_697C::
 ; ---- ptrtable $6982-$6984 (2 bytes) [PROBABLE] one more code pointer ($6A2F) at the end of the dispatch table that precedes it
 
 Table_Kbd_T78_PageLoaders_Page3:: ; 55:6982
-Table_55_6982::
 	dw Kbd_LoadPageGraphics_T78_Page3
 
 Kbd_LoadPageGraphics_T78_Page0:: ; 55:6984

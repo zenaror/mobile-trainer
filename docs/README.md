@@ -74,6 +74,7 @@ Reference documents (current):
 | [`mobile_dictionary_table_aliases_20261021.md`](research/mobile_dictionary_table_aliases_20261021.md) | 12 redundant generic aliases retired from the mobile-dictionary pointer lists |
 | [`browser_page_view_table_aliases_20261021.md`](research/browser_page_view_table_aliases_20261021.md) | Nine redundant generic aliases retired from existing browser page-view table names |
 | [`html_dispatch_table_aliases_20261021.md`](research/html_dispatch_table_aliases_20261021.md) | Four redundant generic aliases retired from HTML URL and dispatch tables |
+| [`keyboard_table_aliases_20261021.md`](research/keyboard_table_aliases_20261021.md) | Nine redundant generic aliases retired from existing keyboard table names |
 | [`home_data_names.md`](research/home_data_names.md) | Bounded original data/resource alias contracts; evidence and caller limits retained |
 | [`mail_gfx_resource_aliases.md`](research/mail_gfx_resource_aliases.md) | Original Mail graphics aliases; load extents, backing and unresolved frame limits |
 | [`mail_sdk_data_names.md`](research/mail_sdk_data_names.md) | Mail strings and pointer tables; finite domains, independent indices and selector-stack caveat |
