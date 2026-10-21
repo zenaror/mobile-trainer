@@ -436,3 +436,13 @@ an already semantic table root; its evidence references the retained tile
 labels. Current-source/tool searches found no other use of the retired names.
 Existing storage classes, evidence levels, bytes and extents are unchanged;
 historical `config/` and `analysis/` snapshots are untouched.
+
+## Bank 22 hidden delete-menu tilemap aliases (2026-10-21)
+
+Removed `Data_22_5110`, `Data_22_53E0` and `Data_22_56B0` from
+`gfx/mail_server/delete_menu_hidden.asm`. They were exact-address aliases of
+`Tilemap_MailSrvDelHidden_Button1`, `Tilemap_MailSrvDelHidden_Button0` and
+`Tilemap_MailSrvDelHidden_Button2`, respectively. Exact-token searches found
+no active assembly or tool references beyond the declarations. Tilemap and
+attrmap includes, extents, CONFIRMED loader evidence and bytes are unchanged;
+historical config/analysis records remain untouched.
