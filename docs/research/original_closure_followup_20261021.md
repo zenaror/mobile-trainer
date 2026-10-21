@@ -807,8 +807,8 @@ INCBIN matches the original ROM slice at physical offset `0x15A8C0`, SHA-256
 `gfx/assets.tsv` now references the descriptive label; asset classification
 remains **CONFIRMED** as tile graphics. This names the transfer continuation
 and makes no extra screen-display claim. Build is `RESULT: IDENTICAL`,
-`sym-check` and `palette-check` pass, and the current neutral-data census is
-123 groups.
+`sym-check` and `palette-check` pass; at this checkpoint the neutral-data
+census was 123 groups.
 
 ## Bank 2F:4094 code/data candidate (2026-10-21)
 
@@ -836,4 +836,18 @@ blocks; the 13 zero bytes fall between the two named resources. No named
 direct reader of the gap was found. The most economical interpretation is
 alignment padding, while reserved/unreferenced zero data cannot be excluded.
 The Japanese build remains byte-identical; `sym-check` and `palette-check`
-pass. The current neutral-data census is 122 groups.
+pass. At this checkpoint the neutral-data census was 122 groups.
+
+## Bank 29 mail-screen alignment gap (2026-10-21)
+
+`Data_29_53F6` is now `Padding_CommTimeHMS_TileHDMAAlignment` with
+**PROBABLE** confidence. The ten-byte interval `29:53F6–5400` consists of
+zeros at physical ROM offset `0xA53F6`, SHA-256
+`01d448afd928065458cf670b60f5a594d735af0172c8d67f22a81680132681ca`.
+The preceding palette extent ends at `53F6`; the next graphics asset starts
+at `5400`, which is 16-byte aligned and is the source of the static HDMA load
+to VRAM bank 1 `$9000–$93FF`. No named direct reader of the gap was found.
+The alignment role is likely but does not exclude reserved zero data. The
+Japanese ROM remains byte-identical, with `sym-check` and `palette-check`
+passing. `data_consumers --stats` now reports 121 neutral groups, 38
+automatic candidates rejected and zero rename rows.

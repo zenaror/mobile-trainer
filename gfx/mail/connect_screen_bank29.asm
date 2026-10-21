@@ -9,9 +9,9 @@ SECTION "gfx/mail/connect_screen_bank29", ROMX
 Data_29_5376:: ; 29:5376
 	INCLUDE "gfx/mail/connect_screen_bank29/palette_5376.pal"
 
-; ---- gfx $53F6-$5400 (10 bytes) [PROBABLE] tiles-2bpp: heuristic: 53 coherent tiles (hsim2=0.790 vsim2=0.794, 6 blank) parity 0; 928/944 bytes also covered by call-site blocks [clipped from 53F0-57A0 by higher-priority evidence]
+; ---- zero $53F6-$5400 (10 bytes) [PROBABLE] 10 zero bytes between the palette extent and the 16-byte-aligned CommTimeHMS tile HDMA source at $5400; alignment-padding role is probable, with no named direct reader found
 
-Data_29_53F6:: ; 29:53F6
+Padding_CommTimeHMS_TileHDMAAlignment:: ; 29:53F6
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
 ; ---- gfx $5400-$5800 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 27:4DCC: hl=$5400 a=$29 c=$40 de=$9001 (dest VRAM $9000, vbank=1) [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv)]
