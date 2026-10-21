@@ -1723,3 +1723,10 @@ duplicate palette/table names. Its unobserved 64-tile footer/frame span gained
 the candidate label `HelpScript_CandidateTiles_6E20`, preserving PROBABLE; the
 ten-byte span at `6A:69E6` remains neutral. The six-root generic-data census
 is now 241 definitions in 121 owners. See the [bank-6A help-script audit](docs/research/generic_data_name_audit_20261020.md#bank-6a-help-script-resources-and-object-table-2026-10-21).
+
+In the bank-2C mail-title graphics owner, three exact `Data_2C_*` aliases and
+one palette alias were retired under existing resource labels. The probable
+object-animation pointer table and target now have candidate-qualified names;
+their caller and runtime role remain unproved, and the 1308-byte mixed span at
+`2C:5150` remains neutral. The restricted six-root generic-data census is now
+237 definitions in 121 owners. See the [bank-2C mail-title audit](docs/research/generic_data_name_audit_20261020.md#bank-2c-mail-title-resource-names-2026-10-21).

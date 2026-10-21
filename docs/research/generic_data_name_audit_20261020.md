@@ -2528,6 +2528,24 @@ to `Objects_HelpScript_Slot2_6A_72BB.png`; its SHA-256 is unchanged
 The restricted six-root `Data_BB_AAAA::` census is now 241 definitions in
 121 owners, down from 245 in 121 owners. This remains a lexical count.
 
+## Bank 2C mail-title resource names (2026-10-21)
+
+In `gfx/mail/mail_title_entry.asm`, `Data_2C_4A30`, `Data_2C_4E30` and
+`Data_2C_5100` duplicated the existing tile, tilemap/attribute and background
+palette labels. These exact aliases had no source consumers and were removed.
+The object-palette alias `Palette_2C_5670` was likewise redundant. The
+unclassified 1308-byte span at `2C:5150` remains `Data_2C_5150` because its
+content boundary is known but its role is not.
+
+The table at `2C:56B0` and its 50-byte target at `2C:56C0` retain PROBABLE
+confidence and now use `MailTitle_ProbableObjAnimFrameTable` and
+`MailTitle_ProbableObjAnimFrameData`. The eight-word table repeatedly points
+to the frame-record list and `$56EF`; the candidate describes the observed
+shape, not a located natural caller or proven runtime role. No bytes or ranges
+changed. The restricted six-root `Data_BB_AAAA::` census is now 237
+definitions in 121 owners, down from 241 in 121 owners. This remains a lexical
+count.
+
 ## Census scope correction (2026-10-21)
 
 The first post-edit lexical count for the bank-2E and bank-25 checkpoints used
