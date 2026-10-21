@@ -3185,3 +3185,13 @@ what the bytes resemble and keep the candidate qualifier; they do not classify
 them as executed instructions, functions or padding. No byte or boundary
 changed. The exact generic `Data_BB_AAAA` count drops from 63/41 owners to
 58/40 owners.
+
+## Address-book name-editor opcode-shaped bytes (2026-10-21)
+
+Four `Data_2F_AAAA` labels in `engine/address_book/name_editor.asm` now use
+candidate names based only on literal bytes: three single `$C9` bytes and one
+five-byte span beginning with `$C9` and containing a `$C3` absolute-jump opcode.
+The source headers classify each as **HYPOTHESIS/UNCLASSIFIED**. The labels do
+not claim executed instructions, function boundaries, or padding. No byte or
+boundary changed. The exact generic `Data_BB_AAAA` count drops from 58/40
+definitions/owners to 54/39.

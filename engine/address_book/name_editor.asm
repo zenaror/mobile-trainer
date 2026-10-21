@@ -1155,7 +1155,7 @@ POPC
 
 ; ---- data $5F92-$5F93 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
-Data_2F_5F92:: ; 2F:5F92
+Data_AbookName_CandidateRetOpcodeByte_5F92:: ; 2F:5F92
 	db $C9
 
 AbookName_ApplyDakutenU:: ; 2F:5F93
@@ -1282,7 +1282,7 @@ POPC
 
 ; ---- data $6045-$6046 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 byte $C9 (ret) between a string and code; no entry found
 
-Data_2F_6045:: ; 2F:6045
+Data_AbookName_CandidateRetOpcodeByte_6045:: ; 2F:6045
 	db $C9
 
 AbookName_ApplyHandakuten:: ; 2F:6046
@@ -1407,7 +1407,7 @@ POPC
 
 ; ---- data $6106-$6107 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
-Data_2F_6106:: ; 2F:6106
+Data_AbookName_CandidateRetOpcodeByte_6106:: ; 2F:6106
 	db $C9
 
 AbookName_OpenKeyboard:: ; 2F:6107
@@ -1512,7 +1512,7 @@ AbookName_KeyboardLoop:: ; 2F:613A
 
 ; ---- data $61C9-$61CE (5 bytes) [HYPOTHESIS] UNCLASSIFIED 5 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
-Data_2F_61C9:: ; 2F:61C9
+Data_AbookName_CandidateOpcodeSpan_61C9:: ; 2F:61C9
 	db $C9, $C3, $3A, $61, $C9
 
 AbookName_GetLength:: ; 2F:61CE
