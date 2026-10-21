@@ -2294,6 +2294,27 @@ down from 288 definitions in 127 owners after six aliases were retired and
 one generic label was replaced by the bounded byte-span name. This lexical
 count is not a semantic-completion measure.
 
+## Bank 4E browser frame descriptors (2026-10-21)
+
+`Data_4E_6543` is now `Browser_FrameAttributeLookup_6543`. The renderer at
+`4E:6486-649D` masks each screen attribute to three bits, reads one of the
+eight bytes at `4E:6543`, and combines it with the original attribute's upper
+bits. The name describes that computed lookup; its broader screen role and
+natural-entry evidence remain **HYPOTHESIS**.
+
+The five `Data_4E_*` labels at `4E:6581/65A0/65BF/65DE/65FD` duplicated the
+existing `Data_Browser_FrameDesc*` labels at the same addresses. The
+`Table_4E_654B` declaration likewise duplicated
+`Table_Browser_FrameDescriptors`. Exact-token source searches found no other
+maintained-source consumers. Only redundant declarations were removed; the
+27 pointer entries, descriptor bytes, comments and confidence levels remain
+unchanged.
+
+The six-root `Data_BB_AAAA::` census is now 275 definitions in 125 owners,
+down from 281 definitions in 126 owners: five aliases were retired and one
+generic label was renamed. This lexical count is not a semantic-completion
+measure.
+
 ## Bank 2C address-picker resource names (2026-10-21)
 
 Seven `Data_2C_*` declarations in `gfx/address_book/address_picker.asm` were

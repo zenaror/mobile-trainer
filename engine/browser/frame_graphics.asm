@@ -484,13 +484,13 @@ Browser_FrameStylePreview_LoadGraphics:: ; 4E:6291
 
 ; ---- data $6543-$654B (8 bytes) [HYPOTHESIS] existing storage/entry level retained; computed attribute lookup at 4E:6486-649D forms DE=$6543+(attribute & $07), reads one of these eight bytes and combines it with (attribute & $E0); mapping requires ROM4E selected and valid WRAM7 screen buffers. The inherited literal-word note did not establish absence of computed readers; no new natural/forced observation, semantic alias or hardware proof is asserted.
 
-Data_4E_6543:: ; 4E:6543
+Browser_FrameAttributeLookup_6543:: ; 4E:6543
 	db $08, $08, $0D, $0E, $0F, $08, $08, $08
 
 ; ---- ptrtable $654B-$6581 (54 bytes) [PROBABLE] 27 x dw screen-descriptor pointers indexed by (wRam_C2C2 & $7F)*2 (ld hl,$654B ; add hl,bc twice ; ld a,[hli] ; ld h,[hl] ; ld l,a at 4E:4026/4E:40D0/4E:5DA2/...; entries 1-2 are CONFIRMED read data, 654D-6551); the targets are the five descriptors 6581/65A0/65BF/65DE/65FD (31 bytes apart), extent 27 entries = up to 4E:6581 where the first descriptor starts [verifier: some of the 21 sites read the index from hD2 instead of wRam_C2C2 (e.g. 4E:40D0: ldh a,[$FFD2]), the table walk (ld bc = 2*(a&$7F)) is the same]
 
 Table_Browser_FrameDescriptors:: ; 4E:654B
-Table_4E_654B::
+
 	dw Data_Browser_FrameDesc0
 	dw Data_Browser_FrameDesc1
 	dw Data_Browser_FrameDesc2
@@ -522,7 +522,7 @@ Table_4E_654B::
 ; ---- data $6581-$65A0 (31 bytes) [PROBABLE] screen descriptor of the table 4E:654B (31 bytes = 5 far pointers `dw addr ; db bank` (15 bytes) + 16 bytes of parameters): the far pointers name tile block, palette, tilemap, tile piece and OBJ palette inside bank 47 blocks (e.g. 47:4100 tiles, 47:4DD0 palettes, 47:4B00 tilemap, 47:4E10 = 4DD0+$40) exactly as laid out in config/regions/bank47.tsv
 
 Data_Browser_FrameDesc0:: ; 4E:6581
-Data_4E_6581::
+
 	dw Tiles_47_4100 ; +00: two $400-byte BG tile transfers from ROM47
 	db BANK(Tiles_47_4100)
 	dw Palette_47_4DD0 ; +03: BG palette source
@@ -545,7 +545,7 @@ Data_4E_6581::
 ; ---- data $65A0-$65BF (31 bytes) [CONFIRMED] frame descriptor: five far pointers and 16 parameters
 
 Data_Browser_FrameDesc1:: ; 4E:65A0
-Data_4E_65A0::
+
 	dw Tiles_47_4E50 ; +00: two $400-byte BG tile transfers from ROM47
 	db BANK(Tiles_47_4E50)
 	dw Palette_47_5B20 ; +03: BG palette source
@@ -568,7 +568,7 @@ Data_4E_65A0::
 ; ---- data $65BF-$65DE (31 bytes) [PROBABLE] screen descriptor of the table 4E:654B (31 bytes = 5 far pointers `dw addr ; db bank` (15 bytes) + 16 bytes of parameters): the far pointers name tile block, palette, tilemap, tile piece and OBJ palette inside bank 47 blocks (e.g. 47:4100 tiles, 47:4DD0 palettes, 47:4B00 tilemap, 47:4E10 = 4DD0+$40) exactly as laid out in config/regions/bank47.tsv
 
 Data_Browser_FrameDesc2:: ; 4E:65BF
-Data_4E_65BF::
+
 	dw Tiles_47_5BA0 ; +00: two $400-byte BG tile transfers from ROM47
 	db BANK(Tiles_47_5BA0)
 	dw Palette_47_6870 ; +03: BG palette source
@@ -591,7 +591,7 @@ Data_4E_65BF::
 ; ---- data $65DE-$65FD (31 bytes) [PROBABLE] screen descriptor of the table 4E:654B (31 bytes = 5 far pointers `dw addr ; db bank` (15 bytes) + 16 bytes of parameters): the far pointers name tile block, palette, tilemap, tile piece and OBJ palette inside bank 47 blocks (e.g. 47:4100 tiles, 47:4DD0 palettes, 47:4B00 tilemap, 47:4E10 = 4DD0+$40) exactly as laid out in config/regions/bank47.tsv
 
 Data_Browser_FrameDesc3:: ; 4E:65DE
-Data_4E_65DE::
+
 	dw Tiles_47_5BA0 ; +00: two $400-byte BG tile transfers from ROM47
 	db BANK(Tiles_47_5BA0)
 	dw Palette_47_6870 ; +03: BG palette source
@@ -614,7 +614,7 @@ Data_4E_65DE::
 ; ---- data $65FD-$661C (31 bytes) [PROBABLE] screen descriptor of the table 4E:654B (31 bytes = 5 far pointers `dw addr ; db bank` (15 bytes) + 16 bytes of parameters): the far pointers name tile block, palette, tilemap, tile piece and OBJ palette inside bank 47 blocks (e.g. 47:4100 tiles, 47:4DD0 palettes, 47:4B00 tilemap, 47:4E10 = 4DD0+$40) exactly as laid out in config/regions/bank47.tsv
 
 Data_Browser_FrameDesc23:: ; 4E:65FD
-Data_4E_65FD::
+
 	dw Tiles_47_4E50 ; +00: two $400-byte BG tile transfers from ROM47
 	db BANK(Tiles_47_4E50)
 	dw Palette_47_5B20 ; +03: BG palette source

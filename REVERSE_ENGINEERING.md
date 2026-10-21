@@ -1663,3 +1663,9 @@ The bank-1A mobile-dictionary owner no longer exports six same-address
 zero-byte-span label, with the existing PROBABLE region classification
 preserved. The six-root generic Data census is now 281 definitions in 126
 owners. See the [bank-1A audit](docs/research/generic_data_name_audit_20261020.md#bank-1a-mobile-dictionary-labels-2026-10-21).
+
+The bank-4E browser frame owner now names the computed eight-byte attribute
+lookup at `4E:6543`; five exact-address descriptor aliases and one duplicate
+frame-table alias were removed. Lookup mechanics are statically confirmed,
+while broader role and natural entry remain HYPOTHESIS. The six-root generic
+Data census is now 275 definitions in 125 owners. See the [bank-4E audit](docs/research/generic_data_name_audit_20261020.md#bank-4e-browser-frame-descriptors-2026-10-21).
