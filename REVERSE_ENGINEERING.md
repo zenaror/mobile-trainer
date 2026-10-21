@@ -1237,3 +1237,9 @@ The address-book save-sender owner lost seven unreferenced `Table_2A_AAAA`
 aliases: six over existing record/slot address lists and one over its existing
 caption string. Contents are unchanged; see
 [`docs/research/save_sender_address_table_aliases_20261021.md`](docs/research/save_sender_address_table_aliases_20261021.md).
+
+The source header for `String_2B_5807` now records its two direct operands in
+`Fill99E1Pattern46_Draw5807TwiceAndUpload` (`2B:57EF` and `2B:57FB`) and its
+reader, `MailGrid_DrawTextLine12`. The string's intended display role and the
+candidate routine's natural entry remain unresolved; details are in
+[`docs/research/original_closure_followup_20261021.md`](docs/research/original_closure_followup_20261021.md).

@@ -152,16 +152,19 @@ classification and proposed bounded follow-up are in
 `0235dfba74b8d468319e4e3725e471ddaeae9db02d3d78f9d82da2bf12196b8a`).
 
 The same review confirmed a stale comment at `2B:641` for `String_2B_5807`:
-it claims no direct reference, while current source has two symbolic operands
-and the callee reads the string at `2B:5896`. The source comment is pending
-correction. A separate independent review found the co-located
-`Data_6A_72A0` alias has no active assembly operands and shares its address
-with `SpriteFrameTable_6A_72A0`; it recommends retiring the generic alias
-while preserving its physical line as blank and updating the current worklist
-comment. The frozen region table and dated history remain unchanged. That
-source edit is pending a safe validation route because the standard symbol
-check traverses the protected mail sample. These reviews made no tracked
-source changes and ran no builds.
+it claimed no direct reference, while current source has two symbolic operands
+and the callee reads the string at `2B:5896`. The source header now records the
+two operand addresses (`2B:57EF` and `2B:57FB`), the reader, and the remaining
+uncertainty about display intent. This is a static-source correction only; it
+does not establish natural entry into the candidate routine. A separate
+independent review found the co-located `Data_6A_72A0` alias has no active
+assembly operands and shares its address with `SpriteFrameTable_6A_72A0`; it
+recommends retiring the generic alias while preserving its physical line as
+blank and updating the current worklist comment. The frozen region table and
+dated history remain unchanged. That alias edit is still pending a safe
+validation route because the standard symbol check traverses the protected
+mail sample. The prior reviews made no tracked source changes and ran no
+builds.
 
 ## Bank53 name-consumer trace and scope correction (2026-10-21)
 

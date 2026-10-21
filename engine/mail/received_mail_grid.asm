@@ -638,7 +638,7 @@ Fill99E1Pattern46_Draw5807TwiceAndUpload:: ; 2B:57CB [PROBABLE] operation; entry
 	; [HYPOTHESIS] lone 'ret' (c9) after the ret at 2B:5805; nothing branches to 5806
 	ret
 
-; ---- text $5807-$5814 (13 bytes) [PROBABLE] Shift-JIS NUL-terminated string: 6 x 81 40 (full-width space) + NUL; sits between a ret and the SRAM table at 5814; no direct reference found (probably a blank-line string)
+; ---- text $5807-$5814 (13 bytes) [PROBABLE] Shift-JIS NUL-terminated string: 6 x 81 40 (full-width space) + NUL; loaded at 2B:57EF and 2B:57FB by Fill99E1Pattern46_Draw5807TwiceAndUpload, then read by MailGrid_DrawTextLine12; intended display role remains uncertain
 
 PUSHC sjis
 String_2B_5807:: ; 2B:5807
