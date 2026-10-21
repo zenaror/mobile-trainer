@@ -188,7 +188,6 @@ HelpMenu_ShowPage_InputLoop:: ; 6C:41B3
 ; ---- ptrtable $41CB-$41D5 (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 6C:41C8: 5 entries; fixed length (5 words) by the routine; every byte read as data in a trace
 
 HelpMenu_InputTable:: ; 6C:41CB
-Table_6C_41CB::
 	dw HelpMenu_OnA
 	dw HelpMenu_OnB
 	dw HelpMenu_Ignore
@@ -604,7 +603,6 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 ; ---- data $4525-$453D (24 bytes) [PROBABLE] 24-byte table 49 00 A9 00 E9 00 49 01 89 00 09 01 89 00 09 01 00 28 46 6E 00 1E 00 1E (12 words), read by executed code in up to 3 scenarios, directly after a ret and before HelpMenu_DrawItemSelected; second identical copy at 4747; the 1-8 byte mapper holes inside this run are bytes not read in the traces; they sit between executed-read pieces of the same block and are not code (no branch enters them, bytes do not decode as a coherent routine)
 
 HelpMenu_ItemDestOffsets:: ; 6C:4525
-Data_6C_4525::
 	db $49, $00, $A9, $00, $E9, $00, $49, $01, $89, $00, $09, $01, $89, $00, $09, $01
 	db $00, $28, $46, $6E, $00, $1E, $00, $1E
 
@@ -877,7 +875,6 @@ HelpMenu_DrawItemSelected:: ; 6C:453D
 ; ---- data $4747-$4763 (28 bytes) [PROBABLE] same 24-byte table as 4525 (49 00 A9 00 E9 00 49 01 ...) followed by 4 bytes 8C AA 3C 3C before HelpMenu_ShowItemText; read in up to 3 scenarios; the 1-8 byte mapper holes inside this run are bytes not read in the traces; they sit between executed-read pieces of the same block and are not code (no branch enters them, bytes do not decode as a coherent routine)
 
 HelpMenu_ItemDestOffsets2:: ; 6C:4747
-Data_6C_4747::
 	db $49, $00, $A9, $00, $E9, $00, $49, $01, $89, $00, $09, $01, $89, $00, $09, $01
 	db $00, $28, $46, $6E, $00, $1E, $00, $1E, $8C, $AA, $3C, $3C
 

@@ -23,7 +23,6 @@ HtmlUrl_SchemeTable:: ; 74:5905
 ; ---- data $591D-$5969 (76 bytes) [PROBABLE] URL scheme name items [ASCII NUL][value byte]: $591D "http" -> $01; $5923 "https" -> $FF; $592A "file" -> $FF; $5930 "mailto" -> $FF; $5938 "ftp" -> $FF; $593D "gopher" -> $FF; $5945 "news" -> $FF; $594B "nntp" -> $FF; $5951 "telnet" -> $FF; $5959 "wais" -> $FF; $595F "prospero" -> $FF (value $01 for http, $FF for the others). (Value byte follows the name as in the tag/attribute tables at 74:4000.)
 
 HtmlUrl_SchemeNames:: ; 74:591D
-Data_74_591D::
 	db $68, $74, $74, $70, $00, $01, $68, $74, $74, $70, $73, $00, $FF, $66, $69, $6C
 	db $65, $00, $FF, $6D, $61, $69, $6C, $74, $6F, $00, $FF, $66, $74, $70, $00, $FF
 	db $67, $6F, $70, $68, $65, $72, $00, $FF, $6E, $65, $77, $73, $00, $FF, $6E, $6E

@@ -808,7 +808,6 @@ Html_Tag_Li_Close:: ; 74:4987
 ; ---- data $4995-$4997 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
 Html_ListBullet:: ; 74:4995
-Data_74_4995::
 	db $81, $45
 
 Html_Tag_Li_Number:: ; 74:4997

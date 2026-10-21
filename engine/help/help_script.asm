@@ -421,7 +421,6 @@ HelpScript_Run_FrameLoop:: ; 6C:5CC5
 ; ---- ptrtable $5CFD-$5D07 (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 6C:5CFA: 5 entries; fixed length (5 words) by the routine; every byte read as data in a trace
 
 HelpScript_InputTable:: ; 6C:5CFD
-Table_6C_5CFD::
 	dw HelpScript_OnA
 	dw HelpScript_OnB
 	dw HelpScript_OnSelect

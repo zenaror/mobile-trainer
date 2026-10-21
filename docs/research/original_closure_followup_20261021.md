@@ -613,6 +613,15 @@ retained. Updated the notice-dialog evidence comments to refer to
 consumer of the old labels. make is byte-identical; sym-check reports 12,397
 labels and data-consumers remains 287 groups / 93 rejected / 0 rows.
 
+## Help and HTML label aliases (2026-10-21)
+
+Removed six exact-address `Data_74_*`/`Table_6C_*` aliases from the help menu,
+help script, HTML tag and URL owners. Existing names for the help input tables,
+item-destination offsets, list bullet and URL scheme names remain. Exact-token
+search found no active source/tool references to the retired symbols. Bytes
+and extents are unchanged; make is byte-identical and sym-check reports 12,381
+labels.
+
 ## Debug and communication-error resource aliases (2026-10-21)
 
 Removed ten exact-address `Data_*`/`Table_*` aliases from the communication
