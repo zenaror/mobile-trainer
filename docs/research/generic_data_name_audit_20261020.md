@@ -2047,3 +2047,30 @@ found no current maintained-source or tool consumer outside the owner; frozen
 The six-root whitespace-aware lexical count is 485
 `Data_BB_AAAA::` definitions in 137 owners after these 15 data-label renames;
 this is not a measure of semantic completion.
+
+## Bank 70 third and fourth communication-scene object-animation groups (2026-10-21)
+
+The probable table at `70:4DBB` is now `CommScene_ObjAnimTable3`. Its null
+entry 0 is followed by four pointer-list/script pairs. The table at `70:5272`
+is now `CommScene_ObjAnimTable4`; it has a null entry 0 and one non-null
+pair. Both retain **PROBABLE** status because no executed caller was found.
+Frame labels below use pointer-list order from zero and do not identify a
+sprite subject or resolve the first two OAM fields.
+
+| Table entry | Frame-pointer list | Frame-record addresses in pointer order | Candidate script |
+|---|---|---|---|
+| `ObjAnimTable3` entry 1 | `4DCF` -> `CommScene_ObjAnimTable3_Entry1_FramePointers` | `4DD7, 4DE8, 4DFD, 4E1A` | `4E47` -> `CommScene_ObjAnimTable3_Entry1_Script` |
+| `ObjAnimTable3` entry 2 | `4E50` -> `CommScene_ObjAnimTable3_Entry2_FramePointers` | `4E58, 4EB5, 4F16, 4F7B` | `4FE4` -> `CommScene_ObjAnimTable3_Entry2_Script` |
+| `ObjAnimTable3` entry 3 | `4FED` -> `CommScene_ObjAnimTable3_Entry3_FramePointers` | `4FF7, 5050, 50A9, 50F6, 513B` | `517C` -> `CommScene_ObjAnimTable3_Entry3_Script` |
+| `ObjAnimTable3` entry 4 | `5187` -> `CommScene_ObjAnimTable3_Entry4_FramePointers` | `5193, 51B4, 51CD, 51DE, 5203, 5240` | `5265` -> `CommScene_ObjAnimTable3_Entry4_Script` |
+| `ObjAnimTable4` entry 1 | `527A` -> `CommScene_ObjAnimTable4_Entry1_FramePointers` | `5280, 52C1, 5302` | `5343` -> `CommScene_ObjAnimTable4_Entry1_Script` |
+
+The old master/list names were `Table_70_4DBB`, `Table_70_4DCF`,
+`Table_70_4E50`, `Table_70_4FED`, `Table_70_5187`, `Table_70_5272` and
+`Table_70_527A`; former frame and script names were `Data_70_*` at the
+addresses above. Only labels and pointer operands changed. No data directives
+or physical byte ranges changed. The bounded maintained-source/tool search
+found no consumers outside this owner; frozen `config/` and historical
+analysis retain old names. The six-root whitespace-aware lexical count is now
+458 `Data_BB_AAAA::` definitions in 137 owners after these 27 Data-label
+renames. This is not a semantic-completion measure.
