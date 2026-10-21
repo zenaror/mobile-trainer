@@ -468,7 +468,6 @@ Charset_Iso2022JpToSjis_Loop:: ; 7E:7D75
 ; ---- words $7D8F-$7D99 (10 bytes) [PROBABLE] 5-entry jump table (7D99, 7DB0, 7DE5, 7E05, 7E1E) of the executed dispatcher at 7E:7D7B-7D8E (ldh a,[$FFB1] ; add a,a ; add a,$8F ; ... ld a,[hli] ; ld h,[hl] ; ld l,a ; jp hl); entry 0 is CONFIRMED read data, entries 1-4 are the starts of the handlers 7DB0/7DE5/7E05/7E1E (each begins with pop hl)
 
 Charset_Iso2022JpStates:: ; 7E:7D8F
-Table_7E_7D8F::
 	dw $7D99, $7DB0, $7DE5, $7E05, $7E1E
 
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios)

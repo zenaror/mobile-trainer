@@ -232,7 +232,6 @@ Browser_WrapImageInHtml:: ; 4C:4DFB
 
 PUSHC sjis
 String_Html_PageHead:: ; 4C:4F11
-String_4C_4F11::
 	db "<html><head><title>", 0
 POPC
 
@@ -241,7 +240,6 @@ POPC
 
 PUSHC sjis
 String_Html_TitleToImg:: ; 4C:4F25
-String_4C_4F25::
 	db "</title></head><body><img src=\"", 0
 POPC
 
@@ -250,6 +248,5 @@ POPC
 
 PUSHC sjis
 String_Html_ImgTail:: ; 4C:4F45
-String_4C_4F45::
 	db "\"></body></html>", 0
 POPC

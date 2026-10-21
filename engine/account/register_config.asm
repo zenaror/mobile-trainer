@@ -367,6 +367,5 @@ Config_HostPrefixStrings:: ; 68:6E03
 
 PUSHC sjis
 Config_DionDomainSuffix:: ; 68:6E0E
-String_68_6E0E::
 	db ".dion.ne.jp", 0
 POPC

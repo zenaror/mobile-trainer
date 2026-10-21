@@ -345,7 +345,6 @@ Mail_ApplyTimezoneOffset:: ; 54:5240
 
 PUSHC sjis
 String_Mail_Months:: ; 54:5343
-String_54_5343::
 	db "janfebmaraprmayjunjulaugsepoctnovdec", 0
 POPC
 

@@ -879,7 +879,6 @@ BrowserMenu_TwoItemRecords:: ; 72:6AEC
 
 PUSHC sjis
 BrowserMenu_TwoItemTexts:: ; 72:6AFA
-String_72_6AFA::
 	db "　　　　　でんわを　きります　　　　　　", 0
 String_72_6B23:: ; 72:6B23
 	db "　　　トップメニューに　もどります　　　", 0
@@ -901,7 +900,6 @@ BrowserMenu_ThreeItemRecords:: ; 72:6B4C
 
 PUSHC sjis
 BrowserMenu_ThreeItemTexts:: ; 72:6B68
-String_72_6B68::
 	db "　ページリストへの　かきこみができます　", 0
 String_72_6B91:: ; 72:6B91
 	db "　　　　　でんわを　きります　　　　　　", 0
@@ -909,11 +907,10 @@ String_72_6BBA:: ; 72:6BBA
 	db "　ホームページを　しゅうりょうします　　", 0
 POPC
 
-; ---- text $6BE3-$6C0C (41 bytes) [PROBABLE] text: 20 full-width characters line (blanks and ？ placeholders) + NUL, same 32-byte-line record style as 72:6B68 (String region right before, decodes as cp932); no table pointer found
+; ---- text $6BE3-$6C0C (41 bytes) [PROBABLE] text: 20 full-width characters line (blanks and ？ placeholders) + NUL, same 32-byte-line record style as 72:6B68 (String region right before, decodes as cp932); record 3 of BrowserMenu_ThreeItemRecords stores a pointer here (record remains PROBABLE; natural selection is unconfirmed)
 
 PUSHC sjis
 BrowserMenu_PlaceholderText:: ; 72:6BE3
-String_72_6BE3::
 	db "　　　　　　？？？？？？？？　　　　　　", 0
 POPC
 

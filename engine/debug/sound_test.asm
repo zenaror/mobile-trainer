@@ -340,7 +340,6 @@ SoundTest_LoadHelpText:: ; 1B:42C4
 
 PUSHC sjis
 String_SoundTest_Help:: ; 1B:4314
-String_1B_4314::
 	db "　Ａ：ＭＵＳＩＣ　Ｂ：ＳＯＵＮＤＳｔａ：ＳＴＯＰ　Ｓｅｌ：ＥＮＤ　↑↓（←→）：Ｎｕｍｂｅｒ", 0
 POPC
 
@@ -468,7 +467,6 @@ SoundTest_DrawNumber:: ; 1B:4371
 
 PUSHC sjis
 String_SoundTest_HexChars:: ; 1B:4430
-String_1B_4430::
 	db "０１２３４５６７８９ＡＢＣＤＥＦ"
 POPC
 

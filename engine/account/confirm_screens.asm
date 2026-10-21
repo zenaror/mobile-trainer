@@ -602,7 +602,6 @@ Dial_DefaultNumberTable:: ; 68:67AE
 
 PUSHC sjis
 Dial_DefaultNumber0:: ; 68:67B6
-String_68_67B6::
 	db "#9477", 0
 POPC
 
@@ -610,7 +609,6 @@ POPC
 
 PUSHC sjis
 Dial_DefaultNumber1:: ; 68:67BC
-String_68_67BC::
 	db "#9477", 0
 POPC
 
@@ -618,7 +616,6 @@ POPC
 
 PUSHC sjis
 Dial_DefaultNumber2:: ; 68:67C2
-String_68_67C2::
 	db "0077487752", 0
 POPC
 
@@ -626,7 +623,6 @@ POPC
 
 PUSHC sjis
 Dial_DefaultNumber3:: ; 68:67CD
-String_68_67CD::
 	db "0077487752", 0
 POPC
 

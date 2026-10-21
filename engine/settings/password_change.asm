@@ -739,7 +739,6 @@ Net_PppIdKey:: ; 67:5EB4
 
 PUSHC sjis
 Net_PasswdKey:: ; 67:5EBC
-String_67_5EBC::
 	db "&PASSWD=", 0
 
 Net_NewPasswdKey:: ; 67:5EC5

@@ -110,7 +110,6 @@ PhoneNumber_UnpackBcd:: ; 68:4054
 
 PUSHC sjis
 Dial_KeyCharTable:: ; 68:408E
-String_68_408E::
 	db "0123456789#*"
 POPC
 
@@ -358,7 +357,6 @@ Account_MailAtSign:: ; 68:41DB
 
 PUSHC sjis
 Account_MailDomainSuffix:: ; 68:41DD
-String_68_41DD::
 	db ".dion.ne.jp", 0
 POPC
 

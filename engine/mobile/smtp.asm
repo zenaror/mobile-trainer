@@ -339,7 +339,6 @@ Data_Smtp_BytesBeforeCloseParen:: ; 54:4764
 
 PUSHC sjis
 String_Mail_CloseParen:: ; 54:4770
-String_54_4770::
 	db ")", 0
 POPC
 
@@ -489,7 +488,6 @@ Smtp_MeasureBody:: ; 54:484A
 
 PUSHC sjis
 String_Smtp_EndOfData:: ; 54:4856
-String_54_4856::
 	db $0D, $0A
 	db ".", $0D, $0A, 0
 POPC

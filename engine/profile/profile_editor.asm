@@ -1702,7 +1702,6 @@ Profile_ApplyDakuten:: ; 2A:5EF4
 
 PUSHC sjis
 String_Profile_DakutenKana:: ; 2A:5F82
-String_2A_5F82::
 	db "かきくけこさしすせそたちつてとはひふへほカキクケコサシスセソタチツテトハヒフヘホ", 0
 POPC
 
@@ -1938,7 +1937,6 @@ Profile_ApplyHandakuten:: ; 2A:6087
 
 PUSHC sjis
 String_Profile_HandakutenKana:: ; 2A:6132
-String_2A_6132::
 	db "はひふへほハヒフヘホ", 0
 POPC
 

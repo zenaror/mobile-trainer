@@ -364,7 +364,6 @@ Wram6_CopyGooUrlAndTitleToPageBuffers:: ; 24:42B0 [PROBABLE] operation; entry/pu
 
 PUSHC sjis
 Url_GooNeJp:: ; 24:42D1
-String_24_42D1::
 	db "http://www.goo.ne.jp/", 0
 POPC
 
@@ -1494,7 +1493,6 @@ PageList_MessageTable:: ; 24:4B10
 
 PUSHC sjis
 PageList_Msg_GoToPage:: ; 24:4B18
-String_24_4B18::
 	db "　　　こ", 0
 POPC
 

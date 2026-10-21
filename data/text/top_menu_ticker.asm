@@ -14,7 +14,6 @@ Data_TopMenu_StringIndexBank:: ; 1E:4000
 ; ---- ptrtable $4001-$400D (12 bytes) [PROBABLE] little-endian word table, 6 entries, monotone=1.00, 100% of targets on string start/after NUL, targets $400D..$40A6
 
 Table_TopMenu_Strings:: ; 1E:4001
-Table_1E_4001::
 	dw String_TopMenu_Title0
 	dw String_TopMenu_Text0
 	dw $4043
@@ -30,7 +29,6 @@ String_TopMenu_Title0:: ; 1E:400D
 ; ---- text $4014-$409F (139 bytes) [PROBABLE] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_TopMenu_Text0:: ; 1E:4014
-String_1E_4014::
 	db "メールをかいたり　そうしんとじゅしんができます", 0
 	db "ホームページ", 0
 	db "インターネットをつかって　にんてんどうモバイルホームページをみることができます", 0
@@ -43,7 +41,6 @@ String_TopMenu_Title2:: ; 1E:409F
 ; ---- text $40A6-$40D7 (49 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_TopMenu_Text2:: ; 1E:40A6
-String_1E_40A6::
 	db "このカートリッジのせつめいを　みることができます", 0
 
 POPC

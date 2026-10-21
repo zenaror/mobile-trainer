@@ -9,7 +9,6 @@ PUSHC sjis
 ; ---- text $4000-$4F53 (3923 bytes) [PROBABLE] text: 36 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 CommErr_Msg_AdapterNotPlugged:: ; 5C:4000
-String_5C_4000::
 	db "モバイルアダプタが正しく", $0D
 	db "差しこまれていません。　", $0D
 	db "取扱説明書をごらんの上、", $0D

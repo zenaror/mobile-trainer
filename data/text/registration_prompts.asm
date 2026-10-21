@@ -6,10 +6,9 @@ SECTION "data/text/registration_prompts", ROMX
 
 PUSHC sjis
 
-; ---- ptrtable $567F-$56A7 (40 bytes) [PROBABLE] 20 string pointers (56A7 56FB 5751 57A7 5809 583C 5879 58B6 5906 5920 ...5A49), each landing exactly on a string start of the 20 strings of String_65_56A7; read in traces
+; ---- ptrtable $567F-$56A7 (40 bytes) [PROBABLE] 20 string pointers (56A7 56FB 5751 57A7 5809 583C 5879 58B6 5906 5920 ...5A49), each landing exactly on a string start of the 20 strings beginning at PromptText_EnterLoginId; read in traces
 
 PromptText_Table:: ; 65:567F
-Table_65_567F::
 	dw PromptText_EnterLoginId
 	dw PromptText_EnterMailAddress
 	dw PromptText_EnterPassword
@@ -34,7 +33,6 @@ Table_65_567F::
 ; ---- text $56A7-$5A8D (998 bytes) [PROBABLE] text: 20 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PromptText_EnterLoginId:: ; 65:56A7
-String_65_56A7::
 	db "ＤＩＯＮモバイルＧＢコー", $0D
 	db "ス登録書に書かれている、", $0D
 	db "ログインＩＤを入力してく", $0D

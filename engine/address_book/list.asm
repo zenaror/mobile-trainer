@@ -1604,7 +1604,7 @@ AbookList_DrawHelpText:: ; 2F:4BAA
 	pop bc
 	ret
 
-; ---- ptrtable $4BD0-$4BDA (10 bytes) [PROBABLE] 5 pointers, every target is the first byte of one of the 5 NUL-terminated Shift-JIS strings of String_2F_4BDA; first four bytes were read as data by executed code (Data_2F_4BD0 CONFIRMED); no ld hl,imm found
+; ---- ptrtable $4BD0-$4BDA (10 bytes) [PROBABLE] 5 pointers, every target is the first byte of one of the 5 NUL-terminated Shift-JIS strings beginning at String_Abook_HelpSelect; first four bytes were read as data by executed code (Data_2F_4BD0 CONFIRMED); no ld hl,imm found
 
 Table_Abook_HelpStrings:: ; 2F:4BD0
 	dw String_Abook_HelpSelect
@@ -1617,7 +1617,6 @@ Table_Abook_HelpStrings:: ; 2F:4BD0
 
 PUSHC sjis
 String_Abook_HelpSelect:: ; 2F:4BDA
-String_2F_4BDA::
 	db "　　アドレスを　せんたくしてください　　", 0
 
 String_Abook_HelpNew:: ; 2F:4C03

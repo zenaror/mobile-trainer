@@ -119,7 +119,6 @@ HtmlUrl_Resolve:: ; 74:5981
 
 PUSHC sjis
 HtmlUrl_HttpPrefix:: ; 74:59D8
-String_74_59D8::
 	db "http://", 0
 POPC
 

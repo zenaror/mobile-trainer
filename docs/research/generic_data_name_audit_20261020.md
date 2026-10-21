@@ -2702,3 +2702,40 @@ explicitly leaves natural runtime use unconfirmed. The safe build returned
 errors, and `png-check` passed (409 tile sheets, 4 raw views, 37 font sheets,
 95 screen PNGs). A dry-run check found no command compiling the protected
 `engine/mail/sample_data.asm`.
+
+## Exact data/engine co-aliases retired (2026-10-21)
+
+The fresh static census and owner review identified 54 exact co-aliases in 27
+`data/` and `engine/` owners outside the protected mail trees. The linked
+`.sym` placed each neutral and descriptive label at the same bank/address; the
+neutral labels had no active operands, tool consumers, or dependent local-label
+scope. The declarations were removed and six source comments were updated to
+name the surviving text or correct stale reference claims. No instruction,
+encoded data, physical range, or existing confidence was changed. The durable
+address/owner map is in
+[`analysis/naming2/retired_engine_coaliases_20261021.tsv`](../../analysis/naming2/retired_engine_coaliases_20261021.tsv).
+
+A follow-up scope review found no active dependence that requires keeping the
+two remaining neutral aliases. They were removed; their six local symbols now
+qualify under the semantic globals. The global old-to-current map and local
+symbol counts are in
+[`analysis/naming2/retired_coincident_label_aliases.tsv`](../../analysis/naming2/retired_coincident_label_aliases.tsv); the exact local mappings are:
+
+| Old qualified symbol | Current qualified symbol | Address |
+|---|---|---|
+| `Table_7E_7D8F.l7DAA` | `Charset_Iso2022JpStates.l7DAA` | `7E:7DAA` |
+| `Table_7E_7D8F.l7DF7` | `Charset_Iso2022JpStates.l7DF7` | `7E:7DF7` |
+| `Table_7E_7D8F.l7DFE` | `Charset_Iso2022JpStates.l7DFE` | `7E:7DFE` |
+| `Table_7E_7D8F.l7E17` | `Charset_Iso2022JpStates.l7E17` | `7E:7E17` |
+| `Table_7E_7D8F.l7E30` | `Charset_Iso2022JpStates.l7E30` | `7E:7E30` |
+| `Palette_7F_4D50.loop` | `Palette_Canvas_Bg.loop` | `7F:4D5E` |
+
+These are symbol-scope changes only. The jump table remains five words; the
+palette remains eight bytes, and the following code is not reclassified as
+part of that palette. A static review checked every local definition and jump
+within each scope and found no qualified source reference to the old names.
+
+The three-area census has 145 candidates in 347 tracked ASM/INC files, with
+`languages/` and `engine/mail/sample_data.asm` excluded before reads. The older
+handoff count of 42 used an unreconciled scope or method and must not be
+compared as the same metric.

@@ -2466,7 +2466,6 @@ Table_AddrPick_Captions:: ; 2C:6702
 
 PUSHC sjis
 String_AddrPick_Caption:: ; 2C:6704
-String_2C_6704::
 	db "　　アドレスを　せんたくしてください　　", 0
 POPC
 

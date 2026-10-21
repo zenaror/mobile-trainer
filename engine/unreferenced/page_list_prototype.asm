@@ -146,7 +146,6 @@ Canvas_InitScreen:: ; 7F:4CA9
 ; ---- data $4D50-$4D58 (8 bytes) [PROBABLE] 8 bytes = one RGB555 palette (7FFF 7C00 001F 0000) written to the palette port with ld hl,$4D50 ; ld b,8 ; ld a,[hli] ; ldh [$69],a at 7F:4D41-4D49
 
 Palette_Canvas_Bg:: ; 7F:4D50
-Palette_7F_4D50::
 	db $FF, $7F, $00, $7C, $1F, $00, $00, $00
 
 	; [PROBABLE] function head ld hl,$4D88 ; ld de,$0000 : the loop that follows (4D5E, PROBABLE, jr

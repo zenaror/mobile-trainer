@@ -550,13 +550,12 @@ DebugFlags_LoadHelpText:: ; 19:43E9
 
 PUSHC sjis
 String_DebugFlags_Help:: ; 19:447C
-String_19_447C::
 	db "＝＝　ＤＥＢＵＧ　ＭＯＤＥ　＝＝　↑↓：えらぶ　　←→：カーソル　　　　　Ａ：へんこう", $0D, $0A
 	db "　Ｓｔａ：　ＢＩＴ←→ＤＥＣ　　Ｓｅｌ／Ｂ：しゅうりょう", $0D, $0A
 	db "－－－－－－－－－－－－－－－－", 0
 POPC
 
-; ---- text $452F-$4532 (3 bytes) [PROBABLE] 2-byte Shift-JIS char 81 A3 + NUL, right after the NUL of String_19_447C and before code at 4532
+; ---- text $452F-$4532 (3 bytes) [PROBABLE] 2-byte Shift-JIS char 81 A3 + NUL, right after the NUL of String_DebugFlags_Help and before code at 4532
 
 PUSHC sjis
 String_19_452F:: ; 19:452F
@@ -950,7 +949,6 @@ DebugFlags_DrawValue:: ; 19:458A
 
 PUSHC sjis
 String_DebugFlags_Chars:: ; 19:47AE
-String_19_47AE::
 	db "０１２３４５６７８９ＡＢＣＤＥＦ－－－－－－－－【０００００】", 0
 POPC
 
@@ -1144,7 +1142,7 @@ DebugFlags_WriteValue:: ; 19:48D5
 	farcall WriteByteFar
 	ret
 
-; ---- data $490E-$4914 (6 bytes) [PROBABLE] 6-byte table (bf b0 00 00 14 49) addressed by `ld hl,$490E ; add a,a ; ... add a,l` at 12 sites in code of this bank (19:41EC, 4211, 4325, 43DB, 45CB, 460F, 4696, 46D8, 48A4, 48C1, 48D9, 48F7); the last word 4914 points at the string that follows; field meaning unknown [v4: entries are 4 bytes (word at +4a, or at +4a+2 in the `add a,a ; inc a ; add a,a` variant); with a=1 the accessed words 4912/4914/4916 would overlap String_19_4914, so the 6-byte extent is only the neighbour boundary and the field layout is HYPOTHESIS; entry 0 = (B0BF, 0000) where B0BF is an SRAM address passed to `ld a,1 ; call $1620`]
+; ---- data $490E-$4914 (6 bytes) [PROBABLE] 6-byte table (bf b0 00 00 14 49) addressed by `ld hl,$490E ; add a,a ; ... add a,l` at 12 sites in code of this bank (19:41EC, 4211, 4325, 43DB, 45CB, 460F, 4696, 46D8, 48A4, 48C1, 48D9, 48F7); the last word 4914 points at the string that follows; field meaning unknown [v4: entries are 4 bytes (word at +4a, or at +4a+2 in the `add a,a ; inc a ; add a,a` variant); with a=1 the accessed words 4912/4914/4916 would overlap String_DebugFlags_Title, so the 6-byte extent is only the neighbour boundary and the field layout is HYPOTHESIS; entry 0 = (B0BF, 0000) where B0BF is an SRAM address passed to `ld a,1 ; call $1620`]
 
 Table_DebugFlags_Entries:: ; 19:490E
 	db $BF, $B0, $00, $00, $14, $49
@@ -1153,11 +1151,10 @@ Table_DebugFlags_Entries:: ; 19:490E
 
 PUSHC sjis
 String_DebugFlags_Title:: ; 19:4914
-String_19_4914::
 	db "【サインアップデバッグフラグ】", 0
 POPC
 
-; ---- zero $4933-$4940 (13 bytes) [PROBABLE] zero padding between String_19_4914 and the palette block at 4940
+; ---- zero $4933-$4940 (13 bytes) [PROBABLE] zero padding between String_DebugFlags_Title and the palette block at 4940
 	ds $D, $00
 
 ; ---- data $4940-$4980 (64 bytes) [PROBABLE] palette-rgb555: heuristic: 32 RGB555 words as 8 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)

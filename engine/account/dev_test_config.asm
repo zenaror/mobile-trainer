@@ -59,7 +59,6 @@ Dev_InstallTestConfig:: ; 68:4DB4
 
 PUSHC sjis
 Dev_TestMailAddress:: ; 68:4E37
-String_68_4E37::
 	db "test@test.test", 0
 POPC
 
@@ -67,7 +66,6 @@ POPC
 
 PUSHC sjis
 Dev_TestDialNumber:: ; 68:4E46
-String_68_4E46::
 	db "0755311973", 0
 POPC
 

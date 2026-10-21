@@ -21,7 +21,6 @@ Text_HalfToFullWidth:: ; 55:6CC6
 
 PUSHC sjis
 Table_Text_HalfToFullWidth:: ; 55:6CD4
-String_55_6CD4::
 	db "　！”＃＄％＆’（）＊＋，－．／０"
 	db "１２３４５６７８９：；＜＝＞？＠Ａ"
 	db "ＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲ"

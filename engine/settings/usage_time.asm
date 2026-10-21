@@ -196,7 +196,6 @@ Net_PppIdKeyDup:: ; 67:6246
 
 PUSHC sjis
 Net_PasswdKeyDup:: ; 67:624E
-String_67_624E::
 	db "&PASSWD=", 0
 
 Net_DebugLoginBody:: ; 67:6257

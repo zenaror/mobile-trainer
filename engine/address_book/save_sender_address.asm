@@ -1306,16 +1306,12 @@ PUSHC sjis
 String_SaveSenderAddr_Caption:: ; 2A:4A66
 	db "　セーブ", 0
 String_SaveSenderAddr_CaptionPart2:: ; 2A:4A6F
-String_2A_4A6F::
 	db "するばし", 0
 String_SaveSenderAddr_CaptionPart3:: ; 2A:4A78
-String_2A_4A78::
 	db "ょを　え", 0
 String_SaveSenderAddr_CaptionPart4:: ; 2A:4A81
-String_2A_4A81::
 	db "らんでく", 0
 String_SaveSenderAddr_CaptionPart5:: ; 2A:4A8A
-String_2A_4A8A::
 	db "ださい　", 0
 POPC
 

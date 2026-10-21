@@ -1150,7 +1150,6 @@ AbookName_ApplyDakuten:: ; 2F:5EB3
 
 PUSHC sjis
 String_Abook_DakutenKanaList:: ; 2F:5F41
-String_2F_5F41::
 	db "かきくけこさしすせそたちつてとはひふへほカキクケコサシスセソタチツテトハヒフヘホ", 0
 POPC
 
@@ -1403,7 +1402,6 @@ AbookName_ApplyHandakuten:: ; 2F:6046
 
 PUSHC sjis
 String_Abook_HandakutenKanaList:: ; 2F:60F1
-String_2F_60F1::
 	db "はひふへほハヒフヘホ", 0
 POPC
 

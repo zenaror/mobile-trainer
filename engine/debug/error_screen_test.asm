@@ -303,7 +303,6 @@ DebugErrorTest_LoadHelpText:: ; 19:4BCF
 
 PUSHC sjis
 String_DebugErrorTest_Help:: ; 19:4C1F
-String_19_4C1F::
 	db "Ａ：エラー　Ｂ＋↑↓：しゅるい　　　　　Ｓｅｌ：ＥＮＤ", $0D, $0A
 	db "　↑↓（←→）：Ｎｕｍｂｅｒ", 0
 POPC

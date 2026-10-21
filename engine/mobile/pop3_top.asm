@@ -222,7 +222,6 @@ Pop3_TopPoll:: ; 54:4969
 
 PUSHC sjis
 String_Mail_DataCorrupt:: ; 54:49E0
-String_54_49E0::
 	db "メールのデータがこわれています。", 0
 
 String_Mail_PleaseDelete:: ; 54:4A01
@@ -323,7 +322,6 @@ Pop3_TopPoll_ScanCheckPassed:: ; 54:4A12
 
 PUSHC sjis
 String_Mail_DefaultSource:: ; 54:4AD0
-String_54_4AD0::
 	db "メール", 0
 POPC
 
@@ -331,7 +329,6 @@ POPC
 
 PUSHC sjis
 String_Mail_GameTitle:: ; 54:4AD7
-String_54_4AD7::
 	db "MOBILE TRAINER", 0
 POPC
 
@@ -507,7 +504,6 @@ Pop3_TopPoll_CheckGameCode:: ; 54:4BEC
 
 PUSHC sjis
 String_Mail_GameCodeCrystal:: ; 54:4C2A
-String_54_4C2A::
 	db "CGB-BXTJ-00"
 POPC
 

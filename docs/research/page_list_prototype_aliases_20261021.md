@@ -26,11 +26,17 @@ confidence annotations, and local labels remain unchanged.
 | `7F:4FC3` | `Table_7F_4FC3` | `PageListProto_UrlSlotTable` |
 | `7F:4FCF` | `Table_7F_4FCF` | `PageListProto_TitleSlotTable` |
 
-`Palette_7F_4D50` is deliberately retained. Although it shares address
-`7F:4D50` with `Palette_Canvas_Bg`, it anchors the following local label
-`Palette_7F_4D50.loop` at `7F:4D5E`, which is the target of `jr nz, .loop`.
-Removing that alias would change the qualified local symbol. `Data_7F_51ED`
-also remains because no descriptive same-address alias was demonstrated.
+At this checkpoint `Palette_7F_4D50` was deliberately retained because it
+anchored `.loop` at `7F:4D5E`; that decision preserved the then-current qualified
+symbol and was correct for that snapshot. A later owner review removed the
+alias after checking the full local scope: `.loop` now resolves as
+`Palette_Canvas_Bg.loop` at the same address. The global map and local-symbol
+count are recorded in `analysis/naming2/retired_coincident_label_aliases.tsv`;
+the full local mapping is in `docs/research/generic_data_name_audit_20261020.md`.
+This symbol cleanup still does not claim that the following code belongs to the
+eight-byte palette.
+`Data_7F_51ED` also remains because no descriptive same-address alias was
+demonstrated.
 
 The static reviewer accepted the 15-label subset, confirmed zero other
 references in the 347 in-scope ASM/INC files and 142 tools, and verified the

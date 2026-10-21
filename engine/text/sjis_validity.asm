@@ -45,7 +45,6 @@ Font_ValidateSjisCode:: ; 63:4000
 ; ---- ptrtable $402D-$403D (16 bytes) [CONFIRMED] code-pointer table, 8 entries: 8/8 words hit own-bank code starts (survey pointer-table extent); 8/8 targets executed; every byte read as data in a trace
 
 Font_SjisBitJumpTable:: ; 63:402D
-Table_63_402D::
 	dw Font_ValidateSjisCode_TestBit0
 	dw Font_ValidateSjisCode_TestBit1
 	dw Font_ValidateSjisCode_TestBit2

@@ -473,3 +473,5 @@ Label_75_7DF9	MobileSDK_Base64DecodeChar_Digit	75	7DF9	lib/mobile/main.asm	0
 Label_75_7DFC	MobileSDK_Base64DecodeChar_Pad	75	7DFC	lib/mobile/main.asm	0
 Label_75_7DFE	MobileSDK_Base64DecodeChar_Upper	75	7DFE	lib/mobile/main.asm	0
 Label_75_7E01	MobileSDK_Base64DecodeChar_Lower	75	7E01	lib/mobile/main.asm	0
+Table_7E_7D8F	Charset_Iso2022JpStates	7E	7D8F	engine/text/charset_convert.asm	5
+Palette_7F_4D50	Palette_Canvas_Bg	7F	4D50	engine/unreferenced/page_list_prototype.asm	1
