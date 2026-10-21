@@ -1248,7 +1248,7 @@ MailReply_ComposeFromRecord:: ; 2B:6CF5 [PROBABLE] reply from record; entry unpr
 	ld c, b
 	ld b, $00
 	sla c
-	ld hl, Table_2B_6DB0
+	ld hl, MailReply_SramRecordBaseTable
 	add hl, bc
 	pop bc
 	ld a, [hli]
@@ -1334,7 +1334,7 @@ MailReply_ComposeFromRecord:: ; 2B:6CF5 [PROBABLE] reply from record; entry unpr
 
 ; ---- words $6DB0-$6DC8 (24 bytes) [PROBABLE] 12 words $A124..$AE13 (SRAM record bases); ld hl,$6DB0 at 2B:6D2A (hl=[table+2c], then + $00ED)
 
-Table_2B_6DB0:: ; 2B:6DB0
+MailReply_SramRecordBaseTable:: ; 2B:6DB0
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 

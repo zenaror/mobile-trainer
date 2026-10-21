@@ -184,7 +184,7 @@ Browser_FrameStylePreview_InputLoop:: ; 4E:4154
 
 ; ---- ptrtable $4172-$417C (10 bytes) [PROBABLE] inline table of `call $056A` (JoypadDispatch) at 4E:416F: 5 entries; fixed length (5 words) by the routine
 
-Table_4E_4172:: ; 4E:4172
+Browser_FrameStylePreview_InputDispatchTable:: ; 4E:4172
 	dw Browser_FrameStylePreview_OnA
 	dw Browser_FrameStylePreview_OnB
 	dw Browser_FrameStylePreview_IgnoreSelect

@@ -2988,9 +2988,30 @@ violations).
 
 The updated path-bounded lexical census (six maintained source roots plus
 `zero_labels.asm`, excluding `engine/mail/sample_data.asm` before reading) is
-63 exact `Data_BB_AAAA` definitions in 41 owners, 97 `String_BB_AAAA`, 4
-`Table_BB_AAAA`, 41 `Tiles_BB_AAAA`, 24 `Tilemap_BB_AAAA`, 4
+63 exact `Data_BB_AAAA` definitions in 41 owners, 97 `String_BB_AAAA`, no
+exact `Table_BB_AAAA`, 41 `Tiles_BB_AAAA`, 24 `Tilemap_BB_AAAA`, 4
 `Attrmap_BB_AAAA`, and 25 `Palette_BB_AAAA`; exact generic `Function`, `Font`,
-and `Label` remain zero. This pass accounts for the decrease of ten String
-labels and four Table labels. Counts describe spellings only, not semantic
-closure.
+and `Label` remain zero. The ticker pass accounts for ten fewer String labels
+and four fewer Table labels; the table pass below removes the final four exact
+Table spellings. Counts describe spellings only, not semantic closure.
+
+
+## Remaining generic table labels (2026-10-21)
+
+The four remaining exact `Table_BB_AAAA` labels were reviewed against their
+nearby readers and data:
+
+| Address | Current label | Evidence and limit |
+|---|---|---|
+| `27:4FD8` | `CommTime_SummaryInputDispatchTable` | **PROBABLE**: five entry pointers follow the `JoypadDispatch` call; entries select the summary screen's A/B/Select/Start handlers or loop. The label does not assert natural input coverage. |
+| `4E:4172` | `Browser_FrameStylePreview_InputDispatchTable` | **PROBABLE**: same five-entry `JoypadDispatch` pattern in the frame-style preview loop; dispatch table shape and handlers are static source evidence. |
+| `2B:6DB0` | `MailReply_SramRecordBaseTable` | **PROBABLE**: `MailReply_ComposeFromRecord` indexes twelve words by record index and uses each value as an SRAM base before reading address/name fields at offsets `$ED`/`$C9`. The function's natural caller/entry status remains unproved. |
+| `2A:7287` | `AddrBook_CandidateSramSlotAddressTable_7287` | **HYPOTHESIS**: six words are byte-identical to the referenced table at `2A:7221`, but no code reference to this copy was found. Its purpose and use remain unknown; candidate wording does not assert that it is read. |
+
+The three supported structures now have consumer-oriented labels; the unreferenced
+copy is still explicitly candidate-qualified. Source and operands changed only in
+labels; the original byte stream is unchanged. After this pass, a path-bounded
+scan of the six maintained roots plus `zero_labels.asm`, excluding
+`engine/mail/sample_data.asm` before reading, reports 63 exact Data labels in
+41 owners, 97 String, 0 Table, 41 Tiles, 24 Tilemap, 4 Attrmap and 25 Palette;
+exact generic Function, Font and Label remain zero.

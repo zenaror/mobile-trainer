@@ -355,9 +355,9 @@ AddrBook_SaveConfirm_DrawEditBuffer:: ; 2A:722D
 	pop bc
 	ret
 
-; ---- words $7287-$7293 (12 bytes) [HYPOTHESIS] SRAM address table (6 words $A69D..$A82D (step $50)): the code indexes it by 2*n and loads hl=[table+2n] as the base of a save/record slot in SRAM ($A000-$BFFF); no reference found (identical bytes to the referenced sibling tables 4274/4306/445F/483B/709F/7221 that the compiler emits after each function). Values are SRAM addresses, not ROM pointers
+; ---- words $7287-$7293 (12 bytes) [HYPOTHESIS] six SRAM-address words byte-identical to the used table at $7221; no code reference to this copy found, so its purpose/use is unknown
 
-Table_2A_7287:: ; 2A:7287
+AddrBook_CandidateSramSlotAddressTable_7287:: ; 2A:7287
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
 AddrBook_UploadEntryTextTiles:: ; 2A:7293

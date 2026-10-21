@@ -1909,7 +1909,7 @@ CommTime_Summary_FrameLoop_27_4FC0:: ; 27:4FC0
 
 ; ---- ptrtable $4FD8-$4FE2 (10 bytes) [PROBABLE] inline table of `call $056A` (JoypadDispatch) at 27:4FD5: 5 entries; fixed length (5 words) by the routine
 
-Table_27_4FD8:: ; 27:4FD8
+CommTime_SummaryInputDispatchTable:: ; 27:4FD8
 	dw CommTime_SummaryInput_ButtonA_27_4FE2
 	dw CommTime_SummaryInput_IgnoreB_27_4FE5
 	dw CommTime_SummaryInput_IgnoreSelect_27_4FE8
