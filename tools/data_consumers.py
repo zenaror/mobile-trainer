@@ -1037,7 +1037,7 @@ def rules_manual(w, man, sites):
                     ('s' if len(idx) > 1 else '', ' and '.join(map(str, idx)), 'ies' if len(idx) > 1 else '', ' and '.join(map(str, idx)), w.size(gk), w.size(gk) // 6))
     add('String_56_4000', 'String_ConnectDialog_Messages', 'string', 'PROBABLE',
         '394 bytes = 6 NUL-terminated Shift-JIS messages of the connect dialog (region header CONFIRMED text); ConnectDialog_Draw_ConnectConfirm renders the first one with `ld hl,<label> ; a=$56 ; bc=$0010 ; de=$D000 -> TextTiles_RenderGrid` (the charge warning "つうわりょうと せつぞくりょうがかかります"); the later strings are the other dialog states (password prompts)')
-    add('Data_6A_6651', 'Table_HelpMenu_LockedItemTicker', 'table', 'PROBABLE',
+    add('Data_6A_6651', 'HelpMenu_LockedTickerTable', 'table', 'PROBABLE',
         'one-byte bank field $6A at the base passed by HelpMenu_ShowItemText to Ticker_Start; ReadByteFar obtains the text bank, then the caller indexes the adjacent 4-byte string-pointer entries at 6A:6652-6672; selected for the locked-item ???? ticker')
 
     # ---- tilemaps reached through word tables in a code bank (the words are numeric, the bank comes from `ld a,$4D` before the loader)

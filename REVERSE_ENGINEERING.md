@@ -1913,11 +1913,20 @@ Three HYPOTHESIS script-shaped blocks in the top-menu owner now use
 `TopMenu_CandidateSpriteScript_*` names instead of `Data_1E_*`. Their format is
 plausible, but no known object-table row selects them and neighboring frame
 tables do not establish an association. The bank-1E audit records the bounds.
+A bank-6A help-ticker pass renamed the eight ordinary title/body pointer pairs,
+the locked-item ticker table and its selected text records from address-only
+labels. `HelpMenu_ShowItemText` supplies either the ordinary record base
+(`6A:64B2`) or `HelpMenu_LockedTickerTable` (`6A:6651`) to `Ticker_Start`
+(`48:42D4`); the ticker reads the bank byte and indexes title/body pointers.
+This establishes table structure and roles from source readers, not natural
+rendering of every record. Details and unchanged confidence boundaries are in
+the [bank-6A ticker naming audit](docs/research/generic_data_name_audit_20261020.md#bank-6a-help-menu-ticker-tables-and-strings-2026-10-21).
+
 A fresh path-bounded exact-name scan of the six maintained source roots plus
 `zero_labels.asm`, excluding the protected mail sample before reading, finds
 63 `Data_BB_AAAA` definitions in 41 owners and no exact generic `Function`,
 `Font`, or `Label` definitions. This is a lexical count, not semantic closure.
-The same scan finds 107 `String_BB_AAAA`, 8 `Table_BB_AAAA`, 41
+The same scan now finds 97 `String_BB_AAAA`, 4 `Table_BB_AAAA`, 41
 `Tiles_BB_AAAA`, 24 `Tilemap_BB_AAAA`, 4 `Attrmap_BB_AAAA`, and 25
 `Palette_BB_AAAA` definitions; these remain an owner-by-owner evidence
 worklist.

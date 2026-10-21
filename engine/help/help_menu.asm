@@ -907,7 +907,7 @@ HelpMenu_ShowItemText:: ; 6C:4763
 	ld hl, $64B2
 	or a, a
 	jr z, .skip
-	ld hl, Table_HelpMenu_LockedItemTicker
+	ld hl, HelpMenu_LockedTickerTable
 .skip ; 6C:4789
 	ld a, [wHelpMenu_Cursor]
 	dec a

@@ -179,9 +179,12 @@ mapped from `.l6F51` to the surviving table name. The old/current names,
 addresses and owner files are preserved in
 [`../../analysis/naming2/retired_keyboard_table_aliases.tsv`](../../analysis/naming2/retired_keyboard_table_aliases.tsv).
 The four keyboard predicate tables remain PROBABLE storage; confidence and
-consumer notes are unchanged. `Table_HelpMenu_LockedItemTicker` remains the
-one-byte bank field at `6A:6651`; adjacent pointer arrays remain separate
-blocks. The build remains byte-identical after these alias-line removals.
+consumer notes are unchanged. At this historical checkpoint,
+`Table_HelpMenu_LockedItemTicker` named only the one-byte bank field at
+`6A:6651`, and adjacent pointer arrays remained separate blocks. The later
+bank-6A ticker pass below corrects this boundary/name after following the
+consumer through `Ticker_Start`. The build remained byte-identical after the
+alias-line removals at this checkpoint.
 
 ## Retired Mobile SDK packet/data aliases (2026-10-20)
 
@@ -2949,3 +2952,45 @@ The same source-bounded scan finds 107 `String_BB_AAAA`, 8 exact
 and 25 `Palette_BB_AAAA` definitions. These counts help locate residual
 neutral names; each needs an owner-level evidence review before changing its
 symbol or directory.
+
+
+## Bank 6A help-menu ticker tables and strings (2026-10-21)
+
+The help-menu source contains two bank-prefixed ticker records. The ordinary
+record begins at `6A:64B2` (the byte at `64B1` completes the preceding object
+entry); its eight title/body pairs begin at `64B3`. The locked-item record begins
+at `6A:6651`, followed by eight four-byte pointer pairs through `6A:6672`.
+`HelpMenu_ShowItemText` (`6C:4763`) selects the ordinary record or the locked
+record after `HelpMenu_ItemIsLocked`; it passes that base in `HL`, the selected
+item in `B`, bank `6A` in `A`, and calls `Ticker_Start` (`48:42D4`). The ticker
+reader consumes the leading text-bank byte and indexes a title/body pointer
+pair. These source-level consumers establish the records' layout and purpose
+(PROBABLE). They do not establish natural rendering for every slot or prove
+that all eight slots are exposed to users. Existing per-range CONFIRMED labels
+and trace counts were not raised by this pass.
+
+The eight ordinary title/body strings now use `HelpMenu_TickerEntryN_Title` and
+`HelpMenu_TickerEntryN_Body` names. The locked table and non-null records use
+`HelpMenu_LockedTickerTable`, `HelpMenu_LockedTickerEntries_*`, and
+`HelpMenu_LockedTicker_EntryN_*`. The name at `6A:64B1` describes the mixed
+object-tail/bank prefix; the pointer table label starts at `6A:64B3`, not at
+that mixed prefix. Only symbols and operands changed; the bytes and extents did
+not. The sole active direct reference to the renamed locked record was updated
+in `engine/help/help_menu.asm`.
+
+Coordinator gates after the change: `make` returned `RESULT: IDENTICAL` with
+ROM SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
+`make sym-check` passed with 12,168 source labels and 51 constants;
+`make palette-check` reported 162 loads, 116 arrays, two documented over-reads
+and zero errors; `make png-check`, `gfx_export.py check`, and
+`sprite_chain_check.py` passed (zero hard mismatches and zero frame-index
+violations).
+
+The updated path-bounded lexical census (six maintained source roots plus
+`zero_labels.asm`, excluding `engine/mail/sample_data.asm` before reading) is
+63 exact `Data_BB_AAAA` definitions in 41 owners, 97 `String_BB_AAAA`, 4
+`Table_BB_AAAA`, 41 `Tiles_BB_AAAA`, 24 `Tilemap_BB_AAAA`, 4
+`Attrmap_BB_AAAA`, and 25 `Palette_BB_AAAA`; exact generic `Function`, `Font`,
+and `Label` remain zero. This pass accounts for the decrease of ten String
+labels and four Table labels. Counts describe spellings only, not semantic
+closure.
