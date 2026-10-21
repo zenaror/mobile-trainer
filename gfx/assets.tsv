@@ -35,7 +35,7 @@ data/fonts/jis12x12_rows_01_08_13.bin	font12	15228	data/fonts/jis12x12_rows_01_0
 data/fonts/jis12x12_rows_16_24.bin	font12	15228	data/fonts/jis12x12_rows_16_24.asm	7D	4000	PROBABLE	sheet	0		GlyphFont_Jis12x12_7D
 data/fonts/jis12x12_rows_25_33_4000.bin	font12	6083	data/fonts/jis12x12_rows_25_33.asm	7C	4000	PROBABLE	sheet	0		GlyphFont_Jis12x12_7C
 data/fonts/jis12x12_rows_25_33_57c3.bin	font12	10	data/fonts/jis12x12_rows_25_33.asm	7C	57C3	PROBABLE	sheet	0		
-data/fonts/jis12x12_rows_25_33_57cd.bin	font12	9135	data/fonts/jis12x12_rows_25_33.asm	7C	57CD	PROBABLE	sheet	0		Data_7C_57CD
+data/fonts/jis12x12_rows_25_33_57cd.bin	font12	9135	data/fonts/jis12x12_rows_25_33.asm	7C	57CD	PROBABLE	sheet	0		GlyphFont_Jis12x12_7C_Fragment57CD
 data/fonts/jis12x12_rows_34_42.bin	font12	15228	data/fonts/jis12x12_rows_34_42.asm	7B	4000	PROBABLE	sheet	0		GlyphFont_Jis12x12_7B
 data/fonts/jis12x12_rows_43_51.bin	font12	15228	data/fonts/jis12x12_rows_43_51.asm	7A	4000	PROBABLE	sheet	0		GlyphFont_Jis12x12_7A
 data/fonts/jis12x12_rows_52_60.bin	font12	15228	data/fonts/jis12x12_rows_52_60.asm	79	4000	PROBABLE	sheet	0		GlyphFont_Jis12x12_79

@@ -12,7 +12,7 @@ GlyphFont_Jis12x12_7C:: ; 7C:4000
 ; ---- gfx $57C3-$57CD (10 bytes) [PROBABLE] font12x12 data within4000-7B7C; false seventh table word57C3 was C3 57 from JP7D57 at7D6C, not an entry; see naming_g8.md
 	INCBIN "data/fonts/jis12x12_rows_25_33_57c3.bin"
 
-; ---- gfx $57CD-$7B7C (9135 bytes) [PROBABLE] font12x12: JIS X 0208 12x12 1bpp glyphs, 18 bytes/glyph (2 rows of 12 bits per 3 bytes), JIS rows 25,26,27,28,29,30,31,32,33, 94 cols/row; layout from 7F:400E/4072/40B9 + tables 7F:40F9/7F:4150 (verified structure, layout from engine code) [clipped from 4000-7B7C by higher-priority evidence]
+; ---- gfx $57CD-$7B7C (9135 bytes) [PROBABLE] physical fragment of the JIS X 0208 12x12 1bpp font in this owner; the split at $57CD is inside a glyph, not a character-row boundary [clipped from 4000-7B7C by higher-priority evidence]
 
-Data_7C_57CD:: ; 7C:57CD
+GlyphFont_Jis12x12_7C_Fragment57CD:: ; 7C:57CD
 	INCBIN "data/fonts/jis12x12_rows_25_33_57cd.bin"

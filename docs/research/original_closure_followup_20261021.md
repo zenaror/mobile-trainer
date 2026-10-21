@@ -44,6 +44,16 @@ review.
 
 ## Current naming changes
 
+The `7C:57CD–7B7B` source fragment `Data_7C_57CD` is now
+`GlyphFont_Jis12x12_7C_Fragment57CD` (**PROBABLE**). Its owner, adjacent INCBINs,
+font layout and bank/row-selection code identify the JIS X 0208 12×12 1bpp font;
+the 9,135-byte physical split is not a whole-glyph or character-row boundary,
+so the name claims only a font fragment. The original slice at physical ROM
+offset `0x1F17CD` is 9,135 bytes with SHA-256
+`e484eab9218e988639700747ad64f8c71a27032d7707c8fc3edb38300928ff47`; offset
+`57CD–4000 = 6,093` is 9 bytes into glyph index 338. The `gfx/assets.tsv` symbol
+was updated; bytes and extents are unchanged.
+
 The 14 zero bytes at `69:4152–415F` are now named
 `Padding_ConnIcon_Tiles4160Alignment` (**PROBABLE**). The connection-icon code
 section ends at `69:4152`; the next source is the confirmed 1024-byte tile HDMA

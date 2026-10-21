@@ -524,8 +524,10 @@ The other 75 labels from the original no-alias subset remain unchanged. The audi
 overlapping font storage, mixed streams, fragments needing positive entry proof,
 and explicit KEEP decisions. No data removal is justified by this census.
 `Data_68_6960` is already represented by `Config_DefaultImage2` and therefore
-was not one of the 82. `Data_7C_57CD` remains a physical font-chunk marker inside
-a glyph, with no established algorithmic need to remove it. The audit also found
+was not one of the 82. At that historical checkpoint, `Data_7C_57CD` remained the physical font-chunk
+marker inside a glyph. That generic label is superseded by
+`GlyphFont_Jis12x12_7C_Fragment57CD`, which preserves the known font family and
+the fact that the split is not at a glyph or row boundary. The audit also found
 no remaining definitions in `gfx/` within this subset.
 
 This is not a complete census of all data, code entries, graphical resources,
