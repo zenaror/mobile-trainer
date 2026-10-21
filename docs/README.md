@@ -70,6 +70,7 @@ Reference documents (current):
 | [`audio_table_names.md`](research/audio_table_names.md) | Bounded original data/resource alias contracts; evidence and caller limits retained |
 | [`audio_track_pointer_aliases_20261021.md`](research/audio_track_pointer_aliases_20261021.md) | 44 redundant generic audio track-pointer aliases retired under existing song/effect labels |
 | [`html_keyword_pointer_aliases_20261021.md`](research/html_keyword_pointer_aliases_20261021.md) | 12 redundant generic aliases retired under existing HTML pointer-list names |
+| [`gfx_generic_name_audit_20261021.md`](research/gfx_generic_name_audit_20261021.md) | Read-only inventory of GFX type/address labels, aliases, paths and remaining uncertainty |
 | [`home_data_names.md`](research/home_data_names.md) | Bounded original data/resource alias contracts; evidence and caller limits retained |
 | [`mail_gfx_resource_aliases.md`](research/mail_gfx_resource_aliases.md) | Original Mail graphics aliases; load extents, backing and unresolved frame limits |
 | [`mail_sdk_data_names.md`](research/mail_sdk_data_names.md) | Mail strings and pointer tables; finite domains, independent indices and selector-stack caveat |

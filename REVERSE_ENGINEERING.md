@@ -1198,3 +1198,10 @@ The same naming pass retired 12 unreferenced `Table_74_AAAA` aliases in the
 HTML keyword pointer lists, retaining their same-address `Html_*Ptrs` labels
 and preserving every word and target. Details are in
 [`docs/research/html_keyword_pointer_aliases_20261021.md`](docs/research/html_keyword_pointer_aliases_20261021.md).
+
+The private GFX naming census found no current `gfx/bankNN` directories. Its
+1,495 exact type/bank/address labels are divided into 605 candidates with
+lexical evidence, 648 provenance/co-alias cases and 242 indeterminate cases;
+this is a prioritization aid, not a rename decision or completion claim. The
+asset inventory and provenance limits are recorded in
+[`docs/research/gfx_generic_name_audit_20261021.md`](docs/research/gfx_generic_name_audit_20261021.md).
