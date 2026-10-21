@@ -314,7 +314,9 @@ ROMX $2C
 	org $741C
 	"engine/address_book/confirm_screen_candidate"
 	org $7740
-	"gfx/address_book/entry_and_confirm_candidate_bank2c"
+	"gfx/address_book/address_screen_candidate_bank2c"
+	org $7C80
+	"gfx/address_book/entry_view_screen_bank2c"
 
 ROMX $2D
 	org $4000

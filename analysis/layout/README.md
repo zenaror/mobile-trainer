@@ -128,7 +128,7 @@ which file owns them.  Every other first row starts at the bank window start.  T
 produced by `rgblink -p 0x00`.  The `ramcode` OAM DMA image inside `home/lcd.asm` stays a `LOAD` block inside that file.
 
 Contents per bank in section order (from `section_order.tsv`): see that file; row counts per bank: `00` 28, `04` 18, `05` 17, `67` 14, `68` 15, `48` 11, `7F` 10,
-`4E` 9, `2F` 8, `2D` 8, `54` 8, `2A/2B` 7, `74` 7, `22` 5 ... single-file banks: `0F 1B 1C 1F 41-46 4D 52 53 58 5B 5F 60 61 62 66 75 77-7B`.
+`4E` 9, `2F` 8, `2D` 8, `54` 8, `2A/2B` 7, `2C` 7, `74` 7, `22` 5 ... single-file banks: `0F 1B 1C 1F 41-46 4D 52 53 58 5B 5F 60 61 62 66 75 77-7B`.
 
 ## 4. Verification performed
 
@@ -660,7 +660,8 @@ same bank.  None of these choices can change a byte: they only decide which file
 | `gfx/address_book/save_confirm.asm` | 2A | 1872 | 117 | gfx 1088, data 784 |
 | `gfx/address_book/save_sender_address.asm` | 2A | 2549 | 159 | data 1327, gfx 1072, words 150 |
 | `gfx/address_book/shared_tiles_bank28.asm` | 28 | 2272 | 142 | gfx 1536, data 624, words 112 |
-| `gfx/address_book/unreferenced_confirm_screen.asm` | 2C | 2192 | 137 | data 1744, gfx 432, ptrtable 16 |
+| `gfx/address_book/address_screen_candidate_bank2c.asm` | 2C | 1344 | 45 | data 896, gfx 432, ptrtable 16 |
+| `gfx/address_book/entry_view_screen_bank2c.asm` | 2C | 848 | 4 | data 848 |
 
 #### `gfx/`
 

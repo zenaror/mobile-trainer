@@ -326,22 +326,29 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `tiles_4fd0.2bpp` | 2bpp tiles | 512 | 28:4FD0 | CONFIRMED | exact | - | `gfx/address_book/shared_tiles_bank28.asm` |
 | `palette_51d0.pal` | RGB palette | 64 | 28:51D0 | PROBABLE | - | - | `gfx/address_book/shared_tiles_bank28.asm` |
 
-### `gfx/address_book/entry_and_confirm_candidate_bank2c/`
+### `gfx/address_book/address_screen_candidate_bank2c/`
 
-This mixed bank owner contains candidate resources at 2C:7740–7C80 and live address-book entry resources at 2C:7C80–7FD0. The candidate screen role remains a hypothesis; the latter resources are read by `AbookView_SetupScreen`.
+Candidate screen resources at `2C:7740–7C80`, selected by the statically identified `AddrScreenCandidate_InitScreen` path. The candidate screen's original purpose and natural entry remain HYPOTHESIS.
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_7740.2bpp` | 2bpp tiles | 288 | 2C:7740 | PROBABLE | exact | - | `gfx/address_book/entry_and_confirm_candidate_bank2c.asm` |
-| `tilemap_7860.tilemap` | tile-index map | 360 | 2C:7860 | PROBABLE | - | 20x18 | `gfx/address_book/entry_and_confirm_candidate_bank2c.asm` |
-| `tilemap_7860.attrmap` | attribute map | 360 | 2C:79C8 | PROBABLE | - | 20x18 | `gfx/address_book/entry_and_confirm_candidate_bank2c.asm` |
-| `palette_7b30.pal` | RGB palette | 64 | 2C:7B30 | PROBABLE | - | - | `gfx/address_book/entry_and_confirm_candidate_bank2c.asm` |
-| `tiles_7b70.2bpp` | 2bpp tiles | 144 | 2C:7B70 | PROBABLE | exact | - | `gfx/address_book/entry_and_confirm_candidate_bank2c.asm` |
-| `palette_7c00.pal` | RGB palette | 64 | 2C:7C00 | PROBABLE | - | - | `gfx/address_book/entry_and_confirm_candidate_bank2c.asm` |
-| `data_addr_book_entry_tilemap_attr.tilemap` | tile-index map | 360 | 2C:7C80 | CONFIRMED | - | 20x18 | `gfx/address_book/entry_and_confirm_candidate_bank2c.asm` |
-| `data_addr_book_entry_tilemap_attr.attrmap` | attribute map | 360 | 2C:7DE8 | CONFIRMED | - | 20x18 | `gfx/address_book/entry_and_confirm_candidate_bank2c.asm` |
-| `addr_book_entry_bg.pal` | RGB palette | 64 | 2C:7F50 | CONFIRMED | - | - | `gfx/address_book/entry_and_confirm_candidate_bank2c.asm` |
-| `addr_book_entry_obj.pal` | RGB palette | 64 | 2C:7F90 | CONFIRMED | - | - | `gfx/address_book/entry_and_confirm_candidate_bank2c.asm` |
+| `tiles_7740.2bpp` | 2bpp tiles | 288 | 2C:7740 | PROBABLE | exact | - | `gfx/address_book/address_screen_candidate_bank2c.asm` |
+| `tilemap_7860.tilemap` | tile-index map | 360 | 2C:7860 | PROBABLE | - | 20x18 | `gfx/address_book/address_screen_candidate_bank2c.asm` |
+| `tilemap_7860.attrmap` | attribute map | 360 | 2C:79C8 | PROBABLE | - | 20x18 | `gfx/address_book/address_screen_candidate_bank2c.asm` |
+| `palette_7b30.pal` | RGB palette | 64 | 2C:7B30 | PROBABLE | - | - | `gfx/address_book/address_screen_candidate_bank2c.asm` |
+| `tiles_7b70.2bpp` | 2bpp tiles | 144 | 2C:7B70 | PROBABLE | exact | - | `gfx/address_book/address_screen_candidate_bank2c.asm` |
+| `palette_7c00.pal` | RGB palette | 64 | 2C:7C00 | PROBABLE | - | - | `gfx/address_book/address_screen_candidate_bank2c.asm` |
+
+### `gfx/address_book/entry_view_screen_bank2c/`
+
+Confirmed tilemap/attribute-map and palette resources at `2C:7C80–7FD0`, read by `AbookView_SetupScreen`.
+
+| asset | kind | bytes | bank:addr | status | png | dims | source |
+|---|---|---:|---|---|---|---|---|
+| `data_addr_book_entry_tilemap_attr.tilemap` | tile-index map | 360 | 2C:7C80 | CONFIRMED | - | 20x18 | `gfx/address_book/entry_view_screen_bank2c.asm` |
+| `data_addr_book_entry_tilemap_attr.attrmap` | attribute map | 360 | 2C:7DE8 | CONFIRMED | - | 20x18 | `gfx/address_book/entry_view_screen_bank2c.asm` |
+| `addr_book_entry_bg.pal` | RGB palette | 64 | 2C:7F50 | CONFIRMED | - | - | `gfx/address_book/entry_view_screen_bank2c.asm` |
+| `addr_book_entry_obj.pal` | RGB palette | 64 | 2C:7F90 | CONFIRMED | - | - | `gfx/address_book/entry_view_screen_bank2c.asm` |
 
 ### `gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/`
 

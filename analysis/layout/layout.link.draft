@@ -157,7 +157,8 @@ ROMX $2c
 	"engine/address_book/address_picker"
 	"gfx/address_book/address_picker"
 	"engine/address_book/unreferenced_confirm_screen"
-	"gfx/address_book/unreferenced_confirm_screen"
+	"gfx/address_book/address_screen_candidate_bank2c"
+	"gfx/address_book/entry_view_screen_bank2c"
 ROMX $2d
 	"engine/mail/compose"
 	"engine/mail/sample_data"

@@ -136,7 +136,8 @@
 2C	56F2	6730	engine/address_book/address_picker.asm	address picker (choose one of six slots while writing a mail), shared slot-name helpers
 2C	6730	741C	gfx/address_book/address_picker.asm	picker tiles, tilemap, palettes, slot icon animation tables
 2C	741C	7740	engine/address_book/unreferenced_confirm_screen.asm	address confirmation screen with no caller (hypothesis)
-2C	7740	7FD0	gfx/address_book/unreferenced_confirm_screen.asm	tiles, tilemap, palettes of that screen and the entry screen art stored in 2C
+2C	7740	7C80	gfx/address_book/address_screen_candidate_bank2c.asm	candidate resources for AddrScreenCandidate_InitScreen; role remains HYPOTHESIS
+2C	7C80	7FD0	gfx/address_book/entry_view_screen_bank2c.asm	CONFIRMED tilemap, attributes and palettes read by AbookView_SetupScreen
 2D	4000	4195	engine/mail/compose.asm	MailCompose_Run, draft save/load/clear, mail record delete, record address table
 2D	4195	4686	engine/mail/sample_data.asm	sample mail / address-book installers with the sample strings
 2D	4686	4722	engine/mail/staging.asm	SRAM page clear, mail staging clear, free record slot lookup

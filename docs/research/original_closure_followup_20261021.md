@@ -119,11 +119,12 @@ caller or root entry is established. Local-label qualification changed with
 the global names, and the generated SYM check validates current addresses.
 The candidate entry, selected bank and intended role remain HYPOTHESIS.
 
-The bank-2C address-book owner is now
-`gfx/address_book/entry_and_confirm_candidate_bank2c.asm`, with the asset
-directory of the same name. Its range is mixed: 2C:7740–7C80 contains the
-candidate resources, while 2C:7C80–7FD0 contains tilemap and palettes read by
-`AbookView_SetupScreen`. The engine owner is
+The former mixed bank-2C address-book graphics owner has been split at
+`2C:7C80`: candidate resources at 2C:7740–7C80 now live in
+`gfx/address_book/address_screen_candidate_bank2c.asm`, while the confirmed
+entry-view tilemap and palettes at 2C:7C80–7FD0 are in
+`gfx/address_book/entry_view_screen_bank2c.asm` and are read by
+`AbookView_SetupScreen`. The engine candidate owner remains
 `engine/address_book/confirm_screen_candidate.asm`. The 15
 `AddrScreenUnused_*` names now use `AddrScreenCandidate_*`; three live labels
 (`Data_AddrBookEntry_TilemapAttr`, `Palette_AddrBookEntry_Bg` and
