@@ -2230,6 +2230,21 @@ The six-root `Data_BB_AAAA::` census is now 346 definitions in 132 owners,
 down from 373/133 after the 27 generic data labels received structural names.
 This lexical count is not a semantic-completion measure.
 
+## Bank 0E title-screen resource aliases (2026-10-21)
+
+Ten `Data_0E_*` exports in `gfx/title/title_screen.asm` duplicated existing
+same-address graphics, screen tilemap, highlight-start and background-palette
+labels. Exact-token searches found no uses in maintained ASM/INC sources or
+active tools beyond the declarations. The asset catalog already referenced the
+descriptive labels. The aliases were blanked in place, preserving the 93-line
+owner, data extents, resource files and evidence grades. Frozen `config/` and
+historical `analysis/` indexes still contain their old symbol spellings as
+provenance; neither was regenerated or edited.
+
+The six-root `Data_BB_AAAA::` census is now 327 definitions in 132 owners,
+down from 337 after these ten exact aliases were retired. This lexical count is
+not a semantic-completion measure.
+
 ## Bank 1D mail-menu exact-address aliases (2026-10-21)
 
 The `gfx/mail_menu/mail_menu.asm` owner had fifteen generic labels at

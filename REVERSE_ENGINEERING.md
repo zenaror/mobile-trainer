@@ -1624,3 +1624,8 @@ remains unresolved because its palette-like bytes are also an object-table
 pointer target with no demonstrated frame-table layout. The six-root generic
 Data census is now 337 definitions in 132 owners. See the [bank-1D
 audit](docs/research/generic_data_name_audit_20261020.md#bank-1d-mail-menu-exact-address-aliases-2026-10-21).
+
+The bank-0E title-screen owner no longer exports ten exact-address `Data_0E_*`
+aliases under its existing graphics, tilemap and palette labels. Its six-root
+generic Data census is now 327 definitions in 132 owners. See the [bank-0E
+audit](docs/research/generic_data_name_audit_20261020.md#bank-0e-title-screen-resource-aliases-2026-10-21).
