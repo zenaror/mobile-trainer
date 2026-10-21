@@ -1250,3 +1250,51 @@ source-set SHA-256
 `8a7e32fb618b16fc1dd0d64bebb80361bd0450a595c3d237cf3bd9fef6df9861`).
 The corrected census is a candidate inventory, not a blanket approval for
 other aliases.
+## CommNotice resource aliases retired (2026-10-21)
+
+`gfx/comm/notice_dialog.asm` contained 32 same-address generic labels co-addressing existing named tilemap, attrmap, graphics, palette, or animation resources. The corrected census found no references outside the owner and no tool references. In-file token occurrences were limited to the 32 declarations and eight comments describing each attribute map as paired with its tilemap, plus two comments naming the object table; those ten comment tokens were updated to the retained semantic names. No local labels followed the retired declarations. Physical source lines are preserved blank; resource bytes, extents, table entries and confidence classifications are unchanged. Historical snapshots preserve the old spellings.
+
+| Address | Retired label | Retained label |
+|---|---|---|
+| 50:439A | `Tilemap_50_439A` | `Tilemap_CommNotice_A_CutOver60` |
+| 50:4502 | `Attrmap_50_4502` | `Attrmap_CommNotice_A_CutOver60` |
+| 50:466A | `Tilemap_50_466A` | `Tilemap_CommNotice_A_AskOver60` |
+| 50:47D2 | `Attrmap_50_47D2` | `Attrmap_CommNotice_A_AskOver60` |
+| 50:493A | `Tilemap_50_493A` | `Tilemap_CommNotice_A_CutSoon` |
+| 50:4AA2 | `Attrmap_50_4AA2` | `Attrmap_CommNotice_A_CutSoon` |
+| 50:4C0A | `Tilemap_50_4C0A` | `Tilemap_CommNotice_A_AskSoon` |
+| 50:4D72 | `Attrmap_50_4D72` | `Attrmap_CommNotice_A_AskSoon` |
+| 50:4EDA | `Tilemap_50_4EDA` | `Tilemap_CommNotice_B_CutOver60` |
+| 50:5042 | `Attrmap_50_5042` | `Attrmap_CommNotice_B_CutOver60` |
+| 50:51AA | `Tilemap_50_51AA` | `Tilemap_CommNotice_B_AskOver60` |
+| 50:5312 | `Attrmap_50_5312` | `Attrmap_CommNotice_B_AskOver60` |
+| 50:547A | `Tilemap_50_547A` | `Tilemap_CommNotice_B_CutSoon` |
+| 50:55E2 | `Attrmap_50_55E2` | `Attrmap_CommNotice_B_CutSoon` |
+| 50:574A | `Tilemap_50_574A` | `Tilemap_CommNotice_B_AskSoon` |
+| 50:58B2 | `Attrmap_50_58B2` | `Attrmap_CommNotice_B_AskSoon` |
+| 50:5A20 | `Data_50_5A20` | `Gfx_CommNotice_A_Tiles9000` |
+| 50:5E20 | `Data_50_5E20` | `Gfx_CommNotice_A_Tiles9400` |
+| 50:5FC0 | `Data_50_5FC0` | `Gfx_CommNotice_A_Tiles8000Vb1` |
+| 50:5FD0 | `Data_50_5FD0` | `Gfx_CommNotice_A_Tiles9000Vb1` |
+| 50:62F0 | `Data_50_62F0` | `Gfx_CommNotice_B_Tiles9000` |
+| 50:66F0 | `Data_50_66F0` | `Gfx_CommNotice_B_Tiles9400` |
+| 50:6890 | `Data_50_6890` | `Gfx_CommNotice_B_Tiles8000Vb1` |
+| 50:68A0 | `Data_50_68A0` | `Gfx_CommNotice_B_Tiles9000Vb1` |
+| 50:6BC0 | `Palette_50_6BC0` | `Palette_CommNotice` |
+| 50:6CC0 | `Table_50_6CC0` | `CommNotice_Anim0Frames` |
+| 50:6CC4 | `Data_50_6CC4` | `CommNotice_Anim0Frame0To1` |
+| 50:6CE6 | `Data_50_6CE6` | `CommNotice_Anim0Script` |
+| 50:6CEB | `Table_50_6CEB` | `CommNotice_Anim1Frames` |
+| 50:6CEF | `Data_50_6CEF` | `CommNotice_Anim1Frame0To1` |
+| 50:6D11 | `Data_50_6D11` | `CommNotice_Anim1Script` |
+| 50:6D16 | `Table_50_6D16` | `CommNotice_ObjTable` |
+
+The attached address census is only a candidate inventory. This pass does not infer any additional resource purpose beyond the existing names or promote the resource confidence. The original build remains byte-identical; see the 2026-10-21 checkpoint and its validation results in the current reverse-engineering status.
+
+Validation for the CommNotice checkpoint: `make` returns `RESULT: IDENTICAL`
+with ROM SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
+`make sym-check` reports 13,317 labels and 51 constants. A before/after symbol
+comparison found exactly the 32 retired labels missing, with no added or moved
+labels. `make palette-check` passes (162/116/2/0), `make png-check` passes
+(408/4/37/95), and `tools/data_consumers.py --stats` reports 519 groups, 120
+rejected candidates and zero rows.

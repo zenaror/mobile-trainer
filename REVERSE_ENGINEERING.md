@@ -111,6 +111,13 @@ not evidence that the remaining bank-55 records or every Japanese-ROM data
 block are semantically understood; see the dated mapping in
 [`generic_data_name_audit_20261020.md`](docs/research/generic_data_name_audit_20261020.md).
 
+In `gfx/comm/notice_dialog.asm`, 32 generic resource aliases have also been
+retired in favor of existing tilemap, attrmap, graphics, palette and animation
+labels. Eight paired-map comments and two object-table comments now use the
+retained names. The 32 alias declarations and their source-line positions are
+preserved as blank lines; resources and existing confidence levels are
+unchanged. The Japanese naming audit remains open.
+
 Three redundant address-only labels were also retired from the connect-dialog
 strings. Their semantic labels remain the names used by the active reader;
 string data and the six-message block are unchanged. The full build and
