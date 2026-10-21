@@ -83,6 +83,14 @@ remains byte-identical; symbol, palette and PNG checks pass. Palette role
 confidence remains PROBABLE, and historical `config/`/`analysis/` spellings
 are preserved as snapshot evidence. Japanese naming work remains open.
 
+The top-menu graphics owner also retired nine `Data_1E_*` aliases and seven
+`Table_1E_*` aliases under existing tilemap, VRAM-resource, frame-table and
+object-table names. The 11 affected asset-catalog label cells now use the
+retained labels. The owner is 531 lines after removing the 16 declarations;
+the Japanese ROM remains byte-identical, with 12,845 source labels and the
+symbol, palette and PNG checks passing. See
+[`top_menu_aliases_20261021.md`](docs/research/top_menu_aliases_20261021.md).
+
 The nine redundant `String_72_AAAA` labels in the bank-72 dialog-message file
 have also been removed in favor of their existing `String_Dialog_Msg*` names.
 The historical source line positions, message bytes and table entries are

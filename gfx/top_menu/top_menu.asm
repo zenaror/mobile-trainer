@@ -7,7 +7,6 @@ SECTION "gfx/top_menu/top_menu", ROMX
 ; ---- data $40D7-$4357 (640 bytes) [CONFIRMED] tilemap+attr: 2 call site(s) (1F:40E8 1F:435C); first: copy_tilemap_rect_pair at 1F:40E8: hl=$40D7 a=$1E b=16 rows c=20 cols (tiles then attrs) de=$D000
 
 Tilemap_TopMenu_1E_40D7:: ; 1E:40D7
-Data_1E_40D7::
 	INCBIN "gfx/top_menu/top_menu/tilemap_40d7.tilemap"
 	INCBIN "gfx/top_menu/top_menu/tilemap_40d7.attrmap"
 
@@ -105,7 +104,6 @@ TopMenu_AnimTilemapFrames:: ; 1E:4357
 ; ---- data $48C1-$4999 (216 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 1F:44F7: hl=$48C1 a=$1E b=9 rows c=12 cols (tiles then attrs) de=$D0E4
 
 Tilemap_TopMenu_1E_48C1:: ; 1E:48C1
-Data_1E_48C1::
 	INCBIN "gfx/top_menu/top_menu/tilemap_48c1.tilemap"
 	INCBIN "gfx/top_menu/top_menu/tilemap_48c1.attrmap"
 
@@ -115,43 +113,36 @@ Data_1E_48C1::
 ; ---- gfx $49A0-$4DA0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1F:405A: hl=$49A0 a=$1E c=$40 de=$8000 (dest VRAM $8000, vbank=0)
 
 Gfx_TopMenu_Tiles8000:: ; 1E:49A0
-Data_1E_49A0::
 	INCBIN "gfx/top_menu/top_menu/tiles_49a0.2bpp"
 
 ; ---- gfx $4DA0-$51A0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1F:406C: hl=$4DA0 a=$1E c=$40 de=$8400 (dest VRAM $8400, vbank=0)
 
 Gfx_TopMenu_Tiles8400:: ; 1E:4DA0
-Data_1E_4DA0::
 	INCBIN "gfx/top_menu/top_menu/tiles_4da0.2bpp"
 
 ; ---- gfx $51A0-$55A0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1F:407E: hl=$51A0 a=$1E c=$40 de=$8800 (dest VRAM $8800, vbank=0)
 
 Gfx_TopMenu_Tiles8800:: ; 1E:51A0
-Data_1E_51A0::
 	INCBIN "gfx/top_menu/top_menu/tiles_51a0.2bpp"
 
 ; ---- gfx $55A0-$59A0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1F:4090: hl=$55A0 a=$1E c=$40 de=$8C00 (dest VRAM $8C00, vbank=0)
 
 Gfx_TopMenu_Tiles8C00:: ; 1E:55A0
-Data_1E_55A0::
 	INCBIN "gfx/top_menu/top_menu/tiles_55a0.2bpp"
 
 ; ---- gfx $59A0-$5BA0 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1F:40A2: hl=$59A0 a=$1E c=$20 de=$9000 (dest VRAM $9000, vbank=0)
 
 Gfx_TopMenu_Tiles9000:: ; 1E:59A0
-Data_1E_59A0::
 	INCBIN "gfx/top_menu/top_menu/tiles_59a0.2bpp"
 
 ; ---- gfx $5BA0-$5FA0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1F:40B4: hl=$5BA0 a=$1E c=$40 de=$9001 (dest VRAM $9000, vbank=1)
 
 Gfx_TopMenu_Tiles9000Vb1:: ; 1E:5BA0
-Data_1E_5BA0::
 	INCBIN "gfx/top_menu/top_menu/tiles_5ba0.2bpp"
 
 ; ---- gfx $5FA0-$62A0 (768 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1F:40C6: hl=$5FA0 a=$1E c=$30 de=$9401 (dest VRAM $9400, vbank=1)
 
 Gfx_TopMenu_Tiles9400Vb1:: ; 1E:5FA0
-Data_1E_5FA0::
 	INCBIN "gfx/top_menu/top_menu/tiles_5fa0.2bpp"
 
 ; ---- data $62A0-$62E0 (64 bytes) [PROBABLE] 64-byte RGB555 palette block copied by Palette_LoadToBuffer (hl=$62A0 a=$1E bc=$0040 de=$D800) at 1F:40D7; the call site 1F:40D7 IS in analysis/coverage_union.tsv (executed; the earlier 'never executed' used the old 18-scenario union) - status kept PROBABLE because the palette role of the $D800 buffer is not independently demonstrated; replaces the mapper palette guess 62A0-6360 which swallowed the first sprite records
@@ -167,7 +158,6 @@ Palette_TopMenu_Obj:: ; 1E:62E0
 ; ---- words $6320-$6332 (18 bytes) [PROBABLE] sprite frame table: 9 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 TopMenu_Anim1Frames:: ; 1E:6320
-Table_1E_6320::
 	sprite_frame_table TopMenu_Anim1Frame0, TopMenu_Anim1Frame1, TopMenu_Anim1Frame2, TopMenu_Anim1Frame3
 	sprite_frame_table TopMenu_Anim1Frame4, TopMenu_Anim1Frame5, TopMenu_Anim1Frame6, TopMenu_Anim1Frame7
 	sprite_frame_table TopMenu_Anim1Frame8
@@ -261,7 +251,6 @@ TopMenu_Anim1Script:: ; 1E:63A7
 ; ---- words $63BA-$63BE (4 bytes) [PROBABLE] sprite frame table: 2 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 TopMenu_Anim2Frames:: ; 1E:63BA
-Table_1E_63BA::
 	sprite_frame_table TopMenu_Anim2Frame0, TopMenu_Anim2Frame1
 
 ; ---- data $63BE-$63DB (29 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 7 piece(s); length tiles exactly against the frame-table pointers
@@ -298,7 +287,6 @@ TopMenu_Anim2Script:: ; 1E:63F8
 ; ---- words $63FD-$640B (14 bytes) [PROBABLE] sprite frame table: 7 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 TopMenu_Anim3Frames:: ; 1E:63FD
-Table_1E_63FD::
 	sprite_frame_table TopMenu_Anim3Frame0, TopMenu_Anim3Frame1, TopMenu_Anim3Frame2, TopMenu_Anim3Frame3
 	sprite_frame_table TopMenu_Anim3Frame4, TopMenu_Anim3Frame5, TopMenu_Anim3Frame6
 
@@ -366,7 +354,6 @@ Data_1E_6445:: ; 1E:6445
 ; ---- words $6450-$6462 (18 bytes) [PROBABLE] sprite frame table: 9 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 TopMenu_Anim4Frames:: ; 1E:6450
-Table_1E_6450::
 	sprite_frame_table TopMenu_Anim4Frame0, TopMenu_Anim4Frame1, TopMenu_Anim4Frame2, TopMenu_Anim4Frame3
 	sprite_frame_table TopMenu_Anim4Frame4, TopMenu_Anim4Frame5, TopMenu_Anim4Frame6, TopMenu_Anim4Frame7
 	sprite_frame_table TopMenu_Anim4Frame8
@@ -475,7 +462,6 @@ TopMenu_Anim4Script:: ; 1E:6513
 ; ---- words $6526-$652A (4 bytes) [PROBABLE] sprite frame table: 2 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 TopMenu_Anim5Frames:: ; 1E:6526
-Table_1E_6526::
 	sprite_frame_table TopMenu_Anim5Frame0, TopMenu_Anim5Frame1
 
 ; ---- data $652A-$653B (17 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 4 piece(s); length tiles exactly against the frame-table pointers
@@ -516,7 +502,6 @@ Data_1E_6554:: ; 1E:6554
 ; ---- words $6559-$655B (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 TopMenu_Anim6Frames:: ; 1E:6559
-Table_1E_6559::
 	sprite_frame_table TopMenu_Anim6Frame0
 
 ; ---- data $655B-$656C (17 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 4 piece(s); length tiles exactly against the frame-table pointers
@@ -537,7 +522,6 @@ TopMenu_Anim6Script:: ; 1E:656C
 ; ---- words $656F-$658B (28 bytes) [PROBABLE] sprite object table: 4-byte entries (frame-table ptr, animation-script ptr) indexed by B&7F, the layout read by init_object_from_table 00:0A82/00:0AB8; entry 0 is unused (zero); base $656F is passed as de with a=$1E at call sites listed in analysis/gfx_candidates.tsv (object-table); entries 0000/0000 6320/63A7 63BA/63F8 63FD/6436 6450/6513 6526/654C 6559/656C
 
 TopMenu_ObjTable:: ; 1E:656F
-Table_1E_656F::
 	sprite_object_entry 0, 0 ; entry 0
 	sprite_object_entry TopMenu_Anim1Frames, TopMenu_Anim1Script ; entry 1
 	sprite_object_entry TopMenu_Anim2Frames, TopMenu_Anim2Script ; entry 2

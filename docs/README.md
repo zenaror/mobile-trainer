@@ -89,6 +89,7 @@ Reference documents (current):
 | [`browser_page_list_aliases_20261021.md`](research/browser_page_list_aliases_20261021.md) | 14 redundant tile, palette and frame-table aliases retired from browser page-list graphics |
 | [`account_screens_bank5e_aliases_20261021.md`](research/account_screens_bank5e_aliases_20261021.md) | 16 redundant generic aliases retired from account-screen graphics in bank 5E |
 | [`mail_server_tidy_screen_aliases_20261021.md`](research/mail_server_tidy_screen_aliases_20261021.md) | 16 redundant generic graphics and animation-data aliases retired from the mail-server tidy screen |
+| [`top_menu_aliases_20261021.md`](research/top_menu_aliases_20261021.md) | 16 redundant resource and animation-table aliases retired from the top menu |
 | [`home_data_names.md`](research/home_data_names.md) | Bounded original data/resource alias contracts; evidence and caller limits retained |
 | [`mail_gfx_resource_aliases.md`](research/mail_gfx_resource_aliases.md) | Original Mail graphics aliases; load extents, backing and unresolved frame limits |
 | [`mail_sdk_data_names.md`](research/mail_sdk_data_names.md) | Mail strings and pointer tables; finite domains, independent indices and selector-stack caveat |
