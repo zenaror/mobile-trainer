@@ -2630,3 +2630,16 @@ with a Git pathspec explicitly excluding that path. At the three commits, the
 six-root restricted counts are 263/123, 257/122 and 253/122; the previously
 written bank-2E and bank-25 totals have been corrected here. Future census
 commands must explicitly exclude the protected path before opening files.
+
+## Bank 63 no-adapter screen resources (2026-10-21)
+
+In `gfx/error/no_adapter.asm`, exact aliases `Data_63_6080`,
+`Data_63_6CC0`, `Data_63_7318` and `Table_63_7310` were removed under the
+existing no-adapter tile/object labels. The 64-byte extent at `63:6480` is
+the final four tiles of the 1024-byte upload from `63:60C0` to VRAM `$8800`;
+its label and catalog row now identify it as
+`NoAdapter_Gfx_8800_TailTiles`. Existing loader evidence is CONFIRMED, with
+no claim beyond the exact upload. Bytes and confidence are unchanged. The
+restricted six-root `Data_BB_AAAA::` census is now 204 definitions in 114
+owners, down from 208 definitions in 115 owners. This remains a lexical
+count.

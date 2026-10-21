@@ -374,7 +374,7 @@ gfx/error/no_adapter/no_adapter_palette_bg.pal	palette	64	gfx/error/no_adapter.a
 gfx/error/no_adapter/no_adapter_palette_obj.pal	palette	64	gfx/error/no_adapter.asm	63	72D0	CONFIRMED	-	0		NoAdapter_Palette_Obj
 gfx/error/no_adapter/no_adapter_tilemap.attrmap	attrmap	360	gfx/error/no_adapter.asm	63	7128	CONFIRMED	-	0	20x18	NoAdapter_Tilemap
 gfx/error/no_adapter/no_adapter_tilemap.tilemap	tilemap	360	gfx/error/no_adapter.asm	63	6FC0	CONFIRMED	-	0	20x18	NoAdapter_Tilemap
-gfx/error/no_adapter/tiles_6480.2bpp	tiles	64	gfx/error/no_adapter.asm	63	6480	CONFIRMED	exact	0		Data_63_6480
+gfx/error/no_adapter/tiles_6480.2bpp	tiles	64	gfx/error/no_adapter.asm	63	6480	CONFIRMED	exact	0		NoAdapter_Gfx_8800_TailTiles
 gfx/error/non_cgb_screen/non_cgb_tiles.2bpp	tiles	1968	gfx/error/non_cgb_screen.asm	6B	4480	PROBABLE	exact	5		NonCgb_Tiles
 gfx/error/non_cgb_screen/tiles_4060.2bpp	tiles	1056	gfx/error/non_cgb_screen.asm	6B	4060	PROBABLE	exact	0		Data_6B_4060
 gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/blue_bubble_border_44_4d50_attributes.attrmap	attrmap	360	gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm	44	58B8	PROBABLE	-	0	20x18	Data_44_58B8

@@ -1767,3 +1767,9 @@ page-qualified candidate names. Their payloads are byte-identical, while the
 natural loaders stop before them; no use is claimed. Their grades remain
 PROBABLE. The restricted six-root generic-data census is now 208 definitions
 in 115 owners. See the [bank-62 candidate tile audit](docs/research/generic_data_name_audit_20261020.md#bank-62-keyboard-page-tail-tile-candidates-2026-10-21).
+
+In bank 63's no-adapter screen owner, three exact `Data_63_*` aliases and the
+duplicate object-table label were retired. The 64-byte span at `63:6480` is
+the confirmed tail of the tile upload to VRAM `$8800` and now has a qualified
+resource name. The restricted six-root generic-data census is now 204
+definitions in 114 owners. See the [bank-63 resource audit](docs/research/generic_data_name_audit_20261020.md#bank-63-no-adapter-screen-resources-2026-10-21).
