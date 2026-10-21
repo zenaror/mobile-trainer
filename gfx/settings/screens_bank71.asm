@@ -39,7 +39,7 @@ Tilemap_PwSaveConfirm_71_6F6F:: ; 71:6F6F
 
 ; ---- gfx $723F-$7271 (50 bytes) [PROBABLE] tiles-2bpp: heuristic: 35 coherent tiles (hsim2=0.670 vsim2=0.903, 1 blank) parity 1; 558/608 bytes also covered by call-site blocks [clipped from 7011-7271 by higher-priority evidence]
 
-Data_71_723F:: ; 71:723F
+Settings_Candidate2bppFragment_723F:: ; 71:723F
 	db $00, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
 	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
 	db $FF, $00, $FF, $00, $FF, $00, $FC, $01, $FD, $01, $FD, $01, $FC, $01, $FD, $01
@@ -47,7 +47,7 @@ Data_71_723F:: ; 71:723F
 
 ; ---- data $7271-$7740 (1231 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown [clipped from 7240-7740 by higher-priority evidence]
 
-Data_71_7271:: ; 71:7271
+Settings_ReadData_UnknownContent_7271:: ; 71:7271
 	db $FF, $00, $1E, $40, $42, $54, $54, $56, $52, $52, $40, $F4, $F4, $F6, $42, $00
 	db $FF, $00, $3F, $A0, $9F, $A2, $9C, $A1, $91, $A7, $96, $A6, $90, $80, $90, $00
 	db $FF, $00, $DF, $A8, $27, $72, $51, $DC, $8C, $FF, $FB, $FB, $20, $20, $20, $00

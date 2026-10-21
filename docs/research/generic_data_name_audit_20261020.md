@@ -3230,3 +3230,15 @@ with existing code labels, but do not prove entry into the spans. The source
 headers remain **HYPOTHESIS/UNCLASSIFIED**. No bytes or boundaries changed.
 Exact generic `Data_BB_AAAA` count drops from 48/37 definitions/owners to
 45/36.
+
+## Settings bank-71 data spans (2026-10-21)
+
+Two neutral labels in `gfx/settings/screens_bank71.asm` now describe their
+bounded evidence. `71:723F` is a 50-byte fragment clipped from a PROBABLE
+2bpp region, named `Settings_Candidate2bppFragment_723F` to avoid promoting
+the fragment to an asset type. Its tile interpretation remains candidate-qualified.
+`71:7271` remains content-unknown but is confirmed read as data by executed
+code in up to 3 of 18 traced scenarios, now reflected in its label. No
+asset-purpose or natural-display claim is added, and no bytes/boundaries
+changed. Exact generic `Data_BB_AAAA` count drops from 45/36 definitions/owners
+to 43/35.

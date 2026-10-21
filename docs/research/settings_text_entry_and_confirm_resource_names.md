@@ -111,6 +111,14 @@ de execução nem estabelece a aparência da variante.
   (`Tiles_4B_5B90`, `Data_4B_6590`, `Data_4B_70B0`, `Table_4B_76C0`,
   `Data_71_723F`, `Data_71_7271`) também ficam.
 
+## Bank-71 span names follow-up (2026-10-21)
+
+The two bank-71 labels above now read `Settings_Candidate2bppFragment_723F`
+and `Settings_ReadData_UnknownContent_7271`. The first remains a probable
+clipped tile fragment; the second remains content-unknown despite confirmed
+data reads. The earlier names are retained in this dated migration note as
+historical identifiers.
+
 ## Catálogo, linhas e limites de adoção
 
 A mudança em `gfx/assets.tsv` é exatamente de 19 células da coluna `label`.

@@ -1924,7 +1924,7 @@ the [bank-6A ticker naming audit](docs/research/generic_data_name_audit_20261020
 
 A fresh path-bounded exact-name scan of the six maintained source roots plus
 `zero_labels.asm`, excluding the protected mail sample before reading, finds
-45 `Data_BB_AAAA` definitions in 36 owners and no exact generic `Function`,
+43 `Data_BB_AAAA` definitions in 35 owners and no exact generic `Function`,
 `Font`, or `Label` definitions. This is a lexical count, not semantic closure.
 The same scan now finds 0 `String_BB_AAAA`, no exact `Table_BB_AAAA`, 41
 `Tiles_BB_AAAA`, 24 `Tilemap_BB_AAAA`, 4 `Attrmap_BB_AAAA`, and 25
@@ -1978,3 +1978,5 @@ remains HYPOTHESIS; the names do not claim execution or callers.
 Three bank-27 spans in the send/receive owner now describe a candidate JR,
 return opcode, and CALL/JP sequence. Encoded target addresses are documented,
 but natural entry and execution remain unproved.
+Two bank-71 settings-screen spans now use a candidate tile-fragment name and a
+name for data confirmed read by executed code whose content remains unknown.
