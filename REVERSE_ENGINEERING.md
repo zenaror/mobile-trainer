@@ -555,7 +555,7 @@ The next original scope is the separate29:5090–5376 library-header correction,
 
 A separate coordinator readback checked all 12,540 Git blobs across actual JP, actual EN and the fresh JP checkout (198,013,136 bytes), with current complete regular rawGit file snapshots before and after equal; receipt SHA-256 1b21b2b1f9ae9a67a591c86f6f8543c2fcb97f93003eff4245aaf0cec0b8d1ba. This separate readback does not retrospectively supply per-command JP/fresh rawGit snapshots absent from the first fresh-check helper; that helper guarded their source, output, HEAD and status each command and the full EN owner. The successful three checks were not replayed.
 
-Deferred user-requested final audit: after the original disassembly passes are completed, cross-check data/text/pokemon_names_bank53.asm against Pokémon frames, tile resources and exported PNGs. No missing resource or absence of callers is established by the user observation; separately verify extraction completeness and direct/computed references with bank context. This audit is queued, not performed in the decimal-template pass.
+The user-requested bounded audit of `data/text/pokemon_names_bank53.asm`, frame windows, tile resources and exported PNGs is now complete and reconciled to current main in `docs/research/pokemon_names_bank53_asset_audit_20261020.md`. It found no missing referenced file or orphan PNG/binary in the reviewed 208-file scope. The eight KEEP compositions and 25 name/frame associations remain open; computed readers, natural selection and global unused status are not established.
 
 
 ## Prepared bank 29 candidate-library header correction (2026-10-07)
@@ -1033,7 +1033,7 @@ dispatcher and legacy preview names do not establish universal unused status.
 Full closure still requires investigating the remaining generic labels and
 address-only GFX basenames in evidence-backed units. English remains suspended.
 
-The finite asset result was reconciled to current `main` `c2b33d2f8de865da52ab877fa25005fec55de559`: 549/576 tracked snapshot inputs retain their exact blob IDs, the remaining 27 ASM owners differ only in comments/global labels, and no PNG or binary resource changed. The original ROM's current SHA-256 remains `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. The eight KEEP compositions and all 25 name/frame associations remain open; see the current reconciliation in `docs/research/pokemon_names_bank53_asset_audit_20261020.md`.
+The finite asset result reconciled its snapshot to `main` at `c2b33d2f8de865da52ab877fa25005fec55de559`: 549/576 tracked inputs retain exact blob IDs, the remaining 27 ASM owners differ only in comments/global labels, and no PNG or binary resource changed. The documentation-only checkpoint `4a38c8b8f1cbba089894240ceeb8399e47e87244` records that reconciliation; the audit inputs and original ROM remain unchanged. The ROM's current SHA-256 is `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. Eight KEEP compositions and all 25 name/frame associations remain open; see `docs/research/pokemon_names_bank53_asset_audit_20261020.md`.
 
 Follow-up on the current main branch: commit `47830bec` retired the redundant
 local-scope data labels at `55:6F3B` and `27:417A`; `ac5db3ec` documented the
