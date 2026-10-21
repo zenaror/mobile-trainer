@@ -53,7 +53,6 @@ ConnIcon_UpdateState:: ; 69:4034
 ; ---- ptrtable $4045-$4051 (12 bytes) [CONFIRMED] inline table of `call $0545` (JumpTableInline) at 69:4042: 6 entries; end pinned by the executed instruction at 4051; all 6 handlers ran (142 + 2,912 + 233 + 2 + 284 + 143 hits = the 3,716 dispatches, 11 scenarios)
 
 ConnIcon_StateTable:: ; 69:4045
-Table_69_4045::
 	dw ConnIcon_State0_RequestGfx1
 	dw ConnIcon_State1
 	dw ConnIcon_State2
@@ -149,7 +148,6 @@ ConnIcon_LoadGraphicsIfRequested:: ; 69:40D1
 ; ---- ptrtable $40DA-$40E0 (6 bytes) [CONFIRMED] inline table of `call $0545` (JumpTableInline) at 69:40D7: 3 entries; end = first entry target; all 3 handlers ran (184,262 + 142 + 2 = the 184,406 dispatches, 34 scenarios; the tail of the first handler is shared by the other two)
 
 ConnIcon_GfxTable:: ; 69:40DA
-Table_69_40DA::
 	dw ConnIcon_LoadGraphics_ClearRequest
 	dw ConnIcon_LoadGraphics_Request1
 	dw ConnIcon_LoadGraphics_Request2

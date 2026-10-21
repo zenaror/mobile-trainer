@@ -602,3 +602,13 @@ semantic labels for result tables, URL/data tables, state-kind dispatch,
 page-cache slots, element handlers and frame-wipe groups remain. Exact-token
 search found no active source/tool consumers. Payloads and extents are
 unchanged; make is byte-identical and sym-check reports 12,407 labels.
+
+## Communication subsystem table and tile aliases (2026-10-21)
+
+Removed ten exact-address `Table_*`/`Data_*` aliases in communication scene,
+connection icon, connect dialog, notice dialog and time summary owners. Existing
+semantic state/input/gfx tables, digit cells/tile data and the blank tile are
+retained. Updated the notice-dialog evidence comments to refer to
+`Table_CommNotice_DigitCells`. Exact-token source/tool search found no remaining
+consumer of the old labels. make is byte-identical; sym-check reports 12,397
+labels and data-consumers remains 287 groups / 93 rejected / 0 rows.

@@ -556,7 +556,6 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 ; ---- gfx $4D30-$4D40 (16 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (57:497C 57:4AED); first: hdma_rom_to_vram at 57:497C: hl=$4D30 a=$57 c=$01 de=$8C10 (dest VRAM $8C10, vbank=0) [first call site executed: 99 hits in 4 scenarios (analysis/coverage_union.tsv)]
 
 ConnectDialog_BlankTile:: ; 57:4D30
-Data_57_4D30::
 	INCBIN "gfx/comm/connect_dialog_screen/connect_dialog_blank_tile.2bpp"
 
 ConnectDialog_Draw_PasswordSaved:: ; 57:4D40

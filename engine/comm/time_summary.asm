@@ -217,7 +217,6 @@ CommTime_Summary_FrameLoop:: ; 51:4199
 ; ---- ptrtable $41B1-$41BB (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 51:41AE: 5 entries; fixed length (5 words) by the routine
 
 CommTime_SummaryInputTable:: ; 51:41B1
-Table_51_41B1::
 	dw CommTime_SummaryInput_ButtonA
 	dw CommTime_SummaryInput_IgnoreB
 	dw CommTime_SummaryInput_IgnoreSelect
@@ -323,7 +322,6 @@ CommTime_PutDigit:: ; 51:41FE
 ; ---- data $4225-$4239 (20 bytes) [PROBABLE] byte_pair_table: 10 x 2 bytes, indexed by the code at 51:4200-4224 (de = $4225 + 2*a via add a,a / add a,$25 / adc a,$42, two ld a,[de] reads); end = start of the next function at 51:4239; meaning of the values unknown (verified structure, layout from engine code)
 
 Table_CommTime_DigitTiles:: ; 51:4225
-Data_51_4225::
 	db $67, $77, $68, $78, $69, $79, $69, $6F, $6A, $7A, $6B, $7B, $6C, $7C, $6D, $7D
 	db $6E, $7E, $6E, $7F
 

@@ -40,13 +40,13 @@ Attrmap_CommNotice_A_CutSoon:: ; 50:4AA2
 
 	INCBIN "gfx/comm/notice_dialog/attrmap_4aa2.attrmap"
 
-; ---- data $4C0A-$4D72 (360 bytes) [CONFIRMED] screen 4 of 8: 20x18 tile-id map (360 bytes); block address is entry 3 of Table_CommNotice_Screens (50:4254 indexes it by wCommNoticeScreen-1) and is copied by Tilemap_CopyRectAndAttr (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7) [verifier: CONFIRMED - executed data read: traces/detail/browser_pages/dataaccess.tsv 'rom_read 50 4C0A 4EDA' = exactly this tilemap + attrmap pair, and 'rom_read 50 4390 4392' = entry 3 of Table_50_438A, i.e. screen 4 was selected through Table_CommNotice_Screens entry 3 ($424A-424C read); the 360+360 split follows 00:08EA (b=$12 rows x c=$14, second copy at dest+$400)]
+; ---- data $4C0A-$4D72 (360 bytes) [CONFIRMED] screen 4 of 8: 20x18 tile-id map (360 bytes); block address is entry 3 of Table_CommNotice_Screens (50:4254 indexes it by wCommNoticeScreen-1) and is copied by Tilemap_CopyRectAndAttr (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7) [verifier: CONFIRMED - executed data read: traces/detail/browser_pages/dataaccess.tsv 'rom_read 50 4C0A 4EDA' = exactly this tilemap + attrmap pair, and 'rom_read 50 4390 4392' = entry 3 of Table_CommNotice_DigitCells, i.e. screen 4 was selected through Table_CommNotice_Screens entry 3 ($424A-424C read); the 360+360 split follows 00:08EA (b=$12 rows x c=$14, second copy at dest+$400)]
 
 Tilemap_CommNotice_A_AskSoon:: ; 50:4C0A
 
 	INCBIN "gfx/comm/notice_dialog/comm_notice_a_ask_soon.tilemap"
 
-; ---- data $4D72-$4EDA (360 bytes) [CONFIRMED] attribute map paired with Tilemap_CommNotice_A_AskSoon: 08EA's second call copies the following 20x18 block to dest+$0400 (=$D400); values ($08,$28,...) look like CGB BG attributes (bit3 tile VRAM bank, bit5 xflip) - meaning of the buffers HYPOTHESIS [verifier: CONFIRMED - executed data read: traces/detail/browser_pages/dataaccess.tsv 'rom_read 50 4C0A 4EDA' = exactly this tilemap + attrmap pair, and 'rom_read 50 4390 4392' = entry 3 of Table_50_438A, i.e. screen 4 was selected through Table_CommNotice_Screens entry 3 ($424A-424C read); the 360+360 split follows 00:08EA (b=$12 rows x c=$14, second copy at dest+$400)]
+; ---- data $4D72-$4EDA (360 bytes) [CONFIRMED] attribute map paired with Tilemap_CommNotice_A_AskSoon: 08EA's second call copies the following 20x18 block to dest+$0400 (=$D400); values ($08,$28,...) look like CGB BG attributes (bit3 tile VRAM bank, bit5 xflip) - meaning of the buffers HYPOTHESIS [verifier: CONFIRMED - executed data read: traces/detail/browser_pages/dataaccess.tsv 'rom_read 50 4C0A 4EDA' = exactly this tilemap + attrmap pair, and 'rom_read 50 4390 4392' = entry 3 of Table_CommNotice_DigitCells, i.e. screen 4 was selected through Table_CommNotice_Screens entry 3 ($424A-424C read); the 360+360 split follows 00:08EA (b=$12 rows x c=$14, second copy at dest+$400)]
 
 Attrmap_CommNotice_A_AskSoon:: ; 50:4D72
 

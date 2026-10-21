@@ -309,7 +309,6 @@ CommNotice_FrameLoop:: ; 50:429A
 ; ---- ptrtable $42AC-$42B6 (10 bytes) [PROBABLE] inline table of `call $056A` (JoypadDispatch) at 50:42A9: 5 entries; fixed length (5 words) by the routine
 
 CommNotice_InputTable:: ; 50:42AC
-Table_50_42AC::
 	dw CommNotice_Input_ButtonA
 	dw CommNotice_Input_Ignore
 	dw CommNotice_Input_Ignore
@@ -456,5 +455,4 @@ CommNotice_DrawMinuteDigit:: ; 50:4352
 ; ---- words $438A-$439A (16 bytes) [PROBABLE] 8 WRAM tilemap-buffer addresses ($D0A3,$D083,$D0E4,$D0C4 twice) indexed by (wCommNoticeScreen-1)*2 at 50:4352 (ld hl,$438A; word read); the code writes a tile id ($26+n) through it and the row below (+$20). Values are WRAM addresses, not ROM pointers.
 
 Table_CommNotice_DigitCells:: ; 50:438A
-Table_50_438A::
 	dw wScreenTileMap + $A3, wScreenTileMap + $83, wScreenTileMap + $E4, wScreenTileMap + $C4, wScreenTileMap + $A3, wScreenTileMap + $83, wScreenTileMap + $E4, wScreenTileMap + $C4

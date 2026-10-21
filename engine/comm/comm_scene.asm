@@ -123,13 +123,11 @@ CommScene_RunState:: ; 70:408F
 ; dispatches of the `jp hl` at 70:40AC.  The frozen classification had cut the three state tables into five fragments, one of them without a label (`dw $40D9`)
 
 CommScene_KindTable:: ; 70:40AD
-Table_70_40AD::
 	dw CommScene_Kind0_StateTable
 	dw CommScene_Kind1_StateTable
 	dw CommScene_Kind2_StateTable
 
 CommScene_Kind0_StateTable:: ; 70:40B3
-Table_70_40B3::
 	dw CommScene_Kind0_StateSetup
 	dw CommScene_Kind0_StateWaitOneFrame
 	dw CommScene_Kind0_StateSlideSpritePairIn
@@ -142,7 +140,6 @@ Table_70_40B3::
 	dw CommScene_Kind0_StateCancelSlideSpritePairOut
 
 CommScene_Kind1_StateTable:: ; 70:40C7
-Table_70_40C7::
 	dw CommScene_Kind1_StateSetup
 	dw CommScene_Kind1_StateWaitOneFrame
 	dw CommScene_Kind1_StateWaitCloseOrCancel
