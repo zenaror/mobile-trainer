@@ -1032,3 +1032,19 @@ path-scoped scan of current tracked non-language ASM files, again excluding the
 protected sample, finds 897 after this retirement. This count is lexical; it
 does not establish that the remaining generic labels are all unidentified or
 have safe semantic replacements.
+
+## Redundant Shift-JIS ellipsis alias retired (2026-10-21)
+
+`Data_54_4CAD` was an exact-address duplicate of the existing, CONFIRMED
+`String_Text_Ellipsis` label. Its bytes are `$81 $63 $00`; `Text_TruncateSjis`
+passes the semantic label to `CopyString` or copies its two payload bytes with
+`CopyBytes`. A path-scoped tracked-file search excluding `languages/` and the
+protected `engine/mail/sample_data.asm` found the generic spelling only in its
+source declaration, plus historical docs and the frozen `config/` and
+`analysis/` evidence tables. The duplicate source export is retired, its line
+is blank to preserve line numbering, and no bytes or confidence changed.
+
+After the `Data_73_5E60` and `Data_54_4CAD` retirements, the same lexical scan
+of tracked non-language ASM files excluding the protected sample finds 896
+`Data_BB_AAAA::` definitions. This is a naming census, not a count of
+unidentified resources or a semantic completion measure.

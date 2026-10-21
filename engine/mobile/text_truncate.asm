@@ -101,5 +101,5 @@ Text_TruncateSjis:: ; 54:4C47
 ; Text_TruncateSjis loads String_Text_Ellipsis for CopyString or CopyBytes (BC=$0002).
 
 String_Text_Ellipsis:: ; 54:4CAD
-Data_54_4CAD::
+
 	db $81, $63, $00

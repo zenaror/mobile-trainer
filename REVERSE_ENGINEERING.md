@@ -46,14 +46,16 @@ or proof of non-use. Semantic function/entrypoint identification and remaining
 data contracts are still open; the linked audit records method, hashes and
 exclusions.
 
-A current path-scoped scan found one redundant generic alias in
-`gfx/browser/start_choice.asm`: `Data_73_5E60` duplicated the table's
-`SpriteFrameTable_73_5E60` label and had no other tracked non-language consumer.
-The generic export is retired with its physical source line preserved blank;
-the table entry, frame data and ROM bytes are unchanged. The same lexical scan
-now finds 897 `Data_BB_AAAA::` definitions in tracked non-language ASM files,
-excluding `engine/mail/sample_data.asm`. This is a one-alias reduction, not a
-semantic closure result; the remaining candidates still require evidence.
+A current path-scoped review retired two redundant generic aliases. In
+`gfx/browser/start_choice.asm`, `Data_73_5E60` duplicated
+`SpriteFrameTable_73_5E60` and had no other tracked non-language consumer. In
+`engine/mobile/text_truncate.asm`, `Data_54_4CAD` duplicated the CONFIRMED
+`String_Text_Ellipsis` at the same address; only historical docs and frozen
+`config/`/`analysis/` tables retain the generic spelling. Each source line is
+preserved blank. The frames, ellipsis bytes and ROM output are unchanged. The
+same lexical scan now finds 896 `Data_BB_AAAA::` definitions in tracked
+non-language ASM files, excluding `engine/mail/sample_data.asm`. These two
+alias retirements do not close the remaining semantic data audit.
 
 The 2026-10-20 bank6C HelpScript pass maps the static command stream from `6C:4809` through the
 terminal at `6C:58C6` (exclusive end `58C7`), corrects mixed command/text classifications and
