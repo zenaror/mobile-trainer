@@ -17,7 +17,7 @@ Table_70_4822::
 	dw Tilemap_CommScene_TextBox6
 	dw Tilemap_CommScene_TextBox7
 
-; ---- ptrtable $4832-$4846 (20 bytes) [PROBABLE] animation table: 5 entries x 4 bytes (2 pointers each; entry 0 may be null), used as DE by init_object_from_table (00:0A82 / 00:0AB8, index = B&7F): word0 = list of frame pointers, word1 = count + 2-byte pairs. No executed caller found; same format as the CONFIRMED tables 534C/53EB; whole structure tiles exactly (every pointer lands on a record start)
+; ---- ptrtable $4832-$4846 (20 bytes) [PROBABLE] animation table: 5 entries x 4 bytes (2 pointers each; entry 0 may be null), structurally matches Sprite_LoadObjectEntry (00:0AB8): word0 = list of frame pointers, word1 = candidate animation script. Sprite_InitSlot (00:0A82) passes B as A; the reader's AND $7F followed by two byte ADDs selects the low 6 bits. No executed caller found; same format as CONFIRMED tables 534C/53EB; every pointer lands on a record start
 
 Table_70_4832:: ; 70:4832
 	dw $0000
@@ -81,7 +81,7 @@ Data_70_48B2:: ; 70:48B2
 Data_70_4903:: ; 70:4903
 	db $00
 
-; ---- data $4904-$4911 (13 bytes) [PROBABLE] count=6 then 6 x 2-byte pairs; word1 of an entry of Table_70_4832 (read by 00:0AB8 through [slot+8])
+; ---- data $4904-$4911 (13 bytes) [PROBABLE] count=6 then 6 x 2-byte pairs; candidate script referenced by word1 of an entry of Table_70_4832 (Sprite_LoadObjectEntry copies the pointer to slot+6/+7; Sprite_StepAndDrawSlot reads the script index at slot+8)
 
 Data_70_4904:: ; 70:4904
 	db $06, $05, $07, $00, $05, $01, $07, $02, $04, $03, $07, $04, $0A
@@ -138,7 +138,7 @@ Data_70_4A50:: ; 70:4A50
 	db $00, $10, $F4, $50, $00, $20, $F4, $52, $00, $00, $28, $50, $00, $10, $28, $52
 	db $00, $B4, $18, $3C, $00, $C4, $18, $3E, $00
 
-; ---- data $4AB9-$4AC2 (9 bytes) [PROBABLE] count=4 then 4 x 2-byte pairs; word1 of an entry of Table_70_4832 (read by 00:0AB8 through [slot+8])
+; ---- data $4AB9-$4AC2 (9 bytes) [PROBABLE] count=4 then 4 x 2-byte pairs; candidate script referenced by word1 of an entry of Table_70_4832 (Sprite_LoadObjectEntry copies the pointer to slot+6/+7; Sprite_StepAndDrawSlot reads the script index at slot+8)
 
 Data_70_4AB9:: ; 70:4AB9
 	db $04, $00, $0C, $01, $0C, $02, $0C, $03, $0C
@@ -192,7 +192,7 @@ Data_70_4B72:: ; 70:4B72
 Data_70_4B7B:: ; 70:4B7B
 	db $02, $C0, $0C, $40, $00, $D0, $0C, $40, $40
 
-; ---- data $4B84-$4B91 (13 bytes) [PROBABLE] count=6 then 6 x 2-byte pairs; word1 of an entry of Table_70_4832 (read by 00:0AB8 through [slot+8])
+; ---- data $4B84-$4B91 (13 bytes) [PROBABLE] count=6 then 6 x 2-byte pairs; candidate script referenced by word1 of an entry of Table_70_4832 (Sprite_LoadObjectEntry copies the pointer to slot+6/+7; Sprite_StepAndDrawSlot reads the script index at slot+8)
 
 Data_70_4B84:: ; 70:4B84
 	db $06, $00, $0A, $01, $07, $02, $05, $03, $07, $04, $05, $05, $05
@@ -246,12 +246,12 @@ Data_70_4C41:: ; 70:4C41
 Data_70_4C4A:: ; 70:4C4A
 	db $01, $34, $0C, $40, $00
 
-; ---- data $4C4F-$4C5C (13 bytes) [PROBABLE] count=6 then 6 x 2-byte pairs; word1 of an entry of Table_70_4832 (read by 00:0AB8 through [slot+8])
+; ---- data $4C4F-$4C5C (13 bytes) [PROBABLE] count=6 then 6 x 2-byte pairs; candidate script referenced by word1 of an entry of Table_70_4832 (Sprite_LoadObjectEntry copies the pointer to slot+6/+7; Sprite_StepAndDrawSlot reads the script index at slot+8)
 
 Data_70_4C4F:: ; 70:4C4F
 	db $06, $00, $0A, $01, $07, $02, $05, $03, $07, $04, $05, $05, $05
 
-; ---- ptrtable $4C5C-$4C64 (8 bytes) [PROBABLE] animation table: 2 entries x 4 bytes (2 pointers each; entry 0 may be null), used as DE by init_object_from_table (00:0A82 / 00:0AB8, index = B&7F): word0 = list of frame pointers, word1 = count + 2-byte pairs. No executed caller found; same format as the CONFIRMED tables 534C/53EB; whole structure tiles exactly (every pointer lands on a record start)
+; ---- ptrtable $4C5C-$4C64 (8 bytes) [PROBABLE] animation table: 2 entries x 4 bytes (2 pointers each; entry 0 may be null), structurally matches Sprite_LoadObjectEntry (00:0AB8): word0 = list of frame pointers, word1 = candidate animation script. Sprite_InitSlot (00:0A82) passes B as A; the reader's AND $7F followed by two byte ADDs selects the low 6 bits. No executed caller found; same format as CONFIRMED tables 534C/53EB; every pointer lands on a record start
 
 Table_70_4C5C:: ; 70:4C5C
 	dw $0000
@@ -361,13 +361,13 @@ Data_70_4D8D:: ; 70:4D8D
 	db $04, $E8, $C0, $20, $00, $E8, $C8, $22, $00, $14, $F8, $28, $00, $14, $00, $2A
 	db $00
 
-; ---- data $4D9E-$4DBB (29 bytes) [PROBABLE] count=14 then 14 x 2-byte pairs; word1 of an entry of Table_70_4C5C (read by 00:0AB8 through [slot+8])
+; ---- data $4D9E-$4DBB (29 bytes) [PROBABLE] count=14 then 14 x 2-byte pairs; candidate script referenced by word1 of an entry of Table_70_4C5C (Sprite_LoadObjectEntry copies the pointer to slot+6/+7; Sprite_StepAndDrawSlot reads the script index at slot+8)
 
 Data_70_4D9E:: ; 70:4D9E
 	db $0E, $00, $06, $01, $06, $02, $06, $03, $06, $04, $06, $05, $06, $06, $06, $07
 	db $06, $08, $06, $09, $06, $0A, $06, $0B, $06, $0C, $06, $0D, $06
 
-; ---- ptrtable $4DBB-$4DCF (20 bytes) [PROBABLE] animation table: 5 entries x 4 bytes (2 pointers each; entry 0 may be null), used as DE by init_object_from_table (00:0A82 / 00:0AB8, index = B&7F): word0 = list of frame pointers, word1 = count + 2-byte pairs. No executed caller found; same format as the CONFIRMED tables 534C/53EB; whole structure tiles exactly (every pointer lands on a record start)
+; ---- ptrtable $4DBB-$4DCF (20 bytes) [PROBABLE] animation table: 5 entries x 4 bytes (2 pointers each; entry 0 may be null), structurally matches Sprite_LoadObjectEntry (00:0AB8): word0 = list of frame pointers, word1 = candidate animation script. Sprite_InitSlot (00:0A82) passes B as A; the reader's AND $7F followed by two byte ADDs selects the low 6 bits. No executed caller found; same format as CONFIRMED tables 534C/53EB; every pointer lands on a record start
 
 Table_70_4DBB:: ; 70:4DBB
 	dw $0000
@@ -414,7 +414,7 @@ Data_70_4E1A:: ; 70:4E1A
 	db $08, $10, $00, $68, $08, $10, $08, $6A, $08, $10, $10, $6C, $08, $10, $18, $6E
 	db $08, $E8, $14, $A4, $08, $08, $F8, $A4, $08, $28, $1C, $A4, $08
 
-; ---- data $4E47-$4E50 (9 bytes) [PROBABLE] count=4 then 4 x 2-byte pairs; word1 of an entry of Table_70_4DBB (read by 00:0AB8 through [slot+8])
+; ---- data $4E47-$4E50 (9 bytes) [PROBABLE] count=4 then 4 x 2-byte pairs; candidate script referenced by word1 of an entry of Table_70_4DBB (Sprite_LoadObjectEntry copies the pointer to slot+6/+7; Sprite_StepAndDrawSlot reads the script index at slot+8)
 
 Data_70_4E47:: ; 70:4E47
 	db $04, $00, $06, $01, $06, $02, $07, $03, $08
@@ -470,7 +470,7 @@ Data_70_4F7B:: ; 70:4F7B
 	db $0D, $FF, $10, $04, $0D, $FF, $18, $06, $0D, $0F, $00, $08, $0D, $0F, $08, $0A
 	db $0D, $0F, $10, $0C, $0D, $0F, $18, $0E, $0D
 
-; ---- data $4FE4-$4FED (9 bytes) [PROBABLE] count=4 then 4 x 2-byte pairs; word1 of an entry of Table_70_4DBB (read by 00:0AB8 through [slot+8])
+; ---- data $4FE4-$4FED (9 bytes) [PROBABLE] count=4 then 4 x 2-byte pairs; candidate script referenced by word1 of an entry of Table_70_4DBB (Sprite_LoadObjectEntry copies the pointer to slot+6/+7; Sprite_StepAndDrawSlot reads the script index at slot+8)
 
 Data_70_4FE4:: ; 70:4FE4
 	db $04, $00, $0D, $01, $0A, $02, $0D, $03, $0A
@@ -531,7 +531,7 @@ Data_70_513B:: ; 70:513B
 	db $0D, $10, $00, $28, $0D, $10, $08, $2A, $0D, $10, $10, $2C, $0D, $10, $18, $2E
 	db $0D
 
-; ---- data $517C-$5187 (11 bytes) [PROBABLE] count=5 then 5 x 2-byte pairs; word1 of an entry of Table_70_4DBB (read by 00:0AB8 through [slot+8])
+; ---- data $517C-$5187 (11 bytes) [PROBABLE] count=5 then 5 x 2-byte pairs; candidate script referenced by word1 of an entry of Table_70_4DBB (Sprite_LoadObjectEntry copies the pointer to slot+6/+7; Sprite_StepAndDrawSlot reads the script index at slot+8)
 
 Data_70_517C:: ; 70:517C
 	db $05, $00, $0A, $01, $0A, $02, $0A, $03, $0D, $04, $0D
@@ -587,12 +587,12 @@ Data_70_5240:: ; 70:5240
 	db $08, $0D, $08, $A6, $08, $27, $D5, $A6, $08, $33, $4C, $A6, $08, $D3, $E3, $A6
 	db $08, $D0, $59, $A6, $08
 
-; ---- data $5265-$5272 (13 bytes) [PROBABLE] count=6 then 6 x 2-byte pairs; word1 of an entry of Table_70_4DBB (read by 00:0AB8 through [slot+8])
+; ---- data $5265-$5272 (13 bytes) [PROBABLE] count=6 then 6 x 2-byte pairs; candidate script referenced by word1 of an entry of Table_70_4DBB (Sprite_LoadObjectEntry copies the pointer to slot+6/+7; Sprite_StepAndDrawSlot reads the script index at slot+8)
 
 Data_70_5265:: ; 70:5265
 	db $06, $00, $0A, $01, $0A, $02, $0A, $03, $0D, $04, $0D, $05, $07
 
-; ---- ptrtable $5272-$527A (8 bytes) [PROBABLE] animation table: 2 entries x 4 bytes (2 pointers each; entry 0 may be null), used as DE by init_object_from_table (00:0A82 / 00:0AB8, index = B&7F): word0 = list of frame pointers, word1 = count + 2-byte pairs. No executed caller found; same format as the CONFIRMED tables 534C/53EB; whole structure tiles exactly (every pointer lands on a record start)
+; ---- ptrtable $5272-$527A (8 bytes) [PROBABLE] animation table: 2 entries x 4 bytes (2 pointers each; entry 0 may be null), structurally matches Sprite_LoadObjectEntry (00:0AB8): word0 = list of frame pointers, word1 = candidate animation script. Sprite_InitSlot (00:0A82) passes B as A; the reader's AND $7F followed by two byte ADDs selects the low 6 bits. No executed caller found; same format as CONFIRMED tables 534C/53EB; every pointer lands on a record start
 
 Table_70_5272:: ; 70:5272
 	dw $0000
@@ -634,12 +634,12 @@ Data_70_5302:: ; 70:5302
 	db $05, $11, $FE, $08, $05, $11, $06, $0A, $05, $11, $0E, $0C, $05, $11, $16, $0E
 	db $05
 
-; ---- data $5343-$534C (9 bytes) [PROBABLE] count=4 then 4 x 2-byte pairs; word1 of an entry of Table_70_5272 (read by 00:0AB8 through [slot+8])
+; ---- data $5343-$534C (9 bytes) [PROBABLE] count=4 then 4 x 2-byte pairs; candidate script referenced by word1 of an entry of Table_70_5272 (Sprite_LoadObjectEntry copies the pointer to slot+6/+7; Sprite_StepAndDrawSlot reads the script index at slot+8)
 
 Data_70_5343:: ; 70:5343
 	db $04, $00, $0A, $01, $0A, $02, $0A, $01, $0A
 
-; ---- ptrtable $534C-$535C (16 bytes) [CONFIRMED] animation table: 4 entries x 4 bytes (2 pointers each; entry 0 may be null), used as DE by init_object_from_table (00:0A82 / 00:0AB8, index = B&7F): word0 = list of frame pointers, word1 = count + 2-byte pairs. CONFIRMED by executed callers: ld de,$53EB at 70:415C and ld de,$534C at 70:45B1 (a=$70, then call 00:0A82). Whole structure tiles exactly (every pointer lands on a record start)
+; ---- ptrtable $534C-$535C (16 bytes) [CONFIRMED] animation table: 4 entries x 4 bytes (2 pointers each; entry 0 may be null), read by Sprite_LoadObjectEntry (00:0AB8): word0 = list of frame pointers, word1 = animation-script pointer. Sprite_InitSlot (00:0A82) passes B as A; AND $7F followed by two byte ADDs selects the low 6 bits. CONFIRMED by executed callers: ld de,$53EB at 70:415C and ld de,$534C at 70:45B1 (a=$70, then call 00:0A82). Every pointer lands on a record start
 
 CommScene_ObjTable:: ; 70:534C
 Table_70_534C::
@@ -673,7 +673,7 @@ CommScene_Anim1Frame0:: ; 70:535E
 	sprite_oam 16, 8, $06, OAMF_XFLIP | OAMF_BANK1 | 3
 	sprite_oam 32, 8, $06, OAMF_XFLIP | OAMF_BANK1 | 3
 
-; ---- data $5397-$539A (3 bytes) [PROBABLE] count=1 then 1 x 2-byte pairs; word1 of an entry of Table_70_534C (read by 00:0AB8 through [slot+8])
+; ---- data $5397-$539A (3 bytes) [PROBABLE] count=1 then 1 x 2-byte pairs; candidate script referenced by word1 of an entry of Table_70_534C (Sprite_LoadObjectEntry copies the pointer to slot+6/+7; Sprite_StepAndDrawSlot reads the script index at slot+8)
 
 CommScene_Anim1Script:: ; 70:5397
 	sprite_anim 1
@@ -704,7 +704,7 @@ CommScene_Anim2Frame0:: ; 70:539C
 	sprite_oam 0, 8, $06, OAMF_BANK1 | 3
 	sprite_oam 32, 8, $06, OAMF_YFLIP | OAMF_BANK1 | 3
 
-; ---- data $53D5-$53D8 (3 bytes) [PROBABLE] count=1 then 1 x 2-byte pairs; word1 of an entry of Table_70_534C (read by 00:0AB8 through [slot+8])
+; ---- data $53D5-$53D8 (3 bytes) [PROBABLE] count=1 then 1 x 2-byte pairs; candidate script referenced by word1 of an entry of Table_70_534C (Sprite_LoadObjectEntry copies the pointer to slot+6/+7; Sprite_StepAndDrawSlot reads the script index at slot+8)
 
 CommScene_Anim2Script:: ; 70:53D5
 	sprite_anim 1
@@ -728,14 +728,14 @@ CommScene_Anim3Frame0:: ; 70:53DC
 CommScene_Anim3Frame1:: ; 70:53E5
 	sprite_frame 0
 
-; ---- data $53E6-$53EB (5 bytes) [PROBABLE] count=2 then 2 x 2-byte pairs; word1 of an entry of Table_70_534C (read by 00:0AB8 through [slot+8])
+; ---- data $53E6-$53EB (5 bytes) [PROBABLE] count=2 then 2 x 2-byte pairs; candidate script referenced by word1 of an entry of Table_70_534C (Sprite_LoadObjectEntry copies the pointer to slot+6/+7; Sprite_StepAndDrawSlot reads the script index at slot+8)
 
 CommScene_Anim3Script:: ; 70:53E6
 	sprite_anim 2
 	sprite_anim_step 0, 12
 	sprite_anim_step 1, 12
 
-; ---- ptrtable $53EB-$5403 (24 bytes) [CONFIRMED] animation table: 6 entries x 4 bytes (2 pointers each; entry 0 may be null), used as DE by init_object_from_table (00:0A82 / 00:0AB8, index = B&7F): word0 = list of frame pointers, word1 = count + 2-byte pairs. CONFIRMED by executed callers: ld de,$53EB at 70:415C and ld de,$534C at 70:45B1 (a=$70, then call 00:0A82). Whole structure tiles exactly (every pointer lands on a record start)
+; ---- ptrtable $53EB-$5403 (24 bytes) [CONFIRMED] animation table: 6 entries x 4 bytes (2 pointers each; entry 0 may be null), read by Sprite_LoadObjectEntry (00:0AB8): word0 = list of frame pointers, word1 = animation-script pointer. Sprite_InitSlot (00:0A82) passes B as A; AND $7F followed by two byte ADDs selects the low 6 bits. CONFIRMED by executed callers: ld de,$53EB at 70:415C and ld de,$534C at 70:45B1 (a=$70, then call 00:0A82). Every pointer lands on a record start
 
 CommScene_SpriteObjTable:: ; 70:53EB
 Table_70_53EB::
@@ -770,7 +770,7 @@ CommScene_Sprite_Anim1Frame1:: ; 70:5418
 	sprite_oam 19, 0, $24, 0
 	sprite_oam 19, 8, $26, 0
 
-; ---- data $5429-$542E (5 bytes) [PROBABLE] count=2 then 2 x 2-byte pairs; word1 of an entry of Table_70_53EB (read by 00:0AB8 through [slot+8])
+; ---- data $5429-$542E (5 bytes) [PROBABLE] count=2 then 2 x 2-byte pairs; candidate script referenced by word1 of an entry of Table_70_53EB (Sprite_LoadObjectEntry copies the pointer to slot+6/+7; Sprite_StepAndDrawSlot reads the script index at slot+8)
 
 CommScene_Sprite_Anim1Script:: ; 70:5429
 	sprite_anim 2
@@ -801,7 +801,7 @@ CommScene_Sprite_Anim2Frame1:: ; 70:5443
 	sprite_oam 19, 8, $24, OAMF_XFLIP
 	sprite_oam 19, 0, $26, OAMF_XFLIP
 
-; ---- data $5454-$5459 (5 bytes) [PROBABLE] count=2 then 2 x 2-byte pairs; word1 of an entry of Table_70_53EB (read by 00:0AB8 through [slot+8])
+; ---- data $5454-$5459 (5 bytes) [PROBABLE] count=2 then 2 x 2-byte pairs; candidate script referenced by word1 of an entry of Table_70_53EB (Sprite_LoadObjectEntry copies the pointer to slot+6/+7; Sprite_StepAndDrawSlot reads the script index at slot+8)
 
 CommScene_Sprite_Anim2Script:: ; 70:5454
 	sprite_anim 2
@@ -821,7 +821,7 @@ CommScene_Sprite_Anim3Frame0:: ; 70:545B
 	sprite_oam 11, 0, $5C, 3
 	sprite_oam 11, 8, $5E, 3
 
-; ---- data $5464-$5467 (3 bytes) [PROBABLE] count=1 then 1 x 2-byte pairs; word1 of an entry of Table_70_53EB (read by 00:0AB8 through [slot+8])
+; ---- data $5464-$5467 (3 bytes) [PROBABLE] count=1 then 1 x 2-byte pairs; candidate script referenced by word1 of an entry of Table_70_53EB (Sprite_LoadObjectEntry copies the pointer to slot+6/+7; Sprite_StepAndDrawSlot reads the script index at slot+8)
 
 CommScene_Sprite_Anim3Script:: ; 70:5464
 	sprite_anim 1
@@ -840,7 +840,7 @@ CommScene_Sprite_Anim4Frame0:: ; 70:5469
 	sprite_oam 11, 8, $5C, OAMF_XFLIP | 3
 	sprite_oam 11, 0, $5E, OAMF_XFLIP | 3
 
-; ---- data $5472-$5475 (3 bytes) [PROBABLE] count=1 then 1 x 2-byte pairs; word1 of an entry of Table_70_53EB (read by 00:0AB8 through [slot+8])
+; ---- data $5472-$5475 (3 bytes) [PROBABLE] count=1 then 1 x 2-byte pairs; candidate script referenced by word1 of an entry of Table_70_53EB (Sprite_LoadObjectEntry copies the pointer to slot+6/+7; Sprite_StepAndDrawSlot reads the script index at slot+8)
 
 CommScene_Sprite_Anim4Script:: ; 70:5472
 	sprite_anim 1
@@ -859,7 +859,7 @@ CommScene_Sprite_Anim5Frame0:: ; 70:5477
 	sprite_oam -8, 0, $3C, 1
 	sprite_oam -8, 8, $3E, 1
 
-; ---- data $5480-$5483 (3 bytes) [PROBABLE] count=1 then 1 x 2-byte pairs; word1 of an entry of Table_70_53EB (read by 00:0AB8 through [slot+8])
+; ---- data $5480-$5483 (3 bytes) [PROBABLE] count=1 then 1 x 2-byte pairs; candidate script referenced by word1 of an entry of Table_70_53EB (Sprite_LoadObjectEntry copies the pointer to slot+6/+7; Sprite_StepAndDrawSlot reads the script index at slot+8)
 
 CommScene_Sprite_Anim5Script:: ; 70:5480
 	sprite_anim 1
@@ -871,25 +871,25 @@ CommScene_Sprite_Anim5Script:: ; 70:5480
 ; ---- gfx $5490-$5890 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 70:44E2: hl=$5490 a=$70 c=$40 de=$8000 (dest VRAM $8000, vbank=0)
 
 Gfx_CommScene_Tiles8000:: ; 70:5490
-Data_70_5490::
+
 	INCBIN "gfx/comm/comm_scene/tiles_5490.2bpp"
 
 ; ---- gfx $5890-$5C90 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 70:44F4: hl=$5890 a=$70 c=$40 de=$8400 (dest VRAM $8400, vbank=0)
 
 Gfx_CommScene_Tiles8400:: ; 70:5890
-Data_70_5890::
+
 	INCBIN "gfx/comm/comm_scene/tiles_5890.2bpp"
 
 ; ---- gfx $5C90-$6090 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 70:4506: hl=$5C90 a=$70 c=$40 de=$8800 (dest VRAM $8800, vbank=0)
 
 Gfx_CommScene_Tiles8800:: ; 70:5C90
-Data_70_5C90::
+
 	INCBIN "gfx/comm/comm_scene/tiles_5c90.2bpp"
 
 ; ---- gfx $6090-$6490 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 70:4518: hl=$6090 a=$70 c=$40 de=$8C00 (dest VRAM $8C00, vbank=0)
 
 Gfx_CommScene_Tiles8C00:: ; 70:6090
-Data_70_6090::
+
 	INCBIN "gfx/comm/comm_scene/tiles_6090.2bpp"
 
 ; ---- gfx $6490-$6690 (512 bytes) [CONFIRMED] existing graphics slice; shared source:

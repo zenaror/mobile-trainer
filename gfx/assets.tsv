@@ -267,10 +267,10 @@ gfx/comm/comm_scene/tilemap_7450.attrmap	attrmap	80	gfx/comm/comm_scene.asm	70	7
 gfx/comm/comm_scene/tilemap_7450.tilemap	tilemap	80	gfx/comm/comm_scene.asm	70	7450	PROBABLE	-	0	20x4	Tilemap_70_7450
 gfx/comm/comm_scene/tilemap_74f0.attrmap	attrmap	80	gfx/comm/comm_scene.asm	70	7540	PROBABLE	-	0	20x4	Tilemap_70_74F0
 gfx/comm/comm_scene/tilemap_74f0.tilemap	tilemap	80	gfx/comm/comm_scene.asm	70	74F0	PROBABLE	-	0	20x4	Tilemap_70_74F0
-gfx/comm/comm_scene/tiles_5490.2bpp	tiles	1024	gfx/comm/comm_scene.asm	70	5490	CONFIRMED	exact	0		Data_70_5490
-gfx/comm/comm_scene/tiles_5890.2bpp	tiles	1024	gfx/comm/comm_scene.asm	70	5890	CONFIRMED	exact	0		Data_70_5890
-gfx/comm/comm_scene/tiles_5c90.2bpp	tiles	1024	gfx/comm/comm_scene.asm	70	5C90	CONFIRMED	exact	0		Data_70_5C90
-gfx/comm/comm_scene/tiles_6090.2bpp	tiles	1024	gfx/comm/comm_scene.asm	70	6090	CONFIRMED	exact	0		Data_70_6090
+gfx/comm/comm_scene/tiles_5490.2bpp	tiles	1024	gfx/comm/comm_scene.asm	70	5490	CONFIRMED	exact	0		Gfx_CommScene_Tiles8000
+gfx/comm/comm_scene/tiles_5890.2bpp	tiles	1024	gfx/comm/comm_scene.asm	70	5890	CONFIRMED	exact	0		Gfx_CommScene_Tiles8400
+gfx/comm/comm_scene/tiles_5c90.2bpp	tiles	1024	gfx/comm/comm_scene.asm	70	5C90	CONFIRMED	exact	0		Gfx_CommScene_Tiles8800
+gfx/comm/comm_scene/tiles_6090.2bpp	tiles	1024	gfx/comm/comm_scene.asm	70	6090	CONFIRMED	exact	0		Gfx_CommScene_Tiles8C00
 gfx/comm/comm_scene/tiles_6490.2bpp	tiles	512	gfx/comm/comm_scene.asm	70	6490	CONFIRMED	exact	0		Gfx_CommScene_SharedVramSource0
 gfx/comm/comm_scene/tiles_6690.2bpp	tiles	512	gfx/comm/comm_scene.asm	70	6690	CONFIRMED	exact	0		Gfx_CommScene_SharedVramSource1
 gfx/comm/comm_scene/tiles_6890.2bpp	tiles	512	gfx/comm/comm_scene.asm	70	6890	CONFIRMED	exact	0		Gfx_CommScene_SharedVramSource2

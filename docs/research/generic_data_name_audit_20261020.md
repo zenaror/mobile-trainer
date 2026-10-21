@@ -1048,3 +1048,33 @@ After the `Data_73_5E60` and `Data_54_4CAD` retirements, the same lexical scan
 of tracked non-language ASM files excluding the protected sample finds 896
 `Data_BB_AAAA::` definitions. This is a naming census, not a count of
 unidentified resources or a semantic completion measure.
+
+## CommScene aliases and remaining animation-shaped data (2026-10-21)
+
+Four same-address `Data_70_*` aliases at `$5490`, `$5890`, `$5C90` and `$6090`
+duplicated existing `Gfx_CommScene_Tiles*` labels. They were retired from the
+assembly and the four catalog rows in `gfx/assets.tsv` now use the descriptive
+names. The 4,096 ROM bytes and all four HDMA loader references remain intact.
+Independent review accepted all four retirements. A before/after SYM and MAP
+comparison found exactly four removed symbol lines and no other changes.
+`make`, `make sym-check`, `make palette-check` and `make png-check` passed;
+the ROM remains `RESULT: IDENTICAL`. The six-root lexical census is now 909
+generic `Data_BB_AAAA` definitions plus one separate `zero_labels` definition;
+this count does not imply semantic uncertainty for every label.
+
+The other 68 generic data labels in `gfx/comm/comm_scene.asm` remain neutral:
+58 records fit count-plus-four-byte-entry shapes and 10 fit count-plus-two-byte
+script shapes. Their formats are PROBABLE, but their four island object tables
+have no executed caller in the checked evidence, so the records are not renamed.
+Comments were corrected against `Sprite_LoadObjectEntry` and
+`Sprite_StepAndDrawSlot` in `home/sprites.asm`: the object index effectively
+uses the low six bits, the script pointer is stored at slot+6/+7, and the script
+index is at slot+8. This corrects the prior `B&7F` and script-read descriptions
+without claiming execution for the isolated tables.
+
+The separate SaveSender/address-book audit retained all 27 candidate labels.
+It found no aliases or sufficiently supported replacement names; 2,549 source
+bytes were accounted for, but no local consumer chain was established. Details
+and bounded private reports remain under `.tmp/agent-comm-scene-data-audit-20261021/`,
+`.tmp/agent-comm-scene-alias-review-20261021/` and
+`.tmp/agent-save-sender-data-audit-20261021/`.
