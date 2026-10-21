@@ -731,10 +731,10 @@ Table_AddrSlotIcon_Anims	2C:7210	16	735F	740E	5	0:5 1:5 2:5 3:3 4:18
 Table_AddrSlotIcon_Anims	2C:7210	17	735F	740E	5	0:5 1:5 2:5 3:3 4:18
 Table_AddrSlotIcon_Anims	2C:7210	18	735F	740E	5	0:5 1:5 2:5 3:3 4:18
 Table_AddrSlotIcon_Anims	2C:7210	19	735F	740E	5	0:5 1:5 2:5 3:3 4:18
-Table_AddrScreenUnused_Objects	2C:7C40	0	7C50	7C77	1	0:4
-Table_AddrScreenUnused_Objects	2C:7C40	1	7C50	7C77	1	0:4
-Table_AddrScreenUnused_Objects	2C:7C40	2	7C50	7C77	1	0:4
-Table_AddrScreenUnused_Objects	2C:7C40	3	7C50	7C77	1	0:4
+Table_AddrScreenCandidate_Objects	2C:7C40	0	7C50	7C77	1	0:4
+Table_AddrScreenCandidate_Objects	2C:7C40	1	7C50	7C77	1	0:4
+Table_AddrScreenCandidate_Objects	2C:7C40	2	7C50	7C77	1	0:4
+Table_AddrScreenCandidate_Objects	2C:7C40	3	7C50	7C77	1	0:4
 Table_MailServerMgr_ObjAnims	2E:76C0	0	77FA	7838	2	0:46 1:8
 Table_MailServerMgr_ObjAnims	2E:76C0	1	77FA	7838	2	0:46 1:8
 Table_MailServerMgr_ObjAnims	2E:76C0	2	77FA	7838	2	0:46 1:8

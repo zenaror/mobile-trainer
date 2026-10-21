@@ -312,9 +312,9 @@ ROMX $2C
 	org $6730
 	"gfx/address_book/address_picker"
 	org $741C
-	"engine/address_book/unreferenced_confirm_screen"
+	"engine/address_book/confirm_screen_candidate"
 	org $7740
-	"gfx/address_book/unreferenced_confirm_screen"
+	"gfx/address_book/entry_and_confirm_candidate_bank2c"
 
 ROMX $2D
 	org $4000
@@ -830,7 +830,7 @@ ROMX $7F
 	org $624F
 	"engine/sprites/slot_backup"
 	org $62B0
-	"gfx/unreferenced/page_list_prototype"
+	"gfx/browser/page_list_candidate"
 	org $70FD
 	"engine/keyboard/slide_helpers"
 	org $7271

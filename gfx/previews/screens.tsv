@@ -25,7 +25,7 @@ AbookList_SetupScreen	loader	engine/address_book/list.asm	5	1	2	0	-	-	-	360	-	-	
 AbookName_SetupScreen	loader	engine/address_book/name_editor.asm	4	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 82/336		0	
 AddrBook_SaveConfirm_InitScreen	loader	engine/address_book/save_confirm.asm	2	1	1	0	-	-	-	360	-	-	-	-	-	-	coverage 0/258		0	
 SaveSenderAddr_InitScreen	loader	engine/address_book/save_sender_address.asm	3	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 71/188		0	
-AddrScreenUnused_InitScreen	loader	engine/address_book/unreferenced_confirm_screen.asm	2	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 5/279		0	
+AddrScreenCandidate_InitScreen	loader	engine/address_book/confirm_screen_candidate.asm	2	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 5/279		0
 AbookView_SetupScreen	loader	engine/address_book/view.asm	4	1	2	0	-	-	-	360	-	-	-	-	-	-	coverage 44/258		0	
 BrowserMenu_OpenTwoItem	loader	engine/browser/menus.asm	2	1	2	0	-	-	-	120	-	-	-	-	-	-	coverage 120/120		0	
 BrowserMenu_OpenThreeItem	loader	engine/browser/menus.asm	2	1	2	0	-	-	-	120	-	-	-	-	-	-	coverage 120/120		0	

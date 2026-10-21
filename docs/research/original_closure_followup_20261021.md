@@ -46,6 +46,37 @@ caller or root entry is established. Local-label qualification changed with
 the global names, and the generated SYM check validates current addresses.
 The candidate entry, selected bank and intended role remain HYPOTHESIS.
 
+The bank-2C address-book owner is now
+`gfx/address_book/entry_and_confirm_candidate_bank2c.asm`, with the asset
+directory of the same name. Its range is mixed: 2C:7740–7C80 contains the
+candidate resources, while 2C:7C80–7FD0 contains tilemap and palettes read by
+`AbookView_SetupScreen`. The engine owner is
+`engine/address_book/confirm_screen_candidate.asm`. The 15
+`AddrScreenUnused_*` names now use `AddrScreenCandidate_*`; three live labels
+(`Data_AddrBookEntry_TilemapAttr`, `Palette_AddrBookEntry_Bg` and
+`Palette_AddrBookEntry_Obj`) remain intact. All ten generic co-located aliases
+were retired: their source/catalogue references were absent outside their
+definitions except six `gfx/assets.tsv` label cells, which now point to the
+existing semantic labels. Historical analysis and frozen configuration
+references retain their original spellings as provenance (49 matching lines
+in ten files). The candidate entry and its intended
+confirmation role remain HYPOTHESIS; the renames assert no natural use or
+global absence of callers. Preview PNG bytes and all ROM payload baselines
+were preserved by the path migration. An independent bounded encoding check
+confirmed the same 2,192 emitted bytes at 2C:7740–7FD0 after alias removal
+(SHA-256 `483390eebbe4a0b3f6e565312a20e2df32461a077368b97b97d4594bbe21efc1`).
+
+The bank-7F graphics owner is now `gfx/browser/page_list_candidate.asm` with
+assets under `gfx/browser/page_list_candidate/`. The linked engine owner
+`engine/unreferenced/page_list_prototype.asm`, all 74 `PageListProto_*` globals
+and their consumers remain unchanged. Static source inventory found 102
+symbolic reference lines from that engine owner to the graphics globals; this
+does not establish natural entry or original purpose, which remain
+HYPOTHESIS. The separate `page_list_prototype_objects` and bank-52
+`page_list_prototype_messages` owners are unchanged. Historical/frozen locators
+retain their earlier path, while current asset metadata and the image inventory
+point to the candidate owner.
+
 ## Broader name audit and remaining limits
 
 A maintained-source audit found 59 paths carrying `unused` or
@@ -58,8 +89,9 @@ candidates, points provenance to the six actual `gfx/frame_designs/` owners,
 and limits its selection statement to the 27 descriptors for styles 0..26.
 The 24 existing preview payloads and current table metrics are retained; no
 whole-preview README regeneration was performed because it would change
-unrelated rows. The address-book and page-list mixed-owner migrations remain
-open. No global unused/dead claim follows from these finite scans.
+unrelated rows. Both the address-book and page-list gfx-owner path migrations
+are now integrated with scoped README/inventory edits. No global unused/dead
+claim follows from these finite scans.
 
 The current source contains no literal `Function_BB_AAAA` definitions. A
 separate census at the prior checkpoint reported 925 `Data_BB_AAAA`
@@ -75,10 +107,11 @@ open.
 
 At this checkpoint: `make` produced the original 2,097,152-byte ROM with
 SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`
-and `RESULT: IDENTICAL`; `make sym-check` passed with 13,527 labels;
+and `RESULT: IDENTICAL`; `make sym-check` passed with 13,502 labels;
 `make palette-check` passed (162 loads, 116 arrays, two documented
 over-reads); `make png-check` passed (408 tile sheets, four raw byte views,
-37 font sheets and 95 screen PNGs); `git diff --check` was clean.
+37 font sheets and 95 screen PNGs); `python3 tools/png_rules.py mk-check`
+passed (978 rules), and `git diff --check` was clean.
 
 The detailed private review receipts and inventories remain under the
 ignored `.tmp/` task directories until their dependent follow-up work and

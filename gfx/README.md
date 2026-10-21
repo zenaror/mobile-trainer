@@ -325,20 +325,22 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `tiles_4fd0.2bpp` | 2bpp tiles | 512 | 28:4FD0 | CONFIRMED | exact | - | `gfx/address_book/shared_tiles_bank28.asm` |
 | `palette_51d0.pal` | RGB palette | 64 | 28:51D0 | PROBABLE | - | - | `gfx/address_book/shared_tiles_bank28.asm` |
 
-### `gfx/address_book/unreferenced_confirm_screen/`
+### `gfx/address_book/entry_and_confirm_candidate_bank2c/`
+
+This mixed bank owner contains candidate resources at 2C:7740–7C80 and live address-book entry resources at 2C:7C80–7FD0. The candidate screen role remains a hypothesis; the latter resources are read by `AbookView_SetupScreen`.
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_7740.2bpp` | 2bpp tiles | 288 | 2C:7740 | PROBABLE | exact | - | `gfx/address_book/unreferenced_confirm_screen.asm` |
-| `tilemap_7860.tilemap` | tile-index map | 360 | 2C:7860 | PROBABLE | - | 20x18 | `gfx/address_book/unreferenced_confirm_screen.asm` |
-| `tilemap_7860.attrmap` | attribute map | 360 | 2C:79C8 | PROBABLE | - | 20x18 | `gfx/address_book/unreferenced_confirm_screen.asm` |
-| `palette_7b30.pal` | RGB palette | 64 | 2C:7B30 | PROBABLE | - | - | `gfx/address_book/unreferenced_confirm_screen.asm` |
-| `tiles_7b70.2bpp` | 2bpp tiles | 144 | 2C:7B70 | PROBABLE | exact | - | `gfx/address_book/unreferenced_confirm_screen.asm` |
-| `palette_7c00.pal` | RGB palette | 64 | 2C:7C00 | PROBABLE | - | - | `gfx/address_book/unreferenced_confirm_screen.asm` |
-| `data_addr_book_entry_tilemap_attr.tilemap` | tile-index map | 360 | 2C:7C80 | CONFIRMED | - | 20x18 | `gfx/address_book/unreferenced_confirm_screen.asm` |
-| `data_addr_book_entry_tilemap_attr.attrmap` | attribute map | 360 | 2C:7DE8 | CONFIRMED | - | 20x18 | `gfx/address_book/unreferenced_confirm_screen.asm` |
-| `addr_book_entry_bg.pal` | RGB palette | 64 | 2C:7F50 | CONFIRMED | - | - | `gfx/address_book/unreferenced_confirm_screen.asm` |
-| `addr_book_entry_obj.pal` | RGB palette | 64 | 2C:7F90 | CONFIRMED | - | - | `gfx/address_book/unreferenced_confirm_screen.asm` |
+| `tiles_7740.2bpp` | 2bpp tiles | 288 | 2C:7740 | PROBABLE | exact | - | `gfx/address_book/entry_and_confirm_candidate_bank2c.asm` |
+| `tilemap_7860.tilemap` | tile-index map | 360 | 2C:7860 | PROBABLE | - | 20x18 | `gfx/address_book/entry_and_confirm_candidate_bank2c.asm` |
+| `tilemap_7860.attrmap` | attribute map | 360 | 2C:79C8 | PROBABLE | - | 20x18 | `gfx/address_book/entry_and_confirm_candidate_bank2c.asm` |
+| `palette_7b30.pal` | RGB palette | 64 | 2C:7B30 | PROBABLE | - | - | `gfx/address_book/entry_and_confirm_candidate_bank2c.asm` |
+| `tiles_7b70.2bpp` | 2bpp tiles | 144 | 2C:7B70 | PROBABLE | exact | - | `gfx/address_book/entry_and_confirm_candidate_bank2c.asm` |
+| `palette_7c00.pal` | RGB palette | 64 | 2C:7C00 | PROBABLE | - | - | `gfx/address_book/entry_and_confirm_candidate_bank2c.asm` |
+| `data_addr_book_entry_tilemap_attr.tilemap` | tile-index map | 360 | 2C:7C80 | CONFIRMED | - | 20x18 | `gfx/address_book/entry_and_confirm_candidate_bank2c.asm` |
+| `data_addr_book_entry_tilemap_attr.attrmap` | attribute map | 360 | 2C:7DE8 | CONFIRMED | - | 20x18 | `gfx/address_book/entry_and_confirm_candidate_bank2c.asm` |
+| `addr_book_entry_bg.pal` | RGB palette | 64 | 2C:7F50 | CONFIRMED | - | - | `gfx/address_book/entry_and_confirm_candidate_bank2c.asm` |
+| `addr_book_entry_obj.pal` | RGB palette | 64 | 2C:7F90 | CONFIRMED | - | - | `gfx/address_book/entry_and_confirm_candidate_bank2c.asm` |
 
 ### `gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/`
 
@@ -1472,17 +1474,17 @@ Os arquivos legados atuais são `gfx/settings/adapter_check_and_phone_entry_bank
 | `palette_62a0.pal` | RGB palette | 64 | 1E:62A0 | PROBABLE | - | - | `gfx/top_menu/top_menu.asm` |
 | `palette_62e0.pal` | RGB palette | 64 | 1E:62E0 | PROBABLE | - | - | `gfx/top_menu/top_menu.asm` |
 
-### `gfx/unreferenced/page_list_prototype/`
+### `gfx/browser/page_list_candidate/`
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_62b0.2bpp` | 2bpp tiles | 1024 | 7F:62B0 | PROBABLE | exact | - | `gfx/unreferenced/page_list_prototype.asm` |
-| `tiles_66b0.2bpp` | 2bpp tiles | 288 | 7F:66B0 | PROBABLE | exact | - | `gfx/unreferenced/page_list_prototype.asm` |
-| `tilemap_67d0.tilemap` | tile-index map | 360 | 7F:67D0 | PROBABLE | - | 20x18 | `gfx/unreferenced/page_list_prototype.asm` |
-| `tilemap_67d0.attrmap` | attribute map | 360 | 7F:6938 | PROBABLE | - | 20x18 | `gfx/unreferenced/page_list_prototype.asm` |
-| `palette_6aa0.pal` | RGB palette | 64 | 7F:6AA0 | PROBABLE | - | - | `gfx/unreferenced/page_list_prototype.asm` |
-| `tiles_6ae0.2bpp` | 2bpp tiles | 656 | 7F:6AE0 | PROBABLE | exact | - | `gfx/unreferenced/page_list_prototype.asm` |
-| `palette_6d70.pal` | RGB palette | 64 | 7F:6D70 | PROBABLE | - | - | `gfx/unreferenced/page_list_prototype.asm` |
+| `tiles_62b0.2bpp` | 2bpp tiles | 1024 | 7F:62B0 | PROBABLE | exact | - | `gfx/browser/page_list_candidate.asm` |
+| `tiles_66b0.2bpp` | 2bpp tiles | 288 | 7F:66B0 | PROBABLE | exact | - | `gfx/browser/page_list_candidate.asm` |
+| `tilemap_67d0.tilemap` | tile-index map | 360 | 7F:67D0 | PROBABLE | - | 20x18 | `gfx/browser/page_list_candidate.asm` |
+| `tilemap_67d0.attrmap` | attribute map | 360 | 7F:6938 | PROBABLE | - | 20x18 | `gfx/browser/page_list_candidate.asm` |
+| `palette_6aa0.pal` | RGB palette | 64 | 7F:6AA0 | PROBABLE | - | - | `gfx/browser/page_list_candidate.asm` |
+| `tiles_6ae0.2bpp` | 2bpp tiles | 656 | 7F:6AE0 | PROBABLE | exact | - | `gfx/browser/page_list_candidate.asm` |
+| `palette_6d70.pal` | RGB palette | 64 | 7F:6D70 | PROBABLE | - | - | `gfx/browser/page_list_candidate.asm` |
 
 ### `gfx/unreferenced/page_list_prototype_objects/`
 

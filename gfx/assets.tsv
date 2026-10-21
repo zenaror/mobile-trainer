@@ -175,16 +175,16 @@ gfx/address_book/save_sender_address/tiles_4fe0.2bpp	tiles	512	gfx/address_book/
 gfx/address_book/shared_tiles_bank28/palette_51d0.pal	palette	64	gfx/address_book/shared_tiles_bank28.asm	28	51D0	PROBABLE	-	0		Palette_28_51D0
 gfx/address_book/shared_tiles_bank28/tiles_4bd0.2bpp	tiles	1024	gfx/address_book/shared_tiles_bank28.asm	28	4BD0	CONFIRMED	exact	0		Data_28_4BD0
 gfx/address_book/shared_tiles_bank28/tiles_4fd0.2bpp	tiles	512	gfx/address_book/shared_tiles_bank28.asm	28	4FD0	CONFIRMED	exact	0		Data_28_4FD0
-gfx/address_book/unreferenced_confirm_screen/addr_book_entry_bg.pal	palette	64	gfx/address_book/unreferenced_confirm_screen.asm	2C	7F50	CONFIRMED	-	0		Palette_AddrBookEntry_Bg
-gfx/address_book/unreferenced_confirm_screen/addr_book_entry_obj.pal	palette	64	gfx/address_book/unreferenced_confirm_screen.asm	2C	7F90	CONFIRMED	-	0		Palette_AddrBookEntry_Obj
-gfx/address_book/unreferenced_confirm_screen/data_addr_book_entry_tilemap_attr.attrmap	attrmap	360	gfx/address_book/unreferenced_confirm_screen.asm	2C	7DE8	CONFIRMED	-	0	20x18	Data_AddrBookEntry_TilemapAttr
-gfx/address_book/unreferenced_confirm_screen/data_addr_book_entry_tilemap_attr.tilemap	tilemap	360	gfx/address_book/unreferenced_confirm_screen.asm	2C	7C80	CONFIRMED	-	0	20x18	Data_AddrBookEntry_TilemapAttr
-gfx/address_book/unreferenced_confirm_screen/palette_7b30.pal	palette	64	gfx/address_book/unreferenced_confirm_screen.asm	2C	7B30	PROBABLE	-	0		Data_2C_7B30
-gfx/address_book/unreferenced_confirm_screen/palette_7c00.pal	palette	64	gfx/address_book/unreferenced_confirm_screen.asm	2C	7C00	PROBABLE	-	0		Palette_2C_7C00
-gfx/address_book/unreferenced_confirm_screen/tilemap_7860.attrmap	attrmap	360	gfx/address_book/unreferenced_confirm_screen.asm	2C	79C8	PROBABLE	-	0	20x18	Data_2C_7860
-gfx/address_book/unreferenced_confirm_screen/tilemap_7860.tilemap	tilemap	360	gfx/address_book/unreferenced_confirm_screen.asm	2C	7860	PROBABLE	-	0	20x18	Data_2C_7860
-gfx/address_book/unreferenced_confirm_screen/tiles_7740.2bpp	tiles	288	gfx/address_book/unreferenced_confirm_screen.asm	2C	7740	PROBABLE	exact	0		Data_2C_7740
-gfx/address_book/unreferenced_confirm_screen/tiles_7b70.2bpp	tiles	144	gfx/address_book/unreferenced_confirm_screen.asm	2C	7B70	PROBABLE	exact	0		Data_2C_7B70
+gfx/address_book/entry_and_confirm_candidate_bank2c/addr_book_entry_bg.pal	palette	64	gfx/address_book/entry_and_confirm_candidate_bank2c.asm	2C	7F50	CONFIRMED	-	0		Palette_AddrBookEntry_Bg
+gfx/address_book/entry_and_confirm_candidate_bank2c/addr_book_entry_obj.pal	palette	64	gfx/address_book/entry_and_confirm_candidate_bank2c.asm	2C	7F90	CONFIRMED	-	0		Palette_AddrBookEntry_Obj
+gfx/address_book/entry_and_confirm_candidate_bank2c/data_addr_book_entry_tilemap_attr.attrmap	attrmap	360	gfx/address_book/entry_and_confirm_candidate_bank2c.asm	2C	7DE8	CONFIRMED	-	0	20x18	Data_AddrBookEntry_TilemapAttr
+gfx/address_book/entry_and_confirm_candidate_bank2c/data_addr_book_entry_tilemap_attr.tilemap	tilemap	360	gfx/address_book/entry_and_confirm_candidate_bank2c.asm	2C	7C80	CONFIRMED	-	0	20x18	Data_AddrBookEntry_TilemapAttr
+gfx/address_book/entry_and_confirm_candidate_bank2c/palette_7b30.pal	palette	64	gfx/address_book/entry_and_confirm_candidate_bank2c.asm	2C	7B30	PROBABLE	-	0		Palette_AddrScreenCandidate_Bg
+gfx/address_book/entry_and_confirm_candidate_bank2c/palette_7c00.pal	palette	64	gfx/address_book/entry_and_confirm_candidate_bank2c.asm	2C	7C00	PROBABLE	-	0		Palette_AddrScreenCandidate_Obj
+gfx/address_book/entry_and_confirm_candidate_bank2c/tilemap_7860.attrmap	attrmap	360	gfx/address_book/entry_and_confirm_candidate_bank2c.asm	2C	79C8	PROBABLE	-	0	20x18	Tilemap_AddrScreenCandidate_Screen
+gfx/address_book/entry_and_confirm_candidate_bank2c/tilemap_7860.tilemap	tilemap	360	gfx/address_book/entry_and_confirm_candidate_bank2c.asm	2C	7860	PROBABLE	-	0	20x18	Tilemap_AddrScreenCandidate_Screen
+gfx/address_book/entry_and_confirm_candidate_bank2c/tiles_7740.2bpp	tiles	288	gfx/address_book/entry_and_confirm_candidate_bank2c.asm	2C	7740	PROBABLE	exact	0		Gfx_AddrScreenCandidate_Tiles9300Vb1
+gfx/address_book/entry_and_confirm_candidate_bank2c/tiles_7b70.2bpp	tiles	144	gfx/address_book/entry_and_confirm_candidate_bank2c.asm	2C	7B70	PROBABLE	exact	0		Gfx_AddrScreenCandidate_Tiles8000
 gfx/browser/frames_0_1/palette_4dd0.pal	palette	128	gfx/browser/frames_0_1.asm	47	4DD0	PROBABLE	-	0		Palette_47_4DD0
 gfx/browser/frames_0_1/palette_5b20.pal	palette	128	gfx/browser/frames_0_1.asm	47	5B20	PROBABLE	-	0		Palette_47_5B20
 gfx/browser/frames_0_1/tilemap_4b00.attrmap	attrmap	360	gfx/browser/frames_0_1.asm	47	4C68	PROBABLE	-	0	20x18	Tilemap_47_4B00
@@ -973,12 +973,12 @@ gfx/help/script_illustrations_14_26/picture_26_palette.pal	palette	8	gfx/help/sc
 gfx/ui_art/logo_and_window_tiles/art_palettes.pal	palette	96	gfx/ui_art/logo_and_window_tiles.asm	5B	5680	PROBABLE	-	0		Palette_5B_5680
 gfx/ui_art/logo_and_window_tiles/logo_and_window_tiles.2bpp	tiles	4608	gfx/ui_art/logo_and_window_tiles.asm	5B	4000	PROBABLE	exact	0		Tiles_5B_4000
 gfx/ui_art/logo_and_window_tiles/mail_server_box_tiles.2bpp	tiles	1152	gfx/ui_art/logo_and_window_tiles.asm	5B	5200	PROBABLE	exact	0		Tiles_5B_5200
-gfx/unreferenced/page_list_prototype/palette_6aa0.pal	palette	64	gfx/unreferenced/page_list_prototype.asm	7F	6AA0	PROBABLE	-	0		Palette_7F_6AA0
-gfx/unreferenced/page_list_prototype/palette_6d70.pal	palette	64	gfx/unreferenced/page_list_prototype.asm	7F	6D70	PROBABLE	-	0		Palette_7F_6D70
-gfx/unreferenced/page_list_prototype/tilemap_67d0.attrmap	attrmap	360	gfx/unreferenced/page_list_prototype.asm	7F	6938	PROBABLE	-	0	20x18	Data_7F_67D0
-gfx/unreferenced/page_list_prototype/tilemap_67d0.tilemap	tilemap	360	gfx/unreferenced/page_list_prototype.asm	7F	67D0	PROBABLE	-	0	20x18	Data_7F_67D0
-gfx/unreferenced/page_list_prototype/tiles_62b0.2bpp	tiles	1024	gfx/unreferenced/page_list_prototype.asm	7F	62B0	PROBABLE	exact	0		Data_7F_62B0
-gfx/unreferenced/page_list_prototype/tiles_66b0.2bpp	tiles	288	gfx/unreferenced/page_list_prototype.asm	7F	66B0	PROBABLE	exact	0		Data_7F_66B0
-gfx/unreferenced/page_list_prototype/tiles_6ae0.2bpp	tiles	656	gfx/unreferenced/page_list_prototype.asm	7F	6AE0	PROBABLE	exact	7		Data_7F_6AE0
+gfx/browser/page_list_candidate/palette_6aa0.pal	palette	64	gfx/browser/page_list_candidate.asm	7F	6AA0	PROBABLE	-	0		Palette_7F_6AA0
+gfx/browser/page_list_candidate/palette_6d70.pal	palette	64	gfx/browser/page_list_candidate.asm	7F	6D70	PROBABLE	-	0		Palette_7F_6D70
+gfx/browser/page_list_candidate/tilemap_67d0.attrmap	attrmap	360	gfx/browser/page_list_candidate.asm	7F	6938	PROBABLE	-	0	20x18	Data_7F_67D0
+gfx/browser/page_list_candidate/tilemap_67d0.tilemap	tilemap	360	gfx/browser/page_list_candidate.asm	7F	67D0	PROBABLE	-	0	20x18	Data_7F_67D0
+gfx/browser/page_list_candidate/tiles_62b0.2bpp	tiles	1024	gfx/browser/page_list_candidate.asm	7F	62B0	PROBABLE	exact	0		Data_7F_62B0
+gfx/browser/page_list_candidate/tiles_66b0.2bpp	tiles	288	gfx/browser/page_list_candidate.asm	7F	66B0	PROBABLE	exact	0		Data_7F_66B0
+gfx/browser/page_list_candidate/tiles_6ae0.2bpp	tiles	656	gfx/browser/page_list_candidate.asm	7F	6AE0	PROBABLE	exact	7		Data_7F_6AE0
 gfx/unreferenced/page_list_prototype_objects/palette_7b00.pal	palette	64	gfx/unreferenced/page_list_prototype_objects.asm	7F	7B00	PROBABLE	-	0		Palette_7F_7B00
 gfx/unreferenced/page_list_prototype_objects/tiles_7830.2bpp	tiles	720	gfx/unreferenced/page_list_prototype_objects.asm	7F	7830	PROBABLE	exact	0		Tiles_7F_7830

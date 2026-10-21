@@ -72,6 +72,8 @@ PNG_TILE_OUTS := \
 	gfx/address_book/address_picker/addr_pick_tiles9300.2bpp \
 	gfx/address_book/address_picker/addr_pick_tiles9700.2bpp \
 	gfx/address_book/address_picker/tiles_6fd0.2bpp \
+	gfx/address_book/entry_and_confirm_candidate_bank2c/tiles_7740.2bpp \
+	gfx/address_book/entry_and_confirm_candidate_bank2c/tiles_7b70.2bpp \
 	gfx/address_book/entry_screen_bank29/tiles_5b10.2bpp \
 	gfx/address_book/entry_screen_bank29/tiles_5e50.2bpp \
 	gfx/address_book/entry_screen_bank29/tiles_6250.2bpp \
@@ -86,8 +88,6 @@ PNG_TILE_OUTS := \
 	gfx/address_book/save_sender_address/tiles_4fe0.2bpp \
 	gfx/address_book/shared_tiles_bank28/tiles_4bd0.2bpp \
 	gfx/address_book/shared_tiles_bank28/tiles_4fd0.2bpp \
-	gfx/address_book/unreferenced_confirm_screen/tiles_7740.2bpp \
-	gfx/address_book/unreferenced_confirm_screen/tiles_7b70.2bpp \
 	gfx/browser/frames_0_1/tiles_4000.2bpp \
 	gfx/browser/frames_0_1/tiles_4010.2bpp \
 	gfx/browser/frames_0_1/tiles_4040.2bpp \
@@ -110,6 +110,9 @@ PNG_TILE_OUTS := \
 	gfx/browser/page_list/tiles_5ef1.2bpp \
 	gfx/browser/page_list/tiles_6301.2bpp \
 	gfx/browser/page_list/tiles_63e0.2bpp \
+	gfx/browser/page_list_candidate/tiles_62b0.2bpp \
+	gfx/browser/page_list_candidate/tiles_66b0.2bpp \
+	gfx/browser/page_list_candidate/tiles_6ae0.2bpp \
 	gfx/browser/page_list_prototype_messages/prototype_message_tiles.2bpp \
 	gfx/browser/start_choice/browser_start_tiles0.2bpp \
 	gfx/browser/start_choice/browser_start_tiles1.2bpp \
@@ -428,9 +431,6 @@ PNG_TILE_OUTS := \
 	gfx/top_menu/top_menu/tiles_5fa0.2bpp \
 	gfx/ui_art/logo_and_window_tiles/logo_and_window_tiles.2bpp \
 	gfx/ui_art/logo_and_window_tiles/mail_server_box_tiles.2bpp \
-	gfx/unreferenced/page_list_prototype/tiles_62b0.2bpp \
-	gfx/unreferenced/page_list_prototype/tiles_66b0.2bpp \
-	gfx/unreferenced/page_list_prototype/tiles_6ae0.2bpp \
 	gfx/unreferenced/page_list_prototype_objects/tiles_7830.2bpp \
 
 
@@ -485,6 +485,8 @@ gfx/address_book/address_picker/addr_book_tiles8f00.2bpp: PNG_SIZE := 144
 gfx/address_book/address_picker/addr_pick_tiles9300.2bpp: PNG_SIZE := 1024
 gfx/address_book/address_picker/addr_pick_tiles9700.2bpp: PNG_SIZE := 256
 gfx/address_book/address_picker/tiles_6fd0.2bpp: PNG_SIZE := 512
+gfx/address_book/entry_and_confirm_candidate_bank2c/tiles_7740.2bpp: PNG_SIZE := 288
+gfx/address_book/entry_and_confirm_candidate_bank2c/tiles_7b70.2bpp: PNG_SIZE := 144
 gfx/address_book/entry_screen_bank29/tiles_5b10.2bpp: PNG_SIZE := 768
 gfx/address_book/entry_screen_bank29/tiles_5e50.2bpp: PNG_SIZE := 1024
 gfx/address_book/entry_screen_bank29/tiles_6250.2bpp: PNG_SIZE := 64
@@ -500,8 +502,6 @@ gfx/address_book/save_sender_address/save_sender_addr_tiles9300.2bpp: PNG_PAD :=
 gfx/address_book/save_sender_address/tiles_4fe0.2bpp: PNG_SIZE := 512
 gfx/address_book/shared_tiles_bank28/tiles_4bd0.2bpp: PNG_SIZE := 1024
 gfx/address_book/shared_tiles_bank28/tiles_4fd0.2bpp: PNG_SIZE := 512
-gfx/address_book/unreferenced_confirm_screen/tiles_7740.2bpp: PNG_SIZE := 288
-gfx/address_book/unreferenced_confirm_screen/tiles_7b70.2bpp: PNG_SIZE := 144
 gfx/browser/frames_0_1/tiles_4000.2bpp: PNG_SIZE := 16
 gfx/browser/frames_0_1/tiles_4010.2bpp: PNG_SIZE := 48
 gfx/browser/frames_0_1/tiles_4040.2bpp: PNG_SIZE := 64
@@ -527,6 +527,10 @@ gfx/browser/page_list/tiles_5ef1.2bpp: PNG_SIZE := 992
 gfx/browser/page_list/tiles_5ef1.2bpp: PNG_PAD := -x 2
 gfx/browser/page_list/tiles_6301.2bpp: PNG_SIZE := 192
 gfx/browser/page_list/tiles_63e0.2bpp: PNG_SIZE := 256
+gfx/browser/page_list_candidate/tiles_62b0.2bpp: PNG_SIZE := 1024
+gfx/browser/page_list_candidate/tiles_66b0.2bpp: PNG_SIZE := 288
+gfx/browser/page_list_candidate/tiles_6ae0.2bpp: PNG_SIZE := 656
+gfx/browser/page_list_candidate/tiles_6ae0.2bpp: PNG_PAD := -x 7
 gfx/browser/page_list_prototype_messages/prototype_message_tiles.2bpp: PNG_SIZE := 2944
 gfx/browser/start_choice/browser_start_tiles0.2bpp: PNG_SIZE := 1024
 gfx/browser/start_choice/browser_start_tiles1.2bpp: PNG_SIZE := 1024
@@ -866,10 +870,6 @@ gfx/top_menu/top_menu/tiles_5ba0.2bpp: PNG_SIZE := 1024
 gfx/top_menu/top_menu/tiles_5fa0.2bpp: PNG_SIZE := 768
 gfx/ui_art/logo_and_window_tiles/logo_and_window_tiles.2bpp: PNG_SIZE := 4608
 gfx/ui_art/logo_and_window_tiles/mail_server_box_tiles.2bpp: PNG_SIZE := 1152
-gfx/unreferenced/page_list_prototype/tiles_62b0.2bpp: PNG_SIZE := 1024
-gfx/unreferenced/page_list_prototype/tiles_66b0.2bpp: PNG_SIZE := 288
-gfx/unreferenced/page_list_prototype/tiles_6ae0.2bpp: PNG_SIZE := 656
-gfx/unreferenced/page_list_prototype/tiles_6ae0.2bpp: PNG_PAD := -x 7
 gfx/unreferenced/page_list_prototype_objects/tiles_7830.2bpp: PNG_SIZE := 720
 
 %.2bpp: %.png

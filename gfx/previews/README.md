@@ -34,7 +34,7 @@ Method, validation and limits: `docs/TRANSLATION.md` (section 4) and the docstri
 | [AbookName_SetupScreen](screens/AbookName_SetupScreen.png) | loader | 176/176 | 360/360 | 64/64 | 342 | 18 | 21696/21696 (100.0 %) | [evidence](evidence/AbookName_SetupScreen.png) addressbook_full/addressbook_full_f04613_edit_name_intro |
 | [AddrBook_SaveConfirm_InitScreen](screens/AddrBook_SaveConfirm_InitScreen.png) | loader | 68/68 | 180/360 | 25/32 | 132 | 228 | 8448/8448 (100.0 %) | [evidence](evidence/AddrBook_SaveConfirm_InitScreen.png) addressbook_full/addressbook_full_f06023_edit_confirm |
 | [SaveSenderAddr_InitScreen](screens/SaveSenderAddr_InitScreen.png) | loader | 131/131 | 360/360 | 64/64 | 291 | 69 | 17232/17232 (100.0 %) | [evidence](evidence/SaveSenderAddr_InitScreen.png) mail_inbox/mail_inbox_f03441_m1_save_place |
-| [AddrScreenUnused_InitScreen](screens/AddrScreenUnused_InitScreen.png) | loader | 27/27 | 360/360 | 16/64 | 360 | 0 | 22272/22272 (100.0 %) | [evidence](evidence/AddrScreenUnused_InitScreen.png) forced_dead/forced_dead_f04334_f_2C_741C_b [forced run] |
+| [AddrScreenCandidate_InitScreen](screens/AddrScreenCandidate_InitScreen.png) | loader | 27/27 | 360/360 | 16/64 | 360 | 0 | 22272/22272 (100.0 %) | [evidence](evidence/AddrScreenCandidate_InitScreen.png) forced_dead/forced_dead_f04334_f_2C_741C_b [forced run] |
 | [AbookView_SetupScreen](screens/AbookView_SetupScreen.png) | loader | 93/93 | 360/360 | 64/64 | 318 | 42 | 19744/19744 (100.0 %) | [evidence](evidence/AbookView_SetupScreen.png) addressbook_full/addressbook_full_f02925_view |
 | [BrowserMenu_OpenTwoItem](screens/BrowserMenu_OpenTwoItem.png) | loader | 64/80 | 51/120 | 10/12 | - | - | - | no capture |
 | [BrowserMenu_OpenThreeItem](screens/BrowserMenu_OpenThreeItem.png) | loader | 80/80 | 80/120 | 12/12 | 80 | 40 | 4664/4664 (100.0 %) | [evidence](evidence/BrowserMenu_OpenThreeItem.png) browser_pages/browser_pages_f51722_menu |
@@ -166,7 +166,7 @@ Method, validation and limits: `docs/TRANSLATION.md` (section 4) and the docstri
 | Table_MailGrid_Anims | 2B:6430 | 4 | 1 | assets | 8x16 (LCDC bit 2 set in 2/2 captures) | 1 / 1 | 2 / 2 | 2 / 2 | [png](sprites/Table_MailGrid_Anims_2B_6430.png) |
 | Table_MailView_Anims | 2B:78A0 | 32 | 16 | partial | 8x8 (LCDC bit 2 clear in 86/91 captures) | 5 / 4 | 40 / 40 | 40 / 40 | [png](sprites/Table_MailView_Anims_2B_78A0.png) |
 | Table_AddrSlotIcon_Anims | 2C:7210 | 20 | 14 | assets | 8x8 (LCDC bit 2 clear in 351/351 captures) | 7 / 7 | 0 / 0 | 0 / 0 | [png](sprites/Table_AddrSlotIcon_Anims_2C_7210.png) |
-| Table_AddrScreenUnused_Objects | 2C:7C40 | 4 | 1 | partial | 8x16 (LCDC bit 2 set in 2/2 captures) | 1 / 1 | 2 / 2 | 1 / 1 | [png](sprites/Table_AddrScreenUnused_Objects_2C_7C40.png) |
+| Table_AddrScreenCandidate_Objects | 2C:7C40 | 4 | 1 | partial | 8x16 (LCDC bit 2 set in 2/2 captures) | 1 / 1 | 2 / 2 | 1 / 1 | [png](sprites/Table_AddrScreenCandidate_Objects_2C_7C40.png) |
 | Table_MailServerMgr_ObjAnims | 2E:76C0 | 20 | 10 | emulator | 8x8 (LCDC bit 2 clear in 24/24 captures) | 2 / 0 | 0 / 24 | 0 / 0 | [png](sprites/Table_MailServerMgr_ObjAnims_2E_76C0.png) |
 | Table_Abook_ButtonCursorAnims | 2F:5010 | 16 | 4 | assets | 8x8 (LCDC bit 2 clear in 4/4 captures) | 2 / 2 | 2 / 2 | 2 / 2 | [png](sprites/Table_Abook_ButtonCursorAnims_2F_5010.png) |
 | Table_Abook_ViewCursorAnims | 2F:57B0 | 4 | 1 | assets | 8x8 (LCDC bit 2 clear in 3/3 captures) | 1 / 1 | 3 / 3 | 3 / 3 | [png](sprites/Table_Abook_ViewCursorAnims_2F_57B0.png) |

@@ -141,11 +141,11 @@ SaveSenderAddr_InitScreen	engine/address_book/save_sender_address.asm:148	tiles	
 SaveSenderAddr_InitScreen	engine/address_book/save_sender_address.asm:154	tiles	Gfx_AddrBookShared_Tiles8000	28	n=64 vram=$8000 vbank=0
 SaveSenderAddr_InitScreen	engine/address_book/save_sender_address.asm:160	tiles	Gfx_AddrBookShared_Tiles8400	28	n=32 vram=$8400 vbank=0
 SaveSenderAddr_InitScreen	engine/address_book/save_sender_address.asm:165	tilemap	Data_SaveSenderAddr_TilemapAttr	2A	rows=18 cols=20 dest=$D000
-AddrScreenUnused_InitScreen	engine/address_book/unreferenced_confirm_screen.asm:88	tiles	Gfx_AddrScreenUnused_Tiles9300Vb1	2C	n=18 vram=$9300 vbank=1
-AddrScreenUnused_InitScreen	engine/address_book/unreferenced_confirm_screen.asm:94	tiles	Gfx_AddrScreenUnused_Tiles8000	2C	n=9 vram=$8000 vbank=0
-AddrScreenUnused_InitScreen	engine/address_book/unreferenced_confirm_screen.asm:99	palette	Palette_AddrScreenUnused_Bg	2C	n=64 dest=$D800
-AddrScreenUnused_InitScreen	engine/address_book/unreferenced_confirm_screen.asm:104	tilemap	Tilemap_AddrScreenUnused_Screen	2C	rows=18 cols=20 dest=$D000
-AddrScreenUnused_InitScreen	engine/address_book/unreferenced_confirm_screen.asm:109	palette	Palette_AddrScreenUnused_Obj	2C	n=64 dest=$D840
+AddrScreenCandidate_InitScreen	engine/address_book/confirm_screen_candidate.asm:88	tiles	Gfx_AddrScreenCandidate_Tiles9300Vb1	2C	n=18 vram=$9300 vbank=1
+AddrScreenCandidate_InitScreen	engine/address_book/confirm_screen_candidate.asm:94	tiles	Gfx_AddrScreenCandidate_Tiles8000	2C	n=9 vram=$8000 vbank=0
+AddrScreenCandidate_InitScreen	engine/address_book/confirm_screen_candidate.asm:99	palette	Palette_AddrScreenCandidate_Bg	2C	n=64 dest=$D800
+AddrScreenCandidate_InitScreen	engine/address_book/confirm_screen_candidate.asm:104	tilemap	Tilemap_AddrScreenCandidate_Screen	2C	rows=18 cols=20 dest=$D000
+AddrScreenCandidate_InitScreen	engine/address_book/confirm_screen_candidate.asm:109	palette	Palette_AddrScreenCandidate_Obj	2C	n=64 dest=$D840
 AbookView_SetupScreen	engine/address_book/view.asm:191	palette	Palette_AddrBookEntry_Obj	2C	n=64 dest=$D840
 AbookView_SetupScreen	engine/address_book/view.asm:196	palette	Palette_AddrBookEntry_Bg	2C	n=64 dest=$D800
 AbookView_SetupScreen	engine/address_book/view.asm:202	tiles	Gfx_AbookView_Tiles9300Vb1	29	n=64 vram=$9300 vbank=1
