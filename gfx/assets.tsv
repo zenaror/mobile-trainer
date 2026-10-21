@@ -905,8 +905,8 @@ gfx/title/title_screen/title_tiles3.2bpp	tiles	512	gfx/title/title_screen.asm	0E
 gfx/title/title_screen/title_tiles4.2bpp	tiles	1024	gfx/title/title_screen.asm	0E	4FC0	CONFIRMED	exact	0		Gfx_Title_Tiles4
 gfx/title/title_screen/title_tiles5.2bpp	tiles	1024	gfx/title/title_screen.asm	0E	53C0	CONFIRMED	exact	0		Gfx_Title_Tiles5
 gfx/title/title_screen/title_tiles6.2bpp	tiles	1024	gfx/title/title_screen.asm	0E	57C0	CONFIRMED	exact	0		Gfx_Title_Tiles6
-gfx/top_menu/top_menu/palette_62a0.pal	palette	64	gfx/top_menu/top_menu.asm	1E	62A0	PROBABLE	-	0		Palette_1E_62A0
-gfx/top_menu/top_menu/palette_62e0.pal	palette	64	gfx/top_menu/top_menu.asm	1E	62E0	PROBABLE	-	0		Palette_1E_62E0
+gfx/top_menu/top_menu/palette_62a0.pal	palette	64	gfx/top_menu/top_menu.asm	1E	62A0	PROBABLE	-	0		Palette_TopMenu_Bg
+gfx/top_menu/top_menu/palette_62e0.pal	palette	64	gfx/top_menu/top_menu.asm	1E	62E0	PROBABLE	-	0		Palette_TopMenu_Obj
 gfx/top_menu/top_menu/tilemap_40d7.attrmap	attrmap	320	gfx/top_menu/top_menu.asm	1E	4217	CONFIRMED	-	0	20x16	Data_1E_40D7
 gfx/top_menu/top_menu/tilemap_40d7.tilemap	tilemap	320	gfx/top_menu/top_menu.asm	1E	40D7	CONFIRMED	-	0	20x16	Data_1E_40D7
 gfx/top_menu/top_menu/tilemap_48c1.attrmap	attrmap	108	gfx/top_menu/top_menu.asm	1E	492D	CONFIRMED	-	0	12x9	Data_1E_48C1

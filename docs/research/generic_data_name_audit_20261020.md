@@ -1097,3 +1097,22 @@ and one separate `zero_labels` definition (889 total), excluding
 retained in `.tmp/generic-data-current-safe-census-20261021/`; their SHA-256
 values are respectively `88de64d009ad50018f8fcb7d068448eec1d642b5b09d1b18d7846a3de2babae8`
 and `6fbb8b15e07454b5b3345a8459f9f0773ae0489dd659459635c0049227fcadc0`.
+
+## Top-menu palette alias retirement (2026-10-21)
+
+`Palette_1E_62A0` and `Palette_1E_62E0` duplicated the existing
+`Palette_TopMenu_Bg` and `Palette_TopMenu_Obj` labels at the same addresses.
+The two aliases had no source consumers; current palette-load operands and
+`gfx/previews/screen_ops.tsv` already use the semantic labels. The source
+exports were removed and the corresponding `gfx/assets.tsv` label fields now
+match the retained names. Both 64-byte palette blocks, their PROBABLE status,
+and every load/call remain unchanged. Historical `config/`, `analysis/` and
+prior research rows retain their snapshot spellings as provenance; they are
+not current source exports.
+
+`make` produced `RESULT: IDENTICAL` at the original ROM SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
+`make sym-check` reports 13,388 source labels and 51 constants; palette checks
+report 162 loads, 116 arrays, two documented over-reads and zero errors; PNG
+checks pass for 408 tile sheets, four raw byte views, 37 font sheets and 95
+screen PNGs. The two-label change removes no ROM bytes.

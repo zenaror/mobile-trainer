@@ -75,6 +75,13 @@ the 396 bytes without recorded reads remain qualified. Build identity and
 asset checks passed; no ROM bytes changed. This checkpoint does not close the
 Japanese naming work.
 
+The following TopMenu palette cleanup removes duplicate address-only exports
+`Palette_1E_62A0` and `Palette_1E_62E0`, retaining `Palette_TopMenu_Bg` and
+`Palette_TopMenu_Obj` and updating the asset manifest. The original ROM
+remains byte-identical; symbol, palette and PNG checks pass. Palette role
+confidence remains PROBABLE, and historical `config/`/`analysis/` spellings
+are preserved as snapshot evidence. Japanese naming work remains open.
+
 The 2026-10-20 bank6C HelpScript pass maps the static command stream from `6C:4809` through the
 terminal at `6C:58C6` (exclusive end `58C7`), corrects mixed command/text classifications and
 replaces address-only labels at command boundaries with structural names. An independent walk

@@ -157,13 +157,11 @@ Data_1E_5FA0::
 ; ---- data $62A0-$62E0 (64 bytes) [PROBABLE] 64-byte RGB555 palette block copied by Palette_LoadToBuffer (hl=$62A0 a=$1E bc=$0040 de=$D800) at 1F:40D7; the call site 1F:40D7 IS in analysis/coverage_union.tsv (executed; the earlier 'never executed' used the old 18-scenario union) - status kept PROBABLE because the palette role of the $D800 buffer is not independently demonstrated; replaces the mapper palette guess 62A0-6360 which swallowed the first sprite records
 
 Palette_TopMenu_Bg:: ; 1E:62A0
-Palette_1E_62A0::
 	INCLUDE "gfx/top_menu/top_menu/palette_62a0.pal"
 
 ; ---- data $62E0-$6320 (64 bytes) [PROBABLE] 64-byte RGB555 palette block copied by Palette_LoadToBuffer (hl=$62E0 a=$1E bc=$0040 de=$D840) at 1F:4109; the call site 1F:4109 IS in analysis/coverage_union.tsv (executed; earlier 'never executed' was based on the old 18-scenario union) - status kept PROBABLE; replaces the mapper palette guess 62A0-6360 which swallowed the first sprite records
 
 Palette_TopMenu_Obj:: ; 1E:62E0
-Palette_1E_62E0::
 	INCLUDE "gfx/top_menu/top_menu/palette_62e0.pal"
 
 ; ---- words $6320-$6332 (18 bytes) [PROBABLE] sprite frame table: 9 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
