@@ -1713,3 +1713,7 @@ The settings-screen sprite owner in bank 71 no longer exports three exact
 `Data_71_*` aliases under its named frame/script records. Standalone spans at
 `71:723F` and `71:7271` remain neutral pending stronger content evidence. The
 restricted six-root generic-data census is now 250 definitions in 122 owners.
+
+Five exact `Data_25_*` aliases under the named mail-server status tiles and
+tilemaps were retired; the catalog already used the retained labels. The
+restricted six-root generic-data census is now 245 definitions in 121 owners.

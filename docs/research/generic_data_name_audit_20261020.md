@@ -2496,6 +2496,21 @@ The six-root `Data_BB_AAAA::` census, excluding
 `engine/mail/sample_data.asm`, is now 250 definitions in 122 owners, down from
 253 in 122 owners. This remains a lexical count.
 
+## Bank 25 mail-server status resource aliases (2026-10-21)
+
+Five `Data_25_*` declarations in `gfx/mail/server_status.asm` duplicated the
+same-address tile and tilemap labels `MailServerStatus_Tiles_6F30`,
+`MailServerStatus_Tiles_7330`, `MailServerStatus_Tilemap_Received`,
+`MailServerStatus_Tilemap_NoneReceived` and
+`MailServerStatus_Tilemap_ServerMgmt`. The existing descriptive labels agree
+with the confirmed bank-29 HDMA/tilemap-copy call sites. Bounded source search
+found no other maintained-source uses of the generic spellings; the catalog
+already uses descriptive symbols. The five aliases were removed; assets,
+extents, offsets and confidence were unchanged.
+
+The restricted six-root `Data_BB_AAAA::` census is now 245 definitions in
+121 owners, down from 250 in 122 owners. This remains a lexical count.
+
 ## Census scope correction (2026-10-21)
 
 The first post-edit lexical count for the bank-2E and bank-25 checkpoints used
