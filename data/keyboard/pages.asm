@@ -9,7 +9,7 @@ PUSHC sjis
 ; ---- data $4000-$4014 (20 bytes) [PROBABLE] 20-byte header ($0014, $0003, zeros, $4634?, $58 run) of the on-screen keyboard tables; bytes 4000-4001, 4004, 4006-400B, 400E, 4010-4013 were read by executed code (traces); fields not decoded [verifier: restored from HYPOTHESIS; the traces prove the read ranges as data (they were CONFIRMED before the merge) and the block is one 20-byte header]
 
 Table_Kbd_StartCell:: ; 55:4000
-Data_55_4000::
+
 	db $14, $00, $03, $00, $00, $00, $00, $00, $00, $00
 
 Table_Kbd_OkCell:: ; 55:400A
@@ -18,7 +18,7 @@ Table_Kbd_OkCell:: ; 55:400A
 ; ---- ptrtable $4014-$4046 (50 bytes) [PROBABLE] 25 words $4028...$498E (all inside the bank, ascending, the last three $4826/$48DA/$498E are $B4 apart); read by executed code; they point at the keyboard character pages below (page starts 4046, 40B2, 4142, 41D2 then every $B4 up to 498E)
 
 Table_Kbd_PagePointers:: ; 55:4014
-Table_55_4014::
+
 	dw $4028
 	dw $402A
 	dw $402C
@@ -48,7 +48,7 @@ Table_55_4014::
 ; ---- data $4046-$40B2 (108 bytes) [PROBABLE] keyboard character page block (108 bytes): cells of 4 bytes (00 00 00 xx) or 2 bytes (00 xx) holding ASCII codes 0-9/a-z/A-Z with zero padding and, at the end of the page, the markers ff 83 / ff 82; page boundaries are the word-table entries at 4014 (block starts 4046/40B2/4142/41D2/4286/433A are entries, sizes $6C,$90,$90,$B4,$B4,$B4); the mapper labelled 4040-43E0 "tiles-2bpp" but the content is character codes (digits, letters, zeros), not tile data
 
 Data_Kbd_Page_Digits:: ; 55:4046
-Data_55_4046::
+
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $31, $00, $00, $00, $32, $00, $00
@@ -60,7 +60,7 @@ Data_55_4046::
 ; ---- data $40B2-$4142 (144 bytes) [PROBABLE] keyboard character page block (144 bytes): cells of 4 bytes (00 00 00 xx) or 2 bytes (00 xx) holding ASCII codes 0-9/a-z/A-Z with zero padding and, at the end of the page, the markers ff 83 / ff 82; page boundaries are the word-table entries at 4014 (block starts 4046/40B2/4142/41D2/4286/433A are entries, sizes $6C,$90,$90,$B4,$B4,$B4); the mapper labelled 4040-43E0 "tiles-2bpp" but the content is character codes (digits, letters, zeros), not tile data
 
 Data_Kbd_Page_IdChars:: ; 55:40B2
-Data_55_40B2::
+
 	db $00, $31, $00, $32, $00, $33, $00, $34, $00, $35, $00, $00, $00, $36, $00, $37
 	db $00, $38, $00, $39, $00, $30, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $61, $00, $62, $00, $63, $00, $64, $00, $65, $00, $00
@@ -74,7 +74,7 @@ Data_55_40B2::
 ; ---- data $4142-$41D2 (144 bytes) [PROBABLE] keyboard character page block (144 bytes): cells of 4 bytes (00 00 00 xx) or 2 bytes (00 xx) holding ASCII codes 0-9/a-z/A-Z with zero padding and, at the end of the page, the markers ff 83 / ff 82; page boundaries are the word-table entries at 4014 (block starts 4046/40B2/4142/41D2/4286/433A are entries, sizes $6C,$90,$90,$B4,$B4,$B4); the mapper labelled 4040-43E0 "tiles-2bpp" but the content is character codes (digits, letters, zeros), not tile data
 
 Data_Kbd_Page_PhoneKeypad:: ; 55:4142
-Data_55_4142::
+
 	db $00, $00, $00, $00, $00, $00, $00, $31, $00, $00, $00, $00, $00, $32, $00, $00
 	db $00, $00, $00, $33, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $34, $00, $00, $00, $00
@@ -88,7 +88,7 @@ Data_55_4142::
 ; ---- data $41D2-$4286 (180 bytes) [PROBABLE] keyboard character page block (180 bytes): cells of 4 bytes (00 00 00 xx) or 2 bytes (00 xx) holding ASCII codes 0-9/a-z/A-Z with zero padding and, at the end of the page, the markers ff 83 / ff 82; page boundaries are the word-table entries at 4014 (block starts 4046/40B2/4142/41D2/4286/433A are entries, sizes $6C,$90,$90,$B4,$B4,$B4); the mapper labelled 4040-43E0 "tiles-2bpp" but the content is character codes (digits, letters, zeros), not tile data
 
 Data_Kbd_Page_Ascii3:: ; 55:41D2
-Data_55_41D2::
+
 	db $00, $41, $00, $42, $00, $43, $00, $44, $00, $45, $00, $00, $00, $61, $00, $62
 	db $00, $63, $00, $64, $00, $65, $00, $00, $00, $5A, $00, $30, $00, $31, $00, $32
 	db $00, $33, $00, $34, $00, $46, $00, $47, $00, $48, $00, $49, $00, $4A, $00, $00
@@ -105,7 +105,7 @@ Data_55_41D2::
 ; ---- data $4286-$433A (180 bytes) [PROBABLE] keyboard character page block (180 bytes): cells of 4 bytes (00 00 00 xx) or 2 bytes (00 xx) holding ASCII codes 0-9/a-z/A-Z with zero padding and, at the end of the page, the markers ff 83 / ff 82; page boundaries are the word-table entries at 4014 (block starts 4046/40B2/4142/41D2/4286/433A are entries, sizes $6C,$90,$90,$B4,$B4,$B4); the mapper labelled 4040-43E0 "tiles-2bpp" but the content is character codes (digits, letters, zeros), not tile data
 
 Data_Kbd_Page_Ascii4:: ; 55:4286
-Data_55_4286::
+
 	db $00, $41, $00, $42, $00, $43, $00, $44, $00, $45, $00, $00, $00, $61, $00, $62
 	db $00, $63, $00, $64, $00, $65, $00, $00, $00, $5A, $00, $30, $00, $31, $00, $32
 	db $00, $33, $00, $34, $00, $46, $00, $47, $00, $48, $00, $49, $00, $4A, $00, $00
@@ -122,7 +122,7 @@ Data_55_4286::
 ; ---- data $433A-$43EE (180 bytes) [PROBABLE] keyboard character page block (180 bytes): cells of 4 bytes (00 00 00 xx) or 2 bytes (00 xx) holding ASCII codes 0-9/a-z/A-Z with zero padding and, at the end of the page, the markers ff 83 / ff 82; page boundaries are the word-table entries at 4014 (block starts 4046/40B2/4142/41D2/4286/433A are entries, sizes $6C,$90,$90,$B4,$B4,$B4); the mapper labelled 4040-43E0 "tiles-2bpp" but the content is character codes (digits, letters, zeros), not tile data
 
 Data_Kbd_Page_Ascii5:: ; 55:433A
-Data_55_433A::
+
 	db $00, $41, $00, $42, $00, $43, $00, $44, $00, $45, $00, $00, $00, $61, $00, $62
 	db $00, $63, $00, $64, $00, $65, $00, $00, $00, $5A, $00, $30, $00, $31, $00, $32
 	db $00, $33, $00, $34, $00, $46, $00, $47, $00, $48, $00, $49, $00, $4A, $00, $00
@@ -139,7 +139,7 @@ Data_55_433A::
 ; ---- text $43EE-$43F9 (11 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 Data_Kbd_Page_T6_Hiragana:: ; 55:43EE
-String_55_43EE::
+
 	db "あいうえお", 0
 
 ; ---- text $43F9-$4406 (13 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 43EE-4495 by higher-priority evidence]
@@ -297,7 +297,7 @@ Data_55_45FD:: ; 55:45FD
 ; ---- text $460A-$468D (131 bytes) [PROBABLE] text block: 8 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII
 
 Data_Kbd_Page_T6_Symbols:: ; 55:460A
-String_55_460A::
+
 	db "＋－＝＃＄", 0
 	db 0
 	db "％＆￥！？", 0
@@ -328,7 +328,7 @@ Data_55_46B0:: ; 55:46B0
 ; ---- text $46BE-$46C9 (11 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 Data_Kbd_Page_T78_Hiragana:: ; 55:46BE
-String_55_46BE::
+
 	db "あいうえお", 0
 
 ; ---- text $46C9-$46D6 (13 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 46BE-4765 by higher-priority evidence]
@@ -490,7 +490,7 @@ Data_55_48CD:: ; 55:48CD
 ; ---- text $48DA-$495D (131 bytes) [PROBABLE] text block: 8 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII
 
 Data_Kbd_Page_T78_Symbols:: ; 55:48DA
-String_55_48DA::
+
 	db "＋－＝＃＄", 0
 	db 0
 	db "％＆￥！？", 0
@@ -522,7 +522,7 @@ Data_55_4982:: ; 55:4982
 ; ---- data $498E-$4A42 (180 bytes) [PROBABLE] last keyboard character page (block $B4 from the table at 4014, entry 498E): 16-bit cells 00 41 00 42 ... 00 5A / 00 61 ... 00 7A / 00 30 ... (Latin letters and digits as 00 xx words); parts read by executed code
 
 Data_Kbd_Page_T9_Ascii:: ; 55:498E
-Data_55_498E::
+
 	db $00, $41, $00, $42, $00, $43, $00, $44, $00, $45, $00, $00, $00, $61, $00, $62
 	db $00, $63, $00, $64, $00, $65, $00, $00, $00, $5A, $00, $30, $00, $31, $00, $32
 	db $00, $33, $00, $34, $00, $46, $00, $47, $00, $48, $00, $49, $00, $4A, $00, $00
@@ -539,14 +539,14 @@ Data_55_498E::
 ; ---- words $4A42-$4A56 (20 bytes) [PROBABLE] 10 words $4A56,$4B9A,$4D4A,$4EFA,$5116,$5332,$554E,$576A,$576A,$5986 read by executed code; the first target equals the table end and the targets tile the bytes up to the code at $5BA2 exactly (block sizes $144,$1B0,$1B0,$21C x5 = 54/72/90 six-byte records)
 
 Table_Kbd_NeighbourRecords:: ; 55:4A42
-Table_55_4A42::
+
 	dw Data_Kbd_T0_NeighbourRecords, Data_Kbd_T1_NeighbourRecords, Data_Kbd_T2_NeighbourRecords, Data_Kbd_T3_NeighbourRecords, Data_Kbd_T4_NeighbourRecords, Data_Kbd_T5_NeighbourRecords, Data_Kbd_T6_NeighbourRecords, Data_Kbd_T78_NeighbourRecords
 	dw Data_Kbd_T78_NeighbourRecords, Data_Kbd_T9_NeighbourRecords
 
 ; ---- data $4A56-$4B9A (324 bytes) [PROBABLE] keyboard cursor/neighbour record block (324 bytes = 54 records of 6 bytes, e.g. "58 23 00 20 23 13", "00 24 00 00 12 14"), start given by the word table at 4A42, extents tile exactly; parts read by executed code; field meaning not decoded; the mapper labelled 4A51-4F61 "tiles-2bpp" but the bytes are small indices and zeros in 6-byte rows
 
 Data_Kbd_T0_NeighbourRecords:: ; 55:4A56
-Data_55_4A56::
+
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
@@ -572,7 +572,7 @@ Data_55_4A56::
 ; ---- data $4B9A-$4D4A (432 bytes) [PROBABLE] keyboard cursor/neighbour record block (432 bytes = 72 records of 6 bytes, e.g. "58 23 00 20 23 13", "00 24 00 00 12 14"), start given by the word table at 4A42, extents tile exactly; parts read by executed code; field meaning not decoded; the mapper labelled 4A51-4F61 "tiles-2bpp" but the bytes are small indices and zeros in 6-byte rows
 
 Data_Kbd_T1_NeighbourRecords:: ; 55:4B9A
-Data_55_4B9A::
+
 	db $46, $01, $36, $12, $00, $08, $00, $02, $37, $13, $00, $00, $01, $03, $38, $14
 	db $00, $00, $02, $04, $39, $15, $00, $00, $03, $06, $3A, $16, $00, $00, $00, $00
 	db $00, $00, $00, $00, $04, $07, $3C, $18, $00, $00, $06, $08, $3D, $19, $00, $00
@@ -604,7 +604,7 @@ Data_55_4B9A::
 ; ---- data $4D4A-$4EFA (432 bytes) [PROBABLE] keyboard cursor/neighbour record block (432 bytes = 72 records of 6 bytes, e.g. "58 23 00 20 23 13", "00 24 00 00 12 14"), start given by the word table at 4A42, extents tile exactly; parts read by executed code; field meaning not decoded; the mapper labelled 4A51-4F61 "tiles-2bpp" but the bytes are small indices and zeros in 6-byte rows
 
 Data_Kbd_T2_NeighbourRecords:: ; 55:4D4A
-Data_55_4D4A::
+
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $46, $06, $39, $15, $00, $08, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $03, $09, $3C, $18, $00, $00, $00, $00, $00, $00, $00, $00
@@ -636,7 +636,7 @@ Data_55_4D4A::
 ; ---- data $4EFA-$5116 (540 bytes) [PROBABLE] keyboard cursor/neighbour record block (540 bytes = 90 records of 6 bytes, e.g. "58 23 00 20 23 13", "00 24 00 00 12 14"), start given by the word table at 4A42, extents tile exactly; parts read by executed code; field meaning not decoded; the mapper labelled 4A51-4F61 "tiles-2bpp" but the bytes are small indices and zeros in 6-byte rows
 
 Data_Kbd_T3_NeighbourRecords:: ; 55:4EFA
-Data_55_4EFA::
+
 	db $11, $01, $48, $12, $00, $00, $00, $02, $49, $13, $00, $00, $01, $03, $4A, $14
 	db $00, $00, $02, $04, $4B, $15, $00, $00, $03, $06, $4C, $16, $00, $00, $00, $00
 	db $00, $00, $00, $00, $04, $07, $4E, $18, $00, $00, $06, $08, $4F, $19, $00, $00
@@ -675,7 +675,7 @@ Data_55_4EFA::
 ; ---- data $5116-$5332 (540 bytes) [PROBABLE] keyboard cursor/neighbour record block (540 bytes = 90 records of 6 bytes, e.g. "58 23 00 20 23 13", "00 24 00 00 12 14"), start given by the word table at 4A42, extents tile exactly; parts read by executed code; field meaning not decoded; the mapper labelled 4A51-4F61 "tiles-2bpp" but the bytes are small indices and zeros in 6-byte rows
 
 Data_Kbd_T4_NeighbourRecords:: ; 55:5116
-Data_55_5116::
+
 	db $11, $01, $48, $12, $00, $00, $00, $02, $49, $13, $00, $00, $01, $03, $4A, $14
 	db $00, $00, $02, $04, $4B, $15, $00, $00, $03, $06, $4C, $16, $00, $00, $00, $00
 	db $00, $00, $00, $00, $04, $07, $4E, $18, $00, $00, $06, $08, $4F, $19, $00, $00
@@ -714,7 +714,7 @@ Data_55_5116::
 ; ---- data $5332-$554E (540 bytes) [PROBABLE] keyboard cursor/neighbour record block (540 bytes = 90 records of 6 bytes, e.g. "58 23 00 20 23 13", "00 24 00 00 12 14"), start given by the word table at 4A42, extents tile exactly; parts read by executed code; field meaning not decoded; the mapper labelled 4A51-4F61 "tiles-2bpp" but the bytes are small indices and zeros in 6-byte rows
 
 Data_Kbd_T5_NeighbourRecords:: ; 55:5332
-Data_55_5332::
+
 	db $11, $01, $48, $12, $00, $00, $00, $02, $49, $13, $00, $00, $01, $03, $4A, $14
 	db $00, $00, $02, $04, $4B, $15, $00, $00, $03, $06, $4C, $16, $00, $00, $00, $00
 	db $00, $00, $00, $00, $04, $07, $4E, $18, $00, $00, $06, $08, $4F, $19, $00, $00
@@ -753,7 +753,7 @@ Data_55_5332::
 ; ---- data $554E-$576A (540 bytes) [PROBABLE] keyboard cursor/neighbour record block (540 bytes = 90 records of 6 bytes, e.g. "58 23 00 20 23 13", "00 24 00 00 12 14"), start given by the word table at 4A42, extents tile exactly; parts read by executed code; field meaning not decoded; the mapper labelled 4A51-4F61 "tiles-2bpp" but the bytes are small indices and zeros in 6-byte rows
 
 Data_Kbd_T6_NeighbourRecords:: ; 55:554E
-Data_55_554E::
+
 	db $11, $01, $48, $12, $00, $00, $00, $02, $49, $13, $00, $00, $01, $03, $4A, $14
 	db $00, $00, $02, $04, $4B, $15, $00, $00, $03, $06, $4C, $16, $00, $00, $00, $00
 	db $00, $00, $00, $00, $04, $07, $4E, $18, $00, $00, $06, $08, $4F, $19, $00, $00
@@ -792,7 +792,7 @@ Data_55_554E::
 ; ---- data $576A-$5986 (540 bytes) [PROBABLE] keyboard cursor/neighbour record block (540 bytes = 90 records of 6 bytes, e.g. "58 23 00 20 23 13", "00 24 00 00 12 14"), start given by the word table at 4A42, extents tile exactly; parts read by executed code; field meaning not decoded; the mapper labelled 4A51-4F61 "tiles-2bpp" but the bytes are small indices and zeros in 6-byte rows
 
 Data_Kbd_T78_NeighbourRecords:: ; 55:576A
-Data_55_576A::
+
 	db $11, $01, $48, $12, $00, $00, $00, $02, $49, $13, $00, $00, $01, $03, $4A, $14
 	db $00, $00, $02, $04, $4B, $15, $00, $00, $03, $06, $4C, $16, $00, $00, $00, $00
 	db $00, $00, $00, $00, $04, $07, $4E, $18, $00, $00, $06, $08, $4F, $19, $00, $00
@@ -831,7 +831,7 @@ Data_55_576A::
 ; ---- data $5986-$5BA2 (540 bytes) [PROBABLE] keyboard cursor/neighbour record block (540 bytes = 90 records of 6 bytes, e.g. "58 23 00 20 23 13", "00 24 00 00 12 14"), start given by the word table at 4A42, extents tile exactly; parts read by executed code; field meaning not decoded; the mapper labelled 4A51-4F61 "tiles-2bpp" but the bytes are small indices and zeros in 6-byte rows
 
 Data_Kbd_T9_NeighbourRecords:: ; 55:5986
-Data_55_5986::
+
 	db $11, $01, $48, $12, $00, $00, $00, $02, $49, $13, $00, $00, $01, $03, $4A, $14
 	db $00, $00, $02, $04, $4B, $15, $00, $00, $03, $06, $4C, $16, $00, $00, $00, $00
 	db $00, $00, $00, $00, $04, $07, $4E, $18, $00, $00, $06, $08, $4F, $19, $00, $00

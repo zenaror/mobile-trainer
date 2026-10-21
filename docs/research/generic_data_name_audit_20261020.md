@@ -1207,3 +1207,46 @@ rows preserve the old snapshot name.
 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
 `sym-check` reports 13,372 labels and 51 constants, palette checks pass
 (162/116/2/0), and PNG checks pass (408/4/37/95).
+
+## Bank 55 keyboard same-address aliases (2026-10-21)
+
+A corrected case-insensitive symbol census found 23 address-only labels in
+`data/keyboard/pages.asm` that exactly co-address existing keyboard labels.
+The neutral spellings had no consumers outside their declaration in current
+non-language source or tools; no local labels followed any declaration. The
+semantic names are already used by the page-pointer table or identify the
+keyboard header, neighbour table, and neighbour-record blocks. Retired the
+23 redundant exports while keeping their physical source-line slots blank.
+All bytes, pointer values, block extents and existing PROBABLE classifications
+remain unchanged. Historic `config/` and `analysis/` snapshots retain the old
+address names.
+
+Address mapping (`bank 55`): `4000 Data_55_4000` -> `Table_Kbd_StartCell`;
+`4014 Table_55_4014` -> `Table_Kbd_PagePointers`; `4046 Data_55_4046` ->
+`Data_Kbd_Page_Digits`; `40B2 Data_55_40B2` -> `Data_Kbd_Page_IdChars`;
+`4142 Data_55_4142` -> `Data_Kbd_Page_PhoneKeypad`; `41D2 Data_55_41D2` ->
+`Data_Kbd_Page_Ascii3`; `4286 Data_55_4286` -> `Data_Kbd_Page_Ascii4`;
+`433A Data_55_433A` -> `Data_Kbd_Page_Ascii5`; `43EE String_55_43EE` ->
+`Data_Kbd_Page_T6_Hiragana`; `460A String_55_460A` ->
+`Data_Kbd_Page_T6_Symbols`; `46BE String_55_46BE` ->
+`Data_Kbd_Page_T78_Hiragana`; `48DA String_55_48DA` ->
+`Data_Kbd_Page_T78_Symbols`; `498E Data_55_498E` ->
+`Data_Kbd_Page_T9_Ascii`; `4A42 Table_55_4A42` ->
+`Table_Kbd_NeighbourRecords`; `4A56 Data_55_4A56` ->
+`Data_Kbd_T0_NeighbourRecords`; `4B9A Data_55_4B9A` ->
+`Data_Kbd_T1_NeighbourRecords`; `4D4A Data_55_4D4A` ->
+`Data_Kbd_T2_NeighbourRecords`; `4EFA Data_55_4EFA` ->
+`Data_Kbd_T3_NeighbourRecords`; `5116 Data_55_5116` ->
+`Data_Kbd_T4_NeighbourRecords`; `5332 Data_55_5332` ->
+`Data_Kbd_T5_NeighbourRecords`; `554E Data_55_554E` ->
+`Data_Kbd_T6_NeighbourRecords`; `576A Data_55_576A` ->
+`Data_Kbd_T78_NeighbourRecords`; `5986 Data_55_5986` ->
+`Data_Kbd_T9_NeighbourRecords`.
+
+The private census receipt is under
+`.tmp/generic-coalias-census-20261021/` (result SHA-256
+`4554836f20cf0d5d16644a968d20083e9264f2612c4177ec0230ef183ac74f74`,
+source-set SHA-256
+`8a7e32fb618b16fc1dd0d64bebb80361bd0450a595c3d237cf3bd9fef6df9861`).
+The corrected census is a candidate inventory, not a blanket approval for
+other aliases.

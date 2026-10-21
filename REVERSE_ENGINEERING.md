@@ -103,6 +103,14 @@ CommNotice comments now use that retained name; the pointer list and its
 targets are unchanged. The original ROM remains byte-identical, with 13,372
 source labels and the palette and PNG checks passing.
 
+The bank-55 keyboard page file also had 23 same-address generic aliases with
+no active consumers beyond their declarations. They now resolve through the
+existing page, pointer-table and neighbour-record names; bytes, block extents
+and source-line positions are unchanged. This is a bounded alias retirement,
+not evidence that the remaining bank-55 records or every Japanese-ROM data
+block are semantically understood; see the dated mapping in
+[`generic_data_name_audit_20261020.md`](docs/research/generic_data_name_audit_20261020.md).
+
 Three redundant address-only labels were also retired from the connect-dialog
 strings. Their semantic labels remain the names used by the active reader;
 string data and the six-message block are unchanged. The full build and
