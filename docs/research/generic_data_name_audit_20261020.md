@@ -3110,3 +3110,19 @@ action is naturally displayed. The byte directives and addresses are
 unchanged. `String_24_42E7` remains neutral: static code copies it to the page
 title buffer, but the text `くーくー` does not establish a page identity or
 meaning. The eight retired spellings had no other active source consumers.
+
+## Bank 55 keyboard text segments (2026-10-21)
+
+The 39 exact `String_55_AAAA` labels in `data/keyboard/pages.asm` were
+declaration-only in the maintained source/tool scan. Their bytes fall within
+the page-table-selected T6/T78 Hiragana, Katakana, full-width alphanumeric and
+symbol pages. They are now named `String_KbdPage_<page>_<content>` from the
+encoded character runs and neighboring NUL/blank separators. The names describe
+the visible characters and structural grouping; they do not claim that each
+split segment is independently selected or rendered. The 39 definitions group
+as T6 Hiragana (7), T6 Katakana (8), T6 full-width alphanumeric (3), T6 symbols
+(1), T78 Hiragana (7), T78 Katakana (8), T78 full-width alphanumeric (4), and
+T78 symbols (1). Page association comes from the existing page-pointer table;
+row boundaries are **PROBABLE** where they rely on NUL/blank separators. No
+bytes, directives, page pointers or existing confidence annotations changed.
+The empty leading segments are named as blank rows, not as proven padding.

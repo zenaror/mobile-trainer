@@ -144,43 +144,43 @@ Data_Kbd_Page_T6_Hiragana:: ; 55:43EE
 
 ; ---- text $43F9-$4406 (13 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 43EE-4495 by higher-priority evidence]
 
-String_55_43F9:: ; 55:43F9
+String_KbdPage_T6_Hiragana_HaRow:: ; 55:43F9
 	db 0
 	db "はひふへほ", 0
 	db 0
 
 ; ---- text $4406-$441D (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_55_4406:: ; 55:4406
+String_KbdPage_T6_Hiragana_SmallKanaPunctuationKaRow:: ; 55:4406
 	db "っゃゅょ、。かきくけこ", 0
 
 ; ---- text $441D-$442A (13 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 43EE-4495 by higher-priority evidence]
 
-String_55_441D:: ; 55:441D
+String_KbdPage_T6_Hiragana_MaRow:: ; 55:441D
 	db 0
 	db "まみむめも", 0
 	db 0
 
 ; ---- text $442A-$4441 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_55_442A:: ; 55:442A
+String_KbdPage_T6_Hiragana_LongVowelSmallKanaSaRow:: ; 55:442A
 	db "ーぁぃぅぇぉさしすせそ", 0
 
 ; ---- text $4441-$444E (13 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 43EE-4495 by higher-priority evidence]
 
-String_55_4441:: ; 55:4441
+String_KbdPage_T6_Hiragana_YaRow:: ; 55:4441
 	db 0
 	db "や　ゆ　よ", 0
 	db 0
 
 ; ---- text $444E-$4465 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_55_444E:: ; 55:444E
+String_KbdPage_T6_Hiragana_PunctuationTaRow:: ; 55:444E
 	db "・…！？～♪たちつてと", 0
 
 ; ---- text $4465-$4495 (48 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 43EE-4495 by higher-priority evidence]
 
-String_55_4465:: ; 55:4465
+String_KbdPage_T6_Hiragana_RaNaWaRows:: ; 55:4465
 	db 0
 	db "らりるれろ", 0
 	db 0
@@ -198,7 +198,7 @@ Data_Kbd_Page_T6_Katakana:: ; 55:44A2
 
 ; ---- text $44A4-$44BA (22 bytes) [PROBABLE] Shift-JIS keyboard row(s) NUL separated (9 double-byte chars, decodes cleanly with cp932: イウエオ||ハヒフヘホ||), between confirmed/probable text rows of the same on-screen keyboard character pages
 
-String_55_44A4:: ; 55:44A4
+String_KbdPage_T6_Katakana_VowelAndHaRows:: ; 55:44A4
 	db "イウエオ", 0
 	db 0
 	db "ハヒフヘホ", 0
@@ -206,36 +206,36 @@ String_55_44A4:: ; 55:44A4
 
 ; ---- text $44BA-$44D1 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_55_44BA:: ; 55:44BA
+String_KbdPage_T6_Katakana_SmallKanaPunctuationKaRow:: ; 55:44BA
 	db "ッャュョ、。カキクケコ", 0
 
 ; ---- text $44D1-$44DE (13 bytes) [PROBABLE] Shift-JIS keyboard row(s) NUL separated (5 double-byte chars, decodes cleanly with cp932: |マミムメモ||), between confirmed/probable text rows of the same on-screen keyboard character pages
 
-String_55_44D1:: ; 55:44D1
+String_KbdPage_T6_Katakana_MaRow:: ; 55:44D1
 	db 0
 	db "マミムメモ", 0
 	db 0
 
 ; ---- text $44DE-$44F5 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_55_44DE:: ; 55:44DE
+String_KbdPage_T6_Katakana_LongVowelSmallKanaSaRow:: ; 55:44DE
 	db "ーァィゥェォサシスセソ", 0
 
 ; ---- text $44F5-$4502 (13 bytes) [PROBABLE] Shift-JIS keyboard row(s) NUL separated (5 double-byte chars, decodes cleanly with cp932: |ヤ ユ ヨ||), between confirmed/probable text rows of the same on-screen keyboard character pages
 
-String_55_44F5:: ; 55:44F5
+String_KbdPage_T6_Katakana_YaRow:: ; 55:44F5
 	db 0
 	db "ヤ　ユ　ヨ", 0
 	db 0
 
 ; ---- text $4502-$4519 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_55_4502:: ; 55:4502
+String_KbdPage_T6_Katakana_PunctuationTaRow:: ; 55:4502
 	db "・…！？～♪タチツテト", 0
 
 ; ---- text $4519-$4532 (25 bytes) [PROBABLE] Shift-JIS keyboard row(s) NUL separated (9 double-byte chars, decodes cleanly with cp932: |ラリルレロ||「」（） ), between confirmed/probable text rows of the same on-screen keyboard character pages
 
-String_55_4519:: ; 55:4519
+String_KbdPage_T6_Katakana_RaAndBracketRows:: ; 55:4519
 	db 0
 	db "ラリルレロ", 0
 	db 0
@@ -243,7 +243,7 @@ String_55_4519:: ; 55:4519
 
 ; ---- text $4532-$454A (24 bytes) [PROBABLE] Shift-JIS keyboard row(s) inside the run 4532-4554: clean cp932 pairs with NUL row terminators (ナニヌネノ||ワヲン゜゛||); 1 executed-read range(s) of the run touch it; sits between the CONFIRMED/PROBABLE text rows of the same on-screen keyboard page [split from a merged data run by classify_g2]
 
-String_55_4532:: ; 55:4532
+String_KbdPage_T6_Katakana_NaWaRows:: ; 55:4532
 	db "ナニヌネノ", 0
 	db 0
 	db "ワヲン゜゛", 0
@@ -256,7 +256,7 @@ Data_Kbd_Page_T6_Katakana_Trailer:: ; 55:454A
 
 ; ---- text $4554-$456E (26 bytes) [PROBABLE] Shift-JIS keyboard row(s) NUL separated (10 double-byte chars, decodes cleanly with cp932: ||ＡＢＣＤＥ||ａｂｃｄｅ||), between confirmed/probable text rows of the same on-screen keyboard character pages
 
-String_55_4554:: ; 55:4554
+String_KbdPage_T6_FullWidthAlnum_LeadingBlankRows:: ; 55:4554
 	db 0
 	db 0
 
@@ -268,12 +268,12 @@ Data_Kbd_Page_T6_FullWidthAlnum:: ; 55:4556
 
 ; ---- text $456E-$4585 (23 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_55_456E:: ; 55:456E
+String_KbdPage_T6_FullWidthAlnum_ZDigitsAndFToJRow:: ; 55:456E
 	db "Ｚ０１２３４ＦＧＨＩＪ", 0
 
 ; ---- text $4585-$45FD (120 bytes) [PROBABLE] text block: 9 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 456E-45FD by higher-priority evidence]
 
-String_55_4585:: ; 55:4585
+String_KbdPage_T6_FullWidthAlnum_RemainingRows:: ; 55:4585
 	db 0
 	db "ｆｇｈｉｊ", 0
 	db 0
@@ -316,7 +316,7 @@ Data_Kbd_Page_T6_Symbols:: ; 55:460A
 
 ; ---- text $468D-$46B0 (35 bytes) [PROBABLE] Shift-JIS keyboard rows (symbols: arrows, stars, squares; codes 01 20 / 01 0D are inline controls) NUL separated; decodes cleanly with cp932; between the text rows 460A-468D and 46BE of the same page
 
-String_55_468D:: ; 55:468D
+String_KbdPage_T6_Symbols_ArrowsAndShapes:: ; 55:468D
 	db 0
 	db "→←↑↓", $01, $20, $01, $0D, "★◆■▲●　☆◇□△○"
 
@@ -333,43 +333,43 @@ Data_Kbd_Page_T78_Hiragana:: ; 55:46BE
 
 ; ---- text $46C9-$46D6 (13 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 46BE-4765 by higher-priority evidence]
 
-String_55_46C9:: ; 55:46C9
+String_KbdPage_T78_Hiragana_HaRow:: ; 55:46C9
 	db 0
 	db "はひふへほ", 0
 	db 0
 
 ; ---- text $46D6-$46ED (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_55_46D6:: ; 55:46D6
+String_KbdPage_T78_Hiragana_SmallKanaPunctuationKaRow:: ; 55:46D6
 	db "っゃゅょ、。かきくけこ", 0
 
 ; ---- text $46ED-$46FA (13 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 46BE-4765 by higher-priority evidence]
 
-String_55_46ED:: ; 55:46ED
+String_KbdPage_T78_Hiragana_MaRow:: ; 55:46ED
 	db 0
 	db "まみむめも", 0
 	db 0
 
 ; ---- text $46FA-$4711 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_55_46FA:: ; 55:46FA
+String_KbdPage_T78_Hiragana_LongVowelSmallKanaSaRow:: ; 55:46FA
 	db "ーぁぃぅぇぉさしすせそ", 0
 
 ; ---- text $4711-$471E (13 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 46BE-4765 by higher-priority evidence]
 
-String_55_4711:: ; 55:4711
+String_KbdPage_T78_Hiragana_YaRow:: ; 55:4711
 	db 0
 	db "や　ゆ　よ", 0
 	db 0
 
 ; ---- text $471E-$4735 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_55_471E:: ; 55:471E
+String_KbdPage_T78_Hiragana_PunctuationTaRow:: ; 55:471E
 	db "・…！？～♪たちつてと", 0
 
 ; ---- text $4735-$4765 (48 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 46BE-4765 by higher-priority evidence]
 
-String_55_4735:: ; 55:4735
+String_KbdPage_T78_Hiragana_RaNaWaRows:: ; 55:4735
 	db 0
 	db "らりるれろ", 0
 	db 0
@@ -384,7 +384,7 @@ Data_Kbd_Page_T78_Hiragana_Trailer:: ; 55:4765
 
 ; ---- text $4771-$477A (9 bytes) [PROBABLE] Shift-JIS keyboard row(s) inside the run 4765-477A: clean cp932 pairs with NUL row terminators (|アイウエ); 1 executed-read range(s) of the run touch it; sits between the CONFIRMED/PROBABLE text rows of the same on-screen keyboard page [split from a merged data run by classify_g2]
 
-String_55_4771:: ; 55:4771
+String_KbdPage_T78_Katakana_LeadingBlankRow:: ; 55:4771
 	db 0
 
 Data_Kbd_Page_T78_Katakana:: ; 55:4772
@@ -392,7 +392,7 @@ Data_Kbd_Page_T78_Katakana:: ; 55:4772
 
 ; ---- text $477A-$478A (16 bytes) [PROBABLE] Shift-JIS keyboard row(s) NUL separated (6 double-byte chars, decodes cleanly with cp932: オ||ハヒフヘホ||), between confirmed/probable text rows of the same on-screen keyboard character pages
 
-String_55_477A:: ; 55:477A
+String_KbdPage_T78_Katakana_OAndHaRows:: ; 55:477A
 	db "オ", 0
 	db 0
 	db "ハヒフヘホ", 0
@@ -400,36 +400,36 @@ String_55_477A:: ; 55:477A
 
 ; ---- text $478A-$47A1 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_55_478A:: ; 55:478A
+String_KbdPage_T78_Katakana_SmallKanaPunctuationKaRow:: ; 55:478A
 	db "ッャュョ、。カキクケコ", 0
 
 ; ---- text $47A1-$47AE (13 bytes) [PROBABLE] Shift-JIS keyboard row(s) NUL separated (5 double-byte chars, decodes cleanly with cp932: |マミムメモ||), between confirmed/probable text rows of the same on-screen keyboard character pages
 
-String_55_47A1:: ; 55:47A1
+String_KbdPage_T78_Katakana_MaRow:: ; 55:47A1
 	db 0
 	db "マミムメモ", 0
 	db 0
 
 ; ---- text $47AE-$47C5 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_55_47AE:: ; 55:47AE
+String_KbdPage_T78_Katakana_LongVowelSmallKanaSaRow:: ; 55:47AE
 	db "ーァィゥェォサシスセソ", 0
 
 ; ---- text $47C5-$47D2 (13 bytes) [PROBABLE] Shift-JIS keyboard row(s) NUL separated (5 double-byte chars, decodes cleanly with cp932: |ヤ ユ ヨ||), between confirmed/probable text rows of the same on-screen keyboard character pages
 
-String_55_47C5:: ; 55:47C5
+String_KbdPage_T78_Katakana_YaRow:: ; 55:47C5
 	db 0
 	db "ヤ　ユ　ヨ", 0
 	db 0
 
 ; ---- text $47D2-$47E9 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_55_47D2:: ; 55:47D2
+String_KbdPage_T78_Katakana_PunctuationTaRow:: ; 55:47D2
 	db "・…！？～♪タチツテト", 0
 
 ; ---- text $47E9-$481A (49 bytes) [PROBABLE] Shift-JIS keyboard row(s) inside the run 47E9-482E: clean cp932 pairs with NUL row terminators (|ラリルレロ||「」（） ^ ナニヌネノ); 0 executed-read range(s) of the run touch it; sits between the CONFIRMED/PROBABLE text rows of the same on-screen keyboard page [split from a merged data run by classify_g2]
 
-String_55_47E9:: ; 55:47E9
+String_KbdPage_T78_Katakana_RaNaWaRows:: ; 55:47E9
 	db 0
 	db "ラリルレロ", 0
 	db 0
@@ -445,7 +445,7 @@ Data_Kbd_Page_T78_Katakana_Trailer:: ; 55:481A
 
 ; ---- text $4825-$482E (9 bytes) [PROBABLE] Shift-JIS keyboard row(s) inside the run 47E9-482E: clean cp932 pairs with NUL row terminators (|ＡＢＣＤ); 1 executed-read range(s) of the run touch it; sits between the CONFIRMED/PROBABLE text rows of the same on-screen keyboard page [split from a merged data run by classify_g2]
 
-String_55_4825:: ; 55:4825
+String_KbdPage_T78_FullWidthAlnum_LeadingBlankRow:: ; 55:4825
 	db 0
 
 Data_Kbd_Page_T78_FullWidthAlnum:: ; 55:4826
@@ -453,7 +453,7 @@ Data_Kbd_Page_T78_FullWidthAlnum:: ; 55:4826
 
 ; ---- text $482E-$483E (16 bytes) [PROBABLE] Shift-JIS keyboard row(s) NUL separated (6 double-byte chars, decodes cleanly with cp932: Ｅ||ａｂｃｄｅ||), between confirmed/probable text rows of the same on-screen keyboard character pages
 
-String_55_482E:: ; 55:482E
+String_KbdPage_T78_FullWidthAlnum_ERowAndLowercaseAbcde:: ; 55:482E
 	db "Ｅ", 0
 	db 0
 	db "ａｂｃｄｅ", 0
@@ -461,12 +461,12 @@ String_55_482E:: ; 55:482E
 
 ; ---- text $483E-$4855 (23 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_55_483E:: ; 55:483E
+String_KbdPage_T78_FullWidthAlnum_ZDigitsAndFToJRow:: ; 55:483E
 	db "Ｚ０１２３４ＦＧＨＩＪ", 0
 
 ; ---- text $4855-$48CD (120 bytes) [PROBABLE] text block: 9 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 483E-48CD by higher-priority evidence]
 
-String_55_4855:: ; 55:4855
+String_KbdPage_T78_FullWidthAlnum_RemainingRows:: ; 55:4855
 	db 0
 	db "ｆｇｈｉｊ", 0
 	db 0
@@ -509,7 +509,7 @@ Data_Kbd_Page_T78_Symbols:: ; 55:48DA
 
 ; ---- text $495D-$4982 (37 bytes) [PROBABLE] Shift-JIS keyboard row(s) (arrows, spaces; 01 20 inline control) NUL separated, clean cp932; between the text rows 48DA-495D and the page trailer at 4982
 
-String_55_495D:: ; 55:495D
+String_KbdPage_T78_Symbols_ArrowsAndShapes:: ; 55:495D
 	db 0
 	db "→←↑↓　", $01, $20, "★◆■▲●　☆◇□△○", 0
 	db 0

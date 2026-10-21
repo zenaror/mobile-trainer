@@ -1926,7 +1926,7 @@ A fresh path-bounded exact-name scan of the six maintained source roots plus
 `zero_labels.asm`, excluding the protected mail sample before reading, finds
 63 `Data_BB_AAAA` definitions in 41 owners and no exact generic `Function`,
 `Font`, or `Label` definitions. This is a lexical count, not semantic closure.
-The same scan now finds 80 `String_BB_AAAA`, no exact `Table_BB_AAAA`, 41
+The same scan now finds 41 `String_BB_AAAA`, no exact `Table_BB_AAAA`, 41
 `Tiles_BB_AAAA`, 24 `Tilemap_BB_AAAA`, 4 `Attrmap_BB_AAAA`, and 25
 `Palette_BB_AAAA` definitions; the remaining prefixes are an owner-by-owner
 evidence worklist. The four former generic table labels are described in the
@@ -1943,4 +1943,8 @@ structure is static evidence and does not imply natural rendering of every
 entry. Eight continuation labels in the four bank-24 page-list messages now
 describe their message and line position; that structure is PROBABLE, with
 natural display not established. `String_24_42E7` remains neutral because its
-copied Japanese text does not establish a page identity.
+copied Japanese text does not establish a page identity. Thirty-nine keyboard
+text labels in bank 55 now describe their T6/T78 page and character run; the
+split rows remain PROBABLE where inferred from NUL/blank separators. These
+static names do not claim independent display of every segment. See the
+[keyboard text audit](docs/research/generic_data_name_audit_20261020.md#bank-55-keyboard-text-segments-2026-10-21).
