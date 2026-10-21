@@ -37,6 +37,12 @@ This read-only audit checked the source at Japanese `main` `fd70bc464b36dc982ae4
 
 The sealed 577-path snapshot above is based on `086bed07d3b6fefbe51ab92dcdae5a4e0cbd941b`. At `main` source state `c2b33d2f8de865da52ab877fa25005fec55de559`, all 549 unchanged tracked inputs retain the exact Git blob IDs from that snapshot. The other 27 tracked inputs are ASM owners; after excluding comments, blank lines and global label definitions, their assembler/directive line sequences are identical to the snapshot. No PNG or binary asset path changed. The later `4a38c8b8f1cbba089894240ceeb8399e47e87244` checkpoint changes documentation only. The ROM itself is intentionally untracked, and its current SHA-256 is still `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
 
+The later naming checkpoint `b249783bea7d9cd1eecf30db85a842dc87f1ff94` changes
+three unrelated screen-data label names, the matching static pointer expressions, and documentation; it
+does not touch `data/text/pokemon_names_bank53.asm`, the bank41–47 assets, PNGs, or screen models.
+The finite asset results below therefore remain in scope; this note is updated at the checkpoint
+without rerunning or expanding its sealed audit.
+
 This reconciles the finite asset inventory to current main: it still finds no
 missing referenced file or orphan PNG/binary in the reviewed 208-file scope.
 It does not complete the eight KEEP screen compositions or establish any of

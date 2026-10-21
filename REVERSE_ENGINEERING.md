@@ -503,6 +503,15 @@ and 786 neutral RAM coordinates; these are not counts of unknown functions. It a
 address-based local labels, all present in the parent SYM, by recognizing colonless RGBDS declarations.
 An earlier parser requiring a colon omitted these locals. The 516 alias retirements form one finite
 part of the wider task: other data, graphics, local labels and paths still need evidence-based review.
+
+A later exact-name census of the maintained ASM/INC source set at 51b2b438 covered 347 files and
+found 287 global definitions with a type/bank/address name: 77 `Data_`, 107 `String_`, 9 `Table_`,
+41 `Tiles_`, 24 `Tilemap_`, 25 `Palette_` and 4 `Attrmap_`; it found no exact `Function_`, `Font_`
+or `Label_` definitions. Commit b249783b replaced three of those generic names with statically
+supported semantic names. The current lexical remainder is therefore 284 definitions: 75 `Data_`,
+107 `String_`, 8 `Table_`, 41 `Tiles_`, 24 `Tilemap_`, 25 `Palette_` and 4 `Attrmap_`. This is a
+name-pattern census, not a count of unresolved code or proof that every data label is understood.
+The remaining neutral names retain the confidence and uncertainty recorded at each source header.
 Shared RAM coordinates require screen/bank-specific roles. The conditional editing-model domain has
 18 HYPOTHESIS rows: 16 non-RAW models (15 single-sheet and one fragmented) plus two explicitly RAW
 models. The earlier count of 16 referred to the non-RAW subset. English remains suspended until fresh
