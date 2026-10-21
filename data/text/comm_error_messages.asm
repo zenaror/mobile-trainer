@@ -255,7 +255,6 @@ CommErr_Boot_SaveDataErrorB:: ; 5C:4F14
 ; ---- data $4F53-$4FA8 (85 bytes) [CONFIRMED] 21 records of 4 bytes [id ; mode ; dw list pointer] terminated by $FF at 4FA7 (ids 10-17, 20-26, 30-33, 40, F0), searched linearly by the executed code at 5C:527A-5289 (ld hl,$4F53 ; ld a,[hli] ; cp $FF ; cp b ; inc hl x3 ; jr), b = [C196]; mode = second byte (dec a ; jr nz at 528B-528D: mode 1 takes the path at 5C:528F, any other mode the path at 5C:52EF (each loads a different tilemap first)), dw = list of triples read at 5C:5302-531C; the id/mode/pointer bytes are read data (dataaccess, 3/18 scenarios) and every pointer lands exactly on a list start
 
 CommErr_RecordTable:: ; 5C:4F53
-Table_5C_4F53::
 	db $10, $01, $A8, $4F, $11, $01, $AE, $4F, $12, $01, $B4, $4F, $13, $01, $BA, $4F
 	db $14, $01, $C0, $4F, $15, $01, $C6, $4F, $16, $01, $D5, $4F, $17, $01, $DB, $4F
 	db $20, $01, $E1, $4F, $21, $01, $E7, $4F, $22, $01, $ED, $4F, $23, $01, $F3, $4F
@@ -383,7 +382,6 @@ CommErr_Triples_F0:: ; 5C:50F5
 ; ---- ptrtable $5104-$5144 (64 bytes) [PROBABLE] 32 x dw string pointers (slots 0-31; the same index space continues through slot 32 = 5C:5144 and slots 33-37 = the table 5C:5146, see there) indexed by the message index from the lists (ld hl,$5104 ; add a,a ; add a,l ... ld a,[hli] ; ld h,[hl] ; ld l,a at 5C:5320-532C); entry 0 is $0000 (null, kept numeric), entries 1-31 = 4000..4DCF strings (100% of targets on string starts)
 
 CommErr_MessagePointers:: ; 5C:5104
-Table_5C_5104::
 	dw $0000
 	dw CommErr_Msg_AdapterNotPlugged
 	dw CommErr_Msg_DialFailedOrBusy
@@ -425,7 +423,6 @@ CommErr_MessageSlot32RawWord:: ; 5C:5144
 ; ---- ptrtable $5146-$5150 (10 bytes) [PROBABLE] little-endian word table, 5 entries, monotone=1.00, 100% of targets on string start/after NUL, targets $4E21..$4F14 [verifier: this is the continuation of the message pointer index space of 5C:5104 (5104 + 2*33 = 5146): the mode-2 record $F0 of the table 5C:4F53 has the list 5C:50F5 = 5 triples with message indices $21..$25 = slots 33-37 = exactly these 5 words]
 
 CommErr_MessagePointers_Boot:: ; 5C:5146
-Table_5C_5146::
 	dw CommErr_Boot_AdapterNotPlugged
 	dw CommErr_Boot_WrongPassword
 	dw CommErr_Boot_AdapterConfigError

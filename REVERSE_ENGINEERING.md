@@ -1861,3 +1861,8 @@ remain as before; see the
 At bank 26's confirmed blank-message string, the duplicate `Data_26_588E`
 export was also retired under `MailSession_Msg_Blank`; the historical
 text-classification note now records this later label-set-only change.
+
+The communication-error record and message-pointer tables now export only
+their existing semantic names; bytes and confirmed/probable boundaries are
+preserved. See the
+[communication-error alias note](docs/research/comm_error_table_aliases_20261021.md).
