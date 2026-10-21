@@ -1989,11 +1989,11 @@ CONFIRMED bounded reader evidence; entry 4 remains PROBABLE with no observed
 natural read. `Data_4A_51B0` remains neutral because its suspected unread
 palette role is unproved, and `Data_4A_5860` remains neutral for its
 unclassified six-byte prefix. The earlier note reported 550 definitions in
-140 owners. Re-running the exact
-`Data_BB_AAAA::` definition query against parent `1c6a6cc` gives 526 in 137
-owners, excluding the protected mail sample and `zero_labels.asm`; the earlier
-550 count was high by 24. This remains a lexical count, not a
-semantic-completion measure.
+140 owners. Re-running the whitespace-aware `Data_BB_AAAA::` definition query
+at `d09ead4f` gives 526 in 137 owners, excluding the protected mail sample and
+`zero_labels.asm`; the earlier 550 count was high by 24. At `1c6a6ccb` the
+count remained 526. This remains a lexical count, not a semantic-completion
+measure.
 
 ## Bank 70 communication-scene object animation records (2026-10-21)
 
