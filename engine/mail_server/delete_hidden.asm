@@ -1380,7 +1380,6 @@ MailSrvDelHidden_DeleteAll_Confirm:: ; 22:4B2F
 ; ---- data $4C5B-$4C62 (7 bytes) [CONFIRMED] opaque7-byte session-block template copied by original bank22 loop to WRAMbank1 wMailSessionBlock ($D624); 2 whole/2 union natural scenarios; no protocol-field meaning inferred; bytes and labels preserved
 
 Data_MailSrvDelHidden_DeleteAll_Confirm_SessionBlockTemplate:: ; 22:4C5B
-Data_22_4C5B::
 	db $03, $00, $00, $01, $24, $D5, $00
 
 MailSrvDelHidden_DeleteCompletely:: ; 22:4C62
@@ -1569,7 +1568,6 @@ MailSrvDelHidden_DeleteCompletely_Confirm:: ; 22:4C7A
 ; ---- data $4DA6-$4DAD (7 bytes) [CONFIRMED] opaque7-byte session-block template copied by original bank22 loop to WRAMbank1 wMailSessionBlock ($D624); 1 whole/1 union natural scenarios; no protocol-field meaning inferred; bytes and labels preserved
 
 Data_MailSrvDelHidden_DeleteCompletely_Confirm_SessionBlockTemplate:: ; 22:4DA6
-Data_22_4DA6::
 	db $03, $00, $00, $01, $24, $D5, $00
 
 MailSrvDelHidden_CheckAndDelete:: ; 22:4DAD
@@ -1751,5 +1749,4 @@ MailSrvDelHidden_CheckAndDelete:: ; 22:4DAD
 ; ---- data $4EE9-$4EF0 (7 bytes) [CONFIRMED] opaque7-byte session-block template copied by original bank22 loop to WRAMbank1 wMailSessionBlock ($D624); 1 whole/1 union natural scenarios; no protocol-field meaning inferred; bytes and labels preserved
 
 Data_MailSrvDelHidden_CheckAndDelete_SessionBlockTemplate:: ; 22:4EE9
-Data_22_4EE9::
 	db $03, $00, $00, $01, $24, $D5, $00

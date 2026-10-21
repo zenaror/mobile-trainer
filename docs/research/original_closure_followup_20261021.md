@@ -196,6 +196,15 @@ historical address labels. Existing aggregate/table confidence limits and
 all bytes remain unchanged. The restricted six-root census is now 166 generic
 definitions across 104 owners.
 
+In `engine/mail_server/delete_hidden.asm` and `delete_flows.asm`, five exact
+co-located aliases `Data_22_4C5B`, `Data_22_4DA6`, `Data_22_4EE9`,
+`Data_23_4B4A` and `Data_23_4C8D` were retired under the existing
+`Data_MailSrvDel*SessionBlockTemplate` names. Their byte-identical seven-byte
+payloads and source copy loops are unchanged; the field meanings remain
+undecoded. The now-obsolete `data_consumers.py` suggestion block was removed.
+Frozen xref/config/naming manifests retain historical spellings. The
+restricted six-root census is now 161 generic definitions across 102 owners.
+
 In `data/text/top_menu_ticker.asm`, three exact co-located aliases
 `Data_1E_4000`, `Data_1E_400D` and `Data_1E_409F` were retired under
 `Data_TopMenu_StringIndexBank`, `String_TopMenu_Title0` and

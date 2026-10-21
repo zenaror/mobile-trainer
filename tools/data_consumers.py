@@ -999,17 +999,6 @@ def rules_manual(w, man, sites):
         add(old, new, 'data', 'CONFIRMED',
             '6 bytes %s = two 3-byte scripts (48 00 80) (58 00 80): %s loads HL with the first script through the label; %s loads the second from raw immediate `ld hl,%s`; both call %s, whose reader loops `ld a,[hli] ; cp $80 ; jr z,done` (step byte per frame, $80 terminator); all six bytes are executed-read (region header CONFIRMED)' %
             (rom_bytes(w, k, 6).hex(' '), first_fn, second_fn, other, callee))
-    # ---- mail-server delete flows: 7-byte template copied to wMailSessionBlock (WRAM1 $D624) before ConnectDialog_Run
-    tmpl = bytes.fromhex('03 00 00 01 24 d5 00')
-    for old, fn in (('Data_22_4C5B', 'MailSrvDelHidden_DeleteAll_Confirm'), ('Data_22_4DA6', 'MailSrvDelHidden_DeleteCompletely_Confirm'),
-                    ('Data_22_4EE9', 'MailSrvDelHidden_CheckAndDelete'), ('Data_23_4B4A', 'MailSrvDel_DeleteAll_Confirm'),
-                    ('Data_23_4C8D', 'MailSrvDel_CheckAndDelete')):
-        k = w.by_name[old]
-        assert rom_bytes(w, k, 7) == tmpl, old
-        add(old, 'Data_%s_SessionBlockTemplate' % fn, 'data', 'PROBABLE',
-            '7 bytes 03 00 00 01 24 D5 00 (the five copies in banks 22/23 are byte-identical) copied to $D624 (WRAM bank 1 = wMailSessionBlock) by the loop `ld hl,$D624 ; ld de,<label> ; ld b,7 ; .loop ld a,[de] ; ld [hli],a ; inc de ; dec b ; jr nz` in %s, '
-            'then `ld d,1 ; ld bc,$D624 ; farcall ConnectDialog_Run`; the field meanings are not decoded' % fn)
-
     # ---- twins: 2-byte character list walked pair by pair until a 0 first byte
     for old, fn, bank in (('String_2A_6081', 'Profile_ApplyVu', 0x2A), ('String_2C_4878', 'MailTitle_ApplyVu', 0x2C),
                           ('Data_2D_55DA', 'MailBody_ApplyDakutenU', 0x2D), ('String_2F_6040', 'AbookName_ApplyDakutenU', 0x2F)):

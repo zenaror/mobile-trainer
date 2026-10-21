@@ -190,7 +190,6 @@ MailSrvDel_DeleteAll_Confirm:: ; 23:4A1E
 ; ---- data $4B4A-$4B51 (7 bytes) [PROBABLE] 7-byte block copied to $D624 (WRAM1) by the loop at 23:4A2F (ld de,$4B4A ; ld b,$07 ; ld a,[de] ; ld [hli],a ...); the fields are not decoded
 
 Data_MailSrvDel_DeleteAll_Confirm_SessionBlockTemplate:: ; 23:4B4A
-Data_23_4B4A::
 	db $03, $00, $00, $01, $24, $D5, $00
 
 MailSrvDel_CheckAndDelete:: ; 23:4B51
@@ -371,7 +370,6 @@ MailSrvDel_CheckAndDelete:: ; 23:4B51
 ; ---- data $4C8D-$4C94 (7 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
 Data_MailSrvDel_CheckAndDelete_SessionBlockTemplate:: ; 23:4C8D
-Data_23_4C8D::
 	db $03, $00, $00, $01, $24, $D5, $00
 
 MailSrvDel_DeleteAllRun:: ; 23:4C94
