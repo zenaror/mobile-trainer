@@ -31,6 +31,7 @@ PNG_TILE_OUTS := \
 	gfx/account/screens_bank4a/tiles_4e40.2bpp \
 	gfx/account/screens_bank4a/tiles_5860.2bpp \
 	gfx/account/screens_bank4a/tiles_5870.2bpp \
+	gfx/account/screens_bank4b/account_result_page_tiles4ad0.2bpp \
 	gfx/account/screens_bank4b/tiles_42d0.2bpp \
 	gfx/account/screens_bank4b/tiles_46d0.2bpp \
 	gfx/account/screens_bank4b/tiles_5080.2bpp \
@@ -441,6 +442,7 @@ gfx/account/screens_bank4a/tiles_4a40.2bpp: PNG_SIZE := 1024
 gfx/account/screens_bank4a/tiles_4e40.2bpp: PNG_SIZE := 832
 gfx/account/screens_bank4a/tiles_5860.2bpp: PNG_SIZE := 16
 gfx/account/screens_bank4a/tiles_5870.2bpp: PNG_SIZE := 1024
+gfx/account/screens_bank4b/account_result_page_tiles4ad0.2bpp: PNG_SIZE := 1456
 gfx/account/screens_bank4b/tiles_42d0.2bpp: PNG_SIZE := 1024
 gfx/account/screens_bank4b/tiles_46d0.2bpp: PNG_SIZE := 1024
 gfx/account/screens_bank4b/tiles_5080.2bpp: PNG_SIZE := 896

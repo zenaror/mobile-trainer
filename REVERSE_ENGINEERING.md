@@ -1499,3 +1499,5 @@ graphics, palettes, tilemaps, and sprite tables. The historical
 recognizes the old input spelling. Its address map and that tool file are
 documented in
 [`docs/research/generic_data_name_audit_20261020.md`](docs/research/generic_data_name_audit_20261020.md#bank-71-account-screen-address-aliases-2026-10-21).
+
+**Bank 4B tile extraction (2026-10-21).** Positive transfer records cover all 1,456 bytes at `4B:4AD0–5080`; the interval now has an exact 91-tile PNG source while its higher-level screen and Pokémon associations remain unproved. See [the transfer audit](docs/research/bank4b_result_page_indexed_tiles_20261021.md). The Japanese disassembly remains active; English work remains suspended pending the Operator's explicit confirmation.

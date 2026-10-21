@@ -44,11 +44,11 @@ gfx/assets.tsv                                 one line per asset: kind, size, b
 | RGB palette (`.pal`) | 167 | 11504 |
 | validity bitmap (`.bin`) | 1 | 8198 |
 | tile-index map (`.tilemap`) | 180 | 51618 |
-| 2bpp tiles (`.2bpp`) | 408 | 361440 |
+| 2bpp tiles (`.2bpp`) | 409 | 362896 |
 | raw bytes (`.bin`, conditional byte-view codec; purpose unknown) | 4 | 80 |
-| **all** | **979** | **622434** |
+| **all** | **980** | **623890** |
 
-PNGs:408 active exact rgbgfx tile sources,4 explicit RAW byte-view PNGs (80B; purpose UNKNOWN/HYPOTHESIS), and39 font binaries in37 editable sheet PNGs:449 unique editable source PNG paths. The1 validity-bitmap view-only picture and95 screen compositions are separate. `gfx/png_rules.tsv` has978 active rules. The catalogue totals979 assets/622434 logical ROM bytes; its11 JIS12x12 binaries total131976B.
+PNGs:409 active exact rgbgfx tile sources,4 explicit RAW byte-view PNGs (80B; purpose UNKNOWN/HYPOTHESIS), and39 font binaries in37 editable sheet PNGs:450 unique editable source PNG paths. The1 validity-bitmap view-only picture and95 screen compositions are separate. `gfx/png_rules.tsv` has979 active rules. The catalogue totals980 assets/623890 logical ROM bytes; its11 JIS12x12 binaries total131976B.
 The old count406 included the retired bank73 tile interpretation; its historical file remains outside the active catalogue.
 
 ## Still `db`
@@ -150,6 +150,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 |---|---|---:|---|---|---|---|---|
 | `tiles_42d0.2bpp` | 2bpp tiles | 1024 | 4B:42D0 | CONFIRMED | exact | - | `gfx/account/screens_bank4b.asm` |
 | `tiles_46d0.2bpp` | 2bpp tiles | 1024 | 4B:46D0 | CONFIRMED | exact | - | `gfx/account/screens_bank4b.asm` |
+| `account_result_page_tiles4ad0.2bpp` | 2bpp tiles | 1456 | 4B:4AD0 | CONFIRMED | exact | - | `gfx/account/screens_bank4b.asm` |
 | `tiles_5080.2bpp` | 2bpp tiles | 896 | 4B:5080 | PROBABLE | exact | - | `gfx/account/screens_bank4b.asm` |
 | `tiles_5420.2bpp` | 2bpp tiles | 1104 | 4B:5420 | PROBABLE | exact | - | `gfx/account/screens_bank4b.asm` |
 | `account_result_page_bg.pal` | RGB palette | 40 | 4B:5870 | CONFIRMED | - | - | `gfx/account/screens_bank4b.asm` |
