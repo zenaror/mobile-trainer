@@ -47,32 +47,32 @@ Gfx_BrowserScrollbar_Tiles97D0_47_40D0:: ; 47:40D0
 
 ; ---- gfx $4100-$4B00 (2560 bytes) [PROBABLE] 2bpp tile data (160 tiles, incl. blank tiles), screen block 1/4 of bank 47: same layout in banks 41-46, bank 47 shifted by +0x100 (palette signature ff7f 1c01 027e 0000 at block+0xCD0 in every bank); block = 0xA00 tile bytes + 0x2D0 tilemap/attr + 0x80 palettes = 0xD50; visually coherent pixel art in a rendered sheet; no direct loader reference found (address is computed) ; the executed-code reads of 47:4E50-5BA0 (homepage trace) and 47:5BA0-68F0 (monkey_1 trace) cover exactly blocks 2 and 3 (CONFIRMED whole-block data reads; the split into tiles/map/palette is PROBABLE) | independent evidence: the screen descriptors of the table 4E:654B (4E:6581, 65A0, 65BF) contain far pointers to exactly these block parts: 47:4100 tiles / 47:4DD0 palettes / 47:4B00 tilemap (block 1), 47:4E50 / 47:5B20 / 47:5850 (block 2), 47:5BA0 / 47:6870 / 47:65A0 (block 3); the OBJ palette pointers 47:4E10, 47:5B60, 47:68B0 = palette+$40
 
-Tiles_47_4100:: ; 47:4100
+Gfx_BrowserFrame0_Tiles:: ; 47:4100
 	INCBIN "gfx/browser/frames_0_1/tiles_4100.2bpp"
 
 ; ---- data $4B00-$4DD0 (720 bytes) [PROBABLE] tilemap+attribute map, 20x18 (0x168 tile bytes then 0x168 attr bytes; attr bytes are bank/palette/flip bits, bit 4 (unused on CGB) set in a few bytes), rows of 20 verified in the byte pattern; layout as 00:08EA copy_tilemap_rect_pair screen block 1/4 of bank 47: same layout in banks 41-46, bank 47 shifted by +0x100 (palette signature ff7f 1c01 027e 0000 at block+0xCD0 in every bank); block = 0xA00 tile bytes + 0x2D0 tilemap/attr + 0x80 palettes = 0xD50 | independent evidence: the screen descriptors of the table 4E:654B (4E:6581, 65A0, 65BF) contain far pointers to exactly these block parts: 47:4100 tiles / 47:4DD0 palettes / 47:4B00 tilemap (block 1), 47:4E50 / 47:5B20 / 47:5850 (block 2), 47:5BA0 / 47:6870 / 47:65A0 (block 3); the OBJ palette pointers 47:4E10, 47:5B60, 47:68B0 = palette+$40
 
-Tilemap_47_4B00:: ; 47:4B00
+Tilemap_BrowserFrame0:: ; 47:4B00
 	INCBIN "gfx/browser/frames_0_1/tilemap_4b00.tilemap"
 	INCBIN "gfx/browser/frames_0_1/tilemap_4b00.attrmap"
 
 ; ---- data $4DD0-$4E50 (128 bytes) [PROBABLE] 16 RGB555 palettes of 4 colours, first palette ff7f 1c01 027e 0000 as in banks 41-46; screen block 1/4 of bank 47: same layout in banks 41-46, bank 47 shifted by +0x100 (palette signature ff7f 1c01 027e 0000 at block+0xCD0 in every bank); block = 0xA00 tile bytes + 0x2D0 tilemap/attr + 0x80 palettes = 0xD50 | independent evidence: the screen descriptors of the table 4E:654B (4E:6581, 65A0, 65BF) contain far pointers to exactly these block parts: 47:4100 tiles / 47:4DD0 palettes / 47:4B00 tilemap (block 1), 47:4E50 / 47:5B20 / 47:5850 (block 2), 47:5BA0 / 47:6870 / 47:65A0 (block 3); the OBJ palette pointers 47:4E10, 47:5B60, 47:68B0 = palette+$40
 
-Palette_47_4DD0:: ; 47:4DD0
+Palette_BrowserFrame0:: ; 47:4DD0
 	INCLUDE "gfx/browser/frames_0_1/palette_4dd0.pal"
 
 ; ---- gfx $4E50-$5850 (2560 bytes) [PROBABLE] 2bpp tile data (160 tiles, incl. blank tiles), screen block 2/4 of bank 47: same layout in banks 41-46, bank 47 shifted by +0x100 (palette signature ff7f 1c01 027e 0000 at block+0xCD0 in every bank); block = 0xA00 tile bytes + 0x2D0 tilemap/attr + 0x80 palettes = 0xD50; visually coherent pixel art in a rendered sheet; no direct loader reference found (address is computed) ; the executed-code reads of 47:4E50-5BA0 (homepage trace) and 47:5BA0-68F0 (monkey_1 trace) cover exactly blocks 2 and 3 (CONFIRMED whole-block data reads; the split into tiles/map/palette is PROBABLE) | independent evidence: the screen descriptors of the table 4E:654B (4E:6581, 65A0, 65BF) contain far pointers to exactly these block parts: 47:4100 tiles / 47:4DD0 palettes / 47:4B00 tilemap (block 1), 47:4E50 / 47:5B20 / 47:5850 (block 2), 47:5BA0 / 47:6870 / 47:65A0 (block 3); the OBJ palette pointers 47:4E10, 47:5B60, 47:68B0 = palette+$40
 
-Tiles_47_4E50:: ; 47:4E50
+Gfx_BrowserFrame1_Tiles:: ; 47:4E50
 	INCBIN "gfx/browser/frames_0_1/tiles_4e50.2bpp"
 
 ; ---- data $5850-$5B20 (720 bytes) [PROBABLE] tilemap+attribute map, 20x18 (0x168 tile bytes then 0x168 attr bytes; attr bytes are bank/palette/flip bits, bit 4 (unused on CGB) set in a few bytes), rows of 20 verified in the byte pattern; layout as 00:08EA copy_tilemap_rect_pair screen block 2/4 of bank 47: same layout in banks 41-46, bank 47 shifted by +0x100 (palette signature ff7f 1c01 027e 0000 at block+0xCD0 in every bank); block = 0xA00 tile bytes + 0x2D0 tilemap/attr + 0x80 palettes = 0xD50 | independent evidence: the screen descriptors of the table 4E:654B (4E:6581, 65A0, 65BF) contain far pointers to exactly these block parts: 47:4100 tiles / 47:4DD0 palettes / 47:4B00 tilemap (block 1), 47:4E50 / 47:5B20 / 47:5850 (block 2), 47:5BA0 / 47:6870 / 47:65A0 (block 3); the OBJ palette pointers 47:4E10, 47:5B60, 47:68B0 = palette+$40
 
-Tilemap_47_5850:: ; 47:5850
+Tilemap_BrowserFrame1:: ; 47:5850
 	INCBIN "gfx/browser/frames_0_1/tilemap_5850.tilemap"
 	INCBIN "gfx/browser/frames_0_1/tilemap_5850.attrmap"
 
 ; ---- data $5B20-$5BA0 (128 bytes) [PROBABLE] 16 RGB555 palettes of 4 colours, first palette ff7f 1c01 027e 0000 as in banks 41-46; screen block 2/4 of bank 47: same layout in banks 41-46, bank 47 shifted by +0x100 (palette signature ff7f 1c01 027e 0000 at block+0xCD0 in every bank); block = 0xA00 tile bytes + 0x2D0 tilemap/attr + 0x80 palettes = 0xD50 | independent evidence: the screen descriptors of the table 4E:654B (4E:6581, 65A0, 65BF) contain far pointers to exactly these block parts: 47:4100 tiles / 47:4DD0 palettes / 47:4B00 tilemap (block 1), 47:4E50 / 47:5B20 / 47:5850 (block 2), 47:5BA0 / 47:6870 / 47:65A0 (block 3); the OBJ palette pointers 47:4E10, 47:5B60, 47:68B0 = palette+$40
 
-Palette_47_5B20:: ; 47:5B20
+Palette_BrowserFrame1:: ; 47:5B20
 	INCLUDE "gfx/browser/frames_0_1/palette_5b20.pal"

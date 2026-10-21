@@ -6,5 +6,5 @@
 SECTION "gfx/unresolved/tiles_7f_7830", ROMX
 
 ; 45 tiles, 2bpp. Keep the bank/address label until a consumer is demonstrated.
-Tiles_7F_7830:: ; 7F:7830
+UnresolvedTiles_7F_7830:: ; 7F:7830
 	INCBIN "gfx/unresolved/tiles_7f_7830/tiles_7830.2bpp"

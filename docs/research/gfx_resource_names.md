@@ -13,3 +13,14 @@ Paired tile/raw PNGs keep the binary basename; editing views keep the tilemap ba
 Dated research, the 22 historical analysis/preview metadata files, frozen config and legacy generator layouts retain their original locators. Use the path map rather than regenerating them. The existing 24 legacy preview filenames and the ten-owner structure are retained; no record split or companion preview rename belongs to this unit.
 
 This private source proposal has only finite path/hash/metadata comparisons. It has not run `make`, `sym-check`, native gates, PNG conversion or rendering, a ROM/emulator, or hardware. ROOT integration must record actual validation before ROM byte equivalence is asserted. English manifest/override/payload/fallback maintenance and English validation remain outside this authorized unit.
+
+
+The Japanese label review subsequently qualified all bank41/43/44/45/46
+frame-design resource symbols as `FrameDesignCandidate_*`, tied to their
+filename-derived motifs. This removes type/address-only names without
+claiming natural screen use. Static consumers also support resource names for
+bank58 Notice graphics, the first three bank47 browser-frame packages, the
+page-list slices, and help-script picture tiles in bank5B. See
+`gfx_generic_name_audit_20261021.md` and
+`original_closure_followup_20261021.md`; unresolved bank47 package4 and bank7F
+source ranges remain explicitly candidate/unresolved.

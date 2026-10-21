@@ -44,3 +44,24 @@ Existing CONFIRMED/PROBABLE/HYPOTHESIS comments and byte extents remain. The
 catalog labels were synchronized; the raw-image metadata guard for the
 `42:69A0` backing now expects its candidate raw-backing name. No asset bytes,
 directories, or binary views changed.
+
+
+## Japanese generic graphic-label follow-up (2026-10-21)
+
+Owner-level review resolved all 64 exact `Tiles_BB_AAAA`, `Tilemap_BB_AAAA`,
+`Palette_BB_AAAA` and `Attrmap_BB_AAAA` labels in banks 41/43/44/45/46 using
+`FrameDesignCandidate_*` names tied to existing motifs and asset files. These
+names do not assert natural selection or complete-screen use. A separate
+static consumer audit renamed 25 labels for computed Notice transfers, browser
+frame descriptors 0-3, page-list loads, and help-script picture IDs 27-31.
+Four further unconsumed or partly unexplained spans retain explicit
+candidate/unresolved wording: browser package 4 at 47:68F0, its map and
+palette, and the 5B palette block tail. The orphan 7F:7830 graphics remain
+`UnresolvedTiles_7F_7830`, not marked unused. Nine owner files with consumer-supported
+labels were updated together with their assembly labels.
+
+Current source-bounded grep finds no exact generic address-form `Tiles`,
+`Tilemap`, `Palette` or `Attrmap` definitions. The remaining exact generic
+`Data_BB_AAAA` names are a separate audited inventory; see the final exact
+Data-name section and its individually bounded evidence. No bytes, asset files,
+layout boundaries, frozen `config/` files or English sources changed.

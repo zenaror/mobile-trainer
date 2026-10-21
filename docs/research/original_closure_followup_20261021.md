@@ -1020,3 +1020,46 @@ The current bounded source scan after the bank-23 rename finds 16 exact
 `Data_BB_AAAA` definitions and zero exact Function/Label/Font forms. The
 neutral-data tool reports 110 groups and 37 rejected candidates, with no
 automatic rename rows.
+
+
+## Generic graphic-label review: banks 41-47, 58, 5B and 7F (2026-10-21)
+
+A source-and-consumer review replaced the 64 exact address-form graphic labels
+in banks 41, 43, 44, 45 and 46 with `FrameDesignCandidate_*` names derived from
+the matching asset paths and inspected artwork. The names preserve the visual
+motif and resource type while keeping selection, screen composition and
+Pokémon assignment unproved. Their static extents remain four `$0D50` packages
+per bank from `$4000` through `$7540`; the 20 tile sheets, maps, attributes and
+palettes were reviewed independently. The corresponding 76 rows in
+`gfx/assets.tsv` were synchronized; frozen `config/` snapshots were left intact.
+
+Twenty-five further labels now describe demonstrated static consumers:
+
+- Bank 58's computed header/footer tables in `engine/startup/notice_pages.asm`
+  select exact `$280`-byte source windows for VRAM1 `$9300/$9580`. The 11
+  source labels now use `Gfx_Notice_*`; ranges that cross header/footer
+  boundaries retain combined names and are not presented as independent
+  screens. The selected indices do not prove natural use of every record.
+- Bank 47's first three frame packages now use browser-frame names because
+  descriptors 0-3 in `engine/browser/frame_graphics.asm` point to packages at
+  `$4100`, `$4E50` and `$5BA0`. Descriptor 3 reuses package 2. The fourth
+  package at `$68F0` remains explicitly candidate-qualified; its bytes are
+  present but no descriptor reference is demonstrated.
+- Three bank-24 tile slices are named `PageList_Tiles_*` because they are
+  bounded inside explicit page-list graphics loads. The `$6301` slice remains
+  an unaligned representation boundary, not a newly asserted independent
+  object.
+- Bank 5B's help-script picture table IDs 27-31 load `$480` bytes at `$4000`,
+  `$4480`, `$4900`, `$4D80` and `$5200`; the first two tile owners now identify
+  those IDs. The palette owner is `Palette_HelpScript_CandidateBlock_5680`:
+  only `$5680-$56A8` is shown by the table to load, while the remaining `$38`
+  bytes remain unexplained.
+
+`Tiles_7F_7830` is now `UnresolvedTiles_7F_7830`. Its exact 720-byte extent and
+tile-like representation are known, but the reviewed source provides no
+symbolic or immediate-address consumer; the new label does not claim that it is
+unused. Static absence searches are bounded to maintained source and do not
+rule out computed reads. No payload, boundary, image, palette, loader, frozen
+config entry or ROM byte changed. Independent audits and the source references
+are preserved in this section's reviewed source owners and their neighboring
+loader tables; all claims remain static evidence.

@@ -523,16 +523,16 @@ Table_Browser_FrameDescriptors:: ; 4E:654B
 
 Data_Browser_FrameDesc0:: ; 4E:6581
 
-	dw Tiles_47_4100 ; +00: two $400-byte BG tile transfers from ROM47
-	db BANK(Tiles_47_4100)
-	dw Palette_47_4DD0 ; +03: BG palette source
-	db BANK(Palette_47_4DD0)
-	dw Tilemap_47_4B00 ; +06: 20x18 tilemap followed by attributes
-	db BANK(Tilemap_47_4B00)
-	dw Tiles_47_4100 + $0800 ; +09: $200-byte sprite tile source
-	db BANK(Tiles_47_4100)
-	dw Palette_47_4DD0 + $40 ; +0C: OBJ palette source
-	db BANK(Palette_47_4DD0)
+	dw Gfx_BrowserFrame0_Tiles ; +00: two $400-byte BG tile transfers from ROM47
+	db BANK(Gfx_BrowserFrame0_Tiles)
+	dw Palette_BrowserFrame0 ; +03: BG palette source
+	db BANK(Palette_BrowserFrame0)
+	dw Tilemap_BrowserFrame0 ; +06: 20x18 tilemap followed by attributes
+	db BANK(Tilemap_BrowserFrame0)
+	dw Gfx_BrowserFrame0_Tiles + $0800 ; +09: $200-byte sprite tile source
+	db BANK(Gfx_BrowserFrame0_Tiles)
+	dw Palette_BrowserFrame0 + $40 ; +0C: OBJ palette source
+	db BANK(Palette_BrowserFrame0)
 	dw wScreenTileMap + $61 ; +0F: body map destination in WRAM7
 	dw wScreenTileMap + $04 ; +11: title map destination in WRAM7
 	db $48, $10 ; +13: up-arrow X, Y
@@ -546,16 +546,16 @@ Data_Browser_FrameDesc0:: ; 4E:6581
 
 Data_Browser_FrameDesc1:: ; 4E:65A0
 
-	dw Tiles_47_4E50 ; +00: two $400-byte BG tile transfers from ROM47
-	db BANK(Tiles_47_4E50)
-	dw Palette_47_5B20 ; +03: BG palette source
-	db BANK(Palette_47_5B20)
-	dw Tilemap_47_5850 ; +06: 20x18 tilemap followed by attributes
-	db BANK(Tilemap_47_5850)
-	dw Tiles_47_4E50 + $0800 ; +09: $200-byte sprite tile source
-	db BANK(Tiles_47_4E50)
-	dw Palette_47_5B20 + $40 ; +0C: OBJ palette source
-	db BANK(Palette_47_5B20)
+	dw Gfx_BrowserFrame1_Tiles ; +00: two $400-byte BG tile transfers from ROM47
+	db BANK(Gfx_BrowserFrame1_Tiles)
+	dw Palette_BrowserFrame1 ; +03: BG palette source
+	db BANK(Palette_BrowserFrame1)
+	dw Tilemap_BrowserFrame1 ; +06: 20x18 tilemap followed by attributes
+	db BANK(Tilemap_BrowserFrame1)
+	dw Gfx_BrowserFrame1_Tiles + $0800 ; +09: $200-byte sprite tile source
+	db BANK(Gfx_BrowserFrame1_Tiles)
+	dw Palette_BrowserFrame1 + $40 ; +0C: OBJ palette source
+	db BANK(Palette_BrowserFrame1)
 	dw wScreenTileMap + $61 ; +0F: body map destination in WRAM7
 	dw wScreenTileMap + $04 ; +11: title map destination in WRAM7
 	db $48, $10 ; +13: up-arrow X, Y
@@ -569,16 +569,16 @@ Data_Browser_FrameDesc1:: ; 4E:65A0
 
 Data_Browser_FrameDesc2:: ; 4E:65BF
 
-	dw Tiles_47_5BA0 ; +00: two $400-byte BG tile transfers from ROM47
-	db BANK(Tiles_47_5BA0)
-	dw Palette_47_6870 ; +03: BG palette source
-	db BANK(Palette_47_6870)
-	dw Tilemap_47_65A0 ; +06: 20x18 tilemap followed by attributes
-	db BANK(Tilemap_47_65A0)
-	dw Tiles_47_5BA0 + $0800 ; +09: $200-byte sprite tile source
-	db BANK(Tiles_47_5BA0)
-	dw Palette_47_6870 + $40 ; +0C: OBJ palette source
-	db BANK(Palette_47_6870)
+	dw Gfx_BrowserFrame2_Tiles ; +00: two $400-byte BG tile transfers from ROM47
+	db BANK(Gfx_BrowserFrame2_Tiles)
+	dw Palette_BrowserFrame2 ; +03: BG palette source
+	db BANK(Palette_BrowserFrame2)
+	dw Tilemap_BrowserFrame2 ; +06: 20x18 tilemap followed by attributes
+	db BANK(Tilemap_BrowserFrame2)
+	dw Gfx_BrowserFrame2_Tiles + $0800 ; +09: $200-byte sprite tile source
+	db BANK(Gfx_BrowserFrame2_Tiles)
+	dw Palette_BrowserFrame2 + $40 ; +0C: OBJ palette source
+	db BANK(Palette_BrowserFrame2)
 	dw wScreenTileMap + $61 ; +0F: body map destination in WRAM7
 	dw wScreenTileMap + $02 ; +11: title map destination in WRAM7
 	db $48, $10 ; +13: up-arrow X, Y
@@ -592,16 +592,16 @@ Data_Browser_FrameDesc2:: ; 4E:65BF
 
 Data_Browser_FrameDesc3:: ; 4E:65DE
 
-	dw Tiles_47_5BA0 ; +00: two $400-byte BG tile transfers from ROM47
-	db BANK(Tiles_47_5BA0)
-	dw Palette_47_6870 ; +03: BG palette source
-	db BANK(Palette_47_6870)
-	dw Tilemap_47_65A0 ; +06: 20x18 tilemap followed by attributes
-	db BANK(Tilemap_47_65A0)
-	dw Tiles_47_5BA0 + $0800 ; +09: $200-byte sprite tile source
-	db BANK(Tiles_47_5BA0)
-	dw Palette_47_6870 + $40 ; +0C: OBJ palette source
-	db BANK(Palette_47_6870)
+	dw Gfx_BrowserFrame2_Tiles ; +00: two $400-byte BG tile transfers from ROM47
+	db BANK(Gfx_BrowserFrame2_Tiles)
+	dw Palette_BrowserFrame2 ; +03: BG palette source
+	db BANK(Palette_BrowserFrame2)
+	dw Tilemap_BrowserFrame2 ; +06: 20x18 tilemap followed by attributes
+	db BANK(Tilemap_BrowserFrame2)
+	dw Gfx_BrowserFrame2_Tiles + $0800 ; +09: $200-byte sprite tile source
+	db BANK(Gfx_BrowserFrame2_Tiles)
+	dw Palette_BrowserFrame2 + $40 ; +0C: OBJ palette source
+	db BANK(Palette_BrowserFrame2)
 	dw wScreenTileMap + $61 ; +0F: body map destination in WRAM7
 	dw wScreenTileMap + $02 ; +11: title map destination in WRAM7
 	db $48, $10 ; +13: up-arrow X, Y
@@ -615,16 +615,16 @@ Data_Browser_FrameDesc3:: ; 4E:65DE
 
 Data_Browser_FrameDesc23:: ; 4E:65FD
 
-	dw Tiles_47_4E50 ; +00: two $400-byte BG tile transfers from ROM47
-	db BANK(Tiles_47_4E50)
-	dw Palette_47_5B20 ; +03: BG palette source
-	db BANK(Palette_47_5B20)
-	dw Tilemap_47_5850 ; +06: 20x18 tilemap followed by attributes
-	db BANK(Tilemap_47_5850)
-	dw Tiles_47_4E50 + $0800 ; +09: $200-byte sprite tile source
-	db BANK(Tiles_47_4E50)
-	dw Palette_47_5B20 + $40 ; +0C: OBJ palette source
-	db BANK(Palette_47_5B20)
+	dw Gfx_BrowserFrame1_Tiles ; +00: two $400-byte BG tile transfers from ROM47
+	db BANK(Gfx_BrowserFrame1_Tiles)
+	dw Palette_BrowserFrame1 ; +03: BG palette source
+	db BANK(Palette_BrowserFrame1)
+	dw Tilemap_BrowserFrame1 ; +06: 20x18 tilemap followed by attributes
+	db BANK(Tilemap_BrowserFrame1)
+	dw Gfx_BrowserFrame1_Tiles + $0800 ; +09: $200-byte sprite tile source
+	db BANK(Gfx_BrowserFrame1_Tiles)
+	dw Palette_BrowserFrame1 + $40 ; +0C: OBJ palette source
+	db BANK(Palette_BrowserFrame1)
 	dw wScreenTileMap + $61 ; +0F: body map destination in WRAM7
 	dw wScreenTileMap + $04 ; +11: title map destination in WRAM7
 	db $48, $10 ; +13: up-arrow X, Y
