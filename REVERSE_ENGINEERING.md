@@ -1573,3 +1573,13 @@ Bank 51's communication-time graphics owner has also lost eleven generic
 same-address `Data_51_*` aliases under existing resource labels. Eight asset
 catalog entries now use those names, and the unknown tile-data tail remains
 neutral. See the [bank-51 alias audit](docs/research/generic_data_name_audit_20261020.md#bank-51-communication-time-graphics-aliases-2026-10-21).
+
+The bank-24 page-list owner now names two probable tile regions and
+candidate-prefixed frame tables, frame records and animation scripts in the
+unmatched animation area. The candidates remain HYPOTHESIS where no known
+object-table row selects them; `Data_24_6520` remains neutral. See the
+[bank-24 page-list audit](docs/research/generic_data_name_audit_20261020.md#bank-24-page-list-tiles-and-candidate-animation-records-2026-10-21).
+A whitespace-aware six-root census now finds 430 generic `Data_BB_AAAA::`
+definitions in 136 owners; this is a label count, not a completion percentage.
+The ROM remains `RESULT: IDENTICAL`, `sym-check` passes with 12,732 labels and
+51 constants, and palette/PNG checks pass.

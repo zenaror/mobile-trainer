@@ -2103,3 +2103,25 @@ eleven alias retirements; this is not a semantic-completion measure.
 | `Data_51_58C0` | `Gfx_ConnIcon_Request2_Tiles8200` | `51:58C0` |
 | `Data_51_5CC0` | `Gfx_ConnIcon_Request2_Tiles8600` | `51:5CC0` |
 | `Data_51_5EC0` | `Palette_ConnIcon_Request2_Obj4` | `51:5EC0` |
+
+## Bank 24 page-list tiles and candidate animation records (2026-10-21)
+
+In `gfx/browser/page_list.asm`, the two probable 2bpp regions at `24:55D0`
+and `24:5EF1` now use `PageList_Tiles_*` labels, matching their owner and
+bounded tile-coherence notes; `gfx/assets.tsv` points to the new names. The
+two frame-pointer tables at `24:6995` and `24:6A57`, their twelve
+pointer-ordered records, and three structurally parsed animation scripts at
+`24:6986`, `24:6A4F` and `24:6B11` now use `PageList_CandidateAnim*` labels.
+The candidate prefix preserves the existing HYPOTHESIS on script association
+and does not claim a known object-table row, caller, sprite identity, or
+natural rendering. Both tables and their record extents remain PROBABLE from
+the existing parser/layout evidence. `Data_24_6520` remains neutral because
+the repeated words target addresses inside another tile-data interval and no
+consumer or role is established. Only symbols and their two asset-catalog
+cells changed; `dw` operands point at the corresponding new frame names, while
+data directives, byte order, extents, and record comments remain unchanged.
+The finite maintained-source/tool search found the old symbols only in this
+owner and the two catalog cells; no external consumer was present. The
+whitespace-aware six-root census now finds 430 `Data_BB_AAAA::` definitions
+in 136 owners, down from 447 after the 17 structural labels were named. This
+lexical count does not measure semantic completion.
