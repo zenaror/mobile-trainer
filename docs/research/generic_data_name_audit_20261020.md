@@ -1191,3 +1191,19 @@ The original build remains `RESULT: IDENTICAL` with ROM SHA-256
 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
 `sym-check` reports 13,373 labels and 51 constants, palette checks pass
 (162/116/2/0), and PNG checks pass (408/4/37/95).
+
+## CommNotice screen-table alias retired (2026-10-21)
+
+`Table_50_4244` duplicated `Table_CommNotice_Screens` at `50:4244`. Its only
+remaining current-source mentions were the declaration and eight explanatory
+comments in `gfx/comm/notice_dialog.asm`; the routine in
+`engine/comm/notice_dialog.asm` already indexes the semantic name. The generic
+export was retired and the comments now use `Table_CommNotice_Screens`. The
+eight pointer words, target addresses, PROBABLE table classification and
+physical line counts remain unchanged. Historical `config/` and `analysis/`
+rows preserve the old snapshot name.
+
+`make` remains `RESULT: IDENTICAL` with original ROM SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
+`sym-check` reports 13,372 labels and 51 constants, palette checks pass
+(162/116/2/0), and PNG checks pass (408/4/37/95).

@@ -97,6 +97,12 @@ pointers and strings remain intact. The latest safe census finds 888 generic
 (887 in the six roots), excluding the protected sample and language branch.
 The Japanese ROM remains byte-identical and all required checks pass.
 
+At `50:4244`, the redundant `Table_50_4244` export has been retired in favor
+of `Table_CommNotice_Screens`, already used by the active reader. Eight
+CommNotice comments now use that retained name; the pointer list and its
+targets are unchanged. The original ROM remains byte-identical, with 13,372
+source labels and the palette and PNG checks passing.
+
 Three redundant address-only labels were also retired from the connect-dialog
 strings. Their semantic labels remain the names used by the active reader;
 string data and the six-message block are unchanged. The full build and

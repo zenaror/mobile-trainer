@@ -256,7 +256,7 @@ CommNotice_RunDialog:: ; 50:4061
 ; ---- ptrtable $4244-$4254 (16 bytes) [PROBABLE] little-endian word table, 8 entries, monotone=1.00, 0% of targets on string start/after NUL, targets $439A..$574A; referenced by ld r16,$4244 at 50:4259; verifier: dropped first entry (operand of the preceding jp/call at 4241)
 
 Table_CommNotice_Screens:: ; 50:4244
-Table_50_4244::
+
 	dw Tilemap_CommNotice_A_CutOver60
 	dw Tilemap_CommNotice_A_AskOver60
 	dw Tilemap_CommNotice_A_CutSoon
