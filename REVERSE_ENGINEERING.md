@@ -1924,7 +1924,7 @@ the [bank-6A ticker naming audit](docs/research/generic_data_name_audit_20261020
 
 A fresh path-bounded exact-name scan of the six maintained source roots plus
 `zero_labels.asm`, excluding the protected mail sample before reading, finds
-54 `Data_BB_AAAA` definitions in 39 owners and no exact generic `Function`,
+51 `Data_BB_AAAA` definitions in 38 owners and no exact generic `Function`,
 `Font`, or `Label` definitions. This is a lexical count, not semantic closure.
 The same scan now finds 0 `String_BB_AAAA`, no exact `Table_BB_AAAA`, 41
 `Tiles_BB_AAAA`, 24 `Tilemap_BB_AAAA`, 4 `Attrmap_BB_AAAA`, and 25
@@ -1967,4 +1967,7 @@ the literal `$C9` return bytes or `$C3,$72,$49,$C9` sequence. Their code/data
 role remains HYPOTHESIS; the names do not claim execution or callers.
 Four bank-2F spans in the address-book name editor now use candidate names for
 three literal `$C9` bytes and one opcode-shaped byte span. Their code/data role
+remains HYPOTHESIS; the names do not claim execution or callers.
+Three bank-25 spans in the mailbox owner now use candidate names for two
+literal JP instructions and one opcode-shaped sequence. Their code/data role
 remains HYPOTHESIS; the names do not claim execution or callers.

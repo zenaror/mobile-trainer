@@ -3195,3 +3195,13 @@ The source headers classify each as **HYPOTHESIS/UNCLASSIFIED**. The labels do
 not claim executed instructions, function boundaries, or padding. No byte or
 boundary changed. The exact generic `Data_BB_AAAA` count drops from 58/40
 definitions/owners to 54/39.
+
+## Mailbox opcode-shaped spans (2026-10-21)
+
+Three `Data_25_AAAA` labels in `engine/mail/mailbox.asm` now use candidate
+names based on bytes: `$C3,$43,$40` (JP-shaped), `$C3,$1E,$41` (JP-shaped),
+and `$26,$01,$C3,$00,$40` (LD/JP-shaped). The first two encode targets at
+`25:4043` and `25:411E`, but that does not prove entry or execution. Source
+headers retain **HYPOTHESIS/UNCLASSIFIED**; names do not claim code, dead code,
+padding or runtime behavior. No byte or boundary changed. Exact generic
+`Data_BB_AAAA` count drops from 54/39 definitions/owners to 51/38.

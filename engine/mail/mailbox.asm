@@ -560,7 +560,7 @@ Mailbox_IconMenu_PressA:: ; 25:420A
 
 ; ---- data $446B-$446E (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
-Data_25_446B:: ; 25:446B
+Data_Mailbox_CandidateJpMainLoop_446B:: ; 25:446B
 	db $C3, $43, $40
 
 Mailbox_IconMenu_ReplyOrRead:: ; 25:446E
@@ -781,7 +781,7 @@ Mailbox_ReplyStart:: ; 25:4564
 
 ; ---- data $4659-$465C (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
-Data_25_4659:: ; 25:4659
+Data_Mailbox_CandidateJpIconMenuEnter_4659:: ; 25:4659
 	db $C3, $1E, $41
 
 Mailbox_ReadMail:: ; 25:465C
@@ -998,7 +998,7 @@ Mailbox_ReadMail:: ; 25:465C
 
 ; ---- data $47F8-$47FD (5 bytes) [HYPOTHESIS] UNCLASSIFIED 5 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
-Data_25_47F8:: ; 25:47F8
+Data_Mailbox_CandidateOpcodeSpan_47F8:: ; 25:47F8
 	db $26, $01, $C3, $00, $40
 
 Mailbox_ReadMail_RestartList:: ; 25:47FD
