@@ -3307,6 +3307,18 @@ symbolically linked across the existing 64B1 source boundary. The false
 `palette_6330.pal` asset and its catalogue/rule rows were removed. The full
 recorded derivation and byte checks are in
 `docs/research/original_closure_followup_20261021.md` and the retained
-`.tmp/jp-bank6a-help-object-reclass-20261021/` evidence. The inventory is now
-128 groups, down from 130; the 34 remaining `Data_` groups still require
+`.tmp/jp-bank6a-help-object-reclass-20261021/` evidence. At that snapshot,
+the inventory had 128 groups, down from 130; the 34 remaining `Data_` groups still require
 individual evidence review.
+
+### Current follow-up: bank 2D zero-fill label (2026-10-21)
+
+After the single source-label replacement `Data_2D_5E80` →
+`Gfx_MailBody_HDMALoadZeroFill`, `python3 tools/data_consumers.py --stats`
+reports 127 neutral groups (33 `Data_`, 41 `Tiles_`, 24 `Tilemap_`, 25
+`Palette_`, 4 `Attrmap_`), with all 65 immediate candidates rejected and no
+rename-manifest rows. This is the verified current count; the preceding
+128/34 count above describes its earlier bank-6A snapshot. The label records
+only the confirmed zero-fill transfer role, not use of the resulting VRAM
+tiles. Evidence and boundaries are in
+`docs/research/mail_gfx_resource_aliases.md`.

@@ -1,5 +1,13 @@
 # Mail screen resource alias contracts —2026-10-17
 
+## Follow-up: bank 2D body-editor zero-fill label — 2026-10-21
+
+The 64-byte interval `2D:5E80–5EC0` is now named `Gfx_MailBody_HDMALoadZeroFill`. This records only its **CONFIRMED transfer role**; it does not claim the bytes are visible or semantically referenced as tiles. In the immutable Japanese ROM (`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`), the interval is exactly 64 zero bytes (physical offset `0xB5E80`, SHA-256 `f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b`).
+
+`MailBody_SetupScreen` starts an HDMA from `2D:5AC0`, with `C=$40` (1024 bytes), to VRAM bank 1 at `$9300`; the bytes at `5E80–5EC0` are its final 64 zero-filled bytes. `MailBody_ReloadTiles` starts a 768-byte transfer at `2D:5CC0` to VRAM bank 1 at `$9500`, which also crosses the same zero-fill before continuing into `Gfx_MailBody_Tiles2`. `home/gfx_upload.asm:7–28` confirms the helper's 16-byte block unit and destination-bank handling. Existing trace/dataaccess records show the encompassing banked range was read; these do not establish a reference to the resulting tile indices.
+
+The former phrase “neutral KEEP unit” remains correct for **unknown tile semantics**, while the exact source/transfer identity is now named. The tilemap is copied separately at `2D:5FC0`; no evidence in this bounded chain associates the zero-fill with a displayed tile or sprite. No PNG or asset-catalog entry is created for these bytes.
+
 This finite original-ROM proposal retires20 redundant position aliases in four maintained gfx/mail owners: body editor5, address editor3, received-mail grid6 and viewer6. Existing descriptive identities remain. Each old/proper pair has identical frozen linked position, its declared resource backing reemits original bytes, and a positive banked load sequence independently matches original-ROM instructions. Unit means backing slice, paired map/attr rows, or RGB555 palette; it does not infer an application association from appearance. No status is upgraded.
 
 All20 alias rows become blank physical rows, with0 local labels beneath the aliases,0 active old operands/comments/metadata references in the declared readset, and0 asset moves or byte changes. No generic frame/script/animation unit is retired. The DATA/ALIAS_MAP20.json contract in the retained private package records old→proper bank/address/end/backings/status; POSITIVE_LOAD_PROOFS.json gives finite source lines, exact ROM instruction bytes, bank and requested extents. This note preserves the mapping for integration review rather than asserting a fresh linked result.

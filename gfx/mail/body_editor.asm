@@ -10,9 +10,9 @@ Gfx_MailBody_Tiles:: ; 2D:5AC0
 
 	INCBIN "gfx/mail/body_editor/mail_body_tiles.2bpp"
 
-; ---- data $5E80-$5FC0 (320 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); kind tiles from the label name [clipped from 5AC0-65B0 by higher-priority evidence]
+; ---- data $5E80-$5EC0 (64 bytes) [CONFIRMED] zero fill included in MailBody graphics HDMA loads; no reference to these resulting VRAM tile indices is established
 
-Data_2D_5E80:: ; 2D:5E80
+Gfx_MailBody_HDMALoadZeroFill:: ; 2D:5E80
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
