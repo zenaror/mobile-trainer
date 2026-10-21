@@ -1,15 +1,13 @@
 ; gfx/mailbox/objects.asm
 ; bank 26, $7AB0-$7D41 (657 bytes); pinned by layout.link
-; palettes and object tables (cursor, arrows, digits, envelopes) of the mailbox
+; profile HDMA tail, palettes and object tables (cursor, arrows, digits, envelopes)
 
 SECTION "gfx/mailbox/objects", ROMX
 
-; ---- data $7AB0-$7ABC (12 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 7420-7B00 by higher-priority evidence]
+; ---- data $7AB0-$7AC0 (16 bytes) [CONFIRMED] all-zero tail of the executed Profile_InitScreen request: bank 26 source $7820-$7AC0 is copied to VRAM0 $8000-$82A0; this aligned 16-byte unit maps to $8290-$82A0; tilemap selection/display is not established
 
-Data_26_7AB0:: ; 26:7AB0
+Profile_InitScreen_HDMALoadZeroTail:: ; 26:7AB0
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
-
-; ---- zero $7ABC-$7AC0 (4 bytes) [PROBABLE] 4 zero bytes (two blank palette words) before the palette block
 	ds $4, $00
 
 ; ---- data $7AC0-$7B00 (64 bytes) [PROBABLE] 8 palettes x 4 RGB555 words (all 32 words have bit15 clear; contains 7FFF); the mapper heuristic that extended this palette to 7BE4 swallowed pointer words (0x7Cxx have bit15 clear too)

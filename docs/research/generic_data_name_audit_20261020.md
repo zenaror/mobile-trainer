@@ -3367,7 +3367,7 @@ unresolved inventory, not a claim that no indirect use exists.
 | `Data_24_4BCC` | One `RET` after a confirmed Japanese text continuation and before the action-menu routine; no entry established. | HYPOTHESIS; keep neutral. |
 | `Data_24_6520` | Sixteen bytes repeat two pointer-shaped words four times, but targets are inside tile data and do not form the adjacent object table. | HYPOTHESIS; keep neutral. |
 | `Data_26_5062` | Five bytes decode linearly as two loads followed by `RET`; no caller, table or far pointer is known. | HYPOTHESIS; keep neutral. |
-| `Data_26_7AB0` | Twelve zero bytes are read by finite recorded scenarios, but no content class or independent graphics role is established. | CONFIRMED read as data; content class unknown. |
+| `Data_26_7AB0` | At the 522ae8ef census, twelve zero bytes were confirmed read but their class was unknown. Superseded by the bank26 transfer-tail follow-up below. | Renamed to `Profile_InitScreen_HDMALoadZeroTail`; the full 16-byte extent has a confirmed transfer role, with display unproved. |
 | `Data_2F_4094` | `C3 00 40` decodes as `JP AbookList_Run`, but the preceding routine jumps away and no incoming edge to this span is known. | HYPOTHESIS; code versus unused stub unresolved. |
 | `Data_48_69AB` | Thirty-two zeros have a conditional read path; the reader's fallback/glyph role remains unproved. | CONFIRMED read as data; content class unknown. |
 | `Data_4B_5400` | Thirty-two bytes are read as data in a finite subset of scenarios; no exact consumer or content class is established. | CONFIRMED read as data; content class unknown. |
@@ -3386,4 +3386,25 @@ The per-area reports remain the detailed evidence: `main_title_dispatch_tail_202
 A fresh grep also found no remaining `gfx/bankNN` directory names. The
 four unresolved natural-entry roots (2B:6CF5, 2D:4E42/4E54 and 29:511E)
 remain separately open; their operation aliases describe bounded local
-mechanics, not proven callers or natural entry. English remains paused.
+mechanics, not proven callers or natural entry. This census predates the
+superseding bank26 follow-up below: the current exact-address `Data_BB_AAAA`
+count is 15 after renaming the 16-byte HDMA tail. The 110 groups reported by
+`data_consumers.py` are a separate analyzer count and remain unchanged. English
+remains paused.
+
+
+## Bank 26 Profile_InitScreen zero-tail (2026-10-21)
+
+Data_26_7AB0 is now Profile_InitScreen_HDMALoadZeroTail. The 12-byte
+CONFIRMED-read zero span at 26:7AB0–7ABC and the following four zero bytes at
+7ABC–7AC0 are one 16-byte unit: Profile_InitScreen requests 0x2A blocks
+(672 bytes) from bank 26 source 7820 to VRAM bank 0 at 8000, ending at source
+7AC0 and destination 82A0. The span begins 0x290 bytes into that request, so
+it maps to VRAM 8290–82A0, exactly one aligned 2bpp tile-sized unit, and every
+bit is zero. This confirms its transfer-tail role and exact bytes, but not
+whether the tilemap selects it or it is displayed. The original slice at file
+offset 0x9BAB0 is 16 zero bytes, SHA-256
+374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb.
+The earlier bank26 KEEP-neutral decision remains historical provenance and is
+superseded only for this bounded transfer-tail name; no sprite/OAM attribution
+or independent PNG/asset claim is made.

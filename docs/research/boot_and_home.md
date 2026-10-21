@@ -572,7 +572,12 @@ Merged per-scenario reads do not attribute each byte to a particular call or est
 
 Verification of this bank25 comment/research pass (2026-10-11): the private candidate and the maintained tree each completed the canonical37 checks, with 36 zero return codes and the documented ordinal27 rc2/97-byte schema diagnostic. All 671 build outputs remained byte-identical to the verified e65927b parent after every command; make reported SHA-256 OK and comparison RESULT: IDENTICAL. The 4246 tracked source inputs held during the maintained-tree battery. SYM remains 15563 local plus 51 exported entries; palette-check reports 162 loads, 116 arrays, two documented overreads and zero errors. These are build/static results, not a new runtime or rendering capture.
 
-### Bank26: the remaining twelve zero bytes
+### Historical bank26 audit: the twelve zero bytes (superseded below)
+
+The KEEP decision in this section records the state before the bounded
+`Profile_InitScreen` transfer-tail evidence was integrated below. The later
+follow-up supersedes that label decision; the original limitations on display
+and sprite/OAM attribution still apply.
 
 Data_26_7AB0 remains the twelve literal zero bytes at [$7AB0,$7ABC), classified as CONFIRMED data of unknown content class. The separate four zero bytes at [$7ABC,$7AC0) retain their PROBABLE header and ds directive. Own db reemission equals the original ROM. All twelve bytes occur in merged rom_read ranges in eleven of the existing 69 historical scenarios: fuzz_browser, fuzz_browser2, kbd_profile, mail_profile, mail_receive_many, monkey_camp_hid, monkey_camp_reg, monkey_camp_reg2, monkey_camp_rich, monkey_camp_tut, tutorial_profile. This supplies current finite read evidence beyond the source header's old 2/18 wording; it is not a new execution run.
 
@@ -581,6 +586,20 @@ The Profile_InitScreen farcall at 2A:581A has 27 historical hits in those same e
 The old verification note attributes a sprite-object over-read to this interval. The present bounded root/frame audit does not reproduce that attribution. All 37 current immediate Sprite_InitSlot sites for bank 26 point into Mailbox_ObjTable at 26:7B00 or its entry aliases (34 sites executed, 3,273 calls in nine historical scenarios). The 56 entries, 14 frame tables, 19 count-prefixed frames and 14 scripts exactly partition [$7B00,$7D41); the scripts select in-range named frames, and none of these structures intersects [$7AB0,$7ABC). The generic primary frame reader at 00:0B97..0BBA follows a pointer and reads one count byte plus four bytes per OAM piece without checking a physical frame extent. Its execution and merged data-read sets coexist in the fragment's scenarios, but those aggregate files carry no per-byte reader PC or invocation link. The old attribution remains qualified historical context, neither a newly reproduced consumer nor a disproved universal possibility for indirect, stale or altered slots.
 
 KEEP: neutral Data_26_7AB0, its current data/CONFIRMED/unknown classification, the separate four-byte region and all original directives and boundaries. A transfer to VRAM0 does not establish an independent blank-tile asset, exclusive graphics, a sprite/OAM purpose or unreachability. This audit adds no capture, rendering, confidence promotion or source retyping.
+
+### Superseding bank26 Profile_InitScreen tail label (2026-10-21)
+
+The twelve bytes at 26:7AB0–7ABC and the following four zero bytes at
+7ABC–7AC0 are now described together as Profile_InitScreen_HDMALoadZeroTail.
+The original span is exactly sixteen zero bytes (file offset 0x9BAB0,
+SHA-256 374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb).
+Profile_InitScreen passes bank 26, HL=7820, DE=8000 and C=2A to the HDMA
+routine; the 672-byte transfer ends at source 7AC0 / VRAM0 82A0. The sixteen
+bytes start at source offset 0x290 and map to VRAM0 8290–82A0, one aligned
+tile-sized unit whose bits are all zero. This supersedes only the neutral
+unknown-content label and separate zero-padding interpretation. Whether the
+tilemap selects the tile or it is displayed remains unproved; no independent
+asset, sprite/OAM use or runtime result is claimed.
 
 Verification of this bank26 research pass (2026-10-11): the private candidate and the maintained tree each completed the canonical37 checks, with 36 zero return codes and the documented ordinal27 rc2/97-byte schema diagnostic. All 671 build outputs remained byte-identical to the verified f987c0d parent after every command; make reported SHA-256 OK and comparison RESULT: IDENTICAL. The 4246 tracked source inputs held during the maintained-tree battery. SYM remains 15563 local plus 51 exported entries; palette-check reports 162 loads, 116 arrays, two documented overreads and zero errors. These are build/static results, not a new runtime or rendering capture.
 
