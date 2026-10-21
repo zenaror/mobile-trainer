@@ -202,3 +202,27 @@ under `.tmp/agent-consumer-read-prototype-20261021/` (`REPORT.md` SHA-256
 `554649a2fdf3b6d69c9ed8dcb98f2870e34bc1d33beb986e20b8827ebc3cde2b`). This
 remains a private research prototype, not a source/tool integration or proof
 of natural execution. No build ran.
+
+## Consumer mention expansion and routine-entry triage (2026-10-21)
+
+The symbolic mention expansion classified 826 mentions for the 522 groups.
+It found no new executable seed, but retained 217 indirect/component
+references across 161 groups as `UNKNOWN_INDIRECT_READ`. Together with the
+prior flow prototype, the current ledger is 4 `READ`, 162 `UNKNOWN`, and 356
+`UNRESOLVED`; unresolved groups are not declared unused. The report and
+per-group evidence are in `.tmp/agent-consumer-symbolic-expansion-20261021/`
+(report SHA-256
+`b91bfb5ae82eaa24b3a2c4d52a4325368183b813705c8d4e235083098a91733b`).
+
+A separate Japanese-only routine triage found zero current global
+`Function_BB_AAAA` or `Label_BB_AAAA` definitions among 7,975 globals. It
+reconciled all 28 historical neutral routine addresses to their current
+names and bodies: nine have explicit same-bank static edges (two table
+words, seven CALL/JP); 19 had no explicit incoming edge in the bounded scan.
+All 28 operations are PROBABLE local descriptions, while natural entry and
+application purpose remain HYPOTHESIS. The bounded coverage file has zero
+entry rows and zero covered starts for those intervals; computed/stack/
+indirect transfers and unlabelled adjacent fragments remain open. The matrix
+is `.tmp/agent-neutral-routine-triage-20261021/REPORT.md` (SHA-256
+`9dd94553cea8c2ced6177a700cb75e408db39d05a6340de954648ca4e54e0f5d`). No
+trace or build ran, so this is not a whole-ROM closure claim.
