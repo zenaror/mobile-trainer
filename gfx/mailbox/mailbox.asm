@@ -31,21 +31,18 @@ Tiles_25_6310::
 ; ---- data $6410-$66E0 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 25:4BC4: hl=$6410 a=$25 b=18 rows c=20 cols (tiles then attrs) de=$D000
 
 Mailbox_Tilemap_Normal:: ; 25:6410
-Data_25_6410::
 	INCBIN "gfx/mailbox/mailbox/mailbox_tilemap_normal.tilemap"
 	INCBIN "gfx/mailbox/mailbox/mailbox_tilemap_normal.attrmap"
 
 ; ---- data $66E0-$69B0 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 25:4C6C: hl=$66E0 a=$25 b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 52 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Mailbox_Tilemap_DeleteSelect:: ; 25:66E0
-Data_25_66E0::
 	INCBIN "gfx/mailbox/mailbox/mailbox_tilemap_delete_select.tilemap"
 	INCBIN "gfx/mailbox/mailbox/mailbox_tilemap_delete_select.attrmap"
 
 ; ---- data $69B0-$69F0 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/mail/mailbox_screen.asm:23, call 25:4B33 executed 69 hits in 11 scenarios (analysis/coverage_union.tsv)); +$00 bc=$40 into wPaletteBufBg (engine/mail/mailbox_screen.asm:81, call 25:4BDB executed 52 hits in 3 scenarios (analysis/coverage_union.tsv)); +$00 bc=$40 into wPaletteBufBg (engine/mail/mailbox_screen.asm:137, call 25:4C80 executed 121 hits in 12 scenarios (analysis/coverage_union.tsv))
 
 Mailbox_BgPalette:: ; 25:69B0
-Data_25_69B0::
 	INCLUDE "gfx/mailbox/mailbox/mailbox_bg_palette.pal"
 
 ; ---- data $69F0-$6AC8 (216 bytes) [PROBABLE] tile data: the kept .2bpp asset and label identify tiles; any raw bytes beside it remain unclassified (the rest of a block from which a palette array was cut; the old palette heuristic does not describe this fragment)
@@ -78,7 +75,7 @@ Data_25_6AC8:: ; 25:6AC8
 
 ; ---- gfx $6BD1-$6E71 (672 bytes) [PROBABLE] tiles-2bpp: heuristic: 35 coherent tiles (hsim2=0.623 vsim2=0.562, 3 blank) parity 1
 
-Data_25_6BD1:: ; 25:6BD1
+Mailbox_CandidateTiles_ArrowLabel_6BD1:: ; 25:6BD1
 	INCBIN "gfx/mailbox/mailbox/tiles_6bd1.2bpp"
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 

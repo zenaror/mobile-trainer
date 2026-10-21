@@ -2460,3 +2460,20 @@ No source payload or extent changed. The six-root `Data_BB_AAAA::` census is
 now 262 definitions in 123 owners, down from 268 definitions in 124 owners
 after these six generic declarations were given structural or owner-qualified
 names. This is a lexical count, not a semantic-completion measure.
+
+## Bank 25 mailbox resources (2026-10-21)
+
+`Data_25_6410`, `Data_25_66E0` and `Data_25_69B0` were exact-address
+duplicates under the existing confirmed mailbox normal/delete-select tilemap
+and background-palette labels. Their redundant export lines were removed in
+place; payloads and offsets are unchanged. The 272-byte include at `25:6BD1`
+is listed in the image-text inventory as 17 tiles containing arrow/label
+pieces. It is now `Mailbox_CandidateTiles_ArrowLabel_6BD1`; the existing
+PROBABLE classification and 15-byte zero pad remain, since no natural loader
+was established. `Data_25_6AC8` and `Data_25_6E71` remain neutral: their bytes
+are read in merged ranges, but no sufficiently specific content class was
+shown. The asset catalog now uses the candidate name.
+
+The six-root `Data_BB_AAAA::` census is now 258 definitions in 123 owners,
+down from 262 in 123 owners after three exact aliases were retired and the
+candidate tile asset received a qualified name. This remains a lexical count.

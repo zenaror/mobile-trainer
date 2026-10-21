@@ -1692,3 +1692,11 @@ fit a two-step script shape but have no target in the bounded object-table
 walk; that candidate remains HYPOTHESIS. See the [bank-2E tidy-screen audit](docs/research/generic_data_name_audit_20261020.md#bank-2e-mail-server-tidy-screen-data-structures-2026-10-21).
 The six-root generic-data census is now 262 definitions in 123 owners,
 down from 268 in 124 owners after this pass.
+
+In the bank-25 mailbox owner, three `Data_25_*` aliases under confirmed
+tilemap/palette labels were retired, and the 17-tile arrow/label resource at
+`25:6BD1` gained a candidate-qualified name with its PROBABLE grade retained.
+The two read spans at `25:6AC8` and `25:6E71` remain neutral. See the
+[bank-25 mailbox audit](docs/research/generic_data_name_audit_20261020.md#bank-25-mailbox-resources-2026-10-21).
+The six-root generic-data census is now 258 definitions in 123 owners,
+down from 262 after this pass.
