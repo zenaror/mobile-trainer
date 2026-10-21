@@ -970,4 +970,21 @@ at physical offset `0x1AC060` hashes to
 former combined 1,056-byte asset hash was
 `e24baf4afe7dbe3d84d63270da22745e465fed89791c881b7034334c7dd21306`. No
 ROM byte or address changed. The earlier image-inventory row describing all
-66 units as candidate tiles is superseded. `data_consumers.py --stats` now reports 113 neutral groups, 38 rejected candidates, and zero rename rows; the exact address-form `Data_BB_AAAA` count is 19.
+66 units as candidate tiles is superseded. `data_consumers.py --stats` at the bank-6B checkpoint reported 113 neutral groups, 38 rejected candidates, and zero rename rows; the exact address-form `Data_BB_AAAA` count was 19.
+
+## Bank 51 probable tile-content label (2026-10-21)
+
+`Data_51_5EE1` is now `CandidateTiles_51_5EE1`. The owner's existing bounded
+classification describes probable 2bpp tile content across 4,592 INCBIN bytes
+plus 15 emitted zero bytes before code begins at `51:70E0`; the separate
+asset catalogue records the 4,592-byte file as PROBABLE tiles. No loader or
+consumer was found in the maintained-source inventory, so the name identifies
+only candidate tile bytes and does not claim their screen or purpose. Address,
+extent, classification confidence and emitted bytes are unchanged.
+
+
+After this rename, the current bounded source scan finds 18 exact
+`Data_BB_AAAA` definitions (excluding the protected mail sample and including
+`zero_labels.asm`), with zero exact `Function_`, `Label_` or `Font_` definitions.
+`data_consumers.py --stats` reports 112 neutral groups, 37 rejected
+candidates, and zero rename rows.

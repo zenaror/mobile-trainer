@@ -77,6 +77,6 @@ Palette_ConnIcon_Request2_Obj4:: ; 51:5EC0
 
 ; ---- gfx $5EE1-$70E0 (4607 bytes) [PROBABLE] tile data: heuristic: 175 coherent tiles (hsim2=0.751 vsim2=0.738, 102 blank) parity 1 [boundary trimmed 5EE1-70E1 -> 5EE1-70E0 against proven code]
 
-Data_51_5EE1:: ; 51:5EE1
+CandidateTiles_51_5EE1:: ; 51:5EE1
 	INCBIN "gfx/comm/time_summary/tiles_5ee1.2bpp"
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00

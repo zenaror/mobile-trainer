@@ -343,7 +343,7 @@ gfx/comm/time_summary/tiles_4db0.2bpp	tiles	1024	gfx/comm/time_summary.asm	51	4D
 gfx/comm/time_summary/tiles_51b0.2bpp	tiles	1024	gfx/comm/time_summary.asm	51	51B0	CONFIRMED	exact	0		Gfx_CommTime_SummaryB_Tiles9400Vb1
 gfx/comm/time_summary/tiles_58c0.2bpp	tiles	1024	gfx/comm/time_summary.asm	51	58C0	CONFIRMED	exact	0		Gfx_ConnIcon_Request2_Tiles8200
 gfx/comm/time_summary/tiles_5cc0.2bpp	tiles	512	gfx/comm/time_summary.asm	51	5CC0	CONFIRMED	exact	0		Gfx_ConnIcon_Request2_Tiles8600
-gfx/comm/time_summary/tiles_5ee1.2bpp	tiles	4592	gfx/comm/time_summary.asm	51	5EE1	PROBABLE	exact	1		Data_51_5EE1
+gfx/comm/time_summary/tiles_5ee1.2bpp	tiles	4592	gfx/comm/time_summary.asm	51	5EE1	PROBABLE	exact	1		CandidateTiles_51_5EE1
 gfx/dialog/dialog_window/dialog_obj_palette.pal	palette	8	gfx/dialog/dialog_window.asm	72	4E38	CONFIRMED	-	0		Dialog_ObjPalette
 gfx/dialog/dialog_window/dialog_palette.pal	palette	16	gfx/dialog/dialog_window.asm	72	4E28	CONFIRMED	-	0		Dialog_Palette
 gfx/dialog/dialog_window/dialog_window_map.attrmap	attrmap	180	gfx/dialog/dialog_window.asm	72	4D74	CONFIRMED	-	0	20x9	Dialog_WindowMap
