@@ -1,7 +1,8 @@
 # Previews
 
-Generated pictures (not ROM data, not needed by `make`): what the game draws, composed from the repository assets by `tools/render_screens.py` (screens) and
-`tools/render_sprites.py` (sprites), and checked against emulator captures.  Method, validation and limits: `docs/TRANSLATION.md` (section 4) and the docstrings of the tools.
+Generated pictures (not ROM data, not needed by `make`): scenes composed from repository assets by `tools/render_screens.py` and `tools/render_sprites.py`.
+Only rows with a matching evidence link were checked against emulator captures; candidate-layout previews are hypotheses, not observed game screens.
+Method, validation and limits: `docs/TRANSLATION.md` (section 4) and the docstrings of the tools.
 
 * `screens/<routine>.png`  160x144 composition of the tile / tilemap / palette loads of one routine (grey checker = tile data the scene does not load or that the game rewrites at run time, e.g. text drawn by the text engine);
   `<routine>_map.png` = the whole 256x256 BG map when the scene draws outside the visible 20x18 cells.
@@ -114,30 +115,30 @@ Generated pictures (not ROM data, not needed by `make`): what the game draws, co
 | [BrowserFrame_Styles2](screens/BrowserFrame_Styles2.png) | descriptor | 224/224 | 102/360 | 64/64 | 102 | 258 | 6528/6528 (100.0 %) | [evidence](evidence/BrowserFrame_Styles2.png) monkey_camp_tut/monkey_camp_tut_f103500_seg15_end |
 | [BrowserFrame_Styles3_to_22](screens/BrowserFrame_Styles3_to_22.png) | descriptor | 224/224 | 102/360 | 64/64 | 102 | 258 | 6528/6528 (100.0 %) | [evidence](evidence/BrowserFrame_Styles3_to_22.png) monkey_camp_tut/monkey_camp_tut_f103500_seg15_end |
 | [BrowserFrame_Styles23_to_26](screens/BrowserFrame_Styles23_to_26.png) | descriptor | 224/224 | 102/360 | 64/64 | 102 | 258 | 5272/5272 (100.0 %) | [evidence](evidence/BrowserFrame_Styles23_to_26.png) browser_bookmarks/browser_bookmarks_f12996_index |
-| [BrowserFrameUnused_41_0](screens/BrowserFrameUnused_41_0.png) | hypothesis | 98/224 | 1/360 | 41/64 | - | - | - | no capture |
-| [BrowserFrameUnused_41_1](screens/BrowserFrameUnused_41_1.png) | hypothesis | 92/224 | 0/360 | 38/64 | - | - | - | no capture |
-| [BrowserFrameUnused_41_2](screens/BrowserFrameUnused_41_2.png) | hypothesis | 1/224 | 216/360 | 14/64 | - | - | - | no capture |
-| [BrowserFrameUnused_41_3](screens/BrowserFrameUnused_41_3.png) | hypothesis | 134/224 | 3/360 | 41/64 | - | - | - | no capture |
-| [BrowserFrameUnused_42_0](screens/BrowserFrameUnused_42_0.png) | hypothesis | 118/224 | 0/360 | 43/64 | - | - | - | no capture |
-| [BrowserFrameUnused_42_1](screens/BrowserFrameUnused_42_1.png) | hypothesis | 85/224 | 0/360 | 38/64 | - | - | - | no capture |
-| [BrowserFrameUnused_42_2](screens/BrowserFrameUnused_42_2.png) | hypothesis | 100/224 | 38/360 | 34/64 | - | - | - | no capture |
-| [BrowserFrameUnused_42_3](screens/BrowserFrameUnused_42_3.png) | hypothesis | 125/224 | 1/360 | 43/64 | - | - | - | no capture |
-| [BrowserFrameUnused_43_0](screens/BrowserFrameUnused_43_0.png) | hypothesis | 145/224 | 1/360 | 41/64 | - | - | - | no capture |
-| [BrowserFrameUnused_43_1](screens/BrowserFrameUnused_43_1.png) | hypothesis | 134/224 | 4/360 | 46/64 | - | - | - | no capture |
-| [BrowserFrameUnused_43_2](screens/BrowserFrameUnused_43_2.png) | hypothesis | 98/224 | 3/360 | 45/64 | - | - | - | no capture |
-| [BrowserFrameUnused_43_3](screens/BrowserFrameUnused_43_3.png) | hypothesis | 1/224 | 212/360 | 13/64 | - | - | - | no capture |
-| [BrowserFrameUnused_44_0](screens/BrowserFrameUnused_44_0.png) | hypothesis | 123/224 | 0/360 | 39/64 | - | - | - | no capture |
-| [BrowserFrameUnused_44_1](screens/BrowserFrameUnused_44_1.png) | hypothesis | 72/224 | 7/360 | 32/64 | - | - | - | no capture |
-| [BrowserFrameUnused_44_2](screens/BrowserFrameUnused_44_2.png) | hypothesis | 90/224 | 0/360 | 38/64 | - | - | - | no capture |
-| [BrowserFrameUnused_44_3](screens/BrowserFrameUnused_44_3.png) | hypothesis | 142/224 | 3/360 | 43/64 | - | - | - | no capture |
-| [BrowserFrameUnused_45_0](screens/BrowserFrameUnused_45_0.png) | hypothesis | 91/224 | 0/360 | 36/64 | - | - | - | no capture |
-| [BrowserFrameUnused_45_1](screens/BrowserFrameUnused_45_1.png) | hypothesis | 1/224 | 205/360 | 16/64 | - | - | - | no capture |
-| [BrowserFrameUnused_45_2](screens/BrowserFrameUnused_45_2.png) | hypothesis | 73/224 | 170/360 | 14/64 | - | - | - | no capture |
-| [BrowserFrameUnused_45_3](screens/BrowserFrameUnused_45_3.png) | hypothesis | 90/224 | 0/360 | 40/64 | - | - | - | no capture |
-| [BrowserFrameUnused_46_0](screens/BrowserFrameUnused_46_0.png) | hypothesis | 108/224 | 2/360 | 40/64 | - | - | - | no capture |
-| [BrowserFrameUnused_46_1](screens/BrowserFrameUnused_46_1.png) | hypothesis | 87/224 | 0/360 | 40/64 | - | - | - | no capture |
-| [BrowserFrameUnused_46_2](screens/BrowserFrameUnused_46_2.png) | hypothesis | 99/224 | 2/360 | 40/64 | - | - | - | no capture |
-| [BrowserFrameUnused_46_3](screens/BrowserFrameUnused_46_3.png) | hypothesis | 86/224 | 107/360 | 16/64 | - | - | - | no capture |
+| [BrowserFrameCandidate_41_0](screens/BrowserFrameCandidate_41_0.png) | hypothesis | - | - | - | - | - | - | no capture |
+| [BrowserFrameCandidate_41_1](screens/BrowserFrameCandidate_41_1.png) | hypothesis | - | - | - | - | - | - | no capture |
+| [BrowserFrameCandidate_41_2](screens/BrowserFrameCandidate_41_2.png) | hypothesis | - | - | - | - | - | - | no capture |
+| [BrowserFrameCandidate_41_3](screens/BrowserFrameCandidate_41_3.png) | hypothesis | - | - | - | - | - | - | no capture |
+| [BrowserFrameCandidate_42_0](screens/BrowserFrameCandidate_42_0.png) | hypothesis | - | - | - | - | - | - | no capture |
+| [BrowserFrameCandidate_42_1](screens/BrowserFrameCandidate_42_1.png) | hypothesis | - | - | - | - | - | - | no capture |
+| [BrowserFrameCandidate_42_2](screens/BrowserFrameCandidate_42_2.png) | hypothesis | - | - | - | - | - | - | no capture |
+| [BrowserFrameCandidate_42_3](screens/BrowserFrameCandidate_42_3.png) | hypothesis | - | - | - | - | - | - | no capture |
+| [BrowserFrameCandidate_43_0](screens/BrowserFrameCandidate_43_0.png) | hypothesis | - | - | - | - | - | - | no capture |
+| [BrowserFrameCandidate_43_1](screens/BrowserFrameCandidate_43_1.png) | hypothesis | - | - | - | - | - | - | no capture |
+| [BrowserFrameCandidate_43_2](screens/BrowserFrameCandidate_43_2.png) | hypothesis | - | - | - | - | - | - | no capture |
+| [BrowserFrameCandidate_43_3](screens/BrowserFrameCandidate_43_3.png) | hypothesis | - | - | - | - | - | - | no capture |
+| [BrowserFrameCandidate_44_0](screens/BrowserFrameCandidate_44_0.png) | hypothesis | - | - | - | - | - | - | no capture |
+| [BrowserFrameCandidate_44_1](screens/BrowserFrameCandidate_44_1.png) | hypothesis | - | - | - | - | - | - | no capture |
+| [BrowserFrameCandidate_44_2](screens/BrowserFrameCandidate_44_2.png) | hypothesis | - | - | - | - | - | - | no capture |
+| [BrowserFrameCandidate_44_3](screens/BrowserFrameCandidate_44_3.png) | hypothesis | - | - | - | - | - | - | no capture |
+| [BrowserFrameCandidate_45_0](screens/BrowserFrameCandidate_45_0.png) | hypothesis | - | - | - | - | - | - | no capture |
+| [BrowserFrameCandidate_45_1](screens/BrowserFrameCandidate_45_1.png) | hypothesis | - | - | - | - | - | - | no capture |
+| [BrowserFrameCandidate_45_2](screens/BrowserFrameCandidate_45_2.png) | hypothesis | - | - | - | - | - | - | no capture |
+| [BrowserFrameCandidate_45_3](screens/BrowserFrameCandidate_45_3.png) | hypothesis | - | - | - | - | - | - | no capture |
+| [BrowserFrameCandidate_46_0](screens/BrowserFrameCandidate_46_0.png) | hypothesis | - | - | - | - | - | - | no capture |
+| [BrowserFrameCandidate_46_1](screens/BrowserFrameCandidate_46_1.png) | hypothesis | - | - | - | - | - | - | no capture |
+| [BrowserFrameCandidate_46_2](screens/BrowserFrameCandidate_46_2.png) | hypothesis | - | - | - | - | - | - | no capture |
+| [BrowserFrameCandidate_46_3](screens/BrowserFrameCandidate_46_3.png) | hypothesis | - | - | - | - | - | - | no capture |
 
 ## Sprites
 

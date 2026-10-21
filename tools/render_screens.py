@@ -800,8 +800,10 @@ def frame_scenes(sym, routines):
       * the browser frame styles (Browser_LoadFrameGraphics 4E:6196 + Table_Browser_FrameDescriptors 4E:654B; each 31-byte descriptor starts with five far
         pointers `dw addr, db bank`: BG tiles -> $9001/$9401 (0x40 blocks each, the second half at +$400), palette -> $D800, 20x18 tilemap -> $D000,
         tile piece -> $8000 (0x20 blocks), OBJ palette -> $D840; 4E:6196 also loads BrowserMenu3_Tiles0 to $8801 first).  Descriptors are read from baserom.gbc.
-      * the 24 records of banks 41-46 that no descriptor references: the same record layout as the bank-47 records (tiles $A00, tilemap $168 + attributes
-        $168, palette $80 = BG 64 + OBJ 64 bytes; stride $D50 from $4000) is HYPOTHESIS for them (nothing loads them)."""
+      * 24 candidate layouts in banks 41-46: the bank-47 record layout (tiles $A00, tilemap $168 + attributes
+        $168, palette $80 = BG 64 + OBJ 64 bytes; stride $D50 from $4000) is a HYPOTHESIS for them. None of the 27
+        entries selected through Table_Browser_FrameDescriptors for styles 0..26 points to these banks; this finite
+        descriptor check does not establish that no other loader or use exists."""
     rom = open(BASEROM, 'rb').read()
     out = []
     by = {r['name']: r for r in routines}
@@ -832,11 +834,19 @@ def frame_scenes(sym, routines):
         nm = 'BrowserFrame_Styles%s' % ('_'.join(str(x) for x in styles) if len(styles) < 4 else '%d_to_%d' % (styles[0], styles[-1]))
         out.append(dict(name=nm, file='engine/browser/frame_graphics.asm', line=0, unresolved=[], kind='descriptor',
                         note='descriptor 4E:%04X used by styles %s' % (da, styles), ops=ops_for(far[0], far[1], far[2], far[3], far[4], 0)))
+    frame_owners = {
+        0x41: 'foliage_ribbon_and_beveled_panels_41.asm',
+        0x42: 'metal_flame_and_creature_borders_42.asm',
+        0x43: 'plant_chevron_and_heart_borders_43.asm',
+        0x44: 'arc_bubble_rock_and_scroll_borders_44.asm',
+        0x45: 'ice_spike_curve_and_gold_borders_45.asm',
+        0x46: 'star_rivet_energy_and_scallop_borders_46.asm',
+    }
     for bank in range(0x41, 0x47):
         for k in range(4):
             base = 0x4000 + k * 0xD50
-            out.append(dict(name='BrowserFrameUnused_%02X_%d' % (bank, k), file='gfx/bank%02x.asm' % bank, line=0, unresolved=[], kind='hypothesis',
-                            note='HYPOTHESIS: record layout of bank 47 assumed for %02X:%04X, nothing loads it' % (bank, base),
+            out.append(dict(name='BrowserFrameCandidate_%02X_%d' % (bank, k), file='gfx/frame_designs/' + frame_owners[bank], line=0, unresolved=[], kind='hypothesis',
+                            note='HYPOTHESIS: bank-47 layout model at %02X:%04X; not selected by Table_Browser_FrameDescriptors for styles 0..26; original role and use remain unproven' % (bank, base),
                             ops=ops_for((base, bank), (base + 0xCD0, bank), (base + 0xA00, bank), (base + 0x800, bank), (base + 0xD10, bank), 0)))
     return out
 
@@ -929,7 +939,7 @@ def cmd_render(a):
     with open(os.path.join(outdir, 'screens.tsv'), 'w') as f:
         f.write('# written by tools/render_screens.py render.  Composition of the load operations of one routine from the repository assets (gfx/previews/screens/<routine>.png).\n')
         f.write('# Columns compare the scene with the best emulator capture (equal/compared): tiles = 16-byte tiles in VRAM at the load destination; map = tilemap cells (tile index + attribute);\n')
-        f.write('# kind: loader = static loads of one routine; descriptor = browser frame style (far pointers of Table_Browser_FrameDescriptors); hypothesis = layout assumed, no loader.\n')
+        f.write('# kind: loader = static loads of one routine; descriptor = browser frame style (far pointers of Table_Browser_FrameDescriptors); hypothesis = candidate layout model, role/use unproven.\n')
         f.write('# pal = palette words; cells = cells the scene draws / cells of which map entry AND tile data equal the capture (static art) / cells rewritten at run time (text etc.);\n')
         f.write('# pix_static = screenshot pixels equal to the scene drawn with the capture palettes over the static cells (sprites and window excluded; palettes are the pal column); pix_all = the same over every cell the scene draws;\n')
         f.write('# lcdc = how the tile addressing was chosen; map_png = 256x256 BG map written (content outside the 20x18 visible cells); rom_bytes = bytes read from baserom.gbc because no asset covers them\n')

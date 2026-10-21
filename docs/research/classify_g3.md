@@ -209,6 +209,6 @@ A second pass re-derived the claims from the ROM bytes (own scripts, not the cla
 * **bank 2D tables 417D/470A**: note said A706, bytes are `05 A7` = A705.
 * **bank 41 tilemaps**: the note "attribute values $08-$0C" was true only for records 0 and 1; record 2 also holds $10 and record 3 holds $00 and $2A.  Notes now list the values present and say that the BG-attribute reading is assumed.
 
-**Still weak (unchanged, honest status kept)**: all bank 41 kinds (nothing loads it; structure verified by content only), field semantics of every table, the PROBABLE
+**Still weak (unchanged, honest status kept)**: bank 41 intended roles and paths beyond the finite fact that the 27 frame descriptors for styles 0..26 do not select the four candidate windows in that bank; field semantics of every table, the PROBABLE
 whole-function code without callers (2D 4195/44FB/4635/4686/4CDA/4E42/7E60, 6C:61AC), the `jp head` after inline `call $0545` tables (a `jp hl` dispatcher never returns to it),
 unreferenced trailing bytes noted in 69 (4A04 = `00`; 4BA8-4BAB = `01 00 04`, which also parses as a count=1 pair block).

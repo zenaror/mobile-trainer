@@ -51,13 +51,15 @@ The candidate entry, selected bank and intended role remain HYPOTHESIS.
 A maintained-source audit found 59 paths carrying `unused` or
 `unreferenced`, including two graphics owners with explicit external source
 consumers. It found 15 `AddrScreenUnused_*` globals and 24 hypothetical
-`BrowserFrameUnused_*` preview names. No directory named exactly `gfx/bankNN`
+`BrowserFrameCandidate_*` preview names. No directory named exactly `gfx/bankNN`
 exists; eight `screens_bankNN` source files are content-qualified filenames
-that retain bank provenance. The audit recommends scoped renames and explicit
-path/metadata maps, not blanket replacement. Active tool output also contains
-stale `gfx/bankNN.asm` provenance and a “nothing loads it” statement broader
-than its descriptor model. Those generator and mixed-owner migrations remain
-open; no global unused/dead claim follows from these finite scans.
+that retain bank provenance. The browser-frame renderer now names these as
+candidates, points provenance to the six actual `gfx/frame_designs/` owners,
+and limits its selection statement to the 27 descriptors for styles 0..26.
+The 24 existing preview payloads and current table metrics are retained; no
+whole-preview README regeneration was performed because it would change
+unrelated rows. The address-book and page-list mixed-owner migrations remain
+open. No global unused/dead claim follows from these finite scans.
 
 The current source contains no literal `Function_BB_AAAA` definitions. A
 separate census at the previous checkpoint counted 943 `Data_BB_AAAA`
