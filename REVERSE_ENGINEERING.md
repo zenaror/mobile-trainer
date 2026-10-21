@@ -1211,3 +1211,8 @@ retired under the existing `Table_MobileDict_*` names; exact-token searches
 found only their declarations and explanatory comments. References in the
 comments were updated, while table data and confidence remain unchanged. See
 [`docs/research/mobile_dictionary_table_aliases_20261021.md`](docs/research/mobile_dictionary_table_aliases_20261021.md).
+
+In `engine/browser/page_view.asm`, nine unreferenced `Table_4E_AAAA` aliases
+were retired under existing `Browser_PageView_*` and `Browser_Menu_*` table
+names. Their words and comments were not reinterpreted; see
+[`docs/research/browser_page_view_table_aliases_20261021.md`](docs/research/browser_page_view_table_aliases_20261021.md).

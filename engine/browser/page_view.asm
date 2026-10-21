@@ -71,7 +71,6 @@ Browser_PageView_Enter:: ; 4E:49A1
 ; ---- ptrtable $4A37-$4A43 (12 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4E:4A34: 6 entries; end pinned by the executed instruction at 4A43
 
 Browser_PageView_Enter_DialogResultTable:: ; 4E:4A37
-Table_4E_4A37::
 	dw Browser_PageView_Enter_StartLoop
 	dw Browser_PageView_Enter_StartLoop
 	dw Browser_PageView_Enter_StartLoop
@@ -166,7 +165,6 @@ Browser_PageView_Loop:: ; 4E:4A58
 ; ---- ptrtable $4AE2-$4AEC (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 4E:4ADF: 5 entries; fixed length (5 words) by the routine; every byte read as data in a trace
 
 Browser_PageView_InputTable:: ; 4E:4AE2
-Table_4E_4AE2::
 	dw Browser_PageView_FollowLink
 	dw Browser_PageView_GoBack
 	dw Browser_PageView_IgnoreSelect
@@ -242,7 +240,6 @@ Browser_PageView_FollowLink:: ; 4E:4B0E
 ; ---- ptrtable $4B7E-$4B8C (14 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4E:4B7B: 7 entries; end = first entry target
 
 Browser_PageView_FollowLink_ResultTable:: ; 4E:4B7E
-Table_4E_4B7E::
 	dw Browser_PageView_FollowLink_Loaded
 	dw Browser_PageView_FollowLink_Restore
 	dw Browser_PageView_FollowLink_Restore
@@ -323,7 +320,6 @@ Browser_PageView_GoBack:: ; 4E:4BAD
 ; ---- ptrtable $4C49-$4C57 (14 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4E:4C46: 7 entries; end = first entry target
 
 Browser_PageView_GoBack_ResultTable:: ; 4E:4C49
-Table_4E_4C49::
 	dw Browser_PageView_GoBack_Loaded
 	dw Browser_PageView_GoBack_Restore
 	dw Browser_PageView_GoBack_Restore
@@ -384,7 +380,6 @@ Browser_PageView_GoBack_NoHistory:: ; 4E:4CB2
 ; ---- ptrtable $4CDF-$4CEB (12 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4E:4CDC: 6 entries; end pinned by the executed instruction at 4CEB
 
 Browser_PageView_GoBack_DialogResultTable:: ; 4E:4CDF
-Table_4E_4CDF::
 	dw Browser_PageView_Loop
 	dw Browser_PageView_Loop
 	dw Browser_PageView_Loop
@@ -434,7 +429,6 @@ Browser_PageView_OpenMenu_Show:: ; 4E:4CEE
 ; ---- ptrtable $4D6D-$4D7B (14 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4E:4D6A: 7 entries; end = first entry target
 
 Browser_PageView_OpenMenu_DialogResultTable:: ; 4E:4D6D
-Table_4E_4D6D::
 	dw Browser_PageView_Loop
 	dw Browser_Menu_PageList
 	dw Browser_Menu_DisconnectPrompt
@@ -554,7 +548,6 @@ Browser_Menu_PageList:: ; 4E:4D7B
 ; ---- ptrtable $4E60-$4E6E (14 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4E:4E5D: 7 entries; end = first entry target
 
 Browser_Menu_PageList_ResultTable:: ; 4E:4E60
-Table_4E_4E60::
 	dw Browser_Menu_PageList_Loaded
 	dw Browser_Menu_PageList_Restore
 	dw Browser_Menu_PageList_Restore
@@ -641,7 +634,6 @@ Browser_Menu_DisconnectPrompt:: ; 4E:4EED
 ; ---- ptrtable $4F1A-$4F26 (12 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4E:4F17: 6 entries; end = first entry target
 
 Browser_Menu_DisconnectPrompt_DialogResultTable:: ; 4E:4F1A
-Table_4E_4F1A::
 	dw Browser_Menu_DisconnectPrompt_BackToMenu
 	dw Browser_Menu_DisconnectDo
 	dw Browser_Menu_DisconnectPrompt_BackToMenu
@@ -717,7 +709,6 @@ Browser_Menu_EndPrompt:: ; 4E:4F81
 ; ---- ptrtable $4FB7-$4FC3 (12 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4E:4FB4: 6 entries; end = first entry target
 
 Browser_Menu_EndPrompt_DialogResultTable:: ; 4E:4FB7
-Table_4E_4FB7::
 	dw Browser_Menu_EndPrompt_BackToMenu
 	dw Browser_Menu_EndDo
 	dw Browser_Menu_EndPrompt_BackToMenu
