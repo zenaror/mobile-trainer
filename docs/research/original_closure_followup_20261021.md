@@ -35,6 +35,13 @@ No source, build, runtime or trace changed. The retained read-only report is
 `6f5f920ae3df5698496d799b9ca4e8516061e589f59b0075d9e3bfdb24a1e854`), with
 `RESULT.json` recording its input hashes.
 
+The existing dynamic-trace inventory separately lists `2B:6CF5` and the
+`29:5117–5335` palette-fade library interval as forced-only in
+`docs/research/dynamic_tracing.md` §11.4. Those forced runs do not supply a
+natural caller or resolve the stack/bank frontiers; the four entry questions
+remain UNKNOWN. No new natural trace record was found in the bounded evidence
+review.
+
 ## Current naming changes
 
 The bounded owner-local review of `engine/mail/mail_title_entry.asm` kept
