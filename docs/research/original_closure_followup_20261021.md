@@ -112,8 +112,19 @@ The fresh bank53 audit is recorded in
 remain unproved, and eight KEEP windows still lack demonstrated complete
 reaching VRAM state. The bounded asset/file scope has no missing reference or
 orphan, and per-window missing U160 keys are tabulated. The data-consumer-group
-census, other unresolved roots, and final definition-of-done review remain
-open.
+census was rerun in a private snapshot excluding the protected mail sample.
+The tool counted 522 neutral groups and 122 candidate sites, but rejected all
+122 under its strict load-shape rules and emitted no manifest rows. This is
+not a consumer map or proof of non-use; the follow-up remains open. Inputs,
+hashes and the precise limitation are recorded in
+`generic_data_name_audit_20261020.md`. Other unresolved roots and the final
+definition-of-done review also remain open.
+
+The extended path-safe lexical audit at this commit covers 336 maintained
+ASM/INC files including RAM owners. It finds 898 `Data_BB_AAAA` definitions,
+zero address-only `Function_`, `Font_`, `Label_` or `wRam_` labels, zero
+function-like generic global prefixes, and no `gfx/bankNN` directories. These
+results do not certify semantic function or data closure.
 
 ## Verification
 

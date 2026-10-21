@@ -34,6 +34,17 @@ rather than treated as a directly comparable baseline. These are lexical counts,
 measures. The
 [generic data-label audit](docs/research/generic_data_name_audit_20261020.md) records the
 checkpoints.
+
+A path-safe lexical scan at `25ede6ec` over 336 maintained ASM/INC files,
+including RAM owners, reconfirms 898 `Data_BB_AAAA::` definitions and finds no
+`Function_BB_AAAA::`, `Font_BB_AAAA::`, `Label_BB_AAAA::` or `wRam_AAAA::`
+definitions, no generic function-like prefixes, and no `gfx/bankNN`
+directories. This closes only that lexical census. A fresh private run of
+`data_consumers.py` counts 522 neutral groups and 122 immediate candidates but
+rejects all candidates and produces no rename rows; this is not a consumer map
+or proof of non-use. Semantic function/entrypoint identification and remaining
+data contracts are still open; the linked audit records method, hashes and
+exclusions.
 The 2026-10-20 bank6C HelpScript pass maps the static command stream from `6C:4809` through the
 terminal at `6C:58C6` (exclusive end `58C7`), corrects mixed command/text classifications and
 replaces address-only labels at command boundaries with structural names. An independent walk

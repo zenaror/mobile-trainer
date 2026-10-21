@@ -923,3 +923,73 @@ unresolved; do not equate the two counts. The full search and reproducible
 derivation are in `.tmp/parallel-jp-census-20261020/HISTORICAL_MATRIX_SEARCH.md`
 (SHA-256 `c8035b2e8bfa3a720b4a5fd3302eb4180f28eeb55eb3d86306809b12c12a67b1`).
 No source change, build, or cleanup was needed for this historical reconciliation.
+
+## Protected-file-excluded data-consumer tool run (2026-10-21)
+
+To refresh the dated consumer-group metric without reading
+`engine/mail/sample_data.asm`, the unchanged `tools/data_consumers.py` and its
+model dependencies were run in `.tmp/data-consumer-census-private-20261021/`.
+The private source snapshot contains 331 maintained ASM files from the six
+source roots and physically omits the protected file; it uses the Japanese
+ROM and `build/mobile_trainer.sym` copied from commit
+`25ede6ec0042d14b45fd1707abf2c7705bb4360d`. The normal script hash is
+`4ded7d379c655bc4c4004e0c3e7f3eea451cb74cfb0f856792abdd733da44954` and
+matches the repository copy. The source archive hash is
+`9c56f4128fd0bd1240d2d11766af8e939017e3e992d608566bbcd239474da9a8`; the
+configuration/tools input archive hash is
+`0f8b886b723714cbd7dffb97c356205edc3d5a98b643055ed54e203ddc2d34cf`.
+
+The normal run completed with exit 0 and reports 522 neutral data groups, 122
+candidate immediate sites, 122 rejected sites, and zero manifest rows. A
+separate diagnostic copy of the script (not the production tool) counted the
+rejection shapes: 91 `Sprite_InitSlot`, eight `Gfx_StartHDMAWithService`,
+eleven tilemap loaders, three palette loaders, and nine other/unrecognized
+loader candidates; every candidate failed the tool's strict load-shape
+acceptance predicate. Therefore this is a valid bounded rerun of the tool
+metric, but it is **not** a consumer map and does not show that the 522 groups
+have no readers. The older 523/570 tool counts likewise are not semantic
+completion counts. The 899 lexical `Data_BB_AAAA::` definitions above are a
+different measure and must not be reconciled by subtracting these groups.
+
+The exact normal stdout is retained in
+`.tmp/data-consumer-census-private-20261021/DATA_CONSUMER_STATS.txt` (SHA-256
+`3d67dd47e89e93fa6ab0be3fcc283d040c729bf866fe6ef35a6257525590b78d`); the
+private diagnostic stdout is `DATA_CONSUMER_DIAGNOSTIC.txt` (SHA-256
+`546ee9338002122abd34506f08b50d41ffa5c84d0a60dd440a6dcf6b0ac0c02f`). The
+consumer census remains an open follow-up requiring a method that can assign
+real consumer contracts without relying on the currently rejecting tool.
+
+## Safe lexical scan of generic source names (2026-10-21)
+
+A separate path-list-based scan used `git ls-files` and excluded the exact
+`engine/mail/sample_data.asm` path before opening any source file. Its 331-file
+input set is pinned by aggregate SHA-256
+`d382dc614f8686ec237949876091425734e87548406a5f54af3aa35fae422a76` at
+`25ede6ec0042d14b45fd1707abf2c7705bb4360d`. It found 898
+`Data_BB_AAAA::` definitions, zero `Function_BB_AAAA::`, `Font_BB_AAAA::` or
+`Label_BB_AAAA::` definitions, and no global labels beginning with
+`Function_`, `Func_`, `Routine_`, `Subroutine_`, `Code_`, `Unknown_`,
+`Unidentified_` or `Entry_`. It also found no direct `gfx/bankNN` directory.
+This is a lexical census only; the remaining neutral data labels and semantic
+coverage of routines remain open.
+
+An earlier broad `rg` command in this pass used an exclusion glob that may not
+have matched the protected file when `engine/` was supplied as a separate
+search root. Its output was discarded and was not used in these counts. The
+safe scanner checks the exact repository-relative path before any content read;
+its source is retained as
+`.tmp/data-consumer-census-private-20261021/safe_source_name_scan.py` (SHA-256
+`bfadfffd61c998716b270fe1cba1901c848fed1687faaaab62e904b274250f46`) and its
+result as `SOURCE_NAME_SCAN.json` (SHA-256
+`8ef10a8e54ca72f8779587a2ae8fe684c230f08042a5566136343b80ce771a31`).
+
+An extended path-safe scan added the tracked `ram/` owners (336 ASM/INC files
+total) and checked the exact generic `wRam_AAAA` form as well. It reconfirms
+898 `Data_BB_AAAA` labels, zero generic `Function_`, `Font_`, `Label_` or
+`wRam_` address labels, zero other global function-like generic prefixes, and
+no `gfx/bankNN` directories. The input-set SHA-256 is
+`dc4811db834dc0caf4a382e3eba42d4943ce623760867370e24cef8e1fc434ce`; the
+source is `.tmp/data-consumer-census-private-20261021/safe_generic_identifier_scan.py`
+(SHA-256 `55cbd325077cdf2556bb1ddb9b0be799547767c099c4036b4b9eedcf66d892f7`)
+and its result is `GENERIC_IDENTIFIER_SCAN.json` (SHA-256
+`b6863c0687479c5ca4d5187a823377a70bdeb99984955cd3476db0bdc072fc7d`).
