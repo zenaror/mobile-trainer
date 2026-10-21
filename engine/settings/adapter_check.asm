@@ -141,7 +141,6 @@ AdapterCheck_Poll_Loop:: ; 67:6452
 ; ---- data $64AE-$64B4 (6 bytes) [CONFIRMED] read as data by executed code (in up to 18/18 scenarios); content class unknown
 
 AdapterCheck_StateTable:: ; 67:64AE
-Data_67_64AE::
 	db $B4, $64, $C7, $64, $F5, $64
 
 AdapterCheck_State_Init:: ; 67:64B4

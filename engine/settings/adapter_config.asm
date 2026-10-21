@@ -77,13 +77,12 @@ SettingsPhone_ReadAdapterConfig_Poll:: ; 67:5410
 ; ---- ptrtable $546C-$5472 (6 bytes) [PROBABLE] jump table of 3 words right after the 'jp hl' dispatcher (ld a,[$C27D]; add a,a; add a,$6C; ... ld a,[hli]; ld h,[hl]; ld l,a; jp hl) at 67:54:545C-546B; extent = first target (5472); targets $5472, $5484, $54B9 are instruction starts of the code that follows
 
 SettingsPhone_ReadAdapterConfig_StateTable:: ; 67:546C
-Table_67_546C::
 	dw SettingsPhone_ReadAdapterConfig_State_Init
 	dw SettingsPhone_ReadAdapterConfig_State_ReadConfig
 	dw SettingsPhone_ReadAdapterConfig_State_Finish
 
 SettingsPhone_ReadAdapterConfig_State_Init:: ; 67:5472
-	; [CONFIRMED] entered through Table_67_546C (state handlers indexed by [$C27D]); decode chain
+	; [CONFIRMED] entered through SettingsPhone_ReadAdapterConfig_StateTable (state handlers indexed by [$C27D]); decode chain
 	; legal, all 3 table targets are instruction starts, ends in known code region at 54DB; not
 	; executed in traces [executed in 2 scenarios]
 	ld de, wMobileAdapterType
@@ -250,13 +249,12 @@ SettingsPhone_WriteAdapterConfig_Poll:: ; 67:555C
 ; ---- ptrtable $55B8-$55BE (6 bytes) [PROBABLE] jump table of 3 words right after the 'jp hl' dispatcher (ld a,[$C27D]; add a,a; add a,$B8; ... ld a,[hli]; ld h,[hl]; ld l,a; jp hl) at 67:55:55A8-55B7; extent = first target (55BE); targets $55BE, $55D0, $560A are instruction starts of the code that follows
 
 SettingsPhone_WriteAdapterConfig_StateTable:: ; 67:55B8
-Table_67_55B8::
 	dw SettingsPhone_WriteAdapterConfig_State_Init
 	dw SettingsPhone_WriteAdapterConfig_State_PatchAndWrite
 	dw SettingsPhone_WriteAdapterConfig_State_Finish
 
 SettingsPhone_WriteAdapterConfig_State_Init:: ; 67:55BE
-	; [CONFIRMED] entered through Table_67_55B8 (state handlers indexed by [$C27D]); decode chain
+	; [CONFIRMED] entered through SettingsPhone_WriteAdapterConfig_StateTable (state handlers indexed by [$C27D]); decode chain
 	; legal, all 3 table targets are instruction starts, ends in known code region at 562C; not
 	; executed in traces [executed in 1 scenarios]
 	ld de, wMobileAdapterType
@@ -341,7 +339,7 @@ SettingsPhone_WriteAdapterConfig_Abort:: ; 67:5638
 
 SettingsPhone_PatchConfigImage:: ; 67:5664
 	; [CONFIRMED] function called by 'call $5664' at 67:55F2 (inside the table-entered PROBABLE code
-	; of Table_67_55B8); reads Table_67_56FA (ld hl,$56FA, index [$C27E]) and falls into the
+	; of SettingsPhone_WriteAdapterConfig_StateTable); reads SettingsPhone_ConfigNumberAddrs (ld hl,$56FA, index [$C27E]) and falls into the
 	; far-call site at 568C (PROBABLE code) [executed in 1 scenarios]
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -439,7 +437,6 @@ SettingsPhone_PatchConfigImage:: ; 67:5664
 ; ---- words $56FA-$570C (18 bytes) [PROBABLE] three 3-word tables of SRAM addresses at $56FA ($A076,$A08E,$A0A6), $5700 ($B014,$B025,$B036) and $5706 ($A07E,$A096,$A0AE): indexed via ld hl,$56FA / $5700 / $5706 with [$C27E]*2 (ld hl,$56FA at 67:567A, ld hl,$5706 at 67:5695, ld hl,$5700 at 67:56BE) by the function at 67:5664
 
 SettingsPhone_ConfigNumberAddrs:: ; 67:56FA
-Table_67_56FA::
 	dw $A076, $A08E, $A0A6
 
 SettingsPhone_SramSelfPageAddrs:: ; 67:5700

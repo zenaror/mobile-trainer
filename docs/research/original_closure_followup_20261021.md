@@ -663,3 +663,12 @@ reclassification rule from `tools/data_consumers.py`. Glyph bytes, bank
 mapping, row ranges and PROBABLE/CONFIRMED grades are unchanged. make remains
 byte-identical; sym-check reports 12,349 labels; palette-check and data-consumer
 checks pass (162/116/0 and 287/93/0).
+
+## Bank 67 settings data/table aliases (2026-10-21)
+
+Removed sixteen exact-address `Data_67_*`/`Table_67_*` aliases in settings
+adapter-check/config, choice/confirm/continue screens, password change/save,
+slot menu and usage-fee owners. Existing semantic state tables, cursor maps,
+slot/tilemap tables, config-address table and URL label remain. Updated evidence
+comments that referenced the retired state/config aliases. No bytes or extents
+changed. make is byte-identical and sym-check reports 12,333 labels.

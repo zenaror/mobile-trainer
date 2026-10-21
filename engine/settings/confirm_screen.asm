@@ -146,7 +146,6 @@ SettingsPhone_ConfirmScreen_PlaceCursor:: ; 67:525D
 ; ---- data $5275-$5279 (4 bytes) [PROBABLE] 2 entries x 2 bytes (28 68 / 58 68), indexed by [$C27D]*2 (ld hl,$5275 at 67:5261), stored into sprite slot $DA00 by call $0A65 (coordinates)
 
 SettingsPhone_ConfirmScreen_CursorPos:: ; 67:5275
-Data_67_5275::
 	db $28, $68, $58, $68
 
 SettingsPhone_ConfirmScreen_BuildTextMap:: ; 67:5279
@@ -304,5 +303,4 @@ SettingsPhone_ConfirmScreen_LoadSlotTilemap:: ; 67:53B7
 ; ---- words $53D6-$53DC (6 bytes) [PROBABLE] 3 words $76C0,$76C4,$76C8 indexed by the slot; the selected source in bank $4B is copied with BC=$0201 via Tilemap_CopyRectAndAttr (target $08EA), whose farcall begins at 67:53CF. The operands remain numeric in this pass.
 
 SettingsPhone_ConfirmScreen_SlotTilemapTable:: ; 67:53D6
-Table_67_53D6::
 	dw $76C0, $76C4, $76C8

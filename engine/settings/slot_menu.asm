@@ -335,7 +335,6 @@ SettingsPhone_SlotMenu_PlaceCursor:: ; 67:4F50
 ; ---- data $4F68-$4F6E (6 bytes) [PROBABLE] 3 entries x 2 bytes (18 2F / 47 2F / 77 2F) indexed by [$C27D]*2 (ld hl,$4F68 at 67:4F54), e=[hl], d=[hl+1], stored into sprite slot $DA00 by call $0A65 (coordinates)
 
 SettingsPhone_SlotMenu_CursorPos:: ; 67:4F68
-Data_67_4F68::
 	db $18, $2F, $47, $2F, $77, $2F
 
 SettingsPhone_SlotMenu_BuildTextMap:: ; 67:4F6E
@@ -490,7 +489,6 @@ SettingsPhone_SlotMenu_PrintSlotFields:: ; 67:4F9C
 ; ---- words $50A5-$50B7 (18 bytes) [PROBABLE] 9 words $DF10, $DF43, $DF76, $DF21, $DF54, $DF87, $DF32, $DF65, $DF98 = WRAM buffer addresses (3 groups of 3, step $11 / $33); used as hl=[table+2*idx] (ld hl,$50A5 at 67:4FE2) then ld a,$03 ; call $0ED3 (text interpreter) at 67:4FEF-4FF1, i.e. text-buffer pointers, not ROM pointers
 
 SettingsPhone_SlotMenu_FieldTable:: ; 67:50A5
-Table_67_50A5::
 	dw wDialEntries, wDialEntries + $33, wDialEntries + $66, wDialEntries + $11, wDialEntries + $44, wDialEntries + $77, wDialEntries + $22, wDialEntries + $55
 	dw wDialEntries + $88
 
@@ -532,5 +530,4 @@ SettingsPhone_SlotMenu_LoadTabTilemap:: ; 67:50E5
 ; ---- words $5104-$510A (6 bytes) [PROBABLE] 3 words $7870,$78C0,$7910 indexed by [$C27D]*2 (ld hl,$5104 at 67:50EE); hl=[table], ld a,$4D, far call 00:08EA (tilemap loader): source addresses in bank 4D (dw kept numeric)
 
 SettingsPhone_SlotMenu_TabTilemapTable:: ; 67:5104
-Table_67_5104::
 	dw $7870, $78C0, $7910

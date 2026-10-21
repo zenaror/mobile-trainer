@@ -166,7 +166,6 @@ PwSaveConfirm_PlaceCursor:: ; 67:66A6
 ; ---- data $66BE-$66C2 (4 bytes) [PROBABLE] 2 entries x 2 bytes (28 30 / 58 30), coordinate pairs read by the executed code before it (e=[hl], d=[hl+1] ; call $0A65 sprite-slot init at 67:66A6...); replaces a CONFIRMED read fragment + 2 unread bytes
 
 PwSaveConfirm_CursorPos:: ; 67:66BE
-Data_67_66BE::
 	db $28, $30, $58, $30
 
 PwSaveConfirm_BuildTextMap:: ; 67:66C2

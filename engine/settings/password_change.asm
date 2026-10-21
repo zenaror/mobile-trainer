@@ -219,7 +219,6 @@ PasswordChange_Communicate_Dispatch:: ; 67:5A8E
 ; ---- ptrtable $5A9E-$5AAA (12 bytes) [CONFIRMED] 6-word code-pointer table for the [$C27D] state dispatcher (67:5A8E-5A9D, jp hl): entries 0-4 executed; entry 5 ($5CC2) is used when [$C27D]=5 (67:5CB2-5CB4 sets it and jumps to 5A8E) and is an instruction start (xor a; call $06D1...). The 2 bytes that were UNCLASSIFIED at 5AA8 are this 6th entry
 
 PasswordChange_StateTable:: ; 67:5A9E
-Table_67_5A9E::
 	dw PasswordChange_State_Init
 	dw PasswordChange_State_ReadLoginId
 	dw PasswordChange_State_Connect
@@ -784,12 +783,11 @@ AdapterCheck_InitOnly_Poll:: ; 67:5EF1
 ; ---- ptrtable $5F0A-$5F0E (4 bytes) [PROBABLE] jump table of 2 words right after the 'jp hl' dispatcher (ld a,[$C27D]; add a,a; add a,$0A; ... ld a,[hli]; ld h,[hl]; ld l,a; jp hl) at 67:5F:5EFA-5F09; extent = first target (5F0E); targets $5F0E, $5F20 are instruction starts of the code that follows
 
 AdapterCheck_InitOnly_StateTable:: ; 67:5F0A
-Table_67_5F0A::
 	dw AdapterCheck_InitOnly_State_Init
 	dw AdapterCheck_InitOnly_State_Finish
 
 AdapterCheck_InitOnly_State_Init:: ; 67:5F0E
-	; [PROBABLE] entered through Table_67_5F0A (state handlers indexed by [$C27D]); decode chain
+	; [PROBABLE] entered through AdapterCheck_InitOnly_StateTable (state handlers indexed by [$C27D]); decode chain
 	; legal, all 2 table targets are instruction starts, ends in known code region at 5F38; not
 	; executed in traces
 	ld de, wMobileAdapterType

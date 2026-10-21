@@ -224,7 +224,6 @@ SettingsPhone_ChoiceMenu_PlaceCursor:: ; 67:4855
 ; ---- data $486D-$4871 (4 bytes) [PROBABLE] 2 entries x 2 bytes (10 17 / 10 2F) indexed by [$C27D]*2 (ld hl,$486D at 67:4859): e=[hl], d=[hl+1] then ld hl,$DA00 ; call $0A65 which stores D,E into the sprite slot (positions); values are coordinates
 
 SettingsPhone_ChoiceMenu_CursorPos:: ; 67:486D
-Data_67_486D::
 	db $10, $17, $10, $2F
 
 SettingsPhone_ChoiceMenu_BuildTextMap:: ; 67:4871
@@ -318,5 +317,4 @@ SettingsPhone_ChoiceMenu_LoadTilemap:: ; 67:48F0
 ; ---- words $491C-$4924 (8 bytes) [PROBABLE] 4 words $5AE0,$5B6C,$5BF8,$5C84 indexed by [$C27D]*2 (ld hl,$491C at 67:4906): hl=[table] then ld a,$4D ; far call to 00:08EA (tilemap loader) at 67:4913-4917, i.e. source addresses in bank 4D (not this bank; dw kept numeric)
 
 SettingsPhone_ChoiceMenu_TilemapTable:: ; 67:491C
-Table_67_491C::
 	dw $5AE0, $5B6C, $5BF8, $5C84

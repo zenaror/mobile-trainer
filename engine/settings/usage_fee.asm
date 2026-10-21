@@ -113,7 +113,6 @@ UsageFee_Request:: ; 67:62D5
 ; ---- data $632D-$6369 (60 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
 
 Net_UsageFeeUrl:: ; 67:632D
-Data_67_632D::
 	db $68, $74, $74, $70, $3A, $2F, $2F, $67, $61, $6D, $65, $62, $6F, $79, $2E, $64
 	db $61, $74, $61, $63, $65, $6E, $74, $65, $72, $2E, $6E, $65, $2E, $6A, $70, $2F
 	db $63, $67, $62, $2F, $75, $74, $69, $6C, $69, $74, $79, $3F, $72, $65, $71, $75

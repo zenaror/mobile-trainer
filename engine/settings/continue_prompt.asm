@@ -144,7 +144,6 @@ SettingsPhone_ContinuePrompt_PlaceCursor:: ; 67:5842
 ; ---- data $585A-$585E (4 bytes) [PROBABLE] 2 entries x 2 bytes (28 30 / 58 30), indexed by [$C27D]*2 (ld hl,$585A at 67:5846), stored into sprite slot $DA00 by call $0A65 (coordinates)
 
 SettingsPhone_ContinuePrompt_CursorPos:: ; 67:585A
-Data_67_585A::
 	db $28, $30, $58, $30
 
 SettingsPhone_ContinuePrompt_BuildTextMap:: ; 67:585E
