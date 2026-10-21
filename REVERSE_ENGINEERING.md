@@ -1358,7 +1358,10 @@ count: the current source and rebuilt SYM have zero literal
 addresses in the triage matrix resolve to their current operation names.
 Natural roots and application purpose remain unproved for those 28; four
 priority entry slices remain UNKNOWN. This is a naming census, not function or
-entry-point closure; see the current-status section in the linked follow-up.
+entry-point closure. A filtered recheck at `2281dffc` found the same nine
+internal/conditional references and no exact raw `$ADDR` operands for these
+targets; computed and stack routes remain open. See the current-status section
+in the linked follow-up.
 
 The `audio/music/music_02.asm` owner then lost 15 same-address `Data_04_*`
 aliases under retained `SoundSong02_*` labels. An independent scoped encoder

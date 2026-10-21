@@ -715,3 +715,18 @@ the closed census. The computed-entry report's 21
 fragments or proof of absence. This reconciliation validates current names
 and addresses only; it does not establish complete routine entry mapping or
 semantic closure.
+
+A current-source recheck at `2281dffc769377606f97a2e1c49ee02718f59007`
+re-read 334 tracked ASM/INC files after filtering out the protected
+`engine/mail/sample_data.asm` before opening sources. The 28 target names
+still match the rebuilt SYM at their addresses (28/28); the source contains
+zero exact generic `Function_BB_AAAA`/`Label_BB_AAAA` definitions, nine
+non-definition references matching the prior triage's known edges, and no
+exact `$ADDR` immediate for any target. The nine references are internal or
+conditional and do not establish a natural root. Computed, stack, copied-code
+and interrupt paths remain outside this scan, so all four priority slices
+remain UNKNOWN. Reproducible source guards and rows are retained in
+`.tmp/jp-routine-recheck-2281-20261021/` (`RESULT.json` SHA-256
+`fae135723363a995c71d85816d5442fdef454186a8b3c8773f6d8a0ed28a3075`,
+`SOURCE_GUARDS.json` SHA-256
+`fd0f3968f4121722debd9fa96f6782b53951698620c9150fa718b6ffcfaf1044`).
