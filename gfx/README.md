@@ -1149,7 +1149,7 @@ Retired historical file: `palette_5e60.pal` preserves the former 96-byte RGB555 
 |---|---|---:|---|---|---|---|---|
 | `mail_server_status_tiles_7420.2bpp` | 2bpp tiles | 1024 | 26:7420 | CONFIRMED | exact | - | `gfx/mail/server_status_bank26.asm` |
 | `profile_tiles8000.2bpp` | 2bpp tiles | 32 | 26:7820 | CONFIRMED | exact | - | `gfx/mail/server_status_bank26.asm` |
-| `tiles_7840.2bpp` | 2bpp tiles | 624 | 26:7840 | PROBABLE | exact | - | `gfx/mail/server_status_bank26.asm` |
+| `candidate_tiles_26_7840.2bpp` | 2bpp tiles | 624 | 26:7840 | PROBABLE | exact | - | `gfx/mail/server_status_bank26.asm` |
 
 ### `gfx/mail/session_scenery/`
 

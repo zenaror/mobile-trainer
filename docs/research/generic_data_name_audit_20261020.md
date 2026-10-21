@@ -2867,3 +2867,26 @@ classification at `2E:7710`, `sprite_chain_check.py` reports 12 hard
 mismatches: the one `2F:7E20` candidate plus 11 `MailBodyCandidate_*` labels.
 The candidate remains visible for review. No bytes changed and no
 unused/reachable claim follows from the bounded search.
+
+
+## Bank 26 probable tile block with no located transfer (2026-10-21)
+
+`Data_26_7840` covers a 624-byte block with a PROBABLE 2bpp tile classification
+(32 coherent tiles in the heuristic scan, plus blank/partial material). The
+PNG/binary pair round-trips exactly, but the bounded source/xref/screen-operation
+search located no transfer from `26:7840` and no screen composition using this
+asset. Its filename and label now say `candidate_tiles_26_7840` /
+`CandidateTiles_26_7840`; this records the probable content type without
+assigning a screen, owner behavior, or natural use. The old bank/address spelling
+remains in frozen region data as historical provenance. The 624-byte binary and
+PNG contents are unchanged. The build is `RESULT: IDENTICAL`; `sym-check`,
+`palette-check`, and `png-check` pass. `gfx_export.py check` still reports the
+pre-existing three-slice reference to the 16-byte visual-only `4A:5860` asset;
+this separate owner was not changed by this pass.
+
+A fresh exact-name scan of the same 334 tracked ASM/INC files (including
+`zero_labels.asm`, excluding `engine/mail/sample_data.asm` before reading)
+now finds 67 `Data_BB_AAAA` definitions in 41 owners, down one from the prior
+checkpoint. Exact generic `Function`, `Font`, and `Label` definitions remain
+zero. The count is lexical only; the remaining neutral labels stay where a
+stronger content or consumer claim is unavailable.

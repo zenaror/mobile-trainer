@@ -17,5 +17,5 @@ Gfx_Profile_Tiles8000:: ; 26:7820
 
 ; ---- gfx $7840-$7AB0 (624 bytes) [PROBABLE] tiles-2bpp: heuristic: 32 coherent tiles (hsim2=0.786 vsim2=0.762, 6 blank) parity 0
 
-Data_26_7840:: ; 26:7840
-	INCBIN "gfx/mail/server_status_bank26/tiles_7840.2bpp"
+CandidateTiles_26_7840:: ; 26:7840
+	INCBIN "gfx/mail/server_status_bank26/candidate_tiles_26_7840.2bpp"
