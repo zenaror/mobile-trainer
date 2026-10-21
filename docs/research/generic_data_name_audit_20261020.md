@@ -2263,6 +2263,20 @@ down from 302 definitions in 129 owners after these six aliases were retired
 and one generic label received a structural name. This lexical count is not a
 semantic-completion measure.
 
+## Bank 28 delete-method exact-address aliases (2026-10-21)
+
+Seven `Data_28_*` exports in `gfx/mail_server/delete_method_screen.asm`
+duplicated same-address confirmed tile/tilemap resources or the existing
+`MailServerDeleteMethod_ObjAnimData` label. Exact-token searches found no
+external maintained-source or active-tool consumers; the asset catalog already
+uses the retained resource names. The alias lines were blanked in place,
+preserving the 116-line owner and every directive, payload, extent and evidence
+grade. No palette or object-record role was changed.
+
+The six-root `Data_BB_AAAA::` census is now 288 definitions in 127 owners,
+down from 295 definitions in 128 owners after these seven aliases were
+retired. This lexical count is not a semantic-completion measure.
+
 ## Bank 2C address-picker resource names (2026-10-21)
 
 Seven `Data_2C_*` declarations in `gfx/address_book/address_picker.asm` were
