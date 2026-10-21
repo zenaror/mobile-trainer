@@ -1617,3 +1617,10 @@ scripts, one slot-animation entry table and seven frame-pointer tables by
 structure. Its orphan script and two unobserved graphics resources retain
 candidate/PROBABLE limits. The six-root generic `Data_BB_AAAA::` count is now
 346 in 132 owners. See the [bank-2A audit](docs/research/generic_data_name_audit_20261020.md#bank-2a-save-sender-animation-structures-2026-10-21).
+
+The bank-1D mail-menu owner no longer exports fifteen same-address generic
+Data/tilemap/attrmap aliases under existing resource labels. `Data_1D_62B0`
+remains unresolved because its palette-like bytes are also an object-table
+pointer target with no demonstrated frame-table layout. The six-root generic
+Data census is now 337 definitions in 132 owners. See the [bank-1D
+audit](docs/research/generic_data_name_audit_20261020.md#bank-1d-mail-menu-exact-address-aliases-2026-10-21).

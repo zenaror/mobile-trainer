@@ -2229,3 +2229,21 @@ they do not identify a depicted object or establish natural entry.
 The six-root `Data_BB_AAAA::` census is now 346 definitions in 132 owners,
 down from 373/133 after the 27 generic data labels received structural names.
 This lexical count is not a semantic-completion measure.
+
+## Bank 1D mail-menu exact-address aliases (2026-10-21)
+
+The `gfx/mail_menu/mail_menu.asm` owner had fifteen generic labels at
+addresses already represented by more descriptive labels: nine `Data_1D_*`
+aliases under the screen tilemap, six confirmed graphics blocks, background
+palette and object-record stream, plus six type/address-only tilemap and
+attribute-map aliases. Their source spans remain intact, and active maintained
+source searches found no consumers of the retired names. The asset catalog
+already used the retained labels, so it needed no change. The owner's 162-line
+layout, includes, data boundaries and evidence levels are unchanged.
+
+`Data_1D_62B0` remains neutral. Its 112 bytes have a palette-like heuristic,
+but the object table at `1D:63B6` points to it, and there is no demonstrated
+frame-table layout. The pointer comment now records that limited finding
+without assigning a role. The six-root `Data_BB_AAAA::` census is now 337
+definitions in 132 owners, down from 346 after nine duplicate Data exports
+were retired. This lexical count is not a semantic-completion measure.
