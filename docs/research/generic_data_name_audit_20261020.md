@@ -3346,3 +3346,44 @@ retained as a HYPOTHESIS tile-data candidate because no reader was found and
 the loader copy ends at `6B:4240`. This retires one exact `Data_BB_AAAA` name
 without promoting the tail to a confirmed asset or unused region. See
 `original_closure_followup_20261021.md` for extents and hashes. The maintained-source exact-name count is now 19 `Data_BB_AAAA` definitions; the current neutral-data tool reports 113 groups (38 candidates rejected, no proposals).
+
+
+## Final exact-address Data-name audit (2026-10-21)
+
+A fresh source census after commit `ca494a48` found 16 exact
+`Data_BB_AAAA` definitions in the maintained Japanese assembly, zero exact
+`Function_BB_AAAA`, `Label_BB_AAAA` or `Font_BB_AAAA` definitions, and no
+automatic rename rows from `tools/data_consumers.py --stats` (110 neutral
+data groups; all 37 immediate candidates rejected). Each remaining exact
+`Data_` label was inspected in its local source context. The names below stay
+neutral because the available bytes or reads do not establish a defensible
+content class, natural code entry, or semantic consumer; this is an explicit
+unresolved inventory, not a claim that no indirect use exists.
+
+| Label | Bounded evidence | Disposition |
+| --- | --- | --- |
+| `Data_1C_401C` | One `RET` between the title dispatch tail and the next branch; no entry established. | HYPOTHESIS; keep neutral. |
+| `Data_23_46CC` | One `RET` at a split boundary before the confirmed delete-menu selection routine; no entry established. | HYPOTHESIS; keep neutral. |
+| `Data_24_4BCC` | One `RET` after a confirmed Japanese text continuation and before the action-menu routine; no entry established. | HYPOTHESIS; keep neutral. |
+| `Data_24_6520` | Sixteen bytes repeat two pointer-shaped words four times, but targets are inside tile data and do not form the adjacent object table. | HYPOTHESIS; keep neutral. |
+| `Data_26_5062` | Five bytes decode linearly as two loads followed by `RET`; no caller, table or far pointer is known. | HYPOTHESIS; keep neutral. |
+| `Data_26_7AB0` | Twelve zero bytes are read by finite recorded scenarios, but no content class or independent graphics role is established. | CONFIRMED read as data; content class unknown. |
+| `Data_2F_4094` | `C3 00 40` decodes as `JP AbookList_Run`, but the preceding routine jumps away and no incoming edge to this span is known. | HYPOTHESIS; code versus unused stub unresolved. |
+| `Data_48_69AB` | Thirty-two zeros have a conditional read path; the reader's fallback/glyph role remains unproved. | CONFIRMED read as data; content class unknown. |
+| `Data_4B_5400` | Thirty-two bytes are read as data in a finite subset of scenarios; no exact consumer or content class is established. | CONFIRMED read as data; content class unknown. |
+| `Data_4E_5390` | One `POP BC` lies between two branches that skip it; no branch to this address is known. | HYPOTHESIS; keep neutral. |
+| `Data_5F_6980` | Forty-eight repeated `$06` bytes precede a confirmed tilemap/attribute resource; no reader is known. | HYPOTHESIS; purpose unknown. |
+| `Data_72_63D7` | One `XOR A` follows a string terminator; the adjacent far-call target begins at 63D8. | HYPOTHESIS; keep neutral. |
+| `Data_72_6711` | One `XOR A` follows a `RET` and precedes a confirmed routine entry; no entry to 6711 is known. | HYPOTHESIS; keep neutral. |
+| `Data_75_6D62` | One `RET` between Mobile SDK state-handler blocks; no caller or pointer is known. | HYPOTHESIS; keep neutral. |
+| `Data_7F_4C77` | One `RET` follows a confirmed-read dotted-line buffer; no caller or pointer is known. | HYPOTHESIS; keep neutral. |
+| `Data_7F_51ED` | One `RET` follows an unconditional jump in the page-list prototype; no entry is known. | HYPOTHESIS; keep neutral. |
+
+The per-area reports remain the detailed evidence: `main_title_dispatch_tail_20261021.md`,
+`generic_data_name_audit_20261020.md` (individual follow-ups),
+`font_reader_69ab_bounds_20261020.md`, `bank4b_result_page_indexed_tiles_20261021.md`,
+`original_closure_followup_20261021.md`, and `page_list_prototype_aliases_20261021.md`.
+A fresh grep also found no remaining `gfx/bankNN` directory names. The
+four unresolved natural-entry roots (2B:6CF5, 2D:4E42/4E54 and 29:511E)
+remain separately open; their operation aliases describe bounded local
+mechanics, not proven callers or natural entry. English remains paused.
