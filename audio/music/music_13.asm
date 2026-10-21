@@ -7,7 +7,6 @@ SECTION "audio/music/music_13", ROMX
 ; ---- data $4CA1-$4D76 (213 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md)
 
 SoundSong13_Track0:: ; 05:4CA1
-Data_05_4CA1::
 	sound_volume $7F
 	sound_pitch_add $00
 	sound_tempo $37
@@ -41,7 +40,6 @@ Data_05_4CA1::
 	sound_wait 8
 	sound_end
 SoundSong13_Track1:: ; 05:4CD8
-Data_05_4CD8::
 	sound_volume $7F
 	sound_pitch_add $00
 	sound_instrument $05
@@ -74,7 +72,6 @@ Data_05_4CD8::
 	sound_wait 8
 	sound_end
 SoundSong13_Track2:: ; 05:4D0D
-Data_05_4D0D::
 	sound_volume $7F
 	sound_pitch_add $00
 	sound_instrument $08
@@ -98,7 +95,6 @@ Data_05_4D0D::
 	sound_wait 8
 	sound_end
 SoundSong13_Track3:: ; 05:4D2B
-Data_05_4D2B::
 	sound_volume $7F
 	sound_pitch_add $00
 	sound_instrument SOUND_INSTRUMENT_PER_NOTE
@@ -143,7 +139,6 @@ Data_05_4D2B::
 ; ---- data $4D76-$4D78 (2 bytes) [PROBABLE] header NN=04 KK=00 of the channel-pointer table at 4D78 (4 words = NN*(KK+1)); the byte before (4D75) is $B1 [v4: bytes 4D76-4D77 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 SoundSong13_Header:: ; 05:4D76
-Data_05_4D76::
 	sound_stream_header 4, 0
 
 ; ---- words $4D78-$4D80 (8 bytes) [PROBABLE] 4 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 4D76 [v4: bytes 4D78-4D80 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]

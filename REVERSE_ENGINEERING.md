@@ -1737,3 +1737,8 @@ exact `Data_7F_*` aliases, two address-only palette aliases or the duplicate
 All resources remain PROBABLE, and their prototype loader is outside the
 natural coverage set. The restricted six-root generic-data census is now 232
 definitions in 121 owners. See the [bank-7F candidate audit](docs/research/generic_data_name_audit_20261020.md#bank-7f-browser-page-list-candidate-assets-2026-10-21).
+
+Song 13 and song 15 in bank 05 no longer export five exact `Data_05_*` aliases
+each under their named track starts and headers. No track bytes, pointer
+tables or confidence grades changed. The restricted six-root generic-data
+census is now 222 definitions in 118 owners. See the [song 13/15 alias audit](docs/research/generic_data_name_audit_20261020.md#bank-05-song-13-and-15-stream-aliases-2026-10-21).

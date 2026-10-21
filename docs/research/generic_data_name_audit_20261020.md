@@ -2546,6 +2546,18 @@ changed. The restricted six-root `Data_BB_AAAA::` census is now 237
 definitions in 121 owners, down from 241 in 121 owners. This remains a lexical
 count.
 
+## Bank 05 song 13 and 15 stream aliases (2026-10-21)
+
+The five `Data_05_*` labels in each of `audio/music/music_13.asm` and
+`audio/music/music_15.asm` duplicated the already named four track starts and
+the song header. Exact-token searches across maintained Japanese ASM found no
+consumers of the generic spellings beyond their declarations. The aliases
+were removed; stream bytes, header bytes, pointer tables, boundaries and
+PROBABLE/CONFIRMED grades are unchanged. The restricted six-root
+`Data_BB_AAAA::` census is now 222 definitions in 118 owners, down from
+232 definitions in 120 owners. This is a lexical count, not a completion
+measure for sound interpretation.
+
 ## Bank 7F browser page-list candidate assets (2026-10-21)
 
 In `gfx/browser/page_list_candidate.asm`, five `Data_7F_*` labels duplicated
