@@ -1525,3 +1525,14 @@ them; bytes and confidence remain unchanged. See the [generic data-label
 audit](docs/research/generic_data_name_audit_20261020.md#bank-05-song-1b-stream-aliases-2026-10-21).
 
 **Bank 4B tile extraction (2026-10-21).** Positive transfer records cover all 1,456 bytes at `4B:4AD0–5080`; the interval now has an exact 91-tile PNG source while its higher-level screen and Pokémon associations remain unproved. See [the transfer audit](docs/research/bank4b_result_page_indexed_tiles_20261021.md). The Japanese disassembly remains active; English work remains suspended pending the Operator's explicit confirmation.
+
+The bank-5D account-screen graphics owner no longer exports twelve redundant
+`Data_5D_*` aliases or the co-addressed `Table_5D_7318`; asset-catalog rows
+use the retained graphics, palette and tilemap labels. Its naturally selected
+object entry at `5D:731C` is now named `Objects_Registration_WriteConfig_Entry1`
+from the `B=$81` `Sprite_InitSlot` call and the bounded frame/script reader
+evidence. Opaque `Data_5D_5000` and the clipped `Data_5D_6C00` interior remain
+neutral. A fresh six-root ASM scan finds 562 `Data_BB_AAAA::` definitions in
+140 owners, excluding the protected mail sample and `zero_labels.asm`; this
+lexical count is not a semantic-completion measure. No screen depiction or broader runtime claim is added; see the
+[owner audit](docs/research/generic_data_name_audit_20261020.md#bank-5d-account-screen-aliases-and-object-entry-2026-10-21).

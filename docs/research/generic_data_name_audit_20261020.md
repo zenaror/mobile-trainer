@@ -1945,3 +1945,24 @@ Retired two same-address `Data_05_*` aliases from
 `05:60F5` remains `SoundSong1B_Header`. The maintained-source/tool search
 found no consumer outside the owner. Stream and pointer bytes, confidence,
 and physical source positions are unchanged.
+
+## Bank 5D account-screen aliases and object entry (2026-10-21)
+
+The bank-5D account-screen owner lost twelve same-address `Data_5D_*` aliases
+under the existing tile, tilemap and palette labels. The active asset catalog
+now points to those retained labels in thirteen rows; no assembly operands or
+tool logic used the aliases. The same-address `Table_5D_7318` alias was removed
+under `Objects_Registration_WriteConfig`. The selected four-byte object entry
+at `5D:731C` now has the structural name
+`Objects_Registration_WriteConfig_Entry1`: `register_config.asm` passes the
+table base with `B=$81` to `Sprite_InitSlot`, and the current source records
+its 65-byte frame/script chain as naturally read in eight scenarios. This
+does not identify the depicted subject. The two remaining neutral labels in
+this owner, `Data_5D_5000` and `Data_5D_6C00`, retain their names because the
+former has unknown content class and the latter is only a clipped interior of
+a broader tile upload. Frozen `config/` and historical `analysis/` spellings
+remain as provenance. Payload bytes, source-line positions and confidence
+annotations are unchanged. A fresh lexical scan over the six maintained ASM
+roots now counts 562 `Data_BB_AAAA::` definitions across 140 owners; the
+protected mail sample and `zero_labels.asm` are outside this count. This count
+tracks labels only and is not a semantic-completion measure.
