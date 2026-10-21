@@ -1544,7 +1544,17 @@ entry-specific labels and bank-68 uses those bank-4A labels instead of raw
 words. The selected settings object entry at `4A:583C` and its script target
 at `4A:5866` now have structural names; the 16-byte 2bpp picture remains a
 HYPOTHESIS visual byte view because it overlaps the script and padding. The
-six-root ASM scan now counts 550 `Data_BB_AAAA::` labels in 140 owners,
-excluding the protected sample and `zero_labels.asm`. The suspected unread
-palette at `4A:51B0` and six-byte prefix at `4A:5860` remain neutral. See the
-[bank-4A audit](docs/research/generic_data_name_audit_20261020.md#bank-4a-settings-and-confirmation-resources-2026-10-21).
+prior note's count of 550 `Data_BB_AAAA::` labels was high by 24: a
+whitespace-aware tracked-source census at `1c6a6ccb` counted 526 definitions
+in 137 owners, excluding the protected sample and `zero_labels.asm`. The
+suspected unread palette at `4A:51B0` and six-byte prefix at `4A:5860` remain
+neutral. See the [bank-4A audit](docs/research/generic_data_name_audit_20261020.md#bank-4a-settings-and-confirmation-resources-2026-10-21).
+
+The communication-scene table at `70:4832` and its four probable entry chains
+now use `CommScene_ObjAnim*` names. The labels distinguish four frame-pointer
+lists, 26 list-ordered frame records and four paired candidate scripts; no
+executed caller, depicted subject or first-two-field meaning is claimed. The
+26 neutral `Data_70_*` labels became structural labels without changing data
+spans. The exact six-root `Data_BB_AAAA::` count is now 500 in 137 owners.
+`make` remains `RESULT: IDENTICAL`, and `make sym-check` passes 12,743 labels
+and 51 constants. See the [bank-70 naming audit](docs/research/generic_data_name_audit_20261020.md#bank-70-communication-scene-object-animation-records-2026-10-21).
