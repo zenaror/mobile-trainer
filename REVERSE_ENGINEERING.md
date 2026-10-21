@@ -1270,3 +1270,13 @@ errors. The worklist disposition is now APPLIED (48 APPLIED, 14 KEEP, two
 APPLIED_ALIAS, one PARTIAL_ALIAS, zero PENDING); its legacy HYPOTHESIS status
 and the table's unresolved visual purpose are retained. See
 [`docs/research/naming2_neutral_help.md`](docs/research/naming2_neutral_help.md).
+
+Eight generic animation labels in the dialog-window and no-adapter owners now
+describe their confirmed table entry, shared cursor frames/script and selected
+no-adapter animation. An independent review verified all direct consumers and
+re-emitted 82 bytes against the original ROM; the rebuilt SYM has eight
+address-preserving substitutions and no label-count change. The Japanese ROM
+remains `RESULT: IDENTICAL`, and symbol and palette checks pass. The dialog
+animation is shared by entries 0 and 1; these names do not claim a rendered
+subject or natural runtime selection. See
+[`gfx_dialog_no_adapter_animation_names_20261021.md`](docs/research/gfx_dialog_no_adapter_animation_names_20261021.md).
