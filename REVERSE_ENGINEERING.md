@@ -1641,3 +1641,8 @@ The bank-2C address-picker owner no longer exports seven exact-address
 at `2C:6FD0` now has a context-qualified candidate name; `Data_2C_7355` remains
 unresolved. The six-root generic Data census is now 310 definitions in 130
 owners. See the [bank-2C audit](docs/research/generic_data_name_audit_20261020.md#bank-2c-address-picker-resource-names-2026-10-21).
+
+The bank-55 keyboard page tables now name eight previously address-only
+trailer spans by the preceding T6/T78 page they separate. The existing
+PROBABLE grade and byte layout remain unchanged. The six-root generic Data
+census is now 302 definitions in 129 owners. See the [bank-55 audit](docs/research/generic_data_name_audit_20261020.md#bank-55-keyboard-page-trailer-names-2026-10-21).

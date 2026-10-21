@@ -2230,6 +2230,22 @@ The six-root `Data_BB_AAAA::` census is now 346 definitions in 132 owners,
 down from 373/133 after the 27 generic data labels received structural names.
 This lexical count is not a semantic-completion measure.
 
+## Bank 55 keyboard-page trailer names (2026-10-21)
+
+Eight `Data_55_*` labels in `data/keyboard/pages.asm` marked short trailer or
+separator byte runs between successive page starts in `Table_Kbd_PagePointers`.
+The existing comments identify the repeated `$FF83`/`$FF82` markers and their
+executed reads; neighboring page labels and pointer order assign each run to
+the preceding T6/T78 page. The labels now include the corresponding page class
+and `Trailer` suffix. Existing PROBABLE evidence remains; this does not claim
+that every marker's consumer or original design intent is understood. Exact
+searches found no external active source/tool consumer, and the 870-line owner
+and bytes remain unchanged.
+
+The six-root `Data_BB_AAAA::` census is now 302 definitions in 129 owners,
+down from 310/130 after these eight labels received bounded structural names.
+This lexical count is not a semantic-completion measure.
+
 ## Bank 2C address-picker resource names (2026-10-21)
 
 Seven `Data_2C_*` declarations in `gfx/address_book/address_picker.asm` were

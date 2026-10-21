@@ -190,7 +190,7 @@ String_55_4465:: ; 55:4465
 
 ; ---- data $4495-$44A4 (15 bytes) [PROBABLE] keyboard page trailer/separator bytes (00 00 ff 83 00 00 00 00 ff 82 00 00 pattern, identical to the trailers at 43E0/45FD; the ff 83 / ff 82 words are read by executed code); part of the run 4495-44A4 that executed code reads piecewise [split by classify_g2]
 
-Data_55_4495:: ; 55:4495
+Data_Kbd_Page_T6_Hiragana_Trailer:: ; 55:4495
 	db $00, $00, $00, $FF, $83, $00, $00, $00, $00, $FF, $82, $00, $00
 
 Data_Kbd_Page_T6_Katakana:: ; 55:44A2
@@ -251,7 +251,7 @@ String_55_4532:: ; 55:4532
 
 ; ---- data $454A-$4554 (10 bytes) [PROBABLE] keyboard page trailer/separator bytes (00 00 ff 83 00 00 00 00 ff 82 00 00 pattern, identical to the trailers at 43E0/45FD; the ff 83 / ff 82 words are read by executed code); part of the run 4532-4554 that executed code reads piecewise [split by classify_g2]
 
-Data_55_454A:: ; 55:454A
+Data_Kbd_Page_T6_Katakana_Trailer:: ; 55:454A
 	db $00, $00, $FF, $83, $00, $00, $00, $00, $FF, $82
 
 ; ---- text $4554-$456E (26 bytes) [PROBABLE] Shift-JIS keyboard row(s) NUL separated (10 double-byte chars, decodes cleanly with cp932: ||ＡＢＣＤＥ||ａｂｃｄｅ||), between confirmed/probable text rows of the same on-screen keyboard character pages
@@ -291,7 +291,7 @@ String_55_4585:: ; 55:4585
 
 ; ---- data $45FD-$460A (13 bytes) [PROBABLE] keyboard page trailer/separator bytes (00 00 ff 83 00 00 00 00 ff 82 00 00 pattern, identical to the trailers at 43E0/45FD; the ff 83 / ff 82 words are read by executed code); part of the run 45FD-460A that executed code reads piecewise [split by classify_g2]
 
-Data_55_45FD:: ; 55:45FD
+Data_Kbd_Page_T6_FullWidthAlnum_Trailer:: ; 55:45FD
 	db $00, $00, $00, $FF, $83, $00, $00, $00, $00, $FF, $82, $00, $00
 
 ; ---- text $460A-$468D (131 bytes) [PROBABLE] text block: 8 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII
@@ -322,7 +322,7 @@ String_55_468D:: ; 55:468D
 
 ; ---- data $46B0-$46BE (14 bytes) [PROBABLE] 14-byte page trailer 00 00 00 00 ff 83 00 00 00 00 ff 82 00 00, byte-identical to the trailers at 43E0/45FD/4765 (the ff 83 / ff 82 words are read by executed code at 4498/449E/4552/4606/476E)
 
-Data_55_46B0:: ; 55:46B0
+Data_Kbd_Page_T6_Symbols_Trailer:: ; 55:46B0
 	db $00, $00, $00, $00, $FF, $83, $00, $00, $00, $00, $FF, $82, $00, $00
 
 ; ---- text $46BE-$46C9 (11 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -379,7 +379,7 @@ String_55_4735:: ; 55:4735
 
 ; ---- data $4765-$4771 (12 bytes) [PROBABLE] keyboard page trailer/separator bytes (00 00 ff 83 00 00 00 00 ff 82 00 00 pattern, identical to the trailers at 43E0/45FD; the ff 83 / ff 82 words are read by executed code); part of the run 4765-477A that executed code reads piecewise [split by classify_g2]
 
-Data_55_4765:: ; 55:4765
+Data_Kbd_Page_T78_Hiragana_Trailer:: ; 55:4765
 	db $00, $00, $00, $FF, $83, $00, $00, $00, $00, $FF, $82, $00
 
 ; ---- text $4771-$477A (9 bytes) [PROBABLE] Shift-JIS keyboard row(s) inside the run 4765-477A: clean cp932 pairs with NUL row terminators (|アイウエ); 1 executed-read range(s) of the run touch it; sits between the CONFIRMED/PROBABLE text rows of the same on-screen keyboard page [split from a merged data run by classify_g2]
@@ -440,7 +440,7 @@ String_55_47E9:: ; 55:47E9
 
 ; ---- data $481A-$4825 (11 bytes) [PROBABLE] keyboard page trailer/separator bytes (00 00 ff 83 00 00 00 00 ff 82 00 00 pattern, identical to the trailers at 43E0/45FD; the ff 83 / ff 82 words are read by executed code); part of the run 47E9-482E that executed code reads piecewise [split by classify_g2]
 
-Data_55_481A:: ; 55:481A
+Data_Kbd_Page_T78_Katakana_Trailer:: ; 55:481A
 	db $00, $00, $FF, $83, $00, $00, $00, $00, $FF, $82, $00
 
 ; ---- text $4825-$482E (9 bytes) [PROBABLE] Shift-JIS keyboard row(s) inside the run 47E9-482E: clean cp932 pairs with NUL row terminators (|ＡＢＣＤ); 1 executed-read range(s) of the run touch it; sits between the CONFIRMED/PROBABLE text rows of the same on-screen keyboard page [split from a merged data run by classify_g2]
@@ -484,7 +484,7 @@ String_55_4855:: ; 55:4855
 
 ; ---- data $48CD-$48DA (13 bytes) [PROBABLE] keyboard page trailer/separator bytes (00 00 ff 83 00 00 00 00 ff 82 00 00 pattern, identical to the trailers at 43E0/45FD; the ff 83 / ff 82 words are read by executed code); part of the run 48CD-48DA that executed code reads piecewise [split by classify_g2]
 
-Data_55_48CD:: ; 55:48CD
+Data_Kbd_Page_T78_FullWidthAlnum_Trailer:: ; 55:48CD
 	db $00, $00, $00, $FF, $83, $00, $00, $00, $00, $FF, $82, $00, $00
 
 ; ---- text $48DA-$495D (131 bytes) [PROBABLE] text block: 8 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII
@@ -516,7 +516,7 @@ String_55_495D:: ; 55:495D
 
 ; ---- data $4982-$498E (12 bytes) [PROBABLE] 12-byte page trailer 00 00 ff 83 00 00 00 00 ff 82 00 00 (same marker pattern as 43E0/45FD; the ff 83 / ff 82 words are read by executed code)
 
-Data_55_4982:: ; 55:4982
+Data_Kbd_Page_T78_Symbols_Trailer:: ; 55:4982
 	db $00, $00, $FF, $83, $00, $00, $00, $00, $FF, $82, $00, $00
 
 ; ---- data $498E-$4A42 (180 bytes) [PROBABLE] last keyboard character page (block $B4 from the table at 4014, entry 498E): 16-bit cells 00 41 00 42 ... 00 5A / 00 61 ... 00 7A / 00 30 ... (Latin letters and digits as 00 xx words); parts read by executed code
