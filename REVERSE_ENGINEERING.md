@@ -1280,3 +1280,11 @@ remains `RESULT: IDENTICAL`, and symbol and palette checks pass. The dialog
 animation is shared by entries 0 and 1; these names do not claim a rendered
 subject or natural runtime selection. See
 [`gfx_dialog_no_adapter_animation_names_20261021.md`](docs/research/gfx_dialog_no_adapter_animation_names_20261021.md).
+
+The eight bank41–46 `KEEP` views were rechecked against selectors and placement
+state. The current descriptor set selects only bank47, and no original path to
+these windows was established; a hypothetical clear/upload model fills seven
+windows and leaves 12 cells at `42:5AA0` unresolved. All eight remain `KEEP`,
+and the 25 name-to-image associations remain HYPOTHESIS. This is a finite
+negative result, not proof of global non-use; details and the retained matrix
+are in [`pokemon_names_bank53_asset_followup_20261020.md`](docs/research/pokemon_names_bank53_asset_followup_20261020.md#eight-keep-placement-recheck-2026-10-21).

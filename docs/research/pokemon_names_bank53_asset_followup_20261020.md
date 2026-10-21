@@ -42,3 +42,40 @@ whole-program reachability result. Names, filenames, counts, and visual
 similarity do not replace a producer-to-reader chain. Keep the eight omissions
 and all 25 name/frame associations open until original selection state and
 consumers are demonstrated.
+
+## Eight KEEP placement recheck (2026-10-21)
+
+An independent static placement audit fixed its inputs to
+`bef896d02a0476acfc92d32dfe615f3dbd0b34fa` and the original ROM SHA above. It
+checked only these eight KEEP windows. The existing descriptor table has 27
+style words and five distinct descriptors whose far pointers select bank 47.
+The loader preserves `LCDC.bit4`. No selector or source path was found for
+these bank41–46 windows, and the scan found zero symbolic code references to
+their labels.
+
+| KEEP window | signed prefix model | after hypothetical clear/upload |
+|---|---:|---:|
+| `41:5AA0` | 144/360 cells | 360/360 |
+| `41:67F0` | 144/360 | 360/360 |
+| `42:5AA0` | 114/360 | 348/360 |
+| `43:4D50` | 144/360 | 360/360 |
+| `43:67F0` | 144/360 | 360/360 |
+| `44:4D50` | 114/360 | 360/360 |
+| `45:4D50` | 144/360 | 360/360 |
+| `46:67F0` | 114/360 | 360/360 |
+
+Counts are unchanged across title columns 2/4 and scrollbar states 0/1. The
+clear/upload step is a **HYPOTHESIS**, not an observed original operation or
+placement. At `42:5AA0`, the remaining 12 cells (rows 3–14, column 0) require
+VRAM bank 1 tile `$E7` at `$8E70`. One contact in the 32 far-pattern checks,
+`04:48B4`, is a false positive inside audio instruction bytes; it provides no
+frame reference. No byte is missing from the maintained ROM-backed assets,
+but none of the eight windows gains a justified original editing view. Preserve
+their `KEEP` status and all 25 unproved name-to-image associations.
+
+The detailed report, matrix and result are retained in the ignored
+`.tmp/agent-keep-frame-placement-20261021/` directory; result SHA-256
+`6cc28e19009428e51be45c56da1ec0c9963a952047bcabc9bc42fa37da2e001e`. The
+audit made no source, build, emulator or tracked-file changes. This finite
+negative result does not prove global reader absence or that any frame is
+unused.
