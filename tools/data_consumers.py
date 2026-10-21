@@ -1018,8 +1018,6 @@ def rules_manual(w, man, sites):
         k = w.by_name[old]
         add(old, new, 'string', 'PROBABLE',
             'string %d of Table_MailServerMgr_HelpStrings (2E:54F8, 6 x 41-byte strings indexed by 2*(a+1) at 2E:549A): 20 full-width spaces + NUL (verified in the source text and ROM bytes), i.e. the blank help line, next to the named HelpDeleteThis/HelpLoadNext/HelpStopTidy' % i)
-    add('Data_2F_4D03', 'Data_Abook_HelpBoxAttrBlocks', 'data', 'PROBABLE',
-        '60 bytes = three 20-byte BG attribute blocks at $4D03/$4D17/$4D2B, the three words of Table_Abook_HelpBoxAttrs (2F:4CFD) read by 2F:4CAF (`sla a ; ld c,a ; ld hl,$4CFD ; add hl,bc ; ld a,[hli] ; ld c,a ; ld h,[hl]`) and copied 20 bytes per row')
     add('Data_68_7652', 'Data_CommPanel_CaptionSetRecords', 'data', 'PROBABLE',
         '12 bytes = three 4-byte records (00 00 00 00 / 02 05 06 07 / 04 04 04 04) whose starts are the three words of CommPanel_CaptionSets (68:764C: $7652, $7656, $765A); use of the bytes not decoded')
     # font glyph runs: key16 of each 5-byte record of Font_GlyphRunTable names the run

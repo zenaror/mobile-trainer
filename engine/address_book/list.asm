@@ -679,7 +679,6 @@ Abook_ProbeSlot:: ; 2F:44B5
 ; ---- words $44E6-$44F2 (12 bytes) [PROBABLE] 6 SRAM record addresses $A69D..$A82D, constant stride $50 (80), verified arithmetic progression; indexed table read with no ld hl,imm found; first entry read by executed code
 
 Abook_SlotAddrTable0:: ; 2F:44E6
-Table_2F_44E6::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
 AbookList_PlaceButtonCursor:: ; 2F:44F2
@@ -1238,7 +1237,6 @@ Abook_TestSlotEmpty:: ; 2F:4907
 ; ---- words $4936-$4942 (12 bytes) [CONFIRMED] 6 SRAM record addresses $A69D..$A82D, stride $50 (verified arithmetic progression); byte-identical to the tables of 2F:51B5 etc.; the region was already CONFIRMED as read by executed code
 
 Abook_SlotAddrTable1:: ; 2F:4936
-Table_2F_4936::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
 AbookList_FlashSelectedMarker:: ; 2F:4942
@@ -1514,7 +1512,6 @@ AbookList_UpdateRowHighlight:: ; 2F:4AC0
 ; ---- words $4B42-$4B4E (12 bytes) [PROBABLE] 6 SRAM record addresses $A69D..$A82D, constant stride $50 (80), verified arithmetic progression; indexed table read with first/last entries read by executed code (Data_2F_4B42/4B4C CONFIRMED)
 
 Abook_SlotAddrTable2:: ; 2F:4B42
-Table_2F_4B42::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
 AbookList_DrawNames:: ; 2F:4B4E
@@ -1579,7 +1576,6 @@ AbookList_DrawNames:: ; 2F:4B4E
 ; ---- words $4B9E-$4BAA (12 bytes) [CONFIRMED] 6 SRAM record addresses $A69D..$A82D, stride $50 (verified arithmetic progression); byte-identical to the tables of 2F:51B5 etc.; the region was already CONFIRMED as read by executed code
 
 Abook_SlotAddrTable3:: ; 2F:4B9E
-Table_2F_4B9E::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
 AbookList_DrawHelpText:: ; 2F:4BAA
@@ -1611,7 +1607,6 @@ AbookList_DrawHelpText:: ; 2F:4BAA
 ; ---- ptrtable $4BD0-$4BDA (10 bytes) [PROBABLE] 5 pointers, every target is the first byte of one of the 5 NUL-terminated Shift-JIS strings of String_2F_4BDA; first four bytes were read as data by executed code (Data_2F_4BD0 CONFIRMED); no ld hl,imm found
 
 Table_Abook_HelpStrings:: ; 2F:4BD0
-Table_2F_4BD0::
 	dw String_Abook_HelpSelect
 	dw String_Abook_HelpNew
 	dw String_Abook_HelpView
@@ -1709,15 +1704,13 @@ AbookList_SetHelpBoxAttr:: ; 2F:4CA7
 ; ---- ptrtable $4CFD-$4D03 (6 bytes) [PROBABLE] 3 pointers to the 20-byte attribute blocks 4D03/4D17/4D2B; read by 2F:4CAF (sla a; ld c,a; ld hl,$4CFD; add hl,bc; ld a,[hli]; ld c,a; ld h,[hl])
 
 Table_Abook_HelpBoxAttrs:: ; 2F:4CFD
-Table_2F_4CFD::
 	dw Data_Abook_HelpBoxAttrBlocks
 	dw $4D17
 	dw $4D2B
 
-; ---- data $4D03-$4D3F (60 bytes) [PROBABLE] 3 blocks of 20 BG attribute bytes ($09/$0B/$0C/$29) copied 20 bytes per row by the loader at 2F:4CAF; blocks addressed through Table_2F_4CFD
+; ---- data $4D03-$4D3F (60 bytes) [PROBABLE] 3 blocks of 20 BG attribute bytes ($09/$0B/$0C/$29) copied 20 bytes per row by the loader at 2F:4CAF; blocks addressed through Table_Abook_HelpBoxAttrs
 
 Data_Abook_HelpBoxAttrBlocks:: ; 2F:4D03
-Data_2F_4D03::
 	db $09, $09, $09, $0B, $0B, $09, $09, $0B, $0B, $09, $09, $0B, $0B, $09, $09, $0B
 	db $0B, $09, $09, $29, $09, $09, $09, $0C, $0C, $09, $09, $0B, $0B, $09, $09, $0B
 	db $0B, $09, $09, $0B, $0B, $09, $09, $29, $09, $09, $09, $0B, $0B, $09, $09, $0C

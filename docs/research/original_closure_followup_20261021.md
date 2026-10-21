@@ -523,6 +523,18 @@ covers semantic-name preference when both spellings exist in a synthetic
 tree. Animation records, frame pointers, extents and confidence classifications
 are unchanged.
 
+## Bank 2F address-book list table aliases (2026-10-21)
+
+Removed six numeric `Table_2F_*` aliases and `Data_2F_4D03` from
+`engine/address_book/list.asm`, keeping the co-addressed slot-address tables,
+help tables and `Data_Abook_HelpBoxAttrBlocks`. Updated the attribute-block
+header to cite `Table_Abook_HelpBoxAttrs` and removed its now-obsolete manual
+mapping from `tools/data_consumers.py`. Exact-token search found no remaining
+active consumers. `Data_2F_4094` remains neutral HYPOTHESIS because the three
+bytes have no supported code/data classification. make remains byte-identical;
+sym-check reports 12,456 labels, and data-consumers remains 288 groups / 93
+rejected / 0 proposed rows.
+
 ## Bank 2A profile-editor resource and animation aliases (2026-10-21)
 
 Removed `Palette_2A_6E10` and six `Table_2A_*` labels from
