@@ -22,10 +22,9 @@ Table_Main_TitleChoices:: ; 1C:4010
 	dw Main_TitleChoiceStart
 	dw Main_TitleChoiceSettings
 
-; ---- data $4016-$4019 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_1C_4016:: ; 1C:4016
-	db $C3, $07, $40
+Main_TitleChoices_JumpToLoop:: ; 1C:4016 [PROBABLE]
+	; [CONFIRMED] JP Main_TitleLoop encodes C3 07 40; [PROBABLE] dispatch-tail role follows the inline table as in navigation loops. Not observed executing.
+	jp Main_TitleLoop
 
 Main_TitleChoiceNone:: ; 1C:4019
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;

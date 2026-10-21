@@ -99,6 +99,7 @@ Reference documents (current):
 | [`title_table_aliases_20261021.md`](research/title_table_aliases_20261021.md) | Three redundant generic aliases retired from title-screen tables |
 | [`mobile_dictionary_input_alias_20261021.md`](research/mobile_dictionary_input_alias_20261021.md) | One redundant generic alias retired from the mobile-dictionary input table |
 | [`main_title_choice_alias_20261021.md`](research/main_title_choice_alias_20261021.md) | One redundant generic alias retired from the main title-choice table |
+| [`main_title_dispatch_tail_20261021.md`](research/main_title_dispatch_tail_20261021.md) | Bank-1C inline-dispatch tail named from its emitted JP and local pattern |
 | [`mailbox_iconbar_data_alias_20261021.md`](research/mailbox_iconbar_data_alias_20261021.md) | One redundant generic alias retired under the mailbox icon-bar attribute data |
 | [`comm_error_table_aliases_20261021.md`](research/comm_error_table_aliases_20261021.md) | Three redundant generic aliases retired from communication-error pointer tables |
 | [`mail_server_tidy_screen_aliases_20261021.md`](research/mail_server_tidy_screen_aliases_20261021.md) | 16 redundant generic graphics and animation-data aliases retired from the mail-server tidy screen |

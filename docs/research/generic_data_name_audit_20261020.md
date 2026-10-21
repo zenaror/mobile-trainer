@@ -2784,3 +2784,22 @@ neutral data is unused. In particular, `Data_1D_62B0` remains neutral: the
 adjacent palette heuristic is explicitly clipped around the two confirmed
 mail-menu palettes, and no independently established consumer supports a
 more specific name.
+
+## Bank-1C title-dispatch tail follow-up (2026-10-21)
+
+The former `Data_1C_4016` bytes `C3 07 40` are now emitted as
+`jp Main_TitleLoop` under `Main_TitleChoices_JumpToLoop`. The exact operation
+is confirmed by disassembly; its association with the adjacent inline table
+is probable from position and the matching navigation-loop shape. No direct
+execution or invalid-index behavior is claimed. The neighboring single-byte
+`Data_1C_401C` (`$C9`) remains neutral because no caller or entry is established.
+
+A fresh census with the same source exclusions finds 72 exact
+`Data_BB_AAAA` labels across 44 owners in 334 tracked ASM/INC files. The
+source-set SHA-256 is
+`1afef8e9949e57ae7a3d6ffe2c4970ab8dbf02a12f22ff0b169beaa691f9711f`; the
+receipt SHA-256 is
+`e5295c44af8ec24bde27f85c033b197ed4e239e7ead93c9c09523ed41ba0f7d4`.
+The receipt and manifest are retained under
+`.tmp/jp-neutral-data-followup-20261021/`. `data_consumers.py --stats` still
+reports 93 immediate candidates rejected, with no rename rows.

@@ -56,6 +56,13 @@ owners, and no `gfx/bankNN` directories. The data-consumer screen rejected all
 These lexical counts do not close semantic identification; method, manifest
 hashes, and retained evidence are in the dated generic-data audit.
 
+The follow-up at the current source snapshot replaces `Data_1C_4016` with the
+probable operation label `Main_TitleChoices_JumpToLoop`; a fresh scan of the
+same path-safe scope now counts 72 exact `Data_BB_AAAA` definitions across 44
+owners. It keeps the adjacent unreferenced `$C9` at `1C:401C` neutral. The
+snapshot digest and receipt are recorded in
+[`generic_data_name_audit_20261020.md`](docs/research/generic_data_name_audit_20261020.md).
+
 A current path-scoped review retired two redundant generic aliases. In
 `gfx/browser/start_choice.asm`, `Data_73_5E60` duplicated
 `SpriteFrameTable_73_5E60` and had no other tracked non-language consumer. In
@@ -1871,6 +1878,11 @@ The mobile-dictionary input dispatcher also no longer exports its duplicate
 The main title-choice dispatcher likewise uses only `Table_Main_TitleChoices`
 now; its three probable pointer entries and boundary are unchanged. See the
 [main-table note](docs/research/main_title_choice_alias_20261021.md).
+The adjacent `1C:4016` bytes are now emitted and named as a probable
+`JP Main_TitleLoop`, matching the local inline-dispatch-tail pattern. No direct
+execution or default-index behavior is claimed; the unreferenced `$C9` at
+`1C:401C` remains neutral. See the
+[dispatch-tail note](docs/research/main_title_dispatch_tail_20261021.md).
 
 The mailbox icon-bar attribute block no longer exports the duplicate numeric
 data name. Its confirmed first-three-record read boundary and uncertain tail
