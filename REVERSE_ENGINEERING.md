@@ -1725,6 +1725,9 @@ The PROBABLE tile block at `26:7840` now uses the candidate-qualified label
 `CandidateTiles_26_7840` and a matching asset path. Its exact PNG/binary
 round-trip does not establish a loader or screen association; see the
 [generic data audit](docs/research/generic_data_name_audit_20261020.md#bank-26-probable-tile-block-with-no-located-transfer-2026-10-21).
+The probable RGB555 block at `26:73E0` is now `CandidatePalette_26_73E0` with
+a matching `.pal` path. No active transfer/load or screen mapping was found;
+its content classification remains PROBABLE and its use HYPOTHESIS.
 Excluding the protected `engine/mail/sample_data.asm`, the six-root
 generic-data census is now 257 definitions in 122 owners, down from 263 in
 123 owners after this pass.
@@ -1911,6 +1914,6 @@ Three HYPOTHESIS script-shaped blocks in the top-menu owner now use
 plausible, but no known object-table row selects them and neighboring frame
 tables do not establish an association. The bank-1E audit records the bounds.
 A fresh exact-name scan of 334 tracked ASM/INC files, excluding the protected
-mail sample before reading, finds 67 `Data_BB_AAAA` definitions in 41 owners
+mail sample before reading, finds 66 `Data_BB_AAAA` definitions in 41 owners
 and no exact generic `Function`, `Font`, or `Label` definitions. These lexical
 counts do not close data semantics.

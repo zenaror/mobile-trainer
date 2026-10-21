@@ -64,5 +64,5 @@ MailSession_Tiles_6FE0:: ; 26:6FE0
 
 ; ---- data $73E0-$7420 (64 bytes) [PROBABLE] palette-rgb555: heuristic: 32 RGB555 words as 8 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
 
-Data_26_73E0:: ; 26:73E0
-	INCLUDE "gfx/mail/session_scenery/palette_73e0.pal"
+CandidatePalette_26_73E0:: ; 26:73E0
+	INCLUDE "gfx/mail/session_scenery/candidate_palette_26_73e0.pal"

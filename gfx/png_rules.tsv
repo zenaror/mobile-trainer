@@ -754,6 +754,7 @@ gfx/mail/server_status/mail_server_status_tiles_7330.2bpp	gfx/mail/server_status
 gfx/mail/server_status_bank26/candidate_tiles_26_7840.2bpp	gfx/mail/server_status_bank26/candidate_tiles_26_7840.png	tiles			0	624	bf73dd413d32616eb147b17ee05aa80cfebadd2e8f74a2a3b0c9e05accbbed07
 gfx/mail/server_status_bank26/mail_server_status_tiles_7420.2bpp	gfx/mail/server_status_bank26/mail_server_status_tiles_7420.png	tiles			0	1024	3601bdb3c6f6d89423aef0c3752d72adc6711b9cb8d6babf12ea76c25908caa6
 gfx/mail/server_status_bank26/profile_tiles8000.2bpp	gfx/mail/server_status_bank26/profile_tiles8000.png	tiles			0	32	8bbc873f08a8684610870e04eff46fadc1815a7682870f6114f206db518b0f8d
+gfx/mail/session_scenery/candidate_palette_26_73e0.pal	-	palette				519	0f4bf061d4709bdfa501b54024e73e526c903417f91345c77aee7bf0f957f7c0
 gfx/mail/session_scenery/mail_session_tiles_59e0.2bpp	gfx/mail/session_scenery/mail_session_tiles_59e0.png	tiles			0	1024	72eb686ce451bcc3b09d610d0be99ffca847349743ccf6211e9479b06f4d6a51
 gfx/mail/session_scenery/mail_session_tiles_5de0.2bpp	gfx/mail/session_scenery/mail_session_tiles_5de0.png	tiles			0	1024	e81c8d4f30aa4472aeabc080121f252627d46db28c88e8f43c6a77f2eaa6a5b7
 gfx/mail/session_scenery/mail_session_tiles_61e0.2bpp	gfx/mail/session_scenery/mail_session_tiles_61e0.png	tiles			0	256	da6ae64a21205da4f9c38190a5d00ad9702d10bb9337a402d766330c1bd844a0
@@ -762,7 +763,6 @@ gfx/mail/session_scenery/mail_session_tiles_66e0.2bpp	gfx/mail/session_scenery/m
 gfx/mail/session_scenery/mail_session_tiles_67e0.2bpp	gfx/mail/session_scenery/mail_session_tiles_67e0.png	tiles			0	1024	83077b29d6e423ce2c05fd06bc3af2b520ae97fbbd01b31a60e67787d9258b81
 gfx/mail/session_scenery/mail_session_tiles_6be0.2bpp	gfx/mail/session_scenery/mail_session_tiles_6be0.png	tiles			0	1024	0bc16e6e219723c8b8cf59430fe738ab272d6610bb5c4d0a9c794bbabe559617
 gfx/mail/session_scenery/mail_session_tiles_6fe0.2bpp	gfx/mail/session_scenery/mail_session_tiles_6fe0.png	tiles			0	1024	8f2da193e760ee70ceeda72b5389ecb3eed611bcc528e7cc7285de0d634db920
-gfx/mail/session_scenery/palette_73e0.pal	-	palette				519	0f4bf061d4709bdfa501b54024e73e526c903417f91345c77aee7bf0f957f7c0
 gfx/mail/session_scenery/tiles_66f0.2bpp	gfx/mail/session_scenery/tiles_66f0.png	tiles			0	240	744792a48a41f4ab22988a3948f1afb34c14a006c444b124a0a44dd70c9c94d1
 gfx/mail_menu/mail_menu/mail_menu_bg.pal	-	palette				519	33ac92ec9678216f193c34819754ec71b3d2edb676fc1cf62d53852b046059e0
 gfx/mail_menu/mail_menu/mail_menu_icon_frames.attrmap	-	attrmap				96	bf61eadcc7d470d213d528a390beab89290a58e895e088f3ae898b8f3c4bac8b

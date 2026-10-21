@@ -2886,7 +2886,24 @@ this separate owner was not changed by this pass.
 
 A fresh exact-name scan of the same 334 tracked ASM/INC files (including
 `zero_labels.asm`, excluding `engine/mail/sample_data.asm` before reading)
-now finds 67 `Data_BB_AAAA` definitions in 41 owners, down one from the prior
+now finds 66 `Data_BB_AAAA` definitions in 41 owners, down one from the prior
 checkpoint. Exact generic `Function`, `Font`, and `Label` definitions remain
 zero. The count is lexical only; the remaining neutral labels stay where a
 stronger content or consumer claim is unavailable.
+
+
+## Bank 26 probable palette with no located consumer (2026-10-21)
+
+The 64-byte block at `26:73E0` fits eight RGB555 palettes by the local
+heuristic, so its content class remains PROBABLE. A bounded search of active
+ASM, screen rows and xref records found no bank-26 load from this address and
+no screen mapping. The neutral `Data_26_73E0` label and `palette_73e0.pal`
+basename are now `CandidatePalette_26_73E0` and
+`candidate_palette_26_73e0.pal`. This names the probable content type but not
+an owning screen or natural use; the region remains a candidate. The 64 palette
+words are unchanged. Combined with the immediately preceding tile-candidate
+rename, the exact-name scan of 334 tracked ASM/INC files (including
+`zero_labels.asm`, excluding the protected sample before reading) now finds 66
+`Data_BB_AAAA` definitions in 41 owners, with zero exact generic `Function`,
+`Font` or `Label` definitions. These lexical counts do not close data
+semantics.
