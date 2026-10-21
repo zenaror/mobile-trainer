@@ -851,3 +851,17 @@ The alignment role is likely but does not exclude reserved zero data. The
 Japanese ROM remains byte-identical, with `sym-check` and `palette-check`
 passing. `data_consumers --stats` now reports 121 neutral groups, 38
 automatic candidates rejected and zero rename rows.
+
+## Exact generic-name and graphics-path census (2026-10-21)
+
+A maintained-source `git grep` over `home/`, `engine/`, `data/`, `gfx/`,
+`audio/` and `lib/`, excluding `engine/mail/sample_data.asm` and
+`languages/`, found zero definitions matching the exact
+`Function_BB_AAAA::`, `Label_BB_AAAA::` or `Font_BB_AAAA::` patterns, and 27
+definitions matching `Data_BB_AAAA::`. A filesystem and tracked-path check
+found no `gfx/bankNN` directories. The prior examples
+`Function_75_4000`, `Data_68_6960` and `Font_48_4ADB` are absent as current
+definitions. These counts cover only these exact spellings: they do not prove
+that every code entry is identified or that all other neutral families
+(`Table_`, `String_`, `Tiles_`, `Tilemap_`, `Attrmap_`, `Palette_`) are
+resolved. The wider `data_consumers` census remains 121 neutral groups.
