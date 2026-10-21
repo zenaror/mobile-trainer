@@ -2546,6 +2546,19 @@ changed. The restricted six-root `Data_BB_AAAA::` census is now 237
 definitions in 121 owners, down from 241 in 121 owners. This remains a lexical
 count.
 
+## Bank 44 border attribute maps (2026-10-21)
+
+The four 360-byte `Data_44_*` blocks were identified by their bounded
+position and attribute-byte layouts as the 20x18 attribute maps of the
+monochrome arc, blue bubble, rock and turquoise scroll border packages. Their
+labels now use `Attrmap_ArcBorder_Monochrome`, `Attrmap_BubbleBorder_Blue`,
+`Attrmap_RockBorder` and `Attrmap_ScrollBorder_Turquoise`; matching catalog
+rows were updated. The owner still has no demonstrated loader, so all remain
+PROBABLE and no natural-use assertion is added. Bytes and extents are
+unchanged. The restricted six-root `Data_BB_AAAA::` census is now 196
+definitions in 112 owners, down from 200 definitions in 113 owners. This
+remains a lexical count.
+
 ## Bank 2F address-book editor resource names (2026-10-21)
 
 Three exact `Data_2F_*` aliases in `gfx/address_book/address_editor.asm`

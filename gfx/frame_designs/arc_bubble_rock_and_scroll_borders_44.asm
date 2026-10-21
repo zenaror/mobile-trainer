@@ -16,7 +16,7 @@ Tilemap_44_4A00:: ; 44:4A00
 
 ; ---- data $4B68-$4CD0 (360 bytes) [PROBABLE] scene 1 attribute map 20 x 18 (BG attribute bytes $08-$0C measured in this scene: bits 0-2 palette, bit 3 VRAM bank 1, bit 5 x flip; the earlier claim "only $08-$0F/$28-$2F" was wrong for scene 2, which also uses $00/$01); second half of the $2D0 tilemap+attr block, ends exactly at the palette block 4CD0
 
-Data_44_4B68:: ; 44:4B68
+Attrmap_ArcBorder_Monochrome:: ; 44:4B68
 	INCBIN "gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/monochrome_arc_border_44_4000_attributes.attrmap"
 
 ; ---- data $4CD0-$4D50 (128 bytes) [PROBABLE] scene 1: 16 CGB palette groups (8 BG + 8 OBJ x 4 RGB555 words, $80 bytes); first group ff7f 011c 7e02 0000 identical in the four scenes
@@ -36,7 +36,7 @@ Tilemap_44_5750:: ; 44:5750
 
 ; ---- data $58B8-$5A20 (360 bytes) [PROBABLE] scene 2 attribute map 20 x 18 (BG attribute bytes $00,$01,$09-$0C,$29,$2A measured in this scene: bits 0-2 palette, bit 3 VRAM bank 1, bit 5 x flip; the earlier claim "only $08-$0F/$28-$2F" was wrong for scene 2, which also uses $00/$01); second half of the $2D0 tilemap+attr block, ends exactly at the palette block 5A20
 
-Data_44_58B8:: ; 44:58B8
+Attrmap_BubbleBorder_Blue:: ; 44:58B8
 	INCBIN "gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/blue_bubble_border_44_4d50_attributes.attrmap"
 
 ; ---- data $5A20-$5AA0 (128 bytes) [PROBABLE] scene 2: 16 CGB palette groups (8 BG + 8 OBJ x 4 RGB555 words, $80 bytes); first group ff7f 011c 7e02 0000 identical in the four scenes
@@ -56,7 +56,7 @@ Tilemap_44_64A0:: ; 44:64A0
 
 ; ---- data $6608-$6770 (360 bytes) [PROBABLE] scene 3 attribute map 20 x 18 (BG attribute bytes $08-$0C measured in this scene: bits 0-2 palette, bit 3 VRAM bank 1, bit 5 x flip; the earlier claim "only $08-$0F/$28-$2F" was wrong for scene 2, which also uses $00/$01); second half of the $2D0 tilemap+attr block, ends exactly at the palette block 6770
 
-Data_44_6608:: ; 44:6608
+Attrmap_RockBorder:: ; 44:6608
 	INCBIN "gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/rock_border_44_5aa0_attributes.attrmap"
 
 ; ---- data $6770-$67F0 (128 bytes) [PROBABLE] scene 3: 16 CGB palette groups (8 BG + 8 OBJ x 4 RGB555 words, $80 bytes); first group ff7f 011c 7e02 0000 identical in the four scenes
@@ -76,7 +76,7 @@ Tilemap_44_71F0:: ; 44:71F0
 
 ; ---- data $7358-$74C0 (360 bytes) [PROBABLE] scene 4 attribute map 20 x 18 (BG attribute bytes $09-$0C,$29-$2B measured in this scene: bits 0-2 palette, bit 3 VRAM bank 1, bit 5 x flip; the earlier claim "only $08-$0F/$28-$2F" was wrong for scene 2, which also uses $00/$01); second half of the $2D0 tilemap+attr block, ends exactly at the palette block 74C0
 
-Data_44_7358:: ; 44:7358
+Attrmap_ScrollBorder_Turquoise:: ; 44:7358
 	INCBIN "gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/turquoise_scroll_border_44_67f0_attributes.attrmap"
 
 ; ---- data $74C0-$7540 (128 bytes) [PROBABLE] scene 4: 16 CGB palette groups (8 BG + 8 OBJ x 4 RGB555 words, $80 bytes); first group ff7f 011c 7e02 0000 identical in the four scenes

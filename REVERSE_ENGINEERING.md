@@ -1780,3 +1780,9 @@ candidate object-animation data now use feature-qualified candidate names;
 the caller remains unknown and natural use is not claimed. The restricted
 six-root generic-data census is now 200 definitions in 113 owners. See the
 [bank-2F audit](docs/research/generic_data_name_audit_20261020.md#bank-2f-address-book-editor-resource-names-2026-10-21).
+
+Bank 44's four border attribute maps now have package-specific `Attrmap_*`
+names, with matching catalog entries. The content class is probable, and the
+owner still has no demonstrated loader; this does not claim natural use. The
+restricted six-root generic-data census is now 196 definitions in 112 owners.
+See the [bank-44 attribute-map audit](docs/research/generic_data_name_audit_20261020.md#bank-44-border-attribute-maps-2026-10-21).
