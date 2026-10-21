@@ -7,69 +7,69 @@ SECTION "gfx/mail/compose_objects", ROMX
 ; ---- words $6290-$62C0 (48 bytes) [PROBABLE] animation entry table: 12 entries of 4 bytes (frame-table pointer, script pointer) in the format of the sprite-slot initialiser 00:0A82/0AB8 (4-byte entry at DE+4*(A&$3F): word -> slot[2..3] frame table, word -> slot[6..7] script); each animation appears 4 times in a row (4 identical entries)
 
 MailBodyCandidate_AnimEntries:: ; 29:6290
-	dw MailBodyCandidate_Anim0Frames, MailBodyCandidate_Anim0Script, MailBodyCandidate_Anim0Frames, MailBodyCandidate_Anim0Script, MailBodyCandidate_Anim0Frames, MailBodyCandidate_Anim0Script, MailBodyCandidate_Anim0Frames, MailBodyCandidate_Anim0Script
-	dw MailBodyCandidate_Anim4Frames, MailBodyCandidate_Anim4Script, MailBodyCandidate_Anim4Frames, MailBodyCandidate_Anim4Script, MailBodyCandidate_Anim4Frames, MailBodyCandidate_Anim4Script, MailBodyCandidate_Anim4Frames, MailBodyCandidate_Anim4Script
-	dw MailBodyCandidate_Anim8Frames, MailBodyCandidate_Anim8Script, MailBodyCandidate_Anim8Frames, MailBodyCandidate_Anim8Script, MailBodyCandidate_Anim8Frames, MailBodyCandidate_Anim8Script, MailBodyCandidate_Anim8Frames, MailBodyCandidate_Anim8Script
+	dw MailBodyCandidate_Anim0FramePointerList, MailBodyCandidate_Anim0TimingSequence, MailBodyCandidate_Anim0FramePointerList, MailBodyCandidate_Anim0TimingSequence, MailBodyCandidate_Anim0FramePointerList, MailBodyCandidate_Anim0TimingSequence, MailBodyCandidate_Anim0FramePointerList, MailBodyCandidate_Anim0TimingSequence
+	dw MailBodyCandidate_Anim4FramePointerList, MailBodyCandidate_Anim4TimingSequence, MailBodyCandidate_Anim4FramePointerList, MailBodyCandidate_Anim4TimingSequence, MailBodyCandidate_Anim4FramePointerList, MailBodyCandidate_Anim4TimingSequence, MailBodyCandidate_Anim4FramePointerList, MailBodyCandidate_Anim4TimingSequence
+	dw MailBodyCandidate_Anim8FramePointerList, MailBodyCandidate_Anim8TimingSequence, MailBodyCandidate_Anim8FramePointerList, MailBodyCandidate_Anim8TimingSequence, MailBodyCandidate_Anim8FramePointerList, MailBodyCandidate_Anim8TimingSequence, MailBodyCandidate_Anim8FramePointerList, MailBodyCandidate_Anim8TimingSequence
 
 ; ---- words $62C0-$62C2 (2 bytes) [PROBABLE] frame table: 1 pointer(s) $62C2 to OAM frames (extent = first target); pointed to by an animation entry
 
-MailBodyCandidate_Anim0Frames:: ; 29:62C0
-	dw MailBodyCandidate_Anim0Frame0
+MailBodyCandidate_Anim0FramePointerList:: ; 29:62C0
+	dw MailBodyCandidate_Anim0OamPieces
 
 ; ---- data $62C2-$62EF (45 bytes) [PROBABLE] OAM frame: count=11 then 11 x (y,x,tile,attr) = 45 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
 
-MailBodyCandidate_Anim0Frame0:: ; 29:62C2
+MailBodyCandidate_Anim0OamPieces:: ; 29:62C2
 	db $0B, $00, $08, $00, $02, $00, $10, $01, $02, $00, $18, $02, $02, $08, $00, $03
 	db $02, $08, $08, $04, $02, $08, $10, $05, $02, $08, $18, $06, $02, $10, $00, $07
 	db $02, $10, $08, $2A, $02, $10, $10, $2B, $02, $10, $18, $2C, $02
 
 ; ---- data $62EF-$62F2 (3 bytes) [HYPOTHESIS] 3-byte animation script record 01 00 04 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
 
-MailBodyCandidate_Anim0Script:: ; 29:62EF
+MailBodyCandidate_Anim0TimingSequence:: ; 29:62EF
 	db $01, $00, $04
 
 ; ---- words $62F2-$62F6 (4 bytes) [PROBABLE] frame table: 2 pointer(s) $62F6, $6307 to OAM frames (extent = first target); pointed to by an animation entry
 
-MailBodyCandidate_Anim4Frames:: ; 29:62F2
-	dw MailBodyCandidate_Anim4Frame0, MailBodyCandidate_Anim4Frame1
+MailBodyCandidate_Anim4FramePointerList:: ; 29:62F2
+	dw MailBodyCandidate_Anim4OamPieces0, MailBodyCandidate_Anim4OamPieces1
 
 ; ---- data $62F6-$6307 (17 bytes) [PROBABLE] OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
 
-MailBodyCandidate_Anim4Frame0:: ; 29:62F6
+MailBodyCandidate_Anim4OamPieces0:: ; 29:62F6
 	db $04, $00, $00, $08, $01, $00, $08, $09, $01, $00, $1A, $0A, $01, $00, $22, $0B
 	db $01
 
 ; ---- data $6307-$6318 (17 bytes) [PROBABLE] OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
 
-MailBodyCandidate_Anim4Frame1:: ; 29:6307
+MailBodyCandidate_Anim4OamPieces1:: ; 29:6307
 	db $04, $FF, $00, $08, $01, $FF, $08, $09, $01, $00, $1A, $0A, $01, $00, $22, $0B
 	db $01
 
 ; ---- data $6318-$631D (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
 
-MailBodyCandidate_Anim4Script:: ; 29:6318
+MailBodyCandidate_Anim4TimingSequence:: ; 29:6318
 	db $02, $00, $2E, $01, $08
 
 ; ---- words $631D-$6321 (4 bytes) [PROBABLE] frame table: 2 pointer(s) $6321, $6332 to OAM frames (extent = first target); pointed to by an animation entry
 
-MailBodyCandidate_Anim8Frames:: ; 29:631D
-	dw MailBodyCandidate_Anim8Frame0, MailBodyCandidate_Anim8Frame1
+MailBodyCandidate_Anim8FramePointerList:: ; 29:631D
+	dw MailBodyCandidate_Anim8OamPieces0, MailBodyCandidate_Anim8OamPieces1
 
 ; ---- data $6321-$6332 (17 bytes) [PROBABLE] OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
 
-MailBodyCandidate_Anim8Frame0:: ; 29:6321
+MailBodyCandidate_Anim8OamPieces0:: ; 29:6321
 	db $04, $00, $1A, $08, $01, $00, $22, $09, $01, $00, $00, $0A, $01, $00, $08, $0B
 	db $01
 
 ; ---- data $6332-$6343 (17 bytes) [PROBABLE] OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
 
-MailBodyCandidate_Anim8Frame1:: ; 29:6332
+MailBodyCandidate_Anim8OamPieces1:: ; 29:6332
 	db $04, $00, $1A, $08, $01, $00, $22, $09, $01, $FF, $00, $0A, $01, $FF, $08, $0B
 	db $01
 
 ; ---- data $6343-$6348 (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
 
-MailBodyCandidate_Anim8Script:: ; 29:6343
+MailBodyCandidate_Anim8TimingSequence:: ; 29:6343
 	db $02, $00, $2E, $01, $08
 
 ; ---- zero $6348-$6350 (8 bytes) [PROBABLE] zero padding inside the animation-resource block

@@ -2866,11 +2866,24 @@ was found, and no known `Sprite_InitSlot` chain reaches it. The existing
 is now `AbookAddr_CandidateSpriteData`: `sprite_chain_check.py` treats the
 token `ObjAnimData` as an asserted chain-owned block, which is unsupported
 here and produced a false hard mismatch. The region's format is PROBABLE while
-its use remains HYPOTHESIS. With the false classification removed, the checker
-reports 11 hard mismatches, all existing `MailBodyCandidate_*` labels. This
-does not change the candidate status or prove the region unused. No bytes
-changed.
+its use remains HYPOTHESIS. The candidate label no longer contains the
+checker-reserved `ObjAnimData` token, so it is not misread as a claim of a
+reached chain. The checker result after that correction and the bank-29 label
+correction is recorded in the following note. No bytes changed.
 
+
+## Bank 29 candidate labels versus walked sprite-chain names (2026-10-21)
+
+The eleven `MailBodyCandidate_Anim*Frames`, `*Frame*` and `*Script` labels in
+bank 29 described probable structures with no known `Sprite_InitSlot` root.
+The sprite-chain checker treats those suffixes as assertions that a walked
+chain reaches the named structure, even when the prefix says `Candidate`;
+this created 11 false hard mismatches. The labels now use `FramePointerList`,
+`OamPieces` and `TimingSequence`, preserving the candidate meaning and
+structure without asserting chain reachability. The checker reports zero hard
+mismatches after the rename, but does not validate these unrooted candidates
+or prove natural use. The orphan animation at `29:63F0` remains explicitly
+candidate/orphan-qualified.
 
 ## Bank 26 probable tile block with no located transfer (2026-10-21)
 
