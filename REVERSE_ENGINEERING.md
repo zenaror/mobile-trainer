@@ -118,6 +118,14 @@ retained names. The 32 alias declarations and their source-line positions are
 preserved as blank lines; resources and existing confidence levels are
 unchanged. The Japanese naming audit remains open.
 
+The mobile dictionary in `engine/help/mobile_dictionary.asm` had 72 more
+unreferenced same-address aliases over its named category positions, counts
+and entries. Those generic exports are retired; line positions, table data and
+existing confidence are unchanged. The protected sample file is excluded from
+the current generic-data count: 846 in the six maintained roots plus one in
+`zero_labels.asm` (847 total). The dictionary mapping and source-set hash are
+in the dated generic-data audit.
+
 Three redundant address-only labels were also retired from the connect-dialog
 strings. Their semantic labels remain the names used by the active reader;
 string data and the six-message block are unchanged. The full build and

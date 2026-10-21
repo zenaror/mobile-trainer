@@ -400,7 +400,7 @@ MobileDict_UpdateTabSprites:: ; 1A:4317
 ; ---- data $437B-$4391 (22 bytes) [PROBABLE] 11 pairs (index,value): 00 08 / 01 14 / 02 20 / 03 2C ... 0A 80 (value = 8 + 12*index), right after the ret of the preceding routine and before MobileDict_LoadPage; first 4 bytes read in a trace; the 18-byte mapper hole is the rest of this table
 
 Table_MobileDict_TabPositions:: ; 1A:437B
-Data_1A_437B::
+
 	db $00, $08, $01, $14, $02, $20, $03, $2C, $04, $38, $05, $44, $06, $50, $07, $5C
 	db $08, $68, $09, $74, $0A, $80
 
@@ -512,7 +512,7 @@ Table_MobileDict_Categories:: ; 1A:4439
 ; ---- data $444F-$4450 (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 444F-445A by higher-priority evidence]
 
 Data_MobileDict_Cat01Count:: ; 1A:444F
-Data_1A_444F::
+
 	db $09
 
 ; ---- ptrtable $4450-$4462 (18 bytes) [PROBABLE] little-endian word table, 12 entries, monotone=0.82, 75% of targets on string start/after NUL, targets $4462..$4583; regular record stride between targets [clipped from 4450-4468 by higher-priority proposals]
@@ -532,19 +532,19 @@ Table_MobileDict_Cat01Strings:: ; 1A:4450
 
 PUSHC sjis
 String_MobileDict_Cat01Entry00:: ; 1A:4462
-String_1A_4462::
+
 	db "アカウント", 0
 String_MobileDict_Cat01Entry01:: ; 1A:446D
-String_1A_446D::
+
 	db "あてさき", 0
 String_MobileDict_Cat01Entry02:: ; 1A:4476
-String_1A_4476::
+
 	db "アドレス", 0
 String_MobileDict_Cat01Entry03:: ; 1A:447F
-String_1A_447F::
+
 	db "アドレスちょう", 0
 String_MobileDict_Cat01Entry04:: ; 1A:448E
-String_1A_448E::
+
 	db "インターネット", 0
 POPC
 
@@ -552,7 +552,7 @@ POPC
 
 PUSHC sjis
 String_MobileDict_Cat01Entry05:: ; 1A:449D
-String_1A_449D::
+
 	db "ウェブ", 0
 POPC
 
@@ -560,20 +560,20 @@ POPC
 
 PUSHC sjis
 String_MobileDict_Cat01Entry06:: ; 1A:44A4
-String_1A_44A4::
+
 	db "ウェブサイト", 0
 String_MobileDict_Cat01Entry07:: ; 1A:44B1
-String_1A_44B1::
+
 	db "オフライン", 0
 String_MobileDict_Cat01Entry08:: ; 1A:44BC
-String_1A_44BC::
+
 	db "オンライン", 0
 POPC
 
 ; ---- data $44C7-$44CC (5 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 44C7-44E0 by higher-priority evidence]
 
 Data_MobileDict_Cat02Count:: ; 1A:44C7
-Data_1A_44C7::
+
 	db $02
 
 Table_MobileDict_Cat02Strings:: ; 1A:44C8
@@ -583,7 +583,7 @@ Table_MobileDict_Cat02Strings:: ; 1A:44C8
 
 PUSHC sjis
 String_MobileDict_Cat02Entry00:: ; 1A:44CC
-String_1A_44CC::
+
 	db "かおもじ", 0
 	db "コンテンツ", 0
 POPC
@@ -591,7 +591,7 @@ POPC
 ; ---- data $44E0-$44E1 (1 bytes) [PROBABLE] group count byte = 08 (group header, see Table_MobileDict_Categories)
 
 Data_MobileDict_Cat03Count:: ; 1A:44E0
-Data_1A_44E0::
+
 	db $08
 
 ; ---- ptrtable $44E1-$44F1 (16 bytes) [PROBABLE] 8 string pointers 44F1 44F8 44FF 4508 4511 4520 452D 4536 (first = end of header)
@@ -610,10 +610,10 @@ Table_MobileDict_Cat03Strings:: ; 1A:44E1
 
 PUSHC sjis
 String_MobileDict_Cat03Entry00:: ; 1A:44F1
-String_1A_44F1::
+
 	db "サーバ", 0
 String_MobileDict_Cat03Entry01:: ; 1A:44F8
-String_1A_44F8::
+
 	db "サイト", 0
 POPC
 
@@ -621,29 +621,29 @@ POPC
 
 PUSHC sjis
 String_MobileDict_Cat03Entry02:: ; 1A:44FF
-String_1A_44FF::
+
 	db "ジャンプ", 0
 String_MobileDict_Cat03Entry03:: ; 1A:4508
-String_1A_4508::
+
 	db "じゅしん", 0
 String_MobileDict_Cat03Entry04:: ; 1A:4511
-String_1A_4511::
+
 	db "しょきとうろく", 0
 String_MobileDict_Cat03Entry05:: ; 1A:4520
-String_1A_4520::
+
 	db "セキュリティ", 0
 String_MobileDict_Cat03Entry06:: ; 1A:452D
-String_1A_452D::
+
 	db "せつぞく", 0
 String_MobileDict_Cat03Entry07:: ; 1A:4536
-String_1A_4536::
+
 	db "そうしん", 0
 POPC
 
 ; ---- data $453F-$4540 (1 bytes) [PROBABLE] group count byte = 03
 
 Data_MobileDict_Cat04Count:: ; 1A:453F
-Data_1A_453F::
+
 	db $03
 
 ; ---- ptrtable $4540-$4546 (6 bytes) [PROBABLE] 3 string pointers 4546 454F 455C (first = end of header)
@@ -657,20 +657,20 @@ Table_MobileDict_Cat04Strings:: ; 1A:4540
 
 PUSHC sjis
 String_MobileDict_Cat04Entry00:: ; 1A:4546
-String_1A_4546::
+
 	db "タイトル", 0
 String_MobileDict_Cat04Entry01:: ; 1A:454F
-String_1A_454F::
+
 	db "ダウンロード", 0
 String_MobileDict_Cat04Entry02:: ; 1A:455C
-String_1A_455C::
+
 	db "つうしんエラー", 0
 POPC
 
 ; ---- data $456B-$456C (1 bytes) [PROBABLE] group count byte = 04 (group header of Table_MobileDict_Categories)
 
 Data_MobileDict_Cat05Count:: ; 1A:456B
-Data_1A_456B::
+
 	db $04
 
 ; ---- ptrtable $456C-$4574 (8 bytes) [PROBABLE] 4 string pointers, first = end of the header (4574); mapper had these header bytes inside the following text run
@@ -685,23 +685,23 @@ Table_MobileDict_Cat05Strings:: ; 1A:456C
 
 PUSHC sjis
 String_MobileDict_Cat05Entry00:: ; 1A:4574
-String_1A_4574::
+
 	db "ニックネーム", 0
 String_MobileDict_Cat05Entry01:: ; 1A:4581
-String_1A_4581::
+
 	db "にんしょう", 0
 String_MobileDict_Cat05Entry02:: ; 1A:458C
-String_1A_458C::
+
 	db "ネチケット", 0
 String_MobileDict_Cat05Entry03:: ; 1A:4597
-String_1A_4597::
+
 	db "ネットサーフィン", 0
 POPC
 
 ; ---- data $45A8-$45A9 (1 bytes) [PROBABLE] group count byte = 07
 
 Data_MobileDict_Cat06Count:: ; 1A:45A8
-Data_1A_45A8::
+
 	db $07
 
 ; ---- ptrtable $45A9-$45B7 (14 bytes) [PROBABLE] 7 string pointers 45B7 45C2 45D1 45DA 45E5 45F2 45FB (first = end of header)
@@ -719,32 +719,32 @@ Table_MobileDict_Cat06Strings:: ; 1A:45A9
 
 PUSHC sjis
 String_MobileDict_Cat06Entry00:: ; 1A:45B7
-String_1A_45B7::
+
 	db "パスワード", 0
 String_MobileDict_Cat06Entry01:: ; 1A:45C2
-String_1A_45C2::
+
 	db "フェイスマーク", 0
 String_MobileDict_Cat06Entry02:: ; 1A:45D1
-String_1A_45D1::
+
 	db "ブラウザ", 0
 String_MobileDict_Cat06Entry03:: ; 1A:45DA
-String_1A_45DA::
+
 	db "プロバイダ", 0
 String_MobileDict_Cat06Entry04:: ; 1A:45E5
-String_1A_45E5::
+
 	db "ページリスト", 0
 String_MobileDict_Cat06Entry05:: ; 1A:45F2
-String_1A_45F2::
+
 	db "へんしん", 0
 String_MobileDict_Cat06Entry06:: ; 1A:45FB
-String_1A_45FB::
+
 	db "ホームページ", 0
 POPC
 
 ; ---- data $4608-$4609 (1 bytes) [PROBABLE] group count byte = 0E, followed by Table_MobileDict_Cat07Strings (14 pointers)
 
 Data_MobileDict_Cat07Count:: ; 1A:4608
-Data_1A_4608::
+
 	db $0E
 
 ; ---- ptrtable $4609-$4625 (28 bytes) [PROBABLE] little-endian word table, 14 entries, monotone=1.00, 100% of targets on string start/after NUL, targets $4625..$46E4
@@ -769,10 +769,10 @@ Table_MobileDict_Cat07Strings:: ; 1A:4609
 
 PUSHC sjis
 String_MobileDict_Cat07Entry00:: ; 1A:4625
-String_1A_4625::
+
 	db "メーラー", 0
 String_MobileDict_Cat07Entry01:: ; 1A:462E
-String_1A_462E::
+
 	db "メルとも", 0
 POPC
 
@@ -780,7 +780,7 @@ POPC
 
 PUSHC sjis
 String_MobileDict_Cat07Entry02:: ; 1A:4637
-String_1A_4637::
+
 	db "メール", 0
 POPC
 
@@ -788,44 +788,44 @@ POPC
 
 PUSHC sjis
 String_MobileDict_Cat07Entry03:: ; 1A:463E
-String_1A_463E::
+
 	db "メールアドレス", 0
 String_MobileDict_Cat07Entry04:: ; 1A:464D
-String_1A_464D::
+
 	db "メールサーバ", 0
 String_MobileDict_Cat07Entry05:: ; 1A:465A
-String_1A_465A::
+
 	db "メールソフト", 0
 String_MobileDict_Cat07Entry06:: ; 1A:4667
-String_1A_4667::
+
 	db "メンテナンス", 0
 String_MobileDict_Cat07Entry07:: ; 1A:4674
-String_1A_4674::
+
 	db "モバイル", 0
 String_MobileDict_Cat07Entry08:: ; 1A:467D
-String_1A_467D::
+
 	db "モバイルアダプタＧＢ", 0
 String_MobileDict_Cat07Entry09:: ; 1A:4692
-String_1A_4692::
+
 	db "モバイルサポートセンター", 0
 String_MobileDict_Cat07Entry10:: ; 1A:46AB
-String_1A_46AB::
+
 	db "モバイルシステムＧＢ", 0
 String_MobileDict_Cat07Entry11:: ; 1A:46C0
-String_1A_46C0::
+
 	db "モバイルセンター", 0
 String_MobileDict_Cat07Entry12:: ; 1A:46D1
-String_1A_46D1::
+
 	db "モバイルトレーナー", 0
 String_MobileDict_Cat07Entry13:: ; 1A:46E4
-String_1A_46E4::
+
 	db "モバイルホームページ", 0
 POPC
 
 ; ---- data $46F9-$46FA (1 bytes) [PROBABLE] group count byte = 01 (group header of Table_MobileDict_Categories)
 
 Data_MobileDict_Cat08Count:: ; 1A:46F9
-Data_1A_46F9::
+
 	db $01
 
 ; ---- ptrtable $46FA-$46FC (2 bytes) [PROBABLE] 1 string pointers, first = end of the header (46FC); mapper had these header bytes inside the following text run
@@ -837,14 +837,14 @@ Table_MobileDict_Cat08Strings:: ; 1A:46FA
 
 PUSHC sjis
 String_MobileDict_Cat08Entry00:: ; 1A:46FC
-String_1A_46FC::
+
 	db "ユーザー", 0
 POPC
 
 ; ---- data $4705-$4706 (1 bytes) [PROBABLE] group count byte = 02
 
 Data_MobileDict_Cat09Count:: ; 1A:4705
-Data_1A_4705::
+
 	db $02
 
 ; ---- ptrtable $4706-$470A (4 bytes) [PROBABLE] 2 string pointers 470A 4711 (first = end of header)
@@ -857,7 +857,7 @@ Table_MobileDict_Cat09Strings:: ; 1A:4706
 
 PUSHC sjis
 String_MobileDict_Cat09Entry00:: ; 1A:470A
-String_1A_470A::
+
 	db "リンク", 0
 POPC
 
@@ -865,14 +865,14 @@ POPC
 
 PUSHC sjis
 String_MobileDict_Cat09Entry01:: ; 1A:4711
-String_1A_4711::
+
 	db "ログインＩＤ", 0
 POPC
 
 ; ---- data $471E-$471F (1 bytes) [PROBABLE] group count byte = 01 (group header of Table_MobileDict_Categories)
 
 Data_MobileDict_Cat10Count:: ; 1A:471E
-Data_1A_471E::
+
 	db $01
 
 ; ---- ptrtable $471F-$4721 (2 bytes) [PROBABLE] 1 string pointers, first = end of the header (4721); mapper had these header bytes inside the following text run
@@ -884,14 +884,14 @@ Table_MobileDict_Cat10Strings:: ; 1A:471F
 
 PUSHC sjis
 String_MobileDict_Cat10Entry00:: ; 1A:4721
-String_1A_4721::
+
 	db "ワールドワイドウェブ", 0
 POPC
 
 ; ---- data $4736-$4737 (1 bytes) [PROBABLE] group count byte = 0A, followed by Table_MobileDict_Cat11Strings (10 pointers)
 
 Data_MobileDict_Cat11Count:: ; 1A:4736
-Data_1A_4736::
+
 	db $0A
 
 ; ---- ptrtable $4737-$474B (20 bytes) [PROBABLE] little-endian word table, 10 entries, monotone=1.00, 100% of targets on string start/after NUL, targets $474B..$47A4; regular record stride between targets
@@ -912,7 +912,7 @@ Table_MobileDict_Cat11Strings:: ; 1A:4737
 
 PUSHC sjis
 String_MobileDict_Cat11Entry00:: ; 1A:474B
-String_1A_474B::
+
 	db "ｃｄｍａＯｎｅ", 0
 POPC
 
@@ -920,7 +920,7 @@ POPC
 
 PUSHC sjis
 String_MobileDict_Cat11Entry01:: ; 1A:475A
-String_1A_475A::
+
 	db "ＤＩＯＮ", 0
 POPC
 
@@ -928,7 +928,7 @@ POPC
 
 PUSHC sjis
 String_MobileDict_Cat11Entry02:: ; 1A:4763
-String_1A_4763::
+
 	db "ＤＩＯＮモバイルＧＢコース", 0
 POPC
 
@@ -936,22 +936,22 @@ POPC
 
 PUSHC sjis
 String_MobileDict_Cat11Entry03:: ; 1A:477E
-String_1A_477E::
+
 	db "ＩＳＰ", 0
 String_MobileDict_Cat11Entry04:: ; 1A:4785
-String_1A_4785::
+
 	db "ＰＤＣ", 0
 String_MobileDict_Cat11Entry05:: ; 1A:478C
-String_1A_478C::
+
 	db "ＰＨＳ", 0
 String_MobileDict_Cat11Entry06:: ; 1A:4793
-String_1A_4793::
+
 	db "Ｗｅｂ", 0
 String_MobileDict_Cat11Entry07:: ; 1A:479A
-String_1A_479A::
+
 	db "ＷＷＷ", 0
 String_MobileDict_Cat11Entry08:: ; 1A:47A1
-String_1A_47A1::
+
 	db "＠", 0
 POPC
 
@@ -959,6 +959,6 @@ POPC
 
 PUSHC sjis
 String_MobileDict_Cat11Entry09:: ; 1A:47A4
-String_1A_47A4::
+
 	db "きごうのよみかた", 0
 POPC

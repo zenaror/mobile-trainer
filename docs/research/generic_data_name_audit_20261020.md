@@ -1298,3 +1298,94 @@ comparison found exactly the 32 retired labels missing, with no added or moved
 labels. `make palette-check` passes (162/116/2/0), `make png-check` passes
 (408/4/37/95), and `tools/data_consumers.py --stats` reports 519 groups, 120
 rejected candidates and zero rows.
+## Mobile dictionary same-address aliases retired (2026-10-21)
+
+The corrected bank/address census found 72 generic labels in `engine/help/mobile_dictionary.asm`, each at the exact address of one existing semantic label. The generic token appeared only in its declaration; the scan found no other tracked ASM/INC or tool references, and no local labels scoped under these declarations. The set is made up of category-tab positions, category counts, and dictionary-entry strings already named `Table_MobileDict_*`, `Data_MobileDict_*`, or `String_MobileDict_*`. The existing semantic names remain the sole description; category-entry numbering is preserved without inferring string meaning. Retired all 72 redundant exports and left their source lines blank to preserve physical line numbering. ROM bytes, table boundaries, entries, and pre-existing confidence remain unchanged. Frozen `config/` and historical analysis may retain the old names.
+
+| Address | Retired label | Retained label |
+|---|---|---|
+| 1A:437B | `Data_1A_437B` | `Table_MobileDict_TabPositions` |
+| 1A:444F | `Data_1A_444F` | `Data_MobileDict_Cat01Count` |
+| 1A:4462 | `String_1A_4462` | `String_MobileDict_Cat01Entry00` |
+| 1A:446D | `String_1A_446D` | `String_MobileDict_Cat01Entry01` |
+| 1A:4476 | `String_1A_4476` | `String_MobileDict_Cat01Entry02` |
+| 1A:447F | `String_1A_447F` | `String_MobileDict_Cat01Entry03` |
+| 1A:448E | `String_1A_448E` | `String_MobileDict_Cat01Entry04` |
+| 1A:449D | `String_1A_449D` | `String_MobileDict_Cat01Entry05` |
+| 1A:44A4 | `String_1A_44A4` | `String_MobileDict_Cat01Entry06` |
+| 1A:44B1 | `String_1A_44B1` | `String_MobileDict_Cat01Entry07` |
+| 1A:44BC | `String_1A_44BC` | `String_MobileDict_Cat01Entry08` |
+| 1A:44C7 | `Data_1A_44C7` | `Data_MobileDict_Cat02Count` |
+| 1A:44CC | `String_1A_44CC` | `String_MobileDict_Cat02Entry00` |
+| 1A:44E0 | `Data_1A_44E0` | `Data_MobileDict_Cat03Count` |
+| 1A:44F1 | `String_1A_44F1` | `String_MobileDict_Cat03Entry00` |
+| 1A:44F8 | `String_1A_44F8` | `String_MobileDict_Cat03Entry01` |
+| 1A:44FF | `String_1A_44FF` | `String_MobileDict_Cat03Entry02` |
+| 1A:4508 | `String_1A_4508` | `String_MobileDict_Cat03Entry03` |
+| 1A:4511 | `String_1A_4511` | `String_MobileDict_Cat03Entry04` |
+| 1A:4520 | `String_1A_4520` | `String_MobileDict_Cat03Entry05` |
+| 1A:452D | `String_1A_452D` | `String_MobileDict_Cat03Entry06` |
+| 1A:4536 | `String_1A_4536` | `String_MobileDict_Cat03Entry07` |
+| 1A:453F | `Data_1A_453F` | `Data_MobileDict_Cat04Count` |
+| 1A:4546 | `String_1A_4546` | `String_MobileDict_Cat04Entry00` |
+| 1A:454F | `String_1A_454F` | `String_MobileDict_Cat04Entry01` |
+| 1A:455C | `String_1A_455C` | `String_MobileDict_Cat04Entry02` |
+| 1A:456B | `Data_1A_456B` | `Data_MobileDict_Cat05Count` |
+| 1A:4574 | `String_1A_4574` | `String_MobileDict_Cat05Entry00` |
+| 1A:4581 | `String_1A_4581` | `String_MobileDict_Cat05Entry01` |
+| 1A:458C | `String_1A_458C` | `String_MobileDict_Cat05Entry02` |
+| 1A:4597 | `String_1A_4597` | `String_MobileDict_Cat05Entry03` |
+| 1A:45A8 | `Data_1A_45A8` | `Data_MobileDict_Cat06Count` |
+| 1A:45B7 | `String_1A_45B7` | `String_MobileDict_Cat06Entry00` |
+| 1A:45C2 | `String_1A_45C2` | `String_MobileDict_Cat06Entry01` |
+| 1A:45D1 | `String_1A_45D1` | `String_MobileDict_Cat06Entry02` |
+| 1A:45DA | `String_1A_45DA` | `String_MobileDict_Cat06Entry03` |
+| 1A:45E5 | `String_1A_45E5` | `String_MobileDict_Cat06Entry04` |
+| 1A:45F2 | `String_1A_45F2` | `String_MobileDict_Cat06Entry05` |
+| 1A:45FB | `String_1A_45FB` | `String_MobileDict_Cat06Entry06` |
+| 1A:4608 | `Data_1A_4608` | `Data_MobileDict_Cat07Count` |
+| 1A:4625 | `String_1A_4625` | `String_MobileDict_Cat07Entry00` |
+| 1A:462E | `String_1A_462E` | `String_MobileDict_Cat07Entry01` |
+| 1A:4637 | `String_1A_4637` | `String_MobileDict_Cat07Entry02` |
+| 1A:463E | `String_1A_463E` | `String_MobileDict_Cat07Entry03` |
+| 1A:464D | `String_1A_464D` | `String_MobileDict_Cat07Entry04` |
+| 1A:465A | `String_1A_465A` | `String_MobileDict_Cat07Entry05` |
+| 1A:4667 | `String_1A_4667` | `String_MobileDict_Cat07Entry06` |
+| 1A:4674 | `String_1A_4674` | `String_MobileDict_Cat07Entry07` |
+| 1A:467D | `String_1A_467D` | `String_MobileDict_Cat07Entry08` |
+| 1A:4692 | `String_1A_4692` | `String_MobileDict_Cat07Entry09` |
+| 1A:46AB | `String_1A_46AB` | `String_MobileDict_Cat07Entry10` |
+| 1A:46C0 | `String_1A_46C0` | `String_MobileDict_Cat07Entry11` |
+| 1A:46D1 | `String_1A_46D1` | `String_MobileDict_Cat07Entry12` |
+| 1A:46E4 | `String_1A_46E4` | `String_MobileDict_Cat07Entry13` |
+| 1A:46F9 | `Data_1A_46F9` | `Data_MobileDict_Cat08Count` |
+| 1A:46FC | `String_1A_46FC` | `String_MobileDict_Cat08Entry00` |
+| 1A:4705 | `Data_1A_4705` | `Data_MobileDict_Cat09Count` |
+| 1A:470A | `String_1A_470A` | `String_MobileDict_Cat09Entry00` |
+| 1A:4711 | `String_1A_4711` | `String_MobileDict_Cat09Entry01` |
+| 1A:471E | `Data_1A_471E` | `Data_MobileDict_Cat10Count` |
+| 1A:4721 | `String_1A_4721` | `String_MobileDict_Cat10Entry00` |
+| 1A:4736 | `Data_1A_4736` | `Data_MobileDict_Cat11Count` |
+| 1A:474B | `String_1A_474B` | `String_MobileDict_Cat11Entry00` |
+| 1A:475A | `String_1A_475A` | `String_MobileDict_Cat11Entry01` |
+| 1A:4763 | `String_1A_4763` | `String_MobileDict_Cat11Entry02` |
+| 1A:477E | `String_1A_477E` | `String_MobileDict_Cat11Entry03` |
+| 1A:4785 | `String_1A_4785` | `String_MobileDict_Cat11Entry04` |
+| 1A:478C | `String_1A_478C` | `String_MobileDict_Cat11Entry05` |
+| 1A:4793 | `String_1A_4793` | `String_MobileDict_Cat11Entry06` |
+| 1A:479A | `String_1A_479A` | `String_MobileDict_Cat11Entry07` |
+| 1A:47A1 | `String_1A_47A1` | `String_MobileDict_Cat11Entry08` |
+| 1A:47A4 | `String_1A_47A4` | `String_MobileDict_Cat11Entry09` |
+
+Census input: `.tmp/generic-coalias-census-post-fd0bdbd1/RESULT.json`; source-set SHA-256 `087b01cc94f76aad2e802f7691f1d69c0f0b06e56fa9963f8fcf1178ec77560c`. This census is a bounded lexical/static review, not proof of natural execution or broader dictionary behavior.
+
+Validation for the mobile-dictionary checkpoint: `make` returns
+`RESULT: IDENTICAL` with ROM SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
+`make sym-check` reports 13,245 labels and 51 constants. A before/after map
+comparison found exactly the 72 retired labels missing, with no added or moved
+labels; the source remains 964 lines. `make palette-check` passes (162/116/2/0),
+`make png-check` passes (408/4/37/95), and `tools/data_consumers.py --stats`
+reports 519 groups, 120 rejected candidates and zero rows. The protected sample
+file was excluded from the current source-label census, which finds 846 generic
+`Data_BB_AAAA::` definitions in the six roots plus one in `zero_labels.asm`.
