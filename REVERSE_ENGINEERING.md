@@ -1428,3 +1428,10 @@ aliases in bank 72's dialog-message list and records. No cross-file, tool or
 local-label consumers were found; `data/text/dialog_messages.asm` retains its
 623 physical lines and all ROM data. The address map and scan limits are in
 [`docs/research/generic_data_name_audit_20261020.md`](docs/research/generic_data_name_audit_20261020.md#bank-72-dialog-message-same-address-aliases-2026-10-21).
+
+A further same-address pass retired 24 generic palette/table labels in bank
+23's mail-server delete-progress data, where matching named labels already
+exist. No other-source, tool or local-label consumers were found; the owner
+retains its 598 physical lines and all ROM data. See the address map and scan
+limits in
+[`docs/research/generic_data_name_audit_20261020.md`](docs/research/generic_data_name_audit_20261020.md#bank-23-mail-server-delete-progress-aliases-2026-10-21).

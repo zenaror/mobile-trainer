@@ -31,19 +31,19 @@ Tilemap_MailSrvDelProgress_Screen:: ; 23:7640
 ; ---- data $7910-$7950 (64 bytes) [CONFIRMED] 64-byte RGB555 palette block copied by Palette_LoadToBuffer (hl=$7910 a=$23 bc=$0040 de=$D800) at 23:55F3; call site executed: 6 hits in 5 scenarios (analysis/coverage_union.tsv); replaces the mapper palette guess 7910-7A3F which swallowed the object tables
 
 Palette_MailSrvDelProgress_Bg:: ; 23:7910
-Palette_23_7910::
+
 	INCLUDE "gfx/mail_server/delete_progress/mail_srv_del_progress_bg.pal"
 
 ; ---- data $7950-$7990 (64 bytes) [CONFIRMED] 64-byte RGB555 palette block copied by Palette_LoadToBuffer (hl=$7950 a=$23 bc=$0040 de=$D840) at 23:5604; call site executed: 6 hits in 5 scenarios (analysis/coverage_union.tsv)
 
 Palette_MailSrvDelProgress_Obj:: ; 23:7950
-Palette_23_7950::
+
 	INCLUDE "gfx/mail_server/delete_progress/mail_srv_del_progress_obj.pal"
 
 ; ---- words $7990-$7AE0 (336 bytes) [PROBABLE] sprite object table: 4-byte entries (frame-table ptr, animation-script ptr) indexed by B&7F, the layout read by init_object_from_table 00:0A82/00:0AB8; rows of 16 bytes = the same entry repeated 4 times; base $7990 is passed as de with a=$23 at call sites listed in analysis/gfx_candidates.tsv (object-table); entries 7AE0/7AE7 7AE0/7AE7 7AE0/7AE7 7AE0/7AE7
 
 Table_SpriteCounter_Digits:: ; 23:7990
-Table_23_7990::
+
 	sprite_object_entry SpriteCounter_Digits_Anim0Frames, SpriteCounter_Digits_Anim0Script ; entry 0
 	sprite_object_entry SpriteCounter_Digits_Anim0Frames, SpriteCounter_Digits_Anim0Script ; entry 1
 	sprite_object_entry SpriteCounter_Digits_Anim0Frames, SpriteCounter_Digits_Anim0Script ; entry 2
@@ -142,7 +142,7 @@ Table_MailSrvDel_ProgressObject:: ; 23:7AD0
 ; ---- words $7AE0-$7AE2 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 SpriteCounter_Digits_Anim0Frames:: ; 23:7AE0
-Table_23_7AE0::
+
 	sprite_frame_table SpriteCounter_Digits_Anim0Frame0
 
 ; ---- data $7AE2-$7AE7 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
@@ -160,7 +160,7 @@ SpriteCounter_Digits_Anim0Script:: ; 23:7AE7
 ; ---- words $7AEA-$7AEC (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 SpriteCounter_Digits_Anim4Frames:: ; 23:7AEA
-Table_23_7AEA::
+
 	sprite_frame_table SpriteCounter_Digits_Anim4Frame0
 
 ; ---- data $7AEC-$7AF1 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
@@ -178,7 +178,7 @@ SpriteCounter_Digits_Anim4Script:: ; 23:7AF1
 ; ---- words $7AF4-$7AF6 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 SpriteCounter_Digits_Anim8Frames:: ; 23:7AF4
-Table_23_7AF4::
+
 	sprite_frame_table SpriteCounter_Digits_Anim8Frame0
 
 ; ---- data $7AF6-$7AFB (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
@@ -196,7 +196,7 @@ SpriteCounter_Digits_Anim8Script:: ; 23:7AFB
 ; ---- words $7AFE-$7B00 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 SpriteCounter_Digits_Anim12Frames:: ; 23:7AFE
-Table_23_7AFE::
+
 	sprite_frame_table SpriteCounter_Digits_Anim12Frame0
 
 ; ---- data $7B00-$7B05 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
@@ -214,7 +214,7 @@ SpriteCounter_Digits_Anim12Script:: ; 23:7B05
 ; ---- words $7B08-$7B0A (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 SpriteCounter_Digits_Anim16Frames:: ; 23:7B08
-Table_23_7B08::
+
 	sprite_frame_table SpriteCounter_Digits_Anim16Frame0
 
 ; ---- data $7B0A-$7B0F (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
@@ -232,7 +232,7 @@ SpriteCounter_Digits_Anim16Script:: ; 23:7B0F
 ; ---- words $7B12-$7B14 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 SpriteCounter_Digits_Anim20Frames:: ; 23:7B12
-Table_23_7B12::
+
 	sprite_frame_table SpriteCounter_Digits_Anim20Frame0
 
 ; ---- data $7B14-$7B19 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
@@ -250,7 +250,7 @@ SpriteCounter_Digits_Anim20Script:: ; 23:7B19
 ; ---- words $7B1C-$7B1E (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 SpriteCounter_Digits_Anim24Frames:: ; 23:7B1C
-Table_23_7B1C::
+
 	sprite_frame_table SpriteCounter_Digits_Anim24Frame0
 
 ; ---- data $7B1E-$7B23 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
@@ -268,7 +268,7 @@ SpriteCounter_Digits_Anim24Script:: ; 23:7B23
 ; ---- words $7B26-$7B28 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 SpriteCounter_Digits_Anim28Frames:: ; 23:7B26
-Table_23_7B26::
+
 	sprite_frame_table SpriteCounter_Digits_Anim28Frame0
 
 ; ---- data $7B28-$7B2D (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
@@ -286,7 +286,7 @@ SpriteCounter_Digits_Anim28Script:: ; 23:7B2D
 ; ---- words $7B30-$7B32 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 SpriteCounter_Digits_Anim32Frames:: ; 23:7B30
-Table_23_7B30::
+
 	sprite_frame_table SpriteCounter_Digits_Anim32Frame0
 
 ; ---- data $7B32-$7B37 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
@@ -304,7 +304,7 @@ SpriteCounter_Digits_Anim32Script:: ; 23:7B37
 ; ---- words $7B3A-$7B3C (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 SpriteCounter_Digits_Anim36Frames:: ; 23:7B3A
-Table_23_7B3A::
+
 	sprite_frame_table SpriteCounter_Digits_Anim36Frame0
 
 ; ---- data $7B3C-$7B41 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
@@ -322,7 +322,7 @@ SpriteCounter_Digits_Anim36Script:: ; 23:7B41
 ; ---- words $7B44-$7B46 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 SpriteCounter_Digits_Anim40Frames:: ; 23:7B44
-Table_23_7B44::
+
 	sprite_frame_table SpriteCounter_Digits_Anim40Frame0
 
 ; ---- data $7B46-$7B4B (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
@@ -340,7 +340,7 @@ SpriteCounter_Digits_Anim40Script:: ; 23:7B4B
 ; ---- words $7B4E-$7B50 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 SpriteCounter_Digits_Anim44Frames:: ; 23:7B4E
-Table_23_7B4E::
+
 	sprite_frame_table SpriteCounter_Digits_Anim44Frame0
 
 ; ---- data $7B50-$7B55 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
@@ -358,7 +358,7 @@ SpriteCounter_Digits_Anim44Script:: ; 23:7B55
 ; ---- words $7B58-$7B5A (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 SpriteCounter_Digits_Anim48Frames:: ; 23:7B58
-Table_23_7B58::
+
 	sprite_frame_table SpriteCounter_Digits_Anim48Frame0
 
 ; ---- data $7B5A-$7B5F (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
@@ -376,7 +376,7 @@ SpriteCounter_Digits_Anim48Script:: ; 23:7B5F
 ; ---- words $7B62-$7B64 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 SpriteCounter_Digits_Anim52Frames:: ; 23:7B62
-Table_23_7B62::
+
 	sprite_frame_table SpriteCounter_Digits_Anim52Frame0
 
 ; ---- data $7B64-$7B69 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
@@ -394,7 +394,7 @@ SpriteCounter_Digits_Anim52Script:: ; 23:7B69
 ; ---- words $7B6C-$7B6E (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 SpriteCounter_Digits_Anim56Frames:: ; 23:7B6C
-Table_23_7B6C::
+
 	sprite_frame_table SpriteCounter_Digits_Anim56Frame0
 
 ; ---- data $7B6E-$7B73 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
@@ -412,7 +412,7 @@ SpriteCounter_Digits_Anim56Script:: ; 23:7B73
 ; ---- words $7B76-$7B78 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 SpriteCounter_Digits_Anim60Frames:: ; 23:7B76
-Table_23_7B76::
+
 	sprite_frame_table SpriteCounter_Digits_Anim60Frame0
 
 ; ---- data $7B78-$7B7D (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
@@ -430,7 +430,7 @@ SpriteCounter_Digits_Anim60Script:: ; 23:7B7D
 ; ---- words $7B80-$7B82 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 SpriteCounter_Digits_Anim64Frames:: ; 23:7B80
-Table_23_7B80::
+
 	sprite_frame_table SpriteCounter_Digits_Anim64Frame0
 
 ; ---- data $7B82-$7B87 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
@@ -448,7 +448,7 @@ SpriteCounter_Digits_Anim64Script:: ; 23:7B87
 ; ---- words $7B8A-$7B8C (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 SpriteCounter_Digits_Anim68Frames:: ; 23:7B8A
-Table_23_7B8A::
+
 	sprite_frame_table SpriteCounter_Digits_Anim68Frame0
 
 ; ---- data $7B8C-$7B91 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
@@ -466,7 +466,7 @@ SpriteCounter_Digits_Anim68Script:: ; 23:7B91
 ; ---- words $7B94-$7B96 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 SpriteCounter_Digits_Anim72Frames:: ; 23:7B94
-Table_23_7B94::
+
 	sprite_frame_table SpriteCounter_Digits_Anim72Frame0
 
 ; ---- data $7B96-$7B9B (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
@@ -484,7 +484,7 @@ SpriteCounter_Digits_Anim72Script:: ; 23:7B9B
 ; ---- words $7B9E-$7BA0 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 SpriteCounter_Digits_Anim76Frames:: ; 23:7B9E
-Table_23_7B9E::
+
 	sprite_frame_table SpriteCounter_Digits_Anim76Frame0
 
 ; ---- data $7BA0-$7BA5 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
@@ -502,7 +502,7 @@ SpriteCounter_Digits_Anim76Script:: ; 23:7BA5
 ; ---- words $7BA8-$7BAC (4 bytes) [PROBABLE] sprite frame table: 2 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 MailSrvDel_ProgressObject_Anim0Frames:: ; 23:7BA8
-Table_23_7BA8::
+
 	sprite_frame_table MailSrvDel_ProgressObject_Anim0Frame0, MailSrvDel_ProgressObject_Anim0Frame1
 
 ; ---- data $7BAC-$7BD5 (41 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 10 piece(s); length tiles exactly against the frame-table pointers

@@ -1639,3 +1639,41 @@ exports only and makes no new claim about message meaning.
 | `72:5F90` | `String_72_5F90` | `String_Dialog_Msg021F` |
 | `72:5FF6` | `String_72_5FF6` | `String_Dialog_Msg0220` |
 | `72:612B` | `String_72_612B` | `String_Dialog_Msg0224` |
+
+## Bank 23 mail-server delete-progress aliases (2026-10-21)
+
+The refreshed census at `ca677625` found 24 declaration-only address-named
+aliases in `gfx/mail_server/delete_progress.asm`, sharing addresses with
+existing named palette, sprite-object or animation-frame-table labels. The
+347-file tracked non-language ASM/INC scan excluded
+`engine/mail/sample_data.asm`; it found no other-source or tool references and
+no dependent local labels. The aliases are absent from the post-pass SYM. The
+owner remains 598 physical lines; palette bytes, object records, frame
+tables, comments and confidence are unchanged. No new runtime claim is made.
+
+| Address | Retired label | Retained label |
+|---|---|---|
+| `23:7910` | `Palette_23_7910` | `Palette_MailSrvDelProgress_Bg` |
+| `23:7950` | `Palette_23_7950` | `Palette_MailSrvDelProgress_Obj` |
+| `23:7990` | `Table_23_7990` | `Table_SpriteCounter_Digits` |
+| `23:7AE0` | `Table_23_7AE0` | `SpriteCounter_Digits_Anim0Frames` |
+| `23:7AEA` | `Table_23_7AEA` | `SpriteCounter_Digits_Anim4Frames` |
+| `23:7AF4` | `Table_23_7AF4` | `SpriteCounter_Digits_Anim8Frames` |
+| `23:7AFE` | `Table_23_7AFE` | `SpriteCounter_Digits_Anim12Frames` |
+| `23:7B08` | `Table_23_7B08` | `SpriteCounter_Digits_Anim16Frames` |
+| `23:7B12` | `Table_23_7B12` | `SpriteCounter_Digits_Anim20Frames` |
+| `23:7B1C` | `Table_23_7B1C` | `SpriteCounter_Digits_Anim24Frames` |
+| `23:7B26` | `Table_23_7B26` | `SpriteCounter_Digits_Anim28Frames` |
+| `23:7B30` | `Table_23_7B30` | `SpriteCounter_Digits_Anim32Frames` |
+| `23:7B3A` | `Table_23_7B3A` | `SpriteCounter_Digits_Anim36Frames` |
+| `23:7B44` | `Table_23_7B44` | `SpriteCounter_Digits_Anim40Frames` |
+| `23:7B4E` | `Table_23_7B4E` | `SpriteCounter_Digits_Anim44Frames` |
+| `23:7B58` | `Table_23_7B58` | `SpriteCounter_Digits_Anim48Frames` |
+| `23:7B62` | `Table_23_7B62` | `SpriteCounter_Digits_Anim52Frames` |
+| `23:7B6C` | `Table_23_7B6C` | `SpriteCounter_Digits_Anim56Frames` |
+| `23:7B76` | `Table_23_7B76` | `SpriteCounter_Digits_Anim60Frames` |
+| `23:7B80` | `Table_23_7B80` | `SpriteCounter_Digits_Anim64Frames` |
+| `23:7B8A` | `Table_23_7B8A` | `SpriteCounter_Digits_Anim68Frames` |
+| `23:7B94` | `Table_23_7B94` | `SpriteCounter_Digits_Anim72Frames` |
+| `23:7B9E` | `Table_23_7B9E` | `SpriteCounter_Digits_Anim76Frames` |
+| `23:7BA8` | `Table_23_7BA8` | `MailSrvDel_ProgressObject_Anim0Frames` |
