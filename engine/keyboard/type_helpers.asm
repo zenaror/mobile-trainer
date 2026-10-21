@@ -89,7 +89,7 @@ Kbd_Type6To10Flag:: ; 55:6EEC
 	; Requires stable ROM55, valid nonaliasing stack and no relevant IRQ interference.
 	; Entry/purpose HYPOTHESIS: static caller 5DF5 chooses 5E5A/5F29; no live return-9 proof.
 	; Full 6EAA twin differs only in table base; equal table bytes do not transfer cursor role.
-	ld hl, Data_55_6EF7
+	ld hl, Table_Kbd_Type6To10Flag_ByType
 	add a, l
 	ld l, a
 	ld a, $00
@@ -98,9 +98,9 @@ Kbd_Type6To10Flag:: ; 55:6EEC
 	ld a, [hl]
 	ret
 
-; ---- data $6EF7-$6F02 (11 bytes) [PROBABLE] 11-byte lookup table addressed by ld hl,$6EF7 in the routine 6EEC (the executed sibling routines each index an 11-byte table of zeros and ones the same way)
+; ---- data $6EF7-$6F02 (11 bytes) [PROBABLE] lookup bytes read by Kbd_Type6To10Flag for input A=0..10; values are 0 for 0..5 and 1 for 6..10. The routine does not bound A; higher values read beyond this table.
 
-Data_55_6EF7:: ; 55:6EF7
+Table_Kbd_Type6To10Flag_ByType:: ; 55:6EF7
 	db $00, $00, $00, $00, $00, $00, $01, $01, $01, $01, $01
 
 Kbd_TypeHidesOnKey82:: ; 55:6F02

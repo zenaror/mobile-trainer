@@ -50,6 +50,10 @@ A complete executed structural twin is `Function_55_6EAA`: its eleven code bytes
 
 The candidate's own static consumer at 55:5DF5 is `FA AB C2 CD EC 6E B7 CA 5A 5E C3 29 5F`: load `wKbdType`, call 6EEC, OR A, jump to 5E5A for zero or 5F29 otherwise. OR A is needed to test the returned byte because the lookup returns F=$00. Entry of that consumer remains HYPOTHESIS, and the preceding JP bypasses it in ordinary fall-through. If 5F29 is entered, it clears A before an unconditional call to `Kbd_SlideOut`; only ordinary callee return permits the later mode-zero store and return value nine. This conditional static chain is not a demonstrated live input policy or purpose for the lookup.
 
+## Current table-name correction (2026-10-21)
+
+The current source replaces `Data_55_6EF7` with `Table_Kbd_Type6To10Flag_ByType`, **PROBABLE** as a structural label for the direct reader's 11-byte input-A table on indices 0..10. The lookup returns 0 for 0..5 and 1 for 6..10, but has no bounds check; larger inputs continue into neighboring ROM. Natural sampled reads remain 0/11, and the 5DF5 entry and original purpose remain HYPOTHESIS. The equal-byte table at6EB5 is a distinct physical object. Earlier KEEP-neutral text records the historical proposal and is superseded for the current source name.
+
 These byte and sibling facts support the local numerical operation name without requiring a natural caller for the candidate. They supply no new runtime, visual or hardware observation, no natural entry promotion and no functional-role promotion. Reconstruction equivalence still requires the documented build, symbol check and byte comparison with the original ROM; static source/byte correspondence alone does not establish that result.
 
 
