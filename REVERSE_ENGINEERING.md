@@ -1924,7 +1924,7 @@ the [bank-6A ticker naming audit](docs/research/generic_data_name_audit_20261020
 
 A fresh path-bounded exact-name scan of the six maintained source roots plus
 `zero_labels.asm`, excluding the protected mail sample before reading, finds
-39 `Data_BB_AAAA` definitions in 33 owners and no exact generic `Function`,
+37 `Data_BB_AAAA` definitions in 32 owners and no exact generic `Function`,
 `Font`, or `Label` definitions. This is a lexical count, not semantic closure.
 The same scan now finds 0 `String_BB_AAAA`, no exact `Table_BB_AAAA`, 41
 `Tiles_BB_AAAA`, 24 `Tilemap_BB_AAAA`, 4 `Attrmap_BB_AAAA`, and 25
@@ -1985,3 +1985,5 @@ sequence and a candidate RET opcode byte; entry into either span remains
 unproved.
 Two bank-2F address-book dispatcher bytes are named as candidate RET opcodes;
 their code/data classification and reachability remain HYPOTHESIS.
+Two bank-25 mailbox spans now say that executed code reads them while keeping
+their content class unknown and their transfer boundaries explicit in docs.

@@ -2475,9 +2475,12 @@ place; payloads and offsets are unchanged. The 272-byte include at `25:6BD1`
 is listed in the image-text inventory as 17 tiles containing arrow/label
 pieces. It is now `Mailbox_CandidateTiles_ArrowLabel_6BD1`; the existing
 PROBABLE classification and 15-byte zero pad remain, since no natural loader
-was established. `Data_25_6AC8` and `Data_25_6E71` remain neutral: their bytes
-are read in merged ranges, but no sufficiently specific content class was
-shown. The asset catalog now uses the candidate name.
+was established. At this audit checkpoint, `Data_25_6AC8` and
+`Data_25_6E71` remained neutral: their bytes are read in merged ranges, but no
+sufficiently specific content class was shown. Their current names and
+bounded transfer evidence are recorded in the
+[mailbox read-data follow-up](#mailbox-read-data-spans-with-unknown-content-2026-10-21).
+The asset catalog now uses the candidate name.
 
 The six-root `Data_BB_AAAA::` census, excluding
 `engine/mail/sample_data.asm`, is now 253 definitions in 122 owners, down from
@@ -3259,3 +3262,13 @@ candidate names for one-byte `$C9` sequences at `2F:7F3A` and `2F:7F4D`.
 Both source headers remain **HYPOTHESIS/UNCLASSIFIED**; no entry or execution
 is established. Bytes and boundaries are unchanged. Exact generic
 `Data_BB_AAAA` count drops from 41/34 definitions/owners to 39/33.
+
+## Mailbox read-data spans with unknown content (2026-10-21)
+
+Two neutral bank-25 labels now use `Mailbox_ReadData_UnknownContent_*` names.
+The source records 265 bytes at `25:6AC8` and 127 bytes at `25:6E71` as data
+read by executed code; their content class remains unknown. The separate
+`docs/research/boot_and_home.md` analysis bounds both within ROM-to-VRAM
+requests and shows the physical 16-byte phases cut transfer units, so neither
+span is promoted to an independently aligned tile asset. No bytes/boundaries
+changed. Exact generic `Data_BB_AAAA` count drops from 39/33 to 37/32.
