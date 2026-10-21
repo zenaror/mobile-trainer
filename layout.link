@@ -836,4 +836,6 @@ ROMX $7F
 	org $7271
 	"engine/gfx/scroll_split"
 	org $7830
-	"gfx/unreferenced/page_list_prototype_objects"
+	"gfx/unresolved/tiles_7f_7830"
+	org $7B00
+	"gfx/text_cursor/objects"

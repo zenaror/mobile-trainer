@@ -145,10 +145,8 @@ assets under `gfx/browser/page_list_candidate/`. The linked engine owner
 and their consumers remain unchanged. Static source inventory found 102
 symbolic reference lines from that engine owner to the graphics globals; this
 does not establish natural entry or original purpose, which remain
-HYPOTHESIS. The separate `page_list_prototype_objects` and bank-52
-`page_list_prototype_messages` owners are unchanged. Historical/frozen locators
-retain their earlier path, while current asset metadata and the image inventory
-point to the candidate owner.
+HYPOTHESIS. At the time of this checkpoint, the separate `page_list_prototype_objects` and bank-52
+`page_list_prototype_messages` owners were unchanged. A later path review split the mixed bank-7F owner at `7F:7B00`: the 720-byte tile block moved to `gfx/unresolved/tiles_7f_7830.asm` because no symbolic load was found in reviewed source, while the 453-byte palette/object tables/animation data moved to `gfx/text_cursor/objects.asm` because the latter has positive text-editor consumers. This path correction leaves historical confidence and source evidence intact. Frozen locators retain their earlier paths; current asset metadata and image inventory use the split owners.
 
 In `engine/gfx/scroll_split.asm`, four exact co-located `Data_7F_*` aliases at
 7F:7385, 747F, 75CB and 771E were retired. Their retained labels

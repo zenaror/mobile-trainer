@@ -1,18 +1,12 @@
-; gfx/unreferenced/page_list_prototype_objects.asm
-; bank 7F, $7830-$7CC5 (1173 bytes); pinned by layout.link
-; prototype tiles and object animation data
+; gfx/text_cursor/objects.asm
+; bank 7F, $7B00-$7CC5 (453 bytes); extent is fixed by layout.link.
+; Palette, repeated object-table entries and animation/frame data used by text editors.
 
-SECTION "gfx/unreferenced/page_list_prototype_objects", ROMX
+SECTION "gfx/text_cursor/objects", ROMX
 
-; ---- gfx $7830-$7B00 (720 bytes) [PROBABLE] 45 tiles (0x2D0 bytes) of 2bpp sprite-like graphics (rendered: signal/sync-style icons and small diagonal shapes; blank rows/tiles included); no HDMA call site found in the ROM (address never loaded as an immediate); bounded by the ret of 7F:782F before and the 8 palettes (7B00) after
-
-Tiles_7F_7830:: ; 7F:7830
-	INCBIN "gfx/unreferenced/page_list_prototype_objects/tiles_7830.2bpp"
-
-; ---- data $7B00-$7B40 (64 bytes) [PROBABLE] 8 RGB555 palettes of 4 colours (64 bytes, all words < $8000; the last five are 0000 294A 56B5 7FFF); the mapper heuristic that made 7B10-7BA0 one 18-group palette ran over the object tables that follow (7B40-7B90)
-
+; ---- data $7B00-$7B40 (64 bytes) [PROBABLE] 8 RGB555 palettes of 4 colours (all words < $8000; the last five are 0000 294A 56B5 7FFF); the mapper heuristic that made 7B10-7BA0 one 18-group palette ran over the object tables that follow (7B40-7B90)
 Palette_TextCursor_Obj:: ; 7F:7B00
-	INCLUDE "gfx/unreferenced/page_list_prototype_objects/palette_7b00.pal"
+	INCLUDE "gfx/text_cursor/objects/palette_7b00.pal"
 
 ; ---- words $7B40-$7B90 (80 bytes) [PROBABLE] 5 object tables of 4 entries x 2 words (7B40, 7B50, 7B60, 7B70, 7B80; 16 bytes each, every entry repeated) read by init_object_from_table (00:0A82, de=$7B50/$7B60/$7B70/$7B80, a=$7F, callers in banks 2A, 2C, 2D, 2F, 65); all words point into 7B90-7CC5
 

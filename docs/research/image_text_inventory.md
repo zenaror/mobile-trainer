@@ -523,7 +523,7 @@ Columns: `#` = order of the listing (path order); `asset` = PNG under `gfx/` (th
 | 406 | `browser/page_list_candidate/tiles_62b0` | 7F:62B0 | 64 (16x4) | PageListProto_InitScreen@9000b1 | ART | candidate page-list prototype art; original role and natural entry unproven |
 | 407 | `browser/page_list_candidate/tiles_66b0` | 7F:66B0 | 18 (9x2) | PageListProto_InitScreen@9400b1 | ART | candidate page-list prototype art; original role and natural entry unproven |
 | 408 | `browser/page_list_candidate/tiles_6ae0` | 7F:6AE0 | 41 (16x3) | PageListProto_InitScreen@8000 | ART | candidate page-list prototype art; original role and natural entry unproven |
-| 409 | `unreferenced/page_list_prototype_objects/tiles_7830` | 7F:7830 | 45 (15x3) | - | ART | unused prototype object tiles |
+| 409 | `unresolved/tiles_7f_7830/tiles_7830` | 7F:7830 | 45 (15x3) | - | UNK | no symbolic load found in reviewed source; purpose unresolved |
 | 410 | `address_book/address_editor/abook_addr_tiles8800` | 2F:77D0 | 47 (16x3) | - | UNK | added by retype1 (`docs/research/naming2_retype1.md`): A / B button icons and kana label pieces (looked at at 1x only) |
 | 411 | `mail/server_status_bank26/profile_tiles8000` | 26:7820 | 2 (2x1) | - | UNK | added by retype1 (`docs/research/naming2_retype1.md`): 2 small tiles (not read) |
 

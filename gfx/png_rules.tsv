@@ -944,6 +944,7 @@ gfx/settings/screens_bank71/tilemap_6f6f.attrmap	-	attrmap				360	196e16e94bbaf8
 gfx/settings/screens_bank71/tilemap_6f6f.tilemap	-	tilemap				360	bf23499cdedcce56ed0236ff1a23fe4c7de1eeadef9abd18a14e619d248ccfcf
 gfx/settings/shared_text_entry_tiles_bank5e/shared_text_entry_vram8800_vb1.2bpp	gfx/settings/shared_text_entry_tiles_bank5e/shared_text_entry_vram8800_vb1.png	tiles			0	1024	fa8884382b45e62187c8e44b3bffe147f97af642bcc634b1e91c0fe5872ef39d
 gfx/settings/shared_text_entry_tiles_bank5e/shared_text_entry_vram8c00_vb1.2bpp	gfx/settings/shared_text_entry_tiles_bank5e/shared_text_entry_vram8c00_vb1.png	tiles			0	1024	ed15e9d48a5471ed7bc593796c6ce61d7fafb09e7a05a43cea738c04d5071b7e
+gfx/text_cursor/objects/palette_7b00.pal	-	palette				519	e35ab763e9484b6b615c3d4b8ff74ac3ad6fedc3557cef9f7f6048e4d07d96fd
 gfx/title/logo/title_logo.pal	-	palette				519	2b9fdc4e24b258b87d07baccfb27a2d0fcb5072241c39fde3877ee21d6635632
 gfx/title/logo/title_logo_screen.attrmap	-	attrmap				360	a7755f27e47e04a291e9588959a6b2aa31fd4ebd59cdd96c3bfa0a3ce0b65d32
 gfx/title/logo/title_logo_screen.tilemap	-	tilemap				360	4b30079db4e899cd28236535dec23f23c201928e77f65febeeeadad2ff16e313
@@ -980,5 +981,4 @@ gfx/top_menu/top_menu/tiles_5fa0.2bpp	gfx/top_menu/top_menu/tiles_5fa0.png	tiles
 gfx/ui_art/logo_and_window_tiles/art_palettes.pal	-	palette				779	d835d959fc9e7722974f3c63d28dcc7c437fbc1d360a914a4e85138519a8d550
 gfx/ui_art/logo_and_window_tiles/logo_and_window_tiles.2bpp	gfx/ui_art/logo_and_window_tiles/logo_and_window_tiles.png	tiles			0	4608	3f3a3a44a5b87aca751360d559be3a16915ac9cd001bb4ae0fef33e51c8aa1da
 gfx/ui_art/logo_and_window_tiles/mail_server_box_tiles.2bpp	gfx/ui_art/logo_and_window_tiles/mail_server_box_tiles.png	tiles			0	1152	884fbf738d2313e7abcd6a30ed85dc5c49ee680827666ce347449796f9454d08
-gfx/unreferenced/page_list_prototype_objects/palette_7b00.pal	-	palette				519	e35ab763e9484b6b615c3d4b8ff74ac3ad6fedc3557cef9f7f6048e4d07d96fd
-gfx/unreferenced/page_list_prototype_objects/tiles_7830.2bpp	gfx/unreferenced/page_list_prototype_objects/tiles_7830.png	tiles			0	720	3c54d00cdd422fa54238b4a50bbb7020b0c88efe39e92fdd111b75d6db336758
+gfx/unresolved/tiles_7f_7830/tiles_7830.2bpp	gfx/unresolved/tiles_7f_7830/tiles_7830.png	tiles			0	720	3c54d00cdd422fa54238b4a50bbb7020b0c88efe39e92fdd111b75d6db336758

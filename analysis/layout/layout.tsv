@@ -334,4 +334,5 @@
 7F	62B0	70FD	gfx/unreferenced/page_list_prototype.asm	tiles, tilemap, palettes, object tables of the prototype
 7F	70FD	7271	engine/keyboard/slide_helpers.asm	KbdSlide_* prepare/step hooks for the keyboard slide
 7F	7271	7830	engine/gfx/scroll_split.asm	STAT scroll split enable/disable, GDMA at VBlank, scroll step routines and tables
-7F	7830	7CC5	gfx/unreferenced/page_list_prototype_objects.asm	prototype tiles and object animation data
+7F	7830	7B00	gfx/unresolved/tiles_7f_7830.asm	45 2bpp tiles; no symbolic load found in reviewed source, purpose unresolved
+7F	7B00	7CC5	gfx/text_cursor/objects.asm	text-cursor object palette, tables and animation/frame data with positive editor consumers

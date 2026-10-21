@@ -1487,12 +1487,14 @@ Os arquivos legados atuais são `gfx/settings/adapter_check_and_phone_entry_bank
 | `tiles_6ae0.2bpp` | 2bpp tiles | 656 | 7F:6AE0 | PROBABLE | exact | - | `gfx/browser/page_list_candidate.asm` |
 | `palette_6d70.pal` | RGB palette | 64 | 7F:6D70 | PROBABLE | - | - | `gfx/browser/page_list_candidate.asm` |
 
-### `gfx/unreferenced/page_list_prototype_objects/`
+### `gfx/unresolved/tiles_7f_7830/` and `gfx/text_cursor/objects/`
+
+These adjacent bank-7F ranges have different evidence and consumers. The tile block remains unresolved: no symbolic load/reference to `$7830` was found in the reviewed source, and its appearance does not identify its purpose. The following object data has positive consumers in text editors.
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_7830.2bpp` | 2bpp tiles | 720 | 7F:7830 | PROBABLE | exact | - | `gfx/unreferenced/page_list_prototype_objects.asm` |
-| `palette_7b00.pal` | RGB palette | 64 | 7F:7B00 | PROBABLE | - | - | `gfx/unreferenced/page_list_prototype_objects.asm` |
+| `tiles_7830.2bpp` | 2bpp tiles | 720 | 7F:7830 | HYPOTHESIS | exact | - | `gfx/unresolved/tiles_7f_7830.asm` |
+| `palette_7b00.pal` | RGB palette | 64 | 7F:7B00 | PROBABLE | - | - | `gfx/text_cursor/objects.asm` |
 
 
 ## Editing images

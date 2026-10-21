@@ -127,7 +127,7 @@ Pins: the plan marks a row `org` when a gap of zero bytes precedes it.  There is
 which file owns them.  Every other first row starts at the bank window start.  The ROM is 2 MiB because bank 7F has rows; empty banks are
 produced by `rgblink -p 0x00`.  The `ramcode` OAM DMA image inside `home/lcd.asm` stays a `LOAD` block inside that file.
 
-Contents per bank in section order (from `section_order.tsv`): see that file; row counts per bank: `00` 28, `04` 18, `05` 17, `67` 14, `68` 15, `48` 11, `7F` 9,
+Contents per bank in section order (from `section_order.tsv`): see that file; row counts per bank: `00` 28, `04` 18, `05` 17, `67` 14, `68` 15, `48` 11, `7F` 10,
 `4E` 9, `2F` 8, `2D` 8, `54` 8, `2A/2B` 7, `74` 7, `22` 5 ... single-file banks: `0F 1B 1C 1F 41-46 4D 52 53 58 5B 5F 60 61 62 66 75 77-7B`.
 
 ## 4. Verification performed
@@ -146,9 +146,8 @@ Evidence grades follow the project vocabulary.  Everything not listed here is ba
 same bank.  None of these choices can change a byte: they only decide which file a range lands in.
 
 **Names that state a hypothesis** (the file name repeats the wording of the naming notes; HYPOTHESIS/PROBABLE there):
-* `engine/unreferenced/page_list_prototype.asm` (`7F:4C78-61FC`), `gfx/unreferenced/page_list_prototype.asm` (`7F:62B0-70FD`),
-  `gfx/unreferenced/page_list_prototype_objects.asm` (`7F:7830-7CC5`): never executed, no reference; "prototype of the page list" is `naming_g8.md` 6.2 (HYPOTHESIS).
-  Prototype art ranges follow the load sites `7F:522A-52A4`, the sprite tables `6DB0/7B40` and `4FC3/4FCF` reads; the ends (`70FD`, `7830`) are region boundaries.
+* `engine/unreferenced/page_list_prototype.asm` (`7F:4C78-61FC`) and `gfx/unreferenced/page_list_prototype.asm` (`7F:62B0-70FD`): the prototype association is HYPOTHESIS in `naming_g8.md` 6.2. The tiles at `7F:7830-7B00` were historically grouped with the prototype, but reviewed source has no symbolic load/reference for `$7830`; their purpose remains unresolved. Their owner is now `gfx/unresolved/tiles_7f_7830.asm`.
+  Historical path attribution included reads of `7F:7B40`; those are now assigned to the text-cursor object tables, not prototype art. Other prototype evidence is recorded at `7F:522A-52A4`, `6DB0` and `4FC3/4FCF`. `70FD`, `7830` and `7B00` are region boundaries. The adjacent `7F:7B00-7CC5` object owner is now `gfx/text_cursor/objects.asm`; palette, tables and animation/frame data there have positive consumers in text editors.
 * `engine/address_book/unreferenced_confirm_screen.asm` + `gfx/.../unreferenced_confirm_screen.asm` (`2C:741C-7FD0`): code without caller (HYPOTHESIS, `naming_g3.md`);
   the art part `7C80/7F50` is also described there as entry-screen art of bank 2F, so the second file mixes two hypotheses.
 * `engine/browser/frame_style_chooser.asm` (`4E:4000-4658`): `naming_g5.md` 3.3 (PROBABLE, no caller); it includes the wipe list `41E0` and helper `45FE`.
@@ -815,7 +814,13 @@ same bank.  None of these choices can change a byte: they only decide which file
 | file | banks | bytes | est. lines | kinds |
 |---|---|---:|---:|---|
 | `gfx/unreferenced/page_list_prototype.asm` | 7F | 3661 | 228 | gfx 1968, data 1533, words 160 |
-| `gfx/unreferenced/page_list_prototype_objects.asm` | 7F | 1173 | 73 | gfx 720, data 373, words 80 |
+
+#### `gfx/unresolved/` and `gfx/text_cursor/`
+
+| file | banks | bytes | est. lines | kinds |
+|---|---:|---:|---:|---|
+| `gfx/unresolved/tiles_7f_7830.asm` | 7F | 720 | 1 | gfx 720 |
+| `gfx/text_cursor/objects.asm` | 7F | 453 | 72 | data 373, words 80 |
 
 #### `home/`
 

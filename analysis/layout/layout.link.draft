@@ -417,4 +417,5 @@ ROMX $7f
 	"gfx/unreferenced/page_list_prototype"
 	"engine/keyboard/slide_helpers"
 	"engine/gfx/scroll_split"
-	"gfx/unreferenced/page_list_prototype_objects"
+	"gfx/unresolved/tiles_7f_7830"
+	"gfx/text_cursor/objects"
