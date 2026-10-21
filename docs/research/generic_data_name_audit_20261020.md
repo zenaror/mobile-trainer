@@ -2546,6 +2546,17 @@ changed. The restricted six-root `Data_BB_AAAA::` census is now 237
 definitions in 121 owners, down from 241 in 121 owners. This remains a lexical
 count.
 
+## Bank 72 dialog-window resource aliases (2026-10-21)
+
+Four exact `Data_72_*` aliases in `gfx/dialog/dialog_window.asm` duplicated
+the existing confirmed names for the short/tall dialog tilemaps, window tiles
+and dialog palette. Source search found no consumers beyond the definitions;
+the aliases were removed. The separate object palette and cursor animation
+records are unchanged. All load evidence, confidence, ranges and catalog rows
+remain as before. The restricted six-root `Data_BB_AAAA::` census is now 214
+definitions in 117 owners, down from 218 in 117 owners. This remains a lexical
+count.
+
 ## Bank 28 delete-all screen resource aliases (2026-10-21)
 
 Four `Data_28_*` labels in `gfx/mail_server/delete_all_screen.asm` duplicated

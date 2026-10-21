@@ -7,20 +7,17 @@ SECTION "gfx/dialog/dialog_window", ROMX
 ; ---- gfx $48C0-$4CC0 (1024 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (72:4069 72:41F0); first: hdma_rom_to_vram at 72:4069: hl=$48C0 a=$72 c=$40 de=$8801 (dest VRAM $8800, vbank=1)
 
 Dialog_WindowTiles:: ; 72:48C0
-Data_72_48C0::
 	INCBIN "gfx/dialog/dialog_window/dialog_window_tiles.2bpp"
 
 ; ---- data $4CC0-$4E28 (360 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 72:408B: hl=$4CC0 a=$72 b=9 rows c=20 cols (tiles then attrs) de=$D180
 
 Dialog_WindowMap:: ; 72:4CC0
-Data_72_4CC0::
 	INCBIN "gfx/dialog/dialog_window/dialog_window_map.tilemap"
 	INCBIN "gfx/dialog/dialog_window/dialog_window_map.attrmap"
 
 ; ---- data $4E28-$4E40 (24 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); kind palette from the label name [clipped from 48C0-4E40 by higher-priority evidence]
 
 Dialog_Palette:: ; 72:4E28
-Data_72_4E28::
 	INCLUDE "gfx/dialog/dialog_window/dialog_palette.pal"
 
 Dialog_ObjPalette:: ; 72:4E38
@@ -58,6 +55,5 @@ Dialog_Cursor_Anim0Script:: ; 72:4E6E
 ; ---- data $4E73-$502B (440 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 72:4212: hl=$4E73 a=$72 b=11 rows c=20 cols (tiles then attrs) de=$D140
 
 Dialog_WindowMapTall:: ; 72:4E73
-Data_72_4E73::
 	INCBIN "gfx/dialog/dialog_window/dialog_window_map_tall.tilemap"
 	INCBIN "gfx/dialog/dialog_window/dialog_window_map_tall.attrmap"

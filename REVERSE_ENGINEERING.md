@@ -1748,3 +1748,9 @@ The bank-28 delete-all-screen graphics owner no longer exports four exact
 symbols and catalog entries remain authoritative. Confidence and byte ranges
 are unchanged. The restricted six-root generic-data census is now 218
 definitions in 117 owners. See the [bank-28 resource audit](docs/research/generic_data_name_audit_20261020.md#bank-28-delete-all-screen-resource-aliases-2026-10-21).
+
+The bank-72 dialog-window owner no longer exports four exact `Data_72_*`
+aliases under its confirmed tile, tilemap and palette resources. The catalog,
+bytes, ranges and confidence are unchanged. The restricted six-root
+generic-data census is now 214 definitions in 117 owners. See the [bank-72
+dialog-window audit](docs/research/generic_data_name_audit_20261020.md#bank-72-dialog-window-resource-aliases-2026-10-21).
