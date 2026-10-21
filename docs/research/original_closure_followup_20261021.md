@@ -286,6 +286,15 @@ The detailed private review receipts and inventories remain under the
 ignored `.tmp/` task directories until their dependent follow-up work and
 retention review are complete.
 
+### PNG-count correction (2026-10-21)
+
+A fresh `make png-check` reports 409 tile sheets, four raw byte views, 37
+font sheets and 95 screen PNGs. The current `gfx/png_rules.tsv` also contains
+409 `tiles` rows. The earlier 408 tile-sheet count in this note and the bank53
+follow-up is a historical checkpoint; the live counts in `docs/EDITING_IMAGES.md`
+and `gfx/README.md` now match the fresh manifest and check output. The check
+passed with no errors; no PNG or ROM asset was modified.
+
 ## Consumer census correction (2026-10-21)
 
 Manual review of every site emitted by the strict candidate detector found
