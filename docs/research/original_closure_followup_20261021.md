@@ -574,3 +574,12 @@ Removed `Table_68_635C`, `Table_68_659A` and `Table_68_67AE` from
 exact-address aliases and had no current source/tool consumers. Bytes and
 table extents are unchanged. make remains byte-identical; sym-check reports
 12,444 labels.
+
+## Bank 68 account state and resource table aliases (2026-10-21)
+
+Removed eleven exact-address `Table_68_*` aliases across account helpers,
+password entry, registration, settings and result screens, retaining the
+semantic `Dial_EntryNumberBuffers`, state/input tables, password maps, banner
+sources and digit tilemap table. Search found no current source/tool references
+to the retired spellings. Table bytes and extents are unchanged; make remains
+byte-identical and sym-check reports 12,433 labels.

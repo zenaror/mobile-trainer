@@ -110,7 +110,6 @@ SettingsMenu_Dispatch:: ; 68:504D
 ; ---- ptrtable $505E-$5066 (8 bytes) [CONFIRMED] code-pointer table, 4 entries: 4/4 words hit own-bank code starts (start is the operand of ld r16); 4/4 targets executed; every byte read as data in a trace
 
 SettingsMenu_StateTable:: ; 68:505E
-Table_68_505E::
 	dw SettingsMenu_StateInit
 	dw SettingsMenu_StateFadeIn
 	dw SettingsMenu_StateInput
@@ -370,7 +369,6 @@ SettingsMenu_DrawItems:: ; 68:522C
 ; ---- words $528C-$5296 (10 bytes) [PROBABLE] 5 words $5770,$5798,$57C0,$57E8,$5810 (stride $28) read with `ld hl,$528C ; add a,a ; add a,l ... ld a,[hli] ; ld h,[hl] ; ld l,a` at 68:5276 and passed as HL to the far call `ld a,$4A ; farcall 00:08EA` (ld a,$4A at 68:5283; farcall at 68:5285, copy_tilemap_rect_pair, bc=$020A set at 68:5270): the words are therefore pointers into BANK 4A data, NOT into bank 68 code [verifier: retyped ptrtable->words; as a ptrtable the generator emitted `dw Label_68_5798`, a false symbolic reference to code of this bank]
 
 SettingsMenu_ItemHighlightMaps:: ; 68:528C
-Table_68_528C::
 	dw Tilemap_SettingsMenu_ItemHighlightMap_Entry0
 	dw Tilemap_SettingsMenu_ItemHighlightMap_Entry1
 	dw Tilemap_SettingsMenu_ItemHighlightMap_Entry2

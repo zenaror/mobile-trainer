@@ -215,7 +215,6 @@ Settings_GetRegistrationProgress:: ; 68:4870
 ; ---- words $48D6-$48DE (8 bytes) [PROBABLE] contiguous data block 48D6-48DE: 4 bytes were read as data by executed code in mGBA traces (2 separate read ranges, e.g. 48D6-48D8,48DC-48DE) and 4 bytes between/around those reads were never read; the whole run is one table/buffer read by index (gaps unread in the traces); content class not decoded [merged from 3 regions by classify_g2] [retyped data->words by classify_g2: every word is an instruction start of a code region of this bank (jump/dispatch table)]
 
 Settings_ProgressJumpTable:: ; 68:48D6
-Table_68_48D6::
 	dw $4880, $4880, $48D1, $48D4
 
 Settings_VerifyAndRepair:: ; 68:48DE

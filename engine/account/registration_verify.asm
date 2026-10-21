@@ -59,7 +59,6 @@ Registration_Verify_RunState_Dispatch:: ; 68:7069
 ; ---- ptrtable $7079-$708D (20 bytes) [CONFIRMED] code-pointer table, 10 entries: 10/10 words hit own-bank code starts (survey pointer-table extent); 10/10 targets executed; every byte read as data in a trace
 
 Registration_Verify_StateTable:: ; 68:7079
-Table_68_7079::
 	dw Registration_Verify_StateInit
 	dw Registration_Verify_StateReadLoginId
 	dw Registration_Verify_StateReadDialSlots

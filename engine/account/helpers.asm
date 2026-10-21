@@ -951,7 +951,6 @@ Dial_EntryHasNumber:: ; 68:4568
 ; ---- words $4594-$459A (6 bytes) [PROBABLE] 3 words wDialEntries + $00, $33, $66 (stride $33, WRAM3 addresses: bank 3 is selected at 68:4570-4574) addressed by ld hl,$4594 at 68:4577; extent bounded by the next code region
 
 Dial_EntryNumberBuffers:: ; 68:4594
-Table_68_4594::
 	dw wDialEntries, wDialEntries + $33, wDialEntries + $66
 
 Config_MirrorChecksumOk:: ; 68:459A

@@ -180,7 +180,6 @@ Account_PasswordEntry_Setup:: ; 68:5D9C
 ; ---- words $5E92-$5E9A (8 bytes) [PROBABLE] 4 words $5000,$50C8,$5190,$5258 (stride $C8) read with `ld hl,$5E92 ... ld a,[hli] ; ld h,[hl] ; ld l,a` at 68:5E29 and used as HL of the far call with a=$5D (68:5E3C, bc=$0514, de=$D000): pointers into BANK 5D data, NOT into bank 68 code [verifier: retyped ptrtable->words (the generator emitted `dw Label_68_5000`/`Label_68_50C8`, false references to bank-68 code); range trimmed from 5E92-5E9C by classify_g2, the 5th word $78FA was the operand of `ld a,[$C278]` at 5E9A]
 
 Account_PasswordEntryMaps:: ; 68:5E92
-Table_68_5E92::
 	dw $5000, $50C8, $5190, $5258
 
 Account_PasswordEntry_OkStateFromMask:: ; 68:5E9A

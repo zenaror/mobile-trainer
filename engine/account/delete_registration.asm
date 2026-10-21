@@ -340,7 +340,6 @@ Registration_DeleteExecute_RunState:: ; 68:7C52
 ; ---- words $7C6B-$7C71 (6 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [retyped data->words by classify_g2: every word is an instruction start of a code region of this bank (jump/dispatch table)]
 
 Registration_DeleteExecute_StateTable:: ; 68:7C6B
-Table_68_7C6B::
 	dw $7C71, $7C86, $7CBD
 
 	; [CONFIRMED] 50 insn(s); 50 executed (in up to 1/18 scenarios)

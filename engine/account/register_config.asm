@@ -117,7 +117,6 @@ Registration_WriteConfig_RunState:: ; 68:6B98
 ; ---- words $6BF4-$6BFA (6 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown [retyped data->words by classify_g2: every word is an instruction start of a code region of this bank (jump/dispatch table)]
 
 Registration_WriteConfig_StateTable:: ; 68:6BF4
-Table_68_6BF4::
 	dw Registration_WriteConfig_StateInit, Registration_WriteConfig_StateWrite, Registration_WriteConfig_StateFinish
 
 Registration_WriteConfig_StateInit:: ; 68:6BFA

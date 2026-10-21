@@ -73,7 +73,6 @@ Account_ResultPage_InputLoop:: ; 68:7708
 ; ---- ptrtable $771A-$7724 (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 68:7717: 5 entries; fixed length (5 words) by the routine
 
 Account_ResultPage_InputTable:: ; 68:771A
-Table_68_771A::
 	dw Account_ResultPage_OnA
 	dw Account_ResultPage_IgnoreB
 	dw Account_ResultPage_IgnoreSelect
@@ -254,7 +253,6 @@ Data_Account_ResultPage_BannerTables:: ; 68:7831
 ; Second source list $7840-$7849: indices 1/2 read, index 0 unread [PROBABLE storage].
 ; Both transfers request C=$28 blocks: $280 bytes (640), to VRAM bank 1.
 Account_ResultPage_SecondBannerSources:: ; 68:7840
-Table_68_7840::
 	db $F0, $50, $4B, $70, $53, $4B, $F0, $55, $4B
 
 ; Second index by kind $7849-$784E: only first byte naturally read [PROBABLE storage].
@@ -412,7 +410,6 @@ Byte_ToPackedBcd:: ; 68:792A
 ; bank-68 code pointers, which created nine spurious labels Label_68_5B6C..5B8C inside Account_MailDomain_PrintField (mail_address_entry.asm); they are gone
 
 Account_DigitTilemapTable:: ; 68:793D
-Table_68_793D::
 	dw Table_4B_5B68
 	dw Table_4B_5B68 + $04
 	dw Table_4B_5B68 + $08
