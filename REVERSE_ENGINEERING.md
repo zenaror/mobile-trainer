@@ -277,6 +277,9 @@ assets remain in place.
 The account-screen bank 5E owner lost 16 declaration-only `Data_5E_*` aliases
 under existing graphics, palette, and tilemap labels; its source lines remain
 in place and its emission is unchanged.
+The mail-server tidy-screen owner also lost 16 address-only `Data_2E_*` and
+`Table_2E_*` aliases under existing graphics, tilemap, palette and object-data
+labels; only declarations changed.
 
 The same audit renamed the positioned `$0020` word at `5C:5144` to
 `CommErr_MessageSlot32RawWord`. The slot is confirmed structurally; the value's purpose remains
