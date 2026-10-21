@@ -7,44 +7,37 @@ SECTION "gfx/browser/page_list_candidate", ROMX
 ; ---- gfx $62B0-$66B0 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 7F:5233: hl=$62B0 a=$7F c=$40 de=$9001 (dest VRAM $9000, vbank=1) [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv)]
 
 PageListProto_Tiles_62B0:: ; 7F:62B0
-Data_7F_62B0::
 	INCBIN "gfx/browser/page_list_candidate/tiles_62b0.2bpp"
 
 ; ---- gfx $66B0-$67D0 (288 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 7F:5245: hl=$66B0 a=$7F c=$12 de=$9401 (dest VRAM $9400, vbank=1) [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv)]
 
 PageListProto_Tiles_66B0:: ; 7F:66B0
-Data_7F_66B0::
 	INCBIN "gfx/browser/page_list_candidate/tiles_66b0.2bpp"
 
 ; ---- data $67D0-$6AA0 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 7F:5281: hl=$67D0 a=$7F b=18 rows c=20 cols (tiles then attrs) de=$D000 [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv)]
 
 PageListProto_Tilemap_67D0:: ; 7F:67D0
-Data_7F_67D0::
 	INCBIN "gfx/browser/page_list_candidate/tilemap_67d0.tilemap"
 	INCBIN "gfx/browser/page_list_candidate/tilemap_67d0.attrmap"
 
 ; ---- data $6AA0-$6AE0 (64 bytes) [PROBABLE] 8 RGB555 palettes of 4 colours (64 bytes, bit15 clear): follows the tilemap+attr block 67D0-6AA0 (0x2D0) exactly and is loaded with ld hl,$6AA0 at 7F:52A4 (same tiles/tilemap/palette layout as banks 41-47)
 
 PageListProto_BgPalette:: ; 7F:6AA0
-Palette_7F_6AA0::
 	INCLUDE "gfx/browser/page_list_candidate/palette_6aa0.pal"
 
 ; ---- gfx $6AE0-$6D70 (656 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 7F:5257: hl=$6AE0 a=$7F c=$29 de=$8000 (dest VRAM $8000, vbank=0) [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv)]
 
 PageListProto_Tiles_6AE0:: ; 7F:6AE0
-Data_7F_6AE0::
 	INCBIN "gfx/browser/page_list_candidate/tiles_6ae0.2bpp"
 
 ; ---- data $6D70-$6DB0 (64 bytes) [PROBABLE] 8 RGB555 palettes of 4 colours (64 bytes, all words < $8000), loaded with ld hl,$6D70 at 7F:5293; follows the tile block 6AE0-6D70 (41 tiles, HDMA c=$29)
 
 PageListProto_ObjPalette:: ; 7F:6D70
-Palette_7F_6D70::
 	INCLUDE "gfx/browser/page_list_candidate/palette_6d70.pal"
 
 ; ---- words $6DB0-$6E50 (160 bytes) [PROBABLE] 10 object tables of 4 entries x 2 words (6DB0 ... 6E40, 16 bytes each, every entry repeated) read by init_object_from_table (00:0A82, de=$6DB0..$6E40 a=$7F, call sites 7F:5267 549B 54E5 5BE0 ...); all 80 words point into the animation block 6E50-70FD
 
 PageListProto_ObjTable:: ; 7F:6DB0
-Table_7F_6DB0::
 	sprite_object_entry PageListProto_ObjAnimData, SpriteScript_7F_6E76 ; entry 0
 	sprite_object_entry PageListProto_ObjAnimData, SpriteScript_7F_6E76 ; entry 1
 	sprite_object_entry PageListProto_ObjAnimData, SpriteScript_7F_6E76 ; entry 2
@@ -98,7 +91,6 @@ PageListProto_ObjTable_Entry36:: ; 7F:6E40
 ; ---- data $6E50-$70FD (685 bytes) [PROBABLE] animation descriptors / sprite lists reached from the object tables 7F:6DB0-6E50 (same format as bank 72:786C-7A1F: sprite list = count + count*(y,x,tile,attr), descriptors 02 00 .. dw dw)
 
 PageListProto_ObjAnimData:: ; 7F:6E50
-Data_7F_6E50::
 	sprite_frame_table SpriteFrame_7F_6E54, SpriteFrame_7F_6E65
 SpriteFrame_7F_6E54:: ; 7F:6E54
 	sprite_frame 4

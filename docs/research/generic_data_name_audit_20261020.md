@@ -2546,6 +2546,19 @@ changed. The restricted six-root `Data_BB_AAAA::` census is now 237
 definitions in 121 owners, down from 241 in 121 owners. This remains a lexical
 count.
 
+## Bank 7F browser page-list candidate assets (2026-10-21)
+
+In `gfx/browser/page_list_candidate.asm`, five `Data_7F_*` labels duplicated
+the existing probable tile/tilemap names or `PageListProto_ObjAnimData`; two
+address-only palette labels duplicated the named background/object palettes,
+and `Table_7F_6DB0` duplicated `PageListProto_ObjTable`. These exact aliases
+were removed. The seven corresponding catalog rows now use the maintained
+semantic labels. All these resources remain PROBABLE: their entries are not
+reached in the natural coverage set, and this pass does not establish
+prototype execution. The restricted six-root `Data_BB_AAAA::` census is now
+232 definitions in 121 owners, down from 237 in 121 owners. This remains a
+lexical count.
+
 ## Census scope correction (2026-10-21)
 
 The first post-edit lexical count for the bank-2E and bank-25 checkpoints used

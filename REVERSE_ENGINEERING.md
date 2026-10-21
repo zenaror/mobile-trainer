@@ -1730,3 +1730,10 @@ object-animation pointer table and target now have candidate-qualified names;
 their caller and runtime role remain unproved, and the 1308-byte mixed span at
 `2C:5150` remains neutral. The restricted six-root generic-data census is now
 237 definitions in 121 owners. See the [bank-2C mail-title audit](docs/research/generic_data_name_audit_20261020.md#bank-2c-mail-title-resource-names-2026-10-21).
+
+The bank-7F browser page-list candidate graphics owner no longer exports five
+exact `Data_7F_*` aliases, two address-only palette aliases or the duplicate
+`Table_7F_6DB0`; seven catalog rows now use its maintained candidate labels.
+All resources remain PROBABLE, and their prototype loader is outside the
+natural coverage set. The restricted six-root generic-data census is now 232
+definitions in 121 owners. See the [bank-7F candidate audit](docs/research/generic_data_name_audit_20261020.md#bank-7f-browser-page-list-candidate-assets-2026-10-21).

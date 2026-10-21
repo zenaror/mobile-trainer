@@ -974,12 +974,12 @@ gfx/help/script_illustrations_14_26/picture_26_palette.pal	palette	8	gfx/help/sc
 gfx/ui_art/logo_and_window_tiles/art_palettes.pal	palette	96	gfx/ui_art/logo_and_window_tiles.asm	5B	5680	PROBABLE	-	0		Palette_5B_5680
 gfx/ui_art/logo_and_window_tiles/logo_and_window_tiles.2bpp	tiles	4608	gfx/ui_art/logo_and_window_tiles.asm	5B	4000	PROBABLE	exact	0		Tiles_5B_4000
 gfx/ui_art/logo_and_window_tiles/mail_server_box_tiles.2bpp	tiles	1152	gfx/ui_art/logo_and_window_tiles.asm	5B	5200	PROBABLE	exact	0		Tiles_5B_5200
-gfx/browser/page_list_candidate/palette_6aa0.pal	palette	64	gfx/browser/page_list_candidate.asm	7F	6AA0	PROBABLE	-	0		Palette_7F_6AA0
-gfx/browser/page_list_candidate/palette_6d70.pal	palette	64	gfx/browser/page_list_candidate.asm	7F	6D70	PROBABLE	-	0		Palette_7F_6D70
-gfx/browser/page_list_candidate/tilemap_67d0.attrmap	attrmap	360	gfx/browser/page_list_candidate.asm	7F	6938	PROBABLE	-	0	20x18	Data_7F_67D0
-gfx/browser/page_list_candidate/tilemap_67d0.tilemap	tilemap	360	gfx/browser/page_list_candidate.asm	7F	67D0	PROBABLE	-	0	20x18	Data_7F_67D0
-gfx/browser/page_list_candidate/tiles_62b0.2bpp	tiles	1024	gfx/browser/page_list_candidate.asm	7F	62B0	PROBABLE	exact	0		Data_7F_62B0
-gfx/browser/page_list_candidate/tiles_66b0.2bpp	tiles	288	gfx/browser/page_list_candidate.asm	7F	66B0	PROBABLE	exact	0		Data_7F_66B0
-gfx/browser/page_list_candidate/tiles_6ae0.2bpp	tiles	656	gfx/browser/page_list_candidate.asm	7F	6AE0	PROBABLE	exact	7		Data_7F_6AE0
+gfx/browser/page_list_candidate/palette_6aa0.pal	palette	64	gfx/browser/page_list_candidate.asm	7F	6AA0	PROBABLE	-	0		PageListProto_BgPalette
+gfx/browser/page_list_candidate/palette_6d70.pal	palette	64	gfx/browser/page_list_candidate.asm	7F	6D70	PROBABLE	-	0		PageListProto_ObjPalette
+gfx/browser/page_list_candidate/tilemap_67d0.attrmap	attrmap	360	gfx/browser/page_list_candidate.asm	7F	6938	PROBABLE	-	0	20x18	PageListProto_Tilemap_67D0
+gfx/browser/page_list_candidate/tilemap_67d0.tilemap	tilemap	360	gfx/browser/page_list_candidate.asm	7F	67D0	PROBABLE	-	0	20x18	PageListProto_Tilemap_67D0
+gfx/browser/page_list_candidate/tiles_62b0.2bpp	tiles	1024	gfx/browser/page_list_candidate.asm	7F	62B0	PROBABLE	exact	0		PageListProto_Tiles_62B0
+gfx/browser/page_list_candidate/tiles_66b0.2bpp	tiles	288	gfx/browser/page_list_candidate.asm	7F	66B0	PROBABLE	exact	0		PageListProto_Tiles_66B0
+gfx/browser/page_list_candidate/tiles_6ae0.2bpp	tiles	656	gfx/browser/page_list_candidate.asm	7F	6AE0	PROBABLE	exact	7		PageListProto_Tiles_6AE0
 gfx/unreferenced/page_list_prototype_objects/palette_7b00.pal	palette	64	gfx/unreferenced/page_list_prototype_objects.asm	7F	7B00	PROBABLE	-	0		Palette_7F_7B00
 gfx/unreferenced/page_list_prototype_objects/tiles_7830.2bpp	tiles	720	gfx/unreferenced/page_list_prototype_objects.asm	7F	7830	PROBABLE	exact	0		Tiles_7F_7830
