@@ -502,3 +502,13 @@ catalogue now references the retained `Gfx_Kbd_T4_*` symbols. Exact-token
 search found no active source/tool consumers of the removed names. Resource
 bytes, extents, bank/address assignments and existing evidence grades are
 unchanged; frozen config/analysis records were not rewritten.
+
+## Bank 72 browser menu table aliases (2026-10-21)
+
+Removed `Table_72_65EB`, `Table_72_6643`, `Table_72_6927`,
+`Table_72_697F`, `Table_72_6AEC` and `Table_72_6B4C` from
+`engine/browser/menus.asm`. Each shared an address with an existing semantic
+input-table, dialog-result-table or menu-record label. Current-source/tool
+search found no other use of the numeric spellings. Table words, menu record
+bytes, boundaries and existing evidence grades are unchanged; historical
+config/analysis data was not rewritten.

@@ -242,7 +242,6 @@ BrowserMenu_RunTwoItem_Loop:: ; 72:656D
 ; ---- ptrtable $65EB-$65F5 (10 bytes) [PROBABLE] inline table of `call $056A` (JoypadDispatch) at 72:65E8: 5 entries; fixed length (5 words) by the routine
 
 BrowserMenu_RunTwoItem_InputTable:: ; 72:65EB
-Table_72_65EB::
 	dw BrowserMenu_RunTwoItem_OnA
 	dw BrowserMenu_RunTwoItem_Cancel
 	dw BrowserMenu_RunTwoItem_IgnoreSelect
@@ -291,7 +290,6 @@ BrowserMenu_RunTwoItem_OnA:: ; 72:663E
 ; ---- ptrtable $6643-$6647 (4 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 72:6640: 2 entries; end is a heuristic guess (words stay plausible code pointers)
 
 BrowserMenu_RunTwoItem_DialogResultTable:: ; 72:6643
-Table_72_6643::
 	dw BrowserMenu_RunTwoItem_AcceptItem0
 	dw BrowserMenu_RunTwoItem_AcceptItem1
 
@@ -645,7 +643,6 @@ BrowserMenu_RunThreeItem_Loop:: ; 72:68A9
 ; ---- ptrtable $6927-$6931 (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 72:6924: 5 entries; fixed length (5 words) by the routine
 
 BrowserMenu_RunThreeItem_InputTable:: ; 72:6927
-Table_72_6927::
 	dw BrowserMenu_RunThreeItem_OnA
 	dw BrowserMenu_RunThreeItem_Cancel
 	dw BrowserMenu_RunThreeItem_IgnoreSelect
@@ -690,7 +687,6 @@ BrowserMenu_RunThreeItem_OnA:: ; 72:697A
 ; ---- ptrtable $697F-$6985 (6 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 72:697C: 3 entries; end is a heuristic guess (words stay plausible code pointers)
 
 BrowserMenu_RunThreeItem_DialogResultTable:: ; 72:697F
-Table_72_697F::
 	dw BrowserMenu_RunThreeItem_AcceptItem0
 	dw BrowserMenu_RunThreeItem_AcceptItem1
 	dw BrowserMenu_RunThreeItem_AcceptItem2
@@ -874,7 +870,6 @@ Data_BrowserMenu_Close_SlideScript:: ; 72:6ADF
 ; ---- data $6AEC-$6AFA (14 bytes) [PROBABLE] 2 records of 7 bytes (dw, db, dw, dw): indexed with hl=7*a+$6AEC at 72:669F-66AB (ld de,$6AEC); word1 -> call 00:0A65, byte -> b for init_object_from_table (00:0A82), word2 = pointer; last word of each record points at the strings 72:6AFA / 72:6B23
 
 BrowserMenu_TwoItemRecords:: ; 72:6AEC
-Table_72_6AEC::
 	db $30, $68, $83, $30, $68
 	dw BrowserMenu_TwoItemTexts
 	db $60, $68, $84, $60, $68
@@ -893,7 +888,6 @@ POPC
 ; ---- data $6B4C-$6B68 (28 bytes) [PROBABLE] 4 records of 7 bytes (dw, db, dw, dw): indexed with hl=7*a+$6B4C at 72:69F3-69FF (ld de,$6B4C); record 0 (6B4C-6B53) is CONFIRMED read by executed code; last word of every record points into the strings at 72:6B68.. (6B68, 6B91, 6BBA, 6BE3 = record starts); extent = 4 records up to the String region at 72:6B68
 
 BrowserMenu_ThreeItemRecords:: ; 72:6B4C
-Table_72_6B4C::
 	db $20, $68, $82, $20, $68
 	dw BrowserMenu_ThreeItemTexts
 	db $48, $68, $83, $48, $68
