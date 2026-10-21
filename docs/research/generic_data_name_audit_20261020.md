@@ -2433,7 +2433,7 @@ source searches found no consumers of the retired names. The asset catalog
 already used the retained labels, so it needed no change. The owner's 162-line
 layout, includes, data boundaries and evidence levels are unchanged.
 
-`Data_1D_62B0` remains neutral. Its 112 bytes have a palette-like heuristic,
+At that dated audit checkpoint, `Data_1D_62B0` remained neutral under a palette-like heuristic,
 but the object table at `1D:63B6` points to it, and there is no demonstrated
 frame-table layout. The pointer comment now records that limited finding
 without assigning a role. The six-root `Data_BB_AAAA::` census is now 337
@@ -2780,10 +2780,11 @@ reproducible census receipt, manifest, and consumer screening are retained in
 `.tmp/jp-neutral-data-followup-301fb1f3/`. The current `data_consumers.py`
 screening found 93 immediate candidates and rejected all 93; it generated no
 rename rows. That result is not a consumer map or evidence that the remaining
-neutral data is unused. In particular, `Data_1D_62B0` remains neutral: the
-adjacent palette heuristic is explicitly clipped around the two confirmed
-mail-menu palettes, and no independently established consumer supports a
-more specific name.
+neutral data is unused. At that historical checkpoint, `Data_1D_62B0` still
+lacked a demonstrated frame-table parse; the later mail-menu follow-up at the
+end of this document supersedes that conclusion. The adjacent palette heuristic
+was explicitly clipped around the two confirmed mail-menu palettes, and no
+independently established consumer then supported a more specific name.
 
 ## Bank-1C title-dispatch tail follow-up (2026-10-21)
 
@@ -2803,3 +2804,23 @@ receipt SHA-256 is
 The receipt and manifest are retained under
 `.tmp/jp-neutral-data-followup-20261021/`. `data_consumers.py --stats` still
 reports 93 immediate candidates rejected, with no rename rows.
+
+
+## Bank 1D mail-menu icon structure correction (2026-10-21)
+
+The earlier neutral classification of `Data_1D_62B0` was wrong. The bytes at
+`1D:62B0` are a nine-word frame table: its pointers land at `62C2`, `62DB`,
+`62F4`, `630D`, `6326`, `633F`, `6358`, `6371`, and `638A`. Each target starts
+a six-piece frame; the nine records end at `63A3`, where the nine-step
+`SpriteScript_MailMenu_Icon` begins. `Table_MailMenu_Objects` at `63B6` points
+to this frame table and script. The object is initialized as id `$80` by
+`MailMenu_Run`, and the existing emulator preview renders its nine-frame
+mail-menu animation. The prior RGB555 heuristic arose because the file encoded
+these same bytes with `RGB` macros; no mail-menu code loads that region as a
+palette.
+
+The false palette file/catalogue entry was removed, and the pointer table, all
+nine frames, script, and object entry now use sprite macros and descriptive
+labels. Build evidence: `make` returned `RESULT: IDENTICAL` and the original ROM
+SHA-256. This is a static structure classification plus an emulator preview,
+not evidence of physical hardware execution.

@@ -1647,11 +1647,13 @@ candidate/PROBABLE limits. The six-root generic `Data_BB_AAAA::` count is now
 346 in 132 owners. See the [bank-2A audit](docs/research/generic_data_name_audit_20261020.md#bank-2a-save-sender-animation-structures-2026-10-21).
 
 The bank-1D mail-menu owner no longer exports fifteen same-address generic
-Data/tilemap/attrmap aliases under existing resource labels. `Data_1D_62B0`
-remains unresolved because its palette-like bytes are also an object-table
-pointer target with no demonstrated frame-table layout. The six-root generic
-Data census is now 337 definitions in 132 owners. See the [bank-1D
-audit](docs/research/generic_data_name_audit_20261020.md#bank-1d-mail-menu-exact-address-aliases-2026-10-21).
+Data/tilemap/attrmap aliases under existing resource labels. A follow-up
+resolved the former `Data_1D_62B0` as the nine-frame table for the animated
+mail-menu icon, with the records, script and object-table entry represented by
+sprite macros. This also removed the false palette asset classification; the
+ROM remains byte-identical. The earlier six-root count of 337 was a dated
+checkpoint and predates later naming passes. See the bank-1D audit and its
+sprite-format follow-up in the research documentation.
 
 The bank-0E title-screen owner no longer exports ten exact-address `Data_0E_*`
 aliases under its existing graphics, tilemap and palette labels. Its six-root

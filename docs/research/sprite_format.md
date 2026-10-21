@@ -217,3 +217,21 @@ python3 tools/sprite_chain_check.py                # 0 hard mismatches
 A lista e as contagens acima registram o passe original. O item em 4A:68D0..6920 foi posteriormente representado em ASM/macros na [tipagem publicada](https://github.com/zenaror/mobile-trainer/commit/0c02c5369e47597f022df0663a2749acb3bfb12c): 69 B de tabela, lista, quatro frames e script, mais 11 zeros de finalidade UNKNOWN, com PROBABLE preservado. O [owner atual](../../gfx/settings/adapter_check_and_phone_entry_bank4a.asm) contém `AdapterCheck_ObjTable` e seis nomes globais próprios internos.
 
 O antigo BIN/PNG deixou o catálogo e as regras ativas na tipagem, mas foi preservado como byte-view legada; nesta migração passa à subpasta legacy_byteviews sem mudança de bytes/pixels. A [nota de tipagem](adapter_check_object_data_80b.md) e o [mapa antigo→atual](gfx_resource_path_map.tsv) preservam a navegação. Isso fecha somente aquele item histórico, não os demais blocos listados, e não reescreve as contagens do passe original.
+
+
+## Bank-1D mail-menu icon follow-up (2026-10-21)
+
+The former `gfx/mail_menu/mail_menu/palette_62b0.pal` was not a loaded palette.
+Its 56 RGB555 words (112 bytes) encode the beginning of an object-data stream. The object
+entry at `1D:63B6` points to a nine-word frame table at `1D:62B0`; its targets
+are nine six-piece frame records from `1D:62C2` through `1D:638A`. The script at
+`1D:63A3` has nine steps, each with delay 8. `MailMenu_Run` initializes object
+`$80`, and the existing emulator preview shows the animated mail-menu icon.
+This resolves the former missing frame-table evidence, without implying broader
+asset or hardware coverage.
+
+The interval is now represented with `sprite_frame_table`, `sprite_frame`,
+`sprite_anim` and `sprite_object_entry` macros and descriptive mail-menu
+labels. The misleading `.pal` asset and its catalogue entries were removed.
+`make` still produces the original ROM SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.

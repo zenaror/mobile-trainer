@@ -41,14 +41,14 @@ gfx/assets.tsv                                 one line per asset: kind, size, b
 | JIS 12x12 glyph bits (`.bin`) | 11 | 131976 |
 | 6x12 glyph rows (`.bin`) | 1 | 1152 |
 | 1bpp 8x16 glyphs (`.1bpp`) | 27 | 4848 |
-| RGB palette (`.pal`) | 167 | 11504 |
+| RGB palette (`.pal`) | 166 | 11392 |
 | validity bitmap (`.bin`) | 1 | 8198 |
 | tile-index map (`.tilemap`) | 180 | 51618 |
 | 2bpp tiles (`.2bpp`) | 409 | 363024 |
 | raw bytes (`.bin`, conditional byte-view codec; purpose unknown) | 4 | 80 |
-| **all** | **980** | **624018** |
+| **all** | **979** | **623906** |
 
-PNGs:409 active exact rgbgfx tile sources,4 explicit RAW byte-view PNGs (80B; purpose UNKNOWN/HYPOTHESIS), and39 font binaries in37 editable sheet PNGs:450 unique editable source PNG paths. The1 validity-bitmap view-only picture and95 screen compositions are separate. `gfx/png_rules.tsv` has979 active rules. The catalogue totals980 assets/624018 logical ROM bytes; its11 JIS12x12 binaries total131976B.
+PNGs:409 active exact rgbgfx tile sources,4 explicit RAW byte-view PNGs (80B; purpose UNKNOWN/HYPOTHESIS), and39 font binaries in37 editable sheet PNGs:450 unique editable source PNG paths. The1 validity-bitmap view-only picture and95 screen compositions are separate. `gfx/png_rules.tsv` has978 active rules. The catalogue totals979 assets/623906 logical ROM bytes; its11 JIS12x12 binaries total131976B.
 The old count406 included the retired bank73 tile interpretation; its historical file remains outside the active catalogue.
 
 ## Still `db`
@@ -1186,7 +1186,6 @@ Retired historical file: `palette_5e60.pal` preserves the former 96-byte RGB555 
 | `mail_menu_tiles5.2bpp` | 2bpp tiles | 1024 | 1D:5E30 | CONFIRMED | exact | - | `gfx/mail_menu/mail_menu.asm` |
 | `mail_menu_bg.pal` | RGB palette | 64 | 1D:6230 | CONFIRMED | - | - | `gfx/mail_menu/mail_menu.asm` |
 | `mail_menu_obj.pal` | RGB palette | 64 | 1D:6270 | CONFIRMED | - | - | `gfx/mail_menu/mail_menu.asm` |
-| `palette_62b0.pal` | RGB palette | 112 | 1D:62B0 | PROBABLE | - | - | `gfx/mail_menu/mail_menu.asm` |
 
 ### `gfx/mail_server/delete_all_screen/`
 

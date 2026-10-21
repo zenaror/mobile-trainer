@@ -722,7 +722,6 @@ gfx/mail_menu/mail_menu/mail_menu_tiles2.2bpp	tiles	1024	gfx/mail_menu/mail_menu
 gfx/mail_menu/mail_menu/mail_menu_tiles3.2bpp	tiles	1024	gfx/mail_menu/mail_menu.asm	1D	56B0	CONFIRMED	exact	0		Gfx_MailMenu_Tiles3
 gfx/mail_menu/mail_menu/mail_menu_tiles4.2bpp	tiles	896	gfx/mail_menu/mail_menu.asm	1D	5AB0	CONFIRMED	exact	0		Gfx_MailMenu_Tiles4
 gfx/mail_menu/mail_menu/mail_menu_tiles5.2bpp	tiles	1024	gfx/mail_menu/mail_menu.asm	1D	5E30	CONFIRMED	exact	0		Gfx_MailMenu_Tiles5
-gfx/mail_menu/mail_menu/palette_62b0.pal	palette	112	gfx/mail_menu/mail_menu.asm	1D	62B0	PROBABLE	-	0		Data_1D_62B0
 gfx/mail_server/delete_all_screen/mail_server_delete_all_bg_palette.pal	palette	64	gfx/mail_server/delete_all_screen.asm	28	5EA0	PROBABLE	-	0		MailServerDeleteAll_BgPalette
 gfx/mail_server/delete_all_screen/mail_server_delete_all_obj_palette.pal	palette	64	gfx/mail_server/delete_all_screen.asm	28	5EE0	PROBABLE	-	0		MailServerDeleteAll_ObjPalette
 gfx/mail_server/delete_all_screen/mail_server_delete_all_tilemap.attrmap	attrmap	360	gfx/mail_server/delete_all_screen.asm	28	5D38	CONFIRMED	-	0	20x18	MailServerDeleteAll_Tilemap

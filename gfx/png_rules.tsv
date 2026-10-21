@@ -780,7 +780,6 @@ gfx/mail_menu/mail_menu/mail_menu_tiles2.2bpp	gfx/mail_menu/mail_menu/mail_menu_
 gfx/mail_menu/mail_menu/mail_menu_tiles3.2bpp	gfx/mail_menu/mail_menu/mail_menu_tiles3.png	tiles			0	1024	422e136d5ba8eadc7ec5500ab3e037234302c25a8f1d7e6c32c2bb141a686d8b
 gfx/mail_menu/mail_menu/mail_menu_tiles4.2bpp	gfx/mail_menu/mail_menu/mail_menu_tiles4.png	tiles			0	896	7f802cb240287e4b85816db76cd257f947929f55b851af6c3e262821b5ae6103
 gfx/mail_menu/mail_menu/mail_menu_tiles5.2bpp	gfx/mail_menu/mail_menu/mail_menu_tiles5.png	tiles			0	1024	2becfb92fd7ce075902234c93c1790b989e4749fac746e42b8e90fba88f8eaa7
-gfx/mail_menu/mail_menu/palette_62b0.pal	-	palette				909	1205ac227ce3760ab7d0d03175df18b05c813232a1eaa29eae6ac43cbeedb14b
 gfx/mail_server/delete_all_screen/mail_server_delete_all_bg_palette.pal	-	palette				519	e067bbe5777891b959341875a9495cf3c11bfe70dc447a480c77f3eb2a26b3e3
 gfx/mail_server/delete_all_screen/mail_server_delete_all_obj_palette.pal	-	palette				519	46a1148c35adc35c49955710b32cb29d5195c1216763ab7e9a8c8b06e23781a6
 gfx/mail_server/delete_all_screen/mail_server_delete_all_tilemap.attrmap	-	attrmap				360	812bfeccf10bc6a0e15d6ad41684ea3b7c535112d2add7a4712b6f9d6013350d
