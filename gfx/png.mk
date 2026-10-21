@@ -169,7 +169,7 @@ PNG_TILE_OUTS := \
 	gfx/error/no_adapter/no_adapter_gfx_9400.2bpp \
 	gfx/error/no_adapter/tiles_6480.2bpp \
 	gfx/error/non_cgb_screen/non_cgb_tiles.2bpp \
-	gfx/error/non_cgb_screen/tiles_4060.2bpp \
+	gfx/error/non_cgb_screen/tiles_4240.2bpp \
 	gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/blue_bubble_border_44_4d50_tiles.2bpp \
 	gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/monochrome_arc_border_44_4000_tiles.2bpp \
 	gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/rock_border_44_5aa0_tiles.2bpp \
@@ -589,7 +589,7 @@ gfx/error/no_adapter/no_adapter_gfx_9400.2bpp: PNG_SIZE := 768
 gfx/error/no_adapter/tiles_6480.2bpp: PNG_SIZE := 64
 gfx/error/non_cgb_screen/non_cgb_tiles.2bpp: PNG_SIZE := 1968
 gfx/error/non_cgb_screen/non_cgb_tiles.2bpp: PNG_PAD := -x 5
-gfx/error/non_cgb_screen/tiles_4060.2bpp: PNG_SIZE := 1056
+gfx/error/non_cgb_screen/tiles_4240.2bpp: PNG_SIZE := 576
 gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/blue_bubble_border_44_4d50_tiles.2bpp: PNG_SIZE := 2560
 gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/monochrome_arc_border_44_4000_tiles.2bpp: PNG_SIZE := 2560
 gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/rock_border_44_5aa0_tiles.2bpp: PNG_SIZE := 2560

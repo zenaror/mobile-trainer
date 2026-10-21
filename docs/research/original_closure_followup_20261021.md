@@ -943,3 +943,31 @@ definitions. These counts cover only these exact spellings: they do not prove
 that every code entry is identified or that all other neutral families
 (`Table_`, `String_`, `Tiles_`, `Tilemap_`, `Attrmap_`, `Palette_`) are
 resolved. The wider `data_consumers` census remains 121 neutral groups.
+
+
+## Bank 6B non-CGB map continuation and adjacent candidate (2026-10-21)
+
+The prior `Data_6B_4060` span mixed two different source roles. `NonCgb_ErrorScreen`
+sets `HL=NonCgb_Tilemap` at `6B:4000`, `BC=$0240`, `DE=$9800`, then calls
+`CopyBytes`; its source interval is exactly `6B:4000–4240`. The `$60` bytes at
+`4000–4060` are zero-fill, so all 480 bytes at `4060–4240` are consumed as
+the remainder of the BG tilemap. They are now `NonCgb_Tilemap_Continuation_4060`
+(**CONFIRMED** tilemap data; 32-column/15-row view follows the BG map geometry).
+
+The remaining `6B:4240–4480` bytes are a distinct 576-byte, 36-tile-sized span.
+The bytes contain only `$00` and `$10`; no reader was found in the maintained
+source, and the non-CGB loader's map copy stops at `$4240`. It is named
+`NonCgb_CandidateTileData_4240` (**HYPOTHESIS**) without claiming that it is
+used or that the candidate tiles have a screen association. `NonCgb_Tiles` at
+`6B:4480` remains a separate 1,968-byte source; its loader copies 2,048 bytes
+through `4C80`, with the following `$50` zero bytes completing the transfer.
+
+The splits reproduce the original source bytes exactly: the 480-byte map slice
+at physical offset `0x1AC060` hashes to
+`0d50405311f0a92031734af279daeeba9cc84924145f8633c90cd8309e728808`; the
+576-byte candidate at `0x1AC240` hashes to
+`c2283f8092c326fd9c4ce5958eb70ac6cf527523a9633ab66543e95daf9f5e91`. The
+former combined 1,056-byte asset hash was
+`e24baf4afe7dbe3d84d63270da22745e465fed89791c881b7034334c7dd21306`. No
+ROM byte or address changed. The earlier image-inventory row describing all
+66 units as candidate tiles is superseded. `data_consumers.py --stats` now reports 113 neutral groups, 38 rejected candidates, and zero rename rows; the exact address-form `Data_BB_AAAA` count is 19.

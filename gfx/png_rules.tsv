@@ -381,7 +381,8 @@ gfx/error/no_adapter/no_adapter_tilemap.attrmap	-	attrmap				360	167b99c15c81fb3
 gfx/error/no_adapter/no_adapter_tilemap.tilemap	-	tilemap				360	c60c2a42159681632255df3ab1f117dbd2557fc2f0042d1efcd7be787cc16ae8
 gfx/error/no_adapter/tiles_6480.2bpp	gfx/error/no_adapter/tiles_6480.png	tiles			0	64	170b49765f56175f230d3b08e8724b56fde9ae308cb4743d2defde733591d2dd
 gfx/error/non_cgb_screen/non_cgb_tiles.2bpp	gfx/error/non_cgb_screen/non_cgb_tiles.png	tiles			5	1968	f3bb8d0c98bb2ed761d888d040c43763a53d52364e659d2171c9dc656ebc76cd
-gfx/error/non_cgb_screen/tiles_4060.2bpp	gfx/error/non_cgb_screen/tiles_4060.png	tiles			0	1056	e24baf4afe7dbe3d84d63270da22745e465fed89791c881b7034334c7dd21306
+gfx/error/non_cgb_screen/tilemap_4060.tilemap	-	tilemap				480	0d50405311f0a92031734af279daeeba9cc84924145f8633c90cd8309e728808
+gfx/error/non_cgb_screen/tiles_4240.2bpp	gfx/error/non_cgb_screen/tiles_4240.png	tiles			0	576	c2283f8092c326fd9c4ce5958eb70ac6cf527523a9633ab66543e95daf9f5e91
 gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/blue_bubble_border_44_4d50_attributes.attrmap	-	attrmap				360	dd20ad6c97c6c7a91f77109b3e2ba826acf044a01ce9dbdd4ac52b88d2852b6b
 gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/blue_bubble_border_44_4d50_palettes.pal	-	palette				1039	d09cc7461b025992048ca76d07b75786e5b3d9f7dae28c500ba8af19221af67b
 gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/blue_bubble_border_44_4d50_tilemap.tilemap	-	tilemap				360	90001ae6923fb1e940cfcb3e6fc39c84b9851c6a37383a6c6bd7629e681a1da1

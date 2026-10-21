@@ -323,7 +323,7 @@ Columns: `#` = order of the listing (path order); `asset` = PNG under `gfx/` (th
 | 206 | `error/no_adapter/no_adapter_gfx_9400` | 63:6CC0 | 48 (16x3) | NoAdapter_DrawScreen@9400b1 | ART | adapter and cable picture |
 | 207 | `error/no_adapter/tiles_6480` | 63:6480 | 4 (4x1) | - | UNK | 4 tiles, not classified |
 | 208 | `error/non_cgb_screen/non_cgb_tiles` | 6B:4480 | 123 (16x8) | - | TXT | non-CGB error text in a DMG-style image: "このカートリッジはゲームボーイカラー せんようです。ゲームボーイカラーでしようしてください。【モバイルトレーナー】" |
-| 209 | `error/non_cgb_screen/tiles_4060` | 6B:4060 | 66 (11x6) | - | UNK | 11x6 tiles, tile-like noise (probably not tile art) |
+| 209 | `error/non_cgb_screen/tilemap_4060` | 6B:4060 | 480 bytes (32x15) | NonCgb_ErrorScreen@9800 | MAP | map continuation copied as the final 15 rows of a 32-column BG map; 96 leading bytes at 4000 are zero |
 | 210 | `help/help_screens_a/tiles_4e90` | 6A:4E90 | 64 (16x4) | HelpMenu_ShowPage@8000 | ART | help menu art (book, boxes) |
 | 211 | `help/help_screens_a/tiles_5290` | 6A:5290 | 64 (16x4) | HelpMenu_ShowPage@8800 | TXT | help topic labels: "ホームページって?" "モバイルトレーナーって?" "メールって?" "モバイルじてん" "アドレスちょう" "ページリスト" |
 | 212 | `help/help_screens_a/tiles_5690` | 6A:5690 | 64 (16x4) | HelpMenu_ShowPage@8C00 | TXT | help topic labels (same set, other tiles) |
@@ -526,6 +526,7 @@ Columns: `#` = order of the listing (path order); `asset` = PNG under `gfx/` (th
 | 409 | `unresolved/tiles_7f_7830/tiles_7830` | 7F:7830 | 45 (15x3) | - | UNK | no symbolic load found in reviewed source; purpose unresolved |
 | 410 | `address_book/address_editor/abook_addr_tiles8800` | 2F:77D0 | 47 (16x3) | - | UNK | added by retype1 (`docs/research/naming2_retype1.md`): A / B button icons and kana label pieces (looked at at 1x only) |
 | 411 | `mail/server_status_bank26/profile_tiles8000` | 26:7820 | 2 (2x1) | - | UNK | added by retype1 (`docs/research/naming2_retype1.md`): 2 small tiles (not read) |
+| 412 | `error/non_cgb_screen/tiles_4240` | 6B:4240 | 36 (9x4) | - | UNK | HYPOTHESIS tile-like candidate; bytes are only $00/$10 and no reader was found |
 
 ## 4. Fonts and other glyph data (language-bound, not pictures of screens)
 

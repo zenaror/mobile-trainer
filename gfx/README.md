@@ -44,9 +44,9 @@ gfx/assets.tsv                                 one line per asset: kind, size, b
 | RGB palette (`.pal`) | 165 | 11112 |
 | raw bytes (conditional byte-view codec; purpose unknown) (`.bin`) | 4 | 80 |
 | validity bitmap (`.bin`) | 1 | 8198 |
-| tile-index map (`.tilemap`) | 180 | 51618 |
-| 2bpp tiles (`.2bpp`) | 408 | 363008 |
-| **all** | **977** | **623610** |
+| tile-index map (`.tilemap`) | 181 | 52098 |
+| 2bpp tiles (`.2bpp`) | 408 | 362528 |
+| **all** | **978** | **623610** |
 
 PNGs: 408 exact rgbgfx sources (`.png`), 4 explicit raw byte-view codec sources (`.png`, purpose unknown), 39 font binaries with an editable sheet PNG (`.png`), 1 view-only picture (`_view.png`).
 
@@ -57,16 +57,16 @@ Blocks of the graphics regions that are not converted (the note / label does not
 | what | blocks | bytes |
 |---|---:|---:|
 | data without graphics evidence in the note | 24 | 6552 |
-| object / animation tables (by label name) | 94 | 3629 |
-| bytes read as data by executed code, content class unknown | 7 | 3325 |
-| HYPOTHESIS data (mostly runs of $FF / $00 padding candidates) | 25 | 1048 |
+| object / animation tables (by label name) | 95 | 3631 |
+| bytes read as data by executed code, content class unknown | 4 | 2555 |
+| HYPOTHESIS data (mostly runs of $FF / $00 padding candidates) | 24 | 1042 |
 | sprite / OAM frame records, animation scripts, object tables (not tile art) | 19 | 435 |
-| gfx fragments of fewer than 4 whole tiles | 11 | 232 |
+| gfx fragments of fewer than 4 whole tiles | 6 | 177 |
 | tail (less than 16 bytes) after a converted tile block | 13 | 152 |
+| region kind zero | 4 | 34 |
 | region kind bytes | 1 | 28 |
 | region kind words | 1 | 16 |
 | tilemap+attr blocks clipped by the analysis (size differs from 2 x rows x cols) and 4-byte tile/attr record lists | 1 | 16 |
-| region kind zero | 1 | 5 |
 
 ## Assets by directory
 
@@ -624,7 +624,8 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_4060.2bpp` | 2bpp tiles | 1056 | 6B:4060 | PROBABLE | exact | - | `gfx/error/non_cgb_screen.asm` |
+| `tilemap_4060.tilemap` | tile-index map | 480 | 6B:4060 | CONFIRMED | - | 32x15 | `gfx/error/non_cgb_screen.asm` |
+| `tiles_4240.2bpp` | 2bpp tiles | 576 | 6B:4240 | HYPOTHESIS | exact | - | `gfx/error/non_cgb_screen.asm` |
 | `non_cgb_tiles.2bpp` | 2bpp tiles | 1968 | 6B:4480 | PROBABLE | exact | - | `gfx/error/non_cgb_screen.asm` |
 
 ### `gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/`
@@ -1527,9 +1528,9 @@ make png-export       (maintainers) PNGs regenerated from the binaries; never ov
 | whole screens | `name.screen.png` next to `name.tilemap` (`gfx/screens.tsv`) | 95 | edit view: tilemap + attribute map + tiles + palettes composed in real colours; import writes the edit into the tile sheets, see below |
 | palettes | `name.pal` (text, `RGB r, g, b`) | 165 | already an editable text form; a screen PNG can write colours back (`screen_png.py import --palette`). No separate swatch PNG |
 
-Not PNG-editable (binary only): the 180 `.tilemap` and 180 `.attrmap` files (the layout of a screen: which tile in which cell, flips, palette
+Not PNG-editable (binary only): the 181 `.tilemap` and 181 `.attrmap` files (the layout of a screen: which tile in which cell, flips, palette
 numbers), the Shift-JIS validity bitmap (data, not an image; `sjis_valid_bitmap_view.png` is a picture of it), and the graphics blocks that are still `db`
-in the `.asm` (see "Still `db`" above).  The 85 tilemaps without a screen PNG are unlisted because their screen cannot be composed from the code (`python3 tools/screen_png.py derive` prints the reasons): they have no loader call with an immediate address (loaded through a pointer / table or as sub-rectangles), or the routine of their loader call loads too few of their tiles (the tiles arrive by another routine),
+in the `.asm` (see "Still `db`" above).  The 86 tilemaps without a screen PNG are unlisted because their screen cannot be composed from the code (`python3 tools/screen_png.py derive` prints the reasons): they have no loader call with an immediate address (loaded through a pointer / table or as sub-rectangles), or the routine of their loader call loads too few of their tiles (the tiles arrive by another routine),
 or they belong to the bank 41-46 scene records whose layout assumption resolves less than half of the cells.  Their tiles are
 still editable through the tile sheets.
 

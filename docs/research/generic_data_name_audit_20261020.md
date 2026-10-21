@@ -3335,3 +3335,14 @@ rename-manifest rows. This is the verified current count; the preceding
 only the confirmed zero-fill transfer role, not use of the resulting VRAM
 tiles. Evidence and boundaries are in
 `docs/research/mail_gfx_resource_aliases.md`.
+
+
+## Bank 6B non-CGB mixed-span correction (2026-10-21)
+
+`Data_6B_4060` was split by its actual consumer boundary. The first 480 bytes
+are copied by `NonCgb_ErrorScreen` as the continuation of the `$0240`-byte BG
+tilemap starting at `6B:4000`; the remaining 576 bytes through `6B:4480` are
+retained as a HYPOTHESIS tile-data candidate because no reader was found and
+the loader copy ends at `6B:4240`. This retires one exact `Data_BB_AAAA` name
+without promoting the tail to a confirmed asset or unused region. See
+`original_closure_followup_20261021.md` for extents and hashes. The maintained-source exact-name count is now 19 `Data_BB_AAAA` definitions; the current neutral-data tool reports 113 groups (38 candidates rejected, no proposals).

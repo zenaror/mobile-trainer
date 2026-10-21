@@ -9,10 +9,17 @@ SECTION "gfx/error/non_cgb_screen", ROMX
 NonCgb_Tilemap:: ; 6B:4000
 	ds $60, $00
 
-; ---- gfx $4060-$4C30 (3024 bytes) [PROBABLE] tiles-2bpp: heuristic: 154 coherent tiles (hsim2=0.792 vsim2=0.865, 33 blank) parity 0
+; ---- gfx $4060-$4240 (480 bytes) [CONFIRMED] 32x15 tilemap: 480 tile indices; continuation of the bytes copied to BG map $9800
 
-Data_6B_4060:: ; 6B:4060
-	INCBIN "gfx/error/non_cgb_screen/tiles_4060.2bpp"
+NonCgb_Tilemap_Continuation_4060:: ; 6B:4060
+	INCBIN "gfx/error/non_cgb_screen/tilemap_4060.tilemap"
+
+; ---- gfx $4240-$4480 (576 bytes) [HYPOTHESIS] tiles-2bpp candidate; 36 tiles, bytes are only $00/$10, no known reader
+
+NonCgb_CandidateTileData_4240:: ; 6B:4240
+	INCBIN "gfx/error/non_cgb_screen/tiles_4240.2bpp"
+
+; ---- gfx $4480-$4C30 (1968 bytes) [PROBABLE] 123 2bpp tiles loaded by NonCgb_ErrorScreen with the following $50 zero bytes
 
 NonCgb_Tiles:: ; 6B:4480
 	INCBIN "gfx/error/non_cgb_screen/non_cgb_tiles.2bpp"
