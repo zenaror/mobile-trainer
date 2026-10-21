@@ -139,3 +139,26 @@ passed (978 rules), and `git diff --check` was clean.
 The detailed private review receipts and inventories remain under the
 ignored `.tmp/` task directories until their dependent follow-up work and
 retention review are complete.
+
+## Consumer census correction (2026-10-21)
+
+Manual review of every site emitted by the strict candidate detector found
+114 incorrect bank associations and eight real static reader sites covering
+six neutral groups. All eight fell outside the detector's accepted shapes;
+516 of 522 groups remain undecided in this pass. A zero-row manifest is
+therefore not evidence of no readers. The complete bank-aware chains,
+classification and proposed bounded follow-up are in
+`.tmp/agent-data-consumer-mismatch-20261021/REPORT.md` (SHA-256
+`0235dfba74b8d468319e4e3725e471ddaeae9db02d3d78f9d82da2bf12196b8a`).
+
+The same review confirmed a stale comment at `2B:641` for `String_2B_5807`:
+it claims no direct reference, while current source has two symbolic operands
+and the callee reads the string at `2B:5896`. The source comment is pending
+correction. A separate independent review found the co-located
+`Data_6A_72A0` alias has no active assembly operands and shares its address
+with `SpriteFrameTable_6A_72A0`; it recommends retiring the generic alias
+while preserving its physical line as blank and updating the current worklist
+comment. The frozen region table and dated history remain unchanged. That
+source edit is pending a safe validation route because the standard symbol
+check traverses the protected mail sample. These reviews made no tracked
+source changes and ran no builds.

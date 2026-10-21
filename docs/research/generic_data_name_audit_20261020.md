@@ -993,3 +993,24 @@ source is `.tmp/data-consumer-census-private-20261021/safe_generic_identifier_sc
 (SHA-256 `55cbd325077cdf2556bb1ddb9b0be799547767c099c4036b4b9eedcf66d892f7`)
 and its result is `GENERIC_IDENTIFIER_SCAN.json` (SHA-256
 `b6863c0687479c5ca4d5187a823377a70bdeb99984955cd3476db0bdc072fc7d`).
+
+## Follow-up: consumer candidates manually classified (2026-10-21)
+
+An independent static review of every candidate used a private source snapshot
+that physically omitted `engine/mail/sample_data.asm`. Of 122 candidate
+links, 114 assigned an incorrect bank and eight sites are valid static
+consumers of six neutral data groups, but those consumers use forms outside
+the detector's four accepted load shapes. The 516 remaining groups have no
+decision in this pass. Thus the earlier zero-row output measures rejected
+naming proposals, not the absence of readers. `CLASSIFICATION.tsv` and
+`GROUP_LEDGER.tsv` are retained under
+`.tmp/agent-data-consumer-mismatch-20261021/`; the full report SHA-256 is
+`0235dfba74b8d468319e4e3725e471ddaeae9db02d3d78f9d82da2bf12196b8a`.
+
+The eight sites include bank-aware string reads, a DE-to-HL tilemap source,
+an indexed mail table, and a ticker table. The review also found that the
+comment for `String_2B_5807` says there is no direct reference despite two
+symbolic references and a local reader at `2B:5896`. This contradiction is
+confirmed statically but remains to be corrected in the assembly comment.
+No assembly, tool, or ROM changes were made, and no build was run for this
+review.
