@@ -101,9 +101,19 @@ restricted baseline at `5a1171cd` was 954 plus one; 56 removals/renames now
 reconcile across Song03, Song07/keyboard naming, Song02 and the six bank2C
 aliases. The older 959 count used another inclusion set and remains historical.
 These lexical counts do not measure unidentified functions, unclassified
-data, or completion. Refreshing the data-consumer-group census, bank53
-name/frame associations, eight KEEP windows, other unresolved roots and final
-definition-of-done review remain open.
+data, or completion. A fresh scan at this checkpoint finds no `Function_*`
+labels in the maintained Japanese ASM roots or generated SYM; it does not
+prove all code roles are understood. The old “current SYM retains 693” wording
+has been qualified as a historical checkpoint in the status and translation
+docs.
+
+The fresh bank53 audit is recorded in
+`pokemon_names_bank53_asset_audit_20261020.md`: all 25 name/frame associations
+remain unproved, and eight KEEP windows still lack demonstrated complete
+reaching VRAM state. The bounded asset/file scope has no missing reference or
+orphan, and per-window missing U160 keys are tabulated. The data-consumer-group
+census, other unresolved roots, and final definition-of-done review remain
+open.
 
 ## Verification
 
