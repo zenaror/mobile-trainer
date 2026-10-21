@@ -1326,7 +1326,6 @@ MailTitle_ApplyVu:: ; 2C:47CB
 
 PUSHC sjis
 Table_MailTitle_ApplyVu_LoopPairs:: ; 2C:4878
-String_2C_4878::
 	db "うう", 0
 POPC
 

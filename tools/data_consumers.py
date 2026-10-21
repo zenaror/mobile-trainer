@@ -993,19 +993,6 @@ def rules_manual(w, man, sites):
     add('Table_55_6982', 'Table_Kbd_T78_PageLoaders_Page3', 'table', 'PROBABLE',
         'one word directly after the three words of Table_Kbd_T78_PageLoaders: Kbd_LoadPageGraphics_T78_Page3, page 3 of the wKbdPage dispatch of types 7 and 8')
 
-    # ---- twins: 2-byte character list walked pair by pair until a 0 first byte
-    for old, fn, bank in (('String_2A_6081', 'Profile_ApplyVu', 0x2A), ('String_2C_4878', 'MailTitle_ApplyVu', 0x2C),
-                          ('Data_2D_55DA', 'MailBody_ApplyDakutenU', 0x2D), ('String_2F_6040', 'AbookName_ApplyDakutenU', 0x2F)):
-        new = 'Table_%s_LoopPairs' % fn
-        if already_named(old, new):
-            continue
-        k = w.by_name[old]
-        b = rom_bytes(w, k, 5)
-        assert b == bytes.fromhex('82 a4 82 a4 00'), (old, b.hex())
-        add(old, new, 'table', 'PROBABLE',
-            '5 bytes 82 A4 82 A4 00 (two Shift-JIS pairs, then 0): %s loads DE with the label (`ld de,<label>` with WRAM bank 1 selected) and loops `ld a,[de] ; inc de ; cp 0 ; jr z,end ; ld b,a ; ld a,[de] ; inc de ; ld c,a` = two bytes per entry until a first byte of 0; '
-            'the four copies (banks 2A/2C/2D/2F) are byte-identical' % fn)
-
     # ---- children of named pointer tables
     cm = w.by_name.get('CommScene_TextBoxMaps')
     if cm and cm in w.info:

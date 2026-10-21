@@ -613,6 +613,18 @@ retained. Updated the notice-dialog evidence comments to refer to
 consumer of the old labels. make is byte-identical; sym-check reports 12,397
 labels and data-consumers remains 287 groups / 93 rejected / 0 rows.
 
+## Mail, record-address and date-table aliases (2026-10-21)
+
+Removed eighteen exact-address `Data_*`, `String_*` and `Table_*` aliases from
+mail compose/mailbox/date, body/title editing, profile/name editing, draft menu,
+mail viewer/grid, staging and server tidy owners. Existing semantic names now
+identify the record-address tables, mail-grid tables, date tables, help strings
+and the four pair-walk Shift-JIS tables. Removed the obsolete manual twins rule
+from `tools/data_consumers.py`; the body-editor trailing `$C9` note now refers
+to the semantic loop-pairs table. No live ROM/source/tool consumer remains for
+the old spellings. make is byte-identical; sym-check reports 12,363 labels and
+data-consumers reports 287 groups / 93 rejected / 0 rows.
+
 ## Help and HTML label aliases (2026-10-21)
 
 Removed six exact-address `Data_74_*`/`Table_6C_*` aliases from the help menu,

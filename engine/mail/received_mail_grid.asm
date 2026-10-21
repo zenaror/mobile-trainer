@@ -318,14 +318,12 @@ MailGrid_DrawCellIcons:: ; 2B:55E1
 ; ---- words $562B-$5643 (24 bytes) [PROBABLE] 12 words $9861,$9866,$986B,$9870,$98E1,...,$9970 = VRAM tilemap ($9800-$9BFF) addresses of 12 cells; indexed by c*2 (ld hl,$562B at 2B:55E8 with sla c; add hl,bc) and loaded into hl
 
 Table_MailGrid_CellTilemapAddrs:: ; 2B:562B
-Table_2B_562B::
 	dw $9861, $9866, $986B, $9870, $98E1, $98E6, $98EB, $98F0
 	dw $9961, $9966, $996B, $9970
 
 ; ---- words $5643-$565B (24 bytes) [PROBABLE] 12 words $A124..$AE13 (step $12D) = SRAM record base addresses; ld hl,$5643 at 2B:5600 (index by 2*c)
 
 Table_MailGrid_RecAddrs_Cells:: ; 2B:5643
-Table_2B_5643::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
@@ -648,7 +646,6 @@ POPC
 ; ---- words $5814-$582C (24 bytes) [PROBABLE] 12 words $A124..$AE13 (SRAM record bases, step $12D); ld hl,$5814 at 2B:56DE, 56F7, 5766, 5791
 
 Table_MailGrid_RecAddrs_Details:: ; 2B:5814
-Table_2B_5814::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 

@@ -1350,7 +1350,6 @@ MailServerMgr_ShowChoiceHelp:: ; 2E:5498
 ; ---- ptrtable $54F8-$5504 (12 bytes) [PROBABLE] 6 x dw string pointers (5504, 552D, 5556, 557F, 55A8, 55D1; stride 41 = 20 full-width chars + NUL) indexed by 2*(a+1) at 2E:549A-54A6 (ld hl,$54F8 ; add hl,de ; ld a,[hli] ; ld h,[hl]); every target is a string start
 
 Table_MailServerMgr_HelpStrings:: ; 2E:54F8
-Table_2E_54F8::
 	dw String_MailServerMgr_HelpBlank0
 	dw String_MailServerMgr_HelpDeleteThis
 	dw String_MailServerMgr_HelpLoadNext

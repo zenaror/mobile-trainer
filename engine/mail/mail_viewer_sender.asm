@@ -473,7 +473,6 @@ MailView_SenderPage_InitScreen:: ; 2B:65AB
 ; ---- words $6863-$687B (24 bytes) [PROBABLE] 12 words $A124..$AE13 (SRAM record bases); ld hl,$6863 at 2B:66CD, 6717, 6756, 678C
 
 Table_MailView_RecAddrs:: ; 2B:6863
-Table_2B_6863::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
@@ -705,7 +704,6 @@ MailView_DrawDateTime:: ; 2B:691A
 ; ---- words $69AD-$69C5 (24 bytes) [PROBABLE] 12 words $A124..$AE13 (SRAM record bases); ld hl,$69AD at 2B:692E and 6947
 
 Table_MailView_RecAddrs_DateTime:: ; 2B:69AD
-Table_2B_69AD::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 

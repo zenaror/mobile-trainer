@@ -272,7 +272,6 @@ MailView_BodyPage_InitScreen:: ; 2B:7B9B
 ; ---- words $7D7A-$7D92 (24 bytes) [PROBABLE] 12 words $A124..$AE13 (SRAM record bases); ld hl,$7D7A at 2B:7C45 and 7C76
 
 Table_MailView_BodyPage_RecAddrs:: ; 2B:7D7A
-Table_2B_7D7A::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 

@@ -1278,7 +1278,6 @@ AbookName_ApplyDakutenU:: ; 2F:5F93
 
 PUSHC sjis
 Table_AbookName_ApplyDakutenU_LoopPairs:: ; 2F:6040
-String_2F_6040::
 	db "うう", 0
 POPC
 

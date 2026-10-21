@@ -352,12 +352,10 @@ POPC
 ; ---- data $5368-$5374 (12 bytes) [PROBABLE] 12 BCD month numbers 01..09,10,11,12 (byte-exact); indexed by the month index at 54:51C2 (ld hl,$5368 ; add hl,de ; ld a,[hl] ; ld [$C582],a)
 
 Table_Mail_MonthBcd:: ; 54:5368
-Table_54_5368::
 	db $01, $02, $03, $04, $05, $06, $07, $08, $09, $10, $11, $12
 
 ; ---- data $5374-$5386 (18 bytes) [PROBABLE] days per month in BCD: 31 28 31 30 31 30 31 31 30, 6 zero bytes, 31 30 31 - indexed by the BCD month number from base $5373 (54:52B1 and 54:5319: ld hl,$5373 ; add hl,de) so BCD 10/11/12 land on the last three entries
 
 Table_Mail_DaysPerMonth:: ; 54:5374
-Table_54_5374::
 	db $31, $28, $31, $30, $31, $30, $31, $31, $30, $00, $00, $00, $00, $00, $00, $31
 	db $30, $31

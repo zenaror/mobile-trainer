@@ -1290,7 +1290,6 @@ Mailbox_NextRecordUsed:: ; 25:49EB
 ; ---- words $4A15-$4A2D (24 bytes) [PROBABLE] 12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:4687 and 25:4A0B (ld hl,$4A15; add hl,bc; ld a,[hli]; ld h,[hl]; ld l,a)
 
 Mailbox_RecordAddrs_4A15:: ; 25:4A15
-Table_25_4A15::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
@@ -1418,6 +1417,5 @@ Mailbox_CountRecords:: ; 25:4A90
 ; ---- words $4AF5-$4B0D (24 bytes) [PROBABLE] 12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with no direct ld hl,imm found (identical 12 words to the tables at 25:4A15/4E2B)
 
 Mailbox_RecordAddrs_4AF5:: ; 25:4AF5
-Table_25_4AF5::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13

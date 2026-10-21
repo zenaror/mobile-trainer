@@ -2324,10 +2324,9 @@ MailBody_ApplyDakutenU:: ; 2D:553D
 ; kept as raw bytes: the bytes read as Shift-JIS/ASCII text, but the header does not say `text` (executed-read data of unknown content class, or unclassified), so not provably a string
 
 Table_MailBody_ApplyDakutenU_LoopPairs:: ; 2D:55DA
-Data_2D_55DA::
 	db $82, $A4, $82, $A4, $00
 
-	; [HYPOTHESIS] single ret ($C9) after the terminator of Data_2D_55DA; no reference found
+	; [HYPOTHESIS] single ret ($C9) after the terminator of Table_MailBody_ApplyDakutenU_LoopPairs; no reference found
 	ret
 
 MailBody_ApplyHandakuten:: ; 2D:55E0

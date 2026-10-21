@@ -1022,7 +1022,6 @@ MailDraft_Menu_SetCaption:: ; 2B:478B
 ; ---- ptrtable $47D0-$47D8 (8 bytes) [PROBABLE] 4 pointers $47D8, $4801, $482A, $4853 to the 4 NUL-terminated strings of String_2B_47D8 (each string starts right after a NUL, spacing $29); bytes 47D2-47D8 are read as data by executed code (2/18 scenarios)
 
 Table_MailDraftMenu_Captions:: ; 2B:47D0
-Table_2B_47D0::
 	dw String_MailDraftMenu_CaptionConfirm
 	dw String_MailDraftMenu_CaptionView
 	dw String_MailDraftMenu_CaptionEdit

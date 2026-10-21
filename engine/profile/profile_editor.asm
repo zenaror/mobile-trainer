@@ -1821,7 +1821,6 @@ Profile_ApplyVu:: ; 2A:5FD4
 
 PUSHC sjis
 Table_Profile_ApplyVu_LoopPairs:: ; 2A:6081
-String_2A_6081::
 	db "うう", 0
 POPC
 
