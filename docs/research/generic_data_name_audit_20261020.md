@@ -2024,3 +2024,26 @@ rewritten. No natural-use, sprite-subject, or global-unused claim follows from
 this pass. The exact six-root query now counts 500 `Data_BB_AAAA::`
 definitions in 137 owners after these 26 renames; `engine/mail/sample_data.asm`
 and `zero_labels.asm` remain excluded. This is only a lexical count.
+
+## Bank 70 second communication-scene object-animation group (2026-10-21)
+
+The probable table at `70:4C5C` is now `CommScene_ObjAnimTable2`. Its first
+four bytes are null and its second four-byte slot points to a 14-item
+frame-pointer list and a candidate script. The frame labels encode only the
+list position (zero through thirteen); their depicted subject and record
+field meanings remain unknown. No executed caller is confirmed, so the
+animation-table interpretation remains **PROBABLE**.
+
+| Old label/address | Current label |
+|---|---|
+| `Table_70_4C5C` / `4C5C` | `CommScene_ObjAnimTable2` |
+| `Table_70_4C64` / `4C64` | `CommScene_ObjAnimTable2_Entry1_FramePointers` |
+| `Data_70_4C80`, `4C99`, `4CB2`, `4CCB`, `4CDC`, `4CED`, `4CFE`, `4D17`, `4D28`, `4D39`, `4D52`, `4D63`, `4D7C`, `4D8D` | `CommScene_ObjAnimTable2_Entry1_Frame0` through `Frame13`, in pointer order |
+| `Data_70_4D9E` / `4D9E` | `CommScene_ObjAnimTable2_Entry1_Script` |
+
+No data directives or physical spans changed. The bounded consumer search
+found no current maintained-source or tool consumer outside the owner; frozen
+`config/regions/bank70.tsv` and historical analysis retain prior spellings.
+The six-root whitespace-aware lexical count is 485
+`Data_BB_AAAA::` definitions in 137 owners after these 15 data-label renames;
+this is not a measure of semantic completion.

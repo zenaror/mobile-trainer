@@ -1555,6 +1555,11 @@ now use `CommScene_ObjAnim*` names. The labels distinguish four frame-pointer
 lists, 26 list-ordered frame records and four paired candidate scripts; no
 executed caller, depicted subject or first-two-field meaning is claimed. The
 26 neutral `Data_70_*` labels became structural labels without changing data
-spans. The exact six-root `Data_BB_AAAA::` count is now 500 in 137 owners.
+spans. The exact six-root `Data_BB_AAAA::` count is now 485 in 137 owners after
+this additional structural pass.
 `make` remains `RESULT: IDENTICAL`, and `make sym-check` passes 12,743 labels
 and 51 constants. See the [bank-70 naming audit](docs/research/generic_data_name_audit_20261020.md#bank-70-communication-scene-object-animation-records-2026-10-21).
+The second probable object-animation group at `70:4C5C` now uses
+`CommScene_ObjAnimTable2` plus entry/list-index labels for its 14 frames and
+candidate script. Its caller and depicted subject remain unknown. See the
+[bank-70 naming audit](docs/research/generic_data_name_audit_20261020.md#bank-70-second-communication-scene-object-animation-group-2026-10-21).
