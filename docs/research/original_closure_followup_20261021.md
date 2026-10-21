@@ -467,6 +467,16 @@ no current assembly/tool consumers beyond their declarations. Existing
 CONFIRMED read evidence, storage extents, content-class uncertainty, and bytes
 are unchanged; historical config/analysis records were not edited.
 
+## Bank 2F address-book list resource aliases (2026-10-21)
+
+Removed `Data_2F_4D40`, `Table_2F_5010` and `Data_2F_5050` from
+`gfx/address_book/list.asm` under `Tilemap_Abook_List`,
+`Table_Abook_ButtonCursorAnims` and `Abook_ButtonCursor_ObjAnimData`.
+Exact-token search found no active assembly/tool consumers beyond the
+declarations. Tilemap/attrmap payloads, animation pointer words, frame records,
+extents and prior CONFIRMED/PROBABLE classifications are unchanged; no frame
+interpretation or execution status was promoted.
+
 ## Bank 7F JIS row lookup aliases (2026-10-21)
 
 Removed `Data_7F_40F9` and `Data_7F_4150` from `engine/text/glyph.asm` under
