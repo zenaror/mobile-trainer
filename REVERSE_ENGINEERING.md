@@ -1509,4 +1509,9 @@ the existing track, loop, after-jump, and stream-header names. No active
 source or tool consumer used the aliases; stream commands and ROM bytes are
 unchanged. See the [generic data-label audit](docs/research/generic_data_name_audit_20261020.md#bank-05-song-10-stream-aliases-2026-10-21).
 
+The bank-05 song-1A stream also lost 14 `Data_05_*` aliases under its existing
+track, loop, subroutine, after-jump, and header names. No active source or tool
+consumer used them; stream commands and ROM bytes are unchanged. See the
+[generic data-label audit](docs/research/generic_data_name_audit_20261020.md#bank-05-song-1a-stream-aliases-2026-10-21).
+
 **Bank 4B tile extraction (2026-10-21).** Positive transfer records cover all 1,456 bytes at `4B:4AD0–5080`; the interval now has an exact 91-tile PNG source while its higher-level screen and Pokémon associations remain unproved. See [the transfer audit](docs/research/bank4b_result_page_indexed_tiles_20261021.md). The Japanese disassembly remains active; English work remains suspended pending the Operator's explicit confirmation.

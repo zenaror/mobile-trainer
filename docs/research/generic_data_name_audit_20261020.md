@@ -1890,3 +1890,28 @@ line positions, and confidence annotations are unchanged.
 | `05:4671` | `SoundSong10_Track3_Loop` |
 | `05:46E5` | `SoundSong10_Track3_AfterJump` |
 | `05:46E6` | `SoundSong10_Header` |
+
+## Bank 05 song 1A stream aliases (2026-10-21)
+
+Retired 14 co-addressed `Data_05_*` aliases from
+`audio/music/music_1a.asm`. Existing `SoundSong1A_*` labels name the track
+entries, loops, after-jump markers, one subroutine, and stream header. The
+maintained-source/tool search found no consumers outside the owner. Stream
+commands, pointers, bytes, and confidence annotations are unchanged.
+
+| Address | Retained label |
+|---|---|
+| `05:5DCF` | `SoundSong1A_Track0` |
+| `05:5DD3` | `SoundSong1A_Track0_Loop` |
+| `05:5E36` | `SoundSong1A_Track0_AfterJump` |
+| `05:5E37` | `SoundSong1A_Track1` |
+| `05:5E3B` | `SoundSong1A_Track1_Loop` |
+| `05:5F66` | `SoundSong1A_Track1_AfterJump` |
+| `05:5F67` | `SoundSong1A_Track2` |
+| `05:5F6B` | `SoundSong1A_Track2_Loop` |
+| `05:6029` | `SoundSong1A_Track2_AfterJump` |
+| `05:602A` | `SoundSong1A_Track3` |
+| `05:602E` | `SoundSong1A_Track3_Loop` |
+| `05:605D` | `SoundSong1A_Track3_Sub1` |
+| `05:60CE` | `SoundSong1A_Track3_AfterJump` |
+| `05:60CF` | `SoundSong1A_Header` |
