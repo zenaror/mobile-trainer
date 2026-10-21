@@ -27,13 +27,11 @@ Data_Profile_TilemapAttr:: ; 2A:6B40
 ; ---- data $6E10-$6E50 (64 bytes) [PROBABLE] 64 bytes = 32 RGB555 words (bit15 clear) right after the tilemap+attr block 6B40-6E10 (6B40+$2D0); previous data was cut into a CONFIRMED read fragment 6E10-6E30 and a clipped heuristic palette 6E30-6EB0
 
 Palette_Profile_Bg:: ; 2A:6E10
-Palette_2A_6E10::
 	INCLUDE "gfx/profile/profile_editor/profile_bg.pal"
 
 ; ---- words $6E50-$6EA0 (80 bytes) [PROBABLE] animation entry table: 20 entries of 4 bytes (frame-table pointer, script pointer), each animation repeated 4x; format of the sprite-slot initialiser 00:0A82/0AB8 (entry at DE+4*(A&$3F) -> slot[2..3] frame table, slot[6..7] script)
 
 Table_Profile_Anims:: ; 2A:6E50
-Table_2A_6E50::
 	sprite_object_entry Profile_Anim0Frames, Profile_Anim0Script ; entry 0
 	sprite_object_entry Profile_Anim0Frames, Profile_Anim0Script ; entry 1
 	sprite_object_entry Profile_Anim0Frames, Profile_Anim0Script ; entry 2
@@ -60,7 +58,6 @@ Table_Profile_Anims_Entry12:: ; 2A:6E80
 ; ---- words $6EA0-$6EA4 (4 bytes) [PROBABLE] frame table: 2 pointer(s) $6EA4, $6EB9 to OAM frames (extent = lowest target); referenced by an animation entry
 
 Profile_Anim0Frames:: ; 2A:6EA0
-Table_2A_6EA0::
 	sprite_frame_table Profile_Anim0Frame0, Profile_Anim0Frame1
 
 ; ---- data $6EA4-$6EB9 (21 bytes) [PROBABLE] OAM frame: count=5 then 5 x (y,x,tile,attr) = 21 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
@@ -93,7 +90,6 @@ Profile_Anim0Script:: ; 2A:6ECE
 ; ---- words $6ED3-$6ED7 (4 bytes) [PROBABLE] frame table: 2 pointer(s) $6ED7, $6EEC to OAM frames (extent = lowest target); referenced by an animation entry
 
 Profile_Anim4Frames:: ; 2A:6ED3
-Table_2A_6ED3::
 	sprite_frame_table Profile_Anim4Frame0, Profile_Anim4Frame1
 
 ; ---- data $6ED7-$6EEC (21 bytes) [PROBABLE] OAM frame: count=5 then 5 x (y,x,tile,attr) = 21 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
@@ -126,7 +122,6 @@ Profile_Anim4Script:: ; 2A:6F01
 ; ---- words $6F06-$6F0A (4 bytes) [PROBABLE] frame table: 2 pointer(s) $6F0A, $6F23 to OAM frames (extent = lowest target); referenced by an animation entry
 
 Profile_Anim8Frames:: ; 2A:6F06
-Table_2A_6F06::
 	sprite_frame_table Profile_Anim8Frame0, Profile_Anim8Frame1
 
 ; ---- data $6F0A-$6F23 (25 bytes) [PROBABLE] OAM frame: count=6 then 6 x (y,x,tile,attr) = 25 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
@@ -161,7 +156,6 @@ Profile_Anim8Script:: ; 2A:6F3C
 ; ---- words $6F41-$6F45 (4 bytes) [PROBABLE] frame table: 2 pointer(s) $6F45, $6F5E to OAM frames (extent = lowest target); referenced by an animation entry
 
 Profile_Anim12Frames:: ; 2A:6F41
-Table_2A_6F41::
 	sprite_frame_table Profile_Anim12Frame0, Profile_Anim12Frame1
 
 ; ---- data $6F45-$6F5E (25 bytes) [PROBABLE] OAM frame: count=6 then 6 x (y,x,tile,attr) = 25 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
@@ -196,7 +190,6 @@ Profile_Anim12Script:: ; 2A:6F77
 ; ---- words $6F7C-$6F80 (4 bytes) [PROBABLE] frame table: 2 pointer(s) $6F80, $6F91 to OAM frames (extent = lowest target); referenced by an animation entry
 
 Profile_Anim16Frames:: ; 2A:6F7C
-Table_2A_6F7C::
 	sprite_frame_table Profile_Anim16Frame0, Profile_Anim16Frame1
 
 ; ---- data $6F80-$6F91 (17 bytes) [PROBABLE] OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table

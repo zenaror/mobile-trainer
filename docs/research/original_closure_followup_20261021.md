@@ -522,3 +522,12 @@ numeric spellings; the test-only `tools/test_rom_operands.py` fixture still
 covers semantic-name preference when both spellings exist in a synthetic
 tree. Animation records, frame pointers, extents and confidence classifications
 are unchanged.
+
+## Bank 2A profile-editor resource and animation aliases (2026-10-21)
+
+Removed `Palette_2A_6E10` and six `Table_2A_*` labels from
+`gfx/profile/profile_editor.asm`, retaining `Palette_Profile_Bg`,
+`Table_Profile_Anims` and the five `Profile_Anim*Frames` names at the same
+addresses. No active source/tool consumer referenced the numeric spellings.
+Palette contents, animation records, extents and evidence classifications are
+unchanged.
