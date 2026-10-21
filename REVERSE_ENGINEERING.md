@@ -88,6 +88,13 @@ The historical source line positions, message bytes and table entries are
 preserved; the ROM remains byte-identical and all symbol, palette and PNG
 checks pass. See the dated generic-label audit for the nine-address mapping.
 
+Three redundant address-only labels were also retired from the connect-dialog
+strings. Their semantic labels remain the names used by the active reader;
+string data and the six-message block are unchanged. The full build and
+symbol, palette and PNG checks pass. The historical `tools/data_consumers.py`
+mapping safely recognizes the surviving semantic label and skips the absent
+alias.
+
 The 2026-10-20 bank6C HelpScript pass maps the static command stream from `6C:4809` through the
 terminal at `6C:58C6` (exclusive end `58C7`), corrects mixed command/text classifications and
 replaces address-only labels at command boundaries with structural names. An independent walk

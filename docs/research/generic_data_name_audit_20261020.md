@@ -1142,3 +1142,23 @@ Historical `config/` and `analysis/` references remain snapshot evidence. The
 original ROM rebuild is byte-identical; `sym-check` reports 13,379 labels and
 51 constants, palette checks pass (162/116/2/0), and PNG checks pass
 (408/4/37/95).
+
+## Connect-dialog string aliases retired (2026-10-21)
+
+Three `String_56_AAAA` exports duplicated existing labels in
+`data/text/connect_dialog.asm`: `String_56_4000` with
+`String_ConnectDialog_Messages`, `String_56_4047` with
+`String_ConnectDialog_PasswordEntryPrompt`, and `String_56_4159` with
+`String_ConnectDialog_CancelPasswordStorageConfirm`. A path-safe search found
+no active source consumers of the address-only names; the connect-dialog
+reader uses the semantic names. The three alias lines were blanked to preserve
+line numbering. Existing strings, addresses and confidence are unchanged.
+`tools/data_consumers.py` contains a historical mapping for
+`String_56_4000`; its `already_named` guard verifies the retained name at the
+same address and skips the removed alias. Frozen `config/` and historical
+`analysis/` records keep their original spellings.
+
+The Japanese ROM rebuild is `RESULT: IDENTICAL` with SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
+`sym-check` reports 13,376 labels and 51 constants, palette checks pass
+(162/116/2/0), and PNG checks pass (408/4/37/95).
