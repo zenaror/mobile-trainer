@@ -23,10 +23,15 @@ observed stores; the code classification is PROBABLE, while independent entry an
 HYPOTHESIS. This does not establish natural execution or accepted VRAM writes; see the dated review in
 [`naming2_verify_fn4.md`](docs/research/naming2_verify_fn4.md);
 the earlier `Data_BB_AAAA::` count of 1,003 definitions was reconciled against the source and
-subsequent reviewed retirements. A current-source scan at `5a1171cd` finds 959 definitions across
-the six maintained roots (all in `.asm`; none in `.inc`) plus one in `zero_labels.asm` (960 total).
-Seventeen definitions were removed since the 977-total `4c5143ec` checkpoint. This remains a
-lexical count, not a completion measure. The
+subsequent reviewed retirements. At `41c92b60`, a controlled scan of the six maintained roots,
+excluding the protected `engine/mail/sample_data.asm` without reading it, finds 898
+`Data_BB_AAAA::` definitions (engine 126, data 54, gfx 547, audio 170, lib 1, home 0; all in
+`.asm`, none in `.inc`) plus one in `zero_labels.asm` (899 total). On that same restricted file
+set the baseline at `5a1171cd` is 954 plus one; the 56-definition change reconciles 17 Song03
+aliases, the 18-definition Song07/keyboard-name checkpoint, 15 Song02 aliases, and six bank2C
+aliases. Because the older 959 count used a different inclusion set, it is retained as historical
+rather than treated as a directly comparable baseline. These are lexical counts, not completion
+measures. The
 [generic data-label audit](docs/research/generic_data_name_audit_20261020.md) records the
 checkpoints.
 The 2026-10-20 bank6C HelpScript pass maps the static command stream from `6C:4809` through the

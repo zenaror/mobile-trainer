@@ -876,6 +876,33 @@ overreads and zero errors. Full review is retained in the private
 `.tmp/parallel-jp-census-20261020/REPORT.md` and
 `.tmp/parallel-jp-function-audit-20261020/SONG03_REVIEW.md`.
 
+## Restricted six-root reconciliation after later alias retirements (2026-10-21)
+
+To avoid opening the protected `engine/mail/sample_data.asm`, this controlled
+comparison uses the same six maintained roots and exact `Data_BB_AAAA::`
+definition pattern while explicitly excluding that path, `languages/`, and
+all non-ASM/INC files. The ignored file is neither read nor counted. A
+reproducible script and per-root results are retained in
+`.tmp/generic-data-census-20261021/` (result SHA-256
+`d0967b53efa11522f4280a4f57fbcdb5bdd4928240188a43ccd49a05b48c1643`).
+
+| checkpoint | engine | data | gfx | audio | lib | home | six roots | `zero_labels.asm` | total |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| `5a1171cd` restricted baseline | 127 | 54 | 553 | 219 | 1 | 0 | 954 | 1 | 955 |
+| `018d2470` after Song03 | 127 | 54 | 553 | 202 | 1 | 0 | 937 | 1 | 938 |
+| `338f5344` after Song07 and keyboard naming | 126 | 54 | 553 | 185 | 1 | 0 | 919 | 1 | 920 |
+| `58db93a4` after Song02 | 126 | 54 | 553 | 170 | 1 | 0 | 904 | 1 | 905 |
+| `41c92b60` after bank2C aliases | 126 | 54 | 547 | 170 | 1 | 0 | 898 | 1 | 899 |
+
+The 56-definition drop in the restricted corpus is accounted for by the
+17 Song03 alias deletions, 18 definitions retired or structurally renamed by
+the Song07/keyboard checkpoint, 15 Song02 alias deletions, and six generic
+bank2C alias deletions. The older 959 six-root result at `5a1171cd` used a
+different inclusion set and is not directly comparable to this table; the
+protected file's content was not inspected to resolve that discrepancy. These
+are exact lexical counts only, not counts of unidentified data or a semantic
+completion measure.
+
 ## Reconciliation of the historical 59-group cohort (2026-10-20)
 
 The retained original 82-row non-GFX matrix is authenticated to commit

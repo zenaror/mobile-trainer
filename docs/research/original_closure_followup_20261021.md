@@ -94,14 +94,16 @@ are now integrated with scoped README/inventory edits. No global unused/dead
 claim follows from these finite scans.
 
 The current source contains no literal `Function_BB_AAAA` definitions. A
-separate census at the prior checkpoint reported 925 `Data_BB_AAAA`
-definitions after its Song07 retirements and one structural rename; the newer
-15-alias Song02 retirement has not been reconciled through that census, so 925
-is historical rather than a current count. Such lexical counts do not measure
-unidentified functions, unclassified data, or completion. The accepted entry
-reports also leave the 523-group data census, bank53 name/frame associations,
-eight KEEP windows, other unresolved roots and final definition-of-done review
-open.
+controlled six-root lexical comparison at `41c92b60` finds 898
+`Data_BB_AAAA::` definitions plus one in `zero_labels.asm` (899 total), with
+`engine/mail/sample_data.asm` expressly excluded and not read. The common
+restricted baseline at `5a1171cd` was 954 plus one; 56 removals/renames now
+reconcile across Song03, Song07/keyboard naming, Song02 and the six bank2C
+aliases. The older 959 count used another inclusion set and remains historical.
+These lexical counts do not measure unidentified functions, unclassified
+data, or completion. Refreshing the data-consumer-group census, bank53
+name/frame associations, eight KEEP windows, other unresolved roots and final
+definition-of-done review remain open.
 
 ## Verification
 
