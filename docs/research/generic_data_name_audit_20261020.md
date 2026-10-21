@@ -3372,7 +3372,7 @@ unresolved inventory, not a claim that no indirect use exists.
 | `Data_48_69AB` | Thirty-two zeros have a conditional read path; the reader's fallback/glyph role remains unproved. | CONFIRMED read as data; content class unknown. |
 | `Data_4B_5400` | Thirty-two bytes are read as data in a finite subset of scenarios; no exact consumer or content class is established. | CONFIRMED read as data; content class unknown. |
 | `Data_4E_5390` | One `POP BC` lies between two branches that skip it; no branch to this address is known. | HYPOTHESIS; keep neutral. |
-| `Data_5F_6980` | Forty-eight repeated `$06` bytes precede a confirmed tilemap/attribute resource; no reader is known. | HYPOTHESIS; purpose unknown. |
+| `Data_5F_6980` | Forty-eight `$06` bytes precede a confirmed resource. The only raw candidate is `HL=$6998` at `68:7A34`; `A=$71` before `Tilemap_CopyRectAndAttr` selects `71:6998`, so it is not a bank-5F read. | HYPOTHESIS; purpose unknown. |
 | `Data_72_63D7` | One `XOR A` follows a string terminator; the adjacent far-call target begins at 63D8. | HYPOTHESIS; keep neutral. |
 | `Data_72_6711` | One `XOR A` follows a `RET` and precedes a confirmed routine entry; no entry to 6711 is known. | HYPOTHESIS; keep neutral. |
 | `Data_75_6D62` | One `RET` between Mobile SDK state-handler blocks; no caller or pointer is known. | HYPOTHESIS; keep neutral. |

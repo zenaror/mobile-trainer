@@ -464,7 +464,7 @@ Gfx_Kbd_T5_Tiles9000Vb1:: ; 5F:6100
 ; ---- zero $6200-$6980 (1920 bytes) [HYPOTHESIS] padding? run of 1920 x $00 in unclassified bytes
 	ds $780, $00
 
-; ---- data $6980-$69B0 (48 bytes) [HYPOTHESIS] run of 48 x $06 directly before the tilemap+attr block at 69B0 (constant fill of the kind used in attribute maps); not referenced, purpose unknown
+; ---- data $6980-$69B0 (48 bytes) [HYPOTHESIS] 48 x $06 before the tilemap+attr block at 69B0; raw candidate HL=$6998 at 68:7A34 is loaded with bank A=$71 before Tilemap_CopyRectAndAttr, so it selects 71:6998, not this bank-5F span; no bank-5F read established, purpose unknown
 
 Data_5F_6980:: ; 5F:6980
 	db $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06
