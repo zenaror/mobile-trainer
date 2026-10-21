@@ -188,7 +188,7 @@ Palette_7F_4D50::
 
 PUSHC sjis
 String_Canvas_SampleAscii:: ; 7F:4D88
-String_7F_4D88::
+
 	db "Sample DATA.", 0
 POPC
 
@@ -260,7 +260,7 @@ Canvas_DrawSampleRows:: ; 7F:4D95
 
 PUSHC sjis
 String_Canvas_SampleSentence_7F_4DF2:: ; 7F:4DF2
-String_7F_4DF2::
+
 	db "サンプルデータですからね～", 0
 POPC
 
@@ -332,7 +332,7 @@ Canvas_DrawSampleRowsInverted:: ; 7F:4E0D
 
 PUSHC sjis
 String_Canvas_SampleSentence_7F_4E6A:: ; 7F:4E6A
-String_7F_4E6A::
+
 	db "サンプルデータですからね～", 0
 POPC
 
@@ -347,7 +347,7 @@ Canvas_UploadToVramWrapper:: ; 7F:4E85
 ; ---- ptrtable $4E89-$4E95 (12 bytes) [PROBABLE] 6 x dw string pointers (4E95, 4EA8, 4EC1, 4ED0, 4EE1, 4EE8); every target is a string start of the text below (Japanese/ASCII page names); 7F:4E85 (call $4BBC ; ret) precedes it; no ld hl,$4E89 found, so the reader is unlocated
 
 Sample_PageNamePtrs:: ; 7F:4E89
-Table_7F_4E89::
+
 	dw String_Sample_PageNames_0_2
 	dw $4EA8
 	dw $4EC1
@@ -359,7 +359,7 @@ Table_7F_4E89::
 
 PUSHC sjis
 String_Sample_PageNames_0_2:: ; 7F:4E95
-String_7F_4E95::
+
 	db "任天堂ホームページ", 0
 	db "ポケットモンスター…！？", 0
 	db "GAMEFREAK HOME", 0
@@ -369,7 +369,7 @@ POPC
 
 PUSHC sjis
 String_Sample_PageNames_3_5:: ; 7F:4ED0
-String_7F_4ED0::
+
 	db "MissingLink_HOME", $07, "sample", 0
 	db "sample2", 0
 POPC
@@ -377,7 +377,7 @@ POPC
 ; ---- ptrtable $4EF0-$4EFC (12 bytes) [PROBABLE] little-endian word table, 6 entries, monotone=1.00, 83% of targets on string start/after NUL, targets $4EFC..$4F79; regular record stride between targets; verifier: truncated from 8 to 6 entries: entry 0 = 4EFC is where the table ends
 
 Sample_PageUrlPtrs:: ; 7F:4EF0
-Table_7F_4EF0::
+
 	dw String_Sample_PageUrl0
 	dw String_Sample_PageUrl1
 	dw String_Sample_PageUrl2
@@ -389,7 +389,7 @@ Table_7F_4EF0::
 
 PUSHC sjis
 String_Sample_PageUrl0:: ; 7F:4EFC
-String_7F_4EFC::
+
 	db "http://www.nintendo.com/", 0
 POPC
 
@@ -397,19 +397,19 @@ POPC
 
 PUSHC sjis
 String_Sample_PageUrl1:: ; 7F:4F15
-String_7F_4F15::
+
 	db "http://www.pokemon.co.jp/", 0
 String_Sample_PageUrl2:: ; 7F:4F2F
-String_7F_4F2F::
+
 	db "http://www.gamefreek.net/", 0
 String_Sample_PageUrl3:: ; 7F:4F49
-String_7F_4F49::
+
 	db "http://www.missinglink.co.jp/", 0
 String_Sample_PageUrl4:: ; 7F:4F67
-String_7F_4F67::
+
 	db "http://sample.to/", 0
 String_Sample_PageUrl5:: ; 7F:4F79
-String_7F_4F79::
+
 	db "http://sample2.to/", 0
 	db "テストページ", 0
 	db "htpp://work.dammy.co.jp/", 0
@@ -419,13 +419,13 @@ POPC
 ; ---- words $4FC3-$4FCF (12 bytes) [PROBABLE] 6 words = SRAM addresses A084,A184,A284,A384,A484,A584 (not text although the bytes 84 A0.. are valid Shift-JIS): read by 7 code sites as ld hl,$4FC3 ; ld a,[hli] ; ld e,a ; ld a,[hli] ; ld d,a ; ld a,[de] (7F:5386 ...) and by ld hl,$4FC5/$4FC7/... (entries)
 
 PageListProto_UrlSlotTable:: ; 7F:4FC3
-Table_7F_4FC3::
+
 	dw $A084, $A184, $A284, $A384, $A484, $A584
 
 ; ---- words $4FCF-$4FDB (12 bytes) [PROBABLE] 6 words = SRAM addresses A000,A016,A02C,A042,A058,A06E (stride $16), read via ld hl,$4FCF at 7 code sites (7F:5709, 5731, 579A, 57C2, 5F2E, 5F87, 61B5)
 
 PageListProto_TitleSlotTable:: ; 7F:4FCF
-Table_7F_4FCF::
+
 	dw $A000, $A016, $A02C, $A042, $A058, $A06E
 
 PageListProto_Main:: ; 7F:4FDB

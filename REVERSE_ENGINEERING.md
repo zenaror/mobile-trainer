@@ -266,6 +266,9 @@ those have been retired with the same byte and evidence preservation.
 In `audio/music/music_16.asm`, 16 `Data_05_*` aliases at existing `SoundSong16_*`
 addresses were retired after source-reference, tool-reference, and local-scope checks;
 the 566-line owner and decoded stream declarations remain unchanged.
+In the page-list prototype, 15 string/table aliases were retired under existing
+names; the palette alias anchoring the `.loop` local scope remains. See the
+[prototype alias audit](docs/research/page_list_prototype_aliases_20261021.md).
 
 The same audit renamed the positioned `$0020` word at `5C:5144` to
 `CommErr_MessageSlot32RawWord`. The slot is confirmed structurally; the value's purpose remains
