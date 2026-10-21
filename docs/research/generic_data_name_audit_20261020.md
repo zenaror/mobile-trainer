@@ -1810,3 +1810,14 @@ the attribute map row that shares the tilemap's base label. No bytes, paths,
 or resource classifications changed. Other labels in the owner, including
 `Data_4B_5080`, `Data_4B_5400`, and `Data_4B_5420`, remain neutral because they
 do not have an equally strong descriptive co-label.
+
+## Bank 71 asset catalogue labels (2026-10-21)
+
+Reconciled 16 stale `gfx/assets.tsv` label cells with the labels now defined
+in `gfx/account/screens_bank71.asm`: the CommPanel and registration-delete
+tilemaps, their matching attribute maps, and six confirmed tile resources.
+These entries had retained old `Data_71_*` catalog strings after the source
+labels became descriptive. The asset files, bank/address fields, and source
+bytes are unchanged. The remaining source-only `Data_71_*` labels at `4500`,
+`5038`, `5098`, `5B40`, `61C0`, and `6440` have no verified descriptive
+co-label in this owner and remain neutral.
