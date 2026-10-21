@@ -1773,3 +1773,10 @@ duplicate object-table label were retired. The 64-byte span at `63:6480` is
 the confirmed tail of the tile upload to VRAM `$8800` and now has a qualified
 resource name. The restricted six-root generic-data census is now 204
 definitions in 114 owners. See the [bank-63 resource audit](docs/research/generic_data_name_audit_20261020.md#bank-63-no-adapter-screen-resources-2026-10-21).
+
+In bank 2F's address-book editor, three exact `Data_2F_*` aliases were removed
+under the tile, tilemap and palette labels. The probable pointer table and its
+candidate object-animation data now use feature-qualified candidate names;
+the caller remains unknown and natural use is not claimed. The restricted
+six-root generic-data census is now 200 definitions in 113 owners. See the
+[bank-2F audit](docs/research/generic_data_name_audit_20261020.md#bank-2f-address-book-editor-resource-names-2026-10-21).

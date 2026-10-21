@@ -2546,6 +2546,19 @@ changed. The restricted six-root `Data_BB_AAAA::` census is now 237
 definitions in 121 owners, down from 241 in 121 owners. This remains a lexical
 count.
 
+## Bank 2F address-book editor resource names (2026-10-21)
+
+Three exact `Data_2F_*` aliases in `gfx/address_book/address_editor.asm`
+duplicated the existing tile, tilemap and palette labels and were removed.
+The pointer table at `2F:7DD0` and its 159-byte target at `2F:7E20` remain
+PROBABLE, with names `AbookAddr_CandidateObjAnimTable` and
+`AbookAddr_CandidateObjAnimData`. The repeated target pointers and record
+shape support the candidate classification, but no caller was located; these
+names do not assert natural use. No bytes/ranges or confidence changed. The
+restricted six-root `Data_BB_AAAA::` census is now 200 definitions in 113
+owners, down from 204 definitions in 114 owners. This remains a lexical
+count.
+
 ## Bank 62 keyboard page-tail tile candidates (2026-10-21)
 
 The four 192-byte spans after the loaded tile ranges for keyboard pages 0–3
