@@ -111,6 +111,12 @@ the historical retyping helper as well. The owner keeps all 268 physical lines
 and the same resource bytes. See
 [`connect_dialog_bank56_aliases_20261021.md`](docs/research/connect_dialog_bank56_aliases_20261021.md).
 
+The adjacent bank-1D mail-menu pass retires 19 generic table, data, and string
+aliases under existing `MailMenu_*` labels. The independent owner/census review
+found no other token uses or dependent local labels, and all 540 source lines
+remain in place. See
+[`mail_menu_bank1d_aliases_20261021.md`](docs/research/mail_menu_bank1d_aliases_20261021.md).
+
 At `50:4244`, the redundant `Table_50_4244` export has been retired in favor
 of `Table_CommNotice_Screens`, already used by the active reader. Eight
 CommNotice comments now use that retained name; the pointer list and its
