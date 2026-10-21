@@ -484,3 +484,21 @@ Removed `Data_7F_40F9` and `Data_7F_4150` from `engine/text/glyph.asm` under
 their index/access descriptions, and their existing PROBABLE classifications
 are unchanged; no active source/tool references used the address-only names.
 Frozen analysis/config spellings remain historical records.
+
+## Bank 2B mail-viewer animation table aliases (2026-10-21)
+
+Removed nine `Table_2B_*` labels from `gfx/mail/mail_viewer.asm`, each an
+exact-address alias of a retained `MailView_*Frames` or
+`Table_MailView_Anims` label. Exact-token searches found no current source or
+tool consumers beyond the declarations. Animation entries, frame pointers,
+script bytes, extents and confidence classifications are unchanged.
+
+## Bank 2A, 5D and 22 resource aliases (2026-10-21)
+
+Removed `Data_2A_7CF0`, `Data_2A_7DD0`, `Data_5D_4000`, `Data_5D_4400`,
+`Data_22_5980` and `Data_22_5C50` under their existing address-book tile,
+keyboard tile, mail tilemap and mail palette labels. The keyboard asset
+catalogue now references the retained `Gfx_Kbd_T4_*` symbols. Exact-token
+search found no active source/tool consumers of the removed names. Resource
+bytes, extents, bank/address assignments and existing evidence grades are
+unchanged; frozen config/analysis records were not rewritten.

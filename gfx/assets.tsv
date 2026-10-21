@@ -532,8 +532,8 @@ gfx/help/mobile_dictionary/mobile_dict_screen.tilemap	tilemap	360	gfx/help/mobil
 gfx/help/mobile_dictionary/mobile_dict_tiles0.2bpp	tiles	512	gfx/help/mobile_dictionary.asm	1A	4A90	CONFIRMED	exact	0		Gfx_MobileDict_Tiles0
 gfx/help/mobile_dictionary/mobile_dict_tiles1.2bpp	tiles	1024	gfx/help/mobile_dictionary.asm	1A	4C90	CONFIRMED	exact	0		Gfx_MobileDict_Tiles1
 gfx/help/mobile_dictionary/mobile_dict_tiles2.2bpp	tiles	768	gfx/help/mobile_dictionary.asm	1A	5090	CONFIRMED	exact	0		Gfx_MobileDict_Tiles2
-gfx/keyboard/panels_bank5d/tiles_4000.2bpp	tiles	1024	gfx/keyboard/panels_bank5d.asm	5D	4000	CONFIRMED	exact	0		Data_5D_4000
-gfx/keyboard/panels_bank5d/tiles_4400.2bpp	tiles	1024	gfx/keyboard/panels_bank5d.asm	5D	4400	CONFIRMED	exact	0		Data_5D_4400
+gfx/keyboard/panels_bank5d/tiles_4000.2bpp	tiles	1024	gfx/keyboard/panels_bank5d.asm	5D	4000	CONFIRMED	exact	0		Gfx_Kbd_T4_Tiles8800Vb1
+gfx/keyboard/panels_bank5d/tiles_4400.2bpp	tiles	1024	gfx/keyboard/panels_bank5d.asm	5D	4400	CONFIRMED	exact	0		Gfx_Kbd_T4_Tiles8C00Vb1
 gfx/keyboard/panels_bank5f/palette_4cd0.pal	palette	40	gfx/keyboard/panels_bank5f.asm	5F	4CD0	CONFIRMED	-	0		Palette_SharedPanels_BgObj
 gfx/keyboard/panels_bank5f/palette_6bb8.pal	palette	24	gfx/keyboard/panels_bank5f.asm	5F	6BB8	PROBABLE	-	0		Palette_Kbd_T5_Bg1
 gfx/keyboard/panels_bank5f/tilemap_4810.attrmap	attrmap	220	gfx/keyboard/panels_bank5f.asm	5F	48EC	CONFIRMED	-	0	20x11	Tilemap_Kbd_T9

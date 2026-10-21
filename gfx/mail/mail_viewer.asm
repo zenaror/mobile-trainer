@@ -44,7 +44,6 @@ Palette_MailView_Obj:: ; 2B:7860
 ; ---- words $78A0-$7920 (128 bytes) [PROBABLE] animation entry table: 32 entries of 4 bytes (frame-table pointer, script pointer), each animation repeated 4x; format of the sprite-slot initialiser 00:0A82/0AB8 (entry at DE+4*(A&$3F) -> slot[2..3] frame table, slot[6..7] script)
 
 Table_MailView_Anims:: ; 2B:78A0
-Table_2B_78A0::
 	sprite_object_entry MailView_Anim0Frames, MailView_Anim0Script ; entry 0
 	sprite_object_entry MailView_Anim0Frames, MailView_Anim0Script ; entry 1
 	sprite_object_entry MailView_Anim0Frames, MailView_Anim0Script ; entry 2
@@ -87,7 +86,6 @@ Table_MailView_Anims_Entry28:: ; 2B:7910
 ; ---- words $7920-$7924 (4 bytes) [PROBABLE] frame table: 2 pointer(s) $7924, $7955 to OAM frames (extent = lowest target); referenced by an animation entry
 
 MailView_Anim0Frames:: ; 2B:7920
-Table_2B_7920::
 	sprite_frame_table MailView_Anim0Frame0, MailView_Anim0Frame1
 
 ; ---- data $7924-$7955 (49 bytes) [PROBABLE] OAM frame: count=12 then 12 x (y,x,tile,attr) = 49 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
@@ -133,7 +131,6 @@ MailView_Anim0Script:: ; 2B:7986
 ; ---- words $7989-$798D (4 bytes) [PROBABLE] frame table: 2 pointer(s) $798D, $799A to OAM frames (extent = lowest target); referenced by an animation entry
 
 MailView_Anim4Frames:: ; 2B:7989
-Table_2B_7989::
 	sprite_frame_table MailView_Anim4Frame0, MailView_Anim4Frame1
 
 ; ---- data $798D-$799A (13 bytes) [PROBABLE] OAM frame: count=3 then 3 x (y,x,tile,attr) = 13 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
@@ -161,7 +158,6 @@ MailView_Anim4Script:: ; 2B:79A7
 ; ---- words $79AA-$79AE (4 bytes) [PROBABLE] frame table: 2 pointer(s) $79AE, $79BF to OAM frames (extent = lowest target); referenced by an animation entry
 
 MailView_Anim12Frames:: ; 2B:79AA
-Table_2B_79AA::
 	sprite_frame_table MailView_Anim12Frame0, MailView_Anim12Frame1
 
 ; ---- data $79AE-$79BF (17 bytes) [PROBABLE] OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
@@ -192,7 +188,6 @@ MailView_Anim12Script:: ; 2B:79D0
 ; ---- words $79D5-$79D9 (4 bytes) [PROBABLE] frame table: 2 pointer(s) $79D9, $79F2 to OAM frames (extent = lowest target); referenced by an animation entry
 
 MailView_Anim16Frames:: ; 2B:79D5
-Table_2B_79D5::
 	sprite_frame_table MailView_Anim16Frame0, MailView_Anim16Frame1
 
 ; ---- data $79D9-$79F2 (25 bytes) [PROBABLE] OAM frame: count=6 then 6 x (y,x,tile,attr) = 25 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
@@ -227,7 +222,6 @@ MailView_Anim16Script:: ; 2B:7A0B
 ; ---- words $7A10-$7A14 (4 bytes) [PROBABLE] frame table: 2 pointer(s) $7A14, $7A2D to OAM frames (extent = lowest target); referenced by an animation entry
 
 MailView_Anim20Frames:: ; 2B:7A10
-Table_2B_7A10::
 	sprite_frame_table MailView_Anim20Frame0, MailView_Anim20Frame1
 
 ; ---- data $7A14-$7A2D (25 bytes) [PROBABLE] OAM frame: count=6 then 6 x (y,x,tile,attr) = 25 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
@@ -262,7 +256,6 @@ MailView_Anim20Script:: ; 2B:7A46
 ; ---- words $7A4B-$7A4F (4 bytes) [PROBABLE] frame table: 2 pointer(s) $7A4F, $7A60 to OAM frames (extent = lowest target); referenced by an animation entry
 
 MailView_Anim8Frames:: ; 2B:7A4B
-Table_2B_7A4B::
 	sprite_frame_table MailView_Anim8Frame0, MailView_Anim8Frame1
 
 ; ---- data $7A4F-$7A60 (17 bytes) [PROBABLE] OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
@@ -293,7 +286,6 @@ MailView_Anim8Script:: ; 2B:7A71
 ; ---- words $7A76-$7A7A (4 bytes) [PROBABLE] frame table: 2 pointer(s) $7A7A, $7A93 to OAM frames (extent = lowest target); referenced by an animation entry
 
 MailView_Anim24Frames:: ; 2B:7A76
-Table_2B_7A76::
 	sprite_frame_table MailView_Anim24Frame0, MailView_Anim24Frame1
 
 ; ---- data $7A7A-$7A93 (25 bytes) [PROBABLE] OAM frame: count=6 then 6 x (y,x,tile,attr) = 25 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
@@ -321,7 +313,6 @@ MailView_Anim24Script:: ; 2B:7A94
 ; ---- words $7A97-$7A9B (4 bytes) [PROBABLE] frame table: 2 pointer(s) $7A9B, $7ACC to OAM frames (extent = lowest target); referenced by an animation entry
 
 MailView_Anim28Frames:: ; 2B:7A97
-Table_2B_7A97::
 	sprite_frame_table MailView_Anim28Frame0, MailView_Anim28Frame1
 
 ; ---- data $7A9B-$7ACC (49 bytes) [PROBABLE] OAM frame: count=12 then 12 x (y,x,tile,attr) = 49 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
