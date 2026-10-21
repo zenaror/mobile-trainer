@@ -97,6 +97,13 @@ pointers and strings remain intact. The latest safe census finds 888 generic
 (887 in the six roots), excluding the protected sample and language branch.
 The Japanese ROM remains byte-identical and all required checks pass.
 
+The 2026-10-21 Mobile SDK main-file pass retired 21 redundant generic string
+and table exports in `lib/mobile/main.asm`, preserving the existing SDK labels
+and every byte and assembled address. The census and independent owner-local
+review found no other uses; this removes duplicate symbol names only and does
+not add new routine or execution claims. See
+[`mobile_sdk_main_aliases_20261021.md`](docs/research/mobile_sdk_main_aliases_20261021.md).
+
 At `50:4244`, the redundant `Table_50_4244` export has been retired in favor
 of `Table_CommNotice_Screens`, already used by the active reader. Eight
 CommNotice comments now use that retained name; the pointer list and its

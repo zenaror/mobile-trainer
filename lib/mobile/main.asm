@@ -100,7 +100,7 @@ MobileSDK_ApiDispatch:: ; 75:4030
 ; ---- ptrtable $4070-$40B4 (68 bytes) [PROBABLE] code-pointer table, 34 entries: 34/34 words hit own-bank code starts (start is the operand of ld r16); 18/34 targets executed
 
 MobileSDK_ApiTable:: ; 75:4070
-Table_75_4070::
+
 	dw MobileAPI_PollResult
 	dw MobileAPI_Init
 	dw MobileAPI_WriteConfig
@@ -2486,7 +2486,7 @@ MobileSDK_HttpConnect:: ; 75:4F0C
 
 PUSHC sjis
 MobileStr_HttpPrefix:: ; 75:4FB2
-String_75_4FB2::
+
 	db "http://"
 
 MobileStr_UrlDownload:: ; 75:4FB9
@@ -2498,7 +2498,7 @@ POPC
 
 PUSHC sjis
 MobileStr_UrlUpload:: ; 75:4FDE
-String_75_4FDE::
+
 	db "gameboy.datacenter.ne.jp/cgb/uploa"
 	db "d"
 POPC
@@ -2507,7 +2507,7 @@ POPC
 
 PUSHC sjis
 MobileStr_UrlUtility:: ; 75:5001
-String_75_5001::
+
 	db "gameboy.datacenter.ne.jp/cgb/utili"
 	db "ty"
 POPC
@@ -2516,7 +2516,7 @@ POPC
 
 PUSHC sjis
 MobileStr_UrlRanking:: ; 75:5025
-String_75_5025::
+
 	db "gameboy.datacenter.ne.jp/cgb/ranki"
 	db "ng"
 POPC
@@ -5283,7 +5283,7 @@ MobileSDK_TimingTable:: ; 75:6084
 
 PUSHC sjis
 MobileStr_Helo:: ; 75:6099
-String_75_6099::
+
 	db "HELO ", 0
 POPC
 
@@ -5291,7 +5291,7 @@ POPC
 
 PUSHC sjis
 MobileStr_MailFrom:: ; 75:609F
-String_75_609F::
+
 	db "MAIL FROM:<", 0
 
 MobileStr_RcptTo:: ; 75:60AB
@@ -5302,7 +5302,7 @@ POPC
 
 PUSHC sjis
 MobileStr_Data:: ; 75:60B5
-String_75_60B5::
+
 	db "DATA", $0D, $0A, 0
 
 MobileStr_Quit:: ; 75:60BC
@@ -5340,7 +5340,7 @@ POPC
 
 PUSHC sjis
 MobileStr_UserAgent:: ; 75:611C
-String_75_611C::
+
 	db "User-Agent: CGB-", 0
 POPC
 
@@ -5356,7 +5356,7 @@ MobileStr_HttpPostMethod:: ; 75:6132
 
 PUSHC sjis
 MobileStr_ContentLength:: ; 75:6138
-String_75_6138::
+
 	db "Content-Length: ", 0
 POPC
 
@@ -5429,7 +5429,7 @@ MobileSDK_StateDispatch:: ; 75:6149
 ; ---- ptrtable $61A7-$61F1 (74 bytes) [PROBABLE] code-pointer table, 37 entries: 37/37 words hit own-bank code starts (dense run of code pointers); 22/37 targets executed
 
 MobileSDK_StateTable:: ; 75:61A7
-Table_75_61A7::
+
 	dw MobileState_IdentifyAdapter
 	dw MobileState_ConnectIsp
 	dw MobileState_Dial
@@ -7905,7 +7905,7 @@ MobileSDK_HttpHdrDate:: ; 75:700D
 
 PUSHC sjis
 MobileStr_HdrDate:: ; 75:7039
-String_75_7039::
+
 	db "date: ", 0
 POPC
 
@@ -8434,7 +8434,7 @@ MobileSDK_ToLower:: ; 75:72D5
 
 PUSHC sjis
 MobileStr_HdrGbStatus:: ; 75:72DE
-String_75_72DE::
+
 	db "Gb-Status: ", 0
 POPC
 
@@ -8442,7 +8442,7 @@ POPC
 
 PUSHC sjis
 MobileStr_HdrGbAuthId:: ; 75:72EA
-String_75_72EA::
+
 	db "Gb-Auth-ID: ", 0
 
 MobileStr_HdrWwwAuthenticate:: ; 75:72F7
@@ -8453,7 +8453,7 @@ POPC
 
 PUSHC sjis
 MobileStr_HdrContentTypeCgb:: ; 75:7315
-String_75_7315::
+
 	db "Content-Type: application/x-cgb", $0D, $0A, 0
 POPC
 
@@ -8461,7 +8461,7 @@ POPC
 
 PUSHC sjis
 MobileStr_HdrUriHeader:: ; 75:7337
-String_75_7337::
+
 	db "URI-header: ", 0
 
 MobileStr_HdrLocation:: ; 75:7344
@@ -8518,7 +8518,7 @@ MobileSDK_HttpBuildRequest:: ; 75:734F
 
 PUSHC sjis
 MobileStr_ContentLengthZero:: ; 75:73AA
-String_75_73AA::
+
 	db "Content-Length: 0", $0D, $0A, 0
 POPC
 
@@ -9575,14 +9575,14 @@ MobileSDK_Md5Rol32:: ; 75:7A02
 
 PUSHC sjis
 MobileStr_Authorization:: ; 75:7A17
-String_75_7A17::
+
 	db "Authorization: GB00 name=\"", 0
 POPC
 
 ; ---- data $7A32-$7B32 (256 bytes) [PROBABLE] 256 bytes MD5 per-step parameter table: 4-byte records whose first field cycles the RFC 1321 shift amounts 7,12,17,22 / 5,9,14,20 / 4,11,16,23 / 6,10,15,21 (verified), a round/rotation nibble pair ($06/$04/$02/$00 | $10.. | $20.. | $30..) and a message-word offset; exact record framing (starts at 7A35 after 3 zero bytes) not verified; sits right before the MD5 constants
 
 MobileSDK_Md5StepTable:: ; 75:7A32
-Table_75_7A32::
+
 	db $00, $00, $00, $07, $06, $04, $00, $0C, $04, $08, $00, $11, $02, $0C, $00, $16
 	db $00, $10, $00, $07, $06, $14, $00, $0C, $04, $18, $00, $11, $02, $1C, $00, $16
 	db $00, $20, $00, $07, $06, $24, $00, $0C, $04, $28, $00, $11, $02, $2C, $00, $16
@@ -9603,7 +9603,7 @@ Table_75_7A32::
 ; ---- data $7B32-$7B40 (14 bytes) [PROBABLE] 14 bytes = 7 words (CA84 CA88 CA8C CA90 CA84 CA88 CA8C): rotating pointer list to the MD5 state words in WRAM; 8-byte windows (offset = index & $0F) are copied to $CA94 by 75:78E5 (ld hl,$7B32 ; add hl,de ; ld de,$CA94 ; ld b,8 ; jp $4000)
 
 MobileSDK_Md5StatePtrTable:: ; 75:7B32
-Table_75_7B32::
+
 	db $84, $CA, $88, $CA, $8C, $CA, $90, $CA, $84, $CA, $88, $CA, $8C, $CA
 
 ; ---- data $7B40-$7B50 (16 bytes) [CONFIRMED] MD5 initial state A,B,C,D = 67452301 EFCDAB89 98BADCFE 10325476 stored little-endian (byte-exact RFC 1321 constants); copied (16 bytes) to WRAM $CA84 by 75:76EE (ld de,$CA84 ; ld hl,$7B40 ; ld b,$10 ; call $4000)
@@ -9614,7 +9614,7 @@ MobileSDK_Md5InitConstants:: ; 75:7B40
 ; ---- data $7B50-$7C50 (256 bytes) [CONFIRMED] MD5 constant table T[1..64] = floor(2^32 x abs(sin(i))) as 64 little-endian dwords (byte-exact match computed with Python math.sin; first entries D76AA478 E8C7B756 242070DB C1BDCEEE)
 
 MobileSDK_Md5KTable:: ; 75:7B50
-Table_75_7B50::
+
 	db $78, $A4, $6A, $D7, $56, $B7, $C7, $E8, $DB, $70, $20, $24, $EE, $CE, $BD, $C1
 	db $AF, $0F, $7C, $F5, $2A, $C6, $87, $47, $13, $46, $30, $A8, $01, $95, $46, $FD
 	db $D8, $98, $80, $69, $AF, $F7, $44, $8B, $B1, $5B, $FF, $FF, $BE, $D7, $5C, $89
