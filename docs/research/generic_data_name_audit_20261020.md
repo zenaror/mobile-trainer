@@ -2177,3 +2177,18 @@ resolve that representation/classification conflict or assign a new role.
 The six-root `Data_BB_AAAA::` census is now 393 definitions in 134 owners,
 down from 403 after ten redundant exports were retired. This lexical count is
 not a semantic-completion measure.
+
+## Bank 74 HTML keyword-name aliases (2026-10-21)
+
+Eleven `Data_74_*` labels in `data/html/keywords.asm` duplicated the
+co-addressed `Html_*Names` labels for result codes, entities, meta attributes,
+element attributes, attribute values and tag names. Exact-symbol searches in
+the maintained ASM/INC tree and active tools found no consumer beyond the
+declarations. The aliases were blanked in place; the owner remains 213 lines,
+and every pointer, string/value byte, boundary and PROBABLE header is
+unchanged. The earlier twelve `Table_74_*` pointer-list aliases recorded above
+remain a separate completed pass.
+
+The six-root `Data_BB_AAAA::` census is now 382 definitions in 133 owners,
+down from 393/134 after these eleven redundant exports were retired. This
+lexical count does not measure semantic closure.

@@ -1600,3 +1600,8 @@ The bank-6A help-screen owner has lost ten redundant `Data_6A_*` aliases
 under existing tilemap, graphics and palette labels. The ambiguous RGB-word
 include and the frame-continuation span remain neutral. The six-root generic
 `Data_BB_AAAA::` count is now 393 in 134 owners. See the [bank-6A audit](docs/research/generic_data_name_audit_20261020.md#bank-6a-help-screen-exact-address-aliases-2026-10-21).
+
+The bank-74 HTML keyword owner has also lost eleven redundant `Data_74_*`
+aliases under its existing `Html_*Names` labels. Pointer lists and string/value
+bytes are unchanged. The six-root generic count is now 382 in 133 owners. See
+the [bank-74 audit](docs/research/generic_data_name_audit_20261020.md#bank-74-html-keyword-name-aliases-2026-10-21).
