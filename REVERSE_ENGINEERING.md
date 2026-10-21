@@ -1398,3 +1398,9 @@ contents, comments and confidence are unchanged; no alias had a current token
 consumer or local-label child. The original build remains byte-identical. See
 the mapping and bounded scan in
 [`docs/research/generic_data_name_audit_20261020.md`](docs/research/generic_data_name_audit_20261020.md#bank-04-song-09-same-address-aliases-2026-10-21).
+
+The same bounded audit retired 14 declaration-only `Data_04_*` aliases from
+`audio/music/music_0b.asm` over same-address `SoundSong0B_*` labels. No
+cross-file, tool or local-label consumer was found; the 591-byte owner and
+384 physical lines remain unchanged. The address map and scan limits are in
+[`docs/research/generic_data_name_audit_20261020.md`](docs/research/generic_data_name_audit_20261020.md#bank-04-song-0b-same-address-aliases-2026-10-21).

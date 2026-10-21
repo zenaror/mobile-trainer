@@ -1490,3 +1490,32 @@ audio playback behavior.
 | `04:7723` | `Data_04_7723` | `SoundSong09_Track3_Sub2` |
 | `04:77CE` | `Data_04_77CE` | `SoundSong09_Track3_AfterJump` |
 | `04:77CF` | `Data_04_77CF` | `SoundSong09_Header` |
+
+## Bank 04 song 0B same-address aliases (2026-10-21)
+
+The `audio/music/music_0b.asm` owner lost 14 redundant `Data_04_AAAA` exports
+over existing `SoundSong0B_*` stream, loop, after-jump, substream and header
+labels. The census was made from 347 tracked non-language ASM/INC files,
+explicitly excluding `engine/mail/sample_data.asm`; all 14 candidates had no
+references in other source files or tools and no local-label scope dependency.
+The current symbol map confirmed each same-address pair, and full-token scans
+found every old name only at its declaration. The 591-byte owner and 384
+physical lines remain unchanged; each declaration became a blank line. This
+does not claim any new audio playback behavior.
+
+| Address | Retired label | Retained label |
+|---|---|---|
+| `04:79A4` | `Data_04_79A4` | `SoundSong0B_Track0` |
+| `04:79A8` | `Data_04_79A8` | `SoundSong0B_Track0_Loop` |
+| `04:79F3` | `Data_04_79F3` | `SoundSong0B_Track0_AfterJump` |
+| `04:79F4` | `Data_04_79F4` | `SoundSong0B_Track1` |
+| `04:79F8` | `Data_04_79F8` | `SoundSong0B_Track1_Loop` |
+| `04:7ABC` | `Data_04_7ABC` | `SoundSong0B_Track1_AfterJump` |
+| `04:7ABD` | `Data_04_7ABD` | `SoundSong0B_Track2` |
+| `04:7AC1` | `Data_04_7AC1` | `SoundSong0B_Track2_Loop` |
+| `04:7B5B` | `Data_04_7B5B` | `SoundSong0B_Track2_AfterJump` |
+| `04:7B5C` | `Data_04_7B5C` | `SoundSong0B_Track3` |
+| `04:7B60` | `Data_04_7B60` | `SoundSong0B_Track3_Loop` |
+| `04:7B98` | `Data_04_7B98` | `SoundSong0B_Track3_Sub1` |
+| `04:7BD8` | `Data_04_7BD8` | `SoundSong0B_Track3_AfterJump` |
+| `04:7BD9` | `Data_04_7BD9` | `SoundSong0B_Header` |
