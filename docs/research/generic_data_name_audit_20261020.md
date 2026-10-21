@@ -1519,3 +1519,32 @@ does not claim any new audio playback behavior.
 | `04:7B98` | `Data_04_7B98` | `SoundSong0B_Track3_Sub1` |
 | `04:7BD8` | `Data_04_7BD8` | `SoundSong0B_Track3_AfterJump` |
 | `04:7BD9` | `Data_04_7BD9` | `SoundSong0B_Header` |
+
+## Bank 04 song 0C same-address aliases (2026-10-21)
+
+The `audio/music/music_0c.asm` owner lost 13 redundant `Data_04_AAAA` exports
+over existing `SoundSong0C_*` stream, loop, after-jump and header labels. The
+pre-pass census spans 347 tracked non-language ASM/INC files and explicitly
+excludes `engine/mail/sample_data.asm`; it found no references in other source
+files or tools and no local-label scope dependencies. The pre-pass symbol map
+confirms each same-address pair, and the pre-pass token scan found each old
+spelling only at its declaration. After the pass, the 13 aliases are absent
+from the current SYM. The 457-byte owner and its 303 physical lines remain
+unchanged; each declaration became a blank line. No audio playback behavior is
+inferred.
+
+| Address | Retired label | Retained label |
+|---|---|---|
+| `04:7BF3` | `Data_04_7BF3` | `SoundSong0C_Track0` |
+| `04:7BF7` | `Data_04_7BF7` | `SoundSong0C_Track0_Loop` |
+| `04:7C42` | `Data_04_7C42` | `SoundSong0C_Track0_AfterJump` |
+| `04:7C43` | `Data_04_7C43` | `SoundSong0C_Track1` |
+| `04:7C47` | `Data_04_7C47` | `SoundSong0C_Track1_Loop` |
+| `04:7CBC` | `Data_04_7CBC` | `SoundSong0C_Track1_AfterJump` |
+| `04:7CBD` | `Data_04_7CBD` | `SoundSong0C_Track2` |
+| `04:7CC1` | `Data_04_7CC1` | `SoundSong0C_Track2_Loop` |
+| `04:7CF7` | `Data_04_7CF7` | `SoundSong0C_Track2_AfterJump` |
+| `04:7CF8` | `Data_04_7CF8` | `SoundSong0C_Track3` |
+| `04:7CFC` | `Data_04_7CFC` | `SoundSong0C_Track3_Loop` |
+| `04:7DA1` | `Data_04_7DA1` | `SoundSong0C_Track3_AfterJump` |
+| `04:7DA2` | `Data_04_7DA2` | `SoundSong0C_Header` |
