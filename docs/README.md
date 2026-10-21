@@ -83,6 +83,7 @@ Reference documents (current):
 | [`mail_menu_bank1d_aliases_20261021.md`](research/mail_menu_bank1d_aliases_20261021.md) | 19 redundant generic tables, data and string labels retired from the mail-menu owner |
 | [`mail_comm_result_bank24_aliases_20261021.md`](research/mail_comm_result_bank24_aliases_20261021.md) | 18 redundant generic palette and frame-table exports retired from mail result graphics |
 | [`music16_aliases_20261021.md`](research/music16_aliases_20261021.md) | 16 redundant generic song-data labels retired under existing song and track labels |
+| [`music19_aliases_20261021.md`](research/music19_aliases_20261021.md) | 14 redundant generic song-data labels retired under existing song and track labels |
 | [`save_sender_address_table_aliases_20261021.md`](research/save_sender_address_table_aliases_20261021.md) | Seven redundant generic aliases retired from address-book save tables and caption |
 | [`page_list_prototype_aliases_20261021.md`](research/page_list_prototype_aliases_20261021.md) | 15 redundant prototype labels retired; local palette-loop scope preserved |
 | [`home_data_names.md`](research/home_data_names.md) | Bounded original data/resource alias contracts; evidence and caller limits retained |
