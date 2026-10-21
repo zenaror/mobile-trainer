@@ -1821,3 +1821,26 @@ labels became descriptive. The asset files, bank/address fields, and source
 bytes are unchanged. The remaining source-only `Data_71_*` labels at `4500`,
 `5038`, `5098`, `5B40`, `61C0`, and `6440` have no verified descriptive
 co-label in this owner and remain neutral.
+
+## Graphics catalogue stale labels (2026-10-21)
+
+Reconciled 53 distinct `Data_<bank>_<address>` values in `gfx/assets.tsv` that
+no longer exist as source symbols. For each value, its catalog owner has
+exactly one current descriptive global label at the same bank/address. The
+70 affected catalog rows span four owners: `gfx/comm/notice_dialog.asm`
+(8 labels / 8 rows), `gfx/comm/connect_dialog_bank56.asm` (16 / 22),
+`gfx/account/screens_bank5e.asm` (15 / 19), and
+`gfx/keyboard/panels_bank5f.asm` (14 / 21). The extra rows are the matching
+attribute maps that share each tilemap's base label. No assembly label,
+resource path, source byte, confidence level, or ROM byte changed.
+
+The reconciliation script required a unique descriptive symbol at the exact
+bank/address in the owner source before changing the catalog field. Its
+private report and full old-to-new mapping are retained in
+`.tmp/gfx-catalog-label-audit-20261021/`: `MAPPINGS.json` SHA-256
+`d1964383d6fa677d1404f86566b194b96bd22de441ec865eb0b86650fb3f4268` and
+`RESULT.json` SHA-256 recorded in the OMM checkpoint. Catalog content hashes
+were `4c948911f65712eee86bedd14c20b33a95aad14bdbd7d49e6287eb683b862adc`
+before and `f6d4a8290d7b84644e6fad923968ffeaa814ef6f2dcbb186f006ebd10bec0199`
+after the update. The remaining source `Data_<bank>_<address>` labels in these
+owners do not have a verified co-address semantic label and were left intact.
