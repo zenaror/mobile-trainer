@@ -1065,9 +1065,10 @@ def rules_manual(w, man, sites):
     # obsolete whole-block rename here.
 def rules_hypotheses(w, man):
     """Skipped candidates worth recording: HYPOTHESIS rows (never applied) with the idea and why it is not supported yet."""
-    ideas = {
-        'Data_54_475A': 'ten-byte descriptor copied to WRAM $C240 by Smtp_StartMailFrom (CopyBytes, bc=$000A); the copy is a packet/command header but no field is decoded',
-    }
+    # The SMTP selector-8 seed at 54:475A now has the maintained structural
+    # label Data_Smtp_HeaderComposeArgs; do not keep proposing its retired
+    # numeric alias as an unresolved neutral candidate.
+    ideas = {}
     for old, idea in sorted(ideas.items()):
         if old in w.by_name and w.is_neutral_group(w.by_name[old]) and not man.has(old):
             man.add(old, old, kind_of(w, w.by_name[old]), 'HYPOTHESIS', 'idea: ' + idea)

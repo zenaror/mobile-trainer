@@ -1825,3 +1825,13 @@ The top-menu input table and cursor target pairs now use their retained
 `Table_TopMenu_*` names without duplicate numeric aliases; readers and
 documented targets are unchanged. See the
 [top-menu table note](docs/research/top_menu_table_aliases_20261021.md).
+
+Bank 54's confirmed guest-login string and SMTP argument seed no longer have
+their redundant `Data_54_*` aliases. The SMTP SRAM comment now names the
+maintained source block, and the stale hypothesis candidate was removed from
+the data-consumer tool. Historical snapshots remain identifiable by the
+[alias note](docs/research/mobile_guest_and_smtp_data_aliases_20261021.md).
+This pass's checked link used make overrides to reuse the existing object for
+the protected mail sample because the unqualified dry-run scheduled that file;
+see the note for the exact command and the interrupted invocation's unresolved
+reachability.

@@ -189,7 +189,6 @@ Mobile_ConnectPoll:: ; 54:405D
 ; ---- data $413B-$4141 (6 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
 String_Mobile_GuestLogin:: ; 54:413B
-Data_54_413B::
 	db $67, $75, $65, $73, $74, $00
 
 Mobile_BeginConnect:: ; 54:4141

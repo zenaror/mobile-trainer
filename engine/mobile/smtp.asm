@@ -328,7 +328,6 @@ Smtp_CopyDisplayName:: ; 54:4748
 ; ---- data $475A-$4764 (10 bytes) [PROBABLE] SMTP selector8 stream/item argument seed
 
 Data_Smtp_HeaderComposeArgs:: ; 54:475A
-Data_54_475A::
 	db $03, $00, $A1, $00, $0F, $00, $00, $80, $C4, $00
 
 ; ---- data $4764-$4770 (12 bytes) [HYPOTHESIS] 12 bytes between the $C240 blob and the string at 4770; use not found (content unresolved)
