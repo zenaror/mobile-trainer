@@ -91,7 +91,6 @@ NonCgb_FadeStep:: ; 6B:4CF6
 ; ---- data $4D1B-$4D1F (4 bytes) [PROBABLE] 4-byte BGP fade table 00 40 90 E4 read by the non-CGB screen routine 4CF6 (ld hl,$4D1B at 6B:4D00 ; add a,l ; ld a,[hl] ; ldh [rBGP],a ; index [C0E8] incremented and compared with 4, so entries 0-3 are used); the byte after it ($D9 at 4D1F) is executed as `reti`, see the next region [round 3: split from the former 5-byte data region 4D1B-4D20 read as `00 40 90 E4 D9`]
 
 NonCgb_BgpFadeTable:: ; 6B:4D1B
-Data_6B_4D1B::
 	db $00, $40, $90, $E4
 
 	; [CONFIRMED] 1 insn (`reti`, $D9) executed by scenario noncgb_boot (register A = $01 at start):

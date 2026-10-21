@@ -92,7 +92,6 @@ CommErr_ShowScreen_FrameLoop:: ; 5C:5219
 ; ---- ptrtable $5231-$523B (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 5C:522E: 5 entries; fixed length (5 words) by the routine
 
 CommErr_JoypadTable:: ; 5C:5231
-Table_5C_5231::
 	dw CommErr_ShowScreen_ButtonA
 	dw CommErr_ShowScreen_Ignore
 	dw CommErr_ShowScreen_Ignore
@@ -393,7 +392,6 @@ CommErr_DrawDigit:: ; 5C:5441
 ; ---- data $545B-$546F (20 bytes) [PROBABLE] 20 bytes = 10 pairs of tile numbers ($27,$37 ; $28,$38 ; ... $2F,$3F ; $40,$50) for the digits 0-9 (two-tile-high glyphs): read by the code at 5C:5440-5455 (ld bc,$545B ; add hl,bc, 2 bytes per digit); the first 10 bytes are CONFIRMED read data
 
 CommErr_DigitTilePairs:: ; 5C:545B
-Table_5C_545B::
 	db $27, $37, $28, $38, $29, $39, $2A, $3A, $2B, $3B, $2C, $3C, $2D, $3D, $2E, $3E
 	db $2F, $3F, $40, $50
 

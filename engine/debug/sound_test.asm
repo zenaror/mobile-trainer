@@ -7,7 +7,6 @@ SECTION "engine/debug/sound_test", ROMX
 ; ---- data $4000-$4040 (64 bytes) [PROBABLE] palette-rgb555: heuristic: 32 RGB555 words as 8 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
 
 Palette_DebugScreens1B:: ; 1B:4000
-Data_1B_4000::
 	db $00, $00, $1B, $25, $9F, $51, $FF, $7F, $FF, $7F, $4A, $29, $B5, $56, $00, $00
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
@@ -160,7 +159,6 @@ SoundTest_Loop:: ; 1B:41B1
 ; ---- ptrtable $41C3-$41CD (10 bytes) [PROBABLE] inline table of `call $056A` (JoypadDispatch) at 1B:41C0: 5 entries; fixed length (5 words) by the routine
 
 Table_SoundTest_Buttons:: ; 1B:41C3
-Table_1B_41C3::
 	dw SoundTest_OnA
 	dw SoundTest_OnB
 	dw SoundTest_OnSelect

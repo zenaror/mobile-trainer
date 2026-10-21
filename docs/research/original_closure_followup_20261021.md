@@ -612,3 +612,12 @@ retained. Updated the notice-dialog evidence comments to refer to
 `Table_CommNotice_DigitCells`. Exact-token source/tool search found no remaining
 consumer of the old labels. make is byte-identical; sym-check reports 12,397
 labels and data-consumers remains 287 groups / 93 rejected / 0 rows.
+
+## Debug and communication-error resource aliases (2026-10-21)
+
+Removed ten exact-address `Data_*`/`Table_*` aliases from the communication
+error, non-CGB warning, debug flags, debug error test and sound-test owners.
+Existing names for the BGP fade table, joypad/digit tables, debug palette,
+debug flags, hex characters and sound-test palette/buttons remain. No active
+source/tool consumer used the retired spellings. Payloads and extents are
+unchanged; make is byte-identical and sym-check reports 12,387 labels.

@@ -166,7 +166,6 @@ DebugFlags_Loop:: ; 19:4199
 ; ---- ptrtable $41B1-$41BB (10 bytes) [PROBABLE] inline table of `call $056A` (JoypadDispatch) at 19:41AE: 5 entries; fixed length (5 words) by the routine
 
 Table_DebugFlags_Buttons:: ; 19:41B1
-Table_19_41B1::
 	dw DebugFlags_OnA
 	dw DebugFlags_Exit
 	dw DebugFlags_Exit
@@ -1148,7 +1147,6 @@ DebugFlags_WriteValue:: ; 19:48D5
 ; ---- data $490E-$4914 (6 bytes) [PROBABLE] 6-byte table (bf b0 00 00 14 49) addressed by `ld hl,$490E ; add a,a ; ... add a,l` at 12 sites in code of this bank (19:41EC, 4211, 4325, 43DB, 45CB, 460F, 4696, 46D8, 48A4, 48C1, 48D9, 48F7); the last word 4914 points at the string that follows; field meaning unknown [v4: entries are 4 bytes (word at +4a, or at +4a+2 in the `add a,a ; inc a ; add a,a` variant); with a=1 the accessed words 4912/4914/4916 would overlap String_19_4914, so the 6-byte extent is only the neighbour boundary and the field layout is HYPOTHESIS; entry 0 = (B0BF, 0000) where B0BF is an SRAM address passed to `ld a,1 ; call $1620`]
 
 Table_DebugFlags_Entries:: ; 19:490E
-Data_19_490E::
 	db $BF, $B0, $00, $00, $14, $49
 
 ; ---- text $4914-$4933 (31 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -1165,7 +1163,6 @@ POPC
 ; ---- data $4940-$4980 (64 bytes) [PROBABLE] palette-rgb555: heuristic: 32 RGB555 words as 8 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
 
 Palette_DebugScreens:: ; 19:4940
-Data_19_4940::
 	db $00, $00, $1B, $25, $9F, $51, $FF, $7F, $FF, $7F, $4A, $29, $B5, $56, $00, $00
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F

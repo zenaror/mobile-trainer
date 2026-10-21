@@ -149,7 +149,6 @@ DebugErrorTest_Loop:: ; 19:4AEB
 ; ---- ptrtable $4AFD-$4B07 (10 bytes) [PROBABLE] inline table of `call $056A` (JoypadDispatch) at 19:4AFA: 5 entries; fixed length (5 words) by the routine
 
 Table_DebugErrorTest_Buttons:: ; 19:4AFD
-Table_19_4AFD::
 	dw DebugErrorTest_OnA
 	dw DebugErrorTest_IgnoreB
 	dw DebugErrorTest_Exit
@@ -464,7 +463,6 @@ DebugErrorTest_DrawValues:: ; 19:4C74
 ; ---- data $4D5E-$4D7E (32 bytes) [PROBABLE] 16 Shift-JIS full-width characters 0-9 A-F (82 4F..82 58, 82 60..82 65), no NUL: hex-digit lookup table indexed by `ld hl,$4D5E ; add a,a ; add a,l` at 6 sites (19:4CA6, 4CB9, 4CD1, 4CE4, 4CFC, 4D0F)
 
 Data_DebugErrorTest_HexChars:: ; 19:4D5E
-Data_19_4D5E::
 	db $82, $4F, $82, $50, $82, $51, $82, $52, $82, $53, $82, $54, $82, $55, $82, $56
 	db $82, $57, $82, $58, $82, $60, $82, $61, $82, $62, $82, $63, $82, $64, $82, $65
 
