@@ -1410,3 +1410,9 @@ aliases were removed over same-address `SoundSong0C_*` labels. No consumer was
 found in the examined sources, tools or local-label scope; the 457-byte owner
 and 303 physical lines are unchanged. See the mapping in
 [`docs/research/generic_data_name_audit_20261020.md`](docs/research/generic_data_name_audit_20261020.md#bank-04-song-0c-same-address-aliases-2026-10-21).
+
+Song `0D` lost five declaration-only `Data_04_*` aliases over same-address
+`SoundSong0D_*` labels. The bounded scan found no other-source, tool or
+local-label consumer; the 208-byte owner and 163 lines are unchanged. Its
+address map is in
+[`docs/research/generic_data_name_audit_20261020.md`](docs/research/generic_data_name_audit_20261020.md#bank-04-song-0d-same-address-aliases-2026-10-21).

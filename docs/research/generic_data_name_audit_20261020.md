@@ -1548,3 +1548,21 @@ inferred.
 | `04:7CFC` | `Data_04_7CFC` | `SoundSong0C_Track3_Loop` |
 | `04:7DA1` | `Data_04_7DA1` | `SoundSong0C_Track3_AfterJump` |
 | `04:7DA2` | `Data_04_7DA2` | `SoundSong0C_Header` |
+
+## Bank 04 song 0D same-address aliases (2026-10-21)
+
+The pre-pass census and symbol map identified five declaration-only
+`Data_04_AAAA` aliases in `audio/music/music_0d.asm`, each at the same address
+as an existing `SoundSong0D_*` stream or header label. The 347-file tracked
+non-language ASM/INC scan excluded `engine/mail/sample_data.asm` and found no
+cross-file or tool references; no local-label scope depended on the globals.
+The five aliases are absent from the post-pass SYM. The 208-byte owner and its
+163 physical lines are unchanged. This adds no audio playback claim.
+
+| Address | Retired label | Retained label |
+|---|---|---|
+| `04:7DBC` | `Data_04_7DBC` | `SoundSong0D_Track0` |
+| `04:7DE7` | `Data_04_7DE7` | `SoundSong0D_Track1` |
+| `04:7E10` | `Data_04_7E10` | `SoundSong0D_Track2` |
+| `04:7E52` | `Data_04_7E52` | `SoundSong0D_Track3` |
+| `04:7E82` | `Data_04_7E82` | `SoundSong0D_Header` |
