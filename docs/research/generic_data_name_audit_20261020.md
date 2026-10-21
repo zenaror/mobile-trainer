@@ -2924,3 +2924,22 @@ rename, the exact-name scan of 334 tracked ASM/INC files (including
 `Data_BB_AAAA` definitions in 41 owners, with zero exact generic `Function`,
 `Font` or `Label` definitions. These lexical counts do not close data
 semantics.
+
+## Bank 4B account result-page candidate graphics names (2026-10-21)
+
+The two probable tile blocks at `4B:5080` and `4B:5420` now use
+`AccountResultPage_CandidateTiles_*` source labels and matching asset-catalog
+cells. Their existing `.2bpp` files round-trip the exact ROM spans; local
+heuristics classify both as coherent tile data, but the audit found no known
+consumer that supports an owning-screen/use claim. The candidate names record
+content class and adjacent result-page context without asserting natural use.
+The 32-byte block at `4B:5400` remains `Data_4B_5400` because its bytes are
+read as data but have no supported content class. No payload, extent, or
+confidence changed.
+
+The follow-up lexical scan of the six maintained source roots plus
+`zero_labels.asm` finds 63 exact `Data_BB_AAAA` definitions in 41 owners and
+zero exact `Function_BB_AAAA`, `Font_BB_AAAA` or `Label_BB_AAAA` definitions.
+It excludes `engine/mail/sample_data.asm` before reading. These counts track
+spellings, not semantic completion; neutral labels remain where evidence does
+not support a stronger role.

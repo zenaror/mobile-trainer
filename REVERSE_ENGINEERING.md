@@ -1913,7 +1913,7 @@ Three HYPOTHESIS script-shaped blocks in the top-menu owner now use
 `TopMenu_CandidateSpriteScript_*` names instead of `Data_1E_*`. Their format is
 plausible, but no known object-table row selects them and neighboring frame
 tables do not establish an association. The bank-1E audit records the bounds.
-A fresh exact-name scan of 334 tracked ASM/INC files, excluding the protected
-mail sample before reading, finds 66 `Data_BB_AAAA` definitions in 41 owners
-and no exact generic `Function`, `Font`, or `Label` definitions. These lexical
-counts do not close data semantics.
+A fresh path-bounded exact-name scan of the six maintained source roots plus
+`zero_labels.asm`, excluding the protected mail sample before reading, finds
+63 `Data_BB_AAAA` definitions in 41 owners and no exact generic `Function`,
+`Font`, or `Label` definitions. This is a lexical count, not semantic closure.
