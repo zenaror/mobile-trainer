@@ -263,6 +263,9 @@ The draft-menu graphic owner had 26 `Data_2B_*` aliases under existing descripti
 animation labels; those were retired after the same address/reference checks.
 The mail-viewer owner also had 24 `Data_2B_*` aliases under existing `MailView_*` frames/scripts;
 those have been retired with the same byte and evidence preservation.
+In `audio/music/music_16.asm`, 16 `Data_05_*` aliases at existing `SoundSong16_*`
+addresses were retired after source-reference, tool-reference, and local-scope checks;
+the 566-line owner and decoded stream declarations remain unchanged.
 
 The same audit renamed the positioned `$0020` word at `5C:5144` to
 `CommErr_MessageSlot32RawWord`. The slot is confirmed structurally; the value's purpose remains
