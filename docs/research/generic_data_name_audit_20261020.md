@@ -3251,3 +3251,11 @@ CP `$01`, JR-shaped displacement), and `2F:764C` contains `$C9` (RET opcode).
 The code/data headers remain **HYPOTHESIS/UNCLASSIFIED**; no entry or execution
 is claimed. No bytes or boundaries changed. Exact generic `Data_BB_AAAA` count
 drops from 43/35 definitions/owners to 41/34.
+
+## Address-book dispatcher return-opcode bytes (2026-10-21)
+
+Two `Data_2F_AAAA` labels in `engine/address_book/address_book.asm` now use
+candidate names for one-byte `$C9` sequences at `2F:7F3A` and `2F:7F4D`.
+Both source headers remain **HYPOTHESIS/UNCLASSIFIED**; no entry or execution
+is established. Bytes and boundaries are unchanged. Exact generic
+`Data_BB_AAAA` count drops from 41/34 definitions/owners to 39/33.

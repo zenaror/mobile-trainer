@@ -100,7 +100,7 @@ Abook_Run_EditName:: ; 2F:7F1C
 
 ; ---- data $7F3A-$7F3B (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
-Data_2F_7F3A:: ; 2F:7F3A
+Abook_Run_CandidateRetOpcode_7F3A:: ; 2F:7F3A
 	db $C9
 
 Abook_Run_View:: ; 2F:7F3B
@@ -122,7 +122,7 @@ Abook_Run_View:: ; 2F:7F3B
 
 ; ---- data $7F4D-$7F4E (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
-Data_2F_7F4D:: ; 2F:7F4D
+Abook_Run_CandidateRetOpcode_7F4D:: ; 2F:7F4D
 	db $C9
 
 Abook_Run_BackToList:: ; 2F:7F4E
