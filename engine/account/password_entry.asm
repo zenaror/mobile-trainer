@@ -24,11 +24,13 @@ Account_PasswordEntryScreen:: ; 68:5D00
 	ret
 ReturnOnly_68_5D2F:: ; 68:5D2F [PROBABLE] operation; entry/purpose HYPOTHESIS
 	; [PROBABLE] RET only; entry/purpose HYPOTHESIS; bank68_function_names row 5D2F.
-	; [PROBABLE] $5D2F is RET; following [5D30,5D9C) is a separate 108-byte candidate.
-	; No fall-through from RET; the candidate SRAM/WRAM comparison has no proven entry.
-	; Purpose HYPOTHESIS. See docs/research/naming_68_5d2f_ret_boundary.md; label unchanged.
+	; [PROBABLE] $5D2F is RET; no sequential edge to Account_PasswordEntry_CompareStoredPassword.
+	; Entry/purpose remain HYPOTHESIS; see docs/research/naming_68_5d2f_ret_boundary.md.
 	ret
 
+Account_PasswordEntry_CompareStoredPassword:: ; 68:5D30
+	; [PROBABLE] decodes sSettingsPassword and compares it with wAcctPasswordEntry; on mismatch,
+	; clears wRam_C279 and bit 2 of wSettingsFieldMask. Entry/purpose HYPOTHESIS: no caller proven.
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
 	push af

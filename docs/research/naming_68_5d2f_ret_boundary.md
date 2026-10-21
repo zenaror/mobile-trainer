@@ -119,3 +119,20 @@ The common restore tail uses FFF2 scratch and three balanced POPAFs, restoring s
 This fragment requires stable ROM68 fetching, valid SRAM/WRAM fields and writable buffer extents, a terminating decodedNUL, readable compare extents and nonaliasing stack/scratch without relevant IRQ/mapper interference. Decode emits no length bound; field-size annotations do not guarantee safety. Restore means programming hardware from saved software shadows, not sampling or recovering an inconsistent initial hardware state. The explicit SRAM/WRAM selections and restoredF do not imply arbitrary reentrancy or a universal ABI. Existing login/mail comparison relatives and executed ROM0 string helpers support the local operations but establish neither this fragment's entry nor a password feature attached to5D2F. No sampled credentials, new runtime or natural caller is supplied.
 
 This revision names an already defined RET operation and preserves the historical boundary correction. Entry at5D30, early/overlapping control and intent remain separate hypotheses. No instruction bytes change; reconstruction equivalence still requires the documented build, symbol check and original-ROM byte comparison.
+
+## Source label update (2026-10-21)
+
+The current hand-maintained source labels the 108-byte sequence beginning at
+68:5D30 as `Account_PasswordEntry_CompareStoredPassword`. This replaces the
+earlier recommendation in this note to leave the sequence unlabelled. The name
+describes its statically visible decode-and-compare operation, not a proven
+natural entry or caller. Operation is **PROBABLE**; entry, role in the UI and
+intended purpose remain **HYPOTHESIS**. The preceding `RET` at 68:5D2F remains
+a separate return-only operation and has no sequential edge into the candidate.
+
+The label change emits no bytes. It changes the local-label scope of the
+existing `.l5D7E` symbol, which is now qualified by the comparison label. Build
+and symbol checks must be recorded against the current source revision before
+claiming integration verification. A previous private build compiled the
+protected `engine/mail/sample_data.asm`; that validation is not treated as a
+compliant check and must not be repeated. The file was not read or modified.

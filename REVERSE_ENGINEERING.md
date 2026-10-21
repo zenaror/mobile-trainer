@@ -880,8 +880,10 @@ Four existing comments qualify the74-byte/49-start wrapper and helper at2D:4E42/
 PROBABLE: `Function_68_5D2F` is a one-byte `RET`; the adjacent unlabelled sequence
 `[68:5D30,68:5D9C)` is 108 bytes and cannot be entered by fall-through from that RET.
 Its SRAM/WRAM comparison shape is statically supported; entry, purpose and natural
-reachability remain HYPOTHESIS. The historical 54-instruction decode spans both
-parts and does not establish a single function. No label or operand changes.
+reachability remain HYPOTHESIS. The sequence is now labelled
+`Account_PasswordEntry_CompareStoredPassword` at its first byte; the historical
+54-instruction decode spans both parts and does not establish one function.
+No instruction operand or emitted byte changes.
 See [boundary note](docs/research/naming_68_5d2f_ret_boundary.md) and
 [verification limits](docs/research/naming_68_verify_5d2f_ret_boundary.md).
 
