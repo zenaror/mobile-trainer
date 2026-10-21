@@ -140,18 +140,14 @@ CommPanel_RunState:: ; 68:7431
 	ld l, a
 	jp hl
 
-; ---- ptrtable $7442-$744A (8 bytes) [CONFIRMED] code-pointer table, 4 entries: 4/4 words hit own-bank code starts (survey pointer-table extent); 4/4 targets executed; every byte read as data in a trace
+; ---- ptrtable $7442-$744C (10 bytes) [CONFIRMED] code-pointer table for wCommPanelState values 0..4: all 5 words point to own-bank state handlers, all 5 targets execute; state 4 is assigned in CommPanel_StateWait and dispatches to CommPanel_StateWaitCloseOnly
 
 CommPanel_StateTable:: ; 68:7442
-Table_68_7442::
 	dw CommPanel_StateDraw
 	dw CommPanel_StateScreenOn
 	dw CommPanel_StateWait
 	dw CommPanel_StateHide
 
-; ---- ptrtable $744A-$744C (2 bytes) [PROBABLE] little-endian word table, 5 entries, monotone=1.00, 0% of targets on string start/after NUL, targets $744C..$7594; referenced by ld r16,$7442 at 68:7434 [clipped from 7442-744C by higher-priority evidence]
-
-Table_68_744A:: ; 68:744A
 	dw CommPanel_StateWaitCloseOnly
 
 CommPanel_StateDraw:: ; 68:744C
@@ -385,17 +381,14 @@ CommPanel_DrawCaption:: ; 68:7611
 ; ---- words $764C-$7652 (6 bytes) [PROBABLE] 3 words $7652,$7656,$765A = the starts of the three 4-byte records below
 
 CommPanel_CaptionSets:: ; 68:764C
-Table_68_764C::
 	dw Data_CommPanel_CaptionSetRecords, $7656, $765A
 
 ; ---- data $7652-$765E (12 bytes) [PROBABLE] three 4-byte records (00 00 00 00 / 02 05 06 07 / 04 04 04 04) addressed by the word table at 764C; use not decoded
 
 Data_CommPanel_CaptionSetRecords:: ; 68:7652
-Data_68_7652::
 	db $00, $00, $00, $00, $02, $05, $06, $07, $04, $04, $04, $04
 
 ; ---- words $765E-$766E (16 bytes) [PROBABLE] 8 words $5038,$5098,$50F8,$5158,$51B8,$5218,$5278,$52D8 (constant stride $60), directly after the 4-byte records; targets are not in this bank; use not decoded
 
 CommPanel_CaptionMaps:: ; 68:765E
-Table_68_765E::
 	dw $5038, $5098, $50F8, $5158, $51B8, $5218, $5278, $52D8

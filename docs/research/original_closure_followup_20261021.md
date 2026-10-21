@@ -552,3 +552,16 @@ Removed `Table_2B_6430`, `Table_2B_6440`, `Data_2B_6442` and
 `MailGrid_Anim0Script` symbols remain. Exact-token search found no active
 source/tool consumers. Sprite records, frame pointers, animation bytes and
 extents are unchanged.
+
+## Bank 68 communication-panel state and caption tables (2026-10-21)
+
+Expanded the documented `CommPanel_StateTable` extent from four to five words
+through `$744C`. States 0-3 point to `CommPanel_StateDraw`,
+`CommPanel_StateScreenOn`, `CommPanel_StateWait` and `CommPanel_StateHide`; state
+4 is explicitly assigned at `CommPanel_StateWait` and dispatches to
+`CommPanel_StateWaitCloseOnly` at `$7594`, which executed in four scenarios.
+This replaces the generic single-word `Table_68_744A` with a single semantic
+five-entry state table. Removed its duplicate `Table_68_7442` plus
+`Table_68_764C`, `Table_68_765E` and `Data_68_7652` aliases, and the obsolete
+manual caption-record mapping. make remains byte-identical; sym-check reports
+12,447 labels and data-consumers reports 287 groups / 93 rejected / 0 rows.
