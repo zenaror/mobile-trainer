@@ -9,7 +9,6 @@ PUSHC sjis
 ; ---- ptrtable $4000-$4006 (6 bytes) [PROBABLE] pointer list (2 entries + $0000 terminator): $4006, $400A. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
 
 Html_ResultCodePtrs:: ; 74:4000
-Table_74_4000::
 	dw Html_ResultCodeNames
 	dw $400A
 	dw $0000
@@ -24,7 +23,6 @@ Data_74_4006::
 ; ---- ptrtable $400E-$401A (12 bytes) [PROBABLE] pointer list (5 entries + $0000 terminator): $401A, $401E, $4022, $4027, $402D. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
 
 Html_EntityPtrs:: ; 74:400E
-Table_74_400E::
 	dw Html_EntityNames
 	dw $401E
 	dw $4022
@@ -45,7 +43,6 @@ Data_74_401A::
 ; ---- ptrtable $4033-$403B (8 bytes) [PROBABLE] pointer list (3 entries + $0000 terminator): $403B, $4043, $404B. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
 
 Html_MetaAttrPtrs:: ; 74:4033
-Table_74_4033::
 	dw Html_MetaAttrNames
 	dw $4043
 	dw $404B
@@ -62,14 +59,12 @@ Data_74_403B::
 ; ---- ptrtable $4053-$4057 (4 bytes) [PROBABLE] pointer list (1 entries + $0000 terminator): $4118. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
 
 Html_TitleTagPtrs:: ; 74:4053
-Table_74_4053::
 	dw $4118
 	dw $0000
 
 ; ---- ptrtable $4057-$405B (4 bytes) [PROBABLE] pointer list (1 entries + $0000 terminator): $405B. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
 
 Html_BrAttrPtrs:: ; 74:4057
-Table_74_4057::
 	dw Html_BrAttrNames
 	dw $0000
 
@@ -82,7 +77,6 @@ Data_74_405B::
 ; ---- ptrtable $4062-$4066 (4 bytes) [PROBABLE] pointer list (1 entries + $0000 terminator): $4066. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
 
 Html_HrAttrPtrs:: ; 74:4062
-Table_74_4062::
 	dw Html_HrAttrNames
 	dw $0000
 
@@ -95,7 +89,6 @@ Data_74_4066::
 ; ---- ptrtable $406D-$4071 (4 bytes) [PROBABLE] pointer list (1 entries + $0000 terminator): $4071. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
 
 Html_AlignAttrPtrs:: ; 74:406D
-Table_74_406D::
 	dw Html_AlignAttrNames
 	dw $0000
 
@@ -108,7 +101,6 @@ Data_74_4071::
 ; ---- ptrtable $4078-$407E (6 bytes) [PROBABLE] pointer list (2 entries + $0000 terminator): $407E, $4084. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
 
 Html_AnchorAttrPtrs:: ; 74:4078
-Table_74_4078::
 	dw Html_AnchorAttrNames
 	dw $4084
 	dw $0000
@@ -123,7 +115,6 @@ Data_74_407E::
 ; ---- ptrtable $408A-$4090 (6 bytes) [PROBABLE] pointer list (2 entries + $0000 terminator): $4090, $4095. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
 
 Html_ImgAttrPtrs:: ; 74:408A
-Table_74_408A::
 	dw Html_ImgAttrNames
 	dw $4095
 	dw $0000
@@ -138,7 +129,6 @@ Data_74_4090::
 ; ---- ptrtable $409C-$40A4 (8 bytes) [PROBABLE] pointer list (3 entries + $0000 terminator): $40A4, $40AA, $40B1. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
 
 Html_ClearValuePtrs:: ; 74:409C
-Table_74_409C::
 	dw Html_ClearValueNames
 	dw $40AA
 	dw $40B1
@@ -155,7 +145,6 @@ Data_74_40A4::
 ; ---- ptrtable $40B6-$40C4 (14 bytes) [PROBABLE] pointer list (6 entries + $0000 terminator): $40D0, $40E0, $40C4, $40E6, $40CB, $40D8. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
 
 Html_AlignValuePtrs:: ; 74:40B6
-Table_74_40B6::
 	dw $40D0
 	dw $40E0
 	dw Html_AlignValueNames
@@ -178,7 +167,6 @@ Data_74_40C4::
 ; ---- ptrtable $40EE-$4112 (36 bytes) [PROBABLE] pointer list (17 entries + $0000 terminator): $4157, $4138, $4145, $4140, $413C, $412B, $4133, $414B, $414F, $4153, $4148, $415A, $4160, $4125, $411F, $4118, $4112. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
 
 Html_TagPtrs:: ; 74:40EE
-Table_74_40EE::
 	dw $4157
 	dw $4138
 	dw $4145

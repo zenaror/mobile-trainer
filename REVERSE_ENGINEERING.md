@@ -1193,3 +1193,8 @@ symbol was an unreferenced same-address alias of an existing
 `SoundSfxNN_TrackPtrs` or `SoundSongNN_TrackPtrs` label; table contents and
 confidence are unchanged. See
 [`docs/research/audio_track_pointer_aliases_20261021.md`](docs/research/audio_track_pointer_aliases_20261021.md).
+
+The same naming pass retired 12 unreferenced `Table_74_AAAA` aliases in the
+HTML keyword pointer lists, retaining their same-address `Html_*Ptrs` labels
+and preserving every word and target. Details are in
+[`docs/research/html_keyword_pointer_aliases_20261021.md`](docs/research/html_keyword_pointer_aliases_20261021.md).
