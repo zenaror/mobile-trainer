@@ -75,9 +75,9 @@ Tilemap_Notice_58_7B78:: ; 58:7B78
 	INCBIN "gfx/registration/screens_bank58/tilemap_7b78.tilemap"
 	INCBIN "gfx/registration/screens_bank58/tilemap_7b78.attrmap"
 
-; ---- data $7E48-$7EA0 (88 bytes) [PROBABLE] 22 records x 4 bytes (top tile, bottom tile, attr, attr): 00 10 09 09 / 01 11 09 09 ... 0A 1A 09 09 for attr 09 then the same 11 pairs with attr 0A 0A (8x16 digit glyphs 0-9 + one more, tile pairs n and n+$10); executed code reads single 4-byte records (7E4C-7E50, 7E70-7E74, 7E78-7E80, 7E9C-7EA0 in traces)
+; ---- data $7E48-$7EA0 (88 bytes) [CONFIRMED] two 11-record page-counter variants; each four-byte record stores upper tile, lower tile, upper attribute, lower attribute, selected by Notice_DrawPageCounter (65:4AD7; lists at 65:4B7C/4B92) and copied as a two-tile column with A=$58, BC=$0201
 
-Data_58_7E48:: ; 58:7E48
+Table_Notice_PageCounterTileRecords:: ; 58:7E48
 	db $00, $10, $09, $09, $01, $11, $09, $09, $02, $12, $09, $09, $03, $13, $09, $09
 	db $04, $14, $09, $09, $05, $15, $09, $09, $06, $16, $09, $09, $07, $17, $09, $09
 	db $08, $18, $09, $09, $09, $19, $09, $09, $0A, $1A, $09, $09, $00, $10, $0A, $0A

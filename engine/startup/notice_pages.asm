@@ -366,17 +366,25 @@ Notice_DrawPageCounter:: ; 65:4AD7
 Notice_DigitRecordLists:: ; 65:4B78
 	dw Notice_DigitRecords_Normal, Notice_DigitRecords_Variant
 
-; ---- words $4B7C-$4B92 (22 bytes) [PROBABLE] 11 words 7E48 7E4C ... 7E70 = addresses of the first 11 four-byte digit-glyph records (top tile, bottom tile, attr, attr) at 58:7E48 (bank 58 table 7E48-7EA0, 22 records); bank-58 addresses, not bank 65
+; ---- words $4B7C-$4B92 (22 bytes) [PROBABLE] 11 pointers to the normal page-counter records in bank 58; four-byte stride
 
 Notice_DigitRecords_Normal:: ; 65:4B7C
-	dw $7E48, $7E4C, $7E50, $7E54, $7E58, $7E5C, $7E60, $7E64
-	dw $7E68, $7E6C, $7E70
+	dw Table_Notice_PageCounterTileRecords + $00, Table_Notice_PageCounterTileRecords + $04
+	dw Table_Notice_PageCounterTileRecords + $08, Table_Notice_PageCounterTileRecords + $0C
+	dw Table_Notice_PageCounterTileRecords + $10, Table_Notice_PageCounterTileRecords + $14
+	dw Table_Notice_PageCounterTileRecords + $18, Table_Notice_PageCounterTileRecords + $1C
+	dw Table_Notice_PageCounterTileRecords + $20, Table_Notice_PageCounterTileRecords + $24
+	dw Table_Notice_PageCounterTileRecords + $28
 
-; ---- words $4B92-$4BA8 (22 bytes) [PROBABLE] 11 words 7E74 7E78 ... 7E9C = addresses of the other 11 four-byte records (attr 0A variant) at 58:7E74-7E9C; bank-58 addresses, not bank 65
+; ---- words $4B92-$4BA8 (22 bytes) [PROBABLE] 11 pointers to the second page-counter variant in bank 58; four-byte stride
 
 Notice_DigitRecords_Variant:: ; 65:4B92
-	dw $7E74, $7E78, $7E7C, $7E80, $7E84, $7E88, $7E8C, $7E90
-	dw $7E94, $7E98, $7E9C
+	dw Table_Notice_PageCounterTileRecords + $2C, Table_Notice_PageCounterTileRecords + $30
+	dw Table_Notice_PageCounterTileRecords + $34, Table_Notice_PageCounterTileRecords + $38
+	dw Table_Notice_PageCounterTileRecords + $3C, Table_Notice_PageCounterTileRecords + $40
+	dw Table_Notice_PageCounterTileRecords + $44, Table_Notice_PageCounterTileRecords + $48
+	dw Table_Notice_PageCounterTileRecords + $4C, Table_Notice_PageCounterTileRecords + $50
+	dw Table_Notice_PageCounterTileRecords + $54
 
 Notice_RequestPageSound:: ; 65:4BA8
 

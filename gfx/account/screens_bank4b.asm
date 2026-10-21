@@ -46,9 +46,9 @@ Tilemap_Account_ResultPage:: ; 4B:5898
 	INCBIN "gfx/account/screens_bank4b/tilemap_5898.tilemap"
 	INCBIN "gfx/account/screens_bank4b/tilemap_5898.attrmap"
 
-; ---- data $5B68-$5B90 (40 bytes) [PROBABLE] 10 x 4-byte entries (tile, tile+$10 pair, attr, attr) = $A7/$B7,$A8/$B8,...,$C0/$C1 with attributes $0A $0A, placed right after the 720-byte tilemap+attr block 5898-5B68 (same shape as the entries at 76C0 after the block 73F0-76C0); entries 5B68, 5B74, 5B7C and following were read by executed code; the use of the entries is not decoded
+; ---- data $5B68-$5B90 (40 bytes) [CONFIRMED] ten four-byte digit tile/attribute records read by Account_ResultPage_DrawTimeDigits (68:788D; table at 68:793D) and copied as two vertical tiles; records store upper tile, lower tile, upper attribute, lower attribute; the final tile pair is $C0/$C1
 
-Table_4B_5B68:: ; 4B:5B68
+Table_Account_ResultPage_DigitTileRecords:: ; 4B:5B68
 	db $A7, $B7, $0A, $0A, $A8, $B8, $0A, $0A, $A9, $B9, $0A, $0A, $AA, $BA, $0A, $0A
 	db $AB, $BB, $0A, $0A, $AC, $BC, $0A, $0A, $AD, $BD, $0A, $0A, $AE, $BE, $0A, $0A
 	db $AF, $BF, $0A, $0A, $C0, $C1, $0A, $0A

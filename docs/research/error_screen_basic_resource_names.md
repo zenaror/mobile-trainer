@@ -75,8 +75,8 @@ de banco/HRAM/scratch; nenhuma implementação ou estado dessa ABI muda.
    mais ponteiro explícito de atributos57BE e40 bytes até57E6. Esses views cabem
    na mesma unidade; o nome não é declarado falso e não se afirma overread, mas
    o contrato extra de ponteiro/WRAM é deferido neste passe.
-7. `Data_5C_6420`:atributo de peça OAM em5C:6414, mantido por ASSERT de offset12.
-   Sem coalias descritivo, permanece neutro e intacto.
+7. `CommErr_Frame0_Piece2Attr`: byte de atributo da terceira peça OAM em5C:6414, mantido por ASSERT de offset12.
+   O label descreve o papel estático do byte, sem alterar seu endereço ou conteúdo.
 
 ## Linhas, metadados e previsão
 

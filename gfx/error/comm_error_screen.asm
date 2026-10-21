@@ -93,11 +93,11 @@ SpriteFrame_5C_6414:: ; 5C:6414
 	sprite_oam $00, $00, $00, $08
 	sprite_oam $00, $08, $01, $08
 	commerr_sprite_oam_prefix $08, $00, $10
-Data_5C_6420:: ; 5C:6420
+CommErr_Frame0_Piece2Attr:: ; 5C:6420
 	db $08 ; attribute of the third OAM piece, consumed by the same frame
 	sprite_oam $08, $08, $11, $08
 	ASSERT _sprite_oam_left == 0, "communication-error frame must contain four OAM pieces"
-	ASSERT Data_5C_6420 - SpriteFrame_5C_6414 == 12, "attribute label must keep its byte offset"
+	ASSERT CommErr_Frame0_Piece2Attr - SpriteFrame_5C_6414 == 12, "attribute label must keep its byte offset"
 PURGE commerr_sprite_oam_prefix
 
 ; ---- data $6425-$6426 (1 bytes) [CONFIRMED] empty second frame, count 0

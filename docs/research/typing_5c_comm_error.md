@@ -25,7 +25,7 @@ Frame6414 contains four `(Y,X,tile,attr)` pieces: `(00,00,00,08)`, `(00,08,01,08
 
 ## Preserving the interior attribute symbol
 
-`Data_5C_6420::` denotes the third piece's attribute byte. It must remain a real bank5C symbol at6420. The existing sprite_oam macro emits all four bytes together and cannot place this literal label between its operands. A macro-generated alias would also escape the source-symbol scanner.
+`CommErr_Frame0_Piece2Attr::` denotes the third piece's attribute byte at bank5C:6420. It remains a real source symbol at that address. The existing sprite_oam macro emits all four bytes together and cannot place this literal label between its operands. A macro-generated alias would also escape the source-symbol scanner.
 
 The file-local commerr_sprite_oam_prefix helper asserts exactly three arguments and a positive piece counter, decrements that counter once and emits Y/X/tile. Its sole call is followed by the literal existing attribute label and `db $08`; the fourth piece uses sprite_oam normally. Counter progression is4→3→2→1→0. An explicit assertion checks closure and another checks the attribute's offset12 from the new neutral `SpriteFrame_5C_6414`. PURGE removes the helper before the empty frame. The animation counter closes2→1→0. Shared macros remain unchanged.
 

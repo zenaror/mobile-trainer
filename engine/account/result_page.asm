@@ -405,18 +405,18 @@ Byte_ToPackedBcd:: ; 68:792A
 	or a, d
 	ret
 
-; ---- ptrtable $793D-$7951 (20 bytes) [CONFIRMED] ten little-endian pointers into ROM bank $4B, one per decimal digit: the 4-byte digit records of Table_4B_5B68 (tile, tile + $10, two attributes);
+; ---- ptrtable $793D-$7951 (20 bytes) [CONFIRMED] ten little-endian pointers into ROM bank $4B, one per decimal digit: the 4-byte digit records of Table_Account_ResultPage_DigitTileRecords (upper tile, lower tile, upper attribute, lower attribute; the final pair is $C0/$C1);
 ; indexed by the digit in Account_ResultPage_DrawTimeDigits (ld hl, Account_DigitTilemapTable ... farcall Tilemap_CopyRectAndAttr with A = $4B; 68:788D, 31 hits in 8 scenarios).  The survey had typed the words as
 ; bank-68 code pointers, which created nine spurious labels Label_68_5B6C..5B8C inside Account_MailDomain_PrintField (mail_address_entry.asm); they are gone
 
 Account_DigitTilemapTable:: ; 68:793D
-	dw Table_4B_5B68
-	dw Table_4B_5B68 + $04
-	dw Table_4B_5B68 + $08
-	dw Table_4B_5B68 + $0C
-	dw Table_4B_5B68 + $10
-	dw Table_4B_5B68 + $14
-	dw Table_4B_5B68 + $18
-	dw Table_4B_5B68 + $1C
-	dw Table_4B_5B68 + $20
-	dw Table_4B_5B68 + $24
+	dw Table_Account_ResultPage_DigitTileRecords
+	dw Table_Account_ResultPage_DigitTileRecords + $04
+	dw Table_Account_ResultPage_DigitTileRecords + $08
+	dw Table_Account_ResultPage_DigitTileRecords + $0C
+	dw Table_Account_ResultPage_DigitTileRecords + $10
+	dw Table_Account_ResultPage_DigitTileRecords + $14
+	dw Table_Account_ResultPage_DigitTileRecords + $18
+	dw Table_Account_ResultPage_DigitTileRecords + $1C
+	dw Table_Account_ResultPage_DigitTileRecords + $20
+	dw Table_Account_ResultPage_DigitTileRecords + $24
