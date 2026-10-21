@@ -1657,3 +1657,9 @@ The bank-28 delete-method owner no longer exports seven `Data_28_*` aliases
 under its existing tile, tilemap and object-animation labels. The six-root
 generic Data census is now 288 definitions in 127 owners. See the [bank-28
 audit](docs/research/generic_data_name_audit_20261020.md#bank-28-delete-method-exact-address-aliases-2026-10-21).
+
+The bank-1A mobile-dictionary owner no longer exports six same-address
+`Data_1A_*` aliases. Its eleven zero bytes at `1A:4A85` now use a bounded
+zero-byte-span label, with the existing PROBABLE region classification
+preserved. The six-root generic Data census is now 281 definitions in 126
+owners. See the [bank-1A audit](docs/research/generic_data_name_audit_20261020.md#bank-1a-mobile-dictionary-labels-2026-10-21).

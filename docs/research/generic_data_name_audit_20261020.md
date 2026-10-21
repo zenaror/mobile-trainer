@@ -2277,6 +2277,23 @@ The six-root `Data_BB_AAAA::` census is now 288 definitions in 127 owners,
 down from 295 definitions in 128 owners after these seven aliases were
 retired. This lexical count is not a semantic-completion measure.
 
+## Bank 1A mobile-dictionary labels (2026-10-21)
+
+Six `Data_1A_*` exports in `gfx/help/mobile_dictionary.asm` duplicated the
+existing screen tilemap, three confirmed graphics blocks, background palette
+and object-table labels. Exact-token searches found no external active source
+or tool consumers; asset metadata already used the retained resource labels.
+The remaining eleven-byte span at `1A:4A85` is all zero bytes, immediately
+between the tilemap and the first confirmed tile transfer. Its address-only
+label is now `MobileDict_ZeroByteSpan_4A85`; the existing PROBABLE region
+classification remains, and the new name does not assign a padding role. The
+66-line owner and all bytes/extents are unchanged.
+
+The six-root `Data_BB_AAAA::` census is now 281 definitions in 126 owners,
+down from 288 definitions in 127 owners after six aliases were retired and
+one generic label was replaced by the bounded byte-span name. This lexical
+count is not a semantic-completion measure.
+
 ## Bank 2C address-picker resource names (2026-10-21)
 
 Seven `Data_2C_*` declarations in `gfx/address_book/address_picker.asm` were
