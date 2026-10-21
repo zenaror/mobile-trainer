@@ -235,7 +235,6 @@ SaveSenderAddr_InitScreen:: ; 2A:4105
 ; ---- words $4214-$422C (24 bytes) [PROBABLE] SRAM address table (12 words $A124..$AE13 (step $12D)): the code indexes it by 2*n and loads hl=[table+2n] as the base of a save/record slot in SRAM ($A000-$BFFF); ld hl,$4214 at 2A:41A3 (index = c*2, ld hl,[hl]; then + $00C9). Values are SRAM addresses, not ROM pointers
 
 Table_SaveSenderAddr_MailRecAddrs_Init:: ; 2A:4214
-Table_2A_4214::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
@@ -294,7 +293,6 @@ SaveSenderAddr_DrawSlotNames:: ; 2A:422C
 ; ---- words $4274-$4280 (12 bytes) [PROBABLE] SRAM address table (6 words $A69D..$A82D (step $50)): the code indexes it by 2*n and loads hl=[table+2n] as the base of a save/record slot in SRAM ($A000-$BFFF); ld hl,$4274 at 2A:4246 (index e*2 then ld e,[hl]; ld h,[hl]). Values are SRAM addresses, not ROM pointers
 
 Table_SaveSenderAddr_SlotAddrs_DrawNames:: ; 2A:4274
-Table_2A_4274::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
 SaveSenderAddr_MoveNameHighlight:: ; 2A:4280
@@ -388,7 +386,6 @@ SaveSenderAddr_MoveNameHighlight:: ; 2A:4280
 ; ---- words $4306-$4312 (12 bytes) [PROBABLE] SRAM address table (6 words $A69D..$A82D (step $50)): the code indexes it by 2*n and loads hl=[table+2n] as the base of a save/record slot in SRAM ($A000-$BFFF); ld hl,$4306 at 2A:429B and 2A:42CD. Values are SRAM addresses, not ROM pointers
 
 Table_SaveSenderAddr_SlotAddrs_Highlight:: ; 2A:4306
-Table_2A_4306::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
 SaveSenderAddr_SaveToSlot:: ; 2A:4312
@@ -583,13 +580,11 @@ SaveSenderAddr_SaveToSlot:: ; 2A:4312
 ; ---- words $445F-$446B (12 bytes) [PROBABLE] SRAM address table (6 words $A69D..$A82D (step $50)): the code indexes it by 2*n and loads hl=[table+2n] as the base of a save/record slot in SRAM ($A000-$BFFF); ld hl,$445F at 2A:4324, 43D2, 4425. Values are SRAM addresses, not ROM pointers
 
 Table_SaveSenderAddr_SlotAddrs_Save:: ; 2A:445F
-Table_2A_445F::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
 ; ---- words $446B-$4483 (24 bytes) [PROBABLE] SRAM address table (12 words $A124..$AE13 (step $12D)): the code indexes it by 2*n and loads hl=[table+2n] as the base of a save/record slot in SRAM ($A000-$BFFF); ld hl,$446B at 2A:43BE and 2A:4411. Values are SRAM addresses, not ROM pointers
 
 Table_SaveSenderAddr_MailRecAddrs_Save:: ; 2A:446B
-Table_2A_446B::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
@@ -1079,7 +1074,6 @@ SaveSenderAddr_IsSlotUsed:: ; 2A:480C
 ; ---- words $483B-$4847 (12 bytes) [PROBABLE] SRAM address table (6 words $A69D..$A82D (step $50)): the code indexes it by 2*n and loads hl=[table+2n] as the base of a save/record slot in SRAM ($A000-$BFFF); ld hl,$483B at 2A:4821. Values are SRAM addresses, not ROM pointers
 
 Table_SaveSenderAddr_SlotAddrs_IsUsed:: ; 2A:483B
-Table_2A_483B::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
 SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
@@ -1310,7 +1304,6 @@ POPC
 
 PUSHC sjis
 String_SaveSenderAddr_Caption:: ; 2A:4A66
-Table_2A_4A66::
 	db "　セーブ", 0
 String_SaveSenderAddr_CaptionPart2:: ; 2A:4A6F
 String_2A_4A6F::

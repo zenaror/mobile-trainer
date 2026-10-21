@@ -76,6 +76,7 @@ Reference documents (current):
 | [`html_dispatch_table_aliases_20261021.md`](research/html_dispatch_table_aliases_20261021.md) | Four redundant generic aliases retired from HTML URL and dispatch tables |
 | [`keyboard_table_aliases_20261021.md`](research/keyboard_table_aliases_20261021.md) | Nine redundant generic aliases retired from existing keyboard table names |
 | [`mailbox_table_aliases_20261021.md`](research/mailbox_table_aliases_20261021.md) | Eight redundant generic aliases retired from existing mailbox tables |
+| [`save_sender_address_table_aliases_20261021.md`](research/save_sender_address_table_aliases_20261021.md) | Seven redundant generic aliases retired from address-book save tables and caption |
 | [`home_data_names.md`](research/home_data_names.md) | Bounded original data/resource alias contracts; evidence and caller limits retained |
 | [`mail_gfx_resource_aliases.md`](research/mail_gfx_resource_aliases.md) | Original Mail graphics aliases; load extents, backing and unresolved frame limits |
 | [`mail_sdk_data_names.md`](research/mail_sdk_data_names.md) | Mail strings and pointer tables; finite domains, independent indices and selector-stack caveat |

@@ -1232,3 +1232,8 @@ The mailbox owner lost eight unreferenced `Table_25_AAAA` aliases under its
 existing record-address, hint and icon-bar attribute table labels. Values and
 SRAM interpretation remain unchanged; details are in
 [`docs/research/mailbox_table_aliases_20261021.md`](docs/research/mailbox_table_aliases_20261021.md).
+
+The address-book save-sender owner lost seven unreferenced `Table_2A_AAAA`
+aliases: six over existing record/slot address lists and one over its existing
+caption string. Contents are unchanged; see
+[`docs/research/save_sender_address_table_aliases_20261021.md`](docs/research/save_sender_address_table_aliases_20261021.md).
