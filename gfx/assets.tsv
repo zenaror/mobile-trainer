@@ -173,9 +173,9 @@ gfx/address_book/save_sender_address/palette_51e0.pal	palette	64	gfx/address_boo
 gfx/address_book/save_sender_address/save_sender_addr_bg.pal	palette	64	gfx/address_book/save_sender_address.asm	2A	4FA0	PROBABLE	-	0		Palette_SaveSenderAddr_Bg
 gfx/address_book/save_sender_address/save_sender_addr_tiles9300.2bpp	tiles	560	gfx/address_book/save_sender_address.asm	2A	4AA0	CONFIRMED	exact	13		Gfx_SaveSenderAddr_Tiles9300Vb1
 gfx/address_book/save_sender_address/tiles_4fe0.2bpp	tiles	512	gfx/address_book/save_sender_address.asm	2A	4FE0	PROBABLE	exact	0		Gfx_SaveSenderAddr_CandidateTiles_4FE0
-gfx/address_book/shared_tiles_bank28/palette_51d0.pal	palette	64	gfx/address_book/shared_tiles_bank28.asm	28	51D0	PROBABLE	-	0		Palette_28_51D0
-gfx/address_book/shared_tiles_bank28/tiles_4bd0.2bpp	tiles	1024	gfx/address_book/shared_tiles_bank28.asm	28	4BD0	CONFIRMED	exact	0		Data_28_4BD0
-gfx/address_book/shared_tiles_bank28/tiles_4fd0.2bpp	tiles	512	gfx/address_book/shared_tiles_bank28.asm	28	4FD0	CONFIRMED	exact	0		Data_28_4FD0
+gfx/address_book/shared_tiles_bank28/palette_51d0.pal	palette	64	gfx/address_book/shared_tiles_bank28.asm	28	51D0	PROBABLE	-	0		Palette_AbookList_Bg
+gfx/address_book/shared_tiles_bank28/tiles_4bd0.2bpp	tiles	1024	gfx/address_book/shared_tiles_bank28.asm	28	4BD0	CONFIRMED	exact	0		Gfx_AddrBookShared_Tiles8000
+gfx/address_book/shared_tiles_bank28/tiles_4fd0.2bpp	tiles	512	gfx/address_book/shared_tiles_bank28.asm	28	4FD0	CONFIRMED	exact	0		Gfx_AddrBookShared_Tiles8400
 gfx/address_book/entry_and_confirm_candidate_bank2c/addr_book_entry_bg.pal	palette	64	gfx/address_book/entry_and_confirm_candidate_bank2c.asm	2C	7F50	CONFIRMED	-	0		Palette_AddrBookEntry_Bg
 gfx/address_book/entry_and_confirm_candidate_bank2c/addr_book_entry_obj.pal	palette	64	gfx/address_book/entry_and_confirm_candidate_bank2c.asm	2C	7F90	CONFIRMED	-	0		Palette_AddrBookEntry_Obj
 gfx/address_book/entry_and_confirm_candidate_bank2c/data_addr_book_entry_tilemap_attr.attrmap	attrmap	360	gfx/address_book/entry_and_confirm_candidate_bank2c.asm	2C	7DE8	CONFIRMED	-	0	20x18	Data_AddrBookEntry_TilemapAttr

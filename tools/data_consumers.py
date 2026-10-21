@@ -658,8 +658,8 @@ def rules_gfx(w, man, sites):
 EXTRA_ROOTS = ('Table_MailSrvDel_ProgressObject',)
 # object tables that are also entered through an interior immediate (a row of the table): the single xref consumer is not the whole story
 ROOT_OVERRIDE = {
-    'Table_28_5210': ('AddrBookShared', 'also entered through `ld de,$5220` / a=$28 (= table + 16, row 1) by SaveSenderAddr_RefreshSlotIcons (2A:4573, six sites 2A:4580..465C) '
-                                        '- the same screens that share Data_28_4BD0/4FD0 (AbookList, AddrPick, SaveSenderAddr)'),
+    (0x28, 0x5210): ('AddrBookShared', 'also entered through `ld de,$5220` / a=$28 (= table + 16, row 1) by SaveSenderAddr_RefreshSlotIcons (2A:4573, six sites 2A:4580..465C) '
+                                        '- the same screens that share Gfx_AddrBookShared_Tiles8000/Tiles8400 (AbookList, AddrPick, SaveSenderAddr)'),
 }
 OBJ_SUFFIXES = ('ObjTables', 'ObjTable', 'ObjectEntries', 'ObjAnims', 'Anims', 'Objects')
 
@@ -776,8 +776,9 @@ def rules_sprites(w, man, sites):
         T = sorted(set(toks))
         tok = None
         old = w.by_addr[k][0]
-        if old in ROOT_OVERRIDE:
-            tok = ROOT_OVERRIDE[old][0]
+        override = ROOT_OVERRIDE.get(k)
+        if override:
+            tok = override[0]
         elif len(T) == 1:
             tok = T[0]
         elif frozenset(T) in FAMILY:
@@ -792,7 +793,7 @@ def rules_sprites(w, man, sites):
         ents = sp.check_objtable(k)
         if ents is None:
             continue
-        extra_ev = ROOT_OVERRIDE[old][1] if old in ROOT_OVERRIDE else ''
+        extra_ev = override[1] if override else ''
         new = '%s_ObjTable' % tok
         nd = len(set((f, s_) for (_, f, s_) in ents if f))
         ev = ('object table (4-byte entries: frame-table pointer, script pointer) passed as DE with A=$%02X to Sprite_InitSlot (00:0A82, which reads entry B&$7F through '
@@ -800,7 +801,10 @@ def rules_sprites(w, man, sites):
               (k[0], site_text(v, 4), len(ents), nd))
         if extra_ev:
             ev += '; ' + extra_ev
-        man.add(old, new, kind_of(w, k), stat_of(v), ev)
+        if w.is_neutral_group(k):
+            man.add(old, new, kind_of(w, k), stat_of(v), ev)
+        elif w.sem(k) != new:
+            continue
         roots[k] = (tok, new, stat_of(v))
     # named tables (already semantic) that parse as object tables
     for k, inf in sorted(w.info.items()):

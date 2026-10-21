@@ -422,3 +422,17 @@ catalogue rows in `gfx/assets.tsv` now use those retained labels. Exact-token
 search found no active assembly/tool consumers of the retired spellings; the
 graphics load evidence and existing CONFIRMED grades remain unchanged. No
 payload, bank, address, length, or confidence changed.
+
+## Bank 28 shared address-book resource aliases (2026-10-21)
+
+Removed `Data_28_4BD0`, `Data_28_4FD0`, `Palette_28_51D0`,
+`Table_28_5210` and `Data_28_5280` from
+`gfx/address_book/shared_tiles_bank28.asm`, keeping the exact-address labels
+`Gfx_AddrBookShared_Tiles8000`, `Gfx_AddrBookShared_Tiles8400`,
+`Palette_AbookList_Bg`, `AddrBookShared_ObjTable` and
+`AddrBookShared_ObjAnimData`. The three matching `gfx/assets.tsv` rows now use
+the retained labels. The sprite-data rule is keyed by bank/address and accepts
+an already semantic table root; its evidence references the retained tile
+labels. Current-source/tool searches found no other use of the retired names.
+Existing storage classes, evidence levels, bytes and extents are unchanged;
+historical `config/` and `analysis/` snapshots are untouched.

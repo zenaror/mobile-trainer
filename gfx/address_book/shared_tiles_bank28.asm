@@ -7,25 +7,25 @@ SECTION "gfx/address_book/shared_tiles_bank28", ROMX
 ; ---- gfx $4BD0-$4FD0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2C:5931: hl=$4BD0 a=$28 c=$40 de=$8000 (dest VRAM $8000, vbank=0)
 
 Gfx_AddrBookShared_Tiles8000:: ; 28:4BD0
-Data_28_4BD0::
+
 	INCBIN "gfx/address_book/shared_tiles_bank28/tiles_4bd0.2bpp"
 
 ; ---- gfx $4FD0-$51D0 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2C:5946: hl=$4FD0 a=$28 c=$20 de=$8400 (dest VRAM $8400, vbank=0)
 
 Gfx_AddrBookShared_Tiles8400:: ; 28:4FD0
-Data_28_4FD0::
+
 	INCBIN "gfx/address_book/shared_tiles_bank28/tiles_4fd0.2bpp"
 
 ; ---- data $51D0-$5210 (64 bytes) [CONFIRMED] BG palette: 8 x 4 RGB555 words (all bit15 clear), original-exact; 1 literal loader site(s) (2F:460C) pass bank $28, BC=$0040 and DE=$D800 to 4F:4000 Palette_LoadToBuffer, selecting WRAM bank 7 and copying through 00:050C; all 64 bytes read in each of 10/69 existing original-ROM scenarios, with all five loader instruction starts observed; no new visual or hardware observation
 
 Palette_AbookList_Bg:: ; 28:51D0
-Palette_28_51D0::
+
 	INCLUDE "gfx/address_book/shared_tiles_bank28/palette_51d0.pal"
 
 ; ---- words $5210-$5280 (112 bytes) [PROBABLE] 7 rows of 16 bytes = 4 identical 4-byte object-table entries (ptr to frame table, ptr to script); every pointer lands on a frame-table/script start found by the sequential sweep of 5210-54B0 (28:5210-54B0); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs [v4: bytes 5214-5218, 5224-5228, 5244-5248 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 AddrBookShared_ObjTable:: ; 28:5210
-Table_28_5210::
+
 	sprite_object_entry AddrBookShared_ObjAnimData, SpriteScript_28_52A6 ; entry 0
 	sprite_object_entry AddrBookShared_ObjAnimData, SpriteScript_28_52A6 ; entry 1
 	sprite_object_entry AddrBookShared_ObjAnimData, SpriteScript_28_52A6 ; entry 2
@@ -62,7 +62,7 @@ AddrBookShared_ObjTable_Entry16:: ; 28:5250
 ; ---- data $5280-$54B0 (560 bytes) [PROBABLE] 7 object record(s): 7 frame tables, 18 frames, 8 scripts, tiled exactly (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 28:5210-54B0 [v4: bytes 5280-52C1, 52D7-5379 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 AddrBookShared_ObjAnimData:: ; 28:5280
-Data_28_5280::
+
 	sprite_frame_table SpriteFrame_28_5284, SpriteFrame_28_5295
 SpriteFrame_28_5284:: ; 28:5284
 	sprite_frame 4
