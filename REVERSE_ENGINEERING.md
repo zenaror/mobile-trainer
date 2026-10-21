@@ -1365,6 +1365,16 @@ and the 25 name-to-image associations remain HYPOTHESIS. This is a finite
 negative result, not proof of global non-use; details and the retained matrix
 are in [`pokemon_names_bank53_asset_followup_20261020.md`](docs/research/pokemon_names_bank53_asset_followup_20261020.md#eight-keep-placement-recheck-2026-10-21).
 
+The keyboard-panel graphics source lost 30 unused same-address aliases in
+bank5F. Existing descriptive resource names, data, addresses and confidence
+remain unchanged; the 485 physical source lines are preserved. The original
+build is still `RESULT: IDENTICAL`, with 13,215 labels/51 constants in
+`sym-check` and no unrelated symbol movement. The generic-data census is now
+832 definitions in the six maintained roots plus one in `zero_labels.asm`,
+excluding the protected `engine/mail/sample_data.asm`. See the exact mapping
+and scan limits in
+[`docs/research/generic_data_name_audit_20261020.md`](docs/research/generic_data_name_audit_20261020.md#bank-5f-keyboard-panel-same-address-aliases-2026-10-21).
+
 Five generic labels in the `ConfirmPages` animation object now identify its
 confirmed table entry and frame/script structure. Seven original consumers and
 an independent byte emitter support the addresses; the reviewer preferred

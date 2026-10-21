@@ -7,25 +7,25 @@ SECTION "gfx/keyboard/panels_bank5f", ROMX
 ; ---- gfx $4000-$4400 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:6A8A: hl=$4000 a=$5F c=$40 de=$8801 (dest VRAM $8800, vbank=1)
 
 Gfx_Kbd_T9_Tiles8800Vb1:: ; 5F:4000
-Data_5F_4000::
+
 	INCBIN "gfx/keyboard/panels_bank5f/tiles_4000.2bpp"
 
 ; ---- gfx $4400-$4800 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:6A9C: hl=$4400 a=$5F c=$40 de=$8C01 (dest VRAM $8C00, vbank=1)
 
 Gfx_Kbd_T9_Tiles8C00Vb1:: ; 5F:4400
-Data_5F_4400::
+
 	INCBIN "gfx/keyboard/panels_bank5f/tiles_4400.2bpp"
 
 ; ---- gfx $4800-$4810 (16 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:6AAE: hl=$4800 a=$5F c=$01 de=$9001 (dest VRAM $9000, vbank=1)
 
 Gfx_Kbd_T9_Tiles9000Vb1:: ; 5F:4800
-Data_5F_4800::
+
 	INCBIN "gfx/keyboard/panels_bank5f/tiles_4800.2bpp"
 
 ; ---- data $4810-$49C8 (440 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 55:6ABF: hl=$4810 a=$5F b=11 rows c=20 cols (tiles then attrs) de=$D240
 
 Tilemap_Kbd_T9:: ; 5F:4810
-Data_5F_4810::
+
 	INCBIN "gfx/keyboard/panels_bank5f/tilemap_4810.tilemap"
 	INCBIN "gfx/keyboard/panels_bank5f/tilemap_4810.attrmap"
 
@@ -42,13 +42,13 @@ Gfx_SharedPanels_Vram8000Vb1:: ; 5F:49D0
 ; $4CF8 without overlap. Exact ROM words and RGB source agree; no final-display or hardware claim.
 
 Palette_SharedPanels_BgObj:: ; 5F:4CD0
-Palette_5F_4CD0::
+
 	INCLUDE "gfx/keyboard/panels_bank5f/palette_4cd0.pal"
 
 ; ---- words $4CF8-$4D48 (80 bytes) [PROBABLE] sprite object table: 4-byte entries (frame-table ptr, animation-script ptr) indexed by B&7F, the layout read by init_object_from_table 00:0A82/00:0AB8; rows of 16 bytes = the same entry repeated 4 times; base $4CF8 is passed as de with a=$5F at call sites listed in analysis/gfx_candidates.tsv (object-table); entries 0000/0000 4D48/4D7E 4D9A/4DC0 0000/0000 4DE3/4DFE 4E01/4E20 4E23/4E42 4DC5/4DE0 0000/0000 4E45/4E54 4E57/4E66 4E69/4E78 4E7B/4E8A 4E8D/4E9C 0000/0000 4D83/4D95 0000/0000 4E9F/4EB2 0000/0000 4EB5/4EC8
 
 Kbd_ObjTable:: ; 5F:4CF8
-Table_5F_4CF8::
+
 	sprite_object_entry 0, 0 ; entry 0
 	sprite_object_entry Kbd_Anim1Frames, Kbd_Anim1Script ; entry 1
 	sprite_object_entry Kbd_Anim2Frames, Kbd_Anim2Script ; entry 2
@@ -78,7 +78,7 @@ Kbd_ObjTable_Entry18:: ; 5F:4D40
 ; ---- words $4D48-$4D4C (4 bytes) [PROBABLE] sprite frame table: 2 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 Kbd_Anim1Frames:: ; 5F:4D48
-Table_5F_4D48::
+
 	sprite_frame_table Kbd_Anim1Frame0, Kbd_Anim1Frame1
 
 ; ---- data $4D4C-$4D65 (25 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 6 piece(s); length tiles exactly against the frame-table pointers
@@ -113,7 +113,7 @@ Kbd_Anim1Script:: ; 5F:4D7E
 ; ---- words $4D83-$4D87 (4 bytes) [PROBABLE] sprite frame table: 2 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 Kbd_Anim15Frames:: ; 5F:4D83
-Table_5F_4D83::
+
 	sprite_frame_table Kbd_Anim15Frame0, Kbd_Anim15Frame1
 
 ; ---- data $4D87-$4D90 (9 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 2 piece(s); length tiles exactly against the frame-table pointers
@@ -139,7 +139,7 @@ Kbd_Anim15Script:: ; 5F:4D95
 ; ---- words $4D9A-$4D9E (4 bytes) [PROBABLE] sprite frame table: 2 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 Kbd_Anim2Frames:: ; 5F:4D9A
-Table_5F_4D9A::
+
 	sprite_frame_table Kbd_Anim2Frame0, Kbd_Anim2Frame1
 
 ; ---- data $4D9E-$4DAF (17 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 4 piece(s); length tiles exactly against the frame-table pointers
@@ -170,7 +170,7 @@ Kbd_Anim2Script:: ; 5F:4DC0
 ; ---- words $4DC5-$4DC7 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 Kbd_Anim7Frames:: ; 5F:4DC5
-Table_5F_4DC5::
+
 	sprite_frame_table Kbd_Anim7Frame0
 
 ; ---- data $4DC7-$4DE0 (25 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 6 piece(s); length tiles exactly against the frame-table pointers
@@ -193,7 +193,7 @@ Kbd_Anim7Script:: ; 5F:4DE0
 ; ---- words $4DE3-$4DE5 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 Kbd_Anim4Frames:: ; 5F:4DE3
-Table_5F_4DE3::
+
 	sprite_frame_table Kbd_Anim4Frame0
 
 ; ---- data $4DE5-$4DFE (25 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 6 piece(s); length tiles exactly against the frame-table pointers
@@ -216,7 +216,7 @@ Kbd_Anim4Script:: ; 5F:4DFE
 ; ---- words $4E01-$4E03 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 Kbd_Anim5Frames:: ; 5F:4E01
-Table_5F_4E01::
+
 	sprite_frame_table Kbd_Anim5Frame0
 
 ; ---- data $4E03-$4E20 (29 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 7 piece(s); length tiles exactly against the frame-table pointers
@@ -240,7 +240,7 @@ Kbd_Anim5Script:: ; 5F:4E20
 ; ---- words $4E23-$4E25 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 Kbd_Anim6Frames:: ; 5F:4E23
-Table_5F_4E23::
+
 	sprite_frame_table Kbd_Anim6Frame0
 
 ; ---- data $4E25-$4E42 (29 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 7 piece(s); length tiles exactly against the frame-table pointers
@@ -264,7 +264,7 @@ Kbd_Anim6Script:: ; 5F:4E42
 ; ---- words $4E45-$4E47 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 Kbd_Anim9Frames:: ; 5F:4E45
-Table_5F_4E45::
+
 	sprite_frame_table Kbd_Anim9Frame0
 
 ; ---- data $4E47-$4E54 (13 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 3 piece(s); length tiles exactly against the frame-table pointers
@@ -284,7 +284,7 @@ Kbd_Anim9Script:: ; 5F:4E54
 ; ---- words $4E57-$4E59 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 Kbd_Anim10Frames:: ; 5F:4E57
-Table_5F_4E57::
+
 	sprite_frame_table Kbd_Anim10Frame0
 
 ; ---- data $4E59-$4E66 (13 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 3 piece(s); length tiles exactly against the frame-table pointers
@@ -304,7 +304,7 @@ Kbd_Anim10Script:: ; 5F:4E66
 ; ---- words $4E69-$4E6B (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 Kbd_Anim11Frames:: ; 5F:4E69
-Table_5F_4E69::
+
 	sprite_frame_table Kbd_Anim11Frame0
 
 ; ---- data $4E6B-$4E78 (13 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 3 piece(s); length tiles exactly against the frame-table pointers
@@ -324,7 +324,7 @@ Kbd_Anim11Script:: ; 5F:4E78
 ; ---- words $4E7B-$4E7D (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 Kbd_Anim12Frames:: ; 5F:4E7B
-Table_5F_4E7B::
+
 	sprite_frame_table Kbd_Anim12Frame0
 
 ; ---- data $4E7D-$4E8A (13 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 3 piece(s); length tiles exactly against the frame-table pointers
@@ -344,7 +344,7 @@ Kbd_Anim12Script:: ; 5F:4E8A
 ; ---- words $4E8D-$4E8F (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 Kbd_Anim13Frames:: ; 5F:4E8D
-Table_5F_4E8D::
+
 	sprite_frame_table Kbd_Anim13Frame0
 
 ; ---- data $4E8F-$4E9C (13 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 3 piece(s); length tiles exactly against the frame-table pointers
@@ -364,7 +364,7 @@ Kbd_Anim13Script:: ; 5F:4E9C
 ; ---- words $4E9F-$4EA1 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 Kbd_Anim17Frames:: ; 5F:4E9F
-Table_5F_4E9F::
+
 	sprite_frame_table Kbd_Anim17Frame0
 
 ; ---- data $4EA1-$4EB2 (17 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 4 piece(s); length tiles exactly against the frame-table pointers
@@ -385,7 +385,7 @@ Kbd_Anim17Script:: ; 5F:4EB2
 ; ---- words $4EB5-$4EB7 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 Kbd_Anim19Frames:: ; 5F:4EB5
-Table_5F_4EB5::
+
 	sprite_frame_table Kbd_Anim19Frame0
 
 ; ---- data $4EB7-$4EC8 (17 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 4 piece(s); length tiles exactly against the frame-table pointers
@@ -406,35 +406,35 @@ Kbd_Anim19Script:: ; 5F:4EC8
 ; ---- data $4ECB-$50D3 (520 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 55:66FA: hl=$4ECB a=$5F b=13 rows c=20 cols (tiles then attrs) de=$D240
 
 Tilemap_Kbd_T0:: ; 5F:4ECB
-Data_5F_4ECB::
+
 	INCBIN "gfx/keyboard/panels_bank5f/tilemap_4ecb.tilemap"
 	INCBIN "gfx/keyboard/panels_bank5f/tilemap_4ecb.attrmap"
 
 ; ---- data $50D3-$52DB (520 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 55:6721: hl=$50D3 a=$5F b=13 rows c=20 cols (tiles then attrs) de=$D240
 
 Tilemap_Kbd_T1:: ; 5F:50D3
-Data_5F_50D3::
+
 	INCBIN "gfx/keyboard/panels_bank5f/tilemap_50d3.tilemap"
 	INCBIN "gfx/keyboard/panels_bank5f/tilemap_50d3.attrmap"
 
 ; ---- data $52DB-$54E3 (520 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 55:6795: hl=$52DB a=$5F b=13 rows c=20 cols (tiles then attrs) de=$D240
 
 Tilemap_Kbd_T4:: ; 5F:52DB
-Data_5F_52DB::
+
 	INCBIN "gfx/keyboard/panels_bank5f/tilemap_52db.tilemap"
 	INCBIN "gfx/keyboard/panels_bank5f/tilemap_52db.attrmap"
 
 ; ---- data $54E3-$56EB (520 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 55:6736: hl=$54E3 a=$5F b=13 rows c=20 cols (tiles then attrs) de=$D240 [first call site executed: 63 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_Kbd_T2:: ; 5F:54E3
-Data_5F_54E3::
+
 	INCBIN "gfx/keyboard/panels_bank5f/tilemap_54e3.tilemap"
 	INCBIN "gfx/keyboard/panels_bank5f/tilemap_54e3.attrmap"
 
 ; ---- data $56EB-$58F3 (520 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 55:674B: hl=$56EB a=$5F b=13 rows c=20 cols (tiles then attrs) de=$D240 [first call site executed: 13 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_Kbd_T3:: ; 5F:56EB
-Data_5F_56EB::
+
 	INCBIN "gfx/keyboard/panels_bank5f/tilemap_56eb.tilemap"
 	INCBIN "gfx/keyboard/panels_bank5f/tilemap_56eb.attrmap"
 
@@ -446,19 +446,19 @@ Data_5F_58F3:: ; 5F:58F3
 ; ---- gfx $5900-$5D00 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:67AB: hl=$5900 a=$5F c=$40 de=$8801 (dest VRAM $8800, vbank=1) [first call site executed: 110 hits in 4 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_Kbd_T5_Tiles8800Vb1:: ; 5F:5900
-Data_5F_5900::
+
 	INCBIN "gfx/keyboard/panels_bank5f/tiles_5900.2bpp"
 
 ; ---- gfx $5D00-$6100 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:67BD: hl=$5D00 a=$5F c=$40 de=$8C01 (dest VRAM $8C00, vbank=1) [first call site executed: 110 hits in 4 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_Kbd_T5_Tiles8C00Vb1:: ; 5F:5D00
-Data_5F_5D00::
+
 	INCBIN "gfx/keyboard/panels_bank5f/tiles_5d00.2bpp"
 
 ; ---- gfx $6100-$6200 (256 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:67CF: hl=$6100 a=$5F c=$10 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 110 hits in 4 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_Kbd_T5_Tiles9000Vb1:: ; 5F:6100
-Data_5F_6100::
+
 	INCBIN "gfx/keyboard/panels_bank5f/tiles_6100.2bpp"
 
 ; ---- zero $6200-$6980 (1920 bytes) [HYPOTHESIS] padding? run of 1920 x $00 in unclassified bytes
@@ -474,12 +474,12 @@ Data_5F_6980:: ; 5F:6980
 ; ---- data $69B0-$6BB8 (520 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 55:684E: hl=$69B0 a=$5F b=13 rows c=20 cols (tiles then attrs) de=$D240 [first call site executed: 110 hits in 4 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_Kbd_T5:: ; 5F:69B0
-Data_5F_69B0::
+
 	INCBIN "gfx/keyboard/panels_bank5f/tilemap_69b0.tilemap"
 	INCBIN "gfx/keyboard/panels_bank5f/tilemap_69b0.attrmap"
 
 ; ---- data $6BB8-$6BD0 (24 bytes) [PROBABLE] palette-rgb555: heuristic: 12 RGB555 words as 3 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
 
 Palette_Kbd_T5_Bg1:: ; 5F:6BB8
-Data_5F_6BB8::
+
 	INCLUDE "gfx/keyboard/panels_bank5f/palette_6bb8.pal"

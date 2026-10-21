@@ -1389,3 +1389,41 @@ labels; the source remains 964 lines. `make palette-check` passes (162/116/2/0),
 reports 519 groups, 120 rejected candidates and zero rows. The protected sample
 file was excluded from the current source-label census, which finds 846 generic
 `Data_BB_AAAA::` definitions in the six roots plus one in `zero_labels.asm`.
+## Bank 5F keyboard-panel same-address aliases (2026-10-21)
+
+The 30 generic exports in `gfx/keyboard/panels_bank5f.asm` co-addressed one existing named resource each: keyboard tile data, tilemaps, the shared palette, the object table, or animation-frame tables. The base census found no outside-source or tool references and no local labels; a current exact-token scan confirmed every old spelling appeared only at its declaration before the pass and appears nowhere in the permitted ASM/INC or tool files after it. The retained symbols still resolve to the same bank/address. Their declarations became blank physical lines; all 485 source lines, assets, table contents, addresses and existing confidence remain unchanged. No additional behavior is inferred.
+
+| Address | Retired label | Retained label |
+|---|---|---|
+| 5F:4000 | `Data_5F_4000` | `Gfx_Kbd_T9_Tiles8800Vb1` |
+| 5F:4400 | `Data_5F_4400` | `Gfx_Kbd_T9_Tiles8C00Vb1` |
+| 5F:4800 | `Data_5F_4800` | `Gfx_Kbd_T9_Tiles9000Vb1` |
+| 5F:4810 | `Data_5F_4810` | `Tilemap_Kbd_T9` |
+| 5F:4CD0 | `Palette_5F_4CD0` | `Palette_SharedPanels_BgObj` |
+| 5F:4CF8 | `Table_5F_4CF8` | `Kbd_ObjTable` |
+| 5F:4D48 | `Table_5F_4D48` | `Kbd_Anim1Frames` |
+| 5F:4D83 | `Table_5F_4D83` | `Kbd_Anim15Frames` |
+| 5F:4D9A | `Table_5F_4D9A` | `Kbd_Anim2Frames` |
+| 5F:4DC5 | `Table_5F_4DC5` | `Kbd_Anim7Frames` |
+| 5F:4DE3 | `Table_5F_4DE3` | `Kbd_Anim4Frames` |
+| 5F:4E01 | `Table_5F_4E01` | `Kbd_Anim5Frames` |
+| 5F:4E23 | `Table_5F_4E23` | `Kbd_Anim6Frames` |
+| 5F:4E45 | `Table_5F_4E45` | `Kbd_Anim9Frames` |
+| 5F:4E57 | `Table_5F_4E57` | `Kbd_Anim10Frames` |
+| 5F:4E69 | `Table_5F_4E69` | `Kbd_Anim11Frames` |
+| 5F:4E7B | `Table_5F_4E7B` | `Kbd_Anim12Frames` |
+| 5F:4E8D | `Table_5F_4E8D` | `Kbd_Anim13Frames` |
+| 5F:4E9F | `Table_5F_4E9F` | `Kbd_Anim17Frames` |
+| 5F:4EB5 | `Table_5F_4EB5` | `Kbd_Anim19Frames` |
+| 5F:4ECB | `Data_5F_4ECB` | `Tilemap_Kbd_T0` |
+| 5F:50D3 | `Data_5F_50D3` | `Tilemap_Kbd_T1` |
+| 5F:52DB | `Data_5F_52DB` | `Tilemap_Kbd_T4` |
+| 5F:54E3 | `Data_5F_54E3` | `Tilemap_Kbd_T2` |
+| 5F:56EB | `Data_5F_56EB` | `Tilemap_Kbd_T3` |
+| 5F:5900 | `Data_5F_5900` | `Gfx_Kbd_T5_Tiles8800Vb1` |
+| 5F:5D00 | `Data_5F_5D00` | `Gfx_Kbd_T5_Tiles8C00Vb1` |
+| 5F:6100 | `Data_5F_6100` | `Gfx_Kbd_T5_Tiles9000Vb1` |
+| 5F:69B0 | `Data_5F_69B0` | `Tilemap_Kbd_T5` |
+| 5F:6BB8 | `Data_5F_6BB8` | `Palette_Kbd_T5_Bg1` |
+
+The original build remains `RESULT: IDENTICAL` (ROM SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`); symbol, palette, PNG and data-consumer checks pass. The current safe generic-data count explicitly excludes `engine/mail/sample_data.asm`: 832 definitions in the six roots plus one in `zero_labels.asm` (833 total).
