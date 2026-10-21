@@ -7,7 +7,6 @@ SECTION "engine/html/url", ROMX
 ; ---- ptrtable $5905-$591D (24 bytes) [PROBABLE] URL scheme pointer list (11 entries + $0000): $591D, $5923, $592A, $5938, $5930, $593D, $5945, $594B, $5951, $5959, $595F. Items follow at 591D, tile exactly to the code at 74:5969; bytes 5905-591D... were read as data by executed code in 5/18 scenarios
 
 HtmlUrl_SchemeTable:: ; 74:5905
-Table_74_5905::
 	dw HtmlUrl_SchemeNames
 	dw $5923
 	dw $592A

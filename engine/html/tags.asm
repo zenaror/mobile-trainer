@@ -7,7 +7,6 @@ SECTION "engine/html/tags", ROMX
 ; ---- ptrtable $44A0-$44C4 (36 bytes) [CONFIRMED] 18-word jump table indexed by the HTML tag id: dispatcher at 74:4490-449F (add a,a; add a,$A0; ld l,a; adc a,$44; ld h,a; ld a,[hli]; ld b,[hl]; ld c,a; push bc; ret) - executed in the homepage/monkey traces, which read entries 44A2-44BE as data; all 18 targets are instruction starts of code regions: $4439, $4623, $44C4, $462E, $464A, $4718, $472E, $4B98, $4CA6, $4DF9, $4A91, $4A32, $47AA, $4867, $493F, $45D9, $4698, $4666
 
 Html_TagHandlerTable:: ; 74:44A0
-Table_74_44A0::
 	dw Html_ParseSource_Tag_Ignore
 	dw Html_Tag_Html
 	dw Html_Tag_Title
@@ -1196,7 +1195,6 @@ Html_Tag_Br_EndLine:: ; 74:4BDE
 ; ---- ptrtable $4BEC-$4BF4 (8 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 74:4BE9: 4 entries; end = first entry target
 
 Html_BrClearJumpTable:: ; 74:4BEC
-Table_74_4BEC::
 	dw Html_Tag_Br_Done
 	dw Html_Tag_Br_ClearLeft
 	dw Html_Tag_Br_ClearRight

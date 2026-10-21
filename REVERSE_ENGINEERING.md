@@ -1216,3 +1216,9 @@ In `engine/browser/page_view.asm`, nine unreferenced `Table_4E_AAAA` aliases
 were retired under existing `Browser_PageView_*` and `Browser_Menu_*` table
 names. Their words and comments were not reinterpreted; see
 [`docs/research/browser_page_view_table_aliases_20261021.md`](docs/research/browser_page_view_table_aliases_20261021.md).
+
+The HTML URL, tag-dispatch, line-break dispatch and count-pass owners also lost
+four unreferenced `Table_74_AAAA` aliases under existing structural labels.
+Comments now use the retained names; the count-pass table extent remains
+PROBABLE. See
+[`docs/research/html_dispatch_table_aliases_20261021.md`](docs/research/html_dispatch_table_aliases_20261021.md).

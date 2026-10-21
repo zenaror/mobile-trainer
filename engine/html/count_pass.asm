@@ -324,10 +324,9 @@ Html_CountListItems_Dispatch:: ; 74:50FB
 	push bc
 	ret
 
-; ---- ptrtable $511A-$513E (36 bytes) [PROBABLE] 18-word jump table: dispatcher at 74:510A-5119 (add a,a; push hl; add a,$1A; ld l,a; ld a,0; adc a,$51; ld h,a; ld a,[hli]; ld b,[hl]; ld c,a; pop hl; push bc; ret), same idiom as Table_74_44A0; the dispatcher is executed: traces/detail/*/dataaccess.tsv (browser scenarios) list rom_read 74 512E-5130 and 5134-5138, i.e. entries 10 ($50B3), 13 ($521B) and 14 ($5238) were fetched by 74:5114; the table extent (18 words) is by analogy with Table_74_44A0, hence PROBABLE; all 18 targets are code instruction starts: $50B3, $50B3, $513E, $50B3, $50B3, $50B3, $50B3, $50B3, $50B3, $50B3, $50B3, $50B3, $51FE, $521B, $5238, $519A, $50B3, $51E4
+; ---- ptrtable $511A-$513E (36 bytes) [PROBABLE] 18-word jump table: dispatcher at 74:510A-5119 (add a,a; push hl; add a,$1A; ld l,a; ld a,0; adc a,$51; ld h,a; ld a,[hli]; ld b,[hl]; ld c,a; pop hl; push bc; ret), same idiom as Html_TagHandlerTable; the dispatcher is executed: traces/detail/*/dataaccess.tsv (browser scenarios) list rom_read 74 512E-5130 and 5134-5138, i.e. entries 10 ($50B3), 13 ($521B) and 14 ($5238) were fetched by 74:5114; the table extent (18 words) is by analogy with Html_TagHandlerTable, hence PROBABLE; all 18 targets are code instruction starts: $50B3, $50B3, $513E, $50B3, $50B3, $50B3, $50B3, $50B3, $50B3, $50B3, $50B3, $50B3, $51FE, $521B, $5238, $519A, $50B3, $51E4
 
 Html_CountPassTagTable:: ; 74:511A
-Table_74_511A::
 	dw Html_CountListItems_Tag_Ignore
 	dw Html_CountListItems_Tag_Ignore
 	dw Html_CountListItems_Title
@@ -452,7 +451,7 @@ Html_CountListItems_Comment:: ; 74:519A
 	jp Html_CountListItems_Loop
 
 Html_CountListItems_Pre:: ; 74:51E4
-	; [PROBABLE] table entry 18 (last word) of Table_74_511A ($51E4) validated jump-table target;
+	; [PROBABLE] table entry 18 (last word) of Html_CountPassTagTable ($51E4) validated jump-table target;
 	; decode chain cp $2F / jr z / ld a,[$C2C1] / or $08 ... jp $50B9 ends in unconditional jumps to
 	; known code and lands exactly on the next code region 51FE (also a table target)
 	cp a, $2F
