@@ -625,6 +625,16 @@ to the semantic loop-pairs table. No live ROM/source/tool consumer remains for
 the old spellings. make is byte-identical; sym-check reports 12,363 labels and
 data-consumers reports 287 groups / 93 rejected / 0 rows.
 
+## Mailbox object palette and animation aliases (2026-10-21)
+
+Removed `Palette_26_7AC0`, `Table_26_7B00` and `Data_26_7BE0` from
+`gfx/mailbox/objects.asm`, keeping `Palette_Profile_Obj`, `Mailbox_ObjTable`
+and `Mailbox_ObjAnimData`. Updated the active asset manifest to use
+`Palette_Profile_Obj`; sprite preview metadata already used the semantic object
+table name. No ROM payload, extent or runtime reference changed. make remains
+byte-identical, sym-check reports 12,360 labels, and palette-check reports
+162 loads / 116 arrays / 0 errors.
+
 ## Help and HTML label aliases (2026-10-21)
 
 Removed six exact-address `Data_74_*`/`Table_6C_*` aliases from the help menu,

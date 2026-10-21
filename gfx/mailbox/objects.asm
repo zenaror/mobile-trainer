@@ -15,13 +15,11 @@ Data_26_7AB0:: ; 26:7AB0
 ; ---- data $7AC0-$7B00 (64 bytes) [PROBABLE] 8 palettes x 4 RGB555 words (all 32 words have bit15 clear; contains 7FFF); the mapper heuristic that extended this palette to 7BE4 swallowed pointer words (0x7Cxx have bit15 clear too)
 
 Palette_Profile_Obj:: ; 26:7AC0
-Palette_26_7AC0::
 	INCLUDE "gfx/mailbox/objects/palette_7ac0.pal"
 
 ; ---- words $7B00-$7BE0 (224 bytes) [PROBABLE] 14 rows of 16 bytes = 4 identical 4-byte object-table entries (ptr to frame table, ptr to script); every pointer lands on a frame-table/script start found by the sequential sweep of 7B00-7D41 (26:7B00-7D41 (ends at the zero padding)); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs
 
 Mailbox_ObjTable:: ; 26:7B00
-Table_26_7B00::
 	sprite_object_entry Mailbox_ObjAnimData, SpriteScript_26_7C06 ; entry 0
 	sprite_object_entry Mailbox_ObjAnimData, SpriteScript_26_7C06 ; entry 1
 	sprite_object_entry Mailbox_ObjAnimData, SpriteScript_26_7C06 ; entry 2
@@ -95,7 +93,6 @@ Mailbox_ObjTable_Entry52:: ; 26:7BD0
 ; ---- data $7BE0-$7D41 (353 bytes) [PROBABLE] 14 object record(s): 14 frame tables, 19 frames, 14 scripts, tiled exactly (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 26:7B00-7D41 (ends at the zero padding)
 
 Mailbox_ObjAnimData:: ; 26:7BE0
-Data_26_7BE0::
 	sprite_frame_table SpriteFrame_26_7BE4, SpriteFrame_26_7BF5
 SpriteFrame_26_7BE4:: ; 26:7BE4
 	sprite_frame 4
