@@ -89,7 +89,7 @@ AbookList_Run_Loop:: ; 2F:4049
 	ld b, $00
 	jp AbookList_Run_ButtonRow
 
-; ---- data $4094-$4097 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $4094-$4097 (3 bytes) [HYPOTHESIS] $C3,$00,$40 decodes as JP AbookList_Run ($4000), but the flow ending at $4091 jumps elsewhere and no direct entry to $4094 is known; whether this is code or an unused stub remains unresolved
 
 Data_2F_4094:: ; 2F:4094
 	db $C3, $00, $40

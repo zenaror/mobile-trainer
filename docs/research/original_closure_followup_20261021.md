@@ -810,6 +810,19 @@ and makes no extra screen-display claim. Build is `RESULT: IDENTICAL`,
 `sym-check` and `palette-check` pass, and the current neutral-data census is
 123 groups.
 
+## Bank 2F:4094 code/data candidate (2026-10-21)
+
+The three bytes at `2F:4094–4097` are `C3 00 40`, a valid unconditional
+`JP $4000` to the confirmed `AbookList_Run` entry. However, the `AbookList_Run`
+flow at `2F:4091` jumps to `AbookList_Run_ButtonRow` at `2F:4131`; it does
+not fall through to 4094. The next separately named code begins at `2F:4097`,
+and a bounded maintained-source reference scan found no direct entry operand
+to 4094. The mapper's `code-prefix-like` classification records the legal
+opcode/target, not an inbound edge or natural execution. The source comment
+was corrected to preserve that positive opcode evidence while keeping the
+code-versus-unused-stub status **HYPOTHESIS** and retaining `Data_2F_4094` as
+the neutral label. No function name or reachability claim is introduced.
+
 ## Bank 5F keyboard map-to-graphics gap (2026-10-21)
 
 `Data_5F_58F3` is now `Padding_Kbd_T3ToT5_TileAlignment` with **PROBABLE**

@@ -19,6 +19,8 @@ The [definition of done](docs/REVERSE_ENGINEERING_RULES.md#23-definition-of-done
 
 **Bank 5F keyboard gap (2026-10-21).** `Data_5F_58F3` is now `Padding_Kbd_T3ToT5_TileAlignment` at **PROBABLE** confidence: the 13-byte zero interval follows the exact end of `Tilemap_Kbd_T3` at `5F:58F3`, precedes the T5 graphics HDMA source at aligned `5F:5900`, and has no named direct reader. The label records a likely alignment gap, not a consumed resource. The current data census is 122 neutral groups. Details and the original slice hash are in [`original_closure_followup_20261021.md`](docs/research/original_closure_followup_20261021.md#bank-5f-keyboard-map-to-graphics-gap-2026-10-21).
 
+**Bank 2F code/data candidate (2026-10-21).** `2F:4094–4097` is still named neutrally as `Data_2F_4094`: bytes `$C3,$00,$40` decode as `JP AbookList_Run`, but `AbookList_Run` jumps away at `2F:4091` and no direct entry to `4094` is known. The valid opcode alone does not prove a function or natural entry. See [`original_closure_followup_20261021.md`](docs/research/original_closure_followup_20261021.md#bank-2f-4094-code-data-candidate-2026-10-21).
+
 **Original-ROM work remains open (2026-10-20).** The Operator requires all real functions to be
 mapped and properly named before any English work can resume. The previous zero *neutral-only address
 groups* census counted descriptive aliases; it was not a census of identified functions. A direct
