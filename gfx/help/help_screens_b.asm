@@ -10,10 +10,10 @@ Tilemap_HelpScript:: ; 6A:6716
 	INCBIN "gfx/help/help_screens_b/tilemap_6716.tilemap"
 	INCBIN "gfx/help/help_screens_b/tilemap_6716.attrmap"
 
-; ---- gfx $69E6-$69F0 (10 bytes) [PROBABLE] tiles-2bpp: heuristic: 47 coherent tiles (hsim2=0.680 vsim2=0.789, 1 blank) parity 1; 854/864 bytes also covered by call-site blocks [clipped from 68C1-6C21 by higher-priority evidence]
+; ---- zero $69E6-$69F0 (10 bytes) [PROBABLE] zero-filled gap before the confirmed HDMA source at $69F0, which is 16-byte aligned; no direct reader found, universal non-use not proven
 
-Data_6A_69E6:: ; 6A:69E6
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+Padding_HelpScript_Tiles69F0Alignment:: ; 6A:69E6
+	ds $0A, $00
 
 ; ---- gfx $69F0-$6A10 (32 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 6C:59FF: hl=$69F0 a=$6A c=$02 de=$8000 (dest VRAM $8000, vbank=0)
 

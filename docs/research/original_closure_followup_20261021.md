@@ -44,6 +44,14 @@ review.
 
 ## Current naming changes
 
+The ten zero bytes at `6A:69E6–69EF` are now named
+`Padding_HelpScript_Tiles69F0Alignment` (**PROBABLE**). The next confirmed
+HDMA begins at `6A:69F0`, a 16-byte-aligned source. The ten-byte gap is
+physical ROM offset `0x1AA9E6`, SHA-256
+`01d448afd928065458cf670b60f5a594d735af0172c8d67f22a81680132681ca`; no direct
+reader was found. The alignment interpretation does not establish universal
+non-use. The old generic-name audit's neutral classification is historical.
+
 The `7C:57CD–7B7B` source fragment `Data_7C_57CD` is now
 `GlyphFont_Jis12x12_7C_Fragment57CD` (**PROBABLE**). Its owner, adjacent INCBINs,
 font layout and bank/row-selection code identify the JIS X 0208 12×12 1bpp font;

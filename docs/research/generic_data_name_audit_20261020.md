@@ -2530,8 +2530,10 @@ the existing help-script tilemap/tile labels. `Palette_6A_7220` and
 `Objects_HelpScript_Slot2`; those aliases were removed. The probable
 64-tile span at `6A:6E20`, listed in the image-text inventory as footer legend
 and frame pieces but with no demonstrated loader, is now
-`HelpScript_CandidateTiles_6E20`; its PROBABLE grade remains. The ten zero
-bytes at `6A:69E6` remain neutral. Asset metadata was reconciled to current
+`HelpScript_CandidateTiles_6E20`; its PROBABLE grade remains. At that checkpoint, the ten zero
+bytes at `6A:69E6` remained neutral. That decision is superseded by the probable
+alignment label `Padding_HelpScript_Tiles69F0Alignment` in
+`original_closure_followup_20261021.md`. Asset metadata was reconciled to current
 labels. The preview sheet for the already named object-table root was renamed
 to `Objects_HelpScript_Slot2_6A_72BB.png`; its SHA-256 is unchanged
 (`ffcfa9d4fc2822a98626c17b783bb99e877074fb2a075d451cb83c5bd0e4d4d7`).
