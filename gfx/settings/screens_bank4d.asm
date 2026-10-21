@@ -12,7 +12,7 @@ Gfx_SettingsPhone_ChoiceMenu_Tiles8000Vb1:: ; 4D:4000
 
 ; ---- gfx $4200-$4510 (784 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:46D5: hl=$4110 a=$4D c=$40 de=$8801 (dest VRAM $8800, vbank=1) [first call site executed: 13 hits in 3 scenarios (analysis/coverage_union.tsv)] [clipped from 4110-4510 by higher-priority evidence]
 
-Data_4D_4200:: ; 4D:4200
+Gfx_SettingsPhone_ChoiceMenu_TileSlice8800Vb1_4D_4200:: ; 4D:4200
 	INCBIN "gfx/settings/screens_bank4d/tiles_4200.2bpp"
 
 ; ---- gfx $4510-$4610 (256 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:46E7: hl=$4510 a=$4D c=$10 de=$8C01 (dest VRAM $8C00, vbank=1) [first call site executed: 13 hits in 3 scenarios (analysis/coverage_union.tsv)]
@@ -35,7 +35,7 @@ Gfx_SettingsPhone_ChoiceMenu_Tiles9400Vb1:: ; 4D:4A10
 
 ; ---- gfx $4D10-$5010 (768 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4730: hl=$4C10 a=$4D c=$40 de=$8801 (dest VRAM $8800, vbank=1) [first call site executed: 33 hits in 5 scenarios (analysis/coverage_union.tsv)] [clipped from 4C10-5010 by higher-priority evidence]
 
-Data_4D_4D10:: ; 4D:4D10
+Gfx_SettingsPhone_ChoiceMenu_TileSlice8800Vb1_4D_4D10:: ; 4D:4D10
 	INCBIN "gfx/settings/screens_bank4d/tiles_4d10.2bpp"
 
 ; ---- gfx $5010-$5110 (256 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4742: hl=$5010 a=$4D c=$10 de=$8C01 (dest VRAM $8C00, vbank=1) [first call site executed: 33 hits in 5 scenarios (analysis/coverage_union.tsv)]
@@ -117,14 +117,14 @@ Tilemap_SettingsPhone_ChoiceMenu_Entry3:: ; 4D:5C84
 ; ---- words $5D10-$5D18 (8 bytes) [PROBABLE] 2 object-table entries of 4 bytes (ptr to frame table, ptr to script; 0000 = unused); de=$5D10 a=$4D at 67:47C6 (entry 0 unused, entry 1 = 5D18/5D3E); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs
 
 SettingsPhone_ChoiceMenu_ObjTable:: ; 4D:5D10
-Table_4D_5D10::
+
 	sprite_object_entry 0, 0 ; entry 0
 	sprite_object_entry SettingsPhone_ChoiceMenu_ObjAnimData, SpriteScript_4D_5D3E ; entry 1
 
 ; ---- data $5D18-$5D50 (56 bytes) [PROBABLE] 1 object record(s): 1 frame tables, 2 frames, 1 scripts, tiled exactly (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 4D:5D18-5D50 (ends with zero padding to the tile block)
 
 SettingsPhone_ChoiceMenu_ObjAnimData:: ; 4D:5D18
-Data_4D_5D18::
+
 	sprite_frame_table SpriteFrame_4D_5D1C, SpriteFrame_4D_5D2D
 SpriteFrame_4D_5D1C:: ; 4D:5D1C
 	sprite_frame 4
@@ -147,52 +147,52 @@ SpriteScript_4D_5D3E:: ; 4D:5D3E
 ; ---- gfx $5D50-$5D70 (32 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4DBC: hl=$5D50 a=$4D c=$02 de=$8001 (dest VRAM $8000, vbank=1) [first call site executed: 12 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_SettingsPhone_SlotMenu_Tiles8000Vb1:: ; 4D:5D50
-Data_4D_5D50::
+
 	INCBIN "gfx/settings/screens_bank4d/tiles_5d50.2bpp"
 
 ; ---- gfx $5D70-$6170 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4D2A: hl=$5D70 a=$4D c=$40 de=$8801 (dest VRAM $8800, vbank=1) [first call site executed: 5 hits in 2 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_SettingsPhone_SlotMenu_Tiles8800Vb1:: ; 4D:5D70
-Data_4D_5D70::
+
 	INCBIN "gfx/settings/screens_bank4d/tiles_5d70.2bpp"
 
 ; ---- gfx $6170-$6570 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4D3C: hl=$6170 a=$4D c=$40 de=$8C01 (dest VRAM $8C00, vbank=1) [first call site executed: 5 hits in 2 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_SettingsPhone_SlotMenu_Tiles8C00Vb1_4D_6170:: ; 4D:6170
-Data_4D_6170::
+
 	INCBIN "gfx/settings/screens_bank4d/tiles_6170.2bpp"
 
 ; ---- gfx $6570-$6870 (768 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4D4E: hl=$6470 a=$4D c=$40 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 5 hits in 2 scenarios (analysis/coverage_union.tsv)] [clipped from 6470-6870 by higher-priority evidence]
 
-Data_4D_6570:: ; 4D:6570
+Gfx_SettingsPhone_SlotMenu_TileSlice9000Vb1_4D_6570:: ; 4D:6570
 	INCBIN "gfx/settings/screens_bank4d/tiles_6570.2bpp"
 
 ; ---- gfx $6870-$6C70 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4D60: hl=$6870 a=$4D c=$40 de=$9401 (dest VRAM $9400, vbank=1) [first call site executed: 5 hits in 2 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_SettingsPhone_SlotMenu_Tiles9400Vb1_4D_6870:: ; 4D:6870
-Data_4D_6870::
+
 	INCBIN "gfx/settings/screens_bank4d/tiles_6870.2bpp"
 
 ; ---- gfx $6C70-$6D70 (256 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4D74: hl=$6970 a=$4D c=$40 de=$8801 (dest VRAM $8800, vbank=1) [first call site executed: 7 hits in 2 scenarios (analysis/coverage_union.tsv)] [clipped from 6970-6D70 by higher-priority evidence]
 
-Data_4D_6C70:: ; 4D:6C70
+Gfx_SettingsPhone_SlotMenu_TileSlice8800Vb1_4D_6C70:: ; 4D:6C70
 	INCBIN "gfx/settings/screens_bank4d/tiles_6c70.2bpp"
 
 ; ---- gfx $6D70-$7170 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4D86: hl=$6D70 a=$4D c=$40 de=$8C01 (dest VRAM $8C00, vbank=1) [first call site executed: 7 hits in 2 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_SettingsPhone_SlotMenu_Tiles8C00Vb1_4D_6D70:: ; 4D:6D70
-Data_4D_6D70::
+
 	INCBIN "gfx/settings/screens_bank4d/tiles_6d70.2bpp"
 
 ; ---- gfx $7170-$7470 (768 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4D98: hl=$7070 a=$4D c=$40 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 7 hits in 2 scenarios (analysis/coverage_union.tsv)] [clipped from 7070-7470 by higher-priority evidence]
 
-Data_4D_7170:: ; 4D:7170
+Gfx_SettingsPhone_SlotMenu_TileSlice9000Vb1_4D_7170:: ; 4D:7170
 	INCBIN "gfx/settings/screens_bank4d/tiles_7170.2bpp"
 
 ; ---- gfx $7470-$7570 (256 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4DAA: hl=$7470 a=$4D c=$40 de=$9401 (dest VRAM $9400, vbank=1) [first call site executed: 7 hits in 2 scenarios (analysis/coverage_union.tsv)]; the last $300 bytes of the old blob hold 2 palettes and a tilemap pair; the blocks below type them by what the code reads, and the HDMA request that copies the tiles copies them into VRAM as well
 
 Gfx_SettingsPhone_SlotMenu_Tiles9400Vb1_4D_7470:: ; 4D:7470
-Data_4D_7470::
+
 	INCBIN "gfx/settings/screens_bank4d/tiles_7470.2bpp"
 
 ; ---- data $7570-$7598 (40 bytes) [PROBABLE] palette-rgb555: 20 colours (5 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/settings/slot_menu.asm:150, call 67:4DCD executed 12 hits in 3 scenarios (analysis/coverage_union.tsv)); the call takes 24 bytes past the end of this block (the palette at $7598 and the first 16 bytes of the tilemap pair at $75A0 are copied into the buffer behind it); the length of 40 bytes is by adjacency, not by the call
@@ -247,7 +247,7 @@ Tilemap_4D_7910::
 ; The old 67:4E0A locator named an operand byte; see typing_4d_slot_chain.md.
 
 SettingsPhone_SlotMenu_ObjTable:: ; 4D:7960
-Table_4D_7960::
+
 	sprite_object_entry 0, 0 ; entry 0
 	sprite_object_entry SettingsPhone_SlotMenu_ObjAnimData, SpriteScript_4D_797E ; entry 1
 
@@ -258,7 +258,7 @@ Table_4D_7960::
 ; All 27 bytes are naturally read in 3/69 scenarios; see typing_4d_slot_chain.md.
 
 SettingsPhone_SlotMenu_ObjAnimData:: ; 4D:7968
-Data_4D_7968::
+
 	sprite_frame_table SpriteFrame_4D_796C, SpriteFrame_4D_7975
 SpriteFrame_4D_796C:: ; 4D:796C
 	sprite_frame 2

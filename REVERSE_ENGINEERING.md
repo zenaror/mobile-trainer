@@ -1583,3 +1583,9 @@ A whitespace-aware six-root census now finds 430 generic `Data_BB_AAAA::`
 definitions in 136 owners; this is a label count, not a completion percentage.
 The ROM remains `RESULT: IDENTICAL`, `sym-check` passes with 12,732 labels and
 51 constants, and palette/PNG checks pass.
+
+Bank 4D's settings graphics now use bounded `TileSlice` names for five
+confirmed DMA-covered tile intervals, preserving cross-boundary upload
+limits. Eight same-address `Data_4D_*` aliases and two generic object-table
+aliases were retired under existing symbols. The updated six-root count is
+417 `Data_BB_AAAA::` definitions in 135 owners. See the [bank-4D audit](docs/research/generic_data_name_audit_20261020.md#bank-4d-settings-graphics-slices-and-object-table-aliases-2026-10-21).

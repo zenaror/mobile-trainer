@@ -2125,3 +2125,25 @@ owner and the two catalog cells; no external consumer was present. The
 whitespace-aware six-root census now finds 430 `Data_BB_AAAA::` definitions
 in 136 owners, down from 447 after the 17 structural labels were named. This
 lexical count does not measure semantic completion.
+
+## Bank 4D settings graphics slices and object-table aliases (2026-10-21)
+
+Five confirmed tile-data intervals in `gfx/settings/screens_bank4d.asm` now use
+`Gfx_SettingsPhone_*_TileSlice*` names tied to their bounded source range and
+the confirmed VRAM destination of the containing DMA request. The `TileSlice`
+word is intentional: intervals `4D:4200` and `4D:4D10` are tails of larger
+uploads crossing neighboring resource boundaries, and intervals `4D:6570`,
+`4D:6C70` and `4D:7170` are similarly clipped by higher-priority labels. These
+names do not claim standalone uploads or widen any resource extent.
+
+Eight `Data_4D_*` labels were exact-address duplicates of existing object-data
+or graphics symbols, and `Table_4D_5D10`/`Table_4D_7960` duplicated the named
+object tables. The current `.sym` snapshot confirmed all ten address pairs;
+maintained source and tool scans found no active use of the old spellings
+outside their owner, while six graphics catalog cells pointed to the aliases.
+Those catalog cells now use the surviving resource names. The alias lines were
+blanked in place, preserving the 274-line owner. No payload/directive changed.
+The whitespace-aware six-root census is now 417 `Data_BB_AAAA::` definitions
+in 135 owners, down from 430 in 136 owners after 13 Data labels were renamed
+or retired; bank 4D no longer owns a generic `Data_BB_AAAA` label.
+This lexical count does not measure semantic completion.

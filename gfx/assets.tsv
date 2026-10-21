@@ -861,22 +861,22 @@ gfx/settings/screens_bank4d/tilemap_78c0.tilemap	tilemap	40	gfx/settings/screens
 gfx/settings/screens_bank4d/tilemap_7910.attrmap	attrmap	40	gfx/settings/screens_bank4d.asm	4D	7938	PROBABLE	-	0	20x2	Tilemap_4D_7910
 gfx/settings/screens_bank4d/tilemap_7910.tilemap	tilemap	40	gfx/settings/screens_bank4d.asm	4D	7910	PROBABLE	-	0	20x2	Tilemap_4D_7910
 gfx/settings/screens_bank4d/tiles_4000.2bpp	tiles	512	gfx/settings/screens_bank4d.asm	4D	4000	CONFIRMED	exact	0		Gfx_SettingsPhone_ChoiceMenu_Tiles8000Vb1
-gfx/settings/screens_bank4d/tiles_4200.2bpp	tiles	784	gfx/settings/screens_bank4d.asm	4D	4200	CONFIRMED	exact	15		Data_4D_4200
+gfx/settings/screens_bank4d/tiles_4200.2bpp	tiles	784	gfx/settings/screens_bank4d.asm	4D	4200	CONFIRMED	exact	15		Gfx_SettingsPhone_ChoiceMenu_TileSlice8800Vb1_4D_4200
 gfx/settings/screens_bank4d/tiles_4510.2bpp	tiles	256	gfx/settings/screens_bank4d.asm	4D	4510	CONFIRMED	exact	0		Gfx_SettingsPhone_ChoiceMenu_Tiles8C00Vb1_4D_4510
 gfx/settings/screens_bank4d/tiles_4610.2bpp	tiles	1024	gfx/settings/screens_bank4d.asm	4D	4610	CONFIRMED	exact	0		Gfx_SettingsPhone_ChoiceMenu_Tiles9000Vb1_4D_4610
 gfx/settings/screens_bank4d/tiles_4a10.2bpp	tiles	768	gfx/settings/screens_bank4d.asm	4D	4A10	CONFIRMED	exact	0		Gfx_SettingsPhone_ChoiceMenu_Tiles9400Vb1
-gfx/settings/screens_bank4d/tiles_4d10.2bpp	tiles	768	gfx/settings/screens_bank4d.asm	4D	4D10	CONFIRMED	exact	0		Data_4D_4D10
+gfx/settings/screens_bank4d/tiles_4d10.2bpp	tiles	768	gfx/settings/screens_bank4d.asm	4D	4D10	CONFIRMED	exact	0		Gfx_SettingsPhone_ChoiceMenu_TileSlice8800Vb1_4D_4D10
 gfx/settings/screens_bank4d/tiles_5010.2bpp	tiles	256	gfx/settings/screens_bank4d.asm	4D	5010	CONFIRMED	exact	0		Gfx_SettingsPhone_ChoiceMenu_Tiles8C00Vb1_4D_5010
 gfx/settings/screens_bank4d/tiles_5110.2bpp	tiles	1024	gfx/settings/screens_bank4d.asm	4D	5110	CONFIRMED	exact	0		Gfx_SettingsPhone_ChoiceMenu_Tiles9000Vb1_4D_5110
-gfx/settings/screens_bank4d/tiles_5d50.2bpp	tiles	32	gfx/settings/screens_bank4d.asm	4D	5D50	CONFIRMED	exact	0		Data_4D_5D50
-gfx/settings/screens_bank4d/tiles_5d70.2bpp	tiles	1024	gfx/settings/screens_bank4d.asm	4D	5D70	CONFIRMED	exact	0		Data_4D_5D70
-gfx/settings/screens_bank4d/tiles_6170.2bpp	tiles	1024	gfx/settings/screens_bank4d.asm	4D	6170	CONFIRMED	exact	0		Data_4D_6170
-gfx/settings/screens_bank4d/tiles_6570.2bpp	tiles	768	gfx/settings/screens_bank4d.asm	4D	6570	CONFIRMED	exact	0		Data_4D_6570
-gfx/settings/screens_bank4d/tiles_6870.2bpp	tiles	1024	gfx/settings/screens_bank4d.asm	4D	6870	CONFIRMED	exact	0		Data_4D_6870
-gfx/settings/screens_bank4d/tiles_6c70.2bpp	tiles	256	gfx/settings/screens_bank4d.asm	4D	6C70	CONFIRMED	exact	0		Data_4D_6C70
-gfx/settings/screens_bank4d/tiles_6d70.2bpp	tiles	1024	gfx/settings/screens_bank4d.asm	4D	6D70	CONFIRMED	exact	0		Data_4D_6D70
-gfx/settings/screens_bank4d/tiles_7170.2bpp	tiles	768	gfx/settings/screens_bank4d.asm	4D	7170	CONFIRMED	exact	0		Data_4D_7170
-gfx/settings/screens_bank4d/tiles_7470.2bpp	tiles	256	gfx/settings/screens_bank4d.asm	4D	7470	CONFIRMED	exact	0		Data_4D_7470
+gfx/settings/screens_bank4d/tiles_5d50.2bpp	tiles	32	gfx/settings/screens_bank4d.asm	4D	5D50	CONFIRMED	exact	0		Gfx_SettingsPhone_SlotMenu_Tiles8000Vb1
+gfx/settings/screens_bank4d/tiles_5d70.2bpp	tiles	1024	gfx/settings/screens_bank4d.asm	4D	5D70	CONFIRMED	exact	0		Gfx_SettingsPhone_SlotMenu_Tiles8800Vb1
+gfx/settings/screens_bank4d/tiles_6170.2bpp	tiles	1024	gfx/settings/screens_bank4d.asm	4D	6170	CONFIRMED	exact	0		Gfx_SettingsPhone_SlotMenu_Tiles8C00Vb1_4D_6170
+gfx/settings/screens_bank4d/tiles_6570.2bpp	tiles	768	gfx/settings/screens_bank4d.asm	4D	6570	CONFIRMED	exact	0		Gfx_SettingsPhone_SlotMenu_TileSlice9000Vb1_4D_6570
+gfx/settings/screens_bank4d/tiles_6870.2bpp	tiles	1024	gfx/settings/screens_bank4d.asm	4D	6870	CONFIRMED	exact	0		Gfx_SettingsPhone_SlotMenu_Tiles9400Vb1_4D_6870
+gfx/settings/screens_bank4d/tiles_6c70.2bpp	tiles	256	gfx/settings/screens_bank4d.asm	4D	6C70	CONFIRMED	exact	0		Gfx_SettingsPhone_SlotMenu_TileSlice8800Vb1_4D_6C70
+gfx/settings/screens_bank4d/tiles_6d70.2bpp	tiles	1024	gfx/settings/screens_bank4d.asm	4D	6D70	CONFIRMED	exact	0		Gfx_SettingsPhone_SlotMenu_Tiles8C00Vb1_4D_6D70
+gfx/settings/screens_bank4d/tiles_7170.2bpp	tiles	768	gfx/settings/screens_bank4d.asm	4D	7170	CONFIRMED	exact	0		Gfx_SettingsPhone_SlotMenu_TileSlice9000Vb1_4D_7170
+gfx/settings/screens_bank4d/tiles_7470.2bpp	tiles	256	gfx/settings/screens_bank4d.asm	4D	7470	CONFIRMED	exact	0		Gfx_SettingsPhone_SlotMenu_Tiles9400Vb1_4D_7470
 gfx/settings/password_save_confirmation_bank5d/pw_save_confirm_bg.pal	palette	64	gfx/settings/password_save_confirmation_bank5d.asm	5D	7B60	CONFIRMED	-	0		Palette_PwSaveConfirm_Bg
 gfx/settings/password_save_confirmation_bank5d/password_save_confirm_variant0.attrmap	attrmap	360	gfx/settings/password_save_confirmation_bank5d.asm	5D	7D08	CONFIRMED	-	0	20x18	Tilemap_PwSaveConfirm_5D_7BA0
 gfx/settings/password_save_confirmation_bank5d/password_save_confirm_variant0.tilemap	tilemap	360	gfx/settings/password_save_confirmation_bank5d.asm	5D	7BA0	CONFIRMED	-	0	20x18	Tilemap_PwSaveConfirm_5D_7BA0

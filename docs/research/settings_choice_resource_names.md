@@ -104,3 +104,23 @@ Retirar somente estes sete aliases prevê14843 nomes, incluindo as mesmas51
 constantes. A previsão isolada anterior14863 é histórica e não deve ser
 aplicada ao parent que já inclui GFX20. Esta é uma previsão estática;
 link, comparação integral e publicação desta coorte ainda são gates separados.
+
+## Follow-up no fonte atual — 2026-10-21
+
+No checkpoint posterior, as duas unidades antes mantidas como `Data_4D_4200`
+e `Data_4D_4D10` receberam nomes `TileSlice` que preservam o limite do
+conhecimento: fazem parte dos uploads de 1 KiB iniciados em `4D:4110` e
+`4D:4C10`, sem serem rotuladas como unidades independentes. Três trechos
+análogos do menu de slots também receberam nomes `TileSlice` conforme os
+destinos VRAM dos uploads que os cobrem. Isso qualifica a origem da janela,
+sem ampliar os intervalos nem atribuir outros consumidores.
+
+Foram retirados os oito aliases exatos `Data_4D_5D18`, `Data_4D_5D50`,
+`Data_4D_5D70`, `Data_4D_6170`, `Data_4D_6870`, `Data_4D_6D70`,
+`Data_4D_7470` e `Data_4D_7968`, mais `Table_4D_5D10` e
+`Table_4D_7960`, sob os nomes descritivos co-localizados. O mapa `.sym`
+confirmou endereços iguais; a busca em fontes e ferramentas ativas não achou
+outros consumidores. As seis células de catálogo dos aliases gráficos agora
+apontam para os símbolos descritivos. O passe está documentado em
+`generic_data_name_audit_20261020.md`; os gates mostram equivalência byte a
+byte e a validade do mapa de símbolos.
