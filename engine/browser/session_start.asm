@@ -56,7 +56,6 @@ Browser_LoadHomePage:: ; 4E:48CB
 ; ---- text $4904-$493B (55 bytes) [CONFIRMED] ASCII URL with NUL; CopyString at 4E:48FB
 	PUSHC sjis
 String_Browser_HomeUrl:: ; 4E:4904
-Data_4E_4904::
 	db "http://gameboy.d"
 	db "atacenter.ne.jp/"
 	db "01/CGB-B9AJ/inde"
@@ -102,7 +101,6 @@ Browser_LoadAndDispatch:: ; 4E:4962
 ; ---- ptrtable $4993-$49A1 (14 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4E:4990: 7 entries; end pinned by the executed instruction at 49A1
 
 Browser_LoadAndDispatch_ResultTable:: ; 4E:4993
-Table_4E_4993::
 	dw Browser_PageView_Enter
 	dw Browser_Leave_Return
 	dw Browser_Leave_Return

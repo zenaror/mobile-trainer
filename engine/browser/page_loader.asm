@@ -17,7 +17,6 @@ Browser_LoadPage:: ; 4C:4000
 ; ---- ptrtable $4010-$4016 (6 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4C:400D: 3 entries; end = first entry target
 
 Browser_LoadPage_SchemeTable:: ; 4C:4010
-Table_4C_4010::
 	dw Browser_LoadPage_Fail
 	dw Browser_LoadPage_Http
 	dw Browser_LoadPage_ReturnOnly
@@ -378,7 +377,6 @@ Browser_LoadPage_Http:: ; 4C:4291
 ; ---- ptrtable $42F3-$42F7 (4 bytes) [CONFIRMED] inline table of `call $0545` (JumpTableInline) at 4C:42F0: 2 entries; end pinned by the executed instruction at 42F7; every byte read as data in a trace
 
 Browser_LoadPage_SessionKindTable:: ; 4C:42F3
-Table_4C_42F3::
 	dw Browser_LoadPage_AskConnect
 	dw Browser_LoadPage_AskPassword
 
@@ -693,7 +691,6 @@ Browser_LoadPage_WaitReply_ReplyComplete:: ; 4C:4537
 ; ---- ptrtable $457D-$458B (14 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4C:457A: 7 entries; end is a heuristic guess (words stay plausible code pointers)
 
 Browser_LoadPage_WaitReply_ResultTable:: ; 4C:457D
-Table_4C_457D::
 	dw Browser_LoadPage_WaitReply_ResultOk
 	dw Browser_LoadPage_StopRequest
 	dw Browser_LoadPage_StopRequest

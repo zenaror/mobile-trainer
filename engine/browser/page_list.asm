@@ -7,7 +7,6 @@ SECTION "engine/browser/page_list", ROMX
 ; ---- words $4000-$4018 (24 bytes) [PROBABLE] 12 words = SRAM addresses: $A084,$A184..$A584 (stride $100) and $A000,$A016,$A02C,$A042,$A058,$A06E (stride $16); entries 4000/4002/4004/4006/4008/400A are loaded by ld hl,$400x at 24:44C9,44E5,4501,451D,4539,4555 (analysis of ld imm16 operands); meaning of the slots not decoded
 
 PageList_UrlSlotTable:: ; 24:4000
-Table_24_4000::
 	dw $A084, $A184, $A284, $A384, $A484, $A584
 
 PageList_TitleSlotTable:: ; 24:400C
@@ -1486,7 +1485,6 @@ PageList_ShowMessage:: ; 24:4A79
 ; ---- ptrtable $4B10-$4B18 (8 bytes) [PROBABLE] 4 words $4B18,$4B45,$4B72,$4B9F = starts of four 45-byte (multi-line, NUL separated) Shift-JIS messages at 4B18-4BCC; the table is loaded by ld hl,$4B10 at 24:4A83 (a=$24 nearby)
 
 PageList_MessageTable:: ; 24:4B10
-Table_24_4B10::
 	dw PageList_Msg_GoToPage
 	dw PageList_Msg_SavePage
 	dw PageList_Msg_DeletePage

@@ -47,7 +47,6 @@ Browser_MapErrorToResult:: ; 4C:4DB2
 ; Existing db syntax and the whole-storage PROBABLE status are preserved.
 
 Table_Browser_ErrorResult:: ; 4C:4DD6
-Table_4C_4DD6::
 	db $84, $84, $84, $84, $84, $84, $84, $84, $84, $84, $84, $84, $84, $84, $84, $84
 	db $84, $84, $84, $84, $03, $84, $05, $84, $84, $84, $84, $84, $84, $84, $84, $84
 	db $03, $03, $03, $03, $84

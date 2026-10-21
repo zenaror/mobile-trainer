@@ -256,7 +256,6 @@ PageCache_Push:: ; 4C:4C95
 ; Natural reads: +0..2 in 14/69 scenarios, +3..5 in 2/69; +6..11 remain unread.
 
 Table_PageCache_Slots:: ; 4C:4CEA
-Table_4C_4CEA::
 	dw $A000 ; first demonstrated destination/source address
 	db $02 ; SRAM bank for the first record
 	dw $B000 ; second demonstrated destination/source address

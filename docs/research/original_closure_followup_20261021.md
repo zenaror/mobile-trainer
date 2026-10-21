@@ -592,3 +592,13 @@ the caption table, the view-cursor animation table and its frame table now
 export only their existing semantic names. Exact-token search found no active
 source/tool references to the retired spellings. Payloads and extents are
 unchanged; make is byte-identical and sym-check reports 12,422 labels.
+
+## Browser tables and URL alias cleanup (2026-10-21)
+
+Removed fifteen exact-address aliases across browser entry, page-list,
+page-loader, page-render, page-results, session-start, frame-style,
+history-cache, start-choice and communication-disconnect sources. Existing
+semantic labels for result tables, URL/data tables, state-kind dispatch,
+page-cache slots, element handlers and frame-wipe groups remain. Exact-token
+search found no active source/tool consumers. Payloads and extents are
+unchanged; make is byte-identical and sym-check reports 12,407 labels.

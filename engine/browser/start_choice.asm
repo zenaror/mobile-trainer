@@ -148,7 +148,6 @@ BrowserStart_InputLoop:: ; 73:607E
 ; ---- ptrtable $6096-$60A0 (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 73:6093: 5 entries; fixed length (5 words) by the routine
 
 BrowserStart_InputTable:: ; 73:6096
-Table_73_6096::
 	dw BrowserStart_OnA
 	dw BrowserStart_OnB
 	dw BrowserStart_IgnoreSelect

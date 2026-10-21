@@ -14,7 +14,6 @@ CommProgress_Init:: ; 4C:46B8
 ; ---- ptrtable $46C0-$46C4 (4 bytes) [CONFIRMED] inline table of `call $0545` (JumpTableInline) at 4C:46BD: 2 entries; end pinned by the executed instruction at 46C4; every byte read as data in a trace
 
 CommProgress_Init_KindTable:: ; 4C:46C0
-Table_4C_46C0::
 	dw CommProgress_Init_Scene
 	dw CommProgress_Init_Panel
 
@@ -37,7 +36,6 @@ CommProgress_Step:: ; 4C:46D6
 ; ---- ptrtable $46DE-$46E2 (4 bytes) [CONFIRMED] inline table of `call $0545` (JumpTableInline) at 4C:46DB: 2 entries; end pinned by the executed instruction at 46E2; every byte read as data in a trace
 
 CommProgress_Step_KindTable:: ; 4C:46DE
-Table_4C_46DE::
 	dw CommProgress_Step_Scene
 	dw CommProgress_Step_Panel
 

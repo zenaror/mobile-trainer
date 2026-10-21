@@ -1212,7 +1212,6 @@ Browser_DrawElement:: ; 4E:57DC
 ; ---- ptrtable $589B-$58AB (16 bytes) [PROBABLE] code-pointer table, 8 entries: 1/8 words hit known code starts (dispatch idiom `ld a,[hli] ; ld h,[hl] ; ld l,a ; jp hl` at 4E:589A, base from `ld hl,$589B`; end = cfg inline-table rule, HYPOTHESIS for the exact length); 1/8 targets executed
 
 Table_Browser_ElementDrawHandlers:: ; 4E:589B
-Table_4E_589B::
 	dw Browser_DrawElement_ReturnOnly
 	dw Browser_DrawElement_Text
 	dw Browser_DrawElement_ReturnOnly

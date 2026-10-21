@@ -246,7 +246,6 @@ Browser_FrameStylePreview_Exit:: ; 4E:41C8
 ; ---- words $41E0-$45FE (1054 bytes) [PROBABLE] list of little-endian words grouped into 43 groups separated by $FFFF: each group = one delay-like word ($0004/$0008/$000C/$0010/$0002/$0001) followed by tilemap offsets row*32+col that walk the 32-wide BG map along anti-diagonals ($0000,$0001,$0020,$0002,$0021,$0040,...,$0294; verified by listing every group, offsets grow by $20-1 per step); consumer not located (no code word/immediate pointing into the table), so the use is inferred from the values only
 
 Data_Browser_FrameWipeGroups:: ; 4E:41E0
-Data_4E_41E0::
 	dw $0000, $FFFF, $0004, $0001, $0020, $FFFF, $0004, $0002
 	dw $0021, $0040, $FFFF, $0008, $0003, $0022, $0041, $0060
 	dw $FFFF, $0008, $0004, $0023, $0042, $0061, $0080, $FFFF
