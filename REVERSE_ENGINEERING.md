@@ -1761,3 +1761,9 @@ uses the descriptive resources reached by bank-27 loader sites. The probable
 palette at `29:5376` and ten-byte fragment at `29:53F6` remain neutral. The
 restricted six-root generic-data census is now 212 definitions in 116 owners.
 See the [bank-29 connection-time audit](docs/research/generic_data_name_audit_20261020.md#bank-29-connection-time-graphics-aliases-2026-10-21).
+
+The four repeated 12-tile spans after keyboard pages 0–3 in bank 62 now have
+page-qualified candidate names. Their payloads are byte-identical, while the
+natural loaders stop before them; no use is claimed. Their grades remain
+PROBABLE. The restricted six-root generic-data census is now 208 definitions
+in 115 owners. See the [bank-62 candidate tile audit](docs/research/generic_data_name_audit_20261020.md#bank-62-keyboard-page-tail-tile-candidates-2026-10-21).

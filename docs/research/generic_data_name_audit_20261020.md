@@ -2546,6 +2546,20 @@ changed. The restricted six-root `Data_BB_AAAA::` census is now 237
 definitions in 121 owners, down from 241 in 121 owners. This remains a lexical
 count.
 
+## Bank 62 keyboard page-tail tile candidates (2026-10-21)
+
+The four 192-byte spans after the loaded tile ranges for keyboard pages 0–3
+were named `Gfx_Kbd_T78_PageN_CandidateTailTiles`. All four payloads are
+byte-identical (SHA-256
+`7a2ab1f13e5b8deb57f2abc336fd99039d4d87d32fbe41939ec2ae320309458a`), each
+is exactly 12 tiles, and the preceding natural loaders transfer only the
+36-tile portion ending at the candidate span. No loader for these spans was
+found. The labels express the repeated per-page structure and heuristic tile
+classification without asserting that the bytes are displayed. PROBABLE
+grades remain. Catalog names were reconciled. The restricted six-root
+`Data_BB_AAAA::` census is now 208 definitions in 115 owners, down from 212
+definitions in 116 owners. This remains a lexical count.
+
 ## Bank 29 connection-time graphics aliases (2026-10-21)
 
 `Data_29_5400` and `Data_29_5800` duplicated the existing probable tile and
