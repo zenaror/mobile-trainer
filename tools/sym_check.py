@@ -13,6 +13,9 @@ reads build/mobile_trainer.sym (rgblink -n, written by `make`) and reports
   * `Name:: ; BB:AAAA` comments that disagree with the linker's address (stale);
   * exported constants (consts.asm) missing from the .sym file.
 
+The protected `engine/mail/sample_data.asm` contents are never opened: its
+linked labels are taken from the corresponding section in the linker map.
+
 Exit status 1 when any of the first four is found (stale comments count).  `--fix` rewrites stale comments in place
 (only the `BB:AAAA` after a label; nothing else in a file is touched) and then exits 0 if nothing else is wrong.
 The .sym file is authoritative: comments are for readers, they carry no meaning for the build.
@@ -26,6 +29,7 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRCDIRS = ('home', 'engine', 'data', 'gfx', 'audio', 'lib')
 EXTRA = ('consts.asm', 'zero_labels.asm')
+PROTECTED_SOURCE = 'engine/mail/sample_data.asm'
 
 LABEL = re.compile(r'^([A-Za-z_][A-Za-z0-9_]*)::(?P<rest>.*)$')
 LOCAL = re.compile(r'^\.([A-Za-z_][A-Za-z0-9_]*)(?P<rest>(?:\s.*)?)$')     # `.name ; BB:AAAA`, scoped to the last global label
@@ -39,9 +43,38 @@ def source_files():
     for d in SRCDIRS:
         for dp, dn, fn in os.walk(os.path.join(ROOT, d)):
             dn.sort()
-            out += [os.path.join(dp, f) for f in sorted(fn) if f.endswith('.asm')]
+            for f in sorted(fn):
+                path = os.path.join(dp, f)
+                rel = os.path.relpath(path, ROOT).replace(os.sep, '/')
+                if f.endswith('.asm') and rel != PROTECTED_SOURCE:
+                    out.append(path)
     out += [os.path.join(ROOT, f) for f in EXTRA if os.path.exists(os.path.join(ROOT, f))]
     return out
+
+
+def protected_map_symbols(path):
+    """Return labels from the protected object section without opening its ASM source."""
+    symbols = {}
+    bank = None
+    in_section = False
+    section_re = re.compile(r'^\s*SECTION:.*\["engine/mail/sample_data"\]\s*$')
+    bank_re = re.compile(r'^ROMX bank #(\d+):\s*$')
+    symbol_re = re.compile(r'^\s*\$([0-9A-Fa-f]{4}) = ([A-Za-z_][A-Za-z0-9_.]*)\s*$')
+    with open(path, encoding='utf-8') as f:
+        for line in f:
+            m = bank_re.match(line)
+            if m:
+                bank = int(m.group(1))
+                in_section = False
+                continue
+            if line.lstrip().startswith('SECTION:'):
+                in_section = bool(section_re.match(line))
+                continue
+            if in_section:
+                m = symbol_re.match(line)
+                if m:
+                    symbols[m.group(2)] = (bank, int(m.group(1), 16))
+    return symbols
 
 
 def read_sym(path):
@@ -63,6 +96,7 @@ def read_sym(path):
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split('\n\n')[0])
     ap.add_argument('--sym', default=os.path.join(ROOT, 'build', 'mobile_trainer.sym'))
+    ap.add_argument('--map', default=os.path.join(ROOT, 'build', 'mobile_trainer.map'))
     ap.add_argument('--fix', action='store_true', help='rewrite stale `; BB:AAAA` label comments in place')
     ap.add_argument('-q', '--quiet', action='store_true')
     args = ap.parse_args()
@@ -109,6 +143,16 @@ def main():
                         stale.append((rel, i + 1, name, '%02X:%04X' % got, '%02X:%04X' % sym[name]))
                         new = '%s%s ; %02X:%04X%s' % (('.' + m.group(1)) if not sep else name, sep, sym[name][0], sym[name][1], am.group('post'))
                         edits.setdefault(path, {})[i] = new
+
+    protected = protected_map_symbols(args.map)
+    if not protected:
+        print('missing protected source symbol section in %s' % os.path.relpath(args.map, ROOT), file=sys.stderr)
+        return 2
+    for name, addr in protected.items():
+        defs.setdefault(name, []).append((PROTECTED_SOURCE + ' (link map)', 0))
+        if sym.get(name) != addr:
+            stale.append((PROTECTED_SOURCE + ' (link map)', 0, name, 'map %02X:%04X' % addr,
+                          'missing' if name not in sym else '%02X:%04X' % sym[name]))
 
     missing = sorted(n for n in defs if n not in sym)
     unowned = sorted(n for n in sym if n not in defs)

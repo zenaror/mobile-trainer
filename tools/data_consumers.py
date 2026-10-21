@@ -58,6 +58,7 @@ LABEL = re.compile(r'^([A-Za-z_][A-Za-z0-9_]*)::')
 HDR = re.compile(r'^; ---- (\w+) \$([0-9A-F]{4})-\$([0-9A-F]{4}) \((\d+) bytes\) \[(\w+)\] (.*)')
 LEGAL = re.compile(r'^[A-Za-z_][A-Za-z0-9_]*$')
 SKIP_ASM = ('ram.asm', 'includes.asm', 'consts.asm')
+PROTECTED_ASM = 'engine/mail/sample_data.asm'
 
 # ------------------------------------------------------------------------------------------------------ judgement tables
 # trailing/inner components of a consumer routine name that say WHAT the routine does, not which screen it belongs to
@@ -94,8 +95,10 @@ def asm_files(root):
         if rel == 'ram' or rel.startswith('ram' + os.sep):
             continue
         for f in sorted(files):
-            if f.endswith('.asm') and not (d == root and f in SKIP_ASM):
-                yield os.path.join(d, f)
+            path = os.path.join(d, f)
+            relpath = os.path.relpath(path, root).replace(os.sep, '/')
+            if f.endswith('.asm') and relpath != PROTECTED_ASM and not (d == root and f in SKIP_ASM):
+                yield path
 
 
 class World:
@@ -974,22 +977,9 @@ def rules_manual(w, man, sites):
         add(old, new, 'table', 'PROBABLE',
             '11 bytes [%s] read by %s as `ld hl,<table> ; add a,l ; ld l,a ; ld a,0 ; adc a,h ; ld h,a ; ld a,[hl] ; ret`, A = keyboard type index; '
             '11 entries = the 11 entries of Kbd_LoadPageGraphics_TypeTable (55:66D9) which wKbdType indexes; one %s per keyboard type' % (b.hex(' '), fn, what))
-    k = w.by_name['Data_55_62A0']
-    add('Data_55_62A0', 'Table_Kbd_CursorSpriteOrigin', 'table', 'PROBABLE',
-        '20 bytes = 2 bytes per keyboard type (types 0..9): Kbd_UpdateCursorSprite (55:6190) does `ld a,[wKbdType] ; ld hl,<table> ; add a,a ; add a,l ... ; ld a,[hli] ; ld b,[hl] ; ld c,a` and stores '
-        'wKbdCursorSpriteY = wKbdCursorRow*16 + C and wKbdCursorSpriteX = wKbdCursorCol*8 + B (55:61F6-620A), so the two bytes are the (Y, X) origin added to the cell position; bytes %s' % rom_bytes(w, k, 20).hex(' '))
     add('Table_55_62B4', 'Table_Kbd_CursorSpriteCharOffsetPtrs', 'table', 'PROBABLE',
         '10 word pointers indexed by wKbdType*2 in Kbd_UpdateCursorSprite (55:6190, `ld hl,<table> ; ... ld a,[hli] ; ld h,[hl] ; ld l,a`); each target is a list of 2-byte (d,e) offsets indexed by (wKeyboardCharLo-$80)*2 and added to the cursor position; '
         'targets 62C8..6310 tile the following bytes (ptrtable region header)')
-    add('Data_55_66C0', 'Table_Kbd_PickerSpritePositions', 'table', 'PROBABLE',
-        '6 bytes = two lists of 3 positions indexed by wKbdInputMode: Kbd_UpdatePickerSprites (55:667B) reads `[Data_55_66C0 + wKbdInputMode]` for the sprite at $DAB0 and, through the raw immediate `ld hl,$66C3`, '
-        '`[$66C3 + wKbdInputMode]` for the sprite at $DAA0, each passed to Sprite_SetPosition')
-    add('Data_55_6C0A', 'Table_Kbd_PickerTabTilePtrs', 'table', 'PROBABLE',
-        '3 word pointers ($6A90, $6D10, $6F90) indexed by wKbdInputMode*2 in Kbd_LoadPickerTabTiles (55:6BD7); the selected pointer is the HL source of the HDMA upload (de=$8801, b=$95, c=$28, a=$66 -> Gfx_StartHDMA[WithService]), i.e. a list of tile sources in bank 66')
-    add('Data_55_6FC7', 'Table_Kbd_RejectSymbol_Chars', 'table', 'PROBABLE',
-        'NUL-terminated byte list $40 $2E $2D $5F $2B 00 (@ . - _ +): Kbd_RejectSymbol (55:6FA1) walks it with `ld a,[hli] ; or a ; jr z ... ; cp b` against wKeyboardCharLo, plays a sound and returns C=1 on a match')
-    add('Data_55_6FF4', 'Table_Kbd_MarkerSpritePositions', 'table', 'PROBABLE',
-        '12 bytes = 2 bytes per keyboard type for types 0..5: Kbd_ShowMarkerSprite (55:6FCD) does `ld a,[wKbdType] ; ld hl,<table> ; add a,a ; ... ld a,[hli] ; ld d,[hl] ; ld e,a ; call Sprite_SetPosition` for the marker object at $DAD0')
     add('Table_55_6869', 'Table_Kbd_T6_PageLoaders', 'table', 'PROBABLE',
         'code-pointer table indexed by wKbdPage*2 in Kbd_LoadPageGraphics_T6 (`ld a,[wKbdPage] ; ld hl,<table> ; add a,a ; ... ld a,[hli] ; ld h,[hl] ; ld l,a ; jp hl`), reached as entry 6 of Kbd_LoadPageGraphics_TypeTable; words Kbd_LoadPageGraphics_T6_Page0 / Page1 / Page2, the fourth page is the single word of adjacent table Table_55_686F')
     add('Table_55_686F', 'Table_Kbd_T6_PageLoaders_Page3', 'table', 'PROBABLE',

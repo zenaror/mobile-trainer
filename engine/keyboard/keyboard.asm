@@ -1060,7 +1060,6 @@ Kbd_UpdateCursorSprite:: ; 55:6190
 ; ---- data $62A0-$62B4 (20 bytes) [PROBABLE] zero/short bytes of the keyboard page tables between text rows; part of the run 62A0-62B4 that executed code reads piecewise [split by classify_g2]
 
 Table_Kbd_CursorSpriteOrigin:: ; 55:62A0
-Data_55_62A0::
 	db $34, $07, $34, $07, $34, $07, $2C, $07, $2C, $07, $2C, $07, $3C, $07, $3C, $07
 	db $3C, $07, $3C, $07
 
@@ -1467,7 +1466,6 @@ Kbd_Run_TypePicker:: ; 55:6563
 ; naturally. The index is not bounds-checked here.
 
 Table_Kbd_InputModeReturnCodes:: ; 55:65D7
-Data_55_65D7::
 	db $04, $05, $06
 
 Kbd_TypePickerLoop:: ; 55:65DA
@@ -1594,7 +1592,6 @@ Kbd_UpdatePickerSprites:: ; 55:667B
 ; ---- data $66C0-$66C6 (6 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
 
 Table_Kbd_PickerSpritePositions:: ; 55:66C0
-Data_55_66C0::
 	db $1E, $46, $6E, $1C, $44, $6C
 
 Kbd_LoadPageGraphics:: ; 55:66C6
@@ -2247,7 +2244,6 @@ Kbd_LoadPickerTabTiles:: ; 55:6BD7
 ; ---- data $6C0A-$6C10 (6 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
 
 Table_Kbd_PickerTabTilePtrs:: ; 55:6C0A
-Data_55_6C0A::
 	db $90, $6A, $10, $6D, $90, $6F
 
 Kbd_RequestGlyphRedraw:: ; 55:6C10

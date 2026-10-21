@@ -37,6 +37,27 @@ No source, build, runtime or trace changed. The retained read-only report is
 
 ## Current naming changes
 
+In `engine/keyboard/keyboard.asm`, four exact co-located `Data_55_*` aliases
+at 55:62A0, 65D7, 66C0 and 6C0A were retired. Their retained labels
+`Table_Kbd_CursorSpriteOrigin`, `Table_Kbd_InputModeReturnCodes`,
+`Table_Kbd_PickerSpritePositions` and `Table_Kbd_PickerTabTilePtrs` are the
+names used by the code. The references in `ram/wram.asm`, current naming notes
+and current naming notes now use those labels; the active `data_consumers`
+generator no longer proposes these already-named blocks. The restricted
+six-root census is 187 `Data_BB_AAAA`/`Font_BB_AAAA` definitions across 110
+owners; `engine/mail/sample_data.asm` and `languages/` were excluded before
+content reads. `sym-check` and `data_consumers.py` now exclude the protected
+mail sample source; `sym-check` reconciles its symbols using only the linker
+map section, without opening the source. Because changing `ram/wram.asm`'s
+comment invalidated every RGBASM object, the Japanese build was attempted with
+Make's `-o build/engine/mail/sample_data.o` override to reuse the previously
+verified object. A Make restart after dependency regeneration nevertheless
+ran RGBASM on the protected source. The source was not changed, its contents
+were not printed or semantically inspected, and the resulting ROM still
+compares byte-for-byte. The source-only `sym-check` and `data_consumers.py`
+scans now exclude it; `sym-check` uses the corresponding linker-map section
+for symbol reconciliation. No confidence grades changed.
+
 In `engine/keyboard/type_helpers.asm`, four exact co-located `Data_55_*`
 aliases at 55:6EB5, 6ECB, 6FC7 and 6FF4 were retired. Their retained labels
 `Table_Kbd_Mode2DefaultCursorFlag_ByType`,
