@@ -1163,7 +1163,6 @@ MailSession_ClearMsg:: ; 26:5873
 ; Raw representation and both existing labels retained; bank48 glyph $8140 is16 zero bytes, emitted to two WRAM2 tile buffers. Original JP evidence only; no new runtime, visual or hardware result.
 
 MailSession_Msg_Blank:: ; 26:588E
-Data_26_588E::
 	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
 	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
 	db $81, $40, $81, $40, $81, $40, $81, $40, $00

@@ -1857,3 +1857,7 @@ The mailbox icon-bar attribute block no longer exports the duplicate numeric
 data name. Its confirmed first-three-record read boundary and uncertain tail
 remain as before; see the
 [mailbox note](docs/research/mailbox_iconbar_data_alias_20261021.md).
+
+At bank 26's confirmed blank-message string, the duplicate `Data_26_588E`
+export was also retired under `MailSession_Msg_Blank`; the historical
+text-classification note now records this later label-set-only change.

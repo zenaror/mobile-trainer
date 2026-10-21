@@ -2,6 +2,10 @@
 
 This original-JP unit is based on published a368dabbc7ffb4abdae493764d9a2a4ce2d3b437, after original bank25 was published in3707dd6 and the separate documentation follow-up. Only two existing comments at engine/mail/mail_session_screen.asm:1117/1118 change. Physical bytes, both aliases, source line count and raw db representation remain exact. This refines the existing CONFIRMED data block to a CONFIRMED bounded text interpretation; it is not a new byte or symbol representation.
 
+## Follow-up (2026-10-21): redundant numeric alias retired
+
+`Data_26_588E` was later removed as an exact alias under `MailSession_Msg_Blank`. The prior paragraph and its contemporaneous verification describe the original text-classification pass; this follow-up changes only the current exported label set. The 41-byte payload, its address, raw `db` lines, string evidence, caller and confidence are unchanged. Historical `config/` and `analysis/` references remain snapshots.
+
 ## Exact string and original caller
 
 ROM26:$588E..$58B7 is41 bytes: twenty repetitions of81 40 (Shift-JIS full-width space, U+3000), followed by NUL at$58B6. The original SHA-256 of this bounded unit is81b4a89099a3e90b502b4b1560f4af45c6d655bf1c01bec8572a32005b437176. MailSession_Msg_Blank and Data_26_588E retain their existing addresses and names. All three literal db lines are preserved.
