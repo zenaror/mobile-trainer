@@ -420,10 +420,10 @@ MailSrvDel_ShowDescCheck:: ; 23:43C4
 	call MailSrvDel_UploadTextTiles
 	ret
 
-; ---- text $43DF-$4404 (37 bytes) [PROBABLE] 18 ideographic spaces (81 40) + NUL: clean NUL-terminated Shift-JIS blank line placed right after a ret (23:43DE)
+; ---- text $43DF-$4404 (37 bytes) [HYPOTHESIS] 18 full-width spaces plus NUL after a ret; candidate blank-line text with no code reference located
 
 PUSHC sjis
-String_23_43DF:: ; 23:43DF
+MailSrvDel_CandidateBlankLine:: ; 23:43DF
 	db "　　　　　　　　　　　　　　　　　　", 0
 POPC
 

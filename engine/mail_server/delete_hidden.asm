@@ -463,10 +463,10 @@ MailSrvDelHidden_ShowDescCheck:: ; 22:444D
 	call MailSrvDelHidden_UploadTextTiles
 	ret
 
-; ---- text $4468-$448D (37 bytes) [HYPOTHESIS] Shift-JIS text: 18 x 81 40 (full-width space) + NUL; no reference found (no ld/dw of $4468 in the ROM); sits between a ret and the referenced string String_MailSrvDelHidden_DescCheck (ld hl,$448D at 22:444D) - probably a blank-line string
+; ---- text $4468-$448D (37 bytes) [HYPOTHESIS] 18 full-width spaces plus NUL; no reference found; candidate blank-line text between a ret and String_MailSrvDelHidden_DescCheck
 
 PUSHC sjis
-String_22_4468:: ; 22:4468
+MailSrvDelHidden_CandidateBlankLine:: ; 22:4468
 	db "　　　　　　　　　　　　　　　　　　", 0
 POPC
 

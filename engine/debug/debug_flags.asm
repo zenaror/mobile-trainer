@@ -526,12 +526,12 @@ DebugFlags_LoadHelpText:: ; 19:43E9
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
-	ld hl, String_19_452F
+	ld hl, DebugFlags_UpTriangleGlyph
 	ld de, wTileStage3
 	ld bc, $0010
 	ld a, $03
 	ldh [hTextTiles_DestBank], a
-	ld a, BANK(String_19_452F)
+	ld a, BANK(DebugFlags_UpTriangleGlyph)
 	farcall TextTiles_RenderGrid
 	ld de, $8000
 	ld hl, wTileStage3
@@ -558,7 +558,7 @@ POPC
 ; ---- text $452F-$4532 (3 bytes) [PROBABLE] 2-byte Shift-JIS char 81 A3 + NUL, right after the NUL of String_DebugFlags_Help and before code at 4532
 
 PUSHC sjis
-String_19_452F:: ; 19:452F
+DebugFlags_UpTriangleGlyph:: ; 19:452F
 	db "▲", 0
 POPC
 

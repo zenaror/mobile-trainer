@@ -1926,11 +1926,13 @@ A fresh path-bounded exact-name scan of the six maintained source roots plus
 `zero_labels.asm`, excluding the protected mail sample before reading, finds
 63 `Data_BB_AAAA` definitions in 41 owners and no exact generic `Function`,
 `Font`, or `Label` definitions. This is a lexical count, not semantic closure.
-The same scan now finds 95 `String_BB_AAAA`, no exact `Table_BB_AAAA`, 41
+The same scan now finds 92 `String_BB_AAAA`, no exact `Table_BB_AAAA`, 41
 `Tiles_BB_AAAA`, 24 `Tilemap_BB_AAAA`, 4 `Attrmap_BB_AAAA`, and 25
 `Palette_BB_AAAA` definitions; the remaining prefixes are an owner-by-owner
 evidence worklist. The four former generic table labels are described in the
 [table-name audit](docs/research/generic_data_name_audit_20261020.md#remaining-generic-table-labels-2026-10-21),
 with the unreferenced duplicate kept explicitly candidate-qualified. Two HTML
 store record headers were also renamed by their literal first-page filenames;
-no claim of browser load/display is added.
+no claim of browser load/display is added. A debug-screen triangle glyph and
+two candidate blank-line records now have content-oriented labels; the latter
+two remain HYPOTHESIS because no readers were found.

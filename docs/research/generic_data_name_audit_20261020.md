@@ -3033,3 +3033,28 @@ After these two renames, the path-bounded census (six maintained roots plus
 63 exact Data labels in 41 owners, 95 String labels, no exact Table labels, 41
 Tiles, 24 Tilemap, 4 Attrmap, and 25 Palette labels; exact Function, Font, and
 Label remain zero. Counts are lexical, not a semantic-completion claim.
+
+
+## Debug glyph and candidate blank-line records (2026-10-21)
+
+`String_19_452F` contains the Shift-JIS character `▲` followed by NUL.
+`DebugFlags_LoadHelpText` passes this label and its bank to
+`TextTiles_RenderGrid`, then transfers the resulting tile to `$8000`. The label
+is now `DebugFlags_UpTriangleGlyph`; its content is directly observed and the
+source consumer is known. The broader UI meaning and natural execution of this
+path are not asserted.
+
+`String_22_4468` and `String_23_43DF` each contain 18 full-width spaces and a
+NUL. Neither has a located code reference; their former comments already
+identified the blank-line interpretation as uncertain. They are now
+`MailSrvDelHidden_CandidateBlankLine` and
+`MailSrvDel_CandidateBlankLine`, and their headers remain HYPOTHESIS. These
+names describe the bytes and owner context without asserting that code reads
+them.
+
+After these three symbol-only changes, the path-bounded census is 63 exact
+Data labels in 41 owners, 92 String labels, 0 Table, 41 Tiles, 24 Tilemap, 4
+Attrmap and 25 Palette; exact Function, Font and Label remain zero. The build
+returns `RESULT: IDENTICAL` with the original SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
+`make sym-check` passes with 12,168 labels and 51 constants.
