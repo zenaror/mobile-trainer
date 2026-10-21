@@ -69,22 +69,13 @@ Gfx_Kbd_T6_Page3_Tiles9000Vb1:: ; 66:66C0
 Gfx_Kbd_T10_Tiles8A80Vb1:: ; 66:6900
 	INCBIN "gfx/keyboard/tiles_bank66/tiles_6900.2bpp"
 
-; ---- gfx $6A90-$7190 (1792 bytes) [PROBABLE] tiles-2bpp: heuristic: 100 coherent tiles (hsim2=0.789 vsim2=0.790, 19 blank) parity 0; 128/1920 bytes also covered by call-site blocks [clipped from 6A10-7190 by higher-priority evidence]
+; ---- gfx $6A90-$7210 (1920 bytes) [PROBABLE] three mail-draft exit choices; 40 tiles each
+;     Kbd_LoadPickerTabTiles (55:6BD7) selects 66:6A90/6D10/6F90 via 55:6C0A using
+;     wKbdInputMode and transfers C=$28 blocks of 16 bytes to VRAM bank 1 at $8800.
+;     The third window includes the eight $FF tiles at 66:7190 and ends before the map at 7210.
 
-Data_66_6A90:: ; 66:6A90
-	INCBIN "gfx/keyboard/tiles_bank66/tiles_6a90.2bpp"
-
-; ---- data $7190-$7210 (128 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown [clipped from 6900-74B8 by higher-priority evidence]
-
-Data_66_7190:: ; 66:7190
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+Gfx_MailDraftExitOptions_Tiles:: ; 66:6A90
+	INCBIN "gfx/keyboard/tiles_bank66/mail_draft_exit_options.2bpp"
 
 ; ---- data $7210-$73C8 (440 bytes) [CONFIRMED] tilemap+attr: 2 call site(s) (55:6961 55:6A74); first: copy_tilemap_rect_pair at 55:6961: hl=$7210 a=$66 b=11 rows c=20 cols (tiles then attrs) de=$D240
 

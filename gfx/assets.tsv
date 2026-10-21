@@ -590,7 +590,7 @@ gfx/keyboard/tiles_bank66/tiles_5ec0.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.a
 gfx/keyboard/tiles_bank66/tiles_62c0.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	62C0	CONFIRMED	exact	0		Gfx_Kbd_T6_Page3_Tiles8C00Vb1
 gfx/keyboard/tiles_bank66/tiles_66c0.2bpp	tiles	576	gfx/keyboard/tiles_bank66.asm	66	66C0	CONFIRMED	exact	0		Gfx_Kbd_T6_Page3_Tiles9000Vb1
 gfx/keyboard/tiles_bank66/tiles_6900.2bpp	tiles	400	gfx/keyboard/tiles_bank66.asm	66	6900	CONFIRMED	exact	7		Gfx_Kbd_T10_Tiles8A80Vb1
-gfx/keyboard/tiles_bank66/tiles_6a90.2bpp	tiles	1792	gfx/keyboard/tiles_bank66.asm	66	6A90	PROBABLE	exact	0		Data_66_6A90
+gfx/keyboard/tiles_bank66/mail_draft_exit_options.2bpp	tiles	1920	gfx/keyboard/tiles_bank66.asm	66	6A90	PROBABLE	exact	0		Gfx_MailDraftExitOptions_Tiles
 gfx/mail/address_editor/mail_addr.attrmap	attrmap	360	gfx/mail/address_editor.asm	2D	7CB8	CONFIRMED	-	0	20x18	Tilemap_MailAddr
 gfx/mail/address_editor/mail_addr.tilemap	tilemap	360	gfx/mail/address_editor.asm	2D	7B50	CONFIRMED	-	0	20x18	Tilemap_MailAddr
 gfx/mail/address_editor/mail_addr_bg.pal	palette	64	gfx/mail/address_editor.asm	2D	7E20	PROBABLE	-	0		Palette_MailAddr_Bg

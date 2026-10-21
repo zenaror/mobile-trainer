@@ -44,11 +44,11 @@ gfx/assets.tsv                                 one line per asset: kind, size, b
 | RGB palette (`.pal`) | 167 | 11504 |
 | validity bitmap (`.bin`) | 1 | 8198 |
 | tile-index map (`.tilemap`) | 180 | 51618 |
-| 2bpp tiles (`.2bpp`) | 409 | 362896 |
+| 2bpp tiles (`.2bpp`) | 409 | 363024 |
 | raw bytes (`.bin`, conditional byte-view codec; purpose unknown) | 4 | 80 |
-| **all** | **980** | **623890** |
+| **all** | **980** | **624018** |
 
-PNGs:409 active exact rgbgfx tile sources,4 explicit RAW byte-view PNGs (80B; purpose UNKNOWN/HYPOTHESIS), and39 font binaries in37 editable sheet PNGs:450 unique editable source PNG paths. The1 validity-bitmap view-only picture and95 screen compositions are separate. `gfx/png_rules.tsv` has979 active rules. The catalogue totals980 assets/623890 logical ROM bytes; its11 JIS12x12 binaries total131976B.
+PNGs:409 active exact rgbgfx tile sources,4 explicit RAW byte-view PNGs (80B; purpose UNKNOWN/HYPOTHESIS), and39 font binaries in37 editable sheet PNGs:450 unique editable source PNG paths. The1 validity-bitmap view-only picture and95 screen compositions are separate. `gfx/png_rules.tsv` has979 active rules. The catalogue totals980 assets/624018 logical ROM bytes; its11 JIS12x12 binaries total131976B.
 The old count406 included the retired bank73 tile interpretation; its historical file remains outside the active catalogue.
 
 ## Still `db`
@@ -970,7 +970,7 @@ Retired historical file: `palette_5e60.pal` preserves the former 96-byte RGB555 
 | `tiles_62c0.2bpp` | 2bpp tiles | 1024 | 66:62C0 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank66.asm` |
 | `tiles_66c0.2bpp` | 2bpp tiles | 576 | 66:66C0 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank66.asm` |
 | `tiles_6900.2bpp` | 2bpp tiles | 400 | 66:6900 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank66.asm` |
-| `tiles_6a90.2bpp` | 2bpp tiles | 1792 | 66:6A90 | PROBABLE | exact | - | `gfx/keyboard/tiles_bank66.asm` |
+| `mail_draft_exit_options.2bpp` | 2bpp tiles | 1920 | 66:6A90 | PROBABLE | exact | - | `gfx/keyboard/tiles_bank66.asm` |
 | `tilemap_7210.tilemap` | tile-index map | 220 | 66:7210 | CONFIRMED | - | 20x11 | `gfx/keyboard/tiles_bank66.asm` |
 | `tilemap_7210.attrmap` | attribute map | 220 | 66:72EC | CONFIRMED | - | 20x11 | `gfx/keyboard/tiles_bank66.asm` |
 | `tilemap_73c8.tilemap` | tile-index map | 120 | 66:73C8 | CONFIRMED | - | 20x6 | `gfx/keyboard/tiles_bank66.asm` |

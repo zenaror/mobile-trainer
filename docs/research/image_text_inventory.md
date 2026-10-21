@@ -375,7 +375,7 @@ Columns: `#` = order of the listing (path order); `asset` = PNG under `gfx/` (th
 | 258 | `keyboard/tiles_bank66/tiles_62c0` | 66:62C0 | 64 (16x4) | Table_Kbd_T6_PageLoaders_Page3@8C00b1 | KBD | keyboard type 6 page 3 (symbols, digits) |
 | 259 | `keyboard/tiles_bank66/tiles_66c0` | 66:66C0 | 36 (12x3) | Table_Kbd_T6_PageLoaders_Page3@9000b1 | KBD | keyboard type 6 page 3 key caps |
 | 260 | `keyboard/tiles_bank66/tiles_6900` | 66:6900 | 25 (16x2) | Table_Kbd_T78_PageLoaders_Page3@8A80b1 | MIX | keyboard type 10 tiles: key caps / arrows |
-| 261 | `keyboard/tiles_bank66/tiles_6a90` | 66:6A90 | 112 (16x7) | - | TXT | mail-draft exit menu images: "メールをセーブしてしゅうりょうします" "かいたメールをみることができます" "メールをかくのをやめます" (reading) |
+| 261 | `keyboard/tiles_bank66/mail_draft_exit_options` | 66:6A90 | 120 (15x8) | Kbd_LoadPickerTabTiles@8800b1 (three 40-tile selector windows) | TXT | probable mail-draft exit choices: "メールをセーブしてしゅうりょうします" "かいたメールをみることができます" "メールをかくのをやめます" (reading) |
 | 262 | `mail/address_editor/mail_addr_obj_tiles` | 2D:7880 | 12 (12x1) | MailAddr_SetupScreen@8000 | TXT | object tiles of the mail-address screen: small labels ("セレクト アドレスちょう" legend pieces) |
 | 263 | `mail/address_editor/mail_addr_tiles` | 2D:7120 | 64 (16x4) | MailAddr_SetupScreen@9300b1 | TXT | header "メールアドレス" + text "ともだちのアドレスをかいてね" (pieces) |
 | 264 | `mail/address_editor/mail_addr_tiles2` | 2D:7520 | 11 (11x1) | MailAddr_SetupScreen@9700b1 | TXT | footer pieces ("セレクト アドレスちょう" legend) |

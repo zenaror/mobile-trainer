@@ -1,4 +1,6 @@
 historical_path	current_path
+gfx/keyboard/tiles_bank66/tiles_6a90.2bpp	gfx/keyboard/tiles_bank66/mail_draft_exit_options.2bpp
+gfx/keyboard/tiles_bank66/tiles_6a90.png	gfx/keyboard/tiles_bank66/mail_draft_exit_options.png
 gfx/bank41.asm	gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm
 gfx/bank41/palette_4cd0.pal	gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/leaf_vine_border_41_4000_palettes.pal
 gfx/bank41/palette_5a20.pal	gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/lavender_ribbon_border_41_4d50_palettes.pal

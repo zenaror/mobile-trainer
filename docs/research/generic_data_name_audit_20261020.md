@@ -1854,8 +1854,10 @@ confirmed tilemap names. The source/tool reference scan found no consumers
 outside this owner and `gfx/assets.tsv`. Updated the 17 corresponding catalog
 rows, including tilemap attribute maps that share their tilemap's base label.
 Source bytes, graphics paths, bank/address ranges and confidence levels are
-unchanged. The heuristic-only `Data_66_6A90` span and the unknown-content data
-at `Data_66_7190` retain their neutral names.
+unchanged at that checkpoint. A later bounded consumer review superseded the
+two neutral labels; see [`typing_66_mail_draft_exit_options.md`](typing_66_mail_draft_exit_options.md)
+for the exact three transfer windows, evidence grade, and retained natural-
+reachability limit.
 
 ## Bank 62 keyboard resource aliases (2026-10-21)
 

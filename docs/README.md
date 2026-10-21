@@ -77,6 +77,7 @@ Reference documents (current):
 | [`browser_page_view_table_aliases_20261021.md`](research/browser_page_view_table_aliases_20261021.md) | Nine redundant generic aliases retired from existing browser page-view table names |
 | [`html_dispatch_table_aliases_20261021.md`](research/html_dispatch_table_aliases_20261021.md) | Four redundant generic aliases retired from HTML URL and dispatch tables |
 | [`keyboard_table_aliases_20261021.md`](research/keyboard_table_aliases_20261021.md) | Nine redundant generic aliases retired from existing keyboard table names |
+| [`typing_66_mail_draft_exit_options.md`](research/typing_66_mail_draft_exit_options.md) | Bank 66 keyboard-picker transfers and the three probable mail-draft exit choices |
 | [`mailbox_table_aliases_20261021.md`](research/mailbox_table_aliases_20261021.md) | Eight redundant generic aliases retired from existing mailbox tables |
 | [`mobile_sdk_main_aliases_20261021.md`](research/mobile_sdk_main_aliases_20261021.md) | 21 redundant generic string/table exports retired from existing Mobile SDK labels |
 | [`connect_dialog_bank56_aliases_20261021.md`](research/connect_dialog_bank56_aliases_20261021.md) | 20 redundant generic tilemap, graphics, palette and object-table aliases retired |

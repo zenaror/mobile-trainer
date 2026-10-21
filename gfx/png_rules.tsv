@@ -631,6 +631,7 @@ gfx/keyboard/tiles_bank62/tiles_6100.2bpp	gfx/keyboard/tiles_bank62/tiles_6100.p
 gfx/keyboard/tiles_bank62/tiles_6500.2bpp	gfx/keyboard/tiles_bank62/tiles_6500.png	tiles			0	1024	b48b9df508c2ce8f9cdfdd9d4ec5111943b0ac24b7daca303a8ab9d779daf361
 gfx/keyboard/tiles_bank62/tiles_6900.2bpp	gfx/keyboard/tiles_bank62/tiles_6900.png	tiles			0	576	f1a7396f28473f7da46e60c2131c4a3b74a1f09761fafabe982e43051bc72800
 gfx/keyboard/tiles_bank62/tiles_6b40.2bpp	gfx/keyboard/tiles_bank62/tiles_6b40.png	tiles			0	192	7a2ab1f13e5b8deb57f2abc336fd99039d4d87d32fbe41939ec2ae320309458a
+gfx/keyboard/tiles_bank66/mail_draft_exit_options.2bpp	gfx/keyboard/tiles_bank66/mail_draft_exit_options.png	tiles			0	1920	caa4ac5b9a13d2224ed50a037201b199a9aa5d9b5e3ba00a8db534ed983cb797
 gfx/keyboard/tiles_bank66/tilemap_7210.attrmap	-	attrmap				220	fc10cb2d4e860dbdd81abd2ecbff29176570334aeda2aefc68481431f5431d71
 gfx/keyboard/tiles_bank66/tilemap_7210.tilemap	-	tilemap				220	6bcc241ef5d4cfcaaea34a8133a9f5a4e8158f43a4efc0c4a7b8a1ec6012a6ae
 gfx/keyboard/tiles_bank66/tilemap_73c8.attrmap	-	attrmap				120	086a2a21da36d9f92cc18fd55c1bc7d5bb59fdf02cb6af4653530b40c891c84c
@@ -648,7 +649,6 @@ gfx/keyboard/tiles_bank66/tiles_5ec0.2bpp	gfx/keyboard/tiles_bank66/tiles_5ec0.p
 gfx/keyboard/tiles_bank66/tiles_62c0.2bpp	gfx/keyboard/tiles_bank66/tiles_62c0.png	tiles			0	1024	b48b9df508c2ce8f9cdfdd9d4ec5111943b0ac24b7daca303a8ab9d779daf361
 gfx/keyboard/tiles_bank66/tiles_66c0.2bpp	gfx/keyboard/tiles_bank66/tiles_66c0.png	tiles			0	576	ad506a9f436569fc50841ef34d54e19d3b9970481d99c6345e40326e4c7db7dc
 gfx/keyboard/tiles_bank66/tiles_6900.2bpp	gfx/keyboard/tiles_bank66/tiles_6900.png	tiles			7	400	05e612a9841ad77fc008a1e1e5b5d474f4ca3188462476c2f9fc7827736151ba
-gfx/keyboard/tiles_bank66/tiles_6a90.2bpp	gfx/keyboard/tiles_bank66/tiles_6a90.png	tiles			0	1792	e2a905551150f720a9f9cedd497837c1fe9d2a73dd2c460514b18e7f94ddc5bb
 gfx/mail/address_editor/mail_addr.attrmap	-	attrmap				360	8882668ca672a374809d78c9db02ffd8863731a672f0a4ab2773dc0cddc2cbea
 gfx/mail/address_editor/mail_addr.tilemap	-	tilemap				360	cb5c625548e7efd725c72693e998b5596cbd73791b5d751d569fdd90e5d0a805
 gfx/mail/address_editor/mail_addr_bg.pal	-	palette				519	d8796040316b08825c8adaa7f5b9fe4feafe7179b0b64af9cb72506b207abcf0
