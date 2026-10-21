@@ -457,3 +457,12 @@ mapping rows were removed as well. Exact-token searches found no other active
 assembly/tool consumers. Script bytes, pointer words, boundaries, and existing
 CONFIRMED/PROBABLE classifications are unchanged; frozen config/analysis names
 remain as historical evidence.
+
+## Bank 67 usage-time data aliases (2026-10-21)
+
+Removed `Data_67_61D2` and `Data_67_6246` from
+`engine/settings/usage_time.asm`; their exact same-address labels
+`Net_UsageTimeCgiUrl` and `Net_PppIdKeyDup` remain. The generic spellings had
+no current assembly/tool consumers beyond their declarations. Existing
+CONFIRMED read evidence, storage extents, content-class uncertainty, and bytes
+are unchanged; historical config/analysis records were not edited.

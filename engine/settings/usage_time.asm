@@ -148,7 +148,7 @@ UsageTime_Request:: ; 67:6171
 ; ---- data $61D2-$6205 (51 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
 
 Net_UsageTimeCgiUrl:: ; 67:61D2
-Data_67_61D2::
+
 	db $68, $74, $74, $70, $3A, $2F, $2F, $6D, $67, $62, $2E, $64, $69, $6F, $6E, $2E
 	db $6E, $65, $2E, $6A, $70, $2F, $63, $67, $69, $2D, $62, $69, $6E, $2F, $6D, $67
 	db $62, $2F, $64, $61, $61, $5F, $67, $62, $5F, $6A, $69, $6B, $61, $6E, $2E, $63
@@ -189,7 +189,7 @@ Net_BuildLoginPostBody:: ; 67:6205
 ; ---- data $6246-$624E (8 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 6246-6257 by higher-priority evidence]
 
 Net_PppIdKeyDup:: ; 67:6246
-Data_67_6246::
+
 	db $50, $50, $50, $5F, $49, $44, $3D, $00
 
 ; ---- text $624E-$626F (33 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
