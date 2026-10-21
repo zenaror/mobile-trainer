@@ -274,6 +274,9 @@ names; the palette alias anchoring the `.loop` local scope remains. See the
 The browser page-list graphics owner also lost 14 exact-address tile, palette
 and frame-table aliases under existing `PageList_*` names; source lines and
 assets remain in place.
+The account-screen bank 5E owner lost 16 declaration-only `Data_5E_*` aliases
+under existing graphics, palette, and tilemap labels; its source lines remain
+in place and its emission is unchanged.
 
 The same audit renamed the positioned `$0020` word at `5C:5144` to
 `CommErr_MessageSlot32RawWord`. The slot is confirmed structurally; the value's purpose remains

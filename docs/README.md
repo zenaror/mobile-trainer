@@ -87,6 +87,7 @@ Reference documents (current):
 | [`save_sender_address_table_aliases_20261021.md`](research/save_sender_address_table_aliases_20261021.md) | Seven redundant generic aliases retired from address-book save tables and caption |
 | [`page_list_prototype_aliases_20261021.md`](research/page_list_prototype_aliases_20261021.md) | 15 redundant prototype labels retired; local palette-loop scope preserved |
 | [`browser_page_list_aliases_20261021.md`](research/browser_page_list_aliases_20261021.md) | 14 redundant tile, palette and frame-table aliases retired from browser page-list graphics |
+| [`account_screens_bank5e_aliases_20261021.md`](research/account_screens_bank5e_aliases_20261021.md) | 16 redundant generic aliases retired from account-screen graphics in bank 5E |
 | [`home_data_names.md`](research/home_data_names.md) | Bounded original data/resource alias contracts; evidence and caller limits retained |
 | [`mail_gfx_resource_aliases.md`](research/mail_gfx_resource_aliases.md) | Original Mail graphics aliases; load extents, backing and unresolved frame limits |
 | [`mail_sdk_data_names.md`](research/mail_sdk_data_names.md) | Mail strings and pointer tables; finite domains, independent indices and selector-stack caveat |
