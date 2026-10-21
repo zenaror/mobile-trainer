@@ -11,9 +11,9 @@ Data_1E_40D7::
 	INCBIN "gfx/top_menu/top_menu/tilemap_40d7.tilemap"
 	INCBIN "gfx/top_menu/top_menu/tilemap_40d7.attrmap"
 
-; ---- data $4357-$48C1 (1386 bytes) [PROBABLE] contiguous data block 4357-48C1: 990 bytes were read as data by executed code in mGBA traces (1 separate read ranges, e.g. 4357-4735) and 396 bytes between/around those reads were never read; the whole run is one table/buffer read by index (gaps unread in the traces); content class not decoded [merged from 2 regions by classify_g2]
+; ---- data $4357-$48C1 (1386 bytes) [CONFIRMED] two indexed TopMenu_AnimatePanel source sequences: first 2 frames at $4357, then 5 at $44E3; each $C6-byte frame is 9x11 tile IDs followed by 9x11 attributes, copied by Tilemap_CopyRectAndAttr (B=$09,C=$0B). Executed traces read 990 bytes; 396 bytes have no read in the recorded traces, so this does not assert every frame was reached or prove a general bounds check.
 
-Data_1E_4357:: ; 1E:4357
+TopMenu_AnimTilemapFrames:: ; 1E:4357
 	db $04, $05, $05, $05, $05, $05, $05, $05, $05, $05, $07, $12, $80, $03, $82, $89
 	db $8B, $8D, $03, $03, $03, $16, $12, $84, $86, $88, $8F, $91, $93, $95, $97, $03
 	db $16, $12, $8A, $8C, $8E, $99, $9B, $9D, $9D, $9F, $03, $16, $12, $90, $92, $94

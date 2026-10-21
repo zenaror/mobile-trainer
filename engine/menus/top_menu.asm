@@ -511,10 +511,10 @@ TopMenu_AnimatePanel:: ; 1F:44D5
 	ld a, [wTopMenu_AnimFrame]
 	ld de, $00C6
 	call Multiply8x16
-	ld de, $4357
+	ld de, TopMenu_AnimTilemapFrames
 	add hl, de
 	ld de, wScreenTileMap
-	ld a, $1E
+	ld a, BANK(TopMenu_AnimTilemapFrames)
 	ld bc, $090B
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
@@ -531,10 +531,10 @@ TopMenu_AnimatePanel:: ; 1F:44D5
 	ld a, [wTopMenu_AnimFrame]
 	ld de, $00C6
 	call Multiply8x16
-	ld de, $44E3
+	ld de, TopMenu_AnimTilemapFrames + 2 * $00C6
 	add hl, de
 	ld de, wScreenTileMap + $09
-	ld a, $1E
+	ld a, BANK(TopMenu_AnimTilemapFrames)
 	ld bc, $090B
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]

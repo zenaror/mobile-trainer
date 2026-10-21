@@ -1058,7 +1058,7 @@ names. The 4,096 ROM bytes and all four HDMA loader references remain intact.
 Independent review accepted all four retirements. A before/after SYM and MAP
 comparison found exactly four removed symbol lines and no other changes.
 `make`, `make sym-check`, `make palette-check` and `make png-check` passed;
-the ROM remains `RESULT: IDENTICAL`. The six-root lexical census is now 909
+the ROM remains `RESULT: IDENTICAL`. The six-root lexical census is now 908
 generic `Data_BB_AAAA` definitions plus one separate `zero_labels` definition;
 this count does not imply semantic uncertainty for every label.
 
@@ -1078,3 +1078,17 @@ bytes were accounted for, but no local consumer chain was established. Details
 and bounded private reports remain under `.tmp/agent-comm-scene-data-audit-20261021/`,
 `.tmp/agent-comm-scene-alias-review-20261021/` and
 `.tmp/agent-save-sender-data-audit-20261021/`.
+
+## Top-menu animation tilemap frame sequence (2026-10-21)
+
+`Data_1E_4357` is now `TopMenu_AnimTilemapFrames`. Independent review accepted
+the name and CONFIRMED the bounded static layout: two frames at `$4357` and
+five at `$44E3`, each `$C6` bytes (99 tile IDs followed by 99 attributes for a
+9×11 rectangle). The two bank-1F call paths use `Tilemap_CopyRectAndAttr` with
+`B=$09`, `C=$0B`, and `wTopMenu_AnimFrame` selects the offset. Their address and
+bank immediates now use the semantic label while preserving the original
+encoding. Existing traces read 990 bytes; the remaining 396 have no recorded
+read, and the loops do not prove a general bounds check. No display or universal
+frame-reachability claim is made. The independent report is retained at
+`.tmp/agent-top-menu-anim-review-20261021/REPORT.md` (SHA-256
+`ed07ba53f9a5ab9c8f5a7c0ac6108f60922ff9afd496b3a44fc1cde29488eadc`).
