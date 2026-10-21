@@ -93,6 +93,7 @@ Reference documents (current):
 | [`help_script_picture_resource_map.tsv`](research/help_script_picture_resource_map.tsv) | Exact retired-clip to whole-picture byte intersections |
 | [`help_script_picture_label_map.tsv`](research/help_script_picture_label_map.tsv) | Retired generic owner labels and their new object-relative offsets |
 | [`generic_data_name_audit_20261020.md`](research/generic_data_name_audit_20261020.md) | neutral data-name audit and co-located generic Label/Data retirement ledgers, with evidence limits |
+| [`pokemon_names_bank53_asset_followup_20261020.md`](research/pokemon_names_bank53_asset_followup_20261020.md) | authenticated bank53 name/frame and PNG inventory follow-up; 25 associations and eight KEEP windows remain open |
 
 Analysis-stage documents (historical banner at the top):
 

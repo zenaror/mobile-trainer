@@ -875,3 +875,24 @@ constants; `make palette-check` reports 162 loads/116 arrays, two documented
 overreads and zero errors. Full review is retained in the private
 `.tmp/parallel-jp-census-20261020/REPORT.md` and
 `.tmp/parallel-jp-function-audit-20261020/SONG03_REVIEW.md`.
+
+## Reconciliation of the historical 59-group cohort (2026-10-20)
+
+The retained original 82-row non-GFX matrix is authenticated to commit
+`a3238e6e998d44f6ec7ddfa479baad6743604110`; all 243 source guards, nine
+manifest entries, 82 symbol addresses, and 82 ROM-span hashes match their
+recorded inputs. Comparing all 333 maintained ASM/include files in the later
+`4c5143ecd9ea8808cd91991f647263554ec39375` snapshot against its Git objects
+derives **59 surviving old labels and 23 retired labels**. This is specifically
+the surviving original non-GFX no-co-alias cohort; it is not a remainder of the
+current 523-group `data_consumers.py` census and must not be subtracted from it.
+
+A separate historical receipt for the cited **49 spans** was not located in
+the bounded retained-file search. The original 82-row matrix happens to contain
+49 rows whose decision is not `NEEDS_ENTRY_ANALYSIS`, but no evidence connects
+that predicate to the handoff's 49-span count. Only 28 names from that candidate
+49-row subset survive at the later 4c snapshot. Keep the 49-span provenance
+unresolved; do not equate the two counts. The full search and reproducible
+derivation are in `.tmp/parallel-jp-census-20261020/HISTORICAL_MATRIX_SEARCH.md`
+(SHA-256 `c8035b2e8bfa3a720b4a5fd3302eb4180f28eeb55eb3d86306809b12c12a67b1`).
+No source change, build, or cleanup was needed for this historical reconciliation.

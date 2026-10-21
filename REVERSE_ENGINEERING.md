@@ -53,6 +53,14 @@ Do not sync, build, commit or push English changes before that confirmation. The
 integrated into Japanese `main`. ZIP-derived graphic parity remains limited to catalogued records,
 not the whole ROM.
 
+The bounded bank53/frame/PNG follow-up is now recorded in
+[`pokemon_names_bank53_asset_followup_20261020.md`](docs/research/pokemon_names_bank53_asset_followup_20261020.md).
+Its private Japanese snapshot was authenticated against 4,356 Git blobs; the current PNG check also
+passes. All 25 bank53 name-to-frame associations and eight composition `KEEP` windows remain open,
+and no frame is proved globally unused. The 59-group historical matrix is reconciled to its exact
+4c5143ec cohort; the separate 49-span receipt is still unlocated. Neither result closes the current
+523-group data census or the five open entry/limit investigations.
+
 The bounded audit of82 `Data_<bank>_<address>` labels without adjacent semantic aliases found
 three supported names and no basis to remove data. `String_HelpMenu_MailTitle` identifies the
 confirmed seven-byte ticker title at6A:65A1; `String_Dialog_Msg0113_Line2` marks the confirmed
