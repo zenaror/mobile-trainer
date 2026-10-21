@@ -88,7 +88,6 @@ Title_DispatchState:: ; 0E:4083
 ; ---- ptrtable $4094-$40A2 (14 bytes) [PROBABLE] code-pointer table, 7 entries: 7/7 words hit own-bank code starts (survey pointer-table extent); 6/7 targets executed
 
 Table_Title_States:: ; 0E:4094
-Table_0E_4094::
 	dw Title_StateLoadLogo
 	dw Title_StateLogoWait
 	dw Title_StateLogoFadeOut
@@ -405,7 +404,6 @@ Title_DrawMenuHighlight:: ; 0E:4311
 ; ---- data $4330-$4334 (4 bytes) [CONFIRMED] read as data by executed code (in up to 14/18 scenarios); content class unknown
 
 Table_Title_HighlightTilemaps:: ; 0E:4330
-Data_0E_4330::
 	db $90, $5E, $E0, $5E
 
 Title_PlaceCursor:: ; 0E:4334
@@ -430,7 +428,6 @@ Title_PlaceCursor:: ; 0E:4334
 ; ---- data $434B-$434F (4 bytes) [CONFIRMED] read as data by executed code (in up to 14/18 scenarios); content class unknown
 
 Table_Title_CursorPositions:: ; 0E:434B
-Data_0E_434B::
 	db $18, $60, $18, $70
 
 Title_LoadLogoScreen:: ; 0E:434F

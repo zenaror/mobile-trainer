@@ -1840,3 +1840,7 @@ The canvas remap and glyph blitter owners also lost four exact numeric aliases
 under the names already used by readers and current research. Evidence grades,
 table boundaries and coverage qualifications are unchanged; see the
 [canvas alias note](docs/research/canvas_data_aliases_20261021.md).
+
+The title-screen state, highlight-map and cursor-position tables now export
+only their maintained names; their existing readers and evidence grades are
+unchanged. See the [title-table note](docs/research/title_table_aliases_20261021.md).
