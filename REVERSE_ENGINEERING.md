@@ -1155,8 +1155,11 @@ The 55:6EF7 lookup is now named `Table_Kbd_Type6To10Flag_ByType` (**PROBABLE**
 storage relation, valid indexed domain 0..10); its unchecked higher indices
 read beyond the eleven-byte table, natural sampled reads remain zero, and the
 related entry/purpose remain HYPOTHESIS. Five bounded entry reports were
-independently reviewed without promoting an entry or intent. A broader audit
-found positive consumers inside two owners still named `unreferenced`, along
-with overbroad candidate-screen/frame names and stale generated provenance;
-it recommends scoped migrations rather than blanket renames. See
+independently reviewed without promoting an entry or intent. The bank29
+candidate owner now uses `engine/gfx/palette_library_candidate.asm` and
+`PalLibCandidate_*`; its entry and intended role remain HYPOTHESIS. A broader
+audit found positive consumers inside two other owners still named
+`unreferenced`, along with overbroad candidate-screen/frame names and stale
+generated provenance; it recommends scoped migrations rather than blanket
+renames. See
 [`docs/research/original_closure_followup_20261021.md`](docs/research/original_closure_followup_20261021.md).

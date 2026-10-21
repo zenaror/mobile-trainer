@@ -1,16 +1,16 @@
-; engine/gfx/unreferenced_palette_library.asm
+; engine/gfx/palette_library_candidate.asm
 ; bank 29, $5090-$5376 (742 bytes); pinned by layout.link
 ; candidate library image; entry and live bank context remain unestablished
 
-SECTION "engine/gfx/unreferenced_palette_library", ROMX
+SECTION "engine/gfx/palette_library_candidate", ROMX
 ClearLcdcBit2:: ; 29:5090
 
 	; [HYPOTHESIS] 742-byte library admits460 conditional starts; entry/purpose/live bank unproved.
 	; [PROBABLE] ClearLcdcBit2:7B/4 starts; executed6B/3-start relatives at27:468B and50:400F.
 	; Leaf511E:39B/24 starts saves BC/DE, CALL7BB7; balanced return required, HL not saved.
 	; FFA4.bit0 selects unbounded LY poll24/48/6C/90 or48/90; no explicit WRAM store in leaf.
-	; Natural69 coverage/69 data/50 graphs have no span exec/read/edge;19 graphs missing.
-	; Outside-span4001 words/189 opcode patterns, no physical29 CALL/JP; not caller proofs.
+	; Natural corpus: 69 coverage, 69 dataaccess and 69 callgraphs; no span instruction/data-read/callgraph rows.
+	; Outside-span: 4,001 raw words/323 opcode-shaped patterns (14-opcode scan); no physical29 CALL/JP; patterns are not caller proofs.
 	; $7BB7 is zero padding in physical bank 29; entry/copy/relocation and selected bank are unknown.
 	; Writes to $2000/$3000 at $510F can change later fetches; padding cannot exclude every leaf.
 	; The PRNG-like sequence reads ROM $0C0E/$0C0F and writes mapper space, not WRAM seed storage.
@@ -18,7 +18,7 @@ ClearLcdcBit2:: ; 29:5090
 	; At $526D BG uses B=$40 zero writes; OBJ uses B=$00, DEC/JR NZ and [DE], not a 64-byte clear.
 	; No 24-byte window occurs outside this span; these raw/static facts do not establish live use.
 	; Historical forced_dead: 187/460 starts (traces/forced/), inherited evidence only;
-	; not natural evidence or full-path proof; HYPOTHESIS status and aliases unchanged.
+	; not natural evidence or full-path proof; candidate entry and purpose remain HYPOTHESIS.
 	ldh a, [rLCDC]
 	and a, $FB
 	ldh [rLCDC], a
@@ -123,11 +123,11 @@ ClearLcdcBit2:: ; 29:5090
 	ld [rROMB1], a
 	ret
 
-PalLibUnused_WaitLY90:: ; 29:5117
+PalLibCandidate_WaitLY90:: ; 29:5117
 
 	ldh a, [rLY]
 	cp a, $90
-	jr nz, PalLibUnused_WaitLY90
+	jr nz, PalLibCandidate_WaitLY90
 	ret
 CallSelected7BB7_IfReturnsPollLyByFFA4Bit0:: ; 29:511E [PROBABLE] operation; entry unproved
 
@@ -158,7 +158,7 @@ CallSelected7BB7_IfReturnsPollLyByFFA4Bit0:: ; 29:511E [PROBABLE] operation; ent
 	jr nz, .l513B
 	ret
 
-PalLibUnused_DisableVBlankIrq:: ; 29:5145
+PalLibCandidate_DisableVBlankIrq:: ; 29:5145
 
 	xor a, a
 	ldh [rIF], a
@@ -167,7 +167,7 @@ PalLibUnused_DisableVBlankIrq:: ; 29:5145
 	ldh [rIE], a
 	ret
 
-PalLibUnused_EnableVBlankIrq:: ; 29:514F
+PalLibCandidate_EnableVBlankIrq:: ; 29:514F
 
 	xor a, a
 	ldh [rIF], a
@@ -181,17 +181,17 @@ PalLibUnused_EnableVBlankIrq:: ; 29:514F
 	ld b, $04
 .l515E ; 29:515E
 	push bc
-	call PalLibUnused_DisableVBlankIrq
-	call PalLibUnused_ReadPalettesToBuffer
+	call PalLibCandidate_DisableVBlankIrq
+	call PalLibCandidate_ReadPalettesToBuffer
 	ld b, $08
 .l5167 ; 29:5167
 	push bc
-	call PalLibUnused_FadeStepTowardBlack
+	call PalLibCandidate_FadeStepTowardBlack
 	pop bc
 	dec b
 	jr nz, .l5167
-	call PalLibUnused_WriteBufferToPalettes
-	call PalLibUnused_EnableVBlankIrq
+	call PalLibCandidate_WriteBufferToPalettes
+	call PalLibCandidate_EnableVBlankIrq
 	pop bc
 	dec b
 	jr nz, .l515E
@@ -205,29 +205,29 @@ PalLibUnused_EnableVBlankIrq:: ; 29:514F
 .l5182 ; 29:5182
 	push bc
 	push hl
-	call PalLibUnused_DisableVBlankIrq
-	call PalLibUnused_FillBufferFromBlock
+	call PalLibCandidate_DisableVBlankIrq
+	call PalLibCandidate_FillBufferFromBlock
 	ld c, b
 .l518B ; 29:518B
 	ld b, $08
 .l518D ; 29:518D
 	push bc
-	call PalLibUnused_FadeStepTowardBlack
+	call PalLibCandidate_FadeStepTowardBlack
 	pop bc
 	dec b
 	jr nz, .l518D
 	dec c
 	jr nz, .l518B
-	call PalLibUnused_WriteBufferToPalettes
-	call PalLibUnused_EnableVBlankIrq
+	call PalLibCandidate_WriteBufferToPalettes
+	call PalLibCandidate_EnableVBlankIrq
 	pop hl
 	pop bc
 	dec b
 	jr nz, .l5182
-	call PalLibUnused_DisableVBlankIrq
-	call PalLibUnused_FillBufferFromBlock
-	call PalLibUnused_WriteBufferToPalettes
-	call PalLibUnused_EnableVBlankIrq
+	call PalLibCandidate_DisableVBlankIrq
+	call PalLibCandidate_FillBufferFromBlock
+	call PalLibCandidate_WriteBufferToPalettes
+	call PalLibCandidate_EnableVBlankIrq
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -237,17 +237,17 @@ PalLibUnused_EnableVBlankIrq:: ; 29:514F
 	ld b, $04
 .l51B8 ; 29:51B8
 	push bc
-	call PalLibUnused_DisableVBlankIrq
-	call PalLibUnused_ReadPalettesToBuffer
+	call PalLibCandidate_DisableVBlankIrq
+	call PalLibCandidate_ReadPalettesToBuffer
 	ld b, $08
 .l51C1 ; 29:51C1
 	push bc
-	call PalLibUnused_FadeStepTowardWhite
+	call PalLibCandidate_FadeStepTowardWhite
 	pop bc
 	dec b
 	jr nz, .l51C1
-	call PalLibUnused_WriteBufferToPalettes
-	call PalLibUnused_EnableVBlankIrq
+	call PalLibCandidate_WriteBufferToPalettes
+	call PalLibCandidate_EnableVBlankIrq
 	pop bc
 	dec b
 	jr nz, .l51B8
@@ -261,41 +261,41 @@ PalLibUnused_EnableVBlankIrq:: ; 29:514F
 .l51DC ; 29:51DC
 	push bc
 	push hl
-	call PalLibUnused_DisableVBlankIrq
-	call PalLibUnused_FillBufferFromBlock
+	call PalLibCandidate_DisableVBlankIrq
+	call PalLibCandidate_FillBufferFromBlock
 	ld c, b
 .l51E5 ; 29:51E5
 	ld b, $08
 .l51E7 ; 29:51E7
 	push bc
-	call PalLibUnused_FadeStepTowardWhite
+	call PalLibCandidate_FadeStepTowardWhite
 	pop bc
 	dec b
 	jr nz, .l51E7
 	dec c
 	jr nz, .l51E5
-	call PalLibUnused_WriteBufferToPalettes
-	call PalLibUnused_EnableVBlankIrq
+	call PalLibCandidate_WriteBufferToPalettes
+	call PalLibCandidate_EnableVBlankIrq
 	pop hl
 	pop bc
 	dec b
 	jr nz, .l51DC
-	call PalLibUnused_DisableVBlankIrq
-	call PalLibUnused_FillBufferFromBlock
-	call PalLibUnused_WriteBufferToPalettes
-	call PalLibUnused_EnableVBlankIrq
+	call PalLibCandidate_DisableVBlankIrq
+	call PalLibCandidate_FillBufferFromBlock
+	call PalLibCandidate_WriteBufferToPalettes
+	call PalLibCandidate_EnableVBlankIrq
 	pop af
 	ldh [rSVBK], a
 	ret
 
-PalLibUnused_ReadPalettesToBuffer:: ; 29:520D
+PalLibCandidate_ReadPalettesToBuffer:: ; 29:520D
 
 	ld a, $01
 	ldh [rSVBK], a
 	ld de, $DBD0 ; raw: unreferenced palette library (no caller, forced execution only): bank 1 is selected on the real register at 29:520D, but no name covers $DBD0 of bank 1
 	xor a, a
 	ldh [rBCPS], a
-	call PalLibUnused_WaitLY90
+	call PalLibCandidate_WaitLY90
 	ld b, $40
 	ld c, $00
 .l521E ; 29:521E
@@ -309,7 +309,7 @@ PalLibUnused_ReadPalettesToBuffer:: ; 29:520D
 	jr nz, .l521E
 	xor a, a
 	ldh [rOCPS], a
-	call PalLibUnused_WaitLY90
+	call PalLibCandidate_WaitLY90
 	ld b, $40
 	ld c, $00
 .l5233 ; 29:5233
@@ -323,12 +323,12 @@ PalLibUnused_ReadPalettesToBuffer:: ; 29:520D
 	jr nz, .l5233
 	ret
 
-PalLibUnused_WriteBufferToPalettes:: ; 29:523F
+PalLibCandidate_WriteBufferToPalettes:: ; 29:523F
 
 	ld de, $DBD0 ; raw: unreferenced palette library (no caller, forced execution only), the bank in force is not shown
 	xor a, a
 	ldh [rBCPS], a
-	call PalLibUnused_WaitLY90
+	call PalLibCandidate_WaitLY90
 	ld b, $40
 	ld c, $00
 .l524C ; 29:524C
@@ -342,7 +342,7 @@ PalLibUnused_WriteBufferToPalettes:: ; 29:523F
 	jr nz, .l524C
 	xor a, a
 	ldh [rOCPS], a
-	call PalLibUnused_WaitLY90
+	call PalLibCandidate_WaitLY90
 	ld b, $40
 	ld c, $00
 .l5261 ; 29:5261
@@ -356,10 +356,10 @@ PalLibUnused_WriteBufferToPalettes:: ; 29:523F
 	jr nz, .l5261
 	ret
 
-	call PalLibUnused_DisableVBlankIrq
+	call PalLibCandidate_DisableVBlankIrq
 	xor a, a
 	ldh [rBCPS], a
-	call PalLibUnused_WaitLY90
+	call PalLibCandidate_WaitLY90
 	ld b, $40
 	ld c, $00
 .l527A ; 29:527A
@@ -373,7 +373,7 @@ PalLibUnused_WriteBufferToPalettes:: ; 29:523F
 	jr nz, .l527A
 	xor a, a
 	ldh [rOCPS], a
-	call PalLibUnused_WaitLY90
+	call PalLibCandidate_WaitLY90
 	ld b, $00
 	ld c, $00
 .l5290 ; 29:5290
@@ -385,10 +385,10 @@ PalLibUnused_WriteBufferToPalettes:: ; 29:523F
 	inc de
 	dec b
 	jr nz, .l5290
-	call PalLibUnused_EnableVBlankIrq
+	call PalLibCandidate_EnableVBlankIrq
 	ret
 
-PalLibUnused_FadeStepTowardWhite:: ; 29:529F
+PalLibCandidate_FadeStepTowardWhite:: ; 29:529F
 
 	ld hl, $DBD0 ; raw: unreferenced palette library (no caller, forced execution only), the bank in force is not shown
 	ld b, $40
@@ -449,7 +449,7 @@ PalLibUnused_FadeStepTowardWhite:: ; 29:529F
 	jr nz, .loop
 	ret
 
-PalLibUnused_FadeStepTowardBlack:: ; 29:52ED
+PalLibCandidate_FadeStepTowardBlack:: ; 29:52ED
 
 	ld hl, $DBD0 ; raw: unreferenced palette library (no caller, forced execution only), the bank in force is not shown
 	ld b, $40
@@ -507,7 +507,7 @@ PalLibUnused_FadeStepTowardBlack:: ; 29:52ED
 	jr nz, .loop
 	ret
 
-PalLibUnused_FillBufferFromBlock:: ; 29:5335
+PalLibCandidate_FillBufferFromBlock:: ; 29:5335
 
 	push bc
 	ld c, $02

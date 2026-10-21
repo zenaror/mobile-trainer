@@ -12,9 +12,11 @@ Independent review accepted the bounded static reports for 2B:6CF5,
 the cited local mechanics and the limits of each report; they do not prove a
 natural entry, original intent, or universal absence of callers. The bank29
 path/prefix recommendation is separate from its entry conclusion. Its
-historical `50 graphs / 19 missing / 189 opcode patterns` header needs to be
-dated against the later 69-graph corpus and the expanded 323-pattern report
-before that owner is renamed.
+historical `50 graphs / 19 missing / 189 opcode patterns` counts were
+reconciled against the current 69 coverage/dataaccess/callgraph files and the
+expanded 323-pattern scan before the owner was renamed. The current source
+header reflects the finite current corpus; neither count proves universal
+non-use.
 
 ## Current naming changes
 
@@ -33,6 +35,16 @@ Natural traces read none of the eleven bytes. The entry and original purpose
 of 55:5DF5 remain **HYPOTHESIS**. Historical naming notes retain the earlier
 neutral-name decision as provenance; this paragraph records the current
 superseding source state.
+
+The bank29 owner formerly called
+`engine/gfx/unreferenced_palette_library.asm` is now
+`engine/gfx/palette_library_candidate.asm`; its eight operation names use the
+`PalLibCandidate_*` prefix. The name change removes an unsupported global
+non-use implication while preserving each bounded operation suffix. The
+existing 36 calls and self-loop are internal to the owner; no external source
+caller or root entry is established. Local-label qualification changed with
+the global names, and the generated SYM check validates current addresses.
+The candidate entry, selected bank and intended role remain HYPOTHESIS.
 
 ## Broader name audit and remaining limits
 

@@ -262,7 +262,7 @@ ROMX $29
 	org $4000
 	"engine/mail/result_screens"
 	org $5090
-	"engine/gfx/unreferenced_palette_library"
+	"engine/gfx/palette_library_candidate"
 	org $5376
 	"gfx/mail/connect_screen_bank29"
 	org $5B10

@@ -32,4 +32,8 @@ The source's historical forced-dead count, 187/460 starts, is retained as inheri
 
 The owner retains 559 lines, 517 nonblank/noncomment lines, all 18 global labels/aliases, and its exact comment-excluded vector including blank lines. The same vectors are unchanged across all 348 ASM/inc sources. All 289 TSV bodies, 649 active anchors selected by the current remapper defaults, and 1,947 raw historical source-locator occurrences are preserved; historical locators are not assertions of current active validity. Existing bank 28 and template29 publication notes remain intact.
 
-This candidate has not been assembled or adopted. Required build, symbol, independent byte comparison and reviewed static checks remain pending, as recorded in [the verification note](typing_29_verify_palette_library_header.md). Prior published template or bank28 builds are not evidence for this new candidate.
+This candidate had not been assembled or adopted at the historical checkpoint. Required build, symbol, independent byte comparison and reviewed static checks remained pending then, as recorded in [the verification note](typing_29_verify_palette_library_header.md). Prior published template or bank28 builds were not evidence for that proposal.
+
+## Current source update (2026-10-21)
+
+The historical proposal above used the path `engine/gfx/unreferenced_palette_library.asm` and `PalLibUnused_*`. The current source owner is `engine/gfx/palette_library_candidate.asm`, with `PalLibCandidate_*` operation names. This path/prefix migration removes a global non-use implication; it does not prove a root entry, selected bank, callable-library ABI or intended original purpose. The owner was rebuilt and passed the current byte-identity and symbol gates; see [the closure follow-up](original_closure_followup_20261021.md). Historical counts in this note remain attached to their original checkpoint and are not current corpus totals.
