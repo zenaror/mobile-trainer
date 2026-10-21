@@ -2437,3 +2437,26 @@ frame-table layout. The pointer comment now records that limited finding
 without assigning a role. The six-root `Data_BB_AAAA::` census is now 337
 definitions in 132 owners, down from 346 after nine duplicate Data exports
 were retired. This lexical count is not a semantic-completion measure.
+
+## Bank 2E mail-server tidy-screen data structures (2026-10-21)
+
+The six generic labels in `gfx/mail_server/tidy_screen.asm` were checked
+against the bank's HDMA sites and local object/frame/script pointers.
+`Data_2E_5AF0` is now `Gfx_MailServerMgr_Tiles9400Vb1_Tail_5AF0`, identifying
+the source slice following the 16-byte prefix at `2E:5AE0`; the asset catalog
+uses the same label. `Data_2E_7710` now has the owner-qualified probable
+animation-data label `MailServerMgr_ObjAnimData_2E_7710`.
+
+The four object entries at `2E:7700` point to a two-word frame table at
+`2E:7921`, now expressed as `sprite_frame_table SpriteFrame_2E_7925,
+SpriteFrame_2E_793E`. The six-piece records at both destinations use
+`SpriteFrame` names. The script beginning at `2E:7957` now uses the two-step
+animation macros, which emit the original five bytes. The following six bytes
+at `2E:795C` also fit a two-step script shape, but no pointer from the bounded
+object-table walk targets them; their candidate label and role remain
+HYPOTHESIS.
+
+No source payload or extent changed. The six-root `Data_BB_AAAA::` census is
+now 262 definitions in 123 owners, down from 268 definitions in 124 owners
+after these six generic declarations were given structural or owner-qualified
+names. This is a lexical count, not a semantic-completion measure.

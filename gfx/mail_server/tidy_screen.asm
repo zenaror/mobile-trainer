@@ -16,9 +16,9 @@ Gfx_MailServerMgr_Tiles1:: ; 2E:5AE0
 
 	INCBIN "gfx/mail_server/tidy_screen/mail_server_mgr_tiles1.2bpp"
 
-; ---- gfx $5AF0-$5EE0 (1008 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (2E:4B93 2E:4CBE); first: hdma_rom_to_vram at 2E:4B93: hl=$5AE0 a=$2E c=$40 de=$9401 (dest VRAM $9400, vbank=1) [clipped from 5AE0-5EE0 by higher-priority evidence]
+; ---- gfx $5AF0-$5EE0 (1008 bytes) [CONFIRMED] source slice: part of the transfer from 2E:5AE0 to VRAM $9400-$9800 in VB1; the 16-byte prefix is Gfx_MailServerMgr_Tiles1
 
-Data_2E_5AF0:: ; 2E:5AF0
+Gfx_MailServerMgr_Tiles9400Vb1_Tail_5AF0:: ; 2E:5AF0
 	INCBIN "gfx/mail_server/tidy_screen/tiles_5af0.2bpp"
 
 ; ---- gfx $5EE0-$6000 (288 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (2E:4BA5 2E:4CD0); first: hdma_rom_to_vram at 2E:4BA5: hl=$5EE0 a=$2E c=$12 de=$8801 (dest VRAM $8800, vbank=1)
@@ -115,14 +115,14 @@ Table_MailServerMgr_ObjAnims_Entry12:: ; 2E:76F0
 	sprite_object_entry SpriteFrameTable_2E_78C3, SpriteScript_2E_7919 ; entry 14
 	sprite_object_entry SpriteFrameTable_2E_78C3, SpriteScript_2E_7919 ; entry 15
 Table_MailServerMgr_ObjAnims_Entry16:: ; 2E:7700
-	sprite_object_entry MailServerMgr_ObjAnimData_2E_7921, SpriteScript_2E_7957 ; entry 16
-	sprite_object_entry MailServerMgr_ObjAnimData_2E_7921, SpriteScript_2E_7957 ; entry 17
-	sprite_object_entry MailServerMgr_ObjAnimData_2E_7921, SpriteScript_2E_7957 ; entry 18
-	sprite_object_entry MailServerMgr_ObjAnimData_2E_7921, SpriteScript_2E_7957 ; entry 19
+	sprite_object_entry SpriteFrameTable_2E_7921, SpriteScript_2E_7957 ; entry 16
+	sprite_object_entry SpriteFrameTable_2E_7921, SpriteScript_2E_7957 ; entry 17
+	sprite_object_entry SpriteFrameTable_2E_7921, SpriteScript_2E_7957 ; entry 18
+	sprite_object_entry SpriteFrameTable_2E_7921, SpriteScript_2E_7957 ; entry 19
 
 ; ---- data $7710-$7720 (16 bytes) [PROBABLE] animation descriptors / sprite lists (same format as bank 72:786C-7A1F: count + count*(y,x,tile,attr) and descriptors 01 00 04 dw / 02 .. dw dw) reached from the object tables 2E:76C0
 
-Data_2E_7710:: ; 2E:7710
+MailServerMgr_ObjAnimData_2E_7710:: ; 2E:7710
 	db $12, $77, $02, $00, $00, $0A, $00, $08, $00, $1A, $00, $01, $00, $04, $20, $77
 
 ; ---- data $7720-$7921 (513 bytes) [PROBABLE] animation descriptors / sprite lists reached from the object tables 2E:76C0-7710 (same format as bank 72:786C-7A1F); the table words (77FA..7957) point into this block
@@ -247,20 +247,14 @@ SpriteScript_2E_7919:: ; 2E:7919
 	sprite_anim_step 1, 29
 	db $01, $00, $04 ; not reached by any walked sprite chain
 
-; ---- data $7921-$7923 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+; ---- sprite frame pointer table $7921-$7925 (4 bytes) [CONFIRMED] referenced by object entries 16-19 at 2E:7700; two pointers to frame records
 
-MailServerMgr_ObjAnimData_2E_7921:: ; 2E:7921
+SpriteFrameTable_2E_7921:: ; 2E:7921
+	sprite_frame_table SpriteFrame_2E_7925, SpriteFrame_2E_793E
 
-	db $25, $79 ; sprite frame table kept as db: the item crosses the end of its block
+; ---- sprite frame $7925-$793E (25 bytes) [CONFIRMED] one of two frame records in SpriteFrameTable_2E_7921
 
-; ---- data $7923-$7925 (2 bytes) [PROBABLE] animation descriptors / sprite lists reached from the object tables 2E:76C0-7710 (same format as bank 72:786C-7A1F); the table words (77FA..7957) point into this block
-
-Data_2E_7923:: ; 2E:7923
-	db $3E, $79
-
-; ---- data $7925-$793E (25 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
-
-Data_2E_7925:: ; 2E:7925
+SpriteFrame_2E_7925:: ; 2E:7925
 	sprite_frame 6
 	sprite_oam 54, 20, $20, 1
 	sprite_oam 54, 28, $21, 1
@@ -269,9 +263,9 @@ Data_2E_7925:: ; 2E:7925
 	sprite_oam 70, 20, $24, 1
 	sprite_oam 70, 28, $25, 1
 
-; ---- data $793E-$7958 (26 bytes) [PROBABLE] animation descriptors / sprite lists reached from the object tables 2E:76C0-7710 (same format as bank 72:786C-7A1F); the table words (77FA..7957) point into this block
+; ---- sprite frame $793E-$7957 (25 bytes) [CONFIRMED] second frame record in SpriteFrameTable_2E_7921
 
-MailServerMgr_ObjAnimData_2E_793E:: ; 2E:793E
+SpriteFrame_2E_793E:: ; 2E:793E
 
 	sprite_frame 6
 	sprite_oam 54, 20, $26, 1
@@ -281,14 +275,13 @@ MailServerMgr_ObjAnimData_2E_793E:: ; 2E:793E
 	sprite_oam 70, 20, $2A, 1
 	sprite_oam 70, 28, $2B, 1
 SpriteScript_2E_7957:: ; 2E:7957
-	db $02 ; sprite script kept as db: the item crosses the end of its block
+	sprite_anim 2
+	sprite_anim_step 0, $1C
+	sprite_anim_step 1, $19
 
-; ---- data $7958-$795A (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+; ---- data $795C-$7961 (6 bytes) [HYPOTHESIS] two-step sprite-script shape; no pointer from the bounded object-table walk was found
 
-Data_2E_7958:: ; 2E:7958
-	db $00, $1C
-
-; ---- data $795A-$7961 (7 bytes) [PROBABLE] animation descriptors / sprite lists reached from the object tables 2E:76C0-7710 (same format as bank 72:786C-7A1F); the table words (77FA..7957) point into this block
-
-Data_2E_795A:: ; 2E:795A
-	db $01, $19, $02, $00, $0A, $01, $0A
+MailServerMgr_CandidateSpriteScript_2E_795C:: ; 2E:795C
+	sprite_anim 2
+	sprite_anim_step 0, $0A
+	sprite_anim_step 1, $0A

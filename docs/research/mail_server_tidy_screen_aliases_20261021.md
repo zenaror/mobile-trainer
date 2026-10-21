@@ -43,3 +43,13 @@ ROM SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
 over-reads, and zero errors; `make png-check` passed with 408 tile sheets,
 4 raw byte views, 37 font sheets, and 95 screen PNGs.
 
+## Later semantic relabeling (2026-10-21)
+
+The subsequent bank-2E pass refined labels inside this same owner: the source
+slice at `2E:5AF0` gained an HDMA-qualified graphics name; the records at
+`2E:7921-795C` were expressed as a frame-pointer table, frame records, and
+sprite scripts where their byte layouts support that structure. The six-byte
+script-shaped span at `2E:795C` remains a HYPOTHESIS candidate because no
+pointer was found in the bounded object-table walk. These changes are recorded
+in the [generic-name audit](generic_data_name_audit_20261020.md#bank-2e-mail-server-tidy-screen-data-structures-2026-10-21).
+
