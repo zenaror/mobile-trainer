@@ -157,7 +157,7 @@ BrowserStart_ObjPalettes:: ; 73:5E20
 
 ; ---- data $5E60-$5EC0 (96 bytes) [CONFIRMED] sprite table (4), two OAM frames (45 each), script prefix (2); original consumers read the full 99-byte chain through $5EC3 in 19 whole/19 union natural scenarios (typing_73_browser_sprite99.md)
 SpriteFrameTable_73_5E60:: ; 73:5E60
-Data_73_5E60:: ; 73:5E60
+
 	sprite_frame_table $5E64, $5E91
 	sprite_frame 11 ; original 73:5E64
 	sprite_oam 0, 0, $00, $00

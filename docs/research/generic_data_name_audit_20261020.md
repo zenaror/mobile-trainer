@@ -1014,3 +1014,21 @@ symbolic references and a local reader at `2B:5896`. This contradiction is
 confirmed statically but remains to be corrected in the assembly comment.
 No assembly, tool, or ROM changes were made, and no build was run for this
 review.
+
+## Redundant browser frame-table alias retired (2026-10-21)
+
+The source label `Data_73_5E60` was a duplicate of the existing
+`SpriteFrameTable_73_5E60` at the same address. A current path-safe Git search
+excluding `languages/` and the protected `engine/mail/sample_data.asm` found
+no other consumer of `Data_73_5E60`; the table-backed object-root entry already
+uses the descriptive name. The generic export is retired and its source line
+is blank to preserve line numbering. Frame and script directives, address,
+payload bytes and confidence are unchanged. This is a redundant-alias cleanup,
+not evidence for visual identity, a Pokémon association, or global use.
+
+The controlled six-root lexical census at `25ede6ec` recorded 898 generic data
+definitions in 331 ASM owners (excluding the protected sample). A fresh
+path-scoped scan of current tracked non-language ASM files, again excluding the
+protected sample, finds 897 after this retirement. This count is lexical; it
+does not establish that the remaining generic labels are all unidentified or
+have safe semantic replacements.

@@ -15,3 +15,13 @@ This is original reconstruction evidence, not a new runtime or hardware observat
 ## Mechanical first-frame-table alias
 
 The neutral mechanical alias SpriteFrameTable_73_5E60 reuses the blank physical line159 before existing Data_73_5E60 at line160. Object-root entry0 at73:5F0F names that table alias while retaining the literal script pointer5EBE. The owner stays230 lines; the existing table pointers, two frames, split script and Data_73_5EC0 remain unchanged. Existing CONFIRMED storage and finite historical natural-read evidence are retained. This alias provides no new visual identity, species, reachability or runtime evidence. This owner is outside the initial65-row naming ledger, whose counters are unchanged.
+
+## Redundant generic alias retirement (2026-10-21)
+
+The current Japanese source retires the redundant `Data_73_5E60` export while
+retaining `SpriteFrameTable_73_5E60` at the same address. A path-safe search of
+all tracked non-language files found no consumer of the generic spelling
+outside its declaration. The object-root entry already uses the descriptive
+table label; the pointers, frames, script, macro expansion and ROM bytes are
+unchanged. This removes only a duplicate generic export and adds no visual,
+species, reachability or runtime claim.
