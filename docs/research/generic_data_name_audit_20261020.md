@@ -2158,3 +2158,22 @@ does not establish a natural loader or screen composition. The catalog and the
 `tools/raw_png.py` metadata check now use the updated names. The
 whitespace-aware six-root census is 403 `Data_BB_AAAA::` definitions in 134
 owners, down from 417/135; the change is lexical and not a completion metric.
+
+## Bank 6A help-screen exact-address aliases (2026-10-21)
+
+Ten generic `Data_6A_*` declarations in `gfx/help/help_screens_a.asm` were
+exact-address aliases of existing tilemap, graphics or palette labels. The
+maintained assembly/INCLUDE search found no active operand using those generic
+names. The aliases were blanked in place, preserving the owner's line count,
+payloads, boundaries and existing confidence comments. The twelve affected
+`gfx/assets.tsv` tilemap and tile rows now point to the surviving descriptive
+labels. Frozen `config/` and historical `analysis/` indexes retain old
+spellings as provenance; they were not regenerated or edited.
+
+`Data_6A_6330` and `Data_6A_6448` remain neutral: the first marks the start of
+the existing RGB-word include whose bytes also begin the demonstrated frame
+table/OAM chain, and the second begins a continuation span. This pass does not
+resolve that representation/classification conflict or assign a new role.
+The six-root `Data_BB_AAAA::` census is now 393 definitions in 134 owners,
+down from 403 after ten redundant exports were retired. This lexical count is
+not a semantic-completion measure.

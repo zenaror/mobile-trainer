@@ -1595,3 +1595,8 @@ Bank 42's 27 type/address-only graphics labels now use
 families. They remain candidate resources: no natural loader or screen
 composition has been established. The six-root generic `Data_BB_AAAA::`
 count is now 403 in 134 owners. See the [bank-42 naming audit](docs/research/gfx_generic_name_audit_20261021.md#bank-42-candidate-owner-names-2026-10-21).
+
+The bank-6A help-screen owner has lost ten redundant `Data_6A_*` aliases
+under existing tilemap, graphics and palette labels. The ambiguous RGB-word
+include and the frame-continuation span remain neutral. The six-root generic
+`Data_BB_AAAA::` count is now 393 in 134 owners. See the [bank-6A audit](docs/research/generic_data_name_audit_20261020.md#bank-6a-help-screen-exact-address-aliases-2026-10-21).
