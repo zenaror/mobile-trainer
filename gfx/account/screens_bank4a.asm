@@ -75,9 +75,9 @@ Palette_SettingsMenu_Bg:: ; 4A:5180
 Palette_SettingsMenu_Obj:: ; 4A:51A8
 	INCLUDE "gfx/account/screens_bank4a/settings_menu_obj.pal"
 
-; ---- data $51B0-$51D0 (32 bytes) [HYPOTHESIS] four copies of the colours 0000 294A 56B5 7FFF (a grey ramp: the same 32 bytes occur 55 times in the ROM as a default palette block); between the OBJ palette and the tilemap, read by no code that was found; probably unread OBJ palettes 1-4
+; ---- data $51B0-$51D0 (32 bytes) [HYPOTHESIS] four identical 4-colour RGB555 ramps adjacent to the confirmed settings-menu OBJ palette; no reader found, so their palette-slot assignment and use remain unknown
 
-Data_4A_51B0:: ; 4A:51B0
+Palette_SettingsMenu_ObjRampCandidates:: ; 4A:51B0
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 

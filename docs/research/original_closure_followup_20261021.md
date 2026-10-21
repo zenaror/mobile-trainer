@@ -5,6 +5,34 @@ semantically complete. The original ROM remains byte-identical after the
 changes below. English work remains paused pending explicit Operator
 confirmation.
 
+## Bank 4A settings-menu palette-shaped block (2026-10-21)
+
+The 32 bytes at `4A:51B0–51CF` are now named
+`Palette_SettingsMenu_ObjRampCandidates`. They form four identical 8-byte
+RGB555 ramps (`0000, 294A, 56B5, 7FFF`) immediately after the confirmed
+8-byte `Palette_SettingsMenu_Obj` block and before the confirmed flag-clear
+tilemap at `4A:51D0`. The same 8-byte ramp occurs 129 times in the original
+ROM by overlapping byte search; this is a content observation only. No code
+reader was found in the maintained-source search, so whether this block
+supplies additional OBJ palettes, which slots it might target, and whether it
+is used remain **HYPOTHESIS**. It is not added to the active asset catalogue.
+The original 32-byte slice at physical offset `0x1291B0` has SHA-256
+`ab3a6e1e1965b057f262ee0e522792d3b416d50edbe66e1501a916c0854e80b3`; all
+bytes and extents are unchanged.
+
+## Bank 26 mail-session tile alignment gap (2026-10-21)
+
+The eight zero bytes at `26:59D8–59DF` are now named
+`Padding_MailSession_Tiles59E0Alignment` (**PROBABLE**). They follow the end of
+the maintained bank-26 code section and precede the confirmed 1024-byte tile
+HDMA source at `26:59E0`; the source address is 16-byte aligned. The
+maintained-source search found no named direct reader of the zero gap. This
+supports an alignment-padding interpretation, not universal non-use or a
+hardware claim. The original slice at physical offset `0x999D8` is eight zero
+bytes with SHA-256
+`af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc`; emitted
+bytes and extents are unchanged.
+
 ## Reviewed entry candidates
 
 Independent review accepted the bounded static reports for 2B:6CF5,

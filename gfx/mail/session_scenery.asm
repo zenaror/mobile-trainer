@@ -4,10 +4,10 @@
 
 SECTION "gfx/mail/session_scenery", ROMX
 
-; ---- gfx $59D8-$59E0 (8 bytes) [PROBABLE] tiles-2bpp: heuristic: 37 coherent tiles (hsim2=0.706 vsim2=0.784, 1 blank) parity 0; 592/608 bytes also covered by call-site blocks [clipped from 59D0-5C30 by higher-priority evidence]
+; ---- zero $59D8-$59E0 (8 bytes) [PROBABLE] zero-filled gap after the bank-26 code section and before the confirmed tile HDMA source at aligned address $59E0; no named direct reader found
 
-Data_26_59D8:: ; 26:59D8
-	db $00, $00, $00, $00, $00, $00, $00, $00
+Padding_MailSession_Tiles59E0Alignment:: ; 26:59D8
+	ds $08, $00
 
 ; ---- gfx $59E0-$5DE0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 26:51FA: hl=$59E0 a=$26 c=$40 de=$8001 (dest VRAM $8000, vbank=1)
 

@@ -1995,8 +1995,12 @@ and `5810` now have entry-specific `Tilemap_SettingsMenu_ItemHighlightMap_*`
 labels. The bank-68 cursor table uses these bank-4A symbols in place of raw
 words; its emitted values are unchanged. The first four records retain their
 CONFIRMED bounded reader evidence; entry 4 remains PROBABLE with no observed
-natural read. `Data_4A_51B0` remains neutral because its suspected unread
-palette role is unproved. The earlier note reported 550 definitions in
+natural read. The 32-byte `Data_4A_51B0` candidate has since been renamed
+`Palette_SettingsMenu_ObjRampCandidates`: the physical block is four identical
+4-colour RGB555 ramps adjacent to the confirmed settings-menu OBJ palette, but
+no reader was found, so slot assignment and use remain **HYPOTHESIS**. This is
+a format/context name, not evidence of a loaded palette resource. The earlier
+note reported 550 definitions in
 140 owners. Re-running the whitespace-aware `Data_BB_AAAA::` definition query
 at `d09ead4f` gives 526 in 137 owners, excluding the protected mail sample and
 `zero_labels.asm`; the earlier 550 count was high by 24. At `1c6a6ccb` the
@@ -2209,10 +2213,12 @@ in place, preserving the owner layout and tile payloads. The adjacent
 `Data_26_66F0` begins a 240-byte tile-data interval inside the larger confirmed
 transfer `26:66E0-67E0`; it is now `MailSession_Tiles_66F0_TileSlice` to retain
 that bounded scope. The matching asset catalog label was updated, while the
-generic asset path remains unchanged. `Data_26_59D8` and `Data_26_73E0` remain
-neutral because the former is an eight-byte pre-tile span and the latter has
-only a palette heuristic. No path, payload, confidence level or transfer
-boundary changed.
+generic asset path remains unchanged. `Data_26_59D8` has since been renamed
+`Padding_MailSession_Tiles59E0Alignment` (**PROBABLE**): its eight zero bytes
+follow the bank-26 code section and precede the confirmed tile HDMA source at
+aligned `26:59E0`, with no named direct reader found. `Data_26_73E0` remains
+neutral because it has only a palette heuristic. No path, payload, confidence
+level or transfer boundary changed.
 
 The six-root `Data_BB_AAAA::` census is now 373 definitions in 133 owners,
 down from 382 after eight aliases were retired and one slice was renamed.
