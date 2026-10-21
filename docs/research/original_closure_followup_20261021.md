@@ -182,3 +182,23 @@ removed with the receipt retained in the private report. The corrected
 Japanese source set explicitly excludes `languages/`. No translation files
 were changed, built or published. `engine/mail/sample_data.asm` was not copied
 or opened.
+
+## Private consumer-read prototype (2026-10-21)
+
+A bounded prototype was run on Japanese inputs from `4721ff20`, with the
+protected source and all `languages/` paths excluded before opening files.
+It recognized all eight positive provenances and produced no READ for the 114
+known incorrect-bank links. Of the eight, five reached exact in-extent READs
+and three stopped at UNKNOWN_INDEX; the latter were not promoted to reads.
+Group totals are 4 READ, 2 UNKNOWN, and 516 UNRESOLVED. UNRESOLVED does not
+mean unused. This reuses the old 122 seed links and is not an independent
+complete search of all consumers.
+
+Limits are 64 instructions per path, call depth 3, and 256 states per seed.
+Thirteen synthetic mechanism tests passed separately from ROM evidence. The
+first execution, which stopped at UNKNOWN_STACK for `2B:6D2A`, is preserved
+alongside the corrected run. Full output and command/source receipts remain
+under `.tmp/agent-consumer-read-prototype-20261021/` (`REPORT.md` SHA-256
+`554649a2fdf3b6d69c9ed8dcb98f2870e34bc1d33beb986e20b8827ebc3cde2b`). This
+remains a private research prototype, not a source/tool integration or proof
+of natural execution. No build ran.
