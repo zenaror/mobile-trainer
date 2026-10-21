@@ -632,7 +632,7 @@ sequences (a keyboard route, a dialog answer, a ten-minute wait) are exactly wha
 
 ### 11.4 Forced execution (`traces/forced/`, `analysis/coverage_forced.tsv`: 4 530 addresses that no natural scenario executed)
 
-Code that no static caller reaches (region notes "unreferenced", "no caller", "dead body after ret") cannot be executed by any input. Three scenarios flagged `forced` jump into it with the harness directive
+The finite static-caller inventory did not identify a natural path into some regions marked "unreferenced", "no caller" or "dead body after ret"; that absence does not prove that no input can reach them, since indirect, computed or bank-dependent entry paths may be missing from the inventory. Three scenarios flagged `forced` jump into candidate code with the harness directive
 `force` after a power cycle and the boot to the logo screen; they are published apart and never take part in the union or in any CONFIRMED upgrade. What they show (screenshots in `.cache/trace/shots/forced_*`,
 not committed):
 
