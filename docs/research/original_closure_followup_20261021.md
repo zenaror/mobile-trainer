@@ -62,12 +62,14 @@ unrelated rows. The address-book and page-list mixed-owner migrations remain
 open. No global unused/dead claim follows from these finite scans.
 
 The current source contains no literal `Function_BB_AAAA` definitions. A
-separate census at the previous checkpoint counted 943 `Data_BB_AAAA`
-definitions; after the 17 Song07 retirements and one structural rename, the
-current count is 925. This lexical count is not a measure of unidentified
-functions, unclassified data, or completion. The accepted entry reports also
-leave the 523-group data census, bank53 name/frame associations, eight KEEP
-windows, other unresolved roots and final definition-of-done review open.
+separate census at the prior checkpoint reported 925 `Data_BB_AAAA`
+definitions after its Song07 retirements and one structural rename; the newer
+15-alias Song02 retirement has not been reconciled through that census, so 925
+is historical rather than a current count. Such lexical counts do not measure
+unidentified functions, unclassified data, or completion. The accepted entry
+reports also leave the 523-group data census, bank53 name/frame associations,
+eight KEEP windows, other unresolved roots and final definition-of-done review
+open.
 
 ## Verification
 

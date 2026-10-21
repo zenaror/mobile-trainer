@@ -7,11 +7,9 @@ SECTION "audio/music/music_02", ROMX
 ; ---- data $58C6-$5CD9 (1043 bytes) [PROBABLE] sound bytecode streams of the bank-04 songs (addresses from the song table at 551D land in this range; commands like BF 7F BD 00 BC 3D, B3/B2/B1 + 16-bit stream pointer, DB xx, note bytes 83-8C..); merged from many mapper pieces incl. the false code-pointer tables at 78C8 and 797C (words inside the bytecode, e.g. B3 59 78 B2 59 78) and the 1-6 byte holes that were bytes never read in the traces; commands decoded (docs/research/audio_format.md) (part of region $574D-$7E8C)
 
 SoundSong02_Track0:: ; 04:58C6
-Data_04_58C6::
 	sound_volume $7F
 	sound_pitch_add $00
 SoundSong02_Track0_Loop:: ; 04:58CA
-Data_04_58CA::
 	sound_tempo $4F
 	sound_instrument $00
 	sound_wait 24
@@ -99,14 +97,11 @@ Data_04_58CA::
 	sound_wait 4
 	sound_jump SoundSong02_Track0_Loop
 SoundSong02_Track0_AfterJump:: ; 04:593C
-Data_04_593C::
 	sound_end
 SoundSong02_Track1:: ; 04:593D
-Data_04_593D::
 	sound_volume $7F
 	sound_pitch_add $00
 SoundSong02_Track1_Loop:: ; 04:5941
-Data_04_5941::
 	sound_instrument $04
 	sound_note 3, $4F, $0A
 	sound_wait 6
@@ -365,14 +360,11 @@ Data_04_5941::
 	sound_wait 4
 	sound_jump SoundSong02_Track1_Loop
 SoundSong02_Track1_AfterJump:: ; 04:5A88
-Data_04_5A88::
 	sound_end
 SoundSong02_Track2:: ; 04:5A89
-Data_04_5A89::
 	sound_volume $7F
 	sound_pitch_add $00
 SoundSong02_Track2_Loop:: ; 04:5A8D
-Data_04_5A8D::
 	sound_instrument $08
 	sound_note 24, $24, $1F
 	sound_wait 24
@@ -491,14 +483,11 @@ Data_04_5A8D::
 	sound_wait 12
 	sound_jump SoundSong02_Track2_Loop
 SoundSong02_Track2_AfterJump:: ; 04:5B55
-Data_04_5B55::
 	sound_end
 SoundSong02_Track3:: ; 04:5B56
-Data_04_5B56::
 	sound_volume $7F
 	sound_pitch_add $00
 SoundSong02_Track3_Loop:: ; 04:5B5A
-Data_04_5B5A::
 	sound_instrument SOUND_INSTRUMENT_PER_NOTE
 	sound_note 6, $27, $15
 	sound_wait 6
@@ -539,7 +528,6 @@ Data_04_5B5A::
 	sound_note 3
 	sound_wait 6
 SoundSong02_Track3_Sub1:: ; 04:5B9A
-Data_04_5B9A::
 	sound_note 6, $27, $15
 	sound_wait 6
 	sound_note 3, $24, $0C
@@ -583,7 +571,6 @@ Data_04_5B9A::
 	sound_wait 5
 	sound_ret
 SoundSong02_Track3_Sub2:: ; 04:5BDE
-Data_04_5BDE::
 	sound_note 6, $27, $15
 	sound_wait 6
 	sound_note 3, $24, $0C
@@ -720,10 +707,8 @@ Data_04_5BDE::
 	sound_wait 4
 	sound_jump SoundSong02_Track3_Loop
 SoundSong02_Track3_AfterJump:: ; 04:5CBE
-Data_04_5CBE::
 	sound_end
 SoundSong02_Header:: ; 04:5CBF
-Data_04_5CBF::
 	sound_stream_header 4, 2
 	dw SoundSong02_Track0, SoundSong02_Track1, SoundSong02_Track2, SoundSong02_Track3 ; track stream pointers (read by the driver)
 	; not read by the driver: target of each track's final sound_jump

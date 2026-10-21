@@ -1163,3 +1163,10 @@ audit found positive consumers inside two other owners still named
 generated provenance; it recommends scoped migrations rather than blanket
 renames. See
 [`docs/research/original_closure_followup_20261021.md`](docs/research/original_closure_followup_20261021.md).
+
+The `audio/music/music_02.asm` owner then lost 15 same-address `Data_04_*`
+aliases under retained `SoundSong02_*` labels. An independent scoped encoder
+reproduced the same 1,043 bytes before and after and matched ROM 04:58C6–5CD9;
+the full build, symbol check and quick audio-driver check also pass. The 18
+historical alias spellings in frozen rename and mapper records remain as
+provenance. This deletion does not change stream interpretation or confidence.
