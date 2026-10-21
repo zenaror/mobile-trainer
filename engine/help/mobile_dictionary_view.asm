@@ -64,7 +64,6 @@ MobileDictView_Show_InputLoop:: ; 4C:4FDD
 ; ---- ptrtable $4FF5-$4FFF (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 4C:4FF2: 5 entries; fixed length (5 words) by the routine; every byte read as data in a trace
 
 MobileDictView_InputTable:: ; 4C:4FF5
-Table_4C_4FF5::
 	dw MobileDictView_OnA
 	dw MobileDictView_OnB
 	dw MobileDictView_OnSelect

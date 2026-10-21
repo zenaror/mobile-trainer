@@ -1844,3 +1844,7 @@ table boundaries and coverage qualifications are unchanged; see the
 The title-screen state, highlight-map and cursor-position tables now export
 only their maintained names; their existing readers and evidence grades are
 unchanged. See the [title-table note](docs/research/title_table_aliases_20261021.md).
+
+The mobile-dictionary input dispatcher also no longer exports its duplicate
+`Table_4C_4FF5` name; its five-entry confirmed table is unchanged. See the
+[input-table note](docs/research/mobile_dictionary_input_alias_20261021.md).
