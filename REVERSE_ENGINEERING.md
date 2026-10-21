@@ -1848,3 +1848,7 @@ unchanged. See the [title-table note](docs/research/title_table_aliases_20261021
 The mobile-dictionary input dispatcher also no longer exports its duplicate
 `Table_4C_4FF5` name; its five-entry confirmed table is unchanged. See the
 [input-table note](docs/research/mobile_dictionary_input_alias_20261021.md).
+
+The main title-choice dispatcher likewise uses only `Table_Main_TitleChoices`
+now; its three probable pointer entries and boundary are unchanged. See the
+[main-table note](docs/research/main_title_choice_alias_20261021.md).

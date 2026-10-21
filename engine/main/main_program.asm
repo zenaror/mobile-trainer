@@ -18,7 +18,6 @@ Main_TitleLoop:: ; 1C:4007
 ; ---- ptrtable $4010-$4016 (6 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 1C:400D: 3 entries; end is a heuristic guess (words stay plausible code pointers)
 
 Table_Main_TitleChoices:: ; 1C:4010
-Table_1C_4010::
 	dw Main_TitleChoiceNone
 	dw Main_TitleChoiceStart
 	dw Main_TitleChoiceSettings
