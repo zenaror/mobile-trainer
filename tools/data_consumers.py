@@ -999,16 +999,6 @@ def rules_manual(w, man, sites):
         add(old, new, 'data', 'CONFIRMED',
             '6 bytes %s = two 3-byte scripts (48 00 80) (58 00 80): %s loads HL with the first script through the label; %s loads the second from raw immediate `ld hl,%s`; both call %s, whose reader loops `ld a,[hli] ; cp $80 ; jr z,done` (step byte per frame, $80 terminator); all six bytes are executed-read (region header CONFIRMED)' %
             (rom_bytes(w, k, 6).hex(' '), first_fn, second_fn, other, callee))
-    for old, new, fn, callee in (
-            ('Data_72_6556', 'Data_BrowserMenu_OpenTwoItem_SlideScript', 'BrowserMenu_OpenTwoItem', 'Dialog_SlideIn'),
-            ('Data_72_6892', 'Data_BrowserMenu_OpenThreeItem_SlideScript', 'BrowserMenu_OpenThreeItem', 'Dialog_SlideIn'),
-            ('Data_72_6ADF', 'Data_BrowserMenu_Close_SlideScript', 'BrowserMenu_Close', 'Dialog_SlideOut')):
-        k = w.by_name[old]
-        b = rom_bytes(w, k, 13)
-        assert b == bytes([4] * 12 + [0x80]), old
-        add(old, new, 'data', 'CONFIRMED' if old != 'Data_72_6556' else 'PROBABLE',
-            '13 bytes (12 x $04, then $80) passed in HL by %s to %s (%s: `ld a,[hli] ; cp $80 ; jr z` step-per-frame script with $80 terminator)' % (fn, callee, 'executed-read in up to 1 scenario' if old != 'Data_72_6556' else 'load site not executed'))
-
     # ---- mail-server delete flows: 7-byte template copied to wMailSessionBlock (WRAM1 $D624) before ConnectDialog_Run
     tmpl = bytes.fromhex('03 00 00 01 24 d5 00')
     for old, fn in (('Data_22_4C5B', 'MailSrvDelHidden_DeleteAll_Confirm'), ('Data_22_4DA6', 'MailSrvDelHidden_DeleteCompletely_Confirm'),

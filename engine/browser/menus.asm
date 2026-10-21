@@ -163,7 +163,6 @@ BrowserMenu_OpenTwoItem:: ; 72:63D8
 ; ---- data $6556-$6563 (13 bytes) [PROBABLE] 13-byte script: 12 x $04 then terminator $80; read via ld hl,$6556 at 72:650C followed by the far call to the script reader at 72:4824 (same reader/format as the CONFIRMED read script at 72:6ADF: bytes until $80)
 
 Data_BrowserMenu_OpenTwoItem_SlideScript:: ; 72:6556
-Data_72_6556::
 	db $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $80
 
 BrowserMenu_RunTwoItem:: ; 72:6563
@@ -568,7 +567,6 @@ BrowserMenu_OpenThreeItem:: ; 72:6712
 ; ---- data $6892-$689F (13 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
 Data_BrowserMenu_OpenThreeItem_SlideScript:: ; 72:6892
-Data_72_6892::
 	db $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $80
 
 BrowserMenu_RunThreeItem:: ; 72:689F
@@ -871,7 +869,6 @@ BrowserMenu_Close:: ; 72:6A6B
 ; ---- data $6ADF-$6AEC (13 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
 Data_BrowserMenu_Close_SlideScript:: ; 72:6ADF
-Data_72_6ADF::
 	db $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $80
 
 ; ---- data $6AEC-$6AFA (14 bytes) [PROBABLE] 2 records of 7 bytes (dw, db, dw, dw): indexed with hl=7*a+$6AEC at 72:669F-66AB (ld de,$6AEC); word1 -> call 00:0A65, byte -> b for init_object_from_table (00:0A82), word2 = pointer; last word of each record points at the strings 72:6AFA / 72:6B23

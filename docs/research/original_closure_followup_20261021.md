@@ -152,6 +152,16 @@ no byte, extent or confidence changed. The restricted six-root
 `Data_BB_AAAA`/`Font_BB_AAAA` census is now 183 definitions across 109 owners,
 still excluding `engine/mail/sample_data.asm` and `languages/`.
 
+In `engine/browser/menus.asm`, three exact co-located `Data_72_*` aliases at
+72:6556, 6892 and 6ADF were retired under the retained
+`Data_BrowserMenu_*_SlideScript` labels. The current `data_consumers.py`
+special-case suggestions for those aliases were removed; existing CONFIRMED
+and PROBABLE grades remain unchanged, including the unexecuted 72:6556 load
+site. Frozen xref/config/analysis records keep the historical names. The
+restricted six-root census is now 180 `Data_BB_AAAA`/`Font_BB_AAAA`
+definitions across 109 owners, excluding the protected mail sample and
+`languages/`.
+
 ## Broader name audit and remaining limits
 
 A maintained-source audit found 59 paths carrying `unused` or
