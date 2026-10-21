@@ -2546,6 +2546,17 @@ changed. The restricted six-root `Data_BB_AAAA::` census is now 237
 definitions in 121 owners, down from 241 in 121 owners. This remains a lexical
 count.
 
+## Bank 28 delete-all screen resource aliases (2026-10-21)
+
+Four `Data_28_*` labels in `gfx/mail_server/delete_all_screen.asm` duplicated
+the same-address named tile and tilemap resources. `Palette_28_5EA0` likewise
+duplicated `MailServerDeleteAll_BgPalette`. All five spellings had no
+maintained-source consumers beyond their own declarations; they were removed.
+Catalog rows continue to reference the descriptive labels. CONFIRMED tile and
+tilemap evidence and PROBABLE palette classifications remain unchanged. The
+restricted six-root `Data_BB_AAAA::` census is now 218 definitions in 117
+owners, down from 222 in 118 owners. This remains a lexical count.
+
 ## Bank 05 song 13 and 15 stream aliases (2026-10-21)
 
 The five `Data_05_*` labels in each of `audio/music/music_13.asm` and

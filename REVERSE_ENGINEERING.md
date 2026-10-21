@@ -1742,3 +1742,9 @@ Song 13 and song 15 in bank 05 no longer export five exact `Data_05_*` aliases
 each under their named track starts and headers. No track bytes, pointer
 tables or confidence grades changed. The restricted six-root generic-data
 census is now 222 definitions in 118 owners. See the [song 13/15 alias audit](docs/research/generic_data_name_audit_20261020.md#bank-05-song-13-and-15-stream-aliases-2026-10-21).
+
+The bank-28 delete-all-screen graphics owner no longer exports four exact
+`Data_28_*` aliases or its duplicate BG-palette label; the existing resource
+symbols and catalog entries remain authoritative. Confidence and byte ranges
+are unchanged. The restricted six-root generic-data census is now 218
+definitions in 117 owners. See the [bank-28 resource audit](docs/research/generic_data_name_audit_20261020.md#bank-28-delete-all-screen-resource-aliases-2026-10-21).
