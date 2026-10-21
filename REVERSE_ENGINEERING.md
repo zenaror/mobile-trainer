@@ -1435,3 +1435,10 @@ exist. No other-source, tool or local-label consumers were found; the owner
 retains its 598 physical lines and all ROM data. See the address map and scan
 limits in
 [`docs/research/generic_data_name_audit_20261020.md`](docs/research/generic_data_name_audit_20261020.md#bank-23-mail-server-delete-progress-aliases-2026-10-21).
+
+In bank 70's communication-scene data, 23 generic address labels were also
+retired over existing named tables, graphics, palettes and tilemaps. No
+cross-file, tool or local-label consumers were found. Comment-only mentions
+were updated to the retained names; code and ROM data are unchanged. The exact
+map and census limits are in
+[`docs/research/generic_data_name_audit_20261020.md`](docs/research/generic_data_name_audit_20261020.md#bank-70-communication-scene-address-aliases-2026-10-21).

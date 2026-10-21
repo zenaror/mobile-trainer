@@ -1677,3 +1677,43 @@ tables, comments and confidence are unchanged. No new runtime claim is made.
 | `23:7B94` | `Table_23_7B94` | `SpriteCounter_Digits_Anim72Frames` |
 | `23:7B9E` | `Table_23_7B9E` | `SpriteCounter_Digits_Anim76Frames` |
 | `23:7BA8` | `Table_23_7BA8` | `MailSrvDel_ProgressObject_Anim0Frames` |
+
+## Bank 70 communication-scene address aliases (2026-10-21)
+
+The refreshed census at `e3138584` identified 23 declaration-only generic
+labels in `gfx/comm/comm_scene.asm` co-located with existing descriptive
+labels for a pointer table, object/frame tables, tiles, palettes and tilemaps.
+The earlier four `Data_70_*` aliases in this file were handled in a separate
+checkpoint. The 347-file tracked non-language ASM/INC scan excluded
+`engine/mail/sample_data.asm`; it found no other-source or tool references and
+no dependent local labels. The owner comments also named some aliases; those
+comment-only mentions now use the retained same-address labels. No code
+references were changed. The declarations are absent from the post-pass SYM.
+The file's physical line count and all ROM data, address comments and
+confidence levels are unchanged.
+
+| Address | Retired label | Retained label |
+|---|---|---|
+| `70:4822` | `Table_70_4822` | `CommScene_TextBoxMaps` |
+| `70:534C` | `Table_70_534C` | `CommScene_ObjTable` |
+| `70:535C` | `Table_70_535C` | `CommScene_Anim1Frames` |
+| `70:539A` | `Table_70_539A` | `CommScene_Anim2Frames` |
+| `70:53D8` | `Table_70_53D8` | `CommScene_Anim3Frames` |
+| `70:53EB` | `Table_70_53EB` | `CommScene_SpriteObjTable` |
+| `70:5403` | `Table_70_5403` | `CommScene_Sprite_Anim1Frames` |
+| `70:542E` | `Table_70_542E` | `CommScene_Sprite_Anim2Frames` |
+| `70:5459` | `Table_70_5459` | `CommScene_Sprite_Anim3Frames` |
+| `70:5467` | `Table_70_5467` | `CommScene_Sprite_Anim4Frames` |
+| `70:5475` | `Table_70_5475` | `CommScene_Sprite_Anim5Frames` |
+| `70:6A90` | `Tiles_70_6A90` | `Gfx_CommScene_Tiles9400Vb1` |
+| `70:6C90` | `Palette_70_6C90` | `Palette_CommScene_Bg` |
+| `70:6CD0` | `Palette_70_6CD0` | `Palette_CommScene_Obj` |
+| `70:6D10` | `Tilemap_70_6D10` | `Tilemap_CommScene` |
+| `70:7090` | `Tilemap_70_7090` | `Tilemap_CommScene_TextBox0` |
+| `70:7130` | `Tilemap_70_7130` | `Tilemap_CommScene_TextBox1` |
+| `70:71D0` | `Tilemap_70_71D0` | `Tilemap_CommScene_TextBox2` |
+| `70:7270` | `Tilemap_70_7270` | `Tilemap_CommScene_TextBox3` |
+| `70:7310` | `Tilemap_70_7310` | `Tilemap_CommScene_TextBox4` |
+| `70:73B0` | `Tilemap_70_73B0` | `Tilemap_CommScene_TextBox5` |
+| `70:7450` | `Tilemap_70_7450` | `Tilemap_CommScene_TextBox6` |
+| `70:74F0` | `Tilemap_70_74F0` | `Tilemap_CommScene_TextBox7` |
