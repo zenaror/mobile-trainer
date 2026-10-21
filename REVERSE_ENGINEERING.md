@@ -1227,3 +1227,8 @@ The keyboard source lost nine unreferenced `Table_55_AAAA` aliases under its
 existing direction, sprite-offset and page-loader table labels. No table
 contents or behavior claims changed; see
 [`docs/research/keyboard_table_aliases_20261021.md`](docs/research/keyboard_table_aliases_20261021.md).
+
+The mailbox owner lost eight unreferenced `Table_25_AAAA` aliases under its
+existing record-address, hint and icon-bar attribute table labels. Values and
+SRAM interpretation remain unchanged; details are in
+[`docs/research/mailbox_table_aliases_20261021.md`](docs/research/mailbox_table_aliases_20261021.md).

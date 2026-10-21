@@ -372,7 +372,6 @@ Mailbox_DrawSenderName:: ; 25:4DFD
 ; ---- words $4E2B-$4E43 (24 bytes) [PROBABLE] 12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:4E13
 
 Mailbox_RecordAddrs_4E2B:: ; 25:4E2B
-Table_25_4E2B::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
@@ -513,7 +512,6 @@ Mailbox_DrawRowTitles:: ; 25:4E43
 ; ---- words $4F28-$4F40 (24 bytes) [PROBABLE] 12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:4E67/4EA0/4ED9/4F12
 
 Mailbox_RecordAddrs_4F28:: ; 25:4F28
-Table_25_4F28::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
@@ -781,7 +779,6 @@ Mailbox_DrawTimestamp:: ; 25:4F40
 ; ---- words $50AA-$50C2 (24 bytes) [PROBABLE] 12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:4F48
 
 Mailbox_RecordAddrs_50AA:: ; 25:50AA
-Table_25_50AA::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
@@ -1045,7 +1042,6 @@ Mailbox_ClearTimestamp:: ; 25:50C2
 ; ---- words $5228-$5240 (24 bytes) [PROBABLE] 12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:5228 first entry read by executed code (region Data_25_5228 CONFIRMED); no direct ld hl,imm found
 
 Mailbox_RecordAddrs_5228:: ; 25:5228
-Table_25_5228::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
@@ -1307,7 +1303,6 @@ Mailbox_ShowHint:: ; 25:53AA
 ; ---- ptrtable $53D0-$53DA (10 bytes) [PROBABLE] 5 pointers, every target is the first byte of one of the 5 NUL-terminated strings of String_25_53DA; read by 25:53B2 (ld e,d; sla e; ld hl,$53D0; add hl,de)
 
 Mailbox_HintTable:: ; 25:53D0
-Table_25_53D0::
 	dw Mailbox_Hint_SelectMail
 	dw Mailbox_Hint_Read
 	dw Mailbox_Hint_Reply
@@ -1464,7 +1459,6 @@ Mailbox_ReplyToRecord:: ; 25:54A7
 ; ---- words $5569-$5581 (24 bytes) [PROBABLE] 12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:54E2
 
 Mailbox_RecordAddrs_5569:: ; 25:5569
-Table_25_5569::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
@@ -1814,7 +1808,6 @@ Mailbox_IsRecordClosedEnvelope:: ; 25:5848
 ; ---- words $5871-$5889 (24 bytes) [PROBABLE] 12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:585C
 
 Mailbox_RecordAddrs_5871:: ; 25:5871
-Table_25_5871::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
@@ -1893,7 +1886,6 @@ Mailbox_SetIconBarAttrs:: ; 25:5889
 ; ---- ptrtable $58E7-$58ED (6 bytes) [CONFIRMED] 3 little-endian pointers to 48-byte records at 25:58ED/591D/594D; selected by A=0..2 in Mailbox_SetIconBarAttrs (ld hl at 25:5891, word reads at 5895/5897); per-word whole natural cohorts 6/7/5, all 6 bytes read in 3 common scenarios (69-scenario coverage/dataaccess)
 
 Mailbox_IconBarAttrTable:: ; 25:58E7
-Table_25_58E7::
 	dw Mailbox_IconBarAttrs
 	dw $591D
 	dw $594D
