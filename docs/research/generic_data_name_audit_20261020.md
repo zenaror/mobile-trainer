@@ -3272,3 +3272,20 @@ read by executed code; their content class remains unknown. The separate
 requests and shows the physical 16-byte phases cut transfer units, so neither
 span is promoted to an independently aligned tile asset. No bytes/boundaries
 changed. Exact generic `Data_BB_AAAA` count drops from 39/33 to 37/32.
+
+## Password-entry variant map pairs in bank 5D (2026-10-21)
+
+`5D:5000–5320` is now named
+`Data_AccountPasswordEntry_VariantTilemapAttributePairs`. The account screen
+selects one of four pointers from `Account_PasswordEntryMaps` using the
+`wPasswordEntry_Variant` value (0–3). Each pointer advances by `$C8` bytes;
+the caller sets `B=$05`, `C=$14` and calls `Tilemap_CopyRectAndAttr`, whose
+two rectangle copies consume 100 tile bytes and then 100 attribute bytes.
+Thus the four 200-byte pairs exactly cover the 800-byte span. The caller list
+is confirmed in source, while natural runtime use of every variant and the
+visual interpretation of each map are not claimed. The table words now use
+the semantic base label and explicit offsets; emitted bytes and data bounds
+are unchanged. Exact generic `Data_BB_AAAA` count drops from 37/32 definitions/
+owners to 36/32. The earlier decision to keep `Data_5D_5000` neutral records
+the evidence available at that historical checkpoint; `Data_5D_6C00` remains
+neutral because it is an interior fragment of a larger upload.

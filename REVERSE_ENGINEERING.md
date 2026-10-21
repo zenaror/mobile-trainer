@@ -1924,12 +1924,17 @@ the [bank-6A ticker naming audit](docs/research/generic_data_name_audit_20261020
 
 A fresh path-bounded exact-name scan of the six maintained source roots plus
 `zero_labels.asm`, excluding the protected mail sample before reading, finds
-37 `Data_BB_AAAA` definitions in 32 owners and no exact generic `Function`,
+36 `Data_BB_AAAA` definitions in 32 owners and no exact generic `Function`,
 `Font`, or `Label` definitions. This is a lexical count, not semantic closure.
 The same scan now finds 0 `String_BB_AAAA`, no exact `Table_BB_AAAA`, 41
 `Tiles_BB_AAAA`, 24 `Tilemap_BB_AAAA`, 4 `Attrmap_BB_AAAA`, and 25
 `Palette_BB_AAAA` definitions; the remaining prefixes are an owner-by-owner
-evidence worklist. The four former generic table labels are described in the
+evidence worklist. Since this census, the 800-byte bank-5D span at `5D:5000`
+has been identified as four consecutive 5x20 tilemap/attribute pairs selected
+by `wPasswordEntry_Variant` and copied by `Tilemap_CopyRectAndAttr`; the exact
+generic data count is now 36/32. This structural identification does not claim
+that every variant was naturally exercised or identify the visual contents.
+The four former generic table labels are described in the
 [table-name audit](docs/research/generic_data_name_audit_20261020.md#remaining-generic-table-labels-2026-10-21),
 with the unreferenced duplicate kept explicitly candidate-qualified. Two HTML
 store record headers were also renamed by their literal first-page filenames;

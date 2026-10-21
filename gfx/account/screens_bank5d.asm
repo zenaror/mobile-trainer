@@ -16,9 +16,10 @@ Gfx_Account_PasswordEntry_Tiles9400Vb1:: ; 5D:4C00
 
 	INCBIN "gfx/account/screens_bank5d/tiles_4c00.2bpp"
 
-; ---- data $5000-$5320 (800 bytes) [CONFIRMED] read as data by executed code (in up to 7/18 scenarios); content class unknown [clipped from 4000-7318 by higher-priority evidence]
+; ---- data $5000-$5320 (800 bytes) [CONFIRMED] four 5x20 tilemap/attribute pairs selected by the
+;     password-entry variant
 
-Data_5D_5000:: ; 5D:5000
+Data_AccountPasswordEntry_VariantTilemapAttributePairs:: ; 5D:5000
 	db $6F, $6F, $6F, $6F, $26, $27, $28, $29, $2A, $4E, $4F, $60, $61, $62, $63, $64
 	db $6F, $6F, $6F, $6F, $6F, $6F, $6F, $6F, $36, $37, $38, $39, $3A, $5E, $5F, $70
 	db $71, $72, $73, $74, $6F, $6F, $6F, $6F, $6F, $6F, $6F, $6F, $6F, $6F, $6F, $00
