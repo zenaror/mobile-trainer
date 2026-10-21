@@ -565,3 +565,12 @@ five-entry state table. Removed its duplicate `Table_68_7442` plus
 `Table_68_764C`, `Table_68_765E` and `Data_68_7652` aliases, and the obsolete
 manual caption-record mapping. make remains byte-identical; sym-check reports
 12,447 labels and data-consumers reports 287 groups / 93 rejected / 0 rows.
+
+## Bank 68 account confirmation table aliases (2026-10-21)
+
+Removed `Table_68_635C`, `Table_68_659A` and `Table_68_67AE` from
+`engine/account/confirm_screens.asm`, retaining `Account_ConfirmCursorPositions`,
+`Account_ConfirmManualCursorPositions` and `Dial_DefaultNumberTable`. They were
+exact-address aliases and had no current source/tool consumers. Bytes and
+table extents are unchanged. make remains byte-identical; sym-check reports
+12,444 labels.

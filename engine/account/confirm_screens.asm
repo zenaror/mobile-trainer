@@ -143,7 +143,6 @@ Account_ConfirmScreen_UpdateCursor:: ; 68:6344
 ; ---- words $635C-$6360 (4 bytes) [PROBABLE] 2 words $6828,$6858 (configuration record addresses) read as ld a,[hli]/ld e,a/ld d,[hl] with base $635C by the code at 6344-635C (index [$C27D]*2); extent bounded by the code at 6360
 
 Account_ConfirmCursorPositions:: ; 68:635C
-Table_68_635C::
 	dw $6828, $6858
 
 Account_ConfirmScreen_BuildTextMap:: ; 68:6360
@@ -374,7 +373,6 @@ Account_ConfirmManualScreen_UpdateCursor:: ; 68:6582
 ; ---- words $659A-$659E (4 bytes) [PROBABLE] 2 words $7058,$7080 addressed by ld hl,$659A at 68:6586 (word read + call $0A65); extent bounded by the code at 659E
 
 Account_ConfirmManualCursorPositions:: ; 68:659A
-Table_68_659A::
 	dw $7058, $7080
 
 Account_ConfirmManualScreen_BuildTextMap:: ; 68:659E
@@ -598,7 +596,6 @@ Account_ConfirmManualScreen_UploadTextTiles:: ; 68:6762
 ; ---- words $67AE-$67B6 (8 bytes) [PROBABLE] 4 words $67B6,$67BC,$67C2,$67CD = the four dial-string addresses below (each word points exactly at a NUL-terminated ASCII string)
 
 Dial_DefaultNumberTable:: ; 68:67AE
-Table_68_67AE::
 	dw Dial_DefaultNumber0, Dial_DefaultNumber1, Dial_DefaultNumber2, Dial_DefaultNumber3
 
 ; ---- text $67B6-$67BC (6 bytes) [PROBABLE] ASCII "#9477" NUL (dial string pointed to by the word at 67AE)
