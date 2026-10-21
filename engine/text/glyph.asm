@@ -217,7 +217,7 @@ Glyph_KuTenAddr:: ; 7F:40B9
 ; ---- data $40F9-$4150 (87 bytes) [PROBABLE] font_row_bank_table: 87 bytes: ROM bank holding JIS row r (index r-1), read at 7F:40C0-40C8 (ld hl,$40F9 ; a=row-1 ; add a,l) (verified structure, layout from engine code)
 
 GlyphFont_RowBankTable:: ; 7F:40F9
-Data_7F_40F9::
+
 	db $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $FF, $FF, $FF, $FF, $7E, $FF, $FF, $7D
 	db $7D, $7D, $7D, $7D, $7D, $7D, $7D, $7D, $7C, $7C, $7C, $7C, $7C, $7C, $7C, $7C
 	db $7C, $7B, $7B, $7B, $7B, $7B, $7B, $7B, $7B, $7B, $7A, $7A, $7A, $7A, $7A, $7A
@@ -228,7 +228,7 @@ Data_7F_40F9::
 ; ---- data $4150-$41A7 (87 bytes) [PROBABLE] font_row_first_table: 87 bytes: first JIS row stored in the bank of row r, read at 7F:40CA-40D6 (ld hl,$4150) (verified structure, layout from engine code)
 
 GlyphFont_RowFirstTable:: ; 7F:4150
-Data_7F_4150::
+
 	db $01, $01, $01, $01, $01, $01, $01, $01, $FF, $FF, $FF, $FF, $05, $FF, $FF, $10
 	db $10, $10, $10, $10, $10, $10, $10, $10, $19, $19, $19, $19, $19, $19, $19, $19
 	db $19, $22, $22, $22, $22, $22, $22, $22, $22, $22, $2B, $2B, $2B, $2B, $2B, $2B

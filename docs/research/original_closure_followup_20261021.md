@@ -466,3 +466,11 @@ Removed `Data_67_61D2` and `Data_67_6246` from
 no current assembly/tool consumers beyond their declarations. Existing
 CONFIRMED read evidence, storage extents, content-class uncertainty, and bytes
 are unchanged; historical config/analysis records were not edited.
+
+## Bank 7F JIS row lookup aliases (2026-10-21)
+
+Removed `Data_7F_40F9` and `Data_7F_4150` from `engine/text/glyph.asm` under
+`GlyphFont_RowBankTable` and `GlyphFont_RowFirstTable`. The 87-byte tables,
+their index/access descriptions, and their existing PROBABLE classifications
+are unchanged; no active source/tool references used the address-only names.
+Frozen analysis/config spellings remain historical records.
