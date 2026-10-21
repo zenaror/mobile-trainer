@@ -1058,9 +1058,8 @@ names. The 4,096 ROM bytes and all four HDMA loader references remain intact.
 Independent review accepted all four retirements. A before/after SYM and MAP
 comparison found exactly four removed symbol lines and no other changes.
 `make`, `make sym-check`, `make palette-check` and `make png-check` passed;
-the ROM remains `RESULT: IDENTICAL`. The six-root lexical census is now 907
-generic `Data_BB_AAAA` definitions plus one separate `zero_labels` definition;
-this count does not imply semantic uncertainty for every label.
+the ROM remains `RESULT: IDENTICAL`. This count does not imply semantic
+uncertainty for every label.
 
 The other 68 generic data labels in `gfx/comm/comm_scene.asm` remain neutral:
 58 records fit count-plus-four-byte-entry shapes and 10 fit count-plus-two-byte
@@ -1091,4 +1090,10 @@ encoding. Existing traces read 990 bytes; the remaining 396 have no recorded
 read, and the loops do not prove a general bounds check. No display or universal
 frame-reachability claim is made. The independent report is retained at
 `.tmp/agent-top-menu-anim-review-20261021/REPORT.md` (SHA-256
-`ed07ba53f9a5ab9c8f5a7c0ac6108f60922ff9afd496b3a44fc1cde29488eadc`).
+`ed07ba53f9a5ab9c8f5a7c0ac6108f60922ff9afd496b3a44fc1cde29488eadc`). The
+current safe scan finds 888 generic data labels in the six maintained roots
+and one separate `zero_labels` definition (889 total), excluding
+`languages/` and `engine/mail/sample_data.asm`. The script and receipt are
+retained in `.tmp/generic-data-current-safe-census-20261021/`; their SHA-256
+values are respectively `88de64d009ad50018f8fcb7d068448eec1d642b5b09d1b18d7846a3de2babae8`
+and `6fbb8b15e07454b5b3345a8459f9f0773ae0489dd659459635c0049227fcadc0`.
