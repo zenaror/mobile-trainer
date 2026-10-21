@@ -1893,7 +1893,6 @@ Mailbox_IconBarAttrTable:: ; 25:58E7
 ; ---- data $58ED-$5A0D (288 bytes) [PROBABLE] 6 records of 2 x 24-byte rows: each row has 20 BG attributes plus 4 zero bytes. Table 25:58E7 reaches only the first 3 records; their 120 attribute bytes are naturally read (whole per-record cohorts 6/7/5), while 24 zero spacing bytes and the 144-byte tail at $597D-$5A0D have no observed data read. Consumer 25:5889 copies row0/row1 to VRAM1 $99C0/$99E0 but row1/row0 to WRAM7 $D5C0/$D5E0. Tail meaning remains HYPOTHESIS; no export or typing as tiles.
 
 Mailbox_IconBarAttrs:: ; 25:58ED
-Data_25_58ED::
 	db $29, $29, $29, $29, $0B, $0B, $09, $09, $09, $0B, $0B, $09, $09, $09, $0B, $0B
 	db $09, $09, $09, $09, $00, $00, $00, $00, $29, $09, $09, $09, $0B, $0B, $09, $09
 	db $09, $0B, $0B, $09, $09, $09, $0B, $0B, $09, $09, $09, $09, $00, $00, $00, $00

@@ -1852,3 +1852,8 @@ The mobile-dictionary input dispatcher also no longer exports its duplicate
 The main title-choice dispatcher likewise uses only `Table_Main_TitleChoices`
 now; its three probable pointer entries and boundary are unchanged. See the
 [main-table note](docs/research/main_title_choice_alias_20261021.md).
+
+The mailbox icon-bar attribute block no longer exports the duplicate numeric
+data name. Its confirmed first-three-record read boundary and uncertain tail
+remain as before; see the
+[mailbox note](docs/research/mailbox_iconbar_data_alias_20261021.md).
