@@ -45,7 +45,7 @@ Settings_Candidate2bppFragment_723F:: ; 71:723F
 	db $FF, $00, $FF, $00, $FF, $00, $FC, $01, $FD, $01, $FD, $01, $FC, $01, $FD, $01
 	db $FC, $00
 
-; ---- data $7271-$7740 (1231 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown [clipped from 7240-7740 by higher-priority evidence]
+; ---- data $7271-$7740 (1231 bytes) [CONFIRMED] read as data; current 69-report trace corpus has 9 aggregate ROM-read overlaps whose union covers 7240-7740; merged intervals do not identify a reader or content class [older 3/18 count is historical; clipped from 7240-7740 by higher-priority evidence]
 
 Settings_ReadData_UnknownContent_7271:: ; 71:7271
 	db $FF, $00, $1E, $40, $42, $54, $54, $56, $52, $52, $40, $F4, $F4, $F6, $42, $00

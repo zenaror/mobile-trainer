@@ -1251,3 +1251,20 @@ selected call at `5120` does not prove bank `7D`; the apparent matching window
 that call absent separate bank/relocation evidence. These findings narrow the
 static hypotheses but do not exclude computed control flow, RAM-built targets,
 stack transfers, or copying/relocation. No labels or bytes changed.
+
+## Bank 71 unknown-content read span: expanded trace corpus (2026-10-22)
+
+The ROM bytes at `71:7271–7740` are 1,231 bytes at physical offset
+`0x1C7271`, SHA-256
+`62bc0c152352e9ad7b310723cdbf673137f4254adf2d7820d2a042d2f96d3754`.
+Across the current 69 `traces/detail/*/dataaccess.tsv` reports, nine have
+merged `rom_read` intervals intersecting this span: seven report
+`71:7240–74C0`, one `71:7240–7740`, and one `71:74C0–7740`. Their union covers
+`71:7240–7740`, including the complete labeled interval. The old `3/18`
+annotation predates this expanded corpus. These are per-scenario aggregate
+address ranges, not instruction-level reader attribution or proof of a single
+call reading the whole interval. A current maintained-source literal scan found
+no operand spelling either start address; this does not exclude split or
+computed pointers. The neutral
+`Settings_ReadData_UnknownContent_7271` name and unknown content class are
+therefore retained.
