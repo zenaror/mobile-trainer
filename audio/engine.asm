@@ -1737,7 +1737,7 @@ SoundDrv_CmdStoreTrackSigned:: ; 04:49A2
 	sub a, $80
 	ld [hl], a
 	jp SoundDrv_ReadNextCommand
-SoundDrv_CmdStoreTrackByte1E:: ; 04:49B6 [PROBABLE] operation only; entry/musical purpose HYPOTHESIS; see note.
+SoundDrv_CmdStoreTrackByte1E:: ; 04:49B6 [PROBABLE] operation only; static dispatch target CONFIRMED; natural use/musical purpose HYPOTHESIS; see note.
 	ld a, [wSoundDrv_UpdateFlags]
 	set 2, a
 	ld [wSoundDrv_UpdateFlags], a
@@ -1755,7 +1755,7 @@ SoundDrv_ExtSetTrack28:: ; 04:49C8
 	; $CD 7 (never used by the data): +$28 = length of the note-end tail, (256 - value) * 15 ticks (PROBABLE, demonstrated (synthetic): see .l4D54)
 	ld bc, $0028
 	jr SoundDrv_CmdStoreTrackByte
-SoundDrv_ParamStoreTrackWord27:: ; 04:49CD [PROBABLE] operation only; entry/musical purpose HYPOTHESIS; see note.
+SoundDrv_ParamStoreTrackWord27:: ; 04:49CD [PROBABLE] operation only; static dispatch target CONFIRMED; natural use/musical purpose HYPOTHESIS; see note.
 	ld bc, $0027
 	jp SoundDrv_SetTrackFieldWord
 
