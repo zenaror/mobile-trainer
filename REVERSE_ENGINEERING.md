@@ -2075,8 +2075,9 @@ HYPOTHESIS, and its unresolved role and bank/address provenance remain explicit.
 See the dated [gfx path follow-up](docs/research/gfx_generic_name_audit_20261021.md#address-only-unresolved-graphics-path-update-2026-10-22).
 
 A later filename census found that the source-level result does not cover asset
-basenames: 107 type/address stems remain across 20 descriptive `gfx/` folders,
-covering 216 files. There are still no current `bankNN` directories. The 134
+basenames: after the Page List owner-aligned rename of three tile pairs, 104
+type/address stems remain across 20 descriptive `gfx/` folders, covering 210
+files. There are still no current `bankNN` directories. The 134
 payload files present in `gfx/assets.tsv` retain 102 CONFIRMED, 31 PROBABLE and
 one HYPOTHESIS catalogue statuses; those statuses were not revalidated by the
 lexical pass. The two `tiles_5860` files in Bank 4A are documented byte-views of

@@ -113,7 +113,7 @@ Nine generic `tiles_<address>` pairs in the T4, T5, T9 and shared Bank 5D/5F pan
 
 ## Japanese type/address asset filename census (2026-10-22)
 
-A fresh lexical census of the current Japanese `gfx/` tree found 1,859 files and no directory component named exactly `bankNN`. It found 107 address-only stems (`tiles_XXXX`, `tilemap_XXXX`, `attrmap_XXXX`, `palette_XXXX`) across 20 descriptive directories, spanning 216 physical files: 60 `.2bpp`, 60 `.png`, 29 `.tilemap`, 36 `.attrmap`, 21 `.screen.png` and 10 `.pal`. Of these, 134 payload files have current `gfx/assets.tsv` rows: 102 CONFIRMED, 31 PROBABLE and one HYPOTHESIS. Those status counts are inherited catalogue evidence; the lexical scan did not revalidate each loader or visual role. The remaining files include previews and one byte-view pair, so absence from the payload catalogue does not make a file disposable.
+A fresh lexical census of the current Japanese `gfx/` tree found 1,859 files and no directory component named exactly `bankNN`. It initially found 107 address-only stems (`tiles_XXXX`, `tilemap_XXXX`, `attrmap_XXXX`, `palette_XXXX`) across 20 descriptive directories, spanning 216 physical files: 60 `.2bpp`, 60 `.png`, 29 `.tilemap`, 36 `.attrmap`, 21 `.screen.png` and 10 `.pal`. The 2026-10-22 Page List pass renamed three tile pairs whose maintained labels and static owner already identify them: `tiles_5810`, `tiles_6301` and `tiles_63e0` are now `page_list_tiles_5810`, `page_list_tiles_6301` and `page_list_tiles_63e0`. Their six payload hashes are unchanged, leaving 104 address-only stems across 20 directories and 210 physical files (57 `.2bpp`, 57 `.png`, 29 `.tilemap`, 36 `.attrmap`, 21 `.screen.png` and 10 `.pal`). Of the remaining inventory, 134 payload files have current `gfx/assets.tsv` rows: 102 CONFIRMED, 31 PROBABLE and one HYPOTHESIS. Those status counts are inherited catalogue evidence; the lexical scan did not revalidate each loader or visual role. The remaining files include previews and one byte-view pair, so absence from the payload catalogue does not make a file disposable.
 
 | Current directory | Address-only stems |
 |---|---|
@@ -123,7 +123,6 @@ A fresh lexical census of the current Japanese `gfx/` tree found 1,859 files and
 | `gfx/account/result_page_bank4b/` | `tiles_5080`, `tiles_5420` |
 | `gfx/account/settings_menu_and_manual_confirm_bank4a/` | `tiles_5860` |
 | `gfx/browser/frames_0_1/` | `tiles_4000`, `tiles_4010`, `tiles_4080`, `tiles_4090`, `tiles_40c0`, `tiles_40d0` |
-| `gfx/browser/page_list/` | `tiles_5810`, `tiles_6301`, `tiles_63e0` |
 | `gfx/browser/page_list_candidate/` | `palette_6aa0`, `palette_6d70`; `tilemap_67d0`; `tiles_62b0`, `tiles_66b0`, `tiles_6ae0` |
 | `gfx/comm/connect_dialog_bank56/` | `palette_77c0`; `tilemap_418a`, `tilemap_445a`, `tilemap_472a`, `tilemap_49fa`, `tilemap_4cca`, `tilemap_4f9a` |
 | `gfx/comm/notice_dialog/` | `attrmap_4502`, `attrmap_47d2`, `attrmap_4aa2`, `attrmap_4d72`, `attrmap_5042`, `attrmap_5312`, `attrmap_55e2`, `attrmap_58b2`; `palette_6bc0`; `tiles_5a20`, `tiles_5e20`, `tiles_5fc0`, `tiles_5fd0`, `tiles_62f0`, `tiles_66f0`, `tiles_6890`, `tiles_68a0` |

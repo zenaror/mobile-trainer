@@ -228,9 +228,9 @@ gfx/browser/page_list/page_list_tilemap_5bd0.attrmap	-	attrmap				360	c5d452eb10
 gfx/browser/page_list/page_list_tilemap_5bd0.tilemap	-	tilemap				360	50818bb7e9da59254b13300db86739ebab2827e2f2db4098be66bcf007b20c2a
 gfx/browser/page_list/page_list_tiles_5400.2bpp	gfx/browser/page_list/page_list_tiles_5400.png	tiles			3	464	4393617ed5bff19050630d8f8becd3b9d81467c91476f3ca86e9f3e93da0a75a
 gfx/browser/page_list/page_list_tiles_5800.2bpp	gfx/browser/page_list/page_list_tiles_5800.png	tiles			0	16	6478303eac279d05ce6dbe21c10d903b4b0eb97224d34773f9256a87cb41d0a0
-gfx/browser/page_list/tiles_5810.2bpp	gfx/browser/page_list/tiles_5810.png	tiles			0	160	fb17d379db097f1b9c0ad78931a29458b52ccc8dbb4ca41660937aea76ce68af
-gfx/browser/page_list/tiles_6301.2bpp	gfx/browser/page_list/tiles_6301.png	tiles			0	192	b6cda9a140467275dff1c865f280449926643131e009234dd94982ae6542a532
-gfx/browser/page_list/tiles_63e0.2bpp	gfx/browser/page_list/tiles_63e0.png	tiles			0	256	b484b3f123492910c6ac5d730a0761ecbb5d2e0e75b7522dbd8e9b11930f8e2f
+gfx/browser/page_list/page_list_tiles_5810.2bpp	gfx/browser/page_list/page_list_tiles_5810.png	tiles			0	160	fb17d379db097f1b9c0ad78931a29458b52ccc8dbb4ca41660937aea76ce68af
+gfx/browser/page_list/page_list_tiles_6301.2bpp	gfx/browser/page_list/page_list_tiles_6301.png	tiles			0	192	b6cda9a140467275dff1c865f280449926643131e009234dd94982ae6542a532
+gfx/browser/page_list/page_list_tiles_63e0.2bpp	gfx/browser/page_list/page_list_tiles_63e0.png	tiles			0	256	b484b3f123492910c6ac5d730a0761ecbb5d2e0e75b7522dbd8e9b11930f8e2f
 gfx/browser/page_list_candidate/palette_6aa0.pal	-	palette				519	fe9ba21a43ba0e6466c8b8b38e4bc0bf4b71d662f31f37b249925389a7a55c2a
 gfx/browser/page_list_candidate/palette_6d70.pal	-	palette				519	7e61effad0f600e9b4215e25deec96c4d004c42eee039494d93b7b4324847236
 gfx/browser/page_list_candidate/tilemap_67d0.attrmap	-	attrmap				360	da79fcb073581b78dd0ddf236c14f23a970ac4a3cce99f8ace5848b7ea2045a8

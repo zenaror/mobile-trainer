@@ -57,10 +57,10 @@ Blocks of the graphics regions that are not converted (the note / label does not
 | what | blocks | bytes |
 |---|---:|---:|
 | data without graphics evidence in the note | 25 | 6564 |
-| object / animation tables (by label name) | 95 | 3631 |
-| bytes read as data by executed code, content class unknown | 3 | 2543 |
+| object / animation tables (by label name) | 94 | 3629 |
+| bytes read as data by executed code, content class unknown | 2 | 2511 |
 | HYPOTHESIS data (mostly runs of $FF / $00 padding candidates) | 24 | 1042 |
-| sprite / OAM frame records, animation scripts, object tables (not tile art) | 19 | 435 |
+| sprite / OAM frame records, animation scripts, object tables (not tile art) | 20 | 437 |
 | gfx fragments of fewer than 4 whole tiles | 6 | 177 |
 | tail (less than 16 bytes) after a converted tile block | 13 | 152 |
 | region kind zero | 4 | 34 |
@@ -400,15 +400,15 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `page_list_tiles_5400.2bpp` | 2bpp tiles | 464 | 24:5400 | CONFIRMED | exact | - | `gfx/browser/page_list.asm` |
 | `page_list_candidate_tiles_55d0.2bpp` | 2bpp tiles | 560 | 24:55D0 | PROBABLE | exact | - | `gfx/browser/page_list.asm` |
 | `page_list_tiles_5800.2bpp` | 2bpp tiles | 16 | 24:5800 | PROBABLE | exact | - | `gfx/browser/page_list.asm` |
-| `tiles_5810.2bpp` | 2bpp tiles | 160 | 24:5810 | CONFIRMED | exact | - | `gfx/browser/page_list.asm` |
+| `page_list_tiles_5810.2bpp` | 2bpp tiles | 160 | 24:5810 | CONFIRMED | exact | - | `gfx/browser/page_list.asm` |
 | `page_list_tilemap_5900.tilemap` | tile-index map | 360 | 24:5900 | CONFIRMED | - | 20x18 | `gfx/browser/page_list.asm` |
 | `page_list_tilemap_5900.attrmap` | attribute map | 360 | 24:5A68 | CONFIRMED | - | 20x18 | `gfx/browser/page_list.asm` |
 | `page_list_tilemap_5bd0.tilemap` | tile-index map | 360 | 24:5BD0 | CONFIRMED | - | 20x18 | `gfx/browser/page_list.asm` |
 | `page_list_tilemap_5bd0.attrmap` | attribute map | 360 | 24:5D38 | CONFIRMED | - | 20x18 | `gfx/browser/page_list.asm` |
 | `page_list_bg_palette.pal` | RGB palette | 64 | 24:5EA0 | CONFIRMED | - | - | `gfx/browser/page_list.asm` |
 | `page_list_candidate_tiles_5ef1.2bpp` | 2bpp tiles | 992 | 24:5EF1 | PROBABLE | exact | - | `gfx/browser/page_list.asm` |
-| `tiles_6301.2bpp` | 2bpp tiles | 192 | 24:6301 | CONFIRMED | exact | - | `gfx/browser/page_list.asm` |
-| `tiles_63e0.2bpp` | 2bpp tiles | 256 | 24:63E0 | CONFIRMED | exact | - | `gfx/browser/page_list.asm` |
+| `page_list_tiles_6301.2bpp` | 2bpp tiles | 192 | 24:6301 | CONFIRMED | exact | - | `gfx/browser/page_list.asm` |
+| `page_list_tiles_63e0.2bpp` | 2bpp tiles | 256 | 24:63E0 | CONFIRMED | exact | - | `gfx/browser/page_list.asm` |
 | `page_list_obj_palette.pal` | RGB palette | 64 | 24:64E0 | CONFIRMED | - | - | `gfx/browser/page_list.asm` |
 
 ### `gfx/browser/page_list_candidate/`
@@ -560,19 +560,19 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_42a0.2bpp` | 2bpp tiles | 1024 | 51:42A0 | CONFIRMED | exact | - | `gfx/comm/time_summary.asm` |
-| `tiles_46a0.2bpp` | 2bpp tiles | 1024 | 51:46A0 | CONFIRMED | exact | - | `gfx/comm/time_summary.asm` |
+| `summary_a_vram9000_vb1_tiles.2bpp` | 2bpp tiles | 1024 | 51:42A0 | CONFIRMED | exact | - | `gfx/comm/time_summary.asm` |
+| `summary_a_vram9400_vb1_tiles.2bpp` | 2bpp tiles | 1024 | 51:46A0 | CONFIRMED | exact | - | `gfx/comm/time_summary.asm` |
 | `comm_time_summary_a.tilemap` | tile-index map | 360 | 51:4AA0 | CONFIRMED | - | 20x18 | `gfx/comm/time_summary.asm` |
 | `comm_time_summary_a.attrmap` | attribute map | 360 | 51:4C08 | CONFIRMED | - | 20x18 | `gfx/comm/time_summary.asm` |
-| `palette_4d70.pal` | RGB palette | 64 | 51:4D70 | PROBABLE | - | - | `gfx/comm/time_summary.asm` |
-| `tiles_4db0.2bpp` | 2bpp tiles | 1024 | 51:4DB0 | CONFIRMED | exact | - | `gfx/comm/time_summary.asm` |
-| `tiles_51b0.2bpp` | 2bpp tiles | 1024 | 51:51B0 | CONFIRMED | exact | - | `gfx/comm/time_summary.asm` |
+| `summary_a_bg_palettes.pal` | RGB palette | 64 | 51:4D70 | PROBABLE | - | - | `gfx/comm/time_summary.asm` |
+| `summary_b_vram9000_vb1_tiles.2bpp` | 2bpp tiles | 1024 | 51:4DB0 | CONFIRMED | exact | - | `gfx/comm/time_summary.asm` |
+| `summary_b_vram9400_vb1_tiles.2bpp` | 2bpp tiles | 1024 | 51:51B0 | CONFIRMED | exact | - | `gfx/comm/time_summary.asm` |
 | `comm_time_summary_b.tilemap` | tile-index map | 360 | 51:55B0 | CONFIRMED | - | 20x18 | `gfx/comm/time_summary.asm` |
 | `comm_time_summary_b.attrmap` | attribute map | 360 | 51:5718 | CONFIRMED | - | 20x18 | `gfx/comm/time_summary.asm` |
 | `comm_time_summary_b.pal` | RGB palette | 64 | 51:5880 | PROBABLE | - | - | `gfx/comm/time_summary.asm` |
-| `tiles_58c0.2bpp` | 2bpp tiles | 1024 | 51:58C0 | CONFIRMED | exact | - | `gfx/comm/time_summary.asm` |
-| `tiles_5cc0.2bpp` | 2bpp tiles | 512 | 51:5CC0 | CONFIRMED | exact | - | `gfx/comm/time_summary.asm` |
-| `palette_5ec0.pal` | RGB palette | 32 | 51:5EC0 | PROBABLE | - | - | `gfx/comm/time_summary.asm` |
+| `conn_icon_request2_vram8200_vb0_tiles.2bpp` | 2bpp tiles | 1024 | 51:58C0 | CONFIRMED | exact | - | `gfx/comm/time_summary.asm` |
+| `conn_icon_request2_vram8600_vb0_tiles.2bpp` | 2bpp tiles | 512 | 51:5CC0 | CONFIRMED | exact | - | `gfx/comm/time_summary.asm` |
+| `conn_icon_request2_obj_palettes_4_to_7.pal` | RGB palette | 32 | 51:5EC0 | PROBABLE | - | - | `gfx/comm/time_summary.asm` |
 | `time_summary_candidate_tiles_5ee1.2bpp` | 2bpp tiles | 4592 | 51:5EE1 | PROBABLE | exact | - | `gfx/comm/time_summary.asm` |
 
 ### `gfx/dialog/dialog_window/`
@@ -776,12 +776,12 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tilemap_4000.tilemap` | tile-index map | 360 | 6A:4000 | CONFIRMED | - | 20x18 | `gfx/help/help_screens_a.asm` |
-| `tilemap_4000.attrmap` | attribute map | 360 | 6A:4168 | CONFIRMED | - | 20x18 | `gfx/help/help_screens_a.asm` |
-| `tilemap_42d0.tilemap` | tile-index map | 360 | 6A:42D0 | CONFIRMED | - | 20x18 | `gfx/help/help_screens_a.asm` |
-| `tilemap_42d0.attrmap` | attribute map | 360 | 6A:4438 | CONFIRMED | - | 20x18 | `gfx/help/help_screens_a.asm` |
-| `tilemap_45a0.tilemap` | tile-index map | 360 | 6A:45A0 | CONFIRMED | - | 20x18 | `gfx/help/help_screens_a.asm` |
-| `tilemap_45a0.attrmap` | attribute map | 360 | 6A:4708 | CONFIRMED | - | 20x18 | `gfx/help/help_screens_a.asm` |
+| `help_menu_page1_background.tilemap` | tile-index map | 360 | 6A:4000 | CONFIRMED | - | 20x18 | `gfx/help/help_screens_a.asm` |
+| `help_menu_page1_background.attrmap` | attribute map | 360 | 6A:4168 | CONFIRMED | - | 20x18 | `gfx/help/help_screens_a.asm` |
+| `help_menu_page2_background.tilemap` | tile-index map | 360 | 6A:42D0 | CONFIRMED | - | 20x18 | `gfx/help/help_screens_a.asm` |
+| `help_menu_page2_background.attrmap` | attribute map | 360 | 6A:4438 | CONFIRMED | - | 20x18 | `gfx/help/help_screens_a.asm` |
+| `help_menu_page3_background.tilemap` | tile-index map | 360 | 6A:45A0 | CONFIRMED | - | 20x18 | `gfx/help/help_screens_a.asm` |
+| `help_menu_page3_background.attrmap` | attribute map | 360 | 6A:4708 | CONFIRMED | - | 20x18 | `gfx/help/help_screens_a.asm` |
 | `help_menu_page1_normal_items.tilemap` | tile-index map | 210 | 6A:4870 | CONFIRMED | - | 10x21 | `gfx/help/help_screens_a.asm` |
 | `help_menu_page1_normal_items.attrmap` | attribute map | 210 | 6A:4942 | CONFIRMED | - | 10x21 | `gfx/help/help_screens_a.asm` |
 | `help_menu_page2_normal_items.tilemap` | tile-index map | 90 | 6A:4A14 | CONFIRMED | - | 10x9 | `gfx/help/help_screens_a.asm` |
@@ -794,12 +794,12 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `help_menu_page2_selected_items.attrmap` | attribute map | 90 | 6A:4D7A | CONFIRMED | - | 10x9 | `gfx/help/help_screens_a.asm` |
 | `help_menu_page3_selected_items.tilemap` | tile-index map | 90 | 6A:4DD4 | CONFIRMED | - | 10x9 | `gfx/help/help_screens_a.asm` |
 | `help_menu_page3_selected_items.attrmap` | attribute map | 90 | 6A:4E2E | CONFIRMED | - | 10x9 | `gfx/help/help_screens_a.asm` |
-| `tiles_4e90.2bpp` | 2bpp tiles | 1024 | 6A:4E90 | CONFIRMED | exact | - | `gfx/help/help_screens_a.asm` |
-| `tiles_5290.2bpp` | 2bpp tiles | 1024 | 6A:5290 | CONFIRMED | exact | - | `gfx/help/help_screens_a.asm` |
-| `tiles_5690.2bpp` | 2bpp tiles | 1024 | 6A:5690 | CONFIRMED | exact | - | `gfx/help/help_screens_a.asm` |
-| `tiles_5a90.2bpp` | 2bpp tiles | 32 | 6A:5A90 | CONFIRMED | exact | - | `gfx/help/help_screens_a.asm` |
-| `tiles_5ab0.2bpp` | 2bpp tiles | 1024 | 6A:5AB0 | CONFIRMED | exact | - | `gfx/help/help_screens_a.asm` |
-| `tiles_5eb0.2bpp` | 2bpp tiles | 1024 | 6A:5EB0 | CONFIRMED | exact | - | `gfx/help/help_screens_a.asm` |
+| `help_menu_vram8000_vb0_tiles.2bpp` | 2bpp tiles | 1024 | 6A:4E90 | CONFIRMED | exact | - | `gfx/help/help_screens_a.asm` |
+| `help_menu_vram8800_vb0_tiles.2bpp` | 2bpp tiles | 1024 | 6A:5290 | CONFIRMED | exact | - | `gfx/help/help_screens_a.asm` |
+| `help_menu_vram8c00_vb0_tiles.2bpp` | 2bpp tiles | 1024 | 6A:5690 | CONFIRMED | exact | - | `gfx/help/help_screens_a.asm` |
+| `help_menu_vram9000_vb0_tiles.2bpp` | 2bpp tiles | 32 | 6A:5A90 | CONFIRMED | exact | - | `gfx/help/help_screens_a.asm` |
+| `help_menu_vram9000_vb1_tiles.2bpp` | 2bpp tiles | 1024 | 6A:5AB0 | CONFIRMED | exact | - | `gfx/help/help_screens_a.asm` |
+| `help_menu_vram9400_vb1_tiles.2bpp` | 2bpp tiles | 1024 | 6A:5EB0 | CONFIRMED | exact | - | `gfx/help/help_screens_a.asm` |
 | `help_menu_bg.pal` | RGB palette | 64 | 6A:62B0 | CONFIRMED | - | - | `gfx/help/help_screens_a.asm` |
 | `help_menu_obj.pal` | RGB palette | 64 | 6A:62F0 | CONFIRMED | - | - | `gfx/help/help_screens_a.asm` |
 
