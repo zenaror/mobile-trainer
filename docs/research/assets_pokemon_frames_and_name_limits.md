@@ -486,3 +486,38 @@ measured results are retained in the ignored local receipt
 `622b91ff343c465b6acfddb5b76ed27ec2ddad90e61de066c31323b013c87dc9`). This
 remains static asset-integrity evidence, not proof of natural selection,
 global unused status, universal reader absence, or name-to-image association.
+
+### Current Japanese reconciliation (2026-10-22, checkpoint `bdc16b00`)
+
+An independent static revalidation confirms the current catalogue contains 978 assets
+(623,610 declared ROM bytes) and 977 PNG rules. All catalogued extents and rule
+parameters reconcile with their source owners; the bounded PNG set contains 857
+valid images. The current editable-source count is 408 tile sheets, four raw-byte
+views and 37 font sheets (449 unique source PNG paths). `docs/EDITING_IMAGES.md`
+had retained the earlier 979/622,434/978/409 counts; its current-catalogue paragraph
+now reflects this snapshot. Nine preview images have no current catalogue row, and
+five `screen_ops.tsv` source line references are beyond EOF; these are metadata
+issues, not evidence of missing assets. Existing preview/evidence images are retained.
+
+The same review re-emitted all 25 bank-53 name strings (369 bytes) and confirmed
+that the remainder of bank 53 from `53:4171` to `53:8000` is zero. It found no
+missing PNG or orphan in the audited catalogue. The 25 name ordinals still have no
+proved association to frame images. The eight KEEP windows remain without an
+originally justified editing composition, while their legacy previews are present.
+These bounded checks do not establish global asset completeness or natural loading.
+
+At `gfx/browser/frames_2_3.asm`, the comment for the package beginning at
+`47:68F0` incorrectly said it was selected by browser-frame descriptor 3. The 27
+selector words and five descriptors in `Table_Browser_FrameDescriptors` point only
+to resource families `47:4100`, `47:4E50` and `47:5BA0`; none selects `47:68F0`.
+The source comment now states this bounded negative and explicitly leaves another
+consumer unproved. It does not label the package globally unused: the loader masks
+the style with `$7F`, and the finite descriptor table is not proof that no other
+reader exists.
+
+The three remaining `ReadData_UnknownContent` spans (1,623 bytes) and 13 neutral
+`Data_BB_AAAA` spans (81 bytes) were checked against the original ROM bytes. Current
+static evidence still does not justify more specific content/function names, so the
+neutral labels remain. A separate bounded function-label census found no generic
+function declarations; this does not complete semantic or natural-entry
+identification.

@@ -86,7 +86,7 @@ This entry updates the earlier catalogue counts to93 rows:20 PROBABLE and73 HYPO
 
 ## 7. Current original-asset catalogue
 
-The current catalogue has979 assets/622434 logical ROM bytes and978 active PNG rules. Its11 JIS12x12 binaries total131976B; all font formats together have39 binaries in37 sheets. The409 tile-sheet PNGs,4 RAW byte-view PNGs (80B) and37 font sheets are450 unique editable source PNG paths. The validity bitmap is a separate view-only picture. The RAW files preserve HYPOTHESIS/UNKNOWN purpose and use an explicit reversible byte codec; a byte-view is not a new tile classification.
+The current catalogue has978 assets/623610 logical ROM bytes and977 active PNG rules. Its11 JIS12x12 binaries total131976B; all font formats together have39 binaries in37 sheets. The408 tile-sheet PNGs,4 RAW byte-view PNGs (80B) and37 font sheets are449 unique editable source PNG paths. The validity bitmap is a separate view-only picture. The RAW files preserve HYPOTHESIS/UNKNOWN purpose and use an explicit reversible byte codec; a byte-view is not a new tile classification.
 
 The current95 screen rows are20 PROBABLE and75 HYPOTHESIS;85 of180 tilemaps have no screen row. The preceding92/93 counts describe earlier stages, not current omissions. Among the25 finite candidate physical windows,17 editing compositions and24 legacy previews exist: every window has some existing PNG representation. Eight editing views remain KEEP; this is not missing ROM art or proof of natural loading. The completed bank7C sheet shares three contiguous spans6083+10+9135B without a new PNG path. No species/name-to-image association or ALL asset-completeness claim follows.
 

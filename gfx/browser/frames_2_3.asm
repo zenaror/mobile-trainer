@@ -20,7 +20,7 @@ Tilemap_BrowserFrame2:: ; 47:65A0
 Palette_BrowserFrame2:: ; 47:6870
 	INCLUDE "gfx/browser/frames_2_3/browser_frame2.pal"
 
-; ---- gfx $68F0-$72F0 (2560 bytes) [PROBABLE] 2bpp tile data (160 tiles, incl. blank tiles), screen block 4/4 of bank 47: same layout in banks 41-46, bank 47 shifted by +0x100 (palette signature ff7f 1c01 027e 0000 at block+0xCD0 in every bank); block = 0xA00 tile bytes + 0x2D0 tilemap/attr + 0x80 palettes = 0xD50; visually coherent pixel art in a rendered sheet; selected by browser-frame descriptor 3; natural selection is not established ; the executed-code reads of 47:4E50-5BA0 (homepage trace) and 47:5BA0-68F0 (monkey_1 trace) cover exactly blocks 2 and 3 (CONFIRMED whole-block data reads; the split into tiles/map/palette is PROBABLE)
+; ---- gfx $68F0-$72F0 (2560 bytes) [PROBABLE] 2bpp tile data (160 tiles, incl. blank tiles), screen block 4/4 of bank 47: same layout in banks 41-46, bank 47 shifted by +0x100 (palette signature ff7f 1c01 027e 0000 at block+0xCD0 in every bank); block = 0xA00 tile bytes + 0x2D0 tilemap/attr + 0x80 palettes = 0xD50; visually coherent pixel art in a rendered sheet; not selected by any of the five descriptors in Table_Browser_FrameDescriptors; another consumer remains unproved; natural selection is not established ; the executed-code reads of 47:4E50-5BA0 (homepage trace) and 47:5BA0-68F0 (monkey_1 trace) cover exactly blocks 2 and 3 (CONFIRMED whole-block data reads; the split into tiles/map/palette is PROBABLE)
 
 BrowserFrameCandidate_Tiles_68F0:: ; 47:68F0
 	INCBIN "gfx/browser/frames_2_3/browser_frame_candidate_tiles_68f0.2bpp"
