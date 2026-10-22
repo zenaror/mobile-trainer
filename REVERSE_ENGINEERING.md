@@ -243,10 +243,11 @@ boundaries. The original ROM builds byte-identically, and the symbol and palette
 This does not prove natural topic reachability, rendered output, or complete Japanese-ROM closure;
 see [the stream map](docs/research/help_script_stream_map_20261020.md).
 The follow-up reader review of `48:69AB–69CA` found a concrete conditional static path from
-keyboard values `$FF82/$FF83` through the glyph preview to two 16-byte zero ranges. Independent
-review rejected names that would call them a glyph or fallback; `Data_48_69AB` stays neutral
-pending object-purpose evidence. The test-image span at `68:4F17` is now split into probable POP
-padding, server-IP, and first BCD dial-slot fields. A stale `Function_2B_687C` token was also
+keyboard values `$FF82/$FF83` through the glyph preview to two 16-byte zero ranges. Source
+arithmetic confirms these selected addresses lie outside the declared 80-byte run at
+`48:5D7B`; names that call them a glyph or fallback remain unsupported, so `Data_48_69AB` stays
+neutral pending object-purpose evidence. The test-image span at `68:4F17` is now split into probable
+POP padding, server-IP, and first BCD dial-slot fields. A stale `Function_2B_687C` token was also
 replaced by its existing operation name in the sprite preview index. These changes do not establish
 natural preview execution or close the remaining generic-data inventory; see the dated audit and
 [reader bounds note](docs/research/font_reader_69ab_bounds_20261020.md).

@@ -34,6 +34,21 @@ objects. The arithmetic and source selection are conditional static results;
 they do not assert that every pair occurs in a real input or that the range is
 an intentional fallback.
 
+## Relation to the declared run
+
+The selected addresses are outside the declared `Font_GlyphRun_83BF` section.
+That run is exactly 80 bytes (`48:5D7B–5DCA`, end-exclusive `5DCB`), while the
+reader adds `$C30` or `$C40` to its `$5D7B` base for low bytes `$82` or `$83`.
+The resulting source spans are in the separate `zero_labels` section at
+`48:69AB–69CA`; the linker layout pins that section at `$69AB`, and its current
+32 bytes are explicit zero bytes. The function copies 16 source bytes for the
+two preview destinations, so each of the two static input pairs selects one
+complete 16-byte half. This confirms the reader's out-of-run source selection
+for those inputs under the stated bank/stack/control-flow assumptions. It does
+not establish that the bytes are a glyph, fallback, reserved object, or
+intentional safety behavior, and it does not prove natural execution or
+rendered output. Keep the symbol `Data_48_69AB` neutral.
+
 The keyboard supplies actual table values `$FF82` and `$FF83`:
 `data/keyboard/pages.asm` maps page 0 cells `$34` and `$31` to bytes at
 `55:40AE` and `55:40A8`. `Kbd_FetchCell` (`engine/keyboard/keyboard.asm:521–558`)
