@@ -289,10 +289,9 @@ Kbd_Run_Loop:: ; 55:5D49
 	play_sfx SFX_CURSOR_MOVE
 	jp Kbd_Run_ContinueLoop
 
-	; [HYPOTHESIS] 13-byte routine ld a,[$C2AB] ; call $6EEC ; or a ; jp z,$5E5A ; jp $5F29 - the
-	; state variable and the jp targets match the neighbouring CONFIRMED handlers, and it calls the
-	; (now classified) lookup routine 6EEC; no branch into it found [verifier: no entry proven (no
-	; caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
+	; [CONFIRMED] If entered here, test wKbdType with Kbd_Type6To10Flag: zero continues the loop;
+	; nonzero selects Kbd_HideAndReturn9.
+	; [HYPOTHESIS] Natural entry is unproved: the preceding path jumps to 5E5A, while Select targets 5E02.
 	ld a, [wKbdType]
 	call Kbd_Type6To10Flag
 	or a, a
