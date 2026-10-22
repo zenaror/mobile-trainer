@@ -3408,3 +3408,19 @@ offset 0x9BAB0 is 16 zero bytes, SHA-256
 The earlier bank26 KEEP-neutral decision remains historical provenance and is
 superseded only for this bounded transfer-tail name; no sprite/OAM attribution
 or independent PNG/asset claim is made.
+
+## Fresh neutral-data inventory at Japanese main 7c596ead (2026-10-22)
+
+After `make` refreshed `build/mobile_trainer.sym`, `tools/data_consumers.py`
+reported 15 neutral data groups, one candidate site, one rejected site, and
+zero rename-manifest rows. The retained per-group inventory is
+`.tmp/jp-data-label-census-20261022/INVENTORY.tsv` (SHA-256
+`9122991c02f7a31c4ee02e542c72441779100b37b638b78c2b17d45d0a473b7c`); the
+empty manifest is `MANIFEST.tsv` (SHA-256
+`1a5e0a79621043b8f81cfe9e0e31dbd8b2e0322a582f9aee1a472a0b8db0f605`). Its
+only listed site targets `Data_5F_6980` from
+`Registration_DeleteConfirm_Setup+7C`, rejected as a generic immediate; the
+source comment already records that A=`$71` selects bank71 at `$6998`, not
+bank5F. No new consumer or semantic evidence supports renaming any of the 15
+remaining exact labels. Keep their bounded dispositions above; this scanner
+does not rule out computed or otherwise unmodeled access.
