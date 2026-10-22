@@ -3434,3 +3434,19 @@ backing/PNG paths are `gfx/browser/start_choice/browser_start_candidate_tiles`
 with `.2bpp` and `.png` extensions. No source label, extent, confidence or
 bytes changed; this corrects catalogue metadata and removes an address-only
 resource basename without asserting natural use or a complete screen.
+
+
+## Keyboard graphics semantic path migration (2026-10-22)
+
+Renamed the generic Bank 62/66 keyboard graphics owners and numbered assets to
+identify the keyboard type/page, VRAM destination, and original bank address.
+The Bank 62 owner is now `gfx/keyboard/type7_8_page_graphics_bank62.asm`; the
+Bank 66 owner is `gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm`.
+Loader-to-destination names are supported by the maintained `engine/keyboard/keyboard.asm`
+transfer routines and the corresponding `CONFIRMED` owner ranges. The four
+192-byte Bank 62 tail fragments remain `PROBABLE` candidate tails: the page
+loaders do not select the following fragments, so their names and confidence
+were preserved. Bank 66 mail-draft exit-option meaning remains `PROBABLE`; the
+static T10 screen preview remains `HYPOTHESIS`. Historical paths are retained
+in `gfx_resource_path_map.tsv`; frozen `analysis/layout/` snapshots were not
+rewritten. No asset payload bytes or ROM bytes were changed.

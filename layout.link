@@ -606,7 +606,7 @@ ROMX $61
 
 ROMX $62
 	org $4000
-	"gfx/keyboard/tiles_bank62"
+	"gfx/keyboard/type7_8_page_graphics_bank62"
 
 ROMX $63
 	org $4000
@@ -632,7 +632,7 @@ ROMX $65
 
 ROMX $66
 	org $4000
-	"gfx/keyboard/tiles_bank66"
+	"gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66"
 
 ROMX $67
 	org $4000

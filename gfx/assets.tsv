@@ -556,40 +556,40 @@ gfx/keyboard/panels_bank5f/tiles_49d0.2bpp	tiles	768	gfx/keyboard/panels_bank5f.
 gfx/keyboard/panels_bank5f/tiles_5900.2bpp	tiles	1024	gfx/keyboard/panels_bank5f.asm	5F	5900	CONFIRMED	exact	0		Gfx_Kbd_T5_Tiles8800Vb1
 gfx/keyboard/panels_bank5f/tiles_5d00.2bpp	tiles	1024	gfx/keyboard/panels_bank5f.asm	5F	5D00	CONFIRMED	exact	0		Gfx_Kbd_T5_Tiles8C00Vb1
 gfx/keyboard/panels_bank5f/tiles_6100.2bpp	tiles	256	gfx/keyboard/panels_bank5f.asm	5F	6100	CONFIRMED	exact	0		Gfx_Kbd_T5_Tiles9000Vb1
-gfx/keyboard/tiles_bank62/tiles_4000.2bpp	tiles	1024	gfx/keyboard/tiles_bank62.asm	62	4000	CONFIRMED	exact	0		Gfx_Kbd_T78_Page0_Tiles8800Vb1
-gfx/keyboard/tiles_bank62/tiles_4400.2bpp	tiles	1024	gfx/keyboard/tiles_bank62.asm	62	4400	CONFIRMED	exact	0		Gfx_Kbd_T78_Page0_Tiles8C00Vb1
-gfx/keyboard/tiles_bank62/tiles_4800.2bpp	tiles	576	gfx/keyboard/tiles_bank62.asm	62	4800	CONFIRMED	exact	0		Gfx_Kbd_T78_Page0_Tiles9000Vb1
-gfx/keyboard/tiles_bank62/t78_page0_candidate_tail_tiles.2bpp	tiles	192	gfx/keyboard/tiles_bank62.asm	62	4A40	PROBABLE	exact	0		Gfx_Kbd_T78_Page0_CandidateTailTiles
-gfx/keyboard/tiles_bank62/tiles_4b00.2bpp	tiles	1024	gfx/keyboard/tiles_bank62.asm	62	4B00	CONFIRMED	exact	0		Gfx_Kbd_T78_Page1_Tiles8800Vb1
-gfx/keyboard/tiles_bank62/tiles_4f00.2bpp	tiles	1024	gfx/keyboard/tiles_bank62.asm	62	4F00	CONFIRMED	exact	0		Gfx_Kbd_T78_Page1_Tiles8C00Vb1
-gfx/keyboard/tiles_bank62/tiles_5300.2bpp	tiles	576	gfx/keyboard/tiles_bank62.asm	62	5300	CONFIRMED	exact	0		Gfx_Kbd_T78_Page1_Tiles9000Vb1
-gfx/keyboard/tiles_bank62/t78_page1_candidate_tail_tiles.2bpp	tiles	192	gfx/keyboard/tiles_bank62.asm	62	5540	PROBABLE	exact	0		Gfx_Kbd_T78_Page1_CandidateTailTiles
-gfx/keyboard/tiles_bank62/tiles_5600.2bpp	tiles	1024	gfx/keyboard/tiles_bank62.asm	62	5600	CONFIRMED	exact	0		Gfx_Kbd_T78_Page2_Tiles8800Vb1
-gfx/keyboard/tiles_bank62/tiles_5a00.2bpp	tiles	1024	gfx/keyboard/tiles_bank62.asm	62	5A00	CONFIRMED	exact	0		Gfx_Kbd_T78_Page2_Tiles8C00Vb1
-gfx/keyboard/tiles_bank62/tiles_5e00.2bpp	tiles	576	gfx/keyboard/tiles_bank62.asm	62	5E00	CONFIRMED	exact	0		Gfx_Kbd_T78_Page2_Tiles9000Vb1
-gfx/keyboard/tiles_bank62/t78_page2_candidate_tail_tiles.2bpp	tiles	192	gfx/keyboard/tiles_bank62.asm	62	6040	PROBABLE	exact	0		Gfx_Kbd_T78_Page2_CandidateTailTiles
-gfx/keyboard/tiles_bank62/tiles_6100.2bpp	tiles	1024	gfx/keyboard/tiles_bank62.asm	62	6100	CONFIRMED	exact	0		Gfx_Kbd_T78_Page3_Tiles8800Vb1
-gfx/keyboard/tiles_bank62/tiles_6500.2bpp	tiles	1024	gfx/keyboard/tiles_bank62.asm	62	6500	CONFIRMED	exact	0		Gfx_Kbd_T78_Page3_Tiles8C00Vb1
-gfx/keyboard/tiles_bank62/tiles_6900.2bpp	tiles	576	gfx/keyboard/tiles_bank62.asm	62	6900	CONFIRMED	exact	0		Gfx_Kbd_T78_Page3_Tiles9000Vb1
-gfx/keyboard/tiles_bank62/t78_page3_candidate_tail_tiles.2bpp	tiles	192	gfx/keyboard/tiles_bank62.asm	62	6B40	PROBABLE	exact	0		Gfx_Kbd_T78_Page3_CandidateTailTiles
-gfx/keyboard/tiles_bank66/tilemap_7210.attrmap	attrmap	220	gfx/keyboard/tiles_bank66.asm	66	72EC	CONFIRMED	-	0	20x11	Tilemap_Kbd_T6And78_PageTail
-gfx/keyboard/tiles_bank66/tilemap_7210.tilemap	tilemap	220	gfx/keyboard/tiles_bank66.asm	66	7210	CONFIRMED	-	0	20x11	Tilemap_Kbd_T6And78_PageTail
-gfx/keyboard/tiles_bank66/tilemap_73c8.attrmap	attrmap	120	gfx/keyboard/tiles_bank66.asm	66	7440	CONFIRMED	-	0	20x6	Tilemap_Kbd_T10
-gfx/keyboard/tiles_bank66/tilemap_73c8.tilemap	tilemap	120	gfx/keyboard/tiles_bank66.asm	66	73C8	CONFIRMED	-	0	20x6	Tilemap_Kbd_T10
-gfx/keyboard/tiles_bank66/tiles_4000.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	4000	CONFIRMED	exact	0		Gfx_Kbd_T6_Page0_Tiles8800Vb1
-gfx/keyboard/tiles_bank66/tiles_4400.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	4400	CONFIRMED	exact	0		Gfx_Kbd_T6_Page0_Tiles8C00Vb1
-gfx/keyboard/tiles_bank66/tiles_4800.2bpp	tiles	576	gfx/keyboard/tiles_bank66.asm	66	4800	CONFIRMED	exact	0		Gfx_Kbd_T6_Page0_Tiles9000Vb1
-gfx/keyboard/tiles_bank66/tiles_4a40.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	4A40	CONFIRMED	exact	0		Gfx_Kbd_T6_Page1_Tiles8800Vb1
-gfx/keyboard/tiles_bank66/tiles_4e40.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	4E40	CONFIRMED	exact	0		Gfx_Kbd_T6_Page1_Tiles8C00Vb1
-gfx/keyboard/tiles_bank66/tiles_5240.2bpp	tiles	576	gfx/keyboard/tiles_bank66.asm	66	5240	CONFIRMED	exact	0		Gfx_Kbd_T6_Page1_Tiles9000Vb1
-gfx/keyboard/tiles_bank66/tiles_5480.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	5480	CONFIRMED	exact	0		Gfx_Kbd_T6_Page2_Tiles8800Vb1
-gfx/keyboard/tiles_bank66/tiles_5880.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	5880	CONFIRMED	exact	0		Gfx_Kbd_T6_Page2_Tiles8C00Vb1
-gfx/keyboard/tiles_bank66/tiles_5c80.2bpp	tiles	576	gfx/keyboard/tiles_bank66.asm	66	5C80	CONFIRMED	exact	0		Gfx_Kbd_T6_Page2_Tiles9000Vb1
-gfx/keyboard/tiles_bank66/tiles_5ec0.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	5EC0	CONFIRMED	exact	0		Gfx_Kbd_T6_Page3_Tiles8800Vb1
-gfx/keyboard/tiles_bank66/tiles_62c0.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	62C0	CONFIRMED	exact	0		Gfx_Kbd_T6_Page3_Tiles8C00Vb1
-gfx/keyboard/tiles_bank66/tiles_66c0.2bpp	tiles	576	gfx/keyboard/tiles_bank66.asm	66	66C0	CONFIRMED	exact	0		Gfx_Kbd_T6_Page3_Tiles9000Vb1
-gfx/keyboard/tiles_bank66/tiles_6900.2bpp	tiles	400	gfx/keyboard/tiles_bank66.asm	66	6900	CONFIRMED	exact	7		Gfx_Kbd_T10_Tiles8A80Vb1
-gfx/keyboard/tiles_bank66/mail_draft_exit_options.2bpp	tiles	1920	gfx/keyboard/tiles_bank66.asm	66	6A90	PROBABLE	exact	0		Gfx_MailDraftExitOptions_Tiles
+gfx/keyboard/type7_8_page_graphics_bank62/type7_8_page0_tiles8800_vb1_4000.2bpp	tiles	1024	gfx/keyboard/type7_8_page_graphics_bank62.asm	62	4000	CONFIRMED	exact	0		Gfx_Kbd_T78_Page0_Tiles8800Vb1
+gfx/keyboard/type7_8_page_graphics_bank62/type7_8_page0_tiles8c00_vb1_4400.2bpp	tiles	1024	gfx/keyboard/type7_8_page_graphics_bank62.asm	62	4400	CONFIRMED	exact	0		Gfx_Kbd_T78_Page0_Tiles8C00Vb1
+gfx/keyboard/type7_8_page_graphics_bank62/type7_8_page0_tiles9000_vb1_4800.2bpp	tiles	576	gfx/keyboard/type7_8_page_graphics_bank62.asm	62	4800	CONFIRMED	exact	0		Gfx_Kbd_T78_Page0_Tiles9000Vb1
+gfx/keyboard/type7_8_page_graphics_bank62/t78_page0_candidate_tail_tiles.2bpp	tiles	192	gfx/keyboard/type7_8_page_graphics_bank62.asm	62	4A40	PROBABLE	exact	0		Gfx_Kbd_T78_Page0_CandidateTailTiles
+gfx/keyboard/type7_8_page_graphics_bank62/type7_8_page1_tiles8800_vb1_4b00.2bpp	tiles	1024	gfx/keyboard/type7_8_page_graphics_bank62.asm	62	4B00	CONFIRMED	exact	0		Gfx_Kbd_T78_Page1_Tiles8800Vb1
+gfx/keyboard/type7_8_page_graphics_bank62/type7_8_page1_tiles8c00_vb1_4f00.2bpp	tiles	1024	gfx/keyboard/type7_8_page_graphics_bank62.asm	62	4F00	CONFIRMED	exact	0		Gfx_Kbd_T78_Page1_Tiles8C00Vb1
+gfx/keyboard/type7_8_page_graphics_bank62/type7_8_page1_tiles9000_vb1_5300.2bpp	tiles	576	gfx/keyboard/type7_8_page_graphics_bank62.asm	62	5300	CONFIRMED	exact	0		Gfx_Kbd_T78_Page1_Tiles9000Vb1
+gfx/keyboard/type7_8_page_graphics_bank62/t78_page1_candidate_tail_tiles.2bpp	tiles	192	gfx/keyboard/type7_8_page_graphics_bank62.asm	62	5540	PROBABLE	exact	0		Gfx_Kbd_T78_Page1_CandidateTailTiles
+gfx/keyboard/type7_8_page_graphics_bank62/type7_8_page2_tiles8800_vb1_5600.2bpp	tiles	1024	gfx/keyboard/type7_8_page_graphics_bank62.asm	62	5600	CONFIRMED	exact	0		Gfx_Kbd_T78_Page2_Tiles8800Vb1
+gfx/keyboard/type7_8_page_graphics_bank62/type7_8_page2_tiles8c00_vb1_5a00.2bpp	tiles	1024	gfx/keyboard/type7_8_page_graphics_bank62.asm	62	5A00	CONFIRMED	exact	0		Gfx_Kbd_T78_Page2_Tiles8C00Vb1
+gfx/keyboard/type7_8_page_graphics_bank62/type7_8_page2_tiles9000_vb1_5e00.2bpp	tiles	576	gfx/keyboard/type7_8_page_graphics_bank62.asm	62	5E00	CONFIRMED	exact	0		Gfx_Kbd_T78_Page2_Tiles9000Vb1
+gfx/keyboard/type7_8_page_graphics_bank62/t78_page2_candidate_tail_tiles.2bpp	tiles	192	gfx/keyboard/type7_8_page_graphics_bank62.asm	62	6040	PROBABLE	exact	0		Gfx_Kbd_T78_Page2_CandidateTailTiles
+gfx/keyboard/type7_8_page_graphics_bank62/type7_8_page3_tiles8800_vb1_6100.2bpp	tiles	1024	gfx/keyboard/type7_8_page_graphics_bank62.asm	62	6100	CONFIRMED	exact	0		Gfx_Kbd_T78_Page3_Tiles8800Vb1
+gfx/keyboard/type7_8_page_graphics_bank62/type7_8_page3_tiles8c00_vb1_6500.2bpp	tiles	1024	gfx/keyboard/type7_8_page_graphics_bank62.asm	62	6500	CONFIRMED	exact	0		Gfx_Kbd_T78_Page3_Tiles8C00Vb1
+gfx/keyboard/type7_8_page_graphics_bank62/type7_8_page3_tiles9000_vb1_6900.2bpp	tiles	576	gfx/keyboard/type7_8_page_graphics_bank62.asm	62	6900	CONFIRMED	exact	0		Gfx_Kbd_T78_Page3_Tiles9000Vb1
+gfx/keyboard/type7_8_page_graphics_bank62/t78_page3_candidate_tail_tiles.2bpp	tiles	192	gfx/keyboard/type7_8_page_graphics_bank62.asm	62	6B40	PROBABLE	exact	0		Gfx_Kbd_T78_Page3_CandidateTailTiles
+gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_t78_page_tail_7210.attrmap	attrmap	220	gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm	66	72EC	CONFIRMED	-	0	20x11	Tilemap_Kbd_T6And78_PageTail
+gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_t78_page_tail_7210.tilemap	tilemap	220	gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm	66	7210	CONFIRMED	-	0	20x11	Tilemap_Kbd_T6And78_PageTail
+gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t10_map_73c8.attrmap	attrmap	120	gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm	66	7440	CONFIRMED	-	0	20x6	Tilemap_Kbd_T10
+gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t10_map_73c8.tilemap	tilemap	120	gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm	66	73C8	CONFIRMED	-	0	20x6	Tilemap_Kbd_T10
+gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page0_tiles8800_vb1_4000.2bpp	tiles	1024	gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm	66	4000	CONFIRMED	exact	0		Gfx_Kbd_T6_Page0_Tiles8800Vb1
+gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page0_tiles8c00_vb1_4400.2bpp	tiles	1024	gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm	66	4400	CONFIRMED	exact	0		Gfx_Kbd_T6_Page0_Tiles8C00Vb1
+gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page0_tiles9000_vb1_4800.2bpp	tiles	576	gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm	66	4800	CONFIRMED	exact	0		Gfx_Kbd_T6_Page0_Tiles9000Vb1
+gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page1_tiles8800_vb1_4a40.2bpp	tiles	1024	gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm	66	4A40	CONFIRMED	exact	0		Gfx_Kbd_T6_Page1_Tiles8800Vb1
+gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page1_tiles8c00_vb1_4e40.2bpp	tiles	1024	gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm	66	4E40	CONFIRMED	exact	0		Gfx_Kbd_T6_Page1_Tiles8C00Vb1
+gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page1_tiles9000_vb1_5240.2bpp	tiles	576	gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm	66	5240	CONFIRMED	exact	0		Gfx_Kbd_T6_Page1_Tiles9000Vb1
+gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page2_tiles8800_vb1_5480.2bpp	tiles	1024	gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm	66	5480	CONFIRMED	exact	0		Gfx_Kbd_T6_Page2_Tiles8800Vb1
+gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page2_tiles8c00_vb1_5880.2bpp	tiles	1024	gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm	66	5880	CONFIRMED	exact	0		Gfx_Kbd_T6_Page2_Tiles8C00Vb1
+gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page2_tiles9000_vb1_5c80.2bpp	tiles	576	gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm	66	5C80	CONFIRMED	exact	0		Gfx_Kbd_T6_Page2_Tiles9000Vb1
+gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page3_tiles8800_vb1_5ec0.2bpp	tiles	1024	gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm	66	5EC0	CONFIRMED	exact	0		Gfx_Kbd_T6_Page3_Tiles8800Vb1
+gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page3_tiles8c00_vb1_62c0.2bpp	tiles	1024	gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm	66	62C0	CONFIRMED	exact	0		Gfx_Kbd_T6_Page3_Tiles8C00Vb1
+gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page3_tiles9000_vb1_66c0.2bpp	tiles	576	gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm	66	66C0	CONFIRMED	exact	0		Gfx_Kbd_T6_Page3_Tiles9000Vb1
+gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t10_tiles8a80_vb1_6900.2bpp	tiles	400	gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm	66	6900	CONFIRMED	exact	7		Gfx_Kbd_T10_Tiles8A80Vb1
+gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/mail_draft_exit_options.2bpp	tiles	1920	gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm	66	6A90	PROBABLE	exact	0		Gfx_MailDraftExitOptions_Tiles
 gfx/mail/address_editor/mail_addr.attrmap	attrmap	360	gfx/mail/address_editor.asm	2D	7CB8	CONFIRMED	-	0	20x18	Tilemap_MailAddr
 gfx/mail/address_editor/mail_addr.tilemap	tilemap	360	gfx/mail/address_editor.asm	2D	7B50	CONFIRMED	-	0	20x18	Tilemap_MailAddr
 gfx/mail/address_editor/mail_addr_bg.pal	palette	64	gfx/mail/address_editor.asm	2D	7E20	PROBABLE	-	0		Palette_MailAddr_Bg

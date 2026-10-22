@@ -1,73 +1,73 @@
-; gfx/keyboard/tiles_bank66.asm
+; gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm
 ; bank 66, $4000-$74B8 (13496 bytes); pinned by layout.link
 ; keyboard tiles and tilemaps loaded by bank 55
 
-SECTION "gfx/keyboard/tiles_bank66", ROMX
+SECTION "gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66", ROMX
 
 ; ---- gfx $4000-$4400 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:687D: hl=$4000 a=$66 c=$40 de=$8801 (dest VRAM $8800, vbank=1)
 
 Gfx_Kbd_T6_Page0_Tiles8800Vb1:: ; 66:4000
-	INCBIN "gfx/keyboard/tiles_bank66/tiles_4000.2bpp"
+	INCBIN "gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page0_tiles8800_vb1_4000.2bpp"
 
 ; ---- gfx $4400-$4800 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:688F: hl=$4400 a=$66 c=$40 de=$8C01 (dest VRAM $8C00, vbank=1)
 
 Gfx_Kbd_T6_Page0_Tiles8C00Vb1:: ; 66:4400
-	INCBIN "gfx/keyboard/tiles_bank66/tiles_4400.2bpp"
+	INCBIN "gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page0_tiles8c00_vb1_4400.2bpp"
 
 ; ---- gfx $4800-$4A40 (576 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:68A1: hl=$4800 a=$66 c=$24 de=$9001 (dest VRAM $9000, vbank=1)
 
 Gfx_Kbd_T6_Page0_Tiles9000Vb1:: ; 66:4800
-	INCBIN "gfx/keyboard/tiles_bank66/tiles_4800.2bpp"
+	INCBIN "gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page0_tiles9000_vb1_4800.2bpp"
 
 ; ---- gfx $4A40-$4E40 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:68B6: hl=$4A40 a=$66 c=$40 de=$8801 (dest VRAM $8800, vbank=1)
 
 Gfx_Kbd_T6_Page1_Tiles8800Vb1:: ; 66:4A40
-	INCBIN "gfx/keyboard/tiles_bank66/tiles_4a40.2bpp"
+	INCBIN "gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page1_tiles8800_vb1_4a40.2bpp"
 
 ; ---- gfx $4E40-$5240 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:68C8: hl=$4E40 a=$66 c=$40 de=$8C01 (dest VRAM $8C00, vbank=1)
 
 Gfx_Kbd_T6_Page1_Tiles8C00Vb1:: ; 66:4E40
-	INCBIN "gfx/keyboard/tiles_bank66/tiles_4e40.2bpp"
+	INCBIN "gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page1_tiles8c00_vb1_4e40.2bpp"
 
 ; ---- gfx $5240-$5480 (576 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:68DA: hl=$5240 a=$66 c=$24 de=$9001 (dest VRAM $9000, vbank=1)
 
 Gfx_Kbd_T6_Page1_Tiles9000Vb1:: ; 66:5240
-	INCBIN "gfx/keyboard/tiles_bank66/tiles_5240.2bpp"
+	INCBIN "gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page1_tiles9000_vb1_5240.2bpp"
 
 ; ---- gfx $5480-$5880 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:68EF: hl=$5480 a=$66 c=$40 de=$8801 (dest VRAM $8800, vbank=1)
 
 Gfx_Kbd_T6_Page2_Tiles8800Vb1:: ; 66:5480
-	INCBIN "gfx/keyboard/tiles_bank66/tiles_5480.2bpp"
+	INCBIN "gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page2_tiles8800_vb1_5480.2bpp"
 
 ; ---- gfx $5880-$5C80 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:6901: hl=$5880 a=$66 c=$40 de=$8C01 (dest VRAM $8C00, vbank=1)
 
 Gfx_Kbd_T6_Page2_Tiles8C00Vb1:: ; 66:5880
-	INCBIN "gfx/keyboard/tiles_bank66/tiles_5880.2bpp"
+	INCBIN "gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page2_tiles8c00_vb1_5880.2bpp"
 
 ; ---- gfx $5C80-$5EC0 (576 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:6913: hl=$5C80 a=$66 c=$24 de=$9001 (dest VRAM $9000, vbank=1)
 
 Gfx_Kbd_T6_Page2_Tiles9000Vb1:: ; 66:5C80
-	INCBIN "gfx/keyboard/tiles_bank66/tiles_5c80.2bpp"
+	INCBIN "gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page2_tiles9000_vb1_5c80.2bpp"
 
 ; ---- gfx $5EC0-$62C0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:6928: hl=$5EC0 a=$66 c=$40 de=$8801 (dest VRAM $8800, vbank=1) [first call site executed: 4 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_Kbd_T6_Page3_Tiles8800Vb1:: ; 66:5EC0
-	INCBIN "gfx/keyboard/tiles_bank66/tiles_5ec0.2bpp"
+	INCBIN "gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page3_tiles8800_vb1_5ec0.2bpp"
 
 ; ---- gfx $62C0-$66C0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:693A: hl=$62C0 a=$66 c=$40 de=$8C01 (dest VRAM $8C00, vbank=1) [first call site executed: 4 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_Kbd_T6_Page3_Tiles8C00Vb1:: ; 66:62C0
-	INCBIN "gfx/keyboard/tiles_bank66/tiles_62c0.2bpp"
+	INCBIN "gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page3_tiles8c00_vb1_62c0.2bpp"
 
 ; ---- gfx $66C0-$6900 (576 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:694C: hl=$66C0 a=$66 c=$24 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 4 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_Kbd_T6_Page3_Tiles9000Vb1:: ; 66:66C0
-	INCBIN "gfx/keyboard/tiles_bank66/tiles_66c0.2bpp"
+	INCBIN "gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page3_tiles9000_vb1_66c0.2bpp"
 
 ; ---- gfx $6900-$6A90 (400 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:6AD5: hl=$6900 a=$66 c=$19 de=$8A81 (dest VRAM $8A80, vbank=1)
 
 Gfx_Kbd_T10_Tiles8A80Vb1:: ; 66:6900
-	INCBIN "gfx/keyboard/tiles_bank66/tiles_6900.2bpp"
+	INCBIN "gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t10_tiles8a80_vb1_6900.2bpp"
 
 ; ---- gfx $6A90-$7210 (1920 bytes) [PROBABLE] three mail-draft exit choices; 40 tiles each
 ;     Kbd_LoadPickerTabTiles (55:6BD7) selects 66:6A90/6D10/6F90 via 55:6C0A using
@@ -75,16 +75,16 @@ Gfx_Kbd_T10_Tiles8A80Vb1:: ; 66:6900
 ;     The third window includes the eight $FF tiles at 66:7190 and ends before the map at 7210.
 
 Gfx_MailDraftExitOptions_Tiles:: ; 66:6A90
-	INCBIN "gfx/keyboard/tiles_bank66/mail_draft_exit_options.2bpp"
+	INCBIN "gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/mail_draft_exit_options.2bpp"
 
 ; ---- data $7210-$73C8 (440 bytes) [CONFIRMED] tilemap+attr: 2 call site(s) (55:6961 55:6A74); first: copy_tilemap_rect_pair at 55:6961: hl=$7210 a=$66 b=11 rows c=20 cols (tiles then attrs) de=$D240
 
 Tilemap_Kbd_T6And78_PageTail:: ; 66:7210
-	INCBIN "gfx/keyboard/tiles_bank66/tilemap_7210.tilemap"
-	INCBIN "gfx/keyboard/tiles_bank66/tilemap_7210.attrmap"
+	INCBIN "gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_t78_page_tail_7210.tilemap"
+	INCBIN "gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_t78_page_tail_7210.attrmap"
 
 ; ---- data $73C8-$74B8 (240 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 55:6AE6: hl=$73C8 a=$66 b=6 rows c=20 cols (tiles then attrs) de=$D240
 
 Tilemap_Kbd_T10:: ; 66:73C8
-	INCBIN "gfx/keyboard/tiles_bank66/tilemap_73c8.tilemap"
-	INCBIN "gfx/keyboard/tiles_bank66/tilemap_73c8.attrmap"
+	INCBIN "gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t10_map_73c8.tilemap"
+	INCBIN "gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t10_map_73c8.attrmap"

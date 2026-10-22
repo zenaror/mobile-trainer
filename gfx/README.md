@@ -924,49 +924,49 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `tilemap_69b0.attrmap` | attribute map | 260 | 5F:6AB4 | CONFIRMED | - | 20x13 | `gfx/keyboard/panels_bank5f.asm` |
 | `palette_6bb8.pal` | RGB palette | 24 | 5F:6BB8 | PROBABLE | - | - | `gfx/keyboard/panels_bank5f.asm` |
 
-### `gfx/keyboard/tiles_bank62/`
+### `gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/`
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_4000.2bpp` | 2bpp tiles | 1024 | 62:4000 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank62.asm` |
-| `tiles_4400.2bpp` | 2bpp tiles | 1024 | 62:4400 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank62.asm` |
-| `tiles_4800.2bpp` | 2bpp tiles | 576 | 62:4800 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank62.asm` |
-| `t78_page0_candidate_tail_tiles.2bpp` | 2bpp tiles | 192 | 62:4A40 | PROBABLE | exact | - | `gfx/keyboard/tiles_bank62.asm` |
-| `tiles_4b00.2bpp` | 2bpp tiles | 1024 | 62:4B00 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank62.asm` |
-| `tiles_4f00.2bpp` | 2bpp tiles | 1024 | 62:4F00 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank62.asm` |
-| `tiles_5300.2bpp` | 2bpp tiles | 576 | 62:5300 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank62.asm` |
-| `t78_page1_candidate_tail_tiles.2bpp` | 2bpp tiles | 192 | 62:5540 | PROBABLE | exact | - | `gfx/keyboard/tiles_bank62.asm` |
-| `tiles_5600.2bpp` | 2bpp tiles | 1024 | 62:5600 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank62.asm` |
-| `tiles_5a00.2bpp` | 2bpp tiles | 1024 | 62:5A00 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank62.asm` |
-| `tiles_5e00.2bpp` | 2bpp tiles | 576 | 62:5E00 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank62.asm` |
-| `t78_page2_candidate_tail_tiles.2bpp` | 2bpp tiles | 192 | 62:6040 | PROBABLE | exact | - | `gfx/keyboard/tiles_bank62.asm` |
-| `tiles_6100.2bpp` | 2bpp tiles | 1024 | 62:6100 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank62.asm` |
-| `tiles_6500.2bpp` | 2bpp tiles | 1024 | 62:6500 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank62.asm` |
-| `tiles_6900.2bpp` | 2bpp tiles | 576 | 62:6900 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank62.asm` |
-| `t78_page3_candidate_tail_tiles.2bpp` | 2bpp tiles | 192 | 62:6B40 | PROBABLE | exact | - | `gfx/keyboard/tiles_bank62.asm` |
+| `t6_page0_tiles8800_vb1_4000.2bpp` | 2bpp tiles | 1024 | 66:4000 | CONFIRMED | exact | - | `gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm` |
+| `t6_page0_tiles8c00_vb1_4400.2bpp` | 2bpp tiles | 1024 | 66:4400 | CONFIRMED | exact | - | `gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm` |
+| `t6_page0_tiles9000_vb1_4800.2bpp` | 2bpp tiles | 576 | 66:4800 | CONFIRMED | exact | - | `gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm` |
+| `t6_page1_tiles8800_vb1_4a40.2bpp` | 2bpp tiles | 1024 | 66:4A40 | CONFIRMED | exact | - | `gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm` |
+| `t6_page1_tiles8c00_vb1_4e40.2bpp` | 2bpp tiles | 1024 | 66:4E40 | CONFIRMED | exact | - | `gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm` |
+| `t6_page1_tiles9000_vb1_5240.2bpp` | 2bpp tiles | 576 | 66:5240 | CONFIRMED | exact | - | `gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm` |
+| `t6_page2_tiles8800_vb1_5480.2bpp` | 2bpp tiles | 1024 | 66:5480 | CONFIRMED | exact | - | `gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm` |
+| `t6_page2_tiles8c00_vb1_5880.2bpp` | 2bpp tiles | 1024 | 66:5880 | CONFIRMED | exact | - | `gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm` |
+| `t6_page2_tiles9000_vb1_5c80.2bpp` | 2bpp tiles | 576 | 66:5C80 | CONFIRMED | exact | - | `gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm` |
+| `t6_page3_tiles8800_vb1_5ec0.2bpp` | 2bpp tiles | 1024 | 66:5EC0 | CONFIRMED | exact | - | `gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm` |
+| `t6_page3_tiles8c00_vb1_62c0.2bpp` | 2bpp tiles | 1024 | 66:62C0 | CONFIRMED | exact | - | `gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm` |
+| `t6_page3_tiles9000_vb1_66c0.2bpp` | 2bpp tiles | 576 | 66:66C0 | CONFIRMED | exact | - | `gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm` |
+| `t10_tiles8a80_vb1_6900.2bpp` | 2bpp tiles | 400 | 66:6900 | CONFIRMED | exact | - | `gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm` |
+| `mail_draft_exit_options.2bpp` | 2bpp tiles | 1920 | 66:6A90 | PROBABLE | exact | - | `gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm` |
+| `t6_t78_page_tail_7210.tilemap` | tile-index map | 220 | 66:7210 | CONFIRMED | - | 20x11 | `gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm` |
+| `t6_t78_page_tail_7210.attrmap` | attribute map | 220 | 66:72EC | CONFIRMED | - | 20x11 | `gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm` |
+| `t10_map_73c8.tilemap` | tile-index map | 120 | 66:73C8 | CONFIRMED | - | 20x6 | `gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm` |
+| `t10_map_73c8.attrmap` | attribute map | 120 | 66:7440 | CONFIRMED | - | 20x6 | `gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm` |
 
-### `gfx/keyboard/tiles_bank66/`
+### `gfx/keyboard/type7_8_page_graphics_bank62/`
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_4000.2bpp` | 2bpp tiles | 1024 | 66:4000 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank66.asm` |
-| `tiles_4400.2bpp` | 2bpp tiles | 1024 | 66:4400 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank66.asm` |
-| `tiles_4800.2bpp` | 2bpp tiles | 576 | 66:4800 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank66.asm` |
-| `tiles_4a40.2bpp` | 2bpp tiles | 1024 | 66:4A40 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank66.asm` |
-| `tiles_4e40.2bpp` | 2bpp tiles | 1024 | 66:4E40 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank66.asm` |
-| `tiles_5240.2bpp` | 2bpp tiles | 576 | 66:5240 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank66.asm` |
-| `tiles_5480.2bpp` | 2bpp tiles | 1024 | 66:5480 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank66.asm` |
-| `tiles_5880.2bpp` | 2bpp tiles | 1024 | 66:5880 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank66.asm` |
-| `tiles_5c80.2bpp` | 2bpp tiles | 576 | 66:5C80 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank66.asm` |
-| `tiles_5ec0.2bpp` | 2bpp tiles | 1024 | 66:5EC0 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank66.asm` |
-| `tiles_62c0.2bpp` | 2bpp tiles | 1024 | 66:62C0 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank66.asm` |
-| `tiles_66c0.2bpp` | 2bpp tiles | 576 | 66:66C0 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank66.asm` |
-| `tiles_6900.2bpp` | 2bpp tiles | 400 | 66:6900 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank66.asm` |
-| `mail_draft_exit_options.2bpp` | 2bpp tiles | 1920 | 66:6A90 | PROBABLE | exact | - | `gfx/keyboard/tiles_bank66.asm` |
-| `tilemap_7210.tilemap` | tile-index map | 220 | 66:7210 | CONFIRMED | - | 20x11 | `gfx/keyboard/tiles_bank66.asm` |
-| `tilemap_7210.attrmap` | attribute map | 220 | 66:72EC | CONFIRMED | - | 20x11 | `gfx/keyboard/tiles_bank66.asm` |
-| `tilemap_73c8.tilemap` | tile-index map | 120 | 66:73C8 | CONFIRMED | - | 20x6 | `gfx/keyboard/tiles_bank66.asm` |
-| `tilemap_73c8.attrmap` | attribute map | 120 | 66:7440 | CONFIRMED | - | 20x6 | `gfx/keyboard/tiles_bank66.asm` |
+| `type7_8_page0_tiles8800_vb1_4000.2bpp` | 2bpp tiles | 1024 | 62:4000 | CONFIRMED | exact | - | `gfx/keyboard/type7_8_page_graphics_bank62.asm` |
+| `type7_8_page0_tiles8c00_vb1_4400.2bpp` | 2bpp tiles | 1024 | 62:4400 | CONFIRMED | exact | - | `gfx/keyboard/type7_8_page_graphics_bank62.asm` |
+| `type7_8_page0_tiles9000_vb1_4800.2bpp` | 2bpp tiles | 576 | 62:4800 | CONFIRMED | exact | - | `gfx/keyboard/type7_8_page_graphics_bank62.asm` |
+| `t78_page0_candidate_tail_tiles.2bpp` | 2bpp tiles | 192 | 62:4A40 | PROBABLE | exact | - | `gfx/keyboard/type7_8_page_graphics_bank62.asm` |
+| `type7_8_page1_tiles8800_vb1_4b00.2bpp` | 2bpp tiles | 1024 | 62:4B00 | CONFIRMED | exact | - | `gfx/keyboard/type7_8_page_graphics_bank62.asm` |
+| `type7_8_page1_tiles8c00_vb1_4f00.2bpp` | 2bpp tiles | 1024 | 62:4F00 | CONFIRMED | exact | - | `gfx/keyboard/type7_8_page_graphics_bank62.asm` |
+| `type7_8_page1_tiles9000_vb1_5300.2bpp` | 2bpp tiles | 576 | 62:5300 | CONFIRMED | exact | - | `gfx/keyboard/type7_8_page_graphics_bank62.asm` |
+| `t78_page1_candidate_tail_tiles.2bpp` | 2bpp tiles | 192 | 62:5540 | PROBABLE | exact | - | `gfx/keyboard/type7_8_page_graphics_bank62.asm` |
+| `type7_8_page2_tiles8800_vb1_5600.2bpp` | 2bpp tiles | 1024 | 62:5600 | CONFIRMED | exact | - | `gfx/keyboard/type7_8_page_graphics_bank62.asm` |
+| `type7_8_page2_tiles8c00_vb1_5a00.2bpp` | 2bpp tiles | 1024 | 62:5A00 | CONFIRMED | exact | - | `gfx/keyboard/type7_8_page_graphics_bank62.asm` |
+| `type7_8_page2_tiles9000_vb1_5e00.2bpp` | 2bpp tiles | 576 | 62:5E00 | CONFIRMED | exact | - | `gfx/keyboard/type7_8_page_graphics_bank62.asm` |
+| `t78_page2_candidate_tail_tiles.2bpp` | 2bpp tiles | 192 | 62:6040 | PROBABLE | exact | - | `gfx/keyboard/type7_8_page_graphics_bank62.asm` |
+| `type7_8_page3_tiles8800_vb1_6100.2bpp` | 2bpp tiles | 1024 | 62:6100 | CONFIRMED | exact | - | `gfx/keyboard/type7_8_page_graphics_bank62.asm` |
+| `type7_8_page3_tiles8c00_vb1_6500.2bpp` | 2bpp tiles | 1024 | 62:6500 | CONFIRMED | exact | - | `gfx/keyboard/type7_8_page_graphics_bank62.asm` |
+| `type7_8_page3_tiles9000_vb1_6900.2bpp` | 2bpp tiles | 576 | 62:6900 | CONFIRMED | exact | - | `gfx/keyboard/type7_8_page_graphics_bank62.asm` |
+| `t78_page3_candidate_tail_tiles.2bpp` | 2bpp tiles | 192 | 62:6B40 | PROBABLE | exact | - | `gfx/keyboard/type7_8_page_graphics_bank62.asm` |
 
 ### `gfx/mail/address_editor/`
 

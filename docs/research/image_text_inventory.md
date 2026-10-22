@@ -346,36 +346,36 @@ Columns: `#` = order of the listing (path order); `asset` = PNG under `gfx/` (th
 | 229 | `keyboard/panels_bank5f/tiles_5900` | 5F:5900 | 64 (16x4) | Kbd_LoadPageGraphics_TypeTable@8800b1 | KBD | keyboard type 5 glyphs: Latin upper/lower |
 | 230 | `keyboard/panels_bank5f/tiles_5d00` | 5F:5D00 | 64 (16x4) | Kbd_LoadPageGraphics_TypeTable@8C00b1 | KBD | keyboard type 5 glyphs: Latin lower, digits, symbols |
 | 231 | `keyboard/panels_bank5f/tiles_6100` | 5F:6100 | 16 (16x1) | Kbd_LoadPageGraphics_TypeTable@9000b1 | KBD | keyboard type 5: one row with "SELECT" key art and kana caption ("…" hint) |
-| 232 | `keyboard/tiles_bank62/tiles_4000` | 62:4000 | 64 (16x4) | Table_Kbd_T78_PageLoaders_Page3@8800b1 | KBD | keyboard page 0 (types 7/8, hiragana): あいうえおかきくけこさしすせそた / ちつてとなにぬねのはひふへほまみ |
-| 233 | `keyboard/tiles_bank62/tiles_4400` | 62:4400 | 64 (16x4) | Table_Kbd_T78_PageLoaders_Page3@8C00b1 | KBD | keyboard page 0 (hiragana): むめもやゆよらりるれろわをん + small kana, dakuten, ー |
-| 234 | `keyboard/tiles_bank62/tiles_4800` | 62:4800 | 36 (12x3) | Table_Kbd_T78_PageLoaders_Page3@9000b1 | KBD | keyboard page 0 key caps (12x3) |
-| 235 | `keyboard/tiles_bank62/tiles_4a40` | 62:4A40 | 12 (12x1) | - | KBD | strip of key caps |
-| 236 | `keyboard/tiles_bank62/tiles_4b00` | 62:4B00 | 64 (16x4) | Table_Kbd_T78_PageLoaders_Page3@8800b1 | KBD | keyboard page 1 (types 7/8, katakana): アイウエオカキクケコサシスセソタ / チツテトナニヌネノハヒフヘホマミ |
-| 237 | `keyboard/tiles_bank62/tiles_4f00` | 62:4F00 | 64 (16x4) | Table_Kbd_T78_PageLoaders_Page3@8C00b1 | KBD | keyboard page 1 (katakana): ムメモヤユヨラリルレロワヲン + small kana |
-| 238 | `keyboard/tiles_bank62/tiles_5300` | 62:5300 | 36 (12x3) | Table_Kbd_T78_PageLoaders_Page3@9000b1 | KBD | keyboard page 1 key caps |
-| 239 | `keyboard/tiles_bank62/tiles_5540` | 62:5540 | 12 (12x1) | - | KBD | strip of key caps |
-| 240 | `keyboard/tiles_bank62/tiles_5600` | 62:5600 | 64 (16x4) | Table_Kbd_T78_PageLoaders_Page3@8800b1 | KBD | keyboard page 2 (Latin): A-P / Q-Z a-g |
-| 241 | `keyboard/tiles_bank62/tiles_5a00` | 62:5A00 | 64 (16x4) | Table_Kbd_T78_PageLoaders_Page3@8C00b1 | KBD | keyboard page 2 (Latin): h-z, digits 0-9, marks |
-| 242 | `keyboard/tiles_bank62/tiles_5e00` | 62:5E00 | 36 (12x3) | Table_Kbd_T78_PageLoaders_Page3@9000b1 | KBD | keyboard page 2 key caps |
-| 243 | `keyboard/tiles_bank62/tiles_6040` | 62:6040 | 12 (12x1) | - | KBD | strip of key caps |
-| 244 | `keyboard/tiles_bank62/tiles_6100` | 62:6100 | 64 (16x4) | Table_Kbd_T78_PageLoaders_Page3@8800b1 | KBD | keyboard page 3 (symbols): + - = # $ * ' " : { } [ ] < 「 」 『 』 ... |
-| 245 | `keyboard/tiles_bank62/tiles_6500` | 62:6500 | 64 (16x4) | Table_Kbd_T78_PageLoaders_Page3@8C00b1 | KBD | keyboard page 3 (symbols and digits): , ( ) > ~ _ ^ | × ÷ ... |
-| 246 | `keyboard/tiles_bank62/tiles_6900` | 62:6900 | 36 (12x3) | Table_Kbd_T78_PageLoaders_Page3@9000b1 | KBD | keyboard page 3 key caps |
-| 247 | `keyboard/tiles_bank62/tiles_6b40` | 62:6B40 | 12 (12x1) | - | KBD | strip of key caps |
-| 248 | `keyboard/tiles_bank66/tiles_4000` | 66:4000 | 64 (16x4) | Table_Kbd_T6_PageLoaders_Page3@8800b1 | KBD | keyboard type 6 page 0 (hiragana) |
-| 249 | `keyboard/tiles_bank66/tiles_4400` | 66:4400 | 64 (16x4) | Table_Kbd_T6_PageLoaders_Page3@8C00b1 | KBD | keyboard type 6 page 0 (hiragana, small kana) |
-| 250 | `keyboard/tiles_bank66/tiles_4800` | 66:4800 | 36 (12x3) | Table_Kbd_T6_PageLoaders_Page3@9000b1 | KBD | keyboard type 6 page 0 key caps |
-| 251 | `keyboard/tiles_bank66/tiles_4a40` | 66:4A40 | 64 (16x4) | Table_Kbd_T6_PageLoaders_Page3@8800b1 | KBD | keyboard type 6 page 1 (katakana) |
-| 252 | `keyboard/tiles_bank66/tiles_4e40` | 66:4E40 | 64 (16x4) | Table_Kbd_T6_PageLoaders_Page3@8C00b1 | KBD | keyboard type 6 page 1 (katakana, small kana) |
-| 253 | `keyboard/tiles_bank66/tiles_5240` | 66:5240 | 36 (12x3) | Table_Kbd_T6_PageLoaders_Page3@9000b1 | KBD | keyboard type 6 page 1 key caps |
-| 254 | `keyboard/tiles_bank66/tiles_5480` | 66:5480 | 64 (16x4) | Table_Kbd_T6_PageLoaders_Page3@8800b1 | KBD | keyboard type 6 page 2 (Latin) |
-| 255 | `keyboard/tiles_bank66/tiles_5880` | 66:5880 | 64 (16x4) | Table_Kbd_T6_PageLoaders_Page3@8C00b1 | KBD | keyboard type 6 page 2 (Latin lower, digits) |
-| 256 | `keyboard/tiles_bank66/tiles_5c80` | 66:5C80 | 36 (12x3) | Table_Kbd_T6_PageLoaders_Page3@9000b1 | KBD | keyboard type 6 page 2 key caps |
-| 257 | `keyboard/tiles_bank66/tiles_5ec0` | 66:5EC0 | 64 (16x4) | Table_Kbd_T6_PageLoaders_Page3@8800b1 | KBD | keyboard type 6 page 3 (symbols) |
-| 258 | `keyboard/tiles_bank66/tiles_62c0` | 66:62C0 | 64 (16x4) | Table_Kbd_T6_PageLoaders_Page3@8C00b1 | KBD | keyboard type 6 page 3 (symbols, digits) |
-| 259 | `keyboard/tiles_bank66/tiles_66c0` | 66:66C0 | 36 (12x3) | Table_Kbd_T6_PageLoaders_Page3@9000b1 | KBD | keyboard type 6 page 3 key caps |
-| 260 | `keyboard/tiles_bank66/tiles_6900` | 66:6900 | 25 (16x2) | Table_Kbd_T78_PageLoaders_Page3@8A80b1 | MIX | keyboard type 10 tiles: key caps / arrows |
-| 261 | `keyboard/tiles_bank66/mail_draft_exit_options` | 66:6A90 | 120 (15x8) | Kbd_LoadPickerTabTiles@8800b1 (three 40-tile selector windows) | TXT | probable mail-draft exit choices: "メールをセーブしてしゅうりょうします" "かいたメールをみることができます" "メールをかくのをやめます" (reading) |
+| 232 | `keyboard/type7_8_page_graphics_bank62/type7_8_page0_tiles8800_vb1_4000` | 62:4000 | 64 (16x4) | Kbd_LoadPageGraphics_T78_Page0@8800b1 | KBD | keyboard page 0 (types 7/8, hiragana): あいうえおかきくけこさしすせそた / ちつてとなにぬねのはひふへほまみ |
+| 233 | `keyboard/type7_8_page_graphics_bank62/type7_8_page0_tiles8c00_vb1_4400` | 62:4400 | 64 (16x4) | Kbd_LoadPageGraphics_T78_Page0@8C00b1 | KBD | keyboard page 0 (hiragana): むめもやゆよらりるれろわをん + small kana, dakuten, ー |
+| 234 | `keyboard/type7_8_page_graphics_bank62/type7_8_page0_tiles9000_vb1_4800` | 62:4800 | 36 (12x3) | Kbd_LoadPageGraphics_T78_Page0@9000b1 | KBD | keyboard page 0 key caps (12x3) |
+| 235 | `keyboard/type7_8_page_graphics_bank62/t78_page0_candidate_tail_tiles` | 62:4A40 | 12 (12x1) | - | KBD | strip of key caps |
+| 236 | `keyboard/type7_8_page_graphics_bank62/type7_8_page1_tiles8800_vb1_4b00` | 62:4B00 | 64 (16x4) | Kbd_LoadPageGraphics_T78_Page1@8800b1 | KBD | keyboard page 1 (types 7/8, katakana): アイウエオカキクケコサシスセソタ / チツテトナニヌネノハヒフヘホマミ |
+| 237 | `keyboard/type7_8_page_graphics_bank62/type7_8_page1_tiles8c00_vb1_4f00` | 62:4F00 | 64 (16x4) | Kbd_LoadPageGraphics_T78_Page1@8C00b1 | KBD | keyboard page 1 (katakana): ムメモヤユヨラリルレロワヲン + small kana |
+| 238 | `keyboard/type7_8_page_graphics_bank62/type7_8_page1_tiles9000_vb1_5300` | 62:5300 | 36 (12x3) | Kbd_LoadPageGraphics_T78_Page1@9000b1 | KBD | keyboard page 1 key caps |
+| 239 | `keyboard/type7_8_page_graphics_bank62/t78_page1_candidate_tail_tiles` | 62:5540 | 12 (12x1) | - | KBD | strip of key caps |
+| 240 | `keyboard/type7_8_page_graphics_bank62/type7_8_page2_tiles8800_vb1_5600` | 62:5600 | 64 (16x4) | Kbd_LoadPageGraphics_T78_Page2@8800b1 | KBD | keyboard page 2 (Latin): A-P / Q-Z a-g |
+| 241 | `keyboard/type7_8_page_graphics_bank62/type7_8_page2_tiles8c00_vb1_5a00` | 62:5A00 | 64 (16x4) | Kbd_LoadPageGraphics_T78_Page2@8C00b1 | KBD | keyboard page 2 (Latin): h-z, digits 0-9, marks |
+| 242 | `keyboard/type7_8_page_graphics_bank62/type7_8_page2_tiles9000_vb1_5e00` | 62:5E00 | 36 (12x3) | Kbd_LoadPageGraphics_T78_Page2@9000b1 | KBD | keyboard page 2 key caps |
+| 243 | `keyboard/type7_8_page_graphics_bank62/t78_page2_candidate_tail_tiles` | 62:6040 | 12 (12x1) | - | KBD | strip of key caps |
+| 244 | `keyboard/type7_8_page_graphics_bank62/type7_8_page3_tiles8800_vb1_6100` | 62:6100 | 64 (16x4) | Kbd_LoadPageGraphics_T78_Page3@8800b1 | KBD | keyboard page 3 (symbols): + - = # $ * ' " : { } [ ] < 「 」 『 』 ... |
+| 245 | `keyboard/type7_8_page_graphics_bank62/type7_8_page3_tiles8c00_vb1_6500` | 62:6500 | 64 (16x4) | Kbd_LoadPageGraphics_T78_Page3@8C00b1 | KBD | keyboard page 3 (symbols and digits): , ( ) > ~ _ ^ | × ÷ ... |
+| 246 | `keyboard/type7_8_page_graphics_bank62/type7_8_page3_tiles9000_vb1_6900` | 62:6900 | 36 (12x3) | Kbd_LoadPageGraphics_T78_Page3@9000b1 | KBD | keyboard page 3 key caps |
+| 247 | `keyboard/type7_8_page_graphics_bank62/t78_page3_candidate_tail_tiles` | 62:6B40 | 12 (12x1) | - | KBD | strip of key caps |
+| 248 | `keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page0_tiles8800_vb1_4000` | 66:4000 | 64 (16x4) | Kbd_LoadPageGraphics_T6_Page0@8800b1 | KBD | keyboard type 6 page 0 (hiragana) |
+| 249 | `keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page0_tiles8c00_vb1_4400` | 66:4400 | 64 (16x4) | Kbd_LoadPageGraphics_T6_Page0@8C00b1 | KBD | keyboard type 6 page 0 (hiragana, small kana) |
+| 250 | `keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page0_tiles9000_vb1_4800` | 66:4800 | 36 (12x3) | Kbd_LoadPageGraphics_T6_Page0@9000b1 | KBD | keyboard type 6 page 0 key caps |
+| 251 | `keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page1_tiles8800_vb1_4a40` | 66:4A40 | 64 (16x4) | Kbd_LoadPageGraphics_T6_Page1@8800b1 | KBD | keyboard type 6 page 1 (katakana) |
+| 252 | `keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page1_tiles8c00_vb1_4e40` | 66:4E40 | 64 (16x4) | Kbd_LoadPageGraphics_T6_Page1@8C00b1 | KBD | keyboard type 6 page 1 (katakana, small kana) |
+| 253 | `keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page1_tiles9000_vb1_5240` | 66:5240 | 36 (12x3) | Kbd_LoadPageGraphics_T6_Page1@9000b1 | KBD | keyboard type 6 page 1 key caps |
+| 254 | `keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page2_tiles8800_vb1_5480` | 66:5480 | 64 (16x4) | Kbd_LoadPageGraphics_T6_Page2@8800b1 | KBD | keyboard type 6 page 2 (Latin) |
+| 255 | `keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page2_tiles8c00_vb1_5880` | 66:5880 | 64 (16x4) | Kbd_LoadPageGraphics_T6_Page2@8C00b1 | KBD | keyboard type 6 page 2 (Latin lower, digits) |
+| 256 | `keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page2_tiles9000_vb1_5c80` | 66:5C80 | 36 (12x3) | Kbd_LoadPageGraphics_T6_Page2@9000b1 | KBD | keyboard type 6 page 2 key caps |
+| 257 | `keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page3_tiles8800_vb1_5ec0` | 66:5EC0 | 64 (16x4) | Kbd_LoadPageGraphics_T6_Page3@8800b1 | KBD | keyboard type 6 page 3 (symbols) |
+| 258 | `keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page3_tiles8c00_vb1_62c0` | 66:62C0 | 64 (16x4) | Kbd_LoadPageGraphics_T6_Page3@8C00b1 | KBD | keyboard type 6 page 3 (symbols, digits) |
+| 259 | `keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page3_tiles9000_vb1_66c0` | 66:66C0 | 36 (12x3) | Kbd_LoadPageGraphics_T6_Page3@9000b1 | KBD | keyboard type 6 page 3 key caps |
+| 260 | `keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t10_tiles8a80_vb1_6900` | 66:6900 | 25 (16x2) | Kbd_LoadPageGraphics_T10@8A80b1 | MIX | keyboard type 10 tiles: key caps / arrows |
+| 261 | `keyboard/type6_pages_type10_picker_and_shared_tail_bank66/mail_draft_exit_options` | 66:6A90 | 120 (15x8) | Kbd_LoadPickerTabTiles@8800b1 (three 40-tile selector windows) | TXT | probable mail-draft exit choices: "メールをセーブしてしゅうりょうします" "かいたメールをみることができます" "メールをかくのをやめます" (reading) |
 | 262 | `mail/address_editor/mail_addr_obj_tiles` | 2D:7880 | 12 (12x1) | MailAddr_SetupScreen@8000 | TXT | object tiles of the mail-address screen: small labels ("セレクト アドレスちょう" legend pieces) |
 | 263 | `mail/address_editor/mail_addr_tiles` | 2D:7120 | 64 (16x4) | MailAddr_SetupScreen@9300b1 | TXT | header "メールアドレス" + text "ともだちのアドレスをかいてね" (pieces) |
 | 264 | `mail/address_editor/mail_addr_tiles2` | 2D:7520 | 11 (11x1) | MailAddr_SetupScreen@9700b1 | TXT | footer pieces ("セレクト アドレスちょう" legend) |
