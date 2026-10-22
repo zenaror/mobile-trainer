@@ -1210,3 +1210,23 @@ path. `make` returned `RESULT: IDENTICAL` (ROM SHA-256
 `palette-check` reported 162 loads, 116 arrays, two documented overreads and
 zero errors. The tilemap's 64-scenario natural trace inventory still records no
 executed call to its loader; the path name does not imply natural use.
+
+## Natural-entry trace interval census (2026-10-22)
+
+A finite scan of the current Japanese trace corpus checked these banked ranges:
+`2B:[6CF5,6DB0)`, `2D:[4E42,4E8C)`, `29:[511E,5145)` and
+`55:[5DF5,5E02)`. The 69 natural coverage files, 69 callgraphs and 69
+data-access reports contain no instruction starts, callgraph endpoints or ROM
+read overlaps in those intervals. This is a corpus-limited negative result; it
+does not show that the roots are unreachable.
+
+Forced coverage has 69 instruction starts from `2B:6CF5` through `2B:6D6D`
+in scenario `forced_dead`. The input explicitly injects `force 2B:6CF5` at
+frame 5002, and the adapter log identifies a `HARNESS FORCED` far call from
+PC `0454`. That observation does not establish natural entry, a caller ABI or
+stack behavior. The other listed intervals have no forced-coverage matches in
+the current corpus.
+
+Disposition: retain descriptive labels only for the bounded local mechanics;
+natural entry remains **UNKNOWN / unproved** for all five addresses. No
+function or caller names were inferred, and no source bytes changed.
