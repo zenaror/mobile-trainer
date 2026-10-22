@@ -1,6 +1,6 @@
 ; engine/browser/frame_graphics.asm
 ; bank 4E, $6196-$661C (1158 bytes); pinned by layout.link
-; frame graphics loader and the 27 frame descriptors
+; frame graphics loader, 27 frame-selection indices, and five descriptors
 
 SECTION "engine/browser/frame_graphics", ROMX
 

@@ -88,6 +88,10 @@ Reference documents (current):
 | [`local_label_mapping_20261023_page_list.tsv`](research/local_label_mapping_20261023_page_list.tsv) | Exact page-list local-label proposal, including owner, address, confidence and branch-reference evidence |
 | [`japanese_local_label_pass_20261022.md`](research/japanese_local_label_pass_20261022.md) | 282 additional Japanese local labels named in Mobile SDK, sprite counters and image blitter; exact mapping and updated census |
 | [`generic_data_name_followup_20261023.md`](research/generic_data_name_followup_20261023.md) | Bounded evidence review retains 13 exact `Data_BB_AAAA` labels as neutral where code entry or resource type is unproved |
+| [japanese_generic_name_census_20261023.md](research/japanese_generic_name_census_20261023.md) | Independent Japanese ASM/GFX generic-name census; 15 generated screen IDs refreshed from descriptive tilemap assets; candidate-label limits retained |
+| [screen_catalog_id_mapping_20261023.tsv](research/screen_catalog_id_mapping_20261023.tsv) | Exact 15 generated screen-ID updates and hashes of their existing tilemap assets |
+| [bank53_names_frames_assets_audit_20261023.md](research/bank53_names_frames_assets_audit_20261023.md) | Independent Bank 53 name/frame/PNG audit: exact extracted bytes, complete scoped asset inventory, selector limits, and unresolved name-to-frame mapping |
+| [bank53_names_frames_assets_audit_20261023_verify.md](research/bank53_names_frames_assets_audit_20261023_verify.md) | Independent review and Japanese ROM/build gate results for the Bank 53 and frame audit |
 | [`registration_notice_bank58_resource_paths_20261022.md`](research/registration_notice_bank58_resource_paths_20261022.md) | Bank 58 registration notice assets renamed from type/address paths using static labels and readers |
 | [`keyboard_panel_tile_paths_20261022.md`](research/keyboard_panel_tile_paths_20261022.md) | Nine keyboard tile sets renamed by confirmed type and VRAM destinations |
 | [`connect_dialog_bank56_tile_paths_20261022.md`](research/connect_dialog_bank56_tile_paths_20261022.md) | Eleven ConnectDialog tile sets renamed by confirmed static VRAM destinations |
