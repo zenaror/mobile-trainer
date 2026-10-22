@@ -300,7 +300,7 @@
 70	1	4000	4822	2082	engine/comm/comm_scene.asm	engine/comm/comm_scene	0	-	code:2028,ptrtable:54	scrolling panorama scene shown during homepage communication
 70	2	4822	7590	11630	gfx/comm/comm_scene.asm	gfx/comm/comm_scene	0	-	gfx:6144,data:5223,ptrtable:250,zero:13	comm scene text-box maps, object tables, tiles, panorama map
 71	1	4000	6F44	12100	gfx/account/comm_panel_and_registration_delete_bank71.asm	gfx/account/comm_panel_and_registration_delete_bank71	0	-	gfx:8151,data:3923,words:26	account screens art loaded by bank 68
-71	2	6F44	7740	2044	gfx/settings/screens_bank71.asm	gfx/settings/screens_bank71	0	-	data:1994,gfx:50	settings screen art loaded by bank 67
+71	2	6F44	7740	2044	gfx/settings/registration_delete_anim_and_password_save_confirm_bank71.asm	gfx/settings/registration_delete_anim_and_password_save_confirm_bank71	0	-	data:1994,gfx:50	settings screen art loaded by bank 67
 72	1	4000	48C0	2240	engine/dialog/dialog.asm	engine/dialog/dialog	0	-	code:2196,ptrtable:32,data:12	message dialog service (open, wait input, close, slide, save/restore background)
 72	2	48C0	502B	1899	gfx/dialog/dialog_window.asm	gfx/dialog/dialog_window	0	-	gfx:1024,data:871,words:4	dialog window tiles, maps, palettes, cursor object table
 72	3	502B	63D8	5037	data/text/dialog_messages.asm	data/text/dialog_messages	0	-	text:4854,ptrtable:146,data:37	dialog list table and the 69 message records

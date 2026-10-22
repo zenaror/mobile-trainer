@@ -1408,12 +1408,12 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `tilemap_7910.tilemap` | tile-index map | 40 | 4D:7910 | PROBABLE | - | 20x2 | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
 | `tilemap_7910.attrmap` | attribute map | 40 | 4D:7938 | PROBABLE | - | 20x2 | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
 
-### `gfx/settings/screens_bank71/`
+### `gfx/settings/registration_delete_anim_and_password_save_confirm_bank71/`
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tilemap_6f6f.tilemap` | tile-index map | 360 | 71:6F6F | PROBABLE | - | 20x18 | `gfx/settings/screens_bank71.asm` |
-| `tilemap_6f6f.attrmap` | attribute map | 360 | 71:70D7 | PROBABLE | - | 20x18 | `gfx/settings/screens_bank71.asm` |
+| `tilemap_6f6f.tilemap` | tile-index map | 360 | 71:6F6F | PROBABLE | - | 20x18 | `gfx/settings/registration_delete_anim_and_password_save_confirm_bank71.asm` |
+| `tilemap_6f6f.attrmap` | attribute map | 360 | 71:70D7 | PROBABLE | - | 20x18 | `gfx/settings/registration_delete_anim_and_password_save_confirm_bank71.asm` |
 
 ### `gfx/settings/shared_text_entry_tiles_bank5e/`
 

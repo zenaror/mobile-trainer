@@ -1,8 +1,8 @@
-; gfx/settings/screens_bank71.asm
+; gfx/settings/registration_delete_anim_and_password_save_confirm_bank71.asm
 ; bank 71, $6F44-$7740 (2044 bytes); pinned by layout.link
 ; settings screen art loaded by bank 67
 
-SECTION "gfx/settings/screens_bank71", ROMX
+SECTION "gfx/settings/registration_delete_anim_and_password_save_confirm_bank71", ROMX
 
 ; ---- data $6F44-$6F69 (37 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 9 piece(s); length tiles exactly against the frame-table pointers
 
@@ -34,8 +34,8 @@ Registration_DeleteExecute_Anim1Script:: ; 71:6F6A
 
 Tilemap_PwSaveConfirm_71_6F6F:: ; 71:6F6F
 
-	INCBIN "gfx/settings/screens_bank71/tilemap_6f6f.tilemap"
-	INCBIN "gfx/settings/screens_bank71/tilemap_6f6f.attrmap"
+	INCBIN "gfx/settings/registration_delete_anim_and_password_save_confirm_bank71/tilemap_6f6f.tilemap"
+	INCBIN "gfx/settings/registration_delete_anim_and_password_save_confirm_bank71/tilemap_6f6f.attrmap"
 
 ; ---- gfx $723F-$7271 (50 bytes) [PROBABLE] tiles-2bpp: heuristic: 35 coherent tiles (hsim2=0.670 vsim2=0.903, 1 blank) parity 1; 558/608 bytes also covered by call-site blocks [clipped from 7011-7271 by higher-priority evidence]
 

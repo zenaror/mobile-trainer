@@ -366,7 +366,7 @@ ROMX $70
 	"gfx/comm/comm_scene"
 ROMX $71
 	"gfx/account/comm_panel_and_registration_delete_bank71"
-	"gfx/settings/screens_bank71"
+	"gfx/settings/registration_delete_anim_and_password_save_confirm_bank71"
 ROMX $72
 	"engine/dialog/dialog"
 	"gfx/dialog/dialog_window"

@@ -1191,3 +1191,22 @@ their bounded local mechanics, and record natural entry as **UNKNOWN /
 unproved**. This is not evidence that the code or containing resources are
 unused, nor does it establish a safe caller ABI. No function bytes or labels
 changed in this recheck.
+
+
+## Settings Bank 71 mixed registration animation and password-save owner (2026-10-22)
+
+The generic `gfx/settings/screens_bank71.asm` owner and its tilemap asset
+folder are now `registration_delete_anim_and_password_save_confirm_bank71`.
+The owner begins with two frame records and an animation script for the
+Registration Delete Execute object, then the probable 20x18 tilemap pair for
+Password Save Confirm at `71:6F6F`, followed by a 50-byte probable 2bpp
+fragment at `71:723F` and 1,231 confirmed-read bytes of unknown content at
+`71:7271–7740`. The last span remains explicitly
+`Settings_ReadData_UnknownContent_7271`; the directory name does not classify
+it. The layout, asset/screen catalogues, PNG rules and README use the renamed
+path. `make` returned `RESULT: IDENTICAL` (ROM SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`);
+`sym-check` passed (335 files, 12,177 labels, 51 constants), and
+`palette-check` reported 162 loads, 116 arrays, two documented overreads and
+zero errors. The tilemap's 64-scenario natural trace inventory still records no
+executed call to its loader; the path name does not imply natural use.
