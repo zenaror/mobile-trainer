@@ -24,10 +24,10 @@ Bmp_ParseHeader:: ; 51:70F4
 	push hl
 	ld a, [hli]
 	cp a, $42
-	jr nz, .l7157
+	jr nz, .reject_header
 	ld a, [hli]
 	cp a, $4D
-	jr nz, .l7157
+	jr nz, .reject_header
 	ld de, $0008
 	add hl, de
 	ld a, [hli]
@@ -36,7 +36,7 @@ Bmp_ParseHeader:: ; 51:70F4
 	ld b, a
 	ld a, [hli]
 	or a, [hl]
-	jr nz, .l7157
+	jr nz, .reject_header
 	ld de, $0005
 	add hl, de
 	ld a, [hli]
@@ -47,7 +47,7 @@ Bmp_ParseHeader:: ; 51:70F4
 	or a, e
 	ld a, [hli]
 	or a, e
-	jr nz, .l7157
+	jr nz, .reject_header
 	ld a, [hli]
 	ldh [hBmp_Height], a
 	ld a, [hli]
@@ -56,24 +56,24 @@ Bmp_ParseHeader:: ; 51:70F4
 	and a, e
 	ld a, [hli]
 	and a, e
-	jr z, .l712E
+	jr z, .clear_top_down_flag
 	cp a, $FF
-	jr nz, .l7157
+	jr nz, .reject_header
 	ld [wBmpTopDownFlag], a
 	jr .l7132
-.l712E ; 51:712E
+.clear_top_down_flag ; 51:712E
 	xor a, a
 	ld [wBmpTopDownFlag], a
 .l7132 ; 51:7132
 	ld a, [hli]
 	dec a
 	or a, [hl]
-	jr nz, .l7157
+	jr nz, .reject_header
 	inc hl
 	ld a, [hli]
 	dec a
 	or a, [hl]
-	jr nz, .l7157
+	jr nz, .reject_header
 	inc hl
 	ld a, [hli]
 	or a, [hl]
@@ -81,7 +81,7 @@ Bmp_ParseHeader:: ; 51:70F4
 	or a, [hl]
 	inc hl
 	or a, [hl]
-	jr nz, .l7157
+	jr nz, .reject_header
 	ld de, $000D
 	add hl, de
 	ld a, [hli]
@@ -90,13 +90,13 @@ Bmp_ParseHeader:: ; 51:70F4
 	or a, [hl]
 	inc hl
 	or a, [hl]
-	jr nz, .l7157
+	jr nz, .reject_header
 	pop hl
 	add hl, bc
 	ld a, $01
 	ret
 
-.l7157 ; 51:7157
+.reject_header ; 51:7157
 	; [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 70E0-73D1 by apply_coverage --split
 	xor a, a
@@ -111,17 +111,17 @@ Bmp_CheckSize:: ; 51:7161
 	; --split [executed in 1 scenarios]
 	ldh a, [hBmp_Width]
 	cp a, $91
-	jr nc, .l7175
+	jr nc, .reject_size
 	ld d, a
 	ldh a, [hBmp_Height]
 	or a, a
-	jr z, .l7175
+	jr z, .reject_size
 	cp a, $61
-	jr nc, .l7175
+	jr nc, .reject_size
 	ld e, a
 	ld a, $01
 	ret
-.l7175 ; 51:7175
+.reject_size ; 51:7175
 	xor a, a
 	ret
 
@@ -141,7 +141,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	dec hl
 	ld a, [wBmpTopDownFlag]
 	or a, a
-	jp nz, .l73CB
+	jp nz, .return_success
 	push hl
 	push de
 	ld hl, $000E
@@ -179,14 +179,14 @@ Bmp_ConvertToTiles:: ; 51:7177
 	ld [rRAMB], a
 	ldh a, [hBmp_Width]
 	add a, $07
-	jp c, .l73CE
+	jp c, .return_failure
 	and a, $F8
 	rrca
 	rrca
 	rrca
 	ld [wBrowserNavigating], a
 	add a, $03
-	jp c, .l73CE
+	jp c, .return_failure
 	and a, $FC
 	ld [wHtmlScanOnly], a
 	ldh a, [hBmp_Height]
@@ -197,13 +197,13 @@ Bmp_ConvertToTiles:: ; 51:7177
 	call Bmp_RoundUpToTextRow
 	ld [wRam_C332], a
 	add a, $07
-	jp c, .l73CE
+	jp c, .return_failure
 	and a, $F8
 	rrca
 	rrca
 	rrca
 	add a, $03
-	jp c, .l73CE
+	jp c, .return_failure
 	and a, $FC
 	ldh [hBmpConvert_RowStride], a
 	ld d, $00
@@ -275,12 +275,12 @@ Bmp_ConvertToTiles:: ; 51:7177
 	or a, a
 	jr z, .l7276
 	ld c, a
-.l726F ; 51:726F
+.invert_row_bytes ; 51:726F
 	ld a, [hl]
 	xor a, $FF
 	ld [hli], a
 	dec c
-	jr nz, .l726F
+	jr nz, .invert_row_bytes
 
 .l7276 ; 51:7276
 	; [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 70E0-73D1 by apply_coverage
@@ -361,7 +361,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	inc de
 	pop hl
 	pop de
-	jp .l73CE
+	jp .return_failure
 
 .l72D4 ; 51:72D4
 	; [CONFIRMED] 81 insn(s) executed; cut out of the PROBABLE region 70E0-73D1 by apply_coverage
@@ -554,11 +554,11 @@ Bmp_ConvertToTiles:: ; 51:7177
 	ld a, [wHtmlLinkHeapPtr]
 	ldh [hBmp_Width], a
 	pop hl
-.l73CB ; 51:73CB
+.return_success ; 51:73CB
 	ld a, $01
 	ret
 
-.l73CE ; 51:73CE
+.return_failure ; 51:73CE
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 70E0-73D1 by apply_coverage --split
 	pop hl
@@ -692,10 +692,10 @@ Image_BlitToTileCanvas:: ; 51:740D
 	ld e, a
 	ld d, $00
 	ld a, c
-.l7458 ; 51:7458
+.skip_source_rows ; 51:7458
 	add hl, de
 	dec a
-	jr nz, .l7458
+	jr nz, .skip_source_rows
 	pop de
 
 .l745D ; 51:745D
@@ -762,10 +762,10 @@ Image_BlitToTileCanvas:: ; 51:740D
 	rrca
 	rrca
 	ld bc, $0140
-.l749F ; 51:749F
+.add_canvas_row_strides ; 51:749F
 	add hl, bc
 	dec a
-	jr nz, .l749F
+	jr nz, .add_canvas_row_strides
 .l74A3 ; 51:74A3
 	ld a, d
 	and a, $F8
@@ -776,7 +776,7 @@ Image_BlitToTileCanvas:: ; 51:740D
 	add hl, bc
 	pop bc
 	pop de
-.l74AF ; 51:74AF
+.blit_rows ; 51:74AF
 	call Sound_FrameService
 	push de
 	push hl
@@ -815,14 +815,14 @@ Image_BlitToTileCanvas:: ; 51:740D
 .l74E1 ; 51:74E1
 	ld a, c
 	cp a, b
-	jr nz, .l74AF
+	jr nz, .blit_rows
 	ret
 
 Image_MakeEdgeMasks:: ; 51:74E6
 	push bc
 	ld a, d
 	and a, $07
-	jr z, .l74F9
+	jr z, .full_left_mask
 
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 740D-7900 by apply_coverage --split
@@ -830,43 +830,43 @@ Image_MakeEdgeMasks:: ; 51:74E6
 	inc a
 	ld b, a
 	ld a, $01
-.l74F2 ; 51:74F2
+.rotate_left_mask_bit ; 51:74F2
 	rlca
 	dec b
-	jr nz, .l74F2
+	jr nz, .rotate_left_mask_bit
 	dec a
-	jr .l74FB
+	jr .store_left_mask
 
-.l74F9 ; 51:74F9
+.full_left_mask ; 51:74F9
 	; [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld a, $FF
-.l74FB ; 51:74FB
+.store_left_mask ; 51:74FB
 	ldh [hImageBlit_LeftMask], a
 	ldh a, [hBmp_Width]
 	ld b, a
 	ld a, d
 	add a, b
 	and a, $07
-	jr z, .l7511
+	jr z, .full_right_mask
 
 	; [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 740D-7900 by apply_coverage --split
 	ld b, a
 	ld a, $01
-.l7509 ; 51:7509
+.rotate_right_mask_bit ; 51:7509
 	rrca
 	dec b
-	jr nz, .l7509
+	jr nz, .rotate_right_mask_bit
 	dec a
 	cpl
-	jr .l7513
+	jr .store_right_mask
 
-.l7511 ; 51:7511
+.full_right_mask ; 51:7511
 	; [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld a, $FF
-.l7513 ; 51:7513
+.store_right_mask ; 51:7513
 	ldh [hImageBlit_RightMask], a
 	pop bc
 	ret

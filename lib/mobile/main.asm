@@ -33,14 +33,14 @@ MobileSDK_CopyStringLen:: ; 75:400F
 	ld a, [hli]
 	ld [de], a
 	or a, a
-	jr z, .l4020
+	jr z, .add_copied_length
 	inc de
 	inc c
 	dec b
 	jr nz, .loop
 	xor a, a
 	ld [de], a
-.l4020 ; 75:4020
+.add_copied_length ; 75:4020
 	ld a, c
 	pop bc
 	add a, c
@@ -61,15 +61,15 @@ MobileSDK_ApiDispatch:: ; 75:4030
 	push de
 	ld a, [wMobileAPIIndex]
 	cp a, $0C
-	jr z, .l4047
+	jr z, .load_api_pointer
 	cp a, $0E
-	jr z, .l4047
+	jr z, .load_api_pointer
 	cp a, $10
-	jr z, .l4047
+	jr z, .load_api_pointer
 	xor a, a
 	ld [wMobileSDK_ConfigCached], a
 	ld a, [wMobileAPIIndex]
-.l4047 ; 75:4047
+.load_api_pointer ; 75:4047
 	ld d, $00
 	ld e, a
 	ld hl, MobileSDK_ApiTable
@@ -187,7 +187,7 @@ MobileAPI_SetTimer:: ; 75:40DC
 	inc hl
 	ldh a, [rKEY1]
 	bit 7, a
-	jr nz, .l40F9
+	jr nz, .write_timer_registers
 
 	; [PROBABLE] 7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 0;
 	; fall-through of the jrcc at 75:40EB (executed)
@@ -195,11 +195,11 @@ MobileAPI_SetTimer:: ; 75:40DC
 	sra c
 	ld a, e
 	cp a, $04
-	jr nc, .l40F9
+	jr nc, .write_timer_registers
 	ld de, $000F
 	add hl, de
 
-.l40F9 ; 75:40F9
+.write_timer_registers ; 75:40F9
 	; [CONFIRMED] 18 insn(s); 18 executed (in up to 18/18 scenarios)
 	ld a, c
 	ldh [rTMA], a
@@ -9648,16 +9648,16 @@ MobileSDK_Base64Encode:: ; 75:7C50
 	ld h, b
 	xor a, a
 	ld [wMobileSDK_PacketBuffer + 207], a
-.l7C62 ; 75:7C62
+.encode_triplet ; 75:7C62
 	ld b, $03
 	push hl
 	ld hl, wMobileSDK_PacketBuffer + $CB
-.l7C68 ; 75:7C68
+.copy_triplet ; 75:7C68
 	ld a, [de]
 	inc de
 	ld [hli], a
 	dec b
-	jr nz, .l7C68
+	jr nz, .copy_triplet
 	ld a, [wMobileSDK_PacketBuffer + 201]
 	ld c, a
 	ld a, [wMobileSDK_PacketBuffer + 202]
@@ -9672,13 +9672,13 @@ MobileSDK_Base64Encode:: ; 75:7C50
 	dec hl
 	ld a, c
 	ld [wMobileSDK_PacketBuffer + 207], a
-.l7C85 ; 75:7C85
+.zero_pad_triplet ; 75:7C85
 	xor a, a
 	ld [hld], a
 	inc c
 	ld a, $03
 	cp a, c
-	jr nz, .l7C85
+	jr nz, .zero_pad_triplet
 	pop hl
 	ld bc, $0003
 .l7C91 ; 75:7C91
@@ -9744,50 +9744,50 @@ MobileSDK_Base64Encode:: ; 75:7C50
 	ld [hli], a
 	ld a, [wMobileSDK_PacketBuffer + 201]
 	cp a, $00
-	jp nz, .l7C62
+	jp nz, .encode_triplet
 	ld a, [wMobileSDK_PacketBuffer + 202]
 	cp a, $00
-	jp nz, .l7C62
+	jp nz, .encode_triplet
 	ld a, [wMobileSDK_PacketBuffer + 207]
 	cp a, $00
-	jr z, .l7D05
+	jr z, .terminate_output
 	push hl
 	dec hl
 	ld b, a
-.l7CFB ; 75:7CFB
+.write_padding_chars ; 75:7CFB
 	ld a, $3D
 	ld [hld], a
 	inc b
 	ld a, $03
 	cp a, b
-	jr nz, .l7CFB
+	jr nz, .write_padding_chars
 	pop hl
-.l7D05 ; 75:7D05
+.terminate_output ; 75:7D05
 	ld a, $00
 	ld [hl], a
 	ret
 
 MobileSDK_Base64EncodeChar:: ; 75:7D09
 	cp a, $1A
-	jr c, .l7D1C
+	jr c, .encode_uppercase
 	cp a, $34
-	jr c, .l7D1F
+	jr c, .encode_lowercase
 	cp a, $3E
-	jr c, .l7D22
+	jr c, .encode_digit
 	cp a, $3E
-	jr z, .l7D25
+	jr z, .encode_plus
 	ld a, $2F
 	ret
-.l7D1C ; 75:7D1C
+.encode_uppercase ; 75:7D1C
 	add a, $41
 	ret
-.l7D1F ; 75:7D1F
+.encode_lowercase ; 75:7D1F
 	add a, $47
 	ret
-.l7D22 ; 75:7D22
+.encode_digit ; 75:7D22
 	sub a, $04
 	ret
-.l7D25 ; 75:7D25
+.encode_plus ; 75:7D25
 	ld a, $2B
 	ret
 
@@ -9802,7 +9802,7 @@ MobileSDK_Base64Decode:: ; 75:7D28
 	ld d, h
 	ld l, c
 	ld h, b
-.l7D36 ; 75:7D36
+.check_remaining_input ; 75:7D36
 	ld a, [wMobileSDK_PacketBuffer + 202]
 	or a, a
 	jr nz, .l7D44
@@ -9813,13 +9813,13 @@ MobileSDK_Base64Decode:: ; 75:7D28
 	ld b, $04
 	push hl
 	ld hl, wMobileSDK_PacketBuffer + $CB
-.l7D4A ; 75:7D4A
+.decode_quartet_chars ; 75:7D4A
 	ld a, [de]
 	inc de
 	call MobileSDK_Base64DecodeChar
 	ld [hli], a
 	dec b
-	jr nz, .l7D4A
+	jr nz, .decode_quartet_chars
 	ld a, [wMobileSDK_PacketBuffer + 201]
 	ld c, a
 	ld a, [wMobileSDK_PacketBuffer + 202]
@@ -9834,11 +9834,11 @@ MobileSDK_Base64Decode:: ; 75:7D28
 .l7D63 ; 75:7D63
 	ld a, [de]
 	cp a, $0D
-	jr z, .l7D6C
+	jr z, .consume_line_break
 	cp a, $0A
 	jr nz, .l7D70
 
-.l7D6C ; 75:7D6C
+.consume_line_break ; 75:7D6C
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 7C50-7E89 by apply_coverage --split
 	inc de
@@ -9898,13 +9898,13 @@ MobileSDK_Base64Decode:: ; 75:7D28
 	ld [hli], a
 	ld a, [wMobileSDK_PacketBuffer + 201]
 	or a, a
-	jr nz, .l7D36
+	jr nz, .check_remaining_input
 
 	; [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 7C50-7E89 by apply_coverage --split
 	ld a, [wMobileSDK_PacketBuffer + 202]
 	or a, a
-	jp nz, .l7D36
+	jp nz, .check_remaining_input
 	xor a, a
 	ld [hl], a
 	ret

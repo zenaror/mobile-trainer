@@ -48,15 +48,15 @@ MailBody_Edit:: ; 2D:4722
 	call MailBody_PlaceCursorSprites
 	ldh a, [hJoyPressed]
 	and a, PADF_A
-	jp z, .l4868
+	jp z, .check_cancel_button
 	call MailBody_KeyboardLoop
 
-.l477A ; 2D:477A
+.check_keyboard_result ; 2D:477A
 	; [CONFIRMED] 107 insn(s) reached by static flow only; seeds: exec x107; min discovery hops 0;
 	; fall-through of the call at 2D:4777 (executed) | 2 insn(s) executed; cut out of the PROBABLE
 	; region 477A-485F by apply_coverage --split [executed in 3 scenarios]
 	cp a, $06
-	jp nz, .l47F3
+	jp nz, .check_keyboard_result_04
 
 	; [PROBABLE] 58 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 477A-485F by apply_coverage --split
@@ -106,7 +106,7 @@ MailBody_Edit:: ; 2D:4722
 	pop af
 	pop bc
 	dec a
-	jp nz, .l4862
+	jp nz, .reopen_keyboard
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -124,11 +124,11 @@ MailBody_Edit:: ; 2D:4722
 	xor a, a
 	ret
 
-.l47F3 ; 2D:47F3
+.check_keyboard_result_04 ; 2D:47F3
 	; [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 477A-485F by apply_coverage
 	; --split [executed in 3 scenarios]
 	cp a, $04
-	jr nz, .l4847
+	jr nz, .check_keyboard_result_05
 
 	; [PROBABLE] 38 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 477A-485F by apply_coverage --split
@@ -163,7 +163,7 @@ MailBody_Edit:: ; 2D:4722
 	pop af
 	pop bc
 	dec a
-	jr nz, .l4862
+	jr nz, .reopen_keyboard
 	farcall MailDraft_SaveToSram
 	farcall Stat_DisableScrollSplit
 	farcall Palette_FadeOutToWhite
@@ -171,7 +171,7 @@ MailBody_Edit:: ; 2D:4722
 	ld a, $01
 	ret
 
-.l4847 ; 2D:4847
+.check_keyboard_result_05 ; 2D:4847
 	; [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 477A-485F by apply_coverage
 	; --split [executed in 3 scenarios]
 	cp a, $05
@@ -189,17 +189,17 @@ MailBody_Edit:: ; 2D:4722
 	; without a terminator): jp $475C
 	jp .l475C
 
-.l4862 ; 2D:4862
+.reopen_keyboard ; 2D:4862
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 2;
 	; entered by jpcc from 2D:47CF (PROBABLE code)
 	call MailBody_KeyboardLoop
-	jp .l477A
+	jp .check_keyboard_result
 
-.l4868 ; 2D:4868
+.check_cancel_button ; 2D:4868
 	; [CONFIRMED] 51 insn(s); 51 executed (in up to 2/18 scenarios)
 	ldh a, [hJoyPressed]
 	and a, PADF_B
-	jr z, .l4894
+	jr z, .handle_direction_buttons
 	push bc
 	push de
 	play_sfx SFX_CANCEL
@@ -210,7 +210,7 @@ MailBody_Edit:: ; 2D:4722
 	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ret
-.l4894 ; 2D:4894
+.handle_direction_buttons ; 2D:4894
 	ldh a, [hJoyPressedRepeat]
 	and a, PADF_LEFT
 	call nz, MailBody_CursorLeft
@@ -233,7 +233,7 @@ MailBody_CursorLeft:: ; 2D:48B3
 	pop bc
 	inc c
 	dec c
-	jr nz, .l48D4
+	jr nz, .decrement_column
 	inc b
 	dec b
 	ret z
@@ -246,7 +246,7 @@ MailBody_CursorLeft:: ; 2D:48B3
 	ld c, e
 	ret
 
-.l48D4 ; 2D:48D4
+.decrement_column ; 2D:48D4
 	; [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 48CE-48DA by apply_coverage
 	; --split [executed in 1 scenarios]
 	dec c
@@ -348,10 +348,10 @@ MailBody_CursorUp:: ; 2D:4942
 	pop bc
 	inc b
 	dec b
-	jr nz, .l495B
+	jr nz, .move_to_previous_row
 	ret
 
-.l495B ; 2D:495B
+.move_to_previous_row ; 2D:495B
 	; [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1;
 	; entered by jrcc from 2D:4958 (executed) | 6 insn(s) executed; cut out of the PROBABLE region
 	; 495B-4968 by apply_coverage --split [executed in 1 scenarios]
@@ -1073,7 +1073,7 @@ MailBody_GetCharPtr:: ; 2D:4E8C
 	ldh [rSVBK], a
 	ld a, $FF
 	cp a, d
-	jr z, .l4EB4
+	jr z, .return_ff
 	inc c
 	ld a, [hl]
 .loop ; 2D:4E9D
@@ -1083,29 +1083,29 @@ MailBody_GetCharPtr:: ; 2D:4E8C
 	inc hl
 	ld a, [hl]
 	cp a, $00
-	jr z, .l4EB4
+	jr z, .return_ff
 	ld a, [hl]
 	cp a, $0D
-	jr z, .l4EBA
+	jr z, .return_cr
 	jr .loop
 
 	; [HYPOTHESIS] inc c ; dec c ; jr nz,$4EB4 - unreached alternative tail before the executed pop
 	; bc ; ret at 4EB2 (same 4-byte pattern also at 6CCD)
 	inc c
 	dec c
-	jr nz, .l4EB4
+	jr nz, .return_ff
 
 .l4EB2 ; 2D:4EB2
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios)
 	pop bc
 	ret
-.l4EB4 ; 2D:4EB4
+.return_ff ; 2D:4EB4
 	ld a, $FF
 	ld d, $FF
 	pop bc
 	ret
 
-.l4EBA ; 2D:4EBA
+.return_cr ; 2D:4EBA
 	; [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 1;
 	; entered by jrcc from 2D:4EAA (executed) [executed in 3 scenarios]
 	ld a, $0D
@@ -2495,9 +2495,9 @@ MailBody_KeyboardLoop:: ; 2D:5691
 	cp a, $09
 	ret z
 	cp a, $02
-	jr z, .l5737
+	jr z, .check_before_backspace
 	cp a, $03
-	jr z, .l5761
+	jr z, .insert_newline
 	cp a, $07
 	jp z, .l579A
 	cp a, $08
@@ -2522,17 +2522,17 @@ MailBody_KeyboardLoop:: ; 2D:5691
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 2/18 scenarios)
 	ld a, [wKeyboardCharLo]
 	cp a, $4B
-	jr nz, .l5724
+	jr nz, .insert_keyboard_char
 
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 2D:5716 (executed) [executed in 2 scenarios]
 	ld a, [wKeyboardCharHi]
 	cp a, $81
-	jr nz, .l5724
+	jr nz, .insert_keyboard_char
 	call MailBody_ApplyHandakuten
 	jr .l56C6
 
-.l5724 ; 2D:5724
+.insert_keyboard_char ; 2D:5724
 	; [CONFIRMED] 14 insn(s); 14 executed (in up to 2/18 scenarios)
 	ld a, [wKeyboardCharLo]
 	ld e, a
@@ -2545,10 +2545,10 @@ MailBody_KeyboardLoop:: ; 2D:5691
 	cp a, b
 	jr nz, .l5768
 	jr .l56C6
-.l5737 ; 2D:5737
+.check_before_backspace ; 2D:5737
 	call MailBody_GetLength
 	cp a, $00
-	jr nz, .l5742
+	jr nz, .backspace
 
 	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
 	; fall-through of the jrcc at 2D:573C (executed) [executed in 2 scenarios]
@@ -2556,7 +2556,7 @@ MailBody_KeyboardLoop:: ; 2D:5691
 	or a, c
 	jr z, .l574F
 
-.l5742 ; 2D:5742
+.backspace ; 2D:5742
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
 	ld a, b
 	push af
@@ -2580,7 +2580,7 @@ MailBody_KeyboardLoop:: ; 2D:5691
 	ld [wSplitScrollY], a
 	pop bc
 	ret
-.l5761 ; 2D:5761
+.insert_newline ; 2D:5761
 	call MailBody_InsertNewline
 	inc a
 	jp z, .l56C6

@@ -4717,32 +4717,32 @@ Mail_Base64Encode:: ; 0F:58D7
 
 Mail_Base64EncodeChar:: ; 0F:59F1
 	cp a, $1A
-	jr c, .l5A04
+	jr c, .encode_uppercase
 	cp a, $34
-	jr c, .l5A07
+	jr c, .encode_lowercase
 	cp a, $3E
-	jr c, .l5A0A
+	jr c, .encode_digit
 
 	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4D37-5DAE by apply_coverage --split
 	cp a, $3E
-	jr z, .l5A0D
+	jr z, .encode_plus
 	ld a, $2F
 	ret
 
-.l5A04 ; 0F:5A04
+.encode_uppercase ; 0F:5A04
 	; [CONFIRMED] 6 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage
 	; --split [executed in 2 scenarios]
 	add a, $41
 	ret
-.l5A07 ; 0F:5A07
+.encode_lowercase ; 0F:5A07
 	add a, $47
 	ret
-.l5A0A ; 0F:5A0A
+.encode_digit ; 0F:5A0A
 	sub a, $04
 	ret
 
-.l5A0D ; 0F:5A0D
+.encode_plus ; 0F:5A0D
 	; [PROBABLE] 356 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4D37-5DAE by apply_coverage --split
 	ld a, $2B
@@ -5172,18 +5172,18 @@ Mail_Base64Decode:: ; 0F:5C5E
 	jr nz, .l5C86
 	ld a, [wMail_Work + $19]
 	cp a, $04
-	jr c, .l5CAE
+	jr c, .incomplete_quartet
 .l5C86 ; 0F:5C86
 	ld b, $04
 	push hl
 	ld hl, wMail_Work + $1B
-.l5C8C ; 0F:5C8C
+.decode_quartet_chars ; 0F:5C8C
 	ld a, [de]
 	inc de
 	call Mail_Base64DecodeChar
 	ld [hli], a
 	dec b
-	jr nz, .l5C8C
+	jr nz, .decode_quartet_chars
 	ld a, [wMail_Work + $19]
 	ld c, a
 	ld a, [wMail_Work + $1A]
@@ -5195,17 +5195,17 @@ Mail_Base64Decode:: ; 0F:5C5E
 .l5CA1 ; 0F:5CA1
 	ld a, [de]
 	cp a, $0D
-	jr z, .l5CAA
+	jr z, .consume_line_break
 	cp a, $0A
 	jr nz, .l5CB4
 
-.l5CAA ; 0F:5CAA
+.consume_line_break ; 0F:5CAA
 	; [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4D37-5DAE by apply_coverage --split
 	inc de
 	dec bc
 	jr .l5CA1
-.l5CAE ; 0F:5CAE
+.incomplete_quartet ; 0F:5CAE
 	ld a, $FF
 	ld [wMail_Work + $23], a
 	ret
@@ -5286,28 +5286,28 @@ Mail_Base64Decode:: ; 0F:5C5E
 
 Mail_Base64DecodeChar:: ; 0F:5D12
 	cp a, $2B
-	jr c, .l5D3C
-	jr z, .l5D44
+	jr c, .invalid_char
+	jr z, .decode_plus
 	cp a, $2F
-	jr c, .l5D3C
-	jr z, .l5D47
+	jr c, .invalid_char
+	jr z, .decode_slash
 	cp a, $30
-	jr c, .l5D3C
+	jr c, .invalid_char
 	cp a, $3A
-	jr c, .l5D4A
+	jr c, .decode_digit
 	cp a, $3D
-	jr c, .l5D3C
-	jr z, .l5D4D
+	jr c, .invalid_char
+	jr z, .decode_padding
 	cp a, $41
-	jr c, .l5D3C
+	jr c, .invalid_char
 	cp a, $5B
-	jr c, .l5D62
+	jr c, .decode_uppercase
 	cp a, $61
-	jr c, .l5D3C
+	jr c, .invalid_char
 	cp a, $7B
-	jr c, .l5D65
+	jr c, .decode_lowercase
 
-.l5D3C ; 0F:5D3C
+.invalid_char ; 0F:5D3C
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4D37-5DAE by apply_coverage --split
 	pop hl
@@ -5315,19 +5315,19 @@ Mail_Base64DecodeChar:: ; 0F:5D12
 	ld a, $FF
 	ld [wMail_Work + $23], a
 	ret
-.l5D44 ; 0F:5D44
+.decode_plus ; 0F:5D44
 	ld a, $3E
 	ret
-.l5D47 ; 0F:5D47
+.decode_slash ; 0F:5D47
 	ld a, $3F
 	ret
 
-.l5D4A ; 0F:5D4A
+.decode_digit ; 0F:5D4A
 	; [CONFIRMED] 49 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage
 	; --split [executed in 10 scenarios]
 	add a, $04
 	ret
-.l5D4D ; 0F:5D4D
+.decode_padding ; 0F:5D4D
 	push de
 	push hl
 	ld a, [wMail_Work + $1F]
@@ -5345,10 +5345,10 @@ Mail_Base64DecodeChar:: ; 0F:5D12
 	pop de
 	xor a, a
 	ret
-.l5D62 ; 0F:5D62
+.decode_uppercase ; 0F:5D62
 	sub a, $41
 	ret
-.l5D65 ; 0F:5D65
+.decode_lowercase ; 0F:5D65
 	sub a, $47
 	ret
 
@@ -5399,13 +5399,13 @@ Mail_NextSramPage:: ; 0F:5D95
 	ld e, a
 	ld a, d
 	cp a, $BF
-	jr z, .l5DA0
+	jr z, .advance_sram_bank
 	inc d
 	ld a, e
 	ld e, $00
 	ret
 
-.l5DA0 ; 0F:5DA0
+.advance_sram_bank ; 0F:5DA0
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4D37-5DAE by apply_coverage --split
 	ld a, [bc]

@@ -43,7 +43,7 @@ SpriteCounter_A_DrawNumber:: ; 23:58C5
 	farcall Divide16
 	ld a, h
 	or a, l
-	jp z, .l5925
+	jp z, .divide_by_1000
 	ld a, l
 	push de
 	call SpriteCounter_A_DrawDigit10000
@@ -68,15 +68,15 @@ SpriteCounter_A_DrawNumber:: ; 23:58C5
 	pop hl
 	ld a, l
 	call SpriteCounter_A_DrawDigit1
-	jp .l59AD
-.l5925 ; 23:5925
+	jp .add_saved_a_to_slots
+.divide_by_1000 ; 23:5925
 	ld l, e
 	ld h, d
 	ld de, $03E8
 	farcall Divide16
 	ld a, h
 	or a, l
-	jp z, .l5960
+	jp z, .divide_by_100
 	ld a, l
 	push de
 	call SpriteCounter_A_DrawDigit1000
@@ -95,15 +95,15 @@ SpriteCounter_A_DrawNumber:: ; 23:58C5
 	pop hl
 	ld a, l
 	call SpriteCounter_A_DrawDigit1
-	jp .l59AD
-.l5960 ; 23:5960
+	jp .add_saved_a_to_slots
+.divide_by_100 ; 23:5960
 	ld l, e
 	ld h, d
 	ld de, $0064
 	farcall Divide16
 	ld a, h
 	or a, l
-	jp z, .l598C
+	jp z, .divide_by_10
 	ld a, l
 	push de
 	call SpriteCounter_A_DrawDigit100
@@ -116,26 +116,26 @@ SpriteCounter_A_DrawNumber:: ; 23:58C5
 	pop hl
 	ld a, l
 	call SpriteCounter_A_DrawDigit1
-	jp .l59AD
-.l598C ; 23:598C
+	jp .add_saved_a_to_slots
+.divide_by_10 ; 23:598C
 	ld l, e
 	ld h, d
 	ld de, $000A
 	farcall Divide16
 	ld a, h
 	or a, l
-	jp z, .l59A9
+	jp z, .draw_ones_from_e
 	ld a, l
 	push de
 	call SpriteCounter_A_DrawDigit10
 	pop hl
 	ld a, l
 	call SpriteCounter_A_DrawDigit1
-	jp .l59AD
-.l59A9 ; 23:59A9
+	jp .add_saved_a_to_slots
+.draw_ones_from_e ; 23:59A9
 	ld a, e
 	call SpriteCounter_A_DrawDigit1
-.l59AD ; 23:59AD
+.add_saved_a_to_slots ; 23:59AD
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -801,7 +801,7 @@ SpriteCounter_B_DrawNumber:: ; 23:5FA3
 	farcall Divide16
 	ld a, h
 	or a, l
-	jp z, .l601C
+	jp z, .divide_by_1000
 	ld a, l
 	push de
 	call SpriteCounter_B_DrawDigit10000
@@ -826,15 +826,15 @@ SpriteCounter_B_DrawNumber:: ; 23:5FA3
 	pop hl
 	ld a, l
 	call SpriteCounter_B_DrawDigit1
-	jp .l60A4
-.l601C ; 23:601C
+	jp .add_saved_a_to_slots
+.divide_by_1000 ; 23:601C
 	ld l, e
 	ld h, d
 	ld de, $03E8
 	farcall Divide16
 	ld a, h
 	or a, l
-	jp z, .l6057
+	jp z, .divide_by_100
 	ld a, l
 	push de
 	call SpriteCounter_B_DrawDigit1000
@@ -853,15 +853,15 @@ SpriteCounter_B_DrawNumber:: ; 23:5FA3
 	pop hl
 	ld a, l
 	call SpriteCounter_B_DrawDigit1
-	jp .l60A4
-.l6057 ; 23:6057
+	jp .add_saved_a_to_slots
+.divide_by_100 ; 23:6057
 	ld l, e
 	ld h, d
 	ld de, $0064
 	farcall Divide16
 	ld a, h
 	or a, l
-	jp z, .l6083
+	jp z, .divide_by_10
 	ld a, l
 	push de
 	call SpriteCounter_B_DrawDigit100
@@ -874,26 +874,26 @@ SpriteCounter_B_DrawNumber:: ; 23:5FA3
 	pop hl
 	ld a, l
 	call SpriteCounter_B_DrawDigit1
-	jp .l60A4
-.l6083 ; 23:6083
+	jp .add_saved_a_to_slots
+.divide_by_10 ; 23:6083
 	ld l, e
 	ld h, d
 	ld de, $000A
 	farcall Divide16
 	ld a, h
 	or a, l
-	jp z, .l60A0
+	jp z, .draw_ones_from_e
 	ld a, l
 	push de
 	call SpriteCounter_B_DrawDigit10
 	pop hl
 	ld a, l
 	call SpriteCounter_B_DrawDigit1
-	jp .l60A4
-.l60A0 ; 23:60A0
+	jp .add_saved_a_to_slots
+.draw_ones_from_e ; 23:60A0
 	ld a, e
 	call SpriteCounter_B_DrawDigit1
-.l60A4 ; 23:60A4
+.add_saved_a_to_slots ; 23:60A4
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1538,7 +1538,7 @@ SpriteCounter_C_DrawNumber:: ; 23:669A
 	farcall Divide16
 	ld a, h
 	or a, l
-	jp z, .l66E4
+	jp z, .divide_by_1000
 	ld a, l
 	push de
 	call SpriteCounter_C_DrawDigit10000
@@ -1563,15 +1563,15 @@ SpriteCounter_C_DrawNumber:: ; 23:669A
 	pop hl
 	ld a, l
 	call SpriteCounter_C_DrawDigit1
-	jp .l676C
-.l66E4 ; 23:66E4
+	jp .add_saved_a_to_slots
+.divide_by_1000 ; 23:66E4
 	ld l, e
 	ld h, d
 	ld de, $03E8
 	farcall Divide16
 	ld a, h
 	or a, l
-	jp z, .l671F
+	jp z, .divide_by_100
 	ld a, l
 	push de
 	call SpriteCounter_C_DrawDigit1000
@@ -1590,15 +1590,15 @@ SpriteCounter_C_DrawNumber:: ; 23:669A
 	pop hl
 	ld a, l
 	call SpriteCounter_C_DrawDigit1
-	jp .l676C
-.l671F ; 23:671F
+	jp .add_saved_a_to_slots
+.divide_by_100 ; 23:671F
 	ld l, e
 	ld h, d
 	ld de, $0064
 	farcall Divide16
 	ld a, h
 	or a, l
-	jp z, .l674B
+	jp z, .divide_by_10
 	ld a, l
 	push de
 	call SpriteCounter_C_DrawDigit100
@@ -1611,26 +1611,26 @@ SpriteCounter_C_DrawNumber:: ; 23:669A
 	pop hl
 	ld a, l
 	call SpriteCounter_C_DrawDigit1
-	jp .l676C
-.l674B ; 23:674B
+	jp .add_saved_a_to_slots
+.divide_by_10 ; 23:674B
 	ld l, e
 	ld h, d
 	ld de, $000A
 	farcall Divide16
 	ld a, h
 	or a, l
-	jp z, .l6768
+	jp z, .draw_ones_from_e
 	ld a, l
 	push de
 	call SpriteCounter_C_DrawDigit10
 	pop hl
 	ld a, l
 	call SpriteCounter_C_DrawDigit1
-	jp .l676C
-.l6768 ; 23:6768
+	jp .add_saved_a_to_slots
+.draw_ones_from_e ; 23:6768
 	ld a, e
 	call SpriteCounter_C_DrawDigit1
-.l676C ; 23:676C
+.add_saved_a_to_slots ; 23:676C
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
