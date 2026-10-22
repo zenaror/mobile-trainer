@@ -43,21 +43,21 @@ data/fonts/jis12x12_rows_61_69.bin	font12	15228	data/fonts/jis12x12_rows_61_69.a
 data/fonts/jis12x12_rows_70_78.bin	font12	15228	data/fonts/jis12x12_rows_70_78.asm	77	4000	PROBABLE	sheet	0		GlyphFont_Jis12x12_77
 data/fonts/jis12x12_rows_79_84.bin	font12	10152	data/fonts/jis12x12_rows_79_84.asm	76	4000	PROBABLE	sheet	0		GlyphFont_Jis12x12_76
 data/fonts/sjis_valid_bitmap.bin	sjisbitmap	8198	data/fonts/sjis_valid_bitmap.asm	63	407A	PROBABLE	view	0		Font_SjisValidBitmap
-gfx/account/screens_bank4a/account_confirm_manual_screen_bg.pal	palette	64	gfx/account/screens_bank4a.asm	4A	5C70	CONFIRMED	-	0		Palette_Account_ConfirmManualScreen_Bg
-gfx/account/screens_bank4a/settings_menu_4a_51d0.attrmap	attrmap	360	gfx/account/screens_bank4a.asm	4A	5338	CONFIRMED	-	0	20x18	Tilemap_SettingsMenu_FlagClear
-gfx/account/screens_bank4a/settings_menu_4a_51d0.tilemap	tilemap	360	gfx/account/screens_bank4a.asm	4A	51D0	CONFIRMED	-	0	20x18	Tilemap_SettingsMenu_FlagClear
-gfx/account/screens_bank4a/settings_menu_bg.pal	palette	40	gfx/account/screens_bank4a.asm	4A	5180	CONFIRMED	-	0		Palette_SettingsMenu_Bg
-gfx/account/screens_bank4a/settings_menu_obj.pal	palette	8	gfx/account/screens_bank4a.asm	4A	51A8	CONFIRMED	-	0		Palette_SettingsMenu_Obj
-gfx/account/screens_bank4a/tilemap_54a0.attrmap	attrmap	360	gfx/account/screens_bank4a.asm	4A	5608	CONFIRMED	-	0	20x18	Tilemap_SettingsMenu_FlagSet
-gfx/account/screens_bank4a/tilemap_54a0.tilemap	tilemap	360	gfx/account/screens_bank4a.asm	4A	54A0	CONFIRMED	-	0	20x18	Tilemap_SettingsMenu_FlagSet
-gfx/account/screens_bank4a/tilemap_5cb0.attrmap	attrmap	360	gfx/account/screens_bank4a.asm	4A	5E18	CONFIRMED	-	0	20x18	Tilemap_Account_ConfirmManualScreen
-gfx/account/screens_bank4a/tilemap_5cb0.tilemap	tilemap	360	gfx/account/screens_bank4a.asm	4A	5CB0	CONFIRMED	-	0	20x18	Tilemap_Account_ConfirmManualScreen
-gfx/account/screens_bank4a/tiles_4040.2bpp	tiles	512	gfx/account/screens_bank4a.asm	4A	4040	CONFIRMED	exact	0		Gfx_SettingsMenu_Tiles8000Vb1
-gfx/account/screens_bank4a/tiles_4240.2bpp	tiles	1024	gfx/account/screens_bank4a.asm	4A	4240	CONFIRMED	exact	0		Gfx_SettingsMenu_Tiles8800Vb1
-gfx/account/screens_bank4a/tiles_4640.2bpp	tiles	1024	gfx/account/screens_bank4a.asm	4A	4640	CONFIRMED	exact	0		Gfx_SettingsMenu_Tiles8C00Vb1
-gfx/account/screens_bank4a/tiles_4a40.2bpp	tiles	1024	gfx/account/screens_bank4a.asm	4A	4A40	CONFIRMED	exact	0		Gfx_SettingsMenu_Tiles9000Vb1
-gfx/account/screens_bank4a/tiles_4e40.2bpp	tiles	832	gfx/account/screens_bank4a.asm	4A	4E40	CONFIRMED	exact	0		Gfx_SettingsMenu_Tiles9400Vb1
-gfx/account/screens_bank4a/tiles_5870.2bpp	tiles	1024	gfx/account/screens_bank4a.asm	4A	5870	CONFIRMED	exact	0		Gfx_Account_ConfirmManualScreen_Tiles9000Vb1
+gfx/account/settings_menu_and_manual_confirm_bank4a/account_confirm_manual_screen_bg.pal	palette	64	gfx/account/settings_menu_and_manual_confirm_bank4a.asm	4A	5C70	CONFIRMED	-	0		Palette_Account_ConfirmManualScreen_Bg
+gfx/account/settings_menu_and_manual_confirm_bank4a/settings_menu_4a_51d0.attrmap	attrmap	360	gfx/account/settings_menu_and_manual_confirm_bank4a.asm	4A	5338	CONFIRMED	-	0	20x18	Tilemap_SettingsMenu_FlagClear
+gfx/account/settings_menu_and_manual_confirm_bank4a/settings_menu_4a_51d0.tilemap	tilemap	360	gfx/account/settings_menu_and_manual_confirm_bank4a.asm	4A	51D0	CONFIRMED	-	0	20x18	Tilemap_SettingsMenu_FlagClear
+gfx/account/settings_menu_and_manual_confirm_bank4a/settings_menu_bg.pal	palette	40	gfx/account/settings_menu_and_manual_confirm_bank4a.asm	4A	5180	CONFIRMED	-	0		Palette_SettingsMenu_Bg
+gfx/account/settings_menu_and_manual_confirm_bank4a/settings_menu_obj.pal	palette	8	gfx/account/settings_menu_and_manual_confirm_bank4a.asm	4A	51A8	CONFIRMED	-	0		Palette_SettingsMenu_Obj
+gfx/account/settings_menu_and_manual_confirm_bank4a/tilemap_54a0.attrmap	attrmap	360	gfx/account/settings_menu_and_manual_confirm_bank4a.asm	4A	5608	CONFIRMED	-	0	20x18	Tilemap_SettingsMenu_FlagSet
+gfx/account/settings_menu_and_manual_confirm_bank4a/tilemap_54a0.tilemap	tilemap	360	gfx/account/settings_menu_and_manual_confirm_bank4a.asm	4A	54A0	CONFIRMED	-	0	20x18	Tilemap_SettingsMenu_FlagSet
+gfx/account/settings_menu_and_manual_confirm_bank4a/tilemap_5cb0.attrmap	attrmap	360	gfx/account/settings_menu_and_manual_confirm_bank4a.asm	4A	5E18	CONFIRMED	-	0	20x18	Tilemap_Account_ConfirmManualScreen
+gfx/account/settings_menu_and_manual_confirm_bank4a/tilemap_5cb0.tilemap	tilemap	360	gfx/account/settings_menu_and_manual_confirm_bank4a.asm	4A	5CB0	CONFIRMED	-	0	20x18	Tilemap_Account_ConfirmManualScreen
+gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4040.2bpp	tiles	512	gfx/account/settings_menu_and_manual_confirm_bank4a.asm	4A	4040	CONFIRMED	exact	0		Gfx_SettingsMenu_Tiles8000Vb1
+gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4240.2bpp	tiles	1024	gfx/account/settings_menu_and_manual_confirm_bank4a.asm	4A	4240	CONFIRMED	exact	0		Gfx_SettingsMenu_Tiles8800Vb1
+gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4640.2bpp	tiles	1024	gfx/account/settings_menu_and_manual_confirm_bank4a.asm	4A	4640	CONFIRMED	exact	0		Gfx_SettingsMenu_Tiles8C00Vb1
+gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4a40.2bpp	tiles	1024	gfx/account/settings_menu_and_manual_confirm_bank4a.asm	4A	4A40	CONFIRMED	exact	0		Gfx_SettingsMenu_Tiles9000Vb1
+gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4e40.2bpp	tiles	832	gfx/account/settings_menu_and_manual_confirm_bank4a.asm	4A	4E40	CONFIRMED	exact	0		Gfx_SettingsMenu_Tiles9400Vb1
+gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_5870.2bpp	tiles	1024	gfx/account/settings_menu_and_manual_confirm_bank4a.asm	4A	5870	CONFIRMED	exact	0		Gfx_Account_ConfirmManualScreen_Tiles9000Vb1
 gfx/account/result_page_bank4b/account_result_page_bg.pal	palette	40	gfx/account/result_page_bank4b.asm	4B	5870	CONFIRMED	-	0		Palette_Account_ResultPage_Bg
 gfx/account/result_page_bank4b/account_result_page_tiles4ad0.2bpp	tiles	1456	gfx/account/result_page_bank4b.asm	4B	4AD0	CONFIRMED	exact	0		Gfx_Account_ResultPage_Tiles4AD0
 gfx/account/result_page_bank4b/tilemap_5898.attrmap	attrmap	360	gfx/account/result_page_bank4b.asm	4B	5A00	CONFIRMED	-	0	20x18	Tilemap_Account_ResultPage

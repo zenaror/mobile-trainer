@@ -219,7 +219,7 @@ ROMX $48
 	"engine/sram/menu_cursor_memory"
 	"data/fonts/font_8x16"
 ROMX $4a
-	"gfx/account/screens_bank4a"
+	"gfx/account/settings_menu_and_manual_confirm_bank4a"
 	"gfx/settings/screens_bank4a"
 ROMX $4b
 	"gfx/registration/screen_bank4b"

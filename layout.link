@@ -440,7 +440,7 @@ ROMX $48
 
 ROMX $4A
 	org $4000
-	"gfx/account/screens_bank4a"
+	"gfx/account/settings_menu_and_manual_confirm_bank4a"
 	org $5F80
 	"gfx/settings/adapter_check_and_phone_entry_bank4a"
 

@@ -39,7 +39,7 @@ def specs():
                   segs=[('palette', 0x73B0, 0x73F0, 'Palette_SettingsPhone_ConfirmScreen_Bg', 'wPaletteBufBg')], pair=(0x73F0, 0x76C0, 'Tilemap_SettingsPhone_ConfirmScreen_4B_73F0')))
     S.append(dict(asm='gfx/settings/screens_bank4b.asm', bank=0x4B, blob=0x7AD0, tiles_end=0x7CD0, engine='engine/settings/continue_prompt.asm',
                   segs=[('palette', 0x7CD0, 0x7D10, 'Palette_SettingsPhone_ContinuePrompt_Bg', 'wPaletteBufBg')], pair=(0x7D10, 0x7FE0, 'Tilemap_SettingsPhone_ContinuePrompt_4B_7D10')))
-    S.append(dict(asm='gfx/account/screens_bank4a.asm', bank=0x4A, blob=0x4E40, tiles_end=0x5180, engine='engine/account/settings_menu.asm',
+    S.append(dict(asm='gfx/account/settings_menu_and_manual_confirm_bank4a.asm', bank=0x4A, blob=0x4E40, tiles_end=0x5180, engine='engine/account/settings_menu.asm',
                   segs=[('palette', 0x5180, 0x51A8, 'Palette_SettingsMenu_Bg', 'wPaletteBufBg'), ('palette', 0x51A8, 0x51B0, 'Palette_SettingsMenu_Obj', 'wPaletteBufObj'), ('data', 0x51B0, 0x51D0, 'Data_4A_51B0', None)],
                   pair=(0x51D0, 0x54A0, 'Tilemap_SettingsMenu_4A_51D0')))
     S.append(dict(asm='gfx/settings/phone_choice_and_slot_menus_bank4d.asm', bank=0x4D, blob=0x7470, tiles_end=0x7570, engine='engine/settings/slot_menu.asm',

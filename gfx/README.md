@@ -122,25 +122,25 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `sjis_815b.1bpp` | 1bpp 8x16 glyphs | 16 | 48:5D6B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
 | `sjis_83bf.1bpp` | 1bpp 8x16 glyphs | 80 | 48:5D7B | PROBABLE | sheet | - | `data/fonts/font_8x16.asm` |
 
-### `gfx/account/screens_bank4a/`
+### `gfx/account/settings_menu_and_manual_confirm_bank4a/`
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_4040.2bpp` | 2bpp tiles | 512 | 4A:4040 | CONFIRMED | exact | - | `gfx/account/screens_bank4a.asm` |
-| `tiles_4240.2bpp` | 2bpp tiles | 1024 | 4A:4240 | CONFIRMED | exact | - | `gfx/account/screens_bank4a.asm` |
-| `tiles_4640.2bpp` | 2bpp tiles | 1024 | 4A:4640 | CONFIRMED | exact | - | `gfx/account/screens_bank4a.asm` |
-| `tiles_4a40.2bpp` | 2bpp tiles | 1024 | 4A:4A40 | CONFIRMED | exact | - | `gfx/account/screens_bank4a.asm` |
-| `tiles_4e40.2bpp` | 2bpp tiles | 832 | 4A:4E40 | CONFIRMED | exact | - | `gfx/account/screens_bank4a.asm` |
-| `settings_menu_bg.pal` | RGB palette | 40 | 4A:5180 | CONFIRMED | - | - | `gfx/account/screens_bank4a.asm` |
-| `settings_menu_obj.pal` | RGB palette | 8 | 4A:51A8 | CONFIRMED | - | - | `gfx/account/screens_bank4a.asm` |
-| `settings_menu_4a_51d0.tilemap` | tile-index map | 360 | 4A:51D0 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank4a.asm` |
-| `settings_menu_4a_51d0.attrmap` | attribute map | 360 | 4A:5338 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank4a.asm` |
-| `tilemap_54a0.tilemap` | tile-index map | 360 | 4A:54A0 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank4a.asm` |
-| `tilemap_54a0.attrmap` | attribute map | 360 | 4A:5608 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank4a.asm` |
-| `tiles_5870.2bpp` | 2bpp tiles | 1024 | 4A:5870 | CONFIRMED | exact | - | `gfx/account/screens_bank4a.asm` |
-| `account_confirm_manual_screen_bg.pal` | RGB palette | 64 | 4A:5C70 | CONFIRMED | - | - | `gfx/account/screens_bank4a.asm` |
-| `tilemap_5cb0.tilemap` | tile-index map | 360 | 4A:5CB0 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank4a.asm` |
-| `tilemap_5cb0.attrmap` | attribute map | 360 | 4A:5E18 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank4a.asm` |
+| `tiles_4040.2bpp` | 2bpp tiles | 512 | 4A:4040 | CONFIRMED | exact | - | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
+| `tiles_4240.2bpp` | 2bpp tiles | 1024 | 4A:4240 | CONFIRMED | exact | - | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
+| `tiles_4640.2bpp` | 2bpp tiles | 1024 | 4A:4640 | CONFIRMED | exact | - | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
+| `tiles_4a40.2bpp` | 2bpp tiles | 1024 | 4A:4A40 | CONFIRMED | exact | - | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
+| `tiles_4e40.2bpp` | 2bpp tiles | 832 | 4A:4E40 | CONFIRMED | exact | - | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
+| `settings_menu_bg.pal` | RGB palette | 40 | 4A:5180 | CONFIRMED | - | - | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
+| `settings_menu_obj.pal` | RGB palette | 8 | 4A:51A8 | CONFIRMED | - | - | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
+| `settings_menu_4a_51d0.tilemap` | tile-index map | 360 | 4A:51D0 | CONFIRMED | - | 20x18 | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
+| `settings_menu_4a_51d0.attrmap` | attribute map | 360 | 4A:5338 | CONFIRMED | - | 20x18 | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
+| `tilemap_54a0.tilemap` | tile-index map | 360 | 4A:54A0 | CONFIRMED | - | 20x18 | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
+| `tilemap_54a0.attrmap` | attribute map | 360 | 4A:5608 | CONFIRMED | - | 20x18 | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
+| `tiles_5870.2bpp` | 2bpp tiles | 1024 | 4A:5870 | CONFIRMED | exact | - | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
+| `account_confirm_manual_screen_bg.pal` | RGB palette | 64 | 4A:5C70 | CONFIRMED | - | - | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
+| `tilemap_5cb0.tilemap` | tile-index map | 360 | 4A:5CB0 | CONFIRMED | - | 20x18 | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
+| `tilemap_5cb0.attrmap` | attribute map | 360 | 4A:5E18 | CONFIRMED | - | 20x18 | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
 
 ### `gfx/account/result_page_bank4b/`
 

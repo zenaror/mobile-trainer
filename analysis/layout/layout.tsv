@@ -183,7 +183,7 @@
 48	498C	4AAB	engine/tutorial/gates.asm	first-use tutorial gates (top menu, mail menu, homepage) and a copy of 00:091C
 48	4AAB	4ADB	engine/sram/menu_cursor_memory.asm	Sram_ClearMenuCursorMemory
 48	4ADB	5DCB	data/fonts/font_8x16.asm	303 glyphs of the 8x16 1bpp font (27 runs)
-4A	4000	5F80	gfx/account/screens_bank4a.asm	account/registration screen art (loaded by bank 68)
+4A	4000	5F80	gfx/account/settings_menu_and_manual_confirm_bank4a.asm	account/registration screen art (loaded by bank 68)
 4A	5F80	7378	gfx/settings/screens_bank4a.asm	settings screen art (loaded by bank 67)
 4B	4000	42D0	gfx/registration/screen_bank4b.asm	tilemap loaded by bank 65
 4B	42D0	5B90	gfx/account/result_page_bank4b.asm	tiles/tilemap loaded by bank 68

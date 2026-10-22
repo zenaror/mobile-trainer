@@ -640,7 +640,7 @@ same bank.  None of these choices can change a byte: they only decide which file
 
 | file | banks | bytes | est. lines | kinds |
 |---|---|---:|---:|---|
-| `gfx/account/screens_bank4a.asm` | 4A | 8064 | 504 | gfx 5712, data 2331, zero 13, words 8 |
+| `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` | 4A | 8064 | 504 | gfx 5712, data 2331, zero 13, words 8 |
 | `gfx/account/result_page_bank4b.asm` | 4B | 6336 | 396 | gfx 4088, data 2248 |
 | `gfx/account/screens_bank5d.asm` | 5D | 11104 | 695 | gfx 8512, data 2585, zero 7 |
 | `gfx/account/screens_bank5e.asm` | 5E | 12448 | 779 | gfx 9504, data 2928, zero 16 |

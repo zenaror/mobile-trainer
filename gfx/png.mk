@@ -24,12 +24,12 @@ endef
 
 ifneq ($(RGBGFX_VERSION),)
 PNG_TILE_OUTS := \
-	gfx/account/screens_bank4a/tiles_4040.2bpp \
-	gfx/account/screens_bank4a/tiles_4240.2bpp \
-	gfx/account/screens_bank4a/tiles_4640.2bpp \
-	gfx/account/screens_bank4a/tiles_4a40.2bpp \
-	gfx/account/screens_bank4a/tiles_4e40.2bpp \
-	gfx/account/screens_bank4a/tiles_5870.2bpp \
+	gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4040.2bpp \
+	gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4240.2bpp \
+	gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4640.2bpp \
+	gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4a40.2bpp \
+	gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4e40.2bpp \
+	gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_5870.2bpp \
 	gfx/account/result_page_bank4b/account_result_page_tiles4ad0.2bpp \
 	gfx/account/result_page_bank4b/tiles_42d0.2bpp \
 	gfx/account/result_page_bank4b/tiles_46d0.2bpp \
@@ -434,12 +434,12 @@ PNG_TILE_OUTS := \
 	gfx/unresolved/tiles_7f_7830/tiles_7830.2bpp \
 
 
-gfx/account/screens_bank4a/tiles_4040.2bpp: PNG_SIZE := 512
-gfx/account/screens_bank4a/tiles_4240.2bpp: PNG_SIZE := 1024
-gfx/account/screens_bank4a/tiles_4640.2bpp: PNG_SIZE := 1024
-gfx/account/screens_bank4a/tiles_4a40.2bpp: PNG_SIZE := 1024
-gfx/account/screens_bank4a/tiles_4e40.2bpp: PNG_SIZE := 832
-gfx/account/screens_bank4a/tiles_5870.2bpp: PNG_SIZE := 1024
+gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4040.2bpp: PNG_SIZE := 512
+gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4240.2bpp: PNG_SIZE := 1024
+gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4640.2bpp: PNG_SIZE := 1024
+gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4a40.2bpp: PNG_SIZE := 1024
+gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4e40.2bpp: PNG_SIZE := 832
+gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_5870.2bpp: PNG_SIZE := 1024
 gfx/account/result_page_bank4b/account_result_page_tiles4ad0.2bpp: PNG_SIZE := 1456
 gfx/account/result_page_bank4b/tiles_42d0.2bpp: PNG_SIZE := 1024
 gfx/account/result_page_bank4b/tiles_46d0.2bpp: PNG_SIZE := 1024

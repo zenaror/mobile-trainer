@@ -186,7 +186,7 @@
 48	9	498C	4AAB	287	engine/tutorial/gates.asm	engine/tutorial/gates	0	-	code:287	first-use tutorial gates (top menu, mail menu, homepage) and a copy of 00:091C
 48	10	4AAB	4ADB	48	engine/sram/menu_cursor_memory.asm	engine/sram/menu_cursor_memory	0	-	code:48	Sram_ClearMenuCursorMemory
 48	11	4ADB	5DCB	4848	data/fonts/font_8x16.asm	data/fonts/font_8x16	0	-	gfx:4848	303 glyphs of the 8x16 1bpp font (27 runs)
-4A	1	4000	5F80	8064	gfx/account/screens_bank4a.asm	gfx/account/screens_bank4a	0	-	gfx:5712,data:2331,zero:13,words:8	account/registration screen art (loaded by bank 68)
+4A	1	4000	5F80	8064	gfx/account/settings_menu_and_manual_confirm_bank4a.asm	gfx/account/settings_menu_and_manual_confirm_bank4a	0	-	gfx:5712,data:2331,zero:13,words:8	account/registration screen art (loaded by bank 68)
 4A	2	5F80	7378	5112	gfx/settings/screens_bank4a.asm	gfx/settings/screens_bank4a	0	-	gfx:4432,data:680	settings screen art (loaded by bank 67)
 4B	1	4000	42D0	720	gfx/registration/screen_bank4b.asm	gfx/registration/screen_bank4b	0	-	data:720	tilemap loaded by bank 65
 4B	2	42D0	5B90	6336	gfx/account/result_page_bank4b.asm	gfx/account/result_page_bank4b	0	-	gfx:4088,data:2248	tiles/tilemap loaded by bank 68

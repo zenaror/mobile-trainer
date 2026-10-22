@@ -51,6 +51,24 @@ use the new path. `make` returned `RESULT: IDENTICAL` with ROM SHA-256
 zero errors. The name describes the established screen family and makes no
 claim about the unresolved bytes or hardware behavior.
 
+## Account Bank 4A mixed graphics owner (2026-10-22)
+
+The generic `gfx/account/screens_bank4a.asm` owner and matching resource
+folder are now `settings_menu_and_manual_confirm_bank4a`. The owner contains
+the confirmed Settings Menu graphics and maps at `4A:4040–5866`, followed by
+the account Manual Confirmation screen resources at `4A:5870–5F80`; the
+Bank 68 setup paths identify those two families. The distinct
+`gfx/settings/adapter_check_and_phone_entry_bank4a.asm` owner is unchanged.
+The layout, asset/screen catalogues, PNG rules, image-editing guide, README
+and retyping tool use the new account path. A separate ignored empty directory
+`gfx/settings/screens_bank4b` had no files and no tracked entries, so only that
+empty directory was removed. `make` returned `RESULT: IDENTICAL` with ROM
+SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
+`sym-check` passed (335 files, 12,177 labels, 51 constants), and
+`palette-check` reported 162 loads, 116 arrays, two documented overreads and
+zero errors. This path grouping is not a claim of uniform resource purpose or
+hardware behavior.
+
 ## Bank 4A settings-menu palette-shaped block (2026-10-21)
 
 The 32 bytes at `4A:51B0–51CF` are now named
