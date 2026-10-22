@@ -4,10 +4,10 @@
 ; so the ROM is unchanged.  To move a label into a real file, put the section in that file and pin it in layout.link.
 
 SECTION "zero_labels", ROMX
-; ROM 48:69AB-69CB (32 bytes); the linker script (layout.link) pins this section there
+; ROM [48:69AB,48:69CB) (32 bytes); layout.link pins this section there
 
-; ---- data $69AB-$69CB (32 bytes) [CONFIRMED] read as data by executed code (in up to 9/18 scenarios); content class unknown
+; ---- data [48:69AB,48:69CB) (32 bytes) [CONFIRMED] reader-selected source outside the declared Font_GlyphRun_83BF INCBIN; content identity and intent unknown
 
-Data_48_69AB:: ; 48:69AB
+FontReader_OutOfRunSource_48_69AB:: ; 48:69AB
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00

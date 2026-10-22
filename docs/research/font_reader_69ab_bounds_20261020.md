@@ -2,8 +2,8 @@
 
 ## Result
 
-`Data_48_69AB` remains a neutral data label. The 32 bytes at `48:69AB–69CA`
-are all zero and are read by `Font_BlitGlyph8x16` for a bounded set of input
+At the original checkpoint, `Data_48_69AB` remained a neutral data label. The
+32 bytes at `48:69AB–69CA` are all zero and are read by `Font_BlitGlyph8x16` for a bounded set of input
 pairs under its normal bank, stack, and control-flow assumptions. The
 independent review rejected splitting or renaming the range as a zero-glyph
 fallback: that would turn a reader's output into an unsupported claim about
@@ -47,7 +47,8 @@ complete 16-byte half. This confirms the reader's out-of-run source selection
 for those inputs under the stated bank/stack/control-flow assumptions. It does
 not establish that the bytes are a glyph, fallback, reserved object, or
 intentional safety behavior, and it does not prove natural execution or
-rendered output. Keep the symbol `Data_48_69AB` neutral.
+rendered output. The original audit therefore kept the symbol `Data_48_69AB`
+neutral.
 
 The keyboard supplies actual table values `$FF82` and `$FF83`:
 `data/keyboard/pages.asm` maps page 0 cells `$34` and `$31` to bytes at
@@ -63,6 +64,27 @@ The 69 existing `traces/detail/*/dataaccess.tsv` files merge accesses by
 bank/address and do not retain PC, arguments, order, or caller attribution.
 The retained historical result is therefore **HYPOTHESIS** for attribution of
 those individual trace reads and for any intended role such as blank glyph,
-reserved area, or fallback. The current label stays neutral until that gap is
-resolved. This note does not claim natural execution, rendered output, or
+reserved area, or fallback. The current label names only the statically
+demonstrated out-of-run reader source; object identity and intent remain
+unknown. This note does not claim natural execution, rendered output, or
 hardware behavior.
+
+## Structural-name correction (2026-10-22)
+
+An independent review expanded the private snapshot to include the exact
+80-byte `INCBIN`, its source declaration, `layout.link`, the keyboard table,
+preview/reader code, and the Japanese ROM. The `INCBIN` bytes at
+`48:[5D7B,5DCB)` match the ROM. The ordinary keyboard entries `$FF82` and
+`$FF83` pass through the preview to the font reader; the reader compares the
+low byte against the first real table key `$83BF` and computes offsets `$C30`
+and `$C40`. It reads exactly 16 bytes at `48:[69AB,69BB)` and 16 bytes at
+`48:[69BB,69CB)`, outside the declared run. `layout.link` pins the 32 explicit
+zero bytes at `48:[69AB,69CB)`; they also match the original ROM.
+
+The source label is now `FontReader_OutOfRunSource_48_69AB`. This is a
+structural description of the demonstrated reader relationship and declared
+section boundary, not a claim that the original software intended a glyph,
+fallback, reserved object, or safety behavior. The boundary is the current
+reconstruction's declared `INCBIN` extent; it does not prove an original
+object boundary. Natural execution, trace attribution, and rendered output
+remain unproved. The rename changes no bytes or section placement.

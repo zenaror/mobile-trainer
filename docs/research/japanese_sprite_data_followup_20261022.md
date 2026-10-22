@@ -14,7 +14,7 @@ Frame tables and their pointer targets are `PROBABLE` under the existing structu
 
 ## Remaining reviewed neutral data
 
-The bounded audit of 15 address-only data spans supports renaming only `Data_4B_5400`. Fourteen remain neutral because their isolated bytes or unsupported candidate formats do not establish identity or role. In particular, `Data_48_69AB` is confirmed as read data by a font-reader path, but its semantic identity is unknown. The false `Data_5F_6980` candidate remains rejected because the nearby loader selects bank `$71`, not `$5F`.
+The bounded audit of 15 address-only data spans supported renaming only `Data_4B_5400` at that checkpoint. Fourteen then remained neutral because their isolated bytes or unsupported candidate formats did not establish identity or role. A later independent boundary review structurally renamed `Data_48_69AB` to `FontReader_OutOfRunSource_48_69AB`; the source relationship is now named, while content identity and intent remain unknown. The false `Data_5F_6980` candidate remains rejected because the nearby loader selects bank `$71`, not `$5F`.
 
 ## Verification basis and limits
 
@@ -29,3 +29,13 @@ The independently reviewed spans were `Data_1C_401C`, `Data_23_46CC`, `Data_24_4
 One additional structural observation concerns `Data_24_6520`: its 16 bytes are byte-for-byte equal to the first 16-byte record of `PageListProto_ObjTable` at `7F:6DB0`. This equality is confirmed, but the reason for the duplicate and any relationship between the two banks remain hypotheses; no bank-`24` consumer was found. It therefore does not justify a semantic rename or an unused claim. The reviewed configuration snapshot also contains a stale far-call location for the bank-72 menu entry: `4E:4D16` is the call site; `4E:4D10` lies inside the prior CALL operand. Frozen generated configuration was not edited.
 
 The checks were static and ROM-byte-based. The reviewers' negative reference scans do not prove global non-use; no runtime trace, newly built ROM, natural-use, or hardware evidence was produced by this review. The source-level outcome is documentation only and does not alter ROM bytes or source data extents.
+
+### Follow-up: bank 48 reader-source boundary (2026-10-22)
+
+The earlier all-neutral recommendation for `Data_48_69AB` is superseded by the
+independent bounded review in
+[`font_reader_69ab_bounds_20261020.md`](font_reader_69ab_bounds_20261020.md#structural-name-correction-2026-10-22).
+The new label describes a statically selected reader source outside the
+declared `Font_GlyphRun_83BF` `INCBIN`; the stored bytes' original identity and
+intent remain unknown. No natural execution, output, or hardware claim was
+added.
