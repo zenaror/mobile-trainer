@@ -289,6 +289,7 @@ Kbd_Run_Loop:: ; 55:5D49
 	play_sfx SFX_CURSOR_MOVE
 	jp Kbd_Run_ContinueLoop
 
+.CheckTypeThenContinueOrHide ; 55:5DF5
 	; [CONFIRMED] If entered here, test wKbdType with Kbd_Type6To10Flag: zero continues the loop;
 	; nonzero selects Kbd_HideAndReturn9.
 	; [HYPOTHESIS] Natural entry is unproved: the preceding path jumps to 5E5A, while Select targets 5E02.

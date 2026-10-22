@@ -41,15 +41,15 @@ Multiply16x16to32:: ; 00:0D4D
 	add hl, hl
 	rl c
 	rl b
-	jr nc, .l0D62
+	jr nc, .NextBit
 	add hl, de
-	jr nc, .l0D62
+	jr nc, .NextBit
 
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 0D4D-0D67 by apply_coverage --split
 	inc bc
 
-.l0D62 ; 00:0D62
+.NextBit ; 00:0D62
 	; [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 0D4D-0D67 by apply_coverage
 	; --split [executed in 15 scenarios]
 	dec a
@@ -82,12 +82,12 @@ Divide16:: ; 00:0D67
 	ld a, h
 	sbc a, b
 	ld h, a
-	jr nc, .l0D86
+	jr nc, .SetQuotientBit
 	add hl, bc
-	jr .l0D87
-.l0D86 ; 00:0D86
+	jr .NextBit
+.SetQuotientBit ; 00:0D86
 	inc de
-.l0D87 ; 00:0D87
+.NextBit ; 00:0D87
 	pop af
 	dec a
 	jr nz, .loop

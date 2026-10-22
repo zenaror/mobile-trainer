@@ -28,23 +28,23 @@ Gfx_StartHDMA:: ; 00:0749
 	dec c
 	ldh a, [rLCDC]
 	bit 7, a
-	jr z, .l0773
+	jr z, .StartTransfer
 .loop ; 00:076A
 	ldh a, [rLY]
 	cp a, $91
 	jr c, .loop
 	cp a, b
-	jr nc, .l077A
-.l0773 ; 00:0773
+	jr nc, .WaitForLyBelow91
+.StartTransfer ; 00:0773
 	ld a, c
 	ldh [rHDMA5], a
 	inc c
 	ldh a, [hFarBank]
 	ret
-.l077A ; 00:077A
+.WaitForLyBelow91 ; 00:077A
 	ldh a, [rLY]
 	cp a, $91
-	jr nc, .l077A
+	jr nc, .WaitForLyBelow91
 	ldh a, [hFarBank]
 	call BankSwitch_H
 	jr .loop
@@ -70,24 +70,24 @@ Gfx_StartHDMAWithService:: ; 00:0787
 	dec c
 	ldh a, [rLCDC]
 	bit 7, a
-	jr z, .l07B1
+	jr z, .StartTransfer
 .loop ; 00:07A8
 	ldh a, [rLY]
 	cp a, $91
 	jr c, .loop
 	cp a, b
-	jr nc, .l07BB
-.l07B1 ; 00:07B1
+	jr nc, .WaitForLyBelow91
+.StartTransfer ; 00:07B1
 	ld a, c
 	ldh [rHDMA5], a
 	inc c
 	call Sound_FrameService
 	ldh a, [hFarBank]
 	ret
-.l07BB ; 00:07BB
+.WaitForLyBelow91 ; 00:07BB
 	ldh a, [rLY]
 	cp a, $91
-	jr nc, .l07BB
+	jr nc, .WaitForLyBelow91
 	call Sound_FrameService
 	ldh a, [hFarBank]
 	call BankSwitch_H

@@ -78,6 +78,7 @@ Reference documents (current):
 | [`japanese_indirect_dispatch_handlers_20261022.md`](research/japanese_indirect_dispatch_handlers_20261022.md) | Six Japanese dispatch tables, 23 named internal handler targets, original table hashes and identity gates |
 | [`japanese_sample_data_aliases_20261022.md`](research/japanese_sample_data_aliases_20261022.md) | Sixteen redundant address-form aliases removed from Japanese sample-data headers and strings |
 | [`japanese_dialog_line_labels_20261022.md`](research/japanese_dialog_line_labels_20261022.md) | Nine bank-72 candidate labels replaced with table-index and line-position names |
+| [`local_branch_label_pass_20261022.md`](research/local_branch_label_pass_20261022.md) | Eight operation-named local control-flow labels; 4,935 numeric local labels remain for evidence-based review |
 | [`registration_notice_bank58_resource_paths_20261022.md`](research/registration_notice_bank58_resource_paths_20261022.md) | Bank 58 registration notice assets renamed from type/address paths using static labels and readers |
 | [`keyboard_panel_tile_paths_20261022.md`](research/keyboard_panel_tile_paths_20261022.md) | Nine keyboard tile sets renamed by confirmed type and VRAM destinations |
 | [`connect_dialog_bank56_tile_paths_20261022.md`](research/connect_dialog_bank56_tile_paths_20261022.md) | Eleven ConnectDialog tile sets renamed by confirmed static VRAM destinations |
