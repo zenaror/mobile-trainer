@@ -3450,3 +3450,14 @@ were preserved. Bank 66 mail-draft exit-option meaning remains `PROBABLE`; the
 static T10 screen preview remains `HYPOTHESIS`. Historical paths are retained
 in `gfx_resource_path_map.tsv`; frozen `analysis/layout/` snapshots were not
 rewritten. No asset payload bytes or ROM bytes were changed.
+
+
+## Follow-up exact generic-symbol census (2026-10-22)
+
+At Japanese `main` commit `5b72c461da9d8313e5eacea0a486dbe53bb050b8`, a read-only census covered 349 ASM/INC source files. It excluded protected `engine/mail/sample_data.asm`; that source, the English translation and ZIP inputs were not opened. The ordered `path<TAB>SHA-256<LF>` source manifest is `5c9758f451760ab7a61f3301ecced4a908d7890f0b0cab0756983e9c98f61e99`.
+
+The scan found zero definitions named `Function_BB_AAAA`, `Label_BB_AAAA`, `Font_BB_AAAA`, or the alternate address-form prefixes `Func_`, `Routine_`, `Sub_`, `Unknown_`, `Unk_`, and `Code_`. It found 15 exact `Data_BB_AAAA` definitions in the safe source scope. The fresh build MAP contains 20 such address-form entries: five additional aliases at `2D:42B2`, `42F8`, `436A`, `441B`, and `44D3` belong to the protected `MailSample0_Header`–`MailSample4_Header` section. This distinction was verified from MAP/SYM output only; it is not a claim that the protected source was audited.
+
+The build SYM has SHA-256 `4bd28b6fdf821d2064fb03e1402370f7fcf91cd3107fbd4f741063150dd7fed1`; the MAP has SHA-256 `cf54188eeb35c02d929cdf303a41e96742ef9941f6220c06681ba78e2ef4a280`; the immutable Japanese ROM is 2,097,152 bytes with SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. The census also found 4,942 local `.lAAAA` instruction locators; these are branch/instruction anchors, not an unresolved-function count. All 28 addresses from the earlier bounded neutral-operation cohort have descriptive current SYM names, but this does not prove natural roots or complete semantic closure.
+
+Two stale RAM comments that still named `Function_48_415A` and `Function_4E_604C` now use the confirmed code labels `TextTiles_RenderGridRows` (`engine/text/text_tiles.asm:247`) and `ConnIcon_StartSprite` (`engine/browser/status_sprites.asm:101`). The 15 safe-scope `Data_*` labels remain neutral wherever their bounded reviews do not establish a stronger meaning. These findings are static source/MAP/SYM evidence only; they add no runtime, hardware, translation, or ZIP-derived evidence.
