@@ -2188,3 +2188,21 @@ static transfer requests; they were preserved at the original sizes. The 61
 raw file hashes match the private PRE/POST manifests. The Japanese lexical GFX
 filename census is now 44 address-only stems / 86 files in five directories,
 with 56 catalog rows (41 CONFIRMED / 15 PROBABLE). See the [dated GFX audit](docs/research/gfx_generic_name_audit_20261021.md#bank-5d5e-account-graphics-path-mapping-2026-10-22).
+
+
+## Japanese local-label checkpoint (2026-10-22)
+
+The Mobile SDK, 15 sprite-counter routines, and inline image blitter now have
+282 additional operation-named local labels, with 360 local branch references
+updated. The `$75:418E` SDK target and the `$51:72D4`/`$51:7383` blitter targets
+remain address-local because the evidence does not support more specific
+names. The sprite-counter fallback is named `.use_default_entry`: it selects
+the `Entry36` table item after the `$08` comparison and does not prove a digit
+9 case. See the [pass report and exact mapping](docs/research/japanese_local_label_pass_20261022.md).
+
+The six-root Japanese lexical census, excluding protected `sample_data.asm`,
+now contains 4,491 numeric local labels, 13 exact `Data_BB_AAAA` labels
+retained as neutral, and no address-form Function/Func/Sub/Label/Font
+definitions. This does not establish semantic closure; local labels, data and
+address-only graphics paths still require bounded review. The English overlay
+remains paused and was not modified.
