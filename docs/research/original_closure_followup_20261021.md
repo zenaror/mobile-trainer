@@ -1313,3 +1313,31 @@ their properly scoped names. All 61 raw file hashes are preserved in the
 private PRE/POST manifests. The six preview models remain HYPOTHESIS and do not
 prove natural display. Japanese address-only GFX names now number 44 stems in
 five directories / 86 files, with 56 catalog rows (41 CONFIRMED / 15 PROBABLE).
+
+
+## Current numeric CALL target review (2026-10-22)
+
+A fresh instruction-only scan of maintained Japanese ASM/INC sources finds
+seven numeric CALL sites with six distinct ROM targets. Four references in
+`home/farcall.asm` formerly used `$FFA8`; that address is the confirmed HRAM
+trampoline `hFarCallTrampoline` defined at `$FFA8`, so the CALL/JP operands now
+use that symbol. The four instruction encodings and the full ROM remain
+unchanged.
+
+The other six distinct targets remain numeric across seven sites because no
+defensible callable symbol is established at those operands:
+
+| Target | Sites | Evidence-based disposition |
+| --- | --- | --- |
+| `$7BB7` | `29:5120` | Selected ROMX bank is not established; physical `7D:7BB7` is zero padding. Keep the target numeric; no bank/target identity is inferred. |
+| `$58C4` | `2E:4A15` | Stale target into junk; the walk from the call site is banned. |
+| `$5FA2` | `2E:4A1B` | Stale target into junk; the walk from the call site is banned. |
+| `$6DD0` | `2E:4A2C` | Stale target into junk; the walk from the call site is banned. |
+| `$4441` | `2A:5760` | Enters the second byte of the instruction at `2A:4440`; do not name it as an independent function. |
+| `$21A0` | `65:4843`, `65:4872` | Both calls enter ROM0 zero padding; this is a stale target in a dead variant, not a recovered routine. |
+
+These operands preserve the observed source mechanics and unresolved bank or
+entry status. They are not generic function labels. Existing evidence and
+confidence limits remain in `docs/research/code_map.md`,
+`docs/research/typing_29_leaf_lcdc_ly_limits.md`, and the bounded function
+reviews; no target is relabeled by guesswork.

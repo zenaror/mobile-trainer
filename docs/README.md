@@ -148,7 +148,7 @@ Reference documents (current):
 | [`generic_data_name_audit_20261020.md`](research/generic_data_name_audit_20261020.md) | neutral data-name audit, co-address alias retirement ledgers, and evidence limits |
 | [`pokemon_names_bank53_asset_followup_20261020.md`](research/pokemon_names_bank53_asset_followup_20261020.md) | authenticated bank53 name/frame and PNG inventory follow-up; 25 associations and eight KEEP windows remain open |
 | [`bank4b_result_page_indexed_tiles_20261021.md`](research/bank4b_result_page_indexed_tiles_20261021.md) | Bank 4B result-page candidate tile paths, positive bank68 consumers, transfer provenance and limits |
-| [`original_closure_followup_20261021.md`](research/original_closure_followup_20261021.md) | current Japanese entry-candidate review, scoped alias cleanup, generic-name audit and remaining limits |
+| [`original_closure_followup_20261021.md`](research/original_closure_followup_20261021.md) | current Japanese entry-candidate review, generic-name census, numeric CALL targets and remaining limits |
 | [`read48_observer_r4_20261021.md`](research/read48_observer_r4_20261021.md) | FIX2 capacity controls and six bounded Japanese-ROM observer replays; no general FULL or hardware claim |
 
 Analysis-stage documents (historical banner at the top):

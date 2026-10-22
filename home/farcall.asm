@@ -73,7 +73,7 @@ FarCall_Common:: ; 00:06EE
 	ld h, a
 	ldh a, [hScratchA]
 	call BankSwitch_H
-	call $FFA8
+	call hFarCallTrampoline
 	ldh [hFarCallA], a
 	ld a, l
 	ldh [hFarCallHL], a
@@ -87,7 +87,7 @@ FarCall_Common:: ; 00:06EE
 	ldh [hFarCallTarget], a
 	ld a, h
 	ldh [hFarCallTarget + 1], a
-	jp $FFA8
+	jp hFarCallTrampoline
 
 FarJump_Inline16:: ; 00:0716
 	; Historical address alias retired; proper operation name retained.
@@ -106,7 +106,7 @@ FarJump_Inline16:: ; 00:0716
 	ld h, a
 	ldh a, [hFarBank]
 	call BankSwitch_H
-	jp $FFA8
+	jp hFarCallTrampoline
 
 FarJump:: ; 00:072E
 	; [PROBABLE] far JUMP (tail call, no return): call $072E ; dw addr ; db bank; A/HL passed
@@ -127,4 +127,4 @@ FarJump:: ; 00:072E
 	ld h, a
 	pop af
 	call BankSwitch_H
-	jp $FFA8
+	jp hFarCallTrampoline
