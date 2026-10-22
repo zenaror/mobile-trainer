@@ -657,3 +657,7 @@ gfx/mail/connect_screen_bank29/tilemap_5800.screen.png	gfx/mail/connect_screen_b
 gfx/mail/connect_screen_bank29/palette_5ad0.pal	gfx/mail/connect_screen_bank29/comm_time_hms_bg_palette.pal
 gfx/mailbox/objects/palette_7ac0.pal	gfx/mailbox/objects/profile_obj_palette.pal
 gfx/text_cursor/objects/palette_7b00.pal	gfx/text_cursor/objects/text_cursor_obj_palette.pal
+gfx/account/result_page_bank4b/tiles_5080.2bpp	gfx/account/result_page_bank4b/account_result_page_candidate_tiles_5080.2bpp
+gfx/account/result_page_bank4b/tiles_5080.png	gfx/account/result_page_bank4b/account_result_page_candidate_tiles_5080.png
+gfx/account/result_page_bank4b/tiles_5420.2bpp	gfx/account/result_page_bank4b/account_result_page_candidate_tiles_5420.2bpp
+gfx/account/result_page_bank4b/tiles_5420.png	gfx/account/result_page_bank4b/account_result_page_candidate_tiles_5420.png

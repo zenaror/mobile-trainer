@@ -125,8 +125,8 @@ Columns: `#` = order of the listing (path order); `asset` = PNG under `gfx/` (th
 | 8 | `account/screens_bank4a/tiles_5c70` | 4A:5C70 | 0 | - | - | removed by retype1 (`docs/research/naming2_retype1.md`): it was the palette `Palette_Account_ConfirmManualScreen_Bg` typed as 4 tiles |
 | 9 | `account/screens_bank4b/tiles_42d0` | 4B:42D0 | 64 (16x4) | Account_ResultPage@8800b1 | TXT | "通信を終了しました" / "通信時間は　分　秒でした" text + digits 0-9 (result page; digits are placed by the code) |
 | 10 | `account/screens_bank4b/tiles_46d0` | 4B:46D0 | 64 (16x4) | Account_ResultPage@8C00b1 | TXT | title banners "初期登録終了" and "パスワード…変更終了" (partly read) |
-| 11 | `account/screens_bank4b/tiles_5080` | 4B:5080 | 56 (14x4) | - | TXT | fragments "モバイルせってい" "メニュー" (PROBABLE), frame art |
-| 12 | `account/screens_bank4b/tiles_5420` | 4B:5420 | 69 (16x5) | - | MIX | "A WELCOMEメッセージ" label (A button icon + text) and frame art |
+| 11 | `account/result_page_bank4b/account_result_page_candidate_tiles_5080` | 4B:5080 | 56 (14x4) | - | TXT | fragments "モバイルせってい" "メニュー" (PROBABLE), frame art |
+| 12 | `account/result_page_bank4b/account_result_page_candidate_tiles_5420` | 4B:5420 | 69 (16x5) | - | MIX | "A WELCOMEメッセージ" label (A button icon + text) and frame art |
 | 13 | `account/screens_bank4b/tiles_5878` | 4B:5878 | 0 | - | - | removed by retype1 (`docs/research/naming2_retype1.md`): its 32 bytes (and the 8 bytes before them) are the palette `Palette_Account_ResultPage_Bg` |
 | 14 | `account/screens_bank5d/tiles_4800` | 5D:4800 | 64 (16x4) | Account_PasswordEntry_Setup@9000b1 | TXT | button legend "＋選ぶ A書く B消す 戻る / OK 次へ" + prompt "パスワードを入力してください" |
 | 15 | `account/screens_bank5d/tiles_4c00` | 5D:4C00 | 64 (16x4) | Account_PasswordEntry_Setup@9400b1 | TXT | "確認のため同じパスワードを入力してください" (confirmation prompt); more fragments unreadable |

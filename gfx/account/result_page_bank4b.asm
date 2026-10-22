@@ -22,7 +22,7 @@ Gfx_Account_ResultPage_Tiles4AD0:: ; 4B:4AD0
 ; ---- gfx $5080-$5400 (896 bytes) [PROBABLE] tiles-2bpp: heuristic: 54 coherent tiles (hsim2=0.832 vsim2=0.732, 0 blank) parity 0
 
 AccountResultPage_CandidateTiles_5080:: ; 4B:5080
-	INCBIN "gfx/account/result_page_bank4b/tiles_5080.2bpp"
+	INCBIN "gfx/account/result_page_bank4b/account_result_page_candidate_tiles_5080.2bpp"
 
 ; ---- gfx $5400-$5420 (32 bytes) [CONFIRMED] two 2bpp tiles in static second-banner DMA: source 4B:5370-$55F0 -> VRAM1:$9280-$9500; this slice maps to $9310-$9330. No natural-use or visual claim.
 
@@ -33,7 +33,7 @@ Gfx_Account_ResultPage_SecondBanner1_Tiles9310Vb1:: ; 4B:5400
 ; ---- gfx $5420-$5870 (1104 bytes) [PROBABLE] tile data: heuristic: 69 coherent tiles (hsim2=0.852 vsim2=0.752, 0 blank) parity 0; 40/1184 bytes also covered by call-site blocks [clipped from 5420-58C0 by higher-priority proposals]; the 8 bytes behind the INCBIN and the next block ($5878-$5898, 32 bytes) were palette bytes: the palette array below is what engine/account/result_page.asm reads
 
 AccountResultPage_CandidateTiles_5420:: ; 4B:5420
-	INCBIN "gfx/account/result_page_bank4b/tiles_5420.2bpp"
+	INCBIN "gfx/account/result_page_bank4b/account_result_page_candidate_tiles_5420.2bpp"
 
 ; ---- data $5870-$5898 (40 bytes) [CONFIRMED] palette-rgb555: 20 colours (5 palettes) read by Palette_LoadToBuffer: +$00 bc=$28 into wPaletteBufBg (engine/account/result_page.asm:47, call 68:76D0 executed 31 hits in 8 scenarios (analysis/coverage_union.tsv))
 

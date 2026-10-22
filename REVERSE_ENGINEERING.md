@@ -2125,3 +2125,12 @@ the corresponding loader call (including the five previously stale locator
 groups); a second generation produced the same SHA-256. The 818 resolved and
 99 unresolved operation payloads are unchanged, so this refresh updates source
 locations only and does not resolve the table-driven calls.
+
+## Bank 4B result-page candidate asset paths (2026-10-22)
+
+The two PROBABLE result-page tile spans at `4B:5080` and `4B:5420` now use
+owner-derived candidate filenames. Binary and PNG hashes are unchanged; the
+maintained Japanese gfx census is now 78 address-only stems across eight
+directories, with 97 catalog rows (75 CONFIRMED, 22 PROBABLE). This is a path
+classification checkpoint, not proof of natural use or semantic closure. See
+[the Bank 4B audit](docs/research/bank4b_result_page_indexed_tiles_20261021.md).

@@ -132,3 +132,14 @@ Some remaining address-only basenames already have semantic catalogue or owner l
 The tracked `gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_5860.2bpp` and `.png` are intentionally retained as a byte-view outside the active graphics catalogue. Their 16-byte backing is the ROM range `4A:5860–4A:586F`, which overlaps the maintained cursor-frame OAM record, its animation script at `4A:5866`, and following zero bytes; it is not a tile resource. This prior reclassification is recorded in [`EDITING_IMAGES.md`](../EDITING_IMAGES.md). The old path is not grounds for deleting it during generic temp cleanup.
 
 Historical `gfx/bankNN/...` paths in `gfx_resource_path_map.tsv` are migration provenance, not current directories. This census is lexical only and does not claim that the remaining stems are all wrong or unused; the next Japanese pass should resolve them from positive static ownership and readers, keeping candidate confidence explicit.
+
+## Bank 4B candidate tile paths (2026-10-22)
+
+The two probable result-page candidate tile spans at `4B:5080` and `4B:5420`
+now have path names matching their existing candidate-qualified labels. Their
+2bpp and exact PNG payloads are byte-identical to the pre-move manifest. This
+reduces the current address-only filename census from 80 stems/161 files to 78
+stems/157 files across eight directories; the 97 remaining address-only asset
+rows comprise 75 CONFIRMED and 22 PROBABLE entries. This is a lexical path
+count, not a semantic or runtime completion measure. The 5080/5420 labels keep
+their PROBABLE level.

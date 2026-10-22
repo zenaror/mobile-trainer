@@ -213,8 +213,8 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `result_page_vram8800_vb1_tiles.2bpp` | 2bpp tiles | 1024 | 4B:42D0 | CONFIRMED | exact | - | `gfx/account/result_page_bank4b.asm` |
 | `result_page_vram8c00_vb1_tiles.2bpp` | 2bpp tiles | 1024 | 4B:46D0 | CONFIRMED | exact | - | `gfx/account/result_page_bank4b.asm` |
 | `account_result_page_tiles4ad0.2bpp` | 2bpp tiles | 1456 | 4B:4AD0 | CONFIRMED | exact | - | `gfx/account/result_page_bank4b.asm` |
-| `tiles_5080.2bpp` | 2bpp tiles | 896 | 4B:5080 | PROBABLE | exact | - | `gfx/account/result_page_bank4b.asm` |
-| `tiles_5420.2bpp` | 2bpp tiles | 1104 | 4B:5420 | PROBABLE | exact | - | `gfx/account/result_page_bank4b.asm` |
+| `account_result_page_candidate_tiles_5080.2bpp` | 2bpp tiles | 896 | 4B:5080 | PROBABLE | exact | - | `gfx/account/result_page_bank4b.asm` |
+| `account_result_page_candidate_tiles_5420.2bpp` | 2bpp tiles | 1104 | 4B:5420 | PROBABLE | exact | - | `gfx/account/result_page_bank4b.asm` |
 | `account_result_page_bg.pal` | RGB palette | 40 | 4B:5870 | CONFIRMED | - | - | `gfx/account/result_page_bank4b.asm` |
 | `result_page_background.tilemap` | tile-index map | 360 | 4B:5898 | CONFIRMED | - | 20x18 | `gfx/account/result_page_bank4b.asm` |
 | `result_page_background.attrmap` | attribute map | 360 | 4B:5A00 | CONFIRMED | - | 20x18 | `gfx/account/result_page_bank4b.asm` |

@@ -64,8 +64,8 @@ gfx/account/result_page_bank4b/result_page_background.attrmap	attrmap	360	gfx/ac
 gfx/account/result_page_bank4b/result_page_background.tilemap	tilemap	360	gfx/account/result_page_bank4b.asm	4B	5898	CONFIRMED	-	0	20x18	Tilemap_Account_ResultPage
 gfx/account/result_page_bank4b/result_page_vram8800_vb1_tiles.2bpp	tiles	1024	gfx/account/result_page_bank4b.asm	4B	42D0	CONFIRMED	exact	0		Gfx_Account_ResultPage_Tiles8800Vb1
 gfx/account/result_page_bank4b/result_page_vram8c00_vb1_tiles.2bpp	tiles	1024	gfx/account/result_page_bank4b.asm	4B	46D0	CONFIRMED	exact	0		Gfx_Account_ResultPage_Tiles8C00Vb1
-gfx/account/result_page_bank4b/tiles_5080.2bpp	tiles	896	gfx/account/result_page_bank4b.asm	4B	5080	PROBABLE	exact	0		AccountResultPage_CandidateTiles_5080
-gfx/account/result_page_bank4b/tiles_5420.2bpp	tiles	1104	gfx/account/result_page_bank4b.asm	4B	5420	PROBABLE	exact	11		AccountResultPage_CandidateTiles_5420
+gfx/account/result_page_bank4b/account_result_page_candidate_tiles_5080.2bpp	tiles	896	gfx/account/result_page_bank4b.asm	4B	5080	PROBABLE	exact	0		AccountResultPage_CandidateTiles_5080
+gfx/account/result_page_bank4b/account_result_page_candidate_tiles_5420.2bpp	tiles	1104	gfx/account/result_page_bank4b.asm	4B	5420	PROBABLE	exact	11		AccountResultPage_CandidateTiles_5420
 gfx/account/password_and_registration_config_bank5d/account_confirm_screen_bg.pal	palette	64	gfx/account/password_and_registration_config_bank5d.asm	5D	65F0	CONFIRMED	-	0		Palette_Account_ConfirmScreen_Bg
 gfx/account/password_and_registration_config_bank5d/registration_write_config_5d_7048.attrmap	attrmap	360	gfx/account/password_and_registration_config_bank5d.asm	5D	71B0	CONFIRMED	-	0	20x18	Tilemap_Registration_WriteConfig_5D_7048
 gfx/account/password_and_registration_config_bank5d/registration_write_config_5d_7048.tilemap	tilemap	360	gfx/account/password_and_registration_config_bank5d.asm	5D	7048	CONFIRMED	-	0	20x18	Tilemap_Registration_WriteConfig_5D_7048

@@ -56,11 +56,11 @@ PNG_TILE_OUTS := \
 	gfx/account/password_and_registration_config_bank5d/tiles_6900.2bpp \
 	gfx/account/password_and_registration_config_bank5d/tiles_6c00.2bpp \
 	gfx/account/password_and_registration_config_bank5d/tiles_6e00.2bpp \
+	gfx/account/result_page_bank4b/account_result_page_candidate_tiles_5080.2bpp \
+	gfx/account/result_page_bank4b/account_result_page_candidate_tiles_5420.2bpp \
 	gfx/account/result_page_bank4b/account_result_page_tiles4ad0.2bpp \
 	gfx/account/result_page_bank4b/result_page_vram8800_vb1_tiles.2bpp \
 	gfx/account/result_page_bank4b/result_page_vram8c00_vb1_tiles.2bpp \
-	gfx/account/result_page_bank4b/tiles_5080.2bpp \
-	gfx/account/result_page_bank4b/tiles_5420.2bpp \
 	gfx/account/settings_menu_and_manual_confirm_bank4a/manual_confirm_vram9000_vb1_tiles.2bpp \
 	gfx/account/settings_menu_and_manual_confirm_bank4a/settings_menu_vram8000_vb1_tiles.2bpp \
 	gfx/account/settings_menu_and_manual_confirm_bank4a/settings_menu_vram8800_vb1_tiles.2bpp \
@@ -467,12 +467,12 @@ gfx/account/password_and_registration_config_bank5d/tiles_63f0.2bpp: PNG_SIZE :=
 gfx/account/password_and_registration_config_bank5d/tiles_6900.2bpp: PNG_SIZE := 768
 gfx/account/password_and_registration_config_bank5d/tiles_6c00.2bpp: PNG_SIZE := 512
 gfx/account/password_and_registration_config_bank5d/tiles_6e00.2bpp: PNG_SIZE := 512
+gfx/account/result_page_bank4b/account_result_page_candidate_tiles_5080.2bpp: PNG_SIZE := 896
+gfx/account/result_page_bank4b/account_result_page_candidate_tiles_5420.2bpp: PNG_SIZE := 1104
+gfx/account/result_page_bank4b/account_result_page_candidate_tiles_5420.2bpp: PNG_PAD := -x 11
 gfx/account/result_page_bank4b/account_result_page_tiles4ad0.2bpp: PNG_SIZE := 1456
 gfx/account/result_page_bank4b/result_page_vram8800_vb1_tiles.2bpp: PNG_SIZE := 1024
 gfx/account/result_page_bank4b/result_page_vram8c00_vb1_tiles.2bpp: PNG_SIZE := 1024
-gfx/account/result_page_bank4b/tiles_5080.2bpp: PNG_SIZE := 896
-gfx/account/result_page_bank4b/tiles_5420.2bpp: PNG_SIZE := 1104
-gfx/account/result_page_bank4b/tiles_5420.2bpp: PNG_PAD := -x 11
 gfx/account/settings_menu_and_manual_confirm_bank4a/manual_confirm_vram9000_vb1_tiles.2bpp: PNG_SIZE := 1024
 gfx/account/settings_menu_and_manual_confirm_bank4a/settings_menu_vram8000_vb1_tiles.2bpp: PNG_SIZE := 512
 gfx/account/settings_menu_and_manual_confirm_bank4a/settings_menu_vram8800_vb1_tiles.2bpp: PNG_SIZE := 1024

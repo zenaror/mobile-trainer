@@ -24,3 +24,16 @@ The independent audit compared each descriptor-derived intersection with origina
 The earlier follow-up above is superseded for the exact interval `4B:5400–5420`. The second descriptor list at `68:7840–7849` contains source `4B:5370` at index 1. `Account_ResultPage_LoadBanner` sets destination `$9281`, bank `$95`, and count `$28`; the shared upload helper transfers `C*16` bytes, masks the destination low nibble, and selects VRAM bank from bit 0. The resulting static range is `4B:5370–55F0` to VRAM1 `$9280–$9500`, placing this 32-byte slice at VRAM1 `$9310–$9330`.
 
 The source label is now `Gfx_Account_ResultPage_SecondBanner1_Tiles9310Vb1`. This confirms a two-tile 2bpp transfer association from the static descriptor/caller chain. It does not establish natural execution, visible composition, or visual meaning. The earlier 18-scenario trace association does not identify this particular caller and is not used as the basis for the rename.
+
+## 2026-10-22 candidate asset paths
+
+The two existing PROBABLE owner spans retain their candidate qualifiers and
+now use filenames derived from `AccountResultPage_CandidateTiles_5080` and
+`AccountResultPage_CandidateTiles_5420`: `account_result_page_candidate_tiles_5080`
+(896 bytes) and `account_result_page_candidate_tiles_5420` (1,104 bytes). The
+matching exact PNG sources moved with them. All four payload/source hashes match
+the pre-move manifest at
+`.tmp/jp-bank4b-candidate-asset-paths-20261022/PRE_MOVE.json` (SHA-256
+`b58ad27ecac7dd328a05e51c96a8094231643e5c88af4900bbd6e4778e5fef94`). The
+rename does not promote their PROBABLE classifications or claim complete-screen
+composition, natural selection, or Pokémon/frame identity.

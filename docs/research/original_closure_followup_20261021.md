@@ -1273,3 +1273,14 @@ no operand spelling either start address; this does not exclude split or
 computed pointers. The neutral
 `Settings_ReadData_UnknownContent_7271` name and unknown content class are
 therefore retained.
+
+## Bank 4B result-page candidate asset paths (2026-10-22)
+
+The `tiles_5080` and `tiles_5420` source/PNG pairs now use
+`account_result_page_candidate_tiles_5080` and
+`account_result_page_candidate_tiles_5420`, matching their existing
+`AccountResultPage_CandidateTiles_*` labels. Their 896-byte and 1,104-byte
+2bpp payload hashes and PNG hashes are preserved in the pre-move manifest. The
+classification remains PROBABLE; this path cleanup adds no claim of natural
+use, composition, or Pokémon/frame assignment. The regenerated catalog, PNG
+rules, and graphics README agree with the new names.
