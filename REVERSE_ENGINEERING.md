@@ -2074,6 +2074,16 @@ owner whose filename was only resource type plus bank/address. It is now
 HYPOTHESIS, and its unresolved role and bank/address provenance remain explicit.
 See the dated [gfx path follow-up](docs/research/gfx_generic_name_audit_20261021.md#address-only-unresolved-graphics-path-update-2026-10-22).
 
+A later filename census found that the source-level result does not cover asset
+basenames: 107 type/address stems remain across 20 descriptive `gfx/` folders,
+covering 216 files. There are still no current `bankNN` directories. The 134
+payload files present in `gfx/assets.tsv` retain 102 CONFIRMED, 31 PROBABLE and
+one HYPOTHESIS catalogue statuses; those statuses were not revalidated by the
+lexical pass. The two `tiles_5860` files in Bank 4A are documented byte-views of
+sprite/script bytes, not tile art, and remain outside the active catalogue.
+Resolve the other basenames owner by owner before renaming or treating any as
+unused. See the [complete filename census](docs/research/gfx_generic_name_audit_20261021.md#japanese-typeaddress-asset-filename-census-2026-10-22).
+
 The same current-tree reconciliation corrected a stale `gfx/assets.tsv` name
 at `73:49E0` from `Data_73_49E0` to its existing source label
 `BrowserStart_CandidateTiles_49E0`; its backing and PNG now use the candidate

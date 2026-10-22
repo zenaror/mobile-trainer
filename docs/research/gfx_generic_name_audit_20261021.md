@@ -109,3 +109,37 @@ Twenty-seven address-only paths in `gfx/registration/registration_notice_art_ban
 ## Keyboard panel tile paths (2026-10-22)
 
 Nine generic `tiles_<address>` pairs in the T4, T5, T9 and shared Bank 5D/5F panel groups now name their confirmed VRAM1 destinations and keyboard type where applicable. Their existing CONFIRMED transfer classifications, payloads and source extents are unchanged. The English tree was not accessed. See [`keyboard_panel_tile_paths_20261022.md`](keyboard_panel_tile_paths_20261022.md).
+
+
+## Japanese type/address asset filename census (2026-10-22)
+
+A fresh lexical census of the current Japanese `gfx/` tree found 1,859 files and no directory component named exactly `bankNN`. It found 107 address-only stems (`tiles_XXXX`, `tilemap_XXXX`, `attrmap_XXXX`, `palette_XXXX`) across 20 descriptive directories, spanning 216 physical files: 60 `.2bpp`, 60 `.png`, 29 `.tilemap`, 36 `.attrmap`, 21 `.screen.png` and 10 `.pal`. Of these, 134 payload files have current `gfx/assets.tsv` rows: 102 CONFIRMED, 31 PROBABLE and one HYPOTHESIS. Those status counts are inherited catalogue evidence; the lexical scan did not revalidate each loader or visual role. The remaining files include previews and one byte-view pair, so absence from the payload catalogue does not make a file disposable.
+
+| Current directory | Address-only stems |
+|---|---|
+| `gfx/account/account_entry_mail_and_action_screens_bank5e/` | `palette_4d00`; `tilemap_4d40`, `tilemap_6000`, `tilemap_68d0`, `tilemap_75d0`; `tiles_4800`, `tiles_4c00`, `tiles_4e10`, `tiles_5210`, `tiles_57e0`, `tiles_5800`, `tiles_5c00`, `tiles_60d0`, `tiles_64d0`, `tiles_6ba0`, `tiles_6fa0` |
+| `gfx/account/comm_panel_and_registration_delete_bank71/` | `tilemap_4c98`, `tilemap_4f68`, `tilemap_66c8`, `tilemap_6998`, `tilemap_6c68`; `tiles_4000`, `tiles_4300`, `tiles_4500`, `tiles_4890`, `tiles_5340`, `tiles_5740`, `tiles_5b40`, `tiles_5dc0`, `tiles_61c0`, `tiles_6440`, `tiles_6580` |
+| `gfx/account/password_and_registration_config_bank5d/` | `tilemap_5b20`, `tilemap_6630`; `tiles_4800`, `tiles_4c00`, `tiles_5320`, `tiles_5720`, `tiles_5df0`, `tiles_61f0`, `tiles_63f0`, `tiles_6900`, `tiles_6c00`, `tiles_6e00` |
+| `gfx/account/result_page_bank4b/` | `tiles_5080`, `tiles_5420` |
+| `gfx/account/settings_menu_and_manual_confirm_bank4a/` | `tiles_5860` |
+| `gfx/browser/frames_0_1/` | `tiles_4000`, `tiles_4010`, `tiles_4080`, `tiles_4090`, `tiles_40c0`, `tiles_40d0` |
+| `gfx/browser/page_list/` | `tiles_5810`, `tiles_6301`, `tiles_63e0` |
+| `gfx/browser/page_list_candidate/` | `palette_6aa0`, `palette_6d70`; `tilemap_67d0`; `tiles_62b0`, `tiles_66b0`, `tiles_6ae0` |
+| `gfx/comm/connect_dialog_bank56/` | `palette_77c0`; `tilemap_418a`, `tilemap_445a`, `tilemap_472a`, `tilemap_49fa`, `tilemap_4cca`, `tilemap_4f9a` |
+| `gfx/comm/notice_dialog/` | `attrmap_4502`, `attrmap_47d2`, `attrmap_4aa2`, `attrmap_4d72`, `attrmap_5042`, `attrmap_5312`, `attrmap_55e2`, `attrmap_58b2`; `palette_6bc0`; `tiles_5a20`, `tiles_5e20`, `tiles_5fc0`, `tiles_5fd0`, `tiles_62f0`, `tiles_66f0`, `tiles_6890`, `tiles_68a0` |
+| `gfx/error/no_adapter/` | `tiles_6480` |
+| `gfx/error/non_cgb_screen/` | `tilemap_4060`, `tiles_4240` |
+| `gfx/keyboard/panels_bank5f/` | `palette_4cd0`, `palette_6bb8`; `tilemap_4810`, `tilemap_4ecb`, `tilemap_50d3`, `tilemap_52db`, `tilemap_54e3`, `tilemap_56eb`, `tilemap_69b0` |
+| `gfx/mail/body_view/` | `tilemap_4550` |
+| `gfx/mail/connect_screen_bank29/` | `palette_5ad0`, `tilemap_5800`, `tiles_5400` |
+| `gfx/mail/session_scenery/` | `tiles_66f0` |
+| `gfx/mail_server/tidy_screen/` | `tiles_5af0` |
+| `gfx/mailbox/objects/` | `palette_7ac0` |
+| `gfx/settings/registration_delete_anim_and_password_save_confirm_bank71/` | `tilemap_6f6f` |
+| `gfx/text_cursor/objects/` | `palette_7b00` |
+
+Several address-only basenames already have semantic catalogue or owner labels. For example, `palette_4d00.pal` maps to `Palette_SharedEntryUi_Bg` (CONFIRMED), while `palette_7b00.pal` maps to `Palette_TextCursor_Obj` (PROBABLE). The two `tilemap_4810` files in the keyboard folder have different source addresses despite sharing a stem. Candidate tiles `tiles_5080` and `tiles_5420` remain PROBABLE. Names alone do not establish consumer, extent or natural use; each rename still requires owner, catalogue, loader and destination reconciliation.
+
+The tracked `gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_5860.2bpp` and `.png` are intentionally retained as a byte-view outside the active graphics catalogue. Their 16-byte backing is the ROM range `4A:5860–4A:586F`, which overlaps the maintained cursor-frame OAM record, its animation script at `4A:5866`, and following zero bytes; it is not a tile resource. This prior reclassification is recorded in [`EDITING_IMAGES.md`](../EDITING_IMAGES.md). The old path is not grounds for deleting it during generic temp cleanup.
+
+Historical `gfx/bankNN/...` paths in `gfx_resource_path_map.tsv` are migration provenance, not current directories. This census is lexical only and does not claim that the remaining stems are all wrong or unused; the next Japanese pass should resolve them from positive static ownership and readers, keeping candidate confidence explicit.
