@@ -48,9 +48,9 @@ Mailbox_Tiles_69F0:: ; 25:69F0
 	INCBIN "gfx/mailbox/mailbox/mailbox_tiles_69f0.2bpp"
 	db $3F, $00, $3F, $1E, $BF, $12, $FF, $12
 
-; ---- data $6AC8-$6BD1 (265 bytes) [CONFIRMED] all 265 bytes occur in merged rom_read ranges in 12 of 69 historical scenarios; inside requests at 25:4B86/4C2E, with 56 bytes repeated at 4B9B/4C43; physical 16-byte phase 8 to 1; content class unknown; see docs/research/boot_and_home.md
+; ---- data $6AC8-$6BD1 (265 bytes) [CONFIRMED] HDMA source fragment inside requests at 25:4B86/4C2E; first 56 bytes also feed 4B9B/4C43; phase 8 to 1; content class unknown; see docs/research/boot_and_home.md
 
-Mailbox_ReadData_UnknownContent_6AC8:: ; 25:6AC8
+Mailbox_HDMASourceFragment_6AC8:: ; 25:6AC8
 	db $FF, $42, $FD, $46, $FA, $8C, $DC, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $3F, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $FF, $00, $FF, $00, $FF, $00, $FF
@@ -79,9 +79,9 @@ Mailbox_Tiles_6CF0:: ; 25:6CF0
 	INCBIN "gfx/mailbox/mailbox/mailbox_tiles_6cf0.2bpp"
 	db $00
 
-; ---- data $6E71-$6EF0 (127 bytes) [CONFIRMED] all 127 bytes occur in merged rom_read ranges in 12 of 69 historical scenarios; inside requests at 25:4BB0/4C58; physical 16-byte phase 1 to 0; content class unknown, not an independent aligned tile asset; see docs/research/boot_and_home.md
+; ---- data $6E71-$6EF0 (127 bytes) [CONFIRMED] HDMA source fragment inside requests at 25:4BB0/4C58; physical 16-byte phase 1 to 0; content class unknown, not an independent aligned tile asset; see docs/research/boot_and_home.md
 
-Mailbox_ReadData_UnknownContent_6E71:: ; 25:6E71
+Mailbox_HDMASourceFragment_6E71:: ; 25:6E71
 	db $00, $38, $7D, $6C, $6D, $38, $7D, $6C, $6D, $6C, $6D, $38, $7D, $00, $00, $00
 	db $00, $38, $7D, $6C, $6D, $6C, $6D, $3C, $7D, $0C, $8D, $38, $BD, $00, $00, $03
 	db $01, $FF, $03, $FF, $FF, $FF, $FF, $00, $00, $FF, $FF, $FF, $00, $00, $00, $00

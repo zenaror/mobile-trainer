@@ -515,9 +515,12 @@ consumer unproved. It does not label the package globally unused: the loader mas
 the style with `$7F`, and the finite descriptor table is not proof that no other
 reader exists.
 
-The three remaining `ReadData_UnknownContent` spans (1,623 bytes) and 13 neutral
-`Data_BB_AAAA` spans (81 bytes) were checked against the original ROM bytes. Current
-static evidence still does not justify more specific content/function names, so the
-neutral labels remain. A separate bounded function-label census found no generic
+Three spans whose content class remains unknown (1,623 bytes) and 13 neutral
+`Data_BB_AAAA` spans (81 bytes) were checked against the original ROM bytes. Two
+mailbox spans now use `Mailbox_HDMASourceFragment_6AC8` and
+`Mailbox_HDMASourceFragment_6E71`, names limited to their CONFIRMED HDMA source
+role; neither name asserts visual content or an independent tile asset. The
+`Settings_ReadData_UnknownContent_7271` span still has no attributed transfer and
+remains neutral. A separate bounded function-label census found no generic
 function declarations; this does not complete semantic or natural-entry
 identification.
