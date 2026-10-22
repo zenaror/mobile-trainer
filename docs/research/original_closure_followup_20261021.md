@@ -1230,3 +1230,24 @@ the current corpus.
 Disposition: retain descriptive labels only for the bounded local mechanics;
 natural entry remains **UNKNOWN / unproved** for all five addresses. No
 function or caller names were inferred, and no source bytes changed.
+
+### Static address and bank reconciliation (2026-10-22)
+
+An independent read-only pass rechecked ROM words for the five candidate
+addresses and decoded the aligned CALL/JP-shaped matches with their physical
+banks. Counts of exact little-endian words were `6CF5=0`, `4E42=4`,
+`4E54=14`, `511E=3`, and `5DF5=1`; these are raw byte-pattern counts, not
+reference counts. The only aligned code CALLs to candidate entries are
+`2D:4E49 -> 4E54` and `29:50CE -> 511E`. Both source fragments themselves
+remain without a proven natural root. Other matches resolve to graphics data,
+other banks, or high/low fields of far-call records when decoded with bank and
+alignment; they do not establish callers to these candidates.
+
+The fragment `55:5DF5–5E02` follows a handler ending in an unconditional jump
+to `5E5A`; the Select branch goes to `5E02`, skipping it. The fragment's own
+CALL to `6EEC` is an outgoing edge, not proof of entry. At `29:511E`, the
+selected call at `5120` does not prove bank `7D`; the apparent matching window
+`29:7BB7–8000` is 1,097 zero bytes, so code at `7D:7BB7` cannot be assigned to
+that call absent separate bank/relocation evidence. These findings narrow the
+static hypotheses but do not exclude computed control flow, RAM-built targets,
+stack transfers, or copying/relocation. No labels or bytes changed.
