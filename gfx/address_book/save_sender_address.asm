@@ -26,12 +26,12 @@ Palette_SaveSenderAddr_Bg:: ; 2A:4FA0
 ; ---- gfx $4FE0-$51E0 (512 bytes) [PROBABLE] 32 tiles (512 bytes) 2bpp: rendered as coherent sprite/tile art; no HDMA call site found (the block sits between the palette 4FA0-4FE0 that is loaded via 4F:4000 and the palette 51E0-5220); bounds fixed by the neighbouring palettes
 
 Gfx_SaveSenderAddr_CandidateTiles_4FE0:: ; 2A:4FE0
-	INCBIN "gfx/address_book/save_sender_address/tiles_4fe0.2bpp"
+	INCBIN "gfx/address_book/save_sender_address/save_sender_addr_candidate_tiles_4fe0.2bpp"
 
 ; ---- data $51E0-$5220 (64 bytes) [PROBABLE] 64 bytes = 32 RGB555 words (bit15 clear) starting at the first valid palette word (4FED,09BF,7BAC,0000...), ends where the animation entry table 5220 begins; replaces the clipped 51F8 heuristic palette
 
 Palette_SaveSenderAddr_Candidate_51E0:: ; 2A:51E0
-	INCLUDE "gfx/address_book/save_sender_address/palette_51e0.pal"
+	INCLUDE "gfx/address_book/save_sender_address/save_sender_addr_candidate_palette_51e0.pal"
 
 ; ---- words $5220-$5290 (112 bytes) [PROBABLE] animation entry table: 28 entries of 4 bytes (frame-table pointer, script pointer), each animation repeated 4x; format of the sprite-slot initialiser 00:0A82/0AB8 (entry at DE+4*(A&$3F) -> slot[2..3] frame table, slot[6..7] script)
 

@@ -146,7 +146,7 @@ gfx/address_book/address_picker/addr_pick_tiles9300.2bpp	tiles	1024	gfx/address_
 gfx/address_book/address_picker/addr_pick_tiles9700.2bpp	tiles	256	gfx/address_book/address_picker.asm	2C	6B30	CONFIRMED	exact	0		Gfx_AddrPick_Tiles9700Vb1
 gfx/address_book/address_picker/data_addr_pick_tilemap_attr.attrmap	attrmap	360	gfx/address_book/address_picker.asm	2C	6E28	CONFIRMED	-	0	20x18	Data_AddrPick_TilemapAttr
 gfx/address_book/address_picker/data_addr_pick_tilemap_attr.tilemap	tilemap	360	gfx/address_book/address_picker.asm	2C	6CC0	CONFIRMED	-	0	20x18	Data_AddrPick_TilemapAttr
-gfx/address_book/address_picker/tiles_6fd0.2bpp	tiles	512	gfx/address_book/address_picker.asm	2C	6FD0	PROBABLE	exact	0		AddrPick_CandidateTiles_6FD0
+gfx/address_book/address_picker/addr_pick_candidate_tiles_6fd0.2bpp	tiles	512	gfx/address_book/address_picker.asm	2C	6FD0	PROBABLE	exact	0		AddrPick_CandidateTiles_6FD0
 gfx/address_book/entry_screen_bank29/palette_5e10.pal	palette	64	gfx/address_book/entry_screen_bank29.asm	29	5E10	CONFIRMED	-	0		Palette_AbookEdit_Obj
 gfx/address_book/entry_screen_bank29/tiles_5b10.2bpp	tiles	768	gfx/address_book/entry_screen_bank29.asm	29	5B10	CONFIRMED	exact	0		Gfx_AbookEdit_Tiles8000
 gfx/address_book/entry_screen_bank29/tiles_5e50.2bpp	tiles	1024	gfx/address_book/entry_screen_bank29.asm	29	5E50	CONFIRMED	exact	0		Gfx_AbookView_Tiles9300Vb1
@@ -168,10 +168,10 @@ gfx/address_book/save_confirm/data_addr_save_confirm_tilemap_attr.attrmap	attrma
 gfx/address_book/save_confirm/data_addr_save_confirm_tilemap_attr.tilemap	tilemap	360	gfx/address_book/save_confirm.asm	2A	7A20	CONFIRMED	-	0	20x18	Data_AddrSaveConfirm_TilemapAttr
 gfx/address_book/save_sender_address/data_save_sender_addr_tilemap_attr.attrmap	attrmap	360	gfx/address_book/save_sender_address.asm	2A	4E38	CONFIRMED	-	0	20x18	Data_SaveSenderAddr_TilemapAttr
 gfx/address_book/save_sender_address/data_save_sender_addr_tilemap_attr.tilemap	tilemap	360	gfx/address_book/save_sender_address.asm	2A	4CD0	CONFIRMED	-	0	20x18	Data_SaveSenderAddr_TilemapAttr
-gfx/address_book/save_sender_address/palette_51e0.pal	palette	64	gfx/address_book/save_sender_address.asm	2A	51E0	PROBABLE	-	0		Palette_SaveSenderAddr_Candidate_51E0
+gfx/address_book/save_sender_address/save_sender_addr_candidate_palette_51e0.pal	palette	64	gfx/address_book/save_sender_address.asm	2A	51E0	PROBABLE	-	0		Palette_SaveSenderAddr_Candidate_51E0
 gfx/address_book/save_sender_address/save_sender_addr_bg.pal	palette	64	gfx/address_book/save_sender_address.asm	2A	4FA0	PROBABLE	-	0		Palette_SaveSenderAddr_Bg
 gfx/address_book/save_sender_address/save_sender_addr_tiles9300.2bpp	tiles	560	gfx/address_book/save_sender_address.asm	2A	4AA0	CONFIRMED	exact	13		Gfx_SaveSenderAddr_Tiles9300Vb1
-gfx/address_book/save_sender_address/tiles_4fe0.2bpp	tiles	512	gfx/address_book/save_sender_address.asm	2A	4FE0	PROBABLE	exact	0		Gfx_SaveSenderAddr_CandidateTiles_4FE0
+gfx/address_book/save_sender_address/save_sender_addr_candidate_tiles_4fe0.2bpp	tiles	512	gfx/address_book/save_sender_address.asm	2A	4FE0	PROBABLE	exact	0		Gfx_SaveSenderAddr_CandidateTiles_4FE0
 gfx/address_book/shared_tiles_bank28/palette_51d0.pal	palette	64	gfx/address_book/shared_tiles_bank28.asm	28	51D0	PROBABLE	-	0		Palette_AbookList_Bg
 gfx/address_book/shared_tiles_bank28/tiles_4bd0.2bpp	tiles	1024	gfx/address_book/shared_tiles_bank28.asm	28	4BD0	CONFIRMED	exact	0		Gfx_AddrBookShared_Tiles8000
 gfx/address_book/shared_tiles_bank28/tiles_4fd0.2bpp	tiles	512	gfx/address_book/shared_tiles_bank28.asm	28	4FD0	CONFIRMED	exact	0		Gfx_AddrBookShared_Tiles8400

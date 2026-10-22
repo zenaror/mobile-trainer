@@ -38,7 +38,7 @@ Palette_AddrPick_Bg:: ; 2C:6F90
 ; ---- gfx $6FD0-$71D0 (512 bytes) [PROBABLE] 32 tiles (512 bytes) between the palette blocks 6F90 and 71D0; pixel coherence h=0.744 v=0.595; rendered and inspected (sprite/object art); no loader call found
 
 AddrPick_CandidateTiles_6FD0:: ; 2C:6FD0
-	INCBIN "gfx/address_book/address_picker/tiles_6fd0.2bpp"
+	INCBIN "gfx/address_book/address_picker/addr_pick_candidate_tiles_6fd0.2bpp"
 
 ; ---- data $71D0-$7210 (64 bytes) [CONFIRMED] 64-byte CGB palette block (8 x 4 RGB555 words, bit15 clear): copied by FarCall 4F:4000 (CopyBytes wrapper, bc=$40) to WRAM $D840 at 2C:58C9 (also 2A:4123, 2F:45FB). Replaces the mapper heuristic palette region 71EA-7262 (its tail is really the object table below)
 

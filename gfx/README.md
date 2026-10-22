@@ -258,7 +258,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `data_addr_pick_tilemap_attr.tilemap` | tile-index map | 360 | 2C:6CC0 | CONFIRMED | - | 20x18 | `gfx/address_book/address_picker.asm` |
 | `data_addr_pick_tilemap_attr.attrmap` | attribute map | 360 | 2C:6E28 | CONFIRMED | - | 20x18 | `gfx/address_book/address_picker.asm` |
 | `addr_pick_bg.pal` | RGB palette | 64 | 2C:6F90 | CONFIRMED | - | - | `gfx/address_book/address_picker.asm` |
-| `tiles_6fd0.2bpp` | 2bpp tiles | 512 | 2C:6FD0 | PROBABLE | exact | - | `gfx/address_book/address_picker.asm` |
+| `addr_pick_candidate_tiles_6fd0.2bpp` | 2bpp tiles | 512 | 2C:6FD0 | PROBABLE | exact | - | `gfx/address_book/address_picker.asm` |
 | `addr_book_obj.pal` | RGB palette | 64 | 2C:71D0 | CONFIRMED | - | - | `gfx/address_book/address_picker.asm` |
 
 ### `gfx/address_book/address_screen_candidate_bank2c/`
@@ -333,8 +333,8 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `data_save_sender_addr_tilemap_attr.tilemap` | tile-index map | 360 | 2A:4CD0 | CONFIRMED | - | 20x18 | `gfx/address_book/save_sender_address.asm` |
 | `data_save_sender_addr_tilemap_attr.attrmap` | attribute map | 360 | 2A:4E38 | CONFIRMED | - | 20x18 | `gfx/address_book/save_sender_address.asm` |
 | `save_sender_addr_bg.pal` | RGB palette | 64 | 2A:4FA0 | PROBABLE | - | - | `gfx/address_book/save_sender_address.asm` |
-| `tiles_4fe0.2bpp` | 2bpp tiles | 512 | 2A:4FE0 | PROBABLE | exact | - | `gfx/address_book/save_sender_address.asm` |
-| `palette_51e0.pal` | RGB palette | 64 | 2A:51E0 | PROBABLE | - | - | `gfx/address_book/save_sender_address.asm` |
+| `save_sender_addr_candidate_tiles_4fe0.2bpp` | 2bpp tiles | 512 | 2A:4FE0 | PROBABLE | exact | - | `gfx/address_book/save_sender_address.asm` |
+| `save_sender_addr_candidate_palette_51e0.pal` | RGB palette | 64 | 2A:51E0 | PROBABLE | - | - | `gfx/address_book/save_sender_address.asm` |
 
 ### `gfx/address_book/shared_tiles_bank28/`
 
