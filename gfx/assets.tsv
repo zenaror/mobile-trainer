@@ -247,26 +247,26 @@ gfx/browser/start_choice/browser_start_tiles4.2bpp	tiles	1024	gfx/browser/start_
 gfx/browser/start_choice/browser_start_top_attr_normal.attrmap	attrmap	40	gfx/browser/start_choice.asm	73	43AD	PROBABLE	-	0		BrowserStart_TopAttrNormal
 gfx/browser/start_choice/browser_start_top_map_normal.tilemap	tilemap	40	gfx/browser/start_choice.asm	73	4367	PROBABLE	-	0	10x4	BrowserStart_TopMapNormal
 gfx/browser/start_choice/browser_start_candidate_tiles.2bpp	tiles	1024	gfx/browser/start_choice.asm	73	49E0	PROBABLE	exact	0		BrowserStart_CandidateTiles_49E0
-gfx/comm/comm_scene/palette_6c90.pal	palette	64	gfx/comm/comm_scene.asm	70	6C90	PROBABLE	-	0		Palette_70_6C90
-gfx/comm/comm_scene/palette_6cd0.pal	palette	64	gfx/comm/comm_scene.asm	70	6CD0	PROBABLE	-	0		Palette_70_6CD0
-gfx/comm/comm_scene/tilemap_6d10.attrmap	attrmap	448	gfx/comm/comm_scene.asm	70	6ED0	CONFIRMED	-	0	32x14	Tilemap_70_6D10
-gfx/comm/comm_scene/tilemap_6d10.tilemap	tilemap	448	gfx/comm/comm_scene.asm	70	6D10	CONFIRMED	-	0	32x14	Tilemap_70_6D10
-gfx/comm/comm_scene/tilemap_7090.attrmap	attrmap	80	gfx/comm/comm_scene.asm	70	70E0	CONFIRMED	-	0	20x4	Tilemap_70_7090
-gfx/comm/comm_scene/tilemap_7090.tilemap	tilemap	80	gfx/comm/comm_scene.asm	70	7090	CONFIRMED	-	0	20x4	Tilemap_70_7090
-gfx/comm/comm_scene/tilemap_7130.attrmap	attrmap	80	gfx/comm/comm_scene.asm	70	7180	CONFIRMED	-	0	20x4	Tilemap_70_7130
-gfx/comm/comm_scene/tilemap_7130.tilemap	tilemap	80	gfx/comm/comm_scene.asm	70	7130	CONFIRMED	-	0	20x4	Tilemap_70_7130
-gfx/comm/comm_scene/tilemap_71d0.attrmap	attrmap	80	gfx/comm/comm_scene.asm	70	7220	CONFIRMED	-	0	20x4	Tilemap_70_71D0
-gfx/comm/comm_scene/tilemap_71d0.tilemap	tilemap	80	gfx/comm/comm_scene.asm	70	71D0	CONFIRMED	-	0	20x4	Tilemap_70_71D0
-gfx/comm/comm_scene/tilemap_7270.attrmap	attrmap	80	gfx/comm/comm_scene.asm	70	72C0	CONFIRMED	-	0	20x4	Tilemap_70_7270
-gfx/comm/comm_scene/tilemap_7270.tilemap	tilemap	80	gfx/comm/comm_scene.asm	70	7270	CONFIRMED	-	0	20x4	Tilemap_70_7270
-gfx/comm/comm_scene/tilemap_7310.attrmap	attrmap	80	gfx/comm/comm_scene.asm	70	7360	PROBABLE	-	0	20x4	Tilemap_70_7310
-gfx/comm/comm_scene/tilemap_7310.tilemap	tilemap	80	gfx/comm/comm_scene.asm	70	7310	PROBABLE	-	0	20x4	Tilemap_70_7310
-gfx/comm/comm_scene/tilemap_73b0.attrmap	attrmap	80	gfx/comm/comm_scene.asm	70	7400	PROBABLE	-	0	20x4	Tilemap_70_73B0
-gfx/comm/comm_scene/tilemap_73b0.tilemap	tilemap	80	gfx/comm/comm_scene.asm	70	73B0	PROBABLE	-	0	20x4	Tilemap_70_73B0
-gfx/comm/comm_scene/tilemap_7450.attrmap	attrmap	80	gfx/comm/comm_scene.asm	70	74A0	PROBABLE	-	0	20x4	Tilemap_70_7450
-gfx/comm/comm_scene/tilemap_7450.tilemap	tilemap	80	gfx/comm/comm_scene.asm	70	7450	PROBABLE	-	0	20x4	Tilemap_70_7450
-gfx/comm/comm_scene/tilemap_74f0.attrmap	attrmap	80	gfx/comm/comm_scene.asm	70	7540	PROBABLE	-	0	20x4	Tilemap_70_74F0
-gfx/comm/comm_scene/tilemap_74f0.tilemap	tilemap	80	gfx/comm/comm_scene.asm	70	74F0	PROBABLE	-	0	20x4	Tilemap_70_74F0
+gfx/comm/comm_scene/palette_6c90.pal	palette	64	gfx/comm/comm_scene.asm	70	6C90	PROBABLE	-	0		Palette_CommScene_Bg
+gfx/comm/comm_scene/palette_6cd0.pal	palette	64	gfx/comm/comm_scene.asm	70	6CD0	PROBABLE	-	0		Palette_CommScene_Obj
+gfx/comm/comm_scene/tilemap_6d10.attrmap	attrmap	448	gfx/comm/comm_scene.asm	70	6ED0	CONFIRMED	-	0	32x14	Tilemap_CommScene
+gfx/comm/comm_scene/tilemap_6d10.tilemap	tilemap	448	gfx/comm/comm_scene.asm	70	6D10	CONFIRMED	-	0	32x14	Tilemap_CommScene
+gfx/comm/comm_scene/tilemap_7090.attrmap	attrmap	80	gfx/comm/comm_scene.asm	70	70E0	CONFIRMED	-	0	20x4	Tilemap_CommScene_TextBox0
+gfx/comm/comm_scene/tilemap_7090.tilemap	tilemap	80	gfx/comm/comm_scene.asm	70	7090	CONFIRMED	-	0	20x4	Tilemap_CommScene_TextBox0
+gfx/comm/comm_scene/tilemap_7130.attrmap	attrmap	80	gfx/comm/comm_scene.asm	70	7180	CONFIRMED	-	0	20x4	Tilemap_CommScene_TextBox1
+gfx/comm/comm_scene/tilemap_7130.tilemap	tilemap	80	gfx/comm/comm_scene.asm	70	7130	CONFIRMED	-	0	20x4	Tilemap_CommScene_TextBox1
+gfx/comm/comm_scene/tilemap_71d0.attrmap	attrmap	80	gfx/comm/comm_scene.asm	70	7220	CONFIRMED	-	0	20x4	Tilemap_CommScene_TextBox2
+gfx/comm/comm_scene/tilemap_71d0.tilemap	tilemap	80	gfx/comm/comm_scene.asm	70	71D0	CONFIRMED	-	0	20x4	Tilemap_CommScene_TextBox2
+gfx/comm/comm_scene/tilemap_7270.attrmap	attrmap	80	gfx/comm/comm_scene.asm	70	72C0	CONFIRMED	-	0	20x4	Tilemap_CommScene_TextBox3
+gfx/comm/comm_scene/tilemap_7270.tilemap	tilemap	80	gfx/comm/comm_scene.asm	70	7270	CONFIRMED	-	0	20x4	Tilemap_CommScene_TextBox3
+gfx/comm/comm_scene/tilemap_7310.attrmap	attrmap	80	gfx/comm/comm_scene.asm	70	7360	PROBABLE	-	0	20x4	Tilemap_CommScene_TextBox4
+gfx/comm/comm_scene/tilemap_7310.tilemap	tilemap	80	gfx/comm/comm_scene.asm	70	7310	PROBABLE	-	0	20x4	Tilemap_CommScene_TextBox4
+gfx/comm/comm_scene/tilemap_73b0.attrmap	attrmap	80	gfx/comm/comm_scene.asm	70	7400	PROBABLE	-	0	20x4	Tilemap_CommScene_TextBox5
+gfx/comm/comm_scene/tilemap_73b0.tilemap	tilemap	80	gfx/comm/comm_scene.asm	70	73B0	PROBABLE	-	0	20x4	Tilemap_CommScene_TextBox5
+gfx/comm/comm_scene/tilemap_7450.attrmap	attrmap	80	gfx/comm/comm_scene.asm	70	74A0	PROBABLE	-	0	20x4	Tilemap_CommScene_TextBox6
+gfx/comm/comm_scene/tilemap_7450.tilemap	tilemap	80	gfx/comm/comm_scene.asm	70	7450	PROBABLE	-	0	20x4	Tilemap_CommScene_TextBox6
+gfx/comm/comm_scene/tilemap_74f0.attrmap	attrmap	80	gfx/comm/comm_scene.asm	70	7540	PROBABLE	-	0	20x4	Tilemap_CommScene_TextBox7
+gfx/comm/comm_scene/tilemap_74f0.tilemap	tilemap	80	gfx/comm/comm_scene.asm	70	74F0	PROBABLE	-	0	20x4	Tilemap_CommScene_TextBox7
 gfx/comm/comm_scene/tiles_5490.2bpp	tiles	1024	gfx/comm/comm_scene.asm	70	5490	CONFIRMED	exact	0		Gfx_CommScene_Tiles8000
 gfx/comm/comm_scene/tiles_5890.2bpp	tiles	1024	gfx/comm/comm_scene.asm	70	5890	CONFIRMED	exact	0		Gfx_CommScene_Tiles8400
 gfx/comm/comm_scene/tiles_5c90.2bpp	tiles	1024	gfx/comm/comm_scene.asm	70	5C90	CONFIRMED	exact	0		Gfx_CommScene_Tiles8800
@@ -274,10 +274,10 @@ gfx/comm/comm_scene/tiles_6090.2bpp	tiles	1024	gfx/comm/comm_scene.asm	70	6090	C
 gfx/comm/comm_scene/tiles_6490.2bpp	tiles	512	gfx/comm/comm_scene.asm	70	6490	CONFIRMED	exact	0		Gfx_CommScene_SharedVramSource0
 gfx/comm/comm_scene/tiles_6690.2bpp	tiles	512	gfx/comm/comm_scene.asm	70	6690	CONFIRMED	exact	0		Gfx_CommScene_SharedVramSource1
 gfx/comm/comm_scene/tiles_6890.2bpp	tiles	512	gfx/comm/comm_scene.asm	70	6890	CONFIRMED	exact	0		Gfx_CommScene_SharedVramSource2
-gfx/comm/comm_scene/tiles_6a90.2bpp	tiles	512	gfx/comm/comm_scene.asm	70	6A90	CONFIRMED	exact	0		Tiles_70_6A90
+gfx/comm/comm_scene/tiles_6a90.2bpp	tiles	512	gfx/comm/comm_scene.asm	70	6A90	CONFIRMED	exact	0		Gfx_CommScene_Tiles9400Vb1
 gfx/comm/connect_dialog_bank56/connect_dialog_connect_confirm_56_526a.attrmap	attrmap	40	gfx/comm/connect_dialog_bank56.asm	56	5292	CONFIRMED	-	0	20x2	Tilemap_ConnectDialog_ConnectConfirm_56_526A
 gfx/comm/connect_dialog_bank56/connect_dialog_connect_confirm_56_526a.tilemap	tilemap	40	gfx/comm/connect_dialog_bank56.asm	56	526A	CONFIRMED	-	0	20x2	Tilemap_ConnectDialog_ConnectConfirm_56_526A
-gfx/comm/connect_dialog_bank56/palette_77c0.pal	palette	192	gfx/comm/connect_dialog_bank56.asm	56	77C0	PROBABLE	-	0		Palette_56_77C0
+gfx/comm/connect_dialog_bank56/palette_77c0.pal	palette	192	gfx/comm/connect_dialog_bank56.asm	56	77C0	PROBABLE	-	0		Palette_ConnectDialog_Bg
 gfx/comm/connect_dialog_bank56/tilemap_418a.attrmap	attrmap	360	gfx/comm/connect_dialog_bank56.asm	56	42F2	CONFIRMED	-	0	20x18	Tilemap_ConnectDialog_56_418A
 gfx/comm/connect_dialog_bank56/tilemap_418a.tilemap	tilemap	360	gfx/comm/connect_dialog_bank56.asm	56	418A	CONFIRMED	-	0	20x18	Tilemap_ConnectDialog_56_418A
 gfx/comm/connect_dialog_bank56/tilemap_445a.attrmap	attrmap	360	gfx/comm/connect_dialog_bank56.asm	56	45C2	CONFIRMED	-	0	20x18	Tilemap_ConnectDialog_56_445A
@@ -305,14 +305,14 @@ gfx/comm/connect_dialog_screen/connect_dialog_blank_tile.2bpp	tiles	16	engine/co
 gfx/comm/connection_icon/conn_icon_palettes.pal	palette	24	gfx/comm/connection_icon.asm	69	4760	PROBABLE	-	0		ConnIcon_Palettes
 gfx/comm/connection_icon/conn_icon_tiles0.2bpp	tiles	1024	gfx/comm/connection_icon.asm	69	4160	CONFIRMED	exact	0		ConnIcon_Tiles0
 gfx/comm/connection_icon/conn_icon_tiles1.2bpp	tiles	512	gfx/comm/connection_icon.asm	69	4560	CONFIRMED	exact	0		ConnIcon_Tiles1
-gfx/comm/notice_dialog/attrmap_4502.attrmap	attrmap	360	gfx/comm/notice_dialog.asm	50	4502	PROBABLE	-	0		Attrmap_50_4502
-gfx/comm/notice_dialog/attrmap_47d2.attrmap	attrmap	360	gfx/comm/notice_dialog.asm	50	47D2	PROBABLE	-	0		Attrmap_50_47D2
-gfx/comm/notice_dialog/attrmap_4aa2.attrmap	attrmap	360	gfx/comm/notice_dialog.asm	50	4AA2	PROBABLE	-	0		Attrmap_50_4AA2
-gfx/comm/notice_dialog/attrmap_4d72.attrmap	attrmap	360	gfx/comm/notice_dialog.asm	50	4D72	CONFIRMED	-	0		Attrmap_50_4D72
-gfx/comm/notice_dialog/attrmap_5042.attrmap	attrmap	360	gfx/comm/notice_dialog.asm	50	5042	PROBABLE	-	0		Attrmap_50_5042
-gfx/comm/notice_dialog/attrmap_5312.attrmap	attrmap	360	gfx/comm/notice_dialog.asm	50	5312	PROBABLE	-	0		Attrmap_50_5312
-gfx/comm/notice_dialog/attrmap_55e2.attrmap	attrmap	360	gfx/comm/notice_dialog.asm	50	55E2	PROBABLE	-	0		Attrmap_50_55E2
-gfx/comm/notice_dialog/attrmap_58b2.attrmap	attrmap	360	gfx/comm/notice_dialog.asm	50	58B2	PROBABLE	-	0		Attrmap_50_58B2
+gfx/comm/notice_dialog/attrmap_4502.attrmap	attrmap	360	gfx/comm/notice_dialog.asm	50	4502	PROBABLE	-	0		Attrmap_CommNotice_A_CutOver60
+gfx/comm/notice_dialog/attrmap_47d2.attrmap	attrmap	360	gfx/comm/notice_dialog.asm	50	47D2	PROBABLE	-	0		Attrmap_CommNotice_A_AskOver60
+gfx/comm/notice_dialog/attrmap_4aa2.attrmap	attrmap	360	gfx/comm/notice_dialog.asm	50	4AA2	PROBABLE	-	0		Attrmap_CommNotice_A_CutSoon
+gfx/comm/notice_dialog/attrmap_4d72.attrmap	attrmap	360	gfx/comm/notice_dialog.asm	50	4D72	CONFIRMED	-	0		Attrmap_CommNotice_A_AskSoon
+gfx/comm/notice_dialog/attrmap_5042.attrmap	attrmap	360	gfx/comm/notice_dialog.asm	50	5042	PROBABLE	-	0		Attrmap_CommNotice_B_CutOver60
+gfx/comm/notice_dialog/attrmap_5312.attrmap	attrmap	360	gfx/comm/notice_dialog.asm	50	5312	PROBABLE	-	0		Attrmap_CommNotice_B_AskOver60
+gfx/comm/notice_dialog/attrmap_55e2.attrmap	attrmap	360	gfx/comm/notice_dialog.asm	50	55E2	PROBABLE	-	0		Attrmap_CommNotice_B_CutSoon
+gfx/comm/notice_dialog/attrmap_58b2.attrmap	attrmap	360	gfx/comm/notice_dialog.asm	50	58B2	PROBABLE	-	0		Attrmap_CommNotice_B_AskSoon
 gfx/comm/notice_dialog/comm_notice_a_ask_over60.tilemap	tilemap	360	gfx/comm/notice_dialog.asm	50	466A	PROBABLE	-	0	20x18	Tilemap_CommNotice_A_AskOver60
 gfx/comm/notice_dialog/comm_notice_a_ask_soon.tilemap	tilemap	360	gfx/comm/notice_dialog.asm	50	4C0A	CONFIRMED	-	0	20x18	Tilemap_CommNotice_A_AskSoon
 gfx/comm/notice_dialog/comm_notice_a_cut_over60.tilemap	tilemap	360	gfx/comm/notice_dialog.asm	50	439A	PROBABLE	-	0	20x18	Tilemap_CommNotice_A_CutOver60
@@ -321,7 +321,7 @@ gfx/comm/notice_dialog/comm_notice_b_ask_over60.tilemap	tilemap	360	gfx/comm/not
 gfx/comm/notice_dialog/comm_notice_b_ask_soon.tilemap	tilemap	360	gfx/comm/notice_dialog.asm	50	574A	PROBABLE	-	0	20x18	Tilemap_CommNotice_B_AskSoon
 gfx/comm/notice_dialog/comm_notice_b_cut_over60.tilemap	tilemap	360	gfx/comm/notice_dialog.asm	50	4EDA	PROBABLE	-	0	20x18	Tilemap_CommNotice_B_CutOver60
 gfx/comm/notice_dialog/comm_notice_b_cut_soon.tilemap	tilemap	360	gfx/comm/notice_dialog.asm	50	547A	PROBABLE	-	0	20x18	Tilemap_CommNotice_B_CutSoon
-gfx/comm/notice_dialog/palette_6bc0.pal	palette	256	gfx/comm/notice_dialog.asm	50	6BC0	PROBABLE	-	0		Palette_50_6BC0
+gfx/comm/notice_dialog/palette_6bc0.pal	palette	256	gfx/comm/notice_dialog.asm	50	6BC0	PROBABLE	-	0		Palette_CommNotice
 gfx/comm/notice_dialog/tiles_5a20.2bpp	tiles	1024	gfx/comm/notice_dialog.asm	50	5A20	CONFIRMED	exact	0		Gfx_CommNotice_A_Tiles9000
 gfx/comm/notice_dialog/tiles_5e20.2bpp	tiles	416	gfx/comm/notice_dialog.asm	50	5E20	CONFIRMED	exact	0		Gfx_CommNotice_A_Tiles9400
 gfx/comm/notice_dialog/tiles_5fc0.2bpp	tiles	16	gfx/comm/notice_dialog.asm	50	5FC0	CONFIRMED	exact	0		Gfx_CommNotice_A_Tiles8000Vb1
