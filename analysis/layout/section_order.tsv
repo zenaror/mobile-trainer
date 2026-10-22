@@ -197,7 +197,7 @@
 4C	4	4B54	4DB2	606	engine/browser/history_cache.asm	engine/browser/history_cache	0	-	code:594,data:12	back-stack, page cache, long SRAM block copy
 4C	5	4DB2	4F56	420	engine/browser/page_results.asm	engine/browser/page_results	0	-	code:314,text:69,data:37	error-to-result mapping and the image-in-HTML wrapper with its template strings
 4C	6	4F56	52DF	905	engine/help/mobile_dictionary_view.asm	engine/help/mobile_dictionary_view	0	-	code:895,ptrtable:10	mobile dictionary page viewer (MobileDictView_*)
-4D	1	4000	7983	14723	gfx/settings/screens_bank4d.asm	gfx/settings/screens_bank4d	0	-	gfx:13104,data:1603,words:16	tiles, tilemaps, object tables loaded by bank 67
+4D	1	4000	7983	14723	gfx/settings/phone_choice_and_slot_menus_bank4d.asm	gfx/settings/phone_choice_and_slot_menus_bank4d	0	-	gfx:13104,data:1603,words:16	tiles, tilemaps, object tables loaded by bank 67
 4E	1	4000	4658	1624	engine/browser/frame_style_chooser.asm	engine/browser/frame_style_chooser	0	-	words:1054,code:560,ptrtable:10	frame-style chooser with no caller, wipe list, cursor copier
 4E	2	4658	488D	565	engine/sram/save_block_check.asm	engine/sram/save_block_check	0	-	code:565	boot counters, Browser_BeginSession, SaveCheck_* (SRAM bank 1 block checksum), error counter
 4E	3	488D	49A1	276	engine/browser/session_start.asm	engine/browser/session_start	0	-	code:207,data:55,ptrtable:14	home page / staged URL / SRAM URL session starters

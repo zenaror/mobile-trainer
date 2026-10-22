@@ -233,7 +233,7 @@ ROMX $4c
 	"engine/browser/page_results"
 	"engine/help/mobile_dictionary_view"
 ROMX $4d
-	"gfx/settings/screens_bank4d"
+	"gfx/settings/phone_choice_and_slot_menus_bank4d"
 ROMX $4e
 	"engine/browser/frame_style_chooser"
 	"engine/sram/save_block_check"

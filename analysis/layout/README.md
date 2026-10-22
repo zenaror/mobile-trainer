@@ -792,7 +792,7 @@ same bank.  None of these choices can change a byte: they only decide which file
 |---|---|---:|---:|---|
 | `gfx/settings/screens_bank4a.asm` | 4A | 5112 | 319 | gfx 4432, data 680 |
 | `gfx/settings/screens_bank4b.asm` | 4B | 9296 | 581 | gfx 6912, data 2384 |
-| `gfx/settings/screens_bank4d.asm` | 4D | 14723 | 920 | gfx 13104, data 1603, words 16 |
+| `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` | 4D | 14723 | 920 | gfx 13104, data 1603, words 16 |
 | `gfx/settings/screens_bank5d.asm` | 5D | 2832 | 177 | gfx 2048, data 784 |
 | `gfx/settings/screens_bank5e.asm` | 5E | 2048 | 128 | gfx 2048 |
 | `gfx/settings/screens_bank71.asm` | 71 | 2044 | 127 | data 1994, gfx 50 |

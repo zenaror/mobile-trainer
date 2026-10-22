@@ -5,6 +5,21 @@ semantically complete. The original ROM remains byte-identical after the
 changes below. English work remains paused pending explicit Operator
 confirmation.
 
+## Bank 4D graphics owner path (2026-10-22)
+
+The generic `gfx/settings/screens_bank4d.asm` owner and matching asset folder
+are now `phone_choice_and_slot_menus_bank4d`. The owner contains confirmed
+Phone Choice Menu resources at `4D:4000–5D50` and Phone Slot Menu resources at
+`4D:5D50–7983`; the bank67 loaders and resource names identify both consumer
+families. This path names the contents without changing bank/address identity,
+asset bytes, labels or section order. Current Japanese source, layout, asset
+catalogue and PNG-rule references were updated. The paused English manifest
+was not edited. `make` returned `RESULT: IDENTICAL` (ROM SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`),
+`sym-check` passed for 335 source files / 12,177 labels / 51 constants, and
+`palette-check` reported 162 loads / 116 arrays / two documented overreads /
+zero errors. The path refactor makes no runtime or hardware claim.
+
 ## Bank 4A settings-menu palette-shaped block (2026-10-21)
 
 The 32 bytes at `4A:51B0–51CF` are now named

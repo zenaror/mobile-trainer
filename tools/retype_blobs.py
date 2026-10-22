@@ -42,10 +42,10 @@ def specs():
     S.append(dict(asm='gfx/account/screens_bank4a.asm', bank=0x4A, blob=0x4E40, tiles_end=0x5180, engine='engine/account/settings_menu.asm',
                   segs=[('palette', 0x5180, 0x51A8, 'Palette_SettingsMenu_Bg', 'wPaletteBufBg'), ('palette', 0x51A8, 0x51B0, 'Palette_SettingsMenu_Obj', 'wPaletteBufObj'), ('data', 0x51B0, 0x51D0, 'Data_4A_51B0', None)],
                   pair=(0x51D0, 0x54A0, 'Tilemap_SettingsMenu_4A_51D0')))
-    S.append(dict(asm='gfx/settings/screens_bank4d.asm', bank=0x4D, blob=0x7470, tiles_end=0x7570, engine='engine/settings/slot_menu.asm',
+    S.append(dict(asm='gfx/settings/phone_choice_and_slot_menus_bank4d.asm', bank=0x4D, blob=0x7470, tiles_end=0x7570, engine='engine/settings/slot_menu.asm',
                   segs=[('palette', 0x7570, 0x7598, 'Palette_SettingsPhone_SlotMenu_Bg', 'wPaletteBufBg'), ('palette', 0x7598, 0x75A0, 'Palette_SettingsPhone_SlotMenu_Obj', 'wPaletteBufObj')],
                   pair=(0x75A0, 0x7870, 'Tilemap_SettingsPhone_SlotMenu_4D_75A0')))
-    S.append(dict(asm='gfx/settings/screens_bank4d.asm', bank=0x4D, blob=0x5510, tiles_end=0x5510, engine='engine/settings/choice_menu.asm',
+    S.append(dict(asm='gfx/settings/phone_choice_and_slot_menus_bank4d.asm', bank=0x4D, blob=0x5510, tiles_end=0x5510, engine='engine/settings/choice_menu.asm',
                   segs=[('palette', 0x5510, 0x5538, 'Palette_SettingsPhone_ChoiceMenu_Bg', 'wPaletteBufBg'), ('palette', 0x5538, 0x5540, 'Palette_SettingsPhone_ChoiceMenu_Obj', 'wPaletteBufObj')],
                   pair=(0x5540, 0x5810, 'Tilemap_SettingsPhone_ChoiceMenu_4D_5540')))
     # the old blob is `tiles-vram` of 1,024 bytes but its INCBIN is the 768 bytes of tiles; the last 256 bytes are `db` lines (the head of the pair)

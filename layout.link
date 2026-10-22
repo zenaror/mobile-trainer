@@ -468,7 +468,7 @@ ROMX $4C
 
 ROMX $4D
 	org $4000
-	"gfx/settings/screens_bank4d"
+	"gfx/settings/phone_choice_and_slot_menus_bank4d"
 
 ROMX $4E
 	org $4000

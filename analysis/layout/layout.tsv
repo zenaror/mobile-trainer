@@ -194,7 +194,7 @@
 4C	4B54	4DB2	engine/browser/history_cache.asm	back-stack, page cache, long SRAM block copy
 4C	4DB2	4F56	engine/browser/page_results.asm	error-to-result mapping and the image-in-HTML wrapper with its template strings
 4C	4F56	52DF	engine/help/mobile_dictionary_view.asm	mobile dictionary page viewer (MobileDictView_*)
-4D	4000	7983	gfx/settings/screens_bank4d.asm	tiles, tilemaps, object tables loaded by bank 67
+4D	4000	7983	gfx/settings/phone_choice_and_slot_menus_bank4d.asm	tiles, tilemaps, object tables loaded by bank 67
 4E	4000	4658	engine/browser/frame_style_chooser.asm	frame-style chooser with no caller, wipe list, cursor copier
 4E	4658	488D	engine/sram/save_block_check.asm	boot counters, Browser_BeginSession, SaveCheck_* (SRAM bank 1 block checksum), error counter
 4E	488D	49A1	engine/browser/session_start.asm	home page / staged URL / SRAM URL session starters

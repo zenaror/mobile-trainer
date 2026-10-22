@@ -1362,51 +1362,51 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `password_save_confirm_variant0.tilemap` | tile-index map | 360 | 5D:7BA0 | CONFIRMED | - | 20x18 | `gfx/settings/password_save_confirmation_bank5d.asm` |
 | `password_save_confirm_variant0.attrmap` | attribute map | 360 | 5D:7D08 | CONFIRMED | - | 20x18 | `gfx/settings/password_save_confirmation_bank5d.asm` |
 
-### `gfx/settings/screens_bank4d/`
+### `gfx/settings/phone_choice_and_slot_menus_bank4d/`
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_4000.2bpp` | 2bpp tiles | 512 | 4D:4000 | CONFIRMED | exact | - | `gfx/settings/screens_bank4d.asm` |
-| `tiles_4200.2bpp` | 2bpp tiles | 784 | 4D:4200 | CONFIRMED | exact | - | `gfx/settings/screens_bank4d.asm` |
-| `tiles_4510.2bpp` | 2bpp tiles | 256 | 4D:4510 | CONFIRMED | exact | - | `gfx/settings/screens_bank4d.asm` |
-| `tiles_4610.2bpp` | 2bpp tiles | 1024 | 4D:4610 | CONFIRMED | exact | - | `gfx/settings/screens_bank4d.asm` |
-| `tiles_4a10.2bpp` | 2bpp tiles | 768 | 4D:4A10 | CONFIRMED | exact | - | `gfx/settings/screens_bank4d.asm` |
-| `tiles_4d10.2bpp` | 2bpp tiles | 768 | 4D:4D10 | CONFIRMED | exact | - | `gfx/settings/screens_bank4d.asm` |
-| `tiles_5010.2bpp` | 2bpp tiles | 256 | 4D:5010 | CONFIRMED | exact | - | `gfx/settings/screens_bank4d.asm` |
-| `tiles_5110.2bpp` | 2bpp tiles | 1024 | 4D:5110 | CONFIRMED | exact | - | `gfx/settings/screens_bank4d.asm` |
-| `settings_phone_choice_menu_bg.pal` | RGB palette | 40 | 4D:5510 | PROBABLE | - | - | `gfx/settings/screens_bank4d.asm` |
-| `settings_phone_choice_menu_obj.pal` | RGB palette | 8 | 4D:5538 | CONFIRMED | - | - | `gfx/settings/screens_bank4d.asm` |
-| `settings_phone_choice_menu_4d_5540.tilemap` | tile-index map | 360 | 4D:5540 | CONFIRMED | - | 20x18 | `gfx/settings/screens_bank4d.asm` |
-| `settings_phone_choice_menu_4d_5540.attrmap` | attribute map | 360 | 4D:56A8 | CONFIRMED | - | 20x18 | `gfx/settings/screens_bank4d.asm` |
-| `tilemap_5810.tilemap` | tile-index map | 360 | 4D:5810 | CONFIRMED | - | 20x18 | `gfx/settings/screens_bank4d.asm` |
-| `tilemap_5810.attrmap` | attribute map | 360 | 4D:5978 | CONFIRMED | - | 20x18 | `gfx/settings/screens_bank4d.asm` |
-| `settings_phone_choice_menu_entry0_4d_5ae0.tilemap` | tile-index map | 70 | 4D:5AE0 | CONFIRMED | - | 14x5 | `gfx/settings/screens_bank4d.asm` |
-| `settings_phone_choice_menu_entry0_4d_5ae0.attrmap` | attribute map | 70 | 4D:5B26 | CONFIRMED | - | 14x5 | `gfx/settings/screens_bank4d.asm` |
-| `settings_phone_choice_menu_entry1_4d_5b6c.tilemap` | tile-index map | 70 | 4D:5B6C | CONFIRMED | - | 14x5 | `gfx/settings/screens_bank4d.asm` |
-| `settings_phone_choice_menu_entry1_4d_5b6c.attrmap` | attribute map | 70 | 4D:5BB2 | CONFIRMED | - | 14x5 | `gfx/settings/screens_bank4d.asm` |
-| `settings_phone_choice_menu_entry2_4d_5bf8.tilemap` | tile-index map | 70 | 4D:5BF8 | CONFIRMED | - | 14x5 | `gfx/settings/screens_bank4d.asm` |
-| `settings_phone_choice_menu_entry2_4d_5bf8.attrmap` | attribute map | 70 | 4D:5C3E | CONFIRMED | - | 14x5 | `gfx/settings/screens_bank4d.asm` |
-| `settings_phone_choice_menu_entry3_4d_5c84.tilemap` | tile-index map | 70 | 4D:5C84 | CONFIRMED | - | 14x5 | `gfx/settings/screens_bank4d.asm` |
-| `settings_phone_choice_menu_entry3_4d_5c84.attrmap` | attribute map | 70 | 4D:5CCA | CONFIRMED | - | 14x5 | `gfx/settings/screens_bank4d.asm` |
-| `tiles_5d50.2bpp` | 2bpp tiles | 32 | 4D:5D50 | CONFIRMED | exact | - | `gfx/settings/screens_bank4d.asm` |
-| `tiles_5d70.2bpp` | 2bpp tiles | 1024 | 4D:5D70 | CONFIRMED | exact | - | `gfx/settings/screens_bank4d.asm` |
-| `tiles_6170.2bpp` | 2bpp tiles | 1024 | 4D:6170 | CONFIRMED | exact | - | `gfx/settings/screens_bank4d.asm` |
-| `tiles_6570.2bpp` | 2bpp tiles | 768 | 4D:6570 | CONFIRMED | exact | - | `gfx/settings/screens_bank4d.asm` |
-| `tiles_6870.2bpp` | 2bpp tiles | 1024 | 4D:6870 | CONFIRMED | exact | - | `gfx/settings/screens_bank4d.asm` |
-| `tiles_6c70.2bpp` | 2bpp tiles | 256 | 4D:6C70 | CONFIRMED | exact | - | `gfx/settings/screens_bank4d.asm` |
-| `tiles_6d70.2bpp` | 2bpp tiles | 1024 | 4D:6D70 | CONFIRMED | exact | - | `gfx/settings/screens_bank4d.asm` |
-| `tiles_7170.2bpp` | 2bpp tiles | 768 | 4D:7170 | CONFIRMED | exact | - | `gfx/settings/screens_bank4d.asm` |
-| `tiles_7470.2bpp` | 2bpp tiles | 256 | 4D:7470 | CONFIRMED | exact | - | `gfx/settings/screens_bank4d.asm` |
-| `settings_phone_slot_menu_bg.pal` | RGB palette | 40 | 4D:7570 | PROBABLE | - | - | `gfx/settings/screens_bank4d.asm` |
-| `settings_phone_slot_menu_obj.pal` | RGB palette | 8 | 4D:7598 | CONFIRMED | - | - | `gfx/settings/screens_bank4d.asm` |
-| `settings_phone_slot_menu_4d_75a0.tilemap` | tile-index map | 360 | 4D:75A0 | CONFIRMED | - | 20x18 | `gfx/settings/screens_bank4d.asm` |
-| `settings_phone_slot_menu_4d_75a0.attrmap` | attribute map | 360 | 4D:7708 | CONFIRMED | - | 20x18 | `gfx/settings/screens_bank4d.asm` |
-| `tilemap_7870.tilemap` | tile-index map | 40 | 4D:7870 | CONFIRMED | - | 20x2 | `gfx/settings/screens_bank4d.asm` |
-| `tilemap_7870.attrmap` | attribute map | 40 | 4D:7898 | CONFIRMED | - | 20x2 | `gfx/settings/screens_bank4d.asm` |
-| `tilemap_78c0.tilemap` | tile-index map | 40 | 4D:78C0 | CONFIRMED | - | 20x2 | `gfx/settings/screens_bank4d.asm` |
-| `tilemap_78c0.attrmap` | attribute map | 40 | 4D:78E8 | CONFIRMED | - | 20x2 | `gfx/settings/screens_bank4d.asm` |
-| `tilemap_7910.tilemap` | tile-index map | 40 | 4D:7910 | PROBABLE | - | 20x2 | `gfx/settings/screens_bank4d.asm` |
-| `tilemap_7910.attrmap` | attribute map | 40 | 4D:7938 | PROBABLE | - | 20x2 | `gfx/settings/screens_bank4d.asm` |
+| `tiles_4000.2bpp` | 2bpp tiles | 512 | 4D:4000 | CONFIRMED | exact | - | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `tiles_4200.2bpp` | 2bpp tiles | 784 | 4D:4200 | CONFIRMED | exact | - | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `tiles_4510.2bpp` | 2bpp tiles | 256 | 4D:4510 | CONFIRMED | exact | - | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `tiles_4610.2bpp` | 2bpp tiles | 1024 | 4D:4610 | CONFIRMED | exact | - | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `tiles_4a10.2bpp` | 2bpp tiles | 768 | 4D:4A10 | CONFIRMED | exact | - | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `tiles_4d10.2bpp` | 2bpp tiles | 768 | 4D:4D10 | CONFIRMED | exact | - | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `tiles_5010.2bpp` | 2bpp tiles | 256 | 4D:5010 | CONFIRMED | exact | - | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `tiles_5110.2bpp` | 2bpp tiles | 1024 | 4D:5110 | CONFIRMED | exact | - | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `settings_phone_choice_menu_bg.pal` | RGB palette | 40 | 4D:5510 | PROBABLE | - | - | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `settings_phone_choice_menu_obj.pal` | RGB palette | 8 | 4D:5538 | CONFIRMED | - | - | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `settings_phone_choice_menu_4d_5540.tilemap` | tile-index map | 360 | 4D:5540 | CONFIRMED | - | 20x18 | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `settings_phone_choice_menu_4d_5540.attrmap` | attribute map | 360 | 4D:56A8 | CONFIRMED | - | 20x18 | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `tilemap_5810.tilemap` | tile-index map | 360 | 4D:5810 | CONFIRMED | - | 20x18 | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `tilemap_5810.attrmap` | attribute map | 360 | 4D:5978 | CONFIRMED | - | 20x18 | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `settings_phone_choice_menu_entry0_4d_5ae0.tilemap` | tile-index map | 70 | 4D:5AE0 | CONFIRMED | - | 14x5 | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `settings_phone_choice_menu_entry0_4d_5ae0.attrmap` | attribute map | 70 | 4D:5B26 | CONFIRMED | - | 14x5 | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `settings_phone_choice_menu_entry1_4d_5b6c.tilemap` | tile-index map | 70 | 4D:5B6C | CONFIRMED | - | 14x5 | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `settings_phone_choice_menu_entry1_4d_5b6c.attrmap` | attribute map | 70 | 4D:5BB2 | CONFIRMED | - | 14x5 | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `settings_phone_choice_menu_entry2_4d_5bf8.tilemap` | tile-index map | 70 | 4D:5BF8 | CONFIRMED | - | 14x5 | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `settings_phone_choice_menu_entry2_4d_5bf8.attrmap` | attribute map | 70 | 4D:5C3E | CONFIRMED | - | 14x5 | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `settings_phone_choice_menu_entry3_4d_5c84.tilemap` | tile-index map | 70 | 4D:5C84 | CONFIRMED | - | 14x5 | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `settings_phone_choice_menu_entry3_4d_5c84.attrmap` | attribute map | 70 | 4D:5CCA | CONFIRMED | - | 14x5 | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `tiles_5d50.2bpp` | 2bpp tiles | 32 | 4D:5D50 | CONFIRMED | exact | - | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `tiles_5d70.2bpp` | 2bpp tiles | 1024 | 4D:5D70 | CONFIRMED | exact | - | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `tiles_6170.2bpp` | 2bpp tiles | 1024 | 4D:6170 | CONFIRMED | exact | - | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `tiles_6570.2bpp` | 2bpp tiles | 768 | 4D:6570 | CONFIRMED | exact | - | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `tiles_6870.2bpp` | 2bpp tiles | 1024 | 4D:6870 | CONFIRMED | exact | - | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `tiles_6c70.2bpp` | 2bpp tiles | 256 | 4D:6C70 | CONFIRMED | exact | - | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `tiles_6d70.2bpp` | 2bpp tiles | 1024 | 4D:6D70 | CONFIRMED | exact | - | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `tiles_7170.2bpp` | 2bpp tiles | 768 | 4D:7170 | CONFIRMED | exact | - | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `tiles_7470.2bpp` | 2bpp tiles | 256 | 4D:7470 | CONFIRMED | exact | - | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `settings_phone_slot_menu_bg.pal` | RGB palette | 40 | 4D:7570 | PROBABLE | - | - | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `settings_phone_slot_menu_obj.pal` | RGB palette | 8 | 4D:7598 | CONFIRMED | - | - | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `settings_phone_slot_menu_4d_75a0.tilemap` | tile-index map | 360 | 4D:75A0 | CONFIRMED | - | 20x18 | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `settings_phone_slot_menu_4d_75a0.attrmap` | attribute map | 360 | 4D:7708 | CONFIRMED | - | 20x18 | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `tilemap_7870.tilemap` | tile-index map | 40 | 4D:7870 | CONFIRMED | - | 20x2 | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `tilemap_7870.attrmap` | attribute map | 40 | 4D:7898 | CONFIRMED | - | 20x2 | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `tilemap_78c0.tilemap` | tile-index map | 40 | 4D:78C0 | CONFIRMED | - | 20x2 | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `tilemap_78c0.attrmap` | attribute map | 40 | 4D:78E8 | CONFIRMED | - | 20x2 | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `tilemap_7910.tilemap` | tile-index map | 40 | 4D:7910 | PROBABLE | - | 20x2 | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
+| `tilemap_7910.attrmap` | attribute map | 40 | 4D:7938 | PROBABLE | - | 20x2 | `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` |
 
 ### `gfx/settings/screens_bank71/`
 
