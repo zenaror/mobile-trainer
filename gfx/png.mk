@@ -431,7 +431,7 @@ PNG_TILE_OUTS := \
 	gfx/top_menu/top_menu/tiles_5fa0.2bpp \
 	gfx/ui_art/logo_and_window_tiles/logo_and_window_tiles.2bpp \
 	gfx/ui_art/logo_and_window_tiles/mail_server_box_tiles.2bpp \
-	gfx/unresolved/tiles_7f_7830/tiles_7830.2bpp \
+	gfx/unresolved/tile_graphics_candidate/tiles_candidate.2bpp \
 
 
 gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_4800.2bpp: PNG_SIZE := 1024
@@ -870,7 +870,7 @@ gfx/top_menu/top_menu/tiles_5ba0.2bpp: PNG_SIZE := 1024
 gfx/top_menu/top_menu/tiles_5fa0.2bpp: PNG_SIZE := 768
 gfx/ui_art/logo_and_window_tiles/logo_and_window_tiles.2bpp: PNG_SIZE := 4608
 gfx/ui_art/logo_and_window_tiles/mail_server_box_tiles.2bpp: PNG_SIZE := 1152
-gfx/unresolved/tiles_7f_7830/tiles_7830.2bpp: PNG_SIZE := 720
+gfx/unresolved/tile_graphics_candidate/tiles_candidate.2bpp: PNG_SIZE := 720
 
 %.2bpp: %.png
 	@echo "rgbgfx $<"

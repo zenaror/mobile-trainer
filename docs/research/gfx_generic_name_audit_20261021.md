@@ -65,3 +65,17 @@ Current source-bounded grep finds no exact generic address-form `Tiles`,
 `Data_BB_AAAA` names are a separate audited inventory; see the final exact
 Data-name section and its individually bounded evidence. No bytes, asset files,
 layout boundaries, frozen `config/` files or English sources changed.
+
+## Address-only unresolved graphics path update (2026-10-22)
+
+A fresh maintained-tree filename scan found no `bankNN` directories and one
+exact type/bank/address owner path: `gfx/unresolved/tiles_7f_7830.asm`. It is
+now `gfx/unresolved/tile_graphics_candidate.asm`; the backing folder and files
+are `gfx/unresolved/tile_graphics_candidate/tiles_candidate.{2bpp,png}`.
+The 720-byte 45-tile span remains **HYPOTHESIS** and keeps the provenance label
+`UnresolvedTiles_7F_7830`. Its owner comment still records no symbolic source
+reference or load address in the reviewed code. This names the resource
+structure while preserving the unknown role; it does not associate the tiles
+with the neighboring page-list prototype or claim global non-use. The backing
+2bpp and PNG bytes are unchanged. Layout, asset catalog, PNG rules and the
+generated graphics README now use the descriptive path.

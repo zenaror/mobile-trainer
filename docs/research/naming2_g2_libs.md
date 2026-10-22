@@ -109,8 +109,8 @@ adjusters for flags C0F8/C0F9 that nothing writes; look like template residue), 
   `ScrollSplit_SetCursorSpritesY` (7817).
 * `Palette_TextCursor_Obj`, `Table_TextCursor_ObjTables`, `Data_TextCursor_ObjAnimData` live in `gfx/unreferenced/page_list_prototype_objects.asm` but are **not** prototype resources: the address/profile/name editors load them for the
   text-cursor sprites (consumer-based names).
-  Current source path (2026-10-21): `gfx/text_cursor/objects.asm`; the adjacent unresolved tile bytes are split to `gfx/unresolved/tiles_7f_7830.asm`. This corrects the old mixed-owner path without changing the historical audit's consumer evidence.
-* Neutral: `Function_7F_4E85` (`call Canvas_UploadToVram ; ret`), `61E6`/`61E7` (single `ret`), `Data_7F_4C77`/`51ED` (lone `$C9`), `Tiles_7F_7830` (no code loads `$7830`).
+  Current source path (2026-10-21): `gfx/text_cursor/objects.asm`; the adjacent unresolved tile bytes were split to `gfx/unresolved/tiles_7f_7830.asm`. On 2026-10-22 the remaining address-only owner/backing path became `gfx/unresolved/tile_graphics_candidate.asm` and `gfx/unresolved/tile_graphics_candidate/tiles_candidate.2bpp`. This corrects the path without changing the historical consumer evidence.
+* Neutral: `Function_7F_4E85` (`call Canvas_UploadToVram ; ret`), `61E6`/`61E7` (single `ret`), `Data_7F_4C77`/`51ED` (lone `$C9`), `UnresolvedTiles_7F_7830` (720-byte HYPOTHESIS tile candidate; no symbolic source reference or load address in reviewed code, no global unused claim).
 * Sample page names/URLs are referenced by raw `dw $4EA8`-style table entries, so only the labelled strings were renamed.
 
 ## Open items

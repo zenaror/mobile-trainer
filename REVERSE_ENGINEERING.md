@@ -2036,3 +2036,9 @@ catalog passes its exporter check. The PNG validation exposed stale generated
 `make png-check`. This confirms current declared PNG inputs and constraints,
 not the unresolved 25 Pokémon-name/frame associations or the use of the eight
 KEEP windows. See the [Bank 53 asset audit](docs/research/pokemon_names_bank53_asset_audit_20261020.md#reconciliation-after-graphics-label-updates-2026-10-22).
+
+The 2026-10-22 maintained gfx-path scan found no `bankNN` directories and one
+owner whose filename was only resource type plus bank/address. It is now
+`gfx/unresolved/tile_graphics_candidate.asm`; the 720-byte span remains
+HYPOTHESIS, and its unresolved role and bank/address provenance remain explicit.
+See the dated [gfx path follow-up](docs/research/gfx_generic_name_audit_20261021.md#address-only-unresolved-graphics-path-update-2026-10-22).
