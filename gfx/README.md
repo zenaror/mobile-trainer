@@ -415,13 +415,13 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_62b0.2bpp` | 2bpp tiles | 1024 | 7F:62B0 | PROBABLE | exact | - | `gfx/browser/page_list_candidate.asm` |
-| `tiles_66b0.2bpp` | 2bpp tiles | 288 | 7F:66B0 | PROBABLE | exact | - | `gfx/browser/page_list_candidate.asm` |
-| `tilemap_67d0.tilemap` | tile-index map | 360 | 7F:67D0 | PROBABLE | - | 20x18 | `gfx/browser/page_list_candidate.asm` |
-| `tilemap_67d0.attrmap` | attribute map | 360 | 7F:6938 | PROBABLE | - | 20x18 | `gfx/browser/page_list_candidate.asm` |
-| `palette_6aa0.pal` | RGB palette | 64 | 7F:6AA0 | PROBABLE | - | - | `gfx/browser/page_list_candidate.asm` |
-| `tiles_6ae0.2bpp` | 2bpp tiles | 656 | 7F:6AE0 | PROBABLE | exact | - | `gfx/browser/page_list_candidate.asm` |
-| `palette_6d70.pal` | RGB palette | 64 | 7F:6D70 | PROBABLE | - | - | `gfx/browser/page_list_candidate.asm` |
+| `page_list_candidate_tiles_vram9000_vb1.2bpp` | 2bpp tiles | 1024 | 7F:62B0 | PROBABLE | exact | - | `gfx/browser/page_list_candidate.asm` |
+| `page_list_candidate_tiles_vram9400_vb1.2bpp` | 2bpp tiles | 288 | 7F:66B0 | PROBABLE | exact | - | `gfx/browser/page_list_candidate.asm` |
+| `page_list_candidate_bg_tilemap.tilemap` | tile-index map | 360 | 7F:67D0 | PROBABLE | - | 20x18 | `gfx/browser/page_list_candidate.asm` |
+| `page_list_candidate_bg_tilemap.attrmap` | attribute map | 360 | 7F:6938 | PROBABLE | - | 20x18 | `gfx/browser/page_list_candidate.asm` |
+| `page_list_candidate_bg_palette.pal` | RGB palette | 64 | 7F:6AA0 | PROBABLE | - | - | `gfx/browser/page_list_candidate.asm` |
+| `page_list_candidate_tiles_vram8000_vb0.2bpp` | 2bpp tiles | 656 | 7F:6AE0 | PROBABLE | exact | - | `gfx/browser/page_list_candidate.asm` |
+| `page_list_candidate_obj_palette.pal` | RGB palette | 64 | 7F:6D70 | PROBABLE | - | - | `gfx/browser/page_list_candidate.asm` |
 
 ### `gfx/browser/page_list_prototype_messages/`
 

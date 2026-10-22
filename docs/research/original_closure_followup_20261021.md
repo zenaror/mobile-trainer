@@ -1284,3 +1284,18 @@ The `tiles_5080` and `tiles_5420` source/PNG pairs now use
 classification remains PROBABLE; this path cleanup adds no claim of natural
 use, composition, or Pokémon/frame assignment. The regenerated catalog, PNG
 rules, and graphics README agree with the new names.
+
+
+## Bank 7F browser prototype page-list candidate paths (2026-10-22)
+
+Seven address-only payload paths were renamed from their maintained static
+source/owner mapping: tile spans at `7F:62B0`, `7F:66B0`, and `7F:6AE0` now
+record their VRAM/VBK destinations; the `7F:67D0` tilemap and paired attribute
+map use a candidate-qualified BG name; palette paths identify BG/OBJ roles.
+`PageListProto_InitScreen` in `engine/unreferenced/page_list_prototype.asm`
+provides static transfer evidence, but the prototype's natural entry, displayed
+composition, and semantic meaning remain unproved. Confidence remains PROBABLE
+for each asset. Ten moved files' raw and generated payload hashes are recorded
+in `.tmp/jp-page-list-candidate-paths-20261022/PRE_MOVE.json` and
+`POST_MOVE.json`. The maintained Japanese GFX lexical census is now 72 stems in
+7 directories / 147 files, with 90 catalog rows (75 CONFIRMED / 15 PROBABLE).

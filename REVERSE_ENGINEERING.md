@@ -2134,3 +2134,17 @@ maintained Japanese gfx census is now 78 address-only stems across eight
 directories, with 97 catalog rows (75 CONFIRMED, 22 PROBABLE). This is a path
 classification checkpoint, not proof of natural use or semantic closure. See
 [the Bank 4B audit](docs/research/bank4b_result_page_indexed_tiles_20261021.md).
+
+
+## Bank 7F browser prototype page-list candidate asset paths (2026-10-22)
+
+The three page-list prototype tile sources at `7F:62B0`, `7F:66B0`, and
+`7F:6AE0` now name their static VRAM/VBK destinations; the tilemap/attribute
+pair and BG/OBJ palettes also use role-qualified candidate paths. Transfer and
+source evidence is static in `PageListProto_InitScreen`; no natural-entry or
+screen-meaning claim is made, and all seven rows remain PROBABLE. Raw and
+payload hashes are preserved in the private PRE/POST manifests. The Japanese
+address-only GFX filename census is now 72 stems across 7 directories and 147
+files; 90 asset rows remain (75 CONFIRMED / 15 PROBABLE). This is a path and
+classification checkpoint, not semantic closure. Details are in the
+[dated GFX name audit](docs/research/gfx_generic_name_audit_20261021.md#bank-7f-browser-prototype-page-list-candidate-paths-2026-10-22).

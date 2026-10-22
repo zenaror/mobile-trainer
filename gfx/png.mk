@@ -110,9 +110,9 @@ PNG_TILE_OUTS := \
 	gfx/browser/page_list/page_list_tiles_5810.2bpp \
 	gfx/browser/page_list/page_list_tiles_6301.2bpp \
 	gfx/browser/page_list/page_list_tiles_63e0.2bpp \
-	gfx/browser/page_list_candidate/tiles_62b0.2bpp \
-	gfx/browser/page_list_candidate/tiles_66b0.2bpp \
-	gfx/browser/page_list_candidate/tiles_6ae0.2bpp \
+	gfx/browser/page_list_candidate/page_list_candidate_tiles_vram8000_vb0.2bpp \
+	gfx/browser/page_list_candidate/page_list_candidate_tiles_vram9000_vb1.2bpp \
+	gfx/browser/page_list_candidate/page_list_candidate_tiles_vram9400_vb1.2bpp \
 	gfx/browser/page_list_prototype_messages/prototype_message_tiles.2bpp \
 	gfx/browser/start_choice/browser_start_candidate_tiles.2bpp \
 	gfx/browser/start_choice/browser_start_tiles0.2bpp \
@@ -527,10 +527,10 @@ gfx/browser/page_list/page_list_tiles_5800.2bpp: PNG_SIZE := 16
 gfx/browser/page_list/page_list_tiles_5810.2bpp: PNG_SIZE := 160
 gfx/browser/page_list/page_list_tiles_6301.2bpp: PNG_SIZE := 192
 gfx/browser/page_list/page_list_tiles_63e0.2bpp: PNG_SIZE := 256
-gfx/browser/page_list_candidate/tiles_62b0.2bpp: PNG_SIZE := 1024
-gfx/browser/page_list_candidate/tiles_66b0.2bpp: PNG_SIZE := 288
-gfx/browser/page_list_candidate/tiles_6ae0.2bpp: PNG_SIZE := 656
-gfx/browser/page_list_candidate/tiles_6ae0.2bpp: PNG_PAD := -x 7
+gfx/browser/page_list_candidate/page_list_candidate_tiles_vram8000_vb0.2bpp: PNG_SIZE := 656
+gfx/browser/page_list_candidate/page_list_candidate_tiles_vram8000_vb0.2bpp: PNG_PAD := -x 7
+gfx/browser/page_list_candidate/page_list_candidate_tiles_vram9000_vb1.2bpp: PNG_SIZE := 1024
+gfx/browser/page_list_candidate/page_list_candidate_tiles_vram9400_vb1.2bpp: PNG_SIZE := 288
 gfx/browser/page_list_prototype_messages/prototype_message_tiles.2bpp: PNG_SIZE := 2944
 gfx/browser/start_choice/browser_start_candidate_tiles.2bpp: PNG_SIZE := 1024
 gfx/browser/start_choice/browser_start_tiles0.2bpp: PNG_SIZE := 1024
