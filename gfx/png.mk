@@ -45,17 +45,17 @@ PNG_TILE_OUTS := \
 	gfx/account/password_and_registration_config_bank5d/tiles_6900.2bpp \
 	gfx/account/password_and_registration_config_bank5d/tiles_6c00.2bpp \
 	gfx/account/password_and_registration_config_bank5d/tiles_6e00.2bpp \
-	gfx/account/screens_bank5e/tiles_4800.2bpp \
-	gfx/account/screens_bank5e/tiles_4c00.2bpp \
-	gfx/account/screens_bank5e/tiles_4e10.2bpp \
-	gfx/account/screens_bank5e/tiles_5210.2bpp \
-	gfx/account/screens_bank5e/tiles_57e0.2bpp \
-	gfx/account/screens_bank5e/tiles_5800.2bpp \
-	gfx/account/screens_bank5e/tiles_5c00.2bpp \
-	gfx/account/screens_bank5e/tiles_60d0.2bpp \
-	gfx/account/screens_bank5e/tiles_64d0.2bpp \
-	gfx/account/screens_bank5e/tiles_6ba0.2bpp \
-	gfx/account/screens_bank5e/tiles_6fa0.2bpp \
+	gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_4800.2bpp \
+	gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_4c00.2bpp \
+	gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_4e10.2bpp \
+	gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_5210.2bpp \
+	gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_57e0.2bpp \
+	gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_5800.2bpp \
+	gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_5c00.2bpp \
+	gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_60d0.2bpp \
+	gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_64d0.2bpp \
+	gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_6ba0.2bpp \
+	gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_6fa0.2bpp \
 	gfx/account/comm_panel_and_registration_delete_bank71/tiles_4000.2bpp \
 	gfx/account/comm_panel_and_registration_delete_bank71/tiles_4300.2bpp \
 	gfx/account/comm_panel_and_registration_delete_bank71/tiles_4500.2bpp \
@@ -456,17 +456,17 @@ gfx/account/password_and_registration_config_bank5d/tiles_63f0.2bpp: PNG_SIZE :=
 gfx/account/password_and_registration_config_bank5d/tiles_6900.2bpp: PNG_SIZE := 768
 gfx/account/password_and_registration_config_bank5d/tiles_6c00.2bpp: PNG_SIZE := 512
 gfx/account/password_and_registration_config_bank5d/tiles_6e00.2bpp: PNG_SIZE := 512
-gfx/account/screens_bank5e/tiles_4800.2bpp: PNG_SIZE := 1024
-gfx/account/screens_bank5e/tiles_4c00.2bpp: PNG_SIZE := 256
-gfx/account/screens_bank5e/tiles_4e10.2bpp: PNG_SIZE := 1024
-gfx/account/screens_bank5e/tiles_5210.2bpp: PNG_SIZE := 768
-gfx/account/screens_bank5e/tiles_57e0.2bpp: PNG_SIZE := 32
-gfx/account/screens_bank5e/tiles_5800.2bpp: PNG_SIZE := 1024
-gfx/account/screens_bank5e/tiles_5c00.2bpp: PNG_SIZE := 1024
-gfx/account/screens_bank5e/tiles_60d0.2bpp: PNG_SIZE := 1024
-gfx/account/screens_bank5e/tiles_64d0.2bpp: PNG_SIZE := 1024
-gfx/account/screens_bank5e/tiles_6ba0.2bpp: PNG_SIZE := 1024
-gfx/account/screens_bank5e/tiles_6fa0.2bpp: PNG_SIZE := 800
+gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_4800.2bpp: PNG_SIZE := 1024
+gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_4c00.2bpp: PNG_SIZE := 256
+gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_4e10.2bpp: PNG_SIZE := 1024
+gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_5210.2bpp: PNG_SIZE := 768
+gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_57e0.2bpp: PNG_SIZE := 32
+gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_5800.2bpp: PNG_SIZE := 1024
+gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_5c00.2bpp: PNG_SIZE := 1024
+gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_60d0.2bpp: PNG_SIZE := 1024
+gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_64d0.2bpp: PNG_SIZE := 1024
+gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_6ba0.2bpp: PNG_SIZE := 1024
+gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_6fa0.2bpp: PNG_SIZE := 800
 gfx/account/comm_panel_and_registration_delete_bank71/tiles_4000.2bpp: PNG_SIZE := 768
 gfx/account/comm_panel_and_registration_delete_bank71/tiles_4300.2bpp: PNG_SIZE := 512
 gfx/account/comm_panel_and_registration_delete_bank71/tiles_4500.2bpp: PNG_SIZE := 912

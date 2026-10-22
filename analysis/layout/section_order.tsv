@@ -243,7 +243,7 @@
 5D	2	4800	7360	11104	gfx/account/password_and_registration_config_bank5d.asm	gfx/account/password_and_registration_config_bank5d	0	-	gfx:8512,data:2585,zero:7	account screens art loaded by bank 68
 5D	3	7360	7E70	2832	gfx/settings/screens_bank5d.asm	gfx/settings/screens_bank5d	0	-	gfx:2048,data:784	settings screens art loaded by bank 67
 5E	1	4000	4800	2048	gfx/settings/screens_bank5e.asm	gfx/settings/screens_bank5e	0	-	gfx:2048	settings screens art loaded by bank 67
-5E	2	4800	78A0	12448	gfx/account/screens_bank5e.asm	gfx/account/screens_bank5e	0	-	gfx:9504,data:2928,zero:16	account screens art loaded by bank 68 (includes 32 bytes read by bank 55)
+5E	2	4800	78A0	12448	gfx/account/account_entry_mail_and_action_screens_bank5e.asm	gfx/account/account_entry_mail_and_action_screens_bank5e	0	-	gfx:9504,data:2928,zero:16	account screens art loaded by bank 68 (includes 32 bytes read by bank 55)
 5F	1	4000	6BD0	11216	gfx/keyboard/panels_bank5f.asm	gfx/keyboard/panels_bank5f	0	-	gfx:5149,data:4025,zero:1928,words:114	keyboard panels, tilemaps, object tables loaded by bank 55
 60	1	4000	7AE8	15080	gfx/bank60.asm	gfx/bank60	0	-	gfx:12336,data:2744	UI frames, glyph and sprite tiles; no loader found
 61	1	4000	7AE8	15080	gfx/bank61.asm	gfx/bank61	0	-	data:12280,gfx:2800	tilemap/tile data; no loader found

@@ -294,7 +294,7 @@ ROMX $5d
 	"gfx/settings/screens_bank5d"
 ROMX $5e
 	"gfx/settings/screens_bank5e"
-	"gfx/account/screens_bank5e"
+	"gfx/account/account_entry_mail_and_action_screens_bank5e"
 ROMX $5f
 	"gfx/keyboard/panels_bank5f"
 ROMX $60

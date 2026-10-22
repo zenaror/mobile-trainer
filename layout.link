@@ -590,7 +590,7 @@ ROMX $5E
 	org $4000
 	"gfx/settings/shared_text_entry_tiles_bank5e"
 	org $4800
-	"gfx/account/screens_bank5e"
+	"gfx/account/account_entry_mail_and_action_screens_bank5e"
 
 ROMX $5F
 	org $4000

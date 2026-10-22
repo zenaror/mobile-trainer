@@ -240,7 +240,7 @@
 5D	4800	7360	gfx/account/password_and_registration_config_bank5d.asm	account screens art loaded by bank 68
 5D	7360	7E70	gfx/settings/screens_bank5d.asm	settings screens art loaded by bank 67
 5E	4000	4800	gfx/settings/screens_bank5e.asm	settings screens art loaded by bank 67
-5E	4800	78A0	gfx/account/screens_bank5e.asm	account screens art loaded by bank 68 (includes 32 bytes read by bank 55)
+5E	4800	78A0	gfx/account/account_entry_mail_and_action_screens_bank5e.asm	account screens art loaded by bank 68 (includes 32 bytes read by bank 55)
 5F	4000	6BD0	gfx/keyboard/panels_bank5f.asm	keyboard panels, tilemaps, object tables loaded by bank 55
 60	4000	7AE8	gfx/bank60.asm	UI frames, glyph and sprite tiles; no loader found
 61	4000	7AE8	gfx/bank61.asm	tilemap/tile data; no loader found

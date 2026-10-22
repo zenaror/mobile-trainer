@@ -84,6 +84,21 @@ path. `make` returned `RESULT: IDENTICAL` (ROM SHA-256
 zero errors. This names the confirmed content families while keeping their
 mixed ownership and bank boundaries explicit.
 
+## Account Bank 5E login, mail and action screens (2026-10-22)
+
+The generic `gfx/account/screens_bank5e.asm` owner and its resource directory
+are now `account_entry_mail_and_action_screens_bank5e`. It contains account
+login-ID entry/introduction, mail-address entry/introduction, action-confirm
+variants, and the shared keyboard T1 tile block; the distinct shared text-entry
+owner under `gfx/settings` remains separate. Layout, asset/screen catalogues,
+PNG rules, README, project docs and the retyping script now use the account
+path. `make` returned `RESULT: IDENTICAL` with ROM SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
+`sym-check` passed (335 files, 12,177 labels, 51 constants), and
+`palette-check` reported 162 loads, 116 arrays, two documented overreads and
+zero errors. The directory name reflects the distinct evidenced resource
+families without asserting they form one screen.
+
 ## Bank 4A settings-menu palette-shaped block (2026-10-21)
 
 The 32 bytes at `4A:51B0–51CF` are now named

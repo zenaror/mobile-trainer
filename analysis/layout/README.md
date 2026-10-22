@@ -158,7 +158,7 @@ same bank.  None of these choices can change a byte: they only decide which file
 
 **Consumer decided by adjacency or by a minority of load sites**
 * `4B:5B90-7FE0` assigned to `gfx/settings/` (consumer 67): only `6A90-7FE0` has load sites from 67; `5B90-6A90` (text-glyph tiles "電話番号入力説明 ...") is between banks 68's and 67's ranges.
-* `4A:4000-4040` (object table loaded by 67) sits in the account file (68), `5E:57E0-5800` (read by bank 55) in `gfx/account/screens_bank5e.asm`; one file per bank/consumer keeps every file contiguous.
+* `4A:4000-4040` (object table loaded by 67) sits in the account file (68), `5E:57E0-5800` (read by bank 55) in `gfx/account/account_entry_mail_and_action_screens_bank5e.asm`; one file per bank/consumer keeps every file contiguous.
 * `28:4BD0-54B0` (loaded by 2C, a little by 2A/2F), `28:6E80-6F20` (object tables of 22/23) inside `delete_method_screen`, `28:6F20-7A5D` (26/27),
   `29:5376-5B10` (27), `29:5B10-6290` (2F), `29:6290-64F4` (2D reads `6350`, the first 12 entries have no reader), `26:7420-7AB0` (29), `26:7AB0-7D41` (25; one palette read by 2A).
 * `22:5980-5CD0` belongs to the bank 26 scene, `22:5CD0-66D0` to bank 2F (`naming_g1.md` section 9, retraction of the first reading).
@@ -643,7 +643,7 @@ same bank.  None of these choices can change a byte: they only decide which file
 | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` | 4A | 8064 | 504 | gfx 5712, data 2331, zero 13, words 8 |
 | `gfx/account/result_page_bank4b.asm` | 4B | 6336 | 396 | gfx 4088, data 2248 |
 | `gfx/account/password_and_registration_config_bank5d.asm` | 5D | 11104 | 695 | gfx 8512, data 2585, zero 7 |
-| `gfx/account/screens_bank5e.asm` | 5E | 12448 | 779 | gfx 9504, data 2928, zero 16 |
+| `gfx/account/account_entry_mail_and_action_screens_bank5e.asm` | 5E | 12448 | 779 | gfx 9504, data 2928, zero 16 |
 | `gfx/account/comm_panel_and_registration_delete_bank71.asm` | 71 | 12100 | 756 | gfx 8151, data 3923, words 26 |
 
 #### `gfx/address_book/`
