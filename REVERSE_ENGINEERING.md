@@ -10,6 +10,10 @@ Numbers marked "frozen" describe `config/` at the freeze and are not updated any
 
 Five former `Data_2D_AAAA` and eleven `String_2D_AAAA` labels in `engine/mail/sample_data.asm` were exact-address aliases of existing `MailSample*`, `AbookSample*` and `SampleData_Name` labels. The sixteen redundant definitions have been removed without changing record/string bytes or layout. The rebuilt Japanese MAP/SYM contains 14 exact `Data_BB_AAAA` names and none of the retired aliases. See [`japanese_sample_data_aliases_20261022.md`](docs/research/japanese_sample_data_aliases_20261022.md). This naming cleanup does not establish sample field meanings beyond those existing labels.
 
+### Bank 72 dialog line labels (2026-10-22)
+
+Nine `String_Dialog_Candidate*` labels now name their statically mapped message index and line position, including one first-line suffix whose `$F9,"D"` bytes remain uninterpreted. The changes preserve every ROM byte and make no natural-selection or display claim. See [`japanese_dialog_line_labels_20261022.md`](docs/research/japanese_dialog_line_labels_20261022.md).
+
 ### Japanese sprite labels and bounded byte audit (2026-10-22)
 
 A bounded audit replaced 503 type/address sprite labels across 12 Japanese graphics owners with structural names based on owner, object-table entry and frame order. Independent macro reconstruction matched 7,719 audited source bytes to the original ROM with no mismatches, and the full ROM build remains the identity gate. This establishes naming and byte correspondence only: it does not prove visual identity, natural runtime use, or that unrooted tails are unused. The audit records raw tails, unresolved candidate scripts, and confidence limits in [`japanese_sprite_owner_audit_20261022.md`](docs/research/japanese_sprite_owner_audit_20261022.md). The English overlay remains paused.

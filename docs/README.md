@@ -77,6 +77,7 @@ Reference documents (current):
 | [`japanese_sprite_data_followup_20261022.md`](research/japanese_sprite_data_followup_20261022.md) | 33 Save Sender Address sprite symbols, bank 4B second-banner transfer, and 14 neutral data labels |
 | [`japanese_indirect_dispatch_handlers_20261022.md`](research/japanese_indirect_dispatch_handlers_20261022.md) | Six Japanese dispatch tables, 23 named internal handler targets, original table hashes and identity gates |
 | [`japanese_sample_data_aliases_20261022.md`](research/japanese_sample_data_aliases_20261022.md) | Sixteen redundant address-form aliases removed from Japanese sample-data headers and strings |
+| [`japanese_dialog_line_labels_20261022.md`](research/japanese_dialog_line_labels_20261022.md) | Nine bank-72 candidate labels replaced with table-index and line-position names |
 | [`registration_notice_bank58_resource_paths_20261022.md`](research/registration_notice_bank58_resource_paths_20261022.md) | Bank 58 registration notice assets renamed from type/address paths using static labels and readers |
 | [`keyboard_panel_tile_paths_20261022.md`](research/keyboard_panel_tile_paths_20261022.md) | Nine keyboard tile sets renamed by confirmed type and VRAM destinations |
 | [`connect_dialog_bank56_tile_paths_20261022.md`](research/connect_dialog_bank56_tile_paths_20261022.md) | Eleven ConnectDialog tile sets renamed by confirmed static VRAM destinations |

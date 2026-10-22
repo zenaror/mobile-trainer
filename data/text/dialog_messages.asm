@@ -119,7 +119,7 @@ String_Dialog_Msg0102:: ; 72:518C
 
 ; ---- text $51B0-$51D1 (33 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_Dialog_CandidatePhoneDisconnectedText:: ; 72:51B0
+String_Dialog_Msg0102_Line2:: ; 72:51B0
 	db "　　　でんわをきりました。　　　", 0
 
 ; ---- text $51D1-$525E (141 bytes) [PROBABLE] text block: 7 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 51B0-52A0 by higher-priority evidence]
@@ -170,12 +170,12 @@ String_Dialog_Msg0108:: ; 72:532A
 
 ; ---- text $53C5-$53D8 (19 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
-String_Dialog_CandidateF9DMinuteText:: ; 72:53C5
+String_Dialog_Msg010A_Line1Suffix_53C5:: ; 72:53C5
 	db $F9, "D", $F9, "D", $F9, "D", $F9, "D", $F9, "Dふん　　", 0
 
 ; ---- text $53D8-$53F9 (33 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_Dialog_CandidateCallDurationExceededTail:: ; 72:53D8
+String_Dialog_Msg010A_Line2:: ; 72:53D8
 	db "　　　　　をこえました。　　　　", 0
 
 ; ---- text $53F9-$541D (36 bytes) [PROBABLE] text block: 2 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 53D8-541D by higher-priority evidence]
@@ -187,7 +187,7 @@ String_Dialog_Msg010B:: ; 72:53F9
 
 ; ---- text $541D-$5441 (36 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
-String_Dialog_CandidateBlankLineRecord_541D:: ; 72:541D
+String_Dialog_Msg010B_Line2:: ; 72:541D
 	db "　　　　　　　　　　　　　　　　", 0
 	db $86, $01, $01 ; record header
 
@@ -206,7 +206,7 @@ String_Dialog_Msg010D:: ; 72:5483
 
 ; ---- text $54A7-$54C8 (33 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_Dialog_CandidatePhoneDisconnectingText:: ; 72:54A7
+String_Dialog_Msg010D_Line2:: ; 72:54A7
 	db "　　　でんわをきっています。　　", 0
 
 ; ---- text $54C8-$54EC (36 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
@@ -218,7 +218,7 @@ String_Dialog_Msg010E:: ; 72:54C8
 
 ; ---- text $54EC-$550D (33 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_Dialog_CandidatePhoneDisconnectedText_Duplicate:: ; 72:54EC
+String_Dialog_Msg010E_Line2:: ; 72:54EC
 	db "　　　でんわがきれました。　　　", 0
 
 ; ---- text $550D-$5531 (36 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
@@ -230,7 +230,7 @@ String_Dialog_Msg010F:: ; 72:550D
 
 ; ---- text $5531-$5552 (33 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_Dialog_CandidatePhoneDisconnectingText_Duplicate:: ; 72:5531
+String_Dialog_Msg010F_Line2:: ; 72:5531
 	db "　　　でんわをきっています。　　", 0
 
 ; ---- text $5552-$5576 (36 bytes) [PROBABLE] text block: 2 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 5531-5576 by higher-priority evidence]
@@ -242,7 +242,7 @@ String_Dialog_Msg0110:: ; 72:5552
 
 ; ---- text $5576-$559A (36 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
-String_Dialog_CandidateBlankLineRecord_5576:: ; 72:5576
+String_Dialog_Msg0110_Line2:: ; 72:5576
 	db "　　　　　　　　　　　　　　　　", 0
 	db $86, $02, $00 ; record header
 
@@ -261,7 +261,7 @@ String_Dialog_Msg0112:: ; 72:55DC
 
 ; ---- text $5600-$5621 (33 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_Dialog_CandidateNoPreviousPageText:: ; 72:5600
+String_Dialog_Msg0112_Line2:: ; 72:5600
 	db "　もどれるページが　ありません。", 0
 
 ; ---- text $5621-$5645 (36 bytes) [PROBABLE] text block: 2 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 5600-5645 by higher-priority evidence]
