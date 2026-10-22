@@ -241,7 +241,7 @@ def special():
     ctx = Ctx()
     log = []
     # (A) 4B:5420: 69 tiles, then the BG palette that result_page.asm reads (40 bytes at 5870); the heuristic blocks `gfx $5420-$5878` (1112 bytes) and `gfx $5878-$5898` (32 bytes) cut it wrong
-    asm = 'gfx/account/screens_bank4b.asm'
+    asm = 'gfx/account/result_page_bank4b.asm'
     L = open(asm, encoding='utf-8').read().split('\n')
     h1 = next(i for i, l in enumerate(L) if l.startswith('; ---- gfx $5420-$5878 (1112 bytes)'))
     inc1 = next(i for i in range(h1, h1 + 6) if L[i].startswith('\tINCBIN '))

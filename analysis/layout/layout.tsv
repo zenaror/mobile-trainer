@@ -186,7 +186,7 @@
 4A	4000	5F80	gfx/account/screens_bank4a.asm	account/registration screen art (loaded by bank 68)
 4A	5F80	7378	gfx/settings/screens_bank4a.asm	settings screen art (loaded by bank 67)
 4B	4000	42D0	gfx/registration/screen_bank4b.asm	tilemap loaded by bank 65
-4B	42D0	5B90	gfx/account/screens_bank4b.asm	tiles/tilemap loaded by bank 68
+4B	42D0	5B90	gfx/account/result_page_bank4b.asm	tiles/tilemap loaded by bank 68
 4B	5B90	7FE0	gfx/settings/screens_bank4b.asm	tiles/tilemaps loaded by bank 67 (5B90-6A90 assigned by adjacency)
 4C	4000	46B8	engine/browser/page_loader.asm	Browser_LoadPage: URL -> connect -> HTTP GET -> scan/layout
 4C	46B8	4840	engine/browser/comm_disconnect.asm	comm progress scene init/step and the disconnect sequences

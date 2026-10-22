@@ -36,6 +36,21 @@ with SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
 zero errors. This path-only change does not assert that every resource has a
 single original-purpose family, nor any runtime or hardware behavior.
 
+## Account Bank 4B result-page graphics owner (2026-10-22)
+
+The generic `gfx/account/screens_bank4b.asm` owner and its assets directory
+are now `result_page_bank4b`. The owner contains the account result-page
+resources at `4B:42D0–5B90`, including its confirmed tilemap/palette, indexed
+digit-tile records and bounded tile candidates. `Data_4B_5400` remains neutral:
+its 32-byte span is read in finite scenarios, but its content class is still
+unresolved. The source, layout, catalogue, PNG rules and retyping script now
+use the new path. `make` returned `RESULT: IDENTICAL` with ROM SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
+`sym-check` passed (335 files, 12,177 labels, 51 constants), and
+`palette-check` reported 162 loads, 116 arrays, two documented overreads and
+zero errors. The name describes the established screen family and makes no
+claim about the unresolved bytes or hardware behavior.
+
 ## Bank 4A settings-menu palette-shaped block (2026-10-21)
 
 The 32 bytes at `4A:51B0–51CF` are now named

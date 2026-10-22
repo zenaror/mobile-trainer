@@ -223,7 +223,7 @@ ROMX $4a
 	"gfx/settings/screens_bank4a"
 ROMX $4b
 	"gfx/registration/screen_bank4b"
-	"gfx/account/screens_bank4b"
+	"gfx/account/result_page_bank4b"
 	"gfx/settings/screens_bank4b"
 ROMX $4c
 	"engine/browser/page_loader"
