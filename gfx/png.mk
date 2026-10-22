@@ -358,7 +358,7 @@ PNG_TILE_OUTS := \
 	gfx/mail_server/tidy_screen/mail_server_mgr_tiles3.2bpp \
 	gfx/mail_server/tidy_screen/mail_server_mgr_tiles4.2bpp \
 	gfx/mail_server/tidy_screen/mail_server_mgr_tiles5.2bpp \
-	gfx/mail_server/tidy_screen/tiles_5af0.2bpp \
+	gfx/mail_server/tidy_screen/mail_server_mgr_tiles9400_vb1_tail_5af0.2bpp \
 	gfx/mailbox/mailbox/mailbox_candidate_arrow_label_tiles_6bd1.2bpp \
 	gfx/mailbox/mailbox/mailbox_tiles_5a10.2bpp \
 	gfx/mailbox/mailbox/mailbox_tiles_5e10.2bpp \
@@ -790,7 +790,7 @@ gfx/mail_server/tidy_screen/mail_server_mgr_tiles2.2bpp: PNG_SIZE := 288
 gfx/mail_server/tidy_screen/mail_server_mgr_tiles3.2bpp: PNG_SIZE := 1024
 gfx/mail_server/tidy_screen/mail_server_mgr_tiles4.2bpp: PNG_SIZE := 352
 gfx/mail_server/tidy_screen/mail_server_mgr_tiles5.2bpp: PNG_SIZE := 1024
-gfx/mail_server/tidy_screen/tiles_5af0.2bpp: PNG_SIZE := 1008
+gfx/mail_server/tidy_screen/mail_server_mgr_tiles9400_vb1_tail_5af0.2bpp: PNG_SIZE := 1008
 gfx/mailbox/mailbox/mailbox_candidate_arrow_label_tiles_6bd1.2bpp: PNG_SIZE := 272
 gfx/mailbox/mailbox/mailbox_candidate_arrow_label_tiles_6bd1.2bpp: PNG_PAD := -x 15
 gfx/mailbox/mailbox/mailbox_tiles_5a10.2bpp: PNG_SIZE := 1024

@@ -19,7 +19,7 @@ Gfx_MailServerMgr_Tiles1:: ; 2E:5AE0
 ; ---- gfx $5AF0-$5EE0 (1008 bytes) [CONFIRMED] source slice: part of the transfer from 2E:5AE0 to VRAM $9400-$9800 in VB1; the 16-byte prefix is Gfx_MailServerMgr_Tiles1
 
 Gfx_MailServerMgr_Tiles9400Vb1_Tail_5AF0:: ; 2E:5AF0
-	INCBIN "gfx/mail_server/tidy_screen/tiles_5af0.2bpp"
+	INCBIN "gfx/mail_server/tidy_screen/mail_server_mgr_tiles9400_vb1_tail_5af0.2bpp"
 
 ; ---- gfx $5EE0-$6000 (288 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (2E:4BA5 2E:4CD0); first: hdma_rom_to_vram at 2E:4BA5: hl=$5EE0 a=$2E c=$12 de=$8801 (dest VRAM $8800, vbank=1)
 

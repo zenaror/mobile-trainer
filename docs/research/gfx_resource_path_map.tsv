@@ -647,3 +647,5 @@ gfx/mail/body_view/tilemap_4550.tilemap	gfx/mail/body_view/mail_view_body_page.t
 gfx/mail/body_view/tilemap_4550.attrmap	gfx/mail/body_view/mail_view_body_page.attrmap
 gfx/mail/session_scenery/tiles_66f0.2bpp	gfx/mail/session_scenery/mail_session_tiles_66f0_tile_slice.2bpp
 gfx/mail/session_scenery/tiles_66f0.png	gfx/mail/session_scenery/mail_session_tiles_66f0_tile_slice.png
+gfx/mail_server/tidy_screen/tiles_5af0.2bpp	gfx/mail_server/tidy_screen/mail_server_mgr_tiles9400_vb1_tail_5af0.2bpp
+gfx/mail_server/tidy_screen/tiles_5af0.png	gfx/mail_server/tidy_screen/mail_server_mgr_tiles9400_vb1_tail_5af0.png

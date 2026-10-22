@@ -769,7 +769,7 @@ gfx/mail_server/tidy_screen/mail_server_mgr_tiles2.2bpp	tiles	288	gfx/mail_serve
 gfx/mail_server/tidy_screen/mail_server_mgr_tiles3.2bpp	tiles	1024	gfx/mail_server/tidy_screen.asm	2E	6000	CONFIRMED	exact	0		Gfx_MailServerMgr_Tiles3
 gfx/mail_server/tidy_screen/mail_server_mgr_tiles4.2bpp	tiles	352	gfx/mail_server/tidy_screen.asm	2E	6400	CONFIRMED	exact	0		Gfx_MailServerMgr_Tiles4
 gfx/mail_server/tidy_screen/mail_server_mgr_tiles5.2bpp	tiles	1024	gfx/mail_server/tidy_screen.asm	2E	6560	CONFIRMED	exact	0		Gfx_MailServerMgr_Tiles5
-gfx/mail_server/tidy_screen/tiles_5af0.2bpp	tiles	1008	gfx/mail_server/tidy_screen.asm	2E	5AF0	CONFIRMED	exact	0		Gfx_MailServerMgr_Tiles9400Vb1_Tail_5AF0
+gfx/mail_server/tidy_screen/mail_server_mgr_tiles9400_vb1_tail_5af0.2bpp	tiles	1008	gfx/mail_server/tidy_screen.asm	2E	5AF0	CONFIRMED	exact	0		Gfx_MailServerMgr_Tiles9400Vb1_Tail_5AF0
 gfx/mailbox/mailbox/mailbox_bg_palette.pal	palette	64	gfx/mailbox/mailbox.asm	25	69B0	CONFIRMED	-	0		Mailbox_BgPalette
 gfx/mailbox/mailbox/mailbox_obj_palette.pal	palette	64	gfx/mailbox/mailbox.asm	25	6EF0	CONFIRMED	-	0		Mailbox_ObjPalette
 gfx/mailbox/mailbox/mailbox_tilemap_delete_select.attrmap	attrmap	360	gfx/mailbox/mailbox.asm	25	6848	CONFIRMED	-	0	20x18	Mailbox_Tilemap_DeleteSelect

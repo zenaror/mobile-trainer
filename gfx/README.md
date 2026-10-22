@@ -1235,7 +1235,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 |---|---|---:|---|---|---|---|---|
 | `mail_server_mgr_tiles0.2bpp` | 2bpp tiles | 1024 | 2E:56E0 | CONFIRMED | exact | - | `gfx/mail_server/tidy_screen.asm` |
 | `mail_server_mgr_tiles1.2bpp` | 2bpp tiles | 16 | 2E:5AE0 | CONFIRMED | exact | - | `gfx/mail_server/tidy_screen.asm` |
-| `tiles_5af0.2bpp` | 2bpp tiles | 1008 | 2E:5AF0 | CONFIRMED | exact | - | `gfx/mail_server/tidy_screen.asm` |
+| `mail_server_mgr_tiles9400_vb1_tail_5af0.2bpp` | 2bpp tiles | 1008 | 2E:5AF0 | CONFIRMED | exact | - | `gfx/mail_server/tidy_screen.asm` |
 | `mail_server_mgr_tiles2.2bpp` | 2bpp tiles | 288 | 2E:5EE0 | CONFIRMED | exact | - | `gfx/mail_server/tidy_screen.asm` |
 | `mail_server_mgr_tiles3.2bpp` | 2bpp tiles | 1024 | 2E:6000 | CONFIRMED | exact | - | `gfx/mail_server/tidy_screen.asm` |
 | `mail_server_mgr_tiles4.2bpp` | 2bpp tiles | 352 | 2E:6400 | CONFIRMED | exact | - | `gfx/mail_server/tidy_screen.asm` |
