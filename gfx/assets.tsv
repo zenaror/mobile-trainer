@@ -652,10 +652,10 @@ gfx/mail/connect_screen/mail_disconnect_win_msg_ending.attrmap	attrmap	100	gfx/m
 gfx/mail/connect_screen/mail_disconnect_win_msg_ending.tilemap	tilemap	100	gfx/mail/connect_screen.asm	27	76F0	CONFIRMED	-	0	20x5	MailDisconnect_WinMsg_Ending
 gfx/mail/connect_screen/mail_screens_obj_palette_7520.pal	palette	64	gfx/mail/connect_screen.asm	27	7520	CONFIRMED	-	0		MailScreens_ObjPalette_7520
 gfx/mail/connect_screen_bank29/connect_screen_candidate_palette_5376.pal	palette	128	gfx/mail/connect_screen_bank29.asm	29	5376	PROBABLE	-	0		CandidatePalette_29_5376
-gfx/mail/connect_screen_bank29/palette_5ad0.pal	palette	64	gfx/mail/connect_screen_bank29.asm	29	5AD0	PROBABLE	-	0		Palette_CommTimeHMS_Bg
-gfx/mail/connect_screen_bank29/tilemap_5800.attrmap	attrmap	360	gfx/mail/connect_screen_bank29.asm	29	5968	PROBABLE	-	0	20x18	Tilemap_CommTimeHMS_Screen
-gfx/mail/connect_screen_bank29/tilemap_5800.tilemap	tilemap	360	gfx/mail/connect_screen_bank29.asm	29	5800	PROBABLE	-	0	20x18	Tilemap_CommTimeHMS_Screen
-gfx/mail/connect_screen_bank29/tiles_5400.2bpp	tiles	1024	gfx/mail/connect_screen_bank29.asm	29	5400	PROBABLE	exact	0		Gfx_CommTimeHMS_Tiles9000Vb1
+gfx/mail/connect_screen_bank29/comm_time_hms_bg_palette.pal	palette	64	gfx/mail/connect_screen_bank29.asm	29	5AD0	PROBABLE	-	0		Palette_CommTimeHMS_Bg
+gfx/mail/connect_screen_bank29/comm_time_hms_screen.attrmap	attrmap	360	gfx/mail/connect_screen_bank29.asm	29	5968	PROBABLE	-	0	20x18	Tilemap_CommTimeHMS_Screen
+gfx/mail/connect_screen_bank29/comm_time_hms_screen.tilemap	tilemap	360	gfx/mail/connect_screen_bank29.asm	29	5800	PROBABLE	-	0	20x18	Tilemap_CommTimeHMS_Screen
+gfx/mail/connect_screen_bank29/comm_time_hms_tiles9000_vb1.2bpp	tiles	1024	gfx/mail/connect_screen_bank29.asm	29	5400	PROBABLE	exact	0		Gfx_CommTimeHMS_Tiles9000Vb1
 gfx/mail/draft_menu/data_mail_draft_menu_tilemap_attr.attrmap	attrmap	360	gfx/mail/draft_menu.asm	2B	4CB8	CONFIRMED	-	0	20x18	Data_MailDraftMenu_TilemapAttr
 gfx/mail/draft_menu/data_mail_draft_menu_tilemap_attr.tilemap	tilemap	360	gfx/mail/draft_menu.asm	2B	4B50	CONFIRMED	-	0	20x18	Data_MailDraftMenu_TilemapAttr
 gfx/mail/draft_menu/mail_draft_menu_bg.pal	palette	64	gfx/mail/draft_menu.asm	2B	4E20	PROBABLE	-	0		Palette_MailDraftMenu_Bg

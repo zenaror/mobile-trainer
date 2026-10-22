@@ -309,7 +309,7 @@ PNG_TILE_OUTS := \
 	gfx/mail/connect_screen/mail_connect_tiles_6660.2bpp \
 	gfx/mail/connect_screen/mail_connect_tiles_6860.2bpp \
 	gfx/mail/connect_screen/mail_connect_tiles_6c60.2bpp \
-	gfx/mail/connect_screen_bank29/tiles_5400.2bpp \
+	gfx/mail/connect_screen_bank29/comm_time_hms_tiles9000_vb1.2bpp \
 	gfx/mail/draft_menu/mail_draft_menu_tiles8000.2bpp \
 	gfx/mail/draft_menu/mail_draft_menu_tiles9300.2bpp \
 	gfx/mail/mail_title_entry/mail_title_tiles8000.2bpp \
@@ -735,7 +735,7 @@ gfx/mail/connect_screen/mail_connect_tiles_6260.2bpp: PNG_SIZE := 1024
 gfx/mail/connect_screen/mail_connect_tiles_6660.2bpp: PNG_SIZE := 512
 gfx/mail/connect_screen/mail_connect_tiles_6860.2bpp: PNG_SIZE := 1024
 gfx/mail/connect_screen/mail_connect_tiles_6c60.2bpp: PNG_SIZE := 1024
-gfx/mail/connect_screen_bank29/tiles_5400.2bpp: PNG_SIZE := 1024
+gfx/mail/connect_screen_bank29/comm_time_hms_tiles9000_vb1.2bpp: PNG_SIZE := 1024
 gfx/mail/draft_menu/mail_draft_menu_tiles8000.2bpp: PNG_SIZE := 816
 gfx/mail/draft_menu/mail_draft_menu_tiles8000.2bpp: PNG_PAD := -x 13
 gfx/mail/draft_menu/mail_draft_menu_tiles9300.2bpp: PNG_SIZE := 720

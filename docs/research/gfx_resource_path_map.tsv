@@ -649,3 +649,9 @@ gfx/mail/session_scenery/tiles_66f0.2bpp	gfx/mail/session_scenery/mail_session_t
 gfx/mail/session_scenery/tiles_66f0.png	gfx/mail/session_scenery/mail_session_tiles_66f0_tile_slice.png
 gfx/mail_server/tidy_screen/tiles_5af0.2bpp	gfx/mail_server/tidy_screen/mail_server_mgr_tiles9400_vb1_tail_5af0.2bpp
 gfx/mail_server/tidy_screen/tiles_5af0.png	gfx/mail_server/tidy_screen/mail_server_mgr_tiles9400_vb1_tail_5af0.png
+gfx/mail/connect_screen_bank29/tiles_5400.2bpp	gfx/mail/connect_screen_bank29/comm_time_hms_tiles9000_vb1.2bpp
+gfx/mail/connect_screen_bank29/tiles_5400.png	gfx/mail/connect_screen_bank29/comm_time_hms_tiles9000_vb1.png
+gfx/mail/connect_screen_bank29/tilemap_5800.tilemap	gfx/mail/connect_screen_bank29/comm_time_hms_screen.tilemap
+gfx/mail/connect_screen_bank29/tilemap_5800.attrmap	gfx/mail/connect_screen_bank29/comm_time_hms_screen.attrmap
+gfx/mail/connect_screen_bank29/tilemap_5800.screen.png	gfx/mail/connect_screen_bank29/comm_time_hms_screen.screen.png
+gfx/mail/connect_screen_bank29/palette_5ad0.pal	gfx/mail/connect_screen_bank29/comm_time_hms_bg_palette.pal

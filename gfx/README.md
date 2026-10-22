@@ -1064,10 +1064,10 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
 | `connect_screen_candidate_palette_5376.pal` | RGB palette | 128 | 29:5376 | PROBABLE | - | - | `gfx/mail/connect_screen_bank29.asm` |
-| `tiles_5400.2bpp` | 2bpp tiles | 1024 | 29:5400 | PROBABLE | exact | - | `gfx/mail/connect_screen_bank29.asm` |
-| `tilemap_5800.tilemap` | tile-index map | 360 | 29:5800 | PROBABLE | - | 20x18 | `gfx/mail/connect_screen_bank29.asm` |
-| `tilemap_5800.attrmap` | attribute map | 360 | 29:5968 | PROBABLE | - | 20x18 | `gfx/mail/connect_screen_bank29.asm` |
-| `palette_5ad0.pal` | RGB palette | 64 | 29:5AD0 | PROBABLE | - | - | `gfx/mail/connect_screen_bank29.asm` |
+| `comm_time_hms_tiles9000_vb1.2bpp` | 2bpp tiles | 1024 | 29:5400 | PROBABLE | exact | - | `gfx/mail/connect_screen_bank29.asm` |
+| `comm_time_hms_screen.tilemap` | tile-index map | 360 | 29:5800 | PROBABLE | - | 20x18 | `gfx/mail/connect_screen_bank29.asm` |
+| `comm_time_hms_screen.attrmap` | attribute map | 360 | 29:5968 | PROBABLE | - | 20x18 | `gfx/mail/connect_screen_bank29.asm` |
+| `comm_time_hms_bg_palette.pal` | RGB palette | 64 | 29:5AD0 | PROBABLE | - | - | `gfx/mail/connect_screen_bank29.asm` |
 
 ### `gfx/mail/draft_menu/`
 

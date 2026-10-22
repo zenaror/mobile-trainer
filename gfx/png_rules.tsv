@@ -709,11 +709,11 @@ gfx/mail/connect_screen/mail_disconnect_win_msg_ended.tilemap	-	tilemap				100	e
 gfx/mail/connect_screen/mail_disconnect_win_msg_ending.attrmap	-	attrmap				100	c36b5f266997b61c9dd6a93537d2fef42a9476542450dd54955b4222ef06d65a
 gfx/mail/connect_screen/mail_disconnect_win_msg_ending.tilemap	-	tilemap				100	3f86a94ae386642db35a911105fbc1dbf0bdb197af058b7b6439841980edda49
 gfx/mail/connect_screen/mail_screens_obj_palette_7520.pal	-	palette				519	b488c8d03ed09b14b745774412e7cb11ebde39ca6f18bfa98227b03c7c87cb79
+gfx/mail/connect_screen_bank29/comm_time_hms_bg_palette.pal	-	palette				519	b213e1a2c3be47bbc082b98849f1ad9ad01befdd80a8119fe16c3653b4954ad5
+gfx/mail/connect_screen_bank29/comm_time_hms_screen.attrmap	-	attrmap				360	1a952317bf6d67102dcd07a98d5e2984487259b88e3ac6b38c917742e13e1be3
+gfx/mail/connect_screen_bank29/comm_time_hms_screen.tilemap	-	tilemap				360	79b2f46b7f33dda57f3c8e662eabe1f499986f9e183f43ab8d28f4f178149fcf
+gfx/mail/connect_screen_bank29/comm_time_hms_tiles9000_vb1.2bpp	gfx/mail/connect_screen_bank29/comm_time_hms_tiles9000_vb1.png	tiles			0	1024	53818b45cde1050264ba1d4df01f3dea249660acd2114babe3ed97037b83a76d
 gfx/mail/connect_screen_bank29/connect_screen_candidate_palette_5376.pal	-	palette				1039	165fc4ec81338a9b23da228384ef5c40e650dbc78b92a9017a715b64ad4bad2c
-gfx/mail/connect_screen_bank29/palette_5ad0.pal	-	palette				519	b213e1a2c3be47bbc082b98849f1ad9ad01befdd80a8119fe16c3653b4954ad5
-gfx/mail/connect_screen_bank29/tilemap_5800.attrmap	-	attrmap				360	1a952317bf6d67102dcd07a98d5e2984487259b88e3ac6b38c917742e13e1be3
-gfx/mail/connect_screen_bank29/tilemap_5800.tilemap	-	tilemap				360	79b2f46b7f33dda57f3c8e662eabe1f499986f9e183f43ab8d28f4f178149fcf
-gfx/mail/connect_screen_bank29/tiles_5400.2bpp	gfx/mail/connect_screen_bank29/tiles_5400.png	tiles			0	1024	53818b45cde1050264ba1d4df01f3dea249660acd2114babe3ed97037b83a76d
 gfx/mail/draft_menu/data_mail_draft_menu_tilemap_attr.attrmap	-	attrmap				360	3f522d694f817e2c5b57ac58f1848643f3374fd5e6721f2475592144e378d756
 gfx/mail/draft_menu/data_mail_draft_menu_tilemap_attr.tilemap	-	tilemap				360	d9f39640e13cc6093e2986d3f4b204d5e93478bbf68c479f9afc72de3b5a07c2
 gfx/mail/draft_menu/mail_draft_menu_bg.pal	-	palette				519	636ea0f31dda0c8977ca12cc5dd61bd91610eac129487edba9f2b7aecae9cb51

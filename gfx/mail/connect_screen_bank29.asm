@@ -17,15 +17,15 @@ Padding_CommTimeHMS_TileHDMAAlignment:: ; 29:53F6
 ; ---- gfx $5400-$5800 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 27:4DCC: hl=$5400 a=$29 c=$40 de=$9001 (dest VRAM $9000, vbank=1) [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv)]
 
 Gfx_CommTimeHMS_Tiles9000Vb1:: ; 29:5400
-	INCBIN "gfx/mail/connect_screen_bank29/tiles_5400.2bpp"
+	INCBIN "gfx/mail/connect_screen_bank29/comm_time_hms_tiles9000_vb1.2bpp"
 
 ; ---- data $5800-$5AD0 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 27:4DDD: hl=$5800 a=$29 b=18 rows c=20 cols (tiles then attrs) de=$D000 [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_CommTimeHMS_Screen:: ; 29:5800
-	INCBIN "gfx/mail/connect_screen_bank29/tilemap_5800.tilemap"
-	INCBIN "gfx/mail/connect_screen_bank29/tilemap_5800.attrmap"
+	INCBIN "gfx/mail/connect_screen_bank29/comm_time_hms_screen.tilemap"
+	INCBIN "gfx/mail/connect_screen_bank29/comm_time_hms_screen.attrmap"
 
 ; ---- data $5AD0-$5B10 (64 bytes) [PROBABLE] verifier: 64-byte palette upload (ld bc,$0040 ; ld hl,$5AD0 ; ld a,$29 ; far call 4F:4000, far-call site at 27:4DA9, found by a ROM scan): first group $0000,$294A,$56B5,$7FFF (bit15 clear, grey ramp; same group repeated in 29:5E30-5E50 and 2A:51F8-5220), the other 56 bytes are all-zero (black) palette entries loaded with it. Was: 8-byte palette + 56-byte zero region
 
 Palette_CommTimeHMS_Bg:: ; 29:5AD0
-	INCLUDE "gfx/mail/connect_screen_bank29/palette_5ad0.pal"
+	INCLUDE "gfx/mail/connect_screen_bank29/comm_time_hms_bg_palette.pal"
