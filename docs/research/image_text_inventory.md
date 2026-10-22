@@ -273,14 +273,14 @@ Columns: `#` = order of the listing (path order); `asset` = PNG under `gfx/` (th
 | 156 | `browser/start_choice/browser_start_tiles4` | 73:59E0 | 64 (16x4) | Browser_StartChoiceScreen@9400b1 | TXT | button/caption art; text fragments (unreadable) |
 | 157 | `browser/start_choice/tiles_4530` | 73:4530 | 11 (11x1) | - | UNK | 11 tiles, not classified |
 | 158 | `browser/start_choice/browser_start_candidate_tiles` | 73:49E0 | 64 (16x4) | - | ART | blank / background tiles |
-| 159 | `comm/comm_scene/tiles_5490` | 70:5490 | 64 (16x4) | CommScene_LoadGraphics@8000 | ART | scenery (figures), no text |
-| 160 | `comm/comm_scene/tiles_5890` | 70:5890 | 64 (16x4) | CommScene_LoadGraphics@8400 | ART | scenery (figures), no text |
-| 161 | `comm/comm_scene/tiles_5c90` | 70:5C90 | 64 (16x4) | CommScene_LoadGraphics@8800 | ART | scenery, no text |
-| 162 | `comm/comm_scene/tiles_6090` | 70:6090 | 64 (16x4) | CommScene_LoadGraphics@8C00 | ART | scenery, no text |
-| 163 | `comm/comm_scene/tiles_6490` | 70:6490 | 32 (16x2) | CommScene_LoadGraphics@9000 | ART | scenery pieces |
-| 164 | `comm/comm_scene/tiles_6690` | 70:6690 | 32 (16x2) | CommScene_LoadGraphics@9000b1 | TXT | "B キャンセル" button + "キャンセルしています" (Cancelling) |
-| 165 | `comm/comm_scene/tiles_6890` | 70:6890 | 32 (16x2) | CommScene_LoadGraphics@8400b1 | TXT | text fragments ("ます" ...) of status messages |
-| 166 | `comm/comm_scene/tiles_6a90` | 70:6A90 | 32 (16x2) | CommScene_LoadGraphics@9400b1 | TXT | text fragments of status messages (ダウンロード…? unreadable) |
+| 159 | `comm/comm_scene/tiles_vram0_8000` | 70:5490 | 64 (16x4) | CommScene_LoadGraphics@8000 | ART | scenery (figures), no text |
+| 160 | `comm/comm_scene/tiles_vram0_8400` | 70:5890 | 64 (16x4) | CommScene_LoadGraphics@8400 | ART | scenery (figures), no text |
+| 161 | `comm/comm_scene/tiles_vram0_8800` | 70:5C90 | 64 (16x4) | CommScene_LoadGraphics@8800 | ART | scenery, no text |
+| 162 | `comm/comm_scene/tiles_vram0_8c00` | 70:6090 | 64 (16x4) | CommScene_LoadGraphics@8C00 | ART | scenery, no text |
+| 163 | `comm/comm_scene/tiles_shared_source0` | 70:6490 | 32 (16x2) | CommScene_LoadGraphics@9000 | ART | scenery pieces |
+| 164 | `comm/comm_scene/tiles_shared_source1` | 70:6690 | 32 (16x2) | CommScene_LoadGraphics@9000b1 | TXT | "B キャンセル" button + "キャンセルしています" (Cancelling) |
+| 165 | `comm/comm_scene/tiles_shared_source2` | 70:6890 | 32 (16x2) | CommScene_LoadGraphics@8400b1 | TXT | text fragments ("ます" ...) of status messages |
+| 166 | `comm/comm_scene/tiles_vram1_9400_prefix` | 70:6A90 | 32 (16x2) | CommScene_LoadGraphics@9400b1 | TXT | text fragments of status messages (ダウンロード…? unreadable) |
 | 167 | `comm/connect_dialog_bank56/tiles_526a` | 56:526A | 0 | - | - | removed by retype1 (`docs/research/naming2_retype1.md`): it was a 20 x 2 tilemap pair typed as 5 tiles |
 | 168 | `comm/connect_dialog_bank56/tiles_52c0` | 56:52C0 | 64 (16x4) | ConnectDialog_Draw_ConnectConfirm@9000b1 | TXT | banner "つうしんせつぞくします" + fragments of the dialog text |
 | 169 | `comm/connect_dialog_bank56/tiles_56c0` | 56:56C0 | 64 (16x4) | ConnectDialog_Draw_ConnectConfirm@9400b1 | TXT | dialog text fragments + buttons "はい" "いいえ" + "うけとり" icon label |

@@ -452,34 +452,34 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_5490.2bpp` | 2bpp tiles | 1024 | 70:5490 | CONFIRMED | exact | - | `gfx/comm/comm_scene.asm` |
-| `tiles_5890.2bpp` | 2bpp tiles | 1024 | 70:5890 | CONFIRMED | exact | - | `gfx/comm/comm_scene.asm` |
-| `tiles_5c90.2bpp` | 2bpp tiles | 1024 | 70:5C90 | CONFIRMED | exact | - | `gfx/comm/comm_scene.asm` |
-| `tiles_6090.2bpp` | 2bpp tiles | 1024 | 70:6090 | CONFIRMED | exact | - | `gfx/comm/comm_scene.asm` |
-| `tiles_6490.2bpp` | 2bpp tiles | 512 | 70:6490 | CONFIRMED | exact | - | `gfx/comm/comm_scene.asm` |
-| `tiles_6690.2bpp` | 2bpp tiles | 512 | 70:6690 | CONFIRMED | exact | - | `gfx/comm/comm_scene.asm` |
-| `tiles_6890.2bpp` | 2bpp tiles | 512 | 70:6890 | CONFIRMED | exact | - | `gfx/comm/comm_scene.asm` |
-| `tiles_6a90.2bpp` | 2bpp tiles | 512 | 70:6A90 | CONFIRMED | exact | - | `gfx/comm/comm_scene.asm` |
-| `palette_6c90.pal` | RGB palette | 64 | 70:6C90 | PROBABLE | - | - | `gfx/comm/comm_scene.asm` |
-| `palette_6cd0.pal` | RGB palette | 64 | 70:6CD0 | PROBABLE | - | - | `gfx/comm/comm_scene.asm` |
-| `tilemap_6d10.tilemap` | tile-index map | 448 | 70:6D10 | CONFIRMED | - | 32x14 | `gfx/comm/comm_scene.asm` |
-| `tilemap_6d10.attrmap` | attribute map | 448 | 70:6ED0 | CONFIRMED | - | 32x14 | `gfx/comm/comm_scene.asm` |
-| `tilemap_7090.tilemap` | tile-index map | 80 | 70:7090 | CONFIRMED | - | 20x4 | `gfx/comm/comm_scene.asm` |
-| `tilemap_7090.attrmap` | attribute map | 80 | 70:70E0 | CONFIRMED | - | 20x4 | `gfx/comm/comm_scene.asm` |
-| `tilemap_7130.tilemap` | tile-index map | 80 | 70:7130 | CONFIRMED | - | 20x4 | `gfx/comm/comm_scene.asm` |
-| `tilemap_7130.attrmap` | attribute map | 80 | 70:7180 | CONFIRMED | - | 20x4 | `gfx/comm/comm_scene.asm` |
-| `tilemap_71d0.tilemap` | tile-index map | 80 | 70:71D0 | CONFIRMED | - | 20x4 | `gfx/comm/comm_scene.asm` |
-| `tilemap_71d0.attrmap` | attribute map | 80 | 70:7220 | CONFIRMED | - | 20x4 | `gfx/comm/comm_scene.asm` |
-| `tilemap_7270.tilemap` | tile-index map | 80 | 70:7270 | CONFIRMED | - | 20x4 | `gfx/comm/comm_scene.asm` |
-| `tilemap_7270.attrmap` | attribute map | 80 | 70:72C0 | CONFIRMED | - | 20x4 | `gfx/comm/comm_scene.asm` |
-| `tilemap_7310.tilemap` | tile-index map | 80 | 70:7310 | PROBABLE | - | 20x4 | `gfx/comm/comm_scene.asm` |
-| `tilemap_7310.attrmap` | attribute map | 80 | 70:7360 | PROBABLE | - | 20x4 | `gfx/comm/comm_scene.asm` |
-| `tilemap_73b0.tilemap` | tile-index map | 80 | 70:73B0 | PROBABLE | - | 20x4 | `gfx/comm/comm_scene.asm` |
-| `tilemap_73b0.attrmap` | attribute map | 80 | 70:7400 | PROBABLE | - | 20x4 | `gfx/comm/comm_scene.asm` |
-| `tilemap_7450.tilemap` | tile-index map | 80 | 70:7450 | PROBABLE | - | 20x4 | `gfx/comm/comm_scene.asm` |
-| `tilemap_7450.attrmap` | attribute map | 80 | 70:74A0 | PROBABLE | - | 20x4 | `gfx/comm/comm_scene.asm` |
-| `tilemap_74f0.tilemap` | tile-index map | 80 | 70:74F0 | PROBABLE | - | 20x4 | `gfx/comm/comm_scene.asm` |
-| `tilemap_74f0.attrmap` | attribute map | 80 | 70:7540 | PROBABLE | - | 20x4 | `gfx/comm/comm_scene.asm` |
+| `tiles_vram0_8000.2bpp` | 2bpp tiles | 1024 | 70:5490 | CONFIRMED | exact | - | `gfx/comm/comm_scene.asm` |
+| `tiles_vram0_8400.2bpp` | 2bpp tiles | 1024 | 70:5890 | CONFIRMED | exact | - | `gfx/comm/comm_scene.asm` |
+| `tiles_vram0_8800.2bpp` | 2bpp tiles | 1024 | 70:5C90 | CONFIRMED | exact | - | `gfx/comm/comm_scene.asm` |
+| `tiles_vram0_8c00.2bpp` | 2bpp tiles | 1024 | 70:6090 | CONFIRMED | exact | - | `gfx/comm/comm_scene.asm` |
+| `tiles_shared_source0.2bpp` | 2bpp tiles | 512 | 70:6490 | CONFIRMED | exact | - | `gfx/comm/comm_scene.asm` |
+| `tiles_shared_source1.2bpp` | 2bpp tiles | 512 | 70:6690 | CONFIRMED | exact | - | `gfx/comm/comm_scene.asm` |
+| `tiles_shared_source2.2bpp` | 2bpp tiles | 512 | 70:6890 | CONFIRMED | exact | - | `gfx/comm/comm_scene.asm` |
+| `tiles_vram1_9400_prefix.2bpp` | 2bpp tiles | 512 | 70:6A90 | CONFIRMED | exact | - | `gfx/comm/comm_scene.asm` |
+| `bg_palettes.pal` | RGB palette | 64 | 70:6C90 | PROBABLE | - | - | `gfx/comm/comm_scene.asm` |
+| `obj_palettes.pal` | RGB palette | 64 | 70:6CD0 | PROBABLE | - | - | `gfx/comm/comm_scene.asm` |
+| `background.tilemap` | tile-index map | 448 | 70:6D10 | CONFIRMED | - | 32x14 | `gfx/comm/comm_scene.asm` |
+| `background.attrmap` | attribute map | 448 | 70:6ED0 | CONFIRMED | - | 32x14 | `gfx/comm/comm_scene.asm` |
+| `text_box_table_entry_0.tilemap` | tile-index map | 80 | 70:7090 | CONFIRMED | - | 20x4 | `gfx/comm/comm_scene.asm` |
+| `text_box_table_entry_0.attrmap` | attribute map | 80 | 70:70E0 | CONFIRMED | - | 20x4 | `gfx/comm/comm_scene.asm` |
+| `text_box_table_entry_1.tilemap` | tile-index map | 80 | 70:7130 | CONFIRMED | - | 20x4 | `gfx/comm/comm_scene.asm` |
+| `text_box_table_entry_1.attrmap` | attribute map | 80 | 70:7180 | CONFIRMED | - | 20x4 | `gfx/comm/comm_scene.asm` |
+| `text_box_table_entry_2.tilemap` | tile-index map | 80 | 70:71D0 | CONFIRMED | - | 20x4 | `gfx/comm/comm_scene.asm` |
+| `text_box_table_entry_2.attrmap` | attribute map | 80 | 70:7220 | CONFIRMED | - | 20x4 | `gfx/comm/comm_scene.asm` |
+| `text_box_table_entry_3.tilemap` | tile-index map | 80 | 70:7270 | CONFIRMED | - | 20x4 | `gfx/comm/comm_scene.asm` |
+| `text_box_table_entry_3.attrmap` | attribute map | 80 | 70:72C0 | CONFIRMED | - | 20x4 | `gfx/comm/comm_scene.asm` |
+| `text_box_table_entry_4.tilemap` | tile-index map | 80 | 70:7310 | PROBABLE | - | 20x4 | `gfx/comm/comm_scene.asm` |
+| `text_box_table_entry_4.attrmap` | attribute map | 80 | 70:7360 | PROBABLE | - | 20x4 | `gfx/comm/comm_scene.asm` |
+| `text_box_table_entry_5.tilemap` | tile-index map | 80 | 70:73B0 | PROBABLE | - | 20x4 | `gfx/comm/comm_scene.asm` |
+| `text_box_table_entry_5.attrmap` | attribute map | 80 | 70:7400 | PROBABLE | - | 20x4 | `gfx/comm/comm_scene.asm` |
+| `text_box_table_entry_6.tilemap` | tile-index map | 80 | 70:7450 | PROBABLE | - | 20x4 | `gfx/comm/comm_scene.asm` |
+| `text_box_table_entry_6.attrmap` | attribute map | 80 | 70:74A0 | PROBABLE | - | 20x4 | `gfx/comm/comm_scene.asm` |
+| `text_box_table_entry_7.tilemap` | tile-index map | 80 | 70:74F0 | PROBABLE | - | 20x4 | `gfx/comm/comm_scene.asm` |
+| `text_box_table_entry_7.attrmap` | attribute map | 80 | 70:7540 | PROBABLE | - | 20x4 | `gfx/comm/comm_scene.asm` |
 
 ### `gfx/comm/connect_dialog_bank56/`
 

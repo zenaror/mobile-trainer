@@ -253,34 +253,34 @@ gfx/browser/start_choice/browser_start_tiles3.2bpp	gfx/browser/start_choice/brow
 gfx/browser/start_choice/browser_start_tiles4.2bpp	gfx/browser/start_choice/browser_start_tiles4.png	tiles			0	1024	4e2edf28f409148d783fec38876bd08324ca653b441fbe0eca6160e69d316de6
 gfx/browser/start_choice/browser_start_top_attr_normal.attrmap	-	attrmap				40	098e6841b64c6dd50bb6e2b5f25139b6ed9b443982ef1304254970a9e59a1f13
 gfx/browser/start_choice/browser_start_top_map_normal.tilemap	-	tilemap				40	44253f4e2bf055fc23fc592590918706c42be32fe35ed79054fc95b9260e931b
-gfx/comm/comm_scene/palette_6c90.pal	-	palette				519	5db0ace1c5619034ecb29bac28abb219a9d1fd1d1ef246bc2e92ecf554ed755c
-gfx/comm/comm_scene/palette_6cd0.pal	-	palette				519	b488c8d03ed09b14b745774412e7cb11ebde39ca6f18bfa98227b03c7c87cb79
-gfx/comm/comm_scene/tilemap_6d10.attrmap	-	attrmap				448	a6e83e1db4c2399832b5c408917d1934044acc55e6ac53afe3734750a59c3afe
-gfx/comm/comm_scene/tilemap_6d10.tilemap	-	tilemap				448	1d2e7d97bbd08057c34c9563baef9ff1c2acba49be5b8b464ef23f50d407f953
-gfx/comm/comm_scene/tilemap_7090.attrmap	-	attrmap				80	c0532654c2b6c5caa434dce2023fc6dda7f091f8e45d5b8c0ab5cd656b6e93f7
-gfx/comm/comm_scene/tilemap_7090.tilemap	-	tilemap				80	fcf8a44d84c34a37c61aaf59563552dd28ff75802e5d256dc7ce547a797c94dc
-gfx/comm/comm_scene/tilemap_7130.attrmap	-	attrmap				80	c0532654c2b6c5caa434dce2023fc6dda7f091f8e45d5b8c0ab5cd656b6e93f7
-gfx/comm/comm_scene/tilemap_7130.tilemap	-	tilemap				80	ff5ce69f8b57fe2d89dab3613ddf8f12722ec4ed12e1f5874269e89d64271010
-gfx/comm/comm_scene/tilemap_71d0.attrmap	-	attrmap				80	c0532654c2b6c5caa434dce2023fc6dda7f091f8e45d5b8c0ab5cd656b6e93f7
-gfx/comm/comm_scene/tilemap_71d0.tilemap	-	tilemap				80	e9646196419471eefd6fc1c6dc343997bcc10dde97e079cf3e382ece801312d0
-gfx/comm/comm_scene/tilemap_7270.attrmap	-	attrmap				80	c0532654c2b6c5caa434dce2023fc6dda7f091f8e45d5b8c0ab5cd656b6e93f7
-gfx/comm/comm_scene/tilemap_7270.tilemap	-	tilemap				80	42c669023b1bd836c0bb167cffeaafdf8d68088ec492e48fcfb067ecb331c453
-gfx/comm/comm_scene/tilemap_7310.attrmap	-	attrmap				80	c0532654c2b6c5caa434dce2023fc6dda7f091f8e45d5b8c0ab5cd656b6e93f7
-gfx/comm/comm_scene/tilemap_7310.tilemap	-	tilemap				80	4e90c7e41a4976d466aa9e074d5f0401e0223bc6a52d13a1f35eb55d35d97b33
-gfx/comm/comm_scene/tilemap_73b0.attrmap	-	attrmap				80	c0532654c2b6c5caa434dce2023fc6dda7f091f8e45d5b8c0ab5cd656b6e93f7
-gfx/comm/comm_scene/tilemap_73b0.tilemap	-	tilemap				80	d7a1d8a67578c3ce277270235916731b8dc89a244013db90fe74f11c498c9ffb
-gfx/comm/comm_scene/tilemap_7450.attrmap	-	attrmap				80	c0532654c2b6c5caa434dce2023fc6dda7f091f8e45d5b8c0ab5cd656b6e93f7
-gfx/comm/comm_scene/tilemap_7450.tilemap	-	tilemap				80	1c9e01bff11c86f68559d82a3c80c71327eb7a506fcae2991d04ebf82ab76ec4
-gfx/comm/comm_scene/tilemap_74f0.attrmap	-	attrmap				80	c0532654c2b6c5caa434dce2023fc6dda7f091f8e45d5b8c0ab5cd656b6e93f7
-gfx/comm/comm_scene/tilemap_74f0.tilemap	-	tilemap				80	f6aa36f427fd6532784f862c4762e5a51b323a618343b1b6ba9e3af7a5a49336
-gfx/comm/comm_scene/tiles_5490.2bpp	gfx/comm/comm_scene/tiles_5490.png	tiles			0	1024	72012310c8bae955127dd61e0c6d71f3589eea2b109f616277d54fd3006b8a40
-gfx/comm/comm_scene/tiles_5890.2bpp	gfx/comm/comm_scene/tiles_5890.png	tiles			0	1024	8d5e0696e35f6dd592fce18c6e6b49085108c3e875ea833c763e37432919fb1c
-gfx/comm/comm_scene/tiles_5c90.2bpp	gfx/comm/comm_scene/tiles_5c90.png	tiles			0	1024	ac46e1d400665e5e13c46b0c04cf93478a55edd0203eed94f4efa22797a74b7b
-gfx/comm/comm_scene/tiles_6090.2bpp	gfx/comm/comm_scene/tiles_6090.png	tiles			0	1024	433ccdb7134e43960b1200df49eaa3716fb3a519c8952cf9a2a87be5d379050a
-gfx/comm/comm_scene/tiles_6490.2bpp	gfx/comm/comm_scene/tiles_6490.png	tiles			0	512	ad0a3e0ddb9d96967934304a9c427081eee49a002ca5637b898cdc993834c8f0
-gfx/comm/comm_scene/tiles_6690.2bpp	gfx/comm/comm_scene/tiles_6690.png	tiles			0	512	1a0aacce0f42ce4405680824b142a29060a8eb19fef83e0e2881f87c4f746c1c
-gfx/comm/comm_scene/tiles_6890.2bpp	gfx/comm/comm_scene/tiles_6890.png	tiles			0	512	e4516001ad837a65e35be9de3a2d0a28f141b59b438e3e5778d92aaa61ccc886
-gfx/comm/comm_scene/tiles_6a90.2bpp	gfx/comm/comm_scene/tiles_6a90.png	tiles			0	512	ef0342853cd0237061ea59649bb494510b12409ed7a189a51f9f0cab3c4400cf
+gfx/comm/comm_scene/background.attrmap	-	attrmap				448	a6e83e1db4c2399832b5c408917d1934044acc55e6ac53afe3734750a59c3afe
+gfx/comm/comm_scene/background.tilemap	-	tilemap				448	1d2e7d97bbd08057c34c9563baef9ff1c2acba49be5b8b464ef23f50d407f953
+gfx/comm/comm_scene/bg_palettes.pal	-	palette				519	5db0ace1c5619034ecb29bac28abb219a9d1fd1d1ef246bc2e92ecf554ed755c
+gfx/comm/comm_scene/obj_palettes.pal	-	palette				519	b488c8d03ed09b14b745774412e7cb11ebde39ca6f18bfa98227b03c7c87cb79
+gfx/comm/comm_scene/text_box_table_entry_0.attrmap	-	attrmap				80	c0532654c2b6c5caa434dce2023fc6dda7f091f8e45d5b8c0ab5cd656b6e93f7
+gfx/comm/comm_scene/text_box_table_entry_0.tilemap	-	tilemap				80	fcf8a44d84c34a37c61aaf59563552dd28ff75802e5d256dc7ce547a797c94dc
+gfx/comm/comm_scene/text_box_table_entry_1.attrmap	-	attrmap				80	c0532654c2b6c5caa434dce2023fc6dda7f091f8e45d5b8c0ab5cd656b6e93f7
+gfx/comm/comm_scene/text_box_table_entry_1.tilemap	-	tilemap				80	ff5ce69f8b57fe2d89dab3613ddf8f12722ec4ed12e1f5874269e89d64271010
+gfx/comm/comm_scene/text_box_table_entry_2.attrmap	-	attrmap				80	c0532654c2b6c5caa434dce2023fc6dda7f091f8e45d5b8c0ab5cd656b6e93f7
+gfx/comm/comm_scene/text_box_table_entry_2.tilemap	-	tilemap				80	e9646196419471eefd6fc1c6dc343997bcc10dde97e079cf3e382ece801312d0
+gfx/comm/comm_scene/text_box_table_entry_3.attrmap	-	attrmap				80	c0532654c2b6c5caa434dce2023fc6dda7f091f8e45d5b8c0ab5cd656b6e93f7
+gfx/comm/comm_scene/text_box_table_entry_3.tilemap	-	tilemap				80	42c669023b1bd836c0bb167cffeaafdf8d68088ec492e48fcfb067ecb331c453
+gfx/comm/comm_scene/text_box_table_entry_4.attrmap	-	attrmap				80	c0532654c2b6c5caa434dce2023fc6dda7f091f8e45d5b8c0ab5cd656b6e93f7
+gfx/comm/comm_scene/text_box_table_entry_4.tilemap	-	tilemap				80	4e90c7e41a4976d466aa9e074d5f0401e0223bc6a52d13a1f35eb55d35d97b33
+gfx/comm/comm_scene/text_box_table_entry_5.attrmap	-	attrmap				80	c0532654c2b6c5caa434dce2023fc6dda7f091f8e45d5b8c0ab5cd656b6e93f7
+gfx/comm/comm_scene/text_box_table_entry_5.tilemap	-	tilemap				80	d7a1d8a67578c3ce277270235916731b8dc89a244013db90fe74f11c498c9ffb
+gfx/comm/comm_scene/text_box_table_entry_6.attrmap	-	attrmap				80	c0532654c2b6c5caa434dce2023fc6dda7f091f8e45d5b8c0ab5cd656b6e93f7
+gfx/comm/comm_scene/text_box_table_entry_6.tilemap	-	tilemap				80	1c9e01bff11c86f68559d82a3c80c71327eb7a506fcae2991d04ebf82ab76ec4
+gfx/comm/comm_scene/text_box_table_entry_7.attrmap	-	attrmap				80	c0532654c2b6c5caa434dce2023fc6dda7f091f8e45d5b8c0ab5cd656b6e93f7
+gfx/comm/comm_scene/text_box_table_entry_7.tilemap	-	tilemap				80	f6aa36f427fd6532784f862c4762e5a51b323a618343b1b6ba9e3af7a5a49336
+gfx/comm/comm_scene/tiles_shared_source0.2bpp	gfx/comm/comm_scene/tiles_shared_source0.png	tiles			0	512	ad0a3e0ddb9d96967934304a9c427081eee49a002ca5637b898cdc993834c8f0
+gfx/comm/comm_scene/tiles_shared_source1.2bpp	gfx/comm/comm_scene/tiles_shared_source1.png	tiles			0	512	1a0aacce0f42ce4405680824b142a29060a8eb19fef83e0e2881f87c4f746c1c
+gfx/comm/comm_scene/tiles_shared_source2.2bpp	gfx/comm/comm_scene/tiles_shared_source2.png	tiles			0	512	e4516001ad837a65e35be9de3a2d0a28f141b59b438e3e5778d92aaa61ccc886
+gfx/comm/comm_scene/tiles_vram0_8000.2bpp	gfx/comm/comm_scene/tiles_vram0_8000.png	tiles			0	1024	72012310c8bae955127dd61e0c6d71f3589eea2b109f616277d54fd3006b8a40
+gfx/comm/comm_scene/tiles_vram0_8400.2bpp	gfx/comm/comm_scene/tiles_vram0_8400.png	tiles			0	1024	8d5e0696e35f6dd592fce18c6e6b49085108c3e875ea833c763e37432919fb1c
+gfx/comm/comm_scene/tiles_vram0_8800.2bpp	gfx/comm/comm_scene/tiles_vram0_8800.png	tiles			0	1024	ac46e1d400665e5e13c46b0c04cf93478a55edd0203eed94f4efa22797a74b7b
+gfx/comm/comm_scene/tiles_vram0_8c00.2bpp	gfx/comm/comm_scene/tiles_vram0_8c00.png	tiles			0	1024	433ccdb7134e43960b1200df49eaa3716fb3a519c8952cf9a2a87be5d379050a
+gfx/comm/comm_scene/tiles_vram1_9400_prefix.2bpp	gfx/comm/comm_scene/tiles_vram1_9400_prefix.png	tiles			0	512	ef0342853cd0237061ea59649bb494510b12409ed7a189a51f9f0cab3c4400cf
 gfx/comm/connect_dialog_bank56/connect_dialog_common_finish_tiles_8000_vb0.2bpp	gfx/comm/connect_dialog_bank56/connect_dialog_common_finish_tiles_8000_vb0.png	tiles			0	512	f371b5335e18e6d69d5acabeee4b17db90751da4f42b554514d0a93e78e8ae93
 gfx/comm/connect_dialog_bank56/connect_dialog_connect_confirm_56_526a.attrmap	-	attrmap				40	a908b7b12fb21ace48bacbde54fc020b76890ebc37a2f5d95d03d61f22d1986c
 gfx/comm/connect_dialog_bank56/connect_dialog_connect_confirm_56_526a.tilemap	-	tilemap				40	017741ec407d6e57775bbbc1bfbca9991a9cf9eaeb7de13176eede939c908ca1

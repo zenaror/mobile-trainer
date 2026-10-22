@@ -120,14 +120,14 @@ PNG_TILE_OUTS := \
 	gfx/browser/start_choice/browser_start_tiles2.2bpp \
 	gfx/browser/start_choice/browser_start_tiles3.2bpp \
 	gfx/browser/start_choice/browser_start_tiles4.2bpp \
-	gfx/comm/comm_scene/tiles_5490.2bpp \
-	gfx/comm/comm_scene/tiles_5890.2bpp \
-	gfx/comm/comm_scene/tiles_5c90.2bpp \
-	gfx/comm/comm_scene/tiles_6090.2bpp \
-	gfx/comm/comm_scene/tiles_6490.2bpp \
-	gfx/comm/comm_scene/tiles_6690.2bpp \
-	gfx/comm/comm_scene/tiles_6890.2bpp \
-	gfx/comm/comm_scene/tiles_6a90.2bpp \
+	gfx/comm/comm_scene/tiles_shared_source0.2bpp \
+	gfx/comm/comm_scene/tiles_shared_source1.2bpp \
+	gfx/comm/comm_scene/tiles_shared_source2.2bpp \
+	gfx/comm/comm_scene/tiles_vram0_8000.2bpp \
+	gfx/comm/comm_scene/tiles_vram0_8400.2bpp \
+	gfx/comm/comm_scene/tiles_vram0_8800.2bpp \
+	gfx/comm/comm_scene/tiles_vram0_8c00.2bpp \
+	gfx/comm/comm_scene/tiles_vram1_9400_prefix.2bpp \
 	gfx/comm/connect_dialog_bank56/connect_dialog_common_finish_tiles_8000_vb0.2bpp \
 	gfx/comm/connect_dialog_bank56/connect_dialog_connect_confirm_tiles_9000_vb1.2bpp \
 	gfx/comm/connect_dialog_bank56/connect_dialog_connect_confirm_tiles_9400_vb1.2bpp \
@@ -538,14 +538,14 @@ gfx/browser/start_choice/browser_start_tiles1.2bpp: PNG_SIZE := 1024
 gfx/browser/start_choice/browser_start_tiles2.2bpp: PNG_SIZE := 1024
 gfx/browser/start_choice/browser_start_tiles3.2bpp: PNG_SIZE := 1024
 gfx/browser/start_choice/browser_start_tiles4.2bpp: PNG_SIZE := 1024
-gfx/comm/comm_scene/tiles_5490.2bpp: PNG_SIZE := 1024
-gfx/comm/comm_scene/tiles_5890.2bpp: PNG_SIZE := 1024
-gfx/comm/comm_scene/tiles_5c90.2bpp: PNG_SIZE := 1024
-gfx/comm/comm_scene/tiles_6090.2bpp: PNG_SIZE := 1024
-gfx/comm/comm_scene/tiles_6490.2bpp: PNG_SIZE := 512
-gfx/comm/comm_scene/tiles_6690.2bpp: PNG_SIZE := 512
-gfx/comm/comm_scene/tiles_6890.2bpp: PNG_SIZE := 512
-gfx/comm/comm_scene/tiles_6a90.2bpp: PNG_SIZE := 512
+gfx/comm/comm_scene/tiles_shared_source0.2bpp: PNG_SIZE := 512
+gfx/comm/comm_scene/tiles_shared_source1.2bpp: PNG_SIZE := 512
+gfx/comm/comm_scene/tiles_shared_source2.2bpp: PNG_SIZE := 512
+gfx/comm/comm_scene/tiles_vram0_8000.2bpp: PNG_SIZE := 1024
+gfx/comm/comm_scene/tiles_vram0_8400.2bpp: PNG_SIZE := 1024
+gfx/comm/comm_scene/tiles_vram0_8800.2bpp: PNG_SIZE := 1024
+gfx/comm/comm_scene/tiles_vram0_8c00.2bpp: PNG_SIZE := 1024
+gfx/comm/comm_scene/tiles_vram1_9400_prefix.2bpp: PNG_SIZE := 512
 gfx/comm/connect_dialog_bank56/connect_dialog_common_finish_tiles_8000_vb0.2bpp: PNG_SIZE := 512
 gfx/comm/connect_dialog_bank56/connect_dialog_connect_confirm_tiles_9000_vb1.2bpp: PNG_SIZE := 1024
 gfx/comm/connect_dialog_bank56/connect_dialog_connect_confirm_tiles_9400_vb1.2bpp: PNG_SIZE := 1024

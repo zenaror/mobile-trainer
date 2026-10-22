@@ -68,3 +68,27 @@ Therefore Japanese-only ownership of these paths is **UNKNOWN**. No path was
 renamed in this checkpoint. Keep the translation paused and verify any shared
 references before a future path migration; this report does not authorize
 changing the language patch. Main sources and asset paths are unchanged.
+
+## Integration update (2026-10-22)
+
+After the read-only audit, the Japanese owner and its catalogs were migrated: 28
+ROM-backed asset payload paths and nine associated PNG paths were renamed using
+the basename plan above. The 28 payload bytes and all 37 original file hashes
+were preserved; the original-ROM slice comparisons remain the basis for the
+asset claims. No section placement, loader argument, payload extent or symbol
+name changed. The `tiles_vram1_9400_prefix` name deliberately reflects the
+512-byte source file, not the full 1,024-byte DMA read.
+
+Build/catalog references were updated in `gfx/comm/comm_scene.asm`,
+`gfx/assets.tsv`, `gfx/png_rules.tsv`, `gfx/png.mk`, `gfx/screens.tsv` and the
+generated `gfx/README.md`. The two research references are the old-to-new rows
+in `docs/research/gfx_resource_path_map.tsv` and the CommScene entries in
+`docs/research/image_text_inventory.md`. `gfx/assets.tsv` contains only the 28
+path substitutions for this pass. Regenerating `gfx/screens.tsv` also refreshed
+pre-existing derived rows from earlier Japanese renames; those are catalog
+maintenance only and add no semantic/runtime claims.
+
+The full build and relevant graphics gates must pass before equivalence or
+completion is claimed. The paused English tree and ZIP inputs remain outside
+this work; whether any language overlay references the old paths is still
+UNKNOWN and requires a later, explicit authorization to resume that work.

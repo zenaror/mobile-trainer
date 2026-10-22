@@ -18,6 +18,10 @@ The address-only paths for the Bank 58 registration notice tiles, palette and 20
 
 Eleven address-only tile paths and their PNG sources now describe the existing dialog family and confirmed static VRAM destinations. The stored-password graphics remain split across the shared `$64C0` source and `$68C0` continuation at VRAM `$9200`; transfer overlap and bytes are unchanged. See [`connect_dialog_bank56_tile_paths_20261022.md`](docs/research/connect_dialog_bank56_tile_paths_20261022.md). The English tree remains paused and untouched.
 
+### Bank 70 communication-scene graphics paths (2026-10-22)
+
+Twenty-eight Japanese ROM-backed asset paths and nine associated PNG paths now use the audited static transfer destination, shared-source, palette-owner, background and pointer-table roles. File hashes and ROM payload extents are preserved; the 512-byte `$6A90` slice remains explicitly a prefix of a longer DMA read. This is static naming evidence only, and whether the paused language overlay references these names remains UNKNOWN. The generated graphics catalog was refreshed, including stale derived screen rows from earlier Japanese renames. Details and limits are in [`comm_scene_graphics_path_audit_20261022.md`](docs/research/comm_scene_graphics_path_audit_20261022.md).
+
 
 The [definition of done](docs/REVERSE_ENGINEERING_RULES.md#23-definition-of-done) requires an explainable reconstruction as well as a reproducible ROM. `make`, symbol checks and a complete byte comparison establish reconstruction identity for the source actually checked; they do not establish complete semantics, natural execution or hardware behavior. Frozen `config/` and `docs/PROGRESS.md` counters, and dated counters below, are historical rather than a current completion census.
 

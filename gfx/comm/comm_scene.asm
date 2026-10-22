@@ -872,25 +872,25 @@ CommScene_Sprite_Anim5Script:: ; 70:5480
 
 Gfx_CommScene_Tiles8000:: ; 70:5490
 
-	INCBIN "gfx/comm/comm_scene/tiles_5490.2bpp"
+	INCBIN "gfx/comm/comm_scene/tiles_vram0_8000.2bpp"
 
 ; ---- gfx $5890-$5C90 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 70:44F4: hl=$5890 a=$70 c=$40 de=$8400 (dest VRAM $8400, vbank=0)
 
 Gfx_CommScene_Tiles8400:: ; 70:5890
 
-	INCBIN "gfx/comm/comm_scene/tiles_5890.2bpp"
+	INCBIN "gfx/comm/comm_scene/tiles_vram0_8400.2bpp"
 
 ; ---- gfx $5C90-$6090 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 70:4506: hl=$5C90 a=$70 c=$40 de=$8800 (dest VRAM $8800, vbank=0)
 
 Gfx_CommScene_Tiles8800:: ; 70:5C90
 
-	INCBIN "gfx/comm/comm_scene/tiles_5c90.2bpp"
+	INCBIN "gfx/comm/comm_scene/tiles_vram0_8800.2bpp"
 
 ; ---- gfx $6090-$6490 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 70:4518: hl=$6090 a=$70 c=$40 de=$8C00 (dest VRAM $8C00, vbank=0)
 
 Gfx_CommScene_Tiles8C00:: ; 70:6090
 
-	INCBIN "gfx/comm/comm_scene/tiles_6090.2bpp"
+	INCBIN "gfx/comm/comm_scene/tiles_vram0_8c00.2bpp"
 
 ; ---- gfx $6490-$6690 (512 bytes) [CONFIRMED] existing graphics slice; shared source:
 ; 70:452A transfers $6490-$6690 to VRAM $9000-$9200 bank 0 (C=$20, $200 bytes).
@@ -898,7 +898,7 @@ Gfx_CommScene_Tiles8C00:: ; 70:6090
 ; this slice is its first $200 bytes. Both calls: 160 hits in 18 natural scenarios.
 
 Gfx_CommScene_SharedVramSource0:: ; 70:6490
-	INCBIN "gfx/comm/comm_scene/tiles_6490.2bpp"
+	INCBIN "gfx/comm/comm_scene/tiles_shared_source0.2bpp"
 
 ; ---- gfx $6690-$6890 (512 bytes) [CONFIRMED] existing graphics slice; shared source:
 ; second $200 bytes of 70:453C's $6490-$6890 window -> VRAM $8200-$8400 bank 1;
@@ -906,7 +906,7 @@ Gfx_CommScene_SharedVramSource0:: ; 70:6490
 ; Both use C=$40 ($400 bytes total); 160 hits in 18 natural scenarios each.
 
 Gfx_CommScene_SharedVramSource1:: ; 70:6690
-	INCBIN "gfx/comm/comm_scene/tiles_6690.2bpp"
+	INCBIN "gfx/comm/comm_scene/tiles_shared_source1.2bpp"
 
 ; ---- gfx $6890-$6A90 (512 bytes) [CONFIRMED] existing graphics slice; shared source:
 ; direct load at 70:4545 -> call 70:454E (C=$20, $200 bytes) to $8400-$8600 bank 1;
@@ -914,85 +914,85 @@ Gfx_CommScene_SharedVramSource1:: ; 70:6690
 ; The latter uses C=$40 ($400 bytes total); both calls 160 hits/18 natural scenarios.
 
 Gfx_CommScene_SharedVramSource2:: ; 70:6890
-	INCBIN "gfx/comm/comm_scene/tiles_6890.2bpp"
+	INCBIN "gfx/comm/comm_scene/tiles_shared_source2.2bpp"
 
 ; ---- gfx $6A90-$6C90 (512 bytes) [CONFIRMED] tiles-vram: hdma_rom_to_vram at 70:4572 hl=$6A90 c=$40 de=$9401 (recovered arguments). NOTE: the HDMA length $400 would run to 6E90, but 6C90-6D10 are palettes (copied by 4F:4000 calls) and 6D10-7090 the tilemap (copy_tilemap_rect_pair), so only the first $200 bytes (32 tiles) are tile data by content; the rest of the DMA window is over-read
 
 Gfx_CommScene_Tiles9400Vb1:: ; 70:6A90
 
-	INCBIN "gfx/comm/comm_scene/tiles_6a90.2bpp"
+	INCBIN "gfx/comm/comm_scene/tiles_vram1_9400_prefix.2bpp"
 
 ; ---- data $6C90-$6CD0 (64 bytes) [PROBABLE] 64 bytes = 8 CGB palettes, source of the Palette_LoadToBuffer call (bc=$0040, de=$D800, hl=$6C90) in the loader sequence right before the executed copy_tilemap_rect_pair at 70:45A5; RGB555 words
 
 Palette_CommScene_Bg:: ; 70:6C90
 
-	INCLUDE "gfx/comm/comm_scene/palette_6c90.pal"
+	INCLUDE "gfx/comm/comm_scene/bg_palettes.pal"
 
 ; ---- data $6CD0-$6D10 (64 bytes) [PROBABLE] 64 bytes = 8 CGB palettes, source of the Palette_LoadToBuffer call (bc=$0040, de=$D840, hl=$6CD0); RGB555 words (00 00 4A 29 B5 56 FF 7F ends the block)
 
 Palette_CommScene_Obj:: ; 70:6CD0
 
-	INCLUDE "gfx/comm/comm_scene/palette_6cd0.pal"
+	INCLUDE "gfx/comm/comm_scene/obj_palettes.pal"
 
 ; ---- data $6D10-$7090 (896 bytes) [CONFIRMED] tilemap+attr: copy_tilemap_rect_pair at 70:45A5 hl=$6D10 b=14 rows c=32 cols (tiles $1C0 then attrs $1C0) de=$D000
 
 Tilemap_CommScene:: ; 70:6D10
 
-	INCBIN "gfx/comm/comm_scene/tilemap_6d10.tilemap"
-	INCBIN "gfx/comm/comm_scene/tilemap_6d10.attrmap"
+	INCBIN "gfx/comm/comm_scene/background.tilemap"
+	INCBIN "gfx/comm/comm_scene/background.attrmap"
 
 ; ---- data $7090-$7130 (160 bytes) [CONFIRMED] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 0 of CommScene_TextBoxMaps: CommScene_ShowTextBox (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; bytes read in traces
 
 Tilemap_CommScene_TextBox0:: ; 70:7090
 
-	INCBIN "gfx/comm/comm_scene/tilemap_7090.tilemap"
-	INCBIN "gfx/comm/comm_scene/tilemap_7090.attrmap"
+	INCBIN "gfx/comm/comm_scene/text_box_table_entry_0.tilemap"
+	INCBIN "gfx/comm/comm_scene/text_box_table_entry_0.attrmap"
 
 ; ---- data $7130-$71D0 (160 bytes) [CONFIRMED] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 1 of CommScene_TextBoxMaps: CommScene_ShowTextBox (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; bytes read in traces
 
 Tilemap_CommScene_TextBox1:: ; 70:7130
 
-	INCBIN "gfx/comm/comm_scene/tilemap_7130.tilemap"
-	INCBIN "gfx/comm/comm_scene/tilemap_7130.attrmap"
+	INCBIN "gfx/comm/comm_scene/text_box_table_entry_1.tilemap"
+	INCBIN "gfx/comm/comm_scene/text_box_table_entry_1.attrmap"
 
 ; ---- data $71D0-$7270 (160 bytes) [CONFIRMED] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 2 of CommScene_TextBoxMaps: CommScene_ShowTextBox (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; bytes read in traces
 
 Tilemap_CommScene_TextBox2:: ; 70:71D0
 
-	INCBIN "gfx/comm/comm_scene/tilemap_71d0.tilemap"
-	INCBIN "gfx/comm/comm_scene/tilemap_71d0.attrmap"
+	INCBIN "gfx/comm/comm_scene/text_box_table_entry_2.tilemap"
+	INCBIN "gfx/comm/comm_scene/text_box_table_entry_2.attrmap"
 
 ; ---- data $7270-$7310 (160 bytes) [CONFIRMED] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 3 of CommScene_TextBoxMaps: CommScene_ShowTextBox (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; bytes read in traces
 
 Tilemap_CommScene_TextBox3:: ; 70:7270
 
-	INCBIN "gfx/comm/comm_scene/tilemap_7270.tilemap"
-	INCBIN "gfx/comm/comm_scene/tilemap_7270.attrmap"
+	INCBIN "gfx/comm/comm_scene/text_box_table_entry_3.tilemap"
+	INCBIN "gfx/comm/comm_scene/text_box_table_entry_3.attrmap"
 
 ; ---- data $7310-$73B0 (160 bytes) [PROBABLE] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 4 of CommScene_TextBoxMaps: CommScene_ShowTextBox (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; not read in the 18 traces, same layout
 
 Tilemap_CommScene_TextBox4:: ; 70:7310
 
-	INCBIN "gfx/comm/comm_scene/tilemap_7310.tilemap"
-	INCBIN "gfx/comm/comm_scene/tilemap_7310.attrmap"
+	INCBIN "gfx/comm/comm_scene/text_box_table_entry_4.tilemap"
+	INCBIN "gfx/comm/comm_scene/text_box_table_entry_4.attrmap"
 
 ; ---- data $73B0-$7450 (160 bytes) [PROBABLE] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 5 of CommScene_TextBoxMaps: CommScene_ShowTextBox (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; not read in the 18 traces, same layout
 
 Tilemap_CommScene_TextBox5:: ; 70:73B0
 
-	INCBIN "gfx/comm/comm_scene/tilemap_73b0.tilemap"
-	INCBIN "gfx/comm/comm_scene/tilemap_73b0.attrmap"
+	INCBIN "gfx/comm/comm_scene/text_box_table_entry_5.tilemap"
+	INCBIN "gfx/comm/comm_scene/text_box_table_entry_5.attrmap"
 
 ; ---- data $7450-$74F0 (160 bytes) [PROBABLE] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 6 of CommScene_TextBoxMaps: CommScene_ShowTextBox (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; not read in the 18 traces, same layout
 
 Tilemap_CommScene_TextBox6:: ; 70:7450
 
-	INCBIN "gfx/comm/comm_scene/tilemap_7450.tilemap"
-	INCBIN "gfx/comm/comm_scene/tilemap_7450.attrmap"
+	INCBIN "gfx/comm/comm_scene/text_box_table_entry_6.tilemap"
+	INCBIN "gfx/comm/comm_scene/text_box_table_entry_6.attrmap"
 
 ; ---- data $74F0-$7590 (160 bytes) [PROBABLE] tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 7 of CommScene_TextBoxMaps: CommScene_ShowTextBox (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; not read in the 18 traces, same layout
 
 Tilemap_CommScene_TextBox7:: ; 70:74F0
 
-	INCBIN "gfx/comm/comm_scene/tilemap_74f0.tilemap"
-	INCBIN "gfx/comm/comm_scene/tilemap_74f0.attrmap"
+	INCBIN "gfx/comm/comm_scene/text_box_table_entry_7.tilemap"
+	INCBIN "gfx/comm/comm_scene/text_box_table_entry_7.attrmap"
