@@ -6,6 +6,10 @@ Numbers marked "frozen" describe `config/` at the freeze and are not updated any
 (the tree is edited by hand, so recount with the command given).
 
 ## Current original reconstruction and asset-audit limits
+### Keyboard panel tile asset paths (2026-10-22)
+
+Nine T4/T5/T9 and shared keyboard tile pairs in Banks 5D/5F now use names based on existing labels and confirmed VRAM destinations. Their hashes and ROM bytes are unchanged; see [`keyboard_panel_tile_paths_20261022.md`](docs/research/keyboard_panel_tile_paths_20261022.md). The English tree remains untouched.
+
 ### Bank 58 registration notice asset paths (2026-10-22)
 
 The address-only paths for the Bank 58 registration notice tiles, palette and 20×18 tilemap pair now follow the existing notice-family labels and static Bank 65 readers. Twenty-seven files were moved without byte changes; tile groups that remain PROBABLE are named as candidates, with no claim of natural display. The path map and evidence are in [`registration_notice_bank58_resource_paths_20261022.md`](docs/research/registration_notice_bank58_resource_paths_20261022.md). The English tree was not accessed.

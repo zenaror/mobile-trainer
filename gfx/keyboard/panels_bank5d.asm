@@ -7,9 +7,9 @@ SECTION "gfx/keyboard/panels_bank5d", ROMX
 ; ---- gfx $4000-$4400 (1024 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (55:6761 68:5DD9); first: hdma_rom_to_vram at 55:6761: hl=$4000 a=$5D c=$40 de=$8801 (dest VRAM $8800, vbank=1)
 
 Gfx_Kbd_T4_Tiles8800Vb1:: ; 5D:4000
-	INCBIN "gfx/keyboard/panels_bank5d/tiles_4000.2bpp"
+	INCBIN "gfx/keyboard/panels_bank5d/keyboard_type4_vram8800_vb1_tiles.2bpp"
 
 ; ---- gfx $4400-$4800 (1024 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (55:6773 68:5DEB); first: hdma_rom_to_vram at 55:6773: hl=$4400 a=$5D c=$40 de=$8C01 (dest VRAM $8C00, vbank=1)
 
 Gfx_Kbd_T4_Tiles8C00Vb1:: ; 5D:4400
-	INCBIN "gfx/keyboard/panels_bank5d/tiles_4400.2bpp"
+	INCBIN "gfx/keyboard/panels_bank5d/keyboard_type4_vram8c00_vb1_tiles.2bpp"

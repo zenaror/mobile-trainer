@@ -8,19 +8,19 @@ SECTION "gfx/keyboard/panels_bank5f", ROMX
 
 Gfx_Kbd_T9_Tiles8800Vb1:: ; 5F:4000
 
-	INCBIN "gfx/keyboard/panels_bank5f/tiles_4000.2bpp"
+	INCBIN "gfx/keyboard/panels_bank5f/keyboard_type9_vram8800_vb1_tiles.2bpp"
 
 ; ---- gfx $4400-$4800 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:6A9C: hl=$4400 a=$5F c=$40 de=$8C01 (dest VRAM $8C00, vbank=1)
 
 Gfx_Kbd_T9_Tiles8C00Vb1:: ; 5F:4400
 
-	INCBIN "gfx/keyboard/panels_bank5f/tiles_4400.2bpp"
+	INCBIN "gfx/keyboard/panels_bank5f/keyboard_type9_vram8c00_vb1_tiles.2bpp"
 
 ; ---- gfx $4800-$4810 (16 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:6AAE: hl=$4800 a=$5F c=$01 de=$9001 (dest VRAM $9000, vbank=1)
 
 Gfx_Kbd_T9_Tiles9000Vb1:: ; 5F:4800
 
-	INCBIN "gfx/keyboard/panels_bank5f/tiles_4800.2bpp"
+	INCBIN "gfx/keyboard/panels_bank5f/keyboard_type9_vram9000_vb1_tiles.2bpp"
 
 ; ---- data $4810-$49C8 (440 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 55:6ABF: hl=$4810 a=$5F b=11 rows c=20 cols (tiles then attrs) de=$D240
 
@@ -35,7 +35,7 @@ Tilemap_Kbd_T9:: ; 5F:4810
 ; ---- gfx $49D0-$4CD0 (768 bytes) [CONFIRMED] tiles-vram: 8 call site(s) (55:5C00 67:5184 67:5771 67:65B1); first: hdma_rom_to_vram at 55:5C00: hl=$49D0 a=$5F c=$30 de=$8001 (dest VRAM $8000, vbank=1)
 
 Gfx_SharedPanels_Vram8000Vb1:: ; 5F:49D0
-	INCBIN "gfx/keyboard/panels_bank5f/tiles_49d0.2bpp"
+	INCBIN "gfx/keyboard/panels_bank5f/shared_keyboard_panel_vram8000_vb1_tiles.2bpp"
 
 ; ---- data $4CD0-$4CF8 (40 bytes) [CONFIRMED] RGB555 block: BG6..7 at +0 (16 bytes) and OBJ5..7 at
 ; +$10 (24 bytes). All nine bank-aware palette consumers ran naturally; the object table begins at
@@ -447,19 +447,19 @@ Padding_Kbd_T3ToT5_TileAlignment:: ; 5F:58F3
 
 Gfx_Kbd_T5_Tiles8800Vb1:: ; 5F:5900
 
-	INCBIN "gfx/keyboard/panels_bank5f/tiles_5900.2bpp"
+	INCBIN "gfx/keyboard/panels_bank5f/keyboard_type5_vram8800_vb1_tiles.2bpp"
 
 ; ---- gfx $5D00-$6100 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:67BD: hl=$5D00 a=$5F c=$40 de=$8C01 (dest VRAM $8C00, vbank=1) [first call site executed: 110 hits in 4 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_Kbd_T5_Tiles8C00Vb1:: ; 5F:5D00
 
-	INCBIN "gfx/keyboard/panels_bank5f/tiles_5d00.2bpp"
+	INCBIN "gfx/keyboard/panels_bank5f/keyboard_type5_vram8c00_vb1_tiles.2bpp"
 
 ; ---- gfx $6100-$6200 (256 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:67CF: hl=$6100 a=$5F c=$10 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 110 hits in 4 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_Kbd_T5_Tiles9000Vb1:: ; 5F:6100
 
-	INCBIN "gfx/keyboard/panels_bank5f/tiles_6100.2bpp"
+	INCBIN "gfx/keyboard/panels_bank5f/keyboard_type5_vram9000_vb1_tiles.2bpp"
 
 ; ---- zero $6200-$6980 (1920 bytes) [HYPOTHESIS] padding? run of 1920 x $00 in unclassified bytes
 	ds $780, $00

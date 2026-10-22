@@ -104,3 +104,8 @@ evidence and gates: `docs/research/top_menu_resource_paths_20261022.md`.
 ## Bank 58 registration notice asset paths (2026-10-22)
 
 Twenty-seven address-only paths in `gfx/registration/registration_notice_art_bank58/` now follow the existing notice labels and static Bank 65 readers. The directly loaded 58:4000 prefix and paired 20×18 tilemap paths carry CONFIRMED static roles; header/footer tile families and the palette retain PROBABLE/candidate wording. Payload hashes, source extents and evidence levels are unchanged. The English tree was not accessed. See [`registration_notice_bank58_resource_paths_20261022.md`](registration_notice_bank58_resource_paths_20261022.md).
+
+
+## Keyboard panel tile paths (2026-10-22)
+
+Nine generic `tiles_<address>` pairs in the T4, T5, T9 and shared Bank 5D/5F panel groups now name their confirmed VRAM1 destinations and keyboard type where applicable. Their existing CONFIRMED transfer classifications, payloads and source extents are unchanged. The English tree was not accessed. See [`keyboard_panel_tile_paths_20261022.md`](keyboard_panel_tile_paths_20261022.md).

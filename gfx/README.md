@@ -893,19 +893,19 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_4000.2bpp` | 2bpp tiles | 1024 | 5D:4000 | CONFIRMED | exact | - | `gfx/keyboard/panels_bank5d.asm` |
-| `tiles_4400.2bpp` | 2bpp tiles | 1024 | 5D:4400 | CONFIRMED | exact | - | `gfx/keyboard/panels_bank5d.asm` |
+| `keyboard_type4_vram8800_vb1_tiles.2bpp` | 2bpp tiles | 1024 | 5D:4000 | CONFIRMED | exact | - | `gfx/keyboard/panels_bank5d.asm` |
+| `keyboard_type4_vram8c00_vb1_tiles.2bpp` | 2bpp tiles | 1024 | 5D:4400 | CONFIRMED | exact | - | `gfx/keyboard/panels_bank5d.asm` |
 
 ### `gfx/keyboard/panels_bank5f/`
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_4000.2bpp` | 2bpp tiles | 1024 | 5F:4000 | CONFIRMED | exact | - | `gfx/keyboard/panels_bank5f.asm` |
-| `tiles_4400.2bpp` | 2bpp tiles | 1024 | 5F:4400 | CONFIRMED | exact | - | `gfx/keyboard/panels_bank5f.asm` |
-| `tiles_4800.2bpp` | 2bpp tiles | 16 | 5F:4800 | CONFIRMED | exact | - | `gfx/keyboard/panels_bank5f.asm` |
+| `keyboard_type9_vram8800_vb1_tiles.2bpp` | 2bpp tiles | 1024 | 5F:4000 | CONFIRMED | exact | - | `gfx/keyboard/panels_bank5f.asm` |
+| `keyboard_type9_vram8c00_vb1_tiles.2bpp` | 2bpp tiles | 1024 | 5F:4400 | CONFIRMED | exact | - | `gfx/keyboard/panels_bank5f.asm` |
+| `keyboard_type9_vram9000_vb1_tiles.2bpp` | 2bpp tiles | 16 | 5F:4800 | CONFIRMED | exact | - | `gfx/keyboard/panels_bank5f.asm` |
 | `tilemap_4810.tilemap` | tile-index map | 220 | 5F:4810 | CONFIRMED | - | 20x11 | `gfx/keyboard/panels_bank5f.asm` |
 | `tilemap_4810.attrmap` | attribute map | 220 | 5F:48EC | CONFIRMED | - | 20x11 | `gfx/keyboard/panels_bank5f.asm` |
-| `tiles_49d0.2bpp` | 2bpp tiles | 768 | 5F:49D0 | CONFIRMED | exact | - | `gfx/keyboard/panels_bank5f.asm` |
+| `shared_keyboard_panel_vram8000_vb1_tiles.2bpp` | 2bpp tiles | 768 | 5F:49D0 | CONFIRMED | exact | - | `gfx/keyboard/panels_bank5f.asm` |
 | `palette_4cd0.pal` | RGB palette | 40 | 5F:4CD0 | CONFIRMED | - | - | `gfx/keyboard/panels_bank5f.asm` |
 | `tilemap_4ecb.tilemap` | tile-index map | 260 | 5F:4ECB | CONFIRMED | - | 20x13 | `gfx/keyboard/panels_bank5f.asm` |
 | `tilemap_4ecb.attrmap` | attribute map | 260 | 5F:4FCF | CONFIRMED | - | 20x13 | `gfx/keyboard/panels_bank5f.asm` |
@@ -917,9 +917,9 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `tilemap_54e3.attrmap` | attribute map | 260 | 5F:55E7 | CONFIRMED | - | 20x13 | `gfx/keyboard/panels_bank5f.asm` |
 | `tilemap_56eb.tilemap` | tile-index map | 260 | 5F:56EB | CONFIRMED | - | 20x13 | `gfx/keyboard/panels_bank5f.asm` |
 | `tilemap_56eb.attrmap` | attribute map | 260 | 5F:57EF | CONFIRMED | - | 20x13 | `gfx/keyboard/panels_bank5f.asm` |
-| `tiles_5900.2bpp` | 2bpp tiles | 1024 | 5F:5900 | CONFIRMED | exact | - | `gfx/keyboard/panels_bank5f.asm` |
-| `tiles_5d00.2bpp` | 2bpp tiles | 1024 | 5F:5D00 | CONFIRMED | exact | - | `gfx/keyboard/panels_bank5f.asm` |
-| `tiles_6100.2bpp` | 2bpp tiles | 256 | 5F:6100 | CONFIRMED | exact | - | `gfx/keyboard/panels_bank5f.asm` |
+| `keyboard_type5_vram8800_vb1_tiles.2bpp` | 2bpp tiles | 1024 | 5F:5900 | CONFIRMED | exact | - | `gfx/keyboard/panels_bank5f.asm` |
+| `keyboard_type5_vram8c00_vb1_tiles.2bpp` | 2bpp tiles | 1024 | 5F:5D00 | CONFIRMED | exact | - | `gfx/keyboard/panels_bank5f.asm` |
+| `keyboard_type5_vram9000_vb1_tiles.2bpp` | 2bpp tiles | 256 | 5F:6100 | CONFIRMED | exact | - | `gfx/keyboard/panels_bank5f.asm` |
 | `tilemap_69b0.tilemap` | tile-index map | 260 | 5F:69B0 | CONFIRMED | - | 20x13 | `gfx/keyboard/panels_bank5f.asm` |
 | `tilemap_69b0.attrmap` | attribute map | 260 | 5F:6AB4 | CONFIRMED | - | 20x13 | `gfx/keyboard/panels_bank5f.asm` |
 | `palette_6bb8.pal` | RGB palette | 24 | 5F:6BB8 | PROBABLE | - | - | `gfx/keyboard/panels_bank5f.asm` |

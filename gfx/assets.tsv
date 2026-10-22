@@ -531,8 +531,8 @@ gfx/help/mobile_dictionary/mobile_dict_screen.tilemap	tilemap	360	gfx/help/mobil
 gfx/help/mobile_dictionary/mobile_dict_tiles0.2bpp	tiles	512	gfx/help/mobile_dictionary.asm	1A	4A90	CONFIRMED	exact	0		Gfx_MobileDict_Tiles0
 gfx/help/mobile_dictionary/mobile_dict_tiles1.2bpp	tiles	1024	gfx/help/mobile_dictionary.asm	1A	4C90	CONFIRMED	exact	0		Gfx_MobileDict_Tiles1
 gfx/help/mobile_dictionary/mobile_dict_tiles2.2bpp	tiles	768	gfx/help/mobile_dictionary.asm	1A	5090	CONFIRMED	exact	0		Gfx_MobileDict_Tiles2
-gfx/keyboard/panels_bank5d/tiles_4000.2bpp	tiles	1024	gfx/keyboard/panels_bank5d.asm	5D	4000	CONFIRMED	exact	0		Gfx_Kbd_T4_Tiles8800Vb1
-gfx/keyboard/panels_bank5d/tiles_4400.2bpp	tiles	1024	gfx/keyboard/panels_bank5d.asm	5D	4400	CONFIRMED	exact	0		Gfx_Kbd_T4_Tiles8C00Vb1
+gfx/keyboard/panels_bank5d/keyboard_type4_vram8800_vb1_tiles.2bpp	tiles	1024	gfx/keyboard/panels_bank5d.asm	5D	4000	CONFIRMED	exact	0		Gfx_Kbd_T4_Tiles8800Vb1
+gfx/keyboard/panels_bank5d/keyboard_type4_vram8c00_vb1_tiles.2bpp	tiles	1024	gfx/keyboard/panels_bank5d.asm	5D	4400	CONFIRMED	exact	0		Gfx_Kbd_T4_Tiles8C00Vb1
 gfx/keyboard/panels_bank5f/palette_4cd0.pal	palette	40	gfx/keyboard/panels_bank5f.asm	5F	4CD0	CONFIRMED	-	0		Palette_SharedPanels_BgObj
 gfx/keyboard/panels_bank5f/palette_6bb8.pal	palette	24	gfx/keyboard/panels_bank5f.asm	5F	6BB8	PROBABLE	-	0		Palette_Kbd_T5_Bg1
 gfx/keyboard/panels_bank5f/tilemap_4810.attrmap	attrmap	220	gfx/keyboard/panels_bank5f.asm	5F	48EC	CONFIRMED	-	0	20x11	Tilemap_Kbd_T9
@@ -549,13 +549,13 @@ gfx/keyboard/panels_bank5f/tilemap_56eb.attrmap	attrmap	260	gfx/keyboard/panels_
 gfx/keyboard/panels_bank5f/tilemap_56eb.tilemap	tilemap	260	gfx/keyboard/panels_bank5f.asm	5F	56EB	CONFIRMED	-	0	20x13	Tilemap_Kbd_T3
 gfx/keyboard/panels_bank5f/tilemap_69b0.attrmap	attrmap	260	gfx/keyboard/panels_bank5f.asm	5F	6AB4	CONFIRMED	-	0	20x13	Tilemap_Kbd_T5
 gfx/keyboard/panels_bank5f/tilemap_69b0.tilemap	tilemap	260	gfx/keyboard/panels_bank5f.asm	5F	69B0	CONFIRMED	-	0	20x13	Tilemap_Kbd_T5
-gfx/keyboard/panels_bank5f/tiles_4000.2bpp	tiles	1024	gfx/keyboard/panels_bank5f.asm	5F	4000	CONFIRMED	exact	0		Gfx_Kbd_T9_Tiles8800Vb1
-gfx/keyboard/panels_bank5f/tiles_4400.2bpp	tiles	1024	gfx/keyboard/panels_bank5f.asm	5F	4400	CONFIRMED	exact	0		Gfx_Kbd_T9_Tiles8C00Vb1
-gfx/keyboard/panels_bank5f/tiles_4800.2bpp	tiles	16	gfx/keyboard/panels_bank5f.asm	5F	4800	CONFIRMED	exact	0		Gfx_Kbd_T9_Tiles9000Vb1
-gfx/keyboard/panels_bank5f/tiles_49d0.2bpp	tiles	768	gfx/keyboard/panels_bank5f.asm	5F	49D0	CONFIRMED	exact	0		Gfx_SharedPanels_Vram8000Vb1
-gfx/keyboard/panels_bank5f/tiles_5900.2bpp	tiles	1024	gfx/keyboard/panels_bank5f.asm	5F	5900	CONFIRMED	exact	0		Gfx_Kbd_T5_Tiles8800Vb1
-gfx/keyboard/panels_bank5f/tiles_5d00.2bpp	tiles	1024	gfx/keyboard/panels_bank5f.asm	5F	5D00	CONFIRMED	exact	0		Gfx_Kbd_T5_Tiles8C00Vb1
-gfx/keyboard/panels_bank5f/tiles_6100.2bpp	tiles	256	gfx/keyboard/panels_bank5f.asm	5F	6100	CONFIRMED	exact	0		Gfx_Kbd_T5_Tiles9000Vb1
+gfx/keyboard/panels_bank5f/keyboard_type9_vram8800_vb1_tiles.2bpp	tiles	1024	gfx/keyboard/panels_bank5f.asm	5F	4000	CONFIRMED	exact	0		Gfx_Kbd_T9_Tiles8800Vb1
+gfx/keyboard/panels_bank5f/keyboard_type9_vram8c00_vb1_tiles.2bpp	tiles	1024	gfx/keyboard/panels_bank5f.asm	5F	4400	CONFIRMED	exact	0		Gfx_Kbd_T9_Tiles8C00Vb1
+gfx/keyboard/panels_bank5f/keyboard_type9_vram9000_vb1_tiles.2bpp	tiles	16	gfx/keyboard/panels_bank5f.asm	5F	4800	CONFIRMED	exact	0		Gfx_Kbd_T9_Tiles9000Vb1
+gfx/keyboard/panels_bank5f/shared_keyboard_panel_vram8000_vb1_tiles.2bpp	tiles	768	gfx/keyboard/panels_bank5f.asm	5F	49D0	CONFIRMED	exact	0		Gfx_SharedPanels_Vram8000Vb1
+gfx/keyboard/panels_bank5f/keyboard_type5_vram8800_vb1_tiles.2bpp	tiles	1024	gfx/keyboard/panels_bank5f.asm	5F	5900	CONFIRMED	exact	0		Gfx_Kbd_T5_Tiles8800Vb1
+gfx/keyboard/panels_bank5f/keyboard_type5_vram8c00_vb1_tiles.2bpp	tiles	1024	gfx/keyboard/panels_bank5f.asm	5F	5D00	CONFIRMED	exact	0		Gfx_Kbd_T5_Tiles8C00Vb1
+gfx/keyboard/panels_bank5f/keyboard_type5_vram9000_vb1_tiles.2bpp	tiles	256	gfx/keyboard/panels_bank5f.asm	5F	6100	CONFIRMED	exact	0		Gfx_Kbd_T5_Tiles9000Vb1
 gfx/keyboard/type7_8_page_graphics_bank62/type7_8_page0_tiles8800_vb1_4000.2bpp	tiles	1024	gfx/keyboard/type7_8_page_graphics_bank62.asm	62	4000	CONFIRMED	exact	0		Gfx_Kbd_T78_Page0_Tiles8800Vb1
 gfx/keyboard/type7_8_page_graphics_bank62/type7_8_page0_tiles8c00_vb1_4400.2bpp	tiles	1024	gfx/keyboard/type7_8_page_graphics_bank62.asm	62	4400	CONFIRMED	exact	0		Gfx_Kbd_T78_Page0_Tiles8C00Vb1
 gfx/keyboard/type7_8_page_graphics_bank62/type7_8_page0_tiles9000_vb1_4800.2bpp	tiles	576	gfx/keyboard/type7_8_page_graphics_bank62.asm	62	4800	CONFIRMED	exact	0		Gfx_Kbd_T78_Page0_Tiles9000Vb1

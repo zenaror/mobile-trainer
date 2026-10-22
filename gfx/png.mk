@@ -247,15 +247,15 @@ PNG_TILE_OUTS := \
 	gfx/help/script_illustrations_14_26/picture_24_tiles.2bpp \
 	gfx/help/script_illustrations_14_26/picture_25_tiles.2bpp \
 	gfx/help/script_illustrations_14_26/picture_26_tiles.2bpp \
-	gfx/keyboard/panels_bank5d/tiles_4000.2bpp \
-	gfx/keyboard/panels_bank5d/tiles_4400.2bpp \
-	gfx/keyboard/panels_bank5f/tiles_4000.2bpp \
-	gfx/keyboard/panels_bank5f/tiles_4400.2bpp \
-	gfx/keyboard/panels_bank5f/tiles_4800.2bpp \
-	gfx/keyboard/panels_bank5f/tiles_49d0.2bpp \
-	gfx/keyboard/panels_bank5f/tiles_5900.2bpp \
-	gfx/keyboard/panels_bank5f/tiles_5d00.2bpp \
-	gfx/keyboard/panels_bank5f/tiles_6100.2bpp \
+	gfx/keyboard/panels_bank5d/keyboard_type4_vram8800_vb1_tiles.2bpp \
+	gfx/keyboard/panels_bank5d/keyboard_type4_vram8c00_vb1_tiles.2bpp \
+	gfx/keyboard/panels_bank5f/keyboard_type5_vram8800_vb1_tiles.2bpp \
+	gfx/keyboard/panels_bank5f/keyboard_type5_vram8c00_vb1_tiles.2bpp \
+	gfx/keyboard/panels_bank5f/keyboard_type5_vram9000_vb1_tiles.2bpp \
+	gfx/keyboard/panels_bank5f/keyboard_type9_vram8800_vb1_tiles.2bpp \
+	gfx/keyboard/panels_bank5f/keyboard_type9_vram8c00_vb1_tiles.2bpp \
+	gfx/keyboard/panels_bank5f/keyboard_type9_vram9000_vb1_tiles.2bpp \
+	gfx/keyboard/panels_bank5f/shared_keyboard_panel_vram8000_vb1_tiles.2bpp \
 	gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/mail_draft_exit_options.2bpp \
 	gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t10_tiles8a80_vb1_6900.2bpp \
 	gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t6_page0_tiles8800_vb1_4000.2bpp \
@@ -671,15 +671,15 @@ gfx/help/script_illustrations_14_26/picture_23_tiles.2bpp: PNG_SIZE := 1152
 gfx/help/script_illustrations_14_26/picture_24_tiles.2bpp: PNG_SIZE := 1152
 gfx/help/script_illustrations_14_26/picture_25_tiles.2bpp: PNG_SIZE := 1152
 gfx/help/script_illustrations_14_26/picture_26_tiles.2bpp: PNG_SIZE := 1152
-gfx/keyboard/panels_bank5d/tiles_4000.2bpp: PNG_SIZE := 1024
-gfx/keyboard/panels_bank5d/tiles_4400.2bpp: PNG_SIZE := 1024
-gfx/keyboard/panels_bank5f/tiles_4000.2bpp: PNG_SIZE := 1024
-gfx/keyboard/panels_bank5f/tiles_4400.2bpp: PNG_SIZE := 1024
-gfx/keyboard/panels_bank5f/tiles_4800.2bpp: PNG_SIZE := 16
-gfx/keyboard/panels_bank5f/tiles_49d0.2bpp: PNG_SIZE := 768
-gfx/keyboard/panels_bank5f/tiles_5900.2bpp: PNG_SIZE := 1024
-gfx/keyboard/panels_bank5f/tiles_5d00.2bpp: PNG_SIZE := 1024
-gfx/keyboard/panels_bank5f/tiles_6100.2bpp: PNG_SIZE := 256
+gfx/keyboard/panels_bank5d/keyboard_type4_vram8800_vb1_tiles.2bpp: PNG_SIZE := 1024
+gfx/keyboard/panels_bank5d/keyboard_type4_vram8c00_vb1_tiles.2bpp: PNG_SIZE := 1024
+gfx/keyboard/panels_bank5f/keyboard_type5_vram8800_vb1_tiles.2bpp: PNG_SIZE := 1024
+gfx/keyboard/panels_bank5f/keyboard_type5_vram8c00_vb1_tiles.2bpp: PNG_SIZE := 1024
+gfx/keyboard/panels_bank5f/keyboard_type5_vram9000_vb1_tiles.2bpp: PNG_SIZE := 256
+gfx/keyboard/panels_bank5f/keyboard_type9_vram8800_vb1_tiles.2bpp: PNG_SIZE := 1024
+gfx/keyboard/panels_bank5f/keyboard_type9_vram8c00_vb1_tiles.2bpp: PNG_SIZE := 1024
+gfx/keyboard/panels_bank5f/keyboard_type9_vram9000_vb1_tiles.2bpp: PNG_SIZE := 16
+gfx/keyboard/panels_bank5f/shared_keyboard_panel_vram8000_vb1_tiles.2bpp: PNG_SIZE := 768
 gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/mail_draft_exit_options.2bpp: PNG_SIZE := 1920
 gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t10_tiles8a80_vb1_6900.2bpp: PNG_SIZE := 400
 gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/t10_tiles8a80_vb1_6900.2bpp: PNG_PAD := -x 7
