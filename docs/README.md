@@ -80,6 +80,7 @@ Reference documents (current):
 | [`japanese_dialog_line_labels_20261022.md`](research/japanese_dialog_line_labels_20261022.md) | Nine bank-72 candidate labels replaced with table-index and line-position names |
 | [`local_branch_label_pass_20261022.md`](research/local_branch_label_pass_20261022.md) | 97 address-only labels replaced across two passes; one previously unlabeled block named; 4,845 numeric local labels remain for evidence-based review |
 | [`local_branch_label_pass_20261023.md`](research/local_branch_label_pass_20261023.md) | 72 Japanese Mobile SDK/mail/keyboard local labels renamed from static flow; 4,773 numeric local labels remain in the tracked six-root census |
+| [`generic_data_name_followup_20261023.md`](research/generic_data_name_followup_20261023.md) | Bounded evidence review retains 13 exact `Data_BB_AAAA` labels as neutral where code entry or resource type is unproved |
 | [`registration_notice_bank58_resource_paths_20261022.md`](research/registration_notice_bank58_resource_paths_20261022.md) | Bank 58 registration notice assets renamed from type/address paths using static labels and readers |
 | [`keyboard_panel_tile_paths_20261022.md`](research/keyboard_panel_tile_paths_20261022.md) | Nine keyboard tile sets renamed by confirmed type and VRAM destinations |
 | [`connect_dialog_bank56_tile_paths_20261022.md`](research/connect_dialog_bank56_tile_paths_20261022.md) | Eleven ConnectDialog tile sets renamed by confirmed static VRAM destinations |
