@@ -422,13 +422,13 @@ PNG_TILE_OUTS := \
 	gfx/title/title_screen/title_tiles4.2bpp \
 	gfx/title/title_screen/title_tiles5.2bpp \
 	gfx/title/title_screen/title_tiles6.2bpp \
-	gfx/top_menu/top_menu/tiles_49a0.2bpp \
-	gfx/top_menu/top_menu/tiles_4da0.2bpp \
-	gfx/top_menu/top_menu/tiles_51a0.2bpp \
-	gfx/top_menu/top_menu/tiles_55a0.2bpp \
-	gfx/top_menu/top_menu/tiles_59a0.2bpp \
-	gfx/top_menu/top_menu/tiles_5ba0.2bpp \
-	gfx/top_menu/top_menu/tiles_5fa0.2bpp \
+	gfx/top_menu/top_menu/top_menu_vram0_8000_tiles.2bpp \
+	gfx/top_menu/top_menu/top_menu_vram0_8400_tiles.2bpp \
+	gfx/top_menu/top_menu/top_menu_vram0_8800_tiles.2bpp \
+	gfx/top_menu/top_menu/top_menu_vram0_8c00_tiles.2bpp \
+	gfx/top_menu/top_menu/top_menu_vram0_9000_tiles.2bpp \
+	gfx/top_menu/top_menu/top_menu_vram1_9000_tiles.2bpp \
+	gfx/top_menu/top_menu/top_menu_vram1_9400_tiles.2bpp \
 	gfx/ui_art/logo_and_window_tiles/logo_and_window_tiles.2bpp \
 	gfx/ui_art/logo_and_window_tiles/mail_server_box_tiles.2bpp \
 	gfx/unresolved/tile_graphics_candidate/tiles_candidate.2bpp \
@@ -861,13 +861,13 @@ gfx/title/title_screen/title_tiles3.2bpp: PNG_SIZE := 512
 gfx/title/title_screen/title_tiles4.2bpp: PNG_SIZE := 1024
 gfx/title/title_screen/title_tiles5.2bpp: PNG_SIZE := 1024
 gfx/title/title_screen/title_tiles6.2bpp: PNG_SIZE := 1024
-gfx/top_menu/top_menu/tiles_49a0.2bpp: PNG_SIZE := 1024
-gfx/top_menu/top_menu/tiles_4da0.2bpp: PNG_SIZE := 1024
-gfx/top_menu/top_menu/tiles_51a0.2bpp: PNG_SIZE := 1024
-gfx/top_menu/top_menu/tiles_55a0.2bpp: PNG_SIZE := 1024
-gfx/top_menu/top_menu/tiles_59a0.2bpp: PNG_SIZE := 512
-gfx/top_menu/top_menu/tiles_5ba0.2bpp: PNG_SIZE := 1024
-gfx/top_menu/top_menu/tiles_5fa0.2bpp: PNG_SIZE := 768
+gfx/top_menu/top_menu/top_menu_vram0_8000_tiles.2bpp: PNG_SIZE := 1024
+gfx/top_menu/top_menu/top_menu_vram0_8400_tiles.2bpp: PNG_SIZE := 1024
+gfx/top_menu/top_menu/top_menu_vram0_8800_tiles.2bpp: PNG_SIZE := 1024
+gfx/top_menu/top_menu/top_menu_vram0_8c00_tiles.2bpp: PNG_SIZE := 1024
+gfx/top_menu/top_menu/top_menu_vram0_9000_tiles.2bpp: PNG_SIZE := 512
+gfx/top_menu/top_menu/top_menu_vram1_9000_tiles.2bpp: PNG_SIZE := 1024
+gfx/top_menu/top_menu/top_menu_vram1_9400_tiles.2bpp: PNG_SIZE := 768
 gfx/ui_art/logo_and_window_tiles/logo_and_window_tiles.2bpp: PNG_SIZE := 4608
 gfx/ui_art/logo_and_window_tiles/mail_server_box_tiles.2bpp: PNG_SIZE := 1152
 gfx/unresolved/tile_graphics_candidate/tiles_candidate.2bpp: PNG_SIZE := 720

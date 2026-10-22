@@ -86,3 +86,16 @@ defined `BrowserStart_CandidateTiles_49E0`. The row now uses the source label,
 and the backing/PNG are `browser_start_candidate_tiles.{2bpp,png}`. The resource
 remains PROBABLE; its candidate wording does not promote it to a confirmed
 browser-start load or screen role.
+
+
+## Top Menu graphics path migration (2026-10-22)
+
+The seven address-only Top Menu tile names now record their statically
+confirmed VRAM destinations and banks. The two tilemap/attribute pairs are
+named by confirmed 20×16 and 12×9 dimensions; palette files follow existing
+BG/OBJ labels, retaining PROBABLE role classification. Renamed 21 file paths
+including PNG views, palettes, maps and the screen preview. All new files match
+their previous Git blobs byte-for-byte. Owner/catalogue paths and generated
+PNG metadata were synchronized. No source or ROM bytes changed. The English
+tree remains paused and untouched; whether it shares old paths is UNKNOWN. Full
+evidence and gates: `docs/research/top_menu_resource_paths_20261022.md`.

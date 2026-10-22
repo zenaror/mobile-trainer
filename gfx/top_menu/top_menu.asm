@@ -7,8 +7,8 @@ SECTION "gfx/top_menu/top_menu", ROMX
 ; ---- data $40D7-$4357 (640 bytes) [CONFIRMED] tilemap+attr: 2 call site(s) (1F:40E8 1F:435C); first: copy_tilemap_rect_pair at 1F:40E8: hl=$40D7 a=$1E b=16 rows c=20 cols (tiles then attrs) de=$D000
 
 Tilemap_TopMenu_1E_40D7:: ; 1E:40D7
-	INCBIN "gfx/top_menu/top_menu/tilemap_40d7.tilemap"
-	INCBIN "gfx/top_menu/top_menu/tilemap_40d7.attrmap"
+	INCBIN "gfx/top_menu/top_menu/top_menu_20x16.tilemap"
+	INCBIN "gfx/top_menu/top_menu/top_menu_20x16.attrmap"
 
 ; ---- data $4357-$48C1 (1386 bytes) [CONFIRMED] two indexed TopMenu_AnimatePanel source sequences: first 2 frames at $4357, then 5 at $44E3; each $C6-byte frame is 9x11 tile IDs followed by 9x11 attributes, copied by Tilemap_CopyRectAndAttr (B=$09,C=$0B). Executed traces read 990 bytes; 396 bytes have no read in the recorded traces, so this does not assert every frame was reached or prove a general bounds check.
 
@@ -104,8 +104,8 @@ TopMenu_AnimTilemapFrames:: ; 1E:4357
 ; ---- data $48C1-$4999 (216 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 1F:44F7: hl=$48C1 a=$1E b=9 rows c=12 cols (tiles then attrs) de=$D0E4
 
 Tilemap_TopMenu_1E_48C1:: ; 1E:48C1
-	INCBIN "gfx/top_menu/top_menu/tilemap_48c1.tilemap"
-	INCBIN "gfx/top_menu/top_menu/tilemap_48c1.attrmap"
+	INCBIN "gfx/top_menu/top_menu/top_menu_12x9.tilemap"
+	INCBIN "gfx/top_menu/top_menu/top_menu_12x9.attrmap"
 
 ; ---- zero $4999-$49A0 (7 bytes) [PROBABLE] 0x00 padding between the tilemap block ending at $4999 and the tile block at $49A0
 	ds $7, $00
@@ -113,47 +113,47 @@ Tilemap_TopMenu_1E_48C1:: ; 1E:48C1
 ; ---- gfx $49A0-$4DA0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1F:405A: hl=$49A0 a=$1E c=$40 de=$8000 (dest VRAM $8000, vbank=0)
 
 Gfx_TopMenu_Tiles8000:: ; 1E:49A0
-	INCBIN "gfx/top_menu/top_menu/tiles_49a0.2bpp"
+	INCBIN "gfx/top_menu/top_menu/top_menu_vram0_8000_tiles.2bpp"
 
 ; ---- gfx $4DA0-$51A0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1F:406C: hl=$4DA0 a=$1E c=$40 de=$8400 (dest VRAM $8400, vbank=0)
 
 Gfx_TopMenu_Tiles8400:: ; 1E:4DA0
-	INCBIN "gfx/top_menu/top_menu/tiles_4da0.2bpp"
+	INCBIN "gfx/top_menu/top_menu/top_menu_vram0_8400_tiles.2bpp"
 
 ; ---- gfx $51A0-$55A0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1F:407E: hl=$51A0 a=$1E c=$40 de=$8800 (dest VRAM $8800, vbank=0)
 
 Gfx_TopMenu_Tiles8800:: ; 1E:51A0
-	INCBIN "gfx/top_menu/top_menu/tiles_51a0.2bpp"
+	INCBIN "gfx/top_menu/top_menu/top_menu_vram0_8800_tiles.2bpp"
 
 ; ---- gfx $55A0-$59A0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1F:4090: hl=$55A0 a=$1E c=$40 de=$8C00 (dest VRAM $8C00, vbank=0)
 
 Gfx_TopMenu_Tiles8C00:: ; 1E:55A0
-	INCBIN "gfx/top_menu/top_menu/tiles_55a0.2bpp"
+	INCBIN "gfx/top_menu/top_menu/top_menu_vram0_8c00_tiles.2bpp"
 
 ; ---- gfx $59A0-$5BA0 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1F:40A2: hl=$59A0 a=$1E c=$20 de=$9000 (dest VRAM $9000, vbank=0)
 
 Gfx_TopMenu_Tiles9000:: ; 1E:59A0
-	INCBIN "gfx/top_menu/top_menu/tiles_59a0.2bpp"
+	INCBIN "gfx/top_menu/top_menu/top_menu_vram0_9000_tiles.2bpp"
 
 ; ---- gfx $5BA0-$5FA0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1F:40B4: hl=$5BA0 a=$1E c=$40 de=$9001 (dest VRAM $9000, vbank=1)
 
 Gfx_TopMenu_Tiles9000Vb1:: ; 1E:5BA0
-	INCBIN "gfx/top_menu/top_menu/tiles_5ba0.2bpp"
+	INCBIN "gfx/top_menu/top_menu/top_menu_vram1_9000_tiles.2bpp"
 
 ; ---- gfx $5FA0-$62A0 (768 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1F:40C6: hl=$5FA0 a=$1E c=$30 de=$9401 (dest VRAM $9400, vbank=1)
 
 Gfx_TopMenu_Tiles9400Vb1:: ; 1E:5FA0
-	INCBIN "gfx/top_menu/top_menu/tiles_5fa0.2bpp"
+	INCBIN "gfx/top_menu/top_menu/top_menu_vram1_9400_tiles.2bpp"
 
 ; ---- data $62A0-$62E0 (64 bytes) [PROBABLE] 64-byte RGB555 palette block copied by Palette_LoadToBuffer (hl=$62A0 a=$1E bc=$0040 de=$D800) at 1F:40D7; the call site 1F:40D7 IS in analysis/coverage_union.tsv (executed; the earlier 'never executed' used the old 18-scenario union) - status kept PROBABLE because the palette role of the $D800 buffer is not independently demonstrated; replaces the mapper palette guess 62A0-6360 which swallowed the first sprite records
 
 Palette_TopMenu_Bg:: ; 1E:62A0
-	INCLUDE "gfx/top_menu/top_menu/palette_62a0.pal"
+	INCLUDE "gfx/top_menu/top_menu/top_menu_bg_palette.pal"
 
 ; ---- data $62E0-$6320 (64 bytes) [PROBABLE] 64-byte RGB555 palette block copied by Palette_LoadToBuffer (hl=$62E0 a=$1E bc=$0040 de=$D840) at 1F:4109; the call site 1F:4109 IS in analysis/coverage_union.tsv (executed; earlier 'never executed' was based on the old 18-scenario union) - status kept PROBABLE; replaces the mapper palette guess 62A0-6360 which swallowed the first sprite records
 
 Palette_TopMenu_Obj:: ; 1E:62E0
-	INCLUDE "gfx/top_menu/top_menu/palette_62e0.pal"
+	INCLUDE "gfx/top_menu/top_menu/top_menu_obj_palette.pal"
 
 ; ---- words $6320-$6332 (18 bytes) [PROBABLE] sprite frame table: 9 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 

@@ -2053,3 +2053,10 @@ paths for their static VRAM destinations, tilemap/attribute pair, and BG/OBJ
 palettes. The asset bytes and confidence levels are unchanged; natural entry
 and the intended screen role remain HYPOTHESIS. See the dated [Bank 2C
 resource-path note](docs/research/address_book_candidate_screen_graphics_paths.md).
+
+
+The 2026-10-22 Top Menu path pass replaced 21 address-only graphics filenames
+with names based on confirmed VRAM destinations and map dimensions. All 21
+renamed payload/preview files match their former Git blobs; the Japanese build
+remains byte-identical. English remains paused and its old-path references were
+not inspected. See the [Top Menu resource-path note](docs/research/top_menu_resource_paths_20261022.md).

@@ -1462,19 +1462,19 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tilemap_40d7.tilemap` | tile-index map | 320 | 1E:40D7 | CONFIRMED | - | 20x16 | `gfx/top_menu/top_menu.asm` |
-| `tilemap_40d7.attrmap` | attribute map | 320 | 1E:4217 | CONFIRMED | - | 20x16 | `gfx/top_menu/top_menu.asm` |
-| `tilemap_48c1.tilemap` | tile-index map | 108 | 1E:48C1 | CONFIRMED | - | 12x9 | `gfx/top_menu/top_menu.asm` |
-| `tilemap_48c1.attrmap` | attribute map | 108 | 1E:492D | CONFIRMED | - | 12x9 | `gfx/top_menu/top_menu.asm` |
-| `tiles_49a0.2bpp` | 2bpp tiles | 1024 | 1E:49A0 | CONFIRMED | exact | - | `gfx/top_menu/top_menu.asm` |
-| `tiles_4da0.2bpp` | 2bpp tiles | 1024 | 1E:4DA0 | CONFIRMED | exact | - | `gfx/top_menu/top_menu.asm` |
-| `tiles_51a0.2bpp` | 2bpp tiles | 1024 | 1E:51A0 | CONFIRMED | exact | - | `gfx/top_menu/top_menu.asm` |
-| `tiles_55a0.2bpp` | 2bpp tiles | 1024 | 1E:55A0 | CONFIRMED | exact | - | `gfx/top_menu/top_menu.asm` |
-| `tiles_59a0.2bpp` | 2bpp tiles | 512 | 1E:59A0 | CONFIRMED | exact | - | `gfx/top_menu/top_menu.asm` |
-| `tiles_5ba0.2bpp` | 2bpp tiles | 1024 | 1E:5BA0 | CONFIRMED | exact | - | `gfx/top_menu/top_menu.asm` |
-| `tiles_5fa0.2bpp` | 2bpp tiles | 768 | 1E:5FA0 | CONFIRMED | exact | - | `gfx/top_menu/top_menu.asm` |
-| `palette_62a0.pal` | RGB palette | 64 | 1E:62A0 | PROBABLE | - | - | `gfx/top_menu/top_menu.asm` |
-| `palette_62e0.pal` | RGB palette | 64 | 1E:62E0 | PROBABLE | - | - | `gfx/top_menu/top_menu.asm` |
+| `top_menu_20x16.tilemap` | tile-index map | 320 | 1E:40D7 | CONFIRMED | - | 20x16 | `gfx/top_menu/top_menu.asm` |
+| `top_menu_20x16.attrmap` | attribute map | 320 | 1E:4217 | CONFIRMED | - | 20x16 | `gfx/top_menu/top_menu.asm` |
+| `top_menu_12x9.tilemap` | tile-index map | 108 | 1E:48C1 | CONFIRMED | - | 12x9 | `gfx/top_menu/top_menu.asm` |
+| `top_menu_12x9.attrmap` | attribute map | 108 | 1E:492D | CONFIRMED | - | 12x9 | `gfx/top_menu/top_menu.asm` |
+| `top_menu_vram0_8000_tiles.2bpp` | 2bpp tiles | 1024 | 1E:49A0 | CONFIRMED | exact | - | `gfx/top_menu/top_menu.asm` |
+| `top_menu_vram0_8400_tiles.2bpp` | 2bpp tiles | 1024 | 1E:4DA0 | CONFIRMED | exact | - | `gfx/top_menu/top_menu.asm` |
+| `top_menu_vram0_8800_tiles.2bpp` | 2bpp tiles | 1024 | 1E:51A0 | CONFIRMED | exact | - | `gfx/top_menu/top_menu.asm` |
+| `top_menu_vram0_8c00_tiles.2bpp` | 2bpp tiles | 1024 | 1E:55A0 | CONFIRMED | exact | - | `gfx/top_menu/top_menu.asm` |
+| `top_menu_vram0_9000_tiles.2bpp` | 2bpp tiles | 512 | 1E:59A0 | CONFIRMED | exact | - | `gfx/top_menu/top_menu.asm` |
+| `top_menu_vram1_9000_tiles.2bpp` | 2bpp tiles | 1024 | 1E:5BA0 | CONFIRMED | exact | - | `gfx/top_menu/top_menu.asm` |
+| `top_menu_vram1_9400_tiles.2bpp` | 2bpp tiles | 768 | 1E:5FA0 | CONFIRMED | exact | - | `gfx/top_menu/top_menu.asm` |
+| `top_menu_bg_palette.pal` | RGB palette | 64 | 1E:62A0 | PROBABLE | - | - | `gfx/top_menu/top_menu.asm` |
+| `top_menu_obj_palette.pal` | RGB palette | 64 | 1E:62E0 | PROBABLE | - | - | `gfx/top_menu/top_menu.asm` |
 
 ### `gfx/ui_art/logo_and_window_tiles/`
 
