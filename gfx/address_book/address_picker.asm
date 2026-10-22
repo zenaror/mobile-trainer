@@ -50,85 +50,85 @@ Palette_AddrBook_Obj:: ; 2C:71D0
 
 Table_AddrSlotIcon_Anims:: ; 2C:7210
 
-	sprite_object_entry AddrSlotIcon_ObjAnimData_2C_7260, SpriteScript_2C_728E ; entry 0
-	sprite_object_entry AddrSlotIcon_ObjAnimData_2C_7260, SpriteScript_2C_728E ; entry 1
-	sprite_object_entry AddrSlotIcon_ObjAnimData_2C_7260, SpriteScript_2C_728E ; entry 2
-	sprite_object_entry AddrSlotIcon_ObjAnimData_2C_7260, SpriteScript_2C_728E ; entry 3
+	sprite_object_entry AddrSlotIcon_Entries0To3_FramePointers, AddrSlotIcon_Entries0To3_AnimScript ; entry 0
+	sprite_object_entry AddrSlotIcon_Entries0To3_FramePointers, AddrSlotIcon_Entries0To3_AnimScript ; entry 1
+	sprite_object_entry AddrSlotIcon_Entries0To3_FramePointers, AddrSlotIcon_Entries0To3_AnimScript ; entry 2
+	sprite_object_entry AddrSlotIcon_Entries0To3_FramePointers, AddrSlotIcon_Entries0To3_AnimScript ; entry 3
 Table_AddrSlotIcon_Anims_Entry4:: ; 2C:7220
-	sprite_object_entry SpriteFrameTable_2C_7291, SpriteScript_2C_72A4 ; entry 4
-	sprite_object_entry SpriteFrameTable_2C_7291, SpriteScript_2C_72A4 ; entry 5
-	sprite_object_entry SpriteFrameTable_2C_7291, SpriteScript_2C_72A4 ; entry 6
-	sprite_object_entry SpriteFrameTable_2C_7291, SpriteScript_2C_72A4 ; entry 7
+	sprite_object_entry AddrSlotIcon_Entry4_FramePointers, AddrSlotIcon_Entry4_AnimScript ; entry 4
+	sprite_object_entry AddrSlotIcon_Entry4_FramePointers, AddrSlotIcon_Entry4_AnimScript ; entry 5
+	sprite_object_entry AddrSlotIcon_Entry4_FramePointers, AddrSlotIcon_Entry4_AnimScript ; entry 6
+	sprite_object_entry AddrSlotIcon_Entry4_FramePointers, AddrSlotIcon_Entry4_AnimScript ; entry 7
 Table_AddrSlotIcon_Anims_Entry8:: ; 2C:7230
-	sprite_object_entry SpriteFrameTable_2C_72A7, SpriteScript_2C_72BA ; entry 8
-	sprite_object_entry SpriteFrameTable_2C_72A7, SpriteScript_2C_72BA ; entry 9
-	sprite_object_entry SpriteFrameTable_2C_72A7, SpriteScript_2C_72BA ; entry 10
-	sprite_object_entry SpriteFrameTable_2C_72A7, SpriteScript_2C_72BA ; entry 11
+	sprite_object_entry AddrSlotIcon_Entry8_FramePointers, AddrSlotIcon_Entry8_AnimScript ; entry 8
+	sprite_object_entry AddrSlotIcon_Entry8_FramePointers, AddrSlotIcon_Entry8_AnimScript ; entry 9
+	sprite_object_entry AddrSlotIcon_Entry8_FramePointers, AddrSlotIcon_Entry8_AnimScript ; entry 10
+	sprite_object_entry AddrSlotIcon_Entry8_FramePointers, AddrSlotIcon_Entry8_AnimScript ; entry 11
 Table_AddrSlotIcon_Anims_Entry12:: ; 2C:7240
-	sprite_object_entry SpriteFrameTable_2C_72BD, AddrSlotIcon_AnimScript ; entry 12
-	sprite_object_entry SpriteFrameTable_2C_72BD, AddrSlotIcon_AnimScript ; entry 13
-	sprite_object_entry SpriteFrameTable_2C_72BD, AddrSlotIcon_AnimScript ; entry 14
-	sprite_object_entry SpriteFrameTable_2C_72BD, AddrSlotIcon_AnimScript ; entry 15
+	sprite_object_entry AddrSlotIcon_Entry12_FramePointers, AddrSlotIcon_AnimScript ; entry 12
+	sprite_object_entry AddrSlotIcon_Entry12_FramePointers, AddrSlotIcon_AnimScript ; entry 13
+	sprite_object_entry AddrSlotIcon_Entry12_FramePointers, AddrSlotIcon_AnimScript ; entry 14
+	sprite_object_entry AddrSlotIcon_Entry12_FramePointers, AddrSlotIcon_AnimScript ; entry 15
 Table_AddrSlotIcon_Anims_Entry16:: ; 2C:7250
-	sprite_object_entry SpriteFrameTable_2C_735F, SpriteScript_2C_740E ; entry 16
-	sprite_object_entry SpriteFrameTable_2C_735F, SpriteScript_2C_740E ; entry 17
-	sprite_object_entry SpriteFrameTable_2C_735F, SpriteScript_2C_740E ; entry 18
-	sprite_object_entry SpriteFrameTable_2C_735F, SpriteScript_2C_740E ; entry 19
+	sprite_object_entry AddrSlotIcon_Entry16_FramePointers, AddrSlotIcon_Entry16_AnimScript ; entry 16
+	sprite_object_entry AddrSlotIcon_Entry16_FramePointers, AddrSlotIcon_Entry16_AnimScript ; entry 17
+	sprite_object_entry AddrSlotIcon_Entry16_FramePointers, AddrSlotIcon_Entry16_AnimScript ; entry 18
+	sprite_object_entry AddrSlotIcon_Entry16_FramePointers, AddrSlotIcon_Entry16_AnimScript ; entry 19
 
 ; ---- data $7260-$7355 (245 bytes) [PROBABLE] object animation frame records: [count][count x 4 bytes (y,x,tile,attr)] ... chained by pointer lists and terminated by 01 00 04/08 groups; format not fully decoded; reached through the pointer tables; first target of Table_AddrSlotIcon_Anims (7260: dw 7264, dw 7279, then the frames) up to the CONFIRMED-read data at 7355
 
-AddrSlotIcon_ObjAnimData_2C_7260:: ; 2C:7260
+AddrSlotIcon_Entries0To3_FramePointers:: ; 2C:7260
 
-	sprite_frame_table SpriteFrame_2C_7264, SpriteFrame_2C_7279
-SpriteFrame_2C_7264:: ; 2C:7264
+	sprite_frame_table AddrSlotIcon_Entries0To3_Frame0, AddrSlotIcon_Entries0To3_Frame1
+AddrSlotIcon_Entries0To3_Frame0:: ; 2C:7264
 	sprite_frame 5
 	sprite_oam -2, 1, $00, 0
 	sprite_oam -2, 9, $01, 0
 	sprite_oam -2, 17, $02, 0
 	sprite_oam 6, 6, $03, 0
 	sprite_oam 6, 14, $04, 0
-SpriteFrame_2C_7279:: ; 2C:7279
+AddrSlotIcon_Entries0To3_Frame1:: ; 2C:7279
 	sprite_frame 5
 	sprite_oam -2, 1, $00, 0
 	sprite_oam -2, 9, $01, 0
 	sprite_oam -2, 17, $02, 0
 	sprite_oam 6, 6, $03, 0
 	sprite_oam 6, 14, $04, 0
-SpriteScript_2C_728E:: ; 2C:728E
+AddrSlotIcon_Entries0To3_AnimScript:: ; 2C:728E
 	sprite_anim 1
 	sprite_anim_step 0, 4
-SpriteFrameTable_2C_7291:: ; 2C:7291
-	sprite_frame_table SpriteFrame_2C_7293
-SpriteFrame_2C_7293:: ; 2C:7293
+AddrSlotIcon_Entry4_FramePointers:: ; 2C:7291
+	sprite_frame_table AddrSlotIcon_Entry4_Frame0
+AddrSlotIcon_Entry4_Frame0:: ; 2C:7293
 	sprite_frame 4
 	sprite_oam 0, 8, $0D, 0
 	sprite_oam 0, 16, $0E, 0
 	sprite_oam 8, 8, $2E, 0
 	sprite_oam 8, 16, $2F, 0
-SpriteScript_2C_72A4:: ; 2C:72A4
+AddrSlotIcon_Entry4_AnimScript:: ; 2C:72A4
 	sprite_anim 1
 	sprite_anim_step 0, 4
-SpriteFrameTable_2C_72A7:: ; 2C:72A7
-	sprite_frame_table SpriteFrame_2C_72A9
-SpriteFrame_2C_72A9:: ; 2C:72A9
+AddrSlotIcon_Entry8_FramePointers:: ; 2C:72A7
+	sprite_frame_table AddrSlotIcon_Entry8_Frame0
+AddrSlotIcon_Entry8_Frame0:: ; 2C:72A9
 	sprite_frame 4
 	sprite_oam 0, 8, $01, 0
 	sprite_oam 0, 16, $02, 0
 	sprite_oam 8, 8, $03, 0
 	sprite_oam 8, 16, $04, 0
-SpriteScript_2C_72BA:: ; 2C:72BA
+AddrSlotIcon_Entry8_AnimScript:: ; 2C:72BA
 	sprite_anim 1
 	sprite_anim_step 0, 4
-SpriteFrameTable_2C_72BD:: ; 2C:72BD
-	sprite_frame_table SpriteFrame_2C_72C7, SpriteFrame_2C_72D8, SpriteFrame_2C_72F9, SpriteFrame_2C_731A
-	sprite_frame_table SpriteFrame_2C_733B
-SpriteFrame_2C_72C7:: ; 2C:72C7
+AddrSlotIcon_Entry12_FramePointers:: ; 2C:72BD
+	sprite_frame_table AddrSlotIcon_Entry12_Frame0, AddrSlotIcon_Entry12_Frame1, AddrSlotIcon_Entry12_Frame2, AddrSlotIcon_Entry12_Frame3
+	sprite_frame_table AddrSlotIcon_Entry12_Frame4
+AddrSlotIcon_Entry12_Frame0:: ; 2C:72C7
 	sprite_frame 4
 	sprite_oam 0, 8, $0D, 0
 	sprite_oam 0, 16, $0E, 0
 	sprite_oam 8, 8, $2E, 0
 	sprite_oam 8, 16, $2F, 0
-SpriteFrame_2C_72D8:: ; 2C:72D8
+AddrSlotIcon_Entry12_Frame1:: ; 2C:72D8
 	sprite_frame 8
 	sprite_oam 1, 8, $22, 0
 	sprite_oam 1, 16, $23, 0
@@ -138,7 +138,7 @@ SpriteFrame_2C_72D8:: ; 2C:72D8
 	sprite_oam 3, 16, $42, 2
 	sprite_oam 11, 8, $43, 2
 	sprite_oam 11, 16, $43, 2
-SpriteFrame_2C_72F9:: ; 2C:72F9
+AddrSlotIcon_Entry12_Frame2:: ; 2C:72F9
 	sprite_frame 8
 	sprite_oam -7, 9, $24, 2
 	sprite_oam -7, 17, $25, 2
@@ -148,7 +148,7 @@ SpriteFrame_2C_72F9:: ; 2C:72F9
 	sprite_oam 3, 17, $42, 2
 	sprite_oam 4, 9, $42, 2
 	sprite_oam 4, 17, $42, 2
-SpriteFrame_2C_731A:: ; 2C:731A
+AddrSlotIcon_Entry12_Frame3:: ; 2C:731A
 	sprite_frame 8
 	sprite_oam -5, 5, $28, 2
 	sprite_oam -5, 13, $29, 2
@@ -158,7 +158,7 @@ SpriteFrame_2C_731A:: ; 2C:731A
 	sprite_oam 3, 21, $2D, 2
 	sprite_oam 4, 8, $42, 2
 	sprite_oam 4, 16, $42, 2
-SpriteFrame_2C_733B:: ; 2C:733B
+AddrSlotIcon_Entry12_Frame4:: ; 2C:733B
 	sprite_frame 6
 	sprite_oam -3, 5, $19, 2
 	sprite_oam -3, 13, $1A, 2
@@ -179,16 +179,16 @@ AddrSlotIcon_AnimScript_FirstStep:: ; 2C:7355
 AddrSlotIcon_ObjAnimData_2C_7357:: ; 2C:7357
 
 	db $01, $05, $02, $05, $03, $03, $04, $12 ; not reached by any walked sprite chain
-SpriteFrameTable_2C_735F:: ; 2C:735F
-	sprite_frame_table SpriteFrame_2C_7369, SpriteFrame_2C_737A, SpriteFrame_2C_739B, SpriteFrame_2C_73BC
-	sprite_frame_table SpriteFrame_2C_73E9
-SpriteFrame_2C_7369:: ; 2C:7369
+AddrSlotIcon_Entry16_FramePointers:: ; 2C:735F
+	sprite_frame_table AddrSlotIcon_Entry16_Frame0, AddrSlotIcon_Entry16_Frame1, AddrSlotIcon_Entry16_Frame2, AddrSlotIcon_Entry16_Frame3
+	sprite_frame_table AddrSlotIcon_Entry16_Frame4
+AddrSlotIcon_Entry16_Frame0:: ; 2C:7369
 	sprite_frame 4
 	sprite_oam 0, 8, $01, 0
 	sprite_oam 0, 16, $02, 0
 	sprite_oam 8, 8, $03, 0
 	sprite_oam 8, 16, $04, 0
-SpriteFrame_2C_737A:: ; 2C:737A
+AddrSlotIcon_Entry16_Frame1:: ; 2C:737A
 	sprite_frame 8
 	sprite_oam 1, 8, $05, 0
 	sprite_oam 1, 16, $06, 0
@@ -198,7 +198,7 @@ SpriteFrame_2C_737A:: ; 2C:737A
 	sprite_oam 3, 16, $42, 2
 	sprite_oam 11, 8, $43, 2
 	sprite_oam 11, 16, $43, 2
-SpriteFrame_2C_739B:: ; 2C:739B
+AddrSlotIcon_Entry16_Frame2:: ; 2C:739B
 	sprite_frame 8
 	sprite_oam 1, 9, $26, 2
 	sprite_oam 1, 17, $27, 2
@@ -208,7 +208,7 @@ SpriteFrame_2C_739B:: ; 2C:739B
 	sprite_oam 3, 17, $42, 2
 	sprite_oam 4, 9, $42, 2
 	sprite_oam 4, 17, $42, 2
-SpriteFrame_2C_73BC:: ; 2C:73BC
+AddrSlotIcon_Entry16_Frame3:: ; 2C:73BC
 	sprite_frame 11
 	sprite_oam 3, 5, $2B, 2
 	sprite_oam 3, 13, $2C, 2
@@ -221,7 +221,7 @@ SpriteFrame_2C_73BC:: ; 2C:73BC
 	sprite_oam -13, 21, $35, 2
 	sprite_oam 4, 8, $42, 2
 	sprite_oam 4, 16, $42, 2
-SpriteFrame_2C_73E9:: ; 2C:73E9
+AddrSlotIcon_Entry16_Frame4:: ; 2C:73E9
 	sprite_frame 9
 	sprite_oam -10, 5, $10, 2
 	sprite_oam -10, 13, $11, 2
@@ -232,7 +232,7 @@ SpriteFrame_2C_73E9:: ; 2C:73E9
 	sprite_oam 6, 5, $16, 2
 	sprite_oam 6, 13, $17, 2
 	sprite_oam 6, 21, $18, 2
-SpriteScript_2C_740E:: ; 2C:740E
+AddrSlotIcon_Entry16_AnimScript:: ; 2C:740E
 	sprite_anim 5
 	sprite_anim_step 0, 5
 	sprite_anim_step 1, 5

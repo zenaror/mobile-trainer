@@ -2091,7 +2091,7 @@ Func_*, Sub_*, or Label_* definitions and zero exact address-only Font_*,
 Tiles_*, Tilemap_*, Palette_*, or Attrmap_* definitions in the safe maintained
 source set. Fifteen neutral Data_BB_AAAA labels remain without a supported
 replacement. A broader scan found 595 typed sprite-frame, frame-table, and
-script labels. Two static-review batches have now named 37; the other address-only
+script labels. Two reviewed batches and one Address Picker structural batch have now named 60; the other address-only
 sprite labels still need owner-by-owner review. Thirty-three SaveSenderAddr labels
 remain neutral because they lack symbolic consumers. Address-based RAM definitions
 whose lexical non-use does not prove they are unused also remain under review. See
