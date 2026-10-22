@@ -39,31 +39,31 @@ ConfirmPages_Anim1Script:: ; 4A:402E
 
 Gfx_SettingsMenu_Tiles8000Vb1:: ; 4A:4040
 
-	INCBIN "gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4040.2bpp"
+	INCBIN "gfx/account/settings_menu_and_manual_confirm_bank4a/settings_menu_vram8000_vb1_tiles.2bpp"
 
 ; ---- gfx $4240-$4640 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:50BF: hl=$4240 a=$4A c=$40 de=$8801 (dest VRAM $8800, vbank=1)
 
 Gfx_SettingsMenu_Tiles8800Vb1:: ; 4A:4240
 
-	INCBIN "gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4240.2bpp"
+	INCBIN "gfx/account/settings_menu_and_manual_confirm_bank4a/settings_menu_vram8800_vb1_tiles.2bpp"
 
 ; ---- gfx $4640-$4A40 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:50D1: hl=$4640 a=$4A c=$40 de=$8C01 (dest VRAM $8C00, vbank=1)
 
 Gfx_SettingsMenu_Tiles8C00Vb1:: ; 4A:4640
 
-	INCBIN "gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4640.2bpp"
+	INCBIN "gfx/account/settings_menu_and_manual_confirm_bank4a/settings_menu_vram8c00_vb1_tiles.2bpp"
 
 ; ---- gfx $4A40-$4E40 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:50E3: hl=$4A40 a=$4A c=$40 de=$9001 (dest VRAM $9000, vbank=1)
 
 Gfx_SettingsMenu_Tiles9000Vb1:: ; 4A:4A40
 
-	INCBIN "gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4a40.2bpp"
+	INCBIN "gfx/account/settings_menu_and_manual_confirm_bank4a/settings_menu_vram9000_vb1_tiles.2bpp"
 
-; ---- gfx $4E40-$5180 (832 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:50F5: hl=$4E40 a=$4A c=$40 de=$9401 (dest VRAM $9400, vbank=1); the last $C0 bytes of the old blob hold 2 palettes, a 32-byte gap that no code reads and the head of a tilemap pair; the blocks below type them by what the code reads, and the HDMA request that copies the tiles copies them into VRAM as well
+; ---- gfx $4E40-$5180 (832 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:50F5: hl=$4E40 a=$4A c=$40 de=$9401 (dest VRAM $9400, vbank=1); the 1024-byte HDMA read continues through 40 bytes BG palette, 8 bytes OBJ palette, 32 bytes candidate OBJ ramp palette data and the first 112 bytes of the FlagClear tilemap; no dedicated palette reader was identified for the candidate ramps
 
 Gfx_SettingsMenu_Tiles9400Vb1:: ; 4A:4E40
 
-	INCBIN "gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4e40.2bpp"
+	INCBIN "gfx/account/settings_menu_and_manual_confirm_bank4a/settings_menu_vram9400_vb1_tile_prefix.2bpp"
 
 ; ---- data $5180-$51A8 (40 bytes) [CONFIRMED] palette-rgb555: 20 colours (5 palettes) read by Palette_LoadToBuffer: +$00 bc=$28 into wPaletteBufBg (engine/account/settings_menu.asm:190, call 68:5118 executed 538 hits in 15 scenarios (analysis/coverage_union.tsv))
 
@@ -91,8 +91,8 @@ Tilemap_SettingsMenu_FlagClear:: ; 4A:51D0
 
 Tilemap_SettingsMenu_FlagSet:: ; 4A:54A0
 
-	INCBIN "gfx/account/settings_menu_and_manual_confirm_bank4a/tilemap_54a0.tilemap"
-	INCBIN "gfx/account/settings_menu_and_manual_confirm_bank4a/tilemap_54a0.attrmap"
+	INCBIN "gfx/account/settings_menu_and_manual_confirm_bank4a/settings_menu_flag_set_background.tilemap"
+	INCBIN "gfx/account/settings_menu_and_manual_confirm_bank4a/settings_menu_flag_set_background.attrmap"
 
 ; ---- data $5770-$5810 (160 bytes) [CONFIRMED] four records indexed by wSettingsMenu_Cursor through 68:528C; each contains 20 tile numbers then 20 $0A attributes for a 2x10 tilemap/attrmap copied by Tilemap_CopyRectAndAttr with A=$4A and BC=$020A
 
@@ -161,7 +161,7 @@ SpriteScript_SettingsMenu_ObjTable_Entry1:: ; 4A:5866
 
 Gfx_Account_ConfirmManualScreen_Tiles9000Vb1:: ; 4A:5870
 
-	INCBIN "gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_5870.2bpp"
+	INCBIN "gfx/account/settings_menu_and_manual_confirm_bank4a/manual_confirm_vram9000_vb1_tiles.2bpp"
 
 ; ---- data $5C70-$5CB0 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/account/confirm_screens.asm:291, call 68:64BD executed 10 hits in 2 scenarios (analysis/coverage_union.tsv))
 
@@ -173,5 +173,5 @@ Palette_Account_ConfirmManualScreen_Bg:: ; 4A:5C70
 
 Tilemap_Account_ConfirmManualScreen:: ; 4A:5CB0
 
-	INCBIN "gfx/account/settings_menu_and_manual_confirm_bank4a/tilemap_5cb0.tilemap"
-	INCBIN "gfx/account/settings_menu_and_manual_confirm_bank4a/tilemap_5cb0.attrmap"
+	INCBIN "gfx/account/settings_menu_and_manual_confirm_bank4a/manual_confirm_background.tilemap"
+	INCBIN "gfx/account/settings_menu_and_manual_confirm_bank4a/manual_confirm_background.attrmap"

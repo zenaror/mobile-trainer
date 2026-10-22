@@ -333,7 +333,7 @@ Columns: `#` = order of the listing (path order); `asset` = PNG under `gfx/` (th
 | 216 | `help/help_screens_b/tiles_69f0` | 6A:69F0 | 2 (2x1) | HelpScript_Run@8000 | UNK | 2 tiles |
 | 217 | `help/help_screens_b/tiles_6a10` | 6A:6A10 | 1 (1x1) | HelpScript_Run@8AF0b1 | UNK | 1 tile |
 | 218 | `help/help_screens_b/tiles_6a20` | 6A:6A20 | 64 (16x4) | HelpScript_Run@8B00b1 | TXT | footer legend "A すすむ B もどる セレクト おわる" (help pages) |
-| 219 | `help/help_screens_b/tiles_6e20` | 6A:6E20 | 64 (16x4) | - | TXT | footer legend pieces + frame art |
+| 219 | `help/help_screens_b/help_script_candidate_tiles_6e20` | 6A:6E20 | 64 (16x4) | - | TXT | footer legend pieces + frame art |
 | 220 | `help/mobile_dictionary/mobile_dict_tiles0` | 1A:4A90 | 32 (16x2) | MobileDict_Redraw@8000 | TXT | tab row "ア カ サ タ ナ ハ マ ヤ ラ ワ ABC" (mobile dictionary) |
 | 221 | `help/mobile_dictionary/mobile_dict_tiles1` | 1A:4C90 | 64 (16x4) | MobileDict_Redraw@8B00b1 | TXT | banner "モバイルじてん" + tab pieces |
 | 222 | `help/mobile_dictionary/mobile_dict_tiles2` | 1A:5090 | 48 (16x3) | MobileDict_Redraw@8F00b1 | TXT | list row art / text pieces |

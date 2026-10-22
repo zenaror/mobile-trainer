@@ -210,34 +210,34 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_42d0.2bpp` | 2bpp tiles | 1024 | 4B:42D0 | CONFIRMED | exact | - | `gfx/account/result_page_bank4b.asm` |
-| `tiles_46d0.2bpp` | 2bpp tiles | 1024 | 4B:46D0 | CONFIRMED | exact | - | `gfx/account/result_page_bank4b.asm` |
+| `result_page_vram8800_vb1_tiles.2bpp` | 2bpp tiles | 1024 | 4B:42D0 | CONFIRMED | exact | - | `gfx/account/result_page_bank4b.asm` |
+| `result_page_vram8c00_vb1_tiles.2bpp` | 2bpp tiles | 1024 | 4B:46D0 | CONFIRMED | exact | - | `gfx/account/result_page_bank4b.asm` |
 | `account_result_page_tiles4ad0.2bpp` | 2bpp tiles | 1456 | 4B:4AD0 | CONFIRMED | exact | - | `gfx/account/result_page_bank4b.asm` |
 | `tiles_5080.2bpp` | 2bpp tiles | 896 | 4B:5080 | PROBABLE | exact | - | `gfx/account/result_page_bank4b.asm` |
 | `tiles_5420.2bpp` | 2bpp tiles | 1104 | 4B:5420 | PROBABLE | exact | - | `gfx/account/result_page_bank4b.asm` |
 | `account_result_page_bg.pal` | RGB palette | 40 | 4B:5870 | CONFIRMED | - | - | `gfx/account/result_page_bank4b.asm` |
-| `tilemap_5898.tilemap` | tile-index map | 360 | 4B:5898 | CONFIRMED | - | 20x18 | `gfx/account/result_page_bank4b.asm` |
-| `tilemap_5898.attrmap` | attribute map | 360 | 4B:5A00 | CONFIRMED | - | 20x18 | `gfx/account/result_page_bank4b.asm` |
+| `result_page_background.tilemap` | tile-index map | 360 | 4B:5898 | CONFIRMED | - | 20x18 | `gfx/account/result_page_bank4b.asm` |
+| `result_page_background.attrmap` | attribute map | 360 | 4B:5A00 | CONFIRMED | - | 20x18 | `gfx/account/result_page_bank4b.asm` |
 
 ### `gfx/account/settings_menu_and_manual_confirm_bank4a/`
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_4040.2bpp` | 2bpp tiles | 512 | 4A:4040 | CONFIRMED | exact | - | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
-| `tiles_4240.2bpp` | 2bpp tiles | 1024 | 4A:4240 | CONFIRMED | exact | - | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
-| `tiles_4640.2bpp` | 2bpp tiles | 1024 | 4A:4640 | CONFIRMED | exact | - | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
-| `tiles_4a40.2bpp` | 2bpp tiles | 1024 | 4A:4A40 | CONFIRMED | exact | - | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
-| `tiles_4e40.2bpp` | 2bpp tiles | 832 | 4A:4E40 | CONFIRMED | exact | - | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
+| `settings_menu_vram8000_vb1_tiles.2bpp` | 2bpp tiles | 512 | 4A:4040 | CONFIRMED | exact | - | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
+| `settings_menu_vram8800_vb1_tiles.2bpp` | 2bpp tiles | 1024 | 4A:4240 | CONFIRMED | exact | - | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
+| `settings_menu_vram8c00_vb1_tiles.2bpp` | 2bpp tiles | 1024 | 4A:4640 | CONFIRMED | exact | - | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
+| `settings_menu_vram9000_vb1_tiles.2bpp` | 2bpp tiles | 1024 | 4A:4A40 | CONFIRMED | exact | - | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
+| `settings_menu_vram9400_vb1_tile_prefix.2bpp` | 2bpp tiles | 832 | 4A:4E40 | CONFIRMED | exact | - | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
 | `settings_menu_bg.pal` | RGB palette | 40 | 4A:5180 | CONFIRMED | - | - | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
 | `settings_menu_obj.pal` | RGB palette | 8 | 4A:51A8 | CONFIRMED | - | - | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
 | `settings_menu_4a_51d0.tilemap` | tile-index map | 360 | 4A:51D0 | CONFIRMED | - | 20x18 | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
 | `settings_menu_4a_51d0.attrmap` | attribute map | 360 | 4A:5338 | CONFIRMED | - | 20x18 | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
-| `tilemap_54a0.tilemap` | tile-index map | 360 | 4A:54A0 | CONFIRMED | - | 20x18 | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
-| `tilemap_54a0.attrmap` | attribute map | 360 | 4A:5608 | CONFIRMED | - | 20x18 | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
-| `tiles_5870.2bpp` | 2bpp tiles | 1024 | 4A:5870 | CONFIRMED | exact | - | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
+| `settings_menu_flag_set_background.tilemap` | tile-index map | 360 | 4A:54A0 | CONFIRMED | - | 20x18 | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
+| `settings_menu_flag_set_background.attrmap` | attribute map | 360 | 4A:5608 | CONFIRMED | - | 20x18 | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
+| `manual_confirm_vram9000_vb1_tiles.2bpp` | 2bpp tiles | 1024 | 4A:5870 | CONFIRMED | exact | - | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
 | `account_confirm_manual_screen_bg.pal` | RGB palette | 64 | 4A:5C70 | CONFIRMED | - | - | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
-| `tilemap_5cb0.tilemap` | tile-index map | 360 | 4A:5CB0 | CONFIRMED | - | 20x18 | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
-| `tilemap_5cb0.attrmap` | attribute map | 360 | 4A:5E18 | CONFIRMED | - | 20x18 | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
+| `manual_confirm_background.tilemap` | tile-index map | 360 | 4A:5CB0 | CONFIRMED | - | 20x18 | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
+| `manual_confirm_background.attrmap` | attribute map | 360 | 4A:5E18 | CONFIRMED | - | 20x18 | `gfx/account/settings_menu_and_manual_confirm_bank4a.asm` |
 
 ### `gfx/address_book/address_editor/`
 
@@ -807,13 +807,13 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tilemap_6716.tilemap` | tile-index map | 360 | 6A:6716 | CONFIRMED | - | 20x18 | `gfx/help/help_screens_b.asm` |
-| `tilemap_6716.attrmap` | attribute map | 360 | 6A:687E | CONFIRMED | - | 20x18 | `gfx/help/help_screens_b.asm` |
-| `tiles_69f0.2bpp` | 2bpp tiles | 32 | 6A:69F0 | CONFIRMED | exact | - | `gfx/help/help_screens_b.asm` |
-| `tiles_6a10.2bpp` | 2bpp tiles | 16 | 6A:6A10 | CONFIRMED | exact | - | `gfx/help/help_screens_b.asm` |
-| `tiles_6a20.2bpp` | 2bpp tiles | 1024 | 6A:6A20 | CONFIRMED | exact | - | `gfx/help/help_screens_b.asm` |
+| `help_script_background.tilemap` | tile-index map | 360 | 6A:6716 | CONFIRMED | - | 20x18 | `gfx/help/help_screens_b.asm` |
+| `help_script_background.attrmap` | attribute map | 360 | 6A:687E | CONFIRMED | - | 20x18 | `gfx/help/help_screens_b.asm` |
+| `help_script_vram8000_vb0_tiles.2bpp` | 2bpp tiles | 32 | 6A:69F0 | CONFIRMED | exact | - | `gfx/help/help_screens_b.asm` |
+| `help_script_vram8af0_vb1_tiles.2bpp` | 2bpp tiles | 16 | 6A:6A10 | CONFIRMED | exact | - | `gfx/help/help_screens_b.asm` |
+| `help_script_vram8b00_vb1_tiles.2bpp` | 2bpp tiles | 1024 | 6A:6A20 | CONFIRMED | exact | - | `gfx/help/help_screens_b.asm` |
 | `help_script_candidate_tiles_6e20.2bpp` | 2bpp tiles | 1024 | 6A:6E20 | PROBABLE | exact | - | `gfx/help/help_screens_b.asm` |
-| `palette_7220.pal` | RGB palette | 128 | 6A:7220 | PROBABLE | - | - | `gfx/help/help_screens_b.asm` |
+| `help_script_bg_obj_palettes.pal` | RGB palette | 128 | 6A:7220 | PROBABLE | - | - | `gfx/help/help_screens_b.asm` |
 
 ### `gfx/help/mobile_dictionary/`
 

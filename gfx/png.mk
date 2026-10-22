@@ -57,16 +57,16 @@ PNG_TILE_OUTS := \
 	gfx/account/password_and_registration_config_bank5d/tiles_6c00.2bpp \
 	gfx/account/password_and_registration_config_bank5d/tiles_6e00.2bpp \
 	gfx/account/result_page_bank4b/account_result_page_tiles4ad0.2bpp \
-	gfx/account/result_page_bank4b/tiles_42d0.2bpp \
-	gfx/account/result_page_bank4b/tiles_46d0.2bpp \
+	gfx/account/result_page_bank4b/result_page_vram8800_vb1_tiles.2bpp \
+	gfx/account/result_page_bank4b/result_page_vram8c00_vb1_tiles.2bpp \
 	gfx/account/result_page_bank4b/tiles_5080.2bpp \
 	gfx/account/result_page_bank4b/tiles_5420.2bpp \
-	gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4040.2bpp \
-	gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4240.2bpp \
-	gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4640.2bpp \
-	gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4a40.2bpp \
-	gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4e40.2bpp \
-	gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_5870.2bpp \
+	gfx/account/settings_menu_and_manual_confirm_bank4a/manual_confirm_vram9000_vb1_tiles.2bpp \
+	gfx/account/settings_menu_and_manual_confirm_bank4a/settings_menu_vram8000_vb1_tiles.2bpp \
+	gfx/account/settings_menu_and_manual_confirm_bank4a/settings_menu_vram8800_vb1_tiles.2bpp \
+	gfx/account/settings_menu_and_manual_confirm_bank4a/settings_menu_vram8c00_vb1_tiles.2bpp \
+	gfx/account/settings_menu_and_manual_confirm_bank4a/settings_menu_vram9000_vb1_tiles.2bpp \
+	gfx/account/settings_menu_and_manual_confirm_bank4a/settings_menu_vram9400_vb1_tile_prefix.2bpp \
 	gfx/address_book/address_editor/abook_addr_tiles8800.2bpp \
 	gfx/address_book/address_picker/addr_book_tiles8f00.2bpp \
 	gfx/address_book/address_picker/addr_pick_candidate_tiles_6fd0.2bpp \
@@ -215,9 +215,9 @@ PNG_TILE_OUTS := \
 	gfx/help/help_screens_a/tiles_5ab0.2bpp \
 	gfx/help/help_screens_a/tiles_5eb0.2bpp \
 	gfx/help/help_screens_b/help_script_candidate_tiles_6e20.2bpp \
-	gfx/help/help_screens_b/tiles_69f0.2bpp \
-	gfx/help/help_screens_b/tiles_6a10.2bpp \
-	gfx/help/help_screens_b/tiles_6a20.2bpp \
+	gfx/help/help_screens_b/help_script_vram8000_vb0_tiles.2bpp \
+	gfx/help/help_screens_b/help_script_vram8af0_vb1_tiles.2bpp \
+	gfx/help/help_screens_b/help_script_vram8b00_vb1_tiles.2bpp \
 	gfx/help/mobile_dictionary/mobile_dict_tiles0.2bpp \
 	gfx/help/mobile_dictionary/mobile_dict_tiles1.2bpp \
 	gfx/help/mobile_dictionary/mobile_dict_tiles2.2bpp \
@@ -468,17 +468,17 @@ gfx/account/password_and_registration_config_bank5d/tiles_6900.2bpp: PNG_SIZE :=
 gfx/account/password_and_registration_config_bank5d/tiles_6c00.2bpp: PNG_SIZE := 512
 gfx/account/password_and_registration_config_bank5d/tiles_6e00.2bpp: PNG_SIZE := 512
 gfx/account/result_page_bank4b/account_result_page_tiles4ad0.2bpp: PNG_SIZE := 1456
-gfx/account/result_page_bank4b/tiles_42d0.2bpp: PNG_SIZE := 1024
-gfx/account/result_page_bank4b/tiles_46d0.2bpp: PNG_SIZE := 1024
+gfx/account/result_page_bank4b/result_page_vram8800_vb1_tiles.2bpp: PNG_SIZE := 1024
+gfx/account/result_page_bank4b/result_page_vram8c00_vb1_tiles.2bpp: PNG_SIZE := 1024
 gfx/account/result_page_bank4b/tiles_5080.2bpp: PNG_SIZE := 896
 gfx/account/result_page_bank4b/tiles_5420.2bpp: PNG_SIZE := 1104
 gfx/account/result_page_bank4b/tiles_5420.2bpp: PNG_PAD := -x 11
-gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4040.2bpp: PNG_SIZE := 512
-gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4240.2bpp: PNG_SIZE := 1024
-gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4640.2bpp: PNG_SIZE := 1024
-gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4a40.2bpp: PNG_SIZE := 1024
-gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4e40.2bpp: PNG_SIZE := 832
-gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_5870.2bpp: PNG_SIZE := 1024
+gfx/account/settings_menu_and_manual_confirm_bank4a/manual_confirm_vram9000_vb1_tiles.2bpp: PNG_SIZE := 1024
+gfx/account/settings_menu_and_manual_confirm_bank4a/settings_menu_vram8000_vb1_tiles.2bpp: PNG_SIZE := 512
+gfx/account/settings_menu_and_manual_confirm_bank4a/settings_menu_vram8800_vb1_tiles.2bpp: PNG_SIZE := 1024
+gfx/account/settings_menu_and_manual_confirm_bank4a/settings_menu_vram8c00_vb1_tiles.2bpp: PNG_SIZE := 1024
+gfx/account/settings_menu_and_manual_confirm_bank4a/settings_menu_vram9000_vb1_tiles.2bpp: PNG_SIZE := 1024
+gfx/account/settings_menu_and_manual_confirm_bank4a/settings_menu_vram9400_vb1_tile_prefix.2bpp: PNG_SIZE := 832
 gfx/address_book/address_editor/abook_addr_tiles8800.2bpp: PNG_SIZE := 752
 gfx/address_book/address_editor/abook_addr_tiles8800.2bpp: PNG_PAD := -x 1
 gfx/address_book/address_picker/addr_book_tiles8f00.2bpp: PNG_SIZE := 144
@@ -639,9 +639,9 @@ gfx/help/help_screens_a/tiles_5a90.2bpp: PNG_SIZE := 32
 gfx/help/help_screens_a/tiles_5ab0.2bpp: PNG_SIZE := 1024
 gfx/help/help_screens_a/tiles_5eb0.2bpp: PNG_SIZE := 1024
 gfx/help/help_screens_b/help_script_candidate_tiles_6e20.2bpp: PNG_SIZE := 1024
-gfx/help/help_screens_b/tiles_69f0.2bpp: PNG_SIZE := 32
-gfx/help/help_screens_b/tiles_6a10.2bpp: PNG_SIZE := 16
-gfx/help/help_screens_b/tiles_6a20.2bpp: PNG_SIZE := 1024
+gfx/help/help_screens_b/help_script_vram8000_vb0_tiles.2bpp: PNG_SIZE := 32
+gfx/help/help_screens_b/help_script_vram8af0_vb1_tiles.2bpp: PNG_SIZE := 16
+gfx/help/help_screens_b/help_script_vram8b00_vb1_tiles.2bpp: PNG_SIZE := 1024
 gfx/help/mobile_dictionary/mobile_dict_tiles0.2bpp: PNG_SIZE := 512
 gfx/help/mobile_dictionary/mobile_dict_tiles1.2bpp: PNG_SIZE := 1024
 gfx/help/mobile_dictionary/mobile_dict_tiles2.2bpp: PNG_SIZE := 768

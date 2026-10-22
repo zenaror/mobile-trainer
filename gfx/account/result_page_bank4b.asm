@@ -7,12 +7,12 @@ SECTION "gfx/account/result_page_bank4b", ROMX
 ; ---- gfx $42D0-$46D0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:76AA: hl=$42D0 a=$4B c=$40 de=$8801 (dest VRAM $8800, vbank=1)
 
 Gfx_Account_ResultPage_Tiles8800Vb1:: ; 4B:42D0
-	INCBIN "gfx/account/result_page_bank4b/tiles_42d0.2bpp"
+	INCBIN "gfx/account/result_page_bank4b/result_page_vram8800_vb1_tiles.2bpp"
 
 ; ---- gfx $46D0-$4AD0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:76BC: hl=$46D0 a=$4B c=$40 de=$8C01 (dest VRAM $8C00, vbank=1)
 
 Gfx_Account_ResultPage_Tiles8C00Vb1:: ; 4B:46D0
-	INCBIN "gfx/account/result_page_bank4b/tiles_46d0.2bpp"
+	INCBIN "gfx/account/result_page_bank4b/result_page_vram8c00_vb1_tiles.2bpp"
 
 ; ---- gfx $4AD0-$5080 (1456 bytes) [CONFIRMED] tile bytes included in positive VRAM1 DMA source spans [PROBABLE: result-page indexed banner role]
 
@@ -43,8 +43,8 @@ Palette_Account_ResultPage_Bg:: ; 4B:5870
 ; ---- data $5898-$5B68 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:76E1: hl=$5898 a=$4B b=18 rows c=20 cols (tiles then attrs) de=$D000
 
 Tilemap_Account_ResultPage:: ; 4B:5898
-	INCBIN "gfx/account/result_page_bank4b/tilemap_5898.tilemap"
-	INCBIN "gfx/account/result_page_bank4b/tilemap_5898.attrmap"
+	INCBIN "gfx/account/result_page_bank4b/result_page_background.tilemap"
+	INCBIN "gfx/account/result_page_bank4b/result_page_background.attrmap"
 
 ; ---- data $5B68-$5B90 (40 bytes) [CONFIRMED] ten four-byte digit tile/attribute records read by Account_ResultPage_DrawTimeDigits (68:788D; table at 68:793D) and copied as two vertical tiles; records store upper tile, lower tile, upper attribute, lower attribute; the final tile pair is $C0/$C1
 

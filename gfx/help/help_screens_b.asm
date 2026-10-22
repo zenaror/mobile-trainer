@@ -7,8 +7,8 @@ SECTION "gfx/help/help_screens_b", ROMX
 ; ---- data $6716-$69E6 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 6C:5A45: hl=$6716 a=$6A b=18 rows c=20 cols (tiles then attrs) de=$D000
 
 Tilemap_HelpScript:: ; 6A:6716
-	INCBIN "gfx/help/help_screens_b/tilemap_6716.tilemap"
-	INCBIN "gfx/help/help_screens_b/tilemap_6716.attrmap"
+	INCBIN "gfx/help/help_screens_b/help_script_background.tilemap"
+	INCBIN "gfx/help/help_screens_b/help_script_background.attrmap"
 
 ; ---- zero $69E6-$69F0 (10 bytes) [PROBABLE] zero-filled gap before the confirmed HDMA source at $69F0, which is 16-byte aligned; no direct reader found, universal non-use not proven
 
@@ -18,17 +18,17 @@ Padding_HelpScript_Tiles69F0Alignment:: ; 6A:69E6
 ; ---- gfx $69F0-$6A10 (32 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 6C:59FF: hl=$69F0 a=$6A c=$02 de=$8000 (dest VRAM $8000, vbank=0)
 
 Gfx_HelpScript_Tiles8000:: ; 6A:69F0
-	INCBIN "gfx/help/help_screens_b/tiles_69f0.2bpp"
+	INCBIN "gfx/help/help_screens_b/help_script_vram8000_vb0_tiles.2bpp"
 
 ; ---- gfx $6A10-$6A20 (16 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 6C:5A11: hl=$6A10 a=$6A c=$01 de=$8AF1 (dest VRAM $8AF0, vbank=1)
 
 Gfx_HelpScript_Tiles8AF0Vb1:: ; 6A:6A10
-	INCBIN "gfx/help/help_screens_b/tiles_6a10.2bpp"
+	INCBIN "gfx/help/help_screens_b/help_script_vram8af0_vb1_tiles.2bpp"
 
 ; ---- gfx $6A20-$6E20 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 6C:5A23: hl=$6A20 a=$6A c=$40 de=$8B01 (dest VRAM $8B00, vbank=1)
 
 Gfx_HelpScript_Tiles8B00Vb1:: ; 6A:6A20
-	INCBIN "gfx/help/help_screens_b/tiles_6a20.2bpp"
+	INCBIN "gfx/help/help_screens_b/help_script_vram8b00_vb1_tiles.2bpp"
 
 ; ---- gfx $6E20-$7220 (1024 bytes) [PROBABLE] 64 x 2bpp tiles (0x400, continues the 0x400 HDMA block 6A20-6E20; rendered: button glyphs "A すすむ B もどる"); no call site with hl=$6E20 found; the mapper heuristic cut it at 70A1 (parity 1) which is wrong
 
@@ -38,7 +38,7 @@ HelpScript_CandidateTiles_6E20:: ; 6A:6E20
 ; ---- data $7220-$72A0 (128 bytes) [PROBABLE] 16 palettes x 4 RGB555 words (0x80, all bit15 clear); 6C:5A2F loads hl=$7220 bc=$0040 de=$D800 then calls far 4F:4000; first 0x10 bytes read in 12/18 scenarios
 
 Palette_HelpScript_Bg:: ; 6A:7220
-	INCLUDE "gfx/help/help_screens_b/palette_7220.pal"
+	INCLUDE "gfx/help/help_screens_b/help_script_bg_obj_palettes.pal"
 
 ; ---- data $72A0-$72BB (27 bytes) [CONFIRMED] selected slot2 object chain:
 ; two frame pointers, two count2 OAM records, and script pairs (0,46)/(1,8).

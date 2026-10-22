@@ -22,6 +22,14 @@ Eleven address-only tile paths and their PNG sources now describe the existing d
 
 Twenty-eight Japanese ROM-backed asset paths and nine associated PNG paths now use the audited static transfer destination, shared-source, palette-owner, background and pointer-table roles. File hashes and ROM payload extents are preserved; the 512-byte `$6A90` slice remains explicitly a prefix of a longer DMA read. This is static naming evidence only, and whether the paused language overlay references these names remains UNKNOWN. The generated graphics catalog was refreshed, including stale derived screen rows from earlier Japanese renames. Details and limits are in [`comm_scene_graphics_path_audit_20261022.md`](docs/research/comm_scene_graphics_path_audit_20261022.md).
 
+### Bank 53 and frame/PNG inventory revalidated (2026-10-22)
+
+A fresh independent static pass at `bb2218e0` confirms the 25-name table re-emits 369 original bytes, all 25 candidate windows re-emit 85,200 original bytes, 137 Bank 41–47 catalogued assets match the ROM, 53 tile/raw PNG sources invert to exact payloads, and the 17 editable compositions match their declared pixel-index models. All 24 legacy previews pass file/CRC/dimension/decode checks; their composites were not regenerated. Across the eight resource directories, 71 PNG files exactly match 53 rules and 18 screen rows; no missing or orphan PNG was found in this finite scope. The eight KEEP views each have a legacy preview but no editable row. The 25 Japanese names still have no proved image association, and the audited selector descriptors do not read the Bank 53 table or select the 25 candidate windows. Details and limits are in [`assets_pokemon_frames_and_name_limits.md`](docs/research/assets_pokemon_frames_and_name_limits.md#independent-revalidation-at-japanese-checkpoint-bb2218e0-2026-10-22).
+
+### Graphics destination naming pass (2026-10-22)
+
+Two independent static reviews supported 16 graphics-stem renames (20 payloads, 33 files) using original-ROM extents and call-site transfer arguments. All file hashes were preserved. The pass also corrected the Bank 4A `$4E40` overread comment and a stale asset locator. This finite pass is not a semantic audit of all graphics paths. See [`gfx_destination_name_audit_20261022.md`](docs/research/gfx_destination_name_audit_20261022.md).
+
 
 The [definition of done](docs/REVERSE_ENGINEERING_RULES.md#23-definition-of-done) requires an explainable reconstruction as well as a reproducible ROM. `make`, symbol checks and a complete byte comparison establish reconstruction identity for the source actually checked; they do not establish complete semantics, natural execution or hardware behavior. Frozen `config/` and `docs/PROGRESS.md` counters, and dated counters below, are historical rather than a current completion census.
 

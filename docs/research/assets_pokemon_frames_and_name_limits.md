@@ -450,3 +450,39 @@ bytes have been reconciled, and no missing PNG was found in this scope. They
 do not connect any of the 25 Japanese bank-53 names to a frame, establish that
 the 24 bank-41–46 candidates are globally unused, or prove a natural loader
 for the unselected `47:68F0` window. Those semantic questions remain open.
+
+### Independent revalidation at Japanese checkpoint `bb2218e0` (2026-10-22)
+
+A fresh static read-only pass against the 2 MiB original ROM re-emitted the
+25-entry bank-53 table and strings at `53:4000–4171` (369 bytes), and
+re-emitted the 25 physical frame windows from seven graphics owners (85,200
+bytes total). It verified all 137 catalogued assets in banks 41–47 against
+the ROM, inverted 53 tile/raw PNG sources to exact binary payloads, and
+reconstructed the 17 editable views in memory: their 391,680 palette indices
+matched the declared composition models. The 24 legacy previews were checked
+for file presence, PNG CRC, dimensions and decode validity; their composite
+pixels were not recalculated in this pass. Across the eight asset directories,
+71 PNGs correspond exactly to 53 PNG rules and 18 screen rows, with no missing
+or orphan PNG. The eight KEEP windows still lack editable screen rows but each
+has a legacy preview. No missing ROM asset or PNG was found in this finite
+scope.
+
+The descriptor set at `4E:654B–661C` contains 27 selector words pointing to
+five descriptors; all 25 far-pointer fields select three resource families
+in bank 47. None selects bank 53, banks 41–46, or `47:68F0`. This only excludes
+the audited candidate windows from those descriptors; computed readers and
+other access paths remain open. The name table still has only self-references
+in the six safe maintained source roots, so its 25 ordinals cannot be mapped
+to frames by order. This pass used source files matching the current checkout;
+the ROM SHA-256 remains
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
+Audited control hashes are recorded in the checkpoint receipt and include
+`data/text/pokemon_names_bank53.asm`, `engine/browser/frame_graphics.asm`,
+`layout.link`, `gfx/assets.tsv`, `gfx/png_rules.tsv`, `gfx/screens.tsv`,
+`gfx/previews/screens.tsv`, the six Bank 41–46 frame owners and
+`gfx/browser/frames_2_3.asm`. The exact input sizes and SHA-256 values and
+measured results are retained in the ignored local receipt
+`.tmp/jp-bank53-revalidation-20261022/RECEIPT.json` (SHA-256
+`622b91ff343c465b6acfddb5b76ed27ec2ddad90e61de066c31323b013c87dc9`). This
+remains static asset-integrity evidence, not proof of natural selection,
+global unused status, universal reader absence, or name-to-image association.
