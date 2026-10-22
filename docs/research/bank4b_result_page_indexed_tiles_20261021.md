@@ -17,3 +17,10 @@ No producer/consumer chain or stronger format evidence was recovered in this pas
 ## Reproduction and retained evidence
 
 The independent audit compared each descriptor-derived intersection with original ROM bytes and the complete upload source; the extraction SHA-256 is also recorded by `gfx/png_rules.tsv`. Read-only reports are retained under `.tmp/agent-bank4b-positive-consumer-20261021/`: `REPORT.md` SHA-256 `076a1e1140d5a50064b200328d1f0e69b6cfd626d4a2be638d2cadb74b85c69a`; `ADDENDUM.md` SHA-256 `c3c1beef31a92f265b5a2718c6182d67ff870d112c5f8d6a8c72413981ef87b9`; `ADDENDUM_RESULT.json` SHA-256 `4b19a1635efd32d905566d562074b8033d44c42cfa587b41f6990a9bd8267908`. The audit base was `d1ad7596e84f04262e790d39e678a1b75e56e8ad`; subsequent checkout changes affected the same-address menu aliases and the graphics representation, not the bank 68 descriptors or ROM bytes.
+
+
+## Addendum (2026-10-22): second-banner transfer
+
+The earlier follow-up above is superseded for the exact interval `4B:5400–5420`. The second descriptor list at `68:7840–7849` contains source `4B:5370` at index 1. `Account_ResultPage_LoadBanner` sets destination `$9281`, bank `$95`, and count `$28`; the shared upload helper transfers `C*16` bytes, masks the destination low nibble, and selects VRAM bank from bit 0. The resulting static range is `4B:5370–55F0` to VRAM1 `$9280–$9500`, placing this 32-byte slice at VRAM1 `$9310–$9330`.
+
+The source label is now `Gfx_Account_ResultPage_SecondBanner1_Tiles9310Vb1`. This confirms a two-tile 2bpp transfer association from the static descriptor/caller chain. It does not establish natural execution, visible composition, or visual meaning. The earlier 18-scenario trace association does not identify this particular caller and is not used as the basis for the rename.

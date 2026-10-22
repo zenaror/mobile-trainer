@@ -24,9 +24,9 @@ Gfx_Account_ResultPage_Tiles4AD0:: ; 4B:4AD0
 AccountResultPage_CandidateTiles_5080:: ; 4B:5080
 	INCBIN "gfx/account/result_page_bank4b/tiles_5080.2bpp"
 
-; ---- data $5400-$5420 (32 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown [clipped from 5370-5B6C by higher-priority evidence]
+; ---- gfx $5400-$5420 (32 bytes) [CONFIRMED] two 2bpp tiles in static second-banner DMA: source 4B:5370-$55F0 -> VRAM1:$9280-$9500; this slice maps to $9310-$9330. No natural-use or visual claim.
 
-Data_4B_5400:: ; 4B:5400
+Gfx_Account_ResultPage_SecondBanner1_Tiles9310Vb1:: ; 4B:5400
 	db $00, $00, $00, $FF, $FF, $00, $F7, $F8, $9B, $0C, $6F, $64, $67, $64, $67, $64
 	db $00, $00, $00, $FF, $FF, $00, $FF, $20, $FF, $BE, $63, $62, $BF, $2A, $FD, $28
 

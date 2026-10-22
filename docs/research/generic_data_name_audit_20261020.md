@@ -1,5 +1,10 @@
 # Generic data-label audit: 82 retained `Data_*` labels
 
+This note preserves its dated historical findings. Its later 2026-10-22
+statement that `Data_4B_5400` lacks a supported transfer consumer is superseded
+by the descriptor/caller review in
+[`japanese_sprite_data_followup_20261022.md`](japanese_sprite_data_followup_20261022.md).
+
 ## Scope and method
 
 This bounded audit starts from the published Japanese source snapshot

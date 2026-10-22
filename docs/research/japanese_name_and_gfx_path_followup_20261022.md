@@ -1,5 +1,13 @@
 # Japanese name and graphics-path follow-up (2026-10-22)
 
+**Status update (2026-10-22):** the counts and remaining-symbol statements below
+describe the earlier checkpoint. The bounded follow-up now names 33 Save Sender
+Address sprite symbols by repeated entry groups and one of the 15 audited
+`Data_BB_AAAA` spans as a confirmed static tile-transfer slice. Fourteen data
+labels and approximately 502 typed address-only sprite symbols remain in the
+current Japanese audit; see
+[`japanese_sprite_data_followup_20261022.md`](japanese_sprite_data_followup_20261022.md).
+
 ## Scope and controls
 
 This static pass used the Japanese source at be627911718ee6512ab687c2521c9b578d1cfb4c and the original ROM whose SHA-256 is 6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570. English-language sources and operator ZIP inputs were excluded. The private source census covered 349 maintained ASM/INC files, excluding protected engine/mail/sample_data.asm; its ordered source-manifest SHA-256 is 2cd19e3efef49b552f21745d5bfa5f7da3db4052f2e2e0ddbbb6006cf429ff21.
