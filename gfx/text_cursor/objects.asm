@@ -6,7 +6,7 @@ SECTION "gfx/text_cursor/objects", ROMX
 
 ; ---- data $7B00-$7B40 (64 bytes) [PROBABLE] 8 RGB555 palettes of 4 colours (all words < $8000; the last five are 0000 294A 56B5 7FFF); the mapper heuristic that made 7B10-7BA0 one 18-group palette ran over the object tables that follow (7B40-7B90)
 Palette_TextCursor_Obj:: ; 7F:7B00
-	INCLUDE "gfx/text_cursor/objects/palette_7b00.pal"
+	INCLUDE "gfx/text_cursor/objects/text_cursor_obj_palette.pal"
 
 ; ---- words $7B40-$7B90 (80 bytes) [PROBABLE] 5 object tables of 4 entries x 2 words (7B40, 7B50, 7B60, 7B70, 7B80; 16 bytes each, every entry repeated) read by init_object_from_table (00:0A82, de=$7B50/$7B60/$7B70/$7B80, a=$7F, callers in banks 2A, 2C, 2D, 2F, 65); all words point into 7B90-7CC5
 

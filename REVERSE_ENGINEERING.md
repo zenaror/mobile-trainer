@@ -2076,10 +2076,10 @@ See the dated [gfx path follow-up](docs/research/gfx_generic_name_audit_20261021
 
 A later filename census found that the source-level result does not cover asset
 basenames: after owner-aligned Page List, error-screen, browser-scrollbar,
-ConnectDialog, MailView, MailSession, MailServer, CommTimeHMS and Mailbox Profile palette path updates, 81 type/address stems remain across 10 descriptive `gfx/` folders, covering 162
-files. There are still no current `bankNN` directories. Of 101 logical payload
-entries in that residual inventory, 100 have `gfx/assets.tsv` rows (75
-CONFIRMED and 25 PROBABLE); the lexical pass did not revalidate their loaders
+ConnectDialog, MailView, MailSession, MailServer, CommTimeHMS, Mailbox Profile and TextCursor palette path updates, 80 type/address stems remain across 9 descriptive `gfx/` folders, covering 161
+files. There are still no current `bankNN` directories. Of 100 logical payload
+entries in that residual inventory, 99 have `gfx/assets.tsv` rows (75
+CONFIRMED and 24 PROBABLE); the lexical pass did not revalidate their loaders
 or visual roles. The `tiles_5860` files in Bank 4A are a documented byte-view of
 sprite/script bytes, not tile art, and remain outside the active catalogue.
 Resolve the other basenames owner by owner before renaming or treating any as
