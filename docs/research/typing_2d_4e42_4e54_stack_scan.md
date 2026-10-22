@@ -1,6 +1,6 @@
-# Neutral static contracts at 2D:4E42 and 2D:4E54
+# Static contracts and naming history at 2D:4E42 and 2D:4E54
 
-The labels `Function_2D_4E42` and `Function_2D_4E54` remain neutral. Their scan and local stack contracts are **PROBABLE static** interpretations of the original bytes. Runtime entry, valid input domain, purpose, and the intent of the early return remain **HYPOTHESIS**. This note proposes no repaired instruction, semantic alias or translation.
+This note preserves the original neutral-name review and later proposal history. Its opening neutral-label recommendation was superseded in published commit `c6236d0635b4639811435565a6944ed0e4820438`: the current Japanese source names the wrapper `MailBody_LocateCell` and the helper `MailBody_LocateCellInMappedWram` (see `engine/mail/body_editor.asm`). The names describe the statically observed operation, not a proved natural entry or complete API contract. The scan and local stack contracts remain **PROBABLE static**; runtime entry, valid input domain, application purpose, and the intent of the early return remain **HYPOTHESIS**. Current reconciliation is in `REVERSE_ENGINEERING.md` and `docs/research/original_closure_followup_20261021.md`.
 
 ## Boundaries and entry evidence
 
