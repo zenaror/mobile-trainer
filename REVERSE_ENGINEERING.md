@@ -1652,7 +1652,7 @@ Bank 4D's settings graphics now use bounded `TileSlice` names for five
 confirmed DMA-covered tile intervals, preserving cross-boundary upload
 limits. Eight same-address `Data_4D_*` aliases and two generic object-table
 aliases were retired under existing symbols. The updated six-root count is
-417 `Data_BB_AAAA::` definitions in 135 owners. See the [bank-4D audit](docs/research/generic_data_name_audit_20261020.md#bank-4d-settings-graphics-slices-and-object-table-aliases-2026-10-21).
+417 `Data_BB_AAAA::` definitions in 135 owners. See the [bank-4D audit](docs/research/generic_data_name_audit_20261020.md#bank-4d-settings-graphics-slices-and-object-table-aliases-2026-10-21). The 43 files owned by that bank-4D settings unit now use consumer, VRAM destination/bank and source-address paths. The rename preserves all 43 file hashes and the 25 ROM-backed binary slices; `make` remains byte-identical, and symbol, palette and PNG checks pass. See the [semantic Bank 4D resource path audit](docs/research/gfx_bank4d_semantic_resource_paths.md).
 
 Bank 42's 27 type/address-only graphics labels now use
 `FrameDesignCandidate_*` names tied to the existing four filename-derived
