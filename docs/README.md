@@ -75,6 +75,7 @@ Reference documents (current):
 | [`japanese_name_and_gfx_path_followup_20261022.md`](research/japanese_name_and_gfx_path_followup_20261022.md) | Japanese function/data/sprite/RAM name census and reviewed graphics paths |
 | [`japanese_residual_gfx_path_audit_20261022.md`](research/japanese_residual_gfx_path_audit_20261022.md) | Final 44 Japanese address-only GFX stems renamed from static ownership; hashes and original-ROM build verified |
 | [`japanese_sprite_data_followup_20261022.md`](research/japanese_sprite_data_followup_20261022.md) | 33 Save Sender Address sprite symbols, bank 4B second-banner transfer, and 14 neutral data labels |
+| [`japanese_indirect_dispatch_handlers_20261022.md`](research/japanese_indirect_dispatch_handlers_20261022.md) | Six Japanese dispatch tables, 23 named internal handler targets, original table hashes and identity gates |
 | [`registration_notice_bank58_resource_paths_20261022.md`](research/registration_notice_bank58_resource_paths_20261022.md) | Bank 58 registration notice assets renamed from type/address paths using static labels and readers |
 | [`keyboard_panel_tile_paths_20261022.md`](research/keyboard_panel_tile_paths_20261022.md) | Nine keyboard tile sets renamed by confirmed type and VRAM destinations |
 | [`connect_dialog_bank56_tile_paths_20261022.md`](research/connect_dialog_bank56_tile_paths_20261022.md) | Eleven ConnectDialog tile sets renamed by confirmed static VRAM destinations |

@@ -615,12 +615,13 @@ Kbd_MoveCursor:: ; 55:5F66
 	ld l, a
 	jp hl
 
-; ---- words $5FC8-$5FD0 (8 bytes) [CONFIRMED] read as data by executed code (in up to 7/18 scenarios); content class unknown [retyped data->words by classify_g2: every word is an instruction start of a code region of this bank (jump/dispatch table)]
+; ---- dispatch table $5FC8-$5FD0 (8 bytes) [CONFIRMED] four direction handlers reached through JP HL
 
 Kbd_MoveCursor_DirTable:: ; 55:5FC8
-	dw $5FD0, $5FF4, $5FFD, $6020
+	dw .left, .right, .up, .down
 
 	; [CONFIRMED] 51 insn(s); 51 executed (in up to 8/18 scenarios)
+.left
 	ld a, [wKbdNeighbourFlagsA]
 	bit 7, a
 	jp z, .l602E
@@ -637,11 +638,13 @@ Kbd_MoveCursor_DirTable:: ; 55:5FC8
 	ld [wKbdCursorCell], a
 	jr .l6029
 
+.right
 	ld a, [wKbdNeighbourFlagsA]
 	bit 6, a
 	jr z, .l602E
 	jr .l5FD8
 
+.up
 	ld a, [wKbdNeighbourFlagsA]
 	bit 5, a
 	jr z, .l602E
@@ -658,6 +661,7 @@ Kbd_MoveCursor_DirTable:: ; 55:5FC8
 	ld [wKbdCursorCell], a
 	jr .l6029
 
+.down
 	ld a, [wKbdNeighbourFlagsA]
 	bit 4, a
 	jr z, .l602E
@@ -731,12 +735,13 @@ Kbd_UpdateSticky:: ; 55:6068
 	ld l, a
 	jp hl
 
-; ---- words $6087-$608F (8 bytes) [CONFIRMED] read as data by executed code (in up to 7/18 scenarios); content class unknown [retyped data->words by classify_g2: every word is an instruction start of a code region of this bank (jump/dispatch table)]
+; ---- dispatch table $6087-$608F (8 bytes) [CONFIRMED] four direction handlers reached through JP HL
 
 Kbd_UpdateSticky_StoreDirTable:: ; 55:6087
-	dw $608F, $60A0, $60B1, $60C2
+	dw .left, .right, .up, .down
 
 	; [CONFIRMED] 45 insn(s); 45 executed (in up to 7/18 scenarios)
+.left
 	ld a, [wKbdNeighbourFlagsB]
 	bit 7, a
 	call nz, Kbd_StoreStickyCol
@@ -745,6 +750,7 @@ Kbd_UpdateSticky_StoreDirTable:: ; 55:6087
 	call nz, Kbd_StoreStickyRow
 	ret
 
+.right
 	ld a, [wKbdNeighbourFlagsB]
 	bit 6, a
 	call nz, Kbd_StoreStickyCol
@@ -753,6 +759,7 @@ Kbd_UpdateSticky_StoreDirTable:: ; 55:6087
 	call nz, Kbd_StoreStickyRow
 	ret
 
+.up
 	ld a, [wKbdNeighbourFlagsB]
 	bit 5, a
 	call nz, Kbd_StoreStickyCol
@@ -761,6 +768,7 @@ Kbd_UpdateSticky_StoreDirTable:: ; 55:6087
 	call nz, Kbd_StoreStickyRow
 	ret
 
+.down
 	ld a, [wKbdNeighbourFlagsB]
 	bit 4, a
 	call nz, Kbd_StoreStickyCol
@@ -794,12 +802,13 @@ Kbd_UpdateSticky_SpecialKey:: ; 55:60E1
 	ld l, a
 	jp hl
 
-; ---- words $60F1-$60F9 (8 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown [retyped data->words by classify_g2: every word is an instruction start of a code region of this bank (jump/dispatch table)]
+; ---- dispatch table $60F1-$60F9 (8 bytes) [CONFIRMED] four direction handlers reached through JP HL
 
 Kbd_UpdateSticky_ClearDirTable:: ; 55:60F1
-	dw $60F9, $610A, $611B, $612C
+	dw .left, .right, .up, .down
 
 	; [CONFIRMED] 67 insn(s); 67 executed (in up to 11/18 scenarios)
+.left
 	ld a, [wKbdNeighbourFlagsB]
 	bit 7, a
 	call z, Kbd_ClearStickyCol
@@ -808,6 +817,7 @@ Kbd_UpdateSticky_ClearDirTable:: ; 55:60F1
 	call z, Kbd_ClearStickyRow
 	ret
 
+.right
 	ld a, [wKbdNeighbourFlagsB]
 	bit 6, a
 	call z, Kbd_ClearStickyCol
@@ -816,6 +826,7 @@ Kbd_UpdateSticky_ClearDirTable:: ; 55:60F1
 	call z, Kbd_ClearStickyRow
 	ret
 
+.up
 	ld a, [wKbdNeighbourFlagsB]
 	bit 5, a
 	call z, Kbd_ClearStickyCol
@@ -824,6 +835,7 @@ Kbd_UpdateSticky_ClearDirTable:: ; 55:60F1
 	call z, Kbd_ClearStickyRow
 	ret
 
+.down
 	ld a, [wKbdNeighbourFlagsB]
 	bit 4, a
 	call z, Kbd_ClearStickyCol

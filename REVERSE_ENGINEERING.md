@@ -34,6 +34,10 @@ A fresh independent static pass at `bb2218e0` confirms the 25-name table re-emit
 
 Two independent static reviews supported 16 graphics-stem renames (20 payloads, 33 files) using original-ROM extents and call-site transfer arguments. All file hashes were preserved. The pass also corrected the Bank 4A `$4E40` overread comment and a stale asset locator. This finite pass is not a semantic audit of all graphics paths. See [`gfx_destination_name_audit_20261022.md`](docs/research/gfx_destination_name_audit_20261022.md).
 
+### Japanese indirect-dispatch handler names (2026-10-22)
+
+Six `JP HL` tables in keyboard movement/sticky state, registration deletion, ISO-2022-JP conversion and settings progress now use symbolic `dw` entries and 23 local labels for 24 table words. All six ROM table slices and the named instruction starts were checked against the original ROM and linked symbols; the build remains `RESULT: IDENTICAL`. These labels identify static internal handlers and do not establish independent function entries or natural selection of every branch. The address/hash matrix and verification limits are in [`japanese_indirect_dispatch_handlers_20261022.md`](docs/research/japanese_indirect_dispatch_handlers_20261022.md). The Japanese semantic audit remains open.
+
 
 The [definition of done](docs/REVERSE_ENGINEERING_RULES.md#23-definition-of-done) requires an explainable reconstruction as well as a reproducible ROM. `make`, symbol checks and a complete byte comparison establish reconstruction identity for the source actually checked; they do not establish complete semantics, natural execution or hardware behavior. Frozen `config/` and `docs/PROGRESS.md` counters, and dated counters below, are historical rather than a current completion census.
 

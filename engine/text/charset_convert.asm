@@ -465,12 +465,13 @@ Charset_Iso2022JpToSjis_Loop:: ; 7E:7D75
 	ld l, a
 	jp hl
 
-; ---- words $7D8F-$7D99 (10 bytes) [PROBABLE] 5-entry jump table (7D99, 7DB0, 7DE5, 7E05, 7E1E) of the executed dispatcher at 7E:7D7B-7D8E (ldh a,[$FFB1] ; add a,a ; add a,$8F ; ... ld a,[hli] ; ld h,[hl] ; ld l,a ; jp hl); entry 0 is CONFIRMED read data, entries 1-4 are the starts of the handlers 7DB0/7DE5/7E05/7E1E (each begins with pop hl)
+; ---- state dispatch table $7D8F-$7D99 (10 bytes) [CONFIRMED] five handlers selected by the executed JP HL dispatcher
 
 Charset_Iso2022JpStates:: ; 7E:7D8F
-	dw $7D99, $7DB0, $7DE5, $7E05, $7E1E
+	dw .copySingleByte, .convertDoubleByte, .afterEscape, .afterEscapeParen, .afterEscapeDollar
 
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios)
+.copySingleByte
 	pop hl
 	ldh a, [hIso2022JpToSjis_Byte]
 	cp a, $1B
@@ -494,6 +495,7 @@ Charset_Iso2022JpStates:: ; 7E:7D8F
 	; [CONFIRMED] handler 7DB0 (entry 1 of the jump table 7E:7D8F, each handler starts with pop hl);
 	; 7DB0-7DDF decodes to jp/jr targets on instruction starts, ends with jr $7D75 [executed in 6
 	; scenarios]
+.convertDoubleByte
 	pop hl
 	ldh a, [hIso2022JpToSjis_Byte]
 	cp a, $1B
@@ -539,6 +541,7 @@ Charset_Iso2022JpStates:: ; 7E:7D8F
 	; the whole 7DB0-7E37 block land on instruction starts (7D75, 7DAA, 7E37, ...), decoding ends
 	; with jp $7D75 exactly at the executed code 7E37 | 6 insn(s) executed; cut out of the PROBABLE
 	; region 7DE5-7E37 by apply_coverage --split [executed in 12 scenarios]
+.afterEscape
 	pop hl
 	ldh a, [hIso2022JpToSjis_Byte]
 	cp a, $28
@@ -563,6 +566,7 @@ Charset_Iso2022JpStates:: ; 7E:7D8F
 	ldh [hIso2022JpToSjis_State], a
 	jp Charset_Iso2022JpToSjis_Loop
 
+.afterEscapeParen
 	pop hl
 	ldh a, [hIso2022JpToSjis_Byte]
 	cp a, $4A
@@ -583,6 +587,7 @@ Charset_Iso2022JpStates:: ; 7E:7D8F
 	ldh [hIso2022JpToSjis_State], a
 	jp Charset_Iso2022JpToSjis_Loop
 
+.afterEscapeDollar
 	pop hl
 	ldh a, [hIso2022JpToSjis_Byte]
 	cp a, $4A

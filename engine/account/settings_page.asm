@@ -142,6 +142,7 @@ Settings_GetRegistrationProgress:: ; 68:4870
 	ld l, a
 	jp hl
 
+.readStoredProgress
 	ld hl, sSettingsRegistrationProgress
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
@@ -202,20 +203,21 @@ Settings_GetRegistrationProgress:: ; 68:4870
 	ld a, $04
 	ret
 
-	; [PROBABLE] ld a,1 ; ret: entry proven by a table word - the 4-word code-pointer table at
-	; 68:48D6 ($4880,$4880,$48D1,$48D4) holds $48D1; sits after the last arm of the switch at
-	; 48B8-48D0
+	; [CONFIRMED] handler target $48D1 from entry 2 of Settings_ProgressJumpTable; returns 1
+.returnOne
 	ld a, $01
 	ret
 
 	; [CONFIRMED] 2 insn(s); 2 executed (in up to 5/18 scenarios)
+.returnZero
 	xor a, a
 	ret
 
-; ---- words $48D6-$48DE (8 bytes) [PROBABLE] contiguous data block 48D6-48DE: 4 bytes were read as data by executed code in mGBA traces (2 separate read ranges, e.g. 48D6-48D8,48DC-48DE) and 4 bytes between/around those reads were never read; the whole run is one table/buffer read by index (gaps unread in the traces); content class not decoded [merged from 3 regions by classify_g2] [retyped data->words by classify_g2: every word is an instruction start of a code region of this bank (jump/dispatch table)]
+; ---- progress dispatch table $48D6-$48DE (8 bytes) [CONFIRMED] four code pointers selected by Settings_GetRegistrationProgress
 
 Settings_ProgressJumpTable:: ; 68:48D6
-	dw $4880, $4880, $48D1, $48D4
+	dw Settings_GetRegistrationProgress.readStoredProgress, Settings_GetRegistrationProgress.readStoredProgress
+	dw Settings_GetRegistrationProgress.returnOne, Settings_GetRegistrationProgress.returnZero
 
 Settings_VerifyAndRepair:: ; 68:48DE
 	; [CONFIRMED] Entry/operation; bank68_function_names row 48DE.

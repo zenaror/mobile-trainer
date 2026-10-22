@@ -337,12 +337,13 @@ Registration_DeleteExecute_RunState:: ; 68:7C52
 	ld l, a
 	jp hl
 
-; ---- words $7C6B-$7C71 (6 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [retyped data->words by classify_g2: every word is an instruction start of a code region of this bank (jump/dispatch table)]
+; ---- state dispatch table $7C6B-$7C71 (6 bytes) [CONFIRMED] three handlers reached through JP HL
 
 Registration_DeleteExecute_StateTable:: ; 68:7C6B
-	dw $7C71, $7C86, $7CBD
+	dw .start, .pollFirstCommand, .pollSecondCommand
 
 	; [CONFIRMED] 50 insn(s); 50 executed (in up to 1/18 scenarios)
+.start
 	call Config_ClearSramMirror
 	ld de, wMobileAdapterType
 	ld hl, $0068
@@ -352,6 +353,7 @@ Registration_DeleteExecute_StateTable:: ; 68:7C6B
 	ld [wDeleteExecute_State], a
 	jr Registration_DeleteExecute_RunState
 
+.pollFirstCommand
 	ld a, [wTimerEnable]
 	bit 1, a
 	jp nz, .l7CE8
@@ -376,6 +378,7 @@ Registration_DeleteExecute_StateTable:: ; 68:7C6B
 	ld [wDeleteExecute_State], a
 	jp Registration_DeleteExecute_RunState
 
+.pollSecondCommand
 	ld a, [wTimerEnable]
 	bit 1, a
 	jp nz, .l7CE8
