@@ -113,3 +113,20 @@ Só ROOT pode integrar, rodar os gates autorizados e confirmar a ROM e o SYM rea
 Este passe não prova nova exibição natural, hardware, exclusividade ou cobertura
 universal de imagens. A retirada de uma grafia redundante não declara o recurso
 unused nem encerra desconhecidos além do contrato documentado.
+
+## Integração ROOT e gates executados (2026-10-20)
+
+O passe foi integrado na `main` em `c19640fffee619846994b1d49a4a8df26ef39882`.
+Os recibos preservados em
+`.tmp/jp-settings4a-path72-native-integration-20261018/ACTUAL/RESULT.json` e
+`FRESH/RESULT.json` têm SHA-256
+`54eaacedbf7f22a4842ad49545eec399e50fce949cc6fba4371192593043ed76` e reportam
+38 checks aceitos cada. Ambos registram ROM original e reconstruída com
+2.097.152 bytes e SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`; o SYM do
+checkpoint tem 472.440 bytes e SHA-256
+`7774aef64004d8382b2b6c77fc3269ce6b51325a10192abe9997c71bd7e2ad43`. A receita
+preservada contém `make`, `make compare`, `make sym-check`, `make png-check`,
+`make palette-check`, `make test` e os demais checks do protocolo. Essa
+verificação fecha os gates de integração daquele checkpoint; não acrescenta
+evidência natural, visual, de hardware ou de comportamento em runtime.
