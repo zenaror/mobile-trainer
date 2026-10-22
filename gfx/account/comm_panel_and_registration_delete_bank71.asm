@@ -1,14 +1,14 @@
-; gfx/account/screens_bank71.asm
+; gfx/account/comm_panel_and_registration_delete_bank71.asm
 ; bank 71, $4000-$6F44 (12100 bytes); pinned by layout.link
 ; account screens art loaded by bank 68
 
-SECTION "gfx/account/screens_bank71", ROMX
+SECTION "gfx/account/comm_panel_and_registration_delete_bank71", ROMX
 
 ; ---- gfx $4000-$4300 (768 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:749E: hl=$4000 a=$71 c=$30 de=$8000 (dest VRAM $8000, vbank=0)
 
 Gfx_CommPanel_Tiles8000:: ; 71:4000
 
-	INCBIN "gfx/account/screens_bank71/tiles_4000.2bpp"
+	INCBIN "gfx/account/comm_panel_and_registration_delete_bank71/tiles_4000.2bpp"
 
 ; ---- gfx $4300-$4500 (512 bytes) [CONFIRMED] existing shared VRAM source, read by two natural
 ; requests. At 68:7468, source $4200-$4500 goes to VRAM $8800/VB1: this whole block contributes
@@ -17,43 +17,43 @@ Gfx_CommPanel_Tiles8000:: ; 71:4000
 
 Gfx_CommPanel_SharedVramSource:: ; 71:4300
 
-	INCBIN "gfx/account/screens_bank71/tiles_4300.2bpp"
+	INCBIN "gfx/account/comm_panel_and_registration_delete_bank71/tiles_4300.2bpp"
 
 ; ---- gfx $4500-$4890 (912 bytes) [CONFIRMED] tile-source slice in CommPanel_StateDraw HDMA at 68:747A: request $4490-$4890 maps to VRAM $9000-$9400 in VB1; this slice supplies $4500-$4890 ($9070-$9400)
 
 Gfx_CommPanel_TileSource_4500:: ; 71:4500
-	INCBIN "gfx/account/screens_bank71/tiles_4500.2bpp"
+	INCBIN "gfx/account/comm_panel_and_registration_delete_bank71/tiles_4500.2bpp"
 
 ; ---- gfx $4890-$4C50 (960 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:748C: hl=$4890 a=$71 c=$40 de=$9401 (dest VRAM $9400, vbank=1); the last $40 bytes of the old blob hold a palette; the blocks below type them by what the code reads, and the HDMA request that copies the tiles copies them into VRAM as well
 
 Gfx_CommPanel_Tiles9400Vb1:: ; 71:4890
 
-	INCBIN "gfx/account/screens_bank71/tiles_4890.2bpp"
+	INCBIN "gfx/account/comm_panel_and_registration_delete_bank71/tiles_4890.2bpp"
 
 ; ---- data $4C50-$4C90 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/account/comm_panel.asm:191, call 68:74AF executed 56 hits in 16 scenarios (analysis/coverage_union.tsv))
 
 Palette_CommPanel_Bg:: ; 71:4C50
-	INCLUDE "gfx/account/screens_bank71/comm_panel_bg.pal"
+	INCLUDE "gfx/account/comm_panel_and_registration_delete_bank71/comm_panel_bg.pal"
 
 ; ---- data $4C90-$4C98 (8 bytes) [CONFIRMED] palette-rgb555: 4 colours (1 palettes) read by Palette_LoadToBuffer: +$00 bc=$08 into wPaletteBufObj (engine/account/comm_panel.asm:196, call 68:74C0 executed 56 hits in 16 scenarios (analysis/coverage_union.tsv))
 
 Palette_CommPanel_Obj:: ; 71:4C90
 
-	INCLUDE "gfx/account/screens_bank71/comm_panel_obj.pal"
+	INCLUDE "gfx/account/comm_panel_and_registration_delete_bank71/comm_panel_obj.pal"
 
 ; ---- data $4C98-$4F68 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:74D1: hl=$4C98 a=$71 b=18 rows c=20 cols (tiles then attrs) de=$D000
 
 Tilemap_CommPanel_71_4C98:: ; 71:4C98
 
-	INCBIN "gfx/account/screens_bank71/tilemap_4c98.tilemap"
-	INCBIN "gfx/account/screens_bank71/tilemap_4c98.attrmap"
+	INCBIN "gfx/account/comm_panel_and_registration_delete_bank71/tilemap_4c98.tilemap"
+	INCBIN "gfx/account/comm_panel_and_registration_delete_bank71/tilemap_4c98.attrmap"
 
 ; ---- data $4F68-$4FB8 (80 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:74F5: hl=$4F68 a=$71 b=2 rows c=20 cols (tiles then attrs) de=$D200
 
 Tilemap_CommPanel_71_4F68:: ; 71:4F68
 
-	INCBIN "gfx/account/screens_bank71/tilemap_4f68.tilemap"
-	INCBIN "gfx/account/screens_bank71/tilemap_4f68.attrmap"
+	INCBIN "gfx/account/comm_panel_and_registration_delete_bank71/tilemap_4f68.tilemap"
+	INCBIN "gfx/account/comm_panel_and_registration_delete_bank71/tilemap_4f68.attrmap"
 
 ; ---- words $4FB8-$4FC0 (8 bytes) [PROBABLE] sprite object table: 4-byte entries (frame-table ptr, animation-script ptr) indexed by B&7F, the layout read by init_object_from_table 00:0A82/00:0AB8; entry 0 is unused (zero); base $4FB8 is passed as de with a=$71 at call sites listed in analysis/gfx_candidates.tsv (object-table); entries 0000/0000 4FC0/5031
 
@@ -197,72 +197,72 @@ ZeroByteSpan_71_5338:: ; 71:5338
 
 Gfx_Registration_DeleteConfirm_Tiles9000Vb1:: ; 71:5340
 
-	INCBIN "gfx/account/screens_bank71/tiles_5340.2bpp"
+	INCBIN "gfx/account/comm_panel_and_registration_delete_bank71/tiles_5340.2bpp"
 
 ; ---- gfx $5740-$5B40 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:79F1: hl=$5740 a=$71 c=$40 de=$9401 (dest VRAM $9400, vbank=1)
 
 Gfx_Registration_DeleteConfirm_Tiles9400Vb1:: ; 71:5740
 
-	INCBIN "gfx/account/screens_bank71/tiles_5740.2bpp"
+	INCBIN "gfx/account/comm_panel_and_registration_delete_bank71/tiles_5740.2bpp"
 
 ; ---- gfx $5B40-$5DC0 (640 bytes) [CONFIRMED] tile-source slice in Registration_DeleteConfirm_Setup at 68:7A16: request $59C0-$5DC0 maps to VRAM $9000-$9400 in VB1; this 40-tile slice supplies $5B40-$5DC0
 
 Gfx_Registration_DeleteConfirm_TileSource_5B40:: ; 71:5B40
-	INCBIN "gfx/account/screens_bank71/tiles_5b40.2bpp"
+	INCBIN "gfx/account/comm_panel_and_registration_delete_bank71/tiles_5b40.2bpp"
 
 ; ---- gfx $5DC0-$61C0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:7A28: hl=$5DC0 a=$71 c=$40 de=$9401 (dest VRAM $9400, vbank=1)
 
 Gfx_Registration_Delete_Tiles9400Vb1:: ; 71:5DC0
 
-	INCBIN "gfx/account/screens_bank71/tiles_5dc0.2bpp"
+	INCBIN "gfx/account/comm_panel_and_registration_delete_bank71/tiles_5dc0.2bpp"
 
 ; ---- gfx $61C0-$6440 (640 bytes) [CONFIRMED] tile-source slice for Registration_DeleteExecute_Setup: included by HDMA at 68:7BF7 from $6140 to $6440 into VRAM $8000 VB0 and at 68:7BD3 from $6180-$6580 into VRAM $8800 VB1
 
 Gfx_Registration_DeleteExecute_TileSource_61C0:: ; 71:61C0
-	INCBIN "gfx/account/screens_bank71/tiles_61c0.2bpp"
+	INCBIN "gfx/account/comm_panel_and_registration_delete_bank71/tiles_61c0.2bpp"
 
 ; ---- gfx $6440-$6580 (320 bytes) [CONFIRMED] tile-source slice for Registration_DeleteExecute_Setup HDMA at 68:7BD3: request $6180-$6580 maps to VRAM $8800-$8C00 in VB1
 
 Gfx_Registration_DeleteExecute_TileSource_6440:: ; 71:6440
-	INCBIN "gfx/account/screens_bank71/tiles_6440.2bpp"
+	INCBIN "gfx/account/comm_panel_and_registration_delete_bank71/tiles_6440.2bpp"
 
 ; ---- gfx $6580-$6680 (256 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:7BE5: hl=$6580 a=$71 c=$10 de=$9001 (dest VRAM $9000, vbank=1)
 
 Gfx_Registration_DeleteExecute_Tiles9000Vb1:: ; 71:6580
 
-	INCBIN "gfx/account/screens_bank71/tiles_6580.2bpp"
+	INCBIN "gfx/account/comm_panel_and_registration_delete_bank71/tiles_6580.2bpp"
 
 ; ---- data $6680-$66C0 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/account/delete_registration.asm:125, call 68:7A5C executed 70 hits in 8 scenarios (analysis/coverage_union.tsv)); +$00 bc=$40 into wPaletteBufBg (engine/account/delete_registration.asm:302, call 68:7C08 executed 1 hits in 1 scenarios (analysis/coverage_union.tsv)); the old blocks cut it in four (8 + 24 + 33 bytes, heuristics)
 
 Palette_Registration_Delete_Bg:: ; 71:6680
-	INCLUDE "gfx/account/screens_bank71/registration_delete_bg.pal"
+	INCLUDE "gfx/account/comm_panel_and_registration_delete_bank71/registration_delete_bg.pal"
 
 ; ---- data $66C0-$66C8 (8 bytes) [CONFIRMED] palette-rgb555: 4 colours (1 palettes) read by Palette_LoadToBuffer: +$00 bc=$08 into wPaletteBufObj (engine/account/delete_registration.asm:307, call 68:7C19 executed 1 hits in 1 scenarios (analysis/coverage_union.tsv))
 
 Palette_Registration_Delete_Obj:: ; 71:66C0
 
-	INCLUDE "gfx/account/screens_bank71/registration_delete_obj.pal"
+	INCLUDE "gfx/account/comm_panel_and_registration_delete_bank71/registration_delete_obj.pal"
 
 ; ---- data $66C8-$6998 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:7A02: hl=$66C8 a=$71 b=18 rows c=20 cols (tiles then attrs) de=$D000
 
 Tilemap_Registration_DeleteConfirm_71_66C8:: ; 71:66C8
 
-	INCBIN "gfx/account/screens_bank71/tilemap_66c8.tilemap"
-	INCBIN "gfx/account/screens_bank71/tilemap_66c8.attrmap"
+	INCBIN "gfx/account/comm_panel_and_registration_delete_bank71/tilemap_66c8.tilemap"
+	INCBIN "gfx/account/comm_panel_and_registration_delete_bank71/tilemap_66c8.attrmap"
 
 ; ---- data $6998-$6C68 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:7A39: hl=$6998 a=$71 b=18 rows c=20 cols (tiles then attrs) de=$D000
 
 Tilemap_Registration_DeleteConfirm_71_6998:: ; 71:6998
 
-	INCBIN "gfx/account/screens_bank71/tilemap_6998.tilemap"
-	INCBIN "gfx/account/screens_bank71/tilemap_6998.attrmap"
+	INCBIN "gfx/account/comm_panel_and_registration_delete_bank71/tilemap_6998.tilemap"
+	INCBIN "gfx/account/comm_panel_and_registration_delete_bank71/tilemap_6998.attrmap"
 
 ; ---- data $6C68-$6F38 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:7C2A: hl=$6C68 a=$71 b=18 rows c=20 cols (tiles then attrs) de=$D000
 
 Tilemap_Registration_DeleteExecute:: ; 71:6C68
 
-	INCBIN "gfx/account/screens_bank71/tilemap_6c68.tilemap"
-	INCBIN "gfx/account/screens_bank71/tilemap_6c68.attrmap"
+	INCBIN "gfx/account/comm_panel_and_registration_delete_bank71/tilemap_6c68.tilemap"
+	INCBIN "gfx/account/comm_panel_and_registration_delete_bank71/tilemap_6c68.attrmap"
 
 ; ---- words $6F38-$6F40 (8 bytes) [PROBABLE] sprite object table: 4-byte entries (frame-table ptr, animation-script ptr) indexed by B&7F, the layout read by init_object_from_table 00:0A82/00:0AB8; entry 0 is unused (zero); base $6F38 is passed as de with a=$71 at 68:7C3B (`ld hl,$DA00 ; ld de,$6F38 ; ld a,$71 ; ld b,$81 ; farcall 00:0A82`), entry 1 = 6F40/6F6A [verifier: replaces the mapper 'tiles-2bpp' guess; the pointer chain tiles 6F38-6F6F byte for byte]
 

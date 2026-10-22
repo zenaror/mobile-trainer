@@ -296,7 +296,7 @@
 6C	5987	61CB	engine/help/help_script.asm	HelpMenu_Run and the help script player
 70	4000	4822	engine/comm/comm_scene.asm	scrolling panorama scene shown during homepage communication
 70	4822	7590	gfx/comm/comm_scene.asm	comm scene text-box maps, object tables, tiles, panorama map
-71	4000	6F44	gfx/account/screens_bank71.asm	account screens art loaded by bank 68
+71	4000	6F44	gfx/account/comm_panel_and_registration_delete_bank71.asm	account screens art loaded by bank 68
 71	6F44	7740	gfx/settings/screens_bank71.asm	settings screen art loaded by bank 67
 72	4000	48C0	engine/dialog/dialog.asm	message dialog service (open, wait input, close, slide, save/restore background)
 72	48C0	502B	gfx/dialog/dialog_window.asm	dialog window tiles, maps, palettes, cursor object table

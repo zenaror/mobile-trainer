@@ -23,7 +23,7 @@ from retype_lib import HDR, Ctx, db_lines, rom, valid_palette  # noqa: E402
 def specs():
     S = []
     # asm, bank, blob start, end of the real tiles, engine file, palette segments (kind, start, end, label, buffer), tilemap pair (start, end, label)
-    S.append(dict(asm='gfx/account/screens_bank71.asm', bank=0x71, blob=0x4890, tiles_end=0x4C50, engine='engine/account/comm_panel.asm',
+    S.append(dict(asm='gfx/account/comm_panel_and_registration_delete_bank71.asm', bank=0x71, blob=0x4890, tiles_end=0x4C50, engine='engine/account/comm_panel.asm',
                   segs=[('palette', 0x4C50, 0x4C90, 'Palette_CommPanel_Bg', 'wPaletteBufBg')], pair=None))
     S.append(dict(asm='gfx/account/screens_bank5e.asm', bank=0x5E, blob=0x6FA0, tiles_end=0x72C0, engine='engine/account/action_confirm.asm',
                   segs=[('palette', 0x72C0, 0x7300, 'Palette_Account_ActionConfirmPage_Bg', 'wPaletteBufBg')], pair=(0x7300, 0x75D0, 'Tilemap_Account_ActionConfirmPage_5E_7300')))
@@ -265,7 +265,7 @@ def special():
     open(asm, 'w', encoding='utf-8').write('\n'.join(L))
     log.append('4B:5420: tiles 1104 bytes (unchanged), Palette_Account_ResultPage_Bg 40 bytes at 5870 [%s]' % status)
     # (B) 71:6680-66C8: the BG palettes (64 bytes at 6680) and the OBJ palette (8 bytes at 66C0) that delete_registration.asm reads
-    asm = 'gfx/account/screens_bank71.asm'
+    asm = 'gfx/account/comm_panel_and_registration_delete_bank71.asm'
     L = open(asm, encoding='utf-8').read().split('\n')
     a = next(i for i, l in enumerate(L) if l.startswith('; ---- data $6680-$6688 (8 bytes)'))
     b = next(i for i in range(a, len(L)) if L[i].startswith('; ---- data $66C8-$6998'))

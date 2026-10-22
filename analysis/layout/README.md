@@ -644,7 +644,7 @@ same bank.  None of these choices can change a byte: they only decide which file
 | `gfx/account/screens_bank4b.asm` | 4B | 6336 | 396 | gfx 4088, data 2248 |
 | `gfx/account/screens_bank5d.asm` | 5D | 11104 | 695 | gfx 8512, data 2585, zero 7 |
 | `gfx/account/screens_bank5e.asm` | 5E | 12448 | 779 | gfx 9504, data 2928, zero 16 |
-| `gfx/account/screens_bank71.asm` | 71 | 12100 | 756 | gfx 8151, data 3923, words 26 |
+| `gfx/account/comm_panel_and_registration_delete_bank71.asm` | 71 | 12100 | 756 | gfx 8151, data 3923, words 26 |
 
 #### `gfx/address_book/`
 

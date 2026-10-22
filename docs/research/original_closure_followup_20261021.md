@@ -20,6 +20,22 @@ was not edited. `make` returned `RESULT: IDENTICAL` (ROM SHA-256
 `palette-check` reported 162 loads / 116 arrays / two documented overreads /
 zero errors. The path refactor makes no runtime or hardware claim.
 
+## Account Bank 71 graphics owner path (2026-10-22)
+
+The account owner `gfx/account/screens_bank71.asm` and its asset directory are
+now `comm_panel_and_registration_delete_bank71`. This bank-71 owner contains
+the communication panel resources (`71:4000–5338`) and registration-deletion
+confirmation/execution resources (`71:5340–6F44`), with the corresponding
+Bank 68 setup/copy routines as consumers. The separate
+`gfx/settings/screens_bank71.asm` owner remains unchanged. Source, layout,
+asset catalogue, screen catalogue, PNG rules and the graphics README now use
+the account-specific path. The Japanese build returned `RESULT: IDENTICAL`
+with SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
+`sym-check` passed (335 files, 12,177 labels, 51 constants), and
+`palette-check` reported 162 loads, 116 arrays, two documented overreads and
+zero errors. This path-only change does not assert that every resource has a
+single original-purpose family, nor any runtime or hardware behavior.
+
 ## Bank 4A settings-menu palette-shaped block (2026-10-21)
 
 The 32 bytes at `4A:51B0–51CF` are now named

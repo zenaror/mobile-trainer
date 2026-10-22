@@ -110,31 +110,31 @@ gfx/account/screens_bank5e/tiles_60d0.2bpp	tiles	1024	gfx/account/screens_bank5e
 gfx/account/screens_bank5e/tiles_64d0.2bpp	tiles	1024	gfx/account/screens_bank5e.asm	5E	64D0	CONFIRMED	exact	0		Gfx_Account_MailIntro_Tiles9400Vb1
 gfx/account/screens_bank5e/tiles_6ba0.2bpp	tiles	1024	gfx/account/screens_bank5e.asm	5E	6BA0	CONFIRMED	exact	0		Gfx_Account_ActionConfirmPage_Tiles9000Vb1
 gfx/account/screens_bank5e/tiles_6fa0.2bpp	tiles	800	gfx/account/screens_bank5e.asm	5E	6FA0	CONFIRMED	exact	0		Gfx_Account_ActionConfirmPage_Tiles9400Vb1
-gfx/account/screens_bank71/comm_panel_bg.pal	palette	64	gfx/account/screens_bank71.asm	71	4C50	CONFIRMED	-	0		Palette_CommPanel_Bg
-gfx/account/screens_bank71/comm_panel_obj.pal	palette	8	gfx/account/screens_bank71.asm	71	4C90	CONFIRMED	-	0		Palette_CommPanel_Obj
-gfx/account/screens_bank71/registration_delete_bg.pal	palette	64	gfx/account/screens_bank71.asm	71	6680	CONFIRMED	-	0		Palette_Registration_Delete_Bg
-gfx/account/screens_bank71/registration_delete_obj.pal	palette	8	gfx/account/screens_bank71.asm	71	66C0	CONFIRMED	-	0		Palette_Registration_Delete_Obj
-gfx/account/screens_bank71/tilemap_4c98.attrmap	attrmap	360	gfx/account/screens_bank71.asm	71	4E00	CONFIRMED	-	0	20x18	Tilemap_CommPanel_71_4C98
-gfx/account/screens_bank71/tilemap_4c98.tilemap	tilemap	360	gfx/account/screens_bank71.asm	71	4C98	CONFIRMED	-	0	20x18	Tilemap_CommPanel_71_4C98
-gfx/account/screens_bank71/tilemap_4f68.attrmap	attrmap	40	gfx/account/screens_bank71.asm	71	4F90	CONFIRMED	-	0	20x2	Tilemap_CommPanel_71_4F68
-gfx/account/screens_bank71/tilemap_4f68.tilemap	tilemap	40	gfx/account/screens_bank71.asm	71	4F68	CONFIRMED	-	0	20x2	Tilemap_CommPanel_71_4F68
-gfx/account/screens_bank71/tilemap_66c8.attrmap	attrmap	360	gfx/account/screens_bank71.asm	71	6830	CONFIRMED	-	0	20x18	Tilemap_Registration_DeleteConfirm_71_66C8
-gfx/account/screens_bank71/tilemap_66c8.tilemap	tilemap	360	gfx/account/screens_bank71.asm	71	66C8	CONFIRMED	-	0	20x18	Tilemap_Registration_DeleteConfirm_71_66C8
-gfx/account/screens_bank71/tilemap_6998.attrmap	attrmap	360	gfx/account/screens_bank71.asm	71	6B00	CONFIRMED	-	0	20x18	Tilemap_Registration_DeleteConfirm_71_6998
-gfx/account/screens_bank71/tilemap_6998.tilemap	tilemap	360	gfx/account/screens_bank71.asm	71	6998	CONFIRMED	-	0	20x18	Tilemap_Registration_DeleteConfirm_71_6998
-gfx/account/screens_bank71/tilemap_6c68.attrmap	attrmap	360	gfx/account/screens_bank71.asm	71	6DD0	CONFIRMED	-	0	20x18	Tilemap_Registration_DeleteExecute
-gfx/account/screens_bank71/tilemap_6c68.tilemap	tilemap	360	gfx/account/screens_bank71.asm	71	6C68	CONFIRMED	-	0	20x18	Tilemap_Registration_DeleteExecute
-gfx/account/screens_bank71/tiles_4000.2bpp	tiles	768	gfx/account/screens_bank71.asm	71	4000	CONFIRMED	exact	0		Gfx_CommPanel_Tiles8000
-gfx/account/screens_bank71/tiles_4300.2bpp	tiles	512	gfx/account/screens_bank71.asm	71	4300	CONFIRMED	exact	0		Gfx_CommPanel_SharedVramSource
-gfx/account/screens_bank71/tiles_4500.2bpp	tiles	912	gfx/account/screens_bank71.asm	71	4500	CONFIRMED	exact	7		Gfx_CommPanel_TileSource_4500
-gfx/account/screens_bank71/tiles_4890.2bpp	tiles	960	gfx/account/screens_bank71.asm	71	4890	CONFIRMED	exact	0		Gfx_CommPanel_Tiles9400Vb1
-gfx/account/screens_bank71/tiles_5340.2bpp	tiles	1024	gfx/account/screens_bank71.asm	71	5340	CONFIRMED	exact	0		Gfx_Registration_DeleteConfirm_Tiles9000Vb1
-gfx/account/screens_bank71/tiles_5740.2bpp	tiles	1024	gfx/account/screens_bank71.asm	71	5740	CONFIRMED	exact	0		Gfx_Registration_DeleteConfirm_Tiles9400Vb1
-gfx/account/screens_bank71/tiles_5b40.2bpp	tiles	640	gfx/account/screens_bank71.asm	71	5B40	CONFIRMED	exact	0		Gfx_Registration_DeleteConfirm_TileSource_5B40
-gfx/account/screens_bank71/tiles_5dc0.2bpp	tiles	1024	gfx/account/screens_bank71.asm	71	5DC0	CONFIRMED	exact	0		Gfx_Registration_Delete_Tiles9400Vb1
-gfx/account/screens_bank71/tiles_61c0.2bpp	tiles	640	gfx/account/screens_bank71.asm	71	61C0	CONFIRMED	exact	0		Gfx_Registration_DeleteExecute_TileSource_61C0
-gfx/account/screens_bank71/tiles_6440.2bpp	tiles	320	gfx/account/screens_bank71.asm	71	6440	CONFIRMED	exact	0		Gfx_Registration_DeleteExecute_TileSource_6440
-gfx/account/screens_bank71/tiles_6580.2bpp	tiles	256	gfx/account/screens_bank71.asm	71	6580	CONFIRMED	exact	0		Gfx_Registration_DeleteExecute_Tiles9000Vb1
+gfx/account/comm_panel_and_registration_delete_bank71/comm_panel_bg.pal	palette	64	gfx/account/comm_panel_and_registration_delete_bank71.asm	71	4C50	CONFIRMED	-	0		Palette_CommPanel_Bg
+gfx/account/comm_panel_and_registration_delete_bank71/comm_panel_obj.pal	palette	8	gfx/account/comm_panel_and_registration_delete_bank71.asm	71	4C90	CONFIRMED	-	0		Palette_CommPanel_Obj
+gfx/account/comm_panel_and_registration_delete_bank71/registration_delete_bg.pal	palette	64	gfx/account/comm_panel_and_registration_delete_bank71.asm	71	6680	CONFIRMED	-	0		Palette_Registration_Delete_Bg
+gfx/account/comm_panel_and_registration_delete_bank71/registration_delete_obj.pal	palette	8	gfx/account/comm_panel_and_registration_delete_bank71.asm	71	66C0	CONFIRMED	-	0		Palette_Registration_Delete_Obj
+gfx/account/comm_panel_and_registration_delete_bank71/tilemap_4c98.attrmap	attrmap	360	gfx/account/comm_panel_and_registration_delete_bank71.asm	71	4E00	CONFIRMED	-	0	20x18	Tilemap_CommPanel_71_4C98
+gfx/account/comm_panel_and_registration_delete_bank71/tilemap_4c98.tilemap	tilemap	360	gfx/account/comm_panel_and_registration_delete_bank71.asm	71	4C98	CONFIRMED	-	0	20x18	Tilemap_CommPanel_71_4C98
+gfx/account/comm_panel_and_registration_delete_bank71/tilemap_4f68.attrmap	attrmap	40	gfx/account/comm_panel_and_registration_delete_bank71.asm	71	4F90	CONFIRMED	-	0	20x2	Tilemap_CommPanel_71_4F68
+gfx/account/comm_panel_and_registration_delete_bank71/tilemap_4f68.tilemap	tilemap	40	gfx/account/comm_panel_and_registration_delete_bank71.asm	71	4F68	CONFIRMED	-	0	20x2	Tilemap_CommPanel_71_4F68
+gfx/account/comm_panel_and_registration_delete_bank71/tilemap_66c8.attrmap	attrmap	360	gfx/account/comm_panel_and_registration_delete_bank71.asm	71	6830	CONFIRMED	-	0	20x18	Tilemap_Registration_DeleteConfirm_71_66C8
+gfx/account/comm_panel_and_registration_delete_bank71/tilemap_66c8.tilemap	tilemap	360	gfx/account/comm_panel_and_registration_delete_bank71.asm	71	66C8	CONFIRMED	-	0	20x18	Tilemap_Registration_DeleteConfirm_71_66C8
+gfx/account/comm_panel_and_registration_delete_bank71/tilemap_6998.attrmap	attrmap	360	gfx/account/comm_panel_and_registration_delete_bank71.asm	71	6B00	CONFIRMED	-	0	20x18	Tilemap_Registration_DeleteConfirm_71_6998
+gfx/account/comm_panel_and_registration_delete_bank71/tilemap_6998.tilemap	tilemap	360	gfx/account/comm_panel_and_registration_delete_bank71.asm	71	6998	CONFIRMED	-	0	20x18	Tilemap_Registration_DeleteConfirm_71_6998
+gfx/account/comm_panel_and_registration_delete_bank71/tilemap_6c68.attrmap	attrmap	360	gfx/account/comm_panel_and_registration_delete_bank71.asm	71	6DD0	CONFIRMED	-	0	20x18	Tilemap_Registration_DeleteExecute
+gfx/account/comm_panel_and_registration_delete_bank71/tilemap_6c68.tilemap	tilemap	360	gfx/account/comm_panel_and_registration_delete_bank71.asm	71	6C68	CONFIRMED	-	0	20x18	Tilemap_Registration_DeleteExecute
+gfx/account/comm_panel_and_registration_delete_bank71/tiles_4000.2bpp	tiles	768	gfx/account/comm_panel_and_registration_delete_bank71.asm	71	4000	CONFIRMED	exact	0		Gfx_CommPanel_Tiles8000
+gfx/account/comm_panel_and_registration_delete_bank71/tiles_4300.2bpp	tiles	512	gfx/account/comm_panel_and_registration_delete_bank71.asm	71	4300	CONFIRMED	exact	0		Gfx_CommPanel_SharedVramSource
+gfx/account/comm_panel_and_registration_delete_bank71/tiles_4500.2bpp	tiles	912	gfx/account/comm_panel_and_registration_delete_bank71.asm	71	4500	CONFIRMED	exact	7		Gfx_CommPanel_TileSource_4500
+gfx/account/comm_panel_and_registration_delete_bank71/tiles_4890.2bpp	tiles	960	gfx/account/comm_panel_and_registration_delete_bank71.asm	71	4890	CONFIRMED	exact	0		Gfx_CommPanel_Tiles9400Vb1
+gfx/account/comm_panel_and_registration_delete_bank71/tiles_5340.2bpp	tiles	1024	gfx/account/comm_panel_and_registration_delete_bank71.asm	71	5340	CONFIRMED	exact	0		Gfx_Registration_DeleteConfirm_Tiles9000Vb1
+gfx/account/comm_panel_and_registration_delete_bank71/tiles_5740.2bpp	tiles	1024	gfx/account/comm_panel_and_registration_delete_bank71.asm	71	5740	CONFIRMED	exact	0		Gfx_Registration_DeleteConfirm_Tiles9400Vb1
+gfx/account/comm_panel_and_registration_delete_bank71/tiles_5b40.2bpp	tiles	640	gfx/account/comm_panel_and_registration_delete_bank71.asm	71	5B40	CONFIRMED	exact	0		Gfx_Registration_DeleteConfirm_TileSource_5B40
+gfx/account/comm_panel_and_registration_delete_bank71/tiles_5dc0.2bpp	tiles	1024	gfx/account/comm_panel_and_registration_delete_bank71.asm	71	5DC0	CONFIRMED	exact	0		Gfx_Registration_Delete_Tiles9400Vb1
+gfx/account/comm_panel_and_registration_delete_bank71/tiles_61c0.2bpp	tiles	640	gfx/account/comm_panel_and_registration_delete_bank71.asm	71	61C0	CONFIRMED	exact	0		Gfx_Registration_DeleteExecute_TileSource_61C0
+gfx/account/comm_panel_and_registration_delete_bank71/tiles_6440.2bpp	tiles	320	gfx/account/comm_panel_and_registration_delete_bank71.asm	71	6440	CONFIRMED	exact	0		Gfx_Registration_DeleteExecute_TileSource_6440
+gfx/account/comm_panel_and_registration_delete_bank71/tiles_6580.2bpp	tiles	256	gfx/account/comm_panel_and_registration_delete_bank71.asm	71	6580	CONFIRMED	exact	0		Gfx_Registration_DeleteExecute_Tiles9000Vb1
 gfx/address_book/address_editor/abook_addr.attrmap	attrmap	360	gfx/address_book/address_editor.asm	2F	7C28	CONFIRMED	-	0	20x18	Tilemap_AbookAddr
 gfx/address_book/address_editor/abook_addr.tilemap	tilemap	360	gfx/address_book/address_editor.asm	2F	7AC0	CONFIRMED	-	0	20x18	Tilemap_AbookAddr
 gfx/address_book/address_editor/abook_addr_bg.pal	palette	64	gfx/address_book/address_editor.asm	2F	7D90	CONFIRMED	-	0		Palette_AbookAddr_Bg

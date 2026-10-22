@@ -209,35 +209,35 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `tilemap_75d0.tilemap` | tile-index map | 360 | 5E:75D0 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank5e.asm` |
 | `tilemap_75d0.attrmap` | attribute map | 360 | 5E:7738 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank5e.asm` |
 
-### `gfx/account/screens_bank71/`
+### `gfx/account/comm_panel_and_registration_delete_bank71/`
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_4000.2bpp` | 2bpp tiles | 768 | 71:4000 | CONFIRMED | exact | - | `gfx/account/screens_bank71.asm` |
-| `tiles_4300.2bpp` | 2bpp tiles | 512 | 71:4300 | CONFIRMED | exact | - | `gfx/account/screens_bank71.asm` |
-| `tiles_4500.2bpp` | 2bpp tiles | 912 | 71:4500 | CONFIRMED | exact | - | `gfx/account/screens_bank71.asm` |
-| `tiles_4890.2bpp` | 2bpp tiles | 960 | 71:4890 | CONFIRMED | exact | - | `gfx/account/screens_bank71.asm` |
-| `comm_panel_bg.pal` | RGB palette | 64 | 71:4C50 | CONFIRMED | - | - | `gfx/account/screens_bank71.asm` |
-| `comm_panel_obj.pal` | RGB palette | 8 | 71:4C90 | CONFIRMED | - | - | `gfx/account/screens_bank71.asm` |
-| `tilemap_4c98.tilemap` | tile-index map | 360 | 71:4C98 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank71.asm` |
-| `tilemap_4c98.attrmap` | attribute map | 360 | 71:4E00 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank71.asm` |
-| `tilemap_4f68.tilemap` | tile-index map | 40 | 71:4F68 | CONFIRMED | - | 20x2 | `gfx/account/screens_bank71.asm` |
-| `tilemap_4f68.attrmap` | attribute map | 40 | 71:4F90 | CONFIRMED | - | 20x2 | `gfx/account/screens_bank71.asm` |
-| `tiles_5340.2bpp` | 2bpp tiles | 1024 | 71:5340 | CONFIRMED | exact | - | `gfx/account/screens_bank71.asm` |
-| `tiles_5740.2bpp` | 2bpp tiles | 1024 | 71:5740 | CONFIRMED | exact | - | `gfx/account/screens_bank71.asm` |
-| `tiles_5b40.2bpp` | 2bpp tiles | 640 | 71:5B40 | CONFIRMED | exact | - | `gfx/account/screens_bank71.asm` |
-| `tiles_5dc0.2bpp` | 2bpp tiles | 1024 | 71:5DC0 | CONFIRMED | exact | - | `gfx/account/screens_bank71.asm` |
-| `tiles_61c0.2bpp` | 2bpp tiles | 640 | 71:61C0 | CONFIRMED | exact | - | `gfx/account/screens_bank71.asm` |
-| `tiles_6440.2bpp` | 2bpp tiles | 320 | 71:6440 | CONFIRMED | exact | - | `gfx/account/screens_bank71.asm` |
-| `tiles_6580.2bpp` | 2bpp tiles | 256 | 71:6580 | CONFIRMED | exact | - | `gfx/account/screens_bank71.asm` |
-| `registration_delete_bg.pal` | RGB palette | 64 | 71:6680 | CONFIRMED | - | - | `gfx/account/screens_bank71.asm` |
-| `registration_delete_obj.pal` | RGB palette | 8 | 71:66C0 | CONFIRMED | - | - | `gfx/account/screens_bank71.asm` |
-| `tilemap_66c8.tilemap` | tile-index map | 360 | 71:66C8 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank71.asm` |
-| `tilemap_66c8.attrmap` | attribute map | 360 | 71:6830 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank71.asm` |
-| `tilemap_6998.tilemap` | tile-index map | 360 | 71:6998 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank71.asm` |
-| `tilemap_6998.attrmap` | attribute map | 360 | 71:6B00 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank71.asm` |
-| `tilemap_6c68.tilemap` | tile-index map | 360 | 71:6C68 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank71.asm` |
-| `tilemap_6c68.attrmap` | attribute map | 360 | 71:6DD0 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank71.asm` |
+| `tiles_4000.2bpp` | 2bpp tiles | 768 | 71:4000 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `tiles_4300.2bpp` | 2bpp tiles | 512 | 71:4300 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `tiles_4500.2bpp` | 2bpp tiles | 912 | 71:4500 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `tiles_4890.2bpp` | 2bpp tiles | 960 | 71:4890 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `comm_panel_bg.pal` | RGB palette | 64 | 71:4C50 | CONFIRMED | - | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `comm_panel_obj.pal` | RGB palette | 8 | 71:4C90 | CONFIRMED | - | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `tilemap_4c98.tilemap` | tile-index map | 360 | 71:4C98 | CONFIRMED | - | 20x18 | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `tilemap_4c98.attrmap` | attribute map | 360 | 71:4E00 | CONFIRMED | - | 20x18 | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `tilemap_4f68.tilemap` | tile-index map | 40 | 71:4F68 | CONFIRMED | - | 20x2 | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `tilemap_4f68.attrmap` | attribute map | 40 | 71:4F90 | CONFIRMED | - | 20x2 | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `tiles_5340.2bpp` | 2bpp tiles | 1024 | 71:5340 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `tiles_5740.2bpp` | 2bpp tiles | 1024 | 71:5740 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `tiles_5b40.2bpp` | 2bpp tiles | 640 | 71:5B40 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `tiles_5dc0.2bpp` | 2bpp tiles | 1024 | 71:5DC0 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `tiles_61c0.2bpp` | 2bpp tiles | 640 | 71:61C0 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `tiles_6440.2bpp` | 2bpp tiles | 320 | 71:6440 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `tiles_6580.2bpp` | 2bpp tiles | 256 | 71:6580 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `registration_delete_bg.pal` | RGB palette | 64 | 71:6680 | CONFIRMED | - | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `registration_delete_obj.pal` | RGB palette | 8 | 71:66C0 | CONFIRMED | - | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `tilemap_66c8.tilemap` | tile-index map | 360 | 71:66C8 | CONFIRMED | - | 20x18 | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `tilemap_66c8.attrmap` | attribute map | 360 | 71:6830 | CONFIRMED | - | 20x18 | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `tilemap_6998.tilemap` | tile-index map | 360 | 71:6998 | CONFIRMED | - | 20x18 | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `tilemap_6998.attrmap` | attribute map | 360 | 71:6B00 | CONFIRMED | - | 20x18 | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `tilemap_6c68.tilemap` | tile-index map | 360 | 71:6C68 | CONFIRMED | - | 20x18 | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `tilemap_6c68.attrmap` | attribute map | 360 | 71:6DD0 | CONFIRMED | - | 20x18 | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
 
 ### `gfx/address_book/address_editor/`
 

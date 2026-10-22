@@ -732,7 +732,7 @@ ROMX $70
 
 ROMX $71
 	org $4000
-	"gfx/account/screens_bank71"
+	"gfx/account/comm_panel_and_registration_delete_bank71"
 	org $6F44
 	"gfx/settings/screens_bank71"
 
