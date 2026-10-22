@@ -369,18 +369,18 @@ PNG_TILE_OUTS := \
 	gfx/profile/profile_editor/profile_tiles8800.2bpp \
 	gfx/profile/profile_editor/profile_tiles9300.2bpp \
 	gfx/profile/profile_editor/profile_tiles9700.2bpp \
-	gfx/registration/registration_notice_art_bank58/tiles_4000.2bpp \
-	gfx/registration/registration_notice_art_bank58/tiles_41d0.2bpp \
-	gfx/registration/registration_notice_art_bank58/tiles_4450.2bpp \
-	gfx/registration/registration_notice_art_bank58/tiles_46d0.2bpp \
-	gfx/registration/registration_notice_art_bank58/tiles_4e50.2bpp \
-	gfx/registration/registration_notice_art_bank58/tiles_5350.2bpp \
-	gfx/registration/registration_notice_art_bank58/tiles_5850.2bpp \
-	gfx/registration/registration_notice_art_bank58/tiles_5ad0.2bpp \
-	gfx/registration/registration_notice_art_bank58/tiles_6d40.2bpp \
-	gfx/registration/registration_notice_art_bank58/tiles_7460.2bpp \
-	gfx/registration/registration_notice_art_bank58/tiles_7650.2bpp \
-	gfx/registration/registration_notice_art_bank58/tiles_7790.2bpp \
+	gfx/registration/registration_notice_art_bank58/notice_footer_candidate_tiles_6d40.2bpp \
+	gfx/registration/registration_notice_art_bank58/notice_footer_candidate_tiles_7460.2bpp \
+	gfx/registration/registration_notice_art_bank58/notice_footer_candidate_tiles_7650.2bpp \
+	gfx/registration/registration_notice_art_bank58/notice_footer_candidate_tiles_7790.2bpp \
+	gfx/registration/registration_notice_art_bank58/notice_header_candidate_tiles_41d0.2bpp \
+	gfx/registration/registration_notice_art_bank58/notice_header_candidate_tiles_4450.2bpp \
+	gfx/registration/registration_notice_art_bank58/notice_header_candidate_tiles_46d0.2bpp \
+	gfx/registration/registration_notice_art_bank58/notice_header_candidate_tiles_4e50.2bpp \
+	gfx/registration/registration_notice_art_bank58/notice_header_candidate_tiles_5350.2bpp \
+	gfx/registration/registration_notice_art_bank58/notice_header_candidate_tiles_5850.2bpp \
+	gfx/registration/registration_notice_art_bank58/notice_header_footer_candidate_tiles_5ad0.2bpp \
+	gfx/registration/registration_notice_art_bank58/notice_scene_vram9000_vb1_tiles.2bpp \
 	gfx/settings/adapter_check_and_phone_entry_bank4a/adapter_check_vram8000_vb0.2bpp \
 	gfx/settings/adapter_check_and_phone_entry_bank4a/adapter_check_vram9000_vb1.2bpp \
 	gfx/settings/adapter_check_and_phone_entry_bank4a/adapter_check_vram9400_vb1_tile_prefix_256.2bpp \
@@ -802,22 +802,22 @@ gfx/mailbox/mailbox/mailbox_tiles_6cf0.2bpp: PNG_SIZE := 384
 gfx/profile/profile_editor/profile_tiles8800.2bpp: PNG_SIZE := 832
 gfx/profile/profile_editor/profile_tiles9300.2bpp: PNG_SIZE := 1024
 gfx/profile/profile_editor/profile_tiles9700.2bpp: PNG_SIZE := 256
-gfx/registration/registration_notice_art_bank58/tiles_4000.2bpp: PNG_SIZE := 464
-gfx/registration/registration_notice_art_bank58/tiles_4000.2bpp: PNG_PAD := -x 3
-gfx/registration/registration_notice_art_bank58/tiles_41d0.2bpp: PNG_SIZE := 640
-gfx/registration/registration_notice_art_bank58/tiles_4450.2bpp: PNG_SIZE := 640
-gfx/registration/registration_notice_art_bank58/tiles_46d0.2bpp: PNG_SIZE := 1920
-gfx/registration/registration_notice_art_bank58/tiles_4e50.2bpp: PNG_SIZE := 1280
-gfx/registration/registration_notice_art_bank58/tiles_5350.2bpp: PNG_SIZE := 1280
-gfx/registration/registration_notice_art_bank58/tiles_5850.2bpp: PNG_SIZE := 640
-gfx/registration/registration_notice_art_bank58/tiles_5ad0.2bpp: PNG_SIZE := 4720
-gfx/registration/registration_notice_art_bank58/tiles_5ad0.2bpp: PNG_PAD := -x 9
-gfx/registration/registration_notice_art_bank58/tiles_6d40.2bpp: PNG_SIZE := 1824
-gfx/registration/registration_notice_art_bank58/tiles_6d40.2bpp: PNG_PAD := -x 14
-gfx/registration/registration_notice_art_bank58/tiles_7460.2bpp: PNG_SIZE := 496
-gfx/registration/registration_notice_art_bank58/tiles_7460.2bpp: PNG_PAD := -x 1
-gfx/registration/registration_notice_art_bank58/tiles_7650.2bpp: PNG_SIZE := 320
-gfx/registration/registration_notice_art_bank58/tiles_7790.2bpp: PNG_SIZE := 960
+gfx/registration/registration_notice_art_bank58/notice_footer_candidate_tiles_6d40.2bpp: PNG_SIZE := 1824
+gfx/registration/registration_notice_art_bank58/notice_footer_candidate_tiles_6d40.2bpp: PNG_PAD := -x 14
+gfx/registration/registration_notice_art_bank58/notice_footer_candidate_tiles_7460.2bpp: PNG_SIZE := 496
+gfx/registration/registration_notice_art_bank58/notice_footer_candidate_tiles_7460.2bpp: PNG_PAD := -x 1
+gfx/registration/registration_notice_art_bank58/notice_footer_candidate_tiles_7650.2bpp: PNG_SIZE := 320
+gfx/registration/registration_notice_art_bank58/notice_footer_candidate_tiles_7790.2bpp: PNG_SIZE := 960
+gfx/registration/registration_notice_art_bank58/notice_header_candidate_tiles_41d0.2bpp: PNG_SIZE := 640
+gfx/registration/registration_notice_art_bank58/notice_header_candidate_tiles_4450.2bpp: PNG_SIZE := 640
+gfx/registration/registration_notice_art_bank58/notice_header_candidate_tiles_46d0.2bpp: PNG_SIZE := 1920
+gfx/registration/registration_notice_art_bank58/notice_header_candidate_tiles_4e50.2bpp: PNG_SIZE := 1280
+gfx/registration/registration_notice_art_bank58/notice_header_candidate_tiles_5350.2bpp: PNG_SIZE := 1280
+gfx/registration/registration_notice_art_bank58/notice_header_candidate_tiles_5850.2bpp: PNG_SIZE := 640
+gfx/registration/registration_notice_art_bank58/notice_header_footer_candidate_tiles_5ad0.2bpp: PNG_SIZE := 4720
+gfx/registration/registration_notice_art_bank58/notice_header_footer_candidate_tiles_5ad0.2bpp: PNG_PAD := -x 9
+gfx/registration/registration_notice_art_bank58/notice_scene_vram9000_vb1_tiles.2bpp: PNG_SIZE := 464
+gfx/registration/registration_notice_art_bank58/notice_scene_vram9000_vb1_tiles.2bpp: PNG_PAD := -x 3
 gfx/settings/adapter_check_and_phone_entry_bank4a/adapter_check_vram8000_vb0.2bpp: PNG_SIZE := 256
 gfx/settings/adapter_check_and_phone_entry_bank4a/adapter_check_vram9000_vb1.2bpp: PNG_SIZE := 1024
 gfx/settings/adapter_check_and_phone_entry_bank4a/adapter_check_vram9400_vb1_tile_prefix_256.2bpp: PNG_SIZE := 256

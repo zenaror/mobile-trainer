@@ -1299,21 +1299,21 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_4000.2bpp` | 2bpp tiles | 464 | 58:4000 | CONFIRMED | exact | - | `gfx/registration/registration_notice_art_bank58.asm` |
-| `tiles_41d0.2bpp` | 2bpp tiles | 640 | 58:41D0 | PROBABLE | exact | - | `gfx/registration/registration_notice_art_bank58.asm` |
-| `tiles_4450.2bpp` | 2bpp tiles | 640 | 58:4450 | PROBABLE | exact | - | `gfx/registration/registration_notice_art_bank58.asm` |
-| `tiles_46d0.2bpp` | 2bpp tiles | 1920 | 58:46D0 | PROBABLE | exact | - | `gfx/registration/registration_notice_art_bank58.asm` |
-| `tiles_4e50.2bpp` | 2bpp tiles | 1280 | 58:4E50 | PROBABLE | exact | - | `gfx/registration/registration_notice_art_bank58.asm` |
-| `tiles_5350.2bpp` | 2bpp tiles | 1280 | 58:5350 | PROBABLE | exact | - | `gfx/registration/registration_notice_art_bank58.asm` |
-| `tiles_5850.2bpp` | 2bpp tiles | 640 | 58:5850 | PROBABLE | exact | - | `gfx/registration/registration_notice_art_bank58.asm` |
-| `tiles_5ad0.2bpp` | 2bpp tiles | 4720 | 58:5AD0 | PROBABLE | exact | - | `gfx/registration/registration_notice_art_bank58.asm` |
-| `tiles_6d40.2bpp` | 2bpp tiles | 1824 | 58:6D40 | PROBABLE | exact | - | `gfx/registration/registration_notice_art_bank58.asm` |
-| `tiles_7460.2bpp` | 2bpp tiles | 496 | 58:7460 | PROBABLE | exact | - | `gfx/registration/registration_notice_art_bank58.asm` |
-| `tiles_7650.2bpp` | 2bpp tiles | 320 | 58:7650 | PROBABLE | exact | - | `gfx/registration/registration_notice_art_bank58.asm` |
-| `tiles_7790.2bpp` | 2bpp tiles | 960 | 58:7790 | PROBABLE | exact | - | `gfx/registration/registration_notice_art_bank58.asm` |
-| `palette_7b50.pal` | RGB palette | 40 | 58:7B50 | PROBABLE | - | - | `gfx/registration/registration_notice_art_bank58.asm` |
-| `tilemap_7b78.tilemap` | tile-index map | 360 | 58:7B78 | CONFIRMED | - | 20x18 | `gfx/registration/registration_notice_art_bank58.asm` |
-| `tilemap_7b78.attrmap` | attribute map | 360 | 58:7CE0 | CONFIRMED | - | 20x18 | `gfx/registration/registration_notice_art_bank58.asm` |
+| `notice_scene_vram9000_vb1_tiles.2bpp` | 2bpp tiles | 464 | 58:4000 | CONFIRMED | exact | - | `gfx/registration/registration_notice_art_bank58.asm` |
+| `notice_header_candidate_tiles_41d0.2bpp` | 2bpp tiles | 640 | 58:41D0 | PROBABLE | exact | - | `gfx/registration/registration_notice_art_bank58.asm` |
+| `notice_header_candidate_tiles_4450.2bpp` | 2bpp tiles | 640 | 58:4450 | PROBABLE | exact | - | `gfx/registration/registration_notice_art_bank58.asm` |
+| `notice_header_candidate_tiles_46d0.2bpp` | 2bpp tiles | 1920 | 58:46D0 | PROBABLE | exact | - | `gfx/registration/registration_notice_art_bank58.asm` |
+| `notice_header_candidate_tiles_4e50.2bpp` | 2bpp tiles | 1280 | 58:4E50 | PROBABLE | exact | - | `gfx/registration/registration_notice_art_bank58.asm` |
+| `notice_header_candidate_tiles_5350.2bpp` | 2bpp tiles | 1280 | 58:5350 | PROBABLE | exact | - | `gfx/registration/registration_notice_art_bank58.asm` |
+| `notice_header_candidate_tiles_5850.2bpp` | 2bpp tiles | 640 | 58:5850 | PROBABLE | exact | - | `gfx/registration/registration_notice_art_bank58.asm` |
+| `notice_header_footer_candidate_tiles_5ad0.2bpp` | 2bpp tiles | 4720 | 58:5AD0 | PROBABLE | exact | - | `gfx/registration/registration_notice_art_bank58.asm` |
+| `notice_footer_candidate_tiles_6d40.2bpp` | 2bpp tiles | 1824 | 58:6D40 | PROBABLE | exact | - | `gfx/registration/registration_notice_art_bank58.asm` |
+| `notice_footer_candidate_tiles_7460.2bpp` | 2bpp tiles | 496 | 58:7460 | PROBABLE | exact | - | `gfx/registration/registration_notice_art_bank58.asm` |
+| `notice_footer_candidate_tiles_7650.2bpp` | 2bpp tiles | 320 | 58:7650 | PROBABLE | exact | - | `gfx/registration/registration_notice_art_bank58.asm` |
+| `notice_footer_candidate_tiles_7790.2bpp` | 2bpp tiles | 960 | 58:7790 | PROBABLE | exact | - | `gfx/registration/registration_notice_art_bank58.asm` |
+| `notice_page_bg_palettes.pal` | RGB palette | 40 | 58:7B50 | PROBABLE | - | - | `gfx/registration/registration_notice_art_bank58.asm` |
+| `notice_page_58_tilemap_20x18.tilemap` | tile-index map | 360 | 58:7B78 | CONFIRMED | - | 20x18 | `gfx/registration/registration_notice_art_bank58.asm` |
+| `notice_page_58_attrmap_20x18.attrmap` | attribute map | 360 | 58:7CE0 | CONFIRMED | - | 20x18 | `gfx/registration/registration_notice_art_bank58.asm` |
 
 ### `gfx/settings/adapter_check_and_phone_entry_bank4a/`
 

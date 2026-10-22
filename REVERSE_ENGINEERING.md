@@ -6,6 +6,10 @@ Numbers marked "frozen" describe `config/` at the freeze and are not updated any
 (the tree is edited by hand, so recount with the command given).
 
 ## Current original reconstruction and asset-audit limits
+### Bank 58 registration notice asset paths (2026-10-22)
+
+The address-only paths for the Bank 58 registration notice tiles, palette and 20×18 tilemap pair now follow the existing notice-family labels and static Bank 65 readers. Twenty-seven files were moved without byte changes; tile groups that remain PROBABLE are named as candidates, with no claim of natural display. The path map and evidence are in [`registration_notice_bank58_resource_paths_20261022.md`](docs/research/registration_notice_bank58_resource_paths_20261022.md). The English tree was not accessed.
+
 
 The [definition of done](docs/REVERSE_ENGINEERING_RULES.md#23-definition-of-done) requires an explainable reconstruction as well as a reproducible ROM. `make`, symbol checks and a complete byte comparison establish reconstruction identity for the source actually checked; they do not establish complete semantics, natural execution or hardware behavior. Frozen `config/` and `docs/PROGRESS.md` counters, and dated counters below, are historical rather than a current completion census.
 

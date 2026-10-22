@@ -99,3 +99,8 @@ their previous Git blobs byte-for-byte. Owner/catalogue paths and generated
 PNG metadata were synchronized. No source or ROM bytes changed. The English
 tree remains paused and untouched; whether it shares old paths is UNKNOWN. Full
 evidence and gates: `docs/research/top_menu_resource_paths_20261022.md`.
+
+
+## Bank 58 registration notice asset paths (2026-10-22)
+
+Twenty-seven address-only paths in `gfx/registration/registration_notice_art_bank58/` now follow the existing notice labels and static Bank 65 readers. The directly loaded 58:4000 prefix and paired 20×18 tilemap paths carry CONFIRMED static roles; header/footer tile families and the palette retain PROBABLE/candidate wording. Payload hashes, source extents and evidence levels are unchanged. The English tree was not accessed. See [`registration_notice_bank58_resource_paths_20261022.md`](registration_notice_bank58_resource_paths_20261022.md).
