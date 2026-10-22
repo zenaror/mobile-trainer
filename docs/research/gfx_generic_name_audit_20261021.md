@@ -164,3 +164,35 @@ The maintained Japanese GFX filename census after this pass is 72 address-only
 stems in 7 directories and 147 associated files; 90 catalog rows remain (75
 CONFIRMED, 15 PROBABLE). This lexical count is not a reachability or closure
 claim.
+
+
+## Bank 5D/5E account graphics path mapping (2026-10-22)
+
+Twenty-eight address-only stems were renamed across the account Login ID, mail,
+password, confirmation, and registration-write-config graphics folders. The
+static owner/reader mapping supplies the resource family and VRAM/VBK roles;
+all 34 payload catalog rows remain CONFIRMED, while their six associated screen
+previews remain HYPOTHESIS. The shared `5E:4D00` BG palette is named
+`shared_entry_ui_bg` because its source label and readers show broader reuse.
+The `5E:75D0` map name explicitly means the branch selected when the variant
+value is nonzero; it does not imply a particular nonzero value. The two `5D:5DF0`
+and `5D:61F0` resources retain the plural `confirm_screens` because both are
+shared by confirm and manual-confirm layouts.
+
+The names preserve the exact backed-up extents. In particular, `5E:5210` has
+768 bytes although its HDMA requests 1,024; `5E:6FA0` has 800 bytes for a
+1,024-byte request; and `5D:6E00` has 512 bytes for a 1,024-byte request. They
+were not expanded or reclassified. `5D:6C00` is the second half of the upload
+starting at `5D:6A00` and maps to VRAM1 `$8A00`, so its filename includes
+`slice` and the actual destination. Six generated screen previews remain
+HYPOTHESIS: their cell coverage is incomplete, and the 5D confirm preview has
+a signed/unsigned tie with different rendered tiles. Static path mapping does
+not establish natural rendering or resolve those screen models.
+
+All 61 raw files retained their pre-move hashes. Asset payload hashes and raw
+file hashes are recorded in `.tmp/jp-account-5d5e-paths-20261022/PRE_MOVE.json`
+and `POST_MOVE.json`; the old-to-new path ledger is in
+`gfx_resource_path_map.tsv`. The maintained Japanese GFX filename census is now
+44 address-only stems in five directories / 86 files, with 56 address-only
+catalog rows (41 CONFIRMED / 15 PROBABLE). This is a lexical inventory, not a
+reachability or semantic-completion claim.

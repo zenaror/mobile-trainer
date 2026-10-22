@@ -1299,3 +1299,17 @@ for each asset. Ten moved files' raw and generated payload hashes are recorded
 in `.tmp/jp-page-list-candidate-paths-20261022/PRE_MOVE.json` and
 `POST_MOVE.json`. The maintained Japanese GFX lexical census is now 72 stems in
 7 directories / 147 files, with 90 catalog rows (75 CONFIRMED / 15 PROBABLE).
+
+
+## Bank 5D/5E account graphics paths (2026-10-22)
+
+Renamed 28 Japanese address-only graphics stems across Bank 5D/5E from their
+static owners and transfer destinations. The 34 asset payload catalog rows
+keep CONFIRMED; six screen previews remain HYPOTHESIS. Transfer-size gaps at
+`5E:5210` (768/1,024), `5E:6FA0` (800/1,024), and `5D:6E00` (512/1,024) remain
+visible and were not filled; the `5D:6C00` path states the second upload slice
+to VRAM1 `$8A00`. The shared BG palette and nonzero action-confirm branch retain
+their properly scoped names. All 61 raw file hashes are preserved in the
+private PRE/POST manifests. The six preview models remain HYPOTHESIS and do not
+prove natural display. Japanese address-only GFX names now number 44 stems in
+five directories / 86 files, with 56 catalog rows (41 CONFIRMED / 15 PROBABLE).

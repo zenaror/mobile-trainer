@@ -2148,3 +2148,17 @@ address-only GFX filename census is now 72 stems across 7 directories and 147
 files; 90 asset rows remain (75 CONFIRMED / 15 PROBABLE). This is a path and
 classification checkpoint, not semantic closure. Details are in the
 [dated GFX name audit](docs/research/gfx_generic_name_audit_20261021.md#bank-7f-browser-prototype-page-list-candidate-paths-2026-10-22).
+
+
+## Bank 5D/5E account graphics paths (2026-10-22)
+
+Twenty-eight address-only stems in the Japanese account/Login ID, mail,
+password, confirmation, and registration-write-config resources now use
+static owner and transfer-derived paths. The shared palette, nonzero
+action-confirm branch, manual-confirm shared tiles, and split `5D:6C00` upload
+are scoped in their names. All 34 payload catalog rows stay CONFIRMED and six
+screen previews stay HYPOTHESIS. Three source files are shorter than their
+static transfer requests; they were preserved at the original sizes. The 61
+raw file hashes match the private PRE/POST manifests. The Japanese lexical GFX
+filename census is now 44 address-only stems / 86 files in five directories,
+with 56 catalog rows (41 CONFIRMED / 15 PROBABLE). See the [dated GFX audit](docs/research/gfx_generic_name_audit_20261021.md#bank-5d5e-account-graphics-path-mapping-2026-10-22).

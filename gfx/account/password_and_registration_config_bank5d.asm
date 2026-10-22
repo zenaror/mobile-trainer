@@ -8,13 +8,13 @@ SECTION "gfx/account/password_and_registration_config_bank5d", ROMX
 
 Gfx_Account_PasswordEntry_Tiles9000Vb1:: ; 5D:4800
 
-	INCBIN "gfx/account/password_and_registration_config_bank5d/tiles_4800.2bpp"
+	INCBIN "gfx/account/password_and_registration_config_bank5d/account_password_entry_tiles9000_vb1_4800.2bpp"
 
 ; ---- gfx $4C00-$5000 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:5E0F: hl=$4C00 a=$5D c=$40 de=$9401 (dest VRAM $9400, vbank=1)
 
 Gfx_Account_PasswordEntry_Tiles9400Vb1:: ; 5D:4C00
 
-	INCBIN "gfx/account/password_and_registration_config_bank5d/tiles_4c00.2bpp"
+	INCBIN "gfx/account/password_and_registration_config_bank5d/account_password_entry_tiles9400_vb1_4c00.2bpp"
 
 ; ---- data $5000-$5320 (800 bytes) [CONFIRMED] four 5x20 tilemap/attribute pairs selected by the
 ;     password-entry variant
@@ -75,38 +75,38 @@ Data_AccountPasswordEntry_VariantTilemapAttributePairs:: ; 5D:5000
 
 Gfx_Account_PasswordIntro_Tiles9000Vb1:: ; 5D:5320
 
-	INCBIN "gfx/account/password_and_registration_config_bank5d/tiles_5320.2bpp"
+	INCBIN "gfx/account/password_and_registration_config_bank5d/account_password_intro_tiles9000_vb1_5320.2bpp"
 
 ; ---- gfx $5720-$5B20 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:6137: hl=$5720 a=$5D c=$40 de=$9401 (dest VRAM $9400, vbank=1)
 
 Gfx_Account_PasswordIntro_Tiles9400Vb1:: ; 5D:5720
 
-	INCBIN "gfx/account/password_and_registration_config_bank5d/tiles_5720.2bpp"
+	INCBIN "gfx/account/password_and_registration_config_bank5d/account_password_intro_tiles9400_vb1_5720.2bpp"
 
 ; ---- data $5B20-$5DF0 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:6159: hl=$5B20 a=$5D b=18 rows c=20 cols (tiles then attrs) de=$D000
 
 Tilemap_Account_PasswordIntro:: ; 5D:5B20
 
-	INCBIN "gfx/account/password_and_registration_config_bank5d/tilemap_5b20.tilemap"
-	INCBIN "gfx/account/password_and_registration_config_bank5d/tilemap_5b20.attrmap"
+	INCBIN "gfx/account/password_and_registration_config_bank5d/account_password_intro_5d_5b20.tilemap"
+	INCBIN "gfx/account/password_and_registration_config_bank5d/account_password_intro_5d_5b20.attrmap"
 
 ; ---- gfx $5DF0-$61F0 (1024 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (68:6238 68:6476); first: hdma_rom_to_vram at 68:6238: hl=$5DF0 a=$5D c=$40 de=$8801 (dest VRAM $8800, vbank=1)
 
 Gfx_Account_ConfirmScreens_Tiles8800Vb1:: ; 5D:5DF0
 
-	INCBIN "gfx/account/password_and_registration_config_bank5d/tiles_5df0.2bpp"
+	INCBIN "gfx/account/password_and_registration_config_bank5d/account_confirm_screens_tiles8800_vb1_5df0.2bpp"
 
 ; ---- gfx $61F0-$63F0 (512 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (68:624A 68:6488); first: hdma_rom_to_vram at 68:624A: hl=$61F0 a=$5D c=$20 de=$8C01 (dest VRAM $8C00, vbank=1)
 
 Gfx_Account_ConfirmScreens_Tiles8C00Vb1:: ; 5D:61F0
 
-	INCBIN "gfx/account/password_and_registration_config_bank5d/tiles_61f0.2bpp"
+	INCBIN "gfx/account/password_and_registration_config_bank5d/account_confirm_screens_tiles8c00_vb1_61f0.2bpp"
 
 ; ---- gfx $63F0-$65F0 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:625C: hl=$63F0 a=$5D c=$20 de=$9001 (dest VRAM $9000, vbank=1)
 
 Gfx_Account_ConfirmScreen_Tiles9000Vb1:: ; 5D:63F0
 
-	INCBIN "gfx/account/password_and_registration_config_bank5d/tiles_63f0.2bpp"
+	INCBIN "gfx/account/password_and_registration_config_bank5d/account_confirm_screen_tiles9000_vb1_63f0.2bpp"
 
 ; ---- data $65F0-$6630 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/account/confirm_screens.asm:54, call 68:627F executed 14 hits in 5 scenarios (analysis/coverage_union.tsv))
 
@@ -118,25 +118,25 @@ Palette_Account_ConfirmScreen_Bg:: ; 5D:65F0
 
 Tilemap_Account_ConfirmScreen:: ; 5D:6630
 
-	INCBIN "gfx/account/password_and_registration_config_bank5d/tilemap_6630.tilemap"
-	INCBIN "gfx/account/password_and_registration_config_bank5d/tilemap_6630.attrmap"
+	INCBIN "gfx/account/password_and_registration_config_bank5d/account_confirm_screen_5d_6630.tilemap"
+	INCBIN "gfx/account/password_and_registration_config_bank5d/account_confirm_screen_5d_6630.attrmap"
 
 ; ---- gfx $6900-$6C00 (768 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:6B3D: hl=$6900 a=$5D c=$30 de=$8000 (dest VRAM $8000, vbank=0)
 
 Gfx_Registration_WriteConfig_Tiles8000:: ; 5D:6900
 
-	INCBIN "gfx/account/password_and_registration_config_bank5d/tiles_6900.2bpp"
+	INCBIN "gfx/account/password_and_registration_config_bank5d/registration_write_config_tiles8000_vb0_6900.2bpp"
 
 ; ---- gfx $6C00-$6E00 (512 bytes) [CONFIRMED] tiles-vram: second half of the 1024-byte HDMA at 68:6B19 (source 5D:6A00, dest VRAM $8800, vbank=1); this slice maps to VRAM $8A00-$8BFF
 
 Gfx_Registration_WriteConfig_Tiles8A00Vb1:: ; 5D:6C00
-	INCBIN "gfx/account/password_and_registration_config_bank5d/tiles_6c00.2bpp"
+	INCBIN "gfx/account/password_and_registration_config_bank5d/registration_write_config_tiles8a00_vb1_slice_6c00.2bpp"
 
 ; ---- gfx $6E00-$7000 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:6B2B: hl=$6E00 a=$5D c=$40 de=$9001 (dest VRAM $9000, vbank=1); the last $200 bytes of the old blob hold 2 palettes and the head of a tilemap pair; the blocks below type them by what the code reads, and the HDMA request that copies the tiles copies them into VRAM as well
 
 Gfx_Registration_WriteConfig_Tiles9000Vb1:: ; 5D:6E00
 
-	INCBIN "gfx/account/password_and_registration_config_bank5d/tiles_6e00.2bpp"
+	INCBIN "gfx/account/password_and_registration_config_bank5d/registration_write_config_tiles9000_vb1_6e00.2bpp"
 
 ; ---- data $7000-$7040 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/account/register_config.asm:48, call 68:6B4E executed 23 hits in 8 scenarios (analysis/coverage_union.tsv))
 

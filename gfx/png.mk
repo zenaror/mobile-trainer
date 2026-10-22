@@ -24,17 +24,17 @@ endef
 
 ifneq ($(RGBGFX_VERSION),)
 PNG_TILE_OUTS := \
-	gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_4800.2bpp \
-	gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_4c00.2bpp \
-	gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_4e10.2bpp \
-	gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_5210.2bpp \
-	gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_57e0.2bpp \
-	gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_5800.2bpp \
-	gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_5c00.2bpp \
-	gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_60d0.2bpp \
-	gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_64d0.2bpp \
-	gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_6ba0.2bpp \
-	gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_6fa0.2bpp \
+	gfx/account/account_entry_mail_and_action_screens_bank5e/account_action_confirm_page_tiles9000_vb1_6ba0.2bpp \
+	gfx/account/account_entry_mail_and_action_screens_bank5e/account_action_confirm_page_tiles9400_vb1_6fa0.2bpp \
+	gfx/account/account_entry_mail_and_action_screens_bank5e/account_login_id_entry_tiles9000_vb1_4800.2bpp \
+	gfx/account/account_entry_mail_and_action_screens_bank5e/account_login_id_entry_tiles9400_vb1_4c00.2bpp \
+	gfx/account/account_entry_mail_and_action_screens_bank5e/account_login_id_intro_tiles9000_vb1_4e10.2bpp \
+	gfx/account/account_entry_mail_and_action_screens_bank5e/account_login_id_intro_tiles9400_vb1_5210.2bpp \
+	gfx/account/account_entry_mail_and_action_screens_bank5e/account_mail_address_entry_tiles9000_vb1_5800.2bpp \
+	gfx/account/account_entry_mail_and_action_screens_bank5e/account_mail_address_entry_tiles9400_vb1_5c00.2bpp \
+	gfx/account/account_entry_mail_and_action_screens_bank5e/account_mail_intro_tiles9000_vb1_60d0.2bpp \
+	gfx/account/account_entry_mail_and_action_screens_bank5e/account_mail_intro_tiles9400_vb1_64d0.2bpp \
+	gfx/account/account_entry_mail_and_action_screens_bank5e/kbd_t1_tiles8800_vb0_57e0.2bpp \
 	gfx/account/comm_panel_and_registration_delete_bank71/tiles_4000.2bpp \
 	gfx/account/comm_panel_and_registration_delete_bank71/tiles_4300.2bpp \
 	gfx/account/comm_panel_and_registration_delete_bank71/tiles_4500.2bpp \
@@ -46,16 +46,16 @@ PNG_TILE_OUTS := \
 	gfx/account/comm_panel_and_registration_delete_bank71/tiles_61c0.2bpp \
 	gfx/account/comm_panel_and_registration_delete_bank71/tiles_6440.2bpp \
 	gfx/account/comm_panel_and_registration_delete_bank71/tiles_6580.2bpp \
-	gfx/account/password_and_registration_config_bank5d/tiles_4800.2bpp \
-	gfx/account/password_and_registration_config_bank5d/tiles_4c00.2bpp \
-	gfx/account/password_and_registration_config_bank5d/tiles_5320.2bpp \
-	gfx/account/password_and_registration_config_bank5d/tiles_5720.2bpp \
-	gfx/account/password_and_registration_config_bank5d/tiles_5df0.2bpp \
-	gfx/account/password_and_registration_config_bank5d/tiles_61f0.2bpp \
-	gfx/account/password_and_registration_config_bank5d/tiles_63f0.2bpp \
-	gfx/account/password_and_registration_config_bank5d/tiles_6900.2bpp \
-	gfx/account/password_and_registration_config_bank5d/tiles_6c00.2bpp \
-	gfx/account/password_and_registration_config_bank5d/tiles_6e00.2bpp \
+	gfx/account/password_and_registration_config_bank5d/account_confirm_screen_tiles9000_vb1_63f0.2bpp \
+	gfx/account/password_and_registration_config_bank5d/account_confirm_screens_tiles8800_vb1_5df0.2bpp \
+	gfx/account/password_and_registration_config_bank5d/account_confirm_screens_tiles8c00_vb1_61f0.2bpp \
+	gfx/account/password_and_registration_config_bank5d/account_password_entry_tiles9000_vb1_4800.2bpp \
+	gfx/account/password_and_registration_config_bank5d/account_password_entry_tiles9400_vb1_4c00.2bpp \
+	gfx/account/password_and_registration_config_bank5d/account_password_intro_tiles9000_vb1_5320.2bpp \
+	gfx/account/password_and_registration_config_bank5d/account_password_intro_tiles9400_vb1_5720.2bpp \
+	gfx/account/password_and_registration_config_bank5d/registration_write_config_tiles8000_vb0_6900.2bpp \
+	gfx/account/password_and_registration_config_bank5d/registration_write_config_tiles8a00_vb1_slice_6c00.2bpp \
+	gfx/account/password_and_registration_config_bank5d/registration_write_config_tiles9000_vb1_6e00.2bpp \
 	gfx/account/result_page_bank4b/account_result_page_candidate_tiles_5080.2bpp \
 	gfx/account/result_page_bank4b/account_result_page_candidate_tiles_5420.2bpp \
 	gfx/account/result_page_bank4b/account_result_page_tiles4ad0.2bpp \
@@ -434,17 +434,17 @@ PNG_TILE_OUTS := \
 	gfx/unresolved/tile_graphics_candidate/tiles_candidate.2bpp \
 
 
-gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_4800.2bpp: PNG_SIZE := 1024
-gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_4c00.2bpp: PNG_SIZE := 256
-gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_4e10.2bpp: PNG_SIZE := 1024
-gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_5210.2bpp: PNG_SIZE := 768
-gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_57e0.2bpp: PNG_SIZE := 32
-gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_5800.2bpp: PNG_SIZE := 1024
-gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_5c00.2bpp: PNG_SIZE := 1024
-gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_60d0.2bpp: PNG_SIZE := 1024
-gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_64d0.2bpp: PNG_SIZE := 1024
-gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_6ba0.2bpp: PNG_SIZE := 1024
-gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_6fa0.2bpp: PNG_SIZE := 800
+gfx/account/account_entry_mail_and_action_screens_bank5e/account_action_confirm_page_tiles9000_vb1_6ba0.2bpp: PNG_SIZE := 1024
+gfx/account/account_entry_mail_and_action_screens_bank5e/account_action_confirm_page_tiles9400_vb1_6fa0.2bpp: PNG_SIZE := 800
+gfx/account/account_entry_mail_and_action_screens_bank5e/account_login_id_entry_tiles9000_vb1_4800.2bpp: PNG_SIZE := 1024
+gfx/account/account_entry_mail_and_action_screens_bank5e/account_login_id_entry_tiles9400_vb1_4c00.2bpp: PNG_SIZE := 256
+gfx/account/account_entry_mail_and_action_screens_bank5e/account_login_id_intro_tiles9000_vb1_4e10.2bpp: PNG_SIZE := 1024
+gfx/account/account_entry_mail_and_action_screens_bank5e/account_login_id_intro_tiles9400_vb1_5210.2bpp: PNG_SIZE := 768
+gfx/account/account_entry_mail_and_action_screens_bank5e/account_mail_address_entry_tiles9000_vb1_5800.2bpp: PNG_SIZE := 1024
+gfx/account/account_entry_mail_and_action_screens_bank5e/account_mail_address_entry_tiles9400_vb1_5c00.2bpp: PNG_SIZE := 1024
+gfx/account/account_entry_mail_and_action_screens_bank5e/account_mail_intro_tiles9000_vb1_60d0.2bpp: PNG_SIZE := 1024
+gfx/account/account_entry_mail_and_action_screens_bank5e/account_mail_intro_tiles9400_vb1_64d0.2bpp: PNG_SIZE := 1024
+gfx/account/account_entry_mail_and_action_screens_bank5e/kbd_t1_tiles8800_vb0_57e0.2bpp: PNG_SIZE := 32
 gfx/account/comm_panel_and_registration_delete_bank71/tiles_4000.2bpp: PNG_SIZE := 768
 gfx/account/comm_panel_and_registration_delete_bank71/tiles_4300.2bpp: PNG_SIZE := 512
 gfx/account/comm_panel_and_registration_delete_bank71/tiles_4500.2bpp: PNG_SIZE := 912
@@ -457,16 +457,16 @@ gfx/account/comm_panel_and_registration_delete_bank71/tiles_5dc0.2bpp: PNG_SIZE 
 gfx/account/comm_panel_and_registration_delete_bank71/tiles_61c0.2bpp: PNG_SIZE := 640
 gfx/account/comm_panel_and_registration_delete_bank71/tiles_6440.2bpp: PNG_SIZE := 320
 gfx/account/comm_panel_and_registration_delete_bank71/tiles_6580.2bpp: PNG_SIZE := 256
-gfx/account/password_and_registration_config_bank5d/tiles_4800.2bpp: PNG_SIZE := 1024
-gfx/account/password_and_registration_config_bank5d/tiles_4c00.2bpp: PNG_SIZE := 1024
-gfx/account/password_and_registration_config_bank5d/tiles_5320.2bpp: PNG_SIZE := 1024
-gfx/account/password_and_registration_config_bank5d/tiles_5720.2bpp: PNG_SIZE := 1024
-gfx/account/password_and_registration_config_bank5d/tiles_5df0.2bpp: PNG_SIZE := 1024
-gfx/account/password_and_registration_config_bank5d/tiles_61f0.2bpp: PNG_SIZE := 512
-gfx/account/password_and_registration_config_bank5d/tiles_63f0.2bpp: PNG_SIZE := 512
-gfx/account/password_and_registration_config_bank5d/tiles_6900.2bpp: PNG_SIZE := 768
-gfx/account/password_and_registration_config_bank5d/tiles_6c00.2bpp: PNG_SIZE := 512
-gfx/account/password_and_registration_config_bank5d/tiles_6e00.2bpp: PNG_SIZE := 512
+gfx/account/password_and_registration_config_bank5d/account_confirm_screen_tiles9000_vb1_63f0.2bpp: PNG_SIZE := 512
+gfx/account/password_and_registration_config_bank5d/account_confirm_screens_tiles8800_vb1_5df0.2bpp: PNG_SIZE := 1024
+gfx/account/password_and_registration_config_bank5d/account_confirm_screens_tiles8c00_vb1_61f0.2bpp: PNG_SIZE := 512
+gfx/account/password_and_registration_config_bank5d/account_password_entry_tiles9000_vb1_4800.2bpp: PNG_SIZE := 1024
+gfx/account/password_and_registration_config_bank5d/account_password_entry_tiles9400_vb1_4c00.2bpp: PNG_SIZE := 1024
+gfx/account/password_and_registration_config_bank5d/account_password_intro_tiles9000_vb1_5320.2bpp: PNG_SIZE := 1024
+gfx/account/password_and_registration_config_bank5d/account_password_intro_tiles9400_vb1_5720.2bpp: PNG_SIZE := 1024
+gfx/account/password_and_registration_config_bank5d/registration_write_config_tiles8000_vb0_6900.2bpp: PNG_SIZE := 768
+gfx/account/password_and_registration_config_bank5d/registration_write_config_tiles8a00_vb1_slice_6c00.2bpp: PNG_SIZE := 512
+gfx/account/password_and_registration_config_bank5d/registration_write_config_tiles9000_vb1_6e00.2bpp: PNG_SIZE := 512
 gfx/account/result_page_bank4b/account_result_page_candidate_tiles_5080.2bpp: PNG_SIZE := 896
 gfx/account/result_page_bank4b/account_result_page_candidate_tiles_5420.2bpp: PNG_SIZE := 1104
 gfx/account/result_page_bank4b/account_result_page_candidate_tiles_5420.2bpp: PNG_PAD := -x 11
