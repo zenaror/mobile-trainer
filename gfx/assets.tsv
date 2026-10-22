@@ -157,10 +157,10 @@ gfx/address_book/list/abook_list.attrmap	attrmap	360	gfx/address_book/list.asm	2
 gfx/address_book/list/abook_list.tilemap	tilemap	360	gfx/address_book/list.asm	2F	4D40	CONFIRMED	-	0	20x18	Tilemap_Abook_List
 gfx/address_book/name_editor/abook_name.attrmap	attrmap	360	gfx/address_book/name_editor.asm	2F	6B58	CONFIRMED	-	0	20x18	Tilemap_AbookName
 gfx/address_book/name_editor/abook_name.tilemap	tilemap	360	gfx/address_book/name_editor.asm	2F	69F0	CONFIRMED	-	0	20x18	Tilemap_AbookName
-gfx/address_book/name_editor/palette_6cc0.pal	palette	64	gfx/address_book/name_editor.asm	2F	6CC0	CONFIRMED	-	0		Palette_AbookName_Bg
-gfx/address_book/name_editor/tiles_61f0.2bpp	tiles	1024	gfx/address_book/name_editor.asm	2F	61F0	CONFIRMED	exact	0		Gfx_AbookName_Tiles9300Vb1
-gfx/address_book/name_editor/tiles_65f0.2bpp	tiles	256	gfx/address_book/name_editor.asm	2F	65F0	CONFIRMED	exact	0		Gfx_AbookName_Tiles9700Vb1
-gfx/address_book/name_editor/tiles_66f0.2bpp	tiles	768	gfx/address_book/name_editor.asm	2F	66F0	CONFIRMED	exact	0		Gfx_AbookName_Tiles8800
+gfx/address_book/name_editor/abook_name_bg_palette.pal	palette	64	gfx/address_book/name_editor.asm	2F	6CC0	CONFIRMED	-	0		Palette_AbookName_Bg
+gfx/address_book/name_editor/abook_name_tiles9300_vb1.2bpp	tiles	1024	gfx/address_book/name_editor.asm	2F	61F0	CONFIRMED	exact	0		Gfx_AbookName_Tiles9300Vb1
+gfx/address_book/name_editor/abook_name_tiles9700_vb1.2bpp	tiles	256	gfx/address_book/name_editor.asm	2F	65F0	CONFIRMED	exact	0		Gfx_AbookName_Tiles9700Vb1
+gfx/address_book/name_editor/abook_name_tiles8800.2bpp	tiles	768	gfx/address_book/name_editor.asm	2F	66F0	CONFIRMED	exact	0		Gfx_AbookName_Tiles8800
 gfx/address_book/save_confirm/addr_save_confirm_bg.pal	palette	64	gfx/address_book/save_confirm.asm	2A	75A0	PROBABLE	-	0		Palette_AddrSaveConfirm_Bg
 gfx/address_book/save_confirm/addr_save_confirm_tiles9300.2bpp	tiles	1024	gfx/address_book/save_confirm.asm	2A	75E0	CONFIRMED	exact	0		Gfx_AddrSaveConfirm_Tiles9300Vb1
 gfx/address_book/save_confirm/addr_save_confirm_tiles9700.2bpp	tiles	64	gfx/address_book/save_confirm.asm	2A	79E0	CONFIRMED	exact	0		Gfx_AddrSaveConfirm_Tiles9700Vb1

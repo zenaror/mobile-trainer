@@ -119,6 +119,7 @@ Reference documents (current):
 | [`connection_icon_probable_alias_retirement.md`](research/connection_icon_probable_alias_retirement.md) | Connection-icon structural alias retirement, corrected object ABI and retained unknowns |
 | [`adapter_check_object_data_80b.md`](research/adapter_check_object_data_80b.md) | AdapterCheck object-data structure, retained unknown tail and legacy byte-view provenance |
 | [`adapter_check_and_phone_entry_4a_resource_paths.md`](research/adapter_check_and_phone_entry_4a_resource_paths.md) | Bank 4A AdapterCheck and phone-entry resource paths, byte-held assets and mixed-window limits |
+| [`address_book_name_editor_graphics_paths.md`](research/address_book_name_editor_graphics_paths.md) | Bank 2F name-editor resources named by static VRAM and palette transfers |
 | [`address_book_graphics_resource_paths.md`](research/address_book_graphics_resource_paths.md) | Address-book graphics filenames tied to static VRAM transfers and screen consumers |
 | [`gfx_bank4d_semantic_resource_paths.md`](research/gfx_bank4d_semantic_resource_paths.md) | Bank 4D choice/slot-menu paths derived from VRAM destinations and map ownership; clipped slices and confidence limits retained |
 | [`gfx_bank4d_semantic_resource_paths_verify.md`](research/gfx_bank4d_semantic_resource_paths_verify.md) | Independent review and checks for the Bank 4D semantic path rename. |
@@ -126,7 +127,7 @@ Reference documents (current):
 | [`title_logo_resource_names.md`](research/title_logo_resource_names.md) | Bounded original data/resource alias contracts; evidence and caller limits retained |
 | [`font_glyph_run_path_map.tsv`](research/font_glyph_run_path_map.tsv) | original glyph-run binary and PNG path migration with byte hashes |
 | [`gfx_resource_names.md`](research/gfx_resource_names.md) | descriptive original graphics paths, visual confidence and opaque-fragment limits |
-| [`gfx_resource_path_map.tsv`](research/gfx_resource_path_map.tsv) | 278 direct one-to-one historical/current paths; picture recompositions have a separate range map |
+| [`gfx_resource_path_map.tsv`](research/gfx_resource_path_map.tsv) | 285 direct one-to-one historical/current paths; picture recompositions have a separate range map |
 | [`help_menu_item_map_paths.md`](research/help_menu_item_map_paths.md) | Six HelpMenu item-map pairs: semantic paths, original bytes and retained read limits |
 | [`help_script_picture_assets.md`](research/help_script_picture_assets.md) | Table-backed whole HelpScript pictures01–26, static consumer limits and catalogue recovery |
 | [`help_script_picture_resource_map.tsv`](research/help_script_picture_resource_map.tsv) | Exact retired-clip to whole-picture byte intersections |

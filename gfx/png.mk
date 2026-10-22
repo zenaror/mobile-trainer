@@ -79,9 +79,9 @@ PNG_TILE_OUTS := \
 	gfx/address_book/entry_screen_bank29/abook_view_tiles9700_vb1.2bpp \
 	gfx/address_book/entry_screen_bank2a/addr_book_entry_tiles8000.2bpp \
 	gfx/address_book/entry_screen_bank2a/addr_book_entry_tiles8f00.2bpp \
-	gfx/address_book/name_editor/tiles_61f0.2bpp \
-	gfx/address_book/name_editor/tiles_65f0.2bpp \
-	gfx/address_book/name_editor/tiles_66f0.2bpp \
+	gfx/address_book/name_editor/abook_name_tiles8800.2bpp \
+	gfx/address_book/name_editor/abook_name_tiles9300_vb1.2bpp \
+	gfx/address_book/name_editor/abook_name_tiles9700_vb1.2bpp \
 	gfx/address_book/save_confirm/addr_save_confirm_tiles9300.2bpp \
 	gfx/address_book/save_confirm/addr_save_confirm_tiles9700.2bpp \
 	gfx/address_book/save_sender_address/save_sender_addr_candidate_tiles_4fe0.2bpp \
@@ -492,9 +492,9 @@ gfx/address_book/entry_screen_bank29/abook_view_tiles9300_vb1.2bpp: PNG_SIZE := 
 gfx/address_book/entry_screen_bank29/abook_view_tiles9700_vb1.2bpp: PNG_SIZE := 64
 gfx/address_book/entry_screen_bank2a/addr_book_entry_tiles8000.2bpp: PNG_SIZE := 176
 gfx/address_book/entry_screen_bank2a/addr_book_entry_tiles8f00.2bpp: PNG_SIZE := 224
-gfx/address_book/name_editor/tiles_61f0.2bpp: PNG_SIZE := 1024
-gfx/address_book/name_editor/tiles_65f0.2bpp: PNG_SIZE := 256
-gfx/address_book/name_editor/tiles_66f0.2bpp: PNG_SIZE := 768
+gfx/address_book/name_editor/abook_name_tiles8800.2bpp: PNG_SIZE := 768
+gfx/address_book/name_editor/abook_name_tiles9300_vb1.2bpp: PNG_SIZE := 1024
+gfx/address_book/name_editor/abook_name_tiles9700_vb1.2bpp: PNG_SIZE := 256
 gfx/address_book/save_confirm/addr_save_confirm_tiles9300.2bpp: PNG_SIZE := 1024
 gfx/address_book/save_confirm/addr_save_confirm_tiles9700.2bpp: PNG_SIZE := 64
 gfx/address_book/save_sender_address/save_sender_addr_candidate_tiles_4fe0.2bpp: PNG_SIZE := 512

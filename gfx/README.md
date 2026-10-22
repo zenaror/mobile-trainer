@@ -308,12 +308,12 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_61f0.2bpp` | 2bpp tiles | 1024 | 2F:61F0 | CONFIRMED | exact | - | `gfx/address_book/name_editor.asm` |
-| `tiles_65f0.2bpp` | 2bpp tiles | 256 | 2F:65F0 | CONFIRMED | exact | - | `gfx/address_book/name_editor.asm` |
-| `tiles_66f0.2bpp` | 2bpp tiles | 768 | 2F:66F0 | CONFIRMED | exact | - | `gfx/address_book/name_editor.asm` |
+| `abook_name_tiles9300_vb1.2bpp` | 2bpp tiles | 1024 | 2F:61F0 | CONFIRMED | exact | - | `gfx/address_book/name_editor.asm` |
+| `abook_name_tiles9700_vb1.2bpp` | 2bpp tiles | 256 | 2F:65F0 | CONFIRMED | exact | - | `gfx/address_book/name_editor.asm` |
+| `abook_name_tiles8800.2bpp` | 2bpp tiles | 768 | 2F:66F0 | CONFIRMED | exact | - | `gfx/address_book/name_editor.asm` |
 | `abook_name.tilemap` | tile-index map | 360 | 2F:69F0 | CONFIRMED | - | 20x18 | `gfx/address_book/name_editor.asm` |
 | `abook_name.attrmap` | attribute map | 360 | 2F:6B58 | CONFIRMED | - | 20x18 | `gfx/address_book/name_editor.asm` |
-| `palette_6cc0.pal` | RGB palette | 64 | 2F:6CC0 | CONFIRMED | - | - | `gfx/address_book/name_editor.asm` |
+| `abook_name_bg_palette.pal` | RGB palette | 64 | 2F:6CC0 | CONFIRMED | - | - | `gfx/address_book/name_editor.asm` |
 
 ### `gfx/address_book/save_confirm/`
 

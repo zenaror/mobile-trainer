@@ -166,10 +166,10 @@ gfx/address_book/list/abook_list.attrmap	-	attrmap				360	0fc395cbd36032e1e1f6af
 gfx/address_book/list/abook_list.tilemap	-	tilemap				360	5303ce6255811b02dc10e1ccd9b4d0e75c897ff2c7daadc5667f056da1f808d3
 gfx/address_book/name_editor/abook_name.attrmap	-	attrmap				360	19f90b0bc6326f858cbd5550ba89d48fb553730a6a784ac9c96df31a0f11628b
 gfx/address_book/name_editor/abook_name.tilemap	-	tilemap				360	7d30a4c1d62ba2adf9ff37d80980d6bc5f58c60d1b505cbf8791418863bfed7f
-gfx/address_book/name_editor/palette_6cc0.pal	-	palette				519	3886e508040e0cf0916b9d61ef65b5ffddda84e38eb78cf62fd33c00dc1f1839
-gfx/address_book/name_editor/tiles_61f0.2bpp	gfx/address_book/name_editor/tiles_61f0.png	tiles			0	1024	17a4e01d43aa55e9a8dc9163a1b72e41b4b4465991c881367d87d28c42293c13
-gfx/address_book/name_editor/tiles_65f0.2bpp	gfx/address_book/name_editor/tiles_65f0.png	tiles			0	256	2149be5a4455a1d3f6e261b323b6a34b9a499400b38b50d425a06af5f188eb27
-gfx/address_book/name_editor/tiles_66f0.2bpp	gfx/address_book/name_editor/tiles_66f0.png	tiles			0	768	4b0d81787a7b9d346550f7af8f2d4460fe5a89656608e4a53ade4efee4c1949b
+gfx/address_book/name_editor/abook_name_bg_palette.pal	-	palette				519	3886e508040e0cf0916b9d61ef65b5ffddda84e38eb78cf62fd33c00dc1f1839
+gfx/address_book/name_editor/abook_name_tiles8800.2bpp	gfx/address_book/name_editor/abook_name_tiles8800.png	tiles			0	768	4b0d81787a7b9d346550f7af8f2d4460fe5a89656608e4a53ade4efee4c1949b
+gfx/address_book/name_editor/abook_name_tiles9300_vb1.2bpp	gfx/address_book/name_editor/abook_name_tiles9300_vb1.png	tiles			0	1024	17a4e01d43aa55e9a8dc9163a1b72e41b4b4465991c881367d87d28c42293c13
+gfx/address_book/name_editor/abook_name_tiles9700_vb1.2bpp	gfx/address_book/name_editor/abook_name_tiles9700_vb1.png	tiles			0	256	2149be5a4455a1d3f6e261b323b6a34b9a499400b38b50d425a06af5f188eb27
 gfx/address_book/save_confirm/addr_save_confirm_bg.pal	-	palette				519	1915d532722a87f70f674bb14328594846baa53fff8c84906287baf5d1dac5b1
 gfx/address_book/save_confirm/addr_save_confirm_tiles9300.2bpp	gfx/address_book/save_confirm/addr_save_confirm_tiles9300.png	tiles			0	1024	6e87d9f5a74cd99a515f4fdf8737061592eb5d9ee6c934295ec0769617e100a2
 gfx/address_book/save_confirm/addr_save_confirm_tiles9700.2bpp	gfx/address_book/save_confirm/addr_save_confirm_tiles9700.png	tiles			0	64	5da386a2138aa92096b8d6991abeb1f8b35ce1a5ac6193797cdd5193ba7e4393

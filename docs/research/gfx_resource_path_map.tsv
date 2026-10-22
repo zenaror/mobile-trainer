@@ -398,3 +398,10 @@ gfx/address_book/shared_tiles_bank28/tiles_4bd0.png	gfx/address_book/shared_tile
 gfx/address_book/shared_tiles_bank28/tiles_4fd0.2bpp	gfx/address_book/shared_tiles_bank28/addr_book_shared_tiles8400.2bpp
 gfx/address_book/shared_tiles_bank28/tiles_4fd0.png	gfx/address_book/shared_tiles_bank28/addr_book_shared_tiles8400.png
 gfx/address_book/shared_tiles_bank28/palette_51d0.pal	gfx/address_book/shared_tiles_bank28/abook_list_bg_palette.pal
+gfx/address_book/name_editor/tiles_61f0.2bpp	gfx/address_book/name_editor/abook_name_tiles9300_vb1.2bpp
+gfx/address_book/name_editor/tiles_61f0.png	gfx/address_book/name_editor/abook_name_tiles9300_vb1.png
+gfx/address_book/name_editor/tiles_65f0.2bpp	gfx/address_book/name_editor/abook_name_tiles9700_vb1.2bpp
+gfx/address_book/name_editor/tiles_65f0.png	gfx/address_book/name_editor/abook_name_tiles9700_vb1.png
+gfx/address_book/name_editor/tiles_66f0.2bpp	gfx/address_book/name_editor/abook_name_tiles8800.2bpp
+gfx/address_book/name_editor/tiles_66f0.png	gfx/address_book/name_editor/abook_name_tiles8800.png
+gfx/address_book/name_editor/palette_6cc0.pal	gfx/address_book/name_editor/abook_name_bg_palette.pal
