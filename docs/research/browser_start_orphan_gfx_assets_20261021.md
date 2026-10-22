@@ -1,0 +1,8 @@
+# Orphan browser-start graphics artifacts (2026-10-21)
+
+Three tracked files previously under `gfx/browser/start_choice/` had no current owner include or catalog entry. They are retained under `gfx/unresolved/` with names that state their limited provenance; no bytes were deleted or edited.
+
+- `browser_start_mixed_data_73_4530.bin` is 176 bytes and byte-identical to ROM bank 73 at $4530. The current source represents this interval inline as `BrowserStart_CandidateBgAttributeSuffixAndUnreadTail_4530`: 173 bytes are a confirmed attribute suffix of the animation frames, followed by three bytes with no reads in the 69-scenario corpus. Its old `.2bpp` name and PNG view came from the earlier tile-data hypothesis; the PNG is retained only as that historical 2bpp visualization.
+- `browser_start_legacy_palette_interpretation_73_5e60.pal` was introduced by commit `43bf3f61` when 73:$5E60-$5EC0 was treated as a PROBABLE RGB555 palette span. Current Japanese source instead identifies `SpriteFrameTable_73_5E60` and the following object frames/scripts, with natural reads through the chain. The old palette text is not included by the current source and is not byte-equivalent to that ROM interval. It is retained as a superseded interpretation, not as an active palette asset.
+
+All three SHA-256 hashes were recorded during relocation and remained identical. These artifacts are not in `gfx/assets.tsv`, `gfx/screens.tsv`, or the generated PNG rules and are not part of the build. The dated private gfx audit is preserved unchanged; this note records the source-backed reconciliation.
