@@ -564,7 +564,7 @@ ROMX $57
 
 ROMX $58
 	org $4000
-	"gfx/registration/screens_bank58"
+	"gfx/registration/registration_notice_art_bank58"
 
 ROMX $5B
 	org $4000

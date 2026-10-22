@@ -99,6 +99,21 @@ path. `make` returned `RESULT: IDENTICAL` with ROM SHA-256
 zero errors. The directory name reflects the distinct evidenced resource
 families without asserting they form one screen.
 
+## Registration notice art Bank 58 owner (2026-10-22)
+
+The generic `gfx/registration/screens_bank58.asm` owner and resource folder
+are now `registration_notice_art_bank58`. The owner contains the registration
+notice graphics and associated page tilemap; Bank 65 notice code and computed
+header/footer selection reference these resources. Several frame groupings
+remain PROBABLE, and selected indices do not prove natural use. The Japanese
+layout, asset catalogue, PNG rules and README use the new path. `make` returned
+`RESULT: IDENTICAL` (ROM SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`);
+`sym-check` passed (335 files, 12,177 labels, 51 constants), and
+`palette-check` reported 162 loads, 116 arrays, two documented overreads and
+zero errors. The name documents the resource family without increasing the
+evidence level of header/footer selection or usage.
+
 ## Bank 4A settings-menu palette-shaped block (2026-10-21)
 
 The 32 bytes at `4A:51B0–51CF` are now named

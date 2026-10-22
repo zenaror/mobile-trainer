@@ -784,7 +784,7 @@ same bank.  None of these choices can change a byte: they only decide which file
 | file | banks | bytes | est. lines | kinds |
 |---|---|---:|---:|---|
 | `gfx/registration/screen_bank4b.asm` | 4B | 720 | 45 | data 720 |
-| `gfx/registration/screens_bank58.asm` | 58 | 16032 | 1002 | gfx 15184, data 848 |
+| `gfx/registration/registration_notice_art_bank58.asm` | 58 | 16032 | 1002 | gfx 15184, data 848 |
 
 #### `gfx/settings/`
 

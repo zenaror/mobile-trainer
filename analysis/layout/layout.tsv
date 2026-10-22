@@ -231,7 +231,7 @@
 56	418A	79D0	gfx/comm/connect_dialog_bank56.asm	connect dialog tilemaps, tiles, palettes, object table (loaded by bank 57)
 57	4000	47A6	engine/comm/connect_dialog.asm	modal connect dialog: run, per-frame handler, mode enter/leave
 57	47A6	5641	engine/comm/connect_dialog_screen.asm	connect dialog screen drawing, password field, caret sprites, saved password store
-58	4000	7EA0	gfx/registration/screens_bank58.asm	registration screens art (loaded by bank 65)
+58	4000	7EA0	gfx/registration/registration_notice_art_bank58.asm	registration screens art (loaded by bank 65)
 5B	4000	56E0	gfx/bank5b.asm	360 tiles of art and 12 palettes; no loader found
 5C	4000	5150	data/text/comm_error_messages.asm	error message strings, boot error strings, record table, triple lists, pointer tables
 5C	5150	5516	engine/error/comm_error_screen.asm	communication error screen

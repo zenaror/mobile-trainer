@@ -792,21 +792,21 @@ gfx/profile/profile_editor/profile_tiles9300.2bpp	tiles	1024	gfx/profile/profile
 gfx/profile/profile_editor/profile_tiles9700.2bpp	tiles	256	gfx/profile/profile_editor.asm	2A	6700	CONFIRMED	exact	0		Gfx_Profile_Tiles9700
 gfx/registration/notice_tilemap_bank4b/notice_page_type4.attrmap	attrmap	360	gfx/registration/notice_tilemap_bank4b.asm	4B	4168	CONFIRMED	-	0	20x18	Tilemap_Notice_4B_4000
 gfx/registration/notice_tilemap_bank4b/notice_page_type4.tilemap	tilemap	360	gfx/registration/notice_tilemap_bank4b.asm	4B	4000	CONFIRMED	-	0	20x18	Tilemap_Notice_4B_4000
-gfx/registration/screens_bank58/palette_7b50.pal	palette	40	gfx/registration/screens_bank58.asm	58	7B50	PROBABLE	-	0		Palette_Notice_Bg
-gfx/registration/screens_bank58/tilemap_7b78.attrmap	attrmap	360	gfx/registration/screens_bank58.asm	58	7CE0	CONFIRMED	-	0	20x18	Tilemap_Notice_58_7B78
-gfx/registration/screens_bank58/tilemap_7b78.tilemap	tilemap	360	gfx/registration/screens_bank58.asm	58	7B78	CONFIRMED	-	0	20x18	Tilemap_Notice_58_7B78
-gfx/registration/screens_bank58/tiles_4000.2bpp	tiles	464	gfx/registration/screens_bank58.asm	58	4000	CONFIRMED	exact	3		Gfx_Notice_Tiles9000Vb1
-gfx/registration/screens_bank58/tiles_41d0.2bpp	tiles	640	gfx/registration/screens_bank58.asm	58	41D0	PROBABLE	exact	0		Gfx_Notice_Header0Tiles
-gfx/registration/screens_bank58/tiles_4450.2bpp	tiles	640	gfx/registration/screens_bank58.asm	58	4450	PROBABLE	exact	0		Gfx_Notice_Header1Tiles
-gfx/registration/screens_bank58/tiles_46d0.2bpp	tiles	1920	gfx/registration/screens_bank58.asm	58	46D0	PROBABLE	exact	0		Gfx_Notice_HeaderTiles_46D0
-gfx/registration/screens_bank58/tiles_4e50.2bpp	tiles	1280	gfx/registration/screens_bank58.asm	58	4E50	PROBABLE	exact	0		Gfx_Notice_HeaderTiles_4E50
-gfx/registration/screens_bank58/tiles_5350.2bpp	tiles	1280	gfx/registration/screens_bank58.asm	58	5350	PROBABLE	exact	0		Gfx_Notice_HeaderTiles_5350
-gfx/registration/screens_bank58/tiles_5850.2bpp	tiles	640	gfx/registration/screens_bank58.asm	58	5850	PROBABLE	exact	0		Gfx_Notice_Header9Tiles
-gfx/registration/screens_bank58/tiles_5ad0.2bpp	tiles	4720	gfx/registration/screens_bank58.asm	58	5AD0	PROBABLE	exact	9		Gfx_Notice_HeaderAndFooterTiles_5AD0
-gfx/registration/screens_bank58/tiles_6d40.2bpp	tiles	1824	gfx/registration/screens_bank58.asm	58	6D40	PROBABLE	exact	14		Gfx_Notice_FooterTiles_6D40
-gfx/registration/screens_bank58/tiles_7460.2bpp	tiles	496	gfx/registration/screens_bank58.asm	58	7460	PROBABLE	exact	1		Gfx_Notice_FooterTiles_7460
-gfx/registration/screens_bank58/tiles_7650.2bpp	tiles	320	gfx/registration/screens_bank58.asm	58	7650	PROBABLE	exact	0		Gfx_Notice_FooterTiles_7650
-gfx/registration/screens_bank58/tiles_7790.2bpp	tiles	960	gfx/registration/screens_bank58.asm	58	7790	PROBABLE	exact	0		Gfx_Notice_FooterTiles_7790
+gfx/registration/registration_notice_art_bank58/palette_7b50.pal	palette	40	gfx/registration/registration_notice_art_bank58.asm	58	7B50	PROBABLE	-	0		Palette_Notice_Bg
+gfx/registration/registration_notice_art_bank58/tilemap_7b78.attrmap	attrmap	360	gfx/registration/registration_notice_art_bank58.asm	58	7CE0	CONFIRMED	-	0	20x18	Tilemap_Notice_58_7B78
+gfx/registration/registration_notice_art_bank58/tilemap_7b78.tilemap	tilemap	360	gfx/registration/registration_notice_art_bank58.asm	58	7B78	CONFIRMED	-	0	20x18	Tilemap_Notice_58_7B78
+gfx/registration/registration_notice_art_bank58/tiles_4000.2bpp	tiles	464	gfx/registration/registration_notice_art_bank58.asm	58	4000	CONFIRMED	exact	3		Gfx_Notice_Tiles9000Vb1
+gfx/registration/registration_notice_art_bank58/tiles_41d0.2bpp	tiles	640	gfx/registration/registration_notice_art_bank58.asm	58	41D0	PROBABLE	exact	0		Gfx_Notice_Header0Tiles
+gfx/registration/registration_notice_art_bank58/tiles_4450.2bpp	tiles	640	gfx/registration/registration_notice_art_bank58.asm	58	4450	PROBABLE	exact	0		Gfx_Notice_Header1Tiles
+gfx/registration/registration_notice_art_bank58/tiles_46d0.2bpp	tiles	1920	gfx/registration/registration_notice_art_bank58.asm	58	46D0	PROBABLE	exact	0		Gfx_Notice_HeaderTiles_46D0
+gfx/registration/registration_notice_art_bank58/tiles_4e50.2bpp	tiles	1280	gfx/registration/registration_notice_art_bank58.asm	58	4E50	PROBABLE	exact	0		Gfx_Notice_HeaderTiles_4E50
+gfx/registration/registration_notice_art_bank58/tiles_5350.2bpp	tiles	1280	gfx/registration/registration_notice_art_bank58.asm	58	5350	PROBABLE	exact	0		Gfx_Notice_HeaderTiles_5350
+gfx/registration/registration_notice_art_bank58/tiles_5850.2bpp	tiles	640	gfx/registration/registration_notice_art_bank58.asm	58	5850	PROBABLE	exact	0		Gfx_Notice_Header9Tiles
+gfx/registration/registration_notice_art_bank58/tiles_5ad0.2bpp	tiles	4720	gfx/registration/registration_notice_art_bank58.asm	58	5AD0	PROBABLE	exact	9		Gfx_Notice_HeaderAndFooterTiles_5AD0
+gfx/registration/registration_notice_art_bank58/tiles_6d40.2bpp	tiles	1824	gfx/registration/registration_notice_art_bank58.asm	58	6D40	PROBABLE	exact	14		Gfx_Notice_FooterTiles_6D40
+gfx/registration/registration_notice_art_bank58/tiles_7460.2bpp	tiles	496	gfx/registration/registration_notice_art_bank58.asm	58	7460	PROBABLE	exact	1		Gfx_Notice_FooterTiles_7460
+gfx/registration/registration_notice_art_bank58/tiles_7650.2bpp	tiles	320	gfx/registration/registration_notice_art_bank58.asm	58	7650	PROBABLE	exact	0		Gfx_Notice_FooterTiles_7650
+gfx/registration/registration_notice_art_bank58/tiles_7790.2bpp	tiles	960	gfx/registration/registration_notice_art_bank58.asm	58	7790	PROBABLE	exact	0		Gfx_Notice_FooterTiles_7790
 gfx/settings/adapter_check_and_phone_entry_bank4a/adapter_check_4a_6600.attrmap	attrmap	360	gfx/settings/adapter_check_and_phone_entry_bank4a.asm	4A	6768	CONFIRMED	-	0	20x18	Tilemap_AdapterCheck_4A_6600
 gfx/settings/adapter_check_and_phone_entry_bank4a/adapter_check_4a_6600.tilemap	tilemap	360	gfx/settings/adapter_check_and_phone_entry_bank4a.asm	4A	6600	CONFIRMED	-	0	20x18	Tilemap_AdapterCheck_4A_6600
 gfx/settings/adapter_check_and_phone_entry_bank4a/adapter_check_bg.pal	palette	64	gfx/settings/adapter_check_and_phone_entry_bank4a.asm	4A	6580	CONFIRMED	-	0		Palette_AdapterCheck_Bg

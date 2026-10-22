@@ -281,7 +281,7 @@ ROMX $57
 	"engine/comm/connect_dialog"
 	"engine/comm/connect_dialog_screen"
 ROMX $58
-	"gfx/registration/screens_bank58"
+	"gfx/registration/registration_notice_art_bank58"
 ROMX $5b
 	"gfx/bank5b"
 ROMX $5c
