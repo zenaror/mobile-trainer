@@ -185,29 +185,29 @@ gfx/address_book/entry_view_screen_bank2c/addr_book_entry_bg.pal	palette	64	gfx/
 gfx/address_book/entry_view_screen_bank2c/addr_book_entry_obj.pal	palette	64	gfx/address_book/entry_view_screen_bank2c.asm	2C	7F90	CONFIRMED	-	0		Palette_AddrBookEntry_Obj
 gfx/address_book/entry_view_screen_bank2c/data_addr_book_entry_tilemap_attr.attrmap	attrmap	360	gfx/address_book/entry_view_screen_bank2c.asm	2C	7DE8	CONFIRMED	-	0	20x18	Data_AddrBookEntry_TilemapAttr
 gfx/address_book/entry_view_screen_bank2c/data_addr_book_entry_tilemap_attr.tilemap	tilemap	360	gfx/address_book/entry_view_screen_bank2c.asm	2C	7C80	CONFIRMED	-	0	20x18	Data_AddrBookEntry_TilemapAttr
-gfx/browser/frames_0_1/palette_4dd0.pal	palette	128	gfx/browser/frames_0_1.asm	47	4DD0	PROBABLE	-	0		Palette_BrowserFrame0
-gfx/browser/frames_0_1/palette_5b20.pal	palette	128	gfx/browser/frames_0_1.asm	47	5B20	PROBABLE	-	0		Palette_BrowserFrame1
-gfx/browser/frames_0_1/tilemap_4b00.attrmap	attrmap	360	gfx/browser/frames_0_1.asm	47	4C68	PROBABLE	-	0	20x18	Tilemap_BrowserFrame0
-gfx/browser/frames_0_1/tilemap_4b00.tilemap	tilemap	360	gfx/browser/frames_0_1.asm	47	4B00	PROBABLE	-	0	20x18	Tilemap_BrowserFrame0
-gfx/browser/frames_0_1/tilemap_5850.attrmap	attrmap	360	gfx/browser/frames_0_1.asm	47	59B8	PROBABLE	-	0	20x18	Tilemap_BrowserFrame1
-gfx/browser/frames_0_1/tilemap_5850.tilemap	tilemap	360	gfx/browser/frames_0_1.asm	47	5850	PROBABLE	-	0	20x18	Tilemap_BrowserFrame1
+gfx/browser/frames_0_1/browser_frame0.pal	palette	128	gfx/browser/frames_0_1.asm	47	4DD0	PROBABLE	-	0		Palette_BrowserFrame0
+gfx/browser/frames_0_1/browser_frame1.pal	palette	128	gfx/browser/frames_0_1.asm	47	5B20	PROBABLE	-	0		Palette_BrowserFrame1
+gfx/browser/frames_0_1/browser_frame0.attrmap	attrmap	360	gfx/browser/frames_0_1.asm	47	4C68	PROBABLE	-	0	20x18	Tilemap_BrowserFrame0
+gfx/browser/frames_0_1/browser_frame0.tilemap	tilemap	360	gfx/browser/frames_0_1.asm	47	4B00	PROBABLE	-	0	20x18	Tilemap_BrowserFrame0
+gfx/browser/frames_0_1/browser_frame1.attrmap	attrmap	360	gfx/browser/frames_0_1.asm	47	59B8	PROBABLE	-	0	20x18	Tilemap_BrowserFrame1
+gfx/browser/frames_0_1/browser_frame1.tilemap	tilemap	360	gfx/browser/frames_0_1.asm	47	5850	PROBABLE	-	0	20x18	Tilemap_BrowserFrame1
 gfx/browser/frames_0_1/tiles_4000.2bpp	tiles	16	gfx/browser/frames_0_1.asm	47	4000	CONFIRMED	exact	0		Gfx_BrowserScrollbar_Tiles8FF0_47_4000
 gfx/browser/frames_0_1/tiles_4010.2bpp	tiles	48	gfx/browser/frames_0_1.asm	47	4010	CONFIRMED	exact	0		Gfx_BrowserScrollbar_Tiles97D0_47_4010
-gfx/browser/frames_0_1/tiles_4040.2bpp	tiles	64	gfx/browser/frames_0_1.asm	47	4040	PROBABLE	exact	0		Gfx_BrowserScrollbar_CandidateTileSlice_4040
+gfx/browser/frames_0_1/browser_scrollbar_candidate_tile_slice_4040.2bpp	tiles	64	gfx/browser/frames_0_1.asm	47	4040	PROBABLE	exact	0		Gfx_BrowserScrollbar_CandidateTileSlice_4040
 gfx/browser/frames_0_1/tiles_4080.2bpp	tiles	16	gfx/browser/frames_0_1.asm	47	4080	CONFIRMED	exact	0		Gfx_BrowserScrollbar_Tiles8FF0_47_4080
 gfx/browser/frames_0_1/tiles_4090.2bpp	tiles	48	gfx/browser/frames_0_1.asm	47	4090	CONFIRMED	exact	0		Gfx_BrowserScrollbar_Tiles97D0_47_4090
 gfx/browser/frames_0_1/tiles_40c0.2bpp	tiles	16	gfx/browser/frames_0_1.asm	47	40C0	CONFIRMED	exact	0		Gfx_BrowserScrollbar_Tiles8FF0_47_40C0
 gfx/browser/frames_0_1/tiles_40d0.2bpp	tiles	48	gfx/browser/frames_0_1.asm	47	40D0	CONFIRMED	exact	0		Gfx_BrowserScrollbar_Tiles97D0_47_40D0
-gfx/browser/frames_0_1/tiles_4100.2bpp	tiles	2560	gfx/browser/frames_0_1.asm	47	4100	PROBABLE	exact	0		Gfx_BrowserFrame0_Tiles
-gfx/browser/frames_0_1/tiles_4e50.2bpp	tiles	2560	gfx/browser/frames_0_1.asm	47	4E50	PROBABLE	exact	0		Gfx_BrowserFrame1_Tiles
-gfx/browser/frames_2_3/palette_6870.pal	palette	128	gfx/browser/frames_2_3.asm	47	6870	PROBABLE	-	0		Palette_BrowserFrame2
-gfx/browser/frames_2_3/palette_75c0.pal	palette	128	gfx/browser/frames_2_3.asm	47	75C0	PROBABLE	-	0		BrowserFrameCandidate_Palette_75C0
-gfx/browser/frames_2_3/tilemap_65a0.attrmap	attrmap	360	gfx/browser/frames_2_3.asm	47	6708	PROBABLE	-	0	20x18	Tilemap_BrowserFrame2
-gfx/browser/frames_2_3/tilemap_65a0.tilemap	tilemap	360	gfx/browser/frames_2_3.asm	47	65A0	PROBABLE	-	0	20x18	Tilemap_BrowserFrame2
-gfx/browser/frames_2_3/tilemap_72f0.attrmap	attrmap	360	gfx/browser/frames_2_3.asm	47	7458	PROBABLE	-	0	20x18	BrowserFrameCandidate_Tilemap_72F0
-gfx/browser/frames_2_3/tilemap_72f0.tilemap	tilemap	360	gfx/browser/frames_2_3.asm	47	72F0	PROBABLE	-	0	20x18	BrowserFrameCandidate_Tilemap_72F0
-gfx/browser/frames_2_3/tiles_5ba0.2bpp	tiles	2560	gfx/browser/frames_2_3.asm	47	5BA0	PROBABLE	exact	0		Gfx_BrowserFrame2_Tiles
-gfx/browser/frames_2_3/tiles_68f0.2bpp	tiles	2560	gfx/browser/frames_2_3.asm	47	68F0	PROBABLE	exact	0		BrowserFrameCandidate_Tiles_68F0
+gfx/browser/frames_0_1/browser_frame0_tiles.2bpp	tiles	2560	gfx/browser/frames_0_1.asm	47	4100	PROBABLE	exact	0		Gfx_BrowserFrame0_Tiles
+gfx/browser/frames_0_1/browser_frame1_tiles.2bpp	tiles	2560	gfx/browser/frames_0_1.asm	47	4E50	PROBABLE	exact	0		Gfx_BrowserFrame1_Tiles
+gfx/browser/frames_2_3/browser_frame2.pal	palette	128	gfx/browser/frames_2_3.asm	47	6870	PROBABLE	-	0		Palette_BrowserFrame2
+gfx/browser/frames_2_3/browser_frame_candidate_palette_75c0.pal	palette	128	gfx/browser/frames_2_3.asm	47	75C0	PROBABLE	-	0		BrowserFrameCandidate_Palette_75C0
+gfx/browser/frames_2_3/browser_frame2.attrmap	attrmap	360	gfx/browser/frames_2_3.asm	47	6708	PROBABLE	-	0	20x18	Tilemap_BrowserFrame2
+gfx/browser/frames_2_3/browser_frame2.tilemap	tilemap	360	gfx/browser/frames_2_3.asm	47	65A0	PROBABLE	-	0	20x18	Tilemap_BrowserFrame2
+gfx/browser/frames_2_3/browser_frame_candidate_72f0.attrmap	attrmap	360	gfx/browser/frames_2_3.asm	47	7458	PROBABLE	-	0	20x18	BrowserFrameCandidate_Tilemap_72F0
+gfx/browser/frames_2_3/browser_frame_candidate_72f0.tilemap	tilemap	360	gfx/browser/frames_2_3.asm	47	72F0	PROBABLE	-	0	20x18	BrowserFrameCandidate_Tilemap_72F0
+gfx/browser/frames_2_3/browser_frame2_tiles.2bpp	tiles	2560	gfx/browser/frames_2_3.asm	47	5BA0	PROBABLE	exact	0		Gfx_BrowserFrame2_Tiles
+gfx/browser/frames_2_3/browser_frame_candidate_tiles_68f0.2bpp	tiles	2560	gfx/browser/frames_2_3.asm	47	68F0	PROBABLE	exact	0		BrowserFrameCandidate_Tiles_68F0
 gfx/browser/menus/browser_menu2_map.attrmap	attrmap	120	gfx/browser/menus.asm	72	7798	CONFIRMED	-	0	20x6	BrowserMenu2_Map
 gfx/browser/menus/browser_menu2_map.tilemap	tilemap	120	gfx/browser/menus.asm	72	7720	CONFIRMED	-	0	20x6	BrowserMenu2_Map
 gfx/browser/menus/browser_menu2_palette.pal	palette	24	gfx/browser/menus.asm	72	7810	PROBABLE	-	0		BrowserMenu2_Palette

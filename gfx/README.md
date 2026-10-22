@@ -350,32 +350,32 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 |---|---|---:|---|---|---|---|---|
 | `tiles_4000.2bpp` | 2bpp tiles | 16 | 47:4000 | CONFIRMED | exact | - | `gfx/browser/frames_0_1.asm` |
 | `tiles_4010.2bpp` | 2bpp tiles | 48 | 47:4010 | CONFIRMED | exact | - | `gfx/browser/frames_0_1.asm` |
-| `tiles_4040.2bpp` | 2bpp tiles | 64 | 47:4040 | PROBABLE | exact | - | `gfx/browser/frames_0_1.asm` |
+| `browser_scrollbar_candidate_tile_slice_4040.2bpp` | 2bpp tiles | 64 | 47:4040 | PROBABLE | exact | - | `gfx/browser/frames_0_1.asm` |
 | `tiles_4080.2bpp` | 2bpp tiles | 16 | 47:4080 | CONFIRMED | exact | - | `gfx/browser/frames_0_1.asm` |
 | `tiles_4090.2bpp` | 2bpp tiles | 48 | 47:4090 | CONFIRMED | exact | - | `gfx/browser/frames_0_1.asm` |
 | `tiles_40c0.2bpp` | 2bpp tiles | 16 | 47:40C0 | CONFIRMED | exact | - | `gfx/browser/frames_0_1.asm` |
 | `tiles_40d0.2bpp` | 2bpp tiles | 48 | 47:40D0 | CONFIRMED | exact | - | `gfx/browser/frames_0_1.asm` |
-| `tiles_4100.2bpp` | 2bpp tiles | 2560 | 47:4100 | PROBABLE | exact | - | `gfx/browser/frames_0_1.asm` |
-| `tilemap_4b00.tilemap` | tile-index map | 360 | 47:4B00 | PROBABLE | - | 20x18 | `gfx/browser/frames_0_1.asm` |
-| `tilemap_4b00.attrmap` | attribute map | 360 | 47:4C68 | PROBABLE | - | 20x18 | `gfx/browser/frames_0_1.asm` |
-| `palette_4dd0.pal` | RGB palette | 128 | 47:4DD0 | PROBABLE | - | - | `gfx/browser/frames_0_1.asm` |
-| `tiles_4e50.2bpp` | 2bpp tiles | 2560 | 47:4E50 | PROBABLE | exact | - | `gfx/browser/frames_0_1.asm` |
-| `tilemap_5850.tilemap` | tile-index map | 360 | 47:5850 | PROBABLE | - | 20x18 | `gfx/browser/frames_0_1.asm` |
-| `tilemap_5850.attrmap` | attribute map | 360 | 47:59B8 | PROBABLE | - | 20x18 | `gfx/browser/frames_0_1.asm` |
-| `palette_5b20.pal` | RGB palette | 128 | 47:5B20 | PROBABLE | - | - | `gfx/browser/frames_0_1.asm` |
+| `browser_frame0_tiles.2bpp` | 2bpp tiles | 2560 | 47:4100 | PROBABLE | exact | - | `gfx/browser/frames_0_1.asm` |
+| `browser_frame0.tilemap` | tile-index map | 360 | 47:4B00 | PROBABLE | - | 20x18 | `gfx/browser/frames_0_1.asm` |
+| `browser_frame0.attrmap` | attribute map | 360 | 47:4C68 | PROBABLE | - | 20x18 | `gfx/browser/frames_0_1.asm` |
+| `browser_frame0.pal` | RGB palette | 128 | 47:4DD0 | PROBABLE | - | - | `gfx/browser/frames_0_1.asm` |
+| `browser_frame1_tiles.2bpp` | 2bpp tiles | 2560 | 47:4E50 | PROBABLE | exact | - | `gfx/browser/frames_0_1.asm` |
+| `browser_frame1.tilemap` | tile-index map | 360 | 47:5850 | PROBABLE | - | 20x18 | `gfx/browser/frames_0_1.asm` |
+| `browser_frame1.attrmap` | attribute map | 360 | 47:59B8 | PROBABLE | - | 20x18 | `gfx/browser/frames_0_1.asm` |
+| `browser_frame1.pal` | RGB palette | 128 | 47:5B20 | PROBABLE | - | - | `gfx/browser/frames_0_1.asm` |
 
 ### `gfx/browser/frames_2_3/`
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_5ba0.2bpp` | 2bpp tiles | 2560 | 47:5BA0 | PROBABLE | exact | - | `gfx/browser/frames_2_3.asm` |
-| `tilemap_65a0.tilemap` | tile-index map | 360 | 47:65A0 | PROBABLE | - | 20x18 | `gfx/browser/frames_2_3.asm` |
-| `tilemap_65a0.attrmap` | attribute map | 360 | 47:6708 | PROBABLE | - | 20x18 | `gfx/browser/frames_2_3.asm` |
-| `palette_6870.pal` | RGB palette | 128 | 47:6870 | PROBABLE | - | - | `gfx/browser/frames_2_3.asm` |
-| `tiles_68f0.2bpp` | 2bpp tiles | 2560 | 47:68F0 | PROBABLE | exact | - | `gfx/browser/frames_2_3.asm` |
-| `tilemap_72f0.tilemap` | tile-index map | 360 | 47:72F0 | PROBABLE | - | 20x18 | `gfx/browser/frames_2_3.asm` |
-| `tilemap_72f0.attrmap` | attribute map | 360 | 47:7458 | PROBABLE | - | 20x18 | `gfx/browser/frames_2_3.asm` |
-| `palette_75c0.pal` | RGB palette | 128 | 47:75C0 | PROBABLE | - | - | `gfx/browser/frames_2_3.asm` |
+| `browser_frame2_tiles.2bpp` | 2bpp tiles | 2560 | 47:5BA0 | PROBABLE | exact | - | `gfx/browser/frames_2_3.asm` |
+| `browser_frame2.tilemap` | tile-index map | 360 | 47:65A0 | PROBABLE | - | 20x18 | `gfx/browser/frames_2_3.asm` |
+| `browser_frame2.attrmap` | attribute map | 360 | 47:6708 | PROBABLE | - | 20x18 | `gfx/browser/frames_2_3.asm` |
+| `browser_frame2.pal` | RGB palette | 128 | 47:6870 | PROBABLE | - | - | `gfx/browser/frames_2_3.asm` |
+| `browser_frame_candidate_tiles_68f0.2bpp` | 2bpp tiles | 2560 | 47:68F0 | PROBABLE | exact | - | `gfx/browser/frames_2_3.asm` |
+| `browser_frame_candidate_72f0.tilemap` | tile-index map | 360 | 47:72F0 | PROBABLE | - | 20x18 | `gfx/browser/frames_2_3.asm` |
+| `browser_frame_candidate_72f0.attrmap` | attribute map | 360 | 47:7458 | PROBABLE | - | 20x18 | `gfx/browser/frames_2_3.asm` |
+| `browser_frame_candidate_palette_75c0.pal` | RGB palette | 128 | 47:75C0 | PROBABLE | - | - | `gfx/browser/frames_2_3.asm` |
 
 ### `gfx/browser/menus/`
 

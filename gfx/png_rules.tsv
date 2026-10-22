@@ -184,29 +184,29 @@ gfx/address_book/save_sender_address/tiles_4fe0.2bpp	gfx/address_book/save_sende
 gfx/address_book/shared_tiles_bank28/palette_51d0.pal	-	palette				519	0ecb08bfe065eb0b92cf78a22ebfeb8b2d06b7caadfd6eb0671b840f51c0118b
 gfx/address_book/shared_tiles_bank28/tiles_4bd0.2bpp	gfx/address_book/shared_tiles_bank28/tiles_4bd0.png	tiles			0	1024	3f737a16c62bf8a0030c29e7bc719536e6e83257edd77443b8d95c7763b81227
 gfx/address_book/shared_tiles_bank28/tiles_4fd0.2bpp	gfx/address_book/shared_tiles_bank28/tiles_4fd0.png	tiles			0	512	04f1c44d3ec0c3ae25096a1a8d1d167eb5ca7138c6ca5b7e5cc9506f6a794f97
-gfx/browser/frames_0_1/palette_4dd0.pal	-	palette				1039	f3f88d3a62a7abee5b960f285a858b330b388429e9ed7e836ffbe557d0ec94b9
-gfx/browser/frames_0_1/palette_5b20.pal	-	palette				1039	e8752fd68471117a7681662d7a5e971c040a1d86b2a0d79a25e0789b199ea372
-gfx/browser/frames_0_1/tilemap_4b00.attrmap	-	attrmap				360	0d38646fb1160dcbe612146ef95115da15f6bae0b0f5a1d61301bddae81956eb
-gfx/browser/frames_0_1/tilemap_4b00.tilemap	-	tilemap				360	a5c13da8bdd8f239874b6f15e9727fdeaf9f6671b7675118de1f7d1a1b006df4
-gfx/browser/frames_0_1/tilemap_5850.attrmap	-	attrmap				360	5b787afd90bf0c6ec577d16fb9ff14b8d3835522a50c49a9d167e163ba861361
-gfx/browser/frames_0_1/tilemap_5850.tilemap	-	tilemap				360	ab51264f404c2c3574cce52afb8de3f297054c090c889360853c65d57c780dfa
+gfx/browser/frames_0_1/browser_frame0.attrmap	-	attrmap				360	0d38646fb1160dcbe612146ef95115da15f6bae0b0f5a1d61301bddae81956eb
+gfx/browser/frames_0_1/browser_frame0.pal	-	palette				1039	f3f88d3a62a7abee5b960f285a858b330b388429e9ed7e836ffbe557d0ec94b9
+gfx/browser/frames_0_1/browser_frame0.tilemap	-	tilemap				360	a5c13da8bdd8f239874b6f15e9727fdeaf9f6671b7675118de1f7d1a1b006df4
+gfx/browser/frames_0_1/browser_frame0_tiles.2bpp	gfx/browser/frames_0_1/browser_frame0_tiles.png	tiles			0	2560	1a10b04c251f71d02556cc7511e34103d20924c2f77b194614c7c813360ae4c0
+gfx/browser/frames_0_1/browser_frame1.attrmap	-	attrmap				360	5b787afd90bf0c6ec577d16fb9ff14b8d3835522a50c49a9d167e163ba861361
+gfx/browser/frames_0_1/browser_frame1.pal	-	palette				1039	e8752fd68471117a7681662d7a5e971c040a1d86b2a0d79a25e0789b199ea372
+gfx/browser/frames_0_1/browser_frame1.tilemap	-	tilemap				360	ab51264f404c2c3574cce52afb8de3f297054c090c889360853c65d57c780dfa
+gfx/browser/frames_0_1/browser_frame1_tiles.2bpp	gfx/browser/frames_0_1/browser_frame1_tiles.png	tiles			0	2560	602a294b5f765a16436d2c44be42f3ff4e7374f7a453202ea3ee0abb21ff622e
+gfx/browser/frames_0_1/browser_scrollbar_candidate_tile_slice_4040.2bpp	gfx/browser/frames_0_1/browser_scrollbar_candidate_tile_slice_4040.png	tiles			0	64	0ac1ad1c3f83acf7439d2c6e5fa962bce6243f11081ce38df5d8421907b69df7
 gfx/browser/frames_0_1/tiles_4000.2bpp	gfx/browser/frames_0_1/tiles_4000.png	tiles			0	16	b578f6c2be9f09fb2db3dc43665682d9970f33b20fa8f4f50e74fbc63d7eac73
 gfx/browser/frames_0_1/tiles_4010.2bpp	gfx/browser/frames_0_1/tiles_4010.png	tiles			0	48	b3b47396eabacb1a3664fb460829369eaa23a855fb87eb63c7d87232723372d4
-gfx/browser/frames_0_1/tiles_4040.2bpp	gfx/browser/frames_0_1/tiles_4040.png	tiles			0	64	0ac1ad1c3f83acf7439d2c6e5fa962bce6243f11081ce38df5d8421907b69df7
 gfx/browser/frames_0_1/tiles_4080.2bpp	gfx/browser/frames_0_1/tiles_4080.png	tiles			0	16	b578f6c2be9f09fb2db3dc43665682d9970f33b20fa8f4f50e74fbc63d7eac73
 gfx/browser/frames_0_1/tiles_4090.2bpp	gfx/browser/frames_0_1/tiles_4090.png	tiles			0	48	86a3639b4e8d4e9c2d3eb79fd1e0fd2a44b6e4e4a8d0f21a998b75ef9c7334c8
 gfx/browser/frames_0_1/tiles_40c0.2bpp	gfx/browser/frames_0_1/tiles_40c0.png	tiles			0	16	b578f6c2be9f09fb2db3dc43665682d9970f33b20fa8f4f50e74fbc63d7eac73
 gfx/browser/frames_0_1/tiles_40d0.2bpp	gfx/browser/frames_0_1/tiles_40d0.png	tiles			0	48	43938729e7f12d62a03a582cbe0bb6c5f9265b34e34f7efe5bd5b1788d6c3322
-gfx/browser/frames_0_1/tiles_4100.2bpp	gfx/browser/frames_0_1/tiles_4100.png	tiles			0	2560	1a10b04c251f71d02556cc7511e34103d20924c2f77b194614c7c813360ae4c0
-gfx/browser/frames_0_1/tiles_4e50.2bpp	gfx/browser/frames_0_1/tiles_4e50.png	tiles			0	2560	602a294b5f765a16436d2c44be42f3ff4e7374f7a453202ea3ee0abb21ff622e
-gfx/browser/frames_2_3/palette_6870.pal	-	palette				1039	092596041714d7d5a6e0809916dfbb4e153895358c75d7d1dc555e37b0728c3c
-gfx/browser/frames_2_3/palette_75c0.pal	-	palette				1039	814447bea32052be5d86936c7f04e86d8c622a3ac93e2807edfa7a98eed313c2
-gfx/browser/frames_2_3/tilemap_65a0.attrmap	-	attrmap				360	a5276791071844ec0724cea2c1f407d6f02b571e6a0d73e1459510a1a6acf9ab
-gfx/browser/frames_2_3/tilemap_65a0.tilemap	-	tilemap				360	5a978e54f75fc0a14fa66c607a391477d3861a35ad8803937dc5ffe4febdd7b4
-gfx/browser/frames_2_3/tilemap_72f0.attrmap	-	attrmap				360	3f82ae31767dfac291aca48a84f70ea5f1c7e5046ed174a61ac6118b38c6829f
-gfx/browser/frames_2_3/tilemap_72f0.tilemap	-	tilemap				360	7098e3059350deae6fbd1903406e36d7d9b066d2e357fbbac20b5bbcec1a6e47
-gfx/browser/frames_2_3/tiles_5ba0.2bpp	gfx/browser/frames_2_3/tiles_5ba0.png	tiles			0	2560	05538409a322698823a60157110997e2c62ae4b69c131fe8a1638a6cab26b4f2
-gfx/browser/frames_2_3/tiles_68f0.2bpp	gfx/browser/frames_2_3/tiles_68f0.png	tiles			0	2560	8d856c1aa9bb607143dbb33ed59a1f6b420cf20fff79875284ee247d3ae89059
+gfx/browser/frames_2_3/browser_frame2.attrmap	-	attrmap				360	a5276791071844ec0724cea2c1f407d6f02b571e6a0d73e1459510a1a6acf9ab
+gfx/browser/frames_2_3/browser_frame2.pal	-	palette				1039	092596041714d7d5a6e0809916dfbb4e153895358c75d7d1dc555e37b0728c3c
+gfx/browser/frames_2_3/browser_frame2.tilemap	-	tilemap				360	5a978e54f75fc0a14fa66c607a391477d3861a35ad8803937dc5ffe4febdd7b4
+gfx/browser/frames_2_3/browser_frame2_tiles.2bpp	gfx/browser/frames_2_3/browser_frame2_tiles.png	tiles			0	2560	05538409a322698823a60157110997e2c62ae4b69c131fe8a1638a6cab26b4f2
+gfx/browser/frames_2_3/browser_frame_candidate_72f0.attrmap	-	attrmap				360	3f82ae31767dfac291aca48a84f70ea5f1c7e5046ed174a61ac6118b38c6829f
+gfx/browser/frames_2_3/browser_frame_candidate_72f0.tilemap	-	tilemap				360	7098e3059350deae6fbd1903406e36d7d9b066d2e357fbbac20b5bbcec1a6e47
+gfx/browser/frames_2_3/browser_frame_candidate_palette_75c0.pal	-	palette				1039	814447bea32052be5d86936c7f04e86d8c622a3ac93e2807edfa7a98eed313c2
+gfx/browser/frames_2_3/browser_frame_candidate_tiles_68f0.2bpp	gfx/browser/frames_2_3/browser_frame_candidate_tiles_68f0.png	tiles			0	2560	8d856c1aa9bb607143dbb33ed59a1f6b420cf20fff79875284ee247d3ae89059
 gfx/browser/menus/browser_menu2_map.attrmap	-	attrmap				120	95ddeadaede2685e40b41c84268aa78cecfb1260535e82b99da16cb44c91017a
 gfx/browser/menus/browser_menu2_map.tilemap	-	tilemap				120	32ff0e87c677194e7097ee6dea4fc594fe17cc44463bad869dadf9b079b5ebc8
 gfx/browser/menus/browser_menu2_palette.pal	-	palette				194	510aca1939b6df58e3720a9f141c6a4e026e5b0d1fd0eab71a01f329252771ab

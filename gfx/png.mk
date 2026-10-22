@@ -88,17 +88,17 @@ PNG_TILE_OUTS := \
 	gfx/address_book/save_sender_address/tiles_4fe0.2bpp \
 	gfx/address_book/shared_tiles_bank28/tiles_4bd0.2bpp \
 	gfx/address_book/shared_tiles_bank28/tiles_4fd0.2bpp \
+	gfx/browser/frames_0_1/browser_frame0_tiles.2bpp \
+	gfx/browser/frames_0_1/browser_frame1_tiles.2bpp \
+	gfx/browser/frames_0_1/browser_scrollbar_candidate_tile_slice_4040.2bpp \
 	gfx/browser/frames_0_1/tiles_4000.2bpp \
 	gfx/browser/frames_0_1/tiles_4010.2bpp \
-	gfx/browser/frames_0_1/tiles_4040.2bpp \
 	gfx/browser/frames_0_1/tiles_4080.2bpp \
 	gfx/browser/frames_0_1/tiles_4090.2bpp \
 	gfx/browser/frames_0_1/tiles_40c0.2bpp \
 	gfx/browser/frames_0_1/tiles_40d0.2bpp \
-	gfx/browser/frames_0_1/tiles_4100.2bpp \
-	gfx/browser/frames_0_1/tiles_4e50.2bpp \
-	gfx/browser/frames_2_3/tiles_5ba0.2bpp \
-	gfx/browser/frames_2_3/tiles_68f0.2bpp \
+	gfx/browser/frames_2_3/browser_frame2_tiles.2bpp \
+	gfx/browser/frames_2_3/browser_frame_candidate_tiles_68f0.2bpp \
 	gfx/browser/menus/browser_menu2_tiles0.2bpp \
 	gfx/browser/menus/browser_menu2_tiles1.2bpp \
 	gfx/browser/menus/browser_menu3_tiles0.2bpp \
@@ -502,17 +502,17 @@ gfx/address_book/save_sender_address/save_sender_addr_tiles9300.2bpp: PNG_PAD :=
 gfx/address_book/save_sender_address/tiles_4fe0.2bpp: PNG_SIZE := 512
 gfx/address_book/shared_tiles_bank28/tiles_4bd0.2bpp: PNG_SIZE := 1024
 gfx/address_book/shared_tiles_bank28/tiles_4fd0.2bpp: PNG_SIZE := 512
+gfx/browser/frames_0_1/browser_frame0_tiles.2bpp: PNG_SIZE := 2560
+gfx/browser/frames_0_1/browser_frame1_tiles.2bpp: PNG_SIZE := 2560
+gfx/browser/frames_0_1/browser_scrollbar_candidate_tile_slice_4040.2bpp: PNG_SIZE := 64
 gfx/browser/frames_0_1/tiles_4000.2bpp: PNG_SIZE := 16
 gfx/browser/frames_0_1/tiles_4010.2bpp: PNG_SIZE := 48
-gfx/browser/frames_0_1/tiles_4040.2bpp: PNG_SIZE := 64
 gfx/browser/frames_0_1/tiles_4080.2bpp: PNG_SIZE := 16
 gfx/browser/frames_0_1/tiles_4090.2bpp: PNG_SIZE := 48
 gfx/browser/frames_0_1/tiles_40c0.2bpp: PNG_SIZE := 16
 gfx/browser/frames_0_1/tiles_40d0.2bpp: PNG_SIZE := 48
-gfx/browser/frames_0_1/tiles_4100.2bpp: PNG_SIZE := 2560
-gfx/browser/frames_0_1/tiles_4e50.2bpp: PNG_SIZE := 2560
-gfx/browser/frames_2_3/tiles_5ba0.2bpp: PNG_SIZE := 2560
-gfx/browser/frames_2_3/tiles_68f0.2bpp: PNG_SIZE := 2560
+gfx/browser/frames_2_3/browser_frame2_tiles.2bpp: PNG_SIZE := 2560
+gfx/browser/frames_2_3/browser_frame_candidate_tiles_68f0.2bpp: PNG_SIZE := 2560
 gfx/browser/menus/browser_menu2_tiles0.2bpp: PNG_SIZE := 1024
 gfx/browser/menus/browser_menu2_tiles1.2bpp: PNG_SIZE := 256
 gfx/browser/menus/browser_menu3_tiles0.2bpp: PNG_SIZE := 1024
