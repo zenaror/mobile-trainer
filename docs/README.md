@@ -121,6 +121,7 @@ Reference documents (current):
 | [`adapter_check_and_phone_entry_4a_resource_paths.md`](research/adapter_check_and_phone_entry_4a_resource_paths.md) | Bank 4A AdapterCheck and phone-entry resource paths, byte-held assets and mixed-window limits |
 | [`address_book_name_editor_graphics_paths.md`](research/address_book_name_editor_graphics_paths.md) | Bank 2F name-editor resources named by static VRAM and palette transfers |
 | [`address_book_graphics_resource_paths.md`](research/address_book_graphics_resource_paths.md) | Address-book graphics filenames tied to static VRAM transfers and screen consumers |
+| [`comm_scene_graphics_path_audit_20261022.md`](research/comm_scene_graphics_path_audit_20261022.md) | Bank 70 communication-scene resource path evidence, overlapping transfers, and pending language-scope boundary |
 | [`address_book_candidate_screen_graphics_paths.md`](research/address_book_candidate_screen_graphics_paths.md) | Bank 2C candidate address-screen assets named by static transfers; natural entry remains unproven |
 | [`gfx_bank4d_semantic_resource_paths.md`](research/gfx_bank4d_semantic_resource_paths.md) | Bank 4D choice/slot-menu paths derived from VRAM destinations and map ownership; clipped slices and confidence limits retained |
 | [`gfx_bank4d_semantic_resource_paths_verify.md`](research/gfx_bank4d_semantic_resource_paths_verify.md) | Independent review and checks for the Bank 4D semantic path rename. |
