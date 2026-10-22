@@ -13,55 +13,55 @@ Canvas_RunSampleDemo:: ; 7F:4C78
 	farcall Sprite_ResetAll
 	call Canvas_InitScreen
 	call Canvas_UploadToVramWrapper
-.l4C84 ; 7F:4C84
+.draw_rows ; 7F:4C84
 	call Canvas_DrawSampleRows
-.l4C87 ; 7F:4C87
+.poll_a ; 7F:4C87
 	farcall Joypad_Update
 	ldh a, [hJoyPressed]
 	and a, PADF_A
-	jr z, .l4C87
+	jr z, .poll_a
 	call Canvas_DrawSampleRowsInverted
-.l4C96 ; 7F:4C96
+.poll_b_then_a ; 7F:4C96
 	farcall Joypad_Update
 	ldh a, [hJoyPressed]
 	and a, PADF_B
 	ret nz
 	ldh a, [hJoyPressed]
 	and a, PADF_A
-	jr z, .l4C96
-	jr .l4C84
+	jr z, .poll_b_then_a
+	jr .draw_rows
 
 Canvas_InitScreen:: ; 7F:4CA9
 	ldh a, [rLCDC]
 	push af
 	and a, $80
-	jr z, .l4CBE
+	jr z, .clear_vram_bank0
 	di
-.l4CB1 ; 7F:4CB1
+.wait_ly90 ; 7F:4CB1
 	ldh a, [rLY]
 	cp a, $90
-	jr nz, .l4CB1
+	jr nz, .wait_ly90
 	ldh a, [rLCDC]
 	and a, $7F
 	ldh [rLCDC], a
 	ei
-.l4CBE ; 7F:4CBE
+.clear_vram_bank0 ; 7F:4CBE
 	xor a, a
 	ldh [rVBK], a
 	ld hl, $8800
 	ld bc, $1000
-.l4CC7 ; 7F:4CC7
+.clear_8800_bank0_loop ; 7F:4CC7
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .l4CC7
+	jr nz, .clear_8800_bank0_loop
 	ld hl, $9800
 	ld b, $12
 	ld c, $14
 	ld d, $00
-.l4CD7 ; 7F:4CD7
+.write_map_index_loop ; 7F:4CD7
 	ld a, d
 	cp a, $F0
 	jr nz, .skip
@@ -71,74 +71,74 @@ Canvas_InitScreen:: ; 7F:4CA9
 	ld [hli], a
 	inc d
 	dec c
-	jr nz, .l4CD7
+	jr nz, .write_map_index_loop
 	ld c, $14
 	push bc
 	ld bc, $000C
 	add hl, bc
 	pop bc
 	dec b
-	jr nz, .l4CD7
+	jr nz, .write_map_index_loop
 	ld a, $01
 	ldh [rVBK], a
 	ld hl, $8800
 	ld bc, $1000
-.l4CF8 ; 7F:4CF8
+.clear_8800_bank1_loop ; 7F:4CF8
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .l4CF8
+	jr nz, .clear_8800_bank1_loop
 	ld hl, $9800
 	ld bc, $0180
-.l4D05 ; 7F:4D05
+.clear_9800_bank1_loop ; 7F:4D05
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .l4D05
+	jr nz, .clear_9800_bank1_loop
 	ld hl, $9980
 	ld b, $C0
-.l4D11 ; 7F:4D11
+.fill_9980_with08_loop ; 7F:4D11
 	ld a, $08
 	ld [hli], a
 	dec b
-	jr nz, .l4D11
+	jr nz, .fill_9980_with08_loop
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $1000
 	ld hl, wTileStage2
-.l4D23 ; 7F:4D23
+.clear_wram_bank2_loop ; 7F:4D23
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .l4D23
+	jr nz, .clear_wram_bank2_loop
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0800
 	ld hl, wTileStage3
-.l4D36 ; 7F:4D36
+.clear_wram_bank3_loop ; 7F:4D36
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .l4D36
+	jr nz, .clear_wram_bank3_loop
 	ld a, $80
 	ldh [rBCPS], a
 	ld hl, Palette_Canvas_Bg
 	ld b, $08
-.l4D46 ; 7F:4D46
+.copy_palette_bytes_loop ; 7F:4D46
 	ld a, [hli]
 	ldh [rBCPD], a
 	dec b
-	jr nz, .l4D46
+	jr nz, .copy_palette_bytes_loop
 	pop af
 	ldh [rLCDC], a
 	ret
@@ -198,12 +198,12 @@ Canvas_DrawSampleRows:: ; 7F:4D95
 	; in forced_screens (traces/forced/, not natural evidence; status unchanged)
 	ld b, $0C
 	ld de, $0000
-.l4D9A ; 7F:4D9A
+.row_loop ; 7F:4D9A
 	push bc
 	push de
 	ld e, $00
 	ld hl, String_Canvas_SampleSentence_7F_4DF2
-.l4DA1 ; 7F:4DA1
+.read_pair_loop ; 7F:4DA1
 	ld a, [hli]
 	ld b, a
 	ld a, [hli]
@@ -244,14 +244,14 @@ Canvas_DrawSampleRows:: ; 7F:4D95
 	pop hl
 	ld a, [hl]
 	cp a, $00
-	jr nz, .l4DA1
+	jr nz, .read_pair_loop
 	pop de
 	pop bc
 	ld a, d
 	add a, $0C
 	ld d, a
 	dec b
-	jr nz, .l4D9A
+	jr nz, .row_loop
 	call Canvas_UploadToVram
 	ret
 
@@ -270,12 +270,12 @@ Canvas_DrawSampleRowsInverted:: ; 7F:4E0D
 	; in forced_screens (traces/forced/, not natural evidence; status unchanged)
 	ld b, $0C
 	ld de, $0000
-.l4E12 ; 7F:4E12
+.row_loop ; 7F:4E12
 	push bc
 	push de
 	ld e, $00
 	ld hl, String_Canvas_SampleSentence_7F_4E6A
-.l4E19 ; 7F:4E19
+.read_pair_loop ; 7F:4E19
 	ld a, [hli]
 	ld b, a
 	ld a, [hli]
@@ -316,14 +316,14 @@ Canvas_DrawSampleRowsInverted:: ; 7F:4E0D
 	pop hl
 	ld a, [hl]
 	cp a, $00
-	jr nz, .l4E19
+	jr nz, .read_pair_loop
 	pop de
 	pop bc
 	ld a, d
 	add a, $0C
 	ld d, a
 	dec b
-	jr nz, .l4E12
+	jr nz, .row_loop
 	call Canvas_UploadToVram
 	ret
 
@@ -469,10 +469,10 @@ PageListProto_Main_Loop:: ; 7F:5011
 	farcall Sprite_UpdateAll
 	ld a, [wDialogOnlineSnapshot]
 	bit 4, a
-	jp z, .l5128
+	jp z, .poll_input
 	ld a, [wTimerEnable]
 	bit 1, a
-	jr z, .l503A
+	jr z, .check_timer_bit4
 	pop bc
 	farcall Stat_DisableScrollSplit
 	call VBlank_Wait
@@ -480,53 +480,53 @@ PageListProto_Main_Loop:: ; 7F:5011
 	ld de, $0000
 	ld hl, $0000
 	ret
-.l503A ; 7F:503A
+.check_timer_bit4 ; 7F:503A
 	ld a, [wTimerEnable]
 	bit 4, a
-	jp z, .l5091
+	jp z, .timer_bit4_clear_path
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr z, .l5088
+	jr z, .zero_a
 	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
-	jr nz, .l5089
+	jr nz, .restore_hl_test_a
 	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
-	jr c, .l5088
-	jr nz, .l5064
+	jr c, .zero_a
+	jr nz, .check_warn_minute45
 	ld a, [wTimerASeconds]
 	cp a, $1E
-	jr c, .l5088
-.l5064 ; 7F:5064
+	jr c, .zero_a
+.check_warn_minute45 ; 7F:5064
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
-	jr nz, .l5074
+	jr nz, .set_warn_bit0
 	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
-	jr nz, .l5088
+	jr nz, .zero_a
 	set 1, [hl]
-.l5074 ; 7F:5074
+.set_warn_bit0 ; 7F:5074
 	ld hl, wTimerAWarnFlags
 	set 0, [hl]
 	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
-	jr z, .l5089
+	jr z, .restore_hl_test_a
 	add a, $0A
 	ld [hl], a
 	ld a, $FF
-	jr .l5089
-.l5088 ; 7F:5088
+	jr .restore_hl_test_a
+.zero_a ; 7F:5088
 	xor a, a
-.l5089 ; 7F:5089
+.restore_hl_test_a ; 7F:5089
 	pop hl
 	or a, a
-	jp nz, .l5115
-	jp .l5128
-.l5091 ; 7F:5091
+	jp nz, .return_ff_zero_de_hl
+	jp .poll_input
+.timer_bit4_clear_path ; 7F:5091
 	xor a, a
 	ld [wBrowserFetchResult], a
 	ld hl, wSpriteSlot11
@@ -570,7 +570,7 @@ PageListProto_Main_Loop:: ; 7F:5011
 	call VBlank_WaitAndService
 	pop bc
 	jp PageListProto_Main_Loop
-.l5115 ; 7F:5115
+.return_ff_zero_de_hl ; 7F:5115
 	pop bc
 	farcall Stat_DisableScrollSplit
 	call VBlank_Wait
@@ -578,13 +578,13 @@ PageListProto_Main_Loop:: ; 7F:5011
 	ld de, $0000
 	ld hl, $0000
 	ret
-.l5128 ; 7F:5128
+.poll_input ; 7F:5128
 	call VBlank_Wait
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, PADF_A
-	jr z, .l516A
+	jr z, .check_b_pressed
 	push bc
 	push de
 	play_sfx $0031
@@ -606,10 +606,10 @@ PageListProto_Main_Loop:: ; 7F:5011
 	ld b, $00
 	call PageListProto_ShowMessage
 	pop bc
-.l516A ; 7F:516A
+.check_b_pressed ; 7F:516A
 	ldh a, [hJoyPressed]
 	and a, PADF_B
-	jr z, .l5196
+	jr z, .check_up_repeat
 	push bc
 	push de
 	play_sfx $0048
@@ -621,10 +621,10 @@ PageListProto_Main_Loop:: ; 7F:5011
 	ld de, $0000
 	ld hl, $0000
 	ret
-.l5196 ; 7F:5196
+.check_up_repeat ; 7F:5196
 	ldh a, [hJoyPressedRepeat]
 	and a, PADF_UP
-	jr z, .l51C0
+	jr z, .check_down_repeat
 	push bc
 	push de
 	play_sfx $0046
@@ -634,16 +634,16 @@ PageListProto_Main_Loop:: ; 7F:5011
 	dec c
 	ld a, $FF
 	cp a, c
-	jr nz, .l51B9
+	jr nz, .redraw_after_c_decrement
 	ld c, $05
-.l51B9 ; 7F:51B9
+.redraw_after_c_decrement ; 7F:51B9
 	ld a, d
 	call PageListProto_RedrawSelection
 	call PageListProto_UpdateRowSprites
-.l51C0 ; 7F:51C0
+.check_down_repeat ; 7F:51C0
 	ldh a, [hJoyPressedRepeat]
 	and a, PADF_DOWN
-	jr z, .l51EA
+	jr z, .repeat_main
 	push bc
 	push de
 	play_sfx $0046
@@ -653,13 +653,13 @@ PageListProto_Main_Loop:: ; 7F:5011
 	inc c
 	ld a, $06
 	cp a, c
-	jr nz, .l51E3
+	jr nz, .redraw_after_c_increment
 	ld c, $00
-.l51E3 ; 7F:51E3
+.redraw_after_c_increment ; 7F:51E3
 	ld a, d
 	call PageListProto_RedrawSelection
 	call PageListProto_UpdateRowSprites
-.l51EA ; 7F:51EA
+.repeat_main ; 7F:51EA
 	jp PageListProto_Main_Loop
 
 ; ---- data $51ED-$51EE (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) | observed: single $C9 (ret) after the unconditional jp $5011 at 51EA and before the function 51EE; no branch/call to 51ED found; left unclassified
@@ -677,25 +677,25 @@ PageListProto_InitScreen:: ; 7F:51EE
 	ldh [rSVBK], a
 	ld hl, wTileStage2
 	ld bc, $1000
-.l51FB ; 7F:51FB
+.clear_wram_bank2_loop ; 7F:51FB
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .l51FB
+	jr nz, .clear_wram_bank2_loop
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, wTileStage3
 	ld bc, $0780
-.l520E ; 7F:520E
+.clear_wram_bank3_loop ; 7F:520E
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .l520E
+	jr nz, .clear_wram_bank3_loop
 	farcall Canvas_UploadToVram
 	farcall LCDOff
 	farcall Sprite_ResetAll
@@ -839,13 +839,13 @@ PageListProto_InitRowSprites:: ; 7F:530F
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, .l53A2
+	jr z, .check_slot2_byte
 	ld hl, wSpriteSlot1
 	ld de, PageListProto_ObjTable_Entry12
 	ld a, BANK(PageListProto_ObjTable_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
-.l53A2 ; 7F:53A2
+.check_slot2_byte ; 7F:53A2
 	ld hl, $4FC5
 	ld a, [hli]
 	ld e, a
@@ -853,13 +853,13 @@ PageListProto_InitRowSprites:: ; 7F:530F
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, .l53BE
+	jr z, .check_slot3_byte
 	ld hl, wSpriteSlot2
 	ld de, PageListProto_ObjTable_Entry12
 	ld a, BANK(PageListProto_ObjTable_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
-.l53BE ; 7F:53BE
+.check_slot3_byte ; 7F:53BE
 	ld hl, $4FC7
 	ld a, [hli]
 	ld e, a
@@ -867,13 +867,13 @@ PageListProto_InitRowSprites:: ; 7F:530F
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, .l53DA
+	jr z, .check_slot4_byte
 	ld hl, wSpriteSlot3
 	ld de, PageListProto_ObjTable_Entry12
 	ld a, BANK(PageListProto_ObjTable_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
-.l53DA ; 7F:53DA
+.check_slot4_byte ; 7F:53DA
 	ld hl, $4FC9
 	ld a, [hli]
 	ld e, a
@@ -881,13 +881,13 @@ PageListProto_InitRowSprites:: ; 7F:530F
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, .l53F6
+	jr z, .check_slot5_byte
 	ld hl, wSpriteSlot4
 	ld de, PageListProto_ObjTable_Entry12
 	ld a, BANK(PageListProto_ObjTable_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
-.l53F6 ; 7F:53F6
+.check_slot5_byte ; 7F:53F6
 	ld hl, $4FCB
 	ld a, [hli]
 	ld e, a
@@ -895,13 +895,13 @@ PageListProto_InitRowSprites:: ; 7F:530F
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, .l5412
+	jr z, .check_slot6_byte
 	ld hl, wSpriteSlot5
 	ld de, PageListProto_ObjTable_Entry12
 	ld a, BANK(PageListProto_ObjTable_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
-.l5412 ; 7F:5412
+.check_slot6_byte ; 7F:5412
 	ld hl, $4FCD
 	ld a, [hli]
 	ld e, a
@@ -909,13 +909,13 @@ PageListProto_InitRowSprites:: ; 7F:530F
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, .l542E
+	jr z, .set_slot_positions
 	ld hl, wSpriteSlot6
 	ld de, PageListProto_ObjTable_Entry12
 	ld a, BANK(PageListProto_ObjTable_Entry12)
 	ld b, $81
 	farcall Sprite_InitSlot
-.l542E ; 7F:542E
+.set_slot_positions ; 7F:542E
 	ld a, $16
 	ld [wSpriteSlot1], a
 	ld a, $22
@@ -959,7 +959,7 @@ PageListProto_HighlightRowSprite:: ; 7F:546A
 	pop af
 	xor a, a
 	cp a, c
-	jr nz, .l54CB
+	jr nz, .check_c_1
 	ld hl, PageListProto_UrlSlotTable
 	ld a, [hli]
 	ld e, a
@@ -967,7 +967,7 @@ PageListProto_HighlightRowSprite:: ; 7F:546A
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, .l54AE
+	jr z, .init_slot1_entry8
 	ld hl, wSpriteSlot1
 	ld de, PageListProto_ObjTable_Entry4
 	ld a, BANK(PageListProto_ObjTable_Entry4)
@@ -977,8 +977,8 @@ PageListProto_HighlightRowSprite:: ; 7F:546A
 	ld [wSpriteSlot1], a
 	ld a, $05
 	ld [wSpriteSlot1 + $01], a
-	jp .l563D
-.l54AE ; 7F:54AE
+	jp .disable_sram_restore_bc
+.init_slot1_entry8 ; 7F:54AE
 	ld hl, wSpriteSlot1
 	ld de, PageListProto_ObjTable_Entry8
 	ld a, BANK(PageListProto_ObjTable_Entry8)
@@ -988,11 +988,11 @@ PageListProto_HighlightRowSprite:: ; 7F:546A
 	ld [wSpriteSlot1], a
 	ld a, $05
 	ld [wSpriteSlot1 + $01], a
-	jp .l563D
-.l54CB ; 7F:54CB
+	jp .disable_sram_restore_bc
+.check_c_1 ; 7F:54CB
 	inc a
 	cp a, c
-	jr nz, .l5515
+	jr nz, .check_c_2
 	ld hl, $4FC5
 	ld a, [hli]
 	ld e, a
@@ -1000,7 +1000,7 @@ PageListProto_HighlightRowSprite:: ; 7F:546A
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, .l54F8
+	jr z, .init_slot2_entry8
 	ld hl, wSpriteSlot2
 	ld de, PageListProto_ObjTable_Entry4
 	ld a, BANK(PageListProto_ObjTable_Entry4)
@@ -1010,8 +1010,8 @@ PageListProto_HighlightRowSprite:: ; 7F:546A
 	ld [wSpriteSlot2], a
 	ld a, $05
 	ld [wSpriteSlot2 + $01], a
-	jp .l563D
-.l54F8 ; 7F:54F8
+	jp .disable_sram_restore_bc
+.init_slot2_entry8 ; 7F:54F8
 	ld hl, wSpriteSlot2
 	ld de, PageListProto_ObjTable_Entry8
 	ld a, BANK(PageListProto_ObjTable_Entry8)
@@ -1021,11 +1021,11 @@ PageListProto_HighlightRowSprite:: ; 7F:546A
 	ld [wSpriteSlot2], a
 	ld a, $05
 	ld [wSpriteSlot2 + $01], a
-	jp .l563D
-.l5515 ; 7F:5515
+	jp .disable_sram_restore_bc
+.check_c_2 ; 7F:5515
 	inc a
 	cp a, c
-	jr nz, .l555F
+	jr nz, .check_c_3
 	ld hl, $4FC7
 	ld a, [hli]
 	ld e, a
@@ -1033,7 +1033,7 @@ PageListProto_HighlightRowSprite:: ; 7F:546A
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, .l5542
+	jr z, .init_slot3_entry8
 	ld hl, wSpriteSlot3
 	ld de, PageListProto_ObjTable_Entry4
 	ld a, BANK(PageListProto_ObjTable_Entry4)
@@ -1043,8 +1043,8 @@ PageListProto_HighlightRowSprite:: ; 7F:546A
 	ld [wSpriteSlot3], a
 	ld a, $05
 	ld [wSpriteSlot3 + $01], a
-	jp .l563D
-.l5542 ; 7F:5542
+	jp .disable_sram_restore_bc
+.init_slot3_entry8 ; 7F:5542
 	ld hl, wSpriteSlot3
 	ld de, PageListProto_ObjTable_Entry8
 	ld a, BANK(PageListProto_ObjTable_Entry8)
@@ -1054,11 +1054,11 @@ PageListProto_HighlightRowSprite:: ; 7F:546A
 	ld [wSpriteSlot3], a
 	ld a, $05
 	ld [wSpriteSlot3 + $01], a
-	jp .l563D
-.l555F ; 7F:555F
+	jp .disable_sram_restore_bc
+.check_c_3 ; 7F:555F
 	inc a
 	cp a, c
-	jr nz, .l55A9
+	jr nz, .check_c_4
 	ld hl, $4FC9
 	ld a, [hli]
 	ld e, a
@@ -1066,7 +1066,7 @@ PageListProto_HighlightRowSprite:: ; 7F:546A
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, .l558C
+	jr z, .init_slot4_entry8
 	ld hl, wSpriteSlot4
 	ld de, PageListProto_ObjTable_Entry4
 	ld a, BANK(PageListProto_ObjTable_Entry4)
@@ -1076,8 +1076,8 @@ PageListProto_HighlightRowSprite:: ; 7F:546A
 	ld [wSpriteSlot4], a
 	ld a, $05
 	ld [wSpriteSlot4 + $01], a
-	jp .l563D
-.l558C ; 7F:558C
+	jp .disable_sram_restore_bc
+.init_slot4_entry8 ; 7F:558C
 	ld hl, wSpriteSlot4
 	ld de, PageListProto_ObjTable_Entry8
 	ld a, BANK(PageListProto_ObjTable_Entry8)
@@ -1087,11 +1087,11 @@ PageListProto_HighlightRowSprite:: ; 7F:546A
 	ld [wSpriteSlot4], a
 	ld a, $05
 	ld [wSpriteSlot4 + $01], a
-	jp .l563D
-.l55A9 ; 7F:55A9
+	jp .disable_sram_restore_bc
+.check_c_4 ; 7F:55A9
 	inc a
 	cp a, c
-	jr nz, .l55F3
+	jr nz, .check_c_5
 	ld hl, $4FCB
 	ld a, [hli]
 	ld e, a
@@ -1099,7 +1099,7 @@ PageListProto_HighlightRowSprite:: ; 7F:546A
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, .l55D6
+	jr z, .init_slot5_entry8
 	ld hl, wSpriteSlot5
 	ld de, PageListProto_ObjTable_Entry4
 	ld a, BANK(PageListProto_ObjTable_Entry4)
@@ -1109,8 +1109,8 @@ PageListProto_HighlightRowSprite:: ; 7F:546A
 	ld [wSpriteSlot5], a
 	ld a, $05
 	ld [wSpriteSlot5 + $01], a
-	jp .l563D
-.l55D6 ; 7F:55D6
+	jp .disable_sram_restore_bc
+.init_slot5_entry8 ; 7F:55D6
 	ld hl, wSpriteSlot5
 	ld de, PageListProto_ObjTable_Entry8
 	ld a, BANK(PageListProto_ObjTable_Entry8)
@@ -1120,11 +1120,11 @@ PageListProto_HighlightRowSprite:: ; 7F:546A
 	ld [wSpriteSlot5], a
 	ld a, $05
 	ld [wSpriteSlot5 + $01], a
-	jp .l563D
-.l55F3 ; 7F:55F3
+	jp .disable_sram_restore_bc
+.check_c_5 ; 7F:55F3
 	inc a
 	cp a, c
-	jr nz, .l563D
+	jr nz, .disable_sram_restore_bc
 	ld hl, $4FCD
 	ld a, [hli]
 	ld e, a
@@ -1132,7 +1132,7 @@ PageListProto_HighlightRowSprite:: ; 7F:546A
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, .l5620
+	jr z, .init_slot6_entry8
 	ld hl, wSpriteSlot6
 	ld de, PageListProto_ObjTable_Entry4
 	ld a, BANK(PageListProto_ObjTable_Entry4)
@@ -1142,8 +1142,8 @@ PageListProto_HighlightRowSprite:: ; 7F:546A
 	ld [wSpriteSlot6], a
 	ld a, $05
 	ld [wSpriteSlot6 + $01], a
-	jp .l563D
-.l5620 ; 7F:5620
+	jp .disable_sram_restore_bc
+.init_slot6_entry8 ; 7F:5620
 	ld hl, wSpriteSlot6
 	ld de, PageListProto_ObjTable_Entry8
 	ld a, BANK(PageListProto_ObjTable_Entry8)
@@ -1153,8 +1153,8 @@ PageListProto_HighlightRowSprite:: ; 7F:546A
 	ld [wSpriteSlot6], a
 	ld a, $05
 	ld [wSpriteSlot6 + $01], a
-	jp .l563D
-.l563D ; 7F:563D
+	jp .disable_sram_restore_bc
+.disable_sram_restore_bc ; 7F:563D
 	push af
 	xor a, a
 	ldh [hSRAMEnable], a
@@ -1185,7 +1185,7 @@ PageListProto_GetActionAvailability:: ; 7F:5647
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr nz, .l568B
+	jr nz, .nonzero_slot_byte
 	ld d, $00
 	ld e, $00
 	push af
@@ -1199,15 +1199,15 @@ PageListProto_GetActionAvailability:: ; 7F:5647
 	ld hl, wBrowserPageUrl
 	ld a, [hl]
 	cp a, $00
-	jr z, .l5686
+	jr z, .return_empty_slot_values
 	ld a, $01
-.l5686 ; 7F:5686
+.return_empty_slot_values ; 7F:5686
 	ld c, a
 	ld a, d
 	ld d, c
 	pop bc
 	ret
-.l568B ; 7F:568B
+.nonzero_slot_byte ; 7F:568B
 	ld d, $01
 	ld e, $01
 	push af
@@ -1221,10 +1221,10 @@ PageListProto_GetActionAvailability:: ; 7F:5647
 	ld hl, wBrowserPageUrl
 	ld a, [hl]
 	cp a, $00
-	jr z, .l56A9
+	jr z, .return_nonzero_slot_values
 	ld a, $01
 	ld d, $01
-.l56A9 ; 7F:56A9
+.return_nonzero_slot_values ; 7F:56A9
 	ld c, a
 	ld a, d
 	ld d, c
@@ -1244,9 +1244,9 @@ PageListProto_SetActionIcons:: ; 7F:56AE
 	jr nz, .loop
 	ld a, $0B
 	dec b
-	jr z, .l56C2
+	jr z, .write_99a4_99c4
 	ld a, $0C
-.l56C2 ; 7F:56C2
+.write_99a4_99c4 ; 7F:56C2
 	ld hl, $99A4
 	ld [hli], a
 	ld [hl], a
@@ -1255,9 +1255,9 @@ PageListProto_SetActionIcons:: ; 7F:56AE
 	ld [hl], a
 	ld a, $0B
 	dec d
-	jr z, .l56D3
+	jr z, .write_99a9_99c9
 	ld a, $0C
-.l56D3 ; 7F:56D3
+.write_99a9_99c9 ; 7F:56D3
 	ld hl, $99A9
 	ld [hli], a
 	ld [hl], a
@@ -1266,9 +1266,9 @@ PageListProto_SetActionIcons:: ; 7F:56AE
 	ld [hl], a
 	ld a, $0B
 	dec e
-	jr z, .l56E4
+	jr z, .write_99ae_99ce
 	ld a, $0C
-.l56E4 ; 7F:56E4
+.write_99ae_99ce ; 7F:56E4
 	ld hl, $99AE
 	ld [hli], a
 	ld [hl], a
@@ -1307,12 +1307,12 @@ PageListProto_RedrawSelection:: ; 7F:56F1
 	ld b, a
 	xor a, a
 	inc b
-.l5719 ; 7F:5719
+.old_index_scale_loop ; 7F:5719
 	dec b
-	jr z, .l5720
+	jr z, .draw_old_index_line
 	add a, $0C
-	jr .l5719
-.l5720 ; 7F:5720
+	jr .old_index_scale_loop
+.draw_old_index_line ; 7F:5720
 	add a, $10
 	ld d, a
 	ld b, $03
@@ -1336,12 +1336,12 @@ PageListProto_RedrawSelection:: ; 7F:56F1
 	ld b, c
 	xor a, a
 	inc b
-.l5742 ; 7F:5742
+.new_index_scale_loop ; 7F:5742
 	dec b
-	jr z, .l5749
+	jr z, .draw_new_index_line
 	add a, $0C
-	jr .l5742
-.l5749 ; 7F:5749
+	jr .new_index_scale_loop
+.draw_new_index_line ; 7F:5749
 	add a, $10
 	ld d, a
 	ld b, $00
@@ -1383,7 +1383,7 @@ PageListProto_DrawAllTitles:: ; 7F:577D
 	pop af
 	xor a, a
 	ld d, $06
-.l5791 ; 7F:5791
+.title_index_loop ; 7F:5791
 	push af
 	push de
 	push bc
@@ -1403,12 +1403,12 @@ PageListProto_DrawAllTitles:: ; 7F:577D
 	ld b, a
 	xor a, a
 	inc b
-.l57AA ; 7F:57AA
+.index_scale_loop ; 7F:57AA
 	dec b
-	jr z, .l57B1
+	jr z, .draw_index_line
 	add a, $0C
-	jr .l57AA
-.l57B1 ; 7F:57B1
+	jr .index_scale_loop
+.draw_index_line ; 7F:57B1
 	add a, $10
 	ld d, a
 	ld b, $03
@@ -1419,7 +1419,7 @@ PageListProto_DrawAllTitles:: ; 7F:577D
 	pop af
 	inc a
 	dec d
-	jr nz, .l5791
+	jr nz, .title_index_loop
 	ld hl, PageListProto_TitleSlotTable
 	ld a, [hli]
 	ld e, a
@@ -1461,17 +1461,17 @@ PageListProto_DrawTextLine:: ; 7F:5805
 
 	ld a, $14
 	ld [wTextCellsLeft], a
-.l580A ; 7F:580A
+.read_next_byte ; 7F:580A
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jr z, .l5885
+	jr z, .load_space_glyph
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, .l5860
+	jr nz, .load_ascii_byte
 	pop af
 	push bc
 	push de
@@ -1505,11 +1505,11 @@ PageListProto_DrawTextLine:: ; 7F:5805
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l5885
+	jr z, .load_space_glyph
 	cp a, $01
-	jr z, .l5885
-	jr .l580A
-.l5860 ; 7F:5860
+	jr z, .load_space_glyph
+	jr .read_next_byte
+.load_ascii_byte ; 7F:5860
 	pop af
 	push bc
 	push de
@@ -1525,11 +1525,11 @@ PageListProto_DrawTextLine:: ; 7F:5805
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l5885
+	jr z, .load_space_glyph
 	cp a, $01
-	jr z, .l5885
-	jr .l580A
-.l5885 ; 7F:5885
+	jr z, .load_space_glyph
+	jr .read_next_byte
+.load_space_glyph ; 7F:5885
 	push bc
 	push de
 	push hl
@@ -1539,14 +1539,14 @@ PageListProto_DrawTextLine:: ; 7F:5805
 	pop hl
 	pop de
 	pop bc
-.l5896 ; 7F:5896
+.fill_remaining_cells ; 7F:5896
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call PageListProto_BlitGlyphAdvance
-	jr .l5896
+	jr .fill_remaining_cells
 
 PageListProto_BlitGlyphAdvance:: ; 7F:58A5
 
@@ -1605,15 +1605,15 @@ PageListProto_StartHDMAAtVBlank:: ; 7F:58F9
 	ldh [rHDMA4], a
 	ld de, rLY
 	di
-.l5909 ; 7F:5909
+.wait_ly8f ; 7F:5909
 	ld a, [de]
 	cp a, $8F
-	jr nz, .l5909
+	jr nz, .wait_ly8f
 	ld b, $91
-.l5910 ; 7F:5910
+.wait_ly91 ; 7F:5910
 	ld a, [de]
 	cp a, b
-	jr nz, .l5910
+	jr nz, .wait_ly91
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a
@@ -1628,46 +1628,46 @@ PageListProto_ShowMessage:: ; 7F:591E
 	push de
 	push hl
 	cp a, $00
-	jr z, .l5946
+	jr z, .load_52_4680
 	cp a, $01
-	jr z, .l595B
+	jr z, .load_52_4380
 	cp a, $02
-	jr z, .l5970
+	jr z, .load_52_4980
 	cp a, $03
-	jr z, .l5931
-.l5931 ; 7F:5931
+	jr z, .load_default_message_tiles
+.load_default_message_tiles ; 7F:5931
 	ld de, $9581
 	ld hl, Gfx_PageListProto_Tiles9580Vb1
 	ld a, BANK(Gfx_PageListProto_Tiles9580Vb1)
 	ld b, $95
 	ld c, $28
 	farcall Gfx_StartHDMA
-	jp .l5985
-.l5946 ; 7F:5946
+	jp .restore_hl_de_bc
+.load_52_4680 ; 7F:5946
 	ld de, $9581
 	ld hl, $4680
 	ld a, $52
 	ld b, $95
 	ld c, $28
 	farcall Gfx_StartHDMA
-	jp .l5985
-.l595B ; 7F:595B
+	jp .restore_hl_de_bc
+.load_52_4380 ; 7F:595B
 	ld de, $9581
 	ld hl, $4380
 	ld a, $52
 	ld b, $95
 	ld c, $28
 	farcall Gfx_StartHDMA
-	jp .l5985
-.l5970 ; 7F:5970
+	jp .restore_hl_de_bc
+.load_52_4980 ; 7F:5970
 	ld de, $9581
 	ld hl, $4980
 	ld a, $52
 	ld b, $95
 	ld c, $28
 	farcall Gfx_StartHDMA
-	jp .l5985
-.l5985 ; 7F:5985
+	jp .restore_hl_de_bc
+.restore_hl_de_bc ; 7F:5985
 	pop hl
 	pop de
 	pop bc
@@ -1683,10 +1683,10 @@ PageListProto_ActionMenu:: ; 7F:5989
 	farcall Sprite_UpdateAll
 	ld a, [wDialogOnlineSnapshot]
 	bit 4, a
-	jp z, .l5ACF
+	jp z, .poll_input
 	ld a, [wTimerEnable]
 	bit 1, a
-	jr z, .l59BA
+	jr z, .check_timer_bit4
 	pop bc
 	farcall Stat_DisableScrollSplit
 	call VBlank_Wait
@@ -1694,53 +1694,53 @@ PageListProto_ActionMenu:: ; 7F:5989
 	ld de, $0000
 	ld hl, $0000
 	ret
-.l59BA ; 7F:59BA
+.check_timer_bit4 ; 7F:59BA
 	ld a, [wTimerEnable]
 	bit 4, a
-	jp z, .l5A11
+	jp z, .timer_bit4_clear_path
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr z, .l5A08
+	jr z, .zero_a
 	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
-	jr nz, .l5A09
+	jr nz, .restore_hl_test_a
 	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
-	jr c, .l5A08
-	jr nz, .l59E4
+	jr c, .zero_a
+	jr nz, .check_warn_minute45
 	ld a, [wTimerASeconds]
 	cp a, $1E
-	jr c, .l5A08
-.l59E4 ; 7F:59E4
+	jr c, .zero_a
+.check_warn_minute45 ; 7F:59E4
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
-	jr nz, .l59F4
+	jr nz, .set_warn_bit0
 	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
-	jr nz, .l5A08
+	jr nz, .zero_a
 	set 1, [hl]
-.l59F4 ; 7F:59F4
+.set_warn_bit0 ; 7F:59F4
 	ld hl, wTimerAWarnFlags
 	set 0, [hl]
 	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
-	jr z, .l5A09
+	jr z, .restore_hl_test_a
 	add a, $0A
 	ld [hl], a
 	ld a, $FF
-	jr .l5A09
-.l5A08 ; 7F:5A08
+	jr .restore_hl_test_a
+.zero_a ; 7F:5A08
 	xor a, a
-.l5A09 ; 7F:5A09
+.restore_hl_test_a ; 7F:5A09
 	pop hl
 	or a, a
-	jp nz, .l5AC4
-	jp .l5ACF
-.l5A11 ; 7F:5A11
+	jp nz, .pop_bc_af_return_ff
+	jp .poll_input
+.timer_bit4_clear_path ; 7F:5A11
 	xor a, a
 	ld [wBrowserFetchResult], a
 	farcall Sprites_SaveSlotsToBank3
@@ -1809,14 +1809,14 @@ PageListProto_ActionMenu:: ; 7F:5989
 	call VBlank_Wait
 	pop bc
 	jp .loop
-.l5AC4 ; 7F:5AC4
+.pop_bc_af_return_ff ; 7F:5AC4
 	pop bc
 	pop af
 	ld a, $FF
 	ld de, $0000
 	ld hl, $0000
 	ret
-.l5ACF ; 7F:5ACF
+.poll_input ; 7F:5ACF
 	call VBlank_Wait
 	farcall Joypad_Update
 	pop bc
@@ -1824,7 +1824,7 @@ PageListProto_ActionMenu:: ; 7F:5989
 	call nz, Stub_Nop_7F_61E6 ; never taken: ldh sets no flags, Z is the one the farcall left (naming2_verify_fn4.md)
 	ldh a, [hJoyPressed]
 	and a, PADF_A
-	jr z, .l5B2D
+	jr z, .check_b_pressed
 	push bc
 	push de
 	play_sfx $0031
@@ -1832,14 +1832,14 @@ PageListProto_ActionMenu:: ; 7F:5989
 	pop bc
 	ld a, b
 	cp a, $01
-	jr nz, .l5B02
+	jr nz, .check_action_2
 	call PageListProto_SaveCurrentPage
-	jr .l5B09
-.l5B02 ; 7F:5B02
+	jr .check_save_delete_result
+.check_action_2 ; 7F:5B02
 	cp a, $02
-	jr nz, .l5B1A
+	jr nz, .call_go_to_slot
 	call PageListProto_DeleteSlot
-.l5B09 ; 7F:5B09
+.check_save_delete_result ; 7F:5B09
 	inc a
 	jp nz, .loop
 	call PageListProto_HideActionCursor
@@ -1848,7 +1848,7 @@ PageListProto_ActionMenu:: ; 7F:5989
 	pop bc
 	xor a, a
 	ret
-.l5B1A ; 7F:5B1A
+.call_go_to_slot ; 7F:5B1A
 	call PageListProto_GoToSlot
 	inc a
 	jp nz, .loop
@@ -1856,10 +1856,10 @@ PageListProto_ActionMenu:: ; 7F:5989
 	call VBlank_Wait
 	ld a, $FF
 	ret
-.l5B2D ; 7F:5B2D
+.check_b_pressed ; 7F:5B2D
 	ldh a, [hJoyPressed]
 	and a, PADF_B
-	jr z, .l5B54
+	jr z, .check_left_repeat
 	push bc
 	push de
 	play_sfx $0048
@@ -1871,10 +1871,10 @@ PageListProto_ActionMenu:: ; 7F:5989
 	pop bc
 	xor a, a
 	ret
-.l5B54 ; 7F:5B54
+.check_left_repeat ; 7F:5B54
 	ldh a, [hJoyPressedRepeat]
 	and a, PADF_LEFT
-	jr z, .l5B83
+	jr z, .check_right_repeat
 	push bc
 	push de
 	play_sfx $0046
@@ -1884,9 +1884,9 @@ PageListProto_ActionMenu:: ; 7F:5989
 	dec b
 	ld a, $FF
 	cp a, b
-	jr nz, .l5B77
+	jr nz, .move_after_b_decrement
 	ld b, $02
-.l5B77 ; 7F:5B77
+.move_after_b_decrement ; 7F:5B77
 	ld a, d
 	call PageListProto_MoveActionCursor
 	ld a, b
@@ -1894,10 +1894,10 @@ PageListProto_ActionMenu:: ; 7F:5989
 	ld b, $00
 	call PageListProto_ShowMessage
 	ld b, d
-.l5B83 ; 7F:5B83
+.check_right_repeat ; 7F:5B83
 	ldh a, [hJoyPressedRepeat]
 	and a, PADF_RIGHT
-	jr z, .l5BB2
+	jr z, .repeat_menu
 	push bc
 	push de
 	play_sfx $0046
@@ -1907,9 +1907,9 @@ PageListProto_ActionMenu:: ; 7F:5989
 	inc b
 	ld a, $03
 	cp a, b
-	jr nz, .l5BA6
+	jr nz, .move_after_b_increment
 	ld b, $00
-.l5BA6 ; 7F:5BA6
+.move_after_b_increment ; 7F:5BA6
 	ld a, d
 	call PageListProto_MoveActionCursor
 	ld a, b
@@ -1917,7 +1917,7 @@ PageListProto_ActionMenu:: ; 7F:5989
 	ld b, $00
 	call PageListProto_ShowMessage
 	ld b, d
-.l5BB2 ; 7F:5BB2
+.repeat_menu ; 7F:5BB2
 	jp .loop
 
 PageListProto_ActionMenuInit:: ; 7F:5BB5
@@ -1954,10 +1954,10 @@ PageListProto_ActionMenuInit:: ; 7F:5BB5
 	inc a
 	inc a
 	cp a, $22
-	jr z, .l5C09
+	jr z, .show_initial_message
 	ld [wSpriteSlot7 + $01], a
 	jr .loop
-.l5C09 ; 7F:5C09
+.show_initial_message ; 7F:5C09
 	pop bc
 	xor a, a
 	ld d, b
@@ -1998,7 +1998,7 @@ PageListProto_SetActionCursor:: ; 7F:5C39
 	ldh [rSVBK], a
 	ld a, $00
 	cp a, b
-	jr nz, .l5C66
+	jr nz, .check_b_1
 	ld hl, wSpriteSlot8
 	ld de, PageListProto_ObjTable_Entry20
 	ld a, BANK(PageListProto_ObjTable_Entry20)
@@ -2012,10 +2012,10 @@ PageListProto_SetActionCursor:: ; 7F:5C39
 	ld [wSpriteSlot7 + $01], a
 	pop bc
 	ret
-.l5C66 ; 7F:5C66
+.check_b_1 ; 7F:5C66
 	ld a, $01
 	cp a, b
-	jr nz, .l5C8C
+	jr nz, .check_b_2
 	ld hl, wSpriteSlot8
 	ld de, PageListProto_ObjTable_Entry24
 	ld a, BANK(PageListProto_ObjTable_Entry24)
@@ -2029,10 +2029,10 @@ PageListProto_SetActionCursor:: ; 7F:5C39
 	ld [wSpriteSlot7 + $01], a
 	pop bc
 	ret
-.l5C8C ; 7F:5C8C
+.check_b_2 ; 7F:5C8C
 	ld a, $02
 	cp a, b
-	jr nz, .l5CB2
+	jr nz, .restore_bc_return
 	ld hl, wSpriteSlot8
 	ld de, PageListProto_ObjTable_Entry28
 	ld a, BANK(PageListProto_ObjTable_Entry28)
@@ -2046,7 +2046,7 @@ PageListProto_SetActionCursor:: ; 7F:5C39
 	ld [wSpriteSlot7 + $01], a
 	pop bc
 	ret
-.l5CB2 ; 7F:5CB2
+.restore_bc_return ; 7F:5CB2
 	pop bc
 	ret
 
@@ -2066,11 +2066,11 @@ PageListProto_MoveActionCursor:: ; 7F:5CB4
 	ld [wSpriteSlots + 129], a
 	pop af
 	push bc
-	jr c, .l5CE7
+	jr c, .add_slot_offset
 	ld a, [wSpriteSlots + 113]
 	sub a, $28
 	ld d, a
-.l5CCA ; 7F:5CCA
+.decrement_slot_byte_loop ; 7F:5CCA
 	ld a, [wSpriteSlots + 113]
 	dec a
 	dec a
@@ -2078,7 +2078,7 @@ PageListProto_MoveActionCursor:: ; 7F:5CB4
 	dec a
 	ld [wSpriteSlots + 113], a
 	cp a, d
-	jr nz, .l5CCA
+	jr nz, .decrement_slot_byte_loop
 	pop bc
 	call PageListProto_SetActionCursor
 	push bc
@@ -2090,13 +2090,13 @@ PageListProto_MoveActionCursor:: ; 7F:5CB4
 	pop bc
 	ret
 
-.l5CE7 ; 7F:5CE7
+.add_slot_offset ; 7F:5CE7
 	; [PROBABLE] second half (jr c target of 5CC2, 5CE7): add a,$28 ... loop ... pop bc ; call $5C39
 	; ; push bc, flowing into the far-call site region at 5CFF; twin of the first half 5CB8-5CE7
 	ld a, [wSpriteSlots + 113]
 	add a, $28
 	ld d, a
-.l5CED ; 7F:5CED
+.increment_slot_byte_loop ; 7F:5CED
 	ld a, [wSpriteSlots + 113]
 	inc a
 	inc a
@@ -2104,7 +2104,7 @@ PageListProto_MoveActionCursor:: ; 7F:5CB4
 	inc a
 	ld [wSpriteSlots + 113], a
 	cp a, d
-	jr nz, .l5CED
+	jr nz, .increment_slot_byte_loop
 	pop bc
 	call PageListProto_SetActionCursor
 	push bc
@@ -2157,7 +2157,7 @@ PageListProto_SaveCurrentPage:: ; 7F:5D0A
 	push de
 	ld a, [de]
 	cp a, $00
-	jp z, .l5DFC
+	jp z, .update_rows_before_slot_effect
 	push bc
 	push de
 	ld a, $07
@@ -2235,14 +2235,14 @@ PageListProto_SaveCurrentPage:: ; 7F:5D0A
 	call PageListProto_SetActionIcons
 	pop af
 	dec a
-	jr z, .l5DFC
+	jr z, .update_rows_before_slot_effect
 	call PageListProto_UpdateRowSprites
 	pop de
 	pop bc
 	xor a, a
 	ldh [hJoyPressed], a
 	ret
-.l5DFC ; 7F:5DFC
+.update_rows_before_slot_effect ; 7F:5DFC
 	push bc
 	push de
 	call PageListProto_UpdateRowSprites
@@ -2254,7 +2254,7 @@ PageListProto_SaveCurrentPage:: ; 7F:5D0A
 	push bc
 	ld a, c
 	cp a, $00
-	jr nz, .l5E2F
+	jr nz, .check_c_1
 	ld hl, wSpriteSlot1
 	ld de, PageListProto_ObjTable_Entry32
 	ld a, BANK(PageListProto_ObjTable_Entry32)
@@ -2267,10 +2267,10 @@ PageListProto_SaveCurrentPage:: ; 7F:5D0A
 	ld [wSpriteSlot1], a
 	ld a, $05
 	ld [wSpriteSlot1 + $01], a
-	jp .l5EF2
-.l5E2F ; 7F:5E2F
+	jp .begin_update_wait_loop
+.check_c_1 ; 7F:5E2F
 	cp a, $01
-	jr nz, .l5E56
+	jr nz, .check_c_2
 	ld hl, wSpriteSlot2
 	ld de, PageListProto_ObjTable_Entry32
 	ld a, BANK(PageListProto_ObjTable_Entry32)
@@ -2283,10 +2283,10 @@ PageListProto_SaveCurrentPage:: ; 7F:5D0A
 	ld [wSpriteSlot2], a
 	ld a, $05
 	ld [wSpriteSlot2 + $01], a
-	jp .l5EF2
-.l5E56 ; 7F:5E56
+	jp .begin_update_wait_loop
+.check_c_2 ; 7F:5E56
 	cp a, $02
-	jr nz, .l5E7D
+	jr nz, .check_c_3
 	ld hl, wSpriteSlot3
 	ld de, PageListProto_ObjTable_Entry32
 	ld a, BANK(PageListProto_ObjTable_Entry32)
@@ -2299,10 +2299,10 @@ PageListProto_SaveCurrentPage:: ; 7F:5D0A
 	ld [wSpriteSlot3], a
 	ld a, $05
 	ld [wSpriteSlot3 + $01], a
-	jp .l5EF2
-.l5E7D ; 7F:5E7D
+	jp .begin_update_wait_loop
+.check_c_3 ; 7F:5E7D
 	cp a, $03
-	jr nz, .l5EA4
+	jr nz, .check_c_4
 	ld hl, wSpriteSlot4
 	ld de, PageListProto_ObjTable_Entry32
 	ld a, BANK(PageListProto_ObjTable_Entry32)
@@ -2315,10 +2315,10 @@ PageListProto_SaveCurrentPage:: ; 7F:5D0A
 	ld [wSpriteSlot4], a
 	ld a, $05
 	ld [wSpriteSlot4 + $01], a
-	jp .l5EF2
-.l5EA4 ; 7F:5EA4
+	jp .begin_update_wait_loop
+.check_c_4 ; 7F:5EA4
 	cp a, $04
-	jr nz, .l5ECB
+	jr nz, .check_c_5
 	ld hl, wSpriteSlot5
 	ld de, PageListProto_ObjTable_Entry32
 	ld a, BANK(PageListProto_ObjTable_Entry32)
@@ -2331,10 +2331,10 @@ PageListProto_SaveCurrentPage:: ; 7F:5D0A
 	ld [wSpriteSlot5], a
 	ld a, $05
 	ld [wSpriteSlot5 + $01], a
-	jp .l5EF2
-.l5ECB ; 7F:5ECB
+	jp .begin_update_wait_loop
+.check_c_5 ; 7F:5ECB
 	cp a, $05
-	jr nz, .l5EF2
+	jr nz, .begin_update_wait_loop
 	ld hl, wSpriteSlot6
 	ld de, PageListProto_ObjTable_Entry32
 	ld a, BANK(PageListProto_ObjTable_Entry32)
@@ -2347,11 +2347,11 @@ PageListProto_SaveCurrentPage:: ; 7F:5D0A
 	ld [wSpriteSlot6], a
 	ld a, $05
 	ld [wSpriteSlot6 + $01], a
-	jp .l5EF2
-.l5EF2 ; 7F:5EF2
+	jp .begin_update_wait_loop
+.begin_update_wait_loop ; 7F:5EF2
 	pop bc
 	ld e, $32
-.l5EF5 ; 7F:5EF5
+.update_wait_loop ; 7F:5EF5
 	push bc
 	push de
 	farcall Sprite_UpdateAll
@@ -2359,7 +2359,7 @@ PageListProto_SaveCurrentPage:: ; 7F:5D0A
 	pop de
 	pop bc
 	dec e
-	jr nz, .l5EF5
+	jr nz, .update_wait_loop
 	pop de
 	ld a, $06
 	ldh [hWRAMBank], a
@@ -2375,12 +2375,12 @@ PageListProto_SaveCurrentPage:: ; 7F:5D0A
 	push bc
 	ld hl, wBrowserPageUrl
 	ld c, $00
-.l5F22 ; 7F:5F22
+.copy_url_256_bytes ; 7F:5F22
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec c
-	jr nz, .l5F22
+	jr nz, .copy_url_256_bytes
 	pop bc
 	ld e, c
 	ld d, $00
@@ -2399,12 +2399,12 @@ PageListProto_SaveCurrentPage:: ; 7F:5D0A
 	ld hl, wBrowserPageUrl
 .skip ; 7F:5F42
 	ld c, $16
-.l5F44 ; 7F:5F44
+.copy_title_22_bytes ; 7F:5F44
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec c
-	jr nz, .l5F44
+	jr nz, .copy_title_22_bytes
 	pop bc
 	push af
 	xor a, a
@@ -2599,11 +2599,11 @@ PageListProto_DeleteSlot:: ; 7F:5FBC
 	call PageListProto_SetActionIcons
 	pop af
 	dec a
-	jr z, .l609A
+	jr z, .update_rows_before_slot_effect
 	xor a, a
 	ldh [hJoyPressed], a
 	ret
-.l609A ; 7F:609A
+.update_rows_before_slot_effect ; 7F:609A
 	push bc
 	push de
 	call PageListProto_UpdateRowSprites
@@ -2612,7 +2612,7 @@ PageListProto_DeleteSlot:: ; 7F:5FBC
 	push bc
 	ld a, c
 	cp a, $00
-	jr nz, .l60CA
+	jr nz, .check_c_1
 	ld hl, wSpriteSlot1
 	ld de, PageListProto_ObjTable_Entry36
 	ld a, BANK(PageListProto_ObjTable_Entry36)
@@ -2625,10 +2625,10 @@ PageListProto_DeleteSlot:: ; 7F:5FBC
 	ld [wSpriteSlot1], a
 	ld a, $05
 	ld [wSpriteSlot1 + $01], a
-	jp .l618D
-.l60CA ; 7F:60CA
+	jp .begin_update_wait_loop
+.check_c_1 ; 7F:60CA
 	cp a, $01
-	jr nz, .l60F1
+	jr nz, .check_c_2
 	ld hl, wSpriteSlot2
 	ld de, PageListProto_ObjTable_Entry36
 	ld a, BANK(PageListProto_ObjTable_Entry36)
@@ -2641,10 +2641,10 @@ PageListProto_DeleteSlot:: ; 7F:5FBC
 	ld [wSpriteSlot2], a
 	ld a, $05
 	ld [wSpriteSlot2 + $01], a
-	jp .l618D
-.l60F1 ; 7F:60F1
+	jp .begin_update_wait_loop
+.check_c_2 ; 7F:60F1
 	cp a, $02
-	jr nz, .l6118
+	jr nz, .check_c_3
 	ld hl, wSpriteSlot3
 	ld de, PageListProto_ObjTable_Entry36
 	ld a, BANK(PageListProto_ObjTable_Entry36)
@@ -2657,10 +2657,10 @@ PageListProto_DeleteSlot:: ; 7F:5FBC
 	ld [wSpriteSlot3], a
 	ld a, $05
 	ld [wSpriteSlot3 + $01], a
-	jp .l618D
-.l6118 ; 7F:6118
+	jp .begin_update_wait_loop
+.check_c_3 ; 7F:6118
 	cp a, $03
-	jr nz, .l613F
+	jr nz, .check_c_4
 	ld hl, wSpriteSlot4
 	ld de, PageListProto_ObjTable_Entry36
 	ld a, BANK(PageListProto_ObjTable_Entry36)
@@ -2673,10 +2673,10 @@ PageListProto_DeleteSlot:: ; 7F:5FBC
 	ld [wSpriteSlot4], a
 	ld a, $05
 	ld [wSpriteSlot4 + $01], a
-	jp .l618D
-.l613F ; 7F:613F
+	jp .begin_update_wait_loop
+.check_c_4 ; 7F:613F
 	cp a, $04
-	jr nz, .l6166
+	jr nz, .check_c_5
 	ld hl, wSpriteSlot5
 	ld de, PageListProto_ObjTable_Entry36
 	ld a, BANK(PageListProto_ObjTable_Entry36)
@@ -2689,10 +2689,10 @@ PageListProto_DeleteSlot:: ; 7F:5FBC
 	ld [wSpriteSlot5], a
 	ld a, $05
 	ld [wSpriteSlot5 + $01], a
-	jp .l618D
-.l6166 ; 7F:6166
+	jp .begin_update_wait_loop
+.check_c_5 ; 7F:6166
 	cp a, $05
-	jr nz, .l618D
+	jr nz, .begin_update_wait_loop
 	ld hl, wSpriteSlot6
 	ld de, PageListProto_ObjTable_Entry36
 	ld a, BANK(PageListProto_ObjTable_Entry36)
@@ -2705,8 +2705,8 @@ PageListProto_DeleteSlot:: ; 7F:5FBC
 	ld [wSpriteSlot6], a
 	ld a, $05
 	ld [wSpriteSlot6 + $01], a
-	jp .l618D
-.l618D ; 7F:618D
+	jp .begin_update_wait_loop
+.begin_update_wait_loop ; 7F:618D
 	pop bc
 	ld e, $32
 .loop ; 7F:6190
