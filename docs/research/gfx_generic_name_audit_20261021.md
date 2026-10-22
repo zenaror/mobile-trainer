@@ -196,3 +196,8 @@ and `POST_MOVE.json`; the old-to-new path ledger is in
 44 address-only stems in five directories / 86 files, with 56 address-only
 catalog rows (41 CONFIRMED / 15 PROBABLE). This is a lexical inventory, not a
 reachability or semantic-completion claim.
+
+
+## Bank 4A legacy sprite-byte view path (2026-10-22)
+
+The address-only `tiles_5860` pair is now `settings_menu_cursor_frames_anim_script_byteview_4a_5860` (`.2bpp` and `.png`). It is a retained byte-view of two OAM frames, a two-step animation script, and five trailing zero bytes at `4A:5860–5870`, not tile art or an active asset. The exact raw SHA-256 values remain `68801625e95363bd79c1370472e8ccad7f9b93e2e929930f78610232787fbd91` and `5680705a91e0e2fb90a25f993d78cf21be4cda9ef69dee7d95492cb10c716716`; the old-to-new paths are recorded in `gfx_resource_path_map.tsv`. The old 10-pass census above remains a historical snapshot.

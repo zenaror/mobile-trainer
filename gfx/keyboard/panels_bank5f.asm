@@ -26,8 +26,8 @@ Gfx_Kbd_T9_Tiles9000Vb1:: ; 5F:4800
 
 Tilemap_Kbd_T9:: ; 5F:4810
 
-	INCBIN "gfx/keyboard/panels_bank5f/tilemap_4810.tilemap"
-	INCBIN "gfx/keyboard/panels_bank5f/tilemap_4810.attrmap"
+	INCBIN "gfx/keyboard/panels_bank5f/keyboard_type9_panel.tilemap"
+	INCBIN "gfx/keyboard/panels_bank5f/keyboard_type9_panel.attrmap"
 
 ; ---- zero $49C8-$49D0 (8 bytes) [PROBABLE] 0x00 padding at the end of the tilemap block, before the tile block at $49D0
 	ds $8, $00
@@ -43,7 +43,7 @@ Gfx_SharedPanels_Vram8000Vb1:: ; 5F:49D0
 
 Palette_SharedPanels_BgObj:: ; 5F:4CD0
 
-	INCLUDE "gfx/keyboard/panels_bank5f/palette_4cd0.pal"
+	INCLUDE "gfx/keyboard/panels_bank5f/shared_panel_bg6_7_obj5_7_palettes.pal"
 
 ; ---- words $4CF8-$4D48 (80 bytes) [PROBABLE] sprite object table: 4-byte entries (frame-table ptr, animation-script ptr) indexed by B&7F, the layout read by init_object_from_table 00:0A82/00:0AB8; rows of 16 bytes = the same entry repeated 4 times; base $4CF8 is passed as de with a=$5F at call sites listed in analysis/gfx_candidates.tsv (object-table); entries 0000/0000 4D48/4D7E 4D9A/4DC0 0000/0000 4DE3/4DFE 4E01/4E20 4E23/4E42 4DC5/4DE0 0000/0000 4E45/4E54 4E57/4E66 4E69/4E78 4E7B/4E8A 4E8D/4E9C 0000/0000 4D83/4D95 0000/0000 4E9F/4EB2 0000/0000 4EB5/4EC8
 
@@ -407,36 +407,36 @@ Kbd_Anim19Script:: ; 5F:4EC8
 
 Tilemap_Kbd_T0:: ; 5F:4ECB
 
-	INCBIN "gfx/keyboard/panels_bank5f/tilemap_4ecb.tilemap"
-	INCBIN "gfx/keyboard/panels_bank5f/tilemap_4ecb.attrmap"
+	INCBIN "gfx/keyboard/panels_bank5f/keyboard_type0_panel.tilemap"
+	INCBIN "gfx/keyboard/panels_bank5f/keyboard_type0_panel.attrmap"
 
 ; ---- data $50D3-$52DB (520 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 55:6721: hl=$50D3 a=$5F b=13 rows c=20 cols (tiles then attrs) de=$D240
 
 Tilemap_Kbd_T1:: ; 5F:50D3
 
-	INCBIN "gfx/keyboard/panels_bank5f/tilemap_50d3.tilemap"
-	INCBIN "gfx/keyboard/panels_bank5f/tilemap_50d3.attrmap"
+	INCBIN "gfx/keyboard/panels_bank5f/keyboard_type1_panel.tilemap"
+	INCBIN "gfx/keyboard/panels_bank5f/keyboard_type1_panel.attrmap"
 
 ; ---- data $52DB-$54E3 (520 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 55:6795: hl=$52DB a=$5F b=13 rows c=20 cols (tiles then attrs) de=$D240
 
 Tilemap_Kbd_T4:: ; 5F:52DB
 
-	INCBIN "gfx/keyboard/panels_bank5f/tilemap_52db.tilemap"
-	INCBIN "gfx/keyboard/panels_bank5f/tilemap_52db.attrmap"
+	INCBIN "gfx/keyboard/panels_bank5f/keyboard_type4_panel.tilemap"
+	INCBIN "gfx/keyboard/panels_bank5f/keyboard_type4_panel.attrmap"
 
 ; ---- data $54E3-$56EB (520 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 55:6736: hl=$54E3 a=$5F b=13 rows c=20 cols (tiles then attrs) de=$D240 [first call site executed: 63 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_Kbd_T2:: ; 5F:54E3
 
-	INCBIN "gfx/keyboard/panels_bank5f/tilemap_54e3.tilemap"
-	INCBIN "gfx/keyboard/panels_bank5f/tilemap_54e3.attrmap"
+	INCBIN "gfx/keyboard/panels_bank5f/keyboard_type2_panel.tilemap"
+	INCBIN "gfx/keyboard/panels_bank5f/keyboard_type2_panel.attrmap"
 
 ; ---- data $56EB-$58F3 (520 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 55:674B: hl=$56EB a=$5F b=13 rows c=20 cols (tiles then attrs) de=$D240 [first call site executed: 13 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_Kbd_T3:: ; 5F:56EB
 
-	INCBIN "gfx/keyboard/panels_bank5f/tilemap_56eb.tilemap"
-	INCBIN "gfx/keyboard/panels_bank5f/tilemap_56eb.attrmap"
+	INCBIN "gfx/keyboard/panels_bank5f/keyboard_type3_panel.tilemap"
+	INCBIN "gfx/keyboard/panels_bank5f/keyboard_type3_panel.attrmap"
 
 ; ---- zero $58F3-$5900 (13 bytes) [PROBABLE] 13 zero bytes fill the gap after Tilemap_Kbd_T3 and before the 16-byte-aligned T5 HDMA source at $5900; padding purpose is probable, with no named direct reader found
 
@@ -475,11 +475,11 @@ Data_5F_6980:: ; 5F:6980
 
 Tilemap_Kbd_T5:: ; 5F:69B0
 
-	INCBIN "gfx/keyboard/panels_bank5f/tilemap_69b0.tilemap"
-	INCBIN "gfx/keyboard/panels_bank5f/tilemap_69b0.attrmap"
+	INCBIN "gfx/keyboard/panels_bank5f/keyboard_type5_panel.tilemap"
+	INCBIN "gfx/keyboard/panels_bank5f/keyboard_type5_panel.attrmap"
 
 ; ---- data $6BB8-$6BD0 (24 bytes) [PROBABLE] palette-rgb555: heuristic: 12 RGB555 words as 3 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
 
 Palette_Kbd_T5_Bg1:: ; 5F:6BB8
 
-	INCLUDE "gfx/keyboard/panels_bank5f/palette_6bb8.pal"
+	INCLUDE "gfx/keyboard/panels_bank5f/keyboard_type5_bg1_bg6_7_palettes.pal"

@@ -35,17 +35,17 @@ PNG_TILE_OUTS := \
 	gfx/account/account_entry_mail_and_action_screens_bank5e/account_mail_intro_tiles9000_vb1_60d0.2bpp \
 	gfx/account/account_entry_mail_and_action_screens_bank5e/account_mail_intro_tiles9400_vb1_64d0.2bpp \
 	gfx/account/account_entry_mail_and_action_screens_bank5e/kbd_t1_tiles8800_vb0_57e0.2bpp \
-	gfx/account/comm_panel_and_registration_delete_bank71/tiles_4000.2bpp \
-	gfx/account/comm_panel_and_registration_delete_bank71/tiles_4300.2bpp \
-	gfx/account/comm_panel_and_registration_delete_bank71/tiles_4500.2bpp \
-	gfx/account/comm_panel_and_registration_delete_bank71/tiles_4890.2bpp \
-	gfx/account/comm_panel_and_registration_delete_bank71/tiles_5340.2bpp \
-	gfx/account/comm_panel_and_registration_delete_bank71/tiles_5740.2bpp \
-	gfx/account/comm_panel_and_registration_delete_bank71/tiles_5b40.2bpp \
-	gfx/account/comm_panel_and_registration_delete_bank71/tiles_5dc0.2bpp \
-	gfx/account/comm_panel_and_registration_delete_bank71/tiles_61c0.2bpp \
-	gfx/account/comm_panel_and_registration_delete_bank71/tiles_6440.2bpp \
-	gfx/account/comm_panel_and_registration_delete_bank71/tiles_6580.2bpp \
+	gfx/account/comm_panel_and_registration_delete_bank71/comm_panel_shared_vram_source_4300.2bpp \
+	gfx/account/comm_panel_and_registration_delete_bank71/comm_panel_tiles8000_vb0_shared_source_4000.2bpp \
+	gfx/account/comm_panel_and_registration_delete_bank71/comm_panel_tiles9070_vb1_slice_4500.2bpp \
+	gfx/account/comm_panel_and_registration_delete_bank71/comm_panel_tiles9400_vb1_slice_4890.2bpp \
+	gfx/account/comm_panel_and_registration_delete_bank71/registration_delete_confirm_shared_vram_source_5740.2bpp \
+	gfx/account/comm_panel_and_registration_delete_bank71/registration_delete_confirm_variant0_tiles9000_vb1_5340.2bpp \
+	gfx/account/comm_panel_and_registration_delete_bank71/registration_delete_confirm_variant_nonzero_tiles9180_vb1_slice_5b40.2bpp \
+	gfx/account/comm_panel_and_registration_delete_bank71/registration_delete_execute_tiles8080_vb0_and_8840_vb1_slice_61c0.2bpp \
+	gfx/account/comm_panel_and_registration_delete_bank71/registration_delete_execute_tiles8ac0_vb1_slice_6440.2bpp \
+	gfx/account/comm_panel_and_registration_delete_bank71/registration_delete_execute_tiles9000_vb1_6580.2bpp \
+	gfx/account/comm_panel_and_registration_delete_bank71/registration_delete_tiles9400_vb1_shared_source_5dc0.2bpp \
 	gfx/account/password_and_registration_config_bank5d/account_confirm_screen_tiles9000_vb1_63f0.2bpp \
 	gfx/account/password_and_registration_config_bank5d/account_confirm_screens_tiles8800_vb1_5df0.2bpp \
 	gfx/account/password_and_registration_config_bank5d/account_confirm_screens_tiles8c00_vb1_61f0.2bpp \
@@ -142,14 +142,14 @@ PNG_TILE_OUTS := \
 	gfx/comm/connect_dialog_screen/connect_dialog_blank_tile.2bpp \
 	gfx/comm/connection_icon/conn_icon_tiles0.2bpp \
 	gfx/comm/connection_icon/conn_icon_tiles1.2bpp \
-	gfx/comm/notice_dialog/tiles_5a20.2bpp \
-	gfx/comm/notice_dialog/tiles_5e20.2bpp \
-	gfx/comm/notice_dialog/tiles_5fc0.2bpp \
-	gfx/comm/notice_dialog/tiles_5fd0.2bpp \
-	gfx/comm/notice_dialog/tiles_62f0.2bpp \
-	gfx/comm/notice_dialog/tiles_66f0.2bpp \
-	gfx/comm/notice_dialog/tiles_6890.2bpp \
-	gfx/comm/notice_dialog/tiles_68a0.2bpp \
+	gfx/comm/notice_dialog/comm_notice_a_tiles_vram0_9000.2bpp \
+	gfx/comm/notice_dialog/comm_notice_a_tiles_vram0_9400.2bpp \
+	gfx/comm/notice_dialog/comm_notice_a_tiles_vram1_8000.2bpp \
+	gfx/comm/notice_dialog/comm_notice_a_tiles_vram1_9000.2bpp \
+	gfx/comm/notice_dialog/comm_notice_b_tiles_vram0_9000.2bpp \
+	gfx/comm/notice_dialog/comm_notice_b_tiles_vram0_9400.2bpp \
+	gfx/comm/notice_dialog/comm_notice_b_tiles_vram1_8000.2bpp \
+	gfx/comm/notice_dialog/comm_notice_b_tiles_vram1_9000.2bpp \
 	gfx/comm/time_summary/conn_icon_request2_vram8200_vb0_tiles.2bpp \
 	gfx/comm/time_summary/conn_icon_request2_vram8600_vb0_tiles.2bpp \
 	gfx/comm/time_summary/summary_a_vram9000_vb1_tiles.2bpp \
@@ -445,18 +445,18 @@ gfx/account/account_entry_mail_and_action_screens_bank5e/account_mail_address_en
 gfx/account/account_entry_mail_and_action_screens_bank5e/account_mail_intro_tiles9000_vb1_60d0.2bpp: PNG_SIZE := 1024
 gfx/account/account_entry_mail_and_action_screens_bank5e/account_mail_intro_tiles9400_vb1_64d0.2bpp: PNG_SIZE := 1024
 gfx/account/account_entry_mail_and_action_screens_bank5e/kbd_t1_tiles8800_vb0_57e0.2bpp: PNG_SIZE := 32
-gfx/account/comm_panel_and_registration_delete_bank71/tiles_4000.2bpp: PNG_SIZE := 768
-gfx/account/comm_panel_and_registration_delete_bank71/tiles_4300.2bpp: PNG_SIZE := 512
-gfx/account/comm_panel_and_registration_delete_bank71/tiles_4500.2bpp: PNG_SIZE := 912
-gfx/account/comm_panel_and_registration_delete_bank71/tiles_4500.2bpp: PNG_PAD := -x 7
-gfx/account/comm_panel_and_registration_delete_bank71/tiles_4890.2bpp: PNG_SIZE := 960
-gfx/account/comm_panel_and_registration_delete_bank71/tiles_5340.2bpp: PNG_SIZE := 1024
-gfx/account/comm_panel_and_registration_delete_bank71/tiles_5740.2bpp: PNG_SIZE := 1024
-gfx/account/comm_panel_and_registration_delete_bank71/tiles_5b40.2bpp: PNG_SIZE := 640
-gfx/account/comm_panel_and_registration_delete_bank71/tiles_5dc0.2bpp: PNG_SIZE := 1024
-gfx/account/comm_panel_and_registration_delete_bank71/tiles_61c0.2bpp: PNG_SIZE := 640
-gfx/account/comm_panel_and_registration_delete_bank71/tiles_6440.2bpp: PNG_SIZE := 320
-gfx/account/comm_panel_and_registration_delete_bank71/tiles_6580.2bpp: PNG_SIZE := 256
+gfx/account/comm_panel_and_registration_delete_bank71/comm_panel_shared_vram_source_4300.2bpp: PNG_SIZE := 512
+gfx/account/comm_panel_and_registration_delete_bank71/comm_panel_tiles8000_vb0_shared_source_4000.2bpp: PNG_SIZE := 768
+gfx/account/comm_panel_and_registration_delete_bank71/comm_panel_tiles9070_vb1_slice_4500.2bpp: PNG_SIZE := 912
+gfx/account/comm_panel_and_registration_delete_bank71/comm_panel_tiles9070_vb1_slice_4500.2bpp: PNG_PAD := -x 7
+gfx/account/comm_panel_and_registration_delete_bank71/comm_panel_tiles9400_vb1_slice_4890.2bpp: PNG_SIZE := 960
+gfx/account/comm_panel_and_registration_delete_bank71/registration_delete_confirm_shared_vram_source_5740.2bpp: PNG_SIZE := 1024
+gfx/account/comm_panel_and_registration_delete_bank71/registration_delete_confirm_variant0_tiles9000_vb1_5340.2bpp: PNG_SIZE := 1024
+gfx/account/comm_panel_and_registration_delete_bank71/registration_delete_confirm_variant_nonzero_tiles9180_vb1_slice_5b40.2bpp: PNG_SIZE := 640
+gfx/account/comm_panel_and_registration_delete_bank71/registration_delete_execute_tiles8080_vb0_and_8840_vb1_slice_61c0.2bpp: PNG_SIZE := 640
+gfx/account/comm_panel_and_registration_delete_bank71/registration_delete_execute_tiles8ac0_vb1_slice_6440.2bpp: PNG_SIZE := 320
+gfx/account/comm_panel_and_registration_delete_bank71/registration_delete_execute_tiles9000_vb1_6580.2bpp: PNG_SIZE := 256
+gfx/account/comm_panel_and_registration_delete_bank71/registration_delete_tiles9400_vb1_shared_source_5dc0.2bpp: PNG_SIZE := 1024
 gfx/account/password_and_registration_config_bank5d/account_confirm_screen_tiles9000_vb1_63f0.2bpp: PNG_SIZE := 512
 gfx/account/password_and_registration_config_bank5d/account_confirm_screens_tiles8800_vb1_5df0.2bpp: PNG_SIZE := 1024
 gfx/account/password_and_registration_config_bank5d/account_confirm_screens_tiles8c00_vb1_61f0.2bpp: PNG_SIZE := 512
@@ -560,14 +560,14 @@ gfx/comm/connect_dialog_bank56/connect_dialog_stored_password_tiles_shared_sourc
 gfx/comm/connect_dialog_screen/connect_dialog_blank_tile.2bpp: PNG_SIZE := 16
 gfx/comm/connection_icon/conn_icon_tiles0.2bpp: PNG_SIZE := 1024
 gfx/comm/connection_icon/conn_icon_tiles1.2bpp: PNG_SIZE := 512
-gfx/comm/notice_dialog/tiles_5a20.2bpp: PNG_SIZE := 1024
-gfx/comm/notice_dialog/tiles_5e20.2bpp: PNG_SIZE := 416
-gfx/comm/notice_dialog/tiles_5fc0.2bpp: PNG_SIZE := 16
-gfx/comm/notice_dialog/tiles_5fd0.2bpp: PNG_SIZE := 800
-gfx/comm/notice_dialog/tiles_62f0.2bpp: PNG_SIZE := 1024
-gfx/comm/notice_dialog/tiles_66f0.2bpp: PNG_SIZE := 416
-gfx/comm/notice_dialog/tiles_6890.2bpp: PNG_SIZE := 16
-gfx/comm/notice_dialog/tiles_68a0.2bpp: PNG_SIZE := 800
+gfx/comm/notice_dialog/comm_notice_a_tiles_vram0_9000.2bpp: PNG_SIZE := 1024
+gfx/comm/notice_dialog/comm_notice_a_tiles_vram0_9400.2bpp: PNG_SIZE := 416
+gfx/comm/notice_dialog/comm_notice_a_tiles_vram1_8000.2bpp: PNG_SIZE := 16
+gfx/comm/notice_dialog/comm_notice_a_tiles_vram1_9000.2bpp: PNG_SIZE := 800
+gfx/comm/notice_dialog/comm_notice_b_tiles_vram0_9000.2bpp: PNG_SIZE := 1024
+gfx/comm/notice_dialog/comm_notice_b_tiles_vram0_9400.2bpp: PNG_SIZE := 416
+gfx/comm/notice_dialog/comm_notice_b_tiles_vram1_8000.2bpp: PNG_SIZE := 16
+gfx/comm/notice_dialog/comm_notice_b_tiles_vram1_9000.2bpp: PNG_SIZE := 800
 gfx/comm/time_summary/conn_icon_request2_vram8200_vb0_tiles.2bpp: PNG_SIZE := 1024
 gfx/comm/time_summary/conn_icon_request2_vram8600_vb0_tiles.2bpp: PNG_SIZE := 512
 gfx/comm/time_summary/summary_a_vram9000_vb1_tiles.2bpp: PNG_SIZE := 1024

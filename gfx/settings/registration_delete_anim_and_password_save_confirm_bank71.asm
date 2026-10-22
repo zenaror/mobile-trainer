@@ -34,8 +34,8 @@ Registration_DeleteExecute_Anim1Script:: ; 71:6F6A
 
 Tilemap_PwSaveConfirm_71_6F6F:: ; 71:6F6F
 
-	INCBIN "gfx/settings/registration_delete_anim_and_password_save_confirm_bank71/tilemap_6f6f.tilemap"
-	INCBIN "gfx/settings/registration_delete_anim_and_password_save_confirm_bank71/tilemap_6f6f.attrmap"
+	INCBIN "gfx/settings/registration_delete_anim_and_password_save_confirm_bank71/password_save_confirm_variant_nonzero_bgmap_6f6f.tilemap"
+	INCBIN "gfx/settings/registration_delete_anim_and_password_save_confirm_bank71/password_save_confirm_variant_nonzero_bgmap_6f6f.attrmap"
 
 ; ---- gfx $723F-$7271 (50 bytes) [PROBABLE] tiles-2bpp: heuristic: 35 coherent tiles (hsim2=0.670 vsim2=0.903, 1 blank) parity 1; 558/608 bytes also covered by call-site blocks [clipped from 7011-7271 by higher-priority evidence]
 

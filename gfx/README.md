@@ -156,31 +156,31 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_4000.2bpp` | 2bpp tiles | 768 | 71:4000 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
-| `tiles_4300.2bpp` | 2bpp tiles | 512 | 71:4300 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
-| `tiles_4500.2bpp` | 2bpp tiles | 912 | 71:4500 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
-| `tiles_4890.2bpp` | 2bpp tiles | 960 | 71:4890 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `comm_panel_tiles8000_vb0_shared_source_4000.2bpp` | 2bpp tiles | 768 | 71:4000 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `comm_panel_shared_vram_source_4300.2bpp` | 2bpp tiles | 512 | 71:4300 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `comm_panel_tiles9070_vb1_slice_4500.2bpp` | 2bpp tiles | 912 | 71:4500 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `comm_panel_tiles9400_vb1_slice_4890.2bpp` | 2bpp tiles | 960 | 71:4890 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
 | `comm_panel_bg.pal` | RGB palette | 64 | 71:4C50 | CONFIRMED | - | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
 | `comm_panel_obj.pal` | RGB palette | 8 | 71:4C90 | CONFIRMED | - | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
-| `tilemap_4c98.tilemap` | tile-index map | 360 | 71:4C98 | CONFIRMED | - | 20x18 | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
-| `tilemap_4c98.attrmap` | attribute map | 360 | 71:4E00 | CONFIRMED | - | 20x18 | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
-| `tilemap_4f68.tilemap` | tile-index map | 40 | 71:4F68 | CONFIRMED | - | 20x2 | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
-| `tilemap_4f68.attrmap` | attribute map | 40 | 71:4F90 | CONFIRMED | - | 20x2 | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
-| `tiles_5340.2bpp` | 2bpp tiles | 1024 | 71:5340 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
-| `tiles_5740.2bpp` | 2bpp tiles | 1024 | 71:5740 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
-| `tiles_5b40.2bpp` | 2bpp tiles | 640 | 71:5B40 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
-| `tiles_5dc0.2bpp` | 2bpp tiles | 1024 | 71:5DC0 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
-| `tiles_61c0.2bpp` | 2bpp tiles | 640 | 71:61C0 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
-| `tiles_6440.2bpp` | 2bpp tiles | 320 | 71:6440 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
-| `tiles_6580.2bpp` | 2bpp tiles | 256 | 71:6580 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `comm_panel_bgmap_20x18_4c98.tilemap` | tile-index map | 360 | 71:4C98 | CONFIRMED | - | 20x18 | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `comm_panel_bgmap_20x18_4c98.attrmap` | attribute map | 360 | 71:4E00 | CONFIRMED | - | 20x18 | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `comm_panel_bgmap_rows16_17_4f68.tilemap` | tile-index map | 40 | 71:4F68 | CONFIRMED | - | 20x2 | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `comm_panel_bgmap_rows16_17_4f68.attrmap` | attribute map | 40 | 71:4F90 | CONFIRMED | - | 20x2 | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `registration_delete_confirm_variant0_tiles9000_vb1_5340.2bpp` | 2bpp tiles | 1024 | 71:5340 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `registration_delete_confirm_shared_vram_source_5740.2bpp` | 2bpp tiles | 1024 | 71:5740 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `registration_delete_confirm_variant_nonzero_tiles9180_vb1_slice_5b40.2bpp` | 2bpp tiles | 640 | 71:5B40 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `registration_delete_tiles9400_vb1_shared_source_5dc0.2bpp` | 2bpp tiles | 1024 | 71:5DC0 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `registration_delete_execute_tiles8080_vb0_and_8840_vb1_slice_61c0.2bpp` | 2bpp tiles | 640 | 71:61C0 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `registration_delete_execute_tiles8ac0_vb1_slice_6440.2bpp` | 2bpp tiles | 320 | 71:6440 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `registration_delete_execute_tiles9000_vb1_6580.2bpp` | 2bpp tiles | 256 | 71:6580 | CONFIRMED | exact | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
 | `registration_delete_bg.pal` | RGB palette | 64 | 71:6680 | CONFIRMED | - | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
 | `registration_delete_obj.pal` | RGB palette | 8 | 71:66C0 | CONFIRMED | - | - | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
-| `tilemap_66c8.tilemap` | tile-index map | 360 | 71:66C8 | CONFIRMED | - | 20x18 | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
-| `tilemap_66c8.attrmap` | attribute map | 360 | 71:6830 | CONFIRMED | - | 20x18 | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
-| `tilemap_6998.tilemap` | tile-index map | 360 | 71:6998 | CONFIRMED | - | 20x18 | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
-| `tilemap_6998.attrmap` | attribute map | 360 | 71:6B00 | CONFIRMED | - | 20x18 | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
-| `tilemap_6c68.tilemap` | tile-index map | 360 | 71:6C68 | CONFIRMED | - | 20x18 | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
-| `tilemap_6c68.attrmap` | attribute map | 360 | 71:6DD0 | CONFIRMED | - | 20x18 | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `registration_delete_confirm_variant0_bgmap_66c8.tilemap` | tile-index map | 360 | 71:66C8 | CONFIRMED | - | 20x18 | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `registration_delete_confirm_variant0_bgmap_66c8.attrmap` | attribute map | 360 | 71:6830 | CONFIRMED | - | 20x18 | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `registration_delete_confirm_variant_nonzero_bgmap_6998.tilemap` | tile-index map | 360 | 71:6998 | CONFIRMED | - | 20x18 | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `registration_delete_confirm_variant_nonzero_bgmap_6998.attrmap` | attribute map | 360 | 71:6B00 | CONFIRMED | - | 20x18 | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `registration_delete_execute_bgmap_6c68.tilemap` | tile-index map | 360 | 71:6C68 | CONFIRMED | - | 20x18 | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
+| `registration_delete_execute_bgmap_6c68.attrmap` | attribute map | 360 | 71:6DD0 | CONFIRMED | - | 20x18 | `gfx/account/comm_panel_and_registration_delete_bank71.asm` |
 
 ### `gfx/account/password_and_registration_config_bank5d/`
 
@@ -531,30 +531,30 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
 | `comm_notice_a_cut_over60.tilemap` | tile-index map | 360 | 50:439A | PROBABLE | - | 20x18 | `gfx/comm/notice_dialog.asm` |
-| `attrmap_4502.attrmap` | attribute map | 360 | 50:4502 | PROBABLE | - | - | `gfx/comm/notice_dialog.asm` |
+| `comm_notice_a_cut_over60.attrmap` | attribute map | 360 | 50:4502 | PROBABLE | - | - | `gfx/comm/notice_dialog.asm` |
 | `comm_notice_a_ask_over60.tilemap` | tile-index map | 360 | 50:466A | PROBABLE | - | 20x18 | `gfx/comm/notice_dialog.asm` |
-| `attrmap_47d2.attrmap` | attribute map | 360 | 50:47D2 | PROBABLE | - | - | `gfx/comm/notice_dialog.asm` |
+| `comm_notice_a_ask_over60.attrmap` | attribute map | 360 | 50:47D2 | PROBABLE | - | - | `gfx/comm/notice_dialog.asm` |
 | `comm_notice_a_cut_soon.tilemap` | tile-index map | 360 | 50:493A | PROBABLE | - | 20x18 | `gfx/comm/notice_dialog.asm` |
-| `attrmap_4aa2.attrmap` | attribute map | 360 | 50:4AA2 | PROBABLE | - | - | `gfx/comm/notice_dialog.asm` |
+| `comm_notice_a_cut_soon.attrmap` | attribute map | 360 | 50:4AA2 | PROBABLE | - | - | `gfx/comm/notice_dialog.asm` |
 | `comm_notice_a_ask_soon.tilemap` | tile-index map | 360 | 50:4C0A | CONFIRMED | - | 20x18 | `gfx/comm/notice_dialog.asm` |
-| `attrmap_4d72.attrmap` | attribute map | 360 | 50:4D72 | CONFIRMED | - | - | `gfx/comm/notice_dialog.asm` |
+| `comm_notice_a_ask_soon.attrmap` | attribute map | 360 | 50:4D72 | CONFIRMED | - | - | `gfx/comm/notice_dialog.asm` |
 | `comm_notice_b_cut_over60.tilemap` | tile-index map | 360 | 50:4EDA | PROBABLE | - | 20x18 | `gfx/comm/notice_dialog.asm` |
-| `attrmap_5042.attrmap` | attribute map | 360 | 50:5042 | PROBABLE | - | - | `gfx/comm/notice_dialog.asm` |
+| `comm_notice_b_cut_over60.attrmap` | attribute map | 360 | 50:5042 | PROBABLE | - | - | `gfx/comm/notice_dialog.asm` |
 | `comm_notice_b_ask_over60.tilemap` | tile-index map | 360 | 50:51AA | PROBABLE | - | 20x18 | `gfx/comm/notice_dialog.asm` |
-| `attrmap_5312.attrmap` | attribute map | 360 | 50:5312 | PROBABLE | - | - | `gfx/comm/notice_dialog.asm` |
+| `comm_notice_b_ask_over60.attrmap` | attribute map | 360 | 50:5312 | PROBABLE | - | - | `gfx/comm/notice_dialog.asm` |
 | `comm_notice_b_cut_soon.tilemap` | tile-index map | 360 | 50:547A | PROBABLE | - | 20x18 | `gfx/comm/notice_dialog.asm` |
-| `attrmap_55e2.attrmap` | attribute map | 360 | 50:55E2 | PROBABLE | - | - | `gfx/comm/notice_dialog.asm` |
+| `comm_notice_b_cut_soon.attrmap` | attribute map | 360 | 50:55E2 | PROBABLE | - | - | `gfx/comm/notice_dialog.asm` |
 | `comm_notice_b_ask_soon.tilemap` | tile-index map | 360 | 50:574A | PROBABLE | - | 20x18 | `gfx/comm/notice_dialog.asm` |
-| `attrmap_58b2.attrmap` | attribute map | 360 | 50:58B2 | PROBABLE | - | - | `gfx/comm/notice_dialog.asm` |
-| `tiles_5a20.2bpp` | 2bpp tiles | 1024 | 50:5A20 | CONFIRMED | exact | - | `gfx/comm/notice_dialog.asm` |
-| `tiles_5e20.2bpp` | 2bpp tiles | 416 | 50:5E20 | CONFIRMED | exact | - | `gfx/comm/notice_dialog.asm` |
-| `tiles_5fc0.2bpp` | 2bpp tiles | 16 | 50:5FC0 | CONFIRMED | exact | - | `gfx/comm/notice_dialog.asm` |
-| `tiles_5fd0.2bpp` | 2bpp tiles | 800 | 50:5FD0 | CONFIRMED | exact | - | `gfx/comm/notice_dialog.asm` |
-| `tiles_62f0.2bpp` | 2bpp tiles | 1024 | 50:62F0 | PROBABLE | exact | - | `gfx/comm/notice_dialog.asm` |
-| `tiles_66f0.2bpp` | 2bpp tiles | 416 | 50:66F0 | PROBABLE | exact | - | `gfx/comm/notice_dialog.asm` |
-| `tiles_6890.2bpp` | 2bpp tiles | 16 | 50:6890 | PROBABLE | exact | - | `gfx/comm/notice_dialog.asm` |
-| `tiles_68a0.2bpp` | 2bpp tiles | 800 | 50:68A0 | PROBABLE | exact | - | `gfx/comm/notice_dialog.asm` |
-| `palette_6bc0.pal` | RGB palette | 256 | 50:6BC0 | PROBABLE | - | - | `gfx/comm/notice_dialog.asm` |
+| `comm_notice_b_ask_soon.attrmap` | attribute map | 360 | 50:58B2 | PROBABLE | - | - | `gfx/comm/notice_dialog.asm` |
+| `comm_notice_a_tiles_vram0_9000.2bpp` | 2bpp tiles | 1024 | 50:5A20 | CONFIRMED | exact | - | `gfx/comm/notice_dialog.asm` |
+| `comm_notice_a_tiles_vram0_9400.2bpp` | 2bpp tiles | 416 | 50:5E20 | CONFIRMED | exact | - | `gfx/comm/notice_dialog.asm` |
+| `comm_notice_a_tiles_vram1_8000.2bpp` | 2bpp tiles | 16 | 50:5FC0 | CONFIRMED | exact | - | `gfx/comm/notice_dialog.asm` |
+| `comm_notice_a_tiles_vram1_9000.2bpp` | 2bpp tiles | 800 | 50:5FD0 | CONFIRMED | exact | - | `gfx/comm/notice_dialog.asm` |
+| `comm_notice_b_tiles_vram0_9000.2bpp` | 2bpp tiles | 1024 | 50:62F0 | PROBABLE | exact | - | `gfx/comm/notice_dialog.asm` |
+| `comm_notice_b_tiles_vram0_9400.2bpp` | 2bpp tiles | 416 | 50:66F0 | PROBABLE | exact | - | `gfx/comm/notice_dialog.asm` |
+| `comm_notice_b_tiles_vram1_8000.2bpp` | 2bpp tiles | 16 | 50:6890 | PROBABLE | exact | - | `gfx/comm/notice_dialog.asm` |
+| `comm_notice_b_tiles_vram1_9000.2bpp` | 2bpp tiles | 800 | 50:68A0 | PROBABLE | exact | - | `gfx/comm/notice_dialog.asm` |
+| `comm_notice_bg_obj_palettes.pal` | RGB palette | 256 | 50:6BC0 | PROBABLE | - | - | `gfx/comm/notice_dialog.asm` |
 
 ### `gfx/comm/time_summary/`
 
@@ -903,26 +903,26 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `keyboard_type9_vram8800_vb1_tiles.2bpp` | 2bpp tiles | 1024 | 5F:4000 | CONFIRMED | exact | - | `gfx/keyboard/panels_bank5f.asm` |
 | `keyboard_type9_vram8c00_vb1_tiles.2bpp` | 2bpp tiles | 1024 | 5F:4400 | CONFIRMED | exact | - | `gfx/keyboard/panels_bank5f.asm` |
 | `keyboard_type9_vram9000_vb1_tiles.2bpp` | 2bpp tiles | 16 | 5F:4800 | CONFIRMED | exact | - | `gfx/keyboard/panels_bank5f.asm` |
-| `tilemap_4810.tilemap` | tile-index map | 220 | 5F:4810 | CONFIRMED | - | 20x11 | `gfx/keyboard/panels_bank5f.asm` |
-| `tilemap_4810.attrmap` | attribute map | 220 | 5F:48EC | CONFIRMED | - | 20x11 | `gfx/keyboard/panels_bank5f.asm` |
+| `keyboard_type9_panel.tilemap` | tile-index map | 220 | 5F:4810 | CONFIRMED | - | 20x11 | `gfx/keyboard/panels_bank5f.asm` |
+| `keyboard_type9_panel.attrmap` | attribute map | 220 | 5F:48EC | CONFIRMED | - | 20x11 | `gfx/keyboard/panels_bank5f.asm` |
 | `shared_keyboard_panel_vram8000_vb1_tiles.2bpp` | 2bpp tiles | 768 | 5F:49D0 | CONFIRMED | exact | - | `gfx/keyboard/panels_bank5f.asm` |
-| `palette_4cd0.pal` | RGB palette | 40 | 5F:4CD0 | CONFIRMED | - | - | `gfx/keyboard/panels_bank5f.asm` |
-| `tilemap_4ecb.tilemap` | tile-index map | 260 | 5F:4ECB | CONFIRMED | - | 20x13 | `gfx/keyboard/panels_bank5f.asm` |
-| `tilemap_4ecb.attrmap` | attribute map | 260 | 5F:4FCF | CONFIRMED | - | 20x13 | `gfx/keyboard/panels_bank5f.asm` |
-| `tilemap_50d3.tilemap` | tile-index map | 260 | 5F:50D3 | CONFIRMED | - | 20x13 | `gfx/keyboard/panels_bank5f.asm` |
-| `tilemap_50d3.attrmap` | attribute map | 260 | 5F:51D7 | CONFIRMED | - | 20x13 | `gfx/keyboard/panels_bank5f.asm` |
-| `tilemap_52db.tilemap` | tile-index map | 260 | 5F:52DB | CONFIRMED | - | 20x13 | `gfx/keyboard/panels_bank5f.asm` |
-| `tilemap_52db.attrmap` | attribute map | 260 | 5F:53DF | CONFIRMED | - | 20x13 | `gfx/keyboard/panels_bank5f.asm` |
-| `tilemap_54e3.tilemap` | tile-index map | 260 | 5F:54E3 | CONFIRMED | - | 20x13 | `gfx/keyboard/panels_bank5f.asm` |
-| `tilemap_54e3.attrmap` | attribute map | 260 | 5F:55E7 | CONFIRMED | - | 20x13 | `gfx/keyboard/panels_bank5f.asm` |
-| `tilemap_56eb.tilemap` | tile-index map | 260 | 5F:56EB | CONFIRMED | - | 20x13 | `gfx/keyboard/panels_bank5f.asm` |
-| `tilemap_56eb.attrmap` | attribute map | 260 | 5F:57EF | CONFIRMED | - | 20x13 | `gfx/keyboard/panels_bank5f.asm` |
+| `shared_panel_bg6_7_obj5_7_palettes.pal` | RGB palette | 40 | 5F:4CD0 | CONFIRMED | - | - | `gfx/keyboard/panels_bank5f.asm` |
+| `keyboard_type0_panel.tilemap` | tile-index map | 260 | 5F:4ECB | CONFIRMED | - | 20x13 | `gfx/keyboard/panels_bank5f.asm` |
+| `keyboard_type0_panel.attrmap` | attribute map | 260 | 5F:4FCF | CONFIRMED | - | 20x13 | `gfx/keyboard/panels_bank5f.asm` |
+| `keyboard_type1_panel.tilemap` | tile-index map | 260 | 5F:50D3 | CONFIRMED | - | 20x13 | `gfx/keyboard/panels_bank5f.asm` |
+| `keyboard_type1_panel.attrmap` | attribute map | 260 | 5F:51D7 | CONFIRMED | - | 20x13 | `gfx/keyboard/panels_bank5f.asm` |
+| `keyboard_type4_panel.tilemap` | tile-index map | 260 | 5F:52DB | CONFIRMED | - | 20x13 | `gfx/keyboard/panels_bank5f.asm` |
+| `keyboard_type4_panel.attrmap` | attribute map | 260 | 5F:53DF | CONFIRMED | - | 20x13 | `gfx/keyboard/panels_bank5f.asm` |
+| `keyboard_type2_panel.tilemap` | tile-index map | 260 | 5F:54E3 | CONFIRMED | - | 20x13 | `gfx/keyboard/panels_bank5f.asm` |
+| `keyboard_type2_panel.attrmap` | attribute map | 260 | 5F:55E7 | CONFIRMED | - | 20x13 | `gfx/keyboard/panels_bank5f.asm` |
+| `keyboard_type3_panel.tilemap` | tile-index map | 260 | 5F:56EB | CONFIRMED | - | 20x13 | `gfx/keyboard/panels_bank5f.asm` |
+| `keyboard_type3_panel.attrmap` | attribute map | 260 | 5F:57EF | CONFIRMED | - | 20x13 | `gfx/keyboard/panels_bank5f.asm` |
 | `keyboard_type5_vram8800_vb1_tiles.2bpp` | 2bpp tiles | 1024 | 5F:5900 | CONFIRMED | exact | - | `gfx/keyboard/panels_bank5f.asm` |
 | `keyboard_type5_vram8c00_vb1_tiles.2bpp` | 2bpp tiles | 1024 | 5F:5D00 | CONFIRMED | exact | - | `gfx/keyboard/panels_bank5f.asm` |
 | `keyboard_type5_vram9000_vb1_tiles.2bpp` | 2bpp tiles | 256 | 5F:6100 | CONFIRMED | exact | - | `gfx/keyboard/panels_bank5f.asm` |
-| `tilemap_69b0.tilemap` | tile-index map | 260 | 5F:69B0 | CONFIRMED | - | 20x13 | `gfx/keyboard/panels_bank5f.asm` |
-| `tilemap_69b0.attrmap` | attribute map | 260 | 5F:6AB4 | CONFIRMED | - | 20x13 | `gfx/keyboard/panels_bank5f.asm` |
-| `palette_6bb8.pal` | RGB palette | 24 | 5F:6BB8 | PROBABLE | - | - | `gfx/keyboard/panels_bank5f.asm` |
+| `keyboard_type5_panel.tilemap` | tile-index map | 260 | 5F:69B0 | CONFIRMED | - | 20x13 | `gfx/keyboard/panels_bank5f.asm` |
+| `keyboard_type5_panel.attrmap` | attribute map | 260 | 5F:6AB4 | CONFIRMED | - | 20x13 | `gfx/keyboard/panels_bank5f.asm` |
+| `keyboard_type5_bg1_bg6_7_palettes.pal` | RGB palette | 24 | 5F:6BB8 | PROBABLE | - | - | `gfx/keyboard/panels_bank5f.asm` |
 
 ### `gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66/`
 
@@ -1412,8 +1412,8 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tilemap_6f6f.tilemap` | tile-index map | 360 | 71:6F6F | PROBABLE | - | 20x18 | `gfx/settings/registration_delete_anim_and_password_save_confirm_bank71.asm` |
-| `tilemap_6f6f.attrmap` | attribute map | 360 | 71:70D7 | PROBABLE | - | 20x18 | `gfx/settings/registration_delete_anim_and_password_save_confirm_bank71.asm` |
+| `password_save_confirm_variant_nonzero_bgmap_6f6f.tilemap` | tile-index map | 360 | 71:6F6F | PROBABLE | - | 20x18 | `gfx/settings/registration_delete_anim_and_password_save_confirm_bank71.asm` |
+| `password_save_confirm_variant_nonzero_bgmap_6f6f.attrmap` | attribute map | 360 | 71:70D7 | PROBABLE | - | 20x18 | `gfx/settings/registration_delete_anim_and_password_save_confirm_bank71.asm` |
 
 ### `gfx/settings/shared_text_entry_tiles_bank5e/`
 

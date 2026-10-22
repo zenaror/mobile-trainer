@@ -14,7 +14,7 @@ Tilemap_CommNotice_A_CutOver60:: ; 50:439A
 
 Attrmap_CommNotice_A_CutOver60:: ; 50:4502
 
-	INCBIN "gfx/comm/notice_dialog/attrmap_4502.attrmap"
+	INCBIN "gfx/comm/notice_dialog/comm_notice_a_cut_over60.attrmap"
 
 ; ---- data $466A-$47D2 (360 bytes) [PROBABLE] screen 2 of 8: 20x18 tile-id map (360 bytes); block address is entry 1 of Table_CommNotice_Screens (50:4254 indexes it by wCommNoticeScreen-1) and is copied by Tilemap_CopyRectAndAttr (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7)
 
@@ -26,7 +26,7 @@ Tilemap_CommNotice_A_AskOver60:: ; 50:466A
 
 Attrmap_CommNotice_A_AskOver60:: ; 50:47D2
 
-	INCBIN "gfx/comm/notice_dialog/attrmap_47d2.attrmap"
+	INCBIN "gfx/comm/notice_dialog/comm_notice_a_ask_over60.attrmap"
 
 ; ---- data $493A-$4AA2 (360 bytes) [PROBABLE] screen 3 of 8: 20x18 tile-id map (360 bytes); block address is entry 2 of Table_CommNotice_Screens (50:4254 indexes it by wCommNoticeScreen-1) and is copied by Tilemap_CopyRectAndAttr (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7)
 
@@ -38,7 +38,7 @@ Tilemap_CommNotice_A_CutSoon:: ; 50:493A
 
 Attrmap_CommNotice_A_CutSoon:: ; 50:4AA2
 
-	INCBIN "gfx/comm/notice_dialog/attrmap_4aa2.attrmap"
+	INCBIN "gfx/comm/notice_dialog/comm_notice_a_cut_soon.attrmap"
 
 ; ---- data $4C0A-$4D72 (360 bytes) [CONFIRMED] screen 4 of 8: 20x18 tile-id map (360 bytes); block address is entry 3 of Table_CommNotice_Screens (50:4254 indexes it by wCommNoticeScreen-1) and is copied by Tilemap_CopyRectAndAttr (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7) [verifier: CONFIRMED - executed data read: traces/detail/browser_pages/dataaccess.tsv 'rom_read 50 4C0A 4EDA' = exactly this tilemap + attrmap pair, and 'rom_read 50 4390 4392' = entry 3 of Table_CommNotice_DigitCells, i.e. screen 4 was selected through Table_CommNotice_Screens entry 3 ($424A-424C read); the 360+360 split follows 00:08EA (b=$12 rows x c=$14, second copy at dest+$400)]
 
@@ -50,7 +50,7 @@ Tilemap_CommNotice_A_AskSoon:: ; 50:4C0A
 
 Attrmap_CommNotice_A_AskSoon:: ; 50:4D72
 
-	INCBIN "gfx/comm/notice_dialog/attrmap_4d72.attrmap"
+	INCBIN "gfx/comm/notice_dialog/comm_notice_a_ask_soon.attrmap"
 
 ; ---- data $4EDA-$5042 (360 bytes) [PROBABLE] screen 5 of 8: 20x18 tile-id map (360 bytes); block address is entry 4 of Table_CommNotice_Screens (50:4254 indexes it by wCommNoticeScreen-1) and is copied by Tilemap_CopyRectAndAttr (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7)
 
@@ -62,7 +62,7 @@ Tilemap_CommNotice_B_CutOver60:: ; 50:4EDA
 
 Attrmap_CommNotice_B_CutOver60:: ; 50:5042
 
-	INCBIN "gfx/comm/notice_dialog/attrmap_5042.attrmap"
+	INCBIN "gfx/comm/notice_dialog/comm_notice_b_cut_over60.attrmap"
 
 ; ---- data $51AA-$5312 (360 bytes) [PROBABLE] screen 6 of 8: 20x18 tile-id map (360 bytes); block address is entry 5 of Table_CommNotice_Screens (50:4254 indexes it by wCommNoticeScreen-1) and is copied by Tilemap_CopyRectAndAttr (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7)
 
@@ -74,7 +74,7 @@ Tilemap_CommNotice_B_AskOver60:: ; 50:51AA
 
 Attrmap_CommNotice_B_AskOver60:: ; 50:5312
 
-	INCBIN "gfx/comm/notice_dialog/attrmap_5312.attrmap"
+	INCBIN "gfx/comm/notice_dialog/comm_notice_b_ask_over60.attrmap"
 
 ; ---- data $547A-$55E2 (360 bytes) [PROBABLE] screen 7 of 8: 20x18 tile-id map (360 bytes); block address is entry 6 of Table_CommNotice_Screens (50:4254 indexes it by wCommNoticeScreen-1) and is copied by Tilemap_CopyRectAndAttr (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7)
 
@@ -86,7 +86,7 @@ Tilemap_CommNotice_B_CutSoon:: ; 50:547A
 
 Attrmap_CommNotice_B_CutSoon:: ; 50:55E2
 
-	INCBIN "gfx/comm/notice_dialog/attrmap_55e2.attrmap"
+	INCBIN "gfx/comm/notice_dialog/comm_notice_b_cut_soon.attrmap"
 
 ; ---- data $574A-$58B2 (360 bytes) [PROBABLE] screen 8 of 8: 20x18 tile-id map (360 bytes); block address is entry 7 of Table_CommNotice_Screens (50:4254 indexes it by wCommNoticeScreen-1) and is copied by Tilemap_CopyRectAndAttr (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7)
 
@@ -98,7 +98,7 @@ Tilemap_CommNotice_B_AskSoon:: ; 50:574A
 
 Attrmap_CommNotice_B_AskSoon:: ; 50:58B2
 
-	INCBIN "gfx/comm/notice_dialog/attrmap_58b2.attrmap"
+	INCBIN "gfx/comm/notice_dialog/comm_notice_b_ask_soon.attrmap"
 
 ; ---- zero $5A1A-$5A20 (6 bytes) [PROBABLE] 6 bytes of $00 between the last attribute map (ends 5A1A) and the tiles loaded from 5A20 (padding)
 	ds $6, $00
@@ -107,55 +107,55 @@ Attrmap_CommNotice_B_AskSoon:: ; 50:58B2
 
 Gfx_CommNotice_A_Tiles9000:: ; 50:5A20
 
-	INCBIN "gfx/comm/notice_dialog/tiles_5a20.2bpp"
+	INCBIN "gfx/comm/notice_dialog/comm_notice_a_tiles_vram0_9000.2bpp"
 
 ; ---- gfx $5E20-$5FC0 (416 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 50:40C0: hl=$5E20 a=$50 c=$1A de=$9400 (dest VRAM $9400, vbank=0) [first call site executed: 4 hits in 4 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_CommNotice_A_Tiles9400:: ; 50:5E20
 
-	INCBIN "gfx/comm/notice_dialog/tiles_5e20.2bpp"
+	INCBIN "gfx/comm/notice_dialog/comm_notice_a_tiles_vram0_9400.2bpp"
 
 ; ---- gfx $5FC0-$5FD0 (16 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 50:40D2: hl=$5FC0 a=$50 c=$01 de=$8001 (dest VRAM $8000, vbank=1) [first call site executed: 4 hits in 4 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_CommNotice_A_Tiles8000Vb1:: ; 50:5FC0
 
-	INCBIN "gfx/comm/notice_dialog/tiles_5fc0.2bpp"
+	INCBIN "gfx/comm/notice_dialog/comm_notice_a_tiles_vram1_8000.2bpp"
 
 ; ---- gfx $5FD0-$62F0 (800 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 50:40E4: hl=$5FD0 a=$50 c=$32 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 4 hits in 4 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_CommNotice_A_Tiles9000Vb1:: ; 50:5FD0
 
-	INCBIN "gfx/comm/notice_dialog/tiles_5fd0.2bpp"
+	INCBIN "gfx/comm/notice_dialog/comm_notice_a_tiles_vram1_9000.2bpp"
 
 ; ---- gfx $62F0-$66F0 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 50:417F: hl=$62F0 a=$50 c=$40 de=$9000 (dest VRAM $9000, vbank=0) [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv)]
 
 Gfx_CommNotice_B_Tiles9000:: ; 50:62F0
 
-	INCBIN "gfx/comm/notice_dialog/tiles_62f0.2bpp"
+	INCBIN "gfx/comm/notice_dialog/comm_notice_b_tiles_vram0_9000.2bpp"
 
 ; ---- gfx $66F0-$6890 (416 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 50:4191: hl=$66F0 a=$50 c=$1A de=$9400 (dest VRAM $9400, vbank=0) [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv)]
 
 Gfx_CommNotice_B_Tiles9400:: ; 50:66F0
 
-	INCBIN "gfx/comm/notice_dialog/tiles_66f0.2bpp"
+	INCBIN "gfx/comm/notice_dialog/comm_notice_b_tiles_vram0_9400.2bpp"
 
 ; ---- gfx $6890-$68A0 (16 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 50:41A3: hl=$6890 a=$50 c=$01 de=$8001 (dest VRAM $8000, vbank=1) [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv)]
 
 Gfx_CommNotice_B_Tiles8000Vb1:: ; 50:6890
 
-	INCBIN "gfx/comm/notice_dialog/tiles_6890.2bpp"
+	INCBIN "gfx/comm/notice_dialog/comm_notice_b_tiles_vram1_8000.2bpp"
 
 ; ---- gfx $68A0-$6BC0 (800 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 50:41B5: hl=$68A0 a=$50 c=$32 de=$9001 (dest VRAM $9000, vbank=1) [call sites not executed in the 64 natural scenarios (analysis/coverage_union.tsv)]
 
 Gfx_CommNotice_B_Tiles9000Vb1:: ; 50:68A0
 
-	INCBIN "gfx/comm/notice_dialog/tiles_68a0.2bpp"
+	INCBIN "gfx/comm/notice_dialog/comm_notice_b_tiles_vram1_9000.2bpp"
 
 ; ---- data $6BC0-$6CC0 (256 bytes) [PROBABLE] 128 RGB555 words (bit15 clear in all, $7FFF white, 4-colour groups); far-call sites 50:40F5, 50:416A, 50:41C6 and 50:423B load $40 bytes each from $6BC0, $6C40, $6C00 and $6C80 (verifier: four sites cover all 256 bytes exactly) via 4F:4000 into $D800/$D840 (palette upload buffers - role of 4F:4000 not re-verified); replaces the clipped 1-byte gfx + 255-byte palette split
 
 Palette_CommNotice:: ; 50:6BC0
 
-	INCLUDE "gfx/comm/notice_dialog/palette_6bc0.pal"
+	INCLUDE "gfx/comm/notice_dialog/comm_notice_bg_obj_palettes.pal"
 
 ; ---- words $6CC0-$6CC4 (4 bytes) [PROBABLE] animation entry A frame-table: 2 word pointers to $6CC4/$6CD5 (the frame table pointed to by slot[2..3] loaded by 00:0AB8)
 
