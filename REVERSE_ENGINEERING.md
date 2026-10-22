@@ -6,6 +6,10 @@ Numbers marked "frozen" describe `config/` at the freeze and are not updated any
 (the tree is edited by hand, so recount with the command given).
 
 ## Current original reconstruction and asset-audit limits
+### Sample-data generic aliases (2026-10-22)
+
+The five former `Data_2D_AAAA` labels in `engine/mail/sample_data.asm` were exact-address aliases of `MailSample0_Header` through `MailSample4_Header`; those redundant definitions have been removed without changing record bytes or layout. The rebuilt Japanese MAP/SYM contains 14 exact `Data_BB_AAAA` names and none of the five retired aliases. See [`japanese_sample_data_aliases_20261022.md`](docs/research/japanese_sample_data_aliases_20261022.md). This naming cleanup does not establish the sample records' field meanings.
+
 ### Japanese sprite labels and bounded byte audit (2026-10-22)
 
 A bounded audit replaced 503 type/address sprite labels across 12 Japanese graphics owners with structural names based on owner, object-table entry and frame order. Independent macro reconstruction matched 7,719 audited source bytes to the original ROM with no mismatches, and the full ROM build remains the identity gate. This establishes naming and byte correspondence only: it does not prove visual identity, natural runtime use, or that unrooted tails are unused. The audit records raw tails, unresolved candidate scripts, and confidence limits in [`japanese_sprite_owner_audit_20261022.md`](docs/research/japanese_sprite_owner_audit_20261022.md). The English overlay remains paused.

@@ -148,7 +148,6 @@ SampleData_CopyString:: ; 2D:42AA
 ; ---- data $42B2-$42BB (9 bytes) [PROBABLE] 9-byte default record 01 00 00 20 00 06 28 12 30, copied by `ld hl,$42B2 ; ld de,$A124 ; ld b,$09` loop (ld hl at 2D:41A3); field meaning unknown
 
 MailSample0_Header:: ; 2D:42B2
-Data_2D_42B2::
 	db $01, $00, $00, $20, $00, $06, $28, $12, $30
 
 ; ---- text $42BB-$42D0 (21 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -181,7 +180,6 @@ POPC
 ; ---- data $42F8-$4301 (9 bytes) [PROBABLE] 9-byte default record 01 00 00 20 00 06 29 20 46, copied by the ld b,9 loop after ld hl,$42F8 at 2D:41D5
 
 MailSample1_Header:: ; 2D:42F8
-Data_2D_42F8::
 	db $01, $00, $00, $20, $00, $06, $29, $20, $46
 
 ; ---- text $4301-$436A (105 bytes) [PROBABLE] text: 4 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -204,7 +202,6 @@ POPC
 ; ---- data $436A-$4373 (9 bytes) [PROBABLE] 9-byte default record 01 00 00 20 00 07 10 17 50, copied by the ld b,9 loop after ld hl,$436A at 2D:4207
 
 MailSample2_Header:: ; 2D:436A
-Data_2D_436A::
 	db $01, $00, $00, $20, $00, $07, $10, $17, $50
 
 ; ---- text $4373-$441B (168 bytes) [PROBABLE] text: 4 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -227,7 +224,6 @@ POPC
 ; ---- data $441B-$4424 (9 bytes) [PROBABLE] 9-byte default record 01 00 00 20 00 07 11 00 44 (the 9th byte $44 was counted as the first character of the following text run by the mapper), copied by the ld b,9 loop after ld hl,$441B at 2D:4239
 
 MailSample3_Header:: ; 2D:441B
-Data_2D_441B::
 	db $01, $00, $00, $20, $00, $07, $11, $00, $44
 
 ; ---- text $4424-$44D3 (175 bytes) [PROBABLE] text: 4 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -251,7 +247,6 @@ POPC
 ; ---- data $44D3-$44DC (9 bytes) [PROBABLE] 9-byte default record 01 00 00 20 00 07 12 19 28, copied by the ld b,9 loop after ld hl,$44D3 at 2D:426B
 
 MailSample4_Header:: ; 2D:44D3
-Data_2D_44D3::
 	db $01, $00, $00, $20, $00, $07, $12, $19, $28
 
 ; ---- text $44DC-$44FB (31 bytes) [PROBABLE] 4 NUL-terminated strings: 44DC "くくく・・・", 44E9 "" (empty), 44EA "むだい", 44F1 "p@p.ne.jp"; sources of strcpy calls (ld hl,$44DC ...)
