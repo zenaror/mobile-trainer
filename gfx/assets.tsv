@@ -783,7 +783,7 @@ gfx/mailbox/mailbox/mailbox_tiles_6310.2bpp	tiles	256	gfx/mailbox/mailbox.asm	25
 gfx/mailbox/mailbox/mailbox_tiles_69f0.2bpp	tiles	208	gfx/mailbox/mailbox.asm	25	69F0	PROBABLE	exact	0		Mailbox_Tiles_69F0
 gfx/mailbox/mailbox/mailbox_tiles_6cf0.2bpp	tiles	384	gfx/mailbox/mailbox.asm	25	6CF0	PROBABLE	exact	0		Mailbox_Tiles_6CF0
 gfx/mailbox/mailbox/mailbox_candidate_arrow_label_tiles_6bd1.2bpp	tiles	272	gfx/mailbox/mailbox.asm	25	6BD1	PROBABLE	exact	15		Mailbox_CandidateTiles_ArrowLabel_6BD1
-gfx/mailbox/objects/palette_7ac0.pal	palette	64	gfx/mailbox/objects.asm	26	7AC0	PROBABLE	-	0		Palette_Profile_Obj
+gfx/mailbox/objects/profile_obj_palette.pal	palette	64	gfx/mailbox/objects.asm	26	7AC0	PROBABLE	-	0		Palette_Profile_Obj
 gfx/profile/profile_editor/data_profile_tilemap_attr.attrmap	attrmap	360	gfx/profile/profile_editor.asm	2A	6CA8	CONFIRMED	-	0	20x18	Data_Profile_TilemapAttr
 gfx/profile/profile_editor/data_profile_tilemap_attr.tilemap	tilemap	360	gfx/profile/profile_editor.asm	2A	6B40	CONFIRMED	-	0	20x18	Data_Profile_TilemapAttr
 gfx/profile/profile_editor/profile_bg.pal	palette	64	gfx/profile/profile_editor.asm	2A	6E10	PROBABLE	-	0		Palette_Profile_Bg

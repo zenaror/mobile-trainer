@@ -655,3 +655,4 @@ gfx/mail/connect_screen_bank29/tilemap_5800.tilemap	gfx/mail/connect_screen_bank
 gfx/mail/connect_screen_bank29/tilemap_5800.attrmap	gfx/mail/connect_screen_bank29/comm_time_hms_screen.attrmap
 gfx/mail/connect_screen_bank29/tilemap_5800.screen.png	gfx/mail/connect_screen_bank29/comm_time_hms_screen.screen.png
 gfx/mail/connect_screen_bank29/palette_5ad0.pal	gfx/mail/connect_screen_bank29/comm_time_hms_bg_palette.pal
+gfx/mailbox/objects/palette_7ac0.pal	gfx/mailbox/objects/profile_obj_palette.pal

@@ -1275,7 +1275,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `palette_7ac0.pal` | RGB palette | 64 | 26:7AC0 | PROBABLE | - | - | `gfx/mailbox/objects.asm` |
+| `profile_obj_palette.pal` | RGB palette | 64 | 26:7AC0 | PROBABLE | - | - | `gfx/mailbox/objects.asm` |
 
 ### `gfx/profile/profile_editor/`
 

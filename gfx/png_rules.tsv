@@ -841,7 +841,7 @@ gfx/mailbox/mailbox/mailbox_tiles_5f10.2bpp	gfx/mailbox/mailbox/mailbox_tiles_5f
 gfx/mailbox/mailbox/mailbox_tiles_6310.2bpp	gfx/mailbox/mailbox/mailbox_tiles_6310.png	tiles			0	256	7da99f01b1e4440bb66382915e90885264d653d31ac01fee369ecfb0313f8df9
 gfx/mailbox/mailbox/mailbox_tiles_69f0.2bpp	gfx/mailbox/mailbox/mailbox_tiles_69f0.png	tiles			0	208	74d1a1a42bcda654dcfb6002857c942a52b0c114dbe5f79c722f645d21df1bcf
 gfx/mailbox/mailbox/mailbox_tiles_6cf0.2bpp	gfx/mailbox/mailbox/mailbox_tiles_6cf0.png	tiles			0	384	b1b64a028622ada36edc66532207a1480efaf3706328e4437efd516142d42baa
-gfx/mailbox/objects/palette_7ac0.pal	-	palette				519	c655a4a875002d62ebf9a542a8744a75e2b8780b614a6c88d7eb943d3b35fd8a
+gfx/mailbox/objects/profile_obj_palette.pal	-	palette				519	c655a4a875002d62ebf9a542a8744a75e2b8780b614a6c88d7eb943d3b35fd8a
 gfx/profile/profile_editor/data_profile_tilemap_attr.attrmap	-	attrmap				360	62ad9215881e77183acd2924dceb2b5dfa5590821190268e2c8e90274281b7c3
 gfx/profile/profile_editor/data_profile_tilemap_attr.tilemap	-	tilemap				360	929ee498de5cee43242f43a63e2aa3cf106a60cabbed38921524e9a708310944
 gfx/profile/profile_editor/profile_bg.pal	-	palette				519	7fe7341b1970faaa02533fe282d7d85f4e92b6b5dde133c342deb81b1878cc24
