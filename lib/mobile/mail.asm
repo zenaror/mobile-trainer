@@ -2142,59 +2142,59 @@ Mail_UnfoldHeader:: ; 0F:4C0F
 	ld hl, wMail_TextBuf1
 	ld d, h
 	ld e, l
-.l4C1C ; 0F:4C1C
+.copy_header_byte ; 0F:4C1C
 	ld a, [hli]
 	cp a, $0D
-	jr z, .l4C38
+	jr z, .check_crlf_continuation
 	ld [de], a
 	inc de
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .l4C1C
-.l4C28 ; 0F:4C28
+	jr nz, .copy_header_byte
+.terminate_and_measure ; 0F:4C28
 	xor a, a
 	ld [de], a
 	ld hl, wMail_TextBuf1
 	ld bc, $0000
-.l4C30 ; 0F:4C30
+.measure_header_loop ; 0F:4C30
 	ld a, [hli]
 	inc bc
 	and a, a
-	jr nz, .l4C30
+	jr nz, .measure_header_loop
 	dec bc
 	xor a, a
 	ret
-.l4C38 ; 0F:4C38
+.check_crlf_continuation ; 0F:4C38
 	dec bc
 	ld a, b
 	or a, c
-	jr z, .l4C28
+	jr z, .terminate_and_measure
 	ld a, [hli]
 	cp a, $0A
-	jr nz, .l4C1C
+	jr nz, .copy_header_byte
 	dec bc
 	ld a, b
 	or a, c
-	jr z, .l4C28
+	jr z, .terminate_and_measure
 	ld a, [hli]
 	cp a, $20
-	jr z, .l4C52
+	jr z, .consume_continuation_whitespace
 	cp a, $09
-	jr z, .l4C52
+	jr z, .consume_continuation_whitespace
 
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 47BB-4C59 by apply_coverage --split
-	jr .l4C28
+	jr .terminate_and_measure
 
-.l4C52 ; 0F:4C52
+.consume_continuation_whitespace ; 0F:4C52
 	; [CONFIRMED] 5 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage
 	; --split [executed in 1 scenarios]
 	dec bc
 	ld a, b
 	or a, c
-	jr z, .l4C28
-	jr .l4C1C
+	jr z, .terminate_and_measure
+	jr .copy_header_byte
 
 	; [HYPOTHESIS] complete small function (push bc ; ld bc,$D000 ; call $5D95 ; pop bc ; ret)
 	; between the code regions 4C57 and 4C62; call target 5D95 is a code start of this bank; no
@@ -2211,40 +2211,40 @@ Mail_DecodeEncodedWords:: ; 0F:4C62
 	; region 4C62-4D35 by apply_coverage --split [executed in 1 scenarios]
 	ld de, wMail_TextBuf2
 	push hl
-.l4C66 ; 0F:4C66
+.copy_and_check_encoded_word_prefix ; 0F:4C66
 	ld a, [hli]
 	ld [de], a
 	inc de
 	and a, a
-	jr z, .l4CCA
+	jr z, .prepare_copy_back
 	cp a, $3D
-	jr nz, .l4C66
+	jr nz, .copy_and_check_encoded_word_prefix
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $3F
-	jr nz, .l4C66
+	jr nz, .copy_and_check_encoded_word_prefix
 	dec de
 	dec de
-.l4C79 ; 0F:4C79
+.scan_charset_separator ; 0F:4C79
 	ld a, [hli]
 	cp a, $3F
-	jr nz, .l4C79
+	jr nz, .scan_charset_separator
 	ld a, [hli]
 	cp a, $42
-	jr nz, .l4CBC
+	jr nz, .write_literal_prefix
 	inc hl
 	ld bc, $0000
 	push hl
-.l4C88 ; 0F:4C88
+.count_encoded_payload ; 0F:4C88
 	inc bc
 	ld a, [hli]
 	cp a, $3F
-	jr nz, .l4C88
+	jr nz, .count_encoded_payload
 	inc bc
 	ld a, [hli]
 	cp a, $3D
-	jr nz, .l4C88
+	jr nz, .count_encoded_payload
 	dec bc
 	dec bc
 	ld a, l
@@ -2261,46 +2261,46 @@ Mail_DecodeEncodedWords:: ; 0F:4C62
 	ld c, a
 	ld a, [hli]
 	ld b, a
-.l4CAA ; 0F:4CAA
+.copy_decoded_bytes ; 0F:4CAA
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .l4CAA
+	jr nz, .copy_decoded_bytes
 	ld a, [wMail_Work + $03]
 	ld l, a
 	ld a, [wMail_Work + $04]
 	ld h, a
-	jr .l4C66
-.l4CBC ; 0F:4CBC
+	jr .copy_and_check_encoded_word_prefix
+.write_literal_prefix ; 0F:4CBC
 	ld a, $3D
 	ld [de], a
 	inc de
 	ld a, $3F
 	ld [de], a
 	inc de
-.l4CC4 ; 0F:4CC4
+.copy_remaining_bytes ; 0F:4CC4
 	ld a, [hli]
 	ld [de], a
 	inc de
 	and a, a
-	jr nz, .l4CC4
-.l4CCA ; 0F:4CCA
+	jr nz, .copy_remaining_bytes
+.prepare_copy_back ; 0F:4CCA
 	ld [de], a
 	pop hl
 	ld de, wMail_TextBuf2
 	ld bc, $0000
-.l4CD2 ; 0F:4CD2
+.copy_back_loop ; 0F:4CD2
 	inc bc
 	ld a, [de]
 	ld [hli], a
 	inc de
 	and a, a
-	jr z, .l4CDB
-	jr .l4CD2
-.l4CDB ; 0F:4CDB
+	jr z, .return_output_length
+	jr .copy_back_loop
+.return_output_length ; 0F:4CDB
 	dec bc
 	ret
 
@@ -2379,50 +2379,50 @@ Mail_GetAddressList:: ; 0F:4CDD
 Mail_StripCommentsAndSpaces:: ; 0F:4D3D
 	ld a, [wMail_Work + $04]
 	and a, a
-	jr nz, .l4D4E
+	jr nz, .check_closing_delimiter
 	ld a, [de]
 	cp a, $28
-	jr z, .l4D59
+	jr z, .begin_skipped_span
 	cp a, $22
-	jr z, .l4D59
-	jr .l4D83
-.l4D4E ; 0F:4D4E
+	jr z, .begin_skipped_span
+	jr .copy_unless_space
+.check_closing_delimiter ; 0F:4D4E
 	ld a, [de]
 	cp a, $29
-	jr z, .l4D63
+	jr z, .check_saved_paren_opener
 	cp a, $22
-	jr z, .l4D73
-	jr .l4D88
-.l4D59 ; 0F:4D59
+	jr z, .check_saved_quote_opener
+	jr .advance_input
+.begin_skipped_span ; 0F:4D59
 	ld [wMail_Work + $03], a
 	ld a, $01
 	ld [wMail_Work + $04], a
-	jr .l4D88
-.l4D63 ; 0F:4D63
+	jr .advance_input
+.check_saved_paren_opener ; 0F:4D63
 	ld a, [wMail_Work + $03]
 	cp a, $28
-	jr nz, .l4D88
+	jr nz, .advance_input
 	xor a, a
 	ld [wMail_Work + $03], a
 	ld [wMail_Work + $04], a
-	jr .l4D88
-.l4D73 ; 0F:4D73
+	jr .advance_input
+.check_saved_quote_opener ; 0F:4D73
 	ld a, [wMail_Work + $03]
 	cp a, $22
-	jr nz, .l4D88
+	jr nz, .advance_input
 	xor a, a
 	ld [wMail_Work + $03], a
 	ld [wMail_Work + $04], a
-	jr .l4D88
-.l4D83 ; 0F:4D83
+	jr .advance_input
+.copy_unless_space ; 0F:4D83
 	cp a, $20
-	jr z, .l4D88
+	jr z, .advance_input
 	ld [hli], a
-.l4D88 ; 0F:4D88
+.advance_input ; 0F:4D88
 	dec bc
 	ld a, b
 	or a, c
-	jr z, .l4D9A
+	jr z, .terminate_output
 	inc e
 	jr nz, Mail_StripCommentsAndSpaces
 	push bc
@@ -2430,7 +2430,7 @@ Mail_StripCommentsAndSpaces:: ; 0F:4D3D
 	call Mail_NextSramPage
 	pop bc
 	jr Mail_StripCommentsAndSpaces
-.l4D9A ; 0F:4D9A
+.terminate_output ; 0F:4D9A
 	xor a, a
 	ld [hli], a
 	ret
@@ -2509,43 +2509,43 @@ Mail_SkipJisEscape:: ; 0F:4DF5
 	ret nz
 	ld a, [hli]
 	and a, a
-	jr z, .l4E2F
+	jr z, .return_zero
 	cp a, $24
-	jr nz, .l4E0D
+	jr nz, .rewind_input_and_return
 	ld a, [hli]
 	and a, a
-	jr z, .l4E2F
+	jr z, .return_zero
 	cp a, $42
-	jr z, .l4E0F
+	jr z, .scan_jis_exit_escape
 	cp a, $40
-	jr z, .l4E0F
+	jr z, .scan_jis_exit_escape
 	dec hl
-.l4E0D ; 0F:4E0D
+.rewind_input_and_return ; 0F:4E0D
 	dec hl
 	ret
-.l4E0F ; 0F:4E0F
+.scan_jis_exit_escape ; 0F:4E0F
 	ld a, [hli]
 	and a, a
-	jr z, .l4E2F
+	jr z, .return_zero
 	cp a, $1B
-	jr nz, .l4E0F
+	jr nz, .scan_jis_exit_escape
 	ld a, [hli]
 	and a, a
-	jr z, .l4E2F
+	jr z, .return_zero
 	cp a, $28
-	jr nz, .l4E0F
+	jr nz, .scan_jis_exit_escape
 	ld a, [hli]
 	and a, a
-	jr z, .l4E2F
+	jr z, .return_zero
 	cp a, $42
-	jr z, .l4E2D
+	jr z, .read_byte_after_exit_escape
 	cp a, $4A
-	jr z, .l4E2D
-	jr .l4E0F
-.l4E2D ; 0F:4E2D
+	jr z, .read_byte_after_exit_escape
+	jr .scan_jis_exit_escape
+.read_byte_after_exit_escape ; 0F:4E2D
 	ld a, [hli]
 	ret
-.l4E2F ; 0F:4E2F
+.return_zero ; 0F:4E2F
 	xor a, a
 	ret
 

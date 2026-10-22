@@ -33,8 +33,8 @@ Kbd_Open:: ; 55:5BA2
 	ld [wRam_C2B0], a
 	ld a, $01
 	ld [wRam_C2B1], a
-	jr .l5BDD
-.l5BDD ; 55:5BDD
+	jr .set_up_window_and_panel
+.set_up_window_and_panel ; 55:5BDD
 	ldh a, [rLCDC]
 	and a, $9F
 	ld b, a
@@ -63,7 +63,7 @@ Kbd_Open:: ; 55:5BA2
 	ld a, [wKbdType]
 	call Kbd_TypeNeedsExtraPalette
 	or a, a
-	jp z, .l5C5A
+	jp z, .check_instant_mode
 	ld bc, $0010
 	ld de, wPaletteBufBg + $30
 	ld hl, Palette_SharedPanels_BgObj
@@ -86,11 +86,11 @@ Kbd_Open:: ; 55:5BA2
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
-	jr .l5C5A
-.l5C5A ; 55:5C5A
+	jr .check_instant_mode
+.check_instant_mode ; 55:5C5A
 	ld a, [wKbdMode]
 	cp a, $02
-	jr nz, .l5C71
+	jr nz, .load_page_and_init_cursor
 	call Kbd_ShowInstant
 	call VBlank_WaitStartDI
 	ldh a, [rLCDC]
@@ -98,7 +98,7 @@ Kbd_Open:: ; 55:5BA2
 	ldh [rLCDC], a
 	ei
 	call Sound_FrameService
-.l5C71 ; 55:5C71
+.load_page_and_init_cursor ; 55:5C71
 	ld a, $01
 	call Kbd_LoadPageGraphics
 	ld hl, wSpriteSlot11
@@ -134,15 +134,15 @@ Kbd_Run:: ; 55:5C8F
 	jp z, Kbd_Run_TypePicker
 	ld a, [wKbdMode]
 	cp a, $02
-	jr z, .l5CBC
+	jr z, .check_mode2_default_cursor
 	cp a, $00
-	jr z, .l5CDD
-	jr .l5CE0
-.l5CBC ; 55:5CBC
+	jr z, .slide_in
+	jr .check_arg_c_default_cursor
+.check_mode2_default_cursor ; 55:5CBC
 	ld a, [wKbdType]
 	call Kbd_TypeMode2DefaultCursorFlag
 	or a, a
-	jr z, .l5CE0
+	jr z, .check_arg_c_default_cursor
 	ld a, [wKbdType]
 	ld hl, $400A
 	add a, l
@@ -154,17 +154,17 @@ Kbd_Run:: ; 55:5C8F
 	ld [wKbdCursorCell], a
 	call Kbd_FetchCell
 	call Kbd_UpdateCursorSprite
-	jr .l5CE0
-.l5CDD ; 55:5CDD
+	jr .check_arg_c_default_cursor
+.slide_in ; 55:5CDD
 	call Kbd_SlideIn
-.l5CE0 ; 55:5CE0
+.check_arg_c_default_cursor ; 55:5CE0
 	ld a, [wKbdType]
 	call Kbd_TypeArgCDefaultCursorFlag
 	or a, a
-	jr z, .l5D05
+	jr z, .initialize_run_cursor
 	ld a, [wKbdRunArgC]
 	or a, a
-	jr z, .l5D05
+	jr z, .initialize_run_cursor
 	ld a, [wKbdType]
 	ld hl, $400A
 	add a, l
@@ -176,17 +176,17 @@ Kbd_Run:: ; 55:5C8F
 	ld [wKbdCursorCell], a
 	call Kbd_FetchCell
 	call Kbd_UpdateCursorSprite
-.l5D05 ; 55:5D05
+.initialize_run_cursor ; 55:5D05
 	ld a, $01
 	ld [wKbdMode], a
 	call Kbd_FetchCell
 	call Kbd_UpdateCursorSprite
 	ld a, [wKbdType]
 	cp a, $07
-	jr nz, .l5D36
+	jr nz, .check_type5_marker
 	ld a, [wKbdRunArgC]
 	or a, a
-	jr z, .l5D36
+	jr z, .check_type5_marker
 	ld hl, wSpriteSlot13
 	ld de, Kbd_ObjTable_Entry18
 	ld a, BANK(Kbd_ObjTable_Entry18)
@@ -195,7 +195,7 @@ Kbd_Run:: ; 55:5C8F
 	ld de, $7870
 	ld hl, wSpriteSlot13
 	call Sprite_SetPosition
-.l5D36 ; 55:5D36
+.check_type5_marker ; 55:5D36
 	ld a, [wKbdType]
 	cp a, $05
 	jr nz, Kbd_Run_Loop
@@ -216,65 +216,65 @@ Kbd_Run_Loop:: ; 55:5D49
 	ld a, [wKbdType]
 	call Kbd_TypeWaitsWithService
 	or a, a
-	jr z, .l5D66
+	jr z, .wait_vblank
 	call VBlank_WaitAndService
-	jr .l5D69
-.l5D66 ; 55:5D66
+	jr .check_type5_field_refresh
+.wait_vblank ; 55:5D66
 	call VBlank_Wait
-.l5D69 ; 55:5D69
+.check_type5_field_refresh ; 55:5D69
 	ld a, [wKbdType]
 	cp a, $05
-	jr nz, .l5D76
+	jr nz, .dispatch_buttons
 
 	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
 	; fall-through of the jrcc at 55:5D6E (executed) [executed in 4 scenarios]
 	farcall ConnectDialog_RefreshFieldIfDirty
 
-.l5D76 ; 55:5D76
+.dispatch_buttons ; 55:5D76
 	; [CONFIRMED] 56 insn(s); 56 executed (in up to 11/18 scenarios)
 	ldh a, [hJoyPressedRepeat]
 	bit PADB_A, a
-	jr nz, .l5D9A
+	jr nz, .dispatch_button_a
 	bit PADB_B, a
-	jr nz, .l5D9D
+	jr nz, .dispatch_button_b
 	bit PADB_UP, a
-	jr nz, .l5DB6
+	jr nz, .move_up
 	bit PADB_DOWN, a
-	jr nz, .l5DC1
+	jr nz, .move_down
 	bit PADB_LEFT, a
-	jr nz, .l5DA0
+	jr nz, .move_left
 	bit PADB_RIGHT, a
-	jr nz, .l5DAB
+	jr nz, .move_right
 	bit PADB_START, a
-	jr nz, .l5DCC
+	jr nz, .reset_cursor_on_start
 	bit PADB_SELECT, a
-	jr nz, .l5E02
+	jr nz, .handle_select
 	jr Kbd_Run_Loop
-.l5D9A ; 55:5D9A
+.dispatch_button_a ; 55:5D9A
 	jp Kbd_Run_ButtonA
-.l5D9D ; 55:5D9D
+.dispatch_button_b ; 55:5D9D
 	jp Kbd_Run_ReturnB
-.l5DA0 ; 55:5DA0
+.move_left ; 55:5DA0
 	ld a, $00
 	call Kbd_MoveCursor
 	call Kbd_UpdateCursorSprite
 	jp Kbd_Run_ContinueLoop
-.l5DAB ; 55:5DAB
+.move_right ; 55:5DAB
 	ld a, $01
 	call Kbd_MoveCursor
 	call Kbd_UpdateCursorSprite
 	jp Kbd_Run_ContinueLoop
-.l5DB6 ; 55:5DB6
+.move_up ; 55:5DB6
 	ld a, $02
 	call Kbd_MoveCursor
 	call Kbd_UpdateCursorSprite
 	jp Kbd_Run_ContinueLoop
-.l5DC1 ; 55:5DC1
+.move_down ; 55:5DC1
 	ld a, $03
 	call Kbd_MoveCursor
 	call Kbd_UpdateCursorSprite
 	jp Kbd_Run_ContinueLoop
-.l5DCC ; 55:5DCC
+.reset_cursor_on_start ; 55:5DCC
 	ld a, [wKbdType]
 	ld hl, $400A
 	add a, l
@@ -299,13 +299,13 @@ Kbd_Run_Loop:: ; 55:5D49
 	jp z, Kbd_Run_ContinueLoop
 	jp Kbd_HideAndReturn9
 
-.l5E02 ; 55:5E02
+.handle_select ; 55:5E02
 	; [CONFIRMED] 22 insn(s); 22 executed (in up to 4/18 scenarios)
 	ld a, [wKbdType]
 	cp a, $05
-	jr z, .l5E42
+	jr z, .check_type5_select_arg_b
 	cp a, $01
-	jr z, .l5E57
+	jr z, .return_select
 	ld a, [wKbdType]
 	call Kbd_TypeHasPages
 	or a, a
@@ -331,21 +331,21 @@ Kbd_Run_Loop:: ; 55:5D49
 	call Kbd_ShowPageIndicator
 	jp Kbd_Run_Loop
 
-.l5E42 ; 55:5E42
+.check_type5_select_arg_b ; 55:5E42
 	; [CONFIRMED] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1;
 	; entered by jrcc from 55:5E07 (executed) [executed in 4 scenarios]
 	ld a, [wKbdRunArgB]
 	or a, a
-	jr nz, .l5E4B
+	jr nz, .hide_and_return_select
 	jp Kbd_Run_Loop
-.l5E4B ; 55:5E4B
+.hide_and_return_select ; 55:5E4B
 	xor a, a
 	call Kbd_SlideOut
 	ld a, $00
 	ld [wKbdMode], a
 	jp Kbd_Run_ReturnSelect
 
-.l5E57 ; 55:5E57
+.return_select ; 55:5E57
 	; [CONFIRMED] 14 insn(s); 14 executed (in up to 10/18 scenarios)
 	jp Kbd_Run_ReturnSelect
 
@@ -862,10 +862,10 @@ Kbd_SplitCursorIndex:: ; 55:6149
 	ld b, $00
 .loop ; 55:614E
 	sub a, $12
-	jr c, .l6155
+	jr c, .store_col_row
 	inc b
 	jr .loop
-.l6155 ; 55:6155
+.store_col_row ; 55:6155
 	add a, $12
 	ld [wKbdCursorCol], a
 	ld a, b
@@ -876,10 +876,10 @@ Kbd_IndexToColRow:: ; 55:615F
 	ld b, $00
 .loop ; 55:6161
 	sub a, $12
-	jr c, .l6168
+	jr c, .return_col_row
 	inc b
 	jr .loop
-.l6168 ; 55:6168
+.return_col_row ; 55:6168
 	add a, $12
 	ld c, b
 	ld b, a

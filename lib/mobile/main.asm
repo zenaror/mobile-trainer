@@ -151,7 +151,7 @@ MobileSDK_WaitStatusPoll:: ; 75:40B4
 	ei
 	or a, a
 	bit 0, a
-	jr z, .l40DA
+	jr z, .restore_bc_and_return
 
 	; [CONFIRMED] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 0;
 	; fall-through of the jrcc at 75:40C5 (executed) | 3 insn(s) executed; cut out of the PROBABLE
@@ -171,7 +171,7 @@ MobileSDK_WaitStatusPoll:: ; 75:40B4
 	set 1, [hl]
 	scf
 
-.l40DA ; 75:40DA
+.restore_bc_and_return ; 75:40DA
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 18/18 scenarios)
 	pop bc
 	ret
@@ -640,18 +640,18 @@ MobileSDK_ValidateStringLen:: ; 75:4397
 	ld b, $00
 .loop ; 75:4399
 	inc b
-	jr z, .l43A0
+	jr z, .compare_length_limit
 	ld a, [hli]
 	or a, a
 	jr nz, .loop
-.l43A0 ; 75:43A0
+.compare_length_limit ; 75:43A0
 	ld a, b
 	cp a, c
-	jr nc, .l43A7
+	jr nc, .return_length_error
 	cp a, $02
 	ret
 
-.l43A7 ; 75:43A7
+.return_length_error ; 75:43A7
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1;
 	; entered by jrcc from 75:43A2 (executed)
 	scf
@@ -2026,27 +2026,27 @@ MobileSDK_FormatMessageNumber:: ; 75:4D3C
 	push bc
 	push de
 	ld b, $00
-.l4D40 ; 75:4D40
+.check_ten_thousands ; 75:4D40
 	ld a, $27
 	cp a, h
-	jr c, .l4D4E
-	jr nz, .l4D57
+	jr c, .subtract_ten_thousand
+	jr nz, .write_ten_thousands_digit
 
 	; [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 49FE-4DE2 by apply_coverage --split
 	ld a, $10
 	cp a, l
-	jr z, .l4D4E
-	jr nc, .l4D57
-.l4D4E ; 75:4D4E
+	jr z, .subtract_ten_thousand
+	jr nc, .write_ten_thousands_digit
+.subtract_ten_thousand ; 75:4D4E
 	inc b
 	ld a, b
 	ld bc, $D8F0 ; raw: the number -10000 added with add hl, bc (decimal conversion of the SDK), not an address
 	add hl, bc
 	ld b, a
-	jr .l4D40
+	jr .check_ten_thousands
 
-.l4D57 ; 75:4D57
+.write_ten_thousands_digit ; 75:4D57
 	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 49FE-4DE2 by apply_coverage
 	; --split [executed in 18 scenarios]
 	ld a, $30
@@ -2054,27 +2054,27 @@ MobileSDK_FormatMessageNumber:: ; 75:4D3C
 	ld [de], a
 	inc de
 	ld b, $00
-.l4D5E ; 75:4D5E
+.check_thousands ; 75:4D5E
 	ld a, $03
 	cp a, h
-	jr c, .l4D6C
-	jr nz, .l4D75
+	jr c, .subtract_thousand
+	jr nz, .write_thousands_digit
 
 	; [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 49FE-4DE2 by apply_coverage --split
 	ld a, $E8
 	cp a, l
-	jr z, .l4D6C
-	jr nc, .l4D75
-.l4D6C ; 75:4D6C
+	jr z, .subtract_thousand
+	jr nc, .write_thousands_digit
+.subtract_thousand ; 75:4D6C
 	inc b
 	ld a, b
 	ld bc, $FC18
 	add hl, bc
 	ld b, a
-	jr .l4D5E
+	jr .check_thousands
 
-.l4D75 ; 75:4D75
+.write_thousands_digit ; 75:4D75
 	; [CONFIRMED] 12 insn(s) executed; cut out of the PROBABLE region 49FE-4DE2 by apply_coverage
 	; --split [executed in 18 scenarios]
 	ld a, $30
@@ -2082,16 +2082,16 @@ MobileSDK_FormatMessageNumber:: ; 75:4D3C
 	ld [de], a
 	inc de
 	ld b, $00
-.l4D7C ; 75:4D7C
+.check_hundreds ; 75:4D7C
 	ld a, $00
 	cp a, h
-	jr nz, .l4D88
+	jr nz, .subtract_hundred
 	ld a, $64
 	cp a, l
-	jr z, .l4D88
-	jr nc, .l4D91
+	jr z, .subtract_hundred
+	jr nc, .write_hundreds_digit
 
-.l4D88 ; 75:4D88
+.subtract_hundred ; 75:4D88
 	; [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 49FE-4DE2 by apply_coverage --split
 	inc b
@@ -2099,9 +2099,9 @@ MobileSDK_FormatMessageNumber:: ; 75:4D3C
 	ld bc, $FF9C
 	add hl, bc
 	ld b, a
-	jr .l4D7C
+	jr .check_hundreds
 
-.l4D91 ; 75:4D91
+.write_hundreds_digit ; 75:4D91
 	; [CONFIRMED] 29 insn(s) executed; cut out of the PROBABLE region 49FE-4DE2 by apply_coverage
 	; --split [executed in 3 scenarios]
 	ld a, $30
@@ -2110,13 +2110,13 @@ MobileSDK_FormatMessageNumber:: ; 75:4D3C
 	inc de
 	ld b, $00
 	ld a, l
-.l4D99 ; 75:4D99
+.count_tens ; 75:4D99
 	cp a, $0A
-	jr c, .l4DA2
+	jr c, .write_tens_and_ones
 	sub a, $0A
 	inc b
-	jr .l4D99
-.l4DA2 ; 75:4DA2
+	jr .count_tens
+.write_tens_and_ones ; 75:4DA2
 	ld l, a
 	ld a, $30
 	or a, b
@@ -2129,24 +2129,24 @@ MobileSDK_FormatMessageNumber:: ; 75:4D3C
 	ld l, e
 	ld h, d
 	ld b, $05
-.l4DB1 ; 75:4DB1
+.scan_leading_zeroes ; 75:4DB1
 	ld a, [hl]
 	cp a, $30
-	jr nz, .l4DBC
+	jr nz, .check_leading_zero_count
 	inc hl
 	dec b
-	jr nz, .l4DB1
+	jr nz, .scan_leading_zeroes
 
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 49FE-4DE2 by apply_coverage --split
-	jr .l4DDA
+	jr .restore_bc_before_lf_scan
 
-.l4DBC ; 75:4DBC
+.check_leading_zero_count ; 75:4DBC
 	; [CONFIRMED] 19 insn(s) executed; cut out of the PROBABLE region 49FE-4DE2 by apply_coverage
 	; --split [executed in 18 scenarios]
 	ld a, $05
 	cp a, b
-	jr z, .l4DDA
+	jr z, .restore_bc_before_lf_scan
 	sub a, b
 	ld c, a
 	ld a, [wMobileSDK_PacketBuffer + 5]
@@ -2155,25 +2155,25 @@ MobileSDK_FormatMessageNumber:: ; 75:4D3C
 	ld [wMobileSDK_PacketBuffer + 5], a
 	push hl
 	ld b, $01
-.l4DCE ; 75:4DCE
+.measure_suffix_through_cr ; 75:4DCE
 	inc b
 	ld a, [hli]
 	cp a, $0D
-	jr nz, .l4DCE
+	jr nz, .measure_suffix_through_cr
 	pop hl
 	call MobileSDK_CopyBytes
 	pop hl
 	ret
 
-.l4DDA ; 75:4DDA
+.restore_bc_before_lf_scan ; 75:4DDA
 	; [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 49FE-4DE2 by apply_coverage --split
 	pop bc
-.l4DDB ; 75:4DDB
+.scan_to_lf ; 75:4DDB
 	ld a, [de]
 	inc de
 	cp a, $0A
-	jr nz, .l4DDB
+	jr nz, .scan_to_lf
 	ret
 
 MobileAPI_HttpGet:: ; 75:4DE2
@@ -9664,10 +9664,10 @@ MobileSDK_Base64Encode:: ; 75:7C50
 	ld b, a
 	xor a, a
 	or a, b
-	jr nz, .l7C91
+	jr nz, .encode_buffered_triplet
 	ld a, $02
 	cp a, c
-	jr c, .l7C91
+	jr c, .encode_buffered_triplet
 	push hl
 	dec hl
 	ld a, c
@@ -9681,7 +9681,7 @@ MobileSDK_Base64Encode:: ; 75:7C50
 	jr nz, .zero_pad_triplet
 	pop hl
 	ld bc, $0003
-.l7C91 ; 75:7C91
+.encode_buffered_triplet ; 75:7C91
 	dec bc
 	dec bc
 	dec bc
@@ -9805,11 +9805,11 @@ MobileSDK_Base64Decode:: ; 75:7D28
 .check_remaining_input ; 75:7D36
 	ld a, [wMobileSDK_PacketBuffer + 202]
 	or a, a
-	jr nz, .l7D44
+	jr nz, .decode_quartet
 	ld a, [wMobileSDK_PacketBuffer + 201]
 	cp a, $04
 	jp c, MobileSDK_Base64Decode_BadArg
-.l7D44 ; 75:7D44
+.decode_quartet ; 75:7D44
 	ld b, $04
 	push hl
 	ld hl, wMobileSDK_PacketBuffer + $CB
@@ -9830,22 +9830,22 @@ MobileSDK_Base64Decode:: ; 75:7D28
 	dec bc
 	ld a, b
 	or a, c
-	jr z, .l7D70
-.l7D63 ; 75:7D63
+	jr z, .repack_decoded_quartet
+.skip_line_breaks ; 75:7D63
 	ld a, [de]
 	cp a, $0D
 	jr z, .consume_line_break
 	cp a, $0A
-	jr nz, .l7D70
+	jr nz, .repack_decoded_quartet
 
 .consume_line_break ; 75:7D6C
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 7C50-7E89 by apply_coverage --split
 	inc de
 	dec bc
-	jr .l7D63
+	jr .skip_line_breaks
 
-.l7D70 ; 75:7D70
+.repack_decoded_quartet ; 75:7D70
 	; [CONFIRMED] 51 insn(s) executed; cut out of the PROBABLE region 7C50-7E89 by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld a, c
