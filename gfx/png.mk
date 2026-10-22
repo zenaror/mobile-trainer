@@ -332,10 +332,10 @@ PNG_TILE_OUTS := \
 	gfx/mail/session_scenery/mail_session_tiles_61e0.2bpp \
 	gfx/mail/session_scenery/mail_session_tiles_62e0.2bpp \
 	gfx/mail/session_scenery/mail_session_tiles_66e0.2bpp \
+	gfx/mail/session_scenery/mail_session_tiles_66f0_tile_slice.2bpp \
 	gfx/mail/session_scenery/mail_session_tiles_67e0.2bpp \
 	gfx/mail/session_scenery/mail_session_tiles_6be0.2bpp \
 	gfx/mail/session_scenery/mail_session_tiles_6fe0.2bpp \
-	gfx/mail/session_scenery/tiles_66f0.2bpp \
 	gfx/mail_menu/mail_menu/mail_menu_tiles0.2bpp \
 	gfx/mail_menu/mail_menu/mail_menu_tiles1.2bpp \
 	gfx/mail_menu/mail_menu/mail_menu_tiles2.2bpp \
@@ -761,10 +761,10 @@ gfx/mail/session_scenery/mail_session_tiles_5de0.2bpp: PNG_SIZE := 1024
 gfx/mail/session_scenery/mail_session_tiles_61e0.2bpp: PNG_SIZE := 256
 gfx/mail/session_scenery/mail_session_tiles_62e0.2bpp: PNG_SIZE := 1024
 gfx/mail/session_scenery/mail_session_tiles_66e0.2bpp: PNG_SIZE := 16
+gfx/mail/session_scenery/mail_session_tiles_66f0_tile_slice.2bpp: PNG_SIZE := 240
 gfx/mail/session_scenery/mail_session_tiles_67e0.2bpp: PNG_SIZE := 1024
 gfx/mail/session_scenery/mail_session_tiles_6be0.2bpp: PNG_SIZE := 1024
 gfx/mail/session_scenery/mail_session_tiles_6fe0.2bpp: PNG_SIZE := 1024
-gfx/mail/session_scenery/tiles_66f0.2bpp: PNG_SIZE := 240
 gfx/mail_menu/mail_menu/mail_menu_tiles0.2bpp: PNG_SIZE := 400
 gfx/mail_menu/mail_menu/mail_menu_tiles0.2bpp: PNG_PAD := -x 7
 gfx/mail_menu/mail_menu/mail_menu_tiles1.2bpp: PNG_SIZE := 1024

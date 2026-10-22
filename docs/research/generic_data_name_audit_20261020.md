@@ -2217,13 +2217,15 @@ Eight `Data_26_*` labels in `gfx/mail/session_scenery.asm` duplicated existing
 in place, preserving the owner layout and tile payloads. The adjacent
 `Data_26_66F0` begins a 240-byte tile-data interval inside the larger confirmed
 transfer `26:66E0-67E0`; it is now `MailSession_Tiles_66F0_TileSlice` to retain
-that bounded scope. The matching asset catalog label was updated, while the
-generic asset path remains unchanged. `Data_26_59D8` has since been renamed
+that bounded scope. The matching asset catalog label was updated; the original
+audit left the generic asset path unchanged. A later filename pass renamed the
+240-byte payload and its PNG to `mail_session_tiles_66f0_tile_slice` without
+changing either file's bytes. `Data_26_59D8` has since been renamed
 `Padding_MailSession_Tiles59E0Alignment` (**PROBABLE**): its eight zero bytes
 follow the bank-26 code section and precede the confirmed tile HDMA source at
 aligned `26:59E0`, with no named direct reader found. `Data_26_73E0` remains
 neutral because it has only a palette heuristic. No path, payload, confidence
-level or transfer boundary changed.
+level or transfer boundary changed in the earlier alias pass.
 
 The six-root `Data_BB_AAAA::` census is now 373 definitions in 133 owners,
 down from 382 after eight aliases were retired and one slice was renamed.

@@ -2076,11 +2076,11 @@ See the dated [gfx path follow-up](docs/research/gfx_generic_name_audit_20261021
 
 A later filename census found that the source-level result does not cover asset
 basenames: after owner-aligned Page List, error-screen, browser-scrollbar,
-ConnectDialog and MailView path updates, 87 type/address stems remain across 14 descriptive `gfx/` folders, covering 173
-files. There are still no current `bankNN` directories. The 132
-payload files present in `gfx/assets.tsv` retain 100 CONFIRMED, 31 PROBABLE and
-one HYPOTHESIS catalogue statuses; those statuses were not revalidated by the
-lexical pass. The two `tiles_5860` files in Bank 4A are documented byte-views of
+ConnectDialog, MailView and MailSession path updates, 86 type/address stems remain across 13 descriptive `gfx/` folders, covering 171
+files. There are still no current `bankNN` directories. Of 107 logical payload
+entries in that residual inventory, 106 have `gfx/assets.tsv` rows (76
+CONFIRMED and 30 PROBABLE); the lexical pass did not revalidate their loaders
+or visual roles. The `tiles_5860` files in Bank 4A are a documented byte-view of
 sprite/script bytes, not tile art, and remain outside the active catalogue.
 Resolve the other basenames owner by owner before renaming or treating any as
 unused. See the [complete filename census](docs/research/gfx_generic_name_audit_20261021.md#japanese-typeaddress-asset-filename-census-2026-10-22).

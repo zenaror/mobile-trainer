@@ -1152,7 +1152,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `mail_session_tiles_61e0.2bpp` | 2bpp tiles | 256 | 26:61E0 | CONFIRMED | exact | - | `gfx/mail/session_scenery.asm` |
 | `mail_session_tiles_62e0.2bpp` | 2bpp tiles | 1024 | 26:62E0 | CONFIRMED | exact | - | `gfx/mail/session_scenery.asm` |
 | `mail_session_tiles_66e0.2bpp` | 2bpp tiles | 16 | 26:66E0 | CONFIRMED | exact | - | `gfx/mail/session_scenery.asm` |
-| `tiles_66f0.2bpp` | 2bpp tiles | 240 | 26:66F0 | CONFIRMED | exact | - | `gfx/mail/session_scenery.asm` |
+| `mail_session_tiles_66f0_tile_slice.2bpp` | 2bpp tiles | 240 | 26:66F0 | CONFIRMED | exact | - | `gfx/mail/session_scenery.asm` |
 | `mail_session_tiles_67e0.2bpp` | 2bpp tiles | 1024 | 26:67E0 | CONFIRMED | exact | - | `gfx/mail/session_scenery.asm` |
 | `mail_session_tiles_6be0.2bpp` | 2bpp tiles | 1024 | 26:6BE0 | CONFIRMED | exact | - | `gfx/mail/session_scenery.asm` |
 | `mail_session_tiles_6fe0.2bpp` | 2bpp tiles | 1024 | 26:6FE0 | CONFIRMED | exact | - | `gfx/mail/session_scenery.asm` |

@@ -42,7 +42,7 @@ MailSession_Tiles_66E0:: ; 26:66E0
 ; ---- gfx $66F0-$67E0 (240 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 26:5242: hl=$66E0 a=$26 c=$10 de=$9401 (dest VRAM $9400, vbank=1) [clipped from 66E0-67E0 by higher-priority evidence]
 
 MailSession_Tiles_66F0_TileSlice:: ; 26:66F0
-	INCBIN "gfx/mail/session_scenery/tiles_66f0.2bpp"
+	INCBIN "gfx/mail/session_scenery/mail_session_tiles_66f0_tile_slice.2bpp"
 
 ; ---- gfx $67E0-$6BE0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 26:5254: hl=$67E0 a=$26 c=$40 de=$8000 (dest VRAM $8000, vbank=0)
 
