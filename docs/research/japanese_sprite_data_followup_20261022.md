@@ -19,3 +19,13 @@ The bounded audit of 15 address-only data spans supports renaming only `Data_4B_
 ## Verification basis and limits
 
 The Save Sender review checked the exact ROM-backed range `2A:5220–5495`, pointer spans, and bounded engine readers; no source bytes or section boundaries were changed. The Bank 4B conclusion follows the ROM-backed descriptor list and shared helper contract. These static findings do not substitute for a runtime trace.
+
+## Independent review of the remaining 14 address-form data labels
+
+Two independent read-only reviewers examined disjoint sets of seven labels against private copies of Japanese `main` at `bff2a223c21015351c893c1092a807a17e74bd9f`. Both copies used the immutable ROM with SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. Neither reviewer changed source, ran a build, nor opened English/ZIP material. Their conclusion agrees: retain all 14 labels as neutral because the available evidence does not establish a stronger semantic identity or a safe alias to retire.
+
+The independently reviewed spans were `Data_1C_401C`, `Data_23_46CC`, `Data_24_4BCC`, `Data_24_6520`, `Data_26_5062`, `Data_2F_4094`, `Data_4E_5390`, `Data_48_69AB`, `Data_5F_6980`, `Data_72_63D7`, `Data_72_6711`, `Data_75_6D62`, `Data_7F_4C77`, and `Data_7F_51ED`. Byte decodes such as `RET`, `XOR A`, `POP BC`, or `JP AbookList_Run` are not by themselves evidence of entry or intended purpose. Bounded scans found no literal source references that establish incoming use; calculated references, copied bytes, or an unmodeled bank/stack path remain possible and are not ruled out.
+
+One additional structural observation concerns `Data_24_6520`: its 16 bytes are byte-for-byte equal to the first 16-byte record of `PageListProto_ObjTable` at `7F:6DB0`. This equality is confirmed, but the reason for the duplicate and any relationship between the two banks remain hypotheses; no bank-`24` consumer was found. It therefore does not justify a semantic rename or an unused claim. The reviewed configuration snapshot also contains a stale far-call location for the bank-72 menu entry: `4E:4D16` is the call site; `4E:4D10` lies inside the prior CALL operand. Frozen generated configuration was not edited.
+
+The checks were static and ROM-byte-based. The reviewers' negative reference scans do not prove global non-use; no runtime trace, newly built ROM, natural-use, or hardware evidence was produced by this review. The source-level outcome is documentation only and does not alter ROM bytes or source data extents.
