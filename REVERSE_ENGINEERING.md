@@ -2028,3 +2028,11 @@ Two bank-2F address-book dispatcher bytes are named as candidate RET opcodes;
 their code/data classification and reachability remain HYPOTHESIS.
 Two bank-25 mailbox spans now say that executed code reads them while keeping
 their content class unknown and their transfer boundaries explicit in docs.
+
+The 2026-10-22 Bank 53/frame follow-up confirms that all 137 bank41–47 asset
+blobs match the prior audited checkpoint and that the current 978-row graphics
+catalog passes its exporter check. The PNG validation exposed stale generated
+`gfx/png_rules.tsv` and `gfx/png.mk`; regenerating those manifests restored
+`make png-check`. This confirms current declared PNG inputs and constraints,
+not the unresolved 25 Pokémon-name/frame associations or the use of the eight
+KEEP windows. See the [Bank 53 asset audit](docs/research/pokemon_names_bank53_asset_audit_20261020.md#reconciliation-after-graphics-label-updates-2026-10-22).

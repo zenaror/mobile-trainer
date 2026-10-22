@@ -24,27 +24,6 @@ endef
 
 ifneq ($(RGBGFX_VERSION),)
 PNG_TILE_OUTS := \
-	gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4040.2bpp \
-	gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4240.2bpp \
-	gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4640.2bpp \
-	gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4a40.2bpp \
-	gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4e40.2bpp \
-	gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_5870.2bpp \
-	gfx/account/result_page_bank4b/account_result_page_tiles4ad0.2bpp \
-	gfx/account/result_page_bank4b/tiles_42d0.2bpp \
-	gfx/account/result_page_bank4b/tiles_46d0.2bpp \
-	gfx/account/result_page_bank4b/tiles_5080.2bpp \
-	gfx/account/result_page_bank4b/tiles_5420.2bpp \
-	gfx/account/password_and_registration_config_bank5d/tiles_4800.2bpp \
-	gfx/account/password_and_registration_config_bank5d/tiles_4c00.2bpp \
-	gfx/account/password_and_registration_config_bank5d/tiles_5320.2bpp \
-	gfx/account/password_and_registration_config_bank5d/tiles_5720.2bpp \
-	gfx/account/password_and_registration_config_bank5d/tiles_5df0.2bpp \
-	gfx/account/password_and_registration_config_bank5d/tiles_61f0.2bpp \
-	gfx/account/password_and_registration_config_bank5d/tiles_63f0.2bpp \
-	gfx/account/password_and_registration_config_bank5d/tiles_6900.2bpp \
-	gfx/account/password_and_registration_config_bank5d/tiles_6c00.2bpp \
-	gfx/account/password_and_registration_config_bank5d/tiles_6e00.2bpp \
 	gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_4800.2bpp \
 	gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_4c00.2bpp \
 	gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_4e10.2bpp \
@@ -67,6 +46,27 @@ PNG_TILE_OUTS := \
 	gfx/account/comm_panel_and_registration_delete_bank71/tiles_61c0.2bpp \
 	gfx/account/comm_panel_and_registration_delete_bank71/tiles_6440.2bpp \
 	gfx/account/comm_panel_and_registration_delete_bank71/tiles_6580.2bpp \
+	gfx/account/password_and_registration_config_bank5d/tiles_4800.2bpp \
+	gfx/account/password_and_registration_config_bank5d/tiles_4c00.2bpp \
+	gfx/account/password_and_registration_config_bank5d/tiles_5320.2bpp \
+	gfx/account/password_and_registration_config_bank5d/tiles_5720.2bpp \
+	gfx/account/password_and_registration_config_bank5d/tiles_5df0.2bpp \
+	gfx/account/password_and_registration_config_bank5d/tiles_61f0.2bpp \
+	gfx/account/password_and_registration_config_bank5d/tiles_63f0.2bpp \
+	gfx/account/password_and_registration_config_bank5d/tiles_6900.2bpp \
+	gfx/account/password_and_registration_config_bank5d/tiles_6c00.2bpp \
+	gfx/account/password_and_registration_config_bank5d/tiles_6e00.2bpp \
+	gfx/account/result_page_bank4b/account_result_page_tiles4ad0.2bpp \
+	gfx/account/result_page_bank4b/tiles_42d0.2bpp \
+	gfx/account/result_page_bank4b/tiles_46d0.2bpp \
+	gfx/account/result_page_bank4b/tiles_5080.2bpp \
+	gfx/account/result_page_bank4b/tiles_5420.2bpp \
+	gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4040.2bpp \
+	gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4240.2bpp \
+	gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4640.2bpp \
+	gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4a40.2bpp \
+	gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4e40.2bpp \
+	gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_5870.2bpp \
 	gfx/address_book/address_editor/abook_addr_tiles8800.2bpp \
 	gfx/address_book/address_picker/addr_book_tiles8f00.2bpp \
 	gfx/address_book/address_picker/addr_pick_tiles9300.2bpp \
@@ -434,28 +434,6 @@ PNG_TILE_OUTS := \
 	gfx/unresolved/tiles_7f_7830/tiles_7830.2bpp \
 
 
-gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4040.2bpp: PNG_SIZE := 512
-gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4240.2bpp: PNG_SIZE := 1024
-gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4640.2bpp: PNG_SIZE := 1024
-gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4a40.2bpp: PNG_SIZE := 1024
-gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4e40.2bpp: PNG_SIZE := 832
-gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_5870.2bpp: PNG_SIZE := 1024
-gfx/account/result_page_bank4b/account_result_page_tiles4ad0.2bpp: PNG_SIZE := 1456
-gfx/account/result_page_bank4b/tiles_42d0.2bpp: PNG_SIZE := 1024
-gfx/account/result_page_bank4b/tiles_46d0.2bpp: PNG_SIZE := 1024
-gfx/account/result_page_bank4b/tiles_5080.2bpp: PNG_SIZE := 896
-gfx/account/result_page_bank4b/tiles_5420.2bpp: PNG_SIZE := 1104
-gfx/account/result_page_bank4b/tiles_5420.2bpp: PNG_PAD := -x 11
-gfx/account/password_and_registration_config_bank5d/tiles_4800.2bpp: PNG_SIZE := 1024
-gfx/account/password_and_registration_config_bank5d/tiles_4c00.2bpp: PNG_SIZE := 1024
-gfx/account/password_and_registration_config_bank5d/tiles_5320.2bpp: PNG_SIZE := 1024
-gfx/account/password_and_registration_config_bank5d/tiles_5720.2bpp: PNG_SIZE := 1024
-gfx/account/password_and_registration_config_bank5d/tiles_5df0.2bpp: PNG_SIZE := 1024
-gfx/account/password_and_registration_config_bank5d/tiles_61f0.2bpp: PNG_SIZE := 512
-gfx/account/password_and_registration_config_bank5d/tiles_63f0.2bpp: PNG_SIZE := 512
-gfx/account/password_and_registration_config_bank5d/tiles_6900.2bpp: PNG_SIZE := 768
-gfx/account/password_and_registration_config_bank5d/tiles_6c00.2bpp: PNG_SIZE := 512
-gfx/account/password_and_registration_config_bank5d/tiles_6e00.2bpp: PNG_SIZE := 512
 gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_4800.2bpp: PNG_SIZE := 1024
 gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_4c00.2bpp: PNG_SIZE := 256
 gfx/account/account_entry_mail_and_action_screens_bank5e/tiles_4e10.2bpp: PNG_SIZE := 1024
@@ -479,6 +457,28 @@ gfx/account/comm_panel_and_registration_delete_bank71/tiles_5dc0.2bpp: PNG_SIZE 
 gfx/account/comm_panel_and_registration_delete_bank71/tiles_61c0.2bpp: PNG_SIZE := 640
 gfx/account/comm_panel_and_registration_delete_bank71/tiles_6440.2bpp: PNG_SIZE := 320
 gfx/account/comm_panel_and_registration_delete_bank71/tiles_6580.2bpp: PNG_SIZE := 256
+gfx/account/password_and_registration_config_bank5d/tiles_4800.2bpp: PNG_SIZE := 1024
+gfx/account/password_and_registration_config_bank5d/tiles_4c00.2bpp: PNG_SIZE := 1024
+gfx/account/password_and_registration_config_bank5d/tiles_5320.2bpp: PNG_SIZE := 1024
+gfx/account/password_and_registration_config_bank5d/tiles_5720.2bpp: PNG_SIZE := 1024
+gfx/account/password_and_registration_config_bank5d/tiles_5df0.2bpp: PNG_SIZE := 1024
+gfx/account/password_and_registration_config_bank5d/tiles_61f0.2bpp: PNG_SIZE := 512
+gfx/account/password_and_registration_config_bank5d/tiles_63f0.2bpp: PNG_SIZE := 512
+gfx/account/password_and_registration_config_bank5d/tiles_6900.2bpp: PNG_SIZE := 768
+gfx/account/password_and_registration_config_bank5d/tiles_6c00.2bpp: PNG_SIZE := 512
+gfx/account/password_and_registration_config_bank5d/tiles_6e00.2bpp: PNG_SIZE := 512
+gfx/account/result_page_bank4b/account_result_page_tiles4ad0.2bpp: PNG_SIZE := 1456
+gfx/account/result_page_bank4b/tiles_42d0.2bpp: PNG_SIZE := 1024
+gfx/account/result_page_bank4b/tiles_46d0.2bpp: PNG_SIZE := 1024
+gfx/account/result_page_bank4b/tiles_5080.2bpp: PNG_SIZE := 896
+gfx/account/result_page_bank4b/tiles_5420.2bpp: PNG_SIZE := 1104
+gfx/account/result_page_bank4b/tiles_5420.2bpp: PNG_PAD := -x 11
+gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4040.2bpp: PNG_SIZE := 512
+gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4240.2bpp: PNG_SIZE := 1024
+gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4640.2bpp: PNG_SIZE := 1024
+gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4a40.2bpp: PNG_SIZE := 1024
+gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_4e40.2bpp: PNG_SIZE := 832
+gfx/account/settings_menu_and_manual_confirm_bank4a/tiles_5870.2bpp: PNG_SIZE := 1024
 gfx/address_book/address_editor/abook_addr_tiles8800.2bpp: PNG_SIZE := 752
 gfx/address_book/address_editor/abook_addr_tiles8800.2bpp: PNG_PAD := -x 1
 gfx/address_book/address_picker/addr_book_tiles8f00.2bpp: PNG_SIZE := 144

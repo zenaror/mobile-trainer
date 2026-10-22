@@ -75,3 +75,23 @@ The finite name/frame audit remains applicable at `a0b1cf8f8a1b97cddc17fc2ea61c5
 Current `make png-check` passes: 408 tile sheets, 4 raw byte views, 37 font sheets and 95 screen PNGs. `python3 tools/gfx_export.py check` passes for 978 catalog assets (408 exact tile PNG sources, 4 raw byte-view sources, 39 font sheets, 1 view-only PNG and 526 assets without PNG sources). These are different tool inventories. The bounded audit still finds all referenced files and PNGs present within its 208-file scope.
 
 The table contains 25 name ordinals and all 25 strings; no proven name-to-frame reader/producer association links them to a Pokémon image. This leaves the association question open, not a proven set of missing name PNGs. Seventeen windows have conditional editing views; eight remain KEEP because their complete VRAM placement is not justified, although their original bytes, component assets and legacy previews exist. No additional PNG is warranted by this reconciliation, and no window is proven globally unused.
+
+## Reconciliation after graphics-label updates (2026-10-22)
+
+At the Japanese main checkpoint before this documentation update, all 137
+bank41–47 catalogue rows still identify the same `(bank, address, type)` keys
+as at `a0b1cf8f`; no row was added or removed. The 137 backing Git blobs are
+byte-identical to that checkpoint. Ninety-two catalogue labels changed to
+descriptive names, with no bank41–47 binary or PNG content change. The 25
+bank53 name strings and unresolved name/frame relationships remain as above.
+
+The current full catalogue passes `python3 tools/gfx_export.py check` (978
+assets). `make png-check` checks 408 tile sheets, four raw byte views, 37 font
+sheets and 95 screen PNGs. It initially exposed stale generated
+`gfx/png_rules.tsv` and `gfx/png.mk` after the graphics catalogue/path
+reorganization. Regenerating those two derived manifests with
+`python3 tools/png_rules.py rules` restored the check; both now pass
+`python3 tools/png_rules.py mk-check` and `make png-check`. This confirms the
+declared current image sources and rules exist and satisfy their validators;
+it does not establish a Pokémon-name-to-frame association or prove that any
+candidate frame is unused.
