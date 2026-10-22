@@ -14,6 +14,10 @@ Five former `Data_2D_AAAA` and eleven `String_2D_AAAA` labels in `engine/mail/sa
 
 Nine `String_Dialog_Candidate*` labels now name their statically mapped message index and line position, including one first-line suffix whose `$F9,"D"` bytes remain uninterpreted. The changes preserve every ROM byte and make no natural-selection or display claim. See [`japanese_dialog_line_labels_20261022.md`](docs/research/japanese_dialog_line_labels_20261022.md).
 
+### Current exact-address name census (2026-10-22, `d8d86698`)
+
+A fresh scan of 349 tracked Japanese ASM/INC files (excluding the paused `languages/` tree and protected sample-data source) finds no exact `Function/Func/FUN/Sub/Unknown/Code_BB_AAAA`, `Label_BB_AAAA`, `String_BB_AAAA`, `Font_BB_AAAA`, or `Tiles/Tilemap/Palette/Attrmap_BB_AAAA` definitions, and no `gfx/bankNN` paths. Fourteen exact `Data_BB_AAAA` definitions remain; each is deliberately neutral under the bounded reviews because its content class or entry/use is not established. Descriptive `Candidate` names retain that uncertainty. This is a name-form census, not proof that every code span is semantically or naturally identified. The frame/name/PNG revalidation is recorded in [`assets_pokemon_frames_and_name_limits.md`](docs/research/assets_pokemon_frames_and_name_limits.md#revalidation-at-japanese-main-d8d86698-2026-10-22).
+
 ### Japanese sprite labels and bounded byte audit (2026-10-22)
 
 A bounded audit replaced 503 type/address sprite labels across 12 Japanese graphics owners with structural names based on owner, object-table entry and frame order. Independent macro reconstruction matched 7,719 audited source bytes to the original ROM with no mismatches, and the full ROM build remains the identity gate. This establishes naming and byte correspondence only: it does not prove visual identity, natural runtime use, or that unrooted tails are unused. The audit records raw tails, unresolved candidate scripts, and confidence limits in [`japanese_sprite_owner_audit_20261022.md`](docs/research/japanese_sprite_owner_audit_20261022.md). The English overlay remains paused.

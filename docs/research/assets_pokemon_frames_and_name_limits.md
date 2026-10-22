@@ -524,3 +524,26 @@ role; neither name asserts visual content or an independent tile asset. The
 remains neutral. A separate bounded function-label census found no generic
 function declarations; this does not complete semantic or natural-entry
 identification.
+
+### Revalidation at Japanese main `d8d86698` (2026-10-22)
+
+After the dialog-label checkpoint, the original image remains
+2,097,152 bytes with SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`, and the
+current build is byte-identical. A direct source/ROM comparison rechecked all
+137 catalogued assets in banks 41–47 (93,264 bytes) and each of the 25 physical
+windows (85,200 bytes). The 25 bank-53 pointer targets still match
+`PokemonName00`–`PokemonName24`; the 50 pointer bytes and 319 string bytes
+match the original, and the remainder of bank 53 from `53:4171` through
+`53:8000` is zero.
+
+The eight frame-owner directories contain 71 PNGs, all referenced by current
+PNG-rule or screen rows; none is missing or orphaned. The 24 bank-41–46
+candidate preview rows each have one decodable 160×144 PNG, with no missing or
+orphan preview. `make png-check`, `python3 tools/png_rules.py mk-check`, and
+`python3 tools/gfx_export.py check` pass; the catalogue remains 978 assets and
+the PNG-rule manifest 977 rows. A maintained-source symbol search still finds
+only the bank-53 table's own pointer declarations and name definitions, not an
+external named reader. These are current finite representation and manifest
+checks; they do not prove the bank-41–46 windows are globally unused, identify
+a natural loader for `47:68F0`, or associate any name ordinal with an image.
