@@ -597,7 +597,7 @@ gfx/mail/address_editor/mail_addr_obj_tiles.2bpp	tiles	192	gfx/mail/address_edit
 gfx/mail/address_editor/mail_addr_tiles.2bpp	tiles	1024	gfx/mail/address_editor.asm	2D	7120	CONFIRMED	exact	0		Gfx_MailAddr_Tiles
 gfx/mail/address_editor/mail_addr_tiles2.2bpp	tiles	176	gfx/mail/address_editor.asm	2D	7520	CONFIRMED	exact	0		Gfx_MailAddr_Tiles2
 gfx/mail/address_editor/mail_addr_tiles3.2bpp	tiles	688	gfx/mail/address_editor.asm	2D	75D0	CONFIRMED	exact	5		Gfx_MailAddr_Tiles3
-gfx/mail/address_editor/tiles_7940.2bpp	tiles	528	gfx/mail/address_editor.asm	2D	7940	PROBABLE	exact	0		Gfx_MailAddr_ObjHDMALoadTail
+gfx/mail/address_editor/mail_addr_obj_hdma_load_tail.2bpp	tiles	528	gfx/mail/address_editor.asm	2D	7940	PROBABLE	exact	0		Gfx_MailAddr_ObjHDMALoadTail
 gfx/mail/body_editor/mail_body.attrmap	attrmap	360	gfx/mail/body_editor.asm	2D	6128	CONFIRMED	-	0	20x18	Tilemap_MailBody
 gfx/mail/body_editor/mail_body.tilemap	tilemap	360	gfx/mail/body_editor.asm	2D	5FC0	CONFIRMED	-	0	20x18	Tilemap_MailBody
 gfx/mail/body_editor/mail_body_bg.pal	palette	64	gfx/mail/body_editor.asm	2D	6290	PROBABLE	-	0		Palette_MailBody_Bg
@@ -651,7 +651,7 @@ gfx/mail/connect_screen/mail_disconnect_win_msg_ended.tilemap	tilemap	100	gfx/ma
 gfx/mail/connect_screen/mail_disconnect_win_msg_ending.attrmap	attrmap	100	gfx/mail/connect_screen.asm	27	7754	CONFIRMED	-	0	20x5	MailDisconnect_WinMsg_Ending
 gfx/mail/connect_screen/mail_disconnect_win_msg_ending.tilemap	tilemap	100	gfx/mail/connect_screen.asm	27	76F0	CONFIRMED	-	0	20x5	MailDisconnect_WinMsg_Ending
 gfx/mail/connect_screen/mail_screens_obj_palette_7520.pal	palette	64	gfx/mail/connect_screen.asm	27	7520	CONFIRMED	-	0		MailScreens_ObjPalette_7520
-gfx/mail/connect_screen_bank29/palette_5376.pal	palette	128	gfx/mail/connect_screen_bank29.asm	29	5376	PROBABLE	-	0		CandidatePalette_29_5376
+gfx/mail/connect_screen_bank29/connect_screen_candidate_palette_5376.pal	palette	128	gfx/mail/connect_screen_bank29.asm	29	5376	PROBABLE	-	0		CandidatePalette_29_5376
 gfx/mail/connect_screen_bank29/palette_5ad0.pal	palette	64	gfx/mail/connect_screen_bank29.asm	29	5AD0	PROBABLE	-	0		Palette_CommTimeHMS_Bg
 gfx/mail/connect_screen_bank29/tilemap_5800.attrmap	attrmap	360	gfx/mail/connect_screen_bank29.asm	29	5968	PROBABLE	-	0	20x18	Tilemap_CommTimeHMS_Screen
 gfx/mail/connect_screen_bank29/tilemap_5800.tilemap	tilemap	360	gfx/mail/connect_screen_bank29.asm	29	5800	PROBABLE	-	0	20x18	Tilemap_CommTimeHMS_Screen

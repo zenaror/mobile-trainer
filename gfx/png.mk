@@ -286,11 +286,11 @@ PNG_TILE_OUTS := \
 	gfx/keyboard/tiles_bank66/tiles_62c0.2bpp \
 	gfx/keyboard/tiles_bank66/tiles_66c0.2bpp \
 	gfx/keyboard/tiles_bank66/tiles_6900.2bpp \
+	gfx/mail/address_editor/mail_addr_obj_hdma_load_tail.2bpp \
 	gfx/mail/address_editor/mail_addr_obj_tiles.2bpp \
 	gfx/mail/address_editor/mail_addr_tiles.2bpp \
 	gfx/mail/address_editor/mail_addr_tiles2.2bpp \
 	gfx/mail/address_editor/mail_addr_tiles3.2bpp \
-	gfx/mail/address_editor/tiles_7940.2bpp \
 	gfx/mail/body_editor/mail_body_obj_tiles.2bpp \
 	gfx/mail/body_editor/mail_body_tiles.2bpp \
 	gfx/mail/body_editor/mail_body_tiles2.2bpp \
@@ -711,12 +711,12 @@ gfx/keyboard/tiles_bank66/tiles_62c0.2bpp: PNG_SIZE := 1024
 gfx/keyboard/tiles_bank66/tiles_66c0.2bpp: PNG_SIZE := 576
 gfx/keyboard/tiles_bank66/tiles_6900.2bpp: PNG_SIZE := 400
 gfx/keyboard/tiles_bank66/tiles_6900.2bpp: PNG_PAD := -x 7
+gfx/mail/address_editor/mail_addr_obj_hdma_load_tail.2bpp: PNG_SIZE := 528
 gfx/mail/address_editor/mail_addr_obj_tiles.2bpp: PNG_SIZE := 192
 gfx/mail/address_editor/mail_addr_tiles.2bpp: PNG_SIZE := 1024
 gfx/mail/address_editor/mail_addr_tiles2.2bpp: PNG_SIZE := 176
 gfx/mail/address_editor/mail_addr_tiles3.2bpp: PNG_SIZE := 688
 gfx/mail/address_editor/mail_addr_tiles3.2bpp: PNG_PAD := -x 5
-gfx/mail/address_editor/tiles_7940.2bpp: PNG_SIZE := 528
 gfx/mail/body_editor/mail_body_obj_tiles.2bpp: PNG_SIZE := 672
 gfx/mail/body_editor/mail_body_tiles.2bpp: PNG_SIZE := 960
 gfx/mail/body_editor/mail_body_tiles2.2bpp: PNG_SIZE := 256

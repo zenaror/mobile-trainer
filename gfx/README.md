@@ -976,7 +976,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `mail_addr_tiles2.2bpp` | 2bpp tiles | 176 | 2D:7520 | CONFIRMED | exact | - | `gfx/mail/address_editor.asm` |
 | `mail_addr_tiles3.2bpp` | 2bpp tiles | 688 | 2D:75D0 | CONFIRMED | exact | - | `gfx/mail/address_editor.asm` |
 | `mail_addr_obj_tiles.2bpp` | 2bpp tiles | 192 | 2D:7880 | CONFIRMED | exact | - | `gfx/mail/address_editor.asm` |
-| `tiles_7940.2bpp` | 2bpp tiles | 528 | 2D:7940 | PROBABLE | exact | - | `gfx/mail/address_editor.asm` |
+| `mail_addr_obj_hdma_load_tail.2bpp` | 2bpp tiles | 528 | 2D:7940 | PROBABLE | exact | - | `gfx/mail/address_editor.asm` |
 | `mail_addr.tilemap` | tile-index map | 360 | 2D:7B50 | CONFIRMED | - | 20x18 | `gfx/mail/address_editor.asm` |
 | `mail_addr.attrmap` | attribute map | 360 | 2D:7CB8 | CONFIRMED | - | 20x18 | `gfx/mail/address_editor.asm` |
 | `mail_addr_bg.pal` | RGB palette | 64 | 2D:7E20 | PROBABLE | - | - | `gfx/mail/address_editor.asm` |
@@ -1063,7 +1063,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `palette_5376.pal` | RGB palette | 128 | 29:5376 | PROBABLE | - | - | `gfx/mail/connect_screen_bank29.asm` |
+| `connect_screen_candidate_palette_5376.pal` | RGB palette | 128 | 29:5376 | PROBABLE | - | - | `gfx/mail/connect_screen_bank29.asm` |
 | `tiles_5400.2bpp` | 2bpp tiles | 1024 | 29:5400 | PROBABLE | exact | - | `gfx/mail/connect_screen_bank29.asm` |
 | `tilemap_5800.tilemap` | tile-index map | 360 | 29:5800 | PROBABLE | - | 20x18 | `gfx/mail/connect_screen_bank29.asm` |
 | `tilemap_5800.attrmap` | attribute map | 360 | 29:5968 | PROBABLE | - | 20x18 | `gfx/mail/connect_screen_bank29.asm` |

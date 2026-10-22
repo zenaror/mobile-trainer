@@ -651,11 +651,11 @@ gfx/keyboard/tiles_bank66/tiles_6900.2bpp	gfx/keyboard/tiles_bank66/tiles_6900.p
 gfx/mail/address_editor/mail_addr.attrmap	-	attrmap				360	8882668ca672a374809d78c9db02ffd8863731a672f0a4ab2773dc0cddc2cbea
 gfx/mail/address_editor/mail_addr.tilemap	-	tilemap				360	cb5c625548e7efd725c72693e998b5596cbd73791b5d751d569fdd90e5d0a805
 gfx/mail/address_editor/mail_addr_bg.pal	-	palette				519	d8796040316b08825c8adaa7f5b9fe4feafe7179b0b64af9cb72506b207abcf0
+gfx/mail/address_editor/mail_addr_obj_hdma_load_tail.2bpp	gfx/mail/address_editor/mail_addr_obj_hdma_load_tail.png	tiles			0	528	c938b9927040205d4877aace6460753083534d28b0394e85a4a85d37c1f92744
 gfx/mail/address_editor/mail_addr_obj_tiles.2bpp	gfx/mail/address_editor/mail_addr_obj_tiles.png	tiles			0	192	ad8ce16bd36df3841f6f9e7a3d184d3ca0dc0e9740e80d91204609a3fed3b700
 gfx/mail/address_editor/mail_addr_tiles.2bpp	gfx/mail/address_editor/mail_addr_tiles.png	tiles			0	1024	cf649ee8d02373fc521778cad1618dea9e9c2b11c179009bc28a66a87b9ea9fb
 gfx/mail/address_editor/mail_addr_tiles2.2bpp	gfx/mail/address_editor/mail_addr_tiles2.png	tiles			0	176	d6758e2c2625995b79e6756616e96e5afadc97f778baeadcef593b92bf05e369
 gfx/mail/address_editor/mail_addr_tiles3.2bpp	gfx/mail/address_editor/mail_addr_tiles3.png	tiles			5	688	d7fb026b92b3ae755362a2d2020500525514fad7589739dd5d65d329dd645673
-gfx/mail/address_editor/tiles_7940.2bpp	gfx/mail/address_editor/tiles_7940.png	tiles			0	528	c938b9927040205d4877aace6460753083534d28b0394e85a4a85d37c1f92744
 gfx/mail/body_editor/mail_body.attrmap	-	attrmap				360	2546b93401ae2aa14b03cb07d2cfb69023366ba81ad35b0b39761e4f7585d74e
 gfx/mail/body_editor/mail_body.tilemap	-	tilemap				360	ff53fbe99b96f921e2b2e5e1925ee11e2fc8e3797a19b34e049fcf323b46f708
 gfx/mail/body_editor/mail_body_bg.pal	-	palette				519	ca67e64c2113608eea22dad91a7aef9556487a2183fda1d20241ba28fc78ff49
@@ -709,7 +709,7 @@ gfx/mail/connect_screen/mail_disconnect_win_msg_ended.tilemap	-	tilemap				100	e
 gfx/mail/connect_screen/mail_disconnect_win_msg_ending.attrmap	-	attrmap				100	c36b5f266997b61c9dd6a93537d2fef42a9476542450dd54955b4222ef06d65a
 gfx/mail/connect_screen/mail_disconnect_win_msg_ending.tilemap	-	tilemap				100	3f86a94ae386642db35a911105fbc1dbf0bdb197af058b7b6439841980edda49
 gfx/mail/connect_screen/mail_screens_obj_palette_7520.pal	-	palette				519	b488c8d03ed09b14b745774412e7cb11ebde39ca6f18bfa98227b03c7c87cb79
-gfx/mail/connect_screen_bank29/palette_5376.pal	-	palette				1039	165fc4ec81338a9b23da228384ef5c40e650dbc78b92a9017a715b64ad4bad2c
+gfx/mail/connect_screen_bank29/connect_screen_candidate_palette_5376.pal	-	palette				1039	165fc4ec81338a9b23da228384ef5c40e650dbc78b92a9017a715b64ad4bad2c
 gfx/mail/connect_screen_bank29/palette_5ad0.pal	-	palette				519	b213e1a2c3be47bbc082b98849f1ad9ad01befdd80a8119fe16c3653b4954ad5
 gfx/mail/connect_screen_bank29/tilemap_5800.attrmap	-	attrmap				360	1a952317bf6d67102dcd07a98d5e2984487259b88e3ac6b38c917742e13e1be3
 gfx/mail/connect_screen_bank29/tilemap_5800.tilemap	-	tilemap				360	79b2f46b7f33dda57f3c8e662eabe1f499986f9e183f43ab8d28f4f178149fcf
