@@ -2091,9 +2091,11 @@ Func_*, Sub_*, or Label_* definitions and zero exact address-only Font_*,
 Tiles_*, Tilemap_*, Palette_*, or Attrmap_* definitions in the safe maintained
 source set. Fifteen neutral Data_BB_AAAA labels remain without a supported
 replacement. A broader scan found 595 typed sprite-frame, frame-table, and
-script labels whose object owner still needs review, plus address-based RAM
-definitions whose lexical non-use does not prove they are unused. See the
-[Japanese naming follow-up](docs/research/japanese_name_and_gfx_path_followup_20261022.md).
+script labels. Two static-review batches have now named 37; the other address-only
+sprite labels still need owner-by-owner review. Thirty-three SaveSenderAddr labels
+remain neutral because they lack symbolic consumers. Address-based RAM definitions
+whose lexical non-use does not prove they are unused also remain under review. See
+the [Japanese naming follow-up](docs/research/japanese_name_and_gfx_path_followup_20261022.md).
 
 The same follow-up names 17 additional Japanese graphics stems from direct
 static consumers and VRAM/palette destinations. Payload hashes and confidence

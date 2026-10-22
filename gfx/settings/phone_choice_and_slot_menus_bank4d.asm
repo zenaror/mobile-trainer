@@ -119,26 +119,26 @@ Tilemap_SettingsPhone_ChoiceMenu_Entry3:: ; 4D:5C84
 SettingsPhone_ChoiceMenu_ObjTable:: ; 4D:5D10
 
 	sprite_object_entry 0, 0 ; entry 0
-	sprite_object_entry SettingsPhone_ChoiceMenu_ObjAnimData, SpriteScript_4D_5D3E ; entry 1
+	sprite_object_entry SettingsPhone_ChoiceMenu_ObjAnimData, SettingsPhone_ChoiceMenu_CursorScript ; entry 1
 
 ; ---- data $5D18-$5D50 (56 bytes) [PROBABLE] 1 object record(s): 1 frame tables, 2 frames, 1 scripts, tiled exactly (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 4D:5D18-5D50 (ends with zero padding to the tile block)
 
 SettingsPhone_ChoiceMenu_ObjAnimData:: ; 4D:5D18
 
-	sprite_frame_table SpriteFrame_4D_5D1C, SpriteFrame_4D_5D2D
-SpriteFrame_4D_5D1C:: ; 4D:5D1C
+	sprite_frame_table SettingsPhone_ChoiceMenu_CursorFrame0, SettingsPhone_ChoiceMenu_CursorFrame1
+SettingsPhone_ChoiceMenu_CursorFrame0:: ; 4D:5D1C
 	sprite_frame 4
 	sprite_oam 0, 0, $00, OAMF_BANK1
 	sprite_oam 8, 0, $10, OAMF_BANK1
 	sprite_oam 0, 120, $00, OAMF_XFLIP | OAMF_BANK1
 	sprite_oam 8, 120, $10, OAMF_XFLIP | OAMF_BANK1
-SpriteFrame_4D_5D2D:: ; 4D:5D2D
+SettingsPhone_ChoiceMenu_CursorFrame1:: ; 4D:5D2D
 	sprite_frame 4
 	sprite_oam 0, -1, $00, OAMF_BANK1
 	sprite_oam 8, -1, $10, OAMF_BANK1
 	sprite_oam 0, 121, $00, OAMF_XFLIP | OAMF_BANK1
 	sprite_oam 8, 121, $10, OAMF_XFLIP | OAMF_BANK1
-SpriteScript_4D_5D3E:: ; 4D:5D3E
+SettingsPhone_ChoiceMenu_CursorScript:: ; 4D:5D3E
 	sprite_anim 2
 	sprite_anim_step 0, 30
 	sprite_anim_step 1, 5
@@ -246,7 +246,7 @@ Tilemap_SettingsPhone_SlotMenu_Tab2:: ; 4D:7910
 SettingsPhone_SlotMenu_ObjTable:: ; 4D:7960
 
 	sprite_object_entry 0, 0 ; entry 0
-	sprite_object_entry SettingsPhone_SlotMenu_ObjAnimData, SpriteScript_4D_797E ; entry 1
+	sprite_object_entry SettingsPhone_SlotMenu_ObjAnimData, SettingsPhone_SlotMenu_CursorScript ; entry 1
 
 ; ---- data $7968-$7983 (27 bytes) [CONFIRMED] frame table, two frames and one script
 ; Entry 1 of bank4D object table $7960 selects this chain through 67:4E10 Sprite_InitSlot.
@@ -256,16 +256,16 @@ SettingsPhone_SlotMenu_ObjTable:: ; 4D:7960
 
 SettingsPhone_SlotMenu_ObjAnimData:: ; 4D:7968
 
-	sprite_frame_table SpriteFrame_4D_796C, SpriteFrame_4D_7975
-SpriteFrame_4D_796C:: ; 4D:796C
+	sprite_frame_table SettingsPhone_SlotMenu_CursorFrame0, SettingsPhone_SlotMenu_CursorFrame1
+SettingsPhone_SlotMenu_CursorFrame0:: ; 4D:796C
 	sprite_frame 2
 	sprite_oam 0, 0, $00, OAMF_BANK1
 	sprite_oam 0, 8, $01, OAMF_BANK1
-SpriteFrame_4D_7975:: ; 4D:7975
+SettingsPhone_SlotMenu_CursorFrame1:: ; 4D:7975
 	sprite_frame 2
 	sprite_oam -1, 0, $00, OAMF_BANK1
 	sprite_oam -1, 8, $01, OAMF_BANK1
-SpriteScript_4D_797E:: ; 4D:797E
+SettingsPhone_SlotMenu_CursorScript:: ; 4D:797E
 	sprite_anim 2
 	sprite_anim_step 0, 30
 	sprite_anim_step 1, 5

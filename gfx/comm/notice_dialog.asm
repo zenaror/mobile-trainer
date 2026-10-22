@@ -161,7 +161,7 @@ Palette_CommNotice:: ; 50:6BC0
 
 CommNotice_Anim0Frames:: ; 50:6CC0
 
-	sprite_frame_table CommNotice_Anim0Frame0To1, SpriteFrame_50_6CD5
+	sprite_frame_table CommNotice_Anim0Frame0To1, CommNotice_Anim0Frame1
 
 ; ---- data $6CC4-$6CE6 (34 bytes) [PROBABLE] 2 sprite frames (17 bytes each): count=4 then 4x(y,x,tile,attr), e.g. ff ff 00 08 / 0b ff 00 48 / 0b 1b 00 68 / ff 1b 00 28 (attr bit6/5 = flips); matches the (Y,X,tile,attr) tuples the engine at 00:0AE8 emits
 
@@ -172,7 +172,7 @@ CommNotice_Anim0Frame0To1:: ; 50:6CC4
 	sprite_oam 11, -1, $00, OAMF_YFLIP | OAMF_BANK1
 	sprite_oam 11, 27, $00, OAMF_YFLIP | OAMF_XFLIP | OAMF_BANK1
 	sprite_oam -1, 27, $00, OAMF_XFLIP | OAMF_BANK1
-SpriteFrame_50_6CD5:: ; 50:6CD5
+CommNotice_Anim0Frame1:: ; 50:6CD5
 	sprite_frame 4
 	sprite_oam -2, -2, $00, OAMF_BANK1
 	sprite_oam 12, -2, $00, OAMF_YFLIP | OAMF_BANK1
@@ -191,7 +191,7 @@ CommNotice_Anim0Script:: ; 50:6CE6
 
 CommNotice_Anim1Frames:: ; 50:6CEB
 
-	sprite_frame_table CommNotice_Anim1Frame0To1, SpriteFrame_50_6D00
+	sprite_frame_table CommNotice_Anim1Frame0To1, CommNotice_Anim1Frame1
 
 ; ---- data $6CEF-$6D11 (34 bytes) [PROBABLE] 2 sprite frames (17 bytes each), same format as 6CC4 (count + 4x y,x,tile,attr)
 
@@ -202,7 +202,7 @@ CommNotice_Anim1Frame0To1:: ; 50:6CEF
 	sprite_oam 11, -1, $00, OAMF_YFLIP | OAMF_BANK1
 	sprite_oam 11, 27, $00, OAMF_YFLIP | OAMF_XFLIP | OAMF_BANK1
 	sprite_oam -1, 27, $00, OAMF_XFLIP | OAMF_BANK1
-SpriteFrame_50_6D00:: ; 50:6D00
+CommNotice_Anim1Frame1:: ; 50:6D00
 	sprite_frame 4
 	sprite_oam -2, -2, $00, OAMF_BANK1
 	sprite_oam 12, -2, $00, OAMF_YFLIP | OAMF_BANK1

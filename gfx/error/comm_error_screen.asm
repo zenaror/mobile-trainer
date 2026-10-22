@@ -83,12 +83,12 @@ ENDM
 ; The two-step script selects frames 0 and 1; all four bytes naturally read in 14/69 scenarios.
 
 CommErr_ObjAnim:: ; 5C:6410
-	sprite_frame_table SpriteFrame_5C_6414, SpriteFrame_5C_6425
+	sprite_frame_table CommErr_Frame0, CommErr_Frame1
 
 ; ---- data $6414-$6425 (17 bytes) [CONFIRMED] count 4 followed by four OAM pieces
 ; Sprite_StepAndDrawSlot at 00:0AE8 consumes this frame; all 17 bytes read in 14/69 scenarios.
 
-SpriteFrame_5C_6414:: ; 5C:6414
+CommErr_Frame0:: ; 5C:6414
 	sprite_frame 4
 	sprite_oam $00, $00, $00, $08
 	sprite_oam $00, $08, $01, $08
@@ -97,19 +97,19 @@ CommErr_Frame0_Piece2Attr:: ; 5C:6420
 	db $08 ; attribute of the third OAM piece, consumed by the same frame
 	sprite_oam $08, $08, $11, $08
 	ASSERT _sprite_oam_left == 0, "communication-error frame must contain four OAM pieces"
-	ASSERT CommErr_Frame0_Piece2Attr - SpriteFrame_5C_6414 == 12, "attribute label must keep its byte offset"
+	ASSERT CommErr_Frame0_Piece2Attr - CommErr_Frame0 == 12, "attribute label must keep its byte offset"
 PURGE commerr_sprite_oam_prefix
 
 ; ---- data $6425-$6426 (1 bytes) [CONFIRMED] empty second frame, count 0
 ; Frame index 1 selects this count byte; naturally read in 14/69 scenarios.
 
-SpriteFrame_5C_6425:: ; 5C:6425
+CommErr_Frame1:: ; 5C:6425
 	sprite_frame 0
 
 ; ---- data $6426-$642B (5 bytes) [CONFIRMED] two frame-index/delay steps: (0,12), (1,12)
 ; Sprite_StepAndDrawSlot at 00:0AE8 consumes both steps; all five bytes read in 14/69 scenarios.
 
-SpriteScript_5C_6426:: ; 5C:6426
+CommErr_AnimationScript:: ; 5C:6426
 	sprite_anim 2
 	sprite_anim_step 0, 12
 	sprite_anim_step 1, 12
@@ -118,4 +118,4 @@ SpriteScript_5C_6426:: ; 5C:6426
 ; Sprite_InitSlot at 5C:52C7 selects entry 0 with B=$80; all four bytes read in 14/69 scenarios.
 
 CommErr_ObjTable:: ; 5C:642B
-	sprite_object_entry CommErr_ObjAnim, SpriteScript_5C_6426 ; entry 0
+	sprite_object_entry CommErr_ObjAnim, CommErr_AnimationScript ; entry 0

@@ -71,7 +71,7 @@ Reference documents (current):
 | [`audio_track_pointer_aliases_20261021.md`](research/audio_track_pointer_aliases_20261021.md) | 44 redundant generic audio track-pointer aliases retired under existing song/effect labels |
 | [`html_keyword_pointer_aliases_20261021.md`](research/html_keyword_pointer_aliases_20261021.md) | 12 redundant generic aliases retired under existing HTML pointer-list names |
 | [`gfx_generic_name_audit_20261021.md`](research/gfx_generic_name_audit_20261021.md) | Read-only inventory of GFX type/address labels, aliases, paths and remaining uncertainty |
-| [`japanese_name_and_gfx_path_followup_20261022.md`](research/japanese_name_and_gfx_path_followup_20261022.md) | Current Japanese function/data/sprite/RAM name census and 17 independently reviewed graphics paths |
+| [`japanese_name_and_gfx_path_followup_20261022.md`](research/japanese_name_and_gfx_path_followup_20261022.md) | Current Japanese function/data/sprite/RAM name census, 37 sprite labels, and 17 independently reviewed graphics paths |
 | [`registration_notice_bank58_resource_paths_20261022.md`](research/registration_notice_bank58_resource_paths_20261022.md) | Bank 58 registration notice assets renamed from type/address paths using static labels and readers |
 | [`keyboard_panel_tile_paths_20261022.md`](research/keyboard_panel_tile_paths_20261022.md) | Nine keyboard tile sets renamed by confirmed type and VRAM destinations |
 | [`connect_dialog_bank56_tile_paths_20261022.md`](research/connect_dialog_bank56_tile_paths_20261022.md) | Eleven ConnectDialog tile sets renamed by confirmed static VRAM destinations |

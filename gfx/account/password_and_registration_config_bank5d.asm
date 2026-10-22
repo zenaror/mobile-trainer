@@ -166,19 +166,19 @@ Objects_Registration_WriteConfig:: ; 5D:7318
 ; pairs (frames 0..3, delay 20). All 65 bytes naturally read in eight scenarios.
 ; Source bank $5D is saved by Sprite_InitSlot and reselected for frame/script reads.
 Objects_Registration_WriteConfig_Entry1:: ; 5D:731C
-	sprite_object_entry SpriteFrameTable_5D_7320, SpriteScript_5D_7354 ; entry 1
+	sprite_object_entry Registration_WriteConfig_Entry1Frames, Registration_WriteConfig_Entry1Script ; entry 1
 
-SpriteFrameTable_5D_7320:: ; 5D:7320
-	sprite_frame_table SpriteFrame_5D_7328, SpriteFrame_5D_7331, SpriteFrame_5D_733A, SpriteFrame_5D_7353
-SpriteFrame_5D_7328:: ; 5D:7328
+Registration_WriteConfig_Entry1Frames:: ; 5D:7320
+	sprite_frame_table Registration_WriteConfig_Entry1Frame0, Registration_WriteConfig_Entry1Frame1, Registration_WriteConfig_Entry1Frame2, Registration_WriteConfig_Entry1Frame3
+Registration_WriteConfig_Entry1Frame0:: ; 5D:7328
 	sprite_frame 2
 	sprite_oam 5, 12, $00, 0
 	sprite_oam 6, 30, $01, 0
-SpriteFrame_5D_7331:: ; 5D:7331
+Registration_WriteConfig_Entry1Frame1:: ; 5D:7331
 	sprite_frame 2
 	sprite_oam 5, 5, $02, 0
 	sprite_oam 6, 30, $03, 0
-SpriteFrame_5D_733A:: ; 5D:733A
+Registration_WriteConfig_Entry1Frame2:: ; 5D:733A
 	sprite_frame 6
 	sprite_oam 19, 5, $04, OAMF_YFLIP
 	sprite_oam 19, 13, $05, OAMF_YFLIP
@@ -186,9 +186,9 @@ SpriteFrame_5D_733A:: ; 5D:733A
 	sprite_oam 11, 5, $06, OAMF_YFLIP
 	sprite_oam 11, 13, $07, OAMF_YFLIP
 	sprite_oam 3, 5, $08, OAMF_YFLIP
-SpriteFrame_5D_7353:: ; 5D:7353
+Registration_WriteConfig_Entry1Frame3:: ; 5D:7353
 	sprite_frame 0
-SpriteScript_5D_7354:: ; 5D:7354
+Registration_WriteConfig_Entry1Script:: ; 5D:7354
 	sprite_anim 4
 	sprite_anim_step 0, 20
 	sprite_anim_step 1, 20

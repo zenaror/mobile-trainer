@@ -131,16 +131,16 @@ SettingsMenu_ObjTable:: ; 4A:5838
 ; ---- sprite $583C-$5866 (42 bytes) [CONFIRMED] selected object entry, frame table, two complete OAM frame records
 
 SettingsMenu_ObjTable_Entry1:: ; 4A:583C
-	sprite_object_entry SpriteFrameTable_4A_5840, SpriteScript_SettingsMenu_ObjTable_Entry1 ; entry 1
-SpriteFrameTable_4A_5840:: ; 4A:5840
-	sprite_frame_table SpriteFrame_4A_5844, SpriteFrame_4A_5855
-SpriteFrame_4A_5844:: ; 4A:5844
+	sprite_object_entry SettingsMenu_CursorFrames, SpriteScript_SettingsMenu_ObjTable_Entry1 ; entry 1
+SettingsMenu_CursorFrames:: ; 4A:5840
+	sprite_frame_table SettingsMenu_CursorFrame0, SettingsMenu_CursorFrame1
+SettingsMenu_CursorFrame0:: ; 4A:5844
 	sprite_frame 4
 	sprite_oam 0, -1, $00, OAMF_BANK1
 	sprite_oam 8, -1, $10, OAMF_BANK1
 	sprite_oam 0, 89, $00, OAMF_XFLIP | OAMF_BANK1
 	sprite_oam 8, 89, $10, OAMF_XFLIP | OAMF_BANK1
-SpriteFrame_4A_5855:: ; 4A:5855
+SettingsMenu_CursorFrame1:: ; 4A:5855
 	sprite_frame 4
 	sprite_oam 0, -2, $00, OAMF_BANK1
 	sprite_oam 8, -2, $10, OAMF_BANK1

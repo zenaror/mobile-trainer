@@ -44,18 +44,18 @@ Palette_HelpScript_Bg:: ; 6A:7220
 ; two frame pointers, two count2 OAM records, and script pairs (0,46)/(1,8).
 ; All 27 bytes have natural read evidence; per-byte scenario counts range 28-30.
 ; The retained frame-table name and structured macros preserve the byte layout.
-SpriteFrameTable_6A_72A0:: ; 6A:72A0
+HelpScript_Slot2Frames:: ; 6A:72A0
 
-	sprite_frame_table SpriteFrame_6A_72A4, SpriteFrame_6A_72AD
-SpriteFrame_6A_72A4:: ; 6A:72A4
+	sprite_frame_table HelpScript_Slot2Frame0, HelpScript_Slot2Frame1
+HelpScript_Slot2Frame0:: ; 6A:72A4
 	sprite_frame 2
 	sprite_oam 0, 0, $00, 0
 	sprite_oam 0, 8, $01, 0
-SpriteFrame_6A_72AD:: ; 6A:72AD
+HelpScript_Slot2Frame1:: ; 6A:72AD
 	sprite_frame 2
 	sprite_oam 1, 0, $00, 0
 	sprite_oam 1, 8, $01, 0
-SpriteScript_6A_72B6:: ; 6A:72B6
+HelpScript_Slot2Script:: ; 6A:72B6
 	sprite_anim 2
 	sprite_anim_step 0, 46
 	sprite_anim_step 1, 8
@@ -66,4 +66,4 @@ SpriteScript_6A_72B6:: ; 6A:72B6
 ; All four entry bytes read in 30 natural data scenarios; no visual role inferred.
 
 Objects_HelpScript_Slot2:: ; 6A:72BB
-	sprite_object_entry SpriteFrameTable_6A_72A0, SpriteScript_6A_72B6 ; entry 0
+	sprite_object_entry HelpScript_Slot2Frames, HelpScript_Slot2Script ; entry 0
