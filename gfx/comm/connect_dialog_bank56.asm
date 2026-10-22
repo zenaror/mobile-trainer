@@ -62,66 +62,66 @@ Padding_ConnectDialog_Tiles52C0Alignment:: ; 56:52BA
 
 Gfx_ConnectDialog_ConnectConfirm_Tiles9000Vb1:: ; 56:52C0
 
-	INCBIN "gfx/comm/connect_dialog_bank56/tiles_52c0.2bpp"
+	INCBIN "gfx/comm/connect_dialog_bank56/connect_dialog_connect_confirm_tiles_9000_vb1.2bpp"
 
 ; ---- gfx $56C0-$5AC0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 57:47EF: hl=$56C0 a=$56 c=$40 de=$9401 (dest VRAM $9400, vbank=1)
 
 Gfx_ConnectDialog_ConnectConfirm_Tiles9400Vb1:: ; 56:56C0
 
-	INCBIN "gfx/comm/connect_dialog_bank56/tiles_56c0.2bpp"
+	INCBIN "gfx/comm/connect_dialog_bank56/connect_dialog_connect_confirm_tiles_9400_vb1.2bpp"
 
 ; ---- gfx $5AC0-$5DC0 (768 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (57:496A 57:4ADB); first: hdma_rom_to_vram at 57:496A: hl=$5AC0 a=$56 c=$30 de=$8800 (dest VRAM $8800, vbank=0) [first call site executed: 99 hits in 4 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_ConnectDialog_PasswordEntryAndSaveConfirm_Tiles8800:: ; 56:5AC0
 
-	INCBIN "gfx/comm/connect_dialog_bank56/tiles_5ac0.2bpp"
+	INCBIN "gfx/comm/connect_dialog_bank56/connect_dialog_password_entry_and_save_confirm_tiles_8800_vb0.2bpp"
 
 ; ---- gfx $5DC0-$60C0 (768 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (57:498E 57:4AFF); first: hdma_rom_to_vram at 57:498E: hl=$5DC0 a=$56 c=$30 de=$9101 (dest VRAM $9100, vbank=1) [first call site executed: 99 hits in 4 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_ConnectDialog_PasswordEntryAndSaveConfirm_Tiles9100Vb1:: ; 56:5DC0
 
-	INCBIN "gfx/comm/connect_dialog_bank56/tiles_5dc0.2bpp"
+	INCBIN "gfx/comm/connect_dialog_bank56/connect_dialog_password_entry_and_save_confirm_tiles_9100_vb1.2bpp"
 
 ; ---- gfx $60C0-$64C0 (1024 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (57:49A0 57:4B11); first: hdma_rom_to_vram at 57:49A0: hl=$60C0 a=$56 c=$40 de=$9401 (dest VRAM $9400, vbank=1) [first call site executed: 99 hits in 4 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_ConnectDialog_PasswordEntryAndSaveConfirm_Tiles9400Vb1:: ; 56:60C0
 
-	INCBIN "gfx/comm/connect_dialog_bank56/tiles_60c0.2bpp"
+	INCBIN "gfx/comm/connect_dialog_bank56/connect_dialog_password_entry_and_save_confirm_tiles_9400_vb1.2bpp"
 
 ; ---- gfx $64C0-$68C0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 57:4E58: hl=$64C0 a=$56 c=$40 de=$8800 (dest VRAM $8800, vbank=0)
 
 Gfx_ConnectDialog_StoredPassword_Tiles8800:: ; 56:64C0
 
-	INCBIN "gfx/comm/connect_dialog_bank56/tiles_64c0.2bpp"
+	INCBIN "gfx/comm/connect_dialog_bank56/connect_dialog_stored_password_tiles_shared_source.2bpp"
 
 ; ---- gfx $68C0-$6AC0 (512 bytes) [CONFIRMED] continuation of the stored-password HDMA load from $67C0 to VRAM bank 1 $9100-$93FF; this slice supplies source $68C0-$6AC0 and destination $9200-$93FF
 
 Gfx_ConnectDialog_StoredPassword_Tiles9100Vb1_LoadContinuation:: ; 56:68C0
-	INCBIN "gfx/comm/connect_dialog_bank56/tiles_68c0.2bpp"
+	INCBIN "gfx/comm/connect_dialog_bank56/connect_dialog_stored_password_tiles_9200_vb1_continuation.2bpp"
 
 ; ---- gfx $6AC0-$6EC0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 57:4E7C: hl=$6AC0 a=$56 c=$40 de=$9401 (dest VRAM $9400, vbank=1)
 
 Gfx_ConnectDialog_StoredPassword_Tiles9400Vb1:: ; 56:6AC0
 
-	INCBIN "gfx/comm/connect_dialog_bank56/tiles_6ac0.2bpp"
+	INCBIN "gfx/comm/connect_dialog_bank56/connect_dialog_stored_password_tiles_9400_vb1.2bpp"
 
 ; ---- gfx $6EC0-$71C0 (768 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 57:4D4C: hl=$6EC0 a=$56 c=$30 de=$9101 (dest VRAM $9100, vbank=1) [first call site executed: 3 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_ConnectDialog_PasswordSaved_Tiles9100Vb1:: ; 56:6EC0
 
-	INCBIN "gfx/comm/connect_dialog_bank56/tiles_6ec0.2bpp"
+	INCBIN "gfx/comm/connect_dialog_bank56/connect_dialog_password_saved_tiles_9100_vb1.2bpp"
 
 ; ---- gfx $71C0-$75C0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 57:4D5E: hl=$71C0 a=$56 c=$40 de=$9401 (dest VRAM $9400, vbank=1) [first call site executed: 3 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_ConnectDialog_PasswordSaved_Tiles9400Vb1:: ; 56:71C0
 
-	INCBIN "gfx/comm/connect_dialog_bank56/tiles_71c0.2bpp"
+	INCBIN "gfx/comm/connect_dialog_bank56/connect_dialog_password_saved_tiles_9400_vb1.2bpp"
 
 ; ---- gfx $75C0-$77C0 (512 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (57:5083 57:50E4); first: hdma_rom_to_vram at 57:5083: hl=$75C0 a=$56 c=$20 de=$8000 (dest VRAM $8000, vbank=0)
 
 Gfx_ConnectDialog_Finish_Tiles8000:: ; 56:75C0
 
-	INCBIN "gfx/comm/connect_dialog_bank56/tiles_75c0.2bpp"
+	INCBIN "gfx/comm/connect_dialog_bank56/connect_dialog_common_finish_tiles_8000_vb0.2bpp"
 
 ; ---- data $77C0-$7880 (192 bytes) [PROBABLE] 24 CGB palettes x 4 RGB555 words, all 96 words have bit15 clear (77C0-7880); 7820-7836 and 798D.. parts read by executed code (copy to palette RAM in up to 6/18 scenarios); the mapper heuristic ended the second block at 7896 but the words at 7880+ are pointers (84 78 8d 78 ..)
 

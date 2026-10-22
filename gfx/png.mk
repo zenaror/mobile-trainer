@@ -128,17 +128,17 @@ PNG_TILE_OUTS := \
 	gfx/comm/comm_scene/tiles_6690.2bpp \
 	gfx/comm/comm_scene/tiles_6890.2bpp \
 	gfx/comm/comm_scene/tiles_6a90.2bpp \
-	gfx/comm/connect_dialog_bank56/tiles_52c0.2bpp \
-	gfx/comm/connect_dialog_bank56/tiles_56c0.2bpp \
-	gfx/comm/connect_dialog_bank56/tiles_5ac0.2bpp \
-	gfx/comm/connect_dialog_bank56/tiles_5dc0.2bpp \
-	gfx/comm/connect_dialog_bank56/tiles_60c0.2bpp \
-	gfx/comm/connect_dialog_bank56/tiles_64c0.2bpp \
-	gfx/comm/connect_dialog_bank56/tiles_68c0.2bpp \
-	gfx/comm/connect_dialog_bank56/tiles_6ac0.2bpp \
-	gfx/comm/connect_dialog_bank56/tiles_6ec0.2bpp \
-	gfx/comm/connect_dialog_bank56/tiles_71c0.2bpp \
-	gfx/comm/connect_dialog_bank56/tiles_75c0.2bpp \
+	gfx/comm/connect_dialog_bank56/connect_dialog_common_finish_tiles_8000_vb0.2bpp \
+	gfx/comm/connect_dialog_bank56/connect_dialog_connect_confirm_tiles_9000_vb1.2bpp \
+	gfx/comm/connect_dialog_bank56/connect_dialog_connect_confirm_tiles_9400_vb1.2bpp \
+	gfx/comm/connect_dialog_bank56/connect_dialog_password_entry_and_save_confirm_tiles_8800_vb0.2bpp \
+	gfx/comm/connect_dialog_bank56/connect_dialog_password_entry_and_save_confirm_tiles_9100_vb1.2bpp \
+	gfx/comm/connect_dialog_bank56/connect_dialog_password_entry_and_save_confirm_tiles_9400_vb1.2bpp \
+	gfx/comm/connect_dialog_bank56/connect_dialog_password_saved_tiles_9100_vb1.2bpp \
+	gfx/comm/connect_dialog_bank56/connect_dialog_password_saved_tiles_9400_vb1.2bpp \
+	gfx/comm/connect_dialog_bank56/connect_dialog_stored_password_tiles_9200_vb1_continuation.2bpp \
+	gfx/comm/connect_dialog_bank56/connect_dialog_stored_password_tiles_9400_vb1.2bpp \
+	gfx/comm/connect_dialog_bank56/connect_dialog_stored_password_tiles_shared_source.2bpp \
 	gfx/comm/connect_dialog_screen/connect_dialog_blank_tile.2bpp \
 	gfx/comm/connection_icon/conn_icon_tiles0.2bpp \
 	gfx/comm/connection_icon/conn_icon_tiles1.2bpp \
@@ -546,17 +546,17 @@ gfx/comm/comm_scene/tiles_6490.2bpp: PNG_SIZE := 512
 gfx/comm/comm_scene/tiles_6690.2bpp: PNG_SIZE := 512
 gfx/comm/comm_scene/tiles_6890.2bpp: PNG_SIZE := 512
 gfx/comm/comm_scene/tiles_6a90.2bpp: PNG_SIZE := 512
-gfx/comm/connect_dialog_bank56/tiles_52c0.2bpp: PNG_SIZE := 1024
-gfx/comm/connect_dialog_bank56/tiles_56c0.2bpp: PNG_SIZE := 1024
-gfx/comm/connect_dialog_bank56/tiles_5ac0.2bpp: PNG_SIZE := 768
-gfx/comm/connect_dialog_bank56/tiles_5dc0.2bpp: PNG_SIZE := 768
-gfx/comm/connect_dialog_bank56/tiles_60c0.2bpp: PNG_SIZE := 1024
-gfx/comm/connect_dialog_bank56/tiles_64c0.2bpp: PNG_SIZE := 1024
-gfx/comm/connect_dialog_bank56/tiles_68c0.2bpp: PNG_SIZE := 512
-gfx/comm/connect_dialog_bank56/tiles_6ac0.2bpp: PNG_SIZE := 1024
-gfx/comm/connect_dialog_bank56/tiles_6ec0.2bpp: PNG_SIZE := 768
-gfx/comm/connect_dialog_bank56/tiles_71c0.2bpp: PNG_SIZE := 1024
-gfx/comm/connect_dialog_bank56/tiles_75c0.2bpp: PNG_SIZE := 512
+gfx/comm/connect_dialog_bank56/connect_dialog_common_finish_tiles_8000_vb0.2bpp: PNG_SIZE := 512
+gfx/comm/connect_dialog_bank56/connect_dialog_connect_confirm_tiles_9000_vb1.2bpp: PNG_SIZE := 1024
+gfx/comm/connect_dialog_bank56/connect_dialog_connect_confirm_tiles_9400_vb1.2bpp: PNG_SIZE := 1024
+gfx/comm/connect_dialog_bank56/connect_dialog_password_entry_and_save_confirm_tiles_8800_vb0.2bpp: PNG_SIZE := 768
+gfx/comm/connect_dialog_bank56/connect_dialog_password_entry_and_save_confirm_tiles_9100_vb1.2bpp: PNG_SIZE := 768
+gfx/comm/connect_dialog_bank56/connect_dialog_password_entry_and_save_confirm_tiles_9400_vb1.2bpp: PNG_SIZE := 1024
+gfx/comm/connect_dialog_bank56/connect_dialog_password_saved_tiles_9100_vb1.2bpp: PNG_SIZE := 768
+gfx/comm/connect_dialog_bank56/connect_dialog_password_saved_tiles_9400_vb1.2bpp: PNG_SIZE := 1024
+gfx/comm/connect_dialog_bank56/connect_dialog_stored_password_tiles_9200_vb1_continuation.2bpp: PNG_SIZE := 512
+gfx/comm/connect_dialog_bank56/connect_dialog_stored_password_tiles_9400_vb1.2bpp: PNG_SIZE := 1024
+gfx/comm/connect_dialog_bank56/connect_dialog_stored_password_tiles_shared_source.2bpp: PNG_SIZE := 1024
 gfx/comm/connect_dialog_screen/connect_dialog_blank_tile.2bpp: PNG_SIZE := 16
 gfx/comm/connection_icon/conn_icon_tiles0.2bpp: PNG_SIZE := 1024
 gfx/comm/connection_icon/conn_icon_tiles1.2bpp: PNG_SIZE := 512

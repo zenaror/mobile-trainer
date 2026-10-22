@@ -14,6 +14,10 @@ Nine T4/T5/T9 and shared keyboard tile pairs in Banks 5D/5F now use names based 
 
 The address-only paths for the Bank 58 registration notice tiles, palette and 20×18 tilemap pair now follow the existing notice-family labels and static Bank 65 readers. Twenty-seven files were moved without byte changes; tile groups that remain PROBABLE are named as candidates, with no claim of natural display. The path map and evidence are in [`registration_notice_bank58_resource_paths_20261022.md`](docs/research/registration_notice_bank58_resource_paths_20261022.md). The English tree was not accessed.
 
+### ConnectDialog Bank 56 tile paths (2026-10-22)
+
+Eleven address-only tile paths and their PNG sources now describe the existing dialog family and confirmed static VRAM destinations. The stored-password graphics remain split across the shared `$64C0` source and `$68C0` continuation at VRAM `$9200`; transfer overlap and bytes are unchanged. See [`connect_dialog_bank56_tile_paths_20261022.md`](docs/research/connect_dialog_bank56_tile_paths_20261022.md). The English tree remains paused and untouched.
+
 
 The [definition of done](docs/REVERSE_ENGINEERING_RULES.md#23-definition-of-done) requires an explainable reconstruction as well as a reproducible ROM. `make`, symbol checks and a complete byte comparison establish reconstruction identity for the source actually checked; they do not establish complete semantics, natural execution or hardware behavior. Frozen `config/` and `docs/PROGRESS.md` counters, and dated counters below, are historical rather than a current completion census.
 

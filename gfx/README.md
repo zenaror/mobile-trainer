@@ -499,17 +499,17 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `tilemap_4f9a.attrmap` | attribute map | 360 | 56:5102 | CONFIRMED | - | 20x18 | `gfx/comm/connect_dialog_bank56.asm` |
 | `connect_dialog_connect_confirm_56_526a.tilemap` | tile-index map | 40 | 56:526A | CONFIRMED | - | 20x2 | `gfx/comm/connect_dialog_bank56.asm` |
 | `connect_dialog_connect_confirm_56_526a.attrmap` | attribute map | 40 | 56:5292 | CONFIRMED | - | 20x2 | `gfx/comm/connect_dialog_bank56.asm` |
-| `tiles_52c0.2bpp` | 2bpp tiles | 1024 | 56:52C0 | CONFIRMED | exact | - | `gfx/comm/connect_dialog_bank56.asm` |
-| `tiles_56c0.2bpp` | 2bpp tiles | 1024 | 56:56C0 | CONFIRMED | exact | - | `gfx/comm/connect_dialog_bank56.asm` |
-| `tiles_5ac0.2bpp` | 2bpp tiles | 768 | 56:5AC0 | CONFIRMED | exact | - | `gfx/comm/connect_dialog_bank56.asm` |
-| `tiles_5dc0.2bpp` | 2bpp tiles | 768 | 56:5DC0 | CONFIRMED | exact | - | `gfx/comm/connect_dialog_bank56.asm` |
-| `tiles_60c0.2bpp` | 2bpp tiles | 1024 | 56:60C0 | CONFIRMED | exact | - | `gfx/comm/connect_dialog_bank56.asm` |
-| `tiles_64c0.2bpp` | 2bpp tiles | 1024 | 56:64C0 | CONFIRMED | exact | - | `gfx/comm/connect_dialog_bank56.asm` |
-| `tiles_68c0.2bpp` | 2bpp tiles | 512 | 56:68C0 | CONFIRMED | exact | - | `gfx/comm/connect_dialog_bank56.asm` |
-| `tiles_6ac0.2bpp` | 2bpp tiles | 1024 | 56:6AC0 | CONFIRMED | exact | - | `gfx/comm/connect_dialog_bank56.asm` |
-| `tiles_6ec0.2bpp` | 2bpp tiles | 768 | 56:6EC0 | CONFIRMED | exact | - | `gfx/comm/connect_dialog_bank56.asm` |
-| `tiles_71c0.2bpp` | 2bpp tiles | 1024 | 56:71C0 | CONFIRMED | exact | - | `gfx/comm/connect_dialog_bank56.asm` |
-| `tiles_75c0.2bpp` | 2bpp tiles | 512 | 56:75C0 | CONFIRMED | exact | - | `gfx/comm/connect_dialog_bank56.asm` |
+| `connect_dialog_connect_confirm_tiles_9000_vb1.2bpp` | 2bpp tiles | 1024 | 56:52C0 | CONFIRMED | exact | - | `gfx/comm/connect_dialog_bank56.asm` |
+| `connect_dialog_connect_confirm_tiles_9400_vb1.2bpp` | 2bpp tiles | 1024 | 56:56C0 | CONFIRMED | exact | - | `gfx/comm/connect_dialog_bank56.asm` |
+| `connect_dialog_password_entry_and_save_confirm_tiles_8800_vb0.2bpp` | 2bpp tiles | 768 | 56:5AC0 | CONFIRMED | exact | - | `gfx/comm/connect_dialog_bank56.asm` |
+| `connect_dialog_password_entry_and_save_confirm_tiles_9100_vb1.2bpp` | 2bpp tiles | 768 | 56:5DC0 | CONFIRMED | exact | - | `gfx/comm/connect_dialog_bank56.asm` |
+| `connect_dialog_password_entry_and_save_confirm_tiles_9400_vb1.2bpp` | 2bpp tiles | 1024 | 56:60C0 | CONFIRMED | exact | - | `gfx/comm/connect_dialog_bank56.asm` |
+| `connect_dialog_stored_password_tiles_shared_source.2bpp` | 2bpp tiles | 1024 | 56:64C0 | CONFIRMED | exact | - | `gfx/comm/connect_dialog_bank56.asm` |
+| `connect_dialog_stored_password_tiles_9200_vb1_continuation.2bpp` | 2bpp tiles | 512 | 56:68C0 | CONFIRMED | exact | - | `gfx/comm/connect_dialog_bank56.asm` |
+| `connect_dialog_stored_password_tiles_9400_vb1.2bpp` | 2bpp tiles | 1024 | 56:6AC0 | CONFIRMED | exact | - | `gfx/comm/connect_dialog_bank56.asm` |
+| `connect_dialog_password_saved_tiles_9100_vb1.2bpp` | 2bpp tiles | 768 | 56:6EC0 | CONFIRMED | exact | - | `gfx/comm/connect_dialog_bank56.asm` |
+| `connect_dialog_password_saved_tiles_9400_vb1.2bpp` | 2bpp tiles | 1024 | 56:71C0 | CONFIRMED | exact | - | `gfx/comm/connect_dialog_bank56.asm` |
+| `connect_dialog_common_finish_tiles_8000_vb0.2bpp` | 2bpp tiles | 512 | 56:75C0 | CONFIRMED | exact | - | `gfx/comm/connect_dialog_bank56.asm` |
 | `palette_77c0.pal` | RGB palette | 192 | 56:77C0 | PROBABLE | - | - | `gfx/comm/connect_dialog_bank56.asm` |
 
 ### `gfx/comm/connect_dialog_screen/`

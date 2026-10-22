@@ -290,17 +290,17 @@ gfx/comm/connect_dialog_bank56/tilemap_4cca.attrmap	attrmap	360	gfx/comm/connect
 gfx/comm/connect_dialog_bank56/tilemap_4cca.tilemap	tilemap	360	gfx/comm/connect_dialog_bank56.asm	56	4CCA	CONFIRMED	-	0	20x18	Tilemap_ConnectDialog_56_4CCA
 gfx/comm/connect_dialog_bank56/tilemap_4f9a.attrmap	attrmap	360	gfx/comm/connect_dialog_bank56.asm	56	5102	CONFIRMED	-	0	20x18	Tilemap_ConnectDialog_ConnectConfirm_56_4F9A
 gfx/comm/connect_dialog_bank56/tilemap_4f9a.tilemap	tilemap	360	gfx/comm/connect_dialog_bank56.asm	56	4F9A	CONFIRMED	-	0	20x18	Tilemap_ConnectDialog_ConnectConfirm_56_4F9A
-gfx/comm/connect_dialog_bank56/tiles_52c0.2bpp	tiles	1024	gfx/comm/connect_dialog_bank56.asm	56	52C0	CONFIRMED	exact	0		Gfx_ConnectDialog_ConnectConfirm_Tiles9000Vb1
-gfx/comm/connect_dialog_bank56/tiles_56c0.2bpp	tiles	1024	gfx/comm/connect_dialog_bank56.asm	56	56C0	CONFIRMED	exact	0		Gfx_ConnectDialog_ConnectConfirm_Tiles9400Vb1
-gfx/comm/connect_dialog_bank56/tiles_5ac0.2bpp	tiles	768	gfx/comm/connect_dialog_bank56.asm	56	5AC0	CONFIRMED	exact	0		Gfx_ConnectDialog_PasswordEntryAndSaveConfirm_Tiles8800
-gfx/comm/connect_dialog_bank56/tiles_5dc0.2bpp	tiles	768	gfx/comm/connect_dialog_bank56.asm	56	5DC0	CONFIRMED	exact	0		Gfx_ConnectDialog_PasswordEntryAndSaveConfirm_Tiles9100Vb1
-gfx/comm/connect_dialog_bank56/tiles_60c0.2bpp	tiles	1024	gfx/comm/connect_dialog_bank56.asm	56	60C0	CONFIRMED	exact	0		Gfx_ConnectDialog_PasswordEntryAndSaveConfirm_Tiles9400Vb1
-gfx/comm/connect_dialog_bank56/tiles_64c0.2bpp	tiles	1024	gfx/comm/connect_dialog_bank56.asm	56	64C0	CONFIRMED	exact	0		Gfx_ConnectDialog_StoredPassword_Tiles8800
-gfx/comm/connect_dialog_bank56/tiles_68c0.2bpp	tiles	512	gfx/comm/connect_dialog_bank56.asm	56	68C0	CONFIRMED	exact	0		Gfx_ConnectDialog_StoredPassword_Tiles9100Vb1_LoadContinuation
-gfx/comm/connect_dialog_bank56/tiles_6ac0.2bpp	tiles	1024	gfx/comm/connect_dialog_bank56.asm	56	6AC0	CONFIRMED	exact	0		Gfx_ConnectDialog_StoredPassword_Tiles9400Vb1
-gfx/comm/connect_dialog_bank56/tiles_6ec0.2bpp	tiles	768	gfx/comm/connect_dialog_bank56.asm	56	6EC0	CONFIRMED	exact	0		Gfx_ConnectDialog_PasswordSaved_Tiles9100Vb1
-gfx/comm/connect_dialog_bank56/tiles_71c0.2bpp	tiles	1024	gfx/comm/connect_dialog_bank56.asm	56	71C0	CONFIRMED	exact	0		Gfx_ConnectDialog_PasswordSaved_Tiles9400Vb1
-gfx/comm/connect_dialog_bank56/tiles_75c0.2bpp	tiles	512	gfx/comm/connect_dialog_bank56.asm	56	75C0	CONFIRMED	exact	0		Gfx_ConnectDialog_Finish_Tiles8000
+gfx/comm/connect_dialog_bank56/connect_dialog_connect_confirm_tiles_9000_vb1.2bpp	tiles	1024	gfx/comm/connect_dialog_bank56.asm	56	52C0	CONFIRMED	exact	0		Gfx_ConnectDialog_ConnectConfirm_Tiles9000Vb1
+gfx/comm/connect_dialog_bank56/connect_dialog_connect_confirm_tiles_9400_vb1.2bpp	tiles	1024	gfx/comm/connect_dialog_bank56.asm	56	56C0	CONFIRMED	exact	0		Gfx_ConnectDialog_ConnectConfirm_Tiles9400Vb1
+gfx/comm/connect_dialog_bank56/connect_dialog_password_entry_and_save_confirm_tiles_8800_vb0.2bpp	tiles	768	gfx/comm/connect_dialog_bank56.asm	56	5AC0	CONFIRMED	exact	0		Gfx_ConnectDialog_PasswordEntryAndSaveConfirm_Tiles8800
+gfx/comm/connect_dialog_bank56/connect_dialog_password_entry_and_save_confirm_tiles_9100_vb1.2bpp	tiles	768	gfx/comm/connect_dialog_bank56.asm	56	5DC0	CONFIRMED	exact	0		Gfx_ConnectDialog_PasswordEntryAndSaveConfirm_Tiles9100Vb1
+gfx/comm/connect_dialog_bank56/connect_dialog_password_entry_and_save_confirm_tiles_9400_vb1.2bpp	tiles	1024	gfx/comm/connect_dialog_bank56.asm	56	60C0	CONFIRMED	exact	0		Gfx_ConnectDialog_PasswordEntryAndSaveConfirm_Tiles9400Vb1
+gfx/comm/connect_dialog_bank56/connect_dialog_stored_password_tiles_shared_source.2bpp	tiles	1024	gfx/comm/connect_dialog_bank56.asm	56	64C0	CONFIRMED	exact	0		Gfx_ConnectDialog_StoredPassword_Tiles8800
+gfx/comm/connect_dialog_bank56/connect_dialog_stored_password_tiles_9200_vb1_continuation.2bpp	tiles	512	gfx/comm/connect_dialog_bank56.asm	56	68C0	CONFIRMED	exact	0		Gfx_ConnectDialog_StoredPassword_Tiles9100Vb1_LoadContinuation
+gfx/comm/connect_dialog_bank56/connect_dialog_stored_password_tiles_9400_vb1.2bpp	tiles	1024	gfx/comm/connect_dialog_bank56.asm	56	6AC0	CONFIRMED	exact	0		Gfx_ConnectDialog_StoredPassword_Tiles9400Vb1
+gfx/comm/connect_dialog_bank56/connect_dialog_password_saved_tiles_9100_vb1.2bpp	tiles	768	gfx/comm/connect_dialog_bank56.asm	56	6EC0	CONFIRMED	exact	0		Gfx_ConnectDialog_PasswordSaved_Tiles9100Vb1
+gfx/comm/connect_dialog_bank56/connect_dialog_password_saved_tiles_9400_vb1.2bpp	tiles	1024	gfx/comm/connect_dialog_bank56.asm	56	71C0	CONFIRMED	exact	0		Gfx_ConnectDialog_PasswordSaved_Tiles9400Vb1
+gfx/comm/connect_dialog_bank56/connect_dialog_common_finish_tiles_8000_vb0.2bpp	tiles	512	gfx/comm/connect_dialog_bank56.asm	56	75C0	CONFIRMED	exact	0		Gfx_ConnectDialog_Finish_Tiles8000
 gfx/comm/connect_dialog_screen/connect_dialog_blank_tile.2bpp	tiles	16	engine/comm/connect_dialog_screen.asm	57	4D30	CONFIRMED	exact	0		ConnectDialog_BlankTile
 gfx/comm/connection_icon/conn_icon_palettes.pal	palette	24	gfx/comm/connection_icon.asm	69	4760	PROBABLE	-	0		ConnIcon_Palettes
 gfx/comm/connection_icon/conn_icon_tiles0.2bpp	tiles	1024	gfx/comm/connection_icon.asm	69	4160	CONFIRMED	exact	0		ConnIcon_Tiles0

@@ -73,6 +73,7 @@ Reference documents (current):
 | [`gfx_generic_name_audit_20261021.md`](research/gfx_generic_name_audit_20261021.md) | Read-only inventory of GFX type/address labels, aliases, paths and remaining uncertainty |
 | [`registration_notice_bank58_resource_paths_20261022.md`](research/registration_notice_bank58_resource_paths_20261022.md) | Bank 58 registration notice assets renamed from type/address paths using static labels and readers |
 | [`keyboard_panel_tile_paths_20261022.md`](research/keyboard_panel_tile_paths_20261022.md) | Nine keyboard tile sets renamed by confirmed type and VRAM destinations |
+| [`connect_dialog_bank56_tile_paths_20261022.md`](research/connect_dialog_bank56_tile_paths_20261022.md) | Eleven ConnectDialog tile sets renamed by confirmed static VRAM destinations |
 | [`gfx_dialog_no_adapter_animation_names_20261021.md`](research/gfx_dialog_no_adapter_animation_names_20261021.md) | Eight reviewed dialog-cursor and no-adapter animation labels with consumer and byte-identity evidence |
 | [`gfx_confirm_pages_animation_names_20261021.md`](research/gfx_confirm_pages_animation_names_20261021.md) | Five reviewed ConfirmPages entry/frame/script labels with independent ROM and consumer evidence |
 | [`mobile_dictionary_table_aliases_20261021.md`](research/mobile_dictionary_table_aliases_20261021.md) | 12 redundant generic aliases retired from the mobile-dictionary pointer lists |
