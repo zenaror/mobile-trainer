@@ -582,7 +582,7 @@ ROMX $5D
 	org $4000
 	"gfx/keyboard/panels_bank5d"
 	org $4800
-	"gfx/account/screens_bank5d"
+	"gfx/account/password_and_registration_config_bank5d"
 	org $7360
 	"gfx/settings/password_save_confirmation_bank5d"
 

@@ -69,6 +69,21 @@ SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
 zero errors. This path grouping is not a claim of uniform resource purpose or
 hardware behavior.
 
+## Account Bank 5D password and registration resources (2026-10-22)
+
+The generic `gfx/account/screens_bank5d.asm` owner and resource directory are
+now `password_and_registration_config_bank5d`. The owner contains account
+password-entry, password-intro and confirmation resources, plus the
+registration Write Config resources and object data; consumers are in the
+Bank 68 account/registration setup code. Current Japanese source, layout,
+asset/screen catalogues, PNG rules, README and the retyping script use the new
+path. `make` returned `RESULT: IDENTICAL` (ROM SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`);
+`sym-check` passed (335 files, 12,177 labels, 51 constants), and
+`palette-check` reported 162 loads, 116 arrays, two documented overreads and
+zero errors. This names the confirmed content families while keeping their
+mixed ownership and bank boundaries explicit.
+
 ## Bank 4A settings-menu palette-shaped block (2026-10-21)
 
 The 32 bytes at `4A:51B0–51CF` are now named

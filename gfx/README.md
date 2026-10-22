@@ -155,29 +155,29 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `tilemap_5898.tilemap` | tile-index map | 360 | 4B:5898 | CONFIRMED | - | 20x18 | `gfx/account/result_page_bank4b.asm` |
 | `tilemap_5898.attrmap` | attribute map | 360 | 4B:5A00 | CONFIRMED | - | 20x18 | `gfx/account/result_page_bank4b.asm` |
 
-### `gfx/account/screens_bank5d/`
+### `gfx/account/password_and_registration_config_bank5d/`
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_4800.2bpp` | 2bpp tiles | 1024 | 5D:4800 | CONFIRMED | exact | - | `gfx/account/screens_bank5d.asm` |
-| `tiles_4c00.2bpp` | 2bpp tiles | 1024 | 5D:4C00 | CONFIRMED | exact | - | `gfx/account/screens_bank5d.asm` |
-| `tiles_5320.2bpp` | 2bpp tiles | 1024 | 5D:5320 | CONFIRMED | exact | - | `gfx/account/screens_bank5d.asm` |
-| `tiles_5720.2bpp` | 2bpp tiles | 1024 | 5D:5720 | CONFIRMED | exact | - | `gfx/account/screens_bank5d.asm` |
-| `tilemap_5b20.tilemap` | tile-index map | 360 | 5D:5B20 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank5d.asm` |
-| `tilemap_5b20.attrmap` | attribute map | 360 | 5D:5C88 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank5d.asm` |
-| `tiles_5df0.2bpp` | 2bpp tiles | 1024 | 5D:5DF0 | CONFIRMED | exact | - | `gfx/account/screens_bank5d.asm` |
-| `tiles_61f0.2bpp` | 2bpp tiles | 512 | 5D:61F0 | CONFIRMED | exact | - | `gfx/account/screens_bank5d.asm` |
-| `tiles_63f0.2bpp` | 2bpp tiles | 512 | 5D:63F0 | CONFIRMED | exact | - | `gfx/account/screens_bank5d.asm` |
-| `account_confirm_screen_bg.pal` | RGB palette | 64 | 5D:65F0 | CONFIRMED | - | - | `gfx/account/screens_bank5d.asm` |
-| `tilemap_6630.tilemap` | tile-index map | 360 | 5D:6630 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank5d.asm` |
-| `tilemap_6630.attrmap` | attribute map | 360 | 5D:6798 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank5d.asm` |
-| `tiles_6900.2bpp` | 2bpp tiles | 768 | 5D:6900 | CONFIRMED | exact | - | `gfx/account/screens_bank5d.asm` |
-| `tiles_6c00.2bpp` | 2bpp tiles | 512 | 5D:6C00 | CONFIRMED | exact | - | `gfx/account/screens_bank5d.asm` |
-| `tiles_6e00.2bpp` | 2bpp tiles | 512 | 5D:6E00 | CONFIRMED | exact | - | `gfx/account/screens_bank5d.asm` |
-| `registration_write_config_bg.pal` | RGB palette | 64 | 5D:7000 | CONFIRMED | - | - | `gfx/account/screens_bank5d.asm` |
-| `registration_write_config_obj.pal` | RGB palette | 8 | 5D:7040 | CONFIRMED | - | - | `gfx/account/screens_bank5d.asm` |
-| `registration_write_config_5d_7048.tilemap` | tile-index map | 360 | 5D:7048 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank5d.asm` |
-| `registration_write_config_5d_7048.attrmap` | attribute map | 360 | 5D:71B0 | CONFIRMED | - | 20x18 | `gfx/account/screens_bank5d.asm` |
+| `tiles_4800.2bpp` | 2bpp tiles | 1024 | 5D:4800 | CONFIRMED | exact | - | `gfx/account/password_and_registration_config_bank5d.asm` |
+| `tiles_4c00.2bpp` | 2bpp tiles | 1024 | 5D:4C00 | CONFIRMED | exact | - | `gfx/account/password_and_registration_config_bank5d.asm` |
+| `tiles_5320.2bpp` | 2bpp tiles | 1024 | 5D:5320 | CONFIRMED | exact | - | `gfx/account/password_and_registration_config_bank5d.asm` |
+| `tiles_5720.2bpp` | 2bpp tiles | 1024 | 5D:5720 | CONFIRMED | exact | - | `gfx/account/password_and_registration_config_bank5d.asm` |
+| `tilemap_5b20.tilemap` | tile-index map | 360 | 5D:5B20 | CONFIRMED | - | 20x18 | `gfx/account/password_and_registration_config_bank5d.asm` |
+| `tilemap_5b20.attrmap` | attribute map | 360 | 5D:5C88 | CONFIRMED | - | 20x18 | `gfx/account/password_and_registration_config_bank5d.asm` |
+| `tiles_5df0.2bpp` | 2bpp tiles | 1024 | 5D:5DF0 | CONFIRMED | exact | - | `gfx/account/password_and_registration_config_bank5d.asm` |
+| `tiles_61f0.2bpp` | 2bpp tiles | 512 | 5D:61F0 | CONFIRMED | exact | - | `gfx/account/password_and_registration_config_bank5d.asm` |
+| `tiles_63f0.2bpp` | 2bpp tiles | 512 | 5D:63F0 | CONFIRMED | exact | - | `gfx/account/password_and_registration_config_bank5d.asm` |
+| `account_confirm_screen_bg.pal` | RGB palette | 64 | 5D:65F0 | CONFIRMED | - | - | `gfx/account/password_and_registration_config_bank5d.asm` |
+| `tilemap_6630.tilemap` | tile-index map | 360 | 5D:6630 | CONFIRMED | - | 20x18 | `gfx/account/password_and_registration_config_bank5d.asm` |
+| `tilemap_6630.attrmap` | attribute map | 360 | 5D:6798 | CONFIRMED | - | 20x18 | `gfx/account/password_and_registration_config_bank5d.asm` |
+| `tiles_6900.2bpp` | 2bpp tiles | 768 | 5D:6900 | CONFIRMED | exact | - | `gfx/account/password_and_registration_config_bank5d.asm` |
+| `tiles_6c00.2bpp` | 2bpp tiles | 512 | 5D:6C00 | CONFIRMED | exact | - | `gfx/account/password_and_registration_config_bank5d.asm` |
+| `tiles_6e00.2bpp` | 2bpp tiles | 512 | 5D:6E00 | CONFIRMED | exact | - | `gfx/account/password_and_registration_config_bank5d.asm` |
+| `registration_write_config_bg.pal` | RGB palette | 64 | 5D:7000 | CONFIRMED | - | - | `gfx/account/password_and_registration_config_bank5d.asm` |
+| `registration_write_config_obj.pal` | RGB palette | 8 | 5D:7040 | CONFIRMED | - | - | `gfx/account/password_and_registration_config_bank5d.asm` |
+| `registration_write_config_5d_7048.tilemap` | tile-index map | 360 | 5D:7048 | CONFIRMED | - | 20x18 | `gfx/account/password_and_registration_config_bank5d.asm` |
+| `registration_write_config_5d_7048.attrmap` | attribute map | 360 | 5D:71B0 | CONFIRMED | - | 20x18 | `gfx/account/password_and_registration_config_bank5d.asm` |
 
 ### `gfx/account/screens_bank5e/`
 

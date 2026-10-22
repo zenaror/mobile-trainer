@@ -29,7 +29,7 @@ def specs():
                   segs=[('palette', 0x72C0, 0x7300, 'Palette_Account_ActionConfirmPage_Bg', 'wPaletteBufBg')], pair=(0x7300, 0x75D0, 'Tilemap_Account_ActionConfirmPage_5E_7300')))
     S.append(dict(asm='gfx/account/screens_bank5e.asm', bank=0x5E, blob=0x5210, tiles_end=0x5510, engine='engine/account/login_id_entry.asm',
                   segs=[], pair=(0x5510, 0x57E0, 'Tilemap_Account_LoginIdIntro_5E_5510')))
-    S.append(dict(asm='gfx/account/screens_bank5d.asm', bank=0x5D, blob=0x6E00, tiles_end=0x7000, engine='engine/account/register_config.asm',
+    S.append(dict(asm='gfx/account/password_and_registration_config_bank5d.asm', bank=0x5D, blob=0x6E00, tiles_end=0x7000, engine='engine/account/register_config.asm',
                   segs=[('palette', 0x7000, 0x7040, 'Palette_Registration_WriteConfig_Bg', 'wPaletteBufBg'), ('palette', 0x7040, 0x7048, 'Palette_Registration_WriteConfig_Obj', 'wPaletteBufObj')],
                   pair=(0x7048, 0x7318, 'Tilemap_Registration_WriteConfig_5D_7048')))
     S.append(dict(asm='gfx/settings/screens_bank4a.asm', bank=0x4A, blob=0x6480, tiles_end=0x6580, engine='engine/settings/adapter_check.asm',

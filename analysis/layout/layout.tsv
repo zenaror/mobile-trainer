@@ -237,7 +237,7 @@
 5C	5150	5516	engine/error/comm_error_screen.asm	communication error screen
 5C	5516	642F	gfx/error/comm_error_screen.asm	error screen tilemaps, tiles, palettes, object tables
 5D	4000	4800	gfx/keyboard/panels_bank5d.asm	keyboard panel tiles loaded by bank 55
-5D	4800	7360	gfx/account/screens_bank5d.asm	account screens art loaded by bank 68
+5D	4800	7360	gfx/account/password_and_registration_config_bank5d.asm	account screens art loaded by bank 68
 5D	7360	7E70	gfx/settings/screens_bank5d.asm	settings screens art loaded by bank 67
 5E	4000	4800	gfx/settings/screens_bank5e.asm	settings screens art loaded by bank 67
 5E	4800	78A0	gfx/account/screens_bank5e.asm	account screens art loaded by bank 68 (includes 32 bytes read by bank 55)

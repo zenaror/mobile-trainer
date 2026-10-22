@@ -66,25 +66,25 @@ gfx/account/result_page_bank4b/tiles_42d0.2bpp	tiles	1024	gfx/account/result_pag
 gfx/account/result_page_bank4b/tiles_46d0.2bpp	tiles	1024	gfx/account/result_page_bank4b.asm	4B	46D0	CONFIRMED	exact	0		Gfx_Account_ResultPage_Tiles8C00Vb1
 gfx/account/result_page_bank4b/tiles_5080.2bpp	tiles	896	gfx/account/result_page_bank4b.asm	4B	5080	PROBABLE	exact	0		AccountResultPage_CandidateTiles_5080
 gfx/account/result_page_bank4b/tiles_5420.2bpp	tiles	1104	gfx/account/result_page_bank4b.asm	4B	5420	PROBABLE	exact	11		AccountResultPage_CandidateTiles_5420
-gfx/account/screens_bank5d/account_confirm_screen_bg.pal	palette	64	gfx/account/screens_bank5d.asm	5D	65F0	CONFIRMED	-	0		Palette_Account_ConfirmScreen_Bg
-gfx/account/screens_bank5d/registration_write_config_5d_7048.attrmap	attrmap	360	gfx/account/screens_bank5d.asm	5D	71B0	CONFIRMED	-	0	20x18	Tilemap_Registration_WriteConfig_5D_7048
-gfx/account/screens_bank5d/registration_write_config_5d_7048.tilemap	tilemap	360	gfx/account/screens_bank5d.asm	5D	7048	CONFIRMED	-	0	20x18	Tilemap_Registration_WriteConfig_5D_7048
-gfx/account/screens_bank5d/registration_write_config_bg.pal	palette	64	gfx/account/screens_bank5d.asm	5D	7000	CONFIRMED	-	0		Palette_Registration_WriteConfig_Bg
-gfx/account/screens_bank5d/registration_write_config_obj.pal	palette	8	gfx/account/screens_bank5d.asm	5D	7040	CONFIRMED	-	0		Palette_Registration_WriteConfig_Obj
-gfx/account/screens_bank5d/tilemap_5b20.attrmap	attrmap	360	gfx/account/screens_bank5d.asm	5D	5C88	CONFIRMED	-	0	20x18	Tilemap_Account_PasswordIntro
-gfx/account/screens_bank5d/tilemap_5b20.tilemap	tilemap	360	gfx/account/screens_bank5d.asm	5D	5B20	CONFIRMED	-	0	20x18	Tilemap_Account_PasswordIntro
-gfx/account/screens_bank5d/tilemap_6630.attrmap	attrmap	360	gfx/account/screens_bank5d.asm	5D	6798	CONFIRMED	-	0	20x18	Tilemap_Account_ConfirmScreen
-gfx/account/screens_bank5d/tilemap_6630.tilemap	tilemap	360	gfx/account/screens_bank5d.asm	5D	6630	CONFIRMED	-	0	20x18	Tilemap_Account_ConfirmScreen
-gfx/account/screens_bank5d/tiles_4800.2bpp	tiles	1024	gfx/account/screens_bank5d.asm	5D	4800	CONFIRMED	exact	0		Gfx_Account_PasswordEntry_Tiles9000Vb1
-gfx/account/screens_bank5d/tiles_4c00.2bpp	tiles	1024	gfx/account/screens_bank5d.asm	5D	4C00	CONFIRMED	exact	0		Gfx_Account_PasswordEntry_Tiles9400Vb1
-gfx/account/screens_bank5d/tiles_5320.2bpp	tiles	1024	gfx/account/screens_bank5d.asm	5D	5320	CONFIRMED	exact	0		Gfx_Account_PasswordIntro_Tiles9000Vb1
-gfx/account/screens_bank5d/tiles_5720.2bpp	tiles	1024	gfx/account/screens_bank5d.asm	5D	5720	CONFIRMED	exact	0		Gfx_Account_PasswordIntro_Tiles9400Vb1
-gfx/account/screens_bank5d/tiles_5df0.2bpp	tiles	1024	gfx/account/screens_bank5d.asm	5D	5DF0	CONFIRMED	exact	0		Gfx_Account_ConfirmScreens_Tiles8800Vb1
-gfx/account/screens_bank5d/tiles_61f0.2bpp	tiles	512	gfx/account/screens_bank5d.asm	5D	61F0	CONFIRMED	exact	0		Gfx_Account_ConfirmScreens_Tiles8C00Vb1
-gfx/account/screens_bank5d/tiles_63f0.2bpp	tiles	512	gfx/account/screens_bank5d.asm	5D	63F0	CONFIRMED	exact	0		Gfx_Account_ConfirmScreen_Tiles9000Vb1
-gfx/account/screens_bank5d/tiles_6900.2bpp	tiles	768	gfx/account/screens_bank5d.asm	5D	6900	CONFIRMED	exact	0		Gfx_Registration_WriteConfig_Tiles8000
-gfx/account/screens_bank5d/tiles_6c00.2bpp	tiles	512	gfx/account/screens_bank5d.asm	5D	6C00	CONFIRMED	exact	0		Gfx_Registration_WriteConfig_Tiles8A00Vb1
-gfx/account/screens_bank5d/tiles_6e00.2bpp	tiles	512	gfx/account/screens_bank5d.asm	5D	6E00	CONFIRMED	exact	0		Gfx_Registration_WriteConfig_Tiles9000Vb1
+gfx/account/password_and_registration_config_bank5d/account_confirm_screen_bg.pal	palette	64	gfx/account/password_and_registration_config_bank5d.asm	5D	65F0	CONFIRMED	-	0		Palette_Account_ConfirmScreen_Bg
+gfx/account/password_and_registration_config_bank5d/registration_write_config_5d_7048.attrmap	attrmap	360	gfx/account/password_and_registration_config_bank5d.asm	5D	71B0	CONFIRMED	-	0	20x18	Tilemap_Registration_WriteConfig_5D_7048
+gfx/account/password_and_registration_config_bank5d/registration_write_config_5d_7048.tilemap	tilemap	360	gfx/account/password_and_registration_config_bank5d.asm	5D	7048	CONFIRMED	-	0	20x18	Tilemap_Registration_WriteConfig_5D_7048
+gfx/account/password_and_registration_config_bank5d/registration_write_config_bg.pal	palette	64	gfx/account/password_and_registration_config_bank5d.asm	5D	7000	CONFIRMED	-	0		Palette_Registration_WriteConfig_Bg
+gfx/account/password_and_registration_config_bank5d/registration_write_config_obj.pal	palette	8	gfx/account/password_and_registration_config_bank5d.asm	5D	7040	CONFIRMED	-	0		Palette_Registration_WriteConfig_Obj
+gfx/account/password_and_registration_config_bank5d/tilemap_5b20.attrmap	attrmap	360	gfx/account/password_and_registration_config_bank5d.asm	5D	5C88	CONFIRMED	-	0	20x18	Tilemap_Account_PasswordIntro
+gfx/account/password_and_registration_config_bank5d/tilemap_5b20.tilemap	tilemap	360	gfx/account/password_and_registration_config_bank5d.asm	5D	5B20	CONFIRMED	-	0	20x18	Tilemap_Account_PasswordIntro
+gfx/account/password_and_registration_config_bank5d/tilemap_6630.attrmap	attrmap	360	gfx/account/password_and_registration_config_bank5d.asm	5D	6798	CONFIRMED	-	0	20x18	Tilemap_Account_ConfirmScreen
+gfx/account/password_and_registration_config_bank5d/tilemap_6630.tilemap	tilemap	360	gfx/account/password_and_registration_config_bank5d.asm	5D	6630	CONFIRMED	-	0	20x18	Tilemap_Account_ConfirmScreen
+gfx/account/password_and_registration_config_bank5d/tiles_4800.2bpp	tiles	1024	gfx/account/password_and_registration_config_bank5d.asm	5D	4800	CONFIRMED	exact	0		Gfx_Account_PasswordEntry_Tiles9000Vb1
+gfx/account/password_and_registration_config_bank5d/tiles_4c00.2bpp	tiles	1024	gfx/account/password_and_registration_config_bank5d.asm	5D	4C00	CONFIRMED	exact	0		Gfx_Account_PasswordEntry_Tiles9400Vb1
+gfx/account/password_and_registration_config_bank5d/tiles_5320.2bpp	tiles	1024	gfx/account/password_and_registration_config_bank5d.asm	5D	5320	CONFIRMED	exact	0		Gfx_Account_PasswordIntro_Tiles9000Vb1
+gfx/account/password_and_registration_config_bank5d/tiles_5720.2bpp	tiles	1024	gfx/account/password_and_registration_config_bank5d.asm	5D	5720	CONFIRMED	exact	0		Gfx_Account_PasswordIntro_Tiles9400Vb1
+gfx/account/password_and_registration_config_bank5d/tiles_5df0.2bpp	tiles	1024	gfx/account/password_and_registration_config_bank5d.asm	5D	5DF0	CONFIRMED	exact	0		Gfx_Account_ConfirmScreens_Tiles8800Vb1
+gfx/account/password_and_registration_config_bank5d/tiles_61f0.2bpp	tiles	512	gfx/account/password_and_registration_config_bank5d.asm	5D	61F0	CONFIRMED	exact	0		Gfx_Account_ConfirmScreens_Tiles8C00Vb1
+gfx/account/password_and_registration_config_bank5d/tiles_63f0.2bpp	tiles	512	gfx/account/password_and_registration_config_bank5d.asm	5D	63F0	CONFIRMED	exact	0		Gfx_Account_ConfirmScreen_Tiles9000Vb1
+gfx/account/password_and_registration_config_bank5d/tiles_6900.2bpp	tiles	768	gfx/account/password_and_registration_config_bank5d.asm	5D	6900	CONFIRMED	exact	0		Gfx_Registration_WriteConfig_Tiles8000
+gfx/account/password_and_registration_config_bank5d/tiles_6c00.2bpp	tiles	512	gfx/account/password_and_registration_config_bank5d.asm	5D	6C00	CONFIRMED	exact	0		Gfx_Registration_WriteConfig_Tiles8A00Vb1
+gfx/account/password_and_registration_config_bank5d/tiles_6e00.2bpp	tiles	512	gfx/account/password_and_registration_config_bank5d.asm	5D	6E00	CONFIRMED	exact	0		Gfx_Registration_WriteConfig_Tiles9000Vb1
 gfx/account/screens_bank5e/account_action_confirm_page_5e_7300.attrmap	attrmap	360	gfx/account/screens_bank5e.asm	5E	7468	CONFIRMED	-	0	20x18	Tilemap_Account_ActionConfirmPage_Variant0
 gfx/account/screens_bank5e/account_action_confirm_page_5e_7300.tilemap	tilemap	360	gfx/account/screens_bank5e.asm	5E	7300	CONFIRMED	-	0	20x18	Tilemap_Account_ActionConfirmPage_Variant0
 gfx/account/screens_bank5e/account_action_confirm_page_bg.pal	palette	64	gfx/account/screens_bank5e.asm	5E	72C0	CONFIRMED	-	0		Palette_Account_ActionConfirmPage_Bg

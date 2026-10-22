@@ -240,7 +240,7 @@
 5C	2	5150	5516	966	engine/error/comm_error_screen.asm	engine/error/comm_error_screen	0	-	code:936,data:20,ptrtable:10	communication error screen
 5C	3	5516	642F	3865	gfx/error/comm_error_screen.asm	gfx/error/comm_error_screen	0	-	data:2175,gfx:1680,zero:10	error screen tilemaps, tiles, palettes, object tables
 5D	1	4000	4800	2048	gfx/keyboard/panels_bank5d.asm	gfx/keyboard/panels_bank5d	0	-	gfx:2048	keyboard panel tiles loaded by bank 55
-5D	2	4800	7360	11104	gfx/account/screens_bank5d.asm	gfx/account/screens_bank5d	0	-	gfx:8512,data:2585,zero:7	account screens art loaded by bank 68
+5D	2	4800	7360	11104	gfx/account/password_and_registration_config_bank5d.asm	gfx/account/password_and_registration_config_bank5d	0	-	gfx:8512,data:2585,zero:7	account screens art loaded by bank 68
 5D	3	7360	7E70	2832	gfx/settings/screens_bank5d.asm	gfx/settings/screens_bank5d	0	-	gfx:2048,data:784	settings screens art loaded by bank 67
 5E	1	4000	4800	2048	gfx/settings/screens_bank5e.asm	gfx/settings/screens_bank5e	0	-	gfx:2048	settings screens art loaded by bank 67
 5E	2	4800	78A0	12448	gfx/account/screens_bank5e.asm	gfx/account/screens_bank5e	0	-	gfx:9504,data:2928,zero:16	account screens art loaded by bank 68 (includes 32 bytes read by bank 55)

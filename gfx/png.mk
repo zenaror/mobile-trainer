@@ -35,16 +35,16 @@ PNG_TILE_OUTS := \
 	gfx/account/result_page_bank4b/tiles_46d0.2bpp \
 	gfx/account/result_page_bank4b/tiles_5080.2bpp \
 	gfx/account/result_page_bank4b/tiles_5420.2bpp \
-	gfx/account/screens_bank5d/tiles_4800.2bpp \
-	gfx/account/screens_bank5d/tiles_4c00.2bpp \
-	gfx/account/screens_bank5d/tiles_5320.2bpp \
-	gfx/account/screens_bank5d/tiles_5720.2bpp \
-	gfx/account/screens_bank5d/tiles_5df0.2bpp \
-	gfx/account/screens_bank5d/tiles_61f0.2bpp \
-	gfx/account/screens_bank5d/tiles_63f0.2bpp \
-	gfx/account/screens_bank5d/tiles_6900.2bpp \
-	gfx/account/screens_bank5d/tiles_6c00.2bpp \
-	gfx/account/screens_bank5d/tiles_6e00.2bpp \
+	gfx/account/password_and_registration_config_bank5d/tiles_4800.2bpp \
+	gfx/account/password_and_registration_config_bank5d/tiles_4c00.2bpp \
+	gfx/account/password_and_registration_config_bank5d/tiles_5320.2bpp \
+	gfx/account/password_and_registration_config_bank5d/tiles_5720.2bpp \
+	gfx/account/password_and_registration_config_bank5d/tiles_5df0.2bpp \
+	gfx/account/password_and_registration_config_bank5d/tiles_61f0.2bpp \
+	gfx/account/password_and_registration_config_bank5d/tiles_63f0.2bpp \
+	gfx/account/password_and_registration_config_bank5d/tiles_6900.2bpp \
+	gfx/account/password_and_registration_config_bank5d/tiles_6c00.2bpp \
+	gfx/account/password_and_registration_config_bank5d/tiles_6e00.2bpp \
 	gfx/account/screens_bank5e/tiles_4800.2bpp \
 	gfx/account/screens_bank5e/tiles_4c00.2bpp \
 	gfx/account/screens_bank5e/tiles_4e10.2bpp \
@@ -446,16 +446,16 @@ gfx/account/result_page_bank4b/tiles_46d0.2bpp: PNG_SIZE := 1024
 gfx/account/result_page_bank4b/tiles_5080.2bpp: PNG_SIZE := 896
 gfx/account/result_page_bank4b/tiles_5420.2bpp: PNG_SIZE := 1104
 gfx/account/result_page_bank4b/tiles_5420.2bpp: PNG_PAD := -x 11
-gfx/account/screens_bank5d/tiles_4800.2bpp: PNG_SIZE := 1024
-gfx/account/screens_bank5d/tiles_4c00.2bpp: PNG_SIZE := 1024
-gfx/account/screens_bank5d/tiles_5320.2bpp: PNG_SIZE := 1024
-gfx/account/screens_bank5d/tiles_5720.2bpp: PNG_SIZE := 1024
-gfx/account/screens_bank5d/tiles_5df0.2bpp: PNG_SIZE := 1024
-gfx/account/screens_bank5d/tiles_61f0.2bpp: PNG_SIZE := 512
-gfx/account/screens_bank5d/tiles_63f0.2bpp: PNG_SIZE := 512
-gfx/account/screens_bank5d/tiles_6900.2bpp: PNG_SIZE := 768
-gfx/account/screens_bank5d/tiles_6c00.2bpp: PNG_SIZE := 512
-gfx/account/screens_bank5d/tiles_6e00.2bpp: PNG_SIZE := 512
+gfx/account/password_and_registration_config_bank5d/tiles_4800.2bpp: PNG_SIZE := 1024
+gfx/account/password_and_registration_config_bank5d/tiles_4c00.2bpp: PNG_SIZE := 1024
+gfx/account/password_and_registration_config_bank5d/tiles_5320.2bpp: PNG_SIZE := 1024
+gfx/account/password_and_registration_config_bank5d/tiles_5720.2bpp: PNG_SIZE := 1024
+gfx/account/password_and_registration_config_bank5d/tiles_5df0.2bpp: PNG_SIZE := 1024
+gfx/account/password_and_registration_config_bank5d/tiles_61f0.2bpp: PNG_SIZE := 512
+gfx/account/password_and_registration_config_bank5d/tiles_63f0.2bpp: PNG_SIZE := 512
+gfx/account/password_and_registration_config_bank5d/tiles_6900.2bpp: PNG_SIZE := 768
+gfx/account/password_and_registration_config_bank5d/tiles_6c00.2bpp: PNG_SIZE := 512
+gfx/account/password_and_registration_config_bank5d/tiles_6e00.2bpp: PNG_SIZE := 512
 gfx/account/screens_bank5e/tiles_4800.2bpp: PNG_SIZE := 1024
 gfx/account/screens_bank5e/tiles_4c00.2bpp: PNG_SIZE := 256
 gfx/account/screens_bank5e/tiles_4e10.2bpp: PNG_SIZE := 1024

@@ -290,7 +290,7 @@ ROMX $5c
 	"gfx/error/comm_error_screen"
 ROMX $5d
 	"gfx/keyboard/panels_bank5d"
-	"gfx/account/screens_bank5d"
+	"gfx/account/password_and_registration_config_bank5d"
 	"gfx/settings/screens_bank5d"
 ROMX $5e
 	"gfx/settings/screens_bank5e"
