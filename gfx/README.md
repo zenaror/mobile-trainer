@@ -276,10 +276,10 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_5b10.2bpp` | 2bpp tiles | 768 | 29:5B10 | CONFIRMED | exact | - | `gfx/address_book/entry_screen_bank29.asm` |
-| `palette_5e10.pal` | RGB palette | 64 | 29:5E10 | CONFIRMED | - | - | `gfx/address_book/entry_screen_bank29.asm` |
-| `tiles_5e50.2bpp` | 2bpp tiles | 1024 | 29:5E50 | CONFIRMED | exact | - | `gfx/address_book/entry_screen_bank29.asm` |
-| `tiles_6250.2bpp` | 2bpp tiles | 64 | 29:6250 | CONFIRMED | exact | - | `gfx/address_book/entry_screen_bank29.asm` |
+| `abook_edit_tiles8000.2bpp` | 2bpp tiles | 768 | 29:5B10 | CONFIRMED | exact | - | `gfx/address_book/entry_screen_bank29.asm` |
+| `abook_edit_obj_palette.pal` | RGB palette | 64 | 29:5E10 | CONFIRMED | - | - | `gfx/address_book/entry_screen_bank29.asm` |
+| `abook_view_tiles9300_vb1.2bpp` | 2bpp tiles | 1024 | 29:5E50 | CONFIRMED | exact | - | `gfx/address_book/entry_screen_bank29.asm` |
+| `abook_view_tiles9700_vb1.2bpp` | 2bpp tiles | 64 | 29:6250 | CONFIRMED | exact | - | `gfx/address_book/entry_screen_bank29.asm` |
 
 ### `gfx/address_book/entry_screen_bank2a/`
 
@@ -340,9 +340,9 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_4bd0.2bpp` | 2bpp tiles | 1024 | 28:4BD0 | CONFIRMED | exact | - | `gfx/address_book/shared_tiles_bank28.asm` |
-| `tiles_4fd0.2bpp` | 2bpp tiles | 512 | 28:4FD0 | CONFIRMED | exact | - | `gfx/address_book/shared_tiles_bank28.asm` |
-| `palette_51d0.pal` | RGB palette | 64 | 28:51D0 | PROBABLE | - | - | `gfx/address_book/shared_tiles_bank28.asm` |
+| `addr_book_shared_tiles8000.2bpp` | 2bpp tiles | 1024 | 28:4BD0 | CONFIRMED | exact | - | `gfx/address_book/shared_tiles_bank28.asm` |
+| `addr_book_shared_tiles8400.2bpp` | 2bpp tiles | 512 | 28:4FD0 | CONFIRMED | exact | - | `gfx/address_book/shared_tiles_bank28.asm` |
+| `abook_list_bg_palette.pal` | RGB palette | 64 | 28:51D0 | PROBABLE | - | - | `gfx/address_book/shared_tiles_bank28.asm` |
 
 ### `gfx/browser/frames_0_1/`
 

@@ -8,19 +8,19 @@ SECTION "gfx/address_book/shared_tiles_bank28", ROMX
 
 Gfx_AddrBookShared_Tiles8000:: ; 28:4BD0
 
-	INCBIN "gfx/address_book/shared_tiles_bank28/tiles_4bd0.2bpp"
+	INCBIN "gfx/address_book/shared_tiles_bank28/addr_book_shared_tiles8000.2bpp"
 
 ; ---- gfx $4FD0-$51D0 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2C:5946: hl=$4FD0 a=$28 c=$20 de=$8400 (dest VRAM $8400, vbank=0)
 
 Gfx_AddrBookShared_Tiles8400:: ; 28:4FD0
 
-	INCBIN "gfx/address_book/shared_tiles_bank28/tiles_4fd0.2bpp"
+	INCBIN "gfx/address_book/shared_tiles_bank28/addr_book_shared_tiles8400.2bpp"
 
 ; ---- data $51D0-$5210 (64 bytes) [CONFIRMED] BG palette: 8 x 4 RGB555 words (all bit15 clear), original-exact; 1 literal loader site(s) (2F:460C) pass bank $28, BC=$0040 and DE=$D800 to 4F:4000 Palette_LoadToBuffer, selecting WRAM bank 7 and copying through 00:050C; all 64 bytes read in each of 10/69 existing original-ROM scenarios, with all five loader instruction starts observed; no new visual or hardware observation
 
 Palette_AbookList_Bg:: ; 28:51D0
 
-	INCLUDE "gfx/address_book/shared_tiles_bank28/palette_51d0.pal"
+	INCLUDE "gfx/address_book/shared_tiles_bank28/abook_list_bg_palette.pal"
 
 ; ---- words $5210-$5280 (112 bytes) [PROBABLE] 7 rows of 16 bytes = 4 identical 4-byte object-table entries (ptr to frame table, ptr to script); every pointer lands on a frame-table/script start found by the sequential sweep of 5210-54B0 (28:5210-54B0); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs [v4: bytes 5214-5218, 5224-5228, 5244-5248 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 

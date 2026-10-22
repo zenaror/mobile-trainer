@@ -8,22 +8,22 @@ SECTION "gfx/address_book/entry_screen_bank29", ROMX
 
 Gfx_AbookEdit_Tiles8000:: ; 29:5B10
 
-	INCBIN "gfx/address_book/entry_screen_bank29/tiles_5b10.2bpp"
+	INCBIN "gfx/address_book/entry_screen_bank29/abook_edit_tiles8000.2bpp"
 
 ; ---- data $5E10-$5E50 (64 bytes) [CONFIRMED] 64 bytes = 32 RGB555 words (bit15 clear): loaded by 'ld bc,$0040 ; ld de,$D840 ; ld hl,$5E10 ; ld a,$29 ; far call 4F:4000' at 2F:59A2-59B2; executed reads of 5E10-5E50 in traces (dataaccess rom_read 29 5B10-5E50); verifier: the old split 5E0C-5E4C/5E4C-5E50 was 4 bytes early
 
 Palette_AbookEdit_Obj:: ; 29:5E10
 
-	INCLUDE "gfx/address_book/entry_screen_bank29/palette_5e10.pal"
+	INCLUDE "gfx/address_book/entry_screen_bank29/abook_edit_obj_palette.pal"
 
 ; ---- gfx $5E50-$6250 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2F:5208: hl=$5E50 a=$29 c=$40 de=$9301 (dest VRAM $9300, vbank=1) [first call site executed: 6 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_AbookView_Tiles9300Vb1:: ; 29:5E50
 
-	INCBIN "gfx/address_book/entry_screen_bank29/tiles_5e50.2bpp"
+	INCBIN "gfx/address_book/entry_screen_bank29/abook_view_tiles9300_vb1.2bpp"
 
 ; ---- gfx $6250-$6290 (64 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2F:521A: hl=$6250 a=$29 c=$04 de=$9701 (dest VRAM $9700, vbank=1) [first call site executed: 6 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Gfx_AbookView_Tiles9700Vb1:: ; 29:6250
 
-	INCBIN "gfx/address_book/entry_screen_bank29/tiles_6250.2bpp"
+	INCBIN "gfx/address_book/entry_screen_bank29/abook_view_tiles9700_vb1.2bpp"

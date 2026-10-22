@@ -147,10 +147,10 @@ gfx/address_book/address_picker/addr_pick_tiles9700.2bpp	tiles	256	gfx/address_b
 gfx/address_book/address_picker/data_addr_pick_tilemap_attr.attrmap	attrmap	360	gfx/address_book/address_picker.asm	2C	6E28	CONFIRMED	-	0	20x18	Data_AddrPick_TilemapAttr
 gfx/address_book/address_picker/data_addr_pick_tilemap_attr.tilemap	tilemap	360	gfx/address_book/address_picker.asm	2C	6CC0	CONFIRMED	-	0	20x18	Data_AddrPick_TilemapAttr
 gfx/address_book/address_picker/addr_pick_candidate_tiles_6fd0.2bpp	tiles	512	gfx/address_book/address_picker.asm	2C	6FD0	PROBABLE	exact	0		AddrPick_CandidateTiles_6FD0
-gfx/address_book/entry_screen_bank29/palette_5e10.pal	palette	64	gfx/address_book/entry_screen_bank29.asm	29	5E10	CONFIRMED	-	0		Palette_AbookEdit_Obj
-gfx/address_book/entry_screen_bank29/tiles_5b10.2bpp	tiles	768	gfx/address_book/entry_screen_bank29.asm	29	5B10	CONFIRMED	exact	0		Gfx_AbookEdit_Tiles8000
-gfx/address_book/entry_screen_bank29/tiles_5e50.2bpp	tiles	1024	gfx/address_book/entry_screen_bank29.asm	29	5E50	CONFIRMED	exact	0		Gfx_AbookView_Tiles9300Vb1
-gfx/address_book/entry_screen_bank29/tiles_6250.2bpp	tiles	64	gfx/address_book/entry_screen_bank29.asm	29	6250	CONFIRMED	exact	0		Gfx_AbookView_Tiles9700Vb1
+gfx/address_book/entry_screen_bank29/abook_edit_obj_palette.pal	palette	64	gfx/address_book/entry_screen_bank29.asm	29	5E10	CONFIRMED	-	0		Palette_AbookEdit_Obj
+gfx/address_book/entry_screen_bank29/abook_edit_tiles8000.2bpp	tiles	768	gfx/address_book/entry_screen_bank29.asm	29	5B10	CONFIRMED	exact	0		Gfx_AbookEdit_Tiles8000
+gfx/address_book/entry_screen_bank29/abook_view_tiles9300_vb1.2bpp	tiles	1024	gfx/address_book/entry_screen_bank29.asm	29	5E50	CONFIRMED	exact	0		Gfx_AbookView_Tiles9300Vb1
+gfx/address_book/entry_screen_bank29/abook_view_tiles9700_vb1.2bpp	tiles	64	gfx/address_book/entry_screen_bank29.asm	29	6250	CONFIRMED	exact	0		Gfx_AbookView_Tiles9700Vb1
 gfx/address_book/entry_screen_bank2a/addr_book_entry_tiles8000.2bpp	tiles	176	gfx/address_book/entry_screen_bank2a.asm	2A	7DD0	CONFIRMED	exact	0		Gfx_AddrBookEntry_Tiles8000
 gfx/address_book/entry_screen_bank2a/addr_book_entry_tiles8f00.2bpp	tiles	224	gfx/address_book/entry_screen_bank2a.asm	2A	7CF0	CONFIRMED	exact	0		Gfx_AddrBookEntry_Tiles8F00
 gfx/address_book/list/abook_list.attrmap	attrmap	360	gfx/address_book/list.asm	2F	4EA8	CONFIRMED	-	0	20x18	Tilemap_Abook_List
@@ -172,9 +172,9 @@ gfx/address_book/save_sender_address/save_sender_addr_candidate_palette_51e0.pal
 gfx/address_book/save_sender_address/save_sender_addr_bg.pal	palette	64	gfx/address_book/save_sender_address.asm	2A	4FA0	PROBABLE	-	0		Palette_SaveSenderAddr_Bg
 gfx/address_book/save_sender_address/save_sender_addr_tiles9300.2bpp	tiles	560	gfx/address_book/save_sender_address.asm	2A	4AA0	CONFIRMED	exact	13		Gfx_SaveSenderAddr_Tiles9300Vb1
 gfx/address_book/save_sender_address/save_sender_addr_candidate_tiles_4fe0.2bpp	tiles	512	gfx/address_book/save_sender_address.asm	2A	4FE0	PROBABLE	exact	0		Gfx_SaveSenderAddr_CandidateTiles_4FE0
-gfx/address_book/shared_tiles_bank28/palette_51d0.pal	palette	64	gfx/address_book/shared_tiles_bank28.asm	28	51D0	PROBABLE	-	0		Palette_AbookList_Bg
-gfx/address_book/shared_tiles_bank28/tiles_4bd0.2bpp	tiles	1024	gfx/address_book/shared_tiles_bank28.asm	28	4BD0	CONFIRMED	exact	0		Gfx_AddrBookShared_Tiles8000
-gfx/address_book/shared_tiles_bank28/tiles_4fd0.2bpp	tiles	512	gfx/address_book/shared_tiles_bank28.asm	28	4FD0	CONFIRMED	exact	0		Gfx_AddrBookShared_Tiles8400
+gfx/address_book/shared_tiles_bank28/abook_list_bg_palette.pal	palette	64	gfx/address_book/shared_tiles_bank28.asm	28	51D0	PROBABLE	-	0		Palette_AbookList_Bg
+gfx/address_book/shared_tiles_bank28/addr_book_shared_tiles8000.2bpp	tiles	1024	gfx/address_book/shared_tiles_bank28.asm	28	4BD0	CONFIRMED	exact	0		Gfx_AddrBookShared_Tiles8000
+gfx/address_book/shared_tiles_bank28/addr_book_shared_tiles8400.2bpp	tiles	512	gfx/address_book/shared_tiles_bank28.asm	28	4FD0	CONFIRMED	exact	0		Gfx_AddrBookShared_Tiles8400
 gfx/address_book/address_screen_candidate_bank2c/palette_7b30.pal	palette	64	gfx/address_book/address_screen_candidate_bank2c.asm	2C	7B30	PROBABLE	-	0		Palette_AddrScreenCandidate_Bg
 gfx/address_book/address_screen_candidate_bank2c/palette_7c00.pal	palette	64	gfx/address_book/address_screen_candidate_bank2c.asm	2C	7C00	PROBABLE	-	0		Palette_AddrScreenCandidate_Obj
 gfx/address_book/address_screen_candidate_bank2c/tilemap_7860.attrmap	attrmap	360	gfx/address_book/address_screen_candidate_bank2c.asm	2C	79C8	PROBABLE	-	0	20x18	Tilemap_AddrScreenCandidate_Screen
