@@ -335,14 +335,14 @@ gfx/comm/time_summary/comm_time_summary_a.tilemap	tilemap	360	gfx/comm/time_summ
 gfx/comm/time_summary/comm_time_summary_b.attrmap	attrmap	360	gfx/comm/time_summary.asm	51	5718	CONFIRMED	-	0	20x18	Tilemap_CommTime_SummaryB
 gfx/comm/time_summary/comm_time_summary_b.pal	palette	64	gfx/comm/time_summary.asm	51	5880	PROBABLE	-	0		Palette_CommTime_SummaryB
 gfx/comm/time_summary/comm_time_summary_b.tilemap	tilemap	360	gfx/comm/time_summary.asm	51	55B0	CONFIRMED	-	0	20x18	Tilemap_CommTime_SummaryB
-gfx/comm/time_summary/palette_4d70.pal	palette	64	gfx/comm/time_summary.asm	51	4D70	PROBABLE	-	0		Palette_CommTime_SummaryA
-gfx/comm/time_summary/palette_5ec0.pal	palette	32	gfx/comm/time_summary.asm	51	5EC0	PROBABLE	-	0		Palette_ConnIcon_Request2_Obj4
-gfx/comm/time_summary/tiles_42a0.2bpp	tiles	1024	gfx/comm/time_summary.asm	51	42A0	CONFIRMED	exact	0		Gfx_CommTime_SummaryA_Tiles9000Vb1
-gfx/comm/time_summary/tiles_46a0.2bpp	tiles	1024	gfx/comm/time_summary.asm	51	46A0	CONFIRMED	exact	0		Gfx_CommTime_SummaryA_Tiles9400Vb1
-gfx/comm/time_summary/tiles_4db0.2bpp	tiles	1024	gfx/comm/time_summary.asm	51	4DB0	CONFIRMED	exact	0		Gfx_CommTime_SummaryB_Tiles9000Vb1
-gfx/comm/time_summary/tiles_51b0.2bpp	tiles	1024	gfx/comm/time_summary.asm	51	51B0	CONFIRMED	exact	0		Gfx_CommTime_SummaryB_Tiles9400Vb1
-gfx/comm/time_summary/tiles_58c0.2bpp	tiles	1024	gfx/comm/time_summary.asm	51	58C0	CONFIRMED	exact	0		Gfx_ConnIcon_Request2_Tiles8200
-gfx/comm/time_summary/tiles_5cc0.2bpp	tiles	512	gfx/comm/time_summary.asm	51	5CC0	CONFIRMED	exact	0		Gfx_ConnIcon_Request2_Tiles8600
+gfx/comm/time_summary/summary_a_bg_palettes.pal	palette	64	gfx/comm/time_summary.asm	51	4D70	PROBABLE	-	0		Palette_CommTime_SummaryA
+gfx/comm/time_summary/conn_icon_request2_obj_palettes_4_to_7.pal	palette	32	gfx/comm/time_summary.asm	51	5EC0	PROBABLE	-	0		Palette_ConnIcon_Request2_Obj4
+gfx/comm/time_summary/summary_a_vram9000_vb1_tiles.2bpp	tiles	1024	gfx/comm/time_summary.asm	51	42A0	CONFIRMED	exact	0		Gfx_CommTime_SummaryA_Tiles9000Vb1
+gfx/comm/time_summary/summary_a_vram9400_vb1_tiles.2bpp	tiles	1024	gfx/comm/time_summary.asm	51	46A0	CONFIRMED	exact	0		Gfx_CommTime_SummaryA_Tiles9400Vb1
+gfx/comm/time_summary/summary_b_vram9000_vb1_tiles.2bpp	tiles	1024	gfx/comm/time_summary.asm	51	4DB0	CONFIRMED	exact	0		Gfx_CommTime_SummaryB_Tiles9000Vb1
+gfx/comm/time_summary/summary_b_vram9400_vb1_tiles.2bpp	tiles	1024	gfx/comm/time_summary.asm	51	51B0	CONFIRMED	exact	0		Gfx_CommTime_SummaryB_Tiles9400Vb1
+gfx/comm/time_summary/conn_icon_request2_vram8200_vb0_tiles.2bpp	tiles	1024	gfx/comm/time_summary.asm	51	58C0	CONFIRMED	exact	0		Gfx_ConnIcon_Request2_Tiles8200
+gfx/comm/time_summary/conn_icon_request2_vram8600_vb0_tiles.2bpp	tiles	512	gfx/comm/time_summary.asm	51	5CC0	CONFIRMED	exact	0		Gfx_ConnIcon_Request2_Tiles8600
 gfx/comm/time_summary/time_summary_candidate_tiles_5ee1.2bpp	tiles	4592	gfx/comm/time_summary.asm	51	5EE1	PROBABLE	exact	1		CandidateTiles_51_5EE1
 gfx/dialog/dialog_window/dialog_obj_palette.pal	palette	8	gfx/dialog/dialog_window.asm	72	4E38	CONFIRMED	-	0		Dialog_ObjPalette
 gfx/dialog/dialog_window/dialog_palette.pal	palette	16	gfx/dialog/dialog_window.asm	72	4E28	CONFIRMED	-	0		Dialog_Palette
@@ -493,12 +493,12 @@ gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/star_triangle_border_
 gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/star_triangle_border_46_4000_tiles.2bpp	tiles	2560	gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm	46	4000	PROBABLE	exact	0		FrameDesignCandidate_StarTriangleBorder_Tiles_4000
 gfx/help/help_screens_a/help_menu_bg.pal	palette	64	gfx/help/help_screens_a.asm	6A	62B0	CONFIRMED	-	0		Palette_HelpMenu_Bg
 gfx/help/help_screens_a/help_menu_obj.pal	palette	64	gfx/help/help_screens_a.asm	6A	62F0	CONFIRMED	-	0		Palette_HelpMenu_Obj
-gfx/help/help_screens_a/tilemap_4000.attrmap	attrmap	360	gfx/help/help_screens_a.asm	6A	4168	CONFIRMED	-	0	20x18	Tilemap_HelpMenu_6A_4000
-gfx/help/help_screens_a/tilemap_4000.tilemap	tilemap	360	gfx/help/help_screens_a.asm	6A	4000	CONFIRMED	-	0	20x18	Tilemap_HelpMenu_6A_4000
-gfx/help/help_screens_a/tilemap_42d0.attrmap	attrmap	360	gfx/help/help_screens_a.asm	6A	4438	CONFIRMED	-	0	20x18	Tilemap_HelpMenu_6A_42D0
-gfx/help/help_screens_a/tilemap_42d0.tilemap	tilemap	360	gfx/help/help_screens_a.asm	6A	42D0	CONFIRMED	-	0	20x18	Tilemap_HelpMenu_6A_42D0
-gfx/help/help_screens_a/tilemap_45a0.attrmap	attrmap	360	gfx/help/help_screens_a.asm	6A	4708	CONFIRMED	-	0	20x18	Tilemap_HelpMenu_6A_45A0
-gfx/help/help_screens_a/tilemap_45a0.tilemap	tilemap	360	gfx/help/help_screens_a.asm	6A	45A0	CONFIRMED	-	0	20x18	Tilemap_HelpMenu_6A_45A0
+gfx/help/help_screens_a/help_menu_page1_background.attrmap	attrmap	360	gfx/help/help_screens_a.asm	6A	4168	CONFIRMED	-	0	20x18	Tilemap_HelpMenu_6A_4000
+gfx/help/help_screens_a/help_menu_page1_background.tilemap	tilemap	360	gfx/help/help_screens_a.asm	6A	4000	CONFIRMED	-	0	20x18	Tilemap_HelpMenu_6A_4000
+gfx/help/help_screens_a/help_menu_page2_background.attrmap	attrmap	360	gfx/help/help_screens_a.asm	6A	4438	CONFIRMED	-	0	20x18	Tilemap_HelpMenu_6A_42D0
+gfx/help/help_screens_a/help_menu_page2_background.tilemap	tilemap	360	gfx/help/help_screens_a.asm	6A	42D0	CONFIRMED	-	0	20x18	Tilemap_HelpMenu_6A_42D0
+gfx/help/help_screens_a/help_menu_page3_background.attrmap	attrmap	360	gfx/help/help_screens_a.asm	6A	4708	CONFIRMED	-	0	20x18	Tilemap_HelpMenu_6A_45A0
+gfx/help/help_screens_a/help_menu_page3_background.tilemap	tilemap	360	gfx/help/help_screens_a.asm	6A	45A0	CONFIRMED	-	0	20x18	Tilemap_HelpMenu_6A_45A0
 gfx/help/help_screens_a/help_menu_page1_normal_items.attrmap	attrmap	210	gfx/help/help_screens_a.asm	6A	4942	CONFIRMED	-	0	10x21	Tilemap_HelpMenu_Page1_NormalItems
 gfx/help/help_screens_a/help_menu_page1_normal_items.tilemap	tilemap	210	gfx/help/help_screens_a.asm	6A	4870	CONFIRMED	-	0	10x21	Tilemap_HelpMenu_Page1_NormalItems
 gfx/help/help_screens_a/help_menu_page2_normal_items.attrmap	attrmap	90	gfx/help/help_screens_a.asm	6A	4A6E	CONFIRMED	-	0	10x9	Tilemap_HelpMenu_Page2_NormalItems
@@ -511,12 +511,12 @@ gfx/help/help_screens_a/help_menu_page2_selected_items.attrmap	attrmap	90	gfx/he
 gfx/help/help_screens_a/help_menu_page2_selected_items.tilemap	tilemap	90	gfx/help/help_screens_a.asm	6A	4D20	CONFIRMED	-	0	10x9	Tilemap_HelpMenu_Page2_SelectedItems
 gfx/help/help_screens_a/help_menu_page3_selected_items.attrmap	attrmap	90	gfx/help/help_screens_a.asm	6A	4E2E	CONFIRMED	-	0	10x9	Tilemap_HelpMenu_Page3_SelectedItems
 gfx/help/help_screens_a/help_menu_page3_selected_items.tilemap	tilemap	90	gfx/help/help_screens_a.asm	6A	4DD4	CONFIRMED	-	0	10x9	Tilemap_HelpMenu_Page3_SelectedItems
-gfx/help/help_screens_a/tiles_4e90.2bpp	tiles	1024	gfx/help/help_screens_a.asm	6A	4E90	CONFIRMED	exact	0		Gfx_HelpMenu_Tiles8000
-gfx/help/help_screens_a/tiles_5290.2bpp	tiles	1024	gfx/help/help_screens_a.asm	6A	5290	CONFIRMED	exact	0		Gfx_HelpMenu_Tiles8800
-gfx/help/help_screens_a/tiles_5690.2bpp	tiles	1024	gfx/help/help_screens_a.asm	6A	5690	CONFIRMED	exact	0		Gfx_HelpMenu_Tiles8C00
-gfx/help/help_screens_a/tiles_5a90.2bpp	tiles	32	gfx/help/help_screens_a.asm	6A	5A90	CONFIRMED	exact	0		Gfx_HelpMenu_Tiles9000
-gfx/help/help_screens_a/tiles_5ab0.2bpp	tiles	1024	gfx/help/help_screens_a.asm	6A	5AB0	CONFIRMED	exact	0		Gfx_HelpMenu_Tiles9000Vb1
-gfx/help/help_screens_a/tiles_5eb0.2bpp	tiles	1024	gfx/help/help_screens_a.asm	6A	5EB0	CONFIRMED	exact	0		Gfx_HelpMenu_Tiles9400Vb1
+gfx/help/help_screens_a/help_menu_vram8000_vb0_tiles.2bpp	tiles	1024	gfx/help/help_screens_a.asm	6A	4E90	CONFIRMED	exact	0		Gfx_HelpMenu_Tiles8000
+gfx/help/help_screens_a/help_menu_vram8800_vb0_tiles.2bpp	tiles	1024	gfx/help/help_screens_a.asm	6A	5290	CONFIRMED	exact	0		Gfx_HelpMenu_Tiles8800
+gfx/help/help_screens_a/help_menu_vram8c00_vb0_tiles.2bpp	tiles	1024	gfx/help/help_screens_a.asm	6A	5690	CONFIRMED	exact	0		Gfx_HelpMenu_Tiles8C00
+gfx/help/help_screens_a/help_menu_vram9000_vb0_tiles.2bpp	tiles	32	gfx/help/help_screens_a.asm	6A	5A90	CONFIRMED	exact	0		Gfx_HelpMenu_Tiles9000
+gfx/help/help_screens_a/help_menu_vram9000_vb1_tiles.2bpp	tiles	1024	gfx/help/help_screens_a.asm	6A	5AB0	CONFIRMED	exact	0		Gfx_HelpMenu_Tiles9000Vb1
+gfx/help/help_screens_a/help_menu_vram9400_vb1_tiles.2bpp	tiles	1024	gfx/help/help_screens_a.asm	6A	5EB0	CONFIRMED	exact	0		Gfx_HelpMenu_Tiles9400Vb1
 gfx/help/help_screens_b/help_script_bg_obj_palettes.pal	palette	128	gfx/help/help_screens_b.asm	6A	7220	PROBABLE	-	0		Palette_HelpScript_Bg
 gfx/help/help_screens_b/help_script_background.attrmap	attrmap	360	gfx/help/help_screens_b.asm	6A	687E	CONFIRMED	-	0	20x18	Tilemap_HelpScript
 gfx/help/help_screens_b/help_script_background.tilemap	tilemap	360	gfx/help/help_screens_b.asm	6A	6716	CONFIRMED	-	0	20x18	Tilemap_HelpScript

@@ -2084,3 +2084,18 @@ with names based on confirmed VRAM destinations and map dimensions. All 21
 renamed payload/preview files match their former Git blobs; the Japanese build
 remains byte-identical. English remains paused and its old-path references were
 not inspected. See the [Top Menu resource-path note](docs/research/top_menu_resource_paths_20261022.md).
+
+
+The 2026-10-22 Japanese name census found zero address-form Function_*,
+Func_*, Sub_*, or Label_* definitions and zero exact address-only Font_*,
+Tiles_*, Tilemap_*, Palette_*, or Attrmap_* definitions in the safe maintained
+source set. Fifteen neutral Data_BB_AAAA labels remain without a supported
+replacement. A broader scan found 595 typed sprite-frame, frame-table, and
+script labels whose object owner still needs review, plus address-based RAM
+definitions whose lexical non-use does not prove they are unused. See the
+[Japanese naming follow-up](docs/research/japanese_name_and_gfx_path_followup_20261022.md).
+
+The same follow-up names 17 additional Japanese graphics stems from direct
+static consumers and VRAM/palette destinations. Payload hashes and confidence
+cells are preserved; HelpMenu screen models remain HYPOTHESIS and palette
+grouping remains PROBABLE.

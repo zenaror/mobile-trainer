@@ -8,22 +8,22 @@ SECTION "gfx/help/help_screens_a", ROMX
 
 Tilemap_HelpMenu_6A_4000:: ; 6A:4000
 
-	INCBIN "gfx/help/help_screens_a/tilemap_4000.tilemap"
-	INCBIN "gfx/help/help_screens_a/tilemap_4000.attrmap"
+	INCBIN "gfx/help/help_screens_a/help_menu_page1_background.tilemap"
+	INCBIN "gfx/help/help_screens_a/help_menu_page1_background.attrmap"
 
 ; ---- data $42D0-$45A0 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 6C:40F1: hl=$42D0 a=$6A b=18 rows c=20 cols (tiles then attrs) de=$D000
 
 Tilemap_HelpMenu_6A_42D0:: ; 6A:42D0
 
-	INCBIN "gfx/help/help_screens_a/tilemap_42d0.tilemap"
-	INCBIN "gfx/help/help_screens_a/tilemap_42d0.attrmap"
+	INCBIN "gfx/help/help_screens_a/help_menu_page2_background.tilemap"
+	INCBIN "gfx/help/help_screens_a/help_menu_page2_background.attrmap"
 
 ; ---- data $45A0-$4870 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 6C:410C: hl=$45A0 a=$6A b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 50 hits in 4 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_HelpMenu_6A_45A0:: ; 6A:45A0
 
-	INCBIN "gfx/help/help_screens_a/tilemap_45a0.tilemap"
-	INCBIN "gfx/help/help_screens_a/tilemap_45a0.attrmap"
+	INCBIN "gfx/help/help_screens_a/help_menu_page3_background.tilemap"
+	INCBIN "gfx/help/help_screens_a/help_menu_page3_background.attrmap"
 
 ; ---- data $4870-$4A14 (420 bytes) [CONFIRMED] HelpMenu page 1 normal
 ; item rectangles: 21 rows x 10 tile indices, then the same number of attribute bytes.
@@ -93,37 +93,37 @@ Tilemap_HelpMenu_Page3_SelectedItems:: ; 6A:4DD4
 
 Gfx_HelpMenu_Tiles8000:: ; 6A:4E90
 
-	INCBIN "gfx/help/help_screens_a/tiles_4e90.2bpp"
+	INCBIN "gfx/help/help_screens_a/help_menu_vram8000_vb0_tiles.2bpp"
 
 ; ---- gfx $5290-$5690 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 6C:4059: hl=$5290 a=$6A c=$40 de=$8800 (dest VRAM $8800, vbank=0)
 
 Gfx_HelpMenu_Tiles8800:: ; 6A:5290
 
-	INCBIN "gfx/help/help_screens_a/tiles_5290.2bpp"
+	INCBIN "gfx/help/help_screens_a/help_menu_vram8800_vb0_tiles.2bpp"
 
 ; ---- gfx $5690-$5A90 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 6C:406B: hl=$5690 a=$6A c=$40 de=$8C00 (dest VRAM $8C00, vbank=0)
 
 Gfx_HelpMenu_Tiles8C00:: ; 6A:5690
 
-	INCBIN "gfx/help/help_screens_a/tiles_5690.2bpp"
+	INCBIN "gfx/help/help_screens_a/help_menu_vram8c00_vb0_tiles.2bpp"
 
 ; ---- gfx $5A90-$5AB0 (32 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 6C:407D: hl=$5A90 a=$6A c=$02 de=$9000 (dest VRAM $9000, vbank=0)
 
 Gfx_HelpMenu_Tiles9000:: ; 6A:5A90
 
-	INCBIN "gfx/help/help_screens_a/tiles_5a90.2bpp"
+	INCBIN "gfx/help/help_screens_a/help_menu_vram9000_vb0_tiles.2bpp"
 
 ; ---- gfx $5AB0-$5EB0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 6C:408F: hl=$5AB0 a=$6A c=$40 de=$9001 (dest VRAM $9000, vbank=1)
 
 Gfx_HelpMenu_Tiles9000Vb1:: ; 6A:5AB0
 
-	INCBIN "gfx/help/help_screens_a/tiles_5ab0.2bpp"
+	INCBIN "gfx/help/help_screens_a/help_menu_vram9000_vb1_tiles.2bpp"
 
 ; ---- gfx $5EB0-$62B0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 6C:40A1: hl=$5EB0 a=$6A c=$40 de=$9401 (dest VRAM $9400, vbank=1)
 
 Gfx_HelpMenu_Tiles9400Vb1:: ; 6A:5EB0
 
-	INCBIN "gfx/help/help_screens_a/tiles_5eb0.2bpp"
+	INCBIN "gfx/help/help_screens_a/help_menu_vram9400_vb1_tiles.2bpp"
 
 ; ---- data $62B0-$62F0 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/help/help_menu.asm:82, call 6C:40B2 executed 411 hits in 12 scenarios (analysis/coverage_union.tsv))
 

@@ -150,12 +150,12 @@ PNG_TILE_OUTS := \
 	gfx/comm/notice_dialog/tiles_66f0.2bpp \
 	gfx/comm/notice_dialog/tiles_6890.2bpp \
 	gfx/comm/notice_dialog/tiles_68a0.2bpp \
-	gfx/comm/time_summary/tiles_42a0.2bpp \
-	gfx/comm/time_summary/tiles_46a0.2bpp \
-	gfx/comm/time_summary/tiles_4db0.2bpp \
-	gfx/comm/time_summary/tiles_51b0.2bpp \
-	gfx/comm/time_summary/tiles_58c0.2bpp \
-	gfx/comm/time_summary/tiles_5cc0.2bpp \
+	gfx/comm/time_summary/conn_icon_request2_vram8200_vb0_tiles.2bpp \
+	gfx/comm/time_summary/conn_icon_request2_vram8600_vb0_tiles.2bpp \
+	gfx/comm/time_summary/summary_a_vram9000_vb1_tiles.2bpp \
+	gfx/comm/time_summary/summary_a_vram9400_vb1_tiles.2bpp \
+	gfx/comm/time_summary/summary_b_vram9000_vb1_tiles.2bpp \
+	gfx/comm/time_summary/summary_b_vram9400_vb1_tiles.2bpp \
 	gfx/comm/time_summary/time_summary_candidate_tiles_5ee1.2bpp \
 	gfx/dialog/dialog_window/dialog_window_tiles.2bpp \
 	gfx/error/comm_error_screen/comm_err_gfx_bg9000.2bpp \
@@ -208,12 +208,12 @@ PNG_TILE_OUTS := \
 	gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/orange_rivet_panel_46_4d50_tiles.2bpp \
 	gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/pink_scallop_border_46_67f0_tiles.2bpp \
 	gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/star_triangle_border_46_4000_tiles.2bpp \
-	gfx/help/help_screens_a/tiles_4e90.2bpp \
-	gfx/help/help_screens_a/tiles_5290.2bpp \
-	gfx/help/help_screens_a/tiles_5690.2bpp \
-	gfx/help/help_screens_a/tiles_5a90.2bpp \
-	gfx/help/help_screens_a/tiles_5ab0.2bpp \
-	gfx/help/help_screens_a/tiles_5eb0.2bpp \
+	gfx/help/help_screens_a/help_menu_vram8000_vb0_tiles.2bpp \
+	gfx/help/help_screens_a/help_menu_vram8800_vb0_tiles.2bpp \
+	gfx/help/help_screens_a/help_menu_vram8c00_vb0_tiles.2bpp \
+	gfx/help/help_screens_a/help_menu_vram9000_vb0_tiles.2bpp \
+	gfx/help/help_screens_a/help_menu_vram9000_vb1_tiles.2bpp \
+	gfx/help/help_screens_a/help_menu_vram9400_vb1_tiles.2bpp \
 	gfx/help/help_screens_b/help_script_candidate_tiles_6e20.2bpp \
 	gfx/help/help_screens_b/help_script_vram8000_vb0_tiles.2bpp \
 	gfx/help/help_screens_b/help_script_vram8af0_vb1_tiles.2bpp \
@@ -568,12 +568,12 @@ gfx/comm/notice_dialog/tiles_62f0.2bpp: PNG_SIZE := 1024
 gfx/comm/notice_dialog/tiles_66f0.2bpp: PNG_SIZE := 416
 gfx/comm/notice_dialog/tiles_6890.2bpp: PNG_SIZE := 16
 gfx/comm/notice_dialog/tiles_68a0.2bpp: PNG_SIZE := 800
-gfx/comm/time_summary/tiles_42a0.2bpp: PNG_SIZE := 1024
-gfx/comm/time_summary/tiles_46a0.2bpp: PNG_SIZE := 1024
-gfx/comm/time_summary/tiles_4db0.2bpp: PNG_SIZE := 1024
-gfx/comm/time_summary/tiles_51b0.2bpp: PNG_SIZE := 1024
-gfx/comm/time_summary/tiles_58c0.2bpp: PNG_SIZE := 1024
-gfx/comm/time_summary/tiles_5cc0.2bpp: PNG_SIZE := 512
+gfx/comm/time_summary/conn_icon_request2_vram8200_vb0_tiles.2bpp: PNG_SIZE := 1024
+gfx/comm/time_summary/conn_icon_request2_vram8600_vb0_tiles.2bpp: PNG_SIZE := 512
+gfx/comm/time_summary/summary_a_vram9000_vb1_tiles.2bpp: PNG_SIZE := 1024
+gfx/comm/time_summary/summary_a_vram9400_vb1_tiles.2bpp: PNG_SIZE := 1024
+gfx/comm/time_summary/summary_b_vram9000_vb1_tiles.2bpp: PNG_SIZE := 1024
+gfx/comm/time_summary/summary_b_vram9400_vb1_tiles.2bpp: PNG_SIZE := 1024
 gfx/comm/time_summary/time_summary_candidate_tiles_5ee1.2bpp: PNG_SIZE := 4592
 gfx/comm/time_summary/time_summary_candidate_tiles_5ee1.2bpp: PNG_PAD := -x 1
 gfx/dialog/dialog_window/dialog_window_tiles.2bpp: PNG_SIZE := 1024
@@ -632,12 +632,12 @@ gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/blue_energy_border_46
 gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/orange_rivet_panel_46_4d50_tiles.2bpp: PNG_SIZE := 2560
 gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/pink_scallop_border_46_67f0_tiles.2bpp: PNG_SIZE := 2560
 gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/star_triangle_border_46_4000_tiles.2bpp: PNG_SIZE := 2560
-gfx/help/help_screens_a/tiles_4e90.2bpp: PNG_SIZE := 1024
-gfx/help/help_screens_a/tiles_5290.2bpp: PNG_SIZE := 1024
-gfx/help/help_screens_a/tiles_5690.2bpp: PNG_SIZE := 1024
-gfx/help/help_screens_a/tiles_5a90.2bpp: PNG_SIZE := 32
-gfx/help/help_screens_a/tiles_5ab0.2bpp: PNG_SIZE := 1024
-gfx/help/help_screens_a/tiles_5eb0.2bpp: PNG_SIZE := 1024
+gfx/help/help_screens_a/help_menu_vram8000_vb0_tiles.2bpp: PNG_SIZE := 1024
+gfx/help/help_screens_a/help_menu_vram8800_vb0_tiles.2bpp: PNG_SIZE := 1024
+gfx/help/help_screens_a/help_menu_vram8c00_vb0_tiles.2bpp: PNG_SIZE := 1024
+gfx/help/help_screens_a/help_menu_vram9000_vb0_tiles.2bpp: PNG_SIZE := 32
+gfx/help/help_screens_a/help_menu_vram9000_vb1_tiles.2bpp: PNG_SIZE := 1024
+gfx/help/help_screens_a/help_menu_vram9400_vb1_tiles.2bpp: PNG_SIZE := 1024
 gfx/help/help_screens_b/help_script_candidate_tiles_6e20.2bpp: PNG_SIZE := 1024
 gfx/help/help_screens_b/help_script_vram8000_vb0_tiles.2bpp: PNG_SIZE := 32
 gfx/help/help_screens_b/help_script_vram8af0_vb1_tiles.2bpp: PNG_SIZE := 16
