@@ -154,7 +154,7 @@ MailSample0_Header:: ; 2D:42B2
 
 PUSHC sjis
 MailSample0_Body:: ; 2D:42BB
-String_2D_42BB::
+
 	db "こんど、またあそぼう", 0
 POPC
 
@@ -162,7 +162,7 @@ POPC
 
 PUSHC sjis
 MailSample0_Name:: ; 2D:42D0
-String_2D_42D0::
+
 	db "マリオ", 0
 POPC
 
@@ -170,7 +170,7 @@ POPC
 
 PUSHC sjis
 MailSample0_Subject:: ; 2D:42D7
-String_2D_42D7::
+
 	db "またあそぼうね", 0
 
 MailSample0_Address:: ; 2D:42E6
@@ -186,7 +186,7 @@ MailSample1_Header:: ; 2D:42F8
 
 PUSHC sjis
 MailSample1_Body:: ; 2D:4301
-String_2D_4301::
+
 	db "７がつのさいしょのにちようびに、やきゅうをするからこいよ", 0
 
 MailSample1_Name:: ; 2D:433A
@@ -208,7 +208,7 @@ MailSample2_Header:: ; 2D:436A
 
 PUSHC sjis
 MailSample2_Body:: ; 2D:4373
-String_2D_4373::
+
 	db "ついにポケモンのさいしんさくがとうじょうするぞ！「ポケットモンスター苔」くわしくはにんてんどうのホームページへＧＯ！", 0
 
 MailSample2_Name:: ; 2D:43E8
@@ -230,7 +230,7 @@ MailSample3_Header:: ; 2D:441B
 
 PUSHC sjis
 MailSample3_Body:: ; 2D:4424
-String_2D_4424::
+
 	db "メールセンターのメンテナンスのため、7/14～7/20までのきかん、メールをチェックできなくなります", $0D, $0A
 	db "あらかじめごりょうしょうください", 0
 
@@ -253,7 +253,7 @@ MailSample4_Header:: ; 2D:44D3
 
 PUSHC sjis
 MailSample4_Body:: ; 2D:44DC
-String_2D_44DC::
+
 	db "くくく・・・", 0
 
 MailSample4_Name:: ; 2D:44E9
@@ -380,7 +380,7 @@ Abook_InstallSampleEntries:: ; 2D:44FB
 
 PUSHC sjis
 AbookSample0_Name:: ; 2D:45A6
-String_2D_45A6::
+
 	db "フジシゲユウイチ", 0
 POPC
 
@@ -388,7 +388,7 @@ POPC
 
 PUSHC sjis
 AbookSample1_Name:: ; 2D:45B7
-String_2D_45B7::
+
 	db 0
 
 AbookSample2_Name:: ; 2D:45B8
@@ -420,7 +420,7 @@ POPC
 
 PUSHC sjis
 AbookSample4_Address:: ; 2D:462A
-String_2D_462A::
+
 	db 0
 
 AbookSample5_Address:: ; 2D:462B
@@ -461,7 +461,7 @@ SampleData_InstallNameAddressPair:: ; 2D:4635
 
 PUSHC sjis
 SampleData_Name:: ; 2D:465E
-String_2D_465E::
+
 	db "スーパーマリオ", 0
 
 SampleData_Address:: ; 2D:466D

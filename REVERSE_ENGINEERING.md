@@ -8,7 +8,7 @@ Numbers marked "frozen" describe `config/` at the freeze and are not updated any
 ## Current original reconstruction and asset-audit limits
 ### Sample-data generic aliases (2026-10-22)
 
-The five former `Data_2D_AAAA` labels in `engine/mail/sample_data.asm` were exact-address aliases of `MailSample0_Header` through `MailSample4_Header`; those redundant definitions have been removed without changing record bytes or layout. The rebuilt Japanese MAP/SYM contains 14 exact `Data_BB_AAAA` names and none of the five retired aliases. See [`japanese_sample_data_aliases_20261022.md`](docs/research/japanese_sample_data_aliases_20261022.md). This naming cleanup does not establish the sample records' field meanings.
+Five former `Data_2D_AAAA` and eleven `String_2D_AAAA` labels in `engine/mail/sample_data.asm` were exact-address aliases of existing `MailSample*`, `AbookSample*` and `SampleData_Name` labels. The sixteen redundant definitions have been removed without changing record/string bytes or layout. The rebuilt Japanese MAP/SYM contains 14 exact `Data_BB_AAAA` names and none of the retired aliases. See [`japanese_sample_data_aliases_20261022.md`](docs/research/japanese_sample_data_aliases_20261022.md). This naming cleanup does not establish sample field meanings beyond those existing labels.
 
 ### Japanese sprite labels and bounded byte audit (2026-10-22)
 
