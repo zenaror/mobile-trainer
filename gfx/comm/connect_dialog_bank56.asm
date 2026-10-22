@@ -8,43 +8,43 @@ SECTION "gfx/comm/connect_dialog_bank56", ROMX
 
 Tilemap_ConnectDialog_56_418A:: ; 56:418A
 
-	INCBIN "gfx/comm/connect_dialog_bank56/tilemap_418a.tilemap"
-	INCBIN "gfx/comm/connect_dialog_bank56/tilemap_418a.attrmap"
+	INCBIN "gfx/comm/connect_dialog_bank56/connect_dialog_password_entry_background.tilemap"
+	INCBIN "gfx/comm/connect_dialog_bank56/connect_dialog_password_entry_background.attrmap"
 
 ; ---- data $445A-$472A (720 bytes) [CONFIRMED] tilemap+attr: 2 call site(s) (57:4E8D 57:5192); first: copy_tilemap_rect_pair at 57:4E8D: hl=$445A a=$56 b=18 rows c=20 cols (tiles then attrs) de=$D000
 
 Tilemap_ConnectDialog_56_445A:: ; 56:445A
 
-	INCBIN "gfx/comm/connect_dialog_bank56/tilemap_445a.tilemap"
-	INCBIN "gfx/comm/connect_dialog_bank56/tilemap_445a.attrmap"
+	INCBIN "gfx/comm/connect_dialog_bank56/connect_dialog_stored_password_background.tilemap"
+	INCBIN "gfx/comm/connect_dialog_bank56/connect_dialog_stored_password_background.attrmap"
 
 ; ---- data $472A-$49FA (720 bytes) [CONFIRMED] tilemap+attr: 2 call site(s) (57:4F64 57:51B6); first: copy_tilemap_rect_pair at 57:4F64: hl=$472A a=$56 b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 10 hits in 6 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_ConnectDialog_56_472A:: ; 56:472A
 
-	INCBIN "gfx/comm/connect_dialog_bank56/tilemap_472a.tilemap"
-	INCBIN "gfx/comm/connect_dialog_bank56/tilemap_472a.attrmap"
+	INCBIN "gfx/comm/connect_dialog_bank56/connect_dialog_forget_confirm_background.tilemap"
+	INCBIN "gfx/comm/connect_dialog_bank56/connect_dialog_forget_confirm_background.attrmap"
 
 ; ---- data $49FA-$4CCA (720 bytes) [CONFIRMED] tilemap+attr: 2 call site(s) (57:4BFE 57:516B); first: copy_tilemap_rect_pair at 57:4BFE: hl=$49FA a=$56 b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 12 hits in 4 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_ConnectDialog_56_49FA:: ; 56:49FA
 
-	INCBIN "gfx/comm/connect_dialog_bank56/tilemap_49fa.tilemap"
-	INCBIN "gfx/comm/connect_dialog_bank56/tilemap_49fa.attrmap"
+	INCBIN "gfx/comm/connect_dialog_bank56/connect_dialog_save_password_confirm_background.tilemap"
+	INCBIN "gfx/comm/connect_dialog_bank56/connect_dialog_save_password_confirm_background.attrmap"
 
 ; ---- data $4CCA-$4F9A (720 bytes) [CONFIRMED] tilemap+attr: 2 call site(s) (57:4D6F 57:517F); first: copy_tilemap_rect_pair at 57:4D6F: hl=$4CCA a=$56 b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 3 hits in 3 scenarios (analysis/coverage_union.tsv)]
 
 Tilemap_ConnectDialog_56_4CCA:: ; 56:4CCA
 
-	INCBIN "gfx/comm/connect_dialog_bank56/tilemap_4cca.tilemap"
-	INCBIN "gfx/comm/connect_dialog_bank56/tilemap_4cca.attrmap"
+	INCBIN "gfx/comm/connect_dialog_bank56/connect_dialog_password_saved_background.tilemap"
+	INCBIN "gfx/comm/connect_dialog_bank56/connect_dialog_password_saved_background.attrmap"
 
 ; ---- data $4F9A-$526A (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 57:4800: hl=$4F9A a=$56 b=18 rows c=20 cols (tiles then attrs) de=$D000
 
 Tilemap_ConnectDialog_ConnectConfirm_56_4F9A:: ; 56:4F9A
 
-	INCBIN "gfx/comm/connect_dialog_bank56/tilemap_4f9a.tilemap"
-	INCBIN "gfx/comm/connect_dialog_bank56/tilemap_4f9a.attrmap"
+	INCBIN "gfx/comm/connect_dialog_bank56/connect_dialog_connect_confirm_background.tilemap"
+	INCBIN "gfx/comm/connect_dialog_bank56/connect_dialog_connect_confirm_background.attrmap"
 
 ; ---- data $526A-$52BA (80 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: Tilemap_CopyRectAndAttrPtr at 57:490B: hl=$526A a=$56 b=2 rows c=20 cols (tiles then attrs; the attribute half is read through the pointer wConnectDialog_AttrSrc = $5292) de=$D200 [call site 57:490B executed: 221 hits in 28 scenarios (analysis/coverage_union.tsv)]
 
@@ -127,7 +127,7 @@ Gfx_ConnectDialog_Finish_Tiles8000:: ; 56:75C0
 
 Palette_ConnectDialog_Bg:: ; 56:77C0
 
-	INCLUDE "gfx/comm/connect_dialog_bank56/palette_77c0.pal"
+	INCLUDE "gfx/comm/connect_dialog_bank56/connect_dialog_bg_palette.pal"
 
 ; ---- data $7880-$79B8 (312 bytes) [PROBABLE] 5 object record(s): 5 frame tables, 15 frames, 5 scripts, tiled exactly (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 56:7880-79B8 [v4: bytes 798D-79B8 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
