@@ -13,7 +13,7 @@ PageList_Tiles_5400:: ; 24:5400
 ; ---- gfx $55D0-$5810 (576 bytes) [PROBABLE] tiles-2bpp: heuristic: 33 coherent tiles (hsim2=0.738 vsim2=0.702, 1 blank) parity 0
 
 PageList_Tiles_55D0:: ; 24:55D0
-	INCBIN "gfx/browser/page_list/tiles_55d0.2bpp"
+	INCBIN "gfx/browser/page_list/page_list_candidate_tiles_55d0.2bpp"
 
 PageList_Tiles_5800:: ; 24:5800
 	INCBIN "gfx/browser/page_list/page_list_tiles_5800.2bpp"
@@ -54,7 +54,7 @@ PageList_Tiles_5EE0:: ; 24:5EE0
 ; ---- gfx $5EF1-$6301 (1040 bytes) [PROBABLE] tiles-2bpp: heuristic: 45 coherent tiles (hsim2=0.655 vsim2=0.638, 7 blank) parity 1
 
 PageList_Tiles_5EF1:: ; 24:5EF1
-	INCBIN "gfx/browser/page_list/tiles_5ef1.2bpp"
+	INCBIN "gfx/browser/page_list/page_list_candidate_tiles_5ef1.2bpp"
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
 PageList_Tiles_62E0:: ; 24:62E0

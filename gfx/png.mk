@@ -103,11 +103,11 @@ PNG_TILE_OUTS := \
 	gfx/browser/menus/browser_menu2_tiles1.2bpp \
 	gfx/browser/menus/browser_menu3_tiles0.2bpp \
 	gfx/browser/menus/browser_menu3_tiles1.2bpp \
+	gfx/browser/page_list/page_list_candidate_tiles_55d0.2bpp \
+	gfx/browser/page_list/page_list_candidate_tiles_5ef1.2bpp \
 	gfx/browser/page_list/page_list_tiles_5400.2bpp \
 	gfx/browser/page_list/page_list_tiles_5800.2bpp \
-	gfx/browser/page_list/tiles_55d0.2bpp \
 	gfx/browser/page_list/tiles_5810.2bpp \
-	gfx/browser/page_list/tiles_5ef1.2bpp \
 	gfx/browser/page_list/tiles_6301.2bpp \
 	gfx/browser/page_list/tiles_63e0.2bpp \
 	gfx/browser/page_list_candidate/tiles_62b0.2bpp \
@@ -156,7 +156,7 @@ PNG_TILE_OUTS := \
 	gfx/comm/time_summary/tiles_51b0.2bpp \
 	gfx/comm/time_summary/tiles_58c0.2bpp \
 	gfx/comm/time_summary/tiles_5cc0.2bpp \
-	gfx/comm/time_summary/tiles_5ee1.2bpp \
+	gfx/comm/time_summary/time_summary_candidate_tiles_5ee1.2bpp \
 	gfx/dialog/dialog_window/dialog_window_tiles.2bpp \
 	gfx/error/comm_error_screen/comm_err_gfx_bg9000.2bpp \
 	gfx/error/comm_error_screen/comm_err_gfx_bg9400.2bpp \
@@ -214,10 +214,10 @@ PNG_TILE_OUTS := \
 	gfx/help/help_screens_a/tiles_5a90.2bpp \
 	gfx/help/help_screens_a/tiles_5ab0.2bpp \
 	gfx/help/help_screens_a/tiles_5eb0.2bpp \
+	gfx/help/help_screens_b/help_script_candidate_tiles_6e20.2bpp \
 	gfx/help/help_screens_b/tiles_69f0.2bpp \
 	gfx/help/help_screens_b/tiles_6a10.2bpp \
 	gfx/help/help_screens_b/tiles_6a20.2bpp \
-	gfx/help/help_screens_b/tiles_6e20.2bpp \
 	gfx/help/mobile_dictionary/mobile_dict_tiles0.2bpp \
 	gfx/help/mobile_dictionary/mobile_dict_tiles1.2bpp \
 	gfx/help/mobile_dictionary/mobile_dict_tiles2.2bpp \
@@ -359,13 +359,13 @@ PNG_TILE_OUTS := \
 	gfx/mail_server/tidy_screen/mail_server_mgr_tiles4.2bpp \
 	gfx/mail_server/tidy_screen/mail_server_mgr_tiles5.2bpp \
 	gfx/mail_server/tidy_screen/tiles_5af0.2bpp \
+	gfx/mailbox/mailbox/mailbox_candidate_arrow_label_tiles_6bd1.2bpp \
 	gfx/mailbox/mailbox/mailbox_tiles_5a10.2bpp \
 	gfx/mailbox/mailbox/mailbox_tiles_5e10.2bpp \
 	gfx/mailbox/mailbox/mailbox_tiles_5f10.2bpp \
 	gfx/mailbox/mailbox/mailbox_tiles_6310.2bpp \
 	gfx/mailbox/mailbox/mailbox_tiles_69f0.2bpp \
 	gfx/mailbox/mailbox/mailbox_tiles_6cf0.2bpp \
-	gfx/mailbox/mailbox/tiles_6bd1.2bpp \
 	gfx/profile/profile_editor/profile_tiles8800.2bpp \
 	gfx/profile/profile_editor/profile_tiles9300.2bpp \
 	gfx/profile/profile_editor/profile_tiles9700.2bpp \
@@ -517,14 +517,14 @@ gfx/browser/menus/browser_menu2_tiles0.2bpp: PNG_SIZE := 1024
 gfx/browser/menus/browser_menu2_tiles1.2bpp: PNG_SIZE := 256
 gfx/browser/menus/browser_menu3_tiles0.2bpp: PNG_SIZE := 1024
 gfx/browser/menus/browser_menu3_tiles1.2bpp: PNG_SIZE := 256
+gfx/browser/page_list/page_list_candidate_tiles_55d0.2bpp: PNG_SIZE := 560
+gfx/browser/page_list/page_list_candidate_tiles_55d0.2bpp: PNG_PAD := -x 13
+gfx/browser/page_list/page_list_candidate_tiles_5ef1.2bpp: PNG_SIZE := 992
+gfx/browser/page_list/page_list_candidate_tiles_5ef1.2bpp: PNG_PAD := -x 2
 gfx/browser/page_list/page_list_tiles_5400.2bpp: PNG_SIZE := 464
 gfx/browser/page_list/page_list_tiles_5400.2bpp: PNG_PAD := -x 3
 gfx/browser/page_list/page_list_tiles_5800.2bpp: PNG_SIZE := 16
-gfx/browser/page_list/tiles_55d0.2bpp: PNG_SIZE := 560
-gfx/browser/page_list/tiles_55d0.2bpp: PNG_PAD := -x 13
 gfx/browser/page_list/tiles_5810.2bpp: PNG_SIZE := 160
-gfx/browser/page_list/tiles_5ef1.2bpp: PNG_SIZE := 992
-gfx/browser/page_list/tiles_5ef1.2bpp: PNG_PAD := -x 2
 gfx/browser/page_list/tiles_6301.2bpp: PNG_SIZE := 192
 gfx/browser/page_list/tiles_63e0.2bpp: PNG_SIZE := 256
 gfx/browser/page_list_candidate/tiles_62b0.2bpp: PNG_SIZE := 1024
@@ -574,8 +574,8 @@ gfx/comm/time_summary/tiles_4db0.2bpp: PNG_SIZE := 1024
 gfx/comm/time_summary/tiles_51b0.2bpp: PNG_SIZE := 1024
 gfx/comm/time_summary/tiles_58c0.2bpp: PNG_SIZE := 1024
 gfx/comm/time_summary/tiles_5cc0.2bpp: PNG_SIZE := 512
-gfx/comm/time_summary/tiles_5ee1.2bpp: PNG_SIZE := 4592
-gfx/comm/time_summary/tiles_5ee1.2bpp: PNG_PAD := -x 1
+gfx/comm/time_summary/time_summary_candidate_tiles_5ee1.2bpp: PNG_SIZE := 4592
+gfx/comm/time_summary/time_summary_candidate_tiles_5ee1.2bpp: PNG_PAD := -x 1
 gfx/dialog/dialog_window/dialog_window_tiles.2bpp: PNG_SIZE := 1024
 gfx/error/comm_error_screen/comm_err_gfx_bg9000.2bpp: PNG_SIZE := 1024
 gfx/error/comm_error_screen/comm_err_gfx_bg9400.2bpp: PNG_SIZE := 384
@@ -638,10 +638,10 @@ gfx/help/help_screens_a/tiles_5690.2bpp: PNG_SIZE := 1024
 gfx/help/help_screens_a/tiles_5a90.2bpp: PNG_SIZE := 32
 gfx/help/help_screens_a/tiles_5ab0.2bpp: PNG_SIZE := 1024
 gfx/help/help_screens_a/tiles_5eb0.2bpp: PNG_SIZE := 1024
+gfx/help/help_screens_b/help_script_candidate_tiles_6e20.2bpp: PNG_SIZE := 1024
 gfx/help/help_screens_b/tiles_69f0.2bpp: PNG_SIZE := 32
 gfx/help/help_screens_b/tiles_6a10.2bpp: PNG_SIZE := 16
 gfx/help/help_screens_b/tiles_6a20.2bpp: PNG_SIZE := 1024
-gfx/help/help_screens_b/tiles_6e20.2bpp: PNG_SIZE := 1024
 gfx/help/mobile_dictionary/mobile_dict_tiles0.2bpp: PNG_SIZE := 512
 gfx/help/mobile_dictionary/mobile_dict_tiles1.2bpp: PNG_SIZE := 1024
 gfx/help/mobile_dictionary/mobile_dict_tiles2.2bpp: PNG_SIZE := 768
@@ -791,14 +791,14 @@ gfx/mail_server/tidy_screen/mail_server_mgr_tiles3.2bpp: PNG_SIZE := 1024
 gfx/mail_server/tidy_screen/mail_server_mgr_tiles4.2bpp: PNG_SIZE := 352
 gfx/mail_server/tidy_screen/mail_server_mgr_tiles5.2bpp: PNG_SIZE := 1024
 gfx/mail_server/tidy_screen/tiles_5af0.2bpp: PNG_SIZE := 1008
+gfx/mailbox/mailbox/mailbox_candidate_arrow_label_tiles_6bd1.2bpp: PNG_SIZE := 272
+gfx/mailbox/mailbox/mailbox_candidate_arrow_label_tiles_6bd1.2bpp: PNG_PAD := -x 15
 gfx/mailbox/mailbox/mailbox_tiles_5a10.2bpp: PNG_SIZE := 1024
 gfx/mailbox/mailbox/mailbox_tiles_5e10.2bpp: PNG_SIZE := 256
 gfx/mailbox/mailbox/mailbox_tiles_5f10.2bpp: PNG_SIZE := 1024
 gfx/mailbox/mailbox/mailbox_tiles_6310.2bpp: PNG_SIZE := 256
 gfx/mailbox/mailbox/mailbox_tiles_69f0.2bpp: PNG_SIZE := 208
 gfx/mailbox/mailbox/mailbox_tiles_6cf0.2bpp: PNG_SIZE := 384
-gfx/mailbox/mailbox/tiles_6bd1.2bpp: PNG_SIZE := 272
-gfx/mailbox/mailbox/tiles_6bd1.2bpp: PNG_PAD := -x 15
 gfx/profile/profile_editor/profile_tiles8800.2bpp: PNG_SIZE := 832
 gfx/profile/profile_editor/profile_tiles9300.2bpp: PNG_SIZE := 1024
 gfx/profile/profile_editor/profile_tiles9700.2bpp: PNG_SIZE := 256

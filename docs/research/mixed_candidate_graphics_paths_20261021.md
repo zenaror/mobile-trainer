@@ -1,0 +1,5 @@
+# Candidate graphics paths: page list, time summary, help and mailbox (2026-10-21)
+
+Renamed ten Japanese asset/view files to match existing owner labels: two page-list tile spans, the time-summary candidate tile span, the help-script candidate tile span, and the mailbox arrow-label candidate span. Owner assembly and `gfx/assets.tsv`, then generated graphics and PNG manifests, were updated. All ten file hashes match before and after renaming.
+
+Evidence remains bounded by the source comments. The two page-list spans are PROBABLE 2bpp tiles by coherence; the neighboring confirmed HDMA blocks do not prove these exact spans are loaded. The time-summary 5EE1 span and help-script 6E20 span remain candidates with no direct call at their starting address; help artwork is visually consistent with button glyphs but no display route is established. The mailbox span remains PROBABLE tile art with an arrow/label interpretation carried by its existing symbol. No use, display, or natural-execution conclusion is added by path changes.

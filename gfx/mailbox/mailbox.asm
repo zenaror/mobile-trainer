@@ -72,7 +72,7 @@ Mailbox_ReadData_UnknownContent_6AC8:: ; 25:6AC8
 ; ---- gfx $6BD1-$6E71 (672 bytes) [PROBABLE] tiles-2bpp: heuristic: 35 coherent tiles (hsim2=0.623 vsim2=0.562, 3 blank) parity 1
 
 Mailbox_CandidateTiles_ArrowLabel_6BD1:: ; 25:6BD1
-	INCBIN "gfx/mailbox/mailbox/tiles_6bd1.2bpp"
+	INCBIN "gfx/mailbox/mailbox/mailbox_candidate_arrow_label_tiles_6bd1.2bpp"
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
 Mailbox_Tiles_6CF0:: ; 25:6CF0

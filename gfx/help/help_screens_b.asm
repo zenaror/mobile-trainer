@@ -33,7 +33,7 @@ Gfx_HelpScript_Tiles8B00Vb1:: ; 6A:6A20
 ; ---- gfx $6E20-$7220 (1024 bytes) [PROBABLE] 64 x 2bpp tiles (0x400, continues the 0x400 HDMA block 6A20-6E20; rendered: button glyphs "A すすむ B もどる"); no call site with hl=$6E20 found; the mapper heuristic cut it at 70A1 (parity 1) which is wrong
 
 HelpScript_CandidateTiles_6E20:: ; 6A:6E20
-	INCBIN "gfx/help/help_screens_b/tiles_6e20.2bpp"
+	INCBIN "gfx/help/help_screens_b/help_script_candidate_tiles_6e20.2bpp"
 
 ; ---- data $7220-$72A0 (128 bytes) [PROBABLE] 16 palettes x 4 RGB555 words (0x80, all bit15 clear); 6C:5A2F loads hl=$7220 bc=$0040 de=$D800 then calls far 4F:4000; first 0x10 bytes read in 12/18 scenarios
 

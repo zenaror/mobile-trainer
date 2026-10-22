@@ -398,7 +398,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
 | `page_list_tiles_5400.2bpp` | 2bpp tiles | 464 | 24:5400 | CONFIRMED | exact | - | `gfx/browser/page_list.asm` |
-| `tiles_55d0.2bpp` | 2bpp tiles | 560 | 24:55D0 | PROBABLE | exact | - | `gfx/browser/page_list.asm` |
+| `page_list_candidate_tiles_55d0.2bpp` | 2bpp tiles | 560 | 24:55D0 | PROBABLE | exact | - | `gfx/browser/page_list.asm` |
 | `page_list_tiles_5800.2bpp` | 2bpp tiles | 16 | 24:5800 | PROBABLE | exact | - | `gfx/browser/page_list.asm` |
 | `tiles_5810.2bpp` | 2bpp tiles | 160 | 24:5810 | CONFIRMED | exact | - | `gfx/browser/page_list.asm` |
 | `page_list_tilemap_5900.tilemap` | tile-index map | 360 | 24:5900 | CONFIRMED | - | 20x18 | `gfx/browser/page_list.asm` |
@@ -406,7 +406,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `page_list_tilemap_5bd0.tilemap` | tile-index map | 360 | 24:5BD0 | CONFIRMED | - | 20x18 | `gfx/browser/page_list.asm` |
 | `page_list_tilemap_5bd0.attrmap` | attribute map | 360 | 24:5D38 | CONFIRMED | - | 20x18 | `gfx/browser/page_list.asm` |
 | `page_list_bg_palette.pal` | RGB palette | 64 | 24:5EA0 | CONFIRMED | - | - | `gfx/browser/page_list.asm` |
-| `tiles_5ef1.2bpp` | 2bpp tiles | 992 | 24:5EF1 | PROBABLE | exact | - | `gfx/browser/page_list.asm` |
+| `page_list_candidate_tiles_5ef1.2bpp` | 2bpp tiles | 992 | 24:5EF1 | PROBABLE | exact | - | `gfx/browser/page_list.asm` |
 | `tiles_6301.2bpp` | 2bpp tiles | 192 | 24:6301 | CONFIRMED | exact | - | `gfx/browser/page_list.asm` |
 | `tiles_63e0.2bpp` | 2bpp tiles | 256 | 24:63E0 | CONFIRMED | exact | - | `gfx/browser/page_list.asm` |
 | `page_list_obj_palette.pal` | RGB palette | 64 | 24:64E0 | CONFIRMED | - | - | `gfx/browser/page_list.asm` |
@@ -573,7 +573,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `tiles_58c0.2bpp` | 2bpp tiles | 1024 | 51:58C0 | CONFIRMED | exact | - | `gfx/comm/time_summary.asm` |
 | `tiles_5cc0.2bpp` | 2bpp tiles | 512 | 51:5CC0 | CONFIRMED | exact | - | `gfx/comm/time_summary.asm` |
 | `palette_5ec0.pal` | RGB palette | 32 | 51:5EC0 | PROBABLE | - | - | `gfx/comm/time_summary.asm` |
-| `tiles_5ee1.2bpp` | 2bpp tiles | 4592 | 51:5EE1 | PROBABLE | exact | - | `gfx/comm/time_summary.asm` |
+| `time_summary_candidate_tiles_5ee1.2bpp` | 2bpp tiles | 4592 | 51:5EE1 | PROBABLE | exact | - | `gfx/comm/time_summary.asm` |
 
 ### `gfx/dialog/dialog_window/`
 
@@ -812,7 +812,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `tiles_69f0.2bpp` | 2bpp tiles | 32 | 6A:69F0 | CONFIRMED | exact | - | `gfx/help/help_screens_b.asm` |
 | `tiles_6a10.2bpp` | 2bpp tiles | 16 | 6A:6A10 | CONFIRMED | exact | - | `gfx/help/help_screens_b.asm` |
 | `tiles_6a20.2bpp` | 2bpp tiles | 1024 | 6A:6A20 | CONFIRMED | exact | - | `gfx/help/help_screens_b.asm` |
-| `tiles_6e20.2bpp` | 2bpp tiles | 1024 | 6A:6E20 | PROBABLE | exact | - | `gfx/help/help_screens_b.asm` |
+| `help_script_candidate_tiles_6e20.2bpp` | 2bpp tiles | 1024 | 6A:6E20 | PROBABLE | exact | - | `gfx/help/help_screens_b.asm` |
 | `palette_7220.pal` | RGB palette | 128 | 6A:7220 | PROBABLE | - | - | `gfx/help/help_screens_b.asm` |
 
 ### `gfx/help/mobile_dictionary/`
@@ -1267,7 +1267,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `mailbox_tilemap_delete_select.attrmap` | attribute map | 360 | 25:6848 | CONFIRMED | - | 20x18 | `gfx/mailbox/mailbox.asm` |
 | `mailbox_bg_palette.pal` | RGB palette | 64 | 25:69B0 | CONFIRMED | - | - | `gfx/mailbox/mailbox.asm` |
 | `mailbox_tiles_69f0.2bpp` | 2bpp tiles | 208 | 25:69F0 | PROBABLE | exact | - | `gfx/mailbox/mailbox.asm` |
-| `tiles_6bd1.2bpp` | 2bpp tiles | 272 | 25:6BD1 | PROBABLE | exact | - | `gfx/mailbox/mailbox.asm` |
+| `mailbox_candidate_arrow_label_tiles_6bd1.2bpp` | 2bpp tiles | 272 | 25:6BD1 | PROBABLE | exact | - | `gfx/mailbox/mailbox.asm` |
 | `mailbox_tiles_6cf0.2bpp` | 2bpp tiles | 384 | 25:6CF0 | PROBABLE | exact | - | `gfx/mailbox/mailbox.asm` |
 | `mailbox_obj_palette.pal` | RGB palette | 64 | 25:6EF0 | CONFIRMED | - | - | `gfx/mailbox/mailbox.asm` |
 
