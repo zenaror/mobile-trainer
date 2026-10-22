@@ -95,37 +95,37 @@ Palette_MailServerMgr_Obj:: ; 2E:75D0
 
 Table_MailServerMgr_ObjAnims:: ; 2E:76C0
 
-	sprite_object_entry SpriteFrameTable_2E_77FA, SpriteScript_2E_7838 ; entry 0
-	sprite_object_entry SpriteFrameTable_2E_77FA, SpriteScript_2E_7838 ; entry 1
-	sprite_object_entry SpriteFrameTable_2E_77FA, SpriteScript_2E_7838 ; entry 2
-	sprite_object_entry SpriteFrameTable_2E_77FA, SpriteScript_2E_7838 ; entry 3
+	sprite_object_entry SpriteFrameTable_MailServerMgr_ObjectEntry00, SpriteScript_MailServerMgr_ObjectEntry00 ; entry 0
+	sprite_object_entry SpriteFrameTable_MailServerMgr_ObjectEntry00, SpriteScript_MailServerMgr_ObjectEntry00 ; entry 1
+	sprite_object_entry SpriteFrameTable_MailServerMgr_ObjectEntry00, SpriteScript_MailServerMgr_ObjectEntry00 ; entry 2
+	sprite_object_entry SpriteFrameTable_MailServerMgr_ObjectEntry00, SpriteScript_MailServerMgr_ObjectEntry00 ; entry 3
 Table_MailServerMgr_ObjAnims_Entry4:: ; 2E:76D0
-	sprite_object_entry SpriteFrameTable_2E_783D, SpriteScript_2E_787B ; entry 4
-	sprite_object_entry SpriteFrameTable_2E_783D, SpriteScript_2E_787B ; entry 5
-	sprite_object_entry SpriteFrameTable_2E_783D, SpriteScript_2E_787B ; entry 6
-	sprite_object_entry SpriteFrameTable_2E_783D, SpriteScript_2E_787B ; entry 7
+	sprite_object_entry SpriteFrameTable_MailServerMgr_ObjectEntry01, SpriteScript_MailServerMgr_ObjectEntry01 ; entry 4
+	sprite_object_entry SpriteFrameTable_MailServerMgr_ObjectEntry01, SpriteScript_MailServerMgr_ObjectEntry01 ; entry 5
+	sprite_object_entry SpriteFrameTable_MailServerMgr_ObjectEntry01, SpriteScript_MailServerMgr_ObjectEntry01 ; entry 6
+	sprite_object_entry SpriteFrameTable_MailServerMgr_ObjectEntry01, SpriteScript_MailServerMgr_ObjectEntry01 ; entry 7
 Table_MailServerMgr_ObjAnims_Entry8:: ; 2E:76E0
-	sprite_object_entry SpriteFrameTable_2E_7880, SpriteScript_2E_78BE ; entry 8
-	sprite_object_entry SpriteFrameTable_2E_7880, SpriteScript_2E_78BE ; entry 9
-	sprite_object_entry SpriteFrameTable_2E_7880, SpriteScript_2E_78BE ; entry 10
-	sprite_object_entry SpriteFrameTable_2E_7880, SpriteScript_2E_78BE ; entry 11
+	sprite_object_entry SpriteFrameTable_MailServerMgr_ObjectEntry02, SpriteScript_MailServerMgr_ObjectEntry02 ; entry 8
+	sprite_object_entry SpriteFrameTable_MailServerMgr_ObjectEntry02, SpriteScript_MailServerMgr_ObjectEntry02 ; entry 9
+	sprite_object_entry SpriteFrameTable_MailServerMgr_ObjectEntry02, SpriteScript_MailServerMgr_ObjectEntry02 ; entry 10
+	sprite_object_entry SpriteFrameTable_MailServerMgr_ObjectEntry02, SpriteScript_MailServerMgr_ObjectEntry02 ; entry 11
 Table_MailServerMgr_ObjAnims_Entry12:: ; 2E:76F0
-	sprite_object_entry SpriteFrameTable_2E_78C3, SpriteScript_2E_7919 ; entry 12
-	sprite_object_entry SpriteFrameTable_2E_78C3, SpriteScript_2E_7919 ; entry 13
-	sprite_object_entry SpriteFrameTable_2E_78C3, SpriteScript_2E_7919 ; entry 14
-	sprite_object_entry SpriteFrameTable_2E_78C3, SpriteScript_2E_7919 ; entry 15
+	sprite_object_entry SpriteFrameTable_MailServerMgr_ObjectEntry03, SpriteScript_MailServerMgr_ObjectEntry03 ; entry 12
+	sprite_object_entry SpriteFrameTable_MailServerMgr_ObjectEntry03, SpriteScript_MailServerMgr_ObjectEntry03 ; entry 13
+	sprite_object_entry SpriteFrameTable_MailServerMgr_ObjectEntry03, SpriteScript_MailServerMgr_ObjectEntry03 ; entry 14
+	sprite_object_entry SpriteFrameTable_MailServerMgr_ObjectEntry03, SpriteScript_MailServerMgr_ObjectEntry03 ; entry 15
 Table_MailServerMgr_ObjAnims_Entry16:: ; 2E:7700
-	sprite_object_entry SpriteFrameTable_2E_7921, SpriteScript_2E_7957 ; entry 16
-	sprite_object_entry SpriteFrameTable_2E_7921, SpriteScript_2E_7957 ; entry 17
-	sprite_object_entry SpriteFrameTable_2E_7921, SpriteScript_2E_7957 ; entry 18
-	sprite_object_entry SpriteFrameTable_2E_7921, SpriteScript_2E_7957 ; entry 19
+	sprite_object_entry SpriteFrameTable_MailServerMgr_ObjectEntry04, SpriteScript_MailServerMgr_ObjectEntry04 ; entry 16
+	sprite_object_entry SpriteFrameTable_MailServerMgr_ObjectEntry04, SpriteScript_MailServerMgr_ObjectEntry04 ; entry 17
+	sprite_object_entry SpriteFrameTable_MailServerMgr_ObjectEntry04, SpriteScript_MailServerMgr_ObjectEntry04 ; entry 18
+	sprite_object_entry SpriteFrameTable_MailServerMgr_ObjectEntry04, SpriteScript_MailServerMgr_ObjectEntry04 ; entry 19
 
 ; ---- data $7710-$77FA (234 bytes) [PROBABLE format / HYPOTHESIS use] candidate stream: 11 repeated local pointer, frame-shaped record and script groups; the active object tables at 76C0-7710 point only to the separate structures beginning at 77FA
 
 MailServerMgr_CandidateSpriteData_2E_7710:: ; 2E:7710
 	db $12, $77, $02, $00, $00, $0A, $00, $08, $00, $1A, $00, $01, $00, $04, $20, $77
 
-; ---- data $7720-$7921 (513 bytes) [PROBABLE] candidate sprite-shaped data; local pointer/record/script pattern continues to 77FA, but the object tables at 76C0-7710 do not target this span
+; ---- candidate data $7720-$77FA (218 bytes) [PROBABLE format / HYPOTHESIS use] the local pointer/record/script pattern continues only to 77FA; the object tables at 76C0-7710 do not target this span
 
 MailServerMgr_CandidateSpriteData_2E_7720:: ; 2E:7720
 
@@ -143,9 +143,9 @@ MailServerMgr_CandidateSpriteData_2E_7720:: ; 2E:7720
 	db $04, $E0, $D0, $0A, $00, $E8, $D0, $1A, $00, $00, $00, $13, $00, $08, $00, $17 ; not reached by any walked sprite chain
 	db $00, $01, $00, $04, $E6, $77, $04, $FE, $FE, $0A, $00, $FE, $0A, $0A, $20, $0A ; not reached by any walked sprite chain
 	db $FE, $0A, $40, $0A, $0A, $0A, $60, $01, $00, $04 ; not reached by any walked sprite chain
-SpriteFrameTable_2E_77FA:: ; 2E:77FA
-	sprite_frame_table SpriteFrame_2E_77FE, SpriteFrame_2E_781B
-SpriteFrame_2E_77FE:: ; 2E:77FE
+SpriteFrameTable_MailServerMgr_ObjectEntry00:: ; 2E:77FA
+	sprite_frame_table SpriteFrame_MailServerMgr_ObjectEntry00_Frame00, SpriteFrame_MailServerMgr_ObjectEntry00_Frame01
+SpriteFrame_MailServerMgr_ObjectEntry00_Frame00:: ; 2E:77FE
 	sprite_frame 7
 	sprite_oam -11, -4, $10, 0
 	sprite_oam -11, 4, $11, 0
@@ -154,7 +154,7 @@ SpriteFrame_2E_77FE:: ; 2E:77FE
 	sprite_oam -2, 10, $0A, OAMF_XFLIP
 	sprite_oam 10, -2, $0A, OAMF_YFLIP
 	sprite_oam 10, 10, $0A, OAMF_YFLIP | OAMF_XFLIP
-SpriteFrame_2E_781B:: ; 2E:781B
+SpriteFrame_MailServerMgr_ObjectEntry00_Frame01:: ; 2E:781B
 	sprite_frame 7
 	sprite_oam -11, -4, $10, 0
 	sprite_oam -11, 4, $11, 0
@@ -163,13 +163,13 @@ SpriteFrame_2E_781B:: ; 2E:781B
 	sprite_oam -3, 11, $0A, OAMF_XFLIP
 	sprite_oam 11, -3, $0A, OAMF_YFLIP
 	sprite_oam 11, 11, $0A, OAMF_YFLIP | OAMF_XFLIP
-SpriteScript_2E_7838:: ; 2E:7838
+SpriteScript_MailServerMgr_ObjectEntry00:: ; 2E:7838
 	sprite_anim 2
 	sprite_anim_step 0, 46
 	sprite_anim_step 1, 8
-SpriteFrameTable_2E_783D:: ; 2E:783D
-	sprite_frame_table SpriteFrame_2E_7841, SpriteFrame_2E_785E
-SpriteFrame_2E_7841:: ; 2E:7841
+SpriteFrameTable_MailServerMgr_ObjectEntry01:: ; 2E:783D
+	sprite_frame_table SpriteFrame_MailServerMgr_ObjectEntry01_Frame00, SpriteFrame_MailServerMgr_ObjectEntry01_Frame01
+SpriteFrame_MailServerMgr_ObjectEntry01_Frame00:: ; 2E:7841
 	sprite_frame 7
 	sprite_oam -11, -4, $13, 0
 	sprite_oam -11, 4, $14, 0
@@ -178,7 +178,7 @@ SpriteFrame_2E_7841:: ; 2E:7841
 	sprite_oam -2, 10, $0A, OAMF_XFLIP
 	sprite_oam 10, -2, $0A, OAMF_YFLIP
 	sprite_oam 10, 10, $0A, OAMF_YFLIP | OAMF_XFLIP
-SpriteFrame_2E_785E:: ; 2E:785E
+SpriteFrame_MailServerMgr_ObjectEntry01_Frame01:: ; 2E:785E
 	sprite_frame 7
 	sprite_oam -11, -4, $13, 0
 	sprite_oam -11, 4, $14, 0
@@ -187,13 +187,13 @@ SpriteFrame_2E_785E:: ; 2E:785E
 	sprite_oam -3, 11, $0A, OAMF_XFLIP
 	sprite_oam 11, -3, $0A, OAMF_YFLIP
 	sprite_oam 11, 11, $0A, OAMF_YFLIP | OAMF_XFLIP
-SpriteScript_2E_787B:: ; 2E:787B
+SpriteScript_MailServerMgr_ObjectEntry01:: ; 2E:787B
 	sprite_anim 2
 	sprite_anim_step 0, 64
 	sprite_anim_step 1, 8
-SpriteFrameTable_2E_7880:: ; 2E:7880
-	sprite_frame_table SpriteFrame_2E_7884, SpriteFrame_2E_78A1
-SpriteFrame_2E_7884:: ; 2E:7884
+SpriteFrameTable_MailServerMgr_ObjectEntry02:: ; 2E:7880
+	sprite_frame_table SpriteFrame_MailServerMgr_ObjectEntry02_Frame00, SpriteFrame_MailServerMgr_ObjectEntry02_Frame01
+SpriteFrame_MailServerMgr_ObjectEntry02_Frame00:: ; 2E:7884
 	sprite_frame 7
 	sprite_oam -11, -4, $16, 0
 	sprite_oam -11, 4, $17, 0
@@ -202,7 +202,7 @@ SpriteFrame_2E_7884:: ; 2E:7884
 	sprite_oam -2, 10, $0A, OAMF_XFLIP
 	sprite_oam 10, -2, $0A, OAMF_YFLIP
 	sprite_oam 10, 10, $0A, OAMF_YFLIP | OAMF_XFLIP
-SpriteFrame_2E_78A1:: ; 2E:78A1
+SpriteFrame_MailServerMgr_ObjectEntry02_Frame01:: ; 2E:78A1
 	sprite_frame 7
 	sprite_oam -11, -4, $16, 0
 	sprite_oam -11, 4, $17, 0
@@ -211,13 +211,13 @@ SpriteFrame_2E_78A1:: ; 2E:78A1
 	sprite_oam -3, 11, $0A, OAMF_XFLIP
 	sprite_oam 11, -3, $0A, OAMF_YFLIP
 	sprite_oam 11, 11, $0A, OAMF_YFLIP | OAMF_XFLIP
-SpriteScript_2E_78BE:: ; 2E:78BE
+SpriteScript_MailServerMgr_ObjectEntry02:: ; 2E:78BE
 	sprite_anim 2
 	sprite_anim_step 0, 46
 	sprite_anim_step 1, 8
-SpriteFrameTable_2E_78C3:: ; 2E:78C3
-	sprite_frame_table SpriteFrame_2E_78C7, SpriteFrame_2E_78F0
-SpriteFrame_2E_78C7:: ; 2E:78C7
+SpriteFrameTable_MailServerMgr_ObjectEntry03:: ; 2E:78C3
+	sprite_frame_table SpriteFrame_MailServerMgr_ObjectEntry03_Frame00, SpriteFrame_MailServerMgr_ObjectEntry03_Frame01
+SpriteFrame_MailServerMgr_ObjectEntry03_Frame00:: ; 2E:78C7
 	sprite_frame 10
 	sprite_oam 55, 20, $19, 1
 	sprite_oam 55, 28, $1A, 1
@@ -229,7 +229,7 @@ SpriteFrame_2E_78C7:: ; 2E:78C7
 	sprite_oam 43, 28, $0D, 2
 	sprite_oam 51, 20, $0E, 2
 	sprite_oam 51, 28, $0F, 2
-SpriteFrame_2E_78F0:: ; 2E:78F0
+SpriteFrame_MailServerMgr_ObjectEntry03_Frame01:: ; 2E:78F0
 	sprite_frame 10
 	sprite_oam 55, 20, $19, 1
 	sprite_oam 55, 28, $1A, 1
@@ -241,7 +241,7 @@ SpriteFrame_2E_78F0:: ; 2E:78F0
 	sprite_oam 50, 16, $0B, 2
 	sprite_oam 42, 32, $1F, OAMF_XFLIP | 2
 	sprite_oam 50, 32, $0B, OAMF_XFLIP | 2
-SpriteScript_2E_7919:: ; 2E:7919
+SpriteScript_MailServerMgr_ObjectEntry03:: ; 2E:7919
 	sprite_anim 2
 	sprite_anim_step 0, 20
 	sprite_anim_step 1, 29
@@ -249,12 +249,12 @@ SpriteScript_2E_7919:: ; 2E:7919
 
 ; ---- sprite frame pointer table $7921-$7925 (4 bytes) [CONFIRMED] referenced by object entries 16-19 at 2E:7700; two pointers to frame records
 
-SpriteFrameTable_2E_7921:: ; 2E:7921
-	sprite_frame_table SpriteFrame_2E_7925, SpriteFrame_2E_793E
+SpriteFrameTable_MailServerMgr_ObjectEntry04:: ; 2E:7921
+	sprite_frame_table SpriteFrame_MailServerMgr_ObjectEntry04_Frame00, SpriteFrame_MailServerMgr_ObjectEntry04_Frame01
 
-; ---- sprite frame $7925-$793E (25 bytes) [CONFIRMED] one of two frame records in SpriteFrameTable_2E_7921
+; ---- sprite frame $7925-$793E (25 bytes) [CONFIRMED] one of two frame records in SpriteFrameTable_MailServerMgr_ObjectEntry04
 
-SpriteFrame_2E_7925:: ; 2E:7925
+SpriteFrame_MailServerMgr_ObjectEntry04_Frame00:: ; 2E:7925
 	sprite_frame 6
 	sprite_oam 54, 20, $20, 1
 	sprite_oam 54, 28, $21, 1
@@ -263,9 +263,9 @@ SpriteFrame_2E_7925:: ; 2E:7925
 	sprite_oam 70, 20, $24, 1
 	sprite_oam 70, 28, $25, 1
 
-; ---- sprite frame $793E-$7957 (25 bytes) [CONFIRMED] second frame record in SpriteFrameTable_2E_7921
+; ---- sprite frame $793E-$7957 (25 bytes) [CONFIRMED] second frame record in SpriteFrameTable_MailServerMgr_ObjectEntry04
 
-SpriteFrame_2E_793E:: ; 2E:793E
+SpriteFrame_MailServerMgr_ObjectEntry04_Frame01:: ; 2E:793E
 
 	sprite_frame 6
 	sprite_oam 54, 20, $26, 1
@@ -274,12 +274,12 @@ SpriteFrame_2E_793E:: ; 2E:793E
 	sprite_oam 62, 28, $29, 1
 	sprite_oam 70, 20, $2A, 1
 	sprite_oam 70, 28, $2B, 1
-SpriteScript_2E_7957:: ; 2E:7957
+SpriteScript_MailServerMgr_ObjectEntry04:: ; 2E:7957
 	sprite_anim 2
 	sprite_anim_step 0, $1C
 	sprite_anim_step 1, $19
 
-; ---- data $795C-$7961 (6 bytes) [HYPOTHESIS] two-step sprite-script shape; no pointer from the bounded object-table walk was found
+; ---- data $795C-$7961 (5 bytes) [HYPOTHESIS] two-step sprite-script shape; no pointer from the bounded object-table walk was found
 
 MailServerMgr_CandidateSpriteScript_2E_795C:: ; 2E:795C
 	sprite_anim 2

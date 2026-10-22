@@ -101,82 +101,82 @@ MailConnect_WinMsg_Connected:: ; 27:7948
 	INCBIN "gfx/mail/connect_screen/mail_connect_win_msg_connected.tilemap"
 	INCBIN "gfx/mail/connect_screen/mail_connect_win_msg_connected.attrmap"
 
-; ---- ptrtable $7A10-$7AF0 (224 bytes) [PROBABLE] 112 words, all inside $7AF0-$7CE4 of the same bank (animation/OAM frame data); tables of 4-byte entries (2 words) addressed by ld de,imm before FarCall 00:0A82 (init_object_from_table: reads the 4-byte entry number B&$7F of the table at DE); each 16-byte table = 4 identical-pair entries; callers e.g. 26:4064 ld de,$7A30, 27:4247, 27:4CCB ld de,$7A10 (a=$27 b=$81)
+; ---- ptrtable $7A10-$7AF0 (224 bytes) [PROBABLE] 112 words, all inside $7AF0-$7CE4 of the same bank (animation/OAM frame data); tables of 4-byte entries (2 words) addressed by ld de,imm before FarCall 00:0A82 (Sprite_LoadObjectEntry (00:0AB8) selects DE + 4*(B&$3F); bit 7 of the original id separately controls repeat behavior); each 16-byte table = 4 identical-pair entries; callers e.g. 26:4064 ld de,$7A30, 27:4247, 27:4CCB ld de,$7A10 (a=$27 b=$81)
 
 MailConnect_ObjTable:: ; 27:7A10
-	sprite_object_entry MailConnect_ObjAnimData_27_7AF0, SpriteScript_27_7B2B ; entry 0
-	sprite_object_entry MailConnect_ObjAnimData_27_7AF0, SpriteScript_27_7B2B ; entry 1
-	sprite_object_entry MailConnect_ObjAnimData_27_7AF0, SpriteScript_27_7B2B ; entry 2
-	sprite_object_entry MailConnect_ObjAnimData_27_7AF0, SpriteScript_27_7B2B ; entry 3
+	sprite_object_entry MailConnect_ObjAnimData_27_7AF0, SpriteScript_MailConnect_ObjectEntry00 ; entry 0
+	sprite_object_entry MailConnect_ObjAnimData_27_7AF0, SpriteScript_MailConnect_ObjectEntry00 ; entry 1
+	sprite_object_entry MailConnect_ObjAnimData_27_7AF0, SpriteScript_MailConnect_ObjectEntry00 ; entry 2
+	sprite_object_entry MailConnect_ObjAnimData_27_7AF0, SpriteScript_MailConnect_ObjectEntry00 ; entry 3
 MailConnect_ObjTable_Entry4:: ; 27:7A20
-	sprite_object_entry SpriteFrameTable_27_7B2E, SpriteScript_27_7B69 ; entry 4
-	sprite_object_entry SpriteFrameTable_27_7B2E, SpriteScript_27_7B69 ; entry 5
-	sprite_object_entry SpriteFrameTable_27_7B2E, SpriteScript_27_7B69 ; entry 6
-	sprite_object_entry SpriteFrameTable_27_7B2E, SpriteScript_27_7B69 ; entry 7
+	sprite_object_entry SpriteFrameTable_MailConnect_ObjectEntry04, SpriteScript_MailConnect_ObjectEntry04 ; entry 4
+	sprite_object_entry SpriteFrameTable_MailConnect_ObjectEntry04, SpriteScript_MailConnect_ObjectEntry04 ; entry 5
+	sprite_object_entry SpriteFrameTable_MailConnect_ObjectEntry04, SpriteScript_MailConnect_ObjectEntry04 ; entry 6
+	sprite_object_entry SpriteFrameTable_MailConnect_ObjectEntry04, SpriteScript_MailConnect_ObjectEntry04 ; entry 7
 MailConnect_ObjTable_Entry8:: ; 27:7A30
-	sprite_object_entry SpriteFrameTable_27_7B6C, SpriteScript_27_7B92 ; entry 8
-	sprite_object_entry SpriteFrameTable_27_7B6C, SpriteScript_27_7B92 ; entry 9
-	sprite_object_entry SpriteFrameTable_27_7B6C, SpriteScript_27_7B92 ; entry 10
-	sprite_object_entry SpriteFrameTable_27_7B6C, SpriteScript_27_7B92 ; entry 11
+	sprite_object_entry SpriteFrameTable_MailConnect_ObjectEntry08, SpriteScript_MailConnect_ObjectEntry08 ; entry 8
+	sprite_object_entry SpriteFrameTable_MailConnect_ObjectEntry08, SpriteScript_MailConnect_ObjectEntry08 ; entry 9
+	sprite_object_entry SpriteFrameTable_MailConnect_ObjectEntry08, SpriteScript_MailConnect_ObjectEntry08 ; entry 10
+	sprite_object_entry SpriteFrameTable_MailConnect_ObjectEntry08, SpriteScript_MailConnect_ObjectEntry08 ; entry 11
 MailConnect_ObjTable_Entry12:: ; 27:7A40
-	sprite_object_entry SpriteFrameTable_27_7B97, SpriteScript_27_7BA2 ; entry 12
-	sprite_object_entry SpriteFrameTable_27_7B97, SpriteScript_27_7BA2 ; entry 13
-	sprite_object_entry SpriteFrameTable_27_7B97, SpriteScript_27_7BA2 ; entry 14
-	sprite_object_entry SpriteFrameTable_27_7B97, SpriteScript_27_7BA2 ; entry 15
+	sprite_object_entry SpriteFrameTable_MailConnect_ObjectEntry12, SpriteScript_MailConnect_ObjectEntry12 ; entry 12
+	sprite_object_entry SpriteFrameTable_MailConnect_ObjectEntry12, SpriteScript_MailConnect_ObjectEntry12 ; entry 13
+	sprite_object_entry SpriteFrameTable_MailConnect_ObjectEntry12, SpriteScript_MailConnect_ObjectEntry12 ; entry 14
+	sprite_object_entry SpriteFrameTable_MailConnect_ObjectEntry12, SpriteScript_MailConnect_ObjectEntry12 ; entry 15
 MailConnect_ObjTable_Entry16:: ; 27:7A50
-	sprite_object_entry MailConnect_ObjAnimData_27_7BA5, SpriteScript_27_7BB0 ; entry 16
-	sprite_object_entry MailConnect_ObjAnimData_27_7BA5, SpriteScript_27_7BB0 ; entry 17
-	sprite_object_entry MailConnect_ObjAnimData_27_7BA5, SpriteScript_27_7BB0 ; entry 18
-	sprite_object_entry MailConnect_ObjAnimData_27_7BA5, SpriteScript_27_7BB0 ; entry 19
+	sprite_object_entry MailConnect_ObjAnimData_27_7BA5, SpriteScript_MailConnect_ObjectEntry16 ; entry 16
+	sprite_object_entry MailConnect_ObjAnimData_27_7BA5, SpriteScript_MailConnect_ObjectEntry16 ; entry 17
+	sprite_object_entry MailConnect_ObjAnimData_27_7BA5, SpriteScript_MailConnect_ObjectEntry16 ; entry 18
+	sprite_object_entry MailConnect_ObjAnimData_27_7BA5, SpriteScript_MailConnect_ObjectEntry16 ; entry 19
 MailConnect_ObjTable_Entry20:: ; 27:7A60
-	sprite_object_entry SpriteFrameTable_27_7BB3, SpriteScript_27_7BBE ; entry 20
-	sprite_object_entry SpriteFrameTable_27_7BB3, SpriteScript_27_7BBE ; entry 21
-	sprite_object_entry SpriteFrameTable_27_7BB3, SpriteScript_27_7BBE ; entry 22
-	sprite_object_entry SpriteFrameTable_27_7BB3, SpriteScript_27_7BBE ; entry 23
+	sprite_object_entry SpriteFrameTable_MailConnect_ObjectEntry20, SpriteScript_MailConnect_ObjectEntry20 ; entry 20
+	sprite_object_entry SpriteFrameTable_MailConnect_ObjectEntry20, SpriteScript_MailConnect_ObjectEntry20 ; entry 21
+	sprite_object_entry SpriteFrameTable_MailConnect_ObjectEntry20, SpriteScript_MailConnect_ObjectEntry20 ; entry 22
+	sprite_object_entry SpriteFrameTable_MailConnect_ObjectEntry20, SpriteScript_MailConnect_ObjectEntry20 ; entry 23
 MailConnect_ObjTable_Entry24:: ; 27:7A70
-	sprite_object_entry MailConnect_ObjAnimData_27_7BC1, SpriteScript_27_7BCC ; entry 24
-	sprite_object_entry MailConnect_ObjAnimData_27_7BC1, SpriteScript_27_7BCC ; entry 25
-	sprite_object_entry MailConnect_ObjAnimData_27_7BC1, SpriteScript_27_7BCC ; entry 26
-	sprite_object_entry MailConnect_ObjAnimData_27_7BC1, SpriteScript_27_7BCC ; entry 27
-	sprite_object_entry MailConnect_ObjAnimData_27_7BCF, SpriteScript_27_7BDA ; entry 28
-	sprite_object_entry MailConnect_ObjAnimData_27_7BCF, SpriteScript_27_7BDA ; entry 29
-	sprite_object_entry MailConnect_ObjAnimData_27_7BCF, SpriteScript_27_7BDA ; entry 30
-	sprite_object_entry MailConnect_ObjAnimData_27_7BCF, SpriteScript_27_7BDA ; entry 31
-	sprite_object_entry SpriteFrameTable_27_7BDD, SpriteScript_27_7BF0 ; entry 32
-	sprite_object_entry SpriteFrameTable_27_7BDD, SpriteScript_27_7BF0 ; entry 33
-	sprite_object_entry SpriteFrameTable_27_7BDD, SpriteScript_27_7BF0 ; entry 34
-	sprite_object_entry SpriteFrameTable_27_7BDD, SpriteScript_27_7BF0 ; entry 35
+	sprite_object_entry MailConnect_ObjAnimData_27_7BC1, SpriteScript_MailConnect_ObjectEntry24 ; entry 24
+	sprite_object_entry MailConnect_ObjAnimData_27_7BC1, SpriteScript_MailConnect_ObjectEntry24 ; entry 25
+	sprite_object_entry MailConnect_ObjAnimData_27_7BC1, SpriteScript_MailConnect_ObjectEntry24 ; entry 26
+	sprite_object_entry MailConnect_ObjAnimData_27_7BC1, SpriteScript_MailConnect_ObjectEntry24 ; entry 27
+	sprite_object_entry MailConnect_ObjAnimData_27_7BCF, SpriteScript_MailConnect_ObjectEntry28 ; entry 28
+	sprite_object_entry MailConnect_ObjAnimData_27_7BCF, SpriteScript_MailConnect_ObjectEntry28 ; entry 29
+	sprite_object_entry MailConnect_ObjAnimData_27_7BCF, SpriteScript_MailConnect_ObjectEntry28 ; entry 30
+	sprite_object_entry MailConnect_ObjAnimData_27_7BCF, SpriteScript_MailConnect_ObjectEntry28 ; entry 31
+	sprite_object_entry SpriteFrameTable_MailConnect_ObjectEntry32, SpriteScript_MailConnect_ObjectEntry32 ; entry 32
+	sprite_object_entry SpriteFrameTable_MailConnect_ObjectEntry32, SpriteScript_MailConnect_ObjectEntry32 ; entry 33
+	sprite_object_entry SpriteFrameTable_MailConnect_ObjectEntry32, SpriteScript_MailConnect_ObjectEntry32 ; entry 34
+	sprite_object_entry SpriteFrameTable_MailConnect_ObjectEntry32, SpriteScript_MailConnect_ObjectEntry32 ; entry 35
 MailConnect_ObjTable_Entry36:: ; 27:7AA0
-	sprite_object_entry SpriteFrameTable_27_7BF3, SpriteScript_27_7BFE ; entry 36
-	sprite_object_entry SpriteFrameTable_27_7BF3, SpriteScript_27_7BFE ; entry 37
-	sprite_object_entry SpriteFrameTable_27_7BF3, SpriteScript_27_7BFE ; entry 38
-	sprite_object_entry SpriteFrameTable_27_7BF3, SpriteScript_27_7BFE ; entry 39
+	sprite_object_entry SpriteFrameTable_MailConnect_ObjectEntry36, SpriteScript_MailConnect_ObjectEntry36 ; entry 36
+	sprite_object_entry SpriteFrameTable_MailConnect_ObjectEntry36, SpriteScript_MailConnect_ObjectEntry36 ; entry 37
+	sprite_object_entry SpriteFrameTable_MailConnect_ObjectEntry36, SpriteScript_MailConnect_ObjectEntry36 ; entry 38
+	sprite_object_entry SpriteFrameTable_MailConnect_ObjectEntry36, SpriteScript_MailConnect_ObjectEntry36 ; entry 39
 MailConnect_ObjTable_Entry40:: ; 27:7AB0
-	sprite_object_entry SpriteFrameTable_27_7C01, SpriteScript_27_7C0C ; entry 40
-	sprite_object_entry SpriteFrameTable_27_7C01, SpriteScript_27_7C0C ; entry 41
-	sprite_object_entry SpriteFrameTable_27_7C01, SpriteScript_27_7C0C ; entry 42
-	sprite_object_entry SpriteFrameTable_27_7C01, SpriteScript_27_7C0C ; entry 43
+	sprite_object_entry SpriteFrameTable_MailConnect_ObjectEntry40, SpriteScript_MailConnect_ObjectEntry40 ; entry 40
+	sprite_object_entry SpriteFrameTable_MailConnect_ObjectEntry40, SpriteScript_MailConnect_ObjectEntry40 ; entry 41
+	sprite_object_entry SpriteFrameTable_MailConnect_ObjectEntry40, SpriteScript_MailConnect_ObjectEntry40 ; entry 42
+	sprite_object_entry SpriteFrameTable_MailConnect_ObjectEntry40, SpriteScript_MailConnect_ObjectEntry40 ; entry 43
 MailConnect_ObjTable_Entry44:: ; 27:7AC0
-	sprite_object_entry MailConnect_ObjAnimData_27_7C0F, SpriteScript_27_7C5B ; entry 44
-	sprite_object_entry MailConnect_ObjAnimData_27_7C0F, SpriteScript_27_7C5B ; entry 45
-	sprite_object_entry MailConnect_ObjAnimData_27_7C0F, SpriteScript_27_7C5B ; entry 46
-	sprite_object_entry MailConnect_ObjAnimData_27_7C0F, SpriteScript_27_7C5B ; entry 47
+	sprite_object_entry MailConnect_ObjAnimData_27_7C0F, SpriteScript_MailConnect_ObjectEntry44 ; entry 44
+	sprite_object_entry MailConnect_ObjAnimData_27_7C0F, SpriteScript_MailConnect_ObjectEntry44 ; entry 45
+	sprite_object_entry MailConnect_ObjAnimData_27_7C0F, SpriteScript_MailConnect_ObjectEntry44 ; entry 46
+	sprite_object_entry MailConnect_ObjAnimData_27_7C0F, SpriteScript_MailConnect_ObjectEntry44 ; entry 47
 MailConnect_ObjTable_Entry48:: ; 27:7AD0
-	sprite_object_entry SpriteFrameTable_27_7C64, SpriteScript_27_7CB0 ; entry 48
-	sprite_object_entry SpriteFrameTable_27_7C64, SpriteScript_27_7CB0 ; entry 49
-	sprite_object_entry SpriteFrameTable_27_7C64, SpriteScript_27_7CB0 ; entry 50
-	sprite_object_entry SpriteFrameTable_27_7C64, SpriteScript_27_7CB0 ; entry 51
+	sprite_object_entry SpriteFrameTable_MailConnect_ObjectEntry48, SpriteScript_MailConnect_ObjectEntry48 ; entry 48
+	sprite_object_entry SpriteFrameTable_MailConnect_ObjectEntry48, SpriteScript_MailConnect_ObjectEntry48 ; entry 49
+	sprite_object_entry SpriteFrameTable_MailConnect_ObjectEntry48, SpriteScript_MailConnect_ObjectEntry48 ; entry 50
+	sprite_object_entry SpriteFrameTable_MailConnect_ObjectEntry48, SpriteScript_MailConnect_ObjectEntry48 ; entry 51
 MailConnect_ObjTable_Entry52:: ; 27:7AE0
-	sprite_object_entry MailConnect_ObjAnimData_27_7CB9, SpriteScript_27_7CDF ; entry 52
-	sprite_object_entry MailConnect_ObjAnimData_27_7CB9, SpriteScript_27_7CDF ; entry 53
-	sprite_object_entry MailConnect_ObjAnimData_27_7CB9, SpriteScript_27_7CDF ; entry 54
-	sprite_object_entry MailConnect_ObjAnimData_27_7CB9, SpriteScript_27_7CDF ; entry 55
+	sprite_object_entry MailConnect_ObjAnimData_27_7CB9, SpriteScript_MailConnect_ObjectEntry52 ; entry 52
+	sprite_object_entry MailConnect_ObjAnimData_27_7CB9, SpriteScript_MailConnect_ObjectEntry52 ; entry 53
+	sprite_object_entry MailConnect_ObjAnimData_27_7CB9, SpriteScript_MailConnect_ObjectEntry52 ; entry 54
+	sprite_object_entry MailConnect_ObjAnimData_27_7CB9, SpriteScript_MailConnect_ObjectEntry52 ; entry 55
 
 ; ---- data $7AF0-$7BA5 (181 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
 
 MailConnect_ObjAnimData_27_7AF0:: ; 27:7AF0
-	sprite_frame_table SpriteFrame_27_7AF2
-SpriteFrame_27_7AF2:: ; 27:7AF2
+	sprite_frame_table SpriteFrame_MailConnect_ObjectEntry00_Frame00
+SpriteFrame_MailConnect_ObjectEntry00_Frame00:: ; 27:7AF2
 	sprite_frame 14
 	sprite_oam 0, 0, $00, OAMF_BANK1 | 3
 	sprite_oam -16, 0, $00, OAMF_BANK1 | 3
@@ -192,12 +192,12 @@ SpriteFrame_27_7AF2:: ; 27:7AF2
 	sprite_oam 48, 8, $06, OAMF_YFLIP | OAMF_XFLIP | OAMF_BANK1 | 3
 	sprite_oam 16, 8, $06, OAMF_XFLIP | OAMF_BANK1 | 3
 	sprite_oam 32, 8, $06, OAMF_XFLIP | OAMF_BANK1 | 3
-SpriteScript_27_7B2B:: ; 27:7B2B
+SpriteScript_MailConnect_ObjectEntry00:: ; 27:7B2B
 	sprite_anim 1
 	sprite_anim_step 0, 4
-SpriteFrameTable_27_7B2E:: ; 27:7B2E
-	sprite_frame_table SpriteFrame_27_7B30
-SpriteFrame_27_7B30:: ; 27:7B30
+SpriteFrameTable_MailConnect_ObjectEntry04:: ; 27:7B2E
+	sprite_frame_table SpriteFrame_MailConnect_ObjectEntry04_Frame00
+SpriteFrame_MailConnect_ObjectEntry04_Frame00:: ; 27:7B30
 	sprite_frame 14
 	sprite_oam -16, 16, $00, OAMF_XFLIP | OAMF_BANK1 | 3
 	sprite_oam 0, 16, $00, OAMF_XFLIP | OAMF_BANK1 | 3
@@ -213,172 +213,172 @@ SpriteFrame_27_7B30:: ; 27:7B30
 	sprite_oam 48, 8, $06, OAMF_YFLIP | OAMF_BANK1 | 3
 	sprite_oam 0, 8, $06, OAMF_BANK1 | 3
 	sprite_oam 32, 8, $06, OAMF_YFLIP | OAMF_BANK1 | 3
-SpriteScript_27_7B69:: ; 27:7B69
+SpriteScript_MailConnect_ObjectEntry04:: ; 27:7B69
 	sprite_anim 1
 	sprite_anim_step 0, 4
-SpriteFrameTable_27_7B6C:: ; 27:7B6C
-	sprite_frame_table SpriteFrame_27_7B70, SpriteFrame_27_7B81
-SpriteFrame_27_7B70:: ; 27:7B70
+SpriteFrameTable_MailConnect_ObjectEntry08:: ; 27:7B6C
+	sprite_frame_table SpriteFrame_MailConnect_ObjectEntry08_Frame00, SpriteFrame_MailConnect_ObjectEntry08_Frame01
+SpriteFrame_MailConnect_ObjectEntry08_Frame00:: ; 27:7B70
 	sprite_frame 4
 	sprite_oam 3, 0, $00, 0
 	sprite_oam 3, 8, $02, 0
 	sprite_oam 19, 0, $20, 0
 	sprite_oam 19, 8, $22, 0
-SpriteFrame_27_7B81:: ; 27:7B81
+SpriteFrame_MailConnect_ObjectEntry08_Frame01:: ; 27:7B81
 	sprite_frame 4
 	sprite_oam 3, 0, $04, 0
 	sprite_oam 3, 8, $06, 0
 	sprite_oam 19, 0, $24, 0
 	sprite_oam 19, 8, $26, 0
-SpriteScript_27_7B92:: ; 27:7B92
+SpriteScript_MailConnect_ObjectEntry08:: ; 27:7B92
 	sprite_anim 2
 	sprite_anim_step 0, 8
 	sprite_anim_step 1, 8
-SpriteFrameTable_27_7B97:: ; 27:7B97
-	sprite_frame_table SpriteFrame_27_7B99
-SpriteFrame_27_7B99:: ; 27:7B99
+SpriteFrameTable_MailConnect_ObjectEntry12:: ; 27:7B97
+	sprite_frame_table SpriteFrame_MailConnect_ObjectEntry12_Frame00
+SpriteFrame_MailConnect_ObjectEntry12_Frame00:: ; 27:7B99
 	sprite_frame 2
 	sprite_oam 11, 0, $58, 2
 	sprite_oam 11, 8, $5A, 2
-SpriteScript_27_7BA2:: ; 27:7BA2
+SpriteScript_MailConnect_ObjectEntry12:: ; 27:7BA2
 	sprite_anim 1
 	sprite_anim_step 0, 8
 
 ; ---- data $7BA5-$7BC1 (28 bytes) [PROBABLE] object animation frame records: [count][count x 4 bytes (y,x,tile,attr)] ... chained by pointer lists and terminated by 01 00 04/08 groups; format not fully decoded; reached through the pointer tables; span starts at a table target (7BA5) and lies between CONFIRMED-read frame data
 
 MailConnect_ObjAnimData_27_7BA5:: ; 27:7BA5
-	sprite_frame_table SpriteFrame_27_7BA7
-SpriteFrame_27_7BA7:: ; 27:7BA7
+	sprite_frame_table SpriteFrame_MailConnect_ObjectEntry16_Frame00
+SpriteFrame_MailConnect_ObjectEntry16_Frame00:: ; 27:7BA7
 	sprite_frame 2
 	sprite_oam 11, 0, $78, 2
 	sprite_oam 11, 8, $7A, 2
-SpriteScript_27_7BB0:: ; 27:7BB0
+SpriteScript_MailConnect_ObjectEntry16:: ; 27:7BB0
 	sprite_anim 1
 	sprite_anim_step 0, 8
-SpriteFrameTable_27_7BB3:: ; 27:7BB3
-	sprite_frame_table SpriteFrame_27_7BB5
-SpriteFrame_27_7BB5:: ; 27:7BB5
+SpriteFrameTable_MailConnect_ObjectEntry20:: ; 27:7BB3
+	sprite_frame_table SpriteFrame_MailConnect_ObjectEntry20_Frame00
+SpriteFrame_MailConnect_ObjectEntry20_Frame00:: ; 27:7BB5
 	sprite_frame 2
 	sprite_oam 11, 8, $78, OAMF_XFLIP | 2
 	sprite_oam 11, 0, $7A, OAMF_XFLIP | 2
-SpriteScript_27_7BBE:: ; 27:7BBE
+SpriteScript_MailConnect_ObjectEntry20:: ; 27:7BBE
 	sprite_anim 1
 	sprite_anim_step 0, 8
 
 ; ---- data $7BC1-$7BCF (14 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
 
 MailConnect_ObjAnimData_27_7BC1:: ; 27:7BC1
-	sprite_frame_table SpriteFrame_27_7BC3
-SpriteFrame_27_7BC3:: ; 27:7BC3
+	sprite_frame_table SpriteFrame_MailConnect_ObjectEntry24_Frame00
+SpriteFrame_MailConnect_ObjectEntry24_Frame00:: ; 27:7BC3
 	sprite_frame 2
 	sprite_oam -8, 0, $3C, 1
 	sprite_oam -8, 8, $3E, 1
-SpriteScript_27_7BCC:: ; 27:7BCC
+SpriteScript_MailConnect_ObjectEntry24:: ; 27:7BCC
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
 ; ---- data $7BCF-$7C0F (64 bytes) [PROBABLE] object animation frame records: [count][count x 4 bytes (y,x,tile,attr)] ... chained by pointer lists and terminated by 01 00 04/08 groups; format not fully decoded; reached through the pointer tables; span starts at a table target (7BCF)
 
 MailConnect_ObjAnimData_27_7BCF:: ; 27:7BCF
-	sprite_frame_table SpriteFrame_27_7BD1
-SpriteFrame_27_7BD1:: ; 27:7BD1
+	sprite_frame_table SpriteFrame_MailConnect_ObjectEntry28_Frame00
+SpriteFrame_MailConnect_ObjectEntry28_Frame00:: ; 27:7BD1
 	sprite_frame 2
 	sprite_oam 0, 0, $70, 6
 	sprite_oam 0, 8, $72, 6
-SpriteScript_27_7BDA:: ; 27:7BDA
+SpriteScript_MailConnect_ObjectEntry28:: ; 27:7BDA
 	sprite_anim 1
 	sprite_anim_step 0, 4
-SpriteFrameTable_27_7BDD:: ; 27:7BDD
-	sprite_frame_table SpriteFrame_27_7BDF
-SpriteFrame_27_7BDF:: ; 27:7BDF
+SpriteFrameTable_MailConnect_ObjectEntry32:: ; 27:7BDD
+	sprite_frame_table SpriteFrame_MailConnect_ObjectEntry32_Frame00
+SpriteFrame_MailConnect_ObjectEntry32_Frame00:: ; 27:7BDF
 	sprite_frame 4
 	sprite_oam 0, 0, $50, 6
 	sprite_oam 0, 8, $52, 6
 	sprite_oam 0, 16, $54, 6
 	sprite_oam 0, 24, $56, 6
-SpriteScript_27_7BF0:: ; 27:7BF0
+SpriteScript_MailConnect_ObjectEntry32:: ; 27:7BF0
 	sprite_anim 1
 	sprite_anim_step 0, 4
-SpriteFrameTable_27_7BF3:: ; 27:7BF3
-	sprite_frame_table SpriteFrame_27_7BF5
-SpriteFrame_27_7BF5:: ; 27:7BF5
+SpriteFrameTable_MailConnect_ObjectEntry36:: ; 27:7BF3
+	sprite_frame_table SpriteFrame_MailConnect_ObjectEntry36_Frame00
+SpriteFrame_MailConnect_ObjectEntry36_Frame00:: ; 27:7BF5
 	sprite_frame 2
 	sprite_oam 11, 0, $5C, 3
 	sprite_oam 11, 8, $5E, 3
-SpriteScript_27_7BFE:: ; 27:7BFE
+SpriteScript_MailConnect_ObjectEntry36:: ; 27:7BFE
 	sprite_anim 1
 	sprite_anim_step 0, 8
-SpriteFrameTable_27_7C01:: ; 27:7C01
-	sprite_frame_table SpriteFrame_27_7C03
-SpriteFrame_27_7C03:: ; 27:7C03
+SpriteFrameTable_MailConnect_ObjectEntry40:: ; 27:7C01
+	sprite_frame_table SpriteFrame_MailConnect_ObjectEntry40_Frame00
+SpriteFrame_MailConnect_ObjectEntry40_Frame00:: ; 27:7C03
 	sprite_frame 2
 	sprite_oam 11, 8, $5C, OAMF_XFLIP | 3
 	sprite_oam 11, 0, $5E, OAMF_XFLIP | 3
-SpriteScript_27_7C0C:: ; 27:7C0C
+SpriteScript_MailConnect_ObjectEntry40:: ; 27:7C0C
 	sprite_anim 1
 	sprite_anim_step 0, 8
 
 ; ---- data $7C0F-$7CB9 (170 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
 MailConnect_ObjAnimData_27_7C0F:: ; 27:7C0F
-	sprite_frame_table SpriteFrame_27_7C17, SpriteFrame_27_7C28, SpriteFrame_27_7C39, SpriteFrame_27_7C4A
-SpriteFrame_27_7C17:: ; 27:7C17
+	sprite_frame_table SpriteFrame_MailConnect_ObjectEntry44_Frame00, SpriteFrame_MailConnect_ObjectEntry44_Frame01, SpriteFrame_MailConnect_ObjectEntry44_Frame02, SpriteFrame_MailConnect_ObjectEntry44_Frame03
+SpriteFrame_MailConnect_ObjectEntry44_Frame00:: ; 27:7C17
 	sprite_frame 4
 	sprite_oam 3, 0, $10, 0
 	sprite_oam 3, 8, $12, 0
 	sprite_oam 19, 0, $30, 0
 	sprite_oam 19, 8, $22, 0
-SpriteFrame_27_7C28:: ; 27:7C28
+SpriteFrame_MailConnect_ObjectEntry44_Frame01:: ; 27:7C28
 	sprite_frame 4
 	sprite_oam 3, 0, $60, OAMF_BANK1
 	sprite_oam 3, 8, $62, OAMF_BANK1
 	sprite_oam 19, 0, $68, OAMF_BANK1
 	sprite_oam 19, 8, $6A, OAMF_BANK1
-SpriteFrame_27_7C39:: ; 27:7C39
+SpriteFrame_MailConnect_ObjectEntry44_Frame02:: ; 27:7C39
 	sprite_frame 4
 	sprite_oam 3, 0, $10, 0
 	sprite_oam 3, 8, $12, 0
 	sprite_oam 19, 0, $30, 0
 	sprite_oam 19, 8, $22, 0
-SpriteFrame_27_7C4A:: ; 27:7C4A
+SpriteFrame_MailConnect_ObjectEntry44_Frame03:: ; 27:7C4A
 	sprite_frame 4
 	sprite_oam 3, 0, $64, OAMF_BANK1
 	sprite_oam 3, 8, $66, OAMF_BANK1
 	sprite_oam 19, 0, $6C, OAMF_BANK1
 	sprite_oam 19, 8, $6E, OAMF_BANK1
-SpriteScript_27_7C5B:: ; 27:7C5B
+SpriteScript_MailConnect_ObjectEntry44:: ; 27:7C5B
 	sprite_anim 4
 	sprite_anim_step 0, 8
 	sprite_anim_step 1, 8
 	sprite_anim_step 2, 8
 	sprite_anim_step 3, 8
-SpriteFrameTable_27_7C64:: ; 27:7C64
-	sprite_frame_table SpriteFrame_27_7C6C, SpriteFrame_27_7C7D, SpriteFrame_27_7C8E, SpriteFrame_27_7C9F
-SpriteFrame_27_7C6C:: ; 27:7C6C
+SpriteFrameTable_MailConnect_ObjectEntry48:: ; 27:7C64
+	sprite_frame_table SpriteFrame_MailConnect_ObjectEntry48_Frame00, SpriteFrame_MailConnect_ObjectEntry48_Frame01, SpriteFrame_MailConnect_ObjectEntry48_Frame02, SpriteFrame_MailConnect_ObjectEntry48_Frame03
+SpriteFrame_MailConnect_ObjectEntry48_Frame00:: ; 27:7C6C
 	sprite_frame 4
 	sprite_oam 3, 8, $10, OAMF_XFLIP
 	sprite_oam 3, 0, $12, OAMF_XFLIP
 	sprite_oam 19, 8, $30, OAMF_XFLIP
 	sprite_oam 19, 0, $22, OAMF_XFLIP
-SpriteFrame_27_7C7D:: ; 27:7C7D
+SpriteFrame_MailConnect_ObjectEntry48_Frame01:: ; 27:7C7D
 	sprite_frame 4
 	sprite_oam 3, 8, $60, OAMF_XFLIP | OAMF_BANK1
 	sprite_oam 3, 0, $62, OAMF_XFLIP | OAMF_BANK1
 	sprite_oam 19, 8, $68, OAMF_XFLIP | OAMF_BANK1
 	sprite_oam 19, 0, $6A, OAMF_XFLIP | OAMF_BANK1
-SpriteFrame_27_7C8E:: ; 27:7C8E
+SpriteFrame_MailConnect_ObjectEntry48_Frame02:: ; 27:7C8E
 	sprite_frame 4
 	sprite_oam 3, 8, $10, OAMF_XFLIP
 	sprite_oam 3, 0, $12, OAMF_XFLIP
 	sprite_oam 19, 8, $30, OAMF_XFLIP
 	sprite_oam 19, 0, $22, OAMF_XFLIP
-SpriteFrame_27_7C9F:: ; 27:7C9F
+SpriteFrame_MailConnect_ObjectEntry48_Frame03:: ; 27:7C9F
 	sprite_frame 4
 	sprite_oam 3, 8, $64, OAMF_XFLIP | OAMF_BANK1
 	sprite_oam 3, 0, $66, OAMF_XFLIP | OAMF_BANK1
 	sprite_oam 19, 8, $6C, OAMF_XFLIP | OAMF_BANK1
 	sprite_oam 19, 0, $6E, OAMF_XFLIP | OAMF_BANK1
-SpriteScript_27_7CB0:: ; 27:7CB0
+SpriteScript_MailConnect_ObjectEntry48:: ; 27:7CB0
 	sprite_anim 4
 	sprite_anim_step 0, 8
 	sprite_anim_step 1, 8
@@ -388,20 +388,20 @@ SpriteScript_27_7CB0:: ; 27:7CB0
 ; ---- data $7CB9-$7CE4 (43 bytes) [PROBABLE] object animation frame records: [count][count x 4 bytes (y,x,tile,attr)] ... chained by pointer lists and terminated by 01 00 04/08 groups; format not fully decoded; reached through the pointer tables; span starts at a table target (7CB9); ends at the zero padding of the bank
 
 MailConnect_ObjAnimData_27_7CB9:: ; 27:7CB9
-	sprite_frame_table SpriteFrame_27_7CBD, SpriteFrame_27_7CCE
-SpriteFrame_27_7CBD:: ; 27:7CBD
+	sprite_frame_table SpriteFrame_MailConnect_ObjectEntry52_Frame00, SpriteFrame_MailConnect_ObjectEntry52_Frame01
+SpriteFrame_MailConnect_ObjectEntry52_Frame00:: ; 27:7CBD
 	sprite_frame 4
 	sprite_oam 3, 8, $08, OAMF_XFLIP | OAMF_BANK1 | 1
 	sprite_oam 3, 0, $0A, OAMF_XFLIP | OAMF_BANK1 | 1
 	sprite_oam 19, 8, $22, 1
 	sprite_oam 19, 0, $30, 1
-SpriteFrame_27_7CCE:: ; 27:7CCE
+SpriteFrame_MailConnect_ObjectEntry52_Frame01:: ; 27:7CCE
 	sprite_frame 4
 	sprite_oam 3, 8, $0C, OAMF_XFLIP | OAMF_BANK1 | 1
 	sprite_oam 3, 0, $0E, OAMF_XFLIP | OAMF_BANK1 | 1
 	sprite_oam 19, 8, $2C, OAMF_XFLIP | OAMF_BANK1 | 1
 	sprite_oam 19, 0, $2E, OAMF_XFLIP | OAMF_BANK1 | 1
-SpriteScript_27_7CDF:: ; 27:7CDF
+SpriteScript_MailConnect_ObjectEntry52:: ; 27:7CDF
 	sprite_anim 2
 	sprite_anim_step 0, 8
 	sprite_anim_step 1, 8

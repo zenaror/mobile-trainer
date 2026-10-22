@@ -30,19 +30,19 @@ Gfx_AddrScreenCandidate_Tiles8000:: ; 2C:7B70
 Palette_AddrScreenCandidate_Obj:: ; 2C:7C00
 	INCLUDE "gfx/address_book/address_screen_candidate_bank2c/address_screen_candidate_obj_palette.pal"
 
-; ---- ptrtable $7C40-$7C50 (16 bytes) [PROBABLE] 8 words, all inside $7C50-$7C80 of the same bank (animation/OAM frame data); tables of 4-byte entries (2 words) addressed by ld de,imm before FarCall 00:0A82 (init_object_from_table: reads the 4-byte entry number B&$7F of the table at DE); each 16-byte table = 4 identical-pair entries; caller 2C:74E7 ld de,$7C40 (a=$2C b=$81)
+; ---- ptrtable $7C40-$7C50 (16 bytes) [PROBABLE] 8 words, all inside $7C50-$7C80 of the same bank (animation/OAM frame data); tables of 4-byte entries (2 words) addressed by ld de,imm before FarCall 00:0A82 (Sprite_LoadObjectEntry (00:0AB8) selects DE + 4*(B&$3F); bit 7 of the original id separately controls repeat behavior); each 16-byte table = 4 identical-pair entries; caller 2C:74E7 ld de,$7C40 (a=$2C b=$81)
 
 Table_AddrScreenCandidate_Objects:: ; 2C:7C40
-	sprite_object_entry AddrScreenCandidate_ObjAnimData, SpriteScript_2C_7C77 ; entry 0
-	sprite_object_entry AddrScreenCandidate_ObjAnimData, SpriteScript_2C_7C77 ; entry 1
-	sprite_object_entry AddrScreenCandidate_ObjAnimData, SpriteScript_2C_7C77 ; entry 2
-	sprite_object_entry AddrScreenCandidate_ObjAnimData, SpriteScript_2C_7C77 ; entry 3
+	sprite_object_entry AddrScreenCandidate_ObjAnimData, SpriteScript_AddrScreenCandidate_ObjectEntry00 ; entry 0
+	sprite_object_entry AddrScreenCandidate_ObjAnimData, SpriteScript_AddrScreenCandidate_ObjectEntry00 ; entry 1
+	sprite_object_entry AddrScreenCandidate_ObjAnimData, SpriteScript_AddrScreenCandidate_ObjectEntry00 ; entry 2
+	sprite_object_entry AddrScreenCandidate_ObjAnimData, SpriteScript_AddrScreenCandidate_ObjectEntry00 ; entry 3
 
 ; ---- data $7C50-$7C80 (48 bytes) [PROBABLE] object animation frame records: [count][count x 4 bytes (y,x,tile,attr)] ... chained by pointer lists and terminated by 01 00 04/08 groups; format not fully decoded; reached through the pointer tables; target of the 7C40 table (7C50, 7C77)
 
 AddrScreenCandidate_ObjAnimData:: ; 2C:7C50
-	sprite_frame_table SpriteFrame_2C_7C52
-SpriteFrame_2C_7C52:: ; 2C:7C52
+	sprite_frame_table SpriteFrame_AddrScreenCandidate_ObjectEntry00_Frame00
+SpriteFrame_AddrScreenCandidate_ObjectEntry00_Frame00:: ; 2C:7C52
 	sprite_frame 9
 	sprite_oam 0, 0, $00, OAMF_BANK1 | 2
 	sprite_oam 0, 8, $01, OAMF_BANK1 | 2
@@ -53,7 +53,7 @@ SpriteFrame_2C_7C52:: ; 2C:7C52
 	sprite_oam 16, 0, $06, OAMF_BANK1 | 2
 	sprite_oam 16, 8, $07, OAMF_BANK1 | 2
 	sprite_oam 16, 16, $08, OAMF_BANK1 | 2
-SpriteScript_2C_7C77:: ; 2C:7C77
+SpriteScript_AddrScreenCandidate_ObjectEntry00:: ; 2C:7C77
 	sprite_anim 1
 	sprite_anim_step 0, 4
 	db $00, $00, $00, $00, $00, $00

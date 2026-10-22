@@ -6,6 +6,10 @@ Numbers marked "frozen" describe `config/` at the freeze and are not updated any
 (the tree is edited by hand, so recount with the command given).
 
 ## Current original reconstruction and asset-audit limits
+### Japanese sprite labels and bounded byte audit (2026-10-22)
+
+A bounded audit replaced 503 type/address sprite labels across 12 Japanese graphics owners with structural names based on owner, object-table entry and frame order. Independent macro reconstruction matched 7,719 audited source bytes to the original ROM with no mismatches, and the full ROM build remains the identity gate. This establishes naming and byte correspondence only: it does not prove visual identity, natural runtime use, or that unrooted tails are unused. The audit records raw tails, unresolved candidate scripts, and confidence limits in [`japanese_sprite_owner_audit_20261022.md`](docs/research/japanese_sprite_owner_audit_20261022.md). The English overlay remains paused.
+
 ### Keyboard panel tile asset paths (2026-10-22)
 
 Nine T4/T5/T9 and shared keyboard tile pairs in Banks 5D/5F now use names based on existing labels and confirmed VRAM destinations. Their hashes and ROM bytes are unchanged; see [`keyboard_panel_tile_paths_20261022.md`](docs/research/keyboard_panel_tile_paths_20261022.md). The English tree remains untouched.

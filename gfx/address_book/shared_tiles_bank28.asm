@@ -26,92 +26,92 @@ Palette_AbookList_Bg:: ; 28:51D0
 
 AddrBookShared_ObjTable:: ; 28:5210
 
-	sprite_object_entry AddrBookShared_ObjAnimData, SpriteScript_28_52A6 ; entry 0
-	sprite_object_entry AddrBookShared_ObjAnimData, SpriteScript_28_52A6 ; entry 1
-	sprite_object_entry AddrBookShared_ObjAnimData, SpriteScript_28_52A6 ; entry 2
-	sprite_object_entry AddrBookShared_ObjAnimData, SpriteScript_28_52A6 ; entry 3
+	sprite_object_entry AddrBookShared_ObjAnimData, SpriteScript_AddrBookShared_ObjectEntry00 ; entry 0
+	sprite_object_entry AddrBookShared_ObjAnimData, SpriteScript_AddrBookShared_ObjectEntry00 ; entry 1
+	sprite_object_entry AddrBookShared_ObjAnimData, SpriteScript_AddrBookShared_ObjectEntry00 ; entry 2
+	sprite_object_entry AddrBookShared_ObjAnimData, SpriteScript_AddrBookShared_ObjectEntry00 ; entry 3
 AddrBookShared_ObjTable_Entry4:: ; 28:5220
-	sprite_object_entry SpriteFrameTable_28_52AB, SpriteScript_28_52BE ; entry 4
-	sprite_object_entry SpriteFrameTable_28_52AB, SpriteScript_28_52BE ; entry 5
-	sprite_object_entry SpriteFrameTable_28_52AB, SpriteScript_28_52BE ; entry 6
-	sprite_object_entry SpriteFrameTable_28_52AB, SpriteScript_28_52BE ; entry 7
+	sprite_object_entry SpriteFrameTable_AddrBookShared_ObjectEntry01, SpriteScript_AddrBookShared_ObjectEntry01 ; entry 4
+	sprite_object_entry SpriteFrameTable_AddrBookShared_ObjectEntry01, SpriteScript_AddrBookShared_ObjectEntry01 ; entry 5
+	sprite_object_entry SpriteFrameTable_AddrBookShared_ObjectEntry01, SpriteScript_AddrBookShared_ObjectEntry01 ; entry 6
+	sprite_object_entry SpriteFrameTable_AddrBookShared_ObjectEntry01, SpriteScript_AddrBookShared_ObjectEntry01 ; entry 7
 AddrBookShared_ObjTable_Entry8:: ; 28:5230
-	sprite_object_entry SpriteFrameTable_28_52C1, SpriteScript_28_52D4 ; entry 8
-	sprite_object_entry SpriteFrameTable_28_52C1, SpriteScript_28_52D4 ; entry 9
-	sprite_object_entry SpriteFrameTable_28_52C1, SpriteScript_28_52D4 ; entry 10
-	sprite_object_entry SpriteFrameTable_28_52C1, SpriteScript_28_52D4 ; entry 11
+	sprite_object_entry SpriteFrameTable_AddrBookShared_ObjectEntry02, SpriteScript_AddrBookShared_ObjectEntry02 ; entry 8
+	sprite_object_entry SpriteFrameTable_AddrBookShared_ObjectEntry02, SpriteScript_AddrBookShared_ObjectEntry02 ; entry 9
+	sprite_object_entry SpriteFrameTable_AddrBookShared_ObjectEntry02, SpriteScript_AddrBookShared_ObjectEntry02 ; entry 10
+	sprite_object_entry SpriteFrameTable_AddrBookShared_ObjectEntry02, SpriteScript_AddrBookShared_ObjectEntry02 ; entry 11
 AddrBookShared_ObjTable_Entry12:: ; 28:5240
-	sprite_object_entry SpriteFrameTable_28_52D7, SpriteScript_28_536E ; entry 12
-	sprite_object_entry SpriteFrameTable_28_52D7, SpriteScript_28_536E ; entry 13
-	sprite_object_entry SpriteFrameTable_28_52D7, SpriteScript_28_536E ; entry 14
-	sprite_object_entry SpriteFrameTable_28_52D7, SpriteScript_28_536E ; entry 15
+	sprite_object_entry SpriteFrameTable_AddrBookShared_ObjectEntry03, SpriteScript_AddrBookShared_ObjectEntry03 ; entry 12
+	sprite_object_entry SpriteFrameTable_AddrBookShared_ObjectEntry03, SpriteScript_AddrBookShared_ObjectEntry03 ; entry 13
+	sprite_object_entry SpriteFrameTable_AddrBookShared_ObjectEntry03, SpriteScript_AddrBookShared_ObjectEntry03 ; entry 14
+	sprite_object_entry SpriteFrameTable_AddrBookShared_ObjectEntry03, SpriteScript_AddrBookShared_ObjectEntry03 ; entry 15
 AddrBookShared_ObjTable_Entry16:: ; 28:5250
-	sprite_object_entry SpriteFrameTable_28_5379, SpriteScript_28_5428 ; entry 16
-	sprite_object_entry SpriteFrameTable_28_5379, SpriteScript_28_5428 ; entry 17
-	sprite_object_entry SpriteFrameTable_28_5379, SpriteScript_28_5428 ; entry 18
-	sprite_object_entry SpriteFrameTable_28_5379, SpriteScript_28_5428 ; entry 19
-	sprite_object_entry SpriteFrameTable_28_5436, SpriteScript_28_546C ; entry 20
-	sprite_object_entry SpriteFrameTable_28_5436, SpriteScript_28_546C ; entry 21
-	sprite_object_entry SpriteFrameTable_28_5436, SpriteScript_28_546C ; entry 22
-	sprite_object_entry SpriteFrameTable_28_5436, SpriteScript_28_546C ; entry 23
-	sprite_object_entry SpriteFrameTable_28_546F, SpriteScript_28_54A5 ; entry 24
-	sprite_object_entry SpriteFrameTable_28_546F, SpriteScript_28_54A5 ; entry 25
-	sprite_object_entry SpriteFrameTable_28_546F, SpriteScript_28_54A5 ; entry 26
-	sprite_object_entry SpriteFrameTable_28_546F, SpriteScript_28_54A5 ; entry 27
+	sprite_object_entry SpriteFrameTable_AddrBookShared_ObjectEntry04, SpriteScript_AddrBookShared_ObjectEntry04 ; entry 16
+	sprite_object_entry SpriteFrameTable_AddrBookShared_ObjectEntry04, SpriteScript_AddrBookShared_ObjectEntry04 ; entry 17
+	sprite_object_entry SpriteFrameTable_AddrBookShared_ObjectEntry04, SpriteScript_AddrBookShared_ObjectEntry04 ; entry 18
+	sprite_object_entry SpriteFrameTable_AddrBookShared_ObjectEntry04, SpriteScript_AddrBookShared_ObjectEntry04 ; entry 19
+	sprite_object_entry SpriteFrameTable_AddrBookShared_ObjectEntry05, SpriteScript_AddrBookShared_ObjectEntry05 ; entry 20
+	sprite_object_entry SpriteFrameTable_AddrBookShared_ObjectEntry05, SpriteScript_AddrBookShared_ObjectEntry05 ; entry 21
+	sprite_object_entry SpriteFrameTable_AddrBookShared_ObjectEntry05, SpriteScript_AddrBookShared_ObjectEntry05 ; entry 22
+	sprite_object_entry SpriteFrameTable_AddrBookShared_ObjectEntry05, SpriteScript_AddrBookShared_ObjectEntry05 ; entry 23
+	sprite_object_entry SpriteFrameTable_AddrBookShared_ObjectEntry06, SpriteScript_AddrBookShared_ObjectEntry06 ; entry 24
+	sprite_object_entry SpriteFrameTable_AddrBookShared_ObjectEntry06, SpriteScript_AddrBookShared_ObjectEntry06 ; entry 25
+	sprite_object_entry SpriteFrameTable_AddrBookShared_ObjectEntry06, SpriteScript_AddrBookShared_ObjectEntry06 ; entry 26
+	sprite_object_entry SpriteFrameTable_AddrBookShared_ObjectEntry06, SpriteScript_AddrBookShared_ObjectEntry06 ; entry 27
 
-; ---- data $5280-$54B0 (560 bytes) [PROBABLE] 7 object record(s): 7 frame tables, 18 frames, 8 scripts, tiled exactly (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 28:5210-54B0 [v4: bytes 5280-52C1, 52D7-5379 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+; ---- data $5280-$54B0 (560 bytes) [PROBABLE] 7 object record(s): 7 object-table-rooted frame tables, 18 frames and 7 scripts; the 3-byte script-shaped tail at 28:5433 is unrooted (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 28:5210-54B0 [v4: bytes 5280-52C1, 52D7-5379 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 AddrBookShared_ObjAnimData:: ; 28:5280
 
-	sprite_frame_table SpriteFrame_28_5284, SpriteFrame_28_5295
-SpriteFrame_28_5284:: ; 28:5284
+	sprite_frame_table SpriteFrame_AddrBookShared_ObjectEntry00_Frame00, SpriteFrame_AddrBookShared_ObjectEntry00_Frame01
+SpriteFrame_AddrBookShared_ObjectEntry00_Frame00:: ; 28:5284
 	sprite_frame 4
 	sprite_oam 10, -2, $00, OAMF_YFLIP | 2
 	sprite_oam 10, 10, $00, OAMF_YFLIP | OAMF_XFLIP | 2
 	sprite_oam -2, -2, $00, 2
 	sprite_oam -2, 10, $00, OAMF_XFLIP | 2
-SpriteFrame_28_5295:: ; 28:5295
+SpriteFrame_AddrBookShared_ObjectEntry00_Frame01:: ; 28:5295
 	sprite_frame 4
 	sprite_oam 11, -3, $00, OAMF_YFLIP | 2
 	sprite_oam 11, 11, $00, OAMF_YFLIP | OAMF_XFLIP | 2
 	sprite_oam -3, -3, $00, 2
 	sprite_oam -3, 11, $00, OAMF_XFLIP | 2
-SpriteScript_28_52A6:: ; 28:52A6
+SpriteScript_AddrBookShared_ObjectEntry00:: ; 28:52A6
 	sprite_anim 2
 	sprite_anim_step 0, 64
 	sprite_anim_step 1, 8
-SpriteFrameTable_28_52AB:: ; 28:52AB
-	sprite_frame_table SpriteFrame_28_52AD
-SpriteFrame_28_52AD:: ; 28:52AD
+SpriteFrameTable_AddrBookShared_ObjectEntry01:: ; 28:52AB
+	sprite_frame_table SpriteFrame_AddrBookShared_ObjectEntry01_Frame00
+SpriteFrame_AddrBookShared_ObjectEntry01_Frame00:: ; 28:52AD
 	sprite_frame 4
 	sprite_oam 0, 8, $0D, 0
 	sprite_oam 0, 16, $0E, 0
 	sprite_oam 8, 8, $2E, 0
 	sprite_oam 8, 16, $2F, 0
-SpriteScript_28_52BE:: ; 28:52BE
+SpriteScript_AddrBookShared_ObjectEntry01:: ; 28:52BE
 	sprite_anim 1
 	sprite_anim_step 0, 4
-SpriteFrameTable_28_52C1:: ; 28:52C1
-	sprite_frame_table SpriteFrame_28_52C3
-SpriteFrame_28_52C3:: ; 28:52C3
+SpriteFrameTable_AddrBookShared_ObjectEntry02:: ; 28:52C1
+	sprite_frame_table SpriteFrame_AddrBookShared_ObjectEntry02_Frame00
+SpriteFrame_AddrBookShared_ObjectEntry02_Frame00:: ; 28:52C3
 	sprite_frame 4
 	sprite_oam 0, 8, $01, 0
 	sprite_oam 0, 16, $02, 0
 	sprite_oam 8, 8, $03, 0
 	sprite_oam 8, 16, $04, 0
-SpriteScript_28_52D4:: ; 28:52D4
+SpriteScript_AddrBookShared_ObjectEntry02:: ; 28:52D4
 	sprite_anim 1
 	sprite_anim_step 0, 4
-SpriteFrameTable_28_52D7:: ; 28:52D7
-	sprite_frame_table SpriteFrame_28_52E1, SpriteFrame_28_52F2, SpriteFrame_28_5313, SpriteFrame_28_5334
-	sprite_frame_table SpriteFrame_28_5355
-SpriteFrame_28_52E1:: ; 28:52E1
+SpriteFrameTable_AddrBookShared_ObjectEntry03:: ; 28:52D7
+	sprite_frame_table SpriteFrame_AddrBookShared_ObjectEntry03_Frame00, SpriteFrame_AddrBookShared_ObjectEntry03_Frame01, SpriteFrame_AddrBookShared_ObjectEntry03_Frame02, SpriteFrame_AddrBookShared_ObjectEntry03_Frame03
+	sprite_frame_table SpriteFrame_AddrBookShared_ObjectEntry03_Frame04
+SpriteFrame_AddrBookShared_ObjectEntry03_Frame00:: ; 28:52E1
 	sprite_frame 4
 	sprite_oam 0, 8, $0D, 0
 	sprite_oam 0, 16, $0E, 0
 	sprite_oam 8, 8, $2E, 0
 	sprite_oam 8, 16, $2F, 0
-SpriteFrame_28_52F2:: ; 28:52F2
+SpriteFrame_AddrBookShared_ObjectEntry03_Frame01:: ; 28:52F2
 	sprite_frame 8
 	sprite_oam 1, 8, $22, 0
 	sprite_oam 1, 16, $23, 0
@@ -121,7 +121,7 @@ SpriteFrame_28_52F2:: ; 28:52F2
 	sprite_oam 3, 16, $42, 2
 	sprite_oam 11, 8, $43, 2
 	sprite_oam 11, 16, $43, 2
-SpriteFrame_28_5313:: ; 28:5313
+SpriteFrame_AddrBookShared_ObjectEntry03_Frame02:: ; 28:5313
 	sprite_frame 8
 	sprite_oam -7, 9, $24, 2
 	sprite_oam -7, 17, $25, 2
@@ -131,7 +131,7 @@ SpriteFrame_28_5313:: ; 28:5313
 	sprite_oam 3, 17, $42, 2
 	sprite_oam 4, 9, $42, 2
 	sprite_oam 4, 17, $42, 2
-SpriteFrame_28_5334:: ; 28:5334
+SpriteFrame_AddrBookShared_ObjectEntry03_Frame03:: ; 28:5334
 	sprite_frame 8
 	sprite_oam -5, 5, $28, 2
 	sprite_oam -5, 13, $29, 2
@@ -141,7 +141,7 @@ SpriteFrame_28_5334:: ; 28:5334
 	sprite_oam 3, 21, $2D, 2
 	sprite_oam 4, 8, $42, 2
 	sprite_oam 4, 16, $42, 2
-SpriteFrame_28_5355:: ; 28:5355
+SpriteFrame_AddrBookShared_ObjectEntry03_Frame04:: ; 28:5355
 	sprite_frame 6
 	sprite_oam -3, 5, $19, 2
 	sprite_oam -3, 13, $1A, 2
@@ -149,23 +149,23 @@ SpriteFrame_28_5355:: ; 28:5355
 	sprite_oam 5, 5, $1C, 2
 	sprite_oam 5, 13, $1D, 2
 	sprite_oam 5, 21, $1E, 2
-SpriteScript_28_536E:: ; 28:536E
+SpriteScript_AddrBookShared_ObjectEntry03:: ; 28:536E
 	sprite_anim 5
 	sprite_anim_step 0, 5
 	sprite_anim_step 1, 5
 	sprite_anim_step 2, 5
 	sprite_anim_step 3, 3
 	sprite_anim_step 4, 18
-SpriteFrameTable_28_5379:: ; 28:5379
-	sprite_frame_table SpriteFrame_28_5383, SpriteFrame_28_5394, SpriteFrame_28_53B5, SpriteFrame_28_53D6
-	sprite_frame_table SpriteFrame_28_5403
-SpriteFrame_28_5383:: ; 28:5383
+SpriteFrameTable_AddrBookShared_ObjectEntry04:: ; 28:5379
+	sprite_frame_table SpriteFrame_AddrBookShared_ObjectEntry04_Frame00, SpriteFrame_AddrBookShared_ObjectEntry04_Frame01, SpriteFrame_AddrBookShared_ObjectEntry04_Frame02, SpriteFrame_AddrBookShared_ObjectEntry04_Frame03
+	sprite_frame_table SpriteFrame_AddrBookShared_ObjectEntry04_Frame04
+SpriteFrame_AddrBookShared_ObjectEntry04_Frame00:: ; 28:5383
 	sprite_frame 4
 	sprite_oam 0, 8, $01, 0
 	sprite_oam 0, 16, $02, 0
 	sprite_oam 8, 8, $03, 0
 	sprite_oam 8, 16, $04, 0
-SpriteFrame_28_5394:: ; 28:5394
+SpriteFrame_AddrBookShared_ObjectEntry04_Frame01:: ; 28:5394
 	sprite_frame 8
 	sprite_oam 1, 8, $05, 0
 	sprite_oam 1, 16, $06, 0
@@ -175,7 +175,7 @@ SpriteFrame_28_5394:: ; 28:5394
 	sprite_oam 3, 16, $42, 2
 	sprite_oam 11, 8, $43, 2
 	sprite_oam 11, 16, $43, 2
-SpriteFrame_28_53B5:: ; 28:53B5
+SpriteFrame_AddrBookShared_ObjectEntry04_Frame02:: ; 28:53B5
 	sprite_frame 8
 	sprite_oam 1, 9, $26, 2
 	sprite_oam 1, 17, $27, 2
@@ -185,7 +185,7 @@ SpriteFrame_28_53B5:: ; 28:53B5
 	sprite_oam 3, 17, $42, 2
 	sprite_oam 4, 9, $42, 2
 	sprite_oam 4, 17, $42, 2
-SpriteFrame_28_53D6:: ; 28:53D6
+SpriteFrame_AddrBookShared_ObjectEntry04_Frame03:: ; 28:53D6
 	sprite_frame 11
 	sprite_oam 3, 5, $2B, 2
 	sprite_oam 3, 13, $2C, 2
@@ -198,7 +198,7 @@ SpriteFrame_28_53D6:: ; 28:53D6
 	sprite_oam -13, 21, $35, 2
 	sprite_oam 4, 8, $42, 2
 	sprite_oam 4, 16, $42, 2
-SpriteFrame_28_5403:: ; 28:5403
+SpriteFrame_AddrBookShared_ObjectEntry04_Frame04:: ; 28:5403
 	sprite_frame 9
 	sprite_oam -10, 5, $10, 2
 	sprite_oam -10, 13, $11, 2
@@ -209,7 +209,7 @@ SpriteFrame_28_5403:: ; 28:5403
 	sprite_oam 6, 5, $16, 2
 	sprite_oam 6, 13, $17, 2
 	sprite_oam 6, 21, $18, 2
-SpriteScript_28_5428:: ; 28:5428
+SpriteScript_AddrBookShared_ObjectEntry04:: ; 28:5428
 	sprite_anim 5
 	sprite_anim_step 0, 5
 	sprite_anim_step 1, 5
@@ -217,15 +217,15 @@ SpriteScript_28_5428:: ; 28:5428
 	sprite_anim_step 3, 3
 	sprite_anim_step 4, 18
 	db $01, $00, $04 ; not reached by any walked sprite chain
-SpriteFrameTable_28_5436:: ; 28:5436
-	sprite_frame_table SpriteFrame_28_543A, SpriteFrame_28_544B
-SpriteFrame_28_543A:: ; 28:543A
+SpriteFrameTable_AddrBookShared_ObjectEntry05:: ; 28:5436
+	sprite_frame_table SpriteFrame_AddrBookShared_ObjectEntry05_Frame00, SpriteFrame_AddrBookShared_ObjectEntry05_Frame01
+SpriteFrame_AddrBookShared_ObjectEntry05_Frame00:: ; 28:543A
 	sprite_frame 4
 	sprite_oam 0, 8, $0D, 0
 	sprite_oam 0, 16, $0E, 0
 	sprite_oam 8, 8, $2E, 0
 	sprite_oam 8, 16, $2F, 0
-SpriteFrame_28_544B:: ; 28:544B
+SpriteFrame_AddrBookShared_ObjectEntry05_Frame01:: ; 28:544B
 	sprite_frame 8
 	sprite_oam -5, 8, $36, 0
 	sprite_oam -5, 16, $37, 0
@@ -235,12 +235,12 @@ SpriteFrame_28_544B:: ; 28:544B
 	sprite_oam 1, 16, $42, 2
 	sprite_oam 9, 8, $43, 2
 	sprite_oam 9, 16, $43, 2
-SpriteScript_28_546C:: ; 28:546C
+SpriteScript_AddrBookShared_ObjectEntry05:: ; 28:546C
 	sprite_anim 1
 	sprite_anim_step 0, 4
-SpriteFrameTable_28_546F:: ; 28:546F
-	sprite_frame_table SpriteFrame_28_5473, SpriteFrame_28_5494
-SpriteFrame_28_5473:: ; 28:5473
+SpriteFrameTable_AddrBookShared_ObjectEntry06:: ; 28:546F
+	sprite_frame_table SpriteFrame_AddrBookShared_ObjectEntry06_Frame00, SpriteFrame_AddrBookShared_ObjectEntry06_Frame01
+SpriteFrame_AddrBookShared_ObjectEntry06_Frame00:: ; 28:5473
 	sprite_frame 8
 	sprite_oam -5, 8, $09, 0
 	sprite_oam -5, 16, $0A, 0
@@ -250,13 +250,13 @@ SpriteFrame_28_5473:: ; 28:5473
 	sprite_oam 1, 16, $42, 2
 	sprite_oam 9, 8, $43, 2
 	sprite_oam 9, 16, $43, 2
-SpriteFrame_28_5494:: ; 28:5494
+SpriteFrame_AddrBookShared_ObjectEntry06_Frame01:: ; 28:5494
 	sprite_frame 4
 	sprite_oam 0, 8, $01, 0
 	sprite_oam 0, 16, $02, 0
 	sprite_oam 8, 8, $03, 0
 	sprite_oam 8, 16, $04, 0
-SpriteScript_28_54A5:: ; 28:54A5
+SpriteScript_AddrBookShared_ObjectEntry06:: ; 28:54A5
 	sprite_anim 2
 	sprite_anim_step 0, 5
 	sprite_anim_step 1, 20

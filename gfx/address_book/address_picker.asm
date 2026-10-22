@@ -46,7 +46,7 @@ Palette_AddrBook_Obj:: ; 2C:71D0
 
 	INCLUDE "gfx/address_book/address_picker/addr_book_obj.pal"
 
-; ---- ptrtable $7210-$7260 (80 bytes) [PROBABLE] 40 words, all inside $7260-$7422 of the same bank (animation/OAM frame data); tables of 4-byte entries (2 words) addressed by ld de,imm before FarCall 00:0A82 (init_object_from_table: reads the 4-byte entry number B&$7F of the table at DE); each 16-byte table = 4 identical-pair entries; caller 2C:5A1E ld de,$7220 (a=$2C b=$01)
+; ---- ptrtable $7210-$7260 (80 bytes) [PROBABLE] 40 words, all inside $7260-$7422 of the same bank (animation/OAM frame data); tables of 4-byte entries (2 words) addressed by ld de,imm before FarCall 00:0A82 (init_object_from_table: Sprite_LoadObjectEntry (00:0AB8) selects DE + 4*(B&$3F); bit 7 of the original id separately controls repeat behavior); each 16-byte table = 4 identical-pair entries; caller 2C:5A1E ld de,$7220 (a=$2C b=$01)
 
 Table_AddrSlotIcon_Anims:: ; 2C:7210
 

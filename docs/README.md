@@ -71,6 +71,7 @@ Reference documents (current):
 | [`audio_track_pointer_aliases_20261021.md`](research/audio_track_pointer_aliases_20261021.md) | 44 redundant generic audio track-pointer aliases retired under existing song/effect labels |
 | [`html_keyword_pointer_aliases_20261021.md`](research/html_keyword_pointer_aliases_20261021.md) | 12 redundant generic aliases retired under existing HTML pointer-list names |
 | [`gfx_generic_name_audit_20261021.md`](research/gfx_generic_name_audit_20261021.md) | Read-only inventory of GFX type/address labels, aliases, paths and remaining uncertainty |
+| [`japanese_sprite_owner_audit_20261022.md`](research/japanese_sprite_owner_audit_20261022.md) | 503 structural sprite labels, selector comment corrections, exact ROM-byte audit and unresolved reachability limits |
 | [`japanese_name_and_gfx_path_followup_20261022.md`](research/japanese_name_and_gfx_path_followup_20261022.md) | Japanese function/data/sprite/RAM name census and reviewed graphics paths |
 | [`japanese_sprite_data_followup_20261022.md`](research/japanese_sprite_data_followup_20261022.md) | 33 Save Sender Address sprite symbols, bank 4B second-banner transfer, and 14 neutral data labels |
 | [`registration_notice_bank58_resource_paths_20261022.md`](research/registration_notice_bank58_resource_paths_20261022.md) | Bank 58 registration notice assets renamed from type/address paths using static labels and readers |

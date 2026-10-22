@@ -154,7 +154,7 @@ BrowserStart_ObjPalettes:: ; 73:5E20
 	INCLUDE "gfx/browser/start_choice/browser_start_obj_palettes.pal"
 
 ; ---- data $5E60-$5EC0 (96 bytes) [CONFIRMED] sprite table (4), two OAM frames (45 each), script prefix (2); original consumers read the full 99-byte chain through $5EC3 in 19 whole/19 union natural scenarios (typing_73_browser_sprite99.md)
-SpriteFrameTable_73_5E60:: ; 73:5E60
+SpriteFrameTable_BrowserStart_ObjectEntry00:: ; 73:5E60
 
 	sprite_frame_table $5E64, $5E91
 	sprite_frame 11 ; original 73:5E64
@@ -187,34 +187,34 @@ SpriteFrameTable_73_5E60:: ; 73:5E60
 
 BrowserStart_ObjAnimScriptTail_5EC0:: ; 73:5EC0
 	db $14, $01, $14 ; script tail: frame 0 waits 20, then frame 1 waits 20 (count 2 at 73:5EBE)
-SpriteFrameTable_73_5EC3:: ; 73:5EC3
-	sprite_frame_table SpriteFrame_73_5ED1, SpriteFrame_73_5EDA, SpriteFrame_73_5EE3, SpriteFrame_73_5EE8
-	sprite_frame_table SpriteFrame_73_5EF5, SpriteFrame_73_5EFA, SpriteFrame_73_5EFF
-SpriteFrame_73_5ED1:: ; 73:5ED1
+SpriteFrameTable_BrowserStart_ObjectEntry01:: ; 73:5EC3
+	sprite_frame_table SpriteFrame_BrowserStart_ObjectEntry01_Frame00, SpriteFrame_BrowserStart_ObjectEntry01_Frame01, SpriteFrame_BrowserStart_ObjectEntry01_Frame02, SpriteFrame_BrowserStart_ObjectEntry01_Frame03
+	sprite_frame_table SpriteFrame_BrowserStart_ObjectEntry01_Frame04, SpriteFrame_BrowserStart_ObjectEntry01_Frame05, SpriteFrame_BrowserStart_ObjectEntry01_Frame06
+SpriteFrame_BrowserStart_ObjectEntry01_Frame00:: ; 73:5ED1
 	sprite_frame 2
 	sprite_oam 0, 0, $0B, 1
 	sprite_oam 0, 8, $0C, 1
-SpriteFrame_73_5EDA:: ; 73:5EDA
+SpriteFrame_BrowserStart_ObjectEntry01_Frame01:: ; 73:5EDA
 	sprite_frame 2
 	sprite_oam 0, -8, $0D, 1
 	sprite_oam 0, 0, $0E, 1
-SpriteFrame_73_5EE3:: ; 73:5EE3
+SpriteFrame_BrowserStart_ObjectEntry01_Frame02:: ; 73:5EE3
 	sprite_frame 1
 	sprite_oam 0, -8, $0F, 1
-SpriteFrame_73_5EE8:: ; 73:5EE8
+SpriteFrame_BrowserStart_ObjectEntry01_Frame03:: ; 73:5EE8
 	sprite_frame 3
 	sprite_oam -8, -16, $10, 1
 	sprite_oam -8, -8, $11, 1
 	sprite_oam 0, -16, $12, 1
-SpriteFrame_73_5EF5:: ; 73:5EF5
+SpriteFrame_BrowserStart_ObjectEntry01_Frame04:: ; 73:5EF5
 	sprite_frame 1
 	sprite_oam -8, -23, $13, 1
-SpriteFrame_73_5EFA:: ; 73:5EFA
+SpriteFrame_BrowserStart_ObjectEntry01_Frame05:: ; 73:5EFA
 	sprite_frame 1
 	sprite_oam -13, -23, $14, 1
-SpriteFrame_73_5EFF:: ; 73:5EFF
+SpriteFrame_BrowserStart_ObjectEntry01_Frame06:: ; 73:5EFF
 	sprite_frame 0
-SpriteScript_73_5F00:: ; 73:5F00
+SpriteScript_BrowserStart_ObjectEntry01:: ; 73:5F00
 	sprite_anim 7
 	sprite_anim_step 0, 6
 	sprite_anim_step 1, 6
@@ -224,5 +224,5 @@ SpriteScript_73_5F00:: ; 73:5F00
 	sprite_anim_step 5, 6
 	sprite_anim_step 6, 30
 BrowserStart_ObjTable:: ; 73:5F0F
-	sprite_object_entry SpriteFrameTable_73_5E60, $5EBE ; entry 0; original bank 73, existing alias preserved
-	sprite_object_entry SpriteFrameTable_73_5EC3, SpriteScript_73_5F00 ; entry 1
+	sprite_object_entry SpriteFrameTable_BrowserStart_ObjectEntry00, $5EBE ; entry 0; original bank 73, existing alias preserved
+	sprite_object_entry SpriteFrameTable_BrowserStart_ObjectEntry01, SpriteScript_BrowserStart_ObjectEntry01 ; entry 1

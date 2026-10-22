@@ -133,72 +133,72 @@ Palette_ConnectDialog_Bg:: ; 56:77C0
 
 ConnectDialog_ObjAnimData:: ; 56:7880
 
-	sprite_frame_table SpriteFrame_56_7884, SpriteFrame_56_788D
-SpriteFrame_56_7884:: ; 56:7884
+	sprite_frame_table SpriteFrame_ConnectDialog_ObjectEntry00_Frame00, SpriteFrame_ConnectDialog_ObjectEntry00_Frame01
+SpriteFrame_ConnectDialog_ObjectEntry00_Frame00:: ; 56:7884
 	sprite_frame 2
 	sprite_oam 2, -1, $00, 0
 	sprite_oam 10, -1, $01, 0
-SpriteFrame_56_788D:: ; 56:788D
+SpriteFrame_ConnectDialog_ObjectEntry00_Frame01:: ; 56:788D
 	sprite_frame 1
 	sprite_oam 0, 0, $1E, 0
-SpriteScript_56_7892:: ; 56:7892
+SpriteScript_ConnectDialog_ObjectEntry00:: ; 56:7892
 	sprite_anim 2
 	sprite_anim_step 0, 20
 	sprite_anim_step 1, 20
-SpriteFrameTable_56_7897:: ; 56:7897
-	sprite_frame_table SpriteFrame_56_789F, SpriteFrame_56_78B0, SpriteFrame_56_78C1, SpriteFrame_56_78D2
-SpriteFrame_56_789F:: ; 56:789F
+SpriteFrameTable_ConnectDialog_ObjectEntry01:: ; 56:7897
+	sprite_frame_table SpriteFrame_ConnectDialog_ObjectEntry01_Frame00, SpriteFrame_ConnectDialog_ObjectEntry01_Frame01, SpriteFrame_ConnectDialog_ObjectEntry01_Frame02, SpriteFrame_ConnectDialog_ObjectEntry01_Frame03
+SpriteFrame_ConnectDialog_ObjectEntry01_Frame00:: ; 56:789F
 	sprite_frame 4
 	sprite_oam 2, -2, $09, 0
 	sprite_oam 2, 6, $0A, 0
 	sprite_oam 10, -2, $0B, 0
 	sprite_oam 10, 6, $0C, 0
-SpriteFrame_56_78B0:: ; 56:78B0
+SpriteFrame_ConnectDialog_ObjectEntry01_Frame01:: ; 56:78B0
 	sprite_frame 4
 	sprite_oam 2, -2, $0D, 0
 	sprite_oam 2, 6, $0E, 0
 	sprite_oam 10, -2, $0F, 0
 	sprite_oam 10, 6, $10, 0
-SpriteFrame_56_78C1:: ; 56:78C1
+SpriteFrame_ConnectDialog_ObjectEntry01_Frame02:: ; 56:78C1
 	sprite_frame 4
 	sprite_oam 2, -2, $11, 0
 	sprite_oam 2, 6, $12, 0
 	sprite_oam 10, -2, $13, 0
 	sprite_oam 10, 6, $14, 0
-SpriteFrame_56_78D2:: ; 56:78D2
+SpriteFrame_ConnectDialog_ObjectEntry01_Frame03:: ; 56:78D2
 	sprite_frame 4
 	sprite_oam 2, -2, $0D, 0
 	sprite_oam 2, 6, $0E, 0
 	sprite_oam 10, -2, $0F, 0
 	sprite_oam 10, 6, $10, 0
-SpriteScript_56_78E3:: ; 56:78E3
+SpriteScript_ConnectDialog_ObjectEntry01:: ; 56:78E3
 	sprite_anim 4
 	sprite_anim_step 0, 12
 	sprite_anim_step 1, 10
 	sprite_anim_step 2, 15
 	sprite_anim_step 3, 10
-SpriteFrameTable_56_78EC:: ; 56:78EC
-	sprite_frame_table SpriteFrame_56_78F4, SpriteFrame_56_7901, SpriteFrame_56_7916, SpriteFrame_56_792B
-SpriteFrame_56_78F4:: ; 56:78F4
+SpriteFrameTable_ConnectDialog_ObjectEntry02:: ; 56:78EC
+	sprite_frame_table SpriteFrame_ConnectDialog_ObjectEntry02_Frame00, SpriteFrame_ConnectDialog_ObjectEntry02_Frame01, SpriteFrame_ConnectDialog_ObjectEntry02_Frame02, SpriteFrame_ConnectDialog_ObjectEntry02_Frame03
+SpriteFrame_ConnectDialog_ObjectEntry02_Frame00:: ; 56:78F4
 	sprite_frame 3
 	sprite_oam 10, -2, $16, 0
 	sprite_oam 10, 6, $17, 0
 	sprite_oam 2, 6, $15, 0
-SpriteFrame_56_7901:: ; 56:7901
+SpriteFrame_ConnectDialog_ObjectEntry02_Frame01:: ; 56:7901
 	sprite_frame 5
 	sprite_oam 1, 6, $18, 0
 	sprite_oam 9, -2, $19, 0
 	sprite_oam 9, 6, $1A, 0
 	sprite_oam 2, -3, $07, 0
 	sprite_oam 11, 7, $08, 0
-SpriteFrame_56_7916:: ; 56:7916
+SpriteFrame_ConnectDialog_ObjectEntry02_Frame02:: ; 56:7916
 	sprite_frame 5
 	sprite_oam 2, 4, $1B, 0
 	sprite_oam 10, -4, $1C, 0
 	sprite_oam 10, 4, $02, 0
 	sprite_oam 1, -4, $07, 0
 	sprite_oam 11, 8, $08, 0
-SpriteFrame_56_792B:: ; 56:792B
+SpriteFrame_ConnectDialog_ObjectEntry02_Frame03:: ; 56:792B
 	sprite_frame 6
 	sprite_oam 4, -5, $03, 0
 	sprite_oam 4, 3, $04, 0
@@ -206,52 +206,52 @@ SpriteFrame_56_792B:: ; 56:792B
 	sprite_oam 12, 3, $06, 0
 	sprite_oam 0, -5, $07, 0
 	sprite_oam 11, 9, $08, 0
-SpriteScript_56_7944:: ; 56:7944
+SpriteScript_ConnectDialog_ObjectEntry02:: ; 56:7944
 	sprite_anim 4
 	sprite_anim_step 0, 10
 	sprite_anim_step 1, 10
 	sprite_anim_step 2, 5
 	sprite_anim_step 3, 10
-SpriteFrameTable_56_794D:: ; 56:794D
-	sprite_frame_table SpriteFrame_56_7953, SpriteFrame_56_7964, SpriteFrame_56_7975
-SpriteFrame_56_7953:: ; 56:7953
+SpriteFrameTable_ConnectDialog_ObjectEntry03:: ; 56:794D
+	sprite_frame_table SpriteFrame_ConnectDialog_ObjectEntry03_Frame00, SpriteFrame_ConnectDialog_ObjectEntry03_Frame01, SpriteFrame_ConnectDialog_ObjectEntry03_Frame02
+SpriteFrame_ConnectDialog_ObjectEntry03_Frame00:: ; 56:7953
 	sprite_frame 4
 	sprite_oam 2, -2, $09, 0
 	sprite_oam 2, 6, $0A, 0
 	sprite_oam 10, -2, $0B, 0
 	sprite_oam 10, 6, $0C, 0
-SpriteFrame_56_7964:: ; 56:7964
+SpriteFrame_ConnectDialog_ObjectEntry03_Frame01:: ; 56:7964
 	sprite_frame 4
 	sprite_oam -2, -2, $09, 0
 	sprite_oam -2, 6, $0A, 0
 	sprite_oam 6, -2, $0B, 0
 	sprite_oam 6, 6, $0C, 0
-SpriteFrame_56_7975:: ; 56:7975
+SpriteFrame_ConnectDialog_ObjectEntry03_Frame02:: ; 56:7975
 	sprite_frame 4
 	sprite_oam 2, -2, $09, 0
 	sprite_oam 2, 6, $0A, 0
 	sprite_oam 10, -2, $0B, 0
 	sprite_oam 10, 6, $0C, 0
-SpriteScript_56_7986:: ; 56:7986
+SpriteScript_ConnectDialog_ObjectEntry03:: ; 56:7986
 	sprite_anim 3
 	sprite_anim_step 0, 5
 	sprite_anim_step 1, 8
 	sprite_anim_step 2, 10
-SpriteFrameTable_56_798D:: ; 56:798D
-	sprite_frame_table SpriteFrame_56_7991, SpriteFrame_56_79A2
-SpriteFrame_56_7991:: ; 56:7991
+SpriteFrameTable_ConnectDialog_ObjectEntry04:: ; 56:798D
+	sprite_frame_table SpriteFrame_ConnectDialog_ObjectEntry04_Frame00, SpriteFrame_ConnectDialog_ObjectEntry04_Frame01
+SpriteFrame_ConnectDialog_ObjectEntry04_Frame00:: ; 56:7991
 	sprite_frame 4
 	sprite_oam -2, -2, $1D, 0
 	sprite_oam -2, 26, $1D, OAMF_XFLIP
 	sprite_oam 10, -2, $1D, OAMF_YFLIP
 	sprite_oam 10, 26, $1D, OAMF_YFLIP | OAMF_XFLIP
-SpriteFrame_56_79A2:: ; 56:79A2
+SpriteFrame_ConnectDialog_ObjectEntry04_Frame01:: ; 56:79A2
 	sprite_frame 4
 	sprite_oam -3, -3, $1D, 0
 	sprite_oam -3, 27, $1D, OAMF_XFLIP
 	sprite_oam 11, -3, $1D, OAMF_YFLIP
 	sprite_oam 11, 27, $1D, OAMF_YFLIP | OAMF_XFLIP
-SpriteScript_56_79B3:: ; 56:79B3
+SpriteScript_ConnectDialog_ObjectEntry04:: ; 56:79B3
 	sprite_anim 2
 	sprite_anim_step 0, 46
 	sprite_anim_step 1, 8
@@ -260,9 +260,9 @@ SpriteScript_56_79B3:: ; 56:79B3
 
 ConnectDialog_ObjTable:: ; 56:79B8
 
-	sprite_object_entry ConnectDialog_ObjAnimData, SpriteScript_56_7892 ; entry 0
-	sprite_object_entry SpriteFrameTable_56_7897, SpriteScript_56_78E3 ; entry 1
-	sprite_object_entry SpriteFrameTable_56_78EC, SpriteScript_56_7944 ; entry 2
-	sprite_object_entry SpriteFrameTable_56_794D, SpriteScript_56_7986 ; entry 3
+	sprite_object_entry ConnectDialog_ObjAnimData, SpriteScript_ConnectDialog_ObjectEntry00 ; entry 0
+	sprite_object_entry SpriteFrameTable_ConnectDialog_ObjectEntry01, SpriteScript_ConnectDialog_ObjectEntry01 ; entry 1
+	sprite_object_entry SpriteFrameTable_ConnectDialog_ObjectEntry02, SpriteScript_ConnectDialog_ObjectEntry02 ; entry 2
+	sprite_object_entry SpriteFrameTable_ConnectDialog_ObjectEntry03, SpriteScript_ConnectDialog_ObjectEntry03 ; entry 3
 	sprite_object_entry 0, 0 ; entry 4
-	sprite_object_entry SpriteFrameTable_56_798D, SpriteScript_56_79B3 ; entry 5
+	sprite_object_entry SpriteFrameTable_ConnectDialog_ObjectEntry04, SpriteScript_ConnectDialog_ObjectEntry04 ; entry 5

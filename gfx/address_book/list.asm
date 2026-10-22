@@ -11,7 +11,7 @@ Tilemap_Abook_List:: ; 2F:4D40
 	INCBIN "gfx/address_book/list/abook_list.tilemap"
 	INCBIN "gfx/address_book/list/abook_list.attrmap"
 
-; ---- ptrtable $5010-$5050 (64 bytes) [PROBABLE] 32 words, all inside $5050-$5098 of the same bank (animation/OAM frame data); tables of 4-byte entries (2 words) addressed by ld de,imm before FarCall 00:0A82 (init_object_from_table: reads the 4-byte entry number B&$7F of the table at DE); each 16-byte table = 4 identical-pair entries; callers 2F:4507 ld de,$5010, 2F:4522 $5020, 2F:453D $5030, 2F:4558 $5040 (a=$2F b=$81)
+; ---- ptrtable $5010-$5050 (64 bytes) [PROBABLE] 32 words, all inside $5050-$5098 of the same bank (animation/OAM frame data); tables of 4-byte entries (2 words) addressed by ld de,imm before FarCall 00:0A82 (init_object_from_table: Sprite_LoadObjectEntry (00:0AB8) selects DE + 4*(B&$3F); bit 7 of the original id separately controls repeat behavior); each 16-byte table = 4 identical-pair entries; callers 2F:4507 ld de,$5010, 2F:4522 $5020, 2F:453D $5030, 2F:4558 $5040 (a=$2F b=$81)
 
 Table_Abook_ButtonCursorAnims:: ; 2F:5010
 
