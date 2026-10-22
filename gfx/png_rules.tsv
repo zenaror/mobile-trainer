@@ -614,22 +614,22 @@ gfx/keyboard/panels_bank5f/tiles_49d0.2bpp	gfx/keyboard/panels_bank5f/tiles_49d0
 gfx/keyboard/panels_bank5f/tiles_5900.2bpp	gfx/keyboard/panels_bank5f/tiles_5900.png	tiles			0	1024	6e31016f013d736f39b3df70d2b24a2d16965efd0ad6d79011b22abff7eaa1e9
 gfx/keyboard/panels_bank5f/tiles_5d00.2bpp	gfx/keyboard/panels_bank5f/tiles_5d00.png	tiles			0	1024	1ac50c094601dfa86933e8eb052ff0af42f60f9979d9a5a6950d144b345c181a
 gfx/keyboard/panels_bank5f/tiles_6100.2bpp	gfx/keyboard/panels_bank5f/tiles_6100.png	tiles			0	256	0ffe75442dbb13c85250f52f9051952b7a0ea68675558e9091f007f1850d85fc
+gfx/keyboard/tiles_bank62/t78_page0_candidate_tail_tiles.2bpp	gfx/keyboard/tiles_bank62/t78_page0_candidate_tail_tiles.png	tiles			0	192	7a2ab1f13e5b8deb57f2abc336fd99039d4d87d32fbe41939ec2ae320309458a
+gfx/keyboard/tiles_bank62/t78_page1_candidate_tail_tiles.2bpp	gfx/keyboard/tiles_bank62/t78_page1_candidate_tail_tiles.png	tiles			0	192	7a2ab1f13e5b8deb57f2abc336fd99039d4d87d32fbe41939ec2ae320309458a
+gfx/keyboard/tiles_bank62/t78_page2_candidate_tail_tiles.2bpp	gfx/keyboard/tiles_bank62/t78_page2_candidate_tail_tiles.png	tiles			0	192	7a2ab1f13e5b8deb57f2abc336fd99039d4d87d32fbe41939ec2ae320309458a
+gfx/keyboard/tiles_bank62/t78_page3_candidate_tail_tiles.2bpp	gfx/keyboard/tiles_bank62/t78_page3_candidate_tail_tiles.png	tiles			0	192	7a2ab1f13e5b8deb57f2abc336fd99039d4d87d32fbe41939ec2ae320309458a
 gfx/keyboard/tiles_bank62/tiles_4000.2bpp	gfx/keyboard/tiles_bank62/tiles_4000.png	tiles			0	1024	4f813d3e58ae15fd01a3be1915ba8dab0fd42105dfd21bc3d6f19373d9d7f5ed
 gfx/keyboard/tiles_bank62/tiles_4400.2bpp	gfx/keyboard/tiles_bank62/tiles_4400.png	tiles			0	1024	d6f1c9ceb468b6c3733b2c389baf4c834f4169d286387135d6dbb5ffde61c01e
 gfx/keyboard/tiles_bank62/tiles_4800.2bpp	gfx/keyboard/tiles_bank62/tiles_4800.png	tiles			0	576	81db7cb1c1cc01717e942c94a364bf70a596f28225c0fe1fe09695320c6a5c62
-gfx/keyboard/tiles_bank62/tiles_4a40.2bpp	gfx/keyboard/tiles_bank62/tiles_4a40.png	tiles			0	192	7a2ab1f13e5b8deb57f2abc336fd99039d4d87d32fbe41939ec2ae320309458a
 gfx/keyboard/tiles_bank62/tiles_4b00.2bpp	gfx/keyboard/tiles_bank62/tiles_4b00.png	tiles			0	1024	962c1e0c6f6f3b13ca95c2d7f038ec0ad9568caea856bdca2457815d1ffbd9ce
 gfx/keyboard/tiles_bank62/tiles_4f00.2bpp	gfx/keyboard/tiles_bank62/tiles_4f00.png	tiles			0	1024	f511d39e75316482ae7b6c98daa8460debb1cee3ad19bb9dc8f9c72cf9cc469d
 gfx/keyboard/tiles_bank62/tiles_5300.2bpp	gfx/keyboard/tiles_bank62/tiles_5300.png	tiles			0	576	81db7cb1c1cc01717e942c94a364bf70a596f28225c0fe1fe09695320c6a5c62
-gfx/keyboard/tiles_bank62/tiles_5540.2bpp	gfx/keyboard/tiles_bank62/tiles_5540.png	tiles			0	192	7a2ab1f13e5b8deb57f2abc336fd99039d4d87d32fbe41939ec2ae320309458a
 gfx/keyboard/tiles_bank62/tiles_5600.2bpp	gfx/keyboard/tiles_bank62/tiles_5600.png	tiles			0	1024	6d8f1cd88eacd48e5a3060d2abd6a79d81763f9001d3c0ebc526106adb351239
 gfx/keyboard/tiles_bank62/tiles_5a00.2bpp	gfx/keyboard/tiles_bank62/tiles_5a00.png	tiles			0	1024	a235cbfec408af628b860831b9c8166d643e4610f1f41642689a7f8cdb0954ee
 gfx/keyboard/tiles_bank62/tiles_5e00.2bpp	gfx/keyboard/tiles_bank62/tiles_5e00.png	tiles			0	576	4aed4cd7a5e2cdd8246270eaf962acb2816ce1e741976ddd9d158899078c915f
-gfx/keyboard/tiles_bank62/tiles_6040.2bpp	gfx/keyboard/tiles_bank62/tiles_6040.png	tiles			0	192	7a2ab1f13e5b8deb57f2abc336fd99039d4d87d32fbe41939ec2ae320309458a
 gfx/keyboard/tiles_bank62/tiles_6100.2bpp	gfx/keyboard/tiles_bank62/tiles_6100.png	tiles			0	1024	29db228f49b3a5a2cba16eb792daed56da13abc011bc3898bdeb9f0d7ed8eeb4
 gfx/keyboard/tiles_bank62/tiles_6500.2bpp	gfx/keyboard/tiles_bank62/tiles_6500.png	tiles			0	1024	b48b9df508c2ce8f9cdfdd9d4ec5111943b0ac24b7daca303a8ab9d779daf361
 gfx/keyboard/tiles_bank62/tiles_6900.2bpp	gfx/keyboard/tiles_bank62/tiles_6900.png	tiles			0	576	f1a7396f28473f7da46e60c2131c4a3b74a1f09761fafabe982e43051bc72800
-gfx/keyboard/tiles_bank62/tiles_6b40.2bpp	gfx/keyboard/tiles_bank62/tiles_6b40.png	tiles			0	192	7a2ab1f13e5b8deb57f2abc336fd99039d4d87d32fbe41939ec2ae320309458a
 gfx/keyboard/tiles_bank66/mail_draft_exit_options.2bpp	gfx/keyboard/tiles_bank66/mail_draft_exit_options.png	tiles			0	1920	caa4ac5b9a13d2224ed50a037201b199a9aa5d9b5e3ba00a8db534ed983cb797
 gfx/keyboard/tiles_bank66/tilemap_7210.attrmap	-	attrmap				220	fc10cb2d4e860dbdd81abd2ecbff29176570334aeda2aefc68481431f5431d71
 gfx/keyboard/tiles_bank66/tilemap_7210.tilemap	-	tilemap				220	6bcc241ef5d4cfcaaea34a8133a9f5a4e8158f43a4efc0c4a7b8a1ec6012a6ae

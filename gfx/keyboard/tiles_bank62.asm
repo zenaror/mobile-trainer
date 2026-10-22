@@ -22,7 +22,7 @@ Gfx_Kbd_T78_Page0_Tiles9000Vb1:: ; 62:4800
 ; ---- gfx $4A40-$4B00 (192 bytes) [PROBABLE] tiles-2bpp: heuristic: 692 coherent tiles (hsim2=0.801 vsim2=0.775, 0 blank) parity 0; 10496/11264 bytes also covered by call-site blocks [clipped from 4000-6C00 by higher-priority evidence]
 
 Gfx_Kbd_T78_Page0_CandidateTailTiles:: ; 62:4A40
-	INCBIN "gfx/keyboard/tiles_bank62/tiles_4a40.2bpp"
+	INCBIN "gfx/keyboard/tiles_bank62/t78_page0_candidate_tail_tiles.2bpp"
 
 ; ---- gfx $4B00-$4F00 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:69C9: hl=$4B00 a=$62 c=$40 de=$8801 (dest VRAM $8800, vbank=1)
 
@@ -42,7 +42,7 @@ Gfx_Kbd_T78_Page1_Tiles9000Vb1:: ; 62:5300
 ; ---- gfx $5540-$5600 (192 bytes) [PROBABLE] tiles-2bpp: heuristic: 692 coherent tiles (hsim2=0.801 vsim2=0.775, 0 blank) parity 0; 10496/11264 bytes also covered by call-site blocks [clipped from 4000-6C00 by higher-priority evidence]
 
 Gfx_Kbd_T78_Page1_CandidateTailTiles:: ; 62:5540
-	INCBIN "gfx/keyboard/tiles_bank62/tiles_5540.2bpp"
+	INCBIN "gfx/keyboard/tiles_bank62/t78_page1_candidate_tail_tiles.2bpp"
 
 ; ---- gfx $5600-$5A00 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:6A02: hl=$5600 a=$62 c=$40 de=$8801 (dest VRAM $8800, vbank=1)
 
@@ -62,7 +62,7 @@ Gfx_Kbd_T78_Page2_Tiles9000Vb1:: ; 62:5E00
 ; ---- gfx $6040-$6100 (192 bytes) [PROBABLE] tiles-2bpp: heuristic: 692 coherent tiles (hsim2=0.801 vsim2=0.775, 0 blank) parity 0; 10496/11264 bytes also covered by call-site blocks [clipped from 4000-6C00 by higher-priority evidence]
 
 Gfx_Kbd_T78_Page2_CandidateTailTiles:: ; 62:6040
-	INCBIN "gfx/keyboard/tiles_bank62/tiles_6040.2bpp"
+	INCBIN "gfx/keyboard/tiles_bank62/t78_page2_candidate_tail_tiles.2bpp"
 
 ; ---- gfx $6100-$6500 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:6A3B: hl=$6100 a=$62 c=$40 de=$8801 (dest VRAM $8800, vbank=1) [first call site executed: 12 hits in 5 scenarios (analysis/coverage_union.tsv)]
 
@@ -82,4 +82,4 @@ Gfx_Kbd_T78_Page3_Tiles9000Vb1:: ; 62:6900
 ; ---- gfx $6B40-$6C00 (192 bytes) [PROBABLE] tiles-2bpp: heuristic: 692 coherent tiles (hsim2=0.801 vsim2=0.775, 0 blank) parity 0; 10496/11264 bytes also covered by call-site blocks [clipped from 4000-6C00 by higher-priority evidence]
 
 Gfx_Kbd_T78_Page3_CandidateTailTiles:: ; 62:6B40
-	INCBIN "gfx/keyboard/tiles_bank62/tiles_6b40.2bpp"
+	INCBIN "gfx/keyboard/tiles_bank62/t78_page3_candidate_tail_tiles.2bpp"

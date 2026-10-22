@@ -931,19 +931,19 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `tiles_4000.2bpp` | 2bpp tiles | 1024 | 62:4000 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank62.asm` |
 | `tiles_4400.2bpp` | 2bpp tiles | 1024 | 62:4400 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank62.asm` |
 | `tiles_4800.2bpp` | 2bpp tiles | 576 | 62:4800 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank62.asm` |
-| `tiles_4a40.2bpp` | 2bpp tiles | 192 | 62:4A40 | PROBABLE | exact | - | `gfx/keyboard/tiles_bank62.asm` |
+| `t78_page0_candidate_tail_tiles.2bpp` | 2bpp tiles | 192 | 62:4A40 | PROBABLE | exact | - | `gfx/keyboard/tiles_bank62.asm` |
 | `tiles_4b00.2bpp` | 2bpp tiles | 1024 | 62:4B00 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank62.asm` |
 | `tiles_4f00.2bpp` | 2bpp tiles | 1024 | 62:4F00 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank62.asm` |
 | `tiles_5300.2bpp` | 2bpp tiles | 576 | 62:5300 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank62.asm` |
-| `tiles_5540.2bpp` | 2bpp tiles | 192 | 62:5540 | PROBABLE | exact | - | `gfx/keyboard/tiles_bank62.asm` |
+| `t78_page1_candidate_tail_tiles.2bpp` | 2bpp tiles | 192 | 62:5540 | PROBABLE | exact | - | `gfx/keyboard/tiles_bank62.asm` |
 | `tiles_5600.2bpp` | 2bpp tiles | 1024 | 62:5600 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank62.asm` |
 | `tiles_5a00.2bpp` | 2bpp tiles | 1024 | 62:5A00 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank62.asm` |
 | `tiles_5e00.2bpp` | 2bpp tiles | 576 | 62:5E00 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank62.asm` |
-| `tiles_6040.2bpp` | 2bpp tiles | 192 | 62:6040 | PROBABLE | exact | - | `gfx/keyboard/tiles_bank62.asm` |
+| `t78_page2_candidate_tail_tiles.2bpp` | 2bpp tiles | 192 | 62:6040 | PROBABLE | exact | - | `gfx/keyboard/tiles_bank62.asm` |
 | `tiles_6100.2bpp` | 2bpp tiles | 1024 | 62:6100 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank62.asm` |
 | `tiles_6500.2bpp` | 2bpp tiles | 1024 | 62:6500 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank62.asm` |
 | `tiles_6900.2bpp` | 2bpp tiles | 576 | 62:6900 | CONFIRMED | exact | - | `gfx/keyboard/tiles_bank62.asm` |
-| `tiles_6b40.2bpp` | 2bpp tiles | 192 | 62:6B40 | PROBABLE | exact | - | `gfx/keyboard/tiles_bank62.asm` |
+| `t78_page3_candidate_tail_tiles.2bpp` | 2bpp tiles | 192 | 62:6B40 | PROBABLE | exact | - | `gfx/keyboard/tiles_bank62.asm` |
 
 ### `gfx/keyboard/tiles_bank66/`
 

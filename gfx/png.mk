@@ -256,22 +256,22 @@ PNG_TILE_OUTS := \
 	gfx/keyboard/panels_bank5f/tiles_5900.2bpp \
 	gfx/keyboard/panels_bank5f/tiles_5d00.2bpp \
 	gfx/keyboard/panels_bank5f/tiles_6100.2bpp \
+	gfx/keyboard/tiles_bank62/t78_page0_candidate_tail_tiles.2bpp \
+	gfx/keyboard/tiles_bank62/t78_page1_candidate_tail_tiles.2bpp \
+	gfx/keyboard/tiles_bank62/t78_page2_candidate_tail_tiles.2bpp \
+	gfx/keyboard/tiles_bank62/t78_page3_candidate_tail_tiles.2bpp \
 	gfx/keyboard/tiles_bank62/tiles_4000.2bpp \
 	gfx/keyboard/tiles_bank62/tiles_4400.2bpp \
 	gfx/keyboard/tiles_bank62/tiles_4800.2bpp \
-	gfx/keyboard/tiles_bank62/tiles_4a40.2bpp \
 	gfx/keyboard/tiles_bank62/tiles_4b00.2bpp \
 	gfx/keyboard/tiles_bank62/tiles_4f00.2bpp \
 	gfx/keyboard/tiles_bank62/tiles_5300.2bpp \
-	gfx/keyboard/tiles_bank62/tiles_5540.2bpp \
 	gfx/keyboard/tiles_bank62/tiles_5600.2bpp \
 	gfx/keyboard/tiles_bank62/tiles_5a00.2bpp \
 	gfx/keyboard/tiles_bank62/tiles_5e00.2bpp \
-	gfx/keyboard/tiles_bank62/tiles_6040.2bpp \
 	gfx/keyboard/tiles_bank62/tiles_6100.2bpp \
 	gfx/keyboard/tiles_bank62/tiles_6500.2bpp \
 	gfx/keyboard/tiles_bank62/tiles_6900.2bpp \
-	gfx/keyboard/tiles_bank62/tiles_6b40.2bpp \
 	gfx/keyboard/tiles_bank66/mail_draft_exit_options.2bpp \
 	gfx/keyboard/tiles_bank66/tiles_4000.2bpp \
 	gfx/keyboard/tiles_bank66/tiles_4400.2bpp \
@@ -680,22 +680,22 @@ gfx/keyboard/panels_bank5f/tiles_49d0.2bpp: PNG_SIZE := 768
 gfx/keyboard/panels_bank5f/tiles_5900.2bpp: PNG_SIZE := 1024
 gfx/keyboard/panels_bank5f/tiles_5d00.2bpp: PNG_SIZE := 1024
 gfx/keyboard/panels_bank5f/tiles_6100.2bpp: PNG_SIZE := 256
+gfx/keyboard/tiles_bank62/t78_page0_candidate_tail_tiles.2bpp: PNG_SIZE := 192
+gfx/keyboard/tiles_bank62/t78_page1_candidate_tail_tiles.2bpp: PNG_SIZE := 192
+gfx/keyboard/tiles_bank62/t78_page2_candidate_tail_tiles.2bpp: PNG_SIZE := 192
+gfx/keyboard/tiles_bank62/t78_page3_candidate_tail_tiles.2bpp: PNG_SIZE := 192
 gfx/keyboard/tiles_bank62/tiles_4000.2bpp: PNG_SIZE := 1024
 gfx/keyboard/tiles_bank62/tiles_4400.2bpp: PNG_SIZE := 1024
 gfx/keyboard/tiles_bank62/tiles_4800.2bpp: PNG_SIZE := 576
-gfx/keyboard/tiles_bank62/tiles_4a40.2bpp: PNG_SIZE := 192
 gfx/keyboard/tiles_bank62/tiles_4b00.2bpp: PNG_SIZE := 1024
 gfx/keyboard/tiles_bank62/tiles_4f00.2bpp: PNG_SIZE := 1024
 gfx/keyboard/tiles_bank62/tiles_5300.2bpp: PNG_SIZE := 576
-gfx/keyboard/tiles_bank62/tiles_5540.2bpp: PNG_SIZE := 192
 gfx/keyboard/tiles_bank62/tiles_5600.2bpp: PNG_SIZE := 1024
 gfx/keyboard/tiles_bank62/tiles_5a00.2bpp: PNG_SIZE := 1024
 gfx/keyboard/tiles_bank62/tiles_5e00.2bpp: PNG_SIZE := 576
-gfx/keyboard/tiles_bank62/tiles_6040.2bpp: PNG_SIZE := 192
 gfx/keyboard/tiles_bank62/tiles_6100.2bpp: PNG_SIZE := 1024
 gfx/keyboard/tiles_bank62/tiles_6500.2bpp: PNG_SIZE := 1024
 gfx/keyboard/tiles_bank62/tiles_6900.2bpp: PNG_SIZE := 576
-gfx/keyboard/tiles_bank62/tiles_6b40.2bpp: PNG_SIZE := 192
 gfx/keyboard/tiles_bank66/mail_draft_exit_options.2bpp: PNG_SIZE := 1920
 gfx/keyboard/tiles_bank66/tiles_4000.2bpp: PNG_SIZE := 1024
 gfx/keyboard/tiles_bank66/tiles_4400.2bpp: PNG_SIZE := 1024
