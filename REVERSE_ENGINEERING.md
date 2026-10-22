@@ -2106,3 +2106,10 @@ static consumers and VRAM/palette destinations. Payload hashes and confidence
 cells are preserved; HelpMenu screen models remain HYPOTHESIS and palette
 grouping remains PROBABLE. The 2026-10-22 Save Sender and Bank 4B evidence
 update is recorded in the [sprite/data follow-up](docs/research/japanese_sprite_data_followup_20261022.md).
+
+The 2026-10-22 `screen_ops.tsv` reconciliation regenerated all 917 operation
+rows from current Japanese sources. All 917 file/line locators now resolve to
+the corresponding loader call (including the five previously stale locator
+groups); a second generation produced the same SHA-256. The 818 resolved and
+99 unresolved operation payloads are unchanged, so this refresh updates source
+locations only and does not resolve the table-driven calls.
