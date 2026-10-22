@@ -12,12 +12,12 @@ NonCgb_Tilemap:: ; 6B:4000
 ; ---- gfx $4060-$4240 (480 bytes) [CONFIRMED] 32x15 tilemap: 480 tile indices; continuation of the bytes copied to BG map $9800
 
 NonCgb_Tilemap_Continuation_4060:: ; 6B:4060
-	INCBIN "gfx/error/non_cgb_screen/tilemap_4060.tilemap"
+	INCBIN "gfx/error/non_cgb_screen/non_cgb_tilemap_continuation_4060.tilemap"
 
 ; ---- gfx $4240-$4480 (576 bytes) [HYPOTHESIS] tiles-2bpp candidate; 36 tiles, bytes are only $00/$10, no known reader
 
 NonCgb_CandidateTileData_4240:: ; 6B:4240
-	INCBIN "gfx/error/non_cgb_screen/tiles_4240.2bpp"
+	INCBIN "gfx/error/non_cgb_screen/non_cgb_candidate_tile_data_4240.2bpp"
 
 ; ---- gfx $4480-$4C30 (1968 bytes) [PROBABLE] 123 2bpp tiles loaded by NonCgb_ErrorScreen with the following $50 zero bytes
 

@@ -15,7 +15,7 @@ NoAdapter_Gfx_8800:: ; 63:60C0
 ; ---- gfx $6480-$64C0 (64 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 63:7377: hl=$60C0 a=$63 c=$40 de=$8801 (dest VRAM $8800, vbank=1) [clipped from 60C0-64C0 by higher-priority evidence]
 
 NoAdapter_Gfx_8800_TailTiles:: ; 63:6480
-	INCBIN "gfx/error/no_adapter/tiles_6480.2bpp"
+	INCBIN "gfx/error/no_adapter/no_adapter_gfx_8800_tail_tiles.2bpp"
 
 ; ---- gfx $64C0-$68C0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 63:7389: hl=$64C0 a=$63 c=$40 de=$8C01 (dest VRAM $8C00, vbank=1)
 

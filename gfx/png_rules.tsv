@@ -372,6 +372,7 @@ gfx/error/comm_error_screen/comm_err_tilemap_plain.attrmap	-	attrmap				360	4726
 gfx/error/comm_error_screen/comm_err_tilemap_plain.tilemap	-	tilemap				360	df0cb03b252667a1d1a15644d30a8b139643c3d0265ab5ea6f5521a9b9823b9b
 gfx/error/no_adapter/no_adapter_gfx_8000.2bpp	gfx/error/no_adapter/no_adapter_gfx_8000.png	tiles			0	64	c337d22afd3e0e750283fc3f89a0c8044b9fcf68344376aef745433d7de6d4a2
 gfx/error/no_adapter/no_adapter_gfx_8800.2bpp	gfx/error/no_adapter/no_adapter_gfx_8800.png	tiles			0	960	8abc5e45068e0344f158134405c82e8189028f565f147acb77fd0d59d0bb838e
+gfx/error/no_adapter/no_adapter_gfx_8800_tail_tiles.2bpp	gfx/error/no_adapter/no_adapter_gfx_8800_tail_tiles.png	tiles			0	64	170b49765f56175f230d3b08e8724b56fde9ae308cb4743d2defde733591d2dd
 gfx/error/no_adapter/no_adapter_gfx_8c00.2bpp	gfx/error/no_adapter/no_adapter_gfx_8c00.png	tiles			0	1024	8c1b1f886302327cc0b7305db8993b92a3af7f0874199ef94934c1e6cb48de19
 gfx/error/no_adapter/no_adapter_gfx_9000.2bpp	gfx/error/no_adapter/no_adapter_gfx_9000.png	tiles			0	1024	109ef98000685c17c6252c864d228b15a6d1c4947dfa109dfb2eb5d702ee34dd
 gfx/error/no_adapter/no_adapter_gfx_9400.2bpp	gfx/error/no_adapter/no_adapter_gfx_9400.png	tiles			0	768	131afaa3619d7bbcfbd78b41befa346a9436425de7536b9d465e899249870bef
@@ -379,10 +380,9 @@ gfx/error/no_adapter/no_adapter_palette_bg.pal	-	palette				519	41ebc02fb07990cb
 gfx/error/no_adapter/no_adapter_palette_obj.pal	-	palette				519	a62d9a9883ebebf57b5d5a4c8ec227d7b7cca12385a79ea5c3da776495c9383d
 gfx/error/no_adapter/no_adapter_tilemap.attrmap	-	attrmap				360	167b99c15c81fb3c7d3e8b983b5bfeaaac364039f252e93a17aeb6fa2d325e6f
 gfx/error/no_adapter/no_adapter_tilemap.tilemap	-	tilemap				360	c60c2a42159681632255df3ab1f117dbd2557fc2f0042d1efcd7be787cc16ae8
-gfx/error/no_adapter/tiles_6480.2bpp	gfx/error/no_adapter/tiles_6480.png	tiles			0	64	170b49765f56175f230d3b08e8724b56fde9ae308cb4743d2defde733591d2dd
+gfx/error/non_cgb_screen/non_cgb_candidate_tile_data_4240.2bpp	gfx/error/non_cgb_screen/non_cgb_candidate_tile_data_4240.png	tiles			0	576	c2283f8092c326fd9c4ce5958eb70ac6cf527523a9633ab66543e95daf9f5e91
+gfx/error/non_cgb_screen/non_cgb_tilemap_continuation_4060.tilemap	-	tilemap				480	0d50405311f0a92031734af279daeeba9cc84924145f8633c90cd8309e728808
 gfx/error/non_cgb_screen/non_cgb_tiles.2bpp	gfx/error/non_cgb_screen/non_cgb_tiles.png	tiles			5	1968	f3bb8d0c98bb2ed761d888d040c43763a53d52364e659d2171c9dc656ebc76cd
-gfx/error/non_cgb_screen/tilemap_4060.tilemap	-	tilemap				480	0d50405311f0a92031734af279daeeba9cc84924145f8633c90cd8309e728808
-gfx/error/non_cgb_screen/tiles_4240.2bpp	gfx/error/non_cgb_screen/tiles_4240.png	tiles			0	576	c2283f8092c326fd9c4ce5958eb70ac6cf527523a9633ab66543e95daf9f5e91
 gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/blue_bubble_border_44_4d50_attributes.attrmap	-	attrmap				360	dd20ad6c97c6c7a91f77109b3e2ba826acf044a01ce9dbdd4ac52b88d2852b6b
 gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/blue_bubble_border_44_4d50_palettes.pal	-	palette				1039	d09cc7461b025992048ca76d07b75786e5b3d9f7dae28c500ba8af19221af67b
 gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/blue_bubble_border_44_4d50_tilemap.tilemap	-	tilemap				360	90001ae6923fb1e940cfcb3e6fc39c84b9851c6a37383a6c6bd7629e681a1da1

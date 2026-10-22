@@ -611,7 +611,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 |---|---|---:|---|---|---|---|---|
 | `no_adapter_gfx_8000.2bpp` | 2bpp tiles | 64 | 63:6080 | CONFIRMED | exact | - | `gfx/error/no_adapter.asm` |
 | `no_adapter_gfx_8800.2bpp` | 2bpp tiles | 960 | 63:60C0 | CONFIRMED | exact | - | `gfx/error/no_adapter.asm` |
-| `tiles_6480.2bpp` | 2bpp tiles | 64 | 63:6480 | CONFIRMED | exact | - | `gfx/error/no_adapter.asm` |
+| `no_adapter_gfx_8800_tail_tiles.2bpp` | 2bpp tiles | 64 | 63:6480 | CONFIRMED | exact | - | `gfx/error/no_adapter.asm` |
 | `no_adapter_gfx_8c00.2bpp` | 2bpp tiles | 1024 | 63:64C0 | CONFIRMED | exact | - | `gfx/error/no_adapter.asm` |
 | `no_adapter_gfx_9000.2bpp` | 2bpp tiles | 1024 | 63:68C0 | CONFIRMED | exact | - | `gfx/error/no_adapter.asm` |
 | `no_adapter_gfx_9400.2bpp` | 2bpp tiles | 768 | 63:6CC0 | CONFIRMED | exact | - | `gfx/error/no_adapter.asm` |
@@ -624,8 +624,8 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tilemap_4060.tilemap` | tile-index map | 480 | 6B:4060 | CONFIRMED | - | 32x15 | `gfx/error/non_cgb_screen.asm` |
-| `tiles_4240.2bpp` | 2bpp tiles | 576 | 6B:4240 | HYPOTHESIS | exact | - | `gfx/error/non_cgb_screen.asm` |
+| `non_cgb_tilemap_continuation_4060.tilemap` | tile-index map | 480 | 6B:4060 | CONFIRMED | - | 32x15 | `gfx/error/non_cgb_screen.asm` |
+| `non_cgb_candidate_tile_data_4240.2bpp` | 2bpp tiles | 576 | 6B:4240 | HYPOTHESIS | exact | - | `gfx/error/non_cgb_screen.asm` |
 | `non_cgb_tiles.2bpp` | 2bpp tiles | 1968 | 6B:4480 | PROBABLE | exact | - | `gfx/error/non_cgb_screen.asm` |
 
 ### `gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/`

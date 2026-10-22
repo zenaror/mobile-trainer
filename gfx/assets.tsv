@@ -373,10 +373,10 @@ gfx/error/no_adapter/no_adapter_palette_bg.pal	palette	64	gfx/error/no_adapter.a
 gfx/error/no_adapter/no_adapter_palette_obj.pal	palette	64	gfx/error/no_adapter.asm	63	72D0	CONFIRMED	-	0		NoAdapter_Palette_Obj
 gfx/error/no_adapter/no_adapter_tilemap.attrmap	attrmap	360	gfx/error/no_adapter.asm	63	7128	CONFIRMED	-	0	20x18	NoAdapter_Tilemap
 gfx/error/no_adapter/no_adapter_tilemap.tilemap	tilemap	360	gfx/error/no_adapter.asm	63	6FC0	CONFIRMED	-	0	20x18	NoAdapter_Tilemap
-gfx/error/no_adapter/tiles_6480.2bpp	tiles	64	gfx/error/no_adapter.asm	63	6480	CONFIRMED	exact	0		NoAdapter_Gfx_8800_TailTiles
+gfx/error/no_adapter/no_adapter_gfx_8800_tail_tiles.2bpp	tiles	64	gfx/error/no_adapter.asm	63	6480	CONFIRMED	exact	0		NoAdapter_Gfx_8800_TailTiles
 gfx/error/non_cgb_screen/non_cgb_tiles.2bpp	tiles	1968	gfx/error/non_cgb_screen.asm	6B	4480	PROBABLE	exact	5		NonCgb_Tiles
-gfx/error/non_cgb_screen/tilemap_4060.tilemap	tilemap	480	gfx/error/non_cgb_screen.asm	6B	4060	CONFIRMED	-	0	32x15	NonCgb_Tilemap_Continuation_4060
-gfx/error/non_cgb_screen/tiles_4240.2bpp	tiles	576	gfx/error/non_cgb_screen.asm	6B	4240	HYPOTHESIS	exact	0		NonCgb_CandidateTileData_4240
+gfx/error/non_cgb_screen/non_cgb_tilemap_continuation_4060.tilemap	tilemap	480	gfx/error/non_cgb_screen.asm	6B	4060	CONFIRMED	-	0	32x15	NonCgb_Tilemap_Continuation_4060
+gfx/error/non_cgb_screen/non_cgb_candidate_tile_data_4240.2bpp	tiles	576	gfx/error/non_cgb_screen.asm	6B	4240	HYPOTHESIS	exact	0		NonCgb_CandidateTileData_4240
 gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/blue_bubble_border_44_4d50_attributes.attrmap	attrmap	360	gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm	44	58B8	PROBABLE	-	0	20x18	Attrmap_BubbleBorder_Blue
 gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/blue_bubble_border_44_4d50_palettes.pal	palette	128	gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm	44	5A20	PROBABLE	-	0		FrameDesignCandidate_BlueBubbleBorder_Palettes_5A20
 gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/blue_bubble_border_44_4d50_tilemap.tilemap	tilemap	360	gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44.asm	44	5750	PROBABLE	-	0	20x18	FrameDesignCandidate_BlueBubbleBorder_Tilemap_5750

@@ -607,3 +607,14 @@ gfx/help/help_screens_a/tiles_5ab0.2bpp	gfx/help/help_screens_a/help_menu_vram90
 gfx/help/help_screens_a/tiles_5ab0.png	gfx/help/help_screens_a/help_menu_vram9000_vb1_tiles.png
 gfx/help/help_screens_a/tiles_5eb0.2bpp	gfx/help/help_screens_a/help_menu_vram9400_vb1_tiles.2bpp
 gfx/help/help_screens_a/tiles_5eb0.png	gfx/help/help_screens_a/help_menu_vram9400_vb1_tiles.png
+gfx/browser/page_list/tiles_5810.2bpp	gfx/browser/page_list/page_list_tiles_5810.2bpp
+gfx/browser/page_list/tiles_5810.png	gfx/browser/page_list/page_list_tiles_5810.png
+gfx/browser/page_list/tiles_6301.2bpp	gfx/browser/page_list/page_list_tiles_6301.2bpp
+gfx/browser/page_list/tiles_6301.png	gfx/browser/page_list/page_list_tiles_6301.png
+gfx/browser/page_list/tiles_63e0.2bpp	gfx/browser/page_list/page_list_tiles_63e0.2bpp
+gfx/browser/page_list/tiles_63e0.png	gfx/browser/page_list/page_list_tiles_63e0.png
+gfx/error/no_adapter/tiles_6480.2bpp	gfx/error/no_adapter/no_adapter_gfx_8800_tail_tiles.2bpp
+gfx/error/no_adapter/tiles_6480.png	gfx/error/no_adapter/no_adapter_gfx_8800_tail_tiles.png
+gfx/error/non_cgb_screen/tilemap_4060.tilemap	gfx/error/non_cgb_screen/non_cgb_tilemap_continuation_4060.tilemap
+gfx/error/non_cgb_screen/tiles_4240.2bpp	gfx/error/non_cgb_screen/non_cgb_candidate_tile_data_4240.2bpp
+gfx/error/non_cgb_screen/tiles_4240.png	gfx/error/non_cgb_screen/non_cgb_candidate_tile_data_4240.png

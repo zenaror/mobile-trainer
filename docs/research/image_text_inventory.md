@@ -262,10 +262,10 @@ Columns: `#` = order of the listing (path order); `asset` = PNG under `gfx/` (th
 | 145 | `browser/page_list/page_list_tiles_5400` | 24:5400 | 29 (16x2) | PageList_InitScreen@9300b1 | TXT | title image "ページリスト" |
 | 146 | `browser/page_list/page_list_tiles_5800` | 24:5800 | 1 (1x1) | PageList_InitScreen@9700b1 | UNK | 1 tile |
 | 147 | `browser/page_list/tiles_55d0` | 24:55D0 | 35 (16x3) | - | ART | icons |
-| 148 | `browser/page_list/tiles_5810` | 24:5810 | 10 (10x1) | - | UNK | 10 tiles, not classified |
+| 148 | `browser/page_list/page_list_tiles_5810` | 24:5810 | 10 (10x1) | - | UNK | 10 tiles, not classified |
 | 149 | `browser/page_list/tiles_5ef1` | 24:5EF1 | 62 (16x4) | - | ART | icons and list art |
-| 150 | `browser/page_list/tiles_6301` | 24:6301 | 12 (12x1) | - | UNK | 12 tiles, not classified |
-| 151 | `browser/page_list/tiles_63e0` | 24:63E0 | 16 (16x1) | - | ART | icon strip |
+| 150 | `browser/page_list/page_list_tiles_6301` | 24:6301 | 12 (12x1) | - | UNK | 12 tiles, not classified |
+| 151 | `browser/page_list/page_list_tiles_63e0` | 24:63E0 | 16 (16x1) | - | ART | icon strip |
 | 152 | `browser/start_choice/browser_start_tiles0` | 73:45E0 | 64 (16x4) | Browser_StartChoiceScreen@8000 | ART | start-menu scenery (globe etc.), no text |
 | 153 | `browser/start_choice/browser_start_tiles1` | 73:4DE0 | 64 (16x4) | Browser_StartChoiceScreen@8800 | ART | start-menu scenery |
 | 154 | `browser/start_choice/browser_start_tiles2` | 73:51E0 | 64 (16x4) | Browser_StartChoiceScreen@8C00 | ART | start-menu scenery |
@@ -321,9 +321,9 @@ Columns: `#` = order of the listing (path order); `asset` = PNG under `gfx/` (th
 | 204 | `error/no_adapter/no_adapter_gfx_8c00` | 63:64C0 | 64 (16x4) | NoAdapter_DrawScreen@8C00b1 | TXT | "もういちどONにしてください。" + "モバイルアダプタGB…" banner part |
 | 205 | `error/no_adapter/no_adapter_gfx_9000` | 63:68C0 | 64 (16x4) | NoAdapter_DrawScreen@9000b1 | TXT | banner "モバイルアダプタGBがささっていません" part + frame |
 | 206 | `error/no_adapter/no_adapter_gfx_9400` | 63:6CC0 | 48 (16x3) | NoAdapter_DrawScreen@9400b1 | ART | adapter and cable picture |
-| 207 | `error/no_adapter/tiles_6480` | 63:6480 | 4 (4x1) | - | UNK | 4 tiles, not classified |
+| 207 | `error/no_adapter/no_adapter_gfx_8800_tail_tiles` | 63:6480 | 4 (4x1) | - | UNK | 4 tiles, not classified |
 | 208 | `error/non_cgb_screen/non_cgb_tiles` | 6B:4480 | 123 (16x8) | - | TXT | non-CGB error text in a DMG-style image: "このカートリッジはゲームボーイカラー せんようです。ゲームボーイカラーでしようしてください。【モバイルトレーナー】" |
-| 209 | `error/non_cgb_screen/tilemap_4060` | 6B:4060 | 480 bytes (32x15) | NonCgb_ErrorScreen@9800 | MAP | map continuation copied as the final 15 rows of a 32-column BG map; 96 leading bytes at 4000 are zero |
+| 209 | `error/non_cgb_screen/non_cgb_tilemap_continuation_4060` | 6B:4060 | 480 bytes (32x15) | NonCgb_ErrorScreen@9800 | MAP | map continuation copied as the final 15 rows of a 32-column BG map; 96 leading bytes at 4000 are zero |
 | 210 | `help/help_screens_a/tiles_4e90` | 6A:4E90 | 64 (16x4) | HelpMenu_ShowPage@8000 | ART | help menu art (book, boxes) |
 | 211 | `help/help_screens_a/tiles_5290` | 6A:5290 | 64 (16x4) | HelpMenu_ShowPage@8800 | TXT | help topic labels: "ホームページって?" "モバイルトレーナーって?" "メールって?" "モバイルじてん" "アドレスちょう" "ページリスト" |
 | 212 | `help/help_screens_a/tiles_5690` | 6A:5690 | 64 (16x4) | HelpMenu_ShowPage@8C00 | TXT | help topic labels (same set, other tiles) |
@@ -526,7 +526,7 @@ Columns: `#` = order of the listing (path order); `asset` = PNG under `gfx/` (th
 | 409 | `unresolved/tiles_7f_7830/tiles_7830` | 7F:7830 | 45 (15x3) | - | UNK | no symbolic load found in reviewed source; purpose unresolved |
 | 410 | `address_book/address_editor/abook_addr_tiles8800` | 2F:77D0 | 47 (16x3) | - | UNK | added by retype1 (`docs/research/naming2_retype1.md`): A / B button icons and kana label pieces (looked at at 1x only) |
 | 411 | `mail/server_status_bank26/profile_tiles8000` | 26:7820 | 2 (2x1) | - | UNK | added by retype1 (`docs/research/naming2_retype1.md`): 2 small tiles (not read) |
-| 412 | `error/non_cgb_screen/tiles_4240` | 6B:4240 | 36 (9x4) | - | UNK | HYPOTHESIS tile-like candidate; bytes are only $00/$10 and no reader was found |
+| 412 | `error/non_cgb_screen/non_cgb_candidate_tile_data_4240` | 6B:4240 | 36 (9x4) | - | UNK | HYPOTHESIS tile-like candidate; bytes are only $00/$10 and no reader was found |
 
 ## 4. Fonts and other glyph data (language-bound, not pictures of screens)
 
