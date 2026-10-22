@@ -14,7 +14,7 @@ Frame tables and their pointer targets are `PROBABLE` under the existing structu
 
 ## Remaining reviewed neutral data
 
-The bounded audit of 15 address-only data spans supports renaming only `Data_4B_5400`. Fourteen remain neutral because their isolated bytes or unsupported candidate formats do not establish identity or role. In particular, `Data_48_69AB` is a confirmed font-reader target but its semantic identity is unknown. The false `Data_5F_6980` candidate remains rejected because the nearby loader selects bank `$71`, not `$5F`.
+The bounded audit of 15 address-only data spans supports renaming only `Data_4B_5400`. Fourteen remain neutral because their isolated bytes or unsupported candidate formats do not establish identity or role. In particular, `Data_48_69AB` is confirmed as read data by a font-reader path, but its semantic identity is unknown. The false `Data_5F_6980` candidate remains rejected because the nearby loader selects bank `$71`, not `$5F`.
 
 ## Verification basis and limits
 
