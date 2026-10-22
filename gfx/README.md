@@ -265,12 +265,12 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_7740.2bpp` | 2bpp tiles | 288 | 2C:7740 | PROBABLE | exact | - | `gfx/address_book/address_screen_candidate_bank2c.asm` |
-| `tilemap_7860.tilemap` | tile-index map | 360 | 2C:7860 | PROBABLE | - | 20x18 | `gfx/address_book/address_screen_candidate_bank2c.asm` |
-| `tilemap_7860.attrmap` | attribute map | 360 | 2C:79C8 | PROBABLE | - | 20x18 | `gfx/address_book/address_screen_candidate_bank2c.asm` |
-| `palette_7b30.pal` | RGB palette | 64 | 2C:7B30 | PROBABLE | - | - | `gfx/address_book/address_screen_candidate_bank2c.asm` |
-| `tiles_7b70.2bpp` | 2bpp tiles | 144 | 2C:7B70 | PROBABLE | exact | - | `gfx/address_book/address_screen_candidate_bank2c.asm` |
-| `palette_7c00.pal` | RGB palette | 64 | 2C:7C00 | PROBABLE | - | - | `gfx/address_book/address_screen_candidate_bank2c.asm` |
+| `address_screen_candidate_vram9300_vb1_tiles.2bpp` | 2bpp tiles | 288 | 2C:7740 | PROBABLE | exact | - | `gfx/address_book/address_screen_candidate_bank2c.asm` |
+| `address_screen_candidate_tilemap_20x18.tilemap` | tile-index map | 360 | 2C:7860 | PROBABLE | - | 20x18 | `gfx/address_book/address_screen_candidate_bank2c.asm` |
+| `address_screen_candidate_attrmap_20x18.attrmap` | attribute map | 360 | 2C:79C8 | PROBABLE | - | 20x18 | `gfx/address_book/address_screen_candidate_bank2c.asm` |
+| `address_screen_candidate_bg_palette.pal` | RGB palette | 64 | 2C:7B30 | PROBABLE | - | - | `gfx/address_book/address_screen_candidate_bank2c.asm` |
+| `address_screen_candidate_vram8000_tiles.2bpp` | 2bpp tiles | 144 | 2C:7B70 | PROBABLE | exact | - | `gfx/address_book/address_screen_candidate_bank2c.asm` |
+| `address_screen_candidate_obj_palette.pal` | RGB palette | 64 | 2C:7C00 | PROBABLE | - | - | `gfx/address_book/address_screen_candidate_bank2c.asm` |
 
 ### `gfx/address_book/entry_screen_bank29/`
 

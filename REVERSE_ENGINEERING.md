@@ -2047,3 +2047,9 @@ The same current-tree reconciliation corrected a stale `gfx/assets.tsv` name
 at `73:49E0` from `Data_73_49E0` to its existing source label
 `BrowserStart_CandidateTiles_49E0`; its backing and PNG now use the candidate
 name as well. The HYPOTHESIS/PROBABLE resource classification is unchanged.
+
+The 2026-10-22 Bank 2C candidate address-screen graphics now have descriptive
+paths for their static VRAM destinations, tilemap/attribute pair, and BG/OBJ
+palettes. The asset bytes and confidence levels are unchanged; natural entry
+and the intended screen role remain HYPOTHESIS. See the dated [Bank 2C
+resource-path note](docs/research/address_book_candidate_screen_graphics_paths.md).

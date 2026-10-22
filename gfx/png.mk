@@ -72,8 +72,8 @@ PNG_TILE_OUTS := \
 	gfx/address_book/address_picker/addr_pick_candidate_tiles_6fd0.2bpp \
 	gfx/address_book/address_picker/addr_pick_tiles9300.2bpp \
 	gfx/address_book/address_picker/addr_pick_tiles9700.2bpp \
-	gfx/address_book/address_screen_candidate_bank2c/tiles_7740.2bpp \
-	gfx/address_book/address_screen_candidate_bank2c/tiles_7b70.2bpp \
+	gfx/address_book/address_screen_candidate_bank2c/address_screen_candidate_vram8000_tiles.2bpp \
+	gfx/address_book/address_screen_candidate_bank2c/address_screen_candidate_vram9300_vb1_tiles.2bpp \
 	gfx/address_book/entry_screen_bank29/abook_edit_tiles8000.2bpp \
 	gfx/address_book/entry_screen_bank29/abook_view_tiles9300_vb1.2bpp \
 	gfx/address_book/entry_screen_bank29/abook_view_tiles9700_vb1.2bpp \
@@ -485,8 +485,8 @@ gfx/address_book/address_picker/addr_book_tiles8f00.2bpp: PNG_SIZE := 144
 gfx/address_book/address_picker/addr_pick_candidate_tiles_6fd0.2bpp: PNG_SIZE := 512
 gfx/address_book/address_picker/addr_pick_tiles9300.2bpp: PNG_SIZE := 1024
 gfx/address_book/address_picker/addr_pick_tiles9700.2bpp: PNG_SIZE := 256
-gfx/address_book/address_screen_candidate_bank2c/tiles_7740.2bpp: PNG_SIZE := 288
-gfx/address_book/address_screen_candidate_bank2c/tiles_7b70.2bpp: PNG_SIZE := 144
+gfx/address_book/address_screen_candidate_bank2c/address_screen_candidate_vram8000_tiles.2bpp: PNG_SIZE := 144
+gfx/address_book/address_screen_candidate_bank2c/address_screen_candidate_vram9300_vb1_tiles.2bpp: PNG_SIZE := 288
 gfx/address_book/entry_screen_bank29/abook_edit_tiles8000.2bpp: PNG_SIZE := 768
 gfx/address_book/entry_screen_bank29/abook_view_tiles9300_vb1.2bpp: PNG_SIZE := 1024
 gfx/address_book/entry_screen_bank29/abook_view_tiles9700_vb1.2bpp: PNG_SIZE := 64
