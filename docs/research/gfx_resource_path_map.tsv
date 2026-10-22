@@ -643,3 +643,5 @@ gfx/comm/connect_dialog_bank56/tilemap_4cca.attrmap	gfx/comm/connect_dialog_bank
 gfx/comm/connect_dialog_bank56/tilemap_4f9a.tilemap	gfx/comm/connect_dialog_bank56/connect_dialog_connect_confirm_background.tilemap
 gfx/comm/connect_dialog_bank56/tilemap_4f9a.attrmap	gfx/comm/connect_dialog_bank56/connect_dialog_connect_confirm_background.attrmap
 gfx/comm/connect_dialog_bank56/palette_77c0.pal	gfx/comm/connect_dialog_bank56/connect_dialog_bg_palette.pal
+gfx/mail/body_view/tilemap_4550.tilemap	gfx/mail/body_view/mail_view_body_page.tilemap
+gfx/mail/body_view/tilemap_4550.attrmap	gfx/mail/body_view/mail_view_body_page.attrmap

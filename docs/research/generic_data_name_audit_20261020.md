@@ -2370,8 +2370,9 @@ aliases of the existing mail-body tile, tilemap and object-animation labels.
 `Palette_28_4AF0` and `Table_28_4B70` likewise duplicated
 `MailBody_BgPalette` and `MailBody_ObjTable`. Bounded exact-token searches
 found no maintained-source or active-tool consumers for these aliases. The two
-asset-catalog rows for the 4550 tilemap/attrmap pair now use
-`Tilemap_MailView_BodyPage`; bytes, paths and extents are unchanged.
+asset-catalog rows for the 4550 tilemap/attrmap pair use
+`Tilemap_MailView_BodyPage`; a later filename pass renamed the two files to
+`mail_view_body_page.tilemap` and `.attrmap` without changing bytes or extents.
 
 The 28-byte span at `28:4BA6`, previously `Data_28_4BA6`, is now
 `WramClearCandidate_28_4BA6`. Direct decoding of the original bytes describes

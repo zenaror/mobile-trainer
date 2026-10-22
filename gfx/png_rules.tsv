@@ -669,8 +669,8 @@ gfx/mail/body_view/mail_body_tilemap.attrmap	-	attrmap				360	f136b74f18f9962655
 gfx/mail/body_view/mail_body_tilemap.tilemap	-	tilemap				360	c890622980138378d0f3bfaa0bb4795d653ca8fe1e93656b3793fa6c754c4a2e
 gfx/mail/body_view/mail_body_tiles_42c0.2bpp	gfx/mail/body_view/mail_body_tiles_42c0.png	tiles			0	528	e8ac3f529fd69eb72e6d487e7345cb19389cf18cbb0fa38b4fa86260cb81810b
 gfx/mail/body_view/mail_body_tiles_44d0.2bpp	gfx/mail/body_view/mail_body_tiles_44d0.png	tiles			0	128	98a4db3d30c74398922273afd59c4bdbe8e4ea2525d1fb9e36e3f0fd5dffed49
-gfx/mail/body_view/tilemap_4550.attrmap	-	attrmap				360	f136b74f18f9962655f6392290c6940963b3a7930ad22de1c54ef0f46fd8cfbc
-gfx/mail/body_view/tilemap_4550.tilemap	-	tilemap				360	cc50cbc4ca66a351e603d8544662d54fb9ecd970dc3513f39eeed923fb860277
+gfx/mail/body_view/mail_view_body_page.attrmap	-	attrmap				360	f136b74f18f9962655f6392290c6940963b3a7930ad22de1c54ef0f46fd8cfbc
+gfx/mail/body_view/mail_view_body_page.tilemap	-	tilemap				360	cc50cbc4ca66a351e603d8544662d54fb9ecd970dc3513f39eeed923fb860277
 gfx/mail/comm_progress_scene/comm_progress_bg.pal	-	palette				519	1a82c5c859323b5f699d799806598da3039e522b2498585259812f1a98653022
 gfx/mail/comm_progress_scene/comm_progress_obj.pal	-	palette				519	1f828d9e63bfe22c2bcbb5bf60709a602120b9b7a86ae38c00dfeae73349daa7
 gfx/mail/comm_progress_scene/comm_progress_screen.attrmap	-	attrmap				360	1d276332a67d68b6aef1b18760498d3c1f5359387f8109ca00204419aca28a36

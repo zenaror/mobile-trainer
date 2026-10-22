@@ -20,8 +20,8 @@ MailBody_Tiles_44D0:: ; 28:44D0
 
 Tilemap_MailView_BodyPage:: ; 28:4550
 
-	INCBIN "gfx/mail/body_view/tilemap_4550.tilemap"
-	INCBIN "gfx/mail/body_view/tilemap_4550.attrmap"
+	INCBIN "gfx/mail/body_view/mail_view_body_page.tilemap"
+	INCBIN "gfx/mail/body_view/mail_view_body_page.attrmap"
 
 ; ---- data $4820-$4AF0 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 28:40AB: hl=$4820 a=$28 b=18 rows c=20 cols (tiles then attrs) de=$D000
 

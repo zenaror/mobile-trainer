@@ -999,8 +999,8 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 |---|---|---:|---|---|---|---|---|
 | `mail_body_tiles_42c0.2bpp` | 2bpp tiles | 528 | 28:42C0 | CONFIRMED | exact | - | `gfx/mail/body_view.asm` |
 | `mail_body_tiles_44d0.2bpp` | 2bpp tiles | 128 | 28:44D0 | CONFIRMED | exact | - | `gfx/mail/body_view.asm` |
-| `tilemap_4550.tilemap` | tile-index map | 360 | 28:4550 | CONFIRMED | - | 20x18 | `gfx/mail/body_view.asm` |
-| `tilemap_4550.attrmap` | attribute map | 360 | 28:46B8 | CONFIRMED | - | 20x18 | `gfx/mail/body_view.asm` |
+| `mail_view_body_page.tilemap` | tile-index map | 360 | 28:4550 | CONFIRMED | - | 20x18 | `gfx/mail/body_view.asm` |
+| `mail_view_body_page.attrmap` | attribute map | 360 | 28:46B8 | CONFIRMED | - | 20x18 | `gfx/mail/body_view.asm` |
 | `mail_body_tilemap.tilemap` | tile-index map | 360 | 28:4820 | CONFIRMED | - | 20x18 | `gfx/mail/body_view.asm` |
 | `mail_body_tilemap.attrmap` | attribute map | 360 | 28:4988 | CONFIRMED | - | 20x18 | `gfx/mail/body_view.asm` |
 | `mail_body_bg_palette.pal` | RGB palette | 64 | 28:4AF0 | PROBABLE | - | - | `gfx/mail/body_view.asm` |

@@ -611,8 +611,8 @@ gfx/mail/body_view/mail_body_tilemap.attrmap	attrmap	360	gfx/mail/body_view.asm	
 gfx/mail/body_view/mail_body_tilemap.tilemap	tilemap	360	gfx/mail/body_view.asm	28	4820	CONFIRMED	-	0	20x18	MailBody_Tilemap
 gfx/mail/body_view/mail_body_tiles_42c0.2bpp	tiles	528	gfx/mail/body_view.asm	28	42C0	CONFIRMED	exact	0		MailBody_Tiles_42C0
 gfx/mail/body_view/mail_body_tiles_44d0.2bpp	tiles	128	gfx/mail/body_view.asm	28	44D0	CONFIRMED	exact	0		MailBody_Tiles_44D0
-gfx/mail/body_view/tilemap_4550.attrmap	attrmap	360	gfx/mail/body_view.asm	28	46B8	CONFIRMED	-	0	20x18	Tilemap_MailView_BodyPage
-gfx/mail/body_view/tilemap_4550.tilemap	tilemap	360	gfx/mail/body_view.asm	28	4550	CONFIRMED	-	0	20x18	Tilemap_MailView_BodyPage
+gfx/mail/body_view/mail_view_body_page.attrmap	attrmap	360	gfx/mail/body_view.asm	28	46B8	CONFIRMED	-	0	20x18	Tilemap_MailView_BodyPage
+gfx/mail/body_view/mail_view_body_page.tilemap	tilemap	360	gfx/mail/body_view.asm	28	4550	CONFIRMED	-	0	20x18	Tilemap_MailView_BodyPage
 gfx/mail/comm_progress_scene/comm_progress_bg.pal	palette	64	gfx/mail/comm_progress_scene.asm	22	5C50	CONFIRMED	-	0		Palette_CommProgress_Bg
 gfx/mail/comm_progress_scene/comm_progress_obj.pal	palette	64	gfx/mail/comm_progress_scene.asm	22	5C90	CONFIRMED	-	0		Palette_CommProgress_Obj
 gfx/mail/comm_progress_scene/comm_progress_screen.attrmap	attrmap	360	gfx/mail/comm_progress_scene.asm	22	5AE8	CONFIRMED	-	0	20x18	Tilemap_CommProgress_Screen

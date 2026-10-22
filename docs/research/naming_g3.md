@@ -512,7 +512,7 @@ Generic region labels (`Function_2A_5495`, `Table_2A_4214`, ...) still exist at 
 
 ### Hand-off notes for the passes that own the neighbouring banks
 
-* `28:4550` is the tilemap of the **received-mail body page** ('A つぎへ', rendered) loaded by `MailView_BodyPage_InitScreen`; bank 28's own draft-body screen uses `28:4820` ('B もどる'); `28:4550` has no symbol yet (palettes `28:4AF0/4B30` and tiles `28:42C0/44D0` are shared by both).
+* `28:4550` is the tilemap of the **received-mail body page** ('A つぎへ', rendered) loaded by `MailView_BodyPage_InitScreen`; bank 28's own draft-body screen uses `28:4820` ('B もどる'); the later owner review named `28:4550` `Tilemap_MailView_BodyPage` and its files `mail_view_body_page.tilemap`/`.attrmap` (palettes `28:4AF0/4B30` and tiles `28:42C0/44D0` are shared by both).
 * `2F:51C1` is the **address-book entry view screen** (rendered from `2C:7C80` + `29:5E50/6250` + `2A:7CF0/7DD0`: 'アドレスちょう', ニックネーム, アドレス, 'B もどる'); `2A:7293` and `2A:5C3B` are also called from 2F.
 * `2D:65B0` is the mail **address entry** screen (SELECT far-calls `AddrPick_Menu`, then re-enters itself), `2D:4722` the **body entry**, `2D:408F/403C/40DC` load/store/clear the draft (SRAM `A000-A123`).
 * `22:501D` = recompute + store the bank-0 page checksum and refresh the mirror page; `22:50FC` = recompute + store the bank-1 checksum (`A8D7`); both are called after every SRAM write of these banks.
