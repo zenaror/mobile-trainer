@@ -324,8 +324,8 @@ PNG_TILE_OUTS := \
 	gfx/mail/result_screens/mail_server_status_tiles_5060.2bpp \
 	gfx/mail/server_status/mail_server_status_tiles_6f30.2bpp \
 	gfx/mail/server_status/mail_server_status_tiles_7330.2bpp \
-	gfx/mail/server_status_bank26/candidate_tiles_26_7840.2bpp \
 	gfx/mail/server_status_bank26/mail_server_status_tiles_7420.2bpp \
+	gfx/mail/server_status_bank26/profile_init_screen_tiles8020_slice.2bpp \
 	gfx/mail/server_status_bank26/profile_tiles8000.2bpp \
 	gfx/mail/session_scenery/mail_session_tiles_59e0.2bpp \
 	gfx/mail/session_scenery/mail_session_tiles_5de0.2bpp \
@@ -753,8 +753,8 @@ gfx/mail/received_mail_grid/mail_grid_tiles9400.2bpp: PNG_PAD := -x 13
 gfx/mail/result_screens/mail_server_status_tiles_5060.2bpp: PNG_SIZE := 48
 gfx/mail/server_status/mail_server_status_tiles_6f30.2bpp: PNG_SIZE := 1024
 gfx/mail/server_status/mail_server_status_tiles_7330.2bpp: PNG_SIZE := 1024
-gfx/mail/server_status_bank26/candidate_tiles_26_7840.2bpp: PNG_SIZE := 624
 gfx/mail/server_status_bank26/mail_server_status_tiles_7420.2bpp: PNG_SIZE := 1024
+gfx/mail/server_status_bank26/profile_init_screen_tiles8020_slice.2bpp: PNG_SIZE := 624
 gfx/mail/server_status_bank26/profile_tiles8000.2bpp: PNG_SIZE := 32
 gfx/mail/session_scenery/mail_session_tiles_59e0.2bpp: PNG_SIZE := 1024
 gfx/mail/session_scenery/mail_session_tiles_5de0.2bpp: PNG_SIZE := 1024

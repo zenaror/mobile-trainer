@@ -2911,21 +2911,22 @@ mismatches after the rename, but does not validate these unrooted candidates
 or prove natural use. The orphan animation at `29:63F0` remains explicitly
 candidate/orphan-qualified.
 
-## Bank 26 probable tile block with no located transfer (2026-10-21)
+## Bank 26 tile slice: historical no-transfer conclusion superseded (2026-10-21; corrected 2026-10-22)
 
-`Data_26_7840` covers a 624-byte block with a PROBABLE 2bpp tile classification
-(32 coherent tiles in the heuristic scan, plus blank/partial material). The
-PNG/binary pair round-trips exactly, but the bounded source/xref/screen-operation
-search located no transfer from `26:7840` and no screen composition using this
-asset. Its filename and label now say `candidate_tiles_26_7840` /
-`CandidateTiles_26_7840`; this records the probable content type without
-assigning a screen, owner behavior, or natural use. The old bank/address spelling
-remains in frozen region data as historical provenance. The 624-byte binary and
-PNG contents are unchanged. The build is `RESULT: IDENTICAL`; `sym-check`,
-`palette-check`, and `png-check` pass. At that historical checkpoint,
-`gfx_export.py check` reported three slices of the 16-byte visual byte-view at
-`4A:5860`; the later bank-4A follow-up retypes the span as sprite data and
-removes its active asset entry.
+At the historical checkpoint, the bounded source/xref/screen-operation search
+had not found a transfer whose source began exactly at `26:7840`. That wording
+did not rule out this interval being contained in a larger transfer. A
+2026-10-22 independent review found the static Profile_InitScreen transfer
+beginning at `26:7820`, which includes the entire 624-byte interval; see
+[the correction and exact byte/destination mapping](japanese_profile_init_screen_tile_slice_20261022.md).
+The current label/path are `Gfx_Profile_InitScreen_Tiles8020Slice` /
+`profile_init_screen_tiles8020_slice.2bpp`. Transfer inclusion and destination
+are statically CONFIRMED; tilemap selection, natural execution in this pass,
+and display remain unproved. The original bytes and PNG pixels are unchanged.
+The old name remains here only as historical provenance. At that historical
+checkpoint, `gfx_export.py check` reported three slices of the 16-byte visual
+byte-view at `4A:5860`; the later bank-4A follow-up retypes the span as sprite
+data and removes its active asset entry.
 
 A fresh exact-name scan of the same 334 tracked ASM/INC files (including
 `zero_labels.asm`, excluding `engine/mail/sample_data.asm` before reading)

@@ -9,13 +9,13 @@ SECTION "gfx/mail/server_status_bank26", ROMX
 MailServerStatus_Tiles_7420:: ; 26:7420
 	INCBIN "gfx/mail/server_status_bank26/mail_server_status_tiles_7420.2bpp"
 
-; ---- data $7820-$7840 (32 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); kind tiles from the label name [clipped from 7420-7B00 by higher-priority evidence]
+; ---- gfx $7820-$7840 (32 bytes) [CONFIRMED] Profile_InitScreen HDMA source to VRAM0 $8000-$8020; full request continues through $82A0
 
 Gfx_Profile_Tiles8000:: ; 26:7820
-	; kind (tiles) from the label name / config/symbols note; the region header above describes the block differently
+	; Static request at engine/profile/profile_editor.asm:508 transfers 42 16-byte units from here to VRAM0 $8000.
 	INCBIN "gfx/mail/server_status_bank26/profile_tiles8000.2bpp"
 
-; ---- gfx $7840-$7AB0 (624 bytes) [PROBABLE] tiles-2bpp: heuristic: 32 coherent tiles (hsim2=0.786 vsim2=0.762, 6 blank) parity 0
+; ---- gfx $7840-$7AB0 (624 bytes) [CONFIRMED] interior 39-unit slice of Profile_InitScreen HDMA: VRAM0 $8020-$8290; tilemap selection and display are unproved
 
-CandidateTiles_26_7840:: ; 26:7840
-	INCBIN "gfx/mail/server_status_bank26/candidate_tiles_26_7840.2bpp"
+Gfx_Profile_InitScreen_Tiles8020Slice:: ; 26:7840
+	INCBIN "gfx/mail/server_status_bank26/profile_init_screen_tiles8020_slice.2bpp"

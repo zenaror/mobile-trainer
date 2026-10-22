@@ -18,6 +18,14 @@ Nine `String_Dialog_Candidate*` labels now name their statically mapped message 
 
 A snapshot-scoped census of 337 Japanese ASM/INC files outside the separately reviewed bank 41–47 graphic owners found 13 exact Data_BB_AAAA definitions, all retained neutral, and zero definitions for the searched address-form Function/Func/Sub/Unknown/Code/Label/String/Font/Tiles/Tilemap/Attrmap/Palette/Table prefixes. Six qualified Candidate/Unresolved resource names remain outside that narrow pattern. The GFX scan found no physical bankNN directories or strict kind_XXXX stems in its scope; it also found 15 stale screen IDs, which were regenerated from descriptive tilemap asset paths without changing the row data. The independent Bank 53/frame audit found no missing files in its finite asset inventory; name-to-window assignment and runtime-unused status remain unproved. These are lexical/static results, not proof that all code or data is semantically understood or inaccessible through computed references. See [the Japanese generic-name census](docs/research/japanese_generic_name_census_20261023.md) and [the Bank 53/frame audit](docs/research/bank53_names_frames_assets_audit_20261023.md).
 
+### Profile initial-screen graphics slice (2026-10-22)
+
+The 624-byte interval at `26:7840` is now identified as the interior 39-unit slice of a static 42-unit HDMA request from `26:7820` to VRAM bank 0 `$8000`. Its derived destination is `$8020-$8290`; the final 16-byte unit at `26:7AB0-$7AC0` is the separately owned zero tail. The source label and asset path now describe this transfer slice, and the asset remains byte-identical. Static inclusion/destination are CONFIRMED. Tilemap selection, natural execution in this pass and displayed meaning remain unproved. This corrects the historical “no located transfer” conclusion, which searched for a transfer starting at `26:7840` and missed containment in the larger request. See [the independent transfer audit](docs/research/japanese_profile_init_screen_tile_slice_20261022.md).
+
+### Japanese graphics path/name census (2026-10-22; source `c3484478`)
+
+The full tracked GFX tree has no literal `bankNN` directories or `bankNN.*` basenames. The expanded type/address scan found only two GFX `Data_BB_AAAA` labels, both retained HYPOTHESIS because their readers are not established. Frame-design and browser-frame names are descriptive and preserve candidate status where warranted. The 978 asset, 95 screen and 133 preview rows passed their scoped path/owner checks. This does not prove visual selection, natural use or semantic closure. See [the full GFX naming review](docs/research/japanese_gfx_name_review_20261022.md).
+
 **Local branch-label cleanup (2026-10-22).** Two bounded passes replaced 97 address-only `.lAAAA` labels with operation names, covering arithmetic/HDMA, mail, audio, image conversion, sprite counters, and Mobile SDK helpers; the first pass also named the local block at `55:5DF5`. A source scan counted 4,942 `.lAAAA` labels at the `cbedacbd` base; 4,845 remain. These are internal labels, not a count of unidentified functions, and still need evidence-based review. The five residual natural-entry cases remain UNKNOWN; no natural caller was established. Static local names do not establish product purpose or natural execution. See [`local_branch_label_pass_20261022.md`](docs/research/local_branch_label_pass_20261022.md).
 
 **Local operation labels (2026-10-23).** A further independently reviewed pass renamed 72 local labels across the Mobile SDK main/mail libraries and keyboard engine. The tracked six-root scan (excluding protected sample data) now counts 4,773 numeric `.lAAAA` definitions, down from 4,845 at the pass base. These are local labels, not unidentified functions. All 72 token-only renames preserve comments, instructions, operands and bytes; the Japanese build remains identical. Twelve remaining neutral `Data_BB_AAAA` candidates were separately reviewed and kept neutral because their entry or content type is not established. See [`local_branch_label_pass_20261023.md`](docs/research/local_branch_label_pass_20261023.md).
@@ -1818,10 +1826,12 @@ table plus its frame records and script at `2E:7921-795C`. Six trailing bytes
 fit a two-step script shape but have no target in the bounded object-table
 walk; that candidate remains HYPOTHESIS. See the [bank-2E tidy-screen audit](docs/research/generic_data_name_audit_20261020.md#bank-2e-mail-server-tidy-screen-data-structures-2026-10-21).
 
-The PROBABLE tile block at `26:7840` now uses the candidate-qualified label
-`CandidateTiles_26_7840` and a matching asset path. Its exact PNG/binary
-round-trip does not establish a loader or screen association; see the
-[generic data audit](docs/research/generic_data_name_audit_20261020.md#bank-26-probable-tile-block-with-no-located-transfer-2026-10-21).
+The historical candidate label for the tile block at `26:7840` was superseded
+after a later independent review found that it is contained in a static
+Profile_InitScreen HDMA request from `26:7820`; see the
+[corrected slice audit](docs/research/japanese_profile_init_screen_tile_slice_20261022.md).
+Its transfer destination is established, while selection by a tilemap and
+display remain unproved.
 The probable RGB555 block at `26:73E0` is now `CandidatePalette_26_73E0` with
 a matching `.pal` path. No active transfer/load or screen mapping was found;
 its content classification remains PROBABLE and its use HYPOTHESIS.

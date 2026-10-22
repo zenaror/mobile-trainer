@@ -694,7 +694,7 @@ gfx/mail/server_status/mail_server_status_tiles_6f30.2bpp	tiles	1024	gfx/mail/se
 gfx/mail/server_status/mail_server_status_tiles_7330.2bpp	tiles	1024	gfx/mail/server_status.asm	25	7330	CONFIRMED	exact	0		MailServerStatus_Tiles_7330
 gfx/mail/server_status_bank26/mail_server_status_tiles_7420.2bpp	tiles	1024	gfx/mail/server_status_bank26.asm	26	7420	CONFIRMED	exact	0		MailServerStatus_Tiles_7420
 gfx/mail/server_status_bank26/profile_tiles8000.2bpp	tiles	32	gfx/mail/server_status_bank26.asm	26	7820	CONFIRMED	exact	0		Gfx_Profile_Tiles8000
-gfx/mail/server_status_bank26/candidate_tiles_26_7840.2bpp	tiles	624	gfx/mail/server_status_bank26.asm	26	7840	PROBABLE	exact	0		CandidateTiles_26_7840
+gfx/mail/server_status_bank26/profile_init_screen_tiles8020_slice.2bpp	tiles	624	gfx/mail/server_status_bank26.asm	26	7840	CONFIRMED	exact	0		Gfx_Profile_InitScreen_Tiles8020Slice
 gfx/mail/session_scenery/mail_session_tiles_59e0.2bpp	tiles	1024	gfx/mail/session_scenery.asm	26	59E0	CONFIRMED	exact	0		MailSession_Tiles_59E0
 gfx/mail/session_scenery/mail_session_tiles_5de0.2bpp	tiles	1024	gfx/mail/session_scenery.asm	26	5DE0	CONFIRMED	exact	0		MailSession_Tiles_5DE0
 gfx/mail/session_scenery/mail_session_tiles_61e0.2bpp	tiles	256	gfx/mail/session_scenery.asm	26	61E0	CONFIRMED	exact	0		MailSession_Tiles_61E0
