@@ -3424,3 +3424,13 @@ source comment already records that A=`$71` selects bank71 at `$6998`, not
 bank5F. No new consumer or semantic evidence supports renaming any of the 15
 remaining exact labels. Keep their bounded dispositions above; this scanner
 does not rule out computed or otherwise unmodeled access.
+
+## Stale gfx catalog label reconciled at 73:49E0 (2026-10-22)
+
+The Japanese assembly owner already defined `BrowserStart_CandidateTiles_49E0`
+for the PROBABLE tile-like span, while `gfx/assets.tsv` still named that row
+`Data_73_49E0`. The catalog now points to the existing source label, and its
+backing/PNG paths are `gfx/browser/start_choice/browser_start_candidate_tiles`
+with `.2bpp` and `.png` extensions. No source label, extent, confidence or
+bytes changed; this corrects catalogue metadata and removes an address-only
+resource basename without asserting natural use or a complete screen.

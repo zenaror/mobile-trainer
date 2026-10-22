@@ -116,7 +116,7 @@ BrowserStart_Tiles0:: ; 73:45E0
 ; ---- gfx $49E0-$4DE0 (1024 bytes) [PROBABLE] tiles-2bpp: heuristic: 61 coherent tiles (hsim2=0.744 vsim2=0.679, 107 blank) parity 0; 1536/2736 bytes also covered by call-site blocks [clipped from 4530-4FE0 by higher-priority evidence]
 
 BrowserStart_CandidateTiles_49E0:: ; 73:49E0
-	INCBIN "gfx/browser/start_choice/tiles_49e0.2bpp"
+	INCBIN "gfx/browser/start_choice/browser_start_candidate_tiles.2bpp"
 
 ; ---- gfx $4DE0-$51E0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 73:5F70: hl=$4DE0 a=$73 c=$40 de=$8800 (dest VRAM $8800, vbank=0)
 

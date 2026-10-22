@@ -440,7 +440,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `browser_start_bottom_map_selected.tilemap` | tile-index map | 30 | 73:441B | PROBABLE | - | 10x3 | `gfx/browser/start_choice.asm` |
 | `browser_start_bottom_attr_selected.attrmap` | attribute map | 30 | 73:4461 | PROBABLE | - | - | `gfx/browser/start_choice.asm` |
 | `browser_start_tiles0.2bpp` | 2bpp tiles | 1024 | 73:45E0 | CONFIRMED | exact | - | `gfx/browser/start_choice.asm` |
-| `tiles_49e0.2bpp` | 2bpp tiles | 1024 | 73:49E0 | PROBABLE | exact | - | `gfx/browser/start_choice.asm` |
+| `browser_start_candidate_tiles.2bpp` | 2bpp tiles | 1024 | 73:49E0 | PROBABLE | exact | - | `gfx/browser/start_choice.asm` |
 | `browser_start_tiles1.2bpp` | 2bpp tiles | 1024 | 73:4DE0 | CONFIRMED | exact | - | `gfx/browser/start_choice.asm` |
 | `browser_start_tiles2.2bpp` | 2bpp tiles | 1024 | 73:51E0 | CONFIRMED | exact | - | `gfx/browser/start_choice.asm` |
 | `browser_start_tiles3.2bpp` | 2bpp tiles | 1024 | 73:55E0 | CONFIRMED | exact | - | `gfx/browser/start_choice.asm` |

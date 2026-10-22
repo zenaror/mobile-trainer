@@ -246,7 +246,7 @@ gfx/browser/start_choice/browser_start_tiles3.2bpp	tiles	1024	gfx/browser/start_
 gfx/browser/start_choice/browser_start_tiles4.2bpp	tiles	1024	gfx/browser/start_choice.asm	73	59E0	CONFIRMED	exact	0		BrowserStart_Tiles4
 gfx/browser/start_choice/browser_start_top_attr_normal.attrmap	attrmap	40	gfx/browser/start_choice.asm	73	43AD	PROBABLE	-	0		BrowserStart_TopAttrNormal
 gfx/browser/start_choice/browser_start_top_map_normal.tilemap	tilemap	40	gfx/browser/start_choice.asm	73	4367	PROBABLE	-	0	10x4	BrowserStart_TopMapNormal
-gfx/browser/start_choice/tiles_49e0.2bpp	tiles	1024	gfx/browser/start_choice.asm	73	49E0	PROBABLE	exact	0		Data_73_49E0
+gfx/browser/start_choice/browser_start_candidate_tiles.2bpp	tiles	1024	gfx/browser/start_choice.asm	73	49E0	PROBABLE	exact	0		BrowserStart_CandidateTiles_49E0
 gfx/comm/comm_scene/palette_6c90.pal	palette	64	gfx/comm/comm_scene.asm	70	6C90	PROBABLE	-	0		Palette_70_6C90
 gfx/comm/comm_scene/palette_6cd0.pal	palette	64	gfx/comm/comm_scene.asm	70	6CD0	PROBABLE	-	0		Palette_70_6CD0
 gfx/comm/comm_scene/tilemap_6d10.attrmap	attrmap	448	gfx/comm/comm_scene.asm	70	6ED0	CONFIRMED	-	0	32x14	Tilemap_70_6D10

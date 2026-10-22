@@ -272,7 +272,7 @@ Columns: `#` = order of the listing (path order); `asset` = PNG under `gfx/` (th
 | 155 | `browser/start_choice/browser_start_tiles3` | 73:55E0 | 64 (16x4) | Browser_StartChoiceScreen@9000b1 | TXT | button images "ホームページ" and "ページリスト" + frame art |
 | 156 | `browser/start_choice/browser_start_tiles4` | 73:59E0 | 64 (16x4) | Browser_StartChoiceScreen@9400b1 | TXT | button/caption art; text fragments (unreadable) |
 | 157 | `browser/start_choice/tiles_4530` | 73:4530 | 11 (11x1) | - | UNK | 11 tiles, not classified |
-| 158 | `browser/start_choice/tiles_49e0` | 73:49E0 | 64 (16x4) | - | ART | blank / background tiles |
+| 158 | `browser/start_choice/browser_start_candidate_tiles` | 73:49E0 | 64 (16x4) | - | ART | blank / background tiles |
 | 159 | `comm/comm_scene/tiles_5490` | 70:5490 | 64 (16x4) | CommScene_LoadGraphics@8000 | ART | scenery (figures), no text |
 | 160 | `comm/comm_scene/tiles_5890` | 70:5890 | 64 (16x4) | CommScene_LoadGraphics@8400 | ART | scenery (figures), no text |
 | 161 | `comm/comm_scene/tiles_5c90` | 70:5C90 | 64 (16x4) | CommScene_LoadGraphics@8800 | ART | scenery, no text |

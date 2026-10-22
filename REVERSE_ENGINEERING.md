@@ -2042,3 +2042,8 @@ owner whose filename was only resource type plus bank/address. It is now
 `gfx/unresolved/tile_graphics_candidate.asm`; the 720-byte span remains
 HYPOTHESIS, and its unresolved role and bank/address provenance remain explicit.
 See the dated [gfx path follow-up](docs/research/gfx_generic_name_audit_20261021.md#address-only-unresolved-graphics-path-update-2026-10-22).
+
+The same current-tree reconciliation corrected a stale `gfx/assets.tsv` name
+at `73:49E0` from `Data_73_49E0` to its existing source label
+`BrowserStart_CandidateTiles_49E0`; its backing and PNG now use the candidate
+name as well. The HYPOTHESIS/PROBABLE resource classification is unchanged.

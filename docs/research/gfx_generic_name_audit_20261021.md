@@ -79,3 +79,10 @@ structure while preserving the unknown role; it does not associate the tiles
 with the neighboring page-list prototype or claim global non-use. The backing
 2bpp and PNG bytes are unchanged. Layout, asset catalog, PNG rules and the
 generated graphics README now use the descriptive path.
+
+The current-tree reconciliation also found one stale catalogue label at
+`73:49E0`: `gfx/assets.tsv` still said `Data_73_49E0` although the owner already
+defined `BrowserStart_CandidateTiles_49E0`. The row now uses the source label,
+and the backing/PNG are `browser_start_candidate_tiles.{2bpp,png}`. The resource
+remains PROBABLE; its candidate wording does not promote it to a confirmed
+browser-start load or screen role.

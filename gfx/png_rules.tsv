@@ -241,6 +241,7 @@ gfx/browser/page_list_candidate/tiles_6ae0.2bpp	gfx/browser/page_list_candidate/
 gfx/browser/page_list_prototype_messages/prototype_message_tiles.2bpp	gfx/browser/page_list_prototype_messages/prototype_message_tiles.png	tiles			0	2944	9c4580b7ec3957fbded052b9b48d4f5999389844ca1ab4819e450e27acd98b81
 gfx/browser/start_choice/browser_start_bottom_attr_selected.attrmap	-	attrmap				30	24d504dc3274894394d3a7f80b1b9659e077dff77096334e8c57db04ff8f9157
 gfx/browser/start_choice/browser_start_bottom_map_selected.tilemap	-	tilemap				30	878af730611edb1259e1153be488cb4b12be9f03bf5b4da2c08c9642bc31196d
+gfx/browser/start_choice/browser_start_candidate_tiles.2bpp	gfx/browser/start_choice/browser_start_candidate_tiles.png	tiles			0	1024	5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
 gfx/browser/start_choice/browser_start_map.attrmap	-	attrmap				360	96921817d90eff97e6e344d0776744aafbb3dcf5f3ab81d61902d31b03588cd0
 gfx/browser/start_choice/browser_start_map.tilemap	-	tilemap				360	0e27a3e06a1773622644d63e524c23b4791f950a730cedf95485407c623f0008
 gfx/browser/start_choice/browser_start_obj_palettes.pal	-	palette				519	348ee0b8deedc2fe46699b5028d4114239d281aa34ce31726aa717ad50538c06
@@ -252,7 +253,6 @@ gfx/browser/start_choice/browser_start_tiles3.2bpp	gfx/browser/start_choice/brow
 gfx/browser/start_choice/browser_start_tiles4.2bpp	gfx/browser/start_choice/browser_start_tiles4.png	tiles			0	1024	4e2edf28f409148d783fec38876bd08324ca653b441fbe0eca6160e69d316de6
 gfx/browser/start_choice/browser_start_top_attr_normal.attrmap	-	attrmap				40	098e6841b64c6dd50bb6e2b5f25139b6ed9b443982ef1304254970a9e59a1f13
 gfx/browser/start_choice/browser_start_top_map_normal.tilemap	-	tilemap				40	44253f4e2bf055fc23fc592590918706c42be32fe35ed79054fc95b9260e931b
-gfx/browser/start_choice/tiles_49e0.2bpp	gfx/browser/start_choice/tiles_49e0.png	tiles			0	1024	5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
 gfx/comm/comm_scene/palette_6c90.pal	-	palette				519	5db0ace1c5619034ecb29bac28abb219a9d1fd1d1ef246bc2e92ecf554ed755c
 gfx/comm/comm_scene/palette_6cd0.pal	-	palette				519	b488c8d03ed09b14b745774412e7cb11ebde39ca6f18bfa98227b03c7c87cb79
 gfx/comm/comm_scene/tilemap_6d10.attrmap	-	attrmap				448	a6e83e1db4c2399832b5c408917d1934044acc55e6ac53afe3734750a59c3afe
