@@ -348,13 +348,13 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `tiles_4000.2bpp` | 2bpp tiles | 16 | 47:4000 | CONFIRMED | exact | - | `gfx/browser/frames_0_1.asm` |
-| `tiles_4010.2bpp` | 2bpp tiles | 48 | 47:4010 | CONFIRMED | exact | - | `gfx/browser/frames_0_1.asm` |
+| `browser_scrollbar_vram8ff0_vb0_tiles_4000.2bpp` | 2bpp tiles | 16 | 47:4000 | CONFIRMED | exact | - | `gfx/browser/frames_0_1.asm` |
+| `browser_scrollbar_vram97d0_vb0_tiles_4010.2bpp` | 2bpp tiles | 48 | 47:4010 | CONFIRMED | exact | - | `gfx/browser/frames_0_1.asm` |
 | `browser_scrollbar_candidate_tile_slice_4040.2bpp` | 2bpp tiles | 64 | 47:4040 | PROBABLE | exact | - | `gfx/browser/frames_0_1.asm` |
-| `tiles_4080.2bpp` | 2bpp tiles | 16 | 47:4080 | CONFIRMED | exact | - | `gfx/browser/frames_0_1.asm` |
-| `tiles_4090.2bpp` | 2bpp tiles | 48 | 47:4090 | CONFIRMED | exact | - | `gfx/browser/frames_0_1.asm` |
-| `tiles_40c0.2bpp` | 2bpp tiles | 16 | 47:40C0 | CONFIRMED | exact | - | `gfx/browser/frames_0_1.asm` |
-| `tiles_40d0.2bpp` | 2bpp tiles | 48 | 47:40D0 | CONFIRMED | exact | - | `gfx/browser/frames_0_1.asm` |
+| `browser_scrollbar_vram8ff0_vb0_tiles_4080.2bpp` | 2bpp tiles | 16 | 47:4080 | CONFIRMED | exact | - | `gfx/browser/frames_0_1.asm` |
+| `browser_scrollbar_vram97d0_vb0_tiles_4090.2bpp` | 2bpp tiles | 48 | 47:4090 | CONFIRMED | exact | - | `gfx/browser/frames_0_1.asm` |
+| `browser_scrollbar_vram8ff0_vb0_tiles_40c0.2bpp` | 2bpp tiles | 16 | 47:40C0 | CONFIRMED | exact | - | `gfx/browser/frames_0_1.asm` |
+| `browser_scrollbar_vram97d0_vb0_tiles_40d0.2bpp` | 2bpp tiles | 48 | 47:40D0 | CONFIRMED | exact | - | `gfx/browser/frames_0_1.asm` |
 | `browser_frame0_tiles.2bpp` | 2bpp tiles | 2560 | 47:4100 | PROBABLE | exact | - | `gfx/browser/frames_0_1.asm` |
 | `browser_frame0.tilemap` | tile-index map | 360 | 47:4B00 | PROBABLE | - | 20x18 | `gfx/browser/frames_0_1.asm` |
 | `browser_frame0.attrmap` | attribute map | 360 | 47:4C68 | PROBABLE | - | 20x18 | `gfx/browser/frames_0_1.asm` |

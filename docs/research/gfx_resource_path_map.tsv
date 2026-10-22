@@ -618,3 +618,15 @@ gfx/error/no_adapter/tiles_6480.png	gfx/error/no_adapter/no_adapter_gfx_8800_tai
 gfx/error/non_cgb_screen/tilemap_4060.tilemap	gfx/error/non_cgb_screen/non_cgb_tilemap_continuation_4060.tilemap
 gfx/error/non_cgb_screen/tiles_4240.2bpp	gfx/error/non_cgb_screen/non_cgb_candidate_tile_data_4240.2bpp
 gfx/error/non_cgb_screen/tiles_4240.png	gfx/error/non_cgb_screen/non_cgb_candidate_tile_data_4240.png
+gfx/browser/frames_0_1/tiles_4000.2bpp	gfx/browser/frames_0_1/browser_scrollbar_vram8ff0_vb0_tiles_4000.2bpp
+gfx/browser/frames_0_1/tiles_4000.png	gfx/browser/frames_0_1/browser_scrollbar_vram8ff0_vb0_tiles_4000.png
+gfx/browser/frames_0_1/tiles_4010.2bpp	gfx/browser/frames_0_1/browser_scrollbar_vram97d0_vb0_tiles_4010.2bpp
+gfx/browser/frames_0_1/tiles_4010.png	gfx/browser/frames_0_1/browser_scrollbar_vram97d0_vb0_tiles_4010.png
+gfx/browser/frames_0_1/tiles_4080.2bpp	gfx/browser/frames_0_1/browser_scrollbar_vram8ff0_vb0_tiles_4080.2bpp
+gfx/browser/frames_0_1/tiles_4080.png	gfx/browser/frames_0_1/browser_scrollbar_vram8ff0_vb0_tiles_4080.png
+gfx/browser/frames_0_1/tiles_4090.2bpp	gfx/browser/frames_0_1/browser_scrollbar_vram97d0_vb0_tiles_4090.2bpp
+gfx/browser/frames_0_1/tiles_4090.png	gfx/browser/frames_0_1/browser_scrollbar_vram97d0_vb0_tiles_4090.png
+gfx/browser/frames_0_1/tiles_40c0.2bpp	gfx/browser/frames_0_1/browser_scrollbar_vram8ff0_vb0_tiles_40c0.2bpp
+gfx/browser/frames_0_1/tiles_40c0.png	gfx/browser/frames_0_1/browser_scrollbar_vram8ff0_vb0_tiles_40c0.png
+gfx/browser/frames_0_1/tiles_40d0.2bpp	gfx/browser/frames_0_1/browser_scrollbar_vram97d0_vb0_tiles_40d0.2bpp
+gfx/browser/frames_0_1/tiles_40d0.png	gfx/browser/frames_0_1/browser_scrollbar_vram97d0_vb0_tiles_40d0.png

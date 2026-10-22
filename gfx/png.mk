@@ -91,12 +91,12 @@ PNG_TILE_OUTS := \
 	gfx/browser/frames_0_1/browser_frame0_tiles.2bpp \
 	gfx/browser/frames_0_1/browser_frame1_tiles.2bpp \
 	gfx/browser/frames_0_1/browser_scrollbar_candidate_tile_slice_4040.2bpp \
-	gfx/browser/frames_0_1/tiles_4000.2bpp \
-	gfx/browser/frames_0_1/tiles_4010.2bpp \
-	gfx/browser/frames_0_1/tiles_4080.2bpp \
-	gfx/browser/frames_0_1/tiles_4090.2bpp \
-	gfx/browser/frames_0_1/tiles_40c0.2bpp \
-	gfx/browser/frames_0_1/tiles_40d0.2bpp \
+	gfx/browser/frames_0_1/browser_scrollbar_vram8ff0_vb0_tiles_4000.2bpp \
+	gfx/browser/frames_0_1/browser_scrollbar_vram8ff0_vb0_tiles_4080.2bpp \
+	gfx/browser/frames_0_1/browser_scrollbar_vram8ff0_vb0_tiles_40c0.2bpp \
+	gfx/browser/frames_0_1/browser_scrollbar_vram97d0_vb0_tiles_4010.2bpp \
+	gfx/browser/frames_0_1/browser_scrollbar_vram97d0_vb0_tiles_4090.2bpp \
+	gfx/browser/frames_0_1/browser_scrollbar_vram97d0_vb0_tiles_40d0.2bpp \
 	gfx/browser/frames_2_3/browser_frame2_tiles.2bpp \
 	gfx/browser/frames_2_3/browser_frame_candidate_tiles_68f0.2bpp \
 	gfx/browser/menus/browser_menu2_tiles0.2bpp \
@@ -505,12 +505,12 @@ gfx/address_book/shared_tiles_bank28/addr_book_shared_tiles8400.2bpp: PNG_SIZE :
 gfx/browser/frames_0_1/browser_frame0_tiles.2bpp: PNG_SIZE := 2560
 gfx/browser/frames_0_1/browser_frame1_tiles.2bpp: PNG_SIZE := 2560
 gfx/browser/frames_0_1/browser_scrollbar_candidate_tile_slice_4040.2bpp: PNG_SIZE := 64
-gfx/browser/frames_0_1/tiles_4000.2bpp: PNG_SIZE := 16
-gfx/browser/frames_0_1/tiles_4010.2bpp: PNG_SIZE := 48
-gfx/browser/frames_0_1/tiles_4080.2bpp: PNG_SIZE := 16
-gfx/browser/frames_0_1/tiles_4090.2bpp: PNG_SIZE := 48
-gfx/browser/frames_0_1/tiles_40c0.2bpp: PNG_SIZE := 16
-gfx/browser/frames_0_1/tiles_40d0.2bpp: PNG_SIZE := 48
+gfx/browser/frames_0_1/browser_scrollbar_vram8ff0_vb0_tiles_4000.2bpp: PNG_SIZE := 16
+gfx/browser/frames_0_1/browser_scrollbar_vram8ff0_vb0_tiles_4080.2bpp: PNG_SIZE := 16
+gfx/browser/frames_0_1/browser_scrollbar_vram8ff0_vb0_tiles_40c0.2bpp: PNG_SIZE := 16
+gfx/browser/frames_0_1/browser_scrollbar_vram97d0_vb0_tiles_4010.2bpp: PNG_SIZE := 48
+gfx/browser/frames_0_1/browser_scrollbar_vram97d0_vb0_tiles_4090.2bpp: PNG_SIZE := 48
+gfx/browser/frames_0_1/browser_scrollbar_vram97d0_vb0_tiles_40d0.2bpp: PNG_SIZE := 48
 gfx/browser/frames_2_3/browser_frame2_tiles.2bpp: PNG_SIZE := 2560
 gfx/browser/frames_2_3/browser_frame_candidate_tiles_68f0.2bpp: PNG_SIZE := 2560
 gfx/browser/menus/browser_menu2_tiles0.2bpp: PNG_SIZE := 1024

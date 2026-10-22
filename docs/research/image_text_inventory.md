@@ -244,13 +244,13 @@ Columns: `#` = order of the listing (path order); `asset` = PNG under `gfx/` (th
 | 127 | `ui_art/button_art_fragments/tiles_4f63` | 61:4F63 | 41 (16x3) | HelpScript_ShowPicture (table) | UNK | art/text fragments, unreadable; retired clip of picture ID 04 (static table-backed source) |
 | 128 | `ui_art/button_art_fragments/tiles_58b0` | 61:58B0 | 41 (16x3) | HelpScript_ShowPicture (table) | UNK | art/text fragments, unreadable; retired clip of picture IDs 06,07 (static table-backed source) |
 | 129 | `ui_art/button_art_fragments/tiles_65c0` | 61:65C0 | 50 (10x5) | HelpScript_ShowPicture (table) | UNK | frames with text fragments, unreadable; retired clip of picture IDs 09,10 (static table-backed source) |
-| 130 | `browser/frames_0_1/tiles_4000` | 47:4000 | 1 (1x1) | Browser_LoadScrollbarGfx@8FF0 | ART | scrollbar piece |
-| 131 | `browser/frames_0_1/tiles_4010` | 47:4010 | 3 (3x1) | Browser_LoadScrollbarGfx@97D0 | ART | scrollbar piece |
+| 130 | `browser/frames_0_1/browser_scrollbar_vram8ff0_vb0_tiles_4000` | 47:4000 | 1 (1x1) | Browser_LoadScrollbarGfx@8FF0 | ART | scrollbar piece |
+| 131 | `browser/frames_0_1/browser_scrollbar_vram97d0_vb0_tiles_4010` | 47:4010 | 3 (3x1) | Browser_LoadScrollbarGfx@97D0 | ART | scrollbar piece |
 | 132 | `browser/frames_0_1/tiles_4040` | 47:4040 | 4 (4x1) | - | UNK | 4 tiles, not classified |
-| 133 | `browser/frames_0_1/tiles_4080` | 47:4080 | 1 (1x1) | Browser_LoadScrollbarGfx@8FF0 | ART | scrollbar piece |
-| 134 | `browser/frames_0_1/tiles_4090` | 47:4090 | 3 (3x1) | Browser_LoadScrollbarGfx@97D0 | ART | scrollbar piece |
-| 135 | `browser/frames_0_1/tiles_40c0` | 47:40C0 | 1 (1x1) | Browser_LoadScrollbarGfx@8FF0 | ART | scrollbar piece |
-| 136 | `browser/frames_0_1/tiles_40d0` | 47:40D0 | 3 (3x1) | Browser_LoadScrollbarGfx@97D0 | ART | scrollbar piece |
+| 133 | `browser/frames_0_1/browser_scrollbar_vram8ff0_vb0_tiles_4080` | 47:4080 | 1 (1x1) | Browser_LoadScrollbarGfx@8FF0 | ART | scrollbar piece |
+| 134 | `browser/frames_0_1/browser_scrollbar_vram97d0_vb0_tiles_4090` | 47:4090 | 3 (3x1) | Browser_LoadScrollbarGfx@97D0 | ART | scrollbar piece |
+| 135 | `browser/frames_0_1/browser_scrollbar_vram8ff0_vb0_tiles_40c0` | 47:40C0 | 1 (1x1) | Browser_LoadScrollbarGfx@8FF0 | ART | scrollbar piece |
+| 136 | `browser/frames_0_1/browser_scrollbar_vram97d0_vb0_tiles_40d0` | 47:40D0 | 3 (3x1) | Browser_LoadScrollbarGfx@97D0 | ART | scrollbar piece |
 | 137 | `browser/frames_0_1/tiles_4100` | 47:4100 | 160 (16x10) | - | FRM | browser frame style 0 (grey): legend "スタート メニュー B 戻る"; digits 0-9 ":" and a triangle |
 | 138 | `browser/frames_0_1/tiles_4e50` | 47:4E50 | 160 (16x10) | - | FRM | browser frame style 1 and 23-26 (blue): legend "スタート メニュー B もどる"; digits |
 | 139 | `browser/frames_2_3/tiles_5ba0` | 47:5BA0 | 160 (16x10) | - | FRM | browser frame styles 2-22 (green): legend "A すすむ B もどる セレクト おわる"; digits |
