@@ -340,10 +340,11 @@ Registration_DeleteExecute_RunState:: ; 68:7C52
 ; ---- state dispatch table $7C6B-$7C71 (6 bytes) [CONFIRMED] three handlers reached through JP HL
 
 Registration_DeleteExecute_StateTable:: ; 68:7C6B
-	dw .start, .pollFirstCommand, .pollSecondCommand
+	dw .clear_config_mirror_and_start_mobile_init, .pollFirstCommand, .pollSecondCommand
 
 	; [CONFIRMED] 50 insn(s); 50 executed (in up to 1/18 scenarios)
-.start
+	; [PROBABLE] Clears the SRAM mirror, starts MobileAPI_Init (index 2 is a byte offset), then advances to state 1.
+.clear_config_mirror_and_start_mobile_init
 	call Config_ClearSramMirror
 	ld de, wMobileAdapterType
 	ld hl, $0068

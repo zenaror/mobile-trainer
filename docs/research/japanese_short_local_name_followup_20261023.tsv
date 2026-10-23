@@ -1,0 +1,2 @@
+file	owner	address	old_local	new_local	decision	confidence	evidence
+engine/account/delete_registration.asm	Registration_DeleteExecute_StateTable	68:7C71	.start	.clear_config_mirror_and_start_mobile_init	RENAME	PROBABLE	Table target calls Config_ClearSramMirror, passes API index $02 to MobileAPI (byte-offset dispatch selects MobileAPI_Init), sets state 1, and returns to the state dispatcher; static operation only, no claim of completed deletion or synchronized adapter.

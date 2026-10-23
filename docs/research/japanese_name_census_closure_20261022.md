@@ -2,7 +2,7 @@
 
 ## Scope and result
 
-This pass reconciles name searches across the migrated Japanese checkout at base commit `7973e1993152c10987a164a3f5968133312a1611`. It covers all **350 tracked ASM/INC files** in the maintained source roots plus three root support files; the protected `engine/mail/sample_data.asm` is included only in counts, not inspected for payload. It excludes `languages/` and the Operator ZIP. The source census found **6,693 global labels**, **3,891 numeric local `.lAAAA` definitions** (3,872 without protected sample data), and **786 address-only RAM equates**.
+This pass reconciles name searches across the migrated Japanese checkout at base commit `7973e1993152c10987a164a3f5968133312a1611`. It covers all **350 tracked ASM/INC files** in the maintained source roots plus four root support files; the protected `engine/mail/sample_data.asm` is included only in counts, not inspected for payload. It excludes `languages/` and the Operator ZIP. The source census found **6,693 global labels**, **3,891 numeric local `.lAAAA` definitions** (3,872 without protected sample data), and **786 address-only RAM equates**.
 
 The exact anchored global-symbol scan now finds **13 `Data_BB_AAAA` labels** and no exact-address `Function`, `Func`, `Sub`, `Unknown`, `Unk`, `Code`, `Label`, `Font`, `Tiles`, `Tilemap`, `Attrmap`, `Palette`, `String`, `Table`, `SpriteFrame`, or `SpriteScript` definitions. The GFX/font inventory covers **1,950 tracked files** (1,859 GFX and 91 fonts), 116 directories, 87 GFX owners, and 12 font owners. It found no pure `bankNN` directory or basename, no address-only basename, and no strict type/address-only basename. Functional names may retain a bank suffix as provenance.
 
