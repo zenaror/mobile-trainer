@@ -1,8 +1,10 @@
 # Japanese maintained-tree generic-name sweep (2026-10-23)
 
-This is the consolidated, current-tree reconciliation for the generic-name concerns raised by the Operator. It is a census of the maintained Japanese source roots, not a claim that every routine or data span is semantically understood. Its full root/support-file census was independently reconciled at `69b7f8c125faf56d4aee77fbed860b8bd4578ccd`; subsequent Japanese-only follow-ups include the token-only `.start` rename recorded below and the complete typed tile-resource disposition linked here. English translation sources and the Operator ZIP were not read.
+This document preserves both historical inventories and the current result; dated baselines below must not be read as the present source state. The current source snapshot is `bf66b260740f369b45e3f944998aab6f6631ec46` (docs-only commit after the verified Japanese source checkpoint). A complete tracked-source/path rerun at that snapshot found 334 maintained Japanese ASM/INC files, zero strict address-only global definitions, zero `.lAAAA`/`.loop`/`.skip`/`.done`/`.start` definitions, 1,859 tracked GFX paths with zero `bankNN` components and zero strict address-only asset basenames. The ten formerly matching `Data_BB_AAAA` definitions were replaced in the recorded batch; their exact old/new mapping is linked below. These are lexical results, not semantic closure. English translation sources and the Operator ZIP remain paused and were not read.
 
 ## Unified census and dispositions
+
+**Historical baseline:** The following table records counts at `69b7f8c125faf56d4aee77fbed860b8bd4578ccd`. It is retained for provenance; use the current snapshot statement above and the batch-closure section below for present counts.
 
 The previous passes did have broad coverage, but it was split between notes and did not put all naming families in one place. This section is the cross-category index; row-level decisions remain in the linked ledgers. Counts use tracked Japanese source files and exclude `languages/`, frozen analysis/configuration data, and the protected `engine/mail/sample_data.asm` payload. The source files are maintained by hand. The query families were anchored symbol definitions, path basenames, local definitions, RAM `EQU/SET/EQUS`, and explicitly qualified uncertainty markers; the counts below are flags/categories, not a claim that each lexical match is a defect.
 
@@ -12,7 +14,7 @@ The previous passes did have broad coverage, but it was split between notes and 
 | Global / local definitions | 6,650 global labels; 5,473 local labels; 1,931 `EQU`/`SET`/`EQUS` definitions | Lexical inventory totals from a repeatable scan across tracked ASM/INC sources; constants/equates are not presumed generic. |
 | Address-only local labels | 2,764 `.lAAAA` definitions in 140 files at the review baseline after the Bank 29 palette rename (2,662 engine, 67 lib, 28 audio, seven home) | Every baseline anchor now has a row-level disposition: 408 were renamed after static review and independent review of all proposals (400 accepted, eight revised); 2,356 remain neutral with individual reasons. All are local control-flow anchors, not function entries. See the full [local-anchor disposition ledger](japanese_local_anchor_dispositions_20261023.tsv). |
 | Short branch placeholders | 500 `.loop`/`.skip`/`.done` at baseline; zero remain | All 500 have row-level dispositions in [`japanese_short_label_full_decision_ledger_20261023.tsv`](japanese_short_label_full_decision_ledger_20261023.tsv); independent review checked all 401 later proposals and references. |
-| Strict generic global names | 10 `Data_BB_AAAA`; zero exact `Function`/`Func`/`Sub`/`Routine`/`Unknown`/`Unk`/`Code`/`Label`/`Font`/`Tiles`/`Tile`/`Tilemap`/`Attrmap`/`Palette`/`String`/`Table`/`SpriteFrame`/`SpriteScript` plus four-hex-address definitions | All ten Data names were individually reviewed and remain neutral (list below); no strict Function/Font generic is currently defined. |
+| Strict generic global names | 10 `Data_BB_AAAA` at the historical baseline; zero exact `Function`/`Func`/`Sub`/`Routine`/`Unknown`/`Unk`/`Code`/`Label`/`Font`/`Tiles`/`Tile`/`Tilemap`/`Attrmap`/`Palette`/`String`/`Table`/`SpriteFrame`/`SpriteScript` plus four-hex-address definitions | All ten were reviewed at that baseline and later received confidence-qualified structural names in the batch below; the current strict count is zero. |
 | Broader address suffix flags | 127 globals with `_BB_AAAA` (10 neutral `Data`, 117 qualified names); 444 with `_AAAA` | Address provenance alone does not make a semantic symbol generic. Review strict name family and owner before treating as debt. |
 | Numeric RAM equates | 786: 583 `wRam_`, 42 `hRam_`, 161 `sSram_` | Prior RAM ledgers and operand review were reconciled; keep neutral where evidence is insufficient. This is not 786 unresolved naming tasks. |
 | Confidence-qualified markers | 261 combined: 243 `Candidate`, nine `Stub_Nop`, three `SpriteCounter_Stub`, and one each `Unknown`, `Unresolved`, `Placeholder`, `Generic`, `Unassigned`, `Maybe` | Explicitly qualified uncertainty is intentional evidence state, not a generic-name hit by itself; source owners/research notes document the known cohorts. |
@@ -70,11 +72,13 @@ typed_tile_ordinal     = _Tiles?_*[0-9]{1,3}$
 
 Separate broad scans counted a global suffix `_[0-9A-F]{2}_[0-9A-F]{4}`, a suffix `_[0-9A-F]{4}`, decimal ordinals, explicitly qualified uncertainty words, and path basenames. These are candidate-generation patterns only: codepoint-shaped text suffixes, meaningful bank/address provenance, and indexed chunks remain valid when their owner/consumer semantics support them. `tools/render_screens.py` also contains an active name-specific asset filter; a symbol/path rename must audit that consumer and any generated manifests before application.
 
-## Complete definition and path census
+## Historical detailed definition and path census (pre-batch)
+
+**Historical snapshot only.** The following inventory and the ten-name table immediately after it describe the pre-batch tree, not current definitions. The ten names were renamed in the closure recorded above; consult the linked old-to-new ledger for their current spellings. Keep this record as provenance, but do not use its past-tense rows as an open queue.
 
 The scan used tracked `*.asm` files below `home/`, `engine/`, `data/`, `gfx/`, `audio/`, and `lib/` (334 total). It counted local `.lAAAA` definitions with bank/address comments and global labels with the exact bank/address suffix forms used by the project. One protected file, `engine/mail/sample_data.asm`, contributes 19 local labels and is excluded from the review tables and any sample-content discussion.
 
-| Concern | Current result | Disposition |
+| Concern | Historical result | Disposition at that snapshot |
 |---|---:|---|
 | Address-only `.lAAAA` definitions in the 333 non-protected files | 2,764 | Re-derived after 252 earlier numeric-label renames and the ten reviewed Bank 29 local renames. The previous checkpoint count was 2,774; the 19 protected sample labels remain excluded. This count does not claim semantic understanding of all remaining labels. |
 | Strict `Data_BB_AAAA` global definitions | 10 | Retained neutral after address, instruction-boundary, reference and ROM-byte review; each is listed below. |
@@ -84,9 +88,9 @@ The scan used tracked `*.asm` files below `home/`, `engine/`, `data/`, `gfx/`, `
 
 The examples `Function_75_4000`, `Font_48_4ADB`, and `Data_68_6960` have zero definitions or references in the 334 maintained ASM files at this revision. Their remaining occurrences are in historical/frozen analysis artifacts and do not name current source symbols. The strict definition scan is intentionally source-root scoped; old naming maps and analysis records remain useful provenance and were not rewritten.
 
-## The ten remaining neutral data labels
+## Ten address-only data labels at the pre-batch snapshot (historical)
 
-The names below are not known functions or resources. Each span is outside the demonstrated adjacent control-flow/data extent; the current evidence does not support promoting it to a more specific name. See [`generic_data_name_followup_20261023.md`](generic_data_name_followup_20261023.md) for the full byte/reference audit, alternatives rejected, and evidence limits.
+At the historical snapshot, these names were not established functions or resources. Each span is outside the demonstrated adjacent control-flow/data extent; the current evidence does not support promoting it to a more specific name. See [`generic_data_name_followup_20261023.md`](generic_data_name_followup_20261023.md) for the full byte/reference audit, alternatives rejected, and evidence limits.
 
 | Label | Source | Bounded reason to retain neutral |
 |---|---|---|
@@ -101,7 +105,7 @@ The names below are not known functions or resources. Each span is outside the d
 | `Data_72_63D7` | `data/text/dialog_messages.asm:620` | `AF` follows a text terminator; the known menu entry starts at the next byte. |
 | `Data_5F_6980` | `gfx/keyboard/panels_bank5f.asm:469` | The 48-byte span of `$06` is outside the demonstrated tile/map copies. |
 
-These ten are the only exact, currently defined generic global names in this census. A lack of a static lexical reference is not proof of non-use, and opcode appearance is not proof of a routine entry; computed access, external entry or new trace evidence could change a future disposition.
+At that pre-batch snapshot, these ten were the exact generic global names. They are no longer current definitions. A lack of a static lexical reference is not proof of non-use, and opcode appearance is not proof of a routine entry; computed access, external entry or new trace evidence could change a future disposition.
 
 ### Natural-trace cross-check of the ten neutral data spans (2026-10-23)
 
