@@ -45,10 +45,10 @@ gfx/assets.tsv                                 one line per asset: kind, size, b
 | raw bytes (conditional byte-view codec; purpose unknown) (`.bin`) | 4 | 80 |
 | validity bitmap (`.bin`) | 1 | 8198 |
 | tile-index map (`.tilemap`) | 181 | 52098 |
-| 2bpp tiles (`.2bpp`) | 408 | 362528 |
-| **all** | **978** | **623610** |
+| 2bpp tiles (`.2bpp`) | 410 | 363808 |
+| **all** | **980** | **624890** |
 
-PNGs: 408 exact rgbgfx sources (`.png`), 4 explicit raw byte-view codec sources (`.png`, purpose unknown), 39 font binaries with an editable sheet PNG (`.png`), 1 view-only picture (`_view.png`).
+PNGs: 410 exact rgbgfx sources (`.png`), 4 explicit raw byte-view codec sources (`.png`, purpose unknown), 39 font binaries with an editable sheet PNG (`.png`), 1 view-only picture (`_view.png`).
 
 ## Still `db`
 
@@ -58,15 +58,15 @@ Blocks of the graphics regions that are not converted (the note / label does not
 |---|---:|---:|
 | data without graphics evidence in the note | 25 | 6564 |
 | object / animation tables (by label name) | 94 | 3629 |
-| bytes read as data by executed code, content class unknown | 2 | 2511 |
+| bytes read as data by executed code, content class unknown | 1 | 1280 |
 | HYPOTHESIS data (mostly runs of $FF / $00 padding candidates) | 24 | 1042 |
 | sprite / OAM frame records, animation scripts, object tables (not tile art) | 20 | 437 |
-| gfx fragments of fewer than 4 whole tiles | 6 | 177 |
 | tail (less than 16 bytes) after a converted tile block | 13 | 152 |
+| gfx fragments of fewer than 4 whole tiles | 5 | 127 |
 | region kind zero | 4 | 34 |
 | region kind bytes | 1 | 28 |
+| tilemap+attr blocks clipped by the analysis (size differs from 2 x rows x cols) and 4-byte tile/attr record lists | 2 | 17 |
 | region kind words | 1 | 16 |
-| tilemap+attr blocks clipped by the analysis (size differs from 2 x rows x cols) and 4-byte tile/attr record lists | 1 | 16 |
 
 ## Assets by directory
 
@@ -976,10 +976,16 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `mail_addr_tiles_9700_vb1.2bpp` | 2bpp tiles | 176 | 2D:7520 | CONFIRMED | exact | - | `gfx/mail/address_editor.asm` |
 | `mail_addr_tiles_8800_vb0.2bpp` | 2bpp tiles | 688 | 2D:75D0 | CONFIRMED | exact | - | `gfx/mail/address_editor.asm` |
 | `mail_addr_obj_tiles.2bpp` | 2bpp tiles | 192 | 2D:7880 | CONFIRMED | exact | - | `gfx/mail/address_editor.asm` |
-| `mail_addr_obj_hdma_load_tail.2bpp` | 2bpp tiles | 528 | 2D:7940 | PROBABLE | exact | - | `gfx/mail/address_editor.asm` |
+| `mail_addr_obj_hdma_load_tail.2bpp` | 2bpp tiles | 528 | 2D:7940 | CONFIRMED | exact | - | `gfx/mail/address_editor.asm` |
 | `mail_addr.tilemap` | tile-index map | 360 | 2D:7B50 | CONFIRMED | - | 20x18 | `gfx/mail/address_editor.asm` |
 | `mail_addr.attrmap` | attribute map | 360 | 2D:7CB8 | CONFIRMED | - | 20x18 | `gfx/mail/address_editor.asm` |
 | `mail_addr_bg.pal` | RGB palette | 64 | 2D:7E20 | PROBABLE | - | - | `gfx/mail/address_editor.asm` |
+
+### `gfx/mail/address_obj_hdma_bytes_copy_bank7f/`
+
+| asset | kind | bytes | bank:addr | status | png | dims | source |
+|---|---|---:|---|---|---|---|---|
+| `mail_addr_obj_hdma_bytes_copy_7f_7830.2bpp` | 2bpp tiles | 720 | 7F:7830 | CONFIRMED | exact | - | `gfx/mail/address_obj_hdma_bytes_copy_bank7f.asm` |
 
 ### `gfx/mail/body_editor/`
 
@@ -1414,6 +1420,8 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 |---|---|---:|---|---|---|---|---|
 | `password_save_confirm_variant_nonzero_bgmap_6f6f.tilemap` | tile-index map | 360 | 71:6F6F | PROBABLE | - | 20x18 | `gfx/settings/registration_delete_anim_and_password_save_confirm_bank71.asm` |
 | `password_save_confirm_variant_nonzero_bgmap_6f6f.attrmap` | attribute map | 360 | 71:70D7 | PROBABLE | - | 20x18 | `gfx/settings/registration_delete_anim_and_password_save_confirm_bank71.asm` |
+| `notice_header_gfx_source_descriptor16_7240.2bpp` | 2bpp tiles | 640 | 71:7240 | CONFIRMED | exact | - | `gfx/settings/registration_delete_anim_and_password_save_confirm_bank71.asm` |
+| `notice_header_gfx_source_descriptor17_74c0.2bpp` | 2bpp tiles | 640 | 71:74C0 | CONFIRMED | exact | - | `gfx/settings/registration_delete_anim_and_password_save_confirm_bank71.asm` |
 
 ### `gfx/settings/shared_text_entry_tiles_bank5e/`
 
@@ -1484,12 +1492,6 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `mail_server_box_tiles.2bpp` | 2bpp tiles | 1152 | 5B:5200 | PROBABLE | exact | - | `gfx/ui_art/logo_and_window_tiles.asm` |
 | `art_palettes.pal` | RGB palette | 96 | 5B:5680 | PROBABLE | - | - | `gfx/ui_art/logo_and_window_tiles.asm` |
 
-### `gfx/unresolved/tile_graphics_candidate/`
-
-| asset | kind | bytes | bank:addr | status | png | dims | source |
-|---|---|---:|---|---|---|---|---|
-| `tiles_candidate.2bpp` | 2bpp tiles | 720 | 7F:7830 | HYPOTHESIS | exact | - | `gfx/unresolved/tile_graphics_candidate.asm` |
-
 
 ## Editing images
 
@@ -1521,7 +1523,7 @@ make png-export       (maintainers) PNGs regenerated from the binaries; never ov
 
 | kind | PNG source | files | notes |
 |---|---|---:|---|
-| 2bpp tile blocks | `name.png` (exact `rgbgfx` source of `name.2bpp`) | 408 | All tile blocks in the active catalogue; shades 0-3 are grey indices, not the game's colours (the game colours come from palettes and tile attributes; see screens) |
+| 2bpp tile blocks | `name.png` (exact `rgbgfx` source of `name.2bpp`) | 410 | All tile blocks in the active catalogue; shades 0-3 are grey indices, not the game's colours (the game colours come from palettes and tile attributes; see screens) |
 | JIS 12x12 glyphs (11 binaries) | `data/fonts/jis12x12_rows_*.png`, 94 glyphs per sheet row | 9 sheets | bank 7C's three contiguous binaries share one complete sheet |
 | 8x16 font runs | `data/fonts/glyph_runs_8x16/sjis_*.png`, 16 glyphs per row | 27 sheets | |
 | 6x12 Latin font | `data/fonts/ascii_6x12.png` | 1 sheet | 6 pixel wide cells (the two unused bits of each byte stay 0) |

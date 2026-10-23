@@ -140,13 +140,15 @@ Contents per bank in section order (from `section_order.tsv`): see that file; ro
 * The layout does not depend on generator internals: every row is a plain range; the tool needs only `baserom.gbc` and `config/`.
 * Not verified (needs the tree-mode generator): that each file assembles on its own and that the generated `layout.link` reproduces the ROM; the plan is the input for that step.  **[Later: done.  `make` assembles every file as its own object, links them with the root `layout.link` and prints `SHA-256 OK`; see `README.md`.]**
 
-## 5. Uncertain assignments and judgement calls
+## 5. Historical uncertain assignments and judgement calls
+
+**Historical pre-tree planning snapshot.** The source paths and table below describe the earlier layout plan, not current owners. In particular, `gfx/bank4N.asm` and the `gfx/bank41.asm`–`gfx/bank61.asm` rows are retired generic placeholders; the active source/resource paths are owner-qualified and inventoried by the current census in `docs/research/japanese_generic_name_sweep_20261023.md`. Keep this section only as provenance for the original layout decisions.
 
 Evidence grades follow the project vocabulary.  Everything not listed here is backed by symbol prefixes, xrefs or executed load sites in the
 same bank.  None of these choices can change a byte: they only decide which file a range lands in.
 
 **Names that state a hypothesis** (the file name repeats the wording of the naming notes; HYPOTHESIS/PROBABLE there):
-* `engine/unreferenced/page_list_prototype.asm` (`7F:4C78-61FC`) and `gfx/unreferenced/page_list_prototype.asm` (`7F:62B0-70FD`): the prototype association is HYPOTHESIS in `naming_g8.md` 6.2. The tiles at `7F:7830-7B00` were historically grouped with the prototype, but reviewed source has no symbolic load/reference for `$7830`; their purpose remains unresolved. Their owner is now `gfx/unresolved/tile_graphics_candidate.asm`.
+* `engine/unreferenced/page_list_prototype.asm` (`7F:4C78-61FC`) and `gfx/unreferenced/page_list_prototype.asm` (`7F:62B0-70FD`): the prototype association is HYPOTHESIS in `naming_g8.md` 6.2. The tiles at `7F:7830-7B00` were historically grouped with the prototype. Their 720 bytes exactly match the MailAddr OBJ HDMA source at `2D:7880-7B50`; this byte identity is CONFIRMED, while a loader/use of the 7F copy remains unknown. Their owner is now `gfx/mail/address_obj_hdma_bytes_copy_bank7f.asm`.
   Historical path attribution included reads of `7F:7B40`; those are now assigned to the text-cursor object tables, not prototype art. Other prototype evidence is recorded at `7F:522A-52A4`, `6DB0` and `4FC3/4FCF`. `70FD`, `7830` and `7B00` are region boundaries. The adjacent `7F:7B00-7CC5` object owner is now `gfx/text_cursor/objects.asm`; palette, tables and animation/frame data there have positive consumers in text editors.
 * `engine/address_book/unreferenced_confirm_screen.asm` + `gfx/.../unreferenced_confirm_screen.asm` (`2C:741C-7FD0`): code without caller (HYPOTHESIS, `naming_g3.md`);
   the art part `7C80/7F50` is also described there as entry-screen art of bank 2F, so the second file mixes two hypotheses.
@@ -163,7 +165,7 @@ same bank.  None of these choices can change a byte: they only decide which file
   `29:5376-5B10` (27), `29:5B10-6290` (2F), `29:6290-64F4` (2D reads `6350`, the first 12 entries have no reader), `26:7420-7AB0` (29), `26:7AB0-7D41` (25; one palette read by 2A).
 * `22:5980-5CD0` belongs to the bank 26 scene, `22:5CD0-66D0` to bank 2F (`naming_g1.md` section 9, retraction of the first reading).
 * Banks 41-46 have **no loader** (`classify_g3/g5/g6.md`); they share the exact package format of bank 47 (`$D50` = 160 tiles + tilemap + attribute map + palettes, palette
-  signature `ff7f 1c01 027e 0000`), which is referenced by the bank 4E frame descriptors, so they may be frame styles 3-26, but nothing proves it; hence `gfx/bank4N.asm`.
+  signature `ff7f 1c01 027e 0000`), which is referenced by the bank 4E frame descriptors, so they may be frame styles 3-26, but nothing proves it; hence the now-retired planning placeholder `gfx/bank4N.asm` in this historical snapshot.
 * Bank 53 is a table + 25 katakana names (Pokemon names); no reader was found (`data/text/pokemon_names_bank53.asm`).  Bank 56 `4000-418A` (6 strings) is
   assigned to the connect dialog (57) as the only bank whose art it sits with.  Banks `52 5B 60 61` only have unproven readers.
 
@@ -820,7 +822,7 @@ same bank.  None of these choices can change a byte: they only decide which file
 
 | file | banks | bytes | est. lines | kinds |
 |---|---:|---:|---:|---|
-| `gfx/unresolved/tile_graphics_candidate.asm` | 7F | 720 | 1 | gfx 720 |
+| `gfx/mail/address_obj_hdma_bytes_copy_bank7f.asm` | 7F | 720 | 1 | gfx 720 |
 | `gfx/text_cursor/objects.asm` | 7F | 453 | 72 | data 373, words 80 |
 
 #### `home/`

@@ -656,6 +656,7 @@ gfx/mail/address_editor/mail_addr_obj_tiles.2bpp	gfx/mail/address_editor/mail_ad
 gfx/mail/address_editor/mail_addr_tiles.2bpp	gfx/mail/address_editor/mail_addr_tiles.png	tiles			0	1024	cf649ee8d02373fc521778cad1618dea9e9c2b11c179009bc28a66a87b9ea9fb
 gfx/mail/address_editor/mail_addr_tiles_8800_vb0.2bpp	gfx/mail/address_editor/mail_addr_tiles_8800_vb0.png	tiles			5	688	d7fb026b92b3ae755362a2d2020500525514fad7589739dd5d65d329dd645673
 gfx/mail/address_editor/mail_addr_tiles_9700_vb1.2bpp	gfx/mail/address_editor/mail_addr_tiles_9700_vb1.png	tiles			0	176	d6758e2c2625995b79e6756616e96e5afadc97f778baeadcef593b92bf05e369
+gfx/mail/address_obj_hdma_bytes_copy_bank7f/mail_addr_obj_hdma_bytes_copy_7f_7830.2bpp	gfx/mail/address_obj_hdma_bytes_copy_bank7f/mail_addr_obj_hdma_bytes_copy_7f_7830.png	tiles			0	720	3c54d00cdd422fa54238b4a50bbb7020b0c88efe39e92fdd111b75d6db336758
 gfx/mail/body_editor/mail_body.attrmap	-	attrmap				360	2546b93401ae2aa14b03cb07d2cfb69023366ba81ad35b0b39761e4f7585d74e
 gfx/mail/body_editor/mail_body.tilemap	-	tilemap				360	ff53fbe99b96f921e2b2e5e1925ee11e2fc8e3797a19b34e049fcf323b46f708
 gfx/mail/body_editor/mail_body_bg.pal	-	palette				519	ca67e64c2113608eea22dad91a7aef9556487a2183fda1d20241ba28fc78ff49
@@ -981,4 +982,3 @@ gfx/top_menu/top_menu/top_menu_vram1_9400_tiles.2bpp	gfx/top_menu/top_menu/top_m
 gfx/ui_art/logo_and_window_tiles/art_palettes.pal	-	palette				779	d835d959fc9e7722974f3c63d28dcc7c437fbc1d360a914a4e85138519a8d550
 gfx/ui_art/logo_and_window_tiles/logo_and_window_tiles.2bpp	gfx/ui_art/logo_and_window_tiles/logo_and_window_tiles.png	tiles			0	4608	3f3a3a44a5b87aca751360d559be3a16915ac9cd001bb4ae0fef33e51c8aa1da
 gfx/ui_art/logo_and_window_tiles/mail_server_box_tiles.2bpp	gfx/ui_art/logo_and_window_tiles/mail_server_box_tiles.png	tiles			0	1152	884fbf738d2313e7abcd6a30ed85dc5c49ee680827666ce347449796f9454d08
-gfx/unresolved/tile_graphics_candidate/tiles_candidate.2bpp	gfx/unresolved/tile_graphics_candidate/tiles_candidate.png	tiles			0	720	3c54d00cdd422fa54238b4a50bbb7020b0c88efe39e92fdd111b75d6db336758

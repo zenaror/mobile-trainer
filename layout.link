@@ -838,6 +838,6 @@ ROMX $7F
 	org $7271
 	"engine/gfx/scroll_split"
 	org $7830
-	"gfx/unresolved/tile_graphics_candidate"
+	"gfx/mail/address_obj_hdma_bytes_copy_bank7f"
 	org $7B00
 	"gfx/text_cursor/objects"

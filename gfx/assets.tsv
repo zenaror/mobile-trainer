@@ -597,7 +597,7 @@ gfx/mail/address_editor/mail_addr_obj_tiles.2bpp	tiles	192	gfx/mail/address_edit
 gfx/mail/address_editor/mail_addr_tiles.2bpp	tiles	1024	gfx/mail/address_editor.asm	2D	7120	CONFIRMED	exact	0		Gfx_MailAddr_Tiles
 gfx/mail/address_editor/mail_addr_tiles_9700_vb1.2bpp	tiles	176	gfx/mail/address_editor.asm	2D	7520	CONFIRMED	exact	0		Gfx_MailAddr_Tiles9700Vb1
 gfx/mail/address_editor/mail_addr_tiles_8800_vb0.2bpp	tiles	688	gfx/mail/address_editor.asm	2D	75D0	CONFIRMED	exact	5		Gfx_MailAddr_Tiles8800Vb0
-gfx/mail/address_editor/mail_addr_obj_hdma_load_tail.2bpp	tiles	528	gfx/mail/address_editor.asm	2D	7940	PROBABLE	exact	0		Gfx_MailAddr_ObjHDMALoadTail
+gfx/mail/address_editor/mail_addr_obj_hdma_load_tail.2bpp	tiles	528	gfx/mail/address_editor.asm	2D	7940	CONFIRMED	exact	0		Gfx_MailAddr_ObjHDMALoadTail
 gfx/mail/body_editor/mail_body.attrmap	attrmap	360	gfx/mail/body_editor.asm	2D	6128	CONFIRMED	-	0	20x18	Tilemap_MailBody
 gfx/mail/body_editor/mail_body.tilemap	tilemap	360	gfx/mail/body_editor.asm	2D	5FC0	CONFIRMED	-	0	20x18	Tilemap_MailBody
 gfx/mail/body_editor/mail_body_bg.pal	palette	64	gfx/mail/body_editor.asm	2D	6290	PROBABLE	-	0		Palette_MailBody_Bg
@@ -982,4 +982,4 @@ gfx/browser/page_list_candidate/page_list_candidate_tiles_vram9000_vb1.2bpp	tile
 gfx/browser/page_list_candidate/page_list_candidate_tiles_vram9400_vb1.2bpp	tiles	288	gfx/browser/page_list_candidate.asm	7F	66B0	PROBABLE	exact	0		PageListProto_Tiles_66B0
 gfx/browser/page_list_candidate/page_list_candidate_tiles_vram8000_vb0.2bpp	tiles	656	gfx/browser/page_list_candidate.asm	7F	6AE0	PROBABLE	exact	7		PageListProto_Tiles_6AE0
 gfx/text_cursor/objects/text_cursor_obj_palette.pal	palette	64	gfx/text_cursor/objects.asm	7F	7B00	PROBABLE	-	0		Palette_TextCursor_Obj
-gfx/unresolved/tile_graphics_candidate/tiles_candidate.2bpp	tiles	720	gfx/unresolved/tile_graphics_candidate.asm	7F	7830	HYPOTHESIS	exact	0		UnresolvedTiles_7F_7830
+gfx/mail/address_obj_hdma_bytes_copy_bank7f/mail_addr_obj_hdma_bytes_copy_7f_7830.2bpp	tiles	720	gfx/mail/address_obj_hdma_bytes_copy_bank7f.asm	7F	7830	CONFIRMED	exact	0		Gfx_MailAddr_ObjHDMABytesCopy_7F_7830

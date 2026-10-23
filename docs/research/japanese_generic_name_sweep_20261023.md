@@ -73,7 +73,7 @@ This list is exhaustive for current maintained definitions matching the exact RE
 
 The same current-tree pass rechecked all maintained source/resource paths, not only GFX assets. It found zero active definitions matching the strict generic families `Function_BB_AAAA`, `Data_BB_AAAA`, `Font_BB_AAAA`, and the equivalent typed prefixes. A broader suffix scan found 118 labels ending in `_<bank>_<address>`; each has additional text beyond the bare type/address form. This lexical fact does not certify each label's semantic quality. There are zero exact `bankNN/` directory components in active source/resource paths and zero address-only GFX asset basenames. The 29 `_bankNN.asm` source filenames and 27 owner-qualified bank-suffixed GFX directories retain descriptive owners and use the bank only as provenance. `Function_75_4000`, `Data_68_6960`, and `Font_48_4ADB` are absent from maintained Japanese definitions; their historical analysis/documentation occurrences are not active source symbols.
 
-Two explicitly unresolved content labels remain visible rather than being guessed: `Settings_ReadData_UnknownContent_7271` (a read-confirmed span whose consumer/content class is unresolved) and `UnresolvedTiles_7F_7830` (45 tiles with no supported load/consumer). Their names and `gfx/unresolved/` path are deliberate uncertainty markers, not identified functions. The scan also found two stale references in `analysis/layout/README.md` to the prior owner filename `gfx/unresolved/tiles_7f_7830.asm`; both now point to `gfx/unresolved/tile_graphics_candidate.asm`. No ROM source bytes or symbol names changed in this documentation/tool correction.
+Historical snapshot: at the time of this earlier sweep, `Settings_ReadData_UnknownContent_7271` and `UnresolvedTiles_7F_7830` were explicit uncertainty labels. The latter was later replaced after the byte-identity review recorded below; do not treat this paragraph as current path/status.
 
 Validation on the pre-correction source at `1831eb4e`: `make -j2 BUILD=/tmp/mt-generic-audit-build ROM=/tmp/mt-generic-audit.gbc` produced `SHA-256 OK` and `RESULT: IDENTICAL` against the Japanese ROM (`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`); matching overrides passed `make sym-check` (335 files, 12,195 labels, 51 constants) and `make palette-check` (162 loads, 116 arrays, 2 documented over-reads, 0 errors). The checkout's default `build/` was read-only under this execution sandbox, so generated outputs were placed in `/tmp`. After the tool edit, `python3 tools/japanese_name_census.py --generic-list` exited 0 and reconciled all 2,764 local-anchor ledger rows while listing the ten RET-only names, two unresolved labels, 19 boundary clues, active path counts, and the owner-qualified bank-tagged paths. These source-independent checks are not rerun after documentation-only edits.
 
@@ -343,3 +343,28 @@ only where the source's confidence/evidence says the purpose or entry remains
 uncertain; they are qualified uncertainty labels rather than anonymous bank
 containers. The `gfx/bank41..46` rows in `analysis/layout/README.md` describe
 the superseded pre-tree layout plan, not current paths.
+
+
+### 7F:7830 content identity update (2026-10-23)
+
+A complete-byte comparison against the protected original ROM and both existing
+MailAddr source assets established that `7F:7830–7B00` (720 bytes) is exactly
+identical to the concatenation of `2D:7880–7940` (192 bytes) and
+`2D:7940–7B50` (528 bytes). The formerly unresolved label/path are now
+`Gfx_MailAddr_ObjHDMABytesCopy_7F_7830` and
+`gfx/mail/address_obj_hdma_bytes_copy_bank7f.asm`; asset identity is CONFIRMED.
+This says nothing about copy direction or whether the 7F copy is loaded. No
+symbolic load was found in the maintained Japanese source and no read of the
+physical interval was found in the reviewed trace corpus; computed/dynamic
+access outside that reviewed evidence remains possible. The prior `Unresolved`
+content label count is therefore retired; the remaining question is use of this
+known byte duplicate. `Gfx_MailAddr_ObjHDMALoadTail` at `2D:7940` is also
+CONFIRMED as the bounded tail of the 720-byte upload:
+`MailAddr_SetupScreen` starts at `2D:7880` with 45 blocks of 16 bytes. Its
+source comment and region header already had this status; the asset catalogue
+was corrected from PROBABLE to CONFIRMED. No payload bytes changed.
+
+
+### Current census after 7F path reconciliation (2026-10-23)
+
+The latest staged-tree run of `python3 tools/japanese_name_census.py` reconciles 349 tracked Japanese ASM/INC inputs, 2,764 local-anchor rows, 786 numeric RAM equates and the reviewed address-suffix families. It reports zero strict address-only global definitions, zero active `Unknown`/`Unresolved` content labels, zero address-only GFX basenames, and zero generic bare `gfx/bankNN/` directory components. There are 28 *owner-qualified* resource directories with bank suffixes and 30 owner-qualified `*_bankNN.asm` source files; these are descriptive names, not generic `bankNN` placeholders. The 7F:7830 resource is now owned by `gfx/mail/address_obj_hdma_bytes_copy_bank7f.asm`; exact bytes match the 2D:7880–7B50 sequence, but its consumer/use remains unknown.
