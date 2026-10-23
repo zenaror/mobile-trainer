@@ -18,14 +18,18 @@ static load contract. The continuation was converted into an exact `.2bpp` binar
 88×32 PNG (11 tiles per row, no padding); `rgbgfx -c embedded` rebuilt the binary from the PNG
 byte for byte. The original 16-byte tile at `$5140` remains a separate exact source.
 
-## Remaining small GFX-plan fragments
+## Additional complete tiles and current residual spans
 
-The other 16 `gfx` rows in that plan are all shorter than four 16-byte tiles: `4B:5400` (32 bytes),
-`24:5EE0` (17), `24:62D1` (15), `24:62E0` (33), `24:63C1` (15), `51:70D1` (15), `42:48A2`
-(9), `42:5E50` (14), `42:6132` (14), `42:6340` (10), `42:7092` (12), `42:7190` (12),
-`1A:4A85` (11), `2C:5660` (12), `25:6CE1` (15), and `25:6E70` (1). These spans do not form
-standalone complete-tile sheets. Their bytes and existing confidence/owner notes remain intact; the
-triage does not assert they are unused or assign them a higher-level image identity.
+Three of the 16 additional rows in the pre-extraction plan contained complete tiles that were
+recoverable as standalone indexed PNG sources without absorbing adjacent non-tile bytes:
+
+- `4B:5400..5420` (32 bytes, two tiles) maps inside the static second-banner DMA to VRAM1 `$9310..$9330`.
+- `24:5EE0..5EF0` (16 bytes, one tile) is the first tile of the 1,024-byte Page List DMA to VRAM0 `$8000`; the following byte `$BE` at `5EF0` remains separate because it begins the next tile.
+- `24:62E0..6300` (32 bytes, two tiles) is the first two tiles of the 512-byte Page List DMA to VRAM0 `$8400`; the following byte `$50` at `6300` remains separate as the next tile begins.
+
+Each range now has an exact `.2bpp` backing and indexed PNG; `rgbgfx -c embedded` round-tripped all three binaries exactly. These are static transfer relationships only; they do not establish natural screen composition or usage.
+
+The current `python3 tools/gfx_export.py plan` reports 13 residual `gfx` spans, each shorter than one 16-byte tile: `24:62D1` (15 bytes), `24:63C1` (15), `51:70D1` (15), `42:48A2` (9), `42:5E50` (14), `42:6132` (14), `42:6340` (10), `42:7092` (12), `42:7190` (12), `1A:4A85` (11), `2C:5660` (12), `25:6CE1` (15), and `25:6E70` (1). They remain in their existing source representations and confidence grades; this does not assert they are unused or assign them a higher-level image identity.
 
 A separate Bank 4B residual review found no further missing PNG within the examined ranges. The
 `4B:7090..7490` request crosses existing typed sources (32-byte tail, 768-byte tile slice, 64-byte

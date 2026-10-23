@@ -27,8 +27,7 @@ AccountResultPage_CandidateTiles_5080:: ; 4B:5080
 ; ---- gfx $5400-$5420 (32 bytes) [CONFIRMED] two 2bpp tiles in static second-banner DMA: source 4B:5370-$55F0 -> VRAM1:$9280-$9500; this slice maps to $9310-$9330. No natural-use or visual claim.
 
 Gfx_Account_ResultPage_SecondBanner1_Tiles9310Vb1:: ; 4B:5400
-	db $00, $00, $00, $FF, $FF, $00, $F7, $F8, $9B, $0C, $6F, $64, $67, $64, $67, $64
-	db $00, $00, $00, $FF, $FF, $00, $FF, $20, $FF, $BE, $63, $62, $BF, $2A, $FD, $28
+	INCBIN "gfx/account/result_page_bank4b/account_result_page_second_banner1_tiles9310vb1.2bpp"
 
 ; ---- gfx $5420-$5870 (1104 bytes) [PROBABLE] tile data: heuristic: 69 coherent tiles (hsim2=0.852 vsim2=0.752, 0 blank) parity 0; 40/1184 bytes also covered by call-site blocks [clipped from 5420-58C0 by higher-priority proposals]; the 8 bytes behind the INCBIN and the next block ($5878-$5898, 32 bytes) were palette bytes: the palette array below is what engine/account/result_page.asm reads
 

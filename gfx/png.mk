@@ -58,6 +58,7 @@ PNG_TILE_OUTS := \
 	gfx/account/password_and_registration_config_bank5d/registration_write_config_tiles9000_vb1_6e00.2bpp \
 	gfx/account/result_page_bank4b/account_result_page_candidate_tiles_5080.2bpp \
 	gfx/account/result_page_bank4b/account_result_page_candidate_tiles_5420.2bpp \
+	gfx/account/result_page_bank4b/account_result_page_second_banner1_tiles9310vb1.2bpp \
 	gfx/account/result_page_bank4b/account_result_page_tiles4ad0.2bpp \
 	gfx/account/result_page_bank4b/result_page_vram8800_vb1_tiles.2bpp \
 	gfx/account/result_page_bank4b/result_page_vram8c00_vb1_tiles.2bpp \
@@ -105,11 +106,13 @@ PNG_TILE_OUTS := \
 	gfx/browser/menus/browser_menu3_tiles_8f00_vb1.2bpp \
 	gfx/browser/page_list/page_list_hdma_source_byte_slice_24_55d0.2bpp \
 	gfx/browser/page_list/page_list_hdma_source_byte_slice_24_5ef1.2bpp \
+	gfx/browser/page_list/page_list_tile_8000_vb0_5ee0.2bpp \
 	gfx/browser/page_list/page_list_tiles_5400.2bpp \
 	gfx/browser/page_list/page_list_tiles_5800.2bpp \
 	gfx/browser/page_list/page_list_tiles_5810.2bpp \
 	gfx/browser/page_list/page_list_tiles_6301.2bpp \
 	gfx/browser/page_list/page_list_tiles_63e0.2bpp \
+	gfx/browser/page_list/page_list_tiles_8400_vb0_62e0.2bpp \
 	gfx/browser/page_list_candidate/page_list_candidate_tiles_vram8000_vb0.2bpp \
 	gfx/browser/page_list_candidate/page_list_candidate_tiles_vram9000_vb1.2bpp \
 	gfx/browser/page_list_candidate/page_list_candidate_tiles_vram9400_vb1.2bpp \
@@ -475,6 +478,7 @@ gfx/account/password_and_registration_config_bank5d/registration_write_config_ti
 gfx/account/result_page_bank4b/account_result_page_candidate_tiles_5080.2bpp: PNG_SIZE := 896
 gfx/account/result_page_bank4b/account_result_page_candidate_tiles_5420.2bpp: PNG_SIZE := 1104
 gfx/account/result_page_bank4b/account_result_page_candidate_tiles_5420.2bpp: PNG_PAD := -x 11
+gfx/account/result_page_bank4b/account_result_page_second_banner1_tiles9310vb1.2bpp: PNG_SIZE := 32
 gfx/account/result_page_bank4b/account_result_page_tiles4ad0.2bpp: PNG_SIZE := 1456
 gfx/account/result_page_bank4b/result_page_vram8800_vb1_tiles.2bpp: PNG_SIZE := 1024
 gfx/account/result_page_bank4b/result_page_vram8c00_vb1_tiles.2bpp: PNG_SIZE := 1024
@@ -526,12 +530,14 @@ gfx/browser/page_list/page_list_hdma_source_byte_slice_24_55d0.2bpp: PNG_SIZE :=
 gfx/browser/page_list/page_list_hdma_source_byte_slice_24_55d0.2bpp: PNG_PAD := -x 13
 gfx/browser/page_list/page_list_hdma_source_byte_slice_24_5ef1.2bpp: PNG_SIZE := 992
 gfx/browser/page_list/page_list_hdma_source_byte_slice_24_5ef1.2bpp: PNG_PAD := -x 2
+gfx/browser/page_list/page_list_tile_8000_vb0_5ee0.2bpp: PNG_SIZE := 16
 gfx/browser/page_list/page_list_tiles_5400.2bpp: PNG_SIZE := 464
 gfx/browser/page_list/page_list_tiles_5400.2bpp: PNG_PAD := -x 3
 gfx/browser/page_list/page_list_tiles_5800.2bpp: PNG_SIZE := 16
 gfx/browser/page_list/page_list_tiles_5810.2bpp: PNG_SIZE := 160
 gfx/browser/page_list/page_list_tiles_6301.2bpp: PNG_SIZE := 192
 gfx/browser/page_list/page_list_tiles_63e0.2bpp: PNG_SIZE := 256
+gfx/browser/page_list/page_list_tiles_8400_vb0_62e0.2bpp: PNG_SIZE := 32
 gfx/browser/page_list_candidate/page_list_candidate_tiles_vram8000_vb0.2bpp: PNG_SIZE := 656
 gfx/browser/page_list_candidate/page_list_candidate_tiles_vram8000_vb0.2bpp: PNG_PAD := -x 7
 gfx/browser/page_list_candidate/page_list_candidate_tiles_vram9000_vb1.2bpp: PNG_SIZE := 1024

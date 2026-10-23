@@ -45,11 +45,11 @@ PageList_BgPalette:: ; 24:5EA0
 
 	INCLUDE "gfx/browser/page_list/page_list_bg_palette.pal"
 
-; ---- gfx $5EE0-$5EF1 (17 bytes) [CONFIRMED] 2bpp tiles (too few non-blank tiles to score); first bytes of the 1024-byte block 5EE0-62E0 uploaded by Gfx_StartHDMA (hl=$5EE0 a=$24 c=$40 de=$8000) at 24:4356; call site executed: 40 hits in 9 scenarios (analysis/coverage_union.tsv)
+; ---- gfx $5EE0-$5EF0 (16 bytes) [CONFIRMED] one complete 2bpp tile at the start of the 1024-byte DMA source window; byte $BE at $5EF0 begins the next tile and stays in db.
 
 PageList_Tiles_5EE0:: ; 24:5EE0
 
-	db $FF, $FF, $FF, $8A, $FF, $FF, $FF, $8B, $FF, $FA, $FB, $F7, $F5, $8D, $F8, $F8
+	INCBIN "gfx/browser/page_list/page_list_tile_8000_vb0_5ee0.2bpp"
 	db $BE
 
 ; ---- gfx $5EF1-$6301 (1040 bytes) [PROBABLE] tiles-2bpp: heuristic: 45 coherent tiles (hsim2=0.655 vsim2=0.638, 7 blank) parity 1
@@ -60,9 +60,8 @@ PageList_HDMASourceByteSlice_24_5EF1:: ; 24:5EF1
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
 PageList_Tiles_62E0:: ; 24:62E0
-	db $5A, $7F, $52, $77, $52, $77, $52, $77, $5A, $7F, $26, $3F, $1A, $1B, $02, $03
-	db $80, $FF, $80, $FF, $80, $FF, $80, $FF, $80, $FF, $B0, $FF, $B0, $DF, $80, $FF
-	db $50
+	INCBIN "gfx/browser/page_list/page_list_tiles_8400_vb0_62e0.2bpp"
+	db $50 ; 24:6300, first byte of the next tile in the 512-byte DMA window
 
 ; ---- gfx $6301-$63D0 (207 bytes) [CONFIRMED] 2bpp tiles by coherence: 12 non-blank tiles, mean adjacent-pixel similarity h=0.49 v=0.75 (random data ~0.25-0.35); inside block 62E0-64E0 uploaded by Gfx_StartHDMA (hl=$62E0 a=$24 c=$20 de=$8400) at 24:436B; call site executed: 40 hits in 9 scenarios (analysis/coverage_union.tsv)
 
