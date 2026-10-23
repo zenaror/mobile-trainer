@@ -8,6 +8,12 @@ After rebuilding the Japanese ROM at `be577515e5e46ce115c24c6cd8d11866086084dd`,
 
 ## Unified census and dispositions
 
+### Broader typed-symbol candidate sweep at `856d341b` (2026-10-23)
+
+To check for generic labels that do not match a bare `Type_BB_AAAA` spelling, a second pass scanned anchored global definitions in all 349 tracked Japanese ASM/INC files for the full `Function`/`Func`/`Sub`/`Routine`/`Unknown`/`Unk`/`Code`/`Font` type families, in addition to the data/resource families already covered above. It found no current function-like placeholders and no `Font_BB_AAAA` labels. The 27 `Font_GlyphRun_HHHH` labels are a deliberate role-plus-key form: each `HHHH` is the Shift-JIS start code stored in the glyph-run table, not a ROM address. At this revision, the 27 definitions, 27 table targets, and 27 `sjis_HHHH.1bpp` inputs have identical key sets; the inputs total 4,848 bytes and each run is a nonzero multiple of 16 bytes. They remain unchanged because both the role and lookup key are explicit and independently cross-referenced. The other font-prefixed definitions name rendering routines, tables, or the validity bitmap. This closes that broader typed-symbol candidate family for this revision; it does not establish complete semantic identification of every routine.
+
+The scan also distinguishes uncertainty tokens from ordinary compound names: `Candidate` inside an established owner name such as `AddrScreenCandidate` is not by itself an uncertainty marker. Candidate flags require the token boundary and row-level evidence described in the ledgers; substring counts are not a defect count.
+
 **Historical baseline:** The following table records counts at `69b7f8c125faf56d4aee77fbed860b8bd4578ccd`. It is retained for provenance; use the current snapshot statement above and the batch-closure section below for present counts.
 
 The previous passes did have broad coverage, but it was split between notes and did not put all naming families in one place. This section is the cross-category index; row-level decisions remain in the linked ledgers. Counts use tracked Japanese source files and exclude `languages/`, frozen analysis/configuration data, and the protected `engine/mail/sample_data.asm` payload. The source files are maintained by hand. The query families were anchored symbol definitions, path basenames, local definitions, RAM `EQU/SET/EQUS`, and explicitly qualified uncertainty markers; the counts below are flags/categories, not a claim that each lexical match is a defect.
