@@ -3054,6 +3054,8 @@ MailBody_KeyboardLoop:: ; 2D:5691
 	pop bc
 	ret
 .reset_scroll_return ; 2D:5A6F
+	; [CONFIRMED] Reached at frame 14927 in one scripted-input mGBA replay only.
+	; See docs/research/japanese_body_keyboard_reset_trace_20261023.md; return is ret_unmatched.
 	push bc
 	xor a, a
 	ldh [rSCY], a
