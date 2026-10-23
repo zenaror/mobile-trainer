@@ -26,7 +26,7 @@ Adding labels and comments leaves each slice unchanged.
 | `29:50C7–50CE` | 7 | `08890d80614c53b17d9efe44a099a8835037d937bff09357c4a961ebc1d0585f` | `PalLibCandidate_WaitAndServiceVBlankForBCount` | Call `VBlank_WaitAndService` and decrement B until zero; initial B=0 wraps through 256 iterations. |
 | `29:50CE–50D5` | 7 | `28564ec3053cac35322d8095a13f69395c211c7c587697a90873f94a066bb51e` | `PalLibCandidate_Call511EThenWaitVBlanksForBMinusOneCount` | Call `29:511E`, decrement B, then enter the preceding wait loop if nonzero. B=1 waits zero times; B=0 wraps before the wait loop. |
 | `29:50D5–50DA` | 5 | `afb48bb9e1f79b1a577a77006d21c3d99abc05526a48757c9bac896e41e01086` | `PalLibCandidate_AdvanceHLByDEStrideUntilCZero` | Decrement C; return at zero, otherwise add DE to HL and repeat. Initial C=0 wraps through 255 additions. |
-| `29:50DA–50FC` | 34 | `5ee01a8e5e91fe110c5652dba1ee416dcf0a8c6ad45dc1d2cda8cb3838017a21` | `PalLibCandidate_ComputeRom0Word5xPlus3711AndWriteBytesAt0C0E0C0F` | Read the ROM0 word at `$0C0E`, calculate `5*word+$3711`, write the low byte to `$0C0E` and high byte plus LY to `$0C0F`; restore DE/HL. The effect of the writes is unproved. |
+| `29:50DA–50FC` | 34 | `5ee01a8e5e91fe110c5652dba1ee416dcf0a8c6ad45dc1d2cda8cb3838017a21` | `PalLibCandidate_DisableMbc5RamThenWriteLyDerivedGateValue` | ROM0 bytes at `$0C0E/$0C0F` are `CD 18` (`$18CD`); calculate `$B312`, write `$12` to the MBC5 RAM-enable region, then write `$B3+LY`. Under the documented MBC5 decode, the second command enables RAM only when `LY & $0F == 7`; entry and intended purpose remain unproved. |
 | `29:50FC–510F` | 19 | `5c7f81d25cec6f576431d1df04d01cef44398980d0400e5b285a5240c44bed62` | `PalLibCandidate_DivideABy10ToFfb1QuotientFfb0Remainder` | Repeatedly subtract ten; store quotient in `$FFB1`, remainder in `$FFB0`, preserve HL. |
 | `29:510F–5117` | 8 | `52702c5d90344834c1f75e644d28377fa964f27c454d38a6d9e323d7925f667e` | `PalLibCandidate_WriteRomBankLowAAndZeroHigh` | Write A to `$2000`, then zero to `$3000`; no live mapper effect is inferred. |
 | `29:526D–529F` | 50 | `caeb1a1b690f30d1fe40c651716671f93bc2684e5b7ae22ab06518ffd6ed3849` | `PalLibCandidate_Zero64BgPaletteBytesAndWriteObjStreamFromDE` | Zero 64 BG palette bytes, then transfer the stream from DE to OBJ palette data. B starts at zero, so the second loop runs 256 iterations. |
@@ -37,9 +37,11 @@ The names at `29:50C7` and `29:50D5` bound local loop entries, not demonstrated
 external call targets. The `29:50CE` wrapper has a static internal call to the
 already named `29:511E` leaf. The 256-iteration OBJ loop and writes to mapper
 register addresses are recorded literally; neither is normalized into an
-assumed intended operation. The sequence at `29:50DA` is now named for its
-observed arithmetic and write addresses; its reads from ROM0 and writes to
-`$0C0E/$0C0F` do not establish a persistent-state, mapper-effect, or PRNG role.
+assumed intended operation. The sequence at `29:50DA` reads the fixed ROM0
+bytes `CD 18`, calculates `$B312`, writes `$12` to the MBC5 RAM-enable
+register region, then writes `$B3+LY` through the same region. This establishes
+the static register commands under the documented MBC5 decode, not a natural
+call, runtime LY, hardware observation, or intended purpose.
 
 The ten affected `.lAAAA` ledger rows now use the owner label current at each
 instruction boundary. Eleven additional nonnumeric locals in the same source

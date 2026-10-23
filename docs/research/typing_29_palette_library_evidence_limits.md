@@ -37,3 +37,18 @@ This candidate had not been assembled or adopted at the historical checkpoint. R
 ## Current source update (2026-10-21)
 
 The historical proposal above used the path `engine/gfx/unreferenced_palette_library.asm` and `PalLibUnused_*`. The current source owner is `engine/gfx/palette_library_candidate.asm`, with `PalLibCandidate_*` operation names. This path/prefix migration removes a global non-use implication; it does not prove a root entry, selected bank, callable-library ABI or intended original purpose. The owner was rebuilt and passed the current byte-identity and symbol gates; see [the closure follow-up](original_closure_followup_20261021.md). Historical counts in this note remain attached to their original checkpoint and are not current corpus totals.
+
+## MBC5 RAM-enable commands at `29:50DA` (2026-10-23)
+
+The immutable ROM has cartridge type `$1B` (MBC5+RAM+BATTERY). ROM0 bytes at
+`$0C0E/$0C0F` are `CD 18`, so the routine reads `$18CD`; its arithmetic
+`5*$18CD+$3711` produces `$B312`. It writes `$12` to `$0C0E`, then
+`$B3+LY` to `$0C0F`. Both addresses lie in the MBC5 RAM-enable register
+region `$0000-$1FFF`; the documented MBC5 decode enables RAM when the written
+value's low nibble is `$A`, and disables it otherwise. Thus the first command
+disables RAM, and the second command enables it only when `LY & $0F == 7`.
+This is a static register-command result from ROM bytes and the declared MBC5
+map, not evidence that the operation is called naturally, what LY was at any
+runtime call, physical-cartridge behavior, or application purpose. The name
+`PalLibCandidate_DisableMbc5RamThenWriteLyDerivedGateValue` records only the
+bounded operation; the candidate prefix and entry/purpose uncertainty remain.

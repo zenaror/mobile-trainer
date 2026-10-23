@@ -14,7 +14,7 @@ ClearLcdcBit2:: ; 29:5090
 	; Outside-span: 4,001 raw words/323 opcode-shaped patterns (14-opcode scan); no physical29 CALL/JP; patterns are not caller proofs.
 	; $7BB7 is zero padding in physical bank 29; entry/copy/relocation and selected bank are unknown.
 	; Writes to $2000/$3000 at $510F can change later fetches; padding cannot exclude every leaf.
-	; The PRNG-like sequence reads ROM $0C0E/$0C0F and writes mapper space, not WRAM seed storage.
+	; 50DA reads ROM0 CD 18, computes $B312, writes $12 then $B3+LY to MBC5 RAMG; entry/purpose unproved.
 	; Standalone $DBD0 entries need a bank precondition; $520D explicitly sets real SVBK=1.
 	; At $526D BG uses B=$40 zero writes; OBJ uses B=$00, DEC/JR NZ and [DE], not a 64-byte clear.
 	; No 24-byte window occurs outside this span; these raw/static facts do not establish live use.
@@ -99,9 +99,9 @@ PalLibCandidate_AdvanceHLByDEStrideUntilCZero:: ; 29:50D5
 	add hl, de
 	jr .l50D5
 
-PalLibCandidate_ComputeRom0Word5xPlus3711AndWriteBytesAt0C0E0C0F:: ; 29:50DA
-	; [CONFIRMED] read the ROM0 word at $0C0E; compute 5*word+$3711; write low to $0C0E and
-	; high+LY to $0C0F; restore DE/HL. Hardware effect, entry, and purpose remain HYPOTHESIS.
+PalLibCandidate_DisableMbc5RamThenWriteLyDerivedGateValue:: ; 29:50DA
+	; [CONFIRMED MBC5 decode] ROM0 CD 18 -> $18CD; arithmetic -> $B312; $0C0E/$0C0F are RAMG mirrors.
+	; Writes $12 (disable), then $B3+LY (enable iff LY&$0F=$7); natural entry, runtime LY and purpose remain HYPOTHESIS.
 	push de
 	push hl
 	ld a, [$0C0E]
