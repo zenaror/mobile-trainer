@@ -11,22 +11,25 @@ import csv
 import re
 import subprocess
 import sys
+from collections import Counter
 from pathlib import Path
 
 PROTECTED = "engine/mail/sample_data.asm"
 LOCAL_LEDGER = Path("docs/research/japanese_local_anchor_dispositions_20261023.tsv")
+SUFFIX_LEDGER = Path("docs/research/japanese_bank_address_suffix_dispositions_20261023.tsv")
 GLOBAL = re.compile(
     r"(?:Function|Func|Sub|Routine|Unknown|Unk|Code|Label|Font|Tiles?|"
     r"Tilemap|Attrmap|Palette|String|Table|SpriteFrame|SpriteScript|Data)_"
-    r"[0-9A-F]{2}_[0-9A-F]{4}\Z", re.I
+    r"(?:[0-9A-F]{2}_)?[0-9A-F]{4}\Z", re.I
 )
 LOCAL_ADDRESS = re.compile(r"\.l[0-9A-F]{4}\Z", re.I)
 SHORT_LOCAL = re.compile(r"\.(?:loop|skip|done|start)\Z")
 RAM_NAME = re.compile(r"(?:wRam|hRam|sSram)_[0-9A-F]{4}\Z", re.I)
 RAM_DECL = re.compile(r"^(?:DEF\s+)?([A-Za-z_.$][\w.$]*)\s+(?:EQU|SET|EQUS)\b", re.I)
-LABEL = re.compile(r"^([A-Za-z_.$][\w.$]*)::")
+LABEL = re.compile(r"^([A-Za-z_$][\w.$]*)(?:::|:)")
 ADDRESS_SUFFIX = re.compile(r"_[0-9A-F]{2}_[0-9A-F]{4}\Z", re.I)
-LOCAL = re.compile(r"^(\.[\w.$]+)(?:\s|$)")
+ADDRESS_ONLY_SUFFIX = re.compile(r"_[0-9A-F]{4}\Z", re.I)
+LOCAL = re.compile(r"^(\.[\w.$]+)(?::|\s|$)")
 ASSET_ADDRESS = re.compile(
     r"(?:tiles?|tilemap|attrmap|palette)_?[0-9A-F]{4}(?:\.[^/]*)?\Z", re.I
 )
@@ -86,7 +89,8 @@ def main() -> int:
 
     hits: dict[str, list[str]] = {
         "strict global address-shaped definitions": [],
-        "global labels with bank/address suffix (review every listed name)": [],
+            "global labels with bank/address suffix (row-level disposition)": [],
+            "global labels with address suffix (broad candidate inventory)": [],
         "numeric local .lAAAA definitions": [],
         "short local placeholders": [],
         "numeric RAM equates": [],
@@ -96,6 +100,7 @@ def main() -> int:
         "function-boundary or complete-function comments to reconcile": [],
     }
     current_local: set[tuple[str, str, str, str]] = set()
+    current_numeric_local: set[tuple[str, str, str, str]] = set()
     unreviewed_name_markers: list[str] = []
     for name in files:
         try:
@@ -148,7 +153,11 @@ def main() -> int:
                     f"{name}:{number}:{global_match.group(1)}"
                 )
             if global_match and ADDRESS_SUFFIX.search(global_match.group(1)):
-                hits["global labels with bank/address suffix (review every listed name)"].append(
+                hits["global labels with bank/address suffix (row-level disposition)"].append(
+                    f"{name}:{number}:{global_match.group(1)}"
+                )
+            if global_match and (ADDRESS_SUFFIX.search(global_match.group(1)) or ADDRESS_ONLY_SUFFIX.search(global_match.group(1))):
+                hits["global labels with address suffix (broad candidate inventory)"].append(
                     f"{name}:{number}:{global_match.group(1)}"
                 )
             if local_match:
@@ -165,6 +174,8 @@ def main() -> int:
                 if address:
                     bank_address = f"{address.group(1).upper()}:{address.group(2).upper()}"
                     current_local.add((name, bank_address, current_owner, label))
+                    if LOCAL_ADDRESS.fullmatch(label):
+                        current_numeric_local.add((name, bank_address, current_owner, label))
             if ram_match and RAM_NAME.fullmatch(ram_match.group(1)):
                 hits["numeric RAM equates"].append(
                     f"{name}:{number}:{ram_match.group(1)}"
@@ -187,11 +198,35 @@ def main() -> int:
     with LOCAL_LEDGER.open(encoding="utf-8", newline="") as stream:
         ledger = list(csv.DictReader(stream, delimiter="\t"))
     ledger_misses = []
+    ledger_keys = []
     for row in ledger:
         expected = row["old_label"] if row["disposition"] == "KEEP" else row["final_name"]
         key = (row["path"], row["bank_address"], row["owner"], expected)
+        ledger_keys.append(key)
         if key not in current_local:
             ledger_misses.append(key)
+    duplicate_ledger_keys = sorted(key for key, count in Counter(ledger_keys).items() if count > 1)
+    source_local_misses = sorted(current_numeric_local - set(ledger_keys))
+
+    if not SUFFIX_LEDGER.is_file():
+        print(f"error: missing bank/address-suffix ledger: {SUFFIX_LEDGER}", file=sys.stderr)
+        return 2
+    with SUFFIX_LEDGER.open(encoding="utf-8", newline="") as stream:
+        suffix_ledger = list(csv.DictReader(stream, delimiter="\t"))
+    suffix_source = set()
+    for item in hits["global labels with bank/address suffix (row-level disposition)"]:
+        path, line, label = item.rsplit(":", 2)
+        suffix_source.add((path, line, label))
+    suffix_keys = [(row["path"], row["line"], row["label"]) for row in suffix_ledger]
+    suffix_misses = sorted(suffix_source - set(suffix_keys))
+    suffix_stale = sorted(set(suffix_keys) - suffix_source)
+    suffix_duplicates = sorted(key for key, count in Counter(suffix_keys).items() if count > 1)
+    suffix_incomplete = [
+        row["label"] for row in suffix_ledger
+        if row.get("disposition") != "KEEP_DESCRIPTIVE"
+        or not row.get("evidence") or not row.get("category")
+        or not row.get("bank_address")
+    ]
 
     tracked_paths = subprocess.check_output(["git", "ls-files", "-z"], text=True)
     all_paths = [p for p in tracked_paths.split("\0") if p]
@@ -233,6 +268,7 @@ def main() -> int:
         "source labels explicitly retaining Unknown/Unresolved content",
         "function-boundary or complete-function comments to reconcile",
         "numeric RAM equates",
+        "global labels with address suffix (broad candidate inventory)",
     }
     for family, rows in hits.items():
         print(f"{family}: {len(rows)}")
@@ -266,11 +302,32 @@ def main() -> int:
         dispositions[row["disposition"]] += 1
     print(f"Local-anchor ledger rows: {len(ledger)} ({dispositions.get('RENAME', 0)} RENAME, {dispositions.get('KEEP', 0)} KEEP)")
     print(f"Current local-anchor/ledger matches: {len(ledger) - len(ledger_misses)}/{len(ledger)}")
+    print(f"Current local-anchor definitions absent from ledger: {len(source_local_misses)}")
+    print(f"Duplicate local-anchor ledger keys: {len(duplicate_ledger_keys)}")
     if args.list or ledger_misses:
         for row in ledger_misses:
             print(f"  ledger mismatch: {row}")
+    if source_local_misses:
+        for row in source_local_misses:
+            print(f"  source local missing from ledger: {row}")
+    suffix_errors = suffix_misses or suffix_stale or suffix_duplicates or suffix_incomplete
+    print(f"Bank/address-suffix row ledger: {len(suffix_ledger)} rows; source matches {len(suffix_source) - len(suffix_misses)}/{len(suffix_source)}")
+    if args.list or suffix_errors:
+        for row in suffix_ledger:
+            print(f"  {row['disposition']}: {row['path']}:{row['line']}:{row['label']} [{row['evidence']}]")
+    if suffix_errors:
+        print(f"Bank/address-suffix ledger errors: missing={len(suffix_misses)}, stale={len(suffix_stale)}, duplicate={len(suffix_duplicates)}, incomplete={len(suffix_incomplete)}")
     print(f"Excluded before reading: {PROTECTED}")
-    return 1 if ledger_misses or unreviewed_name_markers else 0
+    strict_generic_errors = (
+        hits["strict global address-shaped definitions"]
+        or hits["short local placeholders"]
+        or bank_dirs
+        or address_assets
+    )
+    return 1 if (
+        ledger_misses or source_local_misses or duplicate_ledger_keys or suffix_errors
+        or unreviewed_name_markers or strict_generic_errors
+    ) else 0
 
 
 if __name__ == "__main__":
