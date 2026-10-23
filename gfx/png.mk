@@ -411,6 +411,8 @@ PNG_TILE_OUTS := \
 	gfx/settings/phone_choice_and_slot_menus_bank4d/slot_menu_tiles9100_vb1_slice_7170.2bpp \
 	gfx/settings/phone_choice_and_slot_menus_bank4d/slot_menu_tiles9400_vb1_6870.2bpp \
 	gfx/settings/phone_choice_and_slot_menus_bank4d/slot_menu_tiles9400_vb1_7470.2bpp \
+	gfx/settings/registration_delete_anim_and_password_save_confirm_bank71/notice_header_gfx_source_descriptor16_7240.2bpp \
+	gfx/settings/registration_delete_anim_and_password_save_confirm_bank71/notice_header_gfx_source_descriptor17_74c0.2bpp \
 	gfx/settings/shared_text_entry_tiles_bank5e/shared_text_entry_vram8800_vb1.2bpp \
 	gfx/settings/shared_text_entry_tiles_bank5e/shared_text_entry_vram8c00_vb1.2bpp \
 	gfx/title/logo/title_logo_tiles_9000_vb1.2bpp \
@@ -850,6 +852,8 @@ gfx/settings/phone_choice_and_slot_menus_bank4d/slot_menu_tiles9100_vb1_slice_65
 gfx/settings/phone_choice_and_slot_menus_bank4d/slot_menu_tiles9100_vb1_slice_7170.2bpp: PNG_SIZE := 768
 gfx/settings/phone_choice_and_slot_menus_bank4d/slot_menu_tiles9400_vb1_6870.2bpp: PNG_SIZE := 1024
 gfx/settings/phone_choice_and_slot_menus_bank4d/slot_menu_tiles9400_vb1_7470.2bpp: PNG_SIZE := 256
+gfx/settings/registration_delete_anim_and_password_save_confirm_bank71/notice_header_gfx_source_descriptor16_7240.2bpp: PNG_SIZE := 640
+gfx/settings/registration_delete_anim_and_password_save_confirm_bank71/notice_header_gfx_source_descriptor17_74c0.2bpp: PNG_SIZE := 640
 gfx/settings/shared_text_entry_tiles_bank5e/shared_text_entry_vram8800_vb1.2bpp: PNG_SIZE := 1024
 gfx/settings/shared_text_entry_tiles_bank5e/shared_text_entry_vram8c00_vb1.2bpp: PNG_SIZE := 1024
 gfx/title/logo/title_logo_tiles_9000_vb1.2bpp: PNG_SIZE := 1024
