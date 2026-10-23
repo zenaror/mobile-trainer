@@ -26,6 +26,17 @@ To cover code that has no symbol for a generic-name census to find, an exact sca
 
 No ROM bytes or operands changed. A full Japanese rebuild with `ROM=/tmp/mobile-trainer-function-audit-20261023/mobile_trainer.gbc` and `BUILD=/tmp/mobile-trainer-function-audit-20261023/build` reported `RESULT: IDENTICAL` and SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`; `make sym-check` passed with 335 source files, 12,191 labels, and 51 constants; `make palette-check` passed 162 loads in 116 arrays with two documented over-reads and zero errors. These checks validate reconstruction and label addresses, not natural entry or execution of the two hypotheses.
 
+### Complete `Mail_NextSramPage` caller-shape inventory
+
+Following the new `0F:4C59` label, every `call Mail_NextSramPage` in `lib/mobile/mail.asm` was enumerated at the same source snapshot: 22 call sites total. Twenty-one are ret-delimited wrappers with `push bc; ld bc,<bank-variable>; call; pop bc; ret` shape (11 pass `wMail_InputBank`, 10 pass `wMail_OutputBank`); the 22nd is an inline loop continuation in `Mail_StripCommentsAndSpaces` (`pop bc; jr Mail_StripCommentsAndSpaces`), not a separate wrapper. The complete wrapper set is:
+
+| Bank variable | Address and global label |
+|---|---|
+| Input | `4337 Mail_ScanHeaders_NextPage`; `44CC Mail_FindHeader_NextPage`; `469F Mail_MatchBoundary_NextPage`; `483E Mail_FindBoundary_NextPage`; `4A75 Mail_SkipHeaderBlock_NextPage`; `4ACA Mail_FindMessageEnd_NextPage`; `4B50 Mail_FindKeywordValue_NextPage`; `4C59 Mail_AdvanceInputSramPage`; `52B3 Mail_CopyItemToBuffer_NextPage`; `5C52 Mail_CopyBase64StripLineBreaks_NextPage`; `5D76 Mail_CopyFromSram_NextPage` |
+| Output | `48BD Mail_PartRec_EmitHeaderBlock_NextPage`; `4948 Mail_PartRec_EmitLengthAndPart_NextPage`; `49C7 Mail_PartRec_EmitPart_NextPage`; `4A13 Mail_PartRec_EmitLength_NextPage`; `4EE4 Mail_EmitCrLf_NextPage`; `505D Mail_EmitString_NextPage`; `5174 Mail_EmitBufferToOutput_NextPage`; `5212 Mail_EmitGameCodeValue_NextPage`; `528A Mail_EmitStringAndSuffix_NextPage`; `5D8C Mail_CopyToSram_NextPage` |
+
+This closes the helper-call-shape inventory for this owner, not the natural reachability of each wrapper. The inline call remains within its labeled loop and did not need a new function label.
+
 A complementary path-component scan covered all 2,197 tracked paths in the maintained `home/`, `engine/`, `data/`, `gfx/`, `audio/`, `lib/`, `ram/`, and `constants/` trees. It found no exact `bankNN` directory or `bankNN.asm`-style basename. Twelve source basenames contain a role/content descriptor followed by `_bankNN` (including `data/text/pokemon_names_bank53.asm`); ten of those have matching `gfx/<role>_bankNN/` resource directories. These 22 distinct components yield 215 tracked paths because each resource directory contains multiple assets. Their prefixes identify content/area (`pokemon_names`, `connect_dialog`, `registration_notice`, `type6_pages`, etc.); the bank suffix records physical ownership. No component in this set is named only `bankNN`. This path-name disposition does not prove the resource's selection, use, or semantic purpose.
 
 **Historical baseline:** The following table records counts at `69b7f8c125faf56d4aee77fbed860b8bd4578ccd`. It is retained for provenance; use the current snapshot statement above and the batch-closure section below for present counts.
