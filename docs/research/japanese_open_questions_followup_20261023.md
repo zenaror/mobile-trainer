@@ -29,8 +29,10 @@ conditional/unconditional branches may leave the linear successor.
 | 2D:4E54 | 11 | 2D:4E53 RET | The known 2D:4E49 CALL to 4E54 is a separate direct edge; it returns only if its wrapper has an entry. No new external producer was found. |
 | 29:511E | 12 | 29:511D RET | Static internal `CALL 29:50CE -> 29:511E` is confirmed (ROM offset `0x0A50CE`, bytes `CD 1E 51`); entry to `29:50CE` and the enclosing span is unproved. Separately, 68:5118 farcalls 4F:4000 and ordinarily returns to 68:511E, not 29:511E. |
 
-The internal edge was independently rechecked against the original ROM and
-maintained source. At `29:50CE`, the bytes are `CD 1E 51`; the target at
+The internal edge was already recorded in
+[`original_closure_followup_20261021.md`](original_closure_followup_20261021.md)
+and is consolidated here after rechecking the original ROM and maintained
+source. At `29:50CE`, the bytes are `CD 1E 51`; the target at
 `29:511E` saves BC/DE and calls `$7BB7`. The corresponding physical bank-29
 bytes at `$7BB7-$7BC6` are all zero, so this does not establish a useful
 callee or natural reachability. It only adds a known local caller to the

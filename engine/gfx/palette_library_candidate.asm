@@ -8,7 +8,7 @@ ClearLcdcBit2:: ; 29:5090
 	; [HYPOTHESIS] 742-byte library admits460 conditional starts; entry/purpose/live bank unproved.
 	; [PROBABLE] ClearLcdcBit2:7B/4 starts; executed6B/3-start relatives at27:468B and50:400F.
 	; Leaf511E:39B/24 starts saves BC/DE, CALL7BB7; balanced return required, HL not saved.
-	; Static internal CALL 29:50CE -> 29:511E is confirmed; entry to 50CE/span remains unproved.
+	; Static internal CALL 29:50CE -> 29:511E was already confirmed; entry to 50CE/span remains unproved.
 	; FFA4.bit0 selects unbounded LY poll24/48/6C/90 or48/90; no explicit WRAM store in leaf.
 	; Natural corpus: 69 coverage, 69 dataaccess and 69 callgraphs; no span instruction/data-read/callgraph rows.
 	; Outside-span: 4,001 raw words/323 opcode-shaped patterns (14-opcode scan); no physical29 CALL/JP; patterns are not caller proofs.
