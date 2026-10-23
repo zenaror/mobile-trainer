@@ -218,3 +218,40 @@ image files, language files, runtime traces or hardware evidence were changed
 or created. Two temporary contact sheets were generated under
 `/tmp/mobile-trainer-frame-audit/` for visual inspection and are not project
 assets.
+
+## Consolidated candidate-root audit at `60204c03e8637ee62577a90d68c58affea11761c` (2026-10-23)
+
+Three independent, read-only reviews on private copies revisited all four
+previously named candidate roots against the immutable 2 MiB Japanese ROM
+(SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`).
+The reviews did not inspect language overlays or the Operator ZIP, change
+source, or repeat the already-complete lexical name census. Their scopes were
+the full `2B:6CF5` body, both adjacent `2D:4E42/4E54` bodies and all exact
+little-endian target words, and the `29:511E` body plus its caller context.
+
+| Candidate | Current operation name | New bounded result | Status |
+|---|---|---|---|
+| `2B:6CF5` | `MailReply_ComposeFromRecord` | `[6CF5,6DB0)` is 187 bytes/100 instructions plus nine inline far-call parameter bytes. The ROM has zero `F5 6C` pairs; Bank 2B has no JR target into the span; all 69 natural coverage/callgraph files have no entry there. The only observed execution remains the explicitly forced harness entry, which stops before the final POP/RET sequence. | Local operations and boundaries remain documented; natural producer and standalone-entry status UNKNOWN. |
+| `2D:4E42` | `MailBody_LocateCell` | `[4E42,4E54)` is an 18-byte wrapper. `2D:4E41` is RET. No external producer was found. | Mechanical wrapper behavior CONFIRMED; operation role PROBABLE; natural entry UNKNOWN. |
+| `2D:4E54` | `MailBody_LocateCellInMappedWram` | `[4E54,4E8C)` is a 56-byte helper. The sole bank-correct static incoming edge is `2D:4E49 CALL 4E54`; its wrapper's own natural entry is unproved. The complete ROM scan reconciles 18 raw target-word matches (one CALL operand, two other-bank animation pointers, four font/tilemap data occurrences, eleven far-call field crossings), not 18 code edges. | Mechanical scan behavior CONFIRMED; operation role PROBABLE; natural entry UNKNOWN. The early `RET` at `4E72` still consumes saved BC under a conventional CALL stack; intent is HYPOTHESIS. |
+| `29:511E` | `CallSelected7BB7_IfReturnsPollLyByFFA4Bit0` | `[511E,5145)` is 39 bytes. The only bank-correct static incoming edge is `29:50CE CALL 511E`; the containing wrapper's entry is also unknown. No external caller or pointer was found by the bounded source/ROM scans. | Local mechanics CONFIRMED; natural root UNKNOWN. |
+
+These audits do not justify renaming the four operation spans again: their
+current names describe bounded static effects, while natural reachability and
+broader purpose remain separately unproved. They do close the repeated
+literal-target and immediate-successor checks for this snapshot. The prior
+69-scenario coverage result is unchanged and is not a proof of global
+unreachability. Reopen these roots only with new positive evidence (for
+example, a natural caller/producer or a trace recording physical ROM bank,
+PC, SP, and stack words), rather than rerunning the same raw-byte searches.
+
+One tracked comment in `traces/inputs/forced_dead.macro` calls the 2B body an
+“unreachable twin” of the Bank 25 reply routine. The audits do not establish
+unreachability, and the two bodies are not shown to have the same ABI. Treat
+that fixture comment as an unverified historical description, not as current
+evidence; the retained macro and trace files were left byte-for-byte intact.
+
+The results above are static analysis plus previously retained forced or
+scripted trace evidence. They do not establish natural execution, universal
+unreachability, or a hardware observation. No source bytes or asset files
+changed in this consolidation.

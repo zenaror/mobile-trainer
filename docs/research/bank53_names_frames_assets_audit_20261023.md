@@ -86,3 +86,11 @@ or frame view is supported by the current evidence, so all eight remain KEEP.
 This closes the finite current-main inventory and KEEP-composition review. The 25 name-to-window
 associations, computed readers, natural selection, and global used/unused status remain unresolved;
 the absence of an association in the audited selector chain does not prove that none exists.
+
+## Current-main refresh at `60204c03e8637ee62577a90d68c58affea11761c` (2026-10-23)
+
+The scoped presence/export check was rerun against the current published Japanese main. Both `Mobile Trainer (Japan).gbc` and `baserom.gbc` are 2,097,152 bytes and have SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. The bank-53 slice at file offset `0x53 * 0x4000` contains the same 369-byte name block: SHA-256 `20a909ec6fcf6726d2b2b3cc2540bc4d897916a18cab24d5892d09600b18d629`, 25 little-endian pointers from `$4032` through `$4164`, and 25 distinct NUL-terminated strings. The ROM build is byte-identical, so the maintained source reproduces this block.
+
+The eight relevant resource directories are the six `gfx/frame_designs/*` owners plus `gfx/browser/frames_0_1/` and `gfx/browser/frames_2_3/`. At this revision they contain 208 tracked assets and PNGs: all 137 non-PNG files have matching `gfx/assets.tsv` rows, and all 71 PNGs are referenced by the PNG rules, screen catalog, or asset catalog. Six owner ASM files are additional tracked files and are excluded from the 208-item asset/PNG count. The current path comparison found zero uncatalogued assets, orphan PNGs, or missing referenced paths. `make png-check` passed (410 tile sheets, four raw byte views, 37 font sheets, 95 screen PNGs); `python3 tools/gfx_export.py check` passed (980 catalog rows); `python3 tools/png_rules.py mk-check` passed (979 rules).
+
+The Japanese build gates also passed at this checkout: `make` reported `SHA-256 OK` and `RESULT: IDENTICAL`; `make sym-check` reported 335 source files, 12,196 labels and 51 constants; `make palette-check` reported 162 loads in 116 arrays, two documented over-reads and zero errors. This refresh establishes current byte identity and finite asset/PNG presence only. It does not prove natural selection of any frame, a Bank-53 name-to-window mapping, or whether any frame is unused.
