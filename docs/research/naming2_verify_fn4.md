@@ -128,7 +128,7 @@ reading and the main path is demonstrated.  Left/right: `Glyph_KuTenAddr` return
     At `75:4833` the caller stores D into `C70E` and then calls this routine, so "reset the result pointer" is not what that call does.  The stores are demonstrated; "ResultPtr" is not.
 22. `Function_2C_60B3`: **CORRECTED** (evidence; name and PROBABLE kept).  Body `2C:60B3-60FF` (the generator's "102 insns" counts the sibling too): SRAM bank 1 on, then for 6 slots HL = `[Table_AddrPick_SlotAddrs + 2i]`,
     E = `$28`, D = 12*i, B = 3, C = 0, `call AddrBook_DrawSlotName`; SRAM off.  The first manifest omitted E = `$28` and cited a dead sibling (`5FB1`) as support.  The real support is the executed
-    `SaveSenderAddr_DrawSlotNames` (`2A:422C`, 27 runs / 6 scenarios): same table values, E = `$28`, B = 3, C = 0; the live one adds `add a, $10` to Y.  The unlabeled routine right after (`2C:6100-614C`)
+    `SaveSenderAddr_DrawSlotNames` (`2A:422C`, 27 runs / 6 scenarios): same table values, E = `$28`, B = 3, C = 0; the live one adds `add a, $10` to Y.  The operation right after (`2C:6100-614C`, now labelled `AddrPick_DrawSixSlotNamesAtX30`)
     is the same with E = `$30`.  Nothing in the ROM references `60B3`.  PROBABLE follows the precedent accepted for `2C:5FB1` (a dead twin of live code); a dead routine with no live twin would be HYPOTHESIS (row 28).
     Optional: a `_X28` suffix, as in `AddrPick_MoveNameHighlight_X28_2C_5FB1`.
 23. `Function_2C_5CD2`: **UPHELD** (PROBABLE).  `di ; VBK = 1 ; wait LY == $90`, then 13 bytes per row.  `$08` goes to `$9866` and `$9886`; `$04` goes to `$98C6`, `$98E6`, `$9906`, `$9926`, `$9946`, `$9966`, `$9986`, `$99A6`,

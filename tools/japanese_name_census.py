@@ -18,6 +18,7 @@ PROTECTED = "engine/mail/sample_data.asm"
 LOCAL_LEDGER = Path("docs/research/japanese_local_anchor_dispositions_20261023.tsv")
 SUFFIX_LEDGER = Path("docs/research/japanese_bank_address_suffix_dispositions_20261023.tsv")
 RAM_LEDGER = Path("docs/research/japanese_ram_equate_dispositions_20261023.tsv")
+AUDIT_COVERAGE = Path("docs/research/japanese_name_audit_coverage_20261023.tsv")
 GLOBAL = re.compile(
     r"(?:Function|Func|Sub|Routine|Unknown|Unk|Code|Label|Font|Tiles?|"
     r"Tilemap|Attrmap|Palette|String|Table|SpriteFrame|SpriteScript|Data)_"
@@ -30,6 +31,9 @@ RAM_DECL = re.compile(r"^(?:DEF\s+)?([A-Za-z_.$][\w.$]*)\s+(?:EQU|SET|EQUS)\b", 
 LABEL = re.compile(r"^([A-Za-z_$][\w.$]*)(?:::|:)")
 ADDRESS_SUFFIX = re.compile(r"_[0-9A-F]{2}_[0-9A-F]{4}\Z", re.I)
 ADDRESS_ONLY_SUFFIX = re.compile(r"_[0-9A-F]{4}\Z", re.I)
+GENERIC_FUNCTION_PREFIX = re.compile(
+    r"(?:Function|Func|Sub|Routine|Unknown|Unk|Code|Label)_", re.I
+)
 LOCAL = re.compile(r"^(\.[\w.$]+)(?::|\s|$)")
 ASSET_ADDRESS = re.compile(
     r"(?:tiles?|tilemap|attrmap|palette)_?[0-9A-F]{4}(?:\.[^/]*)?\Z", re.I
@@ -104,6 +108,7 @@ def main() -> int:
     }
     current_local: set[tuple[str, str, str, str]] = set()
     current_numeric_local: set[tuple[str, str, str, str]] = set()
+    generic_function_labels: list[str] = []
     current_ram: set[tuple[str, str]] = set()
     unreviewed_name_markers: list[str] = []
     for name in files:
@@ -130,6 +135,8 @@ def main() -> int:
                         f"REVIEW: {record}"
                     )
                     unreviewed_name_markers.append(record)
+            if owner_match and GENERIC_FUNCTION_PREFIX.match(current_owner):
+                generic_function_labels.append(f"{name}:{number}:{current_owner}")
             if owner_match and CANDIDATE_TOKEN.search(current_owner):
                 hits["global labels containing Candidate (inventory; not presumed generic)"].append(
                     f"{name}:{number}:{current_owner}"
@@ -279,6 +286,53 @@ def main() -> int:
         if re.search(r"(?:^|_)bank[0-9A-F]{2}\.asm\Z", p, re.I)
     ]
 
+    coverage_counts = {
+        "strict address-only global labels": len(hits["strict global address-shaped definitions"]),
+        "generic function prefixes Function/Func/Sub/Routine/Unknown/Unk/Code/Label": len(generic_function_labels),
+        "uncertainty marker labels Stub/Nop/Maybe/Unknown/Unresolved/Placeholder/Generic/Unassigned": len(hits["labels with Stub/Nop/Maybe/Unknown/Unresolved/Placeholder/Generic/Unassigned markers (full disposition)"]),
+        "global labels ending _BB_AAAA": len(hits["global labels with bank/address suffix (row-level disposition)"]),
+        "global labels ending _AAAA or _BB_AAAA": len(hits["global labels with address suffix (broad candidate inventory)"]),
+        "global labels containing Candidate": len(hits["global labels containing Candidate (inventory; not presumed generic)"]),
+        "numeric local anchors .lAAAA": len(hits["numeric local .lAAAA definitions"]),
+        "short local placeholders .loop/.skip/.done/.start": len(hits["short local placeholders"]),
+        "numeric RAM equates": len(hits["numeric RAM equates"]),
+        "single-RET body labels": len(hits["single-RET body labels requiring explicit disposition"]),
+        "function/operation-boundary comments": len(hits["function-boundary or complete-function comments to reconcile"]),
+        "active paths with bare bankNN directory component": len(bank_dirs),
+        "owner-qualified bankNN directories and ASM filenames": len(bank_suffix_dirs) + len(bank_suffix_files),
+        "GFX address-only asset basenames": len(address_assets),
+        "source labels explicitly retaining Unknown/Unresolved content": len(hits["source labels explicitly retaining Unknown/Unresolved content"]),
+    }
+    coverage_errors: list[str] = []
+    if not AUDIT_COVERAGE.is_file():
+        coverage_errors.append(f"missing name-audit coverage matrix: {AUDIT_COVERAGE}")
+        coverage_rows = []
+    else:
+        with AUDIT_COVERAGE.open(encoding="utf-8", newline="") as stream:
+            coverage_rows = list(csv.DictReader(stream, delimiter="\t"))
+        coverage_keys: set[str] = set()
+        for row in coverage_rows:
+            family = row["family"]
+            if family in coverage_keys:
+                coverage_errors.append(f"duplicate name-audit coverage family: {family}")
+            coverage_keys.add(family)
+            if family not in coverage_counts:
+                coverage_errors.append(f"unknown name-audit coverage family: {family}")
+                continue
+            try:
+                expected = int(row["live_count"])
+            except (KeyError, ValueError):
+                coverage_errors.append(f"invalid live_count in name-audit coverage matrix: {family}")
+                continue
+            if expected != coverage_counts[family]:
+                coverage_errors.append(
+                    f"name-audit coverage drift for {family}: matrix={expected}, live={coverage_counts[family]}"
+                )
+            if row.get("status") not in {"CLOSED", "CLOSED_NO_HITS", "OPEN_REVIEW"}:
+                coverage_errors.append(f"invalid status in name-audit coverage matrix: {family}")
+        for family in sorted(set(coverage_counts) - coverage_keys):
+            coverage_errors.append(f"missing name-audit coverage family: {family}")
+
     print(f"Git HEAD: {head}")
     print(f"Tracked Japanese ASM/INC files scanned: {len(files)}")
     print(f"Tracked Japanese source/GFX changes: {len(tracked_changes)}")
@@ -323,6 +377,15 @@ def main() -> int:
     if args.list or args.generic_list:
         for row in address_assets:
             print(f"  {row}")
+    open_coverage = sum(row.get("status") == "OPEN_REVIEW" for row in coverage_rows)
+    print(
+        f"Name-audit coverage matrix: {len(coverage_rows)} families; "
+        f"{open_coverage} explicitly open; "
+        f"live counts {'MATCH' if not coverage_errors else 'MISMATCH'}"
+    )
+    if coverage_errors:
+        for error in coverage_errors:
+            print(f"  coverage error: {error}")
     dispositions = {row["disposition"]: 0 for row in ledger}
     for row in ledger:
         dispositions[row["disposition"]] += 1
@@ -368,7 +431,7 @@ def main() -> int:
     )
     return 1 if (
         ledger_misses or source_local_misses or duplicate_ledger_keys or suffix_errors or ram_errors
-        or unreviewed_name_markers or strict_generic_errors
+        or unreviewed_name_markers or strict_generic_errors or coverage_errors
     ) else 0
 
 

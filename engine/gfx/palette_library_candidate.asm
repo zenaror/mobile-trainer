@@ -25,11 +25,16 @@ ClearLcdcBit2:: ; 29:5090
 	ldh [rLCDC], a
 	ret
 
+PalLibCandidate_SetLcdcBit2:: ; 29:5097
+	; [CONFIRMED] set LCDC bit 2; natural entry and library purpose remain HYPOTHESIS.
 	ldh a, [rLCDC]
 	or a, $04
 	ldh [rLCDC], a
 	ret
 
+PalLibCandidate_ClearLcdcBit2AndCopyOffsetRecordsUntilFF:: ; 29:509E
+	; [CONFIRMED] clear LCDC bit 2, then copy four-byte records from HL to $C000+C until
+	; the first source byte is $FF; add D/E to the first/second bytes. Entry and caller are unproved.
 	call ClearLcdcBit2
 	ld b, $C0
 .l50A3 ; 29:50A3
@@ -51,6 +56,9 @@ ClearLcdcBit2:: ; 29:5090
 	inc bc
 	jr .l50A3
 
+PalLibCandidate_ClearShadowOam160BytesAndReturnSavedBCInDE:: ; 29:50B6
+	; [CONFIRMED] zero $C000-$C09F, restore AF/HL, and place entry BC in DE; entry and purpose
+	; remain HYPOTHESIS.
 	push af
 	push bc
 	push hl
@@ -65,22 +73,35 @@ ClearLcdcBit2:: ; 29:5090
 	pop de
 	pop af
 	ret
+PalLibCandidate_WaitAndServiceVBlankForBCount:: ; 29:50C7
+	; [CONFIRMED] call VBlank_WaitAndService, decrement B, and repeat until B reaches zero;
+	; B=0 wraps to 256 iterations. Entry and caller are unproved.
 .l50C7 ; 29:50C7
 	call VBlank_WaitAndService
 	dec b
 	jr nz, .l50C7
 	ret
 
+PalLibCandidate_Call511EThenWaitVBlanksForBMinusOneCount:: ; 29:50CE
+	; [CONFIRMED] call 29:511E, decrement B, then run the preceding wait loop while nonzero;
+	; B=1 waits zero times and B=0 wraps. Entry and caller are unproved.
 	call CallSelected7BB7_IfReturnsPollLyByFFA4Bit0
 	dec b
-	jr nz, .l50C7
+	jr nz, PalLibCandidate_WaitAndServiceVBlankForBCount
 	ret
+
+PalLibCandidate_AdvanceHLByDEStrideUntilCZero:: ; 29:50D5
+	; [CONFIRMED] decrement C; return at zero, otherwise add DE to HL and repeat. Initial C=0
+	; wraps through 255 iterations. Entry and caller are unproved.
 .l50D5 ; 29:50D5
 	dec c
 	ret z
 	add hl, de
 	jr .l50D5
 
+PalLibCandidate_ComputeRom0Word5xPlus3711AndWriteBytesAt0C0E0C0F:: ; 29:50DA
+	; [CONFIRMED] read the ROM0 word at $0C0E; compute 5*word+$3711; write low to $0C0E and
+	; high+LY to $0C0F; restore DE/HL. Hardware effect, entry, and purpose remain HYPOTHESIS.
 	push de
 	push hl
 	ld a, [$0C0E]
@@ -105,6 +126,9 @@ ClearLcdcBit2:: ; 29:5090
 	pop de
 	ret
 
+PalLibCandidate_DivideABy10ToFfb1QuotientFfb0Remainder:: ; 29:50FC
+	; [CONFIRMED] store floor(A/10) in $FFB1 and A mod 10 in $FFB0; preserve HL. Entry and
+	; caller are unproved.
 	push hl
 	ld hl, hRam_FFB1
 	ld [hl], $00
@@ -119,6 +143,8 @@ ClearLcdcBit2:: ; 29:5090
 	pop hl
 	ret
 
+PalLibCandidate_WriteRomBankLowAAndZeroHigh:: ; 29:510F
+	; [CONFIRMED] write A to $2000 and zero to $3000; mapper-level purpose and entry are unproved.
 	ld [rROMB0], a
 	xor a, a
 	ld [rROMB1], a
@@ -375,6 +401,9 @@ PalLibCandidate_WriteBufferToPalettes:: ; 29:523F
 	jr nz, .write_obj_palette_bytes
 	ret
 
+PalLibCandidate_Zero64BgPaletteBytesAndWriteObjStreamFromDE:: ; 29:526D
+	; [CONFIRMED] zero 64 BG palette bytes, then write the B-counted stream from DE to OBJ palette
+	; data; B starts at zero, so the OBJ loop runs 256 times. Entry and intent are unproved.
 	call PalLibCandidate_DisableVBlankIrq
 	xor a, a
 	ldh [rBCPS], a
@@ -546,6 +575,9 @@ PalLibCandidate_FillBufferFromBlock:: ; 29:5335
 	pop bc
 	ret
 
+PalLibCandidate_Write64BgAnd64ObjPaletteBytesFromHLAtLy90:: ; 29:534A
+	; [CONFIRMED] write 64 bytes each to BG and OBJ palette data, waiting for LY=$90 before each
+	; group; entry and caller are unproved.
 	ld a, $80
 	ldh [rBCPS], a
 	ld b, $40
@@ -572,6 +604,8 @@ PalLibCandidate_FillBufferFromBlock:: ; 29:5335
 	jr nz, .l5368
 	ret
 
+PalLibCandidate_SetLcdcBit1:: ; 29:536F
+	; [CONFIRMED] set LCDC bit 1; natural entry and library purpose remain HYPOTHESIS.
 	ldh a, [rLCDC]
 	or a, $02
 	ldh [rLCDC], a

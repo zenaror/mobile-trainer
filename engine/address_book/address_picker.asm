@@ -1566,7 +1566,7 @@ AddrPick_MoveNameHighlight:: ; 2C:6032
 
 AddrPick_DrawSlotNames:: ; 2C:60B3
 
-	; [PROBABLE] 102 insn(s): complete SRAM-access routine (same prologue/epilogue as 2C:5FB1);
+	; [PROBABLE] 51 insn(s): complete SRAM-access routine (same prologue/epilogue as 2C:5FB1);
 	; well-formed instruction chain (clean decode, all direct targets land on instruction starts,
 	; lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS
 	push bc
@@ -1624,6 +1624,9 @@ AddrPick_DrawSlotNames:: ; 2C:60B3
 	pop af
 	ret
 
+AddrPick_DrawSixSlotNamesAtX30:: ; 2C:6100
+	; [CONFIRMED] enable SRAM bank 1, draw six slot names from Table_AddrPick_SlotAddrs at X=$30
+	; through AddrBook_DrawSlotName, then disable SRAM. Entry and caller remain HYPOTHESIS.
 	push bc
 	push af
 	ld a, $01

@@ -157,11 +157,12 @@ Kbd_TypeWaitsWithService:: ; 55:6F2E
 Table_Kbd_TypeWaitsWithService_ByType:: ; 55:6F3B
 	db $01, $01, $01, $01, $01, $01, $00, $00, $00, $00, $00
 
-	; [HYPOTHESIS] ret-terminated routine (decodes cleanly through 6F94): decrements [$C2B1], else
-	; calls $047A, advances [$C2B0] mod 4 and writes two colour bytes to OCPD (ldh [$6A]=$B2 /
-	; [c]=$6B) from the word table below; follows the 11-byte table of the previous routine like the
-	; other routines of this run [verifier: no entry proven (no caller, no valid table word, never
-	; executed): decode chain alone is not proof -> HYPOTHESIS]
+
+Kbd_Candidate_DecrementC2B1OrAdvanceC2B0AndWriteOcpd:: ; 55:6F46
+	; [CONFIRMED] decrement C2B1 and return if nonzero; otherwise wait, advance C2B0 mod 4, load its
+	; delay and OCPD pair, call Sound_FrameService, then copy the pair into the WRAM7 palette buffer.
+	; [HYPOTHESIS] Entry, caller and table role are unproved; clean decode through 6F94 is not entry
+	; evidence (no caller, valid table word or execution).
 	ld a, [wRam_C2B1]
 	dec a
 	or a, a

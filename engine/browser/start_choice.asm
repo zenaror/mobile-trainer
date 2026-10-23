@@ -239,6 +239,9 @@ ReadC0F8_Xor1:: ; 73:6143 [PROBABLE] local operation; entry/domain unproved
 	xor a, $01
 	ret
 
+ReadC0F9_Xor1:: ; 73:6149
+	; [CONFIRMED] read C0F9, XOR 1 and return without storing; entry, input domain and purpose remain
+	; HYPOTHESIS.
 	ld a, [wRam_C0F9]
 	xor a, $01
 	ret

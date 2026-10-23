@@ -697,10 +697,12 @@ and `wMailTextScratch` notes in `ram/banked.asm`). All seven ROM bytes are read
 in 21 natural scenarios. `MailSendRecv_RequestTemplate` remains PROBABLE as an
 application name; copied data and boundaries are CONFIRMED.
 
-The following code has no proven independent entry: `55:6F46..6F94` remains
-HYPOTHESIS, and `27:4181..41BB` retains its PROBABLE decoded-code status with
-independent-entry/purpose HYPOTHESIS. The former has 47 CPU starts and conditional
-palette-port/staging writes documented in `classify_g2.md`; the latter has 24
+The code at `55:6F46..6F94` has no proven independent entry and retains HYPOTHESIS
+entry status; its byte-supported operation label is
+`Kbd_Candidate_DecrementC2B1OrAdvanceC2B0AndWriteOcpd`. `27:4181..41BB` retains
+its PROBABLE decoded-code status with independent-entry/purpose HYPOTHESIS. The
+former has 47 CPU starts and conditional palette-port/staging writes documented
+in `classify_g2.md`; the latter has 24
 logical starts (four six-byte farcalls included), starts `Mobile_BeginCancel`,
 polls `Mobile_CancelPoll` while A=1, conditionally draws the timer summary and
 clears IE bits 2/3 before returning. Its `CP $FF / JR Z` targets the immediate
