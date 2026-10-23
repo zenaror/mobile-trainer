@@ -1306,7 +1306,7 @@ SoundSfx45_Header:: ; 05:689B
 SoundSfx45_TrackPtrs:: ; 05:689D
 	dw SoundSfx45_Track0, SoundSfx45_Track1 ; track stream pointers (read by the driver)
 
-; ---- data $68A1-$68BF (30 bytes) [PROBABLE] read as data by executed code (in up to 17/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md) | block boundary $68BE removed (it cut a command in two; its label Data_05_68BE was not referenced); the second part was: data $68BE-$68BF (1 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md (status of the merged block lowered to the weaker of the two parts)
+; ---- data $68A1-$68BF (30 bytes) [PROBABLE] read as data by executed code (in up to 17/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md) | block boundary $68BE removed (it cut a command in two; its label at 05:68BE was not referenced); the second part was: data $68BE-$68BF (1 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md (status of the merged block lowered to the weaker of the two parts)
 
 SoundSfx46_Track0:: ; 05:68A1
 	sound_volume $7F

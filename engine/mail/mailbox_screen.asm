@@ -1039,7 +1039,7 @@ Mailbox_ClearTimestamp:: ; 25:50C2
 	ld [de], a
 	ret
 
-; ---- words $5228-$5240 (24 bytes) [PROBABLE] 12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:5228 first entry read by executed code (region Data_25_5228 CONFIRMED); no direct ld hl,imm found
+; ---- words $5228-$5240 (24 bytes) [PROBABLE] 12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:5228 first entry read by executed code (region address label at 25:5228 CONFIRMED); no direct ld hl,imm found
 
 Mailbox_RecordAddrs_5228:: ; 25:5228
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F

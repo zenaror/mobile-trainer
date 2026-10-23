@@ -407,7 +407,7 @@ Byte_ToPackedBcd:: ; 68:792A
 
 ; ---- ptrtable $793D-$7951 (20 bytes) [CONFIRMED] ten little-endian pointers into ROM bank $4B, one per decimal digit: the 4-byte digit records of Table_Account_ResultPage_DigitTileRecords (upper tile, lower tile, upper attribute, lower attribute; the final pair is $C0/$C1);
 ; indexed by the digit in Account_ResultPage_DrawTimeDigits (ld hl, Account_DigitTilemapTable ... farcall Tilemap_CopyRectAndAttr with A = $4B; 68:788D, 31 hits in 8 scenarios).  The survey had typed the words as
-; bank-68 code pointers, which created nine spurious labels Label_68_5B6C..5B8C inside Account_MailDomain_PrintField (mail_address_entry.asm); they are gone
+; bank-68 code pointers, which created nine spurious address-only labels at 68:5B6C..5B8C inside Account_MailDomain_PrintField (mail_address_entry.asm); they are gone
 
 Account_DigitTilemapTable:: ; 68:793D
 	dw Table_Account_ResultPage_DigitTileRecords

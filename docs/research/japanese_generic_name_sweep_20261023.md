@@ -319,3 +319,27 @@ was read-only in this checkout, so temporary ROM/object outputs were placed
 in `/tmp` and removed after recording these results. The repeatable census
 reported zero strict generic globals, 2,356 ledger-matched `.lAAAA` anchors,
 zero short placeholders, 786 numeric RAM equates and zero generic GFX paths.
+
+
+### Whole-tree cross-family reconciliation (2026-10-23)
+
+The earlier census correctly covered active symbol definitions, asset basenames,
+resource directories, local anchors, and neutral RAM equates, but it did not
+include address-only label spellings embedded in the maintained RAM evidence
+comments. A cross-family text pass found 13 stale `Label_BB_AAAA` mentions
+across `ram/banked.asm`, `ram/overlays.asm`, and `ram/wram.asm`, plus 14
+legacy `Data_BB_AAAA` mentions (three for the POP3 descriptor, eleven in
+historical region-boundary prose). All 27 were reconciled in one batch: stale code aliases now use current operation labels, the POP3 descriptor uses `Data_Pop3Retr_ParseBodyArgs`, and removed data-boundary names are rendered as explicit bank:address locations;
+the keyboard reference is explicitly scoped to `Kbd_Run`'s local
+`.handle_select` at `55:5E02`. No ROM bytes, symbol definitions, or reference
+semantics changed. Frozen `config/` snapshots and dated research ledgers remain
+historical evidence and are not edited to erase their original names.
+
+The current Japanese source/resource scan also confirms zero exact `gfx/bankNN/`
+directories and zero strict address-only asset basenames. The `_bankNN` suffix
+in owner-named asset paths is source-bank provenance, not a generic directory
+name. `candidate`, `prototype`, `unresolved`, and `unreferenced` paths are kept
+only where the source's confidence/evidence says the purpose or entry remains
+uncertain; they are qualified uncertainty labels rather than anonymous bank
+containers. The `gfx/bank41..46` rows in `analysis/layout/README.md` describe
+the superseded pre-tree layout plan, not current paths.

@@ -87,7 +87,7 @@ SoundSong1A_Track0_Continuation:: ; 05:5E23
 SoundSong1A_Track0_AfterJump:: ; 05:5E36
 	sound_end
 
-; ---- data $5E37-$5F67 (304 bytes) [PROBABLE] read as data by executed code (in up to 1/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md) | block boundary $5F09 removed (it cut a command in two; its label Data_05_5F09 was not referenced); the second part was: data $5F09-$5F67 (94 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md (status of the merged block lowered to the weaker of the two parts)
+; ---- data $5E37-$5F67 (304 bytes) [PROBABLE] read as data by executed code (in up to 1/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md) | block boundary $5F09 removed (it cut a command in two; its label at 05:5F09 was not referenced); the second part was: data $5F09-$5F67 (94 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md (status of the merged block lowered to the weaker of the two parts)
 
 SoundSong1A_Track1:: ; 05:5E37
 	sound_volume $7F
@@ -262,7 +262,7 @@ SoundSong1A_Track1_Loop:: ; 05:5E3B
 SoundSong1A_Track1_AfterJump:: ; 05:5F66
 	sound_end
 
-; ---- data $5F67-$602A (195 bytes) [PROBABLE] read as data by executed code (in up to 1/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md) | block boundary $5FF1 removed (it cut a command in two; its label Data_05_5FF1 was not referenced); the second part was: data $5FF1-$602A (57 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md (status of the merged block lowered to the weaker of the two parts)
+; ---- data $5F67-$602A (195 bytes) [PROBABLE] read as data by executed code (in up to 1/18 scenarios); content: sound stream bytes, decoded (docs/research/audio_format.md) | block boundary $5FF1 removed (it cut a command in two; its label at 05:5FF1 was not referenced); the second part was: data $5FF1-$602A (57 bytes) [PROBABLE] unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); individual commands decoded (docs/research/audio_format.md); see docs/research/classify_g4.md (status of the merged block lowered to the weaker of the two parts)
 
 SoundSong1A_Track2:: ; 05:5F67
 	sound_volume $7F

@@ -1300,7 +1300,7 @@ POPC
 
 ; ---- text $4A66-$4A93 (45 bytes) [CONFIRMED] text: the caption "　セーブ" (loaded by SaveSenderAddr_LoadCaption, 2A:49C7, 19 hits in 6 scenarios) and four more NUL terminated strings
 ; ("するばしょを　えらんでください　" in four pieces).  The survey had typed the first six bytes as a code-pointer table (dw $4081, $5A83, $5B81), which made three spurious labels in the middle of code
-; (Label_2A_4081 here, Label_2A_5A83 and Label_2A_5B81 in profile_editor.asm: no instruction ever referenced them); they are gone
+; (address-only labels at 2A:4081 here and 2A:5A83/5B81 in profile_editor.asm: no instruction ever referenced them); they are gone
 
 PUSHC sjis
 String_SaveSenderAddr_Caption:: ; 2A:4A66

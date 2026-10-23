@@ -109,7 +109,7 @@ table right behind it exist and only the routine uses the table, they share one 
 | text/graphics services `engine/text`, `engine/gfx` | 7F (glyph, canvas, scroll split), 7E (charset conversion), 48 (text tiles, ticker, fades), 4F (palette, tile canvas), 55 (half/full width), 63 | |
 | input `engine/input` | 7D (joypad) | |
 | fonts `data/fonts` | 76-7E (JIS rows 1-84, ASCII 6x12), 48 (8x16), 63 (validity bitmap) | |
-| screen packages `gfx/bank41..46`, `gfx/browser/frames_*` | 41-47 | 47 is referenced by the frame descriptors of bank 4E |
+| Historical pre-tree plan (superseded): `gfx/bank41..46`; current owners are named resource paths; `gfx/browser/frames_*` | 41-47 | 47 is referenced by the frame descriptors of bank 4E; no exact `gfx/bankNN/` directories remain |
 
 ## 3. Section-order plan
 
