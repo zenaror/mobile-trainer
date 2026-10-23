@@ -45,6 +45,19 @@ shadow, stack/trampoline state or external/IRQ interference. The separately
 inspected same-offset instructions 24:511B and 4E:511C access the SRAM-bank
 selector and WRAM flag respectively, not the ROM-bank selector.
 
+To bound the MBC5 high-bank caveat, the current maintained source has eleven
+aligned `ld [rROMB1],a` instructions: ten in ROM0 boot/API/interrupt/audio
+save-and-restore paths and one at 29:5113, which writes zero in the candidate
+library immediately before its RET. A full-ROM scan for the absolute-store
+opcode shape `EA lo hi` with `hi=$30..$3F` found 20 byte-pattern matches; the
+other nine are not instruction starts (two cross JR displacement bytes and
+seven lie in graphics/font/constant data). This scan does not exclude
+register-indirect writes. Across the 69 retained `mbc_writes_*.tsv` traces,
+the high-bank register has ten distinct observed writer-PC/value rows and all
+write value 00; the 29:5113 candidate writer was not observed. This supports
+high bank zero in those recorded runs, but no candidate root itself was
+observed, so it is not natural-entry evidence.
+
 These routes do not demonstrate natural entry into any candidate. Reaching a
 different physical bank through these nominal continuations would require an
 unmodeled state divergence such as a high-bank change, a mapper/shadow mismatch,
