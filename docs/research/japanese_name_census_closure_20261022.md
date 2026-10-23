@@ -8,6 +8,36 @@ The exact anchored global-symbol scan now finds **13 `Data_BB_AAAA` labels** and
 
 These are lexical/static inventories, not proof of semantic completeness, computed-reference absence, natural execution, visual identity, or hardware behavior.
 
+## Adversarial follow-up at `ae6b9ccef65207421f832ff856afe1659ece9865`
+
+The 13-label review was rechecked against the original ROM, all six maintained
+source roots, 72 existing `dataaccess.tsv` reports (69 natural and three
+forced), coverage unions, forced coverage, far-call targets and xrefs. Two
+positive byte-level matches emerged:
+
+- `Data_24_6520` is exactly the first 16-byte row of
+  `PageListProto_ObjTable` at `7F:6DB0`; the sequence occurs only at those
+  two ROM locations. It is now named
+  `ByteMatch_PageListProto_ObjTableFirstRow_24_6520`. The match is
+  **CONFIRMED**; its use or origin remains **HYPOTHESIS**.
+- `Data_26_5062` is exactly the five-byte tail of `MailSession_Cancel`
+  at `26:505D–5062`; that full sequence occurs only at the two locations.
+  It is now named `ByteMatch_MailSessionCancelTail_26_5062`. Again, only the
+  byte equality is **CONFIRMED**.
+
+The current exact `Data_BB_AAAA` count is therefore **11**, not 13. No
+function, active table, causal origin, or natural consumer was established for
+the two matched spans. The remaining eleven labels stay address-neutral:
+the combined scan did not support a stronger name, and computed/unobserved
+access is outside its coverage. The per-label evidence and limits are in
+[`generic_data_name_followup_20261023.md`](generic_data_name_followup_20261023.md).
+
+The same checkpoint rechecked Bank 53 names and frame assets. All declared
+assets and PNGs remain present and consistent; 2,416 inline bytes in owner 42
+are outside the exported catalog by design (partial `db` tails plus zero-fill),
+not missing PNGs. Name-to-frame matching and natural selection remain open;
+see [`bank53_names_frames_assets_audit_20261023.md`](bank53_names_frames_assets_audit_20261023.md).
+
 ## Source changes from this pass
 
 Six `_Unknown` names in `engine/mail/result_screens.asm` were renamed using direct content and consumer evidence. The three text blocks at bank `29`, addresses `47B2`, `4AC4`, and `4D80`, each contain exactly five full-width question marks and a NUL (`81 48` repeated five times, then `00`). Each text block has an associated wrapper; each wrapper passes its corresponding block to `TextTiles_RenderLine` three times and uploads the staged question-mark tiles. The upload helper is now named `MailServerStatus_UploadQuestionMarkTileStage`; its static consumers are exactly these three wrappers. The labels now say `FiveQuestionMarks`; the associated branch labels say `QuestionMarks`. This identifies the rendered glyphs and behavior without claiming why the program chooses them. The private patch proof and reverse-diff receipt are retained at `.tmp/jp-comprehensive-census-7973/entries/RENAME_PROOF/`.

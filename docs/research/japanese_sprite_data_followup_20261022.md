@@ -26,7 +26,22 @@ Two independent read-only reviewers examined disjoint sets of seven labels again
 
 The independently reviewed spans were `Data_1C_401C`, `Data_23_46CC`, `Data_24_4BCC`, `Data_24_6520`, `Data_26_5062`, `Data_2F_4094`, `Data_4E_5390`, `Data_48_69AB`, `Data_5F_6980`, `Data_72_63D7`, `Data_72_6711`, `Data_75_6D62`, `Data_7F_4C77`, and `Data_7F_51ED`. Byte decodes such as `RET`, `XOR A`, `POP BC`, or `JP AbookList_Run` are not by themselves evidence of entry or intended purpose. Bounded scans found no literal source references that establish incoming use; calculated references, copied bytes, or an unmodeled bank/stack path remain possible and are not ruled out.
 
-One additional structural observation concerns `Data_24_6520`: its 16 bytes are byte-for-byte equal to the first 16-byte record of `PageListProto_ObjTable` at `7F:6DB0`. This equality is confirmed, but the reason for the duplicate and any relationship between the two banks remain hypotheses; no bank-`24` consumer was found. It therefore does not justify a semantic rename or an unused claim. The reviewed configuration snapshot also contains a stale far-call location for the bank-72 menu entry: `4E:4D16` is the call site; `4E:4D10` lies inside the prior CALL operand. Frozen generated configuration was not edited.
+One additional structural observation concerns `Data_24_6520`: its 16 bytes are byte-for-byte equal to the first 16-byte record of `PageListProto_ObjTable` at `7F:6DB0`. This equality is confirmed, but the reason for the duplicate and any relationship between the two banks remain hypotheses; no bank-`24` consumer was found. It did not justify a semantic-type rename or an unused claim. The reviewed configuration snapshot also contains a stale far-call location for the bank-72 menu entry: `4E:4D16` is the call site; `4E:4D10` lies inside the prior CALL operand. Frozen generated configuration was not edited.
+
+### Follow-up at `ae6b9ccef65207421f832ff856afe1659ece9865`
+
+The later all-13-label audit confirmed that the first relationship is a
+byte-for-byte match and found the same kind of exact content relation for
+`Data_26_5062`: its five bytes equal the tail of `MailSession_Cancel` at
+`26:505D–5062`, and that full sequence occurs only at those two ROM
+locations. The source labels now name these byte matches only:
+`ByteMatch_PageListProto_ObjTableFirstRow_24_6520` and
+`ByteMatch_MailSessionCancelTail_26_5062`. The type/use of each interval and
+the cause of either match remain **HYPOTHESIS**. The other eleven
+`Data_BB_AAAA` labels remain neutral because the combined source, xref,
+far-call, coverage, and 72 data-access-report cross-checks supplied no stronger
+names. See [generic_data_name_followup_20261023.md](generic_data_name_followup_20261023.md)
+for the per-label matrix and scan limits.
 
 The checks were static and ROM-byte-based. The reviewers' negative reference scans do not prove global non-use; no runtime trace, newly built ROM, natural-use, or hardware evidence was produced by this review. The source-level outcome is documentation only and does not alter ROM bytes or source data extents.
 

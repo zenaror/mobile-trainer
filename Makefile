@@ -128,7 +128,7 @@ compare: $(ROM)
 
 # labels of the source vs build/mobile_trainer.sym (and the bank:address comments next to them)
 sym-check: $(ROM)
-	python3 tools/sym_check.py
+	python3 tools/sym_check.py --sym $(BUILD)/mobile_trainer.sym --map $(BUILD)/mobile_trainer.map
 
 # every editable PNG still fits its binary (size, tile alignment, colours, palette order, glyph cells); plain-words errors
 png-check:

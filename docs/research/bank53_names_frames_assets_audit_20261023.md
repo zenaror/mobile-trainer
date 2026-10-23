@@ -24,3 +24,24 @@ An earlier file-header comment called these “27 frame descriptors.” Inspecti
 The audit used the private snapshot manifest `BASELINE.json` (SHA-256 `31ffff013ae9ee82ba2e8425be5674ba58fea28b0bb9d9964126226f7d5dc60b`) and the original ROM (2,097,152 bytes; SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`). The independent reviewer checked the manifest's 595 files, reproduced the 369-byte name block, 25 windows/85,200 bytes, 137 assets, 53 inversions, 17 views, 24 previews and 208-file inventory. Selector conclusion is limited to the stated 27 words/five descriptors.
 
 For the detailed per-window/resource matrix, KEEP-cell accounting, selectors, addresses, and block hashes, see [`assets_pokemon_frames_and_name_limits.md`](assets_pokemon_frames_and_name_limits.md). This audit adds no new species-to-image mapping.
+
+## Recheck at Japanese HEAD `ae6b9ccef65207421f832ff856afe1659ece9865` (2026-10-23)
+
+The name block, 25 candidate windows, 137 catalogued assets, 208 files, 53
+inversions, 17 editable views, and 24 preview files were rechecked against the
+original ROM. Their bytes and finite inventory counts remain unchanged. A
+separate owner-42 accounting found **2,416 inline bytes outside the asset
+catalog**: 71 bytes in six partial `db` tails and 2,345 bytes in `ds $00`
+padding. This is not a PNG gap: the exporter deliberately keeps partial tiles
+as inline bytes, while zero-fill and HYPOTHESIS spans are not auto-exported.
+The complete owner slice `42:4000–7540` re-emits 13,632 original bytes
+(`fd41119f44de05e6fef0f5c8c916331343b29f6e7ff75442f242f70b9931f7a1`).
+
+The 25 names remain unassigned to candidate frames, and no natural selector
+for Bank 53 was established. In the audited finite selector chain, styles
+`0`, `1`, `2–22`, and `23–26` resolve only to Bank 47 resources
+`4100`, `4E50`, `5BA0`, and `4E50`, respectively. The absence of a
+Bank 53 pointer in this chain is not proof against computed or unobserved
+access. These results close file-presence/extraction review only; runtime
+selection, used/unused classification, and species-to-image mapping remain
+open.

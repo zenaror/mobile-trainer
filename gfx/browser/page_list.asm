@@ -84,9 +84,9 @@ PageList_ObjPalette:: ; 24:64E0
 
 	INCLUDE "gfx/browser/page_list/page_list_obj_palette.pal"
 
-; ---- data $6520-$6530 (16 bytes) [HYPOTHESIS] 16 bytes = 4 x the pair $6E50/$6E76; same 4x-repeated row shape as the object-table rows at 6530+, but the targets fall inside tile data (6BF0-6FF0) so it is not one of them; meaning unknown
+; ---- data $6520-$6530 (16 bytes) [HYPOTHESIS] Exact byte match for the first 16-byte row of PageListProto_ObjTable at 7F:6DB0; the pair targets fall inside bank-24 tile data, and no bank-24 reader is established. This names only the byte relationship, not a table use or causal origin.
 
-Data_24_6520:: ; 24:6520
+ByteMatch_PageListProto_ObjTableFirstRow_24_6520:: ; 24:6520
 	db $50, $6E, $76, $6E, $50, $6E, $76, $6E, $50, $6E, $76, $6E, $50, $6E, $76, $6E
 
 ; ---- words $6530-$65C0 (144 bytes) [PROBABLE] sprite object table: 4-byte entries (frame-table ptr, animation-script ptr) indexed by B&7F, the layout read by init_object_from_table 00:0A82/00:0AB8; rows of 16 bytes = the same entry repeated 4 times; base $6530 is passed as de with a=$24 at call sites listed in analysis/gfx_candidates.tsv (object-table); entries 65C0/667A 65C0/667A 65C0/667A 65C0/667A

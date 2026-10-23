@@ -2023,7 +2023,7 @@ MailSession_Cancel:: ; 26:503C
 	ld a, $7F
 	ret
 
-; ---- data $5062-$5067 (5 bytes) [HYPOTHESIS] UNCLASSIFIED 5 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) [g4: complete self-contained decode ending in ret with no caller/table/far-pointer reference found, so left unclassified]
+; ---- data $5062-$5067 (5 bytes) [HYPOTHESIS] Exact byte match for the final five bytes of MailSession_Cancel at $505D-$5062; no entry or reader is established. The label records byte equality only and does not classify this copy as executable.
 
-Data_26_5062:: ; 26:5062
+ByteMatch_MailSessionCancelTail_26_5062:: ; 26:5062
 	db $3E, $FF, $3E, $7F, $C9

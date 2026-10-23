@@ -1329,7 +1329,7 @@ defensible callable symbol is established at those operands:
 
 | Target | Sites | Evidence-based disposition |
 | --- | --- | --- |
-| `$7BB7` | `29:5120` | Selected ROMX bank is not established; physical `7D:7BB7` is zero padding. Keep the target numeric; no bank/target identity is inferred. |
+| `$7BB7` | `29:5120` | Selected ROMX bank is not established; physical `29:7BB7` is zero padding, while physical `7D:7BB7` is `Joypad_Update`. Keep the target numeric; no bank/target identity is inferred. |
 | `$58C4` | `2E:4A15` | Stale target into junk; the walk from the call site is banned. |
 | `$5FA2` | `2E:4A1B` | Stale target into junk; the walk from the call site is banned. |
 | `$6DD0` | `2E:4A2C` | Stale target into junk; the walk from the call site is banned. |

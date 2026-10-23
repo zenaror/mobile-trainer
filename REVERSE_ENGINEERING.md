@@ -2,7 +2,19 @@
 
 ### Consolidated Japanese generic-name census (2026-10-22; base `7973e199`)
 
-The full Japanese source/name/path sweep is recorded in [`japanese_name_census_closure_20261022.md`](docs/research/japanese_name_census_closure_20261022.md). It reviewed all 350 tracked ASM/INC inputs (3,872 numeric local branch labels excluding protected sample data), all 786 neutral RAM equates, all 13 remaining exact `Data_BB_AAAA` labels, the frozen config name fields, and the complete 1,950-file GFX/font path inventory. Six mail-status `_Unknown` labels were replaced with content-based `QuestionMarks` names, and three source labels/asset paths now document statically covered HDMA slices. Pure `bankNN` paths and exact type/address-only function or asset names were not found. This is a completed search inventory, not semantic closure: four natural-entry questions and the final Japanese Pokémon/frame review remain open. The English overlay and ZIP remain paused.
+**Follow-up at `ae6b9ccef65207421f832ff856afe1659ece9865`:** the 13 exact
+data labels were adversarially rechecked across the source, access, coverage,
+far-call and xref records. Two now carry descriptive byte-match names; their
+type, use and origin remain unproven. Eleven exact `Data_BB_AAAA` labels
+remain neutral for lack of stronger evidence. The same checkpoint rechecked
+the Bank 53 names and frame assets; files and declared conversions are
+complete, but name-to-frame and natural-use questions remain open. The
+follow-up reports are
+[`generic_data_name_followup_20261023.md`](docs/research/generic_data_name_followup_20261023.md)
+and
+[`bank53_names_frames_assets_audit_20261023.md`](docs/research/bank53_names_frames_assets_audit_20261023.md).
+
+The full Japanese source/name/path sweep is recorded in [`japanese_name_census_closure_20261022.md`](docs/research/japanese_name_census_closure_20261022.md). At that census base it reviewed all 350 tracked ASM/INC inputs (3,872 numeric local branch labels excluding protected sample data), all 786 neutral RAM equates, all 13 exact `Data_BB_AAAA` labels, the frozen config name fields, and the complete 1,950-file GFX/font path inventory. Six mail-status `_Unknown` labels were replaced with content-based `QuestionMarks` names, and three source labels/asset paths now document statically covered HDMA slices. Pure `bankNN` paths and exact type/address-only function or asset names were not found. This is a completed search inventory, not semantic closure: four natural-entry questions and the final Japanese Pokémon/frame review remain open. The English overlay and ZIP remain paused.
 
 
 Evidence levels: **CONFIRMED** (demonstrated), **PROBABLE** (strong evidence, not conclusive), **HYPOTHESIS** (unverified).  Names without evidence stay neutral
@@ -1717,7 +1729,9 @@ neutral. See the [bank-51 alias audit](docs/research/generic_data_name_audit_202
 The bank-24 page-list owner now names two probable tile regions and
 candidate-prefixed frame tables, frame records and animation scripts in the
 unmatched animation area. The candidates remain HYPOTHESIS where no known
-object-table row selects them; `Data_24_6520` remains neutral. See the
+object-table row selects them; `ByteMatch_PageListProto_ObjTableFirstRow_24_6520`
+records an exact byte match to the first prototype row, without establishing
+bank-24 table use. See the
 [bank-24 page-list audit](docs/research/generic_data_name_audit_20261020.md#bank-24-page-list-tiles-and-candidate-animation-records-2026-10-21).
 A whitespace-aware six-root census now finds 430 generic `Data_BB_AAAA::`
 definitions in 136 owners; this is a label count, not a completion percentage.
@@ -2222,8 +2236,9 @@ the `Entry36` table item after the `$08` comparison and does not prove a digit
 9 case. See the [pass report and exact mapping](docs/research/japanese_local_label_pass_20261022.md).
 
 The six-root Japanese lexical census, excluding protected `sample_data.asm`,
-now contains 3,872 numeric local labels after the subsequent body-editor and SDK residual passes, 13 exact `Data_BB_AAAA` labels
-retained as neutral, and no address-form Function/Func/Sub/Label/Font
+contains 3,872 numeric local labels after the subsequent body-editor and SDK residual passes, 11 exact `Data_BB_AAAA` labels
+retained as neutral; two other spans use byte-match names without a semantic
+type claim. No address-form Function/Func/Sub/Label/Font
 definitions. This does not establish semantic closure; local labels, data and
 address-only graphics paths still require bounded review. The English overlay
 remains paused and was not modified.
