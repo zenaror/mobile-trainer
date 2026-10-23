@@ -16,11 +16,11 @@ PROTECTED = "engine/mail/sample_data.asm"
 GLOBAL = re.compile(
     r"(?:Function|Func|Sub|Routine|Unknown|Unk|Code|Label|Font|Tiles?|"
     r"Tilemap|Attrmap|Palette|String|Table|SpriteFrame|SpriteScript|Data)_"
-    r"[0-9A-F]{2}_[0-9A-F]{4}\Z"
+    r"[0-9A-F]{2}_[0-9A-F]{4}\Z", re.I
 )
-LOCAL_ADDRESS = re.compile(r"\.l[0-9A-F]{4}\Z")
+LOCAL_ADDRESS = re.compile(r"\.l[0-9A-F]{4}\Z", re.I)
 SHORT_LOCAL = re.compile(r"\.(?:loop|skip|done|start)\Z")
-RAM_NAME = re.compile(r"(?:wRam|hRam|sSram)_[0-9A-F]{4}\Z")
+RAM_NAME = re.compile(r"(?:wRam|hRam|sSram)_[0-9A-F]{4}\Z", re.I)
 RAM_DECL = re.compile(r"^(?:DEF\s+)?([A-Za-z_.$][\w.$]*)\s+(?:EQU|SET|EQUS)\b", re.I)
 LABEL = re.compile(r"^([A-Za-z_.$][\w.$]*)::")
 LOCAL = re.compile(r"^(\.[\w.$]+)(?:\s|$)")
