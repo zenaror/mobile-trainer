@@ -38,7 +38,7 @@ Tilemap_AdapterCheck_4A_6600:: ; 4A:6600
 	INCBIN "gfx/settings/adapter_check_and_phone_entry_bank4a/adapter_check_4a_6600.tilemap"
 	INCBIN "gfx/settings/adapter_check_and_phone_entry_bank4a/adapter_check_4a_6600.attrmap"
 
-; ---- data $68D0-$6920 (80 bytes) [PROBABLE] sprite-object container: null entry0; B=$81 selects entry1 (frame list $68D8, script $690C) at 67:63EC; 4 frame pointers, records count 2/2/6/0, 4 script steps; 11 final zero bytes at $6915-$6920 have UNKNOWN purpose (see docs/research/adapter_check_object_data_80b.md)
+; ---- data $68D0-$6920 (80 bytes) [PROBABLE] sprite-object container: null entry0; B=$81 selects entry1 (frame list $68D8, script $690C) at 67:63EC; 4 frame pointers, records count 2/2/6/0, 4 script steps; the 11 final zero bytes at $6915-$6920 have no data-read overlap in 70 saved reports and UNKNOWN purpose (see docs/research/adapter_check_object_data_80b.md)
 
 AdapterCheck_ObjTable:: ; 4A:68D0
 
@@ -77,7 +77,7 @@ AdapterCheck_Anim1Script:: ; 4A:690C
 	sprite_anim_step 2, 20
 	sprite_anim_step 3, 20
 
-	; $6915-$6920: 11 original zero bytes, purpose UNKNOWN; not padding/unused proof.
+	; $6915-$6920: 11 original zero bytes, no reads in the current saved 70-report corpus; purpose UNKNOWN, not padding/unused proof.
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
 ; ---- gfx $6920-$6D20 (1024 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (67:4394 67:4A09); first: hdma_rom_to_vram at 67:4394: hl=$6920 a=$4A c=$40 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 63 hits in 3 scenarios (analysis/coverage_union.tsv)]

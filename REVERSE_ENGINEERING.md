@@ -663,7 +663,10 @@ whole-purpose or English result is claimed.
 
 The [AdapterCheck object-data representation](docs/research/adapter_check_object_data_80b.md)
 describes 80 original bytes: 69 bytes form an object table, frame list, four
-frames and an animation script; eleven final zero bytes have unknown purpose. The structure
+frames and an animation script; eleven final zero bytes at `4A:6915..6920` have unknown
+purpose. A recheck of the 70 saved data-read reports found the selected 65-byte
+entry-1 body in 69 reports and no reads of the null entry or final eleven bytes;
+this finite corpus does not establish padding or global non-use. The structure
 retains PROBABLE status. Its former tile binary and PNG remain unchanged as legacy
 references, outside the active catalogue; the maintained source is now ASM/macros.
 The root name is refined to AdapterCheck_ObjTable, six internal records gain proper
