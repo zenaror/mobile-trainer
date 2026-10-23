@@ -189,3 +189,16 @@ revalidate the finite checks only. They do not promote UNKNOWN/HYPOTHESIS
 entry, purpose, name-to-window association, natural frame selection, or global
 used/unused claims. Its 109/545 census counts were superseded by the current
 108/542 reconciliation at `91e1c957`. English/ZIP remain paused and untouched.
+
+## Current Japanese gate revalidation at `3f55d26e` (2026-10-23)
+
+At the canonical checkout `/home/rafael/_PROJETOS/Mobile Trainer`, `make`
+passed with SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`
+and `RESULT: IDENTICAL` for the 2,097,152-byte original ROM. `make sym-check`
+passed with 335 source files, 12,212 labels and 51 constants. `make
+palette-check` passed with 162 loads in 116 arrays, two documented over-reads
+and zero errors. The working tree was clean at the tested revision before
+running these gates. This revalidates only the build, symbol and palette gates;
+it does not resolve the remaining natural-entry, code/data-span, computed
+Bank 53 selection, frame-association or global used/unused questions. The
+English overlay and ZIP remain paused.
