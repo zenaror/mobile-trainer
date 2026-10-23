@@ -108,7 +108,7 @@ def main() -> int:
         "global labels containing Candidate (inventory; not presumed generic)": [],
         "single-RET body labels requiring explicit disposition": [],
         "source labels explicitly retaining Unknown/Unresolved content": [],
-        "function-boundary or complete-function comments to reconcile": [],
+        "function/operation-boundary comment clues (reconciled)": [],
     }
     current_local: set[tuple[str, str, str, str]] = set()
     current_numeric_local: set[tuple[str, str, str, str]] = set()
@@ -159,7 +159,7 @@ def main() -> int:
                     if next_label:
                         comment_owner = next_label.group(1)
                     break
-                hits["function-boundary or complete-function comments to reconcile"].append(
+                hits["function/operation-boundary comment clues (reconciled)"].append(
                     f"{name}:{number}:{comment_owner}: {raw.strip()}"
                 )
             if not line:
@@ -386,7 +386,7 @@ def main() -> int:
         "short local placeholders .loop/.skip/.done/.start": len(hits["short local placeholders"]),
         "numeric RAM equates": len(hits["numeric RAM equates"]),
         "single-RET body labels": len(hits["single-RET body labels requiring explicit disposition"]),
-        "function/operation-boundary comments": len(hits["function-boundary or complete-function comments to reconcile"]),
+        "function/operation-boundary comments": len(hits["function/operation-boundary comment clues (reconciled)"]),
         "active paths with bare bankNN directory component": len(bank_dirs),
         "owner-qualified bankNN directories and ASM filenames": len(bank_suffix_dirs) + len(bank_suffix_files),
         "GFX address-only asset basenames": len(address_assets),
@@ -442,7 +442,7 @@ def main() -> int:
         "labels with Stub/Nop/Maybe/Unknown/Unresolved/Placeholder/Generic/Unassigned markers (full disposition)",
         "single-RET body labels requiring explicit disposition",
         "source labels explicitly retaining Unknown/Unresolved content",
-        "function-boundary or complete-function comments to reconcile",
+        "function/operation-boundary comment clues (reconciled)",
         "numeric RAM equates",
         "global labels with address suffix (broad candidate inventory)",
         "global labels containing Candidate (inventory; not presumed generic)",
