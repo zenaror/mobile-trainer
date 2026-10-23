@@ -190,7 +190,7 @@ HelpScript_Run_NextCommand:: ; 6C:5B47
 	jp c, .l5C35
 	jp z, .l5C36
 	cp a, $05
-	jr c, .l5B81
+	jr c, .jump_relative
 	jr z, .l5B88
 	cp a, $07
 	jr c, .l5B8F
@@ -210,7 +210,7 @@ HelpScript_Run_NextCommand:: ; 6C:5B47
 .l5B7E ; 6C:5B7E
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 12/18 scenarios)
 	jp .l5C0B
-.l5B81 ; 6C:5B81
+.jump_relative ; 6C:5B81
 	ld a, [hli]
 	ld c, a
 	ld a, [hli]
@@ -279,7 +279,7 @@ HelpScript_Run_NextCommand:: ; 6C:5B47
 	inc hl
 	cp a, b
 	jr nz, .l5C06
-	jr .l5B81
+	jr .jump_relative
 
 .l5BDF ; 6C:5BDF
 	; [PROBABLE] 22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 1;
@@ -305,7 +305,7 @@ HelpScript_Run_NextCommand:: ; 6C:5B47
 	pop hl
 	cp a, d
 	jr nz, .l5C06
-	jp .l5B81
+	jp .jump_relative
 
 .l5C06 ; 6C:5C06
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 12/18 scenarios)
@@ -473,7 +473,7 @@ HelpScript_OnSelect:: ; 6C:5D5A
 	call ReadByteFar
 	pop hl
 	bit 7, a
-	jr nz, .l5D8D
+	jr nz, .resume_alternate_script
 	ld a, [wHelpScriptRestartPtr]
 	ld [wHelpScriptPtr], a
 	ld a, [wHelpScriptRestartPtr + 1]
@@ -481,7 +481,7 @@ HelpScript_OnSelect:: ; 6C:5D5A
 	farcall Palette_FadeOutToWhite
 	ld b, $00
 	ret
-.l5D8D ; 6C:5D8D
+.resume_alternate_script ; 6C:5D8D
 	ld a, [wHelpScriptAltPtr]
 	ld [wHelpScriptPtr], a
 	ld a, [wHelpScriptAltPtrHi]
@@ -536,10 +536,10 @@ HelpScript_Run_TextFinished:: ; 6C:5D9F
 HelpScript_Run_ResumeScript:: ; 6C:5E03
 	ld a, [wHelpScriptAdvanceMode]
 	cp a, $02
-	jr z, .l5E1D
+	jr z, .defer_text_sfx
 	play_sfx $0040
 	jp HelpScript_Run_NextCommand
-.l5E1D ; 6C:5E1D
+.defer_text_sfx ; 6C:5E1D
 	ld a, $01
 	ld [wHelpScript_DeferredTextSfx], a
 	jp HelpScript_Run_NextCommand
@@ -790,7 +790,7 @@ HelpScript_StepText:: ; 6C:6009
 	jr z, .l6045
 	cp a, $03
 	jr c, .l605B
-	jr z, .l6075
+	jr z, .render_caption
 	cp a, $05
 	jr c, .l607A
 
@@ -822,8 +822,8 @@ HelpScript_StepText:: ; 6C:6009
 .l605B ; 6C:605B
 	ld a, b
 	cp a, $21
-	jr c, .l6068
-	jr z, .l606E
+	jr c, .disable_plane1_clear
+	jr z, .enable_plane1_clear
 
 	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
 	; fall-through of the jrcc at 6C:6060 (executed)
@@ -831,16 +831,16 @@ HelpScript_StepText:: ; 6C:6009
 	ld [wHelpScriptGlyphDelay], a
 	jr .l601B
 
-.l6068 ; 6C:6068
+.disable_plane1_clear ; 6C:6068
 	; [CONFIRMED] 19 insn(s); 19 executed (in up to 12/18 scenarios)
 	xor a, a
 	ld [wHelpScript_ClearPlane1Flag], a
 	jr .l601B
-.l606E ; 6C:606E
+.enable_plane1_clear ; 6C:606E
 	ld a, $01
 	ld [wHelpScript_ClearPlane1Flag], a
 	jr .l601B
-.l6075 ; 6C:6075
+.render_caption ; 6C:6075
 	call HelpScript_RenderCaption
 	jr .l601B
 .l607A ; 6C:607A

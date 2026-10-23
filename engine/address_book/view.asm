@@ -413,7 +413,7 @@ AbookView_DrawName:: ; 2F:53F5
 	; region 53F5-57A5 by apply_coverage --split [executed in 2 scenarios]
 	ld a, $10
 	ld [wTextCellsLeft], a
-.l53FA ; 2F:53FA
+.read_next_char ; 2F:53FA
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -425,7 +425,7 @@ AbookView_DrawName:: ; 2F:53F5
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, .l5455
+	jr nz, .draw_ascii_char
 	pop af
 	push bc
 	push de
@@ -462,9 +462,9 @@ AbookView_DrawName:: ; 2F:53F5
 	jr z, .l5495
 	cp a, $01
 	jr z, .l5495
-	jr .l53FA
+	jr .read_next_char
 
-.l5455 ; 2F:5455
+.draw_ascii_char ; 2F:5455
 	; [PROBABLE] 32 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 53F5-57A5 by apply_coverage --split
 	pop af
@@ -485,7 +485,7 @@ AbookView_DrawName:: ; 2F:53F5
 	jr z, .l5495
 	cp a, $01
 	jr z, .l5495
-	jr .l53FA
+	jr .read_next_char
 .l547A ; 2F:547A
 	push bc
 	push de
@@ -555,7 +555,7 @@ AbookView_DrawName_Pad:: ; 2F:54C9
 AbookView_DrawAddrLine1:: ; 2F:54E1
 	ld a, $11
 	ld [wTextCellsLeft], a
-.l54E6 ; 2F:54E6
+.read_next_char ; 2F:54E6
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -567,7 +567,7 @@ AbookView_DrawAddrLine1:: ; 2F:54E1
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, .l5541
+	jr nz, .draw_ascii_char
 
 	; [PROBABLE] 37 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 53F5-57A5 by apply_coverage --split
@@ -607,9 +607,9 @@ AbookView_DrawAddrLine1:: ; 2F:54E1
 	jr z, .l5581
 	cp a, $01
 	jr z, .l5581
-	jr .l54E6
+	jr .read_next_char
 
-.l5541 ; 2F:5541
+.draw_ascii_char ; 2F:5541
 	; [CONFIRMED] 19 insn(s) executed; cut out of the PROBABLE region 53F5-57A5 by apply_coverage
 	; --split [executed in 4 scenarios]
 	pop af
@@ -630,7 +630,7 @@ AbookView_DrawAddrLine1:: ; 2F:54E1
 	jr z, .l5581
 	cp a, $01
 	jr z, .l5581
-	jr .l54E6
+	jr .read_next_char
 
 .l5566 ; 2F:5566
 	; [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region
@@ -703,7 +703,7 @@ AbookView_DrawAddrLine1_Pad:: ; 2F:55B5
 AbookView_DrawAddrLine2:: ; 2F:55CD
 	ld a, $19
 	ld [wTextCellsLeft], a
-.l55D2 ; 2F:55D2
+.read_next_char ; 2F:55D2
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -715,7 +715,7 @@ AbookView_DrawAddrLine2:: ; 2F:55CD
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, .l562D
+	jr nz, .draw_ascii_char
 
 	; [PROBABLE] 37 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 53F5-57A5 by apply_coverage --split
@@ -755,9 +755,9 @@ AbookView_DrawAddrLine2:: ; 2F:55CD
 	jr z, .l566D
 	cp a, $01
 	jr z, .l566D
-	jr .l55D2
+	jr .read_next_char
 
-.l562D ; 2F:562D
+.draw_ascii_char ; 2F:562D
 	; [CONFIRMED] 19 insn(s) executed; cut out of the PROBABLE region 53F5-57A5 by apply_coverage
 	; --split [executed in 3 scenarios]
 	pop af
@@ -778,7 +778,7 @@ AbookView_DrawAddrLine2:: ; 2F:55CD
 	jr z, .l566D
 	cp a, $01
 	jr z, .l566D
-	jr .l55D2
+	jr .read_next_char
 
 .l5652 ; 2F:5652
 	; [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region
@@ -851,7 +851,7 @@ AbookView_DrawAddrLine2_Pad:: ; 2F:56A1
 AbookView_DrawAddrLine3:: ; 2F:56B9
 	ld a, $19
 	ld [wTextCellsLeft], a
-.l56BE ; 2F:56BE
+.read_next_char ; 2F:56BE
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -863,7 +863,7 @@ AbookView_DrawAddrLine3:: ; 2F:56B9
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, .l5719
+	jr nz, .draw_ascii_char
 
 	; [PROBABLE] 37 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 53F5-57A5 by apply_coverage --split
@@ -903,9 +903,9 @@ AbookView_DrawAddrLine3:: ; 2F:56B9
 	jr z, .l5759
 	cp a, $01
 	jr z, .l5759
-	jr .l56BE
+	jr .read_next_char
 
-.l5719 ; 2F:5719
+.draw_ascii_char ; 2F:5719
 	; [CONFIRMED] 19 insn(s) executed; cut out of the PROBABLE region 53F5-57A5 by apply_coverage
 	; --split [executed in 1 scenarios]
 	pop af
@@ -926,7 +926,7 @@ AbookView_DrawAddrLine3:: ; 2F:56B9
 	jr z, .l5759
 	cp a, $01
 	jr z, .l5759
-	jr .l56BE
+	jr .read_next_char
 
 .l573E ; 2F:573E
 	; [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region

@@ -74,14 +74,14 @@ MobileDictView_Idle:: ; 4C:4FFF
 	; [CONFIRMED] 215 insn(s); 215 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressedRepeat]
 	bit PADB_UP, a
-	jr nz, .l500C
+	jr nz, .select_previous_link
 	bit PADB_DOWN, a
-	jr nz, .l5015
+	jr nz, .select_next_link
 	jp MobileDictView_Show_InputLoop
-.l500C ; 4C:500C
+.select_previous_link ; 4C:500C
 	farcall Browser_SelectPrevLink
 	jp MobileDictView_Show_InputLoop
-.l5015 ; 4C:5015
+.select_next_link ; 4C:5015
 	farcall Browser_SelectNextLink
 	jp MobileDictView_Show_InputLoop
 

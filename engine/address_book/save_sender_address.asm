@@ -606,7 +606,7 @@ SaveSenderAddr_DrawSenderName:: ; 2A:4483
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, .l44EA
+	jr nz, .draw_ascii_char
 	ld a, [wTextCellsLeft]
 	cp a, $01
 	jr nz, .l44AD
@@ -655,7 +655,7 @@ SaveSenderAddr_DrawSenderName:: ; 2A:4483
 	jr z, .l4527
 	jr .l4488
 
-.l44EA ; 2A:44EA
+.draw_ascii_char ; 2A:44EA
 	; [PROBABLE] 30 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4483-483B by apply_coverage --split
 	pop af

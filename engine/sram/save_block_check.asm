@@ -82,10 +82,10 @@ SaveCheck_Verify:: ; 4E:46CF
 	call SaveCheck_Sum16
 	ld a, [sSaveCheckStateBlock + $02]
 	cp a, e
-	jr nz, .l4730
+	jr nz, .invalid_block
 	ld a, [sSaveCheckStateBlock + $03]
 	cp a, d
-	jr nz, .l4730
+	jr nz, .invalid_block
 	ld de, $0000
 	ld hl, sPageList
 	ld bc, $0684
@@ -95,26 +95,26 @@ SaveCheck_Verify:: ; 4E:46CF
 	call SaveCheck_Sum16
 	ld a, [sSaveCheckBlockTag + $02]
 	cp a, e
-	jr nz, .l4730
+	jr nz, .invalid_block
 	ld a, [sSaveCheckBlockTag + $03]
 	cp a, d
-	jr nz, .l4730
+	jr nz, .invalid_block
 	ld a, [sBrowserFrameStyle]
 	and a, $7F
 	or a, a
-	jr z, .l4730
+	jr z, .invalid_block
 	cp a, $1B
-	jr nc, .l4730
+	jr nc, .invalid_block
 	ld a, [sSaveCheckValidFlag]
 	or a, a
-	jr z, .l4730
+	jr z, .invalid_block
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	xor a, a
 	ret
 
-.l4730 ; 4E:4730
+.invalid_block ; 4E:4730
 	; [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1;
 	; entered by jrcc from 4E:46ED (executed)
 	xor a, a
@@ -302,11 +302,11 @@ Sram_CountMobileError12Or26:: ; 4E:4866
 	ld [rRAMB], a
 	ld a, [wMobileErrorCode]
 	cp a, $12
-	jr z, .l487F
+	jr z, .increment_matching_error_count
 	cp a, $26
 	jr nz, .l4886
 
-.l487F ; 4E:487F
+.increment_matching_error_count ; 4E:487F
 	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
 	; entered by jrcc from 4E:4879 (executed)
 	ld a, [sMobileError12Or26Count]

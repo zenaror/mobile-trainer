@@ -395,11 +395,11 @@ Sprite_StepAndDrawSlot:: ; 00:0AE8
 	ld d, a
 	ld a, [hli]
 	cp a, $FF
-	jr z, .l0B71
+	jr z, .load_sprite_masks_and_frame_pointer
 	call BankSwitch_D
 	or a, e
 	or a, d
-	jr z, .l0B71
+	jr z, .load_sprite_masks_and_frame_pointer
 	pop hl
 	push hl
 	ld bc, $0B54
@@ -420,11 +420,11 @@ Sprite_StepAndDrawSlot:: ; 00:0AE8
 	ld d, a
 	ld a, [hli]
 	cp a, $FF
-	jr z, .l0B71
+	jr z, .load_sprite_masks_and_frame_pointer
 	or a, a
-	jr z, .l0B71
+	jr z, .load_sprite_masks_and_frame_pointer
 	call BankSwitch_D
-.l0B71 ; 00:0B71
+.load_sprite_masks_and_frame_pointer ; 00:0B71
 	pop hl
 	pop de
 	push de

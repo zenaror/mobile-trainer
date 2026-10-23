@@ -379,12 +379,12 @@ CommNotice_HandleLeftRight:: ; 50:430C
 	ret z
 	ldh a, [hJoyPressedRepeat]
 	bit PADB_RIGHT, a
-	jr nz, .l431C
+	jr nz, .handle_horizontal_input
 	bit PADB_LEFT, a
-	jr nz, .l431C
+	jr nz, .handle_horizontal_input
 	ret
 
-.l431C ; 50:431C
+.handle_horizontal_input ; 50:431C
 	; [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 42B6-438A by apply_coverage --split
 	ld a, [wCommNotice_Cursor]

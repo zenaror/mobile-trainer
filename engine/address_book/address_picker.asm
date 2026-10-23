@@ -1702,7 +1702,7 @@ AddrBook_DrawSlotName:: ; 2C:614D
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, .l61B7
+	jr nz, .draw_ascii_char
 	ld a, [wTextCellsLeft]
 	cp a, $01
 	jr nz, .l617A
@@ -1751,7 +1751,7 @@ AddrBook_DrawSlotName:: ; 2C:614D
 	jr z, .l61D9
 	jr .l6152
 
-.l61B7 ; 2C:61B7
+.draw_ascii_char ; 2C:61B7
 	; [PROBABLE] 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 6165-61D9 by apply_coverage --split
 	pop af

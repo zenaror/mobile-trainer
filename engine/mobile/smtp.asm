@@ -23,12 +23,12 @@ Smtp_HeloPoll:: ; 54:451B
 	call Mobile_CheckTimeout
 	ld a, [wTimerEnable]
 	bit 1, a
-	jr nz, .l452C
+	jr nz, .fetch_result_return_ff
 	bit 0, a
 	jr z, .l4532
 	ld a, $01
 	ret
-.l452C ; 54:452C
+.fetch_result_return_ff ; 54:452C
 	call Mobile_FetchResult
 	ld a, $FF
 	ret
@@ -55,13 +55,13 @@ Smtp_QuitPoll:: ; 54:4552
 	farcall MailSession_UpdateTimerDisplay
 	ld a, [wTimerEnable]
 	bit 1, a
-	jr nz, .l4569
+	jr nz, .fetch_result_return_ff
 	bit 0, a
 	jr z, .l456F
 	ld a, $01
 	ret
 
-.l4569 ; 54:4569
+.fetch_result_return_ff ; 54:4569
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 44C3-475A by apply_coverage --split
 	call Mobile_FetchResult

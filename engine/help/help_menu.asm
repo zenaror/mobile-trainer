@@ -206,7 +206,7 @@ HelpMenu_OnA:: ; 6C:41E5
 	ld a, [wHelpMenu_Cursor]
 	call HelpMenu_ItemIsLocked
 	or a, a
-	jp nz, .l4247
+	jp nz, .reject_locked_item
 	play_sfx SFX_CONFIRM
 	farcall Palette_FadeOutWithTicker
 	farcall Ticker_Stop
@@ -217,18 +217,18 @@ HelpMenu_OnA:: ; 6C:41E5
 	jr z, .l4241
 	ld a, [wHelpMenu_Cursor]
 	cp a, $02
-	jr z, .l4222
+	jr z, .open_page2
 	cp a, $03
-	jr z, .l422E
+	jr z, .open_page3
 	ret
-.l4222 ; 6C:4222
+.open_page2 ; 6C:4222
 	ld a, $02
 	ld [wHelpMenu_Page], a
 	dec a
 	ld [wHelpMenu_Cursor], a
 	jp HelpMenu_ShowPage_Redraw
 
-.l422E ; 6C:422E
+.open_page3 ; 6C:422E
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1;
 	; entered by jrcc from 6C:421F (executed) [executed in 2 scenarios]
 	ld a, $03
@@ -250,7 +250,7 @@ HelpMenu_OnA:: ; 6C:41E5
 	add a, $10
 	ret
 
-.l4247 ; 6C:4247
+.reject_locked_item ; 6C:4247
 	; [CONFIRMED] 31 insn(s); 31 executed (in up to 3/18 scenarios)
 	play_sfx SFX_REJECT
 	jp HelpMenu_ShowPage_InputLoop

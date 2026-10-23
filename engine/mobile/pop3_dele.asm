@@ -43,13 +43,13 @@ Pop3_DelePoll:: ; 54:53BB
 	call Mobile_CheckTimeout
 	ld a, [wTimerEnable]
 	bit 1, a
-	jr nz, .l53DD
+	jr nz, .fetch_result_return_ff
 	bit 0, a
 	jr z, .l53E3
 	ld a, $01
 	ret
 
-.l53DD ; 54:53DD
+.fetch_result_return_ff ; 54:53DD
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5386-53E9 by apply_coverage --split
 	call Mobile_FetchResult

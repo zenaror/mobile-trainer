@@ -223,27 +223,27 @@ SettingsMenu_StateFadeIn:: ; 68:5156
 SettingsMenu_StateInput:: ; 68:5172
 	ldh a, [hJoyPressedRepeat]
 	bit PADB_A, a
-	jr nz, .l5187
+	jr nz, .handle_button_a
 	bit PADB_B, a
-	jr nz, .l519E
+	jr nz, .handle_button_b
 	bit PADB_UP, a
-	jr nz, .l51BA
+	jr nz, .handle_button_up
 	bit PADB_DOWN, a
-	jr nz, .l51CF
+	jr nz, .handle_button_down
 	jp .done
-.l5187 ; 68:5187
+.handle_button_a ; 68:5187
 	play_sfx SFX_CONFIRM
 	ld a, $03
 	ld [wSettingsMenu_State], a
 	jr .done
-.l519E ; 68:519E
+.handle_button_b ; 68:519E
 	play_sfx SFX_CANCEL
 	ld a, $03
 	ld [wSettingsMenu_State], a
 	ld a, $01
 	ld [wSettingsMenu_CancelFlag], a
 	jr .done
-.l51BA ; 68:51BA
+.handle_button_up ; 68:51BA
 	ld a, [wSettingsMenu_Cursor]
 	or a, a
 	jr nz, .l51C9
@@ -256,7 +256,7 @@ SettingsMenu_StateInput:: ; 68:5172
 	dec a
 	ld [wSettingsMenu_Cursor], a
 	jr .l51E1
-.l51CF ; 68:51CF
+.handle_button_down ; 68:51CF
 	ld a, [wHiddenModeFlag]
 	add a, $03
 	ld b, a

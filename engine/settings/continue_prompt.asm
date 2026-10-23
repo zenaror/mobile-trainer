@@ -77,13 +77,13 @@ SettingsPhone_ContinuePrompt_Loop:: ; 67:57CC
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit PADB_A, a
-	jr nz, .l57EB
+	jr nz, .handle_button_a
 	bit PADB_LEFT, a
-	jr nz, .l5821
+	jr nz, .handle_horizontal_input
 	bit PADB_RIGHT, a
-	jr nz, .l5821
+	jr nz, .handle_horizontal_input
 	jr SettingsPhone_ContinuePrompt_Loop
-.l57EB ; 67:57EB
+.handle_button_a ; 67:57EB
 	play_sfx SFX_CONFIRM
 	ld a, [wContinuePrompt_Cursor]
 	or a, a
@@ -108,7 +108,7 @@ SettingsPhone_ContinuePrompt_Loop:: ; 67:57CC
 	ld [wContinuePrompt_Result], a
 	ret
 
-.l5821 ; 67:5821
+.handle_horizontal_input ; 67:5821
 	; [PROBABLE] 30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 7;
 	; entered by jrcc from 67:57E3 (PROBABLE code) | 15 insn(s) never executed in the traced runs;
 	; cut out of the PROBABLE region 5821-585A by apply_coverage --split

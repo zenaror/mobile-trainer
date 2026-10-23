@@ -243,7 +243,7 @@ CommPanel_StateScreenOn:: ; 68:7522
 CommPanel_StateWait:: ; 68:7544
 	ldh a, [hJoyHeld]
 	bit PADB_B, a
-	jr nz, .l755B
+	jr nz, .handle_button_b
 	ld a, [wCommPanelArg]
 	or a, a
 	jr z, .done
@@ -254,7 +254,7 @@ CommPanel_StateWait:: ; 68:7544
 	ld [wCommPanelState], a
 	jr .done
 
-.l755B ; 68:755B
+.handle_button_b ; 68:755B
 	; [CONFIRMED] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 1;
 	; entered by jrcc from 68:7548 (executed) [executed in 4 scenarios]
 	ld a, [wCommPanelVariant]

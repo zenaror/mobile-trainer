@@ -1235,7 +1235,7 @@ PageList_DrawAllTitles:: ; 24:48C7
 PageList_DrawTextLine:: ; 24:494C
 	ld a, $14
 	ld [wTextCellsLeft], a
-.l4951 ; 24:4951
+.read_next_char ; 24:4951
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1245,7 +1245,7 @@ PageList_DrawTextLine:: ; 24:494C
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, .l49A7
+	jr nz, .draw_ascii_char
 	pop af
 	push bc
 	push de
@@ -1282,9 +1282,9 @@ PageList_DrawTextLine:: ; 24:494C
 	jr z, .l49CC
 	cp a, $01
 	jr z, .l49CC
-	jr .l4951
+	jr .read_next_char
 
-.l49A7 ; 24:49A7
+.draw_ascii_char ; 24:49A7
 	; [PROBABLE] 19 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 42F0-4B10 by apply_coverage --split
 	pop af
@@ -1305,7 +1305,7 @@ PageList_DrawTextLine:: ; 24:494C
 	jr z, .l49CC
 	cp a, $01
 	jr z, .l49CC
-	jr .l4951
+	jr .read_next_char
 
 .l49CC ; 24:49CC
 	; [CONFIRMED] 159 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage

@@ -145,15 +145,15 @@ Registration_DeleteConfirm_InputLoop:: ; 68:7A8F
 	call VBlank_WaitAndService
 	ldh a, [hJoyPressedRepeat]
 	bit PADB_A, a
-	jr nz, .l7AB2
+	jr nz, .handle_button_a
 	bit PADB_B, a
-	jr nz, .l7ACE
+	jr nz, .handle_button_b
 	bit PADB_LEFT, a
-	jr nz, .l7AE0
+	jr nz, .handle_horizontal_input
 	bit PADB_RIGHT, a
-	jr nz, .l7AE0
+	jr nz, .handle_horizontal_input
 	jr Registration_DeleteConfirm_InputLoop
-.l7AB2 ; 68:7AB2
+.handle_button_a ; 68:7AB2
 	play_sfx SFX_CONFIRM
 	ld a, [wDeleteConfirm_Cursor]
 	or a, a
@@ -166,12 +166,12 @@ Registration_DeleteConfirm_InputLoop:: ; 68:7A8F
 	; entered by jrcc from 68:7AC6 (executed) [executed in 3 scenarios]
 	ld a, $02
 	ret
-.l7ACE ; 68:7ACE
+.handle_button_b ; 68:7ACE
 	play_sfx SFX_CANCEL
 	xor a, a
 	ret
 
-.l7AE0 ; 68:7AE0
+.handle_horizontal_input ; 68:7AE0
 	; [CONFIRMED] 30 insn(s); 30 executed (in up to 1/18 scenarios)
 	play_sfx SFX_CURSOR_MOVE
 	ld a, [wDeleteConfirm_Cursor]

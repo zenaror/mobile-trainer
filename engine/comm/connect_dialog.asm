@@ -244,12 +244,12 @@ ConnectDialog_Input_ConnectConfirm:: ; 57:41CA
 	jr nz, .l420A
 	ldh a, [hJoyPressed]
 	bit PADB_A, a
-	jr nz, .l41DE
+	jr nz, .handle_button_a
 	bit PADB_B, a
-	jr nz, .l41FE
+	jr nz, .handle_button_b
 	xor a, a
 	ret
-.l41DE ; 57:41DE
+.handle_button_a ; 57:41DE
 	ld a, $00
 	call ConnectDialog_PlayButtonSfx
 	ld a, [wConnectDialog_Cursor]
@@ -266,7 +266,7 @@ ConnectDialog_Input_ConnectConfirm:: ; 57:41CA
 	ld a, b
 	ld [wConnectDialog_NextMode], a
 	ret
-.l41FE ; 57:41FE
+.handle_button_b ; 57:41FE
 	ld a, $01
 	call ConnectDialog_PlayButtonSfx
 .l4203 ; 57:4203
@@ -295,18 +295,18 @@ ConnectDialog_Input_PasswordPrompt:: ; 57:4237
 	; 4237-4443 by apply_coverage --split [executed in 4 scenarios]
 	ldh a, [hJoyPressed]
 	bit PADB_A, a
-	jr nz, .l4243
+	jr nz, .handle_button_a
 	bit PADB_B, a
-	jr nz, .l424E
+	jr nz, .handle_button_b
 	xor a, a
 	ret
-.l4243 ; 57:4243
+.handle_button_a ; 57:4243
 	ld a, $00
 	call ConnectDialog_PlayButtonSfx
 	ld a, $06
 	ld [wConnectDialog_NextMode], a
 	ret
-.l424E ; 57:424E
+.handle_button_b ; 57:424E
 	ld a, $01
 	call ConnectDialog_PlayButtonSfx
 	ld a, [wConnectDialogArgPtr]
@@ -485,12 +485,12 @@ ConnectDialog_Input_SaveConfirm:: ; 57:43BC
 	jr nz, .l43F4
 	ldh a, [hJoyPressed]
 	bit PADB_A, a
-	jr nz, .l43D0
+	jr nz, .handle_button_a
 	bit PADB_B, a
 	jr nz, .l43E2
 	xor a, a
 	ret
-.l43D0 ; 57:43D0
+.handle_button_a ; 57:43D0
 	ld a, $00
 	call ConnectDialog_PlayButtonSfx
 	ld a, [wConnectDialog_Cursor]
@@ -526,18 +526,18 @@ ConnectDialog_Input_SaveConfirm:: ; 57:43BC
 ConnectDialog_Input_PasswordSaved:: ; 57:4421
 	ldh a, [hJoyPressed]
 	bit PADB_A, a
-	jr nz, .l442D
+	jr nz, .handle_button_a
 	bit PADB_B, a
-	jr nz, .l4438
+	jr nz, .handle_button_b
 	xor a, a
 	ret
-.l442D ; 57:442D
+.handle_button_a ; 57:442D
 	ld a, $00
 	call ConnectDialog_PlayButtonSfx
 	ld a, $10
 	ld [wConnectDialog_NextMode], a
 	ret
-.l4438 ; 57:4438
+.handle_button_b ; 57:4438
 	ld a, $01
 	call ConnectDialog_PlayButtonSfx
 	ld a, $07
@@ -548,20 +548,20 @@ ConnectDialog_Input_StoredPassword:: ; 57:4443
 	; [CONFIRMED] 24 insn(s); 24 executed (in up to 5/18 scenarios)
 	ldh a, [hJoyPressed]
 	bit PADB_A, a
-	jr nz, .l4453
+	jr nz, .handle_button_a
 	bit PADB_B, a
-	jr nz, .l445E
+	jr nz, .handle_button_b
 	bit PADB_SELECT, a
-	jr nz, .l447B
+	jr nz, .handle_button_select
 	xor a, a
 	ret
-.l4453 ; 57:4453
+.handle_button_a ; 57:4453
 	ld a, $00
 	call ConnectDialog_PlayButtonSfx
 	ld a, $10
 	ld [wConnectDialog_NextMode], a
 	ret
-.l445E ; 57:445E
+.handle_button_b ; 57:445E
 	ld a, $01
 	call ConnectDialog_PlayButtonSfx
 	ld a, [wConnectDialogArgPtr]
@@ -582,7 +582,7 @@ ConnectDialog_Input_StoredPassword:: ; 57:4443
 	ld [wConnectDialog_NextMode], a
 	ret
 
-.l447B ; 57:447B
+.handle_button_select ; 57:447B
 	; [CONFIRMED] 48 insn(s) reached by static flow only; seeds: exec x48; min discovery hops 1;
 	; entered by jrcc from 57:444F (executed) [executed in 1 scenarios]
 	ld a, $0A
@@ -596,12 +596,12 @@ ConnectDialog_Input_ForgetConfirm:: ; 57:4481
 	jr nz, .l44B7
 	ldh a, [hJoyPressed]
 	bit PADB_A, a
-	jr nz, .l4495
+	jr nz, .handle_button_a
 	bit PADB_B, a
 	jr nz, .l44A7
 	xor a, a
 	ret
-.l4495 ; 57:4495
+.handle_button_a ; 57:4495
 	ld a, $00
 	call ConnectDialog_PlayButtonSfx
 	ld a, [wConnectDialog_Cursor]

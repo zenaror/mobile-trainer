@@ -155,7 +155,7 @@ AddrScreenCandidate_DrawTextLine21:: ; 2C:755C
 
 	ld a, $15
 	ld [wTextCellsLeft], a
-.l7561 ; 2C:7561
+.read_next_char ; 2C:7561
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -163,11 +163,11 @@ AddrScreenCandidate_DrawTextLine21:: ; 2C:755C
 	cp a, $00
 	jp z, .l75FC
 	cp a, $0D
-	jr z, .l75E1
+	jr z, .draw_cr_marker
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, .l75BC
+	jr nz, .draw_ascii_char
 	pop af
 	push bc
 	push de
@@ -204,8 +204,8 @@ AddrScreenCandidate_DrawTextLine21:: ; 2C:755C
 	jr z, .l75FC
 	cp a, $01
 	jr z, .l75FC
-	jr .l7561
-.l75BC ; 2C:75BC
+	jr .read_next_char
+.draw_ascii_char ; 2C:75BC
 	pop af
 	push bc
 	push de
@@ -224,8 +224,8 @@ AddrScreenCandidate_DrawTextLine21:: ; 2C:755C
 	jr z, .l75FC
 	cp a, $01
 	jr z, .l75FC
-	jr .l7561
-.l75E1 ; 2C:75E1
+	jr .read_next_char
+.draw_cr_marker ; 2C:75E1
 	push bc
 	push de
 	push hl
@@ -294,7 +294,7 @@ AddrScreenCandidate_DrawTextLine25:: ; 2C:7648
 
 	ld a, $19
 	ld [wTextCellsLeft], a
-.l764D ; 2C:764D
+.read_next_char ; 2C:764D
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -302,11 +302,11 @@ AddrScreenCandidate_DrawTextLine25:: ; 2C:7648
 	cp a, $00
 	jp z, .l76E8
 	cp a, $0D
-	jr z, .l76CD
+	jr z, .draw_cr_marker
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, .l76A8
+	jr nz, .draw_ascii_char
 	pop af
 	push bc
 	push de
@@ -343,8 +343,8 @@ AddrScreenCandidate_DrawTextLine25:: ; 2C:7648
 	jr z, .l76E8
 	cp a, $01
 	jr z, .l76E8
-	jr .l764D
-.l76A8 ; 2C:76A8
+	jr .read_next_char
+.draw_ascii_char ; 2C:76A8
 	pop af
 	push bc
 	push de
@@ -363,8 +363,8 @@ AddrScreenCandidate_DrawTextLine25:: ; 2C:7648
 	jr z, .l76E8
 	cp a, $01
 	jr z, .l76E8
-	jr .l764D
-.l76CD ; 2C:76CD
+	jr .read_next_char
+.draw_cr_marker ; 2C:76CD
 	push bc
 	push de
 	push hl

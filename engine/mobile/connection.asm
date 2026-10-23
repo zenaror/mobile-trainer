@@ -69,13 +69,13 @@ Mobile_SessionInit:: ; 54:403D
 Mobile_ConnectPoll:: ; 54:405D
 	ld a, [wTimerEnable]
 	bit 1, a
-	jr nz, .l406B
+	jr nz, .fetch_result_return_ff
 	bit 0, a
 	jr z, .l4071
 	ld a, $01
 	ret
 
-.l406B ; 54:406B
+.fetch_result_return_ff ; 54:406B
 	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1;
 	; entered by jrcc from 54:4062 (executed)
 	call Mobile_FetchResult
@@ -245,13 +245,13 @@ Mobile_BeginDisconnect:: ; 54:418C
 Mobile_DisconnectPoll:: ; 54:41A3
 	ld a, [wTimerEnable]
 	bit 1, a
-	jr nz, .l41B1
+	jr nz, .fetch_result_return_ff
 	bit 0, a
 	jr z, .l41B7
 	ld a, $01
 	ret
 
-.l41B1 ; 54:41B1
+.fetch_result_return_ff ; 54:41B1
 	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1;
 	; entered by jrcc from 54:41A8 (executed) [executed in 5 scenarios]
 	call Mobile_FetchResult
@@ -284,14 +284,14 @@ Mobile_InitTaskStateKind1:: ; 54:41C5
 
 	ld a, [wTimerEnable]
 	bit 1, a
-	jr nz, .l41E6
+	jr nz, .fetch_result_return_ff
 	bit 2, a
 	jr nz, .l41EC
 	bit 0, a
 	jr z, .l4215
 	ld a, $01
 	ret
-.l41E6 ; 54:41E6
+.fetch_result_return_ff ; 54:41E6
 	call Mobile_FetchResult
 	ld a, $FF
 	ret
@@ -383,13 +383,13 @@ Mobile_BeginCancel:: ; 54:423C
 Mobile_CancelPoll:: ; 54:4266
 	ld a, [wTimerEnable]
 	bit 1, a
-	jr nz, .l4274
+	jr nz, .fetch_result_return_ff
 	bit 0, a
 	jr z, .l427A
 	ld a, $01
 	ret
 
-.l4274 ; 54:4274
+.fetch_result_return_ff ; 54:4274
 	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1;
 	; entered by jrcc from 54:426B (executed)
 	call Mobile_FetchResult

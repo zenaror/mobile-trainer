@@ -175,18 +175,18 @@ Browser_PageView_HandleDpad:: ; 4E:4AEC
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressedRepeat]
 	bit PADB_UP, a
-	jr nz, .l4AF9
+	jr nz, .handle_button_up
 	bit PADB_DOWN, a
-	jr nz, .l4B02
+	jr nz, .handle_button_down
 	jp Browser_PageView_Loop
 
-.l4AF9 ; 4E:4AF9
+.handle_button_up ; 4E:4AF9
 	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1;
 	; entered by jrcc from 4E:4AF0 (executed) [executed in 1 scenarios]
 	farcall Browser_SelectPrevLink
 	jp Browser_PageView_Loop
 
-.l4B02 ; 4E:4B02
+.handle_button_down ; 4E:4B02
 	; [CONFIRMED] 51 insn(s); 51 executed (in up to 1/18 scenarios)
 	farcall Browser_SelectNextLink
 	jp Browser_PageView_Loop

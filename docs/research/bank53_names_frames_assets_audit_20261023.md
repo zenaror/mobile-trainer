@@ -10,7 +10,7 @@ This does **not** prove that every candidate window is used, that any frame is u
 
 ## Evidence and limits
 
-- The 25 pointers and Shift-JIS/NUL strings at 53:4032–4171 match the ROM exactly (50 pointer bytes + 319 string bytes = 369). No image assignment follows from table order.
+- The 25 pointers at 53:4000–4032 (50 bytes) and Shift-JIS/NUL strings at 53:4032–4171 (319 bytes) match the ROM exactly. The complete contiguous block is 53:4000–4171 (369 bytes). No image assignment follows from table order.
 - The 25 candidate windows are each `$D50` bytes. Their source fragments re-emit exactly; the 2,416 bytes outside currently active tile/raw leaves remain represented in source and are not missing ROM bytes.
 - All 137 inventoried Bank 41–47 assets exist and match emitted sizes/hashes. The 53 inverse conversions and 17 views match the documented models. The 24 preview files decode as valid 160×144 PNGs with valid CRCs. These checks establish file and declared-model consistency, not natural loader behavior or LCD output.
 - Eight `KEEP` maps retain uncovered cells under the conditional U160 model; these are not evidence of unused graphics. The distinct 47:68F0 candidate has its own existing editable screen PNG and lies outside the 25-window stride set.
@@ -45,3 +45,9 @@ Bank 53 pointer in this chain is not proof against computed or unobserved
 access. These results close file-presence/extraction review only; runtime
 selection, used/unused classification, and species-to-image mapping remain
 open.
+
+## Independent recheck at Japanese HEAD `e97026b86acc37e8157aa38fe10f9ec098c00350` (2026-10-23)
+
+The bounded recheck examined 349 Japanese source files (including the 333 maintained files in the six primary source roots) and 149 exported symbols. It reproduced the 25 name entries and 369-byte block, all 25 candidate windows (85,200 bytes), 137 assets (93,264 emitted bytes), 53 PNG inversions (69,520 bytes), 18 catalogued screen rows (17 complete views), 24 candidate previews plus five descriptor previews, 27 selector words and five descriptors. The eight resource directories contain exactly 208 tracked files (137 assets and 71 PNGs); the inventory reports no missing, orphaned or expected-but-untracked files. All 29 preview images matched the declared pixel model after the audit renderer included the unloaded-cell hatch. The initial reviewer ledger had 13 preview mismatches because it omitted that hatch; this was an audit-model error and is preserved with its correction in the ignored evidence directory.
+
+The recheck does not close any of the 25 name-to-window associations or prove natural/unused status for a frame. The exact selector chain still points only to the previously identified Bank 47 resource families. Full report and reproduction hashes are retained under `.tmp/jp-generic-name-batch-20261022-evidence/bank53-e97026b8-independent-v2/`.

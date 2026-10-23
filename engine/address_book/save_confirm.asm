@@ -391,7 +391,7 @@ AddrBook_UploadEntryTextTiles:: ; 2A:7293
 AddrBook_SaveConfirm_DrawTextLine16:: ; 2A:72CF
 	ld a, $10
 	ld [wTextCellsLeft], a
-.l72D4 ; 2A:72D4
+.read_next_char ; 2A:72D4
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -403,7 +403,7 @@ AddrBook_SaveConfirm_DrawTextLine16:: ; 2A:72CF
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, .l732F
+	jr nz, .draw_ascii_char
 	pop af
 	push bc
 	push de
@@ -440,9 +440,9 @@ AddrBook_SaveConfirm_DrawTextLine16:: ; 2A:72CF
 	jr z, .l736F
 	cp a, $01
 	jr z, .l736F
-	jr .l72D4
+	jr .read_next_char
 
-.l732F ; 2A:732F
+.draw_ascii_char ; 2A:732F
 	; [PROBABLE] 32 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 7293-73BB by apply_coverage --split
 	pop af
@@ -463,7 +463,7 @@ AddrBook_SaveConfirm_DrawTextLine16:: ; 2A:72CF
 	jr z, .l736F
 	cp a, $01
 	jr z, .l736F
-	jr .l72D4
+	jr .read_next_char
 .l7354 ; 2A:7354
 	push bc
 	push de
@@ -540,7 +540,7 @@ AddrBook_SaveConfirm_DrawTextLine17:: ; 2A:73BB
 	ld a, $11
 	ld [wTextCellsLeft], a
 
-.l73C0 ; 2A:73C0
+.read_next_char ; 2A:73C0
 	; [PROBABLE] 123 insn(s) reached by static flow only; seeds: site x123; min discovery hops 0;
 	; entered by jr from 2A:7419 (PROBABLE code)
 	ld a, $01
@@ -554,7 +554,7 @@ AddrBook_SaveConfirm_DrawTextLine17:: ; 2A:73BB
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, .l741B
+	jr nz, .draw_ascii_char
 	pop af
 	push bc
 	push de
@@ -591,8 +591,8 @@ AddrBook_SaveConfirm_DrawTextLine17:: ; 2A:73BB
 	jr z, .l745B
 	cp a, $01
 	jr z, .l745B
-	jr .l73C0
-.l741B ; 2A:741B
+	jr .read_next_char
+.draw_ascii_char ; 2A:741B
 	pop af
 	push bc
 	push de
@@ -611,7 +611,7 @@ AddrBook_SaveConfirm_DrawTextLine17:: ; 2A:73BB
 	jr z, .l745B
 	cp a, $01
 	jr z, .l745B
-	jr .l73C0
+	jr .read_next_char
 .l7440 ; 2A:7440
 	push bc
 	push de
@@ -687,7 +687,7 @@ AddrBook_SaveConfirm_DrawTextLine25:: ; 2A:74A7
 	ld a, $19
 	ld [wTextCellsLeft], a
 
-.l74AC ; 2A:74AC
+.read_next_char ; 2A:74AC
 	; [PROBABLE] 123 insn(s) reached by static flow only; seeds: site x123; min discovery hops 0;
 	; entered by jr from 2A:7505 (PROBABLE code)
 	ld a, $01
@@ -701,7 +701,7 @@ AddrBook_SaveConfirm_DrawTextLine25:: ; 2A:74A7
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, .l7507
+	jr nz, .draw_ascii_char
 	pop af
 	push bc
 	push de
@@ -738,8 +738,8 @@ AddrBook_SaveConfirm_DrawTextLine25:: ; 2A:74A7
 	jr z, .l7547
 	cp a, $01
 	jr z, .l7547
-	jr .l74AC
-.l7507 ; 2A:7507
+	jr .read_next_char
+.draw_ascii_char ; 2A:7507
 	pop af
 	push bc
 	push de
@@ -758,7 +758,7 @@ AddrBook_SaveConfirm_DrawTextLine25:: ; 2A:74A7
 	jr z, .l7547
 	cp a, $01
 	jr z, .l7547
-	jr .l74AC
+	jr .read_next_char
 .l752C ; 2A:752C
 	push bc
 	push de

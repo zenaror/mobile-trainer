@@ -639,23 +639,23 @@ AbookAddr_PlaceCursorSprites:: ; 2F:7121
 AbookAddr_DrawLine1:: ; 2F:716F
 	ld a, $11
 	ld [wTextCellsLeft], a
-.l7174 ; 2F:7174
+.read_next_char ; 2F:7174
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, .l720F
+	jp z, .prepare_dotted_padding
 
 	; [CONFIRMED] 75 insn(s) reached by static flow only; seeds: exec x75; min discovery hops 0;
 	; fall-through of the jpcc at 2F:717D (executed) | 6 insn(s) executed; cut out of the PROBABLE
 	; region 7180-720F by apply_coverage --split [executed in 6 scenarios]
 	cp a, $0D
-	jr z, .l71F4
+	jr z, .draw_cr_marker
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, .l71CF
+	jr nz, .draw_ascii_char
 
 	; [PROBABLE] 37 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 7180-720F by apply_coverage --split
@@ -692,12 +692,12 @@ AbookAddr_DrawLine1:: ; 2F:716F
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l720F
+	jr z, .prepare_dotted_padding
 	cp a, $01
-	jr z, .l720F
-	jr .l7174
+	jr z, .prepare_dotted_padding
+	jr .read_next_char
 
-.l71CF ; 2F:71CF
+.draw_ascii_char ; 2F:71CF
 	; [CONFIRMED] 19 insn(s) executed; cut out of the PROBABLE region 7180-720F by apply_coverage
 	; --split [executed in 6 scenarios]
 	pop af
@@ -715,12 +715,12 @@ AbookAddr_DrawLine1:: ; 2F:716F
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l720F
+	jr z, .prepare_dotted_padding
 	cp a, $01
-	jr z, .l720F
-	jr .l7174
+	jr z, .prepare_dotted_padding
+	jr .read_next_char
 
-.l71F4 ; 2F:71F4
+.draw_cr_marker ; 2F:71F4
 	; [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 7180-720F by apply_coverage --split
 	push bc
@@ -737,7 +737,7 @@ AbookAddr_DrawLine1:: ; 2F:716F
 	ld [wTextCellsLeft], a
 	call AbookAddr_DrawLine1_Pad
 
-.l720F ; 2F:720F
+.prepare_dotted_padding ; 2F:720F
 	; [CONFIRMED] 14 insn(s); 14 executed (in up to 1/18 scenarios)
 	push bc
 	push de
@@ -794,23 +794,23 @@ AbookAddr_DrawLine1_Pad:: ; 2F:723E
 AbookAddr_DrawLine:: ; 2F:7256
 	ld a, $19
 	ld [wTextCellsLeft], a
-.l725B ; 2F:725B
+.read_next_char ; 2F:725B
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, .l72F6
+	jp z, .prepare_dotted_padding
 
 	; [CONFIRMED] 75 insn(s) reached by static flow only; seeds: exec x75; min discovery hops 0;
 	; fall-through of the jpcc at 2F:7264 (executed) | 6 insn(s) executed; cut out of the PROBABLE
 	; region 7267-72F6 by apply_coverage --split [executed in 5 scenarios]
 	cp a, $0D
-	jr z, .l72DB
+	jr z, .draw_cr_marker
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, .l72B6
+	jr nz, .draw_ascii_char
 
 	; [PROBABLE] 37 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 7267-72F6 by apply_coverage --split
@@ -847,12 +847,12 @@ AbookAddr_DrawLine:: ; 2F:7256
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l72F6
+	jr z, .prepare_dotted_padding
 	cp a, $01
-	jr z, .l72F6
-	jr .l725B
+	jr z, .prepare_dotted_padding
+	jr .read_next_char
 
-.l72B6 ; 2F:72B6
+.draw_ascii_char ; 2F:72B6
 	; [CONFIRMED] 19 insn(s) executed; cut out of the PROBABLE region 7267-72F6 by apply_coverage
 	; --split [executed in 5 scenarios]
 	pop af
@@ -870,12 +870,12 @@ AbookAddr_DrawLine:: ; 2F:7256
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l72F6
+	jr z, .prepare_dotted_padding
 	cp a, $01
-	jr z, .l72F6
-	jr .l725B
+	jr z, .prepare_dotted_padding
+	jr .read_next_char
 
-.l72DB ; 2F:72DB
+.draw_cr_marker ; 2F:72DB
 	; [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 7267-72F6 by apply_coverage --split
 	push bc
@@ -892,7 +892,7 @@ AbookAddr_DrawLine:: ; 2F:7256
 	ld [wTextCellsLeft], a
 	call AbookAddr_DrawLine_Pad
 
-.l72F6 ; 2F:72F6
+.prepare_dotted_padding ; 2F:72F6
 	; [CONFIRMED] 14 insn(s); 14 executed (in up to 1/18 scenarios)
 	push bc
 	push de

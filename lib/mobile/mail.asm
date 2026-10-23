@@ -586,12 +586,12 @@ Mail_FindHeader:: ; 0F:43F7
 	ld a, $04
 	cp a, b
 	jr c, .l440B
-	jr z, .l4406
+	jr z, .check_header_length_low_byte_at_0400
 .loop ; 0F:4404
 	xor a, a
 	ret
 
-.l4406 ; 0F:4406
+.check_header_length_low_byte_at_0400 ; 0F:4406
 	; [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4247-47A5 by apply_coverage --split
 	ld a, $00
@@ -2340,7 +2340,7 @@ Mail_GetAddressList:: ; 0F:4CDD
 	ld a, [hld]
 	cp a, b
 	jr c, .l4D31
-	jr z, .l4D2D
+	jr z, .compare_address_output_capacity_low_byte
 .loop ; 0F:4D15
 	pop hl
 	ld a, [hli]
@@ -2355,7 +2355,7 @@ Mail_GetAddressList:: ; 0F:4CDD
 	call Mail_CopyToSram
 	xor a, a
 	jp Mail_Return
-.l4D2D ; 0F:4D2D
+.compare_address_output_capacity_low_byte ; 0F:4D2D
 	ld a, [hli]
 	cp a, c
 	jr nc, .loop
@@ -4084,11 +4084,11 @@ Mail_ComposeMimeBody_CopyData:: ; 0F:561F
 .loop ; 0F:5662
 	ld a, $0E
 	cp a, b
-	jr c, .l56CB
+	jr c, .save_bc_minus_0e01_and_copy_0e00_bytes
 	jr nz, .copy_body_chunk_through_wram
 	ld a, $00
 	cp a, c
-	jr c, .l56CB
+	jr c, .save_bc_minus_0e01_and_copy_0e00_bytes
 .copy_body_chunk_through_wram ; 0F:566E
 	ld a, [wMail_Work + $1A]
 	ld e, a
@@ -4147,7 +4147,7 @@ Mail_ComposeMimeBody_CopyData:: ; 0F:561F
 	ld a, $01
 	ld b, $83
 	ret
-.l56CB ; 0F:56CB
+.save_bc_minus_0e01_and_copy_0e00_bytes ; 0F:56CB
 	ld a, $0E
 	cpl
 	ld h, a

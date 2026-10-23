@@ -84,13 +84,13 @@ MailSrvDelHidden_MenuLoop:: ; 22:4076
 	pop de
 	pop bc
 	dec c
-	jr z, .l40AE
+	jr z, .check_and_delete
 	dec c
-	jr z, .l40ED
+	jr z, .delete_completely
 	call MailSrvDelHidden_DeleteAll
 	ld c, $00
 	jr .l40B3
-.l40AE ; 22:40AE
+.check_and_delete ; 22:40AE
 	call MailSrvDelHidden_CheckAndDelete
 
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
@@ -129,7 +129,7 @@ MailSrvDelHidden_MenuLoop:: ; 22:4076
 	call MailSrvDelHidden_MenuInit
 	pop bc
 	jp MailSrvDelHidden_MenuLoop
-.l40ED ; 22:40ED
+.delete_completely ; 22:40ED
 	call MailSrvDelHidden_DeleteCompletely
 	ld c, $02
 	jr .l40B3

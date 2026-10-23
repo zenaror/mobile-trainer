@@ -179,15 +179,15 @@ SettingsPhone_SlotMenu_Loop:: ; 67:4E20
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit PADB_A, a
-	jr nz, .l4E44
+	jr nz, .handle_button_a
 	bit PADB_B, a
-	jr nz, .l4E81
+	jr nz, .handle_button_b
 	bit PADB_LEFT, a
-	jr nz, .l4E96
+	jr nz, .handle_button_left
 	bit PADB_RIGHT, a
-	jp nz, .l4EE4
+	jp nz, .handle_button_right
 	jr SettingsPhone_SlotMenu_Loop
-.l4E44 ; 67:4E44
+.handle_button_a ; 67:4E44
 	ld a, [wSlotMenu_OnlyFilled]
 	or a, a
 	jr z, .l4E69
@@ -209,12 +209,12 @@ SettingsPhone_SlotMenu_Loop:: ; 67:4E20
 	inc a
 	ld [wSlotMenu_Result], a
 	ret
-.l4E81 ; 67:4E81
+.handle_button_b ; 67:4E81
 	play_sfx SFX_CANCEL
 	xor a, a
 	ld [wSlotMenu_Result], a
 	ret
-.l4E96 ; 67:4E96
+.handle_button_left ; 67:4E96
 	play_sfx SFX_CURSOR_MOVE
 	ld a, [wSlotMenu_OnlyFilled]
 	or a, a
@@ -256,7 +256,7 @@ SettingsPhone_SlotMenu_Loop:: ; 67:4E20
 	jr z, .l4EB7
 	jr .l4EC1
 
-.l4EE4 ; 67:4EE4
+.handle_button_right ; 67:4EE4
 	; [CONFIRMED] 19 insn(s) executed; cut out of the PROBABLE region 4BD5-4F68 by apply_coverage
 	; --split [executed in 1 scenarios]
 	play_sfx SFX_CURSOR_MOVE

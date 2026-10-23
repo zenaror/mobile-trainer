@@ -207,13 +207,13 @@ DebugErrorTest_HandleDpad:: ; 19:4B4A
 .l4B5B ; 19:4B5B
 	ldh a, [hJoyHeld]
 	bit PADB_B, a
-	jr nz, .l4B6C
+	jr nz, .increment_category
 	ld a, [wDebugErrorTest_CodeHi]
 	inc a
 	ld [wDebugErrorTest_CodeHi], a
 	call DebugErrorTest_DrawValues
 	ret
-.l4B6C ; 19:4B6C
+.increment_category ; 19:4B6C
 	ld a, [wDebugErrorTest_Category]
 	inc a
 	ld [wDebugErrorTest_Category], a
@@ -222,13 +222,13 @@ DebugErrorTest_HandleDpad:: ; 19:4B4A
 .l4B77 ; 19:4B77
 	ldh a, [hJoyHeld]
 	bit PADB_B, a
-	jr nz, .l4B88
+	jr nz, .decrement_category
 	ld a, [wDebugErrorTest_CodeHi]
 	dec a
 	ld [wDebugErrorTest_CodeHi], a
 	call DebugErrorTest_DrawValues
 	ret
-.l4B88 ; 19:4B88
+.decrement_category ; 19:4B88
 	ld a, [wDebugErrorTest_Category]
 	dec a
 	ld [wDebugErrorTest_Category], a

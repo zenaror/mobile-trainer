@@ -340,13 +340,13 @@ Mobile_BeginStop:: ; 54:4483
 Mobile_StopPoll:: ; 54:4492
 	ld a, [wTimerEnable]
 	bit 1, a
-	jr nz, .l44A0
+	jr nz, .fetch_result_return_ff
 	bit 0, a
 	jr z, .l44A6
 	ld a, $01
 	ret
 
-.l44A0 ; 54:44A0
+.fetch_result_return_ff ; 54:44A0
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 43F1-44AC by apply_coverage --split
 	call Mobile_FetchResult
@@ -402,7 +402,7 @@ Mobile_CheckTimeout:: ; 54:44AC
 	pop hl
 	ld a, [wTimerEnable]
 	bit 1, a
-	jr nz, .l44F8
+	jr nz, .fetch_result_return_ff
 	bit 0, a
 	jr z, .l44E6
 	ld a, $01
@@ -419,7 +419,7 @@ Mobile_CheckTimeout:: ; 54:44AC
 	ld a, $FF
 	ret
 
-.l44F8 ; 54:44F8
+.fetch_result_return_ff ; 54:44F8
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 44C3-475A by apply_coverage --split
 	call Mobile_FetchResult

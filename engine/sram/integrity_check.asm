@@ -66,13 +66,13 @@ SramCheck_Bank0StorePageSum:: ; 22:4F24
 SramCheck_CompareDEHL:: ; 22:4F46
 	ld a, h
 	cp a, d
-	jr nz, .l4F50
+	jr nz, .mismatch
 	ld a, l
 	cp a, e
-	jr nz, .l4F50
+	jr nz, .mismatch
 	xor a, a
 	ret
-.l4F50 ; 22:4F50
+.mismatch ; 22:4F50
 	ld a, $FF
 	ret
 
@@ -304,17 +304,17 @@ SramCheck_CompareDEHL2:: ; 22:5093
 	; executed call/far call
 	ld a, h
 	cp a, d
-	jr nz, .l509D
+	jr nz, .mismatch
 
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 22:5095 (executed) [executed in 1 scenarios]
 	ld a, l
 	cp a, e
-	jr nz, .l509D
+	jr nz, .mismatch
 	xor a, a
 	ret
 
-.l509D ; 22:509D
+.mismatch ; 22:509D
 	; [CONFIRMED] 28 insn(s); 28 executed (in up to 6/18 scenarios)
 	ld a, $FF
 	ret

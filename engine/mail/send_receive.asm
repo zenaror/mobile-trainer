@@ -893,15 +893,15 @@ MailConnect_ShowError:: ; 27:46E5
 	farcall Timer_ResetClockB
 	ld de, $C0A9 ; raw: dead load: Mobile_BeginDisconnect loads DE itself
 	farcall Mobile_BeginDisconnect
-.l471A ; 27:471A
+.poll_disconnect ; 27:471A
 	farcall Mobile_DisconnectPoll
 	cp a, $01
-	jr z, .l471A
+	jr z, .poll_disconnect
 	farcall Mobile_BeginCancel
-.l472A ; 27:472A
+.poll_cancel ; 27:472A
 	farcall Mobile_CancelPoll
 	cp a, $01
-	jr z, .l472A
+	jr z, .poll_cancel
 	cp a, $FF
 	jr z, .l4738
 .l4738 ; 27:4738

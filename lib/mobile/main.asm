@@ -752,10 +752,10 @@ MobileAPI_Dial:: ; 75:443D
 	push hl
 	ld c, $15
 	call MobileSDK_ValidateStringLen
-	jr nc, .l4459
+	jr nc, .initialize_timer_and_start_dial
 	pop hl
 	jp MobileSDK_ErrBadArg
-.l4459 ; 75:4459
+.initialize_timer_and_start_dial ; 75:4459
 	xor a, a
 	ldh [rTAC], a
 	ld [wRam_C819], a
@@ -1023,7 +1023,7 @@ MobileSDK_DnsAndTcpOpen:: ; 75:461A
 	dec a
 	jr z, .load_6e_and_pop_name
 	dec a
-	jp z, .l46C6
+	jp z, .prepare_http_host_scan
 
 	; [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0;
 	; fall-through of the jpcc at 75:4626 (executed) | 1 insn(s) never executed in the traced runs;
@@ -1035,13 +1035,13 @@ MobileSDK_DnsAndTcpOpen:: ; 75:461A
 	; --split [executed in 7 scenarios]
 	ld a, $19
 	ld hl, wMobileSDK_SmtpServerName
-	jr .l4636
+	jr .prepare_dns_query_and_open_tcp_packets
 
 .load_6e_and_pop_name ; 75:4631
 	; [CONFIRMED] 44 insn(s); 44 executed (in up to 7/18 scenarios)
 	ld a, $6E
 	ld hl, wMobileSDK_PopServerName
-.l4636 ; 75:4636
+.prepare_dns_query_and_open_tcp_packets ; 75:4636
 	push hl
 	push bc
 	ld [wMobileSDK_PacketBuffer + 91], a
@@ -1115,7 +1115,7 @@ MobileSDK_DnsAndTcpOpen:: ; 75:461A
 	ld a, $0F
 	ld [wMobileSDK_State], a
 	jp MobileSDK_SetBusy
-.l46C6 ; 75:46C6
+.prepare_http_host_scan ; 75:46C6
 	ld b, $50
 	ld hl, wMobileSDK_HttpRequestPointer
 	ld a, [hli]
@@ -1143,7 +1143,7 @@ MobileSDK_DnsAndTcpOpen:: ; 75:461A
 	ld hl, wMobileSDK_Window + $7F
 	ld a, $50
 	ld b, $40
-	jp .l4636
+	jp .prepare_dns_query_and_open_tcp_packets
 
 MobileAPI_SmtpConnect:: ; 75:46F4
 	; [CONFIRMED] 197 insn(s) reached by static flow only; seeds: mobile x197; min discovery hops 0;
@@ -1593,7 +1593,7 @@ MobileAPI_Pop3Retr:: ; 75:4A60
 	; --split [executed in 7 scenarios]
 	ld a, [wTimerEnable]
 	bit 2, a
-	jr z, .l4A72
+	jr z, .validate_and_start_pop3_retr
 
 	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 49FE-4DE2 by apply_coverage --split
@@ -1602,7 +1602,7 @@ MobileAPI_Pop3Retr:: ; 75:4A60
 	jp nz, MobileSDK_ErrBusy
 	jp MobileSDK_Pop3RxBodyChunk
 
-.l4A72 ; 75:4A72
+.validate_and_start_pop3_retr ; 75:4A72
 	; [CONFIRMED] 73 insn(s) executed; cut out of the PROBABLE region 49FE-4DE2 by apply_coverage
 	; --split [executed in 7 scenarios]
 	bit 0, a
@@ -1698,12 +1698,12 @@ MobileSDK_Pop3RxBodyChunk:: ; 75:4AF9
 	or a, c
 	ld [wMobileSDK_ResultPointer], a
 	ld [wMobileSDK_ResultPointer + 1], a
-	jr z, .l4B61
+	jr z, .subtract_chunk_size_and_record_received_length
 	dec bc
 	dec bc
 	ld a, [wRam_C830]
 	or a, a
-	jp nz, .l4BDA
+	jp nz, .copy_buffered_pop3_bytes_up_to_capacity
 	ld a, [wRam_C831]
 	or a, a
 	jr z, .l4B21
@@ -1712,10 +1712,10 @@ MobileSDK_Pop3RxBodyChunk:: ; 75:4AF9
 	xor a, a
 	ld [wRam_C831], a
 	cp a, b
-	jr nz, .l4B61
+	jr nz, .subtract_chunk_size_and_record_received_length
 	ld a, e
 	cp a, c
-	jr c, .l4B61
+	jr c, .subtract_chunk_size_and_record_received_length
 	push bc
 	sub a, c
 	ld [hl], a
@@ -1751,7 +1751,7 @@ MobileSDK_Pop3RxBodyChunk:: ; 75:4AF9
 	ld [hli], a
 	ld [hl], b
 	ret
-.l4B61 ; 75:4B61
+.subtract_chunk_size_and_record_received_length ; 75:4B61
 	ld a, c
 	sub a, e
 	ld c, a
@@ -1819,14 +1819,14 @@ MobileSDK_Pop3RxBodyChunk:: ; 75:4AF9
 	ld hl, wMobileSDK_ReceivedLength
 	ld b, $02
 	jp MobileSDK_CopyBytes
-.l4BDA ; 75:4BDA
+.copy_buffered_pop3_bytes_up_to_capacity ; 75:4BDA
 	ld e, a
 	xor a, a
 	cp a, b
-	jr nz, .l4C0A
+	jr nz, .drain_pop3_window_and_resume_chunk
 	ld a, e
 	cp a, c
-	jr c, .l4C0A
+	jr c, .drain_pop3_window_and_resume_chunk
 	ld b, c
 	ld hl, wRam_C830
 	ld a, [hl]
@@ -1852,7 +1852,7 @@ MobileSDK_Pop3RxBodyChunk:: ; 75:4AF9
 	xor a, a
 	ld [hl], a
 	ret
-.l4C0A ; 75:4C0A
+.drain_pop3_window_and_resume_chunk ; 75:4C0A
 	push hl
 	push bc
 	ld a, [wRam_C830]
@@ -1936,7 +1936,7 @@ MobileAPI_Pop3Dele:: ; 75:4C41
 MobileAPI_Pop3Top:: ; 75:4CA3
 	ld a, [wTimerEnable]
 	bit 2, a
-	jr z, .l4CB5
+	jr z, .validate_and_start_pop3_top
 
 	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 49FE-4DE2 by apply_coverage --split
@@ -1945,7 +1945,7 @@ MobileAPI_Pop3Top:: ; 75:4CA3
 	jp nz, MobileSDK_ErrBusy
 	jp MobileSDK_Pop3RxBodyChunk
 
-.l4CB5 ; 75:4CB5
+.validate_and_start_pop3_top ; 75:4CB5
 	; [CONFIRMED] 80 insn(s) executed; cut out of the PROBABLE region 49FE-4DE2 by apply_coverage
 	; --split [executed in 17 scenarios]
 	bit 0, a
@@ -2181,7 +2181,7 @@ MobileAPI_HttpGet:: ; 75:4DE2
 	ld a, [wTimerEnable]
 	bit 2, a
 	ld a, [wMobileSDK_State]
-	jr z, .l4E05
+	jr z, .validate_idle_http_get_and_load_arguments
 
 	; [CONFIRMED] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
 	; fall-through of the jrcc at 75:4DEA (executed) | 2 insn(s) executed; cut out of the PROBABLE
@@ -2205,7 +2205,7 @@ MobileAPI_HttpGet:: ; 75:4DE2
 .err_bad_arg ; 75:4E02
 	jp MobileSDK_ErrBadArg
 
-.l4E05 ; 75:4E05
+.validate_idle_http_get_and_load_arguments ; 75:4E05
 	; [CONFIRMED] 35 insn(s); 35 executed (in up to 2/18 scenarios)
 	cp a, $02
 	jp nz, MobileSDK_ErrBusy
@@ -2241,7 +2241,7 @@ MobileAPI_HttpGet:: ; 75:4DE2
 	ld l, a
 	ld a, $1F
 	cp a, l
-	jr nz, .l4E4F
+	jr nz, .save_arguments_and_prepare_http_prefix_check
 
 	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
 	; fall-through of the jrcc at 75:4E48 (executed)
@@ -2249,7 +2249,7 @@ MobileAPI_HttpGet:: ; 75:4DE2
 	cp a, h
 	jr z, .err_bad_arg
 
-.l4E4F ; 75:4E4F
+.save_arguments_and_prepare_http_prefix_check ; 75:4E4F
 	; [CONFIRMED] 24 insn(s); 24 executed (in up to 2/18 scenarios)
 	push hl
 	push de
@@ -2333,7 +2333,7 @@ MobileAPI_HttpGet:: ; 75:4DE2
 	ld a, [de]
 	inc de
 	cp a, [hl]
-	jr nz, .l4ED0
+	jr nz, .store_http_service_flag_and_check_path_length
 	inc hl
 	dec b
 	jr nz, .compare_prefix_at_4fb9
@@ -2349,7 +2349,7 @@ MobileAPI_HttpGet:: ; 75:4DE2
 	call MobileSDK_ValidateStringLen
 	jp c, .pop_four_hl_and_err_bad_arg
 	ld c, $01
-.l4ED0 ; 75:4ED0
+.store_http_service_flag_and_check_path_length ; 75:4ED0
 	ld a, c
 	ld [wRam_C82C], a
 	ld [wMobileSDK_ReceivePacketBuffer + 128], a
@@ -2416,11 +2416,11 @@ MobileSDK_HttpConnect:: ; 75:4F0C
 	or a, [hl]
 	inc hl
 	or a, [hl]
-	jr nz, .l4F2D
+	jr nz, .build_http_open_tcp_with_known_ip
 	ld a, $02
 	jp MobileSDK_DnsAndTcpOpen
 
-.l4F2D ; 75:4F2D
+.build_http_open_tcp_with_known_ip ; 75:4F2D
 	; [PROBABLE] 56 insn(s) reached by static flow only; seeds: exec x56; min discovery hops 1;
 	; entered by jrcc from 75:4F26 (executed)
 	ld a, $02
@@ -2555,10 +2555,10 @@ MobileSDK_HttpReadBody:: ; 75:5049
 	jp z, .set_http_parse_state_02
 	xor a, a
 	cp a, b
-	jr nz, .l50B1
+	jr nz, .subtract_http_chunk_and_update_received_length
 	ld a, e
 	cp a, c
-	jr c, .l50B1
+	jr c, .subtract_http_chunk_and_update_received_length
 	push bc
 	sub a, c
 	ld [hl], a
@@ -2598,7 +2598,7 @@ MobileSDK_HttpReadBody:: ; 75:5049
 	ld [hli], a
 	ld [hl], b
 	ret
-.l50B1 ; 75:50B1
+.subtract_http_chunk_and_update_received_length ; 75:50B1
 	ld a, c
 	sub a, e
 	ld c, a
@@ -2710,11 +2710,11 @@ MobileSDK_HttpFlushLeftover:: ; 75:5164
 	ld e, a
 	xor a, a
 	cp a, b
-	jr nz, .l516D
+	jr nz, .copy_all_http_leftover_bytes
 	ld a, c
 	cp a, e
-	jr c, .l51A7
-.l516D ; 75:516D
+	jr c, .copy_capacity_limited_http_leftover
+.copy_all_http_leftover_bytes ; 75:516D
 	push hl
 	push bc
 	ld b, e
@@ -2753,7 +2753,7 @@ MobileSDK_HttpFlushLeftover:: ; 75:5164
 	ld e, a
 	pop hl
 	ret
-.l51A7 ; 75:51A7
+.copy_capacity_limited_http_leftover ; 75:51A7
 	ld a, e
 	sub a, c
 	ld [wRam_C82E], a
@@ -2941,7 +2941,7 @@ MobileAPI_HttpPost:: ; 75:5203
 	ld a, [de]
 	inc de
 	cp a, [hl]
-	jr nz, .l52D9
+	jr nz, .store_http_service_flag_and_check_post_path_length
 
 	; [PROBABLE] 27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 0;
 	; fall-through of the jrcc at 75:52A7 (executed)
@@ -2960,9 +2960,9 @@ MobileAPI_HttpPost:: ; 75:5203
 	inc hl
 	ld a, [hl]
 	cp a, $30
-	jr c, .l52D9
+	jr c, .store_http_service_flag_and_check_post_path_length
 	cp a, $3A
-	jr nc, .l52D9
+	jr nc, .store_http_service_flag_and_check_post_path_length
 	ld hl, wMobileSDK_HttpCredentialsPtr
 	ld a, [hli]
 	ld h, [hl]
@@ -2975,7 +2975,7 @@ MobileAPI_HttpPost:: ; 75:5203
 	jp c, MobileAPI_HttpPost_BadArgPop4
 	ld c, $01
 
-.l52D9 ; 75:52D9
+.store_http_service_flag_and_check_post_path_length ; 75:52D9
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 1/18 scenarios)
 	ld a, c
 	ld [wRam_C82C], a
@@ -4054,7 +4054,7 @@ MobileSDK_TimerTick:: ; 75:58EA
 	ld hl, wMobileSDK_PhaseCode
 	ld a, [hli]
 	cp a, $02
-	jr c, .l5933
+	jr c, .dispatch_serial_phase_and_tick_timeout
 	ld a, [hli]
 	ld b, a
 	ld a, [hl]
@@ -4064,7 +4064,7 @@ MobileSDK_TimerTick:: ; 75:58EA
 	jr z, .set_phase_06_and_error_10
 	ld a, c
 	or a, b
-	jr nz, .l5933
+	jr nz, .dispatch_serial_phase_and_tick_timeout
 .set_phase_06_and_error_10 ; 75:590A
 	ld hl, wMobileSDK_PhaseCode
 	ld a, $06
@@ -4085,7 +4085,7 @@ MobileSDK_TimerTick:: ; 75:58EA
 	ld a, $10
 	ld [wMobileSDK_ErrorCode], a
 	jp MobileSDK_TimerTickExit
-.l5933 ; 75:5933
+.dispatch_serial_phase_and_tick_timeout ; 75:5933
 	ld a, [wMobileSDK_SerialPhase]
 	cp a, $01
 	jp z, MobileSDK_TxNextByte
@@ -7273,12 +7273,12 @@ MobileState_Pop3Retrieve:: ; 75:6C02
 	ld a, h
 	sbc a, $00
 	ld h, a
-	jr nc, .l6CB5
+	jr nc, .update_remaining_and_copy_two_pop3_segments
 
 	; [PROBABLE] 32 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 6B85-6D49 by apply_coverage --split
 	cp a, $FF
-	jr nz, .l6CB5
+	jr nz, .update_remaining_and_copy_two_pop3_segments
 	ld a, c
 	ld [wMobileSDK_ReceivePacketBuffer + 1], a
 	ld a, [wMobileSDK_ReceivePacketBuffer + 3]
@@ -7310,7 +7310,7 @@ MobileState_Pop3Retrieve:: ; 75:6C02
 	ld [hl], a
 	ret
 
-.l6CB5 ; 75:6CB5
+.update_remaining_and_copy_two_pop3_segments ; 75:6CB5
 	; [CONFIRMED] 34 insn(s) executed; cut out of the PROBABLE region 6B85-6D49 by apply_coverage
 	; --split [executed in 16 scenarios]
 	ld [wRam_C831], a
@@ -7868,11 +7868,11 @@ MobileSDK_HttpHdrDate:: ; 75:700D
 	ld de, MobileStr_HdrDate
 	push hl
 	call MobileSDK_MatchPrefixNoCase
-	jr nc, .l7018
+	jr nc, .prepare_date_header_value_scan
 	pop hl
 	ret
 
-.l7018 ; 75:7018
+.prepare_date_header_value_scan ; 75:7018
 	; [PROBABLE] 23 insn(s) reached by static flow only; seeds: exec x23; min discovery hops 1;
 	; entered by jrcc from 75:7014 (executed)
 	pop de
@@ -7943,11 +7943,11 @@ MobileSDK_HttpHdrGbAuthId:: ; 75:705E
 	ld de, MobileStr_HdrGbAuthId
 	push hl
 	call MobileSDK_MatchPrefix
-	jr nc, .l7069
+	jr nc, .prepare_gb_auth_header_value_scan
 	pop hl
 	ret
 
-.l7069 ; 75:7069
+.prepare_gb_auth_header_value_scan ; 75:7069
 	; [PROBABLE] 22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 1;
 	; entered by jrcc from 75:7065 (executed)
 	pop hl
@@ -8177,11 +8177,11 @@ MobileSDK_HttpHdrUriHeader:: ; 75:719F
 	ld de, MobileStr_HdrUriHeader
 	push hl
 	call MobileSDK_MatchPrefix
-	jr nc, .l71AA
+	jr nc, .prepare_uri_header_value_scan
 	pop hl
 	ret
 
-.l71AA ; 75:71AA
+.prepare_uri_header_value_scan ; 75:71AA
 	; [PROBABLE] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 1;
 	; entered by jrcc from 75:71A6 (executed)
 	pop de
@@ -8203,11 +8203,11 @@ MobileSDK_HttpHdrLocation:: ; 75:71B8
 	ld de, MobileStr_HdrLocation
 	push hl
 	call MobileSDK_MatchPrefix
-	jr nc, .l71C3
+	jr nc, .prepare_location_header_value_scan
 	pop hl
 	ret
 
-.l71C3 ; 75:71C3
+.prepare_location_header_value_scan ; 75:71C3
 	; [CONFIRMED] 133 insn(s) reached by static flow only; seeds: exec x133; min discovery hops 1;
 	; entered by jrcc from 75:71BF (executed) | 23 insn(s) executed; cut out of the PROBABLE region
 	; 71C3-72A0 by apply_coverage --split [executed in 3 scenarios]
@@ -10097,7 +10097,7 @@ MobileState_Timeout:: ; 75:7EB4
 	dec a
 	jr z, .check_phase_08_before_polling
 	dec a
-	jr z, .l7EC5
+	jr z, .enter_error26_and_reset_serial_phase
 	dec [hl]
 	ret
 .check_phase_08_before_polling ; 75:7EBC
@@ -10106,7 +10106,7 @@ MobileState_Timeout:: ; 75:7EB4
 	jr nz, MobileSDK_ResumeIdlePolling
 	dec [hl]
 	ret
-.l7EC5 ; 75:7EC5
+.enter_error26_and_reset_serial_phase ; 75:7EC5
 	ld a, $26
 	call MobileSDK_EnterErrorState
 	ld a, $2A
@@ -10140,7 +10140,7 @@ MobileState_Abort:: ; 75:7EEF
 	dec a
 	jr z, .check_phase_08
 	dec a
-	jr z, .l7F11
+	jr z, .reset_link_flags_and_serial_phase
 	dec [hl]
 	ret
 
@@ -10158,10 +10158,10 @@ MobileState_Abort:: ; 75:7EEF
 	ld [wMobileSDK_ReceivePacketBufferAlt], a
 	ld a, [wMobileSDK_SendCommandID]
 	cp a, $91
-	jr z, .l7F11
+	jr z, .reset_link_flags_and_serial_phase
 	jp MobileSDK_ResumeIdlePolling
 
-.l7F11 ; 75:7F11
+.reset_link_flags_and_serial_phase ; 75:7F11
 	; [CONFIRMED] 34 insn(s); 34 executed (in up to 1/18 scenarios)
 	xor a, a
 	ld [wMobileSDK_ConnectionFlag], a

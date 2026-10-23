@@ -42,14 +42,14 @@ Pop3_RetrPoll:: ; 54:4CF4
 	call Mobile_CheckTimeout
 	ld a, [wTimerEnable]
 	bit 1, a
-	jr nz, .l4D09
+	jr nz, .fetch_result_return_ff
 	bit 2, a
 	jr nz, .l4D0F
 	bit 0, a
 	jr z, .l4D20
 	ld a, $01
 	ret
-.l4D09 ; 54:4D09
+.fetch_result_return_ff ; 54:4D09
 	call Mobile_FetchResult
 	ld a, $FF
 	ret

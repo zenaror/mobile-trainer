@@ -1510,21 +1510,21 @@ Kbd_TypePickerLoop:: ; 55:65DA
 .l660A ; 55:660A
 	ldh a, [hJoyPressedRepeat]
 	bit PADB_A, a
-	jr nz, .l661E
+	jr nz, .handle_button_a
 	bit PADB_B, a
-	jr nz, .l6622
+	jr nz, .handle_button_b
 	bit PADB_LEFT, a
-	jr nz, .l6626
+	jr nz, .handle_button_left
 	bit PADB_RIGHT, a
-	jr nz, .l6646
+	jr nz, .handle_button_right
 	jr .l65ED
-.l661E ; 55:661E
+.handle_button_a ; 55:661E
 	ld a, $01
 	jr .l6666
-.l6622 ; 55:6622
+.handle_button_b ; 55:6622
 	ld a, $00
 	jr .l6666
-.l6626 ; 55:6626
+.handle_button_left ; 55:6626
 	play_sfx SFX_CURSOR_MOVE
 	ld hl, wKbdInputMode
 	ld a, [hl]
@@ -1537,7 +1537,7 @@ Kbd_TypePickerLoop:: ; 55:65DA
 	ld a, $02
 	ld [hl], a
 	jr .l65EA
-.l6646 ; 55:6646
+.handle_button_right ; 55:6646
 	play_sfx SFX_CURSOR_MOVE
 	ld hl, wKbdInputMode
 	ld a, [hl]

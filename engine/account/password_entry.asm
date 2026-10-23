@@ -441,15 +441,15 @@ Account_PasswordIntroPage:: ; 68:60BB
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit PADB_A, a
-	jr nz, .l60D9
+	jr nz, .handle_button_a
 	bit PADB_B, a
-	jr nz, .l60ED
+	jr nz, .handle_button_b
 	jr .loop
-.l60D9 ; 68:60D9
+.handle_button_a ; 68:60D9
 	play_sfx SFX_CONFIRM
 	ld a, $01
 	jr .l6100
-.l60ED ; 68:60ED
+.handle_button_b ; 68:60ED
 	play_sfx SFX_CANCEL
 	xor a, a
 	jr .l6100

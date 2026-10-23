@@ -205,7 +205,7 @@ CommScene_Kind0_StateWaitCloseOrCancel:: ; 70:4135
 	jr z, .l4144
 	ldh a, [hJoyPressed]
 	bit PADB_B, a
-	jr nz, .l417E
+	jr nz, .handle_button_b
 	jr .l41BB
 .l4144 ; 70:4144
 	play_sfx $002F
@@ -225,7 +225,7 @@ CommScene_Kind0_StateWaitCloseOrCancel:: ; 70:4135
 	ld [wCommScene_State], a
 	jr .l41BB
 
-.l417E ; 70:417E
+.handle_button_b ; 70:417E
 	; [CONFIRMED] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 1;
 	; entered by jrcc from 70:4140 (executed) [executed in 2 scenarios]
 	play_sfx $002F
@@ -404,7 +404,7 @@ CommScene_Kind1_StateWaitCloseOrCancel:: ; 70:42CD
 	jr z, .l42DC
 	ldh a, [hJoyPressed]
 	bit PADB_B, a
-	jr nz, .l4316
+	jr nz, .handle_button_b
 	jr .l4353
 .l42DC ; 70:42DC
 	play_sfx $002F
@@ -424,7 +424,7 @@ CommScene_Kind1_StateWaitCloseOrCancel:: ; 70:42CD
 	ld [wCommScene_State], a
 	jr .l4353
 
-.l4316 ; 70:4316
+.handle_button_b ; 70:4316
 	; [CONFIRMED] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 1;
 	; entered by jrcc from 70:42D8 (executed) [executed in 2 scenarios]
 	play_sfx $002F

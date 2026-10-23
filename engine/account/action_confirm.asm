@@ -89,15 +89,15 @@ Account_ActionConfirmPage_InputLoop:: ; 68:6EF6
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit PADB_A, a
-	jr nz, .l6F19
+	jr nz, .handle_button_a
 	bit PADB_B, a
-	jr nz, .l6F40
+	jr nz, .handle_button_b
 	bit PADB_LEFT, a
-	jr nz, .l6F5E
+	jr nz, .handle_horizontal_input
 	bit PADB_RIGHT, a
-	jr nz, .l6F5E
+	jr nz, .handle_horizontal_input
 	jr Account_ActionConfirmPage_InputLoop
-.l6F19 ; 68:6F19
+.handle_button_a ; 68:6F19
 	play_sfx SFX_CONFIRM
 	ld a, [wActionConfirmPage_Cursor]
 	or a, a
@@ -111,7 +111,7 @@ Account_ActionConfirmPage_InputLoop:: ; 68:6EF6
 	ld a, $01
 	ld [wActionConfirmPage_NoFlag], a
 	ret
-.l6F40 ; 68:6F40
+.handle_button_b ; 68:6F40
 	ld a, [wActionConfirmPage_Variant]
 	or a, a
 	jr z, Account_ActionConfirmPage_InputLoop
@@ -120,7 +120,7 @@ Account_ActionConfirmPage_InputLoop:: ; 68:6EF6
 	ld [wActionConfirmPage_Result], a
 	ld [wActionConfirmPage_NoFlag], a
 	ret
-.l6F5E ; 68:6F5E
+.handle_horizontal_input ; 68:6F5E
 	play_sfx SFX_CURSOR_MOVE
 	ld a, [wActionConfirmPage_Cursor]
 	ld b, $01

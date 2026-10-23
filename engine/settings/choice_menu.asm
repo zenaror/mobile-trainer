@@ -171,26 +171,26 @@ SettingsPhone_ChoiceMenu_Loop:: ; 67:47DC
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit PADB_A, a
-	jr nz, .l47FF
+	jr nz, .handle_button_a
 	bit PADB_B, a
-	jr nz, .l4817
+	jr nz, .handle_button_b
 	bit PADB_UP, a
-	jr nz, .l482C
+	jr nz, .handle_vertical_input
 	bit PADB_DOWN, a
-	jr nz, .l482C
+	jr nz, .handle_vertical_input
 	jr SettingsPhone_ChoiceMenu_Loop
-.l47FF ; 67:47FF
+.handle_button_a ; 67:47FF
 	play_sfx SFX_CONFIRM
 	ld a, [wChoiceMenu_Cursor]
 	inc a
 	ld [wChoiceMenu_Result], a
 	ret
-.l4817 ; 67:4817
+.handle_button_b ; 67:4817
 	play_sfx SFX_CANCEL
 	xor a, a
 	ld [wChoiceMenu_Result], a
 	ret
-.l482C ; 67:482C
+.handle_vertical_input ; 67:482C
 	play_sfx SFX_CURSOR_MOVE
 	ld a, [wChoiceMenu_Cursor]
 	ld b, $01

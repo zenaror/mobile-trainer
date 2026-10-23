@@ -81,15 +81,15 @@ Account_ConfirmScreen_InputLoop:: ; 68:62C9
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit PADB_A, a
-	jr nz, .l62EC
+	jr nz, .handle_button_a
 	bit PADB_B, a
-	jr nz, .l630E
+	jr nz, .handle_button_b
 	bit PADB_LEFT, a
-	jr nz, .l6323
+	jr nz, .handle_horizontal_input
 	bit PADB_RIGHT, a
-	jr nz, .l6323
+	jr nz, .handle_horizontal_input
 	jr Account_ConfirmScreen_InputLoop
-.l62EC ; 68:62EC
+.handle_button_a ; 68:62EC
 	play_sfx SFX_CONFIRM
 	ld a, [wAccountConfirm_Cursor]
 	or a, a
@@ -104,12 +104,12 @@ Account_ConfirmScreen_InputLoop:: ; 68:62C9
 	ld a, $02
 	ld [wAccountConfirm_Result], a
 	ret
-.l630E ; 68:630E
+.handle_button_b ; 68:630E
 	play_sfx SFX_CANCEL
 	xor a, a
 	ld [wAccountConfirm_Result], a
 	ret
-.l6323 ; 68:6323
+.handle_horizontal_input ; 68:6323
 	play_sfx SFX_CURSOR_MOVE
 	ld a, [wAccountConfirm_Cursor]
 	ld b, $01
@@ -317,15 +317,15 @@ Account_ConfirmManualScreen_InputLoop:: ; 68:6507
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit PADB_A, a
-	jr nz, .l652A
+	jr nz, .handle_button_a
 	bit PADB_B, a
-	jr nz, .l654C
+	jr nz, .handle_button_b
 	bit PADB_LEFT, a
-	jr nz, .l6561
+	jr nz, .handle_horizontal_input
 	bit PADB_RIGHT, a
-	jr nz, .l6561
+	jr nz, .handle_horizontal_input
 	jr Account_ConfirmManualScreen_InputLoop
-.l652A ; 68:652A
+.handle_button_a ; 68:652A
 	play_sfx SFX_CONFIRM
 	ld a, [wAccountConfirm_Cursor]
 	or a, a
@@ -337,12 +337,12 @@ Account_ConfirmManualScreen_InputLoop:: ; 68:6507
 	ld a, $02
 	ld [wAccountConfirm_Result], a
 	ret
-.l654C ; 68:654C
+.handle_button_b ; 68:654C
 	play_sfx SFX_CANCEL
 	xor a, a
 	ld [wAccountConfirm_Result], a
 	ret
-.l6561 ; 68:6561
+.handle_horizontal_input ; 68:6561
 	play_sfx SFX_CURSOR_MOVE
 	ld a, [wAccountConfirm_Cursor]
 	ld b, $01

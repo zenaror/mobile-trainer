@@ -83,7 +83,7 @@ MailSrvDel_MenuLoop:: ; 23:4076
 	pop de
 	pop bc
 	dec c
-	jr z, .l40AB
+	jr z, .check_and_delete
 
 	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
 	; fall-through of the jrcc at 23:40A2 (executed) [executed in 6 scenarios]
@@ -91,7 +91,7 @@ MailSrvDel_MenuLoop:: ; 23:4076
 	ld c, $00
 	jr .l40B0
 
-.l40AB ; 23:40AB
+.check_and_delete ; 23:40AB
 	; [CONFIRMED] 1 insn(s); 1 executed (in up to 1/18 scenarios)
 	call MailSrvDel_CheckAndDelete
 

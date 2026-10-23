@@ -490,15 +490,15 @@ Account_MailIntroPage:: ; 68:5BC4
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit PADB_A, a
-	jr nz, .l5BE2
+	jr nz, .handle_button_a
 	bit PADB_B, a
-	jr nz, .l5BF6
+	jr nz, .handle_button_b
 	jr .loop
-.l5BE2 ; 68:5BE2
+.handle_button_a ; 68:5BE2
 	play_sfx SFX_CONFIRM
 	ld a, $01
 	jr .l5C09
-.l5BF6 ; 68:5BF6
+.handle_button_b ; 68:5BF6
 	play_sfx SFX_CANCEL
 	xor a, a
 	jr .l5C09

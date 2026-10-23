@@ -511,7 +511,7 @@ SoundDrv_LoadSongHeader:: ; 04:430A
 	ld [wSoundDrv_ReqBC + 1], a
 	cp a, $00
 	ld a, c
-	jr z, .l4319
+	jr z, .check_song_index_below_47
 
 	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
 	; fall-through of the jrcc at 04:4311 (executed) | forced execution: 3/3 instruction starts ran
@@ -521,7 +521,7 @@ SoundDrv_LoadSongHeader:: ; 04:430A
 	pop hl
 	jp Bank4_GateLeave
 
-.l4319 ; 04:4319
+.check_song_index_below_47 ; 04:4319
 	; [CONFIRMED] 135 insn(s); 135 executed (in up to 18/18 scenarios)
 	cp a, $47
 	jr nc, .loop
@@ -760,7 +760,7 @@ SoundDrv_GetPlayingId:: ; 04:445C
 	; ROM, stub has no known caller); indexes the WRAM record table at 449B with [bc]=4499+2a, ends
 	; with jp 2141
 	and a, a
-	jr nz, .l4470
+	jr nz, .check_track_selector_below_5
 	ld a, [wSoundDrv_ActiveMask]
 	and a, $F0
 	jr z, .l4474
@@ -769,7 +769,7 @@ SoundDrv_GetPlayingId:: ; 04:445C
 	ld a, [wSoundDrv_MusicId + $01]
 	ld b, a
 	jr .l4498
-.l4470 ; 04:4470
+.check_track_selector_below_5 ; 04:4470
 	cp a, $05
 	jr c, .load_playing_id_from_selected_track
 .l4474 ; 04:4474
@@ -1086,7 +1086,7 @@ SoundDrv_TickVibrato:: ; 04:45E6
 	inc hl
 	ld a, [hli]
 	cp a, $00
-	jr z, .l462E
+	jr z, .scale_b_minus_half_c_by8
 
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
 	; fall-through of the jrcc at 04:461F (executed)
@@ -1104,7 +1104,7 @@ SoundDrv_TickVibrato:: ; 04:45E6
 	; fall-through of the jrcc at 04:462A (executed)
 	jr .reload_track_pointer_and_update_flags
 
-.l462E ; 04:462E
+.scale_b_minus_half_c_by8 ; 04:462E
 	; [CONFIRMED] 80 insn(s); 80 executed (in up to 17/18 scenarios)
 	ld a, b
 	srl c
@@ -1212,7 +1212,7 @@ SoundDrv_ComputeTrackOutput:: ; 04:4668
 .update_volume_if_flag1 ; 04:46BF
 	; [CONFIRMED] 24 insn(s); 24 executed (in up to 17/18 scenarios)
 	bit 1, a
-	jr z, .l46E6
+	jr z, .store_track_update_flags
 	ld bc, $0015
 	add hl, bc
 	ld a, [hli]
@@ -1234,7 +1234,7 @@ SoundDrv_ComputeTrackOutput:: ; 04:4668
 	ld bc, $FFD1
 	add hl, bc
 	ld a, [wSoundDrv_UpdateFlags]
-.l46E6 ; 04:46E6
+.store_track_update_flags ; 04:46E6
 	ld [hl], a
 	ret
 
@@ -1559,12 +1559,12 @@ SoundDrv_CmdPitchBend:: ; 04:4896
 SoundDrv_PitchBendProduct:: ; 04:48AD
 	push hl
 	sla b
-	jr c, .l48B9
+	jr c, .multiply_complemented_b_and_negate_product
 	call SoundDrv_Mul8x8
 	ld c, l
 	ld b, h
 	jr .store_pitch_product_and_set_update_bit2
-.l48B9 ; 04:48B9
+.multiply_complemented_b_and_negate_product ; 04:48B9
 	ld a, b
 	cpl
 	ld b, a
@@ -2044,7 +2044,7 @@ SoundDrv_StartNote:: ; 04:4A81
 
 SoundDrv_CmdNoteOff:: ; 04:4B66
 	; Hazard (demonstrated (synthetic) on mGBA, docs/research/audio_format.md section 5.1): a byte $00-$23 right after $CF takes
-	; the `jr c, .l4B7F` below without being consumed; running status then dispatches $CF again for the same byte, for ever, and
+	; the `jr c, .prepare_noteoff_channel_search` below without being consumed; running status then dispatches $CF again for the same byte, for ever, and
 	; the frame tick never returns.  Only a pitch byte ($24-$7F) or an opcode may follow $CF.
 	; [CONFIRMED] 53 insn(s) reached by static flow only; seeds: table x53; min discovery hops 0;
 	; run starts at an entry of the code-pointer table at 04:46E8 | 9 insn(s) executed; cut out of
@@ -2057,16 +2057,16 @@ SoundDrv_CmdNoteOff:: ; 04:4B66
 	add hl, bc
 	ld a, [wSoundDrv_StreamByte]
 	bit 7, a
-	jr nz, .l4B7F
+	jr nz, .prepare_noteoff_channel_search
 
 	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4B66-4BC9 by apply_coverage --split
 	cp a, $24
-	jr c, .l4B7F
+	jr c, .prepare_noteoff_channel_search
 	inc de
 	ld [hl], a
 
-.l4B7F ; 04:4B7F
+.prepare_noteoff_channel_search ; 04:4B7F
 	; [CONFIRMED] 11 insn(s) executed; cut out of the PROBABLE region 4B66-4BC9 by apply_coverage
 	; --split [executed in 7 scenarios]
 	ld a, [hl]
@@ -2205,10 +2205,10 @@ SoundDrv_UpdateChannel:: ; 04:4C14
 	ld d, a
 	ld a, [de]
 	cp a, $C0
-	jr nc, .l4C38
+	jr nc, .latch_track_flags_and_check_channel_bit6
 	pop hl
 	jr SoundDrv_StopChannel
-.l4C38 ; 04:4C38
+.latch_track_flags_and_check_channel_bit6 ; 04:4C38
 	ld [wSoundDrv_UpdateFlags], a
 	bit 6, b
 	jr nz, .l4C5F
@@ -2224,11 +2224,11 @@ SoundDrv_UpdateChannel:: ; 04:4C14
 	bit 5, b
 	jr z, .l4C57
 	bit 4, b
-	jr nz, .l4CAE
-	jp .l4D02
+	jr nz, .step_volume_up_toward_target
+	jp .step_volume_down_toward_sustain
 .l4C57 ; 04:4C57
 	bit 4, b
-	jp nz, .l4D3B
+	jp nz, .step_volume_down_for_bit5_clear
 
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
 	; fall-through of the jpcc at 04:4C59 (executed)
@@ -2256,7 +2256,7 @@ SoundDrv_UpdateChannel:: ; 04:4C14
 	cpl
 	rrca
 	and a, $07
-	jr z, .l4CD3
+	jr z, .clear_channel_bit4_and_compute_sustain
 	or a, $08
 	ld [hli], a
 	xor a, a
@@ -2282,7 +2282,7 @@ SoundDrv_UpdateChannel:: ; 04:4C14
 	xor a, a
 	ld [hli], a
 	jp .set_volume_update_bit
-.l4CAE ; 04:4CAE
+.step_volume_up_toward_target ; 04:4CAE
 	ld a, [wSoundDrv_UpdateFlags]
 	bit 1, a
 	call nz, SoundDrv_ComputeTargetVolume
@@ -2297,7 +2297,7 @@ SoundDrv_UpdateChannel:: ; 04:4C14
 	ld [hld], a
 	ld a, [hl]
 	add a, $10
-	jr c, .l4CD3
+	jr c, .clear_channel_bit4_and_compute_sustain
 	call SoundDrv_WaveLevelChanged
 	ld [hli], a
 .l4CCC ; 04:4CCC
@@ -2310,7 +2310,7 @@ SoundDrv_UpdateChannel:: ; 04:4C14
 	; fall-through of the jpcc at 04:4CCF (executed)
 	inc hl
 
-.l4CD3 ; 04:4CD3
+.clear_channel_bit4_and_compute_sustain ; 04:4CD3
 	; [CONFIRMED] 79 insn(s); 79 executed (in up to 17/18 scenarios)
 	ld bc, $FFFA
 	add hl, bc
@@ -2342,7 +2342,7 @@ SoundDrv_UpdateChannel:: ; 04:4C14
 	xor a, a
 	ld [hli], a
 	jp .set_volume_update_bit
-.l4D02 ; 04:4D02
+.step_volume_down_toward_sustain ; 04:4D02
 	ld a, [wSoundDrv_UpdateFlags]
 	bit 1, a
 	call nz, SoundDrv_ComputeSustainVolume
@@ -2382,7 +2382,7 @@ SoundDrv_UpdateChannel:: ; 04:4C14
 	xor a, [hl]
 	jr nz, .loop
 	jr .write_pitch_if_update_bit2
-.l4D3B ; 04:4D3B
+.step_volume_down_for_bit5_clear ; 04:4D3B
 	ld bc, $0011
 	add hl, bc
 	ld a, [hli]
@@ -2705,12 +2705,12 @@ SoundDrv_WriteChannelPitch:: ; 04:4ECA
 	ld b, a
 	ld a, [wSoundDrv_ChannelReg]
 	cp a, $1C
-	jr c, .l4EF5
+	jr c, .scale_and_write_tonal_pitch
 	jr nz, .write_noise_pitch
 	ld a, b
 	add a, $0C
 	ld b, a
-.l4EF5 ; 04:4EF5
+.scale_and_write_tonal_pitch ; 04:4EF5
 	push hl
 	ld a, b
 	call SoundDrv_NoteToIndex
@@ -2729,7 +2729,7 @@ SoundDrv_WriteChannelPitch:: ; 04:4ECA
 	inc c
 	ldh a, [c]
 	and a, $40
-	jr z, .l4F17
+	jr z, .write_pitch_high_and_clear_length_bits0_to5
 
 	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
 	; fall-through of the jrcc at 04:4F11 (executed)
@@ -2737,7 +2737,7 @@ SoundDrv_WriteChannelPitch:: ; 04:4ECA
 	ldh [c], a
 	jr .store_trigger_control
 
-.l4F17 ; 04:4F17
+.write_pitch_high_and_clear_length_bits0_to5 ; 04:4F17
 	; [CONFIRMED] 65 insn(s); 65 executed (in up to 17/18 scenarios)
 	or a, h
 	ldh [c], a
@@ -2848,7 +2848,7 @@ SoundDrv_WriteChannelVolume:: ; 04:4F97
 	ld a, [wSoundDrv_ChannelReg]
 	ld c, a
 	cp a, $1C
-	jr c, .l4FB8
+	jr c, .write_pulse_volume_and_trigger_control
 	jr z, .write_wave_volume
 	ld a, b
 	ldh [c], a
@@ -2856,7 +2856,7 @@ SoundDrv_WriteChannelVolume:: ; 04:4F97
 	or a, $80
 	ldh [rNR44], a
 	ret
-.l4FB8 ; 04:4FB8
+.write_pulse_volume_and_trigger_control ; 04:4FB8
 	ld a, b
 	ldh [c], a
 	inc c

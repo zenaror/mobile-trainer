@@ -360,15 +360,15 @@ Account_LoginIdIntroPage:: ; 68:55E1
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit PADB_A, a
-	jr nz, .l55FF
+	jr nz, .handle_button_a
 	bit PADB_B, a
-	jr nz, .l5613
+	jr nz, .handle_button_b
 	jr .loop
-.l55FF ; 68:55FF
+.handle_button_a ; 68:55FF
 	play_sfx SFX_CONFIRM
 	ld a, $01
 	jr .l5626
-.l5613 ; 68:5613
+.handle_button_b ; 68:5613
 	play_sfx SFX_CANCEL
 	xor a, a
 	jr .l5626

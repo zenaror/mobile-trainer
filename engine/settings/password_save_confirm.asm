@@ -101,15 +101,15 @@ PwSaveConfirm_Loop:: ; 67:6625
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit PADB_A, a
-	jr nz, .l6648
+	jr nz, .handle_button_a
 	bit PADB_B, a
-	jr nz, .l666A
+	jr nz, .handle_button_b
 	bit PADB_LEFT, a
-	jr nz, .l6685
+	jr nz, .handle_horizontal_input
 	bit PADB_RIGHT, a
-	jr nz, .l6685
+	jr nz, .handle_horizontal_input
 	jr PwSaveConfirm_Loop
-.l6648 ; 67:6648
+.handle_button_a ; 67:6648
 	play_sfx SFX_CONFIRM
 	ld a, [wPwSaveConfirm_Cursor]
 	or a, a
@@ -124,7 +124,7 @@ PwSaveConfirm_Loop:: ; 67:6625
 	ld a, $02
 	ld [wPwSaveConfirm_Result], a
 	ret
-.l666A ; 67:666A
+.handle_button_b ; 67:666A
 	ld a, [wPwSaveConfirm_Variant]
 	or a, a
 	jr nz, PwSaveConfirm_Loop
@@ -132,7 +132,7 @@ PwSaveConfirm_Loop:: ; 67:6625
 	xor a, a
 	ld [wPwSaveConfirm_Result], a
 	ret
-.l6685 ; 67:6685
+.handle_horizontal_input ; 67:6685
 	play_sfx SFX_CURSOR_MOVE
 	ld a, [wPwSaveConfirm_Cursor]
 	ld b, $01

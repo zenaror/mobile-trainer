@@ -85,15 +85,15 @@ SettingsPhone_ConfirmScreen_Loop:: ; 67:51E2
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit PADB_A, a
-	jr nz, .l5205
+	jr nz, .handle_button_a
 	bit PADB_B, a
-	jr nz, .l5227
+	jr nz, .handle_button_b
 	bit PADB_LEFT, a
-	jr nz, .l523C
+	jr nz, .handle_horizontal_input
 	bit PADB_RIGHT, a
-	jr nz, .l523C
+	jr nz, .handle_horizontal_input
 	jr SettingsPhone_ConfirmScreen_Loop
-.l5205 ; 67:5205
+.handle_button_a ; 67:5205
 	play_sfx SFX_CONFIRM
 	ld a, [wConfirmScreen_Cursor]
 	or a, a
@@ -108,12 +108,12 @@ SettingsPhone_ConfirmScreen_Loop:: ; 67:51E2
 	ld a, $02
 	ld [wConfirmScreen_Result], a
 	ret
-.l5227 ; 67:5227
+.handle_button_b ; 67:5227
 	play_sfx SFX_CANCEL
 	xor a, a
 	ld [wConfirmScreen_Result], a
 	ret
-.l523C ; 67:523C
+.handle_horizontal_input ; 67:523C
 	play_sfx SFX_CURSOR_MOVE
 	ld a, [wConfirmScreen_Cursor]
 	ld b, $01

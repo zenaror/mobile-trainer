@@ -54,39 +54,39 @@ MailDraft_SaveToSram:: ; 2D:403C
 	ld hl, wEditBodyBuf
 	ld de, sMailDraft_Body
 	ld b, $C0
-.l4058 ; 2D:4058
+.save_body ; 2D:4058
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .l4058
+	jr nz, .save_body
 	ld hl, wEditAddressBuf
 	ld de, sMailDraft_ToAddress
 	ld b, $40
-.l4066 ; 2D:4066
+.save_address ; 2D:4066
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .l4066
+	jr nz, .save_address
 	ld hl, wEditSubjectBuf
 	ld de, sMailDraft_Subject
 	ld b, $14
-.l4074 ; 2D:4074
+.save_subject ; 2D:4074
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .l4074
+	jr nz, .save_subject
 	ld hl, wEditNameBuf
 	ld de, sMailDraft_ToName
 	ld b, $10
-.l4082 ; 2D:4082
+.save_name ; 2D:4082
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .l4082
+	jr nz, .save_name
 	farcall SramCheck_Bank0Commit
 	ret
 
@@ -103,39 +103,39 @@ MailDraft_LoadFromSram:: ; 2D:408F
 	ld de, wEditBodyBuf
 	ld hl, sMailDraft_Body
 	ld b, $C0
-.l40AB ; 2D:40AB
+.load_body ; 2D:40AB
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .l40AB
+	jr nz, .load_body
 	ld de, wEditAddressBuf
 	ld hl, sMailDraft_ToAddress
 	ld b, $40
-.l40B9 ; 2D:40B9
+.load_address ; 2D:40B9
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .l40B9
+	jr nz, .load_address
 	ld de, wEditSubjectBuf
 	ld hl, sMailDraft_Subject
 	ld b, $14
-.l40C7 ; 2D:40C7
+.load_subject ; 2D:40C7
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .l40C7
+	jr nz, .load_subject
 	ld de, wEditNameBuf
 	ld hl, sMailDraft_ToName
 	ld b, $10
-.l40D5 ; 2D:40D5
+.load_name ; 2D:40D5
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .l40D5
+	jr nz, .load_name
 	ret
 
 MailDraft_Clear:: ; 2D:40DC
@@ -155,43 +155,43 @@ MailDraft_Clear:: ; 2D:40DC
 	ld de, wEditBodyBuf
 	ld hl, sMailDraft_Body
 	ld b, $C0
-.l40F8 ; 2D:40F8
+.clear_body ; 2D:40F8
 	xor a, a
 	ld [hli], a
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .l40F8
+	jr nz, .clear_body
 	ld de, wEditAddressBuf
 	ld hl, sMailDraft_ToAddress
 	ld b, $40
-.l4107 ; 2D:4107
+.clear_address ; 2D:4107
 	xor a, a
 	ld [hli], a
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .l4107
+	jr nz, .clear_address
 	ld de, wEditSubjectBuf
 	ld hl, sMailDraft_Subject
 	ld b, $14
-.l4116 ; 2D:4116
+.clear_subject ; 2D:4116
 	xor a, a
 	ld [hli], a
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .l4116
+	jr nz, .clear_subject
 	ld de, wEditNameBuf
 	ld hl, sMailDraft_ToName
 	ld b, $10
-.l4125 ; 2D:4125
+.clear_name ; 2D:4125
 	xor a, a
 	ld [hli], a
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .l4125
+	jr nz, .clear_name
 	farcall SramCheck_Bank0Commit
 	ret
 

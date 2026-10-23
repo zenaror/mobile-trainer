@@ -254,12 +254,12 @@ BrowserMenu_RunTwoItem_HandleDpad:: ; 72:65F5
 	; region 65F5-6643 by apply_coverage --split [executed in 1 scenarios]
 	ldh a, [hJoyPressedRepeat]
 	bit PADB_RIGHT, a
-	jr nz, .l6602
+	jr nz, .handle_button_right
 	bit PADB_LEFT, a
-	jr nz, .l661E
+	jr nz, .handle_button_left
 	jp BrowserMenu_RunTwoItem_Loop
 
-.l6602 ; 72:6602
+.handle_button_right ; 72:6602
 	; [PROBABLE] 29 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 65F5-6643 by apply_coverage --split
 	play_sfx SFX_CURSOR_MOVE
@@ -269,7 +269,7 @@ BrowserMenu_RunTwoItem_HandleDpad:: ; 72:65F5
 	jp nz, BrowserMenu_RunTwoItem_SetItem
 	xor a, a
 	jp BrowserMenu_RunTwoItem_SetItem
-.l661E ; 72:661E
+.handle_button_left ; 72:661E
 	play_sfx SFX_CURSOR_MOVE
 	ldh a, [hDialogResult]
 	dec a
@@ -653,12 +653,12 @@ BrowserMenu_RunThreeItem_HandleDpad:: ; 72:6931
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressedRepeat]
 	bit PADB_RIGHT, a
-	jr nz, .l693E
+	jr nz, .handle_button_right
 	bit PADB_LEFT, a
-	jr nz, .l695A
+	jr nz, .handle_button_left
 	jp BrowserMenu_RunThreeItem_Loop
 
-.l693E ; 72:693E
+.handle_button_right ; 72:693E
 	; [CONFIRMED] 31 insn(s) reached by static flow only; seeds: exec x31; min discovery hops 1;
 	; entered by jrcc from 72:6935 (executed) [executed in 1 scenarios]
 	play_sfx SFX_CURSOR_MOVE
@@ -668,7 +668,7 @@ BrowserMenu_RunThreeItem_HandleDpad:: ; 72:6931
 	jp nz, BrowserMenu_RunThreeItem_SetItem
 	xor a, a
 	jp BrowserMenu_RunThreeItem_SetItem
-.l695A ; 72:695A
+.handle_button_left ; 72:695A
 	play_sfx SFX_CURSOR_MOVE
 	ldh a, [hDialogResult]
 	dec a

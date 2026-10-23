@@ -651,19 +651,19 @@ Profile_RedrawNickname:: ; 2A:594B
 Profile_DrawNickname:: ; 2A:5952
 	ld a, $10
 	ld [wTextCellsLeft], a
-.l5957 ; 2A:5957
+.read_next_char ; 2A:5957
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, .l59F4
+	jp z, .prepare_dotted_padding
 	cp a, $0D
-	jr z, .l59D9
+	jr z, .draw_cr_marker
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, .l59B3
+	jr nz, .draw_ascii_char
 	pop af
 	push bc
 	push de
@@ -697,12 +697,12 @@ Profile_DrawNickname:: ; 2A:5952
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l59F4
+	jr z, .prepare_dotted_padding
 	cp a, $01
-	jr z, .l59F4
-	jp .l5957
+	jr z, .prepare_dotted_padding
+	jp .read_next_char
 
-.l59B3 ; 2A:59B3
+.draw_ascii_char ; 2A:59B3
 	; [PROBABLE] 32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 1;
 	; entered by jrcc from 2A:596F (executed)
 	pop af
@@ -720,11 +720,11 @@ Profile_DrawNickname:: ; 2A:5952
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l59F4
+	jr z, .prepare_dotted_padding
 	cp a, $01
-	jr z, .l59F4
-	jp .l5957
-.l59D9 ; 2A:59D9
+	jr z, .prepare_dotted_padding
+	jp .read_next_char
+.draw_cr_marker ; 2A:59D9
 	push bc
 	push de
 	push hl
@@ -739,7 +739,7 @@ Profile_DrawNickname:: ; 2A:5952
 	ld [wTextCellsLeft], a
 	call Profile_DrawNickname_BlitBlankAdvance
 
-.l59F4 ; 2A:59F4
+.prepare_dotted_padding ; 2A:59F4
 	; [CONFIRMED] 54 insn(s); 54 executed (in up to 2/18 scenarios)
 	push bc
 	push de
@@ -790,7 +790,7 @@ Profile_DrawNickname_BlitBlankAdvance:: ; 2A:5A23
 Profile_DrawAddressLine1:: ; 2A:5A3B
 	ld a, $0A
 	ld [wTextCellsLeft], a
-.l5A40 ; 2A:5A40
+.read_next_char ; 2A:5A40
 	; loop head: next byte of the address; $00 ends the line (pad), $0D takes one blank cell and ends it, a Shift-JIS lead byte goes to the wide-glyph path, anything else is drawn as ASCII
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -803,7 +803,7 @@ Profile_DrawAddressLine1:: ; 2A:5A3B
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, .l5A9B
+	jr nz, .draw_ascii_char
 
 	; [PROBABLE] 37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 0;
 	; fall-through of the jrcc at 2A:5A58 (executed)
@@ -843,8 +843,8 @@ Profile_DrawAddressLine1:: ; 2A:5A3B
 	jr z, .l5ADB
 	cp a, $01
 	jr z, .l5ADB
-	jr .l5A40
-.l5A9B ; 2A:5A9B
+	jr .read_next_char
+.draw_ascii_char ; 2A:5A9B
 	; one-byte (ASCII) character: load the glyph, blit it, one cell less; with no cell (or one) left the line is padded
 	; [CONFIRMED] 19 insn(s); 19 executed (in up to 2/18 scenarios)
 	pop af
@@ -865,7 +865,7 @@ Profile_DrawAddressLine1:: ; 2A:5A3B
 	jr z, .l5ADB
 	cp a, $01
 	jr z, .l5ADB
-	jr .l5A40
+	jr .read_next_char
 .l5AC0 ; 2A:5AC0
 	; a $0D byte takes one blank cell and ends the line (never executed)
 	; [PROBABLE] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 1;
@@ -937,7 +937,7 @@ Profile_DrawAddressLine1_BlitBlankAdvance:: ; 2A:5B0F
 Profile_DrawAddressLine2:: ; 2A:5B27
 	ld a, $10
 	ld [wTextCellsLeft], a
-.l5B2C ; 2A:5B2C
+.read_next_char ; 2A:5B2C
 	; loop head: next byte of the address; $00 ends the line (pad), $0D takes one blank cell and ends it, a Shift-JIS lead byte goes to the wide-glyph path, anything else is drawn as ASCII
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -950,7 +950,7 @@ Profile_DrawAddressLine2:: ; 2A:5B27
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, .l5B87
+	jr nz, .draw_ascii_char
 
 	; [PROBABLE] 37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 0;
 	; fall-through of the jrcc at 2A:5B44 (executed)
@@ -990,8 +990,8 @@ Profile_DrawAddressLine2:: ; 2A:5B27
 	jr z, .l5BC7
 	cp a, $01
 	jr z, .l5BC7
-	jr .l5B2C
-.l5B87 ; 2A:5B87
+	jr .read_next_char
+.draw_ascii_char ; 2A:5B87
 	; one-byte (ASCII) character: load the glyph, blit it, one cell less; with no cell (or one) left the line is padded
 	; [CONFIRMED] 19 insn(s); 19 executed (in up to 2/18 scenarios)
 	pop af
@@ -1012,7 +1012,7 @@ Profile_DrawAddressLine2:: ; 2A:5B27
 	jr z, .l5BC7
 	cp a, $01
 	jr z, .l5BC7
-	jr .l5B2C
+	jr .read_next_char
 .l5BAC ; 2A:5BAC
 	; a $0D byte takes one blank cell and ends the line (never executed)
 	; [PROBABLE] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 1;

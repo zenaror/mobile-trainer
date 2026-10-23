@@ -43,13 +43,13 @@ Pop3_LoginStatPoll:: ; 54:489B
 	farcall MailSession_UpdateTimerDisplay
 	ld a, [wTimerEnable]
 	bit 1, a
-	jr nz, .l48B2
+	jr nz, .fetch_result_return_ff
 	bit 0, a
 	jr z, .l48B8
 	ld a, $01
 	ret
 
-.l48B2 ; 54:48B2
+.fetch_result_return_ff ; 54:48B2
 	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1;
 	; entered by jrcc from 54:48A9 (executed) [executed in 2 scenarios]
 	call Mobile_FetchResult
@@ -162,14 +162,14 @@ Pop3_TopPoll:: ; 54:4969
 	call Mobile_CheckTimeout
 	ld a, [wTimerEnable]
 	bit 1, a
-	jr nz, .l497E
+	jr nz, .fetch_result_return_ff
 	bit 2, a
 	jr nz, .l4984
 	bit 0, a
 	jr z, .l4995
 	ld a, $01
 	ret
-.l497E ; 54:497E
+.fetch_result_return_ff ; 54:497E
 	call Mobile_FetchResult
 	ld a, $FF
 	ret

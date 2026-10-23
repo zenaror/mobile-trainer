@@ -130,7 +130,7 @@ Title_StateLogoWait:: ; 0E:40CA
 	ld a, e
 	cp a, c
 .skip ; 0E:40DD
-	jr z, .l4104
+	jr z, .advance_title_state
 	inc hl
 	ld a, h
 	ld [wTitle_FrameCounterHi], a
@@ -138,17 +138,17 @@ Title_StateLogoWait:: ; 0E:40CA
 	ld [wTitle_FrameCounterLo], a
 	ldh a, [hJoyPressedRepeat]
 	bit PADB_A, a
-	jr nz, .l40F4
+	jr nz, .skip_logo_on_a_or_start
 	bit PADB_START, a
-	jr nz, .l40F4
+	jr nz, .skip_logo_on_a_or_start
 	jr .done
-.l40F4 ; 0E:40F4
+.skip_logo_on_a_or_start ; 0E:40F4
 	farcall Palette_FadeOutToWhite
 	ld a, [wTitle_State]
 	add a, $02
 	ld [wTitle_State], a
 	jr .done
-.l4104 ; 0E:4104
+.advance_title_state ; 0E:4104
 	ld a, [wTitle_State]
 	inc a
 	ld [wTitle_State], a

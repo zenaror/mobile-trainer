@@ -394,19 +394,19 @@ AbookName_PlaceCursorSprites:: ; 2F:5AB8
 AbookName_DrawName:: ; 2F:5AEA
 	ld a, $10
 	ld [wTextCellsLeft], a
-.l5AEF ; 2F:5AEF
+.read_next_char ; 2F:5AEF
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, .l5B8A
+	jp z, .prepare_dotted_padding
 	cp a, $0D
-	jr z, .l5B6F
+	jr z, .draw_cr_marker
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, .l5B4A
+	jr nz, .draw_ascii_char
 	pop af
 	push bc
 	push de
@@ -440,12 +440,12 @@ AbookName_DrawName:: ; 2F:5AEA
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l5B8A
+	jr z, .prepare_dotted_padding
 	cp a, $01
-	jr z, .l5B8A
-	jr .l5AEF
+	jr z, .prepare_dotted_padding
+	jr .read_next_char
 
-.l5B4A ; 2F:5B4A
+.draw_ascii_char ; 2F:5B4A
 	; [PROBABLE] 32 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5914-5C30 by apply_coverage --split
 	pop af
@@ -463,11 +463,11 @@ AbookName_DrawName:: ; 2F:5AEA
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l5B8A
+	jr z, .prepare_dotted_padding
 	cp a, $01
-	jr z, .l5B8A
-	jr .l5AEF
-.l5B6F ; 2F:5B6F
+	jr z, .prepare_dotted_padding
+	jr .read_next_char
+.draw_cr_marker ; 2F:5B6F
 	push bc
 	push de
 	push hl
@@ -482,7 +482,7 @@ AbookName_DrawName:: ; 2F:5AEA
 	ld [wTextCellsLeft], a
 	call AbookName_DrawName_Pad
 
-.l5B8A ; 2F:5B8A
+.prepare_dotted_padding ; 2F:5B8A
 	; [CONFIRMED] 96 insn(s) executed; cut out of the PROBABLE region 5914-5C30 by apply_coverage
 	; --split [executed in 4 scenarios]
 	push bc
