@@ -25,6 +25,7 @@ SHORT_LOCAL = re.compile(r"\.(?:loop|skip|done|start)\Z")
 RAM_NAME = re.compile(r"(?:wRam|hRam|sSram)_[0-9A-F]{4}\Z", re.I)
 RAM_DECL = re.compile(r"^(?:DEF\s+)?([A-Za-z_.$][\w.$]*)\s+(?:EQU|SET|EQUS)\b", re.I)
 LABEL = re.compile(r"^([A-Za-z_.$][\w.$]*)::")
+ADDRESS_SUFFIX = re.compile(r"_[0-9A-F]{2}_[0-9A-F]{4}\Z", re.I)
 LOCAL = re.compile(r"^(\.[\w.$]+)(?:\s|$)")
 ASSET_ADDRESS = re.compile(
     r"(?:tiles?|tilemap|attrmap|palette)_?[0-9A-F]{4}(?:\.[^/]*)?\Z", re.I
@@ -40,6 +41,7 @@ FUNCTION_QUALIFIER = re.compile(
     r"(?:^|_)(?:Stub[A-Z]$|Maybe[A-Z][A-Za-z0-9]*)",
     re.I,
 )
+RET_ONLY_NAME = re.compile(r"(?:Stub_Nop|ReturnOnly)_[0-9A-F]{2}_[0-9A-F]{4}\Z", re.I)
 UNCLASSIFIED_QUALIFIER = re.compile(
     r"(?:^|_)(?:Unknown[A-Z][A-Za-z0-9]*|Unresolved[A-Z][A-Za-z0-9]*)",
     re.I,
@@ -60,6 +62,11 @@ def tracked_files() -> list[str]:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--list", action="store_true", help="print every hit, including retained numeric local/RAM names")
+    parser.add_argument(
+        "--generic-list",
+        action="store_true",
+        help="print name/path candidates without dumping retained local anchors and RAM equates",
+    )
     args = parser.parse_args()
     try:
         files = tracked_files()
@@ -76,10 +83,12 @@ def main() -> int:
 
     hits: dict[str, list[str]] = {
         "strict global address-shaped definitions": [],
+        "global labels with bank/address suffix (semantic names retained)": [],
         "numeric local .lAAAA definitions": [],
         "short local placeholders": [],
         "numeric RAM equates": [],
         "function-like source labels with vague Stub/Maybe qualifiers": [],
+        "single-RET body labels requiring explicit disposition": [],
         "source labels explicitly retaining Unknown/Unresolved content": [],
         "function-boundary or complete-function comments to reconcile": [],
     }
@@ -98,6 +107,10 @@ def main() -> int:
                 current_owner = owner_match.group(1)
             if owner_match and FUNCTION_QUALIFIER.search(current_owner):
                 hits["function-like source labels with vague Stub/Maybe qualifiers"].append(
+                    f"{name}:{number}:{current_owner}"
+                )
+            if owner_match and RET_ONLY_NAME.fullmatch(current_owner):
+                hits["single-RET body labels requiring explicit disposition"].append(
                     f"{name}:{number}:{current_owner}"
                 )
             if owner_match and UNCLASSIFIED_QUALIFIER.search(current_owner):
@@ -124,6 +137,10 @@ def main() -> int:
             ram_match = RAM_DECL.match(line)
             if global_match and GLOBAL.fullmatch(global_match.group(1)):
                 hits["strict global address-shaped definitions"].append(
+                    f"{name}:{number}:{global_match.group(1)}"
+                )
+            if global_match and ADDRESS_SUFFIX.search(global_match.group(1)):
+                hits["global labels with bank/address suffix (semantic names retained)"].append(
                     f"{name}:{number}:{global_match.group(1)}"
                 )
             if local_match:
@@ -157,10 +174,31 @@ def main() -> int:
         if key not in current_local:
             ledger_misses.append(key)
 
-    gfx_paths = subprocess.check_output(["git", "ls-files", "-z", "--", "gfx"], text=True)
-    paths = [p for p in gfx_paths.split("\0") if p]
-    bank_dirs = [p for p in paths if re.search(r"(?:^|/)bank[0-9]{2}(?:/|$)", p, re.I)]
-    address_assets = [p for p in paths if ASSET_ADDRESS.fullmatch(p.rsplit("/", 1)[-1])]
+    tracked_paths = subprocess.check_output(["git", "ls-files", "-z"], text=True)
+    all_paths = [p for p in tracked_paths.split("\0") if p]
+    active_roots = ("home/", "engine/", "data/", "gfx/", "audio/", "lib/", "ram/")
+    active_paths = [p for p in all_paths if p.startswith(active_roots)]
+    bank_dirs = [
+        p
+        for p in active_paths
+        if re.search(r"(?:^|/)bank[0-9A-F]{2}(?:/|$)", p, re.I)
+    ]
+    gfx_paths = [p for p in active_paths if p.startswith("gfx/")]
+    address_assets = [
+        p for p in gfx_paths if ASSET_ADDRESS.fullmatch(p.rsplit("/", 1)[-1])
+    ]
+    bank_suffix_dirs_set: set[str] = set()
+    for p in active_paths:
+        components = p.split("/")
+        for index, component in enumerate(components[:-1]):
+            if re.search(r"(?:^|_)bank[0-9A-F]{2}\Z", component, re.I):
+                bank_suffix_dirs_set.add("/".join(components[: index + 1]))
+    bank_suffix_dirs = sorted(bank_suffix_dirs_set)
+    bank_suffix_files = [
+        p
+        for p in active_paths
+        if re.search(r"(?:^|_)bank[0-9A-F]{2}\.asm\Z", p, re.I)
+    ]
 
     print(f"Git HEAD: {head}")
     print(f"Tracked Japanese ASM/INC files scanned: {len(files)}")
@@ -168,18 +206,34 @@ def main() -> int:
     if args.list:
         for row in tracked_changes:
             print(f"  changed: {row}")
+    generic_families = {
+        "strict global address-shaped definitions",
+        "function-like source labels with vague Stub/Maybe qualifiers",
+        "single-RET body labels requiring explicit disposition",
+        "source labels explicitly retaining Unknown/Unresolved content",
+        "function-boundary or complete-function comments to reconcile",
+    }
     for family, rows in hits.items():
         print(f"{family}: {len(rows)}")
-        if args.list or family in ("strict global address-shaped definitions", "short local placeholders"):
+        if args.list or (args.generic_list and family in generic_families) or family in ("strict global address-shaped definitions", "short local placeholders"):
             for row in rows:
                 print(f"  {row}")
-    print(f"Tracked GFX paths: {len(paths)}")
-    print(f"GFX paths with bankNN component: {len(bank_dirs)}")
-    if args.list:
+    print(f"Tracked GFX paths: {len(gfx_paths)}")
+    print(f"Tracked active source/resource paths: {len(active_paths)}")
+    print(f"Active source/resource paths with bankNN directory component: {len(bank_dirs)}")
+    if args.list or args.generic_list:
         for row in bank_dirs:
             print(f"  {row}")
+    print(f"Owner-qualified bankNN directory names: {len(bank_suffix_dirs)}")
+    if args.list or args.generic_list:
+        for row in bank_suffix_dirs:
+            print(f"  directory: {row}")
+    print(f"Owner-qualified bankNN source filenames: {len(bank_suffix_files)}")
+    if args.list or args.generic_list:
+        for row in bank_suffix_files:
+            print(f"  file: {row}")
     print(f"GFX address-shaped asset basenames: {len(address_assets)}")
-    if args.list:
+    if args.list or args.generic_list:
         for row in address_assets:
             print(f"  {row}")
     dispositions = {row["disposition"]: 0 for row in ledger}

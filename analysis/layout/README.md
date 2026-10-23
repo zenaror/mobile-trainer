@@ -146,7 +146,7 @@ Evidence grades follow the project vocabulary.  Everything not listed here is ba
 same bank.  None of these choices can change a byte: they only decide which file a range lands in.
 
 **Names that state a hypothesis** (the file name repeats the wording of the naming notes; HYPOTHESIS/PROBABLE there):
-* `engine/unreferenced/page_list_prototype.asm` (`7F:4C78-61FC`) and `gfx/unreferenced/page_list_prototype.asm` (`7F:62B0-70FD`): the prototype association is HYPOTHESIS in `naming_g8.md` 6.2. The tiles at `7F:7830-7B00` were historically grouped with the prototype, but reviewed source has no symbolic load/reference for `$7830`; their purpose remains unresolved. Their owner is now `gfx/unresolved/tiles_7f_7830.asm`.
+* `engine/unreferenced/page_list_prototype.asm` (`7F:4C78-61FC`) and `gfx/unreferenced/page_list_prototype.asm` (`7F:62B0-70FD`): the prototype association is HYPOTHESIS in `naming_g8.md` 6.2. The tiles at `7F:7830-7B00` were historically grouped with the prototype, but reviewed source has no symbolic load/reference for `$7830`; their purpose remains unresolved. Their owner is now `gfx/unresolved/tile_graphics_candidate.asm`.
   Historical path attribution included reads of `7F:7B40`; those are now assigned to the text-cursor object tables, not prototype art. Other prototype evidence is recorded at `7F:522A-52A4`, `6DB0` and `4FC3/4FCF`. `70FD`, `7830` and `7B00` are region boundaries. The adjacent `7F:7B00-7CC5` object owner is now `gfx/text_cursor/objects.asm`; palette, tables and animation/frame data there have positive consumers in text editors.
 * `engine/address_book/unreferenced_confirm_screen.asm` + `gfx/.../unreferenced_confirm_screen.asm` (`2C:741C-7FD0`): code without caller (HYPOTHESIS, `naming_g3.md`);
   the art part `7C80/7F50` is also described there as entry-screen art of bank 2F, so the second file mixes two hypotheses.
@@ -820,7 +820,7 @@ same bank.  None of these choices can change a byte: they only decide which file
 
 | file | banks | bytes | est. lines | kinds |
 |---|---:|---:|---:|---|
-| `gfx/unresolved/tiles_7f_7830.asm` | 7F | 720 | 1 | gfx 720 |
+| `gfx/unresolved/tile_graphics_candidate.asm` | 7F | 720 | 1 | gfx 720 |
 | `gfx/text_cursor/objects.asm` | 7F | 453 | 72 | data 373, words 80 |
 
 #### `home/`
