@@ -2773,9 +2773,10 @@ Stub_Nop_7F_61E7:: ; 7F:61E7
 
 	ret
 
-	; [HYPOTHESIS] complete small function (ld a,7 ; ldh [hFF8D],a ; ldh [hFF70],a ; xor a ; ld
-	; [$C2D4..$C2D7],a ; ret) directly before the executed function 7F:61FC; no caller/pointer
-	; found, entry unproven
+	; [CONFIRMED] selects WRAM bank 7 and clears the four Timer A bytes. [PROBABLE] ret-delimited
+	; body immediately before the executed function at 7F:61FC; [HYPOTHESIS] entry/reachability:
+	; no caller or pointer is known.
+PageListProto_SelectWramBank7AndClearTimerA:: ; 7F:61E8
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a

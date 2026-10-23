@@ -2196,9 +2196,11 @@ Mail_UnfoldHeader:: ; 0F:4C0F
 	jr z, .terminate_and_measure
 	jr .copy_header_byte
 
-	; [HYPOTHESIS] complete small function (push bc ; ld bc,$D000 ; call $5D95 ; pop bc ; ret)
-	; between the code regions 4C57 and 4C62; call target 5D95 is a code start of this bank; no
-	; caller/pointer found, entry unproven
+	; [CONFIRMED] saves BC, passes the address of wMail_InputBank to Mail_NextSramPage, restores BC,
+	; and returns. At D=$BF the helper increments the pointed-to bank and selects it; otherwise it
+	; advances D and clears E. [PROBABLE] ret-delimited body; [HYPOTHESIS] entry/reachability: no
+	; caller or pointer is known.
+Mail_AdvanceInputSramPage:: ; 0F:4C59
 	push bc
 	ld bc, wMail_InputBank
 	call Mail_NextSramPage

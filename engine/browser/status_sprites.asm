@@ -130,10 +130,9 @@ ConnIcon_StartSprite:: ; 4E:604C
 
 ConnIcon_GetBrowserFramePos:: ; 4E:6087
 
-	; [HYPOTHESIS] complete small function (push bc/hl ... ret): a = [C2C2] & $7F -> word of the
-	; screen-descriptor table 4E:654B -> hl+$19 -> de = word there; ret; same idiom as the executed
-	; 4E:5E11 area and the getter before it (4E:6060-6087 ends with jp $0A65); no caller/pointer
-	; found, entry unproven
+	; [PROBABLE] reads the frame-position word at descriptor+$19, using the same descriptor lookup
+	; as the inline code in ConnIcon_StartSprite. [HYPOTHESIS] standalone entry/reachability: no
+	; caller or pointer is known; this name describes the visible operation, not a proven caller.
 	push bc
 	push hl
 	ld a, [wBrowserFrameStyle]
