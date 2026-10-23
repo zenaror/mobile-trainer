@@ -43,6 +43,7 @@ FUNCTION_NOTE = re.compile(
 NAME_REVIEW_MARKER = re.compile(
     r"Stub|Maybe|NoOp|Nop|Unknown|Unresolved|Placeholder|Generic|Unassigned", re.I
 )
+CANDIDATE_TOKEN = re.compile(r"Candidate", re.I)
 NAME_REVIEW_MARKER_KEEP = {
     "BrowserMenu_PlaceholderText": "the pointed-to Shift-JIS text is a literal question-mark placeholder; record identity is documented",
     "CommErr_Msg_GenericCommError": "the pointed-to text and error-table entry identify the generic communication-error category",
@@ -95,6 +96,7 @@ def main() -> int:
         "short local placeholders": [],
         "numeric RAM equates": [],
         "labels with Stub/Nop/Maybe/Unknown/Unresolved/Placeholder/Generic/Unassigned markers (full disposition)": [],
+        "global labels containing Candidate (inventory; not presumed generic)": [],
         "single-RET body labels requiring explicit disposition": [],
         "source labels explicitly retaining Unknown/Unresolved content": [],
         "function-boundary or complete-function comments to reconcile": [],
@@ -126,6 +128,10 @@ def main() -> int:
                         f"REVIEW: {record}"
                     )
                     unreviewed_name_markers.append(record)
+            if owner_match and CANDIDATE_TOKEN.search(current_owner):
+                hits["global labels containing Candidate (inventory; not presumed generic)"].append(
+                    f"{name}:{number}:{current_owner}"
+                )
             if owner_match and UNCLASSIFIED_QUALIFIER.search(current_owner):
                 hits["source labels explicitly retaining Unknown/Unresolved content"].append(
                     f"{name}:{number}:{current_owner}"
@@ -269,6 +275,7 @@ def main() -> int:
         "function-boundary or complete-function comments to reconcile",
         "numeric RAM equates",
         "global labels with address suffix (broad candidate inventory)",
+        "global labels containing Candidate (inventory; not presumed generic)",
     }
     for family, rows in hits.items():
         print(f"{family}: {len(rows)}")
