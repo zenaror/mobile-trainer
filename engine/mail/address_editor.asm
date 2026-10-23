@@ -209,8 +209,8 @@ MailAddr_Edit:: ; 2D:65B0
 
 .ShowReplyLeavePrompt ; 2D:6726
 	; [CONFIRMED] Mode 3 selects dialog $020F, whose text asks whether to discard an unfinished reply.
-	; [PROBABLE] The natural trace executes this block and its sole direct branch at 2D:66D3 three times,
-	; but the callgraph does not log conditional-branch outcomes.
+	; [CONFIRMED, bounded natural replay] 2D:66D3 and its target 2D:6726 execute three times; fall-through 2D:66D5 is absent.
+	; The matching 2D:6740 farcall Dialog_Show also executes three times; sampled frames do not show a modal prompt.
 	push bc
 	ld de, $020F
 	push af

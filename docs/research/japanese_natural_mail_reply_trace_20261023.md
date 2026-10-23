@@ -54,9 +54,9 @@ will be discarded, and the reply path writes mode 3 before entering
 `MailAddr_Edit` (`engine/mail/mailbox_screen.asm`, reply setup). The block is
 therefore named `.ShowReplyLeavePrompt` (**CONFIRMED** for this bounded static
 operation contract). This does not prove every possible value other than 1 or
-2 means reply, nor that the natural trace took the conditional edge; that
-dynamic relation remains **PROBABLE**. No broader application purpose is
-claimed.
+2 means reply, nor does it establish broader application purpose. A bounded
+natural replay later confirmed the `2D:66D3 -> 2D:6726` conditional edge for
+three observed events; details and limits follow.
 
 ## Replay follow-up: dialog call site observed (2026-10-23)
 
@@ -70,17 +70,20 @@ to the committed scenario outputs (SHA-256 `7d8dd8c98d7f61391946e44c04fd7d10e117
 callgraph records `2D:6740 -> 00:06D1` three times, first at frame 21103;
 `2D:6740` is the `farcall Dialog_Show` instruction inside the block, while
 coverage records `2D:66D3` and `2D:6726` three times each, also first at frame
-21103. This confirms natural execution of the dialog call site in this replay.
+21103. The fall-through instruction at `2D:66D5` has no coverage row. Because
+coverage records every instruction start, this confirms that the JR at
+`2D:66D3` was taken in all three observed events. The dialog call site and the
+conditional edge are therefore **CONFIRMED for this bounded natural replay**;
+the callgraph alone does not encode that edge.
 
 The screenshots at frames 21103 and 21104 have identical pixels (SHA-256
 `04dbfcfa2c49338f0b47331ae8f8799a97f3d4c442ce86f19bbdb95728532e49`); both
 show the address-entry view, with no modal prompt visible at those sample
-points. The callgraph records the far-call helper, not conditional-branch
-outcomes, and the screenshots do not establish whether a player-visible prompt
-persisted. Keep the natural edge `2D:66D3 -> 2D:6726` **PROBABLE**. The replay
-receipt retains the command, ROM/input/fixture/tool hashes, output hashes and
-the two inspected images; redundant replay outputs were removed after
-comparison.
+points. The screenshots do not establish whether a player-visible prompt
+persisted. Do not generalize this observed edge to other mode values or claim
+that the prompt remained visible. The replay receipt retains the command,
+ROM/input/fixture/tool hashes, output hashes and the two inspected images;
+redundant replay outputs were removed after comparison.
 
 The trace did not execute the distinct candidate fragment `26:5344–537C`.
 No other open entry/purpose candidate in the Japanese closure worklist was

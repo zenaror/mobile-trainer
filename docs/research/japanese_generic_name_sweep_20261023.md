@@ -4,7 +4,7 @@ This document preserves historical inventories and the current result; dated bas
 
 ### Reply-leave block and live anchor reconciliation (2026-10-23; `92a4572b`)
 
-The address-editor block at `2D:6726` is named `.ShowReplyLeavePrompt` from its mode dispatch, dialog `$020F`, and the cataloged unfinished-reply discard text. A no-force/ramset replay confirms three natural executions of its `farcall Dialog_Show` site at `2D:6740`; the natural edge from `2D:66D3` remains PROBABLE because the tracer records instruction starts and calls but not conditional branch outcomes. Screens at frames 21103/21104 were pixel-identical, with no modal prompt visible at those sample points. The 2,764-row old/final local-anchor ledger now has 412 RENAME and 2,352 KEEP rows, while the live numeric `.lAAAA` count is 2,352. The census ledgers also track current source-line shifts for the Bank 2D HDMA helper and two Bank 25 record tables.
+The address-editor block at `2D:6726` is named `.ShowReplyLeavePrompt` from its mode dispatch, dialog `$020F`, and the cataloged unfinished-reply discard text. A no-force/ramset replay confirms the natural edge `2D:66D3 -> 2D:6726` for three events: the branch executes three times, its `2D:66D5` fall-through is absent, and the target executes three times. The `farcall Dialog_Show` site at `2D:6740` also executes three times. Screens at frames 21103/21104 were pixel-identical, with no modal prompt visible at those sample points. The 2,764-row old/final local-anchor ledger now has 412 RENAME and 2,352 KEEP rows, while the live numeric `.lAAAA` count is 2,352. The census ledgers also track current source-line shifts for the Bank 2D HDMA helper and two Bank 25 record tables.
 
 ### Explicit coverage state and open census families (2026-10-23)
 
