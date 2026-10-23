@@ -30,13 +30,10 @@ Gfx_MailTitle_Tiles8000:: ; 2C:5140
 Gfx_MailTitle_Tiles8000Continuation:: ; 2C:5150
 	INCBIN "gfx/mail/mail_title_entry/mail_title_tiles8000_continuation.2bpp"
 
-Gfx_MailTitle_Tiles8800:: ; 2C:5410
-	; kind (tiles) from the label name / config/symbols note; the region header above describes the block differently
-	INCBIN "gfx/mail/mail_title_entry/mail_title_tiles8800.2bpp"
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+; ---- gfx $5410-$5670 (608 bytes) [CONFIRMED] 38 complete 2bpp tiles in the static HDMA source to VRAM0 $8800-$8A60; natural display is not established
 
-; ---- zero $566C-$5670 (4 bytes) [PROBABLE] 4 zero bytes before the palette block 5670
-	ds $4, $00
+Gfx_MailTitle_Tiles8800:: ; 2C:5410
+	INCBIN "gfx/mail/mail_title_entry/mail_title_tiles8800.2bpp"
 
 ; ---- data $5670-$56B0 (64 bytes) [CONFIRMED] 64-byte CGB palette block: FarCall 4F:4000 (bc=$40) to WRAM $D840 at 2C:41AC (ld hl,$5670 ; a=$2C)
 

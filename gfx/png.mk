@@ -105,14 +105,17 @@ PNG_TILE_OUTS := \
 	gfx/browser/menus/browser_menu3_tiles_8800_vb1.2bpp \
 	gfx/browser/menus/browser_menu3_tiles_8f00_vb1.2bpp \
 	gfx/browser/page_list/page_list_hdma_source_byte_slice_24_55d0.2bpp \
-	gfx/browser/page_list/page_list_hdma_source_byte_slice_24_5ef1.2bpp \
-	gfx/browser/page_list/page_list_tile_8000_vb0_5ee0.2bpp \
+	gfx/browser/page_list/page_list_hdma_source_byte_slice_24_5f00.2bpp \
+	gfx/browser/page_list/page_list_tile_83f0_vb0_62d0.2bpp \
+	gfx/browser/page_list/page_list_tile_84e0_vb0_63c0.2bpp \
+	gfx/browser/page_list/page_list_tile_84f0_vb0_63d0.2bpp \
 	gfx/browser/page_list/page_list_tiles_5400.2bpp \
 	gfx/browser/page_list/page_list_tiles_5800.2bpp \
 	gfx/browser/page_list/page_list_tiles_5810.2bpp \
-	gfx/browser/page_list/page_list_tiles_6301.2bpp \
 	gfx/browser/page_list/page_list_tiles_63e0.2bpp \
+	gfx/browser/page_list/page_list_tiles_8000_vb0_5ee0.2bpp \
 	gfx/browser/page_list/page_list_tiles_8400_vb0_62e0.2bpp \
+	gfx/browser/page_list/page_list_tiles_8430_vb0_6310.2bpp \
 	gfx/browser/page_list_candidate/page_list_candidate_tiles_vram8000_vb0.2bpp \
 	gfx/browser/page_list_candidate/page_list_candidate_tiles_vram9000_vb1.2bpp \
 	gfx/browser/page_list_candidate/page_list_candidate_tiles_vram9400_vb1.2bpp \
@@ -364,7 +367,6 @@ PNG_TILE_OUTS := \
 	gfx/mail_server/tidy_screen/mail_server_mgr_tiles_8e80_vb0.2bpp \
 	gfx/mail_server/tidy_screen/mail_server_mgr_tiles_9000_vb1.2bpp \
 	gfx/mail_server/tidy_screen/mail_server_mgr_tiles_9400_vb1_prefix.2bpp \
-	gfx/mailbox/mailbox/mailbox_hdma_source_byte_slice_25_6bd1.2bpp \
 	gfx/mailbox/mailbox/mailbox_tiles_5a10.2bpp \
 	gfx/mailbox/mailbox/mailbox_tiles_5e10.2bpp \
 	gfx/mailbox/mailbox/mailbox_tiles_5f10.2bpp \
@@ -528,16 +530,19 @@ gfx/browser/menus/browser_menu3_tiles_8800_vb1.2bpp: PNG_SIZE := 1024
 gfx/browser/menus/browser_menu3_tiles_8f00_vb1.2bpp: PNG_SIZE := 256
 gfx/browser/page_list/page_list_hdma_source_byte_slice_24_55d0.2bpp: PNG_SIZE := 560
 gfx/browser/page_list/page_list_hdma_source_byte_slice_24_55d0.2bpp: PNG_PAD := -x 13
-gfx/browser/page_list/page_list_hdma_source_byte_slice_24_5ef1.2bpp: PNG_SIZE := 992
-gfx/browser/page_list/page_list_hdma_source_byte_slice_24_5ef1.2bpp: PNG_PAD := -x 2
-gfx/browser/page_list/page_list_tile_8000_vb0_5ee0.2bpp: PNG_SIZE := 16
+gfx/browser/page_list/page_list_hdma_source_byte_slice_24_5f00.2bpp: PNG_SIZE := 976
+gfx/browser/page_list/page_list_hdma_source_byte_slice_24_5f00.2bpp: PNG_PAD := -x 3
+gfx/browser/page_list/page_list_tile_83f0_vb0_62d0.2bpp: PNG_SIZE := 16
+gfx/browser/page_list/page_list_tile_84e0_vb0_63c0.2bpp: PNG_SIZE := 16
+gfx/browser/page_list/page_list_tile_84f0_vb0_63d0.2bpp: PNG_SIZE := 16
 gfx/browser/page_list/page_list_tiles_5400.2bpp: PNG_SIZE := 464
 gfx/browser/page_list/page_list_tiles_5400.2bpp: PNG_PAD := -x 3
 gfx/browser/page_list/page_list_tiles_5800.2bpp: PNG_SIZE := 16
 gfx/browser/page_list/page_list_tiles_5810.2bpp: PNG_SIZE := 160
-gfx/browser/page_list/page_list_tiles_6301.2bpp: PNG_SIZE := 192
 gfx/browser/page_list/page_list_tiles_63e0.2bpp: PNG_SIZE := 256
-gfx/browser/page_list/page_list_tiles_8400_vb0_62e0.2bpp: PNG_SIZE := 32
+gfx/browser/page_list/page_list_tiles_8000_vb0_5ee0.2bpp: PNG_SIZE := 32
+gfx/browser/page_list/page_list_tiles_8400_vb0_62e0.2bpp: PNG_SIZE := 48
+gfx/browser/page_list/page_list_tiles_8430_vb0_6310.2bpp: PNG_SIZE := 176
 gfx/browser/page_list_candidate/page_list_candidate_tiles_vram8000_vb0.2bpp: PNG_SIZE := 656
 gfx/browser/page_list_candidate/page_list_candidate_tiles_vram8000_vb0.2bpp: PNG_PAD := -x 7
 gfx/browser/page_list_candidate/page_list_candidate_tiles_vram9000_vb1.2bpp: PNG_SIZE := 1024
@@ -753,8 +758,8 @@ gfx/mail/draft_menu/mail_draft_menu_tiles8000.2bpp: PNG_PAD := -x 13
 gfx/mail/draft_menu/mail_draft_menu_tiles9300.2bpp: PNG_SIZE := 720
 gfx/mail/mail_title_entry/mail_title_tiles8000.2bpp: PNG_SIZE := 16
 gfx/mail/mail_title_entry/mail_title_tiles8000_continuation.2bpp: PNG_SIZE := 704
-gfx/mail/mail_title_entry/mail_title_tiles8800.2bpp: PNG_SIZE := 592
-gfx/mail/mail_title_entry/mail_title_tiles8800.2bpp: PNG_PAD := -x 11
+gfx/mail/mail_title_entry/mail_title_tiles8800.2bpp: PNG_SIZE := 608
+gfx/mail/mail_title_entry/mail_title_tiles8800.2bpp: PNG_PAD := -x 10
 gfx/mail/mail_title_entry/mail_title_tiles9300.2bpp: PNG_SIZE := 1024
 gfx/mail/mail_viewer/mail_view_tiles8000.2bpp: PNG_SIZE := 384
 gfx/mail/mail_viewer/mail_view_tiles9000.2bpp: PNG_SIZE := 1024
@@ -804,14 +809,12 @@ gfx/mail_server/tidy_screen/mail_server_mgr_tiles_8a80_vb0.2bpp: PNG_SIZE := 102
 gfx/mail_server/tidy_screen/mail_server_mgr_tiles_8e80_vb0.2bpp: PNG_SIZE := 352
 gfx/mail_server/tidy_screen/mail_server_mgr_tiles_9000_vb1.2bpp: PNG_SIZE := 1024
 gfx/mail_server/tidy_screen/mail_server_mgr_tiles_9400_vb1_prefix.2bpp: PNG_SIZE := 16
-gfx/mailbox/mailbox/mailbox_hdma_source_byte_slice_25_6bd1.2bpp: PNG_SIZE := 272
-gfx/mailbox/mailbox/mailbox_hdma_source_byte_slice_25_6bd1.2bpp: PNG_PAD := -x 15
 gfx/mailbox/mailbox/mailbox_tiles_5a10.2bpp: PNG_SIZE := 1024
 gfx/mailbox/mailbox/mailbox_tiles_5e10.2bpp: PNG_SIZE := 256
 gfx/mailbox/mailbox/mailbox_tiles_5f10.2bpp: PNG_SIZE := 1024
 gfx/mailbox/mailbox/mailbox_tiles_6310.2bpp: PNG_SIZE := 256
-gfx/mailbox/mailbox/mailbox_tiles_69f0.2bpp: PNG_SIZE := 208
-gfx/mailbox/mailbox/mailbox_tiles_6cf0.2bpp: PNG_SIZE := 384
+gfx/mailbox/mailbox/mailbox_tiles_69f0.2bpp: PNG_SIZE := 768
+gfx/mailbox/mailbox/mailbox_tiles_6cf0.2bpp: PNG_SIZE := 512
 gfx/profile/profile_editor/profile_tiles8800.2bpp: PNG_SIZE := 832
 gfx/profile/profile_editor/profile_tiles9300.2bpp: PNG_SIZE := 1024
 gfx/profile/profile_editor/profile_tiles9700.2bpp: PNG_SIZE := 256

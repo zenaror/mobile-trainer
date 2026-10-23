@@ -41,56 +41,15 @@ Mailbox_Tilemap_DeleteSelect:: ; 25:66E0
 Mailbox_BgPalette:: ; 25:69B0
 	INCLUDE "gfx/mailbox/mailbox/mailbox_bg_palette.pal"
 
-; ---- data $69F0-$6AC8 (216 bytes) [PROBABLE] tile data: the kept .2bpp asset and label identify tiles; any raw bytes beside it remain unclassified (the rest of a block from which a palette array was cut; the old palette heuristic does not describe this fragment)
+; ---- gfx $69F0-$6CF0 (768 bytes) [CONFIRMED] 48 complete 2bpp tiles copied by static HDMA at 25:4B86 to VRAM0 $8000-$8300; the overlapping 25:4B9B transfer reloads $6A00-$6B00 at $8700-$8800; natural display is not established
 
 Mailbox_Tiles_69F0:: ; 25:69F0
-	; kind (tiles) from the label name / config/symbols note; the region header above describes the block differently
 	INCBIN "gfx/mailbox/mailbox/mailbox_tiles_69f0.2bpp"
-	db $3F, $00, $3F, $1E, $BF, $12, $FF, $12
 
-; ---- data $6AC8-$6BD1 (265 bytes) [CONFIRMED] HDMA source fragment inside requests at 25:4B86/4C2E; first 56 bytes also feed 4B9B/4C43; phase 8 to 1; content class unknown; see docs/research/boot_and_home.md
-
-Mailbox_HDMASourceFragment_6AC8:: ; 25:6AC8
-	db $FF, $42, $FD, $46, $FA, $8C, $DC, $00, $00, $00, $00, $00, $00, $00, $00, $00
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $3F, $00, $00, $00, $00, $00, $00
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $FF, $00, $FF, $00, $FF, $00, $FF
-	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00, $FF, $FF, $FF, $80, $FF, $BF
-	db $E7, $BE, $E7, $BF, $FF, $BE, $FF, $BF, $00, $00, $FE, $FE, $FE, $02, $FE, $FA
-	db $FE, $1A, $FE, $FA, $FE, $1A, $FE, $FA, $C0, $BF, $FF, $BF, $FF, $80, $FF, $FF
-	db $00, $00, $00, $00, $00, $00, $00, $00, $07, $07, $FF, $FC, $FE, $81, $FE, $BD
-	db $FE, $9D, $FE, $AD, $FE, $B1, $FE, $B5, $FF, $FF, $FF, $01, $03, $FD, $FB, $FD
-	db $FB, $05, $FB, $FD, $FB, $05, $FB, $FD, $FE, $AD, $FE, $9D, $FE, $81, $FF, $FC
-	db $07, $07, $00, $00, $00, $00, $00, $00, $FB, $05, $FB, $FD, $03, $FD, $FF, $01
-	db $FF, $FF, $00, $00, $00, $00, $00, $00, $7E, $00, $7E, $3C, $FF, $08, $FE, $7F
-	db $FF, $08, $77, $18, $6B, $31, $73, $00, $00, $00, $00, $00, $FF, $00, $FF, $F5
-	db $FF, $45, $FF, $40, $FF, $F7, $FF, $00, $00, $00, $1E, $00, $3F, $0C, $7F, $12
-	db $7F, $21, $73, $00, $01, $00, $00, $00, $70, $00, $71, $20, $7F, $20, $F7, $3A
-	db $FF, $2A, $FF, $AA, $F5, $2E, $7E, $00, $F8, $00, $FC, $A8, $FC, $A8, $FC, $80
-	db $DC, $88, $FC, $88, $F8, $74, $F8, $00, $77, $00, $7F, $22, $7F, $2F, $7F, $22
-	db $77, $22, $7F, $22, $7D, $26, $7E, $00, $00
-
-; ---- gfx $6BD1-$6E71 (672 bytes) [PROBABLE] tiles-2bpp: heuristic: 35 coherent tiles (hsim2=0.623 vsim2=0.562, 3 blank) parity 1
-
-; [CONFIRMED] Fully covered by the static 25:69F0-$6CF0 HDMA request to VRAM0 $8000-$8300; byte offset +$1E1 maps to $81E1-$82F1. Natural execution/display is not established.
-Mailbox_HDMASourceByteSlice_25_6BD1:: ; 25:6BD1
-	INCBIN "gfx/mailbox/mailbox/mailbox_hdma_source_byte_slice_25_6bd1.2bpp"
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+; ---- gfx $6CF0-$6EF0 (512 bytes) [CONFIRMED] 32 complete 2bpp tiles copied by static HDMA at 25:4BB0 to VRAM0 $8D00-$8F00; natural display is not established
 
 Mailbox_Tiles_6CF0:: ; 25:6CF0
 	INCBIN "gfx/mailbox/mailbox/mailbox_tiles_6cf0.2bpp"
-	db $00
-
-; ---- data $6E71-$6EF0 (127 bytes) [CONFIRMED] HDMA source fragment inside requests at 25:4BB0/4C58; physical 16-byte phase 1 to 0; content class unknown, not an independent aligned tile asset; see docs/research/boot_and_home.md
-
-Mailbox_HDMASourceFragment_6E71:: ; 25:6E71
-	db $00, $38, $7D, $6C, $6D, $38, $7D, $6C, $6D, $6C, $6D, $38, $7D, $00, $00, $00
-	db $00, $38, $7D, $6C, $6D, $6C, $6D, $3C, $7D, $0C, $8D, $38, $BD, $00, $00, $03
-	db $01, $FF, $03, $FF, $FF, $FF, $FF, $00, $00, $FF, $FF, $FF, $00, $00, $00, $00
-	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00, $00, $FF, $00
-	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00, $00, $FF, $00
-	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00, $00, $FF, $00
-	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00, $00, $FF, $00
-	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00, $00, $FF
 
 ; ---- data $6EF0-$6F30 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufObj (engine/mail/mailbox_screen.asm:29, call 25:4B47 executed 69 hits in 11 scenarios (analysis/coverage_union.tsv)); +$00 bc=$40 into wPaletteBufObj (engine/mail/mailbox_screen.asm:87, call 25:4BEF executed 52 hits in 3 scenarios (analysis/coverage_union.tsv)); +$00 bc=$40 into wPaletteBufObj (engine/mail/mailbox_screen.asm:143, call 25:4C94 executed 121 hits in 12 scenarios (analysis/coverage_union.tsv))
 

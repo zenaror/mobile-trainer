@@ -219,19 +219,24 @@ gfx/browser/menus/browser_menu3_tiles_8800_vb1.2bpp	tiles	1024	gfx/browser/menus
 gfx/browser/menus/browser_menu3_tiles_8f00_vb1.2bpp	tiles	256	gfx/browser/menus.asm	72	7010	CONFIRMED	exact	0		BrowserMenu3_Tiles8F00Vb1
 gfx/browser/menus/browser_menu_bg6.pal	palette	16	gfx/browser/menus.asm	72	7200	CONFIRMED	-	0		Palette_BrowserMenu_Bg6
 gfx/browser/menus/browser_menu_obj4.pal	palette	8	gfx/browser/menus.asm	72	7210	CONFIRMED	-	0		Palette_BrowserMenu_Obj4
-gfx/browser/page_list/page_list_bg_palette.pal	palette	64	gfx/browser/page_list.asm	24	5EA0	CONFIRMED	-	0		PageList_BgPalette
-gfx/browser/page_list/page_list_obj_palette.pal	palette	64	gfx/browser/page_list.asm	24	64E0	CONFIRMED	-	0		PageList_ObjPalette
-gfx/browser/page_list/page_list_tilemap_5900.attrmap	attrmap	360	gfx/browser/page_list.asm	24	5A68	CONFIRMED	-	0	20x18	PageList_Tilemap_5900
-gfx/browser/page_list/page_list_tilemap_5900.tilemap	tilemap	360	gfx/browser/page_list.asm	24	5900	CONFIRMED	-	0	20x18	PageList_Tilemap_5900
-gfx/browser/page_list/page_list_tilemap_5bd0.attrmap	attrmap	360	gfx/browser/page_list.asm	24	5D38	CONFIRMED	-	0	20x18	PageList_Tilemap_5BD0
-gfx/browser/page_list/page_list_tilemap_5bd0.tilemap	tilemap	360	gfx/browser/page_list.asm	24	5BD0	CONFIRMED	-	0	20x18	PageList_Tilemap_5BD0
 gfx/browser/page_list/page_list_tiles_5400.2bpp	tiles	464	gfx/browser/page_list.asm	24	5400	CONFIRMED	exact	3		PageList_Tiles_5400
-gfx/browser/page_list/page_list_tiles_5800.2bpp	tiles	16	gfx/browser/page_list.asm	24	5800	PROBABLE	exact	0		PageList_Tiles_5800
 gfx/browser/page_list/page_list_hdma_source_byte_slice_24_55d0.2bpp	tiles	560	gfx/browser/page_list.asm	24	55D0	PROBABLE	exact	13		PageList_HDMASourceByteSlice_24_55D0
+gfx/browser/page_list/page_list_tiles_5800.2bpp	tiles	16	gfx/browser/page_list.asm	24	5800	PROBABLE	exact	0		PageList_Tiles_5800
 gfx/browser/page_list/page_list_tiles_5810.2bpp	tiles	160	gfx/browser/page_list.asm	24	5810	CONFIRMED	exact	0		PageList_Tiles_5810
-gfx/browser/page_list/page_list_hdma_source_byte_slice_24_5ef1.2bpp	tiles	992	gfx/browser/page_list.asm	24	5EF1	PROBABLE	exact	2		PageList_HDMASourceByteSlice_24_5EF1
-gfx/browser/page_list/page_list_tiles_6301.2bpp	tiles	192	gfx/browser/page_list.asm	24	6301	CONFIRMED	exact	0		PageList_Tiles_6301
+gfx/browser/page_list/page_list_tilemap_5900.tilemap	tilemap	360	gfx/browser/page_list.asm	24	5900	CONFIRMED	-	0	20x18	PageList_Tilemap_5900
+gfx/browser/page_list/page_list_tilemap_5900.attrmap	attrmap	360	gfx/browser/page_list.asm	24	5A68	CONFIRMED	-	0	20x18	PageList_Tilemap_5900
+gfx/browser/page_list/page_list_tilemap_5bd0.tilemap	tilemap	360	gfx/browser/page_list.asm	24	5BD0	CONFIRMED	-	0	20x18	PageList_Tilemap_5BD0
+gfx/browser/page_list/page_list_tilemap_5bd0.attrmap	attrmap	360	gfx/browser/page_list.asm	24	5D38	CONFIRMED	-	0	20x18	PageList_Tilemap_5BD0
+gfx/browser/page_list/page_list_bg_palette.pal	palette	64	gfx/browser/page_list.asm	24	5EA0	CONFIRMED	-	0		PageList_BgPalette
+gfx/browser/page_list/page_list_tiles_8000_vb0_5ee0.2bpp	tiles	32	gfx/browser/page_list.asm	24	5EE0	CONFIRMED	exact	0		PageList_Tiles_5EE0
+gfx/browser/page_list/page_list_hdma_source_byte_slice_24_5f00.2bpp	tiles	976	gfx/browser/page_list.asm	24	5F00	PROBABLE	exact	3		PageList_HDMASourceByteSlice_24_5F00
+gfx/browser/page_list/page_list_tile_83f0_vb0_62d0.2bpp	tiles	16	gfx/browser/page_list.asm	24	62D0	CONFIRMED	exact	0		PageList_Tile_83F0Vb0
+gfx/browser/page_list/page_list_tiles_8400_vb0_62e0.2bpp	tiles	48	gfx/browser/page_list.asm	24	62E0	CONFIRMED	exact	0		PageList_Tiles_62E0
+gfx/browser/page_list/page_list_tiles_8430_vb0_6310.2bpp	tiles	176	gfx/browser/page_list.asm	24	6310	CONFIRMED	exact	0		PageList_Tiles_6310
+gfx/browser/page_list/page_list_tile_84e0_vb0_63c0.2bpp	tiles	16	gfx/browser/page_list.asm	24	63C0	CONFIRMED	exact	0		PageList_Tile_84E0Vb0
+gfx/browser/page_list/page_list_tile_84f0_vb0_63d0.2bpp	tiles	16	gfx/browser/page_list.asm	24	63D0	CONFIRMED	exact	0		PageList_Tile_84F0Vb0
 gfx/browser/page_list/page_list_tiles_63e0.2bpp	tiles	256	gfx/browser/page_list.asm	24	63E0	CONFIRMED	exact	0		PageList_Tiles_63E0
+gfx/browser/page_list/page_list_obj_palette.pal	palette	64	gfx/browser/page_list.asm	24	64E0	CONFIRMED	-	0		PageList_ObjPalette
 gfx/browser/page_list_prototype_messages/prototype_message_tiles.2bpp	tiles	2944	gfx/browser/page_list_prototype_messages.asm	52	4080	PROBABLE	exact	0		Gfx_PageListProto_Tiles9580Vb1
 gfx/browser/start_choice/browser_start_bottom_attr_selected.attrmap	attrmap	30	gfx/browser/start_choice.asm	73	4461	PROBABLE	-	0		BrowserStart_BottomAttrSelected
 gfx/browser/start_choice/browser_start_bottom_map_selected.tilemap	tilemap	30	gfx/browser/start_choice.asm	73	441B	PROBABLE	-	0	10x3	BrowserStart_BottomMapSelected
@@ -668,7 +673,7 @@ gfx/mail/mail_title_entry/mail_title_bg.pal	palette	64	gfx/mail/mail_title_entry
 gfx/mail/mail_title_entry/mail_title_obj.pal	palette	64	gfx/mail/mail_title_entry.asm	2C	5670	CONFIRMED	-	0		Palette_MailTitle_Obj
 gfx/mail/mail_title_entry/mail_title_tiles8000.2bpp	tiles	16	gfx/mail/mail_title_entry.asm	2C	5140	PROBABLE	exact	0		Gfx_MailTitle_Tiles8000
 gfx/mail/mail_title_entry/mail_title_tiles8000_continuation.2bpp	tiles	704	gfx/mail/mail_title_entry.asm	2C	5150	CONFIRMED	exact	0		Gfx_MailTitle_Tiles8000Continuation
-gfx/mail/mail_title_entry/mail_title_tiles8800.2bpp	tiles	592	gfx/mail/mail_title_entry.asm	2C	5410	CONFIRMED	exact	11		Gfx_MailTitle_Tiles8800
+gfx/mail/mail_title_entry/mail_title_tiles8800.2bpp	tiles	608	gfx/mail/mail_title_entry.asm	2C	5410	CONFIRMED	exact	10		Gfx_MailTitle_Tiles8800
 gfx/mail/mail_title_entry/mail_title_tiles9300.2bpp	tiles	1024	gfx/mail/mail_title_entry.asm	2C	4A30	CONFIRMED	exact	0		Gfx_MailTitle_Tiles9300Vb1
 gfx/mail/mail_viewer/data_mail_view_tilemap_attr.attrmap	attrmap	360	gfx/mail/mail_viewer.asm	2B	7538	CONFIRMED	-	0	20x18	Data_MailView_TilemapAttr
 gfx/mail/mail_viewer/data_mail_view_tilemap_attr.tilemap	tilemap	360	gfx/mail/mail_viewer.asm	2B	73D0	CONFIRMED	-	0	20x18	Data_MailView_TilemapAttr
@@ -781,9 +786,8 @@ gfx/mailbox/mailbox/mailbox_tiles_5a10.2bpp	tiles	1024	gfx/mailbox/mailbox.asm	2
 gfx/mailbox/mailbox/mailbox_tiles_5e10.2bpp	tiles	256	gfx/mailbox/mailbox.asm	25	5E10	CONFIRMED	exact	0		Mailbox_Tiles_5E10
 gfx/mailbox/mailbox/mailbox_tiles_5f10.2bpp	tiles	1024	gfx/mailbox/mailbox.asm	25	5F10	PROBABLE	exact	0		Mailbox_Tiles_5F10
 gfx/mailbox/mailbox/mailbox_tiles_6310.2bpp	tiles	256	gfx/mailbox/mailbox.asm	25	6310	PROBABLE	exact	0		Mailbox_Tiles_6310
-gfx/mailbox/mailbox/mailbox_tiles_69f0.2bpp	tiles	208	gfx/mailbox/mailbox.asm	25	69F0	PROBABLE	exact	0		Mailbox_Tiles_69F0
-gfx/mailbox/mailbox/mailbox_tiles_6cf0.2bpp	tiles	384	gfx/mailbox/mailbox.asm	25	6CF0	PROBABLE	exact	0		Mailbox_Tiles_6CF0
-gfx/mailbox/mailbox/mailbox_hdma_source_byte_slice_25_6bd1.2bpp	tiles	272	gfx/mailbox/mailbox.asm	25	6BD1	PROBABLE	exact	15		Mailbox_HDMASourceByteSlice_25_6BD1
+gfx/mailbox/mailbox/mailbox_tiles_69f0.2bpp	tiles	768	gfx/mailbox/mailbox.asm	25	69F0	CONFIRMED	exact	0		Mailbox_Tiles_69F0
+gfx/mailbox/mailbox/mailbox_tiles_6cf0.2bpp	tiles	512	gfx/mailbox/mailbox.asm	25	6CF0	CONFIRMED	exact	0		Mailbox_Tiles_6CF0
 gfx/mailbox/objects/profile_obj_palette.pal	palette	64	gfx/mailbox/objects.asm	26	7AC0	PROBABLE	-	0		Palette_Profile_Obj
 gfx/profile/profile_editor/data_profile_tilemap_attr.attrmap	attrmap	360	gfx/profile/profile_editor.asm	2A	6CA8	CONFIRMED	-	0	20x18	Data_Profile_TilemapAttr
 gfx/profile/profile_editor/data_profile_tilemap_attr.tilemap	tilemap	360	gfx/profile/profile_editor.asm	2A	6B40	CONFIRMED	-	0	20x18	Data_Profile_TilemapAttr
@@ -987,5 +991,3 @@ gfx/browser/page_list_candidate/page_list_candidate_tiles_vram8000_vb0.2bpp	tile
 gfx/text_cursor/objects/text_cursor_obj_palette.pal	palette	64	gfx/text_cursor/objects.asm	7F	7B00	PROBABLE	-	0		Palette_TextCursor_Obj
 gfx/mail/address_obj_hdma_bytes_copy_bank7f/mail_addr_obj_hdma_bytes_copy_7f_7830.2bpp	tiles	720	gfx/mail/address_obj_hdma_bytes_copy_bank7f.asm	7F	7830	CONFIRMED	exact	0		Gfx_MailAddr_ObjHDMABytesCopy_7F_7830
 gfx/account/result_page_bank4b/account_result_page_second_banner1_tiles9310vb1.2bpp	tiles	32	gfx/account/result_page_bank4b.asm	4B	5400	CONFIRMED	exact	0		Gfx_Account_ResultPage_SecondBanner1_Tiles9310Vb1
-gfx/browser/page_list/page_list_tile_8000_vb0_5ee0.2bpp	tiles	16	gfx/browser/page_list.asm	24	5EE0	CONFIRMED	exact	0		PageList_Tiles_5EE0
-gfx/browser/page_list/page_list_tiles_8400_vb0_62e0.2bpp	tiles	32	gfx/browser/page_list.asm	24	62E0	CONFIRMED	exact	0		PageList_Tiles_62E0

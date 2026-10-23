@@ -45,34 +45,42 @@ PageList_BgPalette:: ; 24:5EA0
 
 	INCLUDE "gfx/browser/page_list/page_list_bg_palette.pal"
 
-; ---- gfx $5EE0-$5EF0 (16 bytes) [CONFIRMED] one complete 2bpp tile at the start of the 1024-byte DMA source window; byte $BE at $5EF0 begins the next tile and stays in db.
+; ---- gfx $5EE0-$5F00 (32 bytes) [CONFIRMED] two complete 2bpp tiles at the start of the 1024-byte DMA source window to VRAM0 $8000-$8400.
 
 PageList_Tiles_5EE0:: ; 24:5EE0
 
-	INCBIN "gfx/browser/page_list/page_list_tile_8000_vb0_5ee0.2bpp"
-	db $BE
+	INCBIN "gfx/browser/page_list/page_list_tiles_8000_vb0_5ee0.2bpp"
 
-; ---- gfx $5EF1-$6301 (1040 bytes) [PROBABLE] tiles-2bpp: heuristic: 45 coherent tiles (hsim2=0.655 vsim2=0.638, 7 blank) parity 1
+; ---- gfx $5F00-$62D0 (976 bytes) [PROBABLE] 61 complete 2bpp tiles; phase aligned to the static Page List HDMA source window.
 
-; [CONFIRMED] Fully covered by the static 24:5EE0-$62E0 HDMA request to VRAM0 $8000-$8400; byte offset +$11 maps to $8011-$83F1. Natural execution/display is not established.
-PageList_HDMASourceByteSlice_24_5EF1:: ; 24:5EF1
-	INCBIN "gfx/browser/page_list/page_list_hdma_source_byte_slice_24_5ef1.2bpp"
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+; [CONFIRMED] Maps to VRAM0 $8020-$83F0 within the static 24:5EE0-$62E0 HDMA transfer. Natural display is not established.
+PageList_HDMASourceByteSlice_24_5F00:: ; 24:5F00
+	INCBIN "gfx/browser/page_list/page_list_hdma_source_byte_slice_24_5f00.2bpp"
+
+; ---- gfx $62D0-$62E0 (16 bytes) [CONFIRMED] complete all-zero tile source at the end of the 1024-byte HDMA window; maps to VRAM0 $83F0.
+
+PageList_Tile_83F0Vb0:: ; 24:62D0
+	INCBIN "gfx/browser/page_list/page_list_tile_83f0_vb0_62d0.2bpp"
 
 PageList_Tiles_62E0:: ; 24:62E0
 	INCBIN "gfx/browser/page_list/page_list_tiles_8400_vb0_62e0.2bpp"
-	db $50 ; 24:6300, first byte of the next tile in the 512-byte DMA window
 
-; ---- gfx $6301-$63D0 (207 bytes) [CONFIRMED] 2bpp tiles by coherence: 12 non-blank tiles, mean adjacent-pixel similarity h=0.49 v=0.75 (random data ~0.25-0.35); inside block 62E0-64E0 uploaded by Gfx_StartHDMA (hl=$62E0 a=$24 c=$20 de=$8400) at 24:436B; call site executed: 40 hits in 9 scenarios (analysis/coverage_union.tsv)
+; ---- gfx $6310-$63C0 (176 bytes) [CONFIRMED] 11 complete 2bpp tiles; phase aligned within the static 24:62E0-$64E0 HDMA transfer to VRAM0 $8400-$8600.
 
-PageList_Tiles_6301:: ; 24:6301
-	INCBIN "gfx/browser/page_list/page_list_tiles_6301.2bpp"
-	db $FA, $06, $FA, $06, $FA, $06, $FA, $07, $FB, $05, $FB, $07, $FB, $06, $FA
+PageList_Tiles_6310:: ; 24:6310
+	INCBIN "gfx/browser/page_list/page_list_tiles_8430_vb0_6310.2bpp"
 
-; ---- zero $63D0-$63E0 (16 bytes) [HYPOTHESIS] padding? run of 16 x $00 in unclassified bytes
-	ds $10, $00
+; ---- gfx $63C0-$63D0 (16 bytes) [CONFIRMED] complete 2bpp tile source; maps to VRAM0 $84E0 in the same HDMA transfer.
 
-; ---- gfx $63E0-$64E0 (256 bytes) [CONFIRMED] 2bpp tiles by coherence: 15 non-blank tiles, mean adjacent-pixel similarity h=0.61 v=0.72 (random data ~0.25-0.35); inside block 62E0-64E0 uploaded by Gfx_StartHDMA (hl=$62E0 a=$24 c=$20 de=$8400) at 24:436B; call site executed: 40 hits in 9 scenarios (analysis/coverage_union.tsv)
+PageList_Tile_84E0Vb0:: ; 24:63C0
+	INCBIN "gfx/browser/page_list/page_list_tile_84e0_vb0_63c0.2bpp"
+
+; ---- gfx $63D0-$63E0 (16 bytes) [CONFIRMED] complete all-zero tile source; maps to VRAM0 $84F0 in the same HDMA transfer.
+
+PageList_Tile_84F0Vb0:: ; 24:63D0
+	INCBIN "gfx/browser/page_list/page_list_tile_84f0_vb0_63d0.2bpp"
+
+; ---- gfx $63E0-$64E0 (256 bytes) [CONFIRMED] 16 complete 2bpp tiles; maps to VRAM0 $8500-$8600 in the same HDMA transfer.
 
 PageList_Tiles_63E0:: ; 24:63E0
 	INCBIN "gfx/browser/page_list/page_list_tiles_63e0.2bpp"
