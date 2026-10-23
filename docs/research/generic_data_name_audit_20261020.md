@@ -3485,3 +3485,28 @@ The ten active `Data_BB_AAAA` definitions were reviewed individually with their 
 The resource sweep did find 13 retired `Label_BB_AAAA` spellings in eight rows of `gfx/previews/sprites.tsv`, even though each has a CONFIRMED current name in the naming ledgers and current ASM. The manifest's consumer columns now use the current names: `Mailbox_IconMenu_Enter`, `MailSession_ReceivePhase_AfterScan`, `AbookList_Run_ButtonRow`, `MailServerMgr_Run_MailLoop`, `MailTitle_InsertChar_Insert`, `AbookName_InsertChar_Insert`, `ConnectDialog_Enter_SaveConfirm`, `ConnectDialog_Enter_ForgetConfirm`, `HelpScript_OnA`, `HelpScript_OnB`, `HelpScript_Run_TextFinished`, `CommScene_Kind0_StateWaitCloseOrCancel`, and `CommScene_Kind1_StateWaitCloseOrCancel`. This changes metadata only; rendered PNG bytes and ROM source are not edited. Historical ledgers retain old spellings as provenance.
 
 The remaining address-shaped prefixes in active labels were also classified: the ten `OtherType_BB_AAAA` cases have a structural or uncertainty qualifier (`ReturnOnly`, `ZeroByteSpan`, `SpriteSlotAnimationEntryTable`, `SpriteScriptCandidate`, `CandidateTiles`, `WramClearCandidate`, `CandidatePalette`, `CandidateMapData`, `UnresolvedTiles`); none is a bare function/font/data placeholder. The scan is lexical and does not prove that every semantic name is correct. The ten neutral data labels and any unresolved candidate roles remain reviewable only when new positive evidence appears.
+
+## Consolidated generic-name recheck (2026-10-23)
+
+After the later address-label cleanup, I reran one case-sensitive definition
+census over tracked `.asm` files in `home/`, `engine/`, `data/`, `gfx/`,
+`audio/` and `lib/`. It excluded `languages/` and the protected
+`engine/mail/sample_data.asm`, and matched the address-only families
+`Function`, `Func`, `Routine`, `Sub`, `Unknown`, `Unk`, `Code`, `Label`,
+`Data`, `Table`, `String`, `Tiles`, `Tilemap`, `Attrmap`, `Palette` and
+`Font`, in the exact `PREFIX_BB_AAAA::` definition form. It found ten
+definitions, all `Data_BB_AAAA`; it found zero function/label/font or other
+address-only definitions. The ten remaining data names are
+`Data_1C_401C`, `Data_23_46CC`, `Data_24_4BCC`, `Data_2F_4094`,
+`Data_4E_5390`, `Data_5F_6980`, `Data_72_63D7`, `Data_72_6711`,
+`Data_7F_4C77` and `Data_7F_51ED`. Their individual bounded findings and
+neutral dispositions are in the inventory above. The command
+`python3 tools/data_consumers.py --stats` independently reports ten neutral
+groups in this checkout. A
+tracked-path scan of `gfx/` found no `bankNN` directory.
+
+This reconciles the earlier census snapshots and makes the current remainder
+explicit: there are no supported semantic renames among those ten on the
+available evidence. The exact census does not claim that every operation or
+data class is understood, and it does not include the paused English overlay,
+protected sample source, or historical ledgers as current Japanese source.

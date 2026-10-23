@@ -58,6 +58,27 @@ write value 00; the 29:5113 candidate writer was not observed. This supports
 high bank zero in those recorded runs, but no candidate root itself was
 observed, so it is not natural-entry evidence.
 
+A separate bounded check looked for register-indirect writes through HL, BC
+or DE. It revalidated all 104,200 instruction byte slices in the existing
+index (SHA-256
+`d1c3adee39382da45d09136b8209fa4f10ef559b5c447add08c5fd83ae11891d`) against
+the original ROM with zero mismatches. The index covers 215,473 bytes in 50
+of 128 physical banks. An independent raw-byte decoder and propagation pass
+confirmed the indexed instruction set and counted 3,269 indirect `LD` stores,
+including the ten `ld [hl], imm8` forms omitted by the first opcode filter.
+Both the original pass and independent variants that split at control-flow
+targets found zero known HL/BC/DE destinations in `$3000-$3FFF`. A separate
+census of 309 indirect read-modify-write operations (`inc`, `dec`, `set`,
+`res`, rotate/shift on `[hl]`) found 212 known destinations and none in that
+range; the other 97 destinations were unknown. The propagation tracks
+immediate 16-bit/byte pair loads and straight-line pair increments,
+decrements and copies; it discards address knowledge at branches, calls,
+returns and unmodeled writes. These results rule out only the tracked cases
+in the indexed bytes; they do not exclude pointers assembled across
+control-flow edges, loaded from memory/stack, computed at runtime, or writes
+in code absent from the index, and do not prove the absence of all indirect
+MBC5 writes.
+
 These routes do not demonstrate natural entry into any candidate. Reaching a
 different physical bank through these nominal continuations would require an
 unmodeled state divergence such as a high-bank change, a mapper/shadow mismatch,
