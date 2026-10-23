@@ -120,7 +120,11 @@ generic bare `gfx/bankNN/` paths.
 At the same checkout, `make` verified the original ROM SHA-256 and reported
 `RESULT: IDENTICAL`; `make sym-check` passed with 335 source files, 12,212
 labels and 51 constants; `make palette-check` passed with 162 loads, 116
-arrays, two documented over-reads and zero errors. These results update the
+arrays, two documented over-reads and zero errors. `make test` also passed:
+all generator self-tests, SM83 round-trip (1,786 instructions), 48 CFG tests,
+PNG rules, 24 palette-read tests and six retype-parts tests. The CFG suite
+emitted its existing `ResourceWarning` for an unclosed ROM reader at
+`tools/test_cfg.py:398`, then exited successfully. These results update the
 current lexical census and byte/build gates. They do not resolve the remaining
 bounded entry/reachability questions or prove semantic identity, frame
 selection, natural use, or global unused status.
