@@ -231,10 +231,25 @@ little-endian target words, and the `29:511E` body plus its caller context.
 
 | Candidate | Current operation name | New bounded result | Status |
 |---|---|---|---|
-| `2B:6CF5` | `MailReply_ComposeFromRecord` | `[6CF5,6DB0)` is 187 bytes/100 instructions plus nine inline far-call parameter bytes. The ROM has zero `F5 6C` pairs; Bank 2B has no JR target into the span; all 69 natural coverage/callgraph files have no entry there. The only observed execution remains the explicitly forced harness entry, which stops before the final POP/RET sequence. | Local operations and boundaries remain documented; natural producer and standalone-entry status UNKNOWN. |
+| `2B:6CF5` | `MailReply_ComposeFromRecord` | `[6CF5,6DB0)` is 187 bytes/100 instructions plus nine inline far-call parameter bytes. The ROM has zero `F5 6C` pairs; Bank 2B has no JR target into the span; all 69 natural coverage/callgraph files in the predecessor corpus had no entry there. A follow-up against the subsequently added 70th scenario found no exact `2B:6CF5` instruction start or `call/rst/jphl` edge. The only observed execution remains the explicitly forced harness entry, which stops before the final POP/RET sequence. | Local operations and boundaries remain documented; natural producer and standalone-entry status UNKNOWN. |
 | `2D:4E42` | `MailBody_LocateCell` | `[4E42,4E54)` is an 18-byte wrapper. `2D:4E41` is RET. No external producer was found. | Mechanical wrapper behavior CONFIRMED; operation role PROBABLE; natural entry UNKNOWN. |
 | `2D:4E54` | `MailBody_LocateCellInMappedWram` | `[4E54,4E8C)` is a 56-byte helper. The sole bank-correct static incoming edge is `2D:4E49 CALL 4E54`; its wrapper's own natural entry is unproved. The complete ROM scan reconciles 18 raw target-word matches (one CALL operand, two other-bank animation pointers, four font/tilemap data occurrences, eleven far-call field crossings), not 18 code edges. | Mechanical scan behavior CONFIRMED; operation role PROBABLE; natural entry UNKNOWN. The early `RET` at `4E72` still consumes saved BC under a conventional CALL stack; intent is HYPOTHESIS. |
 | `29:511E` | `CallSelected7BB7_IfReturnsPollLyByFFA4Bit0` | `[511E,5145)` is 39 bytes. The only bank-correct static incoming edge is `29:50CE CALL 511E`; the containing wrapper's entry is also unknown. No external caller or pointer was found by the bounded source/ROM scans. | Local mechanics CONFIRMED; natural root UNKNOWN. |
+
+### Follow-up against the subsequently added natural mail-reply trace
+
+The scenario committed in `4e1473bdbeb9d21a518035d2cc971ef5d86b11f0` was checked against all six open physical-bank/address pairs, using `traces/coverage_zz_jp_inbox_explore_replay.tsv` (SHA-256 `7d8dd8c98d7f61391946e44c04fd7d10e1172bfb832c84c348b1c2d100dec0a4`) and its `callgraph.tsv` (SHA-256 `77f4eb9eac1f45a2d763dd74db7929aa8f52cd7f1ab97984c96641543f477057`). There are zero instruction starts at any exact candidate pair and zero `call`, `rst`, or `jphl` edges to those pairs. The same CPU addresses do occur in other physical banks; those rows do not identify the candidate bank:
+
+| Candidate | Same CPU address recorded in other banks in this scenario |
+|---|---|
+| `2B:6CF5` | none |
+| `2D:4E42` | `54` (1 start) |
+| `2D:4E54` | `25` (8), `54` (4), `57` (2) |
+| `29:511E` | `25` (8), `26` (5), `54` (14), `57` (4) |
+| `70:4740` | `0F` (2), `25` (6), `48` (2), `72` (3), `7F` (7,800) |
+| `55:5DF5` | `75` (7) |
+
+This is a static re-read of one committed synthetic mGBA scenario, not a new run. It contributes no positive caller/entry evidence and does not change any UNKNOWN/HYPOTHESIS status. The reproducible check and its result are retained in `.tmp/jp-candidate-latest-trace-20261023/`; `RESULT.json` SHA-256 is `d4ab70c1d04d307631b70e4bf2150997bb5f001f9649695250c4a22f577c63b3`.
 
 ### Exact little-endian target-word reconciliation for `2D:4E42/4E54`
 
