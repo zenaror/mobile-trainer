@@ -83,7 +83,7 @@ def main() -> int:
 
     hits: dict[str, list[str]] = {
         "strict global address-shaped definitions": [],
-        "global labels with bank/address suffix (semantic names retained)": [],
+        "global labels with bank/address suffix (review every listed name)": [],
         "numeric local .lAAAA definitions": [],
         "short local placeholders": [],
         "numeric RAM equates": [],
@@ -140,7 +140,7 @@ def main() -> int:
                     f"{name}:{number}:{global_match.group(1)}"
                 )
             if global_match and ADDRESS_SUFFIX.search(global_match.group(1)):
-                hits["global labels with bank/address suffix (semantic names retained)"].append(
+                hits["global labels with bank/address suffix (review every listed name)"].append(
                     f"{name}:{number}:{global_match.group(1)}"
                 )
             if local_match:
@@ -208,6 +208,7 @@ def main() -> int:
             print(f"  changed: {row}")
     generic_families = {
         "strict global address-shaped definitions",
+        "global labels with bank/address suffix (review every listed name)",
         "function-like source labels with vague Stub/Maybe qualifiers",
         "single-RET body labels requiring explicit disposition",
         "source labels explicitly retaining Unknown/Unresolved content",
