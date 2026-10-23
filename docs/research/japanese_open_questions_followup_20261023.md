@@ -236,6 +236,29 @@ little-endian target words, and the `29:511E` body plus its caller context.
 | `2D:4E54` | `MailBody_LocateCellInMappedWram` | `[4E54,4E8C)` is a 56-byte helper. The sole bank-correct static incoming edge is `2D:4E49 CALL 4E54`; its wrapper's own natural entry is unproved. The complete ROM scan reconciles 18 raw target-word matches (one CALL operand, two other-bank animation pointers, four font/tilemap data occurrences, eleven far-call field crossings), not 18 code edges. | Mechanical scan behavior CONFIRMED; operation role PROBABLE; natural entry UNKNOWN. The early `RET` at `4E72` still consumes saved BC under a conventional CALL stack; intent is HYPOTHESIS. |
 | `29:511E` | `CallSelected7BB7_IfReturnsPollLyByFFA4Bit0` | `[511E,5145)` is 39 bytes. The only bank-correct static incoming edge is `29:50CE CALL 511E`; the containing wrapper's entry is also unknown. No external caller or pointer was found by the bounded source/ROM scans. | Local mechanics CONFIRMED; natural root UNKNOWN. |
 
+### Exact little-endian target-word reconciliation for `2D:4E42/4E54`
+
+The full-ROM scan found four occurrences of bytes `42 4E` and fourteen of
+`54 4E`. These are raw words, not bank-qualified code edges. The complete
+location list classifies them as follows:
+
+| Physical bank:address | Word | Classification |
+|---|---|---|
+| `5F:4D12` | `42 4E` | Pointer to other-bank `Kbd_Anim6Script` at `5F:4E42`. |
+| `77:6008`, `78:4CFB`, `7B:4C85` | `42 4E` | Font data in the named JIS 12x12 row sources. |
+| `2D:4E4A` | `54 4E` | Operand of the sole bank-correct `CALL 4E54` at `2D:4E49`. |
+| `2F:7AFB` | `54 4E` | Bytes within `Tilemap_AbookAddr`. |
+| `4C:4F9F`, `4E:5335`, `4E:53BD`, `4E:53FB`, `4E:5456`, `4E:551E`, `4E:55F4`, `74:4211`, `74:421D`, `74:425E`, `74:426A` | `54 4E` | High-address/bank-byte crossings inside far-call payloads to bank `4E`, not references to bank `2D`. |
+| `5F:4D1E` | `54 4E` | Pointer to other-bank `Kbd_Anim9Script` at `5F:4E54`. |
+
+Reconciliation: one CALL operand, two other-bank animation pointers, four
+font/tilemap data occurrences, and eleven far-call field crossings = eighteen
+raw words. No `42 4E 2D` or `54 4E 2D` triple, absolute CALL/JP to `4E42`, or
+same-bank relative branch into either candidate was found. `2D:4E54` has one
+static CALL edge, but the caller `2D:4E42` has no established natural entry.
+This closes the bounded literal-word scan only; computed pointers, stack
+transfers, or unreviewed execution scenarios are not disproved.
+
 These audits do not justify renaming the four operation spans again: their
 current names describe bounded static effects, while natural reachability and
 broader purpose remain separately unproved. They do close the repeated
