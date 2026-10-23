@@ -293,3 +293,15 @@ The results above are static analysis plus previously retained forced or
 scripted trace evidence. They do not establish natural execution, universal
 unreachability, or a hardware observation. No source bytes or asset files
 changed in this consolidation.
+
+## Additional code/data spans checked against the retained natural corpus at `1c9224e8`
+
+The current 70-scenario natural corpus was also checked against three separately tracked spans that are outside the five operation entry/role rows above: `26:5344–537C` (`MailSession_WriteVram1TileAndWram7ScreenRows`), `28:4BA6–4BC2` (`WramClearCandidate_28_4BA6`), and the four-zero Bank 4B record tail `4B:76CC–76D0`. The check used all 70 paired `coverage_*.tsv`, `detail/*/callgraph.tsv`, and `detail/*/dataaccess.tsv` reports plus the merged union and validation report. The input manifest has 212 files and SHA-256 `9c784734fb895133f4ea822e6a2934c98c9318e751a414c88966de1c5e6dd1b3`; the union reports 78,122 unique executed instruction starts over 70 scenarios and the validation report has zero ERROR entries (4,046 expected warnings and 704 conditional-branch informational records).
+
+| Span | Exact instruction starts in the 70 reports | `call`/`rst`/`jphl` edges to the span | Merged ROM-data-read ranges intersecting it |
+|---|---:|---:|---:|
+| `26:5344–537C` | 0 | 0 | 0 |
+| `28:4BA6–4BC2` | 0 | 0 | 0 |
+| `4B:76CC–76D0` | 0 | 0 | 0 |
+
+The result and reproduction script are retained in `.tmp/jp-open-span-corpus-audit-20261023/` (`RESULT.json` SHA-256 `88cb8c64f759a483c733258a72620bb8ea6e40d1d5f21aee6469ec4cc54d39ac`; `audit.py` SHA-256 `72c424298927596db118728f98c5c9016403df642f541e278550f215d3f9943f`). This closes only the question of whether these exact starts, edges, or data-read intervals occur in that validated corpus. It does not prove global unreachability, dead code, unused data, or hardware behavior; the existing CONFIRMED/PROBABLE/HYPOTHESIS classifications remain unchanged.
