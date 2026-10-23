@@ -105,3 +105,27 @@ behavior remain unknown. This is synthetic mGBA evidence, not a hardware
 test. Full command, tool/input/output hashes, and limits are recorded in [the
 Bank 48 reader note](font_reader_69ab_bounds_20261020.md#direct-read-pc-witness-2026-10-23) and
 `.tmp/jp-zero48-pc-trace-20261023/RESULT-caller.json`.
+
+## Japanese census and build gates at `d88444c2` (2026-10-23)
+
+The maintained Japanese source and GFX paths were re-censused at the current
+published checkout after the HelpScript and SRAM documentation updates.
+`python3 tools/japanese_name_census.py` scanned 349 tracked Japanese ASM/INC
+files and 1,875 tracked GFX paths. All ledgers match: 2,764/2,764 local
+anchors, 109/109 bank/address-suffix rows, 544/544 broad name dispositions,
+and 786/786 numeric RAM equates; all 15 coverage families are closed, with
+zero unreviewed generic markers, address-shaped global definitions, or
+generic bare `gfx/bankNN/` paths.
+
+At the same checkout, `make` verified the original ROM SHA-256 and reported
+`RESULT: IDENTICAL`; `make sym-check` passed with 335 source files, 12,212
+labels and 51 constants; `make palette-check` passed with 162 loads, 116
+arrays, two documented over-reads and zero errors. These results update the
+current lexical census and byte/build gates. They do not resolve the remaining
+bounded entry/reachability questions or prove semantic identity, frame
+selection, natural use, or global unused status.
+
+The Bank 53 name source, frame directories, asset catalogue and PNG rules are
+unchanged from checkpoint `7b5e2376`; the finite inventory and asset-presence
+conclusions above remain current for that source scope. The English overlay
+and Operator ZIP remain paused and were not inspected.
