@@ -131,5 +131,8 @@ selection, natural use, or global unused status.
 
 The Bank 53 name source, frame directories, asset catalogue and PNG rules are
 unchanged from checkpoint `7b5e2376`; the finite inventory and asset-presence
-conclusions above remain current for that source scope. The English overlay
-and Operator ZIP remain paused and were not inspected.
+conclusions above remain current for that source scope. Current graphics gates
+also pass: `make png-check` checked 416 tile sheets, four raw byte views, 37
+font sheets and 95 screen PNGs; `python3 tools/gfx_export.py check` accepted
+986 assets; `python3 tools/png_rules.py mk-check` accepted 985 rules. The
+English overlay and Operator ZIP remain paused and were not inspected.
