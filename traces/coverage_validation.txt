@@ -1,10 +1,10 @@
 # Coverage validation report (tools/trace/merge_coverage.py)
-# 78005 unique executed instruction starts from 69 scenarios
+# 78122 unique executed instruction starts from 70 scenarios
 # ERROR = inconsistent with the SM83 decoding chain, WARN = expected in some situations, see the tool's --help
 
 ## counts
-COND_ALWAYS_TAKEN 703
-FALL_MISSING     4041
+COND_ALWAYS_TAKEN 704
+FALL_MISSING     4046
 
 ## ERRORs
 
@@ -12,16 +12,15 @@ FALL_MISSING     4041
 
 ### FALL_MISSING(call) grouped by callee (a callee that pops its return address, e.g. to read inline
 ### argument bytes placed after the call, makes every call site show up here)
-callee 06D1 : 3992 call sites
+callee 06D1 : 3998 call sites
 callee 0545 : 26 call sites
 callee 056A : 17 call sites
 callee 41DA : 2 call sites
 callee 4C80 : 1 call sites
 callee 4DAD : 1 call sites
-callee 54A7 : 1 call sites
 callee 06BC : 1 call sites
 
-### COND_ALWAYS_TAKEN : 703
+### COND_ALWAYS_TAKEN : 704
 00:03F2  jr c, $0400
 00:0528  jr nz, $0531
 00:065C  jr z, $066D
@@ -156,6 +155,7 @@ callee 06BC : 1 call sites
 25:4363  jr nz, $436D
 25:437C  jr nz, $4386
 25:4445  jr nz, $444C
+25:45CC  jr nz, $45D3
 25:46D6  jr z, $46DB
 25:4919  jr z, $4929
 25:5265  jr nz, $526B
@@ -221,10 +221,9 @@ callee 06BC : 1 call sites
 29:4CAF  jr z, $4CB7
 29:4CC5  jr z, $4CCD
 29:4CDB  jr z, $4CE3
-29:4CF1  jr z, $4CF9
-... 503 more
+... 504 more
 
-### FALL_MISSING(call) : 4041
+### FALL_MISSING(call) : 4046
 00:02A9  call $4C80
 00:0328  call $06D1
 00:1053  call $06D1
@@ -425,4 +424,4 @@ callee 06BC : 1 call sites
 22:4615  call $06D1
 22:4629  call $06D1
 22:4657  call $06D1
-... 3841 more
+... 3846 more

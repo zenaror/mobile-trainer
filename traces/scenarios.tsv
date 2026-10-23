@@ -85,3 +85,4 @@ browser_ulc	on	fake:latency=2	browser_bookmarks	ul	Control of browser_ul: the sa
 browser_brl	on	fake:latency=2	browser_bookmarks	ul	<br clear=left> inside a list: Html_Tag_Br_ClearLeft retries forever (blank screen, buttons do nothing)	lite
 browser_bra	on	fake:latency=2	browser_bookmarks	ul	<br clear=all> inside a list: Html_Tag_Br_ClearAll retries forever (blank screen, buttons do nothing)	lite
 browser_brc	on	fake:latency=2	browser_bookmarks	ul	Controls of browser_brl/bra: <br clear=left> outside a list and after a closed list, <br clear=right> inside a list: all end normally	lite
+zz_jp_inbox_explore_replay	on	fake:latency=2,mail=jp+ascii+game+multipart+long	tutorial_profile	all	Coverage-guided natural input follow-up for mail inbox paths

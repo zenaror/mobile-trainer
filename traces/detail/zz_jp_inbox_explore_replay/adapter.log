@@ -1,0 +1,624 @@
+[f0] HARNESS Mobile Adapter attached to the link port
+[f0] HARNESS console reset (power cycle)
+[f51] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f51] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f53] gb.mobile DEBUG: >>> 11 End session
+[f53] gb.mobile DEBUG: <<< 11 End session
+[f53] gb.mobile DEBUG: 
+[f177] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f177] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f179] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f179] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f179] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f179] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f179] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f179] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f179] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f179] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f179] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f179] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f186] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f186] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f186] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f186] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f186] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f186] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f190] gb.mobile DEBUG: >>> 11 End session
+[f190] gb.mobile DEBUG: <<< 11 End session
+[f190] gb.mobile DEBUG: 
+[f5990] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f5990] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f5992] gb.mobile DEBUG: >>> 11 End session
+[f5992] gb.mobile DEBUG: <<< 11 End session
+[f5992] gb.mobile DEBUG: 
+[f6137] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f6137] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f6139] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 60)
+[f6139] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f6139] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f6139] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f6139] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f6139] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f6139] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f6139] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f6146] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 60; size: 60)
+[f6146] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 60)
+[f6146] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f6146] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f6146] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f6146] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f6146] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f6146] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f6153] gb.mobile DEBUG: >>> 11 End session
+[f6153] gb.mobile DEBUG: <<< 11 End session
+[f6153] gb.mobile DEBUG: 
+[f6300] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f6300] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f6302] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 60)
+[f6302] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f6302] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f6302] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f6302] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f6302] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f6302] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f6302] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f6309] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 60; size: 60)
+[f6309] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 60)
+[f6309] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f6309] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f6309] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f6309] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f6309] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f6309] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f6316] gb.mobile DEBUG: >>> 17 Status
+[f6316] gb.mobile DEBUG: <<< 17 Status: 00 4D 00
+[f6318] gb.mobile DEBUG: >>> 12 Call (prot 0): #9677
+[f6318] gb.mobile DEBUG: <<< 12 Call
+[f6321] gb.mobile DEBUG: >>> 21 PPP connect (id: g111111111; dns1: 210.196.3.183; dns2: 210.141.112.163)
+[f6321] gb.mobile DEBUG: <<< 21 PPP connect (ip: 127.0.0.1; dns1: 0.0.0.0; dns2: 0.0.0.0)
+[f6387] gb.mobile DEBUG: >>> 17 Status
+[f6387] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6452] gb.mobile DEBUG: >>> 17 Status
+[f6452] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6522] gb.mobile DEBUG: >>> 17 Status
+[f6522] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6547] gb.mobile DEBUG: >>> 28 DNS request: pop.1111.dion.ne.jp
+[f6547] NET sock_open conn=0 UDP bindport=0
+[f6548] NET udp send to 210.196.3.183:53 (37 bytes)
+[f6548] NET dns query "pop.1111.dion.ne.jp" -> 10.0.220.103
+[f6549] NET sock_close conn=0
+[f6549] gb.mobile DEBUG: <<< 28 DNS request: 10.0.220.103
+[f6551] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.220.103:110
+[f6551] NET sock_open conn=0 TCP bindport=0
+[f6552] NET sock_connect conn=0 TCP 10.0.220.103:110
+[f6552] gb.mobile DEBUG: <POP3> Starting interception on conn 0
+[f6552] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f6554] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6554] gb.mobile DEBUG: <POP3> Greeting seen, has_key=0
+[f6554] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6554] gb.mobile DEBUG: +OK POP3 fake ready
+
+[f6558] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6558] gb.mobile DEBUG: USER 11111111
+
+[f6558] gb.mobile DEBUG: <POP3> USER seen (15 bytes), forwarded (no key)
+[f6558] NET tcp:110 rx-line "USER 11111111"
+[f6558] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6560] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6560] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6560] gb.mobile DEBUG: +OK
+
+[f6563] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6563] gb.mobile DEBUG: PASS aZ01
+
+[f6563] gb.mobile DEBUG: <POP3> PASS seen (11 bytes), forwarded (no key)
+[f6563] NET tcp:110 rx-line "PASS aZ01"
+[f6563] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6565] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6565] gb.mobile DEBUG: <POP3> Auth response: +OK
+[f6565] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6565] gb.mobile DEBUG: +OK
+
+[f6568] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6568] gb.mobile DEBUG: STAT
+
+[f6568] NET tcp:110 rx-line "STAT"
+[f6568] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6571] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6571] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6571] gb.mobile DEBUG: +OK 5 4876
+
+[f6575] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6575] gb.mobile DEBUG: TOP 1 0
+
+[f6575] NET tcp:110 rx-line "TOP 1 0"
+[f6575] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6577] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6577] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6577] gb.mobile DEBUG: +OK 396 octets
+Return-Path: <friend@example.test>
+Date: Sat, 27 Jan 2001 10:0
+[f6593] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6593] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6593] gb.mobile DEBUG: ?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-2022-jp
+
+.
+
+[f6601] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6601] gb.mobile DEBUG: TOP 2 0
+
+[f6601] NET tcp:110 rx-line "TOP 2 0"
+[f6601] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6603] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6603] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6603] gb.mobile DEBUG: +OK 286 octets
+Date: Sun, 28 Jan 2001 08:30:00 +0900
+From: someone@example.te
+[f6619] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6619] gb.mobile DEBUG: TOP 3 0
+
+[f6619] NET tcp:110 rx-line "TOP 3 0"
+[f6619] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6621] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6621] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6621] gb.mobile DEBUG: +OK 516 octets
+Date: Mon, 29 Jan 2001 21:15:00 +0900
+Sender: gb-friend@exampl
+[f6638] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6638] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6638] gb.mobile DEBUG: ect: =?ISO-2022-JP?B?GyRCJTIhPCVgJCskaSROJWEhPCVrGyhC?=
+MIME-Version: 1.0
+X-G
+[f6655] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6655] gb.mobile DEBUG: TOP 4 0
+
+[f6655] NET tcp:110 rx-line "TOP 4 0"
+[f6655] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6657] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6657] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6657] gb.mobile DEBUG: +OK 775 octets
+Date: Tue, 30 Jan 2001 12:00:00 +0900
+From: sender@example.tes
+[f6673] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6673] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6673] gb.mobile DEBUG: d; boundary="----=_Part_0_1234"
+
+.
+
+[f6679] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6679] gb.mobile DEBUG: TOP 5 0
+
+[f6679] NET tcp:110 rx-line "TOP 5 0"
+[f6679] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6681] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6681] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6681] gb.mobile DEBUG: +OK 2903 octets
+Date: Wed, 31 Jan 2001 07:45:00 +0900
+From: long@example.test
+[f6698] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6698] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6698] gb.mobile DEBUG: ME-Version: 1.0
+Content-Type: text/plain; charset=iso-2022-jp
+
+.
+
+[f6771] gb.mobile DEBUG: >>> 17 Status
+[f6771] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6822] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6822] gb.mobile DEBUG: TOP 1 0
+
+[f6822] NET tcp:110 rx-line "TOP 1 0"
+[f6822] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6824] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6824] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6824] gb.mobile DEBUG: +OK 396 octets
+Return-Path: <friend@example.test>
+Date: Sat, 27 Jan 2001 10:0
+[f6840] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6840] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6840] gb.mobile DEBUG: ?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-2022-jp
+
+.
+
+[f6859] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6859] gb.mobile DEBUG: RETR 1
+
+[f6859] NET tcp:110 rx-line "RETR 1"
+[f6859] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6861] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6861] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6861] gb.mobile DEBUG: +OK 396 octets
+Return-Path: <friend@example.test>
+Date: Sat, 27 Jan 2001 10:0
+[f6878] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6878] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6878] gb.mobile DEBUG:     3F 3D 0D 0A 4D 49 4D 45 2D 56 65 72 73 69 6F 6E 
+[f6878] gb.mobile DEBUG:     3A 20 31 2E 30 0D 0A 43 6F 6E 74 65 6E 74 2D 54 
+[f6878] gb.mobile DEBUG:     79 70 65 3A 20 74 65 78 74 2F 70 6C 61 69 6E 3B 
+[f6878] gb.mobile DEBUG:     20 63 68 61 72 73 65 74 3D 69 73 6F 2D 32 30 32 
+[f6878] gb.mobile DEBUG:     32 2D 6A 70 0D 0A 0D 0A 1B 24 42 24 2D 24 67 24 
+[f6878] gb.mobile DEBUG:     26 24 4F 1B 28 42 20 1B 24 42 24 24 24 24 24 46 
+[f6878] gb.mobile DEBUG:     24 73 24 2D 24 47 24 39 24 4D 21 23 1B 28 42 0D 
+[f6878] gb.mobile DEBUG:     0A 1B 24 42 24 22 24 3D 24 53 24 4B 1B 28 42 20 
+[f6878] gb.mobile DEBUG:     1B 24 42 24 24 24 33 24 26 21 2A 1B 28 42 0D 0A 
+[f6878] gb.mobile DEBUG:     1B 24 42 24 5E 24 3F 24 4D 1B 28 42 0D 0A 2E 0D 
+[f6878] gb.mobile DEBUG:     0A 
+[f6898] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6898] gb.mobile DEBUG: DELE 1
+
+[f6898] NET tcp:110 rx-line "DELE 1"
+[f6898] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6914] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6914] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6914] gb.mobile DEBUG: +OK deleted
+
+[f6921] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6921] gb.mobile DEBUG: TOP 2 0
+
+[f6921] NET tcp:110 rx-line "TOP 2 0"
+[f6921] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6923] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6923] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6923] gb.mobile DEBUG: +OK 286 octets
+Date: Sun, 28 Jan 2001 08:30:00 +0900
+From: someone@example.te
+[f6951] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6951] gb.mobile DEBUG: RETR 2
+
+[f6951] NET tcp:110 rx-line "RETR 2"
+[f6951] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6953] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6953] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6953] gb.mobile DEBUG: +OK 286 octets
+Date: Sun, 28 Jan 2001 08:30:00 +0900
+From: someone@example.te
+[f6969] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6969] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6969] gb.mobile DEBUG: s a leading dot below.
+..hidden dot line
+End.
+.
+
+[f6981] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6981] gb.mobile DEBUG: DELE 2
+
+[f6981] NET tcp:110 rx-line "DELE 2"
+[f6981] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6998] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6998] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6998] gb.mobile DEBUG: +OK deleted
+
+[f7005] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7005] gb.mobile DEBUG: TOP 3 0
+
+[f7005] NET tcp:110 rx-line "TOP 3 0"
+[f7005] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7007] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7007] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7007] gb.mobile DEBUG: +OK 516 octets
+Date: Mon, 29 Jan 2001 21:15:00 +0900
+Sender: gb-friend@exampl
+[f7023] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7023] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7023] gb.mobile DEBUG: ect: =?ISO-2022-JP?B?GyRCJTIhPCVgJCskaSROJWEhPCVrGyhC?=
+MIME-Version: 1.0
+X-G
+[f7042] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7042] gb.mobile DEBUG: TOP 4 0
+
+[f7042] NET tcp:110 rx-line "TOP 4 0"
+[f7042] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7044] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7044] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7044] gb.mobile DEBUG: +OK 775 octets
+Date: Tue, 30 Jan 2001 12:00:00 +0900
+From: sender@example.tes
+[f7061] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7061] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7061] gb.mobile DEBUG: d; boundary="----=_Part_0_1234"
+
+.
+
+[f7078] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7078] gb.mobile DEBUG: RETR 4
+
+[f7078] NET tcp:110 rx-line "RETR 4"
+[f7078] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7080] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7080] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7080] gb.mobile DEBUG: +OK 775 octets
+Date: Tue, 30 Jan 2001 12:00:00 +0900
+From: sender@example.tes
+[f7097] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7097] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7097] gb.mobile DEBUG:     64 3B 20 62 6F 75 6E 64 61 72 79 3D 22 2D 2D 2D 
+[f7097] gb.mobile DEBUG:     2D 3D 5F 50 61 72 74 5F 30 5F 31 32 33 34 22 0D 
+[f7097] gb.mobile DEBUG:     0A 0D 0A 2D 2D 2D 2D 2D 2D 3D 5F 50 61 72 74 5F 
+[f7097] gb.mobile DEBUG:     30 5F 31 32 33 34 0D 0A 43 6F 6E 74 65 6E 74 2D 
+[f7097] gb.mobile DEBUG:     54 79 70 65 3A 20 74 65 78 74 2F 70 6C 61 69 6E 
+[f7097] gb.mobile DEBUG:     3B 20 63 68 61 72 73 65 74 3D 69 73 6F 2D 32 30 
+[f7097] gb.mobile DEBUG:     32 32 2D 6A 70 0D 0A 0D 0A 1B 24 42 24 46 24 73 
+[f7097] gb.mobile DEBUG:     24 57 1B 28 42 20 1B 24 42 25 55 25 21 25 24 25 
+[f7097] gb.mobile DEBUG:     6B 1B 28 42 0D 0A 2D 2D 2D 2D 2D 2D 3D 5F 50 61 
+[f7097] gb.mobile DEBUG:     72 74 5F 30 5F 31 32 33 34 0D 0A 43 6F 6E 74 65 
+[f7097] gb.mobile DEBUG:     6E 74 2D 54 79 70 65 3A 20 41 70 70 6C 69 63 61 
+[f7097] gb.mobile DEBUG:     74 69 6F 6E 2F 4F 63 74 65 74 2D 53 74 72 65 61 
+[f7097] gb.mobile DEBUG:     6D 3B 20 6E 61 6D 65 3D 22 64 61 74 61 2E 62 69 
+[f7097] gb.mobile DEBUG:     6E 22 0D 0A 43 6F 6E 74 65 6E 74 2D 54 72 61 6E 
+[f7097] gb.mobile DEBUG:     73 66 65 72 2D 45 6E 63 6F 64 69 6E 67 3A 42 61 
+[f7097] gb.mobile DEBUG:     73 65 36 34 0D 0A 0D 0A 41 41 45 43 41 77 
+[f7114] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7114] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7114] gb.mobile DEBUG: QFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8gISIjJCUmJygpKiss
+LS4vMDEyMzQ1Njc4OTo7PD0
+[f7130] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7130] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7130] gb.mobile DEBUG: XV5f
+------=_Part_0_1234--
+.
+
+[f7143] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7143] gb.mobile DEBUG: DELE 4
+
+[f7143] NET tcp:110 rx-line "DELE 4"
+[f7143] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7159] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7159] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7159] gb.mobile DEBUG: +OK deleted
+
+[f7166] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7166] gb.mobile DEBUG: TOP 5 0
+
+[f7166] NET tcp:110 rx-line "TOP 5 0"
+[f7166] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7168] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7168] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7168] gb.mobile DEBUG: +OK 2903 octets
+Date: Wed, 31 Jan 2001 07:45:00 +0900
+From: long@example.test
+[f7185] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7185] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7185] gb.mobile DEBUG: ME-Version: 1.0
+Content-Type: text/plain; charset=iso-2022-jp
+
+.
+
+[f7204] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7204] gb.mobile DEBUG: RETR 5
+
+[f7204] NET tcp:110 rx-line "RETR 5"
+[f7204] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7206] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7206] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7206] gb.mobile DEBUG: +OK 2903 octets
+Date: Wed, 31 Jan 2001 07:45:00 +0900
+From: long@example.test
+[f7223] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7223] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7223] gb.mobile DEBUG:     4D 45 2D 56 65 72 73 69 6F 6E 3A 20 31 2E 30 0D 
+[f7223] gb.mobile DEBUG:     0A 43 6F 6E 74 65 6E 74 2D 54 79 70 65 3A 20 74 
+[f7223] gb.mobile DEBUG:     65 78 74 2F 70 6C 61 69 6E 3B 20 63 68 61 72 73 
+[f7223] gb.mobile DEBUG:     65 74 3D 69 73 6F 2D 32 30 32 32 2D 6A 70 0D 0A 
+[f7223] gb.mobile DEBUG:     0D 0A 30 31 3A 20 1B 24 42 24 4A 24 2C 24 24 25 
+[f7223] gb.mobile DEBUG:     61 21 3C 25 6B 24 4E 1B 28 42 20 1B 24 42 24 2E 
+[f7223] gb.mobile DEBUG:     24 67 24 26 24 47 24 39 21 23 24 22 24 24 24 26 
+[f7223] gb.mobile DEBUG:     24 28 24 2A 24 2B 24 2D 24 2F 24 31 24 33 1B 28 
+[f7223] gb.mobile DEBUG:     42 0D 0A 30 32 3A 20 1B 24 42 24 4A 24 2C 24 24 
+[f7223] gb.mobile DEBUG:     25 61 21 3C 25 6B 24 4E 1B 28 42 20 1B 24 42 24 
+[f7223] gb.mobile DEBUG:     2E 24 67 24 26 24 47 24 39 21 23 24 22 24 24 24 
+[f7223] gb.mobile DEBUG:     26 24 28 24 2A 24 2B 24 2D 24 2F 24 31 24 33 1B 
+[f7223] gb.mobile DEBUG:     28 42 0D 0A 30 33 3A 20 1B 24 42 24 4A 24 2C 24 
+[f7223] gb.mobile DEBUG:     24 25 61 21 3C 25 6B 24 4E 1B 28 42 20 1B 24 42 
+[f7223] gb.mobile DEBUG:     24 2E 24 67 24 26 24 47 24 39 21 23 24 22 24 24 
+[f7223] gb.mobile DEBUG:     24 26 24 28 24 2A 24 2B 24 2D 24 2F 24 31 
+[f7240] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7240] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7240] gb.mobile DEBUG:     24 33 1B 28 42 0D 0A 30 34 3A 20 1B 24 42 24 4A 
+[f7240] gb.mobile DEBUG:     24 2C 24 24 25 61 21 3C 25 6B 24 4E 1B 28 42 20 
+[f7240] gb.mobile DEBUG:     1B 24 42 24 2E 24 67 24 26 24 47 24 39 21 23 24 
+[f7240] gb.mobile DEBUG:     22 24 24 24 26 24 28 24 2A 24 2B 24 2D 24 2F 24 
+[f7240] gb.mobile DEBUG:     31 24 33 1B 28 42 0D 0A 30 35 3A 20 1B 24 42 24 
+[f7240] gb.mobile DEBUG:     4A 24 2C 24 24 25 61 21 3C 25 6B 24 4E 1B 28 42 
+[f7240] gb.mobile DEBUG:     20 1B 24 42 24 2E 24 67 24 26 24 47 24 39 21 23 
+[f7240] gb.mobile DEBUG:     24 22 24 24 24 26 24 28 24 2A 24 2B 24 2D 24 2F 
+[f7240] gb.mobile DEBUG:     24 31 24 33 1B 28 42 0D 0A 30 36 3A 20 1B 24 42 
+[f7240] gb.mobile DEBUG:     24 4A 24 2C 24 24 25 61 21 3C 25 6B 24 4E 1B 28 
+[f7240] gb.mobile DEBUG:     42 20 1B 24 42 24 2E 24 67 24 26 24 47 24 39 21 
+[f7240] gb.mobile DEBUG:     23 24 22 24 24 24 26 24 28 24 2A 24 2B 24 2D 24 
+[f7240] gb.mobile DEBUG:     2F 24 31 24 33 1B 28 42 0D 0A 30 37 3A 20 1B 24 
+[f7240] gb.mobile DEBUG:     42 24 4A 24 2C 24 24 25 61 21 3C 25 6B 24 4E 1B 
+[f7240] gb.mobile DEBUG:     28 42 20 1B 24 42 24 2E 24 67 24 26 24 47 24 39 
+[f7240] gb.mobile DEBUG:     21 23 24 22 24 24 24 26 24 28 24 2A 24 2B 
+[f7256] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7256] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7256] gb.mobile DEBUG:     24 2D 24 2F 24 31 24 33 1B 28 42 0D 0A 30 38 3A 
+[f7256] gb.mobile DEBUG:     20 1B 24 42 24 4A 24 2C 24 24 25 61 21 3C 25 6B 
+[f7256] gb.mobile DEBUG:     24 4E 1B 28 42 20 1B 24 42 24 2E 24 67 24 26 24 
+[f7256] gb.mobile DEBUG:     47 24 39 21 23 24 22 24 24 24 26 24 28 24 2A 24 
+[f7256] gb.mobile DEBUG:     2B 24 2D 24 2F 24 31 24 33 1B 28 42 0D 0A 30 39 
+[f7256] gb.mobile DEBUG:     3A 20 1B 24 42 24 4A 24 2C 24 24 25 61 21 3C 25 
+[f7256] gb.mobile DEBUG:     6B 24 4E 1B 28 42 20 1B 24 42 24 2E 24 67 24 26 
+[f7256] gb.mobile DEBUG:     24 47 24 39 21 23 24 22 24 24 24 26 24 28 24 2A 
+[f7256] gb.mobile DEBUG:     24 2B 24 2D 24 2F 24 31 24 33 1B 28 42 0D 0A 31 
+[f7256] gb.mobile DEBUG:     30 3A 20 1B 24 42 24 4A 24 2C 24 24 25 61 21 3C 
+[f7256] gb.mobile DEBUG:     25 6B 24 4E 1B 28 42 20 1B 24 42 24 2E 24 67 24 
+[f7256] gb.mobile DEBUG:     26 24 47 24 39 21 23 24 22 24 24 24 26 24 28 24 
+[f7256] gb.mobile DEBUG:     2A 24 2B 24 2D 24 2F 24 31 24 33 1B 28 42 0D 0A 
+[f7256] gb.mobile DEBUG:     31 31 3A 20 1B 24 42 24 4A 24 2C 24 24 25 61 21 
+[f7256] gb.mobile DEBUG:     3C 25 6B 24 4E 1B 28 42 20 1B 24 42 24 2E 24 67 
+[f7256] gb.mobile DEBUG:     24 26 24 47 24 39 21 23 24 22 24 24 24 26 
+[f7272] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7272] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7272] gb.mobile DEBUG:     24 28 24 2A 24 2B 24 2D 24 2F 24 31 24 33 1B 28 
+[f7272] gb.mobile DEBUG:     42 0D 0A 31 32 3A 20 1B 24 42 24 4A 24 2C 24 24 
+[f7272] gb.mobile DEBUG:     25 61 21 3C 25 6B 24 4E 1B 28 42 20 1B 24 42 24 
+[f7272] gb.mobile DEBUG:     2E 24 67 24 26 24 47 24 39 21 23 24 22 24 24 24 
+[f7272] gb.mobile DEBUG:     26 24 28 24 2A 24 2B 24 2D 24 2F 24 31 24 33 1B 
+[f7272] gb.mobile DEBUG:     28 42 0D 0A 31 33 3A 20 1B 24 42 24 4A 24 2C 24 
+[f7272] gb.mobile DEBUG:     24 25 61 21 3C 25 6B 24 4E 1B 28 42 20 1B 24 42 
+[f7272] gb.mobile DEBUG:     24 2E 24 67 24 26 24 47 24 39 21 23 24 22 24 24 
+[f7272] gb.mobile DEBUG:     24 26 24 28 24 2A 24 2B 24 2D 24 2F 24 31 24 33 
+[f7272] gb.mobile DEBUG:     1B 28 42 0D 0A 31 34 3A 20 1B 24 42 24 4A 24 2C 
+[f7272] gb.mobile DEBUG:     24 24 25 61 21 3C 25 6B 24 4E 1B 28 42 20 1B 24 
+[f7272] gb.mobile DEBUG:     42 24 2E 24 67 24 26 24 47 24 39 21 23 24 22 24 
+[f7272] gb.mobile DEBUG:     24 24 26 24 28 24 2A 24 2B 24 2D 24 2F 24 31 24 
+[f7272] gb.mobile DEBUG:     33 1B 28 42 0D 0A 31 35 3A 20 1B 24 42 24 4A 24 
+[f7272] gb.mobile DEBUG:     2C 24 24 25 61 21 3C 25 6B 24 4E 1B 28 42 20 1B 
+[f7272] gb.mobile DEBUG:     24 42 24 2E 24 67 24 26 24 47 24 39 21 23 
+[f7288] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7288] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7288] gb.mobile DEBUG:     24 22 24 24 24 26 24 28 24 2A 24 2B 24 2D 24 2F 
+[f7288] gb.mobile DEBUG:     24 31 24 33 1B 28 42 0D 0A 31 36 3A 20 1B 24 42 
+[f7288] gb.mobile DEBUG:     24 4A 24 2C 24 24 25 61 21 3C 25 6B 24 4E 1B 28 
+[f7288] gb.mobile DEBUG:     42 20 1B 24 42 24 2E 24 67 24 26 24 47 24 39 21 
+[f7288] gb.mobile DEBUG:     23 24 22 24 24 24 26 24 28 24 2A 24 2B 24 2D 24 
+[f7288] gb.mobile DEBUG:     2F 24 31 24 33 1B 28 42 0D 0A 31 37 3A 20 1B 24 
+[f7288] gb.mobile DEBUG:     42 24 4A 24 2C 24 24 25 61 21 3C 25 6B 24 4E 1B 
+[f7288] gb.mobile DEBUG:     28 42 20 1B 24 42 24 2E 24 67 24 26 24 47 24 39 
+[f7288] gb.mobile DEBUG:     21 23 24 22 24 24 24 26 24 28 24 2A 24 2B 24 2D 
+[f7288] gb.mobile DEBUG:     24 2F 24 31 24 33 1B 28 42 0D 0A 31 38 3A 20 1B 
+[f7288] gb.mobile DEBUG:     24 42 24 4A 24 2C 24 24 25 61 21 3C 25 6B 24 4E 
+[f7288] gb.mobile DEBUG:     1B 28 42 20 1B 24 42 24 2E 24 67 24 26 24 47 24 
+[f7288] gb.mobile DEBUG:     39 21 23 24 22 24 24 24 26 24 28 24 2A 24 2B 24 
+[f7288] gb.mobile DEBUG:     2D 24 2F 24 31 24 33 1B 28 42 0D 0A 31 39 3A 20 
+[f7288] gb.mobile DEBUG:     1B 24 42 24 4A 24 2C 24 24 25 61 21 3C 25 6B 24 
+[f7288] gb.mobile DEBUG:     4E 1B 28 42 20 1B 24 42 24 2E 24 67 24 26 
+[f7305] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7305] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7305] gb.mobile DEBUG:     24 47 24 39 21 23 24 22 24 24 24 26 24 28 24 2A 
+[f7305] gb.mobile DEBUG:     24 2B 24 2D 24 2F 24 31 24 33 1B 28 42 0D 0A 32 
+[f7305] gb.mobile DEBUG:     30 3A 20 1B 24 42 24 4A 24 2C 24 24 25 61 21 3C 
+[f7305] gb.mobile DEBUG:     25 6B 24 4E 1B 28 42 20 1B 24 42 24 2E 24 67 24 
+[f7305] gb.mobile DEBUG:     26 24 47 24 39 21 23 24 22 24 24 24 26 24 28 24 
+[f7305] gb.mobile DEBUG:     2A 24 2B 24 2D 24 2F 24 31 24 33 1B 28 42 0D 0A 
+[f7305] gb.mobile DEBUG:     32 31 3A 20 1B 24 42 24 4A 24 2C 24 24 25 61 21 
+[f7305] gb.mobile DEBUG:     3C 25 6B 24 4E 1B 28 42 20 1B 24 42 24 2E 24 67 
+[f7305] gb.mobile DEBUG:     24 26 24 47 24 39 21 23 24 22 24 24 24 26 24 28 
+[f7305] gb.mobile DEBUG:     24 2A 24 2B 24 2D 24 2F 24 31 24 33 1B 28 42 0D 
+[f7305] gb.mobile DEBUG:     0A 32 32 3A 20 1B 24 42 24 4A 24 2C 24 24 25 61 
+[f7305] gb.mobile DEBUG:     21 3C 25 6B 24 4E 1B 28 42 20 1B 24 42 24 2E 24 
+[f7305] gb.mobile DEBUG:     67 24 26 24 47 24 39 21 23 24 22 24 24 24 26 24 
+[f7305] gb.mobile DEBUG:     28 24 2A 24 2B 24 2D 24 2F 24 31 24 33 1B 28 42 
+[f7305] gb.mobile DEBUG:     0D 0A 32 33 3A 20 1B 24 42 24 4A 24 2C 24 24 25 
+[f7305] gb.mobile DEBUG:     61 21 3C 25 6B 24 4E 1B 28 42 20 1B 24 42 
+[f7321] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7321] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7321] gb.mobile DEBUG:     24 2E 24 67 24 26 24 47 24 39 21 23 24 22 24 24 
+[f7321] gb.mobile DEBUG:     24 26 24 28 24 2A 24 2B 24 2D 24 2F 24 31 24 33 
+[f7321] gb.mobile DEBUG:     1B 28 42 0D 0A 32 34 3A 20 1B 24 42 24 4A 24 2C 
+[f7321] gb.mobile DEBUG:     24 24 25 61 21 3C 25 6B 24 4E 1B 28 42 20 1B 24 
+[f7321] gb.mobile DEBUG:     42 24 2E 24 67 24 26 24 47 24 39 21 23 24 22 24 
+[f7321] gb.mobile DEBUG:     24 24 26 24 28 24 2A 24 2B 24 2D 24 2F 24 31 24 
+[f7321] gb.mobile DEBUG:     33 1B 28 42 0D 0A 32 35 3A 20 1B 24 42 24 4A 24 
+[f7321] gb.mobile DEBUG:     2C 24 24 25 61 21 3C 25 6B 24 4E 1B 28 42 20 1B 
+[f7321] gb.mobile DEBUG:     24 42 24 2E 24 67 24 26 24 47 24 39 21 23 24 22 
+[f7321] gb.mobile DEBUG:     24 24 24 26 24 28 24 2A 24 2B 24 2D 24 2F 24 31 
+[f7321] gb.mobile DEBUG:     24 33 1B 28 42 0D 0A 32 36 3A 20 1B 24 42 24 4A 
+[f7321] gb.mobile DEBUG:     24 2C 24 24 25 61 21 3C 25 6B 24 4E 1B 28 42 20 
+[f7321] gb.mobile DEBUG:     1B 24 42 24 2E 24 67 24 26 24 47 24 39 21 23 24 
+[f7321] gb.mobile DEBUG:     22 24 24 24 26 24 28 24 2A 24 2B 24 2D 24 2F 24 
+[f7321] gb.mobile DEBUG:     31 24 33 1B 28 42 0D 0A 32 37 3A 20 1B 24 42 24 
+[f7321] gb.mobile DEBUG:     4A 24 2C 24 24 25 61 21 3C 25 6B 24 4E 1B 
+[f7337] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7337] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7337] gb.mobile DEBUG:     28 42 20 1B 24 42 24 2E 24 67 24 26 24 47 24 39 
+[f7337] gb.mobile DEBUG:     21 23 24 22 24 24 24 26 24 28 24 2A 24 2B 24 2D 
+[f7337] gb.mobile DEBUG:     24 2F 24 31 24 33 1B 28 42 0D 0A 32 38 3A 20 1B 
+[f7337] gb.mobile DEBUG:     24 42 24 4A 24 2C 24 24 25 61 21 3C 25 6B 24 4E 
+[f7337] gb.mobile DEBUG:     1B 28 42 20 1B 24 42 24 2E 24 67 24 26 24 47 24 
+[f7337] gb.mobile DEBUG:     39 21 23 24 22 24 24 24 26 24 28 24 2A 24 2B 24 
+[f7337] gb.mobile DEBUG:     2D 24 2F 24 31 24 33 1B 28 42 0D 0A 32 39 3A 20 
+[f7337] gb.mobile DEBUG:     1B 24 42 24 4A 24 2C 24 24 25 61 21 3C 25 6B 24 
+[f7337] gb.mobile DEBUG:     4E 1B 28 42 20 1B 24 42 24 2E 24 67 24 26 24 47 
+[f7337] gb.mobile DEBUG:     24 39 21 23 24 22 24 24 24 26 24 28 24 2A 24 2B 
+[f7337] gb.mobile DEBUG:     24 2D 24 2F 24 31 24 33 1B 28 42 0D 0A 33 30 3A 
+[f7337] gb.mobile DEBUG:     20 1B 24 42 24 4A 24 2C 24 24 25 61 21 3C 25 6B 
+[f7337] gb.mobile DEBUG:     24 4E 1B 28 42 20 1B 24 42 24 2E 24 67 24 26 24 
+[f7337] gb.mobile DEBUG:     47 24 39 21 23 24 22 24 24 24 26 24 28 24 2A 24 
+[f7337] gb.mobile DEBUG:     2B 24 2D 24 2F 24 31 24 33 1B 28 42 0D 0A 33 31 
+[f7337] gb.mobile DEBUG:     3A 20 1B 24 42 24 4A 24 2C 24 24 25 61 21 
+[f7354] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7354] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7354] gb.mobile DEBUG:     3C 25 6B 24 4E 1B 28 42 20 1B 24 42 24 2E 24 67 
+[f7354] gb.mobile DEBUG:     24 26 24 47 24 39 21 23 24 22 24 24 24 26 24 28 
+[f7354] gb.mobile DEBUG:     24 2A 24 2B 24 2D 24 2F 24 31 24 33 1B 28 42 0D 
+[f7354] gb.mobile DEBUG:     0A 33 32 3A 20 1B 24 42 24 4A 24 2C 24 24 25 61 
+[f7354] gb.mobile DEBUG:     21 3C 25 6B 24 4E 1B 28 42 20 1B 24 42 24 2E 24 
+[f7354] gb.mobile DEBUG:     67 24 26 24 47 24 39 21 23 24 22 24 24 24 26 24 
+[f7354] gb.mobile DEBUG:     28 24 2A 24 2B 24 2D 24 2F 24 31 24 33 1B 28 42 
+[f7354] gb.mobile DEBUG:     0D 0A 33 33 3A 20 1B 24 42 24 4A 24 2C 24 24 25 
+[f7354] gb.mobile DEBUG:     61 21 3C 25 6B 24 4E 1B 28 42 20 1B 24 42 24 2E 
+[f7354] gb.mobile DEBUG:     24 67 24 26 24 47 24 39 21 23 24 22 24 24 24 26 
+[f7354] gb.mobile DEBUG:     24 28 24 2A 24 2B 24 2D 24 2F 24 31 24 33 1B 28 
+[f7354] gb.mobile DEBUG:     42 0D 0A 33 34 3A 20 1B 24 42 24 4A 24 2C 24 24 
+[f7354] gb.mobile DEBUG:     25 61 21 3C 25 6B 24 4E 1B 28 42 20 1B 24 42 24 
+[f7354] gb.mobile DEBUG:     2E 24 67 24 26 24 47 24 39 21 23 24 22 24 24 24 
+[f7354] gb.mobile DEBUG:     26 24 28 24 2A 24 2B 24 2D 24 2F 24 31 24 33 1B 
+[f7354] gb.mobile DEBUG:     28 42 0D 0A 33 35 3A 20 1B 24 42 24 4A 24 
+[f7370] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7370] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7370] gb.mobile DEBUG:     2C 24 24 25 61 21 3C 25 6B 24 4E 1B 28 42 20 1B 
+[f7370] gb.mobile DEBUG:     24 42 24 2E 24 67 24 26 24 47 24 39 21 23 24 22 
+[f7370] gb.mobile DEBUG:     24 24 24 26 24 28 24 2A 24 2B 24 2D 24 2F 24 31 
+[f7370] gb.mobile DEBUG:     24 33 1B 28 42 0D 0A 33 36 3A 20 1B 24 42 24 4A 
+[f7370] gb.mobile DEBUG:     24 2C 24 24 25 61 21 3C 25 6B 24 4E 1B 28 42 20 
+[f7370] gb.mobile DEBUG:     1B 24 42 24 2E 24 67 24 26 24 47 24 39 21 23 24 
+[f7370] gb.mobile DEBUG:     22 24 24 24 26 24 28 24 2A 24 2B 24 2D 24 2F 24 
+[f7370] gb.mobile DEBUG:     31 24 33 1B 28 42 0D 0A 33 37 3A 20 1B 24 42 24 
+[f7370] gb.mobile DEBUG:     4A 24 2C 24 24 25 61 21 3C 25 6B 24 4E 1B 28 42 
+[f7370] gb.mobile DEBUG:     20 1B 24 42 24 2E 24 67 24 26 24 47 24 39 21 23 
+[f7370] gb.mobile DEBUG:     24 22 24 24 24 26 24 28 24 2A 24 2B 24 2D 24 2F 
+[f7370] gb.mobile DEBUG:     24 31 24 33 1B 28 42 0D 0A 33 38 3A 20 1B 24 42 
+[f7370] gb.mobile DEBUG:     24 4A 24 2C 24 24 25 61 21 3C 25 6B 24 4E 1B 28 
+[f7370] gb.mobile DEBUG:     42 20 1B 24 42 24 2E 24 67 24 26 24 47 24 39 21 
+[f7370] gb.mobile DEBUG:     23 24 22 24 24 24 26 24 28 24 2A 24 2B 24 2D 24 
+[f7370] gb.mobile DEBUG:     2F 24 31 24 33 1B 28 42 0D 0A 33 39 3A 20 
+[f7386] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7386] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7386] gb.mobile DEBUG:     1B 24 42 24 4A 24 2C 24 24 25 61 21 3C 25 6B 24 
+[f7386] gb.mobile DEBUG:     4E 1B 28 42 20 1B 24 42 24 2E 24 67 24 26 24 47 
+[f7386] gb.mobile DEBUG:     24 39 21 23 24 22 24 24 24 26 24 28 24 2A 24 2B 
+[f7386] gb.mobile DEBUG:     24 2D 24 2F 24 31 24 33 1B 28 42 0D 0A 34 30 3A 
+[f7386] gb.mobile DEBUG:     20 1B 24 42 24 4A 24 2C 24 24 25 61 21 3C 25 6B 
+[f7386] gb.mobile DEBUG:     24 4E 1B 28 42 20 1B 24 42 24 2E 24 67 24 26 24 
+[f7386] gb.mobile DEBUG:     47 24 39 21 23 24 22 24 24 24 26 24 28 24 2A 24 
+[f7386] gb.mobile DEBUG:     2B 24 2D 24 2F 24 31 24 33 1B 28 42 0D 0A 2E 0D 
+[f7386] gb.mobile DEBUG:     0A 
+[f7409] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7409] gb.mobile DEBUG: DELE 5
+
+[f7409] NET tcp:110 rx-line "DELE 5"
+[f7409] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7426] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7426] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7426] gb.mobile DEBUG: +OK deleted
+
+[f7500] gb.mobile DEBUG: >>> 17 Status
+[f7500] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7572] gb.mobile DEBUG: >>> 17 Status
+[f7572] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7641] gb.mobile DEBUG: >>> 17 Status
+[f7641] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7669] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7669] gb.mobile DEBUG: QUIT
+
+[f7669] NET tcp:110 rx-line "QUIT"
+[f7669] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7671] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f7671] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f7671] gb.mobile DEBUG: +OK bye
+
+[f7673] gb.mobile DEBUG: >>> 24 TCP disconnect (conn 0)
+[f7673] NET sock_close conn=0
+[f7673] gb.mobile DEBUG: <<< 24 TCP disconnect (conn 0)
+[f7675] gb.mobile DEBUG: >>> 22 PPP disconnect
+[f7675] gb.mobile DEBUG: <<< 22 PPP disconnect
+[f7677] gb.mobile DEBUG: >>> 13 Disconnect
+[f7677] gb.mobile DEBUG: <<< 13 Disconnect
+[f7679] gb.mobile DEBUG: >>> 11 End session
+[f7679] gb.mobile DEBUG: <<< 11 End session
+[f7679] gb.mobile DEBUG: 

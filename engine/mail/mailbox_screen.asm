@@ -1330,8 +1330,10 @@ POPC
 
 Mailbox_ReplyToRecord:: ; 25:54A7
 	; [CONFIRMED] 105 insn(s) reached by static flow only; seeds: exec x105; min discovery hops 8;
-	; entered by call from 25:4591 (PROBABLE code) | 80 insn(s) executed; cut out of the PROBABLE
-	; region 54A7-5569 by apply_coverage --split [executed in 1 scenarios]
+	; entered by call from 25:4591 (PROBABLE code) | 104 of 105 instruction starts observed;
+	; 25:5534 remains unobserved across the current natural union.
+	; Natural scenario zz_jp_inbox_explore_replay also observed 25:4591 -> 25:54A7 (2 calls);
+	; its 7 starts at 555C-5569 ran, with ret_unmatched 25:5568 -> 25:4594 once.
 	ld a, c
 	add a, b
 	ld b, a
@@ -1445,8 +1447,7 @@ Mailbox_ReplyToRecord:: ; 25:54A7
 	ret
 
 .l555C ; 25:555C
-	; [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region
-	; 54A7-5569 by apply_coverage --split
+	; [CONFIRMED] All 7 instruction starts executed in natural scenario zz_jp_inbox_explore_replay.
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a

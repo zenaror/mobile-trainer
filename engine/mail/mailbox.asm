@@ -689,8 +689,8 @@ Mailbox_ReplyStart:: ; 25:4564
 	farcall Sprites_SaveSlotsToBank3
 	call Mailbox_ReplyToRecord
 
-	; [PROBABLE] 84 insn(s) never executed in the traced runs; cut out of the PROBABLE region
-	; 446E-4659 by apply_coverage --split
+	; [CONFIRMED] 74 of 84 instruction starts in 4594-4659 executed in natural scenario
+	; zz_jp_inbox_explore_replay; 10 starts in this region remain unobserved in the current union.
 	push af
 	push af
 	ldh a, [rSVBK]

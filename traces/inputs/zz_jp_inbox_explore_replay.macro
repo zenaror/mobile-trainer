@@ -1,0 +1,179 @@
+# Scenario 'jp_inbox_explore_replay': one coverage-guided mail-inbox path (tools/trace/explore.py, docs/research/dynamic_tracing.md section 11).
+# Starts from the cartridge state left by 'tutorial_profile'; normal macro inputs only, no force/ramset directives.
+# One segment, 117 instruction starts newly reproduced by run_trace.py versus the prior natural coverage union.
+# ---- segment: search entry e240, +117 starts, 22229 frames
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A                        # title -> top menu (the first A is swallowed by the logo)
+waitstable 60 max 600
+tap A                        # メール
+waitstable 60 max 600
+tap DOWN x2
+wait 30
+tap A                        # メールボックス
+waitstable 60 max 600
+shot list
+tap A
+wait 60
+tap A                        # icon bar: first icon = read
+waitstable 60 max 600
+shot m1_sender
+tap SELECT
+waitstable 60 max 600
+shot m1_save_place
+tap A                        # choose the first free slot
+waitstable 60 max 600
+shot m1_saved_1
+tap A
+waitstable 60 max 600
+shot m1_saved_2
+tap B
+waitstable 60 max 600
+shot m1_saved_3
+tap A
+waitstable 60 max 600
+shot m1_body
+tap A                        # back to the list
+waitstable 60 max 600
+shot m1_list
+tap DOWN
+wait 30
+tap A
+wait 60
+tap A
+waitstable 60 max 600
+shot m2_sender
+tap A
+waitstable 60 max 600
+shot m2_body
+tap A
+waitstable 60 max 600
+shot m2_list
+tap DOWN
+wait 30
+tap A
+wait 60
+tap A
+waitstable 60 max 600
+shot m3_sender
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+shot m3_list
+tap DOWN
+wait 30
+tap A
+wait 60
+tap A
+waitstable 60 max 600
+shot m4_limit_dialog
+tap A                        # OK
+waitstable 60 max 600
+shot m4_sender
+tap A
+waitstable 60 max 600
+shot m4_body
+tap A
+waitstable 60 max 600
+shot m4_list
+tap UP x2
+wait 30
+tap A
+wait 60
+tap RIGHT x2
+wait 40
+tap A
+waitstable 60 max 600
+shot del_confirm
+tap A                        # "いいえ" is the default
+waitstable 60 max 600
+shot del_cancelled
+tap A
+waitstable 60 max 600
+tap LEFT
+wait 40
+shot del_yes
+tap A                        # "はい"
+waitstable 60 max 600
+shot del_done
+tap UP
+wait 30
+tap A
+wait 60
+tap RIGHT
+wait 30
+tap A
+waitstable 60 max 600
+shot reply_address
+tap START
+wait 40
+tap A                        # OK
+waitstable 60 max 600
+shot reply_title
+tap A x3
+tap START
+wait 40
+tap A
+waitstable 60 max 600
+shot reply_body_intro
+tap A
+waitstable 60 max 600
+tap A x4
+tap START
+wait 40
+tap A
+waitstable 60 max 600
+shot reply_save_menu
+tap A                        # save
+waitstable 60 max 600
+shot reply_save_confirm
+tap A                        # はい
+waitstable 60 max 900
+shot reply_saved
+tap A
+waitstable 60 max 600
+shot list_again
+tap B
+waitstable 60 max 600
+shot mail_menu
+tap UP
+wait 45
+tap RIGHT x10
+wait 180
+hold B+DOWN 120
+wait 60
+tap LEFT x10
+wait 30
+tap LEFT
+wait 180
+tap DOWN x10
+wait 180
+tap A
+wait 180
+tap LEFT
+wait 180
+tap B
+wait 45
+wait 60
+tap LEFT
+wait 180
+tap RIGHT
+wait 180
+tap A
+wait 45
+tap B x5
+wait 180
+tap DOWN
+wait 90
+tap LEFT
+wait 60
+tap A
+wait 60
+tap A x11
+wait 30
+wait 60

@@ -208,8 +208,9 @@ MailAddr_Edit:: ; 2D:65B0
 	ret
 
 .l6726 ; 2D:6726
-	; [PROBABLE] 36 insn(s) never executed in the traced runs; cut out of the PROBABLE region
-	; 66A2-6784 by apply_coverage --split
+	; [CONFIRMED] 36 instruction starts executed in natural scenario zz_jp_inbox_explore_replay.
+	; Entry/caller identification remains open; the trace's shadow callgraph has no matching
+	; incoming call edge for this fragment.
 	push bc
 	ld de, $020F
 	push af
