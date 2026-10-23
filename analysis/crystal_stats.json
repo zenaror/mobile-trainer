@@ -1,11 +1,11 @@
 {
  "params": {
   "gb_root": "/media/rafael/Dados/Arquivos/Projetos/Gameboy Projects",
-  "trainer": "/media/rafael/Dados/Arquivos/Projetos/Gameboy Projects/Mobile Trainer/baserom.gbc",
+  "trainer": "/home/rafael/_PROJETOS/Mobile Trainer/baserom.gbc",
   "refs": "eng,ptbr",
   "primary": "eng",
   "jp": null,
-  "out": "/media/rafael/Dados/Arquivos/Projetos/Gameboy Projects/Mobile Trainer/analysis",
+  "out": "/home/rafael/_PROJETOS/Mobile Trainer/analysis",
   "keep_ldh": false,
   "seed_min": 4,
   "seeds": 3,
