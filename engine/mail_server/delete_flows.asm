@@ -659,10 +659,10 @@ MailSrvDel_DeleteAllRun_CheckDone:: ; 23:4DFB
 	jr nz, .l4EB4
 	ld hl, $0000
 	xor a, a
-	call SpriteCounter_StubA
+	call SpriteCounter_A_ReturnImmediately
 	ld hl, $0000
 	ld a, $FF
-	call SpriteCounter_StubB
+	call SpriteCounter_B_ReturnImmediately
 	call MailSrvDel_MsgNoMail
 	ld hl, wSpriteSlot11
 	ld de, Table_MailSrvDel_ProgressObject
@@ -764,7 +764,7 @@ MailSrvDel_DeleteAllRun_DeleteLoop:: ; 23:4EB7
 	pop hl
 	pop bc
 	xor a, a
-	call SpriteCounter_StubA
+	call SpriteCounter_A_ReturnImmediately
 	inc hl
 	call MailSrvDel_DrawProgressText
 	push hl
@@ -778,7 +778,7 @@ MailSrvDel_DeleteAllRun_DeleteLoop:: ; 23:4EB7
 	ld a, [bc]
 	ld h, a
 	ld a, $FF
-	call SpriteCounter_StubB
+	call SpriteCounter_B_ReturnImmediately
 	pop hl
 	push hl
 	push hl
@@ -1009,10 +1009,10 @@ MailSrvDel_DeleteAllRun_NextMail:: ; 23:5063
 	or a, e
 	jp nz, MailSrvDel_DeleteAllRun_DeleteLoop
 	xor a, a
-	call SpriteCounter_StubA
+	call SpriteCounter_A_ReturnImmediately
 	ld hl, $0000
 	ld a, $FF
-	call SpriteCounter_StubB
+	call SpriteCounter_B_ReturnImmediately
 	farcall Sprite_UpdateAll
 	call MailSrvDel_MsgAllDeleted
 	ld hl, wSpriteSlot11
@@ -1318,10 +1318,10 @@ MailSrvDel_DeleteCompletelyRun_GotMailCount:: ; 23:525E
 	; 503F-540D by apply_coverage --split
 	ld hl, $0000
 	xor a, a
-	call SpriteCounter_StubA
+	call SpriteCounter_A_ReturnImmediately
 	ld hl, $0000
 	ld a, $FF
-	call SpriteCounter_StubB
+	call SpriteCounter_B_ReturnImmediately
 	call MailSrvDel_MsgNoMail
 	ld hl, wSpriteSlot11
 	ld de, Table_MailSrvDel_ProgressObject
@@ -1420,7 +1420,7 @@ MailSrvDel_DeleteCompletelyRun_DeleteLoop:: ; 23:5324
 	pop hl
 	pop bc
 	xor a, a
-	call SpriteCounter_StubA
+	call SpriteCounter_A_ReturnImmediately
 	inc hl
 	call MailSrvDel_DrawProgressText
 	push hl
@@ -1565,10 +1565,10 @@ MailSrvDel_DeleteCompletelyRun_NextMail:: ; 23:5424
 	or a, e
 	jp nz, MailSrvDel_DeleteCompletelyRun_DeleteLoop
 	xor a, a
-	call SpriteCounter_StubA
+	call SpriteCounter_A_ReturnImmediately
 	ld hl, $0000
 	ld a, $FF
-	call SpriteCounter_StubB
+	call SpriteCounter_B_ReturnImmediately
 	farcall Sprite_UpdateAll
 	call MailSrvDel_MsgAllDeleted
 	ld hl, wSpriteSlot11

@@ -936,11 +936,13 @@ TrySetA9EEFromRandom16_ByA9EDFlags:: ; 70:46A6 [PROBABLE] operation; entry/purpo
 	xor a, a
 	ret
 
-	; [HYPOTHESIS] Unlabelled candidate entry70:4740, [4740,477F): 63 bytes/32 instruction starts.
-	; Saves FFF5/FF8C, uses FFF2 scratch, selects SRAM1; A9ED bit7 chooses returned B/A=0 or1.
+	; [HYPOTHESIS] complete bounded operation [4740,477F): 63 bytes/32 instruction starts.
+	; Saves FFF5/FF8C, uses FFF2
+	; scratch, selects SRAM1, and returns sSaveCheckStateBlock bit7 as A=0/1.
 	; Restores SRAM shadows/registers from saved values; incoming mirror consistency is assumed.
 	; RET477E ends before477F; neither RET473F nor RET477E ordinarily falls through.
-	; Entry/purpose unproven; no label added. Computed or overlapping entries are not excluded.
+SaveCheck_GetStateBlockBit7:: ; 70:4740
+	; Entry and caller remain unproven; computed or overlapping entries are not excluded.
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
 	push af
@@ -957,18 +959,18 @@ TrySetA9EEFromRandom16_ByA9EDFlags:: ; 70:46A6 [PROBABLE] operation; entry/purpo
 	ld [rRAMG], a
 	ld a, [sSaveCheckStateBlock + $05]
 	bit 7, a
-	jr nz, .l4767
+	jr nz, .set_return_flag_one
 	ld b, $00
-	jr .l4769
+	jr .restore_sram_state_return_flag
 
-.l4767 ; 70:4767
+.set_return_flag_one ; 70:4767
 	; [HYPOTHESIS] Internal JR NZ target from70:4761 in the candidate segment at4740.
 	; This path sets B=1; the other sets B=0 at4763. Both join the restore tail at4769.
 	; The two saved AF values restore FF8C/[$4000] and FFF5/[$0000], with FFF2 scratch.
 	; LD A,B returns the bit7-derived value at RET477E under the ordinary stack/bank contract.
 	; This static bit read proves neither the field domain nor a caller/natural entry.
 	ld b, $01
-.l4769 ; 70:4769
+.restore_sram_state_return_flag ; 70:4769
 	ldh [hScratchA], a
 	pop af
 	ldh [hSRAMBank], a

@@ -349,11 +349,10 @@ SramCheck_Bank1ClearBlock:: ; 22:50A0
 	ld [rRAMG], a
 	ret
 
-	; [HYPOTHESIS] two unreferenced functions 50CF (push af..hl; call $5035; call $5093; inc a; jr
-	; nz; call $50A0; ... ret) and 50E6 (same skeleton returning a=$FF/$01), each ending in ret,
-	; directly before the far-entered 50FC (entered from 24:4D59) and after the CONFIRMED 509D; all
-	; 5 direct call targets are known code starts (5035,5093,50A0). No caller/pointer found in the
-	; ROM
+SramCheck_VerifyBank1_ClearOnMismatch:: ; 22:50CF
+	; [HYPOTHESIS] Complete unreferenced operation: sums and compares the Bank1 page-list/address
+	; records, clears both on mismatch, then restores AF/BC/DE/HL. Exact extent [50CF,50E6); no
+	; caller/pointer is known. Its behavior is static; entry and natural reachability remain unknown.
 	push af
 	push bc
 	push de
@@ -371,16 +370,20 @@ SramCheck_Bank1ClearBlock:: ; 22:50A0
 	pop af
 	ret
 
+SramCheck_VerifyBank1_ReturnStatus:: ; 22:50E6
+	; [HYPOTHESIS] Complete unreferenced operation: returns $01 when the Bank1 page-list/address
+	; checksum matches, otherwise $FF. Exact extent [50E6,50FC); no caller/pointer is known. Its
+	; behavior is static; entry and natural reachability remain unknown.
 	push bc
 	push de
 	push hl
 	call SramCheck_Bank1BlockSum
 	call SramCheck_CompareDEHL2
 	inc a
-	jr nz, .l50F6
+	jr nz, .return_match
 	ld a, $FF
 	jr .pop_hl_de_bc_and_return
-.l50F6 ; 22:50F6
+.return_match ; 22:50F6
 	ld a, $01
 .pop_hl_de_bc_and_return ; 22:50F8
 	pop hl

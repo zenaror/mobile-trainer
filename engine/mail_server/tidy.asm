@@ -314,10 +314,10 @@ MailServerMgr_Run:: ; 2E:4000
 	jp nz, .l4292
 	ld hl, $0000
 	ld a, $05
-	farcall SpriteCounter_StubA
+	farcall SpriteCounter_A_ReturnImmediately
 	ld hl, $0000
 	ld a, $04
-	farcall SpriteCounter_StubB
+	farcall SpriteCounter_B_ReturnImmediately
 	call MailServerMgr_ClearTextTiles
 	di
 	farcall Sprite_ResetAll
@@ -402,7 +402,7 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	ld l, c
 	ld h, b
 	ld a, $05
-	farcall SpriteCounter_StubC
+	farcall SpriteCounter_C_ReturnImmediately
 	pop bc
 	pop hl
 	ld a, b
@@ -422,7 +422,7 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	ld a, [de]
 	ld h, a
 	ld a, $04
-	farcall SpriteCounter_StubB
+	farcall SpriteCounter_B_ReturnImmediately
 	di
 	farcall Sprite_UpdateAll
 	ei
@@ -625,7 +625,7 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	ld l, c
 	ld h, b
 	ld a, $05
-	farcall SpriteCounter_StubC
+	farcall SpriteCounter_C_ReturnImmediately
 	pop hl
 	ld a, h
 	xor a, $FF
@@ -644,7 +644,7 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	ld a, [de]
 	ld h, a
 	ld a, $04
-	farcall SpriteCounter_StubB
+	farcall SpriteCounter_B_ReturnImmediately
 	di
 	farcall Sprite_UpdateAll
 	ei
@@ -889,7 +889,7 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	ld l, c
 	ld h, b
 	ld a, $05
-	farcall SpriteCounter_StubC
+	farcall SpriteCounter_C_ReturnImmediately
 	pop hl
 	ld a, h
 	xor a, $FF
@@ -909,7 +909,7 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	ld h, a
 	add hl, bc
 	ld a, $04
-	farcall SpriteCounter_StubB
+	farcall SpriteCounter_B_ReturnImmediately
 	di
 	farcall Sprite_UpdateAll
 	ei
@@ -1112,7 +1112,7 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	ld l, c
 	ld h, b
 	ld a, $05
-	farcall SpriteCounter_StubC
+	farcall SpriteCounter_C_ReturnImmediately
 	pop hl
 	ld a, h
 	xor a, $FF
@@ -1132,7 +1132,7 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	ld h, a
 	add hl, bc
 	ld a, $04
-	farcall SpriteCounter_StubB
+	farcall SpriteCounter_B_ReturnImmediately
 	di
 	farcall Sprite_ResetAll
 	farcall Sprite_UpdateAll

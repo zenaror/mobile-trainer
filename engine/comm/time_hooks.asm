@@ -1,6 +1,6 @@
 ; engine/comm/time_hooks.asm
 ; bank 7F, $61FC-$624F (83 bytes); pinned by layout.link
-; Stack_PushPopAFAndReturn, Timer_ResetClockB, time-warning dialog wrappers
+; Stack_PushPopAFAndReturn, Timer_ResetClockB, timer check, time-warning dialog wrappers
 
 SECTION "engine/comm/time_hooks", ROMX
 
@@ -21,8 +21,10 @@ Timer_ResetClockB:: ; 7F:61FF
 	pop af
 	ret
 
-	; [HYPOTHESIS] complete function (ld a,[$C26B] ; cp $1E ; jr c ; ld a,$FF ; ret ; xor a ; ret)
-	; directly before the PROBABLE far-entry 7F:6218; no caller/pointer found, entry unproven
+TimerB_IsAtLeast30Minutes:: ; 7F:620C
+	; [HYPOTHESIS] complete bounded comparison operation: returns $00 when wTimerBMinutes < 30 and $FF
+	; otherwise. The 12-byte sequence ends at 6218; no caller/pointer is known, so standalone
+	; function entry and reachability remain unproven.
 	ld a, [$C26B]
 	cp a, $1E
 	jr c, .return_zero

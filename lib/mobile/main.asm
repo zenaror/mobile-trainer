@@ -3468,7 +3468,7 @@ MobileAPI_Abort:: ; 75:559F
 	bit 1, a
 	jr nz, .check_send_command_92
 	ld a, $2A
-	jr MobileSDK_EnterStateMaybeCloseTcp
+	jr MobileSDK_StoreState_ConditionallyCloseTcp
 
 .check_send_command_92 ; 75:55B8
 	; [CONFIRMED] 27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 1;
@@ -3509,7 +3509,7 @@ MobileAPI_Abort:: ; 75:559F
 	ld [hl], a
 	ret
 
-MobileSDK_EnterStateMaybeCloseTcp:: ; 75:55ED
+MobileSDK_StoreState_ConditionallyCloseTcp:: ; 75:55ED
 	; [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios)
 	di
 	push af
@@ -3563,7 +3563,7 @@ MobileAPI_Cancel:: ; 75:561D
 	or a, a
 	jr nz, .store_28_02
 	ld a, $28
-	jr MobileSDK_EnterStateMaybeCloseTcp
+	jr MobileSDK_StoreState_ConditionallyCloseTcp
 .store_28_02 ; 75:5633
 	ld a, $28
 	ld b, $02

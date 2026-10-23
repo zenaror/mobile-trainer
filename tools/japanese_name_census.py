@@ -29,6 +29,21 @@ LOCAL = re.compile(r"^(\.[\w.$]+)(?:\s|$)")
 ASSET_ADDRESS = re.compile(
     r"(?:tiles?|tilemap|attrmap|palette)_?[0-9A-F]{4}(?:\.[^/]*)?\Z", re.I
 )
+FUNCTION_NOTE = re.compile(
+    r"\b(?:complete [^.;]{0,50}(?:functions?|operations?)|unreferenced functions?|"
+    r"unlabelled (?:candidate )?(?:entry|function|code block)|"
+    r"unlabeled (?:candidate )?(?:entry|function|code block)|"
+    r"standalone entry(?:/reachability)?|function entry (?:unproven|unproved))\b",
+    re.I,
+)
+FUNCTION_QUALIFIER = re.compile(
+    r"(?:^|_)(?:Stub[A-Z]$|Maybe[A-Z][A-Za-z0-9]*)",
+    re.I,
+)
+UNCLASSIFIED_QUALIFIER = re.compile(
+    r"(?:^|_)(?:Unknown[A-Z][A-Za-z0-9]*|Unresolved[A-Z][A-Za-z0-9]*)",
+    re.I,
+)
 
 
 def tracked_files() -> list[str]:
@@ -64,6 +79,9 @@ def main() -> int:
         "numeric local .lAAAA definitions": [],
         "short local placeholders": [],
         "numeric RAM equates": [],
+        "function-like source labels with vague Stub/Maybe qualifiers": [],
+        "source labels explicitly retaining Unknown/Unresolved content": [],
+        "function-boundary or complete-function comments to reconcile": [],
     }
     current_local: set[tuple[str, str, str, str]] = set()
     for name in files:
@@ -78,6 +96,27 @@ def main() -> int:
             owner_match = LABEL.match(line)
             if owner_match:
                 current_owner = owner_match.group(1)
+            if owner_match and FUNCTION_QUALIFIER.search(current_owner):
+                hits["function-like source labels with vague Stub/Maybe qualifiers"].append(
+                    f"{name}:{number}:{current_owner}"
+                )
+            if owner_match and UNCLASSIFIED_QUALIFIER.search(current_owner):
+                hits["source labels explicitly retaining Unknown/Unresolved content"].append(
+                    f"{name}:{number}:{current_owner}"
+                )
+            if FUNCTION_NOTE.search(raw):
+                comment_owner = current_owner
+                for future in lines[number:]:
+                    candidate = future.split(";", 1)[0].strip()
+                    if not candidate:
+                        continue
+                    next_label = LABEL.match(candidate)
+                    if next_label:
+                        comment_owner = next_label.group(1)
+                    break
+                hits["function-boundary or complete-function comments to reconcile"].append(
+                    f"{name}:{number}:{comment_owner}: {raw.strip()}"
+                )
             if not line:
                 continue
             global_match = LABEL.match(line)

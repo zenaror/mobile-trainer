@@ -4,7 +4,7 @@
 
 SECTION "engine/mail_server/delete_sprite_counters", ROMX
 
-SpriteCounter_StubA:: ; 23:58C4
+SpriteCounter_A_ReturnImmediately:: ; 23:58C4
 
 	; [CONFIRMED] 1 insn(s); 1 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
@@ -759,7 +759,7 @@ SpriteCounter_A_DrawDigit1:: ; 23:5E7A
 	call Sprite_SetPosition
 	ret
 
-SpriteCounter_StubB:: ; 23:5FA2
+SpriteCounter_B_ReturnImmediately:: ; 23:5FA2
 
 	; [CONFIRMED] 1 insn(s); 1 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
@@ -1517,7 +1517,7 @@ SpriteCounter_B_DrawDigit1:: ; 23:6571
 	call Sprite_SetPosition
 	ret
 
-SpriteCounter_StubC:: ; 23:6699
+SpriteCounter_C_ReturnImmediately:: ; 23:6699
 	; [CONFIRMED] 1 insn(s) executed; cut out of the PROBABLE region 5FD7-669A by apply_coverage
 	; --split [executed in 7 scenarios]
 	ret
