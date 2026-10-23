@@ -71,3 +71,20 @@ known `ResourceWarning` for the open `baserom.gbc` reader in
 asset or ROM input changed. This revalidation confirms the documented finite
 scopes and byte identity; it does not promote any UNKNOWN/HYPOTHESIS item or
 resume the English work.
+
+
+## Bank 7C font pixel-inverse verification (2026-10-23)
+
+At documentation commit `df4945b664fa5f6e8db15b69987be42de2e571c0`, the
+current 846-cell bank-7C sheet was checked against `tools/font_png.py` rendering
+from all three maintained spans (`7C:4000`, `7C:57C3`, `7C:57CD`). All 15,228
+span bytes match the immutable original ROM at physical bank-7C offset
+`0x1F0000`; decoded RGB pixels match the tracked 1221x116 PNG exactly
+(141,636 pixels, zero differences), and decoding the PNG reconstructs each
+span byte-for-byte. The old 10-byte/80-pixel gap is historical, not open in the
+current source. Full method and PNG hash: [frame/name asset reconciliation](assets_pokemon_frames_and_name_limits.md#dated-verification-bank-7c-font-sheet-pixel-inverse-2026-10-23).
+
+This is an asset-representation check only. No assembly, asset, ROM, build output,
+or runtime claim changed; the earlier build gates remain tied to the unchanged
+source checkpoint. All UNKNOWN/HYPOTHESIS entry, natural-selection, and
+name-to-window relationships above remain unresolved.
