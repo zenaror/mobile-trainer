@@ -149,3 +149,15 @@ A separate CONFIRMED two-byte interval at54:511B-511D had an internally contradi
 Before that comment correction, the six-root literal inventory therefore contained33 headers/94 bytes:32 HYPOTHESIS/92 bytes and one already-CONFIRMED text interval/two bytes. All33 source `db` extents equal the original ROM and their global-label coordinates match the accepted frozen109d57ac symbol map. The eight freshly generated baseline scenarios supply no instruction-start or data-read intersection with these33 spans. These are finite negatives for those inputs and do not exclude computed entries, other consumers or other scenarios.
 
 This census follows leading headers, not every unexplained byte, neutral label or unlabelled fragment in the ROM. Incidental uses of the word UNCLASSIFIED inside graphics/history comments are excluded. The main hypothesis-header cohort, frame editing contexts, name/image associations and Data_48_69AB reader investigation remain separate open questions. No code conversion, alias retirement, new runtime, rendering, hardware or English conclusion follows from this scope correction.
+
+## Reconciliation of later evidence (2026-10-23)
+
+Sections 7 and 8 above preserve the classification and counts made on 2026-10-15 and 2026-10-17; those historical counts are not a current total of raw storage or unresolved functions. Later Japanese reviews changed several individual dispositions:
+
+- `26:5344–537C` is now the PROBABLE code fragment `MailSession_WriteVram1TileAndWram7ScreenRows`. Its bounded writes are documented, but no natural entry or purpose is established. This supersedes the earlier description of it as raw storage; it does not establish a separately callable function. See [`japanese_generic_name_sweep_20261023.md`](japanese_generic_name_sweep_20261023.md) and [`REVERSE_ENGINEERING.md`](../../REVERSE_ENGINEERING.md).
+- `26:5062–5067` is `ByteMatch_MailSessionCancelTail_26_5062`; only byte equality with the preceding routine's tail is established. No execution or entry is claimed.
+- `28:4BA6–4BC2` is `WramClearCandidate_28_4BA6`. The conditional instruction interpretation is retained as a candidate; code/data classification, entry, and purpose remain HYPOTHESIS.
+- `48:69AB–69CA` is `FontReader_OutOfRunSource_48_69AB`. A bounded static reader relationship is documented; content identity, intent, natural selection, and rendered output remain unknown.
+- `75:6D62–6D63` is `MaskedMatch_CrystalSDK_Local112D4C_75_6D62`. The masked source correspondence is confirmed, but trainer-side entry and purpose remain HYPOTHESIS.
+
+Use the current [Japanese closure audit](japanese_closure_audit_20261023.md) and [generic-name sweep](japanese_generic_name_sweep_20261023.md) for current finite scope. Neither the historical 32-span/92-byte count nor this reconciliation proves that every ROM code/data boundary or natural entry has been identified.
