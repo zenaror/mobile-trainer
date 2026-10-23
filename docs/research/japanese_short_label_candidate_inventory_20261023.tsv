@@ -75,7 +75,7 @@ engine/address_book/save_sender_address.asm	SaveSenderAddr_CursorMoveEffect	1079
 engine/address_book/view.asm	AbookView_Run	7	2F:50BD	.loop	28	1	116
 engine/browser/canvas.asm	IfA1_MapSram1A9EDBit7To19Or1A_DisableRam	99	4E:618E	.skip	117	1	115
 engine/browser/frame_style_chooser.asm	Browser_FrameStylePreview_Run	7	4E:409C	.loop	87	1	104
-engine/browser/frame_style_chooser.asm	Browser_FrameStylePreview_RevealStep	316	4E:4612	.loop	330	1	356
+engine/browser/frame_style_chooser.asm	Browser_FrameStylePreview_RevealStep	330	4E:4612	.loop	344	1	370
 engine/browser/history_cache.asm	Browser_HistoryPop	72	4C:4BE9	.skip	97	1	91
 engine/browser/history_cache.asm	Sram_CopyLongBlock	114	4C:4C0F	.skip	121	1	119
 engine/browser/history_cache.asm	PageCache_Pop	266	4C:4D1E	.skip	293	1	287

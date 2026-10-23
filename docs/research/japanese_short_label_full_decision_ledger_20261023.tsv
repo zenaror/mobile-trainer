@@ -117,7 +117,7 @@ engine/address_book/save_sender_address.asm	SaveSenderAddr_CursorDown	2A:40D8	.s
 engine/address_book/save_sender_address.asm	SaveSenderAddr_CursorUp	2A:40FD	.skip	122	110	120:jr nz, .skip [forward]	RENAME	.refresh_wrapped_cursor	PROBABLE	C volta a 5 ao atingir $FF; depois atualiza destaque e ícones.
 engine/address_book/save_sender_address.asm	SaveSenderAddr_CursorMoveEffect	2A:49A9	.loop	1232	1079	1242:jr nz, .loop [backward]	RENAME	.wait_vertical_input_or_count	PROBABLE	Repete quadros até Up/Down ou contador B zerado.
 engine/browser/frame_style_chooser.asm	Browser_FrameStylePreview_Run	4E:409C	.loop	87	7	104:jp .loop [backward]	RENAME	.reveal_next_step	PROBABLE	Lê ponteiro, chama RevealStep, salva avanço e atualiza mapas.
-engine/browser/frame_style_chooser.asm	Browser_FrameStylePreview_RevealStep	4E:4612	.loop	330	316	356:jr .loop [backward]	RENAME	.copy_preview_cell	PROBABLE	Lê offset e copia tile e atributo do preview até sentinela $FFFF.
+engine/browser/frame_style_chooser.asm	Browser_FrameStylePreview_RevealStep	4E:4612	.loop	344	330	370:jr .loop [backward]	RENAME	.copy_preview_cell	PROBABLE	Lê offset e copia tile e atributo do preview até sentinela $FFFF.
 engine/browser/history_cache.asm	Browser_HistoryPop	4C:4BE9	.skip	97	72	91:jr c, .skip [forward]	RENAME	.store_wrapped_history_slot	PROBABLE	Armazena slot decrementado; valores fora de 0–5 recebem 5.
 engine/browser/history_cache.asm	Sram_CopyLongBlock	4C:4C0F	.skip	121	114	119:jr c, .skip [forward]	RENAME	.copy_clamped_chunk	PROBABLE	BC limitado a $0200 antes da preparação da cópia.
 engine/browser/history_cache.asm	PageCache_Pop	4C:4D1E	.skip	293	266	287:jr c, .skip [forward]	RENAME	.store_wrapped_cache_slot	PROBABLE	Armazena slot decrementado; valores fora de 0–2 recebem 2.

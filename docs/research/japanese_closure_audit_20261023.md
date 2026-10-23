@@ -285,3 +285,27 @@ zero generic function prefixes, zero address-only global labels, and zero
 unreviewed generic-marker labels. This closes the declared census scope only;
 it does not prove that every code span, entry, data purpose, or frame is
 semantically known.
+
+## Bank 4E frame-preview cursor layout at the current source checkpoint
+
+Static review found a consumer missed by the earlier direct-reference search:
+the unreferenced `Browser_FrameStylePreview_Run` initializes an HRAM cursor to
+`4E:41E0`, passes it in `HL` to `Browser_FrameStylePreview_RevealStep`, and
+stores each returned cursor. The reader walks the table through computed
+register state, copies tile/attribute pairs from the SRAM3 snapshot to WRAM7
+maps, and terminates when the word after the final group increment is `$FFFF`.
+This corrects the stale “consumer not located” statement; it does not add a
+natural caller or execution.
+
+The reader consumes 41 groups and 441 map offsets through `4E:45F6`. Three
+words at `4E:45F8–45FE` (`$0000,$FFFF,$FFFF`) remain outside this reader and
+are now represented by a separate qualified source label; their other use and
+purpose are unknown. The table/remainder split preserves the original 1,054
+bytes exactly. `make` reports `RESULT: IDENTICAL`; `sym-check` passes with
+12,216 labels; the direct 1,054-byte ROM/build slice matches at file offset
+`0x1381E0` (SHA-256
+`d779aa0f59b5faef50c97fce11282d81eccbd44e81701dc7cf686aee35baed74`). See
+[`japanese_frame_wipe_cursor_contract_20261023.md`](japanese_frame_wipe_cursor_contract_20261023.md)
+for the operation and evidence limits. Bank 53 name/frame mapping, natural
+frame selection, global used/unused status, and the preview root remain
+unresolved.

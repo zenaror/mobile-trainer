@@ -95,8 +95,7 @@ such as the start/menu/back captions, artwork), which confirms the tile/tilemap 
 5810-5838 = tail of the 10-row x 20-column tile-number block 5770-5838; 4033 zero padding.
 
 ### 4E (1441 bytes; 9 remain)
-41E0-45FE (1054 bytes) = 43 word groups separated by `$FFFF` of BG-map offsets (row*32+col) along anti-diagonals (`words`, PROBABLE:
-consumer not found); descriptor table 654B (finding 2); code 4000 (1 insn, HYPOTHESIS), 47EB (SRAM record copy, HYPOTHESIS), 5D70 (head
+41E0-45F8 (1048 bytes) = 41 cursor groups: BG-map offsets through `$FFFF`, then one slot-byte increment word; the reader at 45FE copies tile/attribute pairs and advances the cursor (static layout CONFIRMED, preview purpose HYPOTHESIS; see `japanese_frame_wipe_cursor_contract_20261023.md`). The six bytes 45F8-45FE are post-terminator words with unknown purpose. Also: descriptor table 654B (finding 2); code 4000 (1 insn, HYPOTHESIS), 47EB (SRAM record copy, HYPOTHESIS), 5D70 (head
 of the copy_tilemap_rect_pair call site 5D93: `ld bc,$1214 ; ld de,$D000`, PROBABLE), 6087 and 6172 (HYPOTHESIS).
 Remaining: 5390 (1 byte `pop bc`), 6543-654B (8 bytes `08 08 0D 0E 0F 08 08 08`).
 
@@ -130,7 +129,7 @@ was observed and why it was not classified.
 
 ## Follow-ups worth doing
 * Banks 41-45 should adopt the same block layout (finding 1); the four-block structure repeats in every one.
-* Find the consumers of `4E:41E0` (diagonal transition table) and the loader that reads the `0xD50` blocks.
+* The Bank 4E frame-wipe cursor consumer is resolved statically; the loader that reads the `0xD50` blocks remains open.
 * HYPOTHESIS code (302 HYPOTHESIS bytes in total after verification, incl. single bytes) needs callers: candidates are indirect calls through RAM function pointers.
 
 ## Verification (adversarial pass)
@@ -146,7 +145,7 @@ into the table itself, so it is an array of pointer lists, not a flat table); 72
 SRAM address tables (14 sites); the 4 scroll-step tables of 7F:733A/7425/7578/76C4 (rows tile exactly; the "9-byte gaps" are 9 trailing
 zero bytes after row 9); 0F:4169 jump table (13 targets are instruction starts) with the dispatcher, and 0F:4011/4183 tables; 2E:54F8 table;
 7E:7D8F jump table with the 4 handlers; 7F:4202 as entry 0 of the 16-word table 7F:42A3; 7F:6DB0/7B40 tables; the 7F sprite tile block
-(rendered, coherent); 4E:41E0 groups (structure holds, consumer still unknown: no `ld r16` immediate in bank 4E or ROM0 has a value inside the block; the far-call words of bank 4E with such values target bank 4F).
+(rendered, coherent); the static cursor path for `4E:41E0` is now traced through `hFramePreview_WipePtr` and `Browser_FrameStylePreview_RevealStep`; no natural entry or rendered runtime evidence follows because `Browser_FrameStylePreview_Run` remains unreferenced. The six-byte post-terminator tail stays unclassified.
 Whole-config checks: no hole/overlap in the 12 banks; no executed instruction start inside a non-code region; no code region with an
 illegal opcode or a decode that overruns its end; every CONFIRMED code region has all instruction starts in analysis/coverage_union.tsv (and
 every fully covered code region of the 12 banks is CONFIRMED); every direct branch target of the 12 banks lands on an instruction start

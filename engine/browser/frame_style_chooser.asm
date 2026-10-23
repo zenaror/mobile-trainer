@@ -243,7 +243,15 @@ Browser_FrameStylePreview_Exit:: ; 4E:41C8
 	ldh a, [hDialogResult]
 	ret
 
-; ---- words $41E0-$45FE (1054 bytes) [PROBABLE] list of little-endian words grouped into 43 groups separated by $FFFF: each group = one delay-like word ($0004/$0008/$000C/$0010/$0002/$0001) followed by tilemap offsets row*32+col that walk the 32-wide BG map along anti-diagonals ($0000,$0001,$0020,$0002,$0021,$0040,...,$0294; verified by listing every group, offsets grow by $20-1 per step); consumer not located (no code word/immediate pointing into the table), so the use is inferred from the values only
+; ---- words $41E0-$45F8 (1048 bytes) [CONFIRMED reader layout; HYPOTHESIS preview role]
+; 41 groups: 1-21 little-endian BG-map offsets (row*32+col, +$1F per entry),
+; terminated by $FFFF, followed by one increment word ($0001/$0002/$0004/$0008/$000C/$0010).
+; The caller at $409C passes this cursor to RevealStep at $45FE. For each offset,
+; RevealStep copies the indexed tile/attribute pair from the SRAM3 snapshot to the WRAM7
+; screen maps. At the group sentinel it adds the next word's low byte to wSpriteSlot8+$01
+; and returns the next group cursor. That slot byte is the X-position field under the
+; PROBABLE Sprite_SetPosition model. The final $FFFF at $45F6 returns HL=0. The preview
+; root remains HYPOTHESIS; see japanese_frame_wipe_cursor_contract_20261023.md.
 
 Data_Browser_FrameWipeGroups:: ; 4E:41E0
 	dw $0000, $FFFF, $0004, $0001, $0020, $FFFF, $0004, $0002
@@ -311,7 +319,13 @@ Data_Browser_FrameWipeGroups:: ; 4E:41E0
 	dw $FFFF, $0002, $0214, $0233, $0252, $0271, $0290, $FFFF
 	dw $0002, $0234, $0253, $0272, $0291, $FFFF, $0002, $0254
 	dw $0273, $0292, $FFFF, $0001, $0274, $0293, $FFFF, $0001
-	dw $0294, $FFFF, $0001, $FFFF, $0000, $FFFF, $FFFF
+	dw $0294, $FFFF, $0001, $FFFF
+
+; ---- words $45F8-$45FE (6 bytes) [HYPOTHESIS] after RevealStep's final $FFFF at $45F6;
+; the known cursor reader returns HL=0 at that sentinel and does not consume these words.
+; Other readers and their purpose have not been established.
+Browser_FrameStylePreview_PostTerminatorWords:: ; 4E:45F8
+	dw $0000, $FFFF, $FFFF
 
 Browser_FrameStylePreview_RevealStep:: ; 4E:45FE
 
