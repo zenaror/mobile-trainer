@@ -34,6 +34,15 @@ The routine sends the selected word to `rOCPD` and copies that word into
 `54 7F FF 7F 54 7F 12 7E 06 0C 06 06` (original ROM offset `0x156F95`,
 slice SHA-256 `b1b7edfe6be9672ba955c62dde9ff198f07a7d00dea570d7a04423ff0b1f3338`).
 
+A separate source census found the field producer: executed-entry routine
+`Kbd_Open` initializes `wRam_C2B0` to `$FF` and `wRam_C2B1` to `$01`
+(`engine/keyboard/keyboard.asm:33,35`). Across maintained ASM/INC, those stores
+and the candidate reader are the only references to the two fields. This is a
+positive producer/context link for the candidate state contract, but no source
+call or other incoming edge to `55:6F46` was found. The RAM equates stay neutral
+because that missing edge leaves their use conditional; this producer does not
+prove natural entry to the reader.
+
 The source label is now `Kbd_Candidate_PaletteWordsAndReloadCounts`, with a
 `[PROBABLE]` data header. This names the statically observed layout and preserves
 the `Candidate` qualifier. It does not establish that the routine is naturally

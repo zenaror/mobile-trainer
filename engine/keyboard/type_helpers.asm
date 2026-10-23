@@ -162,8 +162,10 @@ Kbd_Candidate_DecrementC2B1OrAdvanceC2B0AndWriteOcpd:: ; 55:6F46
 	; [CONFIRMED] decrement C2B1 and return if nonzero; otherwise wait, advance C2B0 mod 4, load its
 	; reload count and indexed palette word, write the word to OCPD, call Sound_FrameService, then
 	; copy the same word into the WRAM7 palette buffer.
-	; [PROBABLE] the 12-byte block at 6F95 is four palette words followed by four reload counts.
-	; [HYPOTHESIS] Natural entry, caller, and visible effect remain unproved.
+	; [PROBABLE] the 12-byte block at 6F95 is four palette words followed by four reload counts;
+	; Kbd_Open seeds C2B0=$FF and C2B1=$01, consistent with this candidate state contract.
+	; [HYPOTHESIS] No incoming edge to this span is proved; natural entry, caller and visible effect
+	; remain unproved.
 	ld a, [wRam_C2B1]
 	dec a
 	or a, a
