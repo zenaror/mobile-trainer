@@ -3,10 +3,13 @@
 ## Scope and result
 
 This report consolidates the currently verifiable Japanese-ROM requirements at
-`abdf7acf9f6f446bde9366870c83e163b909deae` on
+`a488786c44f69fdc1e040a591c9fabaa204425fd` on
 `codex/japanese-census-ram-ledger`. It uses only the canonical checkout
 `/home/rafael/_PROJETOS/Mobile Trainer`; the English overlay and Operator ZIP
-remain paused and were not examined in this pass.
+remain paused and were not examined in this pass. Build and test gates below
+were run at source checkpoint `f2bcbdaaec93c3b1cc81d62b2314b6ac314639d3`;
+the intervening commit only reconciles documentation, with no ASM, asset, or
+ROM-source changes.
 
 | Requirement | Current evidence | Status and limit |
 |---|---|---|
@@ -27,7 +30,7 @@ and [`japanese_operation_boundary_worklist_20261023.tsv`](japanese_operation_bou
 The bounded Bank 53/frame evidence and limits are in
 [`bank53_names_frames_assets_audit_20261023.md`](bank53_names_frames_assets_audit_20261023.md).
 
-## Validation at this checkpoint
+## Validation at the current source state
 
 - `make`: original ROM SHA-256 OK; `RESULT: IDENTICAL`.
 - `make sym-check`: 335 source files, 12,212 labels, 51 constants; OK.
