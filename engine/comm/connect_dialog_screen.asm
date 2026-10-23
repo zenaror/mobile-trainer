@@ -140,7 +140,7 @@ ConnectDialog_Draw_ConnectConfirm:: ; 57:47D1
 	ldh a, [hScratchA]
 	ld a, [wConnectDialog_Mode]
 	cp a, $04
-	jr z, .l4914
+	jr z, .draw_argument_byte6_digits
 	ld a, $92
 	ld [wConnectDialog_AttrSrc], a
 	ld a, $52
@@ -151,7 +151,7 @@ ConnectDialog_Draw_ConnectConfirm:: ; 57:47D1
 	ld a, BANK(Tilemap_ConnectDialog_ConnectConfirm_56_526A)
 	farcall Tilemap_CopyRectAndAttrPtr
 	jp ConnectDialog_Draw_Finish
-.l4914 ; 57:4914
+.draw_argument_byte6_digits ; 57:4914
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -186,9 +186,9 @@ ConnectDialog_Draw_PasswordEntry:: ; 57:4951
 	; entered by jpcc from 57:47BA (executed) [executed in 1 scenarios]
 	ld a, [wConnectDialog_PrevMode]
 	cp a, $05
-	jp z, .l4AA3
+	jp z, .reinit_caret_sprites
 	cp a, $06
-	jp z, .l4AA3
+	jp z, .reinit_caret_sprites
 	ld de, $8800
 	ld hl, Gfx_ConnectDialog_PasswordEntryAndSaveConfirm_Tiles8800
 	ld a, BANK(Gfx_ConnectDialog_PasswordEntryAndSaveConfirm_Tiles8800)
@@ -307,7 +307,7 @@ ConnectDialog_Draw_PasswordEntry:: ; 57:4951
 	farcall Sprite_InitSlot
 	call ConnectDialog_PlaceCaretSprites
 	jp ConnectDialog_Draw_Finish
-.l4AA3 ; 57:4AA3
+.reinit_caret_sprites ; 57:4AA3
 	ld hl, wSpriteSlot3
 	ld de, ConnectDialog_ObjTable
 	ld a, BANK(ConnectDialog_ObjTable)
@@ -324,7 +324,7 @@ ConnectDialog_Draw_PasswordEntry:: ; 57:4951
 ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	ld a, [wConnectDialog_PrevMode]
 	cp a, $08
-	jp nz, .l4BF3
+	jp nz, .load_save_confirm_map
 	ld de, $8800
 	ld hl, Gfx_ConnectDialog_PasswordEntryAndSaveConfirm_Tiles8800
 	ld a, BANK(Gfx_ConnectDialog_PasswordEntryAndSaveConfirm_Tiles8800)
@@ -433,7 +433,7 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	call ConnectDialog_DrawPasswordField
-.l4BF3 ; 57:4BF3
+.load_save_confirm_map ; 57:4BF3
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_ConnectDialog_56_49FA
@@ -446,13 +446,13 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	farcall Palette_LoadToBuffer
 	ld a, [wConnectDialog_PrevMode]
 	cp a, $06
-	jr nz, .l4C2C
+	jr nz, .render_save_confirm_prompt
 	call VBlank_WaitStartDI
 	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService
-.l4C2C ; 57:4C2C
+.render_save_confirm_prompt ; 57:4C2C
 	ld a, $80
 	ld bc, $0610
 	ld de, $F00E
@@ -891,32 +891,32 @@ ConnectDialog_Draw_Finish:: ; 57:5077
 	call Gfx_UploadBgMapBuffers
 	ld a, [wConnectDialog_PrevMode]
 	cp a, $05
-	jr nc, .l50B3
-.loop ; 57:50A6
+	jr nc, .check_password_mode_transition
+.fade_in_screen ; 57:50A6
 	farcall Sprite_UpdateAll
 	farcall Palette_FadeInFromWhite
 	ret
-.l50B3 ; 57:50B3
+.check_password_mode_transition ; 57:50B3
 	ld a, [wConnectDialog_Mode]
 	cp a, $05
-	jr c, .loop
+	jr c, .fade_in_screen
 
 	; [CONFIRMED] 32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 0;
 	; fall-through of the jrcc at 57:50B8 (executed) [executed in 1 scenarios]
 	ld a, [wConnectDialogLowerWindowShown]
 	or a, a
-	jr z, .l50CA
+	jr z, .check_return_from_forget_confirm
 	call ConnectDialog_HideLowerWindow
 	ld a, [wConnectDialog_Mode]
 	cp a, $08
-	jr z, .loop
-.l50CA ; 57:50CA
+	jr z, .fade_in_screen
+.check_return_from_forget_confirm ; 57:50CA
 	ld a, [wConnectDialog_PrevMode]
 	cp a, $0A
 	ret nz
 	ld a, [wConnectDialog_Mode]
 	cp a, $05
-	jr z, .loop
+	jr z, .fade_in_screen
 	ret
 
 ConnectDialog_Draw_SaveForgetConfirm_Tail:: ; 57:50D8
@@ -934,9 +934,9 @@ ConnectDialog_Draw_SaveForgetConfirm_Tail:: ; 57:50D8
 	call ConnectDialog_DrawPasswordField
 	ld a, [wConnectDialog_PrevMode]
 	cp a, $08
-	jr nz, .l510B
+	jr nz, .show_lower_window
 	farcall Palette_FadeInFromWhite
-.l510B ; 57:510B
+.show_lower_window ; 57:510B
 	call ConnectDialog_ShowLowerWindow
 	ret
 
@@ -952,18 +952,18 @@ ConnectDialog_DrawPasswordField:: ; 57:510F
 	jp c, .done
 	jp z, .done
 	cp a, $06
-	jp c, .l513B
-	jp z, .l513B
+	jp c, .load_entry_field_map
+	jp z, .load_entry_field_map
 	cp a, $08
-	jp c, .l5160
-	jp z, .l5174
+	jp c, .load_save_confirm_field_map
+	jp z, .load_password_saved_field_map
 	cp a, $0A
-	jp c, .l5187
+	jp c, .load_stored_password_field_map
 
 	; [CONFIRMED] 26 insn(s) reached by static flow only; seeds: exec x26; min discovery hops 0;
 	; fall-through of the jpcc at 57:5133 (executed) | 1 insn(s) executed; cut out of the PROBABLE
 	; region 5136-5187 by apply_coverage --split [executed in 6 scenarios]
-	jp z, .l51AB
+	jp z, .load_forget_confirm_field_map
 
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5136-5187 by apply_coverage --split
@@ -971,7 +971,7 @@ ConnectDialog_DrawPasswordField:: ; 57:510F
 .done ; 57:513A
 	ret
 
-.l513B ; 57:513B
+.load_entry_field_map ; 57:513B
 	; [CONFIRMED] 23 insn(s) executed; cut out of the PROBABLE region 5136-5187 by apply_coverage
 	; --split [executed in 3 scenarios]
 	ld bc, $1214
@@ -984,23 +984,23 @@ ConnectDialog_DrawPasswordField:: ; 57:510F
 	ld de, $0000
 	ld hl, wScreenTileMap + $122
 	farcall Tilemap_FillRectSequential
-	jp .l520D
-.l5160 ; 57:5160
+	jp .draw_remaining_field_cells
+.load_save_confirm_field_map ; 57:5160
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_ConnectDialog_56_49FA
 	ld a, BANK(Tilemap_ConnectDialog_56_49FA)
 	farcall Tilemap_CopyRectAndAttr
-	jp .l520D
-.l5174 ; 57:5174
+	jp .draw_remaining_field_cells
+.load_password_saved_field_map ; 57:5174
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_ConnectDialog_56_4CCA
 	ld a, BANK(Tilemap_ConnectDialog_56_4CCA)
 	farcall Tilemap_CopyRectAndAttr
-	jr .l51BC
+	jr .draw_used_field_cells
 
-.l5187 ; 57:5187
+.load_stored_password_field_map ; 57:5187
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 5/18 scenarios)
 	ld bc, $1214
 	ld de, wScreenTileMap
@@ -1012,9 +1012,9 @@ ConnectDialog_DrawPasswordField:: ; 57:510F
 	ld de, $0000
 	ld hl, wScreenTileMap + $122
 	farcall Tilemap_FillRectSequential
-	jr .l51BC
+	jr .draw_used_field_cells
 
-.l51AB ; 57:51AB
+.load_forget_confirm_field_map ; 57:51AB
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1;
 	; entered by jpcc from 57:5136 (PROBABLE code) [executed in 4 scenarios]
 	ld bc, $1214
@@ -1023,40 +1023,40 @@ ConnectDialog_DrawPasswordField:: ; 57:510F
 	ld a, BANK(Tilemap_ConnectDialog_56_472A)
 	farcall Tilemap_CopyRectAndAttr
 
-.l51BC ; 57:51BC
+.draw_used_field_cells ; 57:51BC
 	; [CONFIRMED] 40 insn(s); 40 executed (in up to 5/18 scenarios)
 	ld a, [wConnectDialogTextLen]
 	or a, a
-	jr z, .l51E8
+	jr z, .upload_used_field_rows
 	ld c, a
 	ld b, c
 	ld hl, wScreenTileMap + $86
 	ld a, $11
-.l51C9 ; 57:51C9
+.fill_used_top_tiles ; 57:51C9
 	ld [hli], a
 	dec c
-	jr nz, .l51C9
+	jr nz, .fill_used_top_tiles
 	ld c, b
 	ld hl, wScreenTileMap + $A6
 	inc a
-.l51D2 ; 57:51D2
+.fill_used_bottom_tiles ; 57:51D2
 	ld [hli], a
 	dec c
-	jr nz, .l51D2
+	jr nz, .fill_used_bottom_tiles
 	ld c, b
 	ld hl, wScreenAttrMap + $86
 	ld a, $08
-.l51DC ; 57:51DC
+.fill_used_top_attrs ; 57:51DC
 	ld [hli], a
 	dec c
-	jr nz, .l51DC
+	jr nz, .fill_used_top_attrs
 	ld c, b
 	ld hl, wScreenAttrMap + $A6
-.l51E4 ; 57:51E4
+.fill_used_bottom_attrs ; 57:51E4
 	ld [hli], a
 	dec c
-	jr nz, .l51E4
-.l51E8 ; 57:51E8
+	jr nz, .fill_used_bottom_attrs
+.upload_used_field_rows ; 57:51E8
 	ld de, $9880
 	ld hl, wScreenTileMap + $80
 	ld a, $00
@@ -1071,12 +1071,12 @@ ConnectDialog_DrawPasswordField:: ; 57:510F
 	farcall Gfx_StartHDMAWithService
 	ret
 
-.l520D ; 57:520D
+.draw_remaining_field_cells ; 57:520D
 	; [CONFIRMED] 114 insn(s) reached by static flow only; seeds: exec x114; min discovery hops 2;
 	; entered by jp from 57:515D (PROBABLE code) [executed in 4 scenarios]
 	ld a, [wConnectDialogTextLen]
 	cp a, $08
-	jr z, .l5258
+	jr z, .upload_remaining_field_rows
 	ld c, a
 	ld hl, wScreenTileMap + $86
 	add a, l
@@ -1090,10 +1090,10 @@ ConnectDialog_DrawPasswordField:: ; 57:510F
 	ld c, a
 	ld b, c
 	ld a, $22
-.l5226 ; 57:5226
+.fill_remaining_top_tiles ; 57:5226
 	ld [hli], a
 	dec c
-	jr nz, .l5226
+	jr nz, .fill_remaining_top_tiles
 	ld c, b
 	pop hl
 	push hl
@@ -1104,10 +1104,10 @@ ConnectDialog_DrawPasswordField:: ; 57:510F
 	adc a, $00
 	ld h, a
 	ld a, $10
-.l5237 ; 57:5237
+.fill_remaining_bottom_tiles ; 57:5237
 	ld [hli], a
 	dec c
-	jr nz, .l5237
+	jr nz, .fill_remaining_bottom_tiles
 	ld c, b
 	pop hl
 	ld a, $04
@@ -1115,10 +1115,10 @@ ConnectDialog_DrawPasswordField:: ; 57:510F
 	ld h, a
 	push hl
 	ld a, $08
-.l5244 ; 57:5244
+.fill_remaining_top_attrs ; 57:5244
 	ld [hli], a
 	dec c
-	jr nz, .l5244
+	jr nz, .fill_remaining_top_attrs
 	ld c, b
 	pop hl
 	ld a, $20
@@ -1128,11 +1128,11 @@ ConnectDialog_DrawPasswordField:: ; 57:510F
 	adc a, $00
 	ld h, a
 	ld a, $08
-.l5254 ; 57:5254
+.fill_remaining_bottom_attrs ; 57:5254
 	ld [hli], a
 	dec c
-	jr nz, .l5254
-.l5258 ; 57:5258
+	jr nz, .fill_remaining_bottom_attrs
+.upload_remaining_field_rows ; 57:5258
 	ld de, $9880
 	ld hl, wScreenTileMap + $80
 	ld a, $00
@@ -1161,11 +1161,11 @@ ConnectDialog_PlaceCaretSprites:: ; 57:527D
 	ld d, a
 	ldh a, [rWY]
 	cp a, $28
-	jr nz, .l529D
+	jr nz, .position_caret_slot2
 	ld a, $F8
 	add a, d
 	ld d, a
-.l529D ; 57:529D
+.position_caret_slot2 ; 57:529D
 	ld a, [wConnectDialogTextLen]
 	add a, a
 	add a, a
@@ -1179,11 +1179,11 @@ ConnectDialog_PlaceCaretSprites:: ; 57:527D
 	ld d, a
 	ldh a, [rWY]
 	cp a, $28
-	jr nz, .l52BF
+	jr nz, .position_caret_slot3
 	ld a, $F8
 	add a, d
 	ld d, a
-.l52BF ; 57:52BF
+.position_caret_slot3 ; 57:52BF
 	ld a, [wConnectDialogTextLen]
 	add a, a
 	add a, a
@@ -1217,10 +1217,10 @@ ConnectDialog_ObjHook_Caret:: ; 57:52D8
 	add hl, bc
 	ld a, [hl]
 	cp a, $FF
-	jr z, .l52F1
+	jr z, .reset_caret_slot2
 	or a, a
-	jr nz, .l5314
-.l52F1 ; 57:52F1
+	jr nz, .restore_wram_bank
+.reset_caret_slot2 ; 57:52F1
 	ld hl, wSpriteSlot2
 	ld de, ConnectDialog_ObjTable
 	ld a, BANK(ConnectDialog_ObjTable)
@@ -1237,7 +1237,7 @@ ConnectDialog_ObjHook_Caret:: ; 57:52D8
 	call ConnectDialog_PlaceCaretSprites
 	ld a, $01
 	ld [wConnectDialog_FieldDirty], a
-.l5314 ; 57:5314
+.restore_wram_bank ; 57:5314
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -1307,49 +1307,49 @@ ConnectDialog_ValidatePassword:: ; 57:5369
 	ret c
 	ld e, a
 	ld hl, wConnectDialogText
-.l5377 ; 57:5377
+.digit_scan_loop ; 57:5377
 	ld a, [hli]
 	cp a, $30
-	jr c, .l5380
+	jr c, .next_digit_candidate
 	cp a, $3A
-	jr c, .l5384
-.l5380 ; 57:5380
+	jr c, .begin_lowercase_scan
+.next_digit_candidate ; 57:5380
 	dec e
-	jr nz, .l5377
+	jr nz, .digit_scan_loop
 	ret
-.l5384 ; 57:5384
+.begin_lowercase_scan ; 57:5384
 	ld hl, wConnectDialogText
 	ld a, [wConnectDialogTextLen]
 	ld e, a
-.l538B ; 57:538B
+.lowercase_scan_loop ; 57:538B
 	ld a, [hli]
 	cp a, $61
-	jr c, .l5394
+	jr c, .next_lowercase_candidate
 	cp a, $7B
-	jr c, .l53AD
-.l5394 ; 57:5394
+	jr c, .set_valid_password_flags
+.next_lowercase_candidate ; 57:5394
 	dec e
-	jr nz, .l538B
+	jr nz, .lowercase_scan_loop
 	ld hl, wConnectDialogText
 	ld a, [wConnectDialogTextLen]
 	ld e, a
-.l539E ; 57:539E
+.uppercase_scan_loop ; 57:539E
 	ld a, [hli]
 	cp a, $41
-	jr c, .l53A7
+	jr c, .next_uppercase_candidate
 	cp a, $5B
-	jr c, .l53AD
-.l53A7 ; 57:53A7
+	jr c, .set_valid_password_flags
+.next_uppercase_candidate ; 57:53A7
 	dec e
-	jr nz, .l539E
+	jr nz, .uppercase_scan_loop
 	ld c, $00
 	ret
-.l53AD ; 57:53AD
+.set_valid_password_flags ; 57:53AD
 	ld a, [wConnectDialogTextLen]
 	cp a, $08
-	jr nz, .skip
+	jr nz, .mark_valid_password
 	ld c, $01
-.skip ; 57:53B6
+.mark_valid_password ; 57:53B6
 	ld b, $01
 	ret
 
@@ -1379,14 +1379,14 @@ ConnectDialog_UploadMapRow:: ; 57:53C6
 	dec c
 	ldh a, [rLCDC]
 	bit 7, a
-	jr z, .l53EC
-.loop ; 57:53E3
+	jr z, .upload_tile_and_attr_row
+.wait_ly_at_least_91 ; 57:53E3
 	ldh a, [rLY]
 	cp a, $91
-	jr c, .loop
+	jr c, .wait_ly_at_least_91
 	cp a, b
 	jr nc, .wait_ly_below_91
-.l53EC ; 57:53EC
+.upload_tile_and_attr_row ; 57:53EC
 	ld a, c
 	ldh [rHDMA5], a
 	inc c
@@ -1418,20 +1418,20 @@ ConnectDialog_UploadMapRow:: ; 57:53C6
 	cp a, $91
 	jr nc, .wait_ly_below_91
 	call Sound_FrameService
-	jr .loop
+	jr .wait_ly_at_least_91
 
 SavedPassword_Store:: ; 57:541C
 
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
 	or a, a
-	jr z, .l5437
+	jr z, .store_length_from_bc
 	cp a, $09
 	ret nc
 	push af
 	ld hl, sSavedPasswordText
 	ld c, a
-.loop ; 57:5427
+.store_next_encoded_byte ; 57:5427
 	ld a, [de]
 	xor a, $5A
 	ld b, a
@@ -1439,8 +1439,8 @@ SavedPassword_Store:: ; 57:541C
 	ld a, $01
 	farcall WriteByteFar
 	dec c
-	jr nz, .loop
-.l5437 ; 57:5437
+	jr nz, .store_next_encoded_byte
+.store_length_from_bc ; 57:5437
 	pop bc
 	ld a, $01
 	ld hl, sSavedPasswordLen
@@ -1469,164 +1469,166 @@ ConnectDialog_PlayButtonSfx:: ; 57:546C
 
 	; [CONFIRMED] 16 insn(s); 16 executed (in up to 6/18 scenarios); entry proven: target of an
 	; executed call/far call
+	; Modes 0-10 select their button handlers; nonzero B plays cancel, zero plays confirm, except
+	; mode 7/cursor 1 plays save. Mode 10 cannot reach SFX_DELETE from this entry.
 	ld b, a
 	ld a, [wConnectDialog_Mode]
 	cp a, $02
-	jr c, .l5498
-	jp z, .l54BE
+	jr c, .modes_0_1_confirm_dispatch
+	jp z, .mode_2_confirm_dispatch
 	cp a, $04
-	jp c, .l54E4
-	jp z, .l550A
+	jp c, .connect_confirm_buttons
+	jp z, .connect_confirm_with_count_buttons
 	cp a, $06
-	jp c, .l5530
-	jp z, .l5556
+	jp c, .password_prompt_buttons
+	jp z, .keyboard_mode_buttons
 	cp a, $08
-	jp c, .l557C
-	jp z, .l55BA
+	jp c, .save_confirm_buttons
+	jp z, .password_saved_buttons
 	cp a, $0A
-	jp c, .l55E0
+	jp c, .stored_password_buttons
 
 	; [CONFIRMED] 44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 0;
 	; fall-through of the jpcc at 57:5491 (executed) | 1 insn(s) executed; cut out of the PROBABLE
 	; region 5494-54E4 by apply_coverage --split [executed in 6 scenarios]
-	jp z, .l5606
+	jp z, .forget_confirm_buttons
 
 	; [PROBABLE] 43 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5494-54E4 by apply_coverage --split
 	ret
-.l5498 ; 57:5498
+.modes_0_1_confirm_dispatch ; 57:5498
 	xor a, a
 	or a, b
-	jr nz, .l54AD
+	jr nz, .modes_0_1_cancel_sfx
 	play_sfx SFX_CONFIRM
 	ret
-.l54AD ; 57:54AD
+.modes_0_1_cancel_sfx ; 57:54AD
 	play_sfx SFX_CANCEL
 	ret
-.l54BE ; 57:54BE
+.mode_2_confirm_dispatch ; 57:54BE
 	xor a, a
 	or a, b
-	jr nz, .l54D3
+	jr nz, .mode_2_cancel_sfx
 	play_sfx SFX_CONFIRM
 	ret
-.l54D3 ; 57:54D3
+.mode_2_cancel_sfx ; 57:54D3
 	play_sfx SFX_CANCEL
 	ret
 
-.l54E4 ; 57:54E4
+.connect_confirm_buttons ; 57:54E4
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 2/18 scenarios)
 	xor a, a
 	or a, b
-	jr nz, .l54F9
+	jr nz, .connect_confirm_cancel
 	play_sfx SFX_CONFIRM
 	ret
 
-.l54F9 ; 57:54F9
+.connect_confirm_cancel ; 57:54F9
 	; [CONFIRMED] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1;
 	; entered by jrcc from 57:54E6 (executed) [executed in 5 scenarios]
 	play_sfx SFX_CANCEL
 	ret
 
-.l550A ; 57:550A
+.connect_confirm_with_count_buttons ; 57:550A
 	; [CONFIRMED] 21 insn(s); 21 executed (in up to 4/18 scenarios)
 	xor a, a
 	or a, b
-	jr nz, .l551F
+	jr nz, .connect_confirm_with_count_cancel
 	play_sfx SFX_CONFIRM
 	ret
-.l551F ; 57:551F
+.connect_confirm_with_count_cancel ; 57:551F
 	play_sfx SFX_CANCEL
 	ret
 
-.l5530 ; 57:5530
+.password_prompt_buttons ; 57:5530
 	; [CONFIRMED] 96 insn(s) reached by static flow only; seeds: exec x96; min discovery hops 1;
 	; entered by jpcc from 57:5481 (executed) | 21 insn(s) executed; cut out of the PROBABLE region
 	; 5530-55E0 by apply_coverage --split [executed in 4 scenarios]
 	xor a, a
 	or a, b
-	jr nz, .l5545
+	jr nz, .password_prompt_cancel
 	play_sfx SFX_CONFIRM
 	ret
-.l5545 ; 57:5545
+.password_prompt_cancel ; 57:5545
 	play_sfx SFX_CANCEL
 	ret
 
-.l5556 ; 57:5556
+.keyboard_mode_buttons ; 57:5556
 	; [PROBABLE] 21 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5530-55E0 by apply_coverage --split
 	xor a, a
 	or a, b
-	jr nz, .l556B
+	jr nz, .keyboard_mode_cancel
 	play_sfx SFX_CONFIRM
 	ret
-.l556B ; 57:556B
+.keyboard_mode_cancel ; 57:556B
 	play_sfx SFX_CANCEL
 	ret
 
-.l557C ; 57:557C
+.save_confirm_buttons ; 57:557C
 	; [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 5530-55E0 by apply_coverage
 	; --split [executed in 3 scenarios]
 	xor a, a
 	or a, b
-	jr nz, .l55A9
+	jr nz, .save_confirm_cancel
 	ld a, [wConnectDialog_Cursor]
 	cp a, $01
-	jr nz, .l5598
+	jr nz, .save_confirm_other_cursor
 	play_sfx SFX_SAVE
 	ret
 
-.l5598 ; 57:5598
+.save_confirm_other_cursor ; 57:5598
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5530-55E0 by apply_coverage --split
 	play_sfx SFX_CONFIRM
 	ret
 
-.l55A9 ; 57:55A9
+.save_confirm_cancel ; 57:55A9
 	; [CONFIRMED] 30 insn(s) executed; cut out of the PROBABLE region 5530-55E0 by apply_coverage
 	; --split [executed in 1 scenarios]
 	play_sfx SFX_CANCEL
 	ret
-.l55BA ; 57:55BA
+.password_saved_buttons ; 57:55BA
 	xor a, a
 	or a, b
-	jr nz, .l55CF
+	jr nz, .password_saved_cancel
 	play_sfx SFX_CONFIRM
 	ret
-.l55CF ; 57:55CF
+.password_saved_cancel ; 57:55CF
 	play_sfx SFX_CANCEL
 	ret
 
-.l55E0 ; 57:55E0
+.stored_password_buttons ; 57:55E0
 	; [CONFIRMED] 21 insn(s); 21 executed (in up to 5/18 scenarios)
 	xor a, a
 	or a, b
-	jr nz, .l55F5
+	jr nz, .stored_password_cancel
 	play_sfx SFX_CONFIRM
 	ret
-.l55F5 ; 57:55F5
+.stored_password_cancel ; 57:55F5
 	play_sfx SFX_CANCEL
 	ret
 
-.l5606 ; 57:5606
+.forget_confirm_buttons ; 57:5606
 	; [CONFIRMED] 32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 1;
 	; entered by jpcc from 57:5494 (PROBABLE code) | 5 insn(s) executed; cut out of the PROBABLE
 	; region 5606-5641 by apply_coverage --split [executed in 5 scenarios]
 	xor a, a
 	or a, b
-	jr nz, .l5630
+	jr nz, .forget_confirm_cancel
 	cp a, $01
-	jr nz, .l561F
+	jr nz, .forget_confirm_a_button
 
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5606-5641 by apply_coverage --split
-	play_sfx SFX_DELETE ; unreachable: A = B = 0 here, so the `jr nz` above is always taken (the forget prompt plays SFX_CONFIRM at .l561F)
+	play_sfx SFX_DELETE ; unreachable: A = B = 0 here, so the `jr nz` above is always taken (the forget prompt plays SFX_CONFIRM at .forget_confirm_a_button)
 	ret
 
-.l561F ; 57:561F
+.forget_confirm_a_button ; 57:561F
 	; [CONFIRMED] 18 insn(s) executed; cut out of the PROBABLE region 5606-5641 by apply_coverage
 	; --split [executed in 4 scenarios]
 	play_sfx SFX_CONFIRM
 	ret
-.l5630 ; 57:5630
+.forget_confirm_cancel ; 57:5630
 	play_sfx SFX_CANCEL
 	ret

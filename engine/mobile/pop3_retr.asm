@@ -44,9 +44,9 @@ Pop3_RetrPoll:: ; 54:4CF4
 	bit 1, a
 	jr nz, .fetch_result_return_ff
 	bit 2, a
-	jr nz, .l4D0F
+	jr nz, .call_retr_api_with_zero_capacity
 	bit 0, a
-	jr z, .l4D20
+	jr z, .advance_retr_step
 	ld a, $01
 	ret
 .fetch_result_return_ff ; 54:4D09
@@ -54,7 +54,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 	ld a, $FF
 	ret
 
-.l4D0F ; 54:4D0F
+.call_retr_api_with_zero_capacity ; 54:4D0F
 	; [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4CB0-4FC3 by apply_coverage --split
 	ld de, wRam_C480
@@ -64,23 +64,23 @@ Pop3_RetrPoll:: ; 54:4CF4
 	ld a, $01
 	ret
 
-.l4D20 ; 54:4D20
+.advance_retr_step ; 54:4D20
 	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage
 	; --split [executed in 5 scenarios]
 	ld hl, wMobileTaskStep
 	inc [hl]
 	ld a, [hl]
 	dec a
-	jr z, .l4D38
+	jr z, .parse_retr_mail
 	dec a
-	jr z, .l4D2E
+	jr z, .return_fetch_status_and_clear_task
 
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4CB0-4FC3 by apply_coverage --split
 	ld a, $FF
 	ret
 
-.l4D2E ; 54:4D2E
+.return_fetch_status_and_clear_task ; 54:4D2E
 	; [CONFIRMED] 40 insn(s) executed; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage
 	; --split [executed in 5 scenarios]
 	ld a, [wMailFetchStatus]
@@ -89,7 +89,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 	xor a, a
 	ld [hl], a
 	ret
-.l4D38 ; 54:4D38
+.parse_retr_mail ; 54:4D38
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -99,7 +99,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 	ldh [rSVBK], a
 	call Mail_ScanAndCheckGameMail
 	or a, a
-	jp nz, .l4FA4
+	jp nz, .restore_banks_and_finish_status_1
 	ld de, wRam_C240
 	ld hl, Data_Pop3Retr_ParseBodyArgs
 	ld bc, $0008
@@ -111,7 +111,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 	ld de, wRam_C240
 	farcall Mail_DispatchFar
 	or a, a
-	jp nz, .l4FA4
+	jp nz, .restore_banks_and_finish_status_1
 	ld de, wRam_C240
 	ld hl, Data_Pop3Retr_DecodeFromHeaderArgs
 	ld bc, $0007
@@ -123,15 +123,15 @@ Pop3_RetrPoll:: ; 54:4CF4
 	ld de, wRam_C240
 	farcall Mail_DispatchFar
 	or a, a
-	jr z, .l4D9A
+	jr z, .convert_and_split_from_header
 
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4CB0-4FC3 by apply_coverage --split
 	ld a, $02
 	ld [wMailFetchStatus], a
-	jr .l4DD5
+	jr .decode_subject_header
 
-.l4D9A ; 54:4D9A
+.convert_and_split_from_header ; 54:4D9A
 	; [CONFIRMED] 40 insn(s) executed; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage
 	; --split [executed in 6 scenarios]
 	ld de, wRam_C480
@@ -156,16 +156,16 @@ Pop3_RetrPoll:: ; 54:4CF4
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-.l4DCA ; 54:4DCA
+.cut_from_address_at_space ; 54:4DCA
 	ld a, [hli]
 	or a, a
-	jr z, .l4DD5
+	jr z, .decode_subject_header
 	cp a, $20
-	jr nz, .l4DCA
+	jr nz, .cut_from_address_at_space
 	dec hl
 	xor a, a
 	ld [hl], a
-.l4DD5 ; 54:4DD5
+.decode_subject_header ; 54:4DD5
 	ld a, $05
 	ld [wRam_C240], a
 	ld a, $05
@@ -181,7 +181,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 	; 4CB0-4FC3 by apply_coverage --split
 	ld a, $02
 	ld [wMailFetchStatus], a
-	jr .l4E47
+	jr .decode_date_header
 
 .l4DF5 ; 54:4DF5
 	; [CONFIRMED] 47 insn(s) executed; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage
@@ -202,30 +202,30 @@ Pop3_RetrPoll:: ; 54:4CF4
 	ld hl, wRam_C580
 	ld b, $1A
 	xor a, a
-.l4E1A ; 54:4E1A
+.clear_subject_measure_buffer ; 54:4E1A
 	ld [hli], a
 	dec b
-	jr nz, .l4E1A
+	jr nz, .clear_subject_measure_buffer
 	ld hl, wRam_C480
 	ld de, wRam_C580
 	ld bc, $0018
 	farcall Charset_Iso2022JpToSjis
 	ld hl, wRam_C580
 	ld b, $FF
-.l4E32 ; 54:4E32
+.count_converted_subject_bytes ; 54:4E32
 	inc b
 	ld a, [hli]
 	or a, a
-	jr nz, .l4E32
+	jr nz, .count_converted_subject_bytes
 	pop hl
 	ld a, b
 	cp a, $15
-	jr c, .l4E47
+	jr c, .decode_date_header
 	ld a, $02
 	ld [wMailFetchStatus], a
 	ld b, $12
 	call Text_TruncateSjis
-.l4E47 ; 54:4E47
+.decode_date_header ; 54:4E47
 	ld a, $06
 	ld [wRam_C240], a
 	ld a, $05
@@ -235,7 +235,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 	ld de, wRam_C240
 	farcall Mail_DispatchFar
 	or a, a
-	jr z, .l4E67
+	jr z, .store_date_and_prepare_body
 
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4CB0-4FC3 by apply_coverage --split
@@ -243,7 +243,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 	ld [wMailFetchStatus], a
 	jr .l4DF5
 
-.l4E67 ; 54:4E67
+.store_date_and_prepare_body ; 54:4E67
 	; [CONFIRMED] 42 insn(s) executed; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage
 	; --split [executed in 6 scenarios]
 	call Mail_ParseDate
@@ -268,45 +268,45 @@ Pop3_RetrPoll:: ; 54:4CF4
 	ld h, a
 	push hl
 	add hl, bc
-.l4E95 ; 54:4E95
+.trim_body_trailing_crlf ; 54:4E95
 	xor a, a
 	ld [hld], a
 	ld a, [hl]
 	cp a, $0A
-	jr z, .l4E95
+	jr z, .trim_body_trailing_crlf
 	cp a, $0D
-	jr z, .l4E95
+	jr z, .trim_body_trailing_crlf
 	pop hl
 	ld bc, $00C1
 	ld de, wRam_C480
 	farcall Charset_Iso2022JpToSjis
 	ld hl, wRam_C480
 	ld b, $C0
-.l4EB2 ; 54:4EB2
+.replace_body_tabs_with_spaces ; 54:4EB2
 	dec b
-	jr z, .l4EC3
+	jr z, .select_body_copy_method
 	ld a, [hli]
 	or a, a
-	jr z, .l4EC3
+	jr z, .select_body_copy_method
 	cp a, $09
-	jr nz, .l4EB2
+	jr nz, .replace_body_tabs_with_spaces
 
 	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4CB0-4FC3 by apply_coverage --split
 	dec hl
 	ld a, $20
 	ld [hli], a
-	jr .l4EB2
+	jr .replace_body_tabs_with_spaces
 
-.l4EC3 ; 54:4EC3
+.select_body_copy_method ; 54:4EC3
 	; [CONFIRMED] 53 insn(s) executed; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage
 	; --split [executed in 4 scenarios]
 	ld b, $00
 	ld hl, wRam_C480
 	ld a, $C0
 	cp a, c
-	jr c, .l4F24
-	jr z, .l4F24
+	jr c, .init_body_byte_count
+	jr z, .init_body_byte_count
 	add hl, bc
 	xor a, a
 	ld [hl], a
@@ -317,7 +317,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 	ld d, h
 	ld hl, wRam_C480
 	farcall CopyString
-.l4EE7 ; 54:4EE7
+.mark_record_and_request_dele ; 54:4EE7
 	farcall MailRecord_GetFreeSlotPtr
 	ld a, $01
 	ld [hli], a
@@ -345,10 +345,10 @@ Pop3_RetrPoll:: ; 54:4CF4
 	farcall MobileAPI
 	ld a, $01
 	ret
-.l4F24 ; 54:4F24
+.init_body_byte_count ; 54:4F24
 	ld b, $00
 	ld hl, wRam_C480
-.l4F29 ; 54:4F29
+.scan_body_copy_count ; 54:4F29
 	ld e, l
 	ld d, h
 	ld a, [hli]
@@ -380,10 +380,10 @@ Pop3_RetrPoll:: ; 54:4CF4
 .skip ; 54:4F4A
 	ld a, $C0
 	cp a, b
-	jr z, .l4F70
+	jr z, .prepare_counted_body_copy
 	dec a
 	cp a, b
-	jr nz, .l4F29
+	jr nz, .scan_body_copy_count
 	ld a, [hl]
 	cp a, $81
 	jr c, .l4F6C
@@ -406,13 +406,13 @@ Pop3_RetrPoll:: ; 54:4CF4
 	; --split [executed in 1 scenarios]
 	or a, a
 .l4F6D ; 54:4F6D
-	jr nc, .l4F70
+	jr nc, .prepare_counted_body_copy
 
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4CB0-4FC3 by apply_coverage --split
 	inc b
 
-.l4F70 ; 54:4F70
+.prepare_counted_body_copy ; 54:4F70
 	; [CONFIRMED] 26 insn(s) executed; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage
 	; --split [executed in 4 scenarios]
 	ld a, c
@@ -420,7 +420,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 	ld b, $00
 	push bc
 	cp a, $C1
-	jr nz, .l4F8B
+	jr nz, .copy_counted_body_to_record
 	ld a, $01
 	ld [wPop3_BodyIncomplete], a
 	pop bc
@@ -432,7 +432,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 	ld [hli], a
 	ld a, $63
 	ld [hl], a
-.l4F8B ; 54:4F8B
+.copy_counted_body_to_record ; 54:4F8B
 	farcall MailRecord_GetFreeSlotPtr
 	ld de, $0009
 	add hl, de
@@ -441,9 +441,9 @@ Pop3_RetrPoll:: ; 54:4CF4
 	ld hl, wRam_C480
 	pop bc
 	farcall CopyBytes
-	jp .l4EE7
+	jp .mark_record_and_request_dele
 
-.l4FA4 ; 54:4FA4
+.restore_banks_and_finish_status_1 ; 54:4FA4
 	; [PROBABLE] 14 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4CB0-4FC3 by apply_coverage --split
 	ld a, $01
@@ -459,7 +459,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	jp .l4D2E
+	jp .return_fetch_status_and_clear_task
 
 ; ---- data $4FC3-$4FCB (8 bytes) [PROBABLE] POP3 RETR selector4 argument template
 
@@ -486,15 +486,15 @@ Mail_SplitFromHeader:: ; 54:4FD2
 	ld [wMailFrom_AddressDestHi], a
 	ld hl, wRam_C580
 	ld bc, $FFFF
-.l4FE8 ; 54:4FE8
+.scan_from_delimiter ; 54:4FE8
 	inc bc
 	ld a, [hli]
 	cp a, $3C
-	jr z, .l501B
+	jr z, .split_angle_address
 	cp a, $28
-	jr z, .l504F
+	jr z, .split_parenthesized_name
 	or a, a
-	jr nz, .l4FE8
+	jr nz, .scan_from_delimiter
 	ld a, [wMailFrom_AddressDest]
 	ld e, a
 	ld a, [wMailFrom_AddressDestHi]
@@ -505,16 +505,16 @@ Mail_SplitFromHeader:: ; 54:4FD2
 	ld hl, wMailFrom_NameDest
 	ld a, [wMobileTaskStep]
 	or a, a
-	jr nz, .l5081
+	jr nz, .prepare_name_formatting
 	ld a, [hli]
 	ld d, [hl]
 	ld e, a
 	ld hl, wRam_C580
 	ld b, $10
 	call Mail_CopyClampedEllipsis
-	jr .l5081
+	jr .prepare_name_formatting
 
-.l501B ; 54:501B
+.split_angle_address ; 54:501B
 	; [PROBABLE] 31 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4FD2-511B by apply_coverage --split
 	push hl
@@ -532,11 +532,11 @@ Mail_SplitFromHeader:: ; 54:4FD2
 	pop hl
 	push hl
 	ld bc, $FFFF
-.l5035 ; 54:5035
+.scan_closing_angle ; 54:5035
 	inc bc
 	ld a, [hli]
 	cp a, $3E
-	jr nz, .l5035
+	jr nz, .scan_closing_angle
 	dec hl
 	xor a, a
 	ld [hl], a
@@ -548,9 +548,9 @@ Mail_SplitFromHeader:: ; 54:4FD2
 	pop hl
 	ld b, $40
 	call Mail_CopyClampedEllipsis
-	jr .l5081
+	jr .prepare_name_formatting
 
-.l504F ; 54:504F
+.split_parenthesized_name ; 54:504F
 	; [CONFIRMED] 52 insn(s) executed; cut out of the PROBABLE region 4FD2-511B by apply_coverage
 	; --split [executed in 12 scenarios]
 	push hl
@@ -568,11 +568,11 @@ Mail_SplitFromHeader:: ; 54:4FD2
 	pop hl
 	push hl
 	ld bc, $FFFF
-.l5069 ; 54:5069
+.scan_closing_parenthesis ; 54:5069
 	inc bc
 	ld a, [hli]
 	cp a, $29
-	jr nz, .l5069
+	jr nz, .scan_closing_parenthesis
 	dec hl
 	xor a, a
 	ld [hl], a
@@ -584,7 +584,7 @@ Mail_SplitFromHeader:: ; 54:4FD2
 	pop hl
 	ld b, $10
 	call Mail_CopyClampedEllipsis
-.l5081 ; 54:5081
+.prepare_name_formatting ; 54:5081
 	ld hl, wMailFrom_NameDest
 	ld a, [hli]
 	ld h, [hl]
@@ -597,29 +597,29 @@ Mail_SplitFromHeader:: ; 54:4FD2
 	pop hl
 	push hl
 	ld b, $10
-.l5092 ; 54:5092
+.trim_name_trailing_space ; 54:5092
 	dec b
-	jr z, .l50A2
+	jr z, .init_name_conversion_count
 	ld a, [hli]
 	or a, a
-	jr nz, .l5092
+	jr nz, .trim_name_trailing_space
 	dec hl
 	dec hl
 	ld a, [hl]
 	cp a, $20
-	jr nz, .l50A2
+	jr nz, .init_name_conversion_count
 
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4FD2-511B by apply_coverage --split
 	xor a, a
 	ld [hl], a
 
-.l50A2 ; 54:50A2
+.init_name_conversion_count ; 54:50A2
 	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 4FD2-511B by apply_coverage
 	; --split [executed in 12 scenarios]
 	pop hl
 	ld b, $07
-.l50A5 ; 54:50A5
+.convert_name_characters_to_fullwidth ; 54:50A5
 	ld a, [hl]
 	or a, a
 	ret z
@@ -644,21 +644,21 @@ Mail_SplitFromHeader:: ; 54:4FD2
 	; --split [executed in 6 scenarios]
 	or a, a
 .l50C1 ; 54:50C1
-	jr c, .l50F6
+	jr c, .advance_name_character
 	push hl
 	push de
 	ld a, $01
 	cp a, b
-	jr nz, .l50D5
+	jr nz, .prepare_name_tail_shift
 	inc hl
 	ld a, [hli]
 	or a, a
-	jr z, .l50D5
+	jr z, .prepare_name_tail_shift
 	ld a, $81
 	ld [hli], a
 	ld a, $63
 	ld [hl], a
-.l50D5 ; 54:50D5
+.prepare_name_tail_shift ; 54:50D5
 	ld c, b
 	dec c
 	ld a, b
@@ -667,12 +667,12 @@ Mail_SplitFromHeader:: ; 54:4FD2
 	ld l, e
 	ld h, d
 	dec hl
-.l50DD ; 54:50DD
+.shift_name_tail_right ; 54:50DD
 	ld a, [hld]
 	ld [de], a
 	dec de
 	dec c
-	jr nz, .l50DD
+	jr nz, .shift_name_tail_right
 	pop de
 	pop hl
 	ld a, [hl]
@@ -687,11 +687,11 @@ Mail_SplitFromHeader:: ; 54:4FD2
 	ld a, c
 	ld [hld], a
 	pop bc
-.l50F6 ; 54:50F6
+.advance_name_character ; 54:50F6
 	inc hl
 	inc hl
 	dec b
-	jr nz, .l50A5
+	jr nz, .convert_name_characters_to_fullwidth
 	ret
 
 Mail_CopyClampedEllipsis:: ; 54:50FC

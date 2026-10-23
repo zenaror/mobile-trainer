@@ -74,10 +74,10 @@ PageList_Main_Loop:: ; 24:4083
 	farcall Sprite_UpdateAll
 	ld a, [wDialogOnlineSnapshot]
 	bit 4, a
-	jp z, .l41D7
+	jp z, .handle_input
 	ld a, [wTimerEnable]
 	bit 1, a
-	jr z, .l40AC
+	jr z, .check_timer_warning
 
 	; [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4018-42AF by apply_coverage --split
@@ -89,62 +89,62 @@ PageList_Main_Loop:: ; 24:4083
 	ld hl, $0000
 	ret
 
-.l40AC ; 24:40AC
+.check_timer_warning ; 24:40AC
 	; [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 4018-42AF by apply_coverage
 	; --split [executed in 3 scenarios]
 	ld a, [wTimerEnable]
 	bit 4, a
-	jp z, .l4103
+	jp z, .handle_timer_inactive
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr z, .l40FA
+	jr z, .no_warning
 	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
-	jr nz, .l40FB
+	jr nz, .test_warning_result
 	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
-	jr c, .l40FA
+	jr c, .no_warning
 
 	; [PROBABLE] 21 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4018-42AF by apply_coverage --split
-	jr nz, .l40D6
+	jr nz, .check_warning_45
 	ld a, [wTimerASeconds]
 	cp a, $1E
-	jr c, .l40FA
-.l40D6 ; 24:40D6
+	jr c, .no_warning
+.check_warning_45 ; 24:40D6
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
-	jr nz, .l40E6
+	jr nz, .set_warning_pending
 	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
-	jr nz, .l40FA
+	jr nz, .no_warning
 	set 1, [hl]
-.l40E6 ; 24:40E6
+.set_warning_pending ; 24:40E6
 	ld hl, wTimerAWarnFlags
 	set 0, [hl]
 	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
-	jr z, .l40FB
+	jr z, .test_warning_result
 	add a, $0A
 	ld [hl], a
 	ld a, $FF
-	jr .l40FB
+	jr .test_warning_result
 
-.l40FA ; 24:40FA
+.no_warning ; 24:40FA
 	; [CONFIRMED] 5 insn(s) executed; cut out of the PROBABLE region 4018-42AF by apply_coverage
 	; --split [executed in 3 scenarios]
 	xor a, a
-.l40FB ; 24:40FB
+.test_warning_result ; 24:40FB
 	pop hl
 	or a, a
-	jp nz, .l41C4
-	jp .l41D7
+	jp nz, .return_abort
+	jp .handle_input
 
-.l4103 ; 24:4103
+.handle_timer_inactive ; 24:4103
 	; [PROBABLE] 86 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4018-42AF by apply_coverage --split
 	xor a, a
@@ -226,7 +226,7 @@ PageList_Main_Loop:: ; 24:4083
 	call VBlank_Wait
 	pop bc
 	jp PageList_Main_Loop
-.l41C4 ; 24:41C4
+.return_abort ; 24:41C4
 	pop bc
 	farcall Stat_DisableScrollSplit
 	call VBlank_Wait
@@ -235,7 +235,7 @@ PageList_Main_Loop:: ; 24:4083
 	ld hl, $0000
 	ret
 
-.l41D7 ; 24:41D7
+.handle_input ; 24:41D7
 	; [CONFIRMED] 113 insn(s) executed; cut out of the PROBABLE region 4018-42AF by apply_coverage
 	; --split [executed in 2 scenarios]
 	call VBlank_Wait
@@ -243,7 +243,7 @@ PageList_Main_Loop:: ; 24:4083
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, PADF_A
-	jr z, .l422A
+	jr z, .check_b_button
 	push bc
 	push de
 	play_sfx SFX_CONFIRM
@@ -255,7 +255,7 @@ PageList_Main_Loop:: ; 24:4083
 	pop bc
 	call PageList_ActionMenu
 	inc a
-	jr nz, .l4219
+	jr nz, .restore_list_message
 	push bc
 	push de
 	push hl
@@ -265,7 +265,7 @@ PageList_Main_Loop:: ; 24:4083
 	pop de
 	pop bc
 	ret
-.l4219 ; 24:4219
+.restore_list_message ; 24:4219
 	push bc
 	xor a, a
 	ld d, $00
@@ -275,10 +275,10 @@ PageList_Main_Loop:: ; 24:4083
 	ld b, $00
 	call PageList_ShowMessage
 	pop bc
-.l422A ; 24:422A
+.check_b_button ; 24:422A
 	ldh a, [hJoyPressed]
 	and a, PADF_B
-	jr z, .l4256
+	jr z, .check_up_button
 	push bc
 	push de
 	play_sfx SFX_CANCEL
@@ -290,10 +290,10 @@ PageList_Main_Loop:: ; 24:4083
 	ld de, $0000
 	ld hl, $0000
 	ret
-.l4256 ; 24:4256
+.check_up_button ; 24:4256
 	ldh a, [hJoyPressedRepeat]
 	and a, PADF_UP
-	jp z, .l4281
+	jp z, .check_down_button
 	push bc
 	push de
 	play_sfx SFX_CURSOR_MOVE
@@ -303,16 +303,16 @@ PageList_Main_Loop:: ; 24:4083
 	dec c
 	ld a, $FF
 	cp a, c
-	jr nz, .l427A
+	jr nz, .redraw_after_up
 	ld c, $05
-.l427A ; 24:427A
+.redraw_after_up ; 24:427A
 	ld a, d
 	call PageList_RedrawSelection
 	call PageList_UpdateRowSprites
-.l4281 ; 24:4281
+.check_down_button ; 24:4281
 	ldh a, [hJoyPressedRepeat]
 	and a, PADF_DOWN
-	jp z, .l42AC
+	jp z, .next_frame
 	push bc
 	push de
 	play_sfx SFX_CURSOR_MOVE
@@ -322,13 +322,13 @@ PageList_Main_Loop:: ; 24:4083
 	inc c
 	ld a, $06
 	cp a, c
-	jr nz, .l42A5
+	jr nz, .redraw_after_down
 	ld c, $00
-.l42A5 ; 24:42A5
+.redraw_after_down ; 24:42A5
 	ld a, d
 	call PageList_RedrawSelection
 	call PageList_UpdateRowSprites
-.l42AC ; 24:42AC
+.next_frame ; 24:42AC
 	jp PageList_Main_Loop
 
 	; [HYPOTHESIS] ret + routine 42B0: copies the NUL-terminated string at $42D1 to $D500 and the
@@ -457,14 +457,14 @@ PageList_InitScreen:: ; 24:42F0
 	ld hl, wBrowserPageUrl
 	ld a, [hl]
 	cp a, $00
-	jr z, .l43D2
+	jr z, .upload_maps_and_titles
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, PageList_Tilemap_5BD0
 	ld a, BANK(PageList_Tilemap_5BD0)
 	farcall Tilemap_CopyRectAndAttr
 	call VBlank_Wait
-.l43D2 ; 24:43D2
+.upload_maps_and_titles ; 24:43D2
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	call VBlank_Wait
@@ -577,13 +577,13 @@ PageList_InitRowSprites:: ; 24:445C
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, .l44EF
+	jr z, .check_row_1
 	ld hl, wSpriteSlot6
 	ld de, PageList_ObjTable_Entry8
 	ld a, BANK(PageList_ObjTable_Entry8)
 	ld b, $01
 	farcall Sprite_InitSlot
-.l44EF ; 24:44EF
+.check_row_1 ; 24:44EF
 	ld hl, $4002
 	ld a, [hli]
 	ld e, a
@@ -591,13 +591,13 @@ PageList_InitRowSprites:: ; 24:445C
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, .l450B
+	jr z, .check_row_2
 	ld hl, wSpriteSlot5
 	ld de, PageList_ObjTable_Entry8
 	ld a, BANK(PageList_ObjTable_Entry8)
 	ld b, $01
 	farcall Sprite_InitSlot
-.l450B ; 24:450B
+.check_row_2 ; 24:450B
 	ld hl, $4004
 	ld a, [hli]
 	ld e, a
@@ -605,7 +605,7 @@ PageList_InitRowSprites:: ; 24:445C
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, .l4527
+	jr z, .check_row_3
 
 	; [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 42F0-4B10 by apply_coverage --split
@@ -615,7 +615,7 @@ PageList_InitRowSprites:: ; 24:445C
 	ld b, $01
 	farcall Sprite_InitSlot
 
-.l4527 ; 24:4527
+.check_row_3 ; 24:4527
 	; [CONFIRMED] 21 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld hl, $4006
@@ -625,13 +625,13 @@ PageList_InitRowSprites:: ; 24:445C
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, .l4543
+	jr z, .check_row_4
 	ld hl, wSpriteSlot3
 	ld de, PageList_ObjTable_Entry8
 	ld a, BANK(PageList_ObjTable_Entry8)
 	ld b, $01
 	farcall Sprite_InitSlot
-.l4543 ; 24:4543
+.check_row_4 ; 24:4543
 	ld hl, $4008
 	ld a, [hli]
 	ld e, a
@@ -639,7 +639,7 @@ PageList_InitRowSprites:: ; 24:445C
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, .l455F
+	jr z, .check_row_5
 
 	; [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 42F0-4B10 by apply_coverage --split
@@ -649,7 +649,7 @@ PageList_InitRowSprites:: ; 24:445C
 	ld b, $01
 	farcall Sprite_InitSlot
 
-.l455F ; 24:455F
+.check_row_5 ; 24:455F
 	; [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage
 	; --split [executed in 9 scenarios]
 	ld hl, $400A
@@ -659,7 +659,7 @@ PageList_InitRowSprites:: ; 24:445C
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, .l457B
+	jr z, .set_row_positions
 
 	; [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 42F0-4B10 by apply_coverage --split
@@ -669,7 +669,7 @@ PageList_InitRowSprites:: ; 24:445C
 	ld b, $01
 	farcall Sprite_InitSlot
 
-.l457B ; 24:457B
+.set_row_positions ; 24:457B
 	; [CONFIRMED] 111 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld a, $23
@@ -714,7 +714,7 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	pop af
 	xor a, a
 	cp a, c
-	jr nz, .l4618
+	jr nz, .check_row_1
 	ld hl, PageList_UrlSlotTable
 	ld a, [hli]
 	ld e, a
@@ -722,7 +722,7 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, .l45FB
+	jr z, .highlight_empty_row_0
 	ld hl, wSpriteSlot6
 	ld de, PageList_ObjTable
 	ld a, BANK(PageList_ObjTable)
@@ -732,8 +732,8 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld [wSpriteSlot6], a
 	ld a, $06
 	ld [wSpriteSlot6 + $01], a
-	jp .l478A
-.l45FB ; 24:45FB
+	jp .close_sram
+.highlight_empty_row_0 ; 24:45FB
 	ld hl, wSpriteSlot6
 	ld de, PageList_ObjTable_Entry4
 	ld a, BANK(PageList_ObjTable_Entry4)
@@ -743,11 +743,11 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld [wSpriteSlot6], a
 	ld a, $06
 	ld [wSpriteSlot6 + $01], a
-	jp .l478A
-.l4618 ; 24:4618
+	jp .close_sram
+.check_row_1 ; 24:4618
 	inc a
 	cp a, c
-	jr nz, .l4662
+	jr nz, .check_row_2
 	ld hl, $4002
 	ld a, [hli]
 	ld e, a
@@ -755,7 +755,7 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, .l4645
+	jr z, .highlight_empty_row_1
 	ld hl, wSpriteSlot5
 	ld de, PageList_ObjTable
 	ld a, BANK(PageList_ObjTable)
@@ -765,8 +765,8 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld [wSpriteSlot5], a
 	ld a, $06
 	ld [wSpriteSlot5 + $01], a
-	jp .l478A
-.l4645 ; 24:4645
+	jp .close_sram
+.highlight_empty_row_1 ; 24:4645
 	ld hl, wSpriteSlot5
 	ld de, PageList_ObjTable_Entry4
 	ld a, BANK(PageList_ObjTable_Entry4)
@@ -776,11 +776,11 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld [wSpriteSlot5], a
 	ld a, $06
 	ld [wSpriteSlot5 + $01], a
-	jp .l478A
-.l4662 ; 24:4662
+	jp .close_sram
+.check_row_2 ; 24:4662
 	inc a
 	cp a, c
-	jr nz, .l46AC
+	jr nz, .check_row_3
 	ld hl, $4004
 	ld a, [hli]
 	ld e, a
@@ -788,7 +788,7 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, .l468F
+	jr z, .highlight_empty_row_2
 
 	; [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 42F0-4B10 by apply_coverage --split
@@ -801,9 +801,9 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld [wSpriteSlot4], a
 	ld a, $06
 	ld [wSpriteSlot4 + $01], a
-	jp .l478A
+	jp .close_sram
 
-.l468F ; 24:468F
+.highlight_empty_row_2 ; 24:468F
 	; [CONFIRMED] 21 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage
 	; --split [executed in 2 scenarios]
 	ld hl, wSpriteSlot4
@@ -815,11 +815,11 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld [wSpriteSlot4], a
 	ld a, $06
 	ld [wSpriteSlot4 + $01], a
-	jp .l478A
-.l46AC ; 24:46AC
+	jp .close_sram
+.check_row_3 ; 24:46AC
 	inc a
 	cp a, c
-	jr nz, .l46F6
+	jr nz, .check_row_4
 	ld hl, $4006
 	ld a, [hli]
 	ld e, a
@@ -827,7 +827,7 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, .l46D9
+	jr z, .highlight_empty_row_3
 
 	; [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 42F0-4B10 by apply_coverage --split
@@ -840,9 +840,9 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld [wSpriteSlot3], a
 	ld a, $06
 	ld [wSpriteSlot3 + $01], a
-	jp .l478A
+	jp .close_sram
 
-.l46D9 ; 24:46D9
+.highlight_empty_row_3 ; 24:46D9
 	; [CONFIRMED] 21 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage
 	; --split [executed in 2 scenarios]
 	ld hl, wSpriteSlot3
@@ -854,11 +854,11 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld [wSpriteSlot3], a
 	ld a, $06
 	ld [wSpriteSlot3 + $01], a
-	jp .l478A
-.l46F6 ; 24:46F6
+	jp .close_sram
+.check_row_4 ; 24:46F6
 	inc a
 	cp a, c
-	jr nz, .l4740
+	jr nz, .check_row_5
 	ld hl, $4008
 	ld a, [hli]
 	ld e, a
@@ -866,7 +866,7 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, .l4723
+	jr z, .highlight_empty_row_4
 
 	; [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 42F0-4B10 by apply_coverage --split
@@ -879,9 +879,9 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld [wSpriteSlot2], a
 	ld a, $06
 	ld [wSpriteSlot2 + $01], a
-	jp .l478A
+	jp .close_sram
 
-.l4723 ; 24:4723
+.highlight_empty_row_4 ; 24:4723
 	; [CONFIRMED] 21 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage
 	; --split [executed in 4 scenarios]
 	ld hl, wSpriteSlot2
@@ -893,11 +893,11 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld [wSpriteSlot2], a
 	ld a, $06
 	ld [wSpriteSlot2 + $01], a
-	jp .l478A
-.l4740 ; 24:4740
+	jp .close_sram
+.check_row_5 ; 24:4740
 	inc a
 	cp a, c
-	jr nz, .l478A
+	jr nz, .close_sram
 	ld hl, $400A
 	ld a, [hli]
 	ld e, a
@@ -905,7 +905,7 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, .l476D
+	jr z, .highlight_empty_row_5
 
 	; [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 42F0-4B10 by apply_coverage --split
@@ -918,9 +918,9 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld [wSpriteSlot1], a
 	ld a, $06
 	ld [wSpriteSlot1 + $01], a
-	jp .l478A
+	jp .close_sram
 
-.l476D ; 24:476D
+.highlight_empty_row_5 ; 24:476D
 	; [CONFIRMED] 334 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage
 	; --split [executed in 2 scenarios]
 	ld hl, wSpriteSlot1
@@ -932,8 +932,8 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld [wSpriteSlot1], a
 	ld a, $06
 	ld [wSpriteSlot1 + $01], a
-	jp .l478A
-.l478A ; 24:478A
+	jp .close_sram
+.close_sram ; 24:478A
 	push af
 	xor a, a
 	ldh [hSRAMEnable], a
@@ -963,7 +963,7 @@ PageList_GetActionAvailability:: ; 24:4794
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr nz, .l47D8
+	jr nz, .slot_has_url
 	ld d, $00
 	ld e, $00
 	push af
@@ -977,15 +977,15 @@ PageList_GetActionAvailability:: ; 24:4794
 	ld hl, wBrowserPageUrl
 	ld a, [hl]
 	cp a, $00
-	jr z, .l47D3
+	jr z, .return_empty_slot_flags
 	ld a, $01
-.l47D3 ; 24:47D3
+.return_empty_slot_flags ; 24:47D3
 	ld c, a
 	ld a, d
 	ld d, c
 	pop bc
 	ret
-.l47D8 ; 24:47D8
+.slot_has_url ; 24:47D8
 	ld d, $01
 	ld e, $01
 	push af
@@ -999,10 +999,10 @@ PageList_GetActionAvailability:: ; 24:4794
 	ld hl, wBrowserPageUrl
 	ld a, [hl]
 	cp a, $00
-	jr z, .l47F6
+	jr z, .return_filled_slot_flags
 	ld a, $01
 	ld d, $01
-.l47F6 ; 24:47F6
+.return_filled_slot_flags ; 24:47F6
 	ld c, a
 	ld a, d
 	ld d, c
@@ -1021,9 +1021,9 @@ PageList_SetActionIcons:: ; 24:47FB
 	jr nz, .loop
 	ld a, $0C
 	dec b
-	jr z, .l480F
+	jr z, .write_go_attributes
 	ld a, $0B
-.l480F ; 24:480F
+.write_go_attributes ; 24:480F
 	ld hl, $99C3
 	ld [hli], a
 	ld [hl], a
@@ -1032,9 +1032,9 @@ PageList_SetActionIcons:: ; 24:47FB
 	ld [hl], a
 	ld a, $0C
 	dec d
-	jr z, .l4820
+	jr z, .write_save_attributes
 	ld a, $0B
-.l4820 ; 24:4820
+.write_save_attributes ; 24:4820
 	ld hl, $99C9
 	ld [hli], a
 	ld [hl], a
@@ -1043,9 +1043,9 @@ PageList_SetActionIcons:: ; 24:47FB
 	ld [hl], a
 	ld a, $0C
 	dec e
-	jr z, .l4831
+	jr z, .write_delete_attributes
 	ld a, $0B
-.l4831 ; 24:4831
+.write_delete_attributes ; 24:4831
 	ld hl, $99CF
 	ld [hli], a
 	ld [hl], a
@@ -1083,12 +1083,12 @@ PageList_RedrawSelection:: ; 24:483E
 	ld b, a
 	xor a, a
 	inc b
-.l4866 ; 24:4866
+.old_row_y_loop ; 24:4866
 	dec b
-	jr z, .l486D
+	jr z, .draw_old_row_title
 	add a, $0C
-	jr .l4866
-.l486D ; 24:486D
+	jr .old_row_y_loop
+.draw_old_row_title ; 24:486D
 	add a, $10
 	ld d, a
 	ld b, $03
@@ -1112,12 +1112,12 @@ PageList_RedrawSelection:: ; 24:483E
 	ld b, c
 	xor a, a
 	inc b
-.l488F ; 24:488F
+.selected_row_y_loop ; 24:488F
 	dec b
-	jr z, .l4896
+	jr z, .draw_selected_row_title
 	add a, $0C
-	jr .l488F
-.l4896 ; 24:4896
+	jr .selected_row_y_loop
+.draw_selected_row_title ; 24:4896
 	add a, $10
 	ld d, a
 	ld b, $00
@@ -1158,7 +1158,7 @@ PageList_DrawAllTitles:: ; 24:48C7
 	pop af
 	xor a, a
 	ld d, $06
-.l48DB ; 24:48DB
+.draw_next_title ; 24:48DB
 	push af
 	push de
 	push bc
@@ -1178,12 +1178,12 @@ PageList_DrawAllTitles:: ; 24:48C7
 	ld b, a
 	xor a, a
 	inc b
-.l48F4 ; 24:48F4
+.row_y_loop ; 24:48F4
 	dec b
-	jr z, .l48FB
+	jr z, .draw_row_title
 	add a, $0C
-	jr .l48F4
-.l48FB ; 24:48FB
+	jr .row_y_loop
+.draw_row_title ; 24:48FB
 	add a, $10
 	ld d, a
 	ld b, $03
@@ -1194,7 +1194,7 @@ PageList_DrawAllTitles:: ; 24:48C7
 	pop af
 	inc a
 	dec d
-	jr nz, .l48DB
+	jr nz, .draw_next_title
 	ld hl, $400C
 	ld a, [hli]
 	ld e, a
@@ -1241,11 +1241,11 @@ PageList_DrawTextLine:: ; 24:494C
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jr z, .l49CC
+	jr z, .load_padding_space
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, .draw_ascii_char
+	jr nz, .draw_single_byte_char
 	pop af
 	push bc
 	push de
@@ -1279,12 +1279,12 @@ PageList_DrawTextLine:: ; 24:494C
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l49CC
+	jr z, .load_padding_space
 	cp a, $01
-	jr z, .l49CC
+	jr z, .load_padding_space
 	jr .read_next_char
 
-.draw_ascii_char ; 24:49A7
+.draw_single_byte_char ; 24:49A7
 	; [PROBABLE] 19 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 42F0-4B10 by apply_coverage --split
 	pop af
@@ -1302,12 +1302,12 @@ PageList_DrawTextLine:: ; 24:494C
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l49CC
+	jr z, .load_padding_space
 	cp a, $01
-	jr z, .l49CC
+	jr z, .load_padding_space
 	jr .read_next_char
 
-.l49CC ; 24:49CC
+.load_padding_space ; 24:49CC
 	; [CONFIRMED] 159 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage
 	; --split [executed in 9 scenarios]
 	push bc
@@ -1319,14 +1319,14 @@ PageList_DrawTextLine:: ; 24:494C
 	pop hl
 	pop de
 	pop bc
-.l49DD ; 24:49DD
+.pad_remaining_cells ; 24:49DD
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call PageList_BlitGlyphAdvance
-	jr .l49DD
+	jr .pad_remaining_cells
 
 PageList_BlitGlyphAdvance:: ; 24:49EC
 	push bc
@@ -1587,10 +1587,10 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	farcall Sprite_UpdateAll
 	ld a, [wDialogOnlineSnapshot]
 	bit 4, a
-	jp z, .l4D39
+	jp z, .handle_input
 	ld a, [wTimerEnable]
 	bit 1, a
-	jr z, .l4BFE
+	jr z, .check_timer_warning
 
 	; [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4BCD-53FE by apply_coverage --split
@@ -1602,41 +1602,41 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	ld hl, $0000
 	ret
 
-.l4BFE ; 24:4BFE
+.check_timer_warning ; 24:4BFE
 	; [CONFIRMED] 22 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld a, [wTimerEnable]
 	bit 4, a
-	jp z, .l4C55
+	jp z, .handle_timer_inactive
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr z, .l4C4C
+	jr z, .no_warning
 	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
-	jr nz, .l4C4D
+	jr nz, .test_warning_result
 	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
-	jr c, .l4C4C
-	jr nz, .l4C28
+	jr c, .no_warning
+	jr nz, .check_warning_45
 	ld a, [wTimerASeconds]
 	cp a, $1E
-	jr c, .l4C4C
-.l4C28 ; 24:4C28
+	jr c, .no_warning
+.check_warning_45 ; 24:4C28
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
-	jr nz, .l4C38
+	jr nz, .set_warning_pending
 
 	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4BCD-53FE by apply_coverage --split
 	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
-	jr nz, .l4C4C
+	jr nz, .no_warning
 	set 1, [hl]
 
-.l4C38 ; 24:4C38
+.set_warning_pending ; 24:4C38
 	; [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld hl, wTimerAWarnFlags
@@ -1644,20 +1644,20 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
-	jr z, .l4C4D
+	jr z, .test_warning_result
 	add a, $0A
 	ld [hl], a
 	ld a, $FF
-	jr .l4C4D
-.l4C4C ; 24:4C4C
+	jr .test_warning_result
+.no_warning ; 24:4C4C
 	xor a, a
-.l4C4D ; 24:4C4D
+.test_warning_result ; 24:4C4D
 	pop hl
 	or a, a
-	jp nz, .l4D25
-	jp .l4D39
+	jp nz, .return_abort
+	jp .handle_input
 
-.l4C55 ; 24:4C55
+.handle_timer_inactive ; 24:4C55
 	; [PROBABLE] 85 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4BCD-53FE by apply_coverage --split
 	xor a, a
@@ -1746,7 +1746,7 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	pop bc
 	jp PageList_ActionMenu_Loop
 
-.l4D25 ; 24:4D25
+.return_abort ; 24:4D25
 	; [CONFIRMED] 225 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage
 	; --split [executed in 1 scenarios]
 	pop bc
@@ -1757,7 +1757,7 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	ld de, $0000
 	ld hl, $0000
 	ret
-.l4D39 ; 24:4D39
+.handle_input ; 24:4D39
 	call VBlank_Wait
 	farcall Joypad_Update
 	pop bc
@@ -1765,21 +1765,21 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	call nz, Stub_Nop_24_53FC ; never taken: ldh sets no flags, Z is the one the farcall left (naming2_verify_fn4.md)
 	ldh a, [hJoyPressed]
 	and a, PADF_A
-	jr z, .l4DBA
+	jr z, .check_b_button
 	ld a, b
 	cp a, $01
-	jr nz, .l4D5E
+	jr nz, .check_delete_action
 	call PageList_SaveCurrentPage
 	farcall SramCheck_Bank1Commit
-	jr .l4D6B
-.l4D5E ; 24:4D5E
+	jr .check_write_result
+.check_delete_action ; 24:4D5E
 	cp a, $02
-	jr nz, .l4D97
+	jr nz, .go_to_slot
 	call PageList_DeleteSlot
 	farcall SramCheck_Bank1Commit
-.l4D6B ; 24:4D6B
+.check_write_result ; 24:4D6B
 	inc a
-	jp z, .l4D8A
+	jp z, .return_to_list
 	inc a
 	jp z, PageList_ActionMenu_Loop
 	push bc
@@ -1788,17 +1788,17 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	pop de
 	pop bc
 	jp PageList_ActionMenu_Loop
-.l4D8A ; 24:4D8A
+.return_to_list ; 24:4D8A
 	call PageList_HideActionCursor
 	push bc
 	farcall Joypad_Update
 	pop bc
 	xor a, a
 	ret
-.l4D97 ; 24:4D97
+.go_to_slot ; 24:4D97
 	call PageList_GoToSlot
 	inc a
-	jp z, .l4DB7
+	jp z, .return_go_success
 	push bc
 	push de
 	play_sfx SFX_REJECT
@@ -1806,13 +1806,13 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	pop bc
 	ld a, $FF
 	jp PageList_ActionMenu_Loop
-.l4DB7 ; 24:4DB7
+.return_go_success ; 24:4DB7
 	ld a, $FF
 	ret
-.l4DBA ; 24:4DBA
+.check_b_button ; 24:4DBA
 	ldh a, [hJoyPressed]
 	and a, PADF_B
-	jr z, .l4DE1
+	jr z, .check_left_button
 	push bc
 	push de
 	play_sfx SFX_CANCEL
@@ -1824,10 +1824,10 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	pop bc
 	xor a, a
 	ret
-.l4DE1 ; 24:4DE1
+.check_left_button ; 24:4DE1
 	ldh a, [hJoyPressedRepeat]
 	and a, PADF_LEFT
-	jr z, .l4E12
+	jr z, .check_right_button
 	push bc
 	push de
 	di
@@ -1839,9 +1839,9 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	dec b
 	ld a, $FF
 	cp a, b
-	jr nz, .l4E06
+	jr nz, .redraw_after_left
 	ld b, $02
-.l4E06 ; 24:4E06
+.redraw_after_left ; 24:4E06
 	ld a, d
 	call PageList_MoveActionCursor
 	ld a, b
@@ -1849,10 +1849,10 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	ld b, $00
 	call PageList_ShowMessage
 	ld b, d
-.l4E12 ; 24:4E12
+.check_right_button ; 24:4E12
 	ldh a, [hJoyPressedRepeat]
 	and a, PADF_RIGHT
-	jr z, .l4E43
+	jr z, .next_frame
 	push bc
 	push de
 	di
@@ -1864,9 +1864,9 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	inc b
 	ld a, $03
 	cp a, b
-	jr nz, .l4E37
+	jr nz, .redraw_after_right
 	ld b, $00
-.l4E37 ; 24:4E37
+.redraw_after_right ; 24:4E37
 	ld a, d
 	call PageList_MoveActionCursor
 	ld a, b
@@ -1874,7 +1874,7 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	ld b, $00
 	call PageList_ShowMessage
 	ld b, d
-.l4E43 ; 24:4E43
+.next_frame ; 24:4E43
 	jp PageList_ActionMenu_Loop
 
 PageList_ActionMenuInit:: ; 24:4E46
@@ -1917,7 +1917,7 @@ PageList_SetActionCursor:: ; 24:4E85
 	ldh [rSVBK], a
 	ld a, $00
 	cp a, b
-	jr nz, .l4EAD
+	jr nz, .check_save_action
 	ld hl, wSpriteSlot0
 	ld de, PageList_ObjTable_Entry16
 	ld a, BANK(PageList_ObjTable_Entry16)
@@ -1929,10 +1929,10 @@ PageList_SetActionCursor:: ; 24:4E85
 	ld [wSpriteSlot0 + $01], a
 	pop bc
 	ret
-.l4EAD ; 24:4EAD
+.check_save_action ; 24:4EAD
 	ld a, $01
 	cp a, b
-	jr nz, .l4ECE
+	jr nz, .check_delete_action
 	ld hl, wSpriteSlot0
 	ld de, PageList_ObjTable_Entry20
 	ld a, BANK(PageList_ObjTable_Entry20)
@@ -1944,10 +1944,10 @@ PageList_SetActionCursor:: ; 24:4E85
 	ld [wSpriteSlot0 + $01], a
 	pop bc
 	ret
-.l4ECE ; 24:4ECE
+.check_delete_action ; 24:4ECE
 	ld a, $02
 	cp a, b
-	jr nz, .l4EEF
+	jr nz, .return_invalid_action
 	ld hl, wSpriteSlot0
 	ld de, PageList_ObjTable_Entry24
 	ld a, BANK(PageList_ObjTable_Entry24)
@@ -1960,7 +1960,7 @@ PageList_SetActionCursor:: ; 24:4E85
 	pop bc
 	ret
 
-.l4EEF ; 24:4EEF
+.return_invalid_action ; 24:4EEF
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4BCD-53FE by apply_coverage --split
 	pop bc
@@ -2026,7 +2026,7 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	push de
 	ld a, [de]
 	cp a, $00
-	jp z, .l4FF6
+	jp z, .start_save
 	push bc
 	push de
 	ld a, $07
@@ -2087,7 +2087,7 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	call PageList_SetActionIcons
 	pop af
 	dec a
-	jr z, .l4FF6
+	jr z, .start_save
 	push bc
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -2114,7 +2114,7 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	ldh [hJoyPressed], a
 	ld a, $FE
 	ret
-.l4FF6 ; 24:4FF6
+.start_save ; 24:4FF6
 	push bc
 	push de
 	call PageList_UpdateRowSprites
@@ -2127,7 +2127,7 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	push bc
 	ld a, c
 	cp a, $00
-	jr nz, .l5039
+	jr nz, .check_row_1
 	ld hl, wSpriteSlot6
 	ld de, PageList_ObjTable_Entry28
 	ld a, BANK(PageList_ObjTable_Entry28)
@@ -2140,10 +2140,10 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	ld [wSpriteSlot6], a
 	ld a, $06
 	ld [wSpriteSlot6 + $01], a
-	jp .l50FC
-.l5039 ; 24:5039
+	jp .wait_save_animation
+.check_row_1 ; 24:5039
 	cp a, $01
-	jr nz, .l5060
+	jr nz, .check_row_2
 	ld hl, wSpriteSlot5
 	ld de, PageList_ObjTable_Entry28
 	ld a, BANK(PageList_ObjTable_Entry28)
@@ -2156,10 +2156,10 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	ld [wSpriteSlot5], a
 	ld a, $06
 	ld [wSpriteSlot5 + $01], a
-	jp .l50FC
-.l5060 ; 24:5060
+	jp .wait_save_animation
+.check_row_2 ; 24:5060
 	cp a, $02
-	jr nz, .l5087
+	jr nz, .check_row_3
 
 	; [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4BCD-53FE by apply_coverage --split
@@ -2175,13 +2175,13 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	ld [wSpriteSlot4], a
 	ld a, $06
 	ld [wSpriteSlot4 + $01], a
-	jp .l50FC
+	jp .wait_save_animation
 
-.l5087 ; 24:5087
+.check_row_3 ; 24:5087
 	; [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage
 	; --split [executed in 1 scenarios]
 	cp a, $03
-	jr nz, .l50AE
+	jr nz, .check_row_4
 	ld hl, wSpriteSlot3
 	ld de, PageList_ObjTable_Entry28
 	ld a, BANK(PageList_ObjTable_Entry28)
@@ -2194,13 +2194,13 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	ld [wSpriteSlot3], a
 	ld a, $06
 	ld [wSpriteSlot3 + $01], a
-	jp .l50FC
+	jp .wait_save_animation
 
-.l50AE ; 24:50AE
+.check_row_4 ; 24:50AE
 	; [PROBABLE] 30 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4BCD-53FE by apply_coverage --split
 	cp a, $04
-	jr nz, .l50D5
+	jr nz, .check_row_5
 	ld hl, wSpriteSlot2
 	ld de, PageList_ObjTable_Entry28
 	ld a, BANK(PageList_ObjTable_Entry28)
@@ -2213,10 +2213,10 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	ld [wSpriteSlot2], a
 	ld a, $06
 	ld [wSpriteSlot2 + $01], a
-	jp .l50FC
-.l50D5 ; 24:50D5
+	jp .wait_save_animation
+.check_row_5 ; 24:50D5
 	cp a, $05
-	jr nz, .l50FC
+	jr nz, .wait_save_animation
 	ld hl, wSpriteSlot1
 	ld de, PageList_ObjTable_Entry28
 	ld a, BANK(PageList_ObjTable_Entry28)
@@ -2229,14 +2229,14 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	ld [wSpriteSlot1], a
 	ld a, $06
 	ld [wSpriteSlot1 + $01], a
-	jp .l50FC
+	jp .wait_save_animation
 
-.l50FC ; 24:50FC
+.wait_save_animation ; 24:50FC
 	; [CONFIRMED] 45 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage
 	; --split [executed in 2 scenarios]
 	pop bc
 	ld e, $32
-.l50FF ; 24:50FF
+.save_animation_frame ; 24:50FF
 	push bc
 	push de
 	farcall Sprite_UpdateAll
@@ -2244,7 +2244,7 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	pop de
 	pop bc
 	dec e
-	jr nz, .l50FF
+	jr nz, .save_animation_frame
 	pop de
 	ld a, $06
 	ldh [hWRAMBank], a
@@ -2315,8 +2315,8 @@ PageList_GoToSlot:: ; 24:5164
 	ld hl, wBrowserPageUrl
 	ld a, [hl]
 	cp a, $00
-	jr nz, .l5173
-.l5173 ; 24:5173
+	jr nz, .enable_sram
+.enable_sram ; 24:5173
 	push af
 	ld a, $01
 	ldh [hSRAMBank], a
@@ -2460,7 +2460,7 @@ PageList_DeleteSlot:: ; 24:51CB
 	call PageList_SetActionIcons
 	pop af
 	dec a
-	jr z, .l52A3
+	jr z, .start_delete
 	push bc
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -2485,7 +2485,7 @@ PageList_DeleteSlot:: ; 24:51CB
 	ldh [hJoyPressed], a
 	ld a, $FE
 	ret
-.l52A3 ; 24:52A3
+.start_delete ; 24:52A3
 	push bc
 	push de
 	play_sfx SFX_DELETE
@@ -2495,7 +2495,7 @@ PageList_DeleteSlot:: ; 24:51CB
 	push bc
 	ld a, c
 	cp a, $00
-	jr nz, .l52E3
+	jr nz, .check_row_1
 	ld hl, wSpriteSlot6
 	ld de, PageList_ObjTable_Entry32
 	ld a, BANK(PageList_ObjTable_Entry32)
@@ -2508,10 +2508,10 @@ PageList_DeleteSlot:: ; 24:51CB
 	ld [wSpriteSlot6], a
 	ld a, $06
 	ld [wSpriteSlot6 + $01], a
-	jp .l53A6
-.l52E3 ; 24:52E3
+	jp .wait_delete_animation
+.check_row_1 ; 24:52E3
 	cp a, $01
-	jr nz, .l530A
+	jr nz, .check_row_2
 	ld hl, wSpriteSlot5
 	ld de, PageList_ObjTable_Entry32
 	ld a, BANK(PageList_ObjTable_Entry32)
@@ -2524,13 +2524,13 @@ PageList_DeleteSlot:: ; 24:51CB
 	ld [wSpriteSlot5], a
 	ld a, $06
 	ld [wSpriteSlot5 + $01], a
-	jp .l53A6
+	jp .wait_delete_animation
 
-.l530A ; 24:530A
+.check_row_2 ; 24:530A
 	; [PROBABLE] 60 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4BCD-53FE by apply_coverage --split
 	cp a, $02
-	jr nz, .l5331
+	jr nz, .check_row_3
 	ld hl, wSpriteSlot4
 	ld de, PageList_ObjTable_Entry32
 	ld a, BANK(PageList_ObjTable_Entry32)
@@ -2543,10 +2543,10 @@ PageList_DeleteSlot:: ; 24:51CB
 	ld [wSpriteSlot4], a
 	ld a, $06
 	ld [wSpriteSlot4 + $01], a
-	jp .l53A6
-.l5331 ; 24:5331
+	jp .wait_delete_animation
+.check_row_3 ; 24:5331
 	cp a, $03
-	jr nz, .l5358
+	jr nz, .check_row_4
 	ld hl, wSpriteSlot3
 	ld de, PageList_ObjTable_Entry32
 	ld a, BANK(PageList_ObjTable_Entry32)
@@ -2559,10 +2559,10 @@ PageList_DeleteSlot:: ; 24:51CB
 	ld [wSpriteSlot3], a
 	ld a, $06
 	ld [wSpriteSlot3 + $01], a
-	jp .l53A6
-.l5358 ; 24:5358
+	jp .wait_delete_animation
+.check_row_4 ; 24:5358
 	cp a, $04
-	jr nz, .l537F
+	jr nz, .check_row_5
 	ld hl, wSpriteSlot2
 	ld de, PageList_ObjTable_Entry32
 	ld a, BANK(PageList_ObjTable_Entry32)
@@ -2575,10 +2575,10 @@ PageList_DeleteSlot:: ; 24:51CB
 	ld [wSpriteSlot2], a
 	ld a, $06
 	ld [wSpriteSlot2 + $01], a
-	jp .l53A6
-.l537F ; 24:537F
+	jp .wait_delete_animation
+.check_row_5 ; 24:537F
 	cp a, $05
-	jr nz, .l53A6
+	jr nz, .wait_delete_animation
 	ld hl, wSpriteSlot1
 	ld de, PageList_ObjTable_Entry32
 	ld a, BANK(PageList_ObjTable_Entry32)
@@ -2591,9 +2591,9 @@ PageList_DeleteSlot:: ; 24:51CB
 	ld [wSpriteSlot1], a
 	ld a, $06
 	ld [wSpriteSlot1 + $01], a
-	jp .l53A6
+	jp .wait_delete_animation
 
-.l53A6 ; 24:53A6
+.wait_delete_animation ; 24:53A6
 	; [CONFIRMED] 55 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage
 	; --split [executed in 3 scenarios]
 	pop bc

@@ -39,12 +39,12 @@ AbookList_Run:: ; 2F:4000
 	push de
 	call Abook_ProbeSlot
 	cp a, $00
-	jr z, .l403F
+	jr z, .empty_slot_help_attr
 	ld a, $02
-	jr .l4041
-.l403F ; 2F:403F
+	jr .apply_help_attr
+.empty_slot_help_attr ; 2F:403F
 	ld a, $01
-.l4041 ; 2F:4041
+.apply_help_attr ; 2F:4041
 	call AbookList_SetHelpBoxAttr
 	pop de
 	pop bc
@@ -64,18 +64,18 @@ AbookList_Run_Loop:: ; 2F:4049
 	push de
 	call Abook_ProbeSlot
 	cp a, $00
-	jr z, .l406D
+	jr z, .empty_slot_help_attr
 
 	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 2F:4067 (executed) | upgraded by classifier 6: all 2 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	ld a, $02
-	jr .l406F
+	jr .apply_help_attr
 
-.l406D ; 2F:406D
+.empty_slot_help_attr ; 2F:406D
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 1/18 scenarios)
 	ld a, $01
-.l406F ; 2F:406F
+.apply_help_attr ; 2F:406F
 	call AbookList_SetHelpBoxAttr
 	play_sfx SFX_CONFIRM
 	pop de
@@ -98,7 +98,7 @@ AbookList_Run_CheckButtonB:: ; 2F:4097
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 2/18 scenarios)
 	ldh a, [hJoyPressed]
 	and a, PADF_B
-	jr z, .l40D0
+	jr z, .check_vertical_input
 
 	; [CONFIRMED] 25 insn(s) reached by static flow only; seeds: exec x25; min discovery hops 0;
 	; fall-through of the jrcc at 2F:409B (executed) [executed in 2 scenarios]
@@ -121,7 +121,7 @@ AbookList_Run_CheckButtonB:: ; 2F:4097
 	ld a, $FF
 	ret
 
-.l40D0 ; 2F:40D0
+.check_vertical_input ; 2F:40D0
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 2/18 scenarios)
 	ldh a, [hJoyPressedRepeat]
 	and a, PADF_UP
@@ -184,51 +184,51 @@ AbookList_Run_ButtonRow:: ; 2F:4131
 	push bc
 	ld a, b
 	cp a, $00
-	jr z, .l4158
+	jr z, .position_button0_sprite
 
 	; [CONFIRMED] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0;
 	; fall-through of the jrcc at 2F:414A (executed) | 4 insn(s) executed; cut out of the PROBABLE
 	; region 414C-4158 by apply_coverage --split [executed in 1 scenarios]
 	cp a, $01
-	jr z, .l4163
+	jr z, .position_button1_sprite
 	cp a, $02
-	jr z, .l416E
+	jr z, .position_button2_sprite
 
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 414C-4158 by apply_coverage --split
 	cp a, $03
-	jr z, .l4179
+	jr z, .position_button3_sprite
 
-.l4158 ; 2F:4158
+.position_button0_sprite ; 2F:4158
 	; [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios)
 	ld de, $7018
 	ld hl, wSpriteSlot8
 	call Sprite_SetPosition
-	jr .l4184
+	jr .draw_button_help
 
-.l4163 ; 2F:4163
+.position_button1_sprite ; 2F:4163
 	; [CONFIRMED] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1;
 	; entered by jrcc from 2F:414E (PROBABLE code) | 8 insn(s) executed; cut out of the PROBABLE
 	; region 4163-4184 by apply_coverage --split [executed in 1 scenarios]
 	ld de, $7038
 	ld hl, wSpriteSlot8
 	call Sprite_SetPosition
-	jr .l4184
-.l416E ; 2F:416E
+	jr .draw_button_help
+.position_button2_sprite ; 2F:416E
 	ld de, $7058
 	ld hl, wSpriteSlot8
 	call Sprite_SetPosition
-	jr .l4184
+	jr .draw_button_help
 
-.l4179 ; 2F:4179
+.position_button3_sprite ; 2F:4179
 	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4163-4184 by apply_coverage --split
 	ld de, $7078
 	ld hl, wSpriteSlot8
 	call Sprite_SetPosition
-	jr .l4184
+	jr .draw_button_help
 
-.l4184 ; 2F:4184
+.draw_button_help ; 2F:4184
 	; [CONFIRMED] 17 insn(s); 17 executed (in up to 1/18 scenarios)
 	pop bc
 	push bc
@@ -247,7 +247,7 @@ AbookList_Run_ButtonRow:: ; 2F:4131
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, PADF_B
-	jp z, .l41E4
+	jp z, .check_confirm_input
 
 	; [CONFIRMED] 26 insn(s) reached by static flow only; seeds: exec x26; min discovery hops 0;
 	; fall-through of the jpcc at 2F:41AB (executed) | upgraded by classifier 6: all 26 instruction
@@ -272,27 +272,27 @@ AbookList_Run_ButtonRow:: ; 2F:4131
 	pop bc
 	jp AbookList_Run_Loop
 
-.l41E4 ; 2F:41E4
+.check_confirm_input ; 2F:41E4
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressed]
 	and a, PADF_A
-	jp z, .l43D8
+	jp z, .check_left_input
 	ld a, b
 	cp a, $03
-	jp nz, .l42DA
+	jp nz, .check_edit_button
 
 	; [CONFIRMED] 121 insn(s) reached by static flow only; seeds: exec x121; min discovery hops 0;
 	; fall-through of the jpcc at 2F:41EE (executed) [executed in 1 scenarios]
 	call Abook_ProbeSlot
 	cp a, $00
-	jr nz, .l420E
+	jr nz, .show_delete_dialog
 	push bc
 	push de
 	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	jr .loop
-.l420E ; 2F:420E
+.show_delete_dialog ; 2F:420E
 	push bc
 	push de
 	play_sfx SFX_CONFIRM
@@ -342,13 +342,13 @@ AbookList_Run_ButtonRow:: ; 2F:4131
 	push bc
 	push af
 	dec a
-	jr z, .l4286
+	jr z, .check_delete_result
 	ld a, $80
 	ldh [hJoyPressed], a
 	call AbookList_UpdateRowMarkers
 	ld b, $03
 	call AbookList_PlaceButtonCursor
-.l4286 ; 2F:4286
+.check_delete_result ; 2F:4286
 	pop af
 	pop bc
 	dec a
@@ -386,23 +386,23 @@ AbookList_Run_ButtonRow:: ; 2F:4131
 	ld [wSpriteSlot0], a
 	jp AbookList_Run_Loop
 
-.l42DA ; 2F:42DA
+.check_edit_button ; 2F:42DA
 	; [CONFIRMED] 2 insn(s); 2 executed (in up to 1/18 scenarios)
 	cp a, $02
-	jr nz, .l432E
+	jr nz, .check_new_button
 
 	; [CONFIRMED] 44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 0;
 	; fall-through of the jrcc at 2F:42DC (executed) [executed in 1 scenarios]
 	call Abook_ProbeSlot
 	cp a, $00
-	jr nz, .l42FC
+	jr nz, .prepare_edit_return
 	push bc
 	push de
 	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	jp .loop
-.l42FC ; 2F:42FC
+.prepare_edit_return ; 2F:42FC
 	push bc
 	push de
 	play_sfx SFX_CONFIRM
@@ -423,15 +423,15 @@ AbookList_Run_ButtonRow:: ; 2F:4131
 	ld [hli], a
 	ld a, b
 	ld [hl], a
-	jp .l43C5
+	jp .fade_out_and_return_button
 
-.l432E ; 2F:432E
+.check_new_button ; 2F:432E
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
 	cp a, $00
-	jr nz, .l4383
+	jr nz, .check_view_slot
 	call Abook_ProbeSlot
 	cp a, $00
-	jr z, .l4350
+	jr z, .prepare_new_entry
 
 	; [CONFIRMED] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 0;
 	; fall-through of the jrcc at 2F:4337 (executed) [executed in 2 scenarios]
@@ -442,7 +442,7 @@ AbookList_Run_ButtonRow:: ; 2F:4131
 	pop bc
 	jp .loop
 
-.l4350 ; 2F:4350
+.prepare_new_entry ; 2F:4350
 	; [CONFIRMED] 29 insn(s); 29 executed (in up to 1/18 scenarios)
 	call Abook_Clear16AtHlAndEditAddressBuf
 	ld a, $01
@@ -465,21 +465,21 @@ AbookList_Run_ButtonRow:: ; 2F:4131
 	ld [hli], a
 	ld a, b
 	ld [hl], a
-	jr .l43C5
+	jr .fade_out_and_return_button
 
-.l4383 ; 2F:4383
+.check_view_slot ; 2F:4383
 	; [CONFIRMED] 38 insn(s) reached by static flow only; seeds: exec x38; min discovery hops 1;
 	; entered by jrcc from 2F:4330 (executed) [executed in 1 scenarios]
 	call Abook_ProbeSlot
 	cp a, $00
-	jr nz, .l43A1
+	jr nz, .prepare_view_return
 	push bc
 	push de
 	play_sfx SFX_REJECT
 	pop de
 	pop bc
 	jp .loop
-.l43A1 ; 2F:43A1
+.prepare_view_return ; 2F:43A1
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -496,7 +496,7 @@ AbookList_Run_ButtonRow:: ; 2F:4131
 	pop de
 	pop bc
 
-.l43C5 ; 2F:43C5
+.fade_out_and_return_button ; 2F:43C5
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios)
 	push bc
 	farcall Stat_DisableScrollSplit
@@ -505,10 +505,10 @@ AbookList_Run_ButtonRow:: ; 2F:4131
 	pop bc
 	ld a, b
 	ret
-.l43D8 ; 2F:43D8
+.check_left_input ; 2F:43D8
 	ldh a, [hJoyPressedRepeat]
 	and a, PADF_LEFT
-	jp z, .l440A
+	jp z, .check_right_input
 
 	; [CONFIRMED] 23 insn(s) reached by static flow only; seeds: exec x23; min discovery hops 0;
 	; fall-through of the jpcc at 2F:43DC (executed) [executed in 1 scenarios]
@@ -520,9 +520,9 @@ AbookList_Run_ButtonRow:: ; 2F:4131
 	dec b
 	ld a, b
 	cp a, $FF
-	jr nz, .l43FB
+	jr nz, .redraw_after_left
 	ld b, $03
-.l43FB ; 2F:43FB
+.redraw_after_left ; 2F:43FB
 	push bc
 	ld d, b
 	call AbookList_DrawHelpText
@@ -530,11 +530,11 @@ AbookList_Run_ButtonRow:: ; 2F:4131
 	pop bc
 	call AbookList_PlaceButtonCursor
 
-.l440A ; 2F:440A
+.check_right_input ; 2F:440A
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressedRepeat]
 	and a, PADF_RIGHT
-	jp z, .l443C
+	jp z, .position_button_row_sprite
 
 	; [CONFIRMED] 23 insn(s) reached by static flow only; seeds: exec x23; min discovery hops 0;
 	; fall-through of the jpcc at 2F:440E (executed) [executed in 1 scenarios]
@@ -546,9 +546,9 @@ AbookList_Run_ButtonRow:: ; 2F:4131
 	inc b
 	ld a, b
 	cp a, $04
-	jr nz, .l442D
+	jr nz, .redraw_after_right
 	ld b, $00
-.l442D ; 2F:442D
+.redraw_after_right ; 2F:442D
 	push bc
 	ld d, b
 	call AbookList_DrawHelpText
@@ -556,7 +556,7 @@ AbookList_Run_ButtonRow:: ; 2F:4131
 	pop bc
 	call AbookList_PlaceButtonCursor
 
-.l443C ; 2F:443C
+.position_button_row_sprite ; 2F:443C
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios)
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -688,19 +688,19 @@ AbookList_PlaceButtonCursor:: ; 2F:44F2
 	push bc
 	ld a, b
 	cp a, $00
-	jr z, .l4504
+	jr z, .place_button0_cursor
 
 	; [CONFIRMED] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0;
 	; fall-through of the jrcc at 2F:44F6 (executed) | upgraded by classifier 6: all 6 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	cp a, $01
-	jr z, .l451F
+	jr z, .place_button1_cursor
 	cp a, $02
-	jr z, .l453A
+	jr z, .place_button2_cursor
 	cp a, $03
-	jr z, .l4555
+	jr z, .place_button3_cursor
 
-.l4504 ; 2F:4504
+.place_button0_cursor ; 2F:4504
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
 	ld hl, wSpriteSlot0
 	ld de, Table_Abook_ButtonCursorAnims
@@ -710,9 +710,9 @@ AbookList_PlaceButtonCursor:: ; 2F:44F2
 	ld de, $7018
 	ld hl, wSpriteSlot0
 	call Sprite_SetPosition
-	jr .l4570
+	jr .restore_bc_and_return
 
-.l451F ; 2F:451F
+.place_button1_cursor ; 2F:451F
 	; [CONFIRMED] 27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 1;
 	; entered by jrcc from 2F:44FA (PROBABLE code) | upgraded by classifier 6: all 27 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
@@ -724,8 +724,8 @@ AbookList_PlaceButtonCursor:: ; 2F:44F2
 	ld de, $7038
 	ld hl, wSpriteSlot0
 	call Sprite_SetPosition
-	jr .l4570
-.l453A ; 2F:453A
+	jr .restore_bc_and_return
+.place_button2_cursor ; 2F:453A
 	ld hl, wSpriteSlot0
 	ld de, Table_Abook_ButtonCursorAnims_Entry8
 	ld a, BANK(Table_Abook_ButtonCursorAnims_Entry8)
@@ -734,8 +734,8 @@ AbookList_PlaceButtonCursor:: ; 2F:44F2
 	ld de, $7058
 	ld hl, wSpriteSlot0
 	call Sprite_SetPosition
-	jr .l4570
-.l4555 ; 2F:4555
+	jr .restore_bc_and_return
+.place_button3_cursor ; 2F:4555
 	ld hl, wSpriteSlot0
 	ld de, Table_Abook_ButtonCursorAnims_Entry12
 	ld a, BANK(Table_Abook_ButtonCursorAnims_Entry12)
@@ -744,9 +744,9 @@ AbookList_PlaceButtonCursor:: ; 2F:44F2
 	ld de, $7078
 	ld hl, wSpriteSlot0
 	call Sprite_SetPosition
-	jr .l4570
+	jr .restore_bc_and_return
 
-.l4570 ; 2F:4570
+.restore_bc_and_return ; 2F:4570
 	; [CONFIRMED] 115 insn(s); 115 executed (in up to 2/18 scenarios)
 	pop bc
 	ret
@@ -866,7 +866,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld a, $00
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, .l46AC
+	jr z, .base_marker0_ready
 
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 2F:469A (executed) | upgraded by classifier 6: all 5 instruction
@@ -877,7 +877,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld b, $01
 	farcall Sprite_InitSlot
 
-.l46AC ; 2F:46AC
+.base_marker0_ready ; 2F:46AC
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
 	pop bc
 	push bc
@@ -891,7 +891,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld a, $01
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, .l46D8
+	jr z, .base_marker1_ready
 
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 2F:46C6 (executed) | upgraded by classifier 6: all 5 instruction
@@ -902,7 +902,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld b, $01
 	farcall Sprite_InitSlot
 
-.l46D8 ; 2F:46D8
+.base_marker1_ready ; 2F:46D8
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
 	pop bc
 	push bc
@@ -916,7 +916,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld a, $02
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, .l4704
+	jr z, .base_marker2_ready
 
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 2F:46F2 (executed) | upgraded by classifier 6: all 5 instruction
@@ -927,7 +927,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld b, $01
 	farcall Sprite_InitSlot
 
-.l4704 ; 2F:4704
+.base_marker2_ready ; 2F:4704
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
 	pop bc
 	push bc
@@ -941,7 +941,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld a, $03
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, .l4730
+	jr z, .base_marker3_ready
 
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 2F:471E (executed) | upgraded by classifier 6: all 5 instruction
@@ -952,7 +952,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld b, $01
 	farcall Sprite_InitSlot
 
-.l4730 ; 2F:4730
+.base_marker3_ready ; 2F:4730
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
 	pop bc
 	push bc
@@ -966,7 +966,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld a, $04
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, .l475C
+	jr z, .base_marker4_ready
 
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 2F:474A (executed) | upgraded by classifier 6: all 5 instruction
@@ -977,7 +977,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld b, $01
 	farcall Sprite_InitSlot
 
-.l475C ; 2F:475C
+.base_marker4_ready ; 2F:475C
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
 	pop bc
 	push bc
@@ -991,7 +991,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld a, $05
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, .l4788
+	jr z, .dispatch_selected_marker
 
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 2F:4776 (executed) | upgraded by classifier 6: all 5 instruction
@@ -1002,26 +1002,26 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld b, $01
 	farcall Sprite_InitSlot
 
-.l4788 ; 2F:4788
+.dispatch_selected_marker ; 2F:4788
 	; [CONFIRMED] 29 insn(s); 29 executed (in up to 2/18 scenarios)
 	pop bc
 	pop bc
 	ld a, c
 	cp a, $00
-	jp z, .l48C2
+	jp z, .position_row_markers
 	dec a
-	jp z, .l47A8
+	jp z, .select_slot0_marker
 	dec a
-	jp z, .l47D7
+	jp z, .select_slot1_marker
 	dec a
-	jp z, .l4806
+	jp z, .select_slot2_marker
 	dec a
-	jp z, .l4835
+	jp z, .select_slot3_marker
 	dec a
-	jp z, .l4864
+	jp z, .select_slot4_marker
 	dec a
-	jp z, .l4893
-.l47A8 ; 2F:47A8
+	jp z, .select_slot5_marker
+.select_slot0_marker ; 2F:47A8
 	push bc
 	ld hl, wSpriteSlot7
 	ld de, Table_AddrSlotIcon_Anims_Entry12
@@ -1033,7 +1033,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld a, $00
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, .l47D3
+	jr z, .selected_marker0_ready
 
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 2F:47C1 (executed) | upgraded by classifier 6: all 5 instruction
@@ -1044,12 +1044,12 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld b, $01
 	farcall Sprite_InitSlot
 
-.l47D3 ; 2F:47D3
+.selected_marker0_ready ; 2F:47D3
 	; [CONFIRMED] 2 insn(s); 2 executed (in up to 2/18 scenarios)
 	pop bc
-	jp .l48C2
+	jp .position_row_markers
 
-.l47D7 ; 2F:47D7
+.select_slot1_marker ; 2F:47D7
 	; [CONFIRMED] 76 insn(s) reached by static flow only; seeds: exec x76; min discovery hops 1;
 	; entered by jpcc from 2F:4795 (executed) | upgraded by classifier 6: all 76 instruction starts
 	; of the region are in analysis/coverage_union.tsv (executed in a trace)
@@ -1064,16 +1064,16 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld a, $01
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, .l4802
+	jr z, .selected_marker1_ready
 	ld hl, wSpriteSlot6
 	ld de, Table_AddrSlotIcon_Anims_Entry16
 	ld a, BANK(Table_AddrSlotIcon_Anims_Entry16)
 	ld b, $01
 	farcall Sprite_InitSlot
-.l4802 ; 2F:4802
+.selected_marker1_ready ; 2F:4802
 	pop bc
-	jp .l48C2
-.l4806 ; 2F:4806
+	jp .position_row_markers
+.select_slot2_marker ; 2F:4806
 	push bc
 	ld hl, wSpriteSlot5
 	ld de, Table_AddrSlotIcon_Anims_Entry12
@@ -1085,16 +1085,16 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld a, $02
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, .l4831
+	jr z, .selected_marker2_ready
 	ld hl, wSpriteSlot5
 	ld de, Table_AddrSlotIcon_Anims_Entry16
 	ld a, BANK(Table_AddrSlotIcon_Anims_Entry16)
 	ld b, $01
 	farcall Sprite_InitSlot
-.l4831 ; 2F:4831
+.selected_marker2_ready ; 2F:4831
 	pop bc
-	jp .l48C2
-.l4835 ; 2F:4835
+	jp .position_row_markers
+.select_slot3_marker ; 2F:4835
 	push bc
 	ld hl, wSpriteSlot4
 	ld de, Table_AddrSlotIcon_Anims_Entry12
@@ -1106,16 +1106,16 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld a, $03
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, .l4860
+	jr z, .selected_marker3_ready
 	ld hl, wSpriteSlot4
 	ld de, Table_AddrSlotIcon_Anims_Entry16
 	ld a, BANK(Table_AddrSlotIcon_Anims_Entry16)
 	ld b, $01
 	farcall Sprite_InitSlot
-.l4860 ; 2F:4860
+.selected_marker3_ready ; 2F:4860
 	pop bc
-	jp .l48C2
-.l4864 ; 2F:4864
+	jp .position_row_markers
+.select_slot4_marker ; 2F:4864
 	push bc
 	ld hl, wSpriteSlot3
 	ld de, Table_AddrSlotIcon_Anims_Entry12
@@ -1127,17 +1127,17 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld a, $04
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, .l488F
+	jr z, .selected_marker4_ready
 	ld hl, wSpriteSlot3
 	ld de, Table_AddrSlotIcon_Anims_Entry16
 	ld a, BANK(Table_AddrSlotIcon_Anims_Entry16)
 	ld b, $01
 	farcall Sprite_InitSlot
-.l488F ; 2F:488F
+.selected_marker4_ready ; 2F:488F
 	pop bc
-	jp .l48C2
+	jp .position_row_markers
 
-.l4893 ; 2F:4893
+.select_slot5_marker ; 2F:4893
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios)
 	push bc
 	ld hl, wSpriteSlot2
@@ -1150,7 +1150,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld a, $05
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, .l48BE
+	jr z, .selected_marker5_ready
 
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 2F:48AC (executed) | upgraded by classifier 6: all 5 instruction
@@ -1161,11 +1161,11 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld b, $01
 	farcall Sprite_InitSlot
 
-.l48BE ; 2F:48BE
+.selected_marker5_ready ; 2F:48BE
 	; [CONFIRMED] 54 insn(s); 54 executed (in up to 2/18 scenarios)
 	pop bc
-	jp .l48C2
-.l48C2 ; 2F:48C2
+	jp .position_row_markers
+.position_row_markers ; 2F:48C2
 	ld a, $20
 	ld [wSpriteSlot7], a
 	ld a, $10
@@ -1219,7 +1219,7 @@ Abook_TestSlotEmpty:: ; 2F:4907
 	add hl, de
 	ld a, [hl]
 	cp a, $00
-	jr z, .l4932
+	jr z, .return_empty
 
 	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
 	; fall-through of the jrcc at 2F:492C (executed) | upgraded by classifier 6: all 3 instruction
@@ -1228,7 +1228,7 @@ Abook_TestSlotEmpty:: ; 2F:4907
 	pop bc
 	ret
 
-.l4932 ; 2F:4932
+.return_empty ; 2F:4932
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 2/18 scenarios)
 	ld a, $FF
 	pop bc
@@ -1246,18 +1246,18 @@ AbookList_FlashSelectedMarker:: ; 2F:4942
 	push bc
 	ld a, c
 	cp a, $00
-	jp z, .l4962
+	jp z, .init_slot0_flash
 	cp a, $01
-	jp z, .l4997
+	jp z, .init_slot1_flash
 	cp a, $02
-	jp z, .l49CC
+	jp z, .init_slot2_flash
 	cp a, $03
-	jp z, .l4A01
+	jp z, .init_slot3_flash
 	cp a, $04
-	jp z, .l4A36
+	jp z, .init_slot4_flash
 	cp a, $05
-	jp z, .l4A6B
-.l4962 ; 2F:4962
+	jp z, .init_slot5_flash
+.init_slot0_flash ; 2F:4962
 	ld hl, wSpriteSlot7
 	ld de, AddrBookShared_ObjTable_Entry12
 	ld a, BANK(AddrBookShared_ObjTable_Entry12)
@@ -1266,7 +1266,7 @@ AbookList_FlashSelectedMarker:: ; 2F:4942
 	ld a, $00
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, .l498A
+	jr z, .position_slot0_marker
 
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 2F:4978 (executed) | upgraded by classifier 6: all 5 instruction
@@ -1277,15 +1277,15 @@ AbookList_FlashSelectedMarker:: ; 2F:4942
 	ld b, $01
 	farcall Sprite_InitSlot
 
-.l498A ; 2F:498A
+.position_slot0_marker ; 2F:498A
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 2/18 scenarios)
 	ld a, $20
 	ld [wSpriteSlot7], a
 	ld a, $10
 	ld [wSpriteSlot7 + $01], a
-	jp .l4AA0
+	jp .begin_frame_wait
 
-.l4997 ; 2F:4997
+.init_slot1_flash ; 2F:4997
 	; [CONFIRMED] 76 insn(s) reached by static flow only; seeds: exec x76; min discovery hops 1;
 	; entered by jpcc from 2F:494B (executed) | upgraded by classifier 6: all 76 instruction starts
 	; of the region are in analysis/coverage_union.tsv (executed in a trace)
@@ -1297,19 +1297,19 @@ AbookList_FlashSelectedMarker:: ; 2F:4942
 	ld a, $01
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, .l49BF
+	jr z, .position_slot1_marker
 	ld hl, wSpriteSlot6
 	ld de, AddrBookShared_ObjTable_Entry16
 	ld a, BANK(AddrBookShared_ObjTable_Entry16)
 	ld b, $01
 	farcall Sprite_InitSlot
-.l49BF ; 2F:49BF
+.position_slot1_marker ; 2F:49BF
 	ld a, $2C
 	ld [wSpriteSlot6], a
 	ld a, $10
 	ld [wSpriteSlot6 + $01], a
-	jp .l4AA0
-.l49CC ; 2F:49CC
+	jp .begin_frame_wait
+.init_slot2_flash ; 2F:49CC
 	ld hl, wSpriteSlot5
 	ld de, AddrBookShared_ObjTable_Entry12
 	ld a, BANK(AddrBookShared_ObjTable_Entry12)
@@ -1318,19 +1318,19 @@ AbookList_FlashSelectedMarker:: ; 2F:4942
 	ld a, $02
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, .l49F4
+	jr z, .position_slot2_marker
 	ld hl, wSpriteSlot5
 	ld de, AddrBookShared_ObjTable_Entry16
 	ld a, BANK(AddrBookShared_ObjTable_Entry16)
 	ld b, $01
 	farcall Sprite_InitSlot
-.l49F4 ; 2F:49F4
+.position_slot2_marker ; 2F:49F4
 	ld a, $38
 	ld [wSpriteSlot5], a
 	ld a, $10
 	ld [wSpriteSlot5 + $01], a
-	jp .l4AA0
-.l4A01 ; 2F:4A01
+	jp .begin_frame_wait
+.init_slot3_flash ; 2F:4A01
 	ld hl, wSpriteSlot4
 	ld de, AddrBookShared_ObjTable_Entry12
 	ld a, BANK(AddrBookShared_ObjTable_Entry12)
@@ -1339,19 +1339,19 @@ AbookList_FlashSelectedMarker:: ; 2F:4942
 	ld a, $03
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, .l4A29
+	jr z, .position_slot3_marker
 	ld hl, wSpriteSlot4
 	ld de, AddrBookShared_ObjTable_Entry16
 	ld a, BANK(AddrBookShared_ObjTable_Entry16)
 	ld b, $01
 	farcall Sprite_InitSlot
-.l4A29 ; 2F:4A29
+.position_slot3_marker ; 2F:4A29
 	ld a, $44
 	ld [wSpriteSlot4], a
 	ld a, $10
 	ld [wSpriteSlot4 + $01], a
-	jp .l4AA0
-.l4A36 ; 2F:4A36
+	jp .begin_frame_wait
+.init_slot4_flash ; 2F:4A36
 	ld hl, wSpriteSlot3
 	ld de, AddrBookShared_ObjTable_Entry12
 	ld a, BANK(AddrBookShared_ObjTable_Entry12)
@@ -1360,20 +1360,20 @@ AbookList_FlashSelectedMarker:: ; 2F:4942
 	ld a, $04
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, .l4A5E
+	jr z, .position_slot4_marker
 	ld hl, wSpriteSlot3
 	ld de, AddrBookShared_ObjTable_Entry16
 	ld a, BANK(AddrBookShared_ObjTable_Entry16)
 	ld b, $01
 	farcall Sprite_InitSlot
-.l4A5E ; 2F:4A5E
+.position_slot4_marker ; 2F:4A5E
 	ld a, $50
 	ld [wSpriteSlot3], a
 	ld a, $10
 	ld [wSpriteSlot3 + $01], a
-	jp .l4AA0
+	jp .begin_frame_wait
 
-.l4A6B ; 2F:4A6B
+.init_slot5_flash ; 2F:4A6B
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
 	ld hl, wSpriteSlot2
 	ld de, AddrBookShared_ObjTable_Entry12
@@ -1383,7 +1383,7 @@ AbookList_FlashSelectedMarker:: ; 2F:4942
 	ld a, $05
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, .l4A93
+	jr z, .position_slot5_marker
 
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 2F:4A81 (executed) | upgraded by classifier 6: all 5 instruction
@@ -1394,14 +1394,14 @@ AbookList_FlashSelectedMarker:: ; 2F:4942
 	ld b, $01
 	farcall Sprite_InitSlot
 
-.l4A93 ; 2F:4A93
+.position_slot5_marker ; 2F:4A93
 	; [CONFIRMED] 49 insn(s); 49 executed (in up to 2/18 scenarios)
 	ld a, $5C
 	ld [wSpriteSlot2], a
 	ld a, $10
 	ld [wSpriteSlot2 + $01], a
-	jp .l4AA0
-.l4AA0 ; 2F:4AA0
+	jp .begin_frame_wait
+.begin_frame_wait ; 2F:4AA0
 	ld b, $1E
 	ld b, $01
 .loop ; 2F:4AA4
@@ -1412,10 +1412,10 @@ AbookList_FlashSelectedMarker:: ; 2F:4942
 	pop bc
 	ldh a, [hJoyHeld]
 	and a, PADF_UP | PADF_DOWN
-	jr nz, .l4ABE
+	jr nz, .restore_bc_and_return
 	dec b
 	jr nz, .loop
-.l4ABE ; 2F:4ABE
+.restore_bc_and_return ; 2F:4ABE
 	pop bc
 	ret
 
@@ -1430,7 +1430,7 @@ AbookList_UpdateRowHighlight:: ; 2F:4AC0
 	pop af
 	push bc
 	cp a, $FF
-	jr z, .l4B01
+	jr z, .check_current_slot
 	push bc
 	push af
 	ld e, a
@@ -1448,28 +1448,28 @@ AbookList_UpdateRowHighlight:: ; 2F:4AC0
 	ld b, a
 	xor a, a
 	inc b
-.l4AEC ; 2F:4AEC
+.previous_slot_offset_loop ; 2F:4AEC
 	dec b
-	jr z, .l4AF3
+	jr z, .draw_previous_slot_name
 
 	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 2F:4AED (executed) | upgraded by classifier 6: all 2 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	add a, $0C
-	jr .l4AEC
+	jr .previous_slot_offset_loop
 
-.l4AF3 ; 2F:4AF3
+.draw_previous_slot_name ; 2F:4AF3
 	; [CONFIRMED] 44 insn(s); 44 executed (in up to 2/18 scenarios)
 	ld d, a
 	ld b, $03
 	ld c, $00
 	farcall AddrBook_DrawSlotName
 	pop bc
-	jr .l4B01
-.l4B01 ; 2F:4B01
+	jr .check_current_slot
+.check_current_slot ; 2F:4B01
 	ld a, c
 	cp a, $FF
-	jr z, .l4B32
+	jr z, .upload_name_tiles
 	push bc
 	ld e, c
 	sla e
@@ -1487,19 +1487,19 @@ AbookList_UpdateRowHighlight:: ; 2F:4AC0
 	ld b, c
 	xor a, a
 	inc b
-.l4B1D ; 2F:4B1D
+.current_slot_offset_loop ; 2F:4B1D
 	dec b
-	jr z, .l4B24
+	jr z, .draw_current_slot_name
 	add a, $0C
-	jr .l4B1D
-.l4B24 ; 2F:4B24
+	jr .current_slot_offset_loop
+.draw_current_slot_name ; 2F:4B24
 	ld d, a
 	ld b, $00
 	ld c, $01
 	farcall AddrBook_DrawSlotName
 	pop hl
-	jr .l4B32
-.l4B32 ; 2F:4B32
+	jr .upload_name_tiles
+.upload_name_tiles ; 2F:4B32
 	farcall AddrBook_UploadTextTiles
 	pop bc
 	push af
@@ -1529,7 +1529,7 @@ AbookList_DrawNames:: ; 2F:4B4E
 	pop af
 	xor a, a
 	ld d, $06
-.l4B62 ; 2F:4B62
+.slot_loop ; 2F:4B62
 	push af
 	push de
 	push bc
@@ -1549,12 +1549,12 @@ AbookList_DrawNames:: ; 2F:4B4E
 	ld b, a
 	xor a, a
 	inc b
-.l4B7B ; 2F:4B7B
+.slot_offset_loop ; 2F:4B7B
 	dec b
-	jr z, .l4B82
+	jr z, .draw_slot_name
 	add a, $0C
-	jr .l4B7B
-.l4B82 ; 2F:4B82
+	jr .slot_offset_loop
+.draw_slot_name ; 2F:4B82
 	ld d, a
 	ld b, $03
 	ld c, $00
@@ -1564,7 +1564,7 @@ AbookList_DrawNames:: ; 2F:4B4E
 	pop af
 	inc a
 	dec d
-	jr nz, .l4B62
+	jr nz, .slot_loop
 	pop bc
 	push af
 	xor a, a

@@ -1,0 +1,268 @@
+owner	bank	address	previous_name	reviewed_name	decision	confidence	evidence_basis
+engine/address_book/list.asm	2F	403F	.l403F	.empty_slot_help_attr	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4041	.l4041	.apply_help_attr	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	406D	.l406D	.empty_slot_help_attr	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	406F	.l406F	.apply_help_attr	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4094	Data_2F_4094	Data_2F_4094	KEEP	HYPOTHESIS	JP-like bytes lack demonstrated entry or consumer; predecessor branches elsewhere.
+engine/address_book/list.asm	2F	40D0	.l40D0	.check_vertical_input	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4158	.l4158	.position_button0_sprite	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4163	.l4163	.position_button1_sprite	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	416E	.l416E	.position_button2_sprite	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4179	.l4179	.position_button3_sprite	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4184	.l4184	.draw_button_help	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	41E4	.l41E4	.check_confirm_input	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	420E	.l420E	.show_delete_dialog	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4286	.l4286	.check_delete_result	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	42DA	.l42DA	.check_edit_button	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	42FC	.l42FC	.prepare_edit_return	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	432E	.l432E	.check_new_button	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4350	.l4350	.prepare_new_entry	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4383	.l4383	.check_view_slot	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	43A1	.l43A1	.prepare_view_return	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	43C5	.l43C5	.fade_out_and_return_button	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	43D8	.l43D8	.check_left_input	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	43FB	.l43FB	.redraw_after_left	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	440A	.l440A	.check_right_input	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	442D	.l442D	.redraw_after_right	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	443C	.l443C	.position_button_row_sprite	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4504	.l4504	.place_button0_cursor	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	451F	.l451F	.place_button1_cursor	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	453A	.l453A	.place_button2_cursor	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4555	.l4555	.place_button3_cursor	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4570	.l4570	.restore_bc_and_return	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	46AC	.l46AC	.base_marker0_ready	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	46D8	.l46D8	.base_marker1_ready	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4704	.l4704	.base_marker2_ready	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4730	.l4730	.base_marker3_ready	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	475C	.l475C	.base_marker4_ready	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4788	.l4788	.dispatch_selected_marker	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	47A8	.l47A8	.select_slot0_marker	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	47D3	.l47D3	.selected_marker0_ready	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	47D7	.l47D7	.select_slot1_marker	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4802	.l4802	.selected_marker1_ready	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4806	.l4806	.select_slot2_marker	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4831	.l4831	.selected_marker2_ready	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4835	.l4835	.select_slot3_marker	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4860	.l4860	.selected_marker3_ready	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4864	.l4864	.select_slot4_marker	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	488F	.l488F	.selected_marker4_ready	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4893	.l4893	.select_slot5_marker	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	48BE	.l48BE	.selected_marker5_ready	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	48C2	.l48C2	.position_row_markers	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4932	.l4932	.return_empty	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4962	.l4962	.init_slot0_flash	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	498A	.l498A	.position_slot0_marker	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4997	.l4997	.init_slot1_flash	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	49BF	.l49BF	.position_slot1_marker	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	49CC	.l49CC	.init_slot2_flash	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	49F4	.l49F4	.position_slot2_marker	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4A01	.l4A01	.init_slot3_flash	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4A29	.l4A29	.position_slot3_marker	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4A36	.l4A36	.init_slot4_flash	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4A5E	.l4A5E	.position_slot4_marker	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4A6B	.l4A6B	.init_slot5_flash	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4A93	.l4A93	.position_slot5_marker	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4AA0	.l4AA0	.begin_frame_wait	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4ABE	.l4ABE	.restore_bc_and_return	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4AEC	.l4AEC	.previous_slot_offset_loop	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4AF3	.l4AF3	.draw_previous_slot_name	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4B01	.l4B01	.check_current_slot	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4B1D	.l4B1D	.current_slot_offset_loop	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4B24	.l4B24	.draw_current_slot_name	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4B32	.l4B32	.upload_name_tiles	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4B62	.l4B62	.slot_loop	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4B7B	.l4B7B	.slot_offset_loop	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/address_book/list.asm	2F	4B82	.l4B82	.draw_slot_name	RENAME	CONFIRMED	Address-book list slot/button/index operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	40AC	.l40AC	.check_timer_warning	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	40D6	.l40D6	.check_warning_45	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	40E6	.l40E6	.set_warning_pending	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	40FA	.l40FA	.no_warning	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	40FB	.l40FB	.test_warning_result	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4103	.l4103	.handle_timer_inactive	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	41C4	.l41C4	.return_abort	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	41D7	.l41D7	.handle_input	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4219	.l4219	.restore_list_message	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	422A	.l422A	.check_b_button	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4256	.l4256	.check_up_button	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	427A	.l427A	.redraw_after_up	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4281	.l4281	.check_down_button	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	42A5	.l42A5	.redraw_after_down	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	42AC	.l42AC	.next_frame	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	43D2	.l43D2	.upload_maps_and_titles	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	44EF	.l44EF	.check_row_1	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	450B	.l450B	.check_row_2	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4527	.l4527	.check_row_3	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4543	.l4543	.check_row_4	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	455F	.l455F	.check_row_5	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	457B	.l457B	.set_row_positions	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	45FB	.l45FB	.highlight_empty_row_0	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4618	.l4618	.check_row_1	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4645	.l4645	.highlight_empty_row_1	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4662	.l4662	.check_row_2	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	468F	.l468F	.highlight_empty_row_2	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	46AC	.l46AC	.check_row_3	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	46D9	.l46D9	.highlight_empty_row_3	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	46F6	.l46F6	.check_row_4	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4723	.l4723	.highlight_empty_row_4	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4740	.l4740	.check_row_5	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	476D	.l476D	.highlight_empty_row_5	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	478A	.l478A	.close_sram	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	47D3	.l47D3	.return_empty_slot_flags	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	47D8	.l47D8	.slot_has_url	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	47F6	.l47F6	.return_filled_slot_flags	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	480F	.l480F	.write_go_attributes	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4820	.l4820	.write_save_attributes	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4831	.l4831	.write_delete_attributes	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4866	.l4866	.old_row_y_loop	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	486D	.l486D	.draw_old_row_title	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	488F	.l488F	.selected_row_y_loop	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4896	.l4896	.draw_selected_row_title	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	48DB	.l48DB	.draw_next_title	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	48F4	.l48F4	.row_y_loop	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	48FB	.l48FB	.draw_row_title	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	49A7	.draw_ascii_char	.draw_single_byte_char	REFINE	CONFIRMED	Non-lead-byte path consumes one cell; unsupported values are mapped to fallback by Glyph_LoadAscii.
+engine/browser/page_list.asm	24	49CC	.l49CC	.load_padding_space	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	49DD	.l49DD	.pad_remaining_cells	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4BCC	Data_24_4BCC	Data_24_4BCC	KEEP	HYPOTHESIS	Outside four terminated strings and adjacent named entry; no demonstrated consumer or code entry.
+engine/browser/page_list.asm	24	4BFE	.l4BFE	.check_timer_warning	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4C28	.l4C28	.check_warning_45	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4C38	.l4C38	.set_warning_pending	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4C4C	.l4C4C	.no_warning	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4C4D	.l4C4D	.test_warning_result	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4C55	.l4C55	.handle_timer_inactive	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4D25	.l4D25	.return_abort	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4D39	.l4D39	.handle_input	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4D5E	.l4D5E	.check_delete_action	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4D6B	.l4D6B	.check_write_result	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4D8A	.l4D8A	.return_to_list	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4D97	.l4D97	.go_to_slot	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4DB7	.l4DB7	.return_go_success	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4DBA	.l4DBA	.check_b_button	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4DE1	.l4DE1	.check_left_button	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4E06	.l4E06	.redraw_after_left	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4E12	.l4E12	.check_right_button	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4E37	.l4E37	.redraw_after_right	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4E43	.l4E43	.next_frame	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4EAD	.l4EAD	.check_save_action	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4ECE	.l4ECE	.check_delete_action	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4EEF	.l4EEF	.return_invalid_action	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	4F04	.l4F04	.l4F04	KEEP	CONFIRMED	Carry-selected duplicated body lacks evidence of a distinct action.
+engine/browser/page_list.asm	24	4FF6	.l4FF6	.start_save	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	5039	.l5039	.check_row_1	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	5060	.l5060	.check_row_2	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	5087	.l5087	.check_row_3	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	50AE	.l50AE	.check_row_4	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	50D5	.l50D5	.check_row_5	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	50FC	.l50FC	.wait_save_animation	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	50FF	.l50FF	.save_animation_frame	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	5173	.l5173	.enable_sram	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	52A3	.l52A3	.start_delete	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	52E3	.l52E3	.check_row_1	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	530A	.l530A	.check_row_2	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	5331	.l5331	.check_row_3	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	5358	.l5358	.check_row_4	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	537F	.l537F	.check_row_5	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/browser/page_list.asm	24	53A6	.l53A6	.wait_delete_animation	RENAME	CONFIRMED	Page-list owner predicate/operation and local references reviewed; static flow only.
+engine/comm/connect_dialog_screen.asm	57	54E4	.l54E4	.connect_confirm_buttons	RENAME	CONFIRMED	ConnectDialog_PlayButtonSfx dispatch/branch and sound operation reviewed against complete file snapshot.
+engine/comm/connect_dialog_screen.asm	57	54F9	.l54F9	.connect_confirm_cancel	RENAME	CONFIRMED	ConnectDialog_PlayButtonSfx dispatch/branch and sound operation reviewed against complete file snapshot.
+engine/comm/connect_dialog_screen.asm	57	550A	.l550A	.connect_confirm_with_count_buttons	RENAME	CONFIRMED	ConnectDialog_PlayButtonSfx dispatch/branch and sound operation reviewed against complete file snapshot.
+engine/comm/connect_dialog_screen.asm	57	551F	.l551F	.connect_confirm_with_count_cancel	RENAME	CONFIRMED	ConnectDialog_PlayButtonSfx dispatch/branch and sound operation reviewed against complete file snapshot.
+engine/comm/connect_dialog_screen.asm	57	5530	.l5530	.password_prompt_buttons	RENAME	CONFIRMED	ConnectDialog_PlayButtonSfx dispatch/branch and sound operation reviewed against complete file snapshot.
+engine/comm/connect_dialog_screen.asm	57	5545	.l5545	.password_prompt_cancel	RENAME	CONFIRMED	ConnectDialog_PlayButtonSfx dispatch/branch and sound operation reviewed against complete file snapshot.
+engine/comm/connect_dialog_screen.asm	57	5556	.l5556	.keyboard_mode_buttons	RENAME	CONFIRMED	ConnectDialog_PlayButtonSfx dispatch/branch and sound operation reviewed against complete file snapshot.
+engine/comm/connect_dialog_screen.asm	57	556B	.l556B	.keyboard_mode_cancel	RENAME	CONFIRMED	ConnectDialog_PlayButtonSfx dispatch/branch and sound operation reviewed against complete file snapshot.
+engine/comm/connect_dialog_screen.asm	57	557C	.l557C	.save_confirm_buttons	RENAME	CONFIRMED	ConnectDialog_PlayButtonSfx dispatch/branch and sound operation reviewed against complete file snapshot.
+engine/comm/connect_dialog_screen.asm	57	5598	.l5598	.save_confirm_other_cursor	RENAME	CONFIRMED	ConnectDialog_PlayButtonSfx dispatch/branch and sound operation reviewed against complete file snapshot.
+engine/comm/connect_dialog_screen.asm	57	55A9	.l55A9	.save_confirm_cancel	RENAME	CONFIRMED	ConnectDialog_PlayButtonSfx dispatch/branch and sound operation reviewed against complete file snapshot.
+engine/comm/connect_dialog_screen.asm	57	55BA	.l55BA	.password_saved_buttons	RENAME	CONFIRMED	ConnectDialog_PlayButtonSfx dispatch/branch and sound operation reviewed against complete file snapshot.
+engine/comm/connect_dialog_screen.asm	57	55CF	.l55CF	.password_saved_cancel	RENAME	CONFIRMED	ConnectDialog_PlayButtonSfx dispatch/branch and sound operation reviewed against complete file snapshot.
+engine/comm/connect_dialog_screen.asm	57	55E0	.l55E0	.stored_password_buttons	RENAME	CONFIRMED	ConnectDialog_PlayButtonSfx dispatch/branch and sound operation reviewed against complete file snapshot.
+engine/comm/connect_dialog_screen.asm	57	55F5	.l55F5	.stored_password_cancel	RENAME	CONFIRMED	ConnectDialog_PlayButtonSfx dispatch/branch and sound operation reviewed against complete file snapshot.
+engine/comm/connect_dialog_screen.asm	57	5606	.l5606	.forget_confirm_buttons	RENAME	CONFIRMED	ConnectDialog_PlayButtonSfx dispatch/branch and sound operation reviewed against complete file snapshot.
+engine/comm/connect_dialog_screen.asm	57	561F	.l561F	.forget_confirm_a_button	RENAME	CONFIRMED	ConnectDialog_PlayButtonSfx dispatch/branch and sound operation reviewed against complete file snapshot.
+engine/comm/connect_dialog_screen.asm	57	5630	.l5630	.forget_confirm_cancel	RENAME	CONFIRMED	ConnectDialog_PlayButtonSfx dispatch/branch and sound operation reviewed against complete file snapshot.
+engine/mobile/pop3_retr.asm	54	4D0F	.l4D0F	.call_retr_api_with_zero_capacity	RENAME	CONFIRMED	Static operation/branch evidence in complete owner review; no claim of natural execution.
+engine/mobile/pop3_retr.asm	54	4D20	.l4D20	.advance_retr_step	RENAME	CONFIRMED	Static operation/branch evidence in complete owner review; no claim of natural execution.
+engine/mobile/pop3_retr.asm	54	4D2E	.l4D2E	.return_fetch_status_and_clear_task	RENAME	CONFIRMED	Static operation/branch evidence in complete owner review; no claim of natural execution.
+engine/mobile/pop3_retr.asm	54	4D38	.l4D38	.parse_retr_mail	RENAME	CONFIRMED	Static operation/branch evidence in complete owner review; no claim of natural execution.
+engine/mobile/pop3_retr.asm	54	4D9A	.l4D9A	.convert_and_split_from_header	RENAME	CONFIRMED	Static operation/branch evidence in complete owner review; no claim of natural execution.
+engine/mobile/pop3_retr.asm	54	4DCA	.l4DCA	.cut_from_address_at_space	RENAME	CONFIRMED	Static operation/branch evidence in complete owner review; no claim of natural execution.
+engine/mobile/pop3_retr.asm	54	4DD5	.l4DD5	.decode_subject_header	RENAME	CONFIRMED	Static operation/branch evidence in complete owner review; no claim of natural execution.
+engine/mobile/pop3_retr.asm	54	4DF5	.l4DF5	.l4DF5	KEEP	CONFIRMED	Converges Subject success and Date failure with distinct incoming state.
+engine/mobile/pop3_retr.asm	54	4E1A	.l4E1A	.clear_subject_measure_buffer	RENAME	CONFIRMED	Static operation/branch evidence in complete owner review; no claim of natural execution.
+engine/mobile/pop3_retr.asm	54	4E32	.l4E32	.count_converted_subject_bytes	RENAME	CONFIRMED	Static operation/branch evidence in complete owner review; no claim of natural execution.
+engine/mobile/pop3_retr.asm	54	4E47	.l4E47	.decode_date_header	RENAME	CONFIRMED	Static operation/branch evidence in complete owner review; no claim of natural execution.
+engine/mobile/pop3_retr.asm	54	4E67	.l4E67	.store_date_and_prepare_body	RENAME	CONFIRMED	Static operation/branch evidence in complete owner review; no claim of natural execution.
+engine/mobile/pop3_retr.asm	54	4E95	.l4E95	.trim_body_trailing_crlf	RENAME	CONFIRMED	Static operation/branch evidence in complete owner review; no claim of natural execution.
+engine/mobile/pop3_retr.asm	54	4EB2	.l4EB2	.replace_body_tabs_with_spaces	RENAME	CONFIRMED	Static operation/branch evidence in complete owner review; no claim of natural execution.
+engine/mobile/pop3_retr.asm	54	4EC3	.l4EC3	.select_body_copy_method	RENAME	CONFIRMED	Static operation/branch evidence in complete owner review; no claim of natural execution.
+engine/mobile/pop3_retr.asm	54	4EE7	.l4EE7	.mark_record_and_request_dele	RENAME	CONFIRMED	Static operation/branch evidence in complete owner review; no claim of natural execution.
+engine/mobile/pop3_retr.asm	54	4F24	.l4F24	.init_body_byte_count	RENAME	CONFIRMED	Static operation/branch evidence in complete owner review; no claim of natural execution.
+engine/mobile/pop3_retr.asm	54	4F29	.l4F29	.scan_body_copy_count	RENAME	CONFIRMED	Static operation/branch evidence in complete owner review; no claim of natural execution.
+engine/mobile/pop3_retr.asm	54	4F45	.l4F45	.l4F45	KEEP	CONFIRMED	Carry preparation anchor.
+engine/mobile/pop3_retr.asm	54	4F46	.l4F46	.l4F46	KEEP	CONFIRMED	Carry-dependent join.
+engine/mobile/pop3_retr.asm	54	4F6C	.l4F6C	.l4F6C	KEEP	CONFIRMED	Second carry preparation anchor.
+engine/mobile/pop3_retr.asm	54	4F6D	.l4F6D	.l4F6D	KEEP	CONFIRMED	Second carry-dependent join.
+engine/mobile/pop3_retr.asm	54	4F70	.l4F70	.prepare_counted_body_copy	RENAME	CONFIRMED	Static operation/branch evidence in complete owner review; no claim of natural execution.
+engine/mobile/pop3_retr.asm	54	4F8B	.l4F8B	.copy_counted_body_to_record	RENAME	CONFIRMED	Static operation/branch evidence in complete owner review; no claim of natural execution.
+engine/mobile/pop3_retr.asm	54	4FA4	.l4FA4	.restore_banks_and_finish_status_1	RENAME	CONFIRMED	Static operation/branch evidence in complete owner review; no claim of natural execution.
+engine/mobile/pop3_retr.asm	54	4FE8	.l4FE8	.scan_from_delimiter	RENAME	CONFIRMED	Mail_SplitFromHeader static scan, delimiter branches, byte counts, conversion table and bounded shifts; CONFIRMED control/data flow only.
+engine/mobile/pop3_retr.asm	54	501B	.l501B	.split_angle_address	RENAME	CONFIRMED	Mail_SplitFromHeader static scan, delimiter branches, byte counts, conversion table and bounded shifts; CONFIRMED control/data flow only.
+engine/mobile/pop3_retr.asm	54	5035	.l5035	.scan_closing_angle	RENAME	CONFIRMED	Mail_SplitFromHeader static scan, delimiter branches, byte counts, conversion table and bounded shifts; CONFIRMED control/data flow only.
+engine/mobile/pop3_retr.asm	54	504F	.l504F	.split_parenthesized_name	RENAME	CONFIRMED	Mail_SplitFromHeader static scan, delimiter branches, byte counts, conversion table and bounded shifts; CONFIRMED control/data flow only.
+engine/mobile/pop3_retr.asm	54	5069	.l5069	.scan_closing_parenthesis	RENAME	CONFIRMED	Mail_SplitFromHeader static scan, delimiter branches, byte counts, conversion table and bounded shifts; CONFIRMED control/data flow only.
+engine/mobile/pop3_retr.asm	54	5081	.l5081	.prepare_name_formatting	RENAME	CONFIRMED	Mail_SplitFromHeader static scan, delimiter branches, byte counts, conversion table and bounded shifts; CONFIRMED control/data flow only.
+engine/mobile/pop3_retr.asm	54	5092	.l5092	.trim_name_trailing_space	RENAME	CONFIRMED	Mail_SplitFromHeader static scan, delimiter branches, byte counts, conversion table and bounded shifts; CONFIRMED control/data flow only.
+engine/mobile/pop3_retr.asm	54	50A2	.l50A2	.init_name_conversion_count	RENAME	CONFIRMED	Mail_SplitFromHeader static scan, delimiter branches, byte counts, conversion table and bounded shifts; CONFIRMED control/data flow only.
+engine/mobile/pop3_retr.asm	54	50A5	.l50A5	.convert_name_characters_to_fullwidth	RENAME	CONFIRMED	Mail_SplitFromHeader static scan, delimiter branches, byte counts, conversion table and bounded shifts; CONFIRMED control/data flow only.
+engine/mobile/pop3_retr.asm	54	50C0	.l50C0	.l50C0	KEEP	CONFIRMED	Carry preparation before byte-width join in address-name conversion.
+engine/mobile/pop3_retr.asm	54	50C1	.l50C1	.l50C1	KEEP	CONFIRMED	Carry-dependent join; preserves different one/two-byte paths.
+engine/mobile/pop3_retr.asm	54	50D5	.l50D5	.prepare_name_tail_shift	RENAME	CONFIRMED	Mail_SplitFromHeader static scan, delimiter branches, byte counts, conversion table and bounded shifts; CONFIRMED control/data flow only.
+engine/mobile/pop3_retr.asm	54	50DD	.l50DD	.shift_name_tail_right	RENAME	CONFIRMED	Mail_SplitFromHeader static scan, delimiter branches, byte counts, conversion table and bounded shifts; CONFIRMED control/data flow only.
+engine/mobile/pop3_retr.asm	54	50F6	.l50F6	.advance_name_character	RENAME	CONFIRMED	Mail_SplitFromHeader static scan, delimiter branches, byte counts, conversion table and bounded shifts; CONFIRMED control/data flow only.
+engine/comm/connect_dialog_screen.asm	57	4914	.l4914	.draw_argument_byte6_digits	RENAME	CONFIRMED	Reads argument+6, converts the byte to BCD and renders two digits; does not infer a unit. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	4AA3	.l4AA3	.reinit_caret_sprites	RENAME	CONFIRMED	Reinitializes caret sprite slots 3 and 2, positions them, then returns. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	4BF3	.l4BF3	.load_save_confirm_map	RENAME	CONFIRMED	Converges on copying the save-confirm map and palette. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	4C2C	.l4C2C	.render_save_confirm_prompt	RENAME	CONFIRMED	Renders the save-confirm prompt after optional palette upload. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	50A6	.loop	.fade_in_screen	REFINE	CONFIRMED	Updates sprites, fades in, and returns; not a loop. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	50B3	.l50B3	.check_password_mode_transition	RENAME	CONFIRMED	Tests mode/window transitions in the password path. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	50CA	.l50CA	.check_return_from_forget_confirm	RENAME	CONFIRMED	Checks return from previous mode 10 to mode 5. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	510B	.l510B	.show_lower_window	RENAME	CONFIRMED	Calls ConnectDialog_ShowLowerWindow and returns. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	513B	.l513B	.load_entry_field_map	RENAME	CONFIRMED	Loads the entry field map for modes 5 and 6. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	5160	.l5160	.load_save_confirm_field_map	RENAME	CONFIRMED	Loads save-confirm field map for mode 7. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	5174	.l5174	.load_password_saved_field_map	RENAME	CONFIRMED	Loads password-saved map for mode 8. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	5187	.l5187	.load_stored_password_field_map	RENAME	CONFIRMED	Loads stored-password map for mode 9. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	51AB	.l51AB	.load_forget_confirm_field_map	RENAME	CONFIRMED	Loads forget-confirm map for mode 10. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	51BC	.l51BC	.draw_used_field_cells	RENAME	CONFIRMED	Fills used cells on both rows and their attributes. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	51C9	.l51C9	.fill_used_top_tiles	RENAME	CONFIRMED	Fills TextLen top-row tile bytes. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	51D2	.l51D2	.fill_used_bottom_tiles	RENAME	CONFIRMED	Fills TextLen bottom-row tile bytes. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	51DC	.l51DC	.fill_used_top_attrs	RENAME	CONFIRMED	Fills TextLen top-row attributes. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	51E4	.l51E4	.fill_used_bottom_attrs	RENAME	CONFIRMED	Fills TextLen bottom-row attributes. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	51E8	.l51E8	.upload_used_field_rows	RENAME	CONFIRMED	Uploads tilemap and attribute rows. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	520D	.l520D	.draw_remaining_field_cells	RENAME	CONFIRMED	Fills remaining cells using count 8-TextLen. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	5226	.l5226	.fill_remaining_top_tiles	RENAME	CONFIRMED	Fills remaining top-row tile bytes. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	5237	.l5237	.fill_remaining_bottom_tiles	RENAME	CONFIRMED	Fills remaining bottom-row tile bytes. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	5244	.l5244	.fill_remaining_top_attrs	RENAME	CONFIRMED	Fills remaining top-row attributes. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	5254	.l5254	.fill_remaining_bottom_attrs	RENAME	CONFIRMED	Fills remaining bottom-row attributes. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	5258	.l5258	.upload_remaining_field_rows	RENAME	CONFIRMED	Uploads both rows after remaining-cell fill. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	529D	.l529D	.position_caret_slot2	RENAME	CONFIRMED	Computes slot 2 position from field length and WY adjustment. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	52BF	.l52BF	.position_caret_slot3	RENAME	CONFIRMED	Computes slot 3 position from field length and WY adjustment. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	52F1	.l52F1	.reset_caret_slot2	RENAME	CONFIRMED	Reinitializes slot 2 and caret hook on the static state tests. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	5314	.l5314	.restore_wram_bank	RENAME	CONFIRMED	Restores selected WRAM bank and returns. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	5377	.l5377	.digit_scan_loop	RENAME	CONFIRMED	Scans password bytes for ASCII digits. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	5380	.l5380	.next_digit_candidate	RENAME	CONFIRMED	Advances or returns when digit scan is exhausted. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	5384	.l5384	.begin_lowercase_scan	RENAME	CONFIRMED	Resets scan pointer and count before lowercase search. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	538B	.l538B	.lowercase_scan_loop	RENAME	CONFIRMED	Scans password bytes for ASCII lowercase letters. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	5394	.l5394	.next_lowercase_candidate	RENAME	CONFIRMED	Advances lowercase search or begins uppercase search. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	539E	.l539E	.uppercase_scan_loop	RENAME	CONFIRMED	Scans password bytes for ASCII uppercase letters. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	53A7	.l53A7	.next_uppercase_candidate	RENAME	CONFIRMED	Advances uppercase search or returns after exhaustion. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	53AD	.l53AD	.set_valid_password_flags	RENAME	CONFIRMED	Sets valid flag after length>=4, digit and lowercase OR uppercase; length flag only at 8. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	53B6	.skip	.mark_valid_password	REFINE	CONFIRMED	Conditional branch skips only setting the length-8 flag. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	53E3	.loop	.wait_ly_at_least_91	REFINE	CONFIRMED	Polls LY and waits for the next transfer window. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	53EC	.l53EC	.upload_tile_and_attr_row	RENAME	CONFIRMED	Starts tile and attribute VRAM transfers. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	5427	.loop	.store_next_encoded_byte	REFINE	CONFIRMED	Writes next password byte XOR $5A to SRAM. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	5437	.l5437	.store_length_from_bc	RENAME	CONFIRMED	Stores B to the saved-length field after pop BC; does not imply the A=0 path is safe. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	5498	.l5498	.modes_0_1_confirm_dispatch	RENAME	CONFIRMED	Mode 0/1 dispatch: B=0 confirm; B!=0 branches to cancel. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	54AD	.l54AD	.modes_0_1_cancel_sfx	RENAME	CONFIRMED	Mode 0/1 cancel tail plays SFX_CANCEL and returns. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	54BE	.l54BE	.mode_2_confirm_dispatch	RENAME	CONFIRMED	Mode 2 dispatch: B=0 confirm; B!=0 branches to cancel. Static control-flow evidence only; normal execution scope retained where applicable.
+engine/comm/connect_dialog_screen.asm	57	54D3	.l54D3	.mode_2_cancel_sfx	RENAME	CONFIRMED	Mode 2 cancel tail plays SFX_CANCEL and returns. Static control-flow evidence only; normal execution scope retained where applicable.
