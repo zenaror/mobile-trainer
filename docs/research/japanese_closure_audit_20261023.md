@@ -95,12 +95,13 @@ A bounded GDB hardware-watchpoint run on the ordinary-input `kbd_abook`
 scenario captured one ROM read at bank `48`, physical offset `29AB` (CPU
 address `69AB`), frame 4416, with the pre-instruction PC at `48:47D6`.
 That instruction is `ld a,[bc]` inside `Font_BlitGlyph8x16`. The capture
-confirms the executing instruction for this one newly captured event. The
-older aggregate remains address-only; this rerun supplies one direct PC
-attribution for its `48:69AB` range. It does not identify the higher-level
-caller, recover BC or the font-code arguments, attribute every event in the
-historical aggregate, or establish the identity/intention of the zero bytes.
-The run is synthetic mGBA evidence; it is not a hardware test. Full command,
-tool/input/output hashes, and limits are recorded in [the Bank 48 reader
-note](font_reader_69ab_bounds_20261020.md#direct-read-pc-witness-2026-10-23) and
-`.tmp/jp-zero48-pc-trace-20261023/RESULT.json`.
+An expanded capture records `BC=69AB` and shadow return `55:6C5C`; original
+ROM bytes at `55:6C59` encode `farcall 48:4748`, the call from
+`Kbd_DrawGlyphPreview`. This confirms the caller chain for this one event.
+The older aggregate remains address-only, so this does not attribute every
+event in its historical rows. The font-code argument, zero-byte
+identity/intention, rendered output, global reachability, and hardware
+behavior remain unknown. This is synthetic mGBA evidence, not a hardware
+test. Full command, tool/input/output hashes, and limits are recorded in [the
+Bank 48 reader note](font_reader_69ab_bounds_20261020.md#direct-read-pc-witness-2026-10-23) and
+`.tmp/jp-zero48-pc-trace-20261023/RESULT-caller.json`.

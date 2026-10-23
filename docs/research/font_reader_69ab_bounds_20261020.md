@@ -109,15 +109,26 @@ specific event corresponding to the earlier aggregate range, rather than
 attributing every row in every historical trace. The source byte at
 `48:69AB` is `$00` in the immutable ROM.
 
-The run does not capture the original caller, BC, the font-code arguments, or
-the full ordered stream. It therefore does not prove which caller supplied the
-source pointer, whether the keyboard preview was that caller, or why the zero
-bytes are present. The object-identity, intent, rendered-output, global
-reachability, and hardware questions remain unknown. This is synthetic mGBA
-evidence using an ordinary input fixture, not hardware evidence.
+An expanded watchpoint run also captured `BC=69AB` at the read and the
+tracer's shadow-stack return `PC=6C5C`, `SP=CFC9`. In the original ROM, the
+callsite immediately before that return is `55:6C59`; its six bytes are
+`CD D1 06 48 47 48`, i.e. `call 00:06D1` with inline target `48:4748`.
+`55:6C59` is the `farcall Font_BlitGlyph8x16` in `Kbd_DrawGlyphPreview`.
+Together, the runtime return-stack entry, current callee PC, and original
+callsite bytes confirm the caller chain for this exact event:
+`Kbd_DrawGlyphPreview` → `Font_BlitGlyph8x16` → read at `48:69AB`.
+
+The run does not capture the font-code argument as passed to the reader or the
+full ordered stream. It does not establish why the zero bytes are present,
+their object identity or intent, rendered appearance, global reachability, or
+hardware behavior. This is synthetic mGBA evidence using an ordinary input
+fixture, not hardware evidence.
 
 Reproduction artifacts and hashes are indexed by
 `.tmp/jp-zero48-pc-trace-20261023/RESULT.json` (SHA-256
 `6a14f72e2ac869ba0fe804b76544e3d16a095d7196cb4882fdd04a89c8abb3f5`). The
-record pins the original ROM, fixture, tracer binary/source, loaded libmgba,
-GDB command file, capture log, and relevant scenario outputs.
+PC-only capture is retained there. The expanded stack/callsite evidence is in
+`.tmp/jp-zero48-pc-trace-20261023/RESULT-caller.json` (SHA-256
+`31c4ee024897b7cbc0ff4e27a77f01a2710880b96d0b46d1fd3c51f52234fe0d`); it
+also pins the original ROM, fixture, tracer binary/source, loaded libmgba,
+GDB command/log, callgraph and scenario outputs.
