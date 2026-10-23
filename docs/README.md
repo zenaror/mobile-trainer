@@ -76,6 +76,7 @@ Reference documents (current):
 | [`japanese_residual_gfx_path_audit_20261022.md`](research/japanese_residual_gfx_path_audit_20261022.md) | Final 44 Japanese address-only GFX stems renamed from static ownership; hashes and original-ROM build verified |
 | [`japanese_sprite_data_followup_20261022.md`](research/japanese_sprite_data_followup_20261022.md) | 33 Save Sender Address sprite symbols, bank 4B second-banner transfer, and the bounded neutral-data review |
 | [`japanese_generic_name_reconciliation_20261022.md`](research/japanese_generic_name_reconciliation_20261022.md) | Current exact address-form name census, bank-48 structural reader-source rename, and remaining neutral data names |
+| [`japanese_name_census_closure_20261022.md`](research/japanese_name_census_closure_20261022.md) | Consolidated Japanese source/RAM/config/GFX name census, six question-mark renames, three HDMA source-slice paths and evidence-based remaining limits |
 | [`japanese_indirect_dispatch_handlers_20261022.md`](research/japanese_indirect_dispatch_handlers_20261022.md) | Six Japanese dispatch tables, 23 named internal handler targets, original table hashes and identity gates |
 | [`japanese_sample_data_aliases_20261022.md`](research/japanese_sample_data_aliases_20261022.md) | Sixteen redundant address-form aliases removed from Japanese sample-data headers and strings |
 | [`japanese_dialog_line_labels_20261022.md`](research/japanese_dialog_line_labels_20261022.md) | Nine bank-72 candidate labels replaced with table-index and line-position names |

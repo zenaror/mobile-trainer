@@ -1,5 +1,10 @@
 # Reverse engineering status
 
+### Consolidated Japanese generic-name census (2026-10-22; base `7973e199`)
+
+The full Japanese source/name/path sweep is recorded in [`japanese_name_census_closure_20261022.md`](docs/research/japanese_name_census_closure_20261022.md). It reviewed all 350 tracked ASM/INC inputs (3,872 numeric local branch labels excluding protected sample data), all 786 neutral RAM equates, all 13 remaining exact `Data_BB_AAAA` labels, the frozen config name fields, and the complete 1,950-file GFX/font path inventory. Six mail-status `_Unknown` labels were replaced with content-based `QuestionMarks` names, and three source labels/asset paths now document statically covered HDMA slices. Pure `bankNN` paths and exact type/address-only function or asset names were not found. This is a completed search inventory, not semantic closure: four natural-entry questions and the final Japanese Pokémon/frame review remain open. The English overlay and ZIP remain paused.
+
+
 Evidence levels: **CONFIRMED** (demonstrated), **PROBABLE** (strong evidence, not conclusive), **HYPOTHESIS** (unverified).  Names without evidence stay neutral
 (`Function_<bank>_<addr>`, `Data_...`, `wRam_XXXX`; `STYLE.md` section 4).  Detailed, per-topic notes live in `docs/research/` (index: `docs/README.md`).
 Numbers marked "frozen" describe `config/` at the freeze and are not updated any more; numbers marked "source" were counted in the `.asm` tree when this file was written

@@ -861,7 +861,7 @@ MailServerStatus_DrawCounts_Mode0:: ; 29:4745
 	ld de, wMailSessionBlock + $13
 	ld a, [de]
 	cp a, $00
-	jr nz, MailServerStatus_DrawCounts_Mode0_Unknown
+	jr nz, MailServerStatus_DrawCounts_Mode0_QuestionMarks
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -876,31 +876,31 @@ MailServerStatus_DrawCounts_Mode0:: ; 29:4745
 	or a, l
 	jp nz, MailServerStatus_DrawCounts_Mode0_Numbers
 
-MailServerStatus_DrawCounts_Mode0_Unknown:: ; 29:476B
+MailServerStatus_DrawCounts_Mode0_QuestionMarks:: ; 29:476B
 	; [CONFIRMED] 27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 0;
 	; entered by jrcc from 29:4755 (executed) [executed in 4 scenarios]
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, BANK(MailServerStatus_Txt_Unknown)
+	ld a, BANK(MailServerStatus_Txt_FiveQuestionMarks)
 	ld bc, wTileStage2
 	ld de, wTileStage2 + $50
-	ld hl, MailServerStatus_Txt_Unknown
+	ld hl, MailServerStatus_Txt_FiveQuestionMarks
 	farcall TextTiles_RenderLine
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, BANK(MailServerStatus_Txt_Unknown)
+	ld a, BANK(MailServerStatus_Txt_FiveQuestionMarks)
 	ld bc, wTileStage2 + $A0
 	ld de, wTileStage2 + $F0
-	ld hl, MailServerStatus_Txt_Unknown
+	ld hl, MailServerStatus_Txt_FiveQuestionMarks
 	farcall TextTiles_RenderLine
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, BANK(MailServerStatus_Txt_Unknown)
+	ld a, BANK(MailServerStatus_Txt_FiveQuestionMarks)
 	ld bc, wTileStage2 + $140
 	ld de, wTileStage2 + $190
-	ld hl, MailServerStatus_Txt_Unknown
+	ld hl, MailServerStatus_Txt_FiveQuestionMarks
 	farcall TextTiles_RenderLine
-	call MailServerStatus_UploadNumberTiles_Blank
+	call MailServerStatus_UploadQuestionMarkTileStage
 	pop hl
 	pop de
 	pop bc
@@ -910,7 +910,7 @@ MailServerStatus_DrawCounts_Mode0_Unknown:: ; 29:476B
 ; ---- text $47B2-$47BD (11 bytes) [PROBABLE] Shift-JIS NUL-terminated string: 5 x full-width '？' (81 48) + NUL; address loaded by 'ld hl,$47B2 at 29:47A1' as a text argument (hl=string, ld a,$29, then a far call to 48:403E follows) - placeholder/mask string
 
 PUSHC sjis
-MailServerStatus_Txt_Unknown:: ; 29:47B2
+MailServerStatus_Txt_FiveQuestionMarks:: ; 29:47B2
 	db "？？？？？", 0
 POPC
 
@@ -1039,7 +1039,7 @@ MailServerStatus_DrawCounts_Mode0_Numbers:: ; 29:47BD
 	cp a, $FF
 	jr nz, .l487C
 	pop hl
-	jp MailServerStatus_DrawCounts_Mode0_Unknown
+	jp MailServerStatus_DrawCounts_Mode0_QuestionMarks
 
 .l487C ; 29:487C
 	; [CONFIRMED] 67 insn(s); 67 executed (in up to 1/18 scenarios)
@@ -1409,31 +1409,31 @@ MailServerStatus_DrawCounts_Mode1:: ; 29:4A65
 	or a, l
 	jp nz, MailServerStatus_DrawCounts_Mode1_Numbers
 
-MailServerStatus_DrawCounts_Mode1_Unknown:: ; 29:4A7D
+MailServerStatus_DrawCounts_Mode1_QuestionMarks:: ; 29:4A7D
 	; [PROBABLE] 27 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4A65-4AC4 by apply_coverage --split
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, BANK(MailServerStatus_Txt_Unknown_M1)
+	ld a, BANK(MailServerStatus_Txt_FiveQuestionMarks_M1)
 	ld bc, wTileStage2
 	ld de, wTileStage2 + $50
-	ld hl, MailServerStatus_Txt_Unknown_M1
+	ld hl, MailServerStatus_Txt_FiveQuestionMarks_M1
 	farcall TextTiles_RenderLine
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, BANK(MailServerStatus_Txt_Unknown_M1)
+	ld a, BANK(MailServerStatus_Txt_FiveQuestionMarks_M1)
 	ld bc, wTileStage2 + $A0
 	ld de, wTileStage2 + $F0
-	ld hl, MailServerStatus_Txt_Unknown_M1
+	ld hl, MailServerStatus_Txt_FiveQuestionMarks_M1
 	farcall TextTiles_RenderLine
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, BANK(MailServerStatus_Txt_Unknown_M1)
+	ld a, BANK(MailServerStatus_Txt_FiveQuestionMarks_M1)
 	ld bc, wTileStage2 + $140
 	ld de, wTileStage2 + $190
-	ld hl, MailServerStatus_Txt_Unknown_M1
+	ld hl, MailServerStatus_Txt_FiveQuestionMarks_M1
 	farcall TextTiles_RenderLine
-	call MailServerStatus_UploadNumberTiles_Blank
+	call MailServerStatus_UploadQuestionMarkTileStage
 	pop hl
 	pop de
 	pop bc
@@ -1443,7 +1443,7 @@ MailServerStatus_DrawCounts_Mode1_Unknown:: ; 29:4A7D
 ; ---- text $4AC4-$4ACF (11 bytes) [PROBABLE] Shift-JIS NUL-terminated string: 5 x full-width '？' (81 48) + NUL; address loaded by 'ld hl,$4AC4' as a text argument (hl=string, ld a,$29, then a far call to 48:403E follows) - placeholder/mask string
 
 PUSHC sjis
-MailServerStatus_Txt_Unknown_M1:: ; 29:4AC4
+MailServerStatus_Txt_FiveQuestionMarks_M1:: ; 29:4AC4
 	db "？？？？？", 0
 POPC
 
@@ -1529,7 +1529,7 @@ MailServerStatus_DrawCounts_Mode1_Numbers:: ; 29:4ACF
 	cp a, $FF
 	jr nz, .l4B51
 	pop hl
-	jp MailServerStatus_DrawCounts_Mode1_Unknown
+	jp MailServerStatus_DrawCounts_Mode1_QuestionMarks
 
 .l4B51 ; 29:4B51
 	; [CONFIRMED] 49 insn(s) executed; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage
@@ -1891,31 +1891,31 @@ MailServerStatus_DrawCounts_Mode2:: ; 29:4D21
 	or a, l
 	jp nz, MailServerStatus_DrawCounts_Mode2_Numbers
 
-MailServerStatus_DrawCounts_Mode2_Unknown:: ; 29:4D39
+MailServerStatus_DrawCounts_Mode2_QuestionMarks:: ; 29:4D39
 	; [CONFIRMED] 27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 0;
 	; fall-through of the jpcc at 29:4D36 (executed) [executed in 2 scenarios]
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, BANK(MailServerStatus_Txt_Unknown_M2)
+	ld a, BANK(MailServerStatus_Txt_FiveQuestionMarks_M2)
 	ld bc, wTileStage2
 	ld de, wTileStage2 + $50
-	ld hl, MailServerStatus_Txt_Unknown_M2
+	ld hl, MailServerStatus_Txt_FiveQuestionMarks_M2
 	farcall TextTiles_RenderLine
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, BANK(MailServerStatus_Txt_Unknown_M2)
+	ld a, BANK(MailServerStatus_Txt_FiveQuestionMarks_M2)
 	ld bc, wTileStage2 + $A0
 	ld de, wTileStage2 + $F0
-	ld hl, MailServerStatus_Txt_Unknown_M2
+	ld hl, MailServerStatus_Txt_FiveQuestionMarks_M2
 	farcall TextTiles_RenderLine
 	ld a, $02
 	ldh [hTextTiles_DestBank], a
-	ld a, BANK(MailServerStatus_Txt_Unknown_M2)
+	ld a, BANK(MailServerStatus_Txt_FiveQuestionMarks_M2)
 	ld bc, wTileStage2 + $140
 	ld de, wTileStage2 + $190
-	ld hl, MailServerStatus_Txt_Unknown_M2
+	ld hl, MailServerStatus_Txt_FiveQuestionMarks_M2
 	farcall TextTiles_RenderLine
-	call MailServerStatus_UploadNumberTiles_Blank
+	call MailServerStatus_UploadQuestionMarkTileStage
 	pop hl
 	pop de
 	pop bc
@@ -1925,7 +1925,7 @@ MailServerStatus_DrawCounts_Mode2_Unknown:: ; 29:4D39
 ; ---- text $4D80-$4D8B (11 bytes) [PROBABLE] Shift-JIS NUL-terminated string: 5 x full-width '？' (81 48) + NUL; address loaded by 'ld hl,$4D80' as a text argument (hl=string, ld a,$29, then a far call to 48:403E follows) - placeholder/mask string
 
 PUSHC sjis
-MailServerStatus_Txt_Unknown_M2:: ; 29:4D80
+MailServerStatus_Txt_FiveQuestionMarks_M2:: ; 29:4D80
 	db "？？？？？", 0
 POPC
 
@@ -2026,7 +2026,7 @@ MailServerStatus_DrawCounts_Mode2_Numbers:: ; 29:4D8B
 	cp a, $FF
 	jr nz, .l4E27
 	pop hl
-	jp MailServerStatus_DrawCounts_Mode2_Unknown
+	jp MailServerStatus_DrawCounts_Mode2_QuestionMarks
 
 .l4E27 ; 29:4E27
 	; [CONFIRMED] 49 insn(s); 49 executed (in up to 1/18 scenarios)
@@ -2356,7 +2356,7 @@ MailServerStatus_UploadNumberTiles_M2:: ; 29:4FD7
 	ldh [rSVBK], a
 	ret
 
-MailServerStatus_UploadNumberTiles_Blank:: ; 29:4FF7
+MailServerStatus_UploadQuestionMarkTileStage:: ; 29:4FF7
 	; [CONFIRMED] 15 insn(s) reached by static flow only; seeds: exec x15; min discovery hops 1;
 	; entered by call from 29:47AA (PROBABLE code) [executed in 5 scenarios]
 	ldh a, [rSVBK]

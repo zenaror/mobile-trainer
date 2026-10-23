@@ -71,8 +71,9 @@ Mailbox_HDMASourceFragment_6AC8:: ; 25:6AC8
 
 ; ---- gfx $6BD1-$6E71 (672 bytes) [PROBABLE] tiles-2bpp: heuristic: 35 coherent tiles (hsim2=0.623 vsim2=0.562, 3 blank) parity 1
 
-Mailbox_CandidateTiles_ArrowLabel_6BD1:: ; 25:6BD1
-	INCBIN "gfx/mailbox/mailbox/mailbox_candidate_arrow_label_tiles_6bd1.2bpp"
+; [CONFIRMED] Fully covered by the static 25:69F0-$6CF0 HDMA request to VRAM0 $8000-$8300; byte offset +$1E1 maps to $81E1-$82F1. Natural execution/display is not established.
+Mailbox_HDMASourceByteSlice_25_6BD1:: ; 25:6BD1
+	INCBIN "gfx/mailbox/mailbox/mailbox_hdma_source_byte_slice_25_6bd1.2bpp"
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
 Mailbox_Tiles_6CF0:: ; 25:6CF0

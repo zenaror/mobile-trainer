@@ -398,7 +398,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
 | `page_list_tiles_5400.2bpp` | 2bpp tiles | 464 | 24:5400 | CONFIRMED | exact | - | `gfx/browser/page_list.asm` |
-| `page_list_candidate_tiles_55d0.2bpp` | 2bpp tiles | 560 | 24:55D0 | PROBABLE | exact | - | `gfx/browser/page_list.asm` |
+| `page_list_hdma_source_byte_slice_24_55d0.2bpp` | 2bpp tiles | 560 | 24:55D0 | PROBABLE | exact | - | `gfx/browser/page_list.asm` |
 | `page_list_tiles_5800.2bpp` | 2bpp tiles | 16 | 24:5800 | PROBABLE | exact | - | `gfx/browser/page_list.asm` |
 | `page_list_tiles_5810.2bpp` | 2bpp tiles | 160 | 24:5810 | CONFIRMED | exact | - | `gfx/browser/page_list.asm` |
 | `page_list_tilemap_5900.tilemap` | tile-index map | 360 | 24:5900 | CONFIRMED | - | 20x18 | `gfx/browser/page_list.asm` |
@@ -406,7 +406,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `page_list_tilemap_5bd0.tilemap` | tile-index map | 360 | 24:5BD0 | CONFIRMED | - | 20x18 | `gfx/browser/page_list.asm` |
 | `page_list_tilemap_5bd0.attrmap` | attribute map | 360 | 24:5D38 | CONFIRMED | - | 20x18 | `gfx/browser/page_list.asm` |
 | `page_list_bg_palette.pal` | RGB palette | 64 | 24:5EA0 | CONFIRMED | - | - | `gfx/browser/page_list.asm` |
-| `page_list_candidate_tiles_5ef1.2bpp` | 2bpp tiles | 992 | 24:5EF1 | PROBABLE | exact | - | `gfx/browser/page_list.asm` |
+| `page_list_hdma_source_byte_slice_24_5ef1.2bpp` | 2bpp tiles | 992 | 24:5EF1 | PROBABLE | exact | - | `gfx/browser/page_list.asm` |
 | `page_list_tiles_6301.2bpp` | 2bpp tiles | 192 | 24:6301 | CONFIRMED | exact | - | `gfx/browser/page_list.asm` |
 | `page_list_tiles_63e0.2bpp` | 2bpp tiles | 256 | 24:63E0 | CONFIRMED | exact | - | `gfx/browser/page_list.asm` |
 | `page_list_obj_palette.pal` | RGB palette | 64 | 24:64E0 | CONFIRMED | - | - | `gfx/browser/page_list.asm` |
@@ -1267,7 +1267,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `mailbox_tilemap_delete_select.attrmap` | attribute map | 360 | 25:6848 | CONFIRMED | - | 20x18 | `gfx/mailbox/mailbox.asm` |
 | `mailbox_bg_palette.pal` | RGB palette | 64 | 25:69B0 | CONFIRMED | - | - | `gfx/mailbox/mailbox.asm` |
 | `mailbox_tiles_69f0.2bpp` | 2bpp tiles | 208 | 25:69F0 | PROBABLE | exact | - | `gfx/mailbox/mailbox.asm` |
-| `mailbox_candidate_arrow_label_tiles_6bd1.2bpp` | 2bpp tiles | 272 | 25:6BD1 | PROBABLE | exact | - | `gfx/mailbox/mailbox.asm` |
+| `mailbox_hdma_source_byte_slice_25_6bd1.2bpp` | 2bpp tiles | 272 | 25:6BD1 | PROBABLE | exact | - | `gfx/mailbox/mailbox.asm` |
 | `mailbox_tiles_6cf0.2bpp` | 2bpp tiles | 384 | 25:6CF0 | PROBABLE | exact | - | `gfx/mailbox/mailbox.asm` |
 | `mailbox_obj_palette.pal` | RGB palette | 64 | 25:6EF0 | CONFIRMED | - | - | `gfx/mailbox/mailbox.asm` |
 
@@ -1528,7 +1528,7 @@ make png-export       (maintainers) PNGs regenerated from the binaries; never ov
 | whole screens | `name.screen.png` next to `name.tilemap` (`gfx/screens.tsv`) | 95 | edit view: tilemap + attribute map + tiles + palettes composed in real colours; import writes the edit into the tile sheets, see below |
 | palettes | `name.pal` (text, `RGB r, g, b`) | 165 | already an editable text form; a screen PNG can write colours back (`screen_png.py import --palette`). No separate swatch PNG |
 
-Not PNG-editable (binary only): the 181 `.tilemap` and 181 `.attrmap` files (the layout of a screen: which tile in which cell, flips, palette
+Not PNG-editable (binary only): the 181 `.tilemap` and 180 `.attrmap` files (the layout of a screen: which tile in which cell, flips, palette
 numbers), the Shift-JIS validity bitmap (data, not an image; `sjis_valid_bitmap_view.png` is a picture of it), and the graphics blocks that are still `db`
 in the `.asm` (see "Still `db`" above).  The 86 tilemaps without a screen PNG are unlisted because their screen cannot be composed from the code (`python3 tools/screen_png.py derive` prints the reasons): they have no loader call with an immediate address (loaded through a pointer / table or as sub-rectangles), or the routine of their loader call loads too few of their tiles (the tiles arrive by another routine),
 or they belong to the bank 41-46 scene records whose layout assumption resolves less than half of the cells.  Their tiles are

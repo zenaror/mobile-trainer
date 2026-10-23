@@ -13,7 +13,7 @@ computed access or a consumer outside the scanned source set.
 
 | Label / source | Observed bytes or structure | Why the current evidence does not support a semantic rename |
 |---|---|---|
-| `Data_2F_4094` — `engine/address_book/list.asm:94` | `C3 00 40` | The preceding path jumps to `AbookList_Run`; no entry at `4094` is demonstrated. |
+| `Data_2F_4094` — `engine/address_book/list.asm:94` | `C3 00 40` | The preceding path already jumps to `AbookList_Run_ButtonRow`; the stored bytes decode as `JP AbookList_Run` but no entry at `4094` is demonstrated. |
 | `Data_23_46CC` — `engine/mail_server/delete_menu.asm:664` | `C9` | It follows a jump to `.l4608`; the named routine begins at `46CD`. No entry at `46CC` is known. |
 | `Data_24_4BCC` — `engine/browser/page_list.asm:1574` | `C9` | It follows the last NUL-terminated Japanese line; the next named action begins at `4BCD`. |
 | `Data_72_6711` — `engine/browser/menus.asm:406` | `AF` | It follows a `ret`; `BrowserMenu_OpenThreeItem` starts at `6712`. |

@@ -1109,7 +1109,7 @@ make png-export       (maintainers) PNGs regenerated from the binaries; never ov
 | whole screens | `name.screen.png` next to `name.tilemap` (`gfx/screens.tsv`) | @SCREENS@ | edit view: tilemap + attribute map + tiles + palettes composed in real colours; import writes the edit into the tile sheets, see below |
 | palettes | `name.pal` (text, `RGB r, g, b`) | @PALETTES@ | already an editable text form; a screen PNG can write colours back (`screen_png.py import --palette`). No separate swatch PNG |
 
-Not PNG-editable (binary only): the @MAPS@ `.tilemap` and @MAPS@ `.attrmap` files (the layout of a screen: which tile in which cell, flips, palette
+Not PNG-editable (binary only): the @MAPS@ `.tilemap` and @ATTRMAPS@ `.attrmap` files (the layout of a screen: which tile in which cell, flips, palette
 numbers), the Shift-JIS validity bitmap (data, not an image; `sjis_valid_bitmap_view.png` is a picture of it), and the graphics blocks that are still `db`
 in the `.asm` (see "Still `db`" above).  The @UNLISTED@ tilemaps without a screen PNG are unlisted because their screen cannot be composed from the code (`python3 tools/screen_png.py derive` prints the reasons): they have no loader call with an immediate address (loaded through a pointer / table or as sub-rectangles), or the routine of their loader call loads too few of their tiles (the tiles arrive by another routine),
 or they belong to the bank 41-46 scene records whose layout assumption resolves less than half of the cells.  Their tiles are
@@ -1231,6 +1231,7 @@ def do_readme():
         out.append('')
     tile_sheets = sum(1 for r in rows.values() if r['type'] == 'tiles' and r['png'] == 'exact')
     maps = sum(1 for r in rows.values() if r['type'] == 'tilemap')
+    attrmaps = sum(1 for r in rows.values() if r['type'] == 'attrmap')
     screens = set()
     if os.path.exists(os.path.join(ROOT, 'gfx/screens.tsv')):
         for l in open(os.path.join(ROOT, 'gfx/screens.tsv'), encoding='utf-8'):
@@ -1238,7 +1239,8 @@ def do_readme():
             if len(c) > 2 and not l.startswith('#') and c[0] != 'name':
                 screens.add(c[2])
     edit = (EDIT_SECTION.replace('@TILE_SHEETS@', str(tile_sheets)).replace('@SCREENS@', str(len(screens)))
-            .replace('@PALETTES@', str(kinds.get('palette', [0])[0])).replace('@MAPS@', str(maps)).replace('@UNLISTED@', str(maps - len(screens))))
+            .replace('@PALETTES@', str(kinds.get('palette', [0])[0])).replace('@MAPS@', str(maps))
+            .replace('@ATTRMAPS@', str(attrmaps)).replace('@UNLISTED@', str(maps - len(screens))))
     open(os.path.join(ROOT, README), 'w', encoding='utf-8').write('\n'.join(out) + '\n' + edit)
     return 0
 
