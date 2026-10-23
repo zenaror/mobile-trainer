@@ -67,7 +67,7 @@ MailBody_ObjScript:: ; 28:4BA3
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
-; ---- bytes $4BA6-$4BC2 (28 bytes) [HYPOTHESIS] code candidate: if entered at 4BA6, zeroes $C000-$C08F, selects SVBK 7, fills $DA00-$DAFF with $FF, then returns; no call/jp/far-pointer/table reference was found, so code classification, natural entry and purpose remain unproved
+; ---- bytes $4BA6-$4BC2 (28 bytes) [HYPOTHESIS] code candidate immediately after the 3-byte MailBody_ObjScript (one count/pair record, ending at $4BA6 under the confirmed sprite reader contract); if entered here, zeroes $C000-$C08F, selects SVBK 7, fills $DA00-$DAFF with $FF, then returns; no call/jp/far-pointer/table reference was found, so code classification, natural entry and purpose remain unproved
 
 WramClearCandidate_28_4BA6:: ; 28:4BA6
 	db $06, $90, $21, $00, $C0, $AF, $22, $05, $20, $FC, $3E, $07, $E0, $8D, $E0, $70
