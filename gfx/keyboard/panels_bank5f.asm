@@ -466,7 +466,7 @@ Gfx_Kbd_T5_Tiles9000Vb1:: ; 5F:6100
 
 ; ---- data $6980-$69B0 (48 bytes) [HYPOTHESIS] 48 x $06 before the tilemap+attr block at 69B0; raw candidate HL=$6998 at 68:7A34 is loaded with bank A=$71 before Tilemap_CopyRectAndAttr, so it selects 71:6998, not this bank-5F span; no bank-5F read established, purpose unknown
 
-Data_5F_6980:: ; 5F:6980
+Data_Kbd_Byte06Run_6980:: ; 5F:6980
 	db $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06
 	db $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06
 	db $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06

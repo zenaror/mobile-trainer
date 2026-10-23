@@ -1,5 +1,18 @@
 # Consolidated Japanese name and asset-path census follow-up (2026-10-23)
 
+## Post-census batch completion (2026-10-23)
+
+This addendum supersedes the earlier statement below that ten `Data_BB_AAAA`
+names remain neutral. The full ten-row candidate set was reviewed together,
+independently checked, and renamed using the evidence limits recorded in
+[`generic_data_name_audit_20261020.md`](generic_data_name_audit_20261020.md#consolidated-generic-name-recheck-and-batch-disposition-2026-10-23).
+The current exact address-only generic-definition census is zero. All ten
+spans keep their original `db` directives and byte ranges: eight are one byte,
+`2F:4094` is three bytes, and the keyboard `$06` run at `5F:6980` is 48 bytes.
+These names describe context or observed byte pattern, not execution or
+semantic identity. `make` remains byte-identical; `sym-check`, `palette-check`
+and the current `data_consumers.py --stats` pass after the batch.
+
 This follow-up corrects the coverage gap in earlier lexical-only scans. It is pinned to the pre-change source commit `28386b9dd7aa993e9990b5a386d8d2b25b64f09b`; the source changes in this checkpoint are limited to one local branch label and two graphics-owner path/name families. The paused English overlay and Operator ZIP were not read or changed.
 
 ## Scope and counts

@@ -312,7 +312,7 @@ Browser_FindAnchor_NextEntry:: ; 4E:5354
 
 ; ---- data $5390-$5391 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) | observed: single $C1 (pop bc) that would fall into the PROBABLE code at 5391; the two preceding paths jr $5391 (5388, 538E) skip it and no branch to 5390 was found in the decoded code; left unclassified
 
-Data_4E_5390:: ; 4E:5390
+Data_BrowserAnchor_CandidatePopBcOpcode_5390:: ; 4E:5390
 	db $C1
 
 Browser_FindAnchor_Mismatch:: ; 4E:5391

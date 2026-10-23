@@ -664,7 +664,7 @@ PageListProto_Main_Loop:: ; 7F:5011
 
 ; ---- data $51ED-$51EE (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) | observed: single $C9 (ret) after the unconditional jp $5011 at 51EA and before the function 51EE; no branch/call to 51ED found; left unclassified
 
-Data_7F_51ED:: ; 7F:51ED
+Data_PageListProto_CandidateRetOpcode_51ED:: ; 7F:51ED
 	db $C9
 
 PageListProto_InitScreen:: ; 7F:51EE

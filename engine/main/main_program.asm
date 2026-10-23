@@ -33,7 +33,7 @@ Main_TitleChoiceNone:: ; 1C:4019
 
 ; ---- data $401C-$401D (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
-Data_1C_401C:: ; 1C:401C
+Data_Main_CandidateRetOpcode_401C:: ; 1C:401C
 	db $C9
 
 Main_TitleChoiceStart:: ; 1C:401D

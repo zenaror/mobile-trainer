@@ -661,7 +661,7 @@ MailSrvDel_Confirm:: ; 23:4471
 
 ; ---- data $46CC-$46CD (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
-Data_23_46CC:: ; 23:46CC
+Data_MailSrvDel_CandidateRetOpcode_46CC:: ; 23:46CC
 	db $C9
 
 MailSrvDel_ConfirmSelect:: ; 23:46CD

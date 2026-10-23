@@ -3480,33 +3480,54 @@ The earlier safe census contained 15 exact address-form `Data_BB_AAAA` definitio
 
 A fresh sweep at Japanese `main` `1b21a35b87dbc6dc62b87cf3af82805f14687fce` separated maintained implementation (`home/`, `engine/`, `data/`, `gfx/`, `audio/`, `lib/`) from historical `analysis/` ledgers, docs prose, and the paused `languages/en/` overlay. This avoids counting old proposals and retired names as active source. The scan covered 334 maintained `.asm` files and tracked resource/metadata files. It found no active `Function_BB_AAAA` or `Font_BB_AAAA` definitions, and no exact `bankNN` directories in the Japanese implementation/resource tree. The `bank42`, `bank43`, `bank44`, `bank60`, and `bank61` directories belong only to the paused English overlay and were left untouched.
 
-The ten active `Data_BB_AAAA` definitions were reviewed individually with their adjacent byte ranges and consumers. Nine identify one-byte spans that remain explicitly unclassified in the source; `Data_5F_6980` identifies 48 bytes of `$06` for which no bank-5F reader is established. These names remain neutral under `AGENTS.md`; replacing them with purpose names would claim semantics not supported by the evidence. Removed audio boundaries and retired aliases appearing only in comments or historical ledgers are not active definitions.
+The ten active `Data_BB_AAAA` definitions were reviewed individually with their adjacent byte ranges and consumers. Eight identify one-byte spans that remain explicitly unclassified in the source; `Data_2F_4094` is a three-byte `$C3,$00,$40` sequence that decodes as `JP AbookList_Run` if executed, and `Data_5F_6980` is a 48-byte run of `$06` with no established bank-5F reader. A targeted scan of the immutable ROM found two little-endian `$4094` word occurrences: one is the address operand of `ld hl, Table_Title_States` in physical bank 0E, where `$4094` denotes the bank-0E table; the other is at physical `63:631D`. Neither occurrence demonstrates a bank-2F entry to the candidate at `2F:4094`; a computed or runtime bank-qualified pointer is not excluded. All ten symbols remain neutral pending a batch review of structural, uncertainty-qualified names; replacing uncertainty with an unqualified purpose name would overstate the evidence. Removed audio boundaries and retired aliases appearing only in comments or historical ledgers are not active definitions.
 
 The resource sweep did find 13 retired `Label_BB_AAAA` spellings in eight rows of `gfx/previews/sprites.tsv`, even though each has a CONFIRMED current name in the naming ledgers and current ASM. The manifest's consumer columns now use the current names: `Mailbox_IconMenu_Enter`, `MailSession_ReceivePhase_AfterScan`, `AbookList_Run_ButtonRow`, `MailServerMgr_Run_MailLoop`, `MailTitle_InsertChar_Insert`, `AbookName_InsertChar_Insert`, `ConnectDialog_Enter_SaveConfirm`, `ConnectDialog_Enter_ForgetConfirm`, `HelpScript_OnA`, `HelpScript_OnB`, `HelpScript_Run_TextFinished`, `CommScene_Kind0_StateWaitCloseOrCancel`, and `CommScene_Kind1_StateWaitCloseOrCancel`. This changes metadata only; rendered PNG bytes and ROM source are not edited. Historical ledgers retain old spellings as provenance.
 
 The remaining address-shaped prefixes in active labels were also classified: the ten `OtherType_BB_AAAA` cases have a structural or uncertainty qualifier (`ReturnOnly`, `ZeroByteSpan`, `SpriteSlotAnimationEntryTable`, `SpriteScriptCandidate`, `CandidateTiles`, `WramClearCandidate`, `CandidatePalette`, `CandidateMapData`, `UnresolvedTiles`); none is a bare function/font/data placeholder. The scan is lexical and does not prove that every semantic name is correct. The ten neutral data labels and any unresolved candidate roles remain reviewable only when new positive evidence appears.
 
-## Consolidated generic-name recheck (2026-10-23)
+## Consolidated generic-name recheck and batch disposition (2026-10-23)
 
-After the later address-label cleanup, I reran one case-sensitive definition
-census over tracked `.asm` files in `home/`, `engine/`, `data/`, `gfx/`,
-`audio/` and `lib/`. It excluded `languages/` and the protected
-`engine/mail/sample_data.asm`, and matched the address-only families
-`Function`, `Func`, `Routine`, `Sub`, `Unknown`, `Unk`, `Code`, `Label`,
-`Data`, `Table`, `String`, `Tiles`, `Tilemap`, `Attrmap`, `Palette` and
-`Font`, in the exact `PREFIX_BB_AAAA::` definition form. It found ten
-definitions, all `Data_BB_AAAA`; it found zero function/label/font or other
-address-only definitions. The ten remaining data names are
-`Data_1C_401C`, `Data_23_46CC`, `Data_24_4BCC`, `Data_2F_4094`,
-`Data_4E_5390`, `Data_5F_6980`, `Data_72_63D7`, `Data_72_6711`,
-`Data_7F_4C77` and `Data_7F_51ED`. Their individual bounded findings and
-neutral dispositions are in the inventory above. The command
-`python3 tools/data_consumers.py --stats` independently reports ten neutral
-groups in this checkout. A
-tracked-path scan of `gfx/` found no `bankNN` directory.
+The prior cross-category census covered tracked `.asm` files in `home/`,
+`engine/`, `data/`, `gfx/`, `audio/` and `lib/`, excluding `languages/` and
+the protected `engine/mail/sample_data.asm`. It matched exact
+`PREFIX_BB_AAAA::` definitions across `Function`, `Func`, `Routine`, `Sub`,
+`Unknown`, `Unk`, `Code`, `Label`, `Data`, `Table`, `String`, `Tiles`,
+`Tilemap`, `Attrmap`, `Palette` and `Font`. That snapshot found ten exact
+`Data_BB_AAAA` names and zero other address-only definitions. The ten spans
+were individually byte- and reference-reviewed, and a separate independent
+review considered the whole candidate batch before edits. The results below
+supersede the prior decision to retain all ten address-only spellings.
 
-This reconciles the earlier census snapshots and makes the current remainder
-explicit: there are no supported semantic renames among those ten on the
-available evidence. The exact census does not claim that every operation or
-data class is understood, and it does not include the paused English overlay,
-protected sample source, or historical ledgers as current Japanese source.
+| Previous label | Current label | Static evidence represented by the name | Limit retained |
+|---|---|---|---|
+| `Data_1C_401C` | `Data_Main_CandidateRetOpcode_401C` | `$C9` RET-shaped byte after a jump in the title path | Entry and code/data role unresolved |
+| `Data_23_46CC` | `Data_MailSrvDel_CandidateRetOpcode_46CC` | `$C9` RET-shaped byte skipped by the preceding branch | Entry and code/data role unresolved |
+| `Data_24_4BCC` | `Data_PageList_CandidateRetOpcode_4BCC` | `$C9` RET-shaped byte after terminated text | Entry and code/data role unresolved |
+| `Data_2F_4094` | `Data_AbookList_CandidateJpRun_4094` | `$C3,$00,$40` decodes as `JP $4000` / `AbookList_Run` if executed in bank 2F | No entry established; may be an unentered stub or data |
+| `Data_4E_5390` | `Data_BrowserAnchor_CandidatePopBcOpcode_5390` | `$C1` POP BC-shaped byte skipped by the adjacent branches | No stack-flow or entry claim |
+| `Data_5F_6980` | `Data_Kbd_Byte06Run_6980` | 48 repeated `$06` bytes in the keyboard graphics owner | Content pattern only; resource purpose and reader unknown |
+| `Data_72_63D7` | `Data_BrowserMenu_CandidateXorAOpcode_63D7` | `$AF` XOR A-shaped byte after a text terminator | Entry and code/data role unresolved |
+| `Data_72_6711` | `Data_BrowserMenu_CandidateXorAOpcode_6711` | `$AF` XOR A-shaped byte after RET | Entry and code/data role unresolved |
+| `Data_7F_4C77` | `Data_Canvas_CandidateRetOpcode_4C77` | `$C9` RET-shaped byte after a 32-byte buffer | No caller or entry established |
+| `Data_7F_51ED` | `Data_PageListProto_CandidateRetOpcode_51ED` | `$C9` RET-shaped byte after an unconditional jump | Entry unresolved; prototype reachability not claimed |
+
+These token-only source changes preserve the `db` directives, bytes, extents,
+comments and neighboring labels. Names say “candidate” where opcode decoding
+suggests a possible instruction and do not assert that it executes or is a
+function; the keyboard run name describes only its observed repeated-byte
+content. Independent reviewer dispositions accepted the nine structural
+candidate names and recommended the content-pattern name for the `$06` run.
+The 69-scenario natural-trace cross-check remains bounded evidence: it found no
+executed instruction starts or overlapping ROM reads for these spans, but does
+not prove universal non-use. A separate raw `$4094` scan likewise did not
+establish a bank-2F entry and cannot exclude computed bank-qualified access.
+
+After this batch, rerun the exact definition-family census: expected result is
+zero strict address-only global placeholders, ten structurally qualified
+`Data_*` names, and zero exact `gfx/bankNN` directories. The broader families
+(qualified uncertainty names, numeric resource ordinals, RAM equates and local
+anchors) remain governed by the consolidated sweep and their row-level
+ledgers; they are not implicitly resolved by this rename batch. Do not reopen
+these ten as new candidates without new positive reference, producer, or trace
+evidence. Historical census tables above retain their original snapshot counts.

@@ -33,9 +33,29 @@ The remaining 2,356 anchors keep their address names with an individual reason i
 
 After the batch, `make` rebuilt a 2,097,152-byte ROM identical to the original (SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`; `RESULT: IDENTICAL`), `make sym-check` passed (335 sources, 12,189 labels, 51 constants), and `make palette-check` passed (162 loads, 116 arrays, two documented over-reads, zero errors). This validates source symbols, palette reads, and byte identity; it does not establish natural execution or full semantic closure.
 
+## Batch closure of the ten address-only data spellings (2026-10-23)
+
+The complete ten-row candidate set from the prior census was reviewed together
+with an independent verifier and then applied as token-only renames. The exact
+old/new mapping, per-span bytes, evidence limits and review disposition are in
+[`generic_data_name_audit_20261020.md`](generic_data_name_audit_20261020.md#consolidated-generic-name-recheck-and-batch-disposition-2026-10-23).
+The current Japanese source now has zero definitions matching the strict
+address-only global placeholder families, including `Data_BB_AAAA`; the ten
+formerly matching spans retain descriptive, confidence-qualified structural
+names. This does not establish entry, execution, data purpose, natural use, or
+semantic closure. Source bytes and `db` declarations are unchanged.
+
+This closes the lexical placeholder list as of the post-batch source revision.
+Future sweeps must first diff the whole maintained-source/path census against
+this baseline and the linked ledgers. Re-open one of these ten only if new
+positive evidence appears; do not rediscover them from the same address regex.
+The wider 2,356 neutral local anchors, 786 RAM equates, 2,412 numeric-ordinal
+flags, resource names and four UNKNOWN natural-entry roots remain distinct
+bounded workstreams.
+
 ### Repeatable audit boundary
 
-Before opening a new generic-name pass, compare its candidates to this full tracked-tree census and existing decision ledgers. Re-run the same lexical families across all 349 ASM/INC files and the path inventory only when source state or scope changes; do not restart a directory-sized or per-pattern queue. Strict address-only names, broad ordinal suffixes, confidence-qualified uncertainty words, and resource ordinals are separate classes and must not be conflated. A newly discovered candidate must include owner, bank/address where applicable, all consumers/references, evidence level, and disposition before edits. The ten neutral data spans, 2,356 individually retained local anchors, 2,412 broad ordinal flags, and Bank 53 name-to-frame/natural-use questions remain evidence-limited. All 41 tile ordinals were replaced with destination names; the three reused source spans name both proven destinations, and five descriptive tilemap labels remain owner-qualified. The lexical and row-level local-anchor reviews are complete for their stated scope; semantic interpretation remains bounded by the evidence recorded in the ledgers.
+Before opening a new generic-name pass, compare its candidates to this full tracked-tree census and existing decision ledgers. Re-run the same lexical families across all 349 ASM/INC files and the path inventory only when source state or scope changes; do not restart a directory-sized or per-pattern queue. Strict address-only names, broad ordinal suffixes, confidence-qualified uncertainty words, and resource ordinals are separate classes and must not be conflated. A newly discovered candidate must include owner, bank/address where applicable, all consumers/references, evidence level, and disposition before edits. The ten structurally named but evidence-limited data/opcode spans, 2,356 individually retained local anchors, 2,412 broad ordinal flags, and Bank 53 name-to-frame/natural-use questions remain bounded. All 41 tile ordinals were replaced with destination names; the three reused source spans name both proven destinations, and five descriptive tilemap labels remain owner-qualified. The lexical and row-level local-anchor reviews are complete for their stated scope; semantic interpretation remains bounded by the evidence recorded in the ledgers.
 
 The lexical definitions behind the census are intentionally explicit. Apply them to symbol *definitions* after removing comments, then inspect all refs/consumers before classifying a hit:
 
@@ -85,7 +105,7 @@ These ten are the only exact, currently defined generic global names in this cen
 
 ### Natural-trace cross-check of the ten neutral data spans (2026-10-23)
 
-The ten intervals above were cross-checked against the current 69-scenario natural corpus using `analysis/coverage_union.tsv` for executed instruction starts and every `traces/detail/*/dataaccess.tsv` for ROM data-read ranges. No candidate byte was an executed instruction start in its physical bank, and no natural `rom_read` interval overlapped a candidate span. The 48-byte `Data_5F_6980` interval was checked as `[6980,69B0)`; each other interval is one byte. Forced traces were excluded. This adds no semantic name and does not prove universal non-use, computed access outside the corpus, or that any byte is safe to classify as code.
+The ten intervals above were cross-checked against the current 69-scenario natural corpus using `analysis/coverage_union.tsv` for executed instruction starts and every `traces/detail/*/dataaccess.tsv` for ROM data-read ranges. No candidate byte was an executed instruction start in its physical bank, and no natural `rom_read` interval overlapped a candidate span. The 48-byte bank-5F interval was checked as `[6980,69B0)`; the bank-2F opcode-shaped span is three bytes; the other eight spans are one byte each (59 bytes total). Forced traces were excluded. This adds no semantic name and does not prove universal non-use, computed access outside the corpus, or that any byte is safe to classify as code.
 
 | Label | Natural instruction-start hits | Natural ROM-read overlaps |
 |---|---:|---:|

@@ -403,7 +403,7 @@ BrowserMenu_DrawItemTwo:: ; 72:669F
 
 ; ---- data $6711-$6712 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) | observed: single $AF (xor a) after the ret at 6710 and directly before the executed function 72:6712; no entry at 6711 found; left unclassified
 
-Data_72_6711:: ; 72:6711
+Data_BrowserMenu_CandidateXorAOpcode_6711:: ; 72:6711
 	db $AF
 
 BrowserMenu_OpenThreeItem:: ; 72:6712

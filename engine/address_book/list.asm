@@ -91,7 +91,7 @@ AbookList_Run_Loop:: ; 2F:4049
 
 ; ---- data $4094-$4097 (3 bytes) [HYPOTHESIS] $C3,$00,$40 decodes as JP AbookList_Run ($4000), but the preceding path already jumps to AbookList_Run_ButtonRow and no direct entry to $4094 is known; code versus stub remains unresolved
 
-Data_2F_4094:: ; 2F:4094
+Data_AbookList_CandidateJpRun_4094:: ; 2F:4094
 	db $C3, $00, $40
 
 AbookList_Run_CheckButtonB:: ; 2F:4097

@@ -2118,5 +2118,5 @@ Glyph_DottedLineData:: ; 7F:4C57
 
 ; ---- data $4C77-$4C78 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) | observed: single $C9 (ret) between the 32-byte buffer 4C57-4C77 and the code at 4C78; a lone ret stub like 2E:4EB1 (which is called) is possible, but no caller/pointer was found; left unclassified
 
-Data_7F_4C77:: ; 7F:4C77
+Data_Canvas_CandidateRetOpcode_4C77:: ; 7F:4C77
 	db $C9

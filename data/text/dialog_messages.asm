@@ -617,7 +617,7 @@ String_Dialog_Msg022B:: ; 72:6392
 
 ; ---- data $63D7-$63D8 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) | observed: single $AF (xor a) after the string terminator at 63D6 and directly before the far-call target 72:63D8; its far-call site is 4E:4D16, not 4E:4D10, which is inside the preceding CALL operand; left unclassified
 
-Data_72_63D7:: ; 72:63D7
+Data_BrowserMenu_CandidateXorAOpcode_63D7:: ; 72:63D7
 	db $AF
 
 POPC
