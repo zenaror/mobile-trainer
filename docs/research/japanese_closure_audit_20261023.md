@@ -3,7 +3,7 @@
 ## Scope and result
 
 This report consolidates the currently verifiable Japanese-ROM requirements at
-`a488786c44f69fdc1e040a591c9fabaa204425fd` on
+`91e1c957437e24b3837e87fdf0a210c9abac54f3` on
 `codex/japanese-census-ram-ledger`. It uses only the canonical checkout
 `/home/rafael/_PROJETOS/Mobile Trainer`; the English overlay and Operator ZIP
 remain paused and were not examined in this pass. Build and test gates below
@@ -15,7 +15,7 @@ ROM-source changes.
 |---|---|---|
 | Reconstruct the original ROM byte for byte | `make` compares the 2 MiB output against ROM SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570` | **PASS — `RESULT: IDENTICAL`** |
 | Avoid generic function labels | Current Japanese census: zero strict address-only globals, zero generic function prefixes, zero unreviewed generic-marker labels; 15 coverage families, zero open | **CLOSED for the audited lexical families.** This does not identify every unlabelled or unreachable code span. |
-| Reconcile generic-looking data, local, RAM and resource names | Current ledgers match 2,764 local anchors, 108 bank/address suffix rows, 542 broad candidate rows; the earlier audit snapshot had 544, and 786 RAM rows; 58 owner-qualified bank-suffix path names are individually dispositioned | **CLOSED for the census and ledgers.** Retained neutral names and `Candidate` qualifiers reflect documented evidence limits; they are not bare address-only names. |
+| Reconcile generic-looking data, local, RAM and resource names | Current ledgers match 2,764 local anchors, 108 strict bank/address suffix rows, 542 broad union rows (436 address-suffix and 269 Candidate labels, with 163 overlapping), and 786 RAM rows; 58 owner-qualified bank-suffix path names are individually dispositioned | **CLOSED for the census and ledgers.** Retained neutral names and `Candidate` qualifiers reflect documented evidence limits; they are not bare address-only names. |
 | Reconcile function/operation-boundary clues | The 19 current comment clues map to named bounded operations; coverage row is `CLOSED` | **CLOSED.** They are not evidence of 19 separately callable or naturally reachable functions. |
 | Identify candidate operations with no proven natural root | The five rows at 2B:6CF5, 2D:4E42/4E54, 29:511E and 70:4740 have bounded mechanical names and explicit UNKNOWN/HYPOTHESIS entry or role status in the worklist | **Evidence-limited.** The worklist calls for new positive caller/producer/trace evidence before reopening. No generic `Function_*` label remains; do not invent a root or purpose. |
 | Verify Bank 53 Pokémon names and candidate frames | The 369-byte pointer/string block and 25 candidate windows (85,200 bytes) reproduce the original; the scoped inventory contains 137 assets, 71 PNGs, 24 previews and 17 editable views | **Finite extraction/presence check closed.** The 25 name-to-window associations and natural selection remain unknown. |
@@ -41,6 +41,10 @@ The bounded Bank 53/frame evidence and limits are in
 - `python3 tools/japanese_name_census.py`: all current family counts and rows match; 0 explicitly open families.
 - `make test`: all suites passed, including 48 CFG, 24 palette-read and 6 retype-parts tests. It emitted the known `ResourceWarning` for the open `baserom.gbc` reader at `tools/test_cfg.py:398`; the test result was `OK`.
 - `git diff --check`: clean. No maintained RGBDS source or binary asset changed between `d13131ff` and this checkpoint; intervening work corrected path instructions, census wording and documentation.
+
+## Current documentation-only revalidation at `91e1c957`
+
+The live census was rerun at `91e1c957` after the documentation reconciliation and passes with 349 Japanese ASM/INC inputs, 1,879 tracked GFX paths, 2,210 active source/resource paths, 2,764/2,764 local anchors, 108/108 strict suffix rows, 542/542 broad union rows (436 suffix and 269 Candidate labels, overlapping by 163), and 786/786 RAM equates. All 15 coverage families match; no stale, missing, duplicate, incomplete, or address-mismatched disposition rows remain. The difference from the older 109/544 checkpoints reflects the 3d971282 GFX source-label/extent changes. Commit `91e1c957` changes only documentation; the last byte-identical build and other Japanese gates remain those recorded above at their explicitly named source checkpoint.
 
 ## Current revalidation and ledger correction at `8051e779` (2026-10-23)
 
@@ -116,12 +120,15 @@ Bank 48 reader note](font_reader_69ab_bounds_20261020.md#direct-read-pc-witness-
 
 ## Japanese census and build gates at `d88444c2` (2026-10-23)
 
+This section is a historical checkpoint, not the current count. The latest census at `91e1c957` matches all live ledgers: 2,764 local anchors, 108/108 strict suffix rows, 542/542 broad union rows (436 suffix and 269 Candidate labels, overlapping by 163), and 786/786 RAM equates; all 15 coverage families match. See the current reconciliation near the beginning of this report.
+
 The maintained Japanese source and GFX paths were re-censused at the current
 published checkout after the HelpScript and SRAM documentation updates.
 `python3 tools/japanese_name_census.py` scanned 349 tracked Japanese ASM/INC
-files and 1,875 tracked GFX paths. All ledgers match: 2,764/2,764 local
-anchors, 109/109 bank/address-suffix rows, 544/544 broad name dispositions,
-and 786/786 numeric RAM equates; all 15 coverage families are closed, with
+files and 1,875 tracked GFX paths. At that historical checkpoint, all ledgers
+matched: 2,764/2,764 local anchors, 109/109 bank/address-suffix rows,
+544/544 broad name dispositions, and 786/786 numeric RAM equates; all 15
+coverage families were closed, with
 zero unreviewed generic markers, address-shaped global definitions, or
 generic bare `gfx/bankNN/` paths.
 
