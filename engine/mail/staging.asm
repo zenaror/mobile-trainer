@@ -16,13 +16,13 @@ Sram_ClearBank0Page0:: ; 2D:4686
 	ld [rRAMG], a
 	ld hl, sSaveBank0Page0
 	ld bc, $1000
-.loop ; 2D:469A
+.clear_page_bytes ; 2D:469A
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .loop
+	jr nz, .clear_page_bytes
 
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: site x2; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code

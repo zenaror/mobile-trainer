@@ -126,10 +126,10 @@ Title_StateLogoWait:: ; 0E:40CA
 	ld de, $00B4
 	ld a, d
 	cp a, b
-	jr nz, .skip
+	jr nz, .test_counter_match
 	ld a, e
 	cp a, c
-.skip ; 0E:40DD
+.test_counter_match ; 0E:40DD
 	jr z, .advance_title_state
 	inc hl
 	ld a, h
@@ -141,18 +141,18 @@ Title_StateLogoWait:: ; 0E:40CA
 	jr nz, .skip_logo_on_a_or_start
 	bit PADB_START, a
 	jr nz, .skip_logo_on_a_or_start
-	jr .done
+	jr .return_to_caller
 .skip_logo_on_a_or_start ; 0E:40F4
 	farcall Palette_FadeOutToWhite
 	ld a, [wTitle_State]
 	add a, $02
 	ld [wTitle_State], a
-	jr .done
+	jr .return_to_caller
 .advance_title_state ; 0E:4104
 	ld a, [wTitle_State]
 	inc a
 	ld [wTitle_State], a
-.done ; 0E:410B
+.return_to_caller ; 0E:410B
 	ret
 
 Title_StateLogoFadeOut:: ; 0E:410C
@@ -223,14 +223,14 @@ Title_StateMenu:: ; 0E:417B
 	ld de, $2A30
 	ld a, d
 	cp a, b
-	jr nz, .skip
+	jr nz, .test_counter_match
 
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 0E:4190 (executed)
 	ld a, e
 	cp a, c
 
-.skip ; 0E:4194
+.test_counter_match ; 0E:4194
 	; [CONFIRMED] 16 insn(s); 16 executed (in up to 14/18 scenarios)
 	jr z, Title_MenuTimeout
 	inc hl

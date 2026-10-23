@@ -127,11 +127,11 @@ Palette_WritePort64:: ; 00:034A
 	; [CONFIRMED] copies 64 bytes from [HL] to the I/O port at $FF00+C (palette data port helper)
 	; [reached via inferred links; raw refs 4] [executed in 41 scenarios]
 	ld b, $40
-.loop ; 00:034C
+.write_port_byte ; 00:034C
 	ld a, [hli]
 	ldh [c], a
 	dec b
-	jr nz, .loop
+	jr nz, .write_port_byte
 	ret
 
 ; ---- data $0352-$0392 (64 bytes) [CONFIRMED] 32 x $7FFF (white) = 64 bytes, source for Palette_SetAllWhite (ld hl,$0352 at 0335/0341)

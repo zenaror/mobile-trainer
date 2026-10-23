@@ -18,9 +18,9 @@ LoadSignedC200E_WriteRomLowF0ThenEntryA:: ; 00:0D34
 	ld e, a
 	ld d, $00
 	rla
-	jr nc, .skip
+	jr nc, .write_entry_a_after_sign_extend
 	dec d
-.skip ; 00:0D46
+.write_entry_a_after_sign_extend ; 00:0D46
 	pop af
 	ldh [hROMBankLo], a
 	ld [$2100], a
@@ -37,7 +37,7 @@ Multiply16x16to32:: ; 00:0D4D
 	ld d, h
 	ld hl, $0000
 	ld a, $10
-.loop ; 00:0D57
+.multiply_next_bit ; 00:0D57
 	add hl, hl
 	rl c
 	rl b
@@ -53,7 +53,7 @@ Multiply16x16to32:: ; 00:0D4D
 	; [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 0D4D-0D67 by apply_coverage
 	; --split [executed in 15 scenarios]
 	dec a
-	jr nz, .loop
+	jr nz, .multiply_next_bit
 	pop af
 	ret
 
@@ -66,7 +66,7 @@ Divide16:: ; 00:0D67
 	ld d, h
 	ld hl, $0000
 	ld a, $10
-.loop ; 00:0D70
+.divide_next_bit ; 00:0D70
 	push af
 	sla e
 	rl d
@@ -90,7 +90,7 @@ Divide16:: ; 00:0D67
 .NextBit ; 00:0D87
 	pop af
 	dec a
-	jr nz, .loop
+	jr nz, .divide_next_bit
 	ld a, e
 	ld e, l
 	ld l, a
@@ -105,7 +105,7 @@ Divide32by15:: ; 00:0D92
 	; [executed in 9 scenarios]
 	ld a, $10
 	or a, a
-.loop ; 00:0D95
+.divide_next_bit ; 00:0D95
 	ldh [hDivide32by15_BitsLeft], a
 	rl e
 	rl d
@@ -129,7 +129,7 @@ Divide32by15:: ; 00:0D92
 	ccf
 	ldh a, [hDivide32by15_BitsLeft]
 	dec a
-	jr nz, .loop
+	jr nz, .divide_next_bit
 	rl e
 	rl d
 	ret

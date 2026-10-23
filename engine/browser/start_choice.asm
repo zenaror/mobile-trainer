@@ -28,9 +28,9 @@ Browser_StartChoiceScreen:: ; 73:5F17
 	ld hl, sBrowserStartMenuCursor
 	call ReadByteFar
 	or a, a
-	jr nz, .skip
+	jr nz, .store_initial_cursor
 	ld a, $01
-.skip ; 73:5F4A
+.store_initial_cursor ; 73:5F4A
 	ld [wBrowserStart_Cursor], a
 	ld a, $01
 	ld [wBrowserStart_AnimCounter], a
@@ -181,10 +181,10 @@ BrowserStart_Idle:: ; 73:60A0
 	ld b, $00
 	or a, a
 	ret z
-.loop ; 73:60D0
+.find_lowest_set_bit ; 73:60D0
 	inc b
 	srl a
-	jr nc, .loop
+	jr nc, .find_lowest_set_bit
 	ld a, b
 	ret
 
@@ -268,12 +268,12 @@ BrowserStart_HandleDpad:: ; 73:6180
 	or a, a
 	ret nz
 	bit 4, b
-	jr nz, .done
+	jr nz, .return_to_caller
 	bit 6, b
 	jr nz, .l6193
 	bit 7, b
 	jr nz, .l61B4
-.done ; 73:6192
+.return_to_caller ; 73:6192
 	ret
 .l6193 ; 73:6193
 	ld a, [wBrowserStart_Cursor]
@@ -367,10 +367,10 @@ BrowserStart_AnimateFrame:: ; 73:6265
 	ld de, $0023
 	or a, a
 	jr z, .l627C
-.loop ; 73:6278
+.advance_frame_source ; 73:6278
 	add hl, de
 	dec a
-	jr nz, .loop
+	jr nz, .advance_frame_source
 .l627C ; 73:627C
 	ld a, $AF
 	add a, l
@@ -396,10 +396,10 @@ BrowserStart_AnimateFrame:: ; 73:6265
 BrowserStart_ShowDescription:: ; 73:62AA
 	ld a, [wBrowserStart_Cursor]
 	ld b, $FF
-.loop ; 73:62AF
+.find_cursor_bit ; 73:62AF
 	inc b
 	srl a
-	jr nc, .loop
+	jr nc, .find_cursor_bit
 	ld a, b
 	cp a, $01
 	call z, BrowserStart_DescIndex_AdjustItem1

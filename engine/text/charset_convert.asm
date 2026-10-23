@@ -27,7 +27,7 @@ Charset_JisToSjis:: ; 7E:7B7C
 	ld a, c
 	add a, $7E
 	ld c, a
-	jr .done
+	jr .return_to_caller
 .l7B91 ; 7E:7B91
 	ld a, c
 	cp a, $60
@@ -42,7 +42,7 @@ Charset_JisToSjis:: ; 7E:7B7C
 	add a, $71
 	ld b, a
 	xor a, a
-.done ; 7E:7BA2
+.return_to_caller ; 7E:7BA2
 	ret
 
 Charset_SjisToJis:: ; 7E:7BA3
@@ -185,7 +185,7 @@ Charset_SjisToIso2022Jp:: ; 7E:7C34
 	jp z, .l7D0A
 	ld a, $00
 	ldh [hSjisToIso2022Jp_Mode], a
-.loop ; 7E:7C43
+.convert_next_sjis_character ; 7E:7C43
 	ld a, [hli]
 	or a, a
 	jp z, .l7CE7
@@ -246,7 +246,7 @@ Charset_SjisToIso2022Jp:: ; 7E:7C34
 	ld a, c
 	or a, b
 	jp z, .l7D0A
-	jr .loop
+	jr .convert_next_sjis_character
 .l7C98 ; 7E:7C98
 	ldh a, [hSjisToIso2022Jp_Mode]
 	or a, a
@@ -302,7 +302,7 @@ Charset_SjisToIso2022Jp:: ; 7E:7C34
 	or a, b
 	jr z, .l7CE4
 	pop hl
-	jp .loop
+	jp .convert_next_sjis_character
 
 .l7CE4 ; 7E:7CE4
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region

@@ -249,15 +249,15 @@ PalFade_Mul8x8:: ; 4F:4153
 	ld e, c
 	ld d, l
 	ld b, $08
-.loop ; 4F:415A
+.accumulate_multiplier_bit ; 4F:415A
 	rrca
-	jr nc, .skip
+	jr nc, .shift_multiplicand
 	add hl, de
-.skip ; 4F:415E
+.shift_multiplicand ; 4F:415E
 	sla e
 	rl d
 	dec b
-	jr nz, .loop
+	jr nz, .accumulate_multiplier_bit
 	ret
 
 PalFade_Start:: ; 4F:4166
@@ -502,14 +502,14 @@ Palette_FadeInFromWhite:: ; 4F:42B4
 	call PalFade_Start
 	call PalFade_Step
 	call LCDOn
-.loop ; 4F:42E0
+.upload_and_step_fade ; 4F:42E0
 	call VBlank_WaitStartDI
 	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService
 	call PalFade_Step
-	jr nz, .loop
+	jr nz, .upload_and_step_fade
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -536,14 +536,14 @@ Palette_FadeInFromWhiteSlow:: ; 4F:42FF
 	call PalFade_Start
 	call PalFade_Step
 	call LCDOn
-.loop ; 4F:432B
+.upload_and_step_fade ; 4F:432B
 	call VBlank_WaitStartDI
 	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService
 	call PalFade_Step
-	jr nz, .loop
+	jr nz, .upload_and_step_fade
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -600,14 +600,14 @@ Palette_FadeOutToWhite:: ; 4F:4370
 	ld a, $20
 	call PalFade_Start
 	call PalFade_Step
-.loop ; 4F:4399
+.upload_and_step_fade ; 4F:4399
 	call VBlank_WaitStartDI
 	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService
 	call PalFade_Step
-	jr nz, .loop
+	jr nz, .upload_and_step_fade
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -633,14 +633,14 @@ Palette_FadeOutToWhiteSlow:: ; 4F:43B8
 	ld a, $10
 	call PalFade_Start
 	call PalFade_Step
-.loop ; 4F:43E1
+.upload_and_step_fade ; 4F:43E1
 	call VBlank_WaitStartDI
 	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService
 	call PalFade_Step
-	jr nz, .loop
+	jr nz, .upload_and_step_fade
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -696,14 +696,14 @@ Palette_FadeInFromBlackSlow:: ; 4F:4426
 	call PalFade_Start
 	call PalFade_Step
 	call LCDOn
-.loop ; 4F:4452
+.upload_and_step_fade ; 4F:4452
 	call VBlank_WaitStartDI
 	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService
 	call PalFade_Step
-	jr nz, .loop
+	jr nz, .upload_and_step_fade
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -758,14 +758,14 @@ Palette_FadeOutToBlackSlow:: ; 4F:4497
 	ld a, $10
 	call PalFade_Start
 	call PalFade_Step
-.loop ; 4F:44C0
+.upload_and_step_fade ; 4F:44C0
 	call VBlank_WaitStartDI
 	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
 	ei
 	call Sound_FrameService
 	call PalFade_Step
-	jr nz, .loop
+	jr nz, .upload_and_step_fade
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -799,7 +799,7 @@ Palette_FadeInFromWhiteObjPalSlow:: ; 4F:44DF
 	call PalFade_Step
 	call LCDOn
 
-.loop ; 4F:450B
+.upload_and_step_fade ; 4F:450B
 	; [PROBABLE] 13 insn(s) reached by static flow only; seeds: site x13; min discovery hops 0;
 	; entered by jrcc from 4F:451E (PROBABLE code)
 	call VBlank_WaitStartDI
@@ -808,7 +808,7 @@ Palette_FadeInFromWhiteObjPalSlow:: ; 4F:44DF
 	ei
 	call Sound_FrameService
 	call PalFade_Step
-	jr nz, .loop
+	jr nz, .upload_and_step_fade
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -841,7 +841,7 @@ Palette_FadeOutToWhiteObjPalSlow:: ; 4F:452A
 	call PalFade_Start
 	call PalFade_Step
 
-.loop ; 4F:4553
+.upload_and_step_fade ; 4F:4553
 	; [PROBABLE] 13 insn(s) reached by static flow only; seeds: site x13; min discovery hops 0;
 	; entered by jrcc from 4F:4566 (PROBABLE code)
 	call VBlank_WaitStartDI
@@ -850,7 +850,7 @@ Palette_FadeOutToWhiteObjPalSlow:: ; 4F:452A
 	ei
 	call Sound_FrameService
 	call PalFade_Step
-	jr nz, .loop
+	jr nz, .upload_and_step_fade
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a

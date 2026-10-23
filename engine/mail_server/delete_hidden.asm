@@ -335,13 +335,13 @@ MailSrvDelHidden_MenuInit:: ; 22:422D
 	ldh [rSVBK], a
 	ld hl, wTileStage2
 	ld bc, $0F00
-.loop ; 22:42E7
+.clear_tile_stage ; 22:42E7
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .loop
+	jr nz, .clear_tile_stage
 	pop bc
 	push bc
 	ld a, c
@@ -931,12 +931,12 @@ MailSrvDelHidden_FormatDecimalStr:: ; 22:4975
 	ldh [rSVBK], a
 	ld hl, String_MailSrvDelHidden_NumberTemplate
 	ld de, wMailTextScratch
-.loop ; 22:4983
+.copy_number_template ; 22:4983
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, .loop
+	jr nz, .copy_number_template
 	pop bc
 	pop hl
 	push bc
@@ -1211,12 +1211,12 @@ MailSrvDelHidden_DeleteAll_Confirm:: ; 22:4B2F
 	ld hl, wMailSessionBlock
 	ld de, Data_MailSrvDelHidden_DeleteAll_Confirm_SessionBlockTemplate
 	ld b, $07
-.loop ; 22:4B45
+.copy_session_template ; 22:4B45
 	ld a, [de]
 	ld [hli], a
 	inc de
 	dec b
-	jr nz, .loop
+	jr nz, .copy_session_template
 	ld d, $01
 	ld bc, wMailSessionBlock
 	farcall ConnectDialog_Run
@@ -1296,13 +1296,13 @@ MailSrvDelHidden_DeleteAll_Confirm:: ; 22:4B2F
 	jr nz, .l4BDE
 	ld a, h
 	or a, l
-	jr z, .done
+	jr z, .return_after_optional_summary
 .l4BDE ; 22:4BDE
 	ld a, $00
 	ld [wBrowserScrollbarEnable], a
 	ld [wCommSessionKind], a
 	farcall CommTime_DrawSummaryScreen
-.done ; 22:4BEC
+.return_after_optional_summary ; 22:4BEC
 	ret
 
 .l4BED ; 22:4BED
@@ -1399,12 +1399,12 @@ MailSrvDelHidden_DeleteCompletely_Confirm:: ; 22:4C7A
 	ld hl, wMailSessionBlock
 	ld de, Data_MailSrvDelHidden_DeleteCompletely_Confirm_SessionBlockTemplate
 	ld b, $07
-.loop ; 22:4C90
+.copy_session_template ; 22:4C90
 	ld a, [de]
 	ld [hli], a
 	inc de
 	dec b
-	jr nz, .loop
+	jr nz, .copy_session_template
 	ld d, $01
 	ld bc, wMailSessionBlock
 	farcall ConnectDialog_Run
@@ -1484,13 +1484,13 @@ MailSrvDelHidden_DeleteCompletely_Confirm:: ; 22:4C7A
 	jr nz, .l4D29
 	ld a, h
 	or a, l
-	jr z, .done
+	jr z, .return_after_optional_summary
 .l4D29 ; 22:4D29
 	ld a, $00
 	ld [wBrowserScrollbarEnable], a
 	ld [wCommSessionKind], a
 	farcall CommTime_DrawSummaryScreen
-.done ; 22:4D37
+.return_after_optional_summary ; 22:4D37
 	ret
 
 .l4D38 ; 22:4D38
@@ -1579,12 +1579,12 @@ MailSrvDelHidden_CheckAndDelete:: ; 22:4DAD
 	ld hl, wMailSessionBlock
 	ld de, Data_MailSrvDelHidden_CheckAndDelete_SessionBlockTemplate
 	ld b, $07
-.loop ; 22:4DD2
+.copy_session_template ; 22:4DD2
 	ld a, [de]
 	ld [hli], a
 	inc de
 	dec b
-	jr nz, .loop
+	jr nz, .copy_session_template
 	ld d, $01
 	ld bc, wMailSessionBlock
 	farcall ConnectDialog_Run
@@ -1664,13 +1664,13 @@ MailSrvDelHidden_CheckAndDelete:: ; 22:4DAD
 	jr nz, .l4E6A
 	ld a, h
 	or a, l
-	jr z, .done
+	jr z, .return_after_optional_summary
 .l4E6A ; 22:4E6A
 	ld a, $00
 	ld [wBrowserScrollbarEnable], a
 	ld [wCommSessionKind], a
 	farcall CommTime_DrawSummaryScreen
-.done ; 22:4E78
+.return_after_optional_summary ; 22:4E78
 	ret
 
 .l4E79 ; 22:4E79

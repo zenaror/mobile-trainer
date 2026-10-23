@@ -37,7 +37,7 @@ Boot_ClearAndInit:: ; 4F:4717
 	call FillBytes
 	ld d, $06
 	ld e, $02
-.loop ; 4F:4754
+.clear_wram_bank ; 4F:4754
 	ld a, e
 	ldh [rSVBK], a
 	ld hl, $D000 ; raw: base of the wipe of every bank 2-7
@@ -46,7 +46,7 @@ Boot_ClearAndInit:: ; 4F:4717
 	call FillBytes
 	inc e
 	dec d
-	jr nz, .loop
+	jr nz, .clear_wram_bank
 	xor a, a
 	ldh [rSVBK], a
 	ldh [rVBK], a
@@ -105,7 +105,7 @@ Boot_ReinitRuntime:: ; 4F:47A5
 	nop
 	ld d, $06
 	ld e, $02
-.loop ; 4F:47DE
+.clear_wram_bank ; 4F:47DE
 	ld a, e
 	ldh [rSVBK], a
 	xor a, a
@@ -115,7 +115,7 @@ Boot_ReinitRuntime:: ; 4F:47A5
 	call Sound_FrameService
 	inc e
 	dec d
-	jr nz, .loop
+	jr nz, .clear_wram_bank
 	xor a, a
 	ld [wOAMDMASuppress], a
 	farcall Joypad_Init

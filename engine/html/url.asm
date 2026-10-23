@@ -34,12 +34,12 @@ HtmlUrl_GetSchemeId:: ; 74:5969
 	; [CONFIRMED] 22 insn(s); 22 executed (in up to 5/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push hl
-.loop ; 74:596A
+.scan_scheme_colon ; 74:596A
 	ld a, [hli]
 	or a, a
 	jr z, .l597F
 	cp a, $3A
-	jr nz, .loop
+	jr nz, .scan_scheme_colon
 	pop hl
 	ld a, l
 	ldh [hHtml_MatchRestart], a
@@ -131,13 +131,13 @@ HtmlUrl_Resolve_BaseNoScheme:: ; 74:59E0
 
 HtmlUrl_Resolve_CopyHttpPrefix:: ; 74:59E7
 	ld hl, HtmlUrl_HttpPrefix
-.loop ; 74:59EA
+.copy_http_prefix_byte ; 74:59EA
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec bc
 	or a, a
-	jr nz, .loop
+	jr nz, .copy_http_prefix_byte
 
 HtmlUrl_Resolve_JoinToBase:: ; 74:59F1
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 2/18 scenarios)

@@ -9,7 +9,7 @@ HelpMenu_Run:: ; 6C:5987
 	; [CONFIRMED] 185 insn(s); 185 executed (in up to 12/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld b, $01
-.loop ; 6C:5989
+.show_help_page ; 6C:5989
 	farcall HelpMenu_ShowPage
 	or a, a
 	ret z
@@ -22,11 +22,11 @@ HelpMenu_Run:: ; 6C:5987
 	push bc
 	call HelpScript_Run
 	pop bc
-	jr .loop
+	jr .show_help_page
 .open_mobile_dictionary ; 6C:59A8
 	farcall MobileDict_Run
 	ld b, $04
-	jr .loop
+	jr .show_help_page
 
 HelpScript_Run:: ; 6C:59B2
 	push bc
@@ -180,7 +180,7 @@ HelpScript_Run_NextCommand:: ; 6C:5B47
 	ld l, a
 	ld a, [wHelpScriptPtr + 1]
 	ld h, a
-.loop ; 6C:5B4F
+.dispatch_script_byte ; 6C:5B4F
 	ld a, [hli]
 	ld [wRam_C1AC], a
 	cp a, $01
@@ -216,7 +216,7 @@ HelpScript_Run_NextCommand:: ; 6C:5B47
 	ld a, [hli]
 	ld b, a
 	add hl, bc
-	jr .loop
+	jr .dispatch_script_byte
 
 .l5B88 ; 6C:5B88
 	; [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 1;
@@ -224,7 +224,7 @@ HelpScript_Run_NextCommand:: ; 6C:5B47
 	ld a, [hli]
 	dec a
 	ld [wRam_C0E6], a
-	jr .loop
+	jr .dispatch_script_byte
 
 .l5B8F ; 6C:5B8F
 	; [CONFIRMED] 49 insn(s); 49 executed (in up to 12/18 scenarios)
@@ -234,9 +234,9 @@ HelpScript_Run_NextCommand:: ; 6C:5B47
 	ld b, a
 	ld a, [wHelpScriptAdvanceMode]
 	cp a, $02
-	jr nz, .loop
+	jr nz, .dispatch_script_byte
 	add hl, bc
-	jr .loop
+	jr .dispatch_script_byte
 .l5B9D ; 6C:5B9D
 	ld a, [hli]
 	ld c, a
@@ -249,7 +249,7 @@ HelpScript_Run_NextCommand:: ; 6C:5B47
 	ld a, h
 	ld [wHelpScriptAltPtrHi], a
 	pop hl
-	jp .loop
+	jp .dispatch_script_byte
 .l5BAF ; 6C:5BAF
 	ld a, [hli]
 	and a, $0F
@@ -263,7 +263,7 @@ HelpScript_Run_NextCommand:: ; 6C:5B47
 	ld a, $01
 	farcall WriteByteFar
 	pop hl
-	jr .loop
+	jr .dispatch_script_byte
 .l5BC7 ; 6C:5BC7
 	ld a, [hli]
 	and a, $0F
@@ -311,7 +311,7 @@ HelpScript_Run_NextCommand:: ; 6C:5B47
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 12/18 scenarios)
 	inc hl
 	inc hl
-	jp .loop
+	jp .dispatch_script_byte
 .l5C0B ; 6C:5C0B
 	ld a, [wHelpScriptAdvanceMode]
 	cp a, $02
@@ -678,10 +678,10 @@ HelpScript_ShowPicture:: ; 6C:5E6E
 	ldh a, [rLCDC]
 	bit 7, a
 	jr z, .l5F39
-.loop ; 6C:5F33
+.wait_scanline_142 ; 6C:5F33
 	ldh a, [rLY]
 	cp a, $8E
-	jr nz, .loop
+	jr nz, .wait_scanline_142
 .l5F39 ; 6C:5F39
 	ld de, $8800
 	ld b, $92
@@ -1006,9 +1006,9 @@ HelpScript_StepText:: ; 6C:6009
 	ld a, [wHelpScriptAdvanceMode]
 	cp a, $01
 	ld a, [wHelpScriptGlyphDelay]
-	jr nz, .skip
+	jr nz, .store_glyph_delay
 	ld a, $01
-.skip ; 6C:6183
+.store_glyph_delay ; 6C:6183
 	ld [wHelpScriptDelayCounter], a
 	ld a, [wHelpScriptColumn]
 	inc a

@@ -326,36 +326,36 @@ Account_PasswordIsValid:: ; 68:5FE1
 	ldh [hPasswordEntry_HasDigit], a
 	ldh [hPasswordEntry_HasLetter], a
 	ld hl, wTextEntryBuf + $03
-.loop ; 68:6004
+.scan_password_character ; 68:6004
 	ld a, [hli]
 	or a, a
 	jr z, .l602E
 	cp a, $30
-	jr c, .loop
+	jr c, .scan_password_character
 	cp a, $3A
 	jr c, .l6022
 	cp a, $41
-	jr c, .loop
+	jr c, .scan_password_character
 	cp a, $5B
 	jr c, .l6028
 	cp a, $61
-	jr c, .loop
+	jr c, .scan_password_character
 	cp a, $7B
 	jr c, .l6028
 
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
 	; fall-through of the jrcc at 68:601E (executed)
-	jr .loop
+	jr .scan_password_character
 
 .l6022 ; 68:6022
 	; [CONFIRMED] 284 insn(s); 284 executed (in up to 7/18 scenarios) (part of region $6022-$6308)
 	ld a, $01
 	ldh [hPasswordEntry_HasDigit], a
-	jr .loop
+	jr .scan_password_character
 .l6028 ; 68:6028
 	ld a, $01
 	ldh [hPasswordEntry_HasLetter], a
-	jr .loop
+	jr .scan_password_character
 .l602E ; 68:602E
 	ld hl, hPasswordEntry_HasDigit
 	ld a, [hli]
@@ -436,7 +436,7 @@ Account_Password_UploadTextTiles:: ; 68:60AB
 Account_PasswordIntroPage:: ; 68:60BB
 	call Account_PasswordIntro_Draw
 	farcall Palette_FadeInFromWhite
-.loop ; 68:60C4
+.wait_intro_button ; 68:60C4
 	call VBlank_WaitAndService
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
@@ -444,7 +444,7 @@ Account_PasswordIntroPage:: ; 68:60BB
 	jr nz, .handle_button_a
 	bit PADB_B, a
 	jr nz, .handle_button_b
-	jr .loop
+	jr .wait_intro_button
 .handle_button_a ; 68:60D9
 	play_sfx SFX_CONFIRM
 	ld a, $01

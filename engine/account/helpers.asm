@@ -63,7 +63,7 @@ PhoneNumber_UnpackBcd:: ; 68:4054
 	; [CONFIRMED] 41 insn(s) reached by static flow only; seeds: exec x41; min discovery hops 6;
 	; entered by call from 68:4666 (PROBABLE code) [executed in 2 scenarios]
 	ld b, $00
-.loop ; 68:4056
+.unpack_bcd_byte ; 68:4056
 	ld a, b
 	cp a, $08
 	jr z, .l408B
@@ -100,7 +100,7 @@ PhoneNumber_UnpackBcd:: ; 68:4054
 	ld [de], a
 	inc de
 	inc b
-	jr .loop
+	jr .unpack_bcd_byte
 .l408B ; 68:408B
 	xor a, a
 	ld [de], a
@@ -118,7 +118,7 @@ PhoneNumber_PackBcd:: ; 68:409A
 	; entered by far from 67:568C (PROBABLE code) | 15 insn(s) executed; cut out of the PROBABLE
 	; region 409A-40D8 by apply_coverage --split [executed in 1 scenarios]
 	ld b, $00
-.loop ; 68:409C
+.pack_next_character ; 68:409C
 	ld a, [hli]
 	or a, a
 	jr z, .l40AD
@@ -154,8 +154,8 @@ PhoneNumber_PackBcd:: ; 68:409A
 	ld [de], a
 	ld a, c
 	cp a, $0F
-	jr z, .done
-	jr .loop
+	jr z, .return_after_terminator
+	jr .pack_next_character
 .l40CA ; 68:40CA
 	ld b, $00
 	ld a, [de]
@@ -164,9 +164,9 @@ PhoneNumber_PackBcd:: ; 68:409A
 	inc de
 	ld a, c
 	cp a, $0F
-	jr z, .done
-	jr .loop
-.done ; 68:40D7
+	jr z, .return_after_terminator
+	jr .pack_next_character
+.return_after_terminator ; 68:40D7
 	ret
 
 TextEntry_UpdateCursorSprite:: ; 68:40D8
@@ -237,7 +237,7 @@ TextEntry_InsertString:: ; 68:4127
 	ldh [rSVBK], a
 	ld b, d
 	ld c, e
-.loop ; 68:4136
+.append_string_character ; 68:4136
 	ld a, [bc]
 	or a, a
 	jr z, .l4148
@@ -248,7 +248,7 @@ TextEntry_InsertString:: ; 68:4127
 	farcall TextBuf_AppendChar
 	pop hl
 	pop bc
-	jr .loop
+	jr .append_string_character
 .l4148 ; 68:4148
 	ldh [hScratchA], a
 	pop af
@@ -273,7 +273,7 @@ TextEntry_InsertMaskedString:: ; 68:4152
 	ld b, d
 	ld c, e
 
-.loop ; 68:4161
+.append_mask_character ; 68:4161
 	; [PROBABLE] 18 insn(s) reached by static flow only; seeds: site x18; min discovery hops 0;
 	; entered by jr from 68:4173 (PROBABLE code)
 	ld a, [bc]
@@ -287,7 +287,7 @@ TextEntry_InsertMaskedString:: ; 68:4152
 	farcall TextBuf_AppendChar
 	pop hl
 	pop bc
-	jr .loop
+	jr .append_mask_character
 .l4175 ; 68:4175
 	ldh [hScratchA], a
 	pop af
@@ -515,7 +515,7 @@ Sram_WipeAllBanks:: ; 68:42E4
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld d, $00
-.loop ; 68:42ED
+.clear_sram_bank ; 68:42ED
 	ld a, d
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -532,7 +532,7 @@ Sram_WipeAllBanks:: ; 68:42E4
 	inc d
 	ld a, d
 	cp a, $04
-	jr c, .loop
+	jr c, .clear_sram_bank
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -875,14 +875,14 @@ Settings_GetHiddenModeFlag:: ; 68:44FC
 	ldh a, [hScratchA]
 	ld a, b
 	or a, a
-	jr z, .skip
+	jr z, .return_flag_b
 
 	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 68:4534 (executed) [executed in 2 scenarios]
 	ld a, $01
 	ld b, a
 
-.skip ; 68:4539
+.return_flag_b ; 68:4539
 	; [CONFIRMED] 25 insn(s); 25 executed (in up to 4/18 scenarios)
 	ld a, b
 	ret
@@ -968,7 +968,7 @@ Config_MirrorChecksumOk:: ; 68:459A
 	ld hl, sConfigImage
 	ld de, $0000
 	ld b, $BE
-.loop ; 68:45B7
+.sum_config_bytes ; 68:45B7
 	ld a, [hli]
 	add a, e
 	ld e, a
@@ -976,7 +976,7 @@ Config_MirrorChecksumOk:: ; 68:459A
 	adc a, d
 	ld d, a
 	dec b
-	jr nz, .loop
+	jr nz, .sum_config_bytes
 	ld a, [hli]
 	ld b, a
 	ld c, [hl]
@@ -1018,7 +1018,7 @@ Config_MirrorUpdateChecksum:: ; 68:45F1
 	ld hl, sConfigImage
 	ld de, $0000
 	ld b, $BE
-.loop ; 68:45F9
+.sum_config_bytes ; 68:45F9
 	ld a, [hli]
 	add a, e
 	ld e, a
@@ -1026,7 +1026,7 @@ Config_MirrorUpdateChecksum:: ; 68:45F1
 	adc a, d
 	ld d, a
 	dec b
-	jp nz, .loop
+	jp nz, .sum_config_bytes
 	ld a, d
 	ld [hli], a
 	ld [hl], e

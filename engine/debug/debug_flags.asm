@@ -268,9 +268,9 @@ DebugFlags_OnA:: ; 19:41CB
 	call Divide16
 	ld a, e
 	cp a, $0A
-	jr c, .skip
+	jr c, .test_value_nine
 	sub a, $0A
-.skip ; 19:4260
+.test_value_nine ; 19:4260
 	cp a, $09
 	jr nz, .l4281
 	call DebugFlags_ReadValue
@@ -327,10 +327,10 @@ DebugFlags_OnStart:: ; 19:42B7
 	inc a
 	ld [wDebugFlags_Mode], a
 	cp a, $03
-	jr nz, .skip
+	jr nz, .dispatch_wrapped_mode
 	ld a, $01
 	ld [wDebugFlags_Mode], a
-.skip ; 19:42C7
+.dispatch_wrapped_mode ; 19:42C7
 	cp a, $00
 	jp z, .l42FE
 	cp a, $02
@@ -455,9 +455,9 @@ DebugFlags_HandleDpad:: ; 19:4333
 .l43B3 ; 19:43B3
 	call DebugFlags_EntryHasHighByte2
 	ld b, $00
-	jr nz, .skip
+	jr nz, .check_cursor_left_limit
 	ld b, $08
-.skip ; 19:43BC
+.check_cursor_left_limit ; 19:43BC
 	ld a, [wDebugFlags_Cursor]
 	cp a, b
 	ret z
@@ -1009,22 +1009,22 @@ DebugFlags_SlideIn:: ; 19:482B
 	ld [wDebugFlags_SlideY], a
 	ld a, $11
 	ld [wDebugFlags_SlideStep], a
-.loop ; 19:4835
+.decrease_window_y ; 19:4835
 	farcall Sprite_UpdateAll
 	call VBlank_WaitAndService
 	ld a, [wDebugFlags_SlideStep]
 	dec a
 	ld b, $01
-	jr z, .skip
+	jr z, .subtract_slide_step
 	ld [wDebugFlags_SlideStep], a
 	ld b, a
-.skip ; 19:484A
+.subtract_slide_step ; 19:484A
 	ld a, [wDebugFlags_SlideY]
 	sub a, b
 	ld [wDebugFlags_SlideY], a
 	ldh [rWY], a
 	cp a, $00
-	jr nz, .loop
+	jr nz, .decrease_window_y
 	ret
 
 DebugFlags_SlideOut:: ; 19:4858
@@ -1032,22 +1032,22 @@ DebugFlags_SlideOut:: ; 19:4858
 	ld [wDebugFlags_SlideY], a
 	ld a, $11
 	ld [wDebugFlags_SlideStep], a
-.loop ; 19:4862
+.increase_window_y ; 19:4862
 	farcall Sprite_UpdateAll
 	call VBlank_WaitAndService
 	ld a, [wDebugFlags_SlideStep]
 	dec a
 	ld b, $01
-	jr z, .skip
+	jr z, .add_slide_step
 	ld [wDebugFlags_SlideStep], a
 	ld b, a
-.skip ; 19:4877
+.add_slide_step ; 19:4877
 	ld a, [wDebugFlags_SlideY]
 	add a, b
 	ld [wDebugFlags_SlideY], a
 	ldh [rWY], a
 	cp a, $99
-	jr nz, .loop
+	jr nz, .increase_window_y
 	ret
 
 DebugFlags_UpdateHoldTimer:: ; 19:4885

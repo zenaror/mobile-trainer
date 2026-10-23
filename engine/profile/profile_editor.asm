@@ -53,13 +53,13 @@ Profile_Edit:: ; 2A:5495
 Profile_Edit_Loop:: ; 2A:54FD
 	ld a, c
 	cp a, $09
-	jr nz, .skip
+	jr nz, .service_editor_frame
 
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
 	; fall-through of the jrcc at 2A:5500 (executed)
 	ld c, $08
 
-.skip ; 2A:5504
+.service_editor_frame ; 2A:5504
 	; [CONFIRMED] 31 insn(s); 31 executed (in up to 2/18 scenarios)
 	push bc
 	farcall Sprite_UpdateAll
@@ -634,10 +634,10 @@ Profile_PlaceTextCursor:: ; 2A:590B
 	push af
 	ld a, [wSplitScrollY]
 	cp a, $00
-	jr z, .skip
+	jr z, .restore_cursor_registers
 	ld a, $D0
 	ld [wSpriteSlot2 + $01], a
-.skip ; 2A:5948
+.restore_cursor_registers ; 2A:5948
 	pop af
 	pop bc
 	ret
@@ -895,14 +895,14 @@ Profile_DrawAddressLine1:: ; 2A:5A3B
 	pop hl
 	pop de
 	pop bc
-.loop ; 2A:5AEC
+.fill_remaining_text_cells ; 2A:5AEC
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call Profile_DrawAddressLine1_BlitBlankAdvance
-	jr .loop
+	jr .fill_remaining_text_cells
 
 Profile_DrawAddressLine1_BlitGlyphAdvance:: ; 2A:5AFB
 	push bc
@@ -1042,14 +1042,14 @@ Profile_DrawAddressLine2:: ; 2A:5B27
 	pop hl
 	pop de
 	pop bc
-.loop ; 2A:5BD8
+.fill_remaining_text_cells ; 2A:5BD8
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call Profile_DrawAddressLine2_BlitBlankAdvance
-	jr .loop
+	jr .fill_remaining_text_cells
 
 Profile_DrawAddressLine2_BlitGlyphAdvance:: ; 2A:5BE7
 	push bc
@@ -1137,7 +1137,7 @@ Profile_CharPtr:: ; 2A:5C5B
 	jr z, .l5C83
 	inc c
 	ld a, [hl]
-.loop ; 2A:5C6C
+.scan_character_column ; 2A:5C6C
 	dec c
 	jr z, .l5C81
 	inc hl
@@ -1148,7 +1148,7 @@ Profile_CharPtr:: ; 2A:5C5B
 	ld a, [hl]
 	cp a, $0D
 	jr z, .l5C89
-	jr .loop
+	jr .scan_character_column
 
 	; [HYPOTHESIS] no branch/call/pointer to any address in $5C7D-$5C81 was found (tgt scan of all
 	; code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen
@@ -1409,13 +1409,13 @@ Profile_InsertChar:: ; 2A:5CD2
 	; fall-through of the jrcc at 2A:5DF6 (executed)
 	ld a, c
 	cp a, $0B
-	jr z, .done
+	jr z, .return_to_caller
 
 .l5DFD ; 2A:5DFD
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 2/18 scenarios)
 	call Profile_CharPtr
 	cp a, $FF
-	jr z, .done
+	jr z, .return_to_caller
 	cp a, $0D
 	jr nz, .l5E11
 
@@ -1425,7 +1425,7 @@ Profile_InsertChar:: ; 2A:5CD2
 	inc b
 	ld a, c
 	ld [wTextEditGoalColumn], a
-	jr .done
+	jr .return_to_caller
 
 .l5E11 ; 2A:5E11
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios)
@@ -1434,7 +1434,7 @@ Profile_InsertChar:: ; 2A:5CD2
 	ld [wTextEditGoalColumn], a
 	ld a, $0C
 	cp a, c
-	jr nz, .done
+	jr nz, .return_to_caller
 
 	; [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0;
 	; fall-through of the jrcc at 2A:5E19 (executed)
@@ -1443,7 +1443,7 @@ Profile_InsertChar:: ; 2A:5CD2
 	ld a, c
 	ld [wTextEditGoalColumn], a
 
-.done ; 2A:5E22
+.return_to_caller ; 2A:5E22
 	; [CONFIRMED] 31 insn(s); 31 executed (in up to 2/18 scenarios)
 	ret
 
@@ -1492,7 +1492,7 @@ Profile_DeleteChar:: ; 2A:5E23
 	call Profile_PlaceTextCursor
 	pop bc
 	ld d, $14
-.loop ; 2A:5E67
+.wait_delete_repeat ; 2A:5E67
 	push bc
 	push de
 	farcall Sprite_UpdateAll
@@ -1504,7 +1504,7 @@ Profile_DeleteChar:: ; 2A:5E23
 	and a, PADF_B
 	jr nz, .l5E83
 	dec d
-	jr nz, .loop
+	jr nz, .wait_delete_repeat
 .l5E83 ; 2A:5E83
 	farcall Joypad_ClearAndResetRepeat
 	ld hl, wSpriteSlot1
@@ -1611,7 +1611,7 @@ Profile_ApplyDakuten:: ; 2A:5EF4
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, String_Profile_DakutenKana
-.loop ; 2A:5F0E
+.scan_dakuten_pair ; 2A:5F0E
 	ld a, [de]
 	inc de
 	cp a, $00
@@ -1666,7 +1666,7 @@ Profile_ApplyDakuten:: ; 2A:5EF4
 	ret
 .l5F66 ; 2A:5F66
 	pop hl
-	jr .loop
+	jr .scan_dakuten_pair
 
 	; [HYPOTHESIS] no branch/call/pointer to any address in $5F69-$5F71 was found (tgt scan of all
 	; code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen
@@ -1730,7 +1730,7 @@ Profile_ApplyVu:: ; 2A:5FD4
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, Table_Profile_ApplyVu_LoopPairs
-.loop ; 2A:5FEE
+.read_candidate_pair ; 2A:5FEE
 	ld a, [de]
 	inc de
 	cp a, $00
@@ -1783,7 +1783,7 @@ Profile_ApplyVu:: ; 2A:5FD4
 	ret
 .l6045 ; 2A:6045
 	pop hl
-	jr .loop
+	jr .read_candidate_pair
 
 	; [HYPOTHESIS] no branch/call/pointer to any address in $6048-$6050 was found (tgt scan of all
 	; code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen
@@ -1846,7 +1846,7 @@ Profile_ApplyHandakuten:: ; 2A:6087
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, String_Profile_HandakutenKana
-.loop ; 2A:60A1
+.scan_handakuten_pair ; 2A:60A1
 	ld a, [de]
 	inc de
 	cp a, $00
@@ -1900,7 +1900,7 @@ Profile_ApplyHandakuten:: ; 2A:6087
 	ret
 .l60F6 ; 2A:60F6
 	pop hl
-	jr .loop
+	jr .scan_handakuten_pair
 
 	; [HYPOTHESIS] no branch/call/pointer to any address in $60F9-$6101 was found (tgt scan of all
 	; code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen

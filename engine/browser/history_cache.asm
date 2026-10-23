@@ -88,13 +88,13 @@ Browser_HistoryPop:: ; 4C:4BC1
 	ld a, [sBrowserHistoryWriteSlot]
 	dec a
 	cp a, $06
-	jr c, .skip
+	jr c, .store_wrapped_history_slot
 
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
 	; fall-through of the jrcc at 4C:4BE5 (executed)
 	ld a, $05
 
-.skip ; 4C:4BE9
+.store_wrapped_history_slot ; 4C:4BE9
 	; [CONFIRMED] 55 insn(s); 55 executed (in up to 1/18 scenarios)
 	ld [sBrowserHistoryWriteSlot], a
 	add a, $AA
@@ -116,9 +116,9 @@ Sram_CopyLongBlock:: ; 4C:4C03
 	push bc
 	ld a, b
 	cp a, $02
-	jr c, .skip
+	jr c, .copy_clamped_chunk
 	ld bc, $0200
-.skip ; 4C:4C0F
+.copy_clamped_chunk ; 4C:4C0F
 	ldh a, [hPageCache_SourceBank]
 	call BankSwitch_H
 	push bc
@@ -284,13 +284,13 @@ PageCache_Pop:: ; 4C:4CF6
 	ld a, [sPageCacheWriteSlot]
 	dec a
 	cp a, $03
-	jr c, .skip
+	jr c, .store_wrapped_cache_slot
 
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
 	; fall-through of the jrcc at 4C:4D1A (executed)
 	ld a, $02
 
-.skip ; 4C:4D1E
+.store_wrapped_cache_slot ; 4C:4D1E
 	; [CONFIRMED] 40 insn(s); 40 executed (in up to 1/18 scenarios)
 	ld [sPageCacheWriteSlot], a
 	ldh [hRam_FFB0], a

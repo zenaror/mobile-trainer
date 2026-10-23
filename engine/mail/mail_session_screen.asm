@@ -577,12 +577,12 @@ MailSession_DrawNumber:: ; 26:5447
 	ldh [rSVBK], a
 	ld hl, MailSession_NumberTemplate
 	ld de, wMailTextScratch
-.loop ; 26:5455
+.copy_number_template ; 26:5455
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, .loop
+	jr nz, .copy_number_template
 	pop bc
 	pop hl
 	push bc
@@ -1221,7 +1221,7 @@ MailSession_UpdateTimerDisplay:: ; 26:58DC
 	cp a, $3C
 	jr c, .l5968
 
-.loop ; 26:5926
+.write_45_49_tile_pairs ; 26:5926
 	; [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0;
 	; fall-through of the jrcc at 26:5924 (executed)
 	ld a, $07
@@ -1245,7 +1245,7 @@ MailSession_UpdateTimerDisplay:: ; 26:58DC
 	ld a, [wTimerAMinutes]
 	add a, $3C
 	cp a, $64
-	jr nc, .loop
+	jr nc, .write_45_49_tile_pairs
 	ld l, a
 	ld h, $00
 	ld de, $000A

@@ -24,13 +24,13 @@ Sram_SnapshotA9F0PairsAtBoot:: ; 4E:4658
 	ld [sSaveCheckStateBlock + $0D], a
 	ld a, [sBrowserFrameStyle]
 	and a, $7F
-	jr nz, .skip
+	jr nz, .store_frame_style
 
 	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
 	; fall-through of the jrcc at 4E:4683 (executed) [executed in 1 scenarios]
 	ld a, $01
 
-.skip ; 4E:4687
+.store_frame_style ; 4E:4687
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 18/18 scenarios)
 	ld [sBrowserFrameStyle], a
 	xor a, a
@@ -53,13 +53,13 @@ Browser_BeginSession:: ; 4E:46A3
 	ld [rRAMB], a
 	ld a, [sBrowserFrameStyle]
 	and a, $7F
-	jr nz, .skip
+	jr nz, .store_frame_style
 
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
 	; fall-through of the jrcc at 4E:46B6 (executed)
 	ld a, $01
 
-.skip ; 4E:46BA
+.store_frame_style ; 4E:46BA
 	; [CONFIRMED] 50 insn(s); 50 executed (in up to 12/18 scenarios)
 	ld [sBrowserFrameStyle], a
 	ld [wBrowserFrameStyle], a
@@ -128,7 +128,7 @@ SaveCheck_Sum16:: ; 4E:4739
 	; [CONFIRMED] 81 insn(s); 81 executed (in up to 18/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call Sound_FrameService
-.loop ; 4E:473C
+.accumulate_byte_sum ; 4E:473C
 	ld a, [hli]
 	add a, e
 	ld e, a
@@ -138,7 +138,7 @@ SaveCheck_Sum16:: ; 4E:4739
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .loop
+	jr nz, .accumulate_byte_sum
 	ret
 
 SaveCheck_ResetBlock:: ; 4E:4749

@@ -41,12 +41,12 @@ MailAddr_Edit:: ; 2D:65B0
 	push af
 	call MailAddr_SetupScreen
 	ld d, $40
-.loop ; 2D:65F0
+.advance_cursor_step ; 2D:65F0
 	push de
 	call MailAddr_CursorRightStep
 	pop de
 	dec d
-	jr nz, .loop
+	jr nz, .advance_cursor_step
 	pop af
 	cp a, $01
 	jr nz, .l6603
@@ -408,7 +408,7 @@ MailCompose_ConfirmDiscard:: ; 2D:684F
 	ld a, [wEditSubjectBuf]
 	cp a, $00
 	jr nz, .l686E
-.loop ; 2D:686B
+.return_zero ; 2D:686B
 	pop bc
 	xor a, a
 	ret
@@ -445,7 +445,7 @@ MailCompose_ConfirmDiscard:: ; 2D:684F
 	ldh [rSVBK], a
 	pop af
 	dec a
-	jr z, .loop
+	jr z, .return_zero
 	pop bc
 	ld a, $FF
 	ret
@@ -1055,7 +1055,7 @@ MailAddr_GetCharPtr:: ; 2D:6CAC
 	jr z, .l6CD3
 	inc c
 	ld a, [hl]
-.loop ; 2D:6CBD
+.scan_character_column ; 2D:6CBD
 	dec c
 	jr z, .l6CD1
 	inc hl
@@ -1065,7 +1065,7 @@ MailAddr_GetCharPtr:: ; 2D:6CAC
 	ld a, [hl]
 	cp a, $0D
 	jr z, .l6CD9
-	jr .loop
+	jr .scan_character_column
 
 	; [HYPOTHESIS] inc c ; dec c ; jr nz,$6CD3 - unreached tail before the executed pop bc ; ret at
 	; 6CD1 (same pattern as 4EAE)
@@ -1248,10 +1248,10 @@ MailAddr_InsertChar:: ; 2D:6D21
 	call MailAddr_RedrawAfterInsert
 	ld a, c
 	cp a, $40
-	jr z, .done
+	jr z, .return_to_caller
 	call MailAddr_GetCharPtr
 	cp a, $FF
-	jr z, .done
+	jr z, .return_to_caller
 	cp a, $0D
 	jr nz, .l6DFE
 
@@ -1261,13 +1261,13 @@ MailAddr_InsertChar:: ; 2D:6D21
 	inc b
 	ld a, c
 	ld [wTextEditGoalColumn], a
-	jr .done
+	jr .return_to_caller
 
 .l6DFE ; 2D:6DFE
 	; [CONFIRMED] 33 insn(s); 33 executed (in up to 2/18 scenarios)
 	inc c
 	ld [wTextEditGoalColumn], a
-.done ; 2D:6E02
+.return_to_caller ; 2D:6E02
 	ret
 
 MailAddr_Backspace:: ; 2D:6E03
@@ -1311,7 +1311,7 @@ MailAddr_Backspace:: ; 2D:6E03
 	call MailAddr_PlaceCursorSprites
 	pop bc
 	ld d, $14
-.loop ; 2D:6E47
+.wait_backspace_repeat ; 2D:6E47
 	push bc
 	push de
 	farcall Sprite_UpdateAll
@@ -1327,7 +1327,7 @@ MailAddr_Backspace:: ; 2D:6E03
 	and a, PADF_DPAD
 	jr nz, .l6E6B
 	dec d
-	jr nz, .loop
+	jr nz, .wait_backspace_repeat
 .l6E6B ; 2D:6E6B
 	farcall Joypad_ClearAndResetRepeat
 	ld hl, wSpriteSlot1
@@ -1612,14 +1612,14 @@ MailAddr_GetLength:: ; 2D:702A
 	ldh [rSVBK], a
 	ld hl, wEditAddressBuf
 	ld d, $00
-.loop ; 2D:7037
+.count_address_byte ; 2D:7037
 	ld a, [hli]
 	cp a, $00
 	jr z, .l7042
 	inc d
 	ld a, $40
 	cp a, d
-	jr nz, .loop
+	jr nz, .count_address_byte
 .l7042 ; 2D:7042
 	ld a, d
 	pop de
@@ -1741,10 +1741,10 @@ Joypad_ClearAndResetRepeat:: ; 2D:70F4
 	ld [wJoyRepeatDelay], a
 	ld hl, wJoyRepeatCounters
 	ld b, $04
-.loop ; 2D:7115
+.store_repeat_counter_byte ; 2D:7115
 	ld [hli], a
 	dec b
-	jr nz, .loop
+	jr nz, .store_repeat_counter_byte
 	pop hl
 	pop de
 	pop bc

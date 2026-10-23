@@ -25,7 +25,7 @@ Palette_FadeOutWithTicker:: ; 48:46C6
 	ld a, $30
 	farcall PalFade_Start
 	farcall PalFade_Step
-.loop ; 48:46FA
+.upload_fade_and_update_ticker ; 48:46FA
 	call VBlank_WaitStartDI
 	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
@@ -34,11 +34,11 @@ Palette_FadeOutWithTicker:: ; 48:46C6
 	call Ticker_Update
 	ld hl, wPaletteTicker_StepFrames
 	dec [hl]
-	jr nz, .loop
+	jr nz, .upload_fade_and_update_ticker
 	ld [hl], $04
 	farcall PalFade_Step
 	or a, a
-	jr nz, .loop
+	jr nz, .upload_fade_and_update_ticker
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a

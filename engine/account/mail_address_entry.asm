@@ -485,7 +485,7 @@ Account_MailDomain_UploadTextTiles:: ; 68:5BB4
 Account_MailIntroPage:: ; 68:5BC4
 	call Account_MailIntro_Draw
 	farcall Palette_FadeInFromWhite
-.loop ; 68:5BCD
+.wait_for_a_or_b ; 68:5BCD
 	call VBlank_WaitAndService
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
@@ -493,7 +493,7 @@ Account_MailIntroPage:: ; 68:5BC4
 	jr nz, .handle_button_a
 	bit PADB_B, a
 	jr nz, .handle_button_b
-	jr .loop
+	jr .wait_for_a_or_b
 .handle_button_a ; 68:5BE2
 	play_sfx SFX_CONFIRM
 	ld a, $01

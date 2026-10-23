@@ -222,9 +222,9 @@ Html_CountListItems_Tag:: ; 74:5091
 	ld a, [hl]
 	ldh [hHtml_TagFirstChar], a
 	cp a, $2F
-	jr nz, .skip
+	jr nz, .store_tag_match_start
 	inc hl
-.skip ; 74:5099
+.store_tag_match_start ; 74:5099
 	ld a, l
 	ldh [hHtml_MatchRestart], a
 	ld a, h
@@ -256,7 +256,7 @@ Html_CountListItems_Tag_Done:: ; 74:50B9
 Html_CountListItems_Tag_SkipToEnd:: ; 74:50C3
 	ld a, $20
 	ldh [hHtml_LastChar], a
-.loop ; 74:50C7
+.scan_tag_attributes ; 74:50C7
 	ld a, [hli]
 	or a, a
 	jp z, Html_CountListItems_Done
@@ -288,7 +288,7 @@ Html_CountListItems_Tag_SkipToEnd:: ; 74:50C3
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4FF2-511A by apply_coverage --split
 	ld a, [hli]
-	jp .loop
+	jp .scan_tag_attributes
 
 .l50F1 ; 74:50F1
 	; [CONFIRMED] 26 insn(s) executed; cut out of the PROBABLE region 4FF2-511A by apply_coverage
@@ -296,7 +296,7 @@ Html_CountListItems_Tag_SkipToEnd:: ; 74:50C3
 	dec hl
 	ld bc, Html_NoKeywords
 	call Html_ScanAttributes
-	jp .loop
+	jp .scan_tag_attributes
 
 Html_CountListItems_Dispatch:: ; 74:50FB
 	cp a, $0F
@@ -377,7 +377,7 @@ Html_CountListItems_InTitle:: ; 74:514E
 	ld l, a
 	ldh a, [hHtml_MatchRestartHi]
 	ld h, a
-.loop ; 74:516D
+.scan_title_tag_end ; 74:516D
 	call Sound_FrameService
 	ld a, [hli]
 	or a, a
@@ -399,9 +399,9 @@ Html_CountListItems_InTitle:: ; 74:514E
 .l5192 ; 74:5192
 	or a, a
 .l5193 ; 74:5193
-	jp nc, .loop
+	jp nc, .scan_title_tag_end
 	ld a, [hli]
-	jp .loop
+	jp .scan_title_tag_end
 
 Html_CountListItems_Comment:: ; 74:519A
 	ld a, [hli]

@@ -131,13 +131,13 @@ Pop3_StartTop:: ; 54:4914
 	push hl
 	ld hl, wRam_C480
 	ld bc, $0200
-.loop ; 54:4933
+.clear_c480_buffer ; 54:4933
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .loop
+	jr nz, .clear_c480_buffer
 	pop hl
 	ld a, $01
 	ld [wMobileTaskKind], a
@@ -486,14 +486,14 @@ Pop3_TopPoll_CheckGameCode:: ; 54:4BEC
 	ld b, $0B
 	ld hl, wRam_C480
 	ld de, String_Mail_GameCodeCrystal
-.loop ; 54:4C1D
+.compare_game_code_bytes ; 54:4C1D
 	ld a, [de]
 	cp a, [hl]
 	jr nz, Pop3_TopPoll_ExitB1
 	inc hl
 	inc de
 	dec b
-	jr nz, .loop
+	jr nz, .compare_game_code_bytes
 
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4AE6-4C2A by apply_coverage --split

@@ -47,15 +47,15 @@ Glyph_AsciiAddr:: ; 7F:400E
 	ld d, $00
 	ld hl, $0000
 	ld b, $08
-.loop ; 7F:4029
+.accumulate_ascii_product_bit ; 7F:4029
 	rrca
-	jr nc, .skip
+	jr nc, .shift_ascii_multiplicand
 	add hl, de
-.skip ; 7F:402D
+.shift_ascii_multiplicand ; 7F:402D
 	sla e
 	rl d
 	dec b
-	jr nz, .loop
+	jr nz, .accumulate_ascii_product_bit
 	pop de
 	pop af
 	ld de, $67A8
@@ -282,16 +282,16 @@ Glyph_Mul16:: ; 7F:41D0
 	push de
 	ld hl, $0000
 	ld a, $10
-.loop ; 7F:41D8
+.accumulate_product_bit ; 7F:41D8
 	srl b
 	rr c
-	jr nc, .skip
+	jr nc, .shift_multiplicand
 	add hl, de
-.skip ; 7F:41DF
+.shift_multiplicand ; 7F:41DF
 	sla e
 	rl d
 	dec a
-	jr nz, .loop
+	jr nz, .accumulate_product_bit
 	pop de
 	pop bc
 	pop af

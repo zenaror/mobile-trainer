@@ -16,9 +16,9 @@ Sound_FrameService:: ; 00:0392
 	push af
 	ldh a, [hFramesWithoutService]
 	cp a, $01
-	jr c, .skip
+	jr c, .check_frame_service_flag
 	nop
-.skip ; 00:039A
+.check_frame_service_flag ; 00:039A
 	ld a, [wFrameServiceRan]
 	or a, a
 	jr nz, .l03B8
@@ -152,12 +152,12 @@ VBlank_WaitAndService:: ; 00:044B
 	bit 7, a
 	jr z, .clear_vblank_flag_and_service
 	ei
-.loop ; 00:0453
+.wait_for_vblank_flag ; 00:0453
 	halt
 	nop
 	ld a, [wVBlankFlag]
 	and a, a
-	jr z, .loop
+	jr z, .wait_for_vblank_flag
 .clear_vblank_flag_and_service ; 00:045B
 	xor a, a
 	ld [wVBlankFlag], a
@@ -175,12 +175,12 @@ VBlank_Wait:: ; 00:0464
 	bit 7, a
 	jr z, .clear_vblank_flag_and_return
 	ei
-.loop ; 00:046C
+.wait_for_vblank_flag ; 00:046C
 	halt
 	nop
 	ld a, [wVBlankFlag]
 	and a, a
-	jr z, .loop
+	jr z, .wait_for_vblank_flag
 .clear_vblank_flag_and_return ; 00:0474
 	xor a, a
 	ld [wVBlankFlag], a
@@ -195,14 +195,14 @@ VBlank_WaitStartDI:: ; 00:047A
 	ldh a, [rLCDC]
 	bit 7, a
 	jr z, .clear_vblank_flag_and_return
-.loop ; 00:0481
+.wait_for_vblank_start ; 00:0481
 	ei
 	halt
 	nop
 	di
 	ld a, [wVBlankFlag]
 	and a, a
-	jr z, .loop
+	jr z, .wait_for_vblank_start
 	ldh a, [rLY]
 	cp a, $90
 	jr c, .clear_vblank_flag_and_retry_service
@@ -215,7 +215,7 @@ VBlank_WaitStartDI:: ; 00:047A
 	xor a, a
 	ld [wVBlankFlag], a
 	call Sound_FrameService
-	jr .loop
+	jr .wait_for_vblank_start
 
 Int_InstallRamVectors:: ; 00:04A0
 	; Historical address alias retired; proper operation name retained.

@@ -11,13 +11,13 @@ Glyph_CopyAsciiRowsDoubled:: ; 00:0DB9
 	ldh [hROMBankLo], a
 	ld [$2100], a
 	ld b, $0C
-.loop ; 00:0DC0
+.copy_doubled_row ; 00:0DC0
 	ld a, [de]
 	inc de
 	ld [hli], a
 	ld [hli], a
 	dec b
-	jr nz, .loop
+	jr nz, .copy_doubled_row
 	ld a, c
 	ldh [hROMBankLo], a
 	ld [$2100], a
@@ -29,12 +29,12 @@ Glyph_CopyAsciiRowsSingle:: ; 00:0DCE
 	ldh [hROMBankLo], a
 	ld [$2100], a
 	ld b, $0C
-.loop ; 00:0DD5
+.copy_single_row ; 00:0DD5
 	ld a, [de]
 	inc de
 	ld [hli], a
 	dec b
-	jr nz, .loop
+	jr nz, .copy_single_row
 	ld a, c
 	ldh [hROMBankLo], a
 	ld [$2100], a
@@ -166,12 +166,12 @@ Glyph_CopyToLeftBuf:: ; 00:0E7E
 	ldh [hROMBankLo], a
 	ld [$2100], a
 	ld hl, wGlyphBufLeft
-.loop ; 00:0E86
+.copy_left_buffer_byte ; 00:0E86
 	ld a, [de]
 	inc de
 	ld [hli], a
 	dec b
-	jr nz, .loop
+	jr nz, .copy_left_buffer_byte
 	ld a, c
 	ldh [hROMBankLo], a
 	ld [$2100], a

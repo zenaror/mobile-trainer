@@ -30,10 +30,10 @@ Stat_EnableScrollSplit:: ; 7F:7271
 	ldh [rSVBK], a
 	ld a, $01
 	ld [wStatIrqServiceFlag], a
-.loop ; 7F:7297
+.wait_ly_64 ; 7F:7297
 	ldh a, [rLY]
 	cp a, $64
-	jr nz, .loop
+	jr nz, .wait_ly_64
 	ld a, $44
 	ldh [rSTAT], a
 	xor a, a

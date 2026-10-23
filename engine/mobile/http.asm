@@ -53,14 +53,14 @@ Http_StartGet:: ; 54:4288
 
 Url_EnsurePath:: ; 54:42E4
 	ld e, $00
-.loop ; 54:42E6
+.count_url_slashes ; 54:42E6
 	ld a, [hli]
 	or a, a
 	jr z, .l42F1
 	cp a, $2F
-	jr nz, .loop
+	jr nz, .count_url_slashes
 	inc e
-	jr .loop
+	jr .count_url_slashes
 .l42F1 ; 54:42F1
 	ld a, e
 	cp a, $03
@@ -173,14 +173,14 @@ Http_Poll:: ; 54:4357
 	dec [hl]
 	ld a, [wCommSessionKind]
 	or a, a
-	jr z, .skip
+	jr z, .resolve_location
 
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4393-43EE by apply_coverage --split
 	ld a, $07
 	ld [wMobileTaskKind], a
 
-.skip ; 54:43A8
+.resolve_location ; 54:43A8
 	; [CONFIRMED] 20 insn(s) executed; cut out of the PROBABLE region 4393-43EE by apply_coverage
 	; --split [executed in 2 scenarios]
 	call Url_ResolveLocation

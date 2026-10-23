@@ -120,14 +120,14 @@ CommTime_DrawSummaryScreen:: ; 51:404A
 	ld h, $00
 	cp a, $3C
 	ld a, [wTimerASeconds]
-	jr c, .skip
+	jr c, .store_display_seconds
 
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 51:4110 (executed)
 	ld hl, $003B
 	ld a, $3B
 
-.skip ; 51:4117
+.store_display_seconds ; 51:4117
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios)
 	ldh [hCommTime_DisplaySeconds], a
 	ld a, [wCommSessionKind]

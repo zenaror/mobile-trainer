@@ -13,7 +13,7 @@ SwitchCPUSpeed:: ; 00:0602
 	ldh a, [rKEY1]
 	xor a, b
 	rlca
-	jr nc, .done
+	jr nc, .return_to_caller
 	ld a, $01
 	ldh [rKEY1], a
 	xor a, a
@@ -26,5 +26,5 @@ SwitchCPUSpeed:: ; 00:0602
 	ldh [rIF], a
 	ld a, c
 	ldh [rIE], a
-.done ; 00:0621
+.return_to_caller ; 00:0621
 	ret

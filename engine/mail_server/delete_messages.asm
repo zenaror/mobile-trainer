@@ -23,11 +23,11 @@ Wram7_Write14To27AtD1E0:: ; 23:6D61 [PROBABLE] operation; entry/purpose unproved
 	ld hl, wScreenTileMap + $1E0
 	ld a, $14
 	ld b, $14
-.loop ; 23:6D79
+.write_ascending_tile_indices ; 23:6D79
 	ld [hli], a
 	inc a
 	dec b
-	jr nz, .loop
+	jr nz, .write_ascending_tile_indices
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -228,7 +228,7 @@ MailSrvDel_DrawElapsedTime:: ; 23:6F00
 	cp a, $3C
 	jr c, .l6F89
 
-.loop ; 23:6F47
+.write_45_49_tile_pairs ; 23:6F47
 	; [PROBABLE] 14 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 6F3C-6F60 by apply_coverage --split
 	ld a, $07
@@ -251,7 +251,7 @@ MailSrvDel_DrawElapsedTime:: ; 23:6F00
 	ld a, [wTimerAMinutes]
 	add a, $3C
 	cp a, $64
-	jr nc, .loop
+	jr nc, .write_45_49_tile_pairs
 	ld l, a
 	ld h, $00
 	ld de, $000A

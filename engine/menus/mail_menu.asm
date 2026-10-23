@@ -19,9 +19,9 @@ MailMenu_Run:: ; 1D:4000
 	ld hl, sMailMenuCursor
 	call ReadByteFar
 	or a, a
-	jr nz, .skip
+	jr nz, .store_initial_cursor
 	ld a, $01
-.skip ; 1D:4023
+.store_initial_cursor ; 1D:4023
 	ld [wMailMenu_Cursor], a
 	ld a, $01
 	ld [wMailMenu_AnimCounter], a

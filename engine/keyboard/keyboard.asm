@@ -118,14 +118,14 @@ Kbd_Run:: ; 55:5C8F
 	ld [wKbdRunArgB], a
 	ld a, [wKbdType]
 	cp a, $05
-	jr nz, .skip
+	jr nz, .clear_glyph_dirty
 
 	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 55:5C9D (executed) [executed in 4 scenarios]
 	ld a, b
 	ld [wKbdRunArgB], a
 
-.skip ; 55:5CA3
+.clear_glyph_dirty ; 55:5CA3
 	; [CONFIRMED] 67 insn(s); 67 executed (in up to 11/18 scenarios)
 	xor a, a
 	ld [wKbdGlyphDirty], a
@@ -315,13 +315,13 @@ Kbd_Run_Loop:: ; 55:5D49
 	ld a, [hl]
 	inc a
 	cp a, $04
-	jr nz, .skip
+	jr nz, .store_wrapped_page
 
 	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
 	; fall-through of the jrcc at 55:5E2E (executed) [executed in 3 scenarios]
 	xor a, a
 
-.skip ; 55:5E31
+.store_wrapped_page ; 55:5E31
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
 	ld [hl], a
 	call Kbd_FetchCell
@@ -860,11 +860,11 @@ Kbd_ClearStickyRow:: ; 55:6143
 Kbd_SplitCursorIndex:: ; 55:6149
 	ld a, [wKbdCursorCell]
 	ld b, $00
-.loop ; 55:614E
+.subtract_row_width ; 55:614E
 	sub a, $12
 	jr c, .store_col_row
 	inc b
-	jr .loop
+	jr .subtract_row_width
 .store_col_row ; 55:6155
 	add a, $12
 	ld [wKbdCursorCol], a
@@ -874,11 +874,11 @@ Kbd_SplitCursorIndex:: ; 55:6149
 
 Kbd_IndexToColRow:: ; 55:615F
 	ld b, $00
-.loop ; 55:6161
+.subtract_row_width ; 55:6161
 	sub a, $12
 	jr c, .return_col_row
 	inc b
-	jr .loop
+	jr .subtract_row_width
 .return_col_row ; 55:6168
 	add a, $12
 	ld c, b
@@ -1027,7 +1027,7 @@ Kbd_UpdateCursorSprite:: ; 55:6190
 
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
 	; fall-through of the jrcc at 55:624B (executed)
-	jr .done
+	jr .return_to_caller
 
 .l624F ; 55:624F
 	; [CONFIRMED] 33 insn(s); 33 executed (in up to 11/18 scenarios)
@@ -1062,11 +1062,11 @@ Kbd_UpdateCursorSprite:: ; 55:6190
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
-	jr .done
+	jr .return_to_caller
 .l6299 ; 55:6299
 	ld hl, wSpriteSlot10
 	call Sprite_ClearSlot
-.done ; 55:629F
+.return_to_caller ; 55:629F
 	ret
 
 ; ---- data $62A0-$62B4 (20 bytes) [PROBABLE] zero/short bytes of the keyboard page tables between text rows; part of the run 62A0-62B4 that executed code reads piecewise [split by classify_g2]
@@ -1420,7 +1420,7 @@ Kbd_Run_TypePicker:: ; 55:6563
 	ei
 	call Sound_FrameService
 	play_sfx SFX_POPUP_OPEN
-.loop ; 55:6580
+.slide_picker_window ; 55:6580
 	farcall Sprite_UpdateAll
 	ld a, [wKbdType]
 	call Kbd_TypeWaitsWithService
@@ -1446,7 +1446,7 @@ Kbd_Run_TypePicker:: ; 55:6563
 .l65A4 ; 55:65A4
 	ldh [rWY], a
 	cp a, $60
-	jp nz, .loop
+	jp nz, .slide_picker_window
 	call Kbd_TypePickerLoop
 	push af
 	call Kbd_SlideOut
@@ -2244,13 +2244,13 @@ Kbd_LoadPickerTabTiles:: ; 55:6BD7
 	; fall-through of the jrcc at 55:6BF5 (executed)
 	ld a, $66
 	farcall Gfx_StartHDMAWithService
-	jr .done
+	jr .finish_tab_upload
 
 .l6C01 ; 55:6C01
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 2/18 scenarios)
 	ld a, $66
 	farcall Gfx_StartHDMA
-.done ; 55:6C09
+.finish_tab_upload ; 55:6C09
 	ret
 
 ; ---- data $6C0A-$6C10 (6 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown

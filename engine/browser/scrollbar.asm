@@ -617,7 +617,7 @@ Browser_DrawScrollIndicators:: ; 4E:5EC0
 	ld a, BANK(BrowserShared_ObjTable)
 	ld b, $86
 	farcall Sprite_InitSlot
-.loop ; 4E:5F15
+.position_slot11_from_frame_descriptor ; 4E:5F15
 	ld a, [wBrowserFrameStyle]
 	push bc
 	and a, $7F
@@ -646,7 +646,7 @@ Browser_DrawScrollIndicators:: ; 4E:5EC0
 	ld a, BANK(BrowserShared_ObjTable)
 	ld b, $89
 	farcall Sprite_InitSlot
-	jr .loop
+	jr .position_slot11_from_frame_descriptor
 
 .l5F46 ; 4E:5F46
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
@@ -655,7 +655,7 @@ Browser_DrawScrollIndicators:: ; 4E:5EC0
 	ld a, BANK(BrowserShared_ObjTable)
 	ld b, $8B
 	farcall Sprite_InitSlot
-	jr .loop
+	jr .position_slot11_from_frame_descriptor
 
 Browser_ShowUpArrow:: ; 4E:5F58
 	; [CONFIRMED] 42 insn(s) reached by static flow only; seeds: exec x42; min discovery hops 1;
@@ -671,7 +671,7 @@ Browser_ShowUpArrow:: ; 4E:5F58
 	ld a, BANK(BrowserShared_ObjTable)
 	ld b, $85
 	farcall Sprite_InitSlot
-.loop ; 4E:5F76
+.position_slot10_from_frame_descriptor ; 4E:5F76
 	ld a, [wBrowserFrameStyle]
 	push bc
 	and a, $7F
@@ -697,11 +697,11 @@ Browser_ShowUpArrow:: ; 4E:5F58
 	ld a, BANK(BrowserShared_ObjTable)
 	ld b, $88
 	farcall Sprite_InitSlot
-	jr .loop
+	jr .position_slot10_from_frame_descriptor
 .l5FA7 ; 4E:5FA7
 	ld hl, wSpriteSlot10
 	ld de, BrowserShared_ObjTable
 	ld a, BANK(BrowserShared_ObjTable)
 	ld b, $8A
 	farcall Sprite_InitSlot
-	jr .loop
+	jr .position_slot10_from_frame_descriptor

@@ -230,19 +230,19 @@ SettingsMenu_StateInput:: ; 68:5172
 	jr nz, .handle_button_up
 	bit PADB_DOWN, a
 	jr nz, .handle_button_down
-	jp .done
+	jp .return_to_caller
 .handle_button_a ; 68:5187
 	play_sfx SFX_CONFIRM
 	ld a, $03
 	ld [wSettingsMenu_State], a
-	jr .done
+	jr .return_to_caller
 .handle_button_b ; 68:519E
 	play_sfx SFX_CANCEL
 	ld a, $03
 	ld [wSettingsMenu_State], a
 	ld a, $01
 	ld [wSettingsMenu_CancelFlag], a
-	jr .done
+	jr .return_to_caller
 .handle_button_up ; 68:51BA
 	ld a, [wSettingsMenu_Cursor]
 	or a, a
@@ -262,9 +262,9 @@ SettingsMenu_StateInput:: ; 68:5172
 	ld b, a
 	ld a, [wSettingsMenu_Cursor]
 	cp a, b
-	jr nz, .skip
+	jr nz, .increment_down_cursor
 	ld a, $FF
-.skip ; 68:51DD
+.increment_down_cursor ; 68:51DD
 	inc a
 	ld [wSettingsMenu_Cursor], a
 .l51E1 ; 68:51E1
@@ -273,7 +273,7 @@ SettingsMenu_StateInput:: ; 68:5172
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	call SettingsMenu_UpdateCursorSprite
-.done ; 68:51FC
+.return_to_caller ; 68:51FC
 	ret
 
 SettingsMenu_StateExit:: ; 68:51FD

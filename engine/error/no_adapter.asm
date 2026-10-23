@@ -90,9 +90,9 @@ NoAdapter_WaitButton:: ; 63:7413
 	call VBlank_WaitAndService
 	ldh a, [hJoyPressedRepeat]
 	bit PADB_A, a
-	jr nz, .done
+	jr nz, .return_on_a_or_start
 	bit PADB_START, a
-	jr nz, .done
+	jr nz, .return_on_a_or_start
 	jr NoAdapter_WaitButton
-.done ; 63:742E
+.return_on_a_or_start ; 63:742E
 	ret

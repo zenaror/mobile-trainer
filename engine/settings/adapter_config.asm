@@ -415,7 +415,7 @@ SettingsPhone_PatchConfigImage:: ; 67:5664
 	ld hl, sConfigImage
 	ld de, $0000
 	ld b, $BE
-.loop ; 67:56E3
+.sum_config_bytes ; 67:56E3
 	ld a, [hli]
 	add a, e
 	ld e, a
@@ -423,7 +423,7 @@ SettingsPhone_PatchConfigImage:: ; 67:5664
 	adc a, d
 	ld d, a
 	dec b
-	jr nz, .loop
+	jr nz, .sum_config_bytes
 	ld a, d
 	ld [hli], a
 	ld [hl], e

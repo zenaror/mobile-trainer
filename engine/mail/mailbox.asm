@@ -842,13 +842,13 @@ Mailbox_ReadMail:: ; 25:465C
 	pop af
 	ld de, $021E
 	cp a, $01
-	jr z, .skip
+	jr z, .show_dialog_with_selected_de
 
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 465C-47F8 by apply_coverage --split
 	ld de, $022B
 
-.skip ; 25:46DB
+.show_dialog_with_selected_de ; 25:46DB
 	; [CONFIRMED] 139 insn(s) executed; cut out of the PROBABLE region 465C-47F8 by apply_coverage
 	; --split [executed in 1 scenarios]
 	push af
@@ -1016,11 +1016,11 @@ Mailbox_SetActionCursor:: ; 25:4804
 	ld l, d
 	ld a, $20
 	inc l
-.loop ; 25:480E
+.accumulate_cursor_x ; 25:480E
 	dec l
 	jr z, .l4815
 	add a, $28
-	jr .loop
+	jr .accumulate_cursor_x
 .l4815 ; 25:4815
 	ld [wSpriteSlot1 + $01], a
 	push bc
@@ -1336,13 +1336,13 @@ Mailbox_ShowEmptyList:: ; 25:4A68
 	ldh [rSVBK], a
 	ld hl, wTileStage2
 	ld bc, $0D00
-.loop ; 25:4A75
+.clear_tile_stage ; 25:4A75
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .loop
+	jr nz, .clear_tile_stage
 	call Mailbox_DrawTimestamp
 	call Mailbox_UploadTextTiles
 	farcall Sprite_ResetAll

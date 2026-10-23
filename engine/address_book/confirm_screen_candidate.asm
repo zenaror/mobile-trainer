@@ -12,7 +12,7 @@ AddrScreenCandidate_Run:: ; 2C:741C
 	call AddrScreenCandidate_InitScreen
 	ld b, $3C
 
-.loop ; 2C:7421
+.update_sprites_and_count_frames ; 2C:7421
 	; [PROBABLE] 20 insn(s) reached by static flow only; seeds: site x20; min discovery hops 0;
 	; entered by jrcc from 2C:7433 (PROBABLE code) | forced execution: 18/20 instruction starts ran
 	; in forced_dead (traces/forced/, not natural evidence; status unchanged)
@@ -22,7 +22,7 @@ AddrScreenCandidate_Run:: ; 2C:741C
 	farcall Joypad_Update
 	pop bc
 	dec b
-	jr nz, .loop
+	jr nz, .update_sprites_and_count_frames
 	ld de, $0204
 	push de
 	pop de
@@ -67,7 +67,7 @@ AddrScreenCandidate_Run:: ; 2C:741C
 
 .l746D ; 2C:746D
 	; [PROBABLE] 1 insn (jr $7421); entered by jr z from 2C:7462 (this classification)
-	jr .loop
+	jr .update_sprites_and_count_frames
 
 AddrScreenCandidate_InitScreen:: ; 2C:746F
 

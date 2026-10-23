@@ -657,13 +657,13 @@ Registration_Aborted:: ; 65:46CA
 	; [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; entry
 	; not recorded
 	farcall Dev_InstallTestConfig
-.loop ; 65:46EB
+.repeat_notice_pages ; 65:46EB
 	ld a, $05
 	farcall Notice_ShowPage
 	ld a, $06
 	farcall Notice_ShowPage
 	or a, a
-	jr z, .loop
+	jr z, .repeat_notice_pages
 	ret
 
 Password_CopyConfirmToPassword:: ; 65:46FF
@@ -752,7 +752,7 @@ Password_ClearConfirmIfEdited:: ; 65:4761
 	ldh a, [hScratchA]
 	ld a, b
 	or a, a
-	jr z, .done
+	jr z, .return_to_caller
 	ld hl, wAcctPasswordConfirm
 	farcall Wram3_ClearByte
 	ldh [hScratchA], a
@@ -784,7 +784,7 @@ Password_ClearConfirmIfEdited:: ; 65:4761
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ldh a, [hScratchA]
-.done ; 65:47C7
+.return_to_caller ; 65:47C7
 	ret
 
 Password_CompareNewAndConfirm:: ; 65:47C8

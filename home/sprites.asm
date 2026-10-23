@@ -26,7 +26,7 @@ Sprite_UpdateAll:: ; 00:0956
 	ld de, wShadowOAM + $04
 	ld hl, wSpriteSlots
 	ld b, $0E
-.loop ; 00:0977
+.step_and_draw_next_slot ; 00:0977
 	push bc
 	push hl
 	ld bc, $0003
@@ -50,7 +50,7 @@ Sprite_UpdateAll:: ; 00:0956
 	add hl, bc
 	pop bc
 	dec b
-	jr nz, .loop
+	jr nz, .step_and_draw_next_slot
 	ld a, e
 	ld [wShadowOAMNextOffset], a
 	xor a, a
@@ -135,10 +135,10 @@ Sprite_ClearShadowOAM:: ; 00:0A09
 	ld b, $A0
 	ld hl, wShadowOAM
 	xor a, a
-.loop ; 00:0A12
+.clear_oam_byte ; 00:0A12
 	ld [hli], a
 	dec b
-	jr nz, .loop
+	jr nz, .clear_oam_byte
 	pop hl
 	pop bc
 	pop af
@@ -460,7 +460,7 @@ Sprite_StepAndDrawSlot:: ; 00:0AE8
 	ld a, [hli]
 	or a, a
 	ret z
-.loop ; 00:0B9D
+.emit_oam_entry ; 00:0B9D
 	push af
 	ld a, [hli]
 	add a, c
@@ -486,7 +486,7 @@ Sprite_StepAndDrawSlot:: ; 00:0AE8
 	inc de
 	pop af
 	dec a
-	jr nz, .loop
+	jr nz, .emit_oam_entry
 	ret
 .l0BBB ; 00:0BBB
 	pop de

@@ -61,7 +61,7 @@ Html_StringTable_Add:: ; 74:5AAE
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 2/18 scenarios)
 	push de
 	ld de, wAttrUrlBuf
-.loop ; 74:5ADB
+.copy_url_byte_with_limit ; 74:5ADB
 	ld a, [de]
 	or a, a
 	jr z, .l5AF3
@@ -74,7 +74,7 @@ Html_StringTable_Add:: ; 74:5AAE
 	sbc a, h
 	dec hl
 	bit 7, a
-	jr z, .loop
+	jr z, .copy_url_byte_with_limit
 
 	; [PROBABLE] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0;
 	; fall-through of the jrcc at 74:5AE9 (executed)
@@ -221,7 +221,7 @@ Html_ParseDecimal:: ; 74:5B5C
 	; entered by far from 74:4CD5 (PROBABLE code) [executed in 3 scenarios]
 	ld bc, $0000
 	ld de, $0000
-.loop ; 74:5B62
+.accumulate_decimal_digit ; 74:5B62
 	ld a, [hli]
 	cp a, $30
 	ret c
@@ -262,7 +262,7 @@ Html_ParseDecimal:: ; 74:5B5C
 	ld a, $00
 	adc a, c
 	ld c, a
-	jr .loop
+	jr .accumulate_decimal_digit
 
 HtmlUrl_NormalizePath:: ; 74:5BA0
 
@@ -424,22 +424,22 @@ HtmlUrl_NormalizePath:: ; 74:5BA0
 	sub a, d
 	ld a, c
 	sbc a, e
-	jr nc, .done
+	jr nc, .return_to_caller
 	dec de
 	ld a, [de]
 	cp a, $2E
-	jr nz, .done
+	jr nz, .return_to_caller
 
 	; [PROBABLE] 7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 0;
 	; fall-through of the jrcc at 74:5C55 (executed)
 	dec de
 	ld a, [de]
 	cp a, $2F
-	jr nz, .done
+	jr nz, .return_to_caller
 	inc de
 	xor a, a
 	ld [de], a
 
-.done ; 74:5C60
+.return_to_caller ; 74:5C60
 	; [CONFIRMED] 1 insn(s); 1 executed (in up to 2/18 scenarios)
 	ret

@@ -25,7 +25,7 @@ AbookView_Run:: ; 2F:5098
 	farcall Stat_EnableScrollSplit
 	call AbookView_SetupScreen
 	ld d, $3C
-.loop ; 2F:50BD
+.service_view_frame ; 2F:50BD
 	push bc
 	push de
 	farcall Sprite_UpdateAll
@@ -113,7 +113,7 @@ AbookView_Run:: ; 2F:5098
 	ld a, $FF
 	ret
 .l5164 ; 2F:5164
-	jp .loop
+	jp .service_view_frame
 
 Abook_StoreEntryToSram:: ; 2F:5167
 	; [PROBABLE] 48 insn(s) never executed in the traced runs; cut out of the PROBABLE region

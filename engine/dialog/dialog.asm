@@ -975,7 +975,7 @@ Dialog_InitWindowRegs:: ; 72:4805
 Dialog_SlideIn:: ; 72:4824
 	ld a, $FF
 	ld [wConnIconGfxRequest], a
-.loop ; 72:4829
+.apply_slide_in_step ; 72:4829
 	ld a, [hli]
 	cp a, $80
 	jr z, .l486D
@@ -1034,7 +1034,7 @@ Dialog_SlideIn:: ; 72:4824
 	pop hl
 	ei
 	call Sound_FrameService
-	jr .loop
+	jr .apply_slide_in_step
 .l486D ; 72:486D
 	xor a, a
 	ld [wConnIconGfxRequest], a
@@ -1043,7 +1043,7 @@ Dialog_SlideIn:: ; 72:4824
 Dialog_SlideOut:: ; 72:4872
 	ld a, $FF
 	ld [wConnIconGfxRequest], a
-.loop ; 72:4877
+.apply_slide_out_step ; 72:4877
 	ld a, [hli]
 	cp a, $80
 	jr z, .l48BB
@@ -1102,7 +1102,7 @@ Dialog_SlideOut:: ; 72:4872
 	pop hl
 	ei
 	call Sound_FrameService
-	jr .loop
+	jr .apply_slide_out_step
 .l48BB ; 72:48BB
 	xor a, a
 	ld [wConnIconGfxRequest], a

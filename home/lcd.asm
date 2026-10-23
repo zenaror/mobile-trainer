@@ -10,12 +10,12 @@ OAMDMA_CopyToHram:: ; 00:059F
 	; C=dest)
 	ld hl, $05AC
 	ld bc, $0A80
-.loop ; 00:05A5
+.copy_dma_routine_byte ; 00:05A5
 	ld a, [hli]
 	ldh [c], a
 	inc c
 	dec b
-	jr nz, .loop
+	jr nz, .copy_dma_routine_byte
 	ret
 
 	LOAD "RAM_00_05AC", HRAM[$FF80]
@@ -26,9 +26,9 @@ OAMDMARoutine:: ; 00:05AC (runs at $FF80)
 	ld a, $C0
 	ldh [rDMA], a
 	ld a, $28
-.loop ; 00:05B2 (runs at $FF86)
+.wait_dma_countdown ; 00:05B2 (runs at $FF86)
 	dec a
-	jr nz, .loop
+	jr nz, .wait_dma_countdown
 	ret
 
 	ENDL
@@ -55,12 +55,12 @@ LCDOff:: ; 00:05BD
 	res 1, a
 	ldh [rIF], a
 	ldh [rIE], a
-.loop ; 00:05D2
+.wait_ly_91_to97 ; 00:05D2
 	ldh a, [rLY]
 	cp a, $91
-	jr c, .loop
+	jr c, .wait_ly_91_to97
 	cp a, $98
-	jr nc, .loop
+	jr nc, .wait_ly_91_to97
 	ldh a, [rLCDC]
 	and a, $7F
 	ldh [rLCDC], a

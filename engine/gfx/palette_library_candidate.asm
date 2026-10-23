@@ -139,7 +139,7 @@ CallSelected7BB7_IfReturnsPollLyByFFA4Bit0:: ; 29:511E [PROBABLE] operation; ent
 	ldh a, [hJoyHeld]
 	and a, PADF_A
 	jr z, .wait_ly_48_or_90
-.loop ; 29:512B
+.wait_ly_24_48_6c_or90 ; 29:512B
 	ldh a, [rLY]
 	cp a, $24
 	ret z
@@ -148,7 +148,7 @@ CallSelected7BB7_IfReturnsPollLyByFFA4Bit0:: ; 29:511E [PROBABLE] operation; ent
 	cp a, $6C
 	ret z
 	cp a, $90
-	jr nz, .loop
+	jr nz, .wait_ly_24_48_6c_or90
 	ret
 .wait_ly_48_or_90 ; 29:513B
 	ldh a, [rLY]
@@ -392,7 +392,7 @@ PalLibCandidate_FadeStepTowardWhite:: ; 29:529F
 
 	ld hl, $DBD0 ; raw: unreferenced palette library (no caller, forced execution only), the bank in force is not shown
 	ld b, $40
-.loop ; 29:52A4
+.increase_color_components ; 29:52A4
 	push bc
 	ld a, [hli]
 	ld e, a
@@ -446,14 +446,14 @@ PalLibCandidate_FadeStepTowardWhite:: ; 29:529F
 	ld [hli], a
 	pop bc
 	dec b
-	jr nz, .loop
+	jr nz, .increase_color_components
 	ret
 
 PalLibCandidate_FadeStepTowardBlack:: ; 29:52ED
 
 	ld hl, $DBD0 ; raw: unreferenced palette library (no caller, forced execution only), the bank in force is not shown
 	ld b, $40
-.loop ; 29:52F2
+.decrease_color_components ; 29:52F2
 	push bc
 	ld a, [hli]
 	ld e, a
@@ -504,7 +504,7 @@ PalLibCandidate_FadeStepTowardBlack:: ; 29:52ED
 	ld [hli], a
 	pop bc
 	dec b
-	jr nz, .loop
+	jr nz, .decrease_color_components
 	ret
 
 PalLibCandidate_FillBufferFromBlock:: ; 29:5335

@@ -28,12 +28,12 @@ AbookAddr_Edit:: ; 2F:6D00
 	push af
 	call AbookAddr_SetupScreen
 	ld d, $40
-.loop ; 2F:6D28
+.advance_cursor_step ; 2F:6D28
 	push de
 	call AbookAddr_CursorRightStep
 	pop de
 	dec d
-	jr nz, .loop
+	jr nz, .advance_cursor_step
 	pop af
 	cp a, $01
 	jr nz, AbookAddr_Edit_Loop
@@ -1009,7 +1009,7 @@ AbookAddr_GetCharPtr:: ; 2F:7385
 	jr z, AbookAddr_GetCharPtr_NoChar
 	inc c
 	ld a, [hl]
-.loop ; 2F:7396
+.scan_character_column ; 2F:7396
 	dec c
 	jr z, AbookAddr_GetCharPtr_Found
 
@@ -1023,7 +1023,7 @@ AbookAddr_GetCharPtr:: ; 2F:7385
 	ld a, [hl]
 	cp a, $0D
 	jr z, AbookAddr_GetCharPtr_Newline
-	jr .loop
+	jr .scan_character_column
 
 	; [HYPOTHESIS] dead code: follows an unconditional jump, nothing references it and it never ran;
 	; decodes as `inc c ; dec c ; jr nz, NoChar` (the same bytes sit unlabeled in the body and
@@ -1218,10 +1218,10 @@ AbookAddr_InsertChar:: ; 2F:73FA
 	call AbookAddr_RedrawAfterInsert
 	ld a, c
 	cp a, $40
-	jr z, .done
+	jr z, .return_to_caller
 	call AbookAddr_GetCharPtr
 	cp a, $FF
-	jr z, .done
+	jr z, .return_to_caller
 	cp a, $0D
 	jr nz, .l74D2
 
@@ -1231,14 +1231,14 @@ AbookAddr_InsertChar:: ; 2F:73FA
 	inc b
 	ld a, c
 	ld [wTextEditGoalColumn], a
-	jr .done
+	jr .return_to_caller
 
 .l74D2 ; 2F:74D2
 	; [CONFIRMED] 33 insn(s) executed; cut out of the PROBABLE region 73FA-75A0 by apply_coverage
 	; --split [executed in 5 scenarios]
 	inc c
 	ld [wTextEditGoalColumn], a
-.done ; 2F:74D6
+.return_to_caller ; 2F:74D6
 	ret
 
 AbookAddr_Backspace:: ; 2F:74D7
@@ -1283,7 +1283,7 @@ AbookAddr_Backspace:: ; 2F:74D7
 	call AbookAddr_PlaceCursorSprites
 	pop bc
 	ld d, $14
-.loop ; 2F:751B
+.wait_backspace_repeat ; 2F:751B
 	push bc
 	push de
 	farcall Sprite_UpdateAll
@@ -1298,7 +1298,7 @@ AbookAddr_Backspace:: ; 2F:74D7
 	and a, PADF_DPAD
 	jr nz, .l753D
 	dec d
-	jr nz, .loop
+	jr nz, .wait_backspace_repeat
 .l753D ; 2F:753D
 	farcall Joypad_ClearAndResetRepeat
 	ld hl, wSpriteSlot1
@@ -1507,7 +1507,7 @@ AbookAddr_GetLength:: ; 2F:764D
 	ldh [rSVBK], a
 	ld hl, wEditAddressBuf
 	ld d, $00
-.loop ; 2F:765A
+.count_address_byte ; 2F:765A
 	ld a, [hli]
 	cp a, $00
 	jr z, .l7665
@@ -1518,7 +1518,7 @@ AbookAddr_GetLength:: ; 2F:764D
 	inc d
 	ld a, $40
 	cp a, d
-	jr nz, .loop
+	jr nz, .count_address_byte
 
 .l7665 ; 2F:7665
 	; [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios)

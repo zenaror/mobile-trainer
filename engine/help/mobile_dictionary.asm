@@ -272,13 +272,13 @@ MobileDict_NextCategory:: ; 1A:4281
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ld a, [wMobileDict_Category]
 	cp a, $0B
-	jr nz, .skip
+	jr nz, .increment_category
 
 	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
 	; fall-through of the jrcc at 1A:4286 (executed) [executed in 3 scenarios]
 	xor a, a
 
-.skip ; 1A:4289
+.increment_category ; 1A:4289
 	; [CONFIRMED] 18 insn(s); 18 executed (in up to 1/18 scenarios)
 	inc a
 	ld [wMobileDict_Category], a
@@ -297,9 +297,9 @@ MobileDict_PrevCategory:: ; 1A:42B0
 	; entered by jpcc from 1A:41F4 (PROBABLE code) [executed in 3 scenarios]
 	ld a, [wMobileDict_Category]
 	dec a
-	jr nz, .skip
+	jr nz, .store_previous_category
 	ld a, $0B
-.skip ; 1A:42B8
+.store_previous_category ; 1A:42B8
 	ld [wMobileDict_Category], a
 	ld a, $01
 	ld [wMobileDict_RowCursor], a
@@ -389,12 +389,12 @@ MobileDict_UpdateTabSprites:: ; 1A:4317
 	ld de, $7848
 	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
-	jr .done
+	jr .return_to_caller
 .l4371 ; 1A:4371
 	ld de, $00A0
 	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
-.done ; 1A:437A
+.return_to_caller ; 1A:437A
 	ret
 
 ; ---- data $437B-$4391 (22 bytes) [PROBABLE] 11 pairs (index,value): 00 08 / 01 14 / 02 20 / 03 2C ... 0A 80 (value = 8 + 12*index), right after the ret of the preceding routine and before MobileDict_LoadPage; first 4 bytes read in a trace; the 18-byte mapper hole is the rest of this table
@@ -420,7 +420,7 @@ MobileDict_LoadPage:: ; 1A:4391
 	ld hl, wTileStage2
 	call FillBytes
 	ld d, $00
-.loop ; 1A:43AA
+.render_next_entry ; 1A:43AA
 	ld a, [wMobileDict_Category]
 	ld hl, Table_MobileDict_Categories
 	dec a
@@ -467,7 +467,7 @@ MobileDict_LoadPage:: ; 1A:4391
 	ld b, a
 	ld a, [wMobileDict_EntryCount]
 	cp a, b
-	jr nz, .loop
+	jr nz, .render_next_entry
 .l43F9 ; 1A:43F9
 	ld de, $9000
 	ld hl, wTileStage2

@@ -906,9 +906,9 @@ HelpMenu_ShowItemText:: ; 6C:4763
 	pop bc
 	ld hl, $64B2
 	or a, a
-	jr z, .skip
+	jr z, .start_item_ticker
 	ld hl, HelpMenu_LockedTickerTable
-.skip ; 6C:4789
+.start_item_ticker ; 6C:4789
 	ld a, [wHelpMenu_Cursor]
 	dec a
 	add a, b

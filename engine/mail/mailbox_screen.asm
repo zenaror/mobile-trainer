@@ -144,10 +144,10 @@ Mailbox_LoadScreen:: ; 25:4B0D
 	call VBlank_Wait
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
-.loop ; 25:4CA2
+.wait_scanline_144 ; 25:4CA2
 	ldh a, [rLY]
 	cp a, $90
-	jr nz, .loop
+	jr nz, .wait_scanline_144
 	call VBlank_Wait
 	ld a, $01
 	ldh [rVBK], a
@@ -807,7 +807,7 @@ Mailbox_ClearTimestamp:: ; 25:50C2
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld b, $06
-.loop ; 25:50E3
+.write_d0_pair ; 25:50E3
 	ld a, [hl]
 	swap a
 	and a, $0F
@@ -822,7 +822,7 @@ Mailbox_ClearTimestamp:: ; 25:50C2
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .loop
+	jr nz, .write_d0_pair
 	ld de, $98A1
 	ld hl, wMailTextScratch
 	xor a, a
@@ -1195,7 +1195,7 @@ Mailbox_DrawMailCount:: ; 25:52FE
 	ld c, a
 .l5325 ; 25:5325
 	ld d, $00
-.loop ; 25:5327
+.rewrite_count_digit_tiles ; 25:5327
 	xor a, a
 	ldh [rVBK], a
 	ld hl, $98CE
@@ -1206,7 +1206,7 @@ Mailbox_DrawMailCount:: ; 25:52FE
 	add a, $E0
 	ld [hl], a
 	dec d
-	jr nz, .loop
+	jr nz, .rewrite_count_digit_tiles
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a

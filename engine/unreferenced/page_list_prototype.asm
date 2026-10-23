@@ -64,10 +64,10 @@ Canvas_InitScreen:: ; 7F:4CA9
 .write_map_index_loop ; 7F:4CD7
 	ld a, d
 	cp a, $F0
-	jr nz, .skip
+	jr nz, .write_map_index
 	xor a, a
 	ld d, a
-.skip ; 7F:4CDE
+.write_map_index ; 7F:4CDE
 	ld [hli], a
 	inc d
 	dec c
@@ -154,7 +154,7 @@ Palette_Canvas_Bg:: ; 7F:4D50
 	ld hl, $4D88
 	ld de, $0000
 
-.loop ; 7F:4D5E
+.draw_ascii_glyphs ; 7F:4D5E
 	; [PROBABLE] 25 insn(s) reached by static flow only; seeds: site x25; min discovery hops 0;
 	; entered by jrcc from 7F:4D85 (PROBABLE code)
 	ld a, [hli]
@@ -180,7 +180,7 @@ Palette_Canvas_Bg:: ; 7F:4D50
 	pop hl
 	ld a, [hl]
 	cp a, $00
-	jr nz, .loop
+	jr nz, .draw_ascii_glyphs
 	ret
 
 ; ---- text $4D88-$4D95 (13 bytes) [PROBABLE] ASCII string "Sample DATA." + NUL, address loaded by ld hl,$4D88 at 7F:4D58
@@ -456,10 +456,10 @@ PageListProto_Main:: ; 7F:4FDB
 	ldh [rSVBK], a
 	ld a, [wBrowserPageUrl]
 	cp a, $00
-	jr nz, .skip
+	jr nz, .initialize_screen
 	xor a, a
 	ld [wDialogOnlineSnapshot], a
-.skip ; 7F:500C
+.initialize_screen ; 7F:500C
 	call PageListProto_InitScreen
 	ld c, $00
 
@@ -1238,10 +1238,10 @@ PageListProto_SetActionIcons:: ; 7F:56AE
 	ld b, a
 	ld a, $01
 	ldh [rVBK], a
-.loop ; 7F:56B5
+.wait_for_ly_90 ; 7F:56B5
 	ldh a, [rLY]
 	cp a, $90
-	jr nz, .loop
+	jr nz, .wait_for_ly_90
 	ld a, $0B
 	dec b
 	jr z, .write_99a4_99c4
@@ -1678,7 +1678,7 @@ PageListProto_ActionMenu:: ; 7F:5989
 	call PageListProto_ActionMenuInit
 	call Stub_Nop_7F_61E7
 	ld b, $00
-.loop ; 7F:5991
+.service_action_menu ; 7F:5991
 	push bc
 	farcall Sprite_UpdateAll
 	ld a, [wDialogOnlineSnapshot]
@@ -1808,7 +1808,7 @@ PageListProto_ActionMenu:: ; 7F:5989
 	farcall Sprite_UpdateAll
 	call VBlank_Wait
 	pop bc
-	jp .loop
+	jp .service_action_menu
 .pop_bc_af_return_ff ; 7F:5AC4
 	pop bc
 	pop af
@@ -1841,7 +1841,7 @@ PageListProto_ActionMenu:: ; 7F:5989
 	call PageListProto_DeleteSlot
 .check_save_delete_result ; 7F:5B09
 	inc a
-	jp nz, .loop
+	jp nz, .service_action_menu
 	call PageListProto_HideActionCursor
 	push bc
 	farcall Joypad_Update
@@ -1851,7 +1851,7 @@ PageListProto_ActionMenu:: ; 7F:5989
 .call_go_to_slot ; 7F:5B1A
 	call PageListProto_GoToSlot
 	inc a
-	jp nz, .loop
+	jp nz, .service_action_menu
 	farcall Stat_DisableScrollSplit
 	call VBlank_Wait
 	ld a, $FF
@@ -1918,7 +1918,7 @@ PageListProto_ActionMenu:: ; 7F:5989
 	call PageListProto_ShowMessage
 	ld b, d
 .repeat_menu ; 7F:5BB2
-	jp .loop
+	jp .service_action_menu
 
 PageListProto_ActionMenuInit:: ; 7F:5BB5
 
@@ -1947,7 +1947,7 @@ PageListProto_ActionMenuInit:: ; 7F:5BB5
 	ld [wSpriteSlot7 + $01], a
 	ld a, $66
 	ld [wSpriteSlot7], a
-.loop ; 7F:5BF9
+.advance_slot7_x_by_four ; 7F:5BF9
 	ld a, [wSpriteSlot7 + $01]
 	inc a
 	inc a
@@ -1956,7 +1956,7 @@ PageListProto_ActionMenuInit:: ; 7F:5BB5
 	cp a, $22
 	jr z, .show_initial_message
 	ld [wSpriteSlot7 + $01], a
-	jr .loop
+	jr .advance_slot7_x_by_four
 .show_initial_message ; 7F:5C09
 	pop bc
 	xor a, a
@@ -2395,9 +2395,9 @@ PageListProto_SaveCurrentPage:: ; 7F:5D0A
 	ld hl, wBrowserPageTitle
 	ld a, [hl]
 	cp a, $00
-	jr nz, .skip
+	jr nz, .prepare_title_copy
 	ld hl, wBrowserPageUrl
-.skip ; 7F:5F42
+.prepare_title_copy ; 7F:5F42
 	ld c, $16
 .copy_title_22_bytes ; 7F:5F44
 	ld a, [hli]
@@ -2709,7 +2709,7 @@ PageListProto_DeleteSlot:: ; 7F:5FBC
 .begin_update_wait_loop ; 7F:618D
 	pop bc
 	ld e, $32
-.loop ; 7F:6190
+.wait_delete_sprite_frames ; 7F:6190
 	push bc
 	push de
 	farcall Sprite_UpdateAll
@@ -2717,7 +2717,7 @@ PageListProto_DeleteSlot:: ; 7F:5FBC
 	pop de
 	pop bc
 	dec e
-	jr nz, .loop
+	jr nz, .wait_delete_sprite_frames
 	push af
 	ld a, $01
 	ldh [hSRAMBank], a

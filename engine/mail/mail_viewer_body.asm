@@ -166,12 +166,12 @@ MailView_BodyPage_InitScreen:: ; 2B:7B9B
 	add hl, de
 	ld de, wEditBodyBuf
 	ld b, $C0
-.loop ; 2B:7C89
+.copy_body_byte ; 2B:7C89
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .loop
+	jr nz, .copy_body_byte
 	call VBlank_Wait
 	ld b, $00
 	call MailView_BodyPage_FindLine

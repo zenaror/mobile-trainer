@@ -239,7 +239,7 @@ Html_LoadPageImages:: ; 74:537D
 	ld l, a
 	ldh a, [hHtmlLayout_RecordListHi]
 	ld h, a
-.loop ; 74:5393
+.check_record_for_image ; 74:5393
 	call Sound_FrameService
 	ldh a, [hHtml_PageBank]
 	call BankSwitch_H
@@ -287,7 +287,7 @@ Html_LoadPageImages:: ; 74:537D
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .loop
+	jr nz, .check_record_for_image
 .l53DC ; 74:53DC
 	xor a, a
 	ldh [hSRAMEnable], a
@@ -642,11 +642,11 @@ Html_Layout_AppendRecord:: ; 74:5548
 	ldh a, [hHtml_RecordFlags]
 	and a, $0C
 	cp a, $04
-	jr z, .done
+	jr z, .return_to_caller
 	cp a, $0C
-	jr z, .done
+	jr z, .return_to_caller
 	call Html_Layout_AddRecordToLine
-.done ; 74:55BD
+.return_to_caller ; 74:55BD
 	ret
 
 Html_Layout_AddRecordToLine:: ; 74:55BE
@@ -751,9 +751,9 @@ Html_Layout_AddRecordToLine:: ; 74:55BE
 	call Divide32by15
 	ld a, c
 	cp a, $06
-	jr c, .skip
+	jr c, .scale_rounded_quotient_by12
 	inc de
-.skip ; 74:5643
+.scale_rounded_quotient_by12 ; 74:5643
 	ld l, e
 	ld h, d
 	add hl, hl
@@ -863,7 +863,7 @@ Html_Layout_PlaceLine:: ; 74:5663
 	ld h, a
 	ldh a, [hHtml_PageBank]
 	call BankSwitch_H
-.loop ; 74:56D3
+.visit_line_record ; 74:56D3
 	call Sound_FrameService
 	push bc
 	push hl
@@ -907,9 +907,9 @@ Html_Layout_PlaceLine:: ; 74:5663
 	call Divide32by15
 	ld a, c
 	cp a, $06
-	jr c, .skip
+	jr c, .scale_rounded_quotient_by12
 	inc de
-.skip ; 74:5719
+.scale_rounded_quotient_by12 ; 74:5719
 	ld l, e
 	ld h, d
 	add hl, hl
@@ -1011,7 +1011,7 @@ Html_Layout_PlaceLine:: ; 74:5663
 	dec bc
 	ld a, c
 	or a, b
-	jp nz, .loop
+	jp nz, .visit_line_record
 .l5795 ; 74:5795
 	ldh a, [hHtmlLayout_HeightAbove]
 	ld c, a
@@ -1048,7 +1048,7 @@ Html_Layout_BeginLineAndPlaceFloats:: ; 74:57AD
 	ld h, a
 	ldh a, [hHtml_PageBank]
 	call BankSwitch_H
-.loop ; 74:57C9
+.check_record_for_float ; 74:57C9
 	call Sound_FrameService
 	push bc
 	push hl
@@ -1170,7 +1170,7 @@ Html_Layout_BeginLineAndPlaceFloats:: ; 74:57AD
 	dec bc
 	ld a, c
 	or a, b
-	jp nz, .loop
+	jp nz, .check_record_for_float
 	ret
 
 Html_Layout_GetLimitsAtY:: ; 74:586E
@@ -1203,7 +1203,7 @@ Html_Layout_GetLimitsAtY:: ; 74:586E
 	ldh a, [hHtml_PageBank]
 	call BankSwitch_H
 	inc de
-.loop ; 74:58A1
+.scan_record_limits ; 74:58A1
 	call Sound_FrameService
 	push bc
 	push hl
@@ -1275,7 +1275,7 @@ Html_Layout_GetLimitsAtY:: ; 74:586E
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .loop
+	jr nz, .scan_record_limits
 	dec de
 .l5900 ; 74:5900
 	ldh [hRam_FFC6], a

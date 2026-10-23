@@ -172,7 +172,7 @@ Browser_LoadPage_CancelConnect:: ; 4C:4138
 	; [CONFIRMED] 55 insn(s) executed; cut out of the PROBABLE region 4132-4251 by apply_coverage
 	; --split [executed in 3 scenarios]
 	farcall Mobile_BeginCancel
-.loop ; 4C:413E
+.poll_cancel ; 4C:413E
 	farcall Mobile_CancelPoll
 	or a, a
 	jr z, .step_progress_until_zero
@@ -180,7 +180,7 @@ Browser_LoadPage_CancelConnect:: ; 4C:4138
 	jp z, Browser_LoadPage_FailNoDisconnect
 	ld a, $00
 	farcall CommProgress_Step
-	jp .loop
+	jp .poll_cancel
 .step_progress_until_zero ; 4C:4157
 	ld a, $01
 	farcall CommProgress_Step
@@ -706,7 +706,7 @@ Browser_LoadPage_WaitReply_TimeoutError:: ; 4C:458B
 	bit 0, a
 	jp z, Browser_LoadPage_WaitReply_CheckWarning
 	farcall Mobile_BeginStop
-.loop ; 4C:4599
+.poll_stop ; 4C:4599
 	farcall Mobile_StopPoll
 	or a, a
 	jr z, .l45B2
@@ -714,7 +714,7 @@ Browser_LoadPage_WaitReply_TimeoutError:: ; 4C:458B
 	jp z, Browser_LoadPage_Fail
 	ld a, $00
 	farcall CommProgress_Step
-	jp .loop
+	jp .poll_stop
 .l45B2 ; 4C:45B2
 	push hl
 	ld a, [wTimerEnable]
@@ -869,12 +869,12 @@ Url_StripFragment:: ; 4C:46A6
 	; executed call/far call (part of region $46A6-$46C0)
 	call Sound_FrameService
 	ld hl, wAttrUrlBuf
-.loop ; 4C:46AC
+.scan_for_fragment_or_nul ; 4C:46AC
 	ld a, [hli]
 	cp a, $23
 	jr z, .l46B4
 	or a, a
-	jr nz, .loop
+	jr nz, .scan_for_fragment_or_nul
 .l46B4 ; 4C:46B4
 	dec hl
 	xor a, a

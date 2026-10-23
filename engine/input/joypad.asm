@@ -34,15 +34,15 @@ Joypad_ReadRaw:: ; 7D:7B7C
 Joypad_UpdateIdleFrames:: ; 7D:7BA4
 	ldh a, [hJoyHeld]
 	or a, a
-	jr z, .skip
+	jr z, .increment_idle_counter
 	xor a, a
 	ld [wJoyIdleFrames], a
-.skip ; 7D:7BAD
+.increment_idle_counter ; 7D:7BAD
 	ld a, [wJoyIdleFrames]
 	inc a
-	jr z, .done
+	jr z, .return_to_caller
 	ld [wJoyIdleFrames], a
-.done ; 7D:7BB6
+.return_to_caller ; 7D:7BB6
 	ret
 
 Joypad_Update:: ; 7D:7BB7
@@ -66,7 +66,7 @@ Joypad_UpdateUnsaved:: ; 7D:7BC1
 	ld hl, wJoyRepeatCounters
 	ld c, $08
 	ld e, $00
-.loop ; 7D:7BD4
+.update_button_repeat_counter ; 7D:7BD4
 	ld a, [wJoyRepeatDelay]
 	rl b
 	jr nc, .l7BE4
@@ -85,7 +85,7 @@ Joypad_UpdateUnsaved:: ; 7D:7BC1
 	ld [hli], a
 	rl e
 	dec c
-	jr nz, .loop
+	jr nz, .update_button_repeat_counter
 	ldh a, [hJoyPressed]
 	or a, e
 	ldh [hJoyPressedRepeat], a
@@ -108,8 +108,8 @@ Joypad_SetRepeatTiming:: ; 7D:7C00
 	ld [wJoyRepeatDelay], a
 	ld hl, wJoyRepeatCounters
 	ld b, $08
-.loop ; 7D:7C0D
+.initialize_repeat_counter ; 7D:7C0D
 	ld [hli], a
 	dec b
-	jr nz, .loop
+	jr nz, .initialize_repeat_counter
 	ret

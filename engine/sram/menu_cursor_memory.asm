@@ -21,10 +21,10 @@ Sram_ClearMenuCursorMemory:: ; 48:4AAB
 	ld hl, sMenuCursorMemory
 	ld c, $20
 	xor a, a
-.loop ; 48:4AC6
+.clear_cursor_memory_byte ; 48:4AC6
 	ld [hli], a
 	dec c
-	jr nz, .loop
+	jr nz, .clear_cursor_memory_byte
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a

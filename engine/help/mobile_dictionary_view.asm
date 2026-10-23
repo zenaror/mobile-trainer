@@ -391,13 +391,13 @@ MobileDictView_HistoryPop:: ; 4C:52A8
 	ld a, [wDictHistoryHead]
 	dec a
 	cp a, $06
-	jr c, .skip
+	jr c, .store_wrapped_history_head
 
 	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
 	; fall-through of the jrcc at 4C:52BE (executed) [executed in 2 scenarios]
 	ld a, $05
 
-.skip ; 4C:52C2
+.store_wrapped_history_head ; 4C:52C2
 	; [CONFIRMED] 16 insn(s); 16 executed (in up to 1/18 scenarios)
 	ld [wDictHistoryHead], a
 	ld h, a

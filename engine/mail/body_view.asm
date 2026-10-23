@@ -24,12 +24,12 @@ MailBody_ViewScreen_Loop:: ; 28:4009
 	; [CONFIRMED] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 0;
 	; fall-through of the jrcc at 28:401E (executed) [executed in 5 scenarios]
 	play_sfx SFX_CANCEL
-.loop ; 28:4030
+.wait_for_ly_50_to_59 ; 28:4030
 	ldh a, [rLY]
 	cp a, $50
-	jr c, .loop
+	jr c, .wait_for_ly_50_to_59
 	cp a, $5A
-	jr nc, .loop
+	jr nc, .wait_for_ly_50_to_59
 	farcall Stat_DisableScrollSplit
 	call VBlank_Wait
 	farcall Palette_FadeOutToWhite

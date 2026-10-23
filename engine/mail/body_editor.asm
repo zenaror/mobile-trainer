@@ -360,13 +360,13 @@ MailBody_CursorUp:: ; 2D:4942
 	ld a, [wTextEditGoalColumn]
 	ld c, a
 	cp a, e
-	jr c, .done
+	jr c, .column_selected
 
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 495B-4968 by apply_coverage --split
 	ld c, e
 
-.done ; 2D:4967
+.column_selected ; 2D:4967
 	; [CONFIRMED] 1 insn(s) executed; cut out of the PROBABLE region 495B-4968 by apply_coverage
 	; --split [executed in 1 scenarios]
 	ret
@@ -399,7 +399,7 @@ MailBody_CursorDownStep:: ; 2D:497C
 	ld a, [wTextEditGoalColumn]
 	ld c, a
 	cp a, e
-	jr c, .done
+	jr c, .column_selected
 
 	; [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4989-499E by apply_coverage --split
@@ -412,7 +412,7 @@ MailBody_CursorDownStep:: ; 2D:497C
 	ret nz
 	ld c, a
 
-.done ; 2D:499D
+.column_selected ; 2D:499D
 	; [CONFIRMED] 1 insn(s) executed; cut out of the PROBABLE region 4989-499E by apply_coverage
 	; --split [executed in 1 scenarios]
 	ret
@@ -991,11 +991,11 @@ MailBody_ClearBuffer:: ; 2D:4E2D
 	ldh [rSVBK], a
 	ld hl, wEditBodyBuf
 	ld b, $C0
-.loop ; 2D:4E38
+.clear_body_byte ; 2D:4E38
 	xor a, a
 	ld [hli], a
 	dec b
-	jr nz, .loop
+	jr nz, .clear_body_byte
 	xor a, a
 	ld [rRAMG], a
 	ret
@@ -1076,7 +1076,7 @@ MailBody_GetCharPtr:: ; 2D:4E8C
 	jr z, .return_ff
 	inc c
 	ld a, [hl]
-.loop ; 2D:4E9D
+.seek_character_pair ; 2D:4E9D
 	dec c
 	jr z, .restore_bc_return
 	inc hl
@@ -1087,7 +1087,7 @@ MailBody_GetCharPtr:: ; 2D:4E8C
 	ld a, [hl]
 	cp a, $0D
 	jr z, .return_cr
-	jr .loop
+	jr .seek_character_pair
 
 	; [HYPOTHESIS] inc c ; dec c ; jr nz,$4EB4 - unreached alternative tail before the executed pop
 	; bc ; ret at 4EB2 (same 4-byte pattern also at 6CCD)
@@ -1426,7 +1426,7 @@ MailBody_GetRowFill:: ; 2D:508C
 	push bc
 	call MailBody_GetRowPtr
 	ld b, $00
-.loop ; 2D:5092
+.count_row_cells ; 2D:5092
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1437,18 +1437,18 @@ MailBody_GetRowFill:: ; 2D:508C
 	cp a, $00
 	jr z, .classify_cell_count
 	inc b
-	jr .loop
+	jr .count_row_cells
 .classify_cell_count ; 2D:50A5
 	ld d, $00
 	ld a, b
 	cp a, $00
-	jr nz, .skip
+	jr nz, .check_twelve_cells
 
 	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
 	; fall-through of the jrcc at 2D:50AA (executed) [executed in 4 scenarios]
 	ld d, $FF
 
-.skip ; 2D:50AE
+.check_twelve_cells ; 2D:50AE
 	; [CONFIRMED] 4 insn(s); 4 executed (in up to 2/18 scenarios)
 	cp a, $0C
 	jr nc, .return_d_one
@@ -1642,7 +1642,7 @@ MailBody_InsertChar:: ; 2D:50B8
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 2/18 scenarios)
 	call MailBody_GetCharPtr
 	cp a, $FF
-	jr z, .done
+	jr z, .cursor_advance_complete
 	cp a, $0D
 	jr nz, .increment_column
 
@@ -1652,7 +1652,7 @@ MailBody_InsertChar:: ; 2D:50B8
 	inc b
 	ld a, c
 	ld [wTextEditGoalColumn], a
-	jr .done
+	jr .cursor_advance_complete
 
 .increment_column ; 2D:51D9
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios)
@@ -1661,7 +1661,7 @@ MailBody_InsertChar:: ; 2D:50B8
 	ld [wTextEditGoalColumn], a
 	ld a, $0C
 	cp a, c
-	jr nz, .done
+	jr nz, .cursor_advance_complete
 
 	; [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0;
 	; fall-through of the jrcc at 2D:51E1 (executed) [executed in 4 scenarios]
@@ -1670,13 +1670,13 @@ MailBody_InsertChar:: ; 2D:50B8
 	ld a, c
 	ld [wTextEditGoalColumn], a
 
-.done ; 2D:51EA
+.cursor_advance_complete ; 2D:51EA
 	; [CONFIRMED] 8 insn(s); 8 executed (in up to 2/18 scenarios)
 	ret
 
 MailBody_RedrawFromRow:: ; 2D:51EB
 	ld c, $0B
-.loop ; 2D:51ED
+.redraw_until_row_boundary ; 2D:51ED
 	call MailBody_RedrawRow
 	call MailBody_GetRowFill
 	inc d
@@ -1690,7 +1690,7 @@ MailBody_RedrawFromRow:: ; 2D:51EB
 	ld a, b
 	cp a, $08
 	jr z, .upload_buffers_return
-	jr .loop
+	jr .redraw_until_row_boundary
 .redraw_following_rows ; 2D:5201
 	inc b
 	ld a, b
@@ -1711,14 +1711,14 @@ MailBody_RedrawRow:: ; 2D:5210
 	pop bc
 	xor a, a
 	inc b
-.loop ; 2D:5218
+.accumulate_row_tile_offset ; 2D:5218
 	dec b
 	jr z, .draw_at_row_offset
 
 	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 2D:5219 (executed) [executed in 4 scenarios]
 	add a, $0C
-	jr .loop
+	jr .accumulate_row_tile_offset
 
 .draw_at_row_offset ; 2D:521F
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 2/18 scenarios)
@@ -1778,7 +1778,7 @@ MailBody_InsertNewline:: ; 2D:522B
 	push hl
 	ld de, wEditBodyBuf + $BE
 	ld bc, wEditBodyBuf + $BC
-.loop ; 2D:5286
+.shift_character_pair_backward ; 2D:5286
 	ld a, d
 	cp a, h
 	jr nz, .shift_pair_backward
@@ -1796,7 +1796,7 @@ MailBody_InsertNewline:: ; 2D:522B
 	dec bc
 	dec de
 	dec de
-	jr .loop
+	jr .shift_character_pair_backward
 .store_0d_0a_pair ; 2D:529A
 	pop hl
 	pop de
@@ -1953,7 +1953,7 @@ MailBody_Backspace:: ; 2D:535C
 	call MailBody_PlaceCursorSprites
 	pop bc
 	ld d, $14
-.loop ; 2D:53A0
+.wait_backspace_repeat ; 2D:53A0
 	push bc
 	push de
 	farcall Sprite_UpdateAll
@@ -1969,7 +1969,7 @@ MailBody_Backspace:: ; 2D:535C
 	and a, PADF_DPAD
 	jr nz, .reset_repeat_restore_cursor
 	dec d
-	jr nz, .loop
+	jr nz, .wait_backspace_repeat
 .reset_repeat_restore_cursor ; 2D:53C4
 	farcall Joypad_ClearAndResetRepeat
 	ld hl, wSpriteSlot1
@@ -2055,7 +2055,7 @@ MailBody_RedrawAfterBackspace:: ; 2D:542D
 	dec e
 	jr z, .redraw_current_row
 	ld c, $0B
-.loop ; 2D:5432
+.redraw_shifted_rows ; 2D:5432
 	call MailBody_RedrawRow
 	call MailBody_GetCharPtr
 	ld a, e
@@ -2086,7 +2086,7 @@ MailBody_RedrawAfterBackspace:: ; 2D:542D
 	ld a, b
 	cp a, $08
 	jr z, .upload_buffers_return
-	jr .loop
+	jr .redraw_shifted_rows
 .redraw_current_row ; 2D:545B
 	call MailBody_RedrawRow
 .redraw_following_rows ; 2D:545E
@@ -2121,7 +2121,7 @@ MailBody_ApplyDakuten:: ; 2D:546D
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, MailBody_DakutenKanaList
-.loop ; 2D:5487
+.match_dakuten_pair ; 2D:5487
 	ld a, [de]
 	inc de
 	cp a, $00
@@ -2172,7 +2172,7 @@ MailBody_ApplyDakuten:: ; 2D:546D
 	ret
 .next_candidate_pair ; 2D:54CF
 	pop hl
-	jr .loop
+	jr .match_dakuten_pair
 
 	; [HYPOTHESIS] SRAM-disable epilogue xor a ; ldh [$F5],a ; ld [$0000],a ; pop bc ; ret (same 8
 	; bytes at 54D2/55A1/5642); the previous region ends with an unconditional jr so no path reaches
@@ -2231,7 +2231,7 @@ MailBody_ApplyDakutenU:: ; 2D:553D
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, Table_MailBody_ApplyDakutenU_LoopPairs
-.loop ; 2D:5557
+.read_u_table_pair ; 2D:5557
 	ld a, [de]
 	inc de
 	cp a, $00
@@ -2283,7 +2283,7 @@ MailBody_ApplyDakutenU:: ; 2D:553D
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 553D-55A1 by apply_coverage --split
 	pop hl
-	jr .loop
+	jr .read_u_table_pair
 
 	; [HYPOTHESIS] SRAM-disable epilogue xor a ; ldh [$F5],a ; ld [$0000],a ; pop bc ; ret (same 8
 	; bytes at 54D2/55A1/5642); the previous region ends with an unconditional jr so no path reaches
@@ -2353,7 +2353,7 @@ MailBody_ApplyHandakuten:: ; 2D:55E0
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, MailBody_HandakutenKanaList
-.loop ; 2D:55FA
+.match_handakuten_pair ; 2D:55FA
 	ld a, [de]
 	inc de
 	cp a, $00
@@ -2403,7 +2403,7 @@ MailBody_ApplyHandakuten:: ; 2D:55E0
 	ret
 .next_candidate_pair ; 2D:563F
 	pop hl
-	jr .loop
+	jr .match_handakuten_pair
 
 	; [HYPOTHESIS] SRAM-disable epilogue xor a ; ldh [$F5],a ; ld [$0000],a ; pop bc ; ret (same 8
 	; bytes at 54D2/55A1/5642); the previous region ends with an unconditional jr so no path reaches
@@ -3077,14 +3077,14 @@ MailBody_GetLength:: ; 2D:5A7B
 	ldh [rSVBK], a
 	ld hl, wEditBodyBuf
 	ld d, $00
-.loop ; 2D:5A88
+.count_body_bytes ; 2D:5A88
 	ld a, [hli]
 	cp a, $00
 	jr z, .return_count
 	inc d
 	ld a, $C0
 	cp a, d
-	jr nz, .loop
+	jr nz, .count_body_bytes
 .return_count ; 2D:5A93
 	ld a, d
 	pop de

@@ -27,12 +27,12 @@ AbookName_Edit:: ; 2F:57F2
 	push af
 	call AbookName_SetupScreen
 	ld d, $0A
-.loop ; 2F:581A
+.step_cursor_right ; 2F:581A
 	push de
 	call AbookName_CursorRightStep
 	pop de
 	dec d
-	jr nz, .loop
+	jr nz, .step_cursor_right
 	pop af
 	cp a, $01
 	jr nz, AbookName_Edit_Loop
@@ -51,13 +51,13 @@ AbookName_Edit_Loop:: ; 2F:5832
 	; region 5832-590B by apply_coverage --split [executed in 6 scenarios]
 	ld a, c
 	cp a, $09
-	jr c, .skip
+	jr c, .column_clamped
 
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5832-590B by apply_coverage --split
 	ld c, $08
 
-.skip ; 2F:5839
+.column_clamped ; 2F:5839
 	; [CONFIRMED] 77 insn(s) executed; cut out of the PROBABLE region 5832-590B by apply_coverage
 	; --split [executed in 1 scenarios]
 	push bc
@@ -583,7 +583,7 @@ AbookName_GetCharPtr:: ; 2F:5C0E
 	jr z, AbookName_GetCharPtr_NoChar
 	inc c
 	ld a, [hl]
-.loop ; 2F:5C1F
+.seek_character_pair ; 2F:5C1F
 	dec c
 	jr z, AbookName_GetCharPtr_Found
 	inc hl
@@ -594,7 +594,7 @@ AbookName_GetCharPtr:: ; 2F:5C0E
 	ld a, [hl]
 	cp a, $0D
 	jr z, AbookName_GetCharPtr_Newline
-	jr .loop
+	jr .seek_character_pair
 
 	; [HYPOTHESIS] dead code: follows an unconditional jump, nothing references it and it never ran;
 	; decodes as `inc c ; dec c ; jr nz, NoChar` (the same bytes sit unlabeled in the body and
@@ -857,14 +857,14 @@ AbookName_InsertChar_Insert:: ; 2F:5CF4
 	; 5CD2-5F28 by apply_coverage --split
 	ld a, c
 	cp a, $0B
-	jr z, .done
+	jr z, .cursor_advance_complete
 
 .l5DB6 ; 2F:5DB6
 	; [CONFIRMED] 5 insn(s) executed; cut out of the PROBABLE region 5CD2-5F28 by apply_coverage
 	; --split [executed in 3 scenarios]
 	call AbookName_GetCharPtr
 	cp a, $FF
-	jr z, .done
+	jr z, .cursor_advance_complete
 	cp a, $0D
 	jr nz, .l5DCA
 
@@ -874,7 +874,7 @@ AbookName_InsertChar_Insert:: ; 2F:5CF4
 	inc b
 	ld a, c
 	ld [wTextEditGoalColumn], a
-	jr .done
+	jr .cursor_advance_complete
 
 .l5DCA ; 2F:5DCA
 	; [CONFIRMED] 6 insn(s) executed; cut out of the PROBABLE region 5CD2-5F28 by apply_coverage
@@ -884,7 +884,7 @@ AbookName_InsertChar_Insert:: ; 2F:5CF4
 	ld [wTextEditGoalColumn], a
 	ld a, $0C
 	cp a, c
-	jr nz, .done
+	jr nz, .cursor_advance_complete
 
 	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5CD2-5F28 by apply_coverage --split
@@ -893,7 +893,7 @@ AbookName_InsertChar_Insert:: ; 2F:5CF4
 	ld a, c
 	ld [wTextEditGoalColumn], a
 
-.done ; 2F:5DDB
+.cursor_advance_complete ; 2F:5DDB
 	; [CONFIRMED] 31 insn(s) executed; cut out of the PROBABLE region 5CD2-5F28 by apply_coverage
 	; --split [executed in 2 scenarios]
 	ret
@@ -940,7 +940,7 @@ AbookName_Backspace:: ; 2F:5DDC
 	call AbookName_PlaceCursorSprites
 	pop bc
 	ld d, $14
-.loop ; 2F:5E20
+.wait_backspace_repeat ; 2F:5E20
 	push bc
 	push de
 	farcall Sprite_UpdateAll
@@ -955,7 +955,7 @@ AbookName_Backspace:: ; 2F:5DDC
 	and a, PADF_DPAD
 	jr nz, .l5E42
 	dec d
-	jr nz, .loop
+	jr nz, .wait_backspace_repeat
 .l5E42 ; 2F:5E42
 	farcall Joypad_ClearAndResetRepeat
 	ld hl, wSpriteSlot1
@@ -1057,7 +1057,7 @@ AbookName_ApplyDakuten:: ; 2F:5EB3
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, String_Abook_DakutenKanaList
-.loop ; 2F:5ECD
+.match_dakuten_pair ; 2F:5ECD
 	ld a, [de]
 	inc de
 	cp a, $00
@@ -1112,7 +1112,7 @@ AbookName_ApplyDakuten:: ; 2F:5EB3
 	ret
 .l5F25 ; 2F:5F25
 	pop hl
-	jr .loop
+	jr .match_dakuten_pair
 
 	; [HYPOTHESIS] 5 insn(s) SRAM-disable epilogue (xor a ; ldh [$FFF5],a ; ld [$0000],a ; pop bc ;
 	; ret), identical bytes to 2C:4760/483F/48F0; follows an unconditional jr; well-formed
@@ -1177,7 +1177,7 @@ AbookName_ApplyDakutenU:: ; 2F:5F93
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, Table_AbookName_ApplyDakutenU_LoopPairs
-.loop ; 2F:5FAD
+.read_u_table_pair ; 2F:5FAD
 	ld a, [de]
 	inc de
 	cp a, $00
@@ -1233,7 +1233,7 @@ AbookName_ApplyDakutenU:: ; 2F:5F93
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5F93-6007 by apply_coverage --split
 	pop hl
-	jr .loop
+	jr .read_u_table_pair
 
 	; [HYPOTHESIS] 5 insn(s) SRAM-disable epilogue (xor a ; ldh [$FFF5],a ; ld [$0000],a ; pop bc ;
 	; ret), identical bytes to 2C:4760/483F/48F0; follows an unconditional jr; well-formed
@@ -1304,7 +1304,7 @@ AbookName_ApplyHandakuten:: ; 2F:6046
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, String_Abook_HandakutenKanaList
-.loop ; 2F:6060
+.match_handakuten_pair ; 2F:6060
 	ld a, [de]
 	inc de
 	cp a, $00
@@ -1358,7 +1358,7 @@ AbookName_ApplyHandakuten:: ; 2F:6046
 	ret
 .l60B5 ; 2F:60B5
 	pop hl
-	jr .loop
+	jr .match_handakuten_pair
 
 	; [HYPOTHESIS] 5 insn(s) SRAM-disable epilogue (xor a ; ldh [$FFF5],a ; ld [$0000],a ; pop bc ;
 	; ret), identical bytes to 2C:4760/483F/48F0; follows an unconditional jr; well-formed
@@ -1526,7 +1526,7 @@ AbookName_GetLength:: ; 2F:61CE
 	ldh [rSVBK], a
 	ld hl, wEditNameBuf
 	ld d, $00
-.loop ; 2F:61DB
+.count_name_bytes ; 2F:61DB
 	ld a, [hli]
 	cp a, $00
 	jr z, .l61E6
@@ -1536,7 +1536,7 @@ AbookName_GetLength:: ; 2F:61CE
 	inc d
 	ld a, $10
 	cp a, d
-	jr nz, .loop
+	jr nz, .count_name_bytes
 
 .l61E6 ; 2F:61E6
 	; [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 61CE-61EA by apply_coverage

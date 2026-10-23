@@ -305,13 +305,13 @@ MailSrvDel_MenuInit:: ; 23:41DC
 	ldh [rSVBK], a
 	ld hl, wTileStage2
 	ld bc, $0F00
-.loop ; 23:4296
+.clear_tile_stage_byte ; 23:4296
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .loop
+	jr nz, .clear_tile_stage_byte
 	pop bc
 	push bc
 	ld a, c
@@ -853,12 +853,12 @@ MailSrvDel_FormatDecimalStr:: ; 23:4864
 	ldh [rSVBK], a
 	ld hl, String_MailSrvDel_NumberTemplate_23_497B
 	ld de, wMailTextScratch
-.loop ; 23:4872
+.copy_number_template_byte ; 23:4872
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, .loop
+	jr nz, .copy_number_template_byte
 	pop bc
 	pop hl
 	push bc

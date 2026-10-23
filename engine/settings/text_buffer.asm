@@ -109,12 +109,12 @@ TextBuf_DeleteLast:: ; 67:6799
 	ld d, h
 	ld e, l
 	dec de
-.loop ; 67:67B6
+.copy_bytes_backward ; 67:67B6
 	ld a, [hld]
 	ld [de], a
 	dec de
 	or a, a
-	jr nz, .loop
+	jr nz, .copy_bytes_backward
 	pop hl
 	ld a, [hl]
 	inc a

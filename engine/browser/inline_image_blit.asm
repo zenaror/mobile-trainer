@@ -609,9 +609,9 @@ Bmp_RoundUpToTextRow:: ; 51:73F2
 	call Divide32by15
 	ld a, c
 	or a, c
-	jr z, .skip
+	jr z, .scale_rounded_quotient_by12
 	inc de
-.skip ; 51:7402
+.scale_rounded_quotient_by12 ; 51:7402
 	ld l, e
 	ld h, d
 	add hl, hl
@@ -959,7 +959,7 @@ Image_BlitEdgeStrip:: ; 51:7517
 	jr nc, .return_single_strip
 	inc h
 .return_single_strip ; 51:7581
-	jp .done
+	jp .return_to_caller
 
 .multi_column_strip ; 51:7584
 	; [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage
@@ -1117,7 +1117,7 @@ Image_BlitEdgeStrip:: ; 51:7517
 	; --split [executed in 1 scenarios]
 	ldh a, [hImageBlit_RightMask]
 	cp a, $FF
-	jr z, .done
+	jr z, .return_to_caller
 
 	; [PROBABLE] 69 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 740D-7900 by apply_coverage --split
@@ -1198,10 +1198,10 @@ Image_BlitEdgeStrip:: ; 51:7517
 	ld a, $0E
 	add a, l
 	ld l, a
-	jr nc, .done
+	jr nc, .return_to_caller
 	inc h
 
-.done ; 51:76AA
+.return_to_caller ; 51:76AA
 	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage
 	; --split [executed in 1 scenarios]
 	ret
@@ -1277,9 +1277,9 @@ Image_BlitStripShift0:: ; 51:76AB
 	ld a, $0E
 	add a, l
 	ld l, a
-	jr nc, .skip
+	jr nc, .count_strip_row
 	inc h
-.skip ; 51:76EB
+.count_strip_row ; 51:76EB
 	dec c
 	jr nz, Image_BlitStripShift0
 	ret
@@ -1336,9 +1336,9 @@ Image_BlitStripShift1:: ; 51:76EF
 	ld a, $0E
 	add a, l
 	ld l, a
-	jr nc, .skip
+	jr nc, .count_strip_row
 	inc h
-.skip ; 51:7733
+.count_strip_row ; 51:7733
 	dec c
 	jr nz, Image_BlitStripShift1
 	ret
@@ -1395,9 +1395,9 @@ Image_BlitStripShift2:: ; 51:7737
 	ld a, $0E
 	add a, l
 	ld l, a
-	jr nc, .skip
+	jr nc, .count_strip_row
 	inc h
-.skip ; 51:777E
+.count_strip_row ; 51:777E
 	dec c
 	jr nz, Image_BlitStripShift2
 	ret
@@ -1456,9 +1456,9 @@ Image_BlitStripShift3:: ; 51:7782
 	ld a, $0E
 	add a, l
 	ld l, a
-	jr nc, .skip
+	jr nc, .count_strip_row
 	inc h
-.skip ; 51:77CC
+.count_strip_row ; 51:77CC
 	dec c
 	jr nz, Image_BlitStripShift3
 	ret
@@ -1516,9 +1516,9 @@ Image_BlitStripShift4:: ; 51:77D0
 	ld a, $0E
 	add a, l
 	ld l, a
-	jr nc, .skip
+	jr nc, .count_strip_row
 	inc h
-.skip ; 51:7819
+.count_strip_row ; 51:7819
 	dec c
 	jr nz, Image_BlitStripShift4
 	ret
@@ -1578,9 +1578,9 @@ Image_BlitStripShift5:: ; 51:781D
 	ld a, $0E
 	add a, l
 	ld l, a
-	jr nc, .skip
+	jr nc, .count_strip_row
 	inc h
-.skip ; 51:7867
+.count_strip_row ; 51:7867
 	dec c
 	jr nz, Image_BlitStripShift5
 	ret
@@ -1638,9 +1638,9 @@ Image_BlitStripShift6:: ; 51:786B
 	ld a, $0E
 	add a, l
 	ld l, a
-	jr nc, .skip
+	jr nc, .count_strip_row
 	inc h
-.skip ; 51:78B3
+.count_strip_row ; 51:78B3
 	dec c
 	jr nz, Image_BlitStripShift6
 	ret
@@ -1696,9 +1696,9 @@ Image_BlitStripShift7:: ; 51:78B7
 	ld a, $0E
 	add a, l
 	ld l, a
-	jr nc, .skip
+	jr nc, .count_strip_row
 	inc h
-.skip ; 51:78FC
+.count_strip_row ; 51:78FC
 	dec c
 	jr nz, Image_BlitStripShift7
 	ret

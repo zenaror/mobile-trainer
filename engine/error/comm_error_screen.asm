@@ -198,7 +198,7 @@ CommErr_LookupTriple:: ; 5C:5302
 	ld d, a
 	ld a, [wCommErrCodeLo]
 	ld e, a
-.loop ; 5C:530D
+.scan_error_triple ; 5C:530D
 	ld a, [hli]
 	cp a, $FF
 	jp z, CommErr_PrintMessage
@@ -210,7 +210,7 @@ CommErr_LookupTriple:: ; 5C:5302
 .l531A ; 5C:531A
 	inc hl
 	inc hl
-	jr .loop
+	jr .scan_error_triple
 
 CommErr_PrintMessage:: ; 5C:531E
 	inc hl

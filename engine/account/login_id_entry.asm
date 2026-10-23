@@ -355,7 +355,7 @@ Account_LoginId_UploadTextTiles:: ; 68:55D1
 Account_LoginIdIntroPage:: ; 68:55E1
 	call Account_LoginIdIntro_Draw
 	farcall Palette_FadeInFromWhite
-.loop ; 68:55EA
+.wait_intro_button ; 68:55EA
 	call VBlank_WaitAndService
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
@@ -363,7 +363,7 @@ Account_LoginIdIntroPage:: ; 68:55E1
 	jr nz, .handle_button_a
 	bit PADB_B, a
 	jr nz, .handle_button_b
-	jr .loop
+	jr .wait_intro_button
 .handle_button_a ; 68:55FF
 	play_sfx SFX_CONFIRM
 	ld a, $01

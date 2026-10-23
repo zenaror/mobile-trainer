@@ -143,13 +143,13 @@ Tilemap_ApplyMaskRect_48_4A8C:: ; 48:4A8C
 	call BankSwitch_H
 	ld a, c
 	ldh [hTileMaskRect_Width], a
-.loop ; 48:4A92
+.apply_mask_to_cell ; 48:4A92
 	ld a, [hl]
 	and a, d
 	or a, e
 	ld [hli], a
 	dec c
-	jr nz, .loop
+	jr nz, .apply_mask_to_cell
 	ldh a, [hTileMaskRect_Width]
 	ld c, a
 	xor a, $1F
@@ -161,5 +161,5 @@ Tilemap_ApplyMaskRect_48_4A8C:: ; 48:4A8C
 	adc a, h
 	ld h, a
 	dec b
-	jr nz, .loop
+	jr nz, .apply_mask_to_cell
 	ret

@@ -97,10 +97,10 @@ SoundDrv_FrameTick:: ; 04:4082
 	; fall-through of the jrcc at 04:409D (executed) | forced execution: 5/5 instruction starts ran
 	; in forced_debug (traces/forced/, not natural evidence; status unchanged)
 	call SoundDrv_SelectSfxTracks
-.loop ; 04:40A2
+.apply_sfx_track_updates ; 04:40A2
 	call SoundDrv_ApplyTrackUpdates
 	call SoundDrv_NextTrack
-	jr nz, .loop
+	jr nz, .apply_sfx_track_updates
 	jr SoundDrv_MusicPhase
 
 SoundDrv_SfxTickLoop:: ; 04:40AC
@@ -142,10 +142,10 @@ SoundDrv_MusicPhase:: ; 04:40D0
 	sbc a, $00
 	jr nc, SoundDrv_MusicTickLoop
 	call SoundDrv_SelectMusicTracks
-.loop ; 04:40EB
+.apply_music_track_updates ; 04:40EB
 	call SoundDrv_ApplyTrackUpdates
 	call SoundDrv_NextTrack
-	jr nz, .loop
+	jr nz, .apply_music_track_updates
 	jr SoundDrv_ChannelPhase
 
 SoundDrv_MusicTickLoop:: ; 04:40F5
@@ -177,9 +177,9 @@ SoundDrv_ChannelPhase:: ; 04:4119
 	jr nz, .update_all_channels
 	ld a, [wSoundDrv_TickDivider]
 	and a, a
-	jr nz, .skip
+	jr nz, .decrement_tick_divider
 	ld a, $0F
-.skip ; 04:412C
+.decrement_tick_divider ; 04:412C
 	dec a
 	ld [wSoundDrv_TickDivider], a
 	ld c, $08
@@ -489,18 +489,18 @@ SoundDrv_ResumeMusic:: ; 04:42EC
 	xor a, a
 	ld [wSoundDrv_MusicPaused], a
 	call SoundDrv_SelectMusicTracks
-.loop ; 04:42F3
+.check_music_track_flags ; 04:42F3
 	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
 	ld a, [wSoundDrv_TrackPtr + $01]
 	ld h, a
 	ld a, [hl]
 	and a, $60
-	jr z, .skip
+	jr z, .advance_music_track
 	set 7, [hl]
-.skip ; 04:4302
+.advance_music_track ; 04:4302
 	call SoundDrv_NextTrack
-	jr nz, .loop
+	jr nz, .check_music_track_flags
 	jp Bank4_GateLeave
 
 SoundDrv_LoadSongHeader:: ; 04:430A
@@ -517,14 +517,14 @@ SoundDrv_LoadSongHeader:: ; 04:430A
 	; fall-through of the jrcc at 04:4311 (executed) | forced execution: 3/3 instruction starts ran
 	; in forced_debug (traces/forced/, not natural evidence; status unchanged)
 	jr c, .load_indexed_song_header
-.loop ; 04:4315
+.unwind_invalid_song_id ; 04:4315
 	pop hl
 	jp Bank4_GateLeave
 
 .check_song_index_below_47 ; 04:4319
 	; [CONFIRMED] 135 insn(s); 135 executed (in up to 18/18 scenarios)
 	cp a, $47
-	jr nc, .loop
+	jr nc, .unwind_invalid_song_id
 .load_indexed_song_header ; 04:431D
 	ld [wSoundDrv_ReqBC], a
 	ld l, c
@@ -678,7 +678,7 @@ SoundDrv_StopSfxById:: ; 04:43DC
 	ld a, b
 	ld [wSoundDrv_ReqBC + $01], a
 	call SoundDrv_SelectSfxTracks
-.loop ; 04:43EC
+.check_sfx_track_id ; 04:43EC
 	ld a, [wSoundDrv_TrackPtr]
 	ld c, a
 	ld a, [wSoundDrv_TrackPtr + $01]
@@ -699,12 +699,12 @@ SoundDrv_StopSfxById:: ; 04:43DC
 	ld [bc], a
 .advance_track_after_id_check ; 04:440C
 	call SoundDrv_NextTrack
-	jr nz, .loop
+	jr nz, .check_sfx_track_id
 	jp Bank4_GateLeave
 
 SoundDrv_StopAllSfx:: ; 04:4414
 	call SoundDrv_SelectSfxTracks
-.loop ; 04:4417
+.clear_sfx_track_flags ; 04:4417
 	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
 	ld a, [wSoundDrv_TrackPtr + $01]
@@ -712,7 +712,7 @@ SoundDrv_StopAllSfx:: ; 04:4414
 	xor a, a
 	ld [hl], a
 	call SoundDrv_NextTrack
-	jr nz, .loop
+	jr nz, .clear_sfx_track_flags
 	jp Bank4_GateLeave
 
 SoundDrv_PauseMusic:: ; 04:4429
@@ -733,14 +733,14 @@ SoundDrv_PauseMusicCore:: ; 04:4433
 	ld a, $FF
 	ld [wSoundDrv_MusicPaused], a
 	call SoundDrv_SelectMusicTracks
-.loop ; 04:443B
+.clear_music_track_active_bit ; 04:443B
 	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
 	ld a, [wSoundDrv_TrackPtr + 1]
 	ld h, a
 	res 7, [hl]
 	call SoundDrv_NextTrack
-	jr nz, .loop
+	jr nz, .clear_music_track_active_bit
 	ret
 
 SoundDrv_GetActiveMasks:: ; 04:444B
@@ -850,7 +850,7 @@ SoundDrv_SetTrackFieldByte:: ; 04:44CF
 	; entries) and contains the entry 452C of ROM0 stub 00:20DC (no call/jp to $20DC found in the
 	; ROM); clean decode, ends with jp 2141
 	call SoundDrv_BuildTrackMask
-.loop ; 04:44D2
+.check_byte_field_track_mask ; 04:44D2
 	rrc d
 	jr nc, .advance_byte_field_target
 	bit 7, [hl]
@@ -865,12 +865,12 @@ SoundDrv_SetTrackFieldByte:: ; 04:44CF
 	pop hl
 .advance_byte_field_target ; 04:44E6
 	call SoundDrv_NextTrackRecord
-	jr nz, .loop
+	jr nz, .check_byte_field_track_mask
 	ret
 
 SoundDrv_SetTrackFieldWord:: ; 04:44EC
 	call SoundDrv_BuildTrackMask
-.loop ; 04:44EF
+.check_word_field_track_mask ; 04:44EF
 	rrc d
 	jr nc, .advance_word_field_target
 	bit 7, [hl]
@@ -887,7 +887,7 @@ SoundDrv_SetTrackFieldWord:: ; 04:44EC
 	pop hl
 .advance_word_field_target ; 04:4507
 	call SoundDrv_NextTrackRecord
-	jr nz, .loop
+	jr nz, .check_word_field_track_mask
 	ret
 
 SoundDrv_BuildTrackMask:: ; 04:450D
@@ -1065,9 +1065,9 @@ SoundDrv_TickVibrato:: ; 04:45E6
 .store_and_fold_vibrato_phase ; 04:45FD
 	ld [hl], a
 	sla a
-	jr nc, .skip
+	jr nc, .store_folded_phase_byte
 	cpl
-.skip ; 04:4603
+.store_folded_phase_byte ; 04:4603
 	ld [wSoundDrv_VibratoTri], a
 	ld bc, $0001
 	add hl, bc
@@ -1222,9 +1222,9 @@ SoundDrv_ComputeTrackOutput:: ; 04:4668
 	add a, $0F
 	and a, $F0
 	cp a, $40
-	jr c, .skip
+	jr c, .rotate_clamped_volume
 	ld a, $FF
-.skip ; 04:46D7
+.rotate_clamped_volume ; 04:46D7
 	rlca
 	rlca
 	ld e, a
@@ -1412,9 +1412,9 @@ SoundDrv_CmdSetTempo:: ; 04:47E3
 	ld hl, wBank4State
 	bit 5, [hl]
 	ld hl, wSoundDrv_MusicTempo
-	jr z, .skip
+	jr z, .store_tempo_byte
 	ld hl, wSoundDrv_SfxTempo
-.skip ; 04:47F0
+.store_tempo_byte ; 04:47F0
 	ld a, [wSoundDrv_StreamByte]
 	inc de
 	ld [hl], a
@@ -1469,12 +1469,12 @@ SoundDrv_ParamTempoScale:: ; 04:4819
 .check_music_tempo_request ; 04:4829
 	ld a, [wSoundDrv_ReqDE]
 	and a, a
-	jr z, .done
+	jr z, .return_after_tempo_requests
 	ld hl, wSoundDrv_MusicTempoScale
 	ld a, [wSoundDrv_ReqBC + $01]
 	ld [hld], a
 	call SoundDrv_UpdateTempoStep
-.done ; 04:4839
+.return_after_tempo_requests ; 04:4839
 	ret
 
 SoundDrv_CmdSetPitchAdd:: ; 04:483A
@@ -1849,7 +1849,7 @@ SoundDrv_ReadNoteBytes:: ; 04:4A36
 	ld b, $00
 	ld a, [wSoundDrv_StreamByte]
 	jr .classify_note_parameter
-.loop ; 04:4A4B
+.read_next_stream_byte ; 04:4A4B
 	inc de
 	call Bank4_ReadStreamByte
 	ld a, c
@@ -1870,7 +1870,7 @@ SoundDrv_ReadNoteBytes:: ; 04:4A36
 	inc hl
 	add a, [hl]
 	ld [hld], a
-	jr .loop
+	jr .read_next_stream_byte
 
 .store_note_parameter_once ; 04:4A69
 	; [CONFIRMED] 155 insn(s); 155 executed (in up to 18/18 scenarios)
@@ -1879,7 +1879,7 @@ SoundDrv_ReadNoteBytes:: ; 04:4A36
 	set 7, b
 	dec hl
 	ld [hli], a
-	jr .loop
+	jr .read_next_stream_byte
 .store_shifted_note_parameter_once ; 04:4A73
 	bit 6, b
 	jr nz, SoundDrv_StartNote
@@ -1889,7 +1889,7 @@ SoundDrv_ReadNoteBytes:: ; 04:4A36
 	rlca
 	or a, $07
 	ld [hl], a
-	jr .loop
+	jr .read_next_stream_byte
 
 SoundDrv_StartNote:: ; 04:4A81
 	push de
@@ -1954,9 +1954,9 @@ SoundDrv_StartNote:: ; 04:4A81
 	ld a, [wSoundDrv_TrackCount]
 	ld hl, wBank4State
 	bit 5, [hl]
-	jr z, .skip
+	jr z, .store_tagged_track_index
 	set 7, a
-.skip ; 04:4AE9
+.store_tagged_track_index ; 04:4AE9
 	ld [wSoundDrv_ReqBC + 1], a
 	ld e, a
 	ld a, [wSoundDrv_TrackPtr]
@@ -2079,19 +2079,19 @@ SoundDrv_CmdNoteOff:: ; 04:4B66
 	ld a, [wSoundDrv_TrackCount]
 	ld hl, wBank4State
 	bit 5, [hl]
-	jr z, .skip
+	jr z, .prepare_channel_search_keys
 
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4B66-4BC9 by apply_coverage --split
 	set 7, a
 
-.skip ; 04:4B98
+.prepare_channel_search_keys ; 04:4B98
 	; [CONFIRMED] 28 insn(s) executed; cut out of the PROBABLE region 4B66-4BC9 by apply_coverage
 	; --split [executed in 7 scenarios]
 	ld e, a
 	ld a, [wSoundDrv_ReqDE]
 	ld d, a
-.loop ; 04:4B9D
+.check_noteoff_channel ; 04:4B9D
 	ld a, [wSoundDrv_ChannelPtr]
 	ld l, a
 	ld a, [wSoundDrv_ChannelPtr + 1]
@@ -2115,7 +2115,7 @@ SoundDrv_CmdNoteOff:: ; 04:4B66
 	jr .restore_de_and_read_next_command
 .advance_noteoff_channel_search ; 04:4BC0
 	call SoundDrv_NextChannel
-	jr nz, .loop
+	jr nz, .check_noteoff_channel
 .restore_de_and_read_next_command ; 04:4BC5
 	pop de
 	jp SoundDrv_ReadNextCommand
@@ -2216,9 +2216,9 @@ SoundDrv_UpdateChannel:: ; 04:4C14
 	add hl, de
 	ld a, [wSoundDrv_TickDivider]
 	and a, a
-	jr nz, .skip
+	jr nz, .increment_channel_counter
 	inc [hl]
-.skip ; 04:4C4A
+.increment_channel_counter ; 04:4C4A
 	inc [hl]
 	pop hl
 	bit 5, b
@@ -2372,7 +2372,7 @@ SoundDrv_UpdateChannel:: ; 04:4C14
 	call SoundDrv_LoadSustainField
 	jr z, .l4D54
 	dec hl
-.loop ; 04:4D30
+.copy_target_volume_to_output ; 04:4D30
 	ld a, [hli]
 	ld [hl], a
 	jr .set_volume_update_bit
@@ -2380,7 +2380,7 @@ SoundDrv_UpdateChannel:: ; 04:4C14
 	dec hl
 	ld a, [hld]
 	xor a, [hl]
-	jr nz, .loop
+	jr nz, .copy_target_volume_to_output
 	jr .write_pitch_if_update_bit2
 .step_volume_down_for_bit5_clear ; 04:4D3B
 	ld bc, $0011
@@ -2563,11 +2563,11 @@ SoundDrv_WaveLevelChanged:: ; 04:4E34
 	ret nz
 	xor a, [hl]
 	and a, $C0
-	jr z, .skip
+	jr z, .restore_input_a
 	ld a, [wSoundDrv_UpdateFlags]
 	set 1, a
 	ld [wSoundDrv_UpdateFlags], a
-.skip ; 04:4E49
+.restore_input_a ; 04:4E49
 	ld a, b
 	ret
 
@@ -2676,12 +2676,12 @@ SoundDrv_WriteChannelParams:: ; 04:4E4B
 	add hl, bc
 	ld c, $30
 	ld b, $10
-.loop ; 04:4EC3
+.copy_wave_bytes ; 04:4EC3
 	ld a, [hli]
 	ldh [c], a
 	inc c
 	dec b
-	jr nz, .loop
+	jr nz, .copy_wave_bytes
 	ret
 
 SoundDrv_WriteChannelPitch:: ; 04:4ECA
@@ -2900,13 +2900,13 @@ SoundDrv_SilenceChannel:: ; 04:4FD4
 
 SoundDrv_NoteToIndex:: ; 04:4FEA
 	sub a, $24
-	jr nc, .skip
+	jr nc, .check_index_upper_bound
 
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
 	; fall-through of the jrcc at 04:4FEC (executed)
 	xor a, a
 
-.skip ; 04:4FEF
+.check_index_upper_bound ; 04:4FEF
 	; [CONFIRMED] 2 insn(s); 2 executed (in up to 17/18 scenarios)
 	cp a, $78
 	jr c, SoundDrv_LookupFrequency

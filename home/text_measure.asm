@@ -16,7 +16,7 @@ Text_MeasureFit:: ; 00:1408
 	ld a, b
 	ldh [hTextMeasure_RightLimitXHi], a
 	ld bc, $0000
-.loop ; 00:1414
+.measure_next_character ; 00:1414
 	ld a, [hli]
 	cp a, $20
 	jr nc, .classify_character_width
@@ -32,7 +32,7 @@ Text_MeasureFit:: ; 00:1408
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 1408-14BF by apply_coverage --split
 	inc bc
-	jr .loop
+	jr .measure_next_character
 
 .add_30_and_check_right_limit ; 00:142F
 	; [CONFIRMED] 23 insn(s) executed; cut out of the PROBABLE region 1408-14BF by apply_coverage
@@ -44,7 +44,7 @@ Text_MeasureFit:: ; 00:1408
 	adc a, $00
 	ld d, a
 	bit 7, a
-	jr nz, .loop
+	jr nz, .measure_next_character
 	ldh a, [hTextMeasure_RightLimitX]
 	sub a, e
 	ldh a, [hTextMeasure_RightLimitXHi]
@@ -56,7 +56,7 @@ Text_MeasureFit:: ; 00:1408
 	jr z, .count_final_byte_and_return
 .count_one_byte_and_continue ; 00:144A
 	inc bc
-	jr .loop
+	jr .measure_next_character
 .classify_character_width ; 00:144D
 	cp a, $81
 	jr c, .clear_carry_for_narrow_char
@@ -87,7 +87,7 @@ Text_MeasureFit:: ; 00:1408
 	adc a, $00
 	ld d, a
 	bit 7, a
-	jr nz, .loop
+	jr nz, .measure_next_character
 	ldh a, [hTextMeasure_RightLimitX]
 	sub a, e
 	ldh a, [hTextMeasure_RightLimitXHi]
@@ -99,7 +99,7 @@ Text_MeasureFit:: ; 00:1408
 	jr z, .count_final_byte_and_return
 .count_narrow_byte_and_continue ; 00:1483
 	inc bc
-	jr .loop
+	jr .measure_next_character
 .measure_wide_character ; 00:1486
 	inc hl
 	ld a, e
@@ -109,7 +109,7 @@ Text_MeasureFit:: ; 00:1408
 	adc a, $00
 	ld d, a
 	bit 7, a
-	jr nz, .loop
+	jr nz, .measure_next_character
 	ldh a, [hTextMeasure_RightLimitX]
 	sub a, e
 	ldh a, [hTextMeasure_RightLimitXHi]
@@ -122,7 +122,7 @@ Text_MeasureFit:: ; 00:1408
 .count_wide_bytes_and_continue ; 00:14A2
 	inc bc
 	inc bc
-	jp .loop
+	jp .measure_next_character
 .count_extra_wide_byte_at_limit ; 00:14A7
 	inc bc
 .count_final_byte_and_return ; 00:14A8

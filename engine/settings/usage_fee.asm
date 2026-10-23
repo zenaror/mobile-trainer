@@ -10,7 +10,7 @@ UsageFee_Run:: ; 67:626F
 	; executed call/far call
 	ld a, $01
 	ld [wManualNumbersFlag], a
-.loop ; 67:6274
+.show_usage_notice ; 67:6274
 	ld a, $15
 	farcall Notice_ShowPage
 	or a, a
@@ -42,7 +42,7 @@ UsageFee_Run:: ; 67:626F
 .l62B2 ; 67:62B2
 	ld a, [wUsageQuery_NoFlag]
 	or a, a
-	jr z, .loop
+	jr z, .show_usage_notice
 
 .l62B8 ; 67:62B8
 	; [CONFIRMED] 10 insn(s) reached by static flow only; seeds: exec x3, site x7; min discovery

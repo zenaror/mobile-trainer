@@ -162,13 +162,13 @@ Mail_CountDigits:: ; 54:5231
 
 	push hl
 	ld b, $FF
-.loop ; 54:5234
+.count_ascii_digits ; 54:5234
 	inc b
 	ld a, [hli]
 	cp a, $30
 	jr c, .l523E
 	cp a, $3A
-	jr c, .loop
+	jr c, .count_ascii_digits
 .l523E ; 54:523E
 	pop hl
 	ret

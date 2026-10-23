@@ -18,9 +18,9 @@ TopMenu_Run:: ; 1F:4000
 	ld hl, sTopMenuCursor
 	call ReadByteFar
 	or a, a
-	jr nz, .skip
+	jr nz, .store_initial_cursor
 	ld a, $01
-.skip ; 1F:4020
+.store_initial_cursor ; 1F:4020
 	ld [wTopMenu_Cursor], a
 	ld a, $01
 	ld [wTopMenu_PrevCursor], a
@@ -640,13 +640,13 @@ TopMenu_StartCursorMove:: ; 1F:45CA
 	rr a
 	srl a
 	srl a
-	jr nz, .skip
+	jr nz, .store_step_count
 
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
 	; fall-through of the jrcc at 1F:4601 (executed)
 	ld a, $01
 
-.skip ; 1F:4605
+.store_step_count ; 1F:4605
 	; [CONFIRMED] 46 insn(s); 46 executed (in up to 5/18 scenarios)
 	ld l, a
 	ld [wTopMenuCursorStepsLeft], a
@@ -687,12 +687,12 @@ TopMenu_StartCursorMove:: ; 1F:45CA
 	bit 1, a
 	ld a, l
 	ld [wTopMenuCursorStepYLo], a
-	jr z, .done
+	jr z, .return_to_caller
 	xor a, $FF
 	inc a
 	ld [wTopMenuCursorStepYLo], a
 	ld a, [wTopMenu_CursorStepYHi]
 	xor a, $FF
 	ld [wTopMenu_CursorStepYHi], a
-.done ; 1F:4666
+.return_to_caller ; 1F:4666
 	ret

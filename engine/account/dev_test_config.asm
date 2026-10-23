@@ -76,12 +76,12 @@ Mobile_InitAndWait:: ; 68:4E51
 	ld hl, $0068
 	ld a, $02
 	call MobileAPI
-.loop ; 68:4E5C
+.wait_timer_bit0_clear ; 68:4E5C
 	ld a, [wTimerEnable]
 	bit 1, a
 	jp nz, Mobile_ReportLastError
 	bit 0, a
-	jr nz, .loop
+	jr nz, .wait_timer_bit0_clear
 	xor a, a
 	ret
 

@@ -368,14 +368,14 @@ Mobile_BeginCancel:: ; 54:423C
 	ld a, [wTimerEnable]
 	bit 0, a
 	jr z, .l425A
-.loop ; 54:4251
+.call_mobile_api_34 ; 54:4251
 	ld a, $34
 	farcall MobileAPI
 	ret
 .l425A ; 54:425A
 	ld a, [wMobileSDK_State]
 	cp a, $02
-	jr nc, .loop
+	jr nc, .call_mobile_api_34
 	xor a, a
 	ld [wTimerEnable], a
 	ret

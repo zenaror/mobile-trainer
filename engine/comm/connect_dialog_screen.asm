@@ -946,11 +946,11 @@ ConnectDialog_DrawPasswordField:: ; 57:510F
 	; executed call/far call
 	ld a, [wConnectDialog_Mode]
 	cp a, $02
-	jr c, .done
-	jp z, .done
+	jr c, .return_mode_0_to_4
+	jp z, .return_mode_0_to_4
 	cp a, $04
-	jp c, .done
-	jp z, .done
+	jp c, .return_mode_0_to_4
+	jp z, .return_mode_0_to_4
 	cp a, $06
 	jp c, .load_entry_field_map
 	jp z, .load_entry_field_map
@@ -968,7 +968,7 @@ ConnectDialog_DrawPasswordField:: ; 57:510F
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5136-5187 by apply_coverage --split
 	ret
-.done ; 57:513A
+.return_mode_0_to_4 ; 57:513A
 	ret
 
 .load_entry_field_map ; 57:513B

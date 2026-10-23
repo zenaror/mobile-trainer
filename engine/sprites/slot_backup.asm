@@ -17,7 +17,7 @@ Sprites_SaveSlotsToBank3:: ; 7F:624F
 	ld hl, wSpriteSlots
 	ld de, wSpriteSlotBackup
 	ld b, $00
-.loop ; 7F:625E
+.copy_slot_byte_to_backup ; 7F:625E
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -30,7 +30,7 @@ Sprites_SaveSlotsToBank3:: ; 7F:624F
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .loop
+	jr nz, .copy_slot_byte_to_backup
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -50,7 +50,7 @@ Sprites_RestoreSlotsFromBank3:: ; 7F:627C
 	ld de, wSpriteSlots
 	ld hl, wSpriteSlotBackup
 	ld b, $00
-.loop ; 7F:628B
+.copy_backup_byte_to_slots ; 7F:628B
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -63,7 +63,7 @@ Sprites_RestoreSlotsFromBank3:: ; 7F:627C
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .loop
+	jr nz, .copy_backup_byte_to_slots
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a

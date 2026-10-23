@@ -35,22 +35,22 @@ Canvas_Remap_B1C0:: ; 7F:4204
 	ld b, $0C
 	pop hl
 	xor a, a
-.loop ; 7F:4208
+.clear_second_bytes ; 7F:4208
 	inc hl
 	ld [hli], a
 	dec b
-	jr nz, .loop
+	jr nz, .clear_second_bytes
 	ret
 
 Canvas_Remap_B2C0:: ; 7F:420E
 	ld b, $0C
 	pop hl
 	xor a, a
-.loop ; 7F:4212
+.clear_first_bytes ; 7F:4212
 	ld [hli], a
 	inc hl
 	dec b
-	jr nz, .loop
+	jr nz, .clear_first_bytes
 	ret
 
 Canvas_Remap_B3C0:: ; 7F:4218
@@ -61,7 +61,7 @@ Canvas_Remap_B0C1:: ; 7F:421A
 	ld b, $0C
 	pop hl
 	xor a, a
-.loop ; 7F:421E
+.xor_second_fc_and_clear_second ; 7F:421E
 	ld a, $FC
 	ld [hli], a
 	ld c, a
@@ -71,7 +71,7 @@ Canvas_Remap_B0C1:: ; 7F:421A
 	xor a, a
 	ld [hli], a
 	dec b
-	jr nz, .loop
+	jr nz, .xor_second_fc_and_clear_second
 	ret
 
 Canvas_Remap_B1C1:: ; 7F:422B
@@ -84,7 +84,7 @@ Canvas_Remap_B2C1_Set2Unset3:: ; 7F:422D
 	ld b, $0C
 	pop hl
 	xor a, a
-.loop ; 7F:4231
+.xor_second_fc_and_set_second_fc ; 7F:4231
 	ld a, $FC
 	ld [hli], a
 	ld c, a
@@ -94,25 +94,25 @@ Canvas_Remap_B2C1_Set2Unset3:: ; 7F:422D
 	ld a, $FC
 	ld [hli], a
 	dec b
-	jr nz, .loop
+	jr nz, .xor_second_fc_and_set_second_fc
 	ret
 
 Canvas_Remap_B3C1:: ; 7F:423F
 	ld b, $0C
 	pop hl
 	ld a, $FC
-.loop ; 7F:4244
+.set_first_bytes_fc ; 7F:4244
 	ld [hli], a
 	inc hl
 	dec b
-	jr nz, .loop
+	jr nz, .set_first_bytes_fc
 	ret
 
 Canvas_Remap_B0C2:: ; 7F:424A
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
 	ld b, $0C
 	pop hl
-.loop ; 7F:424D
+.move_first_xor_fc_to_second ; 7F:424D
 	ld a, [hli]
 	ld c, a
 	ld a, $FC
@@ -122,7 +122,7 @@ Canvas_Remap_B0C2:: ; 7F:424A
 	ld [hli], a
 	inc hl
 	dec b
-	jr nz, .loop
+	jr nz, .move_first_xor_fc_to_second
 	ret
 
 Canvas_Remap_B1C2_Set1Unset0:: ; 7F:425A
@@ -130,7 +130,7 @@ Canvas_Remap_B1C2_Set1Unset0:: ; 7F:425A
 	; starts at an entry of the code-pointer table at 7F:42A5
 	ld b, $0C
 	pop hl
-.loop ; 7F:425D
+.xor_first_into_second ; 7F:425D
 	ld a, [hli]
 	ld c, a
 	ld a, $FC
@@ -138,7 +138,7 @@ Canvas_Remap_B1C2_Set1Unset0:: ; 7F:425A
 	xor a, c
 	ld [hli], a
 	dec b
-	jr nz, .loop
+	jr nz, .xor_first_into_second
 	ret
 
 Canvas_Remap_B2C2:: ; 7F:4268
@@ -149,18 +149,18 @@ Canvas_Remap_B3C2:: ; 7F:426A
 	ld b, $0C
 	pop hl
 	ld a, $FC
-.loop ; 7F:426F
+.set_second_bytes_fc ; 7F:426F
 	inc hl
 	ld [hli], a
 	dec b
-	jr nz, .loop
+	jr nz, .set_second_bytes_fc
 	ret
 
 Canvas_Remap_B0C3:: ; 7F:4275
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 9/18 scenarios)
 	ld b, $0C
 	pop hl
-.loop ; 7F:4278
+.duplicate_second_xor_fc ; 7F:4278
 	ld a, $FC
 	ld [hli], a
 	ld c, a
@@ -169,7 +169,7 @@ Canvas_Remap_B0C3:: ; 7F:4275
 	ld [hli], a
 	ld [hli], a
 	dec b
-	jr nz, .loop
+	jr nz, .duplicate_second_xor_fc
 	ret
 
 Canvas_Remap_B1C3:: ; 7F:4284
@@ -177,7 +177,7 @@ Canvas_Remap_B1C3:: ; 7F:4284
 	; starts at an entry of the code-pointer table at 7F:42A5
 	ld b, $0C
 	pop hl
-.loop ; 7F:4287
+.set_first_fc_xor_second_fc ; 7F:4287
 	ld a, $FC
 	ld [hli], a
 	ld c, a
@@ -185,13 +185,13 @@ Canvas_Remap_B1C3:: ; 7F:4284
 	xor a, c
 	ld [hli], a
 	dec b
-	jr nz, .loop
+	jr nz, .set_first_fc_xor_second_fc
 	ret
 
 Canvas_Remap_B2C3:: ; 7F:4292
 	ld b, $0C
 	pop hl
-.loop ; 7F:4295
+.xor_first_fc_set_second_fc ; 7F:4295
 	ld a, [hli]
 	ld c, a
 	ld a, $FC
@@ -200,7 +200,7 @@ Canvas_Remap_B2C3:: ; 7F:4292
 	ld [hli], a
 	inc hl
 	dec b
-	jr nz, .loop
+	jr nz, .xor_first_fc_set_second_fc
 	ret
 
 Canvas_Remap_B3C3:: ; 7F:42A1
@@ -1607,20 +1607,20 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, .done
+	jr nz, .return_to_caller
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, .done
+	jr c, .return_to_caller
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-.done ; 7F:499B
+.return_to_caller ; 7F:499B
 	ret
 
 ; ---- data $499C-$49A5 (9 bytes) [PROBABLE] 9-byte mask table 03 81 C0 E0 F0 F8 FC FE FF indexed with c: ld hl,$499C ; add hl,bc ; ld a,[hl] ; ld [$C0D0],a at 7F:4311 (executed; near-identical clones of this reader in the PROBABLE code at 7F:49FA and 7F:4B03 read the table too; entries 0,2,4,6 = bytes 499C,499E,49A0,49A2 read in 14/18 scenarios); extent 9 = distance to the second table
@@ -1831,9 +1831,9 @@ Canvas_BlitGlyphLoopedClipY:: ; 7F:4AAF
 	ld a, d
 	push af
 	cp a, $F0
-	jr c, .skip
+	jr c, .select_wram2_for_blit
 	ld d, $00
-.skip ; 7F:4ABD
+.select_wram2_for_blit ; 7F:4ABD
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2099,12 +2099,12 @@ Glyph_LoadDottedLine:: ; 7F:4C42
 	ld hl, Glyph_DottedLineData
 	ld de, wGlyphBufLeft
 	ld b, $20
-.loop ; 7F:4C4D
+.copy_dotted_line_bytes ; 7F:4C4D
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .loop
+	jr nz, .copy_dotted_line_bytes
 	pop hl
 	pop de
 	pop bc

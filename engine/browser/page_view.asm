@@ -689,13 +689,13 @@ Browser_Menu_EndPrompt:: ; 4E:4F81
 	ld de, $0105
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr nz, .skip
+	jr nz, .show_end_dialog
 
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4F26-4FB7 by apply_coverage --split
 	ld e, $14
 
-.skip ; 4E:4F9C
+.show_end_dialog ; 4E:4F9C
 	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 4F26-4FB7 by apply_coverage
 	; --split [executed in 1 scenarios]
 	farcall Dialog_ShowMonitored

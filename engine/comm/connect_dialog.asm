@@ -108,14 +108,14 @@ ConnectDialog_Run_Accept:: ; 57:4096
 	ld de, wConnectDialogText
 	ld a, [wConnectDialogTextLen]
 	ld c, a
-.loop ; 57:40C3
+.copy_dialog_byte ; 57:40C3
 	ld a, [de]
 	inc de
 	ld b, a
 	ld a, [wConnectDialog_DestBank]
 	farcall WriteByteFar
 	dec c
-	jr nz, .loop
+	jr nz, .copy_dialog_byte
 	ld b, $00
 	ld a, [wConnectDialog_DestBank]
 	farcall WriteByteFar
@@ -316,13 +316,13 @@ ConnectDialog_Input_PasswordPrompt:: ; 57:4237
 	ld a, [wConnectDialogArgBank]
 	call ReadByteFar
 	cp a, $03
-	jr nc, .skip
+	jr nc, .store_next_mode
 
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4237-4443 by apply_coverage --split
 	ld a, $02
 
-.skip ; 57:4267
+.store_next_mode ; 57:4267
 	; [CONFIRMED] 17 insn(s) executed; cut out of the PROBABLE region 4237-4443 by apply_coverage
 	; --split [executed in 4 scenarios]
 	ld [wConnectDialog_NextMode], a
@@ -514,9 +514,9 @@ ConnectDialog_Input_SaveConfirm:: ; 57:43BC
 	ld [wConnectDialog_Cursor], a
 	ld de, $7828
 	cp a, $01
-	jr z, .skip
+	jr z, .position_choice_cursor
 	ld de, $7858
-.skip ; 57:4406
+.position_choice_cursor ; 57:4406
 	ld hl, wSpriteSlot4
 	farcall Sprite_SetPosition
 	play_sfx SFX_CURSOR_MOVE
@@ -571,13 +571,13 @@ ConnectDialog_Input_StoredPassword:: ; 57:4443
 	ld a, [wConnectDialogArgBank]
 	call ReadByteFar
 	cp a, $03
-	jr nc, .skip
+	jr nc, .store_next_mode
 
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
 	; fall-through of the jrcc at 57:4473 (executed)
 	ld a, $02
 
-.skip ; 57:4477
+.store_next_mode ; 57:4477
 	; [CONFIRMED] 2 insn(s); 2 executed (in up to 1/18 scenarios)
 	ld [wConnectDialog_NextMode], a
 	ret
@@ -624,9 +624,9 @@ ConnectDialog_Input_ForgetConfirm:: ; 57:4481
 	ld [wConnectDialog_Cursor], a
 	ld de, $7828
 	cp a, $01
-	jr z, .skip
+	jr z, .position_choice_cursor
 	ld de, $7858
-.skip ; 57:44C9
+.position_choice_cursor ; 57:44C9
 	ld hl, wSpriteSlot4
 	farcall Sprite_SetPosition
 	play_sfx SFX_CURSOR_MOVE
@@ -740,14 +740,14 @@ ConnectDialog_Enter_StoredPassword:: ; 57:459A
 	ld c, a
 	ld hl, sSavedPasswordText
 	ld de, wConnectDialogText
-.loop ; 57:45AC
+.decode_password_byte ; 57:45AC
 	ld a, $01
 	call ReadByteFar
 	xor a, $5A
 	ld [de], a
 	inc de
 	dec c
-	jr nz, .loop
+	jr nz, .decode_password_byte
 	call ConnectDialog_DrawPasswordField
 	ret
 
@@ -871,7 +871,7 @@ ConnectDialog_LeaveMode:: ; 57:45E6
 	; entered by jpcc from 57:4605 (executed) [executed in 1 scenarios]
 	ld a, [wConnectDialog_Mode]
 	cp a, $06
-	jr z, .done
+	jr z, .return_to_caller
 	ld de, $00B4
 	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
@@ -884,7 +884,7 @@ ConnectDialog_LeaveMode:: ; 57:45E6
 	call Sprite_SetPosition
 	farcall Palette_FadeOutToWhite
 	ret
-.done ; 57:46DF
+.return_to_caller ; 57:46DF
 	ret
 
 ConnectDialog_Leave_Keyboard:: ; 57:46E0
@@ -932,10 +932,10 @@ ConnectDialog_Leave_SaveConfirm:: ; 57:4738
 	call Sprite_SetPosition
 	ld a, [wConnectDialog_Cursor]
 	dec a
-	jr nz, .done
+	jr nz, .return_to_caller
 	farcall Palette_FadeOutToWhite
 	ret
-.done ; 57:474E
+.return_to_caller ; 57:474E
 	ret
 
 ConnectDialog_Leave_PasswordSaved:: ; 57:474F
@@ -968,7 +968,7 @@ ConnectDialog_Leave_ForgetConfirm:: ; 57:477E
 	call Sprite_SetPosition
 	ld a, [wConnectDialog_Mode]
 	cp a, $09
-	jr z, .done
+	jr z, .return_to_caller
 	xor a, a
 	ld [wConnectDialogTextLen], a
 	ld b, a
@@ -977,5 +977,5 @@ ConnectDialog_Leave_ForgetConfirm:: ; 57:477E
 	farcall WriteByteFar
 	farcall Palette_FadeOutToWhite
 	ret
-.done ; 57:47A5
+.return_to_caller ; 57:47A5
 	ret

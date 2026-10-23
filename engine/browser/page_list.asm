@@ -39,10 +39,10 @@ PageList_Main:: ; 24:4018
 	ldh [rSVBK], a
 	ld a, [wBrowserPageUrl]
 	cp a, $00
-	jr nz, .skip
+	jr nz, .select_wram6
 	xor a, a
 	ld [wDialogOnlineSnapshot], a
-.skip ; 24:4053
+.select_wram6 ; 24:4053
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1015,10 +1015,10 @@ PageList_SetActionIcons:: ; 24:47FB
 	ld b, a
 	ld a, $01
 	ldh [rVBK], a
-.loop ; 24:4802
+.wait_for_ly_90 ; 24:4802
 	ldh a, [rLY]
 	cp a, $90
-	jr nz, .loop
+	jr nz, .wait_for_ly_90
 	ld a, $0C
 	dec b
 	jr z, .write_go_attributes
@@ -2280,13 +2280,13 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	ld hl, wBrowserPageTitle
 	ld a, [hl]
 	cp a, $00
-	jr nz, .skip
+	jr nz, .prepare_title_copy
 
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4BCD-53FE by apply_coverage --split
 	ld hl, wBrowserPageUrl
 
-.skip ; 24:514C
+.prepare_title_copy ; 24:514C
 	; [CONFIRMED] 242 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld c, $16
@@ -2598,7 +2598,7 @@ PageList_DeleteSlot:: ; 24:51CB
 	; --split [executed in 3 scenarios]
 	pop bc
 	ld e, $32
-.loop ; 24:53A9
+.wait_delete_sprite_frames ; 24:53A9
 	push bc
 	push de
 	farcall Sprite_UpdateAll
@@ -2606,7 +2606,7 @@ PageList_DeleteSlot:: ; 24:51CB
 	pop de
 	pop bc
 	dec e
-	jr nz, .loop
+	jr nz, .wait_delete_sprite_frames
 	push af
 	ld a, $01
 	ldh [hSRAMBank], a

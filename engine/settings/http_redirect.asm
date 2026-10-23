@@ -100,11 +100,11 @@ HttpRedirect_JoinRelative:: ; 67:5FB5
 	dec hl
 	ld a, [hl]
 	cp a, $2F
-	jr z, .skip
+	jr z, .advance_to_relative_suffix
 	inc hl
 	ld a, $2F
 	ld [hl], a
-.skip ; 67:5FF1
+.advance_to_relative_suffix ; 67:5FF1
 	inc hl
 .copy_relative_suffix ; 67:5FF2
 	ld a, [de]
@@ -270,23 +270,23 @@ HttpRedirect_NormalizePath:: ; 67:5FF9
 	sub a, d
 	ld a, c
 	sbc a, e
-	jr nc, .done
+	jr nc, .return_to_caller
 	dec de
 	ld a, [de]
 	cp a, $2E
-	jr nz, .done
+	jr nz, .return_to_caller
 
 	; [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5F66-60BA by apply_coverage --split
 	dec de
 	ld a, [de]
 	cp a, $2F
-	jr nz, .done
+	jr nz, .return_to_caller
 	inc de
 	xor a, a
 	ld [de], a
 
-.done ; 67:60B9
+.return_to_caller ; 67:60B9
 	; [CONFIRMED] 1 insn(s) executed; cut out of the PROBABLE region 5F66-60BA by apply_coverage
 	; --split [executed in 1 scenarios]
 	ret

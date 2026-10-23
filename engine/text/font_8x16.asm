@@ -61,7 +61,7 @@ Font_BlitGlyph8x16:: ; 48:4748
 	ld a, [hli]
 	ld b, a
 	inc a
-	jp z, .done
+	jp z, .return_at_glyph_run_sentinel
 	ld a, d
 	sub a, b
 	jr z, .l478A
@@ -155,7 +155,7 @@ Font_BlitGlyph8x16:: ; 48:4748
 	ldh a, [hScratchA]
 	ret
 
-.done ; 48:480F
+.return_at_glyph_run_sentinel ; 48:480F
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;
 	; entered by jpcc from 48:477C (executed) | forced execution: 1/1 instruction starts ran in
 	; forced_screens (traces/forced/, not natural evidence; status unchanged)

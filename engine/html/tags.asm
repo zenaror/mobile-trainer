@@ -60,7 +60,7 @@ Html_ParseSource_TitleTag:: ; 74:44D4
 	ld l, a
 	ldh a, [hHtml_MatchRestartHi]
 	ld h, a
-.loop ; 74:44F5
+.copy_title_tag_bytes ; 74:44F5
 	call Sound_FrameService
 	inc de
 	inc de
@@ -91,11 +91,11 @@ Html_ParseSource_TitleTag:: ; 74:44D4
 .l4526 ; 74:4526
 	or a, a
 .l4527 ; 74:4527
-	jp nc, .loop
+	jp nc, .copy_title_tag_bytes
 	ld a, [hli]
 	ld [de], a
 	inc de
-	jp .loop
+	jp .copy_title_tag_bytes
 
 Html_StoreTitle:: ; 74:4530
 
@@ -122,7 +122,7 @@ Html_StoreTitle:: ; 74:4530
 	ld b, a
 	ld e, a
 	ld d, a
-.loop ; 74:454F
+.count_title_bytes ; 74:454F
 	ld a, [hli]
 	or a, a
 	jr z, .l45AA
@@ -161,7 +161,7 @@ Html_StoreTitle:: ; 74:4530
 	ld e, b
 	ld b, c
 	inc c
-	jr .loop
+	jr .count_title_bytes
 
 .l457A ; 74:457A
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 2/18 scenarios)
@@ -174,7 +174,7 @@ Html_StoreTitle:: ; 74:4530
 	ld b, c
 	inc c
 	inc c
-	jr .loop
+	jr .count_title_bytes
 
 .l4587 ; 74:4587
 	; [CONFIRMED] 23 insn(s) reached by static flow only; seeds: exec x23; min discovery hops 1;
@@ -553,7 +553,7 @@ Html_Tag_Ul:: ; 74:47AA
 	dec a
 	cp a, $FF
 	jr z, .l4853
-.loop ; 74:4808
+.unwind_list_depth ; 74:4808
 	ld [wHtmlListDepth], a
 	ld c, a
 	ld b, $00
@@ -583,7 +583,7 @@ Html_Tag_Ul:: ; 74:47AA
 	ld a, [wHtmlListDepth]
 	dec a
 	cp a, $FF
-	jr nz, .loop
+	jr nz, .unwind_list_depth
 	ld a, $01
 	ld [wHtmlListDepth], a
 	ld a, c
@@ -684,7 +684,7 @@ Html_Tag_Ol:: ; 74:4867
 	dec a
 	cp a, $FF
 	jr z, .l492B
-.loop ; 74:48DF
+.unwind_list_depth ; 74:48DF
 	ld [wHtmlListDepth], a
 	ld c, a
 	ld b, $00
@@ -709,7 +709,7 @@ Html_Tag_Ol:: ; 74:4867
 	ld a, [wHtmlListDepth]
 	dec a
 	cp a, $FF
-	jr nz, .loop
+	jr nz, .unwind_list_depth
 	ld a, $01
 	ld [wHtmlListDepth], a
 	ld a, $0C
@@ -785,9 +785,9 @@ Html_Tag_Li_Bullet:: ; 74:4959
 .l4973 ; 74:4973
 	ldh a, [hHtmlLineIndent]
 	sub a, $0C
-	jr nc, .skip
+	jr nc, .store_clamped_line_indent
 	xor a, a
-.skip ; 74:497A
+.store_clamped_line_indent ; 74:497A
 	ldh [hHtmlLineIndent], a
 	ld a, e
 	ld [wRam_C331], a
@@ -1554,10 +1554,10 @@ Html_Tag_Hr:: ; 74:4CA6
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 2/18 scenarios)
 	ld a, [hl]
 	cp a, $0D
-	jp nz, .skip
+	jp nz, .check_line_feed
 	inc hl
 	ld a, [hl]
-.skip ; 74:4DF0
+.check_line_feed ; 74:4DF0
 	cp a, $0A
 	jp nz, Html_ParseSource_Loop
 	inc hl

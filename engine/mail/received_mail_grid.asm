@@ -11,7 +11,7 @@ MailGrid_Screen:: ; 2B:53C3
 	; natural evidence; status unchanged)
 	call MailGrid_InitScreen
 
-.loop ; 2B:53C6
+.handle_grid_input ; 2B:53C6
 	; [PROBABLE] 268 insn(s) reached by static flow only; seeds: site x268; min discovery hops 0;
 	; entered by jr from 2B:541E (PROBABLE code) | forced execution: 236/268 instruction starts ran
 	; in forced_screens (traces/forced/, not natural evidence; status unchanged)
@@ -51,7 +51,7 @@ MailGrid_Screen:: ; 2B:53C3
 	ldh a, [hJoyPressedRepeat]
 	and a, PADF_DOWN
 	call nz, MailGrid_CursorDown
-	jr .loop
+	jr .handle_grid_input
 
 MailGrid_CursorLeft:: ; 2B:5420
 	ld a, c
@@ -266,7 +266,7 @@ MailGrid_PlaceCursorSprite:: ; 2B:5523
 
 MailGrid_DrawCellIcons:: ; 2B:55E1
 	ld c, $00
-.loop ; 2B:55E3
+.draw_next_cell_icon ; 2B:55E3
 	push bc
 	sla c
 	ld b, $00
@@ -312,7 +312,7 @@ MailGrid_DrawCellIcons:: ; 2B:55E1
 	inc c
 	ld a, c
 	cp a, $0C
-	jr nz, .loop
+	jr nz, .draw_next_cell_icon
 	ret
 
 ; ---- words $562B-$5643 (24 bytes) [PROBABLE] 12 words $9861,$9866,$986B,$9870,$98E1,...,$9970 = VRAM tilemap ($9800-$9BFF) addresses of 12 cells; indexed by c*2 (ld hl,$562B at 2B:55E8 with sla c; add hl,bc) and loaded into hl
@@ -598,10 +598,10 @@ Fill99E1Pattern46_Draw5807TwiceAndUpload:: ; 2B:57CB [PROBABLE] operation; entry
 	; forced_screens (traces/forced/, not natural evidence; status unchanged)
 	ld hl, $99E1
 	di
-.loop ; 2B:57CF
+.wait_scanline_144 ; 2B:57CF
 	ldh a, [rLY]
 	cp a, $90
-	jr nz, .loop
+	jr nz, .wait_scanline_144
 	ld a, $46
 	ld [hli], a
 	ld [hli], a
@@ -689,7 +689,7 @@ MailGrid_CopyTextEllipsis:: ; 2B:582C
 	ld [hli], a
 	xor a, a
 	ld [hl], a
-	jr .done
+	jr .return_terminated_ellipsis
 .l5860 ; 2B:5860
 	ld a, b
 	cp a, $09
@@ -703,7 +703,7 @@ MailGrid_CopyTextEllipsis:: ; 2B:582C
 	ld [hli], a
 	xor a, a
 	ld [hl], a
-	jr .done
+	jr .return_terminated_ellipsis
 .l5873 ; 2B:5873
 	inc b
 	inc hl
@@ -720,11 +720,11 @@ MailGrid_CopyTextEllipsis:: ; 2B:582C
 	ld [hli], a
 	xor a, a
 	ld [hl], a
-	jr .done
+	jr .return_terminated_ellipsis
 .l5887 ; 2B:5887
 	inc b
 	jr .l5844
-.done ; 2B:588A
+.return_terminated_ellipsis ; 2B:588A
 	ret
 
 MailGrid_DrawTextLine12:: ; 2B:588B

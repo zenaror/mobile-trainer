@@ -28,12 +28,12 @@ MailTitle_Entry:: ; 2C:4000
 	push af
 	call MailTitle_InitScreen
 	ld d, $0A
-.loop ; 2C:4028
+.step_cursor_right ; 2C:4028
 	push de
 	call MailTitle_MoveCursorRight
 	pop de
 	dec d
-	jr nz, .loop
+	jr nz, .step_cursor_right
 	pop af
 	cp a, $01
 	jr nz, MailTitle_Entry_ClampColumn
@@ -607,7 +607,7 @@ MailTitle_CharPtr:: ; 2C:4441
 	jr z, MailTitle_CharPtr_NoChar
 	inc c
 	ld a, [hl]
-.loop ; 2C:4452
+.seek_character_pair ; 2C:4452
 	dec c
 	jr z, MailTitle_CharPtr_Found
 	inc hl
@@ -618,7 +618,7 @@ MailTitle_CharPtr:: ; 2C:4441
 	ld a, [hl]
 	cp a, $0D
 	jr z, MailTitle_CharPtr_Newline
-	jr .loop
+	jr .seek_character_pair
 
 	; [HYPOTHESIS] dead code: follows an unconditional jump, nothing references it and it never ran;
 	; decodes as `inc c ; dec c ; jr nz, NoChar` (the same bytes sit unlabeled in the body and
@@ -743,7 +743,7 @@ MailTitle_InsertChar_Insert:: ; 2C:44DC
 	pop bc
 	call MailTitle_PlaceTextCursor
 	ld d, $14
-.loop ; 2C:4509
+.wait_insert_repeat ; 2C:4509
 	push bc
 	push de
 	farcall Sprite_UpdateAll
@@ -759,7 +759,7 @@ MailTitle_InsertChar_Insert:: ; 2C:44DC
 	and a, PADF_DPAD
 	jr nz, .l452D
 	dec d
-	jr nz, .loop
+	jr nz, .wait_insert_repeat
 .l452D ; 2C:452D
 	farcall Joypad_ClearAndResetRepeat
 	ld hl, wSpriteSlot1
@@ -843,7 +843,7 @@ MailTitle_InsertChar_ShiftAndStore:: ; 2C:459C
 	push hl
 	ld de, wEditSubjectBuf + $12
 	ld bc, wEditSubjectBuf + $10
-.loop ; 2C:45B2
+.shift_character_pair_backward ; 2C:45B2
 	ld a, d
 	cp a, h
 	jr nz, .l45BA
@@ -861,7 +861,7 @@ MailTitle_InsertChar_ShiftAndStore:: ; 2C:459C
 	dec bc
 	dec de
 	dec de
-	jr .loop
+	jr .shift_character_pair_backward
 .l45C6 ; 2C:45C6
 	pop hl
 	pop de
@@ -887,13 +887,13 @@ MailTitle_InsertChar_ShiftAndStore:: ; 2C:459C
 	; fall-through of the jrcc at 2C:45E5 (executed)
 	ld a, c
 	cp a, $0B
-	jr z, .done
+	jr z, .cursor_advance_complete
 
 .l45EC ; 2C:45EC
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 2/18 scenarios)
 	call MailTitle_CharPtr
 	cp a, $FF
-	jr z, .done
+	jr z, .cursor_advance_complete
 	cp a, $0D
 	jr nz, .l4600
 
@@ -903,7 +903,7 @@ MailTitle_InsertChar_ShiftAndStore:: ; 2C:459C
 	inc b
 	ld a, c
 	ld [wTextEditGoalColumn], a
-	jr .done
+	jr .cursor_advance_complete
 
 .l4600 ; 2C:4600
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios)
@@ -912,7 +912,7 @@ MailTitle_InsertChar_ShiftAndStore:: ; 2C:459C
 	ld [wTextEditGoalColumn], a
 	ld a, $0C
 	cp a, c
-	jr nz, .done
+	jr nz, .cursor_advance_complete
 
 	; [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0;
 	; fall-through of the jrcc at 2C:4608 (executed)
@@ -921,7 +921,7 @@ MailTitle_InsertChar_ShiftAndStore:: ; 2C:459C
 	ld a, c
 	ld [wTextEditGoalColumn], a
 
-.done ; 2C:4611
+.cursor_advance_complete ; 2C:4611
 	; [CONFIRMED] 31 insn(s); 31 executed (in up to 2/18 scenarios)
 	ret
 
@@ -970,7 +970,7 @@ MailTitle_DeleteChar:: ; 2C:4612
 	call MailTitle_PlaceTextCursor
 	pop bc
 	ld d, $14
-.loop ; 2C:4656
+.wait_delete_repeat ; 2C:4656
 	push bc
 	push de
 	farcall Sprite_UpdateAll
@@ -986,7 +986,7 @@ MailTitle_DeleteChar:: ; 2C:4612
 	and a, PADF_DPAD
 	jr nz, .l467A
 	dec d
-	jr nz, .loop
+	jr nz, .wait_delete_repeat
 .l467A ; 2C:467A
 	farcall Joypad_ClearAndResetRepeat
 	ld hl, wSpriteSlot1
@@ -1099,7 +1099,7 @@ MailTitle_ApplyDakuten:: ; 2C:46EB
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, String_MailTitle_DakutenKana
-.loop ; 2C:4705
+.match_dakuten_pair ; 2C:4705
 	ld a, [de]
 	inc de
 	cp a, $00
@@ -1154,7 +1154,7 @@ MailTitle_ApplyDakuten:: ; 2C:46EB
 	ret
 .l475D ; 2C:475D
 	pop hl
-	jr .loop
+	jr .match_dakuten_pair
 
 	; [HYPOTHESIS] 5 insn(s) SRAM-disable epilogue (xor a ; ldh [$FFF5],a ; ld [$0000],a ; pop bc ;
 	; ret), identical bytes to 2F:5F28/6007/60B8; follows an unconditional jr; well-formed
@@ -1229,7 +1229,7 @@ MailTitle_ApplyVu:: ; 2C:47CB
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, Table_MailTitle_ApplyVu_LoopPairs
-.loop ; 2C:47E5
+.read_vu_table_pair ; 2C:47E5
 	ld a, [de]
 	inc de
 	cp a, $00
@@ -1285,7 +1285,7 @@ MailTitle_ApplyVu:: ; 2C:47CB
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 47CB-483F by apply_coverage --split
 	pop hl
-	jr .loop
+	jr .read_vu_table_pair
 
 	; [HYPOTHESIS] 5 insn(s) SRAM-disable epilogue (xor a ; ldh [$FFF5],a ; ld [$0000],a ; pop bc ;
 	; ret), identical bytes to 2F:5F28/6007/60B8; follows an unconditional jr; well-formed
@@ -1358,7 +1358,7 @@ MailTitle_ApplyHandakuten:: ; 2C:487E
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, String_MailTitle_HandakutenKana
-.loop ; 2C:4898
+.match_handakuten_pair ; 2C:4898
 	ld a, [de]
 	inc de
 	cp a, $00
@@ -1412,7 +1412,7 @@ MailTitle_ApplyHandakuten:: ; 2C:487E
 	ret
 .l48ED ; 2C:48ED
 	pop hl
-	jr .loop
+	jr .match_handakuten_pair
 
 	; [HYPOTHESIS] 5 insn(s) SRAM-disable epilogue (xor a ; ldh [$FFF5],a ; ld [$0000],a ; pop bc ;
 	; ret), identical bytes to 2F:5F28/6007/60B8; follows an unconditional jr; well-formed
@@ -1600,14 +1600,14 @@ MailTitle_GetLength:: ; 2C:4A05
 	ldh [rSVBK], a
 	ld hl, wEditSubjectBuf
 	ld d, $00
-.loop ; 2C:4A12
+.count_subject_bytes ; 2C:4A12
 	ld a, [hli]
 	cp a, $00
 	jr z, .l4A1D
 	inc d
 	ld a, $14
 	cp a, d
-	jr nz, .loop
+	jr nz, .count_subject_bytes
 .l4A1D ; 2C:4A1D
 	ld a, d
 	pop de

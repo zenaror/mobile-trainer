@@ -21,17 +21,17 @@ SramCheck_Bank0PageSum:: ; 22:4EF0
 	ld [rRAMG], a
 	ld de, $0000
 	ld bc, $0FFE
-.loop ; 22:4F0D
+.sum_page_bytes ; 22:4F0D
 	ld a, [hli]
 	add a, e
 	ld e, a
-	jr nc, .skip
+	jr nc, .decrement_bytes_remaining
 	inc d
-.skip ; 22:4F13
+.decrement_bytes_remaining ; 22:4F13
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .loop
+	jr nz, .sum_page_bytes
 	ld a, [hli]
 	ld b, a
 	ld a, [hl]
@@ -89,13 +89,13 @@ SramCheck_Bank0ClearPage:: ; 22:4F53
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld bc, $1000
-.loop ; 22:4F6D
+.clear_page_bytes ; 22:4F6D
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .loop
+	jr nz, .clear_page_bytes
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -117,14 +117,14 @@ SramCheck_Bank0CopyPage:: ; 22:4F7B
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld bc, $1000
-.loop ; 22:4F9A
+.copy_page_bytes ; 22:4F9A
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .loop
+	jr nz, .copy_page_bytes
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a

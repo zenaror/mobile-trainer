@@ -28,12 +28,12 @@ MailSrvDel_DeleteAll_Confirm:: ; 23:4A1E
 	ld hl, wMailSessionBlock
 	ld de, Data_MailSrvDel_DeleteAll_Confirm_SessionBlockTemplate
 	ld b, $07
-.loop ; 23:4A34
+.copy_session_template_byte ; 23:4A34
 	ld a, [de]
 	ld [hli], a
 	inc de
 	dec b
-	jr nz, .loop
+	jr nz, .copy_session_template_byte
 	ld d, $01
 	ld bc, wMailSessionBlock
 	farcall ConnectDialog_Run
@@ -117,13 +117,13 @@ MailSrvDel_DeleteAll_Confirm:: ; 23:4A1E
 	jr nz, .l4ACD
 	ld a, h
 	or a, l
-	jr z, .done
+	jr z, .return_to_caller
 .l4ACD ; 23:4ACD
 	ld a, $00
 	ld [wBrowserScrollbarEnable], a
 	ld [wCommSessionKind], a
 	farcall CommTime_DrawSummaryScreen
-.done ; 23:4ADB
+.return_to_caller ; 23:4ADB
 	ret
 .l4ADC ; 23:4ADC
 	farcall MailSrvDel_DeleteAllRun
@@ -209,12 +209,12 @@ MailSrvDel_CheckAndDelete:: ; 23:4B51
 	ld hl, wMailSessionBlock
 	ld de, Data_MailSrvDel_CheckAndDelete_SessionBlockTemplate
 	ld b, $07
-.loop ; 23:4B76
+.copy_session_template_byte ; 23:4B76
 	ld a, [de]
 	ld [hli], a
 	inc de
 	dec b
-	jr nz, .loop
+	jr nz, .copy_session_template_byte
 	ld d, $01
 	ld bc, wMailSessionBlock
 	farcall ConnectDialog_Run
@@ -296,13 +296,13 @@ MailSrvDel_CheckAndDelete:: ; 23:4B51
 	jr nz, .l4C0E
 	ld a, h
 	or a, l
-	jr z, .done
+	jr z, .return_to_caller
 .l4C0E ; 23:4C0E
 	ld a, $00
 	ld [wBrowserScrollbarEnable], a
 	ld [wCommSessionKind], a
 	farcall CommTime_DrawSummaryScreen
-.done ; 23:4C1C
+.return_to_caller ; 23:4C1C
 	ret
 
 .l4C1D ; 23:4C1D
@@ -579,13 +579,13 @@ MailSrvDel_DeleteAllRun_CheckPoll:: ; 23:4DA0
 	pop de
 	pop bc
 	cp a, $02
-	jr nz, .skip
+	jr nz, .advance_check_index_and_count
 
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4C94-5028 by apply_coverage --split
 	inc bc
 
-.skip ; 23:4DF2
+.advance_check_index_and_count ; 23:4DF2
 	; [CONFIRMED] 93 insn(s) executed; cut out of the PROBABLE region 4C94-5028 by apply_coverage
 	; --split [executed in 1 scenarios]
 	inc hl
@@ -673,7 +673,7 @@ MailSrvDel_DeleteAllRun_CheckDone:: ; 23:4DFB
 	ld hl, wSpriteSlot11
 	call Sprite_SetPosition
 	ld a, $78
-.loop ; 23:4E80
+.wait_frames_or_a ; 23:4E80
 	push af
 	di
 	farcall Sprite_UpdateAll
@@ -683,7 +683,7 @@ MailSrvDel_DeleteAllRun_CheckDone:: ; 23:4DFB
 	call MailSrvDel_DrawElapsedTime
 	ldh a, [hJoyPressed]
 	and a, PADF_A
-	jr z, .skip
+	jr z, .decrement_wait_counter
 
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4C94-5028 by apply_coverage --split
@@ -691,12 +691,12 @@ MailSrvDel_DeleteAllRun_CheckDone:: ; 23:4DFB
 	ld a, $01
 	push af
 
-.skip ; 23:4E9F
+.decrement_wait_counter ; 23:4E9F
 	; [CONFIRMED] 27 insn(s) executed; cut out of the PROBABLE region 4C94-5028 by apply_coverage
 	; --split [executed in 1 scenarios]
 	pop af
 	dec a
-	jr nz, .loop
+	jr nz, .wait_frames_or_a
 	farcall Stat_DisableScrollSplit
 	call VBlank_WaitAndService
 	farcall Palette_FadeOutToWhite
@@ -854,13 +854,13 @@ MailSrvDel_DeleteAllRun_SendDele:: ; 23:4F9C
 	push bc
 	push hl
 	ld b, $3C
-.loop ; 23:4FA0
+.wait_vblank_and_draw_timer ; 23:4FA0
 	push bc
 	call VBlank_Wait
 	call MailSrvDel_DrawElapsedTime
 	pop bc
 	dec b
-	jr nz, .loop
+	jr nz, .wait_vblank_and_draw_timer
 	pop hl
 	pop bc
 	farcall Timer_ResetClockB
@@ -1024,7 +1024,7 @@ MailSrvDel_DeleteAllRun_NextMail:: ; 23:5063
 	ld hl, wSpriteSlot11
 	call Sprite_SetPosition
 	ld a, $78
-.loop ; 23:5098
+.wait_frames_or_a ; 23:5098
 	push af
 	di
 	farcall Sprite_UpdateAll
@@ -1034,7 +1034,7 @@ MailSrvDel_DeleteAllRun_NextMail:: ; 23:5063
 	call MailSrvDel_DrawElapsedTime
 	ldh a, [hJoyPressed]
 	and a, PADF_A
-	jr z, .skip
+	jr z, .decrement_wait_counter
 
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 503F-540D by apply_coverage --split
@@ -1042,12 +1042,12 @@ MailSrvDel_DeleteAllRun_NextMail:: ; 23:5063
 	ld a, $01
 	push af
 
-.skip ; 23:50B7
+.decrement_wait_counter ; 23:50B7
 	; [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 503F-540D by apply_coverage
 	; --split [executed in 4 scenarios]
 	pop af
 	dec a
-	jr nz, .loop
+	jr nz, .wait_frames_or_a
 	farcall Stat_DisableScrollSplit
 	call VBlank_WaitAndService
 	farcall Palette_FadeOutToWhite
@@ -1332,7 +1332,7 @@ MailSrvDel_DeleteCompletelyRun_GotMailCount:: ; 23:525E
 	ld hl, wSpriteSlot11
 	call Sprite_SetPosition
 	ld a, $78
-.loop ; 23:52ED
+.wait_frames_or_a ; 23:52ED
 	push af
 	di
 	farcall Sprite_UpdateAll
@@ -1349,7 +1349,7 @@ MailSrvDel_DeleteCompletelyRun_GotMailCount:: ; 23:525E
 .l530C ; 23:530C
 	pop af
 	dec a
-	jr nz, .loop
+	jr nz, .wait_frames_or_a
 	farcall Stat_DisableScrollSplit
 	call VBlank_WaitAndService
 	farcall Palette_FadeOutToWhite
@@ -1580,7 +1580,7 @@ MailSrvDel_DeleteCompletelyRun_NextMail:: ; 23:5424
 	ld hl, wSpriteSlot11
 	call Sprite_SetPosition
 	ld a, $78
-.loop ; 23:547D
+.wait_frames_or_a ; 23:547D
 	push af
 	di
 	farcall Sprite_UpdateAll
@@ -1590,7 +1590,7 @@ MailSrvDel_DeleteCompletelyRun_NextMail:: ; 23:5424
 	call MailSrvDel_DrawElapsedTime
 	ldh a, [hJoyPressed]
 	and a, PADF_A
-	jr z, .skip
+	jr z, .decrement_wait_counter
 
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5424-581E by apply_coverage --split
@@ -1598,12 +1598,12 @@ MailSrvDel_DeleteCompletelyRun_NextMail:: ; 23:5424
 	ld a, $01
 	push af
 
-.skip ; 23:549C
+.decrement_wait_counter ; 23:549C
 	; [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 5424-581E by apply_coverage
 	; --split [executed in 1 scenarios]
 	pop af
 	dec a
-	jr nz, .loop
+	jr nz, .wait_frames_or_a
 	farcall Stat_DisableScrollSplit
 	call VBlank_WaitAndService
 	farcall Palette_FadeOutToWhite
@@ -1724,7 +1724,7 @@ MailSrvDel_Cancelled:: ; 23:553D
 	ld de, $C0A9 ; raw: dead load: DE is never read
 	ld a, $B4
 	ld a, $01
-.loop ; 23:55A1
+.wait_sprite_frame ; 23:55A1
 	push af
 	di
 	farcall Sprite_UpdateAll
@@ -1732,7 +1732,7 @@ MailSrvDel_Cancelled:: ; 23:553D
 	call VBlank_Wait
 	pop af
 	dec a
-	jr nz, .loop
+	jr nz, .wait_sprite_frame
 	farcall Stat_DisableScrollSplit
 	call VBlank_Wait
 	farcall Palette_FadeOutToWhite

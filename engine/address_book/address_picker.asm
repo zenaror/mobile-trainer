@@ -104,9 +104,9 @@ AddrPick_CursorDown:: ; 2C:57A7
 	inc c
 	ld a, c
 	cp a, $07
-	jr nz, .skip
+	jr nz, .refresh_down_highlight
 	ld c, $01
-.skip ; 2C:57C4
+.refresh_down_highlight ; 2C:57C4
 	ld a, d
 	call AddrPick_MoveNameHighlight
 	call AddrPick_RefreshSlotIcons
@@ -122,9 +122,9 @@ AddrPick_CursorUp:: ; 2C:57CC
 	dec c
 	ld a, c
 	cp a, $00
-	jr nz, .skip
+	jr nz, .refresh_up_highlight
 	ld c, $06
-.skip ; 2C:57E9
+.refresh_up_highlight ; 2C:57E9
 	ld a, d
 	call AddrPick_MoveNameHighlight
 	call AddrPick_RefreshSlotIcons
@@ -733,10 +733,10 @@ AddrPick_SetListAreaAttrs:: ; 2C:5CD2
 	ld a, $01
 	ldh [rVBK], a
 	ld hl, $9866
-.loop ; 2C:5CDC
+.wait_for_ly_90 ; 2C:5CDC
 	ldh a, [rLY]
 	cp a, $90
-	jr nz, .loop
+	jr nz, .wait_for_ly_90
 	ld a, $08
 	ld [hli], a
 	ld [hli], a
@@ -1066,10 +1066,10 @@ AddrPick_InitListAttrs:: ; 2C:5E51
 	di
 	ld a, $01
 	ldh [rVBK], a
-.loop ; 2C:5E5B
+.wait_for_ly_90 ; 2C:5E5B
 	ldh a, [rLY]
 	cp a, $90
-	jr nz, .loop
+	jr nz, .wait_for_ly_90
 	ld a, $00
 	ld hl, $98C6
 	ld [hli], a
@@ -2353,7 +2353,7 @@ AddrPick_CursorMoveEffect:: ; 2C:64E0
 	; [CONFIRMED] 95 insn(s); 95 executed (in up to 2/18 scenarios)
 	ld b, $1E
 	ld b, $01
-.loop ; 2C:6643
+.update_sprites_and_poll_direction ; 2C:6643
 	push bc
 	farcall Sprite_UpdateAll
 	farcall Joypad_Update
@@ -2363,7 +2363,7 @@ AddrPick_CursorMoveEffect:: ; 2C:64E0
 	and a, PADF_UP | PADF_DOWN
 	jr nz, .l665D
 	dec b
-	jr nz, .loop
+	jr nz, .update_sprites_and_poll_direction
 .l665D ; 2C:665D
 	pop bc
 	ret

@@ -47,12 +47,12 @@ MailDraft_Menu_Loop:: ; 2B:402B
 	play_sfx SFX_CONFIRM
 	pop de
 	pop bc
-.loop ; 2B:405F
+.wait_scanlines_80_to_89 ; 2B:405F
 	ldh a, [rLY]
 	cp a, $50
-	jr c, .loop
+	jr c, .wait_scanlines_80_to_89
 	cp a, $5A
-	jr nc, .loop
+	jr nc, .wait_scanlines_80_to_89
 	farcall Stat_DisableScrollSplit
 	farcall Palette_FadeOutToWhite
 	farcall MailBody_ViewScreen

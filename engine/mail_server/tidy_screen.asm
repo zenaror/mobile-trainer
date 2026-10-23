@@ -400,12 +400,12 @@ CallVBlankWait60Times:: ; 2E:4EB2
 	; No explicit WRAM switch; historical helper execution does not establish this entry.
 	; Computed/coded entries remain open in finite inventories; no natural/hardware promotion.
 	ld b, $3C
-.loop ; 2E:4EB4
+.wait_vblank_iteration ; 2E:4EB4
 	push bc
 	call VBlank_Wait
 	pop bc
 	dec b
-	jr nz, .loop
+	jr nz, .wait_vblank_iteration
 	ret
 
 MailServerMgr_DrawMailFields:: ; 2E:4EBD
@@ -441,7 +441,7 @@ MailServerMgr_DrawMailFields:: ; 2E:4EBD
 
 MailServerMgr_DrawFieldText:: ; 2E:4F06
 	ld [wTextCellsLeft], a
-.loop ; 2E:4F09
+.draw_next_character ; 2E:4F09
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -498,7 +498,7 @@ MailServerMgr_DrawFieldText:: ; 2E:4F06
 	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, .l4F88
-	jr .loop
+	jr .draw_next_character
 .l4F66 ; 2E:4F66
 	pop af
 	push bc
@@ -516,7 +516,7 @@ MailServerMgr_DrawFieldText:: ; 2E:4F06
 	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, .l4F88
-	jp .loop
+	jp .draw_next_character
 .l4F88 ; 2E:4F88
 	push bc
 	push de
@@ -1138,13 +1138,13 @@ MailServerMgr_ClearTextTiles:: ; 2E:533C
 	ldh [rSVBK], a
 	ld hl, wTileStage2
 	ld bc, $1000
-.loop ; 2E:534E
+.clear_tile_stage_byte ; 2E:534E
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .loop
+	jr nz, .clear_tile_stage_byte
 	xor a, a
 	ldh [rVBK], a
 	ld hl, wTileStage2
@@ -1437,7 +1437,7 @@ MailServerMgr_DrawTimer_Redraw:: ; 2E:5636
 	cp a, $3C
 	jr c, .l5683
 
-.loop ; 2E:5641
+.write_f5_f9_pairs ; 2E:5641
 	; [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0;
 	; fall-through of the jrcc at 2E:563F (executed)
 	ld a, $07
@@ -1462,7 +1462,7 @@ MailServerMgr_DrawTimer_Redraw:: ; 2E:5636
 	ld a, [wTimerAMinutes]
 	add a, $3C
 	cp a, $64
-	jr nc, .loop
+	jr nc, .write_f5_f9_pairs
 	ld l, a
 	ld h, $00
 	ld de, $000A

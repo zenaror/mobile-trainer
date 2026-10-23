@@ -246,30 +246,30 @@ CommPanel_StateWait:: ; 68:7544
 	jr nz, .handle_button_b
 	ld a, [wCommPanelArg]
 	or a, a
-	jr z, .done
+	jr z, .return_to_caller
 	cp a, $01
 	jr z, .l7554
 .l7554 ; 68:7554
 	ld a, $03
 	ld [wCommPanelState], a
-	jr .done
+	jr .return_to_caller
 
 .handle_button_b ; 68:755B
 	; [CONFIRMED] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 1;
 	; entered by jrcc from 68:7548 (executed) [executed in 4 scenarios]
 	ld a, [wCommPanelVariant]
 	or a, a
-	jr z, .done
+	jr z, .return_to_caller
 	ld a, [wCommPanelPhase]
 	cp a, $02
-	jr z, .done
+	jr z, .return_to_caller
 	play_sfx $002F
 	ld a, $02
 	ld [wCommPanelBusy], a
 	ld a, $04
 	ld [wCommPanelState], a
 
-.done ; 68:7582
+.return_to_caller ; 68:7582
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 4/18 scenarios)
 	ret
 
@@ -285,13 +285,13 @@ CommPanel_StateWaitCloseOnly:: ; 68:7594
 	; starts at an entry of the code-pointer table at 68:7442 [executed in 4 scenarios]
 	ld a, [wCommPanelArg]
 	or a, a
-	jr z, .done
+	jr z, .return_to_caller
 	cp a, $01
 	jr z, .l759E
 .l759E ; 68:759E
 	ld a, $03
 	ld [wCommPanelState], a
-.done ; 68:75A3
+.return_to_caller ; 68:75A3
 	ret
 
 CommPanel_PrintWarningText:: ; 68:75A4

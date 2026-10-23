@@ -111,14 +111,14 @@ CompareString:: ; 00:1509
 	pop de
 	dec de
 	dec hl
-.loop ; 00:150F
+.compare_next_character ; 00:150F
 	inc de
 	inc hl
 	ld a, [de]
 	or a, a
 	jr z, .return_character_difference
 	cp a, [hl]
-	jr z, .loop
+	jr z, .compare_next_character
 .return_character_difference ; 00:1518
 	sub a, [hl]
 	ret
@@ -128,8 +128,8 @@ CompareStringN:: ; 00:151A
 	; interpreter [candidate; raw refs 2] [executed in 34 scenarios]
 	ld a, b
 	and a, a
-	jr z, .done
-.loop ; 00:151E
+	jr z, .return_to_caller
+.compare_bounded_character ; 00:151E
 	dec b
 	jr z, .compare_final_characters
 	ld a, [hl]
@@ -141,13 +141,13 @@ CompareStringN:: ; 00:151A
 	jr nz, .compare_final_characters
 	inc hl
 	inc de
-	jr .loop
+	jr .compare_bounded_character
 .compare_final_characters ; 00:152E
 	ld a, [de]
 	ld c, a
 	ld a, [hl]
 	sub a, c
-.done ; 00:1532
+.return_to_caller ; 00:1532
 	ret
 
 StringLength:: ; 00:1533
@@ -155,9 +155,9 @@ StringLength:: ; 00:1533
 	; refs 5] [executed in 7 scenarios]
 	xor a, a
 	ld bc, $FFFF
-.loop ; 00:1537
+.count_string_byte ; 00:1537
 	cp a, [hl]
 	inc hl
 	inc bc
-	jr nz, .loop
+	jr nz, .count_string_byte
 	ret

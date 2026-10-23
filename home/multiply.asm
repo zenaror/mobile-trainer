@@ -32,16 +32,16 @@ Multiply16:: ; 00:0BE8
 	; raw refs 5] [executed in 21 scenarios]
 	ld hl, $0000
 	ld a, $10
-.loop ; 00:0BED
+.accumulate_multiplier_bit ; 00:0BED
 	srl b
 	rr c
-	jr nc, .skip
+	jr nc, .shift_multiplicand
 	add hl, de
-.skip ; 00:0BF4
+.shift_multiplicand ; 00:0BF4
 	sla e
 	rl d
 	dec a
-	jr nz, .loop
+	jr nz, .accumulate_multiplier_bit
 	ret
 
 Multiply8x16:: ; 00:0BFC
@@ -50,13 +50,13 @@ Multiply8x16:: ; 00:0BFC
 	ld hl, $0000
 	ld b, $08
 	or a, a
-.loop ; 00:0C02
+.accumulate_multiplier_bit ; 00:0C02
 	rrca
-	jr nc, .skip
+	jr nc, .shift_multiplicand
 	add hl, de
-.skip ; 00:0C06
+.shift_multiplicand ; 00:0C06
 	sla e
 	rl d
 	dec b
-	jr nz, .loop
+	jr nz, .accumulate_multiplier_bit
 	ret

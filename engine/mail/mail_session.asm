@@ -88,7 +88,7 @@ MailSession_Run:: ; 26:4000
 	ld hl, wSpriteSlot4
 	call Sprite_SetPosition
 	ld b, $00
-.loop ; 26:40B0
+.increment_slot3_slot4_offsets ; 26:40B0
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -122,7 +122,7 @@ MailSession_Run:: ; 26:4000
 	cp a, $3F
 	jr z, .l40F3
 	cp a, $40
-	jr nz, .loop
+	jr nz, .increment_slot3_slot4_offsets
 .l40F3 ; 26:40F3
 	push bc
 	ld hl, wSpriteSlot3
@@ -582,7 +582,7 @@ MailSession_ReceivePhase:: ; 26:44F5
 	call MailSession_ShowMsgReceiving
 	farcall Timer_ResetClockB
 	farcall Pop3_StartLogin
-.loop ; 26:4577
+.poll_login_status ; 26:4577
 	di
 	farcall Sprite_UpdateAll
 	ei
@@ -594,7 +594,7 @@ MailSession_ReceivePhase:: ; 26:44F5
 	jp nz, MailSession_Cancel
 	farcall Pop3_LoginStatPoll
 	cp a, $01
-	jr z, .loop
+	jr z, .poll_login_status
 	cp a, $FF
 	jr nz, .l45AE
 
@@ -652,7 +652,7 @@ MailSession_ScanMailsLoop:: ; 26:45BC
 	pop hl
 	pop de
 	pop bc
-.loop ; 26:45DE
+.poll_top_status ; 26:45DE
 	push bc
 	push de
 	push hl
@@ -681,7 +681,7 @@ MailSession_ScanMailsLoop:: ; 26:45BC
 	pop hl
 	pop de
 	pop bc
-	jr .loop
+	jr .poll_top_status
 .l4616 ; 26:4616
 	cp a, $FF
 	jr nz, .l4624
@@ -698,13 +698,13 @@ MailSession_ScanMailsLoop:: ; 26:45BC
 	pop de
 	pop bc
 	cp a, $02
-	jr nz, .skip
+	jr nz, .advance_scan_index_and_count
 
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 45B6-4636 by apply_coverage --split
 	inc bc
 
-.skip ; 26:462D
+.advance_scan_index_and_count ; 26:462D
 	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 45B6-4636 by apply_coverage
 	; --split [executed in 8 scenarios]
 	inc hl
@@ -1363,7 +1363,7 @@ MailSession_NoMailOrFull:: ; 26:4A8A
 	ld hl, wSpriteSlot6
 	call Sprite_SetPosition
 	ld c, $09
-.loop ; 26:4B02
+.decrement_slot6_byte ; 26:4B02
 	call MailSession_PollAdapterError
 	jp z, MailSession_ShowCommError
 	push bc
@@ -1392,7 +1392,7 @@ MailSession_NoMailOrFull:: ; 26:4A8A
 	and a, PADF_B
 	jp nz, MailSession_Cancel
 	dec c
-	jr nz, .loop
+	jr nz, .decrement_slot6_byte
 	ld de, $0080
 	ld hl, wSpriteSlot6
 	call Sprite_SetPosition

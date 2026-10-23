@@ -143,9 +143,9 @@ AbookList_CursorDown:: ; 2F:40E1
 	inc c
 	ld a, c
 	cp a, $06
-	jr nz, .skip
+	jr nz, .refresh_down_highlight
 	ld c, $00
-.skip ; 2F:40FE
+.refresh_down_highlight ; 2F:40FE
 	ld a, d
 	farcall AbookList_UpdateRowHighlight
 	call AbookList_UpdateRowMarkers
@@ -164,9 +164,9 @@ AbookList_CursorUp:: ; 2F:4109
 	dec c
 	ld a, c
 	cp a, $FF
-	jr nz, .skip
+	jr nz, .refresh_up_highlight
 	ld c, $05
-.skip ; 2F:4126
+.refresh_up_highlight ; 2F:4126
 	ld a, d
 	farcall AbookList_UpdateRowHighlight
 	call AbookList_UpdateRowMarkers
@@ -239,7 +239,7 @@ AbookList_Run_ButtonRow:: ; 2F:4131
 	call AbookList_DrawHelpText
 	farcall AddrBook_UploadTextTiles
 	pop bc
-.loop ; 2F:4196
+.service_button_row_input ; 2F:4196
 	push bc
 	farcall Sprite_UpdateAll
 	call VBlank_Wait
@@ -291,7 +291,7 @@ AbookList_Run_ButtonRow:: ; 2F:4131
 	play_sfx SFX_REJECT
 	pop de
 	pop bc
-	jr .loop
+	jr .service_button_row_input
 .show_delete_dialog ; 2F:420E
 	push bc
 	push de
@@ -352,7 +352,7 @@ AbookList_Run_ButtonRow:: ; 2F:4131
 	pop af
 	pop bc
 	dec a
-	jp nz, .loop
+	jp nz, .service_button_row_input
 	push bc
 	call Abook_ClearSlot
 	push bc
@@ -401,7 +401,7 @@ AbookList_Run_ButtonRow:: ; 2F:4131
 	play_sfx SFX_REJECT
 	pop de
 	pop bc
-	jp .loop
+	jp .service_button_row_input
 .prepare_edit_return ; 2F:42FC
 	push bc
 	push de
@@ -440,7 +440,7 @@ AbookList_Run_ButtonRow:: ; 2F:4131
 	play_sfx SFX_REJECT
 	pop de
 	pop bc
-	jp .loop
+	jp .service_button_row_input
 
 .prepare_new_entry ; 2F:4350
 	; [CONFIRMED] 29 insn(s); 29 executed (in up to 1/18 scenarios)
@@ -478,7 +478,7 @@ AbookList_Run_ButtonRow:: ; 2F:4131
 	play_sfx SFX_REJECT
 	pop de
 	pop bc
-	jp .loop
+	jp .service_button_row_input
 .prepare_view_return ; 2F:43A1
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -569,7 +569,7 @@ AbookList_Run_ButtonRow:: ; 2F:4131
 	ld [wSpriteSlot8 + $01], a
 	ld a, $70
 	ld [wSpriteSlot8], a
-	jp .loop
+	jp .service_button_row_input
 
 Abook_ClearSlot:: ; 2F:4455
 	; [CONFIRMED] 40 insn(s) reached by static flow only; seeds: exec x40; min discovery hops 2;
@@ -1404,7 +1404,7 @@ AbookList_FlashSelectedMarker:: ; 2F:4942
 .begin_frame_wait ; 2F:4AA0
 	ld b, $1E
 	ld b, $01
-.loop ; 2F:4AA4
+.update_sprites_and_poll_direction ; 2F:4AA4
 	push bc
 	farcall Sprite_UpdateAll
 	farcall Joypad_Update
@@ -1414,7 +1414,7 @@ AbookList_FlashSelectedMarker:: ; 2F:4942
 	and a, PADF_UP | PADF_DOWN
 	jr nz, .restore_bc_and_return
 	dec b
-	jr nz, .loop
+	jr nz, .update_sprites_and_poll_direction
 .restore_bc_and_return ; 2F:4ABE
 	pop bc
 	ret

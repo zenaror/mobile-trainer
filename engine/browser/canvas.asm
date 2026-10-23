@@ -112,9 +112,9 @@ IfA1_MapSram1A9EDBit7To19Or1A_DisableRam:: ; 4E:6172 [PROBABLE] operation only
 	ld b, $1A
 	ld a, [sSaveCheckStateBlock + $05]
 	bit 7, a
-	jr z, .skip
+	jr z, .disable_sram_and_return_b
 	ld b, $19
-.skip ; 4E:618E
+.disable_sram_and_return_b ; 4E:618E
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a

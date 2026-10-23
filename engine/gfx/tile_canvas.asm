@@ -28,11 +28,11 @@ TileCanvas_UploadRect:: ; 4F:4572
 	ld a, h
 	cp a, $0C
 	ld b, $02
-	jr c, .skip
+	jr c, .compute_tile_offset
 	ld b, $03
 	sub a, $0C
 	ld h, a
-.skip ; 4F:4595
+.compute_tile_offset ; 4F:4595
 	add a, a
 	add a, a
 	add a, h
@@ -94,9 +94,9 @@ Tilemap_FillAscendingWithAttr:: ; 4F:45C6
 	ld a, e
 	ld [hli], a
 	inc a
-	jr nz, .skip
+	jr nz, .store_next_tile_low
 	set 3, d
-.skip ; 4F:45E6
+.store_next_tile_low ; 4F:45E6
 	ld e, a
 	dec c
 	jr nz, .l45D7
@@ -130,11 +130,11 @@ TileCanvas_FillRect:: ; 4F:4604
 	ld a, h
 	cp a, $0C
 	ld b, $02
-	jr c, .skip
+	jr c, .compute_tile_offset
 	ld b, $03
 	sub a, $0C
 	ld h, a
-.skip ; 4F:4619
+.compute_tile_offset ; 4F:4619
 	add a, a
 	add a, a
 	add a, h

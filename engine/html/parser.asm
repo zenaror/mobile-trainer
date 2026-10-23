@@ -391,9 +391,9 @@ Html_ParseSource_End:: ; 74:43C4
 	ld hl, $FFA0
 	add hl, bc
 	bit 7, h
-	jr z, .skip
+	jr z, .store_scroll_max
 	ld hl, $0000
-.skip ; 74:43FF
+.store_scroll_max ; 74:43FF
 	ld a, l
 	ldh [hViewScrollMax], a
 	ld a, h
@@ -451,7 +451,7 @@ Html_ParseSource_Tag_Done:: ; 74:443F
 Html_ParseSource_Tag_SkipToEnd:: ; 74:4449
 	ld a, $20
 	ldh [hHtml_LastChar], a
-.loop ; 74:444D
+.scan_tag_attributes ; 74:444D
 	ld a, [hli]
 	or a, a
 	jp z, Html_ParseSource_End
@@ -482,14 +482,14 @@ Html_ParseSource_Tag_SkipToEnd:: ; 74:4449
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jpcc at 74:4470 (executed)
 	ld a, [hli]
-	jp .loop
+	jp .scan_tag_attributes
 
 .l4477 ; 74:4477
 	; [CONFIRMED] 26 insn(s); 26 executed (in up to 2/18 scenarios)
 	dec hl
 	ld bc, Html_NoKeywords
 	call Html_ScanAttributes
-	jp .loop
+	jp .scan_tag_attributes
 
 Html_DispatchTag:: ; 74:4481
 	cp a, $0F

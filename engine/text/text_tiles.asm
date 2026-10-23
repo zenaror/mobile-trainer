@@ -73,7 +73,7 @@ TextTiles_RenderLine:: ; 48:403E
 	ldh [hTextTiles_Dest2Lo], a
 	ld a, d
 	ldh [hTextTiles_Dest2Hi], a
-.loop ; 48:404C
+.render_next_glyph_pair ; 48:404C
 	ldh a, [hTextTiles_StringBank]
 	call ReadByteFar
 	or a, a
@@ -122,7 +122,7 @@ TextTiles_RenderLine:: ; 48:403E
 	ld d, a
 	ldh a, [hTextTiles_Dest1Hi]
 	ld b, a
-	jr .loop
+	jr .render_next_glyph_pair
 .l409C ; 48:409C
 	ldh a, [hTextTiles_Dest1Lo]
 	ld c, a
@@ -164,14 +164,14 @@ TextTiles_RenderGrid:: ; 48:40A9
 	ld a, [wTextGridStrBank]
 	call ReadByteFar
 	or a, a
-	jr z, .done
+	jr z, .return_at_text_end
 	cp a, $0D
 	jr z, .l4141
 	ld b, a
 	ld a, [wTextGridStrBank]
 	call ReadByteFar
 	or a, a
-	jr z, .done
+	jr z, .return_at_text_end
 	push de
 	push hl
 	ld c, a
@@ -241,7 +241,7 @@ TextTiles_RenderGrid:: ; 48:40A9
 	ld a, c
 	add a, b
 	jp .l40C4
-.done ; 48:4159
+.return_at_text_end ; 48:4159
 	ret
 
 TextTiles_RenderGridRows:: ; 48:415A
@@ -297,14 +297,14 @@ TextTiles_RenderGridRows:: ; 48:415A
 	ldh a, [hTextTiles_StringBank]
 	call ReadByteFar
 	or a, a
-	jp z, .done
+	jp z, .return_at_text_or_row_limit
 	cp a, $0D
 	jr z, .l4202
 	ld b, a
 	ldh a, [hTextTiles_StringBank]
 	call ReadByteFar
 	or a, a
-	jr z, .done
+	jr z, .return_at_text_or_row_limit
 	push de
 	push hl
 	ld c, a
@@ -351,7 +351,7 @@ TextTiles_RenderGridRows:: ; 48:415A
 	ld b, a
 	ldh a, [hTextTiles_GridRowEnd]
 	cp a, b
-	jr z, .done
+	jr z, .return_at_text_or_row_limit
 	ldh a, [hTextTiles_GridStartCol]
 	ldh [hTextTiles_GridColumn], a
 	ld b, a
@@ -366,7 +366,7 @@ TextTiles_RenderGridRows:: ; 48:415A
 	ld b, a
 	ldh a, [hTextTiles_GridRowEnd]
 	cp a, b
-	jr z, .done
+	jr z, .return_at_text_or_row_limit
 	inc hl
 	ldh a, [hTextTiles_GridColumn]
 	ld b, a
@@ -383,6 +383,6 @@ TextTiles_RenderGridRows:: ; 48:415A
 	push hl
 	jp .l4191
 
-.done ; 48:4222
+.return_at_text_or_row_limit ; 48:4222
 	; [CONFIRMED] 481 insn(s); 481 executed (in up to 12/18 scenarios) (part of region $4222-$4615)
 	ret

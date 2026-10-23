@@ -374,10 +374,10 @@ Pop3_RetrPoll:: ; 54:4CF4
 	; --split [executed in 1 scenarios]
 	or a, a
 .l4F46 ; 54:4F46
-	jr nc, .skip
+	jr nc, .check_counted_body_limit
 	inc b
 	inc hl
-.skip ; 54:4F4A
+.check_counted_body_limit ; 54:4F4A
 	ld a, $C0
 	cp a, b
 	jr z, .prepare_counted_body_copy

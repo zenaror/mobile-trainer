@@ -391,12 +391,12 @@ Account_ResultPage_DrawTimeDigits:: ; 68:784E
 Byte_ToPackedBcd:: ; 68:792A
 	xor a, a
 	ld b, $FF
-.loop ; 68:792D
+.subtract_tens ; 68:792D
 	ld a, d
 	sub a, $0A
 	ld d, a
 	inc b
-	jr nc, .loop
+	jr nc, .subtract_tens
 	ld a, d
 	add a, $0A
 	ld d, a

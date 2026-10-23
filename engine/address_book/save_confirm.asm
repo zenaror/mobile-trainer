@@ -24,7 +24,7 @@ AddrBook_SaveConfirm:: ; 2A:6F95
 	farcall Stat_EnableScrollSplit
 	call AddrBook_SaveConfirm_InitScreen
 	ld d, $0F
-.loop ; 2A:6FBA
+.wait_confirm_delay ; 2A:6FBA
 	push bc
 	push de
 	farcall Sprite_UpdateAll
@@ -88,7 +88,7 @@ AddrBook_SaveConfirm:: ; 2A:6F95
 	ld a, $FF
 	ret
 .l7048 ; 2A:7048
-	jp .loop
+	jp .wait_confirm_delay
 
 AddrBook_StoreEditBufferToSlot:: ; 2A:704B
 	push af

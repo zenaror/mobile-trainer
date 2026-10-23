@@ -270,14 +270,14 @@ Mail_BuildHeaderField:: ; 54:46E8
 Smtp_MeasureField:: ; 54:4726
 
 	ld b, $00
-.loop ; 54:4728
+.count_field_byte ; 54:4728
 	ld a, [hli]
 	or a, a
 	jr z, .store_field_length
 	inc b
 	ld a, b
 	cp a, c
-	jr nz, .loop
+	jr nz, .count_field_byte
 .store_field_length ; 54:4731
 	ld a, b
 	ld [wSmtp_FieldLength], a
@@ -287,7 +287,7 @@ Smtp_CopyFieldToWork:: ; 54:4736
 
 	ld b, $00
 	ld de, wRam_C580
-.loop ; 54:473B
+.copy_field_byte ; 54:473B
 	ld a, [hli]
 	ld [de], a
 	inc de
@@ -296,7 +296,7 @@ Smtp_CopyFieldToWork:: ; 54:4736
 	inc b
 	ld a, b
 	cp a, c
-	jr nz, .loop
+	jr nz, .copy_field_byte
 
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 44C3-475A by apply_coverage --split
@@ -309,7 +309,7 @@ Smtp_CopyDisplayName:: ; 54:4748
 	; [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 44C3-475A by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld b, $00
-.loop ; 54:474A
+.copy_display_name_byte ; 54:474A
 	ld a, [hli]
 	ld [de], a
 	inc de
@@ -318,7 +318,7 @@ Smtp_CopyDisplayName:: ; 54:4748
 	inc b
 	ld a, $10
 	cp a, b
-	jr nz, .loop
+	jr nz, .copy_display_name_byte
 	xor a, a
 	ld [de], a
 	inc de
@@ -473,15 +473,15 @@ Smtp_MeasureBody:: ; 54:484A
 	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 4772-4856 by apply_coverage
 	; --split [executed in 5 scenarios]
 	ld b, $00
-.loop ; 54:484C
+.count_body_byte ; 54:484C
 	ld a, [hli]
 	or a, a
-	jr z, .done
+	jr z, .return_to_caller
 	inc b
 	ld a, b
 	cp a, c
-	jr nz, .loop
-.done ; 54:4855
+	jr nz, .count_body_byte
+.return_to_caller ; 54:4855
 	ret
 
 ; ---- text $4856-$485C (6 bytes) [PROBABLE] NUL-terminated ASCII string CR LF "." CR LF (SMTP end-of-data marker); passed in HL to CopyString 00:14BF (FarCall bf 14 00) at 54:4809 and 54:483F

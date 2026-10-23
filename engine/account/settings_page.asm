@@ -403,7 +403,7 @@ Settings_UpdateChecksumAndBackup:: ; 68:49B6
 
 Checksum16_Sum:: ; 68:49FF
 	ld de, $0000
-.loop ; 68:4A02
+.add_next_byte ; 68:4A02
 	ld a, [hli]
 	add a, e
 	ld e, a
@@ -413,7 +413,7 @@ Checksum16_Sum:: ; 68:49FF
 	dec bc
 	ld a, c
 	or a, b
-	jr nz, .loop
+	jr nz, .add_next_byte
 	ret
 
 Settings_ClearVariableBlock:: ; 68:4A0F

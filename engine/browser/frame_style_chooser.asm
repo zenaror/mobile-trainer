@@ -84,7 +84,7 @@ Browser_FrameStylePreview_Run:: ; 4E:4000
 	ldh [hFramePreview_WipePtr], a
 	ld a, $41
 	ldh [hFramePreview_WipePtrHi], a
-.loop ; 4E:409C
+.reveal_next_step ; 4E:409C
 	ldh a, [hFramePreview_WipePtr]
 	ld l, a
 	ldh a, [hFramePreview_WipePtrHi]
@@ -101,7 +101,7 @@ Browser_FrameStylePreview_Run:: ; 4E:4000
 	farcall Sprite_UpdateAll
 	farcall ConnIcon_LoadGraphicsIfRequested
 	call VBlank_WaitAndService
-	jp .loop
+	jp .reveal_next_step
 .l40C8 ; 4E:40C8
 	ldh a, [hFramePreview_Style]
 	push bc
@@ -327,7 +327,7 @@ Browser_FrameStylePreview_RevealStep:: ; 4E:45FE
 	ld a, $03
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-.loop ; 4E:4612
+.copy_preview_cell ; 4E:4612
 	ld a, [hli]
 	ld c, a
 	ld a, [hli]
@@ -353,7 +353,7 @@ Browser_FrameStylePreview_RevealStep:: ; 4E:45FE
 	ld a, [hl]
 	ld [de], a
 	pop hl
-	jr .loop
+	jr .copy_preview_cell
 .l4637 ; 4E:4637
 	xor a, a
 	ldh [hSRAMEnable], a

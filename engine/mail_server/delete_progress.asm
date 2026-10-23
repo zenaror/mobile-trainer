@@ -145,12 +145,12 @@ MailSrvDel_FormatNumber:: ; 23:56F0
 	ldh [rSVBK], a
 	ld hl, String_MailSrvDel_NumberTemplate
 	ld de, wMailTextScratch
-.loop ; 23:56FE
+.copy_number_template ; 23:56FE
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, .loop
+	jr nz, .copy_number_template
 	pop bc
 	pop hl
 	push bc

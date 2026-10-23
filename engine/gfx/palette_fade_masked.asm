@@ -29,7 +29,7 @@ Palette_FadeInMasked:: ; 48:44E0
 	call Palette_SetFadeTargetMasked
 	farcall PalFade_Step
 	call LCDOn
-.loop ; 48:451D
+.upload_and_step_fade ; 48:451D
 	call VBlank_WaitStartDI
 	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
@@ -37,7 +37,7 @@ Palette_FadeInMasked:: ; 48:44E0
 	call Sound_FrameService
 	farcall PalFade_Step
 	or a, a
-	jr nz, .loop
+	jr nz, .upload_and_step_fade
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -68,7 +68,7 @@ Palette_FadeOutMasked:: ; 48:4540
 	ld a, $20
 	call Palette_SetFadeTargetMasked
 	farcall PalFade_Step
-.loop ; 48:457A
+.upload_and_step_fade ; 48:457A
 	call VBlank_WaitStartDI
 	ld hl, wPaletteBufBg
 	farcall Palette_UploadBuffer
@@ -76,7 +76,7 @@ Palette_FadeOutMasked:: ; 48:4540
 	call Sound_FrameService
 	farcall PalFade_Step
 	or a, a
-	jr nz, .loop
+	jr nz, .upload_and_step_fade
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -112,7 +112,7 @@ Palette_SetFadeTargetMasked:: ; 48:459D
 	ld c, $04
 	ld a, $01
 	ldh [hMaskedFade_PaletteBit], a
-.loop ; 48:45D3
+.set_masked_color_target ; 48:45D3
 	push hl
 	ldh a, [hMaskedFade_PaletteMask]
 	ld hl, hMaskedFade_PaletteBit
@@ -135,7 +135,7 @@ Palette_SetFadeTargetMasked:: ; 48:459D
 	pop hl
 .l45F0 ; 48:45F0
 	dec b
-	jr nz, .loop
+	jr nz, .set_masked_color_target
 	ret
 .l45F4 ; 48:45F4
 	ld a, [wTextCellsLeft]
@@ -157,7 +157,7 @@ Palette_SetFadeTargetMasked:: ; 48:459D
 	pop hl
 .l4612 ; 48:4612
 	dec b
-	jr nz, .loop
+	jr nz, .set_masked_color_target
 
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
 	; fall-through of the jrcc at 48:4613 (executed)

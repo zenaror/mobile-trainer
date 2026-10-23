@@ -10,10 +10,10 @@ FillBytes:: ; 00:04D8
 	inc b
 	dec b
 	jr nz, .adjust_high_count_for_partial_page
-.loop ; 00:04DC
+.fill_byte ; 00:04DC
 	ld [hli], a
 	dec c
-	jr nz, .loop
+	jr nz, .fill_byte
 	ret
 .adjust_high_count_for_partial_page ; 00:04E1
 	inc c
@@ -34,14 +34,14 @@ FillWords:: ; 00:04EE
 	inc b
 	dec b
 	jr nz, .adjust_high_count_for_partial_page
-.loop ; 00:04F2
+.fill_word ; 00:04F2
 	ld a, e
 	ld [hli], a
 	ld a, d
 	ld [hli], a
 	dec c
 	dec c
-	jr nz, .loop
+	jr nz, .fill_word
 	ret
 .adjust_high_count_for_partial_page ; 00:04FB
 	inc c
@@ -65,12 +65,12 @@ CopyBytes:: ; 00:050C
 	inc b
 	dec b
 	jr nz, .adjust_high_count_for_partial_page
-.loop ; 00:0510
+.copy_byte ; 00:0510
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec c
-	jr nz, .loop
+	jr nz, .copy_byte
 	ret
 .adjust_high_count_for_partial_page ; 00:0517
 	inc c
@@ -95,14 +95,14 @@ CopyBytesBackward:: ; 00:0526
 	dec b
 	jr nz, .adjust_high_count_for_partial_page
 
-.loop ; 00:052A
+.copy_byte_backward ; 00:052A
 	; [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 0526-0540 by apply_coverage --split
 	ld a, [hld]
 	ld [de], a
 	dec de
 	dec c
-	jr nz, .loop
+	jr nz, .copy_byte_backward
 	ret
 
 .adjust_high_count_for_partial_page ; 00:0531

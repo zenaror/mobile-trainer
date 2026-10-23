@@ -192,10 +192,10 @@ CommScene_Kind0_StateSlideSpritePairIn:: ; 70:4121
 	inc a
 	ld [wCommScene_SpritePairX], a
 	cp a, $48
-	jr nz, .skip
+	jr nz, .place_sprite_pair
 	ld a, $03
 	ld [wCommScene_State], a
-.skip ; 70:4131
+.place_sprite_pair ; 70:4131
 	call CommScene_PlaceSpritePair
 	ret
 

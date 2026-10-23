@@ -668,14 +668,14 @@ PasswordChange_Abort:: ; 67:5DFE
 	; entered by jpcc from 67:5AB5 (executed)
 	ld a, $34
 	call MobileAPI
-.loop ; 67:5E03
+.wait_timer_bit0_clear ; 67:5E03
 	farcall Sprite_UpdateAll
 	call VBlank_WaitAndService
 	ld a, [wTimerEnable]
 	bit 1, a
 	jp nz, PasswordChange_OnAdapterError
 	bit 0, a
-	jp nz, .loop
+	jp nz, .wait_timer_bit0_clear
 	call PasswordChange_WaitCommPanelClose
 	farcall Palette_FadeOutToWhite
 	farcall Config_ClearSramMirror

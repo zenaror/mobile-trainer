@@ -1169,7 +1169,7 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	farcall Joypad_Update
 	ldh a, [hJoyPressed]
 	and a, PADF_A
-	jr z, .skip
+	jr z, .consume_dialog_frame_count
 
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4292-488A by apply_coverage --split
@@ -1177,7 +1177,7 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	ld a, $01
 	push af
 
-.skip ; 2E:4857
+.consume_dialog_frame_count ; 2E:4857
 	; [CONFIRMED] 22 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage
 	; --split [executed in 1 scenarios]
 	pop af
@@ -1431,12 +1431,12 @@ MailServerMgr_Run_Cancel:: ; 2E:4A47
 	call MailServerMgr_ShowChoiceHelp
 	ld a, $78
 	ld a, $01
-.loop ; 2E:4A50
+.wait_cancel_frames ; 2E:4A50
 	push af
 	call VBlank_Wait
 	pop af
 	dec a
-	jr nz, .loop
+	jr nz, .wait_cancel_frames
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a

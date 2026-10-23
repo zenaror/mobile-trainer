@@ -32,7 +32,7 @@ MailResult_Screen:: ; 29:4000
 	ld de, $3038
 	ld hl, wSpriteSlot2
 	call Sprite_SetPosition
-.loop ; 29:403C
+.wait_button_a ; 29:403C
 	push bc
 	push hl
 	farcall Sprite_UpdateAll
@@ -42,7 +42,7 @@ MailResult_Screen:: ; 29:4000
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, PADF_A
-	jr z, .loop
+	jr z, .wait_button_a
 	push bc
 	push de
 	play_sfx SFX_CONFIRM
@@ -566,7 +566,7 @@ MailServerStatus_Screen:: ; 29:44F6
 	pop af
 	farcall Stat_EnableScrollSplit
 	call MailServerStatus_InitScreen
-.loop ; 29:4519
+.wait_button_a ; 29:4519
 	push bc
 	push hl
 	farcall Sprite_UpdateAll
@@ -576,7 +576,7 @@ MailServerStatus_Screen:: ; 29:44F6
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, PADF_A
-	jr z, .loop
+	jr z, .wait_button_a
 	push bc
 	push de
 	play_sfx SFX_CONFIRM
@@ -1096,12 +1096,12 @@ MailServerStatus_FormatNumber_M0:: ; 29:48C3
 	ldh [rSVBK], a
 	ld hl, Data_MailServerStatus_NumberTemplate_M0
 	ld de, wMailTextScratch
-.loop ; 29:48D1
+.copy_number_template ; 29:48D1
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, .loop
+	jr nz, .copy_number_template
 	pop bc
 	pop hl
 	push bc
@@ -1569,12 +1569,12 @@ MailServerStatus_FormatNumber_M1:: ; 29:4B7F
 	ldh [rSVBK], a
 	ld hl, String_MailServerStatus_NumberTemplate_M1
 	ld de, wMailTextScratch
-.loop ; 29:4B8D
+.copy_number_template ; 29:4B8D
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, .loop
+	jr nz, .copy_number_template
 	pop bc
 	pop hl
 	push bc
@@ -2065,12 +2065,12 @@ MailServerStatus_FormatNumber_M2:: ; 29:4E55
 	ldh [rSVBK], a
 	ld hl, Data_MailServerStatus_NumberTemplate_M2
 	ld de, wMailTextScratch
-.loop ; 29:4E63
+.copy_number_template ; 29:4E63
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, .loop
+	jr nz, .copy_number_template
 	pop bc
 	pop hl
 	push bc

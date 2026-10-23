@@ -224,13 +224,13 @@ Kbd_RejectSymbol:: ; 55:6FA1
 	ld b, a
 	ld c, $00
 	ld hl, Table_Kbd_RejectSymbol_Chars
-.loop ; 55:6FAA
+.scan_rejected_character ; 55:6FAA
 	ld a, [hli]
 	or a, a
 	jr z, .l6FC5
 	cp a, b
 	jr z, .l6FB3
-	jr .loop
+	jr .scan_rejected_character
 .l6FB3 ; 55:6FB3
 	play_sfx SFX_REJECT
 	ld c, $01

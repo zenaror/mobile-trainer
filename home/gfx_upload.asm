@@ -29,10 +29,10 @@ Gfx_StartHDMA:: ; 00:0749
 	ldh a, [rLCDC]
 	bit 7, a
 	jr z, .StartTransfer
-.loop ; 00:076A
+.wait_for_ly_at_least_91 ; 00:076A
 	ldh a, [rLY]
 	cp a, $91
-	jr c, .loop
+	jr c, .wait_for_ly_at_least_91
 	cp a, b
 	jr nc, .WaitForLyBelow91
 .StartTransfer ; 00:0773
@@ -47,7 +47,7 @@ Gfx_StartHDMA:: ; 00:0749
 	jr nc, .WaitForLyBelow91
 	ldh a, [hFarBank]
 	call BankSwitch_H
-	jr .loop
+	jr .wait_for_ly_at_least_91
 
 Gfx_StartHDMAWithService:: ; 00:0787
 	; Historical address alias retired; proper operation name retained.
@@ -71,10 +71,10 @@ Gfx_StartHDMAWithService:: ; 00:0787
 	ldh a, [rLCDC]
 	bit 7, a
 	jr z, .StartTransfer
-.loop ; 00:07A8
+.wait_for_ly_at_least_91 ; 00:07A8
 	ldh a, [rLY]
 	cp a, $91
-	jr c, .loop
+	jr c, .wait_for_ly_at_least_91
 	cp a, b
 	jr nc, .WaitForLyBelow91
 .StartTransfer ; 00:07B1
@@ -91,7 +91,7 @@ Gfx_StartHDMAWithService:: ; 00:0787
 	call Sound_FrameService
 	ldh a, [hFarBank]
 	call BankSwitch_H
-	jr .loop
+	jr .wait_for_ly_at_least_91
 
 Gfx_UploadBgMapBuffersDi:: ; 00:07CB
 	; Historical address alias retired; proper operation name retained.
@@ -346,13 +346,13 @@ Tilemap_ApplyMaskRect:: ; 00:091C
 	call BankSwitch_H
 	ld a, c
 	ldh [hTilemapRect_Width], a
-.loop ; 00:0922
+.mask_tilemap_cell ; 00:0922
 	ld a, [hl]
 	and a, d
 	or a, e
 	ld [hli], a
 	dec c
-	jr nz, .loop
+	jr nz, .mask_tilemap_cell
 	ldh a, [hTilemapRect_Width]
 	ld c, a
 	xor a, $1F
@@ -364,7 +364,7 @@ Tilemap_ApplyMaskRect:: ; 00:091C
 	adc a, h
 	ld h, a
 	dec b
-	jr nz, .loop
+	jr nz, .mask_tilemap_cell
 	ret
 
 Tilemap_ClearBuffers:: ; 00:093B

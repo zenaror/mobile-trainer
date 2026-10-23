@@ -74,7 +74,7 @@ Browser_MakeShortTitle:: ; 4E:5274
 	ld b, a
 	ld e, a
 	ld d, a
-.loop ; 4E:527A
+.scan_title_character_width ; 4E:527A
 	ld a, [hli]
 	or a, a
 	jr z, .l52D5
@@ -107,7 +107,7 @@ Browser_MakeShortTitle:: ; 4E:5274
 	ld e, b
 	ld b, c
 	inc c
-	jr .loop
+	jr .scan_title_character_width
 
 .l52A5 ; 4E:52A5
 	; [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region
@@ -121,7 +121,7 @@ Browser_MakeShortTitle:: ; 4E:5274
 	ld b, c
 	inc c
 	inc c
-	jr .loop
+	jr .scan_title_character_width
 
 .l52B2 ; 4E:52B2
 	; [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 5274-52E7 by apply_coverage
@@ -264,7 +264,7 @@ Browser_FindAnchor_NextEntry:: ; 4E:5354
 	jr z, Browser_FindAnchor_Done
 	push bc
 	ld b, $00
-.loop ; 4E:5366
+.compare_folded_anchor_bytes ; 4E:5366
 	inc b
 	jr z, Browser_FindAnchor_Mismatch
 	ld a, [de]
@@ -298,7 +298,7 @@ Browser_FindAnchor_NextEntry:: ; 4E:5354
 	; [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 534B-5390 by apply_coverage
 	; --split [executed in 1 scenarios]
 	cp a, c
-	jr z, .loop
+	jr z, .compare_folded_anchor_bytes
 	pop bc
 	jr Browser_FindAnchor_Mismatch
 
@@ -478,7 +478,7 @@ Browser_RedrawLinkById:: ; 4E:544A
 	add hl, de
 	xor a, a
 	ldh [hRam_FFB0], a
-.loop ; 4E:547D
+.check_element_for_redraw ; 4E:547D
 	call Sound_FrameService
 	push bc
 	push hl
@@ -573,7 +573,7 @@ Browser_RedrawLinkById:: ; 4E:544A
 	dec bc
 	ld a, b
 	or a, c
-	jp nz, .loop
+	jp nz, .check_element_for_redraw
 	ret
 
 Browser_FindLinkElement:: ; 4E:5512
@@ -607,7 +607,7 @@ Browser_FindLinkElement:: ; 4E:5512
 	add hl, de
 	xor a, a
 	ldh [hRam_FFB0], a
-.loop ; 4E:5545
+.check_element_for_link ; 4E:5545
 	call Sound_FrameService
 	push bc
 	push hl
@@ -715,7 +715,7 @@ Browser_FindLinkElement:: ; 4E:5512
 	dec bc
 	ld a, b
 	or a, c
-	jp nz, .loop
+	jp nz, .check_element_for_link
 
 	; [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jpcc at 4E:55DE (executed)
@@ -760,7 +760,7 @@ Browser_FindVisibleLink:: ; 4E:55E8
 	xor a, a
 	ldh [hRam_FFB0], a
 	ldh [hPageRender_OffscreenLinkId], a
-.loop ; 4E:561D
+.check_element_visibility ; 4E:561D
 	call Sound_FrameService
 	push bc
 	push hl
@@ -890,7 +890,7 @@ Browser_FindVisibleLink:: ; 4E:55E8
 	dec bc
 	ld a, b
 	or a, c
-	jp nz, .loop
+	jp nz, .check_element_visibility
 	ldh a, [hRam_FFB0]
 	ret
 
@@ -993,7 +993,7 @@ Browser_DrawVisibleElements:: ; 4E:574D
 	ret z
 	ld hl, $0020
 	add hl, de
-.loop ; 4E:576F
+.check_and_draw_element ; 4E:576F
 	call Sound_FrameService
 	push bc
 	push hl
@@ -1062,7 +1062,7 @@ Browser_DrawVisibleElements:: ; 4E:574D
 	dec bc
 	ld a, b
 	or a, c
-	jp nz, .loop
+	jp nz, .check_and_draw_element
 	ret
 
 Browser_DrawElement:: ; 4E:57DC
@@ -1352,7 +1352,7 @@ Browser_DrawElement_Text:: ; 4E:58AC
 	ldh [hPageRender_TextBank], a
 	ld h, b
 	ld l, c
-.loop ; 4E:5963
+.measure_and_draw_text_line ; 4E:5963
 	ldh a, [hPageRender_ElemYHi]
 	bit 7, a
 	jr z, .l5993
@@ -1371,7 +1371,7 @@ Browser_DrawElement_Text:: ; 4E:58AC
 	call Text_MeasureFit
 	ld a, b
 	or a, c
-	jp z, .done
+	jp z, .return_to_caller
 	ldh a, [hPageRender_ElemY]
 	add a, $0C
 	ldh [hPageRender_ElemY], a
@@ -1380,9 +1380,9 @@ Browser_DrawElement_Text:: ; 4E:58AC
 	ldh [hPageRender_ElemYHi], a
 	ld a, [hli]
 	cp a, $0D
-	jr z, .loop
+	jr z, .measure_and_draw_text_line
 	dec hl
-	jr .loop
+	jr .measure_and_draw_text_line
 
 .l5993 ; 4E:5993
 	; [CONFIRMED] 25 insn(s); 25 executed (in up to 2/18 scenarios)
@@ -1394,10 +1394,10 @@ Browser_DrawElement_Text:: ; 4E:58AC
 	sub a, e
 	ldh a, [hPageRender_ElemBottomHi]
 	sbc a, d
-	jp c, .done
+	jp c, .return_to_caller
 	ldh a, [hPageRender_ElemBottom]
 	sub a, e
-	jp z, .done
+	jp z, .return_to_caller
 	ldh a, [hPageRender_ElemX]
 	ld e, a
 	ldh a, [hPageRender_ElemXHi]
@@ -1434,11 +1434,11 @@ Browser_DrawElement_Text:: ; 4E:58AC
 	ldh a, [hPageRender_ElemFlags]
 	and a, $0C
 	cp a, $04
-	jr z, .skip
+	jr z, .apply_horizontal_shift
 	srl e
 	ld a, e
 	ldh [hPageRender_LineShiftX], a
-.skip ; 4E:59E5
+.apply_horizontal_shift ; 4E:59E5
 	ldh a, [hPageRender_ElemX]
 	add a, e
 	ld e, a
@@ -1457,7 +1457,7 @@ Browser_DrawElement_Text:: ; 4E:58AC
 .l59F9 ; 4E:59F9
 	ld a, b
 	or a, c
-	jr z, .done
+	jr z, .return_to_caller
 	push hl
 	dec bc
 	ld a, c
@@ -1515,10 +1515,10 @@ Browser_DrawElement_Text:: ; 4E:58AC
 	call BankSwitch_H
 	ld a, [hli]
 	cp a, $0D
-	jp z, .loop
+	jp z, .measure_and_draw_text_line
 	dec hl
-	jp .loop
-.done ; 4E:5A6C
+	jp .measure_and_draw_text_line
+.return_to_caller ; 4E:5A6C
 	ret
 
 Browser_DrawElement_Bitmap:: ; 4E:5A6D

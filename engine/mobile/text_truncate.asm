@@ -9,7 +9,7 @@ Text_TruncateSjis:: ; 54:4C47
 	; entered by call from 54:4A87 (PROBABLE code) | 9 insn(s) executed; cut out of the PROBABLE
 	; region 4C47-4CAD by apply_coverage --split [executed in 6 scenarios]
 	ld c, $01
-.loop ; 54:4C49
+.scan_character_budget ; 54:4C49
 	dec b
 	ld a, [hli]
 	or a, a
@@ -35,10 +35,10 @@ Text_TruncateSjis:: ; 54:4C47
 	; --split [executed in 6 scenarios]
 	or a, a
 .l4C66 ; 54:4C66
-	jr nc, .skip
+	jr nc, .check_remaining_budget
 	inc hl
 	dec b
-.skip ; 54:4C6A
+.check_remaining_budget ; 54:4C6A
 	ld a, b
 	cp a, $FF
 	jr nz, .l4C8D
@@ -64,7 +64,7 @@ Text_TruncateSjis:: ; 54:4C47
 	; --split [executed in 8 scenarios]
 	or a, a
 .l4C89 ; 54:4C89
-	jr nc, .loop
+	jr nc, .scan_character_budget
 
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4C47-4CAD by apply_coverage --split
@@ -74,7 +74,7 @@ Text_TruncateSjis:: ; 54:4C47
 	; [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 4C47-4CAD by apply_coverage
 	; --split [executed in 10 scenarios]
 	cp a, $FE
-	jr nz, .loop
+	jr nz, .scan_character_budget
 .write_ellipsis ; 54:4C91
 	dec hl
 	dec hl

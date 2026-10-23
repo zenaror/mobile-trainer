@@ -18,12 +18,12 @@ MailSendRecv_Main:: ; 27:4000
 	ld hl, wMailSessionBlock
 	ld de, MailSendRecv_RequestTemplate
 	ld b, $07
-.loop ; 27:4017
+.copy_request_template ; 27:4017
 	ld a, [de]
 	ld [hli], a
 	inc de
 	dec b
-	jr nz, .loop
+	jr nz, .copy_request_template
 	farcall Mailbox_CountRecords
 	ld a, $0C
 	sub a, d
@@ -114,13 +114,13 @@ MailSendRecv_Main_EndNoSession:: ; 27:40BB
 	jr nz, .l40C8
 	ld a, h
 	or a, l
-	jr z, .done
+	jr z, .return_to_caller
 .l40C8 ; 27:40C8
 	ld a, $00
 	ld [wBrowserScrollbarEnable], a
 	ld [wCommSessionKind], a
 	farcall CommTime_DrawSummaryScreen
-.done ; 27:40D6
+.return_to_caller ; 27:40D6
 	ret
 
 MailSendRecv_Main_RunSession:: ; 27:40D7
@@ -221,10 +221,10 @@ MailSendRecv_RequestTemplate:: ; 27:417A
 	; [PROBABLE] 24 insn(s) reached by static flow only; seeds: site x24; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Mobile_BeginCancel
-.loop ; 27:4187
+.poll_mobile_cancel ; 27:4187
 	farcall Mobile_CancelPoll
 	cp a, $01
-	jr z, .loop
+	jr z, .poll_mobile_cancel
 	cp a, $FF
 	jr z, .l4195
 .l4195 ; 27:4195
@@ -324,12 +324,12 @@ MailConnect_Screen:: ; 27:41E3
 	ld b, $09
 	ld hl, wMailTextScratch
 	ld de, $C0A0 ; raw: scratch: 9 bytes copied from $D524, not a glyph
-.loop ; 27:4225
+.copy_mail_scratch_bytes ; 27:4225
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .loop
+	jr nz, .copy_mail_scratch_bytes
 	ld hl, wSpriteSlot8
 	ld de, MailSession_ObjTable_6F20_Entry68
 	ld a, BANK(MailSession_ObjTable_6F20_Entry68)
@@ -836,7 +836,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 MailSendRecv_CandidateRetOpcode_46A0:: ; 27:46A0
 	db $C9
 
-.loop ; 27:46A1
+.wait_for_a_or_b ; 27:46A1
 	; [PROBABLE] 26 insn(s) reached by static flow only; seeds: site x26; min discovery hops 0;
 	; entered by jr from 27:46DD (PROBABLE code)
 	push bc
@@ -866,7 +866,7 @@ MailSendRecv_CandidateRetOpcode_46A0:: ; 27:46A0
 	ld a, $FF
 	ret
 .l46DD ; 27:46DD
-	jr .loop
+	jr .wait_for_a_or_b
 
 ; ---- data $46DF-$46E5 (6 bytes) [HYPOTHESIS] UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
@@ -1616,7 +1616,7 @@ MailConnect_InitScreen:: ; 27:4B95
 	; region); no direct caller/table entry found: entry HYPOTHESIS
 	call CommTime_DrawHMSScreen
 
-.loop ; 27:4D51
+.wait_for_a_or_b ; 27:4D51
 	; [PROBABLE] 18 insn(s) reached by static flow only; seeds: site x18; min discovery hops 0;
 	; entered by jr from 27:4D7F (PROBABLE code)
 	push bc
@@ -1638,7 +1638,7 @@ MailConnect_InitScreen:: ; 27:4B95
 	ld a, $FF
 	ret
 .l4D7F ; 27:4D7F
-	jr .loop
+	jr .wait_for_a_or_b
 
 CommTime_DrawHMSScreen:: ; 27:4D81
 	; [PROBABLE] 5 insn(s) (xor a ; ldh [$FF43],a ; push de ; push bc ; push af) falling into the
@@ -1870,11 +1870,11 @@ LCDOn_ReturnBCZero:: ; 27:4EEB [PROBABLE] local operation; entry unproved
 	ld l, a
 	ld h, $00
 	sub a, $3C
-	jr c, .skip
+	jr c, .draw_time_digits
 	ld hl, $003B
 	ld a, $3B
 	ldh [hMailCommTime_DisplaySeconds], a
-.skip ; 27:4F84
+.draw_time_digits ; 27:4F84
 	xor a, a
 	ldh [hCommTime_DigitStarted], a
 	ld bc, $FF9C

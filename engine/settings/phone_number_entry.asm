@@ -23,7 +23,7 @@ SettingsPhone_Run:: ; 67:4000
 	ld a, $00
 	farcall SettingsPhone_ChoiceMenu
 	or a, a
-	jp z, .done
+	jp z, .return_to_caller
 	cp a, $01
 	jr z, .l4041
 	cp a, $02
@@ -31,7 +31,7 @@ SettingsPhone_Run:: ; 67:4000
 
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4000-4156 by apply_coverage --split
-	jp .done
+	jp .return_to_caller
 
 .l4041 ; 67:4041
 	; [CONFIRMED] 49 insn(s) executed; cut out of the PROBABLE region 4000-4156 by apply_coverage
@@ -91,7 +91,7 @@ SettingsPhone_Run:: ; 67:4000
 
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4000-4156 by apply_coverage --split
-	jp .done
+	jp .return_to_caller
 
 .l40B0 ; 67:40B0
 	; [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 4000-4156 by apply_coverage
@@ -153,7 +153,7 @@ SettingsPhone_Run:: ; 67:4000
 
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4000-4156 by apply_coverage --split
-	jr .done
+	jr .return_to_caller
 
 .l412A ; 67:412A
 	; [CONFIRMED] 11 insn(s) executed; cut out of the PROBABLE region 4000-4156 by apply_coverage
@@ -168,7 +168,7 @@ SettingsPhone_Run:: ; 67:4000
 	farcall Settings_UpdateChecksumAndBackup
 	ld a, $0D
 	farcall Notice_ShowPage
-.done ; 67:414C
+.return_to_caller ; 67:414C
 	ret
 
 .l414D ; 67:414D

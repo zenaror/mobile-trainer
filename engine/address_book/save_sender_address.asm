@@ -47,13 +47,13 @@ SaveSenderAddr_Menu_Loop:: ; 2A:4027
 	call SaveSenderAddr_MoveNameHighlight
 	farcall AddrBook_UploadTextTiles
 	ld b, $3C
-.loop ; 2A:4058
+.wait_saved_slot_frames ; 2A:4058
 	push bc
 	farcall Sprite_UpdateAll
 	call VBlank_Wait
 	pop bc
 	dec b
-	jr nz, .loop
+	jr nz, .wait_saved_slot_frames
 	farcall Stat_DisableScrollSplit
 	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
@@ -99,9 +99,9 @@ SaveSenderAddr_CursorDown:: ; 2A:40BB
 	inc c
 	ld a, c
 	cp a, $06
-	jr nz, .skip
+	jr nz, .refresh_wrapped_cursor
 	ld c, $00
-.skip ; 2A:40D8
+.refresh_wrapped_cursor ; 2A:40D8
 	ld a, d
 	call SaveSenderAddr_MoveNameHighlight
 	call SaveSenderAddr_RefreshSlotIcons
@@ -117,9 +117,9 @@ SaveSenderAddr_CursorUp:: ; 2A:40E0
 	dec c
 	ld a, c
 	cp a, $FF
-	jr nz, .skip
+	jr nz, .refresh_wrapped_cursor
 	ld c, $05
-.skip ; 2A:40FD
+.refresh_wrapped_cursor ; 2A:40FD
 	ld a, d
 	call SaveSenderAddr_MoveNameHighlight
 	call SaveSenderAddr_RefreshSlotIcons
@@ -1229,7 +1229,7 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 .l49A5 ; 2A:49A5
 	ld b, $1E
 	ld b, $01
-.loop ; 2A:49A9
+.wait_vertical_input_or_count ; 2A:49A9
 	push bc
 	farcall Sprite_UpdateAll
 	farcall Joypad_Update
@@ -1239,7 +1239,7 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	and a, PADF_UP | PADF_DOWN
 	jr nz, .l49C3
 	dec b
-	jr nz, .loop
+	jr nz, .wait_vertical_input_or_count
 .l49C3 ; 2A:49C3
 	pop bc
 	ret

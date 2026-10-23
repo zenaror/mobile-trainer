@@ -81,12 +81,12 @@ ReadBytesFar:: ; 00:1686
 	ldh a, [hScratchA]
 	ld a, d
 	call BankSwitch_H
-.loop ; 00:1691
+.copy_banked_byte ; 00:1691
 	ld a, [hli]
 	ld [bc], a
 	inc bc
 	dec e
-	jr nz, .loop
+	jr nz, .copy_banked_byte
 	ldh [hScratchA], a
 	pop af
 	ldh [hROMBankLo], a

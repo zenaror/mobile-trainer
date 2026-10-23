@@ -17,12 +17,12 @@ KbdSlide_InPrepMode6:: ; 7F:70FD
 	sub a, $0D
 	jr z, .l7112
 
-.loop ; 7F:710D
+.count_0c_steps ; 7F:710D
 	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
 	; fall-through of the jrcc at 7F:710B (executed) [executed in 1 scenarios]
 	inc d
 	sub a, $0C
-	jr nz, .loop
+	jr nz, .count_0c_steps
 
 .l7112 ; 7F:7112
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
@@ -47,10 +47,10 @@ KbdSlide_OutPrepMode6:: ; 7F:7125
 	; [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0;
 	; fall-through of the jrcc at 7F:712D (executed) [executed in 2 scenarios]
 	ld d, $01
-.loop ; 7F:7131
+.count_0c_steps ; 7F:7131
 	inc d
 	sub a, $0C
-	jr nz, .loop
+	jr nz, .count_0c_steps
 
 .l7136 ; 7F:7136
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 2/18 scenarios)
