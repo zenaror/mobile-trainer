@@ -163,7 +163,7 @@ font sheets and 95 screen PNGs; `python3 tools/gfx_export.py check` accepted
 986 assets; `python3 tools/png_rules.py mk-check` accepted 985 rules. The
 English overlay and Operator ZIP remain paused and were not inspected.
 
-## Current gate revalidation at `826dbdec` (2026-10-23)
+## Historical gate revalidation at `826dbdec` (2026-10-23)
 
 The canonical checkout `/home/rafael/_PROJETOS/Mobile Trainer` was revalidated
 at `826dbdec66b9ce1d3ba82ef32d9149e52430226a`. `make` reports SHA-256 OK and
@@ -178,4 +178,5 @@ bank/address-suffix rows, 545/545 broad dispositions, and 786/786 RAM
 equates; no source/GFX changes were present at this checkpoint. These results
 revalidate the finite checks only. They do not promote UNKNOWN/HYPOTHESIS
 entry, purpose, name-to-window association, natural frame selection, or global
-used/unused claims. English/ZIP remain paused and untouched.
+used/unused claims. Its 109/545 census counts were superseded by the current
+108/542 reconciliation at `91e1c957`. English/ZIP remain paused and untouched.
