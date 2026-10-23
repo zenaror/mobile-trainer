@@ -169,7 +169,7 @@ MailAddr_Edit:: ; 2D:65B0
 	dec a
 	jp z, .l676F
 	dec a
-	jr nz, .l6726
+	jr nz, .ShowReplyLeavePrompt
 	push bc
 	ld de, $0211
 	push af
@@ -207,11 +207,10 @@ MailAddr_Edit:: ; 2D:65B0
 	ld a, $FF
 	ret
 
-.l6726 ; 2D:6726
-	; [CONFIRMED] 36 instruction starts executed in natural scenario zz_jp_inbox_explore_replay.
-	; [PROBABLE] The same trace executed the sole direct source branch to this label,
-	; 2D:66D3 `jr nz, .l6726`, three times; the callgraph does not log branch outcomes.
-	; The operation's application purpose remains unidentified.
+.ShowReplyLeavePrompt ; 2D:6726
+	; [CONFIRMED] Mode 3 selects dialog $020F, whose text asks whether to discard an unfinished reply.
+	; [PROBABLE] The natural trace executes this block and its sole direct branch at 2D:66D3 three times,
+	; but the callgraph does not log conditional-branch outcomes.
 	push bc
 	ld de, $020F
 	push af

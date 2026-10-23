@@ -44,6 +44,20 @@ are not claimed as natural coverage.
   not a directly captured branch outcome. The operation's application
   purpose remains open.
 
+## Static operation contract for the Bank 2D fragment
+
+The source at `2D:66CD` selects `wMailComposeMode`. Mode 1 branches to the
+unfinished-new-mail prompt; mode 2 branches to the revise-mail prompt. The
+remaining branch block at `2D:6726` loads dialog ID `$020F` and calls
+`Dialog_Show`. The cataloged text for `$020F` asks whether an unfinished reply
+will be discarded, and the reply path writes mode 3 before entering
+`MailAddr_Edit` (`engine/mail/mailbox_screen.asm`, reply setup). The block is
+therefore named `.ShowReplyLeavePrompt` (**CONFIRMED** for this bounded static
+operation contract). This does not prove every possible value other than 1 or
+2 means reply, nor that the natural trace took the conditional edge; that
+dynamic relation remains **PROBABLE**. No broader application purpose is
+claimed.
+
 The trace did not execute the distinct candidate fragment `26:5344–537C`.
 No other open entry/purpose candidate in the Japanese closure worklist was
 reached by this scenario. The natural frame/name mapping for Bank 53 is also
