@@ -90,6 +90,31 @@ No other open entry/purpose candidate in the Japanese closure worklist was
 reached by this scenario. The natural frame/name mapping for Bank 53 is also
 unchanged.
 
+## Third-record reply route (2026-10-23)
+
+A separate ordinary-input run started from the saved `mail_receive` SRAM and adapter
+configuration, opened the third mailbox record, then selected Reply. The macro uses
+normal taps only; it contains no `force` or `ramset`. At frame 4342 the callgraph
+records `25:4591 -> 25:54A7` once, entering the already identified
+`Mailbox_ReplyToRecord`. The frame-5260 screenshot shows the reply-address screen and
+`sender@example.test`, confirming the intended endpoint for this record. Some
+`waitstable` directives reached their cap; the captured endpoint and bank-qualified
+call provide the positive route evidence.
+
+This is one scripted mGBA case with a fake adapter, not hardware or real-network
+evidence. It adds one record-specific route to the existing observations; it does not
+identify every reply caller. `2B:6CF5` did not execute in this scenario, which does
+not change its UNKNOWN natural-entry status or prove it unreachable.
+
+The retained manifest/result and outputs are in
+`.tmp/jp-mail3-reply-route-20261023/`. Reproduction command:
+
+```sh
+.cache/trace/mgba_trace --rom 'Mobile Trainer (Japan).gbc' --scenario jp_mail3_reply_v2 --outdir .tmp/jp-mail3-reply-route-20261023/replay_v2 --frames 20000 --mobile on --net fake --net-opt latency=2 --save-in .cache/trace/state/mail_receive.sav --mobile-config-in .cache/trace/state/mail_receive.cfg --macro .tmp/jp-mail3-reply-route-20261023/mail3_reply_v2.macro --record-input .tmp/jp-mail3-reply-route-20261023/replay_v2/input.txt --shots .tmp/jp-mail3-reply-route-20261023/replay_v2/shots --bank-obs
+```
+
+The ROM identity remains SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. The coverage, callgraph, screenshot and resolved-input hashes are pinned in `RESULT.json`.
+
 ## Reproduction and files
 
 The persistent scenario is in `traces/scenarios.tsv` and
