@@ -148,18 +148,18 @@ AddrPick_LoadSelection:: ; 2C:57F1
 	; 57A7-58AC by apply_coverage --split
 	ld b, $40
 	ld hl, wEditAddressBuf
-.l580F ; 2C:580F
+.clear_edit_address ; 2C:580F
 	xor a, a
 	ld [hli], a
 	dec b
-	jr nz, .l580F
+	jr nz, .clear_edit_address
 	ld b, $10
 	ld hl, wEditNameBuf
-.l5819 ; 2C:5819
+.clear_edit_name ; 2C:5819
 	xor a, a
 	ld [hli], a
 	dec b
-	jr nz, .l5819
+	jr nz, .clear_edit_name
 	ld a, $01
 	ret
 
@@ -228,14 +228,14 @@ AddrPick_LoadSelection:: ; 2C:57F1
 	pop bc
 	ld b, $10
 	ld de, wEditNameBuf
-.l587E ; 2C:587E
+.copy_name_until_nul_or_limit ; 2C:587E
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
 	jr z, .l588A
 	dec b
-	jr nz, .l587E
+	jr nz, .copy_name_until_nul_or_limit
 	jr .l5895
 .l588A ; 2C:588A
 	ld a, b
@@ -2407,15 +2407,15 @@ Gfx_StartHDMAAtVBlank_2C_669D:: ; 2C:669D
 	ld a, e
 	ldh [rHDMA4], a
 	ld de, rLY
-.l66AC ; 2C:66AC
+.wait_ly_8f ; 2C:66AC
 	ld a, [de]
 	cp a, $8F
-	jr nz, .l66AC
+	jr nz, .wait_ly_8f
 	ld b, $91
-.l66B3 ; 2C:66B3
+.wait_ly_91 ; 2C:66B3
 	ld a, [de]
 	cp a, b
-	jr nz, .l66B3
+	jr nz, .wait_ly_91
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a

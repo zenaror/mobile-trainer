@@ -68,14 +68,14 @@ Text_TruncateSjis:: ; 54:4C47
 
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4C47-4CAD by apply_coverage --split
-	jr .l4C91
+	jr .write_ellipsis
 
 .l4C8D ; 54:4C8D
 	; [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 4C47-4CAD by apply_coverage
 	; --split [executed in 10 scenarios]
 	cp a, $FE
 	jr nz, .loop
-.l4C91 ; 54:4C91
+.write_ellipsis ; 54:4C91
 	dec hl
 	dec hl
 	ld e, l
@@ -83,14 +83,14 @@ Text_TruncateSjis:: ; 54:4C47
 	ld hl, String_Text_Ellipsis
 	xor a, a
 	or a, c
-	jr nz, .l4CA3
+	jr nz, .copy_ellipsis_two_bytes
 
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4C47-4CAD by apply_coverage --split
 	farcall CopyString
 	ret
 
-.l4CA3 ; 54:4CA3
+.copy_ellipsis_two_bytes ; 54:4CA3
 	; [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 4C47-4CAD by apply_coverage
 	; --split [executed in 10 scenarios]
 	ld bc, $0002

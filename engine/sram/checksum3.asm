@@ -78,7 +78,7 @@ Sram_ComputeChecksum3:: ; 48:48E1
 	ld d, $01
 	ld c, $10
 	ld e, $00
-.l48EE ; 48:48EE
+.sum_block1 ; 48:48EE
 	ld a, d
 	call ReadByteFar
 	ld b, a
@@ -95,11 +95,11 @@ Sram_ComputeChecksum3:: ; 48:48E1
 .l48FE ; 48:48FE
 	; [CONFIRMED] 84 insn(s); 84 executed (in up to 17/18 scenarios) (part of region $48FE-$49A3)
 	dec c
-	jr nz, .l48EE
+	jr nz, .sum_block1
 	ld hl, sChecksum3Block2
 	ld d, $01
 	ld c, $38
-.l4908 ; 48:4908
+.sum_block2 ; 48:4908
 	ld a, d
 	call ReadByteFar
 	ld b, a
@@ -111,7 +111,7 @@ Sram_ComputeChecksum3:: ; 48:48E1
 	ld [wSramChecksum3Carries], a
 .l4918 ; 48:4918
 	dec c
-	jr nz, .l4908
+	jr nz, .sum_block2
 	ld a, [wSramChecksum3Carries]
 	ld d, a
 	ret
@@ -130,16 +130,16 @@ Sram_ResetChecksum3Areas:: ; 48:4920
 	ld hl, sChecksum3Block1
 	xor a, a
 	ld c, $10
-.l493B ; 48:493B
+.clear_block1 ; 48:493B
 	ld [hli], a
 	dec c
-	jr nz, .l493B
+	jr nz, .clear_block1
 	ld hl, sChecksum3Block2
 	ld c, $38
-.l4944 ; 48:4944
+.clear_block2 ; 48:4944
 	ld [hli], a
 	dec c
-	jr nz, .l4944
+	jr nz, .clear_block2
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a

@@ -492,14 +492,14 @@ AbookName_DrawName:: ; 2F:5AEA
 	pop hl
 	pop de
 	pop bc
-.l5B96 ; 2F:5B96
+.pad_remaining_cells ; 2F:5B96
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call AbookName_DrawName_Pad
-	jr .l5B96
+	jr .pad_remaining_cells
 
 AbookName_DrawName_Glyph:: ; 2F:5BA5
 	push bc
@@ -558,15 +558,15 @@ AbookName_HdmaBlock:: ; 2F:5BEE
 	ld a, e
 	ldh [rHDMA4], a
 	ld de, rLY
-.l5BFD ; 2F:5BFD
+.wait_ly_8f ; 2F:5BFD
 	ld a, [de]
 	cp a, $8F
-	jr nz, .l5BFD
+	jr nz, .wait_ly_8f
 	ld b, $91
-.l5C04 ; 2F:5C04
+.wait_ly_91 ; 2F:5C04
 	ld a, [de]
 	cp a, b
-	jr nz, .l5C04
+	jr nz, .wait_ly_91
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a

@@ -54,20 +54,20 @@ TextBuf_AppendChar:: ; 67:674F
 	push de
 	push hl
 	ld b, $00
-.l6771 ; 67:6771
+.count_suffix_with_nul ; 67:6771
 	inc b
 	ld a, [hli]
 	or a, a
-	jr nz, .l6771
+	jr nz, .count_suffix_with_nul
 	ld d, h
 	ld e, l
 	dec hl
-.l6779 ; 67:6779
+.shift_suffix_right ; 67:6779
 	ld a, [hld]
 	ld [de], a
 	dec de
 	dec b
-	jr nz, .l6779
+	jr nz, .shift_suffix_right
 	pop hl
 	pop de
 	ld [hl], d

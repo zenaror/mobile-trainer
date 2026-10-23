@@ -261,16 +261,16 @@ Gfx_WaitForFrameTop:: ; 00:08B7
 	ldh a, [rLCDC]
 	bit 7, a
 	ret z
-.l08BC ; 00:08BC
+.check_ly_below_87 ; 00:08BC
 	ldh a, [rLY]
 	cp a, $87
 	ret c
-.l08C1 ; 00:08C1
+.wait_ly_below_91 ; 00:08C1
 	ldh a, [rLY]
 	cp a, $91
-	jr nc, .l08C1
+	jr nc, .wait_ly_below_91
 	ei
-	jr .l08BC
+	jr .check_ly_below_87
 
 Tilemap_CopyRectAndAttrSplitSrc:: ; 00:08CA
 	; Historical address alias retired; proper operation name retained.

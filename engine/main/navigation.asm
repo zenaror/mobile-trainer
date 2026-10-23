@@ -307,11 +307,11 @@ InitStep70_EntryAThen1Then2_Jump7D82:: ; 7C:7D8D [PROBABLE] operation; entry/pur
 	ldh a, [hJoyPressedRepeat]
 	bit PADB_A, a
 	jr z, .l7D93
-.l7DA5 ; 7C:7DA5
+.step_scene_entry_a_until_zero ; 7C:7DA5
 	ld a, $01
 	farcall CommScene_Step
 	or a, a
-	jr nz, .l7DA5
+	jr nz, .step_scene_entry_a_until_zero
 .l7DB0 ; 7C:7DB0
 	ld a, $01
 	farcall CommScene_Init
@@ -323,11 +323,11 @@ InitStep70_EntryAThen1Then2_Jump7D82:: ; 7C:7D8D [PROBABLE] operation; entry/pur
 	ldh a, [hJoyPressedRepeat]
 	bit PADB_A, a
 	jr z, .l7DB8
-.l7DCA ; 7C:7DCA
+.step_scene_init1_until_zero ; 7C:7DCA
 	ld a, $01
 	farcall CommScene_Step
 	or a, a
-	jr nz, .l7DCA
+	jr nz, .step_scene_init1_until_zero
 .l7DD5 ; 7C:7DD5
 	ld a, $02
 	farcall CommScene_Init
@@ -339,11 +339,11 @@ InitStep70_EntryAThen1Then2_Jump7D82:: ; 7C:7D8D [PROBABLE] operation; entry/pur
 	ldh a, [hJoyPressedRepeat]
 	bit PADB_A, a
 	jr z, .l7DDD
-.l7DEF ; 7C:7DEF
+.step_scene_init2_until_zero ; 7C:7DEF
 	ld a, $01
 	farcall CommScene_Step
 	or a, a
-	jr nz, .l7DEF
+	jr nz, .step_scene_init2_until_zero
 .l7DFA ; 7C:7DFA
 	jr Nav_MobileSettings_UsageFee
 

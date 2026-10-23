@@ -165,23 +165,23 @@ Abook_LoadSlotToBuffers:: ; 2F:7F5D
 	ld [rRAMG], a
 	ld b, $10
 	ld de, wEditNameBuf
-.l7F87 ; 2F:7F87
+.copy_name_bytes ; 2F:7F87
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .l7F87
+	jr nz, .copy_name_bytes
 	pop hl
 	ld de, $0010
 	add hl, de
 	ld b, $40
 	ld de, wEditAddressBuf
-.l7F97 ; 2F:7F97
+.copy_address_bytes ; 2F:7F97
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .l7F97
+	jr nz, .copy_address_bytes
 	pop bc
 	pop af
 	ret

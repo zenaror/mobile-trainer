@@ -63,7 +63,7 @@ Dial_CopySelectedNumber_AfterModeCheck:: ; 00:158D
 	; Historical address alias retired; proper operation name retained.
 	; [CONFIRMED] continuation [reached via inferred links; raw refs 11] [executed in 1 scenarios]
 	or a, a
-	jr nz, .l15BD
+	jr nz, .decode_selected_sram_dial_entry
 	pop de
 	ldh [hScratchA], a
 	ldh a, [hROMBankLo]
@@ -90,7 +90,7 @@ Dial_CopySelectedNumber_AfterModeCheck:: ; 00:158D
 	ld [$2100], a
 	ldh a, [hScratchA]
 	ret
-.l15BD ; 00:15BD
+.decode_selected_sram_dial_entry ; 00:15BD
 	pop de
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]

@@ -87,14 +87,14 @@ Startup_VerifySaveDataSilent:: ; 65:41AA
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall SramCheck_Bank0Status
 	cp a, $FF
-	jr nz, .l41BA
+	jr nz, .verify_checksum3
 	farcall SramCheck_VerifyAndRepairAll
-.l41BA ; 65:41BA
+.verify_checksum3 ; 65:41BA
 	farcall Sram_VerifyChecksum3
 	or a, a
-	jr z, .l41C9
+	jr z, .verify_save_check
 	farcall Sram_ResetChecksum3Areas
-.l41C9 ; 65:41C9
+.verify_save_check ; 65:41C9
 	farcall SaveCheck_Verify
 	or a, a
 	jr z, .l41D8
@@ -457,22 +457,22 @@ Registration_PhoneMethodMenu:: ; 65:44DD
 	ld a, $01
 	farcall SettingsPhone_ChoiceMenu
 	or a, a
-	jr z, .l44FC
+	jr z, .enable_manual_numbers_and_clear_buffers
 	cp a, $01
-	jp z, .l4511
+	jp z, .disable_manual_numbers_and_clear_buffers
 	ld hl, sSettingsManualNumbersFlag
 	ld a, $01
 	ld b, $00
 	farcall Settings_StoreByteField
 	jr Registration_ManualPhoneEntry
-.l44FC ; 65:44FC
+.enable_manual_numbers_and_clear_buffers ; 65:44FC
 	ld hl, sSettingsManualNumbersFlag
 	ld a, $01
 	ld b, $00
 	farcall Settings_StoreByteField
 	farcall SettingsPhone_ClearEntryBuffers
 	jr Registration_MailAddressEntry_Hidden
-.l4511 ; 65:4511
+.disable_manual_numbers_and_clear_buffers ; 65:4511
 	ld hl, sSettingsManualNumbersFlag
 	xor a, a
 	ld b, $00

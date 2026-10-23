@@ -11,10 +11,10 @@ Ticker_StatHandler:: ; 00:16C4
 	push af
 	ldh a, [rLY]
 	cp a, $80
-	jr z, .l16CD
+	jr z, .apply_ticker_scroll_x
 	pop af
 	reti
-.l16CD ; 00:16CD
+.apply_ticker_scroll_x ; 00:16CD
 	ld a, [wTickerScrollX]
 	ldh [rSCX], a
 	pop af
@@ -38,7 +38,7 @@ ConnectDialog_StatHandler:: ; 00:16DC
 	push af
 	ldh a, [rLY]
 	cp a, $8E
-	jr z, .l1708
+	jr z, .reset_scroll_y_and_set_lyc_1a
 	ldh a, [rWY]
 	cp a, $78
 	jr nc, .l1706
@@ -61,7 +61,7 @@ ConnectDialog_StatHandler:: ; 00:16DC
 .l1706 ; 00:1706
 	pop af
 	reti
-.l1708 ; 00:1708
+.reset_scroll_y_and_set_lyc_1a ; 00:1708
 	xor a, a
 	ldh [rSCY], a
 	ld a, $1A

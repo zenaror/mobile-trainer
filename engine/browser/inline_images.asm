@@ -91,12 +91,12 @@ Browser_FetchInlineImages:: ; 4C:4840
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-.l48DF ; 4C:48DF
+.copy_nul_terminated_string ; 4C:48DF
 	ld a, [de]
 	ld [hli], a
 	inc de
 	or a, a
-	jr nz, .l48DF
+	jr nz, .copy_nul_terminated_string
 	ld a, l
 	ld [wBrowserRxPtr], a
 	ld a, h
@@ -281,7 +281,7 @@ Browser_FetchInlineImages:: ; 4C:4840
 	bit 0, a
 	jp z, .l4980
 	farcall Mobile_BeginStop
-.l4A33 ; 4C:4A33
+.poll_stop ; 4C:4A33
 	farcall Mobile_StopPoll
 	or a, a
 	jr z, .l4A4C
@@ -289,7 +289,7 @@ Browser_FetchInlineImages:: ; 4C:4840
 	jp z, .l4A58
 	ld a, $00
 	farcall CommProgress_Step
-	jp .l4A33
+	jp .poll_stop
 .l4A4C ; 4C:4A4C
 	ld a, $26
 	ld [wMobileResultCode], a

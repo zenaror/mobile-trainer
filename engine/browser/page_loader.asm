@@ -71,7 +71,7 @@ Browser_LoadPage_Fail:: ; 4C:404D
 	; [PROBABLE] 18 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 406F-40D3 by apply_coverage --split
 	farcall Mobile_BeginDisconnect
-.l407C ; 4C:407C
+.poll_disconnect ; 4C:407C
 	farcall Mobile_DisconnectPoll
 	or a, a
 	jr z, .l40D3
@@ -79,10 +79,10 @@ Browser_LoadPage_Fail:: ; 4C:404D
 	jp z, .l4095
 	ld a, $00
 	farcall CommProgress_Step
-	jp .l407C
+	jp .poll_disconnect
 .l4095 ; 4C:4095
 	farcall Mobile_BeginCancel
-.l409B ; 4C:409B
+.poll_cancel ; 4C:409B
 	farcall Mobile_CancelPoll
 	or a, a
 	jr z, .l40D3
@@ -90,7 +90,7 @@ Browser_LoadPage_Fail:: ; 4C:404D
 	jp z, .l40D3
 	ld a, $00
 	farcall CommProgress_Step
-	jp .l409B
+	jp .poll_cancel
 
 .l40B4 ; 4C:40B4
 	; [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 406F-40D3 by apply_coverage
@@ -175,17 +175,17 @@ Browser_LoadPage_CancelConnect:: ; 4C:4138
 .loop ; 4C:413E
 	farcall Mobile_CancelPoll
 	or a, a
-	jr z, .l4157
+	jr z, .step_progress_until_zero
 	cp a, $FF
 	jp z, Browser_LoadPage_FailNoDisconnect
 	ld a, $00
 	farcall CommProgress_Step
 	jp .loop
-.l4157 ; 4C:4157
+.step_progress_until_zero ; 4C:4157
 	ld a, $01
 	farcall CommProgress_Step
 	or a, a
-	jr nz, .l4157
+	jr nz, .step_progress_until_zero
 	ld a, $09
 	ld [wTimerAWarnMinute], a
 	xor a, a
@@ -207,7 +207,7 @@ Browser_LoadPage_StopRequest:: ; 4C:417D
 	ld [hli], a
 	ld [hl], a
 	farcall Mobile_BeginStop
-.l418F ; 4C:418F
+.poll_stop ; 4C:418F
 	farcall Mobile_StopPoll
 	or a, a
 	jr z, .l41A8
@@ -215,49 +215,49 @@ Browser_LoadPage_StopRequest:: ; 4C:417D
 	jp z, Browser_LoadPage_Fail
 	ld a, $00
 	farcall CommProgress_Step
-	jp .l418F
+	jp .poll_stop
 .l41A8 ; 4C:41A8
 	ld a, [wBrowserFetchActive]
 	or a, a
-	jr z, .l41FB
+	jr z, .step_progress_until_zero
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, .l41F3
 	farcall Mobile_BeginDisconnect
-.l41BB ; 4C:41BB
+.poll_disconnect ; 4C:41BB
 	farcall Mobile_DisconnectPoll
 	or a, a
-	jr z, .l41FB
+	jr z, .step_progress_until_zero
 	cp a, $FF
 	jp z, .l41D4
 	ld a, $00
 	farcall CommProgress_Step
-	jp .l41BB
+	jp .poll_disconnect
 
 .l41D4 ; 4C:41D4
 	; [PROBABLE] 11 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4132-4251 by apply_coverage --split
 	farcall Mobile_BeginCancel
-.l41DA ; 4C:41DA
+.poll_cancel ; 4C:41DA
 	farcall Mobile_CancelPoll
 	or a, a
-	jr z, .l41FB
+	jr z, .step_progress_until_zero
 	cp a, $FF
-	jp z, .l41FB
+	jp z, .step_progress_until_zero
 	ld a, $00
 	farcall CommProgress_Step
-	jp .l41DA
+	jp .poll_cancel
 .l41F3 ; 4C:41F3
 	ld a, $36
 	farcall MobileAPI
 
-.l41FB ; 4C:41FB
+.step_progress_until_zero ; 4C:41FB
 	; [CONFIRMED] 16 insn(s) executed; cut out of the PROBABLE region 4132-4251 by apply_coverage
 	; --split [executed in 2 scenarios]
 	ld a, $01
 	farcall CommProgress_Step
 	or a, a
-	jr nz, .l41FB
+	jr nz, .step_progress_until_zero
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
@@ -438,7 +438,7 @@ Browser_LoadPage_Connect:: ; 4C:4330
 	xor a, a
 	ld [wTimerAWarnFlags], a
 	farcall Mobile_SessionInit
-.l435F ; 4C:435F
+.poll_connect_after_session_init ; 4C:435F
 	farcall Mobile_ConnectPoll
 	or a, a
 	jr z, .l437D
@@ -448,7 +448,7 @@ Browser_LoadPage_Connect:: ; 4C:4330
 	farcall CommProgress_Step
 	cp a, $02
 	jp z, Browser_LoadPage_CancelConnect
-	jp .l435F
+	jp .poll_connect_after_session_init
 .l437D ; 4C:437D
 	ld a, $0A
 	ldh [hSRAMEnable], a
@@ -465,7 +465,7 @@ Browser_LoadPage_Connect:: ; 4C:4330
 .l439B ; 4C:439B
 	ld hl, wMobilePassword
 	farcall Mobile_BeginConnect
-.l43A4 ; 4C:43A4
+.poll_connect_after_begin_connect ; 4C:43A4
 	farcall Mobile_ConnectPoll
 	or a, a
 	jr z, .l43C2
@@ -475,7 +475,7 @@ Browser_LoadPage_Connect:: ; 4C:4330
 	farcall CommProgress_Step
 	cp a, $02
 	jp z, Browser_LoadPage_CancelConnect
-	jp .l43A4
+	jp .poll_connect_after_begin_connect
 .l43C2 ; 4C:43C2
 	ld a, $01
 	ld [wCommSessionActive], a
@@ -768,7 +768,7 @@ Browser_LoadPage_WaitReply_ResultOk:: ; 4C:460D
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ld a, [wCommSessionKind]
 	cp a, $01
-	jr nz, .l4622
+	jr nz, .step_progress_until_zero
 
 	; [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0;
 	; fall-through of the jrcc at 4C:4612 (executed) [executed in 1 scenarios]
@@ -777,12 +777,12 @@ Browser_LoadPage_WaitReply_ResultOk:: ; 4C:460D
 	cp a, $04
 	jp z, Browser_LoadPage_Fail
 
-.l4622 ; 4C:4622
+.step_progress_until_zero ; 4C:4622
 	; [CONFIRMED] 22 insn(s); 22 executed (in up to 1/18 scenarios)
 	ld a, $01
 	farcall CommProgress_Step
 	or a, a
-	jr nz, .l4622
+	jr nz, .step_progress_until_zero
 	ld a, [wCommSessionKind]
 	cp a, $01
 	jr z, .l463A

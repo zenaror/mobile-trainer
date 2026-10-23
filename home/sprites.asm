@@ -37,11 +37,11 @@ Sprite_UpdateAll:: ; 00:0956
 	ld b, a
 	ld a, [hli]
 	cp a, $FF
-	jr z, .l098D
+	jr z, .step_and_draw_current_slot
 	or a, a
-	jr z, .l098D
+	jr z, .step_and_draw_current_slot
 	call BankSwitch_B
-.l098D ; 00:098D
+.step_and_draw_current_slot ; 00:098D
 	pop hl
 	push hl
 	call Sprite_StepAndDrawSlot
@@ -336,11 +336,11 @@ Sprite_StepAndDrawSlot:: ; 00:0AE8
 	add hl, de
 	ld a, [hl]
 	or a, a
-	jr z, .l0B02
+	jr z, .advance_slot_offset8_index
 	dec a
 	ld [hl], a
 	jr nz, .l0B36
-.l0B02 ; 00:0B02
+.advance_slot_offset8_index ; 00:0B02
 	inc hl
 	ld a, [hli]
 	ld e, a
@@ -355,19 +355,19 @@ Sprite_StepAndDrawSlot:: ; 00:0AE8
 	ld a, [hl]
 	inc a
 	cp a, b
-	jr c, .l0B23
+	jr c, .store_selected_pair_at_slot_offsets4_and5
 	xor a, a
 	ld bc, $0007
 	add hl, bc
 	bit 7, [hl]
-	jr nz, .l0B23
+	jr nz, .store_selected_pair_at_slot_offsets4_and5
 	ld [hli], a
 	pop hl
 	ld [hld], a
 	ld [hld], a
 	ld [hld], a
 	jr .l0B36
-.l0B23 ; 00:0B23
+.store_selected_pair_at_slot_offsets4_and5 ; 00:0B23
 	pop hl
 	ld [hl], a
 	ld l, a

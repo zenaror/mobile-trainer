@@ -121,23 +121,23 @@ AddrBook_StoreEditBufferToSlot:: ; 2A:704B
 	ld [rRAMG], a
 	ld b, $10
 	ld de, wEditNameBuf
-.l7080 ; 2A:7080
+.store_name_bytes ; 2A:7080
 	ld a, [de]
 	ld [hli], a
 	inc de
 	dec b
-	jr nz, .l7080
+	jr nz, .store_name_bytes
 	pop hl
 	ld de, $0010
 	add hl, de
 	ld b, $40
 	ld de, wEditAddressBuf
-.l7090 ; 2A:7090
+.store_address_bytes ; 2A:7090
 	ld a, [de]
 	ld [hli], a
 	inc de
 	dec b
-	jr nz, .l7090
+	jr nz, .store_address_bytes
 	farcall SramCheck_Bank1Commit
 	pop bc
 	pop af
@@ -263,23 +263,23 @@ AddrBook_SaveConfirm_DrawSlot:: ; 2A:7187
 	ld [rRAMG], a
 	ld b, $10
 	ld de, wEditNameBuf
-.l71B0 ; 2A:71B0
+.copy_name_bytes ; 2A:71B0
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .l71B0
+	jr nz, .copy_name_bytes
 	pop hl
 	ld de, $0010
 	add hl, de
 	ld b, $40
 	ld de, wEditAddressBuf
-.l71C0 ; 2A:71C0
+.copy_address_bytes ; 2A:71C0
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .l71C0
+	jr nz, .copy_address_bytes
 	pop bc
 	push bc
 	ld a, $14
@@ -491,14 +491,14 @@ AddrBook_SaveConfirm_DrawTextLine16:: ; 2A:72CF
 	pop hl
 	pop de
 	pop bc
-.l7380 ; 2A:7380
+.pad_remaining_cells ; 2A:7380
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call AddrBook_SaveConfirm_DrawTextLine16_BlitBlankAdvance
-	jr .l7380
+	jr .pad_remaining_cells
 
 AddrBook_SaveConfirm_DrawTextLine16_BlitGlyphAdvance:: ; 2A:738F
 	push bc
@@ -636,14 +636,14 @@ AddrBook_SaveConfirm_DrawTextLine17:: ; 2A:73BB
 	pop hl
 	pop de
 	pop bc
-.l746C ; 2A:746C
+.pad_remaining_cells ; 2A:746C
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call AddrBook_SaveConfirm_DrawTextLine17_BlitBlankAdvance
-	jr .l746C
+	jr .pad_remaining_cells
 
 AddrBook_SaveConfirm_DrawTextLine17_BlitGlyphAdvance:: ; 2A:747B
 
@@ -783,14 +783,14 @@ AddrBook_SaveConfirm_DrawTextLine25:: ; 2A:74A7
 	pop hl
 	pop de
 	pop bc
-.l7558 ; 2A:7558
+.pad_remaining_cells ; 2A:7558
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call AddrBook_SaveConfirm_DrawTextLine25_BlitBlankAdvance
-	jr .l7558
+	jr .pad_remaining_cells
 
 AddrBook_SaveConfirm_DrawTextLine25_BlitGlyphAdvance:: ; 2A:7567
 

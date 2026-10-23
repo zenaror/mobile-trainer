@@ -241,7 +241,7 @@ MobileAPI_PollResult:: ; 75:4115
 	cp a, $25
 	jr z, .stop_link_and_set_state_01
 	cp a, $26
-	jr z, .l418E
+	jr z, .check_timer_bit4_before_state_exit
 	cp a, $24
 	jr z, .set_state_02_phase_04
 	cp a, $30
@@ -305,7 +305,7 @@ MobileAPI_PollResult:: ; 75:4115
 	; [PROBABLE] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 1;
 	; fall-through of the jrcc at 75:418A (executed)
 	jr .load_error_info
-.l418E ; 75:418E
+.check_timer_bit4_before_state_exit ; 75:418E
 	ld a, [wTimerEnable]
 	bit 4, a
 	ld a, $01
@@ -832,9 +832,9 @@ MobileAPI_Disconnect:: ; 75:44CB
 	jp nz, MobileSDK_ErrBusy
 	ld a, [wMobileSDK_State]
 	cp a, $04
-	jr z, .l452B
+	jr z, .build_quit_transfer_packets
 	cp a, $03
-	jr z, .l452B
+	jr z, .build_quit_transfer_packets
 	cp a, $02
 	jp nz, MobileSDK_ErrBusy
 	ld hl, wMobileFlags
@@ -876,7 +876,7 @@ MobileAPI_Disconnect:: ; 75:44CB
 	ld [wMobileSDK_Substep], a
 	jr .loop
 
-.l452B ; 75:452B
+.build_quit_transfer_packets ; 75:452B
 	; [CONFIRMED] 39 insn(s); 39 executed (in up to 7/18 scenarios)
 	call MobileSDK_ResetRxWindowAndSetResultLowFF
 	xor a, a
@@ -1162,14 +1162,14 @@ MobileAPI_SmtpConnect:: ; 75:46F4
 	push hl
 	ld c, $20
 	call MobileSDK_ValidateStringLen
-	jr nc, .l4717
+	jr nc, .prepare_helo_transfer
 
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 46F4-48A8 by apply_coverage --split
 	pop hl
 	jp MobileSDK_ErrBadArg
 
-.l4717 ; 75:4717
+.prepare_helo_transfer ; 75:4717
 	; [CONFIRMED] 109 insn(s) executed; cut out of the PROBABLE region 46F4-48A8 by apply_coverage
 	; --split [executed in 5 scenarios]
 	xor a, a
@@ -1436,7 +1436,7 @@ MobileAPI_Pop3Login:: ; 75:490A
 	jr c, .pop_hl_and_err_bad_arg
 	ld c, $22
 	call MobileSDK_ValidateStringLen
-	jr nc, .l4938
+	jr nc, .prepare_user_transfer
 
 .pop_hl_and_err_bad_arg ; 75:4934
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
@@ -1444,7 +1444,7 @@ MobileAPI_Pop3Login:: ; 75:490A
 	pop hl
 	jp MobileSDK_ErrBadArg
 
-.l4938 ; 75:4938
+.prepare_user_transfer ; 75:4938
 	; [CONFIRMED] 87 insn(s); 87 executed (in up to 5/18 scenarios)
 	ld de, wMobileSDK_PacketBuffer + $60
 	ld hl, MobilePacket_TransferData
@@ -3233,7 +3233,7 @@ MobileAPI_PeerSend:: ; 75:540B
 	jr nz, .enable_interrupts_and_return_01
 	ld a, [wMobileSDK_PhaseCode]
 	or a, a
-	jr nz, .l543F
+	jr nz, .build_peer_transfer_packet
 	ld hl, wTimerEnable
 	set 1, [hl]
 	ld a, $23
@@ -3241,7 +3241,7 @@ MobileAPI_PeerSend:: ; 75:540B
 	ld a, $FF
 	ei
 	ret
-.l543F ; 75:543F
+.build_peer_transfer_packet ; 75:543F
 	xor a, a
 	ld [wMobileSDK_Substep], a
 	push hl
@@ -6017,9 +6017,9 @@ MobileState_OpenTcp_DispatchService:: ; 75:64E0
 	call MobileSDK_HttpSendRequestPacket
 	ld a, [wMobileSDK_ContentLengthDigits]
 	or a, a
-	jr z, .l6527
+	jr z, .set_http_state_and_clear_length_digits_for_service2
 	ld a, $01
-.l6527 ; 75:6527
+.set_http_state_and_clear_length_digits_for_service2 ; 75:6527
 	add a, $23
 	ld [wMobileSDK_State], a
 	ld a, [wMobileHttp_ServiceKind]
@@ -6064,13 +6064,13 @@ MobileSDK_HttpOpened_Service3:: ; 75:656C
 	ld a, [wMobileSDK_PacketBuffer + 19]
 	and a, $01
 	or a, a
-	jr nz, .l6583
+	jr nz, .send_method_and_set_substep05
 	ld a, [wMobileHttp_ServiceKind]
 	cp a, $02
-	jr nz, .l6583
+	jr nz, .send_method_and_set_substep05
 	ld a, $01
 	ld [wMobileHttp_IsPost], a
-.l6583 ; 75:6583
+.send_method_and_set_substep05 ; 75:6583
 	call MobileSDK_HttpCopyMethod
 	ld a, $05
 	ld [wMobileSDK_Substep], a
@@ -8045,7 +8045,7 @@ MobileSDK_HttpBodyStart:: ; 75:70CD
 	jr z, .clear_result_pointer_and_timer_bit_2
 	cp a, $22
 	jr z, .clear_result_pointer_and_timer_bit_2
-	jr .l710E
+	jr .check_window_body_against_receive_capacity
 
 .clear_result_pointer_and_timer_bit_2 ; 75:70EB
 	; [PROBABLE] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 1;
@@ -8069,7 +8069,7 @@ MobileSDK_HttpBodyStart:: ; 75:70CD
 	ret z
 	jp Mobile_CloseTcpConnection
 
-.l710E ; 75:710E
+.check_window_body_against_receive_capacity ; 75:710E
 	; [CONFIRMED] 16 insn(s); 16 executed (in up to 2/18 scenarios)
 	ld a, [wMobileSDK_DestRemaining]
 	ld c, a
@@ -8077,7 +8077,7 @@ MobileSDK_HttpBodyStart:: ; 75:70CD
 	dec b
 	ld a, b
 	ld [wMobileSDK_ReceivedLength], a
-	jr z, .l7145
+	jr z, .check_packet_body_against_remaining_capacity
 	ld a, [wMobileHttp_ReceiveCapacityHi]
 	ld d, a
 	ld a, [wMobileHttp_ReceiveCapacity]
@@ -8109,7 +8109,7 @@ MobileSDK_HttpBodyStart:: ; 75:70CD
 	inc de
 	inc de
 	call MobileSDK_CopyBytes
-.l7145 ; 75:7145
+.check_packet_body_against_remaining_capacity ; 75:7145
 	ld a, [wMobileSDK_ReceivePacketBuffer]
 	cp a, $9F
 	jr z, .save_dest_and_set_parse_state_02
@@ -8247,7 +8247,7 @@ MobileSDK_HttpFindHeaderEnd_JoinPartialLine:: ; 75:71E1
 	ld c, b
 	ld a, [hl]
 	cp a, $0A
-	jr z, .l71FC
+	jr z, .append_partial_header_bytes
 .scan_backward_to_lf ; 75:71EF
 	ld a, [hld]
 	inc b
@@ -8258,7 +8258,7 @@ MobileSDK_HttpFindHeaderEnd_JoinPartialLine:: ; 75:71E1
 	dec b
 	ld c, b
 	call MobileSDK_CopyBytes
-.l71FC ; 75:71FC
+.append_partial_header_bytes ; 75:71FC
 	ld a, [wMobileSDK_DestRemaining]
 	ld b, a
 	add a, c

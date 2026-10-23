@@ -599,21 +599,21 @@ Abook_ClearSlot:: ; 2F:4455
 	ld [rRAMG], a
 	ld b, $10
 	ld de, $D514 ; raw: dead load, nothing dereferences DE here and `ld de, $0010` overwrites it
-.l447F ; 2F:447F
+.clear_slot_first16 ; 2F:447F
 	xor a, a
 	ld [hli], a
 	dec b
-	jr nz, .l447F
+	jr nz, .clear_slot_first16
 	pop hl
 	ld de, $0010
 	add hl, de
 	ld b, $40
 	ld de, $D4C0 ; raw: dead load, nothing dereferences DE here
-.l448E ; 2F:448E
+.clear_slot_next64 ; 2F:448E
 	xor a, a
 	ld [hli], a
 	dec b
-	jr nz, .l448E
+	jr nz, .clear_slot_next64
 	pop bc
 	pop af
 	ret
@@ -629,18 +629,18 @@ Abook_Clear16AtHlAndEditAddressBuf:: ; 2F:4496
 	ldh [rSVBK], a
 	ld b, $10
 	ld de, $D514 ; raw: dead load, nothing dereferences DE here
-.l44A3 ; 2F:44A3
+.clear_16_at_hl ; 2F:44A3
 	xor a, a
 	ld [hli], a
 	dec b
-	jr nz, .l44A3
+	jr nz, .clear_16_at_hl
 	ld b, $40
 	ld hl, wEditAddressBuf
-.l44AD ; 2F:44AD
+.clear_edit_address ; 2F:44AD
 	xor a, a
 	ld [hli], a
 	dec b
-	jr nz, .l44AD
+	jr nz, .clear_edit_address
 	pop bc
 	pop af
 	ret
@@ -1653,26 +1653,26 @@ AbookList_SetHelpBoxAttr:: ; 2F:4CA7
 	ld c, $14
 	ld a, $01
 	ldh [rVBK], a
-.l4CC1 ; 2F:4CC1
+.wait_ly_90 ; 2F:4CC1
 	ldh a, [rLY]
 	cp a, $90
-	jr nz, .l4CC1
-.l4CC7 ; 2F:4CC7
+	jr nz, .wait_ly_90
+.copy_vram_help_row0 ; 2F:4CC7
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec c
-	jr nz, .l4CC7
+	jr nz, .copy_vram_help_row0
 	pop hl
 	push hl
 	ld de, $99E0
 	ld c, $14
-.l4CD4 ; 2F:4CD4
+.copy_vram_help_row1 ; 2F:4CD4
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec c
-	jr nz, .l4CD4
+	jr nz, .copy_vram_help_row1
 	pop hl
 	push hl
 	ld de, wScreenAttrMap + $1C0
@@ -1680,21 +1680,21 @@ AbookList_SetHelpBoxAttr:: ; 2F:4CA7
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-.l4CE7 ; 2F:4CE7
+.copy_wram_help_row0 ; 2F:4CE7
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec c
-	jr nz, .l4CE7
+	jr nz, .copy_wram_help_row0
 	pop hl
 	ld de, wScreenAttrMap + $1E0
 	ld c, $14
-.l4CF3 ; 2F:4CF3
+.copy_wram_help_row1 ; 2F:4CF3
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec c
-	jr nz, .l4CF3
+	jr nz, .copy_wram_help_row1
 	pop hl
 	pop de
 	pop bc

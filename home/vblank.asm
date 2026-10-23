@@ -50,39 +50,39 @@ Int_VBlank:: ; 00:03BA
 	push af
 	ld a, [wOAMDMASuppress]
 	or a, a
-	jr nz, .l03C4
+	jr nz, .save_registers_and_increment_vblank_flag
 	call OAMDMARoutine
-.l03C4 ; 00:03C4
+.save_registers_and_increment_vblank_flag ; 00:03C4
 	push bc
 	push de
 	push hl
 	ld a, [wVBlankFlag]
 	inc a
-	jr z, .l03D0
+	jr z, .derive_timer_a_increment_from_bit4
 	ld [wVBlankFlag], a
-.l03D0 ; 00:03D0
+.derive_timer_a_increment_from_bit4 ; 00:03D0
 	ld a, [wTimerEnable]
 	bit 4, a
 	ld a, $01
-	jr nz, .l03DA
+	jr nz, .advance_timer_a
 	xor a, a
-.l03DA ; 00:03DA
+.advance_timer_a ; 00:03DA
 	ld hl, wTimerAFrames
 	add a, [hl]
 	cp a, $3C
-	jr c, .l0400
+	jr c, .store_timer_a_and_check_timer_b_enable
 	xor a, a
 	ld [hli], a
 	ld a, $01
 	add a, [hl]
 	cp a, $3C
-	jr c, .l0400
+	jr c, .store_timer_a_and_check_timer_b_enable
 	xor a, a
 	ld [hli], a
 	ld a, $01
 	add a, [hl]
 	cp a, $46
-	jr c, .l0400
+	jr c, .store_timer_a_and_check_timer_b_enable
 	push hl
 	ld hl, wTimerAWarnFlags
 	res 1, [hl]
@@ -91,24 +91,24 @@ Int_VBlank:: ; 00:03BA
 	ld [hld], a
 	xor a, a
 	ld [hld], a
-.l0400 ; 00:0400
+.store_timer_a_and_check_timer_b_enable ; 00:0400
 	ld [hl], a
 	ld a, [wTimerEnable]
 	bit 0, a
 	ld a, $01
-	jr nz, .l040B
+	jr nz, .advance_timer_b
 	xor a, a
-.l040B ; 00:040B
+.advance_timer_b ; 00:040B
 	ld hl, wTimerBFrames
 	add a, [hl]
 	cp a, $3C
-	jr c, .l042E
+	jr c, .store_timer_b_and_check_frame_service
 	xor a, a
 	ld [hli], a
 	ld a, $01
 	add a, [hl]
 	cp a, $3C
-	jr c, .l042E
+	jr c, .store_timer_b_and_check_frame_service
 	xor a, a
 	ld [hli], a
 	ld a, [wCommTimeoutMinutes]
@@ -116,23 +116,23 @@ Int_VBlank:: ; 00:03BA
 	ld a, $01
 	add a, [hl]
 	cp a, c
-	jr c, .l042E
+	jr c, .store_timer_b_and_check_frame_service
 	ld a, [wCommTimeoutMinutes]
 	ld [hld], a
 	xor a, a
 	ld [hld], a
-.l042E ; 00:042E
+.store_timer_b_and_check_frame_service ; 00:042E
 	ld [hl], a
 	ld a, [wFrameServiceRan]
 	or a, a
-	jr nz, .l0440
+	jr nz, .clear_missed_service_count
 	ldh a, [hFramesWithoutService]
 	inc a
 	ldh [hFramesWithoutService], a
 	xor a, a
 	ld [wFrameServiceRan], a
 	jr .l0446
-.l0440 ; 00:0440
+.clear_missed_service_count ; 00:0440
 	xor a, a
 	ldh [hFramesWithoutService], a
 	ld [wFrameServiceRan], a
@@ -150,7 +150,7 @@ VBlank_WaitAndService:: ; 00:044B
 	push af
 	ldh a, [rLCDC]
 	bit 7, a
-	jr z, .l045B
+	jr z, .clear_vblank_flag_and_service
 	ei
 .loop ; 00:0453
 	halt
@@ -158,7 +158,7 @@ VBlank_WaitAndService:: ; 00:044B
 	ld a, [wVBlankFlag]
 	and a, a
 	jr z, .loop
-.l045B ; 00:045B
+.clear_vblank_flag_and_service ; 00:045B
 	xor a, a
 	ld [wVBlankFlag], a
 	call Sound_FrameService
@@ -173,7 +173,7 @@ VBlank_Wait:: ; 00:0464
 	push af
 	ldh a, [rLCDC]
 	bit 7, a
-	jr z, .l0474
+	jr z, .clear_vblank_flag_and_return
 	ei
 .loop ; 00:046C
 	halt
@@ -181,7 +181,7 @@ VBlank_Wait:: ; 00:0464
 	ld a, [wVBlankFlag]
 	and a, a
 	jr z, .loop
-.l0474 ; 00:0474
+.clear_vblank_flag_and_return ; 00:0474
 	xor a, a
 	ld [wVBlankFlag], a
 	pop af
@@ -194,7 +194,7 @@ VBlank_WaitStartDI:: ; 00:047A
 	push af
 	ldh a, [rLCDC]
 	bit 7, a
-	jr z, .l0491
+	jr z, .clear_vblank_flag_and_return
 .loop ; 00:0481
 	ei
 	halt
@@ -205,13 +205,13 @@ VBlank_WaitStartDI:: ; 00:047A
 	jr z, .loop
 	ldh a, [rLY]
 	cp a, $90
-	jr c, .l0497
-.l0491 ; 00:0491
+	jr c, .clear_vblank_flag_and_retry_service
+.clear_vblank_flag_and_return ; 00:0491
 	xor a, a
 	ld [wVBlankFlag], a
 	pop af
 	ret
-.l0497 ; 00:0497
+.clear_vblank_flag_and_retry_service ; 00:0497
 	xor a, a
 	ld [wVBlankFlag], a
 	call Sound_FrameService

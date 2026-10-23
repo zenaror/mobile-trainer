@@ -138,7 +138,7 @@ CallSelected7BB7_IfReturnsPollLyByFFA4Bit0:: ; 29:511E [PROBABLE] operation; ent
 	pop bc
 	ldh a, [hJoyHeld]
 	and a, PADF_A
-	jr z, .l513B
+	jr z, .wait_ly_48_or_90
 .loop ; 29:512B
 	ldh a, [rLY]
 	cp a, $24
@@ -150,12 +150,12 @@ CallSelected7BB7_IfReturnsPollLyByFFA4Bit0:: ; 29:511E [PROBABLE] operation; ent
 	cp a, $90
 	jr nz, .loop
 	ret
-.l513B ; 29:513B
+.wait_ly_48_or_90 ; 29:513B
 	ldh a, [rLY]
 	cp a, $48
 	ret z
 	cp a, $90
-	jr nz, .l513B
+	jr nz, .wait_ly_48_or_90
 	ret
 
 PalLibCandidate_DisableVBlankIrq:: ; 29:5145
@@ -515,12 +515,12 @@ PalLibCandidate_FillBufferFromBlock:: ; 29:5335
 .l533B ; 29:533B
 	ld b, $40
 	push hl
-.l533E ; 29:533E
+.copy_palette_block ; 29:533E
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .l533E
+	jr nz, .copy_palette_block
 	pop hl
 	dec c
 	jr nz, .l533B
@@ -530,10 +530,10 @@ PalLibCandidate_FillBufferFromBlock:: ; 29:5335
 	ld a, $80
 	ldh [rBCPS], a
 	ld b, $40
-.l5350 ; 29:5350
+.wait_bg_ly_90 ; 29:5350
 	ldh a, [rLY]
 	cp a, $90
-	jr nz, .l5350
+	jr nz, .wait_bg_ly_90
 .l5356 ; 29:5356
 	ld a, [hli]
 	ldh [rBCPD], a
@@ -542,10 +542,10 @@ PalLibCandidate_FillBufferFromBlock:: ; 29:5335
 	ld a, $80
 	ldh [rOCPS], a
 	ld b, $40
-.l5362 ; 29:5362
+.wait_obj_ly_90 ; 29:5362
 	ldh a, [rLY]
 	cp a, $90
-	jr nz, .l5362
+	jr nz, .wait_obj_ly_90
 .l5368 ; 29:5368
 	ld a, [hli]
 	ldh [rOCPD], a

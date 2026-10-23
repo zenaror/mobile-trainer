@@ -344,20 +344,20 @@ Wram6_CopyGooUrlAndTitleToPageBuffers:: ; 24:42B0 [PROBABLE] operation; entry/pu
 	ldh [rSVBK], a
 	ld de, wBrowserPageUrl
 	ld hl, Url_GooNeJp
-.l42BC ; 24:42BC
+.copy_url ; 24:42BC
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, .l42BC
+	jr nz, .copy_url
 	ld de, wBrowserPageTitle
 	ld hl, String_Browser_CandidateGooPageTitle
-.l42C9 ; 24:42C9
+.copy_title ; 24:42C9
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, .l42C9
+	jr nz, .copy_title
 	ret
 
 ; ---- text $42D1-$42E7 (22 bytes) [PROBABLE] ASCII "http://www.goo.ne.jp/" NUL-terminated, addressed by ld hl,$42D1 at 24:42B9
@@ -384,25 +384,25 @@ PageList_InitScreen:: ; 24:42F0
 	ldh [rSVBK], a
 	ld hl, wTileStage2
 	ld bc, $1000
-.l42FD ; 24:42FD
+.clear_tile_stage2 ; 24:42FD
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .l42FD
+	jr nz, .clear_tile_stage2
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, wTileStage3
 	ld bc, $0780
-.l4310 ; 24:4310
+.clear_tile_stage3 ; 24:4310
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .l4310
+	jr nz, .clear_tile_stage3
 	farcall Sprite_ResetAll
 	call VBlank_Wait
 	ld de, $9301
@@ -1389,16 +1389,16 @@ PageList_StartHDMAAtVBlank:: ; 24:4A54
 	ld a, e
 	ldh [rHDMA4], a
 	ld de, rLY
-.l4A63 ; 24:4A63
+.wait_ly_5d ; 24:4A63
 	ld a, [de]
 	cp a, $5D
-	jr nz, .l4A63
+	jr nz, .wait_ly_5d
 	di
 	ld b, $91
-.l4A6B ; 24:4A6B
+.wait_ly_91 ; 24:4A6B
 	ld a, [de]
 	cp a, b
-	jr nz, .l4A6B
+	jr nz, .wait_ly_91
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a
@@ -2260,12 +2260,12 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	push bc
 	ld hl, wBrowserPageUrl
 	ld c, $00
-.l512C ; 24:512C
+.copy_url_slot ; 24:512C
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec c
-	jr nz, .l512C
+	jr nz, .copy_url_slot
 	pop bc
 	ld e, c
 	ld d, $00
@@ -2290,12 +2290,12 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	; [CONFIRMED] 242 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld c, $16
-.l514E ; 24:514E
+.copy_title_slot ; 24:514E
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec c
-	jr nz, .l514E
+	jr nz, .copy_title_slot
 	pop bc
 	push af
 	xor a, a

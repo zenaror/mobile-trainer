@@ -54,12 +54,12 @@ HtmlUrl_GetSchemeId:: ; 74:5969
 HtmlUrl_Resolve:: ; 74:5981
 	call Sound_FrameService
 	push hl
-.l5985 ; 74:5985
+.scan_input_scheme_separator ; 74:5985
 	ld a, [hli]
 	or a, a
 	jr z, .l59B0
 	cp a, $3A
-	jr nz, .l5985
+	jr nz, .scan_input_scheme_separator
 
 	; [CONFIRMED] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 0;
 	; fall-through of the jrcc at 74:598B (executed) [executed in 1 scenarios]
@@ -91,12 +91,12 @@ HtmlUrl_Resolve:: ; 74:5981
 	pop de
 	ld h, d
 	ld l, e
-.l59B6 ; 74:59B6
+.scan_base_scheme_separator ; 74:59B6
 	ld a, [hli]
 	or a, a
 	jr z, HtmlUrl_Resolve_BaseNoScheme
 	cp a, $3A
-	jr nz, .l59B6
+	jr nz, .scan_base_scheme_separator
 	push de
 	ld h, d
 	ld l, e
@@ -176,12 +176,12 @@ HtmlUrl_Resolve_JoinToBase:: ; 74:59F1
 	ld a, b
 	ld [hli], a
 	pop de
-.l5A20 ; 74:5A20
+.copy_suffix ; 74:5A20
 	ld a, [de]
 	ld [hli], a
 	inc de
 	or a, a
-	jr nz, .l5A20
+	jr nz, .copy_suffix
 	ld hl, wAttrUrlBuf
 	jp HtmlUrl_Resolve_EnsureHostSlash
 
@@ -195,14 +195,14 @@ HtmlUrl_Resolve_JoinToBase:: ; 74:59F1
 	ld hl, wAttrUrlBuf
 	cp a, $2F
 	jr nz, .l5A42
-.l5A37 ; 74:5A37
+.scan_scheme_end ; 74:5A37
 	ld a, [hli]
 	cp a, $3A
-	jr z, .l5A20
+	jr z, .copy_suffix
 	or a, a
-	jr nz, .l5A37
+	jr nz, .scan_scheme_end
 	dec hl
-	jr .l5A20
+	jr .copy_suffix
 .l5A42 ; 74:5A42
 	ld a, [hli]
 .l5A43 ; 74:5A43
@@ -213,15 +213,15 @@ HtmlUrl_Resolve_JoinToBase:: ; 74:59F1
 	ld a, [hli]
 	cp a, $2F
 	jr nz, .l5A43
-.l5A4F ; 74:5A4F
+.scan_host_end ; 74:5A4F
 	ld a, [hli]
 	or a, a
 	jr z, .l5A57
 	cp a, $2F
-	jr nz, .l5A4F
+	jr nz, .scan_host_end
 .l5A57 ; 74:5A57
 	dec hl
-	jr .l5A20
+	jr .copy_suffix
 
 HtmlUrl_Resolve_EnsureHostSlash:: ; 74:5A5A
 	; [CONFIRMED] 14 insn(s); 14 executed (in up to 2/18 scenarios)
@@ -232,13 +232,13 @@ HtmlUrl_Resolve_EnsureHostSlash:: ; 74:5A5A
 	jr nz, HtmlUrl_Resolve_EnsureHostSlash
 	ld a, [hli]
 	cp a, $2F
-	jr nz, .l5A66
-.l5A66 ; 74:5A66
+	jr nz, .scan_host_end
+.scan_host_end ; 74:5A66
 	ld a, [hli]
 	or a, a
 	jr z, .l5A6F
 	cp a, $2F
-	jr nz, .l5A66
+	jr nz, .scan_host_end
 	ret
 
 .l5A6F ; 74:5A6F
@@ -278,12 +278,12 @@ HtmlUrl_FindLastSegmentDelimiter:: ; 74:5A76
 	cp a, b
 	ret z
 
-.l5A8F ; 74:5A8F
+.scan_to_delimiter_or_nul ; 74:5A8F
 	; [PROBABLE] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0;
 	; fall-through of the retcc at 74:5A8E (executed)
 	ld a, [hli]
 	cp a, b
 	ret z
 	or a, a
-	jr nz, .l5A8F
+	jr nz, .scan_to_delimiter_or_nul
 	ret

@@ -54,10 +54,10 @@ NonCgb_ErrorScreen:: ; 6B:4C80
 	ei
 .l4CE6 ; 6B:4CE6
 	halt
-.l4CE7 ; 6B:4CE7
+.wait_ly_91 ; 6B:4CE7
 	ldh a, [rLY]
 	cp a, $91
-	jr nz, .l4CE7
+	jr nz, .wait_ly_91
 	call NonCgb_FadeStep
 	or a, a
 	jr nz, .l4CE6

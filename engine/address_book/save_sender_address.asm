@@ -702,14 +702,14 @@ SaveSenderAddr_DrawSenderName:: ; 2A:4483
 	pop hl
 	pop de
 	pop bc
-.l4538 ; 2A:4538
+.pad_remaining_cells ; 2A:4538
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call SaveSenderAddr_DrawSenderName_BlitBlankAdvance
-	jr .l4538
+	jr .pad_remaining_cells
 
 SaveSenderAddr_DrawSenderName_BlitGlyphAdvance:: ; 2A:4547
 	push bc

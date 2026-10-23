@@ -50,7 +50,7 @@ Glyph_UnpackWideHalvesDoubled:: ; 00:0DE2
 	push bc
 	push de
 	ld c, $06
-.l0DEB ; 00:0DEB
+.unpack_first_half_doubled_loop ; 00:0DEB
 	ld a, [de]
 	inc de
 	and a, $FC
@@ -69,11 +69,11 @@ Glyph_UnpackWideHalvesDoubled:: ; 00:0DE2
 	ld [hli], a
 	ld [hli], a
 	dec c
-	jr nz, .l0DEB
+	jr nz, .unpack_first_half_doubled_loop
 	pop de
 	pop hl
 	ld c, $06
-.l0E08 ; 00:0E08
+.unpack_second_half_doubled_loop ; 00:0E08
 	ld b, $00
 	ld a, [de]
 	inc de
@@ -96,7 +96,7 @@ Glyph_UnpackWideHalvesDoubled:: ; 00:0DE2
 	ld [hli], a
 	ld [hli], a
 	dec c
-	jr nz, .l0E08
+	jr nz, .unpack_second_half_doubled_loop
 	ld a, $7F
 	ldh [hROMBankLo], a
 	ld [$2100], a
@@ -111,7 +111,7 @@ Glyph_UnpackWideHalves:: ; 00:0E32
 	push bc
 	push de
 	ld c, $06
-.l0E3B ; 00:0E3B
+.unpack_first_half_loop ; 00:0E3B
 	ld a, [de]
 	inc de
 	and a, $FC
@@ -128,11 +128,11 @@ Glyph_UnpackWideHalves:: ; 00:0E32
 	or a, b
 	ld [hli], a
 	dec c
-	jr nz, .l0E3B
+	jr nz, .unpack_first_half_loop
 	pop de
 	pop hl
 	ld c, $06
-.l0E56 ; 00:0E56
+.unpack_second_half_loop ; 00:0E56
 	ld b, $00
 	ld a, [de]
 	inc de
@@ -153,7 +153,7 @@ Glyph_UnpackWideHalves:: ; 00:0E32
 	sla a
 	ld [hli], a
 	dec c
-	jr nz, .l0E56
+	jr nz, .unpack_second_half_loop
 	ld a, $7F
 	ldh [hROMBankLo], a
 	ld [$2100], a

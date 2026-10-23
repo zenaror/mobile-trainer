@@ -1385,7 +1385,7 @@ ConnectDialog_UploadMapRow:: ; 57:53C6
 	cp a, $91
 	jr c, .loop
 	cp a, b
-	jr nc, .l5411
+	jr nc, .wait_ly_below_91
 .l53EC ; 57:53EC
 	ld a, c
 	ldh [rHDMA5], a
@@ -1411,12 +1411,12 @@ ConnectDialog_UploadMapRow:: ; 57:53C6
 	call Sound_FrameService
 	ret
 
-.l5411 ; 57:5411
+.wait_ly_below_91 ; 57:5411
 	; [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5340-541C by apply_coverage --split
 	ldh a, [rLY]
 	cp a, $91
-	jr nc, .l5411
+	jr nc, .wait_ly_below_91
 	call Sound_FrameService
 	jr .loop
 

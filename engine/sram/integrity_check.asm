@@ -244,7 +244,7 @@ SramCheck_Bank1BlockSum:: ; 22:5035
 	ld hl, sPageList
 	ld de, $0000
 	ld bc, $0684
-.l504C ; 22:504C
+.sum_page_list ; 22:504C
 	ld a, [hli]
 	add a, e
 	ld e, a
@@ -254,10 +254,10 @@ SramCheck_Bank1BlockSum:: ; 22:5035
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .l504C
+	jr nz, .sum_page_list
 	ld hl, sAbookSlots
 	ld bc, $01E0
-.l505D ; 22:505D
+.sum_address_book_slots ; 22:505D
 	ld a, [hli]
 	add a, e
 	ld e, a
@@ -267,7 +267,7 @@ SramCheck_Bank1BlockSum:: ; 22:5035
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .l505D
+	jr nz, .sum_address_book_slots
 	ld hl, sSramCheckBank1Sum
 	ld a, [hli]
 	ld b, a
@@ -328,22 +328,22 @@ SramCheck_Bank1ClearBlock:: ; 22:50A0
 	ld [rRAMG], a
 	ld hl, sPageList
 	ld bc, $0684
-.l50B4 ; 22:50B4
+.clear_page_list ; 22:50B4
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .l50B4
+	jr nz, .clear_page_list
 	ld hl, sAbookSlots
 	ld bc, $01E0
-.l50C1 ; 22:50C1
+.clear_address_book_slots ; 22:50C1
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .l50C1
+	jr nz, .clear_address_book_slots
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a

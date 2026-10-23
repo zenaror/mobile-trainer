@@ -148,23 +148,23 @@ Abook_StoreEntryToSram:: ; 2F:5167
 	ld [rRAMG], a
 	ld b, $10
 	ld de, wEditNameBuf
-.l519C ; 2F:519C
+.store_name_bytes ; 2F:519C
 	ld a, [de]
 	ld [hli], a
 	inc de
 	dec b
-	jr nz, .l519C
+	jr nz, .store_name_bytes
 	pop hl
 	ld de, $0010
 	add hl, de
 	ld b, $40
 	ld de, wEditAddressBuf
-.l51AC ; 2F:51AC
+.store_address_bytes ; 2F:51AC
 	ld a, [de]
 	ld [hli], a
 	inc de
 	dec b
-	jr nz, .l51AC
+	jr nz, .store_address_bytes
 	pop bc
 	pop af
 	ret
@@ -310,23 +310,23 @@ AbookView_LoadAndDraw:: ; 2F:52E9
 	ld [rRAMG], a
 	ld b, $10
 	ld de, wEditNameBuf
-.l5312 ; 2F:5312
+.copy_name_bytes ; 2F:5312
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .l5312
+	jr nz, .copy_name_bytes
 	pop hl
 	ld de, $0010
 	add hl, de
 	ld b, $40
 	ld de, wEditAddressBuf
-.l5322 ; 2F:5322
+.copy_address_bytes ; 2F:5322
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .l5322
+	jr nz, .copy_address_bytes
 	pop bc
 	push bc
 	ld a, $14
@@ -513,14 +513,14 @@ AbookView_DrawName:: ; 2F:53F5
 	pop hl
 	pop de
 	pop bc
-.l54A6 ; 2F:54A6
+.pad_remaining_cells ; 2F:54A6
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call AbookView_DrawName_Pad
-	jr .l54A6
+	jr .pad_remaining_cells
 
 AbookView_DrawName_Glyph:: ; 2F:54B5
 	push bc
@@ -661,14 +661,14 @@ AbookView_DrawAddrLine1:: ; 2F:54E1
 	pop hl
 	pop de
 	pop bc
-.l5592 ; 2F:5592
+.pad_remaining_cells ; 2F:5592
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call AbookView_DrawAddrLine1_Pad
-	jr .l5592
+	jr .pad_remaining_cells
 
 AbookView_DrawAddrLine1_Glyph:: ; 2F:55A1
 	push bc
@@ -809,14 +809,14 @@ AbookView_DrawAddrLine2:: ; 2F:55CD
 	pop hl
 	pop de
 	pop bc
-.l567E ; 2F:567E
+.pad_remaining_cells ; 2F:567E
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call AbookView_DrawAddrLine2_Pad
-	jr .l567E
+	jr .pad_remaining_cells
 
 AbookView_DrawAddrLine2_Glyph:: ; 2F:568D
 	push bc
@@ -957,14 +957,14 @@ AbookView_DrawAddrLine3:: ; 2F:56B9
 	pop hl
 	pop de
 	pop bc
-.l576A ; 2F:576A
+.pad_remaining_cells ; 2F:576A
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call AbookView_DrawAddrLine3_Pad
-	jr .l576A
+	jr .pad_remaining_cells
 
 AbookView_DrawAddrLine3_Glyph:: ; 2F:5779
 	push bc

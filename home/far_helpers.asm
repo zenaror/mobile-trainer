@@ -31,45 +31,45 @@ CopyFar16ByteBlocks:: ; 00:172D
 	ldh [hFarBlockCopy_DestBank], a
 	inc c
 	dec c
-	jr z, .l1739
+	jr z, .select_source_bank_for_block
 	inc b
-.l1739 ; 00:1739
+.select_source_bank_for_block ; 00:1739
 	push bc
 	push de
 	ld de, $C10E ; raw: base of a 16-byte buffer
 	ld c, $10
 	ldh a, [hFarBlockCopy_SourceBank]
 	call BankSwitch_H
-.l1745 ; 00:1745
+.copy_block_to_scratch ; 00:1745
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec c
-	jr nz, .l1745
+	jr nz, .copy_block_to_scratch
 	pop de
 	push hl
 	ld hl, $C10E ; raw: base of a 16-byte buffer
 	ldh a, [hFarBlockCopy_DestBank]
 	call BankSwitch_D
 	ld c, $10
-.l1757 ; 00:1757
+.copy_scratch_to_destination ; 00:1757
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec c
-	jr nz, .l1757
+	jr nz, .copy_scratch_to_destination
 	pop hl
 	pop bc
 	ld a, c
 	sub a, $10
 	ld c, a
 	jr z, .l176B
-	jr nc, .l1739
+	jr nc, .select_source_bank_for_block
 	dec b
-	jr nz, .l1739
+	jr nz, .select_source_bank_for_block
 	ret
 .l176B ; 00:176B
 	ld a, b
 	or a, a
-	jr nz, .l1739
+	jr nz, .select_source_bank_for_block
 	ret

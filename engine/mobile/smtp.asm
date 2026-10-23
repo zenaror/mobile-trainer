@@ -273,12 +273,12 @@ Smtp_MeasureField:: ; 54:4726
 .loop ; 54:4728
 	ld a, [hli]
 	or a, a
-	jr z, .l4731
+	jr z, .store_field_length
 	inc b
 	ld a, b
 	cp a, c
 	jr nz, .loop
-.l4731 ; 54:4731
+.store_field_length ; 54:4731
 	ld a, b
 	ld [wSmtp_FieldLength], a
 	ret

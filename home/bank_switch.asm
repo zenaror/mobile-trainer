@@ -11,17 +11,17 @@ BankSwitch_H:: ; 00:0622
 	or a, a
 	ret z
 	bit 7, h
-	jr z, .l0637
+	jr z, .select_rom_low_bank
 	bit 6, h
-	jr z, .l0631
+	jr z, .select_sram_bank
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ret
-.l0631 ; 00:0631
+.select_sram_bank ; 00:0631
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ret
-.l0637 ; 00:0637
+.select_rom_low_bank ; 00:0637
 	ldh [hROMBankLo], a
 	ld [$2100], a
 	ret
@@ -31,17 +31,17 @@ BankSwitch_D:: ; 00:063D
 	or a, a
 	ret z
 	bit 7, d
-	jr z, .l0652
+	jr z, .select_rom_low_bank
 	bit 6, d
-	jr z, .l064C
+	jr z, .select_sram_bank
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ret
-.l064C ; 00:064C
+.select_sram_bank ; 00:064C
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ret
-.l0652 ; 00:0652
+.select_rom_low_bank ; 00:0652
 	ldh [hROMBankLo], a
 	ld [$2100], a
 	ret
@@ -51,17 +51,17 @@ BankSwitch_B:: ; 00:0658
 	or a, a
 	ret z
 	bit 7, b
-	jr z, .l066D
+	jr z, .select_rom_low_bank
 	bit 6, b
-	jr z, .l0667
+	jr z, .select_sram_bank
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ret
-.l0667 ; 00:0667
+.select_sram_bank ; 00:0667
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ret
-.l066D ; 00:066D
+.select_rom_low_bank ; 00:066D
 	ldh [hROMBankLo], a
 	ld [$2100], a
 	ret
@@ -69,15 +69,15 @@ BankSwitch_B:: ; 00:0658
 GetBank_H:: ; 00:0673
 	; [CONFIRMED] returns in A the current bank of the region selected by H (FF8A / FF8C / FF8D)
 	bit 7, h
-	jr z, .l0681
+	jr z, .read_rom_low_bank
 	bit 6, h
-	jr z, .l067E
+	jr z, .read_sram_bank
 	ldh a, [hWRAMBank]
 	ret
-.l067E ; 00:067E
+.read_sram_bank ; 00:067E
 	ldh a, [hSRAMBank]
 	ret
-.l0681 ; 00:0681
+.read_rom_low_bank ; 00:0681
 	ldh a, [hROMBankLo]
 	ret
 

@@ -642,11 +642,11 @@ Dialog_WaitInput_Idle:: ; 72:45A0
 .l45AC ; 72:45AC
 	ldh a, [hJoyPressedRepeat]
 	bit PADB_RIGHT, a
-	jr nz, .l45B9
+	jr nz, .toggle_button_selection
 	bit PADB_LEFT, a
-	jr nz, .l45B9
+	jr nz, .toggle_button_selection
 	jp Dialog_WaitInput
-.l45B9 ; 72:45B9
+.toggle_button_selection ; 72:45B9
 	play_sfx SFX_CURSOR_MOVE
 	ldh a, [hDialogResult]
 	xor a, $01
@@ -778,11 +778,11 @@ Dialog_WaitInputMonitored_Idle:: ; 72:46A2
 	; entered by jrcc from 72:46A7 (executed) [executed in 1 scenarios]
 	ldh a, [hJoyPressedRepeat]
 	bit PADB_RIGHT, a
-	jr nz, .l46BB
+	jr nz, .toggle_button_selection
 	bit PADB_LEFT, a
-	jr nz, .l46BB
+	jr nz, .toggle_button_selection
 	jp Dialog_WaitInputMonitored
-.l46BB ; 72:46BB
+.toggle_button_selection ; 72:46BB
 	play_sfx SFX_CURSOR_MOVE
 	ldh a, [hDialogResult]
 	xor a, $01

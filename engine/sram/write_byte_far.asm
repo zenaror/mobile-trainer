@@ -13,17 +13,17 @@ WriteByteFar:: ; 48:4616
 	cp a, $A0
 	ret c
 	cp a, $C0
-	jr c, .l462A
+	jr c, .write_sram
 	cp a, $D0
-	jr c, .l465C
+	jr c, .write_wram0
 	cp a, $E0
-	jr c, .l465F
+	jr c, .write_banked_wram
 
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
 	; fall-through of the jrcc at 48:4627 (executed)
 	ret
 
-.l462A ; 48:462A
+.write_sram ; 48:462A
 	; [CONFIRMED] 141 insn(s); 141 executed (in up to 14/18 scenarios) (part of region $462A-$4744)
 	ldh [hScratchA], a
 	ldh a, [hSRAMBank]
@@ -53,11 +53,11 @@ WriteByteFar:: ; 48:4616
 	pop de
 	pop bc
 	ret
-.l465C ; 48:465C
+.write_wram0 ; 48:465C
 	ld a, b
 	ld [hli], a
 	ret
-.l465F ; 48:465F
+.write_banked_wram ; 48:465F
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af

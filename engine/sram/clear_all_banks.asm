@@ -18,13 +18,13 @@ Sram_ClearAllBanks:: ; 2D:7E60
 	ld [rRAMG], a
 	ld hl, _SRAM
 	ld bc, $2000
-.l7E74 ; 2D:7E74
+.clear_bank0 ; 2D:7E74
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .l7E74
+	jr nz, .clear_bank0
 	ld a, $01
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -33,13 +33,13 @@ Sram_ClearAllBanks:: ; 2D:7E60
 	ld [rRAMG], a
 	ld hl, _SRAM
 	ld bc, $2000
-.l7E8F ; 2D:7E8F
+.clear_bank1 ; 2D:7E8F
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .l7E8F
+	jr nz, .clear_bank1
 	ld a, $02
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -48,13 +48,13 @@ Sram_ClearAllBanks:: ; 2D:7E60
 	ld [rRAMG], a
 	ld hl, _SRAM
 	ld bc, $2000
-.l7EAA ; 2D:7EAA
+.clear_bank2 ; 2D:7EAA
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .l7EAA
+	jr nz, .clear_bank2
 	ld a, $03
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -63,11 +63,11 @@ Sram_ClearAllBanks:: ; 2D:7E60
 	ld [rRAMG], a
 	ld hl, _SRAM
 	ld bc, $2000
-.l7EC5 ; 2D:7EC5
+.clear_bank3 ; 2D:7EC5
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .l7EC5
+	jr nz, .clear_bank3
 	ret

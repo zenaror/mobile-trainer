@@ -117,7 +117,7 @@ Divide32by15:: ; 00:0D92
 	ld a, b
 	sbc a, h
 	ld b, a
-	jr nc, .l0DAE
+	jr nc, .advance_division_bit
 	ld a, c
 	add a, l
 	ld c, a
@@ -125,7 +125,7 @@ Divide32by15:: ; 00:0D92
 	adc a, h
 	ld b, a
 	scf
-.l0DAE ; 00:0DAE
+.advance_division_bit ; 00:0DAE
 	ccf
 	ldh a, [hDivide32by15_BitsLeft]
 	dec a

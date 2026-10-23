@@ -52,26 +52,26 @@ TextEngine_PutChar:: ; 00:0F30
 	; others use 10B1. Then frame service and wrap at x>limit; no entry-C byte ABI.
 	ld c, a
 	cp a, $81
-	jr c, .l0F49
+	jr c, .clear_carry_for_narrow_char
 	cp a, $A0
-	jr c, .l0F4A
+	jr c, .dispatch_char_width
 	cp a, $E0
-	jr c, .l0F49
+	jr c, .clear_carry_for_narrow_char
 	cp a, $F0
-	jr c, .l0F4A
+	jr c, .dispatch_char_width
 	cp a, $F8
-	jr c, .l0F49
+	jr c, .clear_carry_for_narrow_char
 	cp a, $FA
-	jr c, .l0F4A
-.l0F49 ; 00:0F49
+	jr c, .dispatch_char_width
+.clear_carry_for_narrow_char ; 00:0F49
 	or a, a
-.l0F4A ; 00:0F4A
-	jr c, .l0F53
+.dispatch_char_width ; 00:0F4A
+	jr c, .read_trail_byte_and_draw_wide_char
 	push hl
 	call TextEngine_DrawNarrowGlyph
 	pop hl
 	jr TextEngine_AfterChar
-.l0F53 ; 00:0F53
+.read_trail_byte_and_draw_wide_char ; 00:0F53
 	ld a, [hli]
 	ld b, a
 	push hl
@@ -273,20 +273,20 @@ TextEngine_DrawChar:: ; 00:1028
 	; in the traced runs; cut out of the PROBABLE region 1028-1059 by apply_coverage --split
 	ld a, c
 	cp a, $81
-	jr c, .l1041
+	jr c, .clear_carry_for_narrow_char
 	cp a, $A0
-	jr c, .l1042
+	jr c, .dispatch_char_width
 	cp a, $E0
-	jr c, .l1041
+	jr c, .clear_carry_for_narrow_char
 	cp a, $F0
-	jr c, .l1042
+	jr c, .dispatch_char_width
 	cp a, $F8
-	jr c, .l1041
+	jr c, .clear_carry_for_narrow_char
 	cp a, $FA
-	jr c, .l1042
-.l1041 ; 00:1041
+	jr c, .dispatch_char_width
+.clear_carry_for_narrow_char ; 00:1041
 	or a, a
-.l1042 ; 00:1042
+.dispatch_char_width ; 00:1042
 	jr nc, TextEngine_DrawNarrowGlyph
 
 TextEngine_DrawWideGlyph:: ; 00:1044

@@ -81,9 +81,9 @@ HelpMenu_ShowPage_Redraw:: ; 6C:401D
 	farcall Palette_LoadToBuffer
 	ld a, [wHelpMenu_Page]
 	cp a, $02
-	jr z, .l40E6
+	jr z, .draw_page2
 	cp a, $03
-	jr z, .l4101
+	jr z, .draw_page3
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_HelpMenu_6A_4000
@@ -96,7 +96,7 @@ HelpMenu_ShowPage_Redraw:: ; 6C:401D
 	ld [wHelpMenu_NormalItem], a
 	call HelpMenu_DrawItemNormal
 	jr .l411A
-.l40E6 ; 6C:40E6
+.draw_page2 ; 6C:40E6
 	ld bc, $1214
 	ld de, wScreenTileMap
 	ld hl, Tilemap_HelpMenu_6A_42D0
@@ -107,7 +107,7 @@ HelpMenu_ShowPage_Redraw:: ; 6C:401D
 	call HelpMenu_DrawItemNormal
 	jr .l411A
 
-.l4101 ; 6C:4101
+.draw_page3 ; 6C:4101
 	; [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1;
 	; entered by jrcc from 6C:40C1 (executed) [executed in 2 scenarios]
 	ld bc, $1214

@@ -288,7 +288,7 @@ Html_ParseSource_Loop:: ; 74:4307
 	ld c, a
 	ld a, [wHtmlFlags]
 	and a, $08
-	jr z, .l4374
+	jr z, .skip_control_and_space
 
 	; [CONFIRMED] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0;
 	; fall-through of the jrcc at 74:435F (executed) [executed in 1 scenarios]
@@ -302,13 +302,13 @@ Html_ParseSource_Loop:: ; 74:4307
 	ld c, $20
 	jr .l4385
 
-.l4374 ; 74:4374
+.skip_control_and_space ; 74:4374
 	; [CONFIRMED] 19 insn(s); 19 executed (in up to 2/18 scenarios)
 	ld a, [hli]
 	or a, a
 	jr z, Html_ParseSource_End
 	cp a, $21
-	jr c, .l4374
+	jr c, .skip_control_and_space
 	dec hl
 	ldh a, [hHtml_LastChar]
 	cp a, $20

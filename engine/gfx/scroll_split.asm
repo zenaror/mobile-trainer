@@ -69,15 +69,15 @@ Gfx_GdmaAtVBlankNoDi:: ; 7F:72C2
 	ld a, e
 	ldh [rHDMA4], a
 	ld de, rLY
-.l72D1 ; 7F:72D1
+.wait_ly_8f ; 7F:72D1
 	ld a, [de]
 	cp a, $8F
-	jr nz, .l72D1
+	jr nz, .wait_ly_8f
 	ld b, $91
-.l72D8 ; 7F:72D8
+.wait_ly_91 ; 7F:72D8
 	ld a, [de]
 	cp a, b
-	jr nz, .l72D8
+	jr nz, .wait_ly_91
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a

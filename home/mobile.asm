@@ -17,7 +17,7 @@ MobileAPI:: ; 00:0150
 	ld [wMobileCall_ArgHlLo], a
 	ld a, h
 	ld [wMobileCall_ArgHlHi], a
-	jr nz, .l016B
+	jr nz, .save_bank_and_dispatch_sdk
 	ldh [hROMBankHi], a
 	ld a, l
 	ldh [hROMBankLo], a
@@ -26,7 +26,7 @@ MobileAPI:: ; 00:0150
 	ld [hli], a
 	ld a, b
 	ld [hl], a
-.l016B ; 00:016B
+.save_bank_and_dispatch_sdk ; 00:016B
 	ld hl, wMobileFlags
 	set 6, [hl]
 	ld hl, hROMBankLo
@@ -133,10 +133,10 @@ Int_Timer:: ; 00:01ED
 	jr z, .l0242
 	ld a, [wMobileFlags]
 	bit 1, a
-	jr nz, .l023A
+	jr nz, .reload_timer_and_set_tac06
 	ldh a, [rSC]
 	and a, $80
-	jr nz, .l023A
+	jr nz, .reload_timer_and_set_tac06
 	ld hl, hROMBankLo
 	ld a, [hli]
 	ld h, [hl]
@@ -162,7 +162,7 @@ Int_Timer:: ; 00:01ED
 	ld [rROMB0], a
 	ld a, d
 	ld [rROMB1], a
-.l023A ; 00:023A
+.reload_timer_and_set_tac06 ; 00:023A
 	ldh a, [rTMA]
 	ldh [rTIMA], a
 	ld a, $06

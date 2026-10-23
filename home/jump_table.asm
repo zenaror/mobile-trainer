@@ -67,24 +67,24 @@ JoypadDispatch:: ; 00:056A
 	ldh a, [hJoyPressed]
 	or a, l
 	bit 0, a
-	jp nz, .l059B
+	jp nz, .dispatch_a
 	bit 1, a
-	jp nz, .l0596
+	jp nz, .dispatch_b
 	bit 2, a
-	jp nz, .l0591
+	jp nz, .dispatch_select
 	bit 3, a
-	jp nz, .l058C
+	jp nz, .dispatch_start
 	ld a, $04
 	jp JumpTableInline
-.l058C ; 00:058C
+.dispatch_start ; 00:058C
 	ld a, $03
 	jp JumpTableInline
-.l0591 ; 00:0591
+.dispatch_select ; 00:0591
 	ld a, $02
 	jp JumpTableInline
-.l0596 ; 00:0596
+.dispatch_b ; 00:0596
 	ld a, $01
 	jp JumpTableInline
-.l059B ; 00:059B
+.dispatch_a ; 00:059B
 	xor a, a
 	jp JumpTableInline

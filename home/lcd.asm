@@ -49,7 +49,7 @@ LCDOff:: ; 00:05BD
 	di
 	ldh a, [hBootA]
 	cp a, $11
-	jr z, .l05ED
+	jr z, .wait_ly_91_to97_then_disable_lcd
 	ldh a, [rIE]
 	ld b, a
 	res 1, a
@@ -71,12 +71,12 @@ LCDOff:: ; 00:05BD
 	ei
 	call Sound_FrameService
 	ret
-.l05ED ; 00:05ED
+.wait_ly_91_to97_then_disable_lcd ; 00:05ED
 	ldh a, [rLY]
 	cp a, $91
-	jr c, .l05ED
+	jr c, .wait_ly_91_to97_then_disable_lcd
 	cp a, $98
-	jr nc, .l05ED
+	jr nc, .wait_ly_91_to97_then_disable_lcd
 	ldh a, [rLCDC]
 	and a, $7F
 	ldh [rLCDC], a

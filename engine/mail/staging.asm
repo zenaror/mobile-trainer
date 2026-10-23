@@ -38,41 +38,41 @@ MailStaging_Clear:: ; 2D:46A8
 	ldh [rSVBK], a
 	ld hl, wEditBodyBuf
 	ld b, $C0
-.l46B3 ; 2D:46B3
+.clear_body_buffer ; 2D:46B3
 	xor a, a
 	ld [hli], a
 	dec b
-	jr nz, .l46B3
+	jr nz, .clear_body_buffer
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, wEditAddressBuf
 	ld b, $40
-.l46C3 ; 2D:46C3
+.clear_address_buffer ; 2D:46C3
 	xor a, a
 	ld [hli], a
 	dec b
-	jr nz, .l46C3
+	jr nz, .clear_address_buffer
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, wEditSubjectBuf
 	ld b, $14
-.l46D3 ; 2D:46D3
+.clear_subject_buffer ; 2D:46D3
 	xor a, a
 	ld [hli], a
 	dec b
-	jr nz, .l46D3
+	jr nz, .clear_subject_buffer
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, wEditNameBuf
 	ld b, $10
-.l46E3 ; 2D:46E3
+.clear_name_buffer ; 2D:46E3
 	xor a, a
 	ld [hli], a
 	dec b
-	jr nz, .l46E3
+	jr nz, .clear_name_buffer
 	ret
 
 MailRecord_GetFreeSlotPtr:: ; 2D:46E9

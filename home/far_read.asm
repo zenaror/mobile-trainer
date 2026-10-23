@@ -10,9 +10,9 @@ ReadByteFar:: ; 00:1620
 	; inferred links; raw refs 92] | 53 insn(s) executed; cut out of the PROBABLE region 1620-1686
 	; by apply_coverage --split [executed in 29 scenarios]
 	bit 7, h
-	jr z, .l1669
+	jr z, .read_rom_with_low_bank_restore
 	bit 6, h
-	jr z, .l163E
+	jr z, .read_sram_with_bank_restore
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -26,7 +26,7 @@ ReadByteFar:: ; 00:1620
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
 	ret
-.l163E ; 00:163E
+.read_sram_with_bank_restore ; 00:163E
 	ldh [hScratchA], a
 	ldh a, [hSRAMBank]
 	push af
@@ -48,9 +48,9 @@ ReadByteFar:: ; 00:1620
 	ldh a, [hScratchA]
 	ld a, [wFarAccessTemp]
 	ret
-.l1669 ; 00:1669
+.read_rom_with_low_bank_restore ; 00:1669
 	or a, a
-	jr z, .l1684
+	jr z, .read_without_bank_switch
 	ldh [hScratchA], a
 	ldh a, [hROMBankLo]
 	push af
@@ -65,7 +65,7 @@ ReadByteFar:: ; 00:1620
 	ldh a, [hScratchA]
 	ret
 
-.l1684 ; 00:1684
+.read_without_bank_switch ; 00:1684
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 1620-1686 by apply_coverage --split
 	ld a, [hli]

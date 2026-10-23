@@ -30,12 +30,12 @@ CopyStringMax:: ; 00:14C6
 
 CopyStringMax_ZeroSourceIfEntryCountZero:: ; 00:14D1
 	; Historical address alias retired; entry/copy CONFIRMED; entry-zero store PROBABLE.
-	; [CONFIRMED] nonzero-entry copy; entry BC==0 source-zero branch is [PROBABLE] (see .l14DD).
+	; [CONFIRMED] nonzero-entry copy; entry BC==0 source-zero branch is [PROBABLE] (see .zero_source_byte).
 	; Later exhaustion joins CopyStringMax and returns without that explicit source store.
 	; Entry/copy path observed in 2 historical scenarios; no zero-entry caller is established.
 	ld a, c
 	or a, b
-	jr z, .l14DD
+	jr z, .zero_source_byte
 	ld a, [hli]
 	ld [de], a
 	inc de
@@ -44,7 +44,7 @@ CopyStringMax_ZeroSourceIfEntryCountZero:: ; 00:14D1
 	jr nz, CopyStringMax
 	ret
 
-.l14DD ; 00:14DD
+.zero_source_byte ; 00:14DD
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 14D1-14E0 by apply_coverage --split
 	xor a, a
@@ -82,23 +82,23 @@ StringAppend:: ; 00:14F3
 	ld h, d
 	ld l, e
 	pop de
-.l14F7 ; 00:14F7
+.find_append_position ; 00:14F7
 	cp a, [hl]
 	inc hl
-	jr nz, .l14F7
+	jr nz, .find_append_position
 	dec hl
 	push hl
 	ld h, d
 	ld l, e
 	pop de
-.l1500 ; 00:1500
+.copy_append_string ; 00:1500
 	ld a, [hli]
 	ld b, a
 	ld [de], a
 	inc de
 	ld a, b
 	or a, a
-	jr nz, .l1500
+	jr nz, .copy_append_string
 	ret
 
 CompareString:: ; 00:1509
@@ -116,10 +116,10 @@ CompareString:: ; 00:1509
 	inc hl
 	ld a, [de]
 	or a, a
-	jr z, .l1518
+	jr z, .return_character_difference
 	cp a, [hl]
 	jr z, .loop
-.l1518 ; 00:1518
+.return_character_difference ; 00:1518
 	sub a, [hl]
 	ret
 
@@ -131,18 +131,18 @@ CompareStringN:: ; 00:151A
 	jr z, .done
 .loop ; 00:151E
 	dec b
-	jr z, .l152E
+	jr z, .compare_final_characters
 	ld a, [hl]
 	or a, a
-	jr z, .l152E
+	jr z, .compare_final_characters
 	ld c, a
 	ld a, [de]
 	cp a, c
-	jr nz, .l152E
+	jr nz, .compare_final_characters
 	inc hl
 	inc de
 	jr .loop
-.l152E ; 00:152E
+.compare_final_characters ; 00:152E
 	ld a, [de]
 	ld c, a
 	ld a, [hl]

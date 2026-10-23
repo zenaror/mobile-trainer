@@ -748,14 +748,14 @@ Profile_DrawNickname:: ; 2A:5952
 	pop hl
 	pop de
 	pop bc
-.l5A00 ; 2A:5A00
+.pad_remaining_cells ; 2A:5A00
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call Profile_DrawNickname_BlitBlankAdvance
-	jr .l5A00
+	jr .pad_remaining_cells
 
 Profile_DrawNickname_BlitGlyphAdvance:: ; 2A:5A0F
 	push bc
@@ -1112,15 +1112,15 @@ Gfx_StartHDMAAtVBlank_2A_5C3B:: ; 2A:5C3B
 	ld a, e
 	ldh [rHDMA4], a
 	ld de, rLY
-.l5C4A ; 2A:5C4A
+.wait_ly_8f ; 2A:5C4A
 	ld a, [de]
 	cp a, $8F
-	jr nz, .l5C4A
+	jr nz, .wait_ly_8f
 	ld b, $91
-.l5C51 ; 2A:5C51
+.wait_ly_91 ; 2A:5C51
 	ld a, [de]
 	cp a, b
-	jr nz, .l5C51
+	jr nz, .wait_ly_91
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a
@@ -2119,21 +2119,21 @@ Profile_LoadAndDraw:: ; 2A:6257
 	ld b, $10
 	ld hl, sProfileName
 	ld de, wEditNameBuf
-.l6274 ; 2A:6274
+.copy_name_bytes ; 2A:6274
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .l6274
+	jr nz, .copy_name_bytes
 	ld b, $40
 	ld hl, sProfileAddress
 	ld de, wEditAddressBuf
-.l6282 ; 2A:6282
+.copy_address_bytes ; 2A:6282
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .l6282
+	jr nz, .copy_address_bytes
 	pop bc
 	push bc
 	ld a, $14
@@ -2175,21 +2175,21 @@ Profile_SaveToSram:: ; 2A:62C5
 	ld b, $10
 	ld de, sProfileName
 	ld hl, wEditNameBuf
-.l62E2 ; 2A:62E2
+.store_name_bytes ; 2A:62E2
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .l62E2
+	jr nz, .store_name_bytes
 	ld b, $40
 	ld de, sProfileAddress
 	ld hl, wEditAddressBuf
-.l62F0 ; 2A:62F0
+.store_address_bytes ; 2A:62F0
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .l62F0
+	jr nz, .store_address_bytes
 	pop bc
 	farcall SramCheck_Bank0Commit
 	ret

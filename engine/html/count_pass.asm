@@ -147,7 +147,7 @@ Html_CountListItems_Loop:: ; 74:4FFA
 	ld c, a
 	ld a, [wHtmlFlags]
 	and a, $08
-	jr z, .l504A
+	jr z, .skip_control_and_space
 
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4FF2-511A by apply_coverage --split
@@ -161,14 +161,14 @@ Html_CountListItems_Loop:: ; 74:4FFA
 	ld c, $20
 	jr .l505B
 
-.l504A ; 74:504A
+.skip_control_and_space ; 74:504A
 	; [CONFIRMED] 11 insn(s) executed; cut out of the PROBABLE region 4FF2-511A by apply_coverage
 	; --split [executed in 5 scenarios]
 	ld a, [hli]
 	or a, a
 	jr z, Html_CountListItems_Done
 	cp a, $21
-	jr c, .l504A
+	jr c, .skip_control_and_space
 	dec hl
 	ldh a, [hHtml_LastChar]
 	cp a, $20
@@ -434,16 +434,16 @@ Html_CountListItems_Comment:: ; 74:519A
 	ld a, [hli]
 	cp a, $2D
 	jr nz, .l519B
-.l51CA ; 74:51CA
+.scan_comment_double_dash ; 74:51CA
 	call Sound_FrameService
 	ld a, [hli]
 	or a, a
 	jp z, Html_CountListItems_Done
 	cp a, $2D
-	jr nz, .l51CA
+	jr nz, .scan_comment_double_dash
 	ld a, [hli]
 	cp a, $2D
-	jr nz, .l51CA
+	jr nz, .scan_comment_double_dash
 	jr Html_CountListItems_Comment
 .l51DD ; 74:51DD
 	ld a, $20

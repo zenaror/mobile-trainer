@@ -249,14 +249,14 @@ AddrScreenCandidate_DrawTextLine21:: ; 2C:755C
 	pop hl
 	pop de
 	pop bc
-.l760D ; 2C:760D
+.pad_remaining_cells ; 2C:760D
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call AddrScreenCandidate_DrawTextLine21_BlitBlankAdvance
-	jr .l760D
+	jr .pad_remaining_cells
 
 AddrScreenCandidate_DrawTextLine21_BlitGlyphAdvance:: ; 2C:761C
 
@@ -388,14 +388,14 @@ AddrScreenCandidate_DrawTextLine25:: ; 2C:7648
 	pop hl
 	pop de
 	pop bc
-.l76F9 ; 2C:76F9
+.pad_remaining_cells ; 2C:76F9
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call AddrScreenCandidate_DrawTextLine25_BlitBlankAdvance
-	jr .l76F9
+	jr .pad_remaining_cells
 
 AddrScreenCandidate_DrawTextLine25_BlitGlyphAdvance:: ; 2C:7708
 

@@ -283,16 +283,16 @@ Html_Tag_Comment:: ; 74:45D9
 	ld a, [hli]
 	cp a, $2D
 	jr nz, .l45DA
-.l4609 ; 74:4609
+.scan_comment_double_dash ; 74:4609
 	call Sound_FrameService
 	ld a, [hli]
 	or a, a
 	jp z, Html_ParseSource_End
 	cp a, $2D
-	jr nz, .l4609
+	jr nz, .scan_comment_double_dash
 	ld a, [hli]
 	cp a, $2D
-	jr nz, .l4609
+	jr nz, .scan_comment_double_dash
 	jr Html_Tag_Comment
 .l461C ; 74:461C
 	ld a, $20
@@ -1652,11 +1652,11 @@ Html_Tag_Img:: ; 74:4DF9
 	jr z, .l4E94
 	cp a, c
 	jr z, .l4E81
-.l4E8B ; 74:4E8B
+.skip_resource_url_to_nul ; 74:4E8B
 	ld a, [de]
 	inc de
 	or a, a
-	jr nz, .l4E8B
+	jr nz, .skip_resource_url_to_nul
 	ld h, d
 	ld l, e
 	jr .l4E70

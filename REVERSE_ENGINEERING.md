@@ -2240,10 +2240,17 @@ names. The sprite-counter fallback is named `.use_default_entry`: it selects
 the `Entry36` table item after the `$08` comparison and does not prove a digit
 9 case. See the [pass report and exact mapping](docs/research/japanese_local_label_pass_20261022.md).
 
-The six-root Japanese lexical census, excluding protected `sample_data.asm`,
-contains 3,872 numeric local labels after the subsequent body-editor and SDK residual passes, 10 exact `Data_BB_AAAA` labels
-retained as neutral; three other spans use evidence-scoped correspondence names
-without a semantic type claim. No address-form Function/Func/Sub/Label/Font
-definitions. This does not establish semantic closure; local labels, data and
-address-only graphics paths still require bounded review. The English overlay
-remains paused and was not modified.
+At the earlier body-editor/SDK checkpoint, the six-root lexical census counted
+3,872 numeric local labels, ten exact `Data_BB_AAAA` labels retained as neutral,
+and three correspondence-only spans without a semantic type claim. The later
+`Browser_DrawTitleBar` review renamed `.l5225` to `.copy_title_bytes_to_buffer`,
+so a fresh inventory at source commit `2d264633` starts at 3,871 address-only
+local labels. No address-form Function/Func/Sub/Label/Font definitions were
+found. The 2026-10-22 consolidated batch below renames 546 and explicitly
+accounts for the remaining 3,325; this is inventory closure, not semantic
+closure. The English overlay remains paused and was not modified.
+## Consolidated generic local-label census (2026-10-22)
+
+A complete six-root Japanese source inventory counted 3,871 address-only local labels (`.lAAAA`) across 333 maintained ASM/INC files, excluding protected mail sample data. A single reconciled batch reviewed and renamed 546 labels across HOME/audio/mobile library and engine subsystems. Independent review accepted all 546 final names: 542 as proposed and four after narrowing the claim to the exact static operation. The remaining 3,325 labels are categorized by owner as short cosmetic anchors or unresolved flow/data/phase boundaries; their presence means semantic naming is still open and the ROM is not declared 100% closed. The exact row-by-row map and confidence limits are in the [consolidated census report](docs/research/japanese_generic_name_census_batch_20261022.md) and [mapping TSV](docs/research/japanese_local_label_batch_mapping_20261022.tsv).
+
+The ten previously reviewed `Data_BB_AAAA` spans remain neutral because source/byte review did not establish a supported type or role. The English overlay remains paused and untouched. Validation on the isolated Japanese worktree reported a byte-identical ROM, successful symbol/palette/PNG checks, and no non-token source changes.

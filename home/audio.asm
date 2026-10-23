@@ -182,12 +182,12 @@ Bank4_GateLeave:: ; 00:2141
 	; bank 04 [reached via inferred links; raw refs 29] [executed in 1 scenarios]
 	ld hl, wBank4State
 	bit 6, [hl]
-	jr nz, .l214F
+	jr nz, .resume_deferred_call_after_clearing_bit6
 	call Bank4_RestoreCallerBank
 	res 7, [hl]
 	xor a, a
 	ret
-.l214F ; 00:214F
+.resume_deferred_call_after_clearing_bit6 ; 00:214F
 	ld a, [wBank4DeferredCall + 1]
 	ld h, a
 	ld a, [wBank4DeferredCall]

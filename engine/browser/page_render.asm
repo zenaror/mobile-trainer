@@ -201,12 +201,12 @@ Browser_RenderPage:: ; 4E:52E7
 	; 5306-532B by apply_coverage --split [executed in 1 scenarios]
 	ld de, wAttrUrlBuf
 	dec hl
-.l530A ; 4E:530A
+.copy_hash_and_fragment ; 4E:530A
 	ld a, [hli]
 	ld [de], a
 	inc de
 	or a, a
-	jr nz, .l530A
+	jr nz, .copy_hash_and_fragment
 	ld hl, wAttrUrlBuf
 	ld bc, wHtmlLinkPtrList
 	call Browser_FindAnchor

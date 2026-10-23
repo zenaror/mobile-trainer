@@ -54,48 +54,48 @@ HttpRedirect_ResolveUrl:: ; 67:5F66
 HttpRedirect_JoinRelative:: ; 67:5FB5
 	ld a, [de]
 	cp a, $2F
-	jr nz, .l5FE0
-.l5FBA ; 67:5FBA
+	jr nz, .scan_url_end
+.scan_first_slash_or_nul ; 67:5FBA
 	ld a, [hl]
 	or a, a
 	jr z, .l5FC5
 	cp a, $2F
 	jr z, .l5FC5
 	inc hl
-	jr .l5FBA
+	jr .scan_first_slash_or_nul
 .l5FC5 ; 67:5FC5
 	inc hl
 	ld a, [hl]
 	cp a, $2F
-	jr nz, .l5FF2
+	jr nz, .copy_relative_suffix
 	inc hl
-.l5FCC ; 67:5FCC
+.scan_next_slash_or_nul ; 67:5FCC
 	ld a, [hl]
 	or a, a
 	jr z, .l5FD7
 	cp a, $2F
 	jr z, .l5FD7
 	inc hl
-	jr .l5FCC
+	jr .scan_next_slash_or_nul
 .l5FD7 ; 67:5FD7
 	ld a, [hl]
 	or a, a
-	jr nz, .l5FF2
+	jr nz, .copy_relative_suffix
 
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5F66-60BA by apply_coverage --split
 	ld a, $2F
 	ld [hl], a
-	jr .l5FF2
+	jr .copy_relative_suffix
 
-.l5FE0 ; 67:5FE0
+.scan_url_end ; 67:5FE0
 	; [CONFIRMED] 34 insn(s) executed; cut out of the PROBABLE region 5F66-60BA by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld a, [hl]
 	or a, a
 	jr z, .l5FE7
 	inc hl
-	jr .l5FE0
+	jr .scan_url_end
 .l5FE7 ; 67:5FE7
 	dec hl
 	ld a, [hl]
@@ -106,12 +106,12 @@ HttpRedirect_JoinRelative:: ; 67:5FB5
 	ld [hl], a
 .skip ; 67:5FF1
 	inc hl
-.l5FF2 ; 67:5FF2
+.copy_relative_suffix ; 67:5FF2
 	ld a, [de]
 	inc de
 	ld [hli], a
 	or a, a
-	jr nz, .l5FF2
+	jr nz, .copy_relative_suffix
 	ret
 
 HttpRedirect_NormalizePath:: ; 67:5FF9

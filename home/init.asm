@@ -29,14 +29,14 @@ Boot:: ; 00:0278
 	ld [rRAMB], a
 	ldh a, [hBootA]
 	cp a, $11
-	jr z, .l02AE
-.l02A2 ; 00:02A2
+	jr z, .clear_vram_bank1
+.repeat_non_cgb_error_screen ; 00:02A2
 	ld a, $6B
 	ldh [hROMBankLo], a
 	ld [$2100], a
 	call NonCgb_ErrorScreen
-	jr .l02A2
-.l02AE ; 00:02AE
+	jr .repeat_non_cgb_error_screen
+.clear_vram_bank1 ; 00:02AE
 	ld a, $01
 	ldh [rVBK], a
 	ld hl, $8000
@@ -45,7 +45,7 @@ Boot:: ; 00:0278
 	call FillBytes
 	ld d, $06
 	ld e, $02
-.l02C0 ; 00:02C0
+.clear_wram_banks2_to7 ; 00:02C0
 	ld a, e
 	ldh [rSVBK], a
 	ld hl, $D000 ; raw: base of the wipe of every bank 2-7
@@ -54,7 +54,7 @@ Boot:: ; 00:0278
 	call FillBytes
 	inc e
 	dec d
-	jr nz, .l02C0
+	jr nz, .clear_wram_banks2_to7
 	xor a, a
 	ldh [rSVBK], a
 	ldh [rVBK], a

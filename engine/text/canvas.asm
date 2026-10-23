@@ -2073,16 +2073,16 @@ Gfx_GdmaAtVBlank:: ; 7F:4C20
 	ld a, e
 	ldh [rHDMA4], a
 	ld de, rLY
-.l4C2F ; 7F:4C2F
+.wait_ly_8f ; 7F:4C2F
 	ld a, [de]
 	cp a, $8F
-	jr nz, .l4C2F
+	jr nz, .wait_ly_8f
 	di
 	ld b, $91
-.l4C37 ; 7F:4C37
+.wait_ly_91 ; 7F:4C37
 	ld a, [de]
 	cp a, b
-	jr nz, .l4C37
+	jr nz, .wait_ly_91
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a

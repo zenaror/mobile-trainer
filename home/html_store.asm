@@ -25,12 +25,12 @@ HtmlStore_BuildPageUrl:: ; 00:131A
 	ld a, [hli]
 	ld d, a
 	pop hl
-.l1334 ; 00:1334
+.copy_first_url_part ; 00:1334
 	ld a, [de]
 	ld [hli], a
 	inc de
 	or a, a
-	jr nz, .l1334
+	jr nz, .copy_first_url_part
 	inc de
 	dec hl
 	push hl
@@ -47,12 +47,12 @@ HtmlStore_BuildPageUrl:: ; 00:131A
 	ldh [hROMBankLo], a
 	ld [$2100], a
 	pop hl
-.l134D ; 00:134D
+.copy_selected_url_suffix ; 00:134D
 	ld a, [de]
 	ld [hli], a
 	inc de
 	or a, a
-	jr nz, .l134D
+	jr nz, .copy_selected_url_suffix
 	ret
 
 HtmlStore_LoadPage:: ; 00:1354
@@ -82,7 +82,7 @@ HtmlStore_LoadPage:: ; 00:1354
 	ld a, $3F
 	ldh [hROMBankLo], a
 	ld [$2100], a
-.l1372 ; 00:1372
+.read_first_pointer_entry ; 00:1372
 	ld a, [bc]
 	ld e, a
 	inc bc
@@ -90,30 +90,30 @@ HtmlStore_LoadPage:: ; 00:1354
 	ld d, a
 	inc bc
 	or a, e
-	jp z, .l13FD
+	jp z, .clear_length_on_lookup_failure
 	push bc
 	push hl
-.l137E ; 00:137E
+.compare_first_string_loop ; 00:137E
 	ld a, [de]
 	inc de
 	ld c, a
 	ld a, [hli]
 	or a, a
-	jr z, .l1388
+	jr z, .test_first_string_terminator
 	cp a, c
-	jr z, .l137E
-.l1388 ; 00:1388
+	jr z, .compare_first_string_loop
+.test_first_string_terminator ; 00:1388
 	ld a, c
 	or a, a
-	jr z, .l1390
+	jr z, .save_matched_entry_byte
 
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 1354-1408 by apply_coverage --split
 	pop hl
 	pop bc
-	jr .l1372
+	jr .read_first_pointer_entry
 
-.l1390 ; 00:1390
+.save_matched_entry_byte ; 00:1390
 	; [CONFIRMED] 57 insn(s) executed; cut out of the PROBABLE region 1354-1408 by apply_coverage
 	; --split [executed in 8 scenarios]
 	ld a, [de]
@@ -124,7 +124,7 @@ HtmlStore_LoadPage:: ; 00:1354
 	pop bc
 	ld b, d
 	ld c, e
-.l139A ; 00:139A
+.read_banked_pointer_entry ; 00:139A
 	ld a, [bc]
 	ld e, a
 	inc bc
@@ -132,33 +132,33 @@ HtmlStore_LoadPage:: ; 00:1354
 	ld d, a
 	inc bc
 	or a, e
-	jp z, .l13FD
+	jp z, .clear_length_on_lookup_failure
 	ld a, [bc]
 	ldh [hROMBankLo], a
 	ld [$2100], a
 	inc bc
 	push bc
 	push hl
-.l13AD ; 00:13AD
+.compare_banked_string_loop ; 00:13AD
 	ld a, [de]
 	inc de
 	ld c, a
 	ld a, [hli]
 	or a, a
-	jr z, .l13B7
+	jr z, .test_banked_string_terminator
 	cp a, c
-	jr z, .l13AD
-.l13B7 ; 00:13B7
+	jr z, .compare_banked_string_loop
+.test_banked_string_terminator ; 00:13B7
 	ld a, c
 	or a, a
-	jr z, .l13C6
+	jr z, .load_matched_length
 	pop hl
 	pop bc
 	ld a, $3F
 	ldh [hROMBankLo], a
 	ld [$2100], a
-	jr .l139A
-.l13C6 ; 00:13C6
+	jr .read_banked_pointer_entry
+.load_matched_length ; 00:13C6
 	pop hl
 	pop bc
 	ld a, [de]
@@ -176,29 +176,29 @@ HtmlStore_LoadPage:: ; 00:1354
 	ld e, a
 	ldh a, [hRam_FFB1]
 	sbc a, b
-	jr c, .l13E0
+	jr c, .clamp_count_to_matched_length
 
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 1354-1408 by apply_coverage --split
 	or a, e
-	jr nz, .l13E6
+	jr nz, .copy_nonempty_payload
 
-.l13E0 ; 00:13E0
+.clamp_count_to_matched_length ; 00:13E0
 	; [CONFIRMED] 22 insn(s) executed; cut out of the PROBABLE region 1354-1408 by apply_coverage
 	; --split [executed in 8 scenarios]
 	ldh a, [hRam_FFB0]
 	ld c, a
 	ldh a, [hRam_FFB1]
 	ld b, a
-.l13E6 ; 00:13E6
+.copy_nonempty_payload ; 00:13E6
 	pop de
 	pop hl
 	push bc
 	ld a, b
 	or a, c
-	jr z, .l13F0
+	jr z, .store_count_minus_two
 	call CopyBytes
-.l13F0 ; 00:13F0
+.store_count_minus_two ; 00:13F0
 	pop bc
 	dec bc
 	dec bc
@@ -211,7 +211,7 @@ HtmlStore_LoadPage:: ; 00:1354
 	ldh [hRam_FFB0], a
 	ret
 
-.l13FD ; 00:13FD
+.clear_length_on_lookup_failure ; 00:13FD
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 1354-1408 by apply_coverage --split
 	pop de

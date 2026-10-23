@@ -10,7 +10,7 @@ Html_MatchKeyword:: ; 00:10E9
 	; Return metadata after TABLE keyword; retry uses caller-saved start at FFB0/FFB1.
 	; A null table terminator alone does not supply a safe arbitrary direct-call contract.
 	call Sound_FrameService
-.l10EC ; 00:10EC
+.read_next_keyword_pointer ; 00:10EC
 	ld a, [bc]
 	inc bc
 	ld e, a
@@ -20,33 +20,33 @@ Html_MatchKeyword:: ; 00:10E9
 	or a, e
 	ret z
 	push bc
-.l10F5 ; 00:10F5
+.compare_keyword_case_folded ; 00:10F5
 	ld a, [de]
 	inc de
 	ld c, a
 	ld a, [hli]
 	or a, a
-	jr z, .l110A
+	jr z, .check_keyword_terminator
 	cp a, $41
-	jr c, .l1106
+	jr c, .compare_folded_character
 	cp a, $5B
-	jr nc, .l1106
+	jr nc, .compare_folded_character
 	add a, $20
-.l1106 ; 00:1106
+.compare_folded_character ; 00:1106
 	cp a, c
-	jr z, .l10F5
+	jr z, .compare_keyword_case_folded
 	dec hl
-.l110A ; 00:110A
+.check_keyword_terminator ; 00:110A
 	ld a, c
 	pop bc
 	or a, a
-	jr z, .l1117
+	jr z, .return_keyword_value
 	ldh a, [hRam_FFB0]
 	ld l, a
 	ldh a, [hRam_FFB1]
 	ld h, a
-	jr .l10EC
-.l1117 ; 00:1117
+	jr .read_next_keyword_pointer
+.return_keyword_value ; 00:1117
 	ld a, [de]
 	ret
 
@@ -58,67 +58,67 @@ Html_ScanAttributes:: ; 00:1119
 	; executed; cut out of the PROBABLE region 1119-131A by apply_coverage --split [executed in 15
 	; scenarios]
 	call Sound_FrameService
-.l111C ; 00:111C
+.scan_attribute_name ; 00:111C
 	ld a, [hli]
 	or a, a
-	jr z, .l1152
+	jr z, .return_zero_with_cursor_backed_up
 	cp a, $3E
-	jr z, .l1152
+	jr z, .return_zero_with_cursor_backed_up
 	cp a, $3D
-	jp z, .l127A
+	jp z, .classify_unmatched_value
 	cp a, $21
-	jr c, .l1155
+	jr c, .skip_attribute_whitespace
 	cp a, $81
-	jr c, .l1145
+	jr c, .clear_carry_for_single_byte
 
 	; [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 1119-131A by apply_coverage --split
 	cp a, $A0
-	jr c, .l1146
+	jr c, .skip_trail_byte_if_carry
 	cp a, $E0
-	jr c, .l1145
+	jr c, .clear_carry_for_single_byte
 	cp a, $F0
-	jr c, .l1146
+	jr c, .skip_trail_byte_if_carry
 	cp a, $F8
-	jr c, .l1145
+	jr c, .clear_carry_for_single_byte
 	cp a, $FA
-	jr c, .l1146
+	jr c, .skip_trail_byte_if_carry
 
-.l1145 ; 00:1145
+.clear_carry_for_single_byte ; 00:1145
 	; [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 1119-131A by apply_coverage
 	; --split [executed in 15 scenarios]
 	or a, a
-.l1146 ; 00:1146
-	jr nc, .l1165
+.skip_trail_byte_if_carry ; 00:1146
+	jr nc, .match_attribute_keyword
 
 	; [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 1119-131A by apply_coverage --split
 	ld a, [hli]
-	jr .l111C
-.l114B ; 00:114B
+	jr .scan_attribute_name
+.restore_de_bc_before_no_value ; 00:114B
 	ldh a, [hRam_FFB0]
 	ld e, a
 	ldh a, [hRam_FFB1]
 	ld d, a
 	pop bc
 
-.l1152 ; 00:1152
+.return_zero_with_cursor_backed_up ; 00:1152
 	; [CONFIRMED] 46 insn(s) executed; cut out of the PROBABLE region 1119-131A by apply_coverage
 	; --split [executed in 15 scenarios]
 	dec hl
 	xor a, a
 	ret
-.l1155 ; 00:1155
+.skip_attribute_whitespace ; 00:1155
 	ld a, [hli]
 	or a, a
-	jr z, .l1152
+	jr z, .return_zero_with_cursor_backed_up
 	cp a, $3D
-	jp z, .l127A
+	jp z, .classify_unmatched_value
 	cp a, $21
-	jr c, .l1155
+	jr c, .skip_attribute_whitespace
 	dec hl
-	jr .l111C
-.l1165 ; 00:1165
+	jr .scan_attribute_name
+.match_attribute_keyword ; 00:1165
 	dec hl
 	ld a, l
 	ldh [hRam_FFB0], a
@@ -129,15 +129,15 @@ Html_ScanAttributes:: ; 00:1119
 	call Html_MatchKeyword
 	pop de
 	or a, a
-	jr nz, .l117F
+	jr nz, .prepare_attribute_value_buffer
 	ldh a, [hRam_FFB0]
 	ld l, a
 	ldh a, [hRam_FFB1]
 	ld h, a
 	inc hl
 	pop bc
-	jr .l111C
-.l117F ; 00:117F
+	jr .scan_attribute_name
+.prepare_attribute_value_buffer ; 00:117F
 	ld c, a
 	ld b, $00
 	ld a, e
@@ -145,16 +145,16 @@ Html_ScanAttributes:: ; 00:1119
 	ld a, d
 	ldh [hRam_FFB1], a
 	ld de, wAttrUrlBuf
-.l118B ; 00:118B
+.find_attribute_equals ; 00:118B
 	ld a, [hli]
 	or a, a
-	jr z, .l114B
+	jr z, .restore_de_bc_before_no_value
 	cp a, $3E
-	jr z, .l114B
+	jr z, .restore_de_bc_before_no_value
 	cp a, $21
-	jr c, .l11A5
+	jr c, .skip_whitespace_before_equals
 	cp a, $3D
-	jr z, .l11B0
+	jr z, .classify_value_after_equals
 
 	; [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 1119-131A by apply_coverage --split
@@ -163,87 +163,87 @@ Html_ScanAttributes:: ; 00:1119
 	ldh a, [hRam_FFB1]
 	ld d, a
 	pop bc
-	jp .l111C
-.l11A5 ; 00:11A5
+	jp .scan_attribute_name
+.skip_whitespace_before_equals ; 00:11A5
 	ld a, [hli]
 	or a, a
-	jr z, .l114B
+	jr z, .restore_de_bc_before_no_value
 	cp a, $21
-	jr c, .l11A5
+	jr c, .skip_whitespace_before_equals
 	dec hl
-	jr .l118B
+	jr .find_attribute_equals
 
-.l11B0 ; 00:11B0
+.classify_value_after_equals ; 00:11B0
 	; [CONFIRMED] 25 insn(s) executed; cut out of the PROBABLE region 1119-131A by apply_coverage
 	; --split [executed in 3 scenarios]
 	ld a, [hli]
 	or a, a
-	jr z, .l114B
+	jr z, .restore_de_bc_before_no_value
 	cp a, $3E
-	jr z, .l114B
+	jr z, .restore_de_bc_before_no_value
 	cp a, $22
-	jp z, .l120A
+	jp z, .copy_double_quoted_value
 	cp a, $27
-	jp z, .l1242
+	jp z, .copy_single_quoted_value
 	cp a, $21
-	jr c, .l11B0
+	jr c, .classify_value_after_equals
 	dec hl
-.l11C7 ; 00:11C7
+.copy_unquoted_value ; 00:11C7
 	ld a, [hli]
 	or a, a
-	jr z, .l11FB
+	jr z, .back_up_source_before_terminating_value
 	cp a, $3E
-	jr z, .l11FB
+	jr z, .back_up_source_before_terminating_value
 	cp a, $21
-	jr c, .l11FF
+	jr c, .terminate_value_and_return_keyword
 	inc b
-	jr z, .l11FF
+	jr z, .terminate_value_and_return_keyword
 	ld [de], a
 	inc de
 	cp a, $81
-	jr c, .l11F0
+	jr c, .clear_carry_for_single_unquoted_byte
 
 	; [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 1119-131A by apply_coverage --split
 	cp a, $A0
-	jr c, .l11F1
+	jr c, .copy_unquoted_trail_byte_if_carry
 	cp a, $E0
-	jr c, .l11F0
+	jr c, .clear_carry_for_single_unquoted_byte
 	cp a, $F0
-	jr c, .l11F1
+	jr c, .copy_unquoted_trail_byte_if_carry
 	cp a, $F8
-	jr c, .l11F0
+	jr c, .clear_carry_for_single_unquoted_byte
 	cp a, $FA
-	jr c, .l11F1
+	jr c, .copy_unquoted_trail_byte_if_carry
 
-.l11F0 ; 00:11F0
+.clear_carry_for_single_unquoted_byte ; 00:11F0
 	; [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 1119-131A by apply_coverage
 	; --split [executed in 3 scenarios]
 	or a, a
-.l11F1 ; 00:11F1
-	jr nc, .l11C7
+.copy_unquoted_trail_byte_if_carry ; 00:11F1
+	jr nc, .copy_unquoted_value
 
 	; [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 1119-131A by apply_coverage --split
 	inc b
-	jr z, .l11FE
+	jr z, .back_up_output_on_length_wrap
 	ld a, [hli]
 	ld [de], a
 	inc de
-	jr .l11C7
+	jr .copy_unquoted_value
 
-.l11FB ; 00:11FB
+.back_up_source_before_terminating_value ; 00:11FB
 	; [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 1119-131A by apply_coverage
 	; --split [executed in 4 scenarios]
 	dec hl
-	jr .l11FF
+	jr .terminate_value_and_return_keyword
 
-.l11FE ; 00:11FE
+.back_up_output_on_length_wrap ; 00:11FE
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 1119-131A by apply_coverage --split
 	dec de
 
-.l11FF ; 00:11FF
+.terminate_value_and_return_keyword ; 00:11FF
 	; [CONFIRMED] 24 insn(s) executed; cut out of the PROBABLE region 1119-131A by apply_coverage
 	; --split [executed in 15 scenarios]
 	xor a, a
@@ -255,193 +255,193 @@ Html_ScanAttributes:: ; 00:1119
 	ld a, c
 	pop bc
 	ret
-.l120A ; 00:120A
+.copy_double_quoted_value ; 00:120A
 	ld a, [hli]
 	or a, a
-	jr z, .l11FB
+	jr z, .back_up_source_before_terminating_value
 	cp a, $3E
-	jr z, .l11FB
+	jr z, .back_up_source_before_terminating_value
 	cp a, $22
-	jr z, .l11FF
+	jr z, .terminate_value_and_return_keyword
 	inc b
-	jr z, .l11FF
+	jr z, .terminate_value_and_return_keyword
 	cp a, $20
-	jr c, .l120A
+	jr c, .copy_double_quoted_value
 	ld [de], a
 	inc de
 	cp a, $81
-	jr c, .l1237
+	jr c, .clear_carry_for_single_double_quoted_byte
 
 	; [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 1119-131A by apply_coverage --split
 	cp a, $A0
-	jr c, .l1238
+	jr c, .copy_double_quoted_trail_byte_if_carry
 	cp a, $E0
-	jr c, .l1237
+	jr c, .clear_carry_for_single_double_quoted_byte
 	cp a, $F0
-	jr c, .l1238
+	jr c, .copy_double_quoted_trail_byte_if_carry
 	cp a, $F8
-	jr c, .l1237
+	jr c, .clear_carry_for_single_double_quoted_byte
 	cp a, $FA
-	jr c, .l1238
+	jr c, .copy_double_quoted_trail_byte_if_carry
 
-.l1237 ; 00:1237
+.clear_carry_for_single_double_quoted_byte ; 00:1237
 	; [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 1119-131A by apply_coverage
 	; --split [executed in 15 scenarios]
 	or a, a
-.l1238 ; 00:1238
-	jr nc, .l120A
+.copy_double_quoted_trail_byte_if_carry ; 00:1238
+	jr nc, .copy_double_quoted_value
 
 	; [PROBABLE] 39 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 1119-131A by apply_coverage --split
 	inc b
-	jr z, .l11FE
+	jr z, .back_up_output_on_length_wrap
 	ld a, [hli]
 	ld [de], a
 	inc de
-	jr .l120A
-.l1242 ; 00:1242
+	jr .copy_double_quoted_value
+.copy_single_quoted_value ; 00:1242
 	ld a, [hli]
 	or a, a
-	jr z, .l11FB
+	jr z, .back_up_source_before_terminating_value
 	cp a, $3E
-	jr z, .l11FB
+	jr z, .back_up_source_before_terminating_value
 	cp a, $27
-	jr z, .l11FF
+	jr z, .terminate_value_and_return_keyword
 	inc b
-	jr z, .l11FF
+	jr z, .terminate_value_and_return_keyword
 	cp a, $20
-	jr c, .l1242
+	jr c, .copy_single_quoted_value
 	ld [de], a
 	inc de
 	cp a, $81
-	jr c, .l126F
+	jr c, .clear_carry_for_single_single_quoted_byte
 	cp a, $A0
-	jr c, .l1270
+	jr c, .copy_single_quoted_trail_byte_if_carry
 	cp a, $E0
-	jr c, .l126F
+	jr c, .clear_carry_for_single_single_quoted_byte
 	cp a, $F0
-	jr c, .l1270
+	jr c, .copy_single_quoted_trail_byte_if_carry
 	cp a, $F8
-	jr c, .l126F
+	jr c, .clear_carry_for_single_single_quoted_byte
 	cp a, $FA
-	jr c, .l1270
-.l126F ; 00:126F
+	jr c, .copy_single_quoted_trail_byte_if_carry
+.clear_carry_for_single_single_quoted_byte ; 00:126F
 	or a, a
-.l1270 ; 00:1270
-	jr nc, .l1242
+.copy_single_quoted_trail_byte_if_carry ; 00:1270
+	jr nc, .copy_single_quoted_value
 	inc b
-	jr z, .l11FE
+	jr z, .back_up_output_on_length_wrap
 	ld a, [hli]
 	ld [de], a
 	inc de
-	jr .l1242
+	jr .copy_single_quoted_value
 
-.l127A ; 00:127A
+.classify_unmatched_value ; 00:127A
 	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 1119-131A by apply_coverage
 	; --split [executed in 6 scenarios]
 	ld a, [hli]
 	or a, a
-	jp z, .l1152
+	jp z, .return_zero_with_cursor_backed_up
 	cp a, $3E
-	jp z, .l1152
+	jp z, .return_zero_with_cursor_backed_up
 	cp a, $22
-	jp z, .l12C0
+	jp z, .skip_double_quoted_value
 
 	; [PROBABLE] 28 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 1119-131A by apply_coverage --split
 	cp a, $27
-	jp z, .l12ED
+	jp z, .skip_single_quoted_value
 	cp a, $21
-	jr c, .l127A
+	jr c, .classify_unmatched_value
 	dec hl
-.l1293 ; 00:1293
+.skip_unquoted_value ; 00:1293
 	ld a, [hli]
 	or a, a
-	jp z, .l1152
+	jp z, .return_zero_with_cursor_backed_up
 	cp a, $3E
-	jp z, .l1152
+	jp z, .return_zero_with_cursor_backed_up
 	cp a, $21
-	jp c, .l111C
+	jp c, .scan_attribute_name
 	cp a, $81
-	jr c, .l12BA
+	jr c, .clear_carry_for_single_skipped_byte
 	cp a, $A0
-	jr c, .l12BB
+	jr c, .skip_unquoted_trail_byte_if_carry
 	cp a, $E0
-	jr c, .l12BA
+	jr c, .clear_carry_for_single_skipped_byte
 	cp a, $F0
-	jr c, .l12BB
+	jr c, .skip_unquoted_trail_byte_if_carry
 	cp a, $F8
-	jr c, .l12BA
+	jr c, .clear_carry_for_single_skipped_byte
 	cp a, $FA
-	jr c, .l12BB
-.l12BA ; 00:12BA
+	jr c, .skip_unquoted_trail_byte_if_carry
+.clear_carry_for_single_skipped_byte ; 00:12BA
 	or a, a
-.l12BB ; 00:12BB
-	jr nc, .l1293
+.skip_unquoted_trail_byte_if_carry ; 00:12BB
+	jr nc, .skip_unquoted_value
 	ld a, [hli]
-	jr .l1293
+	jr .skip_unquoted_value
 
-.l12C0 ; 00:12C0
+.skip_double_quoted_value ; 00:12C0
 	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 1119-131A by apply_coverage
 	; --split [executed in 6 scenarios]
 	ld a, [hli]
 	or a, a
-	jp z, .l1152
+	jp z, .return_zero_with_cursor_backed_up
 	cp a, $3E
-	jp z, .l1152
+	jp z, .return_zero_with_cursor_backed_up
 	cp a, $22
-	jp z, .l111C
+	jp z, .scan_attribute_name
 	cp a, $81
-	jr c, .l12E7
+	jr c, .clear_carry_for_single_skipped_double_quoted_byte
 
 	; [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 1119-131A by apply_coverage --split
 	cp a, $A0
-	jr c, .l12E8
+	jr c, .skip_double_quoted_trail_byte_if_carry
 	cp a, $E0
-	jr c, .l12E7
+	jr c, .clear_carry_for_single_skipped_double_quoted_byte
 	cp a, $F0
-	jr c, .l12E8
+	jr c, .skip_double_quoted_trail_byte_if_carry
 	cp a, $F8
-	jr c, .l12E7
+	jr c, .clear_carry_for_single_skipped_double_quoted_byte
 	cp a, $FA
-	jr c, .l12E8
+	jr c, .skip_double_quoted_trail_byte_if_carry
 
-.l12E7 ; 00:12E7
+.clear_carry_for_single_skipped_double_quoted_byte ; 00:12E7
 	; [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 1119-131A by apply_coverage
 	; --split [executed in 6 scenarios]
 	or a, a
-.l12E8 ; 00:12E8
-	jr nc, .l12C0
+.skip_double_quoted_trail_byte_if_carry ; 00:12E8
+	jr nc, .skip_double_quoted_value
 
 	; [PROBABLE] 25 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 1119-131A by apply_coverage --split
 	ld a, [hli]
-	jr .l12C0
-.l12ED ; 00:12ED
+	jr .skip_double_quoted_value
+.skip_single_quoted_value ; 00:12ED
 	ld a, [hli]
 	or a, a
-	jp z, .l1152
+	jp z, .return_zero_with_cursor_backed_up
 	cp a, $3E
-	jp z, .l1152
+	jp z, .return_zero_with_cursor_backed_up
 	cp a, $27
-	jp z, .l111C
+	jp z, .scan_attribute_name
 	cp a, $81
-	jr c, .l1314
+	jr c, .clear_carry_for_single_skipped_single_quoted_byte
 	cp a, $A0
-	jr c, .l1315
+	jr c, .skip_single_quoted_trail_byte_if_carry
 	cp a, $E0
-	jr c, .l1314
+	jr c, .clear_carry_for_single_skipped_single_quoted_byte
 	cp a, $F0
-	jr c, .l1315
+	jr c, .skip_single_quoted_trail_byte_if_carry
 	cp a, $F8
-	jr c, .l1314
+	jr c, .clear_carry_for_single_skipped_single_quoted_byte
 	cp a, $FA
-	jr c, .l1315
-.l1314 ; 00:1314
+	jr c, .skip_single_quoted_trail_byte_if_carry
+.clear_carry_for_single_skipped_single_quoted_byte ; 00:1314
 	or a, a
-.l1315 ; 00:1315
-	jr nc, .l12ED
+.skip_single_quoted_trail_byte_if_carry ; 00:1315
+	jr nc, .skip_single_quoted_value
 	ld a, [hli]
-	jr .l12ED
+	jr .skip_single_quoted_value

@@ -60,7 +60,7 @@ Comm_Disconnect:: ; 4C:46F4
 	bit 4, a
 	jr z, .l4757
 	farcall Mobile_BeginDisconnect
-.l4706 ; 4C:4706
+.poll_disconnect ; 4C:4706
 	farcall Mobile_DisconnectPoll
 	or a, a
 	jr z, .l476D
@@ -70,13 +70,13 @@ Comm_Disconnect:: ; 4C:46F4
 	farcall ConnIcon_LoadGraphicsIfRequested
 	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
-	jp .l4706
+	jp .poll_disconnect
 
 .l472B ; 4C:472B
 	; [PROBABLE] 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 46F4-47C4 by apply_coverage --split
 	farcall Mobile_BeginCancel
-.l4731 ; 4C:4731
+.poll_cancel ; 4C:4731
 	farcall Mobile_CancelPoll
 	or a, a
 	jr z, .l476D
@@ -86,7 +86,7 @@ Comm_Disconnect:: ; 4C:46F4
 	farcall ConnIcon_LoadGraphicsIfRequested
 	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
-	jp .l4731
+	jp .poll_cancel
 .l4757 ; 4C:4757
 	ld a, [wTimerEnable]
 	bit 1, a
@@ -121,11 +121,11 @@ Comm_EndOffline:: ; 4C:477E
 	pop bc
 	dec b
 	jr nz, .l4788
-.l4795 ; 4C:4795
+.step_progress_until_zero ; 4C:4795
 	ld a, $01
 	farcall CommProgress_Step
 	or a, a
-	jr nz, .l4795
+	jr nz, .step_progress_until_zero
 	ld a, [wTimerEnable]
 	bit 1, a
 	jp z, .l47AE
@@ -150,36 +150,36 @@ Comm_DisconnectWithProgress:: ; 4C:47C4
 	ld a, $00
 	farcall CommProgress_Step
 	farcall Mobile_BeginDisconnect
-.l47DA ; 4C:47DA
+.poll_disconnect ; 4C:47DA
 	farcall Mobile_DisconnectPoll
 	or a, a
-	jr z, .l4811
+	jr z, .step_progress_until_zero
 	cp a, $FF
 	jr z, .l47F2
 	ld a, $00
 	farcall CommProgress_Step
-	jp .l47DA
+	jp .poll_disconnect
 
 .l47F2 ; 4C:47F2
 	; [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1;
 	; entered by jrcc from 4C:47E5 (executed)
 	farcall Mobile_BeginCancel
-.l47F8 ; 4C:47F8
+.poll_cancel ; 4C:47F8
 	farcall Mobile_CancelPoll
 	or a, a
-	jr z, .l4811
+	jr z, .step_progress_until_zero
 	cp a, $FF
-	jp z, .l4811
+	jp z, .step_progress_until_zero
 	ld a, $00
 	farcall CommProgress_Step
-	jp .l47F8
+	jp .poll_cancel
 
-.l4811 ; 4C:4811
+.step_progress_until_zero ; 4C:4811
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
 	ld a, $01
 	farcall CommProgress_Step
 	or a, a
-	jr nz, .l4811
+	jr nz, .step_progress_until_zero
 	ld a, [wTimerEnable]
 	bit 1, a
 	jp z, .l482A

@@ -14,7 +14,7 @@ HelpMenu_Run:: ; 6C:5987
 	or a, a
 	ret z
 	cp a, $04
-	jr z, .l59A8
+	jr z, .open_mobile_dictionary
 	ld b, a
 	ld a, $01
 	ld hl, sHelpScriptVars
@@ -23,7 +23,7 @@ HelpMenu_Run:: ; 6C:5987
 	call HelpScript_Run
 	pop bc
 	jr .loop
-.l59A8 ; 6C:59A8
+.open_mobile_dictionary ; 6C:59A8
 	farcall MobileDict_Run
 	ld b, $04
 	jr .loop

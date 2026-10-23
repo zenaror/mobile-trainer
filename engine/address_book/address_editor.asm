@@ -746,14 +746,14 @@ AbookAddr_DrawLine1:: ; 2F:716F
 	pop hl
 	pop de
 	pop bc
-.l721B ; 2F:721B
+.pad_remaining_cells ; 2F:721B
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call AbookAddr_DrawLine1_Pad
-	jr .l721B
+	jr .pad_remaining_cells
 
 AbookAddr_DrawLine1_Glyph:: ; 2F:722A
 	; [CONFIRMED] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1;
@@ -901,14 +901,14 @@ AbookAddr_DrawLine:: ; 2F:7256
 	pop hl
 	pop de
 	pop bc
-.l7302 ; 2F:7302
+.pad_remaining_cells ; 2F:7302
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call AbookAddr_DrawLine_Pad
-	jr .l7302
+	jr .pad_remaining_cells
 
 AbookAddr_DrawLine_Glyph:: ; 2F:7311
 	; [CONFIRMED] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1;
@@ -981,15 +981,15 @@ Gfx_StartHDMAAtVBlank_2F_7365:: ; 2F:7365
 	ld a, e
 	ldh [rHDMA4], a
 	ld de, rLY
-.l7374 ; 2F:7374
+.wait_ly_8f ; 2F:7374
 	ld a, [de]
 	cp a, $8F
-	jr nz, .l7374
+	jr nz, .wait_ly_8f
 	ld b, $91
-.l737B ; 2F:737B
+.wait_ly_91 ; 2F:737B
 	ld a, [de]
 	cp a, b
-	jr nz, .l737B
+	jr nz, .wait_ly_91
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a

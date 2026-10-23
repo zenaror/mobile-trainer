@@ -12,7 +12,7 @@ Stat_ScrollSplitHandler:: ; 00:0E93
 	push af
 	ldh a, [rLY]
 	cp a, $00
-	jr nz, .l0EB2
+	jr nz, .apply_split_scroll_and_optional_service
 	ldh a, [rSVBK]
 	push af
 	ld a, $01
@@ -27,7 +27,7 @@ Stat_ScrollSplitHandler:: ; 00:0E93
 	ldh [rSCY], a
 	pop af
 	reti
-.l0EB2 ; 00:0EB2
+.apply_split_scroll_and_optional_service ; 00:0EB2
 	ldh a, [rSVBK]
 	push af
 	ld a, [wSplitScrollY]
@@ -39,9 +39,9 @@ Stat_ScrollSplitHandler:: ; 00:0E93
 	ldh [rSVBK], a
 	ld a, [wStatIrqServiceFlag]
 	or a, a
-	jr z, .l0ECC
+	jr z, .restore_wram_bank_and_reti
 	call Sound_FrameService
-.l0ECC ; 00:0ECC
+.restore_wram_bank_and_reti ; 00:0ECC
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
