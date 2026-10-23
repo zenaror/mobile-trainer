@@ -2,6 +2,14 @@
 
 ## Scope and evidence
 
+> **Current status (2026-10-23):** this evidence dossier began as a prepared
+> proposal. Its source changes were integrated into `main` by
+> `ecfec47e` (`Retire verified SDK and account function aliases`). The
+> proposal-stage statements below that say integration/build are pending are
+> historical, not current blockers. The current Japanese owner has no active
+> `Function_75_BBBB` definitions; former spellings may remain in historical
+> analysis and research records.
+
 This original-Japanese naming cohort retires32 inactive Function_75 aliases in the maintained
 lib/mobile/main.asm and corrects one overclaimed proper name. It adds no decoded body or entry.
 All10242 physical owner rows and emitted instructions remain; only comments, alias declarations
@@ -184,7 +192,24 @@ The physical owner row count stays10242. No active neutral/qualified-local refer
 rewriting; only the673A proper name's11 existing references change spelling. Original local
 spellings and instruction positions remain. Relative branches are not retargeted.
 
-Independent review, integration on current owner pins, make, sym-check, required gates and
-original-ROM byte comparison are pending ROOT steps. This note makes no build-equivalence or
-new runtime/hardware claim. Historical bootstrap/config and prior aliases in research remain
-records of earlier evidence, not instructions to run generators or import generic Crystal names.
+At the proposal checkpoint, independent review, integration, build, symbol checks and the
+original-ROM comparison were still pending. They were superseded by the published integration
+and current-tree validation below. This note makes no new runtime or hardware claim. Historical
+bootstrap/config and prior aliases in research remain records of earlier evidence, not
+instructions to run generators or import generic Crystal names.
+
+## Current integration and validation (2026-10-23)
+
+The source integration is present in the current `main` history at `ecfec47e`; the current
+`lib/mobile/main.asm` defines `MobileSDK_CopyBytes` at `75:4000` and
+`MobileSDK_HttpFlushLeftover` at `75:5164`, with no active definitions matching
+`Function_75_[0-9A-F]{4}`. The old spellings are lookup history, not unresolved source names.
+
+On `HEAD 48f1f6a6980df41c82d8e5730902e7f7f72733ed`, the full Japanese tree was rebuilt with
+`make ROM=/tmp/mobile-trainer-audit-20261023.gbc BUILD=/tmp/mobile-trainer-audit-build-20261023`.
+The output was 2,097,152 bytes with SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`,
+`SHA-256 OK`, and `RESULT: IDENTICAL`. The matching `sym-check` passed for 335 source files,
+12,189 labels and 51 constants. This validates the present reconstruction against the pinned
+original and checks source-to-symbol addresses; it does not prove natural entry, every SDK
+operation's intended purpose, or hardware behavior.
