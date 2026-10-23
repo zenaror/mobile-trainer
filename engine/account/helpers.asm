@@ -454,7 +454,7 @@ Config_ClearSramMirror:: ; 68:4252
 	ld [rRAMG], a
 	ret
 
-Stub_Nop_68_4282:: ; 68:4282
+PasswordChange_EntryReturnOnly:: ; 68:4282
 	; [CONFIRMED] Single RET; known caller; bank68_function_names row 4282.
 	ret
 

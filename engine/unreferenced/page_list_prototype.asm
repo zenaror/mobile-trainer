@@ -1676,7 +1676,7 @@ PageListProto_ShowMessage:: ; 7F:591E
 PageListProto_ActionMenu:: ; 7F:5989
 
 	call PageListProto_ActionMenuInit
-	call Stub_Nop_7F_61E7
+	call PageListProto_ActionMenuPostInitReturnOnly
 	ld b, $00
 .service_action_menu ; 7F:5991
 	push bc
@@ -1821,7 +1821,7 @@ PageListProto_ActionMenu:: ; 7F:5989
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
-	call nz, Stub_Nop_7F_61E6 ; never taken: ldh sets no flags, Z is the one the farcall left (naming2_verify_fn4.md)
+	call nz, PageListProto_ActionMenuInputReturnOnly ; never taken: ldh sets no flags, Z is the one the farcall left (naming2_verify_fn4.md)
 	ldh a, [hJoyPressed]
 	and a, PADF_A
 	jr z, .check_b_pressed
@@ -2765,11 +2765,11 @@ PageListProto_DeleteSlot:: ; 7F:5FBC
 	ld a, $FF
 	ret
 
-Stub_Nop_7F_61E6:: ; 7F:61E6
+PageListProto_ActionMenuInputReturnOnly:: ; 7F:61E6
 
 	ret
 
-Stub_Nop_7F_61E7:: ; 7F:61E7
+PageListProto_ActionMenuPostInitReturnOnly:: ; 7F:61E7
 
 	ret
 

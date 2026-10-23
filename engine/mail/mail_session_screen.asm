@@ -377,7 +377,7 @@ MailSession_InitScreen:: ; 26:5168
 	ld bc, $0000
 	ret
 
-Stub_Nop_26_5343:: ; 26:5343
+MailSession_TimerDisplayReturnOnly:: ; 26:5343
 	; [CONFIRMED] Single RET called at 26:58E0 by MailSession_UpdateTimerDisplay; that call
 	; returns before MailSession_WriteVram1TileAndWram7ScreenRows and does not fall through
 	; into the following fragment.
@@ -1184,7 +1184,7 @@ MailSession_UpdateTimerDisplay:: ; 26:58DC
 	push bc
 	push de
 	push hl
-	call Stub_Nop_26_5343
+	call MailSession_TimerDisplayReturnOnly
 	xor a, a
 	ldh [rVBK], a
 	ldh a, [rSVBK]

@@ -105,7 +105,7 @@ CommErr_ShowScreen_Idle:: ; 5C:523B
 	call nz, CommErr_UpdateCommFooter
 	ldh a, [hJoyPressedRepeat]
 	and a, PADF_DPAD
-	call nz, Stub_Nop_5C_5266
+	call nz, CommErr_DpadReturnOnly
 	jp CommErr_ShowScreen_FrameLoop
 
 CommErr_ShowScreen_ButtonA:: ; 5C:524C
@@ -117,7 +117,7 @@ CommErr_ShowScreen_ButtonA:: ; 5C:524C
 CommErr_ShowScreen_Ignore:: ; 5C:5264
 	jr CommErr_ShowScreen_FrameLoop
 
-Stub_Nop_5C_5266:: ; 5C:5266
+CommErr_DpadReturnOnly:: ; 5C:5266
 
 	ret
 

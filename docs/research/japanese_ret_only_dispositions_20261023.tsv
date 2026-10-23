@@ -1,0 +1,33 @@
+path	label	old_label	disposition	rationale
+home/header.asm	Rst_00		KEEP	Confirmed hardware RST $00 vector body is RET; label correctly records vector address, call-target use absent in reached code
+home/header.asm	Rst_08		KEEP	Confirmed hardware RST $08 vector body is RET; label correctly records vector address, call-target use absent in reached code
+home/header.asm	Rst_10		KEEP	Confirmed hardware RST $10 vector body is RET; label correctly records vector address, call-target use absent in reached code
+home/header.asm	Rst_18		KEEP	Confirmed hardware RST $18 vector body is RET; label correctly records vector address, call-target use absent in reached code
+home/header.asm	Rst_20		KEEP	Confirmed hardware RST $20 vector body is RET; label correctly records vector address, call-target use absent in reached code
+home/header.asm	Rst_28		KEEP	Confirmed hardware RST $28 vector body is RET; label correctly records vector address, call-target use absent in reached code
+home/header.asm	Rst_30		KEEP	Confirmed hardware RST $30 vector body is RET; label correctly records vector address, call-target use absent in reached code
+home/header.asm	Rst_38		KEEP	Confirmed hardware RST $38 vector body is RET; label correctly records vector address, call-target use absent in reached code
+engine/account/helpers.asm	PasswordChange_EntryReturnOnly	Stub_Nop_68_4282	RENAME	CONFIRMED single RET body; first operation in PasswordChange_Run; prior hook purpose unknown
+engine/account/password_entry.asm	ReturnOnly_68_5D2F		KEEP	Single RET confirmed; no symbolic callers; entry and purpose remain HYPOTHESIS
+engine/browser/entry.asm	Browser_StartMenuLoop_Exit		KEEP	Single RET; named as the exit point of the menu loop
+engine/browser/page_list.asm	PageList_ActionMenuInputReturnOnly	Stub_Nop_24_53FC	RENAME	Single RET; only call is a conditionally dead input-site reference; preserve reachability caveat
+engine/browser/page_list.asm	PageList_ActionMenuPostInitReturnOnly	Stub_Nop_24_53FD	RENAME	Single RET; called immediately after PageList_ActionMenuInit
+engine/browser/page_loader.asm	Browser_LoadPage_ReturnOnly		KEEP	Single RET table slot; selection and entry are unproven
+engine/browser/page_render.asm	Browser_DrawElement_ReturnOnly		KEEP	Single RET table slots; candidate kinds are not selected in observed shipped paths
+engine/error/comm_error_screen.asm	CommErr_DpadReturnOnly	Stub_Nop_5C_5266	RENAME	Single RET; guarded call follows an actual D-pad test in CommErr_ShowScreen_Idle
+engine/mail/mail_session_screen.asm	MailSession_TimerDisplayReturnOnly	Stub_Nop_26_5343	RENAME	Single RET; first call in MailSession_UpdateTimerDisplay
+engine/mail_server/delete_sprite_counters.asm	SpriteCounter_A_ReturnImmediately		KEEP	Single RET; existing name identifies owner and exact operation
+engine/mail_server/delete_sprite_counters.asm	SpriteCounter_B_ReturnImmediately		KEEP	Single RET; existing name identifies owner and exact operation
+engine/mail_server/delete_sprite_counters.asm	SpriteCounter_C_ReturnImmediately		KEEP	Single RET; existing name identifies owner and exact operation
+engine/mail_server/tidy_screen.asm	MailServerMgr_AfterBgMapUploadReturnOnly	Stub_Nop_2E_4EB1	RENAME	Single RET; four calls follow background-map upload in tidy-screen paths; timing intent unknown
+engine/mail_server/tidy_screen.asm	MailServerMgr_DrawFieldText_Done		KEEP	Single RET; named completion point in field-text drawing
+engine/main/navigation.asm	Nav_TopMenu_Back		KEEP	Single RET; named navigation action
+engine/main/navigation.asm	Nav_MailMenu_Back		KEEP	Single RET; named navigation action
+engine/main/navigation.asm	Nav_MobileSettings_Back		KEEP	Single RET; named navigation action
+engine/sram/checksum3.asm	Stub_Nop_48_48BB		KEEP	Single RET; 13 entry-site calls but shared purpose is not established; avoid claiming a checksum hook
+engine/startup/registration.asm	Startup_Return		KEEP	Single RET; named startup return point
+engine/title/title_screen.asm	Title_StateMenu_Done		KEEP	Single RET; named state-menu completion point
+engine/unreferenced/page_list_prototype.asm	PageListProto_ActionMenuInputReturnOnly	Stub_Nop_7F_61E6	RENAME	Single RET; only call is a conditionally dead input-site reference; prototype entry remains uncertain
+engine/unreferenced/page_list_prototype.asm	PageListProto_ActionMenuPostInitReturnOnly	Stub_Nop_7F_61E7	RENAME	Single RET; called immediately after prototype action-menu initialization; reachability unproven
+lib/mobile/mail.asm	Mail_SelectorNop		KEEP	Single RET; existing name records the selector stub operation
+lib/mobile/main.asm	MobileSDK_TimerTickExit		KEEP	Single RET; named timer-tick exit point

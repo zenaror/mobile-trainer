@@ -41,7 +41,6 @@ FUNCTION_QUALIFIER = re.compile(
     r"(?:^|_)(?:Stub[A-Z]$|Maybe[A-Z][A-Za-z0-9]*)",
     re.I,
 )
-RET_ONLY_NAME = re.compile(r"(?:Stub_Nop|ReturnOnly)_[0-9A-F]{2}_[0-9A-F]{4}\Z", re.I)
 UNCLASSIFIED_QUALIFIER = re.compile(
     r"(?:^|_)(?:Unknown[A-Z][A-Za-z0-9]*|Unresolved[A-Z][A-Za-z0-9]*)",
     re.I,
@@ -109,10 +108,6 @@ def main() -> int:
                 hits["function-like source labels with vague Stub/Maybe qualifiers"].append(
                     f"{name}:{number}:{current_owner}"
                 )
-            if owner_match and RET_ONLY_NAME.fullmatch(current_owner):
-                hits["single-RET body labels requiring explicit disposition"].append(
-                    f"{name}:{number}:{current_owner}"
-                )
             if owner_match and UNCLASSIFIED_QUALIFIER.search(current_owner):
                 hits["source labels explicitly retaining Unknown/Unresolved content"].append(
                     f"{name}:{number}:{current_owner}"
@@ -161,6 +156,17 @@ def main() -> int:
                 hits["numeric RAM equates"].append(
                     f"{name}:{number}:{ram_match.group(1)}"
                 )
+
+    try:
+        from japanese_ret_only_ledger import bodies as find_ret_only_bodies
+
+        for (path, label), (definition, _opcode) in find_ret_only_bodies().items():
+            hits["single-RET body labels requiring explicit disposition"].append(
+                f"{path}:{definition}:{label}"
+            )
+    except (OSError, UnicodeError, subprocess.CalledProcessError) as exc:
+        print(f"error: cannot scan RET-only bodies: {exc}", file=sys.stderr)
+        return 2
 
     if not LOCAL_LEDGER.is_file():
         print(f"error: missing local-anchor ledger: {LOCAL_LEDGER}", file=sys.stderr)
