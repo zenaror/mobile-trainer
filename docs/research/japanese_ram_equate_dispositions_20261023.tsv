@@ -1,0 +1,787 @@
+symbol	region	definition	decision	scoped_aliases	active_operand_refs	evidence	rationale
+hRam_FFB0	HRAM	ram/hram.asm:17	KEEP_NEUTRAL_SCOPED_OVERLAY	hBrowserFrame_TilesBank,hBrowserOam_UnitsDigit,hCommProgress_Argument,hCommTime_TotalFrames,hEucJpToSjisStream_Byte,hFarBlockCopy_DestBank,hGlyph_TrailOffset,hHtmlLinks_StringStart,hHtmlMeta_HexByte0,hHtmlRecord_Kind,hHtml_MatchRestart,hHttpRedirect_BufferStart,hIso2022JpToSjis_Byte,hKbd_LoadPageArg,hMaskedFade_PaletteMask,hPageCache_SourceBank,hPageRender_AnchorStart,hPasswordEntry_HasDigit,hResultPage_TotalFrames,hSjisToIso2022Jp_Mode,hSpriteDraw_AttrOrMask,hSpriteHook_Bank,hTextEngine_CallBank,hTextMeasure_RightLimitX,hTextTiles_DestBank,hTileCanvas_SourceBank,hTileMaskRect_Width,hTilemapRect_Width	58	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFB1	HRAM	ram/hram.asm:18	KEEP_NEUTRAL_SCOPED_OVERLAY	hCommTime_DisplaySeconds,hCommTime_TotalSeconds,hFarBlockCopy_SourceBank,hHtmlLinks_StringStartHi,hHtmlMeta_HexByte1,hHtmlRecord_DataBank,hHtmlRun_RecordPtrHi,hHtml_MatchRestartHi,hHttpRedirect_BufferStartHi,hIso2022JpToSjis_State,hMailCommTime_DisplaySeconds,hMaskedFade_PaletteBit,hPageCache_DestBank,hPageRender_AnchorStartHi,hPageRender_WantedLink,hPasswordEntry_HasLetter,hResultPage_TotalSeconds,hSjisToIso2022Jp_SrcByte,hSpriteDraw_AttrAndMask,hTextMeasure_RightLimitXHi,hTextTiles_GridRow,hTileCanvas_HdmaControl	25	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFB2	HRAM	ram/hram.asm:19	KEEP_NEUTRAL_SCOPED_OVERLAY	hCommTime_TotalMinutes,hEucJpToSjisStream_OutLo,hHtmlMeta_HexByte2,hHtml_RecordFlags,hIso2022JpToSjis_OutLo,hMailCommTime_DisplayMinutes,hPageRender_SearchLinkId,hPalFade_FromBlue,hResultPage_TotalMinutes,hSjisToIso2022Jp_TrailByte,hTextTiles_Dest1Lo,hTextTiles_GridRowEnd	0	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFB3	HRAM	ram/hram.asm:20	KEEP_NEUTRAL_SCOPED_OVERLAY	hEucJpToSjisStream_OutHi,hHtmlMeta_HexByte3,hHtml_LastChar,hIso2022JpToSjis_OutHi,hPageRender_OffscreenLinkId,hPalFade_ToRed,hSjisToIso2022Jp_OutStartLo,hTextTiles_Dest1Hi	3	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFB4	HRAM	ram/hram.asm:21	KEEP_NEUTRAL_SCOPED_OVERLAY	hCommTime_DigitStarted,hHtml_TagFirstChar,hIso2022JpToSjis_OutStartLo,hPageRender_LineShiftX,hPalFade_ToGreen,hSjisToIso2022Jp_OutStartHi,hTextTiles_Dest2Lo,hTextTiles_GridWidth	0	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFB5	HRAM	ram/hram.asm:22	KEEP_NEUTRAL_SCOPED_OVERLAY	hHtml_SourceBank,hIso2022JpToSjis_OutStartHi,hPageRender_ElemFlags,hPalFade_ToBlue,hTextTiles_Dest2Hi,hTextTiles_GridStartCol	0	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFB6	HRAM	ram/hram.asm:23	KEEP_NEUTRAL_SCOPED_OVERLAY	hHtml_TitleStart,hPageRender_ElemLinkId	1	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFB7	HRAM	ram/hram.asm:24	KEEP_NEUTRAL_SCOPED_OVERLAY	hHtml_TitleStartHi,hPageRender_TextBank	1	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFB8	HRAM	ram/hram.asm:25	KEEP_NEUTRAL_SCOPED_OVERLAY	hHtml_PageHeader,hTextTiles_GridColumn	0	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFB9	HRAM	ram/hram.asm:26	KEEP_NEUTRAL_SCOPED_OVERLAY	hHtml_PageHeaderHi,hTextEngine_StringBank,hTextTiles_RowStride	0	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFBA	HRAM	ram/hram.asm:27	KEEP_NEUTRAL_SCOPED_OVERLAY	hHtml_PageBank,hTextBox_ColorSelB,hTextTiles_RowStrideHi	0	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFBB	HRAM	ram/hram.asm:28	KEEP_NEUTRAL_SCOPED_OVERLAY	hHtml_RunStartLo,hTextBox_ColorSelC,hTextTiles_StringBank	0	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFBF	HRAM	ram/hram.asm:31	KEEP_NEUTRAL_SCOPED_OVERLAY	hHtml_RecordCountHi,hTextEngine_CallDepth	0	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFC0	HRAM	ram/hram.asm:32	KEEP_NEUTRAL_SCOPED_OVERLAY	hHtmlRun_FreeWidth,hHtmlTag_HrFreeWidth	45	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFC1	HRAM	ram/hram.asm:33	KEEP_NEUTRAL_SCOPED_OVERLAY	hHtmlRun_FreeWidthHi,hHtmlTag_HrFreeWidthHi,hTextBox_LineStartX	10	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFC2	HRAM	ram/hram.asm:34	KEEP_NEUTRAL_SCOPED_OVERLAY	hHtmlLayout_RightLimit,hPageRender_BitmapColors,hTextBox_LineStartXHi	0	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFC3	HRAM	ram/hram.asm:35	KEEP_NEUTRAL_SCOPED_OVERLAY	hHtmlLayout_RightLimitHi,hTextBox_MaxLineY	6	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFC4	HRAM	ram/hram.asm:36	KEEP_NEUTRAL_SCOPED_OVERLAY	hHtmlLayout_CursorX,hTextBox_RightLimitX	0	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFC5	HRAM	ram/hram.asm:37	KEEP_NEUTRAL_SCOPED_OVERLAY	hHtmlLayout_CursorXHi	35	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFC6	HRAM	ram/hram.asm:38	KEEP_NEUTRAL_SCOPED_OVERLAY	hHtmlLayout_HeightAbove,hTextBox_LineAdvance	3	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFC7	HRAM	ram/hram.asm:39	KEEP_NEUTRAL_SCOPED_OVERLAY	hHtmlLayout_HeightBelow	38	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFC8	HRAM	ram/hram.asm:40	KEEP_NEUTRAL_SCOPED_OVERLAY	hHtmlLayout_LineY,hPageRender_ElemX	0	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFC9	HRAM	ram/hram.asm:41	KEEP_NEUTRAL_SCOPED_OVERLAY	hHtmlLayout_LineYHi,hPageRender_ElemXHi	0	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFCA	HRAM	ram/hram.asm:42	KEEP_NEUTRAL_SCOPED_OVERLAY	hHtmlLayout_NextRecord,hHtmlTag_ImgUrlHeap,hPageRender_ElemY	0	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFCB	HRAM	ram/hram.asm:43	KEEP_NEUTRAL_SCOPED_OVERLAY	hHtmlLayout_NextRecordHi,hHtmlTag_ImgUrlHeapHi,hPageRender_ElemYHi	0	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFCC	HRAM	ram/hram.asm:44	KEEP_NEUTRAL_SCOPED_OVERLAY	hHtmlLayout_RecordList,hPageRender_ElemRight	0	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFCD	HRAM	ram/hram.asm:45	KEEP_NEUTRAL_SCOPED_OVERLAY	hHtmlLayout_RecordListHi,hPageRender_ElemRightHi	0	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFCE	HRAM	ram/hram.asm:46	KEEP_NEUTRAL_SCOPED_OVERLAY	hHtmlLayout_RecordCount,hPageRender_ElemBottom	0	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFCF	HRAM	ram/hram.asm:47	KEEP_NEUTRAL_SCOPED_OVERLAY	hHtmlLayout_RecordCountHi,hPageRender_ElemBottomHi	0	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFD0	HRAM	ram/hram.asm:48	KEEP_NEUTRAL_SCOPED_OVERLAY	hFramePreview_WipePtr,hImageBlit_Colors,hInlineImages_ListEnd	1	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFD1	HRAM	ram/hram.asm:49	KEEP_NEUTRAL_SCOPED_OVERLAY	hFramePreview_WipePtrHi,hImageBlit_LeftMask,hInlineImages_ListEndHi	1	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFD2	HRAM	ram/hram.asm:50	KEEP_NEUTRAL_SCOPED_OVERLAY	hFramePreview_Style,hHtml_ImageData,hImageBlit_RightMask,hInlineImages_UrlList	0	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFD3	HRAM	ram/hram.asm:51	KEEP_NEUTRAL_SCOPED_OVERLAY	hHtml_ImageDataHi,hImageBlit_SrcRowBytes,hInlineImages_UrlListHi	0	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFD4	HRAM	ram/hram.asm:52	KEEP_NEUTRAL_SCOPED_OVERLAY	hBmpConvert_RowStride,hHtml_ImageBank,hImageBlit_DestColumns,hInlineImages_UrlBank	0	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFD5	HRAM	ram/hram.asm:53	KEEP_NEUTRAL_SCOPED_OVERLAY	hHtml_ImageAlign,hImageBlit_BitShift	0	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFD6	HRAM	ram/hram.asm:54	KEEP_NEUTRAL_SCOPED_OVERLAY	hBmp_Width,hHtmlCount_ListItems	0	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFD7	HRAM	ram/hram.asm:55	KEEP_NEUTRAL_SCOPED_OVERLAY	hBmp_Height,hHtmlCount_ListDepth	0	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFDF	HRAM	ram/hram.asm:63	KEEP_NEUTRAL_SCOPED_OVERLAY	hHtml_LinkNumber,hPageRender_PrevLink	0	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFE0	HRAM	ram/hram.asm:64	KEEP_NEUTRAL_SCOPED_OVERLAY	hHtml_LinkTableIndex	0	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFF7	HRAM	ram/hram.asm:79	KEEP_NEUTRAL_SCOPED_OVERLAY	hDivide32by15_BitsLeft,hHtmlParseDecimal_Times2Lo	0	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFF8	HRAM	ram/hram.asm:80	KEEP_NEUTRAL_SCOPED_OVERLAY	hHtmlParseDecimal_Times2Mid	0	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+hRam_FFF9	HRAM	ram/hram.asm:81	KEEP_NEUTRAL_SCOPED_OVERLAY	hHtmlParseDecimal_Times2Hi	0	CONFIRMED	HRAM byte has one or more scoped helper/overlay aliases; preserve the global hardware-address anchor.
+sSram_A000	SRAM	ram/sram.asm:3	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sConfigImage,sMailDraft_ToAddress,sNetWorkPage,sPageList,sPageList_Titles,sSaveBank0Page0	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A001	SRAM	ram/sram.asm:4	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A002	SRAM	ram/sram.asm:5	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sConfigRegState	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A003	SRAM	ram/sram.asm:6	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A00C	SRAM	ram/sram.asm:7	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sConfigLoginId	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A02C	SRAM	ram/sram.asm:8	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sConfigMailAddress	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A040	SRAM	ram/sram.asm:9	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sMailDraft_Body	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A04A	SRAM	ram/sram.asm:10	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sConfigSmtpServer	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A05E	SRAM	ram/sram.asm:11	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sConfigPopServer	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A076	SRAM	ram/sram.asm:12	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sConfigDial0Number	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A07E	SRAM	ram/sram.asm:13	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sConfigDial0Text	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A084	SRAM	ram/sram.asm:14	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sPageList_Urls	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A08E	SRAM	ram/sram.asm:15	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sConfigDial1Number	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A096	SRAM	ram/sram.asm:16	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sConfigDial1Text	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A0A6	SRAM	ram/sram.asm:17	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sConfigDial2Number	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A0AE	SRAM	ram/sram.asm:18	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sConfigDial2Text	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A0C0	SRAM	ram/sram.asm:19	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sConfigImagePad	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A100	SRAM	ram/sram.asm:20	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sMailDraft_Subject,sNetStartUrl,sPwdChg_ApiArgs,sRegVerify_ApiArgs,sSmtp_HeaderText	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A101	SRAM	ram/sram.asm:21	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A102	SRAM	ram/sram.asm:22	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A103	SRAM	ram/sram.asm:23	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A104	SRAM	ram/sram.asm:24	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A105	SRAM	ram/sram.asm:25	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A108	SRAM	ram/sram.asm:26	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A114	SRAM	ram/sram.asm:27	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sMailDraft_ToName	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A124	SRAM	ram/sram.asm:28	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sSram_MailRecords	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A12D	SRAM	ram/sram.asm:29	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A1ED	SRAM	ram/sram.asm:30	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A1FD	SRAM	ram/sram.asm:31	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A200	SRAM	ram/sram.asm:32	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sPwdChg_LoginId,sRegVerify_LoginId	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A211	SRAM	ram/sram.asm:33	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A222	SRAM	ram/sram.asm:34	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sRegVerify_DialSlots	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A244	SRAM	ram/sram.asm:35	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sRegVerify_MailAddress	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A251	SRAM	ram/sram.asm:36	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sMailRecord1	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A25A	SRAM	ram/sram.asm:37	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A31A	SRAM	ram/sram.asm:38	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A32A	SRAM	ram/sram.asm:39	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A33E	SRAM	ram/sram.asm:40	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A363	SRAM	ram/sram.asm:41	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sPwdChg_PostBody	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A37E	SRAM	ram/sram.asm:42	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sMailRecord2	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A387	SRAM	ram/sram.asm:43	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A447	SRAM	ram/sram.asm:44	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A457	SRAM	ram/sram.asm:45	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A463	SRAM	ram/sram.asm:46	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sPwdChg_HttpUrl	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A46B	SRAM	ram/sram.asm:47	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A4AB	SRAM	ram/sram.asm:48	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sMailRecord3	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A4B4	SRAM	ram/sram.asm:49	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A574	SRAM	ram/sram.asm:50	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A584	SRAM	ram/sram.asm:51	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A598	SRAM	ram/sram.asm:52	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A5D8	SRAM	ram/sram.asm:53	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sMailRecord4	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A5E1	SRAM	ram/sram.asm:54	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A684	SRAM	ram/sram.asm:55	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sChecksum3Block1,sHelpScriptVars	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A686	SRAM	ram/sram.asm:56	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sHelpSeenMail	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A687	SRAM	ram/sram.asm:57	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sHelpSeenAddressBook	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A688	SRAM	ram/sram.asm:58	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sHelpSeenHomepage	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A689	SRAM	ram/sram.asm:59	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sHelpSeenPageList	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A69D	SRAM	ram/sram.asm:60	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sAbookSlots	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A6A1	SRAM	ram/sram.asm:61	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A6B1	SRAM	ram/sram.asm:62	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A6C5	SRAM	ram/sram.asm:63	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A705	SRAM	ram/sram.asm:64	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A7ED	SRAM	ram/sram.asm:65	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A82D	SRAM	ram/sram.asm:66	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A832	SRAM	ram/sram.asm:67	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A83D	SRAM	ram/sram.asm:68	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A87D	SRAM	ram/sram.asm:69	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sChecksum3Block2	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A880	SRAM	ram/sram.asm:70	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sSavedPasswordLen	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A881	SRAM	ram/sram.asm:71	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sTutorialGateHomepage	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A88D	SRAM	ram/sram.asm:72	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sSavedPasswordText	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A89A	SRAM	ram/sram.asm:73	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sTutorialGateMailMenu	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A89B	SRAM	ram/sram.asm:74	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sTutorialGateTopMenu	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A8B5	SRAM	ram/sram.asm:75	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sChecksum3Sum	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A8B6	SRAM	ram/sram.asm:76	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A8B7	SRAM	ram/sram.asm:77	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sBrowserStartMenuCursor,sMenuCursorMemory	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A8B8	SRAM	ram/sram.asm:78	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sMailMenuCursor	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A8B9	SRAM	ram/sram.asm:79	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sTopMenuCursor	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A8C1	SRAM	ram/sram.asm:80	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A8D7	SRAM	ram/sram.asm:81	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sSramCheckBank1Sum	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A8D8	SRAM	ram/sram.asm:82	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A95F	SRAM	ram/sram.asm:83	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A9E3	SRAM	ram/sram.asm:84	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sMobileError12Or26Count	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A9E4	SRAM	ram/sram.asm:85	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sSaveCheckBlockTag	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A9E5	SRAM	ram/sram.asm:86	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A9E6	SRAM	ram/sram.asm:87	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A9E7	SRAM	ram/sram.asm:88	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A9E8	SRAM	ram/sram.asm:89	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sSaveCheckStateBlock	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A9E9	SRAM	ram/sram.asm:90	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A9EA	SRAM	ram/sram.asm:91	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A9EB	SRAM	ram/sram.asm:92	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A9EC	SRAM	ram/sram.asm:93	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sSaveCheckValidFlag	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A9ED	SRAM	ram/sram.asm:94	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A9EE	SRAM	ram/sram.asm:95	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A9EF	SRAM	ram/sram.asm:96	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sBrowserFrameStyle	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A9F0	SRAM	ram/sram.asm:97	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A9F1	SRAM	ram/sram.asm:98	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A9F2	SRAM	ram/sram.asm:99	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A9F3	SRAM	ram/sram.asm:100	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A9F4	SRAM	ram/sram.asm:101	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A9F5	SRAM	ram/sram.asm:102	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A9F6	SRAM	ram/sram.asm:103	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A9F7	SRAM	ram/sram.asm:104	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A9F8	SRAM	ram/sram.asm:105	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sCommTimeTotal	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A9F9	SRAM	ram/sram.asm:106	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A9FA	SRAM	ram/sram.asm:107	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A9FB	SRAM	ram/sram.asm:108	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_A9FC	SRAM	ram/sram.asm:109	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sPageCacheWriteSlot	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A9FD	SRAM	ram/sram.asm:110	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sPageCacheCount	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A9FE	SRAM	ram/sram.asm:111	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sBrowserHistoryWriteSlot	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A9FF	SRAM	ram/sram.asm:112	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sBrowserHistoryCount	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_AA00	SRAM	ram/sram.asm:113	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sBrowserHistory	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_AA8C	SRAM	ram/sram.asm:114	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_AAAA	SRAM	ram/sram.asm:115	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_ABB9	SRAM	ram/sram.asm:116	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_ACE6	SRAM	ram/sram.asm:117	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_AE13	SRAM	ram/sram.asm:118	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_AF40	SRAM	ram/sram.asm:119	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sProfileName	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_AF50	SRAM	ram/sram.asm:120	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sProfileAddress	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_AFFE	SRAM	ram/sram.asm:121	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_AFFF	SRAM	ram/sram.asm:122	KEEP_NEUTRAL_CONTEXTUAL_CONTAINER		0	CONFIRMED	Scanner operand is sNetWorkPage+$0FFF in SRAM bank 3; AFFF has a different checksum role in bank 0.
+sSram_B000	SRAM	ram/sram.asm:123	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sBrowserFramePreview,sBrowserPageBuf,sSettingsPage	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_B001	SRAM	ram/sram.asm:124	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_B002	SRAM	ram/sram.asm:125	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_B009	SRAM	ram/sram.asm:126	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sPop3RetrBodyPtrLen	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_B00A	SRAM	ram/sram.asm:127	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_B00B	SRAM	ram/sram.asm:128	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_B00C	SRAM	ram/sram.asm:129	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_B010	SRAM	ram/sram.asm:130	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sSettingsRegistrationProgress	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_B011	SRAM	ram/sram.asm:131	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sSettingsAdapterType	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_B012	SRAM	ram/sram.asm:132	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sSettingsHiddenMode	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_B013	SRAM	ram/sram.asm:133	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sSettingsSelectedDialEntry	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_B014	SRAM	ram/sram.asm:134	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sSettingsDialNumbers	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_B025	SRAM	ram/sram.asm:135	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_B036	SRAM	ram/sram.asm:136	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_B047	SRAM	ram/sram.asm:137	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sSettingsMailAddress	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_B066	SRAM	ram/sram.asm:138	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sSettingsLoginId	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_B071	SRAM	ram/sram.asm:139	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sSettingsMailLocalPart	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_B07A	SRAM	ram/sram.asm:140	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sSettingsMailSubdomain	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_B07F	SRAM	ram/sram.asm:141	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sSettingsPassword	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_B088	SRAM	ram/sram.asm:142	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sSettingsSavePasswordFlag	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_B089	SRAM	ram/sram.asm:143	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sSettingsHiddenAtRegistration	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_B08A	SRAM	ram/sram.asm:144	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sSettingsManualNumbersFlag	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_B08B	SRAM	ram/sram.asm:145	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sSettingsNumberInternet	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_B09C	SRAM	ram/sram.asm:146	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sSettingsNumberSelfPage	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_B0AD	SRAM	ram/sram.asm:147	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sSettingsNumberComment	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_B0BE	SRAM	ram/sram.asm:148	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sSettingsFieldMask	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_B0FE	SRAM	ram/sram.asm:149	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_B100	SRAM	ram/sram.asm:150	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sSettingsBackup	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_B400	SRAM	ram/sram.asm:151	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sPop3TopSummary	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_B410	SRAM	ram/sram.asm:152	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sPop3TopSubject	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_B430	SRAM	ram/sram.asm:153	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sPop3TopSourceLabel	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_B450	SRAM	ram/sram.asm:154	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sPop3TopSenderName	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_B470	SRAM	ram/sram.asm:155	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sPop3TopSenderAddress	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_B4FF	SRAM	ram/sram.asm:156	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_BB44	SRAM	ram/sram.asm:157	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
+sSram_BF00	SRAM	ram/sram.asm:158	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sTitleMenuCursor,sVarPage	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_BF01	SRAM	ram/sram.asm:159	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sVarSettingsMenuCursor	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_BF02	SRAM	ram/sram.asm:160	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sPhoneTopMenuCursor	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_BF03	SRAM	ram/sram.asm:161	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sPhoneSlotMenuCursor	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_BF04	SRAM	ram/sram.asm:162	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sPhoneMethodMenuCursor	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_BF05	SRAM	ram/sram.asm:163	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sKbdInputMode	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+wRam_C0D4	WRAM0	ram/wram.asm:10	KEEP_NEUTRAL_SCOPED_OVERLAY	wCommNotice_Cursor,wDebugErrorTest_Category,wDebugFlags_Cursor,wMobileDict_Category,wTopMenu_CursorPosX	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C0D6	WRAM0	ram/wram.asm:12	KEEP_NEUTRAL_SCOPED_OVERLAY	wCommNotice_GfxSetArg,wConnectDialog_NextMode,wDebugErrorTest_CodeHi,wMobileDict_RowCursor,wSoundTest_NumberHi,wTopMenu_CursorPosY	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C0D8	WRAM0	ram/wram.asm:14	KEEP_NEUTRAL_SCOPED_OVERLAY	wCommErr_TimerVariantFlag,wCommNotice_ModeArg,wConnectDialog_Mode,wDebugFlags_Mode,wHelpMenu_Page,wMobileDict_EntryCount	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C0D9	WRAM0	ram/wram.asm:15	KEEP_NEUTRAL_SCOPED_OVERLAY	wHelpScript_DeferredTextSfx	2	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C0DA	WRAM0	ram/wram.asm:16	KEEP_NEUTRAL_NO_UNIQUE_ROLE		1	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C0DF	WRAM0	ram/wram.asm:21	KEEP_NEUTRAL_SCOPED_OVERLAY	wDebugFlags_SlideStep,wTopMenu_CursorStepYHi	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C0E2	WRAM0	ram/wram.asm:24	KEEP_NEUTRAL_SCOPED_OVERLAY	wHelpScript_PrintingFlag,wTopMenu_SlideFlag	1	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C0E3	WRAM0	ram/wram.asm:25	KEEP_NEUTRAL_SCOPED_OVERLAY	wTopMenu_PendingAFlag	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C0E4	WRAM0	ram/wram.asm:26	KEEP_NEUTRAL_SCOPED_OVERLAY	wBrowserStart_AcceptCountdown	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C0E5	WRAM0	ram/wram.asm:27	KEEP_NEUTRAL_SCOPED_OVERLAY	wBrowserStart_Cursor,wConnectDialog_Cursor,wDebugErrorTest_CodeLo,wDebugFlags_EntryIndex,wDebugFlags_SlideY,wHelpMenu_Cursor,wMailMenu_Cursor,wMobileDict_ScrollOffset,wSoundTest_NumberLo,wTopMenu_Cursor	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C0E6	WRAM0	ram/wram.asm:28	KEEP_NEUTRAL_SCOPED_OVERLAY	wConnectDialog_PrevMode,wHelpMenu_NormalItem,wMailMenu_NormalItem,wTopMenu_PrevCursor	1	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C0E7	WRAM0	ram/wram.asm:29	KEEP_NEUTRAL_SCOPED_OVERLAY	wBrowserStart_AnimCounter,wDebugErrorTest_HoldCounter,wDebugFlags_HoldCounter,wMailMenu_AnimCounter,wNonCgb_FadeTimer,wSoundTest_HoldCounter,wTopMenu_AnimCounter	1	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C0E8	WRAM0	ram/wram.asm:30	KEEP_NEUTRAL_SCOPED_OVERLAY	wBrowserStart_AnimFrame,wConnectDialog_FieldDirty,wDebugErrorTest_PrevHeld,wDebugFlags_PrevHeld,wMailMenu_AnimFrame,wNonCgb_FadeIndex,wSoundTest_PrevHeld,wTopMenu_AnimFrame	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C0F6	WRAM0	ram/wram.asm:41	KEEP_NEUTRAL_SCOPED_OVERLAY	wConnectDialogIrq_PreviousRow,wConnectDialog_RasterOffset,wTicker_DestColumn	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C0F8	WRAM0	ram/wram.asm:43	KEEP_NEUTRAL_NO_UNIQUE_ROLE		2	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C0F9	WRAM0	ram/wram.asm:44	KEEP_NEUTRAL_NO_UNIQUE_ROLE		2	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C10E	WRAM0	ram/wram.asm:45	KEEP_NEUTRAL_SCOPED_OVERLAY	wBrowserStart_AttrSrcLo,wCommErr_AttrSrc,wConnectDialog_AttrSrc,wConnectDialog_DestBank,wHelpMenu_AttrSrcLo,wHelpScript_SavedPtrLo,wMailMenu_AttrSrcLo,wPaletteTicker_StepFrames,wTilemapCopy_AttrSrcLo,wTilemapFill_WramBank,wTopMenu_DirFlags	1	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C10F	WRAM0	ram/wram.asm:46	KEEP_NEUTRAL_SCOPED_OVERLAY	wBrowserStart_AttrSrcHi,wCommErr_AttrSrcHi,wConnectDialog_AttrSrcHi,wHelpMenu_AttrSrcHi,wHelpScript_SavedPtrHi,wMailMenu_AttrSrcHi,wTilemapCopy_AttrSrcHi,wTilemapFill_StartTile	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C110	WRAM0	ram/wram.asm:47	KEEP_NEUTRAL_SCOPED_OVERLAY	wHelpScript_PictureBank	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C16D	WRAM0	ram/wram.asm:63	KEEP_NEUTRAL_NO_UNIQUE_ROLE		1	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C16E	WRAM0	ram/wram.asm:64	KEEP_NEUTRAL_NO_UNIQUE_ROLE		1	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C176	WRAM0	ram/wram.asm:68	KEEP_NEUTRAL_NO_UNIQUE_ROLE		2	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C17A	WRAM0	ram/wram.asm:72	KEEP_NEUTRAL_SCOPED_OVERLAY	wHelpScript_ClearPlane1Flag	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C17B	WRAM0	ram/wram.asm:73	KEEP_NEUTRAL_NO_UNIQUE_ROLE		1	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C17C	WRAM0	ram/wram.asm:74	KEEP_NEUTRAL_NO_UNIQUE_ROLE		1	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C1AA	WRAM0	ram/wram.asm:82	KEEP_NEUTRAL_NO_UNIQUE_ROLE		5	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C1AC	WRAM0	ram/wram.asm:84	KEEP_NEUTRAL_NO_UNIQUE_ROLE		1	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C1CC	WRAM0	ram/wram.asm:91	KEEP_NEUTRAL_NO_UNIQUE_ROLE		2	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C240	WRAM0	ram/wram.asm:106	KEEP_NEUTRAL_NO_UNIQUE_ROLE		46	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C241	WRAM0	ram/wram.asm:107	KEEP_NEUTRAL_SCOPED_OVERLAY	wSmtp_HeaderWritePtr	1	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C242	WRAM0	ram/wram.asm:108	KEEP_NEUTRAL_SCOPED_OVERLAY	wBrowserPost_BodyLengthLo,wSmtp_HeaderWritePtrHi	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C243	WRAM0	ram/wram.asm:109	KEEP_NEUTRAL_SCOPED_OVERLAY	wSmtp_HeaderBytesFree	2	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C244	WRAM0	ram/wram.asm:110	KEEP_NEUTRAL_SCOPED_OVERLAY	wSmtp_HeaderBytesFreeHi	2	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C245	WRAM0	ram/wram.asm:111	KEEP_NEUTRAL_SCOPED_OVERLAY	wSmtp_FieldLength	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C246	WRAM0	ram/wram.asm:112	KEEP_NEUTRAL_NO_UNIQUE_ROLE		0	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C247	WRAM0	ram/wram.asm:113	KEEP_NEUTRAL_NO_UNIQUE_ROLE		0	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C250	WRAM0	ram/wram.asm:114	KEEP_NEUTRAL_SCOPED_OVERLAY	wMailFrom_NameDest	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C251	WRAM0	ram/wram.asm:115	KEEP_NEUTRAL_SCOPED_OVERLAY	wMailFrom_NameDestHi	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C252	WRAM0	ram/wram.asm:116	KEEP_NEUTRAL_SCOPED_OVERLAY	wMailFrom_AddressDest	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C253	WRAM0	ram/wram.asm:117	KEEP_NEUTRAL_SCOPED_OVERLAY	wMailFrom_AddressDestHi	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C25F	WRAM0	ram/wram.asm:120	KEEP_NEUTRAL_SCOPED_OVERLAY	wPop3_BodyIncomplete	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C279	WRAM0	ram/wram.asm:135	KEEP_NEUTRAL_NO_UNIQUE_ROLE		5	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C27B	WRAM0	ram/wram.asm:137	KEEP_NEUTRAL_NO_UNIQUE_ROLE		2	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C27C	WRAM0	ram/wram.asm:138	KEEP_NEUTRAL_SCOPED_OVERLAY	wAccountConfirm_Result,wActionConfirmPage_Result,wAdapterCheck_Result,wAdapterConfig_Result,wChoiceMenu_Result,wCommScene_State,wConfirmScreen_Result,wContinuePrompt_Result,wCopyMailAddressToFar_Bank,wDeleteConfirm_Variant,wDeleteExecute_Result,wLoginIdEntry_Result,wMailAddressEntry_Result,wNotice_PageArg,wPasswordChange_Result,wPasswordEntry_Result,wPhoneComment_Result,wPhoneKeypad_Result,wPwSaveConfirm_Result,wRegistrationVerify_Result,wRegistrationWriteConfig_Result,wResultPage_Kind,wSettingsMenu_Cursor,wSlotMenu_Result,wTitle_State	1	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C27D	WRAM0	ram/wram.asm:139	KEEP_NEUTRAL_SCOPED_OVERLAY	wAccountConfirm_Cursor,wActionConfirmPage_Cursor,wAdapterCheck_State,wAdapterConfig_State,wChoiceMenu_Cursor,wCommScene_Kind,wConfirmScreen_Cursor,wContinuePrompt_Cursor,wCopyMailAddressToFar_DestLo,wDeleteConfirm_Cursor,wDeleteExecute_State,wLoginIdEntry_OkFlag,wMailAddressEntry_Field,wPasswordChange_State,wPasswordEntry_Variant,wPhoneComment_OkFlag,wPhoneKeypad_Kind,wPwSaveConfirm_Cursor,wRegistrationVerify_State,wRegistrationWriteConfig_State,wResultPage_Variant,wSettingsMenu_CancelFlag,wSlotMenu_Cursor,wTitle_Cursor	1	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C27E	WRAM0	ram/wram.asm:140	KEEP_NEUTRAL_SCOPED_OVERLAY	wActionConfirmPage_Variant,wAdapterConfig_Slot,wChoiceMenu_Variant,wCommScene_StepArg,wConfirmScreen_Slot,wCopyMailAddressToFar_DestHi,wMailAddressEntry_OkFlag,wNotice_RecordPtr,wPasswordEntry_OkFlag,wPhoneKeypad_OkFlag,wPwSaveConfirm_Variant,wSlotMenu_OnlyFilled,wTitle_FrameCounterHi	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C27F	WRAM0	ram/wram.asm:141	KEEP_NEUTRAL_SCOPED_OVERLAY	wCommScene_Result,wNotice_RecordPtrHi,wTitle_FrameCounterLo	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C280	WRAM0	ram/wram.asm:142	KEEP_NEUTRAL_SCOPED_OVERLAY	wCommScene_SpritePairX,wNotice_FooterKind,wTitle_Arg	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C281	WRAM0	ram/wram.asm:143	KEEP_NEUTRAL_SCOPED_OVERLAY	wCommScene_SpritePairVariant,wNotice_DigitVariant	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C282	WRAM0	ram/wram.asm:144	KEEP_NEUTRAL_SCOPED_OVERLAY	wCharsetConvert_PageResultFlag,wCommScene_Timer	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C283	WRAM0	ram/wram.asm:145	KEEP_NEUTRAL_SCOPED_OVERLAY	wCommScene_TimerAFlag,wSettingsPhone_Slot	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C286	WRAM0	ram/wram.asm:148	KEEP_NEUTRAL_SCOPED_OVERLAY	wAdapterCheck_SfxFlag,wAdapterConfig_SfxFlag,wRegistrationWriteConfig_SfxFlag	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C28E	WRAM0	ram/wram.asm:156	KEEP_NEUTRAL_SCOPED_OVERLAY	wActionConfirmPage_NoFlag,wSettingsMenu_State,wUsageQuery_NoFlag	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C28F	WRAM0	ram/wram.asm:157	KEEP_NEUTRAL_SCOPED_OVERLAY	wPasswordChangeSave_PasswordBuf,wRegistrationSave_PasswordBuf	15	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C2A9	WRAM0	ram/wram.asm:160	KEEP_NEUTRAL_NO_UNIQUE_ROLE		2	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C2B0	WRAM0	ram/wram.asm:166	KEEP_NEUTRAL_NO_UNIQUE_ROLE		4	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C2B1	WRAM0	ram/wram.asm:167	KEEP_NEUTRAL_NO_UNIQUE_ROLE		4	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C2D0	WRAM0	ram/wram.asm:197	KEEP_NEUTRAL_NO_UNIQUE_ROLE		1	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C2DC	WRAM0	ram/wram.asm:206	KEEP_NEUTRAL_NO_UNIQUE_ROLE		2	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C331	WRAM0	ram/wram.asm:224	KEEP_NEUTRAL_SCOPED_OVERLAY	wBmp_ColorDiffHi	9	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C332	WRAM0	ram/wram.asm:225	KEEP_NEUTRAL_NO_UNIQUE_ROLE		4	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C37D	WRAM0	ram/wram.asm:237	KEEP_NEUTRAL_NO_UNIQUE_ROLE		0	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C37E	WRAM0	ram/wram.asm:238	KEEP_NEUTRAL_NO_UNIQUE_ROLE		0	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C37F	WRAM0	ram/wram.asm:239	KEEP_NEUTRAL_NO_UNIQUE_ROLE		0	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C480	WRAM0	ram/wram.asm:241	KEEP_NEUTRAL_SCOPED_OVERLAY	wMailDate_InputText,wSmtp_EncodedText	32	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C481	WRAM0	ram/wram.asm:242	KEEP_NEUTRAL_NO_UNIQUE_ROLE		0	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C482	WRAM0	ram/wram.asm:243	KEEP_NEUTRAL_SCOPED_OVERLAY	wSmtp_EncodedBodyText	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C500	WRAM0	ram/wram.asm:244	KEEP_NEUTRAL_SCOPED_OVERLAY	wSmtp_SubjectScratch	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C514	WRAM0	ram/wram.asm:245	KEEP_NEUTRAL_NEW_SCOPED_ALIAS	wSmtp_SubjectTerminator	0	PROBABLE	Global anchor remains neutral; scoped alias wSmtp_SubjectTerminator is supported only in its producer/consumer function range.
+wRam_C580	WRAM0	ram/wram.asm:246	KEEP_NEUTRAL_SCOPED_OVERLAY	wMailDate_YearHi	19	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C581	WRAM0	ram/wram.asm:247	KEEP_NEUTRAL_SCOPED_OVERLAY	wMailDate_YearLo	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C582	WRAM0	ram/wram.asm:248	KEEP_NEUTRAL_SCOPED_OVERLAY	wMailDate_Month	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C583	WRAM0	ram/wram.asm:249	KEEP_NEUTRAL_SCOPED_OVERLAY	wMailDate_Day	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C584	WRAM0	ram/wram.asm:250	KEEP_NEUTRAL_SCOPED_OVERLAY	wMailDate_Hour	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C585	WRAM0	ram/wram.asm:251	KEEP_NEUTRAL_SCOPED_OVERLAY	wMailDate_Minute	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C590	WRAM0	ram/wram.asm:252	KEEP_NEUTRAL_SCOPED_OVERLAY	wMailDate_ZoneSign	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C591	WRAM0	ram/wram.asm:253	KEEP_NEUTRAL_NEW_SCOPED_ALIAS	wMailDate_ZoneHoursBcd	0	PROBABLE	Global anchor remains neutral; scoped alias wMailDate_ZoneHoursBcd is supported only in its producer/consumer function range.
+wRam_C592	WRAM0	ram/wram.asm:254	KEEP_NEUTRAL_NEW_SCOPED_ALIAS	wMailDate_ZoneMinutesBcd	0	PROBABLE	Global anchor remains neutral; scoped alias wMailDate_ZoneMinutesBcd is supported only in its producer/consumer function range.
+wRam_C6A6	WRAM0	ram/wram.asm:260	KEEP_NEUTRAL_NO_UNIQUE_ROLE		7	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C711	WRAM0	ram/wram.asm:298	KEEP_NEUTRAL_SCOPED_OVERLAY	wMobileHttp_ReceiveCapacity	14	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C712	WRAM0	ram/wram.asm:299	KEEP_NEUTRAL_SCOPED_OVERLAY	wMobileHttp_ReceiveCapacityHi	6	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C713	WRAM0	ram/wram.asm:300	KEEP_NEUTRAL_SCOPED_OVERLAY	wMobileHttp_ReceiveBuffer	6	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C714	WRAM0	ram/wram.asm:301	KEEP_NEUTRAL_SCOPED_OVERLAY	wMobileHttp_ReceiveBufferHi	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C718	WRAM0	ram/wram.asm:304	KEEP_NEUTRAL_NO_UNIQUE_ROLE		0	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C819	WRAM0	ram/wram.asm:310	KEEP_NEUTRAL_NO_UNIQUE_ROLE		2	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C820	WRAM0	ram/wram.asm:313	KEEP_NEUTRAL_NO_UNIQUE_ROLE		2	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C821	WRAM0	ram/wram.asm:314	KEEP_NEUTRAL_NO_UNIQUE_ROLE		0	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C823	WRAM0	ram/wram.asm:316	KEEP_NEUTRAL_SCOPED_OVERLAY	wMobileCall_ArgHlLo,wMobileReturn_A	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C824	WRAM0	ram/wram.asm:317	KEEP_NEUTRAL_SCOPED_OVERLAY	wMobileCall_ArgHlHi,wMobileReturn_HlLo	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C827	WRAM0	ram/wram.asm:320	KEEP_NEUTRAL_SCOPED_OVERLAY	wMobileHttp_ServiceKind,wMobileSmtp_DataPhase	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C82C	WRAM0	ram/wram.asm:323	KEEP_NEUTRAL_NO_UNIQUE_ROLE		11	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C82D	WRAM0	ram/wram.asm:324	KEEP_NEUTRAL_SCOPED_OVERLAY	wMobileHttp_ResponseFlags	0	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C82E	WRAM0	ram/wram.asm:325	KEEP_NEUTRAL_SCOPED_OVERLAY	wMobilePeer_MessageLength	11	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C82F	WRAM0	ram/wram.asm:326	KEEP_NEUTRAL_SCOPED_OVERLAY	wMobilePeer_FragmentBytes	3	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C830	WRAM0	ram/wram.asm:327	KEEP_NEUTRAL_SCOPED_OVERLAY	wMobilePeer_PacketOffset	16	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C831	WRAM0	ram/wram.asm:328	KEEP_NEUTRAL_SCOPED_OVERLAY	wMobileHttp_IsPost,wMobilePeer_PacketBytesLeft	6	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C833	WRAM0	ram/wram.asm:330	KEEP_NEUTRAL_NO_UNIQUE_ROLE		0	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C834	WRAM0	ram/wram.asm:331	KEEP_NEUTRAL_NO_UNIQUE_ROLE		0	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C84E	WRAM0	ram/wram.asm:339	KEEP_NEUTRAL_NO_UNIQUE_ROLE		1	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_C852	WRAM0	ram/wram.asm:341	KEEP_NEUTRAL_SCOPED_OVERLAY	wMobileHttp_AuthHeaderText	2	CONFIRMED	Address is reused by screen/helper overlays; retain the global anchor and use scope-limited aliases.
+wRam_C853	WRAM0	ram/wram.asm:342	KEEP_NEUTRAL_NO_UNIQUE_ROLE		2	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_CFFF	WRAM0	ram/wram.asm:353	KEEP_NEUTRAL_NO_UNIQUE_ROLE		0	PROBABLE	Complete operand/context review did not establish a sufficiently narrow semantic name; preserve the address anchor.
+wRam_D005	WRAMX	ram/wram.asm:358	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D006	WRAMX	ram/wram.asm:359	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D007	WRAMX	ram/wram.asm:360	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D008	WRAMX	ram/wram.asm:361	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D009	WRAMX	ram/wram.asm:362	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D00A	WRAMX	ram/wram.asm:363	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D00B	WRAMX	ram/wram.asm:364	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D00C	WRAMX	ram/wram.asm:365	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D00D	WRAMX	ram/wram.asm:366	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D00E	WRAMX	ram/wram.asm:367	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D00F	WRAMX	ram/wram.asm:368	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D010	WRAMX	ram/wram.asm:369	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D011	WRAMX	ram/wram.asm:370	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D012	WRAMX	ram/wram.asm:371	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D013	WRAMX	ram/wram.asm:372	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D014	WRAMX	ram/wram.asm:373	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D015	WRAMX	ram/wram.asm:374	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D016	WRAMX	ram/wram.asm:375	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D017	WRAMX	ram/wram.asm:376	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D018	WRAMX	ram/wram.asm:377	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D019	WRAMX	ram/wram.asm:378	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D01A	WRAMX	ram/wram.asm:379	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D01B	WRAMX	ram/wram.asm:380	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D01C	WRAMX	ram/wram.asm:381	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D01D	WRAMX	ram/wram.asm:382	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D01E	WRAMX	ram/wram.asm:383	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D01F	WRAMX	ram/wram.asm:384	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D020	WRAMX	ram/wram.asm:385	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D021	WRAMX	ram/wram.asm:386	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D022	WRAMX	ram/wram.asm:387	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D023	WRAMX	ram/wram.asm:388	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D024	WRAMX	ram/wram.asm:389	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D025	WRAMX	ram/wram.asm:390	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D028	WRAMX	ram/wram.asm:392	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D030	WRAMX	ram/wram.asm:393	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D038	WRAMX	ram/wram.asm:394	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D039	WRAMX	ram/wram.asm:395	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D03A	WRAMX	ram/wram.asm:396	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D03B	WRAMX	ram/wram.asm:397	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D03C	WRAMX	ram/wram.asm:398	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D03E	WRAMX	ram/wram.asm:399	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D03F	WRAMX	ram/wram.asm:400	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D040	WRAMX	ram/wram.asm:401	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D041	WRAMX	ram/wram.asm:402	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D042	WRAMX	ram/wram.asm:403	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D043	WRAMX	ram/wram.asm:404	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D044	WRAMX	ram/wram.asm:405	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D045	WRAMX	ram/wram.asm:406	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D046	WRAMX	ram/wram.asm:407	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D047	WRAMX	ram/wram.asm:408	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D048	WRAMX	ram/wram.asm:409	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D050	WRAMX	ram/wram.asm:410	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D058	WRAMX	ram/wram.asm:411	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D061	WRAMX	ram/wram.asm:412	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D062	WRAMX	ram/wram.asm:413	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D063	WRAMX	ram/wram.asm:414	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D064	WRAMX	ram/wram.asm:415	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D065	WRAMX	ram/wram.asm:416	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D066	WRAMX	ram/wram.asm:417	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D067	WRAMX	ram/wram.asm:418	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D070	WRAMX	ram/wram.asm:419	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D080	WRAMX	ram/wram.asm:420	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D081	WRAMX	ram/wram.asm:421	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D082	WRAMX	ram/wram.asm:422	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D083	WRAMX	ram/wram.asm:423	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D084	WRAMX	ram/wram.asm:424	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D086	WRAMX	ram/wram.asm:425	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D087	WRAMX	ram/wram.asm:426	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D089	WRAMX	ram/wram.asm:427	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D08A	WRAMX	ram/wram.asm:428	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D08C	WRAMX	ram/wram.asm:429	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D08D	WRAMX	ram/wram.asm:430	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D08F	WRAMX	ram/wram.asm:431	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D090	WRAMX	ram/wram.asm:432	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D0A0	WRAMX	ram/wram.asm:433	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D0A1	WRAMX	ram/wram.asm:434	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D0A2	WRAMX	ram/wram.asm:435	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D0A3	WRAMX	ram/wram.asm:436	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D0A4	WRAMX	ram/wram.asm:437	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D0A5	WRAMX	ram/wram.asm:438	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D0A6	WRAMX	ram/wram.asm:439	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D0A7	WRAMX	ram/wram.asm:440	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D0A8	WRAMX	ram/wram.asm:441	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D0A9	WRAMX	ram/wram.asm:442	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D0AA	WRAMX	ram/wram.asm:443	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D0AB	WRAMX	ram/wram.asm:444	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D0AC	WRAMX	ram/wram.asm:445	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D0AD	WRAMX	ram/wram.asm:446	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D0AF	WRAMX	ram/wram.asm:447	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D0B0	WRAMX	ram/wram.asm:448	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D0C0	WRAMX	ram/wram.asm:449	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D0C1	WRAMX	ram/wram.asm:450	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D0C5	WRAMX	ram/wram.asm:451	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D0CE	WRAMX	ram/wram.asm:452	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D0CF	WRAMX	ram/wram.asm:453	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D0E0	WRAMX	ram/wram.asm:454	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D0E1	WRAMX	ram/wram.asm:455	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D0E4	WRAMX	ram/wram.asm:456	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D0E7	WRAMX	ram/wram.asm:457	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D0E9	WRAMX	ram/wram.asm:458	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D0F0	WRAMX	ram/wram.asm:459	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D100	WRAMX	ram/wram.asm:460	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D102	WRAMX	ram/wram.asm:461	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D107	WRAMX	ram/wram.asm:462	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D109	WRAMX	ram/wram.asm:463	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D120	WRAMX	ram/wram.asm:464	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D121	WRAMX	ram/wram.asm:465	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D122	WRAMX	ram/wram.asm:466	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D126	WRAMX	ram/wram.asm:467	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D127	WRAMX	ram/wram.asm:468	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D129	WRAMX	ram/wram.asm:469	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D130	WRAMX	ram/wram.asm:470	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D140	WRAMX	ram/wram.asm:471	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D141	WRAMX	ram/wram.asm:472	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D142	WRAMX	ram/wram.asm:473	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D147	WRAMX	ram/wram.asm:474	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D148	WRAMX	ram/wram.asm:475	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D160	WRAMX	ram/wram.asm:476	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D161	WRAMX	ram/wram.asm:477	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D162	WRAMX	ram/wram.asm:478	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D164	WRAMX	ram/wram.asm:479	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D167	WRAMX	ram/wram.asm:480	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D169	WRAMX	ram/wram.asm:481	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D180	WRAMX	ram/wram.asm:482	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D185	WRAMX	ram/wram.asm:483	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D186	WRAMX	ram/wram.asm:484	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D190	WRAMX	ram/wram.asm:485	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D1A2	WRAMX	ram/wram.asm:486	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D1A6	WRAMX	ram/wram.asm:487	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D1A7	WRAMX	ram/wram.asm:488	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D1A9	WRAMX	ram/wram.asm:489	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D1AA	WRAMX	ram/wram.asm:490	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D1C1	WRAMX	ram/wram.asm:491	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D1C2	WRAMX	ram/wram.asm:492	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D1C6	WRAMX	ram/wram.asm:493	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D1C7	WRAMX	ram/wram.asm:494	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D1C9	WRAMX	ram/wram.asm:495	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D1CA	WRAMX	ram/wram.asm:496	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D1E0	WRAMX	ram/wram.asm:497	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D1E2	WRAMX	ram/wram.asm:498	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D1EE	WRAMX	ram/wram.asm:499	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D1EF	WRAMX	ram/wram.asm:500	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D1F1	WRAMX	ram/wram.asm:501	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D1F2	WRAMX	ram/wram.asm:502	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D1FF	WRAMX	ram/wram.asm:503	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D200	WRAMX	ram/wram.asm:504	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D20C	WRAMX	ram/wram.asm:505	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D20D	WRAMX	ram/wram.asm:506	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D210	WRAMX	ram/wram.asm:507	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D211	WRAMX	ram/wram.asm:508	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D212	WRAMX	ram/wram.asm:509	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D220	WRAMX	ram/wram.asm:510	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D221	WRAMX	ram/wram.asm:511	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D222	WRAMX	ram/wram.asm:512	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D224	WRAMX	ram/wram.asm:513	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D225	WRAMX	ram/wram.asm:514	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D22C	WRAMX	ram/wram.asm:515	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D22D	WRAMX	ram/wram.asm:516	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D238	WRAMX	ram/wram.asm:517	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D23F	WRAMX	ram/wram.asm:518	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D240	WRAMX	ram/wram.asm:519	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D245	WRAMX	ram/wram.asm:520	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D248	WRAMX	ram/wram.asm:521	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D24B	WRAMX	ram/wram.asm:522	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D250	WRAMX	ram/wram.asm:523	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D25F	WRAMX	ram/wram.asm:524	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D268	WRAMX	ram/wram.asm:525	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D280	WRAMX	ram/wram.asm:526	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D29F	WRAMX	ram/wram.asm:527	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D2A0	WRAMX	ram/wram.asm:528	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D2E0	WRAMX	ram/wram.asm:529	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D300	WRAMX	ram/wram.asm:530	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D33F	WRAMX	ram/wram.asm:531	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D340	WRAMX	ram/wram.asm:532	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D341	WRAMX	ram/wram.asm:533	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D360	WRAMX	ram/wram.asm:534	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D37F	WRAMX	ram/wram.asm:535	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D380	WRAMX	ram/wram.asm:536	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D381	WRAMX	ram/wram.asm:537	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D382	WRAMX	ram/wram.asm:538	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D383	WRAMX	ram/wram.asm:539	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D3BF	WRAMX	ram/wram.asm:540	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D3C0	WRAMX	ram/wram.asm:541	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D400	WRAMX	ram/wram.asm:542	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D406	WRAMX	ram/wram.asm:543	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D40C	WRAMX	ram/wram.asm:544	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D41B	WRAMX	ram/wram.asm:545	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D420	WRAMX	ram/wram.asm:546	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D430	WRAMX	ram/wram.asm:547	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D464	WRAMX	ram/wram.asm:548	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D466	WRAMX	ram/wram.asm:549	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D467	WRAMX	ram/wram.asm:550	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D468	WRAMX	ram/wram.asm:551	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D469	WRAMX	ram/wram.asm:552	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D46A	WRAMX	ram/wram.asm:553	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D46B	WRAMX	ram/wram.asm:554	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D46C	WRAMX	ram/wram.asm:555	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D46D	WRAMX	ram/wram.asm:556	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D46E	WRAMX	ram/wram.asm:557	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D46F	WRAMX	ram/wram.asm:558	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D470	WRAMX	ram/wram.asm:559	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D471	WRAMX	ram/wram.asm:560	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D472	WRAMX	ram/wram.asm:561	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D480	WRAMX	ram/wram.asm:562	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D486	WRAMX	ram/wram.asm:563	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D487	WRAMX	ram/wram.asm:564	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D488	WRAMX	ram/wram.asm:565	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D489	WRAMX	ram/wram.asm:566	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D48A	WRAMX	ram/wram.asm:567	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D48B	WRAMX	ram/wram.asm:568	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D48C	WRAMX	ram/wram.asm:569	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D48D	WRAMX	ram/wram.asm:570	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D48E	WRAMX	ram/wram.asm:571	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D48F	WRAMX	ram/wram.asm:572	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D490	WRAMX	ram/wram.asm:573	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D491	WRAMX	ram/wram.asm:574	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D492	WRAMX	ram/wram.asm:575	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4A1	WRAMX	ram/wram.asm:576	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4A2	WRAMX	ram/wram.asm:577	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4A3	WRAMX	ram/wram.asm:578	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4A4	WRAMX	ram/wram.asm:579	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4A6	WRAMX	ram/wram.asm:580	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4A7	WRAMX	ram/wram.asm:581	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4A9	WRAMX	ram/wram.asm:582	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4AA	WRAMX	ram/wram.asm:583	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4AC	WRAMX	ram/wram.asm:584	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4AD	WRAMX	ram/wram.asm:585	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4AF	WRAMX	ram/wram.asm:586	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4B0	WRAMX	ram/wram.asm:587	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4BC	WRAMX	ram/wram.asm:588	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4BD	WRAMX	ram/wram.asm:589	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4BE	WRAMX	ram/wram.asm:590	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4BF	WRAMX	ram/wram.asm:591	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4C0	WRAMX	ram/wram.asm:592	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4C6	WRAMX	ram/wram.asm:593	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4C7	WRAMX	ram/wram.asm:594	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4C8	WRAMX	ram/wram.asm:595	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4C9	WRAMX	ram/wram.asm:596	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4CA	WRAMX	ram/wram.asm:597	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4CB	WRAMX	ram/wram.asm:598	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4CC	WRAMX	ram/wram.asm:599	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4CD	WRAMX	ram/wram.asm:600	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4CE	WRAMX	ram/wram.asm:601	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4CF	WRAMX	ram/wram.asm:602	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4D0	WRAMX	ram/wram.asm:603	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4D1	WRAMX	ram/wram.asm:604	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4D2	WRAMX	ram/wram.asm:605	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4D4	WRAMX	ram/wram.asm:606	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4E0	WRAMX	ram/wram.asm:607	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4E6	WRAMX	ram/wram.asm:608	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4E7	WRAMX	ram/wram.asm:609	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4E8	WRAMX	ram/wram.asm:610	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4E9	WRAMX	ram/wram.asm:611	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4EA	WRAMX	ram/wram.asm:612	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4EB	WRAMX	ram/wram.asm:613	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4EC	WRAMX	ram/wram.asm:614	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4ED	WRAMX	ram/wram.asm:615	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4EE	WRAMX	ram/wram.asm:616	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4EF	WRAMX	ram/wram.asm:617	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4F0	WRAMX	ram/wram.asm:618	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4F1	WRAMX	ram/wram.asm:619	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4F2	WRAMX	ram/wram.asm:620	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4FE	WRAMX	ram/wram.asm:621	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D4FF	WRAMX	ram/wram.asm:622	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D500	WRAMX	ram/wram.asm:623	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D506	WRAMX	ram/wram.asm:624	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D507	WRAMX	ram/wram.asm:625	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D508	WRAMX	ram/wram.asm:626	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D509	WRAMX	ram/wram.asm:627	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D50A	WRAMX	ram/wram.asm:628	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D50B	WRAMX	ram/wram.asm:629	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D50C	WRAMX	ram/wram.asm:630	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D50D	WRAMX	ram/wram.asm:631	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D50E	WRAMX	ram/wram.asm:632	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D50F	WRAMX	ram/wram.asm:633	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D510	WRAMX	ram/wram.asm:634	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D511	WRAMX	ram/wram.asm:635	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D512	WRAMX	ram/wram.asm:636	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D513	WRAMX	ram/wram.asm:637	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D514	WRAMX	ram/wram.asm:638	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D520	WRAMX	ram/wram.asm:639	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D521	WRAMX	ram/wram.asm:640	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D522	WRAMX	ram/wram.asm:641	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D523	WRAMX	ram/wram.asm:642	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D524	WRAMX	ram/wram.asm:643	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D525	WRAMX	ram/wram.asm:644	KEEP_NEUTRAL_BANKED_WRAMX		2	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid. The two current operands duplicate a W1 record index and overlap unrelated text scratch elsewhere; keep neutral.
+wRam_D526	WRAMX	ram/wram.asm:645	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D527	WRAMX	ram/wram.asm:646	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D528	WRAMX	ram/wram.asm:647	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D529	WRAMX	ram/wram.asm:648	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D52A	WRAMX	ram/wram.asm:649	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D52B	WRAMX	ram/wram.asm:650	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D52C	WRAMX	ram/wram.asm:651	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D52D	WRAMX	ram/wram.asm:652	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D52E	WRAMX	ram/wram.asm:653	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D52F	WRAMX	ram/wram.asm:654	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D530	WRAMX	ram/wram.asm:655	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D531	WRAMX	ram/wram.asm:656	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D532	WRAMX	ram/wram.asm:657	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D540	WRAMX	ram/wram.asm:658	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D542	WRAMX	ram/wram.asm:659	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D546	WRAMX	ram/wram.asm:660	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D547	WRAMX	ram/wram.asm:661	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D548	WRAMX	ram/wram.asm:662	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D549	WRAMX	ram/wram.asm:663	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D54A	WRAMX	ram/wram.asm:664	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D54B	WRAMX	ram/wram.asm:665	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D54C	WRAMX	ram/wram.asm:666	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D54D	WRAMX	ram/wram.asm:667	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D54E	WRAMX	ram/wram.asm:668	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D54F	WRAMX	ram/wram.asm:669	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D550	WRAMX	ram/wram.asm:670	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D551	WRAMX	ram/wram.asm:671	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D552	WRAMX	ram/wram.asm:672	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D566	WRAMX	ram/wram.asm:673	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D567	WRAMX	ram/wram.asm:674	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D568	WRAMX	ram/wram.asm:675	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D569	WRAMX	ram/wram.asm:676	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D56A	WRAMX	ram/wram.asm:677	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D56B	WRAMX	ram/wram.asm:678	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D56C	WRAMX	ram/wram.asm:679	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D56D	WRAMX	ram/wram.asm:680	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D56E	WRAMX	ram/wram.asm:681	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D56F	WRAMX	ram/wram.asm:682	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D570	WRAMX	ram/wram.asm:683	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D571	WRAMX	ram/wram.asm:684	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D572	WRAMX	ram/wram.asm:685	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D580	WRAMX	ram/wram.asm:686	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D586	WRAMX	ram/wram.asm:687	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D587	WRAMX	ram/wram.asm:688	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D588	WRAMX	ram/wram.asm:689	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D589	WRAMX	ram/wram.asm:690	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D58A	WRAMX	ram/wram.asm:691	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D58B	WRAMX	ram/wram.asm:692	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D58C	WRAMX	ram/wram.asm:693	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D58D	WRAMX	ram/wram.asm:694	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D58E	WRAMX	ram/wram.asm:695	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D58F	WRAMX	ram/wram.asm:696	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D590	WRAMX	ram/wram.asm:697	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D591	WRAMX	ram/wram.asm:698	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D592	WRAMX	ram/wram.asm:699	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D5A2	WRAMX	ram/wram.asm:700	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D5A6	WRAMX	ram/wram.asm:701	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D5A7	WRAMX	ram/wram.asm:702	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D5A8	WRAMX	ram/wram.asm:703	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D5A9	WRAMX	ram/wram.asm:704	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D5AA	WRAMX	ram/wram.asm:705	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D5AB	WRAMX	ram/wram.asm:706	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D5AC	WRAMX	ram/wram.asm:707	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D5AD	WRAMX	ram/wram.asm:708	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D5AE	WRAMX	ram/wram.asm:709	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D5AF	WRAMX	ram/wram.asm:710	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D5B0	WRAMX	ram/wram.asm:711	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D5B1	WRAMX	ram/wram.asm:712	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D5B2	WRAMX	ram/wram.asm:713	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D5C0	WRAMX	ram/wram.asm:714	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D5C2	WRAMX	ram/wram.asm:715	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D5C6	WRAMX	ram/wram.asm:716	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D5C7	WRAMX	ram/wram.asm:717	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D5C8	WRAMX	ram/wram.asm:718	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D5C9	WRAMX	ram/wram.asm:719	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D5CA	WRAMX	ram/wram.asm:720	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D5CB	WRAMX	ram/wram.asm:721	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D5CC	WRAMX	ram/wram.asm:722	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D5CD	WRAMX	ram/wram.asm:723	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D5CE	WRAMX	ram/wram.asm:724	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D5CF	WRAMX	ram/wram.asm:725	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D5D0	WRAMX	ram/wram.asm:726	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D5D1	WRAMX	ram/wram.asm:727	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D5D2	WRAMX	ram/wram.asm:728	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D5E0	WRAMX	ram/wram.asm:729	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D5FF	WRAMX	ram/wram.asm:730	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D600	WRAMX	ram/wram.asm:731	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D601	WRAMX	ram/wram.asm:732	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D602	WRAMX	ram/wram.asm:733	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D624	WRAMX	ram/wram.asm:734	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D625	WRAMX	ram/wram.asm:735	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D626	WRAMX	ram/wram.asm:736	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D627	WRAMX	ram/wram.asm:737	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D628	WRAMX	ram/wram.asm:738	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D629	WRAMX	ram/wram.asm:739	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D62A	WRAMX	ram/wram.asm:740	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D62B	WRAMX	ram/wram.asm:741	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D62E	WRAMX	ram/wram.asm:742	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D62F	WRAMX	ram/wram.asm:743	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D630	WRAMX	ram/wram.asm:744	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D631	WRAMX	ram/wram.asm:745	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D632	WRAMX	ram/wram.asm:746	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D633	WRAMX	ram/wram.asm:747	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D634	WRAMX	ram/wram.asm:748	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D635	WRAMX	ram/wram.asm:749	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D636	WRAMX	ram/wram.asm:750	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D637	WRAMX	ram/wram.asm:751	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D638	WRAMX	ram/wram.asm:752	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D63F	WRAMX	ram/wram.asm:753	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D640	WRAMX	ram/wram.asm:754	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D65F	WRAMX	ram/wram.asm:755	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D69F	WRAMX	ram/wram.asm:756	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D6A0	WRAMX	ram/wram.asm:757	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D6E0	WRAMX	ram/wram.asm:758	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D700	WRAMX	ram/wram.asm:759	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D724	WRAMX	ram/wram.asm:760	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D725	WRAMX	ram/wram.asm:761	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D726	WRAMX	ram/wram.asm:762	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D727	WRAMX	ram/wram.asm:763	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D728	WRAMX	ram/wram.asm:764	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D780	WRAMX	ram/wram.asm:765	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D800	WRAMX	ram/wram.asm:766	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D801	WRAMX	ram/wram.asm:767	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D806	WRAMX	ram/wram.asm:768	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D807	WRAMX	ram/wram.asm:769	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D808	WRAMX	ram/wram.asm:770	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D824	WRAMX	ram/wram.asm:771	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D828	WRAMX	ram/wram.asm:772	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D830	WRAMX	ram/wram.asm:773	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D840	WRAMX	ram/wram.asm:774	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D860	WRAMX	ram/wram.asm:775	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D868	WRAMX	ram/wram.asm:776	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D872	WRAMX	ram/wram.asm:777	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D873	WRAMX	ram/wram.asm:778	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D878	WRAMX	ram/wram.asm:779	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D880	WRAMX	ram/wram.asm:780	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D8C0	WRAMX	ram/wram.asm:781	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D8F0	WRAMX	ram/wram.asm:782	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D900	WRAMX	ram/wram.asm:783	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D901	WRAMX	ram/wram.asm:784	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D940	WRAMX	ram/wram.asm:785	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D970	WRAMX	ram/wram.asm:786	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D980	WRAMX	ram/wram.asm:787	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D981	WRAMX	ram/wram.asm:788	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D9C0	WRAMX	ram/wram.asm:789	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_D9F0	WRAMX	ram/wram.asm:790	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DB40	WRAMX	ram/wram.asm:792	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DC00	WRAMX	ram/wram.asm:793	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DC80	WRAMX	ram/wram.asm:794	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DC87	WRAMX	ram/wram.asm:795	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DC88	WRAMX	ram/wram.asm:796	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DC89	WRAMX	ram/wram.asm:797	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DC8A	WRAMX	ram/wram.asm:798	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DC8B	WRAMX	ram/wram.asm:799	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DC8C	WRAMX	ram/wram.asm:800	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DC8D	WRAMX	ram/wram.asm:801	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DC8E	WRAMX	ram/wram.asm:802	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DC8F	WRAMX	ram/wram.asm:803	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DCFE	WRAMX	ram/wram.asm:804	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DD00	WRAMX	ram/wram.asm:805	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DD22	WRAMX	ram/wram.asm:806	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DD40	WRAMX	ram/wram.asm:807	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DDC0	WRAMX	ram/wram.asm:808	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DDCF	WRAMX	ram/wram.asm:809	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DE00	WRAMX	ram/wram.asm:810	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DE10	WRAMX	ram/wram.asm:811	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DE80	WRAMX	ram/wram.asm:812	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DE83	WRAMX	ram/wram.asm:813	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DE94	WRAMX	ram/wram.asm:814	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DE97	WRAMX	ram/wram.asm:815	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DEA0	WRAMX	ram/wram.asm:816	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DEA1	WRAMX	ram/wram.asm:817	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DEAB	WRAMX	ram/wram.asm:818	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DEB4	WRAMX	ram/wram.asm:819	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DEB9	WRAMX	ram/wram.asm:820	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DEC2	WRAMX	ram/wram.asm:821	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DECB	WRAMX	ram/wram.asm:822	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DED4	WRAMX	ram/wram.asm:823	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DEDD	WRAMX	ram/wram.asm:824	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DEEE	WRAMX	ram/wram.asm:825	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DEFF	WRAMX	ram/wram.asm:826	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DF00	WRAMX	ram/wram.asm:827	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DF10	WRAMX	ram/wram.asm:828	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DF21	WRAMX	ram/wram.asm:829	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DF32	WRAMX	ram/wram.asm:830	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DF43	WRAMX	ram/wram.asm:831	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DF54	WRAMX	ram/wram.asm:832	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DF65	WRAMX	ram/wram.asm:833	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DF76	WRAMX	ram/wram.asm:834	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DF87	WRAMX	ram/wram.asm:835	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DF98	WRAMX	ram/wram.asm:836	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DFAA	WRAMX	ram/wram.asm:837	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DFC3	WRAMX	ram/wram.asm:838	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DFFE	WRAMX	ram/wram.asm:839	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
+wRam_DFFF	WRAMX	ram/wram.asm:840	KEEP_NEUTRAL_BANKED_WRAMX		0	CONFIRMED	D000-DFFF changes meaning with selected WRAM bank/overlay; no single global semantic name is valid.
