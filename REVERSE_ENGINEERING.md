@@ -168,7 +168,9 @@ The original56-byte26:5344 fragment is named `MailSession_WriteVram1TileAndWram7
 observed stores; the code classification is PROBABLE, while independent entry and intended role remain
 HYPOTHESIS. This does not establish natural execution or accepted VRAM writes; see the dated review in
 [`naming2_verify_fn4.md`](docs/research/naming2_verify_fn4.md);
-the earlier `Data_BB_AAAA::` count of 1,003 definitions was reconciled against the source and
+the VRAM1 `$9010-$901F` fill matches tile index 1 already present in the 64-tile
+`MailSession_Tiles_62E0` load. This supports only a bounded data relationship and does not prove entry.
+The earlier `Data_BB_AAAA::` count of 1,003 definitions was reconciled against the source and
 subsequent reviewed retirements. At `41c92b60`, a controlled scan of the six maintained roots,
 excluding the protected `engine/mail/sample_data.asm` without reading it, finds 898
 `Data_BB_AAAA::` definitions (engine 126, data 54, gfx 547, audio 170, lib 1, home 0; all in

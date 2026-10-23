@@ -390,6 +390,10 @@ MailSession_WriteVram1TileAndWram7ScreenRows:: ; 26:5344
 	; If entered, 50 iterations issue 16 $FF stores to VRAM1 $9010-$901F and 64 ascending
 	; $00-$3F stores to WRAM7 wScreenTileMap+$160. There is no DI, LCD disable or VBlank
 	; wait here: VRAM acceptance and uninterrupted mapping are preconditions, not observed facts.
+	; MailSession_InitScreen also uploads MailSession_Tiles_62E0 to VRAM1 $9000; its second
+	; tile at ROM $62F0 is already 16 x $FF (original-ROM bytes match the tracked asset).
+	; The candidate's VRAM fill duplicates that tile value if both operations occur in order;
+	; this does not establish entry or explain the accompanying map writes.
 	; With a non-overlapping, physically bank-invariant stack, AF/BC/DE/HL restore; rSVBK
 	; is written to both hWRAMBank and rSVBK; an initially different shadow is not preserved.
 	; rVBK stays 1 without updating hVRAMBank. See naming2_verify_fn4.md (2026-10-15).

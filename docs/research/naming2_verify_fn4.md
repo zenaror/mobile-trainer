@@ -502,3 +502,17 @@ the code-fragment classification remains **PROBABLE**, while entry and intended 
 **HYPOTHESIS**. The 69 existing natural trace scenarios and bounded source/ROM reference scans contain
 no entry into `[26:5344,26:537C)`; this finite absence does not prove unreachability. Frozen
 `config/regions/` and `analysis/mapper/` rows retain their historical `Data_26_5344` spelling.
+
+### 2026-10-23: relation to the loaded MailSession tile source
+
+`MailSession_InitScreen` loads 64 tiles from `MailSession_Tiles_62E0` to VRAM bank 1 at `$9000`
+(`engine/mail/mail_session_screen.asm:254-259`; `gfx/previews/screen_ops.tsv`). The complete
+1,024-byte tracked source `gfx/mail/session_scenery/mail_session_tiles_62e0.2bpp` has SHA-256
+`77213c37fdf454b80e11e55d9131882e81acf71db28fadeaf747ab0680d26053` and matches original ROM
+bank `26` at physical offset `$9A2E0` byte-for-byte. Its tile at `26:62F0` (tile index 1, source
+offset 16) is exactly sixteen `$FF` bytes, SHA-256
+`5ac6a5945f16500911219129984ba8b387a06f24fe383ce4e81a73294065461b`. The candidate at
+`26:5344` writes the same sixteen values to VRAM1 `$9010-$901F`. If both operations execute in
+that order, the candidate's tile write repeats the loaded pattern; this does not prove the
+candidate is entered, that the DMA completed, or why it also writes WRAM7 map rows. The
+classification remains **PROBABLE code fragment**; entry and purpose remain **HYPOTHESIS**.
