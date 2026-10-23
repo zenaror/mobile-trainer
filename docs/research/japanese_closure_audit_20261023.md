@@ -15,7 +15,7 @@ ROM-source changes.
 |---|---|---|
 | Reconstruct the original ROM byte for byte | `make` compares the 2 MiB output against ROM SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570` | **PASS — `RESULT: IDENTICAL`** |
 | Avoid generic function labels | Current Japanese census: zero strict address-only globals, zero generic function prefixes, zero unreviewed generic-marker labels; 15 coverage families, zero open | **CLOSED for the audited lexical families.** This does not identify every unlabelled or unreachable code span. |
-| Reconcile generic-looking data, local, RAM and resource names | Current ledgers match 2,764 local anchors, 109 bank/address suffix rows, 544 broad candidate rows, and 786 RAM rows; 58 owner-qualified bank-suffix path names are individually dispositioned | **CLOSED for the census and ledgers.** Retained neutral names and `Candidate` qualifiers reflect documented evidence limits; they are not bare address-only names. |
+| Reconcile generic-looking data, local, RAM and resource names | Current ledgers match 2,764 local anchors, 109 bank/address suffix rows, 545 broad candidate rows; the earlier audit snapshot had 544, and 786 RAM rows; 58 owner-qualified bank-suffix path names are individually dispositioned | **CLOSED for the census and ledgers.** Retained neutral names and `Candidate` qualifiers reflect documented evidence limits; they are not bare address-only names. |
 | Reconcile function/operation-boundary clues | The 19 current comment clues map to named bounded operations; coverage row is `CLOSED` | **CLOSED.** They are not evidence of 19 separately callable or naturally reachable functions. |
 | Identify candidate operations with no proven natural root | The five rows at 2B:6CF5, 2D:4E42/4E54, 29:511E and 70:4740 have bounded mechanical names and explicit UNKNOWN/HYPOTHESIS entry or role status in the worklist | **Evidence-limited.** The worklist calls for new positive caller/producer/trace evidence before reopening. No generic `Function_*` label remains; do not invent a root or purpose. |
 | Verify Bank 53 Pokémon names and candidate frames | The 369-byte pointer/string block and 25 candidate windows (85,200 bytes) reproduce the original; the scoped inventory contains 137 assets, 71 PNGs, 24 previews and 17 editable views | **Finite extraction/presence check closed.** The 25 name-to-window associations and natural selection remain unknown. |
@@ -116,6 +116,17 @@ anchors, 109/109 bank/address-suffix rows, 544/544 broad name dispositions,
 and 786/786 numeric RAM equates; all 15 coverage families are closed, with
 zero unreviewed generic markers, address-shaped global definitions, or
 generic bare `gfx/bankNN/` paths.
+
+## Follow-up: indexed keyboard palette data name (2026-10-23)
+
+At source snapshot `ba385306`, the direct indexed reads in `55:6F46` support a
+PROBABLE four-word palette / four-byte C2B1 reload-count layout at `55:6F95`.
+The maintained label now says `Kbd_Candidate_PaletteWordsAndReloadCounts`; the
+`Candidate` qualifier remains because natural entry, caller, and visible effect
+are unproved. The candidate-name inventory and row ledger therefore move from
+268 to 269 and from 544 to 545 dispositions, respectively; other Japanese
+audits are unchanged. This update does not alter ROM bytes or claim runtime
+behavior.
 
 At the same checkout, `make` verified the original ROM SHA-256 and reported
 `RESULT: IDENTICAL`; `make sym-check` passed with 335 source files, 12,212

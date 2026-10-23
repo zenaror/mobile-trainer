@@ -160,9 +160,10 @@ Table_Kbd_TypeWaitsWithService_ByType:: ; 55:6F3B
 
 Kbd_Candidate_DecrementC2B1OrAdvanceC2B0AndWriteOcpd:: ; 55:6F46
 	; [CONFIRMED] decrement C2B1 and return if nonzero; otherwise wait, advance C2B0 mod 4, load its
-	; delay and OCPD pair, call Sound_FrameService, then copy the pair into the WRAM7 palette buffer.
-	; [HYPOTHESIS] Entry, caller and table role are unproved; clean decode through 6F94 is not entry
-	; evidence (no caller, valid table word or execution).
+	; reload count and indexed palette word, write the word to OCPD, call Sound_FrameService, then
+	; copy the same word into the WRAM7 palette buffer.
+	; [PROBABLE] the 12-byte block at 6F95 is four palette words followed by four reload counts.
+	; [HYPOTHESIS] Natural entry, caller, and visible effect remain unproved.
 	ld a, [wRam_C2B1]
 	dec a
 	or a, a
@@ -185,7 +186,7 @@ Kbd_Candidate_DecrementC2B1OrAdvanceC2B0AndWriteOcpd:: ; 55:6F46
 	ld [wRam_C2B1], a
 	ld a, [wRam_C2B0]
 	add a, a
-	ld hl, Data_Kbd_BytesBeforeRejectSymbol
+	ld hl, Kbd_Candidate_PaletteWordsAndReloadCounts
 	add a, l
 	ld l, a
 	ld a, h
@@ -212,9 +213,9 @@ Kbd_Candidate_DecrementC2B1OrAdvanceC2B0AndWriteOcpd:: ; 55:6F46
 	ld [de], a
 	ret
 
-; ---- data $6F95-$6FA1 (12 bytes) [HYPOTHESIS] 12 bytes: 4 RGB555 colours $7F54,$7FFF,$7F54,$7E12 at 6F95 (indexed by [$C2B0]*2 via `ld hl,$6F95`, written to OCPD) and 4 delay bytes $06,$0C,$06,$06 at 6F9D (`ld hl,$6F9D ; ld a,[hl]`); both operands land exactly on these addresses and the block ends at the executed code 6FA1, but the only reader is the HYPOTHESIS routine 6F46 [verifier: earlier note called all 12 bytes a colour table; status lowered]
+; ---- data $6F95-$6FA1 (12 bytes) [PROBABLE] candidate parallel arrays: four little-endian palette words $7F54,$7FFF,$7F54,$7E12 indexed by 2*[$C2B0] and written to OCPD, then four per-index C2B1 reload counts $06,$0C,$06,$06; both indexed reads are direct in 55:6F46, but natural entry, caller and visible effect remain HYPOTHESIS
 
-Data_Kbd_BytesBeforeRejectSymbol:: ; 55:6F95
+Kbd_Candidate_PaletteWordsAndReloadCounts:: ; 55:6F95
 	db $54, $7F, $FF, $7F, $54, $7F, $12, $7E, $06, $0C, $06, $06
 
 Kbd_RejectSymbol:: ; 55:6FA1
