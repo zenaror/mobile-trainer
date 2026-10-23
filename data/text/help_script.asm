@@ -197,12 +197,12 @@ HelpScript_CommandSequence_4F4C:: ; 6C:4F4C
 	db $06, $9D, $FF, $03, $03, $0F, "ﾁﾅﾐﾆ", $F9, "ｰ", $FA, "ｦｵｸﾘｱｳﾄﾓ", $EA, $10, "ﾁﾉｺﾄｦ｢", $F9, $FA, "ﾄﾓ｣ﾄｲｳﾝ", $EA, $10, "ﾖ｡", 0
 	db $06, $A5, $FF, $03, $02, $0F, "ｲｯ", $F4, "ｲｱｿﾝ", $ED, "､", $F9, $FA, "ﾄﾓｦﾀｸ", $10, "ｻﾝﾂｸｯﾃﾈ｡", 0
 
-; ---- data $516F-$5177 (8 bytes) [CONFIRMED] two HelpScript commands: $06 branches to $5127 only in advance mode 2; $18 compares var0 to $09 and branches to $51A1. The bytes are read by the primary command parser at 6C:5B47.
+; ---- data $516F-$5177 (8 bytes) [CONFIRMED] two HelpScript commands: $06 branches to $5127 only in advance mode 2; $18 compares var0 to $09 and branches to $51A1. The bytes are read by the primary command parser at 6C:5B47. Natural first-use ID $89 falls through and displays the nickname prompt at $5177; menu ID $09 takes the compare branch and skips it (docs/research/mail_first_use_id89_natural_route_20261023.md).
 
 Data_HelpScript_AdvanceAndVarBranch_516F:: ; 6C:516F
 	db $06, $B5, $FF, $18, $00, $09, $2A, $00
 
-; ---- data $5177-$519E (39 bytes) [PROBABLE] HelpScript page/text region begins with opcode $03; this command consumes two arguments before text at $517A.
+; ---- data $5177-$519E (39 bytes) [CONFIRMED] first-use Mail HelpScript nickname prompt: ID $89 naturally renders it after the common Mail pages and before Profile_Edit; ID $09 skips to $51A1 via the var0 comparison at $516F. See docs/research/mail_first_use_id89_natural_route_20261023.md. The page command begins with opcode $03 and consumes two arguments before text at $517A.
 ; written with the sjis_hw charmap: single bytes A1-DF appear as half-width katakana (JIS X 0201 order), other single bytes as $xx; glyphs unproven (text_encoding.md section 6)
 
 HelpScript_Page_5177:: ; 6C:5177

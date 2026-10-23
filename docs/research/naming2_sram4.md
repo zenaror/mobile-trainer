@@ -45,7 +45,7 @@ An independent reader then re-derived every row.  The tool counts the lines per 
 | `sPageList_Urls` | S1:$A084 | 1536 | array | CONFIRMED |
 | `sChecksum3Block1` | S1:$A684 | 16 | array | CONFIRMED |
 | `sHelpScriptVars` | S1:$A684 | 16 | array | CONFIRMED |
-| `sHelpSeenMail` | S1:$A686 | 1 | byte | PROBABLE |
+| `sHelpSeenMail` | S1:$A686 | 1 | byte | PROBABLE at the static-audit checkpoint; superseded by the natural ID `$89` route |
 | `sHelpSeenAddressBook` | S1:$A687 | 1 | byte | PROBABLE |
 | `sHelpSeenHomepage` | S1:$A688 | 1 | byte | PROBABLE |
 | `sHelpSeenPageList` | S1:$A689 | 1 | byte | PROBABLE |
