@@ -387,6 +387,8 @@ PNG_TILE_OUTS := \
 	gfx/settings/adapter_check_and_phone_entry_bank4a/adapter_check_vram9400_vb1_tile_prefix_256.2bpp \
 	gfx/settings/adapter_check_and_phone_entry_bank4a/phone_keypad_and_comment_vram9000_vb1.2bpp \
 	gfx/settings/adapter_check_and_phone_entry_bank4a/phone_keypad_and_comment_vram9400_vb1.2bpp \
+	gfx/settings/notice_headers_and_phone_confirm_continue_bank4b/notice_header_gfx_source_descriptor14_6590.2bpp \
+	gfx/settings/notice_headers_and_phone_confirm_continue_bank4b/notice_header_gfx_source_descriptor15_6810.2bpp \
 	gfx/settings/notice_headers_and_phone_confirm_continue_bank4b/notice_page_headers_4b_5b90.2bpp \
 	gfx/settings/notice_headers_and_phone_confirm_continue_bank4b/phone_confirm_vram8800_vb1.2bpp \
 	gfx/settings/notice_headers_and_phone_confirm_continue_bank4b/phone_confirm_vram8c00_vb1.2bpp \
@@ -826,6 +828,8 @@ gfx/settings/adapter_check_and_phone_entry_bank4a/adapter_check_vram9000_vb1.2bp
 gfx/settings/adapter_check_and_phone_entry_bank4a/adapter_check_vram9400_vb1_tile_prefix_256.2bpp: PNG_SIZE := 256
 gfx/settings/adapter_check_and_phone_entry_bank4a/phone_keypad_and_comment_vram9000_vb1.2bpp: PNG_SIZE := 1024
 gfx/settings/adapter_check_and_phone_entry_bank4a/phone_keypad_and_comment_vram9400_vb1.2bpp: PNG_SIZE := 1024
+gfx/settings/notice_headers_and_phone_confirm_continue_bank4b/notice_header_gfx_source_descriptor14_6590.2bpp: PNG_SIZE := 640
+gfx/settings/notice_headers_and_phone_confirm_continue_bank4b/notice_header_gfx_source_descriptor15_6810.2bpp: PNG_SIZE := 640
 gfx/settings/notice_headers_and_phone_confirm_continue_bank4b/notice_page_headers_4b_5b90.2bpp: PNG_SIZE := 2560
 gfx/settings/notice_headers_and_phone_confirm_continue_bank4b/phone_confirm_vram8800_vb1.2bpp: PNG_SIZE := 1024
 gfx/settings/notice_headers_and_phone_confirm_continue_bank4b/phone_confirm_vram8c00_vb1.2bpp: PNG_SIZE := 544

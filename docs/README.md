@@ -71,6 +71,7 @@ Reference documents (current):
 | [`audio_track_pointer_aliases_20261021.md`](research/audio_track_pointer_aliases_20261021.md) | 44 redundant generic audio track-pointer aliases retired under existing song/effect labels |
 | [`html_keyword_pointer_aliases_20261021.md`](research/html_keyword_pointer_aliases_20261021.md) | 12 redundant generic aliases retired under existing HTML pointer-list names |
 | [`gfx_generic_name_audit_20261021.md`](research/gfx_generic_name_audit_20261021.md) | Read-only inventory of GFX type/address labels, aliases, paths and remaining uncertainty |
+| [notice_header_gfx_sources_4b_6590_6810.md](research/notice_header_gfx_sources_4b_6590_6810.md) | Exact two 640-byte 2bpp notice-header sources and static descriptor/load contract; natural selection remains unknown |
 | [`gfx_7f_mailaddr_bytes_copy_20261023.md`](research/gfx_7f_mailaddr_bytes_copy_20261023.md) | Exact 7F:7830 byte identity with the MailAddr OBJ HDMA sequence; copy use remains unknown |
 | [`japanese_sprite_owner_audit_20261022.md`](research/japanese_sprite_owner_audit_20261022.md) | 503 structural sprite labels, selector comment corrections, exact ROM-byte audit and unresolved reachability limits |
 | [`japanese_name_and_gfx_path_followup_20261022.md`](research/japanese_name_and_gfx_path_followup_20261022.md) | Japanese function/data/sprite/RAM name census and reviewed graphics paths |

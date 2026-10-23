@@ -9,89 +9,19 @@ SECTION "gfx/settings/notice_headers_and_phone_confirm_continue_bank4b", ROMX
 Notice_HeaderGfxSources10To13:: ; 4B:5B90
 	INCBIN "gfx/settings/notice_headers_and_phone_confirm_continue_bank4b/notice_page_headers_4b_5b90.2bpp"
 
-; ---- data $6590-$6A90 (1280 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown at the pixel/tile level: Notice_LoadHeaderGfx statically selects two contiguous 640-byte source windows for indices $14/$15 from 65:4A81 and requests copies to VRAM bank 1 at $9300; raw DB remains
+; ---- gfx $6590-$6810 (640 bytes) [CONFIRMED] 2bpp tiles: descriptor $14 at 65:4A81 selects
+; 4B:$6590; Notice_LoadHeaderGfx requests $28 blocks to VRAM bank 1 at $9300. Decoded 10x4
+; tiles form Japanese notice-header artwork; natural selection remains unestablished.
 
-Notice_HeaderGfxSources14To15:: ; 4B:6590
-	db $00, $FF, $24, $C3, $5A, $99, $A4, $25, $AD, $24, $BD, $18, $83, $50, $96, $51
-	db $00, $FF, $00, $FF, $00, $80, $3F, $BF, $3F, $80, $01, $80, $3C, $C1, $01, $FD
-	db $00, $FF, $00, $FF, $00, $30, $A7, $97, $A7, $94, $24, $94, $A5, $14, $25, $14
-	db $00, $FF, $00, $FF, $00, $01, $FD, $FC, $FD, $04, $05, $04, $F5, $04, $05, $F4
-	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $80, $3F, $BF
-	db $00, $FF, $00, $F1, $05, $F4, $05, $F4, $05, $F4, $04, $F4, $07, $37, $A7, $94
-	db $00, $FF, $00, $83, $2A, $A8, $2A, $A8, $2A, $80, $02, $80, $3E, $00, $C0, $CE
-	db $00, $FF, $00, $F1, $04, $04, $FF, $FF, $FF, $12, $52, $52, $F6, $A6, $AE, $08
-	db $00, $FF, $00, $F0, $07, $17, $D7, $C0, $D3, $03, $93, $8A, $D3, $4B, $53, $0A
-	db $00, $FF, $00, $00, $FE, $FE, $FE, $20, $FC, $FC, $75, $24, $FD, $FC, $75, $24
-	db $00, $FF, $00, $FF, $80, $78, $97, $67, $AF, $49, $99, $51, $35, $A1, $2B, $A2
-	db $00, $FF, $00, $FF, $00, $3F, $D0, $CF, $E8, $27, $30, $17, $58, $0B, $6A, $09
-	db $00, $FF, $00, $FC, $01, $01, $7D, $7D, $7D, $00, $00, $80, $3F, $C0, $00, $FF
-	db $00, $FF, $00, $13, $54, $45, $56, $42, $52, $00, $14, $04, $F6, $02, $02, $F8
-	db $00, $FF, $00, $9F, $20, $AF, $30, $10, $FE, $FE, $38, $10, $D7, $10, $10, $10
-	db $00, $FF, $00, $FC, $01, $C1, $1F, $DF, $8C, $04, $BF, $3F, $B8, $10, $1F, $DF
-	db $94, $53, $A8, $43, $08, $EB, $06, $E9, $1C, $E5, $05, $F0, $01, $F0, $03, $FC
-	db $03, $FA, $07, $F5, $0D, $E8, $1A, $10, $77, $60, $6C, $03, $18, $07, $E0, $1F
-	db $65, $10, $41, $30, $87, $B8, $C0, $5E, $60, $2E, $A8, $06, $58, $86, $30, $CF
-	db $15, $E4, $0D, $E8, $2B, $C8, $1A, $11, $F6, $E1, $EC, $03, $18, $07, $F0, $0F
-	db $3F, $80, $00, $80, $3F, $C0, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
-	db $A4, $14, $25, $14, $E5, $14, $05, $F4, $05, $F4, $05, $F0, $01, $F0, $07, $F8
-	db $E8, $26, $29, $06, $48, $87, $18, $E6, $00, $FE, $00, $FE, $00, $FE, $00, $FF
-	db $1F, $1F, $7F, $60, $71, $13, $15, $0E, $EE, $F1, $F1, $00, $04, $00, $F9, $06
-	db $93, $8B, $B3, $8A, $A3, $19, $01, $10, $D6, $C7, $D7, $00, $10, $00, $F7, $08
-	db $FD, $FC, $FD, $20, $01, $20, $A0, $C0, $DE, $3E, $3E, $00, $00, $00, $FF, $00
-	db $2A, $A2, $26, $A4, $25, $A4, $3D, $98, $DA, $00, $A6, $40, $9D, $62, $80, $7F
-	db $8A, $69, $AA, $49, $5A, $90, $36, $20, $EC, $C2, $D8, $07, $30, $0F, $00, $FF
-	db $00, $9F, $40, $5F, $C0, $9F, $80, $80, $FF, $7F, $7F, $00, $00, $80, $3F, $C0
-	db $00, $F8, $02, $FA, $02, $FA, $02, $3A, $A6, $94, $A4, $10, $20, $10, $E6, $19
-	db $FE, $FE, $38, $10, $D7, $10, $10, $10, $FE, $FE, $FE, $00, $00, $00, $FF, $00
-	db $98, $50, $9F, $5F, $9F, $41, $15, $D4, $B7, $27, $A7, $00, $88, $40, $9B, $64
-	db $90, $8F, $90, $8F, $90, $8F, $9F, $8F, $98, $88, $90, $8F, $90, $8F, $90, $8F
-	db $00, $FF, $00, $FF, $00, $F8, $02, $FA, $02, $FA, $0A, $F2, $08, $F2, $06, $F4
-	db $00, $FF, $00, $7F, $00, $0F, $E8, $E7, $C0, $87, $F4, $F3, $74, $23, $E4, $E3
-	db $09, $F1, $09, $F1, $09, $F1, $F9, $F1, $89, $81, $09, $F1, $09, $F1, $09, $F1
-	db $90, $8F, $90, $8F, $90, $8F, $9F, $8F, $98, $88, $90, $8F, $90, $8F, $90, $8F
-	db $06, $F4, $15, $E4, $11, $E4, $0D, $E8, $03, $E8, $0A, $E1, $02, $E1, $0E, $F1
-	db $6C, $23, $E8, $E7, $E8, $27, $70, $57, $D4, $C3, $C4, $03, $1C, $03, $F0, $0F
-	db $09, $F1, $09, $F1, $09, $F1, $F9, $F1, $89, $81, $09, $F1, $09, $F1, $09, $F1
-	db $00, $FF, $00, $0B, $A4, $A5, $AE, $AA, $BE, $14, $FD, $E8, $ED, $04, $FE, $FA
-	db $00, $FF, $00, $F4, $09, $E9, $1C, $D4, $B5, $21, $BE, $1C, $1F, $8B, $3F, $BC
-	db $00, $FF, $00, $07, $F4, $F3, $34, $12, $F4, $F2, $34, $12, $F8, $FA, $FA, $40
-	db $00, $FF, $00, $8C, $21, $A1, $2F, $2F, $AF, $A1, $B7, $B7, $B7, $B1, $BF, $AF
-	db $00, $FF, $00, $7E, $00, $08, $EB, $E3, $EB, $00, $DB, $C3, $C3, $09, $E9, $E1
-	db $00, $FF, $00, $20, $8F, $8F, $EF, $E8, $E8, $88, $EB, $EB, $EB, $48, $4F, $4F
-	db $00, $FF, $00, $24, $A9, $89, $AD, $85, $A5, $91, $A7, $97, $A4, $14, $A7, $97
-	db $00, $FF, $00, $48, $22, $22, $6A, $4A, $4A, $0A, $CA, $CA, $4A, $4A, $CA, $CA
-	db $00, $FF, $00, $81, $BD, $3C, $BC, $24, $A5, $25, $A7, $26, $AF, $29, $AD, $24
-	db $00, $FF, $00, $BF, $40, $5F, $E0, $AF, $B0, $17, $18, $0B, $FA, $F0, $F2, $40
-	db $00, $FF, $00, $FF, $00, $E0, $5F, $9F, $BF, $24, $64, $44, $D5, $84, $AD, $88
-	db $00, $FF, $00, $FF, $00, $FC, $41, $3D, $A1, $9C, $C0, $5E, $60, $2F, $A8, $27
-	db $00, $FF, $00, $F8, $02, $02, $FA, $FA, $FA, $00, $00, $00, $FF, $00, $00, $FF
-	db $00, $FF, $00, $27, $A8, $8B, $AC, $84, $A4, $00, $28, $08, $EC, $05, $04, $F0
-	db $00, $FF, $00, $9F, $20, $AF, $30, $10, $FE, $FE, $38, $10, $D7, $10, $10, $10
-	db $00, $FF, $00, $FC, $01, $C1, $1F, $DF, $8C, $04, $BF, $3F, $B8, $10, $1F, $DF
-	db $0A, $08, $F8, $F8, $FB, $10, $10, $10, $FE, $FE, $FE, $00, $00, $00, $FF, $00
-	db $BA, $0A, $AF, $2D, $AD, $28, $A9, $09, $BF, $3E, $BE, $00, $80, $00, $BF, $40
-	db $4A, $48, $5A, $50, $52, $40, $56, $51, $D8, $CB, $CA, $01, $12, $01, $FE, $01
-	db $AC, $A4, $A7, $27, $24, $24, $A7, $27, $27, $A4, $24, $80, $01, $80, $3F, $C0
-	db $6B, $43, $CB, $C0, $5B, $43, $D3, $C8, $D0, $48, $52, $0C, $10, $0E, $70, $8F
-	db $EF, $EA, $EA, $8A, $EB, $E9, $E9, $89, $8B, $8A, $AA, $00, $20, $00, $EF, $10
-	db $A4, $94, $A7, $97, $A7, $14, $24, $14, $A4, $94, $A4, $10, $20, $10, $E7, $18
-	db $4A, $4A, $CA, $CA, $CA, $4A, $4A, $42, $CE, $CE, $CE, $00, $00, $00, $FF, $00
-	db $A5, $25, $A5, $24, $AD, $2D, $AF, $22, $A2, $20, $A8, $00, $8A, $04, $B8, $47
-	db $F6, $F0, $F4, $42, $54, $52, $58, $4A, $CB, $C0, $D2, $01, $16, $09, $F0, $0F
-	db $AA, $89, $9A, $91, $95, $92, $F4, $60, $6B, $03, $9B, $00, $74, $88, $00, $FF
-	db $28, $A6, $A9, $25, $6B, $42, $DA, $82, $B3, $09, $61, $1C, $C0, $3E, $00, $FF
-	db $00, $7F, $00, $7F, $00, $7F, $00, $00, $FF, $FF, $FF, $00, $00, $00, $FF, $00
-	db $00, $F0, $04, $F4, $04, $F5, $04, $74, $4C, $28, $4A, $20, $42, $20, $CE, $31
-	db $FE, $FE, $38, $10, $D7, $10, $10, $10, $FE, $FE, $FE, $00, $00, $00, $FF, $00
-	db $98, $50, $9F, $5F, $9F, $41, $15, $D4, $B7, $27, $A7, $00, $88, $40, $9B, $64
-	db $90, $8F, $90, $8F, $90, $8F, $9F, $8F, $98, $88, $90, $8F, $90, $8F, $90, $8F
-	db $00, $FF, $00, $F0, $07, $F7, $07, $F0, $05, $F5, $03, $FA, $06, $F4, $0F, $EB
-	db $00, $FF, $00, $7F, $00, $07, $F4, $F3, $60, $43, $FA, $F9, $3A, $11, $F2, $F1
-	db $09, $F1, $09, $F1, $09, $F1, $F9, $F1, $89, $81, $09, $F1, $09, $F1, $09, $F1
-	db $90, $8F, $90, $8F, $90, $8F, $9F, $8F, $98, $88, $90, $8F, $90, $8F, $90, $8F
-	db $0B, $E2, $03, $F3, $0B, $F1, $01, $E1, $0F, $EF, $0F, $E0, $00, $E0, $0F, $F0
-	db $36, $11, $F4, $F3, $F4, $13, $38, $2B, $EA, $E1, $E2, $01, $0E, $01, $F8, $07
-	db $09, $F1, $09, $F1, $09, $F1, $F9, $F1, $89, $81, $09, $F1, $09, $F1, $09, $F1
+Notice_HeaderGfxSourceDescriptor14_6590:: ; 4B:6590
+	INCBIN "gfx/settings/notice_headers_and_phone_confirm_continue_bank4b/notice_header_gfx_source_descriptor14_6590.2bpp"
+
+; ---- gfx $6810-$6A90 (640 bytes) [CONFIRMED] 2bpp tiles: descriptor $15 at 65:4A81 selects
+; 4B:$6810; Notice_LoadHeaderGfx requests $28 blocks to VRAM bank 1 at $9300. Decoded 10x4
+; tiles form Japanese notice-header artwork; natural selection remains unestablished.
+
+Notice_HeaderGfxSourceDescriptor15_6810:: ; 4B:6810
+	INCBIN "gfx/settings/notice_headers_and_phone_confirm_continue_bank4b/notice_header_gfx_source_descriptor15_6810.2bpp"
 
 ; ---- gfx $6A90-$6E90 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:514E: hl=$6A90 a=$4B c=$40 de=$8801 (dest VRAM $8800, vbank=1) [first call site executed: 4 hits in 2 scenarios (analysis/coverage_union.tsv)]
 
