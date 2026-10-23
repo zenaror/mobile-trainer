@@ -4,15 +4,14 @@ This document preserves historical inventories and the current result; dated bas
 
 ### Explicit coverage state and open census families (2026-10-23)
 
-The former summary grouped “reported by the scanner” with “reviewed and dispositioned.” That was too easy to read as a complete name audit. The authoritative family-by-family counts and current closure state now live in [`japanese_name_audit_coverage_20261023.tsv`](japanese_name_audit_coverage_20261023.tsv); the census checks every listed live count and fails on drift or a missing/duplicate family. At this snapshot, 15 census families are accounted for and three are still explicitly open for row-level review:
+The former summary grouped “reported by the scanner” with “reviewed and dispositioned.” That was too easy to read as a complete name audit. The authoritative family-by-family counts and current closure state now live in [`japanese_name_audit_coverage_20261023.tsv`](japanese_name_audit_coverage_20261023.tsv); the census checks every listed live count and fails on drift or a missing/duplicate family. At this snapshot, 15 census families are accounted for and two are still explicitly open for row-level review:
 
 | Open family | Live rows | Existing coverage | Remaining work |
 |---|---:|---|---|
 | Broad `_AAAA` / `_BB_AAAA` global-label inventory | 437 | 109 two-component bank/address rows have their own complete per-row ledger | Review the other 328 address-suffix labels against source/data/resource boundaries and record why each current name is descriptive or what evidence supports a rename |
 | Labels containing `Candidate` | 268 | Full current inventory is emitted by `--generic-list`; token is not treated as a defect | Review every row. Keep qualified ownership/uncertainty when warranted; rename only when source evidence establishes a better identity |
-| Owner-qualified `bankNN` directories and ASM filenames | 58 | Current path census lists 28 directories and 30 source files; bare `bankNN/` directories are already zero | Review all 58 names for whether bank-number provenance is useful and whether owner/content terms are sufficiently specific |
 
-The counts overlap and do not mean 753 separate defects. They are an explicit review queue, not evidence that the rows are wrong. The matrix guard prevents the previous failure mode where an updated source creates new candidates but the report continues to look closed. Existing complete ledgers stay authoritative for their own families; this queue does not replace them.
+The two open counts overlap and do not mean 596 separate defects. They are an explicit review queue, not evidence that the rows are wrong. The 58 owner-qualified `bankNN` paths are now individually reconciled in [`japanese_bank_path_name_dispositions_20261023.tsv`](japanese_bank_path_name_dispositions_20261023.tsv): all have owner/content words and source-bank provenance, and repeated `entry_screen` and `panels` stems require the bank suffix to distinguish separate sets. Bare `bankNN/` paths remain zero. The `pokemon_names_bank53.asm` path is descriptive; its name-table consumers and frame associations remain part of the separate pending Bank 53 asset audit. The matrix guard prevents the previous failure mode where an updated source creates new candidates but the report continues to look closed. Existing complete ledgers stay authoritative for their own families; this queue does not replace them.
 
 ### Consolidated `Candidate` token inventory at `f7421f5c` (2026-10-23)
 

@@ -19,6 +19,7 @@ LOCAL_LEDGER = Path("docs/research/japanese_local_anchor_dispositions_20261023.t
 SUFFIX_LEDGER = Path("docs/research/japanese_bank_address_suffix_dispositions_20261023.tsv")
 RAM_LEDGER = Path("docs/research/japanese_ram_equate_dispositions_20261023.tsv")
 AUDIT_COVERAGE = Path("docs/research/japanese_name_audit_coverage_20261023.tsv")
+PATH_NAME_LEDGER = Path("docs/research/japanese_bank_path_name_dispositions_20261023.tsv")
 GLOBAL = re.compile(
     r"(?:Function|Func|Sub|Routine|Unknown|Unk|Code|Label|Font|Tiles?|"
     r"Tilemap|Attrmap|Palette|String|Table|SpriteFrame|SpriteScript|Data)_"
@@ -285,6 +286,25 @@ def main() -> int:
         for p in active_paths
         if re.search(r"(?:^|_)bank[0-9A-F]{2}\.asm\Z", p, re.I)
     ]
+    path_errors: list[str] = []
+    if not PATH_NAME_LEDGER.is_file():
+        path_errors.append(f"missing bank-qualified path-name ledger: {PATH_NAME_LEDGER}")
+    else:
+        with PATH_NAME_LEDGER.open(encoding="utf-8", newline="") as stream:
+            path_rows = list(csv.DictReader(stream, delimiter="\t"))
+        ledger_paths = [row.get("path", "") for row in path_rows]
+        expected_paths = set(bank_suffix_dirs) | set(bank_suffix_files)
+        if len(ledger_paths) != len(set(ledger_paths)):
+            path_errors.append("duplicate path in bank-qualified path-name ledger")
+        if set(ledger_paths) != expected_paths:
+            missing = sorted(expected_paths - set(ledger_paths))
+            stale = sorted(set(ledger_paths) - expected_paths)
+            path_errors.append(
+                f"bank-qualified path-name ledger mismatch: missing={len(missing)}, stale={len(stale)}"
+            )
+        for row in path_rows:
+            if row.get("disposition") != "KEEP_OWNER_QUALIFIED" or not row.get("rationale") or not row.get("content_examples"):
+                path_errors.append(f"incomplete path-name disposition: {row.get('path', '<empty>')}")
 
     coverage_counts = {
         "strict address-only global labels": len(hits["strict global address-shaped definitions"]),
@@ -303,7 +323,7 @@ def main() -> int:
         "GFX address-only asset basenames": len(address_assets),
         "source labels explicitly retaining Unknown/Unresolved content": len(hits["source labels explicitly retaining Unknown/Unresolved content"]),
     }
-    coverage_errors: list[str] = []
+    coverage_errors: list[str] = list(path_errors)
     if not AUDIT_COVERAGE.is_file():
         coverage_errors.append(f"missing name-audit coverage matrix: {AUDIT_COVERAGE}")
         coverage_rows = []
