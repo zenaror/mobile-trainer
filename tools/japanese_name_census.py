@@ -17,6 +17,7 @@ from pathlib import Path
 PROTECTED = "engine/mail/sample_data.asm"
 LOCAL_LEDGER = Path("docs/research/japanese_local_anchor_dispositions_20261023.tsv")
 SUFFIX_LEDGER = Path("docs/research/japanese_bank_address_suffix_dispositions_20261023.tsv")
+RAM_LEDGER = Path("docs/research/japanese_ram_equate_dispositions_20261023.tsv")
 GLOBAL = re.compile(
     r"(?:Function|Func|Sub|Routine|Unknown|Unk|Code|Label|Font|Tiles?|"
     r"Tilemap|Attrmap|Palette|String|Table|SpriteFrame|SpriteScript|Data)_"
@@ -103,6 +104,7 @@ def main() -> int:
     }
     current_local: set[tuple[str, str, str, str]] = set()
     current_numeric_local: set[tuple[str, str, str, str]] = set()
+    current_ram: set[tuple[str, str]] = set()
     unreviewed_name_markers: list[str] = []
     for name in files:
         try:
@@ -183,6 +185,7 @@ def main() -> int:
                     if LOCAL_ADDRESS.fullmatch(label):
                         current_numeric_local.add((name, bank_address, current_owner, label))
             if ram_match and RAM_NAME.fullmatch(ram_match.group(1)):
+                current_ram.add((ram_match.group(1), f"{name}:{number}"))
                 hits["numeric RAM equates"].append(
                     f"{name}:{number}:{ram_match.group(1)}"
                 )
@@ -232,6 +235,22 @@ def main() -> int:
         if row.get("disposition") != "KEEP_DESCRIPTIVE"
         or not row.get("evidence") or not row.get("category")
         or not row.get("bank_address")
+    ]
+
+    if not RAM_LEDGER.is_file():
+        print(f"error: missing numeric RAM-equate ledger: {RAM_LEDGER}", file=sys.stderr)
+        return 2
+    with RAM_LEDGER.open(encoding="utf-8", newline="") as stream:
+        ram_ledger = list(csv.DictReader(stream, delimiter="\t"))
+    ram_keys = [(row["symbol"], row["definition"]) for row in ram_ledger]
+    ram_key_set = set(ram_keys)
+    ram_missing = sorted(current_ram - ram_key_set)
+    ram_stale = sorted(ram_key_set - current_ram)
+    ram_duplicates = sorted(key for key, count in Counter(ram_keys).items() if count > 1)
+    ram_incomplete = [
+        (row.get("symbol", ""), row.get("definition", ""))
+        for row in ram_ledger
+        if not row.get("decision") or not row.get("evidence") or not row.get("rationale")
     ]
 
     tracked_paths = subprocess.check_output(["git", "ls-files", "-z"], text=True)
@@ -324,6 +343,22 @@ def main() -> int:
             print(f"  {row['disposition']}: {row['path']}:{row['line']}:{row['label']} [{row['evidence']}]")
     if suffix_errors:
         print(f"Bank/address-suffix ledger errors: missing={len(suffix_misses)}, stale={len(suffix_stale)}, duplicate={len(suffix_duplicates)}, incomplete={len(suffix_incomplete)}")
+    ram_errors = ram_missing or ram_stale or ram_duplicates or ram_incomplete
+    print(
+        f"Numeric RAM-equate ledger: {len(ram_ledger)} rows; "
+        f"source matches {len(current_ram) - len(ram_missing)}/{len(current_ram)}; "
+        f"missing={len(ram_missing)}, stale={len(ram_stale)}, "
+        f"duplicate={len(ram_duplicates)}, incomplete={len(ram_incomplete)}"
+    )
+    if args.list or ram_errors:
+        for row in ram_missing:
+            print(f"  RAM source missing from ledger: {row}")
+        for row in ram_stale:
+            print(f"  stale RAM ledger row: {row}")
+        for row in ram_duplicates:
+            print(f"  duplicate RAM ledger row: {row}")
+        for row in ram_incomplete:
+            print(f"  incomplete RAM ledger row: {row}")
     print(f"Excluded before reading: {PROTECTED}")
     strict_generic_errors = (
         hits["strict global address-shaped definitions"]
@@ -332,7 +367,7 @@ def main() -> int:
         or address_assets
     )
     return 1 if (
-        ledger_misses or source_local_misses or duplicate_ledger_keys or suffix_errors
+        ledger_misses or source_local_misses or duplicate_ledger_keys or suffix_errors or ram_errors
         or unreviewed_name_markers or strict_generic_errors
     ) else 0
 

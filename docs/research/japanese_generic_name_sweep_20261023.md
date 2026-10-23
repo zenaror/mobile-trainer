@@ -1,6 +1,6 @@
 # Japanese maintained-tree generic-name sweep (2026-10-23)
 
-This document preserves historical inventories and the current result; dated baselines below are not the present source state. The ten generic data labels were replaced at source commit `519dc5c190337d8cce7f359f4d09e622b8c71083`; later source changes have not altered their dispositions. Reproduce the current census with `python3 tools/japanese_name_census.py`; use `--generic-list` to print all name/path candidates and numeric RAM equates without dumping retained local labels. The census checks both directions of the local-anchor ledger and reconciles each bank/address-suffix definition to a row-level disposition. Current totals: 349 non-protected tracked Japanese ASM/INC files (333 in the six maintained source roots plus RAM, constants and root support), zero strict address-only global definitions, 109 bank/address-suffixed global labels individually listed in [`japanese_bank_address_suffix_dispositions_20261023.tsv`](japanese_bank_address_suffix_dispositions_20261023.tsv), zero `.loop`/`.skip`/`.done`/`.start` definitions, 2,764 `.lAAAA` labels (411 RENAME and 2,353 KEEP across the ledger), 786 numeric RAM equates individually dispositioned in the row-level TSV, and 1,863 tracked GFX paths with zero exact `bankNN/` directories and zero strict address-only asset basenames. Across 2,194 tracked active source/resource paths, there are no exact `bankNN/` directory components; 30 ASM filenames and 28 owner-qualified GFX directories use `_bankNN` as source-bank provenance. The census excludes `engine/mail/sample_data.asm` before reading and does not scan language overlays. These are lexical and name-level dispositions, not proof of complete runtime semantics or natural reachability. The English translation remains paused and was not modified or tested in this pass.
+This document preserves historical inventories and the current result; dated baselines below are not the present source state. The ten generic data labels were replaced at source commit `519dc5c190337d8cce7f359f4d09e622b8c71083`; later source changes have not altered their dispositions. Reproduce the current census with `python3 tools/japanese_name_census.py`; use `--generic-list` to print all name/path candidates and numeric RAM equates without dumping retained local labels. The census checks both directions of the local-anchor ledger, the 786-row numeric RAM-equate ledger, and the bank/address-suffix ledger; each discrepancy, duplicate, or incomplete row fails the command. Current totals: 349 non-protected tracked Japanese ASM/INC files (333 in the six maintained source roots plus RAM, constants and root support), zero strict address-only global definitions, 109 bank/address-suffixed global labels individually listed in [`japanese_bank_address_suffix_dispositions_20261023.tsv`](japanese_bank_address_suffix_dispositions_20261023.tsv), zero `.loop`/`.skip`/`.done`/`.start` definitions, 2,764 `.lAAAA` labels (411 RENAME and 2,353 KEEP across the ledger), 786 numeric RAM equates individually dispositioned in the row-level TSV, and 1,863 tracked GFX paths with zero exact `bankNN/` directories and zero strict address-only asset basenames. Across 2,194 tracked active source/resource paths, there are no exact `bankNN/` directory components; 30 ASM filenames and 28 owner-qualified GFX directories use `_bankNN` as source-bank provenance. The census excludes `engine/mail/sample_data.asm` before reading and does not scan language overlays. These are lexical and name-level dispositions, not proof of complete runtime semantics or natural reachability. The English translation remains paused and was not modified or tested in this pass.
 
 ### Consolidated `Candidate` token inventory at `f7421f5c` (2026-10-23)
 
@@ -53,6 +53,24 @@ The row-level decisions for all 786 symbols are preserved in [`japanese_ram_equa
 Validation after all source changes: `make` passed SHA-256 verification and `RESULT: IDENTICAL` against the protected Japanese ROM (2,097,152 bytes; SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`); `make sym-check` passed (335 source files, 12,195 labels, 51 constants); `make palette-check` passed (162 loads, 116 arrays, two documented over-reads, zero errors); `make png-check` passed (408 tile sheets, four raw byte views, 37 font sheets, 95 screen PNGs); `python3 tools/japanese_ram_equate_ledger.py --check` reconciled 786/786 rows; the census reconciled 2,764/2,764 local-anchor rows; `git diff --check` passed. Three stale scope references discovered during the batch were corrected in `data/html/index.asm` and `ram/overlays.asm`. English sources, ZIP-derived material, and language overlays were untouched.
 
 This is a closed lexical/evidence disposition for the 786 numeric equates, not a claim that all RAM contents or program behavior are understood. The next Japanese work is function/entry and resource closure from the current open-question follow-up; do not reopen the same 786 rows without new evidence or source changes.
+
+### Executable RAM-ledger reconciliation (2026-10-23)
+
+The census initially reported the 786-row RAM disposition ledger without
+joining it back to source. `tools/japanese_name_census.py` now checks both
+directions using `(symbol, path:line)`, rejects duplicate ledger keys, and
+requires every row to have a decision, evidence level, and rationale. The
+current Japanese snapshot matches all 786 source definitions to all 786 rows.
+Negative checks against temporary ledger copies confirmed that a missing source
+row, stale definition, duplicate, or incomplete rationale each produces a
+nonzero exit. These checks did not alter the tracked ledger or RAM source.
+
+Exit status zero means the strict generic-name guards and their row-level
+inventories reconcile; it does not mean every broad lexical candidate is a
+generic defect or every semantic question is settled. In particular, the 437
+address-suffix flags, 255 `Candidate` labels, 19 bounded-function comments, and
+the separate natural-entry/Bank 53 questions must be interpreted through their
+own ledgers and evidence.
 
 ### Structural RET-only re-scan and batch disposition (2026-10-23; HEAD `196f5ea7` plus this working change)
 
