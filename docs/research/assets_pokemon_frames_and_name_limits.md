@@ -342,6 +342,22 @@ Reviewed receipt identities: final frame `REPORT.md` SHA-256 `faf8dab88ccbb5d9e4
 
 CONFIRMED here covers the finite bytes/paths/partitions and stated coordinate/pixel comparisons. Conditional placement, effective LCDC/VBK/VRAM, caller/entry/purpose and species/name associations retain their earlier limits. KEEP applies to all eight omitted editing views. This reconciliation adds no caller-negative hunt, E7 transitive-survival proof, loader/runtime/forced/natural or hardware evidence, asset retyping, new PNG, build/gate or English result, and makes no ALL claim.
 
+### Dated verification: bank 7C font sheet pixel inverse (2026-10-23)
+
+Using the current Japanese source and immutable original ROM SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`,
+`tools/font_png.py` rendered the existing bank-7C sheet in memory from its three
+maintained binary spans: `7C:4000` (6083 bytes), `7C:57C3` (10 bytes), and
+`7C:57CD` (9135 bytes). Their concatenation matches the original ROM's first
+15228 bytes of physical bank 7C. The renderer's 1221x116 RGB pixels match the
+tracked `data/fonts/jis12x12_rows_25_33.png` exactly (141636 pixels, zero
+differences); each span also decodes back from that PNG to its exact binary.
+The 10-byte span and the former 80 pink pixels are therefore already represented
+in the current sheet. The gap finding and the no-pixel-inverse statement above
+are historical baseline results, superseded by this bounded verification. No
+file was changed by the verification; it makes no runtime or natural-display
+claim.
+
 ## Dated follow-up: current paths and resolved bank7C span (2026-10-17)
 
 The finite current-source census on published72a3464b resolves the sixteen migrated
