@@ -16,14 +16,14 @@ BrowserMenu_OpenTwoItem:: ; 72:63D8
 	farcall Dialog_SaveBackground
 	farcall Dialog_InitWindowRegs
 	ld de, $8F01
-	ld hl, BrowserMenu2_Tiles1
-	ld a, BANK(BrowserMenu2_Tiles1)
+	ld hl, BrowserMenu2_Tiles8F00Vb1
+	ld a, BANK(BrowserMenu2_Tiles8F00Vb1)
 	ld b, $97
 	ld c, $10
 	farcall Gfx_StartHDMAWithService
 	ld de, $8801
-	ld hl, BrowserMenu2_Tiles0
-	ld a, BANK(BrowserMenu2_Tiles0)
+	ld hl, BrowserMenu2_Tiles8800Vb1
+	ld a, BANK(BrowserMenu2_Tiles8800Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
@@ -418,14 +418,14 @@ BrowserMenu_OpenThreeItem:: ; 72:6712
 	farcall Dialog_SaveBackground
 	farcall Dialog_InitWindowRegs
 	ld de, $8801
-	ld hl, BrowserMenu3_Tiles0
-	ld a, BANK(BrowserMenu3_Tiles0)
+	ld hl, BrowserMenu3_Tiles8800Vb1
+	ld a, BANK(BrowserMenu3_Tiles8800Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8F01
-	ld hl, BrowserMenu3_Tiles1
-	ld a, BANK(BrowserMenu3_Tiles1)
+	ld hl, BrowserMenu3_Tiles8F00Vb1
+	ld a, BANK(BrowserMenu3_Tiles8F00Vb1)
 	ld b, $97
 	ld c, $10
 	farcall Gfx_StartHDMAWithService

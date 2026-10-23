@@ -85,8 +85,8 @@ MailServerMgr_Run:: ; 2E:4000
 	push de
 	push hl
 	ld de, $9401
-	ld hl, Gfx_MailServerMgr_Tiles1
-	ld a, BANK(Gfx_MailServerMgr_Tiles1)
+	ld hl, Gfx_MailServerMgr_Tiles9400Vb1_Prefix
+	ld a, BANK(Gfx_MailServerMgr_Tiles9400Vb1_Prefix)
 	ld b, $98
 	ld c, $01
 	farcall Gfx_StartHDMAWithService

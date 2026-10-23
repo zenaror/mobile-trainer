@@ -6,13 +6,13 @@ SECTION "gfx/browser/menus", ROMX
 
 ; ---- gfx $6C10-$7010 (1024 bytes) [CONFIRMED] tiles-vram: 3 call site(s) (4E:61C1 4E:62BC 72:6733); first: hdma_rom_to_vram at 4E:61C1: hl=$6C10 a=$72 c=$40 de=$8801 (dest VRAM $8800, vbank=1)
 
-BrowserMenu3_Tiles0:: ; 72:6C10
-	INCBIN "gfx/browser/menus/browser_menu3_tiles0.2bpp"
+BrowserMenu3_Tiles8800Vb1:: ; 72:6C10
+	INCBIN "gfx/browser/menus/browser_menu3_tiles_8800_vb1.2bpp"
 
 ; ---- gfx $7010-$7110 (256 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 72:6745: hl=$7010 a=$72 c=$10 de=$8F01 (dest VRAM $8F00, vbank=1)
 
-BrowserMenu3_Tiles1:: ; 72:7010
-	INCBIN "gfx/browser/menus/browser_menu3_tiles1.2bpp"
+BrowserMenu3_Tiles8F00Vb1:: ; 72:7010
+	INCBIN "gfx/browser/menus/browser_menu3_tiles_8f00_vb1.2bpp"
 
 ; ---- data $7110-$7200 (240 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 72:6767: hl=$7110 a=$72 b=6 rows c=20 cols (tiles then attrs) de=$D180
 
@@ -35,13 +35,13 @@ Palette_BrowserMenu_Obj4:: ; 72:7210
 
 ; ---- gfx $7220-$7620 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 72:640B: hl=$7220 a=$72 c=$40 de=$8801 (dest VRAM $8800, vbank=1) [first call site executed: 1 hits in 1 scenarios (analysis/coverage_union.tsv)]
 
-BrowserMenu2_Tiles0:: ; 72:7220
-	INCBIN "gfx/browser/menus/browser_menu2_tiles0.2bpp"
+BrowserMenu2_Tiles8800Vb1:: ; 72:7220
+	INCBIN "gfx/browser/menus/browser_menu2_tiles_8800_vb1.2bpp"
 
 ; ---- gfx $7620-$7720 (256 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 72:63F9: hl=$7620 a=$72 c=$10 de=$8F01 (dest VRAM $8F00, vbank=1) [first call site executed: 1 hits in 1 scenarios (analysis/coverage_union.tsv)]
 
-BrowserMenu2_Tiles1:: ; 72:7620
-	INCBIN "gfx/browser/menus/browser_menu2_tiles1.2bpp"
+BrowserMenu2_Tiles8F00Vb1:: ; 72:7620
+	INCBIN "gfx/browser/menus/browser_menu2_tiles_8f00_vb1.2bpp"
 
 ; ---- data $7720-$7810 (240 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 72:642D: hl=$7720 a=$72 b=6 rows c=20 cols (tiles then attrs) de=$D180 [first call site executed: 1 hits in 1 scenarios (analysis/coverage_union.tsv)]
 

@@ -18,21 +18,21 @@ MobileDict_ZeroByteSpan_4A85:: ; 1A:4A85
 
 ; ---- gfx $4A90-$4C90 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1A:403D: hl=$4A90 a=$1A c=$20 de=$8000 (dest VRAM $8000, vbank=0)
 
-Gfx_MobileDict_Tiles0:: ; 1A:4A90
+Gfx_MobileDict_Tiles8000Vb0:: ; 1A:4A90
 
-	INCBIN "gfx/help/mobile_dictionary/mobile_dict_tiles0.2bpp"
+	INCBIN "gfx/help/mobile_dictionary/mobile_dict_tiles_8000_vb0.2bpp"
 
 ; ---- gfx $4C90-$5090 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1A:404F: hl=$4C90 a=$1A c=$40 de=$8B01 (dest VRAM $8B00, vbank=1)
 
-Gfx_MobileDict_Tiles1:: ; 1A:4C90
+Gfx_MobileDict_Tiles8B00Vb1:: ; 1A:4C90
 
-	INCBIN "gfx/help/mobile_dictionary/mobile_dict_tiles1.2bpp"
+	INCBIN "gfx/help/mobile_dictionary/mobile_dict_tiles_8b00_vb1.2bpp"
 
 ; ---- gfx $5090-$5390 (768 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1A:4061: hl=$5090 a=$1A c=$30 de=$8F01 (dest VRAM $8F00, vbank=1)
 
-Gfx_MobileDict_Tiles2:: ; 1A:5090
+Gfx_MobileDict_Tiles8F00Vb1:: ; 1A:5090
 
-	INCBIN "gfx/help/mobile_dictionary/mobile_dict_tiles2.2bpp"
+	INCBIN "gfx/help/mobile_dictionary/mobile_dict_tiles_8f00_vb1.2bpp"
 
 ; ---- data $5390-$53D0 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/help/mobile_dictionary.asm:54, call 1A:4072 executed 87 hits in 8 scenarios (analysis/coverage_union.tsv))
 

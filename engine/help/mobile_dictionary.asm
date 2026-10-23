@@ -30,20 +30,20 @@ MobileDict_Redraw:: ; 1A:4018
 	ldh [rWY], a
 	farcall Sprite_ResetAll
 	ld de, $8000
-	ld hl, Gfx_MobileDict_Tiles0
-	ld a, BANK(Gfx_MobileDict_Tiles0)
+	ld hl, Gfx_MobileDict_Tiles8000Vb0
+	ld a, BANK(Gfx_MobileDict_Tiles8000Vb0)
 	ld b, $95
 	ld c, $20
 	farcall Gfx_StartHDMAWithService
 	ld de, $8B01
-	ld hl, Gfx_MobileDict_Tiles1
-	ld a, BANK(Gfx_MobileDict_Tiles1)
+	ld hl, Gfx_MobileDict_Tiles8B00Vb1
+	ld a, BANK(Gfx_MobileDict_Tiles8B00Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8F01
-	ld hl, Gfx_MobileDict_Tiles2
-	ld a, BANK(Gfx_MobileDict_Tiles2)
+	ld hl, Gfx_MobileDict_Tiles8F00Vb1
+	ld a, BANK(Gfx_MobileDict_Tiles8F00Vb1)
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMAWithService

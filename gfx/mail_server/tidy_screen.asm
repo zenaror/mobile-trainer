@@ -6,44 +6,44 @@ SECTION "gfx/mail_server/tidy_screen", ROMX
 
 ; ---- gfx $56E0-$5AE0 (1024 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (2E:4B81 2E:4CAC); first: hdma_rom_to_vram at 2E:4B81: hl=$56E0 a=$2E c=$40 de=$9001 (dest VRAM $9000, vbank=1)
 
-Gfx_MailServerMgr_Tiles0:: ; 2E:56E0
+Gfx_MailServerMgr_Tiles9000Vb1:: ; 2E:56E0
 
-	INCBIN "gfx/mail_server/tidy_screen/mail_server_mgr_tiles0.2bpp"
+	INCBIN "gfx/mail_server/tidy_screen/mail_server_mgr_tiles_9000_vb1.2bpp"
 
 ; ---- gfx $5AE0-$5AF0 (16 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2E:40A8: hl=$5AE0 a=$2E c=$01 de=$9401 (dest VRAM $9400, vbank=1)
 
-Gfx_MailServerMgr_Tiles1:: ; 2E:5AE0
+Gfx_MailServerMgr_Tiles9400Vb1_Prefix:: ; 2E:5AE0
 
-	INCBIN "gfx/mail_server/tidy_screen/mail_server_mgr_tiles1.2bpp"
+	INCBIN "gfx/mail_server/tidy_screen/mail_server_mgr_tiles_9400_vb1_prefix.2bpp"
 
-; ---- gfx $5AF0-$5EE0 (1008 bytes) [CONFIRMED] source slice: part of the transfer from 2E:5AE0 to VRAM $9400-$9800 in VB1; the 16-byte prefix is Gfx_MailServerMgr_Tiles1
+; ---- gfx $5AF0-$5EE0 (1008 bytes) [CONFIRMED] source slice: part of the transfer from 2E:5AE0 to VRAM $9400-$9800 in VB1; the 16-byte prefix is Gfx_MailServerMgr_Tiles9400Vb1_Prefix
 
 Gfx_MailServerMgr_Tiles9400Vb1_Tail_5AF0:: ; 2E:5AF0
 	INCBIN "gfx/mail_server/tidy_screen/mail_server_mgr_tiles9400_vb1_tail_5af0.2bpp"
 
 ; ---- gfx $5EE0-$6000 (288 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (2E:4BA5 2E:4CD0); first: hdma_rom_to_vram at 2E:4BA5: hl=$5EE0 a=$2E c=$12 de=$8801 (dest VRAM $8800, vbank=1)
 
-Gfx_MailServerMgr_Tiles2:: ; 2E:5EE0
+Gfx_MailServerMgr_Tiles8800Vb1:: ; 2E:5EE0
 
-	INCBIN "gfx/mail_server/tidy_screen/mail_server_mgr_tiles2.2bpp"
+	INCBIN "gfx/mail_server/tidy_screen/mail_server_mgr_tiles_8800_vb1.2bpp"
 
 ; ---- gfx $6000-$6400 (1024 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (2E:4BC9 2E:4CF4); first: hdma_rom_to_vram at 2E:4BC9: hl=$6000 a=$2E c=$40 de=$8A80 (dest VRAM $8A80, vbank=0)
 
-Gfx_MailServerMgr_Tiles3:: ; 2E:6000
+Gfx_MailServerMgr_Tiles8A80Vb0:: ; 2E:6000
 
-	INCBIN "gfx/mail_server/tidy_screen/mail_server_mgr_tiles3.2bpp"
+	INCBIN "gfx/mail_server/tidy_screen/mail_server_mgr_tiles_8a80_vb0.2bpp"
 
 ; ---- gfx $6400-$6560 (352 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (2E:4BDB 2E:4D06); first: hdma_rom_to_vram at 2E:4BDB: hl=$6400 a=$2E c=$16 de=$8E80 (dest VRAM $8E80, vbank=0)
 
-Gfx_MailServerMgr_Tiles4:: ; 2E:6400
+Gfx_MailServerMgr_Tiles8E80Vb0:: ; 2E:6400
 
-	INCBIN "gfx/mail_server/tidy_screen/mail_server_mgr_tiles4.2bpp"
+	INCBIN "gfx/mail_server/tidy_screen/mail_server_mgr_tiles_8e80_vb0.2bpp"
 
 ; ---- gfx $6560-$6960 (1024 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (2E:4BB7 2E:4CE2); first: hdma_rom_to_vram at 2E:4BB7: hl=$6560 a=$2E c=$40 de=$8000 (dest VRAM $8000, vbank=0)
 
-Gfx_MailServerMgr_Tiles5:: ; 2E:6560
+Gfx_MailServerMgr_Tiles8000Vb0:: ; 2E:6560
 
-	INCBIN "gfx/mail_server/tidy_screen/mail_server_mgr_tiles5.2bpp"
+	INCBIN "gfx/mail_server/tidy_screen/mail_server_mgr_tiles_8000_vb0.2bpp"
 
 ; ---- data $6960-$6C30 (720 bytes) [CONFIRMED] tilemap+attr: 5 call site(s) (2E:4217 2E:4819 2E:4BEC 2E:4D17); first: copy_tilemap_rect_pair at 2E:4217: hl=$6960 a=$2E b=18 rows c=20 cols (tiles then attrs) de=$D000
 

@@ -1,6 +1,6 @@
 # Reverse engineering status
 
-**The Japanese generic-name census is consolidated and still records evidence gaps (2026-10-23).** The current maintained source has 2,774 address-only local labels (with historical owner dispositions), ten evidence-limited neutral `Data_BB_AAAA` labels, zero strict generic `Function_`/`Font_` or type-plus-address definitions, and zero `.loop`/`.skip`/`.done` definitions (all 500 baseline cases have dispositions). A wider lexical census also records 786 neutral RAM equates, 261 confidence-qualified uncertainty markers, 2,412 globals ending in numeric ordinals (not automatically generic), and 41 typed tile-resource ordinals for possible future owner-level review. One truly vague `.start` branch label was replaced with an operation-specific name at `engine/account/delete_registration.asm`; static confidence is `PROBABLE`. The English overlay and Operator ZIP remain paused and untouched.
+**The Japanese generic-name census is consolidated and still records evidence gaps (2026-10-23).** The current maintained source has 2,774 address-only local labels (with historical owner dispositions), ten evidence-limited neutral `Data_BB_AAAA` labels, zero strict generic `Function_`/`Font_` or type-plus-address definitions, and zero `.loop`/`.skip`/`.done` definitions (all 500 baseline cases have dispositions). A wider lexical census also records 786 neutral RAM equates, 261 confidence-qualified uncertainty markers, 2,412 globals ending in numeric ordinals (not automatically generic), and a complete review of 41 typed tile resources: all 41 now name their proven VRAM/VBank destinations, including three explicit multi-destination spans and partial slices. Five MailServerMgr tilemap names remain owner-qualified. One truly vague `.start` branch label was replaced with an operation-specific name at `engine/account/delete_registration.asm`; static confidence is `PROBABLE`. The English overlay and Operator ZIP remain paused and untouched.
 
 Use the [current generic-name sweep](docs/research/japanese_generic_name_sweep_20261023.md) as the cross-category inventory and source of links to row-level ledgers. It records exact census boundaries and counts, candidate ordinal families, neutral-label dispositions, and unresolved semantic questions. The Japanese build is `RESULT: IDENTICAL`; symbol and palette checks pass for the recorded source passes.
 
@@ -593,7 +593,7 @@ five appended historical/current mappings preserve prior entries, including Noti
 No symbol, original instruction, image content or English payload changes.
 
 The connection-icon Request1 tile sources retain their existing names
-`ConnIcon_Tiles0` and `ConnIcon_Tiles1`; two redundant coordinate aliases are
+`ConnIcon_Tiles8200Vb0` and `ConnIcon_Tiles8600Vb0`; two redundant coordinate aliases are
 retired under their [bounded source contract](docs/research/connection_icon_request1_alias_retirement.md).
 The two original blocks remain 1024 and 512 bytes, read into VRAM0 at $8200
 and $8600 by the demonstrated bank69 setups. Their B parameters differ ($92

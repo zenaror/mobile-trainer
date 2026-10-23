@@ -9,18 +9,18 @@ SECTION "gfx/mail_server/delete_progress", ROMX
 
 ; ---- gfx $6FE0-$73E0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 23:5616: hl=$6FE0 a=$23 c=$40 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 6 hits in 5 scenarios (analysis/coverage_union.tsv)]
 
-Gfx_MailSrvDelProgress_Tiles0:: ; 23:6FE0
-	INCBIN "gfx/mail_server/delete_progress/mail_srv_del_progress_tiles0.2bpp"
+Gfx_MailSrvDelProgress_Tiles9000Vb1:: ; 23:6FE0
+	INCBIN "gfx/mail_server/delete_progress/mail_srv_del_progress_tiles_9000_vb1.2bpp"
 
 ; ---- gfx $73E0-$74E0 (256 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 23:5628: hl=$73E0 a=$23 c=$10 de=$9401 (dest VRAM $9400, vbank=1) [first call site executed: 6 hits in 5 scenarios (analysis/coverage_union.tsv)]
 
-Gfx_MailSrvDelProgress_Tiles1:: ; 23:73E0
-	INCBIN "gfx/mail_server/delete_progress/mail_srv_del_progress_tiles1.2bpp"
+Gfx_MailSrvDelProgress_Tiles9400Vb1:: ; 23:73E0
+	INCBIN "gfx/mail_server/delete_progress/mail_srv_del_progress_tiles_9400_vb1.2bpp"
 
 ; ---- gfx $74E0-$7640 (352 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 23:563A: hl=$74E0 a=$23 c=$16 de=$8000 (dest VRAM $8000, vbank=0) [first call site executed: 6 hits in 5 scenarios (analysis/coverage_union.tsv)]
 
-Gfx_MailSrvDelProgress_Tiles2:: ; 23:74E0
-	INCBIN "gfx/mail_server/delete_progress/mail_srv_del_progress_tiles2.2bpp"
+Gfx_MailSrvDelProgress_Tiles8000Vb0:: ; 23:74E0
+	INCBIN "gfx/mail_server/delete_progress/mail_srv_del_progress_tiles_8000_vb0.2bpp"
 
 ; ---- data $7640-$7910 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 23:564B: hl=$7640 a=$23 b=18 rows c=20 cols (tiles then attrs) de=$D000 [first call site executed: 6 hits in 5 scenarios (analysis/coverage_union.tsv)]
 

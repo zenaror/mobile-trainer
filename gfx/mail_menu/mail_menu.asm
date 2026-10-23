@@ -52,39 +52,39 @@ Attrmap_MailMenu_IconFrames:: ; 1D:4CB1
 
 ; ---- gfx $4D20-$4EB0 (400 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1D:4050: hl=$4D20 a=$1D c=$19 de=$8000 (dest VRAM $8000, vbank=0)
 
-Gfx_MailMenu_Tiles0:: ; 1D:4D20
+Gfx_MailMenu_Tiles8000Vb0:: ; 1D:4D20
 
-	INCBIN "gfx/mail_menu/mail_menu/mail_menu_tiles0.2bpp"
+	INCBIN "gfx/mail_menu/mail_menu/mail_menu_tiles_8000_vb0.2bpp"
 
 ; ---- gfx $4EB0-$52B0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1D:4062: hl=$4EB0 a=$1D c=$40 de=$8800 (dest VRAM $8800, vbank=0)
 
-Gfx_MailMenu_Tiles1:: ; 1D:4EB0
+Gfx_MailMenu_Tiles8800Vb0:: ; 1D:4EB0
 
-	INCBIN "gfx/mail_menu/mail_menu/mail_menu_tiles1.2bpp"
+	INCBIN "gfx/mail_menu/mail_menu/mail_menu_tiles_8800_vb0.2bpp"
 
 ; ---- gfx $52B0-$56B0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1D:4074: hl=$52B0 a=$1D c=$40 de=$8C00 (dest VRAM $8C00, vbank=0)
 
-Gfx_MailMenu_Tiles2:: ; 1D:52B0
+Gfx_MailMenu_Tiles8C00Vb0:: ; 1D:52B0
 
-	INCBIN "gfx/mail_menu/mail_menu/mail_menu_tiles2.2bpp"
+	INCBIN "gfx/mail_menu/mail_menu/mail_menu_tiles_8c00_vb0.2bpp"
 
-; ---- gfx $56B0-$5AB0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1D:4086: hl=$56B0 a=$1D c=$40 de=$9000 (dest VRAM $9000, vbank=0)
+; ---- gfx $56B0-$5AB0 (1024 bytes) [CONFIRMED] tiles-vram: full block loads to VB0 $9000 at 1D:4086; final $80 bytes are reused by the VB1 $9000 transfer at 1D:4098.
 
-Gfx_MailMenu_Tiles3:: ; 1D:56B0
+Gfx_MailMenu_Tiles9000Vb0_SharedTail9000Vb1:: ; 1D:56B0
 
-	INCBIN "gfx/mail_menu/mail_menu/mail_menu_tiles3.2bpp"
+	INCBIN "gfx/mail_menu/mail_menu/mail_menu_tiles_9000_vb0_shared_tail_9000_vb1.2bpp"
 
 ; ---- gfx $5AB0-$5E30 (896 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1D:4098: hl=$5A30 a=$1D c=$40 de=$9001 (dest VRAM $9000, vbank=1) [clipped from 5A30-5E30 by higher-priority evidence]
 
-Gfx_MailMenu_Tiles4:: ; 1D:5AB0
+Gfx_MailMenu_TileSlice9080Vb1:: ; 1D:5AB0
 
-	INCBIN "gfx/mail_menu/mail_menu/mail_menu_tiles4.2bpp"
+	INCBIN "gfx/mail_menu/mail_menu/mail_menu_tile_slice_9080_vb1.2bpp"
 
 ; ---- gfx $5E30-$6230 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1D:40AA: hl=$5E30 a=$1D c=$40 de=$9401 (dest VRAM $9400, vbank=1)
 
-Gfx_MailMenu_Tiles5:: ; 1D:5E30
+Gfx_MailMenu_Tiles9400Vb1:: ; 1D:5E30
 
-	INCBIN "gfx/mail_menu/mail_menu/mail_menu_tiles5.2bpp"
+	INCBIN "gfx/mail_menu/mail_menu/mail_menu_tiles_9400_vb1.2bpp"
 
 ; ---- data $6230-$6270 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/menus/mail_menu.asm:79, call 1D:40BB executed 784 hits in 37 scenarios (analysis/coverage_union.tsv))
 

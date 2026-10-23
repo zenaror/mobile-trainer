@@ -27,20 +27,20 @@ MailSrvDel_ProgressInit:: ; 23:55C3
 	ld a, BANK(Palette_MailSrvDelProgress_Obj)
 	farcall Palette_LoadToBuffer
 	ld de, $9001
-	ld hl, Gfx_MailSrvDelProgress_Tiles0
-	ld a, BANK(Gfx_MailSrvDelProgress_Tiles0)
+	ld hl, Gfx_MailSrvDelProgress_Tiles9000Vb1
+	ld a, BANK(Gfx_MailSrvDelProgress_Tiles9000Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, Gfx_MailSrvDelProgress_Tiles1
-	ld a, BANK(Gfx_MailSrvDelProgress_Tiles1)
+	ld hl, Gfx_MailSrvDelProgress_Tiles9400Vb1
+	ld a, BANK(Gfx_MailSrvDelProgress_Tiles9400Vb1)
 	ld b, $97
 	ld c, $10
 	farcall Gfx_StartHDMAWithService
 	ld de, $8000
-	ld hl, Gfx_MailSrvDelProgress_Tiles2
-	ld a, BANK(Gfx_MailSrvDelProgress_Tiles2)
+	ld hl, Gfx_MailSrvDelProgress_Tiles8000Vb0
+	ld a, BANK(Gfx_MailSrvDelProgress_Tiles8000Vb0)
 	ld b, $96
 	ld c, $16
 	farcall Gfx_StartHDMAWithService

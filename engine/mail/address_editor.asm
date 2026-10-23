@@ -468,14 +468,14 @@ MailAddr_SetupScreen:: ; 2D:68A9
 	ld c, $40
 	farcall Gfx_StartHDMA
 	ld de, $9701
-	ld hl, Gfx_MailAddr_Tiles2
-	ld a, BANK(Gfx_MailAddr_Tiles2)
+	ld hl, Gfx_MailAddr_Tiles9700Vb1
+	ld a, BANK(Gfx_MailAddr_Tiles9700Vb1)
 	ld b, $97
 	ld c, $0B
 	farcall Gfx_StartHDMA
 	ld de, $8800
-	ld hl, Gfx_MailAddr_Tiles3
-	ld a, BANK(Gfx_MailAddr_Tiles3)
+	ld hl, Gfx_MailAddr_Tiles8800Vb0
+	ld a, BANK(Gfx_MailAddr_Tiles8800Vb0)
 	ld b, $94
 	ld c, $2B
 	farcall Gfx_StartHDMA

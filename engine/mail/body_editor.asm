@@ -432,8 +432,8 @@ MailBody_SetupScreen:: ; 2D:499E
 	ld c, $40
 	farcall Gfx_StartHDMA
 	ld de, $9701
-	ld hl, Gfx_MailBody_Tiles2
-	ld a, BANK(Gfx_MailBody_Tiles2)
+	ld hl, Gfx_MailBody_Tiles9700Vb1
+	ld a, BANK(Gfx_MailBody_Tiles9700Vb1)
 	ld b, $97
 	ld c, $10
 	farcall Gfx_StartHDMA

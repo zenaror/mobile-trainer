@@ -211,12 +211,12 @@ gfx/browser/frames_2_3/browser_frame_candidate_tiles_68f0.2bpp	tiles	2560	gfx/br
 gfx/browser/menus/browser_menu2_map.attrmap	attrmap	120	gfx/browser/menus.asm	72	7798	CONFIRMED	-	0	20x6	BrowserMenu2_Map
 gfx/browser/menus/browser_menu2_map.tilemap	tilemap	120	gfx/browser/menus.asm	72	7720	CONFIRMED	-	0	20x6	BrowserMenu2_Map
 gfx/browser/menus/browser_menu2_palette.pal	palette	24	gfx/browser/menus.asm	72	7810	PROBABLE	-	0		BrowserMenu2_Palette
-gfx/browser/menus/browser_menu2_tiles0.2bpp	tiles	1024	gfx/browser/menus.asm	72	7220	CONFIRMED	exact	0		BrowserMenu2_Tiles0
-gfx/browser/menus/browser_menu2_tiles1.2bpp	tiles	256	gfx/browser/menus.asm	72	7620	CONFIRMED	exact	0		BrowserMenu2_Tiles1
+gfx/browser/menus/browser_menu2_tiles_8800_vb1.2bpp	tiles	1024	gfx/browser/menus.asm	72	7220	CONFIRMED	exact	0		BrowserMenu2_Tiles8800Vb1
+gfx/browser/menus/browser_menu2_tiles_8f00_vb1.2bpp	tiles	256	gfx/browser/menus.asm	72	7620	CONFIRMED	exact	0		BrowserMenu2_Tiles8F00Vb1
 gfx/browser/menus/browser_menu3_map.attrmap	attrmap	120	gfx/browser/menus.asm	72	7188	CONFIRMED	-	0	20x6	BrowserMenu3_Map
 gfx/browser/menus/browser_menu3_map.tilemap	tilemap	120	gfx/browser/menus.asm	72	7110	CONFIRMED	-	0	20x6	BrowserMenu3_Map
-gfx/browser/menus/browser_menu3_tiles0.2bpp	tiles	1024	gfx/browser/menus.asm	72	6C10	CONFIRMED	exact	0		BrowserMenu3_Tiles0
-gfx/browser/menus/browser_menu3_tiles1.2bpp	tiles	256	gfx/browser/menus.asm	72	7010	CONFIRMED	exact	0		BrowserMenu3_Tiles1
+gfx/browser/menus/browser_menu3_tiles_8800_vb1.2bpp	tiles	1024	gfx/browser/menus.asm	72	6C10	CONFIRMED	exact	0		BrowserMenu3_Tiles8800Vb1
+gfx/browser/menus/browser_menu3_tiles_8f00_vb1.2bpp	tiles	256	gfx/browser/menus.asm	72	7010	CONFIRMED	exact	0		BrowserMenu3_Tiles8F00Vb1
 gfx/browser/menus/browser_menu_bg6.pal	palette	16	gfx/browser/menus.asm	72	7200	CONFIRMED	-	0		Palette_BrowserMenu_Bg6
 gfx/browser/menus/browser_menu_obj4.pal	palette	8	gfx/browser/menus.asm	72	7210	CONFIRMED	-	0		Palette_BrowserMenu_Obj4
 gfx/browser/page_list/page_list_bg_palette.pal	palette	64	gfx/browser/page_list.asm	24	5EA0	CONFIRMED	-	0		PageList_BgPalette
@@ -239,11 +239,11 @@ gfx/browser/start_choice/browser_start_map.attrmap	attrmap	360	gfx/browser/start
 gfx/browser/start_choice/browser_start_map.tilemap	tilemap	360	gfx/browser/start_choice.asm	73	4097	CONFIRMED	-	0	20x18	BrowserStart_Map
 gfx/browser/start_choice/browser_start_obj_palettes.pal	palette	64	gfx/browser/start_choice.asm	73	5E20	CONFIRMED	-	0		BrowserStart_ObjPalettes
 gfx/browser/start_choice/browser_start_palettes.pal	palette	64	gfx/browser/start_choice.asm	73	5DE0	CONFIRMED	-	0		BrowserStart_Palettes
-gfx/browser/start_choice/browser_start_tiles0.2bpp	tiles	1024	gfx/browser/start_choice.asm	73	45E0	CONFIRMED	exact	0		BrowserStart_Tiles0
-gfx/browser/start_choice/browser_start_tiles1.2bpp	tiles	1024	gfx/browser/start_choice.asm	73	4DE0	CONFIRMED	exact	0		BrowserStart_Tiles1
-gfx/browser/start_choice/browser_start_tiles2.2bpp	tiles	1024	gfx/browser/start_choice.asm	73	51E0	CONFIRMED	exact	0		BrowserStart_Tiles2
-gfx/browser/start_choice/browser_start_tiles3.2bpp	tiles	1024	gfx/browser/start_choice.asm	73	55E0	CONFIRMED	exact	0		BrowserStart_Tiles3
-gfx/browser/start_choice/browser_start_tiles4.2bpp	tiles	1024	gfx/browser/start_choice.asm	73	59E0	CONFIRMED	exact	0		BrowserStart_Tiles4
+gfx/browser/start_choice/browser_start_tiles_8000_vb0.2bpp	tiles	1024	gfx/browser/start_choice.asm	73	45E0	CONFIRMED	exact	0		BrowserStart_Tiles8000Vb0
+gfx/browser/start_choice/browser_start_tiles_8800_vb0.2bpp	tiles	1024	gfx/browser/start_choice.asm	73	4DE0	CONFIRMED	exact	0		BrowserStart_Tiles8800Vb0
+gfx/browser/start_choice/browser_start_tiles_8c00_vb0.2bpp	tiles	1024	gfx/browser/start_choice.asm	73	51E0	CONFIRMED	exact	0		BrowserStart_Tiles8C00Vb0
+gfx/browser/start_choice/browser_start_tiles_9000_vb1.2bpp	tiles	1024	gfx/browser/start_choice.asm	73	55E0	CONFIRMED	exact	0		BrowserStart_Tiles9000Vb1
+gfx/browser/start_choice/browser_start_tiles_9400_vb1.2bpp	tiles	1024	gfx/browser/start_choice.asm	73	59E0	CONFIRMED	exact	0		BrowserStart_Tiles9400Vb1
 gfx/browser/start_choice/browser_start_top_attr_normal.attrmap	attrmap	40	gfx/browser/start_choice.asm	73	43AD	PROBABLE	-	0		BrowserStart_TopAttrNormal
 gfx/browser/start_choice/browser_start_top_map_normal.tilemap	tilemap	40	gfx/browser/start_choice.asm	73	4367	PROBABLE	-	0	10x4	BrowserStart_TopMapNormal
 gfx/browser/start_choice/browser_start_candidate_tiles.2bpp	tiles	1024	gfx/browser/start_choice.asm	73	49E0	PROBABLE	exact	0		BrowserStart_CandidateTiles_49E0
@@ -303,8 +303,8 @@ gfx/comm/connect_dialog_bank56/connect_dialog_password_saved_tiles_9400_vb1.2bpp
 gfx/comm/connect_dialog_bank56/connect_dialog_common_finish_tiles_8000_vb0.2bpp	tiles	512	gfx/comm/connect_dialog_bank56.asm	56	75C0	CONFIRMED	exact	0		Gfx_ConnectDialog_Finish_Tiles8000
 gfx/comm/connect_dialog_screen/connect_dialog_blank_tile.2bpp	tiles	16	engine/comm/connect_dialog_screen.asm	57	4D30	CONFIRMED	exact	0		ConnectDialog_BlankTile
 gfx/comm/connection_icon/conn_icon_palettes.pal	palette	24	gfx/comm/connection_icon.asm	69	4760	PROBABLE	-	0		ConnIcon_Palettes
-gfx/comm/connection_icon/conn_icon_tiles0.2bpp	tiles	1024	gfx/comm/connection_icon.asm	69	4160	CONFIRMED	exact	0		ConnIcon_Tiles0
-gfx/comm/connection_icon/conn_icon_tiles1.2bpp	tiles	512	gfx/comm/connection_icon.asm	69	4560	CONFIRMED	exact	0		ConnIcon_Tiles1
+gfx/comm/connection_icon/conn_icon_tiles_8200_vb0.2bpp	tiles	1024	gfx/comm/connection_icon.asm	69	4160	CONFIRMED	exact	0		ConnIcon_Tiles8200Vb0
+gfx/comm/connection_icon/conn_icon_tiles_8600_vb0.2bpp	tiles	512	gfx/comm/connection_icon.asm	69	4560	CONFIRMED	exact	0		ConnIcon_Tiles8600Vb0
 gfx/comm/notice_dialog/comm_notice_a_cut_over60.attrmap	attrmap	360	gfx/comm/notice_dialog.asm	50	4502	PROBABLE	-	0		Attrmap_CommNotice_A_CutOver60
 gfx/comm/notice_dialog/comm_notice_a_ask_over60.attrmap	attrmap	360	gfx/comm/notice_dialog.asm	50	47D2	PROBABLE	-	0		Attrmap_CommNotice_A_AskOver60
 gfx/comm/notice_dialog/comm_notice_a_cut_soon.attrmap	attrmap	360	gfx/comm/notice_dialog.asm	50	4AA2	PROBABLE	-	0		Attrmap_CommNotice_A_CutSoon
@@ -528,9 +528,9 @@ gfx/help/mobile_dictionary/mobile_dict_bg.pal	palette	64	gfx/help/mobile_diction
 gfx/help/mobile_dictionary/mobile_dict_obj.pal	palette	464	gfx/help/mobile_dictionary.asm	1A	53D0	PROBABLE	-	0		Palette_MobileDict_Obj
 gfx/help/mobile_dictionary/mobile_dict_screen.attrmap	attrmap	360	gfx/help/mobile_dictionary.asm	1A	491D	CONFIRMED	-	0	20x18	Tilemap_MobileDict_Screen
 gfx/help/mobile_dictionary/mobile_dict_screen.tilemap	tilemap	360	gfx/help/mobile_dictionary.asm	1A	47B5	CONFIRMED	-	0	20x18	Tilemap_MobileDict_Screen
-gfx/help/mobile_dictionary/mobile_dict_tiles0.2bpp	tiles	512	gfx/help/mobile_dictionary.asm	1A	4A90	CONFIRMED	exact	0		Gfx_MobileDict_Tiles0
-gfx/help/mobile_dictionary/mobile_dict_tiles1.2bpp	tiles	1024	gfx/help/mobile_dictionary.asm	1A	4C90	CONFIRMED	exact	0		Gfx_MobileDict_Tiles1
-gfx/help/mobile_dictionary/mobile_dict_tiles2.2bpp	tiles	768	gfx/help/mobile_dictionary.asm	1A	5090	CONFIRMED	exact	0		Gfx_MobileDict_Tiles2
+gfx/help/mobile_dictionary/mobile_dict_tiles_8000_vb0.2bpp	tiles	512	gfx/help/mobile_dictionary.asm	1A	4A90	CONFIRMED	exact	0		Gfx_MobileDict_Tiles8000Vb0
+gfx/help/mobile_dictionary/mobile_dict_tiles_8b00_vb1.2bpp	tiles	1024	gfx/help/mobile_dictionary.asm	1A	4C90	CONFIRMED	exact	0		Gfx_MobileDict_Tiles8B00Vb1
+gfx/help/mobile_dictionary/mobile_dict_tiles_8f00_vb1.2bpp	tiles	768	gfx/help/mobile_dictionary.asm	1A	5090	CONFIRMED	exact	0		Gfx_MobileDict_Tiles8F00Vb1
 gfx/keyboard/panels_bank5d/keyboard_type4_vram8800_vb1_tiles.2bpp	tiles	1024	gfx/keyboard/panels_bank5d.asm	5D	4000	CONFIRMED	exact	0		Gfx_Kbd_T4_Tiles8800Vb1
 gfx/keyboard/panels_bank5d/keyboard_type4_vram8c00_vb1_tiles.2bpp	tiles	1024	gfx/keyboard/panels_bank5d.asm	5D	4400	CONFIRMED	exact	0		Gfx_Kbd_T4_Tiles8C00Vb1
 gfx/keyboard/panels_bank5f/shared_panel_bg6_7_obj5_7_palettes.pal	palette	40	gfx/keyboard/panels_bank5f.asm	5F	4CD0	CONFIRMED	-	0		Palette_SharedPanels_BgObj
@@ -595,8 +595,8 @@ gfx/mail/address_editor/mail_addr.tilemap	tilemap	360	gfx/mail/address_editor.as
 gfx/mail/address_editor/mail_addr_bg.pal	palette	64	gfx/mail/address_editor.asm	2D	7E20	PROBABLE	-	0		Palette_MailAddr_Bg
 gfx/mail/address_editor/mail_addr_obj_tiles.2bpp	tiles	192	gfx/mail/address_editor.asm	2D	7880	CONFIRMED	exact	0		Gfx_MailAddr_ObjTiles
 gfx/mail/address_editor/mail_addr_tiles.2bpp	tiles	1024	gfx/mail/address_editor.asm	2D	7120	CONFIRMED	exact	0		Gfx_MailAddr_Tiles
-gfx/mail/address_editor/mail_addr_tiles2.2bpp	tiles	176	gfx/mail/address_editor.asm	2D	7520	CONFIRMED	exact	0		Gfx_MailAddr_Tiles2
-gfx/mail/address_editor/mail_addr_tiles3.2bpp	tiles	688	gfx/mail/address_editor.asm	2D	75D0	CONFIRMED	exact	5		Gfx_MailAddr_Tiles3
+gfx/mail/address_editor/mail_addr_tiles_9700_vb1.2bpp	tiles	176	gfx/mail/address_editor.asm	2D	7520	CONFIRMED	exact	0		Gfx_MailAddr_Tiles9700Vb1
+gfx/mail/address_editor/mail_addr_tiles_8800_vb0.2bpp	tiles	688	gfx/mail/address_editor.asm	2D	75D0	CONFIRMED	exact	5		Gfx_MailAddr_Tiles8800Vb0
 gfx/mail/address_editor/mail_addr_obj_hdma_load_tail.2bpp	tiles	528	gfx/mail/address_editor.asm	2D	7940	PROBABLE	exact	0		Gfx_MailAddr_ObjHDMALoadTail
 gfx/mail/body_editor/mail_body.attrmap	attrmap	360	gfx/mail/body_editor.asm	2D	6128	CONFIRMED	-	0	20x18	Tilemap_MailBody
 gfx/mail/body_editor/mail_body.tilemap	tilemap	360	gfx/mail/body_editor.asm	2D	5FC0	CONFIRMED	-	0	20x18	Tilemap_MailBody
@@ -604,7 +604,7 @@ gfx/mail/body_editor/mail_body_bg.pal	palette	64	gfx/mail/body_editor.asm	2D	629
 gfx/mail/body_editor/mail_body_obj.pal	palette	64	gfx/mail/body_editor.asm	2D	6570	CONFIRMED	-	0		Palette_MailBody_Obj
 gfx/mail/body_editor/mail_body_obj_tiles.2bpp	tiles	672	gfx/mail/body_editor.asm	2D	62D0	PROBABLE	exact	0		Gfx_MailBody_ObjTiles
 gfx/mail/body_editor/mail_body_tiles.2bpp	tiles	960	gfx/mail/body_editor.asm	2D	5AC0	PROBABLE	exact	0		Gfx_MailBody_Tiles
-gfx/mail/body_editor/mail_body_tiles2.2bpp	tiles	256	gfx/mail/body_editor.asm	2D	5EC0	CONFIRMED	exact	0		Gfx_MailBody_Tiles2
+gfx/mail/body_editor/mail_body_tiles_9700_vb1.2bpp	tiles	256	gfx/mail/body_editor.asm	2D	5EC0	CONFIRMED	exact	0		Gfx_MailBody_Tiles9700Vb1
 gfx/mail/body_view/mail_body_bg_palette.pal	palette	64	gfx/mail/body_view.asm	28	4AF0	PROBABLE	-	0		MailBody_BgPalette
 gfx/mail/body_view/mail_body_obj_palette.pal	palette	64	gfx/mail/body_view.asm	28	4B30	PROBABLE	-	0		MailBody_ObjPalette
 gfx/mail/body_view/mail_body_tilemap.attrmap	attrmap	360	gfx/mail/body_view.asm	28	4988	CONFIRMED	-	0	20x18	MailBody_Tilemap
@@ -715,12 +715,12 @@ gfx/mail_menu/mail_menu/mail_menu_plates_selected.attrmap	attrmap	240	gfx/mail_m
 gfx/mail_menu/mail_menu/mail_menu_plates_selected.tilemap	tilemap	240	gfx/mail_menu/mail_menu.asm	1D	4A71	PROBABLE	-	0	10x24	Tilemap_MailMenu_PlatesSelected
 gfx/mail_menu/mail_menu/mail_menu_screen.attrmap	attrmap	360	gfx/mail_menu/mail_menu.asm	1D	4729	CONFIRMED	-	0	20x18	Tilemap_MailMenu_Screen
 gfx/mail_menu/mail_menu/mail_menu_screen.tilemap	tilemap	360	gfx/mail_menu/mail_menu.asm	1D	45C1	CONFIRMED	-	0	20x18	Tilemap_MailMenu_Screen
-gfx/mail_menu/mail_menu/mail_menu_tiles0.2bpp	tiles	400	gfx/mail_menu/mail_menu.asm	1D	4D20	CONFIRMED	exact	7		Gfx_MailMenu_Tiles0
-gfx/mail_menu/mail_menu/mail_menu_tiles1.2bpp	tiles	1024	gfx/mail_menu/mail_menu.asm	1D	4EB0	CONFIRMED	exact	0		Gfx_MailMenu_Tiles1
-gfx/mail_menu/mail_menu/mail_menu_tiles2.2bpp	tiles	1024	gfx/mail_menu/mail_menu.asm	1D	52B0	CONFIRMED	exact	0		Gfx_MailMenu_Tiles2
-gfx/mail_menu/mail_menu/mail_menu_tiles3.2bpp	tiles	1024	gfx/mail_menu/mail_menu.asm	1D	56B0	CONFIRMED	exact	0		Gfx_MailMenu_Tiles3
-gfx/mail_menu/mail_menu/mail_menu_tiles4.2bpp	tiles	896	gfx/mail_menu/mail_menu.asm	1D	5AB0	CONFIRMED	exact	0		Gfx_MailMenu_Tiles4
-gfx/mail_menu/mail_menu/mail_menu_tiles5.2bpp	tiles	1024	gfx/mail_menu/mail_menu.asm	1D	5E30	CONFIRMED	exact	0		Gfx_MailMenu_Tiles5
+gfx/mail_menu/mail_menu/mail_menu_tiles_8000_vb0.2bpp	tiles	400	gfx/mail_menu/mail_menu.asm	1D	4D20	CONFIRMED	exact	7		Gfx_MailMenu_Tiles8000Vb0
+gfx/mail_menu/mail_menu/mail_menu_tiles_8800_vb0.2bpp	tiles	1024	gfx/mail_menu/mail_menu.asm	1D	4EB0	CONFIRMED	exact	0		Gfx_MailMenu_Tiles8800Vb0
+gfx/mail_menu/mail_menu/mail_menu_tiles_8c00_vb0.2bpp	tiles	1024	gfx/mail_menu/mail_menu.asm	1D	52B0	CONFIRMED	exact	0		Gfx_MailMenu_Tiles8C00Vb0
+gfx/mail_menu/mail_menu/mail_menu_tiles_9000_vb0_shared_tail_9000_vb1.2bpp	tiles	1024	gfx/mail_menu/mail_menu.asm	1D	56B0	CONFIRMED	exact	0		Gfx_MailMenu_Tiles9000Vb0_SharedTail9000Vb1
+gfx/mail_menu/mail_menu/mail_menu_tile_slice_9080_vb1.2bpp	tiles	896	gfx/mail_menu/mail_menu.asm	1D	5AB0	CONFIRMED	exact	0		Gfx_MailMenu_TileSlice9080Vb1
+gfx/mail_menu/mail_menu/mail_menu_tiles_9400_vb1.2bpp	tiles	1024	gfx/mail_menu/mail_menu.asm	1D	5E30	CONFIRMED	exact	0		Gfx_MailMenu_Tiles9400Vb1
 gfx/mail_server/delete_all_screen/mail_server_delete_all_bg_palette.pal	palette	64	gfx/mail_server/delete_all_screen.asm	28	5EA0	PROBABLE	-	0		MailServerDeleteAll_BgPalette
 gfx/mail_server/delete_all_screen/mail_server_delete_all_obj_palette.pal	palette	64	gfx/mail_server/delete_all_screen.asm	28	5EE0	PROBABLE	-	0		MailServerDeleteAll_ObjPalette
 gfx/mail_server/delete_all_screen/mail_server_delete_all_tilemap.attrmap	attrmap	360	gfx/mail_server/delete_all_screen.asm	28	5D38	CONFIRMED	-	0	20x18	MailServerDeleteAll_Tilemap
@@ -748,9 +748,9 @@ gfx/mail_server/delete_progress/mail_srv_del_progress_bg.pal	palette	64	gfx/mail
 gfx/mail_server/delete_progress/mail_srv_del_progress_obj.pal	palette	64	gfx/mail_server/delete_progress.asm	23	7950	CONFIRMED	-	0		Palette_MailSrvDelProgress_Obj
 gfx/mail_server/delete_progress/mail_srv_del_progress_screen.attrmap	attrmap	360	gfx/mail_server/delete_progress.asm	23	77A8	CONFIRMED	-	0	20x18	Tilemap_MailSrvDelProgress_Screen
 gfx/mail_server/delete_progress/mail_srv_del_progress_screen.tilemap	tilemap	360	gfx/mail_server/delete_progress.asm	23	7640	CONFIRMED	-	0	20x18	Tilemap_MailSrvDelProgress_Screen
-gfx/mail_server/delete_progress/mail_srv_del_progress_tiles0.2bpp	tiles	1024	gfx/mail_server/delete_progress.asm	23	6FE0	CONFIRMED	exact	0		Gfx_MailSrvDelProgress_Tiles0
-gfx/mail_server/delete_progress/mail_srv_del_progress_tiles1.2bpp	tiles	256	gfx/mail_server/delete_progress.asm	23	73E0	CONFIRMED	exact	0		Gfx_MailSrvDelProgress_Tiles1
-gfx/mail_server/delete_progress/mail_srv_del_progress_tiles2.2bpp	tiles	352	gfx/mail_server/delete_progress.asm	23	74E0	CONFIRMED	exact	0		Gfx_MailSrvDelProgress_Tiles2
+gfx/mail_server/delete_progress/mail_srv_del_progress_tiles_9000_vb1.2bpp	tiles	1024	gfx/mail_server/delete_progress.asm	23	6FE0	CONFIRMED	exact	0		Gfx_MailSrvDelProgress_Tiles9000Vb1
+gfx/mail_server/delete_progress/mail_srv_del_progress_tiles_9400_vb1.2bpp	tiles	256	gfx/mail_server/delete_progress.asm	23	73E0	CONFIRMED	exact	0		Gfx_MailSrvDelProgress_Tiles9400Vb1
+gfx/mail_server/delete_progress/mail_srv_del_progress_tiles_8000_vb0.2bpp	tiles	352	gfx/mail_server/delete_progress.asm	23	74E0	CONFIRMED	exact	0		Gfx_MailSrvDelProgress_Tiles8000Vb0
 gfx/mail_server/tidy_screen/mail_server_mgr_bg.pal	palette	64	gfx/mail_server/tidy_screen.asm	2E	7590	PROBABLE	-	0		Palette_MailServerMgr_Bg
 gfx/mail_server/tidy_screen/mail_server_mgr_footer.attrmap	attrmap	120	gfx/mail_server/tidy_screen.asm	2E	6CA8	CONFIRMED	-	0	20x6	Tilemap_MailServerMgr_Footer
 gfx/mail_server/tidy_screen/mail_server_mgr_footer.tilemap	tilemap	120	gfx/mail_server/tidy_screen.asm	2E	6C30	CONFIRMED	-	0	20x6	Tilemap_MailServerMgr_Footer
@@ -763,12 +763,12 @@ gfx/mail_server/tidy_screen/mail_server_mgr_info_d.tilemap	tilemap	360	gfx/mail_
 gfx/mail_server/tidy_screen/mail_server_mgr_main.attrmap	attrmap	360	gfx/mail_server/tidy_screen.asm	2E	6AC8	CONFIRMED	-	0	20x18	Tilemap_MailServerMgr_Main
 gfx/mail_server/tidy_screen/mail_server_mgr_main.tilemap	tilemap	360	gfx/mail_server/tidy_screen.asm	2E	6960	CONFIRMED	-	0	20x18	Tilemap_MailServerMgr_Main
 gfx/mail_server/tidy_screen/mail_server_mgr_obj.pal	palette	240	gfx/mail_server/tidy_screen.asm	2E	75D0	PROBABLE	-	0		Palette_MailServerMgr_Obj
-gfx/mail_server/tidy_screen/mail_server_mgr_tiles0.2bpp	tiles	1024	gfx/mail_server/tidy_screen.asm	2E	56E0	CONFIRMED	exact	0		Gfx_MailServerMgr_Tiles0
-gfx/mail_server/tidy_screen/mail_server_mgr_tiles1.2bpp	tiles	16	gfx/mail_server/tidy_screen.asm	2E	5AE0	CONFIRMED	exact	0		Gfx_MailServerMgr_Tiles1
-gfx/mail_server/tidy_screen/mail_server_mgr_tiles2.2bpp	tiles	288	gfx/mail_server/tidy_screen.asm	2E	5EE0	CONFIRMED	exact	0		Gfx_MailServerMgr_Tiles2
-gfx/mail_server/tidy_screen/mail_server_mgr_tiles3.2bpp	tiles	1024	gfx/mail_server/tidy_screen.asm	2E	6000	CONFIRMED	exact	0		Gfx_MailServerMgr_Tiles3
-gfx/mail_server/tidy_screen/mail_server_mgr_tiles4.2bpp	tiles	352	gfx/mail_server/tidy_screen.asm	2E	6400	CONFIRMED	exact	0		Gfx_MailServerMgr_Tiles4
-gfx/mail_server/tidy_screen/mail_server_mgr_tiles5.2bpp	tiles	1024	gfx/mail_server/tidy_screen.asm	2E	6560	CONFIRMED	exact	0		Gfx_MailServerMgr_Tiles5
+gfx/mail_server/tidy_screen/mail_server_mgr_tiles_9000_vb1.2bpp	tiles	1024	gfx/mail_server/tidy_screen.asm	2E	56E0	CONFIRMED	exact	0		Gfx_MailServerMgr_Tiles9000Vb1
+gfx/mail_server/tidy_screen/mail_server_mgr_tiles_9400_vb1_prefix.2bpp	tiles	16	gfx/mail_server/tidy_screen.asm	2E	5AE0	CONFIRMED	exact	0		Gfx_MailServerMgr_Tiles9400Vb1_Prefix
+gfx/mail_server/tidy_screen/mail_server_mgr_tiles_8800_vb1.2bpp	tiles	288	gfx/mail_server/tidy_screen.asm	2E	5EE0	CONFIRMED	exact	0		Gfx_MailServerMgr_Tiles8800Vb1
+gfx/mail_server/tidy_screen/mail_server_mgr_tiles_8a80_vb0.2bpp	tiles	1024	gfx/mail_server/tidy_screen.asm	2E	6000	CONFIRMED	exact	0		Gfx_MailServerMgr_Tiles8A80Vb0
+gfx/mail_server/tidy_screen/mail_server_mgr_tiles_8e80_vb0.2bpp	tiles	352	gfx/mail_server/tidy_screen.asm	2E	6400	CONFIRMED	exact	0		Gfx_MailServerMgr_Tiles8E80Vb0
+gfx/mail_server/tidy_screen/mail_server_mgr_tiles_8000_vb0.2bpp	tiles	1024	gfx/mail_server/tidy_screen.asm	2E	6560	CONFIRMED	exact	0		Gfx_MailServerMgr_Tiles8000Vb0
 gfx/mail_server/tidy_screen/mail_server_mgr_tiles9400_vb1_tail_5af0.2bpp	tiles	1008	gfx/mail_server/tidy_screen.asm	2E	5AF0	CONFIRMED	exact	0		Gfx_MailServerMgr_Tiles9400Vb1_Tail_5AF0
 gfx/mailbox/mailbox/mailbox_bg_palette.pal	palette	64	gfx/mailbox/mailbox.asm	25	69B0	CONFIRMED	-	0		Mailbox_BgPalette
 gfx/mailbox/mailbox/mailbox_obj_palette.pal	palette	64	gfx/mailbox/mailbox.asm	25	6EF0	CONFIRMED	-	0		Mailbox_ObjPalette
@@ -887,8 +887,8 @@ gfx/settings/registration_delete_anim_and_password_save_confirm_bank71/password_
 gfx/title/logo/title_logo.pal	palette	64	gfx/title/logo.asm	0E	6B70	PROBABLE	-	0		Palette_TitleLogo
 gfx/title/logo/title_logo_screen.attrmap	attrmap	360	gfx/title/logo.asm	0E	6A08	CONFIRMED	-	0	20x18	Tilemap_TitleLogo_Screen
 gfx/title/logo/title_logo_screen.tilemap	tilemap	360	gfx/title/logo.asm	0E	68A0	CONFIRMED	-	0	20x18	Tilemap_TitleLogo_Screen
-gfx/title/logo/title_logo_tiles0.2bpp	tiles	1024	gfx/title/logo.asm	0E	60A0	CONFIRMED	exact	0		Gfx_TitleLogo_Tiles0
-gfx/title/logo/title_logo_tiles1.2bpp	tiles	1024	gfx/title/logo.asm	0E	64A0	CONFIRMED	exact	0		Gfx_TitleLogo_Tiles1
+gfx/title/logo/title_logo_tiles_9000_vb1.2bpp	tiles	1024	gfx/title/logo.asm	0E	60A0	CONFIRMED	exact	0		Gfx_TitleLogo_Tiles9000Vb1
+gfx/title/logo/title_logo_tiles_9400_vb1.2bpp	tiles	1024	gfx/title/logo.asm	0E	64A0	CONFIRMED	exact	0		Gfx_TitleLogo_Tiles9400Vb1
 gfx/title/title_screen/title_bg.pal	palette	64	gfx/title/title_screen.asm	0E	5F30	PROBABLE	-	0		Palette_Title_Bg
 gfx/title/title_screen/title_highlight_settings.attrmap	attrmap	40	gfx/title/title_screen.asm	0E	5F08	PROBABLE	-	0		Tilemap_Title_HighlightSettings
 gfx/title/title_screen/title_highlight_settings.tilemap	tilemap	40	gfx/title/title_screen.asm	0E	5EE0	PROBABLE	-	0		Tilemap_Title_HighlightSettings
@@ -897,13 +897,13 @@ gfx/title/title_screen/title_highlight_start.tilemap	tilemap	40	gfx/title/title_
 gfx/title/title_screen/title_obj.pal	palette	64	gfx/title/title_screen.asm	0E	5F70	PROBABLE	-	0		Palette_Title_Obj
 gfx/title/title_screen/title_screen.attrmap	attrmap	360	gfx/title/title_screen.asm	0E	5D28	CONFIRMED	-	0	20x18	Tilemap_Title_Screen
 gfx/title/title_screen/title_screen.tilemap	tilemap	360	gfx/title/title_screen.asm	0E	5BC0	CONFIRMED	-	0	20x18	Tilemap_Title_Screen
-gfx/title/title_screen/title_tiles0.2bpp	tiles	1024	gfx/title/title_screen.asm	0E	43C0	CONFIRMED	exact	0		Gfx_Title_Tiles0
-gfx/title/title_screen/title_tiles1.2bpp	tiles	1024	gfx/title/title_screen.asm	0E	47C0	CONFIRMED	exact	0		Gfx_Title_Tiles1
-gfx/title/title_screen/title_tiles2.2bpp	tiles	512	gfx/title/title_screen.asm	0E	4BC0	CONFIRMED	exact	0		Gfx_Title_Tiles2
-gfx/title/title_screen/title_tiles3.2bpp	tiles	512	gfx/title/title_screen.asm	0E	4DC0	CONFIRMED	exact	0		Gfx_Title_Tiles3
-gfx/title/title_screen/title_tiles4.2bpp	tiles	1024	gfx/title/title_screen.asm	0E	4FC0	CONFIRMED	exact	0		Gfx_Title_Tiles4
-gfx/title/title_screen/title_tiles5.2bpp	tiles	1024	gfx/title/title_screen.asm	0E	53C0	CONFIRMED	exact	0		Gfx_Title_Tiles5
-gfx/title/title_screen/title_tiles6.2bpp	tiles	1024	gfx/title/title_screen.asm	0E	57C0	CONFIRMED	exact	0		Gfx_Title_Tiles6
+gfx/title/title_screen/title_tiles_8000_vb0.2bpp	tiles	1024	gfx/title/title_screen.asm	0E	43C0	CONFIRMED	exact	0		Gfx_Title_Tiles8000Vb0
+gfx/title/title_screen/title_tiles_8800_vb0_shared_tail_8000_vb1.2bpp	tiles	1024	gfx/title/title_screen.asm	0E	47C0	CONFIRMED	exact	0		Gfx_Title_Tiles8800Vb0_SharedTail8000Vb1
+gfx/title/title_screen/title_tiles_8200_and_8800_vb1.2bpp	tiles	512	gfx/title/title_screen.asm	0E	4BC0	CONFIRMED	exact	0		Gfx_Title_Tiles8200And8800Vb1
+gfx/title/title_screen/title_tile_slice_8a00_vb1.2bpp	tiles	512	gfx/title/title_screen.asm	0E	4DC0	CONFIRMED	exact	0		Gfx_Title_TileSlice8A00Vb1
+gfx/title/title_screen/title_tiles_8c00_vb1.2bpp	tiles	1024	gfx/title/title_screen.asm	0E	4FC0	CONFIRMED	exact	0		Gfx_Title_Tiles8C00Vb1
+gfx/title/title_screen/title_tiles_9000_vb1.2bpp	tiles	1024	gfx/title/title_screen.asm	0E	53C0	CONFIRMED	exact	0		Gfx_Title_Tiles9000Vb1
+gfx/title/title_screen/title_tiles_9400_vb1.2bpp	tiles	1024	gfx/title/title_screen.asm	0E	57C0	CONFIRMED	exact	0		Gfx_Title_Tiles9400Vb1
 gfx/top_menu/top_menu/top_menu_bg_palette.pal	palette	64	gfx/top_menu/top_menu.asm	1E	62A0	PROBABLE	-	0		Palette_TopMenu_Bg
 gfx/top_menu/top_menu/top_menu_obj_palette.pal	palette	64	gfx/top_menu/top_menu.asm	1E	62E0	PROBABLE	-	0		Palette_TopMenu_Obj
 gfx/top_menu/top_menu/top_menu_20x16.attrmap	attrmap	320	gfx/top_menu/top_menu.asm	1E	4217	CONFIRMED	-	0	20x16	Tilemap_TopMenu_1E_40D7

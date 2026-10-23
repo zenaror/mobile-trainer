@@ -99,10 +99,10 @@ PNG_TILE_OUTS := \
 	gfx/browser/frames_0_1/browser_scrollbar_vram97d0_vb0_tiles_40d0.2bpp \
 	gfx/browser/frames_2_3/browser_frame2_tiles.2bpp \
 	gfx/browser/frames_2_3/browser_frame_candidate_tiles_68f0.2bpp \
-	gfx/browser/menus/browser_menu2_tiles0.2bpp \
-	gfx/browser/menus/browser_menu2_tiles1.2bpp \
-	gfx/browser/menus/browser_menu3_tiles0.2bpp \
-	gfx/browser/menus/browser_menu3_tiles1.2bpp \
+	gfx/browser/menus/browser_menu2_tiles_8800_vb1.2bpp \
+	gfx/browser/menus/browser_menu2_tiles_8f00_vb1.2bpp \
+	gfx/browser/menus/browser_menu3_tiles_8800_vb1.2bpp \
+	gfx/browser/menus/browser_menu3_tiles_8f00_vb1.2bpp \
 	gfx/browser/page_list/page_list_hdma_source_byte_slice_24_55d0.2bpp \
 	gfx/browser/page_list/page_list_hdma_source_byte_slice_24_5ef1.2bpp \
 	gfx/browser/page_list/page_list_tiles_5400.2bpp \
@@ -115,11 +115,11 @@ PNG_TILE_OUTS := \
 	gfx/browser/page_list_candidate/page_list_candidate_tiles_vram9400_vb1.2bpp \
 	gfx/browser/page_list_prototype_messages/prototype_message_tiles.2bpp \
 	gfx/browser/start_choice/browser_start_candidate_tiles.2bpp \
-	gfx/browser/start_choice/browser_start_tiles0.2bpp \
-	gfx/browser/start_choice/browser_start_tiles1.2bpp \
-	gfx/browser/start_choice/browser_start_tiles2.2bpp \
-	gfx/browser/start_choice/browser_start_tiles3.2bpp \
-	gfx/browser/start_choice/browser_start_tiles4.2bpp \
+	gfx/browser/start_choice/browser_start_tiles_8000_vb0.2bpp \
+	gfx/browser/start_choice/browser_start_tiles_8800_vb0.2bpp \
+	gfx/browser/start_choice/browser_start_tiles_8c00_vb0.2bpp \
+	gfx/browser/start_choice/browser_start_tiles_9000_vb1.2bpp \
+	gfx/browser/start_choice/browser_start_tiles_9400_vb1.2bpp \
 	gfx/comm/comm_scene/tiles_shared_source0.2bpp \
 	gfx/comm/comm_scene/tiles_shared_source1.2bpp \
 	gfx/comm/comm_scene/tiles_shared_source2.2bpp \
@@ -140,8 +140,8 @@ PNG_TILE_OUTS := \
 	gfx/comm/connect_dialog_bank56/connect_dialog_stored_password_tiles_9400_vb1.2bpp \
 	gfx/comm/connect_dialog_bank56/connect_dialog_stored_password_tiles_shared_source.2bpp \
 	gfx/comm/connect_dialog_screen/connect_dialog_blank_tile.2bpp \
-	gfx/comm/connection_icon/conn_icon_tiles0.2bpp \
-	gfx/comm/connection_icon/conn_icon_tiles1.2bpp \
+	gfx/comm/connection_icon/conn_icon_tiles_8200_vb0.2bpp \
+	gfx/comm/connection_icon/conn_icon_tiles_8600_vb0.2bpp \
 	gfx/comm/notice_dialog/comm_notice_a_tiles_vram0_9000.2bpp \
 	gfx/comm/notice_dialog/comm_notice_a_tiles_vram0_9400.2bpp \
 	gfx/comm/notice_dialog/comm_notice_a_tiles_vram1_8000.2bpp \
@@ -218,9 +218,9 @@ PNG_TILE_OUTS := \
 	gfx/help/help_script_bank6a/help_script_vram8000_vb0_tiles.2bpp \
 	gfx/help/help_script_bank6a/help_script_vram8af0_vb1_tiles.2bpp \
 	gfx/help/help_script_bank6a/help_script_vram8b00_vb1_tiles.2bpp \
-	gfx/help/mobile_dictionary/mobile_dict_tiles0.2bpp \
-	gfx/help/mobile_dictionary/mobile_dict_tiles1.2bpp \
-	gfx/help/mobile_dictionary/mobile_dict_tiles2.2bpp \
+	gfx/help/mobile_dictionary/mobile_dict_tiles_8000_vb0.2bpp \
+	gfx/help/mobile_dictionary/mobile_dict_tiles_8b00_vb1.2bpp \
+	gfx/help/mobile_dictionary/mobile_dict_tiles_8f00_vb1.2bpp \
 	gfx/help/script_illustrations_01_13/picture_01_tiles.2bpp \
 	gfx/help/script_illustrations_01_13/picture_02_tiles.2bpp \
 	gfx/help/script_illustrations_01_13/picture_03_tiles.2bpp \
@@ -289,11 +289,11 @@ PNG_TILE_OUTS := \
 	gfx/mail/address_editor/mail_addr_obj_hdma_load_tail.2bpp \
 	gfx/mail/address_editor/mail_addr_obj_tiles.2bpp \
 	gfx/mail/address_editor/mail_addr_tiles.2bpp \
-	gfx/mail/address_editor/mail_addr_tiles2.2bpp \
-	gfx/mail/address_editor/mail_addr_tiles3.2bpp \
+	gfx/mail/address_editor/mail_addr_tiles_8800_vb0.2bpp \
+	gfx/mail/address_editor/mail_addr_tiles_9700_vb1.2bpp \
 	gfx/mail/body_editor/mail_body_obj_tiles.2bpp \
 	gfx/mail/body_editor/mail_body_tiles.2bpp \
-	gfx/mail/body_editor/mail_body_tiles2.2bpp \
+	gfx/mail/body_editor/mail_body_tiles_9700_vb1.2bpp \
 	gfx/mail/body_view/mail_body_tiles_42c0.2bpp \
 	gfx/mail/body_view/mail_body_tiles_44d0.2bpp \
 	gfx/mail/comm_result/mail_result_tiles_6bf0.2bpp \
@@ -336,12 +336,12 @@ PNG_TILE_OUTS := \
 	gfx/mail/session_scenery/mail_session_tiles_67e0.2bpp \
 	gfx/mail/session_scenery/mail_session_tiles_6be0.2bpp \
 	gfx/mail/session_scenery/mail_session_tiles_6fe0.2bpp \
-	gfx/mail_menu/mail_menu/mail_menu_tiles0.2bpp \
-	gfx/mail_menu/mail_menu/mail_menu_tiles1.2bpp \
-	gfx/mail_menu/mail_menu/mail_menu_tiles2.2bpp \
-	gfx/mail_menu/mail_menu/mail_menu_tiles3.2bpp \
-	gfx/mail_menu/mail_menu/mail_menu_tiles4.2bpp \
-	gfx/mail_menu/mail_menu/mail_menu_tiles5.2bpp \
+	gfx/mail_menu/mail_menu/mail_menu_tile_slice_9080_vb1.2bpp \
+	gfx/mail_menu/mail_menu/mail_menu_tiles_8000_vb0.2bpp \
+	gfx/mail_menu/mail_menu/mail_menu_tiles_8800_vb0.2bpp \
+	gfx/mail_menu/mail_menu/mail_menu_tiles_8c00_vb0.2bpp \
+	gfx/mail_menu/mail_menu/mail_menu_tiles_9000_vb0_shared_tail_9000_vb1.2bpp \
+	gfx/mail_menu/mail_menu/mail_menu_tiles_9400_vb1.2bpp \
 	gfx/mail_server/delete_all_screen/mail_server_delete_all_tiles_54b0.2bpp \
 	gfx/mail_server/delete_all_screen/mail_server_delete_all_tiles_58b0.2bpp \
 	gfx/mail_server/delete_all_screen/mail_server_delete_all_tiles_5b50.2bpp \
@@ -349,16 +349,16 @@ PNG_TILE_OUTS := \
 	gfx/mail_server/delete_method_screen/mail_server_delete_method_tiles_6150.2bpp \
 	gfx/mail_server/delete_method_screen/mail_server_delete_method_tiles_6550.2bpp \
 	gfx/mail_server/delete_method_screen/mail_server_delete_method_tiles_67e0.2bpp \
-	gfx/mail_server/delete_progress/mail_srv_del_progress_tiles0.2bpp \
-	gfx/mail_server/delete_progress/mail_srv_del_progress_tiles1.2bpp \
-	gfx/mail_server/delete_progress/mail_srv_del_progress_tiles2.2bpp \
-	gfx/mail_server/tidy_screen/mail_server_mgr_tiles0.2bpp \
-	gfx/mail_server/tidy_screen/mail_server_mgr_tiles1.2bpp \
-	gfx/mail_server/tidy_screen/mail_server_mgr_tiles2.2bpp \
-	gfx/mail_server/tidy_screen/mail_server_mgr_tiles3.2bpp \
-	gfx/mail_server/tidy_screen/mail_server_mgr_tiles4.2bpp \
-	gfx/mail_server/tidy_screen/mail_server_mgr_tiles5.2bpp \
+	gfx/mail_server/delete_progress/mail_srv_del_progress_tiles_8000_vb0.2bpp \
+	gfx/mail_server/delete_progress/mail_srv_del_progress_tiles_9000_vb1.2bpp \
+	gfx/mail_server/delete_progress/mail_srv_del_progress_tiles_9400_vb1.2bpp \
 	gfx/mail_server/tidy_screen/mail_server_mgr_tiles9400_vb1_tail_5af0.2bpp \
+	gfx/mail_server/tidy_screen/mail_server_mgr_tiles_8000_vb0.2bpp \
+	gfx/mail_server/tidy_screen/mail_server_mgr_tiles_8800_vb1.2bpp \
+	gfx/mail_server/tidy_screen/mail_server_mgr_tiles_8a80_vb0.2bpp \
+	gfx/mail_server/tidy_screen/mail_server_mgr_tiles_8e80_vb0.2bpp \
+	gfx/mail_server/tidy_screen/mail_server_mgr_tiles_9000_vb1.2bpp \
+	gfx/mail_server/tidy_screen/mail_server_mgr_tiles_9400_vb1_prefix.2bpp \
 	gfx/mailbox/mailbox/mailbox_hdma_source_byte_slice_25_6bd1.2bpp \
 	gfx/mailbox/mailbox/mailbox_tiles_5a10.2bpp \
 	gfx/mailbox/mailbox/mailbox_tiles_5e10.2bpp \
@@ -413,15 +413,15 @@ PNG_TILE_OUTS := \
 	gfx/settings/phone_choice_and_slot_menus_bank4d/slot_menu_tiles9400_vb1_7470.2bpp \
 	gfx/settings/shared_text_entry_tiles_bank5e/shared_text_entry_vram8800_vb1.2bpp \
 	gfx/settings/shared_text_entry_tiles_bank5e/shared_text_entry_vram8c00_vb1.2bpp \
-	gfx/title/logo/title_logo_tiles0.2bpp \
-	gfx/title/logo/title_logo_tiles1.2bpp \
-	gfx/title/title_screen/title_tiles0.2bpp \
-	gfx/title/title_screen/title_tiles1.2bpp \
-	gfx/title/title_screen/title_tiles2.2bpp \
-	gfx/title/title_screen/title_tiles3.2bpp \
-	gfx/title/title_screen/title_tiles4.2bpp \
-	gfx/title/title_screen/title_tiles5.2bpp \
-	gfx/title/title_screen/title_tiles6.2bpp \
+	gfx/title/logo/title_logo_tiles_9000_vb1.2bpp \
+	gfx/title/logo/title_logo_tiles_9400_vb1.2bpp \
+	gfx/title/title_screen/title_tile_slice_8a00_vb1.2bpp \
+	gfx/title/title_screen/title_tiles_8000_vb0.2bpp \
+	gfx/title/title_screen/title_tiles_8200_and_8800_vb1.2bpp \
+	gfx/title/title_screen/title_tiles_8800_vb0_shared_tail_8000_vb1.2bpp \
+	gfx/title/title_screen/title_tiles_8c00_vb1.2bpp \
+	gfx/title/title_screen/title_tiles_9000_vb1.2bpp \
+	gfx/title/title_screen/title_tiles_9400_vb1.2bpp \
 	gfx/top_menu/top_menu/top_menu_vram0_8000_tiles.2bpp \
 	gfx/top_menu/top_menu/top_menu_vram0_8400_tiles.2bpp \
 	gfx/top_menu/top_menu/top_menu_vram0_8800_tiles.2bpp \
@@ -513,10 +513,10 @@ gfx/browser/frames_0_1/browser_scrollbar_vram97d0_vb0_tiles_4090.2bpp: PNG_SIZE 
 gfx/browser/frames_0_1/browser_scrollbar_vram97d0_vb0_tiles_40d0.2bpp: PNG_SIZE := 48
 gfx/browser/frames_2_3/browser_frame2_tiles.2bpp: PNG_SIZE := 2560
 gfx/browser/frames_2_3/browser_frame_candidate_tiles_68f0.2bpp: PNG_SIZE := 2560
-gfx/browser/menus/browser_menu2_tiles0.2bpp: PNG_SIZE := 1024
-gfx/browser/menus/browser_menu2_tiles1.2bpp: PNG_SIZE := 256
-gfx/browser/menus/browser_menu3_tiles0.2bpp: PNG_SIZE := 1024
-gfx/browser/menus/browser_menu3_tiles1.2bpp: PNG_SIZE := 256
+gfx/browser/menus/browser_menu2_tiles_8800_vb1.2bpp: PNG_SIZE := 1024
+gfx/browser/menus/browser_menu2_tiles_8f00_vb1.2bpp: PNG_SIZE := 256
+gfx/browser/menus/browser_menu3_tiles_8800_vb1.2bpp: PNG_SIZE := 1024
+gfx/browser/menus/browser_menu3_tiles_8f00_vb1.2bpp: PNG_SIZE := 256
 gfx/browser/page_list/page_list_hdma_source_byte_slice_24_55d0.2bpp: PNG_SIZE := 560
 gfx/browser/page_list/page_list_hdma_source_byte_slice_24_55d0.2bpp: PNG_PAD := -x 13
 gfx/browser/page_list/page_list_hdma_source_byte_slice_24_5ef1.2bpp: PNG_SIZE := 992
@@ -533,11 +533,11 @@ gfx/browser/page_list_candidate/page_list_candidate_tiles_vram9000_vb1.2bpp: PNG
 gfx/browser/page_list_candidate/page_list_candidate_tiles_vram9400_vb1.2bpp: PNG_SIZE := 288
 gfx/browser/page_list_prototype_messages/prototype_message_tiles.2bpp: PNG_SIZE := 2944
 gfx/browser/start_choice/browser_start_candidate_tiles.2bpp: PNG_SIZE := 1024
-gfx/browser/start_choice/browser_start_tiles0.2bpp: PNG_SIZE := 1024
-gfx/browser/start_choice/browser_start_tiles1.2bpp: PNG_SIZE := 1024
-gfx/browser/start_choice/browser_start_tiles2.2bpp: PNG_SIZE := 1024
-gfx/browser/start_choice/browser_start_tiles3.2bpp: PNG_SIZE := 1024
-gfx/browser/start_choice/browser_start_tiles4.2bpp: PNG_SIZE := 1024
+gfx/browser/start_choice/browser_start_tiles_8000_vb0.2bpp: PNG_SIZE := 1024
+gfx/browser/start_choice/browser_start_tiles_8800_vb0.2bpp: PNG_SIZE := 1024
+gfx/browser/start_choice/browser_start_tiles_8c00_vb0.2bpp: PNG_SIZE := 1024
+gfx/browser/start_choice/browser_start_tiles_9000_vb1.2bpp: PNG_SIZE := 1024
+gfx/browser/start_choice/browser_start_tiles_9400_vb1.2bpp: PNG_SIZE := 1024
 gfx/comm/comm_scene/tiles_shared_source0.2bpp: PNG_SIZE := 512
 gfx/comm/comm_scene/tiles_shared_source1.2bpp: PNG_SIZE := 512
 gfx/comm/comm_scene/tiles_shared_source2.2bpp: PNG_SIZE := 512
@@ -558,8 +558,8 @@ gfx/comm/connect_dialog_bank56/connect_dialog_stored_password_tiles_9200_vb1_con
 gfx/comm/connect_dialog_bank56/connect_dialog_stored_password_tiles_9400_vb1.2bpp: PNG_SIZE := 1024
 gfx/comm/connect_dialog_bank56/connect_dialog_stored_password_tiles_shared_source.2bpp: PNG_SIZE := 1024
 gfx/comm/connect_dialog_screen/connect_dialog_blank_tile.2bpp: PNG_SIZE := 16
-gfx/comm/connection_icon/conn_icon_tiles0.2bpp: PNG_SIZE := 1024
-gfx/comm/connection_icon/conn_icon_tiles1.2bpp: PNG_SIZE := 512
+gfx/comm/connection_icon/conn_icon_tiles_8200_vb0.2bpp: PNG_SIZE := 1024
+gfx/comm/connection_icon/conn_icon_tiles_8600_vb0.2bpp: PNG_SIZE := 512
 gfx/comm/notice_dialog/comm_notice_a_tiles_vram0_9000.2bpp: PNG_SIZE := 1024
 gfx/comm/notice_dialog/comm_notice_a_tiles_vram0_9400.2bpp: PNG_SIZE := 416
 gfx/comm/notice_dialog/comm_notice_a_tiles_vram1_8000.2bpp: PNG_SIZE := 16
@@ -642,9 +642,9 @@ gfx/help/help_script_bank6a/help_script_candidate_tiles_6e20.2bpp: PNG_SIZE := 1
 gfx/help/help_script_bank6a/help_script_vram8000_vb0_tiles.2bpp: PNG_SIZE := 32
 gfx/help/help_script_bank6a/help_script_vram8af0_vb1_tiles.2bpp: PNG_SIZE := 16
 gfx/help/help_script_bank6a/help_script_vram8b00_vb1_tiles.2bpp: PNG_SIZE := 1024
-gfx/help/mobile_dictionary/mobile_dict_tiles0.2bpp: PNG_SIZE := 512
-gfx/help/mobile_dictionary/mobile_dict_tiles1.2bpp: PNG_SIZE := 1024
-gfx/help/mobile_dictionary/mobile_dict_tiles2.2bpp: PNG_SIZE := 768
+gfx/help/mobile_dictionary/mobile_dict_tiles_8000_vb0.2bpp: PNG_SIZE := 512
+gfx/help/mobile_dictionary/mobile_dict_tiles_8b00_vb1.2bpp: PNG_SIZE := 1024
+gfx/help/mobile_dictionary/mobile_dict_tiles_8f00_vb1.2bpp: PNG_SIZE := 768
 gfx/help/script_illustrations_01_13/picture_01_tiles.2bpp: PNG_SIZE := 1152
 gfx/help/script_illustrations_01_13/picture_02_tiles.2bpp: PNG_SIZE := 1152
 gfx/help/script_illustrations_01_13/picture_03_tiles.2bpp: PNG_SIZE := 1152
@@ -714,12 +714,12 @@ gfx/keyboard/type7_8_page_graphics_bank62/type7_8_page3_tiles9000_vb1_6900.2bpp:
 gfx/mail/address_editor/mail_addr_obj_hdma_load_tail.2bpp: PNG_SIZE := 528
 gfx/mail/address_editor/mail_addr_obj_tiles.2bpp: PNG_SIZE := 192
 gfx/mail/address_editor/mail_addr_tiles.2bpp: PNG_SIZE := 1024
-gfx/mail/address_editor/mail_addr_tiles2.2bpp: PNG_SIZE := 176
-gfx/mail/address_editor/mail_addr_tiles3.2bpp: PNG_SIZE := 688
-gfx/mail/address_editor/mail_addr_tiles3.2bpp: PNG_PAD := -x 5
+gfx/mail/address_editor/mail_addr_tiles_8800_vb0.2bpp: PNG_SIZE := 688
+gfx/mail/address_editor/mail_addr_tiles_8800_vb0.2bpp: PNG_PAD := -x 5
+gfx/mail/address_editor/mail_addr_tiles_9700_vb1.2bpp: PNG_SIZE := 176
 gfx/mail/body_editor/mail_body_obj_tiles.2bpp: PNG_SIZE := 672
 gfx/mail/body_editor/mail_body_tiles.2bpp: PNG_SIZE := 960
-gfx/mail/body_editor/mail_body_tiles2.2bpp: PNG_SIZE := 256
+gfx/mail/body_editor/mail_body_tiles_9700_vb1.2bpp: PNG_SIZE := 256
 gfx/mail/body_view/mail_body_tiles_42c0.2bpp: PNG_SIZE := 528
 gfx/mail/body_view/mail_body_tiles_44d0.2bpp: PNG_SIZE := 128
 gfx/mail/comm_result/mail_result_tiles_6bf0.2bpp: PNG_SIZE := 1024
@@ -765,13 +765,13 @@ gfx/mail/session_scenery/mail_session_tiles_66f0_tile_slice.2bpp: PNG_SIZE := 24
 gfx/mail/session_scenery/mail_session_tiles_67e0.2bpp: PNG_SIZE := 1024
 gfx/mail/session_scenery/mail_session_tiles_6be0.2bpp: PNG_SIZE := 1024
 gfx/mail/session_scenery/mail_session_tiles_6fe0.2bpp: PNG_SIZE := 1024
-gfx/mail_menu/mail_menu/mail_menu_tiles0.2bpp: PNG_SIZE := 400
-gfx/mail_menu/mail_menu/mail_menu_tiles0.2bpp: PNG_PAD := -x 7
-gfx/mail_menu/mail_menu/mail_menu_tiles1.2bpp: PNG_SIZE := 1024
-gfx/mail_menu/mail_menu/mail_menu_tiles2.2bpp: PNG_SIZE := 1024
-gfx/mail_menu/mail_menu/mail_menu_tiles3.2bpp: PNG_SIZE := 1024
-gfx/mail_menu/mail_menu/mail_menu_tiles4.2bpp: PNG_SIZE := 896
-gfx/mail_menu/mail_menu/mail_menu_tiles5.2bpp: PNG_SIZE := 1024
+gfx/mail_menu/mail_menu/mail_menu_tile_slice_9080_vb1.2bpp: PNG_SIZE := 896
+gfx/mail_menu/mail_menu/mail_menu_tiles_8000_vb0.2bpp: PNG_SIZE := 400
+gfx/mail_menu/mail_menu/mail_menu_tiles_8000_vb0.2bpp: PNG_PAD := -x 7
+gfx/mail_menu/mail_menu/mail_menu_tiles_8800_vb0.2bpp: PNG_SIZE := 1024
+gfx/mail_menu/mail_menu/mail_menu_tiles_8c00_vb0.2bpp: PNG_SIZE := 1024
+gfx/mail_menu/mail_menu/mail_menu_tiles_9000_vb0_shared_tail_9000_vb1.2bpp: PNG_SIZE := 1024
+gfx/mail_menu/mail_menu/mail_menu_tiles_9400_vb1.2bpp: PNG_SIZE := 1024
 gfx/mail_server/delete_all_screen/mail_server_delete_all_tiles_54b0.2bpp: PNG_SIZE := 1024
 gfx/mail_server/delete_all_screen/mail_server_delete_all_tiles_58b0.2bpp: PNG_SIZE := 672
 gfx/mail_server/delete_all_screen/mail_server_delete_all_tiles_5b50.2bpp: PNG_SIZE := 128
@@ -781,16 +781,16 @@ gfx/mail_server/delete_method_screen/mail_server_delete_method_tiles_6150.2bpp: 
 gfx/mail_server/delete_method_screen/mail_server_delete_method_tiles_6550.2bpp: PNG_SIZE := 656
 gfx/mail_server/delete_method_screen/mail_server_delete_method_tiles_6550.2bpp: PNG_PAD := -x 7
 gfx/mail_server/delete_method_screen/mail_server_delete_method_tiles_67e0.2bpp: PNG_SIZE := 128
-gfx/mail_server/delete_progress/mail_srv_del_progress_tiles0.2bpp: PNG_SIZE := 1024
-gfx/mail_server/delete_progress/mail_srv_del_progress_tiles1.2bpp: PNG_SIZE := 256
-gfx/mail_server/delete_progress/mail_srv_del_progress_tiles2.2bpp: PNG_SIZE := 352
-gfx/mail_server/tidy_screen/mail_server_mgr_tiles0.2bpp: PNG_SIZE := 1024
-gfx/mail_server/tidy_screen/mail_server_mgr_tiles1.2bpp: PNG_SIZE := 16
-gfx/mail_server/tidy_screen/mail_server_mgr_tiles2.2bpp: PNG_SIZE := 288
-gfx/mail_server/tidy_screen/mail_server_mgr_tiles3.2bpp: PNG_SIZE := 1024
-gfx/mail_server/tidy_screen/mail_server_mgr_tiles4.2bpp: PNG_SIZE := 352
-gfx/mail_server/tidy_screen/mail_server_mgr_tiles5.2bpp: PNG_SIZE := 1024
+gfx/mail_server/delete_progress/mail_srv_del_progress_tiles_8000_vb0.2bpp: PNG_SIZE := 352
+gfx/mail_server/delete_progress/mail_srv_del_progress_tiles_9000_vb1.2bpp: PNG_SIZE := 1024
+gfx/mail_server/delete_progress/mail_srv_del_progress_tiles_9400_vb1.2bpp: PNG_SIZE := 256
 gfx/mail_server/tidy_screen/mail_server_mgr_tiles9400_vb1_tail_5af0.2bpp: PNG_SIZE := 1008
+gfx/mail_server/tidy_screen/mail_server_mgr_tiles_8000_vb0.2bpp: PNG_SIZE := 1024
+gfx/mail_server/tidy_screen/mail_server_mgr_tiles_8800_vb1.2bpp: PNG_SIZE := 288
+gfx/mail_server/tidy_screen/mail_server_mgr_tiles_8a80_vb0.2bpp: PNG_SIZE := 1024
+gfx/mail_server/tidy_screen/mail_server_mgr_tiles_8e80_vb0.2bpp: PNG_SIZE := 352
+gfx/mail_server/tidy_screen/mail_server_mgr_tiles_9000_vb1.2bpp: PNG_SIZE := 1024
+gfx/mail_server/tidy_screen/mail_server_mgr_tiles_9400_vb1_prefix.2bpp: PNG_SIZE := 16
 gfx/mailbox/mailbox/mailbox_hdma_source_byte_slice_25_6bd1.2bpp: PNG_SIZE := 272
 gfx/mailbox/mailbox/mailbox_hdma_source_byte_slice_25_6bd1.2bpp: PNG_PAD := -x 15
 gfx/mailbox/mailbox/mailbox_tiles_5a10.2bpp: PNG_SIZE := 1024
@@ -852,15 +852,15 @@ gfx/settings/phone_choice_and_slot_menus_bank4d/slot_menu_tiles9400_vb1_6870.2bp
 gfx/settings/phone_choice_and_slot_menus_bank4d/slot_menu_tiles9400_vb1_7470.2bpp: PNG_SIZE := 256
 gfx/settings/shared_text_entry_tiles_bank5e/shared_text_entry_vram8800_vb1.2bpp: PNG_SIZE := 1024
 gfx/settings/shared_text_entry_tiles_bank5e/shared_text_entry_vram8c00_vb1.2bpp: PNG_SIZE := 1024
-gfx/title/logo/title_logo_tiles0.2bpp: PNG_SIZE := 1024
-gfx/title/logo/title_logo_tiles1.2bpp: PNG_SIZE := 1024
-gfx/title/title_screen/title_tiles0.2bpp: PNG_SIZE := 1024
-gfx/title/title_screen/title_tiles1.2bpp: PNG_SIZE := 1024
-gfx/title/title_screen/title_tiles2.2bpp: PNG_SIZE := 512
-gfx/title/title_screen/title_tiles3.2bpp: PNG_SIZE := 512
-gfx/title/title_screen/title_tiles4.2bpp: PNG_SIZE := 1024
-gfx/title/title_screen/title_tiles5.2bpp: PNG_SIZE := 1024
-gfx/title/title_screen/title_tiles6.2bpp: PNG_SIZE := 1024
+gfx/title/logo/title_logo_tiles_9000_vb1.2bpp: PNG_SIZE := 1024
+gfx/title/logo/title_logo_tiles_9400_vb1.2bpp: PNG_SIZE := 1024
+gfx/title/title_screen/title_tile_slice_8a00_vb1.2bpp: PNG_SIZE := 512
+gfx/title/title_screen/title_tiles_8000_vb0.2bpp: PNG_SIZE := 1024
+gfx/title/title_screen/title_tiles_8200_and_8800_vb1.2bpp: PNG_SIZE := 512
+gfx/title/title_screen/title_tiles_8800_vb0_shared_tail_8000_vb1.2bpp: PNG_SIZE := 1024
+gfx/title/title_screen/title_tiles_8c00_vb1.2bpp: PNG_SIZE := 1024
+gfx/title/title_screen/title_tiles_9000_vb1.2bpp: PNG_SIZE := 1024
+gfx/title/title_screen/title_tiles_9400_vb1.2bpp: PNG_SIZE := 1024
 gfx/top_menu/top_menu/top_menu_vram0_8000_tiles.2bpp: PNG_SIZE := 1024
 gfx/top_menu/top_menu/top_menu_vram0_8400_tiles.2bpp: PNG_SIZE := 1024
 gfx/top_menu/top_menu/top_menu_vram0_8800_tiles.2bpp: PNG_SIZE := 1024

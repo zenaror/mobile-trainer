@@ -210,12 +210,12 @@ gfx/browser/frames_2_3/browser_frame_candidate_tiles_68f0.2bpp	gfx/browser/frame
 gfx/browser/menus/browser_menu2_map.attrmap	-	attrmap				120	95ddeadaede2685e40b41c84268aa78cecfb1260535e82b99da16cb44c91017a
 gfx/browser/menus/browser_menu2_map.tilemap	-	tilemap				120	32ff0e87c677194e7097ee6dea4fc594fe17cc44463bad869dadf9b079b5ebc8
 gfx/browser/menus/browser_menu2_palette.pal	-	palette				194	510aca1939b6df58e3720a9f141c6a4e026e5b0d1fd0eab71a01f329252771ab
-gfx/browser/menus/browser_menu2_tiles0.2bpp	gfx/browser/menus/browser_menu2_tiles0.png	tiles			0	1024	97dfee06c4bf35495a4c7dbb0f95def25307d24280b4124cc44319b89e839067
-gfx/browser/menus/browser_menu2_tiles1.2bpp	gfx/browser/menus/browser_menu2_tiles1.png	tiles			0	256	a41b1531124681a871f2d71eb3b52c4c04fc0b3ea9fe4703e8a581cbea468608
+gfx/browser/menus/browser_menu2_tiles_8800_vb1.2bpp	gfx/browser/menus/browser_menu2_tiles_8800_vb1.png	tiles			0	1024	97dfee06c4bf35495a4c7dbb0f95def25307d24280b4124cc44319b89e839067
+gfx/browser/menus/browser_menu2_tiles_8f00_vb1.2bpp	gfx/browser/menus/browser_menu2_tiles_8f00_vb1.png	tiles			0	256	a41b1531124681a871f2d71eb3b52c4c04fc0b3ea9fe4703e8a581cbea468608
 gfx/browser/menus/browser_menu3_map.attrmap	-	attrmap				120	cd91389d41dd33e22d89493d98865f325a126ccb3ff36b72660c93a09527657a
 gfx/browser/menus/browser_menu3_map.tilemap	-	tilemap				120	77cf5a78ed54a58acc5de131949532ba7e29febc5b2b9e23743d7bf1559b5fcc
-gfx/browser/menus/browser_menu3_tiles0.2bpp	gfx/browser/menus/browser_menu3_tiles0.png	tiles			0	1024	6fa85f4872cf165c44f8f70be79ca2245d091d19b61c188bc1f629b53b4f625a
-gfx/browser/menus/browser_menu3_tiles1.2bpp	gfx/browser/menus/browser_menu3_tiles1.png	tiles			0	256	4dd8a27256b8b553a9c68448e741167d2a8b8ff2c92f345aaf3bf0d63a8e0fa9
+gfx/browser/menus/browser_menu3_tiles_8800_vb1.2bpp	gfx/browser/menus/browser_menu3_tiles_8800_vb1.png	tiles			0	1024	6fa85f4872cf165c44f8f70be79ca2245d091d19b61c188bc1f629b53b4f625a
+gfx/browser/menus/browser_menu3_tiles_8f00_vb1.2bpp	gfx/browser/menus/browser_menu3_tiles_8f00_vb1.png	tiles			0	256	4dd8a27256b8b553a9c68448e741167d2a8b8ff2c92f345aaf3bf0d63a8e0fa9
 gfx/browser/menus/browser_menu_bg6.pal	-	palette				129	c2c8fb1cecaf75d8f4c94c6c9ffec5032d5ad0d53eba10543e8987b062c56909
 gfx/browser/menus/browser_menu_obj4.pal	-	palette				64	a3ae5cb8ef613f16aa956fc00e33c27c70cc760911aca62d810d901dcdab51ba
 gfx/browser/page_list/page_list_bg_palette.pal	-	palette				519	2147db3106d5e325a5eca25a53f362e0a4f7590b45cd365b0383867bc9d2859e
@@ -246,11 +246,11 @@ gfx/browser/start_choice/browser_start_map.attrmap	-	attrmap				360	96921817d90e
 gfx/browser/start_choice/browser_start_map.tilemap	-	tilemap				360	0e27a3e06a1773622644d63e524c23b4791f950a730cedf95485407c623f0008
 gfx/browser/start_choice/browser_start_obj_palettes.pal	-	palette				519	348ee0b8deedc2fe46699b5028d4114239d281aa34ce31726aa717ad50538c06
 gfx/browser/start_choice/browser_start_palettes.pal	-	palette				519	225d5f25b829aeb7da33bc7e098e8947d83f9113f315736d4931eb42b51db21c
-gfx/browser/start_choice/browser_start_tiles0.2bpp	gfx/browser/start_choice/browser_start_tiles0.png	tiles			0	1024	83dd849a052f29ab032f366e76843eebc610ff569a0ca2f38a96bc762381077e
-gfx/browser/start_choice/browser_start_tiles1.2bpp	gfx/browser/start_choice/browser_start_tiles1.png	tiles			0	1024	51e5fda6e838968b53c56bef58359d3c069af8e6900555ce5a169830c96f36e6
-gfx/browser/start_choice/browser_start_tiles2.2bpp	gfx/browser/start_choice/browser_start_tiles2.png	tiles			0	1024	ea4c33690f56177fab9c9100ad015079b33b199241b6ef099167959b72fef32b
-gfx/browser/start_choice/browser_start_tiles3.2bpp	gfx/browser/start_choice/browser_start_tiles3.png	tiles			0	1024	2a23474d9b6f56795eaa1c15a55e4bfaf46c0bb22025aacf6c3ee84dd3944b45
-gfx/browser/start_choice/browser_start_tiles4.2bpp	gfx/browser/start_choice/browser_start_tiles4.png	tiles			0	1024	4e2edf28f409148d783fec38876bd08324ca653b441fbe0eca6160e69d316de6
+gfx/browser/start_choice/browser_start_tiles_8000_vb0.2bpp	gfx/browser/start_choice/browser_start_tiles_8000_vb0.png	tiles			0	1024	83dd849a052f29ab032f366e76843eebc610ff569a0ca2f38a96bc762381077e
+gfx/browser/start_choice/browser_start_tiles_8800_vb0.2bpp	gfx/browser/start_choice/browser_start_tiles_8800_vb0.png	tiles			0	1024	51e5fda6e838968b53c56bef58359d3c069af8e6900555ce5a169830c96f36e6
+gfx/browser/start_choice/browser_start_tiles_8c00_vb0.2bpp	gfx/browser/start_choice/browser_start_tiles_8c00_vb0.png	tiles			0	1024	ea4c33690f56177fab9c9100ad015079b33b199241b6ef099167959b72fef32b
+gfx/browser/start_choice/browser_start_tiles_9000_vb1.2bpp	gfx/browser/start_choice/browser_start_tiles_9000_vb1.png	tiles			0	1024	2a23474d9b6f56795eaa1c15a55e4bfaf46c0bb22025aacf6c3ee84dd3944b45
+gfx/browser/start_choice/browser_start_tiles_9400_vb1.2bpp	gfx/browser/start_choice/browser_start_tiles_9400_vb1.png	tiles			0	1024	4e2edf28f409148d783fec38876bd08324ca653b441fbe0eca6160e69d316de6
 gfx/browser/start_choice/browser_start_top_attr_normal.attrmap	-	attrmap				40	098e6841b64c6dd50bb6e2b5f25139b6ed9b443982ef1304254970a9e59a1f13
 gfx/browser/start_choice/browser_start_top_map_normal.tilemap	-	tilemap				40	44253f4e2bf055fc23fc592590918706c42be32fe35ed79054fc95b9260e931b
 gfx/comm/comm_scene/background.attrmap	-	attrmap				448	a6e83e1db4c2399832b5c408917d1934044acc55e6ac53afe3734750a59c3afe
@@ -309,8 +309,8 @@ gfx/comm/connect_dialog_bank56/connect_dialog_stored_password_tiles_9400_vb1.2bp
 gfx/comm/connect_dialog_bank56/connect_dialog_stored_password_tiles_shared_source.2bpp	gfx/comm/connect_dialog_bank56/connect_dialog_stored_password_tiles_shared_source.png	tiles			0	1024	1bcbbd07cc6d7ec053c583579daf06da1c8dc10e92397251e862b233c23fc206
 gfx/comm/connect_dialog_screen/connect_dialog_blank_tile.2bpp	gfx/comm/connect_dialog_screen/connect_dialog_blank_tile.png	tiles			0	16	374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb
 gfx/comm/connection_icon/conn_icon_palettes.pal	-	palette				194	43604d12d1a6b117711645029188f455b81552d4506859fb44fcd26a036a4a69
-gfx/comm/connection_icon/conn_icon_tiles0.2bpp	gfx/comm/connection_icon/conn_icon_tiles0.png	tiles			0	1024	f4b11faee19bd0a3e46b11c5592a588b8494f8fa6be907657d123b666c1b0d6d
-gfx/comm/connection_icon/conn_icon_tiles1.2bpp	gfx/comm/connection_icon/conn_icon_tiles1.png	tiles			0	512	076a27c79e5ace2a3d47f9dd2e83e4ff6ea8872b3c2218f66c92b89b55f36560
+gfx/comm/connection_icon/conn_icon_tiles_8200_vb0.2bpp	gfx/comm/connection_icon/conn_icon_tiles_8200_vb0.png	tiles			0	1024	f4b11faee19bd0a3e46b11c5592a588b8494f8fa6be907657d123b666c1b0d6d
+gfx/comm/connection_icon/conn_icon_tiles_8600_vb0.2bpp	gfx/comm/connection_icon/conn_icon_tiles_8600_vb0.png	tiles			0	512	076a27c79e5ace2a3d47f9dd2e83e4ff6ea8872b3c2218f66c92b89b55f36560
 gfx/comm/notice_dialog/comm_notice_a_ask_over60.attrmap	-	attrmap				360	beec17e7099fd0f144b9f664f09fa315aec2236b5e04b0d467f711d3c478119b
 gfx/comm/notice_dialog/comm_notice_a_ask_over60.tilemap	-	tilemap				360	464a81a0acabc6163ad050acce2811e619e5c6727bfc046dcfa4a2da88874e91
 gfx/comm/notice_dialog/comm_notice_a_ask_soon.attrmap	-	attrmap				360	2b0b63c5cbd52162a71573fab7e7efeac2bb6601eef64052c8c2fccff5e582fa
@@ -534,9 +534,9 @@ gfx/help/mobile_dictionary/mobile_dict_bg.pal	-	palette				519	f9782c75ebd195b8a
 gfx/help/mobile_dictionary/mobile_dict_obj.pal	-	palette				3769	694036c466ac3ed37414b9fc5b3e3555fc90b408ee9cfb57a5bfbed07d0e5089
 gfx/help/mobile_dictionary/mobile_dict_screen.attrmap	-	attrmap				360	367341eb09b5c121e8bc3f9d7d8ef973515f951d9d2f844788bd45b0547d4b6e
 gfx/help/mobile_dictionary/mobile_dict_screen.tilemap	-	tilemap				360	2caa52cdef2473ea934418e4ce6ec15f1941273b7b639530146c5d0c7689e58d
-gfx/help/mobile_dictionary/mobile_dict_tiles0.2bpp	gfx/help/mobile_dictionary/mobile_dict_tiles0.png	tiles			0	512	42e6e432419d1628820ebaaff73c4293aa42ff574255931126d321dd97fdce89
-gfx/help/mobile_dictionary/mobile_dict_tiles1.2bpp	gfx/help/mobile_dictionary/mobile_dict_tiles1.png	tiles			0	1024	0b8aa9c72089b2190f0e77b6602de41c9674e3bf4fbae967da6aa76aaa0c28a2
-gfx/help/mobile_dictionary/mobile_dict_tiles2.2bpp	gfx/help/mobile_dictionary/mobile_dict_tiles2.png	tiles			0	768	568f127cae6eef85bb769138d81fae8fd6a98647982c8f203c149f147a3c2121
+gfx/help/mobile_dictionary/mobile_dict_tiles_8000_vb0.2bpp	gfx/help/mobile_dictionary/mobile_dict_tiles_8000_vb0.png	tiles			0	512	42e6e432419d1628820ebaaff73c4293aa42ff574255931126d321dd97fdce89
+gfx/help/mobile_dictionary/mobile_dict_tiles_8b00_vb1.2bpp	gfx/help/mobile_dictionary/mobile_dict_tiles_8b00_vb1.png	tiles			0	1024	0b8aa9c72089b2190f0e77b6602de41c9674e3bf4fbae967da6aa76aaa0c28a2
+gfx/help/mobile_dictionary/mobile_dict_tiles_8f00_vb1.2bpp	gfx/help/mobile_dictionary/mobile_dict_tiles_8f00_vb1.png	tiles			0	768	568f127cae6eef85bb769138d81fae8fd6a98647982c8f203c149f147a3c2121
 gfx/help/script_illustrations_01_13/picture_01_palette.pal	-	palette				224	fe4fdcf11148dc4f4b7c24dfa3bf47000272a7f78ceaeb21f189b61ead9bbfea
 gfx/help/script_illustrations_01_13/picture_01_tiles.2bpp	gfx/help/script_illustrations_01_13/picture_01_tiles.png	tiles			0	1152	c2cdc85693364d923dc0e9071f1b00b1bb1adf7af292ced07a30c1666889418a
 gfx/help/script_illustrations_01_13/picture_02_palette.pal	-	palette				224	58d9dd93b0190051457e382ce088ba53d49f016f5b1b2d05c4b58b39dcd71d8d
@@ -654,15 +654,15 @@ gfx/mail/address_editor/mail_addr_bg.pal	-	palette				519	d8796040316b08825c8ada
 gfx/mail/address_editor/mail_addr_obj_hdma_load_tail.2bpp	gfx/mail/address_editor/mail_addr_obj_hdma_load_tail.png	tiles			0	528	c938b9927040205d4877aace6460753083534d28b0394e85a4a85d37c1f92744
 gfx/mail/address_editor/mail_addr_obj_tiles.2bpp	gfx/mail/address_editor/mail_addr_obj_tiles.png	tiles			0	192	ad8ce16bd36df3841f6f9e7a3d184d3ca0dc0e9740e80d91204609a3fed3b700
 gfx/mail/address_editor/mail_addr_tiles.2bpp	gfx/mail/address_editor/mail_addr_tiles.png	tiles			0	1024	cf649ee8d02373fc521778cad1618dea9e9c2b11c179009bc28a66a87b9ea9fb
-gfx/mail/address_editor/mail_addr_tiles2.2bpp	gfx/mail/address_editor/mail_addr_tiles2.png	tiles			0	176	d6758e2c2625995b79e6756616e96e5afadc97f778baeadcef593b92bf05e369
-gfx/mail/address_editor/mail_addr_tiles3.2bpp	gfx/mail/address_editor/mail_addr_tiles3.png	tiles			5	688	d7fb026b92b3ae755362a2d2020500525514fad7589739dd5d65d329dd645673
+gfx/mail/address_editor/mail_addr_tiles_8800_vb0.2bpp	gfx/mail/address_editor/mail_addr_tiles_8800_vb0.png	tiles			5	688	d7fb026b92b3ae755362a2d2020500525514fad7589739dd5d65d329dd645673
+gfx/mail/address_editor/mail_addr_tiles_9700_vb1.2bpp	gfx/mail/address_editor/mail_addr_tiles_9700_vb1.png	tiles			0	176	d6758e2c2625995b79e6756616e96e5afadc97f778baeadcef593b92bf05e369
 gfx/mail/body_editor/mail_body.attrmap	-	attrmap				360	2546b93401ae2aa14b03cb07d2cfb69023366ba81ad35b0b39761e4f7585d74e
 gfx/mail/body_editor/mail_body.tilemap	-	tilemap				360	ff53fbe99b96f921e2b2e5e1925ee11e2fc8e3797a19b34e049fcf323b46f708
 gfx/mail/body_editor/mail_body_bg.pal	-	palette				519	ca67e64c2113608eea22dad91a7aef9556487a2183fda1d20241ba28fc78ff49
 gfx/mail/body_editor/mail_body_obj.pal	-	palette				519	8d01b96799ee16bc5c1e0beab8b25231c1791a8e670afda026af5229b9f15f86
 gfx/mail/body_editor/mail_body_obj_tiles.2bpp	gfx/mail/body_editor/mail_body_obj_tiles.png	tiles			0	672	0bf48a50e90580d377f4ec5a6f03c314d67dc5ae1e412853513cffb28cd07e90
 gfx/mail/body_editor/mail_body_tiles.2bpp	gfx/mail/body_editor/mail_body_tiles.png	tiles			0	960	6bf997a720c8518ccb4b759154763a644592311e978c42f56c0fa517fbdab32d
-gfx/mail/body_editor/mail_body_tiles2.2bpp	gfx/mail/body_editor/mail_body_tiles2.png	tiles			0	256	5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1
+gfx/mail/body_editor/mail_body_tiles_9700_vb1.2bpp	gfx/mail/body_editor/mail_body_tiles_9700_vb1.png	tiles			0	256	5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1
 gfx/mail/body_view/mail_body_bg_palette.pal	-	palette				519	3f2510913bac29009692d6091e58eabe24dc4988c17d5a65b634135acfb3fa4e
 gfx/mail/body_view/mail_body_obj_palette.pal	-	palette				519	141810289effd2c44348c699eb5bc1183864dbada7c77e419d3e74c074ff174f
 gfx/mail/body_view/mail_body_tilemap.attrmap	-	attrmap				360	f136b74f18f9962655f6392290c6940963b3a7930ad22de1c54ef0f46fd8cfbc
@@ -773,12 +773,12 @@ gfx/mail_menu/mail_menu/mail_menu_plates_selected.attrmap	-	attrmap				240	6e000
 gfx/mail_menu/mail_menu/mail_menu_plates_selected.tilemap	-	tilemap				240	02b49ff6b25bace355b580f3a421cac0771faaab42abd12828802121ee493457
 gfx/mail_menu/mail_menu/mail_menu_screen.attrmap	-	attrmap				360	cb4eeb5d8183dc534629ff512cd42c6f3995551a2730f9a9c04ead710930bdcc
 gfx/mail_menu/mail_menu/mail_menu_screen.tilemap	-	tilemap				360	12079c23393349d9e174ecfb1d132f447ab5b3f7c46b582687ca66a28ae5dcea
-gfx/mail_menu/mail_menu/mail_menu_tiles0.2bpp	gfx/mail_menu/mail_menu/mail_menu_tiles0.png	tiles			7	400	e7c7498fd70f70b24c8ee8a4fcb04d4d0c359efe92a1cd35463f44bccb6017d2
-gfx/mail_menu/mail_menu/mail_menu_tiles1.2bpp	gfx/mail_menu/mail_menu/mail_menu_tiles1.png	tiles			0	1024	79ebe550be4343c07ca99f181a46d54902a6706b45d9be4c4de471d7952ac763
-gfx/mail_menu/mail_menu/mail_menu_tiles2.2bpp	gfx/mail_menu/mail_menu/mail_menu_tiles2.png	tiles			0	1024	1e714d29850f549cce6ed6f12908ff780e066ee451159802afe0e49a4012d368
-gfx/mail_menu/mail_menu/mail_menu_tiles3.2bpp	gfx/mail_menu/mail_menu/mail_menu_tiles3.png	tiles			0	1024	422e136d5ba8eadc7ec5500ab3e037234302c25a8f1d7e6c32c2bb141a686d8b
-gfx/mail_menu/mail_menu/mail_menu_tiles4.2bpp	gfx/mail_menu/mail_menu/mail_menu_tiles4.png	tiles			0	896	7f802cb240287e4b85816db76cd257f947929f55b851af6c3e262821b5ae6103
-gfx/mail_menu/mail_menu/mail_menu_tiles5.2bpp	gfx/mail_menu/mail_menu/mail_menu_tiles5.png	tiles			0	1024	2becfb92fd7ce075902234c93c1790b989e4749fac746e42b8e90fba88f8eaa7
+gfx/mail_menu/mail_menu/mail_menu_tile_slice_9080_vb1.2bpp	gfx/mail_menu/mail_menu/mail_menu_tile_slice_9080_vb1.png	tiles			0	896	7f802cb240287e4b85816db76cd257f947929f55b851af6c3e262821b5ae6103
+gfx/mail_menu/mail_menu/mail_menu_tiles_8000_vb0.2bpp	gfx/mail_menu/mail_menu/mail_menu_tiles_8000_vb0.png	tiles			7	400	e7c7498fd70f70b24c8ee8a4fcb04d4d0c359efe92a1cd35463f44bccb6017d2
+gfx/mail_menu/mail_menu/mail_menu_tiles_8800_vb0.2bpp	gfx/mail_menu/mail_menu/mail_menu_tiles_8800_vb0.png	tiles			0	1024	79ebe550be4343c07ca99f181a46d54902a6706b45d9be4c4de471d7952ac763
+gfx/mail_menu/mail_menu/mail_menu_tiles_8c00_vb0.2bpp	gfx/mail_menu/mail_menu/mail_menu_tiles_8c00_vb0.png	tiles			0	1024	1e714d29850f549cce6ed6f12908ff780e066ee451159802afe0e49a4012d368
+gfx/mail_menu/mail_menu/mail_menu_tiles_9000_vb0_shared_tail_9000_vb1.2bpp	gfx/mail_menu/mail_menu/mail_menu_tiles_9000_vb0_shared_tail_9000_vb1.png	tiles			0	1024	422e136d5ba8eadc7ec5500ab3e037234302c25a8f1d7e6c32c2bb141a686d8b
+gfx/mail_menu/mail_menu/mail_menu_tiles_9400_vb1.2bpp	gfx/mail_menu/mail_menu/mail_menu_tiles_9400_vb1.png	tiles			0	1024	2becfb92fd7ce075902234c93c1790b989e4749fac746e42b8e90fba88f8eaa7
 gfx/mail_server/delete_all_screen/mail_server_delete_all_bg_palette.pal	-	palette				519	e067bbe5777891b959341875a9495cf3c11bfe70dc447a480c77f3eb2a26b3e3
 gfx/mail_server/delete_all_screen/mail_server_delete_all_obj_palette.pal	-	palette				519	46a1148c35adc35c49955710b32cb29d5195c1216763ab7e9a8c8b06e23781a6
 gfx/mail_server/delete_all_screen/mail_server_delete_all_tilemap.attrmap	-	attrmap				360	812bfeccf10bc6a0e15d6ad41684ea3b7c535112d2add7a4712b6f9d6013350d
@@ -806,9 +806,9 @@ gfx/mail_server/delete_progress/mail_srv_del_progress_bg.pal	-	palette				519	98
 gfx/mail_server/delete_progress/mail_srv_del_progress_obj.pal	-	palette				519	8294a3313096a885445beb0907b0791ba8442093ce1a49ccb91dad770a41164c
 gfx/mail_server/delete_progress/mail_srv_del_progress_screen.attrmap	-	attrmap				360	47830c2b55e9c0474f55f5401b0d47306587dc5c2207054a76553d74bd7e4e4d
 gfx/mail_server/delete_progress/mail_srv_del_progress_screen.tilemap	-	tilemap				360	9bf7f805ea575c3f369fb7bdfa603a634c083419e4eda6fc077cfd99fd5ad9e0
-gfx/mail_server/delete_progress/mail_srv_del_progress_tiles0.2bpp	gfx/mail_server/delete_progress/mail_srv_del_progress_tiles0.png	tiles			0	1024	9eaa3d20c49db4d41a39ead5bb58e593c91e401ef9b5ea2c68b47912659281e8
-gfx/mail_server/delete_progress/mail_srv_del_progress_tiles1.2bpp	gfx/mail_server/delete_progress/mail_srv_del_progress_tiles1.png	tiles			0	256	968957c09e0c9f2e2869ce64fc3c17853524079d695159577faf86b2a0a1bd74
-gfx/mail_server/delete_progress/mail_srv_del_progress_tiles2.2bpp	gfx/mail_server/delete_progress/mail_srv_del_progress_tiles2.png	tiles			0	352	293eff227ae2a46db7a02b514ccdc867a7997a66a009d50d01f26489daeb4619
+gfx/mail_server/delete_progress/mail_srv_del_progress_tiles_8000_vb0.2bpp	gfx/mail_server/delete_progress/mail_srv_del_progress_tiles_8000_vb0.png	tiles			0	352	293eff227ae2a46db7a02b514ccdc867a7997a66a009d50d01f26489daeb4619
+gfx/mail_server/delete_progress/mail_srv_del_progress_tiles_9000_vb1.2bpp	gfx/mail_server/delete_progress/mail_srv_del_progress_tiles_9000_vb1.png	tiles			0	1024	9eaa3d20c49db4d41a39ead5bb58e593c91e401ef9b5ea2c68b47912659281e8
+gfx/mail_server/delete_progress/mail_srv_del_progress_tiles_9400_vb1.2bpp	gfx/mail_server/delete_progress/mail_srv_del_progress_tiles_9400_vb1.png	tiles			0	256	968957c09e0c9f2e2869ce64fc3c17853524079d695159577faf86b2a0a1bd74
 gfx/mail_server/tidy_screen/mail_server_mgr_bg.pal	-	palette				519	c6928118cbcce50ec26719ccb03868e96c68eaec5a905e29bc71f48721efe99f
 gfx/mail_server/tidy_screen/mail_server_mgr_footer.attrmap	-	attrmap				120	179366e7482141ea5d3ee4dbd417f4ba17560092e075ffd5a109b24479f8868e
 gfx/mail_server/tidy_screen/mail_server_mgr_footer.tilemap	-	tilemap				120	81d9745a68f806bde06ff77d3465f386fc4c2c226fb51be06c57aaaf27c29d37
@@ -821,13 +821,13 @@ gfx/mail_server/tidy_screen/mail_server_mgr_info_d.tilemap	-	tilemap				360	87a0
 gfx/mail_server/tidy_screen/mail_server_mgr_main.attrmap	-	attrmap				360	7e9a22e48064cfe02625067f4fd17a879744a2c2d5955a4cb5fa87a0b92a1aec
 gfx/mail_server/tidy_screen/mail_server_mgr_main.tilemap	-	tilemap				360	f19508806fdb64ca6eabb6a126352b1e478a45890e556fb1d416fa125d7d848c
 gfx/mail_server/tidy_screen/mail_server_mgr_obj.pal	-	palette				1949	3a958855bfee5b814fca7beb56db471adf69f88060588c79f8eae2f46216ebf3
-gfx/mail_server/tidy_screen/mail_server_mgr_tiles0.2bpp	gfx/mail_server/tidy_screen/mail_server_mgr_tiles0.png	tiles			0	1024	68e4288824a417fc6e7d3d9ffa21902bae3b6cd4c7fa116375cac906d8f08786
-gfx/mail_server/tidy_screen/mail_server_mgr_tiles1.2bpp	gfx/mail_server/tidy_screen/mail_server_mgr_tiles1.png	tiles			0	16	5c2b4b38142f0e90d81f24a72e61fe2988c2f88d2cd7b712ac22873342ed6774
-gfx/mail_server/tidy_screen/mail_server_mgr_tiles2.2bpp	gfx/mail_server/tidy_screen/mail_server_mgr_tiles2.png	tiles			0	288	2d5565fb483d8ea4525a7a9229677d1038ad34b6e22c8d5152e1d7f7b9817597
-gfx/mail_server/tidy_screen/mail_server_mgr_tiles3.2bpp	gfx/mail_server/tidy_screen/mail_server_mgr_tiles3.png	tiles			0	1024	2f58052706827e2f5237047ad83585875bf833fd301b5aaff16db1629c142e80
-gfx/mail_server/tidy_screen/mail_server_mgr_tiles4.2bpp	gfx/mail_server/tidy_screen/mail_server_mgr_tiles4.png	tiles			0	352	3c5de4597a9ef29ecf5cae3184485c2acefc4d7ef9859ab1d2f5d410c6f0edf7
-gfx/mail_server/tidy_screen/mail_server_mgr_tiles5.2bpp	gfx/mail_server/tidy_screen/mail_server_mgr_tiles5.png	tiles			0	1024	2e5cfcea333bb8bac554ce195d65ee4401e63498947a2f8393f5760c43378efa
 gfx/mail_server/tidy_screen/mail_server_mgr_tiles9400_vb1_tail_5af0.2bpp	gfx/mail_server/tidy_screen/mail_server_mgr_tiles9400_vb1_tail_5af0.png	tiles			0	1008	6355bd3e46889c5854b8afc3dd6e269b0c5ae705b990f900dce283b1c0236f7a
+gfx/mail_server/tidy_screen/mail_server_mgr_tiles_8000_vb0.2bpp	gfx/mail_server/tidy_screen/mail_server_mgr_tiles_8000_vb0.png	tiles			0	1024	2e5cfcea333bb8bac554ce195d65ee4401e63498947a2f8393f5760c43378efa
+gfx/mail_server/tidy_screen/mail_server_mgr_tiles_8800_vb1.2bpp	gfx/mail_server/tidy_screen/mail_server_mgr_tiles_8800_vb1.png	tiles			0	288	2d5565fb483d8ea4525a7a9229677d1038ad34b6e22c8d5152e1d7f7b9817597
+gfx/mail_server/tidy_screen/mail_server_mgr_tiles_8a80_vb0.2bpp	gfx/mail_server/tidy_screen/mail_server_mgr_tiles_8a80_vb0.png	tiles			0	1024	2f58052706827e2f5237047ad83585875bf833fd301b5aaff16db1629c142e80
+gfx/mail_server/tidy_screen/mail_server_mgr_tiles_8e80_vb0.2bpp	gfx/mail_server/tidy_screen/mail_server_mgr_tiles_8e80_vb0.png	tiles			0	352	3c5de4597a9ef29ecf5cae3184485c2acefc4d7ef9859ab1d2f5d410c6f0edf7
+gfx/mail_server/tidy_screen/mail_server_mgr_tiles_9000_vb1.2bpp	gfx/mail_server/tidy_screen/mail_server_mgr_tiles_9000_vb1.png	tiles			0	1024	68e4288824a417fc6e7d3d9ffa21902bae3b6cd4c7fa116375cac906d8f08786
+gfx/mail_server/tidy_screen/mail_server_mgr_tiles_9400_vb1_prefix.2bpp	gfx/mail_server/tidy_screen/mail_server_mgr_tiles_9400_vb1_prefix.png	tiles			0	16	5c2b4b38142f0e90d81f24a72e61fe2988c2f88d2cd7b712ac22873342ed6774
 gfx/mailbox/mailbox/mailbox_bg_palette.pal	-	palette				519	f94df21bb12809184f690485389473c5a38f1313157fdcf1d4b827f8d627a023
 gfx/mailbox/mailbox/mailbox_hdma_source_byte_slice_25_6bd1.2bpp	gfx/mailbox/mailbox/mailbox_hdma_source_byte_slice_25_6bd1.png	tiles			15	272	06af3de5c4c71eab09259427498b8bab32fc21735cfd061f2d892845f87810d6
 gfx/mailbox/mailbox/mailbox_obj_palette.pal	-	palette				519	846a0b908589163a6d4fa7976944855f542b51a57431dcc4401c47908d7e58e6
@@ -946,8 +946,8 @@ gfx/text_cursor/objects/text_cursor_obj_palette.pal	-	palette				519	e35ab763e94
 gfx/title/logo/title_logo.pal	-	palette				519	2b9fdc4e24b258b87d07baccfb27a2d0fcb5072241c39fde3877ee21d6635632
 gfx/title/logo/title_logo_screen.attrmap	-	attrmap				360	a7755f27e47e04a291e9588959a6b2aa31fd4ebd59cdd96c3bfa0a3ce0b65d32
 gfx/title/logo/title_logo_screen.tilemap	-	tilemap				360	4b30079db4e899cd28236535dec23f23c201928e77f65febeeeadad2ff16e313
-gfx/title/logo/title_logo_tiles0.2bpp	gfx/title/logo/title_logo_tiles0.png	tiles			0	1024	1167fa88415b4d7ad59666cbf81093a99ed50b96c027b68439d7eb6ed221b017
-gfx/title/logo/title_logo_tiles1.2bpp	gfx/title/logo/title_logo_tiles1.png	tiles			0	1024	5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+gfx/title/logo/title_logo_tiles_9000_vb1.2bpp	gfx/title/logo/title_logo_tiles_9000_vb1.png	tiles			0	1024	1167fa88415b4d7ad59666cbf81093a99ed50b96c027b68439d7eb6ed221b017
+gfx/title/logo/title_logo_tiles_9400_vb1.2bpp	gfx/title/logo/title_logo_tiles_9400_vb1.png	tiles			0	1024	5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
 gfx/title/title_screen/title_bg.pal	-	palette				519	ffb3967e6550656d20255a6d2f4d355f43af187d99fc2c62970d7a8f73ea24a4
 gfx/title/title_screen/title_highlight_settings.attrmap	-	attrmap				40	74fa1b75528eee34cf8eb7b7464031cba1eb3c518ac60f73a1a87766aa5e50f7
 gfx/title/title_screen/title_highlight_settings.tilemap	-	tilemap				40	85c76e332598a571339c1bb98fd56249131169a457de87ef5462024e8c674e4b
@@ -956,13 +956,13 @@ gfx/title/title_screen/title_highlight_start.tilemap	-	tilemap				40	d493bbdd16a
 gfx/title/title_screen/title_obj.pal	-	palette				519	6969734ed8bb238eb70a1942231a38c95f7fcfd89e196a9de76fed999a94feb9
 gfx/title/title_screen/title_screen.attrmap	-	attrmap				360	c698bfcb72d7dfc1175e2a7c959a3b9a5c8ea89449442074109348e71f61e598
 gfx/title/title_screen/title_screen.tilemap	-	tilemap				360	913cf502c516c28c21c25c2d41af1e4d600badb9b8136d67826207e7a37aeb91
-gfx/title/title_screen/title_tiles0.2bpp	gfx/title/title_screen/title_tiles0.png	tiles			0	1024	f0f5d072fea61455e519a83bd3a6546c0515e04fdd077ecd9fa7a6eef815361e
-gfx/title/title_screen/title_tiles1.2bpp	gfx/title/title_screen/title_tiles1.png	tiles			0	1024	3189ed36ae653355b3c3e0c84991e9da4195c08a53ef29567f93aa65b09f61c5
-gfx/title/title_screen/title_tiles2.2bpp	gfx/title/title_screen/title_tiles2.png	tiles			0	512	2b0359945e97b459a8192bca83058dfb2895d763986b2327db95e9771b722d81
-gfx/title/title_screen/title_tiles3.2bpp	gfx/title/title_screen/title_tiles3.png	tiles			0	512	a11ba6bbff6693c086521c5972da5dcf6473f7f6aa6d3b6f820e19b6e9e48b22
-gfx/title/title_screen/title_tiles4.2bpp	gfx/title/title_screen/title_tiles4.png	tiles			0	1024	cf5e0d2268a9436dc00aed42e0a0a757bd5755e0678fe33b24b3b526a7828f5c
-gfx/title/title_screen/title_tiles5.2bpp	gfx/title/title_screen/title_tiles5.png	tiles			0	1024	be1a63229ab65965aaa2f84a5f8a8ba78f55c42df8545731cd8733a0a03edf9d
-gfx/title/title_screen/title_tiles6.2bpp	gfx/title/title_screen/title_tiles6.png	tiles			0	1024	8151eb8139ba8f1c1d73a063d4ef0743016128a1279f408c6f0f81e723395ad3
+gfx/title/title_screen/title_tile_slice_8a00_vb1.2bpp	gfx/title/title_screen/title_tile_slice_8a00_vb1.png	tiles			0	512	a11ba6bbff6693c086521c5972da5dcf6473f7f6aa6d3b6f820e19b6e9e48b22
+gfx/title/title_screen/title_tiles_8000_vb0.2bpp	gfx/title/title_screen/title_tiles_8000_vb0.png	tiles			0	1024	f0f5d072fea61455e519a83bd3a6546c0515e04fdd077ecd9fa7a6eef815361e
+gfx/title/title_screen/title_tiles_8200_and_8800_vb1.2bpp	gfx/title/title_screen/title_tiles_8200_and_8800_vb1.png	tiles			0	512	2b0359945e97b459a8192bca83058dfb2895d763986b2327db95e9771b722d81
+gfx/title/title_screen/title_tiles_8800_vb0_shared_tail_8000_vb1.2bpp	gfx/title/title_screen/title_tiles_8800_vb0_shared_tail_8000_vb1.png	tiles			0	1024	3189ed36ae653355b3c3e0c84991e9da4195c08a53ef29567f93aa65b09f61c5
+gfx/title/title_screen/title_tiles_8c00_vb1.2bpp	gfx/title/title_screen/title_tiles_8c00_vb1.png	tiles			0	1024	cf5e0d2268a9436dc00aed42e0a0a757bd5755e0678fe33b24b3b526a7828f5c
+gfx/title/title_screen/title_tiles_9000_vb1.2bpp	gfx/title/title_screen/title_tiles_9000_vb1.png	tiles			0	1024	be1a63229ab65965aaa2f84a5f8a8ba78f55c42df8545731cd8733a0a03edf9d
+gfx/title/title_screen/title_tiles_9400_vb1.2bpp	gfx/title/title_screen/title_tiles_9400_vb1.png	tiles			0	1024	8151eb8139ba8f1c1d73a063d4ef0743016128a1279f408c6f0f81e723395ad3
 gfx/top_menu/top_menu/top_menu_12x9.attrmap	-	attrmap				108	2d731e1c66ba9757aedc7e9fa51435394ec0b13deb5488ce75c712453409c923
 gfx/top_menu/top_menu/top_menu_12x9.tilemap	-	tilemap				108	6a116f677a1ce8cb08ee13f028ed17ee8aab1b5b54cf96a870b5c8db598cd45d
 gfx/top_menu/top_menu/top_menu_20x16.attrmap	-	attrmap				320	0e8f7c044aa364d24f478042c68d53354d36ad0dbe576d43e051e2e8da744ea8

@@ -1041,8 +1041,8 @@ Every graphics block of the ROM that the analysis identified is a file here, nex
 
 ```
 gfx/title/title_screen.asm                     the labels, the region headers (status + evidence), the INCBIN lines
-gfx/title/title_screen/title_tiles0.2bpp       the bytes the ROM contains (2bpp tiles)
-gfx/title/title_screen/title_tiles0.png        the same tiles as a picture, 16 per row  (exact rgbgfx source of the .2bpp)
+gfx/title/title_screen/title_tiles_8000_vb0.2bpp       the bytes the ROM contains (2bpp tiles)
+gfx/title/title_screen/title_tiles_8000_vb0.png        the same tiles as a picture, 16 per row  (exact rgbgfx source of the .2bpp)
 gfx/title/title_screen/title_screen.tilemap    20x18 tile indices          (INCBIN)
 gfx/title/title_screen/title_screen.attrmap    20x18 CGB attribute bytes   (INCBIN)
 gfx/title/title_screen/title_bg.pal            `RGB r, g, b` lines         (INCLUDE; macro in constants/gfx_macros.inc)
@@ -1051,7 +1051,7 @@ gfx/assets.tsv                                 one line per asset: kind, size, b
 ```
 
 * **Directory**: `gfx/<area>/<file>/` holds the assets of `gfx/<area>/<file>.asm` (`gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm` -> `gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/`); fonts are under `data/fonts/`, including `glyph_runs_8x16/` (SJIS-keyed runs).
-* **Names**: descriptive resource paths can name a visible design or a demonstrated consumer without changing generic global aliases; see [the bounded path migration](../docs/research/gfx_resource_names.md). A filename does not promote a storage status or prove a natural loader, original display or species. A block with a semantic label is otherwise named after it in `snake_case` (`Gfx_Title_Tiles0` -> `title_tiles0`, `Palette_Title_Bg` -> `title_bg.pal`);
+* **Names**: descriptive resource paths can name a visible design or a demonstrated consumer without changing generic global aliases; see [the bounded path migration](../docs/research/gfx_resource_names.md). A filename does not promote a storage status or prove a natural loader, original display or species. A block with a semantic label is otherwise named after it in `snake_case` (`Gfx_Title_Tiles8000Vb0` -> `title_tiles_8000_vb0`, `Palette_Title_Bg` -> `title_bg.pal`);
   a block with only a generic label is `<kind>_<addr>` with the address in the bank (`tiles_4000.2bpp`, `tilemap_5bc0.tilemap`).
   Names say what the label / header note says and no more: `tiles_...` means "the analysis typed this block as 2bpp tile data", see status below.
 * **Kinds**: `.2bpp` 2bpp tiles; `.tilemap` / `.attrmap` tile-index / CGB attribute bytes (a `tilemap+attr` pair that `copy_tilemap_rect_pair` loads is

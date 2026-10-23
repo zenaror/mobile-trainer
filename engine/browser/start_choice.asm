@@ -35,32 +35,32 @@ Browser_StartChoiceScreen:: ; 73:5F17
 	ld a, $01
 	ld [wBrowserStart_AnimCounter], a
 	ld de, $8000
-	ld hl, BrowserStart_Tiles0
-	ld a, BANK(BrowserStart_Tiles0)
+	ld hl, BrowserStart_Tiles8000Vb0
+	ld a, BANK(BrowserStart_Tiles8000Vb0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8800
-	ld hl, BrowserStart_Tiles1
-	ld a, BANK(BrowserStart_Tiles1)
+	ld hl, BrowserStart_Tiles8800Vb0
+	ld a, BANK(BrowserStart_Tiles8800Vb0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C00
-	ld hl, BrowserStart_Tiles2
-	ld a, BANK(BrowserStart_Tiles2)
+	ld hl, BrowserStart_Tiles8C00Vb0
+	ld a, BANK(BrowserStart_Tiles8C00Vb0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
-	ld hl, BrowserStart_Tiles3
-	ld a, BANK(BrowserStart_Tiles3)
+	ld hl, BrowserStart_Tiles9000Vb1
+	ld a, BANK(BrowserStart_Tiles9000Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, BrowserStart_Tiles4
-	ld a, BANK(BrowserStart_Tiles4)
+	ld hl, BrowserStart_Tiles9400Vb1
+	ld a, BANK(BrowserStart_Tiles9400Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService

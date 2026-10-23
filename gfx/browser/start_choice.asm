@@ -109,9 +109,9 @@ BrowserStart_CandidateBgAttributeSuffixAndUnreadTail_4530:: ; 73:4530
 
 ; ---- gfx $45E0-$49E0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 73:5F5E: hl=$45E0 a=$73 c=$40 de=$8000 (dest VRAM $8000, vbank=0)
 
-BrowserStart_Tiles0:: ; 73:45E0
+BrowserStart_Tiles8000Vb0:: ; 73:45E0
 
-	INCBIN "gfx/browser/start_choice/browser_start_tiles0.2bpp"
+	INCBIN "gfx/browser/start_choice/browser_start_tiles_8000_vb0.2bpp"
 
 ; ---- gfx $49E0-$4DE0 (1024 bytes) [PROBABLE] tiles-2bpp: heuristic: 61 coherent tiles (hsim2=0.744 vsim2=0.679, 107 blank) parity 0; 1536/2736 bytes also covered by call-site blocks [clipped from 4530-4FE0 by higher-priority evidence]
 
@@ -120,27 +120,27 @@ BrowserStart_CandidateTiles_49E0:: ; 73:49E0
 
 ; ---- gfx $4DE0-$51E0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 73:5F70: hl=$4DE0 a=$73 c=$40 de=$8800 (dest VRAM $8800, vbank=0)
 
-BrowserStart_Tiles1:: ; 73:4DE0
+BrowserStart_Tiles8800Vb0:: ; 73:4DE0
 
-	INCBIN "gfx/browser/start_choice/browser_start_tiles1.2bpp"
+	INCBIN "gfx/browser/start_choice/browser_start_tiles_8800_vb0.2bpp"
 
 ; ---- gfx $51E0-$55E0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 73:5F82: hl=$51E0 a=$73 c=$40 de=$8C00 (dest VRAM $8C00, vbank=0)
 
-BrowserStart_Tiles2:: ; 73:51E0
+BrowserStart_Tiles8C00Vb0:: ; 73:51E0
 
-	INCBIN "gfx/browser/start_choice/browser_start_tiles2.2bpp"
+	INCBIN "gfx/browser/start_choice/browser_start_tiles_8c00_vb0.2bpp"
 
 ; ---- gfx $55E0-$59E0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 73:5F94: hl=$55E0 a=$73 c=$40 de=$9001 (dest VRAM $9000, vbank=1)
 
-BrowserStart_Tiles3:: ; 73:55E0
+BrowserStart_Tiles9000Vb1:: ; 73:55E0
 
-	INCBIN "gfx/browser/start_choice/browser_start_tiles3.2bpp"
+	INCBIN "gfx/browser/start_choice/browser_start_tiles_9000_vb1.2bpp"
 
 ; ---- gfx $59E0-$5DE0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 73:5FA6: hl=$59E0 a=$73 c=$40 de=$9401 (dest VRAM $9400, vbank=1)
 
-BrowserStart_Tiles4:: ; 73:59E0
+BrowserStart_Tiles9400Vb1:: ; 73:59E0
 
-	INCBIN "gfx/browser/start_choice/browser_start_tiles4.2bpp"
+	INCBIN "gfx/browser/start_choice/browser_start_tiles_9400_vb1.2bpp"
 
 ; ---- data $5DE0-$5E20 (64 bytes) [CONFIRMED] palette-rgb555: 32 colours (8 palettes) read by Palette_LoadToBuffer: +$00 bc=$40 into wPaletteBufBg (engine/browser/start_choice.asm:71, call 73:5FB7 executed 201 hits in 19 scenarios (analysis/coverage_union.tsv))
 

@@ -562,7 +562,7 @@ class TestHelpers(unittest.TestCase):
     def test_neutral_pattern(self):
         for n in ('Function_04_430A', 'Label_00_04DC', 'Data_68_67E0', 'Palette_3F_4000'):
             self.assertTrue(ar.NEUTRAL.match(n), n)
-        for n in ('Function_04_430a', 'SoundDrv_LoadSongHeader', 'Function_4_430A', 'Gfx_Title_Tiles0'):
+        for n in ('Function_04_430a', 'SoundDrv_LoadSongHeader', 'Function_4_430A', 'Gfx_Title_Tiles8000Vb0'):
             self.assertFalse(ar.NEUTRAL.match(n), n)
 
 

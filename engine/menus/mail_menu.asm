@@ -37,38 +37,38 @@ MailMenu_Run:: ; 1D:4000
 	ldh [rWY], a
 	farcall Sprite_ResetAll
 	ld de, $8000
-	ld hl, Gfx_MailMenu_Tiles0
-	ld a, BANK(Gfx_MailMenu_Tiles0)
+	ld hl, Gfx_MailMenu_Tiles8000Vb0
+	ld a, BANK(Gfx_MailMenu_Tiles8000Vb0)
 	ld b, $96
 	ld c, $19
 	farcall Gfx_StartHDMAWithService
 	ld de, $8800
-	ld hl, Gfx_MailMenu_Tiles1
-	ld a, BANK(Gfx_MailMenu_Tiles1)
+	ld hl, Gfx_MailMenu_Tiles8800Vb0
+	ld a, BANK(Gfx_MailMenu_Tiles8800Vb0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C00
-	ld hl, Gfx_MailMenu_Tiles2
-	ld a, BANK(Gfx_MailMenu_Tiles2)
+	ld hl, Gfx_MailMenu_Tiles8C00Vb0
+	ld a, BANK(Gfx_MailMenu_Tiles8C00Vb0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9000
-	ld hl, Gfx_MailMenu_Tiles3
-	ld a, BANK(Gfx_MailMenu_Tiles3)
+	ld hl, Gfx_MailMenu_Tiles9000Vb0_SharedTail9000Vb1
+	ld a, BANK(Gfx_MailMenu_Tiles9000Vb0_SharedTail9000Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
-	ld hl, Gfx_MailMenu_Tiles3 + $380 ; 1D:5A30
-	ld a, BANK(Gfx_MailMenu_Tiles3)
+	ld hl, Gfx_MailMenu_Tiles9000Vb0_SharedTail9000Vb1 + $380 ; 1D:5A30
+	ld a, BANK(Gfx_MailMenu_Tiles9000Vb0_SharedTail9000Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, Gfx_MailMenu_Tiles5
-	ld a, BANK(Gfx_MailMenu_Tiles5)
+	ld hl, Gfx_MailMenu_Tiles9400Vb1
+	ld a, BANK(Gfx_MailMenu_Tiles9400Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService

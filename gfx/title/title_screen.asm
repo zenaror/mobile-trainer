@@ -6,45 +6,45 @@ SECTION "gfx/title/title_screen", ROMX
 
 ; ---- gfx $43C0-$47C0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 0E:4231: hl=$43C0 a=$0E c=$40 de=$8000 (dest VRAM $8000, vbank=0)
 
-Gfx_Title_Tiles0:: ; 0E:43C0
+Gfx_Title_Tiles8000Vb0:: ; 0E:43C0
 
-	INCBIN "gfx/title/title_screen/title_tiles0.2bpp"
+	INCBIN "gfx/title/title_screen/title_tiles_8000_vb0.2bpp"
 
-; ---- gfx $47C0-$4BC0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 0E:4243: hl=$47C0 a=$0E c=$40 de=$8800 (dest VRAM $8800, vbank=0)
+; ---- gfx $47C0-$4BC0 (1024 bytes) [CONFIRMED] tiles-vram: full block loads to VB0 $8800 at 0E:4243; final $200 bytes are reused at VB1 $8000 by the transfer at 0E:4255.
 
-Gfx_Title_Tiles1:: ; 0E:47C0
+Gfx_Title_Tiles8800Vb0_SharedTail8000Vb1:: ; 0E:47C0
 
-	INCBIN "gfx/title/title_screen/title_tiles1.2bpp"
+	INCBIN "gfx/title/title_screen/title_tiles_8800_vb0_shared_tail_8000_vb1.2bpp"
 
-; ---- gfx $4BC0-$4DC0 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 0E:4255: hl=$49C0 a=$0E c=$40 de=$8001 (dest VRAM $8000, vbank=1) [clipped from 49C0-4DC0 by higher-priority evidence]
+; ---- gfx $4BC0-$4DC0 (512 bytes) [CONFIRMED] tiles-vram: this block loads to VB1 $8200 as the tail of the transfer at 0E:4255 (source begins $49C0, destination $8000) and also to VB1 $8800 at 0E:4267.
 
-Gfx_Title_Tiles2:: ; 0E:4BC0
+Gfx_Title_Tiles8200And8800Vb1:: ; 0E:4BC0
 
-	INCBIN "gfx/title/title_screen/title_tiles2.2bpp"
+	INCBIN "gfx/title/title_screen/title_tiles_8200_and_8800_vb1.2bpp"
 
 ; ---- gfx $4DC0-$4FC0 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 0E:4267: hl=$4BC0 a=$0E c=$40 de=$8801 (dest VRAM $8800, vbank=1) [clipped from 4BC0-4FC0 by higher-priority evidence]
 
-Gfx_Title_Tiles3:: ; 0E:4DC0
+Gfx_Title_TileSlice8A00Vb1:: ; 0E:4DC0
 
-	INCBIN "gfx/title/title_screen/title_tiles3.2bpp"
+	INCBIN "gfx/title/title_screen/title_tile_slice_8a00_vb1.2bpp"
 
 ; ---- gfx $4FC0-$53C0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 0E:4279: hl=$4FC0 a=$0E c=$40 de=$8C01 (dest VRAM $8C00, vbank=1)
 
-Gfx_Title_Tiles4:: ; 0E:4FC0
+Gfx_Title_Tiles8C00Vb1:: ; 0E:4FC0
 
-	INCBIN "gfx/title/title_screen/title_tiles4.2bpp"
+	INCBIN "gfx/title/title_screen/title_tiles_8c00_vb1.2bpp"
 
 ; ---- gfx $53C0-$57C0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 0E:428B: hl=$53C0 a=$0E c=$40 de=$9001 (dest VRAM $9000, vbank=1)
 
-Gfx_Title_Tiles5:: ; 0E:53C0
+Gfx_Title_Tiles9000Vb1:: ; 0E:53C0
 
-	INCBIN "gfx/title/title_screen/title_tiles5.2bpp"
+	INCBIN "gfx/title/title_screen/title_tiles_9000_vb1.2bpp"
 
 ; ---- gfx $57C0-$5BC0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 0E:429D: hl=$57C0 a=$0E c=$40 de=$9401 (dest VRAM $9400, vbank=1)
 
-Gfx_Title_Tiles6:: ; 0E:57C0
+Gfx_Title_Tiles9400Vb1:: ; 0E:57C0
 
-	INCBIN "gfx/title/title_screen/title_tiles6.2bpp"
+	INCBIN "gfx/title/title_screen/title_tiles_9400_vb1.2bpp"
 
 ; ---- data $5BC0-$5E90 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 0E:42D0: hl=$5BC0 a=$0E b=18 rows c=20 cols (tiles then attrs) de=$D000
 

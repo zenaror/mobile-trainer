@@ -22,8 +22,8 @@ Browser_LoadFrameGraphics:: ; 4E:6196
 	farcall Sprite_ResetAll
 	call LCDOn
 	ld de, $8801
-	ld hl, BrowserMenu3_Tiles0
-	ld a, BANK(BrowserMenu3_Tiles0)
+	ld hl, BrowserMenu3_Tiles8800Vb1
+	ld a, BANK(BrowserMenu3_Tiles8800Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
@@ -146,8 +146,8 @@ Browser_FrameStylePreview_LoadGraphics:: ; 4E:6291
 	farcall Sprite_ResetAll
 	call LCDOn
 	ld de, $8801
-	ld hl, BrowserMenu3_Tiles0
-	ld a, BANK(BrowserMenu3_Tiles0)
+	ld hl, BrowserMenu3_Tiles8800Vb1
+	ld a, BANK(BrowserMenu3_Tiles8800Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService

@@ -153,14 +153,14 @@ AbookView_SetupScreen	engine/address_book/view.asm:207	tiles	Gfx_AbookView_Tiles
 AbookView_SetupScreen	engine/address_book/view.asm:213	tiles	Gfx_AddrBookEntry_Tiles8F00	2A	n=14 vram=$8F00 vbank=0
 AbookView_SetupScreen	engine/address_book/view.asm:219	tiles	Gfx_AddrBookEntry_Tiles8000	2A	n=11 vram=$8000 vbank=0
 AbookView_SetupScreen	engine/address_book/view.asm:224	tilemap	Data_AddrBookEntry_TilemapAttr	2C	rows=18 cols=20 dest=$D000
-Browser_LoadFrameGraphics	engine/browser/frame_graphics.asm:29	tiles	BrowserMenu3_Tiles0	72	n=64 vram=$8800 vbank=1
+Browser_LoadFrameGraphics	engine/browser/frame_graphics.asm:29	tiles	BrowserMenu3_Tiles8800Vb1	72	n=64 vram=$8800 vbank=1
 Browser_LoadFrameGraphics	engine/browser/frame_graphics.asm:57	UNRESOLVED	tiles	--	bank (a) not an immediate
 Browser_LoadFrameGraphics	engine/browser/frame_graphics.asm:65	UNRESOLVED	tiles	--	bank (a) not an immediate
 Browser_LoadFrameGraphics	engine/browser/frame_graphics.asm:77	UNRESOLVED	palette	--	bank (a) not an immediate
 Browser_LoadFrameGraphics	engine/browser/frame_graphics.asm:89	UNRESOLVED	tilemap	--	bank (a) not an immediate
 Browser_LoadFrameGraphics	engine/browser/frame_graphics.asm:102	UNRESOLVED	tiles	--	bank (a) not an immediate
 Browser_LoadFrameGraphics	engine/browser/frame_graphics.asm:114	UNRESOLVED	palette	--	bank (a) not an immediate
-Browser_FrameStylePreview_LoadGraphics	engine/browser/frame_graphics.asm:153	tiles	BrowserMenu3_Tiles0	72	n=64 vram=$8800 vbank=1
+Browser_FrameStylePreview_LoadGraphics	engine/browser/frame_graphics.asm:153	tiles	BrowserMenu3_Tiles8800Vb1	72	n=64 vram=$8800 vbank=1
 Browser_FrameStylePreview_LoadGraphics	engine/browser/frame_graphics.asm:181	UNRESOLVED	tiles	--	bank (a) not an immediate
 Browser_FrameStylePreview_LoadGraphics	engine/browser/frame_graphics.asm:189	UNRESOLVED	tiles	--	bank (a) not an immediate
 Browser_FrameStylePreview_LoadGraphics	engine/browser/frame_graphics.asm:203	UNRESOLVED	palette	--	bank (a) not an immediate
@@ -178,14 +178,14 @@ Browser_FrameStylePreview_Run	engine/browser/frame_style_chooser.asm:71	UNRESOLV
 Browser_FrameStylePreview_Run	engine/browser/frame_style_chooser.asm:131	UNRESOLVED	tiles	--	bank (a) not an immediate
 Browser_FrameStylePreview_Run	engine/browser/frame_style_chooser.asm:143	UNRESOLVED	palette	--	bank (a) not an immediate
 Browser_FrameStylePreview_Run	engine/browser/frame_style_chooser.asm:149	UNRESOLVED	palette	--	bank (a) not an immediate
-BrowserMenu_OpenTwoItem	engine/browser/menus.asm:23	tiles	BrowserMenu2_Tiles1	72	n=16 vram=$8F00 vbank=1
-BrowserMenu_OpenTwoItem	engine/browser/menus.asm:29	tiles	BrowserMenu2_Tiles0	72	n=64 vram=$8800 vbank=1
+BrowserMenu_OpenTwoItem	engine/browser/menus.asm:23	tiles	BrowserMenu2_Tiles8F00Vb1	72	n=16 vram=$8F00 vbank=1
+BrowserMenu_OpenTwoItem	engine/browser/menus.asm:29	tiles	BrowserMenu2_Tiles8800Vb1	72	n=64 vram=$8800 vbank=1
 BrowserMenu_OpenTwoItem	engine/browser/menus.asm:34	palette	BrowserMenu2_Palette	72	n=16 dest=$D830
 BrowserMenu_OpenTwoItem	engine/browser/menus.asm:39	tilemap	BrowserMenu2_Map	72	rows=6 cols=20 dest=$D180
 BrowserMenu_OpenTwoItem	engine/browser/menus.asm:44	palette	BrowserMenu2_Palette + $10	72	n=8 dest=$D860
 BrowserMenu_DrawItemTwo	engine/browser/menus.asm:401	tiles	$DC00	00	n=40 vram=$8C00 vbank=1
-BrowserMenu_OpenThreeItem	engine/browser/menus.asm:425	tiles	BrowserMenu3_Tiles0	72	n=64 vram=$8800 vbank=1
-BrowserMenu_OpenThreeItem	engine/browser/menus.asm:431	tiles	BrowserMenu3_Tiles1	72	n=16 vram=$8F00 vbank=1
+BrowserMenu_OpenThreeItem	engine/browser/menus.asm:425	tiles	BrowserMenu3_Tiles8800Vb1	72	n=64 vram=$8800 vbank=1
+BrowserMenu_OpenThreeItem	engine/browser/menus.asm:431	tiles	BrowserMenu3_Tiles8F00Vb1	72	n=16 vram=$8F00 vbank=1
 BrowserMenu_OpenThreeItem	engine/browser/menus.asm:436	palette	Palette_BrowserMenu_Bg6	72	n=16 dest=$D830
 BrowserMenu_OpenThreeItem	engine/browser/menus.asm:441	tilemap	BrowserMenu3_Map	72	rows=6 cols=20 dest=$D180
 BrowserMenu_OpenThreeItem	engine/browser/menus.asm:446	palette	Palette_BrowserMenu_Bg6 + $10	72	n=8 dest=$D860
@@ -205,11 +205,11 @@ Browser_LoadScrollbarGfx	engine/browser/scrollbar.asm:324	tiles	Gfx_BrowserScrol
 Browser_LoadScrollbarGfx	engine/browser/scrollbar.asm:340	tiles	Gfx_BrowserScrollbar_Tiles8FF0_47_4000	47	n=1 vram=$8FF0 vbank=0
 Browser_LoadScrollbarGfx	engine/browser/scrollbar.asm:346	tiles	Gfx_BrowserScrollbar_Tiles97D0_47_4010	47	n=3 vram=$97D0 vbank=0
 Browser_ReloadFrameTilemap	engine/browser/scrollbar.asm:392	UNRESOLVED	tilemap	--	bank (a) not an immediate
-Browser_StartChoiceScreen	engine/browser/start_choice.asm:42	tiles	BrowserStart_Tiles0	73	n=64 vram=$8000 vbank=0
-Browser_StartChoiceScreen	engine/browser/start_choice.asm:48	tiles	BrowserStart_Tiles1	73	n=64 vram=$8800 vbank=0
-Browser_StartChoiceScreen	engine/browser/start_choice.asm:54	tiles	BrowserStart_Tiles2	73	n=64 vram=$8C00 vbank=0
-Browser_StartChoiceScreen	engine/browser/start_choice.asm:60	tiles	BrowserStart_Tiles3	73	n=64 vram=$9000 vbank=1
-Browser_StartChoiceScreen	engine/browser/start_choice.asm:66	tiles	BrowserStart_Tiles4	73	n=64 vram=$9400 vbank=1
+Browser_StartChoiceScreen	engine/browser/start_choice.asm:42	tiles	BrowserStart_Tiles8000Vb0	73	n=64 vram=$8000 vbank=0
+Browser_StartChoiceScreen	engine/browser/start_choice.asm:48	tiles	BrowserStart_Tiles8800Vb0	73	n=64 vram=$8800 vbank=0
+Browser_StartChoiceScreen	engine/browser/start_choice.asm:54	tiles	BrowserStart_Tiles8C00Vb0	73	n=64 vram=$8C00 vbank=0
+Browser_StartChoiceScreen	engine/browser/start_choice.asm:60	tiles	BrowserStart_Tiles9000Vb1	73	n=64 vram=$9000 vbank=1
+Browser_StartChoiceScreen	engine/browser/start_choice.asm:66	tiles	BrowserStart_Tiles9400Vb1	73	n=64 vram=$9400 vbank=1
 Browser_StartChoiceScreen	engine/browser/start_choice.asm:71	palette	BrowserStart_Palettes	73	n=64 dest=$D800
 Browser_StartChoiceScreen	engine/browser/start_choice.asm:76	tilemap	BrowserStart_Map	73	rows=18 cols=20 dest=$D000
 Browser_StartChoiceScreen	engine/browser/start_choice.asm:98	palette	BrowserStart_ObjPalettes	73	n=64 dest=$D840
@@ -323,8 +323,8 @@ ConnectDialog_RenderTypedChars	engine/comm/connect_dialog_screen.asm:1465	tiles	
 ConnIcon_LoadGraphics_Request2	engine/comm/connection_icon.asm:163	tiles	Gfx_ConnIcon_Request2_Tiles8200	51	n=64 vram=$8200 vbank=0
 ConnIcon_LoadGraphics_Request2	engine/comm/connection_icon.asm:169	tiles	Gfx_ConnIcon_Request2_Tiles8600	51	n=32 vram=$8600 vbank=0
 ConnIcon_LoadGraphics_Request2	engine/comm/connection_icon.asm:174	palette	Palette_ConnIcon_Request2_Obj4	51	n=32 dest=$D860
-ConnIcon_LoadGraphics_Request1	engine/comm/connection_icon.asm:184	tiles	ConnIcon_Tiles0	69	n=64 vram=$8200 vbank=0
-ConnIcon_LoadGraphics_Request1	engine/comm/connection_icon.asm:190	tiles	ConnIcon_Tiles1	69	n=32 vram=$8600 vbank=0
+ConnIcon_LoadGraphics_Request1	engine/comm/connection_icon.asm:184	tiles	ConnIcon_Tiles8200Vb0	69	n=64 vram=$8200 vbank=0
+ConnIcon_LoadGraphics_Request1	engine/comm/connection_icon.asm:190	tiles	ConnIcon_Tiles8600Vb0	69	n=32 vram=$8600 vbank=0
 ConnIcon_LoadGraphics_Request1	engine/comm/connection_icon.asm:195	palette	ConnIcon_Palettes	69	n=24 dest=$D860
 CommNotice_RunDialog	engine/comm/notice_dialog.asm:86	tiles	Gfx_CommNotice_A_Tiles9000	50	n=64 vram=$9000 vbank=0
 CommNotice_RunDialog	engine/comm/notice_dialog.asm:92	tiles	Gfx_CommNotice_A_Tiles9400	50	n=26 vram=$9400 vbank=0
@@ -489,9 +489,9 @@ HelpScript_ShowPicture	engine/help/help_script.asm:661	UNRESOLVED	palette	--	ban
 HelpScript_ShowPicture	engine/help/help_script.asm:690	UNRESOLVED	tiles	--	bank (a) not an immediate
 HelpScript_ShowPicture	engine/help/help_script.asm:697	UNRESOLVED	tiles	--	bank (a) not an immediate
 HelpScript_StepText	engine/help/help_script.asm:1000	UNRESOLVED	tiles	--	source (hl) not an immediate/label
-MobileDict_Redraw	engine/help/mobile_dictionary.asm:37	tiles	Gfx_MobileDict_Tiles0	1A	n=32 vram=$8000 vbank=0
-MobileDict_Redraw	engine/help/mobile_dictionary.asm:43	tiles	Gfx_MobileDict_Tiles1	1A	n=64 vram=$8B00 vbank=1
-MobileDict_Redraw	engine/help/mobile_dictionary.asm:49	tiles	Gfx_MobileDict_Tiles2	1A	n=48 vram=$8F00 vbank=1
+MobileDict_Redraw	engine/help/mobile_dictionary.asm:37	tiles	Gfx_MobileDict_Tiles8000Vb0	1A	n=32 vram=$8000 vbank=0
+MobileDict_Redraw	engine/help/mobile_dictionary.asm:43	tiles	Gfx_MobileDict_Tiles8B00Vb1	1A	n=64 vram=$8B00 vbank=1
+MobileDict_Redraw	engine/help/mobile_dictionary.asm:49	tiles	Gfx_MobileDict_Tiles8F00Vb1	1A	n=48 vram=$8F00 vbank=1
 MobileDict_Redraw	engine/help/mobile_dictionary.asm:54	palette	Palette_MobileDict_Bg	1A	n=64 dest=$D800
 MobileDict_Redraw	engine/help/mobile_dictionary.asm:59	tilemap	Tilemap_MobileDict_Screen	1A	rows=18 cols=20 dest=$D000
 MobileDict_Redraw	engine/help/mobile_dictionary.asm:74	palette	Palette_MobileDict_Obj	1A	n=64 dest=$D840
@@ -565,14 +565,14 @@ Kbd_LoadPickerTabTiles	engine/keyboard/keyboard.asm:2239	UNRESOLVED	tiles	--	sou
 Kbd_DrawGlyphPreview	engine/keyboard/keyboard.asm:2340	UNRESOLVED	tiles	--	source (hl) not an immediate/label
 Kbd_DrawGlyphPreview	engine/keyboard/keyboard.asm:2343	UNRESOLVED	tiles	--	bank (a) not an immediate
 MailAddr_SetupScreen	engine/mail/address_editor.asm:469	tiles	Gfx_MailAddr_Tiles	2D	n=64 vram=$9300 vbank=1
-MailAddr_SetupScreen	engine/mail/address_editor.asm:475	tiles	Gfx_MailAddr_Tiles2	2D	n=11 vram=$9700 vbank=1
-MailAddr_SetupScreen	engine/mail/address_editor.asm:481	tiles	Gfx_MailAddr_Tiles3	2D	n=43 vram=$8800 vbank=0
+MailAddr_SetupScreen	engine/mail/address_editor.asm:475	tiles	Gfx_MailAddr_Tiles9700Vb1	2D	n=11 vram=$9700 vbank=1
+MailAddr_SetupScreen	engine/mail/address_editor.asm:481	tiles	Gfx_MailAddr_Tiles8800Vb0	2D	n=43 vram=$8800 vbank=0
 MailAddr_SetupScreen	engine/mail/address_editor.asm:487	tiles	Gfx_MailAddr_ObjTiles	2D	n=45 vram=$8000 vbank=0
 MailAddr_SetupScreen	engine/mail/address_editor.asm:492	tilemap	Tilemap_MailAddr	2D	rows=18 cols=20 dest=$D000
 MailAddr_SetupScreen	engine/mail/address_editor.asm:567	palette	Palette_TextCursor_Obj	7F	n=40 dest=$D840
 MailAddr_SetupScreen	engine/mail/address_editor.asm:572	palette	Palette_MailAddr_Bg	2D	n=48 dest=$D800
 MailBody_SetupScreen	engine/mail/body_editor.asm:433	tiles	Gfx_MailBody_Tiles	2D	n=64 vram=$9300 vbank=1
-MailBody_SetupScreen	engine/mail/body_editor.asm:439	tiles	Gfx_MailBody_Tiles2	2D	n=16 vram=$9700 vbank=1
+MailBody_SetupScreen	engine/mail/body_editor.asm:439	tiles	Gfx_MailBody_Tiles9700Vb1	2D	n=16 vram=$9700 vbank=1
 MailBody_SetupScreen	engine/mail/body_editor.asm:445	tiles	Gfx_MailBody_ObjTiles	2D	n=42 vram=$8000 vbank=0
 MailBody_SetupScreen	engine/mail/body_editor.asm:450	palette	Palette_MailBody_Obj	2D	n=64 dest=$D840
 MailBody_SetupScreen	engine/mail/body_editor.asm:455	palette	Palette_MailBody_Bg	2D	n=64 dest=$D800
@@ -729,45 +729,45 @@ MailSrvDel_Confirm	engine/mail_server/delete_menu.asm:490	tiles	MailServerDelete
 MailSrvDel_Confirm	engine/mail_server/delete_menu.asm:496	tilemap	MailServerDeleteAll_Tilemap	28	rows=18 cols=20 dest=$D000
 MailSrvDel_ProgressInit	engine/mail_server/delete_progress.asm:23	palette	Palette_MailSrvDelProgress_Bg	23	n=64 dest=$D800
 MailSrvDel_ProgressInit	engine/mail_server/delete_progress.asm:28	palette	Palette_MailSrvDelProgress_Obj	23	n=64 dest=$D840
-MailSrvDel_ProgressInit	engine/mail_server/delete_progress.asm:34	tiles	Gfx_MailSrvDelProgress_Tiles0	23	n=64 vram=$9000 vbank=1
-MailSrvDel_ProgressInit	engine/mail_server/delete_progress.asm:40	tiles	Gfx_MailSrvDelProgress_Tiles1	23	n=16 vram=$9400 vbank=1
-MailSrvDel_ProgressInit	engine/mail_server/delete_progress.asm:46	tiles	Gfx_MailSrvDelProgress_Tiles2	23	n=22 vram=$8000 vbank=0
+MailSrvDel_ProgressInit	engine/mail_server/delete_progress.asm:34	tiles	Gfx_MailSrvDelProgress_Tiles9000Vb1	23	n=64 vram=$9000 vbank=1
+MailSrvDel_ProgressInit	engine/mail_server/delete_progress.asm:40	tiles	Gfx_MailSrvDelProgress_Tiles9400Vb1	23	n=16 vram=$9400 vbank=1
+MailSrvDel_ProgressInit	engine/mail_server/delete_progress.asm:46	tiles	Gfx_MailSrvDelProgress_Tiles8000Vb0	23	n=22 vram=$8000 vbank=0
 MailSrvDel_ProgressInit	engine/mail_server/delete_progress.asm:51	tilemap	Tilemap_MailSrvDelProgress_Screen	23	rows=18 cols=20 dest=$D000
-MailServerMgr_Run	engine/mail_server/tidy.asm:92	tiles	Gfx_MailServerMgr_Tiles1	2E	n=1 vram=$9400 vbank=1
+MailServerMgr_Run	engine/mail_server/tidy.asm:92	tiles	Gfx_MailServerMgr_Tiles9400Vb1_Prefix	2E	n=1 vram=$9400 vbank=1
 MailServerMgr_Run	engine/mail_server/tidy.asm:330	tilemap	Tilemap_MailServerMgr_Main	2E	rows=18 cols=20 dest=$D000
 MailServerMgr_Run_MailLoop	engine/mail_server/tidy.asm:950	tilemap	Tilemap_MailServerMgr_Footer	2E	rows=6 cols=20 dest=$D0A0
 MailServerMgr_Run_MailLoop	engine/mail_server/tidy.asm:1050	tilemap	Tilemap_MailServerMgr_Footer	2E	rows=6 cols=20 dest=$D0A0
 MailServerMgr_Run_MailLoop	engine/mail_server/tidy.asm:1147	tilemap	Tilemap_MailServerMgr_Main	2E	rows=18 cols=20 dest=$D000
 MailServerMgr_SetupScreen	engine/mail_server/tidy_screen.asm:24	palette	Palette_MailServerMgr_Bg	2E	n=64 dest=$D800
 MailServerMgr_SetupScreen	engine/mail_server/tidy_screen.asm:29	palette	Palette_MailServerMgr_Obj	2E	n=64 dest=$D840
-MailServerMgr_SetupScreen	engine/mail_server/tidy_screen.asm:35	tiles	Gfx_MailServerMgr_Tiles0	2E	n=64 vram=$9000 vbank=1
-MailServerMgr_SetupScreen	engine/mail_server/tidy_screen.asm:41	tiles	Gfx_MailServerMgr_Tiles1	2E	n=64 vram=$9400 vbank=1
-MailServerMgr_SetupScreen	engine/mail_server/tidy_screen.asm:47	tiles	Gfx_MailServerMgr_Tiles2	2E	n=18 vram=$8800 vbank=1
-MailServerMgr_SetupScreen	engine/mail_server/tidy_screen.asm:53	tiles	Gfx_MailServerMgr_Tiles5	2E	n=64 vram=$8000 vbank=0
-MailServerMgr_SetupScreen	engine/mail_server/tidy_screen.asm:59	tiles	Gfx_MailServerMgr_Tiles3	2E	n=64 vram=$8A80 vbank=0
-MailServerMgr_SetupScreen	engine/mail_server/tidy_screen.asm:65	tiles	Gfx_MailServerMgr_Tiles4	2E	n=22 vram=$8E80 vbank=0
+MailServerMgr_SetupScreen	engine/mail_server/tidy_screen.asm:35	tiles	Gfx_MailServerMgr_Tiles9000Vb1	2E	n=64 vram=$9000 vbank=1
+MailServerMgr_SetupScreen	engine/mail_server/tidy_screen.asm:41	tiles	Gfx_MailServerMgr_Tiles9400Vb1_Prefix	2E	n=64 vram=$9400 vbank=1
+MailServerMgr_SetupScreen	engine/mail_server/tidy_screen.asm:47	tiles	Gfx_MailServerMgr_Tiles8800Vb1	2E	n=18 vram=$8800 vbank=1
+MailServerMgr_SetupScreen	engine/mail_server/tidy_screen.asm:53	tiles	Gfx_MailServerMgr_Tiles8000Vb0	2E	n=64 vram=$8000 vbank=0
+MailServerMgr_SetupScreen	engine/mail_server/tidy_screen.asm:59	tiles	Gfx_MailServerMgr_Tiles8A80Vb0	2E	n=64 vram=$8A80 vbank=0
+MailServerMgr_SetupScreen	engine/mail_server/tidy_screen.asm:65	tiles	Gfx_MailServerMgr_Tiles8E80Vb0	2E	n=22 vram=$8E80 vbank=0
 MailServerMgr_SetupScreen	engine/mail_server/tidy_screen.asm:70	tilemap	Tilemap_MailServerMgr_Main	2E	rows=18 cols=20 dest=$D000
 MailServerMgr_SetupScreen	engine/mail_server/tidy_screen.asm:77	tilemap	Tilemap_MailServerMgr_Footer	2E	rows=6 cols=20 dest=$D0A0
 MailServerMgr_RedrawScreen	engine/mail_server/tidy_screen.asm:130	palette	Palette_MailServerMgr_Bg	2E	n=64 dest=$D800
 MailServerMgr_RedrawScreen	engine/mail_server/tidy_screen.asm:135	palette	Palette_MailServerMgr_Obj	2E	n=64 dest=$D840
-MailServerMgr_RedrawScreen	engine/mail_server/tidy_screen.asm:141	tiles	Gfx_MailServerMgr_Tiles0	2E	n=64 vram=$9000 vbank=1
-MailServerMgr_RedrawScreen	engine/mail_server/tidy_screen.asm:147	tiles	Gfx_MailServerMgr_Tiles1	2E	n=64 vram=$9400 vbank=1
-MailServerMgr_RedrawScreen	engine/mail_server/tidy_screen.asm:153	tiles	Gfx_MailServerMgr_Tiles2	2E	n=18 vram=$8800 vbank=1
-MailServerMgr_RedrawScreen	engine/mail_server/tidy_screen.asm:159	tiles	Gfx_MailServerMgr_Tiles5	2E	n=64 vram=$8000 vbank=0
-MailServerMgr_RedrawScreen	engine/mail_server/tidy_screen.asm:165	tiles	Gfx_MailServerMgr_Tiles3	2E	n=64 vram=$8A80 vbank=0
-MailServerMgr_RedrawScreen	engine/mail_server/tidy_screen.asm:171	tiles	Gfx_MailServerMgr_Tiles4	2E	n=22 vram=$8E80 vbank=0
+MailServerMgr_RedrawScreen	engine/mail_server/tidy_screen.asm:141	tiles	Gfx_MailServerMgr_Tiles9000Vb1	2E	n=64 vram=$9000 vbank=1
+MailServerMgr_RedrawScreen	engine/mail_server/tidy_screen.asm:147	tiles	Gfx_MailServerMgr_Tiles9400Vb1_Prefix	2E	n=64 vram=$9400 vbank=1
+MailServerMgr_RedrawScreen	engine/mail_server/tidy_screen.asm:153	tiles	Gfx_MailServerMgr_Tiles8800Vb1	2E	n=18 vram=$8800 vbank=1
+MailServerMgr_RedrawScreen	engine/mail_server/tidy_screen.asm:159	tiles	Gfx_MailServerMgr_Tiles8000Vb0	2E	n=64 vram=$8000 vbank=0
+MailServerMgr_RedrawScreen	engine/mail_server/tidy_screen.asm:165	tiles	Gfx_MailServerMgr_Tiles8A80Vb0	2E	n=64 vram=$8A80 vbank=0
+MailServerMgr_RedrawScreen	engine/mail_server/tidy_screen.asm:171	tiles	Gfx_MailServerMgr_Tiles8E80Vb0	2E	n=22 vram=$8E80 vbank=0
 MailServerMgr_RedrawScreen	engine/mail_server/tidy_screen.asm:176	tilemap	Tilemap_MailServerMgr_Main	2E	rows=18 cols=20 dest=$D000
 MailServerMgr_RedrawScreen	engine/mail_server/tidy_screen.asm:183	tilemap	Tilemap_MailServerMgr_Footer	2E	rows=6 cols=20 dest=$D0A0
 MailServerMgr_DrawMailInfo	engine/mail_server/tidy_screen.asm:289	tilemap	Tilemap_MailServerMgr_Main	2E	rows=18 cols=20 dest=$D000
 MailServerMgr_DrawMailInfo	engine/mail_server/tidy_screen.asm:317	tilemap	Tilemap_MailServerMgr_InfoB	2E	rows=18 cols=20 dest=$D000
 MailServerMgr_DrawMailInfo	engine/mail_server/tidy_screen.asm:351	tilemap	Tilemap_MailServerMgr_InfoC	2E	rows=18 cols=20 dest=$D000
 MailServerMgr_DrawMailInfo	engine/mail_server/tidy_screen.asm:379	tilemap	Tilemap_MailServerMgr_InfoD	2E	rows=18 cols=20 dest=$D000
-MailMenu_Run	engine/menus/mail_menu.asm:44	tiles	Gfx_MailMenu_Tiles0	1D	n=25 vram=$8000 vbank=0
-MailMenu_Run	engine/menus/mail_menu.asm:50	tiles	Gfx_MailMenu_Tiles1	1D	n=64 vram=$8800 vbank=0
-MailMenu_Run	engine/menus/mail_menu.asm:56	tiles	Gfx_MailMenu_Tiles2	1D	n=64 vram=$8C00 vbank=0
-MailMenu_Run	engine/menus/mail_menu.asm:62	tiles	Gfx_MailMenu_Tiles3	1D	n=64 vram=$9000 vbank=0
-MailMenu_Run	engine/menus/mail_menu.asm:68	tiles	Gfx_MailMenu_Tiles3 + $380	1D	n=64 vram=$9000 vbank=1
-MailMenu_Run	engine/menus/mail_menu.asm:74	tiles	Gfx_MailMenu_Tiles5	1D	n=64 vram=$9400 vbank=1
+MailMenu_Run	engine/menus/mail_menu.asm:44	tiles	Gfx_MailMenu_Tiles8000Vb0	1D	n=25 vram=$8000 vbank=0
+MailMenu_Run	engine/menus/mail_menu.asm:50	tiles	Gfx_MailMenu_Tiles8800Vb0	1D	n=64 vram=$8800 vbank=0
+MailMenu_Run	engine/menus/mail_menu.asm:56	tiles	Gfx_MailMenu_Tiles8C00Vb0	1D	n=64 vram=$8C00 vbank=0
+MailMenu_Run	engine/menus/mail_menu.asm:62	tiles	Gfx_MailMenu_Tiles9000Vb0_SharedTail9000Vb1	1D	n=64 vram=$9000 vbank=0
+MailMenu_Run	engine/menus/mail_menu.asm:68	tiles	Gfx_MailMenu_Tiles9000Vb0_SharedTail9000Vb1 + $380	1D	n=64 vram=$9000 vbank=1
+MailMenu_Run	engine/menus/mail_menu.asm:74	tiles	Gfx_MailMenu_Tiles9400Vb1	1D	n=64 vram=$9400 vbank=1
 MailMenu_Run	engine/menus/mail_menu.asm:79	palette	Palette_MailMenu_Bg	1D	n=64 dest=$D800
 MailMenu_Run	engine/menus/mail_menu.asm:84	tilemap	Tilemap_MailMenu_Screen	1D	rows=18 cols=20 dest=$D000
 MailMenu_Run	engine/menus/mail_menu.asm:97	palette	Palette_MailMenu_Obj	1D	n=64 dest=$D840
@@ -882,19 +882,19 @@ Notice_LoadHeaderGfx	engine/startup/notice_pages.asm:240	UNRESOLVED	tiles	--	sou
 Notice_DrawPageCounter	engine/startup/notice_pages.asm:306	UNRESOLVED	tilemap	--	source (hl) not an immediate/label
 Notice_DrawPageCounter	engine/startup/notice_pages.asm:334	UNRESOLVED	tilemap	--	source (hl) not an immediate/label
 Notice_DrawPageCounter	engine/startup/notice_pages.asm:361	UNRESOLVED	tilemap	--	source (hl) not an immediate/label
-Title_LoadTitleScreen	engine/title/title_screen.asm:314	tiles	Gfx_Title_Tiles0	0E	n=64 vram=$8000 vbank=0
-Title_LoadTitleScreen	engine/title/title_screen.asm:320	tiles	Gfx_Title_Tiles1	0E	n=64 vram=$8800 vbank=0
-Title_LoadTitleScreen	engine/title/title_screen.asm:326	tiles	Gfx_Title_Tiles1 + $200	0E	n=64 vram=$8000 vbank=1
-Title_LoadTitleScreen	engine/title/title_screen.asm:332	tiles	Gfx_Title_Tiles2	0E	n=64 vram=$8800 vbank=1
-Title_LoadTitleScreen	engine/title/title_screen.asm:338	tiles	Gfx_Title_Tiles4	0E	n=64 vram=$8C00 vbank=1
-Title_LoadTitleScreen	engine/title/title_screen.asm:344	tiles	Gfx_Title_Tiles5	0E	n=64 vram=$9000 vbank=1
-Title_LoadTitleScreen	engine/title/title_screen.asm:350	tiles	Gfx_Title_Tiles6	0E	n=64 vram=$9400 vbank=1
+Title_LoadTitleScreen	engine/title/title_screen.asm:314	tiles	Gfx_Title_Tiles8000Vb0	0E	n=64 vram=$8000 vbank=0
+Title_LoadTitleScreen	engine/title/title_screen.asm:320	tiles	Gfx_Title_Tiles8800Vb0_SharedTail8000Vb1	0E	n=64 vram=$8800 vbank=0
+Title_LoadTitleScreen	engine/title/title_screen.asm:326	tiles	Gfx_Title_Tiles8800Vb0_SharedTail8000Vb1 + $200	0E	n=64 vram=$8000 vbank=1
+Title_LoadTitleScreen	engine/title/title_screen.asm:332	tiles	Gfx_Title_Tiles8200And8800Vb1	0E	n=64 vram=$8800 vbank=1
+Title_LoadTitleScreen	engine/title/title_screen.asm:338	tiles	Gfx_Title_Tiles8C00Vb1	0E	n=64 vram=$8C00 vbank=1
+Title_LoadTitleScreen	engine/title/title_screen.asm:344	tiles	Gfx_Title_Tiles9000Vb1	0E	n=64 vram=$9000 vbank=1
+Title_LoadTitleScreen	engine/title/title_screen.asm:350	tiles	Gfx_Title_Tiles9400Vb1	0E	n=64 vram=$9400 vbank=1
 Title_LoadTitleScreen	engine/title/title_screen.asm:355	palette	Palette_Title_Bg	0E	n=64 dest=$D800
 Title_LoadTitleScreen	engine/title/title_screen.asm:360	palette	Palette_Title_Obj	0E	n=64 dest=$D840
 Title_LoadTitleScreen	engine/title/title_screen.asm:365	tilemap	Tilemap_Title_Screen	0E	rows=18 cols=20 dest=$D000
 Title_DrawMenuHighlight	engine/title/title_screen.asm:401	UNRESOLVED	tilemap	--	source (hl) not an immediate/label
-Title_LoadLogoScreen	engine/title/title_screen.asm:448	tiles	Gfx_TitleLogo_Tiles0	0E	n=64 vram=$9000 vbank=1
-Title_LoadLogoScreen	engine/title/title_screen.asm:454	tiles	Gfx_TitleLogo_Tiles1	0E	n=64 vram=$9400 vbank=1
+Title_LoadLogoScreen	engine/title/title_screen.asm:448	tiles	Gfx_TitleLogo_Tiles9000Vb1	0E	n=64 vram=$9000 vbank=1
+Title_LoadLogoScreen	engine/title/title_screen.asm:454	tiles	Gfx_TitleLogo_Tiles9400Vb1	0E	n=64 vram=$9400 vbank=1
 Title_LoadLogoScreen	engine/title/title_screen.asm:459	palette	Palette_TitleLogo	0E	n=64 dest=$D800
 Title_LoadLogoScreen	engine/title/title_screen.asm:464	tilemap	Tilemap_TitleLogo_Screen	0E	rows=18 cols=20 dest=$D000
 PageListProto_InitScreen	engine/unreferenced/page_list_prototype.asm:707	tiles	PageListProto_Tiles_62B0	7F	n=64 vram=$9000 vbank=1

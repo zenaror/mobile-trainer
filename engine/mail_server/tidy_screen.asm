@@ -28,38 +28,38 @@ MailServerMgr_SetupScreen:: ; 2E:4B2E
 	ld a, BANK(Palette_MailServerMgr_Obj)
 	farcall Palette_LoadToBuffer
 	ld de, $9001
-	ld hl, Gfx_MailServerMgr_Tiles0
-	ld a, BANK(Gfx_MailServerMgr_Tiles0)
+	ld hl, Gfx_MailServerMgr_Tiles9000Vb1
+	ld a, BANK(Gfx_MailServerMgr_Tiles9000Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, Gfx_MailServerMgr_Tiles1
-	ld a, BANK(Gfx_MailServerMgr_Tiles1)
+	ld hl, Gfx_MailServerMgr_Tiles9400Vb1_Prefix
+	ld a, BANK(Gfx_MailServerMgr_Tiles9400Vb1_Prefix)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8801
-	ld hl, Gfx_MailServerMgr_Tiles2
-	ld a, BANK(Gfx_MailServerMgr_Tiles2)
+	ld hl, Gfx_MailServerMgr_Tiles8800Vb1
+	ld a, BANK(Gfx_MailServerMgr_Tiles8800Vb1)
 	ld b, $97
 	ld c, $12
 	farcall Gfx_StartHDMAWithService
 	ld de, $8000
-	ld hl, Gfx_MailServerMgr_Tiles5
-	ld a, BANK(Gfx_MailServerMgr_Tiles5)
+	ld hl, Gfx_MailServerMgr_Tiles8000Vb0
+	ld a, BANK(Gfx_MailServerMgr_Tiles8000Vb0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8A80
-	ld hl, Gfx_MailServerMgr_Tiles3
-	ld a, BANK(Gfx_MailServerMgr_Tiles3)
+	ld hl, Gfx_MailServerMgr_Tiles8A80Vb0
+	ld a, BANK(Gfx_MailServerMgr_Tiles8A80Vb0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8E80
-	ld hl, Gfx_MailServerMgr_Tiles4
-	ld a, BANK(Gfx_MailServerMgr_Tiles4)
+	ld hl, Gfx_MailServerMgr_Tiles8E80Vb0
+	ld a, BANK(Gfx_MailServerMgr_Tiles8E80Vb0)
 	ld b, $96
 	ld c, $16
 	farcall Gfx_StartHDMAWithService
@@ -134,38 +134,38 @@ MailServerMgr_RedrawScreen:: ; 2E:4C58
 	ld a, BANK(Palette_MailServerMgr_Obj)
 	farcall Palette_LoadToBuffer
 	ld de, $9001
-	ld hl, Gfx_MailServerMgr_Tiles0
-	ld a, BANK(Gfx_MailServerMgr_Tiles0)
+	ld hl, Gfx_MailServerMgr_Tiles9000Vb1
+	ld a, BANK(Gfx_MailServerMgr_Tiles9000Vb1)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, Gfx_MailServerMgr_Tiles1
-	ld a, BANK(Gfx_MailServerMgr_Tiles1)
+	ld hl, Gfx_MailServerMgr_Tiles9400Vb1_Prefix
+	ld a, BANK(Gfx_MailServerMgr_Tiles9400Vb1_Prefix)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8801
-	ld hl, Gfx_MailServerMgr_Tiles2
-	ld a, BANK(Gfx_MailServerMgr_Tiles2)
+	ld hl, Gfx_MailServerMgr_Tiles8800Vb1
+	ld a, BANK(Gfx_MailServerMgr_Tiles8800Vb1)
 	ld b, $97
 	ld c, $12
 	farcall Gfx_StartHDMAWithService
 	ld de, $8000
-	ld hl, Gfx_MailServerMgr_Tiles5
-	ld a, BANK(Gfx_MailServerMgr_Tiles5)
+	ld hl, Gfx_MailServerMgr_Tiles8000Vb0
+	ld a, BANK(Gfx_MailServerMgr_Tiles8000Vb0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8A80
-	ld hl, Gfx_MailServerMgr_Tiles3
-	ld a, BANK(Gfx_MailServerMgr_Tiles3)
+	ld hl, Gfx_MailServerMgr_Tiles8A80Vb0
+	ld a, BANK(Gfx_MailServerMgr_Tiles8A80Vb0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8E80
-	ld hl, Gfx_MailServerMgr_Tiles4
-	ld a, BANK(Gfx_MailServerMgr_Tiles4)
+	ld hl, Gfx_MailServerMgr_Tiles8E80Vb0
+	ld a, BANK(Gfx_MailServerMgr_Tiles8E80Vb0)
 	ld b, $96
 	ld c, $16
 	farcall Gfx_StartHDMAWithService

@@ -166,7 +166,7 @@ has to stay global), `Data_BB_AAAA` (data), `Table_BB_AAAA` (word/pointer table)
 evidence; then rename over the whole tree (search and replace), and `make` plus `make sym-check` prove nothing else changed.
 
 * Data and text keep their kind prefix: `String_<Subsystem>_<What>` (`String_Abook_HelpNew`), `Table_<Subsystem>_<What>` (`Table_MailDraftMenu_Captions`), `Data_<Subsystem>_<What>` (`Data_Browser_FrameDesc0`).
-* Graphics: `Gfx_<Screen>_Tiles<n or address>` for tile data (`Gfx_Title_Tiles0`, `Gfx_AddrBook_Tiles8F00`), `Tilemap_<Screen>_<What>`, `Attrmap_<Screen>_<What>`, `Palette_<Screen>_Bg|Obj`
+* Graphics: name tile data by the statically proven VRAM destination and CGB bank (`Gfx_Title_Tiles8000Vb0`); if one source span serves multiple destinations, include each destination in the label (`Gfx_Title_Tiles8200And8800Vb1`). Keep tilemaps, attribute maps and palettes role-qualified (`Tilemap_<Screen>_<What>`, `Attrmap_<Screen>_<What>`, `Palette_<Screen>_Bg|Obj`).
   (`Palette_Title_Bg`).  A tile block that `Gfx_StartHDMA[WithService]` loads into VRAM bank 1 (odd `E` in `de`) ends in `Vb1` after the address (`Gfx_Profile_Tiles9300Vb1`); the address is `de & $FFF0`.
 * When the same semantic name applies to several positions, the original position is appended to keep them unique (`Gfx_StartHDMAAtVBlank_2B_4723`, `Gfx_StartHDMAAtVBlank_2C_669D`).
 * Names must be unique across the ROM (labels, constants and RAM names share one namespace) and must not clash with an RGBDS keyword.
@@ -374,9 +374,9 @@ sizes, `bank:addr` and evidence status) and the PNG modes are in [`gfx/README.md
   ```asm
   ; ---- gfx $43C0-$47C0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 0E:4231: hl=$43C0 a=$0E c=$40 de=$8000 (dest VRAM $8000, vbank=0)
 
-  Gfx_Title_Tiles0:: ; 0E:43C0
+  Gfx_Title_Tiles8000Vb0:: ; 0E:43C0
   Data_0E_43C0::
-  	INCBIN "gfx/title/title_screen/title_tiles0.2bpp"
+	INCBIN "gfx/title/title_screen/title_tiles_8000_vb0.2bpp"
   ```
   ```asm
   Palette_Title_Bg:: ; 0E:5F30
@@ -387,13 +387,13 @@ sizes, `bank:addr` and evidence status) and the PNG modes are in [`gfx/README.md
   (`RGBASMFLAGS := -Weverything -P includes.asm -I .`); nothing else has to be configured.  The `-M` dependency files list every asset, so editing a `.2bpp` / `.pal` re-assembles only the file
   that includes it.  `.pal` files use the `RGB` macro of `constants/gfx_macros.inc` (`dw (b << 10) | (g << 5) | r`, components 0-31; e.g. `RGB 31, 31, 31` = `dw $7FFF`), pre-included by `includes.asm`.
 * **Names**: directory = the `.asm` path without `.asm` (`gfx/title/title_screen.asm` -> `gfx/title/title_screen/`; fonts are directly in `data/fonts/`); file = the semantic label in `snake_case`
-  without a leading `Gfx_` (and without a leading `tilemap_` / `attrmap_` / `palette_` that the extension repeats) (`Gfx_Title_Tiles0` -> `title_tiles0.2bpp`, `Palette_Title_Bg` -> `title_bg.pal`), or
+  without a leading `Gfx_` (and without a leading `tilemap_` / `attrmap_` / `palette_` that the extension repeats) (`Gfx_Title_Tiles8000Vb0` -> `title_tiles_8000_vb0.2bpp`, `Palette_Title_Bg` -> `title_bg.pal`), or
   `<kind>_<addr>` (address in the bank, lowercase hex: `tiles_4000.2bpp`) when the block only has a neutral label.  A name says what the label or header says, not more: naming a screen needs
   evidence like any other name (rename the asset, its `INCBIN` line and the manifest together).
 * **PNG <-> 2bpp**: the PNG is an indexed 4-shade image, 16 tiles per row (see `gfx/README.md`), and is the *exact source* of the `.2bpp` next to it:
 
   ```
-  rgbgfx -c embedded -o gfx/title/title_screen/title_tiles0.2bpp gfx/title/title_screen/title_tiles0.png     # add -x <pad> when assets.tsv lists pad > 0
+  rgbgfx -c embedded -o gfx/title/title_screen/title_tiles_8000_vb0.2bpp gfx/title/title_screen/title_tiles_8000_vb0.png     # add -x <pad> when assets.tsv lists pad > 0
   python3 tools/gfx_export.py bin       # the same for every exact PNG (paths and pad from gfx/assets.tsv)
   python3 tools/gfx_export.py png       # the other way: every .2bpp/.1bpp/.bin -> PNG (also refreshes the view-only sheets)
   python3 tools/gfx_export.py check     # every PNG through rgbgfx == its .2bpp, every view sheet decodes back to its bytes, INCBIN sizes, manifest

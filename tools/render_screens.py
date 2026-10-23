@@ -799,7 +799,7 @@ def frame_scenes(sym, routines):
     """Scenes the static extractor cannot see because the loader reads far pointers from a table:
       * the browser frame styles (Browser_LoadFrameGraphics 4E:6196 + Table_Browser_FrameDescriptors 4E:654B; each 31-byte descriptor starts with five far
         pointers `dw addr, db bank`: BG tiles -> $9001/$9401 (0x40 blocks each, the second half at +$400), palette -> $D800, 20x18 tilemap -> $D000,
-        tile piece -> $8000 (0x20 blocks), OBJ palette -> $D840; 4E:6196 also loads BrowserMenu3_Tiles0 to $8801 first).  Descriptors are read from baserom.gbc.
+        tile piece -> $8000 (0x20 blocks), OBJ palette -> $D840; 4E:6196 also loads BrowserMenu3_Tiles8800Vb1 to $8801 first).  Descriptors are read from baserom.gbc.
       * 24 candidate layouts in banks 41-46: the bank-47 record layout (tiles $A00, tilemap $168 + attributes
         $168, palette $80 = BG 64 + OBJ 64 bytes; stride $D50 from $4000) is a HYPOTHESIS for them. None of the 27
         entries selected through Table_Browser_FrameDescriptors for styles 0..26 points to these banks; this finite
@@ -807,7 +807,7 @@ def frame_scenes(sym, routines):
     rom = open(BASEROM, 'rb').read()
     out = []
     by = {r['name']: r for r in routines}
-    pre = [o for o in by.get('Browser_LoadFrameGraphics', {'ops': []})['ops'] if o['kind'] == 'tiles' and o.get('label') == 'BrowserMenu3_Tiles0']
+    pre = [o for o in by.get('Browser_LoadFrameGraphics', {'ops': []})['ops'] if o['kind'] == 'tiles' and o.get('label') == 'BrowserMenu3_Tiles8800Vb1']
 
     def ops_for(tiles, pal, tmap, piece, opal, line):
         ops = []

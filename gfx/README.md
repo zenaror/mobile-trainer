@@ -5,8 +5,8 @@ Every graphics block of the ROM that the analysis identified is a file here, nex
 
 ```
 gfx/title/title_screen.asm                     the labels, the region headers (status + evidence), the INCBIN lines
-gfx/title/title_screen/title_tiles0.2bpp       the bytes the ROM contains (2bpp tiles)
-gfx/title/title_screen/title_tiles0.png        the same tiles as a picture, 16 per row  (exact rgbgfx source of the .2bpp)
+gfx/title/title_screen/title_tiles_8000_vb0.2bpp       the bytes the ROM contains (2bpp tiles)
+gfx/title/title_screen/title_tiles_8000_vb0.png        the same tiles as a picture, 16 per row  (exact rgbgfx source of the .2bpp)
 gfx/title/title_screen/title_screen.tilemap    20x18 tile indices          (INCBIN)
 gfx/title/title_screen/title_screen.attrmap    20x18 CGB attribute bytes   (INCBIN)
 gfx/title/title_screen/title_bg.pal            `RGB r, g, b` lines         (INCLUDE; macro in constants/gfx_macros.inc)
@@ -15,7 +15,7 @@ gfx/assets.tsv                                 one line per asset: kind, size, b
 ```
 
 * **Directory**: `gfx/<area>/<file>/` holds the assets of `gfx/<area>/<file>.asm` (`gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm` -> `gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/`); fonts are under `data/fonts/`, including `glyph_runs_8x16/` (SJIS-keyed runs).
-* **Names**: descriptive resource paths can name a visible design or a demonstrated consumer without changing generic global aliases; see [the bounded path migration](../docs/research/gfx_resource_names.md). A filename does not promote a storage status or prove a natural loader, original display or species. A block with a semantic label is otherwise named after it in `snake_case` (`Gfx_Title_Tiles0` -> `title_tiles0`, `Palette_Title_Bg` -> `title_bg.pal`);
+* **Names**: descriptive resource paths can name a visible design or a demonstrated consumer without changing generic global aliases; see [the bounded path migration](../docs/research/gfx_resource_names.md). A filename does not promote a storage status or prove a natural loader, original display or species. A block with a semantic label is otherwise named after it in `snake_case` (`Gfx_Title_Tiles8000Vb0` -> `title_tiles_8000_vb0`, `Palette_Title_Bg` -> `title_bg.pal`);
   a block with only a generic label is `<kind>_<addr>` with the address in the bank (`tiles_4000.2bpp`, `tilemap_5bc0.tilemap`).
   Names say what the label / header note says and no more: `tiles_...` means "the analysis typed this block as 2bpp tile data", see status below.
 * **Kinds**: `.2bpp` 2bpp tiles; `.tilemap` / `.attrmap` tile-index / CGB attribute bytes (a `tilemap+attr` pair that `copy_tilemap_rect_pair` loads is
@@ -381,14 +381,14 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `browser_menu3_tiles0.2bpp` | 2bpp tiles | 1024 | 72:6C10 | CONFIRMED | exact | - | `gfx/browser/menus.asm` |
-| `browser_menu3_tiles1.2bpp` | 2bpp tiles | 256 | 72:7010 | CONFIRMED | exact | - | `gfx/browser/menus.asm` |
+| `browser_menu3_tiles_8800_vb1.2bpp` | 2bpp tiles | 1024 | 72:6C10 | CONFIRMED | exact | - | `gfx/browser/menus.asm` |
+| `browser_menu3_tiles_8f00_vb1.2bpp` | 2bpp tiles | 256 | 72:7010 | CONFIRMED | exact | - | `gfx/browser/menus.asm` |
 | `browser_menu3_map.tilemap` | tile-index map | 120 | 72:7110 | CONFIRMED | - | 20x6 | `gfx/browser/menus.asm` |
 | `browser_menu3_map.attrmap` | attribute map | 120 | 72:7188 | CONFIRMED | - | 20x6 | `gfx/browser/menus.asm` |
 | `browser_menu_bg6.pal` | RGB palette | 16 | 72:7200 | CONFIRMED | - | - | `gfx/browser/menus.asm` |
 | `browser_menu_obj4.pal` | RGB palette | 8 | 72:7210 | CONFIRMED | - | - | `gfx/browser/menus.asm` |
-| `browser_menu2_tiles0.2bpp` | 2bpp tiles | 1024 | 72:7220 | CONFIRMED | exact | - | `gfx/browser/menus.asm` |
-| `browser_menu2_tiles1.2bpp` | 2bpp tiles | 256 | 72:7620 | CONFIRMED | exact | - | `gfx/browser/menus.asm` |
+| `browser_menu2_tiles_8800_vb1.2bpp` | 2bpp tiles | 1024 | 72:7220 | CONFIRMED | exact | - | `gfx/browser/menus.asm` |
+| `browser_menu2_tiles_8f00_vb1.2bpp` | 2bpp tiles | 256 | 72:7620 | CONFIRMED | exact | - | `gfx/browser/menus.asm` |
 | `browser_menu2_map.tilemap` | tile-index map | 120 | 72:7720 | CONFIRMED | - | 20x6 | `gfx/browser/menus.asm` |
 | `browser_menu2_map.attrmap` | attribute map | 120 | 72:7798 | CONFIRMED | - | 20x6 | `gfx/browser/menus.asm` |
 | `browser_menu2_palette.pal` | RGB palette | 24 | 72:7810 | PROBABLE | - | - | `gfx/browser/menus.asm` |
@@ -439,12 +439,12 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `browser_start_top_attr_normal.attrmap` | attribute map | 40 | 73:43AD | PROBABLE | - | - | `gfx/browser/start_choice.asm` |
 | `browser_start_bottom_map_selected.tilemap` | tile-index map | 30 | 73:441B | PROBABLE | - | 10x3 | `gfx/browser/start_choice.asm` |
 | `browser_start_bottom_attr_selected.attrmap` | attribute map | 30 | 73:4461 | PROBABLE | - | - | `gfx/browser/start_choice.asm` |
-| `browser_start_tiles0.2bpp` | 2bpp tiles | 1024 | 73:45E0 | CONFIRMED | exact | - | `gfx/browser/start_choice.asm` |
+| `browser_start_tiles_8000_vb0.2bpp` | 2bpp tiles | 1024 | 73:45E0 | CONFIRMED | exact | - | `gfx/browser/start_choice.asm` |
 | `browser_start_candidate_tiles.2bpp` | 2bpp tiles | 1024 | 73:49E0 | PROBABLE | exact | - | `gfx/browser/start_choice.asm` |
-| `browser_start_tiles1.2bpp` | 2bpp tiles | 1024 | 73:4DE0 | CONFIRMED | exact | - | `gfx/browser/start_choice.asm` |
-| `browser_start_tiles2.2bpp` | 2bpp tiles | 1024 | 73:51E0 | CONFIRMED | exact | - | `gfx/browser/start_choice.asm` |
-| `browser_start_tiles3.2bpp` | 2bpp tiles | 1024 | 73:55E0 | CONFIRMED | exact | - | `gfx/browser/start_choice.asm` |
-| `browser_start_tiles4.2bpp` | 2bpp tiles | 1024 | 73:59E0 | CONFIRMED | exact | - | `gfx/browser/start_choice.asm` |
+| `browser_start_tiles_8800_vb0.2bpp` | 2bpp tiles | 1024 | 73:4DE0 | CONFIRMED | exact | - | `gfx/browser/start_choice.asm` |
+| `browser_start_tiles_8c00_vb0.2bpp` | 2bpp tiles | 1024 | 73:51E0 | CONFIRMED | exact | - | `gfx/browser/start_choice.asm` |
+| `browser_start_tiles_9000_vb1.2bpp` | 2bpp tiles | 1024 | 73:55E0 | CONFIRMED | exact | - | `gfx/browser/start_choice.asm` |
+| `browser_start_tiles_9400_vb1.2bpp` | 2bpp tiles | 1024 | 73:59E0 | CONFIRMED | exact | - | `gfx/browser/start_choice.asm` |
 | `browser_start_palettes.pal` | RGB palette | 64 | 73:5DE0 | CONFIRMED | - | - | `gfx/browser/start_choice.asm` |
 | `browser_start_obj_palettes.pal` | RGB palette | 64 | 73:5E20 | CONFIRMED | - | - | `gfx/browser/start_choice.asm` |
 
@@ -522,8 +522,8 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `conn_icon_tiles0.2bpp` | 2bpp tiles | 1024 | 69:4160 | CONFIRMED | exact | - | `gfx/comm/connection_icon.asm` |
-| `conn_icon_tiles1.2bpp` | 2bpp tiles | 512 | 69:4560 | CONFIRMED | exact | - | `gfx/comm/connection_icon.asm` |
+| `conn_icon_tiles_8200_vb0.2bpp` | 2bpp tiles | 1024 | 69:4160 | CONFIRMED | exact | - | `gfx/comm/connection_icon.asm` |
+| `conn_icon_tiles_8600_vb0.2bpp` | 2bpp tiles | 512 | 69:4560 | CONFIRMED | exact | - | `gfx/comm/connection_icon.asm` |
 | `conn_icon_palettes.pal` | RGB palette | 24 | 69:4760 | PROBABLE | - | - | `gfx/comm/connection_icon.asm` |
 
 ### `gfx/comm/notice_dialog/`
@@ -821,9 +821,9 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 |---|---|---:|---|---|---|---|---|
 | `mobile_dict_screen.tilemap` | tile-index map | 360 | 1A:47B5 | CONFIRMED | - | 20x18 | `gfx/help/mobile_dictionary.asm` |
 | `mobile_dict_screen.attrmap` | attribute map | 360 | 1A:491D | CONFIRMED | - | 20x18 | `gfx/help/mobile_dictionary.asm` |
-| `mobile_dict_tiles0.2bpp` | 2bpp tiles | 512 | 1A:4A90 | CONFIRMED | exact | - | `gfx/help/mobile_dictionary.asm` |
-| `mobile_dict_tiles1.2bpp` | 2bpp tiles | 1024 | 1A:4C90 | CONFIRMED | exact | - | `gfx/help/mobile_dictionary.asm` |
-| `mobile_dict_tiles2.2bpp` | 2bpp tiles | 768 | 1A:5090 | CONFIRMED | exact | - | `gfx/help/mobile_dictionary.asm` |
+| `mobile_dict_tiles_8000_vb0.2bpp` | 2bpp tiles | 512 | 1A:4A90 | CONFIRMED | exact | - | `gfx/help/mobile_dictionary.asm` |
+| `mobile_dict_tiles_8b00_vb1.2bpp` | 2bpp tiles | 1024 | 1A:4C90 | CONFIRMED | exact | - | `gfx/help/mobile_dictionary.asm` |
+| `mobile_dict_tiles_8f00_vb1.2bpp` | 2bpp tiles | 768 | 1A:5090 | CONFIRMED | exact | - | `gfx/help/mobile_dictionary.asm` |
 | `mobile_dict_bg.pal` | RGB palette | 64 | 1A:5390 | CONFIRMED | - | - | `gfx/help/mobile_dictionary.asm` |
 | `mobile_dict_obj.pal` | RGB palette | 464 | 1A:53D0 | PROBABLE | - | - | `gfx/help/mobile_dictionary.asm` |
 
@@ -973,8 +973,8 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
 | `mail_addr_tiles.2bpp` | 2bpp tiles | 1024 | 2D:7120 | CONFIRMED | exact | - | `gfx/mail/address_editor.asm` |
-| `mail_addr_tiles2.2bpp` | 2bpp tiles | 176 | 2D:7520 | CONFIRMED | exact | - | `gfx/mail/address_editor.asm` |
-| `mail_addr_tiles3.2bpp` | 2bpp tiles | 688 | 2D:75D0 | CONFIRMED | exact | - | `gfx/mail/address_editor.asm` |
+| `mail_addr_tiles_9700_vb1.2bpp` | 2bpp tiles | 176 | 2D:7520 | CONFIRMED | exact | - | `gfx/mail/address_editor.asm` |
+| `mail_addr_tiles_8800_vb0.2bpp` | 2bpp tiles | 688 | 2D:75D0 | CONFIRMED | exact | - | `gfx/mail/address_editor.asm` |
 | `mail_addr_obj_tiles.2bpp` | 2bpp tiles | 192 | 2D:7880 | CONFIRMED | exact | - | `gfx/mail/address_editor.asm` |
 | `mail_addr_obj_hdma_load_tail.2bpp` | 2bpp tiles | 528 | 2D:7940 | PROBABLE | exact | - | `gfx/mail/address_editor.asm` |
 | `mail_addr.tilemap` | tile-index map | 360 | 2D:7B50 | CONFIRMED | - | 20x18 | `gfx/mail/address_editor.asm` |
@@ -986,7 +986,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
 | `mail_body_tiles.2bpp` | 2bpp tiles | 960 | 2D:5AC0 | PROBABLE | exact | - | `gfx/mail/body_editor.asm` |
-| `mail_body_tiles2.2bpp` | 2bpp tiles | 256 | 2D:5EC0 | CONFIRMED | exact | - | `gfx/mail/body_editor.asm` |
+| `mail_body_tiles_9700_vb1.2bpp` | 2bpp tiles | 256 | 2D:5EC0 | CONFIRMED | exact | - | `gfx/mail/body_editor.asm` |
 | `mail_body.tilemap` | tile-index map | 360 | 2D:5FC0 | CONFIRMED | - | 20x18 | `gfx/mail/body_editor.asm` |
 | `mail_body.attrmap` | attribute map | 360 | 2D:6128 | CONFIRMED | - | 20x18 | `gfx/mail/body_editor.asm` |
 | `mail_body_bg.pal` | RGB palette | 64 | 2D:6290 | PROBABLE | - | - | `gfx/mail/body_editor.asm` |
@@ -1170,12 +1170,12 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `mail_menu_plates_selected.attrmap` | attribute map | 240 | 1D:4B61 | PROBABLE | - | 10x24 | `gfx/mail_menu/mail_menu.asm` |
 | `mail_menu_icon_frames.tilemap` | tile-index map | 96 | 1D:4C51 | PROBABLE | - | - | `gfx/mail_menu/mail_menu.asm` |
 | `mail_menu_icon_frames.attrmap` | attribute map | 96 | 1D:4CB1 | PROBABLE | - | - | `gfx/mail_menu/mail_menu.asm` |
-| `mail_menu_tiles0.2bpp` | 2bpp tiles | 400 | 1D:4D20 | CONFIRMED | exact | - | `gfx/mail_menu/mail_menu.asm` |
-| `mail_menu_tiles1.2bpp` | 2bpp tiles | 1024 | 1D:4EB0 | CONFIRMED | exact | - | `gfx/mail_menu/mail_menu.asm` |
-| `mail_menu_tiles2.2bpp` | 2bpp tiles | 1024 | 1D:52B0 | CONFIRMED | exact | - | `gfx/mail_menu/mail_menu.asm` |
-| `mail_menu_tiles3.2bpp` | 2bpp tiles | 1024 | 1D:56B0 | CONFIRMED | exact | - | `gfx/mail_menu/mail_menu.asm` |
-| `mail_menu_tiles4.2bpp` | 2bpp tiles | 896 | 1D:5AB0 | CONFIRMED | exact | - | `gfx/mail_menu/mail_menu.asm` |
-| `mail_menu_tiles5.2bpp` | 2bpp tiles | 1024 | 1D:5E30 | CONFIRMED | exact | - | `gfx/mail_menu/mail_menu.asm` |
+| `mail_menu_tiles_8000_vb0.2bpp` | 2bpp tiles | 400 | 1D:4D20 | CONFIRMED | exact | - | `gfx/mail_menu/mail_menu.asm` |
+| `mail_menu_tiles_8800_vb0.2bpp` | 2bpp tiles | 1024 | 1D:4EB0 | CONFIRMED | exact | - | `gfx/mail_menu/mail_menu.asm` |
+| `mail_menu_tiles_8c00_vb0.2bpp` | 2bpp tiles | 1024 | 1D:52B0 | CONFIRMED | exact | - | `gfx/mail_menu/mail_menu.asm` |
+| `mail_menu_tiles_9000_vb0_shared_tail_9000_vb1.2bpp` | 2bpp tiles | 1024 | 1D:56B0 | CONFIRMED | exact | - | `gfx/mail_menu/mail_menu.asm` |
+| `mail_menu_tile_slice_9080_vb1.2bpp` | 2bpp tiles | 896 | 1D:5AB0 | CONFIRMED | exact | - | `gfx/mail_menu/mail_menu.asm` |
+| `mail_menu_tiles_9400_vb1.2bpp` | 2bpp tiles | 1024 | 1D:5E30 | CONFIRMED | exact | - | `gfx/mail_menu/mail_menu.asm` |
 | `mail_menu_bg.pal` | RGB palette | 64 | 1D:6230 | CONFIRMED | - | - | `gfx/mail_menu/mail_menu.asm` |
 | `mail_menu_obj.pal` | RGB palette | 64 | 1D:6270 | CONFIRMED | - | - | `gfx/mail_menu/mail_menu.asm` |
 
@@ -1221,9 +1221,9 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `mail_srv_del_progress_tiles0.2bpp` | 2bpp tiles | 1024 | 23:6FE0 | CONFIRMED | exact | - | `gfx/mail_server/delete_progress.asm` |
-| `mail_srv_del_progress_tiles1.2bpp` | 2bpp tiles | 256 | 23:73E0 | CONFIRMED | exact | - | `gfx/mail_server/delete_progress.asm` |
-| `mail_srv_del_progress_tiles2.2bpp` | 2bpp tiles | 352 | 23:74E0 | CONFIRMED | exact | - | `gfx/mail_server/delete_progress.asm` |
+| `mail_srv_del_progress_tiles_9000_vb1.2bpp` | 2bpp tiles | 1024 | 23:6FE0 | CONFIRMED | exact | - | `gfx/mail_server/delete_progress.asm` |
+| `mail_srv_del_progress_tiles_9400_vb1.2bpp` | 2bpp tiles | 256 | 23:73E0 | CONFIRMED | exact | - | `gfx/mail_server/delete_progress.asm` |
+| `mail_srv_del_progress_tiles_8000_vb0.2bpp` | 2bpp tiles | 352 | 23:74E0 | CONFIRMED | exact | - | `gfx/mail_server/delete_progress.asm` |
 | `mail_srv_del_progress_screen.tilemap` | tile-index map | 360 | 23:7640 | CONFIRMED | - | 20x18 | `gfx/mail_server/delete_progress.asm` |
 | `mail_srv_del_progress_screen.attrmap` | attribute map | 360 | 23:77A8 | CONFIRMED | - | 20x18 | `gfx/mail_server/delete_progress.asm` |
 | `mail_srv_del_progress_bg.pal` | RGB palette | 64 | 23:7910 | CONFIRMED | - | - | `gfx/mail_server/delete_progress.asm` |
@@ -1233,13 +1233,13 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `mail_server_mgr_tiles0.2bpp` | 2bpp tiles | 1024 | 2E:56E0 | CONFIRMED | exact | - | `gfx/mail_server/tidy_screen.asm` |
-| `mail_server_mgr_tiles1.2bpp` | 2bpp tiles | 16 | 2E:5AE0 | CONFIRMED | exact | - | `gfx/mail_server/tidy_screen.asm` |
+| `mail_server_mgr_tiles_9000_vb1.2bpp` | 2bpp tiles | 1024 | 2E:56E0 | CONFIRMED | exact | - | `gfx/mail_server/tidy_screen.asm` |
+| `mail_server_mgr_tiles_9400_vb1_prefix.2bpp` | 2bpp tiles | 16 | 2E:5AE0 | CONFIRMED | exact | - | `gfx/mail_server/tidy_screen.asm` |
 | `mail_server_mgr_tiles9400_vb1_tail_5af0.2bpp` | 2bpp tiles | 1008 | 2E:5AF0 | CONFIRMED | exact | - | `gfx/mail_server/tidy_screen.asm` |
-| `mail_server_mgr_tiles2.2bpp` | 2bpp tiles | 288 | 2E:5EE0 | CONFIRMED | exact | - | `gfx/mail_server/tidy_screen.asm` |
-| `mail_server_mgr_tiles3.2bpp` | 2bpp tiles | 1024 | 2E:6000 | CONFIRMED | exact | - | `gfx/mail_server/tidy_screen.asm` |
-| `mail_server_mgr_tiles4.2bpp` | 2bpp tiles | 352 | 2E:6400 | CONFIRMED | exact | - | `gfx/mail_server/tidy_screen.asm` |
-| `mail_server_mgr_tiles5.2bpp` | 2bpp tiles | 1024 | 2E:6560 | CONFIRMED | exact | - | `gfx/mail_server/tidy_screen.asm` |
+| `mail_server_mgr_tiles_8800_vb1.2bpp` | 2bpp tiles | 288 | 2E:5EE0 | CONFIRMED | exact | - | `gfx/mail_server/tidy_screen.asm` |
+| `mail_server_mgr_tiles_8a80_vb0.2bpp` | 2bpp tiles | 1024 | 2E:6000 | CONFIRMED | exact | - | `gfx/mail_server/tidy_screen.asm` |
+| `mail_server_mgr_tiles_8e80_vb0.2bpp` | 2bpp tiles | 352 | 2E:6400 | CONFIRMED | exact | - | `gfx/mail_server/tidy_screen.asm` |
+| `mail_server_mgr_tiles_8000_vb0.2bpp` | 2bpp tiles | 1024 | 2E:6560 | CONFIRMED | exact | - | `gfx/mail_server/tidy_screen.asm` |
 | `mail_server_mgr_main.tilemap` | tile-index map | 360 | 2E:6960 | CONFIRMED | - | 20x18 | `gfx/mail_server/tidy_screen.asm` |
 | `mail_server_mgr_main.attrmap` | attribute map | 360 | 2E:6AC8 | CONFIRMED | - | 20x18 | `gfx/mail_server/tidy_screen.asm` |
 | `mail_server_mgr_footer.tilemap` | tile-index map | 120 | 2E:6C30 | CONFIRMED | - | 20x6 | `gfx/mail_server/tidy_screen.asm` |
@@ -1432,8 +1432,8 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `title_logo_tiles0.2bpp` | 2bpp tiles | 1024 | 0E:60A0 | CONFIRMED | exact | - | `gfx/title/logo.asm` |
-| `title_logo_tiles1.2bpp` | 2bpp tiles | 1024 | 0E:64A0 | CONFIRMED | exact | - | `gfx/title/logo.asm` |
+| `title_logo_tiles_9000_vb1.2bpp` | 2bpp tiles | 1024 | 0E:60A0 | CONFIRMED | exact | - | `gfx/title/logo.asm` |
+| `title_logo_tiles_9400_vb1.2bpp` | 2bpp tiles | 1024 | 0E:64A0 | CONFIRMED | exact | - | `gfx/title/logo.asm` |
 | `title_logo_screen.tilemap` | tile-index map | 360 | 0E:68A0 | CONFIRMED | - | 20x18 | `gfx/title/logo.asm` |
 | `title_logo_screen.attrmap` | attribute map | 360 | 0E:6A08 | CONFIRMED | - | 20x18 | `gfx/title/logo.asm` |
 | `title_logo.pal` | RGB palette | 64 | 0E:6B70 | PROBABLE | - | - | `gfx/title/logo.asm` |
@@ -1442,13 +1442,13 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
-| `title_tiles0.2bpp` | 2bpp tiles | 1024 | 0E:43C0 | CONFIRMED | exact | - | `gfx/title/title_screen.asm` |
-| `title_tiles1.2bpp` | 2bpp tiles | 1024 | 0E:47C0 | CONFIRMED | exact | - | `gfx/title/title_screen.asm` |
-| `title_tiles2.2bpp` | 2bpp tiles | 512 | 0E:4BC0 | CONFIRMED | exact | - | `gfx/title/title_screen.asm` |
-| `title_tiles3.2bpp` | 2bpp tiles | 512 | 0E:4DC0 | CONFIRMED | exact | - | `gfx/title/title_screen.asm` |
-| `title_tiles4.2bpp` | 2bpp tiles | 1024 | 0E:4FC0 | CONFIRMED | exact | - | `gfx/title/title_screen.asm` |
-| `title_tiles5.2bpp` | 2bpp tiles | 1024 | 0E:53C0 | CONFIRMED | exact | - | `gfx/title/title_screen.asm` |
-| `title_tiles6.2bpp` | 2bpp tiles | 1024 | 0E:57C0 | CONFIRMED | exact | - | `gfx/title/title_screen.asm` |
+| `title_tiles_8000_vb0.2bpp` | 2bpp tiles | 1024 | 0E:43C0 | CONFIRMED | exact | - | `gfx/title/title_screen.asm` |
+| `title_tiles_8800_vb0_shared_tail_8000_vb1.2bpp` | 2bpp tiles | 1024 | 0E:47C0 | CONFIRMED | exact | - | `gfx/title/title_screen.asm` |
+| `title_tiles_8200_and_8800_vb1.2bpp` | 2bpp tiles | 512 | 0E:4BC0 | CONFIRMED | exact | - | `gfx/title/title_screen.asm` |
+| `title_tile_slice_8a00_vb1.2bpp` | 2bpp tiles | 512 | 0E:4DC0 | CONFIRMED | exact | - | `gfx/title/title_screen.asm` |
+| `title_tiles_8c00_vb1.2bpp` | 2bpp tiles | 1024 | 0E:4FC0 | CONFIRMED | exact | - | `gfx/title/title_screen.asm` |
+| `title_tiles_9000_vb1.2bpp` | 2bpp tiles | 1024 | 0E:53C0 | CONFIRMED | exact | - | `gfx/title/title_screen.asm` |
+| `title_tiles_9400_vb1.2bpp` | 2bpp tiles | 1024 | 0E:57C0 | CONFIRMED | exact | - | `gfx/title/title_screen.asm` |
 | `title_screen.tilemap` | tile-index map | 360 | 0E:5BC0 | CONFIRMED | - | 20x18 | `gfx/title/title_screen.asm` |
 | `title_screen.attrmap` | attribute map | 360 | 0E:5D28 | CONFIRMED | - | 20x18 | `gfx/title/title_screen.asm` |
 | `title_highlight_start.tilemap` | tile-index map | 40 | 0E:5E90 | PROBABLE | - | - | `gfx/title/title_screen.asm` |

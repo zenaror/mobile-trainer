@@ -11,13 +11,13 @@ Gfx_MailAddr_Tiles:: ; 2D:7120
 	; kind (tiles) from the label name / config/symbols note; the region header above describes the block differently
 	INCBIN "gfx/mail/address_editor/mail_addr_tiles.2bpp"
 
-Gfx_MailAddr_Tiles2:: ; 2D:7520
+Gfx_MailAddr_Tiles9700Vb1:: ; 2D:7520
 	; kind (tiles) from the label name / config/symbols note; the region header above describes the block differently
-	INCBIN "gfx/mail/address_editor/mail_addr_tiles2.2bpp"
+	INCBIN "gfx/mail/address_editor/mail_addr_tiles_9700_vb1.2bpp"
 
-Gfx_MailAddr_Tiles3:: ; 2D:75D0
+Gfx_MailAddr_Tiles8800Vb0:: ; 2D:75D0
 	; kind (tiles) from the label name / config/symbols note; the region header above describes the block differently
-	INCBIN "gfx/mail/address_editor/mail_addr_tiles3.2bpp"
+	INCBIN "gfx/mail/address_editor/mail_addr_tiles_8800_vb0.2bpp"
 
 Gfx_MailAddr_ObjTiles:: ; 2D:7880
 	; kind (tiles) from the label name / config/symbols note; the region header above describes the block differently

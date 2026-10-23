@@ -18,9 +18,9 @@ Gfx_MailBody_HDMALoadZeroFill:: ; 2D:5E80
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
-Gfx_MailBody_Tiles2:: ; 2D:5EC0
+Gfx_MailBody_Tiles9700Vb1:: ; 2D:5EC0
 	; kind (tiles) from the label name / config/symbols note; the region header above describes the block differently
-	INCBIN "gfx/mail/body_editor/mail_body_tiles2.2bpp"
+	INCBIN "gfx/mail/body_editor/mail_body_tiles_9700_vb1.2bpp"
 
 ; ---- data $5FC0-$6290 (720 bytes) [CONFIRMED] tilemap+attr: 2 call site(s) (2D:4A16 2D:4B9D); first: copy_tilemap_rect_pair at 2D:4A16: hl=$5FC0 a=$2D b=18 rows c=20 cols (tiles then attrs) de=$D000
 

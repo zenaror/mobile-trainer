@@ -177,14 +177,14 @@ ConnIcon_LoadGraphics_Request2:: ; 69:40E0
 ConnIcon_LoadGraphics_Request1:: ; 69:4118
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 4/18 scenarios)
 	ld de, $8200
-	ld hl, ConnIcon_Tiles0
-	ld a, BANK(ConnIcon_Tiles0)
+	ld hl, ConnIcon_Tiles8200Vb0
+	ld a, BANK(ConnIcon_Tiles8200Vb0)
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8600
-	ld hl, ConnIcon_Tiles1
-	ld a, BANK(ConnIcon_Tiles1)
+	ld hl, ConnIcon_Tiles8600Vb0
+	ld a, BANK(ConnIcon_Tiles8600Vb0)
 	ld b, $95
 	ld c, $20
 	farcall Gfx_StartHDMAWithService
