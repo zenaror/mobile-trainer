@@ -55,6 +55,7 @@ Reference documents (current):
 |---|---|
 | [`text_encoding.md`](research/text_encoding.md) | Shift-JIS text, control bytes, the second text convention of bank 6C, fonts, what the charmap does and does not justify (note at the top: the build charmap is `constants/sjis_charmap.asm`) |
 | [`html_attribute_scanner_20261023.md`](research/html_attribute_scanner_20261023.md) | Static ROM0 attribute scanner contract, caller/table boundary, output limit and unverified Shift-JIS paths |
+| [`crlf_text_consumers_20261023.md`](research/crlf_text_consumers_20261023.md) | Static caller/read-path distinction for CR/LF text, including the debug help string at 19:447C |
 | [`help_script_stream_map_20261020.md`](research/help_script_stream_map_20261020.md) | Static bank 6C HelpScript command grammar, complete bounded stream map, label corrections and reachability limits |
 | [`help_script_stream_map_20261020.md`](research/help_script_stream_map_20261020.md) | Static bank 6C HelpScript command grammar, complete bounded stream map, label corrections and reachability limits |
 | [`mobile_protocol.md`](research/mobile_protocol.md) | Mobile Adapter GB link protocol from the adapter side (libmobile), the reference for the Trainer's packet code |
