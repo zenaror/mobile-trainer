@@ -727,7 +727,7 @@ Mail_ScanAndCheckGameMail:: ; 54:511D
 	; region 511D-5343 by apply_coverage --split [executed in 3 scenarios] (part of region
 	; $511D-$51B9)
 	xor a, a
-	ld [sSram_AFFF], a
+	ld [sNetWorkPage + $0FFF], a
 	ld de, wRam_C240
 	ld hl, Data_MailScan_InputPrefix
 	ld bc, $0003

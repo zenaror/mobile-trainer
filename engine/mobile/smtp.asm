@@ -189,7 +189,7 @@ Smtp_StartMailFrom:: ; 54:4575
 	ld bc, $0014
 	farcall CopyBytes
 	xor a, a
-	ld [wRam_C514], a
+	ld [wSmtp_SubjectTerminator], a
 	ld hl, wSmtp_SubjectScratch
 	ld de, wSmtp_EncodedText
 	ld bc, $0080

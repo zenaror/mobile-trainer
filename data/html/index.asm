@@ -51,7 +51,7 @@ Table_HtmlStore_PageFarPointers:: ; 3F:4012
 	ds $2, $00
 
 ; ---- data $40B9-$40CF (22 bytes) [CONFIRMED] 11 little-endian pointers to category page-index
-; lists in this bank. MobileDict_OnA at 1A:4192 indexes by 2 * (wMobileDict_Category - 1),
+; lists in this bank. MobileDict_OnA at 1A:4192 indexes by 2 * (category number - 1),
 ; reads both bytes with ReadByteFar (bank $3F), then indexes the chosen list by scroll + row - 1.
 
 Table_MobileDict_CategoryPageLists:: ; 3F:40B9

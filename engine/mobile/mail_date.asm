@@ -199,7 +199,7 @@ Mail_ApplyTimezoneOffset:: ; 54:5240
 	ld a, [hli]
 	and a, $0F
 	or a, c
-	ld [wRam_C591], a
+	ld [wMailDate_ZoneHoursBcd], a
 	ld b, a
 	ld a, [hli]
 	and a, $0F
@@ -208,7 +208,7 @@ Mail_ApplyTimezoneOffset:: ; 54:5240
 	ld a, [hli]
 	and a, $0F
 	or a, c
-	ld [wRam_C592], a
+	ld [wMailDate_ZoneMinutesBcd], a
 	ld c, a
 	ld a, [wMailDate_ZoneSign]
 	cp a, $2D
