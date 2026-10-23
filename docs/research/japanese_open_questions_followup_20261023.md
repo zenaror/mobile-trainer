@@ -294,6 +294,33 @@ scripted trace evidence. They do not establish natural execution, universal
 unreachability, or a hardware observation. No source bytes or asset files
 changed in this consolidation.
 
+### Bank 70:4740 against the retained 70-scenario corpus at `abb8e757`
+
+The earlier `naming_70_46a6_sram_boundaries.md` note said that it had not
+inspected natural coverage for the separate `70:4740` operation. A focused
+recheck of the current tracked corpus supersedes that sentence for this
+operation only: all 70 `traces/coverage_*.tsv` files and all 70 paired
+`traces/detail/*/callgraph.tsv` files were checked. The retained
+`coverage_validation.txt` reports 78,122 unique instruction starts from 70
+scenarios and has an empty ERROR section.
+
+There are zero instruction-start rows in physical bank 70 over the complete
+`[4740,477F)` operation span, and zero callgraph destinations of any recorded
+kind into that span. This includes ordinary `call`, `rst`, `jphl`, IRQ and
+recorded return destinations. The address `477F` is the next operation and
+was excluded. Reproduce the bounded queries by parsing coverage columns 1–2
+as physical bank and PC, and callgraph columns 4–5 as destination bank and
+address, retaining bank `70` and addresses from `4740` inclusive to `477F`
+exclusive. Coverage-file-list SHA-256 is
+`9e2efa12f4e95ed048a6a93b8fea90e2bc68f3a0a55830c8064e45d4ce3b9d91`; the
+callgraph-file-list SHA-256 is
+`5531e17069d7ce12ad7b8e797a88df26267d8a84571301e009d66973522e0387`.
+
+This is a bounded negative result for the retained synthetic trace corpus; it
+does not prove global unreachability or identify the A9ED field's purpose.
+`SaveCheck_GetStateBlockBit7` remains a PROBABLE local operation with
+HYPOTHESIS entry and role. No code bytes or confidence classification changed.
+
 ## Additional code/data spans checked against the retained natural corpus at `1c9224e8`
 
 The current 70-scenario natural corpus was also checked against three separately tracked spans that are outside the five operation entry/role rows above: `26:5344–537C` (`MailSession_WriteVram1TileAndWram7ScreenRows`), `28:4BA6–4BC2` (`WramClearCandidate_28_4BA6`), and the four-zero Bank 4B record tail `4B:76CC–76D0`. The check used all 70 paired `coverage_*.tsv`, `detail/*/callgraph.tsv`, and `detail/*/dataaccess.tsv` reports plus the merged union and validation report. The input manifest has 212 files and SHA-256 `9c784734fb895133f4ea822e6a2934c98c9318e751a414c88966de1c5e6dd1b3`; the union reports 78,122 unique executed instruction starts over 70 scenarios and the validation report has zero ERROR entries (4,046 expected warnings and 704 conditional-branch informational records).

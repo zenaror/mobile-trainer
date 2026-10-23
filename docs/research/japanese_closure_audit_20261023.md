@@ -309,3 +309,23 @@ bytes exactly. `make` reports `RESULT: IDENTICAL`; `sym-check` passes with
 for the operation and evidence limits. Bank 53 name/frame mapping, natural
 frame selection, global used/unused status, and the preview root remain
 unresolved.
+
+## Bank 70:4740 check against retained trace corpus
+
+The earlier bank-70 boundary note had not inspected natural coverage for the
+second operation. At the current source checkpoint, a focused read-only check
+covered all 70 tracked `coverage_*.tsv` files and their 70 paired callgraphs.
+The corpus validation report lists 78,122 unique instruction starts and no
+ERROR entries. No instruction start or recorded control-flow destination
+(including calls, restarts, indirect jumps, IRQ entries and returns) falls in
+the physical-bank range `[70:4740,70:477F)`. The neighboring `70:477F` block
+is outside the query. Aggregate hashes of the sorted coverage and callgraph
+lists, respectively, are
+`9e2efa12f4e95ed048a6a93b8fea90e2bc68f3a0a55830c8064e45d4ce3b9d91` and
+`5531e17069d7ce12ad7b8e797a88df26267d8a84571301e009d66973522e0387`.
+
+This supersedes only the earlier “coverage not inspected” statement for this
+span. It does not prove global unreachability or explain A9ED. The operation
+name remains `SaveCheck_GetStateBlockBit7` [PROBABLE local mechanics], with
+entry and field purpose HYPOTHESIS. Reproduction and caveats are in
+[`japanese_open_questions_followup_20261023.md`](japanese_open_questions_followup_20261023.md#bank-704740-against-the-retained-70-scenario-corpus-at-abb8e757).
