@@ -20,6 +20,7 @@ SUFFIX_LEDGER = Path("docs/research/japanese_bank_address_suffix_dispositions_20
 RAM_LEDGER = Path("docs/research/japanese_ram_equate_dispositions_20261023.tsv")
 AUDIT_COVERAGE = Path("docs/research/japanese_name_audit_coverage_20261023.tsv")
 PATH_NAME_LEDGER = Path("docs/research/japanese_bank_path_name_dispositions_20261023.tsv")
+BROAD_NAME_LEDGER = Path("docs/research/japanese_name_candidate_dispositions_20261023.tsv")
 GLOBAL = re.compile(
     r"(?:Function|Func|Sub|Routine|Unknown|Unk|Code|Label|Gfx|Graphics|"
     r"Object|Objects|Oam|Sprite|Sprites|Animation|Anim|Font|Tile|Tiles?|"
@@ -247,6 +248,72 @@ def main() -> int:
         or not row.get("bank_address")
     ]
 
+    if not BROAD_NAME_LEDGER.is_file():
+        print(f"error: missing broad name-disposition ledger: {BROAD_NAME_LEDGER}", file=sys.stderr)
+        return 2
+    with BROAD_NAME_LEDGER.open(encoding="utf-8", newline="") as stream:
+        broad_ledger = list(csv.DictReader(stream, delimiter="\t"))
+    broad_family_sources = {}
+    for family in (
+        "global labels with address suffix (broad candidate inventory)",
+        "global labels containing Candidate (inventory; not presumed generic)",
+    ):
+        family_source = set()
+        for item in hits[family]:
+            path, line, label = item.rsplit(":", 2)
+            family_source.add((path, line, label))
+        broad_family_sources[family] = family_source
+    broad_suffix_source = broad_family_sources[
+        "global labels with address suffix (broad candidate inventory)"
+    ]
+    broad_candidate_source = broad_family_sources[
+        "global labels containing Candidate (inventory; not presumed generic)"
+    ]
+    broad_source = broad_suffix_source | broad_candidate_source
+    broad_keys = [
+        (row.get("path", ""), row.get("line", ""), row.get("label", ""))
+        for row in broad_ledger
+    ]
+    broad_missing = sorted(broad_source - set(broad_keys))
+    broad_stale = sorted(set(broad_keys) - broad_source)
+    broad_duplicates = sorted(key for key, count in Counter(broad_keys).items() if count > 1)
+    broad_incomplete = [
+        row.get("label", "<empty>") for row in broad_ledger
+        if row.get("disposition") not in {"KEEP_DESCRIPTIVE", "KEEP_QUALIFIED"}
+        or not row.get("category") or not row.get("rationale")
+        or not row.get("evidence_locator")
+        or row.get("broad_address_suffix") not in {"yes", "no"}
+        or row.get("contains_Candidate") not in {"yes", "no"}
+    ]
+    broad_flag_mismatches = [
+        row.get("label", "<empty>") for row in broad_ledger
+        if row.get("broad_address_suffix") != (
+            "yes" if (row.get("path", ""), row.get("line", ""), row.get("label", "")) in broad_suffix_source else "no"
+        ) or row.get("contains_Candidate") != (
+            "yes" if (row.get("path", ""), row.get("line", ""), row.get("label", "")) in broad_candidate_source else "no"
+        )
+    ]
+    broad_source_lines: dict[str, list[str]] = {}
+    broad_address_mismatches = []
+    for row in broad_ledger:
+        path = row.get("path", "")
+        if path not in broad_source_lines:
+            try:
+                broad_source_lines[path] = Path(path).read_text(encoding="utf-8").splitlines()
+            except (OSError, UnicodeError):
+                broad_source_lines[path] = []
+        line_number = int(row.get("line", "0") or 0)
+        source_line = (
+            broad_source_lines[path][line_number - 1]
+            if 0 < line_number <= len(broad_source_lines[path]) else ""
+        )
+        address = re.search(r";\s*([0-9A-F]{2}):([0-9A-F]{4})\b", source_line, re.I)
+        source_address = (
+            f"{address.group(1).upper()}:{address.group(2).upper()}" if address else ""
+        )
+        if source_address != row.get("bank_address", ""):
+            broad_address_mismatches.append(row.get("label", "<empty>"))
+
     if not RAM_LEDGER.is_file():
         print(f"error: missing numeric RAM-equate ledger: {RAM_LEDGER}", file=sys.stderr)
         return 2
@@ -326,6 +393,14 @@ def main() -> int:
         "source labels explicitly retaining Unknown/Unresolved content": len(hits["source labels explicitly retaining Unknown/Unresolved content"]),
     }
     coverage_errors: list[str] = list(path_errors)
+    if broad_missing or broad_stale or broad_duplicates or broad_incomplete or broad_flag_mismatches or broad_address_mismatches:
+        coverage_errors.append(
+            "broad name-disposition ledger mismatch: "
+            f"rows={len(broad_ledger)}, missing={len(broad_missing)}, "
+            f"stale={len(broad_stale)}, duplicate={len(broad_duplicates)}, "
+            f"incomplete={len(broad_incomplete)}, flag_mismatches={len(broad_flag_mismatches)}, "
+            f"address_mismatches={len(broad_address_mismatches)}"
+        )
     if not AUDIT_COVERAGE.is_file():
         coverage_errors.append(f"missing name-audit coverage matrix: {AUDIT_COVERAGE}")
         coverage_rows = []
@@ -428,6 +503,16 @@ def main() -> int:
             print(f"  {row['disposition']}: {row['path']}:{row['line']}:{row['label']} [{row['evidence']}]")
     if suffix_errors:
         print(f"Bank/address-suffix ledger errors: missing={len(suffix_misses)}, stale={len(suffix_stale)}, duplicate={len(suffix_duplicates)}, incomplete={len(suffix_incomplete)}")
+    print(
+        "Broad name-disposition ledger: "
+        f"{len(broad_ledger)} union rows; suffix={sum(row.get('broad_address_suffix') == 'yes' for row in broad_ledger)}, "
+        f"Candidate={sum(row.get('contains_Candidate') == 'yes' for row in broad_ledger)}; "
+        f"source matches {len(broad_source) - len(broad_missing)}/{len(broad_source)}; "
+        f"missing={len(broad_missing)}, stale={len(broad_stale)}, "
+        f"duplicate={len(broad_duplicates)}, incomplete={len(broad_incomplete)}, "
+        f"flag_mismatches={len(broad_flag_mismatches)}, "
+        f"address_mismatches={len(broad_address_mismatches)}"
+    )
     ram_errors = ram_missing or ram_stale or ram_duplicates or ram_incomplete
     print(
         f"Numeric RAM-equate ledger: {len(ram_ledger)} rows; "
