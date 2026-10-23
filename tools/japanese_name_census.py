@@ -65,7 +65,7 @@ def main() -> int:
     parser.add_argument(
         "--generic-list",
         action="store_true",
-        help="print name/path candidates without dumping retained local anchors and RAM equates",
+        help="print name/path candidates and numeric RAM equates without dumping retained local anchors",
     )
     args = parser.parse_args()
     try:
@@ -213,6 +213,7 @@ def main() -> int:
         "single-RET body labels requiring explicit disposition",
         "source labels explicitly retaining Unknown/Unresolved content",
         "function-boundary or complete-function comments to reconcile",
+        "numeric RAM equates",
     }
     for family, rows in hits.items():
         print(f"{family}: {len(rows)}")
