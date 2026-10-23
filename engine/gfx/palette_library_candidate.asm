@@ -183,55 +183,56 @@ PalLibCandidate_FadeCurrentPalettesTowardBlack:: ; 29:5159
 	ldh a, [rSVBK]
 	push af
 	ld b, $04
-.l515E ; 29:515E
+.fade_pass ; 29:515E
 	push bc
 	call PalLibCandidate_DisableVBlankIrq
 	call PalLibCandidate_ReadPalettesToBuffer
 	ld b, $08
-.l5167 ; 29:5167
+.fade_step ; 29:5167
 	push bc
 	call PalLibCandidate_FadeStepTowardBlack
 	pop bc
 	dec b
-	jr nz, .l5167
+	jr nz, .fade_step
 	call PalLibCandidate_WriteBufferToPalettes
 	call PalLibCandidate_EnableVBlankIrq
 	pop bc
 	dec b
-	jr nz, .l515E
+	jr nz, .fade_pass
 	pop af
 	ldh [rSVBK], a
 	ret
 
 PalLibCandidate_FadePaletteBlockTowardBlackThenReload:: ; 29:517D
-	; [PROBABLE] Repeat four rounds of eight blackward steps over the palette block at HL, writing
-	; each round; then copy that block again and write it unchanged. Entry and bank contracts are
-	; unknown, so this describes the decoded local operations, not natural reachability or purpose.
+	; [PROBABLE] The outer pass count runs from four down to one. Each pass copies the palette block
+	; at HL, then runs that many groups of eight blackward steps and writes the result. If each step
+	; helper returns, this is 32, 24, 16, and 8 calls (80 total); then the source block is copied and
+	; written unchanged. Entry and bank contracts remain unknown.
 	ldh a, [rSVBK]
 	push af
 	ld b, $04
-.l5182 ; 29:5182
+.fade_pass ; 29:5182
 	push bc
 	push hl
 	call PalLibCandidate_DisableVBlankIrq
 	call PalLibCandidate_FillBufferFromBlock
 	ld c, b
-.l518B ; 29:518B
+.fade_group ; 29:518B
 	ld b, $08
-.l518D ; 29:518D
+.fade_step ; 29:518D
 	push bc
 	call PalLibCandidate_FadeStepTowardBlack
 	pop bc
 	dec b
-	jr nz, .l518D
+	jr nz, .fade_step
 	dec c
-	jr nz, .l518B
+	jr nz, .fade_group
 	call PalLibCandidate_WriteBufferToPalettes
 	call PalLibCandidate_EnableVBlankIrq
 	pop hl
 	pop bc
 	dec b
-	jr nz, .l5182
+	jr nz, .fade_pass
 	call PalLibCandidate_DisableVBlankIrq
 	call PalLibCandidate_FillBufferFromBlock
 	call PalLibCandidate_WriteBufferToPalettes
@@ -247,55 +248,56 @@ PalLibCandidate_FadeCurrentPalettesTowardWhite:: ; 29:51B3
 	ldh a, [rSVBK]
 	push af
 	ld b, $04
-.l51B8 ; 29:51B8
+.fade_pass ; 29:51B8
 	push bc
 	call PalLibCandidate_DisableVBlankIrq
 	call PalLibCandidate_ReadPalettesToBuffer
 	ld b, $08
-.l51C1 ; 29:51C1
+.fade_step ; 29:51C1
 	push bc
 	call PalLibCandidate_FadeStepTowardWhite
 	pop bc
 	dec b
-	jr nz, .l51C1
+	jr nz, .fade_step
 	call PalLibCandidate_WriteBufferToPalettes
 	call PalLibCandidate_EnableVBlankIrq
 	pop bc
 	dec b
-	jr nz, .l51B8
+	jr nz, .fade_pass
 	pop af
 	ldh [rSVBK], a
 	ret
 
 PalLibCandidate_FadePaletteBlockTowardWhiteThenReload:: ; 29:51D7
-	; [PROBABLE] Repeat four rounds of eight whiteward steps over the palette block at HL, writing
-	; each round; then copy that block again and write it unchanged. Entry and bank contracts are
-	; unknown, so this describes the decoded local operations, not natural reachability or purpose.
+	; [PROBABLE] The outer pass count runs from four down to one. Each pass copies the palette block
+	; at HL, then runs that many groups of eight whiteward steps and writes the result. If each step
+	; helper returns, this is 32, 24, 16, and 8 calls (80 total); then the source block is copied and
+	; written unchanged. Entry and bank contracts remain unknown.
 	ldh a, [rSVBK]
 	push af
 	ld b, $04
-.l51DC ; 29:51DC
+.fade_pass ; 29:51DC
 	push bc
 	push hl
 	call PalLibCandidate_DisableVBlankIrq
 	call PalLibCandidate_FillBufferFromBlock
 	ld c, b
-.l51E5 ; 29:51E5
+.fade_group ; 29:51E5
 	ld b, $08
-.l51E7 ; 29:51E7
+.fade_step ; 29:51E7
 	push bc
 	call PalLibCandidate_FadeStepTowardWhite
 	pop bc
 	dec b
-	jr nz, .l51E7
+	jr nz, .fade_step
 	dec c
-	jr nz, .l51E5
+	jr nz, .fade_group
 	call PalLibCandidate_WriteBufferToPalettes
 	call PalLibCandidate_EnableVBlankIrq
 	pop hl
 	pop bc
 	dec b
-	jr nz, .l51DC
+	jr nz, .fade_pass
 	call PalLibCandidate_DisableVBlankIrq
 	call PalLibCandidate_FillBufferFromBlock
 	call PalLibCandidate_WriteBufferToPalettes

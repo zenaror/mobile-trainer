@@ -1,0 +1,11 @@
+bank	address	path	old_label	new_label	confidence	independent_review	rationale	limits
+29	515E	engine/gfx/palette_library_candidate.asm	.l515E	.fade_pass	PROBABLE	PASS	The outer loop repeats with B descending from four to one.	Local loop role only; no natural-entry or reachability claim.
+29	5167	engine/gfx/palette_library_candidate.asm	.l5167	.fade_step	PROBABLE	PASS	The inner B loop counts eight calls to the blackward step helper.	Local loop role only; no natural-entry or reachability claim.
+29	5182	engine/gfx/palette_library_candidate.asm	.l5182	.fade_pass	PROBABLE	PASS	The outer loop repeats with B descending from four to one.	Local loop role only; no natural-entry or reachability claim.
+29	518B	engine/gfx/palette_library_candidate.asm	.l518B	.fade_group	PROBABLE	PASS	C is loaded from the remaining outer pass count and controls groups of eight steps.	Local loop role only; no natural-entry or reachability claim.
+29	518D	engine/gfx/palette_library_candidate.asm	.l518D	.fade_step	PROBABLE	PASS	The inner B loop counts eight calls to the blackward step helper.	Local loop role only; no natural-entry or reachability claim.
+29	51B8	engine/gfx/palette_library_candidate.asm	.l51B8	.fade_pass	PROBABLE	PASS	The outer loop repeats with B descending from four to one.	Local loop role only; no natural-entry or reachability claim.
+29	51C1	engine/gfx/palette_library_candidate.asm	.l51C1	.fade_step	PROBABLE	PASS	The inner B loop counts eight calls to the whiteward step helper.	Local loop role only; no natural-entry or reachability claim.
+29	51DC	engine/gfx/palette_library_candidate.asm	.l51DC	.fade_pass	PROBABLE	PASS	The outer loop repeats with B descending from four to one.	Local loop role only; no natural-entry or reachability claim.
+29	51E5	engine/gfx/palette_library_candidate.asm	.l51E5	.fade_group	PROBABLE	PASS	C is loaded from the remaining outer pass count and controls groups of eight steps.	Local loop role only; no natural-entry or reachability claim.
+29	51E7	engine/gfx/palette_library_candidate.asm	.l51E7	.fade_step	PROBABLE	PASS	The inner B loop counts eight calls to the whiteward step helper.	Local loop role only; no natural-entry or reachability claim.
