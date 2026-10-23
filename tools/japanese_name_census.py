@@ -21,8 +21,10 @@ RAM_LEDGER = Path("docs/research/japanese_ram_equate_dispositions_20261023.tsv")
 AUDIT_COVERAGE = Path("docs/research/japanese_name_audit_coverage_20261023.tsv")
 PATH_NAME_LEDGER = Path("docs/research/japanese_bank_path_name_dispositions_20261023.tsv")
 GLOBAL = re.compile(
-    r"(?:Function|Func|Sub|Routine|Unknown|Unk|Code|Label|Font|Tiles?|"
-    r"Tilemap|Attrmap|Palette|String|Table|SpriteFrame|SpriteScript|Data)_"
+    r"(?:Function|Func|Sub|Routine|Unknown|Unk|Code|Label|Gfx|Graphics|"
+    r"Object|Objects|Oam|Sprite|Sprites|Animation|Anim|Font|Tile|Tiles?|"
+    r"Tilemap|Map|Attrmap|Palette|Text|String|Table|Pointer|Ptr|Asset|"
+    r"Resource|SpriteFrame|SpriteScript|Data)_"
     r"(?:[0-9A-F]{2}_)?[0-9A-F]{4}\Z", re.I
 )
 LOCAL_ADDRESS = re.compile(r"\.l[0-9A-F]{4}\Z", re.I)
