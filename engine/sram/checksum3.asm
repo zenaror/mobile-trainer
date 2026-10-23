@@ -1,6 +1,6 @@
 ; engine/sram/checksum3.asm
 ; bank 48, $4899-$498C (243 bytes); pinned by layout.link
-; SRAM checksum 3 (verify/compute/reset/update) and the one-ret stub Stub_Nop_48_48BB (13 farcall sites at screen entries)
+; SRAM checksum 3 (verify/compute/reset/update) and the one-RET return helper ReturnImmediately (13 farcall sites at screen entries)
 
 SECTION "engine/sram/checksum3", ROMX
 
@@ -33,7 +33,7 @@ Sram_VerifyChecksum3:: ; 48:4899
 	ld a, $FF
 	ret
 
-Stub_Nop_48_48BB:: ; 48:48BB
+ReturnImmediately:: ; 48:48BB
 
 	; [CONFIRMED] 1 insn(s); 1 executed (in up to 15/18 scenarios); entry proven: target of an
 	; executed call/far call
@@ -42,7 +42,7 @@ Stub_Nop_48_48BB:: ; 48:48BB
 Sram_VerifyChecksum3ResetOnMismatch:: ; 48:48BC
 
 	; [HYPOTHESIS] unreferenced function (no call/ptr to 48BC in the ROM) right after the executed
-	; one-instruction Stub_Nop_48_48BB (ret); sibling of Sram_VerifyChecksum3: call $48E1; compare
+	; one-instruction ReturnImmediately (ret); sibling of Sram_VerifyChecksum3: call $48E1; compare
 	; 16-bit value at $A8B5/$A8B6 via call $1620; extra call $4920; ld a,$FF; ret. All call targets
 	; (48E1, 1620, 4920) are known code starts
 	call Sram_ComputeChecksum3

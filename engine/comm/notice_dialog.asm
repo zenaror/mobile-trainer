@@ -54,7 +54,7 @@ CommNotice_RunDialog:: ; 50:4061
 	ld bc, $00FC
 	ld hl, $C0D4
 	call FillBytes
-	farcall Stub_Nop_48_48BB
+	farcall ReturnImmediately
 	pop bc
 	ld a, c
 	dec a

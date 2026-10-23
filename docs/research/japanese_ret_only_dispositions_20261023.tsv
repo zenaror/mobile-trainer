@@ -24,7 +24,7 @@ engine/mail_server/tidy_screen.asm	MailServerMgr_DrawFieldText_Done		KEEP	Single
 engine/main/navigation.asm	Nav_TopMenu_Back		KEEP	Single RET; named navigation action
 engine/main/navigation.asm	Nav_MailMenu_Back		KEEP	Single RET; named navigation action
 engine/main/navigation.asm	Nav_MobileSettings_Back		KEEP	Single RET; named navigation action
-engine/sram/checksum3.asm	Stub_Nop_48_48BB		KEEP	Single RET; 13 entry-site calls but shared purpose is not established; avoid claiming a checksum hook
+engine/sram/checksum3.asm	ReturnImmediately	Stub_Nop_48_48BB	RENAME	Single RET; 13 farcall sites and 10 natural callers confirm the mechanical return behavior; the historical hook/checksum purpose remains unknown
 engine/startup/registration.asm	Startup_Return		KEEP	Single RET; named startup return point
 engine/title/title_screen.asm	Title_StateMenu_Done		KEEP	Single RET; named state-menu completion point
 engine/unreferenced/page_list_prototype.asm	PageListProto_ActionMenuInputReturnOnly	Stub_Nop_7F_61E6	RENAME	Single RET; only call is a conditionally dead input-site reference; prototype entry remains uncertain

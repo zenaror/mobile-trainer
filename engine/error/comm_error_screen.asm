@@ -14,7 +14,7 @@ CommErr_ShowScreen:: ; 5C:5150
 	ld bc, $00FC
 	ld hl, $C0D4 ; raw: start of the 252-byte per-screen window wipe
 	call FillBytes
-	farcall Stub_Nop_48_48BB
+	farcall ReturnImmediately
 	pop hl
 	ld a, h
 	ld [wCommErrCodeHi], a

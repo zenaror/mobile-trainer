@@ -14,7 +14,7 @@ ConnectDialog_Run:: ; 57:4000
 	ld bc, $00FC
 	ld hl, $C0D4 ; raw: start of the 252-byte per-screen window wipe
 	call FillBytes
-	farcall Stub_Nop_48_48BB
+	farcall ReturnImmediately
 	pop de
 	pop bc
 	ld a, d

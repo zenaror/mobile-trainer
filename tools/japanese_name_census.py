@@ -37,10 +37,15 @@ FUNCTION_NOTE = re.compile(
     r"standalone entry(?:/reachability)?|function entry (?:unproven|unproved))\b",
     re.I,
 )
-FUNCTION_QUALIFIER = re.compile(
-    r"(?:^|_)(?:Stub[A-Z]$|Maybe[A-Z][A-Za-z0-9]*)",
-    re.I,
+NAME_REVIEW_MARKER = re.compile(
+    r"Stub|Maybe|NoOp|Nop|Unknown|Unresolved|Placeholder|Generic|Unassigned", re.I
 )
+NAME_REVIEW_MARKER_KEEP = {
+    "BrowserMenu_PlaceholderText": "the pointed-to Shift-JIS text is a literal question-mark placeholder; record identity is documented",
+    "CommErr_Msg_GenericCommError": "the pointed-to text and error-table entry identify the generic communication-error category",
+    "Mail_SelectorNop": "selector-table leaf with an exact RET body; owner and immediate-return operation are explicit",
+    "SoundDrv_CmdUnassigned": "PROBABLE table slots jump to CmdEnd; the distinction from direct CmdEnd slots remains explicitly unresolved",
+}
 UNCLASSIFIED_QUALIFIER = re.compile(
     r"(?:^|_)(?:Unknown[A-Z][A-Za-z0-9]*|Unresolved[A-Z][A-Za-z0-9]*)",
     re.I,
@@ -86,12 +91,13 @@ def main() -> int:
         "numeric local .lAAAA definitions": [],
         "short local placeholders": [],
         "numeric RAM equates": [],
-        "function-like source labels with vague Stub/Maybe qualifiers": [],
+        "labels with Stub/Nop/Maybe/Unknown/Unresolved/Placeholder/Generic/Unassigned markers (full disposition)": [],
         "single-RET body labels requiring explicit disposition": [],
         "source labels explicitly retaining Unknown/Unresolved content": [],
         "function-boundary or complete-function comments to reconcile": [],
     }
     current_local: set[tuple[str, str, str, str]] = set()
+    unreviewed_name_markers: list[str] = []
     for name in files:
         try:
             lines = Path(name).read_text(encoding="utf-8").splitlines()
@@ -104,10 +110,18 @@ def main() -> int:
             owner_match = LABEL.match(line)
             if owner_match:
                 current_owner = owner_match.group(1)
-            if owner_match and FUNCTION_QUALIFIER.search(current_owner):
-                hits["function-like source labels with vague Stub/Maybe qualifiers"].append(
-                    f"{name}:{number}:{current_owner}"
-                )
+            if owner_match and NAME_REVIEW_MARKER.search(current_owner):
+                disposition = NAME_REVIEW_MARKER_KEEP.get(current_owner)
+                record = f"{name}:{number}:{current_owner}"
+                if disposition:
+                    hits["labels with Stub/Nop/Maybe/Unknown/Unresolved/Placeholder/Generic/Unassigned markers (full disposition)"].append(
+                        f"KEEP: {record}: {disposition}"
+                    )
+                else:
+                    hits["labels with Stub/Nop/Maybe/Unknown/Unresolved/Placeholder/Generic/Unassigned markers (full disposition)"].append(
+                        f"REVIEW: {record}"
+                    )
+                    unreviewed_name_markers.append(record)
             if owner_match and UNCLASSIFIED_QUALIFIER.search(current_owner):
                 hits["source labels explicitly retaining Unknown/Unresolved content"].append(
                     f"{name}:{number}:{current_owner}"
@@ -215,7 +229,7 @@ def main() -> int:
     generic_families = {
         "strict global address-shaped definitions",
         "global labels with bank/address suffix (review every listed name)",
-        "function-like source labels with vague Stub/Maybe qualifiers",
+        "labels with Stub/Nop/Maybe/Unknown/Unresolved/Placeholder/Generic/Unassigned markers (full disposition)",
         "single-RET body labels requiring explicit disposition",
         "source labels explicitly retaining Unknown/Unresolved content",
         "function-boundary or complete-function comments to reconcile",
@@ -226,6 +240,10 @@ def main() -> int:
         if args.list or (args.generic_list and family in generic_families) or family in ("strict global address-shaped definitions", "short local placeholders"):
             for row in rows:
                 print(f"  {row}")
+    print(f"Unreviewed generic-marker labels: {len(unreviewed_name_markers)}")
+    if unreviewed_name_markers:
+        for row in unreviewed_name_markers:
+            print(f"  REVIEW REQUIRED: {row}")
     print(f"Tracked GFX paths: {len(gfx_paths)}")
     print(f"Tracked active source/resource paths: {len(active_paths)}")
     print(f"Active source/resource paths with bankNN directory component: {len(bank_dirs)}")
@@ -253,7 +271,7 @@ def main() -> int:
         for row in ledger_misses:
             print(f"  ledger mismatch: {row}")
     print(f"Excluded before reading: {PROTECTED}")
-    return 1 if ledger_misses else 0
+    return 1 if ledger_misses or unreviewed_name_markers else 0
 
 
 if __name__ == "__main__":

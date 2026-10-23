@@ -12,7 +12,7 @@ MobileDict_Run:: ; 1A:4000
 	ld bc, $00FC
 	ld hl, $C0D4
 	call FillBytes
-	farcall Stub_Nop_48_48BB
+	farcall ReturnImmediately
 	ld a, $01
 	ld [wMobileDict_Category], a
 	ld [wMobileDict_RowCursor], a
