@@ -44,7 +44,6 @@ NAME_REVIEW_MARKER_KEEP = {
     "BrowserMenu_PlaceholderText": "the pointed-to Shift-JIS text is a literal question-mark placeholder; record identity is documented",
     "CommErr_Msg_GenericCommError": "the pointed-to text and error-table entry identify the generic communication-error category",
     "Mail_SelectorNop": "selector-table leaf with an exact RET body; owner and immediate-return operation are explicit",
-    "SoundDrv_CmdUnassigned": "PROBABLE table slots jump to CmdEnd; the distinction from direct CmdEnd slots remains explicitly unresolved",
 }
 UNCLASSIFIED_QUALIFIER = re.compile(
     r"(?:^|_)(?:Unknown[A-Z][A-Za-z0-9]*|Unresolved[A-Z][A-Za-z0-9]*)",

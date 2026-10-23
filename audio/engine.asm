@@ -1247,9 +1247,9 @@ Table_SoundDrv_Commands:: ; 04:46E8
 	dw SoundDrv_CmdCall
 	dw SoundDrv_CmdReturn
 	dw SoundDrv_CmdRepeat
-	dw SoundDrv_CmdUnassigned
-	dw SoundDrv_CmdUnassigned
-	dw SoundDrv_CmdUnassigned
+	dw SoundDrv_CmdJumpToEnd
+	dw SoundDrv_CmdJumpToEnd
+	dw SoundDrv_CmdJumpToEnd
 	dw SoundDrv_CmdEnd
 	dw SoundDrv_CmdEnd
 	dw SoundDrv_CmdEnd
@@ -1264,11 +1264,11 @@ Table_SoundDrv_Commands:: ; 04:46E8
 	dw SoundDrv_CmdVibratoDelay
 	dw SoundDrv_CmdVibratoDepth
 	dw SoundDrv_CmdVibratoDisable
-	dw SoundDrv_CmdUnassigned
-	dw SoundDrv_CmdUnassigned
+	dw SoundDrv_CmdJumpToEnd
+	dw SoundDrv_CmdJumpToEnd
 	dw SoundDrv_CmdDetune
 	dw SoundDrv_CmdStoreTrackByte1E
-	dw SoundDrv_CmdUnassigned
+	dw SoundDrv_CmdJumpToEnd
 	dw SoundDrv_CmdEnd
 	dw SoundDrv_CmdExtended
 	dw SoundDrv_CmdNoteHeld
@@ -1286,8 +1286,8 @@ Table_SoundDrv_ExtCommands:: ; 04:4726
 	dw SoundDrv_ExtSetInstrByte4Lo
 	dw SoundDrv_ExtSetTrack27
 	dw SoundDrv_ExtSetTrack28
-	dw SoundDrv_CmdUnassigned
-	dw SoundDrv_CmdUnassigned
+	dw SoundDrv_CmdJumpToEnd
+	dw SoundDrv_CmdJumpToEnd
 	dw SoundDrv_ExtSetInstrByte1
 	dw SoundDrv_ExtSetInstrByte2
 
@@ -1818,7 +1818,7 @@ SoundDrv_ExtSetInstrByte4Lo:: ; 04:4A1F
 	ld bc, $0010
 	jr SoundDrv_StoreLowNibble
 
-SoundDrv_CmdUnassigned:: ; 04:4A24
+SoundDrv_CmdJumpToEnd:: ; 04:4A24
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: table x1; min discovery hops 0; run
 	; starts at an entry of the code-pointer table at 04:46E8
 	jp SoundDrv_CmdEnd
