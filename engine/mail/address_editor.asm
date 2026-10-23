@@ -1030,15 +1030,15 @@ Gfx_StartHDMAAtVBlank_2D_6C8C:: ; 2D:6C8C
 	ld a, e
 	ldh [rHDMA4], a
 	ld de, rLY
-.l6C9B ; 2D:6C9B
+.wait_ly_143 ; 2D:6C9B
 	ld a, [de]
 	cp a, $8F
-	jr nz, .l6C9B
+	jr nz, .wait_ly_143
 	ld b, $91
-.l6CA2 ; 2D:6CA2
+.wait_ly_145 ; 2D:6CA2
 	ld a, [de]
 	cp a, b
-	jr nz, .l6CA2
+	jr nz, .wait_ly_145
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a
@@ -1529,7 +1529,7 @@ MailAddr_RedrawAfterInsert:: ; 2D:6F7B
 	ld de, $0420
 	ld hl, wEditAddressBuf
 	call MailAddr_DrawLine20
-	jp .l7025
+	jp .upload_text_and_return
 
 .l6F93 ; 2D:6F93
 	; [CONFIRMED] 55 insn(s) reached by static flow only; seeds: exec x55; min discovery hops 1;
@@ -1542,7 +1542,7 @@ MailAddr_RedrawAfterInsert:: ; 2D:6F7B
 	ld de, $1C08
 	ld hl, wEditAddressBuf + $2C
 	call MailAddr_DrawLine20
-	jp .l7025
+	jp .upload_text_and_return
 .l6FA7 ; 2D:6FA7
 	ld a, c
 	cp a, $15
@@ -1554,7 +1554,7 @@ MailAddr_RedrawAfterInsert:: ; 2D:6F7B
 	ld de, $1008
 	ld hl, wEditAddressBuf + $14
 	call MailAddr_DrawLine24
-	jr .l7025
+	jr .upload_text_and_return
 .l6FC1 ; 2D:6FC1
 	ld a, c
 	cp a, $15
@@ -1567,7 +1567,7 @@ MailAddr_RedrawAfterInsert:: ; 2D:6F7B
 	ld de, $1C08
 	ld hl, wEditAddressBuf + $2C
 	call MailAddr_DrawLine20
-	jr .l7025
+	jr .upload_text_and_return
 .l6FE0 ; 2D:6FE0
 	call MailAddr_GetLength
 	cp a, $2C
@@ -1580,7 +1580,7 @@ MailAddr_RedrawAfterInsert:: ; 2D:6F7B
 	ld de, $1008
 	ld hl, wEditAddressBuf + $14
 	call MailAddr_DrawLine24
-	jr .l7025
+	jr .upload_text_and_return
 
 .l7001 ; 2D:7001
 	; [PROBABLE] 12 insn(s) never executed in the traced runs; cut out of the PROBABLE region
@@ -1598,7 +1598,7 @@ MailAddr_RedrawAfterInsert:: ; 2D:6F7B
 	ld hl, wEditAddressBuf + $2C
 	call MailAddr_DrawLine20
 
-.l7025 ; 2D:7025
+.upload_text_and_return ; 2D:7025
 	; [CONFIRMED] 30 insn(s); 30 executed (in up to 2/18 scenarios)
 	call TextTiles_UploadBuffersShort
 	pop bc
@@ -1635,7 +1635,7 @@ MailAddr_RedrawAfterBackspace:: ; 2D:7046
 	ld de, $0420
 	ld hl, wEditAddressBuf
 	call MailAddr_DrawLine20
-	jp .l70EF
+	jp .upload_text_and_return
 
 .l705D ; 2D:705D
 	; [CONFIRMED] 55 insn(s) reached by static flow only; seeds: exec x55; min discovery hops 1;
@@ -1651,7 +1651,7 @@ MailAddr_RedrawAfterBackspace:: ; 2D:7046
 	ld de, $1C08
 	ld hl, wEditAddressBuf + $2C
 	call MailAddr_DrawLine20
-	jp .l70EF
+	jp .upload_text_and_return
 
 .l7071 ; 2D:7071
 	; [CONFIRMED] 14 insn(s) executed; cut out of the PROBABLE region 705D-70EF by apply_coverage
@@ -1666,7 +1666,7 @@ MailAddr_RedrawAfterBackspace:: ; 2D:7046
 	ld de, $1008
 	ld hl, wEditAddressBuf + $14
 	call MailAddr_DrawLine24
-	jr .l70EF
+	jr .upload_text_and_return
 .l708B ; 2D:708B
 	ld a, c
 	cp a, $15
@@ -1682,7 +1682,7 @@ MailAddr_RedrawAfterBackspace:: ; 2D:7046
 	ld de, $1C08
 	ld hl, wEditAddressBuf + $2C
 	call MailAddr_DrawLine20
-	jr .l70EF
+	jr .upload_text_and_return
 
 .l70AA ; 2D:70AA
 	; [CONFIRMED] 12 insn(s) executed; cut out of the PROBABLE region 705D-70EF by apply_coverage
@@ -1698,7 +1698,7 @@ MailAddr_RedrawAfterBackspace:: ; 2D:7046
 	ld de, $1008
 	ld hl, wEditAddressBuf + $14
 	call MailAddr_DrawLine24
-	jr .l70EF
+	jr .upload_text_and_return
 
 .l70CB ; 2D:70CB
 	; [PROBABLE] 12 insn(s) never executed in the traced runs; cut out of the PROBABLE region
@@ -1716,7 +1716,7 @@ MailAddr_RedrawAfterBackspace:: ; 2D:7046
 	ld hl, wEditAddressBuf + $2C
 	call MailAddr_DrawLine20
 
-.l70EF ; 2D:70EF
+.upload_text_and_return ; 2D:70EF
 	; [CONFIRMED] 30 insn(s); 30 executed (in up to 4/18 scenarios)
 	call TextTiles_UploadBuffersShort
 	pop bc

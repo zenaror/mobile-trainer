@@ -195,7 +195,7 @@ AddrPick_LoadSelection:: ; 2C:57F1
 	ld a, [hli]
 	ld [de], a
 	cp a, $00
-	jr z, .l5860
+	jr z, .zero_fill_address_remainder
 	inc de
 	dec b
 	jr nz, .l5854
@@ -204,14 +204,14 @@ AddrPick_LoadSelection:: ; 2C:57F1
 	; 57A7-58AC by apply_coverage --split
 	jr .l5866
 
-.l5860 ; 2C:5860
+.zero_fill_address_remainder ; 2C:5860
 	; [CONFIRMED] 50 insn(s) executed; cut out of the PROBABLE region 57A7-58AC by apply_coverage
 	; --split [executed in 1 scenarios]
 	xor a, a
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .l5860
+	jr nz, .zero_fill_address_remainder
 .l5866 ; 2C:5866
 	push bc
 	dec c
@@ -233,11 +233,11 @@ AddrPick_LoadSelection:: ; 2C:57F1
 	ld [de], a
 	inc de
 	cp a, $00
-	jr z, .l588A
+	jr z, .zero_fill_name_remainder
 	dec b
 	jr nz, .copy_name_until_nul_or_limit
 	jr .l5895
-.l588A ; 2C:588A
+.zero_fill_name_remainder ; 2C:588A
 	ld a, b
 	cp a, $00
 	jr z, .l5895
@@ -245,7 +245,7 @@ AddrPick_LoadSelection:: ; 2C:57F1
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .l588A
+	jr nz, .zero_fill_name_remainder
 .l5895 ; 2C:5895
 	push bc
 	push de
@@ -716,11 +716,11 @@ AddrPick_TestSlotEmpty_2C_5CA3:: ; 2C:5CA3
 	add hl, de
 	ld a, [hl]
 	cp a, $00
-	jr z, .l5CCE
+	jr z, .return_ff_restore_bc
 	ld a, $00
 	pop bc
 	ret
-.l5CCE ; 2C:5CCE
+.return_ff_restore_bc ; 2C:5CCE
 	ld a, $FF
 	pop bc
 	ret
@@ -1379,7 +1379,7 @@ AddrPick_MoveNameHighlight_X28_2C_5FB1:: ; 2C:5FB1
 	dec a
 	dec c
 	cp a, $FF
-	jr z, .l5FF1
+	jr z, .initialize_list_attributes
 	push bc
 	push af
 	ld e, a
@@ -1409,12 +1409,12 @@ AddrPick_MoveNameHighlight_X28_2C_5FB1:: ; 2C:5FB1
 	call AddrBook_DrawSlotName
 	pop bc
 	jr .l5FF4
-.l5FF1 ; 2C:5FF1
+.initialize_list_attributes ; 2C:5FF1
 	call AddrPick_InitListAttrs
 .l5FF4 ; 2C:5FF4
 	ld a, c
 	cp a, $FF
-	jr z, .l6022
+	jr z, .set_list_area_attributes
 	push bc
 	ld e, c
 	sla e
@@ -1444,7 +1444,7 @@ AddrPick_MoveNameHighlight_X28_2C_5FB1:: ; 2C:5FB1
 	call AddrBook_DrawSlotName
 	pop hl
 	jr .l6025
-.l6022 ; 2C:6022
+.set_list_area_attributes ; 2C:6022
 	call AddrPick_SetListAreaAttrs
 .l6025 ; 2C:6025
 	call AddrBook_UploadTextTiles
@@ -1472,7 +1472,7 @@ AddrPick_MoveNameHighlight:: ; 2C:6032
 	dec a
 	dec c
 	cp a, $FF
-	jr z, .l6072
+	jr z, .initialize_list_attributes
 	push bc
 	push af
 	ld e, a
@@ -1503,7 +1503,7 @@ AddrPick_MoveNameHighlight:: ; 2C:6032
 	pop bc
 	jr .l6075
 
-.l6072 ; 2C:6072
+.initialize_list_attributes ; 2C:6072
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;
 	; entered by jrcc from 2C:6047 (executed)
 	call AddrPick_InitListAttrs
@@ -1512,7 +1512,7 @@ AddrPick_MoveNameHighlight:: ; 2C:6032
 	; [CONFIRMED] 22 insn(s); 22 executed (in up to 1/18 scenarios)
 	ld a, c
 	cp a, $FF
-	jr z, .l60A3
+	jr z, .set_list_area_attributes
 	push bc
 	ld e, c
 	sla e
@@ -1548,7 +1548,7 @@ AddrPick_MoveNameHighlight:: ; 2C:6032
 	pop hl
 	jr .l60A6
 
-.l60A3 ; 2C:60A3
+.set_list_area_attributes ; 2C:60A3
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;
 	; entered by jrcc from 2C:6078 (executed)
 	call AddrPick_SetListAreaAttrs
@@ -1694,7 +1694,7 @@ AddrBook_DrawSlotName:: ; 2C:614D
 	ld [rRAMG], a
 	ld a, [hli]
 	cp a, $00
-	jr z, .l61D9
+	jr z, .load_space_glyph_for_padding
 
 	; [CONFIRMED] 61 insn(s) reached by static flow only; seeds: exec x61; min discovery hops 0;
 	; fall-through of the jrcc at 2C:6163 (executed) | 7 insn(s) executed; cut out of the PROBABLE
@@ -1710,7 +1710,7 @@ AddrBook_DrawSlotName:: ; 2C:614D
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 6165-61D9 by apply_coverage --split
 	pop af
-	jp .l61D9
+	jp .load_space_glyph_for_padding
 
 .l617A ; 2C:617A
 	; [CONFIRMED] 35 insn(s) executed; cut out of the PROBABLE region 6165-61D9 by apply_coverage
@@ -1748,7 +1748,7 @@ AddrBook_DrawSlotName:: ; 2C:614D
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l61D9
+	jr z, .load_space_glyph_for_padding
 	jr .l6152
 
 .draw_ascii_char ; 2C:61B7
@@ -1769,10 +1769,10 @@ AddrBook_DrawSlotName:: ; 2C:614D
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l61D9
+	jr z, .load_space_glyph_for_padding
 	jp .l6152
 
-.l61D9 ; 2C:61D9
+.load_space_glyph_for_padding ; 2C:61D9
 	; [CONFIRMED] 45 insn(s); 45 executed (in up to 2/18 scenarios)
 	push bc
 	push de
@@ -1783,14 +1783,14 @@ AddrBook_DrawSlotName:: ; 2C:614D
 	pop hl
 	pop de
 	pop bc
-.l61EA ; 2C:61EA
+.pad_remaining_cells ; 2C:61EA
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call AddrBook_DrawSlotName_BlitGlyphAdvance
-	jr .l61EA
+	jr .pad_remaining_cells
 
 AddrBook_DrawSlotName_BlitGlyphAdvance:: ; 2C:61F9
 	push bc
@@ -2171,7 +2171,7 @@ AddrPick_IsSlotUsed:: ; 2C:64A5
 	add hl, de
 	ld a, [hl]
 	cp a, $00
-	jr z, .l64D0
+	jr z, .return_ff_restore_bc
 
 	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
 	; fall-through of the jrcc at 2C:64CA (executed) [executed in 3 scenarios]
@@ -2179,7 +2179,7 @@ AddrPick_IsSlotUsed:: ; 2C:64A5
 	pop bc
 	ret
 
-.l64D0 ; 2C:64D0
+.return_ff_restore_bc ; 2C:64D0
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ld a, $FF
 	pop bc
@@ -2361,10 +2361,10 @@ AddrPick_CursorMoveEffect:: ; 2C:64E0
 	pop bc
 	ldh a, [hJoyHeld]
 	and a, PADF_UP | PADF_DOWN
-	jr nz, .l665D
+	jr nz, .restore_bc_and_return
 	dec b
 	jr nz, .update_sprites_and_poll_direction
-.l665D ; 2C:665D
+.restore_bc_and_return ; 2C:665D
 	pop bc
 	ret
 

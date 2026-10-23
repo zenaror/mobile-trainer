@@ -366,10 +366,10 @@ Browser_FrameStylePreview_RevealStep:: ; 4E:45FE
 	ld a, [hli]
 	and a, [hl]
 	cp a, $FF
-	jr nz, .l4650
+	jr nz, .rewind_hl_and_disable_sram
 	ld hl, $0000
 	ret
-.l4650 ; 4E:4650
+.rewind_hl_and_disable_sram ; 4E:4650
 	dec hl
 	xor a, a
 	ldh [hSRAMEnable], a

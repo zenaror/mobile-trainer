@@ -93,12 +93,12 @@ Account_ConfirmScreen_InputLoop:: ; 68:62C9
 	play_sfx SFX_CONFIRM
 	ld a, [wAccountConfirm_Cursor]
 	or a, a
-	jr nz, .l6308
+	jr nz, .store_result_two
 	ld a, $01
 	ld [wAccountConfirm_Result], a
 	ret
 
-.l6308 ; 68:6308
+.store_result_two ; 68:6308
 	; [PROBABLE] 29 insn(s) reached by static flow only; seeds: exec x29; min discovery hops 1;
 	; entered by jrcc from 68:6300 (executed)
 	ld a, $02
@@ -116,8 +116,8 @@ Account_ConfirmScreen_InputLoop:: ; 68:62C9
 	xor a, b
 	ld [wAccountConfirm_Cursor], a
 	call Account_ConfirmScreen_UpdateCursor
-	jr .l6341
-.l6341 ; 68:6341
+	jr .repeat_input_loop
+.repeat_input_loop ; 68:6341
 	jp Account_ConfirmScreen_InputLoop
 
 Account_ConfirmScreen_UpdateCursor:: ; 68:6344
@@ -329,11 +329,11 @@ Account_ConfirmManualScreen_InputLoop:: ; 68:6507
 	play_sfx SFX_CONFIRM
 	ld a, [wAccountConfirm_Cursor]
 	or a, a
-	jr nz, .l6546
+	jr nz, .store_result_two
 	ld a, $01
 	ld [wAccountConfirm_Result], a
 	ret
-.l6546 ; 68:6546
+.store_result_two ; 68:6546
 	ld a, $02
 	ld [wAccountConfirm_Result], a
 	ret
@@ -349,8 +349,8 @@ Account_ConfirmManualScreen_InputLoop:: ; 68:6507
 	xor a, b
 	ld [wAccountConfirm_Cursor], a
 	call Account_ConfirmManualScreen_UpdateCursor
-	jr .l657F
-.l657F ; 68:657F
+	jr .repeat_input_loop
+.repeat_input_loop ; 68:657F
 	jp Account_ConfirmManualScreen_InputLoop
 
 Account_ConfirmManualScreen_UpdateCursor:: ; 68:6582

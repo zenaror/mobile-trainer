@@ -207,7 +207,7 @@ MailDraft_Menu_Loop:: ; 2B:402B
 .l41E3 ; 2B:41E3
 	ldh a, [hJoyPressedRepeat]
 	and a, PADF_RIGHT
-	jr z, .l4209
+	jr z, .repeat_menu_loop
 	push bc
 	push de
 	play_sfx SFX_CURSOR_MOVE
@@ -226,7 +226,7 @@ MailDraft_Menu_Loop:: ; 2B:402B
 	; [CONFIRMED] 76 insn(s); 76 executed (in up to 2/18 scenarios)
 	ld a, c
 	call MailDraft_Menu_SetCaption
-.l4209 ; 2B:4209
+.repeat_menu_loop ; 2B:4209
 	jp MailDraft_Menu_Loop
 
 MailDraft_Menu_InitScreen:: ; 2B:420C
@@ -417,7 +417,7 @@ MailDraft_Menu_MoveCursorSprites:: ; 2B:43A5
 	ret
 .l43F7 ; 2B:43F7
 	cp a, $02
-	jr nz, .l441F
+	jr nz, .restore_bc_and_return
 	ld de, $6870
 	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
@@ -432,7 +432,7 @@ MailDraft_Menu_MoveCursorSprites:: ; 2B:43A5
 	pop bc
 	ret
 
-.l441F ; 2B:441F
+.restore_bc_and_return ; 2B:441F
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1;
 	; entered by jrcc from 2B:43F9 (executed) | forced execution: 2/2 instruction starts ran in
 	; forced_screens (traces/forced/, not natural evidence; status unchanged)
@@ -451,7 +451,7 @@ MailDraft_DrawTextLine21:: ; 2B:4421
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, .l44C1
+	jp z, .load_space_glyph_for_padding
 	cp a, $0D
 	jr z, .l44A6
 	push af
@@ -491,9 +491,9 @@ MailDraft_DrawTextLine21:: ; 2B:4421
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l44C1
+	jr z, .load_space_glyph_for_padding
 	cp a, $01
-	jr z, .l44C1
+	jr z, .load_space_glyph_for_padding
 	jr .l4426
 .l4481 ; 2B:4481
 	pop af
@@ -511,9 +511,9 @@ MailDraft_DrawTextLine21:: ; 2B:4421
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l44C1
+	jr z, .load_space_glyph_for_padding
 	cp a, $01
-	jr z, .l44C1
+	jr z, .load_space_glyph_for_padding
 	jr .l4426
 
 .l44A6 ; 2B:44A6
@@ -533,7 +533,7 @@ MailDraft_DrawTextLine21:: ; 2B:4421
 	ld [wTextCellsLeft], a
 	call MailDraft_DrawTextLine21_BlitBlankAdvance
 
-.l44C1 ; 2B:44C1
+.load_space_glyph_for_padding ; 2B:44C1
 	; [CONFIRMED] 50 insn(s); 50 executed (in up to 2/18 scenarios)
 	push bc
 	push de
@@ -544,14 +544,14 @@ MailDraft_DrawTextLine21:: ; 2B:4421
 	pop hl
 	pop de
 	pop bc
-.l44D2 ; 2B:44D2
+.pad_remaining_cells ; 2B:44D2
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call MailDraft_DrawTextLine21_BlitBlankAdvance
-	jr .l44D2
+	jr .pad_remaining_cells
 
 MailDraft_DrawTextLine21_BlitGlyphAdvance:: ; 2B:44E1
 	push bc
@@ -592,7 +592,7 @@ MailDraft_DrawTextLine25:: ; 2B:450D
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, .l45AD
+	jp z, .load_space_glyph_for_padding
 
 	; [CONFIRMED] 75 insn(s) reached by static flow only; seeds: exec x75; min discovery hops 0;
 	; fall-through of the jpcc at 2B:451B (executed) | 6 insn(s) executed; cut out of the PROBABLE
@@ -639,9 +639,9 @@ MailDraft_DrawTextLine25:: ; 2B:450D
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l45AD
+	jr z, .load_space_glyph_for_padding
 	cp a, $01
-	jr z, .l45AD
+	jr z, .load_space_glyph_for_padding
 	jr .l4512
 
 .l456D ; 2B:456D
@@ -662,9 +662,9 @@ MailDraft_DrawTextLine25:: ; 2B:450D
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l45AD
+	jr z, .load_space_glyph_for_padding
 	cp a, $01
-	jr z, .l45AD
+	jr z, .load_space_glyph_for_padding
 	jr .l4512
 
 .l4592 ; 2B:4592
@@ -684,7 +684,7 @@ MailDraft_DrawTextLine25:: ; 2B:450D
 	ld [wTextCellsLeft], a
 	call MailDraft_DrawTextLine25_BlitBlankAdvance
 
-.l45AD ; 2B:45AD
+.load_space_glyph_for_padding ; 2B:45AD
 	; [CONFIRMED] 16 insn(s); 16 executed (in up to 2/18 scenarios)
 	push bc
 	push de
@@ -695,14 +695,14 @@ MailDraft_DrawTextLine25:: ; 2B:450D
 	pop hl
 	pop de
 	pop bc
-.l45BE ; 2B:45BE
+.pad_remaining_cells ; 2B:45BE
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call MailDraft_DrawTextLine25_BlitBlankAdvance
-	jr .l45BE
+	jr .pad_remaining_cells
 
 MailDraft_DrawTextLine25_BlitGlyphAdvance:: ; 2B:45CD
 	; [CONFIRMED] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1;
@@ -748,7 +748,7 @@ MailDraft_DrawTextLine17:: ; 2B:45F9
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, .l4699
+	jp z, .load_space_glyph_for_padding
 
 	; [CONFIRMED] 75 insn(s) reached by static flow only; seeds: exec x75; min discovery hops 0;
 	; fall-through of the jpcc at 2B:4607 (executed) | 43 insn(s) executed; cut out of the PROBABLE
@@ -792,9 +792,9 @@ MailDraft_DrawTextLine17:: ; 2B:45F9
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l4699
+	jr z, .load_space_glyph_for_padding
 	cp a, $01
-	jr z, .l4699
+	jr z, .load_space_glyph_for_padding
 	jr .l45FE
 
 .l4659 ; 2B:4659
@@ -815,9 +815,9 @@ MailDraft_DrawTextLine17:: ; 2B:45F9
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l4699
+	jr z, .load_space_glyph_for_padding
 	cp a, $01
-	jr z, .l4699
+	jr z, .load_space_glyph_for_padding
 	jr .l45FE
 .l467E ; 2B:467E
 	push bc
@@ -834,7 +834,7 @@ MailDraft_DrawTextLine17:: ; 2B:45F9
 	ld [wTextCellsLeft], a
 	call MailDraft_DrawTextLine17_BlitBlankAdvance
 
-.l4699 ; 2B:4699
+.load_space_glyph_for_padding ; 2B:4699
 	; [CONFIRMED] 16 insn(s); 16 executed (in up to 2/18 scenarios)
 	push bc
 	push de
@@ -845,14 +845,14 @@ MailDraft_DrawTextLine17:: ; 2B:45F9
 	pop hl
 	pop de
 	pop bc
-.l46AA ; 2B:46AA
+.pad_remaining_cells ; 2B:46AA
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call MailDraft_DrawTextLine17_BlitBlankAdvance
-	jr .l46AA
+	jr .pad_remaining_cells
 
 MailDraft_DrawTextLine17_BlitGlyphAdvance:: ; 2B:46B9
 	; [CONFIRMED] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1;
@@ -928,15 +928,15 @@ Gfx_StartHDMAAtVBlank_2B_4723:: ; 2B:4723
 	ld a, e
 	ldh [rHDMA4], a
 	ld de, rLY
-.l4732 ; 2B:4732
+.wait_for_byte_8f ; 2B:4732
 	ld a, [de]
 	cp a, $8F
-	jr nz, .l4732
+	jr nz, .wait_for_byte_8f
 	ld b, $91
-.l4739 ; 2B:4739
+.wait_for_byte_b_then_start_gdma ; 2B:4739
 	ld a, [de]
 	cp a, b
-	jr nz, .l4739
+	jr nz, .wait_for_byte_b_then_start_gdma
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a
@@ -959,7 +959,7 @@ MailDraft_Edit:: ; 2B:4743
 .l475F ; 2B:475F
 	farcall MailAddr_Edit
 	cp a, $FF
-	jr z, .l4788
+	jr z, .return_ff
 	xor a, a
 	jr .l476E
 .l476C ; 2B:476C
@@ -972,10 +972,10 @@ MailDraft_Edit:: ; 2B:4743
 	cp a, $FF
 	jr z, .l476C
 	cp a, $00
-	jr z, .l4788
+	jr z, .return_ff
 	pop af
 	ret
-.l4788 ; 2B:4788
+.return_ff ; 2B:4788
 	ld a, $FF
 	ret
 

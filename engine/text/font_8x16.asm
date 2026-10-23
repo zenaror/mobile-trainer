@@ -7,7 +7,7 @@ SECTION "engine/text/font_8x16", ROMX
 Bcd_FromBinary8:: ; 48:4728
 	; [CONFIRMED] 141 insn(s); 141 executed (in up to 14/18 scenarios) (part of region $462A-$4744)
 	or a, a
-	jr z, .l4744
+	jr z, .return_zero_in_ab
 	ld b, a
 	ld c, $0A
 	farcall Divide8
@@ -20,7 +20,7 @@ Bcd_FromBinary8:: ; 48:4728
 	or a, e
 	ret
 
-.l4744 ; 48:4744
+.return_zero_in_ab ; 48:4744
 	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1;
 	; entered by jrcc from 48:4729 (executed) [executed in 1 scenarios]
 	ld a, $00

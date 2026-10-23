@@ -101,7 +101,7 @@ Browser_PageView_Loop:: ; 4E:4A58
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr z, .l4AB2
+	jr z, .clear_warning_result
 	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l4AB3
@@ -109,7 +109,7 @@ Browser_PageView_Loop:: ; 4E:4A58
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
-	jr c, .l4AB2
+	jr c, .clear_warning_result
 
 	; [CONFIRMED] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 0;
 	; fall-through of the jrcc at 4E:4A83 (executed) | 7 insn(s) executed; cut out of the PROBABLE
@@ -117,7 +117,7 @@ Browser_PageView_Loop:: ; 4E:4A58
 	jr nz, .l4A8E
 	ld a, [wTimerASeconds]
 	cp a, $1E
-	jr c, .l4AB2
+	jr c, .clear_warning_result
 .l4A8E ; 4E:4A8E
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
@@ -127,7 +127,7 @@ Browser_PageView_Loop:: ; 4E:4A58
 	; 4A85-4AB2 by apply_coverage --split
 	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
-	jr nz, .l4AB2
+	jr nz, .clear_warning_result
 	set 1, [hl]
 
 .l4A9E ; 4E:4A9E
@@ -144,7 +144,7 @@ Browser_PageView_Loop:: ; 4E:4A58
 	ld a, $FF
 	jr .l4AB3
 
-.l4AB2 ; 4E:4AB2
+.clear_warning_result ; 4E:4AB2
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 1/18 scenarios)
 	xor a, a
 .l4AB3 ; 4E:4AB3
@@ -471,7 +471,7 @@ Browser_Menu_PageList:: ; 4E:4D7B
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr z, .l4E11
+	jr z, .clear_warning_result
 	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l4E12
@@ -479,21 +479,21 @@ Browser_Menu_PageList:: ; 4E:4D7B
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
-	jr c, .l4E11
+	jr c, .clear_warning_result
 
 	; [PROBABLE] 21 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4D7B-4E60 by apply_coverage --split
 	jr nz, .l4DED
 	ld a, [wTimerASeconds]
 	cp a, $1E
-	jr c, .l4E11
+	jr c, .clear_warning_result
 .l4DED ; 4E:4DED
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l4DFD
 	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
-	jr nz, .l4E11
+	jr nz, .clear_warning_result
 	set 1, [hl]
 .l4DFD ; 4E:4DFD
 	ld hl, wTimerAWarnFlags
@@ -507,7 +507,7 @@ Browser_Menu_PageList:: ; 4E:4D7B
 	ld a, $FF
 	jr .l4E12
 
-.l4E11 ; 4E:4E11
+.clear_warning_result ; 4E:4E11
 	; [CONFIRMED] 32 insn(s) executed; cut out of the PROBABLE region 4D7B-4E60 by apply_coverage
 	; --split [executed in 2 scenarios]
 	xor a, a
@@ -881,12 +881,12 @@ Browser_ConnectionNotice:: ; 4E:50BE
 	ld a, [wTimerEnable]
 	ld [wDialogOnlineSnapshot], a
 	bit 4, a
-	jp nz, .l5104
+	jp nz, .reenter_page_view
 	ld a, $09
 	ld [wTimerAWarnMinute], a
 	xor a, a
 	ld [wTimerAWarnFlags], a
-.l5104 ; 4E:5104
+.reenter_page_view ; 4E:5104
 	jp Browser_PageView_Enter
 
 Browser_FetchResult6_ConnectionNotice:: ; 4E:5107
@@ -917,12 +917,12 @@ Browser_FetchResult6_ConnectionNotice:: ; 4E:5107
 	ld a, [wTimerEnable]
 	ld [wDialogOnlineSnapshot], a
 	bit 4, a
-	jp nz, .l515F
+	jp nz, .reenter_page_view
 	ld a, $09
 	ld [wTimerAWarnMinute], a
 	xor a, a
 	ld [wTimerAWarnFlags], a
-.l515F ; 4E:515F
+.reenter_page_view ; 4E:515F
 	jp Browser_PageView_Enter
 
 Browser_Menu_LinkLost:: ; 4E:5162

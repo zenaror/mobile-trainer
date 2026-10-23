@@ -101,11 +101,11 @@ Account_ActionConfirmPage_InputLoop:: ; 68:6EF6
 	play_sfx SFX_CONFIRM
 	ld a, [wActionConfirmPage_Cursor]
 	or a, a
-	jr nz, .l6F35
+	jr nz, .store_result_two_and_no_flag
 	ld a, $01
 	ld [wActionConfirmPage_Result], a
 	ret
-.l6F35 ; 68:6F35
+.store_result_two_and_no_flag ; 68:6F35
 	ld a, $02
 	ld [wActionConfirmPage_Result], a
 	ld a, $01
@@ -127,8 +127,8 @@ Account_ActionConfirmPage_InputLoop:: ; 68:6EF6
 	xor a, b
 	ld [wActionConfirmPage_Cursor], a
 	call Account_ActionConfirmPage_UpdateCursor
-	jr .l6F7C
-.l6F7C ; 68:6F7C
+	jr .repeat_input_loop
+.repeat_input_loop ; 68:6F7C
 	jp Account_ActionConfirmPage_InputLoop
 
 Account_ActionConfirmPage_UpdateCursor:: ; 68:6F7F

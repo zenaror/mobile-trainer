@@ -367,13 +367,13 @@ MobileDictView_HistoryPush:: ; 4C:5274
 	ld a, [wDictHistoryHead]
 	inc a
 	cp a, $06
-	jr c, .l52A4
+	jr c, .store_history_head
 
 	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
 	; fall-through of the jrcc at 4C:52A1 (executed) [executed in 3 scenarios]
 	xor a, a
 
-.l52A4 ; 4C:52A4
+.store_history_head ; 4C:52A4
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 1/18 scenarios)
 	ld [wDictHistoryHead], a
 	ret
@@ -385,7 +385,7 @@ MobileDictView_HistoryPop:: ; 4C:52A8
 	ld [de], a
 	ld a, [wDictHistoryCount]
 	or a, a
-	jr z, .l52DC
+	jr z, .restore_de_and_load_byte
 	dec a
 	ld [wDictHistoryCount], a
 	ld a, [wDictHistoryHead]
@@ -412,7 +412,7 @@ MobileDictView_HistoryPop:: ; 4C:52A8
 	ldh [rSVBK], a
 	ld bc, $0080
 	call CopyBytes
-.l52DC ; 4C:52DC
+.restore_de_and_load_byte ; 4C:52DC
 	pop de
 	ld a, [de]
 	ret

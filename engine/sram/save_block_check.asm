@@ -304,7 +304,7 @@ Sram_CountMobileError12Or26:: ; 4E:4866
 	cp a, $12
 	jr z, .increment_matching_error_count
 	cp a, $26
-	jr nz, .l4886
+	jr nz, .disable_sram_and_return
 
 .increment_matching_error_count ; 4E:487F
 	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
@@ -313,7 +313,7 @@ Sram_CountMobileError12Or26:: ; 4E:4866
 	inc a
 	ld [sMobileError12Or26Count], a
 
-.l4886 ; 4E:4886
+.disable_sram_and_return ; 4E:4886
 	; [CONFIRMED] 48 insn(s); 48 executed (in up to 3/18 scenarios) (part of region $4886-$4904)
 	xor a, a
 	ldh [hSRAMEnable], a

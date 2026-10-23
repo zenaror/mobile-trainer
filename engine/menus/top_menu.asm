@@ -572,7 +572,7 @@ TopMenu_UpdateCursorMove:: ; 1F:4561
 	ld a, [wTopMenuCursorTargetY]
 	ld [wTopMenu_CursorPosY], a
 	ld d, a
-	jr .l45C3
+	jr .set_sprite_slot5_position
 .l458F ; 1F:458F
 	ld a, [wTopMenuCursorStepXHi]
 	ld b, a
@@ -602,7 +602,7 @@ TopMenu_UpdateCursorMove:: ; 1F:4561
 	ld a, l
 	ld [wTopMenuCursorYFrac], a
 	ld d, h
-.l45C3 ; 1F:45C3
+.set_sprite_slot5_position ; 1F:45C3
 	ld hl, wSpriteSlot5
 	call Sprite_SetPosition
 	ret

@@ -278,7 +278,7 @@ HelpScript_Run_NextCommand:: ; 6C:5B47
 	ld b, [hl]
 	inc hl
 	cp a, b
-	jr nz, .l5C06
+	jr nz, .skip_relative_offset
 	jr .jump_relative
 
 .l5BDF ; 6C:5BDF
@@ -304,10 +304,10 @@ HelpScript_Run_NextCommand:: ; 6C:5B47
 	call ReadByteFar
 	pop hl
 	cp a, d
-	jr nz, .l5C06
+	jr nz, .skip_relative_offset
 	jp .jump_relative
 
-.l5C06 ; 6C:5C06
+.skip_relative_offset ; 6C:5C06
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 12/18 scenarios)
 	inc hl
 	inc hl
@@ -846,14 +846,14 @@ HelpScript_StepText:: ; 6C:6009
 .l607A ; 6C:607A
 	ld a, [wHelpScriptAdvanceMode]
 	or a, a
-	jr nz, .l608C
+	jr nz, .skip_text_operand
 	ld a, [wHelpScriptDelayCounter]
 	ld b, a
 	ld a, [hli]
 	add a, b
 	ld [wHelpScriptDelayCounter], a
 	jp .l618E
-.l608C ; 6C:608C
+.skip_text_operand ; 6C:608C
 	inc hl
 	jp .l601B
 
@@ -862,7 +862,7 @@ HelpScript_StepText:: ; 6C:6009
 	; entered by jrcc from 6C:6036 (PROBABLE code)
 	ld a, [wHelpScriptAdvanceMode]
 	cp a, $02
-	jr z, .l608C
+	jr z, .skip_text_operand
 	ld a, [hli]
 	or a, a
 	jr z, .l60A9
@@ -970,21 +970,21 @@ HelpScript_StepText:: ; 6C:6009
 	ldh [rSVBK], a
 	jr z, .l6158
 	ld c, $08
-.l6142 ; 6C:6142
+.clear_upper_tile_plane1 ; 6C:6142
 	ld a, [hli]
 	xor a, a
 	ld [hli], a
 	dec c
-	jr nz, .l6142
+	jr nz, .clear_upper_tile_plane1
 	ld bc, $00F0
 	add hl, bc
 	ld c, $08
-.l614E ; 6C:614E
+.clear_lower_tile_plane1 ; 6C:614E
 	ld a, [hli]
 	xor a, a
 	ld [hli], a
 	dec c
-	jr nz, .l614E
+	jr nz, .clear_lower_tile_plane1
 	ld bc, $FEF0
 	add hl, bc
 .l6158 ; 6C:6158

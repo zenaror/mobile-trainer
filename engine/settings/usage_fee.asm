@@ -93,20 +93,20 @@ UsageFee_Request:: ; 67:62D5
 	farcall Browser_LoadUrlFromSramBank3
 	ld a, [wBrowserFetchResult]
 	cp a, $02
-	jr z, .l632A
+	jr z, .return_two
 	or a, a
-	jr nz, .l6328
+	jr nz, .return_zero
 
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 67:6323 (executed)
 	ld a, $01
 	ret
 
-.l6328 ; 67:6328
+.return_zero ; 67:6328
 	; [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios)
 	xor a, a
 	ret
-.l632A ; 67:632A
+.return_two ; 67:632A
 	ld a, $02
 	ret
 

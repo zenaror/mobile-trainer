@@ -17,7 +17,7 @@ Divide8:: ; 48:4000
 	bit 7, c
 	jr nz, .l4012
 	sla c
-	jr z, .l4039
+	jr z, .move_b_to_c_and_l_to_b
 	inc d
 	jr .l4007
 .l4012 ; 48:4012
@@ -56,7 +56,7 @@ Divide8:: ; 48:4000
 	ld a, h
 	cp a, $FF
 	jr nz, .l4013
-.l4039 ; 48:4039
+.move_b_to_c_and_l_to_b ; 48:4039
 	ld c, b
 	ld b, l
 	pop hl
@@ -77,12 +77,12 @@ TextTiles_RenderLine:: ; 48:403E
 	ldh a, [hTextTiles_StringBank]
 	call ReadByteFar
 	or a, a
-	jr z, .l409C
+	jr z, .load_destination_pointers_and_return
 	ld b, a
 	ldh a, [hTextTiles_StringBank]
 	call ReadByteFar
 	or a, a
-	jr z, .l409C
+	jr z, .load_destination_pointers_and_return
 	push hl
 	ld c, a
 	ldh a, [hTextTiles_DestBank]
@@ -123,7 +123,7 @@ TextTiles_RenderLine:: ; 48:403E
 	ldh a, [hTextTiles_Dest1Hi]
 	ld b, a
 	jr .render_next_glyph_pair
-.l409C ; 48:409C
+.load_destination_pointers_and_return ; 48:409C
 	ldh a, [hTextTiles_Dest1Lo]
 	ld c, a
 	ldh a, [hTextTiles_Dest1Hi]

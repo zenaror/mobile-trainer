@@ -27,12 +27,12 @@ Glyph_LoadAscii:: ; 7F:4007
 Glyph_AsciiAddr:: ; 7F:400E
 	ld a, b
 	cp a, $20
-	jr c, .l4019
+	jr c, .substitute_question_mark
 	cp a, $80
-	jr nc, .l4019
+	jr nc, .substitute_question_mark
 	jr .l401B
 
-.l4019 ; 7F:4019
+.substitute_question_mark ; 7F:4019
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;
 	; entered by jrcc from 7F:4011 (executed)
 	ld a, $3F
@@ -245,33 +245,33 @@ Glyph_IsSjisLeadByte:: ; 7F:41A7
 	ld d, a
 	ld b, a
 	sub a, $81
-	jr c, .l41C5
+	jr c, .clear_lead_byte_result
 	cp a, $1F
-	jr c, .l41CA
+	jr c, .set_lead_byte_result
 
 	; [PROBABLE] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 0;
 	; fall-through of the jrcc at 7F:41B1 (executed)
 	ld a, b
 	sub a, $E0
-	jr c, .l41C5
+	jr c, .clear_lead_byte_result
 	cp a, $10
-	jr c, .l41CA
+	jr c, .set_lead_byte_result
 	ld a, b
 	sub a, $F8
-	jr c, .l41C5
+	jr c, .clear_lead_byte_result
 	cp a, $02
-	jr c, .l41CA
+	jr c, .set_lead_byte_result
 
-.l41C5 ; 7F:41C5
+.clear_lead_byte_result ; 7F:41C5
 	; [CONFIRMED] 43 insn(s); 43 executed (in up to 14/18 scenarios) (part of region $41C5-$4202)
 	xor a, a
 	scf
 	ccf
-	jr .l41CD
-.l41CA ; 7F:41CA
+	jr .restore_registers_and_return
+.set_lead_byte_result ; 7F:41CA
 	scf
 	ld a, $01
-.l41CD ; 7F:41CD
+.restore_registers_and_return ; 7F:41CD
 	pop de
 	pop bc
 	ret

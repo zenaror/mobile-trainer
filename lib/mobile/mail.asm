@@ -881,7 +881,7 @@ Mail_ParseContentType:: ; 0F:457A
 	cp a, $02
 	jr z, .l45BA
 	and a, a
-	jr nz, .l45B8
+	jr nz, .return_zero
 	ld a, h
 	ld [wMail_InputBank], a
 	ldh [hSRAMBank], a
@@ -906,7 +906,7 @@ Mail_ParseContentType:: ; 0F:457A
 	ld [rRAMB], a
 	ld hl, MailStr_KwName
 	call Mail_FindKeywordValue
-.l45B8 ; 0F:45B8
+.return_zero ; 0F:45B8
 	xor a, a
 	ret
 
@@ -914,10 +914,10 @@ Mail_ParseContentType:: ; 0F:457A
 	; [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4247-47A5 by apply_coverage --split
 	ld b, $82
-	jr .l45C0
+	jr .return_two
 .l45BE ; 0F:45BE
 	ld b, $81
-.l45C0 ; 0F:45C0
+.return_two ; 0F:45C0
 	ld a, $02
 	ret
 
@@ -960,13 +960,13 @@ Mail_ParseMultipartBoundary:: ; 0F:45C9
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4247-47A5 by apply_coverage --split
 	ld b, $00
-	jr .l45F9
+	jr .return_one
 
 .l45F7 ; 0F:45F7
 	; [CONFIRMED] 13 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld b, $81
-.l45F9 ; 0F:45F9
+.return_one ; 0F:45F9
 	ld a, $01
 	ret
 .check_folded_boundary_line ; 0F:45FC
@@ -1137,7 +1137,7 @@ Mail_ParseSinglePart:: ; 0F:46A8
 	; [PROBABLE] 11 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4247-47A5 by apply_coverage --split
 	ld b, $83
-	jr .l46FB
+	jr .return_one
 .propagate_mail_error_flag ; 0F:46EC
 	ld a, [wMail_ErrorFlag]
 	and a, a
@@ -1147,7 +1147,7 @@ Mail_ParseSinglePart:: ; 0F:46A8
 	jr .emit_length_minus_two
 .l46F9 ; 0F:46F9
 	ld b, $81
-.l46FB ; 0F:46FB
+.return_one ; 0F:46FB
 	ld a, $01
 	ret
 
@@ -1234,17 +1234,17 @@ Mail_ParseMultipart:: ; 0F:46FE
 	; [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4247-47A5 by apply_coverage --split
 	ld b, $01
-	jr .l47CF
+	jr .return_zero
 .l478E ; 0F:478E
 	ld b, $83
-	jr .l479A
+	jr .return_one
 .test_mail_error_flag ; 0F:4792
 	ld a, [wMail_ErrorFlag]
 	and a, a
-	jr nz, .l479A
+	jr nz, .return_one
 .l4798 ; 0F:4798
 	ld b, $81
-.l479A ; 0F:479A
+.return_one ; 0F:479A
 	ld a, $01
 	ret
 
@@ -1254,7 +1254,7 @@ Mail_ParseMultipart:: ; 0F:46FE
 	ld a, [wMail_Work + $10]
 	and a, a
 	jr z, .find_next_part_name
-	jr .l47CF
+	jr .return_zero
 
 	; [HYPOTHESIS] 10 insn (ld hl,$D003 ; ld a,[hli] ; ld [$D000],a ; ldh [$FF8C],a ; ld [$4000],a ;
 	; call $4A7E ; and a ; jr z,$47CF ; xor a ; ld [$D016],a) flowing straight into the PROBABLE
@@ -1268,7 +1268,7 @@ Mail_ParseMultipart:: ; 0F:46FE
 	ld [rRAMB], a
 	call Mail_FindMessageEnd
 	and a, a
-	jr z, .l47CF
+	jr z, .return_zero
 	xor a, a
 	ld [wMail_Work + $16], a
 
@@ -1286,7 +1286,7 @@ Mail_ParseMultipart:: ; 0F:46FE
 	jr nz, .emit_part_length_and_increment_count
 	ld b, $01
 
-.l47CF ; 0F:47CF
+.return_zero ; 0F:47CF
 	; [CONFIRMED] 37 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage
 	; --split [executed in 1 scenarios]
 	xor a, a
@@ -1460,7 +1460,7 @@ Mail_PartRec_EmitHeaderBlock:: ; 0F:486B
 	dec bc
 	ld a, b
 	or a, c
-	jr z, .l48BA
+	jr z, .return_one
 	dec d
 	jr nz, .subtract_five_with_zero_check
 	ld [hl], b
@@ -1469,7 +1469,7 @@ Mail_PartRec_EmitHeaderBlock:: ; 0F:486B
 	xor a, a
 	ret
 
-.l48BA ; 0F:48BA
+.return_one ; 0F:48BA
 	; [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 47BB-4C59 by apply_coverage --split
 	ld a, $01
@@ -1573,7 +1573,7 @@ Mail_PartRec_EmitLengthAndPart:: ; 0F:48C6
 	dec bc
 	ld a, b
 	or a, c
-	jr z, .l4945
+	jr z, .return_one
 	dec d
 	jr nz, .subtract_record_size_from_capacity
 	ld [hl], b
@@ -1582,7 +1582,7 @@ Mail_PartRec_EmitLengthAndPart:: ; 0F:48C6
 	xor a, a
 	ret
 
-.l4945 ; 0F:4945
+.return_one ; 0F:4945
 	; [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 47BB-4C59 by apply_coverage --split
 	ld a, $01
@@ -1666,7 +1666,7 @@ Mail_PartRec_EmitPart:: ; 0F:4951
 	dec bc
 	ld a, b
 	or a, c
-	jr z, .l49C4
+	jr z, .return_one
 	dec d
 	jr nz, .subtract_record_size_from_capacity
 	ld [hl], b
@@ -1675,7 +1675,7 @@ Mail_PartRec_EmitPart:: ; 0F:4951
 	xor a, a
 	ret
 
-.l49C4 ; 0F:49C4
+.return_one ; 0F:49C4
 	; [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 47BB-4C59 by apply_coverage --split
 	ld a, $01
@@ -1816,10 +1816,10 @@ Mail_SkipHeaderBlock:: ; 0F:4A1C
 	; [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 47BB-4C59 by apply_coverage --split
 	and a, a
-	jr nz, .l4A72
+	jr nz, .return_one
 	ld a, $01
 	ld [wMail_ErrorFlag], a
-.l4A72 ; 0F:4A72
+.return_one ; 0F:4A72
 	ld a, $01
 	ret
 
@@ -2731,17 +2731,17 @@ Mail_ComposeStep:: ; 0F:4F0E
 	jr nz, .emit_header_and_check_next_item
 	ld a, [wMail_Work + $03]
 	cp a, $06
-	jr c, .l4F25
+	jr c, .return_zero
 	cp a, $0C
-	jr z, .l4F27
+	jr z, .return_one
 	call Mail_EmitHeaderField
 	and a, a
-	jr nz, .l4F27
-.l4F25 ; 0F:4F25
+	jr nz, .return_one
+.return_zero ; 0F:4F25
 	xor a, a
 	ret
 
-.l4F27 ; 0F:4F27
+.return_one ; 0F:4F27
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4D37-5DAE by apply_coverage --split
 	ld a, $01
@@ -2752,14 +2752,14 @@ Mail_ComposeStep:: ; 0F:4F0E
 	; --split [executed in 6 scenarios]
 	call Mail_EmitHeaderField
 	and a, a
-	jr nz, .l4F27
+	jr nz, .return_one
 	ld hl, wMail_ItemListPointer
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
 	ld a, [de]
 	and a, a
-	jr z, .l4F25
+	jr z, .return_zero
 
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4D37-5DAE by apply_coverage --split
@@ -2965,7 +2965,7 @@ Mail_EmitString:: ; 0F:5024
 	dec bc
 	ld a, b
 	or a, c
-	jr z, .l505A
+	jr z, .return_one
 	inc e
 	call z, Mail_EmitString_NextPage
 	jr .copy_next_string_byte
@@ -2983,7 +2983,7 @@ Mail_EmitString:: ; 0F:5024
 	xor a, a
 	ret
 
-.l505A ; 0F:505A
+.return_one ; 0F:505A
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4D37-5DAE by apply_coverage --split
 	ld a, $01
@@ -3191,7 +3191,7 @@ Mail_EmitBufferToOutput:: ; 0F:513A
 	dec bc
 	ld a, b
 	or a, c
-	jr z, .l5171
+	jr z, .return_one
 	inc e
 	call z, Mail_EmitBufferToOutput_NextPage
 	jr .copy_next_buffer_byte
@@ -3209,7 +3209,7 @@ Mail_EmitBufferToOutput:: ; 0F:513A
 	xor a, a
 	ret
 
-.l5171 ; 0F:5171
+.return_one ; 0F:5171
 	; [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4D37-5DAE by apply_coverage --split
 	ld a, $01
@@ -3244,7 +3244,7 @@ Mail_EmitGameCodeValue:: ; 0F:517D
 	dec bc
 	ld a, b
 	or a, c
-	jr z, .l51F3
+	jr z, .return_one
 	inc e
 	call z, Mail_EmitGameCodeValue_NextPage
 	ld a, [hli]
@@ -3252,7 +3252,7 @@ Mail_EmitGameCodeValue:: ; 0F:517D
 	dec bc
 	ld a, b
 	or a, c
-	jr z, .l51F3
+	jr z, .return_one
 	inc e
 	call z, Mail_EmitGameCodeValue_NextPage
 	ld a, [hli]
@@ -3260,7 +3260,7 @@ Mail_EmitGameCodeValue:: ; 0F:517D
 	dec bc
 	ld a, b
 	or a, c
-	jr z, .l51F3
+	jr z, .return_one
 	inc e
 	call z, Mail_EmitGameCodeValue_NextPage
 	ld a, [hli]
@@ -3268,7 +3268,7 @@ Mail_EmitGameCodeValue:: ; 0F:517D
 	dec bc
 	ld a, b
 	or a, c
-	jr z, .l51F3
+	jr z, .return_one
 	inc e
 	call z, Mail_EmitGameCodeValue_NextPage
 	ld a, $2D
@@ -3276,7 +3276,7 @@ Mail_EmitGameCodeValue:: ; 0F:517D
 	dec bc
 	ld a, b
 	or a, c
-	jr z, .l51F3
+	jr z, .return_one
 	inc e
 	call z, Mail_EmitGameCodeValue_NextPage
 	ld a, [$014C]
@@ -3300,7 +3300,7 @@ Mail_EmitGameCodeValue:: ; 0F:517D
 	dec bc
 	ld a, b
 	or a, c
-	jr z, .l51F3
+	jr z, .return_one
 	inc e
 	call z, Mail_EmitGameCodeValue_NextPage
 	ld a, h
@@ -3310,7 +3310,7 @@ Mail_EmitGameCodeValue:: ; 0F:517D
 	add a, $30
 	jr .emit_low_hex_digit_and_save_cursor
 
-.l51F3 ; 0F:51F3
+.return_one ; 0F:51F3
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4D37-5DAE by apply_coverage --split
 	ld a, $01
@@ -3325,7 +3325,7 @@ Mail_EmitGameCodeValue:: ; 0F:517D
 	dec bc
 	ld a, b
 	or a, c
-	jr z, .l51F3
+	jr z, .return_one
 	inc e
 	call z, Mail_EmitGameCodeValue_NextPage
 	ld hl, wMail_OutputBankVar
@@ -3374,7 +3374,7 @@ Mail_EmitStringAndSuffix:: ; 0F:521B
 	dec bc
 	ld a, b
 	or a, c
-	jr z, .l5266
+	jr z, .return_one
 	inc e
 	call z, Mail_EmitStringAndSuffix_NextPage
 	jr .emit_string_bytes
@@ -3388,7 +3388,7 @@ Mail_EmitStringAndSuffix:: ; 0F:521B
 	jr z, .save_output_cursor_and_capacity
 	cp a, $0F
 	jr z, .select_two_dash_suffix
-	jr .l5266
+	jr .return_one
 .save_output_cursor_and_capacity ; 0F:5256
 	ld hl, wMail_OutputBankVar
 	ld a, [wMail_OutputBank]
@@ -3402,7 +3402,7 @@ Mail_EmitStringAndSuffix:: ; 0F:521B
 	ld [hl], b
 	xor a, a
 	ret
-.l5266 ; 0F:5266
+.return_one ; 0F:5266
 	ld a, $01
 	ret
 .select_two_dash_suffix ; 0F:5269
@@ -3413,7 +3413,7 @@ Mail_EmitStringAndSuffix:: ; 0F:521B
 	dec bc
 	ld a, b
 	or a, c
-	jr z, .l5266
+	jr z, .return_one
 	inc e
 	call z, Mail_EmitStringAndSuffix_NextPage
 	dec h
@@ -3425,7 +3425,7 @@ Mail_EmitStringAndSuffix:: ; 0F:521B
 	dec bc
 	ld a, b
 	or a, c
-	jr z, .l5266
+	jr z, .return_one
 	inc e
 	call z, Mail_EmitStringAndSuffix_NextPage
 	jr .save_output_cursor_and_capacity
@@ -4490,11 +4490,11 @@ Mail_Base64EncodeStream_Step:: ; 0F:5833
 .set_compose_state5 ; 0F:58C2
 	ld a, $05
 	ld [wMail_ComposeState], a
-	jr .l58CE
+	jr .return_zero
 .set_compose_state2 ; 0F:58C9
 	ld a, $02
 	ld [wMail_ComposeState], a
-.l58CE ; 0F:58CE
+.return_zero ; 0F:58CE
 	xor a, a
 	ret
 .l58D0 ; 0F:58D0
@@ -5038,11 +5038,11 @@ Mail_Base64DecodeStream_Step:: ; 0F:5B15
 .set_decode_state5 ; 0F:5BCF
 	ld a, $05
 	ld [wMail_Work + $23], a
-	jr .l5BDB
+	jr .return_zero
 .set_decode_state2 ; 0F:5BD6
 	ld a, $02
 	ld [wMail_Work + $23], a
-.l5BDB ; 0F:5BDB
+.return_zero ; 0F:5BDB
 	xor a, a
 	ret
 

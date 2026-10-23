@@ -559,10 +559,10 @@ Mailbox_DrawTimestamp:: ; 25:4F40
 	xor a, a
 	ldh [rVBK], a
 	di
-.l4F7E ; 25:4F7E
+.wait_for_ly_90 ; 25:4F7E
 	ldh a, [rLY]
 	cp a, $90
-	jr nz, .l4F7E
+	jr nz, .wait_for_ly_90
 	ld a, [hli]
 	ld [de], a
 	inc de
@@ -1263,15 +1263,15 @@ Gfx_StartHDMAAtVBlank:: ; 25:538A
 	ld a, e
 	ldh [rHDMA4], a
 	ld de, rLY
-.l5399 ; 25:5399
+.wait_for_ly_8f ; 25:5399
 	ld a, [de]
 	cp a, $8F
-	jr nz, .l5399
+	jr nz, .wait_for_ly_8f
 	ld b, $91
-.l53A0 ; 25:53A0
+.wait_for_ly_91 ; 25:53A0
 	ld a, [de]
 	cp a, b
-	jr nz, .l53A0
+	jr nz, .wait_for_ly_91
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a
@@ -1379,23 +1379,23 @@ Mailbox_ReplyToRecord:: ; 25:54A7
 	add hl, de
 	ld de, wEditAddressBuf
 	ld b, $40
-.l54F6 ; 25:54F6
+.copy_reply_address ; 25:54F6
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .l54F6
+	jr nz, .copy_reply_address
 	pop hl
 	ld de, $00C9
 	add hl, de
 	ld de, wEditNameBuf
 	ld b, $10
-.l5506 ; 25:5506
+.copy_reply_name ; 25:5506
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .l5506
+	jr nz, .copy_reply_name
 	pop bc
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -1476,10 +1476,10 @@ Mailbox_ShowRowNumbers:: ; 25:5581
 	add hl, bc
 	ld de, $8010
 	ld b, $40
-.l5594 ; 25:5594
+.wait_for_ly_90 ; 25:5594
 	ldh a, [rLY]
 	cp a, $90
-	jr nz, .l5594
+	jr nz, .wait_for_ly_90
 .l559A ; 25:559A
 	ld a, [hli]
 	ld [de], a
@@ -1797,10 +1797,10 @@ Mailbox_IsRecordClosedEnvelope:: ; 25:5848
 	add hl, bc
 	ld a, [hl]
 	cp a, $01
-	jr nz, .l586F
+	jr nz, .return_zero
 	ld a, $FF
 	ret
-.l586F ; 25:586F
+.return_zero ; 25:586F
 	xor a, a
 	ret
 
@@ -1831,10 +1831,10 @@ Mailbox_SetIconBarAttrs:: ; 25:5889
 	ld c, $14
 	ld a, $01
 	ldh [rVBK], a
-.l58A3 ; 25:58A3
+.wait_for_ly_90 ; 25:58A3
 	ldh a, [rLY]
 	cp a, $90
-	jr nz, .l58A3
+	jr nz, .wait_for_ly_90
 .l58A9 ; 25:58A9
 	ld a, [hli]
 	ld [de], a

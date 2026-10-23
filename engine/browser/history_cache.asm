@@ -241,10 +241,10 @@ PageCache_Push:: ; 4C:4C95
 	ld [sPageCacheWriteSlot], a
 	ld a, [sPageCacheCount]
 	cp a, $03
-	jr nc, .l4CE3
+	jr nc, .disable_sram_and_return
 	inc a
 	ld [sPageCacheCount], a
-.l4CE3 ; 4C:4CE3
+.disable_sram_and_return ; 4C:4CE3
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -366,7 +366,7 @@ Browser_HistoryUndoPush:: ; 4C:4D6F
 .l4D94 ; 4C:4D94
 	ld a, [sBrowserHistoryCount]
 	or a, a
-	jr z, .l4DAB
+	jr z, .disable_sram_and_return
 	dec a
 	ld [sBrowserHistoryCount], a
 	ld a, [sBrowserHistoryWriteSlot]
@@ -376,7 +376,7 @@ Browser_HistoryUndoPush:: ; 4C:4D6F
 	ld a, $05
 .l4DA8 ; 4C:4DA8
 	ld [sBrowserHistoryWriteSlot], a
-.l4DAB ; 4C:4DAB
+.disable_sram_and_return ; 4C:4DAB
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a

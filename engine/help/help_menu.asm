@@ -935,7 +935,7 @@ HelpMenu_ItemIsLocked:: ; 6C:4798
 	ld hl, sHelpSeenAddressBook
 	call ReadByteFar
 	or a, b
-	jr nz, .l4807
+	jr nz, .return_zero
 
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 6C:47BE (executed)
@@ -946,7 +946,7 @@ HelpMenu_ItemIsLocked:: ; 6C:4798
 	; [CONFIRMED] 24 insn(s); 24 executed (in up to 3/18 scenarios)
 	ld a, c
 	cp a, $03
-	jr nz, .l4807
+	jr nz, .return_zero
 	ld a, $01
 	ld hl, sHelpSeenHomepage
 	call ReadByteFar
@@ -955,18 +955,18 @@ HelpMenu_ItemIsLocked:: ; 6C:4798
 	ld hl, sHelpSeenPageList
 	call ReadByteFar
 	or a, d
-	jr nz, .l4807
+	jr nz, .return_zero
 	ld a, $FF
 	ret
 .l47DF ; 6C:47DF
 	ld a, c
 	cp a, $02
-	jp nz, .l4807
+	jp nz, .return_zero
 	ld a, $01
 	ld hl, sHelpSeenAddressBook
 	call ReadByteFar
 	or a, a
-	jr nz, .l4807
+	jr nz, .return_zero
 	ld a, $FF
 	ret
 
@@ -975,16 +975,16 @@ HelpMenu_ItemIsLocked:: ; 6C:4798
 	; entered by jpcc from 6C:47A3 (executed) [executed in 2 scenarios]
 	ld a, c
 	cp a, $02
-	jp nz, .l4807
+	jp nz, .return_zero
 	ld a, $01
 	ld hl, sHelpSeenPageList
 	call ReadByteFar
 	or a, a
-	jr nz, .l4807
+	jr nz, .return_zero
 	ld a, $FF
 	ret
 
-.l4807 ; 6C:4807
+.return_zero ; 6C:4807
 	; [CONFIRMED] 2 insn(s); 2 executed (in up to 3/18 scenarios)
 	xor a, a
 	ret

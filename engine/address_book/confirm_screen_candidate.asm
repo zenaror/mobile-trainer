@@ -57,7 +57,7 @@ AddrScreenCandidate_Run:: ; 2C:741C
 	; (this classification)
 	ldh a, [hJoyPressed]
 	and a, PADF_B
-	jr z, .l746D
+	jr z, .repeat_frame_service
 
 	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: site x3; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
@@ -65,7 +65,7 @@ AddrScreenCandidate_Run:: ; 2C:741C
 	ld a, $FF
 	ret
 
-.l746D ; 2C:746D
+.repeat_frame_service ; 2C:746D
 	; [PROBABLE] 1 insn (jr $7421); entered by jr z from 2C:7462 (this classification)
 	jr .update_sprites_and_count_frames
 
@@ -161,7 +161,7 @@ AddrScreenCandidate_DrawTextLine21:: ; 2C:755C
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, .l75FC
+	jp z, .load_space_glyph_for_padding
 	cp a, $0D
 	jr z, .draw_cr_marker
 	push af
@@ -201,9 +201,9 @@ AddrScreenCandidate_DrawTextLine21:: ; 2C:755C
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l75FC
+	jr z, .load_space_glyph_for_padding
 	cp a, $01
-	jr z, .l75FC
+	jr z, .load_space_glyph_for_padding
 	jr .read_next_char
 .draw_ascii_char ; 2C:75BC
 	pop af
@@ -221,9 +221,9 @@ AddrScreenCandidate_DrawTextLine21:: ; 2C:755C
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l75FC
+	jr z, .load_space_glyph_for_padding
 	cp a, $01
-	jr z, .l75FC
+	jr z, .load_space_glyph_for_padding
 	jr .read_next_char
 .draw_cr_marker ; 2C:75E1
 	push bc
@@ -239,7 +239,7 @@ AddrScreenCandidate_DrawTextLine21:: ; 2C:755C
 	dec a
 	ld [wTextCellsLeft], a
 	call AddrScreenCandidate_DrawTextLine21_BlitBlankAdvance
-.l75FC ; 2C:75FC
+.load_space_glyph_for_padding ; 2C:75FC
 	push bc
 	push de
 	push hl
@@ -300,7 +300,7 @@ AddrScreenCandidate_DrawTextLine25:: ; 2C:7648
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, .l76E8
+	jp z, .load_space_glyph_for_padding
 	cp a, $0D
 	jr z, .draw_cr_marker
 	push af
@@ -340,9 +340,9 @@ AddrScreenCandidate_DrawTextLine25:: ; 2C:7648
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l76E8
+	jr z, .load_space_glyph_for_padding
 	cp a, $01
-	jr z, .l76E8
+	jr z, .load_space_glyph_for_padding
 	jr .read_next_char
 .draw_ascii_char ; 2C:76A8
 	pop af
@@ -360,9 +360,9 @@ AddrScreenCandidate_DrawTextLine25:: ; 2C:7648
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l76E8
+	jr z, .load_space_glyph_for_padding
 	cp a, $01
-	jr z, .l76E8
+	jr z, .load_space_glyph_for_padding
 	jr .read_next_char
 .draw_cr_marker ; 2C:76CD
 	push bc
@@ -378,7 +378,7 @@ AddrScreenCandidate_DrawTextLine25:: ; 2C:7648
 	dec a
 	ld [wTextCellsLeft], a
 	call AddrScreenCandidate_DrawTextLine25_BlitBlankAdvance
-.l76E8 ; 2C:76E8
+.load_space_glyph_for_padding ; 2C:76E8
 	push bc
 	push de
 	push hl

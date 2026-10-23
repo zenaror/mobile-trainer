@@ -390,7 +390,7 @@ Kbd_Run_ButtonA:: ; 55:5E5D
 	ld [hld], a
 	ld a, $20
 	ld [hl], a
-	jp .l5F17
+	jp .return_one
 
 .l5E8E ; 55:5E8E
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 9/18 scenarios)
@@ -399,7 +399,7 @@ Kbd_Run_ButtonA:: ; 55:5E5D
 	ld [hld], a
 	ld a, $40
 	ld [hl], a
-	jr .l5F17
+	jr .return_one
 .l5E99 ; 55:5E99
 	ld a, [hl]
 	cp a, $80
@@ -420,7 +420,7 @@ Kbd_Run_ButtonA:: ; 55:5E5D
 	ld [hld], a
 	ld a, $20
 	ld [hl], a
-	jr .l5F17
+	jr .return_one
 .l5EB7 ; 55:5EB7
 	jr Kbd_Run_ReturnNewline
 
@@ -476,11 +476,11 @@ Kbd_Run_ButtonA:: ; 55:5E5D
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 10/18 scenarios)
 	ld a, [wKbdType]
 	cp a, $01
-	jr nz, .l5F17
+	jr nz, .return_one
 	call Kbd_RejectSymbol
 	or a, a
 	jp nz, Kbd_Run_ContinueLoop
-.l5F17 ; 55:5F17
+.return_one ; 55:5F17
 	ld a, $01
 	ret
 
@@ -669,14 +669,14 @@ Kbd_MoveCursor_DirTable:: ; 55:5FC8
 	jr .l6004
 .l6029 ; 55:6029
 	call Kbd_UpdateSticky
-	jr .l603D
+	jr .fetch_cell_and_return
 .l602E ; 55:602E
 	ld a, [wKbdCursorCell]
 	call Kbd_SplitCursorIndex
 	call Kbd_UpdateSticky
 	ld a, [wKbdNeighbourCell]
 	ld [wKbdCursorCell], a
-.l603D ; 55:603D
+.fetch_cell_and_return ; 55:603D
 	call Kbd_FetchCell
 	ret
 
@@ -1018,7 +1018,7 @@ Kbd_UpdateCursorSprite:: ; 55:6190
 .l623B ; 55:623B
 	ld a, [wKeyboardCharHi]
 	cp a, $FF
-	jr nz, .l6299
+	jr nz, .clear_sprite_slot10
 	ld a, [wKeyboardCharLo]
 	cp a, $82
 	jr z, .l624F
@@ -1063,7 +1063,7 @@ Kbd_UpdateCursorSprite:: ; 55:6190
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
 	jr .return_to_caller
-.l6299 ; 55:6299
+.clear_sprite_slot10 ; 55:6299
 	ld hl, wSpriteSlot10
 	call Sprite_ClearSlot
 .return_to_caller ; 55:629F
@@ -1151,7 +1151,7 @@ Kbd_SlideIn:: ; 55:6318
 .l6384 ; 55:6384
 	; [CONFIRMED] 1 insn(s) executed; cut out of the PROBABLE region 636D-6386 by apply_coverage
 	; --split [executed in 4 scenarios]
-	jr .l63D2
+	jr .decrease_window_y_until_target
 
 .l6386 ; 55:6386
 	; [CONFIRMED] 29 insn(s); 29 executed (in up to 5/18 scenarios)
@@ -1162,7 +1162,7 @@ Kbd_SlideIn:: ; 55:6318
 	call VBlank_Wait
 	pop de
 	farcall KbdSlide_InStepMode6
-	jr .l63D2
+	jr .decrease_window_y_until_target
 .l639A ; 55:639A
 	cp a, $08
 	jr nz, .l63AB
@@ -1170,7 +1170,7 @@ Kbd_SlideIn:: ; 55:6318
 	call VBlank_Wait
 	pop de
 	farcall KbdSlide_InStepMode8
-	jr .l63D2
+	jr .decrease_window_y_until_target
 .l63AB ; 55:63AB
 	cp a, $09
 	jr nz, .l63BC
@@ -1178,24 +1178,24 @@ Kbd_SlideIn:: ; 55:6318
 	call VBlank_Wait
 	pop de
 	farcall KbdSlide_InStepMode9
-	jr .l63D2
+	jr .decrease_window_y_until_target
 .l63BC ; 55:63BC
 	cp a, $07
-	jr nz, .l63CD
+	jr nz, .wait_vblank_preserving_de
 	push de
 	call VBlank_Wait
 	pop de
 	farcall KbdSlide_InStepMode7
-	jr .l63D2
+	jr .decrease_window_y_until_target
 
-.l63CD ; 55:63CD
+.wait_vblank_preserving_de ; 55:63CD
 	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1;
 	; entered by jrcc from 55:63BE (executed)
 	push de
 	call VBlank_Wait
 	pop de
 
-.l63D2 ; 55:63D2
+.decrease_window_y_until_target ; 55:63D2
 	; [CONFIRMED] 38 insn(s); 38 executed (in up to 11/18 scenarios)
 	ld hl, rWY
 	ld a, [hl]
@@ -1348,13 +1348,13 @@ Kbd_SlideOut:: ; 55:6427
 	jr .l6502
 .l64EC ; 55:64EC
 	cp a, $07
-	jr nz, .l64FD
+	jr nz, .wait_vblank_preserving_de
 	push de
 	call VBlank_Wait
 	pop de
 	farcall KbdSlide_OutStepMode7
 	jr .l6502
-.l64FD ; 55:64FD
+.wait_vblank_preserving_de ; 55:64FD
 	push de
 	call VBlank_Wait
 	pop de
@@ -1388,14 +1388,14 @@ Kbd_HideInstant:: ; 55:651C
 	or a, a
 	jr z, .l6548
 	call VBlank_WaitAndService
-	jr .l654B
+	jr .disable_window_and_service_sound
 
 .l6548 ; 55:6548
 	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;
 	; entered by jrcc from 55:6541 (executed) [executed in 1 scenarios]
 	call VBlank_Wait
 
-.l654B ; 55:654B
+.disable_window_and_service_sound ; 55:654B
 	; [CONFIRMED] 31 insn(s); 31 executed (in up to 8/18 scenarios)
 	call VBlank_WaitStartDI
 	ldh a, [rLCDC]
@@ -1502,12 +1502,12 @@ Kbd_TypePickerLoop:: ; 55:65DA
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 55:6600 (executed)
 	call VBlank_WaitAndService
-	jr .l660A
+	jr .dispatch_repeated_buttons
 
 .l6607 ; 55:6607
 	; [CONFIRMED] 48 insn(s); 48 executed (in up to 2/18 scenarios)
 	call VBlank_Wait
-.l660A ; 55:660A
+.dispatch_repeated_buttons ; 55:660A
 	ldh a, [hJoyPressedRepeat]
 	bit PADB_A, a
 	jr nz, .handle_button_a
@@ -2132,12 +2132,12 @@ Kbd_UploadPanelMap11Rows:: ; 55:6AF0
 	; fall-through of the jrcc at 55:6B36 (executed)
 	xor a, a
 	farcall Gfx_StartHDMAWithService
-	jr .l6B47
+	jr .restore_wram_bank_and_return
 
 .l6B41 ; 55:6B41
 	; [CONFIRMED] 30 insn(s); 30 executed (in up to 7/18 scenarios)
 	farcall Gfx_StartHDMA
-.l6B47 ; 55:6B47
+.restore_wram_bank_and_return ; 55:6B47
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -2187,14 +2187,14 @@ Kbd_UploadPanelMap13Rows:: ; 55:6B51
 	jr z, .l6BA2
 	xor a, a
 	farcall Gfx_StartHDMAWithService
-	jr .l6BA8
+	jr .restore_wram_bank_and_return
 
 .l6BA2 ; 55:6BA2
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;
 	; entered by jrcc from 55:6B97 (executed)
 	farcall Gfx_StartHDMA
 
-.l6BA8 ; 55:6BA8
+.restore_wram_bank_and_return ; 55:6BA8
 	; [CONFIRMED] 39 insn(s); 39 executed (in up to 11/18 scenarios)
 	ldh [hScratchA], a
 	pop af

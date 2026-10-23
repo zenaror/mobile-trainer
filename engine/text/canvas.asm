@@ -1659,11 +1659,11 @@ Canvas_BlitGlyphLooped:: ; 7F:49AE
 	inc d
 	ld hl, wTileStage2
 	ld bc, $0140
-.l49CA ; 7F:49CA
+.add_stride_until_row_selected ; 7F:49CA
 	dec d
 	jr z, .l49D0
 	add hl, bc
-	jr .l49CA
+	jr .add_stride_until_row_selected
 .l49D0 ; 7F:49D0
 	sla a
 	add a, l
@@ -1809,15 +1809,15 @@ Canvas_BlitGlyphLooped:: ; 7F:49AE
 	pop bc
 	ldh a, [rSVBK]
 	dec a
-	jr z, .l4AAA
+	jr z, .decrement_row_count_and_repeat
 	ld a, $D7
 	cp a, h
-	jr nz, .l4AAA
+	jr nz, .decrement_row_count_and_repeat
 	ld a, $80
 	cp a, l
-	jr nz, .l4AAA
+	jr nz, .decrement_row_count_and_repeat
 	ret
-.l4AAA ; 7F:4AAA
+.decrement_row_count_and_repeat ; 7F:4AAA
 	dec b
 	jp nz, .l4A0E
 	ret
@@ -1845,11 +1845,11 @@ Canvas_BlitGlyphLoopedClipY:: ; 7F:4AAF
 	inc d
 	ld hl, wTileStage2
 	ld bc, $0140
-.l4AD3 ; 7F:4AD3
+.add_stride_until_row_selected ; 7F:4AD3
 	dec d
 	jr z, .l4AD9
 	add hl, bc
-	jr .l4AD3
+	jr .add_stride_until_row_selected
 .l4AD9 ; 7F:4AD9
 	sla a
 	add a, l
@@ -1995,20 +1995,20 @@ Canvas_BlitGlyphLoopedClipY:: ; 7F:4AAF
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, .l4BB6
+	jr nz, .restore_bc_decrement_row_count
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, .l4BB6
+	jr c, .restore_bc_decrement_row_count
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-.l4BB6 ; 7F:4BB6
+.restore_bc_decrement_row_count ; 7F:4BB6
 	pop bc
 	dec b
 	jp nz, .l4B2B
@@ -2037,7 +2037,7 @@ Canvas_UploadToVram:: ; 7F:4BBC
 	call Gfx_GdmaAtVBlank
 	ld c, $77
 	dec a
-	jr nz, .l4C0C
+	jr nz, .upload_wram3_tiles_to_vram_bank1
 	ld c, $53
 	ld a, $03
 	ldh [hWRAMBank], a
@@ -2052,7 +2052,7 @@ Canvas_UploadToVram:: ; 7F:4BBC
 	ld de, $9540
 	call Gfx_GdmaAtVBlank
 	ret
-.l4C0C ; 7F:4C0C
+.upload_wram3_tiles_to_vram_bank1 ; 7F:4C0C
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a

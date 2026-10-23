@@ -112,7 +112,7 @@ AdapterCheck_Poll_Loop:: ; 67:6452
 	ldh a, [hScratchA]
 	ld a, b
 	or a, a
-	jr z, .l649A
+	jr z, .clear_sfx_flag
 	cp a, $02
 	jr nz, .l649E
 	ld a, [wAdapterCheck_SfxFlag]
@@ -122,7 +122,7 @@ AdapterCheck_Poll_Loop:: ; 67:6452
 	ld a, $01
 	ld [wAdapterCheck_SfxFlag], a
 	jr .l649E
-.l649A ; 67:649A
+.clear_sfx_flag ; 67:649A
 	xor a, a
 	ld [wAdapterCheck_SfxFlag], a
 .l649E ; 67:649E
@@ -188,10 +188,10 @@ AdapterCheck_State_Finish:: ; 67:64F5
 	or a, a
 	jr z, .l651A
 	ld a, $01
-	jr .l651C
+	jr .store_check_result
 .l651A ; 67:651A
 	ld a, $02
-.l651C ; 67:651C
+.store_check_result ; 67:651C
 	ld [wAdapterCheck_Result], a
 	ret
 

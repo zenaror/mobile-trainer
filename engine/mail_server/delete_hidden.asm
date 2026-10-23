@@ -175,7 +175,7 @@ MailSrvDelHidden_MenuLoop:: ; 22:4076
 .l4148 ; 22:4148
 	ldh a, [hJoyPressedRepeat]
 	and a, PADF_UP
-	jr z, .l4170
+	jr z, .repeat_menu_loop
 
 	; [PROBABLE] 21 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4000-43E0 by apply_coverage --split
@@ -195,7 +195,7 @@ MailSrvDelHidden_MenuLoop:: ; 22:4076
 .l416D ; 22:416D
 	call MailSrvDelHidden_MenuSelect
 
-.l4170 ; 22:4170
+.repeat_menu_loop ; 22:4170
 	; [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 4000-43E0 by apply_coverage
 	; --split [executed in 3 scenarios]
 	jp MailSrvDelHidden_MenuLoop
@@ -993,7 +993,7 @@ MailSrvDelHidden_FormatDecimalStr:: ; 22:4975
 	xor a, a
 	ld [bc], a
 	ld a, $05
-	jp .l4A8A
+	jp .pop_bc_and_return
 .l49E6 ; 22:49E6
 	ld h, d
 	ld l, e
@@ -1038,7 +1038,7 @@ MailSrvDelHidden_FormatDecimalStr:: ; 22:4975
 	xor a, a
 	ld [bc], a
 	ld a, $04
-	jp .l4A8A
+	jp .pop_bc_and_return
 .l4A2C ; 22:4A2C
 	ld h, d
 	ld l, e
@@ -1072,7 +1072,7 @@ MailSrvDelHidden_FormatDecimalStr:: ; 22:4975
 	xor a, a
 	ld [bc], a
 	ld a, $03
-	jp .l4A8A
+	jp .pop_bc_and_return
 .l4A60 ; 22:4A60
 	ld h, d
 	ld l, e
@@ -1095,7 +1095,7 @@ MailSrvDelHidden_FormatDecimalStr:: ; 22:4975
 	xor a, a
 	ld [bc], a
 	ld a, $02
-	jp .l4A8A
+	jp .pop_bc_and_return
 .l4A82 ; 22:4A82
 	ld a, [bc]
 	add a, e
@@ -1104,7 +1104,7 @@ MailSrvDelHidden_FormatDecimalStr:: ; 22:4975
 	xor a, a
 	ld [bc], a
 	ld a, $01
-.l4A8A ; 22:4A8A
+.pop_bc_and_return ; 22:4A8A
 	pop bc
 	ret
 
@@ -1130,7 +1130,7 @@ MailSrvDelHidden_NumberOffset:: ; 22:4A97
 	cp a, $00
 	jr z, .l4AAD
 	ld bc, $0000
-	jp .l4AF4
+	jp .pop_hl_de_and_return
 .l4AAD ; 22:4AAD
 	ld h, d
 	ld l, e
@@ -1140,7 +1140,7 @@ MailSrvDelHidden_NumberOffset:: ; 22:4A97
 	cp a, $00
 	jr z, .l4AC3
 	ld bc, $0000
-	jp .l4AF4
+	jp .pop_hl_de_and_return
 .l4AC3 ; 22:4AC3
 	ld h, d
 	ld l, e
@@ -1150,7 +1150,7 @@ MailSrvDelHidden_NumberOffset:: ; 22:4A97
 	cp a, $00
 	jr z, .l4AD9
 	ld bc, $0000
-	jp .l4AF4
+	jp .pop_hl_de_and_return
 .l4AD9 ; 22:4AD9
 	ld h, d
 	ld l, e
@@ -1160,11 +1160,11 @@ MailSrvDelHidden_NumberOffset:: ; 22:4A97
 	cp a, $00
 	jr z, .l4AEF
 	ld bc, $0000
-	jp .l4AF4
+	jp .pop_hl_de_and_return
 .l4AEF ; 22:4AEF
 	ld bc, $0010
 	ld a, $01
-.l4AF4 ; 22:4AF4
+.pop_hl_de_and_return ; 22:4AF4
 	pop hl
 	pop de
 	ret

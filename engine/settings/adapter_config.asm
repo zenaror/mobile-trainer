@@ -48,7 +48,7 @@ SettingsPhone_ReadAdapterConfig_Poll:: ; 67:5410
 	ldh a, [hScratchA]
 	ld a, b
 	or a, a
-	jr z, .l5458
+	jr z, .clear_sfx_flag
 	cp a, $02
 	jr nz, .l545C
 	ld a, [wAdapterConfig_SfxFlag]
@@ -58,7 +58,7 @@ SettingsPhone_ReadAdapterConfig_Poll:: ; 67:5410
 	ld a, $01
 	ld [wAdapterConfig_SfxFlag], a
 	jr .l545C
-.l5458 ; 67:5458
+.clear_sfx_flag ; 67:5458
 	xor a, a
 	ld [wAdapterConfig_SfxFlag], a
 .l545C ; 67:545C
@@ -143,7 +143,7 @@ SettingsPhone_ReadAdapterConfig_State_Finish:: ; 67:54B9
 	jr z, .l54ED
 	farcall Config_MirrorIsRegistered
 	or a, a
-	jr nz, .l5503
+	jr nz, .store_result_one
 
 .l54ED ; 67:54ED
 	; [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region
@@ -156,7 +156,7 @@ SettingsPhone_ReadAdapterConfig_State_Finish:: ; 67:54B9
 	ld [wAdapterConfig_Result], a
 	ret
 
-.l5503 ; 67:5503
+.store_result_one ; 67:5503
 	; [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 54DB-55B8 by apply_coverage
 	; --split [executed in 2 scenarios]
 	ld a, $01
@@ -220,7 +220,7 @@ SettingsPhone_WriteAdapterConfig_Poll:: ; 67:555C
 	ldh a, [hScratchA]
 	ld a, b
 	or a, a
-	jr z, .l55A4
+	jr z, .clear_sfx_flag
 	cp a, $02
 	jr nz, .l55A8
 	ld a, [wAdapterConfig_SfxFlag]
@@ -230,7 +230,7 @@ SettingsPhone_WriteAdapterConfig_Poll:: ; 67:555C
 	ld a, $01
 	ld [wAdapterConfig_SfxFlag], a
 	jr .l55A8
-.l55A4 ; 67:55A4
+.clear_sfx_flag ; 67:55A4
 	xor a, a
 	ld [wAdapterConfig_SfxFlag], a
 .l55A8 ; 67:55A8

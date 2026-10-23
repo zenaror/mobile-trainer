@@ -194,11 +194,11 @@ DebugFlags_OnA:: ; 19:41CB
 	ld bc, $8000
 	or a, a
 	jr z, .l41E8
-.l41E1 ; 19:41E1
+.shift_mask_right ; 19:41E1
 	srl b
 	rr c
 	dec a
-	jr nz, .l41E1
+	jr nz, .shift_mask_right
 .l41E8 ; 19:41E8
 	ld a, [wDebugFlags_EntryIndex]
 	ld hl, Table_DebugFlags_Entries

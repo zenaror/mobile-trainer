@@ -42,12 +42,12 @@ Mailbox_Main:: ; 25:4000
 	call Mailbox_ShowRowStatusIcons
 	pop bc
 	call Mailbox_UpdateScrollArrows
-	jr .l4042
+	jr .restore_bc
 
 .l403F ; 25:403F
 	; [CONFIRMED] 33 insn(s); 33 executed (in up to 1/18 scenarios)
 	call Mailbox_LoadScreen
-.l4042 ; 25:4042
+.restore_bc ; 25:4042
 	pop bc
 
 Mailbox_Main_Loop:: ; 25:4043
@@ -349,7 +349,7 @@ Mailbox_IconMenu_PressA:: ; 25:420A
 	ld a, d
 	pop de
 	cp a, $00
-	jr z, .l4341
+	jr z, .show_empty_list
 	call Mailbox_RedrawAfterDelete
 	push bc
 	push de
@@ -390,7 +390,7 @@ Mailbox_IconMenu_PressA:: ; 25:420A
 	call Mailbox_UpdateScrollArrows
 	jr .l4344
 
-.l4341 ; 25:4341
+.show_empty_list ; 25:4341
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 408A-446B by apply_coverage --split
 	call Mailbox_ShowEmptyList
@@ -981,7 +981,7 @@ Mailbox_ReadMail:: ; 25:465C
 	ld a, b
 	cp a, $00
 	jr nz, .l47DA
-	jr .l47F3
+	jr .restore_bc_de_and_enter_icon_menu
 .l47DA ; 25:47DA
 	ld hl, wSpriteSlot3
 	ld de, Mailbox_ObjTable_Entry16
@@ -991,7 +991,7 @@ Mailbox_ReadMail:: ; 25:465C
 	ld de, $3048
 	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
-.l47F3 ; 25:47F3
+.restore_bc_de_and_enter_icon_menu ; 25:47F3
 	pop bc
 	pop de
 	jp Mailbox_IconMenu_Enter
@@ -1125,7 +1125,7 @@ Mailbox_CursorUp:: ; 25:4885
 	ld a, b
 	cp a, $00
 	jr nz, .l48E9
-	jr .l4902
+	jr .restore_bc_update_scroll_arrows
 .l48E9 ; 25:48E9
 	ld hl, wSpriteSlot3
 	ld de, Mailbox_ObjTable_Entry16
@@ -1135,7 +1135,7 @@ Mailbox_CursorUp:: ; 25:4885
 	ld de, $3048
 	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
-.l4902 ; 25:4902
+.restore_bc_update_scroll_arrows ; 25:4902
 	pop bc
 	call Mailbox_UpdateScrollArrows
 	ret
@@ -1196,7 +1196,7 @@ Mailbox_CursorDown:: ; 25:4907
 	ld a, b
 	cp a, $00
 	jr nz, .l4969
-	jr .l4982
+	jr .restore_bc_update_scroll_arrows
 .l4969 ; 25:4969
 	ld hl, wSpriteSlot3
 	ld de, Mailbox_ObjTable_Entry16
@@ -1206,7 +1206,7 @@ Mailbox_CursorDown:: ; 25:4907
 	ld de, $3048
 	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
-.l4982 ; 25:4982
+.restore_bc_update_scroll_arrows ; 25:4982
 	pop bc
 	call Mailbox_UpdateScrollArrows
 	ret

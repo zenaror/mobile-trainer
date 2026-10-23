@@ -22,13 +22,13 @@ Tilemap_FillRectSequential:: ; 48:4679
 	push hl
 	ld a, [wTilemapFill_StartTile]
 	ld d, b
-.l469B ; 48:469B
+.begin_row ; 48:469B
 	ld e, c
-.l469C ; 48:469C
+.fill_row_tiles ; 48:469C
 	ld [hli], a
 	inc a
 	dec e
-	jr nz, .l469C
+	jr nz, .fill_row_tiles
 	push af
 	ld a, $20
 	sub a, c
@@ -39,7 +39,7 @@ Tilemap_FillRectSequential:: ; 48:4679
 	ld h, a
 	pop af
 	dec d
-	jr nz, .l469B
+	jr nz, .begin_row
 	pop hl
 	ld de, $0400
 	add hl, de

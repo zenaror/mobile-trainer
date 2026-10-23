@@ -227,14 +227,14 @@ Kbd_RejectSymbol:: ; 55:6FA1
 .scan_rejected_character ; 55:6FAA
 	ld a, [hli]
 	or a, a
-	jr z, .l6FC5
+	jr z, .return_c_in_a
 	cp a, b
 	jr z, .l6FB3
 	jr .scan_rejected_character
 .l6FB3 ; 55:6FB3
 	play_sfx SFX_REJECT
 	ld c, $01
-.l6FC5 ; 55:6FC5
+.return_c_in_a ; 55:6FC5
 	ld a, c
 	ret
 

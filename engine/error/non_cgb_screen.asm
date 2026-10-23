@@ -61,9 +61,9 @@ NonCgb_ErrorScreen:: ; 6B:4C80
 	call NonCgb_FadeStep
 	or a, a
 	jr nz, .l4CE6
-.l4CF3 ; 6B:4CF3
+.halt_loop ; 6B:4CF3
 	halt
-	jr .l4CF3
+	jr .halt_loop
 
 NonCgb_FadeStep:: ; 6B:4CF6
 	ld hl, wNonCgb_FadeTimer

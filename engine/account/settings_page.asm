@@ -173,11 +173,11 @@ Settings_GetRegistrationProgress:: ; 68:4870
 	ld a, b
 	xor a, $A5
 	cp a, $01
-	jr z, .l48C8
+	jr z, .returnTwo
 	cp a, $02
-	jr z, .l48CB
+	jr z, .returnThree
 	cp a, $03
-	jr z, .l48CE
+	jr z, .returnFour
 
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 68:48C2 (executed)
@@ -189,17 +189,17 @@ Settings_GetRegistrationProgress:: ; 68:4870
 	xor a, a
 	ret
 
-.l48C8 ; 68:48C8
+.returnTwo ; 68:48C8
 	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1;
 	; entered by jrcc from 68:48BA (executed) [executed in 2 scenarios]
 	ld a, $02
 	ret
 
-.l48CB ; 68:48CB
+.returnThree ; 68:48CB
 	; [CONFIRMED] 4 insn(s); 4 executed (in up to 12/18 scenarios)
 	ld a, $03
 	ret
-.l48CE ; 68:48CE
+.returnFour ; 68:48CE
 	ld a, $04
 	ret
 
@@ -226,16 +226,16 @@ Settings_VerifyAndRepair:: ; 68:48DE
 	ld hl, sSettingsPage
 	call Settings_CheckPageMagicAndSum
 	or a, a
-	jr z, .l48ED
+	jr z, .update_checksum_and_return_zero
 	cp a, $01
-	jr z, .l48F3
-	jr .l4940
-.l48ED ; 68:48ED
+	jr z, .check_backup_after_status_one
+	jr .check_backup_after_other_status
+.update_checksum_and_return_zero ; 68:48ED
 	call Settings_UpdateChecksumAndBackup
 	ld a, $00
 	ret
 
-.l48F3 ; 68:48F3
+.check_backup_after_status_one ; 68:48F3
 	; [CONFIRMED] 37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 1;
 	; entered by jrcc from 68:48E9 (executed) | 4 insn(s) executed; cut out of the PROBABLE region
 	; 48F3-4940 by apply_coverage --split [executed in 1 scenarios]
@@ -246,7 +246,7 @@ Settings_VerifyAndRepair:: ; 68:48DE
 
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 48F3-4940 by apply_coverage --split
-	jr .l493D
+	jr .return_two
 
 .l48FE ; 68:48FE
 	; [CONFIRMED] 30 insn(s) executed; cut out of the PROBABLE region 48F3-4940 by apply_coverage
@@ -282,20 +282,20 @@ Settings_VerifyAndRepair:: ; 68:48DE
 	ld a, $01
 	ret
 
-.l493D ; 68:493D
+.return_two ; 68:493D
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 48F3-4940 by apply_coverage --split
 	ld a, $02
 	ret
 
-.l4940 ; 68:4940
+.check_backup_after_other_status ; 68:4940
 	; [CONFIRMED] 48 insn(s); 48 executed (in up to 18/18 scenarios)
 	ld hl, sSettingsBackup
 	call Settings_CheckPageMagicAndSum
 	or a, a
 	jr z, .l48FE
 	cp a, $01
-	jr z, .l493D
+	jr z, .return_two
 	ld a, $03
 	ret
 

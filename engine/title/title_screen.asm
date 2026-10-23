@@ -14,11 +14,11 @@ Title_Run:: ; 0E:4000
 	farcall Joypad_SetRepeatTiming
 	ld a, [wTitle_Arg]
 	or a, a
-	jr nz, .l4019
+	jr nz, .set_title_state_three
 	xor a, a
 	ld [wTitle_State], a
 	jr .l401E
-.l4019 ; 0E:4019
+.set_title_state_three ; 0E:4019
 	ld a, $03
 	ld [wTitle_State], a
 .l401E ; 0E:401E

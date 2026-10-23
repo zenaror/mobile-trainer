@@ -173,7 +173,7 @@ MailSrvDel_MenuLoop:: ; 23:4076
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressedRepeat]
 	and a, PADF_DOWN
-	jr z, .l415E
+	jr z, .repeat_menu_loop
 
 	; [CONFIRMED] 19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 0;
 	; fall-through of the jrcc at 23:413E (executed) [executed in 6 scenarios]
@@ -190,7 +190,7 @@ MailSrvDel_MenuLoop:: ; 23:4076
 	ld c, a
 	call MailSrvDel_MenuSelect
 
-.l415E ; 23:415E
+.repeat_menu_loop ; 23:415E
 	; [CONFIRMED] 1 insn(s); 1 executed (in up to 1/18 scenarios)
 	jp MailSrvDel_MenuLoop
 
@@ -915,7 +915,7 @@ MailSrvDel_FormatDecimalStr:: ; 23:4864
 	xor a, a
 	ld [bc], a
 	ld a, $05
-	jp .l4979
+	jp .pop_bc_and_return
 .l48D5 ; 23:48D5
 	ld h, d
 	ld l, e
@@ -960,7 +960,7 @@ MailSrvDel_FormatDecimalStr:: ; 23:4864
 	xor a, a
 	ld [bc], a
 	ld a, $04
-	jp .l4979
+	jp .pop_bc_and_return
 .l491B ; 23:491B
 	ld h, d
 	ld l, e
@@ -994,7 +994,7 @@ MailSrvDel_FormatDecimalStr:: ; 23:4864
 	xor a, a
 	ld [bc], a
 	ld a, $03
-	jp .l4979
+	jp .pop_bc_and_return
 .l494F ; 23:494F
 	ld h, d
 	ld l, e
@@ -1017,7 +1017,7 @@ MailSrvDel_FormatDecimalStr:: ; 23:4864
 	xor a, a
 	ld [bc], a
 	ld a, $02
-	jp .l4979
+	jp .pop_bc_and_return
 .l4971 ; 23:4971
 	ld a, [bc]
 	add a, e
@@ -1026,7 +1026,7 @@ MailSrvDel_FormatDecimalStr:: ; 23:4864
 	xor a, a
 	ld [bc], a
 	ld a, $01
-.l4979 ; 23:4979
+.pop_bc_and_return ; 23:4979
 	pop bc
 	ret
 
@@ -1052,7 +1052,7 @@ MailSrvDel_NumberOffset_23_4986:: ; 23:4986
 	cp a, $00
 	jr z, .l499C
 	ld bc, $0000
-	jp .l49E3
+	jp .pop_hl_de_and_return
 .l499C ; 23:499C
 	ld h, d
 	ld l, e
@@ -1062,7 +1062,7 @@ MailSrvDel_NumberOffset_23_4986:: ; 23:4986
 	cp a, $00
 	jr z, .l49B2
 	ld bc, $0000
-	jp .l49E3
+	jp .pop_hl_de_and_return
 .l49B2 ; 23:49B2
 	ld h, d
 	ld l, e
@@ -1072,7 +1072,7 @@ MailSrvDel_NumberOffset_23_4986:: ; 23:4986
 	cp a, $00
 	jr z, .l49C8
 	ld bc, $0000
-	jp .l49E3
+	jp .pop_hl_de_and_return
 .l49C8 ; 23:49C8
 	ld h, d
 	ld l, e
@@ -1082,11 +1082,11 @@ MailSrvDel_NumberOffset_23_4986:: ; 23:4986
 	cp a, $00
 	jr z, .l49DE
 	ld bc, $0000
-	jp .l49E3
+	jp .pop_hl_de_and_return
 .l49DE ; 23:49DE
 	ld bc, $0010
 	ld a, $01
-.l49E3 ; 23:49E3
+.pop_hl_de_and_return ; 23:49E3
 	pop hl
 	pop de
 	ret

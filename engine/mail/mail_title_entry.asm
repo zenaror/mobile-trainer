@@ -123,7 +123,7 @@ MailTitle_CursorLeft:: ; 2C:40D4
 	pop bc
 	inc c
 	dec c
-	jr nz, .l40F5
+	jr nz, .decrement_column_and_store_goal
 	inc b
 	dec b
 	ret z
@@ -135,7 +135,7 @@ MailTitle_CursorLeft:: ; 2C:40D4
 	ld c, e
 	ret
 
-.l40F5 ; 2C:40F5
+.decrement_column_and_store_goal ; 2C:40F5
 	; [CONFIRMED] 16 insn(s) executed; cut out of the PROBABLE region 40D4-410F by apply_coverage
 	; --split [executed in 3 scenarios]
 	dec c
@@ -351,7 +351,7 @@ MailTitle_InitScreen:: ; 2C:414C
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
-	jr .l42E3
+	jr .clear_cursor_and_goal_column
 .l42B4 ; 2C:42B4
 	farcall Stat_DisableScrollSplit
 	call VBlank_Wait
@@ -371,7 +371,7 @@ MailTitle_InitScreen:: ; 2C:414C
 	ldh [rSVBK], a
 	pop af
 	farcall Stat_EnableScrollSplit
-.l42E3 ; 2C:42E3
+.clear_cursor_and_goal_column ; 2C:42E3
 	ld bc, $0000
 	xor a, a
 	ld [wTextEditGoalColumn], a
@@ -386,14 +386,14 @@ MailTitle_PlaceTextCursor:: ; 2C:42EB
 	inc b
 	inc c
 	ld a, $38
-.l42F8 ; 2C:42F8
+.add_row_stride_loop ; 2C:42F8
 	dec b
 	jr z, .l42FF
 
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 2C:42F9 (executed)
 	add a, $0C
-	jr .l42F8
+	jr .add_row_stride_loop
 
 .l42FF ; 2C:42FF
 	; [CONFIRMED] 67 insn(s); 67 executed (in up to 2/18 scenarios)
@@ -405,12 +405,12 @@ MailTitle_PlaceTextCursor:: ; 2C:42EB
 	ld [wSpriteSlot1], a
 	ld [wSpriteSlot2], a
 	ld a, $20
-.l430E ; 2C:430E
+.add_column_stride_loop ; 2C:430E
 	dec c
-	jr z, .l4315
+	jr z, .store_both_sprite_x_positions
 	add a, $0C
-	jr .l430E
-.l4315 ; 2C:4315
+	jr .add_column_stride_loop
+.store_both_sprite_x_positions ; 2C:4315
 	ld [wSpriteSlot1 + $01], a
 	ld [wSpriteSlot2 + $01], a
 	pop bc
@@ -425,7 +425,7 @@ MailTitle_DrawTextLine:: ; 2C:431D
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, .l43BD
+	jp z, .load_dotted_line_glyph_for_padding
 	cp a, $0D
 	jr z, .l43A2
 	push af
@@ -465,9 +465,9 @@ MailTitle_DrawTextLine:: ; 2C:431D
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l43BD
+	jr z, .load_dotted_line_glyph_for_padding
 	cp a, $01
-	jr z, .l43BD
+	jr z, .load_dotted_line_glyph_for_padding
 	jr .l4322
 
 .l437D ; 2C:437D
@@ -488,9 +488,9 @@ MailTitle_DrawTextLine:: ; 2C:431D
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l43BD
+	jr z, .load_dotted_line_glyph_for_padding
 	cp a, $01
-	jr z, .l43BD
+	jr z, .load_dotted_line_glyph_for_padding
 	jr .l4322
 .l43A2 ; 2C:43A2
 	push bc
@@ -507,7 +507,7 @@ MailTitle_DrawTextLine:: ; 2C:431D
 	ld [wTextCellsLeft], a
 	call MailTitle_DrawTextLine_BlitBlankAdvance
 
-.l43BD ; 2C:43BD
+.load_dotted_line_glyph_for_padding ; 2C:43BD
 	; [CONFIRMED] 96 insn(s); 96 executed (in up to 2/18 scenarios)
 	push bc
 	push de
@@ -516,14 +516,14 @@ MailTitle_DrawTextLine:: ; 2C:431D
 	pop hl
 	pop de
 	pop bc
-.l43C9 ; 2C:43C9
+.pad_remaining_cells ; 2C:43C9
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call MailTitle_DrawTextLine_BlitBlankAdvance
-	jr .l43C9
+	jr .pad_remaining_cells
 
 MailTitle_DrawTextLine_BlitGlyphAdvance:: ; 2C:43D8
 	push bc
@@ -582,15 +582,15 @@ Gfx_StartHDMAAtVBlank_2C_4421:: ; 2C:4421
 	ld a, e
 	ldh [rHDMA4], a
 	ld de, rLY
-.l4430 ; 2C:4430
+.wait_for_byte_8f ; 2C:4430
 	ld a, [de]
 	cp a, $8F
-	jr nz, .l4430
+	jr nz, .wait_for_byte_8f
 	ld b, $91
-.l4437 ; 2C:4437
+.wait_for_byte_b_then_start_gdma ; 2C:4437
 	ld a, [de]
 	cp a, b
-	jr nz, .l4437
+	jr nz, .wait_for_byte_b_then_start_gdma
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a
@@ -681,23 +681,23 @@ MailTitle_FindLine:: ; 2C:4475
 	; [CONFIRMED] 27 insn(s); 27 executed (in up to 2/18 scenarios)
 	ld a, $FF
 	cp a, d
-	jr z, .l44B2
+	jr z, .disable_sram_restore_bc
 	ld e, $00
 	push hl
 .l44A1 ; 2C:44A1
 	ld a, [hli]
 	inc hl
 	cp a, $00
-	jr z, .l44B1
+	jr z, .restore_hl
 	cp a, $0D
-	jr z, .l44B1
+	jr z, .restore_hl
 	inc e
 	ld a, $0B
 	cp a, e
 	jr nz, .l44A1
-.l44B1 ; 2C:44B1
+.restore_hl ; 2C:44B1
 	pop hl
-.l44B2 ; 2C:44B2
+.disable_sram_restore_bc ; 2C:44B2
 	xor a, a
 	ld [rRAMG], a
 	pop bc
@@ -948,7 +948,7 @@ MailTitle_DeleteChar:: ; 2C:4612
 	push bc
 	inc c
 	dec c
-	jr nz, .l464F
+	jr nz, .decrement_column
 
 	; [CONFIRMED] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0;
 	; fall-through of the jrcc at 2C:4645 (executed) | 3 insn(s) executed; cut out of the PROBABLE
@@ -963,7 +963,7 @@ MailTitle_DeleteChar:: ; 2C:4612
 	ld c, e
 	inc c
 
-.l464F ; 2C:464F
+.decrement_column ; 2C:464F
 	; [CONFIRMED] 30 insn(s); 30 executed (in up to 1/18 scenarios)
 	dec c
 .l4650 ; 2C:4650
@@ -997,7 +997,7 @@ MailTitle_DeleteChar:: ; 2C:4612
 	pop bc
 	inc c
 	dec c
-	jr nz, .l46A0
+	jr nz, .decrement_column_and_store_goal
 
 	; [CONFIRMED] 7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 0;
 	; fall-through of the jrcc at 2C:4693 (executed) | 3 insn(s) executed; cut out of the PROBABLE
@@ -1013,7 +1013,7 @@ MailTitle_DeleteChar:: ; 2C:4612
 	ld c, e
 	jr .l46A5
 
-.l46A0 ; 2C:46A0
+.decrement_column_and_store_goal ; 2C:46A0
 	; [CONFIRMED] 19 insn(s); 19 executed (in up to 1/18 scenarios)
 	dec c
 	ld a, c
@@ -1044,11 +1044,11 @@ MailTitle_DeleteChar:: ; 2C:4612
 	; [CONFIRMED] 29 insn(s); 29 executed (in up to 1/18 scenarios)
 	ld a, $12
 	cp a, l
-	jr nz, .l46C9
+	jr nz, .shift_character_pair_forward
 	ld a, $D5
 	cp a, h
 	jr z, .l46D1
-.l46C9 ; 2C:46C9
+.shift_character_pair_forward ; 2C:46C9
 	ld a, [bc]
 	ld [hli], a
 	inc bc
@@ -1553,7 +1553,7 @@ MailTitle_KeyboardLoop:: ; 2C:4972
 .l49D8 ; 2C:49D8
 	call MailTitle_GetLength
 	cp a, $00
-	jr nz, .l49E3
+	jr nz, .delete_character_and_repeat
 
 	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
 	; fall-through of the jrcc at 2C:49DD (executed) [executed in 2 scenarios]
@@ -1561,7 +1561,7 @@ MailTitle_KeyboardLoop:: ; 2C:4972
 	or a, c
 	jr z, MailTitle_KeyboardLoop_HideKeyboard
 
-.l49E3 ; 2C:49E3
+.delete_character_and_repeat ; 2C:49E3
 	; [CONFIRMED] 2 insn(s); 2 executed (in up to 1/18 scenarios)
 	call MailTitle_DeleteChar
 	jr MailTitle_KeyboardLoop
@@ -1603,12 +1603,12 @@ MailTitle_GetLength:: ; 2C:4A05
 .count_subject_bytes ; 2C:4A12
 	ld a, [hli]
 	cp a, $00
-	jr z, .l4A1D
+	jr z, .return_d_restore_de_hl
 	inc d
 	ld a, $14
 	cp a, d
 	jr nz, .count_subject_bytes
-.l4A1D ; 2C:4A1D
+.return_d_restore_de_hl ; 2C:4A1D
 	ld a, d
 	pop de
 	pop hl

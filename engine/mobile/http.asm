@@ -130,7 +130,7 @@ Http_Poll:: ; 54:4357
 	bit 2, a
 	jp nz, .l43F1
 	bit 0, a
-	jp z, .l43EE
+	jp z, .return_zero
 	ld a, $01
 	ret
 .l436B ; 54:436B
@@ -223,7 +223,7 @@ Http_Poll:: ; 54:4357
 	ld a, $01
 	ret
 
-.l43EE ; 54:43EE
+.return_zero ; 54:43EE
 	; [CONFIRMED] 2 insn(s); 2 executed (in up to 1/18 scenarios)
 	ld a, $00
 	ret

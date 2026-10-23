@@ -157,11 +157,11 @@ Registration_DeleteConfirm_InputLoop:: ; 68:7A8F
 	play_sfx SFX_CONFIRM
 	ld a, [wDeleteConfirm_Cursor]
 	or a, a
-	jr nz, .l7ACB
+	jr nz, .return_two
 	ld a, $01
 	ret
 
-.l7ACB ; 68:7ACB
+.return_two ; 68:7ACB
 	; [CONFIRMED] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1;
 	; entered by jrcc from 68:7AC6 (executed) [executed in 3 scenarios]
 	ld a, $02
@@ -179,8 +179,8 @@ Registration_DeleteConfirm_InputLoop:: ; 68:7A8F
 	xor a, b
 	ld [wDeleteConfirm_Cursor], a
 	call Registration_DeleteConfirm_UpdateCursor
-	jr .l7AFE
-.l7AFE ; 68:7AFE
+	jr .repeat_input_loop
+.repeat_input_loop ; 68:7AFE
 	jp Registration_DeleteConfirm_InputLoop
 
 Registration_DeleteConfirm_UpdateCursor:: ; 68:7B01

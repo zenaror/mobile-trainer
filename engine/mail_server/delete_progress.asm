@@ -379,7 +379,7 @@ MailSrvDel_NumberTileOffset:: ; 23:5829
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5829-58A9 by apply_coverage --split
 	ld bc, wTileStage2 + $10
-	jp .l5886
+	jp .restore_hl_de_and_return
 
 .l583F ; 23:583F
 	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 5829-58A9 by apply_coverage
@@ -395,7 +395,7 @@ MailSrvDel_NumberTileOffset:: ; 23:5829
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5829-58A9 by apply_coverage --split
 	ld bc, wTileStage2 + $10
-	jp .l5886
+	jp .restore_hl_de_and_return
 
 .l5855 ; 23:5855
 	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 5829-58A9 by apply_coverage
@@ -411,7 +411,7 @@ MailSrvDel_NumberTileOffset:: ; 23:5829
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5829-58A9 by apply_coverage --split
 	ld bc, wTileStage2 + $20
-	jp .l5886
+	jp .restore_hl_de_and_return
 
 .l586B ; 23:586B
 	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 5829-58A9 by apply_coverage
@@ -427,14 +427,14 @@ MailSrvDel_NumberTileOffset:: ; 23:5829
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5829-58A9 by apply_coverage --split
 	ld bc, wTileStage2 + $30
-	jp .l5886
+	jp .restore_hl_de_and_return
 
 .l5881 ; 23:5881
 	; [CONFIRMED] 20 insn(s) executed; cut out of the PROBABLE region 5829-58A9 by apply_coverage
 	; --split [executed in 5 scenarios]
 	ld bc, wTileStage2 + $30
 	ld a, $01
-.l5886 ; 23:5886
+.restore_hl_de_and_return ; 23:5886
 	pop hl
 	pop de
 	ret

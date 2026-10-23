@@ -76,11 +76,11 @@ Browser_LoadPage_Fail:: ; 4C:404D
 	or a, a
 	jr z, .l40D3
 	cp a, $FF
-	jp z, .l4095
+	jp z, .begin_cancel
 	ld a, $00
 	farcall CommProgress_Step
 	jp .poll_disconnect
-.l4095 ; 4C:4095
+.begin_cancel ; 4C:4095
 	farcall Mobile_BeginCancel
 .poll_cancel ; 4C:409B
 	farcall Mobile_CancelPoll
@@ -148,9 +148,9 @@ Browser_LoadPage_ShowError:: ; 4C:40E4
 	jr nz, .l4123
 	ld a, [wMobileErrorDetail]
 	cp a, $01
-	jr z, .l4132
+	jr z, .clear_fetch_result_and_return
 	cp a, $02
-	jr z, .l4132
+	jr z, .clear_fetch_result_and_return
 
 .l4123 ; 4C:4123
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
@@ -160,7 +160,7 @@ Browser_LoadPage_ShowError:: ; 4C:40E4
 	ld [wBrowserFetchResult], a
 	ret
 
-.l4132 ; 4C:4132
+.clear_fetch_result_and_return ; 4C:4132
 	; [PROBABLE] 110 insn(s) reached by static flow only; seeds: exec x110; min discovery hops 1;
 	; entered by jrcc from 4C:411D (PROBABLE code) | 3 insn(s) never executed in the traced runs;
 	; cut out of the PROBABLE region 4132-4251 by apply_coverage --split
@@ -229,12 +229,12 @@ Browser_LoadPage_StopRequest:: ; 4C:417D
 	or a, a
 	jr z, .step_progress_until_zero
 	cp a, $FF
-	jp z, .l41D4
+	jp z, .begin_cancel
 	ld a, $00
 	farcall CommProgress_Step
 	jp .poll_disconnect
 
-.l41D4 ; 4C:41D4
+.begin_cancel ; 4C:41D4
 	; [PROBABLE] 11 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4132-4251 by apply_coverage --split
 	farcall Mobile_BeginCancel
@@ -261,7 +261,7 @@ Browser_LoadPage_StopRequest:: ; 4C:417D
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr z, .l424C
+	jr z, .clear_warning_result
 	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l424D
@@ -269,21 +269,21 @@ Browser_LoadPage_StopRequest:: ; 4C:417D
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
-	jr c, .l424C
+	jr c, .clear_warning_result
 
 	; [PROBABLE] 21 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4132-4251 by apply_coverage --split
 	jr nz, .l4228
 	ld a, [wTimerASeconds]
 	cp a, $1E
-	jr c, .l424C
+	jr c, .clear_warning_result
 .l4228 ; 4C:4228
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l4238
 	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
-	jr nz, .l424C
+	jr nz, .clear_warning_result
 	set 1, [hl]
 .l4238 ; 4C:4238
 	ld hl, wTimerAWarnFlags
@@ -297,7 +297,7 @@ Browser_LoadPage_StopRequest:: ; 4C:417D
 	ld a, $FF
 	jr .l424D
 
-.l424C ; 4C:424C
+.clear_warning_result ; 4C:424C
 	; [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 4132-4251 by apply_coverage
 	; --split [executed in 3 scenarios]
 	xor a, a
@@ -595,11 +595,11 @@ Browser_LoadPage_WaitReply:: ; 4C:44BA
 	ld b, a
 	ld a, [wTimerBMinutes]
 	cp a, b
-	jr z, .l44E2
+	jr z, .set_a_ff_for_timeout_check
 	xor a, a
 	jr .l44E4
 
-.l44E2 ; 4C:44E2
+.set_a_ff_for_timeout_check ; 4C:44E2
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;
 	; entered by jrcc from 4C:44DD (executed)
 	ld a, $FF
@@ -613,7 +613,7 @@ Browser_LoadPage_WaitReply_CheckWarning:: ; 4C:44E8
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr z, .l452E
+	jr z, .clear_warning_result
 	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l452F
@@ -621,7 +621,7 @@ Browser_LoadPage_WaitReply_CheckWarning:: ; 4C:44E8
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
-	jr c, .l452E
+	jr c, .clear_warning_result
 
 	; [CONFIRMED] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 0;
 	; fall-through of the jrcc at 4C:44FF (executed) | 4 insn(s) executed; cut out of the PROBABLE
@@ -629,7 +629,7 @@ Browser_LoadPage_WaitReply_CheckWarning:: ; 4C:44E8
 	jr nz, .l450A
 	ld a, [wTimerASeconds]
 	cp a, $1E
-	jr c, .l452E
+	jr c, .clear_warning_result
 
 .l450A ; 4C:450A
 	; [PROBABLE] 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region
@@ -639,7 +639,7 @@ Browser_LoadPage_WaitReply_CheckWarning:: ; 4C:44E8
 	jr nz, .l451A
 	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
-	jr nz, .l452E
+	jr nz, .clear_warning_result
 	set 1, [hl]
 .l451A ; 4C:451A
 	ld hl, wTimerAWarnFlags
@@ -653,7 +653,7 @@ Browser_LoadPage_WaitReply_CheckWarning:: ; 4C:44E8
 	ld a, $FF
 	jr .l452F
 
-.l452E ; 4C:452E
+.clear_warning_result ; 4C:452E
 	; [CONFIRMED] 28 insn(s); 28 executed (in up to 2/18 scenarios)
 	xor a, a
 .l452F ; 4C:452F
@@ -665,7 +665,7 @@ Browser_LoadPage_WaitReply_CheckWarning:: ; 4C:44E8
 Browser_LoadPage_WaitReply_ReplyComplete:: ; 4C:4537
 	farcall Browser_WrapImageInHtml
 	or a, a
-	jr nz, .l4577
+	jr nz, .dispatch_fetch_result
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -682,9 +682,9 @@ Browser_LoadPage_WaitReply_ReplyComplete:: ; 4C:4537
 	farcall Html_ScanPage
 	ld a, [wHtmlFlags]
 	and a, $01
-	jr z, .l4577
+	jr z, .dispatch_fetch_result
 	farcall Browser_FetchInlineImages
-.l4577 ; 4C:4577
+.dispatch_fetch_result ; 4C:4577
 	ld a, [wBrowserFetchResult]
 	call JumpTableInline
 
@@ -719,7 +719,7 @@ Browser_LoadPage_WaitReply_TimeoutError:: ; 4C:458B
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr z, .l45F8
+	jr z, .clear_warning_result
 	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l45F9
@@ -727,18 +727,18 @@ Browser_LoadPage_WaitReply_TimeoutError:: ; 4C:458B
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
-	jr c, .l45F8
+	jr c, .clear_warning_result
 	jr nz, .l45D4
 	ld a, [wTimerASeconds]
 	cp a, $1E
-	jr c, .l45F8
+	jr c, .clear_warning_result
 .l45D4 ; 4C:45D4
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l45E4
 	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
-	jr nz, .l45F8
+	jr nz, .clear_warning_result
 	set 1, [hl]
 .l45E4 ; 4C:45E4
 	ld hl, wTimerAWarnFlags
@@ -751,7 +751,7 @@ Browser_LoadPage_WaitReply_TimeoutError:: ; 4C:458B
 	ld [hl], a
 	ld a, $FF
 	jr .l45F9
-.l45F8 ; 4C:45F8
+.clear_warning_result ; 4C:45F8
 	xor a, a
 .l45F9 ; 4C:45F9
 	pop hl
@@ -793,7 +793,7 @@ Browser_LoadPage_WaitReply_ResultOk:: ; 4C:460D
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr z, .l4684
+	jr z, .clear_warning_result
 	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
 	jr nz, .l4685
@@ -801,7 +801,7 @@ Browser_LoadPage_WaitReply_ResultOk:: ; 4C:460D
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
-	jr c, .l4684
+	jr c, .clear_warning_result
 
 	; [CONFIRMED] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 0;
 	; fall-through of the jrcc at 4C:4655 (executed) | 4 insn(s) executed; cut out of the PROBABLE
@@ -809,7 +809,7 @@ Browser_LoadPage_WaitReply_ResultOk:: ; 4C:460D
 	jr nz, .l4660
 	ld a, [wTimerASeconds]
 	cp a, $1E
-	jr c, .l4684
+	jr c, .clear_warning_result
 
 .l4660 ; 4C:4660
 	; [PROBABLE] 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region
@@ -819,7 +819,7 @@ Browser_LoadPage_WaitReply_ResultOk:: ; 4C:460D
 	jr nz, .l4670
 	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
-	jr nz, .l4684
+	jr nz, .clear_warning_result
 	set 1, [hl]
 .l4670 ; 4C:4670
 	ld hl, wTimerAWarnFlags
@@ -833,7 +833,7 @@ Browser_LoadPage_WaitReply_ResultOk:: ; 4C:460D
 	ld a, $FF
 	jr .l4685
 
-.l4684 ; 4C:4684
+.clear_warning_result ; 4C:4684
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
 	xor a, a
 .l4685 ; 4C:4685
@@ -872,10 +872,10 @@ Url_StripFragment:: ; 4C:46A6
 .scan_for_fragment_or_nul ; 4C:46AC
 	ld a, [hli]
 	cp a, $23
-	jr z, .l46B4
+	jr z, .terminate_at_fragment_or_nul
 	or a, a
 	jr nz, .scan_for_fragment_or_nul
-.l46B4 ; 4C:46B4
+.terminate_at_fragment_or_nul ; 4C:46B4
 	dec hl
 	xor a, a
 	ld [hli], a

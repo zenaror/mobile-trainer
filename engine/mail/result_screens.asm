@@ -198,12 +198,12 @@ MailResult_ShowSentMessage:: ; 29:41AD
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, wMailTextScratch
-.l41D6 ; 29:41D6
+.copy_message_string ; 29:41D6
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, .l41D6
+	jr nz, .copy_message_string
 	ld hl, wMailTextScratch + $02
 .l41E0 ; 29:41E0
 	ld a, $01
@@ -293,12 +293,12 @@ MailResult_ShowReceivedMessage:: ; 29:4286
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, wMailTextScratch
-.l42B8 ; 29:42B8
+.copy_message_string ; 29:42B8
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, .l42B8
+	jr nz, .copy_message_string
 	ld hl, wMailTextScratch + $02
 .l42C2 ; 29:42C2
 	ld a, $01
@@ -368,7 +368,7 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	ld de, $3035
 	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
-	jp .l44F2
+	jp .pop_hl_de_bc_and_return
 .l4399 ; 29:4399
 	cp a, $02
 	jr nz, .l43B9
@@ -383,7 +383,7 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	ld de, $3035
 	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
-	jp .l44F2
+	jp .pop_hl_de_bc_and_return
 
 .l43B9 ; 29:43B9
 	; [CONFIRMED] 24 insn(s) executed; cut out of the PROBABLE region 4374-44F6 by apply_coverage
@@ -398,7 +398,7 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	ld de, $3035
 	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
-	jp .l44F2
+	jp .pop_hl_de_bc_and_return
 .l43D9 ; 29:43D9
 	cp a, $04
 	jr nz, .l43F9
@@ -410,7 +410,7 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	ld de, $3035
 	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
-	jp .l44F2
+	jp .pop_hl_de_bc_and_return
 .l43F9 ; 29:43F9
 	cp a, $05
 	jr nz, .l4419
@@ -425,7 +425,7 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	ld de, $3035
 	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
-	jp .l44F2
+	jp .pop_hl_de_bc_and_return
 
 .l4419 ; 29:4419
 	; [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 4374-44F6 by apply_coverage
@@ -443,7 +443,7 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	ld de, $3035
 	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
-	jp .l44F2
+	jp .pop_hl_de_bc_and_return
 
 .l4439 ; 29:4439
 	; [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 4374-44F6 by apply_coverage
@@ -461,7 +461,7 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	ld de, $3035
 	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
-	jp .l44F2
+	jp .pop_hl_de_bc_and_return
 
 .l4459 ; 29:4459
 	; [CONFIRMED] 13 insn(s) executed; cut out of the PROBABLE region 4374-44F6 by apply_coverage
@@ -476,7 +476,7 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	ld de, $3035
 	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
-	jp .l44F2
+	jp .pop_hl_de_bc_and_return
 .l4479 ; 29:4479
 	cp a, $09
 	jr nz, .l4499
@@ -491,7 +491,7 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	ld de, $3035
 	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
-	jp .l44F2
+	jp .pop_hl_de_bc_and_return
 
 .l4499 ; 29:4499
 	; [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 4374-44F6 by apply_coverage
@@ -509,7 +509,7 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	ld de, $3037
 	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
-	jp .l44F2
+	jp .pop_hl_de_bc_and_return
 
 .l44B9 ; 29:44B9
 	; [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 4374-44F6 by apply_coverage
@@ -527,7 +527,7 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	ld de, $3037
 	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
-	jp .l44F2
+	jp .pop_hl_de_bc_and_return
 
 .l44D9 ; 29:44D9
 	; [CONFIRMED] 12 insn(s) executed; cut out of the PROBABLE region 4374-44F6 by apply_coverage
@@ -540,7 +540,7 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	ld de, $3037
 	ld hl, wSpriteSlot3
 	call Sprite_SetPosition
-.l44F2 ; 29:44F2
+.pop_hl_de_bc_and_return ; 29:44F2
 	pop hl
 	pop de
 	pop bc
@@ -704,16 +704,16 @@ MailServerStatus_Screen:: ; 29:44F6
 	ld de, wMailSessionBlock + $01
 	ld a, [de]
 	cp a, $00
-	jr z, .l4605
+	jr z, .return_ff
 
 	; [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 1;
 	; fall-through of the jrcc at 29:45FD (executed) [executed in 2 scenarios]
 	cp a, $FF
-	jr z, .l4605
+	jr z, .return_ff
 	xor a, a
 	ret
 
-.l4605 ; 29:4605
+.return_ff ; 29:4605
 	; [CONFIRMED] 53 insn(s); 53 executed (in up to 2/18 scenarios)
 	ld a, $FF
 	ret
@@ -1161,7 +1161,7 @@ MailServerStatus_FormatNumber_M0:: ; 29:48C3
 	xor a, a
 	ld [bc], a
 	ld a, $05
-	jp .l49D8
+	jp .pop_bc_and_return
 
 .l4934 ; 29:4934
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
@@ -1211,7 +1211,7 @@ MailServerStatus_FormatNumber_M0:: ; 29:48C3
 	xor a, a
 	ld [bc], a
 	ld a, $04
-	jp .l49D8
+	jp .pop_bc_and_return
 
 .l497A ; 29:497A
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
@@ -1250,7 +1250,7 @@ MailServerStatus_FormatNumber_M0:: ; 29:48C3
 	xor a, a
 	ld [bc], a
 	ld a, $03
-	jp .l49D8
+	jp .pop_bc_and_return
 
 .l49AE ; 29:49AE
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
@@ -1278,7 +1278,7 @@ MailServerStatus_FormatNumber_M0:: ; 29:48C3
 	xor a, a
 	ld [bc], a
 	ld a, $02
-	jp .l49D8
+	jp .pop_bc_and_return
 
 .l49D0 ; 29:49D0
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
@@ -1289,7 +1289,7 @@ MailServerStatus_FormatNumber_M0:: ; 29:48C3
 	xor a, a
 	ld [bc], a
 	ld a, $01
-.l49D8 ; 29:49D8
+.pop_bc_and_return ; 29:49D8
 	pop bc
 	ret
 
@@ -1314,7 +1314,7 @@ MailServerStatus_NumberOffset_M0:: ; 29:49E5
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 29:49F3 (executed)
 	ld bc, $0000
-	jp .l4A42
+	jp .pop_hl_de_and_return
 
 .l49FB ; 29:49FB
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
@@ -1329,7 +1329,7 @@ MailServerStatus_NumberOffset_M0:: ; 29:49E5
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 29:4A09 (executed)
 	ld bc, $0010
-	jp .l4A42
+	jp .pop_hl_de_and_return
 
 .l4A11 ; 29:4A11
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
@@ -1344,7 +1344,7 @@ MailServerStatus_NumberOffset_M0:: ; 29:49E5
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 29:4A1F (executed)
 	ld bc, $0020
-	jp .l4A42
+	jp .pop_hl_de_and_return
 
 .l4A27 ; 29:4A27
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
@@ -1359,13 +1359,13 @@ MailServerStatus_NumberOffset_M0:: ; 29:49E5
 	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 29:4A35 (executed) [executed in 2 scenarios]
 	ld bc, $0030
-	jp .l4A42
+	jp .pop_hl_de_and_return
 
 .l4A3D ; 29:4A3D
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 1/18 scenarios)
 	ld bc, $0040
 	ld a, $01
-.l4A42 ; 29:4A42
+.pop_hl_de_and_return ; 29:4A42
 	pop hl
 	pop de
 	ret
@@ -1634,7 +1634,7 @@ MailServerStatus_FormatNumber_M1:: ; 29:4B7F
 	xor a, a
 	ld [bc], a
 	ld a, $05
-	jp .l4C94
+	jp .pop_bc_and_return
 
 .l4BF0 ; 29:4BF0
 	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage
@@ -1685,7 +1685,7 @@ MailServerStatus_FormatNumber_M1:: ; 29:4B7F
 	xor a, a
 	ld [bc], a
 	ld a, $04
-	jp .l4C94
+	jp .pop_bc_and_return
 
 .l4C36 ; 29:4C36
 	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage
@@ -1725,7 +1725,7 @@ MailServerStatus_FormatNumber_M1:: ; 29:4B7F
 	xor a, a
 	ld [bc], a
 	ld a, $03
-	jp .l4C94
+	jp .pop_bc_and_return
 
 .l4C6A ; 29:4C6A
 	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage
@@ -1754,7 +1754,7 @@ MailServerStatus_FormatNumber_M1:: ; 29:4B7F
 	xor a, a
 	ld [bc], a
 	ld a, $02
-	jp .l4C94
+	jp .pop_bc_and_return
 
 .l4C8C ; 29:4C8C
 	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage
@@ -1766,7 +1766,7 @@ MailServerStatus_FormatNumber_M1:: ; 29:4B7F
 	xor a, a
 	ld [bc], a
 	ld a, $01
-.l4C94 ; 29:4C94
+.pop_bc_and_return ; 29:4C94
 	pop bc
 	ret
 
@@ -1792,7 +1792,7 @@ MailServerStatus_NumberOffset_M1:: ; 29:4CA1
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4CA1-4D21 by apply_coverage --split
 	ld bc, $0000
-	jp .l4CFE
+	jp .pop_hl_de_and_return
 
 .l4CB7 ; 29:4CB7
 	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 4CA1-4D21 by apply_coverage
@@ -1808,7 +1808,7 @@ MailServerStatus_NumberOffset_M1:: ; 29:4CA1
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4CA1-4D21 by apply_coverage --split
 	ld bc, $0010
-	jp .l4CFE
+	jp .pop_hl_de_and_return
 
 .l4CCD ; 29:4CCD
 	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 4CA1-4D21 by apply_coverage
@@ -1824,7 +1824,7 @@ MailServerStatus_NumberOffset_M1:: ; 29:4CA1
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4CA1-4D21 by apply_coverage --split
 	ld bc, $0020
-	jp .l4CFE
+	jp .pop_hl_de_and_return
 
 .l4CE3 ; 29:4CE3
 	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 4CA1-4D21 by apply_coverage
@@ -1840,14 +1840,14 @@ MailServerStatus_NumberOffset_M1:: ; 29:4CA1
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4CA1-4D21 by apply_coverage --split
 	ld bc, $0030
-	jp .l4CFE
+	jp .pop_hl_de_and_return
 
 .l4CF9 ; 29:4CF9
 	; [CONFIRMED] 20 insn(s) executed; cut out of the PROBABLE region 4CA1-4D21 by apply_coverage
 	; --split [executed in 4 scenarios]
 	ld bc, $0040
 	ld a, $01
-.l4CFE ; 29:4CFE
+.pop_hl_de_and_return ; 29:4CFE
 	pop hl
 	pop de
 	ret
@@ -2130,7 +2130,7 @@ MailServerStatus_FormatNumber_M2:: ; 29:4E55
 	xor a, a
 	ld [bc], a
 	ld a, $05
-	jp .l4F6A
+	jp .pop_bc_and_return
 
 .l4EC6 ; 29:4EC6
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
@@ -2180,7 +2180,7 @@ MailServerStatus_FormatNumber_M2:: ; 29:4E55
 	xor a, a
 	ld [bc], a
 	ld a, $04
-	jp .l4F6A
+	jp .pop_bc_and_return
 
 .l4F0C ; 29:4F0C
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
@@ -2219,7 +2219,7 @@ MailServerStatus_FormatNumber_M2:: ; 29:4E55
 	xor a, a
 	ld [bc], a
 	ld a, $03
-	jp .l4F6A
+	jp .pop_bc_and_return
 
 .l4F40 ; 29:4F40
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
@@ -2247,7 +2247,7 @@ MailServerStatus_FormatNumber_M2:: ; 29:4E55
 	xor a, a
 	ld [bc], a
 	ld a, $02
-	jp .l4F6A
+	jp .pop_bc_and_return
 
 .l4F62 ; 29:4F62
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
@@ -2258,7 +2258,7 @@ MailServerStatus_FormatNumber_M2:: ; 29:4E55
 	xor a, a
 	ld [bc], a
 	ld a, $01
-.l4F6A ; 29:4F6A
+.pop_bc_and_return ; 29:4F6A
 	pop bc
 	ret
 
@@ -2283,7 +2283,7 @@ MailServerStatus_NumberOffset_M2:: ; 29:4F77
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 29:4F85 (executed)
 	ld bc, $0000
-	jp .l4FD4
+	jp .pop_hl_de_and_return
 
 .l4F8D ; 29:4F8D
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
@@ -2298,7 +2298,7 @@ MailServerStatus_NumberOffset_M2:: ; 29:4F77
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 29:4F9B (executed)
 	ld bc, $0010
-	jp .l4FD4
+	jp .pop_hl_de_and_return
 
 .l4FA3 ; 29:4FA3
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
@@ -2313,7 +2313,7 @@ MailServerStatus_NumberOffset_M2:: ; 29:4F77
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 29:4FB1 (executed)
 	ld bc, $0020
-	jp .l4FD4
+	jp .pop_hl_de_and_return
 
 .l4FB9 ; 29:4FB9
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
@@ -2328,13 +2328,13 @@ MailServerStatus_NumberOffset_M2:: ; 29:4F77
 	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 29:4FC7 (executed) [executed in 1 scenarios]
 	ld bc, $0030
-	jp .l4FD4
+	jp .pop_hl_de_and_return
 
 .l4FCF ; 29:4FCF
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 1/18 scenarios)
 	ld bc, $0040
 	ld a, $01
-.l4FD4 ; 29:4FD4
+.pop_hl_de_and_return ; 29:4FD4
 	pop hl
 	pop de
 	ret
@@ -2409,15 +2409,15 @@ MailResult_StartHDMAAtVBlank:: ; 29:503F
 	ld a, e
 	ldh [rHDMA4], a
 	ld de, rLY
-.l504E ; 29:504E
+.wait_ly_143 ; 29:504E
 	ld a, [de]
 	cp a, $8F
-	jr nz, .l504E
+	jr nz, .wait_ly_143
 	ld b, $91
-.l5055 ; 29:5055
+.wait_ly_145 ; 29:5055
 	ld a, [de]
 	cp a, b
-	jr nz, .l5055
+	jr nz, .wait_ly_145
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a

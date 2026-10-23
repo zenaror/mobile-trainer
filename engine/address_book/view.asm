@@ -99,7 +99,7 @@ AbookView_Run:: ; 2F:5098
 	; --split [executed in 3 scenarios]
 	ldh a, [hJoyPressed]
 	and a, PADF_B
-	jr z, .l5164
+	jr z, .repeat_view_service
 	push bc
 	push bc
 	push de
@@ -112,7 +112,7 @@ AbookView_Run:: ; 2F:5098
 	pop bc
 	ld a, $FF
 	ret
-.l5164 ; 2F:5164
+.repeat_view_service ; 2F:5164
 	jp .service_view_frame
 
 Abook_StoreEntryToSram:: ; 2F:5167
@@ -419,7 +419,7 @@ AbookView_DrawName:: ; 2F:53F5
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, .l5495
+	jp z, .load_space_glyph_for_padding
 	cp a, $0D
 	jr z, .l547A
 	push af
@@ -459,9 +459,9 @@ AbookView_DrawName:: ; 2F:53F5
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l5495
+	jr z, .load_space_glyph_for_padding
 	cp a, $01
-	jr z, .l5495
+	jr z, .load_space_glyph_for_padding
 	jr .read_next_char
 
 .draw_ascii_char ; 2F:5455
@@ -482,9 +482,9 @@ AbookView_DrawName:: ; 2F:53F5
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l5495
+	jr z, .load_space_glyph_for_padding
 	cp a, $01
-	jr z, .l5495
+	jr z, .load_space_glyph_for_padding
 	jr .read_next_char
 .l547A ; 2F:547A
 	push bc
@@ -501,7 +501,7 @@ AbookView_DrawName:: ; 2F:53F5
 	ld [wTextCellsLeft], a
 	call AbookView_DrawName_Pad
 
-.l5495 ; 2F:5495
+.load_space_glyph_for_padding ; 2F:5495
 	; [CONFIRMED] 56 insn(s) executed; cut out of the PROBABLE region 53F5-57A5 by apply_coverage
 	; --split [executed in 2 scenarios]
 	push bc
@@ -561,7 +561,7 @@ AbookView_DrawAddrLine1:: ; 2F:54E1
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, .l5581
+	jp z, .load_space_glyph_for_padding
 	cp a, $0D
 	jr z, .l5566
 	push af
@@ -604,9 +604,9 @@ AbookView_DrawAddrLine1:: ; 2F:54E1
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l5581
+	jr z, .load_space_glyph_for_padding
 	cp a, $01
-	jr z, .l5581
+	jr z, .load_space_glyph_for_padding
 	jr .read_next_char
 
 .draw_ascii_char ; 2F:5541
@@ -627,9 +627,9 @@ AbookView_DrawAddrLine1:: ; 2F:54E1
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l5581
+	jr z, .load_space_glyph_for_padding
 	cp a, $01
-	jr z, .l5581
+	jr z, .load_space_glyph_for_padding
 	jr .read_next_char
 
 .l5566 ; 2F:5566
@@ -649,7 +649,7 @@ AbookView_DrawAddrLine1:: ; 2F:54E1
 	ld [wTextCellsLeft], a
 	call AbookView_DrawAddrLine1_Pad
 
-.l5581 ; 2F:5581
+.load_space_glyph_for_padding ; 2F:5581
 	; [CONFIRMED] 56 insn(s) executed; cut out of the PROBABLE region 53F5-57A5 by apply_coverage
 	; --split [executed in 3 scenarios]
 	push bc
@@ -709,7 +709,7 @@ AbookView_DrawAddrLine2:: ; 2F:55CD
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, .l566D
+	jp z, .load_space_glyph_for_padding
 	cp a, $0D
 	jr z, .l5652
 	push af
@@ -752,9 +752,9 @@ AbookView_DrawAddrLine2:: ; 2F:55CD
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l566D
+	jr z, .load_space_glyph_for_padding
 	cp a, $01
-	jr z, .l566D
+	jr z, .load_space_glyph_for_padding
 	jr .read_next_char
 
 .draw_ascii_char ; 2F:562D
@@ -775,9 +775,9 @@ AbookView_DrawAddrLine2:: ; 2F:55CD
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l566D
+	jr z, .load_space_glyph_for_padding
 	cp a, $01
-	jr z, .l566D
+	jr z, .load_space_glyph_for_padding
 	jr .read_next_char
 
 .l5652 ; 2F:5652
@@ -797,7 +797,7 @@ AbookView_DrawAddrLine2:: ; 2F:55CD
 	ld [wTextCellsLeft], a
 	call AbookView_DrawAddrLine2_Pad
 
-.l566D ; 2F:566D
+.load_space_glyph_for_padding ; 2F:566D
 	; [CONFIRMED] 56 insn(s) executed; cut out of the PROBABLE region 53F5-57A5 by apply_coverage
 	; --split [executed in 1 scenarios]
 	push bc
@@ -857,7 +857,7 @@ AbookView_DrawAddrLine3:: ; 2F:56B9
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, .l5759
+	jp z, .load_space_glyph_for_padding
 	cp a, $0D
 	jr z, .l573E
 	push af
@@ -900,9 +900,9 @@ AbookView_DrawAddrLine3:: ; 2F:56B9
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l5759
+	jr z, .load_space_glyph_for_padding
 	cp a, $01
-	jr z, .l5759
+	jr z, .load_space_glyph_for_padding
 	jr .read_next_char
 
 .draw_ascii_char ; 2F:5719
@@ -923,9 +923,9 @@ AbookView_DrawAddrLine3:: ; 2F:56B9
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l5759
+	jr z, .load_space_glyph_for_padding
 	cp a, $01
-	jr z, .l5759
+	jr z, .load_space_glyph_for_padding
 	jr .read_next_char
 
 .l573E ; 2F:573E
@@ -945,7 +945,7 @@ AbookView_DrawAddrLine3:: ; 2F:56B9
 	ld [wTextCellsLeft], a
 	call AbookView_DrawAddrLine3_Pad
 
-.l5759 ; 2F:5759
+.load_space_glyph_for_padding ; 2F:5759
 	; [CONFIRMED] 42 insn(s) executed; cut out of the PROBABLE region 53F5-57A5 by apply_coverage
 	; --split [executed in 1 scenarios]
 	push bc

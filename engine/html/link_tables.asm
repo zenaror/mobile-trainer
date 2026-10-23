@@ -27,7 +27,7 @@ Html_StringTable_Add:: ; 74:5AAE
 	call Html_StringTable_Find
 	pop hl
 	or a, a
-	jr nz, .l5AF6
+	jr nz, .pop_bc_and_return
 	ld [bc], a
 	inc bc
 	ld [bc], a
@@ -91,7 +91,7 @@ Html_StringTable_Add:: ; 74:5AAE
 	pop de
 	ret
 
-.l5AF6 ; 74:5AF6
+.pop_bc_and_return ; 74:5AF6
 	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1;
 	; entered by jrcc from 74:5AB8 (executed) [executed in 4 scenarios]
 	pop bc
@@ -110,7 +110,7 @@ Html_StringTable_Find:: ; 74:5AF8
 	inc de
 	ld a, d
 	or a, a
-	jr nz, .l5B4B
+	jr nz, .return_de_ffff
 	push de
 	ld a, [bc]
 	inc bc
@@ -119,7 +119,7 @@ Html_StringTable_Find:: ; 74:5AF8
 	inc bc
 	ld d, a
 	or a, e
-	jr z, .l5B49
+	jr z, .restore_de_and_return
 	inc de
 	push bc
 	ld b, $00
@@ -189,12 +189,12 @@ Html_StringTable_Find:: ; 74:5AF8
 	; entered by jrcc from 74:5B3A (PROBABLE code) [executed in 4 scenarios]
 	inc a
 
-.l5B49 ; 74:5B49
+.restore_de_and_return ; 74:5B49
 	; [CONFIRMED] 2 insn(s); 2 executed (in up to 2/18 scenarios)
 	pop de
 	ret
 
-.l5B4B ; 74:5B4B
+.return_de_ffff ; 74:5B4B
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1;
 	; entered by jrcc from 74:5B04 (executed)
 	ld de, $FFFF
@@ -312,7 +312,7 @@ HtmlUrl_NormalizePath:: ; 74:5BA0
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; entered by jrcc from 74:5BCF (executed)
 	inc hl
-	jr .l5C35
+	jr .advance_source_and_repeat
 
 .l5BD8 ; 74:5BD8
 	; [CONFIRMED] 17 insn(s); 17 executed (in up to 2/18 scenarios)
@@ -320,15 +320,15 @@ HtmlUrl_NormalizePath:: ; 74:5BA0
 	ld c, l
 	ld a, [bc]
 	cp a, $2F
-	jr nz, .l5C32
+	jr nz, .copy_byte_to_output
 	inc bc
 	ld a, [bc]
 	cp a, $2E
-	jr nz, .l5C32
+	jr nz, .copy_byte_to_output
 	inc bc
 	ld a, [bc]
 	cp a, $2E
-	jr nz, .l5C32
+	jr nz, .copy_byte_to_output
 	inc bc
 	ld a, [bc]
 	cp a, $2F
@@ -343,7 +343,7 @@ HtmlUrl_NormalizePath:: ; 74:5BA0
 	cp a, $23
 	jr z, .l5C00
 	cp a, $5C
-	jr nz, .l5C32
+	jr nz, .copy_byte_to_output
 
 .l5C00 ; 74:5C00
 	; [CONFIRMED] 35 insn(s); 35 executed (in up to 1/18 scenarios)
@@ -380,23 +380,23 @@ HtmlUrl_NormalizePath:: ; 74:5BA0
 	ld c, l
 	ld a, [bc]
 	cp a, $2E
-	jr nz, .l5C35
+	jr nz, .advance_source_and_repeat
 	inc bc
 	ld a, [bc]
 	or a, a
-	jr nz, .l5C35
+	jr nz, .advance_source_and_repeat
 
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 74:5C2D (executed)
 	inc de
-	jr .l5C35
+	jr .advance_source_and_repeat
 
-.l5C32 ; 74:5C32
+.copy_byte_to_output ; 74:5C32
 	; [CONFIRMED] 8 insn(s); 8 executed (in up to 2/18 scenarios)
 	ld a, [hl]
 	ld [de], a
 	inc de
-.l5C35 ; 74:5C35
+.advance_source_and_repeat ; 74:5C35
 	inc hl
 	jp .l5BA8
 .l5C39 ; 74:5C39

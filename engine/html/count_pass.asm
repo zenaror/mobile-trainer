@@ -455,12 +455,12 @@ Html_CountListItems_Pre:: ; 74:51E4
 	; decode chain cp $2F / jr z / ld a,[$C2C1] / or $08 ... jp $50B9 ends in unconditional jumps to
 	; known code and lands exactly on the next code region 51FE (also a table target)
 	cp a, $2F
-	jr z, .l51F3
+	jr z, .clear_preformatted_flag
 	ld a, [wHtmlFlags]
 	or a, $08
 	ld [wHtmlFlags], a
 	jp Html_CountListItems_Tag_Done
-.l51F3 ; 74:51F3
+.clear_preformatted_flag ; 74:51F3
 	ld a, [wHtmlFlags]
 	and a, $F7
 	ld [wHtmlFlags], a
@@ -471,13 +471,13 @@ Html_CountListItems_Ul:: ; 74:51FE
 	; run starts at an entry of the code-pointer table at 74:511A [executed in 1 scenarios]
 	ldh a, [hHtml_TagFirstChar]
 	cp a, $2F
-	jr z, .l520F
+	jr z, .decrement_list_depth_if_nonzero
 	ldh a, [hHtmlCount_ListDepth]
 	inc a
 	jp z, Html_CountListItems_Tag_Done
 	ldh [hHtmlCount_ListDepth], a
 	jp Html_CountListItems_Tag_Done
-.l520F ; 74:520F
+.decrement_list_depth_if_nonzero ; 74:520F
 	ldh a, [hHtmlCount_ListDepth]
 	or a, a
 	jp z, Html_CountListItems_Tag_Done
@@ -488,13 +488,13 @@ Html_CountListItems_Ul:: ; 74:51FE
 Html_CountListItems_Ol:: ; 74:521B
 	ldh a, [hHtml_TagFirstChar]
 	cp a, $2F
-	jr z, .l522C
+	jr z, .decrement_list_depth_if_nonzero
 	ldh a, [hHtmlCount_ListDepth]
 	inc a
 	jp z, Html_CountListItems_Tag_Done
 	ldh [hHtmlCount_ListDepth], a
 	jp Html_CountListItems_Tag_Done
-.l522C ; 74:522C
+.decrement_list_depth_if_nonzero ; 74:522C
 	ldh a, [hHtmlCount_ListDepth]
 	or a, a
 	jp z, Html_CountListItems_Done

@@ -33,7 +33,7 @@ AddrBook_SaveConfirm:: ; 2A:6F95
 	pop de
 	pop bc
 	dec d
-	jp nz, .l7048
+	jp nz, .repeat_confirm_delay
 	push bc
 	ld de, $020B
 	push af
@@ -87,7 +87,7 @@ AddrBook_SaveConfirm:: ; 2A:6F95
 	pop bc
 	ld a, $FF
 	ret
-.l7048 ; 2A:7048
+.repeat_confirm_delay ; 2A:7048
 	jp .wait_confirm_delay
 
 AddrBook_StoreEditBufferToSlot:: ; 2A:704B
@@ -397,7 +397,7 @@ AddrBook_SaveConfirm_DrawTextLine16:: ; 2A:72CF
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, .l736F
+	jp z, .load_space_glyph_for_padding
 	cp a, $0D
 	jr z, .l7354
 	push af
@@ -437,9 +437,9 @@ AddrBook_SaveConfirm_DrawTextLine16:: ; 2A:72CF
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l736F
+	jr z, .load_space_glyph_for_padding
 	cp a, $01
-	jr z, .l736F
+	jr z, .load_space_glyph_for_padding
 	jr .read_next_char
 
 .draw_ascii_char ; 2A:732F
@@ -460,9 +460,9 @@ AddrBook_SaveConfirm_DrawTextLine16:: ; 2A:72CF
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l736F
+	jr z, .load_space_glyph_for_padding
 	cp a, $01
-	jr z, .l736F
+	jr z, .load_space_glyph_for_padding
 	jr .read_next_char
 .l7354 ; 2A:7354
 	push bc
@@ -479,7 +479,7 @@ AddrBook_SaveConfirm_DrawTextLine16:: ; 2A:72CF
 	ld [wTextCellsLeft], a
 	call AddrBook_SaveConfirm_DrawTextLine16_BlitBlankAdvance
 
-.l736F ; 2A:736F
+.load_space_glyph_for_padding ; 2A:736F
 	; [CONFIRMED] 42 insn(s) executed; cut out of the PROBABLE region 7293-73BB by apply_coverage
 	; --split [executed in 2 scenarios]
 	push bc
@@ -548,7 +548,7 @@ AddrBook_SaveConfirm_DrawTextLine17:: ; 2A:73BB
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, .l745B
+	jp z, .load_space_glyph_for_padding
 	cp a, $0D
 	jr z, .l7440
 	push af
@@ -588,9 +588,9 @@ AddrBook_SaveConfirm_DrawTextLine17:: ; 2A:73BB
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l745B
+	jr z, .load_space_glyph_for_padding
 	cp a, $01
-	jr z, .l745B
+	jr z, .load_space_glyph_for_padding
 	jr .read_next_char
 .draw_ascii_char ; 2A:741B
 	pop af
@@ -608,9 +608,9 @@ AddrBook_SaveConfirm_DrawTextLine17:: ; 2A:73BB
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l745B
+	jr z, .load_space_glyph_for_padding
 	cp a, $01
-	jr z, .l745B
+	jr z, .load_space_glyph_for_padding
 	jr .read_next_char
 .l7440 ; 2A:7440
 	push bc
@@ -626,7 +626,7 @@ AddrBook_SaveConfirm_DrawTextLine17:: ; 2A:73BB
 	dec a
 	ld [wTextCellsLeft], a
 	call AddrBook_SaveConfirm_DrawTextLine17_BlitBlankAdvance
-.l745B ; 2A:745B
+.load_space_glyph_for_padding ; 2A:745B
 	push bc
 	push de
 	push hl
@@ -695,7 +695,7 @@ AddrBook_SaveConfirm_DrawTextLine25:: ; 2A:74A7
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, .l7547
+	jp z, .load_space_glyph_for_padding
 	cp a, $0D
 	jr z, .l752C
 	push af
@@ -735,9 +735,9 @@ AddrBook_SaveConfirm_DrawTextLine25:: ; 2A:74A7
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l7547
+	jr z, .load_space_glyph_for_padding
 	cp a, $01
-	jr z, .l7547
+	jr z, .load_space_glyph_for_padding
 	jr .read_next_char
 .draw_ascii_char ; 2A:7507
 	pop af
@@ -755,9 +755,9 @@ AddrBook_SaveConfirm_DrawTextLine25:: ; 2A:74A7
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l7547
+	jr z, .load_space_glyph_for_padding
 	cp a, $01
-	jr z, .l7547
+	jr z, .load_space_glyph_for_padding
 	jr .read_next_char
 .l752C ; 2A:752C
 	push bc
@@ -773,7 +773,7 @@ AddrBook_SaveConfirm_DrawTextLine25:: ; 2A:74A7
 	dec a
 	ld [wTextCellsLeft], a
 	call AddrBook_SaveConfirm_DrawTextLine25_BlitBlankAdvance
-.l7547 ; 2A:7547
+.load_space_glyph_for_padding ; 2A:7547
 	push bc
 	push de
 	push hl

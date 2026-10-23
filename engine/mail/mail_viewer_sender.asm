@@ -110,7 +110,7 @@ MailView_SenderPage_CheckBAndSelect:: ; 2B:6548
 .l6574 ; 2B:6574
 	ldh a, [hJoyPressed]
 	and a, PADF_SELECT
-	jr z, .l65A8
+	jr z, .repeat_sender_page_loop
 	push bc
 	push de
 	play_sfx SFX_CONFIRM
@@ -123,7 +123,7 @@ MailView_SenderPage_CheckBAndSelect:: ; 2B:6548
 	pop bc
 	farcall SaveSenderAddr_Menu
 	jp MailView_SenderPage
-.l65A8 ; 2B:65A8
+.repeat_sender_page_loop ; 2B:65A8
 	jp MailView_SenderPage_Loop
 
 MailView_SenderPage_InitScreen:: ; 2B:65AB
@@ -420,10 +420,10 @@ MailView_SenderPage_InitScreen:: ; 2B:65AB
 	ld hl, $9800
 	ld b, $14
 	ld de, wScreenTileMap
-.l6808 ; 2B:6808
+.wait_for_scanline_144 ; 2B:6808
 	ldh a, [rLY]
 	cp a, $90
-	jr nz, .l6808
+	jr nz, .wait_for_scanline_144
 .l680E ; 2B:680E
 	ld a, [hli]
 	ld [de], a
@@ -611,7 +611,7 @@ MailView_DrawDateTime:: ; 2B:691A
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 6909-69AD by apply_coverage --split | forced execution: 1/1 instruction starts ran in
 	; forced_screens (traces/forced/, not natural evidence; status unchanged)
-	jp .l69AB
+	jp .restore_bc_and_return
 
 .l6942 ; 2B:6942
 	; [CONFIRMED] 81 insn(s) executed; cut out of the PROBABLE region 6909-69AD by apply_coverage
@@ -697,7 +697,7 @@ MailView_DrawDateTime:: ; 2B:691A
 	ld a, [hli]
 	ld [de], a
 	ei
-.l69AB ; 2B:69AB
+.restore_bc_and_return ; 2B:69AB
 	pop bc
 	ret
 
@@ -719,7 +719,7 @@ MailView_DrawTextLine20:: ; 2B:69C5
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, .l6A69
+	jp z, .load_space_glyph_for_padding
 	cp a, $0D
 	jr z, .l6A4E
 	push af
@@ -733,7 +733,7 @@ MailView_DrawTextLine20:: ; 2B:69C5
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 69C5-6CF5 by apply_coverage --split
 	pop af
-	jp .l6A69
+	jp .load_space_glyph_for_padding
 
 .l69EF ; 2B:69EF
 	; [CONFIRMED] 52 insn(s) executed; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage
@@ -771,7 +771,7 @@ MailView_DrawTextLine20:: ; 2B:69C5
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l6A69
+	jr z, .load_space_glyph_for_padding
 	jr .l69CA
 .l6A2C ; 2B:6A2C
 	pop af
@@ -789,7 +789,7 @@ MailView_DrawTextLine20:: ; 2B:69C5
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l6A69
+	jr z, .load_space_glyph_for_padding
 	jp .l69CA
 
 .l6A4E ; 2B:6A4E
@@ -809,7 +809,7 @@ MailView_DrawTextLine20:: ; 2B:69C5
 	ld [wTextCellsLeft], a
 	call MailView_DrawTextLine20_BlitBlankAdvance
 
-.l6A69 ; 2B:6A69
+.load_space_glyph_for_padding ; 2B:6A69
 	; [CONFIRMED] 56 insn(s) executed; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage
 	; --split [executed in 5 scenarios]
 	push bc
@@ -821,14 +821,14 @@ MailView_DrawTextLine20:: ; 2B:69C5
 	pop hl
 	pop de
 	pop bc
-.l6A7A ; 2B:6A7A
+.pad_remaining_cells ; 2B:6A7A
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call MailView_DrawTextLine20_BlitBlankAdvance
-	jr .l6A7A
+	jr .pad_remaining_cells
 
 MailView_DrawTextLine20_BlitGlyphAdvance:: ; 2B:6A89
 	push bc
@@ -869,7 +869,7 @@ MailView_DrawTextLine24:: ; 2B:6AB5
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, .l6B5A
+	jp z, .load_space_glyph_for_padding
 	cp a, $0D
 	jr z, .l6B3F
 	push af
@@ -883,7 +883,7 @@ MailView_DrawTextLine24:: ; 2B:6AB5
 	cp a, $01
 	jr nz, .l6ADF
 	pop af
-	jp .l6B5A
+	jp .load_space_glyph_for_padding
 .l6ADF ; 2B:6ADF
 	pop af
 	push bc
@@ -918,7 +918,7 @@ MailView_DrawTextLine24:: ; 2B:6AB5
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l6B5A
+	jr z, .load_space_glyph_for_padding
 	jp .l6ABA
 
 .l6B1D ; 2B:6B1D
@@ -939,7 +939,7 @@ MailView_DrawTextLine24:: ; 2B:6AB5
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l6B5A
+	jr z, .load_space_glyph_for_padding
 	jp .l6ABA
 
 .l6B3F ; 2B:6B3F
@@ -959,7 +959,7 @@ MailView_DrawTextLine24:: ; 2B:6AB5
 	ld [wTextCellsLeft], a
 	call MailView_DrawTextLine24_BlitBlankAdvance
 
-.l6B5A ; 2B:6B5A
+.load_space_glyph_for_padding ; 2B:6B5A
 	; [CONFIRMED] 59 insn(s) executed; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage
 	; --split [executed in 5 scenarios]
 	push bc
@@ -971,14 +971,14 @@ MailView_DrawTextLine24:: ; 2B:6AB5
 	pop hl
 	pop de
 	pop bc
-.l6B6B ; 2B:6B6B
+.pad_remaining_cells ; 2B:6B6B
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call MailView_DrawTextLine24_BlitBlankAdvance
-	jr .l6B6B
+	jr .pad_remaining_cells
 
 MailView_DrawTextLine24_BlitGlyphAdvance:: ; 2B:6B7A
 	push bc
@@ -1019,7 +1019,7 @@ MailView_DrawTextLine16:: ; 2B:6BA6
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, .l6C4B
+	jp z, .load_space_glyph_for_padding
 	cp a, $0D
 	jr z, .l6C30
 	push af
@@ -1033,7 +1033,7 @@ MailView_DrawTextLine16:: ; 2B:6BA6
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 69C5-6CF5 by apply_coverage --split
 	pop af
-	jp .l6C4B
+	jp .load_space_glyph_for_padding
 
 .l6BD0 ; 2B:6BD0
 	; [CONFIRMED] 35 insn(s) executed; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage
@@ -1071,7 +1071,7 @@ MailView_DrawTextLine16:: ; 2B:6BA6
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l6C4B
+	jr z, .load_space_glyph_for_padding
 	jp .l6BAB
 
 .l6C0E ; 2B:6C0E
@@ -1092,7 +1092,7 @@ MailView_DrawTextLine16:: ; 2B:6BA6
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l6C4B
+	jr z, .load_space_glyph_for_padding
 	jp .l6BAB
 .l6C30 ; 2B:6C30
 	push bc
@@ -1109,7 +1109,7 @@ MailView_DrawTextLine16:: ; 2B:6BA6
 	ld [wTextCellsLeft], a
 	call MailView_DrawTextLine16_BlitBlankAdvance
 
-.l6C4B ; 2B:6C4B
+.load_space_glyph_for_padding ; 2B:6C4B
 	; [CONFIRMED] 89 insn(s) executed; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage
 	; --split [executed in 8 scenarios]
 	push bc
@@ -1121,14 +1121,14 @@ MailView_DrawTextLine16:: ; 2B:6BA6
 	pop hl
 	pop de
 	pop bc
-.l6C5C ; 2B:6C5C
+.pad_remaining_cells ; 2B:6C5C
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call MailView_DrawTextLine16_BlitBlankAdvance
-	jr .l6C5C
+	jr .pad_remaining_cells
 
 MailView_DrawTextLine16_BlitGlyphAdvance:: ; 2B:6C6B
 	push bc
@@ -1199,15 +1199,15 @@ Gfx_StartHDMAAtVBlank_2B_6CD5:: ; 2B:6CD5
 	ld a, e
 	ldh [rHDMA4], a
 	ld de, rLY
-.l6CE4 ; 2B:6CE4
+.wait_for_byte_8f ; 2B:6CE4
 	ld a, [de]
 	cp a, $8F
-	jr nz, .l6CE4
+	jr nz, .wait_for_byte_8f
 	ld b, $91
-.l6CEB ; 2B:6CEB
+.wait_for_byte_b_then_start_gdma ; 2B:6CEB
 	ld a, [de]
 	cp a, b
-	jr nz, .l6CEB
+	jr nz, .wait_for_byte_b_then_start_gdma
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a

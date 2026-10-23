@@ -206,7 +206,7 @@ CommScene_Kind0_StateWaitCloseOrCancel:: ; 70:4135
 	ldh a, [hJoyPressed]
 	bit PADB_B, a
 	jr nz, .handle_button_b
-	jr .l41BB
+	jr .scroll_increment_and_return
 .l4144 ; 70:4144
 	play_sfx $002F
 	ld a, $14
@@ -223,7 +223,7 @@ CommScene_Kind0_StateWaitCloseOrCancel:: ; 70:4135
 	call CommScene_ShowTextBox
 	ld a, $04
 	ld [wCommScene_State], a
-	jr .l41BB
+	jr .scroll_increment_and_return
 
 .handle_button_b ; 70:417E
 	; [CONFIRMED] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 1;
@@ -246,7 +246,7 @@ CommScene_Kind0_StateWaitCloseOrCancel:: ; 70:4135
 	ld a, $07
 	ld [wCommScene_State], a
 
-.l41BB ; 70:41BB
+.scroll_increment_and_return ; 70:41BB
 	; [CONFIRMED] 39 insn(s); 39 executed (in up to 1/18 scenarios)
 	call CommScene_ScrollIncrement
 	ret
@@ -256,13 +256,13 @@ CommScene_Kind0_StateCloseCountdown:: ; 70:41BF
 	dec a
 	ld [wCommScene_Timer], a
 	or a, a
-	jr nz, .l41E4
+	jr nz, .scroll_increment_and_return
 	play_sfx SFX_COMM_CLOSE_DONE
 	ld hl, wSpriteSlot6
 	call Sprite_ClearSlot
 	ld a, $05
 	ld [wCommScene_State], a
-.l41E4 ; 70:41E4
+.scroll_increment_and_return ; 70:41E4
 	call CommScene_ScrollIncrement
 	ret
 
@@ -297,28 +297,28 @@ CommScene_Kind0_StateCancelCountdown:: ; 70:4215
 	dec a
 	ld [wCommScene_Timer], a
 	or a, a
-	jr nz, .l4231
+	jr nz, .place_sprite_pair_and_return
 	ld hl, wSpriteSlot6
 	call Sprite_ClearSlot
 	ld a, $01
 	call CommScene_SetSpritePair
 	ld a, $08
 	ld [wCommScene_State], a
-	jr .l4231
-.l4231 ; 70:4231
+	jr .place_sprite_pair_and_return
+.place_sprite_pair_and_return ; 70:4231
 	call CommScene_PlaceSpritePair
 	ret
 
 CommScene_Kind0_StateCancelWaitClose:: ; 70:4235
 	ld a, [wCommScene_StepArg]
 	or a, a
-	jr z, .l4258
+	jr z, .scroll_decrement_and_return
 	cp a, $01
 	jr z, .l4241
 
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4215-4275 by apply_coverage --split
-	jr .l4258
+	jr .scroll_decrement_and_return
 
 .l4241 ; 70:4241
 	; [CONFIRMED] 24 insn(s) executed; cut out of the PROBABLE region 4215-4275 by apply_coverage
@@ -326,8 +326,8 @@ CommScene_Kind0_StateCancelWaitClose:: ; 70:4235
 	play_sfx SFX_COMM_CLOSE_ENDED
 	ld a, $09
 	ld [wCommScene_State], a
-	jr .l4258
-.l4258 ; 70:4258
+	jr .scroll_decrement_and_return
+.scroll_decrement_and_return ; 70:4258
 	call CommScene_ScrollDecrement
 	ret
 
@@ -405,7 +405,7 @@ CommScene_Kind1_StateWaitCloseOrCancel:: ; 70:42CD
 	ldh a, [hJoyPressed]
 	bit PADB_B, a
 	jr nz, .handle_button_b
-	jr .l4353
+	jr .scroll_increment_and_return
 .l42DC ; 70:42DC
 	play_sfx $002F
 	ld a, $14
@@ -422,7 +422,7 @@ CommScene_Kind1_StateWaitCloseOrCancel:: ; 70:42CD
 	call CommScene_ShowTextBox
 	ld a, $03
 	ld [wCommScene_State], a
-	jr .l4353
+	jr .scroll_increment_and_return
 
 .handle_button_b ; 70:4316
 	; [CONFIRMED] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 1;
@@ -445,7 +445,7 @@ CommScene_Kind1_StateWaitCloseOrCancel:: ; 70:42CD
 	ld a, $06
 	ld [wCommScene_State], a
 
-.l4353 ; 70:4353
+.scroll_increment_and_return ; 70:4353
 	; [CONFIRMED] 39 insn(s); 39 executed (in up to 1/18 scenarios)
 	call CommScene_ScrollIncrement
 	ret
@@ -455,13 +455,13 @@ CommScene_Kind1_StateCloseCountdown:: ; 70:4357
 	dec a
 	ld [wCommScene_Timer], a
 	or a, a
-	jr nz, .l437C
+	jr nz, .scroll_increment_and_return
 	play_sfx SFX_COMM_CLOSE_DONE
 	ld hl, wSpriteSlot6
 	call Sprite_ClearSlot
 	ld a, $04
 	ld [wCommScene_State], a
-.l437C ; 70:437C
+.scroll_increment_and_return ; 70:437C
 	call CommScene_ScrollIncrement
 	ret
 
@@ -580,13 +580,13 @@ CommScene_Kind2_StateWaitOneFrame:: ; 70:4452
 CommScene_Kind2_StateWaitClose:: ; 70:4458
 	ld a, [wCommScene_StepArg]
 	or a, a
-	jr z, .l4480
+	jr z, .scroll_decrement_and_return
 	cp a, $01
 	jr z, .l4464
 
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 43AD-44B0 by apply_coverage --split
-	jr .l4480
+	jr .scroll_decrement_and_return
 
 .l4464 ; 70:4464
 	; [CONFIRMED] 33 insn(s) executed; cut out of the PROBABLE region 43AD-44B0 by apply_coverage
@@ -596,8 +596,8 @@ CommScene_Kind2_StateWaitClose:: ; 70:4458
 	ld [wCommScene_State], a
 	ld a, $05
 	call CommScene_ShowTextBox
-	jr .l4480
-.l4480 ; 70:4480
+	jr .scroll_decrement_and_return
+.scroll_decrement_and_return ; 70:4480
 	call CommScene_ScrollDecrement
 	ret
 

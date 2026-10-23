@@ -254,13 +254,13 @@ MailGrid_PlaceCursorSprite:: ; 2B:5523
 	ret
 .l55D0 ; 2B:55D0
 	cp a, $0B
-	jr nz, .l55DF
+	jr nz, .restore_bc_and_return
 	ld de, $547C
 	ld hl, wSpriteSlot1
 	call Sprite_SetPosition
 	pop bc
 	ret
-.l55DF ; 2B:55DF
+.restore_bc_and_return ; 2B:55DF
 	pop bc
 	ret
 
@@ -736,7 +736,7 @@ MailGrid_DrawTextLine12:: ; 2B:588B
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, .l592B
+	jp z, .load_space_glyph_for_padding
 	cp a, $0D
 	jr z, .l5910
 	push af
@@ -776,9 +776,9 @@ MailGrid_DrawTextLine12:: ; 2B:588B
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l592B
+	jr z, .load_space_glyph_for_padding
 	cp a, $01
-	jr z, .l592B
+	jr z, .load_space_glyph_for_padding
 	jr .l5890
 .l58EB ; 2B:58EB
 	pop af
@@ -796,9 +796,9 @@ MailGrid_DrawTextLine12:: ; 2B:588B
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l592B
+	jr z, .load_space_glyph_for_padding
 	cp a, $01
-	jr z, .l592B
+	jr z, .load_space_glyph_for_padding
 	jr .l5890
 .l5910 ; 2B:5910
 	push bc
@@ -814,7 +814,7 @@ MailGrid_DrawTextLine12:: ; 2B:588B
 	dec a
 	ld [wTextCellsLeft], a
 	call MailGrid_DrawTextLine12_BlitBlankAdvance
-.l592B ; 2B:592B
+.load_space_glyph_for_padding ; 2B:592B
 	push bc
 	push de
 	push hl
@@ -824,14 +824,14 @@ MailGrid_DrawTextLine12:: ; 2B:588B
 	pop hl
 	pop de
 	pop bc
-.l593C ; 2B:593C
+.pad_remaining_cells ; 2B:593C
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call MailGrid_DrawTextLine12_BlitBlankAdvance
-	jr .l593C
+	jr .pad_remaining_cells
 
 MailGrid_DrawTextLine12_BlitGlyphAdvance:: ; 2B:594B
 	push bc
@@ -890,15 +890,15 @@ Gfx_StartHDMAAtVBlank_2B_5994:: ; 2B:5994
 	ld a, e
 	ldh [rHDMA4], a
 	ld de, rLY
-.l59A3 ; 2B:59A3
+.wait_for_byte_8f ; 2B:59A3
 	ld a, [de]
 	cp a, $8F
-	jr nz, .l59A3
+	jr nz, .wait_for_byte_8f
 	ld b, $91
-.l59AA ; 2B:59AA
+.wait_for_byte_b_then_start_gdma ; 2B:59AA
 	ld a, [de]
 	cp a, b
-	jr nz, .l59AA
+	jr nz, .wait_for_byte_b_then_start_gdma
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a

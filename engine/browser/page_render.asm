@@ -155,7 +155,7 @@ Browser_MakeShortTitle:: ; 4E:5274
 	inc de
 	inc bc
 	inc bc
-	jr .l52E4
+	jr .terminate_title
 
 .l52D5 ; 4E:52D5
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
@@ -164,13 +164,13 @@ Browser_MakeShortTitle:: ; 4E:5274
 	pop hl
 	ld a, c
 	or a, a
-	jr z, .l52E4
+	jr z, .terminate_title
 	ld b, $00
 	push bc
 	call CopyBytes
 	pop bc
 
-.l52E4 ; 4E:52E4
+.terminate_title ; 4E:52E4
 	; [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 5274-52E7 by apply_coverage
 	; --split [executed in 2 scenarios]
 	xor a, a
@@ -1122,14 +1122,14 @@ Browser_DrawElement:: ; 4E:57DC
 	sub a, c
 	ldh a, [hViewRight + 1]
 	sbc a, b
-	jr c, .l5831
+	jr c, .clamp_right_to_viewport
 	ld a, c
 	ldh [hPageRender_ElemRight], a
 	ld a, b
 	ldh [hPageRender_ElemRightHi], a
 	jr .l5839
 
-.l5831 ; 4E:5831
+.clamp_right_to_viewport ; 4E:5831
 	; [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 1;
 	; entered by jrcc from 4E:5827 (executed)
 	ldh a, [hViewRight]

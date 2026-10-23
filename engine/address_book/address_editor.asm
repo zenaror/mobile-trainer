@@ -296,7 +296,7 @@ AbookAddr_CursorLeft:: ; 2F:6F07
 	pop bc
 	inc c
 	dec c
-	jr nz, .l6F28
+	jr nz, .decrement_column_and_store_goal
 	inc b
 	dec b
 	ret z
@@ -308,7 +308,7 @@ AbookAddr_CursorLeft:: ; 2F:6F07
 	ld c, e
 	ret
 
-.l6F28 ; 2F:6F28
+.decrement_column_and_store_goal ; 2F:6F28
 	; [CONFIRMED] 16 insn(s) executed; cut out of the PROBABLE region 6F07-6F42 by apply_coverage
 	; --split [executed in 2 scenarios]
 	dec c
@@ -384,14 +384,14 @@ AbookAddr_BuffersEmpty:: ; 2F:6F73
 	ldh [rSVBK], a
 	ld a, [wEditAddressBuf]
 	cp a, $00
-	jr nz, .l6F8A
+	jr nz, .return_zero
 	ld a, [wEditNameBuf]
 	cp a, $00
-	jr nz, .l6F8A
+	jr nz, .return_zero
 	ld a, $FF
 	ret
 
-.l6F8A ; 2F:6F8A
+.return_zero ; 2F:6F8A
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 6F5E-6F8C by apply_coverage --split
 	xor a, a
@@ -536,7 +536,7 @@ AbookAddr_SetupScreen:: ; 2F:6F8C
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
-	jr .l7119
+	jr .clear_cursor_and_goal_column
 
 .l70EA ; 2F:70EA
 	; [CONFIRMED] 34 insn(s); 34 executed (in up to 1/18 scenarios)
@@ -558,7 +558,7 @@ AbookAddr_SetupScreen:: ; 2F:6F8C
 	ldh [rSVBK], a
 	pop af
 	farcall Stat_EnableScrollSplit
-.l7119 ; 2F:7119
+.clear_cursor_and_goal_column ; 2F:7119
 	ld bc, $0000
 	xor a, a
 	ld [wTextEditGoalColumn], a
@@ -604,7 +604,7 @@ AbookAddr_PlaceCursorSprites:: ; 2F:7121
 	inc b
 	inc c
 	ld a, $38
-.l7148 ; 2F:7148
+.add_row_stride_loop ; 2F:7148
 	dec b
 	jr z, .l714F
 
@@ -612,7 +612,7 @@ AbookAddr_PlaceCursorSprites:: ; 2F:7121
 	; fall-through of the jrcc at 2F:7149 (executed) | upgraded by classifier 6: all 2 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	add a, $0C
-	jr .l7148
+	jr .add_row_stride_loop
 
 .l714F ; 2F:714F
 	; [CONFIRMED] 25 insn(s); 25 executed (in up to 1/18 scenarios)
@@ -625,12 +625,12 @@ AbookAddr_PlaceCursorSprites:: ; 2F:7121
 	ld [wSpriteSlot1], a
 	ld [wSpriteSlot2], a
 	ld a, $08
-.l7160 ; 2F:7160
+.add_column_stride_loop ; 2F:7160
 	dec c
-	jr z, .l7167
+	jr z, .store_both_sprite_x_positions
 	add a, $06
-	jr .l7160
-.l7167 ; 2F:7167
+	jr .add_column_stride_loop
+.store_both_sprite_x_positions ; 2F:7167
 	ld [wSpriteSlot1 + $01], a
 	ld [wSpriteSlot2 + $01], a
 	pop bc
@@ -1088,29 +1088,29 @@ AbookAddr_GetRowPtr:: ; 2F:73B8
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
 	ld a, $FF
 	cp a, d
-	jr z, .l73F4
+	jr z, .disable_sram_restore_bc
 	ld e, $00
 	push hl
 .l73E3 ; 2F:73E3
 	ld a, [hli]
 	inc hl
 	cp a, $00
-	jr z, .l73F3
+	jr z, .restore_hl
 
 	; [CONFIRMED] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0;
 	; fall-through of the jrcc at 2F:73E7 (executed) | upgraded by classifier 6: all 6 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	cp a, $0D
-	jr z, .l73F3
+	jr z, .restore_hl
 	inc e
 	ld a, $17
 	cp a, e
 	jr nz, .l73E3
 
-.l73F3 ; 2F:73F3
+.restore_hl ; 2F:73F3
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
 	pop hl
-.l73F4 ; 2F:73F4
+.disable_sram_restore_bc ; 2F:73F4
 	xor a, a
 	ld [rRAMG], a
 	pop bc
@@ -1199,11 +1199,11 @@ AbookAddr_InsertChar:: ; 2F:73FA
 .l74A3 ; 2F:74A3
 	ld a, d
 	cp a, h
-	jr nz, .l74AB
+	jr nz, .shift_byte_backward
 	ld a, e
 	cp a, l
 	jr z, .l74B1
-.l74AB ; 2F:74AB
+.shift_byte_backward ; 2F:74AB
 	ld a, [bc]
 	ld [de], a
 	dec bc
@@ -1264,7 +1264,7 @@ AbookAddr_Backspace:: ; 2F:74D7
 	push bc
 	inc c
 	dec c
-	jr nz, .l7514
+	jr nz, .decrement_column
 
 	; [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 73FA-75A0 by apply_coverage --split
@@ -1275,7 +1275,7 @@ AbookAddr_Backspace:: ; 2F:74D7
 	ld c, e
 	inc c
 
-.l7514 ; 2F:7514
+.decrement_column ; 2F:7514
 	; [CONFIRMED] 30 insn(s) executed; cut out of the PROBABLE region 73FA-75A0 by apply_coverage
 	; --split [executed in 5 scenarios]
 	dec c
@@ -1310,7 +1310,7 @@ AbookAddr_Backspace:: ; 2F:74D7
 	call AbookAddr_PlaceCursorSprites
 	inc c
 	dec c
-	jr nz, .l7566
+	jr nz, .decrement_column_and_store_goal
 
 	; [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 73FA-75A0 by apply_coverage --split
@@ -1322,7 +1322,7 @@ AbookAddr_Backspace:: ; 2F:74D7
 	ld c, e
 	jr .l756B
 
-.l7566 ; 2F:7566
+.decrement_column_and_store_goal ; 2F:7566
 	; [CONFIRMED] 18 insn(s) executed; cut out of the PROBABLE region 73FA-75A0 by apply_coverage
 	; --split [executed in 5 scenarios]
 	dec c
@@ -1354,11 +1354,11 @@ AbookAddr_Backspace:: ; 2F:74D7
 	; --split [executed in 5 scenarios]
 	ld a, $FF
 	cp a, l
-	jr nz, .l758E
+	jr nz, .shift_byte_forward
 	ld a, $D4
 	cp a, h
 	jr z, .l7593
-.l758E ; 2F:758E
+.shift_byte_forward ; 2F:758E
 	ld a, [bc]
 	ld [hli], a
 	inc bc
@@ -1471,10 +1471,10 @@ AbookAddr_KeyboardLoop:: ; 2F:75D3
 	; [CONFIRMED] 14 insn(s); 14 executed (in up to 1/18 scenarios)
 	ld a, c
 	or a, b
-	jr nz, .l7646
+	jr nz, .backspace_and_repeat
 	call AbookAddr_GetLength
 	cp a, $00
-	jr nz, .l7646
+	jr nz, .backspace_and_repeat
 .l7634 ; 2F:7634
 	push bc
 	farcall Kbd_Hide
@@ -1485,7 +1485,7 @@ AbookAddr_KeyboardLoop:: ; 2F:75D3
 	pop bc
 	ret
 
-.l7646 ; 2F:7646
+.backspace_and_repeat ; 2F:7646
 	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1;
 	; entered by jrcc from 2F:762B (executed) [executed in 5 scenarios]
 	call AbookAddr_Backspace
@@ -1510,7 +1510,7 @@ AbookAddr_GetLength:: ; 2F:764D
 .count_address_byte ; 2F:765A
 	ld a, [hli]
 	cp a, $00
-	jr z, .l7665
+	jr z, .return_d_restore_de_hl
 
 	; [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0;
 	; fall-through of the jrcc at 2F:765D (executed) | upgraded by classifier 6: all 4 instruction
@@ -1520,7 +1520,7 @@ AbookAddr_GetLength:: ; 2F:764D
 	cp a, d
 	jr nz, .count_address_byte
 
-.l7665 ; 2F:7665
+.return_d_restore_de_hl ; 2F:7665
 	; [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios)
 	ld a, d
 	pop de
@@ -1540,7 +1540,7 @@ AbookAddr_RedrawAfterInsert:: ; 2F:7669
 	ld de, $0438
 	ld hl, wEditAddressBuf
 	call AbookAddr_DrawLine1
-	jp .l7713
+	jp .upload_tiles_restore_bc
 .l7681 ; 2F:7681
 	ld a, c
 	cp a, $29
@@ -1549,7 +1549,7 @@ AbookAddr_RedrawAfterInsert:: ; 2F:7669
 	ld de, $1C08
 	ld hl, wEditAddressBuf + $28
 	call AbookAddr_DrawLine
-	jp .l7713
+	jp .upload_tiles_restore_bc
 .l7695 ; 2F:7695
 	ld a, c
 	cp a, $11
@@ -1561,7 +1561,7 @@ AbookAddr_RedrawAfterInsert:: ; 2F:7669
 	ld de, $1008
 	ld hl, wEditAddressBuf + $10
 	call AbookAddr_DrawLine
-	jr .l7713
+	jr .upload_tiles_restore_bc
 .l76AF ; 2F:76AF
 	ld a, c
 	cp a, $11
@@ -1574,7 +1574,7 @@ AbookAddr_RedrawAfterInsert:: ; 2F:7669
 	ld de, $1C08
 	ld hl, wEditAddressBuf + $28
 	call AbookAddr_DrawLine
-	jr .l7713
+	jr .upload_tiles_restore_bc
 .l76CE ; 2F:76CE
 	call AbookAddr_GetLength
 	cp a, $28
@@ -1587,7 +1587,7 @@ AbookAddr_RedrawAfterInsert:: ; 2F:7669
 	ld de, $1008
 	ld hl, wEditAddressBuf + $10
 	call AbookAddr_DrawLine
-	jr .l7713
+	jr .upload_tiles_restore_bc
 
 .l76EF ; 2F:76EF
 	; [PROBABLE] 12 insn(s) never executed in the traced runs; cut out of the PROBABLE region
@@ -1605,7 +1605,7 @@ AbookAddr_RedrawAfterInsert:: ; 2F:7669
 	ld hl, wEditAddressBuf + $28
 	call AbookAddr_DrawLine
 
-.l7713 ; 2F:7713
+.upload_tiles_restore_bc ; 2F:7713
 	; [CONFIRMED] 34 insn(s) executed; cut out of the PROBABLE region 7669-77C6 by apply_coverage
 	; --split [executed in 1 scenarios]
 	call AbookAddr_UploadTextTiles
@@ -1621,7 +1621,7 @@ AbookAddr_RedrawAfterBackspace:: ; 2F:7718
 	ld de, $0438
 	ld hl, wEditAddressBuf
 	call AbookAddr_DrawLine1
-	jp .l77C1
+	jp .upload_tiles_restore_bc
 .l772F ; 2F:772F
 	ld a, c
 	cp a, $29
@@ -1630,7 +1630,7 @@ AbookAddr_RedrawAfterBackspace:: ; 2F:7718
 	ld de, $1C08
 	ld hl, wEditAddressBuf + $28
 	call AbookAddr_DrawLine
-	jp .l77C1
+	jp .upload_tiles_restore_bc
 .l7743 ; 2F:7743
 	ld a, c
 	cp a, $11
@@ -1642,7 +1642,7 @@ AbookAddr_RedrawAfterBackspace:: ; 2F:7718
 	ld de, $1008
 	ld hl, wEditAddressBuf + $10
 	call AbookAddr_DrawLine
-	jr .l77C1
+	jr .upload_tiles_restore_bc
 .l775D ; 2F:775D
 	ld a, c
 	cp a, $11
@@ -1658,7 +1658,7 @@ AbookAddr_RedrawAfterBackspace:: ; 2F:7718
 	ld de, $1C08
 	ld hl, wEditAddressBuf + $28
 	call AbookAddr_DrawLine
-	jr .l77C1
+	jr .upload_tiles_restore_bc
 
 .l777C ; 2F:777C
 	; [CONFIRMED] 12 insn(s) executed; cut out of the PROBABLE region 7669-77C6 by apply_coverage
@@ -1674,7 +1674,7 @@ AbookAddr_RedrawAfterBackspace:: ; 2F:7718
 	ld de, $1008
 	ld hl, wEditAddressBuf + $10
 	call AbookAddr_DrawLine
-	jr .l77C1
+	jr .upload_tiles_restore_bc
 
 .l779D ; 2F:779D
 	; [PROBABLE] 12 insn(s) never executed in the traced runs; cut out of the PROBABLE region
@@ -1692,7 +1692,7 @@ AbookAddr_RedrawAfterBackspace:: ; 2F:7718
 	ld hl, wEditAddressBuf + $28
 	call AbookAddr_DrawLine
 
-.l77C1 ; 2F:77C1
+.upload_tiles_restore_bc ; 2F:77C1
 	; [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 7669-77C6 by apply_coverage
 	; --split [executed in 5 scenarios]
 	call AbookAddr_UploadTextTiles

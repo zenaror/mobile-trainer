@@ -199,7 +199,7 @@ SettingsPhone_SlotMenu_Loop:: ; 67:4E20
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4BD5-4F68 by apply_coverage --split
 	play_sfx SFX_REJECT
-	jp .l4F4D
+	jp .repeat_slot_menu_loop
 
 .l4E69 ; 67:4E69
 	; [CONFIRMED] 34 insn(s) executed; cut out of the PROBABLE region 4BD5-4F68 by apply_coverage
@@ -238,7 +238,7 @@ SettingsPhone_SlotMenu_Loop:: ; 67:4E20
 	ld a, $03
 .l4EC9 ; 67:4EC9
 	dec a
-	jr .l4F33
+	jr .store_slot_cursor
 
 .l4ECC ; 67:4ECC
 	; [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 4BD5-4F68 by apply_coverage
@@ -246,7 +246,7 @@ SettingsPhone_SlotMenu_Loop:: ; 67:4E20
 	ld a, $01
 	farcall Dial_EntryHasNumber
 	or a, a
-	jr z, .l4F4D
+	jr z, .repeat_slot_menu_loop
 
 	; [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4BD5-4F68 by apply_coverage --split
@@ -282,7 +282,7 @@ SettingsPhone_SlotMenu_Loop:: ; 67:4E20
 	ld a, $FF
 .l4F18 ; 67:4F18
 	inc a
-	jr .l4F33
+	jr .store_slot_cursor
 
 .l4F1B ; 67:4F1B
 	; [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 4BD5-4F68 by apply_coverage
@@ -290,7 +290,7 @@ SettingsPhone_SlotMenu_Loop:: ; 67:4E20
 	ld a, $01
 	farcall Dial_EntryHasNumber
 	or a, a
-	jr z, .l4F4D
+	jr z, .repeat_slot_menu_loop
 	ld a, $02
 	farcall Dial_EntryHasNumber
 	or a, a
@@ -299,7 +299,7 @@ SettingsPhone_SlotMenu_Loop:: ; 67:4E20
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4BD5-4F68 by apply_coverage --split
 	jr .l4F0F
-.l4F33 ; 67:4F33
+.store_slot_cursor ; 67:4F33
 	ld [wSlotMenu_Cursor], a
 
 .l4F36 ; 67:4F36
@@ -312,7 +312,7 @@ SettingsPhone_SlotMenu_Loop:: ; 67:4E20
 	call Gfx_UploadBgMapBuffers
 	call SettingsPhone_SlotMenu_PrintSlotFields
 	call SettingsPhone_SlotMenu_UploadTextTiles
-.l4F4D ; 67:4F4D
+.repeat_slot_menu_loop ; 67:4F4D
 	jp SettingsPhone_SlotMenu_Loop
 
 SettingsPhone_SlotMenu_PlaceCursor:: ; 67:4F50

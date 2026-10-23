@@ -41,7 +41,7 @@ ConnectDialog_StatHandler:: ; 00:16DC
 	jr z, .reset_scroll_y_and_set_lyc_1a
 	ldh a, [rWY]
 	cp a, $78
-	jr nc, .l1706
+	jr nc, .restore_af_and_reti
 	push bc
 	sub a, $28
 	srl a
@@ -58,7 +58,7 @@ ConnectDialog_StatHandler:: ; 00:16DC
 	ld a, $8E
 	ldh [rLYC], a
 	pop bc
-.l1706 ; 00:1706
+.restore_af_and_reti ; 00:1706
 	pop af
 	reti
 .reset_scroll_y_and_set_lyc_1a ; 00:1708

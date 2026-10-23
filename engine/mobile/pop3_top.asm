@@ -22,13 +22,13 @@ Pop3_StartLogin:: ; 54:485C
 	farcall CopyString
 	ld a, [wMobileFlags]
 	bit 0, a
-	jr nz, .l4895
+	jr nz, .set_task_step_two
 	ld hl, wRam_C480
 	ld a, $1E
 	farcall MobileAPI
 	ret
 
-.l4895 ; 54:4895
+.set_task_step_two ; 54:4895
 	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1;
 	; entered by jrcc from 54:4887 (executed)
 	ld a, $02
@@ -75,7 +75,7 @@ Pop3_LoginStatPoll:: ; 54:489B
 .l48C9 ; 54:48C9
 	ld a, [wMobileFlags]
 	bit 0, a
-	jr nz, .l48F5
+	jr nz, .decrement_step_and_return_one
 	xor a, a
 	ld [hl], a
 	ld hl, wMobileEmailAddr
@@ -88,7 +88,7 @@ Pop3_LoginStatPoll:: ; 54:489B
 	farcall MobileAPI
 	ld a, $01
 	ret
-.l48F5 ; 54:48F5
+.decrement_step_and_return_one ; 54:48F5
 	dec [hl]
 	ld a, $01
 	ret

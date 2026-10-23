@@ -382,17 +382,17 @@ Browser_FrameStylePreview_LoadGraphics:: ; 4E:6291
 	ldh [rSVBK], a
 	ld hl, wScreenTileMap
 	ld bc, $0400
-.l6477 ; 4E:6477
+.set_tile_high_bit_loop ; 4E:6477
 	ld a, [hl]
 	or a, $80
 	ld [hli], a
 	dec bc
 	ld a, c
 	or a, b
-	jr nz, .l6477
+	jr nz, .set_tile_high_bit_loop
 	ld hl, wScreenAttrMap
 	ld bc, $0400
-.l6486 ; 4E:6486
+.remap_attributes_loop ; 4E:6486
 	ld a, [hl]
 	and a, $07
 	add a, $43
@@ -409,7 +409,7 @@ Browser_FrameStylePreview_LoadGraphics:: ; 4E:6291
 	dec bc
 	ld a, c
 	or a, b
-	jr nz, .l6486
+	jr nz, .remap_attributes_loop
 	ld a, [wBrowserFrameStyle]
 	push bc
 	and a, $7F

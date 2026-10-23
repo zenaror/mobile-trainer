@@ -188,7 +188,7 @@ CommTime_DrawSummaryScreen:: ; 51:404A
 	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
-	jr .l4196
+	jr .clear_dialog_result
 
 .l4186 ; 51:4186
 	; [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1;
@@ -202,7 +202,7 @@ CommTime_DrawSummaryScreen:: ; 51:404A
 	pop af
 	ldh [rSVBK], a
 
-.l4196 ; 51:4196
+.clear_dialog_result ; 51:4196
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 2/18 scenarios)
 	xor a, a
 	ldh [hDialogResult], a
@@ -387,11 +387,11 @@ CommTime_AddTimerA:: ; 51:425F
 	ld a, [wTimerAMinutes]
 	adc a, [hl]
 	ldh [hCommTime_TotalMinutes], a
-	jr c, .l428C
+	jr c, .clamp_minutes_and_seconds_to_59
 	cp a, $3C
 	jr c, .l4292
 
-.l428C ; 51:428C
+.clamp_minutes_and_seconds_to_59 ; 51:428C
 	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
 	; entered by jrcc from 51:4286 (executed)
 	ld a, $3B

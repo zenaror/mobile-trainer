@@ -97,9 +97,9 @@ Startup_VerifySaveDataSilent:: ; 65:41AA
 .verify_save_check ; 65:41C9
 	farcall SaveCheck_Verify
 	or a, a
-	jr z, .l41D8
+	jr z, .jump_to_startup_return
 	farcall SaveCheck_ResetBlock
-.l41D8 ; 65:41D8
+.jump_to_startup_return ; 65:41D8
 	jr Startup_Return
 
 Registration_Run:: ; 65:41DA
@@ -356,11 +356,11 @@ Registration_PwSaveConfirm:: ; 65:4410
 	or a, a
 	jp z, Registration_PasswordEntry
 	cp a, $02
-	jr z, .l4423
+	jr z, .clear_save_password_value
 	ld a, $01
 	jr .l4424
 
-.l4423 ; 65:4423
+.clear_save_password_value ; 65:4423
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;
 	; entered by jrcc from 65:441D (executed)
 	xor a, a
@@ -571,11 +571,11 @@ Registration_PwSaveConfirm_Hidden:: ; 65:4607
 	or a, a
 	jp z, Registration_PasswordEntry_Hidden
 	cp a, $02
-	jr z, .l461A
+	jr z, .clear_save_password_value
 	ld a, $01
 	jr .l461B
 
-.l461A ; 65:461A
+.clear_save_password_value ; 65:461A
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 444B-4642 by apply_coverage --split
 	xor a, a

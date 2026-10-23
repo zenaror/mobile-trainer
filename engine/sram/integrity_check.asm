@@ -175,10 +175,10 @@ SramCheck_VerifyAndRepairAll_Bank1Check:: ; 22:4FDB
 	call SramCheck_Bank1BlockSum
 	call SramCheck_CompareDEHL2
 	inc a
-	jr nz, .l4FF1
+	jr nz, .pop_hl_de_bc_af_and_return
 	call SramCheck_Bank1ClearBlock
-	jr .l4FF1
-.l4FF1 ; 22:4FF1
+	jr .pop_hl_de_bc_af_and_return
+.pop_hl_de_bc_af_and_return ; 22:4FF1
 	pop hl
 	pop de
 	pop bc
@@ -203,15 +203,15 @@ SramCheck_Bank0Status:: ; 22:4FF6
 	inc a
 	jr nz, .l5013
 	ld a, $FF
-	jr .l5019
+	jr .pop_hl_de_bc_and_return
 .l5013 ; 22:5013
 	ld a, $00
-	jr .l5019
+	jr .pop_hl_de_bc_and_return
 
 .l5017 ; 22:5017
 	; [CONFIRMED] 59 insn(s); 59 executed (in up to 12/18 scenarios)
 	ld a, $01
-.l5019 ; 22:5019
+.pop_hl_de_bc_and_return ; 22:5019
 	pop hl
 	pop de
 	pop bc
@@ -361,10 +361,10 @@ SramCheck_Bank1ClearBlock:: ; 22:50A0
 	call SramCheck_Bank1BlockSum
 	call SramCheck_CompareDEHL2
 	inc a
-	jr nz, .l50E1
+	jr nz, .pop_hl_de_bc_af_and_return
 	call SramCheck_Bank1ClearBlock
-	jr .l50E1
-.l50E1 ; 22:50E1
+	jr .pop_hl_de_bc_af_and_return
+.pop_hl_de_bc_af_and_return ; 22:50E1
 	pop hl
 	pop de
 	pop bc
@@ -379,10 +379,10 @@ SramCheck_Bank1ClearBlock:: ; 22:50A0
 	inc a
 	jr nz, .l50F6
 	ld a, $FF
-	jr .l50F8
+	jr .pop_hl_de_bc_and_return
 .l50F6 ; 22:50F6
 	ld a, $01
-.l50F8 ; 22:50F8
+.pop_hl_de_bc_and_return ; 22:50F8
 	pop hl
 	pop de
 	pop bc

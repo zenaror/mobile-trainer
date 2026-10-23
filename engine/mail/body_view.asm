@@ -19,7 +19,7 @@ MailBody_ViewScreen_Loop:: ; 28:4009
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, PADF_B
-	jr z, .l404C
+	jr z, .repeat_body_view_loop
 
 	; [CONFIRMED] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 0;
 	; fall-through of the jrcc at 28:401E (executed) [executed in 5 scenarios]
@@ -36,7 +36,7 @@ MailBody_ViewScreen_Loop:: ; 28:4009
 	ld a, $FF
 	ret
 
-.l404C ; 28:404C
+.repeat_body_view_loop ; 28:404C
 	; [CONFIRMED] 179 insn(s); 179 executed (in up to 1/18 scenarios)
 	jr MailBody_ViewScreen_Loop
 
@@ -178,7 +178,7 @@ MailBody_DrawTextLine:: ; 28:41CB
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, .l426B
+	jp z, .load_space_glyph_for_padding
 	cp a, $0D
 	jr z, .l4250
 	push af
@@ -218,9 +218,9 @@ MailBody_DrawTextLine:: ; 28:41CB
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l426B
+	jr z, .load_space_glyph_for_padding
 	cp a, $01
-	jr z, .l426B
+	jr z, .load_space_glyph_for_padding
 	jr .l41D0
 
 .l422B ; 28:422B
@@ -242,9 +242,9 @@ MailBody_DrawTextLine:: ; 28:41CB
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l426B
+	jr z, .load_space_glyph_for_padding
 	cp a, $01
-	jr z, .l426B
+	jr z, .load_space_glyph_for_padding
 	jr .l41D0
 
 .l4250 ; 28:4250
@@ -264,7 +264,7 @@ MailBody_DrawTextLine:: ; 28:41CB
 	ld [wTextCellsLeft], a
 	call MailBody_BlitBlankCellAdvance
 
-.l426B ; 28:426B
+.load_space_glyph_for_padding ; 28:426B
 	; [CONFIRMED] 42 insn(s); 42 executed (in up to 1/18 scenarios)
 	push bc
 	push de
@@ -275,14 +275,14 @@ MailBody_DrawTextLine:: ; 28:41CB
 	pop hl
 	pop de
 	pop bc
-.l427C ; 28:427C
+.pad_remaining_cells ; 28:427C
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call MailBody_BlitBlankCellAdvance
-	jr .l427C
+	jr .pad_remaining_cells
 
 MailBody_BlitGlyphAdvance:: ; 28:428B
 	push bc

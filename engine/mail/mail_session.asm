@@ -321,12 +321,12 @@ MailSession_SendPhase:: ; 26:412C
 	cp a, $26
 	jr z, .l42FC
 	cp a, $30
-	jr nz, .l4305
+	jr nz, .return_80
 .l42FC ; 26:42FC
 	call MailSession_InitScreen
 	call MailSession_ShowMsgReceiving
 	jp MailSession_ReceivePhase
-.l4305 ; 26:4305
+.return_80 ; 26:4305
 	ld a, $80
 	ret
 .l4308 ; 26:4308
@@ -603,10 +603,10 @@ MailSession_ReceivePhase:: ; 26:44F5
 	call MailSession_ShowCommError
 	ld a, b
 	cp a, $31
-	jr nz, .l45AB
+	jr nz, .return_7f
 	ld a, $7F
 	ret
-.l45AB ; 26:45AB
+.return_7f ; 26:45AB
 	ld a, $7F
 	ret
 

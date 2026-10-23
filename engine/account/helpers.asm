@@ -66,13 +66,13 @@ PhoneNumber_UnpackBcd:: ; 68:4054
 .unpack_bcd_byte ; 68:4056
 	ld a, b
 	cp a, $08
-	jr z, .l408B
+	jr z, .terminate_output_string
 	ld a, [hli]
 	ld c, a
 	swap a
 	and a, $0F
 	cp a, $0F
-	jr z, .l408B
+	jr z, .terminate_output_string
 	push hl
 	ld hl, Dial_KeyCharTable
 	add a, l
@@ -87,7 +87,7 @@ PhoneNumber_UnpackBcd:: ; 68:4054
 	ld a, c
 	and a, $0F
 	cp a, $0F
-	jr z, .l408B
+	jr z, .terminate_output_string
 	push hl
 	ld hl, Dial_KeyCharTable
 	add a, l
@@ -101,7 +101,7 @@ PhoneNumber_UnpackBcd:: ; 68:4054
 	inc de
 	inc b
 	jr .unpack_bcd_byte
-.l408B ; 68:408B
+.terminate_output_string ; 68:408B
 	xor a, a
 	ld [de], a
 	ret
@@ -146,7 +146,7 @@ PhoneNumber_PackBcd:: ; 68:409A
 	; --split [executed in 3 scenarios]
 	ld a, b
 	or a, a
-	jr nz, .l40CA
+	jr nz, .pack_low_nibble
 	ld b, $01
 	ld a, c
 	swap a
@@ -156,7 +156,7 @@ PhoneNumber_PackBcd:: ; 68:409A
 	cp a, $0F
 	jr z, .return_after_terminator
 	jr .pack_next_character
-.l40CA ; 68:40CA
+.pack_low_nibble ; 68:40CA
 	ld b, $00
 	ld a, [de]
 	or a, c
@@ -240,7 +240,7 @@ TextEntry_InsertString:: ; 68:4127
 .append_string_character ; 68:4136
 	ld a, [bc]
 	or a, a
-	jr z, .l4148
+	jr z, .restore_wram_bank_and_return
 	inc bc
 	push bc
 	push hl
@@ -249,7 +249,7 @@ TextEntry_InsertString:: ; 68:4127
 	pop hl
 	pop bc
 	jr .append_string_character
-.l4148 ; 68:4148
+.restore_wram_bank_and_return ; 68:4148
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -278,7 +278,7 @@ TextEntry_InsertMaskedString:: ; 68:4152
 	; entered by jr from 68:4173 (PROBABLE code)
 	ld a, [bc]
 	or a, a
-	jr z, .l4175
+	jr z, .restore_wram_bank_and_return
 	inc bc
 	push bc
 	push hl
@@ -288,7 +288,7 @@ TextEntry_InsertMaskedString:: ; 68:4152
 	pop hl
 	pop bc
 	jr .append_mask_character
-.l4175 ; 68:4175
+.restore_wram_bank_and_return ; 68:4175
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -403,9 +403,9 @@ Account_CopyMailAddressToFar:: ; 68:41E9
 
 BankSwitch_H_Local:: ; 68:4239
 	bit 7, h
-	jr z, .l424C
+	jr z, .select_rom_bank
 	bit 6, h
-	jr z, .l4246
+	jr z, .select_sram_bank
 
 	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
 	; fall-through of the jrcc at 68:423F (executed)
@@ -413,13 +413,13 @@ BankSwitch_H_Local:: ; 68:4239
 	ldh [rSVBK], a
 	ret
 
-.l4246 ; 68:4246
+.select_sram_bank ; 68:4246
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 2/18 scenarios)
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ret
 
-.l424C ; 68:424C
+.select_rom_bank ; 68:424C
 	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1;
 	; entered by jrcc from 68:423B (executed)
 	ldh [hROMBankLo], a
@@ -551,19 +551,19 @@ Config_MirrorIsRegistered:: ; 68:431A
 	ld [rRAMB], a
 	ld a, [sConfigImage]
 	cp a, $4D
-	jr nz, .l4365
+	jr nz, .restore_sram_bank_disable_and_return_zero
 	ld a, [sConfigImage + $01]
 	cp a, $41
-	jr nz, .l4365
+	jr nz, .restore_sram_bank_disable_and_return_zero
 	ld a, [sConfigRegState]
 	cp a, $81
-	jp nz, .l4365
+	jp nz, .restore_sram_bank_disable_and_return_zero
 	ld a, [sConfigImage + $03]
 	cp a, $00
-	jr nz, .l4365
+	jr nz, .restore_sram_bank_disable_and_return_zero
 	call Config_MirrorChecksumOk
 	or a, a
-	jr z, .l4365
+	jr z, .restore_sram_bank_disable_and_return_zero
 	ldh [hScratchA], a
 	pop af
 	ldh [hSRAMBank], a
@@ -574,7 +574,7 @@ Config_MirrorIsRegistered:: ; 68:431A
 	ld [rRAMG], a
 	ld a, $01
 	ret
-.l4365 ; 68:4365
+.restore_sram_bank_disable_and_return_zero ; 68:4365
 	ldh [hScratchA], a
 	pop af
 	ldh [hSRAMBank], a
@@ -605,7 +605,7 @@ Settings_IsDecodedProgressNonzero:: ; 68:4377
 	ld a, [sSettingsRegistrationProgress]
 	xor a, $A5
 	or a, a
-	jr z, .l43A7
+	jr z, .restore_sram_bank_disable_and_return_zero
 	ldh [hScratchA], a
 	pop af
 	ldh [hSRAMBank], a
@@ -616,7 +616,7 @@ Settings_IsDecodedProgressNonzero:: ; 68:4377
 	ld [rRAMG], a
 	ld a, $01
 	ret
-.l43A7 ; 68:43A7
+.restore_sram_bank_disable_and_return_zero ; 68:43A7
 	ldh [hScratchA], a
 	pop af
 	ldh [hSRAMBank], a
@@ -982,10 +982,10 @@ Config_MirrorChecksumOk:: ; 68:459A
 	ld c, [hl]
 	ld a, b
 	cp a, d
-	jr nz, .l45DF
+	jr nz, .restore_sram_bank_disable_and_return_zero
 	ld a, c
 	cp a, e
-	jr nz, .l45DF
+	jr nz, .restore_sram_bank_disable_and_return_zero
 	ldh [hScratchA], a
 	pop af
 	ldh [hSRAMBank], a
@@ -997,7 +997,7 @@ Config_MirrorChecksumOk:: ; 68:459A
 	ld a, $01
 	ret
 
-.l45DF ; 68:45DF
+.restore_sram_bank_disable_and_return_zero ; 68:45DF
 	; [PROBABLE] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 1;
 	; entered by jrcc from 68:45C6 (executed)
 	ldh [hScratchA], a

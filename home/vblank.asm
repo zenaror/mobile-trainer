@@ -21,7 +21,7 @@ Sound_FrameService:: ; 00:0392
 .check_frame_service_flag ; 00:039A
 	ld a, [wFrameServiceRan]
 	or a, a
-	jr nz, .l03B8
+	jr nz, .pop_af_and_return
 	ld a, $01
 	ld [wFrameServiceRan], a
 	push bc
@@ -37,7 +37,7 @@ Sound_FrameService:: ; 00:0392
 	pop hl
 	pop de
 	pop bc
-.l03B8 ; 00:03B8
+.pop_af_and_return ; 00:03B8
 	pop af
 	ret
 
@@ -131,12 +131,12 @@ Int_VBlank:: ; 00:03BA
 	ldh [hFramesWithoutService], a
 	xor a, a
 	ld [wFrameServiceRan], a
-	jr .l0446
+	jr .pop_registers_and_reti
 .clear_missed_service_count ; 00:0440
 	xor a, a
 	ldh [hFramesWithoutService], a
 	ld [wFrameServiceRan], a
-.l0446 ; 00:0446
+.pop_registers_and_reti ; 00:0446
 	pop hl
 	pop de
 	pop bc

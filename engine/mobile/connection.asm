@@ -94,7 +94,7 @@ Mobile_ConnectPoll:: ; 54:405D
 	dec a
 	jr z, .l40B7
 	dec a
-	jp z, .l4135
+	jp z, .clear_task_kind_and_return
 
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jpcc at 54:4080 (executed)
@@ -180,7 +180,7 @@ Mobile_ConnectPoll:: ; 54:405D
 	farcall MobileAPI
 	ld a, $01
 	ret
-.l4135 ; 54:4135
+.clear_task_kind_and_return ; 54:4135
 	ld hl, wMobileTaskKind
 	xor a, a
 	ld [hl], a

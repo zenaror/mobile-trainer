@@ -49,7 +49,7 @@ Account_MailAddress_ClearFlagIfChanged:: ; 68:5739
 	ld de, wAcctMailLocalPart
 	call CompareString
 	or a, a
-	jr nz, .l578C
+	jr nz, .clear_settings_mask_bit1
 	ld hl, sSettingsMailSubdomain
 	ld de, wRam_C28F
 	call DecodeXorA5
@@ -58,7 +58,7 @@ Account_MailAddress_ClearFlagIfChanged:: ; 68:5739
 	call CompareString
 	or a, a
 	jr z, .l5798
-.l578C ; 68:578C
+.clear_settings_mask_bit1 ; 68:578C
 	ld a, [wSettingsFieldMask]
 	ld b, a
 	ld a, $02
@@ -197,11 +197,11 @@ Account_MailAddressEntry_OkStateFromMask:: ; 68:58E8
 	; chain alone is not proof -> HYPOTHESIS]
 	ld a, [wSettingsFieldMask]
 	and a, $02
-	jr nz, .l58F5
+	jr nz, .set_ok_flag
 	ld a, $00
 	ld [wMailAddressEntry_OkFlag], a
 	ret
-.l58F5 ; 68:58F5
+.set_ok_flag ; 68:58F5
 	ld a, $01
 	ld [wMailAddressEntry_OkFlag], a
 	ret
@@ -213,11 +213,11 @@ Account_MailAddressEntry_UpdateOkState:: ; 68:58FB
 	ld hl, wTextEntryBuf2
 	farcall TextBuf_GetFree
 	or a, a
-	jr z, .l590D
+	jr z, .set_ok_flag
 	ld a, $00
 	ld [wMailAddressEntry_OkFlag], a
 	ret
-.l590D ; 68:590D
+.set_ok_flag ; 68:590D
 	ld a, $01
 	ld [wMailAddressEntry_OkFlag], a
 	ret
@@ -226,11 +226,11 @@ Account_MailAddressEntry_CheckDomainLen:: ; 68:5913
 	ld hl, wTextEntryBuf2
 	farcall TextBuf_GetLength
 	cp a, $03
-	jr nc, .l5926
+	jr nc, .set_ok_flag
 	ld a, $00
 	ld [wMailAddressEntry_OkFlag], a
 	ret
-.l5926 ; 68:5926
+.set_ok_flag ; 68:5926
 	ld a, $01
 	ld [wMailAddressEntry_OkFlag], a
 	ret
@@ -269,11 +269,11 @@ Account_MailAddressEntry_InputLoop:: ; 68:592C
 	ld hl, wTextEntryBuf2
 	farcall TextBuf_AppendChar
 	or a, a
-	jr nz, .l59A8
+	jr nz, .play_reject_sfx
 	play_sfx SFX_CHAR_ENTERED
 	jr .l59B8
 
-.l59A8 ; 68:59A8
+.play_reject_sfx ; 68:59A8
 	; [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1;
 	; entered by jrcc from 68:5994 (executed) [executed in 1 scenarios]
 	play_sfx SFX_REJECT
@@ -497,12 +497,12 @@ Account_MailIntroPage:: ; 68:5BC4
 .handle_button_a ; 68:5BE2
 	play_sfx SFX_CONFIRM
 	ld a, $01
-	jr .l5C09
+	jr .fade_out_preserving_af
 .handle_button_b ; 68:5BF6
 	play_sfx SFX_CANCEL
 	xor a, a
-	jr .l5C09
-.l5C09 ; 68:5C09
+	jr .fade_out_preserving_af
+.fade_out_preserving_af ; 68:5C09
 	push af
 	farcall Palette_FadeOutToWhite
 	pop af

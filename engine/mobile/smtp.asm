@@ -25,14 +25,14 @@ Smtp_HeloPoll:: ; 54:451B
 	bit 1, a
 	jr nz, .fetch_result_return_ff
 	bit 0, a
-	jr z, .l4532
+	jr z, .clear_task_kind_and_return
 	ld a, $01
 	ret
 .fetch_result_return_ff ; 54:452C
 	call Mobile_FetchResult
 	ld a, $FF
 	ret
-.l4532 ; 54:4532
+.clear_task_kind_and_return ; 54:4532
 	ld hl, wMobileTaskKind
 	xor a, a
 	ld [hl], a
@@ -57,7 +57,7 @@ Smtp_QuitPoll:: ; 54:4552
 	bit 1, a
 	jr nz, .fetch_result_return_ff
 	bit 0, a
-	jr z, .l456F
+	jr z, .clear_task_kind_and_return
 	ld a, $01
 	ret
 
@@ -68,7 +68,7 @@ Smtp_QuitPoll:: ; 54:4552
 	ld a, $FF
 	ret
 
-.l456F ; 54:456F
+.clear_task_kind_and_return ; 54:456F
 	; [CONFIRMED] 210 insn(s) executed; cut out of the PROBABLE region 44C3-475A by apply_coverage
 	; --split [executed in 4 scenarios]
 	ld hl, wMobileTaskKind
@@ -352,7 +352,7 @@ Smtp_DataPoll:: ; 54:4772
 	jr nz, .l4782
 	bit 0, a
 	jr z, .l478E
-	jr .l47BF
+	jr .return_one
 .l4782 ; 54:4782
 	xor a, a
 	ldh [hSRAMEnable], a
@@ -394,7 +394,7 @@ Smtp_DataPoll:: ; 54:4772
 	ld a, $18
 	ld d, $00
 	farcall MobileAPI
-.l47BF ; 54:47BF
+.return_one ; 54:47BF
 	ld a, $01
 	ret
 .l47C2 ; 54:47C2
@@ -437,16 +437,16 @@ Smtp_DataPoll:: ; 54:4772
 .l4812 ; 54:4812
 	ld hl, wSmtp_EncodedText
 	ld bc, $FFFF
-.l4818 ; 54:4818
+.count_encoded_bytes ; 54:4818
 	inc bc
 	ld a, [hli]
 	or a, a
-	jr nz, .l4818
+	jr nz, .count_encoded_bytes
 	ld hl, wSmtp_EncodedText
 	ld a, $18
 	ld d, $01
 	farcall MobileAPI
-	jr .l47BF
+	jr .return_one
 .l482C ; 54:482C
 	xor a, a
 	ldh [hSRAMEnable], a

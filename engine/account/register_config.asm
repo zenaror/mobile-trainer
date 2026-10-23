@@ -88,7 +88,7 @@ Registration_WriteConfig_RunState:: ; 68:6B98
 	ldh a, [hScratchA]
 	ld a, b
 	or a, a
-	jr z, .l6BE0
+	jr z, .clear_sfx_flag
 	cp a, $02
 	jr nz, .l6BE4
 	ld a, [wRegistrationWriteConfig_SfxFlag]
@@ -98,7 +98,7 @@ Registration_WriteConfig_RunState:: ; 68:6B98
 	ld a, $01
 	ld [wRegistrationWriteConfig_SfxFlag], a
 	jr .l6BE4
-.l6BE0 ; 68:6BE0
+.clear_sfx_flag ; 68:6BE0
 	xor a, a
 	ld [wRegistrationWriteConfig_SfxFlag], a
 .l6BE4 ; 68:6BE4

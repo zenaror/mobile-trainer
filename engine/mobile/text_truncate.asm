@@ -15,22 +15,22 @@ Text_TruncateSjis:: ; 54:4C47
 	or a, a
 	ret z
 	cp a, $81
-	jr c, .l4C65
+	jr c, .clear_carry_for_current_character
 	cp a, $A0
 	jr c, .l4C66
 
 	; [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4C47-4CAD by apply_coverage --split
 	cp a, $E0
-	jr c, .l4C65
+	jr c, .clear_carry_for_current_character
 	cp a, $F0
 	jr c, .l4C66
 	cp a, $F8
-	jr c, .l4C65
+	jr c, .clear_carry_for_current_character
 	cp a, $FA
 	jr c, .l4C66
 
-.l4C65 ; 54:4C65
+.clear_carry_for_current_character ; 54:4C65
 	; [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 4C47-4CAD by apply_coverage
 	; --split [executed in 6 scenarios]
 	or a, a
@@ -44,22 +44,22 @@ Text_TruncateSjis:: ; 54:4C47
 	jr nz, .l4C8D
 	ld a, [hl]
 	cp a, $81
-	jr c, .l4C88
+	jr c, .clear_carry_for_lookahead
 
 	; [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4C47-4CAD by apply_coverage --split
 	cp a, $A0
 	jr c, .l4C89
 	cp a, $E0
-	jr c, .l4C88
+	jr c, .clear_carry_for_lookahead
 	cp a, $F0
 	jr c, .l4C89
 	cp a, $F8
-	jr c, .l4C88
+	jr c, .clear_carry_for_lookahead
 	cp a, $FA
 	jr c, .l4C89
 
-.l4C88 ; 54:4C88
+.clear_carry_for_lookahead ; 54:4C88
 	; [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 4C47-4CAD by apply_coverage
 	; --split [executed in 8 scenarios]
 	or a, a

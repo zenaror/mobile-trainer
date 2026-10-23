@@ -32,11 +32,11 @@ SettingsPhone_ChoiceMenu:: ; 67:4631
 	jr nz, .l4678
 	ld a, [wChoiceMenu_Cursor]
 	ld [sPhoneTopMenuCursor], a
-	jr .l467E
+	jr .disable_sram_return_choice_result
 .l4678 ; 67:4678
 	ld a, [wChoiceMenu_Cursor]
 	ld [sPhoneMethodMenuCursor], a
-.l467E ; 67:467E
+.disable_sram_return_choice_result ; 67:467E
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -200,8 +200,8 @@ SettingsPhone_ChoiceMenu_Loop:: ; 67:47DC
 	call SettingsPhone_ChoiceMenu_LoadTilemap
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
-	jr .l4852
-.l4852 ; 67:4852
+	jr .repeat_choice_menu_loop
+.repeat_choice_menu_loop ; 67:4852
 	jp SettingsPhone_ChoiceMenu_Loop
 
 SettingsPhone_ChoiceMenu_PlaceCursor:: ; 67:4855
@@ -271,11 +271,11 @@ SettingsPhone_ChoiceMenu_PrintPrompt:: ; 67:4881
 	jr nz, .l48D4
 	ld a, $08
 	farcall PromptText_Load
-	jr .l48DC
+	jr .run_text_engine_and_return
 .l48D4 ; 67:48D4
 	ld a, $09
 	farcall PromptText_Load
-.l48DC ; 67:48DC
+.run_text_engine_and_return ; 67:48DC
 	call TextEngine_Run
 	ret
 

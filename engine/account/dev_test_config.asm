@@ -16,10 +16,10 @@ Dev_InstallTestConfig:: ; 68:4DB4
 	ldh [rSVBK], a
 	call Mobile_InitAndWait
 	or a, a
-	jr nz, .l4E35
+	jr nz, .spin_loop
 	call Dev_WriteTestConfigImage
 	or a, a
-	jr nz, .l4E35
+	jr nz, .spin_loop
 	ld a, $36
 	call MobileAPI
 	ld a, $01
@@ -52,8 +52,8 @@ Dev_InstallTestConfig:: ; 68:4DB4
 	farcall Sram_ResetChecksum3Areas
 	farcall SaveCheck_ResetBlock
 	ret
-.l4E35 ; 68:4E35
-	jr .l4E35
+.spin_loop ; 68:4E35
+	jr .spin_loop
 
 ; ---- text $4E37-$4E46 (15 bytes) [PROBABLE] ASCII "test@test.test" NUL, addressed by ld hl,$4E37 (4E40 = its substring ".test") at 68:4DFD / 68:50EC
 
@@ -110,12 +110,12 @@ Dev_WriteTestConfigImage:: ; 68:4E6A
 	ld de, $0000
 	ld a, $04
 	call MobileAPI
-.l4E99 ; 68:4E99
+.poll_timer_flags ; 68:4E99
 	ld a, [wTimerEnable]
 	bit 1, a
 	jp nz, Mobile_ReportLastError
 	bit 0, a
-	jr nz, .l4E99
+	jr nz, .poll_timer_flags
 	xor a, a
 	ret
 

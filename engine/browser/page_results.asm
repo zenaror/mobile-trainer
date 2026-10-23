@@ -9,9 +9,9 @@ Browser_MapErrorToResult:: ; 4C:4DB2
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	cp a, $10
-	jr c, .l4DD3
+	jr c, .return_84
 	cp a, $34
-	jr nc, .l4DD3
+	jr nc, .return_84
 	cp a, $26
 	jr nz, .l4DC7
 
@@ -20,7 +20,7 @@ Browser_MapErrorToResult:: ; 4C:4DB2
 	ld l, a
 	ld a, [wCommSessionKind]
 	cp a, $01
-	jr z, .l4DD3
+	jr z, .return_84
 	ld a, l
 
 .l4DC7 ; 4C:4DC7
@@ -34,7 +34,7 @@ Browser_MapErrorToResult:: ; 4C:4DB2
 	ld a, [hl]
 	ret
 
-.l4DD3 ; 4C:4DD3
+.return_84 ; 4C:4DD3
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1;
 	; entered by jrcc from 4C:4DB4 (executed)
 	ld a, $84

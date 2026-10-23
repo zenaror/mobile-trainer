@@ -65,9 +65,9 @@ PasswordPrompt_Ask:: ; 67:611C
 	add a, $02
 	farcall Account_ActionConfirmPage
 	or a, a
-	jr z, .l616F
+	jr z, .return_zero
 	cp a, $02
-	jr z, .l616F
+	jr z, .return_zero
 	ld hl, wAcctPasswordEntry
 	farcall Wram3_ClearByte
 	xor a, a
@@ -94,7 +94,7 @@ PasswordPrompt_Ask:: ; 67:611C
 	ldh a, [hScratchA]
 	ld a, $01
 	ret
-.l616F ; 67:616F
+.return_zero ; 67:616F
 	xor a, a
 	ret
 
@@ -128,20 +128,20 @@ UsageTime_Request:: ; 67:6171
 	farcall Browser_LoadUrlFromSramBank3
 	ld a, [wBrowserFetchResult]
 	cp a, $02
-	jr z, .l61CF
+	jr z, .return_two
 	or a, a
-	jr nz, .l61CD
+	jr nz, .return_zero
 
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 67:61C8 (executed)
 	ld a, $01
 	ret
 
-.l61CD ; 67:61CD
+.return_zero ; 67:61CD
 	; [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios)
 	xor a, a
 	ret
-.l61CF ; 67:61CF
+.return_two ; 67:61CF
 	ld a, $02
 	ret
 

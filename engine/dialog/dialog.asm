@@ -978,7 +978,7 @@ Dialog_SlideIn:: ; 72:4824
 .apply_slide_in_step ; 72:4829
 	ld a, [hli]
 	cp a, $80
-	jr z, .l486D
+	jr z, .clear_icon_graphics_request
 	ld de, $0000
 	ld b, a
 	bit 0, c
@@ -1035,7 +1035,7 @@ Dialog_SlideIn:: ; 72:4824
 	ei
 	call Sound_FrameService
 	jr .apply_slide_in_step
-.l486D ; 72:486D
+.clear_icon_graphics_request ; 72:486D
 	xor a, a
 	ld [wConnIconGfxRequest], a
 	ret
@@ -1046,7 +1046,7 @@ Dialog_SlideOut:: ; 72:4872
 .apply_slide_out_step ; 72:4877
 	ld a, [hli]
 	cp a, $80
-	jr z, .l48BB
+	jr z, .clear_icon_graphics_request
 	ld de, $0000
 	ld b, a
 	bit 0, c
@@ -1103,7 +1103,7 @@ Dialog_SlideOut:: ; 72:4872
 	ei
 	call Sound_FrameService
 	jr .apply_slide_out_step
-.l48BB ; 72:48BB
+.clear_icon_graphics_request ; 72:48BB
 	xor a, a
 	ld [wConnIconGfxRequest], a
 	ret

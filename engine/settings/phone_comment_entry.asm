@@ -171,7 +171,7 @@ PhoneComment_KeyboardLoop:: ; 67:4A98
 
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 49A8-4BC2 by apply_coverage --split
-	jp .l4BB2
+	jp .repeat_keyboard_loop
 
 .l4ABD ; 67:4ABD
 	; [CONFIRMED] 29 insn(s) executed; cut out of the PROBABLE region 49A8-4BC2 by apply_coverage
@@ -181,10 +181,10 @@ PhoneComment_KeyboardLoop:: ; 67:4A98
 	ld d, a
 	farcall TextBuf_AppendChar
 	or a, a
-	jr nz, .l4ADF
+	jr nz, .play_reject_sfx
 	play_sfx SFX_CHAR_ENTERED
 	jr .l4AEF
-.l4ADF ; 67:4ADF
+.play_reject_sfx ; 67:4ADF
 	play_sfx SFX_REJECT
 .l4AEF ; 67:4AEF
 	ld hl, wTextEntryBuf
@@ -232,7 +232,7 @@ PhoneComment_KeyboardLoop:: ; 67:4A98
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 49A8-4BC2 by apply_coverage --split
 	play_sfx SFX_REJECT
-	jr .l4BB2
+	jr .repeat_keyboard_loop
 
 .l4B66 ; 67:4B66
 	; [CONFIRMED] 38 insn(s) executed; cut out of the PROBABLE region 49A8-4BC2 by apply_coverage
@@ -258,7 +258,7 @@ PhoneComment_KeyboardLoop:: ; 67:4A98
 	call PhoneComment_PrintText
 	call PhoneComment_UploadTextTiles
 	call PhoneComment_UpdateFullFlag
-.l4BB2 ; 67:4BB2
+.repeat_keyboard_loop ; 67:4BB2
 	jp PhoneComment_KeyboardLoop
 
 PhoneComment_StoreResult:: ; 67:4BB5
@@ -275,11 +275,11 @@ PhoneComment_UpdateStoredFlag:: ; 67:4BC2
 	; PROBABLE/CONFIRMED functions of the same style
 	ld a, [wSettingsFieldMask]
 	and a, $20
-	jr nz, .l4BCF
+	jr nz, .set_ok_flag
 	ld a, $00
 	ld [wPhoneComment_OkFlag], a
 	ret
-.l4BCF ; 67:4BCF
+.set_ok_flag ; 67:4BCF
 	ld a, $01
 	ld [wPhoneComment_OkFlag], a
 	ret
@@ -292,11 +292,11 @@ PhoneComment_UpdateFullFlag:: ; 67:4BD5
 	ld hl, wTextEntryBuf
 	farcall TextBuf_GetFree
 	or a, a
-	jr z, .l4BE7
+	jr z, .set_ok_flag
 	ld a, $00
 	ld [wPhoneComment_OkFlag], a
 	ret
-.l4BE7 ; 67:4BE7
+.set_ok_flag ; 67:4BE7
 	ld a, $01
 	ld [wPhoneComment_OkFlag], a
 	ret
@@ -305,11 +305,11 @@ PhoneComment_UpdateNonEmptyFlag:: ; 67:4BED
 	ld hl, wTextEntryBuf
 	farcall TextBuf_GetLength
 	cp a, $01
-	jr nc, .l4C00
+	jr nc, .set_ok_flag
 	ld a, $00
 	ld [wPhoneComment_OkFlag], a
 	ret
-.l4C00 ; 67:4C00
+.set_ok_flag ; 67:4C00
 	ld a, $01
 	ld [wPhoneComment_OkFlag], a
 	ret

@@ -805,7 +805,7 @@ MailSession_TotalNumberBuffer:: ; 26:5580
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5580-566E by apply_coverage --split
 	ld bc, wTileStage2 + $70
-	jp .l55DD
+	jp .pop_hl_de_and_return
 
 .l5596 ; 26:5596
 	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 5580-566E by apply_coverage
@@ -821,7 +821,7 @@ MailSession_TotalNumberBuffer:: ; 26:5580
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5580-566E by apply_coverage --split
 	ld bc, wTileStage2 + $80
-	jp .l55DD
+	jp .pop_hl_de_and_return
 
 .l55AC ; 26:55AC
 	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 5580-566E by apply_coverage
@@ -837,7 +837,7 @@ MailSession_TotalNumberBuffer:: ; 26:5580
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5580-566E by apply_coverage --split
 	ld bc, wTileStage2 + $90
-	jp .l55DD
+	jp .pop_hl_de_and_return
 
 .l55C2 ; 26:55C2
 	; [CONFIRMED] 21 insn(s) executed; cut out of the PROBABLE region 5580-566E by apply_coverage
@@ -850,11 +850,11 @@ MailSession_TotalNumberBuffer:: ; 26:5580
 	cp a, $00
 	jr z, .l55D8
 	ld bc, wTileStage2 + $A0
-	jp .l55DD
+	jp .pop_hl_de_and_return
 .l55D8 ; 26:55D8
 	ld bc, wTileStage2 + $B0
 	ld a, $01
-.l55DD ; 26:55DD
+.pop_hl_de_and_return ; 26:55DD
 	pop hl
 	pop de
 	ret
@@ -871,7 +871,7 @@ MailSession_CurrentNumberBuffer:: ; 26:55E0
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5580-566E by apply_coverage --split
 	ld bc, wTileStage2 + $420
-	jp .l563D
+	jp .pop_hl_de_and_return
 
 .l55F6 ; 26:55F6
 	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 5580-566E by apply_coverage
@@ -887,7 +887,7 @@ MailSession_CurrentNumberBuffer:: ; 26:55E0
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5580-566E by apply_coverage --split
 	ld bc, wTileStage2 + $420
-	jp .l563D
+	jp .pop_hl_de_and_return
 
 .l560C ; 26:560C
 	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 5580-566E by apply_coverage
@@ -903,7 +903,7 @@ MailSession_CurrentNumberBuffer:: ; 26:55E0
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5580-566E by apply_coverage --split
 	ld bc, wTileStage2 + $420
-	jp .l563D
+	jp .pop_hl_de_and_return
 
 .l5622 ; 26:5622
 	; [CONFIRMED] 33 insn(s) executed; cut out of the PROBABLE region 5580-566E by apply_coverage
@@ -916,11 +916,11 @@ MailSession_CurrentNumberBuffer:: ; 26:55E0
 	cp a, $00
 	jr z, .l5638
 	ld bc, wTileStage2 + $420
-	jp .l563D
+	jp .pop_hl_de_and_return
 .l5638 ; 26:5638
 	ld bc, wTileStage2 + $430
 	ld a, $01
-.l563D ; 26:563D
+.pop_hl_de_and_return ; 26:563D
 	pop hl
 	pop de
 	ret
@@ -1317,15 +1317,15 @@ MailSession_StartHDMAAtVBlank:: ; 26:59B6
 	ld a, e
 	ldh [rHDMA4], a
 	ld de, rLY
-.l59C6 ; 26:59C6
+.wait_ly_143 ; 26:59C6
 	ld a, [de]
 	cp a, $8F
-	jr nz, .l59C6
+	jr nz, .wait_ly_143
 	ld b, $91
-.l59CD ; 26:59CD
+.wait_ly_145 ; 26:59CD
 	ld a, [de]
 	cp a, b
-	jr nz, .l59CD
+	jr nz, .wait_ly_145
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a

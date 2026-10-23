@@ -264,11 +264,11 @@ Notice_DrawPageCounter:: ; 65:4AD7
 	ld h, a
 	ld a, [hl]
 	cp a, $04
-	jr nz, .l4AEB
+	jr nz, .clear_digit_variant
 	ld a, $01
 	ld [wNotice_DigitVariant], a
 	jr .l4AEF
-.l4AEB ; 65:4AEB
+.clear_digit_variant ; 65:4AEB
 	xor a, a
 	ld [wNotice_DigitVariant], a
 .l4AEF ; 65:4AEF

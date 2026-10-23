@@ -53,7 +53,7 @@ MailView_BodyPage_Loop:: ; 2B:7B2A
 .l7B68 ; 2B:7B68
 	ldh a, [hJoyPressed]
 	and a, PADF_B
-	jr z, .l7B99
+	jr z, .repeat_input_loop
 	push bc
 	push bc
 	push de
@@ -67,7 +67,7 @@ MailView_BodyPage_Loop:: ; 2B:7B2A
 	pop bc
 	ld a, $FF
 	ret
-.l7B99 ; 2B:7B99
+.repeat_input_loop ; 2B:7B99
 	jr MailView_BodyPage_Loop
 
 MailView_BodyPage_InitScreen:: ; 2B:7B9B
@@ -316,16 +316,16 @@ Gfx_StartHDMAAtVBlank_2B_7DD0:: ; 2B:7DD0
 	ld a, e
 	ldh [rHDMA4], a
 	ld de, rLY
-.l7DDF ; 2B:7DDF
+.wait_ly_143 ; 2B:7DDF
 	ld a, [de]
 	cp a, $8F
-	jr nz, .l7DDF
+	jr nz, .wait_ly_143
 	di
 	ld b, $91
-.l7DE7 ; 2B:7DE7
+.wait_ly_145 ; 2B:7DE7
 	ld a, [de]
 	cp a, b
-	jr nz, .l7DE7
+	jr nz, .wait_ly_145
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a

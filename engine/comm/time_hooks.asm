@@ -25,10 +25,10 @@ Timer_ResetClockB:: ; 7F:61FF
 	; directly before the PROBABLE far-entry 7F:6218; no caller/pointer found, entry unproven
 	ld a, [$C26B]
 	cp a, $1E
-	jr c, .l6216
+	jr c, .return_zero
 	ld a, $FF
 	ret
-.l6216 ; 7F:6216
+.return_zero ; 7F:6216
 	xor a, a
 	ret
 
@@ -45,11 +45,11 @@ CommNotice_ShowDialogMode1:: ; 7F:6218
 	ld [wCommNoticeGfxSet], a
 	farcall CommNotice_ShowDialog
 	cp a, $00
-	jr z, .l6233
+	jr z, .return_zero
 	ld a, $FF
 	ret
 
-.l6233 ; 7F:6233
+.return_zero ; 7F:6233
 	; [PROBABLE] 12 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 6218-624F by apply_coverage --split
 	xor a, a

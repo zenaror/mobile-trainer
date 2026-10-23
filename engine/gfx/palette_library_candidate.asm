@@ -316,7 +316,7 @@ PalLibCandidate_ReadPalettesToBuffer:: ; 29:520D
 	call PalLibCandidate_WaitLY90
 	ld b, $40
 	ld c, $00
-.l521E ; 29:521E
+.read_bg_palette_bytes ; 29:521E
 	ldh a, [rBCPD]
 	ld [de], a
 	inc c
@@ -324,13 +324,13 @@ PalLibCandidate_ReadPalettesToBuffer:: ; 29:520D
 	ldh [rBCPS], a
 	inc de
 	dec b
-	jr nz, .l521E
+	jr nz, .read_bg_palette_bytes
 	xor a, a
 	ldh [rOCPS], a
 	call PalLibCandidate_WaitLY90
 	ld b, $40
 	ld c, $00
-.l5233 ; 29:5233
+.read_obj_palette_bytes ; 29:5233
 	ldh a, [rOCPD]
 	ld [de], a
 	inc c
@@ -338,7 +338,7 @@ PalLibCandidate_ReadPalettesToBuffer:: ; 29:520D
 	ldh [rOCPS], a
 	inc de
 	dec b
-	jr nz, .l5233
+	jr nz, .read_obj_palette_bytes
 	ret
 
 PalLibCandidate_WriteBufferToPalettes:: ; 29:523F
@@ -349,7 +349,7 @@ PalLibCandidate_WriteBufferToPalettes:: ; 29:523F
 	call PalLibCandidate_WaitLY90
 	ld b, $40
 	ld c, $00
-.l524C ; 29:524C
+.write_bg_palette_bytes ; 29:524C
 	ld a, [de]
 	ldh [rBCPD], a
 	inc c
@@ -357,13 +357,13 @@ PalLibCandidate_WriteBufferToPalettes:: ; 29:523F
 	ldh [rBCPS], a
 	inc de
 	dec b
-	jr nz, .l524C
+	jr nz, .write_bg_palette_bytes
 	xor a, a
 	ldh [rOCPS], a
 	call PalLibCandidate_WaitLY90
 	ld b, $40
 	ld c, $00
-.l5261 ; 29:5261
+.write_obj_palette_bytes ; 29:5261
 	ld a, [de]
 	ldh [rOCPD], a
 	inc c
@@ -371,7 +371,7 @@ PalLibCandidate_WriteBufferToPalettes:: ; 29:523F
 	ldh [rOCPS], a
 	inc de
 	dec b
-	jr nz, .l5261
+	jr nz, .write_obj_palette_bytes
 	ret
 
 	call PalLibCandidate_DisableVBlankIrq

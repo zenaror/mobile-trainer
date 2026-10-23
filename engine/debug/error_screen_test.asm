@@ -237,13 +237,13 @@ DebugErrorTest_HandleDpad:: ; 19:4B4A
 .l4B93 ; 19:4B93
 	ld a, [wDebugErrorTest_HoldCounter]
 	cp a, $3C
-	jr nc, .l4BA5
+	jr nc, .subtract_four_from_code_lo
 	ld a, [wDebugErrorTest_CodeLo]
 	dec a
 	ld [wDebugErrorTest_CodeLo], a
 	call DebugErrorTest_DrawValues
 	ret
-.l4BA5 ; 19:4BA5
+.subtract_four_from_code_lo ; 19:4BA5
 	ld a, [wDebugErrorTest_CodeLo]
 	sub a, $04
 	ld [wDebugErrorTest_CodeLo], a
@@ -252,13 +252,13 @@ DebugErrorTest_HandleDpad:: ; 19:4B4A
 .l4BB1 ; 19:4BB1
 	ld a, [wDebugErrorTest_HoldCounter]
 	cp a, $3C
-	jr nc, .l4BC3
+	jr nc, .add_four_to_code_lo
 	ld a, [wDebugErrorTest_CodeLo]
 	inc a
 	ld [wDebugErrorTest_CodeLo], a
 	call DebugErrorTest_DrawValues
 	ret
-.l4BC3 ; 19:4BC3
+.add_four_to_code_lo ; 19:4BC3
 	ld a, [wDebugErrorTest_CodeLo]
 	add a, $04
 	ld [wDebugErrorTest_CodeLo], a
@@ -473,12 +473,12 @@ DebugErrorTest_UpdateHoldTimer:: ; 19:4D7E
 	ld b, a
 	ldh a, [hJoyHeld]
 	cp a, b
-	jr z, .l4D8F
+	jr z, .increment_hold_counter_saturating
 	ld [wDebugErrorTest_PrevHeld], a
 	xor a, a
 	ld [wDebugErrorTest_HoldCounter], a
 	ret
-.l4D8F ; 19:4D8F
+.increment_hold_counter_saturating ; 19:4D8F
 	ld a, [wDebugErrorTest_HoldCounter]
 	add a, $01
 	ret c

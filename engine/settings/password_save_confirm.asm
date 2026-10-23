@@ -113,12 +113,12 @@ PwSaveConfirm_Loop:: ; 67:6625
 	play_sfx SFX_CONFIRM
 	ld a, [wPwSaveConfirm_Cursor]
 	or a, a
-	jr nz, .l6664
+	jr nz, .store_result_two
 	ld a, $01
 	ld [wPwSaveConfirm_Result], a
 	ret
 
-.l6664 ; 67:6664
+.store_result_two ; 67:6664
 	; [PROBABLE] 32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 1;
 	; entered by jrcc from 67:665C (executed)
 	ld a, $02
@@ -139,8 +139,8 @@ PwSaveConfirm_Loop:: ; 67:6625
 	xor a, b
 	ld [wPwSaveConfirm_Cursor], a
 	call PwSaveConfirm_PlaceCursor
-	jr .l66A3
-.l66A3 ; 67:66A3
+	jr .repeat_input_loop
+.repeat_input_loop ; 67:66A3
 	jp PwSaveConfirm_Loop
 
 PwSaveConfirm_PlaceCursor:: ; 67:66A6

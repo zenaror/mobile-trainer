@@ -111,7 +111,7 @@ Charset_DetectEncoding:: ; 7E:7BDE
 	; --split [executed in 1 scenarios]
 	call Charset_ReadByteCounted
 	or a, a
-	jr z, .l7C27
+	jr z, .return_three
 	cp a, $1B
 	jr z, .l7BF2
 	cp a, $A1
@@ -121,15 +121,15 @@ Charset_DetectEncoding:: ; 7E:7BDE
 
 	; [PROBABLE] 31 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 7B7C-7D19 by apply_coverage --split
-	jr .l7C21
+	jr .return_one
 .l7BF2 ; 7E:7BF2
 	call Charset_ReadByteCounted
 	or a, a
-	jr z, .l7C27
+	jr z, .return_three
 	ld d, a
 	call Charset_ReadByteCounted
 	or a, a
-	jr z, .l7C27
+	jr z, .return_three
 	ld e, a
 	ld a, d
 	cp a, $24
@@ -140,25 +140,25 @@ Charset_DetectEncoding:: ; 7E:7BDE
 .l7C0B ; 7E:7C0B
 	ld a, e
 	cp a, $42
-	jr z, .l7C24
+	jr z, .return_two
 	cp a, $40
-	jr z, .l7C24
+	jr z, .return_two
 	jr Charset_DetectEncoding
 .l7C16 ; 7E:7C16
 	ld a, e
 	cp a, $4A
-	jr z, .l7C24
+	jr z, .return_two
 	cp a, $42
-	jr z, .l7C24
+	jr z, .return_two
 	jr Charset_DetectEncoding
-.l7C21 ; 7E:7C21
+.return_one ; 7E:7C21
 	ld a, $01
 	ret
-.l7C24 ; 7E:7C24
+.return_two ; 7E:7C24
 	ld a, $02
 	ret
 
-.l7C27 ; 7E:7C27
+.return_three ; 7E:7C27
 	; [CONFIRMED] 27 insn(s) executed; cut out of the PROBABLE region 7B7C-7D19 by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld a, $03
@@ -167,11 +167,11 @@ Charset_DetectEncoding:: ; 7E:7BDE
 Charset_ReadByteCounted:: ; 7E:7C2A
 	ld a, b
 	or a, c
-	jp z, .l7C32
+	jp z, .return_zero
 	dec bc
 	ld a, [hli]
 	ret
-.l7C32 ; 7E:7C32
+.return_zero ; 7E:7C32
 	xor a, a
 	ret
 

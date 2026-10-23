@@ -65,14 +65,14 @@ Comm_Disconnect:: ; 4C:46F4
 	or a, a
 	jr z, .l476D
 	cp a, $FF
-	jr z, .l472B
+	jr z, .begin_cancel
 	farcall Sprite_UpdateAll
 	farcall ConnIcon_LoadGraphicsIfRequested
 	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
 	jp .poll_disconnect
 
-.l472B ; 4C:472B
+.begin_cancel ; 4C:472B
 	; [PROBABLE] 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 46F4-47C4 by apply_coverage --split
 	farcall Mobile_BeginCancel
@@ -155,12 +155,12 @@ Comm_DisconnectWithProgress:: ; 4C:47C4
 	or a, a
 	jr z, .step_progress_until_zero
 	cp a, $FF
-	jr z, .l47F2
+	jr z, .begin_cancel
 	ld a, $00
 	farcall CommProgress_Step
 	jp .poll_disconnect
 
-.l47F2 ; 4C:47F2
+.begin_cancel ; 4C:47F2
 	; [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1;
 	; entered by jrcc from 4C:47E5 (executed)
 	farcall Mobile_BeginCancel

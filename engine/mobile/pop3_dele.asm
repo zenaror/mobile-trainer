@@ -45,7 +45,7 @@ Pop3_DelePoll:: ; 54:53BB
 	bit 1, a
 	jr nz, .fetch_result_return_ff
 	bit 0, a
-	jr z, .l53E3
+	jr z, .clear_task_kind_and_return
 	ld a, $01
 	ret
 
@@ -56,7 +56,7 @@ Pop3_DelePoll:: ; 54:53BB
 	ld a, $FF
 	ret
 
-.l53E3 ; 54:53E3
+.clear_task_kind_and_return ; 54:53E3
 	; [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 5386-53E9 by apply_coverage
 	; --split [executed in 8 scenarios]
 	ld hl, wMobileTaskKind

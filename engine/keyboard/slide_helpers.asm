@@ -15,7 +15,7 @@ KbdSlide_InPrepMode6:: ; 7F:70FD
 	ld d, $00
 	ld a, [wSpriteSlot1]
 	sub a, $0D
-	jr z, .l7112
+	jr z, .clear_e_pop_af_and_return
 
 .count_0c_steps ; 7F:710D
 	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
@@ -24,7 +24,7 @@ KbdSlide_InPrepMode6:: ; 7F:70FD
 	sub a, $0C
 	jr nz, .count_0c_steps
 
-.l7112 ; 7F:7112
+.clear_e_pop_af_and_return ; 7F:7112
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
 	ld e, $00
 	pop af
@@ -42,7 +42,7 @@ KbdSlide_OutPrepMode6:: ; 7F:7125
 	ld d, $00
 	ld a, [wSplitScrollY]
 	cp a, $00
-	jr z, .l7136
+	jr z, .clear_e_pop_af_and_return
 
 	; [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0;
 	; fall-through of the jrcc at 7F:712D (executed) [executed in 2 scenarios]
@@ -52,7 +52,7 @@ KbdSlide_OutPrepMode6:: ; 7F:7125
 	sub a, $0C
 	jr nz, .count_0c_steps
 
-.l7136 ; 7F:7136
+.clear_e_pop_af_and_return ; 7F:7136
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 2/18 scenarios)
 	ld e, $00
 	pop af
@@ -72,7 +72,7 @@ KbdSlide_InPrepMode8:: ; 7F:7149
 	ldh [rSVBK], a
 	ld a, [wKbdSlideDeltaRow]
 	cp a, $00
-	jr z, .l715F
+	jr z, .set_de_0400
 
 	; [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0;
 	; fall-through of the jrcc at 7F:7155 (executed) [upgraded PROBABLE->CONFIRMED by the
@@ -81,13 +81,13 @@ KbdSlide_InPrepMode8:: ; 7F:7149
 	ld e, $00
 	ld a, [wKbdSlideDeltaRow]
 	ld d, a
-	jr .l7163
+	jr .pop_af_and_return
 
-.l715F ; 7F:715F
+.set_de_0400 ; 7F:715F
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 2/18 scenarios)
 	ld e, $00
 	ld d, $04
-.l7163 ; 7F:7163
+.pop_af_and_return ; 7F:7163
 	pop af
 	ret
 
@@ -109,7 +109,7 @@ KbdSlide_OutPrepMode8:: ; 7F:7178
 	ldh [rSVBK], a
 	ld a, [wKbdSlideDeltaRow]
 	cp a, $00
-	jr z, .l718E
+	jr z, .set_de_0400
 
 	; [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0;
 	; fall-through of the jrcc at 7F:7184 (executed) [upgraded PROBABLE->CONFIRMED by the
@@ -118,13 +118,13 @@ KbdSlide_OutPrepMode8:: ; 7F:7178
 	ld e, $00
 	ld a, [wKbdSlideDeltaRow]
 	ld d, a
-	jr .l7192
+	jr .pop_af_and_return
 
-.l718E ; 7F:718E
+.set_de_0400 ; 7F:718E
 	; [CONFIRMED] 85 insn(s); 85 executed (in up to 3/18 scenarios)
 	ld e, $00
 	ld d, $04
-.l7192 ; 7F:7192
+.pop_af_and_return ; 7F:7192
 	pop af
 	ret
 
@@ -146,15 +146,15 @@ KbdSlide_InPrepMode9:: ; 7F:71A7
 	ldh [rSVBK], a
 	ld a, [wKbdSlideDeltaRow]
 	cp a, $00
-	jr z, .l71BD
+	jr z, .set_de_0500
 	ld e, $00
 	ld a, [wKbdSlideDeltaRow]
 	ld d, a
-	jr .l71C1
-.l71BD ; 7F:71BD
+	jr .pop_af_and_return
+.set_de_0500 ; 7F:71BD
 	ld e, $00
 	ld d, $05
-.l71C1 ; 7F:71C1
+.pop_af_and_return ; 7F:71C1
 	pop af
 	ret
 
@@ -176,15 +176,15 @@ KbdSlide_OutPrepMode9:: ; 7F:71D6
 	ldh [rSVBK], a
 	ld a, [wKbdSlideDeltaRow]
 	cp a, $00
-	jr z, .l71EC
+	jr z, .set_de_0500
 	ld e, $00
 	ld a, [wKbdSlideDeltaRow]
 	ld d, a
-	jr .l71F0
-.l71EC ; 7F:71EC
+	jr .pop_af_and_return
+.set_de_0500 ; 7F:71EC
 	ld e, $00
 	ld d, $05
-.l71F0 ; 7F:71F0
+.pop_af_and_return ; 7F:71F0
 	pop af
 	ret
 

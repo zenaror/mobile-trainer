@@ -390,7 +390,7 @@ Profile_CursorLeft:: ; 2A:5744
 	pop bc
 	inc c
 	dec c
-	jr nz, .l5765
+	jr nz, .decrement_column_and_store_goal
 	inc b
 	dec b
 	ret z
@@ -402,7 +402,7 @@ Profile_CursorLeft:: ; 2A:5744
 	ld c, e
 	ret
 
-.l5765 ; 2A:5765
+.decrement_column_and_store_goal ; 2A:5765
 	; [CONFIRMED] 16 insn(s) executed; cut out of the PROBABLE region 5744-577F by apply_coverage
 	; --split [executed in 2 scenarios]
 	dec c
@@ -604,14 +604,14 @@ Profile_PlaceTextCursor:: ; 2A:590B
 	inc b
 	inc c
 	ld a, $2C
-.l5918 ; 2A:5918
+.add_row_stride_loop ; 2A:5918
 	dec b
 	jr z, .l591F
 
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 2A:5919 (executed)
 	add a, $0C
-	jr .l5918
+	jr .add_row_stride_loop
 
 .l591F ; 2A:591F
 	; [CONFIRMED] 78 insn(s); 78 executed (in up to 2/18 scenarios)
@@ -623,11 +623,11 @@ Profile_PlaceTextCursor:: ; 2A:590B
 	ld [wSpriteSlot1], a
 	ld [wSpriteSlot2], a
 	ld a, $38
-.l592E ; 2A:592E
+.add_column_stride_loop ; 2A:592E
 	dec c
 	jr z, .l5935
 	add a, $0C
-	jr .l592E
+	jr .add_column_stride_loop
 .l5935 ; 2A:5935
 	ld [wSpriteSlot1 + $01], a
 	ld [wSpriteSlot2 + $01], a
@@ -797,7 +797,7 @@ Profile_DrawAddressLine1:: ; 2A:5A3B
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, .l5ADB
+	jp z, .load_space_glyph_for_padding
 	cp a, $0D
 	jr z, .l5AC0
 	push af
@@ -840,9 +840,9 @@ Profile_DrawAddressLine1:: ; 2A:5A3B
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l5ADB
+	jr z, .load_space_glyph_for_padding
 	cp a, $01
-	jr z, .l5ADB
+	jr z, .load_space_glyph_for_padding
 	jr .read_next_char
 .draw_ascii_char ; 2A:5A9B
 	; one-byte (ASCII) character: load the glyph, blit it, one cell less; with no cell (or one) left the line is padded
@@ -862,9 +862,9 @@ Profile_DrawAddressLine1:: ; 2A:5A3B
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l5ADB
+	jr z, .load_space_glyph_for_padding
 	cp a, $01
-	jr z, .l5ADB
+	jr z, .load_space_glyph_for_padding
 	jr .read_next_char
 .l5AC0 ; 2A:5AC0
 	; a $0D byte takes one blank cell and ends the line (never executed)
@@ -883,7 +883,7 @@ Profile_DrawAddressLine1:: ; 2A:5A3B
 	dec a
 	ld [wTextCellsLeft], a
 	call Profile_DrawAddressLine1_BlitBlankAdvance
-.l5ADB ; 2A:5ADB
+.load_space_glyph_for_padding ; 2A:5ADB
 	; pads the rest of the line with blank cells and ends it
 	; [CONFIRMED] 56 insn(s); 56 executed (in up to 2/18 scenarios)
 	push bc
@@ -944,7 +944,7 @@ Profile_DrawAddressLine2:: ; 2A:5B27
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, .l5BC7
+	jp z, .load_space_glyph_for_padding
 	cp a, $0D
 	jr z, .l5BAC
 	push af
@@ -987,9 +987,9 @@ Profile_DrawAddressLine2:: ; 2A:5B27
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l5BC7
+	jr z, .load_space_glyph_for_padding
 	cp a, $01
-	jr z, .l5BC7
+	jr z, .load_space_glyph_for_padding
 	jr .read_next_char
 .draw_ascii_char ; 2A:5B87
 	; one-byte (ASCII) character: load the glyph, blit it, one cell less; with no cell (or one) left the line is padded
@@ -1009,9 +1009,9 @@ Profile_DrawAddressLine2:: ; 2A:5B27
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l5BC7
+	jr z, .load_space_glyph_for_padding
 	cp a, $01
-	jr z, .l5BC7
+	jr z, .load_space_glyph_for_padding
 	jr .read_next_char
 .l5BAC ; 2A:5BAC
 	; a $0D byte takes one blank cell and ends the line (never executed)
@@ -1030,7 +1030,7 @@ Profile_DrawAddressLine2:: ; 2A:5B27
 	dec a
 	ld [wTextCellsLeft], a
 	call Profile_DrawAddressLine2_BlitBlankAdvance
-.l5BC7 ; 2A:5BC7
+.load_space_glyph_for_padding ; 2A:5BC7
 	; pads the rest of the line with blank cells and ends it
 	; [CONFIRMED] 102 insn(s); 102 executed (in up to 2/18 scenarios)
 	push bc
@@ -1134,20 +1134,20 @@ Profile_CharPtr:: ; 2A:5C5B
 	ldh [rSVBK], a
 	ld a, $FF
 	cp a, d
-	jr z, .l5C83
+	jr z, .return_a_d_ff
 	inc c
 	ld a, [hl]
 .scan_character_column ; 2A:5C6C
 	dec c
-	jr z, .l5C81
+	jr z, .restore_bc_and_return
 	inc hl
 	inc hl
 	ld a, [hl]
 	cp a, $00
-	jr z, .l5C83
+	jr z, .return_a_d_ff
 	ld a, [hl]
 	cp a, $0D
-	jr z, .l5C89
+	jr z, .return_cr_with_d_ff
 	jr .scan_character_column
 
 	; [HYPOTHESIS] no branch/call/pointer to any address in $5C7D-$5C81 was found (tgt scan of all
@@ -1156,19 +1156,19 @@ Profile_CharPtr:: ; 2A:5C5B
 	; nz,$5C83 - skipped by the unconditional 'jr $5C6C' at 2A:5C7B... falls into 5C81 (pop bc; ret)
 	inc c
 	dec c
-	jr nz, .l5C83
+	jr nz, .return_a_d_ff
 
-.l5C81 ; 2A:5C81
+.restore_bc_and_return ; 2A:5C81
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios)
 	pop bc
 	ret
-.l5C83 ; 2A:5C83
+.return_a_d_ff ; 2A:5C83
 	ld a, $FF
 	ld d, $FF
 	pop bc
 	ret
 
-.l5C89 ; 2A:5C89
+.return_cr_with_d_ff ; 2A:5C89
 	; [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 1;
 	; entered by jrcc from 2A:5C79 (executed)
 	ld a, $0D
@@ -1211,23 +1211,23 @@ Profile_FindLine:: ; 2A:5C8F
 	; [CONFIRMED] 27 insn(s); 27 executed (in up to 2/18 scenarios)
 	ld a, $FF
 	cp a, d
-	jr z, .l5CCC
+	jr z, .disable_sram_restore_bc
 	ld e, $00
 	push hl
 .l5CBB ; 2A:5CBB
 	ld a, [hli]
 	inc hl
 	cp a, $00
-	jr z, .l5CCB
+	jr z, .restore_hl
 	cp a, $0D
-	jr z, .l5CCB
+	jr z, .restore_hl
 	inc e
 	ld a, $0B
 	cp a, e
 	jr nz, .l5CBB
-.l5CCB ; 2A:5CCB
+.restore_hl ; 2A:5CCB
 	pop hl
-.l5CCC ; 2A:5CCC
+.disable_sram_restore_bc ; 2A:5CCC
 	xor a, a
 	ld [rRAMG], a
 	pop bc
@@ -1470,7 +1470,7 @@ Profile_DeleteChar:: ; 2A:5E23
 	push bc
 	inc c
 	dec c
-	jr nz, .l5E60
+	jr nz, .decrement_column
 
 	; [CONFIRMED] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0;
 	; fall-through of the jrcc at 2A:5E56 (executed) | 3 insn(s) executed; cut out of the PROBABLE
@@ -1485,7 +1485,7 @@ Profile_DeleteChar:: ; 2A:5E23
 	ld c, e
 	inc c
 
-.l5E60 ; 2A:5E60
+.decrement_column ; 2A:5E60
 	; [CONFIRMED] 26 insn(s); 26 executed (in up to 1/18 scenarios)
 	dec c
 .l5E61 ; 2A:5E61
@@ -1515,7 +1515,7 @@ Profile_DeleteChar:: ; 2A:5E23
 	pop bc
 	inc c
 	dec c
-	jr nz, .l5EA9
+	jr nz, .decrement_column_and_store_goal
 
 	; [CONFIRMED] 7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 0;
 	; fall-through of the jrcc at 2A:5E9C (executed) | 3 insn(s) executed; cut out of the PROBABLE
@@ -1531,7 +1531,7 @@ Profile_DeleteChar:: ; 2A:5E23
 	ld c, e
 	jr .l5EAE
 
-.l5EA9 ; 2A:5EA9
+.decrement_column_and_store_goal ; 2A:5EA9
 	; [CONFIRMED] 19 insn(s); 19 executed (in up to 1/18 scenarios)
 	dec c
 	ld a, c
@@ -1562,11 +1562,11 @@ Profile_DeleteChar:: ; 2A:5E23
 	; [CONFIRMED] 29 insn(s); 29 executed (in up to 1/18 scenarios)
 	ld a, $22
 	cp a, l
-	jr nz, .l5ED2
+	jr nz, .shift_character_pair_forward
 	ld a, $D5
 	cp a, h
 	jr z, .l5EDA
-.l5ED2 ; 2A:5ED2
+.shift_character_pair_forward ; 2A:5ED2
 	ld a, [bc]
 	ld [hli], a
 	inc bc
@@ -2003,10 +2003,10 @@ Profile_KeyboardLoop_Poll:: ; 2A:617B
 	ld de, wEditNameBuf
 	ld a, [de]
 	cp a, $00
-	jr z, .l61C0
+	jr z, .hide_keyboard_restore_registers
 	play_sfx SFX_CONFIRM
 	call Profile_SaveToSram
-.l61C0 ; 2A:61C0
+.hide_keyboard_restore_registers ; 2A:61C0
 	farcall Kbd_Hide
 	pop de
 	pop bc
@@ -2018,7 +2018,7 @@ Profile_KeyboardLoop_Poll:: ; 2A:617B
 	cp a, $09
 	ret z
 	cp a, $02
-	jr z, .l621C
+	jr z, .delete_character_and_repeat
 	cp a, $07
 	ret z
 	cp a, $08
@@ -2061,7 +2061,7 @@ Profile_KeyboardLoop_Poll:: ; 2A:617B
 	ld d, a
 	call Profile_InsertChar
 	jp Profile_KeyboardLoop_Poll
-.l621C ; 2A:621C
+.delete_character_and_repeat ; 2A:621C
 	call Profile_DeleteChar
 	jp Profile_KeyboardLoop_Poll
 

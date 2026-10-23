@@ -37,7 +37,7 @@ HtmlUrl_GetSchemeId:: ; 74:5969
 .scan_scheme_colon ; 74:596A
 	ld a, [hli]
 	or a, a
-	jr z, .l597F
+	jr z, .pop_hl_and_return
 	cp a, $3A
 	jr nz, .scan_scheme_colon
 	pop hl
@@ -47,7 +47,7 @@ HtmlUrl_GetSchemeId:: ; 74:5969
 	ldh [hHtml_MatchRestartHi], a
 	ld bc, HtmlUrl_SchemeTable
 	jp Html_MatchKeyword
-.l597F ; 74:597F
+.pop_hl_and_return ; 74:597F
 	pop hl
 	ret
 
@@ -207,7 +207,7 @@ HtmlUrl_Resolve_JoinToBase:: ; 74:59F1
 	ld a, [hli]
 .l5A43 ; 74:5A43
 	or a, a
-	jr z, .l5A57
+	jr z, .rewind_and_copy_suffix
 	cp a, $2F
 	jr nz, .l5A42
 	ld a, [hli]
@@ -216,10 +216,10 @@ HtmlUrl_Resolve_JoinToBase:: ; 74:59F1
 .scan_host_end ; 74:5A4F
 	ld a, [hli]
 	or a, a
-	jr z, .l5A57
+	jr z, .rewind_and_copy_suffix
 	cp a, $2F
 	jr nz, .scan_host_end
-.l5A57 ; 74:5A57
+.rewind_and_copy_suffix ; 74:5A57
 	dec hl
 	jr .copy_suffix
 

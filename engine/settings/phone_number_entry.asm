@@ -541,19 +541,19 @@ PhoneKeypad_Loop:: ; 67:443C
 	ld c, a
 	farcall Kbd_Run
 	cp a, $01
-	jr z, .l4461
+	jr z, .append_keyboard_character
 	cp a, $02
-	jr z, .l44B2
+	jr z, .delete_last_character
 	cp a, $07
-	jp z, .l44EB
+	jp z, .check_confirm_length
 	cp a, $08
-	jp z, .l4523
+	jp z, .store_with_result_zero
 
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 431F-4571 by apply_coverage --split
-	jp .l4556
+	jp .repeat_input_loop
 
-.l4461 ; 67:4461
+.append_keyboard_character ; 67:4461
 	; [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 431F-4571 by apply_coverage
 	; --split [executed in 3 scenarios]
 	ld a, [wKeyboardCharLo]
@@ -561,68 +561,68 @@ PhoneKeypad_Loop:: ; 67:443C
 	ld d, a
 	farcall TextBuf_AppendChar
 	or a, a
-	jr nz, .l4483
+	jr nz, .play_reject_sfx
 	play_sfx SFX_CHAR_ENTERED
-	jr .l4493
+	jr .check_length_after_append
 
-.l4483 ; 67:4483
+.play_reject_sfx ; 67:4483
 	; [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 431F-4571 by apply_coverage --split
 	play_sfx SFX_REJECT
 
-.l4493 ; 67:4493
+.check_length_after_append ; 67:4493
 	; [CONFIRMED] 6 insn(s) executed; cut out of the PROBABLE region 431F-4571 by apply_coverage
 	; --split [executed in 3 scenarios]
 	ld hl, wTextEntryBuf
 	farcall TextBuf_GetLength
 	cp a, $01
-	jr c, .l44A9
+	jr c, .show_marker_after_append
 	farcall Kbd_HideMarkerSprite
-	jp .l453B
+	jp .redraw_text_and_update_full_flag
 
-.l44A9 ; 67:44A9
+.show_marker_after_append ; 67:44A9
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 431F-4571 by apply_coverage --split
 	farcall Kbd_ShowMarkerSprite
-	jp .l453B
+	jp .redraw_text_and_update_full_flag
 
-.l44B2 ; 67:44B2
+.delete_last_character ; 67:44B2
 	; [CONFIRMED] 76 insn(s) executed; cut out of the PROBABLE region 431F-4571 by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld hl, wTextEntryBuf
 	farcall TextBuf_DeleteLast
 	or a, a
-	jr nz, .l4523
+	jr nz, .store_with_result_zero
 	play_sfx SFX_CHAR_ERASED
 	ld hl, wTextEntryBuf
 	farcall TextBuf_GetLength
 	cp a, $01
-	jr c, .l44E3
+	jr c, .show_marker_after_delete
 	farcall Kbd_HideMarkerSprite
-	jr .l453B
-.l44E3 ; 67:44E3
+	jr .redraw_text_and_update_full_flag
+.show_marker_after_delete ; 67:44E3
 	farcall Kbd_ShowMarkerSprite
-	jr .l453B
-.l44EB ; 67:44EB
+	jr .redraw_text_and_update_full_flag
+.check_confirm_length ; 67:44EB
 	ld hl, wTextEntryBuf
 	farcall TextBuf_GetLength
 	cp a, $01
-	jr nc, .l450A
+	jr nc, .store_with_result_one
 	play_sfx SFX_REJECT
-	jr .l4556
-.l450A ; 67:450A
+	jr .repeat_input_loop
+.store_with_result_one ; 67:450A
 	play_sfx SFX_CONFIRM
 	call PhoneKeypad_StoreResult
 	ld a, $01
 	ld [wPhoneKeypad_Result], a
 	ret
-.l4523 ; 67:4523
+.store_with_result_zero ; 67:4523
 	play_sfx SFX_CANCEL
 	call PhoneKeypad_StoreResult
 	xor a, a
 	ld [wPhoneKeypad_Result], a
 	ret
-.l453B ; 67:453B
+.redraw_text_and_update_full_flag ; 67:453B
 	ld d, $20
 	ld e, $10
 	ld hl, wTextEntryBuf
@@ -632,19 +632,19 @@ PhoneKeypad_Loop:: ; 67:443C
 	call PhoneKeypad_PrintText
 	call PhoneKeypad_UploadTextTiles
 	call PhoneKeypad_UpdateFullFlag
-.l4556 ; 67:4556
+.repeat_input_loop ; 67:4556
 	jp PhoneKeypad_Loop
 
 PhoneKeypad_StoreResult:: ; 67:4559
 	ld hl, wTextEntryBuf
 	ld a, [wPhoneKeypad_Kind]
 	or a, a
-	jr nz, .l4567
+	jr nz, .select_self_page_destination
 	ld de, wAcctNumberInternet
-	jr .l456A
-.l4567 ; 67:4567
+	jr .copy_text_and_return
+.select_self_page_destination ; 67:4567
 	ld de, wAcctNumberSelfPage
-.l456A ; 67:456A
+.copy_text_and_return ; 67:456A
 	farcall TextEntry_CopyText
 	ret
 
@@ -659,17 +659,17 @@ PhoneKeypad_UpdateStoredFlag:: ; 67:4571
 	jr nz, .l4580
 	ld a, [wSettingsFieldMask]
 	and a, $08
-	jr nz, .l458D
-	jr .l4587
+	jr nz, .set_ok_flag_and_return
+	jr .clear_ok_flag_and_return
 .l4580 ; 67:4580
 	ld a, [wSettingsFieldMask]
 	and a, $10
-	jr nz, .l458D
-.l4587 ; 67:4587
+	jr nz, .set_ok_flag_and_return
+.clear_ok_flag_and_return ; 67:4587
 	ld a, $00
 	ld [wPhoneKeypad_OkFlag], a
 	ret
-.l458D ; 67:458D
+.set_ok_flag_and_return ; 67:458D
 	ld a, $01
 	ld [wPhoneKeypad_OkFlag], a
 	ret
@@ -681,12 +681,12 @@ PhoneKeypad_UpdateFullFlag:: ; 67:4593
 	ld hl, wTextEntryBuf
 	farcall TextBuf_GetFree
 	or a, a
-	jr z, .l45A5
+	jr z, .set_ok_flag_and_return
 	ld a, $00
 	ld [wPhoneKeypad_OkFlag], a
 	ret
 
-.l45A5 ; 67:45A5
+.set_ok_flag_and_return ; 67:45A5
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4593-486D by apply_coverage --split
 	ld a, $01
@@ -699,11 +699,11 @@ PhoneKeypad_UpdateNonEmptyFlag:: ; 67:45AB
 	ld hl, wTextEntryBuf
 	farcall TextBuf_GetLength
 	cp a, $01
-	jr nc, .l45BE
+	jr nc, .set_ok_flag_and_return
 	ld a, $00
 	ld [wPhoneKeypad_OkFlag], a
 	ret
-.l45BE ; 67:45BE
+.set_ok_flag_and_return ; 67:45BE
 	ld a, $01
 	ld [wPhoneKeypad_OkFlag], a
 	ret

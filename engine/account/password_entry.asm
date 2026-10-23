@@ -197,11 +197,11 @@ Account_PasswordEntry_OkStateFromMask:: ; 68:5E9A
 	; caller/table word -> HYPOTHESIS]
 	ld a, [wSettingsFieldMask]
 	and a, $04
-	jr nz, .l5EA7
+	jr nz, .recompute_ok_flag
 	ld a, $00
 	ld [wPasswordEntry_OkFlag], a
 	ret
-.l5EA7 ; 68:5EA7
+.recompute_ok_flag ; 68:5EA7
 	call Account_PasswordIsValid
 	ld [wPasswordEntry_OkFlag], a
 	ret
@@ -213,11 +213,11 @@ Account_PasswordEntry_UpdateOkState:: ; 68:5EAE
 	ld hl, wTextEntryBuf
 	farcall TextBuf_GetFree
 	or a, a
-	jr z, .l5EC0
+	jr z, .recompute_ok_flag
 	ld a, $00
 	ld [wPasswordEntry_OkFlag], a
 	ret
-.l5EC0 ; 68:5EC0
+.recompute_ok_flag ; 68:5EC0
 	call Account_PasswordIsValid
 	ld [wPasswordEntry_OkFlag], a
 	ret
@@ -238,7 +238,7 @@ Account_PasswordEntry_InputLoop:: ; 68:5EC7
 
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
 	; fall-through of the jpcc at 68:5EE6 (executed)
-	jp .l5FDE
+	jp .repeat_input_loop
 
 .l5EEC ; 68:5EEC
 	; [CONFIRMED] 129 insn(s); 129 executed (in up to 7/18 scenarios)
@@ -247,10 +247,10 @@ Account_PasswordEntry_InputLoop:: ; 68:5EC7
 	ld d, a
 	farcall TextBuf_AppendChar
 	or a, a
-	jr nz, .l5F0E
+	jr nz, .play_reject_sfx
 	play_sfx SFX_CHAR_ENTERED
 	jr .l5F1E
-.l5F0E ; 68:5F0E
+.play_reject_sfx ; 68:5F0E
 	play_sfx SFX_REJECT
 .l5F1E ; 68:5F1E
 	call Account_PasswordIsValid
@@ -280,7 +280,7 @@ Account_PasswordEntry_InputLoop:: ; 68:5EC7
 	or a, a
 	jr nz, .l5F80
 	play_sfx SFX_REJECT
-	jr .l5FDE
+	jr .repeat_input_loop
 .l5F80 ; 68:5F80
 	play_sfx SFX_CONFIRM
 	ld hl, wTextEntryBuf
@@ -307,14 +307,14 @@ Account_PasswordEntry_InputLoop:: ; 68:5EC7
 	call Account_Password_PrintField
 	call Account_Password_UploadTextTiles
 	call Account_PasswordEntry_UpdateOkState
-.l5FDE ; 68:5FDE
+.repeat_input_loop ; 68:5FDE
 	jp Account_PasswordEntry_InputLoop
 
 Account_PasswordIsValid:: ; 68:5FE1
 	ld hl, wTextEntryBuf
 	farcall TextBuf_GetLength
 	cp a, $04
-	jp c, .l604E
+	jp c, .return_zero
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -333,26 +333,26 @@ Account_PasswordIsValid:: ; 68:5FE1
 	cp a, $30
 	jr c, .scan_password_character
 	cp a, $3A
-	jr c, .l6022
+	jr c, .mark_digit_seen
 	cp a, $41
 	jr c, .scan_password_character
 	cp a, $5B
-	jr c, .l6028
+	jr c, .mark_letter_seen
 	cp a, $61
 	jr c, .scan_password_character
 	cp a, $7B
-	jr c, .l6028
+	jr c, .mark_letter_seen
 
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
 	; fall-through of the jrcc at 68:601E (executed)
 	jr .scan_password_character
 
-.l6022 ; 68:6022
+.mark_digit_seen ; 68:6022
 	; [CONFIRMED] 284 insn(s); 284 executed (in up to 7/18 scenarios) (part of region $6022-$6308)
 	ld a, $01
 	ldh [hPasswordEntry_HasDigit], a
 	jr .scan_password_character
-.l6028 ; 68:6028
+.mark_letter_seen ; 68:6028
 	ld a, $01
 	ldh [hPasswordEntry_HasLetter], a
 	jr .scan_password_character
@@ -377,7 +377,7 @@ Account_PasswordIsValid:: ; 68:5FE1
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
-.l604E ; 68:604E
+.return_zero ; 68:604E
 	xor a, a
 	ret
 

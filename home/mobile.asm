@@ -130,7 +130,7 @@ Int_Timer:: ; 00:01ED
 	ldh [rIF], a
 	ld a, [wMobileSDK_State]
 	or a, a
-	jr z, .l0242
+	jr z, .restore_registers_and_reti
 	ld a, [wMobileFlags]
 	bit 1, a
 	jr nz, .reload_timer_and_set_tac06
@@ -167,7 +167,7 @@ Int_Timer:: ; 00:01ED
 	ldh [rTIMA], a
 	ld a, $06
 	ldh [rTAC], a
-.l0242 ; 00:0242
+.restore_registers_and_reti ; 00:0242
 	pop hl
 	pop de
 	pop bc

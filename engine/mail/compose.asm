@@ -221,14 +221,14 @@ MailRecord_Delete:: ; 2D:4133
 	push hl
 	add hl, bc
 	pop de
-.l4159 ; 2D:4159
+.shift_record_bytes ; 2D:4159
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .l4159
+	jr nz, .shift_record_bytes
 	pop bc
 	inc b
 	ld a, b
@@ -236,13 +236,13 @@ MailRecord_Delete:: ; 2D:4133
 	jr nz, .l4134
 	ld hl, sSram_MailRecords + $CEF
 	ld bc, $012D
-.l416E ; 2D:416E
+.clear_final_record ; 2D:416E
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .l416E
+	jr nz, .clear_final_record
 	pop bc
 	farcall SramCheck_Bank0Commit
 	ret

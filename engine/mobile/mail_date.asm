@@ -166,10 +166,10 @@ Mail_CountDigits:: ; 54:5231
 	inc b
 	ld a, [hli]
 	cp a, $30
-	jr c, .l523E
+	jr c, .restore_hl_and_return
 	cp a, $3A
 	jr c, .count_ascii_digits
-.l523E ; 54:523E
+.restore_hl_and_return ; 54:523E
 	pop hl
 	ret
 

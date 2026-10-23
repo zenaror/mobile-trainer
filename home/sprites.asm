@@ -448,7 +448,7 @@ Sprite_StepAndDrawSlot:: ; 00:0AE8
 	ld d, a
 	ld a, [hli]
 	cp a, $FF
-	jr z, .l0BBB
+	jr z, .restore_de_and_return
 	ld l, a
 	ld h, $00
 	add hl, hl
@@ -488,7 +488,7 @@ Sprite_StepAndDrawSlot:: ; 00:0AE8
 	dec a
 	jr nz, .emit_oam_entry
 	ret
-.l0BBB ; 00:0BBB
+.restore_de_and_return ; 00:0BBB
 	pop de
 	ret
 

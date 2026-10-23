@@ -593,15 +593,15 @@ MailServerMgr_HdmaBlock:: ; 2E:4FE5
 	ld a, e
 	ldh [rHDMA4], a
 	ld de, rLY
-.l4FF4 ; 2E:4FF4
+.wait_for_ly_8f ; 2E:4FF4
 	ld a, [de]
 	cp a, $8F
-	jr nz, .l4FF4
+	jr nz, .wait_for_ly_8f
 	ld b, $91
-.l4FFB ; 2E:4FFB
+.wait_for_ly_91 ; 2E:4FFB
 	ld a, [de]
 	cp a, b
-	jr nz, .l4FFB
+	jr nz, .wait_for_ly_91
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a
@@ -657,10 +657,10 @@ MailServerMgr_DrawMailDate:: ; 2E:5005
 	xor a, a
 	ldh [rVBK], a
 	di
-.l5057 ; 2E:5057
+.wait_for_ly_90 ; 2E:5057
 	ldh a, [rLY]
 	cp a, $90
-	jr nz, .l5057
+	jr nz, .wait_for_ly_90
 	ld a, [hli]
 	ld [de], a
 	inc de
@@ -1323,16 +1323,16 @@ MailServerMgr_ShowChoiceHelp:: ; 2E:5498
 	ld a, e
 	ldh [rHDMA4], a
 	ld de, rLY
-.l54DE ; 2E:54DE
+.wait_for_ly_8f ; 2E:54DE
 	ld a, [de]
 	cp a, $8F
-	jr nz, .l54DE
+	jr nz, .wait_for_ly_8f
 	di
 	ld b, $91
-.l54E6 ; 2E:54E6
+.wait_for_ly_91 ; 2E:54E6
 	ld a, [de]
 	cp a, b
-	jr nz, .l54E6
+	jr nz, .wait_for_ly_91
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a

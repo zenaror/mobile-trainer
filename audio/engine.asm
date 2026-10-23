@@ -310,7 +310,7 @@ SoundDrv_PlaySfx:: ; 04:41C0
 	; fall-through of the jrcc at 04:41CD (executed)
 	ld b, a
 	sub a, $04
-	jr nc, .l4216
+	jr nc, .leave_bank4_gate
 	cpl
 	inc a
 	ld [wSoundDrv_TrackCount], a
@@ -347,10 +347,10 @@ SoundDrv_PlaySfx:: ; 04:41C0
 .start_selected_track ; 04:420C
 	call SoundDrv_StartTrack
 .advance_unless_header_finished ; 04:420F
-	jr z, .l4216
+	jr z, .leave_bank4_gate
 	call SoundDrv_NextTrack
 	jr nz, .reload_track_pointer
-.l4216 ; 04:4216
+.leave_bank4_gate ; 04:4216
 	jp Bank4_GateLeave
 
 SoundDrv_PlaySfxAllTracks:: ; 04:4219
@@ -368,7 +368,7 @@ SoundDrv_PlaySfxAllTracks:: ; 04:4219
 	bit 7, [hl]
 	jr nz, .advance_first_pass_track_mask
 	call SoundDrv_StartTrack
-	jr z, .l4284
+	jr z, .leave_bank4_gate
 	ld a, [wSoundDrv_ReqDE + 1]
 	ld b, a
 	ld a, [wSoundDrv_ReqDE]
@@ -402,7 +402,7 @@ SoundDrv_PlaySfxAllTracks:: ; 04:4219
 	cp a, [hl]
 	jr c, .advance_second_pass_track_mask
 	call SoundDrv_StartTrack
-	jr z, .l4284
+	jr z, .leave_bank4_gate
 .advance_second_pass_track_mask ; 04:4277
 	ld a, [wSoundDrv_ReqDE + 1]
 	sla a
@@ -410,7 +410,7 @@ SoundDrv_PlaySfxAllTracks:: ; 04:4219
 	call SoundDrv_NextTrack
 	jr nz, .try_unselected_track_by_priority
 
-.l4284 ; 04:4284
+.leave_bank4_gate ; 04:4284
 	; [CONFIRMED] 18 insn(s); 18 executed (in up to 18/18 scenarios)
 	jp Bank4_GateLeave
 
@@ -436,7 +436,7 @@ SoundDrv_PlayMusic:: ; 04:4287
 
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
 	; fall-through of the jrcc at 04:42AA (executed)
-	jr .l42BD
+	jr .leave_bank4_gate
 
 .clear_remaining_track_flags ; 04:42AE
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 18/18 scenarios)
@@ -449,7 +449,7 @@ SoundDrv_PlayMusic:: ; 04:4287
 .advance_remaining_track ; 04:42B8
 	call SoundDrv_NextTrack
 	jr nz, .clear_remaining_track_flags
-.l42BD ; 04:42BD
+.leave_bank4_gate ; 04:42BD
 	jp Bank4_GateLeave
 
 SoundDrv_PlayMusicIfNotPlaying:: ; 04:42C0
@@ -763,18 +763,18 @@ SoundDrv_GetPlayingId:: ; 04:445C
 	jr nz, .check_track_selector_below_5
 	ld a, [wSoundDrv_ActiveMask]
 	and a, $F0
-	jr z, .l4474
+	jr z, .clear_bc_and_leave_gate
 	ld a, [wSoundDrv_MusicId]
 	ld c, a
 	ld a, [wSoundDrv_MusicId + $01]
 	ld b, a
-	jr .l4498
+	jr .leave_bank4_gate
 .check_track_selector_below_5 ; 04:4470
 	cp a, $05
 	jr c, .load_playing_id_from_selected_track
-.l4474 ; 04:4474
+.clear_bc_and_leave_gate ; 04:4474
 	ld bc, $0000
-	jr .l4498
+	jr .leave_bank4_gate
 .load_playing_id_from_selected_track ; 04:4479
 	ld bc, $4499
 	sla a
@@ -790,14 +790,14 @@ SoundDrv_GetPlayingId:: ; 04:445C
 	ld h, a
 	ld bc, $0000
 	bit 7, [hl]
-	jr z, .l4498
+	jr z, .leave_bank4_gate
 	ld bc, $0006
 	add hl, bc
 	ld a, [hli]
 	ld c, a
 	ld a, [hli]
 	ld b, a
-.l4498 ; 04:4498
+.leave_bank4_gate ; 04:4498
 	jp Bank4_GateLeave
 
 ; ---- words $449B-$44A3 (8 bytes) [PROBABLE] 4 WRAM record addresses D040,D07C,D0B8,D0F4 (stride $3C = the 8 x $3C-byte records cleared at D040 by 04:4000); read by the code at 4479 (ld bc,$4499 ; sla a ; add a,c ; ld a,[bc]) with index 1-4 (index 0 would be the operand of the jp $2141 at 4498)
@@ -1131,12 +1131,12 @@ SoundDrv_TickVibrato:: ; 04:45E6
 	inc hl
 	ld a, b
 	cp a, [hl]
-	jr z, .l465B
+	jr z, .jump_to_reload_track_pointer
 	ld a, [wSoundDrv_UpdateFlags]
 	set 2, a
 	ld [wSoundDrv_UpdateFlags], a
 	ld [hl], b
-.l465B ; 04:465B
+.jump_to_reload_track_pointer ; 04:465B
 	jr .reload_track_pointer_and_update_flags
 .reload_track_pointer_and_update_flags ; 04:465D
 	ld a, [wSoundDrv_TrackPtr]
@@ -1613,7 +1613,7 @@ SoundDrv_CmdVibratoRate:: ; 04:48EC
 	inc de
 	ld [hli], a
 	sla a
-	jr nz, .l4905
+	jr nz, .read_next_command
 
 	; [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0;
 	; fall-through of the jrcc at 04:48FF (executed)
@@ -1622,7 +1622,7 @@ SoundDrv_CmdVibratoRate:: ; 04:48EC
 	rra
 	ld [hl], a
 
-.l4905 ; 04:4905
+.read_next_command ; 04:4905
 	; [CONFIRMED] 1 insn(s); 1 executed (in up to 17/18 scenarios)
 	jp SoundDrv_ReadNextCommand
 
@@ -2222,11 +2222,11 @@ SoundDrv_UpdateChannel:: ; 04:4C14
 	inc [hl]
 	pop hl
 	bit 5, b
-	jr z, .l4C57
+	jr z, .dispatch_on_channel_bit4
 	bit 4, b
 	jr nz, .step_volume_up_toward_target
 	jp .step_volume_down_toward_sustain
-.l4C57 ; 04:4C57
+.dispatch_on_channel_bit4 ; 04:4C57
 	bit 4, b
 	jp nz, .step_volume_down_for_bit5_clear
 

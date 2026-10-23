@@ -162,11 +162,11 @@ Account_LoginIdEntry_OkStateFromMask:: ; 68:5404
 	; executed): decode chain alone is not proof -> HYPOTHESIS]
 	ld a, [wSettingsFieldMask]
 	and a, $01
-	jr nz, .l5411
+	jr nz, .set_ok_flag_and_return
 	ld a, $00
 	ld [wLoginIdEntry_OkFlag], a
 	ret
-.l5411 ; 68:5411
+.set_ok_flag_and_return ; 68:5411
 	ld a, $01
 	ld [wLoginIdEntry_OkFlag], a
 	ret
@@ -178,11 +178,11 @@ Account_LoginIdEntry_UpdateOkState:: ; 68:5417
 	ld hl, wTextEntryBuf
 	farcall TextBuf_GetFree
 	or a, a
-	jr z, .l5429
+	jr z, .set_ok_flag_and_return
 	ld a, $00
 	ld [wLoginIdEntry_OkFlag], a
 	ret
-.l5429 ; 68:5429
+.set_ok_flag_and_return ; 68:5429
 	ld a, $01
 	ld [wLoginIdEntry_OkFlag], a
 	ret
@@ -193,80 +193,80 @@ Account_LoginIdEntry_InputLoop:: ; 68:542F
 	ld c, a
 	farcall Kbd_Run
 	cp a, $01
-	jr z, .l5454
+	jr z, .append_keyboard_character
 	cp a, $02
-	jr z, .l54A5
+	jr z, .delete_last_character
 	cp a, $07
-	jp z, .l54DE
+	jp z, .check_confirm_length
 	cp a, $08
-	jp z, .l5516
+	jp z, .commit_with_result_zero
 
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
 	; fall-through of the jpcc at 68:544E (executed)
-	jp .l5549
+	jp .repeat_input_loop
 
-.l5454 ; 68:5454
+.append_keyboard_character ; 68:5454
 	; [CONFIRMED] 47 insn(s); 47 executed (in up to 3/18 scenarios)
 	ld a, [wKeyboardCharLo]
 	ld hl, wTextEntryBuf
 	ld d, a
 	farcall TextBuf_AppendChar
 	or a, a
-	jr nz, .l5476
+	jr nz, .play_reject_sfx
 	play_sfx SFX_CHAR_ENTERED
-	jr .l5486
-.l5476 ; 68:5476
+	jr .check_length_after_append
+.play_reject_sfx ; 68:5476
 	play_sfx SFX_REJECT
-.l5486 ; 68:5486
+.check_length_after_append ; 68:5486
 	ld hl, wTextEntryBuf
 	farcall TextBuf_GetLength
 	cp a, $09
-	jr c, .l549C
+	jr c, .show_marker_after_append
 	farcall Kbd_HideMarkerSprite
-	jp .l552E
-.l549C ; 68:549C
+	jp .redraw_text_and_update_ok_state
+.show_marker_after_append ; 68:549C
 	farcall Kbd_ShowMarkerSprite
-	jp .l552E
-.l54A5 ; 68:54A5
+	jp .redraw_text_and_update_ok_state
+.delete_last_character ; 68:54A5
 	ld hl, wTextEntryBuf
 	farcall TextBuf_DeleteLast
 	or a, a
-	jr nz, .l5516
+	jr nz, .commit_with_result_zero
 	play_sfx SFX_CHAR_ERASED
 	ld hl, wTextEntryBuf
 	farcall TextBuf_GetLength
 	cp a, $09
-	jr c, .l54D6
+	jr c, .show_marker_after_delete
 
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 68:54CC (executed)
 	farcall Kbd_HideMarkerSprite
-	jr .l552E
+	jr .redraw_text_and_update_ok_state
 
-.l54D6 ; 68:54D6
+.show_marker_after_delete ; 68:54D6
 	; [CONFIRMED] 239 insn(s); 239 executed (in up to 3/18 scenarios) (part of region $54D6-$5739)
 	farcall Kbd_ShowMarkerSprite
-	jr .l552E
-.l54DE ; 68:54DE
+	jr .redraw_text_and_update_ok_state
+.check_confirm_length ; 68:54DE
 	ld hl, wTextEntryBuf
 	farcall TextBuf_GetLength
 	cp a, $09
-	jr nc, .l54FD
+	jr nc, .commit_with_result_one
 	play_sfx SFX_REJECT
-	jr .l5549
-.l54FD ; 68:54FD
+	jr .repeat_input_loop
+.commit_with_result_one ; 68:54FD
 	play_sfx SFX_CONFIRM
 	call Account_CommitLoginId
 	ld a, $01
 	ld [wLoginIdEntry_Result], a
 	ret
-.l5516 ; 68:5516
+.commit_with_result_zero ; 68:5516
 	play_sfx SFX_CANCEL
 	call Account_CommitLoginId
 	xor a, a
 	ld [wLoginIdEntry_Result], a
 	ret
-.l552E ; 68:552E
+.redraw_text_and_update_ok_state ; 68:552E
 	ld d, $38
 	ld e, $10
 	ld hl, wTextEntryBuf
@@ -276,7 +276,7 @@ Account_LoginIdEntry_InputLoop:: ; 68:542F
 	call Account_LoginId_PrintField
 	call Account_LoginId_UploadTextTiles
 	call Account_LoginIdEntry_UpdateOkState
-.l5549 ; 68:5549
+.repeat_input_loop ; 68:5549
 	jp Account_LoginIdEntry_InputLoop
 
 Account_CommitLoginId:: ; 68:554C

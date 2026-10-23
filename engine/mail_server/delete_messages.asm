@@ -244,7 +244,7 @@ MailSrvDel_DrawElapsedTime:: ; 23:6F00
 	ld [hli], a
 	ld a, $49
 	ld [hl], a
-	jp .l6FCB
+	jp .upload_maps_restore_registers
 
 	; [HYPOTHESIS] ld a,[$C2D6] ; add a,$3C ; cp $64 ; jr nc ; ld l,a ; ld h,0 ; ld de,$000A then
 	; the far call at 6F6F: decodes exactly to the next region start (7 insn)
@@ -304,7 +304,7 @@ MailSrvDel_DrawElapsedTime:: ; 23:6F00
 	ld a, e
 	add a, $40
 	ld [wScreenTileMap + $225], a
-.l6FCB ; 23:6FCB
+.upload_maps_restore_registers ; 23:6FCB
 	di
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffersNoService

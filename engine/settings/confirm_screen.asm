@@ -97,12 +97,12 @@ SettingsPhone_ConfirmScreen_Loop:: ; 67:51E2
 	play_sfx SFX_CONFIRM
 	ld a, [wConfirmScreen_Cursor]
 	or a, a
-	jr nz, .l5221
+	jr nz, .set_result_two_and_return
 	ld a, $01
 	ld [wConfirmScreen_Result], a
 	ret
 
-.l5221 ; 67:5221
+.set_result_two_and_return ; 67:5221
 	; [CONFIRMED] 29 insn(s) executed; cut out of the PROBABLE region
 	; 510A-5275 by apply_coverage --split [executed in 1 scenarios]
 	ld a, $02
@@ -120,8 +120,8 @@ SettingsPhone_ConfirmScreen_Loop:: ; 67:51E2
 	xor a, b
 	ld [wConfirmScreen_Cursor], a
 	call SettingsPhone_ConfirmScreen_PlaceCursor
-	jr .l525A
-.l525A ; 67:525A
+	jr .repeat_confirm_loop
+.repeat_confirm_loop ; 67:525A
 	jp SettingsPhone_ConfirmScreen_Loop
 
 SettingsPhone_ConfirmScreen_PlaceCursor:: ; 67:525D

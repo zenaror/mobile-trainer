@@ -30,7 +30,7 @@ Palette_ReadHardwareToBuffer:: ; 4F:400E
 Palette_ReadHardwareBlock:: ; 4F:4021
 	bit 7, c
 	jr nz, .l4037
-.l4025 ; 4F:4025
+.read_bg_color_words ; 4F:4025
 	ld a, c
 	ldh [rBCPS], a
 	inc c
@@ -42,11 +42,11 @@ Palette_ReadHardwareBlock:: ; 4F:4021
 	ldh a, [rBCPD]
 	ld [hli], a
 	dec b
-	jr nz, .l4025
+	jr nz, .read_bg_color_words
 	ret
 .l4037 ; 4F:4037
 	res 7, c
-.l4039 ; 4F:4039
+.read_obj_color_words ; 4F:4039
 	ld a, c
 	ldh [rOCPS], a
 	inc c
@@ -58,7 +58,7 @@ Palette_ReadHardwareBlock:: ; 4F:4021
 	ldh a, [rOCPD]
 	ld [hli], a
 	dec b
-	jr nz, .l4039
+	jr nz, .read_obj_color_words
 	ret
 
 Palette_UploadBuffer:: ; 4F:404B
@@ -79,11 +79,11 @@ Palette_UploadBlock:: ; 4F:405E
 	jr nz, .l406B
 	ldh [rBCPS], a
 	ld c, $69
-	jr .l406F
+	jr .upload_eight_byte_blocks
 .l406B ; 4F:406B
 	ldh [rOCPS], a
 	ld c, $6B
-.l406F ; 4F:406F
+.upload_eight_byte_blocks ; 4F:406F
 	ld a, [hli]
 	ldh [c], a
 	ld a, [hli]
@@ -101,7 +101,7 @@ Palette_UploadBlock:: ; 4F:405E
 	ld a, [hli]
 	ldh [c], a
 	dec b
-	jr nz, .l406F
+	jr nz, .upload_eight_byte_blocks
 	ret
 
 PalFade_BlendColor:: ; 4F:4083
@@ -271,7 +271,7 @@ PalFade_Start:: ; 4F:4166
 	xor a, a
 	ld [wPalFadeProgress], a
 	ld [wPalFadeProgress + 1], a
-	jr .l418E
+	jr .dispatch_fade_mode
 .l417E ; 4F:417E
 	ld a, c
 	ld [wTextCellsLeft], a
@@ -281,7 +281,7 @@ PalFade_Start:: ; 4F:4166
 	ld [wPalFadeProgress], a
 	inc a
 	ld [wPalFadeProgress + 1], a
-.l418E ; 4F:418E
+.dispatch_fade_mode ; 4F:418E
 	ld a, [wPalFadeMode]
 	call JumpTableInline
 
@@ -355,7 +355,7 @@ PalFade_Step:: ; 4F:41E0
 	ld [wPalFadeProgress], a
 	ld [wPalFadeProgress + 1], a
 	ld [wPalFadeStep], a
-	jr .l422D
+	jr .dispatch_fade_mode
 .l4203 ; 4F:4203
 	ld [wPalFadeProgress + 1], a
 	ld a, [wPalFadeProgress]
@@ -364,7 +364,7 @@ PalFade_Step:: ; 4F:41E0
 	ld [wPalFadeProgress], a
 	xor a, a
 	ld [wPalFadeProgress + 1], a
-	jr .l422D
+	jr .dispatch_fade_mode
 .l4213 ; 4F:4213
 	ld a, [wPalFadeProgress]
 	add a, c
@@ -374,12 +374,12 @@ PalFade_Step:: ; 4F:41E0
 	ld [wPalFadeStep], a
 	inc a
 	ld [wPalFadeProgress + 1], a
-	jr .l422D
+	jr .dispatch_fade_mode
 .l4226 ; 4F:4226
 	ld [wPalFadeProgress], a
 	xor a, a
 	ld [wPalFadeProgress + 1], a
-.l422D ; 4F:422D
+.dispatch_fade_mode ; 4F:422D
 	ld a, [wPalFadeMode]
 	call JumpTableInline
 
