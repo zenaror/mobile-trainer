@@ -45,6 +45,8 @@ Japanese text and graphics on these visited screens. At frame 10663 the fourth
 entry includes `??????` placeholders; this is recorded as rendered output, not
 interpreted as a successful or complete text page.
 
+A separate natural route through the first Help-menu item selects ID `$01`, displays 18 distinct tutorial pages, and returns to Help page 1. Two bounded runs reproduced all 20 captures (initial menu, 18 pages, return) byte-for-byte; the seed already had script var1 at `$A685` set, so no 0-to-1 change is claimed. See [`help_script_id01_natural_route_20261023.md`](help_script_id01_natural_route_20261023.md). This route adds an observed ordinary menu entry to the static map, but does not close its alternate branches or prove hardware rendering.
+
 The recorded bank-6C reads include `4809–4813`, `483E–48D6`, `4BB9–4BBC`,
 `4BC2–4C36`, `51A1–51A4`, `58C6–58C7`, and lookup accesses in `58C9–597D`.
 The trace also records instruction execution at `59B2`, `5B47`, `5C36`, `5CC5`,

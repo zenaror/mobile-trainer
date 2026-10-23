@@ -57,6 +57,7 @@ Reference documents (current):
 | [`html_attribute_scanner_20261023.md`](research/html_attribute_scanner_20261023.md) | Static ROM0 attribute scanner contract, caller/table boundary, output limit and unverified Shift-JIS paths |
 | [`crlf_text_consumers_20261023.md`](research/crlf_text_consumers_20261023.md) | Static caller/read-path distinction for CR/LF text, including the debug help string at 19:447C |
 | [`help_script_stream_map_20261020.md`](research/help_script_stream_map_20261020.md) | Static bank 6C HelpScript command grammar, complete bounded stream map, label corrections and reachability limits |
+| [`help_script_id01_natural_route_20261023.md`](research/help_script_id01_natural_route_20261023.md) | Natural first Help-menu entry HelpScript $01, 18 distinct tutorial pages and return to Help page 1 |
 | [`help_script_id81_natural_route_20261023.md`](research/help_script_id81_natural_route_20261023.md) | Natural first-entry top-menu HelpScript $81, 26 intermediate capture states, top-menu return and A89B 0-to-1 transition |
 | [`help_script_homepage_first_use_ids91_92_natural_routes_20261023.md`](research/help_script_homepage_first_use_ids91_92_natural_routes_20261023.md) | Natural HomePage first-use gates HelpScript $91/$92, 11/5 topic screens, menu returns, and A688/A689 plus A881 transitions |
 | [`help_menu_unlock_natural_routes_20261023.md`](research/help_menu_unlock_natural_routes_20261023.md) | Natural save-state comparison and static SRAM gates for the inspected Help menu captions; all-topic reachability remains open |
