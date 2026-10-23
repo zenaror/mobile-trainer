@@ -65,3 +65,24 @@ tile paths. A current make png-check passes: 408 tile sheets, 4 raw byte views, 
 screen PNGs. This is a manifest/path reconciliation at current main, not a rerun of the full 208-file,
 137-asset Bank41-47 extraction receipt. It found no new missing Bank53-frame PNG report or evidence
 linking any name ordinal to an image. Global unused status and natural selection remain unproved.
+
+## Reconciliation at Japanese main `d37251a6c491ab601de4fd5ef4d01872cd874048`
+
+The published changes after `8bb48e53` do not modify the Bank 53 name source, frame owners, asset
+catalogue, PNG/screen manifests, or frame directories. This confirms that the finite inventory above
+still describes the current Japanese source. A fresh `make png-check` at this revision passes for
+408 tile sheets, four raw byte views, 37 font sheets, and 95 screen PNGs.
+
+The eight KEEP omissions were separately reviewed against their source bytes, component backing,
+legacy previews, and provenance in
+[`pokemon_names_bank53_asset_followup_20261020.md`](pokemon_names_bank53_asset_followup_20261020.md)
+and the row-level matrix in [`assets_pokemon_frames_and_name_limits.md`](assets_pokemon_frames_and_name_limits.md).
+Each window has its maintained ROM bytes and legacy preview; the declared conditional U160 model
+still has unprovided VRAM keys, so no complete reversible composition is justified. The model is
+HYPOTHESIS and its hypothetical clear/upload operation is not an observed original procedure. These
+are eight missing editable compositions, not missing ROM assets or missing PNG files. No new asset
+or frame view is supported by the current evidence, so all eight remain KEEP.
+
+This closes the finite current-main inventory and KEEP-composition review. The 25 name-to-window
+associations, computed readers, natural selection, and global used/unused status remain unresolved;
+the absence of an association in the audited selector chain does not prove that none exists.
