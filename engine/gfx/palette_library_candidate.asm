@@ -176,6 +176,10 @@ PalLibCandidate_EnableVBlankIrq:: ; 29:514F
 	ldh [rIE], a
 	ret
 
+PalLibCandidate_FadeCurrentPalettesTowardBlack:: ; 29:5159
+	; [PROBABLE] Repeat four rounds of eight blackward palette steps: read the current BG/OBJ
+	; palettes, update the working buffer, and write each round. Natural entry, caller, source bank
+	; and buffer-bank contract remain unknown.
 	ldh a, [rSVBK]
 	push af
 	ld b, $04
@@ -199,6 +203,10 @@ PalLibCandidate_EnableVBlankIrq:: ; 29:514F
 	ldh [rSVBK], a
 	ret
 
+PalLibCandidate_FadePaletteBlockTowardBlackThenReload:: ; 29:517D
+	; [PROBABLE] Repeat four rounds of eight blackward steps over the palette block at HL, writing
+	; each round; then copy that block again and write it unchanged. Entry and bank contracts are
+	; unknown, so this describes the decoded local operations, not natural reachability or purpose.
 	ldh a, [rSVBK]
 	push af
 	ld b, $04
@@ -232,6 +240,10 @@ PalLibCandidate_EnableVBlankIrq:: ; 29:514F
 	ldh [rSVBK], a
 	ret
 
+PalLibCandidate_FadeCurrentPalettesTowardWhite:: ; 29:51B3
+	; [PROBABLE] Repeat four rounds of eight whiteward palette steps: read the current BG/OBJ
+	; palettes, update the working buffer, and write each round. Natural entry, caller, source bank
+	; and buffer-bank contract remain unknown.
 	ldh a, [rSVBK]
 	push af
 	ld b, $04
@@ -255,6 +267,10 @@ PalLibCandidate_EnableVBlankIrq:: ; 29:514F
 	ldh [rSVBK], a
 	ret
 
+PalLibCandidate_FadePaletteBlockTowardWhiteThenReload:: ; 29:51D7
+	; [PROBABLE] Repeat four rounds of eight whiteward steps over the palette block at HL, writing
+	; each round; then copy that block again and write it unchanged. Entry and bank contracts are
+	; unknown, so this describes the decoded local operations, not natural reachability or purpose.
 	ldh a, [rSVBK]
 	push af
 	ld b, $04
