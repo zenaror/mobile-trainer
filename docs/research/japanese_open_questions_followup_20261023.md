@@ -27,7 +27,14 @@ conditional/unconditional branches may leave the linear successor.
 | 2B:6CF5 | 1 | 2B:6CF4 RET | No fall-through or producer is established. The prior forced-only trace remains forced-only. |
 | 2D:4E42 | 10 | 2D:4E41 RET | 24:4E3F is CALL PageList_ShowMessage; its ordinary return is 24:4E42, in bank 24. 4C:4E40 is a JR whose target is 4C:4E44, not 2D:4E42. |
 | 2D:4E54 | 11 | 2D:4E53 RET | The known 2D:4E49 CALL to 4E54 is a separate direct edge; it returns only if its wrapper has an entry. No new external producer was found. |
-| 29:511E | 12 | 29:511D RET | 68:5118 farcalls 4F:4000; under the ordinary stack and ROM-bank shadow contract it returns to 68:511E, not 29:511E. |
+| 29:511E | 12 | 29:511D RET | Static internal `CALL 29:50CE -> 29:511E` is confirmed (ROM offset `0x0A50CE`, bytes `CD 1E 51`); entry to `29:50CE` and the enclosing span is unproved. Separately, 68:5118 farcalls 4F:4000 and ordinarily returns to 68:511E, not 29:511E. |
+
+The internal edge was independently rechecked against the original ROM and
+maintained source. At `29:50CE`, the bytes are `CD 1E 51`; the target at
+`29:511E` saves BC/DE and calls `$7BB7`. The corresponding physical bank-29
+bytes at `$7BB7-$7BC6` are all zero, so this does not establish a useful
+callee or natural reachability. It only adds a known local caller to the
+candidate's static call graph; the containing span's entry remains UNKNOWN.
 
 Source check: engine/browser/page_list.asm has the 24:4E3F call and the
 PageList_ShowMessage owner. It preserves AF/BC/DE/HL around the message path;
@@ -138,6 +145,20 @@ The visible identity is PROBABLE; the association from a Bank 53 table entry
 to a window, selector, or natural execution remains HYPOTHESIS for every row.
 The two Porygon entries remain unassigned; the two geometric windows are not
 assigned to them by elimination or by the matching 25:25 count.
+
+An independent 2026-10-23 recheck re-emitted the 369-byte name table and all
+137 Bank 41-47 art assets byte-for-byte from the original ROM. Its private
+copy matches the current checkout across 3,290 files except for four files
+changed in this checkpoint: the two updated research notes, the Bank 29
+explanatory comment, and the census tool.
+The visual pass proposed different possible windows for several species than
+the candidate cues below (for example, it suggested `43:4D50` for Pikachu and
+`47:68F0` for Pichu, while this matrix has the reverse). Neither set of visual
+proposals is a name-table association: no inspected selector points to the
+Bank 53 table or the 25 windows. Keep all 25 ordinal links HYPOTHESIS; this
+disagreement does not justify choosing either mapping. The two geometric
+Bank 41 sheets still show only interface panels/borders, with no recognizable
+Porygon or Porygon2 figure. No missing asset was found in the inspected scope.
 
 | Name index / Japanese label | Candidate window | Image evidence | Visual cue |
 |---|---|---|---|

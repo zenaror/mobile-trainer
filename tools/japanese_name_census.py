@@ -48,8 +48,15 @@ def main() -> int:
     args = parser.parse_args()
     try:
         files = tracked_files()
+        head = subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], text=True
+        ).strip()
+        tracked_changes = subprocess.check_output(
+            ["git", "status", "--porcelain", "--untracked-files=no", "--", *files, "gfx"],
+            text=True,
+        ).splitlines()
     except (OSError, subprocess.CalledProcessError) as exc:
-        print(f"error: cannot enumerate tracked sources: {exc}", file=sys.stderr)
+        print(f"error: cannot identify tracked source snapshot: {exc}", file=sys.stderr)
         return 2
 
     hits: dict[str, list[str]] = {
@@ -116,7 +123,12 @@ def main() -> int:
     bank_dirs = [p for p in paths if re.search(r"(?:^|/)bank[0-9]{2}(?:/|$)", p, re.I)]
     address_assets = [p for p in paths if ASSET_ADDRESS.fullmatch(p.rsplit("/", 1)[-1])]
 
+    print(f"Git HEAD: {head}")
     print(f"Tracked Japanese ASM/INC files scanned: {len(files)}")
+    print(f"Tracked Japanese source/GFX changes: {len(tracked_changes)}")
+    if args.list:
+        for row in tracked_changes:
+            print(f"  changed: {row}")
     for family, rows in hits.items():
         print(f"{family}: {len(rows)}")
         if args.list or family in ("strict global address-shaped definitions", "short local placeholders"):

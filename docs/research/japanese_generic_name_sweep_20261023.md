@@ -1,6 +1,6 @@
 # Japanese maintained-tree generic-name sweep (2026-10-23)
 
-This document preserves both historical inventories and the current result; dated baselines below must not be read as the present source state. The current source snapshot is `519dc5c190337d8cce7f359f4d09e622b8c71083`; subsequent commits changed documentation only. Reproduce its census with `python3 tools/japanese_name_census.py`: 349 non-protected tracked Japanese ASM/INC files (333 in the six maintained source roots plus RAM, constants and root support), zero strict address-only global definitions, zero `.loop`/`.skip`/`.done`/`.start` definitions, 2,356 retained `.lAAAA` labels, 786 numeric RAM equates, and 1,859 tracked GFX paths with zero `bankNN` components and zero strict address-only asset basenames. The script excludes `engine/mail/sample_data.asm` before reading it and does not inspect language overlays. The ten formerly matching `Data_BB_AAAA` definitions were replaced in the recorded batch; their exact old/new mapping is linked below. These are lexical results, not semantic closure. English translation sources and the Operator ZIP remain paused and were not read.
+This document preserves both historical inventories and the current result; dated baselines below must not be read as the present source state. The ten generic data labels were replaced at source commit `519dc5c190337d8cce7f359f4d09e622b8c71083`; later source changes have not altered their dispositions. Reproduce the current census with `python3 tools/japanese_name_census.py`. Its output records Git HEAD and the number of modified tracked Japanese source/GFX paths, so a report can be matched to the snapshot actually scanned. Current totals: 349 non-protected tracked Japanese ASM/INC files (333 in the six maintained source roots plus RAM, constants and root support), zero strict address-only global definitions, zero `.loop`/`.skip`/`.done`/`.start` definitions, 2,356 retained `.lAAAA` labels, 786 numeric RAM equates, and 1,859 tracked GFX paths with zero `bankNN` components and zero strict address-only asset basenames. The script excludes `engine/mail/sample_data.asm` before reading it and does not inspect language overlays. These are lexical results, not semantic closure. English translation sources and the Operator ZIP remain paused and were not read.
 
 ## Unified census and dispositions
 
@@ -54,6 +54,18 @@ positive evidence appears; do not rediscover them from the same address regex.
 The wider 2,356 neutral local anchors, 786 RAM equates, 2,412 numeric-ordinal
 flags, resource names and four UNKNOWN natural-entry roots remain distinct
 bounded workstreams.
+
+### Reconciliation of a stale review copy (2026-10-23)
+
+An independent review returned the ten old `Data_BB_AAAA` spellings as rename
+candidates. Hashes for all ten containing source files in its private copy
+match the parent of `519dc5c` (`575cb1452177744625374df2dd29c2d08c0db4e1`),
+before the already-recorded rename batch. In the current checkout, none of
+the ten old definitions exists; all ten have their reviewed structural names.
+No source rename was applied from that stale report. Future private-copy
+reviews must report their base commit or source-manifest hash, and proposals
+must be reconciled against the current checkout before they enter an open
+worklist.
 
 ### Repeatable audit boundary
 
@@ -139,3 +151,17 @@ This pass changed the workflow from successive partial queues to one complete ba
 ## Validation boundary
 
 The historical 500-name batch built a byte-identical 2,097,152-byte ROM and passed symbol/palette checks. The latest 408-name local-anchor batch is recorded above with its own checks and the same reference ROM hash. These gates establish byte identity and source/symbol/palette consistency, not natural execution, hardware behavior, or full semantic closure.
+
+## Verification for this checkpoint (2026-10-23)
+
+After the source-comment, census-tool and research-note updates,
+`make ROM=/tmp/mobile-trainer-final-20261023 BUILD=/tmp/mobile-trainer-final-build-20261023`
+rebuilt 2,097,152 bytes with SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570` and
+`RESULT: IDENTICAL`. With the same overrides, `make sym-check` passed for 335
+source files, 12,189 labels and 51 constants; `make palette-check` passed
+162 loads across 116 arrays with zero errors. The default `build/` directory
+was read-only in this checkout, so temporary ROM/object outputs were placed
+in `/tmp` and removed after recording these results. The repeatable census
+reported zero strict generic globals, 2,356 ledger-matched `.lAAAA` anchors,
+zero short placeholders, 786 numeric RAM equates and zero generic GFX paths.
