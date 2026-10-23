@@ -166,7 +166,7 @@ Macro names say what the bytes are, not what a screen shows.
 Kept as `db` (listed by the tool's summary; `-v` lists every item):
 
 * 81 items in blocks that are `INCBIN` / `INCLUDE` assets, all of them blocks that an early heuristic typed as palette or tiles and that in fact hold sprite structures: `gfx/help/mobile_dictionary.asm`
-  `$539A-$55A0` (41), `gfx/title/title_screen.asm` `$5F30-$60A0` (12), `gfx/help/help_screens_a.asm` `$6300-$6448` (9), `gfx/settings/screens_bank4a.asm` `$68D0-$6920` (8, the AdapterCheck object, see
+  `$539A-$55A0` (41), `gfx/title/title_screen.asm` `$5F30-$60A0` (12), `gfx/help/help_menu_bank6a.asm` `$6300-$6448` (9), `gfx/settings/screens_bank4a.asm` `$68D0-$6920` (8, the AdapterCheck object, see
   `naming2_verify_data2b.md` E1), `gfx/mail_menu/mail_menu.asm` `$62AC-$6320` (5), `gfx/browser/start_choice.asm` `$5E38-$5EC0` (4), `gfx/error/comm_error_screen.asm` `$6350-$6420` (2),
   `gfx/account/screens_bank4a.asm` `$5860-$5870` was converted in the 2026-10-21 follow-up below; 81 items remain in this historical census.
 * 1 null entry in a `zero` region (5D:7318, `ds 4`).

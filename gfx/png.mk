@@ -208,16 +208,16 @@ PNG_TILE_OUTS := \
 	gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/orange_rivet_panel_46_4d50_tiles.2bpp \
 	gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/pink_scallop_border_46_67f0_tiles.2bpp \
 	gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/star_triangle_border_46_4000_tiles.2bpp \
-	gfx/help/help_screens_a/help_menu_vram8000_vb0_tiles.2bpp \
-	gfx/help/help_screens_a/help_menu_vram8800_vb0_tiles.2bpp \
-	gfx/help/help_screens_a/help_menu_vram8c00_vb0_tiles.2bpp \
-	gfx/help/help_screens_a/help_menu_vram9000_vb0_tiles.2bpp \
-	gfx/help/help_screens_a/help_menu_vram9000_vb1_tiles.2bpp \
-	gfx/help/help_screens_a/help_menu_vram9400_vb1_tiles.2bpp \
-	gfx/help/help_screens_b/help_script_candidate_tiles_6e20.2bpp \
-	gfx/help/help_screens_b/help_script_vram8000_vb0_tiles.2bpp \
-	gfx/help/help_screens_b/help_script_vram8af0_vb1_tiles.2bpp \
-	gfx/help/help_screens_b/help_script_vram8b00_vb1_tiles.2bpp \
+	gfx/help/help_menu_bank6a/help_menu_vram8000_vb0_tiles.2bpp \
+	gfx/help/help_menu_bank6a/help_menu_vram8800_vb0_tiles.2bpp \
+	gfx/help/help_menu_bank6a/help_menu_vram8c00_vb0_tiles.2bpp \
+	gfx/help/help_menu_bank6a/help_menu_vram9000_vb0_tiles.2bpp \
+	gfx/help/help_menu_bank6a/help_menu_vram9000_vb1_tiles.2bpp \
+	gfx/help/help_menu_bank6a/help_menu_vram9400_vb1_tiles.2bpp \
+	gfx/help/help_script_bank6a/help_script_candidate_tiles_6e20.2bpp \
+	gfx/help/help_script_bank6a/help_script_vram8000_vb0_tiles.2bpp \
+	gfx/help/help_script_bank6a/help_script_vram8af0_vb1_tiles.2bpp \
+	gfx/help/help_script_bank6a/help_script_vram8b00_vb1_tiles.2bpp \
 	gfx/help/mobile_dictionary/mobile_dict_tiles0.2bpp \
 	gfx/help/mobile_dictionary/mobile_dict_tiles1.2bpp \
 	gfx/help/mobile_dictionary/mobile_dict_tiles2.2bpp \
@@ -632,16 +632,16 @@ gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/blue_energy_border_46
 gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/orange_rivet_panel_46_4d50_tiles.2bpp: PNG_SIZE := 2560
 gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/pink_scallop_border_46_67f0_tiles.2bpp: PNG_SIZE := 2560
 gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/star_triangle_border_46_4000_tiles.2bpp: PNG_SIZE := 2560
-gfx/help/help_screens_a/help_menu_vram8000_vb0_tiles.2bpp: PNG_SIZE := 1024
-gfx/help/help_screens_a/help_menu_vram8800_vb0_tiles.2bpp: PNG_SIZE := 1024
-gfx/help/help_screens_a/help_menu_vram8c00_vb0_tiles.2bpp: PNG_SIZE := 1024
-gfx/help/help_screens_a/help_menu_vram9000_vb0_tiles.2bpp: PNG_SIZE := 32
-gfx/help/help_screens_a/help_menu_vram9000_vb1_tiles.2bpp: PNG_SIZE := 1024
-gfx/help/help_screens_a/help_menu_vram9400_vb1_tiles.2bpp: PNG_SIZE := 1024
-gfx/help/help_screens_b/help_script_candidate_tiles_6e20.2bpp: PNG_SIZE := 1024
-gfx/help/help_screens_b/help_script_vram8000_vb0_tiles.2bpp: PNG_SIZE := 32
-gfx/help/help_screens_b/help_script_vram8af0_vb1_tiles.2bpp: PNG_SIZE := 16
-gfx/help/help_screens_b/help_script_vram8b00_vb1_tiles.2bpp: PNG_SIZE := 1024
+gfx/help/help_menu_bank6a/help_menu_vram8000_vb0_tiles.2bpp: PNG_SIZE := 1024
+gfx/help/help_menu_bank6a/help_menu_vram8800_vb0_tiles.2bpp: PNG_SIZE := 1024
+gfx/help/help_menu_bank6a/help_menu_vram8c00_vb0_tiles.2bpp: PNG_SIZE := 1024
+gfx/help/help_menu_bank6a/help_menu_vram9000_vb0_tiles.2bpp: PNG_SIZE := 32
+gfx/help/help_menu_bank6a/help_menu_vram9000_vb1_tiles.2bpp: PNG_SIZE := 1024
+gfx/help/help_menu_bank6a/help_menu_vram9400_vb1_tiles.2bpp: PNG_SIZE := 1024
+gfx/help/help_script_bank6a/help_script_candidate_tiles_6e20.2bpp: PNG_SIZE := 1024
+gfx/help/help_script_bank6a/help_script_vram8000_vb0_tiles.2bpp: PNG_SIZE := 32
+gfx/help/help_script_bank6a/help_script_vram8af0_vb1_tiles.2bpp: PNG_SIZE := 16
+gfx/help/help_script_bank6a/help_script_vram8b00_vb1_tiles.2bpp: PNG_SIZE := 1024
 gfx/help/mobile_dictionary/mobile_dict_tiles0.2bpp: PNG_SIZE := 512
 gfx/help/mobile_dictionary/mobile_dict_tiles1.2bpp: PNG_SIZE := 1024
 gfx/help/mobile_dictionary/mobile_dict_tiles2.2bpp: PNG_SIZE := 768

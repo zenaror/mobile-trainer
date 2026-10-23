@@ -491,39 +491,39 @@ gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/star_triangle_border_
 gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/star_triangle_border_46_4000_palettes.pal	palette	128	gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm	46	4CD0	PROBABLE	-	0		FrameDesignCandidate_StarTriangleBorder_Palettes_4CD0
 gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/star_triangle_border_46_4000_tilemap.tilemap	tilemap	360	gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm	46	4A00	PROBABLE	-	0	20x18	FrameDesignCandidate_StarTriangleBorder_Tilemap_4A00
 gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/star_triangle_border_46_4000_tiles.2bpp	tiles	2560	gfx/frame_designs/star_rivet_energy_and_scallop_borders_46.asm	46	4000	PROBABLE	exact	0		FrameDesignCandidate_StarTriangleBorder_Tiles_4000
-gfx/help/help_screens_a/help_menu_bg.pal	palette	64	gfx/help/help_screens_a.asm	6A	62B0	CONFIRMED	-	0		Palette_HelpMenu_Bg
-gfx/help/help_screens_a/help_menu_obj.pal	palette	64	gfx/help/help_screens_a.asm	6A	62F0	CONFIRMED	-	0		Palette_HelpMenu_Obj
-gfx/help/help_screens_a/help_menu_page1_background.attrmap	attrmap	360	gfx/help/help_screens_a.asm	6A	4168	CONFIRMED	-	0	20x18	Tilemap_HelpMenu_6A_4000
-gfx/help/help_screens_a/help_menu_page1_background.tilemap	tilemap	360	gfx/help/help_screens_a.asm	6A	4000	CONFIRMED	-	0	20x18	Tilemap_HelpMenu_6A_4000
-gfx/help/help_screens_a/help_menu_page2_background.attrmap	attrmap	360	gfx/help/help_screens_a.asm	6A	4438	CONFIRMED	-	0	20x18	Tilemap_HelpMenu_6A_42D0
-gfx/help/help_screens_a/help_menu_page2_background.tilemap	tilemap	360	gfx/help/help_screens_a.asm	6A	42D0	CONFIRMED	-	0	20x18	Tilemap_HelpMenu_6A_42D0
-gfx/help/help_screens_a/help_menu_page3_background.attrmap	attrmap	360	gfx/help/help_screens_a.asm	6A	4708	CONFIRMED	-	0	20x18	Tilemap_HelpMenu_6A_45A0
-gfx/help/help_screens_a/help_menu_page3_background.tilemap	tilemap	360	gfx/help/help_screens_a.asm	6A	45A0	CONFIRMED	-	0	20x18	Tilemap_HelpMenu_6A_45A0
-gfx/help/help_screens_a/help_menu_page1_normal_items.attrmap	attrmap	210	gfx/help/help_screens_a.asm	6A	4942	CONFIRMED	-	0	10x21	Tilemap_HelpMenu_Page1_NormalItems
-gfx/help/help_screens_a/help_menu_page1_normal_items.tilemap	tilemap	210	gfx/help/help_screens_a.asm	6A	4870	CONFIRMED	-	0	10x21	Tilemap_HelpMenu_Page1_NormalItems
-gfx/help/help_screens_a/help_menu_page2_normal_items.attrmap	attrmap	90	gfx/help/help_screens_a.asm	6A	4A6E	CONFIRMED	-	0	10x9	Tilemap_HelpMenu_Page2_NormalItems
-gfx/help/help_screens_a/help_menu_page2_normal_items.tilemap	tilemap	90	gfx/help/help_screens_a.asm	6A	4A14	CONFIRMED	-	0	10x9	Tilemap_HelpMenu_Page2_NormalItems
-gfx/help/help_screens_a/help_menu_page3_normal_items.attrmap	attrmap	90	gfx/help/help_screens_a.asm	6A	4B22	CONFIRMED	-	0	10x9	Tilemap_HelpMenu_Page3_NormalItems
-gfx/help/help_screens_a/help_menu_page3_normal_items.tilemap	tilemap	90	gfx/help/help_screens_a.asm	6A	4AC8	CONFIRMED	-	0	10x9	Tilemap_HelpMenu_Page3_NormalItems
-gfx/help/help_screens_a/help_menu_page1_selected_items.attrmap	attrmap	210	gfx/help/help_screens_a.asm	6A	4C4E	PROBABLE	-	0	10x21	Tilemap_HelpMenu_Page1_SelectedItems
-gfx/help/help_screens_a/help_menu_page1_selected_items.tilemap	tilemap	210	gfx/help/help_screens_a.asm	6A	4B7C	PROBABLE	-	0	10x21	Tilemap_HelpMenu_Page1_SelectedItems
-gfx/help/help_screens_a/help_menu_page2_selected_items.attrmap	attrmap	90	gfx/help/help_screens_a.asm	6A	4D7A	CONFIRMED	-	0	10x9	Tilemap_HelpMenu_Page2_SelectedItems
-gfx/help/help_screens_a/help_menu_page2_selected_items.tilemap	tilemap	90	gfx/help/help_screens_a.asm	6A	4D20	CONFIRMED	-	0	10x9	Tilemap_HelpMenu_Page2_SelectedItems
-gfx/help/help_screens_a/help_menu_page3_selected_items.attrmap	attrmap	90	gfx/help/help_screens_a.asm	6A	4E2E	CONFIRMED	-	0	10x9	Tilemap_HelpMenu_Page3_SelectedItems
-gfx/help/help_screens_a/help_menu_page3_selected_items.tilemap	tilemap	90	gfx/help/help_screens_a.asm	6A	4DD4	CONFIRMED	-	0	10x9	Tilemap_HelpMenu_Page3_SelectedItems
-gfx/help/help_screens_a/help_menu_vram8000_vb0_tiles.2bpp	tiles	1024	gfx/help/help_screens_a.asm	6A	4E90	CONFIRMED	exact	0		Gfx_HelpMenu_Tiles8000
-gfx/help/help_screens_a/help_menu_vram8800_vb0_tiles.2bpp	tiles	1024	gfx/help/help_screens_a.asm	6A	5290	CONFIRMED	exact	0		Gfx_HelpMenu_Tiles8800
-gfx/help/help_screens_a/help_menu_vram8c00_vb0_tiles.2bpp	tiles	1024	gfx/help/help_screens_a.asm	6A	5690	CONFIRMED	exact	0		Gfx_HelpMenu_Tiles8C00
-gfx/help/help_screens_a/help_menu_vram9000_vb0_tiles.2bpp	tiles	32	gfx/help/help_screens_a.asm	6A	5A90	CONFIRMED	exact	0		Gfx_HelpMenu_Tiles9000
-gfx/help/help_screens_a/help_menu_vram9000_vb1_tiles.2bpp	tiles	1024	gfx/help/help_screens_a.asm	6A	5AB0	CONFIRMED	exact	0		Gfx_HelpMenu_Tiles9000Vb1
-gfx/help/help_screens_a/help_menu_vram9400_vb1_tiles.2bpp	tiles	1024	gfx/help/help_screens_a.asm	6A	5EB0	CONFIRMED	exact	0		Gfx_HelpMenu_Tiles9400Vb1
-gfx/help/help_screens_b/help_script_bg_obj_palettes.pal	palette	128	gfx/help/help_screens_b.asm	6A	7220	PROBABLE	-	0		Palette_HelpScript_Bg
-gfx/help/help_screens_b/help_script_background.attrmap	attrmap	360	gfx/help/help_screens_b.asm	6A	687E	CONFIRMED	-	0	20x18	Tilemap_HelpScript
-gfx/help/help_screens_b/help_script_background.tilemap	tilemap	360	gfx/help/help_screens_b.asm	6A	6716	CONFIRMED	-	0	20x18	Tilemap_HelpScript
-gfx/help/help_screens_b/help_script_vram8000_vb0_tiles.2bpp	tiles	32	gfx/help/help_screens_b.asm	6A	69F0	CONFIRMED	exact	0		Gfx_HelpScript_Tiles8000
-gfx/help/help_screens_b/help_script_vram8af0_vb1_tiles.2bpp	tiles	16	gfx/help/help_screens_b.asm	6A	6A10	CONFIRMED	exact	0		Gfx_HelpScript_Tiles8AF0Vb1
-gfx/help/help_screens_b/help_script_vram8b00_vb1_tiles.2bpp	tiles	1024	gfx/help/help_screens_b.asm	6A	6A20	CONFIRMED	exact	0		Gfx_HelpScript_Tiles8B00Vb1
-gfx/help/help_screens_b/help_script_candidate_tiles_6e20.2bpp	tiles	1024	gfx/help/help_screens_b.asm	6A	6E20	PROBABLE	exact	0		HelpScript_CandidateTiles_6E20
+gfx/help/help_menu_bank6a/help_menu_bg.pal	palette	64	gfx/help/help_menu_bank6a.asm	6A	62B0	CONFIRMED	-	0		Palette_HelpMenu_Bg
+gfx/help/help_menu_bank6a/help_menu_obj.pal	palette	64	gfx/help/help_menu_bank6a.asm	6A	62F0	CONFIRMED	-	0		Palette_HelpMenu_Obj
+gfx/help/help_menu_bank6a/help_menu_page1_background.attrmap	attrmap	360	gfx/help/help_menu_bank6a.asm	6A	4168	CONFIRMED	-	0	20x18	Tilemap_HelpMenu_6A_4000
+gfx/help/help_menu_bank6a/help_menu_page1_background.tilemap	tilemap	360	gfx/help/help_menu_bank6a.asm	6A	4000	CONFIRMED	-	0	20x18	Tilemap_HelpMenu_6A_4000
+gfx/help/help_menu_bank6a/help_menu_page2_background.attrmap	attrmap	360	gfx/help/help_menu_bank6a.asm	6A	4438	CONFIRMED	-	0	20x18	Tilemap_HelpMenu_6A_42D0
+gfx/help/help_menu_bank6a/help_menu_page2_background.tilemap	tilemap	360	gfx/help/help_menu_bank6a.asm	6A	42D0	CONFIRMED	-	0	20x18	Tilemap_HelpMenu_6A_42D0
+gfx/help/help_menu_bank6a/help_menu_page3_background.attrmap	attrmap	360	gfx/help/help_menu_bank6a.asm	6A	4708	CONFIRMED	-	0	20x18	Tilemap_HelpMenu_6A_45A0
+gfx/help/help_menu_bank6a/help_menu_page3_background.tilemap	tilemap	360	gfx/help/help_menu_bank6a.asm	6A	45A0	CONFIRMED	-	0	20x18	Tilemap_HelpMenu_6A_45A0
+gfx/help/help_menu_bank6a/help_menu_page1_normal_items.attrmap	attrmap	210	gfx/help/help_menu_bank6a.asm	6A	4942	CONFIRMED	-	0	10x21	Tilemap_HelpMenu_Page1_NormalItems
+gfx/help/help_menu_bank6a/help_menu_page1_normal_items.tilemap	tilemap	210	gfx/help/help_menu_bank6a.asm	6A	4870	CONFIRMED	-	0	10x21	Tilemap_HelpMenu_Page1_NormalItems
+gfx/help/help_menu_bank6a/help_menu_page2_normal_items.attrmap	attrmap	90	gfx/help/help_menu_bank6a.asm	6A	4A6E	CONFIRMED	-	0	10x9	Tilemap_HelpMenu_Page2_NormalItems
+gfx/help/help_menu_bank6a/help_menu_page2_normal_items.tilemap	tilemap	90	gfx/help/help_menu_bank6a.asm	6A	4A14	CONFIRMED	-	0	10x9	Tilemap_HelpMenu_Page2_NormalItems
+gfx/help/help_menu_bank6a/help_menu_page3_normal_items.attrmap	attrmap	90	gfx/help/help_menu_bank6a.asm	6A	4B22	CONFIRMED	-	0	10x9	Tilemap_HelpMenu_Page3_NormalItems
+gfx/help/help_menu_bank6a/help_menu_page3_normal_items.tilemap	tilemap	90	gfx/help/help_menu_bank6a.asm	6A	4AC8	CONFIRMED	-	0	10x9	Tilemap_HelpMenu_Page3_NormalItems
+gfx/help/help_menu_bank6a/help_menu_page1_selected_items.attrmap	attrmap	210	gfx/help/help_menu_bank6a.asm	6A	4C4E	PROBABLE	-	0	10x21	Tilemap_HelpMenu_Page1_SelectedItems
+gfx/help/help_menu_bank6a/help_menu_page1_selected_items.tilemap	tilemap	210	gfx/help/help_menu_bank6a.asm	6A	4B7C	PROBABLE	-	0	10x21	Tilemap_HelpMenu_Page1_SelectedItems
+gfx/help/help_menu_bank6a/help_menu_page2_selected_items.attrmap	attrmap	90	gfx/help/help_menu_bank6a.asm	6A	4D7A	CONFIRMED	-	0	10x9	Tilemap_HelpMenu_Page2_SelectedItems
+gfx/help/help_menu_bank6a/help_menu_page2_selected_items.tilemap	tilemap	90	gfx/help/help_menu_bank6a.asm	6A	4D20	CONFIRMED	-	0	10x9	Tilemap_HelpMenu_Page2_SelectedItems
+gfx/help/help_menu_bank6a/help_menu_page3_selected_items.attrmap	attrmap	90	gfx/help/help_menu_bank6a.asm	6A	4E2E	CONFIRMED	-	0	10x9	Tilemap_HelpMenu_Page3_SelectedItems
+gfx/help/help_menu_bank6a/help_menu_page3_selected_items.tilemap	tilemap	90	gfx/help/help_menu_bank6a.asm	6A	4DD4	CONFIRMED	-	0	10x9	Tilemap_HelpMenu_Page3_SelectedItems
+gfx/help/help_menu_bank6a/help_menu_vram8000_vb0_tiles.2bpp	tiles	1024	gfx/help/help_menu_bank6a.asm	6A	4E90	CONFIRMED	exact	0		Gfx_HelpMenu_Tiles8000
+gfx/help/help_menu_bank6a/help_menu_vram8800_vb0_tiles.2bpp	tiles	1024	gfx/help/help_menu_bank6a.asm	6A	5290	CONFIRMED	exact	0		Gfx_HelpMenu_Tiles8800
+gfx/help/help_menu_bank6a/help_menu_vram8c00_vb0_tiles.2bpp	tiles	1024	gfx/help/help_menu_bank6a.asm	6A	5690	CONFIRMED	exact	0		Gfx_HelpMenu_Tiles8C00
+gfx/help/help_menu_bank6a/help_menu_vram9000_vb0_tiles.2bpp	tiles	32	gfx/help/help_menu_bank6a.asm	6A	5A90	CONFIRMED	exact	0		Gfx_HelpMenu_Tiles9000
+gfx/help/help_menu_bank6a/help_menu_vram9000_vb1_tiles.2bpp	tiles	1024	gfx/help/help_menu_bank6a.asm	6A	5AB0	CONFIRMED	exact	0		Gfx_HelpMenu_Tiles9000Vb1
+gfx/help/help_menu_bank6a/help_menu_vram9400_vb1_tiles.2bpp	tiles	1024	gfx/help/help_menu_bank6a.asm	6A	5EB0	CONFIRMED	exact	0		Gfx_HelpMenu_Tiles9400Vb1
+gfx/help/help_script_bank6a/help_script_bg_obj_palettes.pal	palette	128	gfx/help/help_script_bank6a.asm	6A	7220	PROBABLE	-	0		Palette_HelpScript_Bg
+gfx/help/help_script_bank6a/help_script_background.attrmap	attrmap	360	gfx/help/help_script_bank6a.asm	6A	687E	CONFIRMED	-	0	20x18	Tilemap_HelpScript
+gfx/help/help_script_bank6a/help_script_background.tilemap	tilemap	360	gfx/help/help_script_bank6a.asm	6A	6716	CONFIRMED	-	0	20x18	Tilemap_HelpScript
+gfx/help/help_script_bank6a/help_script_vram8000_vb0_tiles.2bpp	tiles	32	gfx/help/help_script_bank6a.asm	6A	69F0	CONFIRMED	exact	0		Gfx_HelpScript_Tiles8000
+gfx/help/help_script_bank6a/help_script_vram8af0_vb1_tiles.2bpp	tiles	16	gfx/help/help_script_bank6a.asm	6A	6A10	CONFIRMED	exact	0		Gfx_HelpScript_Tiles8AF0Vb1
+gfx/help/help_script_bank6a/help_script_vram8b00_vb1_tiles.2bpp	tiles	1024	gfx/help/help_script_bank6a.asm	6A	6A20	CONFIRMED	exact	0		Gfx_HelpScript_Tiles8B00Vb1
+gfx/help/help_script_bank6a/help_script_candidate_tiles_6e20.2bpp	tiles	1024	gfx/help/help_script_bank6a.asm	6A	6E20	PROBABLE	exact	0		HelpScript_CandidateTiles_6E20
 gfx/help/mobile_dictionary/mobile_dict_bg.pal	palette	64	gfx/help/mobile_dictionary.asm	1A	5390	CONFIRMED	-	0		Palette_MobileDict_Bg
 gfx/help/mobile_dictionary/mobile_dict_obj.pal	palette	464	gfx/help/mobile_dictionary.asm	1A	53D0	PROBABLE	-	0		Palette_MobileDict_Obj
 gfx/help/mobile_dictionary/mobile_dict_screen.attrmap	attrmap	360	gfx/help/mobile_dictionary.asm	1A	491D	CONFIRMED	-	0	20x18	Tilemap_MobileDict_Screen

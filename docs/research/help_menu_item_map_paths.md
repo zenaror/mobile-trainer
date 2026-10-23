@@ -2,7 +2,7 @@
 
 This unit moves the twelve original tilemap/attribute binaries for the six
 HelpMenu item-rectangle objects to paths matching their existing semantic source
-names. The owner remains `gfx/help/help_screens_a.asm` in bank6A; it also holds
+names. The owner remains `gfx/help/help_menu_bank6a.asm` in bank6A; it also holds
 other help resources, so this unit does not rename the owner.
 
 | Base | Basename (both `.tilemap` and `.attrmap`) | Pair bytes | Existing confidence |

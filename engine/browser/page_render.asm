@@ -18,7 +18,7 @@ Browser_DrawTitleBar:: ; 4E:5204
 	call BankSwitch_H
 	ld a, [hl]
 	or a, a
-	jr nz, .l5225
+	jr nz, .copy_title_bytes_to_buffer
 
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 4E:5213 (executed) [executed in 2 scenarios]
@@ -28,7 +28,7 @@ Browser_DrawTitleBar:: ; 4E:5204
 	farcall Browser_MakeShortTitle
 	jr .l522E
 
-.l5225 ; 4E:5225
+.copy_title_bytes_to_buffer ; 4E:5225
 	; [CONFIRMED] 32 insn(s); 32 executed (in up to 2/18 scenarios)
 	ld de, wHtmlTitleBuf
 	ld bc, $0016

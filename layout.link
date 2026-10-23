@@ -704,11 +704,11 @@ ROMX $69
 
 ROMX $6A
 	org $4000
-	"gfx/help/help_screens_a"
+	"gfx/help/help_menu_bank6a"
 	org $64B1
 	"data/text/help_menu_ticker"
 	org $6716
-	"gfx/help/help_screens_b"
+	"gfx/help/help_script_bank6a"
 
 ROMX $6B
 	org $4000
