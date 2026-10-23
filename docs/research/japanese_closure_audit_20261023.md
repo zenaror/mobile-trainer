@@ -53,3 +53,21 @@ selection, and universal used/unused status also remain unknown. Reopen those
 items only when a new source, caller, producer, trace, or other positive
 evidence appears. The English translation remains paused until the Japanese
 review is complete and the Operator explicitly authorizes resumption.
+
+## Revalidation at canonical checkout `303acbaa` (2026-10-23)
+
+The audit was revalidated in `/home/rafael/_PROJETOS/Mobile Trainer` at
+`303acbaa591be7590bb6635893e89a334260e018`. The original build again reports
+`SHA-256 OK` and `RESULT: IDENTICAL` for ROM SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
+`sym-check` passes with 335 source files, 12,212 labels and 51 constants;
+`palette-check` passes with 162 loads, 116 arrays, two documented over-reads
+and zero errors. PNG, GFX-catalog, PNG-rule and Japanese-name-census checks
+also pass with the counts above; all 15 census families are closed and all
+current ledger rows match. `make test` passes all suites (48 CFG, 24 palette
+read and 6 retype-parts tests, plus generator and SM83 checks). It emits the
+known `ResourceWarning` for the open `baserom.gbc` reader in
+`tools/test_cfg.py:398`; the command exits successfully. No assembly source,
+asset or ROM input changed. This revalidation confirms the documented finite
+scopes and byte identity; it does not promote any UNKNOWN/HYPOTHESIS item or
+resume the English work.
