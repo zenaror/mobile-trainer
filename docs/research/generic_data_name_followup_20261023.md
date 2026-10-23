@@ -11,8 +11,9 @@ No demonstrated read, call, or reference established a better functional
 name for the remaining spans. Neighboring bytes and linear opcode decoding
 were not treated as proof of a function or resource. The result does not
 exclude computed access or a consumer outside the scanned source set.
-Two exact cross-bank byte matches were found; their labels describe only those
-matches. Neither equality proves code, active table use, or causal origin.
+Two exact cross-bank byte matches and one unique masked code match were found;
+their labels describe only those correspondences. They do not prove code entry,
+active table use, or causal origin in the Trainer.
 
 | Label / source | Observed bytes or structure | Why the current evidence does not support a semantic rename |
 |---|---|---|
@@ -28,12 +29,18 @@ matches. Neither equality proves code, active table use, or causal origin.
 | `Data_72_63D7` — `data/text/dialog_messages.asm:620` | `AF` | It follows a text terminator; the known two-item menu entry begins at `63D8`. |
 | `ByteMatch_PageListProto_ObjTableFirstRow_24_6520` — `gfx/browser/page_list.asm:87` | 16 bytes byte-identical to the first row of `PageListProto_ObjTable` at `7F:6DB0`; the full sequence occurs only at those two ROM locations. | Equality is **CONFIRMED**; a residual prototype row is **HYPOTHESIS**. The referenced addresses lie inside bank-24 tile data; no bank-24 reader establishes table use. |
 | `Data_5F_6980` — `gfx/keyboard/panels_bank5f.asm:469` | 48 bytes of `$06` | The known T5 tile and tilemap/attribute copies exclude this span. A similarly numbered address in bank `71` is unrelated. |
-| `Data_75_6D62` — `lib/mobile/main.asm:7420` | `[6D62,6D63)`, byte `$C9` after an unconditional jump to `MobileState_HttpExchange_Substep3_CheckStatus`; next named entry begins at `6D63`. | Keep neutral; no entry or consumer is established. |
+| `MaskedMatch_CrystalSDK_Local112D4C_75_6D62` — `lib/mobile/main.asm:7420` | `[6D62,6D63)`, byte `$C9`; offset `+$19` in a unique 558-byte masked code match to Crystal SDK local `.asm_112d4c`, marked unreferenced in the Crystal source. | The match is **CONFIRMED** (275/275 instructions; 382 unmasked bytes). Trainer entry/purpose remains **HYPOTHESIS**; the label states correspondence only. |
 
-The two byte-match labels describe confirmed content relationships only. The
-other eleven remain address-neutral and **HYPOTHESIS/UNCLASSIFIED**. This is a
+The three correspondence labels describe confirmed static matches only. The
+other ten remain address-neutral and **HYPOTHESIS/UNCLASSIFIED**. This is a
 bounded disposition, not a claim that all data has been
 identified. A future semantic rename needs positive evidence such as a reader,
 table position, proven entry, or exact resource boundary. The audit specifically
 rejects opcode resemblance, adjacency, or lack of a lexical reference as sole
 evidence.
+
+The Crystal correspondence is independently represented by
+`analysis/crystal_matches.tsv:411`, `analysis/crystal_symbol_map.tsv:926–927`,
+and `analysis/crystal_coverage.tsv:97`. Its 558-byte block has 152 raw
+differences, all in masked operands. The Crystal ENG, JP, and PT-BR ROMs are
+byte-identical for this evidence and are not independent lineages.

@@ -7415,9 +7415,9 @@ MobileState_HttpExchange:: ; 75:6D49
 	dec a
 	jp MobileState_HttpExchange_Substep3_CheckStatus
 
-; ---- data $6D62-$6D63 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $6D62-$6D63 (1 byte) [HYPOTHESIS] Offset +$19 in a unique 558-byte masked match to Crystal SDK local .asm_112d4c; the Crystal source marks it unreferenced. This establishes correspondence only, not Trainer entry or purpose.
 
-Data_75_6D62:: ; 75:6D62
+MaskedMatch_CrystalSDK_Local112D4C_75_6D62:: ; 75:6D62
 	db $C9
 
 MobileState_HttpExchange_Substep4:: ; 75:6D63

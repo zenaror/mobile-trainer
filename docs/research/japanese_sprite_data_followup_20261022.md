@@ -34,10 +34,13 @@ The later all-13-label audit confirmed that the first relationship is a
 byte-for-byte match and found the same kind of exact content relation for
 `Data_26_5062`: its five bytes equal the tail of `MailSession_Cancel` at
 `26:505D–5062`, and that full sequence occurs only at those two ROM
-locations. The source labels now name these byte matches only:
+locations. A unique masked cross-version code match also locates
+`Data_75_6D62` at offset +$19 of the Crystal SDK local
+`.asm_112d4c` block. The source labels now name these correspondences only:
 `ByteMatch_PageListProto_ObjTableFirstRow_24_6520` and
-`ByteMatch_MailSessionCancelTail_26_5062`. The type/use of each interval and
-the cause of either match remain **HYPOTHESIS**. The other eleven
+`ByteMatch_MailSessionCancelTail_26_5062` and
+`MaskedMatch_CrystalSDK_Local112D4C_75_6D62`. The type/use of each interval
+and the cause of each match remain **HYPOTHESIS**. The other ten
 `Data_BB_AAAA` labels remain neutral because the combined source, xref,
 far-call, coverage, and 72 data-access-report cross-checks supplied no stronger
 names. See [generic_data_name_followup_20261023.md](generic_data_name_followup_20261023.md)

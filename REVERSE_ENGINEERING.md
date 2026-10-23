@@ -2,11 +2,12 @@
 
 ### Consolidated Japanese generic-name census (2026-10-22; base `7973e199`)
 
-**Follow-up at `ae6b9ccef65207421f832ff856afe1659ece9865`:** the 13 exact
-data labels were adversarially rechecked across the source, access, coverage,
-far-call and xref records. Two now carry descriptive byte-match names; their
-type, use and origin remain unproven. Eleven exact `Data_BB_AAAA` labels
-remain neutral for lack of stronger evidence. The same checkpoint rechecked
+**Follow-up at `9933491256940424192ffff7d3c105c910a47431`:** the 13 original
+data spans were adversarially rechecked across source, access, coverage,
+far-call and xref records. Three now carry names describing confirmed byte or
+masked-code correspondences; their Trainer type, use and origin remain
+unproven. Ten exact `Data_BB_AAAA` labels remain neutral for lack of stronger
+evidence. The same checkpoint rechecked
 the Bank 53 names and frame assets; files and declared conversions are
 complete, but name-to-frame and natural-use questions remain open. The
 follow-up reports are
@@ -2236,9 +2237,9 @@ the `Entry36` table item after the `$08` comparison and does not prove a digit
 9 case. See the [pass report and exact mapping](docs/research/japanese_local_label_pass_20261022.md).
 
 The six-root Japanese lexical census, excluding protected `sample_data.asm`,
-contains 3,872 numeric local labels after the subsequent body-editor and SDK residual passes, 11 exact `Data_BB_AAAA` labels
-retained as neutral; two other spans use byte-match names without a semantic
-type claim. No address-form Function/Func/Sub/Label/Font
+contains 3,872 numeric local labels after the subsequent body-editor and SDK residual passes, 10 exact `Data_BB_AAAA` labels
+retained as neutral; three other spans use evidence-scoped correspondence names
+without a semantic type claim. No address-form Function/Func/Sub/Label/Font
 definitions. This does not establish semantic closure; local labels, data and
 address-only graphics paths still require bounded review. The English overlay
 remains paused and was not modified.
