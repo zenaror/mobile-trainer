@@ -51,3 +51,17 @@ open.
 The bounded recheck examined 349 Japanese source files (including the 333 maintained files in the six primary source roots) and 149 exported symbols. It reproduced the 25 name entries and 369-byte block, all 25 candidate windows (85,200 bytes), 137 assets (93,264 emitted bytes), 53 PNG inversions (69,520 bytes), 18 catalogued screen rows (17 complete views), 24 candidate previews plus five descriptor previews, 27 selector words and five descriptors. The eight resource directories contain exactly 208 tracked files (137 assets and 71 PNGs); the inventory reports no missing, orphaned or expected-but-untracked files. All 29 preview images matched the declared pixel model after the audit renderer included the unloaded-cell hatch. The initial reviewer ledger had 13 preview mismatches because it omitted that hatch; this was an audit-model error and is preserved with its correction in the ignored evidence directory.
 
 The recheck does not close any of the 25 name-to-window associations or prove natural/unused status for a frame. The exact selector chain still points only to the previously identified Bank 47 resource families. Full report and reproduction hashes are retained under `.tmp/jp-generic-name-batch-20261022-evidence/bank53-e97026b8-independent-v2/`.
+
+## Reconciliation at Japanese main 8bb48e53
+
+The published main has advanced through the graphics-path naming checkpoint. A path-safe Git comparison
+from the audit's authenticated e97026b8 source confirms that data/text/pokemon_names_bank53.asm and
+gfx/frame_designs/ have no content or path changes at 8bb48e53. The 25-name block, 25 physical frame
+windows, eight KEEP editing-view gaps and their existing previews therefore remain the exact audited
+inventory; no Bank53 name-to-window association was added.
+
+The intervening GFX changes updated the shared asset and screen catalogues and renamed other owners'
+tile paths. A current make png-check passes: 408 tile sheets, 4 raw byte views, 37 font sheets and 95
+screen PNGs. This is a manifest/path reconciliation at current main, not a rerun of the full 208-file,
+137-asset Bank41-47 extraction receipt. It found no new missing Bank53-frame PNG report or evidence
+linking any name ordinal to an image. Global unused status and natural selection remain unproved.
