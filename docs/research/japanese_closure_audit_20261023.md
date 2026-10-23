@@ -219,3 +219,15 @@ reproduced by `audit.py` (SHA-256
 `b0811989c3942e0cac391e88baabbda12f5f227d9663eefe5fa8dabb3d4d95f5`).
 This closes only the retained 29-entry Ghidra crosswalk; it is not a complete
 ROM function census or proof that every code span has been identified.
+
+## Bank 4B confirm-screen slot-cell record names (2026-10-23)
+
+Static source at `67:53B7–53DC` selects among three four-byte records in
+`4B:76C0–76D0`: `76C0`, `76C4`, and `76C8`. The fourth four-byte record at
+`76CC` contains only zero bytes and is outside this three-entry selector table;
+no broader purpose or use is claimed. The assembly now names the two later
+selected records and the zero record, and the pointer table uses symbolic
+targets. The source rebuild remains byte-identical to the original; `sym-check`
+passes with 12,215 labels. Exact offsets, bytes, commands, and classification
+limits are recorded in
+[`japanese_confirm_screen_slot_records_20261023.md`](japanese_confirm_screen_slot_records_20261023.md).
