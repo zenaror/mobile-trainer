@@ -29,7 +29,7 @@ Browser_FetchInlineImages:: ; 4C:4840
 	call CopyBytes
 	ld a, $00
 	ld [wBrowserFetchResult], a
-.l4878 ; 4C:4878
+.prepare_next_inline_image_fetch ; 4C:4878
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -144,12 +144,12 @@ Browser_FetchInlineImages:: ; 4C:4840
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-.l4952 ; 4C:4952
+.poll_inline_image_http ; 4C:4952
 	farcall Http_Poll
 	or a, a
 	jr z, .l49CF
 	cp a, $FF
-	jp z, .l4A58
+	jp z, .handle_inline_image_fetch_or_stop_failure
 	ld a, $00
 	farcall CommProgress_Step
 	cp a, $02
@@ -171,8 +171,8 @@ Browser_FetchInlineImages:: ; 4C:4840
 	; [CONFIRMED] 14 insn(s) executed; cut out of the PROBABLE region 48B6-4B54 by apply_coverage
 	; --split [executed in 3 scenarios]
 	or a, a
-	jp nz, .l4A25
-.l4980 ; 4C:4980
+	jp nz, .handle_inline_image_fetch_timeout
+.check_timer_a_warning_while_fetch_pending ; 4C:4980
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
@@ -220,7 +220,7 @@ Browser_FetchInlineImages:: ; 4C:4840
 	pop hl
 	or a, a
 	jp nz, .l4AE2
-	jp .l4952
+	jp .poll_inline_image_http
 .l49CF ; 4C:49CF
 	push hl
 	ld a, [wTimerEnable]
@@ -272,32 +272,32 @@ Browser_FetchInlineImages:: ; 4C:4840
 	ld a, [wBrowserPendingMessage]
 	or a, a
 	jp nz, .l4AD6
-	jp .l4878
+	jp .prepare_next_inline_image_fetch
 
-.l4A25 ; 4C:4A25
+.handle_inline_image_fetch_timeout ; 4C:4A25
 	; [PROBABLE] 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 48B6-4B54 by apply_coverage --split
 	ld a, [wTimerEnable]
 	bit 0, a
-	jp z, .l4980
+	jp z, .check_timer_a_warning_while_fetch_pending
 	farcall Mobile_BeginStop
 .poll_stop ; 4C:4A33
 	farcall Mobile_StopPoll
 	or a, a
-	jr z, .l4A4C
+	jr z, .record_fetch_timeout_after_stop
 	cp a, $FF
-	jp z, .l4A58
+	jp z, .handle_inline_image_fetch_or_stop_failure
 	ld a, $00
 	farcall CommProgress_Step
 	jp .poll_stop
-.l4A4C ; 4C:4A4C
+.record_fetch_timeout_after_stop ; 4C:4A4C
 	ld a, $26
 	ld [wMobileResultCode], a
 	xor a, a
 	ld [wMobileResultDetail], a
 	ld [wMobileResultDetail + 1], a
 
-.l4A58 ; 4C:4A58
+.handle_inline_image_fetch_or_stop_failure ; 4C:4A58
 	; [CONFIRMED] 28 insn(s) executed; cut out of the PROBABLE region 48B6-4B54 by apply_coverage
 	; --split [executed in 1 scenarios]
 	ldh a, [hInlineImages_ListEnd]
@@ -365,15 +365,15 @@ Browser_FetchInlineImages:: ; 4C:4840
 	jp nz, .l4B4E
 	ld a, [wMobileResultCode]
 	cp a, $24
-	jp z, .l4878
+	jp z, .prepare_next_inline_image_fetch
 	cp a, $32
-	jp z, .l4878
+	jp z, .prepare_next_inline_image_fetch
 
 	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 48B6-4B54 by apply_coverage --split
 	ld a, $03
 	ld [wBrowserFetchResult], a
-	jr .l4AE7
+	jr .clear_inline_image_list_tail_on_exit
 .l4AD5 ; 4C:4AD5
 	pop de
 .l4AD6 ; 4C:4AD6
@@ -381,14 +381,14 @@ Browser_FetchInlineImages:: ; 4C:4840
 	ld [wBrowserFetchResult], a
 	ld a, $01
 	ld [wBrowserPendingMessage], a
-	jr .l4AE7
+	jr .clear_inline_image_list_tail_on_exit
 
 .l4AE2 ; 4C:4AE2
 	; [CONFIRMED] 30 insn(s) executed; cut out of the PROBABLE region 48B6-4B54 by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld a, $02
 	ld [wBrowserFetchResult], a
-.l4AE7 ; 4C:4AE7
+.clear_inline_image_list_tail_on_exit ; 4C:4AE7
 	ldh a, [hInlineImages_ListEnd]
 	ld e, a
 	ldh a, [hInlineImages_ListEndHi]

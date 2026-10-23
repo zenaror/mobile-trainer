@@ -250,24 +250,24 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	inc d
 	ld hl, wTileStage2
 	ld bc, $0140
-.l42E1 ; 7F:42E1
+.add_tile_row_stride ; 7F:42E1
 	dec d
-	jr z, .l42E7
+	jr z, .add_scanline_offset
 	add hl, bc
-	jr .l42E1
-.l42E7 ; 7F:42E7
+	jr .add_tile_row_stride
+.add_scanline_offset ; 7F:42E7
 	sla a
 	add a, l
 	ld l, a
 	ld a, h
 	cp a, $DF
-	jr c, .l42F9
+	jr c, .prepare_x_offset_and_masks
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-.l42F9 ; 7F:42F9
+.prepare_x_offset_and_masks ; 7F:42F9
 	ld a, e
 	and a, $07
 	ld d, $00
@@ -302,13 +302,13 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld b, $00
 	inc c
 	ld e, c
-.l4330 ; 7F:4330
+.align_row_00_plane_0 ; 7F:4330
 	dec c
-	jr z, .l4339
+	jr z, .merge_row_00_plane_0
 	srl a
 	rr b
-	jr .l4330
-.l4339 ; 7F:4339
+	jr .align_row_00_plane_0
+.merge_row_00_plane_0 ; 7F:4339
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -329,7 +329,7 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, .l4368
+	jr nz, .load_row_00_plane_1
 
 	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
 	; fall-through of the jrcc at 7F:4352 (executed)
@@ -339,14 +339,14 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, .l4368
+	jr c, .load_row_00_plane_1
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-.l4368 ; 7F:4368
+.load_row_00_plane_1 ; 7F:4368
 	; [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
@@ -358,13 +358,13 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld b, $00
 	inc c
 	ld e, c
-.l4375 ; 7F:4375
+.align_row_00_plane_1 ; 7F:4375
 	dec c
-	jr z, .l437E
+	jr z, .merge_row_00_plane_1
 	srl a
 	rr b
-	jr .l4375
-.l437E ; 7F:437E
+	jr .align_row_00_plane_1
+.merge_row_00_plane_1 ; 7F:437E
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -385,7 +385,7 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, .l43AD
+	jr nz, .load_row_01_plane_0
 
 	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
 	; fall-through of the jrcc at 7F:4397 (executed)
@@ -395,14 +395,14 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, .l43AD
+	jr c, .load_row_01_plane_0
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-.l43AD ; 7F:43AD
+.load_row_01_plane_0 ; 7F:43AD
 	; [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
@@ -414,13 +414,13 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld b, $00
 	inc c
 	ld e, c
-.l43BA ; 7F:43BA
+.align_row_01_plane_0 ; 7F:43BA
 	dec c
-	jr z, .l43C3
+	jr z, .merge_row_01_plane_0
 	srl a
 	rr b
-	jr .l43BA
-.l43C3 ; 7F:43C3
+	jr .align_row_01_plane_0
+.merge_row_01_plane_0 ; 7F:43C3
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -441,7 +441,7 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, .l43F2
+	jr nz, .load_row_01_plane_1
 
 	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
 	; fall-through of the jrcc at 7F:43DC (executed)
@@ -451,14 +451,14 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, .l43F2
+	jr c, .load_row_01_plane_1
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-.l43F2 ; 7F:43F2
+.load_row_01_plane_1 ; 7F:43F2
 	; [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
@@ -470,13 +470,13 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld b, $00
 	inc c
 	ld e, c
-.l43FF ; 7F:43FF
+.align_row_01_plane_1 ; 7F:43FF
 	dec c
-	jr z, .l4408
+	jr z, .merge_row_01_plane_1
 	srl a
 	rr b
-	jr .l43FF
-.l4408 ; 7F:4408
+	jr .align_row_01_plane_1
+.merge_row_01_plane_1 ; 7F:4408
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -497,7 +497,7 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, .l4437
+	jr nz, .load_row_02_plane_0
 
 	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
 	; fall-through of the jrcc at 7F:4421 (executed)
@@ -507,14 +507,14 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, .l4437
+	jr c, .load_row_02_plane_0
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-.l4437 ; 7F:4437
+.load_row_02_plane_0 ; 7F:4437
 	; [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
@@ -526,13 +526,13 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld b, $00
 	inc c
 	ld e, c
-.l4444 ; 7F:4444
+.align_row_02_plane_0 ; 7F:4444
 	dec c
-	jr z, .l444D
+	jr z, .merge_row_02_plane_0
 	srl a
 	rr b
-	jr .l4444
-.l444D ; 7F:444D
+	jr .align_row_02_plane_0
+.merge_row_02_plane_0 ; 7F:444D
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -553,7 +553,7 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, .l447C
+	jr nz, .load_row_02_plane_1
 
 	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
 	; fall-through of the jrcc at 7F:4466 (executed)
@@ -563,14 +563,14 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, .l447C
+	jr c, .load_row_02_plane_1
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-.l447C ; 7F:447C
+.load_row_02_plane_1 ; 7F:447C
 	; [CONFIRMED] 43 insn(s); 43 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
@@ -582,13 +582,13 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld b, $00
 	inc c
 	ld e, c
-.l4489 ; 7F:4489
+.align_row_02_plane_1 ; 7F:4489
 	dec c
-	jr z, .l4492
+	jr z, .merge_row_02_plane_1
 	srl a
 	rr b
-	jr .l4489
-.l4492 ; 7F:4492
+	jr .align_row_02_plane_1
+.merge_row_02_plane_1 ; 7F:4492
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -609,14 +609,14 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, .l44C1
+	jr nz, .load_row_03_plane_0
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, .l44C1
+	jr c, .load_row_03_plane_0
 
 	; [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 7F:44B6 (executed)
@@ -626,7 +626,7 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-.l44C1 ; 7F:44C1
+.load_row_03_plane_0 ; 7F:44C1
 	; [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
@@ -638,13 +638,13 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld b, $00
 	inc c
 	ld e, c
-.l44CE ; 7F:44CE
+.align_row_03_plane_0 ; 7F:44CE
 	dec c
-	jr z, .l44D7
+	jr z, .merge_row_03_plane_0
 	srl a
 	rr b
-	jr .l44CE
-.l44D7 ; 7F:44D7
+	jr .align_row_03_plane_0
+.merge_row_03_plane_0 ; 7F:44D7
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -665,7 +665,7 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, .l4506
+	jr nz, .load_row_03_plane_1
 
 	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
 	; fall-through of the jrcc at 7F:44F0 (executed)
@@ -675,14 +675,14 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, .l4506
+	jr c, .load_row_03_plane_1
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-.l4506 ; 7F:4506
+.load_row_03_plane_1 ; 7F:4506
 	; [CONFIRMED] 84 insn(s); 84 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
@@ -694,13 +694,13 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld b, $00
 	inc c
 	ld e, c
-.l4513 ; 7F:4513
+.align_row_03_plane_1 ; 7F:4513
 	dec c
-	jr z, .l451C
+	jr z, .merge_row_03_plane_1
 	srl a
 	rr b
-	jr .l4513
-.l451C ; 7F:451C
+	jr .align_row_03_plane_1
+.merge_row_03_plane_1 ; 7F:451C
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -721,20 +721,20 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, .l454B
+	jr nz, .load_row_04_plane_0
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, .l454B
+	jr c, .load_row_04_plane_0
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-.l454B ; 7F:454B
+.load_row_04_plane_0 ; 7F:454B
 	ld a, [de]
 	inc de
 	push bc
@@ -745,13 +745,13 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld b, $00
 	inc c
 	ld e, c
-.l4558 ; 7F:4558
+.align_row_04_plane_0 ; 7F:4558
 	dec c
-	jr z, .l4561
+	jr z, .merge_row_04_plane_0
 	srl a
 	rr b
-	jr .l4558
-.l4561 ; 7F:4561
+	jr .align_row_04_plane_0
+.merge_row_04_plane_0 ; 7F:4561
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -772,7 +772,7 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, .l4590
+	jr nz, .load_row_04_plane_1
 
 	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
 	; fall-through of the jrcc at 7F:457A (executed)
@@ -782,14 +782,14 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, .l4590
+	jr c, .load_row_04_plane_1
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-.l4590 ; 7F:4590
+.load_row_04_plane_1 ; 7F:4590
 	; [CONFIRMED] 43 insn(s); 43 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
@@ -801,13 +801,13 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld b, $00
 	inc c
 	ld e, c
-.l459D ; 7F:459D
+.align_row_04_plane_1 ; 7F:459D
 	dec c
-	jr z, .l45A6
+	jr z, .merge_row_04_plane_1
 	srl a
 	rr b
-	jr .l459D
-.l45A6 ; 7F:45A6
+	jr .align_row_04_plane_1
+.merge_row_04_plane_1 ; 7F:45A6
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -828,14 +828,14 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, .l45D5
+	jr nz, .load_row_05_plane_0
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, .l45D5
+	jr c, .load_row_05_plane_0
 
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 7F:45CA (executed) [executed in 2 scenarios]
@@ -845,7 +845,7 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-.l45D5 ; 7F:45D5
+.load_row_05_plane_0 ; 7F:45D5
 	; [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
@@ -857,13 +857,13 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld b, $00
 	inc c
 	ld e, c
-.l45E2 ; 7F:45E2
+.align_row_05_plane_0 ; 7F:45E2
 	dec c
-	jr z, .l45EB
+	jr z, .merge_row_05_plane_0
 	srl a
 	rr b
-	jr .l45E2
-.l45EB ; 7F:45EB
+	jr .align_row_05_plane_0
+.merge_row_05_plane_0 ; 7F:45EB
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -884,7 +884,7 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, .l461A
+	jr nz, .load_row_05_plane_1
 
 	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
 	; fall-through of the jrcc at 7F:4604 (executed)
@@ -894,14 +894,14 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, .l461A
+	jr c, .load_row_05_plane_1
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-.l461A ; 7F:461A
+.load_row_05_plane_1 ; 7F:461A
 	; [CONFIRMED] 43 insn(s); 43 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
@@ -913,13 +913,13 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld b, $00
 	inc c
 	ld e, c
-.l4627 ; 7F:4627
+.align_row_05_plane_1 ; 7F:4627
 	dec c
-	jr z, .l4630
+	jr z, .merge_row_05_plane_1
 	srl a
 	rr b
-	jr .l4627
-.l4630 ; 7F:4630
+	jr .align_row_05_plane_1
+.merge_row_05_plane_1 ; 7F:4630
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -940,14 +940,14 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, .l465F
+	jr nz, .load_row_06_plane_0
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, .l465F
+	jr c, .load_row_06_plane_0
 
 	; [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 7F:4654 (executed)
@@ -957,7 +957,7 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-.l465F ; 7F:465F
+.load_row_06_plane_0 ; 7F:465F
 	; [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
@@ -969,13 +969,13 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld b, $00
 	inc c
 	ld e, c
-.l466C ; 7F:466C
+.align_row_06_plane_0 ; 7F:466C
 	dec c
-	jr z, .l4675
+	jr z, .merge_row_06_plane_0
 	srl a
 	rr b
-	jr .l466C
-.l4675 ; 7F:4675
+	jr .align_row_06_plane_0
+.merge_row_06_plane_0 ; 7F:4675
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -996,7 +996,7 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, .l46A4
+	jr nz, .load_row_06_plane_1
 
 	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
 	; fall-through of the jrcc at 7F:468E (executed)
@@ -1006,14 +1006,14 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, .l46A4
+	jr c, .load_row_06_plane_1
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-.l46A4 ; 7F:46A4
+.load_row_06_plane_1 ; 7F:46A4
 	; [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
@@ -1025,13 +1025,13 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld b, $00
 	inc c
 	ld e, c
-.l46B1 ; 7F:46B1
+.align_row_06_plane_1 ; 7F:46B1
 	dec c
-	jr z, .l46BA
+	jr z, .merge_row_06_plane_1
 	srl a
 	rr b
-	jr .l46B1
-.l46BA ; 7F:46BA
+	jr .align_row_06_plane_1
+.merge_row_06_plane_1 ; 7F:46BA
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -1052,7 +1052,7 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, .l46E9
+	jr nz, .load_row_07_plane_0
 
 	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
 	; fall-through of the jrcc at 7F:46D3 (executed)
@@ -1062,14 +1062,14 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, .l46E9
+	jr c, .load_row_07_plane_0
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-.l46E9 ; 7F:46E9
+.load_row_07_plane_0 ; 7F:46E9
 	; [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
@@ -1081,13 +1081,13 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld b, $00
 	inc c
 	ld e, c
-.l46F6 ; 7F:46F6
+.align_row_07_plane_0 ; 7F:46F6
 	dec c
-	jr z, .l46FF
+	jr z, .merge_row_07_plane_0
 	srl a
 	rr b
-	jr .l46F6
-.l46FF ; 7F:46FF
+	jr .align_row_07_plane_0
+.merge_row_07_plane_0 ; 7F:46FF
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -1108,7 +1108,7 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, .l472E
+	jr nz, .load_row_07_plane_1
 
 	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
 	; fall-through of the jrcc at 7F:4718 (executed)
@@ -1118,14 +1118,14 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, .l472E
+	jr c, .load_row_07_plane_1
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-.l472E ; 7F:472E
+.load_row_07_plane_1 ; 7F:472E
 	; [CONFIRMED] 84 insn(s); 84 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
@@ -1137,13 +1137,13 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld b, $00
 	inc c
 	ld e, c
-.l473B ; 7F:473B
+.align_row_07_plane_1 ; 7F:473B
 	dec c
-	jr z, .l4744
+	jr z, .merge_row_07_plane_1
 	srl a
 	rr b
-	jr .l473B
-.l4744 ; 7F:4744
+	jr .align_row_07_plane_1
+.merge_row_07_plane_1 ; 7F:4744
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -1164,20 +1164,20 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, .l4773
+	jr nz, .load_row_08_plane_0
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, .l4773
+	jr c, .load_row_08_plane_0
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-.l4773 ; 7F:4773
+.load_row_08_plane_0 ; 7F:4773
 	ld a, [de]
 	inc de
 	push bc
@@ -1188,13 +1188,13 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld b, $00
 	inc c
 	ld e, c
-.l4780 ; 7F:4780
+.align_row_08_plane_0 ; 7F:4780
 	dec c
-	jr z, .l4789
+	jr z, .merge_row_08_plane_0
 	srl a
 	rr b
-	jr .l4780
-.l4789 ; 7F:4789
+	jr .align_row_08_plane_0
+.merge_row_08_plane_0 ; 7F:4789
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -1215,7 +1215,7 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, .l47B8
+	jr nz, .load_row_08_plane_1
 
 	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
 	; fall-through of the jrcc at 7F:47A2 (executed)
@@ -1225,14 +1225,14 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, .l47B8
+	jr c, .load_row_08_plane_1
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-.l47B8 ; 7F:47B8
+.load_row_08_plane_1 ; 7F:47B8
 	; [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
@@ -1244,13 +1244,13 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld b, $00
 	inc c
 	ld e, c
-.l47C5 ; 7F:47C5
+.align_row_08_plane_1 ; 7F:47C5
 	dec c
-	jr z, .l47CE
+	jr z, .merge_row_08_plane_1
 	srl a
 	rr b
-	jr .l47C5
-.l47CE ; 7F:47CE
+	jr .align_row_08_plane_1
+.merge_row_08_plane_1 ; 7F:47CE
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -1271,7 +1271,7 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, .l47FD
+	jr nz, .load_row_09_plane_0
 
 	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
 	; fall-through of the jrcc at 7F:47E7 (executed)
@@ -1281,14 +1281,14 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, .l47FD
+	jr c, .load_row_09_plane_0
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-.l47FD ; 7F:47FD
+.load_row_09_plane_0 ; 7F:47FD
 	; [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
@@ -1300,13 +1300,13 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld b, $00
 	inc c
 	ld e, c
-.l480A ; 7F:480A
+.align_row_09_plane_0 ; 7F:480A
 	dec c
-	jr z, .l4813
+	jr z, .merge_row_09_plane_0
 	srl a
 	rr b
-	jr .l480A
-.l4813 ; 7F:4813
+	jr .align_row_09_plane_0
+.merge_row_09_plane_0 ; 7F:4813
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -1327,7 +1327,7 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, .l4842
+	jr nz, .load_row_09_plane_1
 
 	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
 	; fall-through of the jrcc at 7F:482C (executed)
@@ -1337,14 +1337,14 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, .l4842
+	jr c, .load_row_09_plane_1
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-.l4842 ; 7F:4842
+.load_row_09_plane_1 ; 7F:4842
 	; [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
@@ -1356,13 +1356,13 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld b, $00
 	inc c
 	ld e, c
-.l484F ; 7F:484F
+.align_row_09_plane_1 ; 7F:484F
 	dec c
-	jr z, .l4858
+	jr z, .merge_row_09_plane_1
 	srl a
 	rr b
-	jr .l484F
-.l4858 ; 7F:4858
+	jr .align_row_09_plane_1
+.merge_row_09_plane_1 ; 7F:4858
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -1383,7 +1383,7 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, .l4887
+	jr nz, .load_row_10_plane_0
 
 	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
 	; fall-through of the jrcc at 7F:4871 (executed)
@@ -1393,14 +1393,14 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, .l4887
+	jr c, .load_row_10_plane_0
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-.l4887 ; 7F:4887
+.load_row_10_plane_0 ; 7F:4887
 	; [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
@@ -1412,13 +1412,13 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld b, $00
 	inc c
 	ld e, c
-.l4894 ; 7F:4894
+.align_row_10_plane_0 ; 7F:4894
 	dec c
-	jr z, .l489D
+	jr z, .merge_row_10_plane_0
 	srl a
 	rr b
-	jr .l4894
-.l489D ; 7F:489D
+	jr .align_row_10_plane_0
+.merge_row_10_plane_0 ; 7F:489D
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -1439,7 +1439,7 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, .l48CC
+	jr nz, .load_row_10_plane_1
 
 	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
 	; fall-through of the jrcc at 7F:48B6 (executed)
@@ -1449,14 +1449,14 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, .l48CC
+	jr c, .load_row_10_plane_1
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-.l48CC ; 7F:48CC
+.load_row_10_plane_1 ; 7F:48CC
 	; [CONFIRMED] 43 insn(s); 43 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
@@ -1468,13 +1468,13 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld b, $00
 	inc c
 	ld e, c
-.l48D9 ; 7F:48D9
+.align_row_10_plane_1 ; 7F:48D9
 	dec c
-	jr z, .l48E2
+	jr z, .merge_row_10_plane_1
 	srl a
 	rr b
-	jr .l48D9
-.l48E2 ; 7F:48E2
+	jr .align_row_10_plane_1
+.merge_row_10_plane_1 ; 7F:48E2
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -1495,14 +1495,14 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, .l4911
+	jr nz, .load_row_11_plane_0
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, .l4911
+	jr c, .load_row_11_plane_0
 
 	; [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 7F:4906 (executed)
@@ -1512,7 +1512,7 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-.l4911 ; 7F:4911
+.load_row_11_plane_0 ; 7F:4911
 	; [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
@@ -1524,13 +1524,13 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld b, $00
 	inc c
 	ld e, c
-.l491E ; 7F:491E
+.align_row_11_plane_0 ; 7F:491E
 	dec c
-	jr z, .l4927
+	jr z, .merge_row_11_plane_0
 	srl a
 	rr b
-	jr .l491E
-.l4927 ; 7F:4927
+	jr .align_row_11_plane_0
+.merge_row_11_plane_0 ; 7F:4927
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -1551,7 +1551,7 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, .l4956
+	jr nz, .load_row_11_plane_1
 
 	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
 	; fall-through of the jrcc at 7F:4940 (executed)
@@ -1561,14 +1561,14 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, .l4956
+	jr c, .load_row_11_plane_1
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-.l4956 ; 7F:4956
+.load_row_11_plane_1 ; 7F:4956
 	; [CONFIRMED] 49 insn(s); 49 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
@@ -1580,13 +1580,13 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	ld b, $00
 	inc c
 	ld e, c
-.l4963 ; 7F:4963
+.align_row_11_plane_1 ; 7F:4963
 	dec c
-	jr z, .l496C
+	jr z, .merge_row_11_plane_1
 	srl a
 	rr b
-	jr .l4963
-.l496C ; 7F:496C
+	jr .align_row_11_plane_1
+.merge_row_11_plane_1 ; 7F:496C
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a

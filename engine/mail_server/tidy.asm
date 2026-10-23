@@ -458,7 +458,7 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	xor a, a
 	ld c, $01
 	farcall Pop3_StartTop
-.l430D ; 2E:430D
+.topPollFrameLoop ; 2E:430D
 	push bc
 	push de
 	push hl
@@ -473,15 +473,15 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	pop bc
 	ldh a, [hJoyHeld]
 	and a, PADF_B
-	jr z, .l4332
+	jr z, .pollTop
 	pop hl
 	pop bc
 	jp MailServerMgr_Run_Cancel
-.l4332 ; 2E:4332
+.pollTop ; 2E:4332
 	xor a, a
 	farcall Pop3_TopPoll
 	cp a, $01
-	jr z, .l430D
+	jr z, .topPollFrameLoop
 	cp a, $FF
 	jr nz, .l434C
 
@@ -537,16 +537,16 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	push bc
 	push hl
 	cp a, $00
-	jr z, .l43AF
+	jr z, .drawMailAndInitChoice
 	cp a, $01
-	jr z, .l43AF
+	jr z, .drawMailAndInitChoice
 
 	; [PROBABLE] 23 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4292-488A by apply_coverage --split
 	cp a, $02
 	jr z, .l4394
-.l4392 ; 2E:4392
-	jr .l4392
+.spin ; 2E:4392
+	jr .spin
 .l4394 ; 2E:4394
 	pop hl
 	pop bc
@@ -569,7 +569,7 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	pop bc
 	jp .l477E
 
-.l43AF ; 2E:43AF
+.drawMailAndInitChoice ; 2E:43AF
 	; [CONFIRMED] 101 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage
 	; --split [executed in 7 scenarios]
 	push af
@@ -666,14 +666,14 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	ld a, $00
 	call MailServerMgr_ShowChoiceHelp
 	ld c, $00
-.l4458 ; 2E:4458
+.choiceInputLoop ; 2E:4458
 	push bc
 	di
 	farcall Sprite_UpdateAll
 	ei
 	ld a, [wTimerEnable]
 	bit 1, a
-	jr z, .l447A
+	jr z, .checkTimerWarning
 
 	; [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4292-488A by apply_coverage --split
@@ -685,39 +685,39 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	ld a, $80
 	ret
 
-.l447A ; 2E:447A
+.checkTimerWarning ; 2E:447A
 	; [CONFIRMED] 20 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage
 	; --split [executed in 1 scenarios]
 	call MailServerMgr_UpdateTimerDisplay
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr z, .l44C3
+	jr z, .suppressWarningPopup
 	ld hl, wTimerAWarnFlags
 	bit 0, [hl]
-	jr nz, .l44C4
+	jr nz, .maybeShowWarningAndReadLeft
 	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
-	jr c, .l44C3
-	jr nz, .l449F
+	jr c, .suppressWarningPopup
+	jr nz, .checkWarningSentinelThreshold
 	ld a, [wTimerASeconds]
 	cp a, $1E
-	jr c, .l44C3
-.l449F ; 2E:449F
+	jr c, .suppressWarningPopup
+.checkWarningSentinelThreshold ; 2E:449F
 	ld a, [wTimerAWarnMinute]
 	cp a, $45
-	jr nz, .l44AF
+	jr nz, .markWarningAndMaybeAdvanceThreshold
 
 	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4292-488A by apply_coverage --split
 	ld hl, wTimerAWarnFlags
 	bit 1, [hl]
-	jr nz, .l44C3
+	jr nz, .suppressWarningPopup
 	set 1, [hl]
 
-.l44AF ; 2E:44AF
+.markWarningAndMaybeAdvanceThreshold ; 2E:44AF
 	; [CONFIRMED] 56 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld hl, wTimerAWarnFlags
@@ -725,14 +725,14 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	ld hl, wTimerAWarnMinute
 	ld a, [hl]
 	cp a, $45
-	jr z, .l44C4
+	jr z, .maybeShowWarningAndReadLeft
 	add a, $0A
 	ld [hl], a
 	ld a, $FF
-	jr .l44C4
-.l44C3 ; 2E:44C3
+	jr .maybeShowWarningAndReadLeft
+.suppressWarningPopup ; 2E:44C3
 	xor a, a
-.l44C4 ; 2E:44C4
+.maybeShowWarningAndReadLeft ; 2E:44C4
 	pop hl
 	cp a, $00
 	call nz, MailServerMgr_TimeWarningPopupRedraw
@@ -741,7 +741,7 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	pop bc
 	ldh a, [hJoyPressedRepeat]
 	and a, PADF_LEFT
-	jr z, .l44F6
+	jr z, .readRightInput
 	push bc
 	push de
 	play_sfx SFX_CURSOR_MOVE
@@ -750,12 +750,12 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	dec c
 	ld a, c
 	cp a, $FF
-	jr nz, .l44F6
+	jr nz, .readRightInput
 	ld c, $02
-.l44F6 ; 2E:44F6
+.readRightInput ; 2E:44F6
 	ldh a, [hJoyPressedRepeat]
 	and a, PADF_RIGHT
-	jr z, .l4518
+	jr z, .updateChoiceSpritesIfHeld
 	push bc
 	push de
 	play_sfx SFX_CURSOR_MOVE
@@ -764,21 +764,21 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	inc c
 	ld a, c
 	cp a, $03
-	jr nz, .l4518
+	jr nz, .updateChoiceSpritesIfHeld
 
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4292-488A by apply_coverage --split
 	ld c, $00
 
-.l4518 ; 2E:4518
+.updateChoiceSpritesIfHeld ; 2E:4518
 	; [CONFIRMED] 244 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage
 	; --split [executed in 1 scenarios]
 	ldh a, [hJoyHeld]
 	and a, $FF
-	jp z, .l4458
+	jp z, .choiceInputLoop
 	ld a, c
 	cp a, $00
-	jr nz, .l4544
+	jr nz, .updateChoice1IfSelected
 	push bc
 	ld hl, wSpriteSlot0
 	ld de, Table_MailServerMgr_ObjAnims
@@ -791,10 +791,10 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	ld a, $00
 	call MailServerMgr_ShowChoiceHelp
 	pop bc
-.l4544 ; 2E:4544
+.updateChoice1IfSelected ; 2E:4544
 	ld a, c
 	cp a, $01
-	jr nz, .l4569
+	jr nz, .updateChoice2IfSelected
 	push bc
 	ld hl, wSpriteSlot0
 	ld de, Table_MailServerMgr_ObjAnims_Entry4
@@ -807,10 +807,10 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	ld a, $01
 	call MailServerMgr_ShowChoiceHelp
 	pop bc
-.l4569 ; 2E:4569
+.updateChoice2IfSelected ; 2E:4569
 	ld a, c
 	cp a, $02
-	jr nz, .l458E
+	jr nz, .dispatchChoiceIfAPressed
 	push bc
 	ld hl, wSpriteSlot0
 	ld de, Table_MailServerMgr_ObjAnims_Entry8
@@ -823,10 +823,10 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	ld a, $02
 	call MailServerMgr_ShowChoiceHelp
 	pop bc
-.l458E ; 2E:458E
+.dispatchChoiceIfAPressed ; 2E:458E
 	ldh a, [hJoyPressed]
 	and a, PADF_A
-	jp z, .l4458
+	jp z, .choiceInputLoop
 	push bc
 	push de
 	play_sfx SFX_CONFIRM
@@ -836,9 +836,9 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	pop hl
 	pop bc
 	cp a, $00
-	jp z, .l467A
+	jp z, .startDelete
 	cp a, $01
-	jp z, .l4736
+	jp z, .prepareLoadingDisplay
 	push bc
 	push hl
 	di
@@ -877,12 +877,12 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	pop hl
 	pop bc
 	dec a
-	jp nz, .l4611
+	jp nz, .redrawAndSelectChoice2
 	farcall Stat_DisableScrollSplit
 	farcall Palette_FadeOutToWhite
 	xor a, a
 	ret
-.l4611 ; 2E:4611
+.redrawAndSelectChoice2 ; 2E:4611
 	push bc
 	push hl
 	push hl
@@ -931,8 +931,8 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	ld a, $02
 	call MailServerMgr_ShowChoiceHelp
 	ld c, $02
-	jp .l4458
-.l467A ; 2E:467A
+	jp .choiceInputLoop
+.startDelete ; 2E:467A
 	push bc
 	push hl
 	ld de, $D010
@@ -997,7 +997,7 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	farcall Timer_ResetClockB
 	xor a, a
 	farcall Pop3_StartDele
-.l46F8 ; 2E:46F8
+.deletePollFrameLoop ; 2E:46F8
 	call VBlank_Wait
 	di
 	farcall Sprite_UpdateAll
@@ -1006,15 +1006,15 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	call MailServerMgr_UpdateTimerDisplay
 	ldh a, [hJoyPressed]
 	and a, PADF_B
-	jr z, .l4717
+	jr z, .pollDelete
 	pop hl
 	pop bc
 	jp MailServerMgr_Run_Cancel
-.l4717 ; 2E:4717
+.pollDelete ; 2E:4717
 	xor a, a
 	farcall Pop3_DelePoll
 	cp a, $01
-	jr z, .l46F8
+	jr z, .deletePollFrameLoop
 	cp a, $FF
 	jr nz, .l4731
 
@@ -1032,7 +1032,7 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	pop hl
 	pop bc
 	jp .l477E
-.l4736 ; 2E:4736
+.prepareLoadingDisplay ; 2E:4736
 	push bc
 	push hl
 	ld de, $D010
@@ -1088,12 +1088,12 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	ld de, wMailSessionBlock + $0F
 	ld a, [de]
 	cp a, $00
-	jp nz, .l4887
+	jp nz, .restartMailLoop
 	inc de
 	ld a, [de]
 	cp a, $00
 	inc de
-	jp nz, .l4887
+	jp nz, .restartMailLoop
 	call MailServerMgr_ClearTextTiles
 	push af
 	push bc
@@ -1163,7 +1163,7 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	pop de
 	farcall Dialog_Open
 	ld a, $78
-.l4843 ; 2E:4843
+.waitDialogFramesOrA ; 2E:4843
 	push af
 	call VBlank_WaitAndService
 	farcall Joypad_Update
@@ -1182,7 +1182,7 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	; --split [executed in 1 scenarios]
 	pop af
 	dec a
-	jr nz, .l4843
+	jr nz, .waitDialogFramesOrA
 	farcall Dialog_Close
 	call MailServerMgr_DrawTimer
 	push af
@@ -1201,7 +1201,7 @@ MailServerMgr_Run_MailLoop:: ; 2E:4298
 	farcall Palette_FadeOutToWhite
 	xor a, a
 	ret
-.l4887 ; 2E:4887
+.restartMailLoop ; 2E:4887
 	jp MailServerMgr_Run_MailLoop
 
 	; [HYPOTHESIS] Entry/purpose at488A unproved; PUSH AF/BC/DE/HL precedes farcall488E, after JP4887.
