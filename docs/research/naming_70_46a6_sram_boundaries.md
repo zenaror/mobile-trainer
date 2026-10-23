@@ -1,6 +1,16 @@
 # Bank70:46A6 and the unlabelled segment at4740
 
-This is a prospective static comment correction. The source basis is the privately copied published29c29142 parent; the future integration parent, reviews, gates and publication remain NULL. Function_70_46A6 stays neutral and HYPOTHESIS. No label or alias is added at4740. No new natural trace, emulator, reconstructed build, native probe or hardware observation is claimed.
+## Current maintained-source status (2026-10-23)
+
+At canonical commit `4a547637989c0ab5a8e62ee38302577b248b32ad`, the maintained
+source names `70:46A6` as `TrySetA9EEFromRandom16_ByA9EDFlags` and `70:4740` as
+`SaveCheck_GetStateBlockBit7`. These labels describe bounded local operations;
+the entry, caller and application purpose remain HYPOTHESIS. The second label
+was added after the historical “unlabelled segment” snapshots below. Their
+statements about a prospective change, private validation, or no label at
+4740 describe those earlier stages, not the current checkout. The static
+boundary and conditional mechanics documented below remain applicable; this
+reconciliation adds no natural-execution, emulator or hardware evidence.
 
 The original ROM bytes at bank70 [46A6,477F), physical offsets [1C06A6,1C077F), total217 bytes, agree with the107 maintained instruction starts. There is no emitting data directive in this maintained span. This establishes the bounded source/byte correspondence; clean decode alone does not establish entry or exclude another interpretation/overlapping entry. The preceding maintained block returns at46A5. The neighbouring named block starts at477F; neither selected segment falls through into it in ordinary execution.
 
