@@ -37,6 +37,25 @@ Following the new `0F:4C59` label, every `call Mail_NextSramPage` in `lib/mobile
 
 This closes the helper-call-shape inventory for this owner, not the natural reachability of each wrapper. The inline call remains within its labeled loop and did not need a new function label.
 
+### Anchored semantic type-prefix census
+
+A further anchored scan of global definitions across the same 349 Japanese ASM/INC files checked complete `Type_...` families, not only the strict `Type_BB_AAAA` spellings. Counts below are candidate-generation buckets, not defects; a second filter checked for an otherwise bare `$AAAA`, `$BB_AAAA`, or uncertainty-only tail. No such exact generic-tail candidate was found. The function-like families `Function_`, `Func_`, `Sub_`, `Routine_`, `Unknown_`, `Unk_`, `Code_`, and `Label_` each have zero current definitions.
+
+| Prefix | Definitions |
+|---|---:|
+| `Data_` | 131 |
+| `Font_` | 42 |
+| `Tilemap_` | 130 |
+| `Attrmap_` | 15 |
+| `Palette_` | 138 |
+| `String_` | 294 |
+| `Table_` | 170 |
+| `SpriteFrame_` | 267 |
+| `SpriteScript_` | 141 |
+| `Stub_` | 9 |
+
+The nine `Stub_Nop_BB_AAAA` names are a deliberate exception to bare-address matching, not unresolved function names: every body is one `$C9` (`ret`), and the names describe that no-state-change stub behavior. Six entries have CONFIRMED callers/execution and three remain PROBABLE due to unexecuted or unreferenced prototype context. The complete row-level rationale and independent review are in [`naming2_fn4.md`](naming2_fn4.md) and [`naming2_verify_fn4.md`](naming2_verify_fn4.md#3-stub-rows-1-9-is-stub_nop_bank_addr-honest). This result does not imply every arbitrary symbol name is semantically complete; it closes these anchored prefix forms and their exact address-only tail candidates for this snapshot.
+
 A complementary path-component scan covered all 2,197 tracked paths in the maintained `home/`, `engine/`, `data/`, `gfx/`, `audio/`, `lib/`, `ram/`, and `constants/` trees. It found no exact `bankNN` directory or `bankNN.asm`-style basename. Twelve source basenames contain a role/content descriptor followed by `_bankNN` (including `data/text/pokemon_names_bank53.asm`); ten of those have matching `gfx/<role>_bankNN/` resource directories. These 22 distinct components yield 215 tracked paths because each resource directory contains multiple assets. Their prefixes identify content/area (`pokemon_names`, `connect_dialog`, `registration_notice`, `type6_pages`, etc.); the bank suffix records physical ownership. No component in this set is named only `bankNN`. This path-name disposition does not prove the resource's selection, use, or semantic purpose.
 
 **Historical baseline:** The following table records counts at `69b7f8c125faf56d4aee77fbed860b8bd4578ccd`. It is retained for provenance; use the current snapshot statement above and the batch-closure section below for present counts.
