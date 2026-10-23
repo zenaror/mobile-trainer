@@ -94,7 +94,15 @@ The reader read every routine and everything it calls: `Multiply8x16`, `ReadByte
 * **Nameable with the new names, with proof: none.**  The reader looked at every numeric `$Dxxx` immediate whose bank is shown by the idiom or the replays and which lies in a new extent: 16, none nameable (1 is the `$DE80` wipe, 3 are debug string scratch, `mail_session_screen.asm:1137` is the dead load, `mailbox_screen.asm:540` is dereferenced under bank 1 after `ld a,$01` at 25:4F5B, and 10 are string-pointer loads for the `*_DrawLine*` wrappers
   (`engine/mail/draft_menu.asm:373-388`, `engine/mail/address_editor.asm:533-538,1623`, `engine/address_book/address_editor.asm:533,537`, `engine/browser/page_list.asm:1162`): the replays show bank 2 at the load, but the wrapper selects bank 1 itself, so naming them `wTileStage2` would be a false name, and the missing rule is what protects them).
 * **Outside `ld` operands:** 12 `dw` words could become `wDialEntries + $xx` (`Dial_EntryNumberBuffers` at `engine/account/helpers.asm:955`, 3 words, and `SettingsPhone_SlotMenu_FieldTable` at `engine/settings/slot_menu.asm:529-530`, 9 words).  The proof is the bank 3 idiom at 68:4570-4574 and `ld a,$03 / call TextEngine_Run` at 67:4FEF-4FF1.
-* **Still pending from the ramop8 note (existing names):** `engine/keyboard/keyboard.asm:2196,2215,2254,2273` (the `Kbd_TypeWaitsWithService` pattern) and `engine/dialog/dialog.asm:445,448`.
+* **Pending at this verification checkpoint (2026-10-05; reconciled below):** four keyboard map-upload pointers previously misattributed to `Kbd_TypeWaitsWithService`, plus two `Dialog_DrawButtonTiles` callers. The source line numbers here are historical.
+
+### Reconciliation of the six pending sites (2026-10-23)
+
+The two dialog callers were later closed in the ramop10 independent verification: both execute under WRAM bank 7 before dispatching to `Dialog_DrawButtonTiles` (`naming2_verify_ramop10.md`, sections 2 and 4). They are no longer open items.
+
+The four keyboard pointers are the tile-map and attribute-map sources in the current `Kbd_UploadPanelMap11Rows` (`55:6AF0`) and `Kbd_UploadPanelMap13Rows` (`55:6B51`) helpers. They are already named `wScreenTileMap + $240` and `wScreenAttrMap + $240` in `engine/keyboard/keyboard.asm`. Each helper explicitly selects WRAM bank 7 before those reads and restores the caller's saved bank on return. `Kbd_TypeWaitsWithService` (`55:6F2E`) only preserves HL, reads its type-indexed table, and returns the service flag; it does not change the WRAM bank. The following branch selects `Gfx_StartHDMAWithService` after zeroing A or `Gfx_StartHDMA` with the zero result, so the existing A=0 “keeps bank” effect applies. Thus the earlier consumer detector's stopping at the type lookup did not leave a generic or unnamed pointer in the maintained source. The old `keyboard.asm` line numbers no longer locate these operands; use the two routine labels and their bank/address comments.
+
+This reconciliation is a static source/effect-table review. It adds no natural-execution or hardware claim and changes no assembly or operand spelling.
 
 ### 6. Tool and tests
 
