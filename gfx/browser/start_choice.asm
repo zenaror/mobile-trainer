@@ -77,7 +77,7 @@ BrowserStart_AnimFrames:: ; 73:447F
 	db $0A, $A6, $DD, $DE, $DF, $E0, $0A, $0A, $D0, $AC, $AD, $AE, $98, $0A, $0A, $03
 	db $03
 
-; ---- data $4530-$45E0 (176 bytes) [PROBABLE] mixed data: CONFIRMED BG attribute suffix173 (offset2 of five 5x7 frames, consumer73:6290, 18 whole/19 union); last3 raw bytes unread in all69 natural traces, purpose HYPOTHESIS; whole176 never promoted
+; ---- data $4530-$45E0 (176 bytes) [PROBABLE] mixed data: CONFIRMED BG attribute suffix173 (offset2 of five 5x7 frames, consumer73:6290, 18 whole/19 union); last3 raw bytes have no read in the 70 saved dataaccess reports (finite corpus only), purpose HYPOTHESIS; whole176 never promoted
 
 BrowserStart_CandidateBgAttributeSuffixAndUnreadTail_4530:: ; 73:4530
 	db $03, $03, $03, $01, $01
@@ -105,7 +105,7 @@ BrowserStart_CandidateBgAttributeSuffixAndUnreadTail_4530:: ; 73:4530
 	db $03, $03, $03, $03, $03, $09, $09
 	db $03, $03, $03, $03, $03, $09, $09
 	db $03, $03, $03, $03, $03, $09, $09
-	db $00, $00, $00 ; unread tail3 retained raw; purpose HYPOTHESIS
+	db $00, $00, $00 ; no reads in the current saved 70-report corpus; retained raw, purpose HYPOTHESIS
 
 ; ---- gfx $45E0-$49E0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 73:5F5E: hl=$45E0 a=$73 c=$40 de=$8000 (dest VRAM $8000, vbank=0)
 
