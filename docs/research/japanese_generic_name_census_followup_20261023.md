@@ -1,5 +1,19 @@
 # Consolidated Japanese name and asset-path census follow-up (2026-10-23)
 
+## Published-checkout ledger reconciliation (2026-10-23)
+
+At published source commit `ad9600033cb97a0c8765dd46d1585244e4e52a42`, the official census
+found no generic address-shaped definitions or placeholder families, but it exposed stale
+row coordinates after later graphics-source extraction: the broad ledger had 25 missing and
+23 stale keys, including two newly named descriptor sources. The two sources
+`Notice_HeaderGfxSourceDescriptor14_6590` and `Notice_HeaderGfxSourceDescriptor15_6810`
+are now dispositioned as descriptive owner-qualified assets; their 4B addresses and table
+indices are supported by `notice_header_gfx_sources_4b_6590_6810.md`, while natural selection
+remains unproved. Both name ledgers now point at live source lines and addresses. The broad
+family contains 439 address-suffix names and 268 Candidate names, with 163 shared rows (544
+union rows); the 109 strict bank/address rows remain individually dispositioned. This is a
+ledger-coordinate correction and inventory refresh, not evidence of new semantic identification.
+
 ## Post-census batch completion (2026-10-23)
 
 This addendum supersedes the earlier statement below that ten `Data_BB_AAAA`
