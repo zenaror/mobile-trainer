@@ -88,3 +88,36 @@ fallback, reserved object, or safety behavior. The boundary is the current
 reconstruction's declared `INCBIN` extent; it does not prove an original
 object boundary. Natural execution, trace attribution, and rendered output
 remain unproved. The rename changes no bytes or section placement.
+
+## Direct read-PC witness (2026-10-23)
+
+A later GDB hardware-watchpoint capture directly attributed one read in the
+previously aggregated `48:69AB` range. In the ordinary-input `kbd_abook`
+scenario (18,216 frames; no forced call), the watchpoint first observed
+initialization of the tracer's `romRead[0x48]` bitmap, then watched the byte
+for physical bank offset `0x29AB` (CPU address `0x69AB`). The trace emitted:
+
+```text
+ROM_READ bank=48 offset=29ab frame=4416 ins_pc=47d6 ins_bank=48 value=00
+```
+
+The tracer records `insPc` and `insBank` before each SM83 instruction; its
+`hookLoad8` sets the watched read-bitmap byte only after the underlying ROM
+read returns. The captured PC is therefore the instruction responsible for
+this read: `48:47D6`, `ld a,[bc]`, in `Font_BlitGlyph8x16`. This confirms one
+specific event corresponding to the earlier aggregate range, rather than
+attributing every row in every historical trace. The source byte at
+`48:69AB` is `$00` in the immutable ROM.
+
+The run does not capture the original caller, BC, the font-code arguments, or
+the full ordered stream. It therefore does not prove which caller supplied the
+source pointer, whether the keyboard preview was that caller, or why the zero
+bytes are present. The object-identity, intent, rendered-output, global
+reachability, and hardware questions remain unknown. This is synthetic mGBA
+evidence using an ordinary input fixture, not hardware evidence.
+
+Reproduction artifacts and hashes are indexed by
+`.tmp/jp-zero48-pc-trace-20261023/RESULT.json` (SHA-256
+`6a14f72e2ac869ba0fe804b76544e3d16a095d7196cb4882fdd04a89c8abb3f5`). The
+record pins the original ROM, fixture, tracer binary/source, loaded libmgba,
+GDB command file, capture log, and relevant scenario outputs.

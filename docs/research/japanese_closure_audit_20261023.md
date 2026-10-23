@@ -88,3 +88,19 @@ This is an asset-representation check only. No assembly, asset, ROM, build outpu
 or runtime claim changed; the earlier build gates remain tied to the unchanged
 source checkpoint. All UNKNOWN/HYPOTHESIS entry, natural-selection, and
 name-to-window relationships above remain unresolved.
+
+## Direct Bank 48 read-PC witness (2026-10-23)
+
+A bounded GDB hardware-watchpoint run on the ordinary-input `kbd_abook`
+scenario captured one ROM read at bank `48`, physical offset `29AB` (CPU
+address `69AB`), frame 4416, with the pre-instruction PC at `48:47D6`.
+That instruction is `ld a,[bc]` inside `Font_BlitGlyph8x16`. The capture
+confirms the executing instruction for this one newly captured event. The
+older aggregate remains address-only; this rerun supplies one direct PC
+attribution for its `48:69AB` range. It does not identify the higher-level
+caller, recover BC or the font-code arguments, attribute every event in the
+historical aggregate, or establish the identity/intention of the zero bytes.
+The run is synthetic mGBA evidence; it is not a hardware test. Full command,
+tool/input/output hashes, and limits are recorded in [the Bank 48 reader
+note](font_reader_69ab_bounds_20261020.md#direct-read-pc-witness-2026-10-23) and
+`.tmp/jp-zero48-pc-trace-20261023/RESULT.json`.
