@@ -231,3 +231,29 @@ targets. The source rebuild remains byte-identical to the original; `sym-check`
 passes with 12,215 labels. Exact offsets, bytes, commands, and classification
 limits are recorded in
 [`japanese_confirm_screen_slot_records_20261023.md`](japanese_confirm_screen_slot_records_20261023.md).
+
+## Gate revalidation at canonical Japanese HEAD `e8efde2f` (2026-10-23)
+
+At `/home/rafael/_PROJETOS/Mobile Trainer`, branch
+`codex/japanese-census-ram-ledger`, HEAD `e8efde2f82e8fad660dffc76f133a36d4b6237ce`,
+the worktree was clean before the checks. `make` verified the immutable
+2,097,152-byte original (SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`),
+reported `SHA-256 OK`, and produced `RESULT: IDENTICAL`. `make sym-check`
+passed with 335 source files, 12,215 labels and 51 constants. `make
+palette-check` passed with 162 loads in 116 arrays, two documented over-reads
+and zero errors. `make png-check` passed with 418 tile sheets, four raw byte
+views, 37 font sheets and 95 screen PNGs.
+
+These gates confirm the current byte reconstruction, symbol address agreement,
+declared palette reads and PNG manifests. They do not establish semantic
+closure. In particular, the finite Bank 53 inventory still does not link the
+25 Pokémon names to the 25 candidate windows or prove natural selection or
+global used/unused status. The exact 70-scenario corpus result for
+`26:5344–537C`, `28:4BA6–4BC2` and `4B:76CC–76D0` remains a bounded negative,
+not a global reachability claim; the Bank 4B fourth zero record is now
+structurally named as PROBABLE, with purpose/use unknown. The remaining
+entry/role questions and limits are listed in the current worklists and
+cross-referenced above. Do not repeat those finite scans absent new positive
+evidence or changed scope. No source/assets/ROM bytes changed in this
+revalidation; English and the Operator ZIP remain paused.
