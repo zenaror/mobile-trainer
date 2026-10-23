@@ -63,6 +63,7 @@ Reference documents (current):
 | [`addressbook_help_script_natural_route_20261023.md`](research/addressbook_help_script_natural_route_20261023.md) | Natural menu entry, all 13 rendered AddressBook HelpScript screens, SRAM write span and return-to-menu limit |
 | [`mail_help_script_natural_route_20261023.md`](research/mail_help_script_natural_route_20261023.md) | Natural menu entry, all 31 rendered Mail HelpScript screens, SRAM write span and return-to-menu limit |
 | [`mail_first_use_id89_natural_route_20261023.md`](research/mail_first_use_id89_natural_route_20261023.md) | Natural first-use ID $89, 31 common Mail pages, nickname-only gate page and A686 0-to-1 transition |
+| [`mail_first_use_id8a_natural_route_20261023.md`](research/mail_first_use_id8a_natural_route_20261023.md) | Natural second-entry ID $8A, 13 tutorial screens, Mail-menu return, A687 0-to-1 transition, and distinct A89A/A89B counters 1-to-2 |
 | [`mobile_protocol.md`](research/mobile_protocol.md) | Mobile Adapter GB link protocol from the adapter side (libmobile), the reference for the Trainer's packet code |
 | [`mobile_trainer_product_notes.md`](research/mobile_trainer_product_notes.md) | product background, string and URL facts that help identify code, each with a source tag |
 | [`crystal_mobile_reference.md`](research/crystal_mobile_reference.md) | how Pokémon Crystal organises its Mobile Adapter code (a *different program*; names are the Crystal community's, documentation only) |
