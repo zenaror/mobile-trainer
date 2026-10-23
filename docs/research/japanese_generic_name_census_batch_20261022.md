@@ -23,7 +23,7 @@ All 546 rows were checked against the current definition, owner, block, and in-o
 - **Remaining symbol-census subsystems:** 112 accepted, with zero owner/definition mismatches, collisions, or missing references.
 - **Engine path-review subsystems:** 25 accepted, with zero owner/definition/reference mismatches or collisions.
 
-The corrected 112-row review also found 24 proposal evidence notes that needed wording fixes, without changing the names: eight gave the wrong LY immediate, four claimed a counter for NUL-terminated scans, and twelve copied an unrelated candidate-screen caveat. The final mapping records the reviewed evidence; the working proposal/review tables in ignored `.tmp/jp-generic-name-batch-20261022/` preserve the audit trail and input hashes.
+The corrected 112-row review also found 24 proposal evidence notes that needed wording fixes, without changing the names: eight gave the wrong LY immediate, four claimed a counter for NUL-terminated scans, and twelve copied an unrelated candidate-screen caveat. The final mapping records the reviewed evidence; the curated proposal/review tables in ignored `.tmp/jp-generic-name-batch-20261022-evidence/` preserve the audit trail and input hashes after the private build worktree was removed.
 
 The resulting 546 names are operational local labels only. Confidence describes static instruction evidence, not natural reachability, hardware execution, product purpose, or a full caller contract. The four replacements and all remaining uncertainties retain narrow wording.
 
