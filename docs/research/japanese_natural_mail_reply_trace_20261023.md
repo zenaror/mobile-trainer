@@ -38,8 +38,11 @@ are not claimed as natural coverage.
   shadow-stack anomaly and do not infer a conventional return contract from
   it.
 - All 36 instruction starts in `2D:6726–676F` executed in this natural-input
-  scenario. The trace did not identify an incoming call edge for that
-  fragment, so its entry mechanism and purpose remain open.
+  scenario. The same trace executed the sole direct source branch to the
+  fragment, `2D:66D3 jr nz, .l6726`, three times. Since the shadow callgraph
+  does not record conditional-branch edges, that caller relation is PROBABLE,
+  not a directly captured branch outcome. The operation's application
+  purpose remains open.
 
 The trace did not execute the distinct candidate fragment `26:5344–537C`.
 No other open entry/purpose candidate in the Japanese closure worklist was

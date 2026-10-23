@@ -209,8 +209,9 @@ MailAddr_Edit:: ; 2D:65B0
 
 .l6726 ; 2D:6726
 	; [CONFIRMED] 36 instruction starts executed in natural scenario zz_jp_inbox_explore_replay.
-	; Entry/caller identification remains open; the trace's shadow callgraph has no matching
-	; incoming call edge for this fragment.
+	; [PROBABLE] The same trace executed the sole direct source branch to this label,
+	; 2D:66D3 `jr nz, .l6726`, three times; the callgraph does not log branch outcomes.
+	; The operation's application purpose remains unidentified.
 	push bc
 	ld de, $020F
 	push af
