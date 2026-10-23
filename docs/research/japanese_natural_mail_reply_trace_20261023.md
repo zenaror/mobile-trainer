@@ -58,6 +58,30 @@ operation contract). This does not prove every possible value other than 1 or
 dynamic relation remains **PROBABLE**. No broader application purpose is
 claimed.
 
+## Replay follow-up: dialog call site observed (2026-10-23)
+
+The same ordinary-input scenario was replayed from the `tutorial_profile`
+save with screenshot events added at frames 21103 and 21104. The Japanese ROM,
+the existing resolved input and parent state were hash-checked in
+`.tmp/jp-reply-branch-capture-20261023/RESULT.json`; no `force` or `ramset`
+directive was added. Replay `coverage` and `callgraph` outputs are byte-identical
+to the committed scenario outputs (SHA-256 `7d8dd8c98d7f61391946e44c04fd7d10e1172bfb832c84c348b1c2d100dec0a4` and
+`77f4eb9eac1f45a2d763dd74db7929aa8f52cd7f1ab97984c96641543f477057`). The
+callgraph records `2D:6740 -> 00:06D1` three times, first at frame 21103;
+`2D:6740` is the `farcall Dialog_Show` instruction inside the block, while
+coverage records `2D:66D3` and `2D:6726` three times each, also first at frame
+21103. This confirms natural execution of the dialog call site in this replay.
+
+The screenshots at frames 21103 and 21104 have identical pixels (SHA-256
+`04dbfcfa2c49338f0b47331ae8f8799a97f3d4c442ce86f19bbdb95728532e49`); both
+show the address-entry view, with no modal prompt visible at those sample
+points. The callgraph records the far-call helper, not conditional-branch
+outcomes, and the screenshots do not establish whether a player-visible prompt
+persisted. Keep the natural edge `2D:66D3 -> 2D:6726` **PROBABLE**. The replay
+receipt retains the command, ROM/input/fixture/tool hashes, output hashes and
+the two inspected images; redundant replay outputs were removed after
+comparison.
+
 The trace did not execute the distinct candidate fragment `26:5344–537C`.
 No other open entry/purpose candidate in the Japanese closure worklist was
 reached by this scenario. The natural frame/name mapping for Bank 53 is also
