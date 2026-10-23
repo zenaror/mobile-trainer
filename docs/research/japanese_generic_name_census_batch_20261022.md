@@ -2,7 +2,7 @@
 
 ## Scope and decision
 
-This checkpoint consolidates the Japanese source review instead of treating each subsystem as a separate discovery. It is based on source commit `2d264633c846d44986ad42f15480c283261d3b91` in `/home/rafael/_PROJETOS/Mobile Trainer`; the older `/media/...` checkout was stale and is excluded. The English overlay and Operator ZIP were neither read nor changed; the English branch remains paused pending the Operator's explicit approval.
+This checkpoint consolidates the Japanese source review instead of treating each subsystem as a separate discovery. It is based on source commit `2d264633c846d44986ad42f15480c283261d3b91` in `/home/rafael/_PROJETOS/Mobile Trainer`; a previously used checkout was stale and is excluded. The English overlay and Operator ZIP were neither read nor changed; the English branch remains paused pending the Operator's explicit approval.
 
 The census enumerated every address-only local definition of the form `.lAAAA` in the maintained Japanese ASM/INC source set (333 files, excluding protected `engine/mail/sample_data.asm`). It counted **3,871 definitions** in three exhaustive partitions:
 
