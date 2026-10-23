@@ -77,7 +77,8 @@ returns and unmodeled writes. These results rule out only the tracked cases
 in the indexed bytes; they do not exclude pointers assembled across
 control-flow edges, loaded from memory/stack, computed at runtime, or writes
 in code absent from the index, and do not prove the absence of all indirect
-MBC5 writes.
+MBC5 writes. The static pass itself did not justify a new trace; the later
+focused macro experiment below tests a concrete normal reply route.
 
 These routes do not demonstrate natural entry into any candidate. Reaching a
 different physical bank through these nominal continuations would require an
@@ -85,8 +86,48 @@ unmodeled state divergence such as a high-bank change, a mapper/shadow mismatch,
 stack or trampoline corruption, or external/IRQ interference; no natural
 producer of such state was found. This is not a proof of universal impossibility. A useful next runtime
 artifact would need to record physical ROM bank, ROM-bank shadows, PC, SP and
-stack words together with the natural caller/producer. No new trace is
-justified by the present static evidence alone.
+stack words together with the natural caller/producer. The static-only review
+did not identify such a producer; the later focused macro test below exercises
+one concrete UI reply path but does not resolve a candidate root.
+
+### Focused ASCII-sender reply trace (2026-10-23)
+
+A later macro-driven, unforced mGBA run exercised the UI reply path for the
+ASCII sender in received mail 2. It used the immutable original ROM
+(2,097,152 bytes; SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`),
+the unchanged tracked `tools/trace/run_trace.py` and `mgba_trace.c` (SHA-256
+`51bac8391d39f36363fd2b3fc7090b780077590ef0b67a1a343bbd31bdea9a41` and
+`23d57ccc25ba134332ba3c40f1e2bce3e2282b3b059a8eb14c3737eae0560fda`), and
+the existing `mail_receive` fake-adapter fixture as its parent. Command in the
+private snapshot: `python3 tools/trace/run_trace.py --from-macro --only
+mail_reply_ascii`. The run completed 11,060 frames and 57,326,853
+instructions, with 16,661 ROM instruction starts across 26 banks and no harness
+`force` directive.
+
+The trace executes `Mailbox_ReplyToRecord` at `25:54A7` once, through the
+callgraph edge `25:4591 -> 25:54A7`. It does not execute
+`MailReply_ComposeFromRecord` at `2B:6CF5`; the preceding `2B:6CF4` RET is
+executed 16 times. This is positive evidence for the exercised reply route and
+negative coverage only for this scenario. It does not establish that
+`2B:6CF5` is unreachable or identify every possible caller. The trace also
+executes `2D:511E` four times; that is a different physical ROM bank and is not
+evidence for `29:511E`. No candidate natural-entry status changes: all four
+roots remain UNKNOWN.
+
+The retained local evidence is `.tmp/jp-ascii-draft-pass-20261023/`.
+`.tmp/jp-ascii-draft-pass-20261023/traces/inputs/mail_reply_ascii.macro` has SHA-256
+`6d8d175da48896680a3a5f0719ed135f97d01f7c8cb88e21e73e0c234bd4670d`; the
+coverage file hash is
+`6878e4f2857341f8cd4dc622c1c1dd2eb9bef0f86963f48c6d83a4dd5039a8ce`, and
+the callgraph file hash is
+`f54deb854a57b3f8f9ef94c8c228cc0b97363ef207f5f7720fa7e5be89892a8c`. The
+tracer and libmgba binaries are pinned there by SHA-256
+`95823d1793706b7c1ee6fe512cef99bfd024df87d77035ddb689de0dc1e0083a` and
+`b44dfd7edb816fefa892c10dc2563d5d4bbe871d68702a8dcc3dde2532959719`.
+This is emulator evidence with scripted input and a synthetic adapter, not a
+physical-device observation. It does not cover the ASCII draft-name renderer;
+that branch was not entered by this macro.
 
 ## Bank 53 names and frame artwork
 
