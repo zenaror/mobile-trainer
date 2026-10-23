@@ -58,7 +58,7 @@ Blocks of the graphics regions that are not converted (the note / label does not
 |---|---:|---:|
 | data without graphics evidence in the note | 25 | 6564 |
 | object / animation tables (by label name) | 94 | 3629 |
-| HYPOTHESIS data (mostly runs of $FF / $00 padding candidates) | 24 | 1042 |
+| HYPOTHESIS data (content type or purpose not established) | 14 | 988 |
 | sprite / OAM frame records, animation scripts, object tables (not tile art) | 20 | 437 |
 | tail (less than 16 bytes) after a converted tile block | 14 | 153 |
 | gfx fragments of fewer than 4 whole tiles | 3 | 77 |

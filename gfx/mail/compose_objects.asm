@@ -23,7 +23,7 @@ MailBodyCandidate_Anim0OamPieces:: ; 29:62C2
 	db $02, $08, $08, $04, $02, $08, $10, $05, $02, $08, $18, $06, $02, $10, $00, $07
 	db $02, $10, $08, $2A, $02, $10, $10, $2B, $02, $10, $18, $2C, $02
 
-; ---- data $62EF-$62F2 (3 bytes) [HYPOTHESIS] 3-byte animation script record 01 00 04 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
+; ---- data $62EF-$62F2 (3 bytes) [CONFIRMED] sprite animation script: count then (frame-table index, slot-update countdown reload) pairs; Sprite_LoadObjectEntry/Sprite_StepAndDrawSlot read this format and 00:0B71 uses the index in the frame-pointer table. Static table reference; caller and natural display are unproved.
 
 MailBodyCandidate_Anim0TimingSequence:: ; 29:62EF
 	db $01, $00, $04
@@ -45,7 +45,7 @@ MailBodyCandidate_Anim4OamPieces1:: ; 29:6307
 	db $04, $FF, $00, $08, $01, $FF, $08, $09, $01, $00, $1A, $0A, $01, $00, $22, $0B
 	db $01
 
-; ---- data $6318-$631D (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
+; ---- data $6318-$631D (5 bytes) [CONFIRMED] sprite animation script: count then (frame-table index, slot-update countdown reload) pairs; Sprite_LoadObjectEntry/Sprite_StepAndDrawSlot read this format and 00:0B71 uses the index in the frame-pointer table. Static table reference; caller and natural display are unproved.
 
 MailBodyCandidate_Anim4TimingSequence:: ; 29:6318
 	db $02, $00, $2E, $01, $08
@@ -67,7 +67,7 @@ MailBodyCandidate_Anim8OamPieces1:: ; 29:6332
 	db $04, $00, $1A, $08, $01, $00, $22, $09, $01, $FF, $00, $0A, $01, $FF, $08, $0B
 	db $01
 
-; ---- data $6343-$6348 (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
+; ---- data $6343-$6348 (5 bytes) [CONFIRMED] sprite animation script: count then (frame-table index, slot-update countdown reload) pairs; Sprite_LoadObjectEntry/Sprite_StepAndDrawSlot read this format and 00:0B71 uses the index in the frame-pointer table. Static table reference; caller and natural display are unproved.
 
 MailBodyCandidate_Anim8TimingSequence:: ; 29:6343
 	db $02, $00, $2E, $01, $08

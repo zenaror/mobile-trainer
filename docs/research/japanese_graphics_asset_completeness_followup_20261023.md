@@ -39,3 +39,11 @@ palette, and 160-byte tilemap/attribute prefix); `4B:7AD0..7DD0` crosses a 512-b
 64-byte palette, and 192-byte tilemap prefix. The four zero bytes at `4B:76CC..76D0` are outside
 the three table pointers; the confirmed slot argument is 0–2. Their purpose remains unknown, so
 they are not relabeled as padding.
+
+## Sprite animation script contracts
+
+The earlier `gfx/README.md` row “HYPOTHESIS data (mostly runs of `$FF` / `$00` padding candidates)” was misleading: its 24 groups included referenced animation scripts and a tilemap-like candidate, not only padding. `tools/gfx_export.py` now describes that category neutrally as data whose content type or purpose is not established.
+
+Static review of `home/sprites.asm` establishes the script mechanics directly. `Sprite_LoadObjectEntry` stores the script pointer from the second word of an object-table entry in slot bytes 6–7 and initializes the first frame/countdown pair. `Sprite_StepAndDrawSlot` reads byte 0 as the pair count, advances the slot's pair index, reads the selected two-byte pair, writes its first byte as the frame-table index and its second as the countdown reload. The countdown is decremented on each slot update; `00:0B71` uses the frame-table index to select the OAM frame pointer. This confirms the binary record contract, not that a particular candidate table has a natural caller or is displayed.
+
+That contract resolves ten source spans as **CONFIRMED sprite-animation script layouts**: seven entries in `gfx/address_book/save_sender_address.asm` (`2A:52BE`, `52E7`, `52FD`, `5397`, `5451`, `5475`, `5490`) referenced by `SpriteSlotAnimationEntryTable_2A_5220`, and three in `gfx/mail/compose_objects.asm` (`29:62EF`, `6318`, `6343`) referenced by `MailBodyCandidate_AnimEntries` at `29:6290`. All frame indices in these scripts fit their associated pointer-list extents. The callers and natural display of those candidate tables remain unproved. The adjacent orphan at `2A:545C`, the unreferenced scripts in the browser/top-menu owners, and other unknown data retain their existing confidence; no broad use/unused claim follows.

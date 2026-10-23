@@ -1169,7 +1169,7 @@ def leftovers():
             elif why.startswith('object table label'):
                 why = 'object / animation tables (by label name)'
             elif why == 'HYPOTHESIS data':
-                why = 'HYPOTHESIS data (mostly runs of $FF / $00 padding candidates)'
+                why = 'HYPOTHESIS data (content type or purpose not established)'
             elif why == 'data, no graphics evidence' and re.match(r'tilemap\+attr|tail of the|\d+ x 4-byte entries|\d+ records x 4', note):
                 why = 'tilemap+attr blocks clipped by the analysis (size differs from 2 x rows x cols) and 4-byte tile/attr record lists'
             elif why == 'data, no graphics evidence':

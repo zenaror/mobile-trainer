@@ -61,7 +61,7 @@ SaveSenderAddrCandidate_Entries0To3_Frame1:: ; 2A:52A9
 	db $05, $FE, $01, $00, $00, $FE, $09, $01, $00, $FE, $11, $02, $00, $06, $06, $03
 	db $00, $06, $0E, $04, $00
 
-; ---- data $52BE-$52C1 (3 bytes) [HYPOTHESIS] animation script: count=1 then 1 x 2 bytes (00 04), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+; ---- data $52BE-$52C1 (3 bytes) [CONFIRMED] sprite animation script: count then (frame-table index, slot-update countdown reload) pairs; Sprite_LoadObjectEntry/Sprite_StepAndDrawSlot read this format and 00:0B71 uses the index in the frame-pointer table. Static table reference; caller and natural display are unproved.
 
 SaveSenderAddrCandidate_Entries0To3_Script:: ; 2A:52BE
 	db $01, $00, $04
@@ -83,7 +83,7 @@ SaveSenderAddrCandidate_Entries4To7_Frame1:: ; 2A:52D6
 	db $04, $00, $08, $0D, $00, $00, $10, $0E, $00, $08, $08, $2E, $00, $08, $10, $2F
 	db $00
 
-; ---- data $52E7-$52EA (3 bytes) [HYPOTHESIS] animation script: count=1 then 1 x 2 bytes (00 04), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+; ---- data $52E7-$52EA (3 bytes) [CONFIRMED] sprite animation script: count then (frame-table index, slot-update countdown reload) pairs; Sprite_LoadObjectEntry/Sprite_StepAndDrawSlot read this format and 00:0B71 uses the index in the frame-pointer table. Static table reference; caller and natural display are unproved.
 
 SaveSenderAddrCandidate_Entries4To7_Script:: ; 2A:52E7
 	db $01, $00, $04
@@ -99,7 +99,7 @@ SaveSenderAddrCandidate_Entries8To11_Frame0:: ; 2A:52EC
 	db $04, $00, $08, $01, $00, $00, $10, $02, $00, $08, $08, $03, $00, $08, $10, $04
 	db $00
 
-; ---- data $52FD-$5300 (3 bytes) [HYPOTHESIS] animation script: count=1 then 1 x 2 bytes (00 04), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+; ---- data $52FD-$5300 (3 bytes) [CONFIRMED] sprite animation script: count then (frame-table index, slot-update countdown reload) pairs; Sprite_LoadObjectEntry/Sprite_StepAndDrawSlot read this format and 00:0B71 uses the index in the frame-pointer table. Static table reference; caller and natural display are unproved.
 
 SaveSenderAddrCandidate_Entries8To11_Script:: ; 2A:52FD
 	db $01, $00, $04
@@ -142,7 +142,7 @@ SaveSenderAddrCandidate_Entries12To15_Frame4:: ; 2A:537E
 	db $06, $FD, $05, $19, $02, $FD, $0D, $1A, $02, $FD, $15, $1B, $02, $05, $05, $1C
 	db $02, $05, $0D, $1D, $02, $05, $15, $1E, $02
 
-; ---- data $5397-$53A2 (11 bytes) [HYPOTHESIS] animation script: count=5 then 5 x 2 bytes (00 05 01 05 02 05 03 03 04 12), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+; ---- data $5397-$53A2 (11 bytes) [CONFIRMED] sprite animation script: count then (frame-table index, slot-update countdown reload) pairs; Sprite_LoadObjectEntry/Sprite_StepAndDrawSlot read this format and 00:0B71 uses the index in the frame-pointer table. Static table reference; caller and natural display are unproved.
 
 SaveSenderAddrCandidate_Entries12To15_Script:: ; 2A:5397
 	db $05, $00, $05, $01, $05, $02, $05, $03, $03, $04, $12
@@ -186,7 +186,7 @@ SaveSenderAddrCandidate_Entries16To19_Frame4:: ; 2A:542C
 	db $02, $FE, $0D, $14, $02, $FE, $15, $15, $02, $06, $05, $16, $02, $06, $0D, $17
 	db $02, $06, $15, $18, $02
 
-; ---- data $5451-$545C (11 bytes) [HYPOTHESIS] animation script: count=5 then 5 x 2 bytes (00 05 01 05 02 05 03 03 04 12), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+; ---- data $5451-$545C (11 bytes) [CONFIRMED] sprite animation script: count then (frame-table index, slot-update countdown reload) pairs; Sprite_LoadObjectEntry/Sprite_StepAndDrawSlot read this format and 00:0B71 uses the index in the frame-pointer table. Static table reference; caller and natural display are unproved.
 
 SaveSenderAddrCandidate_Entries16To19_Script:: ; 2A:5451
 	db $05, $00, $05, $01, $05, $02, $05, $03, $03, $04, $12
@@ -211,7 +211,7 @@ SaveSenderAddrCandidate_Entries20To23_Frame0:: ; 2A:5463
 SaveSenderAddrCandidate_Entries20To23_Frame1:: ; 2A:546C
 	db $02, $07, $00, $0D, $43, $07, $08, $0E, $43
 
-; ---- data $5475-$547A (5 bytes) [HYPOTHESIS] animation script: count=2 then 2 x 2 bytes (00 0f 01 14), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+; ---- data $5475-$547A (5 bytes) [CONFIRMED] sprite animation script: count then (frame-table index, slot-update countdown reload) pairs; Sprite_LoadObjectEntry/Sprite_StepAndDrawSlot read this format and 00:0B71 uses the index in the frame-pointer table. Static table reference; caller and natural display are unproved.
 
 SaveSenderAddrCandidate_Entries20To23_Script:: ; 2A:5475
 	db $02, $00, $0F, $01, $14
@@ -231,7 +231,7 @@ SaveSenderAddrCandidate_Entries24To27_Frame0:: ; 2A:547E
 SaveSenderAddrCandidate_Entries24To27_Frame1:: ; 2A:5487
 	db $02, $06, $00, $0D, $03, $06, $08, $0E, $03
 
-; ---- data $5490-$5495 (5 bytes) [HYPOTHESIS] animation script: count=2 then 2 x 2 bytes (00 0f 01 14), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+; ---- data $5490-$5495 (5 bytes) [CONFIRMED] sprite animation script: count then (frame-table index, slot-update countdown reload) pairs; Sprite_LoadObjectEntry/Sprite_StepAndDrawSlot read this format and 00:0B71 uses the index in the frame-pointer table. Static table reference; caller and natural display are unproved.
 
 SaveSenderAddrCandidate_Entries24To27_Script:: ; 2A:5490
 	db $02, $00, $0F, $01, $14
