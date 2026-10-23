@@ -55,6 +55,14 @@ At the same checkout, `make` reports `SHA-256 OK` and `RESULT: IDENTICAL` for th
 
 The correction changes only documentation ledgers and counts. It does not add semantic claims, modify Japanese source/assets, or resume the English overlay/ZIP.
 
+## Current direct-call entry-to-symbol reconciliation at `90c2a6e4` (2026-10-23)
+
+A fresh `tools/mapper.py` run against the immutable Japanese ROM and the current 70-scenario trace corpus produced 414 bank-qualified `Function_BB_AAAA` rows for decoded direct-call/far-call entry candidates; all 414 carry the mapper note `entry proven: target of an executed call/far call`. Each row maps to an exact global symbol in the current Japanese `build/mobile_trainer.sym`; a separate comparison found 414/414 matches, zero missing global symbols, and zero generic function-prefix symbols among those matches. `make` confirms the 2,097,152-byte rebuild is `RESULT: IDENTICAL` to original SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`; `make sym-check` passes with 335 source files, 12,212 labels and 51 constants.
+
+The mapper exits with status 1 because it reports one executed-start mismatch at `2A:4440`; it has zero sweep failures, boundary crossings or tiling problems. This is the previously documented mid-instruction edge `2A:5760 CALL $4441`, which targets the second byte of the executed `ld a,$00` at `2A:4440`. The current source label `.l4440` and the trace's length-2 instruction row at `2A:4440` preserve the aligned loop decode; `2A:4441` is not established as an independent function. See [`code_map.md`](code_map.md#5-limits-and-unresolved-constructs) and [`original_closure_followup_20261021.md`](original_closure_followup_20261021.md#current-numeric-call-target-review-2026-10-22).
+
+This reconciliation establishes symbol coverage only for the mapper's 414 direct call/far-call entry candidates. It does not validate the semantics of every name, identify every unlabelled code span, or close computed/indirect entry paths. Reproduction and pinned inputs/outputs are retained in `.tmp/jp-current-code-map-20261023/` and `.tmp/jp-code-entry-symbol-reconciliation-20261023/` (`MANIFEST.json` SHA-256 `97c2b028b24e294039ef2df1ccd467dac9d30f68220da1b8b18dabd19d619cfc`).
+
 ## Closure boundary
 
 This closes the current **verifiable Japanese naming census and finite Bank
