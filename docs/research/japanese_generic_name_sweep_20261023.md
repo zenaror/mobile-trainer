@@ -75,6 +75,23 @@ The names below are not known functions or resources. Each span is outside the d
 
 These ten are the only exact, currently defined generic global names in this census. A lack of a static lexical reference is not proof of non-use, and opcode appearance is not proof of a routine entry; computed access, external entry or new trace evidence could change a future disposition.
 
+### Natural-trace cross-check of the ten neutral data spans (2026-10-23)
+
+The ten intervals above were cross-checked against the current 69-scenario natural corpus using `analysis/coverage_union.tsv` for executed instruction starts and every `traces/detail/*/dataaccess.tsv` for ROM data-read ranges. No candidate byte was an executed instruction start in its physical bank, and no natural `rom_read` interval overlapped a candidate span. The 48-byte `Data_5F_6980` interval was checked as `[6980,69B0)`; each other interval is one byte. Forced traces were excluded. This adds no semantic name and does not prove universal non-use, computed access outside the corpus, or that any byte is safe to classify as code.
+
+| Label | Natural instruction-start hits | Natural ROM-read overlaps |
+|---|---:|---:|
+| `Data_72_63D7` | 0 | 0 |
+| `Data_2F_4094` | 0 | 0 |
+| `Data_72_6711` | 0 | 0 |
+| `Data_24_4BCC` | 0 | 0 |
+| `Data_4E_5390` | 0 | 0 |
+| `Data_23_46CC` | 0 | 0 |
+| `Data_1C_401C` | 0 | 0 |
+| `Data_7F_4C77` | 0 | 0 |
+| `Data_7F_51ED` | 0 | 0 |
+| `Data_5F_6980` | 0 | 0 |
+
 ## Local-label coverage and next pass
 
 The historical full reconciliation began with 3,325 `.lAAAA` labels and reviewed them in three disjoint partitions (2,024 + 1,157 + 144). The prior complete-owner checkpoint left 3,026 labels at revision `7134919c`; 252 numeric labels had reduced that count to 2,774 before the current Bank 29 pass. The ten palette labels below were located by joining every current `.lAAAA` definition to the historical owner ledgers on source path and bank/address, rather than label or owner; all 2,774 addresses matched, with ten owner changes and no unmatched rows. After renaming those ten, 2,764 `.lAAAA` anchors remain outside the protected 19. Historical KEEP dispositions for the remaining labels were not re-reviewed in this pass. The complete short-label inventory and final current names remain in the 500-row full decision ledger.
