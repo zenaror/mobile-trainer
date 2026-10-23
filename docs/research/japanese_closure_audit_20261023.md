@@ -244,6 +244,11 @@ passed with 335 source files, 12,215 labels and 51 constants. `make
 palette-check` passed with 162 loads in 116 arrays, two documented over-reads
 and zero errors. `make png-check` passed with 418 tile sheets, four raw byte
 views, 37 font sheets and 95 screen PNGs.
+`python3 tools/gfx_export.py check` accepted 988 catalog assets (418 exact tile
+PNG sources, four raw byte-view PNG sources, 39 font sheets, one view-only PNG
+and 526 assets without PNG); `python3 tools/png_rules.py mk-check` accepted
+987 rules. These tools report different declared categories, so their counts
+are retained independently.
 
 These gates confirm the current byte reconstruction, symbol address agreement,
 declared palette reads and PNG manifests. They do not establish semantic
@@ -257,3 +262,26 @@ entry/role questions and limits are listed in the current worklists and
 cross-referenced above. Do not repeat those finite scans absent new positive
 evidence or changed scope. No source/assets/ROM bytes changed in this
 revalidation; English and the Operator ZIP remain paused.
+
+## Japanese name-disposition ledger reconciliation at `19ad6ba1` (2026-10-23)
+
+Running `python3 tools/japanese_name_census.py` at the current HEAD found one
+stale and one missing row in each address-suffix ledger view. The cause was a
+six-line source shift in
+`gfx/settings/notice_headers_and_phone_confirm_continue_bank4b.asm` after the
+four slot-cell record labels were split out: the existing
+`Tilemap_SettingsPhone_ContinuePrompt_4B_7D10` label moved from source line 77
+to line 83, with its bank/address and semantics unchanged. Both the 108-row
+strict suffix ledger and the 542-row broad union ledger were corrected to
+line 83; no ROM source or asset changed.
+
+The census then passed at HEAD `19ad6ba17cdd120558967fba44a7dee70aaf9b30`:
+349 Japanese ASM/INC files, 1,879 GFX paths, 2,210 active source/resource
+paths, 15/15 coverage families, 2,764/2,764 local anchors, 108/108 strict
+suffix rows, 542/542 broad rows (436 suffix and 269 `Candidate`, overlapping
+by 163), and 786/786 RAM equates. All ledgers have zero missing, stale,
+duplicate, incomplete, flag-mismatched, or address-mismatched rows; there are
+zero generic function prefixes, zero address-only global labels, and zero
+unreviewed generic-marker labels. This closes the declared census scope only;
+it does not prove that every code span, entry, data purpose, or frame is
+semantically known.
