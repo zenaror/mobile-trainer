@@ -1,6 +1,6 @@
 # Japanese maintained-tree generic-name sweep (2026-10-23)
 
-This document preserves both historical inventories and the current result; dated baselines below must not be read as the present source state. The current source snapshot is `bf66b260740f369b45e3f944998aab6f6631ec46` (docs-only commit after the verified Japanese source checkpoint). A complete tracked-source/path rerun at that snapshot found 334 maintained Japanese ASM/INC files, zero strict address-only global definitions, zero `.lAAAA`/`.loop`/`.skip`/`.done`/`.start` definitions, 1,859 tracked GFX paths with zero `bankNN` components and zero strict address-only asset basenames. The ten formerly matching `Data_BB_AAAA` definitions were replaced in the recorded batch; their exact old/new mapping is linked below. These are lexical results, not semantic closure. English translation sources and the Operator ZIP remain paused and were not read.
+This document preserves both historical inventories and the current result; dated baselines below must not be read as the present source state. The current source snapshot is `519dc5c190337d8cce7f359f4d09e622b8c71083`; subsequent commits changed documentation only. Reproduce its census with `python3 tools/japanese_name_census.py`: 349 non-protected tracked Japanese ASM/INC files (333 in the six maintained source roots plus RAM, constants and root support), zero strict address-only global definitions, zero `.loop`/`.skip`/`.done`/`.start` definitions, 2,356 retained `.lAAAA` labels, 786 numeric RAM equates, and 1,859 tracked GFX paths with zero `bankNN` components and zero strict address-only asset basenames. The script excludes `engine/mail/sample_data.asm` before reading it and does not inspect language overlays. The ten formerly matching `Data_BB_AAAA` definitions were replaced in the recorded batch; their exact old/new mapping is linked below. These are lexical results, not semantic closure. English translation sources and the Operator ZIP remain paused and were not read.
 
 ## Unified census and dispositions
 
@@ -57,6 +57,8 @@ bounded workstreams.
 
 ### Repeatable audit boundary
 
+Run `python3 tools/japanese_name_census.py` to reproduce the current strict lexical census across all 349 tracked Japanese ASM/INC files and GFX paths; add `--list` to print all matches, including the retained local/RAM inventories. It is read-only and does not classify names semantically.
+
 Before opening a new generic-name pass, compare its candidates to this full tracked-tree census and existing decision ledgers. Re-run the same lexical families across all 349 ASM/INC files and the path inventory only when source state or scope changes; do not restart a directory-sized or per-pattern queue. Strict address-only names, broad ordinal suffixes, confidence-qualified uncertainty words, and resource ordinals are separate classes and must not be conflated. A newly discovered candidate must include owner, bank/address where applicable, all consumers/references, evidence level, and disposition before edits. The ten structurally named but evidence-limited data/opcode spans, 2,356 individually retained local anchors, 2,412 broad ordinal flags, and Bank 53 name-to-frame/natural-use questions remain bounded. All 41 tile ordinals were replaced with destination names; the three reused source spans name both proven destinations, and five descriptive tilemap labels remain owner-qualified. The lexical and row-level local-anchor reviews are complete for their stated scope; semantic interpretation remains bounded by the evidence recorded in the ledgers.
 
 The lexical definitions behind the census are intentionally explicit. Apply them to symbol *definitions* after removing comments, then inspect all refs/consumers before classifying a hit:
@@ -107,7 +109,7 @@ At the historical snapshot, these names were not established functions or resour
 
 At that pre-batch snapshot, these ten were the exact generic global names. They are no longer current definitions. A lack of a static lexical reference is not proof of non-use, and opcode appearance is not proof of a routine entry; computed access, external entry or new trace evidence could change a future disposition.
 
-### Natural-trace cross-check of the ten neutral data spans (2026-10-23)
+### Historical natural-trace cross-check of the ten pre-batch data spans (2026-10-23)
 
 The ten intervals above were cross-checked against the current 69-scenario natural corpus using `analysis/coverage_union.tsv` for executed instruction starts and every `traces/detail/*/dataaccess.tsv` for ROM data-read ranges. No candidate byte was an executed instruction start in its physical bank, and no natural `rom_read` interval overlapped a candidate span. The 48-byte bank-5F interval was checked as `[6980,69B0)`; the bank-2F opcode-shaped span is three bytes; the other eight spans are one byte each (59 bytes total). Forced traces were excluded. This adds no semantic name and does not prove universal non-use, computed access outside the corpus, or that any byte is safe to classify as code.
 
