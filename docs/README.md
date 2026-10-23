@@ -59,6 +59,7 @@ Reference documents (current):
 | [`help_script_stream_map_20261020.md`](research/help_script_stream_map_20261020.md) | Static bank 6C HelpScript command grammar, complete bounded stream map, label corrections and reachability limits |
 | [`help_menu_unlock_natural_routes_20261023.md`](research/help_menu_unlock_natural_routes_20261023.md) | Natural save-state comparison and static SRAM gates for the inspected Help menu captions; all-topic reachability remains open |
 | [`homepage_help_script_natural_route_20261023.md`](research/homepage_help_script_natural_route_20261023.md) | Natural menu entry, all 14 rendered HomePage HelpScript screens, SRAM write span and return-to-menu limit |
+| [`pagelist_help_script_natural_route_20261023.md`](research/pagelist_help_script_natural_route_20261023.md) | Natural menu entry, all 7 rendered PageList HelpScript screens, SRAM write span and return-to-menu limit |
 | [`mobile_protocol.md`](research/mobile_protocol.md) | Mobile Adapter GB link protocol from the adapter side (libmobile), the reference for the Trainer's packet code |
 | [`mobile_trainer_product_notes.md`](research/mobile_trainer_product_notes.md) | product background, string and URL facts that help identify code, each with a source tag |
 | [`crystal_mobile_reference.md`](research/crystal_mobile_reference.md) | how Pokémon Crystal organises its Mobile Adapter code (a *different program*; names are the Crystal community's, documentation only) |
