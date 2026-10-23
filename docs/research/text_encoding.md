@@ -90,7 +90,7 @@ Entry `00:0ED3` (a = bank, HL = string); loop at `00:0EDD` reads a byte; `>= 0x2
 | 1F | 00:100D | FFBC += imm8 | effect CONFIRMED |
 | 08, 0A-0C, 0E-1B | 00:0F9D | same handler as 00 (terminates) | CONFIRMED (dispatch table entries) |
 
-`constants/charmap.asm` exports these as `CONST_TXT_*`. The HTML pages (banks 3D/3E) are not run through this interpreter but through a separate tag scanner at `00:1119` that recognises `>` (0x3E), `=` (0x3D), `"` (0x22), `'` (0x27) and NUL (PROBABLE, only skimmed).
+`constants/charmap.asm` exports these as `CONST_TXT_*`. The HTML pages (banks 3D/3E) use a separate attribute scanner at `00:1119`; its static cursor, keyword, value-copy and terminator behavior is documented in [`html_attribute_scanner_20261023.md`](html_attribute_scanner_20261023.md). This scanner is distinct from the main text-control interpreter.
 
 ### 4.1 Message records in bank 72: located list and record reader
 
@@ -200,12 +200,12 @@ Many screens (banks 4A, 4B, 4D, 50, 51, 56, 58, 5B-63, 66, 6A ...) use **pre-ren
 
 1. Expand the bounded bank6C `help` emulator sample: one ordinary-input route from the saved `tutorial_profile` state now has matching replayed coverage/data-access tables and inspected screen captures (including a fourth-entry capture with `??????`). Other topic/page routes, variable-state values, complete rendered glyph output, and physical-hardware behavior remain open (section6 and `help_script_stream_map_20261020.md`).
 2. The meaning of the constant first header byte `$86` in bank72 remains unproved. Literal, branch-composed and state-derived argument values at all identified call sites are inventoried in sections4.1–4.2 and fit their lists; the routine itself has no index checks for other inputs. The six cursor-table paths, present record types, second-byte layout selection and third-byte initial result are statically mapped in section4.1. Bank6C runtime topic reachability and rendered output remain open (section6); its command boundaries and 13-byte final-topic tail are mapped separately.
-3. HTML tag scanner semantics (`00:1119-12xx`).
+3. The scanner's Shift-JIS lead/trail branches at `00:1119` remain PROBABLE because existing traces did not execute them; natural reachability and input/buffer safety are not established. See [`html_attribute_scanner_20261023.md`](html_attribute_scanner_20261023.md).
 4. Whether the stray `0A` after `0D` in some strings (e.g. `19:447C`) is handled by the interpreter (table maps `0A` to the terminating handler).
 
 ## 10. Verifier notes (adversarial re-check)
 
-Independently re-derived from the ROM bytes: lead-byte chain (00:0F31), control table and all handler addresses (00:0EF0-1030), the SJIS-to-JIS conversion and glyph address arithmetic (7F:4072/40B9/41D0; glyphs for あいうえお/モバイルトレーナー/通信正差 rendered and read correctly, Latin font `MAIL FROM:<abc> Content-Length: 123 \~` rendered correctly), the 55 HTML records and the 55-entry index (3F:4012), and every non-bank-6C string decode (own cp932 decode with 5C=yen, 7E=overline matched all strings byte for byte). Not verified: the meaning of the text-engine cursor variable names, the tag scanner at 00:1119.
+Independently re-derived from the ROM bytes: lead-byte chain (00:0F31), control table and all handler addresses (00:0EF0-1030), the SJIS-to-JIS conversion and glyph address arithmetic (7F:4072/40B9/41D0; glyphs for あいうえお/モバイルトレーナー/通信正差 rendered and read correctly, Latin font `MAIL FROM:<abc> Content-Length: 123 \~` rendered correctly), the 55 HTML records and the 55-entry index (3F:4012), and every non-bank-6C string decode (own cp932 decode with 5C=yen, 7E=overline matched all strings byte for byte). The tag scanner's static contract is now recorded separately; the main text-engine cursor naming remains unverified.
 Corrections made: see section 9 of `bank_survey.md` (72:502B structure, bank 6C `ED`, string trimming and status caps).
 
 ### Verified original bank6C reader integration (2026-10-11)
