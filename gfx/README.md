@@ -45,10 +45,10 @@ gfx/assets.tsv                                 one line per asset: kind, size, b
 | raw bytes (conditional byte-view codec; purpose unknown) (`.bin`) | 4 | 80 |
 | validity bitmap (`.bin`) | 1 | 8198 |
 | tile-index map (`.tilemap`) | 181 | 52098 |
-| 2bpp tiles (`.2bpp`) | 412 | 365088 |
-| **all** | **982** | **626170** |
+| 2bpp tiles (`.2bpp`) | 413 | 365792 |
+| **all** | **983** | **626874** |
 
-PNGs: 412 exact rgbgfx sources (`.png`), 4 explicit raw byte-view codec sources (`.png`, purpose unknown), 39 font binaries with an editable sheet PNG (`.png`), 1 view-only picture (`_view.png`).
+PNGs: 413 exact rgbgfx sources (`.png`), 4 explicit raw byte-view codec sources (`.png`, purpose unknown), 39 font binaries with an editable sheet PNG (`.png`), 1 view-only picture (`_view.png`).
 
 ## Still `db`
 
@@ -1094,6 +1094,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `data_mail_title_tilemap_attr.attrmap` | attribute map | 360 | 2C:4F98 | CONFIRMED | - | 20x18 | `gfx/mail/mail_title_entry.asm` |
 | `mail_title_bg.pal` | RGB palette | 64 | 2C:5100 | PROBABLE | - | - | `gfx/mail/mail_title_entry.asm` |
 | `mail_title_tiles8000.2bpp` | 2bpp tiles | 16 | 2C:5140 | PROBABLE | exact | - | `gfx/mail/mail_title_entry.asm` |
+| `mail_title_tiles8000_continuation.2bpp` | 2bpp tiles | 704 | 2C:5150 | CONFIRMED | exact | - | `gfx/mail/mail_title_entry.asm` |
 | `mail_title_tiles8800.2bpp` | 2bpp tiles | 592 | 2C:5410 | CONFIRMED | exact | - | `gfx/mail/mail_title_entry.asm` |
 | `mail_title_obj.pal` | RGB palette | 64 | 2C:5670 | CONFIRMED | - | - | `gfx/mail/mail_title_entry.asm` |
 
@@ -1524,7 +1525,7 @@ make png-export       (maintainers) PNGs regenerated from the binaries; never ov
 
 | kind | PNG source | files | notes |
 |---|---|---:|---|
-| 2bpp tile blocks | `name.png` (exact `rgbgfx` source of `name.2bpp`) | 412 | All tile blocks in the active catalogue; shades 0-3 are grey indices, not the game's colours (the game colours come from palettes and tile attributes; see screens) |
+| 2bpp tile blocks | `name.png` (exact `rgbgfx` source of `name.2bpp`) | 413 | All tile blocks in the active catalogue; shades 0-3 are grey indices, not the game's colours (the game colours come from palettes and tile attributes; see screens) |
 | JIS 12x12 glyphs (11 binaries) | `data/fonts/jis12x12_rows_*.png`, 94 glyphs per sheet row | 9 sheets | bank 7C's three contiguous binaries share one complete sheet |
 | 8x16 font runs | `data/fonts/glyph_runs_8x16/sjis_*.png`, 16 glyphs per row | 27 sheets | |
 | 6x12 Latin font | `data/fonts/ascii_6x12.png` | 1 sheet | 6 pixel wide cells (the two unused bits of each byte stay 0) |

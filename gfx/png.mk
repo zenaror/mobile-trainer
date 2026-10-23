@@ -314,6 +314,7 @@ PNG_TILE_OUTS := \
 	gfx/mail/draft_menu/mail_draft_menu_tiles8000.2bpp \
 	gfx/mail/draft_menu/mail_draft_menu_tiles9300.2bpp \
 	gfx/mail/mail_title_entry/mail_title_tiles8000.2bpp \
+	gfx/mail/mail_title_entry/mail_title_tiles8000_continuation.2bpp \
 	gfx/mail/mail_title_entry/mail_title_tiles8800.2bpp \
 	gfx/mail/mail_title_entry/mail_title_tiles9300.2bpp \
 	gfx/mail/mail_viewer/mail_view_tiles8000.2bpp \
@@ -745,6 +746,7 @@ gfx/mail/draft_menu/mail_draft_menu_tiles8000.2bpp: PNG_SIZE := 816
 gfx/mail/draft_menu/mail_draft_menu_tiles8000.2bpp: PNG_PAD := -x 13
 gfx/mail/draft_menu/mail_draft_menu_tiles9300.2bpp: PNG_SIZE := 720
 gfx/mail/mail_title_entry/mail_title_tiles8000.2bpp: PNG_SIZE := 16
+gfx/mail/mail_title_entry/mail_title_tiles8000_continuation.2bpp: PNG_SIZE := 704
 gfx/mail/mail_title_entry/mail_title_tiles8800.2bpp: PNG_SIZE := 592
 gfx/mail/mail_title_entry/mail_title_tiles8800.2bpp: PNG_PAD := -x 11
 gfx/mail/mail_title_entry/mail_title_tiles9300.2bpp: PNG_SIZE := 1024

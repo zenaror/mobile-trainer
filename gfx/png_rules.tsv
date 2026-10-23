@@ -726,6 +726,7 @@ gfx/mail/mail_title_entry/data_mail_title_tilemap_attr.tilemap	-	tilemap				360	
 gfx/mail/mail_title_entry/mail_title_bg.pal	-	palette				519	d8796040316b08825c8adaa7f5b9fe4feafe7179b0b64af9cb72506b207abcf0
 gfx/mail/mail_title_entry/mail_title_obj.pal	-	palette				519	12110eaa147e6b250b98f79f38ef981286935084115a7437d511c08a41d86cb2
 gfx/mail/mail_title_entry/mail_title_tiles8000.2bpp	gfx/mail/mail_title_entry/mail_title_tiles8000.png	tiles			0	16	3a7a58a0c039ab60e11b4a0f8e44c790aada4ac1b7a5f2f8adbfecfd060843b2
+gfx/mail/mail_title_entry/mail_title_tiles8000_continuation.2bpp	gfx/mail/mail_title_entry/mail_title_tiles8000_continuation.png	tiles			0	704	4e206881ecf76156ee8b8f79c887788b36ebd3dda47d67aa15dfc4019bba4aba
 gfx/mail/mail_title_entry/mail_title_tiles8800.2bpp	gfx/mail/mail_title_entry/mail_title_tiles8800.png	tiles			11	592	7ebfb4e1a0b398fa95bcbbce5a83e9b8a349f34f0142e0197dc07cdd87fcb24c
 gfx/mail/mail_title_entry/mail_title_tiles9300.2bpp	gfx/mail/mail_title_entry/mail_title_tiles9300.png	tiles			0	1024	4b3cd5b9efcf43891f6426637a020f17b2b2d996889d68efd79fc59edac482bd
 gfx/mail/mail_viewer/data_mail_view_tilemap_attr.attrmap	-	attrmap				360	01f3bcda4619712063b5b6481be3225f5aa645a9a89354100f53662293cdfa40

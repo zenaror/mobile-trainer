@@ -667,6 +667,7 @@ gfx/mail/mail_title_entry/data_mail_title_tilemap_attr.tilemap	tilemap	360	gfx/m
 gfx/mail/mail_title_entry/mail_title_bg.pal	palette	64	gfx/mail/mail_title_entry.asm	2C	5100	PROBABLE	-	0		Palette_MailTitle_Bg
 gfx/mail/mail_title_entry/mail_title_obj.pal	palette	64	gfx/mail/mail_title_entry.asm	2C	5670	CONFIRMED	-	0		Palette_MailTitle_Obj
 gfx/mail/mail_title_entry/mail_title_tiles8000.2bpp	tiles	16	gfx/mail/mail_title_entry.asm	2C	5140	PROBABLE	exact	0		Gfx_MailTitle_Tiles8000
+gfx/mail/mail_title_entry/mail_title_tiles8000_continuation.2bpp	tiles	704	gfx/mail/mail_title_entry.asm	2C	5150	CONFIRMED	exact	0		Gfx_MailTitle_Tiles8000Continuation
 gfx/mail/mail_title_entry/mail_title_tiles8800.2bpp	tiles	592	gfx/mail/mail_title_entry.asm	2C	5410	CONFIRMED	exact	11		Gfx_MailTitle_Tiles8800
 gfx/mail/mail_title_entry/mail_title_tiles9300.2bpp	tiles	1024	gfx/mail/mail_title_entry.asm	2C	4A30	CONFIRMED	exact	0		Gfx_MailTitle_Tiles9300Vb1
 gfx/mail/mail_viewer/data_mail_view_tilemap_attr.attrmap	attrmap	360	gfx/mail/mail_viewer.asm	2B	7538	CONFIRMED	-	0	20x18	Data_MailView_TilemapAttr
