@@ -202,3 +202,20 @@ running these gates. This revalidates only the build, symbol and palette gates;
 it does not resolve the remaining natural-entry, code/data-span, computed
 Bank 53 selection, frame-association or global used/unused questions. The
 English overlay and ZIP remain paused.
+
+## Reconciliation of retained Ghidra function names at `c39c1ddc` (2026-10-23)
+
+The retained ROM-hash-pinned `analysis/ghidra_functions.json` has 29 entries.
+A read-only reconciliation against the current Japanese linker symbols maps
+all 28 ROM function starts to exact current source symbols; this includes the
+entries whose old Ghidra names are `FUN_*`. The remaining entry is Ghidra's
+zero-instruction stub at HRAM `FFA8`, whose current source identity is
+`hFarCallTrampoline` (`ram/hram.asm`), initialized by `Bank_InitState`
+(`home/bank_switch.asm`). It is not an unnamed ROM routine. The bounded result
+and input hashes are in
+`.tmp/jp-ghidra-current-symbol-audit-20261023/RESULT.json` (SHA-256
+`ce76e2a4233f325d46414efdf2ba2099fd06ab6fd3eab79ad85c1c7b937d8e8c`),
+reproduced by `audit.py` (SHA-256
+`b0811989c3942e0cac391e88baabbda12f5f227d9663eefe5fa8dabb3d4d95f5`).
+This closes only the retained 29-entry Ghidra crosswalk; it is not a complete
+ROM function census or proof that every code span has been identified.
