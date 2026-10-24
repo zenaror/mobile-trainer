@@ -1,12 +1,12 @@
 ; data/text/dialog_messages.asm
 ; bank 72, $502B-$63D8 (5037 bytes); pinned by layout.link
-; dialog list table and the 69 message records
+; dialog hierarchy: 4 lists, 69 slots and 68 distinct message records
 
 SECTION "data/text/dialog_messages", ROMX
 
 PUSHC sjis
 
-; ---- ptrtable $502B-$50BD (146 bytes) [PROBABLE] little-endian word table, 73 entries, monotone=0.99, 92% of targets on string start/after NUL, targets $5033..$50BD; referenced by ld r16,$502B at 72:402D
+; ---- ptrtable $502B-$50BD (146 bytes) [CONFIRMED] nested little-endian pointers: four list heads at $502B, then lists of 1/23/44/1 slots. The 69 slots address 68 distinct records; lists 0 and 3 share $50BD. Dialog_Open selects list by D and record by E. This establishes the static layout, not validity of arbitrary selectors or natural use of every slot.
 
 Dialog_ListTable:: ; 72:502B
 
