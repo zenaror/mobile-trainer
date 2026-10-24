@@ -71,6 +71,43 @@ replay command, hashes, retained watchpoint, and cleanup receipt are in
 `.tmp/jp-a9ed-natural-writer-20261024/` (`RESULT.json` SHA-256
 `77f25021f6d04fa0b10b6e2b902b4ba325541f9b98118c31102db06e3c9e02a1`).
 
+### `WriteByteFar` caller census and bounded SRAM write routes (2026-10-24)
+
+A current maintained-source scan found 27 `farcall WriteByteFar` sites. The
+fixed SRAM1 destinations are tutorial counters, saved-password fields, and
+menu cursors, all outside `$A9ED-$A9EE`. The dynamic help-script destination is
+`$A684 + (n & $0F)`, hence `$A684-$A693`. The dynamic connect-dialog writer
+receives seven declared argument records: six mail-session records point to
+WRAM1:`$D524`, and the browser record points to fixed WRAM0:`$C220`; the
+`$F0` bank byte on that fixed-WRAM path is ignored by `WriteByteFar`.
+
+The four debug-flags writer sites use `Table_DebugFlags_Entries`. Its entry
+index is zeroed by the screen's `$C0D4-$C1CF` initialization; the D-pad handler
+cannot advance zero to one (`INC A; CP 1; RET Z`) and cannot decrement zero.
+At index zero the low-byte destination is SRAM1:`$B0BF`, while the high-byte
+word is zero and `WriteByteFar` returns for that address. This source is
+unreferenced from the maintained caller graph and has forced-only execution;
+even that bounded debug route does not address `$A9ED`.
+
+Across the audited direct field operations, `SaveCheck_ResetBlock` zero-fills
+`$A9E8-$A9F7`; `SaveCheck_Update` only rewrites the four checksum bytes at
+`$A9E8-$A9EB`; the boot snapshot writes `$A9F4-$A9F7`; and the Bank 70 candidate
+operation writes `$A9EE` only on its conditional paths. The browser back-stack
+copies within SRAM1:`$AA00-$AFFF`, while the page-cache copies select SRAM
+banks 2/3 and the page-wrap source/destination is SRAM3:`$B000-$BFFF`. None of
+these ranges reaches SRAM1:`$A9ED` as a nonzero assignment.
+
+This closes the listed `WriteByteFar` callsites and these explicit
+save-check/browser copy ranges as sources of an in-program nonzero A9ED value.
+It does **not** prove that every generic copy/API destination in the ROM has
+been source-completely bounded, nor constrain pre-existing/corrupt SRAM, an
+unmodeled indirect writer, or arbitrary entry into the unrooted Bank 70
+candidate. Therefore A9ED's complete natural value domain remains UNKNOWN;
+the retained-flow observation and the bounded static caller census support
+zeroing/reset, not a global invariant. `A9EE` likewise has no demonstrated
+natural nonzero producer because the only identified nonzero stores belong
+to the Bank 70 candidate whose natural entry remains unproved.
+
 The minimal proposal changes exactly25 existing whole-comment rows in engine/comm/comm_scene.asm and adds this note. Physical source rows, all instructions/data, blanks, labels, local scopes and confidence levels remain unchanged. This source-only static proposal does not change the accepted queue, integrate a parent or authorize validation. Existing scope6 preparation helpers are untouched.
 
 
