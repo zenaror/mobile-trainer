@@ -21,6 +21,9 @@ NEW_ALIASES = {
     "WRAM_C591": "wMailDate_ZoneHoursBcd",
     "WRAM_C592": "wMailDate_ZoneMinutesBcd",
 }
+SRAM_ALIAS_EVIDENCE = {
+    "sBrowserStartAutoSelectMarker": "PROBABLE",
+}
 
 
 def tracked_sources() -> list[str]:
@@ -73,6 +76,9 @@ def build_rows() -> list[dict[str, str]]:
                 decision = "KEEP_NEUTRAL_EXACT_BANK_OVERLAY"
                 rationale = "Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent."
                 evidence = "CONFIRMED"
+                if any(alias in SRAM_ALIAS_EVIDENCE for alias in aliases):
+                    evidence = "PROBABLE"
+                    rationale += " The A8C1 alias records a single conditional store; marker purpose and natural execution remain unproved."
             elif base == "SSRAM_AFFF":
                 decision = "KEEP_NEUTRAL_CONTEXTUAL_CONTAINER"
                 rationale = "Scanner operand is sNetWorkPage+$0FFF in SRAM bank 3; AFFF has a different checksum role in bank 0."
@@ -131,8 +137,8 @@ def build_rows() -> list[dict[str, str]]:
     for row in rows:
         decisions[row["decision"]] = decisions.get(row["decision"], 0) + 1
     expected_decisions = {
-        "KEEP_NEUTRAL_EXACT_BANK_OVERLAY": 89,
-        "KEEP_NEUTRAL_CONTAINER_INTERIOR": 71,
+        "KEEP_NEUTRAL_EXACT_BANK_OVERLAY": 99,
+        "KEEP_NEUTRAL_CONTAINER_INTERIOR": 61,
         "KEEP_NEUTRAL_CONTEXTUAL_CONTAINER": 1,
         "KEEP_NEUTRAL_SCOPED_OVERLAY": 104,
         "KEEP_NEUTRAL_NO_UNIQUE_ROLE": 37,
@@ -141,7 +147,7 @@ def build_rows() -> list[dict[str, str]]:
     }
     if decisions != expected_decisions:
         raise AssertionError(f"RAM disposition partition changed: {decisions}")
-    if len(sram_aliases) != 89:
+    if len(sram_aliases) != 99:
         raise AssertionError(f"exact-base SRAM alias coverage changed: {len(sram_aliases)}")
     if sum(bool(overlay_aliases.get(name.upper(), [])) for name in definitions if name.startswith("hRam_")) != 42:
         raise AssertionError("HRAM overlay alias coverage no longer covers all 42 neutral bases")
