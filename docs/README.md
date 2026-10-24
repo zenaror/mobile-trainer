@@ -84,6 +84,7 @@ Reference documents (current):
 | [`gfx_generic_name_audit_20261021.md`](research/gfx_generic_name_audit_20261021.md) | Read-only inventory of GFX type/address labels, aliases, paths and remaining uncertainty |
 | [japanese_graphics_asset_completeness_followup_20261023.md](research/japanese_graphics_asset_completeness_followup_20261023.md) | Exact static Page List, Bank 2C mail-title, and Bank 25 mailbox DMA tile windows; eight short spans remain unresolved |
 | [`settings_menu_hdma_tail_20261024.md`](research/settings_menu_hdma_tail_20261024.md) | Bank 4A:51B0 HDMA destination and bounded tilemap selection check; palette role remains unknown |
+| [`profile_animation_script_contract_20261024.md`](research/profile_animation_script_contract_20261024.md) | Confirms bank 2A profile animation script semantics and traced selection of entries 9 and 13 |
 | [`browser_start_orphan_gfx_assets_20261021.md`](research/browser_start_orphan_gfx_assets_20261021.md) | Reconciles superseded browser-start graphics artifacts and records a bounded recheck of the final three bytes |
 | [notice_header_gfx_sources_4b_6590_6810.md](research/notice_header_gfx_sources_4b_6590_6810.md) | Exact two 640-byte 2bpp notice-header sources and static descriptor/load contract; natural selection remains unknown |
 | [`gfx_7f_mailaddr_bytes_copy_20261023.md`](research/gfx_7f_mailaddr_bytes_copy_20261023.md) | Exact 7F:7830 byte identity with the MailAddr OBJ HDMA sequence; copy use remains unknown |

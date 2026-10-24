@@ -80,7 +80,7 @@ Profile_Anim0Frame1:: ; 2A:6EB9
 	sprite_oam 0, 12, $07, 1
 	sprite_oam 0, 20, $08, 1
 
-; ---- data $6ECE-$6ED3 (5 bytes) [HYPOTHESIS] animation script: count=2 then 2 x 2 bytes (00 2a 01 08), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+; ---- data $6ECE-$6ED3 (5 bytes) [CONFIRMED] sprite script: count 2; frame-table index / slot-update countdown reload pairs (0,$2A),(1,$08); table entries 0-3 point here, but their selection is not established
 
 Profile_Anim0Script:: ; 2A:6ECE
 	sprite_anim 2
@@ -112,7 +112,7 @@ Profile_Anim4Frame1:: ; 2A:6EEC
 	sprite_oam 0, 12, $05, 1
 	sprite_oam 0, 20, $06, 1
 
-; ---- data $6F01-$6F06 (5 bytes) [HYPOTHESIS] animation script: count=2 then 2 x 2 bytes (00 2a 01 08), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+; ---- data $6F01-$6F06 (5 bytes) [CONFIRMED] sprite script: count 2; frame-table index / slot-update countdown reload pairs (0,$2A),(1,$08); table entries 4-7 point here, but their selection is not established
 
 Profile_Anim4Script:: ; 2A:6F01
 	sprite_anim 2
@@ -146,7 +146,7 @@ Profile_Anim8Frame1:: ; 2A:6F23
 	sprite_oam 6, 13, $04, 2
 	sprite_oam 6, 21, $05, 2
 
-; ---- data $6F3C-$6F41 (5 bytes) [HYPOTHESIS] animation script: count=2 then 2 x 2 bytes (00 08 01 23), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+; ---- data $6F3C-$6F41 (5 bytes) [CONFIRMED] sprite script: count 2; frame-table index / slot-update countdown reload pairs (0,$08),(1,$23); Profile_InitScreen selects entry 9 via 2A:5889 (Table_Profile_Anims_Entry8 + B=$81)
 
 Profile_Anim8Script:: ; 2A:6F3C
 	sprite_anim 2
@@ -180,7 +180,7 @@ Profile_Anim12Frame1:: ; 2A:6F5E
 	sprite_oam 6, 13, $04, 2
 	sprite_oam 6, 21, $05, 2
 
-; ---- data $6F77-$6F7C (5 bytes) [HYPOTHESIS] animation script: count=2 then 2 x 2 bytes (00 08 01 23), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+; ---- data $6F77-$6F7C (5 bytes) [CONFIRMED] sprite script: count 2; frame-table index / slot-update countdown reload pairs (0,$08),(1,$23); Profile_InitScreen selects entry 13 via 2A:58A2 (Table_Profile_Anims_Entry12 + B=$81)
 
 Profile_Anim12Script:: ; 2A:6F77
 	sprite_anim 2
@@ -206,7 +206,7 @@ Profile_Anim16Frame0:: ; 2A:6F80
 Profile_Anim16Frame1:: ; 2A:6F91
 	sprite_frame 0
 
-; ---- data $6F92-$6F95 (3 bytes) [HYPOTHESIS] animation script: count=1 then 1 x 2 bytes (00 04), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+; ---- data $6F92-$6F95 (3 bytes) [CONFIRMED] sprite script: count 1; frame-table index / slot-update countdown reload pair (0,$04); table entries 16-19 point here, but their selection is not established
 
 Profile_Anim16Script:: ; 2A:6F92
 	sprite_anim 1

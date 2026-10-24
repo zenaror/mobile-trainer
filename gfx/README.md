@@ -56,16 +56,16 @@ Blocks of the graphics regions that are not converted (the note / label does not
 
 | what | blocks | bytes |
 |---|---:|---:|
-| data without graphics evidence in the note | 23 | 6172 |
+| data without graphics evidence in the note | 28 | 6220 |
 | object / animation tables (by label name) | 97 | 3642 |
-| HYPOTHESIS data (content type or purpose not established) | 14 | 988 |
-| sprite / OAM frame records, animation scripts, object tables (not tile art) | 27 | 478 |
+| HYPOTHESIS data (content type or purpose not established) | 13 | 956 |
+| sprite / OAM frame records, animation scripts, object tables (not tile art) | 26 | 476 |
 | tail (less than 16 bytes) after a converted tile block | 7 | 86 |
 | gfx fragments of fewer than 4 whole tiles | 3 | 77 |
 | region kind zero | 4 | 34 |
 | region kind bytes | 1 | 28 |
-| tilemap+attr blocks clipped by the analysis (size differs from 2 x rows x cols) and 4-byte tile/attr record lists | 2 | 17 |
 | region kind words | 1 | 16 |
+| tilemap+attr blocks clipped by the analysis (size differs from 2 x rows x cols) and 4-byte tile/attr record lists | 1 | 1 |
 
 ## Assets by directory
 
