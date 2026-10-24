@@ -331,6 +331,18 @@ these ten have explicit domains. Reproduction is
 `.tmp/jp-html-record-domain-20261024/check.py`, RESULT.json and INPUTS.json.
 Only1715bytes of task artifacts retained; no source/ROM changes or new runtime.
 
+### Current residual count after the BMP and URL-list boundary reviews
+
+The `30 unresolved` sentence above records the matrix at that checkpoint. The
+two `Html_LoadPageImages` rows were subsequently classified as a bounded
+success route plus the reproduced corrupt unwind in `bmp_capacity`. The current
+TSV therefore has **28** generic HTML/browser pointer rows, grouped into
+ordinary initialized producer domains in
+[`japanese_html_img_list_limit_20261024.md`](japanese_html_img_list_limit_20261024.md).
+That follow-up also records the newly reproduced 256/257 image-list boundary;
+it is an exception to any blanket allocation-safety claim, not a reason to
+reopen the already-proven BMP-capacity trigger.
+
 
 ## Image capacity failure reproduced through the browser
 
