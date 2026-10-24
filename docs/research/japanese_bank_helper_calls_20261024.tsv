@@ -1,0 +1,58 @@
+bank	file	line	owner	target	transfer	contract_group
+4C	engine/browser/history_cache.asm	35	Browser_HistoryPushFrom	BankSwitch_H	call	declared history caller domain
+4C	engine/browser/history_cache.asm	74	Browser_HistoryPop	BankSwitch_D	call	declared history caller domain
+4C	engine/browser/history_cache.asm	123	Sram_CopyLongBlock	BankSwitch_H	call	cache ring and chunk domain
+4C	engine/browser/history_cache.asm	131	Sram_CopyLongBlock	BankSwitch_D	call	cache ring and chunk domain
+4C	engine/browser/history_cache.asm	300	PageCache_Pop	BankSwitch_H	call	cache ring and chunk domain
+51	engine/browser/inline_image_blit.asm	445	Bmp_ConvertToTiles	BankSwitch_H	call	HTML/browser pointer invariant required
+4C	engine/browser/inline_images.asm	61	Browser_FetchInlineImages	BankSwitch_H	call	HTML/browser pointer invariant required
+4C	engine/browser/inline_images.asm	90	Browser_FetchInlineImages	BankSwitch_H	call	HTML/browser pointer invariant required
+4C	engine/browser/inline_images.asm	308	Browser_FetchInlineImages	BankSwitch_D	call	HTML/browser pointer invariant required
+4C	engine/browser/inline_images.asm	397	Browser_FetchInlineImages	BankSwitch_D	call	HTML/browser pointer invariant required
+4C	engine/browser/page_loader.asm	516	Browser_LoadPage_Request	BankSwitch_H	call	fixed RAM producer
+4C	engine/browser/page_loader.asm	556	Browser_LoadPage_Request	BankSwitch_H	call	fixed RAM producer
+4E	engine/browser/page_render.asm	18	Browser_DrawTitleBar	BankSwitch_H	call	HTML/browser pointer invariant required
+4E	engine/browser/page_render.asm	27	Browser_DrawTitleBar	BankSwitch_H	call	fixed RAM producer
+4E	engine/browser/page_render.asm	1473	Browser_DrawElement_Text	BankSwitch_H	call	HTML/browser pointer invariant required
+4E	engine/browser/page_render.asm	1515	Browser_DrawElement_Text	BankSwitch_H	call	HTML/browser pointer invariant required
+4E	engine/browser/page_render.asm	1630	Browser_DrawElement_Bitmap	BankSwitch_H	call	HTML/browser pointer invariant required
+4C	engine/help/mobile_dictionary_view.asm	192	MobileDictView_LoadEntry	BankSwitch_H	call	fixed RAM producer
+4C	engine/help/mobile_dictionary_view.asm	283	MobileDictView_LoadImages	BankSwitch_H	call	HTML/browser pointer invariant required
+4C	engine/help/mobile_dictionary_view.asm	304	MobileDictView_LoadImages	BankSwitch_H	call	HTML/browser pointer invariant required
+4C	engine/help/mobile_dictionary_view.asm	350	MobileDictView_HistoryPush	BankSwitch_H	call	fixed RAM producer
+4C	engine/help/mobile_dictionary_view.asm	383	MobileDictView_HistoryPop	BankSwitch_D	call	declared history caller domain
+74	engine/html/count_pass.asm	252	Html_CountListItems_Tag_Done	BankSwitch_H	call	HTML/browser pointer invariant required
+74	engine/html/count_pass.asm	254	Html_CountListItems_Tag_Done	BankSwitch_D	call	HTML/browser pointer invariant required
+74	engine/html/layout.asm	45	Html_Layout_ClearAllFloats	BankSwitch_H	call	HTML/browser pointer invariant required
+74	engine/html/layout.asm	47	Html_Layout_ClearAllFloats	BankSwitch_D	call	HTML/browser pointer invariant required
+74	engine/html/layout.asm	245	Html_LoadPageImages	BankSwitch_H	call	HTML/browser pointer invariant required
+74	engine/html/layout.asm	273	Html_LoadPageImages	BankSwitch_H	call	HTML/browser pointer invariant required
+74	engine/html/layout.asm	343	Html_Layout_EndLine	BankSwitch_H	call	HTML/browser pointer invariant required
+74	engine/html/layout.asm	348	Html_Layout_EndLine	BankSwitch_H	call	HTML/browser pointer invariant required
+74	engine/html/layout.asm	350	Html_Layout_EndLine	BankSwitch_D	jp	HTML/browser pointer invariant required
+74	engine/html/layout.asm	367	Html_Layout_WrapRun	BankSwitch_D	call	HTML/browser pointer invariant required
+74	engine/html/layout.asm	394	Html_Layout_WrapRun	BankSwitch_H	call	HTML/browser pointer invariant required
+74	engine/html/layout.asm	528	Html_Layout_WrapRun	BankSwitch_D	call	HTML/browser pointer invariant required
+74	engine/html/layout.asm	559	Html_Layout_CloseRunRecord	BankSwitch_H	call	HTML/browser pointer invariant required
+74	engine/html/layout.asm	604	Html_Layout_AppendRecord	BankSwitch_H	call	HTML/browser pointer invariant required
+74	engine/html/layout.asm	865	Html_Layout_PlaceLine	BankSwitch_H	call	HTML/browser pointer invariant required
+74	engine/html/layout.asm	1050	Html_Layout_BeginLineAndPlaceFloats	BankSwitch_H	call	HTML/browser pointer invariant required
+74	engine/html/layout.asm	1204	Html_Layout_GetLimitsAtY	BankSwitch_H	call	HTML/browser pointer invariant required
+74	engine/html/link_tables.asm	207	Html_NextResourceRecord	BankSwitch_H	call	HTML/browser pointer invariant required
+74	engine/html/parser.asm	189	Html_ParseSource	BankSwitch_H	call	HTML/browser pointer invariant required
+74	engine/html/parser.asm	200	Html_ParseSource	BankSwitch_D	call	HTML/browser pointer invariant required
+74	engine/html/parser.asm	217	Html_ParseSource	BankSwitch_D	call	HTML/browser pointer invariant required
+74	engine/html/parser.asm	379	Html_ParseSource_End	BankSwitch_H	call	HTML/browser pointer invariant required
+74	engine/html/parser.asm	447	Html_ParseSource_Tag_Done	BankSwitch_H	call	HTML/browser pointer invariant required
+74	engine/html/parser.asm	449	Html_ParseSource_Tag_Done	BankSwitch_D	call	HTML/browser pointer invariant required
+74	engine/html/tags.asm	109	Html_StoreTitle	BankSwitch_H	call	HTML/browser pointer invariant required
+74	engine/html/tags.asm	118	Html_StoreTitle	BankSwitch_H	call	HTML/browser pointer invariant required
+74	engine/html/tags.asm	234	Html_StoreTitle	BankSwitch_D	call	HTML/browser pointer invariant required
+74	engine/html/tags.asm	1457	Html_Tag_Hr	BankSwitch_D	call	HTML/browser pointer invariant required
+74	engine/html/tags.asm	1674	Html_Tag_Img	BankSwitch_H	call	HTML/browser pointer invariant required
+74	engine/html/tags.asm	1676	Html_Tag_Img	BankSwitch_D	call	HTML/browser pointer invariant required
+74	engine/html/tags.asm	1707	Html_Tag_Img	BankSwitch_D	call	HTML/browser pointer invariant required
+4E	engine/sram/save_block_check.asm	234	Sram_BuildA9F0DeltaBlock	BankSwitch_H	call	candidate entry unproved
+48	engine/text/font_8x16.asm	119	Font_BlitGlyph8x16	BankSwitch_H	call	stack destination; mixed producer domain
+48	engine/text/font_8x16.asm	134	Font_BlitGlyph8x16	BankSwitch_H	call	stack destination; mixed producer domain
+48	engine/tutorial/gates.asm	143	Tilemap_ApplyMaskRect_48_4A8C	BankSwitch_H	call	candidate entry unproved

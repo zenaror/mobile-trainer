@@ -216,6 +216,11 @@ SaveCheck_Update:: ; 4E:4795
 
 Sram_BuildA9F0DeltaBlock:: ; 4E:47EB
 
+	; [CONFIRMED] A is forced to $0A before BankSwitch_H. For H<$80, that
+	; selects ROM low bank $0A and RET fetches $47F7 from the new bank, not
+	; the copy below (assuming ROM high bank zero). The record-copy contract
+	; therefore requires a non-ROM destination region; natural entry is unproved.
+
 	; [HYPOTHESIS] complete function: SRAM enable ($0A -> [$0000] via hFFF5), copies a record from
 	; SRAM $A9F0-$A9FB/$A9E3/$A9EC/C69F/C2C2 into [hl], SRAM disable, ret; 68 insn, the only direct
 	; target (jr) lands on an instruction start, ends exactly at the executed function 4E:4866 right

@@ -47,9 +47,9 @@ NonCgb_ErrorScreen:: ; 6B:4C80
 	ldh [rIE], a
 	ld a, $C3
 	ld [wVBlankVector], a
-	ld a, $1F
+	ld a, LOW(NonCgb_VBlankHandler)
 	ld [wVBlankVector + 1], a
-	ld a, $4D
+	ld a, HIGH(NonCgb_VBlankHandler)
 	ld [wVBlankVector + 2], a
 	ei
 .l4CE6 ; 6B:4CE6
@@ -93,6 +93,7 @@ NonCgb_FadeStep:: ; 6B:4CF6
 NonCgb_BgpFadeTable:: ; 6B:4D1B
 	db $00, $40, $90, $E4
 
+NonCgb_VBlankHandler:: ; 6B:4D1F
 	; [CONFIRMED] 1 insn (`reti`, $D9) executed by scenario noncgb_boot (register A = $01 at start):
 	; the target of the VBlank stub `jp $4D1F` that NonCgb_ErrorScreen installs (the byte also
 	; follows the 4-entry BGP fade table); found by apply_coverage as an executed start outside

@@ -27,3 +27,49 @@ Remaining distinct analysis: callers of the ROM0 bank-switch helpers and their r
 ## Verification
 
 `make`: RESULT: IDENTICAL (2,097,152 bytes, original SHA-256 above). `make sym-check`: 335 source files, 12,223 labels, 51 exported constants, OK. `make palette-check`: 162 loads, 116 arrays, two documented over-reads, zero errors. Only source comments changed. Small script/results/logs are retained as the reproducible evidence for this pass; no historical directories were recreated.
+
+## ROM0 helper return contracts (second pass)
+
+The companion [57-site matrix](japanese_bank_helper_calls_20261024.tsv) covers every textual named CALL/JP to `BankSwitch_H/D/B` in tracked home/engine/lib/data/gfx/audio ASM/INC: 85 sites, 28 owned by ROM0 and 57 by ROMX (56 CALL, one tail JP). This scope does not include numeric calls, emitting macros or computed transfers. Grouping a site does **not** establish its argument invariant.
+
+The inspected helper contract is exact: A=0 returns before any selector write; otherwise region-high < $80 writes the ROM low selector, $80–$BF writes the SRAM selector, and >= $C0 writes rSVBK. The helpers preserve the pointer registers. A ROM0 RET itself remains readable after a ROM switch, but its ROMX return address may now refer to another physical bank. The tail JP in `Html_Layout_EndLine` returns to that routine's caller, not to a local instruction after the JP.
+
+| Sites | Proven domain or remaining obligation |
+| --- | --- |
+| 5 fixed RAM producers | Two page-buffer clears plus dictionary entry clear use HL=$B000/A=3; dictionary history push and the title fallback use HL=$D500/A=6. These local inputs cannot select ROM. |
+| 3 history entries | `Browser_HistoryPushFrom` is fed by the fall-through $D500/A=6 or the two GoBack producers $D500/$D400,A=6. Seven declared Browser_HistoryPop callers and one MobileDictView_HistoryPop caller use A=0 and DE=wAttrUrlBuf; the helper is a no-op even before considering DE. These claims cover the listed declared producers with intact arguments. |
+| 3 cache sites | Reset-maintained slots 0..2 contain (A000,2),(B000,2),(A000,3). Push uses source B000, length1000; six declared Pop callers supply dest B000, bank3, length1000. Eight chunks of200 per transfer, with C000 folded to A000, keep every switch pointer in A000–BFFF. A finite arithmetic model checks the six direction/slot cases; it is not an emulator run or a proof for corrupted slot/count values. |
+| 2 glyph-copy sites | The stack parser loads caller-provided destination pointers/banks. Keyboard supplies DE00/DE10,bank3. HelpScript constructs D000+16*x and D100+16*x for an 8-bit x; all256 pairs have region-high >=C0. The three TextTiles callsites construct pointers from their own parameters/strides and still require a producer/range invariant; do not generalize the keyboard/help result to those callers. |
+| 2 candidate entries | `Tilemap_ApplyMaskRect_48_4A8C` accepts unconstrained A/H and has no established natural producer. `Sram_BuildA9F0DeltaBlock` forces A=0A before its helper call. Neither candidate's bank-switch call proves that the candidate itself is naturally entered. |
+| 42 HTML/browser pointer sites | Some setup roots are fixed, but shared HRAM pointers, record traversal, source advancement and data fields need their preservation/bounds checked; this category remains conditional. Concrete setup and allocator bounds are below. |
+
+### Candidate correction: 4E:47EB
+
+CONFIRMED bytes `3e0ae0f5ea0000c5d5cd2206` lead to the helper call at47F4 and return PC47F7. With H<$80 and ROM high bit zero, this selects bank0A; its bytes at47F7 are zero, whereas Bank4E starts `3e01`. Thus the lexical record-copy sequence is not the executed continuation for arbitrary input H. The source now states this necessary region precondition. This changes the callable contract; it supplies no natural caller and makes no claim about execution beyond the remapped fetch.
+
+### HTML roots and allocator bounds
+
+Both `Html_ParsePage` and `Html_ScanPage` set the page header to D000 in WRAM4, text output to `wHtmlTextStream` in WRAM5, and source to B000 in SRAM3. These are concrete setup values, not assumptions inferred from the function names. `Html_Layout_Init` seeds the record list and next-record pointer at header+20=D020. `Html_Layout_AppendRecord` saves the old pointer in HL, increments the cursor by10, and subtracts10 if the resulting high byte equals E0. Starting at D020, this transition preserves the finite set D020,D030,...,DFF0; DFF0 remains the cursor on saturation. Its own BankSwitch_H consequently sees a WRAM address in this intact-state domain. This alone does not establish every HTML consumer: overwritten HRAM, input-derived links, TextTiles parameter arithmetic and source scans are separate obligations.
+
+### Evidence and retention
+
+The second-pass script and hashes are in `.tmp/jp-bank-helper-contracts-20261024/audit.py` and `RESULT.json`; the matrix is versioned with this note. Only small task evidence is retained. No ROM execution or translation build was performed for this analysis, and no historical evidence was deleted. The next analysis must address the remaining pointer invariants or copied-code producers rather than rediscovering these 57 sites.
+
+## Observed RAM execution producers
+
+The existing 72-scenario coverage union contains exactly these 14 RAM instruction starts. They have source producers; they are not 14 unexplained copied routines. The union's displayed decoded operand is representative and must not be treated as a complete set of dynamic targets.
+
+| Starts | Producer and admissible code shape |
+| --- | --- |
+| FF80,FF82,FF84,FF86,FF87,FF89 | `OAMDMA_CopyToHram` copies exactly10 bytes from00:05AC. Six instructions implement DMA/wait/RET; no indirect target. |
+| FFA8,FFAA,FFAD | `Bank_InitState` emits `LD A,imm; LD HL,imm16; JP imm16`; `home/farcall.asm` patches operand fields. Target provenance belongs to the inline/stack/register gateway contracts already under review, not to a new unknown RAM function. |
+| CBF1 | Initial JP03BA, ticker JP16D4, or non-CGB JP4D1F; ticker also restores saved bytes. The non-CGB producer remains in Bank6B's fade/halt loop, with its local RETI at6B:4D1F. That proven entry now has the explicit label `NonCgb_VBlankHandler` and its installing bytes use LOW/HIGH of that label. |
+| CBF4 | Initial/disabled RETI; named installers select ROM0 16C4 (ticker),16DC (connection dialog),0E93 (scroll split); restore paths copy the saved vector. |
+| CBF7,CBFA | `Int_InstallRamVectors` emits JP01ED and JP01B7. |
+| C133 | Ticker saves the three VBlank vector bytes here, then its ROM0 handler chains through this copy. The copied target inherits the saved-vector state. |
+
+The configured joypad vector CBFD=RETI exists too, but is not among those14 observed starts. The saved STAT bytes atC130 are restored as data and are not additional observed code starts. Source producers were inspected in `home/{lcd,bank_switch,farcall,vblank,interrupt_handlers}.asm`, `engine/menus/ticker.asm`, `engine/comm/connect_dialog.asm`, `engine/gfx/scroll_split.asm`, and `engine/error/non_cgb_screen.asm`.
+
+This reconciles **the observed RAM-execution domain** with known producers. It does not prove that no arbitrary write can corrupt a stub or that other RAM locations can never execute. Investigation should continue on concrete pointer/producer obligations, not repeat the14-start inventory.
+
+Second-pass verification after adding the Bank6B label: `make` RESULT: IDENTICAL; `make sym-check` OK (12,224 labels,51 exported constants); `make palette-check` zero errors. Retained task evidence is about67KB, with no source clone or emulator build.
