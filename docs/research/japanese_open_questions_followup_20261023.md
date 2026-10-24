@@ -29,6 +29,10 @@ conditional/unconditional branches may leave the linear successor.
 | 2D:4E54 | 11 | 2D:4E53 RET | The known 2D:4E49 CALL to 4E54 is a separate direct edge; it returns only if its wrapper has an entry. No new external producer was found. |
 | 29:511E | 12 | 29:511D RET | Static internal `CALL 29:50CE -> 29:511E` is confirmed (ROM offset `0x0A50CE`, bytes `CD 1E 51`); entry to `29:50CE` and the enclosing span is unproved. Separately, 68:5118 farcalls 4F:4000 and ordinarily returns to 68:511E, not 29:511E. |
 
+### Current retained-union adjacency check (2026-10-24; Japanese commit `db14a095`)
+
+Read-only lookup in the refreshed `analysis/coverage_union.tsv` (71 scenario indices; SHA-256 `f69f3377ab9eaba5c2ee895a977369592157c6f1115220c8c2bf723cb75f76d3`) checks each candidate and its immediately preceding address; no trace was rerun. Only two predecessors have instruction starts in this corpus: `2B:6CF4` is a `RET`, executed 431 times across 10 scenarios, and `2D:4E41` is a `RET`, executed 40 times across 11 scenarios. Neither following candidate (`2B:6CF5`, `2D:4E42`) has an instruction start in the union. At `2D:4E54`, `29:511E`, and `70:4740`, neither the candidate nor its immediate predecessor has an instruction start. This confirms the observed predecessor exits do not fall through into the adjacent candidates; it does not exclude computed/indirect entry, data reads, or use outside the retained corpus.
+
 The internal edge was already recorded in
 [`original_closure_followup_20261021.md`](original_closure_followup_20261021.md)
 and is consolidated here after rechecking the original ROM and maintained
