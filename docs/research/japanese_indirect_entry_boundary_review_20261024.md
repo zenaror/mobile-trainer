@@ -24,7 +24,7 @@ Relevant original-ROM slices, end-exclusive: `00:0B36–0B54`, SHA-256 `0a02ef21
 
 - `55:5DF5–5E01`: the predecessor at `55:5DF2` is an unconditional `JP $5E5A`; Select dispatches directly to `55:5E02`. The examined in-file `JP HL` tables do not target the fragment within their declared domains. Its conditional local behavior is CONFIRMED; natural entry remains HYPOTHESIS. Out-of-domain indices and gateways beyond the examined source are not excluded.
 - `26:5344–537B`: adjacent RETs do not enter this span; the fragment conditionally performs repeated writes to VRAM1 and WRAM7, but no natural caller or purpose was established. The interaction with stack in switched WRAM makes execution conditional on stack placement/bank discipline.
-- `28:4BA6–4BC1`: the preceding sprite script at `28:4BA3` declares one frame, and the examined sprite loader/stepper contract reads only the script bytes through `4BA5`. As code, the span would clear WRAM and fill another WRAM window, but its code/data identity and entry remain unknown. The sprite-hook route is not filled by this script under the examined initializer.
+- `28:4BA6–4BC1`: the preceding sprite script at `28:4BA3` declares one frame, and the examined sprite loader/stepper contract reads only the script bytes through `4BA5`. This review left code/data identity unresolved; later instruction classification supports PROBABLE code, named `ClearWram0AndFillWram7WithFF`. Entry and use remain unknown. The sprite-hook route is not filled by this script under the examined initializer. See the current [Japanese residual matrix](japanese_remaining_semantics_batch_20261024.md).
 
 ### Structural comparison for `28:4BA6` (2026-10-24)
 

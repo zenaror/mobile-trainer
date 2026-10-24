@@ -2376,14 +2376,15 @@ asset-catalog rows for the 4550 tilemap/attrmap pair use
 `Tilemap_MailView_BodyPage`; a later filename pass renamed the two files to
 `mail_view_body_page.tilemap` and `.attrmap` without changing bytes or extents.
 
-The 28-byte span at `28:4BA6`, previously `Data_28_4BA6`, is now
-`WramClearCandidate_28_4BA6`. Direct decoding of the original bytes describes
-the operation only conditionally: if entered at the first byte, it zeros
-`$C000-$C08F`, selects WRAM bank 7, fills `$DA00-$DAFF` with `$FF`, and returns.
-No call or pointer reference establishes that it is naturally entered or that
-this is its intended purpose. Code classification, entry and purpose remain
-**HYPOTHESIS**; this label records the bounded instruction pattern rather than
-claiming a live routine.
+At this 2026-10-20 checkpoint, the 28-byte span at `28:4BA6`, previously
+`Data_28_4BA6`, was named `WramClearCandidate_28_4BA6`. Direct decoding of the
+original bytes conditionally described an operation which, if entered at the
+first byte, zeros `$C000-$C08F`, selects WRAM bank 7, fills `$DA00-$DAFF` with
+`$FF`, and returns. No call or pointer reference established natural entry or
+intended purpose then, so code classification, entry and purpose were recorded
+as **HYPOTHESIS**. Later instruction evidence supports PROBABLE code named
+`ClearWram0AndFillWram7WithFF`; entry and intended purpose remain unresolved.
+See the current [Japanese residual matrix](japanese_remaining_semantics_batch_20261024.md).
 
 The six-root `Data_BB_AAAA::` census is now 263 definitions in 123 owners,
 down from 269 definitions in 124 owners. Five exact aliases were retired and

@@ -1,5 +1,7 @@
 # Consolidated Japanese name and path census — 2026-10-22
 
+This dated census preserves the classification available on 2026-10-22; it is not the current semantic status. Later instruction evidence classifies `28:4BA6–4BC2` as PROBABLE code named `ClearWram0AndFillWram7WithFF`, while entry and intended purpose remain unknown. See the current [Japanese residual matrix](japanese_remaining_semantics_batch_20261024.md).
+
 ## Scope and result
 
 This pass reconciles name searches across the migrated Japanese checkout at base commit `7973e1993152c10987a164a3f5968133312a1611`. It covers all **350 tracked ASM/INC files** in the maintained source roots plus four root support files; the protected `engine/mail/sample_data.asm` is included only in counts, not inspected for payload. It excludes `languages/` and the Operator ZIP. The source census found **6,693 global labels**, **3,891 numeric local `.lAAAA` definitions** (3,872 without protected sample data), and **786 address-only RAM equates**.
