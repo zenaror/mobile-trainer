@@ -330,3 +330,53 @@ The matrix now has30 unresolved HTML/browser rows; the two dictionary rows and
 these ten have explicit domains. Reproduction is
 `.tmp/jp-html-record-domain-20261024/check.py`, RESULT.json and INPUTS.json.
 Only1715bytes of task artifacts retained; no source/ROM changes or new runtime.
+
+
+## Image capacity failure reproduced through the browser
+
+The preceding natural-trigger question now has a positive **emulator** result.
+The original ROM was booted using the existing tutorial_profile SRAM/config and
+homepage button macro, with the local fake HTTP service serving synthetic files.
+No force/ramset/sram-poke/cfg-poke or modified ROM was used. The existing tracer's
+source/compile-definitions/library stamp matched before reuse; executable, library,
+inputs, commands and outputs are hashed in RUN_INPUTS.json/RUN2_INPUTS.json and
+VERIFIED.json. This is not console/hardware evidence.
+
+A conventional uncompressed1bpp BMP, width144,height1,pixel offset62, is82bytes
+including its20-byte source row. It passes the inspected validator fields and
+size limits. Conversion rounds the height to12 and allocates20*12=240pixel bytes.
+At BMP baseBEFE, the capacity comparison computes BEFE+62+240=C02C and rejects,
+although the original82-byte image ends atBF50 and fits the HTTP capacity0100
+at its BEFC length prefix. Exhaustive dimension arithmetic finds608positive
+width/height pairs in the accepted144x96 domain with this same fit/reject
+relationship at that resource position; only144x1 was run.
+
+The first page fixture had3826body bytes. Runtime wrote prefix3828 after page
+processing, so the advanced resource position missed the second browser guard;
+no BMP request occurred. This explained boundary miss is retained as a control.
+The second fixture removes two padding spaces (3824bytes). Runtime wrote prefix3826,
+fetched `x.bmp` (82bytes), and reached converter entry51:7177 at frame5106.
+The capacity rejection51:72C0 and failure return51:73CE executed at frame5107.
+The common image-loop continuation74:53D1 then executed765times. End state at
+frame6135 was ROMbank04, PC53A8, SP CF70;182RAM instruction starts were observed.
+These observations establish that earlier successful validation does not exclude
+the later capacity-failure/unwind path. They do not turn post-corruption fetches
+into intentional routines or infer their product meaning.
+
+The control ran6277frames and the positive run6135; no rerun of the project-wide
+coverage union or automatic source promotion was performed. Macro waitstable
+caps occurred, so success is established by HTTP logs and the actual target
+coverage, not by screenshot names. The page-loader Charset_ConvertPage stage sits
+between HTTP reception and resource traversal; raw HTTP length must not be
+substituted for the postprocessed prefix. The observed+2 is preserved as runtime
+evidence; broader charset contracts remain separate.
+
+Reproduction fixtures/script and both runs are in
+`.tmp/jp-bmp-capacity-witness-20261024/` (about0.97MB before the verification
+manifest). RUN2_INPUTS.json contains the exact command; `index_v2.html` is the
+positive page, `x.bmp` its image. The82-byte BMP SHA256 is
+`9266c67c16fe79e52f6358102b1a510061ff7da5f454eab05acdbcb8b0efaee3`.
+Original ROM SHA256 was rechecked unchanged after both runs. Retain both runs,
+fixtures and provenance as the minimal positive/control record; no historical
+artifacts removed. Candidate-worklist intersections are recorded separately in
+CANDIDATES.json; absence there is only absence in this scenario.
