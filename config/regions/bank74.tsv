@@ -97,7 +97,7 @@
 4BF4	4C2E	code	-	CONFIRMED	31 insn(s) reached by static flow only; seeds: exec x31; min discovery hops 1; entered by table from 74:4BE9 (executed) [executed in 1 scenarios]
 4C2E	4C33	code	-	CONFIRMED	3 insn(s); 3 executed (in up to 2/18 scenarios)
 4C33	4C5F	code	-	CONFIRMED	63 insn(s) reached by static flow only; seeds: exec x63; min discovery hops 1; entered by table from 74:4BE9 (executed) | 25 insn(s) executed; cut out of the PROBABLE region 4C33-4CA6 by apply_coverage --split [executed in 1 scenarios]
-4C5F	4C6B	code	-	PROBABLE	7 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4C33-4CA6 by apply_coverage --split
+4C5F	4C6B	code	-	CONFIRMED	Seven instruction starts executed by the natural browser clear-left and clear-all retry scenarios; see Html_Tag_Br_ClearRetry
 4C6B	4CA6	code	-	CONFIRMED	31 insn(s) executed; cut out of the PROBABLE region 4C33-4CA6 by apply_coverage --split [executed in 1 scenarios]
 4CA6	4CD1	code	-	CONFIRMED	22 insn(s); 22 executed (in up to 2/18 scenarios)
 4CD1	4CE0	code	-	CONFIRMED	16 insn(s) reached by static flow only; seeds: exec x16; min discovery hops 0; fall-through of the jrcc at 74:4CCF (executed) | 7 insn(s) executed; cut out of the PROBABLE region 4CD1-4CF2 by apply_coverage --split [executed in 3 scenarios]
@@ -172,7 +172,8 @@
 5755	5803	code	-	CONFIRMED	115 insn(s); 115 executed (in up to 2/18 scenarios)
 5803	5861	code	-	PROBABLE	69 insn(s) reached by static flow only; seeds: exec x69; min discovery hops 0; fall-through of the jrcc at 74:5801 (executed)
 5861	58C2	code	-	CONFIRMED	63 insn(s); 63 executed (in up to 2/18 scenarios)
-58C2	58F4	code	-	PROBABLE	30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 0; fall-through of the jrcc at 74:58C0 (executed)
+58C2	58CC	code	-	CONFIRMED	Five instruction starts executed; split from the former PROBABLE region 58C2-58F4 [three natural scenarios]
+58CC	58F4	code	-	PROBABLE	Twenty-five instruction starts remain unexecuted in the current natural trace corpus; split from 58C2-58F4
 58F4	5905	code	-	CONFIRMED	12 insn(s); 12 executed (in up to 2/18 scenarios)
 5905	591D	ptrtable	Table_74_5905	PROBABLE	URL scheme pointer list (11 entries + $0000): $591D, $5923, $592A, $5938, $5930, $593D, $5945, $594B, $5951, $5959, $595F. Items follow at 591D, tile exactly to the code at 74:5969; bytes 5905-591D... were read as data by executed code in 5/18 scenarios
 591D	5969	data	Data_74_591D	PROBABLE	URL scheme name items [ASCII NUL][value byte]: $591D "http" -> $01; $5923 "https" -> $FF; $592A "file" -> $FF; $5930 "mailto" -> $FF; $5938 "ftp" -> $FF; $593D "gopher" -> $FF; $5945 "news" -> $FF; $594B "nntp" -> $FF; $5951 "telnet" -> $FF; $5959 "wais" -> $FF; $595F "prospero" -> $FF (value $01 for http, $FF for the others). (Value byte follows the name as in the tag/attribute tables at 74:4000.)

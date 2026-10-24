@@ -209,7 +209,7 @@
 6693	669B	code	-	CONFIRMED	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 2D:6623 (executed) [executed in 4 scenarios]
 669B	66A2	code	-	CONFIRMED	3 insn(s); 3 executed (in up to 2/18 scenarios)
 66A2	6726	code	-	CONFIRMED	108 insn(s) reached by static flow only; seeds: exec x108; min discovery hops 0; fall-through of the jpcc at 2D:669F (executed) | 65 insn(s) executed; cut out of the PROBABLE region 66A2-6784 by apply_coverage --split [executed in 1 scenarios]
-6726	676F	code	-	PROBABLE	36 insn(s) never executed in the traced runs; cut out of the PROBABLE region 66A2-6784 by apply_coverage --split
+6726	676F	code	-	CONFIRMED	All 36 instruction starts executed in natural traces; bounded reply-discard prompt path, see engine/mail/address_editor.asm
 676F	6784	code	-	CONFIRMED	7 insn(s) executed; cut out of the PROBABLE region 66A2-6784 by apply_coverage --split [executed in 5 scenarios]
 6784	67AB	code	-	CONFIRMED	16 insn(s); 16 executed (in up to 2/18 scenarios)
 67AB	67B8	code	-	CONFIRMED	6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1; entered by jrcc from 2D:67A4 (executed) [executed in 3 scenarios]

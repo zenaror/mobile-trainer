@@ -1,0 +1,19 @@
+# Scenario 'zzzz_mailbox_cursor_count': natural mailbox input replay from the state saved by 'mail_receive'.
+# Inputs are ordinary buttons only; no force or ramset commands. The route reaches six starts in the count checks
+# within Mailbox_CursorDown (25:491B-4925); the final fall-through jump at 25:4927 remains unobserved.
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap DOWN x2
+wait 30
+tap A
+waitstable 60 max 600
+hold SELECT+DOWN 120
+wait 60
+wait 60

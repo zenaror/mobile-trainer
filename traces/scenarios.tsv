@@ -86,3 +86,4 @@ browser_brl	on	fake:latency=2	browser_bookmarks	ul	<br clear=left> inside a list
 browser_bra	on	fake:latency=2	browser_bookmarks	ul	<br clear=all> inside a list: Html_Tag_Br_ClearAll retries forever (blank screen, buttons do nothing)	lite
 browser_brc	on	fake:latency=2	browser_bookmarks	ul	Controls of browser_brl/bra: <br clear=left> outside a list and after a closed list, <br clear=right> inside a list: all end normally	lite
 zz_jp_inbox_explore_replay	on	fake:latency=2,mail=jp+ascii+game+multipart+long	tutorial_profile	all	Coverage-guided natural input follow-up for mail inbox paths
+zzzz_mailbox_cursor_count	on	fake:latency=2,mail=jp+ascii+game+multipart+long	mail_receive	0	Natural input replay of the mailbox cursor-count path; six additional starts in Mailbox_CursorDown

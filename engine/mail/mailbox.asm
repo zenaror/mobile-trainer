@@ -1153,8 +1153,8 @@ Mailbox_CursorDown:: ; 25:4907
 	cp a, $01
 	jr z, .l4929
 
-	; [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region
-	; 47FD-4A15 by apply_coverage --split
+	; [CONFIRMED] Six starts 25:491B-4925 execute on the natural input path;
+	; final jump 25:4927 remains PROBABLE because the branch at 25:4925 is taken.
 	cp a, $02
 	jr z, .l4929
 	cp a, $03

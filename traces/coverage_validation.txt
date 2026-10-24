@@ -1,5 +1,5 @@
 # Coverage validation report (tools/trace/merge_coverage.py)
-# 78122 unique executed instruction starts from 70 scenarios
+# 78128 unique executed instruction starts from 71 scenarios
 # ERROR = inconsistent with the SM83 decoding chain, WARN = expected in some situations, see the tool's --help
 
 ## counts
@@ -157,7 +157,7 @@ callee 06BC : 1 call sites
 25:4445  jr nz, $444C
 25:45CC  jr nz, $45D3
 25:46D6  jr z, $46DB
-25:4919  jr z, $4929
+25:4925  jr z, $4929
 25:5265  jr nz, $526B
 25:531A  jr nz, $5322
 26:4437  jp nz, $44F5
