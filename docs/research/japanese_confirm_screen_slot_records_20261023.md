@@ -6,9 +6,14 @@ The 16-byte block at `4B:76C0–76D0` is represented as four consecutive four-by
 
 The source now names the two later selected records `SettingsPhone_ConfirmScreen_SlotCellRecord1` and `SettingsPhone_ConfirmScreen_SlotCellRecord2`, and names the final bytes `SettingsPhone_ConfirmScreen_ZeroSlotCellRecord`. The existing aggregate label remains at `$76C0`. The pointer table uses these symbols instead of numeric words. The emitted bytes, pointer values, and extents are preserved.
 
+## Out-of-range slot index
+
+The lookup has no local bounds check. If `wConfirmScreen_Slot` were `$03`, its word address would be `$53DC`, immediately after the three-entry table; the original bytes there are `CD 02`, so the computed source pointer is `$02CD`, not the zero record at bank `$4B:$76CC`. The ordinary caller passes the selected phone slot, whose established domain is 0–2. This calculation rules out index 3 selecting the adjacent record through this lookup; it does not establish global non-use of `$76CC`, nor behavior for other corrupted values.
+
 ## Evidence and validation
 
 - `engine/settings/confirm_screen.asm` and `home/gfx_upload.asm`: the reader loads the slot into a two-byte table offset and copies from bank `$4B`; the table has exactly three entries. `Tilemap_CopyRectAndAttr` copies B rows by C bytes twice, offsetting the destination by `$04` for attributes.
+- At source index 3, the same arithmetic reads the adjacent original-ROM bytes `67:53DC–53DD = CD 02` and forms `$02CD`; this is not a pointer to the four-zero record. No new runtime or corrupted-state behavior is claimed.
 - `gfx/settings/notice_headers_and_phone_confirm_continue_bank4b.asm`: the four records decode as `26 2F 09 09`, `27 30 09 09`, `28 31 09 09`, and `00 00 00 00`.
 - Bank-to-file conversion used `bank * $4000 + (address - $4000)`: `4B:76C0` is file offset `$12F6C0`; `67:53D6` is `$19D3D6`. Direct reads from `baserom.gbc` and `mobile_trainer.gbc` matched the expected 16 record bytes and six pointer bytes (`C0 76 C4 76 C8 76`). The two complete 2,097,152-byte ROMs have SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
 - `make`: `SHA-256 OK`, `RESULT: IDENTICAL`.
