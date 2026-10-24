@@ -34,6 +34,7 @@ monkey_blank	on	fake	-	1	Seeded random button mashing from a blank cartridge/ada
 mail_send	on	fake:latency=2	mail_compose	0	Mail menu -> send/receive with the saved mail in the outbox: dial, PPP, DNS, SMTP submission (fake server, latency 2 frames), POP3 (empty), result screens
 mail_receive	on	fake:latency=2,mail=jp+ascii+game+multipart+long	mail_send	0	Mail menu -> send/receive with 5 messages on the fake POP3 server (ISO-2022-JP, ASCII, game headers, multipart+base64, 40 lines): TOP/RETR/DELE/QUIT
 mail_inbox	on	fake:latency=2	mail_receive	0	Mailbox with 4 received mails: read all (long-mail dialog), save sender to the address book, delete a mail, reply (saved in the outbox)
+mail_reply_ascii	on	fake:latency=2,mail=jp+ascii+game+multipart+long	mail_receive	0	Natural reply to received ASCII message 2, testing its distinct sender-record path
 addressbook_full	on	fake:latency=2	mail_inbox	0	Address book from a saved entry: view, edit, add 4 entries (keyboards; also an address without @), fill all six slots, delete one
 browser_bookmarks	on	fake:latency=2	addressbook_full	all	Browser: full first-use tutorial, start prompt, empty page list, connect + index page, page list (save twice, go to page, delete a bookmark)
 browser_pages	on	fake:latency=2	browser_bookmarks	all	Browser on the richer synthetic site: a/b/c/d pages, scrolling, image requests, 14 link kinds (404 help links, bmp URLs, oversized page, other host), browser menu END

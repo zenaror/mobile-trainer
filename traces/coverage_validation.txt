@@ -1,5 +1,5 @@
 # Coverage validation report (tools/trace/merge_coverage.py)
-# 78128 unique executed instruction starts from 71 scenarios
+# 78128 unique executed instruction starts from 72 scenarios
 # ERROR = inconsistent with the SM83 decoding chain, WARN = expected in some situations, see the tool's --help
 
 ## counts

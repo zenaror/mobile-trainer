@@ -1,0 +1,42 @@
+# Natural reply to mailbox row 2 (the ASCII message), from the mail_receive state.
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap DOWN x2
+wait 30
+tap A                        # メールボックス
+waitstable 60 max 600
+tap DOWN                     # row 2 (ASCII message)
+wait 30
+tap A                        # action bar
+wait 60
+tap RIGHT                    # reply
+wait 30
+tap A
+waitstable 60 max 600
+tap START                     # confirm reply address
+wait 40
+tap A
+waitstable 60 max 600
+tap A x3                      # enter title
+tap START
+wait 40
+tap A
+waitstable 60 max 600
+tap A                          # enter body
+waitstable 60 max 600
+tap A x4                       # minimal body input
+tap START
+wait 40
+tap A
+waitstable 60 max 600
+tap A                          # save
+waitstable 60 max 600
+tap A                          # confirm save
+waitstable 60 max 900
