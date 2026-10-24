@@ -11,9 +11,9 @@ Tilemap_MobileDict_Screen:: ; 1A:47B5
 	INCBIN "gfx/help/mobile_dictionary/mobile_dict_screen.tilemap"
 	INCBIN "gfx/help/mobile_dictionary/mobile_dict_screen.attrmap"
 
-; ---- gfx $4A85-$4A90 (11 bytes) [PROBABLE] tiles-2bpp: heuristic: 69 coherent tiles (hsim2=0.685 vsim2=0.637, 0 blank) parity 1; 1205/1216 bytes also covered by call-site blocks [clipped from 4A81-4F41 by higher-priority evidence]
+; ---- data $4A85-$4A90 (11 bytes) [PROBABLE] alignment padding: zero-filled gap after the paired screen maps; the next Gfx source begins at 16-byte-aligned $4A90. This does not exclude other readers.
 
-MobileDict_ZeroByteSpan_4A85:: ; 1A:4A85
+MobileDict_AlignmentPaddingBeforeTiles_4A85:: ; 1A:4A85
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
 ; ---- gfx $4A90-$4C90 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1A:403D: hl=$4A90 a=$1A c=$20 de=$8000 (dest VRAM $8000, vbank=0)
