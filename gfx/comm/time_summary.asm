@@ -75,8 +75,12 @@ Palette_ConnIcon_Request2_Obj4:: ; 51:5EC0
 ; ---- zero $5EE0-$5EE1 (1 bytes) [HYPOTHESIS] single $00 byte right after the palette-like block ending at 5EE0 and before the tile data (5EE1); purpose unknown (padding?)
 	ds $1, $00
 
-; ---- gfx $5EE1-$70E0 (4607 bytes) [PROBABLE] tile data: heuristic: 175 coherent tiles (hsim2=0.751 vsim2=0.738, 102 blank) parity 1 [boundary trimmed 5EE1-70E1 -> 5EE1-70E0 against proven code]
+; ---- gfx $5EE1-$70D1 (4592 bytes) [PROBABLE] candidate tile data: heuristic: 175 coherent tiles (hsim2=0.751 vsim2=0.738, 102 blank) parity 1
 
 CandidateTiles_51_5EE1:: ; 51:5EE1
 	INCBIN "gfx/comm/time_summary/time_summary_candidate_tiles_5ee1.2bpp"
+
+; ---- zero $70D1-$70E0 (15 bytes) [PROBABLE] zero-filled gap ending at the 16-byte-aligned code entry Bmp_Validate; alignment role probable, exact reader/use unknown
+
+Padding_BmpValidateEntryAlignment_51_70D1:: ; 51:70D1
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
