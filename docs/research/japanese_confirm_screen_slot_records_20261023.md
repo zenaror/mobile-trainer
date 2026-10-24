@@ -1,5 +1,9 @@
 # Bank 4B confirm-screen slot-cell record names (2026-10-23)
 
+## Later refinement (2026-10-24)
+
+The source and original-ROM checks remain valid for the three selected records and their pointer values. A follow-up noted that the four zero bytes at `4B:76CC–76D0` end exactly where the next 16-byte-aligned graphics source begins at `4B:76D0`. Together with the project's finite census of 289 explicitly located Gfx labels, all 16-byte aligned, this makes alignment padding **PROBABLE**; the reserved fourth slot-cell record interpretation is now **HYPOTHESIS**. The selector still does not reach the zero bytes, and their global use remains unknown. The source uses `Padding_SettingsPhone_ContinuePromptTiles_Alignment`; see [the consolidated residual matrix](japanese_remaining_semantics_batch_20261024.md#four-zero-bytes-before-aligned-tiles-at-4b76d0) for the exact evidence and limits.
+
 ## Result
 
 The 16-byte block at `4B:76C0–76D0` is represented as four consecutive four-byte records. `SettingsPhone_ConfirmScreen_LoadSlotTilemap` at `67:53B7` loads `wConfirmScreen_Slot`, indexes the three-word table at `67:53D6`, reads a pointer, selects source bank `$4B`, and calls `Tilemap_CopyRectAndAttr` with `BC=$0201`. The helper at `00:08EA` copies the same source pointer twice, with the destination advanced by `$04` for its second pass; `BC=$0201` means two rows of one byte. This establishes each selected record's four-byte layout: two tile bytes followed by two attribute bytes. The table entries are `$76C0`, `$76C4`, and `$76C8`; each selected source therefore begins at one of the first three records. The final record begins at `$76CC` and consists of four zero bytes; it is not in this table. Its four-byte record identity is **PROBABLE** from the repeated stride and position; no purpose or use by another path is inferred.

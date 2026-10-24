@@ -300,7 +300,7 @@ SettingsPhone_ConfirmScreen_LoadSlotTilemap:: ; 67:53B7
 	farcall Tilemap_CopyRectAndAttr
 	ret
 
-; ---- words $53D6-$53DC (6 bytes) [PROBABLE] pointers to the three selected 4-byte slot-cell records at bank $4B:$76C0/$76C4/$76C8, indexed by the slot; the selected source is copied with BC=$0201 via Tilemap_CopyRectAndAttr (target $08EA), whose farcall begins at 67:53CF. The separate zero record at $76CC is not in this table.
+; ---- words $53D6-$53DC (6 bytes) [PROBABLE] pointers to the three selected 4-byte slot-cell records at bank $4B:$76C0/$76C4/$76C8, indexed by the slot; the selected source is copied with BC=$0201 via Tilemap_CopyRectAndAttr (target $08EA), whose farcall begins at 67:53CF. The four zero bytes at $76CC are not in this table.
 
 SettingsPhone_ConfirmScreen_SlotTilemapTable:: ; 67:53D6
 	dw SettingsPhone_ConfirmScreen_SlotCellRecords

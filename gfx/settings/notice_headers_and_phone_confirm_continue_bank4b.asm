@@ -51,7 +51,7 @@ Tilemap_SettingsPhone_ConfirmScreen_4B_73F0:: ; 4B:73F0
 	INCBIN "gfx/settings/notice_headers_and_phone_confirm_continue_bank4b/settings_phone_confirm_screen_4b_73f0.tilemap"
 	INCBIN "gfx/settings/notice_headers_and_phone_confirm_continue_bank4b/settings_phone_confirm_screen_4b_73f0.attrmap"
 
-; ---- data $76C0-$76D0 (16 bytes) [PROBABLE] 3 selected 4-byte slot-cell records ($26/$2F, $27/$30, $28/$31 with attributes $09 $09) followed by a 4-byte all-zero record; the table at 67:53D6 selects the first three, which are copied with BC=$0201. No use or purpose is established for the zero record.
+; ---- data $76C0-$76D0 (16 bytes) three selected 4-byte slot-cell records ($26/$2F, $27/$30, $28/$31 with attributes $09 $09), followed by four zero bytes; [PROBABLE] the zero run pads to the 16-byte-aligned graphics source at $76D0. A fourth reserved slot-cell record remains HYPOTHESIS; the table at 67:53D6 selects only the first three.
 
 SettingsPhone_ConfirmScreen_SlotCellRecords:: ; 4B:76C0
 	db $26, $2F, $09, $09
@@ -59,7 +59,7 @@ SettingsPhone_ConfirmScreen_SlotCellRecord1:: ; 4B:76C4
 	db $27, $30, $09, $09
 SettingsPhone_ConfirmScreen_SlotCellRecord2:: ; 4B:76C8
 	db $28, $31, $09, $09
-SettingsPhone_ConfirmScreen_ZeroSlotCellRecord:: ; 4B:76CC
+Padding_SettingsPhone_ContinuePromptTiles_Alignment:: ; 4B:76CC
 	db $00, $00, $00, $00
 
 ; ---- gfx $76D0-$7AD0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:574D: hl=$76D0 a=$4B c=$40 de=$9001 (dest VRAM $9000, vbank=1) [first call site executed: 2 hits in 1 scenarios (analysis/coverage_union.tsv)]
