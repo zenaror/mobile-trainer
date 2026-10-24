@@ -1,9 +1,17 @@
 # Japanese ROM closure audit (2026-10-23)
 
-## Current consolidated status at `d0b1e5d8` (2026-10-24)
+## Current consolidated status at `e65b07ba` (2026-10-24)
 
 The Japanese review has closed the finite, verifiable inventories and gates
-listed below, but the ROM is **not semantically 100% closed**. No remaining
+listed below, but the ROM is **not semantically 100% closed**. The live
+`tools/japanese_name_census.py` reports all 16 coverage families matched with
+zero open families; 2,764/2,764 local anchors, 106/106 strict bank/address
+suffix rows, 545/545 broad dispositions, and 786/786 RAM rows matched. It
+finds zero strict address-only globals, generic function prefixes,
+unreviewed generic-marker labels, short local placeholders, bare `bankNN`
+paths or address-only asset basenames. `tools/mapper.py --check` reports
+78,114 executed starts, zero missing starts, zero sweep failures, zero
+boundary crossings and zero tiling problems at HEAD `e65b07ba`. No remaining
 generic address-only function/data/font labels or bare `bankNN` asset paths
 were found in the reconciled naming families; the operation-boundary clues,
 local/RAM ledgers, scoped Bank 41–47 assets, Bank 53 name block, PNG manifests,
@@ -26,6 +34,11 @@ unused, and no global used/unused conclusion is made. Preserve the mechanical
 names and confidence levels already documented; do not invent callers,
 associations, or reachability claims. The English overlay and Operator ZIP
 remain paused pending a separate explicit authorization.
+
+The asset/build gates above ran immediately before the documentation-only
+commit `e65b07ba`; the Japanese source and assets are unchanged from the
+validated `8af7675e` checkpoint. The live census and mapper checks ran at
+`e65b07ba`.
 
 This consolidation is tied to current Japanese source/assets, which have no
 diff from the validated `8af7675e` source checkpoint. A current tracked-source
@@ -52,8 +65,8 @@ remain paused and were not examined.
 | Requirement | Current evidence | Status and limit |
 |---|---|---|
 | Reconstruct the original ROM byte for byte | `make` compares the 2 MiB output against ROM SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570` | **PASS — `RESULT: IDENTICAL`** |
-| Avoid generic function labels | Current Japanese census: zero strict address-only globals, zero generic function prefixes, zero unreviewed generic-marker labels; 15 coverage families, zero open | **CLOSED for the audited lexical families.** This does not identify every unlabelled or unreachable code span. |
-| Reconcile generic-looking data, local, RAM and resource names | Current ledgers match 2,764 local anchors, 107 strict bank/address suffix rows, 546 broad union rows (441 address-suffix and 268 Candidate labels, with 163 overlapping), and 786 RAM rows; 58 owner-qualified bank-suffix path names are individually dispositioned. The current rebuilt-symbol-map recognizer in `data_consumers.py --stats` finds zero neutral data groups and zero generated rename rows. The RAM partition has 104 exact bank overlays and 56 container interiors. | **CLOSED for the census and ledgers.** Retained neutral names and `Candidate` qualifiers reflect documented evidence limits; they are not bare address-only names. |
+| Avoid generic function labels | Current Japanese census: zero strict address-only globals, zero generic function prefixes, zero unreviewed generic-marker labels; 16 coverage families, zero open | **CLOSED for the audited lexical families.** This does not identify every unlabelled or unreachable code span. |
+| Reconcile generic-looking data, local, RAM and resource names | Current ledgers match 2,764 local anchors, 106 strict bank/address suffix rows, 545 broad union rows (440 address-suffix and 267 Candidate labels, with 162 overlapping), and 786 RAM rows; 58 owner-qualified bank-suffix path names are individually dispositioned. The current rebuilt-symbol-map recognizer in `data_consumers.py --stats` finds zero neutral data groups and zero generated rename rows. The RAM partition has 104 exact bank overlays and 56 container interiors. | **CLOSED for the census and ledgers.** Retained neutral names and `Candidate` qualifiers reflect documented evidence limits; they are not bare address-only names. |
 | Reconcile function/operation-boundary clues | The 19 current comment clues map to named bounded operations; coverage row is `CLOSED` | **CLOSED.** They are not evidence of 19 separately callable or naturally reachable functions. |
 | Identify candidate operations with no proven natural root | The five rows at 2B:6CF5, 2D:4E42/4E54, 29:511E and 70:4740 have bounded mechanical names and explicit UNKNOWN/HYPOTHESIS entry or role status in the worklist. A new full-ROM literal-target scan for `70:[4740,477F)` reconciled all same-bank and bank-qualified matches as data overlaps or graphics bytes; it found no aligned pointer to an instruction start. | **Evidence-limited.** Natural entry and role remain UNKNOWN/HYPOTHESIS; computed/stack-derived targets and execution outside the retained corpus remain open. No generic `Function_*` label remains; do not invent a root or purpose. |
 | Track additional code/data spans outside that five-row operation worklist | The three spans were checked against the 70 paired natural coverage, callgraph, and dataaccess reports at 1c9224e8 and then extended by processing only the newly added zzzz_mailbox_cursor_count reports. Across the current 71-scenario union (78,128 starts), each has zero exact instruction starts, zero direct call/rst/jphl edges, and zero intersecting ROM data-read ranges. This finite result is for these auxiliary spans only; it does not establish global unreachability or unused status. Separate static evidence already classifies 26:5344–537C as the PROBABLE code fragment `MailSession_WriteVram1TileAndWram7ScreenRows`; its entry and intended role remain unknown. | **Finite corpus check closed.** Only the code/data identity of `28:4BA6–4BC2` and purpose/use of `4B:76CC–76D0` remain unresolved in this row. The bounded negative does not establish global unreachability or unused status; see the result and manifest in `japanese_open_questions_followup_20261023.md` and the classification evidence in `naming2_verify_fn4.md`. |
