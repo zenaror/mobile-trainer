@@ -199,6 +199,46 @@ but does not establish A9ED's global value domain, a natural root for the Bank
 tracked-source scan described above against the current Japanese source tree;
 the original ROM and emitted bytes were not read or changed by this pass.
 
+### `FillBytes` caller census and SRAM destination matrix (2026-10-24)
+
+A grouped scan of the maintained Japanese callers found 105 direct
+`call FillBytes` sites in `home/`, `engine/`, and `lib/`, with 29 distinct
+nearby HL setup forms. The 24 SRAM-writing sites resolve to the following
+destination contracts; the remaining 81 sites use the explicit HRAM/WRAM/VRAM
+destinations or the five additional input-HL cases described below.
+
+| Destination family | Sites | Bank/range and write value | Relation to A9ED/A9EE |
+|---|---:|---|---|
+| `_SRAM` / `$B000` whole-bank clears | 8 | `Browser_ClearCaches` clears banks 2/3; `Sram_WipeBanks2And3` clears both 4 KiB windows in banks 2/3; `Sram_WipeAllBanks` loops banks 0–3. Every fill writes zero. | Bank 1's A9ED/A9EE are cleared to zero by the all-bank loop; the other clear routes select only banks 2/3 |
+| `sSaveCheckStateBlock` | 1 | SRAM1 `$A9E8-$A9F7`, zero | Includes A9ED/A9EE; subsequent direct checksum stores affect only `$A9E8-$A9EB` |
+| `sPageList` | 1 | SRAM1 `$A000-$A683`, zero | Ends before `$A9E8` |
+| `sBrowserHistory` | 1 | SRAM1 `$AA00-$AFFF`, zero | Starts above `$A9FF` |
+| `sSettingsPage` / `sVarPage` | 3 | SRAM1 `$B000-$B1FF` initialization and `$BF00-$BFFF` variable-page clear; initialization uses `$A5`, variable clear uses zero | Starts above `$A9FF` |
+| `sConfigImage` / `sConfigImagePad` | 2 | SRAM2 `$A000-$A0FF`; zero image clear and `$FF` pad fill | Different SRAM bank and range |
+| `sNetWorkPage` | 2 | SRAM3 `$A000-$BFFF`, zero in two 8 KiB request initializers | Different SRAM bank |
+| `sBrowserPageBuf` | 5 | SRAM3 `$B000-$BFFF`, zero before load/parse flows | Different SRAM bank |
+| `PageCache_Pop` caller-supplied HL | 1 | All six maintained callers set `DE=$B000`, `A=3`; `BankSwitch_H` selects SRAM3, then the `$1000`-byte page buffer is zero-filled before cache copy | Different SRAM bank |
+
+Five of the six input-HL sites are also bounded outside SRAM: the two sprite
+slot helpers select WRAM bank 7, the browser scrollbar fill targets
+`wTileStage2` in WRAM bank 2, and the two `Html_ParseSource` clears use
+`wHtmlPage` in WRAM bank 4 and `wHtmlTextStream` in WRAM bank 5. The HTML
+page pointer/bank and text-stream pointer/bank are initialized by the two
+maintained parser entry wrappers; they do not inherit an arbitrary SRAM
+destination. The nearby-HL scan is used only to find cases requiring this
+manual contract review; it is not treated as proof by itself.
+
+This closes the direct `FillBytes` caller family for the reviewed maintained
+routes: no normal fill assigns a nonzero value to SRAM1:A9ED, and the only
+fill that covers it writes zero. It does not close `CopyString`, XOR codecs,
+register-indirect byte/block writers, arbitrary API descriptors, malformed
+inputs or dynamic control transfer. The broader A9ED/A9EE writer question
+therefore remains open. Source locations include `engine/account/helpers.asm`,
+`engine/account/settings_page.asm`, `engine/account/register_config.asm`,
+`engine/browser/history_cache.asm`, `engine/browser/page_loader.asm`,
+`engine/html/parser.asm`, and `engine/sram/save_block_check.asm`; RAM extents
+and bank identities are cross-checked against `ram/banked.asm`.
+
 The minimal proposal changes exactly25 existing whole-comment rows in engine/comm/comm_scene.asm and adds this note. Physical source rows, all instructions/data, blanks, labels, local scopes and confidence levels remain unchanged. This source-only static proposal does not change the accepted queue, integrate a parent or authorize validation. Existing scope6 preparation helpers are untouched.
 
 
