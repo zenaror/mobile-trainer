@@ -132,3 +132,41 @@ This closes only the direct immediate-`A` selector check for the declared source
 A second bounded check inspected the immutable 2 MiB original ROM (SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`) for the documented inline conventions `call $06D1 ; dw target ; db bank` (`CD D1 06`) and `call $072E ; dw target ; db bank` (`CD 2E 07`), plus direct helper-call opcodes for `FarJumpTable` (`CD 51 05`) and `JumpTableBank` (`CD 40 05`). The whole-file scan found 5,274 raw FarCall opcode-pattern matches and zero whose following inline bank byte is `$53`; it found zero patterns for the other three helper entries. It also found no FarCall-pattern target word equal to ROM0 jump-table helpers `$0540`, `$0545`, `$0551`, or `$056A`. The 5,274 are raw byte matches, not all individually verified instruction starts.
 
 Reproduction: `.tmp/jp-bank53-inline-farptr-census-20261023/audit.py` SHA-256 `c75c816d613aa77f53b33e8626b28bf3fa35b5ea463b0376e3bcc58105f9eda6`; `RESULT.json` SHA-256 `3e4c9cd8d30d065c6f14f05f1bca499ff36e41367c43bea6fe0504542c77d287`. This excludes only direct inline FarCall/FarJump and direct calls to these table helpers in their documented encodings. Computed bank values, indirect tables, other readers, and natural access remain open; no name-to-frame mapping or used/unused classification follows.
+
+## Whole-ROM raw far-pointer-shaped byte scan at `8d8f024c` (2026-10-24)
+
+A distinct static check scanned every byte offset of the immutable Japanese ROM
+for both literal triple layouts that could encode a Bank 53 far pointer to the
+name block: `[addr16 little-endian, bank=$53]` and
+`[bank=$53, addr16 little-endian]`, with the candidate address restricted to
+`53:[4000,4171)`. The reference ROM is 2,097,152 bytes with SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
+The scan found 17 and 13 raw byte coincidences respectively. All 30 physical
+offsets map to linked sections and are individually classified in the private
+reproducibility result; none is an aligned far-pointer field targeting this
+interval.
+
+The coincidences resolve to two adjacent same-bank word-table boundaries
+(Mail header pointers and the HTML tag-pointer list), five graphics assets,
+five font-data locations, six ASCII HTTP strings, three Japanese dialogue
+strings, four instruction-opcode sequences, and five opcode/operand overlaps.
+The repeated code bytes are ordinary SM83 instructions such as `LD D,E; LD
+E,B; LD B,C`; the overlaps include same-bank `CALL` operands and `LD HL,d16`
+/`LDH A,[a8]` immediates. These classifications explain the raw triples; they
+do not establish that computed or indirect reads of Bank 53 never occur.
+
+This is a bounded negative result for literal inline encodings only. It does
+not cover computed bank/address values, registers or stack-derived targets,
+indirect tables that do not contain the bank byte inline, runtime copies, or
+other encodings. It therefore does not establish natural selection, global
+reachability, or used/unused status for the names or frame assets. No Japanese
+ASM, graphics, or ROM bytes changed. After rebuilding the current checkout,
+`make` reports `RESULT: IDENTICAL` at the pinned ROM hash and `make sym-check`
+passes (335 source files, 12,214 labels, 51 constants).
+
+Reproduction: `.tmp/jp-bank53-farptr-scan-20261024/scan.py` SHA-256
+`78b723fd9d754abc1386ae58cc720ad83df22f99b03174f8477781d6f5f20734`;
+`RESULT.json` SHA-256
+`32f857573f244ad65a3efc8f89da0580417f1473b0afbd8f38aa63bde4aca24b`.
+The scan pins the rebuilt map and symbol inputs in that result. The private
+`.tmp/` artifacts remain retained under the project cleanup policy.
