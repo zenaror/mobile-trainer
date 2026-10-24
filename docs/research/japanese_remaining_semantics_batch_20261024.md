@@ -67,7 +67,7 @@ The eleven-byte dictionary interval `[1A:4A85,4A90)` consists of zeros and begin
 
 ## Targeted indirect-route deltas (2026-10-24; bounded private snapshots)
 
-These follow-ups were read-only and used private source snapshots plus the hash-verified Japanese ROM. They refine only the named routes below; they do not replace the earlier 349-file census or establish source-complete negative results.
+These follow-ups were read-only and used private source snapshots at source revision `b5645eb5df73fd14653145666ec2da7a0b21b7f9` (archive SHA-256 `94ee601ef0880880df9fbb545f4b8da5f42548a023f7323b61555f3bee88c875`) plus the hash-verified Japanese ROM (SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`). They refine only the named routes below; they do not replace the earlier 349-file census or establish source-complete negative results. The temporary private snapshot copies were removed after the findings and reproduction identities were recorded here.
 
 ### Dictionary zero interval
 
