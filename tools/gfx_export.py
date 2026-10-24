@@ -1020,8 +1020,9 @@ def do_check():
     ex = sum(1 for r in rows.values() if r['png'] == 'exact')
     vw = sum(1 for r in rows.values() if r['png'] == 'view')
     sh = sum(1 for r in rows.values() if r['png'] == 'sheet')
+    sh_pngs = len({png_path_of(p, 'sheet') for p, r in rows.items() if r['png'] == 'sheet'})
     raw = sum(1 for r in rows.values() if r['type'] == 'raw' and r['png'] == 'exact')
-    print('%d assets (%d exact tile PNG sources, %d raw byte-view PNG sources, %d font sheets, %d view-only PNGs, %d without PNG)' % (len(rows), ex - raw, raw, sh, vw, len(rows) - ex - sh - vw))
+    print('%d assets (%d exact tile PNG sources, %d raw byte-view PNG sources, %d font binaries using %d unique font sheets, %d view-only PNGs, %d without PNG)' % (len(rows), ex - raw, raw, sh, sh_pngs, vw, len(rows) - ex - sh - vw))
     for e in errors:
         print('ERROR', e)
     print('gfx_export check:', 'FAILED (%d)' % len(errors) if errors else 'OK')

@@ -281,10 +281,12 @@ palette-check` passed with 162 loads in 116 arrays, two documented over-reads
 and zero errors. `make png-check` passed with 418 tile sheets, four raw byte
 views, 37 font sheets and 95 screen PNGs.
 `python3 tools/gfx_export.py check` accepted 988 catalog assets (418 exact tile
-PNG sources, four raw byte-view PNG sources, 39 font sheets, one view-only PNG
-and 526 assets without PNG); `python3 tools/png_rules.py mk-check` accepted
-987 rules. These tools report different declared categories, so their counts
-are retained independently.
+PNG sources, four raw byte-view PNG sources, 39 font binaries using 37 unique
+font-sheet PNGs, one view-only PNG and 526 assets without PNG); `python3
+tools/png_rules.py mk-check` accepted 987 rules. The difference between the 39
+font binaries and 37 unique sheets is one sheet shared by three binaries;
+`make png-check` counts unique sheet PNGs, while `gfx_export.py check` counts
+font-binary catalog rows.
 
 These gates confirm the current byte reconstruction, symbol address agreement,
 declared palette reads and PNG manifests. They do not establish semantic
