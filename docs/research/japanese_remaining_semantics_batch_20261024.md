@@ -2,11 +2,20 @@
 
 Source and documentation baseline: cc2d80ac17a741a7507b4d3fc7c9d98a0ff2a893. Three independent, read-only, disjoint-scope reviews were merged here. They did not modify source, ROM, or assets and reused the prior scans and inventories. No generic-name census, PNG/frame re-emission, or 70-scenario corpus scan was repeated.
 
+## How to use this matrix
+
+This is an evidence-limit register, not an outstanding implementation queue.
+The audits described here have been performed. UNKNOWN/HYPOTHESIS/PROBABLE
+qualify the result; they do not by themselves request another scan. Follow the
+[reconciled status and reopening criteria](japanese_closure_audit_20261023.md#reading-the-status-correctly-review-of-2026-10-24-baseline-979fc0a5).
+Counts in dated corpus sections belong to those snapshots; the later 72-scenario
+index does not retroactively rerun a 71-report data-access audit.
+
 ## Status matrix
 
 This section merges three independent, disjoint-scope reviews completed against private snapshots of cc2d80ac17a741a7507b4d3fc7c9d98a0ff2a893. They did not modify source, ROM, or assets. They reused prior scans and inventories; no generic-name census, PNG/frame re-emission, or 70-scenario corpus scan was repeated.
 
-| Batch | Current verified state | What remains | Reopen only with |
+| Batch | Current verified state | Retained evidence limit | Reopen only with |
 |---|---|---|---|
 | Generic labels and ownership | At census checkpoint `7b2f49dc`, 16/16 coverage families match; 2,764 local anchors; 106 strict suffix rows; 545 broad dispositions (440 address-suffix labels + 267 Candidate labels - 162 overlaps); 786 RAM rows; zero missing/stale/duplicate/incomplete rows; zero generic function prefixes, unreviewed generic markers, bare physical-bank directories or filenames, and address-only asset basenames. The stale `WramClearCandidate_28_4BA6` row was retired after the source reclassification in `3261f72f`; the path census now covers bare basenames and `bankNN_...` prefixes across active source/resource roots for banks 00–7F. | This closes those lexical inventories, not every possible code/data byte or the semantics of every retained Candidate/neutral name. | A new concrete unmatched symbol/path or a source-set change; do not rerun the closed census. |
 | GFX residuals | Seven historical partial spans remain documented: six Bank 42 windows and `1A:4A85–4A90`. The six Bank 42 windows are now split into individual 16-byte `PROBABLE` tile candidates with exact PNGs; this establishes a bounded tile interpretation, not original loader phase or consumer. A grouped audit classified all 99 `screen_ops.tsv` rows: declared producers do not naturally source the Bank 42 tails, but an out-of-domain banner state conditionally selects ROM42:5F00–6180, overlapping `42:6132`. | No natural Bank 42 consumer is established; the conditional invalid-state route prevents claiming the tail cannot be read. The dictionary zero run `[1A:4A85,4A90)` is 11 bytes after the 720-byte paired maps `[47B5,4A85)` and before the first tile HDMA source at `4A90`. Its **PROBABLE** role is alignment padding: `4A90` is 16-byte aligned, and all 289 maintained `Gfx_*` labels with explicit physical locators in `gfx/` are 16-byte aligned. This finite pattern does not exclude other readers. Global used/unused is unresolved. | A natural producer/trace for an invalid banner kind or a source-complete contract for another reader; for the dictionary run, only new direct reader/format evidence should reopen its classification. |

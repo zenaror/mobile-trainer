@@ -1,5 +1,39 @@
 # Japanese ROM closure audit (2026-10-23)
 
+## Reading the status correctly (review of 2026-10-24, baseline `979fc0a5`)
+
+This is the entry point for the Japanese review. Dated sections below are
+historical evidence snapshots, not additive task queues. The current evidence
+matrix and the source classifications take precedence over older prose.
+
+| Reviewed scope | Disposition | What would justify reopening |
+|---|---|---|
+| Naming/path/local/RAM inventories | Completed within the 16 declared coverage families; no outstanding unmatched row in the recorded census | A concrete unmatched case or relevant source change |
+| Operation-boundary TSV | All 21 rows already have named operations/fragments in their owner files, including the colonless local label at `55:5DF5`; not 21 unnamed functions | New entry/consumer evidence or a specific error in a row's mechanics |
+| Auxiliary spans | `26:5344` and `28:4BA6` are named PROBABLE code; `4B:76CC` is PROBABLE alignment padding | New caller, reader or contradictory byte/format evidence |
+| Bank 42 candidates and dictionary padding | Six tile candidates already have exact PNGs; `1A:4A85` is PROBABLE padding | New natural loader/consumer evidence; no repeated extraction |
+| Bank 53 and frame inventory | Finite audit completed; current inventory is 143 assets and 77 PNG references | A changed inventory, missing referenced file or positive name/selector link |
+| Eight KEEP compositions | Reviewed limitations of editable placement; bytes, backing assets and previews retained | Evidence supplying the missing placement keys/state |
+| Global used/unused claims | Not established by the bounded trace corpus | Evidence covering the relevant consumers; absence of observations alone is insufficient |
+
+**No new actionable defect was identified by this report reconciliation.**
+That is not a proof that every byte's semantics or every natural entry is known.
+The five highlighted candidate roots are a subset of the recorded uncertainty,
+not an exhaustive count of unidentified functions. The 21 operation rows, two
+additional code fragments, eight data/GFX intervals, 25 associations and eight
+KEEP views must not be added up as an outstanding implementation backlog.
+These groups describe different, sometimes overlapping, evidence limits.
+The earlier conversational estimate of 40–80 hours is withdrawn: these records
+do not support a remaining-work total, percentage or completion date.
+
+For any proposed new task, first state the affected source/evidence revision,
+the specific unsatisfied requirement, the new evidence or changed scope, and
+an acceptance criterion. Consult the existing row and receipt before proposing
+another scan. Keep completed checks closed unless that trigger applies. A user
+request can reopen a bounded question, but does not invalidate prior results.
+English/ZIP work remains paused until a separate explicit user authorization.
+This review changed documentation only; it did not rerun the ROM or gates.
+
 ## Current consolidated status at `e65b07ba` (2026-10-24)
 
 The Japanese review has closed the finite, verifiable inventories and gates
@@ -25,7 +59,7 @@ screens), `gfx_export.py check` (994 assets), and `png_rules.py mk-check`
 with SHA-256
 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
 
-The outstanding items are evidence limits, not unperformed repetitions of the
+The retained uncertainties are evidence limits, not unperformed repetitions of the
 closed inventories: five bounded candidate roots still lack a demonstrated
 natural producer/entry; some GFX spans lack a proven natural consumer or load
 phase; and all 25 Bank 53 name-to-frame links, including Porygon/Porygon2,
@@ -56,8 +90,8 @@ for the retained evidence and bounded limits.
 
 This report consolidates the verifiable Japanese-ROM requirements. The
 original audit was recorded at `91e1c957437e24b3837e87fdf0a210c9abac54f3`;
-the latest source and gate revalidation is recorded below at
-`9f077cd0d64cbfb6869b80d7278f771749b61f67` on
+the latest gate summary is the `e65b07ba` section above, recorded in
+`979fc0a5`, on
 `codex/japanese-census-ram-ledger`. It uses only the canonical checkout
 `/home/rafael/_PROJETOS/Mobile Trainer`; the English overlay and Operator ZIP
 remain paused and were not examined.
@@ -69,7 +103,7 @@ remain paused and were not examined.
 | Reconcile generic-looking data, local, RAM and resource names | Current ledgers match 2,764 local anchors, 106 strict bank/address suffix rows, 545 broad union rows (440 address-suffix and 267 Candidate labels, with 162 overlapping), and 786 RAM rows; 58 owner-qualified bank-suffix path names are individually dispositioned. The current rebuilt-symbol-map recognizer in `data_consumers.py --stats` finds zero neutral data groups and zero generated rename rows. The RAM partition has 104 exact bank overlays and 56 container interiors. | **CLOSED for the census and ledgers.** Retained neutral names and `Candidate` qualifiers reflect documented evidence limits; they are not bare address-only names. |
 | Reconcile function/operation-boundary clues | The 19 current comment clues map to named bounded operations; coverage row is `CLOSED` | **CLOSED.** They are not evidence of 19 separately callable or naturally reachable functions. |
 | Identify candidate operations with no proven natural root | The five rows at 2B:6CF5, 2D:4E42/4E54, 29:511E and 70:4740 have bounded mechanical names and explicit UNKNOWN/HYPOTHESIS entry or role status in the worklist. A new full-ROM literal-target scan for `70:[4740,477F)` reconciled all same-bank and bank-qualified matches as data overlaps or graphics bytes; it found no aligned pointer to an instruction start. | **Evidence-limited.** Natural entry and role remain UNKNOWN/HYPOTHESIS; computed/stack-derived targets and execution outside the retained corpus remain open. No generic `Function_*` label remains; do not invent a root or purpose. |
-| Track additional code/data spans outside that five-row operation worklist | The three spans were checked against the 70 paired natural coverage, callgraph, and dataaccess reports at 1c9224e8 and then extended by processing only the newly added zzzz_mailbox_cursor_count reports. Across the current 71-scenario union (78,128 starts), each has zero exact instruction starts, zero direct call/rst/jphl edges, and zero intersecting ROM data-read ranges. This finite result is for these auxiliary spans only; it does not establish global unreachability or unused status. Separate static evidence already classifies 26:5344–537C as the PROBABLE code fragment `MailSession_WriteVram1TileAndWram7ScreenRows`; its entry and intended role remain unknown. | **Finite corpus check closed.** Only the code/data identity of `28:4BA6–4BC2` and purpose/use of `4B:76CC–76D0` remain unresolved in this row. The bounded negative does not establish global unreachability or unused status; see the result and manifest in `japanese_open_questions_followup_20261023.md` and the classification evidence in `naming2_verify_fn4.md`. |
+| Track additional code/data spans outside the five highlighted candidate roots | The three spans were checked against the 70 paired natural coverage, callgraph, and dataaccess reports at 1c9224e8 and then extended by processing only the newly added zzzz_mailbox_cursor_count reports. Across the current 71-scenario union (78,128 starts), each has zero exact instruction starts, zero direct call/rst/jphl edges, and zero intersecting ROM data-read ranges. This finite result is for these auxiliary spans only; it does not establish global unreachability or unused status. Separate static evidence already classifies 26:5344–537C as the PROBABLE code fragment `MailSession_WriteVram1TileAndWram7ScreenRows`; its entry and intended role remain unknown. | **Finite corpus check closed.** `28:4BA6–4BC2` is now the PROBABLE coherent routine `ClearWram0AndFillWram7WithFF`; its entry and intended purpose remain unknown. `4B:76CC–76D0` is PROBABLE alignment padding (`Padding_SettingsPhone_ContinuePromptTiles_Alignment`), with the fourth-record alternative only HYPOTHESIS. These supersede the earlier unclassified-span wording. The bounded negative does not establish global unreachability or unused status; see the result and manifest in `japanese_open_questions_followup_20261023.md` and the classification evidence in `naming2_verify_fn4.md`. |
 | Verify Bank 53 Pokémon names and candidate frames | The 369-byte pointer/string block and 25 candidate windows (85,200 bytes) reproduce the original; the current bank 41–47 inventory contains 143 assets (93,360 emitted bytes), 77 PNGs, 24 previews and 17 editable views; this includes six additional Bank 42 16-byte tile candidates | **Finite extraction/presence check closed.** The 25 name-to-window associations and natural selection remain unknown. |
 | Check unused frames and asset/PNG omissions | Eight incomplete editable compositions remain `KEEP` because the declared view model lacks backing keys. The source bytes and legacy previews exist; the scoped inventory found no missing referenced files or orphan asset/PNG files. | **No omitted ROM asset or referenced PNG found in scope.** The eight incomplete compositions are not missing ROM data or missing referenced PNGs. No frame is classified globally unused. |
 | Reconcile GFX-plan residuals | The bounded GFX plan has seven residual spans totaling 82 bytes: six Bank 42 tails (71 bytes) and `1A:4A85–4A90` (11 zero bytes). Six Bank 42 spans now have separate 16-byte PROBABLE tile-candidate assets with exact PNG sources; the former Bank 51 tail `51:70D1–70E0` is separately bounded and no longer a plan residual. | **Byte extents and owner boundaries are reconciled;** the six tile-candidate identities remain PROBABLE, and natural loader phase/consumption remain unproved. The 11-byte zero run is not promoted to a tile. |
