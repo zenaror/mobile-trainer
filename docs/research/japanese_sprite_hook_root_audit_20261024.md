@@ -42,6 +42,44 @@ were checked against their complete maintained tables:
 These results bound those specific producers. They do not imply that other
 indirect transfers, code-pointer tables, or direct writes have been exhausted.
 
+## Candidate-bank filter over the current mapper pipeline
+
+To choose the next finite review without relying on the September generated
+report, `tools/mapper.py` was imported from the current checkout at commit
+`d4ad496804d190241a084944ea943339ae77ccb4`; `Inputs()` and `run_pipeline()`
+were run in memory with the committed ROM/coverage/trace inputs. The ROM inputs
+`baserom.gbc` and `Mobile Trainer (Japan).gbc` both measured 2,097,152 bytes
+and SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
+The pipeline converged after two rounds (103,605 then 103,440 decoded
+instructions) and produced 34 unresolved `jp hl` / `push rr ; ret` sites. Of
+the physical banks containing the candidates (`29`, `2B`, `2D`, `70`), the
+only such site is
+`70:40AC jp hl`. The current pipeline found no inline `call $0545` / `$056A`
+tables whose call site is in those four banks. The complete table for
+`CommScene_RunState` at `70:40AC` was checked above and does not select
+`70:4740`.
+
+This closes the decoded same-bank indirect-transfer route for these candidates
+within the current mapper evidence: no such site was found in banks `29`,
+`2B`, or `2D`, and the sole bank-`70` site has a bounded table excluding
+`70:4740`. It does not rule out code hidden in unclassified spans, runtime
+computed transfers originating elsewhere, stack pivots, or execution outside
+the retained trace corpus; it is not a global-unreachability claim.
+
+The in-memory check was reproduced with:
+
+```python
+import sys
+sys.path.insert(0, "tools")
+import mapper
+inputs = mapper.Inputs()
+discovery, mapped = mapper.run_pipeline(inputs, quiet=True)
+```
+
+Filtering `discovery.cfg.unresolved` by `node[0] in {0x29, 0x2B, 0x2D,
+0x70}` yields only `70:40AC`; filtering `mapped.inline_tables` by the same
+bank set yields no rows.
+
 ## Limits
 
 This is a bounded result over the maintained assembly's direct
