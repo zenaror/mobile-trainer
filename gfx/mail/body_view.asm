@@ -67,11 +67,27 @@ MailBody_ObjScript:: ; 28:4BA3
 	sprite_anim 1
 	sprite_anim_step 0, 4
 
-; ---- bytes $4BA6-$4BC2 (28 bytes) [HYPOTHESIS] code candidate immediately after the 3-byte MailBody_ObjScript (one count/pair record, ending at $4BA6 under the confirmed sprite reader contract); if entered here, zeroes $C000-$C08F, selects SVBK 7, fills $DA00-$DAFF with $FF, then returns; no call/jp/far-pointer/table reference was found, so code classification, natural entry and purpose remain unproved
+; ---- code $4BA6-$4BC2 (28 bytes) [PROBABLE] coherent routine: clears fixed WRAM0 $C000-$C08F, selects hWRAMBank/rSVBK 7, fills WRAM7 $DA00-$DAFF with $FF, then returns; its complete instruction sequence occurs once in the ROM, but no caller or entry is known and its intended purpose is unresolved
 
-WramClearCandidate_28_4BA6:: ; 28:4BA6
-	db $06, $90, $21, $00, $C0, $AF, $22, $05, $20, $FC, $3E, $07, $E0, $8D, $E0, $70
-	db $06, $00, $21, $00, $DA, $3E, $FF, $22, $05, $20, $FC, $C9
+ClearWram0AndFillWram7WithFF:: ; 28:4BA6
+	ld b, $90
+	ld hl, $C000
+	xor a
+.clearWram0
+	ld [hli], a
+	dec b
+	jr nz, .clearWram0
+	ld a, 7
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld b, 0
+	ld hl, $DA00
+	ld a, $FF
+.fillWram7
+	ld [hli], a
+	dec b
+	jr nz, .fillWram7
+	ret
 
 ; ---- zero $4BC2-$4BD0 (14 bytes) [PROBABLE] 14 zero bytes padding after the ret at 4BC1
 	ds $E, $00
