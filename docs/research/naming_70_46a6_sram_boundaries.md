@@ -167,6 +167,38 @@ domain of either SRAM field. Static sources checked: `home/mobile.asm`,
 `engine/settings/adapter_check.asm`, `engine/mobile/pop3_retr.asm`,
 `engine/mobile/pop3_top.asm`, and `engine/mobile/smtp.asm`.
 
+### Exact direct-operand census for SRAM1:A9ED/A9EE (2026-10-24)
+
+To close the direct-symbol portion without repeating the earlier range and
+caller reviews, a fresh scan covered every currently tracked Japanese
+`.asm`/`.inc` input (350 files; `languages/en/` excluded). It searched code
+before comments for `sSaveCheckStateBlock`, its field aliases, the valid-flag
+alias, and literal `$A9ED`/`$A9EE` operands. The scan found 50 matching code
+lines: six declarations in `ram/banked.asm`/`ram/sram.asm`, 29 read/address
+operands and 15 direct stores. All executable matches are confined to
+`engine/browser/canvas.asm`, `engine/browser/start_choice.asm`,
+`engine/comm/comm_scene.asm`, and `engine/sram/save_block_check.asm`.
+
+The direct stores divide completely into three known behaviors: reset fills
+the full 16-byte bank-1 block with zero (therefore `$A9ED` and `$A9EE` both
+receive zero); checksum maintenance stores only offsets `+$00..+$03`; and the
+two stores to `$A9EE` are inside the unrooted Bank 70 candidate at `70:46EA`
+and `70:4710`. No direct store assigns a nonzero value
+to `$A9ED`. The direct readers are the save-check checksum/validation code,
+the browser/frame-style selector, and the two Bank 70 candidate operations.
+`ram/banked.asm` resolves the structure to `$A9E8-$A9F7`, the flags alias to
+`$A9ED` (`+$05`), and the randomized-byte alias to `$A9EE` (`+$06`); the
+neutral cross-bank anchors in `ram/sram.asm` remain separate.
+
+This closes exact operands and symbol aliases in the complete maintained
+source inventory. It does not close writes through register-indirect helpers,
+far pointers, arbitrary API arguments, stack-derived destinations, malformed
+or external SRAM, or dynamic control flow. Thus it narrows the source census
+but does not establish A9ED's global value domain, a natural root for the Bank
+70 candidate, or a natural nonzero producer for A9EE. Reproduction is the
+tracked-source scan described above against the current Japanese source tree;
+the original ROM and emitted bytes were not read or changed by this pass.
+
 The minimal proposal changes exactly25 existing whole-comment rows in engine/comm/comm_scene.asm and adds this note. Physical source rows, all instructions/data, blanks, labels, local scopes and confidence levels remain unchanged. This source-only static proposal does not change the accepted queue, integrate a parent or authorize validation. Existing scope6 preparation helpers are untouched.
 
 
