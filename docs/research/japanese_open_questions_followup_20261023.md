@@ -457,3 +457,22 @@ Accordingly, none of these 264 mapper rows is itself evidence of an unnamed func
 At the same source checkpoint, a fresh lexical pass over maintained Japanese roots `home/`, `engine/`, `data/`, `gfx/`, `audio/`, `lib/`, and `ram/` found no `Function_<bank>_<address>`, `Data_<bank>_<address>`, or `Font_<bank>_<address>` labels, and no `Function_` labels of any form. A path scan of `gfx/` found no bank-number-only directory component (`bankNN`). This is a scoped current-source census; it excludes language overlays and does not imply that every descriptive `Candidate` name has proven purpose or natural use.
 
 The formerly recorded `Data_2F_4094` is now `Data_AbookList_CandidateJpRun_4094` in `engine/address_book/list.asm`. Its bytes remain `$C3,$00,$40` (`JP AbookList_Run`), but the preceding normal path jumps to `AbookList_Run_ButtonRow`; no direct entry to `2F:4094` is established. The current name captures the observed JP target while the source correctly retains HYPOTHESIS for code versus an unused stub. This reconciles the older address-only-name census without claiming that the three bytes are a live function.
+
+
+## Incremental check of the only added scenario for the three auxiliary spans (2026-10-24)
+
+The earlier negative audit remains exactly scoped to its pinned 70-scenario input manifest, SHA-256 `9c784734fb895133f4ea822e6a2934c98c9318e751a414c88966de1c5e6dd1b3`. Comparing that manifest with the current trace set shows one added scenario and no removed scenarios: `zzzz_mailbox_cursor_count`. The current union contains 71 scenarios and 78,128 instruction starts.
+
+Without rereading the 70 prior scenario reports, the new scenario's three existing artifacts were checked against the same half-open spans: `26:5344–537C`, `28:4BA6–4BC2`, and `4B:76CC–76D0`. Its coverage has zero instruction starts in each span; its callgraph has zero direct `call`/`rst`/`jphl` edges to each span; its dataaccess report has zero intersecting ROM-read ranges. The prior audit's corresponding results were already zero, so the combined finite result covers all 71 current scenarios for these three auxiliary spans. This does not update the distinct natural-root audits, prove global unreachability or unused status, or establish hardware behavior.
+
+The source trace diff at commit cc2d80ac adds this scenario's artifacts and the generated aggregate union/validation outputs; no prior per-scenario coverage, callgraph, or dataaccess report changed.
+
+Reproduction used only the incremental checker `.tmp/jp-open-span-corpus-audit-20261023/delta_check_zzzz.py`, which reads the prior result/manifest summary, verifies the scenario-set delta, checks the current union count, and parses only the new scenario's coverage/callgraph/dataaccess. It wrote `.tmp/jp-open-span-corpus-audit-20261023/DELTA_ZZZZ_RESULT.json`. The checker asserts the original ROM hash before recording evidence.
+
+Receipt hashes:
+- Checker SHA-256: `99d0d20c723f9eb9021a22989634f83bc3e802f1799e45e0e638232795115ac2`.
+- Delta result SHA-256: `2bb0a74a54d521fb21007706de09ce329525e4febae228be1f1e333aa89307a6`.
+- Prior manifest SHA-256: `9c784734fb895133f4ea822e6a2934c98c9318e751a414c88966de1c5e6dd1b3`; prior result SHA-256: `88cb8c64f759a483c733258a72620bb8ea6e40d1d5f21aee6469ec4cc54d39ac`.
+- New scenario coverage SHA-256: `7039d8cf05fbc5ca93d953d74bec479f476d7c8b28fec0b46138432f26f42db4`; callgraph SHA-256: `4e69952bc367f2a848cd3239dca63e9d0b793f0dc15501908a85c918c577eb98`; dataaccess SHA-256: `1a10cf06a33c45ded47158e5dd75b5cff7d9129b46abc630871cb0e52010f9f7`.
+
+The bounded result changes no code/data classification or name. It closes the corpus-membership delta for these three specific auxiliary spans, while their semantics and possible uses outside the current natural corpus remain open.
