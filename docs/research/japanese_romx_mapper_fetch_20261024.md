@@ -143,3 +143,41 @@ The preceding22 residual rows now have explicit conditional contracts in the mat
 These results rely on intact scratch/stack and ordinary callee returns, just as the prior bounded contracts. They eliminate these declared text-rendering paths as ROM-bank-changing destinations in that domain; they do not establish a new natural path to any candidate or a Pokémon/frame link. The remaining investigation moves to the42HTML/browser pointer sites and their actual producers, not another TextTiles inventory.
 
 Reproduction: `.tmp/jp-textline-interprocedural-20261024/check.py` and `RESULT.json`; original bytes supply all68records,142lines,six menu strings,eight messages,five captions and numeric suffixes. The output retains hashes of the decoded original strings. Only small task artifacts are retained; no source clone or historical data removal.
+
+
+## HTML resource-chain guards: exact local boundary
+
+CONFIRMED by source inspection and exhaustive arithmetic (not emulator execution):
+`Html_NextResourceRecord` (74:5B4F) reads the length N at input P and returns
+DE=P+2+N, modulo65536. Both Browser_FetchInlineImages and MobileDictView_LoadImages
+add another2, save this as ListEnd, and write two zero bytes there before inspecting
+the next URL. This is the existing resource format, not a new natural entry.
+
+The browser's subsequent guard subtracts L from FC and H plus borrow from BF,
+then rejects a zero or negative **high byte**. It is not the predicate P<BFFC.
+For all65536 possible pointer values its accepted interval is3FFD..BEFC inclusive;
+restricted to B000..C000 it accepts B000..BEFC. The second guard, after copying
+the URL, uses the same predicate on the advanced pointer and passes BFFC-pointer
+as HTTP receive capacity. Neither guard establishes the lower bound by itself.
+MobileDictView_LoadImages has no matching guard before its URL copy; the browser
+predicate must not be attributed to that routine. Both routines' earlier tail
+writes also require a valid length-derived pointer independently of this guard.
+
+The HTTP producer is partly traced: Http_StartGet/Post save the caller's capacity
+and destination; MobileAPI_HttpGet stores them at75:4EE8. HttpPrepareRequestPackets
+(75:65CD) installs ResultBufferPtr and reserves two bytes; HttpBodyStart (75:70CD)
+subtracts two from receive capacity before its window-body comparison and tracks
+remaining capacity while copying packet bytes. HttpReadBody (75:5049) likewise
+reserves the two-byte length field. RxCopyToDest (75:5CCB) limits each fragment
+against remaining capacity; publication at75:6E43 copies ReceivedLength to the
+selected result buffer. These are local source observations, **not yet a proof**
+of the invariant across all HTTP states, leftover handling and termination.
+Consequently the initial B000/0FFC request must not yet be promoted to a proven
+bound on every resource-chain length. Even if N<=0FFA is established for that
+request, ListEnd can reach BFFE; acceptance of another URL is narrower (<=BEFC).
+
+Reproduction: `.tmp/jp-html-resource-guards-20261024/check.py`, RESULT.json and
+INPUTS.json. The finite model checks the guard only, independently of HTTP input
+validity. Three small files retained, no ROM/source clone. Documentation-only
+change; source-build baseline remains e37d96b8. This narrows the HTML obligations;
+it does not close the42 helper sites or establish any Pokémon/frame association.
