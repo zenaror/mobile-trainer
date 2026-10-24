@@ -321,6 +321,37 @@ does not prove global unreachability or identify the A9ED field's purpose.
 `SaveCheck_GetStateBlockBit7` remains a PROBABLE local operation with
 HYPOTHESIS entry and role. No code bytes or confidence classification changed.
 
+### Bank 70:4740 literal-target audit at `19edad18` (2026-10-24)
+
+To test a distinct entry path beyond the retained trace corpus, the immutable
+ROM was scanned for every little-endian word naming an address in
+`70:[4740,477F)`, then for the corresponding bank-qualified far-pointer form
+(`addr16, bank=$70`). The ROM identity was SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
+The three raw same-bank matches are all explained by existing data: `70:4DC0`
+is a byte-overlap between words in `CommScene_ObjAnimTable3` (`70:4DBB-4DCF`);
+`70:600D` and `70:5F4E` fall inside the confirmed tile asset
+`Gfx_CommScene_Tiles8800` (`70:5C90-6090`). The only same-bank raw word whose
+value lands on an instruction boundary (`70:4750`) occurs inside that tile asset.
+The `70:474D` and `70:4768` matches land on immediate operand bytes, not
+instruction starts.
+
+The full-ROM far-pointer scan found two overlapping byte triples for target
+`70:475B`, at `4E:65C0` and `4E:65DF`. Neither is an aligned pointer: each
+crosses the last two bytes of one 3-byte field and the first byte of the next
+in `Data_Browser_FrameDesc2` (`4E:65BF`) or its byte-identical copy
+`Data_Browser_FrameDesc3` (`4E:65DE`). The aligned fields target bank `47`,
+including `47:5BA0` and `47:6870`; `70:475B` is not a frame-resource target.
+
+Thus this scan found no aligned same-bank pointer or inline far pointer to an
+instruction start in the candidate span. Combined with the 70-scenario
+coverage/callgraph result above, it adds no entry evidence; natural entry and
+role remain HYPOTHESIS. It does not rule out computed or stack-derived targets,
+register-based far calls, or execution outside the retained scenarios. No
+source or ROM bytes changed. The current build still reports `RESULT:
+IDENTICAL` at the pinned Japanese ROM hash, and `make sym-check` passes with
+335 source files, 12,214 labels and 51 constants.
+
 ## Additional code/data spans checked against the retained natural corpus at `1c9224e8`
 
 The current 70-scenario natural corpus was also checked against three separately tracked spans that are outside the five operation entry/role rows above: `26:5344–537C` (`MailSession_WriteVram1TileAndWram7ScreenRows`), `28:4BA6–4BC2` (`WramClearCandidate_28_4BA6`), and the four-zero Bank 4B record tail `4B:76CC–76D0`. The check used all 70 paired `coverage_*.tsv`, `detail/*/callgraph.tsv`, and `detail/*/dataaccess.tsv` reports plus the merged union and validation report. The input manifest has 212 files and SHA-256 `9c784734fb895133f4ea822e6a2934c98c9318e751a414c88966de1c5e6dd1b3`; the union reports 78,122 unique executed instruction starts over 70 scenarios and the validation report has zero ERROR entries (4,046 expected warnings and 704 conditional-branch informational records).
