@@ -153,6 +153,7 @@ Reference documents (current):
 | [screen_catalog_id_mapping_20261023.tsv](research/screen_catalog_id_mapping_20261023.tsv) | Exact 15 generated screen-ID updates and hashes of their existing tilemap assets |
 | [bank53_names_frames_assets_audit_20261023.md](research/bank53_names_frames_assets_audit_20261023.md) | Independent Bank 53 name/frame/PNG audit: exact extracted bytes, complete scoped asset inventory, selector limits, and unresolved name-to-frame mapping |
 | [bank53_names_frames_assets_audit_20261023_verify.md](research/bank53_names_frames_assets_audit_20261023_verify.md) | Independent review and Japanese ROM/build gate results for the Bank 53 and frame audit |
+| [japanese_frame_bank53_revalidation_20261024.md](research/japanese_frame_bank53_revalidation_20261024.md) | Current Bank 53/frame revalidation, including the bounded out-of-range browser-style selector route to candidate windows |
 | [`registration_notice_bank58_resource_paths_20261022.md`](research/registration_notice_bank58_resource_paths_20261022.md) | Bank 58 registration notice assets renamed from type/address paths using static labels and readers |
 | [`keyboard_panel_tile_paths_20261022.md`](research/keyboard_panel_tile_paths_20261022.md) | Nine keyboard tile sets renamed by confirmed type and VRAM destinations |
 | [`connect_dialog_bank56_tile_paths_20261022.md`](research/connect_dialog_bank56_tile_paths_20261022.md) | Eleven ConnectDialog tile sets renamed by confirmed static VRAM destinations |
