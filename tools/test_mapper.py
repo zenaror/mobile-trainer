@@ -124,6 +124,26 @@ class HelperTests(unittest.TestCase):
 class VerifierFixTests(unittest.TestCase):
     """Regressions found by the adversarial verification pass."""
 
+    def test_executed_seed_wins_over_static_mid_instruction_target(self):
+        # An unexecuted CALL target at 4001 must not mask the observed LD at 4000.
+        rom = fake_rom()
+        put(rom, 1, 0x4000, bytes([0x3E, 0x00, 0xC9]))            # ld a,$00 ; ret
+        put(rom, 1, 0x4010, bytes([0xCD, 0x01, 0x40, 0xC9]))     # call $4001 ; ret
+        cfg = C.CFG(bytes(rom))
+        cfg.add_seed(1, 0x4010, 'static caller')
+        cfg.run()
+        cfg.add_seed(1, 0x4000, 'executed start')
+        cfg.run()
+
+        inp = type('I', (), {
+            'rom': bytes(rom),
+            'cov': {(1, 0x4000): dict(len=2, flow='seq', count=1, nscen=1, insn='ld a, $00')},
+        })()
+        layered = type('L', (), {'inp': inp, 'banned': {}})()
+        bans = M.culprit_bans(cfg, layered, M.certain_closure(cfg, inp))
+        self.assertIn((1, 0x4001), bans)
+        self.assertIn('executed start', bans[(1, 0x4001)])
+
     def test_banowner_marker_blocks_arrival_but_not_overlap(self):
         # 3E 00 at 4000 contains the banned address 4001: the aligned decode must not be blocked by the marker.
         rom = fake_rom()

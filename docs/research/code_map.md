@@ -236,3 +236,32 @@ discarded junk walks 00:21A0 (padding), 2E:58C4 / 2E:5FA2 / 2E:6DD0 (illegal opc
 code region ending in something other than a terminator or a following inline table (the 50 non-terminator run ends are all `call $0545/$056A` with their table, plus
 one `seq` at 2A:4440, now fixed).  **Still open (unchanged):** PROBABLE code reached from no trace has no ground truth (87.7 % of PROBABLE starts); the audit
 samples are a reading, not proof.
+
+## Current executed-start precedence revalidation (2026-10-24)
+
+A fresh read-only `python3 tools/mapper.py --check` at base revision
+`0a7e68e1` reported one executed start missing from its proposed map:
+`2A:4440`. The current coverage union records it as a two-byte
+`ld a,$00` instruction, executed 512 times across six scenarios. The mapper
+instead retained the unexecuted `CALL $4441` path from `2A:5760`, assigning
+the immediate byte as a one-byte `nop` and leaving `4440` unclassified. The
+older verifier note above said this overlap was already resolved; the fresh
+check exposed a second conflict path not handled by that earlier fix.
+
+The cause was `culprit_bans`: an explicit coverage seed has no predecessor
+in `cfg.disc`, so the `x is None` guard skipped the conflict before comparing
+the observed start with the speculative walk. The correction bans the
+conflicting walk only when the overlapped node is in the coverage corpus, its
+ROM decode is legal and has the recorded instruction length, and the
+conflicting walk origin is not itself executed. This retains uncertainty for
+overlapping observed starts instead of discarding them.
+
+A regression test reproduces the overlap with an executed `ld a,$00` at
+`4000` and an unexecuted `call $4001`; it confirms the speculative walk is
+the one discarded. `python3 tools/test_mapper.py` passes all 21 tests, and the
+corrected read-only mapper check reports 78,108 executed starts, zero missing
+starts, zero failed linear sweeps, zero code-boundary crossings and zero
+tiling problems. The check creates no `analysis/mapper` outputs. This
+corrects the analysis proposal and its validation; it does not alter the
+maintained ASM, ROM, `config/` snapshots, or claims about natural entry into
+the five Japanese candidate roots.

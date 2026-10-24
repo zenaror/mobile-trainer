@@ -784,10 +784,24 @@ def culprit_bans(cfg, L, certain):
                 m = re.search(r'overlaps (\w\w):(\w{4})', f.detail)
                 if m:
                     ow = (int(m.group(1), 16), int(m.group(2), 16))
-            if ow is None or ow not in cfg.insns or x is None:
+            if ow is None or ow not in cfg.insns:
                 continue
             con_o = cfg.origin.get(ow, ow)
             why = 'conflicting decodings: %s vs the instruction at %s (%s)' % (node_s(n), node_s(ow), f.kind)
+            if x is None:
+                # A direct execution seed has no predecessor in cfg.disc. If a
+                # speculative walk already owns one of its operand bytes, the
+                # conflict still has to prefer the observed instruction start.
+                # Otherwise the call-target walk can erase a confirmed start
+                # before the normal weaker-walk comparison runs (2A:4440 vs
+                # the unexecuted CALL target 2A:4441 is the known case).
+                row = L.inp.cov.get(n)
+                if (row is not None and con_o not in L.inp.cov and
+                        f.kind == 'overlaps_instruction'):
+                    ins = sm83.decode(L.inp.rom, off(n[0], n[1]), n[1])
+                    if ins.flow != 'bad' and ins.length == row['len']:
+                        ban(con_o, why + '; overlapping walk conflicts with an executed start')
+                continue
             if src_o == con_o:
                 ban(src_o, why + '; the walk entered mid-instruction')
             elif certain.get(ow):

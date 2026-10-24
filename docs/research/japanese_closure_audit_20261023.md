@@ -396,3 +396,21 @@ span. It does not prove global unreachability or explain A9ED. The operation
 name remains `SaveCheck_GetStateBlockBit7` [PROBABLE local mechanics], with
 entry and field purpose HYPOTHESIS. Reproduction and caveats are in
 [`japanese_open_questions_followup_20261023.md`](japanese_open_questions_followup_20261023.md#bank-704740-against-the-retained-70-scenario-corpus-at-abb8e757).
+
+## Current mapper executed-start correction (2026-10-24)
+
+At base revision `0a7e68e1`, a fresh read-only
+`python3 tools/mapper.py --check` found one of 78,108 executed starts missing from the proposed map:
+`2A:4440`, where six scenarios execute the two-byte `ld a,$00`. The
+speculative unexecuted call target `2A:4441` had previously claimed the
+immediate byte. The mapper's conflict resolver skipped the comparison because
+the observed instruction was an explicit seed with no predecessor in
+`cfg.disc`. It now discards that conflicting walk only after confirming the
+coverage row, legal ROM decode, matching instruction length, and an
+unexecuted conflicting origin. A focused regression case and all 21 mapper
+tests pass. The corrected read-only mapper check reports zero missing
+executed starts, zero sweep failures, zero boundary crossings and zero tiling
+problems. The maintained ROM source remains byte-identical; the five natural
+entry questions and the Bank 53 name/window associations remain
+evidence-limited. This is an analysis-tool correction, not a promotion of
+those UNKNOWN/HYPOTHESIS claims.
