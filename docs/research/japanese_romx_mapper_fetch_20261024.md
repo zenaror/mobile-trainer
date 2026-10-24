@@ -231,3 +231,54 @@ the proof, and no claim is made that all55 pages ran on a console or emulator.
 Reproduction: `.tmp/jp-html-consumer-domains-20261024/check.py` and RESULT.json,
 with per-record source hashes, lengths, tag offsets and pinned SDK opcode checks.
 Source/ROM bytes are unchanged; the e37d96b8 build remains the source baseline.
+
+
+## Initial HTTP body: zero-window branch and the producer of the tail count
+
+CONFIRMED static operation, pinned against original opcodes: at75:7112/7113,
+DEC B twice makes the branch at7118 take7145 exactly when entryB=2. This skips
+both receive-capacity loading and caller-destination loading. If command9F or
+packet-length byte0 takes7188, DestPointer becomes the **incoming DE**, while
+DestRemaining is unchanged. It is incorrect to claim that every HttpBodyStart
+path installs ReceiveBuffer+2. With an ordinary complete header line, the parser's
+POP DE after the successful FindLineEnd call restores a line-start pointer in the C71F reply window; the second
+FindHeaderEnd traversal does not redefine DE before this zero-window branch.
+The incomplete-line/close path needs its own incoming-DE contract.
+
+For a nonempty packet,715A loads B from the old DestRemaining low byte, not from
+the HTTP caller's capacity. The path through717B would copy256bytes if that B
+were zero, while its earlier ReceivedLength addition adds zero. This is a local
+conditional path, **not evidence of a naturally occurring256-byte copy**.
+The relevant producer correlation substantially restricts it:
+
+* RxCopyToDest copies min(remaining,incoming). For remaining>=incoming it stores
+  remaining-incoming and does not set timerbit2. For incoming>remaining it sets
+  timerbit2 and stores incoming-remaining, a strictly positive unread tail.
+  Therefore DestRemaining has two phase-dependent meanings; it cannot always
+  be interpreted as free capacity. The arithmetic was checked for all remaining
+  values0..0FFA and incoming1..255 (1,043,205 cases).
+* PollResponse only starts header parsing when timerbit2 is set or command9F
+  arrived. In the ordinary initial-window receive path, bit2 comes from the
+  strict-overflow branch just described. The non9F tail count supplied to715A is
+  consequently positive. At exact fill, RxCopyToDest does not set bit2; another
+  nonempty overflow supplies a positive tail, or9F takes the no-copy branch.
+* Thus the locally possible zero-count copy must not be promoted to a browser
+  failure without showing a producer outside that ordinary initialized receive
+  path. Conversely, proving this correlation does not make DE equal to the
+  application buffer on the zero-window branch.
+
+For the admitted body-copy phase with ordinary headers, intact state and byte
+packet lengths1..255, browser capacities>=0100 reserve2bytes, and incoming data
+counts are at most254. Nonzero-window copies clamp against capacity-2; subsequent
+RxCopyToDest calls preserve the received-count bound until overflow and the
+close-only Http_Poll path. In the zero-window branch, the old positive tail is
+at most254, copied relative to incoming DE; this still fits the **numeric**
+capacity-2 bound, but does not prove that those bytes reached the application
+buffer. Do not conflate a bounded published length with correct payload placement.
+Malformed/incomplete header parsing and unrelated state mutations are outside
+this conditional contract, not proven safe or naturally reachable.
+
+Reproduction: `.tmp/jp-http-initial-body-20261024/check.py`, RESULT.json and
+INPUTS.json. This closes the local zero-window/zero-count ambiguity and narrows
+future work to real producer alternatives; do not rerun the same branch census.
+No source changes, emulator execution or new natural scenario are claimed.
