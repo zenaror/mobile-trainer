@@ -438,7 +438,7 @@ def main(argv=None):
                     bad.append((nm, k, 'named ObjTable but no Sprite_InitSlot site loads it'))
             else:
                 stats['objanimdata'] += 1
-                reach = [t for t in (list(W.ft_at) + list(W.sc_at)) if t[0] == bank and addr <= t[1] < addr + size]
+                reach = [t for t in (list(W.ft_at) + list(W.sc_at) + list(W.rec_at)) if t[0] == bank and addr <= t[1] < addr + size]
                 cov = coverage(W, rom, bank, addr, size, syms)
                 if cov is not None:
                     info.append((nm, k, 'ObjAnimData coverage: %d of %d bytes are object entries / frame tables / records / scripts reached by a chain, %d non-zero bytes unexplained' % cov))

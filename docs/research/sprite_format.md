@@ -101,7 +101,7 @@ the OAM attribute byte after the AND / OR masks (both are identity unless someth
 | 0-2 | 913 / 707 / 719 | CGB palette number (OBJ palette RAM is uploaded by `Palette_UploadBuffer` 4F:404B from `$D840`, `naming2_data2.md`) | values 0-7 |
 | 3 | 404 | VRAM bank 1 | OBJ-range tiles are uploaded to `$8000-$8FFF` of both banks (headers: `dest VRAM $8000, vbank=1` and others) |
 | 4 | 0 | (DMG palette: ignored on CGB) | never set |
-| 5 | 291 | X flip | `Mailbox_ObjAnimData` 26:7BE0: four pieces of the same tile at the four corners of a 2 x 2 square with attr `$00 / $20 / $40 / $60` (top-left, top-right, bottom-left, bottom-right); `CommNotice_Anim0Frame0To1` 50:6CC4: four corner pieces of one tile with flips `0 / Y / XY / X` |
+| 5 | 291 | X flip | `Mailbox_ObjAnimData` 26:7BE0: four pieces of the same tile at the four corners of a 2 x 2 square with attr `$00 / $20 / $40 / $60` (top-left, top-right, bottom-left, bottom-right); `CommNotice_Anim0Frame0` 50:6CC4: four corner pieces of one tile with flips `0 / Y / XY / X` |
 | 6 | 131 | Y flip | same |
 | 7 | 0 | BG priority | never set |
 
@@ -181,11 +181,13 @@ too-short frame (both are assembly errors).
 
 ## 8. Corrections to earlier text
 
-* `gfx/comm/notice_dialog.asm`, region `$6CE6-$6CEB`: "bytes 1,2 copied to slot[9..A]" is wrong: the two bytes are the first frame index and delay and go to slot+04 / 05 (00:0ADA-0AE0).
-  The region header is corrected in place (status `[HYPOTHESIS]` left as it was: it concerns the script role, which the chain check and this note now support; raising it is for the next naming pass).
+* `gfx/comm/notice_dialog.asm`, regions `$6CE6-$6CEB` and `$6D11-$6D16`: the earlier statement that bytes 1,2 copied to slot[9..A] was wrong; they initialize slot+04 / 05 (frame index and countdown reload, 00:0ADA-0AE0). The source headers now mark both records `[CONFIRMED]` animation scripts: their count and two pairs are read according to the shared static interpreter contract in section 6, and the two object-table second words point to them. This confirms record format and static association only; the second table entry is not established as naturally selected, and no runtime frame timing is claimed.
+* `gfx/comm/notice_dialog.asm`, frame records at `$6CC4` and `$6CEF`: labels `CommNotice_Anim{0,1}Frame0To1` incorrectly described two records while each label's extent covered only the first. They are now `CommNotice_Anim{0,1}Frame0`, matching their index in the corresponding frame table; the following labels remain `...Frame1`. This also makes the local extent agree with the one-record boundaries checked by `sprite_chain_check.py`.
 * "entry 0 is unused in every table": not true (section 3).
-* `home/sprites.asm` comment of `Sprite_StepAndDrawSlot`: "slot layout inferred, HYPOTHESIS": the fields listed in section 2 are read off the code; the comment was not edited here (`home/` is outside this pass's
-  edits) and can be upgraded from section 2.
+* `home/sprites.asm` comment of `Sprite_StepAndDrawSlot`: the stale "layout inferred, HYPOTHESIS" annotation is removed. Section 2 lists the slot fields established from the reader's actual offset accesses; their static layout is `[CONFIRMED]`. This does not make every named field semantic or prove a particular slot was initialized at runtime.
+* `gfx/address_book/address_picker.asm`, `$7354-$735F`: the formerly split count/first pair plus `$7357` data label are one confirmed five-pair script. The last four pairs at `$7357-$735F` had been mislabeled as the start of a larger object-animation block; entries 12-15 in `Table_AddrSlotIcon_Anims` point to the script at `$7354`. The full record is now expressed by `sprite_anim` macros and the broad misleading label is removed; the next structure begins at the frame-pointer table `$735F`.
+* `tools/sprite_chain_check.py`: the `ObjAnimData` reach test omitted `Walk.rec_at`, so a block containing a reached frame record could be reported as unchained. `BrowserShared_ObjAnimData_72_786E` was renamed `BrowserShared_Anim12Frame0`: the one-word frame table at `$786C` points to this five-byte record, reached through object-table entries 12 and 13. The checker now includes reached records when reporting any remaining `ObjAnimData` block. This is a checker correction and a more precise static name, not new execution evidence.
+* Current full checker rerun after these corrections: 49 object-table roots, 291 frame tables, zero script frame-index violations and zero hard mismatches. The output records 336 informational notes; these include partial/unreached candidate data and do not imply that all sprite records have natural callers.
 * The walk of `tools/sprite_chain_check.py` finds no entries for the sites `ld de,$7318` (5D) and `ld de,$64AE` (6A) because its root rule takes the label at or before the operand
   (`Data_5D_7200` (a label that no longer exists: the retyping `naming2_retype1.md` made 5D:7048-7318 one tilemap pair, `Tilemap_Registration_WriteConfig_5D_7048`), `Data_6A_6448`, both far before the table).  The converter handles them with the exact operand; the checker was not changed for this (it reports 49 roots with 2 empty ones as before).
 

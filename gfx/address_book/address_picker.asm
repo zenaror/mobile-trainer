@@ -166,19 +166,16 @@ AddrSlotIcon_Entry12_Frame4:: ; 2C:733B
 	sprite_oam 5, 5, $1C, 2
 	sprite_oam 5, 13, $1D, 2
 	sprite_oam 5, 21, $1E, 2
+; ---- sprite script $7354-$735F (11 bytes) [CONFIRMED] count=5 followed by frame-index/countdown-reload pairs; entries 12-15 of Table_AddrSlotIcon_Anims point here
+
 AddrSlotIcon_AnimScript:: ; 2C:7354
-	db $05 ; sprite script kept as db: the item crosses the end of its block
+	sprite_anim 5
+	sprite_anim_step 0, 5
+	sprite_anim_step 1, 5
+	sprite_anim_step 2, 5
+	sprite_anim_step 3, 3
+	sprite_anim_step 4, 18
 
-; ---- sprite script step $7355-$7357 (2 bytes) [CONFIRMED] first frame/delay pair read by Sprite_LoadObjectEntry
-
-AddrSlotIcon_AnimScript_FirstStep:: ; 2C:7355
-	db $00, $05
-
-; ---- data $7357-$741C (197 bytes) [PROBABLE] object animation frame records: [count][count x 4 bytes (y,x,tile,attr)] ... chained by pointer lists and terminated by 01 00 04/08 groups; format not fully decoded; reached through the pointer tables; ends with the group 01 00 04 right before the code at 741C
-
-AddrSlotIcon_ObjAnimData_2C_7357:: ; 2C:7357
-
-	db $01, $05, $02, $05, $03, $03, $04, $12 ; not reached by any walked sprite chain
 AddrSlotIcon_Entry16_FramePointers:: ; 2C:735F
 	sprite_frame_table AddrSlotIcon_Entry16_Frame0, AddrSlotIcon_Entry16_Frame1, AddrSlotIcon_Entry16_Frame2, AddrSlotIcon_Entry16_Frame3
 	sprite_frame_table AddrSlotIcon_Entry16_Frame4

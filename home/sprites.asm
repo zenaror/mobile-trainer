@@ -319,7 +319,7 @@ Sprite_LoadObjectEntry:: ; 00:0AB8
 
 Sprite_StepAndDrawSlot:: ; 00:0AE8
 	; Historical address alias retired; proper operation name retained.
-	; [CONFIRMED] per-slot animation step + OAM writer (layout inferred, HYPOTHESIS): slot [0]=Y
+	; [CONFIRMED] per-slot animation step + OAM writer; static slot layout: [0]=Y
 	; [1]=X [2..3]=frame table ptr [4]=frame index ($FF none) [5]=delay [6..7]=script ptr [8]=script
 	; index [9..A]=OR/AND attr masks [B..D]=hook (addr16, bank; called via push-return trick to
 	; 0B54) [F]=active. Emits (Y,X,tile,attr) tuples at DE (OAM shadow)

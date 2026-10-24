@@ -79,11 +79,11 @@ BrowserShared_ObjTable_Entry12:: ; 72:7858
 ; ---- data $786C-$786E (2 bytes) [PROBABLE] descriptor $786C = dw $786E (first word of the animation/sprite data block; target of table entry words)
 
 BrowserShared_Anim12Frames:: ; 72:786C
-	sprite_frame_table BrowserShared_ObjAnimData_72_786E
+	sprite_frame_table BrowserShared_Anim12Frame0
 
 ; ---- data $786E-$7880 (18 bytes) [PROBABLE] animation-descriptor / sprite-list block reached from the object table 72:7828: sprite lists = count + count*(y,x,tile,attr) (e.g. 72:78CE 04 fe fe 81 0c ...) and descriptors (01 00 04 dw / 02 00 2e 01 08 dw dw); the table words partition 786C-7A1F exactly at descriptor starts; other bytes of this block are CONFIRMED read by executed code (1/18)
 
-BrowserShared_ObjAnimData_72_786E:: ; 72:786E
+BrowserShared_Anim12Frame0:: ; 72:786E
 	sprite_frame 1
 	sprite_oam 0, 0, $FF, 7
 SpriteScript_BrowserShared_ObjectEntry12:: ; 72:7873

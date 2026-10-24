@@ -161,11 +161,11 @@ Palette_CommNotice:: ; 50:6BC0
 
 CommNotice_Anim0Frames:: ; 50:6CC0
 
-	sprite_frame_table CommNotice_Anim0Frame0To1, CommNotice_Anim0Frame1
+	sprite_frame_table CommNotice_Anim0Frame0, CommNotice_Anim0Frame1
 
 ; ---- data $6CC4-$6CE6 (34 bytes) [PROBABLE] 2 sprite frames (17 bytes each): count=4 then 4x(y,x,tile,attr), e.g. ff ff 00 08 / 0b ff 00 48 / 0b 1b 00 68 / ff 1b 00 28 (attr bit6/5 = flips); matches the (Y,X,tile,attr) tuples the engine at 00:0AE8 emits
 
-CommNotice_Anim0Frame0To1:: ; 50:6CC4
+CommNotice_Anim0Frame0:: ; 50:6CC4
 
 	sprite_frame 4
 	sprite_oam -1, -1, $00, OAMF_BANK1
@@ -179,7 +179,7 @@ CommNotice_Anim0Frame1:: ; 50:6CD5
 	sprite_oam 12, 28, $00, OAMF_YFLIP | OAMF_XFLIP | OAMF_BANK1
 	sprite_oam -2, 28, $00, OAMF_XFLIP | OAMF_BANK1
 
-; ---- data $6CE6-$6CEB (5 bytes) [HYPOTHESIS] 5-byte record referenced as 2nd word of animation entry 0 (CommNotice_ObjTable); read through slot[6..7] by 00:0AB8 (bytes 1,2 = first frame index and delay, copied to slot[4..5] by 00:0ADA-0AE0; the earlier text said slot[9..A], which is wrong: docs/research/sprite_format.md); assumed animation script (02 00 2e 01 08)
+; ---- script $6CE6-$6CEB (5 bytes) [CONFIRMED] count=2 then (frame-table index, countdown reload) pairs (0,46),(1,8); object entry 0's second word points here; Sprite_LoadObjectEntry reads pair 0 and Sprite_StepAndDrawSlot advances by the count
 
 CommNotice_Anim0Script:: ; 50:6CE6
 
@@ -191,11 +191,11 @@ CommNotice_Anim0Script:: ; 50:6CE6
 
 CommNotice_Anim1Frames:: ; 50:6CEB
 
-	sprite_frame_table CommNotice_Anim1Frame0To1, CommNotice_Anim1Frame1
+	sprite_frame_table CommNotice_Anim1Frame0, CommNotice_Anim1Frame1
 
 ; ---- data $6CEF-$6D11 (34 bytes) [PROBABLE] 2 sprite frames (17 bytes each), same format as 6CC4 (count + 4x y,x,tile,attr)
 
-CommNotice_Anim1Frame0To1:: ; 50:6CEF
+CommNotice_Anim1Frame0:: ; 50:6CEF
 
 	sprite_frame 4
 	sprite_oam -1, -1, $00, OAMF_BANK1
@@ -209,7 +209,7 @@ CommNotice_Anim1Frame1:: ; 50:6D00
 	sprite_oam 12, 28, $00, OAMF_YFLIP | OAMF_XFLIP | OAMF_BANK1
 	sprite_oam -2, 28, $00, OAMF_XFLIP | OAMF_BANK1
 
-; ---- data $6D11-$6D16 (5 bytes) [HYPOTHESIS] 5-byte record, 2nd word of animation entry 1 (CommNotice_ObjTable): 02 00 2e 01 08 identical to 6CE6
+; ---- script $6D11-$6D16 (5 bytes) [CONFIRMED] count=2 then (frame-table index, countdown reload) pairs (0,46),(1,8); object entry 1's second word points here; shared Sprite_LoadObjectEntry/Sprite_StepAndDrawSlot reader contract
 
 CommNotice_Anim1Script:: ; 50:6D11
 
