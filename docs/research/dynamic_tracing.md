@@ -759,4 +759,4 @@ run in a trace).  This round turns both into natural evidence: macro scenarios w
 | scenarios (natural + forced) | 64 + 3 | 69 + 3 |
 | executed ROM instruction starts (union) | 77 979 | 77 991 |
 
-`analysis/coverage_report.md` and `traces/growth.md` are not regenerated (they come from the frozen `tools/apply_coverage.py` and from `growth.py`); the numbers of 11.7 are those of the end of round 3.
+The preceding sentence describes the historical end-of-round-4 snapshot; the values above are not the current corpus totals. The generated-report status was refreshed on 2026-10-24 from the existing union (no traces rerun): `analysis/coverage_union.tsv` indexes 71 retained scenarios, and `analysis/coverage_report.md` now reports 78,114 ROM instruction starts. `merge_coverage.py --strict` counts 78,128 total starts including 14 RAM starts. The current report has 3,866 code regions, 2,414 fully executed regions, zero executed starts outside mapped code, and zero candidates for CONFIRMED; coverage alone does not promote names or prove unused bytes. `traces/growth.md` remains the historical growth report and was not regenerated.
