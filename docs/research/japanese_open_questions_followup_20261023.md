@@ -389,25 +389,57 @@ unreachability; the wrapper and its enclosing palette-library span remain
 HYPOTHESIS as natural-entry candidates. The source, ROM, trace corpus and
 language overlay were not modified in this pass.
 
-## Bank 41:5520 mapper code-like candidate reconciled to an existing tile asset (2026-10-24)
+## Mapper code-like candidates cross-checked against maintained assets (2026-10-24)
 
-The generated mapper candidate `41:5520–5600` is not an unrepresented function
-or a missing graphics asset. Its 224 bytes are exactly the subrange at offset
-`$7D0` within the existing 2,560-byte tile payload
-`FrameDesignCandidate_LavenderRibbonBorder_Tiles_4D50` (`41:4D50–5750`). The
-subrange SHA-256 is `844278df709517fca1096e2e168027edef421add633e41589cbeeaa65486c8ce`;
-it matches the original ROM at file offset `0x105520` byte for byte. The owner
-asset's SHA-256 is `3020f164a483e77052f3c10067d04096c5f96c8f8875ce8a9cf2e486189a044b`.
-The subrange covers tiles 125–138 of the 160-tile owner; decoding those tiles
-against the existing indexed PNG produced 896 checked pixels with zero
-mismatches. `gfx/assets.tsv` has one matching asset row and
-`gfx/png_rules.tsv` pins the same payload hash; `make png-check` passed (418
-tile sheets, 4 raw byte views, 37 font sheets, 95 screen PNGs).
+At published commit `8e8d77c607fc57324f8fe77912ef11e1965100e1`, a read-only
+crosswalk compared all 264 rows in generated
+`analysis/mapper/code_candidates.tsv` (SHA-256
+`6d0616a12bd1e406eebaf756d2652f98a1b82a6f69598f2721a7cc671b6a9a1b`) with
+the 988 current catalogued assets in `gfx/assets.tsv` (SHA-256
+`914b57e1603bee858e1c7177938e6b6bdf2560fe2b6c70cfac207ead6d09142b`). Fourteen
+candidate spans overlap maintained assets: eleven are fully covered by the
+asset catalog, and three extend beyond a catalogued INCBIN into explicitly
+named source `db` tails. Every catalog intersection was compared byte for byte
+with the original ROM. The three source tails were reconstructed from their
+INCBIN and `db` directives and also match the original exactly:
 
-The mapper's linear SM83 heuristic can decode this graphics subrange as legal
-instructions, which explains its `code-like` hint; the bytes' maintained owner
-and pixel reconstruction support the existing PROBABLE tile classification.
-This does not prove that the candidate frame is naturally loaded or used, and
-does not promote its screen role beyond the existing evidence. Do not reopen
-this mapper hint as an unidentified-function lead unless the source extent,
-asset bytes, or consumer evidence changes.
+| Mapper span | Maintained asset/source owner | Reconciliation |
+|---|---|---|
+| `41:5520–5600` | `FrameDesignCandidate_LavenderRibbonBorder_Tiles_4D50` | Full 2bpp asset; tiles 125–138 reproduce 896 indexed-PNG pixels with zero mismatches. |
+| `47:4900–49CF` | `Gfx_BrowserFrame0_Tiles` | Full 2bpp asset. |
+| `42:4900–49B0` | `FrameDesignCandidate_MetalScrewBorder_LargeDigits_4900` | Full 2bpp asset. |
+| `43:6FF2–70A0` | `FrameDesignCandidate_HeartAndFlowerBorder_Tiles_67F0` | Full 2bpp asset. |
+| `44:62A0–634C` | `FrameDesignCandidate_RockBorder_Tiles_5AA0` | Full 2bpp asset. |
+| `44:63A0–644A` | `FrameDesignCandidate_RockBorder_Tiles_5AA0` | Full 2bpp asset. |
+| `43:70F0–7198` | `FrameDesignCandidate_HeartAndFlowerBorder_Tiles_67F0` | Full 2bpp asset. |
+| `70:73EC–7478` | CommScene text-box entries 5 and 6 | Full union of tilemap and attribute-map assets. |
+| `70:748C–7518` | CommScene text-box entries 6 and 7 | Full union of tilemap and attribute-map assets. |
+| `44:55D0–55FB` | `FrameDesignCandidate_BlueBubbleBorder_Tiles_4D50` | Full 2bpp asset. |
+| `7F:7A4A–7A74` | `Gfx_MailAddr_ObjHDMABytesCopy_7F_7830` | Full 2bpp asset. |
+| `42:4802–48AB` | `FrameDesignCandidate_MetalScrewBorder_Tiles_4802` | 160 asset bytes plus 9 explicit source bytes; reconstructed 169-byte span matches ROM (SHA-256 `d862f2a7a2600a702d072e31fa798f459244f982868f0e8cb1a47cc1c231940a`). |
+| `42:6FF2–709E` | `FrameDesignCandidate_OrangeDoubleLineBorder_Tiles_6FF2` | 160 asset bytes plus 12 explicit source bytes; reconstructed 172-byte span matches ROM (SHA-256 `da19c6b717028c8f489d5968a3411c3817961af716da95ef71db96070c07be78`). |
+| `42:70F0–719C` | `FrameDesignCandidate_OrangeDoubleLineBorder_Tiles_70F0` | 160 asset bytes plus 12 explicit source bytes; reconstructed 172-byte span matches ROM (SHA-256 `e297fba49b41c446c5687607048dec4d8c60e5437c28cd4cde671d344c2cc0e9`). |
+
+The same candidate list was cross-checked against 2,647 maintained source
+interval comments (`; ---- kind $start-$end`) from 333 `.asm`/`.inc` files in
+`home/`, `engine/`, `data/`, `gfx/`, `audio/`, and `lib/`; the protected
+`engine/mail/sample_data.asm` and language overlays were excluded. The
+path-sorted file/hash manifest SHA-256 is
+`8231a86fd172d4510a31daed20d2949eb43686f9594e99f7c1fff7e733a0ab39`. Of the
+264 candidates, 77 are fully covered by the union of current source intervals,
+16 intersect but extend beyond a marked interval, and 171 have no such marker
+overlap. Among fully covered candidates, marker kinds occur non-exclusively as
+41 `data`, 26 `words`, 5 `ptrtable`, 14 `text`, and 11 `gfx`; the counts
+overlap where a candidate crosses typed boundaries. This is a location
+crosswalk, not semantic proof: a source comment range does not independently
+prove data meaning, and missing/partial marker coverage does not prove an
+unidentified function. The 14 asset-backed ranges above are byte-checked; the
+other rows remain at their existing evidence grades.
+
+The remaining 250 rows have no overlap with `gfx/assets.tsv`; this crosswalk
+does not classify them as code or data. The mapper file itself marks its
+`code-like` hints as hypotheses and documents low positive rates in its
+bounded hand samples. This batch resolves only the 14 listed mapper hints as
+already represented asset bytes; their existing confidence levels and any
+natural-load or frame-use questions remain unchanged. `make png-check` passed:
+418 tile sheets, 4 raw byte views, 37 font sheets and 95 screen PNGs.
